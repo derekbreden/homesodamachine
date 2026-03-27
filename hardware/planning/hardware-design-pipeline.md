@@ -123,6 +123,18 @@ No quality gate. This is scaffolding.
 
 The agent MUST apply these rubrics after generating or updating any parts.md or architecture document. Print the rubric results to stdout so the orchestrator can verify.
 
+##### The Grounding Rule (applies to ALL rubrics)
+
+**Every behavioral claim must resolve to a named geometric feature with dimensions.** For every statement in the document that describes a behavior, sensation, limit, outcome, or requirement — name the specific geometric feature that produces it and give its dimensions. If no feature can be identified, the design is incomplete at that point — flag it explicitly as a design gap rather than papering over it with vague language.
+
+This applies everywhere: mechanism narratives, assembly sequences, interface descriptions, UX claims. For instance:
+- "Half turn of travel" → what geometric feature limits rotation to exactly 180 degrees?
+- "Clear tactile endpoint" → what feature produces the tactile sensation, and what are its dimensions?
+- "Correct assembly orientation" → what keying feature prevents incorrect assembly?
+- "Self-locking" → what specific geometry (lead angle, friction coefficient) produces the locking behavior?
+
+If a claim cannot be grounded, do not invent a hand-wavy answer. State: **"DESIGN GAP: [claim] has no grounding feature. A [type of feature] is needed."** This is the most valuable output the rubric can produce — it identifies where the design needs more work.
+
 ##### Rubric A — Mechanism Narrative (MANDATORY)
 
 Before listing any features or dimensions, the document must include a plain-language **mechanism narrative** that answers:
@@ -132,12 +144,10 @@ Before listing any features or dimensions, the document must include a plain-lan
 3. **What constrains each moving part?** For every moving part, state what prevents unwanted degrees of freedom. Example: "Guide pins prevent plate rotation; front wall prevents knob translation."
 4. **What provides the return force?** If the mechanism has a rest position, what drives it back? (Spring, gravity, detent, etc.)
 5. **What is the user's physical interaction?** Describe the hand motion, the direction of force, and the tactile feedback at each stage (engage, lock, unlock, disengage).
-6. **What limits the range of motion?** If the spec says "half turn" or "3mm of travel," name the specific geometric feature that enforces that limit. "The thread runs out" is not a feature — it's an absence. A hard stop is a feature. A pin hitting a slot wall is a feature. If no feature exists, the range of motion is uncontrolled and the spec is incomplete.
-7. **What makes each discrete position feel distinct?** If the mechanism has two or more positions (locked/unlocked, engaged/disengaged), name the specific geometric feature that gives the user confidence they are in that position and not somewhere between positions. A detent, a snap, a cam valley, an over-center spring — something must produce a tactile "I'm here" at each position. Vague claims like "clear tactile endpoint" are not specifications. The feature must have dimensions.
 
 The narrative must be coherent enough that someone who has never seen the mechanism can understand how it works from words alone, with no diagrams. If you cannot write this narrative clearly, the design is not yet understood well enough to specify parts.
 
-**The grounding rule:** Every claim about user experience must trace to a specific geometric feature with dimensions. "The user feels a satisfying click" requires naming the feature that produces the click, its dimensions, and why those dimensions produce that sensation. If a UX claim cannot be grounded in geometry, it is a wish, not a specification — and the design is incomplete.
+Apply the grounding rule to every claim in the narrative. If the narrative says "the user feels X" or "the mechanism stops at Y," the feature that produces X or enforces Y must be named with dimensions.
 
 ##### Rubric B — Constraint Chain Diagram (MANDATORY)
 
@@ -188,8 +198,6 @@ For the assembly sequence:
 2. Is the order correct? (Are there steps that must happen before other steps that are listed after them?)
 3. Are there parts that become trapped or inaccessible after a later step?
 4. If the mechanism needs to be serviced (replace a worn part), what is the disassembly sequence?
-5. **If orientation matters, what forces correct orientation during assembly?** If a part can be installed in multiple orientations but only one is correct, name the keying feature that prevents incorrect assembly. If no keying feature exists and orientation matters, the design is incomplete.
-6. **After assembly, does the mechanism land in the correct initial state?** If the mechanism has discrete positions (locked/unlocked), which position is it in after the last assembly step, and is that the correct default? If the initial state depends on how the assembler happened to orient things, the design has an alignment problem.
 
 ##### Rubric F — Part Count Minimization (MANDATORY)
 
@@ -204,12 +212,12 @@ For every pair of parts in the mechanism:
 
 **Quality gate:** After all agents complete, verify:
 - No references to the old/replaced mechanism remain in any updated document
+- The grounding rule is satisfied: no ungrounded behavioral claims remain. Any design gaps are explicitly flagged, not papered over.
 - Rubric A narrative is present and coherent — a reader can understand the mechanism from text alone
-- Rubric A questions 6 and 7: every range-of-motion claim and discrete-position claim traces to a named geometric feature with dimensions. No ungrounded UX claims.
 - Rubric B constraint chain has no unlabeled arrows or unconstrained parts
 - Rubric C direction table has no contradictions or unverified claims
 - Rubric D interface table has no zero-clearance or mismatched dimensions
-- Rubric E assembly sequence is physically feasible, with keying features for orientation-sensitive steps and correct initial state after final assembly step
+- Rubric E assembly sequence is physically feasible
 - Rubric F part count is minimized
 
 ---
