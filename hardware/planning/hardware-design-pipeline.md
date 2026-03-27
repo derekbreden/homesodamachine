@@ -137,18 +137,55 @@ This agent studies how existing consumer products solve the same interaction pro
 
 ---
 
-### Step 4 — Architecture and Parts
+### Step 4a — Conceptual Architecture
 
-**This is the most important step in the pipeline.** Everything downstream — drawings, STEP files — faithfully reproduces whatever the parts.md says. If the parts.md describes a mechanism that doesn't make physical sense, the drawings will be beautiful and the STEP files will pass all validation checks, and the mechanism still won't work.
+Step 4 splits into two sub-steps because exploring the design space and rigorously specifying the result are fundamentally different tasks. Combining them causes the exploration to consume the agent's context window, leaving the specification truncated. Splitting them produces better results in both phases.
 
-**Scope freedom:** The agent designing a mechanism is not limited to the mechanism's own parts. If the design priorities demand it, the agent may and should modify any interfacing part — the shell, walls, panels, other sub-assemblies — to achieve the right design. A mechanism that fits awkwardly into an unchanged shell is worse than a mechanism that reshapes the shell to make the whole product feel unified. When the agent modifies other parts, it must update those parts' documents too.
+**Scope freedom (applies to both 4a and 4b):** The agent designing a mechanism is not limited to the mechanism's own parts. If the design priorities demand it, the agent may and should modify any interfacing part — the shell, walls, panels, other sub-assemblies — to achieve the right design. A mechanism that fits awkwardly into an unchanged shell is worse than a mechanism that reshapes the shell to make the whole product feel unified. When the agent modifies other parts, it must update those parts' documents too.
 
-**Input:** Decision document, existing architecture docs
-**Output:** Updated `cartridge-architecture.md`, new or updated `parts.md` for each part (including interfacing parts that were modified)
-**Agents:** Can parallelize if architecture update and parts.md are independent
+**Input:** Decision document, design pattern research, existing architecture docs, physical constraints
+**Output:** A 1-2 page concept document covering settled high-level decisions
+**Agent:** One agent, free to explore and discard ideas
+
+The concept document must address:
+1. **Piece count and split strategy** — how many pieces, where do they split, why
+2. **Join methods** — how the pieces connect (snap-fit, screws, magnets, etc.)
+3. **Seam placement** — where are the seams and how are they treated
+4. **User-facing surface composition** — what does the user see and touch, visual hierarchy
+5. **Design language** — surface finish, corner treatment, material, what makes this a product
+6. **Service access strategy** — how are internals accessed, tiered by frequency
+7. **Manufacturing constraints** — print bed limits, orientation, material selection
 
 **Agent prompt must include:**
 - The design priorities (verbatim)
+- Path to the decision document
+- Path to the design pattern research (`planning/research/design-patterns.md`)
+- All known physical constraints (dimensions, print bed, what goes inside)
+- Instruction to explore freely — try ideas, discard dead ends, show the reasoning
+- Instruction to settle on ONE concept and summarize it clearly at the end
+- **Instruction NOT to apply the full rubric suite** — that happens in Step 4b
+
+**Quality gate:** The concept document must:
+- Clearly state what the design IS (not just what it isn't or what was considered)
+- Address all 7 topics listed above
+- Be free of unresolved contradictions (e.g., a piece that doesn't fit the print bed)
+- Be concise enough that a Step 4b agent can read it without losing context
+
+**Orchestrator checkpoint:** The orchestrator (or user) reviews the 4a concept before launching 4b. This is the natural point for design direction feedback — much cheaper to redirect here than after a full parts.md is written.
+
+---
+
+### Step 4b — Detailed Parts Specification
+
+**This is the most important step in the pipeline.** Everything downstream — drawings, STEP files — faithfully reproduces whatever the parts.md says. If the parts.md describes a mechanism that doesn't make physical sense, the drawings will be beautiful and the STEP files will pass all validation checks, and the mechanism still won't work.
+
+**Input:** Step 4a concept document (settled decisions), decision document, existing architecture docs
+**Output:** Updated architecture docs, new or updated `parts.md` for each part (including interfacing parts that were modified)
+**Agents:** Can parallelize — one per part, since the concept is already settled
+
+**Agent prompt must include:**
+- The design priorities (verbatim)
+- Path to the Step 4a concept document (this is the primary input — the design decisions are settled)
 - Path to the decision document
 - Paths to all existing docs that need updating (architecture, shell parts.md, etc.)
 - Paths to interfacing parts that the agent has freedom to modify (shell, panels, etc.)
@@ -156,6 +193,7 @@ This agent studies how existing consumer products solve the same interaction pro
 - Instruction to follow the format of existing parts.md files
 - Instruction to remove stale references (don't leave old mechanism names in docs)
 - **Instruction to apply the Parts.md Self-Review Rubrics (below) after generating each document**
+- **Instruction NOT to re-explore the design space** — the concept is settled in 4a. The agent's job is to specify it rigorously, not to second-guess it. If a dimensional conflict is discovered, flag it as a design gap rather than redesigning the concept.
 
 #### Parts.md Self-Review Rubrics
 
@@ -339,7 +377,11 @@ Step 1 (folders)
                                                 ▼
                               Step 3 (decision — reads ALL research including patterns)
                                                 │
-                              Step 4 (architecture + parts.md)
+                              Step 4a (conceptual architecture — explore, settle on one concept)
+                                                │
+                                        [orchestrator/user review]
+                                                │
+                              Step 4b (detailed parts.md — one agent per part, parallel)
                                                 │
                     ┌───────────────────────────┼───────────────────────────┐
                     ▼                           ▼                           ▼
@@ -351,8 +393,10 @@ Step 1 (folders)
 
 - All Step 2 agents (2A-1, 2A-2, 2B) run in parallel (no dependencies between research paths)
 - Step 3 waits for ALL Step 2 agents to complete (including design pattern research)
-- Step 4 waits for Step 3
-- Step 5 agents run in parallel (one per part) after Step 4
+- Step 4a waits for Step 3
+- **Step 4a → 4b has an orchestrator checkpoint** — review the concept before committing to detailed specification
+- Step 4b agents run in parallel (one per part) after 4a is approved
+- Step 5 agents run in parallel (one per part) after Step 4b for the same part
 - Step 6 agents run in parallel (one per part) after Step 5 for the same part
 - Step 5 and Step 6 for the SAME part are sequential (drawing informs STEP)
 - Step 5 and Step 6 for DIFFERENT parts can overlap
@@ -376,6 +420,10 @@ Step 1 (folders)
 7. **Missing the CadQuery venv** — Prerequisites section verifies it exists before any work begins.
 
 8. **Optimizing pipeline throughput over step correctness** — Each step has an explicit quality gate. No step is complete until its gate passes. A fast pipeline that produces unvalidated output is worse than a slower one that produces working artifacts.
+
+9. **Combining exploration and specification in one agent** — Step 4 splits into 4a (explore the design space, settle on a concept) and 4b (specify the settled concept rigorously). Combining them causes the agent to spend most of its context on exploration, leaving the specification truncated. The 4a→4b handoff also creates a natural checkpoint for orchestrator/user review.
+
+10. **Research agent anchoring to current design** — Step 2B design pattern research must NOT receive the current design or any candidate solution. Anchoring to an existing approach causes the agent to rationalize the status quo rather than discovering better patterns. The evaluation of candidates against patterns belongs in Step 3.
 
 ---
 
