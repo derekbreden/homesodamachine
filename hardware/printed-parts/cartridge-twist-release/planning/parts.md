@@ -8,26 +8,6 @@ See `../../../planning/cartridge-architecture.md` for cartridge system design ra
 
 ---
 
-## 3D Printed Part: Threaded Strut
-
-- **Type:** 3D printed
-- **Material:** PETG
-- **Dimensions:** 12mm OD, ~126mm total length (4mm rear wall thickness + 122mm interior span)
-- **Features:**
-  - Tr12x3 2-start trapezoidal thread on BOTH ends, ~20mm threaded sections each
-  - Middle section: smooth 12mm cylinder (no threads, reduces print time and wear surface)
-  - Rear end: press-fits into 12mm ID socket in release plate, secured with epoxy
-  - Front end: male thread engages wing knob's internal female thread
-  - Passes through rear wall via 12.5mm bore (0.25mm clearance per side)
-- **Interfaces:**
-  - Rear end permanently bonded to release plate (press-fit + epoxy)
-  - Front end threads into wing knob (half turn = 3mm plate travel)
-  - Slides freely through rear wall bore during plate travel
-- **Quantity:** 1
-- **Print orientation:** Vertical (standing on end, thread axis = Z on print bed). Vertical orientation keeps the thread profile in the XY plane for best resolution. Print with brim for bed adhesion, 40-60mm/s for threaded sections, 0.12-0.16mm layer height on threaded sections, 4+ perimeter walls.
-
----
-
 ## 3D Printed Part: Wing Knob
 
 - **Type:** 3D printed
@@ -73,20 +53,14 @@ See `../../../planning/cartridge-architecture.md` for cartridge system design ra
 - **Function:** Return release plate to retracted position (collets grip) when knob is loosened
 - **Placement:** On guide pins between rear wall and release plate
 
-### Epoxy
-
-- **Specification:** Two-part epoxy (e.g., JB Weld or similar)
-- **Function:** Secures strut rear end into release plate socket (permanent bond)
-- **Application:** Apply to strut end and socket interior before press-fit assembly
-
 ---
 
 ## Modification to Existing Release Plate
 
-The existing release plate (59W x 47H x 6D mm, see `../../cartridge-release-plate/planning/parts.md`) needs these changes:
+The existing release plate (59W x 47H x 6D mm, see `../../cartridge-release-plate/planning/parts.md`) now has the full threaded strut as an integral feature:
 
-- **Replace center boss with strut socket:** Remove the existing 8mm diameter x 1mm push rod boss at plate center (29.5, 23.5). Replace with a 12mm ID socket, ~10mm deep, for press-fit + epoxy attachment of the strut rear end.
-- **Add integral guide pins:** 2x 6mm diameter PETG pins, ~15mm long, extending from the plate rear face. Replace the 3mm steel dowel pin slots with printed pin locations matching the 6.5mm bushings in the rear wall.
+- **Integral strut:** The 12mm diameter Tr12x3 2-start trapezoidal strut extends directly from the plate center (29.5, 23.5), replacing the previous press-fit socket. The strut is one continuous printed piece with the plate -- no joint, no epoxy. Total Y extent ~136mm (6mm plate + ~4mm rear wall passage + ~122mm interior span + front thread section).
+- **Integral guide pins:** 2x 6mm diameter PETG pins, ~15mm long, extending from the plate rear face. Replace the 3mm steel dowel pin slots with printed pin locations matching the 6.5mm bushings in the rear wall.
 
 The release plate remains on the **dock side** of the rear wall (outside the cartridge body). The stepped bores face the dock-side collets.
 
@@ -105,10 +79,8 @@ The release plate remains on the **dock side** of the rear wall (outside the car
 
 ## Assembly Sequence
 
-1. **Press-fit and epoxy strut into release plate socket** -- apply epoxy to strut rear end and socket interior, press strut fully into 12mm ID socket, allow to cure
-2. **Mount release plate on guide pins through rear wall bushings** -- slide integral guide pins through 6.5mm bushings in rear wall, with compression springs on pins between rear wall and plate
-3. **Pass strut through rear wall bore from dock side** -- strut feeds through 12.5mm bore into cartridge interior
-4. **Thread wing knob onto strut end at front of cartridge** -- knob threads onto the strut's front-end male thread, seating against the front wall face
+1. **Mount release plate + strut unit through rear wall** -- slide integral guide pins through 6.5mm bushings in rear wall, with compression springs on pins between rear wall and plate. The integral strut feeds through the 12.5mm rear wall bore into the cartridge interior.
+2. **Thread wing knob onto strut end at front of cartridge** -- knob threads onto the strut's front-end male thread, seating against the front wall face
 5. **Verify operation:**
    - Half turn clockwise draws plate toward rear wall (collets release)
    - Half turn counterclockwise allows springs to push plate back (collets grip)

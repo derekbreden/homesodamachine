@@ -8,7 +8,7 @@ See `../../../planning/cartridge-architecture.md` for cartridge system design ra
 
 - **Type:** 3D printed
 - **Material:** PETG
-- **Envelope:** 59W x 47H x 6D mm (enlarged from 55x43mm to accommodate 15.10mm body end OD)
+- **Envelope:** 59W x 47H mm plate, ~136mm total Y extent (plate + integral strut)
 - **Features:**
   - 4x stepped bores in 2x2 grid, 40mm horizontal x 28mm vertical center-to-center (matches JG fitting spacing):
     - Bore centers at: (9.5, 9.5), (49.5, 9.5), (9.5, 37.5), (49.5, 37.5) relative to plate bottom-left corner
@@ -19,30 +19,30 @@ See `../../../planning/cartridge-architecture.md` for cartridge system design ra
     - 0.3mm x 45-degree lead-in chamfer at outer bore entry
   - Axial depth stack: 2.0mm outer bore + 2.0mm inner lip + 2.0mm structural back = 6.0mm total
   - Edge-to-bore clearance: 9.5mm from plate edge to nearest bore center (1.7mm minimum wall around outer bore)
-  - 2x guide pin slots: 3.3mm wide x 7.3mm long, positioned at X=(-5.5, 23.5) and X=(64.5, 23.5) relative to plate bottom-left
-  - Push rod contact point: centered boss on back face at (29.5, 23.5), 8mm diameter x 1mm proud
+  - **Integral strut:** 12mm OD Tr12x3 2-start trapezoidal threaded strut extending from plate center (29.5, 23.5). ~126mm total strut length (4mm rear wall thickness + 122mm interior span). Threaded sections (~20mm each) at both ends, smooth 12mm cylinder in the middle. Front end threads into the wing knob. The strut is one continuous printed piece with the plate.
+  - **Integral guide pins:** 2x 6mm diameter PETG pins, ~15mm long, extending from the plate rear face. Slide in 6.5mm bore printed bushings in the rear wall (0.25mm radial clearance). Prevent plate rotation and ensure parallel travel during 3mm stroke.
 - **Interfaces:**
-  - Slides on 2x 3mm steel dowel pins mounted in outer shell rear wall
+  - Slides on integral guide pins through 6.5mm printed bushings in rear wall
   - Stroke: 3.0mm (min 2.5mm) — collet travel ~1.3mm per side (caliper-verified), 3mm provides ~1.7mm margin
-  - Receives axial push from cam lever push rod on back face
+  - Strut passes through 12.5mm rear wall bore, front end threads into wing knob (half turn = 3mm plate travel)
   - Stepped bores engage JG collets (9.57mm OD) and body ends (15.10mm OD)
-  - Return spring: 2x small compression springs on dowel pins
+  - Return spring: 2x small compression springs on guide pins between rear wall and plate
   - Must maintain <0.3mm parallelism deviation across 59mm plate width during full stroke
 - **Quantity:** 1
+- **Print orientation:** Plate flat on build plate, strut pointing up (vertical). This keeps the thread profile in the XY plane for best resolution. Print with brim for bed adhesion, 40-60mm/s for threaded sections, 0.12-0.16mm layer height on threaded sections, 4+ perimeter walls.
 - **Open:** All three bore diameters are constraint-based ranges, not fixed values. Must be validated with single-bore test prints against physical fitting (see `research/release-plate.md` Section 7.1).
 
 ---
 
-## Sub-Assembly: Release Mechanism
+## Sub-Assembly: Twist-Release Mechanism
 
-Composed of: cam lever + pivot pin + E-clip + push rod + release plate + 2x dowel pins + 2x compression springs.
+Composed of: release plate (with integral strut + guide pins) + wing knob + 2x compression springs.
 
-- **Function:** Single lever flip releases all 4 JG collets simultaneously
-- **Actuation:** 180-degree lever rotation → 3mm axial plate travel via 1.5mm eccentric cam
-- **Force path:** Hand → lever handle (76mm arm) → eccentric cam → push rod (118mm, 5mm steel) → release plate → 4x collets
-- **Mechanical advantage:** ~10:1
+- **Function:** Half-turn twist releases all 4 JG collets simultaneously
+- **Actuation:** 180-degree knob rotation → 3mm axial plate travel via Tr12x3 2-start trapezoidal thread (6mm lead)
+- **Force path:** Hand → wing knob → threaded strut (integral to plate) → release plate → 4x collets
+- **Self-locking:** Lead angle ~9 deg < friction angle ~17 deg for PETG-on-PETG prevents accidental release
 - **Total required force at collets:** 12-20N (4 fittings x 3-5N each)
-- **Required hand force:** ~2-3N
 
 ---
 
@@ -50,14 +50,10 @@ Composed of: cam lever + pivot pin + E-clip + push rod + release plate + 2x dowe
 
 ### Compression Springs (x2)
 
-- ~5mm OD x 10mm free length, 3.2mm ID (rides on 3mm dowel pin)
+- ~5mm OD x 10mm free length
 - Spring rate: ~0.5 N/mm
-- Returns release plate to retracted position
-
-### Steel Dowel Pins (x2)
-
-- 3mm diameter x 20mm long
-- Press-fit into shell rear wall (10mm engagement), 10mm protrudes for plate travel + spring
+- Ride on integral guide pins between rear wall and plate
+- Returns release plate to retracted position (collets grip)
 
 ---
 

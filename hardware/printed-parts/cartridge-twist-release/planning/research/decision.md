@@ -4,7 +4,7 @@
 
 ### All-3D-Printed (Tr12x3 2-Start Trapezoidal)
 
-Prints the entire strut, knob, and guide pins in PETG. Uses a 2-start trapezoidal thread (Tr12x3, 6mm lead) so a half turn produces 3mm of travel. The 12mm-diameter strut prints vertically with threaded ends and a smooth middle section, press-fit into the release plate with epoxy. A wing-style knob with internal female threads mates with the strut. Metal compression springs are retained (the one non-printed part).
+Prints the release plate with integral strut, knob, and guide pins in PETG. Uses a 2-start trapezoidal thread (Tr12x3, 6mm lead) so a half turn produces 3mm of travel. The 12mm-diameter strut is integral to the release plate -- one continuous printed piece (plate flat on build plate, strut vertical). A wing-style knob with internal female threads mates with the strut front end. Metal compression springs are retained (the one non-printed part).
 
 ### Hardware Store Bolt (M6 x 1.0)
 
@@ -42,7 +42,7 @@ Uses a standard M6 x 150mm fully-threaded 304 stainless hex bolt as the strut. T
 
 **Bolt: 5 unique parts in the mechanism** (bolt, heat-set insert, 2x bushings, knob). Each is off-the-shelf with known dimensions or a simple print. Assembly is linear. If anything breaks, replace the commodity part.
 
-**Printed: 3 unique printed parts** (strut, knob, modified plate with integral pins). Fewer parts, but every part is custom. The strut-to-plate joint (press-fit + epoxy) is permanent. Thread engagement depends on print quality. Clearance tuning adds hidden complexity.
+**Printed: 2 unique printed parts** (release plate with integral strut + guide pins, wing knob). Fewer parts, and no joints -- the strut is one continuous piece with the plate. Thread engagement depends on print quality. Clearance tuning adds hidden complexity.
 
 **Edge: Bolt.** More parts, but each is simpler and independently replaceable. The printed approach has fewer parts but more tuning.
 
@@ -58,7 +58,7 @@ Uses a standard M6 x 150mm fully-threaded 304 stainless hex bolt as the strut. T
 
 **Bolt:** ~$15 total (bolt pack, heat-set inserts, bushings, washers).
 
-**Printed:** ~$0.50 in filament + metal springs (~$2). Optional epoxy.
+**Printed:** ~$0.50 in filament + metal springs (~$2).
 
 **Edge: Irrelevant.** Cost is not a factor in this decision. Both approaches are cheap. Never use cost as a deciding criterion for this project.
 
@@ -96,9 +96,8 @@ Use the bolt for the strut (proven, stiff, food-safe stainless) but print a 2-st
 
 | Qty | Part | Specification | Notes |
 |---|---|---|---|
-| 1 | Strut | 12mm dia PETG, 122mm long, smooth shaft with 20mm Tr12x3 2-start threaded sections at each end | Print vertically, 0.12-0.16mm layer height for thread sections, 4+ walls |
+| 1 | Release plate with integral strut + guide pins | 59x47mm PETG plate with 12mm dia Tr12x3 2-start strut extending from center, ~136mm total Y extent, 2x 6mm guide pins on rear face | Print plate-down, strut vertical, 0.12-0.16mm layer height for thread sections, 4+ walls |
 | 1 | Wing knob | PETG, ~45mm wingspan, 25mm deep, internal female Tr12x3 2-start thread, knurled grip | Print upright, open end facing up |
-| 1 | Release plate (modified) | Existing 59x47x6mm PETG plate with press-fit strut attachment point (centered bore), integral 6mm guide pins extending from rear face | Pins replace steel dowels |
 
 ### Metal Components
 
@@ -110,7 +109,6 @@ Use the bolt for the strut (proven, stiff, food-safe stainless) but print a 2-st
 
 | Qty | Item | Specification | Notes |
 |---|---|---|---|
-| 1 | Epoxy | Food-safe epoxy or cyanoacrylate | For strut-to-plate press-fit joint, if press-fit alone is insufficient |
 | 1 | Food-grade silicone grease | Super Lube 92003 (NSF H1) | For thread lubrication if desired |
 
 ### Print Settings

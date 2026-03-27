@@ -77,13 +77,13 @@ See `research/dock-placement.md` for the full triangle geometry analysis, ergono
 
 Four JG PP0408W 1/4" push-to-connect union fittings mount in the cartridge rear wall in a 2x2 grid (40mm horizontal x 28mm vertical center-to-center). The dock carries four bare 1/4" OD hard nylon tube stubs (~30mm protrusion) that the cartridge slides onto during insertion. Collets grip automatically on insertion — no user action needed to connect. The cartridge is the fitting-bearing side; the dock is passive.
 
-**Disconnect uses a twist-release mechanism.** A twist-release knob on the cartridge front face threads onto a 12mm PETG threaded strut with Tr12x3 2-start trapezoidal thread that passes through the cartridge body to a release plate on the dock side of the rear wall. The release plate has four stepped bores (15.30mm outer / 9.70mm inner lip / 6.50mm tube clearance, caliper-verified) that engage all four JG body ends simultaneously. The strut attaches to the release plate via a press-fit + epoxy joint; half a turn (180 degrees) of the knob produces 3mm of plate travel (6mm lead from the 2-start thread). When the user unscrews the knob half a turn, the strut disengages, return springs on the guide pins retract the plate, all four collets release at once, and the user pulls the cartridge out by the knob (which doubles as the pull handle).
+**Disconnect uses a twist-release mechanism.** A twist-release knob on the cartridge front face threads onto a 12mm PETG threaded strut with Tr12x3 2-start trapezoidal thread that passes through the cartridge body to a release plate on the dock side of the rear wall. The strut is integral to the release plate -- one continuous printed piece, no joint. The release plate has four stepped bores (15.30mm outer / 9.70mm inner lip / 6.50mm tube clearance, caliper-verified) that engage all four JG body ends simultaneously. Half a turn (180 degrees) of the knob produces 3mm of plate travel (6mm lead from the 2-start thread). When the user unscrews the knob half a turn, return springs on the guide pins retract the plate, all four collets release at once, and the user pulls the cartridge out by the knob (which doubles as the pull handle).
 
 | Aspect | Detail |
 |--------|--------|
 | Fittings | 4x JG PP0408W 1/4" push-to-connect unions, cartridge-mounted, ~$8 total |
 | Fitting grid | 2x2, 40mm horizontal x 28mm vertical center-to-center |
-| Release mechanism | 12mm PETG threaded strut (Tr12x3 2-start trapezoidal) + wing knob + press-fit/epoxy joint + release plate + return springs |
+| Release mechanism | 12mm PETG threaded strut (Tr12x3 2-start trapezoidal, integral to release plate) + wing knob + return springs |
 | Connect UX | Slide in — cartridge fittings grip dock tube stubs automatically, thread knob half turn to lock |
 | Disconnect UX | Unscrew knob half turn, pull out by knob |
 | Retention | JG collets provide ~20N grip (4 fittings). Self-locking thread (lead angle ~9 deg < friction angle ~17 deg for PETG-on-PETG) prevents accidental release. |
@@ -177,7 +177,7 @@ Pump mounting uses the Kamoer bracket (2-4x M3 holes, exact pattern to be measur
 3. **Cartridge ID pin** — whether firmware will support identifying cartridge type/revision via a resistor divider on a 4th pogo contact. Not needed for MVP.
 4. **Vibration isolation** — rigid mount first; add rubber grommets if noise is objectionable in practice.
 5. **Thread clearance validation** — print a Tr12x3 2-start test pair (20mm bolt + nut, 15-minute print) to dial in radial clearance for the specific PETG filament and profile. Start with 0.3mm radial clearance (0.6mm on diameter).
-6. **Strut-to-plate epoxy joint durability** — the press-fit + epoxy joint between the strut and release plate must survive repeated pull/push loads over 36+ cycles. Test by cycling the mechanism 50 times and inspecting the joint for loosening or cracking.
+6. **Integral strut print quality** — the release plate + integral strut prints as one piece (plate flat on build plate, strut vertical). Validate that the strut prints straight and threads engage cleanly. The 15-minute Tr12x3 test print validates thread quality before committing to the full part.
 7. **Printed guide pin wear** — 6mm PETG guide pins sliding in 6.5mm PETG bushings. Monitor for slop or binding over cycle testing. Sand pins with 400+ grit and apply silicone grease if needed.
 
 ---
