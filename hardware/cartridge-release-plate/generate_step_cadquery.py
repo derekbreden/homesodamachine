@@ -153,7 +153,7 @@ for slot_cx in [LEFT_SLOT_CX, RIGHT_SLOT_CX]:
         cq.Workplane("XZ")  # work in XZ plane (front view)
         .center(slot_cx, SLOT_CZ)
         .slot2D(TAB_SLOT_H, TAB_SLOT_W, angle=90)
-        .extrude(PLATE_D)  # extrude in Y direction (through full plate depth)
+        .extrude(-PLATE_D)  # extrude in +Y direction (XZ normal is -Y, so negate)
     )
     plate = plate.cut(slot_cutter)
 
@@ -166,6 +166,8 @@ step_path = output_dir / "release-plate-cadquery.step"
 cq.exporters.export(plate, str(step_path))
 
 # Validation
+import math
+
 bb = plate.val().BoundingBox()
 print("Bounding box:")
 print(f"  X: {bb.xmin:.3f} to {bb.xmax:.3f}  (width: {bb.xmax - bb.xmin:.3f}mm)")
@@ -178,36 +180,125 @@ print(f"\nVolume: {vol:.2f} mm^3")
 faces = plate.val().Faces()
 print(f"Face count: {len(faces)}")
 
-total_x = bb.xmax - bb.xmin
-total_y = bb.ymax - bb.ymin
-total_z = bb.zmax - bb.zmin
+# ---------------------------------------------------------------------------
+# Per-feature validation
+# ---------------------------------------------------------------------------
+print("\n" + "=" * 60)
+print("PER-FEATURE VALIDATION")
+print("=" * 60)
 
-print(f"\nSanity checks:")
-print(f"  Plate body: {PLATE_W} x {PLATE_D} x {PLATE_H} mm")
-print(f"  Total X span (with tabs): {total_x:.1f}mm")
-print(f"  Total Y span (plate + boss): {total_y:.1f}mm (expect 7.0)")
-print(f"  Total Z span: {total_z:.1f}mm (expect {PLATE_H})")
-print(f"  Bore horizontal spacing: {BORE_CX[1] - BORE_CX[0]:.1f}mm (expect 40.0)")
-print(f"  Bore vertical spacing: {BORE_CZ[1] - BORE_CZ[0]:.1f}mm (expect 28.0)")
-print(f"  Min wall (edge to outer bore): {BORE_CX[0] - OUTER_R:.1f}mm (expect 1.7)")
+results = []
+TOL = 0.5  # tolerance for position checks (mm)
 
-# Expected volume estimate (approximate — ignores chamfers, uses rect for stadium slots)
-import math
-plate_vol = PLATE_W * PLATE_D * PLATE_H
-bore_vol = (math.pi * OUTER_R**2 * OUTER_BORE_DEPTH +
-            math.pi * INNER_R**2 * INNER_LIP_DEPTH +
-            math.pi * TUBE_R**2 * 2.0)  # remaining 2mm
-total_bore_vol = 4 * bore_vol
-boss_vol = math.pi * (BOSS_DIA / 2)**2 * BOSS_HEIGHT
-# Tabs: actual width is from slot far edge to 1mm inside plate body
-left_tab_w = 1.0 - (LEFT_SLOT_CX - TAB_W / 2)   # 10.15mm
-right_tab_w = (RIGHT_SLOT_CX + TAB_W / 2) - (PLATE_W - 1.0)  # 10.15mm
-# Net tab addition = tab volume minus the 1mm overlap already counted in plate
-net_tab_vol = ((left_tab_w - 1.0) + (right_tab_w - 1.0)) * PLATE_D * TAB_H
-slot_vol = 2 * TAB_SLOT_W * TAB_SLOT_H * PLATE_D  # rect approx (stadium is ~10% less)
+def check(name, passed, detail=""):
+    status = "PASS" if passed else "FAIL"
+    results.append((name, status, detail))
 
-expected_vol = plate_vol - total_bore_vol + boss_vol + net_tab_vol - slot_vol
-print(f"\n  Approx expected volume: {expected_vol:.0f} mm^3 (actual: {vol:.0f})")
-print(f"  (Difference due to chamfers and stadium vs rect slot approximation)")
 
-print(f"\nSTEP file written to: {step_path}")
+# 1. Plate body envelope: 59x6x47
+plate_x_ok = abs((bb.xmax - bb.xmin)) >= PLATE_W - TOL
+plate_y_ok = abs((bb.ymax - bb.ymin)) >= PLATE_D - TOL
+plate_z_ok = abs((bb.zmax - bb.zmin)) >= PLATE_H - TOL
+check(
+    "1. Plate body envelope 59x6x47",
+    plate_x_ok and plate_y_ok and plate_z_ok,
+    f"X={bb.xmax - bb.xmin:.1f} Y={bb.ymax - bb.ymin:.1f} Z={bb.zmax - bb.zmin:.1f}"
+)
+
+# Collect face centers and types for reuse
+solid = plate.val()
+all_faces = solid.Faces()
+face_info = []
+for f in all_faces:
+    c = f.Center()
+    geom_type = f.geomType()
+    fbb = f.BoundingBox()
+    face_info.append({
+        "cx": c.x, "cy": c.y, "cz": c.z,
+        "type": geom_type,
+        "xmin": fbb.xmin, "xmax": fbb.xmax,
+        "ymin": fbb.ymin, "ymax": fbb.ymax,
+        "zmin": fbb.zmin, "zmax": fbb.zmax,
+    })
+
+# 2. 4x stepped bores: check for cylindrical faces near each bore center
+for cx in BORE_CX:
+    for cz in BORE_CZ:
+        bore_cyls = [
+            fi for fi in face_info
+            if fi["type"] in ("CYLINDER", "CONE")
+            and abs(fi["cx"] - cx) < OUTER_R + TOL
+            and abs(fi["cz"] - cz) < OUTER_R + TOL
+        ]
+        check(
+            f"2. Stepped bore at ({cx},{cz})",
+            len(bore_cyls) >= 2,
+            f"{len(bore_cyls)} cylindrical/conical faces found"
+        )
+
+# 3. Push rod boss: verify geometry extends past Y=6
+boss_faces = [
+    fi for fi in face_info
+    if fi["ymax"] > PLATE_D + 0.1
+    and abs(fi["cx"] - BOSS_CX) < BOSS_DIA
+    and abs(fi["cz"] - BOSS_CZ) < BOSS_DIA
+]
+check(
+    "3. Push rod boss extends past Y=6",
+    len(boss_faces) >= 1 and bb.ymax > PLATE_D + 0.1,
+    f"ymax={bb.ymax:.2f}, boss faces={len(boss_faces)}"
+)
+
+# 4. 2x guide tabs: bounding box extends past X=0 (left) and X=59 (right)
+left_tab_faces = [fi for fi in face_info if fi["xmin"] < -TOL]
+right_tab_faces = [fi for fi in face_info if fi["xmax"] > PLATE_W + TOL]
+check(
+    "4a. Left guide tab extends past X=0",
+    bb.xmin < -TAB_W / 2 + TOL,
+    f"xmin={bb.xmin:.2f}, expect < ~{-TAB_W/2:.2f}"
+)
+check(
+    "4b. Right guide tab extends past X=59",
+    bb.xmax > PLATE_W + TAB_W / 2 - TOL,
+    f"xmax={bb.xmax:.2f}, expect > ~{PLATE_W + TAB_W/2:.2f}"
+)
+
+# 5. 2x guide slots: verify curved/cylindrical faces exist near slot centers
+# Slots are stadium-shaped holes: should have cylindrical faces from the semicircular ends
+for label, slot_cx in [("left", LEFT_SLOT_CX), ("right", RIGHT_SLOT_CX)]:
+    slot_cyls = [
+        fi for fi in face_info
+        if fi["type"] in ("CYLINDER",)
+        and abs(fi["cx"] - slot_cx) < TAB_SLOT_W + TOL
+        and abs(fi["cz"] - SLOT_CZ) < TAB_SLOT_H + TOL
+    ]
+    # Also check for planar faces that form the slot walls (flat sides of stadium)
+    slot_planes = [
+        fi for fi in face_info
+        if fi["type"] == "PLANE"
+        and fi["xmin"] >= slot_cx - TAB_SLOT_W / 2 - TOL
+        and fi["xmax"] <= slot_cx + TAB_SLOT_W / 2 + TOL
+        and abs(fi["cz"] - SLOT_CZ) < TAB_SLOT_H
+        and (fi["ymax"] - fi["ymin"]) > PLATE_D - 1.0  # through-hole (spans Y)
+        and (fi["zmax"] - fi["zmin"]) > 1.0  # taller than a sliver
+    ]
+    has_slot_geometry = len(slot_cyls) >= 2 or (len(slot_cyls) >= 1 and len(slot_planes) >= 1)
+    check(
+        f"5. Guide slot ({label}) at X={slot_cx}",
+        has_slot_geometry,
+        f"{len(slot_cyls)} cylindrical + {len(slot_planes)} planar slot faces"
+    )
+
+# Print results table
+print("\n{:<45} {:>6}  {}".format("Feature", "Status", "Detail"))
+print("-" * 80)
+for name, status, detail in results:
+    marker = "  " if status == "PASS" else ">>"
+    print(f"{marker} {name:<43} {status:>6}  {detail}")
+
+all_pass = all(s == "PASS" for _, s, _ in results)
+print("-" * 80)
+print(f"{'ALL PASS' if all_pass else 'SOME FAILURES — review above'}")
+print()
+
+print(f"STEP file written to: {step_path}")
