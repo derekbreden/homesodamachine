@@ -77,21 +77,21 @@ See `research/dock-placement.md` for the full triangle geometry analysis, ergono
 
 Four JG PP0408W 1/4" push-to-connect union fittings mount in the cartridge rear wall in a 2x2 grid (40mm horizontal x 28mm vertical center-to-center). The dock carries four bare 1/4" OD hard nylon tube stubs (~30mm protrusion) that the cartridge slides onto during insertion. Collets grip automatically on insertion — no user action needed to connect. The cartridge is the fitting-bearing side; the dock is passive.
 
-**Disconnect uses a single-motion release mechanism.** A cam lever on the cartridge front face drives a push rod through the cartridge body to a release plate on the rear face. The release plate has four stepped bores (8.0/10.5/12.5mm) that engage all four JG body ends simultaneously. The user flips the lever, all four collets release at once, and the user pulls the cartridge out by the lever handle. One motion to unlock, one motion to remove. Compression springs on the guide pins return the release plate to the locked position.
+**Disconnect uses a twist-release mechanism.** A twist-release knob on the cartridge front face threads onto a 12mm PETG threaded strut with Tr12x3 2-start trapezoidal thread that passes through the cartridge body to a release plate on the dock side of the rear wall. The release plate has four stepped bores (15.30mm outer / 9.70mm inner lip / 6.50mm tube clearance, caliper-verified) that engage all four JG body ends simultaneously. The strut attaches to the release plate via a press-fit + epoxy joint; half a turn (180 degrees) of the knob produces 3mm of plate travel (6mm lead from the 2-start thread). When the user unscrews the knob half a turn, the strut disengages, return springs on the guide pins retract the plate, all four collets release at once, and the user pulls the cartridge out by the knob (which doubles as the pull handle).
 
 | Aspect | Detail |
 |--------|--------|
 | Fittings | 4x JG PP0408W 1/4" push-to-connect unions, cartridge-mounted, ~$8 total |
 | Fitting grid | 2x2, 40mm horizontal x 28mm vertical center-to-center |
-| Release mechanism | Cam lever + push rod + release plate + return springs, ~$5-10 in hardware |
-| Connect UX | Slide in — cartridge fittings grip dock tube stubs automatically |
-| Disconnect UX | Flip lever, pull out |
-| Retention | JG collets provide ~20N grip (4 fittings). Lever locks in seated position. |
-| Food safety | NSF 61 (potable water) |
+| Release mechanism | 12mm PETG threaded strut (Tr12x3 2-start trapezoidal) + wing knob + press-fit/epoxy joint + release plate + return springs |
+| Connect UX | Slide in — cartridge fittings grip dock tube stubs automatically, thread knob half turn to lock |
+| Disconnect UX | Unscrew knob half turn, pull out by knob |
+| Retention | JG collets provide ~20N grip (4 fittings). Self-locking thread (lead angle ~9 deg < friction angle ~17 deg for PETG-on-PETG) prevents accidental release. |
+| Food safety | NSF 61 (potable water). PETG base resin is FDA-listed; stainless nozzle recommended for food-contact parts. |
 
 **Why drips are not a concern:** The firmware enforces a mandatory clean cycle before the cartridge can be unlocked. After the clean cycle, the fluid lines contain only water or air — no flavor concentrate remains in the cartridge or dock fittings. A few drops of water on the enclosure floor during a swap is inconsequential.
 
-Research: `research/collet-release.md`, `research/cam-lever.md`, `research/release-plate.md`, `research/release-mechanism-alternatives.md`
+Research: `research/collet-release.md`, `research/release-plate.md`, `research/release-mechanism-alternatives.md`. Twist-release design: `../printed-parts/cartridge-twist-release/planning/research/decision.md`, `../printed-parts/cartridge-twist-release/planning/research/3d-printed-approach.md`
 
 ---
 
@@ -143,14 +143,14 @@ See `research/guide-alignment.md` for the full mechanism family survey, toleranc
 4. The cartridge slides ~130mm along the rails. Side guides prevent lateral wobble.
 5. At full insertion depth, the cartridge's four JG fittings slide onto the dock's bare tube stubs. Collets grip automatically — no user action needed.
 6. Pogo pins on the dock ceiling make contact with pads on the cartridge top face. Wipe action cleans the contact surfaces.
-7. The user flips the cam lever to the locked position. Clear tactile "seated" state.
+7. The user threads the twist-release knob clockwise half a turn (180 degrees). The 2-start trapezoidal thread engages rapidly, pulling the release plate snug against the rear wall. Clear tactile stop when fully tightened.
 
 ### Removal
 
 **Prerequisite:** Firmware enforces a mandatory clean cycle before the cartridge lock disengages. After the clean cycle, all fluid lines contain only water or air.
 
-1. User flips the cam lever to the release position. The release plate pushes all 4 JG collets simultaneously — all connections free in one motion.
-2. User pulls the cartridge forward by the lever handle, sliding it along the rails and out of the slot.
+1. User unscrews the twist-release knob half a turn (180 degrees) counterclockwise. The strut disengages from the release plate; return springs retract the plate, releasing all 4 JG collets simultaneously.
+2. User pulls the cartridge forward by the knob (which doubles as the pull handle), sliding it along the rails and out of the slot.
 3. Pogo pins retract into the dock ceiling as the cartridge withdraws.
 4. New cartridge slides in (reverse of above).
 
@@ -163,7 +163,7 @@ Total swap time target: under 60 seconds, one-handed, in a dark cabinet.
 The recommended construction is a tray + shell assembly (from `research/pump-mounting.md`):
 
 - **Pump tray:** Flat PETG plate (138 x 120 x 6mm) with heat-set M3 insert bosses for the two pump brackets. Includes printed C-clips for tubing strain relief and a wire routing channel. Prints flat for maximum screw boss strength.
-- **Outer shell:** Rectangular PETG box (148 x 130 x 80mm exterior, 4mm solid walls, 140 x 122 x 72mm interior) with slide rails on the exterior, JG fitting pockets on the rear wall, and a recess for the pogo target PCB on the top face. The tray drops in and screws to the shell ledges.
+- **Outer shell:** Rectangular PETG box (148 x 130 x 80mm exterior, 4mm solid walls, 140 x 122 x 72mm interior) with slide rails on the exterior, JG fitting pockets on the rear wall, 12.5mm bore in the front wall for the threaded strut, and a recess for the pogo target PCB on the top face. The tray drops in and screws to the shell ledges.
 - **Lid:** Flat plate closing the open top, secured with screws or snap clips. Provides assembly access.
 
 Pump mounting uses the Kamoer bracket (2-4x M3 holes, exact pattern to be measured from the physical pumps). Optional rubber grommet isolators on mount screws reduce vibration transmission. Internal tubing transitions from BPT pump tubes (4.8mm ID x 8.0mm OD) to 1/4" OD hard tubing via brass barb fittings.
@@ -176,7 +176,9 @@ Pump mounting uses the Kamoer bracket (2-4x M3 holes, exact pattern to be measur
 2. **Print orientation strategy** — shell and tray print orientation need prototyping (wall thickness is 4mm solid, no ribs).
 3. **Cartridge ID pin** — whether firmware will support identifying cartridge type/revision via a resistor divider on a 4th pogo contact. Not needed for MVP.
 4. **Vibration isolation** — rigid mount first; add rubber grommets if noise is objectionable in practice.
-5. **Release plate tolerances** — the stepped bore dimensions (8.0/10.5/12.5mm) need validation on the first print against the actual JG PP0408W fittings in hand. Collet ring OD may be ~12.7mm (larger than initially estimated), which could require increasing the outer bore.
+5. **Thread clearance validation** — print a Tr12x3 2-start test pair (20mm bolt + nut, 15-minute print) to dial in radial clearance for the specific PETG filament and profile. Start with 0.3mm radial clearance (0.6mm on diameter).
+6. **Strut-to-plate epoxy joint durability** — the press-fit + epoxy joint between the strut and release plate must survive repeated pull/push loads over 36+ cycles. Test by cycling the mechanism 50 times and inspecting the joint for loosening or cracking.
+7. **Printed guide pin wear** — 6mm PETG guide pins sliding in 6.5mm PETG bushings. Monitor for slop or binding over cycle testing. Sand pins with 400+ grit and apply silicone grease if needed.
 
 ---
 
@@ -184,7 +186,6 @@ Pump mounting uses the Kamoer bracket (2-4x M3 holes, exact pattern to be measur
 
 | File | Description |
 |------|-------------|
-| `research/cam-lever.md` | Cam lever mechanism design for simultaneous JG collet release. Only relevant if JG fittings are chosen. |
 | `research/collet-release.md` | JG collet behavior, release force, stepped bore geometry. Only relevant if JG fittings are chosen. |
 | `research/dock-placement.md` | Front-bottom triangular void geometry, envelope optimization, ergonomics, tube routing for the diagonal interleave layout. |
 | `research/electrical-mating.md` | Pogo pins vs blade vs edge connector vs magnetic -- full technology survey. Recommends pogo pins + flat pads. |
@@ -193,3 +194,5 @@ Pump mounting uses the Kamoer bracket (2-4x M3 holes, exact pattern to be measur
 | `research/pump-mounting.md` | Kamoer pump mounting features, vibration isolation, screw boss design for 3D printing, tray + shell construction, tube strain relief, wire routing. |
 | `research/release-mechanism-alternatives.md` | Alternative release strategies beyond the cam lever. Only relevant if JG fittings are chosen. |
 | `research/release-plate.md` | Stepped bore geometry and hole arrangement for the JG collet release plate. Only relevant if JG fittings are chosen. |
+| `../printed-parts/cartridge-twist-release/planning/research/decision.md` | Decision analysis: hardware-store bolt vs all-printed twist-release mechanism. Recommends 3D-printed approach (Tr12x3 2-start trapezoidal, PETG). |
+| `../printed-parts/cartridge-twist-release/planning/research/3d-printed-approach.md` | All-printed twist-release: Tr12x3 2-start trapezoidal thread, PETG material, strut design, guide pins, knob, spring options, durability analysis. |
