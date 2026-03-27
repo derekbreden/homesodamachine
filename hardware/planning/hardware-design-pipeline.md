@@ -11,9 +11,10 @@ This document defines the procedure for designing a new 3D-printed part or mecha
 These apply to every step and every agent in the pipeline. Include them verbatim in every agent prompt.
 
 1. **UX is the primary concern** — above durability, simplicity, prototypability, and cost. One-handed operation, intuitive feel, speed, and dark-cabinet usability define "good."
-2. **Cost is no concern** — never use cost as a factor in any decision.
-3. **Durability must be adequate, not maximal** — if it survives the expected lifecycle with reasonable margin, it passes. Don't penalize an approach for having less margin than an alternative.
-4. **The deliverable is always the final artifact, not the script or document that produces it.** A STEP generation script that was never run is not a deliverable. A parts.md that contradicts the research is not a deliverable.
+2. **Design a product, not an assembly of parts.** The finished product should look like it was always meant to be this way — as if every surface, every transition, every interaction point was designed together as a single coherent object. Nothing should look added on, bolted to, or improvised. Mechanisms that are rarely used should disappear into the product surface, not dominate it. A stranger encountering the product for the first time should see a product, not a collection of components.
+3. **Cost is no concern** — never use cost as a factor in any decision.
+4. **Durability must be adequate, not maximal** — if it survives the expected lifecycle with reasonable margin, it passes. Don't penalize an approach for having less margin than an alternative.
+5. **The deliverable is always the final artifact, not the script or document that produces it.** A STEP generation script that was never run is not a deliverable. A parts.md that contradicts the research is not a deliverable.
 
 ---
 
@@ -65,6 +66,12 @@ No quality gate. This is scaffolding.
 **Output:** Research documents in `planning/research/`
 **Agents:** One per research path, run in parallel
 
+Research falls into two categories. Both run in parallel.
+
+#### 2A — Technical research (one agent per approach)
+
+Each technical research agent investigates one candidate mechanism or approach (e.g., "threaded rod" vs "cam lever" vs "spring detent").
+
 **Agent prompt must include:**
 - The design priorities (Section "Design Priorities" above — include verbatim)
 - All known physical constraints (envelope, forces, materials, interfaces)
@@ -72,11 +79,33 @@ No quality gate. This is scaffolding.
 - Instruction to save the document to the exact file path
 - Instruction to commit and push
 
-**Quality gate:** Each research document must:
+#### 2B — Design pattern research (one agent)
+
+This agent studies how existing consumer products solve the same interaction problem. The goal is exposure — the agent (and the decision-maker in Step 3) must understand the landscape of real-world solutions before choosing an approach. Without this exposure, agents default to "functional but bolted-on" designs. With it, they discover patterns like recessed dials, flush-mounted controls, integrated surfaces, and snap-fit assemblies that make a product feel unified.
+
+**Agent prompt must include:**
+- The design priorities (verbatim)
+- A description of the interaction being designed (what the user does, what the mechanism achieves)
+- Instruction to search for and study how shipped consumer products (appliances, electronics, automotive, medical devices) solve the same or analogous interaction problem
+- Instruction to focus on products known for exceptional industrial design (e.g., how does a washing machine handle a recessed program dial? How does an oven handle a flush-mounted temperature knob? How does a car handle a twist-lock fuel cap?)
+- Instruction to document specific design patterns found, with emphasis on:
+  - How the mechanism integrates with the product surface (flush, recessed, proud, hidden)
+  - How the product communicates state and affordance without text (icons, detent feel, visual indicators)
+  - How assembly/disassembly is handled (snap-fit, living hinges, captive fasteners)
+  - How the product looks and feels as a unified object rather than an assembly of parts
+- Instruction to save the document to `planning/research/design-patterns.md`
+- Instruction to commit and push
+
+**Quality gate (applies to all Step 2 research):** Each research document must:
 - Cover the specific question completely
 - Include specific dimensions, materials, and sourcing where applicable
 - Address failure modes and concerns
 - Be saved to the correct path
+
+**Additional quality gate for 2B:** The design pattern research must:
+- Reference at least 3 real shipped products by name
+- Describe specific geometric/mechanical details of how each product solves the interaction (not just "it looks nice")
+- Connect the patterns back to the design priorities — which patterns serve UX? Which create product unity?
 
 ---
 
@@ -88,8 +117,10 @@ No quality gate. This is scaffolding.
 
 **Agent prompt must include:**
 - The design priorities (verbatim) — UX is the primary criterion, cost is irrelevant
-- File paths to every research document
+- File paths to every research document, **including the design pattern research** (`planning/research/design-patterns.md`)
+- Instruction to read the design pattern research first, before evaluating technical candidates — the patterns should inform what "good" looks like
 - Decision criteria in priority order: UX first, then mechanical feasibility, then simplicity, then durability adequacy. Cost is last and irrelevant.
+- Instruction to evaluate each candidate against the design patterns: does this approach enable product-surface integration, or does it result in bolted-on mechanisms?
 - Instruction to make a clear recommendation with rationale
 - Instruction to include a bill of materials
 - Instruction to note what would change the recommendation
@@ -106,14 +137,17 @@ No quality gate. This is scaffolding.
 
 **This is the most important step in the pipeline.** Everything downstream — drawings, STEP files — faithfully reproduces whatever the parts.md says. If the parts.md describes a mechanism that doesn't make physical sense, the drawings will be beautiful and the STEP files will pass all validation checks, and the mechanism still won't work.
 
+**Scope freedom:** The agent designing a mechanism is not limited to the mechanism's own parts. If the design priorities demand it, the agent may and should modify any interfacing part — the shell, walls, panels, other sub-assemblies — to achieve the right design. A mechanism that fits awkwardly into an unchanged shell is worse than a mechanism that reshapes the shell to make the whole product feel unified. When the agent modifies other parts, it must update those parts' documents too.
+
 **Input:** Decision document, existing architecture docs
-**Output:** Updated `cartridge-architecture.md`, new or updated `parts.md` for each part
+**Output:** Updated `cartridge-architecture.md`, new or updated `parts.md` for each part (including interfacing parts that were modified)
 **Agents:** Can parallelize if architecture update and parts.md are independent
 
 **Agent prompt must include:**
 - The design priorities (verbatim)
 - Path to the decision document
 - Paths to all existing docs that need updating (architecture, shell parts.md, etc.)
+- Paths to interfacing parts that the agent has freedom to modify (shell, panels, etc.)
 - The coordinate system convention from the shell parts.md
 - Instruction to follow the format of existing parts.md files
 - Instruction to remove stale references (don't leave old mechanism names in docs)
@@ -135,10 +169,13 @@ This applies everywhere: mechanism narratives, assembly sequences, interface des
 
 If a claim cannot be grounded, do not invent a hand-wavy answer. State: **"DESIGN GAP: [claim] has no grounding feature. A [type of feature] is needed."** This is the most valuable output the rubric can produce — it identifies where the design needs more work.
 
+**The grounding rule also applies in reverse — from the design priorities to the geometry.** After writing the document, re-read the Design Priorities section (above) and verify each priority against the actual geometry of every part. If a priority says the design must have property X, and a part violates X, that is a design gap — regardless of whether the document claims to satisfy it. The priorities are constraints on the design, not aspirations. A part that violates a priority must be redesigned, not justified.
+
 ##### Rubric A — Mechanism Narrative (MANDATORY)
 
-Before listing any features or dimensions, the document must include a plain-language **mechanism narrative** that answers:
+Before listing any features or dimensions, the document must include a plain-language **mechanism narrative**. Start from the outside and work inward:
 
+0. **What does the user see and touch?** Before describing any mechanism, describe the product surface this mechanism is part of. What does the exterior look like? What does the user's hand contact? Design this surface first — the mechanism exists to serve it, not the other way around.
 1. **What moves?** Name every part that translates or rotates during operation. Name every part that is stationary.
 2. **What converts the motion?** If the user rotates something and a plate translates, what is the mechanical linkage? (Thread, cam, lever, linkage, gear, etc.)
 3. **What constrains each moving part?** For every moving part, state what prevents unwanted degrees of freedom. Example: "Guide pins prevent plate rotation; front wall prevents knob translation."
@@ -291,24 +328,25 @@ For every pair of parts in the mechanism:
 ```
 Step 1 (folders)
   │
-  ├──→ Step 2a (research path A) ──┐
-  └──→ Step 2b (research path B) ──┤
-                                    │
-                                    ▼
-                              Step 3 (decision)
-                                    │
+  ├──→ Step 2A-1 (technical research path A) ──┐
+  ├──→ Step 2A-2 (technical research path B) ──┤
+  └──→ Step 2B   (design pattern research)  ───┤
+                                                │
+                                                ▼
+                              Step 3 (decision — reads ALL research including patterns)
+                                                │
                               Step 4 (architecture + parts.md)
-                                    │
-                    ┌───────────────┼───────────────┐
-                    ▼               ▼               ▼
-              Step 5a (drawing)  Step 5b (drawing)  ...
-                    │               │
-                    ▼               ▼
-              Step 6a (STEP)    Step 6b (STEP)     ...
+                                                │
+                    ┌───────────────────────────┼───────────────────────────┐
+                    ▼                           ▼                           ▼
+              Step 5a (drawing)           Step 5b (drawing)               ...
+                    │                           │
+                    ▼                           ▼
+              Step 6a (STEP)              Step 6b (STEP)                  ...
 ```
 
-- Steps 2a and 2b run in parallel (no dependencies between research paths)
-- Step 3 waits for ALL Step 2 agents to complete
+- All Step 2 agents (2A-1, 2A-2, 2B) run in parallel (no dependencies between research paths)
+- Step 3 waits for ALL Step 2 agents to complete (including design pattern research)
 - Step 4 waits for Step 3
 - Step 5 agents run in parallel (one per part) after Step 4
 - Step 6 agents run in parallel (one per part) after Step 5 for the same part
