@@ -25,8 +25,8 @@ Off-the-shelf parts that interface with custom parts have **caliper-verified geo
 - **Python:** `tools/cad-venv/bin/python3` (virtual environment with CadQuery installed)
 - **Validation helper:** `import step_validate` from `tools/step_validate.py` (add `tools/` to `sys.path`)
 - **Output:** STEP file (`.step`)
-- **Script location:** `hardware/<part-name>/generate_step_cadquery.py`
-- **Output location:** `hardware/<part-name>/<part-name>-cadquery.step`
+- **Script location:** `hardware/printed-parts/<part-name>/generate_step_cadquery.py`
+- **Output location:** `hardware/printed-parts/<part-name>/<part-name>-cadquery.step`
 - **Self-contained:** The script must run standalone with no external dependencies beyond CadQuery and `step_validate`
 - **Commented:** Each modeling section references the feature name from parts.md
 
@@ -211,7 +211,7 @@ The validation helper at `tools/step_validate.py` provides the `Validator` class
 ```python
 import sys
 from pathlib import Path
-sys.path.insert(0, str(Path(__file__).resolve().parents[2] / "tools"))
+sys.path.insert(0, str(Path(__file__).resolve().parents[3] / "tools"))
 from step_validate import Validator
 ```
 
