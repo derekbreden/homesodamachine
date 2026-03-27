@@ -75,21 +75,46 @@ See `research/dock-placement.md` for the full triangle geometry analysis, ergono
 
 ## 3. Fluid Connections — John Guest Push-to-Connect
 
-Four JG PP0408W 1/4" push-to-connect union fittings mount in the cartridge rear wall in a 2x2 grid (40mm horizontal x 28mm vertical center-to-center). The dock carries four bare 1/4" OD hard nylon tube stubs (~30mm protrusion) that the cartridge slides onto during insertion. Collets grip automatically on insertion — no user action needed to connect. The cartridge is the fitting-bearing side; the dock is passive.
+Four JG PP0408W 1/4" push-to-connect union fittings mount in the cartridge rear wall in a 2x2 grid (40mm horizontal x 28mm vertical center-to-center). The dock carries four bare 1/4" OD hard nylon tube stubs (~30mm protrusion) that the cartridge slides onto during insertion. Collets grip automatically on insertion -- no user action needed to connect. The cartridge is the fitting-bearing side; the dock is passive.
 
-**Disconnect uses a twist-release mechanism.** A twist-release knob on the cartridge front face threads onto a 12mm PETG threaded strut with Tr12x3 2-start trapezoidal thread that passes through the cartridge body to a release plate on the dock side of the rear wall. The strut is integral to the release plate -- one continuous printed piece, no joint. The release plate has four stepped bores (15.30mm outer / 9.70mm inner lip / 6.50mm tube clearance, caliper-verified) that engage all four JG body ends simultaneously. Half a turn (180 degrees) of the knob produces 3mm of plate travel (6mm lead from the 2-start thread). When the user unscrews the knob half a turn, return springs on the guide pins retract the plate, all four collets release at once, and the user pulls the cartridge out by the knob (which doubles as the pull handle).
+### Twist-Release Mechanism
+
+A twist-release mechanism on the cartridge provides one-motion disconnect of all four fluid lines. The mechanism has three printed parts (release plate with integral strut and guide pins, wing knob) plus two metal compression springs.
+
+**How it works:** The wing knob sits on the exterior of the front wall (Y=0). It can rotate but cannot translate -- the front wall face provides the axial reaction surface. A Tr12x3 2-start trapezoidal threaded strut (12mm diameter, 6mm lead) passes through the cartridge interior from the knob to the release plate on the dock side of the rear wall (Y > 130). The strut is integral to the release plate -- one continuous printed PETG piece, no joint. Two guide pins (also integral to the plate) slide in bushings in the rear wall, preventing rotation and ensuring parallel travel. Two compression springs on the guide pins push the plate away from the rear wall toward the dock.
+
+**Operating state (default, knob loose):** The springs hold the release plate in the retracted position, 3mm from the rear wall dock face. The plate's stepped bores (15.30mm outer / 9.70mm inner lip / 6.50mm tube clearance) clear the JG body ends and collets. Collets grip the dock tube stubs naturally via their internal spring-steel teeth. The self-locking thread (lead angle ~9 deg < friction angle ~17 deg for PETG-on-PETG) prevents the springs from back-driving the knob. No user action maintains this state.
+
+**Release (for removal):** The user twists the wing knob clockwise (from front) 180 degrees. The thread pulls the strut and plate toward the front wall. From the dock side, this advances the plate toward the rear wall. The stepped bores slide over all four JG body ends and the inner lips push the collets inward ~1.3mm, releasing all four tubes simultaneously. The user then pulls the cartridge out by the knob wings, which double as a pull handle.
+
+**Constraint chain:**
+
+```
+[User hand: twist knob CW from front]
+    │ Tr12x3 2-start thread (180 deg → 3mm travel)
+    ▼
+[Wing knob: ROTATES, constrained axially by front wall]
+    │ thread engagement
+    ▼
+[Strut + plate: TRANSLATES along Y, constrained rotationally by 2x guide pins in bushings]
+    │ 4x stepped bores contact collet end faces
+    ▼
+[Collets pushed inward → tubes release]
+
+Return: 2x compression springs on guide pins push plate back to retracted position when knob is loosened
+```
 
 | Aspect | Detail |
 |--------|--------|
-| Fittings | 4x JG PP0408W 1/4" push-to-connect unions, cartridge-mounted, ~$8 total |
+| Fittings | 4x JG PP0408W 1/4" push-to-connect unions, cartridge-mounted |
 | Fitting grid | 2x2, 40mm horizontal x 28mm vertical center-to-center |
-| Release mechanism | 12mm PETG threaded strut (Tr12x3 2-start trapezoidal, integral to release plate) + wing knob + return springs |
-| Connect UX | Slide in — cartridge fittings grip dock tube stubs automatically, thread knob half turn to lock |
-| Disconnect UX | Unscrew knob half turn, pull out by knob |
-| Retention | JG collets provide ~20N grip (4 fittings). Self-locking thread (lead angle ~9 deg < friction angle ~17 deg for PETG-on-PETG) prevents accidental release. |
+| Release mechanism | 12mm PETG threaded strut (Tr12x3 2-start trapezoidal, integral to release plate) + wing knob + 2x return springs on guide pins |
+| Connect UX | Slide cartridge in -- JG collets grip dock tube stubs automatically. No knob action needed. |
+| Disconnect UX | Twist knob CW 180 deg to release collets, pull cartridge out by knob wings |
+| Retention | JG collets provide ~20N grip (4 fittings). Self-locking thread prevents accidental release under spring load. |
 | Food safety | NSF 61 (potable water). PETG base resin is FDA-listed; stainless nozzle recommended for food-contact parts. |
 
-**Why drips are not a concern:** The firmware enforces a mandatory clean cycle before the cartridge can be unlocked. After the clean cycle, the fluid lines contain only water or air — no flavor concentrate remains in the cartridge or dock fittings. A few drops of water on the enclosure floor during a swap is inconsequential.
+**Why drips are not a concern:** The firmware enforces a mandatory clean cycle before the cartridge can be unlocked. After the clean cycle, the fluid lines contain only water or air -- no flavor concentrate remains in the cartridge or dock fittings. A few drops of water on the enclosure floor during a swap is inconsequential.
 
 Research: `research/collet-release.md`, `research/release-plate.md`, `research/release-mechanism-alternatives.md`. Twist-release design: `../printed-parts/cartridge-twist-release/planning/research/decision.md`, `../printed-parts/cartridge-twist-release/planning/research/3d-printed-approach.md`
 
@@ -138,21 +163,21 @@ See `research/guide-alignment.md` for the full mechanism family survey, toleranc
 ### Insertion
 
 1. User opens the front panel (or accesses the slot directly if no panel door).
-2. User rests the cartridge on the cabinet floor, roughly aimed at the slot.
+2. User rests the cartridge on the cabinet floor, roughly aimed at the slot. The twist-release knob is in the loose position (default) -- springs hold the release plate retracted, stepped bores clear the fitting area.
 3. The chamfered entrance captures the cartridge and funnels it onto the floor rails.
 4. The cartridge slides ~130mm along the rails. Side guides prevent lateral wobble.
-5. At full insertion depth, the cartridge's four JG fittings slide onto the dock's bare tube stubs. Collets grip automatically — no user action needed.
+5. At full insertion depth, the dock's bare tube stubs pass through the release plate's tube clearance holes and enter the cartridge's four JG fittings. Collets grip automatically -- no user action needed. The ~20N collet retention force secures the cartridge.
 6. Pogo pins on the dock ceiling make contact with pads on the cartridge top face. Wipe action cleans the contact surfaces.
-7. The user threads the twist-release knob clockwise half a turn (180 degrees). The 2-start trapezoidal thread engages rapidly, pulling the release plate snug against the rear wall. Clear tactile stop when fully tightened.
+7. Done. No knob action required for insertion. The JG collets provide all retention.
 
 ### Removal
 
-**Prerequisite:** Firmware enforces a mandatory clean cycle before the cartridge lock disengages. After the clean cycle, all fluid lines contain only water or air.
+**Prerequisite:** Firmware enforces a mandatory clean cycle before the cartridge can be removed. After the clean cycle, all fluid lines contain only water or air.
 
-1. User unscrews the twist-release knob half a turn (180 degrees) counterclockwise. The strut disengages from the release plate; return springs retract the plate, releasing all 4 JG collets simultaneously.
-2. User pulls the cartridge forward by the knob (which doubles as the pull handle), sliding it along the rails and out of the slot.
+1. User twists the wing knob clockwise (from front) 180 degrees. The Tr12x3 2-start thread pulls the release plate toward the rear wall, and the stepped bores push all four JG collets inward simultaneously, releasing the dock tube stubs. Increasing spring resistance provides tactile feedback during the twist; the thread running out of engagement provides a clear tactile endpoint.
+2. User pulls the cartridge forward by the knob wings (which double as a pull handle), sliding it along the rails and out of the slot.
 3. Pogo pins retract into the dock ceiling as the cartridge withdraws.
-4. New cartridge slides in (reverse of above).
+4. Once the cartridge is free, the user can release the knob. The springs push the plate back to the retracted position, ready for the next insertion.
 
 Total swap time target: under 60 seconds, one-handed, in a dark cabinet.
 
