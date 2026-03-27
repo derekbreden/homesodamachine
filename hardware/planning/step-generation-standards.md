@@ -253,7 +253,7 @@ if not v.summary():
 6. Run the script with `tools/cad-venv/bin/python3`
 7. Verify all checks pass (zero FAILs)
 8. Fix any failures and re-run until all checks pass
-9. Export STEP file for human review in CAD viewer (OnShape import or similar)
+9. Export STEP file
 
 ---
 

@@ -146,7 +146,6 @@ Every sub-component must physically touch the parent body it attaches to. Run `p
 3. Apply all 9 self-review rubrics by reading back the SVG source
 4. Run both checking tools and fix any issues
 5. Re-run tools until clean
-6. Submit for human visual review (agents cannot render SVGs to catch visual issues)
 
 ---
 

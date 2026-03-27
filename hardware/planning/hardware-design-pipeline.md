@@ -102,7 +102,9 @@ No quality gate. This is scaffolding.
 
 ---
 
-### Step 4 — Architecture and Parts (parallel agents)
+### Step 4 — Architecture and Parts
+
+**This is the most important step in the pipeline.** Everything downstream — drawings, STEP files — faithfully reproduces whatever the parts.md says. If the parts.md describes a mechanism that doesn't make physical sense, the drawings will be beautiful and the STEP files will pass all validation checks, and the mechanism still won't work.
 
 **Input:** Decision document, existing architecture docs
 **Output:** Updated `cartridge-architecture.md`, new or updated `parts.md` for each part
@@ -115,12 +117,93 @@ No quality gate. This is scaffolding.
 - The coordinate system convention from the shell parts.md
 - Instruction to follow the format of existing parts.md files
 - Instruction to remove stale references (don't leave old mechanism names in docs)
+- **Instruction to apply the Parts.md Self-Review Rubrics (below) after generating each document**
+
+#### Parts.md Self-Review Rubrics
+
+The agent MUST apply these rubrics after generating or updating any parts.md or architecture document. Print the rubric results to stdout so the orchestrator can verify.
+
+##### Rubric A — Mechanism Narrative (MANDATORY)
+
+Before listing any features or dimensions, the document must include a plain-language **mechanism narrative** that answers:
+
+1. **What moves?** Name every part that translates or rotates during operation. Name every part that is stationary.
+2. **What converts the motion?** If the user rotates something and a plate translates, what is the mechanical linkage? (Thread, cam, lever, linkage, gear, etc.)
+3. **What constrains each moving part?** For every moving part, state what prevents unwanted degrees of freedom. Example: "Guide pins prevent plate rotation; front wall prevents knob translation."
+4. **What provides the return force?** If the mechanism has a rest position, what drives it back? (Spring, gravity, detent, etc.)
+5. **What is the user's physical interaction?** Describe the hand motion, the direction of force, and the tactile feedback at each stage (engage, lock, unlock, disengage).
+
+The narrative must be coherent enough that someone who has never seen the mechanism can understand how it works from words alone, with no diagrams. If you cannot write this narrative clearly, the design is not yet understood well enough to specify parts.
+
+##### Rubric B — Constraint Chain Diagram (MANDATORY)
+
+Draw an ASCII constraint chain showing how user input becomes mechanical output:
+
+```
+[User hand] → [Part A: rotates] → [Thread/cam/linkage] → [Part B: translates] → [Output: collets release]
+                  ↑ constrained by: front wall (axial)     ↑ constrained by: guide pins (rotational)
+                                                            ↑ returned by: springs
+```
+
+Every arrow must name the force transmission mechanism. Every part must list its constraints. If an arrow can't be labeled, the mechanism has a gap.
+
+##### Rubric C — Direction Consistency Check (MANDATORY)
+
+For every statement about direction in the document, verify it against the coordinate system:
+
+1. List every directional claim (e.g., "plate moves toward rear wall", "knob pulls cartridge forward", "springs push plate back")
+2. For each claim, convert to axis notation (e.g., "toward rear wall" = "+Y direction")
+3. Check: does the mechanism actually produce motion in that direction? Trace the force path through the constraint chain.
+4. Check: are there contradictions? (e.g., one place says "push" and another says "pull" for the same motion)
+
+Print a table:
+
+```
+| Claim | Direction | Axis | Verified? | Notes |
+```
+
+##### Rubric D — Interface Dimensional Consistency (MANDATORY)
+
+For every interface between two parts (mating threads, bore-to-shaft, pin-to-bushing):
+
+1. List both sides of the interface and their dimensions
+2. Verify clearance is specified and reasonable (not zero, not negative, not absurdly large)
+3. Verify the dimension source (caliper-verified, derived from caliper measurement, or assumed)
+
+```
+| Interface | Part A dimension | Part B dimension | Clearance | Source |
+```
+
+If any interface has mismatched dimensions (e.g., 12mm shaft in a 12mm bore with no clearance), flag it.
+
+##### Rubric E — Assembly Feasibility Check (MANDATORY)
+
+For the assembly sequence:
+
+1. Can each step physically be performed? (Does the part fit through the opening? Can a hand reach the fastener?)
+2. Is the order correct? (Are there steps that must happen before other steps that are listed after them?)
+3. Are there parts that become trapped or inaccessible after a later step?
+4. If the mechanism needs to be serviced (replace a worn part), what is the disassembly sequence?
+
+##### Rubric F — Part Count Minimization (MANDATORY)
+
+For every pair of parts in the mechanism:
+
+1. Are they permanently joined (epoxy, press-fit with no intent to separate)?
+   - If yes → they should be one printed part. Flag if they aren't.
+2. Do they move relative to each other during operation?
+   - If yes → they must be separate parts. Flag if someone tried to combine them.
+3. Are they the same material and could be printed as one piece without support issues?
+   - If yes and they don't move relative to each other → consider combining.
 
 **Quality gate:** After all agents complete, verify:
 - No references to the old/replaced mechanism remain in any updated document
-- The parts.md for each new part specifies: material, envelope, all features with dimensions, all interfaces, print orientation, assembly sequence
-- The architecture document's insertion/removal sequence is physically coherent (trace the force path mentally — does every direction make sense?)
-- Part count is minimized — if two parts are permanently joined, they should be one printed part
+- Rubric A narrative is present and coherent — a reader can understand the mechanism from text alone
+- Rubric B constraint chain has no unlabeled arrows or unconstrained parts
+- Rubric C direction table has no contradictions or unverified claims
+- Rubric D interface table has no zero-clearance or mismatched dimensions
+- Rubric E assembly sequence is physically feasible
+- Rubric F part count is minimized
 
 ---
 
@@ -144,7 +227,6 @@ No quality gate. This is scaffolding.
   python3 tools/svg_adjacency_check.py <file.svg>
   ```
 - Explicit instruction to fix any issues and re-run until clean
-- Reminder that human visual review is essential (agents cannot render SVGs)
 
 **Quality gate:**
 - SVG checking tools report zero TEXT-TEXT collisions
