@@ -77,41 +77,56 @@ See `research/dock-placement.md` for the full triangle geometry analysis, ergono
 
 Four JG PP0408W 1/4" push-to-connect union fittings mount in the cartridge rear wall in a 2x2 grid (40mm horizontal x 28mm vertical center-to-center). The dock carries four bare 1/4" OD hard nylon tube stubs (~30mm protrusion) that the cartridge slides onto during insertion. Collets grip automatically on insertion -- no user action needed to connect. The cartridge is the fitting-bearing side; the dock is passive.
 
+Each fitting has a barbell profile (caliper-verified): 15.10mm OD body ends flanking a 9.31mm OD center body (12.16mm long). The center body press-fits into 9.8mm rear wall pockets; the body ends (15.10mm OD, 12.08mm long each) protrude on both sides of the 4mm rear wall. The collet (release sleeve) at each end is 9.57mm OD, 6.69mm ID, with ~1.3mm axial travel per side.
+
 ### Twist-Release Mechanism
 
-A twist-release mechanism on the cartridge provides one-motion disconnect of all four fluid lines. The mechanism has three printed parts (release plate with integral strut and guide pins, wing knob) plus two metal compression springs.
+A twist-release mechanism on the cartridge provides one-motion disconnect of all four fluid lines. The mechanism consists of two printed PETG parts plus two metal compression springs:
 
-**How it works:** The wing knob sits on the exterior of the front wall (Y=0). It can rotate but cannot translate -- the front wall face provides the axial reaction surface. A Tr12x3 2-start trapezoidal threaded strut (12mm diameter, 6mm lead) passes through the cartridge interior from the knob to the release plate on the dock side of the rear wall (Y > 130). The strut is integral to the release plate -- one continuous printed PETG piece, no joint. Two guide pins (also integral to the plate) slide in bushings in the rear wall, preventing rotation and ensuring parallel travel. Two compression springs on the guide pins push the plate away from the rear wall toward the dock.
+| Part | Description |
+|------|-------------|
+| Release plate (with integral strut + guide pins) | Single PETG piece: 59x47x6mm plate with 4 stepped bores, 12mm-dia Tr12x3 2-start threaded strut (~130mm), 2x 6mm guide pins (15mm) |
+| Wing knob | PETG, 40mm body dia, 45mm wingspan, 25mm deep, internal female Tr12x3 2-start thread (20mm engagement) |
+| Compression springs (x2) | ~8-9mm OD, 6.5mm ID, 12mm free length, ~0.5 N/mm, stainless steel, on guide pins |
 
-**Operating state (default, knob loose):** The springs hold the release plate in the retracted position, 3mm from the rear wall dock face. The plate's stepped bores (15.30mm outer / 9.70mm inner lip / 6.50mm tube clearance) clear the JG body ends and collets. Collets grip the dock tube stubs naturally via their internal spring-steel teeth. The self-locking thread (lead angle ~9 deg < friction angle ~17 deg for PETG-on-PETG) prevents the springs from back-driving the knob. No user action maintains this state.
+**How it works:** The wing knob sits on the exterior of the front wall (Y=0). Its flat rear annular face (40mm OD x 12.5mm ID) bears against the front wall exterior face, preventing +Y translation. A Tr12x3 2-start trapezoidal threaded strut (12.0mm major diameter, 6.0mm lead) passes through the cartridge interior from the knob to the release plate on the dock side of the rear wall (Y > 130). The strut is integral to the release plate -- one continuous printed PETG piece. Two guide pins (also integral to the plate, 6.0mm dia, 15mm long) slide in 6.5mm bushings in the rear wall (0.25mm radial clearance), preventing rotation and ensuring parallel plate travel. Two compression springs on the guide pins push the plate away from the rear wall.
 
-**Release (for removal):** The user twists the wing knob clockwise (from front) 180 degrees. The thread pulls the strut and plate toward the front wall. From the dock side, this advances the plate toward the rear wall. The stepped bores slide over all four JG body ends and the inner lips push the collets inward ~1.3mm, releasing all four tubes simultaneously. The user then pulls the cartridge out by the knob wings, which double as a pull handle.
+**Operating state (default, knob loose):** The springs hold the release plate in the retracted position, 3mm from the rear wall dock face. The plate's stepped bores (15.30mm outer bore / 9.70mm inner lip / 6.50mm tube clearance hole) clear the JG body ends and collets. Collets grip the dock tube stubs via their internal spring-steel teeth. The self-locking thread (lead angle 10.3 deg < friction angle 16.7 deg at mu=0.3 for PETG-on-PETG; pitch diameter 10.5mm) prevents the springs (max 4N total) from back-driving the knob.
+
+**Release (for removal):** The user twists the wing knob clockwise (from front) 180 degrees. The 6.0mm thread lead converts 180 degrees to 3.0mm of strut translation toward the front wall (-Y). From the dock side, the plate advances toward the rear wall. The stepped bores slide over all four JG body ends (15.10mm into 15.30mm outer bore, 0.10mm radial clearance) and the inner lips (9.70mm bore, 0.065mm radial clearance to 9.57mm collet OD) push the collets inward ~1.3mm, releasing all four tubes. The user then pulls the cartridge out by the knob wings.
 
 **Constraint chain:**
 
 ```
-[User hand: twist knob CW from front]
-    │ Tr12x3 2-start thread (180 deg → 3mm travel)
-    ▼
-[Wing knob: ROTATES, constrained axially by front wall]
-    │ thread engagement
-    ▼
-[Strut + plate: TRANSLATES along Y, constrained rotationally by 2x guide pins in bushings]
-    │ 4x stepped bores contact collet end faces
-    ▼
-[Collets pushed inward → tubes release]
+[User hand: twist torque on wing knob, ~22.5mm moment arm]
+    | Tr12x3 2-start thread (6.0mm lead, 180 deg -> 3.0mm travel)
+    | mechanical advantage: 2*pi*22.5 / 6.0 = 23.6:1
+    v
+[Wing knob: ROTATES about Y, constrained axially by front wall face (+Y) and thread (-Y)]
+    | thread engagement (20mm length, 12.0mm major dia, 0.3mm radial clearance)
+    v
+[Strut + plate: TRANSLATES along Y, constrained rotationally by 2x 6mm pins in 6.5mm bushings]
+    | 4x stepped bores contact collet end faces
+    v
+[Collets pushed inward ~1.3mm -> tubes release]
 
-Return: 2x compression springs on guide pins push plate back to retracted position when knob is loosened
+Return: 2x compression springs (0.5 N/mm each, 1-4N total over 3mm stroke)
+Self-locking: lead angle 10.3 deg < friction angle 16.7 deg (mu=0.3)
 ```
+
+**Known design gaps (see parts.md files for full details):**
+- **No rotation limit:** Nothing currently stops the knob from rotating past 180 degrees. A stop pin on the knob rear face riding in a 180-degree arc slot on the front wall face is needed.
+- **No tactile detent:** The user has no click or snap at the locked/unlocked positions. A detent mechanism at the arc slot endpoints is needed for dark-cabinet usability.
+- **No assembly orientation keying:** The 2-start thread allows two assembly orientations (0 and 180 degrees). If rotation stops are added, the knob must be installed in the correct orientation.
 
 | Aspect | Detail |
 |--------|--------|
-| Fittings | 4x JG PP0408W 1/4" push-to-connect unions, cartridge-mounted |
+| Fittings | 4x JG PP0408W 1/4" push-to-connect unions (barbell profile: 15.10mm body ends, 9.31mm center body), cartridge-mounted |
 | Fitting grid | 2x2, 40mm horizontal x 28mm vertical center-to-center |
-| Release mechanism | 12mm PETG threaded strut (Tr12x3 2-start trapezoidal, integral to release plate) + wing knob + 2x return springs on guide pins |
+| Release mechanism | 12mm PETG threaded strut (Tr12x3 2-start, 6.0mm lead, integral to release plate) + wing knob + 2x return springs on guide pins |
 | Connect UX | Slide cartridge in -- JG collets grip dock tube stubs automatically. No knob action needed. |
-| Disconnect UX | Twist knob CW 180 deg to release collets, pull cartridge out by knob wings |
-| Retention | JG collets provide ~20N grip (4 fittings). Self-locking thread prevents accidental release under spring load. |
+| Disconnect UX | Twist knob CW 180 deg to release collets, pull cartridge out by knob wings. **DESIGN GAP: no tactile endpoint at 180 deg yet.** |
+| Retention | JG collets provide ~20N grip (4 fittings x ~5N each). Self-locking thread (lead angle 10.3 deg < friction angle 16.7 deg) prevents accidental release. |
 | Food safety | NSF 61 (potable water). PETG base resin is FDA-listed; stainless nozzle recommended for food-contact parts. |
 
 **Why drips are not a concern:** The firmware enforces a mandatory clean cycle before the cartridge can be unlocked. After the clean cycle, the fluid lines contain only water or air -- no flavor concentrate remains in the cartridge or dock fittings. A few drops of water on the enclosure floor during a swap is inconsequential.
@@ -163,21 +178,21 @@ See `research/guide-alignment.md` for the full mechanism family survey, toleranc
 ### Insertion
 
 1. User opens the front panel (or accesses the slot directly if no panel door).
-2. User rests the cartridge on the cabinet floor, roughly aimed at the slot. The twist-release knob is in the loose position (default) -- springs hold the release plate retracted, stepped bores clear the fitting area.
-3. The chamfered entrance captures the cartridge and funnels it onto the floor rails.
-4. The cartridge slides ~130mm along the rails. Side guides prevent lateral wobble.
-5. At full insertion depth, the dock's bare tube stubs pass through the release plate's tube clearance holes and enter the cartridge's four JG fittings. Collets grip automatically -- no user action needed. The ~20N collet retention force secures the cartridge.
-6. Pogo pins on the dock ceiling make contact with pads on the cartridge top face. Wipe action cleans the contact surfaces.
+2. User rests the cartridge on the cabinet floor, roughly aimed at the slot. The twist-release knob is in the loose/unlocked position (default). The springs (2x 0.5 N/mm, compressed ~1mm) hold the release plate retracted 3mm from the rear wall dock face. The plate's stepped bores clear the JG body ends and collets.
+3. The 5mm x 45-degree chamfered entrance on the shell's four front edges captures the cartridge and funnels it onto the floor rails even with 10-15mm of initial misalignment.
+4. The cartridge slides ~130mm along the floor rails (2mm tall x 3mm wide). Side guides (1.5mm wide, 0.3-0.5mm clearance per side) prevent lateral wobble.
+5. At full insertion depth, the dock's bare 1/4" OD tube stubs pass through the release plate's 6.50mm tube clearance holes (0.20mm diametral clearance to 6.30mm tubes) and enter the cartridge's four JG fittings. Collets grip automatically via spring-steel teeth -- no user action needed. The ~20N total collet retention force (4 fittings x ~5N each) secures the cartridge.
+6. Pogo pins (P75/P100 series, 1-2mm stroke) on the dock ceiling make contact with 8x5mm nickel-plated brass pads on the cartridge top face. Wipe action from the slide-in motion cleans the contact surfaces.
 7. Done. No knob action required for insertion. The JG collets provide all retention.
 
 ### Removal
 
 **Prerequisite:** Firmware enforces a mandatory clean cycle before the cartridge can be removed. After the clean cycle, all fluid lines contain only water or air.
 
-1. User twists the wing knob clockwise (from front) 180 degrees. The Tr12x3 2-start thread pulls the release plate toward the rear wall, and the stepped bores push all four JG collets inward simultaneously, releasing the dock tube stubs. Increasing spring resistance provides tactile feedback during the twist; the thread running out of engagement provides a clear tactile endpoint.
-2. User pulls the cartridge forward by the knob wings (which double as a pull handle), sliding it along the rails and out of the slot.
-3. Pogo pins retract into the dock ceiling as the cartridge withdraws.
-4. Once the cartridge is free, the user can release the knob. The springs push the plate back to the retracted position, ready for the next insertion.
+1. User grips the wing knob wings (45mm wingspan) with thumb and forefinger and twists clockwise (from front) 180 degrees. The Tr12x3 2-start thread (6.0mm lead) converts the half turn into 3.0mm of plate travel toward the rear wall. The plate's stepped bores (15.30mm outer, 9.70mm inner lip) slide over all four JG body ends and push collets inward ~1.3mm, releasing the dock tube stubs. Spring resistance increases from ~1N to ~4N total over the stroke, providing progressive tactile feedback. **DESIGN GAP: No hard stop or detent at 180 degrees yet -- the user currently has no distinct tactile endpoint (see section 3 design gaps).**
+2. User pulls the cartridge forward by the knob wings (which double as a pull handle), sliding it along the rails and out of the slot. The ~4N spring force plus friction provides slight resistance to accidental extraction before full collet release.
+3. Pogo pins retract into the dock ceiling (1-2mm spring stroke) as the cartridge withdraws.
+4. Once the cartridge is free, the user can release the knob. The springs push the plate back to the retracted position (3mm from rear wall), ready for the next insertion. The self-locking thread (lead angle 10.3 deg < friction angle 16.7 deg) keeps the knob in whatever position the user leaves it.
 
 Total swap time target: under 60 seconds, one-handed, in a dark cabinet.
 
@@ -195,15 +210,27 @@ Pump mounting uses the Kamoer bracket (2-4x M3 holes, exact pattern to be measur
 
 ---
 
-## 8. Open Questions
+## 8. Open Questions and Design Gaps
 
-1. **Exact pump mounting hole pattern** — must be measured from the physical KPHM400 pumps with calipers, or obtained from a GrabCAD STEP model.
-2. **Print orientation strategy** — shell and tray print orientation need prototyping (wall thickness is 4mm solid, no ribs).
-3. **Cartridge ID pin** — whether firmware will support identifying cartridge type/revision via a resistor divider on a 4th pogo contact. Not needed for MVP.
-4. **Vibration isolation** — rigid mount first; add rubber grommets if noise is objectionable in practice.
-5. **Thread clearance validation** — print a Tr12x3 2-start test pair (20mm bolt + nut, 15-minute print) to dial in radial clearance for the specific PETG filament and profile. Start with 0.3mm radial clearance (0.6mm on diameter).
-6. **Integral strut print quality** — the release plate + integral strut prints as one piece (plate flat on build plate, strut vertical). Validate that the strut prints straight and threads engage cleanly. The 15-minute Tr12x3 test print validates thread quality before committing to the full part.
-7. **Printed guide pin wear** — 6mm PETG guide pins sliding in 6.5mm PETG bushings. Monitor for slop or binding over cycle testing. Sand pins with 400+ grit and apply silicone grease if needed.
+### Design Gaps (from twist-release mechanism)
+
+1. **Rotation limit** — nothing currently stops the knob from rotating past 180 degrees. Need a stop pin on the knob rear face riding in a 180-degree arc slot on the front wall face. Without this, the user has no hard endpoints and risks over-rotation (thread stripping or plate jamming).
+2. **Tactile detent at locked/unlocked positions** — the user in a dark cabinet has no click or snap to confirm mechanism state. Need a detent (spring-loaded ball, ramped bump) at the arc slot endpoints.
+3. **Assembly orientation keying** — the 2-start thread allows two assembly orientations (0 or 180 degrees). If rotation stops are added, the knob must be installed correctly. Need a visual alignment mark or asymmetric feature.
+4. **Wing knob grip extent** — the wings extend only 2.5mm beyond the 40mm body, providing minimal grip advantage. Consider increasing wingspan to 55-60mm or reducing body diameter.
+5. **Grease vs. self-locking** — silicone grease on threads would defeat self-locking (lead angle 10.3 deg exceeds friction angle at mu<0.18). Do not grease threads unless a positive rotation stop provides independent locking.
+6. **Bushing engagement length** — rear wall is only 4mm thick, providing short bearing length for guide pins. Extending bushings as bosses through the spring pockets would provide 10-12mm of bearing.
+
+### Validation Open Questions
+
+7. **Exact pump mounting hole pattern** — must be measured from the physical KPHM400 pumps with calipers, or obtained from a GrabCAD STEP model.
+8. **Print orientation strategy** — shell and tray print orientation need prototyping (wall thickness is 4mm solid, no ribs).
+9. **Cartridge ID pin** — whether firmware will support identifying cartridge type/revision via a resistor divider on a 4th pogo contact. Not needed for MVP.
+10. **Vibration isolation** — rigid mount first; add rubber grommets if noise is objectionable in practice.
+11. **Thread clearance validation** — print a Tr12x3 2-start test pair (20mm bolt + nut, 15-minute print) to dial in radial clearance for the specific PETG filament and profile. Start with 0.3mm radial clearance (0.6mm on diameter).
+12. **Integral strut print quality** — the release plate + integral strut prints as one piece (plate flat on build plate, strut vertical). Validate that the strut prints straight and threads engage cleanly.
+13. **Printed guide pin wear** — 6mm PETG guide pins sliding in 6.5mm PETG bushings. Monitor for slop or binding over cycle testing. Sand pins with 400+ grit and apply silicone grease to pins (not threads) if needed.
+14. **Stepped bore engagement timing** — the exact JG body end protrusion from the rear wall dock face depends on fitting seating depth. Must verify with physical fitting that the outer bore engages the body end within the 3mm plate travel.
 
 ---
 

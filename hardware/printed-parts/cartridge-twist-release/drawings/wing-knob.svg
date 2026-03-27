@@ -1,38 +1,36 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1300 900" width="1300" height="900" font-family="Arial, Helvetica, sans-serif">
-  <title>Wing Knob — Three-View Orthographic + Section</title>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 780" width="1200" height="780" font-family="Arial, Helvetica, sans-serif">
+  <title>Wing Knob — Engineering Drawing</title>
+  <style>
+    .outline { fill: none; stroke: #000; stroke-width: 1.5; }
+    .thin { fill: none; stroke: #000; stroke-width: 0.8; }
+    .hidden { fill: none; stroke: #000; stroke-width: 0.8; stroke-dasharray: 2,2; }
+    .center { fill: none; stroke: #000; stroke-width: 0.4; stroke-dasharray: 12,3,2,3; }
+    .dim { fill: none; stroke: #333; stroke-width: 0.5; }
+    .ext { fill: none; stroke: #333; stroke-width: 0.3; }
+    .dim-text { font-size: 10px; fill: #333; text-anchor: middle; }
+    .dim-text-s { font-size: 9px; fill: #333; text-anchor: middle; }
+    .dim-text-left { font-size: 10px; fill: #333; text-anchor: start; }
+    .dim-text-right { font-size: 10px; fill: #333; text-anchor: end; }
+    .label { font-size: 11px; fill: #000; font-weight: bold; text-anchor: middle; }
+    .note { font-size: 9px; fill: #555; }
+    .note-center { font-size: 8px; fill: #555; text-anchor: middle; }
+    .title-text { font-size: 16px; fill: #000; font-weight: bold; text-anchor: middle; }
+    .subtitle { font-size: 11px; fill: #444; text-anchor: middle; }
+    .arrow { fill: #333; stroke: none; }
+    .section-fill { fill: #e8e8e8; stroke: none; }
+    .section-outline { fill: none; stroke: #000; stroke-width: 1.5; }
+    .section-hatch { fill: none; stroke: #999; stroke-width: 0.3; }
+    .detail-frame { fill: #fff; stroke: #000; stroke-width: 1.0; }
+  </style>
 
   <defs>
-    <style>
-      .outline { fill: none; stroke: #000; stroke-width: 1.5; }
-      .hidden { fill: none; stroke: #000; stroke-width: 0.8; stroke-dasharray: 6,3; }
-      .center { fill: none; stroke: #000; stroke-width: 0.5; stroke-dasharray: 14,3,3,3; }
-      .dim { fill: none; stroke: #333; stroke-width: 0.7; }
-      .dimtext { font-size: 11px; fill: #333; text-anchor: middle; }
-      .label { font-size: 12px; fill: #000; font-weight: bold; }
-      .note { font-size: 10px; fill: #333; }
-      .section-hatch { fill: none; stroke: #666; stroke-width: 0.4; }
-      .section-fill { fill: #e8e8e8; stroke: #000; stroke-width: 1.5; }
-      .section-outline { fill: none; stroke: #000; stroke-width: 1.5; }
-      .section-bore { fill: #fff; stroke: #000; stroke-width: 1.5; }
-      .cut-plane { fill: none; stroke: #000; stroke-width: 1.2; stroke-dasharray: 18,4,4,4,4,4; }
-      .ext { fill: none; stroke: #333; stroke-width: 0.5; }
-      .arrowhead { fill: #333; stroke: none; }
-      .thread-indicator { fill: none; stroke: #000; stroke-width: 0.6; stroke-dasharray: 2,1.5; }
-    </style>
-    <marker id="arr" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto">
-      <path d="M0,0 L8,3 L0,6 Z" class="arrowhead"/>
+    <marker id="arrow-start" markerWidth="8" markerHeight="6" refX="0" refY="3" orient="auto">
+      <polygon points="8,0 0,3 8,6" class="arrow"/>
     </marker>
-    <marker id="arr-rev" markerWidth="8" markerHeight="6" refX="0" refY="3" orient="auto">
-      <path d="M8,0 L0,3 L8,6 Z" class="arrowhead"/>
+    <marker id="arrow-end" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto">
+      <polygon points="0,0 8,3 0,6" class="arrow"/>
     </marker>
   </defs>
-
-  <!-- Background -->
-  <rect width="1300" height="900" fill="#fff"/>
-
-  <!-- Title block -->
-  <text x="650" y="30" text-anchor="middle" font-size="18" font-weight="bold" fill="#000">Wing Knob — Orthographic Drawing</text>
-  <text x="650" y="48" text-anchor="middle" font-size="11" fill="#555">Material: PETG | Scale: 5 px/mm | Dims in mm | Internal Tr12x3 2-start trapezoidal thread</text>
 
   <!--
     AXIS LOOKUP TABLE (Rubric 1):
@@ -41,307 +39,351 @@
     Side view     | -X            | Y (depth)       | Z (height)
     Section A-A   | -X            | Y (depth)       | Z (height)
 
-    Wing knob dimensions:
-    - Body: 40mm diameter cylinder, 25mm deep (along Y)
-    - Wingspan: 70mm tip-to-tip (along X)
-    - Wing width (Z): 10mm (5mm radius semicircle at tip)
-    - Bore: 12.3mm clearance diameter (along Y axis)
-    - Thread: Tr12x3 2-start, 20mm engagement
-    - Smooth bore: 5mm depth at entry
-    - Entry chamfer: 1.0mm x 45 deg
+    FEATURE CHECKLIST:
+    1. Body cylinder (along Y, 40mm dia, 25mm deep):
+       Front view: circle 40mm dia.  Side view: rect 25W x 40H.  CHECK
+    2. Wings (extend along X, 10mm thick along Y):
+       Front view: rectangular extensions left/right beyond body circle.
+       Side view: rect 10W x wing-height, offset at front face.  CHECK
+    3. Internal bore (along Y, 12.6mm minor dia):
+       Front view: circle 12.6mm dia.  Side view: hidden parallel lines.  CHECK
+    4. Thread region (along Y, 15.6mm major dia, 20mm engagement):
+       Front view: hidden circle 15.6mm dia.  Side view: hidden lines.  CHECK
+    5. Flat rear annular face (40mm OD x 12.5mm ID):
+       Front view: not visible (rear face).  Side view: visible edge at rear.  CHECK
 
-    At 5px/mm:
-    - Body diameter: 200px
-    - Wingspan: 350px
-    - Body depth: 125px
-    - Bore diameter: 61.5px (radius 30.75px)
-    - Wing width: 50px
+    WING KNOB DIMENSIONS:
+      Body: 40mm dia cylinder, 25mm deep (Y-axis)
+      Wings: 45mm tip-to-tip (2.5mm beyond body each side), 10mm Y-depth
+      Wing profile: rounded rectangular lobes, R5 tip radius
+      Internal bore minor dia: 12.6mm (smooth section + thread minor)
+      Female thread major dia (root): 15.6mm
+      Thread engagement: 20mm (from rear face inward)
+      Smooth bore: 5mm (from front face to thread start)
+      Entry chamfer: 1mm x 45 deg at front bore opening
+      Rear annular face: 40mm OD, 12.5mm ID
 
-    Per-feature checklist:
-    1. Body cylinder (axis along Y, 40mm dia)
-       Front view: CIRCLE 200px dia ✓
-       Side view: RECT 125w x 200h px ✓
-    2. Wings (extend along X, 10mm height in Z, 25mm depth along Y)
-       Front view: rectangles extending L/R from body circle ✓
-       Side view: hidden behind body (same depth), narrower in Z ✓
-    3. Bore (axis along Y, 12.3mm dia)
-       Front view: CIRCLE 61.5px dia ✓
-       Side view: RECT (hidden lines) ✓
-    4. Chamfer (at bore entry, Y=0 face)
-       Front view: circle at bore entry edge ✓
-       Side view: angled lines at bore opening ✓
+    FRONT VIEW (along -Y, looking at front face):
+      Scale: 5 px/mm
+      Center: Fx=200, Fz=310
+      Body circle: r=20mm*5=100px
+      Wing tips at X=+/-22.5mm => +/-112.5px from center
+      Wing half-height = 5mm => 25px from center
+      Bore circle: r=6.3mm*5=31.5px
+      Thread root circle (hidden): r=7.8mm*5=39px
+
+    SIDE VIEW (along -X):
+      Scale: 5 px/mm
+      Z aligned with front view: center Z at 310
+      Knob front face (Y=0): Sx=530
+      Knob rear face (Y=25mm): 530+125=655
+      Body top: 310-100=210. Body bottom: 310+100=410
+      Wing Y-extent: 530 to 530+50=580 (10mm*5)
+      Wing top: 310-112.5=197.5. Wing bottom: 310+112.5=422.5
+
+    SECTION A-A (cut through Y-Z centerline, looking along -X):
+      Scale: 6 px/mm
+      Center Z at 640
+      Knob front face: Sx2=120. Rear face: 120+150=270
+      Body top: 640-120=520. Body bottom: 640+120=760
+      Bore (12.6mm): +/-6.3*6=37.8px => top=602.2, bottom=677.8
+      Thread root (15.6mm): +/-7.8*6=46.8px => top=593.2, bottom=686.8
+      Thread region: 270 inward 120px (20mm*6) to x=150
+      Smooth bore: x=120 to 150 (5mm*6=30px)
+      Chamfer: 1mm*6=6px at front face
   -->
+
+  <!-- Title block -->
+  <text x="600" y="28" class="title-text">Wing Knob</text>
+  <text x="600" y="44" class="subtitle">40mm body dia x 25mm deep — PETG — Qty 1 — Internal Tr12x3 2-start trapezoidal thread</text>
+  <text x="600" y="58" class="subtitle">Dimensions in mm</text>
+  <line x1="30" y1="65" x2="1170" y2="65" stroke="#999" stroke-width="0.5"/>
 
   <!-- ============================================================ -->
   <!-- FRONT VIEW (looking along -Y): X horizontal, Z vertical      -->
-  <!-- Body center at (0,0) in part coords = center of view         -->
-  <!-- SVG Y increases downward; Z increases upward in part          -->
+  <!-- Scale: 5 px/mm   Center: (200, 310)                          -->
   <!-- ============================================================ -->
-  <text x="270" y="78" class="label" text-anchor="middle">FRONT VIEW</text>
-  <text x="270" y="92" class="note" text-anchor="middle">(looking along bore axis, -Y)</text>
 
-  <!-- Front view group: body center at SVG (270, 300) -->
-  <!-- Body: 40mm dia = 200px dia, center at (270, 300) -->
-  <!-- Wings: 15mm extension each side = 75px, wing is 10mm tall = 50px in Z -->
-  <!-- Total wingspan: 70mm = 350px, from x=95 to x=445 -->
-  <g id="front-view" transform="translate(270, 300)">
-    <!-- Body cylinder outline (circle, 40mm dia = r=100px) -->
-    <circle cx="0" cy="0" r="100" class="outline"/>
+  <text x="200" y="88" class="label">FRONT VIEW</text>
+  <text x="200" y="99" class="note-center">(looking along -Y, front face, 5 px/mm)</text>
 
-    <!-- Left wing: extends from body left edge (-100px) to wing tip (-175px) -->
-    <!-- Wing is 10mm (50px) tall in Z, centered on bore axis -->
-    <!-- Wing tip: 5mm radius semicircle = 25px radius -->
-    <path d="M -100,-25 L -150,-25 A 25,25 0 0,0 -150,25 L -100,25" class="outline"/>
+  <!-- Body circle: 40mm dia = r=100px -->
+  <circle cx="200" cy="310" r="100" class="outline"/>
 
-    <!-- Right wing: extends from body right edge (100px) to wing tip (175px) -->
-    <path d="M 100,-25 L 150,-25 A 25,25 0 0,1 150,25 L 100,25" class="outline"/>
+  <!-- Wing extensions — rounded rectangular lobes beyond body circle -->
+  <!-- Left wing: body edge at x=100, wing tip at 200-22.5*5=87.5 -->
+  <!-- Wing half-height: 5mm*5=25px. Top: 310-25=285, Bottom: 310+25=335 -->
+  <!-- Wing tip radius: R5mm*5=25px — but the wing tab is only 12.5px wide so R is limited -->
+  <!-- With 2.5mm radial extent and 10mm height, tip radius = 2.5mm (full semicircle at tip) -->
+  <!-- Wing tip R = 2.5mm*5 = 12.5px (semicircle connecting top and bottom wing edges) -->
+  <path d="M 100,285 L 100,335" class="outline" fill="none"/>
+  <path d="M 100,285 L 87.5,285 A 12.5,12.5 0 0,0 87.5,335 L 100,335" class="outline" fill="none"/>
 
-    <!-- Bore circle (12.3mm dia = 61.5px dia = r=30.75px) - visible on front face -->
-    <circle cx="0" cy="0" r="30.75" class="outline"/>
+  <!-- Right wing: mirror -->
+  <path d="M 300,285 L 300,335" class="outline" fill="none"/>
+  <path d="M 300,285 L 312.5,285 A 12.5,12.5 0 0,1 312.5,335 L 300,335" class="outline" fill="none"/>
 
-    <!-- Chamfer circle at bore entry (12.3 + 2*1.0 = 14.3mm = 71.5px dia = r=35.75px) -->
-    <!-- This is the outer edge of the 1mm x 45deg chamfer on the front face -->
-    <circle cx="0" cy="0" r="35.75" class="outline"/>
+  <!-- Internal bore circle (visible at front face): 12.6mm dia = r=31.5px -->
+  <circle cx="200" cy="310" r="31.5" class="thin"/>
 
-    <!-- Center lines -->
-    <line x1="-120" y1="0" x2="120" y2="0" class="center"/>
-    <line x1="0" y1="-120" x2="0" y2="120" class="center"/>
+  <!-- Thread root circle (hidden — behind smooth bore, inside body): 15.6mm dia = r=39px -->
+  <circle cx="200" cy="310" r="39" class="hidden"/>
 
-    <!-- Section cut line A-A (horizontal through center, along X) -->
-    <line x1="-195" y1="0" x2="195" y2="0" class="cut-plane"/>
-    <text x="-207" y="4" font-size="14" font-weight="bold" fill="#000">A</text>
-    <text x="202" y="4" font-size="14" font-weight="bold" fill="#000">A</text>
+  <!-- Centerlines -->
+  <line x1="200" y1="175" x2="200" y2="445" class="center"/>
+  <line x1="65" y1="310" x2="335" y2="310" class="center"/>
 
-    <!-- ===== FRONT VIEW DIMENSIONS ===== -->
+  <!-- Section cut line A-A -->
+  <line x1="60" y1="310" x2="80" y2="310" stroke="#000" stroke-width="1.2"/>
+  <line x1="320" y1="310" x2="340" y2="310" stroke="#000" stroke-width="1.2"/>
+  <text x="55" y="314" font-size="12" fill="#000" font-weight="bold" text-anchor="end">A</text>
+  <text x="345" y="314" font-size="12" fill="#000" font-weight="bold" text-anchor="start">A</text>
 
-    <!-- Body diameter: 40mm (vertical, left side) -->
-    <line x1="-100" y1="-100" x2="-140" y2="-100" class="ext"/>
-    <line x1="-100" y1="100" x2="-140" y2="100" class="ext"/>
-    <line x1="-130" y1="-100" x2="-130" y2="100" class="dim" marker-start="url(#arr-rev)" marker-end="url(#arr)"/>
-    <text x="-155" y="4" class="dimtext" transform="rotate(-90,-155,4)">40</text>
+  <!-- FRONT VIEW DIMENSIONS -->
 
-    <!-- Wingspan: 70mm (horizontal, above) -->
-    <line x1="-175" y1="-25" x2="-175" y2="-155" class="ext"/>
-    <line x1="175" y1="-25" x2="175" y2="-155" class="ext"/>
-    <line x1="-175" y1="-145" x2="175" y2="-145" class="dim" marker-start="url(#arr-rev)" marker-end="url(#arr)"/>
-    <text x="0" y="-150" class="dimtext">70</text>
+  <!-- Body diameter: 40mm — vertical dim on left side -->
+  <line x1="68" y1="210" x2="78" y2="210" class="ext"/>
+  <line x1="68" y1="410" x2="78" y2="410" class="ext"/>
+  <line x1="73" y1="210" x2="73" y2="300" class="dim" marker-start="url(#arrow-start)"/>
+  <line x1="73" y1="410" x2="73" y2="320" class="dim" marker-end="url(#arrow-end)"/>
+  <text x="45" y="314" class="dim-text" transform="rotate(-90,45,314)">⌀40</text>
 
-    <!-- Bore diameter: 12.3mm (at bore, with leader) -->
-    <line x1="30.75" y1="-30.75" x2="85" y2="-80" class="dim"/>
-    <text x="88" y="-82" class="dimtext" text-anchor="start">&#x2300;12.3</text>
+  <!-- Total wingspan: 45mm — horizontal dim below -->
+  <line x1="87.5" y1="340" x2="87.5" y2="460" class="ext"/>
+  <line x1="312.5" y1="340" x2="312.5" y2="460" class="ext"/>
+  <line x1="87.5" y1="450" x2="190" y2="450" class="dim" marker-start="url(#arrow-start)"/>
+  <line x1="312.5" y1="450" x2="210" y2="450" class="dim" marker-end="url(#arrow-end)"/>
+  <text x="200" y="447" class="dim-text">45</text>
 
-    <!-- Chamfer callout -->
-    <line x1="35.75" y1="30" x2="90" y2="75" class="dim"/>
-    <text x="93" y="73" class="dimtext" text-anchor="start">1.0 x 45&#xB0; chamfer</text>
+  <!-- Bore diameter: 12.6mm — leader from bore circle -->
+  <line x1="222" y1="288" x2="270" y2="245" class="dim"/>
+  <text x="272" y="243" class="dim-text-left" font-size="9">⌀12.6 bore</text>
 
-    <!-- Wing height: 10mm -->
-    <line x1="175" y1="-25" x2="200" y2="-25" class="ext"/>
-    <line x1="175" y1="25" x2="200" y2="25" class="ext"/>
-    <line x1="192" y1="-25" x2="192" y2="25" class="dim" marker-start="url(#arr-rev)" marker-end="url(#arr)"/>
-    <text x="210" y="4" class="dimtext">10</text>
+  <!-- Thread root diameter: 15.6mm — leader from hidden circle -->
+  <line x1="227" y1="283" x2="270" y2="230" class="dim"/>
+  <text x="272" y="228" class="dim-text-left" font-size="9">⌀15.6 thread root (hidden)</text>
 
-    <!-- Wing tip radius: R5 -->
-    <line x1="-150" y1="25" x2="-175" y2="55" class="dim"/>
-    <text x="-178" y="68" class="dimtext">R5</text>
-  </g>
+  <!-- Wing tip radius -->
+  <line x1="87.5" y1="310" x2="55" y2="275" class="dim"/>
+  <text x="45" y="270" class="dim-text-s" text-anchor="end">R2.5</text>
 
   <!-- ============================================================ -->
   <!-- SIDE VIEW (looking along -X): Y horizontal, Z vertical       -->
-  <!-- Shows knob depth (25mm), wing profile, bore as hidden lines  -->
+  <!-- Scale: 5 px/mm                                                -->
+  <!-- Front face: Sx=530. Rear face: 655                           -->
+  <!-- Body center Z: 310 (aligned with front view)                 -->
   <!-- ============================================================ -->
-  <text x="720" y="78" class="label" text-anchor="middle">SIDE VIEW</text>
-  <text x="720" y="92" class="note" text-anchor="middle">(looking along -X)</text>
 
-  <!-- Side view: body is 25mm deep (Y) x 40mm tall (Z) = 125w x 200h px -->
-  <!-- Body center at SVG (720, 300) to share Z range with front view -->
-  <!-- Y=0 (front face, knob side) on LEFT, Y=25 (rear/thread entry) on RIGHT -->
-  <g id="side-view" transform="translate(720, 300)">
-    <!-- Body rectangle: 125w x 200h, centered vertically -->
-    <rect x="-62.5" y="-100" width="125" height="200" class="outline"/>
+  <text x="592" y="88" class="label">SIDE VIEW</text>
+  <text x="592" y="99" class="note-center">(looking along -X, 5 px/mm)</text>
 
-    <!-- Wing profile (wings are behind body in this view, same depth) -->
-    <!-- Wings are 10mm (50px) tall in Z, centered -->
-    <!-- They are same depth as body so we see them as lines at wing edges -->
-    <!-- Top wing edge at Z center - 5mm = -25px, bottom at +25px -->
-    <!-- These edges are visible where they extend beyond the body circle projection -->
-    <!-- Actually in side view, wings have same depth as body so they overlap the body rect -->
-    <!-- We just see the body rectangle; wings are hidden behind it -->
-    <!-- But wing top/bottom edges at Z=+-25px are INSIDE the body outline (body goes +-100px) -->
-    <!-- So wings contribute no new visible edges in side view. The body rect is the full outline. -->
+  <!-- Body outline: 25mm wide x 40mm tall = 125px x 200px -->
+  <rect x="530" y="210" width="125" height="200" class="outline"/>
 
-    <!-- Bore (hidden lines): 12.3mm dia = 61.5px dia, as two horizontal lines -->
-    <!-- Bore runs full depth of knob (25mm), top at -30.75, bottom at +30.75 -->
-    <line x1="-62.5" y1="-30.75" x2="62.5" y2="-30.75" class="hidden"/>
-    <line x1="-62.5" y1="30.75" x2="62.5" y2="30.75" class="hidden"/>
+  <!-- Wing profiles (extend above and below body rectangle) -->
+  <!-- Wings are 10mm deep along Y from front face => 50px from x=530 to 580 -->
+  <!-- Wings extend 2.5mm beyond body radius = 12.5px beyond body top/bottom edges -->
+  <!-- Top wing: from y=210 upward to y=210-12.5=197.5 -->
+  <rect x="530" y="197.5" width="50" height="12.5" class="outline"/>
+  <!-- Bottom wing: from y=410 downward to y=410+12.5=422.5 -->
+  <rect x="530" y="410" width="50" height="12.5" class="outline"/>
 
-    <!-- Center lines -->
-    <line x1="-80" y1="0" x2="80" y2="0" class="center"/>
-    <line x1="0" y1="-120" x2="0" y2="120" class="center"/>
+  <!-- Internal bore (hidden lines): 12.6mm dia => +/-31.5px from center -->
+  <line x1="530" y1="278.5" x2="655" y2="278.5" class="hidden"/>
+  <line x1="530" y1="341.5" x2="655" y2="341.5" class="hidden"/>
 
-    <!-- ===== SIDE VIEW DIMENSIONS ===== -->
+  <!-- Thread root lines (hidden): 15.6mm dia => +/-39px from center -->
+  <!-- Thread region: from rear face (655) inward 20mm*5=100px to x=555 -->
+  <line x1="555" y1="271" x2="655" y2="271" class="hidden"/>
+  <line x1="555" y1="349" x2="655" y2="349" class="hidden"/>
 
-    <!-- Knob depth: 25mm (horizontal, above) -->
-    <line x1="-62.5" y1="-100" x2="-62.5" y2="-135" class="ext"/>
-    <line x1="62.5" y1="-100" x2="62.5" y2="-135" class="ext"/>
-    <line x1="-62.5" y1="-125" x2="62.5" y2="-125" class="dim" marker-start="url(#arr-rev)" marker-end="url(#arr)"/>
-    <text x="0" y="-130" class="dimtext">25</text>
+  <!-- Centerline -->
+  <line x1="515" y1="310" x2="670" y2="310" class="center"/>
 
-    <!-- Body diameter: 40mm (vertical, right side) -->
-    <line x1="62.5" y1="-100" x2="97.5" y2="-100" class="ext"/>
-    <line x1="62.5" y1="100" x2="97.5" y2="100" class="ext"/>
-    <line x1="87.5" y1="-100" x2="87.5" y2="100" class="dim" marker-start="url(#arr-rev)" marker-end="url(#arr)"/>
-    <text x="107" y="4" class="dimtext" transform="rotate(-90,107,4)">40</text>
+  <!-- SIDE VIEW DIMENSIONS -->
+
+  <!-- Knob depth: 25mm — horizontal dim above -->
+  <line x1="530" y1="197.5" x2="530" y2="170" class="ext"/>
+  <line x1="655" y1="210" x2="655" y2="170" class="ext"/>
+  <line x1="530" y1="175" x2="585" y2="175" class="dim" marker-start="url(#arrow-start)"/>
+  <line x1="655" y1="175" x2="600" y2="175" class="dim" marker-end="url(#arrow-end)"/>
+  <text x="592" y="172" class="dim-text">25</text>
+
+  <!-- Wing Y-depth: 10mm — horizontal dim at bottom -->
+  <line x1="530" y1="422.5" x2="530" y2="455" class="ext"/>
+  <line x1="580" y1="422.5" x2="580" y2="455" class="ext"/>
+  <line x1="530" y1="448" x2="548" y2="448" class="dim" marker-start="url(#arrow-start)"/>
+  <line x1="580" y1="448" x2="562" y2="448" class="dim" marker-end="url(#arrow-end)"/>
+  <text x="555" y="445" class="dim-text">10</text>
+
+  <!-- Thread engagement: 20mm from rear face -->
+  <line x1="555" y1="349" x2="555" y2="380" class="ext"/>
+  <line x1="655" y1="349" x2="655" y2="380" class="ext"/>
+  <line x1="555" y1="375" x2="598" y2="375" class="dim" marker-start="url(#arrow-start)"/>
+  <line x1="655" y1="375" x2="612" y2="375" class="dim" marker-end="url(#arrow-end)"/>
+  <text x="605" y="372" class="dim-text">20</text>
+  <text x="605" y="420" class="note-center">thread engagement</text>
+
+  <!-- Smooth bore: 5mm from front face -->
+  <line x1="530" y1="355" x2="530" y2="400" class="ext"/>
+  <line x1="555" y1="380" x2="555" y2="400" class="ext"/>
+  <line x1="530" y1="396" x2="537" y2="396" class="dim" marker-start="url(#arrow-start)"/>
+  <line x1="555" y1="396" x2="548" y2="396" class="dim" marker-end="url(#arrow-end)"/>
+  <text x="543" y="410" class="dim-text-s">5</text>
+
+  <!-- ============================================================ -->
+  <!-- SECTION A-A (cut through Y-Z centerline)                     -->
+  <!-- Scale: 6 px/mm                                                -->
+  <!-- Front face: Sx2=120. Rear face: 270                          -->
+  <!-- Center Z: 640                                                 -->
+  <!-- ============================================================ -->
+
+  <text x="195" y="498" class="label">SECTION A-A</text>
+  <text x="195" y="509" class="note-center">(6 px/mm)</text>
+
+  <!-- Section view frame -->
+  <rect x="70" y="515" width="250" height="250" class="detail-frame"/>
+
+  <!-- Section fill: material cross-section (body minus bore) -->
+  <!-- Top material block (body top to bore top) -->
+  <rect x="120" y="520" width="150" height="82.2" class="section-fill"/>
+  <!-- Bottom material block (bore bottom to body bottom) -->
+  <rect x="120" y="677.8" width="150" height="82.2" class="section-fill"/>
+  <!-- Left side wall smooth bore region (between bore and thread root heights) -->
+  <rect x="120" y="602.2" width="30" height="75.6" class="section-fill"/>
+  <!-- Thread region walls — top strip between thread root and bore -->
+  <rect x="150" y="593.2" width="120" height="9" class="section-fill"/>
+  <!-- Thread region walls — bottom strip -->
+  <rect x="150" y="677.8" width="120" height="9" class="section-fill"/>
+
+  <!-- Hatch lines (diagonal lines at 45 degrees for section fill) -->
+  <g class="section-hatch">
+    <!-- Top material block -->
+    <line x1="120" y1="535" x2="135" y2="520"/>
+    <line x1="120" y1="550" x2="150" y2="520"/>
+    <line x1="120" y1="565" x2="165" y2="520"/>
+    <line x1="120" y1="580" x2="180" y2="520"/>
+    <line x1="120" y1="595" x2="195" y2="520"/>
+    <line x1="125" y1="602" x2="210" y2="520"/>
+    <line x1="140" y1="602" x2="225" y2="520"/>
+    <line x1="155" y1="602" x2="240" y2="520"/>
+    <line x1="170" y1="602" x2="255" y2="520"/>
+    <line x1="185" y1="602" x2="270" y2="520"/>
+    <line x1="200" y1="602" x2="270" y2="535"/>
+    <line x1="215" y1="602" x2="270" y2="550"/>
+    <line x1="230" y1="602" x2="270" y2="565"/>
+    <line x1="245" y1="602" x2="270" y2="580"/>
+    <line x1="260" y1="602" x2="270" y2="595"/>
+    <!-- Bottom material block -->
+    <line x1="120" y1="693" x2="135" y2="678"/>
+    <line x1="120" y1="708" x2="150" y2="678"/>
+    <line x1="120" y1="723" x2="165" y2="678"/>
+    <line x1="120" y1="738" x2="180" y2="678"/>
+    <line x1="120" y1="753" x2="195" y2="678"/>
+    <line x1="130" y1="760" x2="210" y2="678"/>
+    <line x1="145" y1="760" x2="225" y2="678"/>
+    <line x1="160" y1="760" x2="240" y2="678"/>
+    <line x1="175" y1="760" x2="255" y2="678"/>
+    <line x1="190" y1="760" x2="270" y2="678"/>
+    <line x1="205" y1="760" x2="270" y2="693"/>
+    <line x1="220" y1="760" x2="270" y2="708"/>
+    <line x1="235" y1="760" x2="270" y2="723"/>
+    <line x1="250" y1="760" x2="270" y2="738"/>
+    <line x1="265" y1="760" x2="270" y2="753"/>
   </g>
 
+  <!-- Section outline: outer body profile -->
+  <line x1="120" y1="520" x2="270" y2="520" class="section-outline"/>
+  <line x1="270" y1="520" x2="270" y2="760" class="section-outline"/>
+  <line x1="270" y1="760" x2="120" y2="760" class="section-outline"/>
+  <line x1="120" y1="760" x2="120" y2="520" class="section-outline"/>
+
+  <!-- Internal bore profile — smooth bore section (front face to thread start) -->
+  <!-- Bore at minor dia 12.6mm: top wall at y=602.2, bottom at y=677.8 -->
+  <line x1="126" y1="602.2" x2="150" y2="602.2" class="section-outline"/>
+  <line x1="126" y1="677.8" x2="150" y2="677.8" class="section-outline"/>
+
+  <!-- Thread region bore walls (minor dia 12.6mm): from x=150 to x=270 -->
+  <line x1="150" y1="602.2" x2="270" y2="602.2" class="section-outline"/>
+  <line x1="150" y1="677.8" x2="270" y2="677.8" class="section-outline"/>
+
+  <!-- Thread root walls (major dia 15.6mm): from thread start to rear face -->
+  <line x1="150" y1="593.2" x2="270" y2="593.2" class="thin"/>
+  <line x1="150" y1="686.8" x2="270" y2="686.8" class="thin"/>
+
+  <!-- Thread profile zigzag (simplified representation of trapezoidal threads) -->
+  <!-- Top thread profile -->
+  <polyline points="150,602.2 156,593.2 162,602.2 168,593.2 174,602.2 180,593.2 186,602.2 192,593.2 198,602.2 204,593.2 210,602.2 216,593.2 222,602.2 228,593.2 234,602.2 240,593.2 246,602.2 252,593.2 258,602.2 264,593.2 270,602.2" class="thin" fill="none"/>
+  <!-- Bottom thread profile -->
+  <polyline points="150,677.8 156,686.8 162,677.8 168,686.8 174,677.8 180,686.8 186,677.8 192,686.8 198,677.8 204,686.8 210,677.8 216,686.8 222,677.8 228,686.8 234,677.8 240,686.8 246,677.8 252,686.8 258,677.8 264,686.8 270,677.8" class="thin" fill="none"/>
+
+  <!-- Step line at smooth-to-thread transition -->
+  <line x1="150" y1="593.2" x2="150" y2="602.2" class="section-outline"/>
+  <line x1="150" y1="677.8" x2="150" y2="686.8" class="section-outline"/>
+
+  <!-- Entry chamfer at front face (1mm x 45 deg) -->
+  <!-- At front face (x=120), chamfered opening is 12.6+2=14.6mm dia => 7.3mm radius => 43.8px -->
+  <!-- Chamfer top: from (120, 640-43.8)=(120,596.2) to (126, 602.2) -->
+  <!-- Chamfer bottom: from (120, 640+43.8)=(120,683.8) to (126, 677.8) -->
+  <line x1="120" y1="596.2" x2="126" y2="602.2" class="section-outline"/>
+  <line x1="120" y1="683.8" x2="126" y2="677.8" class="section-outline"/>
+
+  <!-- Centerline through section -->
+  <line x1="105" y1="640" x2="285" y2="640" class="center"/>
+
+  <!-- SECTION A-A DIMENSIONS -->
+
+  <!-- Knob depth: 25mm — horizontal dim above section -->
+  <line x1="120" y1="520" x2="120" y2="483" class="ext"/>
+  <line x1="270" y1="520" x2="270" y2="483" class="ext"/>
+  <line x1="120" y1="488" x2="188" y2="488" class="dim" marker-start="url(#arrow-start)"/>
+  <line x1="270" y1="488" x2="202" y2="488" class="dim" marker-end="url(#arrow-end)"/>
+  <text x="195" y="485" class="dim-text">25</text>
+
+  <!-- Thread engagement: 20mm -->
+  <line x1="150" y1="686.8" x2="150" y2="720" class="ext"/>
+  <line x1="270" y1="686.8" x2="270" y2="720" class="ext"/>
+  <line x1="150" y1="715" x2="203" y2="715" class="dim" marker-start="url(#arrow-start)"/>
+  <line x1="270" y1="715" x2="217" y2="715" class="dim" marker-end="url(#arrow-end)"/>
+  <text x="210" y="712" class="dim-text">20</text>
+
+  <!-- Smooth bore depth: 5mm -->
+  <line x1="120" y1="700" x2="120" y2="720" class="ext"/>
+  <line x1="120" y1="715" x2="131" y2="715" class="dim" marker-start="url(#arrow-start)"/>
+  <line x1="150" y1="715" x2="139" y2="715" class="dim" marker-end="url(#arrow-end)"/>
+  <text x="135" y="730" class="dim-text-s">5</text>
+
+  <!-- Bore diameter: 12.6mm — vertical dim on left -->
+  <line x1="126" y1="602.2" x2="96" y2="602.2" class="ext"/>
+  <line x1="126" y1="677.8" x2="96" y2="677.8" class="ext"/>
+  <line x1="100" y1="602.2" x2="100" y2="633" class="dim" marker-start="url(#arrow-start)"/>
+  <line x1="100" y1="677.8" x2="100" y2="647" class="dim" marker-end="url(#arrow-end)"/>
+  <text x="88" y="644" class="dim-text-s" transform="rotate(-90,88,644)">⌀12.6</text>
+
+  <!-- Thread root diameter: 15.6mm — leader from top thread root -->
+  <line x1="260" y1="593.2" x2="295" y2="570" class="dim"/>
+  <text x="297" y="568" class="dim-text-left" font-size="9">⌀15.6</text>
+
+  <!-- Entry chamfer callout -->
+  <line x1="123" y1="596.2" x2="90" y2="570" class="dim"/>
+  <text x="88" y="567" class="dim-text-s" text-anchor="end">1x45°</text>
+
+  <!-- Thread spec note below section -->
+  <text x="195" y="775" class="note-center">Tr12x3 2-start</text>
+
   <!-- ============================================================ -->
-  <!-- SECTION A-A (cut through centerline, looking along -X)       -->
-  <!-- Shows internal bore profile: thread section + smooth section -->
-  <!-- Y horizontal, Z vertical (same orientation as side view)     -->
+  <!-- NOTES                                                         -->
   <!-- ============================================================ -->
-  <text x="440" y="530" class="label" text-anchor="middle">SECTION A-A</text>
-  <text x="440" y="544" class="note" text-anchor="middle">(cut through bore centerline)</text>
 
-  <!-- Section view: same orientation as side view but shows internals -->
-  <!-- Body center at SVG (440, 700) -->
-  <!-- Scale: 5 px/mm -->
-  <!-- Y=0 (front face) on LEFT, Y=25 (rear face / thread entry) on RIGHT -->
-  <!-- Bore: 12.3mm dia = r=30.75px from center -->
-  <!-- Thread section: 20mm from rear face (right side), so from Y=5 to Y=25 -->
-  <!-- Smooth section: 5mm from front face (left side), from Y=0 to Y=5 -->
-  <!-- Chamfer: 1mm x 45deg at front face (Y=0) bore entry -->
-  <g id="section-aa" transform="translate(440, 700)">
-    <!-- Outer body profile (section fill) -->
-    <!-- Body: 125w x 200h centered. Front face (Y=0) at left x=-62.5, rear face at x=62.5 -->
-    <!-- Upper half of section (above bore): -->
-    <rect x="-62.5" y="-100" width="125" height="69.25" class="section-fill"/>
-    <!-- Lower half of section (below bore): -->
-    <rect x="-62.5" y="30.75" width="125" height="69.25" class="section-fill"/>
-
-    <!-- Left body wall (front face to bore, above bore to chamfer) -->
-    <!-- Chamfer: 1mm x 45deg at bore entry. Bore radius = 30.75px. Chamfer outer = 35.75px -->
-    <!-- Chamfer at front face (x=-62.5): from r=30.75 to r=35.75 over 5px (1mm) in Y -->
-    <!-- Front face bore entry with chamfer (upper) -->
-    <rect x="-62.5" y="-35.75" width="5" height="5" class="section-fill"/>
-    <!-- Front face bore entry with chamfer (lower) -->
-    <rect x="-62.5" y="30.75" width="5" height="5" class="section-fill"/>
-
-    <!-- Bore space (white/empty) -->
-    <rect x="-62.5" y="-30.75" width="125" height="61.5" class="section-bore"/>
-
-    <!-- Redraw outer outline on top -->
-    <rect x="-62.5" y="-100" width="125" height="200" class="section-outline" fill="none"/>
-
-    <!-- Chamfer lines (1mm x 45deg at front face bore entry) -->
-    <!-- Upper chamfer: from (-62.5, -35.75) to (-57.5, -30.75) -->
-    <line x1="-62.5" y1="-35.75" x2="-57.5" y2="-30.75" stroke="#000" stroke-width="1.5"/>
-    <!-- Lower chamfer: from (-62.5, 35.75) to (-57.5, 30.75) -->
-    <line x1="-62.5" y1="35.75" x2="-57.5" y2="30.75" stroke="#000" stroke-width="1.5"/>
-
-    <!-- Bore walls -->
-    <!-- Upper bore wall -->
-    <line x1="-57.5" y1="-30.75" x2="62.5" y2="-30.75" stroke="#000" stroke-width="1.5"/>
-    <!-- Lower bore wall -->
-    <line x1="-57.5" y1="30.75" x2="62.5" y2="30.75" stroke="#000" stroke-width="1.5"/>
-
-    <!-- Thread region indicator: from Y=5mm to Y=25mm (x=-37.5 to x=62.5) -->
-    <!-- Thread root lines (minor diameter of female thread) -->
-    <!-- Female minor dia for Tr12x3: ~12.6mm = r=31.5px. But thread depth extends outward from bore. -->
-    <!-- For representation, show thread zigzag/indicator lines at the bore walls -->
-    <!-- Thread engagement region: 20mm from rear face = x=-37.5 to x=62.5 -->
-    <!-- Smooth bore region: 5mm from front face = x=-62.5 to x=-37.5 -->
-
-    <!-- Thread region boundary line (dashed) - separating smooth from threaded -->
-    <line x1="-37.5" y1="-35" x2="-37.5" y2="35" class="center"/>
-
-    <!-- Thread profile indication (simplified zigzag on upper and lower bore walls) -->
-    <!-- Upper thread profile: small zigzag teeth along the bore wall from x=-37.5 to x=62.5 -->
-    <!-- Thread pitch = 3mm = 15px. Thread depth ~1.5mm = 7.5px outward from bore surface -->
-    <!-- Simplified: show thread root line slightly outward from bore wall -->
-    <line x1="-37.5" y1="-38.25" x2="62.5" y2="-38.25" class="thread-indicator"/>
-    <line x1="-37.5" y1="38.25" x2="62.5" y2="38.25" class="thread-indicator"/>
-
-    <!-- Hatching for section material (upper section) -->
-    <line x1="-52.5" y1="-100" x2="-62.5" y2="-90" class="section-hatch"/>
-    <line x1="-37.5" y1="-100" x2="-62.5" y2="-75" class="section-hatch"/>
-    <line x1="-22.5" y1="-100" x2="-62.5" y2="-60" class="section-hatch"/>
-    <line x1="-7.5" y1="-100" x2="-62.5" y2="-45" class="section-hatch"/>
-    <line x1="7.5" y1="-100" x2="-62.5" y2="-30.75" class="section-hatch"/>
-    <line x1="22.5" y1="-100" x2="-57.5" y2="-30.75" class="section-hatch"/>
-    <line x1="37.5" y1="-100" x2="-37.5" y2="-30.75" class="section-hatch"/>
-    <line x1="52.5" y1="-100" x2="-17.5" y2="-30.75" class="section-hatch"/>
-    <line x1="62.5" y1="-95" x2="2.5" y2="-30.75" class="section-hatch"/>
-    <line x1="62.5" y1="-80" x2="22.5" y2="-30.75" class="section-hatch"/>
-    <line x1="62.5" y1="-65" x2="42.5" y2="-30.75" class="section-hatch"/>
-    <line x1="62.5" y1="-50" x2="57.5" y2="-30.75" class="section-hatch"/>
-
-    <!-- Hatching for section material (lower section) -->
-    <line x1="-52.5" y1="100" x2="-62.5" y2="90" class="section-hatch"/>
-    <line x1="-37.5" y1="100" x2="-62.5" y2="75" class="section-hatch"/>
-    <line x1="-22.5" y1="100" x2="-62.5" y2="60" class="section-hatch"/>
-    <line x1="-7.5" y1="100" x2="-62.5" y2="45" class="section-hatch"/>
-    <line x1="7.5" y1="100" x2="-62.5" y2="30.75" class="section-hatch"/>
-    <line x1="22.5" y1="100" x2="-57.5" y2="30.75" class="section-hatch"/>
-    <line x1="37.5" y1="100" x2="-37.5" y2="30.75" class="section-hatch"/>
-    <line x1="52.5" y1="100" x2="-17.5" y2="30.75" class="section-hatch"/>
-    <line x1="62.5" y1="95" x2="2.5" y2="30.75" class="section-hatch"/>
-    <line x1="62.5" y1="80" x2="22.5" y2="30.75" class="section-hatch"/>
-    <line x1="62.5" y1="65" x2="42.5" y2="30.75" class="section-hatch"/>
-    <line x1="62.5" y1="50" x2="57.5" y2="30.75" class="section-hatch"/>
-
-    <!-- Center line (horizontal, bore axis) -->
-    <line x1="-80" y1="0" x2="80" y2="0" class="center"/>
-
-    <!-- ===== SECTION DIMENSIONS ===== -->
-
-    <!-- Thread engagement: 20mm -->
-    <line x1="-37.5" y1="30.75" x2="-37.5" y2="60" class="ext"/>
-    <line x1="62.5" y1="100" x2="62.5" y2="120" class="ext"/>
-    <line x1="-37.5" y1="115" x2="62.5" y2="115" class="dim" marker-start="url(#arr-rev)" marker-end="url(#arr)"/>
-    <text x="12.5" y="130" class="dimtext">20 (thread)</text>
-
-    <!-- Smooth bore section: 5mm -->
-    <line x1="-62.5" y1="100" x2="-62.5" y2="120" class="ext"/>
-    <line x1="-62.5" y1="52" x2="-37.5" y2="52" class="dim" marker-start="url(#arr-rev)" marker-end="url(#arr)"/>
-    <text x="-50" y="47" class="dimtext">5</text>
-
-    <!-- Total depth: 25mm -->
-    <line x1="-62.5" y1="-100" x2="-62.5" y2="-135" class="ext"/>
-    <line x1="62.5" y1="-100" x2="62.5" y2="-135" class="ext"/>
-    <line x1="-62.5" y1="-125" x2="62.5" y2="-125" class="dim" marker-start="url(#arr-rev)" marker-end="url(#arr)"/>
-    <text x="0" y="-130" class="dimtext">25</text>
-
-    <!-- Bore diameter: 12.3mm (upper, leader from bore wall) -->
-    <line x1="15" y1="-30.75" x2="85" y2="-65" class="dim"/>
-    <text x="88" y="-67" class="dimtext" text-anchor="start">&#x2300;12.3 bore</text>
-
-    <!-- Thread spec callout -->
-    <line x1="15" y1="-38.25" x2="100" y2="-90" class="dim"/>
-    <text x="103" y="-92" class="dimtext" text-anchor="start">Tr12x3 2-start</text>
-
-    <!-- Chamfer callout -->
-    <line x1="-60" y1="-34" x2="-95" y2="-55" class="dim"/>
-    <text x="-98" y="-57" class="dimtext" text-anchor="end">1.0 x 45&#xB0;</text>
-
-    <!-- Body diameter in section: 40mm -->
-    <line x1="-62.5" y1="-100" x2="-97.5" y2="-100" class="ext"/>
-    <line x1="-62.5" y1="100" x2="-97.5" y2="100" class="ext"/>
-    <line x1="-87.5" y1="-100" x2="-87.5" y2="100" class="dim" marker-start="url(#arr-rev)" marker-end="url(#arr)"/>
-    <text x="-107" y="4" class="dimtext" transform="rotate(-90,-107,4)">40</text>
-
-    <!-- Face labels -->
-    <text x="-62.5" y="145" class="note" text-anchor="middle">Front face</text>
-    <text x="62.5" y="145" class="note" text-anchor="middle">Thread entry</text>
-  </g>
-
-  <!-- ===== NOTES ===== -->
-  <text x="850" y="560" class="label">NOTES:</text>
-  <text x="850" y="578" class="note">1. Material: PETG</text>
-  <text x="850" y="593" class="note">2. Thread: Tr12x3 2-start trapezoidal (female)</text>
-  <text x="850" y="608" class="note">3. Thread clearance: 0.3mm radial (0.6mm on dia)</text>
-  <text x="850" y="623" class="note">4. Print upright, open threaded end on build plate</text>
-  <text x="850" y="638" class="note">5. 4+ walls, 30%+ infill, 0.12-0.16mm layer height</text>
-  <text x="850" y="653" class="note">6. Wing tips: 5mm radius semicircle</text>
-  <text x="850" y="668" class="note">7. Chamfer at bore entry to aid thread engagement</text>
-  <text x="850" y="683" class="note">8. Bore provides 12.3mm clearance for 12.0mm strut</text>
+  <text x="490" y="530" class="note" font-weight="bold">Notes:</text>
+  <text x="490" y="545" class="note">1. Material: PETG, 4+ walls, 30%+ infill</text>
+  <text x="490" y="560" class="note">2. Thread: Tr12x3 2-start trapezoidal (internal female)</text>
+  <text x="490" y="575" class="note">    Lead: 6.0mm, 180° rotation = 3.0mm travel</text>
+  <text x="490" y="590" class="note">3. Thread clearance: 0.3mm radial (0.6mm diametral)</text>
+  <text x="490" y="605" class="note">4. Print upright, threaded end up, 0.12-0.16mm layers</text>
+  <text x="490" y="620" class="note">5. Flat rear annular face bears against shell front wall</text>
+  <text x="490" y="635" class="note">    Annular contact: 40mm OD x 12.5mm ID</text>
+  <text x="490" y="650" class="note">6. Knurled exterior: diamond pattern, ~1mm depth, ~2mm pitch</text>
+  <text x="490" y="665" class="note">7. Wing tip profile: half-stadium (R2.5 at tip)</text>
 
 </svg>
