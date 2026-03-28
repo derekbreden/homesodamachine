@@ -3,8 +3,8 @@
 ## 1. Basic Operation
 
 - Refrigerated carbonated water is provided to a faucet by another device (Lillium, Brio)
-- When that flow is detected, we pump flavoring in a parallel line (not the same line)
-- There are 2 separate parallel lines, one for each flavor, and each is primed and valve locked so that it is dispensed instantly
+- When that flow is detected, we pump flavoring in a parallel line (not the same line as the cold carbonated water)
+- There are 2 separate parallel lines, one for each flavor, and each is primed and valve locked so that it is always primed and can be dispensed instantly
 - The mixing occurs in the user's cup/glass, not before
 
 ## 2. Filling
