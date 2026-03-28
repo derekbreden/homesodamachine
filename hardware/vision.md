@@ -12,11 +12,11 @@
 ## 2. An architecture the user imagines
 
 - The outer enclosure is 220 mm x 300 mm x 400 mm
-- It is printed in two halves, snapped together permanently
+- It is printed in two halves, snapped together permanently. The user never opens the enclosure.
 - Every single interior piece has specific snap connecting points on those outer two halves, so that the entire thing is assembled by pressing things together
 - The 2L bags are mounted one above the other, diagonally, such that the "cap" is at the back and bottom of the enclosure, and the "top" of each bag is pinned flat against the front wall of the device
 - The funnel is shaped to be directly on top of the bags
-- The bags are each supported by their own lens shaped platform that fits their natural liquid filled shape
+- The bags are each supported by their own lens shaped platform that fits their natural liquid filled shape, and are constrained from above identically, such they have no freedom of movement as they fill and unfill. Without this constraint, the bottom portion may rise to 40mm height, but with the constraint they remain at 25mm - 30mm more consitently throughout their midsection, and please remember, they are diagonal at ~35 degrees
 - The screens and air switch are in the middle of the front face, directly below the bags
 - The pump cartridge is below those, at the front and bottom of the device
 - The valves are behind the pump cartridge
