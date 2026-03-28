@@ -26,6 +26,7 @@
 
 - There are only 2 peristaltic pumps, one dedicated to each flavor, and the valves allow them to be used for multiple purposes
 - When the pumps wear out, the user can remove and replace the pump cartridge which contains both pumps
+- Nothing else is replaceable (e.g. the bags are permanent fixture the same as all other internal plumbing)
 
 ## 5. The hardware that already accomplished all of this in the prototype includes:
 
@@ -42,7 +43,6 @@
 | [Silicone Tubing (6m)](https://www.amazon.com/dp/B0BM4KQ6RT) | 1 |
 | [KRAUS Air Switch](https://www.amazon.com/dp/B096319GMV) | 1 |
 
-- The Platypus bags must not be compressed or constrained in a way that kinks their tubing. They must be supported in their natural filled shape.
 - The RP2040 is smaller display which looks nice mounted flush with paneling in front of the sink.
 - The S3 is a larger display, which has a knob and allows easy changing of flavoring ratios or other settings.
 - It is expected that both displays will be mounted into the front of the final device, such that they can be "snapped out" and placed elsewhere, with a retracting 1m or 2m cat6 cable connecting them to the device still, but that that they are flush with the front of the device otherwise.
