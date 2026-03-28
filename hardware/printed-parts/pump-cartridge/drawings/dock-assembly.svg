@@ -1,0 +1,558 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1900 2400" width="1900" height="2400" font-family="Arial, sans-serif" font-size="11" fill="black" stroke="black">
+
+  <title>Pump Cartridge Dock Assembly — Engineering Drawing</title>
+
+  <defs>
+    <marker id="arrow" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto">
+      <path d="M0,0 L8,3 L0,6 Z" fill="black"/>
+    </marker>
+    <marker id="arrow-rev" markerWidth="8" markerHeight="6" refX="0" refY="3" orient="auto">
+      <path d="M8,0 L0,3 L8,6 Z" fill="black"/>
+    </marker>
+    <style>
+      .dim { font-size: 10px; fill: black; text-anchor: middle; }
+      .dim-small { font-size: 9px; fill: black; text-anchor: middle; }
+      .dim-right { font-size: 10px; fill: black; text-anchor: start; }
+      .label { font-size: 12px; fill: black; font-weight: bold; text-anchor: middle; }
+      .note { font-size: 9px; fill: black; }
+      .note-c { font-size: 9px; fill: black; text-anchor: middle; }
+      .title { font-size: 16px; fill: black; font-weight: bold; }
+      .subtitle { font-size: 12px; fill: black; }
+      .hidden { stroke-dasharray: 3,2; stroke-width: 0.8; fill: none; stroke: black; }
+      .center { stroke-dasharray: 12,3,3,3; stroke-width: 0.5; stroke: #555; fill: none; }
+      .outline { stroke: black; stroke-width: 1.2; fill: none; }
+      .thin { stroke: black; stroke-width: 0.6; fill: none; }
+      .dimline { stroke: black; stroke-width: 0.5; fill: none; }
+      .extline { stroke: black; stroke-width: 0.4; fill: none; }
+      .section { stroke: black; stroke-width: 0.8; fill: #e8e8e8; }
+      .detail-frame { stroke: black; stroke-width: 1.0; fill: white; }
+      .phantom { stroke-dasharray: 10,3,3,3,3,3; stroke-width: 0.6; fill: none; stroke: #666; }
+      .hatch { stroke: #888; stroke-width: 0.4; fill: none; }
+    </style>
+  </defs>
+
+  <!-- Title Block -->
+  <text x="950" y="30" class="title" text-anchor="middle">Pump Cartridge Dock Assembly</text>
+  <text x="950" y="48" class="subtitle" text-anchor="middle">3 Parts: Cradle + Floor Plate + Face Frame — Third-Angle Orthographic Projection</text>
+  <text x="950" y="64" class="note" text-anchor="middle">Material: PETG | All dimensions in mm | Dock Y=0 is rear wall, Y=130 is front opening</text>
+  <line x1="100" y1="72" x2="1800" y2="72" stroke="black" stroke-width="0.5"/>
+
+  <!-- ============================================================ -->
+  <!-- FRONT VIEW (looking along -Y, from the front opening)        -->
+  <!-- Horizontal: X (0..160mm), Vertical: Z (0..80mm)              -->
+  <!-- Scale: 3 px/mm                                                -->
+  <!-- fX(mm) = 120 + mm*3     fZ(mm) = 580 - mm*3                  -->
+  <!-- X=0->120  X=160->600    Z=0->580  Z=80->340                  -->
+  <!-- ============================================================ -->
+
+  <text x="360" y="95" class="label">FRONT VIEW (looking along -Y)</text>
+  <text x="360" y="110" class="dim-small">Scale: 3 px/mm</text>
+
+  <!-- Cradle outer boundary: 160mm W x 80mm H -->
+  <rect x="120" y="340" width="480" height="240" class="outline"/>
+
+  <!-- Face frame outer boundary (170x90mm), dashed because in front of cradle -->
+  <!-- Centered on cradle: X_dock=-5..165, Z_dock=-5..85 -->
+  <!-- px: X=-5->105, X=165->615, Z=-5->595, Z=85->325 -->
+  <rect x="105" y="325" width="510" height="270" class="outline" stroke-dasharray="6,3"/>
+
+  <!-- Face frame inner opening at Y=5: 142x72mm -->
+  <!-- dock X=9..151, Z=4..76 -->
+  <!-- px: X=9->147, X=151->573, Z=4->568, Z=76->352 -->
+  <rect x="147" y="352" width="426" height="216" class="thin"/>
+
+  <!-- Chamfer outer face opening at Y=0: 147.8x77.8mm -->
+  <!-- dock X=6.1..153.9, Z=1.1..78.9 -->
+  <!-- px: X=6.1->138, X=153.9->582, Z=1.1->577, Z=78.9->343 -->
+  <rect x="138" y="343" width="444" height="234" stroke="black" stroke-width="0.6" fill="none" stroke-dasharray="6,3"/>
+
+  <!-- Side wall inner faces -->
+  <!-- Left: X=7.7->143, Right: X=152.3->577 -->
+  <line x1="143" y1="340" x2="143" y2="580" class="thin"/>
+  <line x1="577" y1="340" x2="577" y2="580" class="thin"/>
+
+  <!-- C-channel grooves (hidden) -->
+  <!-- Left: X=7.7..10.3, Z=32.7..53.3 -> px (143,420)-(151,482) -->
+  <rect x="143" y="420" width="8" height="62" class="hidden"/>
+  <!-- Right: X=149.7..152.3 -> px (569,420)-(577,482) -->
+  <rect x="569" y="420" width="8" height="62" class="hidden"/>
+
+  <!-- Floor ledge at Z=5 -->
+  <!-- Z=5->565 -->
+  <line x1="120" y1="565" x2="143" y2="565" class="thin"/>
+  <line x1="577" y1="565" x2="600" y2="565" class="thin"/>
+
+  <!-- Floor plate top Z=8 and bottom Z=5 (hidden) -->
+  <line x1="143" y1="565" x2="577" y2="565" class="hidden"/>
+  <line x1="143" y1="556" x2="577" y2="556" class="hidden"/>
+
+  <!-- Tube stubs (hidden circles) -->
+  <!-- H1: X=46.5,Z=57.8 -> cx=260,cy=407, r=6.6/2*3=9.9 -->
+  <circle cx="260" cy="407" r="10" class="hidden"/>
+  <!-- H2: X=46.5,Z=27.8 -> cy=497 -->
+  <circle cx="260" cy="497" r="10" class="hidden"/>
+  <!-- H3: X=113.5,Z=57.8 -> cx=461 -->
+  <circle cx="461" cy="407" r="10" class="hidden"/>
+  <!-- H4: X=113.5,Z=27.8 -->
+  <circle cx="461" cy="497" r="10" class="hidden"/>
+
+  <!-- Registration bosses (hidden circles) -->
+  <!-- Boss A: X=31.5,Z=17.8,base dia=10 -> cx=215,cy=527,r=15 -->
+  <circle cx="215" cy="527" r="15" class="hidden"/>
+  <!-- Boss B: X=128.5,Z=67.8 -> cx=506,cy=377 -->
+  <circle cx="506" cy="377" r="15" class="hidden"/>
+
+  <!-- Blade contact pockets (hidden) -->
+  <!-- P1: X=62..74,Z=39.8..45.8 -> px (306,443)-(342,461) -->
+  <rect x="306" y="443" width="36" height="18" class="hidden"/>
+  <rect x="342" y="443" width="36" height="18" class="hidden"/>
+  <rect x="378" y="443" width="36" height="18" class="hidden"/>
+  <rect x="414" y="443" width="36" height="18" class="hidden"/>
+
+  <!-- ===== FRONT VIEW DIMENSIONS ===== -->
+
+  <!-- Overall width 160mm -->
+  <line x1="120" y1="340" x2="120" y2="318" class="extline"/>
+  <line x1="600" y1="340" x2="600" y2="318" class="extline"/>
+  <line x1="120" y1="322" x2="600" y2="322" class="dimline" marker-start="url(#arrow-rev)" marker-end="url(#arrow)"/>
+  <text x="360" y="319" class="dim">160</text>
+
+  <!-- Overall height 80mm -->
+  <line x1="600" y1="340" x2="618" y2="340" class="extline"/>
+  <line x1="600" y1="580" x2="618" y2="580" class="extline"/>
+  <line x1="614" y1="340" x2="614" y2="580" class="dimline" marker-start="url(#arrow-rev)" marker-end="url(#arrow)"/>
+  <text x="626" y="464" class="dim-right">80</text>
+
+  <!-- Side wall thickness 7.7mm -->
+  <line x1="120" y1="580" x2="120" y2="594" class="extline"/>
+  <line x1="143" y1="580" x2="143" y2="594" class="extline"/>
+  <line x1="120" y1="590" x2="143" y2="590" class="dimline" marker-start="url(#arrow-rev)" marker-end="url(#arrow)"/>
+  <text x="132" y="605" class="dim">7.7</text>
+
+  <!-- Face frame outer 170mm -->
+  <line x1="105" y1="325" x2="105" y2="308" class="extline"/>
+  <line x1="615" y1="325" x2="615" y2="308" class="extline"/>
+  <line x1="105" y1="310" x2="615" y2="310" class="dimline" marker-start="url(#arrow-rev)" marker-end="url(#arrow)"/>
+  <text x="360" y="307" class="dim">170 (face frame)</text>
+
+  <!-- Face frame outer height 90mm -->
+  <line x1="105" y1="325" x2="90" y2="325" class="extline"/>
+  <line x1="105" y1="595" x2="90" y2="595" class="extline"/>
+  <line x1="93" y1="325" x2="93" y2="595" class="dimline" marker-start="url(#arrow-rev)" marker-end="url(#arrow)"/>
+  <text x="82" y="464" class="dim" transform="rotate(-90, 82, 464)">90</text>
+
+  <!-- Inner opening 142mm wide -->
+  <line x1="147" y1="352" x2="147" y2="341" class="extline"/>
+  <line x1="573" y1="352" x2="573" y2="341" class="extline"/>
+  <line x1="147" y1="344" x2="573" y2="344" class="dimline" marker-start="url(#arrow-rev)" marker-end="url(#arrow)"/>
+  <text x="360" y="341" class="dim">142</text>
+
+  <!-- Inner opening 72mm tall -->
+  <line x1="573" y1="352" x2="585" y2="352" class="extline"/>
+  <line x1="573" y1="568" x2="585" y2="568" class="extline"/>
+  <line x1="581" y1="352" x2="581" y2="568" class="dimline" marker-start="url(#arrow-rev)" marker-end="url(#arrow)"/>
+  <text x="593" y="464" class="dim-right">72</text>
+
+  <!-- Groove height 20.6mm and position Z=32.7 -->
+  <line x1="120" y1="420" x2="112" y2="420" class="extline"/>
+  <line x1="120" y1="482" x2="112" y2="482" class="extline"/>
+  <line x1="114" y1="420" x2="114" y2="482" class="dimline" marker-start="url(#arrow-rev)" marker-end="url(#arrow)"/>
+  <text x="108" y="454" class="dim" transform="rotate(-90, 108, 454)">20.6</text>
+
+
+  <!-- ============================================================ -->
+  <!-- SIDE VIEW (looking along -X, from the right)                  -->
+  <!-- Horizontal: Y (0..130mm), Vertical: Z (0..80mm)              -->
+  <!-- Scale: 3 px/mm                                                -->
+  <!-- sY(mm) = 750 + mm*3     sZ(mm) = 580 - mm*3                  -->
+  <!-- Y=0->750  Y=130->1140   Z=0->580  Z=80->340                  -->
+  <!-- ============================================================ -->
+
+  <text x="945" y="95" class="label">SIDE VIEW (looking along -X)</text>
+  <text x="945" y="110" class="dim-small">Scale: 3 px/mm</text>
+
+  <!-- Cradle outer boundary -->
+  <rect x="750" y="340" width="390" height="240" class="outline"/>
+
+  <!-- Rear wall inboard face at Y=7 -> 771 -->
+  <line x1="771" y1="340" x2="771" y2="580" class="thin"/>
+
+  <!-- Floor ledge at Z=5 -> 565 -->
+  <line x1="750" y1="565" x2="1140" y2="565" class="thin"/>
+
+  <!-- Floor plate: Z=5..8, Y=7..127 -->
+  <rect x="771" y="556" width="360" height="9" class="thin" fill="#e8e8e8"/>
+
+  <!-- Face frame: dock Y=125..130, Z=-5..85 -->
+  <rect x="1125" y="325" width="15" height="270" class="outline" fill="#e8e8e8"/>
+
+  <!-- Face frame chamfer lines -->
+  <line x1="1140" y1="343" x2="1125" y2="352" class="thin"/>
+  <line x1="1140" y1="577" x2="1125" y2="568" class="thin"/>
+  <line x1="1125" y1="352" x2="1125" y2="568" class="thin"/>
+
+  <!-- C-channel grooves (hidden lines at Z=32.7 and 53.3) -->
+  <line x1="771" y1="420" x2="1140" y2="420" class="hidden"/>
+  <line x1="771" y1="482" x2="1140" y2="482" class="hidden"/>
+
+  <!-- Tube stub at Z=57.8: top/bottom profile, Y=7..27 -->
+  <!-- Z=57.8+/-3.175: top->397, bottom->416 -->
+  <line x1="771" y1="397" x2="831" y2="397" class="thin"/>
+  <line x1="771" y1="416" x2="831" y2="416" class="thin"/>
+  <line x1="831" y1="397" x2="831" y2="416" class="thin"/>
+
+  <!-- Tube stub at Z=27.8 -->
+  <line x1="771" y1="487" x2="831" y2="487" class="thin"/>
+  <line x1="771" y1="506" x2="831" y2="506" class="thin"/>
+  <line x1="831" y1="487" x2="831" y2="506" class="thin"/>
+
+  <!-- Registration boss B (Z=67.8, tapered) Y=7..32 -->
+  <!-- Base: Z=62.8..72.8->392..362, Tip: Z=64.3..71.3->387..366 -->
+  <line x1="771" y1="362" x2="846" y2="366" class="thin"/>
+  <line x1="771" y1="392" x2="846" y2="387" class="thin"/>
+  <line x1="846" y1="366" x2="846" y2="387" class="thin"/>
+
+  <!-- Registration boss A (Z=17.8) Y=7..32 -->
+  <line x1="771" y1="512" x2="846" y2="516" class="thin"/>
+  <line x1="771" y1="542" x2="846" y2="537" class="thin"/>
+  <line x1="846" y1="516" x2="846" y2="537" class="thin"/>
+
+  <!-- Blade contact pocket (hidden, Y=2..7, Z=40.8..44.8) -->
+  <rect x="756" y="446" width="15" height="12" class="hidden"/>
+
+  <!-- ===== SIDE VIEW DIMENSIONS ===== -->
+
+  <!-- Overall depth 130mm -->
+  <line x1="750" y1="340" x2="750" y2="318" class="extline"/>
+  <line x1="1140" y1="340" x2="1140" y2="318" class="extline"/>
+  <line x1="750" y1="322" x2="1140" y2="322" class="dimline" marker-start="url(#arrow-rev)" marker-end="url(#arrow)"/>
+  <text x="945" y="319" class="dim">130</text>
+
+  <!-- Rear wall thickness 7.0mm -->
+  <line x1="750" y1="580" x2="750" y2="594" class="extline"/>
+  <line x1="771" y1="580" x2="771" y2="594" class="extline"/>
+  <line x1="750" y1="590" x2="771" y2="590" class="dimline" marker-start="url(#arrow-rev)" marker-end="url(#arrow)"/>
+  <text x="761" y="605" class="dim">7.0</text>
+
+  <!-- Face frame depth 5.0mm -->
+  <line x1="1125" y1="595" x2="1125" y2="607" class="extline"/>
+  <line x1="1140" y1="595" x2="1140" y2="607" class="extline"/>
+  <line x1="1125" y1="603" x2="1140" y2="603" class="dimline" marker-start="url(#arrow-rev)" marker-end="url(#arrow)"/>
+  <text x="1133" y="618" class="dim">5.0</text>
+
+  <!-- Floor plate thickness 3.0mm -->
+  <line x1="1140" y1="556" x2="1152" y2="556" class="extline"/>
+  <line x1="1140" y1="565" x2="1152" y2="565" class="extline"/>
+  <line x1="1148" y1="556" x2="1148" y2="565" class="dimline" marker-start="url(#arrow-rev)" marker-end="url(#arrow)"/>
+  <text x="1160" y="563" class="dim-right">3.0</text>
+
+  <!-- Floor ledge height 5.0mm -->
+  <line x1="1140" y1="565" x2="1164" y2="565" class="extline"/>
+  <line x1="1140" y1="580" x2="1164" y2="580" class="extline"/>
+  <line x1="1160" y1="565" x2="1160" y2="580" class="dimline" marker-start="url(#arrow-rev)" marker-end="url(#arrow)"/>
+  <text x="1172" y="575" class="dim-right">5.0</text>
+
+  <!-- Tube stub protrusion 20mm -->
+  <line x1="771" y1="392" x2="771" y2="382" class="extline"/>
+  <line x1="831" y1="392" x2="831" y2="382" class="extline"/>
+  <line x1="771" y1="385" x2="831" y2="385" class="dimline" marker-start="url(#arrow-rev)" marker-end="url(#arrow)"/>
+  <text x="801" y="380" class="dim">20</text>
+
+  <!-- Boss protrusion 25mm -->
+  <line x1="771" y1="358" x2="771" y2="350" class="extline"/>
+  <line x1="846" y1="358" x2="846" y2="350" class="extline"/>
+  <line x1="771" y1="353" x2="846" y2="353" class="dimline" marker-start="url(#arrow-rev)" marker-end="url(#arrow)"/>
+  <text x="809" y="348" class="dim">25</text>
+
+
+  <!-- ============================================================ -->
+  <!-- TOP VIEW (looking along -Z, from above)                      -->
+  <!-- Horizontal: X (0..160mm), Vertical: Y (0..130mm)             -->
+  <!-- Scale: 3 px/mm  Aligned with front view X axis               -->
+  <!-- tX(mm) = 120 + mm*3     tY(mm) = 650 + mm*3                  -->
+  <!-- Y=0 (rear) at top, Y=130 (front) at bottom                   -->
+  <!-- X=0->120  X=160->600    Y=0->650  Y=130->1040                -->
+  <!-- ============================================================ -->
+
+  <text x="360" y="635" class="label">TOP VIEW (looking along -Z)</text>
+  <text x="360" y="648" class="dim-small">Scale: 3 px/mm</text>
+
+  <!-- Cradle outer boundary -->
+  <rect x="120" y="650" width="480" height="390" class="outline"/>
+
+  <!-- Side wall inner faces -->
+  <line x1="143" y1="650" x2="143" y2="1040" class="thin"/>
+  <line x1="577" y1="650" x2="577" y2="1040" class="thin"/>
+
+  <!-- Rear wall inboard face: Y=7 -> 671 -->
+  <line x1="120" y1="671" x2="600" y2="671" class="thin"/>
+
+  <!-- Floor plate (hidden, below surface) -->
+  <rect x="135" y="671" width="450" height="360" class="hidden"/>
+
+  <!-- C-channel grooves (hidden) -->
+  <rect x="143" y="671" width="8" height="369" class="hidden"/>
+  <rect x="569" y="671" width="8" height="369" class="hidden"/>
+
+  <!-- Tube stubs (visible from top as rectangles Y=7..27) -->
+  <!-- H1/H2 at X=46.5: px cx=260, width=19px (6.35mm*3), Y=7->671 to Y=27->731 -->
+  <rect x="251" y="671" width="19" height="60" class="thin" fill="none"/>
+  <!-- H3/H4 at X=113.5: px cx=461 -->
+  <rect x="452" y="671" width="19" height="60" class="thin" fill="none"/>
+
+  <!-- Through-holes in rear wall (hidden circles at Y~3.5) -->
+  <circle cx="260" cy="661" r="10" class="hidden"/>
+  <circle cx="461" cy="661" r="10" class="hidden"/>
+
+  <!-- Registration bosses (tapered, top view) -->
+  <!-- Boss A: X=31.5, Y=7..32, base 10mm->tip 7mm -->
+  <!-- px: base width 30px, tip 21px. Y=7->671, Y=32->746 -->
+  <line x1="200" y1="671" x2="210" y2="746" class="thin"/>
+  <line x1="230" y1="671" x2="221" y2="746" class="thin"/>
+  <line x1="210" y1="746" x2="221" y2="746" class="thin"/>
+  <!-- Boss B: X=128.5 -->
+  <line x1="491" y1="671" x2="496" y2="746" class="thin"/>
+  <line x1="521" y1="671" x2="517" y2="746" class="thin"/>
+  <line x1="496" y1="746" x2="517" y2="746" class="thin"/>
+
+  <!-- Blade contact pockets (hidden, Y=2..7) -->
+  <rect x="306" y="656" width="36" height="15" class="hidden"/>
+  <rect x="342" y="656" width="36" height="15" class="hidden"/>
+  <rect x="378" y="656" width="36" height="15" class="hidden"/>
+  <rect x="414" y="656" width="36" height="15" class="hidden"/>
+
+  <!-- Wire routing holes (hidden, Y=0..2) -->
+  <circle cx="324" cy="653" r="5" class="hidden"/>
+  <circle cx="360" cy="653" r="5" class="hidden"/>
+  <circle cx="396" cy="653" r="5" class="hidden"/>
+  <circle cx="432" cy="653" r="5" class="hidden"/>
+
+  <!-- Face frame at front Y=125..130 -->
+  <rect x="105" y="1025" width="510" height="15" class="outline" fill="#e8e8e8"/>
+
+  <!-- Mounting lugs -->
+  <rect x="111" y="755" width="9" height="30" class="thin" fill="none"/>
+  <rect x="111" y="935" width="9" height="30" class="thin" fill="none"/>
+  <rect x="600" y="755" width="9" height="30" class="thin" fill="none"/>
+  <rect x="600" y="935" width="9" height="30" class="thin" fill="none"/>
+
+  <!-- ===== TOP VIEW DIMENSIONS ===== -->
+
+  <!-- Rear wall 7.0mm -->
+  <line x1="600" y1="650" x2="614" y2="650" class="extline"/>
+  <line x1="600" y1="671" x2="614" y2="671" class="extline"/>
+  <line x1="610" y1="650" x2="610" y2="671" class="dimline" marker-start="url(#arrow-rev)" marker-end="url(#arrow)"/>
+  <text x="622" y="663" class="dim-right">7.0</text>
+
+  <!-- Tube stub X spacing 67mm -->
+  <line x1="260" y1="731" x2="260" y2="743" class="extline"/>
+  <line x1="461" y1="731" x2="461" y2="743" class="extline"/>
+  <line x1="260" y1="739" x2="461" y2="739" class="dimline" marker-start="url(#arrow-rev)" marker-end="url(#arrow)"/>
+  <text x="361" y="736" class="dim">67.0</text>
+
+  <!-- H1/H2 X from left: 46.5mm -->
+  <line x1="120" y1="1040" x2="120" y2="1054" class="extline"/>
+  <line x1="260" y1="1040" x2="260" y2="1054" class="extline"/>
+  <line x1="120" y1="1050" x2="260" y2="1050" class="dimline" marker-start="url(#arrow-rev)" marker-end="url(#arrow)"/>
+  <text x="190" y="1047" class="dim">46.5</text>
+
+  <!-- Boss A X from left: 31.5mm -->
+  <line x1="215" y1="1040" x2="215" y2="1066" class="extline"/>
+  <line x1="120" y1="1062" x2="215" y2="1062" class="dimline" marker-start="url(#arrow-rev)" marker-end="url(#arrow)"/>
+  <text x="168" y="1075" class="dim">31.5</text>
+
+  <!-- Boss B X from left: 128.5mm -->
+  <line x1="506" y1="1040" x2="506" y2="1066" class="extline"/>
+  <line x1="120" y1="1062" x2="506" y2="1062" class="dimline" marker-start="url(#arrow-rev)" marker-end="url(#arrow)"/>
+  <text x="370" y="1075" class="dim">128.5</text>
+
+
+  <!-- ============================================================ -->
+  <!-- DETAIL A — C-Channel Rail Groove Cross-Section                -->
+  <!-- Section through left side wall looking along Y                -->
+  <!-- Scale: 8 px/mm                                                -->
+  <!-- ============================================================ -->
+
+  <text x="250" y="1130" class="label">DETAIL A — C-Channel Rail Groove</text>
+  <text x="250" y="1145" class="dim-small">Scale: 8 px/mm | Cross-section through left side wall</text>
+
+  <!-- Detail frame -->
+  <rect x="80" y="1160" width="340" height="340" class="detail-frame"/>
+
+  <!-- Coordinate mapping: center of view at X=5mm, Z=43mm -> pixel (250, 1330) -->
+  <!-- dX(mm) = 250 + (mm - 5)*8 = 210 + mm*8 -->
+  <!-- dZ(mm) = 1330 + (43 - mm)*8 = 1674 - mm*8 -->
+
+  <!-- Wall section: X=0..7.7 -->
+  <!-- X=0->210, X=7.7->210+61.6=272 -->
+  <!-- Z=28->1674-224=1450, Z=58->1674-464=1210 -->
+  <rect x="210" y="1210" width="62" height="240" class="section"/>
+
+  <!-- Groove cutout: X=7.7..10.3, Z=32.7..53.3 -->
+  <!-- X=7.7->272, X=10.3->210+82.4=292 -->
+  <!-- Z=32.7->1674-261.6=1412, Z=53.3->1674-426.4=1248 -->
+  <rect x="272" y="1248" width="20" height="164" fill="white" stroke="black" stroke-width="0.8"/>
+
+  <!-- Wall outer edges -->
+  <line x1="210" y1="1210" x2="210" y2="1450" class="outline"/>
+  <line x1="210" y1="1210" x2="272" y2="1210" class="outline"/>
+  <line x1="210" y1="1450" x2="272" y2="1450" class="outline"/>
+  <!-- Inner face above/below groove -->
+  <line x1="272" y1="1210" x2="272" y2="1248" class="outline"/>
+  <line x1="272" y1="1412" x2="272" y2="1450" class="outline"/>
+  <!-- Groove edges -->
+  <line x1="272" y1="1248" x2="292" y2="1248" class="outline"/>
+  <line x1="292" y1="1248" x2="292" y2="1412" class="outline"/>
+  <line x1="292" y1="1412" x2="272" y2="1412" class="outline"/>
+
+  <!-- Cartridge rail rib (phantom): 2.0mm wide, clearance 0.3mm each side -->
+  <!-- Rib X=8.0..10.0 -> px 274..290, Z=33.0..53.0 -> px 1250..1410 -->
+  <rect x="274" y="1250" width="16" height="160" class="phantom"/>
+
+  <!-- Hatch for wall material -->
+  <line x1="212" y1="1215" x2="270" y2="1215" class="hatch"/>
+  <line x1="212" y1="1225" x2="270" y2="1225" class="hatch"/>
+  <line x1="212" y1="1235" x2="270" y2="1235" class="hatch"/>
+  <line x1="212" y1="1245" x2="270" y2="1245" class="hatch"/>
+  <line x1="212" y1="1415" x2="270" y2="1415" class="hatch"/>
+  <line x1="212" y1="1425" x2="270" y2="1425" class="hatch"/>
+  <line x1="212" y1="1435" x2="270" y2="1435" class="hatch"/>
+  <line x1="212" y1="1445" x2="270" y2="1445" class="hatch"/>
+
+  <!-- Dimension: groove width 2.6mm -->
+  <line x1="272" y1="1248" x2="272" y2="1233" class="extline"/>
+  <line x1="292" y1="1248" x2="292" y2="1233" class="extline"/>
+  <line x1="272" y1="1237" x2="292" y2="1237" class="dimline" marker-start="url(#arrow-rev)" marker-end="url(#arrow)"/>
+  <text x="282" y="1228" class="dim">2.6</text>
+
+  <!-- Dimension: groove height 20.6mm -->
+  <line x1="292" y1="1248" x2="308" y2="1248" class="extline"/>
+  <line x1="292" y1="1412" x2="308" y2="1412" class="extline"/>
+  <line x1="304" y1="1248" x2="304" y2="1412" class="dimline" marker-start="url(#arrow-rev)" marker-end="url(#arrow)"/>
+  <text x="318" y="1334" class="dim-right">20.6</text>
+
+  <!-- Dimension: wall thickness 7.7mm -->
+  <line x1="210" y1="1450" x2="210" y2="1466" class="extline"/>
+  <line x1="272" y1="1450" x2="272" y2="1466" class="extline"/>
+  <line x1="210" y1="1462" x2="272" y2="1462" class="dimline" marker-start="url(#arrow-rev)" marker-end="url(#arrow)"/>
+  <text x="241" y="1478" class="dim">7.7</text>
+
+  <!-- Phantom rib annotation (inside frame) -->
+  <text x="330" y="1290" class="note">Cartridge rib</text>
+  <text x="330" y="1302" class="note">(phantom, 2.0W)</text>
+
+
+  <!-- ============================================================ -->
+  <!-- DETAIL B — Rear Wall Interface                                -->
+  <!-- Rear wall inboard face (Y=7), looking along +Y toward rear   -->
+  <!-- Scale: 4 px/mm                                                -->
+  <!-- ============================================================ -->
+
+  <text x="800" y="1130" class="label">DETAIL B — Rear Wall Interface</text>
+  <text x="800" y="1145" class="dim-small">Scale: 4 px/mm | Rear wall inboard face (Y=7)</text>
+
+  <!-- Detail frame -->
+  <rect x="510" y="1160" width="640" height="380" class="detail-frame"/>
+
+  <!-- Coordinate mapping: -->
+  <!-- bX(mm) = 530 + (mm - 7.7)*4   bZ(mm) = 1500 - mm*4 -->
+  <!-- X=7.7->530, X=152.3->530+578.4=1108 -->
+  <!-- Z=5->1480, Z=80->1180 -->
+
+  <!-- Wall face -->
+  <rect x="530" y="1180" width="578" height="300" class="thin" fill="#f0f0f0"/>
+
+  <!-- Tube stub circles (6.35mm OD) -->
+  <!-- H1: X=46.5,Z=57.8 -> bx=530+(46.5-7.7)*4=685, bz=1500-231.2=1269, r=12.7 -->
+  <circle cx="685" cy="1269" r="13" stroke="black" stroke-width="1.0" fill="white"/>
+  <!-- H2: X=46.5,Z=27.8 -> bz=1500-111.2=1389 -->
+  <circle cx="685" cy="1389" r="13" stroke="black" stroke-width="1.0" fill="white"/>
+  <!-- H3: X=113.5 -> bx=530+(113.5-7.7)*4=953 -->
+  <circle cx="953" cy="1269" r="13" stroke="black" stroke-width="1.0" fill="white"/>
+  <!-- H4: X=113.5,Z=27.8 -->
+  <circle cx="953" cy="1389" r="13" stroke="black" stroke-width="1.0" fill="white"/>
+
+  <!-- Registration bosses (circles, 10mm base dia) -->
+  <!-- Boss A: X=31.5,Z=17.8 -> bx=530+(31.5-7.7)*4=625, bz=1500-71.2=1429, r=20 -->
+  <circle cx="625" cy="1429" r="20" stroke="black" stroke-width="1.0" fill="#d0d0d0"/>
+  <!-- Boss B: X=128.5,Z=67.8 -> bx=530+(128.5-7.7)*4=1013, bz=1500-271.2=1229 -->
+  <circle cx="1013" cy="1229" r="20" stroke="black" stroke-width="1.0" fill="#d0d0d0"/>
+
+  <!-- Blade contact pockets (12x6mm each) -->
+  <!-- P1: X center=68,Z center=42.8 -> bx=530+(68-7.7)*4=771, bz=1500-171.2=1329 -->
+  <!-- rect: x=771-24=747, y=1329-12=1317, w=48, h=24 -->
+  <rect x="747" y="1317" width="48" height="24" stroke="black" stroke-width="0.8" fill="white"/>
+  <!-- P2: X=80 -> bx=530+(80-7.7)*4=819 -> x=795 -->
+  <rect x="795" y="1317" width="48" height="24" stroke="black" stroke-width="0.8" fill="white"/>
+  <!-- P3: X=92 -> bx=867 -> x=843 -->
+  <rect x="843" y="1317" width="48" height="24" stroke="black" stroke-width="0.8" fill="white"/>
+  <!-- P4: X=104 -> bx=915 -> x=891 -->
+  <rect x="891" y="1317" width="48" height="24" stroke="black" stroke-width="0.8" fill="white"/>
+
+  <!-- Wire routing holes (dashed circles, 3mm dia) -->
+  <circle cx="771" cy="1329" r="6" class="hidden"/>
+  <circle cx="819" cy="1329" r="6" class="hidden"/>
+  <circle cx="867" cy="1329" r="6" class="hidden"/>
+  <circle cx="915" cy="1329" r="6" class="hidden"/>
+
+  <!-- Labels -->
+  <text x="685" y="1255" class="dim">H1</text>
+  <text x="685" y="1415" class="dim">H2</text>
+  <text x="953" y="1255" class="dim">H3</text>
+  <text x="953" y="1415" class="dim">H4</text>
+  <text x="625" y="1462" class="dim">Boss A</text>
+  <text x="1013" y="1210" class="dim">Boss B</text>
+  <text x="819" y="1308" class="dim-small">Blade contact pockets</text>
+  <text x="819" y="1360" class="dim-small">12x6mm, 4 places</text>
+
+  <!-- Dimension: stub X spacing 67mm (H1 to H3) -->
+  <line x1="685" y1="1240" x2="685" y2="1225" class="extline"/>
+  <line x1="953" y1="1240" x2="953" y2="1225" class="extline"/>
+  <line x1="685" y1="1229" x2="953" y2="1229" class="dimline" marker-start="url(#arrow-rev)" marker-end="url(#arrow)"/>
+  <text x="819" y="1224" class="dim">67.0</text>
+
+  <!-- Dimension: stub Z spacing 30mm (H1 to H2) -->
+  <line x1="665" y1="1269" x2="650" y2="1269" class="extline"/>
+  <line x1="665" y1="1389" x2="650" y2="1389" class="extline"/>
+  <line x1="654" y1="1269" x2="654" y2="1389" class="dimline" marker-start="url(#arrow-rev)" marker-end="url(#arrow)"/>
+  <text x="640" y="1333" class="dim" transform="rotate(-90, 640, 1333)">30.0</text>
+
+  <!-- Contact pocket spacing 12mm c-c -->
+  <line x1="771" y1="1350" x2="771" y2="1370" class="extline"/>
+  <line x1="819" y1="1350" x2="819" y2="1370" class="extline"/>
+  <line x1="771" y1="1366" x2="819" y2="1366" class="dimline" marker-start="url(#arrow-rev)" marker-end="url(#arrow)"/>
+  <text x="795" y="1382" class="dim">12.0</text>
+
+  <!-- Tube stub section inset -->
+  <rect x="1000" y="1390" width="140" height="140" class="detail-frame"/>
+  <text x="1115" y="1404" class="dim-small">Stub</text>
+
+  <!-- Rear wall Y=0..7, tube Y=7..27 -->
+  <!-- Scale 4px/mm. Y=0->1010, jY(mm)=1010+mm*4 -->
+  <!-- Wall: Y=0..7 -> x=1010..1038 -->
+  <rect x="1010" y="1420" width="28" height="90" class="section"/>
+  <!-- Hole (white): 6.6mm dia -> 26px height centered -->
+  <rect x="1010" y="1452" width="28" height="26" fill="white" stroke="black" stroke-width="0.6"/>
+  <!-- Tube: Y=7..27 -> x=1038..1118 -->
+  <rect x="1038" y="1452" width="80" height="26" fill="none" stroke="black" stroke-width="1.0"/>
+  <!-- Chamfer at tip -->
+  <line x1="1112" y1="1452" x2="1118" y2="1458" class="thin"/>
+  <line x1="1112" y1="1478" x2="1118" y2="1472" class="thin"/>
+  <line x1="1118" y1="1458" x2="1118" y2="1472" class="thin"/>
+
+  <!-- Tube OD label -->
+  <text x="1070" y="1448" class="dim-small">6.35 OD</text>
+  <!-- Wall thickness -->
+  <line x1="1010" y1="1420" x2="1010" y2="1413" class="extline"/>
+  <line x1="1038" y1="1420" x2="1038" y2="1413" class="extline"/>
+  <line x1="1010" y1="1416" x2="1038" y2="1416" class="dimline" marker-start="url(#arrow-rev)" marker-end="url(#arrow)"/>
+  <text x="1024" y="1410" class="dim-small">7.0</text>
+  <!-- Stub protrusion 20mm -->
+  <line x1="1038" y1="1482" x2="1038" y2="1498" class="extline"/>
+  <line x1="1118" y1="1482" x2="1118" y2="1498" class="extline"/>
+  <line x1="1038" y1="1494" x2="1118" y2="1494" class="dimline" marker-start="url(#arrow-rev)" marker-end="url(#arrow)"/>
+  <text x="1078" y="1520" class="dim-small">20.0</text>
+  <!-- Chamfer note -->
+  <text x="1124" y="1465" class="dim-small">1.5x45</text>
+
+</svg>
