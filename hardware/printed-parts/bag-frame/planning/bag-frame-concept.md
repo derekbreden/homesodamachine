@@ -1,129 +1,121 @@
 # Bag Frame -- Conceptual Architecture
 
-## Critical Realization: Access Frequency
+## Design Decision (settled)
 
-The vision states the enclosure is "snapped together permanently" and "the user never opens the enclosure." The requirements state bags are "permanent fixture the same as all other internal plumbing." This means the bag frame is assembled once during initial build, then sealed inside the enclosure for the product's lifetime. The flip lid is an assembly and service mechanism, not a daily consumer interaction. This fundamentally shapes every design choice below.
-
-The hinge concept from the decision document remains correct -- it makes initial assembly clean (gravity holds lid open, both hands free for bag placement) and preserves serviceability if a bag ever needs replacement. But the mechanism does not need to survive thousands of cycles, be accessible from the enclosure exterior, or feel like a consumer touchpoint.
+Two-piece permanent cage per bag. Lower cradle + upper cap snap together around the Platypus 2L bag with ratcheting barbs. No hinge, no latch, no moving parts. Assembled once during build, never opened again. Two identical frames stacked vertically inside the enclosure.
 
 ---
 
-## 1. Piece Count and Split Strategy
+## Exploration
 
-**3 pieces per bag frame, 6 total for both bags.**
+### Shape of each half
 
-| Piece | Function | Approximate Size |
-|-------|----------|-----------------|
-| Lower cradle | Supports bag weight, mounts to enclosure walls, provides hinge posts | 250 x 180 x 20 mm |
-| Flip lid | Upper constraint (cross-rib frame), hinge sockets, latch tab | 250 x 180 x 15 mm |
-| Hinge pin | Connects lid to cradle | 170 mm x 1.75 mm dia (filament segment) |
+**Dead end: full-surface lower cradle.** The decision document spec'd a 250 x 180 mm continuous smooth cradle. At 35 degrees with the bag diagonal, this footprint is correct for the bag's midsection, but a full continuous floor is unnecessary. The bag only needs support along its width at a few points -- the PE/nylon film bridges between supports. A continuous floor also traps condensation and prevents airflow around the bag.
 
-**Why not fewer pieces?** The cradle and lid must be separate to allow bag insertion -- a single cage with an end-opening was rejected in the decision (poor insertion UX). The hinge pin could be eliminated with a snap-in knuckle hinge (integral cylinders on the lid that snap into C-shaped sockets on the cradle), but a filament pin is simpler, more reliable, and trivial to replace.
+**Dead end: curved cradle matching lenticular profile.** The bag-constraint-mechanics research shows the natural lenticular cross-section has a very gentle curve (R = 341mm, sag of ~7mm). Printing a precise curve adds complexity for minimal benefit -- the bag film conforms to flat surfaces just fine. The research explicitly recommends flat or very gently curved surfaces.
 
-**Why not more pieces?** There is no reason to split the cradle or lid. Both fit the Bambu H2C print bed (325 x 320 mm) with generous margin. The cradle prints flat, face-down. The lid prints flat, ribs-up.
+**Selected: ribbed tray lower half, open-frame upper half.** The lower half is a perimeter rail with 4-5 longitudinal ribs running the length of the bag zone, creating a tray that supports the bag's weight while allowing air circulation underneath. The upper half is a perimeter rail with 4 transverse cross-ribs that limit maximum thickness. Both halves share the same perimeter footprint and snap together at the perimeter.
 
-**Mounting to the enclosure:** The cradle does not snap to the enclosure walls directly. Instead, the enclosure interior has two pairs of horizontal ledges (molded into each enclosure half) that the cradle rests on. The ledges define the 35-degree angle and the vertical stacking position. The cradle has downward-facing tabs that drop into slots on the ledges, preventing lateral and longitudinal shift. This is not a snap-fit -- it is a gravity-seated registration. The enclosure halves, when joined, capture the cradles from both sides.
+### Where the bag cap exits
 
-**Why gravity-seated instead of snap-fit?** Because the enclosure halves are assembled around the cradles. The assembly sequence is: (1) install cradles with bags onto one enclosure half, (2) close the other half over. Snap-fits on the enclosure interior would require reaching inside to engage them, which is awkward. Gravity-seated registration with capture-on-close is the right pattern for a clam-shell enclosure.
+The bag is mounted at 35 degrees, cap end at the back-bottom of the enclosure. The cap/tubing must exit the frame cleanly without being pinched by the snap closure.
 
----
+**Selected: open downhill end.** The lower cradle has a U-shaped open end at the cap side (downhill). The upper cap's perimeter rail stops short at the same end, leaving a slot ~35mm wide x 30mm tall for the cap and tubing to pass through. A small stop wall on the lower cradle, set back 15mm from the open end, prevents the bag from sliding downhill (resists the 11N gravity component) while leaving the cap/tubing path clear. The stop wall has a semicircular notch (15mm radius) for the tubing.
 
-## 2. Join Methods
+### Ratcheting barb geometry
 
-| Joint | Method | Rationale |
-|-------|--------|-----------|
-| Lid to cradle | Filament hinge pin through post-and-socket | Simple, replaceable, low cycle count needed |
-| Lid closed position | Cantilever snap latch at cap (downhill) end | Tactile click confirms closure; one-finger release |
-| Cradle to enclosure | Gravity-seated tabs in ledge slots, captured by enclosure closure | No reaching inside; assembly-friendly |
-| Upper cradle to lower cradle | No direct connection; both independently seated on enclosure ledges | Stacking is defined by the enclosure geometry, not by the frames themselves |
+**Dead end: barbs on posts extending from upper cap into holes in lower cradle.** This is what the decision document describes. The problem: posts extending downward from the upper cap require the upper cap to be printed ribs-down (so the posts point up on the print bed), which means the bag-contact surfaces of the ribs are the first layer -- rough. Flipping the print means the posts overhang.
 
-**Hinge detail:** Two cylindrical posts (4 mm OD, 6 mm tall) on the cradle's uphill end, spaced 160 mm apart. The lid has matching holes (4.2 mm ID). A 170 mm length of 1.75 mm PETG filament threads through all four features. The filament is retained by friction or small printed end-caps. At 35 degrees, the open lid's center of gravity falls behind the hinge axis, so the lid stays open without a detent.
+**Selected: barbs integrated into the perimeter rail walls.** Instead of discrete posts, the upper cap's perimeter rail has inward-facing barb ridges along both long sides (2 barbs per side, 4 total). The lower cradle's perimeter rail has matching slots. When the upper cap is pressed down onto the cradle, the barb ridges slide into the slots and click past a ledge. The barb geometry is: 30-degree lead-in ramp, vertical lock face, 1.0mm engagement depth.
 
-**Latch detail:** A single cantilever tab on the lid's downhill edge hooks under a catch on the cradle's cap-end wall. The tab is 3 mm wide, 15 mm long, with 0.8 mm of engagement. Deflection to release: ~2 mm. This is a standard FDM cantilever snap -- printable in PETG without issue. One latch is sufficient because the bag's internal pressure is modest (~10 N total upward force, distributed) and the lid's own weight at 35 degrees biases it toward closed.
+This approach is better because: (1) the barbs are part of the perimeter rail wall, which prints vertically with good layer adhesion -- the lock face is parallel to layer lines, maximizing shear strength; (2) no overhanging posts; (3) the upper cap prints ribs-up (bag-contact surfaces face the print bed = smooth first-layer finish); (4) alignment is automatic -- the perimeter rails nest together, self-centering before the barbs engage.
 
----
+### Enclosure mounting
 
-## 3. Seam Placement
+**Dead end: ledges molded into enclosure interior walls.** The decision document mentions horizontal ledges in the enclosure. This couples the bag frame geometry to the enclosure print, making iteration expensive.
 
-The bag frame has two seams: the hinge line and the latch line. Both are internal to the enclosure and invisible to the user.
+**Selected: tongue-and-groove rails on enclosure side walls.** Two horizontal rails (one per side) are printed as part of each enclosure half's interior. The bag frame's lower cradle has outward-facing tongues along its long edges that slide into these rails from one end. The frame slides in during assembly and is captured when the enclosure halves close. This decouples the frame's cross-section from the enclosure -- only the rail interface matters.
 
-- **Hinge seam** runs across the uphill (front/top) end of the frame. It is the visual boundary between the cradle and the lid when closed. Since the frame is inside a sealed enclosure, seam treatment is purely functional -- no aesthetic gap control needed. A 0.5 mm gap at the hinge line is acceptable.
-- **Latch seam** is at the downhill (back/bottom) end. The lid's edge sits on top of the cradle's cap-end wall with the snap tab below. Gap: 0-0.5 mm when latched.
-- **Side seams** between the lid perimeter rail and the cradle side rails. These are open gaps (~2 mm) that allow the bag's heat-sealed edges to protrude slightly without pinching. This is functional, not a cosmetic seam.
+The rails are angled at 35 degrees relative to horizontal, built into the enclosure side walls. The two bag frames mount on parallel rail pairs, one above the other, with ~40mm vertical separation between them (enough for tubing routing between frames).
 
-**No user-visible seams.** The bag frame is entirely enclosed. The only enclosure seams the user sees are on the outer shell, which is a separate design problem.
+### Sealed end (uphill) treatment
+
+The sealed end of the bag (folded flat against the front wall per the vision) must be pinned. The bag film folds over itself here and tucks against the front enclosure wall.
+
+**Selected: clip tab on upper cap.** The upper cap's uphill end extends 20mm past the constraint zone as a flat tab with a downward hook. This hook captures the folded bag film against the lower cradle's uphill wall, pinning the sealed end flat. The fold is outside the constraint zone so it does not affect the 27mm gap. The hook has a 3mm radius to avoid creasing the film.
 
 ---
 
-## 4. User-Facing Surface Composition
+## Settled Concept
 
-The bag frame has no user-facing surfaces. It is permanently enclosed.
+### 1. Piece count and split strategy
 
-The surfaces that matter are **bag-facing**: the cradle floor and the lid cross-ribs that contact the Platypus film.
+**2 pieces per bag, 4 total.** Horizontal split at the bag's midplane. Lower piece (cradle) supports weight and defines the mounting interface. Upper piece (cap) constrains maximum thickness and locks to cradle permanently. Both pieces share a common perimeter rail footprint (~250 x 180mm). The split is at the widest point of the constrained bag cross-section, which means neither half needs to reach around the bag -- each half simply covers its own side.
 
-- **Cradle floor:** Continuous smooth surface with 0.4 mm-pitch longitudinal ribs (parallel to bag long axis). The ribs prevent PE film adhesion to PETG. The surface is gently concave -- not a precise lens-profile arc, but a shallow dish (~3 mm of sag across 180 mm width) that guides the bag toward center. All edges contacting the bag have 3 mm minimum radius.
-- **Lid cross-ribs:** 4 ribs spanning the 180 mm width, spaced 50 mm apart. Each rib is 3 mm wide x 12 mm tall with a gently curved underside matching the upper half of the 27 mm constraint gap. Rib undersurfaces have 0.4 mm-pitch transverse texture (perpendicular to bag axis) to prevent adhesion. 3 mm edge radii.
-- **Cradle side rails:** 8 mm tall along both long edges. They prevent lateral bag shift but do not compress the bag -- the bag's heat-sealed perimeter overhangs the rails freely.
-- **Cap-end wall:** A lip at the downhill end with a notch for the cap/tubing to pass through. Prevents the bag from sliding down the 35-degree incline (resists the 11 N sliding force).
-- **Entry/exit tapers:** Over the last 40 mm at each end of the constraint zone, the gap widens from 27 mm to 45 mm via gentle ramps on both cradle and lid. This prevents kinking at the constraint boundary.
+### 2. Join methods
 
----
+**Ratcheting barb ridges on the perimeter rail.** 4 barb points total (2 per long side). The upper cap's rail has inward-facing barb ridges; the lower cradle's rail has matching slot/ledge receivers. 30-degree lead-in, vertical lock face, 1.0mm engagement. Pressing the cap onto the cradle produces 4 sequential clicks as each barb engages. Full engagement leaves zero visible gap between the two perimeter rails. Partial engagement is obvious: a 1-2mm gap is visible and the cap rocks slightly.
 
-## 5. Design Language
+Material: PETG. The barbs are loaded in shear parallel to layer lines, which is PETG's strongest printed orientation. 1.0mm engagement on a 2mm-wide barb ridge gives a pull-apart force of ~30-50N per barb (120-200N total), far exceeding the bag's ~10N upward force.
 
-**Internal-functional, not consumer-aesthetic.** Since the bag frame is never seen or touched by the user, it does not need the surface finish, corner radii, or visual polish of the enclosure exterior. It needs to be mechanically correct.
+### 3. Seam placement
 
-- **Material:** PETG. Chosen for chemical resistance (contact with food-grade syrup residue on bag exterior), temperature stability (under-sink environment), and hinge/snap durability. Not PLA (too brittle for snap features over time). Not ABS (unnecessary and harder to print).
-- **Surface finish:** Standard FDM layer lines are acceptable on all surfaces. Bag-contact surfaces get the anti-adhesion rib texture described above. No sanding, painting, or post-processing.
-- **Corner treatment:** 3 mm radii on all edges that contact the bag (safety/film protection). Other edges can be sharp or lightly chamfered (0.5 mm) for print quality -- no aesthetic requirement.
-- **Color:** Any. It is invisible. Recommend natural/translucent PETG so that during assembly, the bag's fill level and position are visible through the frame. This is a build-verification aid, not an aesthetic choice.
-- **Visual distinction from enclosure parts:** None needed. The bag frame is a utilitarian internal structure. It should look like what it is -- a functional cradle.
+The horizontal seam between cradle and cap runs around the full perimeter of the frame, at the bag's midplane height (~13.5mm above the cradle floor). This seam is never visible to the user -- the frame is inside a permanently sealed enclosure. The seam is functional, not cosmetic: it is where the barb ridges engage.
 
----
+The seam is continuous and planar (no jogs or steps), which means both halves sit flat on the print bed and the mating surfaces are first-layer quality (smooth, dimensionally accurate).
 
-## 6. Service Access Strategy
+### 4. User-facing surface composition
 
-**Tier 1 -- Never (normal operation):** The bag frame is sealed inside the enclosure. No access needed. Filling is via the funnel. Cleaning is automated. Dispensing is via tubing. The user never interacts with the bag frame.
+**No user-facing surfaces exist.** The bag frame is assembled once during initial build and then sealed inside the enclosure permanently. The user never sees or touches the frame. All surfaces are functional: bag-contact surfaces are smooth with 0.4mm anti-adhesion ribbing; structural surfaces are standard FDM finish. No aesthetic treatment is needed or appropriate -- material spent on cosmetics here is material wasted.
 
-**Tier 2 -- Rare (bag replacement due to failure):** If a Platypus bag develops a leak or needs replacement after years of use, the enclosure must be opened. The enclosure halves are snapped together permanently per the vision, so this is a destructive-ish operation (prying apart snap tabs). Once open, the bag frame's flip lid unlatches and hinges open, the old bag is removed, the new bag is placed, the lid is closed. The hinge and latch are designed to survive this -- they are not single-use.
+### 5. Design language
 
-**Tier 3 -- Assembly (initial build):** The bag frame is assembled and loaded with bags before the enclosure is closed. Sequence:
-1. Mount cradles (with bags and closed lids) onto one enclosure half's internal ledges.
-2. Route tubing from bag caps to valves/pumps.
-3. Close the second enclosure half, capturing the cradles.
+The bag frame is an internal structural component. Its design language is: **minimal, functional, no wasted material.** Open frames and ribs rather than solid walls. Generous radii (3mm minimum) on all bag-contact edges -- not for aesthetics but to prevent film damage. PETG throughout for chemical resistance (food-contact syrup) and creep resistance under sustained bag pressure.
 
-The gravity-seated mounting means the cradles simply drop into position. No tools, no snap engagement to fumble with inside a half-closed enclosure.
+The frame's visual identity, to the extent it has one, comes from its ribbed openwork structure -- it looks like it was designed by an engineer who respected the loads and nothing else.
 
----
+### 6. Service access strategy
 
-## 7. Manufacturing Constraints
+**Tier 1 (never): normal operation.** The frame is sealed inside the enclosure. No access needed. No access provided.
 
-| Constraint | Value | Source |
-|------------|-------|--------|
-| Print bed (single nozzle) | 325 x 320 x 320 mm | requirements.md |
-| Cradle footprint | 250 x 180 mm | Fits bed with 75+ mm margin each axis |
-| Lid footprint | 250 x 180 mm | Same |
-| Print orientation -- cradle | Flat, concave face up | No supports needed; bag-contact surface is top layer (smoothest) |
-| Print orientation -- lid | Flat, ribs pointing up | Ribs print vertically (strong layer orientation); no supports |
-| Layer height | 0.2 mm | Standard for structural parts; 0.1 mm unnecessary for non-visible parts |
-| Material | PETG | Chemical resistance + snap durability |
-| Hinge pin | 1.75 mm PETG filament, cut to 170 mm | Zero print time; uses waste filament |
-| Wall thickness minimum | 1.5 mm | Standard FDM minimum for PETG |
-| Snap tab minimum width | 3 mm | Ensures adequate flex life in PETG |
-| Anti-adhesion ribs | 0.4 mm pitch, 0.2 mm tall | Achievable at 0.2 mm layer height with 0.4 mm nozzle |
+**Tier 2 (rare, years apart): bag replacement.** The enclosure must be pried open (same as any internal service). Once open, the bag frame slides out of its enclosure rails. The permanent barbs are pried apart with a flat tool (screwdriver blade between the perimeter rails). The barbs will deform or break -- this is acceptable. The frame is 2 printed parts costing ~5 hours of print time. If the barbs break, reprint the damaged half. The barb geometry is designed to fail gracefully: the barb ridge snaps off cleanly rather than shattering the rail.
 
-**No supports required for any piece.** The cradle is a shallow dish -- prints flat. The lid is an open frame with vertical ribs -- prints flat with ribs pointing up. Both are straightforward single-material PETG prints.
+**Tier 3 (once, at build): initial assembly.** Drape bag on cradle, route cap/tubing through open end, press upper cap on until all 4 barbs click. Verify zero gap at all 4 barb points. Slide assembled frame into enclosure rails.
 
-**No multi-material printing needed.** Both pieces are uniform PETG.
+### 7. Manufacturing constraints
 
-**Print time estimate:** Cradle ~3-4 hours, lid ~1.5-2 hours at 0.2 mm layers. Total for all 6 parts (2 cradles + 2 lids): ~10-12 hours, excluding hinge pins (not printed).
+**Print bed:** Bambu H2C, 325 x 320 x 320mm single-nozzle. The frame footprint is ~250 x 180mm -- fits with 75mm margin on the long axis and 140mm on the short axis. Both halves fit on the bed simultaneously.
+
+**Orientation:**
+- Lower cradle: printed flat, ribs pointing up. The bag-contact surface (rib tops) benefits from being the top surface for smooth finish, but the bottom (first layer against bed) is actually smoother. Since the bag contacts the rib tops, not the floor between ribs, the rib tops are printed surfaces at 0.2mm layer height -- adequate smoothness for PE film contact with 0.4mm anti-adhesion texture applied.
+- Upper cap: printed flat, ribs pointing up (away from bed). The bag-contact undersides of the cross-ribs are overhang surfaces, but at only 3mm rib width, the bridging is trivial for PETG.
+
+**Supports:** None required for either piece. The lower cradle is a tray with upward-facing features. The upper cap is a frame with upward-facing ribs. No overhangs exceed 45 degrees.
+
+**Material:** PETG. Selected for: (1) food-safe when printed (no toxic additives in standard PETG filament), (2) superior creep resistance vs PLA under sustained load, (3) better chemical resistance to acidic syrups than PLA, (4) prints well on the H2C without enclosure. PLA would work structurally but may creep at the barb engagement points over years of sustained bag pressure, eventually loosening the frame.
+
+**Layer height:** 0.2mm. Standard for structural parts. The anti-adhesion ribbing (0.4mm pitch) is 2 layers tall -- printable as a surface texture without special settings.
+
+**Infill:** 20% gyroid for the perimeter rails (the only solid volumes). The ribs are single-wall features that do not have infill.
+
+**Estimated print time:** ~2-2.5 hours per cradle, ~1-1.5 hours per cap. Total for 4 pieces: ~7-8 hours.
 
 ---
 
-## Concept Summary
+## Key Dimensions Summary
 
-Two identical bag frames, each consisting of a lower cradle and a hinged flip lid, gravity-seated on ledges molded into the enclosure interior. The frames are assembled with bags during initial build, then sealed inside the permanently-closed enclosure. The user never sees or touches them.
-
-The cradle provides a smooth, textured, gently concave surface that supports the bag and prevents lateral/longitudinal shift. The lid provides cross-rib constraint that limits midsection thickness to 27 mm. The hinge at the uphill end uses a filament pin and allows the lid to stay open via gravity during assembly. A single cantilever snap at the downhill end latches the lid closed.
-
-No purchased hardware. No tools. No post-processing. Six PETG prints and two filament offcuts per machine, assembled by hand in under five minutes.
+| Parameter | Value |
+|-----------|-------|
+| Frame footprint (L x W) | ~250 x 180 mm |
+| Constraint zone length | 200 mm (centered on midsection) |
+| Constraint zone width | 170 mm (bag edges overhang freely) |
+| Center gap (cradle floor to cap rib underside) | 27 mm |
+| Entry taper (each end) | 40 mm, gap widens from 27 mm to 45 mm |
+| Lower cradle height | ~15 mm (8mm rail + 7mm rib height) |
+| Upper cap height | ~15 mm (8mm rail + 7mm rib depth) |
+| Total closed frame height | ~30 mm (rails nest, gap is internal) |
+| Perimeter rail width | 8 mm |
+| Barb engagement | 1.0 mm, 4 points |
+| Cap exit slot | ~35 mm wide x 30 mm tall, open downhill end |
+| Enclosure rail angle | 35 degrees from horizontal |
+| Vertical spacing between frames | ~40 mm (center-to-center ~70 mm) |
