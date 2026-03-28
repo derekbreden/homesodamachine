@@ -31,19 +31,19 @@ Before starting the pipeline, verify:
 
 ## Pipeline Steps
 
-Each step has a detailed procedure document in `hardware/procedure/`. The orchestrator reads the step's procedure doc before spawning the agent.
+Each step has a detailed procedure document in `hardware/procedure/steps/`. The orchestrator reads the step's procedure doc before spawning the agent.
 
 | Step | What it produces | Procedure doc | Agent count |
 |------|-----------------|---------------|-------------|
-| 0 | `hardware/manufacturing-environment.md` | `manufacturing-environment-research.md` | 1 research agent |
+| 0 | `hardware/manufacturing-environment.md` | `steps/0-manufacturing-environment.md` | 1 research agent |
 | 1 | Folder tree | (none — do directly) | 0 |
-| 2A | Technical research docs | `technical-research.md` | 1 per approach, parallel |
-| 2B | Design pattern research | `design-pattern-research.md` | 1 |
-| 3 | Decision document | `design-decision.md` | 1 |
-| 4a | Concept document | `conceptual-architecture.md` | 1 |
-| 4b | parts.md per part | `parts-specification.md` | 1 per part, parallel |
-| 5 | SVG engineering drawings | `engineering-drawings-SVG.md` | 1 per part, parallel |
-| 6 | STEP files | `3d-models-STEP.md` | 1 per part, parallel |
+| 2A | Technical research docs | `steps/2a-technical-research.md` | 1 per approach, parallel |
+| 2B | Design pattern research | `steps/2b-design-pattern-research.md` | 1 |
+| 3 | Decision document | `steps/3-design-decision.md` | 1 |
+| 4a | Concept document | `steps/4a-conceptual-architecture.md` | 1 |
+| 4b | parts.md per part | `steps/4b-parts-specification.md` | 1 per part, parallel |
+| 5 | SVG engineering drawings | `steps/5-engineering-drawings.md` | 1 per part, parallel |
+| 6 | STEP files | `steps/6-step-generation.md` | 1 per part, parallel |
 
 ### Step 0 — Manufacturing Environment (run once)
 
@@ -177,5 +177,4 @@ You are [role] for [part/mechanism name].
 
 - **Requirements:** `hardware/requirements.md`
 - **Vision:** `hardware/vision.md`
-- **Drawing standards:** `hardware/procedure/engineering-drawings-SVG.md`
-- **STEP generation standards:** `hardware/procedure/3d-models-STEP.md`
+- **Step procedures:** `hardware/procedure/steps/`
