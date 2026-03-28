@@ -53,3 +53,6 @@
 - The FDM printer is a Bambu H2C
 - Single Nozzle Printing: 325 mm x 320 mm x 320 mm
 - Dual Nozzle Printing: 300 mm x 320 mm x 325 mm
+- Layer sizes can be as low as 0.1 mm
+- Supported materials (standard): PLA, PETG, TPU, PVA, BVOH, ABS, ASA, PC, PA, PET, PPS, PPA
+- Supported materials (carbon/glass fiber reinforced): PLA, PETG, PA, PET, PC, ABS, ASA, PPS

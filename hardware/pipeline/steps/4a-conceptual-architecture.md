@@ -23,7 +23,7 @@ The agent designing a mechanism is not limited to the mechanism's own parts. If 
 - Path to `hardware/requirements.md` and `hardware/vision.md`
 - Path to the decision document
 - Path to the design pattern research (`planning/research/design-patterns.md`)
-- Path to `hardware/manufacturing-environment.md` — the agent must read this for all print bed, material, and tolerance constraints. **The agent must not assume, infer, or use "typical" values for any manufacturing constraint.**
+- Printer specs and materials are in `hardware/requirements.md`. **The agent must not assume, infer, or use "typical" values for any manufacturing constraint.**
 - All known physical constraints (dimensions, what goes inside)
 - Instruction to explore freely — try ideas, discard dead ends, show the reasoning
 - Instruction to settle on ONE concept and summarize it clearly at the end

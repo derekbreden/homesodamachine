@@ -15,7 +15,7 @@ Same as conceptual architecture: the agent may modify any interfacing part if th
 - Path to `hardware/requirements.md` and `hardware/vision.md`
 - Path to the conceptual architecture document (this is the primary input — the design decisions are settled)
 - Path to the decision document
-- Path to `hardware/manufacturing-environment.md` — the agent must read this for all print bed, material, and tolerance constraints. **The agent must not assume, infer, or use "typical" values for any manufacturing constraint.**
+- Printer specs and materials are in `hardware/requirements.md`. **The agent must not assume, infer, or use "typical" values for any manufacturing constraint.**
 - Paths to all existing docs that need updating (architecture, shell parts.md, etc.)
 - Paths to interfacing parts that the agent has freedom to modify (shell, panels, etc.)
 - The coordinate system convention from the shell parts.md

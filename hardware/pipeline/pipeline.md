@@ -10,7 +10,7 @@ This document defines the procedure for designing a new 3D-printed part or mecha
 
 Two documents are the foundation of all design work. Every agent in every step reads both first.
 
-1. **`hardware/requirements.md`** — what we are building, the components involved, and the hard constraints. Facts that no agent can discover on its own.
+1. **`hardware/requirements.md`** — what we are building, the components involved, and the hard constraints (including printer specs, materials, and build volume). Facts that no agent can discover on its own.
 
 2. **`hardware/vision.md`** — the product values (what we care about, in priority order) and the product owner's imagined architecture (how they picture the assembled product). The values are absolute constraints. The architecture is directional — it tells you what the product owner is imagining, not what the final design must be.
 
@@ -35,7 +35,6 @@ Each step has a detailed procedure document in `hardware/pipeline/steps/`. The o
 
 | Step | What it produces | Procedure doc | Agent count |
 |------|-----------------|---------------|-------------|
-| 0 | `hardware/manufacturing-environment.md` | `steps/0-manufacturing-environment.md` | 1 research agent |
 | 1 | Folder tree | (none — do directly) | 0 |
 | 2A | Technical research docs | `steps/2a-technical-research.md` | 1 per approach, parallel |
 | 2B | Design pattern research | `steps/2b-design-pattern-research.md` | 1 |
@@ -44,12 +43,6 @@ Each step has a detailed procedure document in `hardware/pipeline/steps/`. The o
 | 4b | parts.md per part | `steps/4b-parts-specification.md` | 1 per part, parallel |
 | 5 | SVG engineering drawings | `steps/5-engineering-drawings.md` | 1 per part, parallel |
 | 6 | STEP files | `steps/6-step-generation.md` | 1 per part, parallel |
-
-### Step 0 — Manufacturing Environment (run once)
-
-Produces `hardware/manufacturing-environment.md`. Runs once at project start, updated when hardware changes. All downstream steps read this for physical constraints.
-
-**No agent may assume manufacturing constraints. They must come from this document.**
 
 ### Step 1 — Folder Structure
 
@@ -94,9 +87,6 @@ One agent per part produces CadQuery scripts AND validated STEP files. **The age
 ## Step Dependencies
 
 ```
-Step 0 (manufacturing environment — run once, verified by orchestrator)
-  │
-  ▼
 Step 1 (folders)
   │
   ├──→ Step 2A-1 (technical research) ──┐
@@ -120,7 +110,6 @@ Step 1 (folders)
          Step 6a (STEP)            Step 6b (STEP)              ...
 ```
 
-- Step 0 runs once. All downstream steps read its output.
 - Steps 2A and 2B run in parallel.
 - Step 3 waits for ALL Step 2 agents.
 - Step 4a waits for Step 3.
@@ -142,7 +131,7 @@ Step 1 (folders)
 8. **Optimizing throughput over correctness** — Quality gates are mandatory. Fast + wrong < slow + right.
 9. **Combining exploration and specification** — 4a explores, 4b specifies. Never combine them.
 10. **Research agent anchoring to current design** — 2B must not know about the current design.
-11. **Assumed manufacturing constraints** — Every constraint must come from `manufacturing-environment.md`, verified in Step 0. No "typical" values, ever.
+11. **Assumed manufacturing constraints** — All printer specs and materials are in `requirements.md`. No agent may assume "typical" values. If a constraint isn't in requirements.md, ask the product owner.
 
 ---
 
@@ -154,9 +143,8 @@ Every agent in this pipeline should receive a prompt structured as:
 You are [role] for [part/mechanism name].
 
 **FOUNDATIONAL DOCUMENTS (read these first):**
-- hardware/requirements.md — what we are building, hard constraints
+- hardware/requirements.md — what we are building, hard constraints, printer specs
 - hardware/vision.md — values and the product owner's imagined architecture
-- hardware/manufacturing-environment.md — verified printer specs, material properties
 
 **Web research:** Use WebFetch first. If it returns 403 or empty/useless content,
 fall back to Chrome MCP tools (mcp__Claude_in_Chrome__navigate,
