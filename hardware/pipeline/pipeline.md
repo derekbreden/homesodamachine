@@ -40,9 +40,12 @@ Each step has a detailed procedure document in `hardware/pipeline/steps/`. The o
 | 2B | Design pattern research | `steps/2b-design-pattern-research.md` | 1 |
 | 3 | Decision document | `steps/3-design-decision.md` | 1 |
 | 4a | Concept document | `steps/4a-conceptual-architecture.md` | 1 |
+| 4s | Spatial resolution document | `steps/4s-spatial-resolution.md` | 1 |
 | 4b | parts.md per part | `steps/4b-parts-specification.md` | 1 per part, parallel |
 | 5 | SVG engineering drawings | `steps/5-engineering-drawings.md` | 1 per part, parallel |
-| 6 | STEP files | `steps/6-step-generation.md` | 1 per part, parallel |
+| 6d | Decomposition spec (or pass-through) | `steps/6d-decomposition.md` | 1 per part |
+| 6g | CadQuery scripts + STEP files | `steps/6-step-generation.md` | 1 per sub-component, parallel |
+| 6c | Composed STEP file | `steps/6c-composition.md` | 1 per decomposed part |
 
 ### Step 1 — Folder Structure
 
@@ -68,19 +71,33 @@ One agent reads ALL research (including design patterns) and makes a recommendat
 
 One agent explores the design space and settles on ONE concept. Does not apply the full rubric suite — that's 4b's job.
 
-**Orchestrator checkpoint after 4a:** Review the concept before launching 4b. Redirecting here is cheap; redirecting after a full parts.md is expensive.
+### Step 4s — Spatial Resolution (NEW)
+
+One agent takes the settled concept and resolves every multi-frame spatial relationship into concrete coordinates in each part's own reference frame. Cross-sectional profiles that depend on physics (gravity, fluid fill, material drape at installation angle) are tabulated as coordinate data, not described in prose. Interface positions between parts are pre-computed in each part's local frame.
+
+**For simple mechanisms with no angled mounting, no physics-dependent profiles, and no multi-frame interfaces**, this step produces a trivial document ("single frame, no transforms needed") and imposes no overhead.
 
 ### Step 4b — Detailed Parts Specification
 
-The most important step. Takes the settled concept and rigorously specifies every part with full rubric suite (grounding rule, mechanism narrative, constraint chains, direction checks, interface dimensions, assembly feasibility, part count).
+The most important step. Takes the settled concept AND the spatial resolution document and rigorously specifies every part with full rubric suite (grounding rule, mechanism narrative, constraint chains, direction checks, interface dimensions, assembly feasibility, part count).
+
+The spatial resolution document provides every derived dimension — the 4b agent should not need to perform trigonometry, coordinate transforms, or physics calculations. If it does, the spatial resolution step is incomplete.
 
 ### Step 5 — Engineering Drawings
 
 One agent per part produces SVG engineering drawings. Must run SVG checking tools and achieve zero TEXT-TEXT collisions.
 
-### Step 6 — STEP Generation
+### Step 6d — Sub-Component Decomposition
 
-One agent per part produces CadQuery scripts AND validated STEP files. **The agent MUST run the script.** Zero validation FAILs required. Unrun scripts are not deliverables.
+One agent per part reads the parts.md and decides: is this part a single geometric paradigm (2.5D extrude-and-cut, or revolved profiles), or does it combine multiple paradigms? If single paradigm, the agent passes through to a single 6g agent. If multiple paradigms, the agent decomposes into sub-components that are each a 2.5D problem, plus a composition specification.
+
+### Step 6g — CadQuery Generation
+
+One agent per sub-component (or per part, if no decomposition) produces CadQuery scripts AND validated STEP files. **The agent MUST run the script.** Zero validation FAILs required. Unrun scripts are not deliverables. This is the existing step 6 procedure — unchanged.
+
+### Step 6c — Composition
+
+One agent per decomposed part combines the sub-component solids into a single validated STEP file using the transforms and operations from the decomposition spec. Skipped entirely for parts that were not decomposed.
 
 ---
 
@@ -98,7 +115,7 @@ Step 1 (folders)
                                          │
                      Step 4a (concept — explore, settle on one)
                                          │
-                             [orchestrator/user review]
+                     Step 4s (spatial resolution — resolve all multi-frame geometry)
                                          │
                      Step 4b (parts.md — one per part, parallel)
                                          │
@@ -107,15 +124,31 @@ Step 1 (folders)
          Step 5a (drawing)         Step 5b (drawing)           ...
                │                         │
                ▼                         ▼
-         Step 6a (STEP)            Step 6b (STEP)              ...
+         Step 6d-a (decompose)     Step 6d-b (decompose)       ...
+               │                         │
+        ┌──────┴──────┐                  │ (pass-through)
+        ▼             ▼                  ▼
+   Step 6g-a1    Step 6g-a2        Step 6g-b
+   (sub-comp)    (sub-comp)        (full part)
+        │             │                  │
+        └──────┬──────┘                  │
+               ▼                         │
+         Step 6c-a (compose)             │ (no composition needed)
+               │                         │
+               ▼                         ▼
+          STEP file a               STEP file b               ...
 ```
 
 - Steps 2A and 2B run in parallel.
 - Step 3 waits for ALL Step 2 agents.
 - Step 4a waits for Step 3.
-- **4a → 4b has an orchestrator checkpoint.**
-- Steps 5 and 6 for the SAME part are sequential.
-- Steps 5 and 6 for DIFFERENT parts can overlap.
+- Step 4s waits for Step 4a.
+- Step 4b waits for Step 4s.
+- Steps 5 and 6d for the SAME part are sequential.
+- Steps 5 and 6d for DIFFERENT parts can overlap.
+- Step 6g sub-component agents for the SAME part run in parallel.
+- Step 6c waits for ALL 6g agents for that part.
+- The 6d → 6g → 6c chain for DIFFERENT parts can overlap.
 
 ---
 
@@ -132,6 +165,8 @@ Step 1 (folders)
 9. **Combining exploration and specification** — 4a explores, 4b specifies. Never combine them.
 10. **Research agent anchoring to current design** — 2B must not know about the current design.
 11. **Assumed manufacturing constraints** — All printer specs and materials are in `requirements.md`. No agent may assume "typical" values. If a constraint isn't in requirements.md, ask the product owner.
+12. **CadQuery agent doing spatial reasoning** — All multi-frame geometry is resolved in Step 4s. By the time a CadQuery agent runs, every dimension is a concrete number in the part's own frame.
+13. **Single agent handling multi-paradigm geometry** — Step 6d decomposes complex parts so each CadQuery agent works on a 2.5D problem. If an agent needs both prismatic and rotational operations, the decomposition is wrong.
 
 ---
 
