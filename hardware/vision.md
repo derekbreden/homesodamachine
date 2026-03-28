@@ -26,7 +26,7 @@
 - The back of the device has the two outlets for each flavoring dispense
 - We provide a matte black faucet with black silicone tubing running parallel along it
 - Everything is 1/4" hard tubing with John Guest quick connects, both within the device and the connections I just described, with the lone exception of the foot or so of black silicone tubing that runs along the matte black faucet
-- The cartridge itself has 4 quick connects in it, and the cam or screw mechanism that "unlocks" the cartridge pulls the collets of those 4 quick connects towards the user so that it can be detached from the 4 tube stubs in the enclosure dock
+- The cartridge itself has 4 quick connects inside of it, and the user squeezes towards them a flat surface (against another flat surface) that pulls a release plate that presses the collets of those 4 quick connects towards the user, so that it can be detached from the 4 tube stubs in the enclosure dock
 - When I push the air switch, I feel and hear a click that lets me know the flavor is changed
 - The RP2040 display is as easily mounted to the wood panel in front of my sink as is the air switch, and the RP2040 always shows me the real logo of the Coke or Pepsi product I have selected, because the iOS app allowed me to upload over BLE any image I wanted for each flavor.
 - I can imagine a user who would be as ecstatic about having the full rotary knob S3 mounted externally as I am personally about having the sleek tiny flat RP2040 there
@@ -35,3 +35,15 @@
 - Some users may put the device on top of their counter
 - Many users may put it under the sink
 - It will look and feel amazing no matter where they put it
+
+
+## 3. On the cartridge specifically
+
+- The release plate is inside of the cartridge, and so the quick connects are even further inside of the cartridge
+- The user will need to pull the release plate towards them somehow (with their fingers), and so they will need leverage to push against (with their palm), but both surfaces can be perfectly flat and that will still provide the satisfying user experience we seek.
+  - The surface the users palm pushes against must eventually be attached to whatever the quick connects are mounted in
+	- The surface the users fingers pull must eventually be attached to the release plate
+	- The release plate must be able to move towards the quick connect collets
+- The cartridge itself will be on guides or rails of some sort to make a consistent and smooth motion removing and putting a new one back in
+- For putting it back in, there is no need to worry about the collets at all, regardless of their position the tubes can be pushed into the quick connects and proper mechanisms in the quick connects will ensure the the cartridge will no longer be able to be removed (without of course pushing the collets again)
+- The most difficult aspect of the cartridge really, is not this mechanism, but the mounting of the pumps themselves, which have 4 mounting points oriented on the same axis as the metal cylinder body they surround, and so it is very likely a hole sufficient for a 35.73mm (measurements and photos are in the repo) cylinder metal body to fit through will need to itself need to have the 4 mounting points around it in the ~48mm square that those 3.13mm mounting holes sit in. There are many photos from many angles of the pumps in the repo, and there are calipers taking measurements in all of those photos.
