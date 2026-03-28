@@ -31,7 +31,7 @@ Before starting the pipeline, verify:
 
 ## Pipeline Steps
 
-Each step has a detailed procedure document in `hardware/procedure/steps/`. The orchestrator reads the step's procedure doc before spawning the agent.
+Each step has a detailed procedure document in `hardware/pipeline/steps/`. The orchestrator reads the step's procedure doc before spawning the agent.
 
 | Step | What it produces | Procedure doc | Agent count |
 |------|-----------------|---------------|-------------|
@@ -177,4 +177,4 @@ You are [role] for [part/mechanism name].
 
 - **Requirements:** `hardware/requirements.md`
 - **Vision:** `hardware/vision.md`
-- **Step procedures:** `hardware/procedure/steps/`
+- **Step procedures:** `hardware/pipeline/steps/`

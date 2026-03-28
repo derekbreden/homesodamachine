@@ -259,6 +259,6 @@ if not v.summary():
 
 ## 8. Related Documents
 
-- **Drawing standards (SVG):** `hardware/procedure/steps/5-engineering-drawings.md`
+- **Drawing standards (SVG):** `hardware/pipeline/steps/5-engineering-drawings.md`
 - **Validation helper source:** `tools/step_validate.py`
 - **Off-the-shelf part geometry and photographs:** `hardware/off-the-shelf-parts/*/`
