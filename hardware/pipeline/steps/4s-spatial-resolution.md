@@ -1,8 +1,10 @@
 # Spatial Resolution
 
-This document defines the procedure for the spatial resolution agent (Step 4s). This agent takes a settled concept and resolves every multi-frame spatial relationship into concrete coordinates in each part's own reference frame. It does not specify parts (that's 4b's job) and it does not explore alternatives (that was 4a's job). It does one thing: pre-compute the geometry so that no downstream agent ever needs to reason about more than one reference frame at a time.
+This document defines the procedure for the spatial resolution agent (Step 4s). This agent takes a single sub-component (from Step 4d) or a single part (if no decomposition was needed) and resolves every multi-frame spatial relationship into concrete coordinates in the sub-component's own reference frame. It does not specify parts (that's 4b's job) and it does not explore alternatives (that was 4a's job). It does one thing: pre-compute the geometry so that no downstream agent ever needs to reason about more than one reference frame at a time.
 
 **Why this step exists.** CadQuery generation agents produce correct geometry when every dimension is a concrete number in the part's own coordinate system. They fail when they must derive dimensions from spatial relationships that span reference frames — converting a 35-degree enclosure mounting angle into a bag cross-section profile, or figuring out where a pump bracket's mounting holes land on a tray that sits at a specific position inside a shell. This step does that conversion once, correctly, so that all downstream work is single-frame.
+
+**Scope.** This step runs once per sub-component (or once per part if Step 4d passed through). When a part was decomposed, each sub-component gets its own spatial resolution document. The sub-component's reference frame is defined in the decomposition document — this step resolves all external spatial relationships into that frame.
 
 ---
 
@@ -97,6 +99,7 @@ Verification: part-local Z-up maps to system (0, -sin35°, cos35°) ✓
 
 - Path to `hardware/requirements.md` and `hardware/vision.md`
 - Path to the conceptual architecture document (4a output)
+- Path to the decomposition document (4d output) — identifies which sub-component this agent is resolving, its reference frame, and its interface boundaries
 - Path to all research documents that contain physical measurements (bag geometry, off-the-shelf part dimensions, etc.)
 - Path to the decision document (for context on the chosen approach)
 - All known physical properties that affect geometry derivation: gravity direction relative to the installed part, fluid fill levels, material properties of flexible elements, etc.

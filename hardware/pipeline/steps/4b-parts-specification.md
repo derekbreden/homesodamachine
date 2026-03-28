@@ -1,6 +1,8 @@
 # Parts Specification
 
-This document defines the procedure for the parts specification agent (Step 4b). This agent takes a settled concept and rigorously specifies every part. It does not re-explore the design space — that was done in the conceptual architecture step. If a dimensional conflict is discovered, it flags it as a design gap rather than redesigning the concept.
+This document defines the procedure for the parts specification agent (Step 4b). This agent takes a single sub-component (from Step 4d) with its resolved spatial geometry (from Step 4s) and rigorously specifies it. It does not re-explore the design space — that was done in the conceptual architecture step. If a dimensional conflict is discovered, it flags it as a design gap rather than redesigning the concept.
+
+**Scope.** This step runs once per sub-component (or once per part if Step 4d passed through). Each sub-component gets its own parts.md. The spatial resolution document (Step 4s) provides every derived dimension — the 4b agent should not need to perform trigonometry, coordinate transforms, or physics calculations. If it does, the spatial resolution step is incomplete.
 
 **This is the most important step in the pipeline.** Everything downstream — drawings, STEP files — faithfully reproduces whatever the parts.md says. If the parts.md describes a mechanism that doesn't make physical sense, the drawings will be beautiful and the STEP files will pass all validation checks, and the mechanism still won't work.
 
@@ -13,7 +15,9 @@ Same as conceptual architecture: the agent may modify any interfacing part if th
 ## Agent prompt must include
 
 - Path to `hardware/requirements.md` and `hardware/vision.md`
-- Path to the conceptual architecture document (this is the primary input — the design decisions are settled)
+- Path to the conceptual architecture document (the design decisions are settled)
+- Path to the decomposition document (4d output) — identifies this sub-component and its interface boundaries
+- Path to the spatial resolution document (4s output) — this is the primary dimensional input. Every derived dimension is already resolved into the sub-component's local frame.
 - Path to the decision document
 - Printer specs and materials are in `hardware/requirements.md`. **The agent must not assume, infer, or use "typical" values for any manufacturing constraint.**
 - Paths to all existing docs that need updating (architecture, shell parts.md, etc.)

@@ -2,13 +2,13 @@
 
 This document defines the procedure for the composition agent (Step 6c). This agent takes the CadQuery scripts produced by the parallel sub-component generation agents (Step 6g) and combines them into a single validated STEP file. Its job is mechanical: translate, rotate, union, apply interface treatments, validate. It does not design geometry or make spatial reasoning decisions — those were made upstream.
 
-**Why this step exists.** Each sub-component generation agent produces a valid solid in its own local reference frame. The composition agent assembles these solids into the final part using the transforms and operations specified in the decomposition document (Step 6d). This separation means the composition agent needs only CadQuery boolean operation skills, not complex modeling skills.
+**Why this step exists.** Each sub-component generation agent produces a valid solid in its own local reference frame. The composition agent assembles these solids into the final part using the transforms and operations specified in the decomposition document (Step 4d). This separation means the composition agent needs only CadQuery boolean operation skills, not complex modeling skills.
 
 ---
 
 ## What the agent receives
 
-1. **The decomposition document** from Step 6d — contains the composition specification: transforms, operation order, interface treatments, boolean operation notes
+1. **The decomposition document** from Step 4d — contains the composition specification: transforms, operation order, interface treatments, boolean operation notes
 2. **The sub-component CadQuery scripts** from Step 6g — one per sub-component, each producing a valid solid
 3. **The original parts.md** — for the final validation suite (bounding box, feature probes, etc.)
 4. **The STEP generation standards** — `hardware/pipeline/steps/6-step-generation.md` — for validation rubrics
@@ -115,13 +115,13 @@ OCCT (the geometry kernel behind CadQuery) is sensitive to the order of boolean 
 
 ## When there is no decomposition
 
-If Step 6d determined the part needs no decomposition ("pass through"), Step 6c is skipped entirely. The single CadQuery agent from Step 6g produces the final STEP file directly, and its built-in validation suite is sufficient.
+If Step 4d determined the part needs no decomposition ("pass through"), Step 6c is skipped entirely. The single CadQuery agent from Step 6g produces the final STEP file directly, and its built-in validation suite is sufficient.
 
 ---
 
 ## Agent prompt must include
 
-- Path to the decomposition document (Step 6d output)
+- Path to the decomposition document (Step 4d output)
 - Paths to all sub-component CadQuery scripts (Step 6g outputs)
 - Path to the original parts.md (for full validation)
 - Path to `hardware/pipeline/steps/6-step-generation.md` (for validation rubrics)

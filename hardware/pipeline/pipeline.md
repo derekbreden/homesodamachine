@@ -6,6 +6,24 @@ This document defines the procedure for designing a new 3D-printed part or mecha
 
 ---
 
+## Scoping Rule: One Part at a Time
+
+**The pipeline processes one printed part at a time.** A mechanism may contain multiple printed parts (e.g., the bag frame has a lower cradle and an upper cap). The pipeline runs steps 4a through 6 for ONE part before moving to the next. Do not run multiple parts through the pipeline simultaneously — the manager agent's context cannot hold the full state of multiple parts in flight.
+
+The orchestration is:
+
+1. Steps 1–3 (research and decision) apply to the mechanism as a whole.
+2. Step 4a (concept) covers the full mechanism — all parts and how they fit together.
+3. Steps 4d through 6c run for one part at a time:
+   - Pick the most constrained or highest-risk part first.
+   - Run it through 4d → 4s → 4b → 5 → 6g → 6c.
+   - Commit the results.
+   - Then start the next part, reading the previous part's docs as interface context.
+
+This sequential approach means later parts can reference the exact dimensions of earlier parts at their interfaces. It also means the manager can focus its full context on one part's sub-components at a time, rather than tracking all parts' sub-components simultaneously.
+
+---
+
 ## Foundational Documents
 
 Two documents are the foundation of all design work. Every agent in every step reads both first.
@@ -33,19 +51,19 @@ Before starting the pipeline, verify:
 
 Each step has a detailed procedure document in `hardware/pipeline/steps/`. The orchestrator reads the step's procedure doc before spawning the agent.
 
-| Step | What it produces | Procedure doc | Agent count |
-|------|-----------------|---------------|-------------|
-| 1 | Folder tree | (none — do directly) | 0 |
-| 2A | Technical research docs | `steps/2a-technical-research.md` | 1 per approach, parallel |
-| 2B | Design pattern research | `steps/2b-design-pattern-research.md` | 1 |
-| 3 | Decision document | `steps/3-design-decision.md` | 1 |
-| 4a | Concept document | `steps/4a-conceptual-architecture.md` | 1 |
-| 4s | Spatial resolution document | `steps/4s-spatial-resolution.md` | 1 |
-| 4b | parts.md per part | `steps/4b-parts-specification.md` | 1 per part, parallel |
-| 5 | SVG engineering drawings | `steps/5-engineering-drawings.md` | 1 per part, parallel |
-| 6d | Decomposition spec (or pass-through) | `steps/6d-decomposition.md` | 1 per part |
-| 6g | CadQuery scripts + STEP files | `steps/6-step-generation.md` | 1 per sub-component, parallel |
-| 6c | Composed STEP file | `steps/6c-composition.md` | 1 per decomposed part |
+| Step | What it produces | Procedure doc | Scope |
+|------|-----------------|---------------|-------|
+| 1 | Folder tree | (none — do directly) | mechanism |
+| 2A | Technical research docs | `steps/2a-technical-research.md` | mechanism |
+| 2B | Design pattern research | `steps/2b-design-pattern-research.md` | mechanism |
+| 3 | Decision document | `steps/3-design-decision.md` | mechanism |
+| 4a | Concept document | `steps/4a-conceptual-architecture.md` | mechanism |
+| 4d | Decomposition (or pass-through) | `steps/4d-decomposition.md` | per part |
+| 4s | Spatial resolution document | `steps/4s-spatial-resolution.md` | per sub-component |
+| 4b | parts.md | `steps/4b-parts-specification.md` | per sub-component |
+| 5 | SVG engineering drawings | `steps/5-engineering-drawings.md` | per sub-component |
+| 6g | CadQuery scripts + STEP files | `steps/6-step-generation.md` | per sub-component |
+| 6c | Composed STEP file | `steps/6c-composition.md` | per part (if decomposed) |
 
 ### Step 1 — Folder Structure
 
@@ -69,35 +87,37 @@ One agent reads ALL research (including design patterns) and makes a recommendat
 
 ### Step 4a — Conceptual Architecture
 
-One agent explores the design space and settles on ONE concept. Does not apply the full rubric suite — that's 4b's job.
+One agent explores the design space and settles on ONE concept. Covers the full mechanism — all parts and how they relate. Does not apply the full rubric suite — that's 4b's job.
 
-### Step 4s — Spatial Resolution (NEW)
+### Step 4d — Sub-Component Decomposition (per part)
 
-One agent takes the settled concept and resolves every multi-frame spatial relationship into concrete coordinates in each part's own reference frame. Cross-sectional profiles that depend on physics (gravity, fluid fill, material drape at installation angle) are tabulated as coordinate data, not described in prose. Interface positions between parts are pre-computed in each part's local frame.
+One agent per part reads the concept and decides: is this part a single geometric paradigm (2.5D), or does it combine multiple paradigms? If single paradigm, pass through. If multiple paradigms, decompose into sub-components that are each a 2.5D problem, plus a composition specification.
 
-**For simple mechanisms with no angled mounting, no physics-dependent profiles, and no multi-frame interfaces**, this step produces a trivial document ("single frame, no transforms needed") and imposes no overhead.
+**This is the fan-out point.** After 4d, every subsequent step runs per-sub-component. The decomposition determines how many parallel tracks the pipeline will have for this part.
 
-### Step 4b — Detailed Parts Specification
+### Step 4s — Spatial Resolution (per sub-component)
 
-The most important step. Takes the settled concept AND the spatial resolution document and rigorously specifies every part with full rubric suite (grounding rule, mechanism narrative, constraint chains, direction checks, interface dimensions, assembly feasibility, part count).
+One agent per sub-component resolves every multi-frame spatial relationship into concrete coordinates in the sub-component's own reference frame. Cross-sectional profiles that depend on physics (gravity, fluid fill, material drape at installation angle) are tabulated as coordinate data, not described in prose. Interface positions are pre-computed in the sub-component's local frame.
+
+**For simple sub-components with no angled mounting, no physics-dependent profiles, and no multi-frame interfaces**, this step produces a trivial document ("single frame, no transforms needed") and imposes no overhead.
+
+### Step 4b — Detailed Parts Specification (per sub-component)
+
+The most important step. Takes the sub-component's spatial resolution document and rigorously specifies it with full rubric suite (grounding rule, mechanism narrative, constraint chains, direction checks, interface dimensions, assembly feasibility, part count).
 
 The spatial resolution document provides every derived dimension — the 4b agent should not need to perform trigonometry, coordinate transforms, or physics calculations. If it does, the spatial resolution step is incomplete.
 
-### Step 5 — Engineering Drawings
+### Step 5 — Engineering Drawings (per sub-component)
 
-One agent per part produces SVG engineering drawings. Must run SVG checking tools and achieve zero TEXT-TEXT collisions.
+One agent per sub-component produces SVG engineering drawings. Must run SVG checking tools and achieve zero TEXT-TEXT collisions.
 
-### Step 6d — Sub-Component Decomposition
+### Step 6g — CadQuery Generation (per sub-component)
 
-One agent per part reads the parts.md and decides: is this part a single geometric paradigm (2.5D extrude-and-cut, or revolved profiles), or does it combine multiple paradigms? If single paradigm, the agent passes through to a single 6g agent. If multiple paradigms, the agent decomposes into sub-components that are each a 2.5D problem, plus a composition specification.
+One agent per sub-component produces CadQuery scripts AND validated STEP files. **The agent MUST run the script.** Zero validation FAILs required. Unrun scripts are not deliverables.
 
-### Step 6g — CadQuery Generation
+### Step 6c — Composition (per decomposed part)
 
-One agent per sub-component (or per part, if no decomposition) produces CadQuery scripts AND validated STEP files. **The agent MUST run the script.** Zero validation FAILs required. Unrun scripts are not deliverables. This is the existing step 6 procedure — unchanged.
-
-### Step 6c — Composition
-
-One agent per decomposed part combines the sub-component solids into a single validated STEP file using the transforms and operations from the decomposition spec. Skipped entirely for parts that were not decomposed.
+One agent per decomposed part combines the sub-component solids into a single validated STEP file using the transforms and operations from the decomposition spec (Step 4d). Skipped entirely for parts that were not decomposed.
 
 ---
 
@@ -113,42 +133,35 @@ Step 1 (folders)
                                          ▼
                      Step 3 (decision — reads ALL research)
                                          │
-                     Step 4a (concept — explore, settle on one)
+                     Step 4a (concept — full mechanism)
                                          │
-                     Step 4s (spatial resolution — resolve all multi-frame geometry)
-                                         │
-                     Step 4b (parts.md — one per part, parallel)
-                                         │
-               ┌─────────────────────────┼──────────────────────┐
-               ▼                         ▼                      ▼
-         Step 5a (drawing)         Step 5b (drawing)           ...
-               │                         │
-               ▼                         ▼
-         Step 6d-a (decompose)     Step 6d-b (decompose)       ...
-               │                         │
-        ┌──────┴──────┐                  │ (pass-through)
-        ▼             ▼                  ▼
-   Step 6g-a1    Step 6g-a2        Step 6g-b
-   (sub-comp)    (sub-comp)        (full part)
-        │             │                  │
-        └──────┬──────┘                  │
-               ▼                         │
-         Step 6c-a (compose)             │ (no composition needed)
-               │                         │
-               ▼                         ▼
-          STEP file a               STEP file b               ...
+               ┌─────── PART 1 ──────────┼─── (PART 2 waits) ───┐
+               │                                                  │
+         Step 4d (decompose part 1)                               │
+               │                                                  │
+        ┌──────┴──────┐  (fan-out)                                │
+        ▼             ▼                                           │
+   4s → 4b → 5 → 6g  4s → 4b → 5 → 6g                           │
+   (sub-comp A)       (sub-comp B)                                │
+        │             │                                           │
+        └──────┬──────┘                                           │
+               ▼                                                  │
+         Step 6c (compose part 1)                                 │
+               │                                                  │
+               ▼ commit                                           │
+               └──────────────────────────┤                       │
+                                          │                       │
+                                    Step 4d (decompose part 2) ───┘
+                                          │
+                                         ...
 ```
 
 - Steps 2A and 2B run in parallel.
 - Step 3 waits for ALL Step 2 agents.
 - Step 4a waits for Step 3.
-- Step 4s waits for Step 4a.
-- Step 4b waits for Step 4s.
-- Steps 5 and 6d for the SAME part are sequential.
-- Steps 5 and 6d for DIFFERENT parts can overlap.
-- Step 6g sub-component agents for the SAME part run in parallel.
+- **Parts are processed sequentially** through steps 4d → 6c. One part completes and is committed before the next begins.
+- Within a part, sub-component tracks (4s → 4b → 5 → 6g) can run in parallel after 4d.
 - Step 6c waits for ALL 6g agents for that part.
-- The 6d → 6g → 6c chain for DIFFERENT parts can overlap.
 
 ---
 
@@ -165,8 +178,9 @@ Step 1 (folders)
 9. **Combining exploration and specification** — 4a explores, 4b specifies. Never combine them.
 10. **Research agent anchoring to current design** — 2B must not know about the current design.
 11. **Assumed manufacturing constraints** — All printer specs and materials are in `requirements.md`. No agent may assume "typical" values. If a constraint isn't in requirements.md, ask the product owner.
-12. **CadQuery agent doing spatial reasoning** — All multi-frame geometry is resolved in Step 4s. By the time a CadQuery agent runs, every dimension is a concrete number in the part's own frame.
-13. **Single agent handling multi-paradigm geometry** — Step 6d decomposes complex parts so each CadQuery agent works on a 2.5D problem. If an agent needs both prismatic and rotational operations, the decomposition is wrong.
+12. **CadQuery agent doing spatial reasoning** — All multi-frame geometry is resolved in Step 4s. By the time a CadQuery agent runs, every dimension is a concrete number in the sub-component's own frame.
+13. **Single agent handling multi-paradigm geometry** — Step 4d decomposes complex parts so each CadQuery agent works on a 2.5D problem. If an agent needs both prismatic and rotational operations, the decomposition is wrong.
+14. **Multiple parts in flight simultaneously** — The manager processes one part at a time through 4d → 6c. Running multiple parts in parallel overwhelms the manager's context and produces interface mismatches.
 
 ---
 
