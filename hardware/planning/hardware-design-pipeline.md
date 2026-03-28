@@ -6,15 +6,20 @@ This document defines the procedure for designing a new 3D-printed part or mecha
 
 ---
 
-## Design Priorities
+## Foundational Input: Requirements
 
-These apply to every step and every agent in the pipeline. Include them verbatim in every agent prompt.
+**`hardware/planning/requirements.md`** is the single source of truth for what we are building, what we care about, and what we are building with. It contains facts that no agent can discover on its own — product vision, values, equipment, and constraints provided by the product owner.
 
-1. **UX is the primary concern** — above durability, simplicity, prototypability, and cost. One-handed operation, intuitive feel, speed, and dark-cabinet usability define "good."
-2. **Design a product, not an assembly of parts.** The finished product should look like it was always meant to be this way — as if every surface, every transition, every interaction point was designed together as a single coherent object. Nothing should look added on, bolted to, or improvised. Mechanisms that are rarely used should disappear into the product surface, not dominate it. A stranger encountering the product for the first time should see a product, not a collection of components.
-3. **Cost is no concern** — never use cost as a factor in any decision.
-4. **Durability must be adequate, not maximal** — if it survives the expected lifecycle with reasonable margin, it passes. Don't penalize an approach for having less margin than an alternative.
-5. **The deliverable is always the final artifact, not the script or document that produces it.** A STEP generation script that was never run is not a deliverable. A parts.md that contradicts the research is not a deliverable.
+**Every agent in every step reads requirements.md first.** It is included verbatim or by reference in every agent prompt. If requirements.md does not exist or has not been verified by the product owner, no design work may proceed.
+
+The product values from requirements.md (summarized here for quick reference — the full versions are in that document):
+
+1. **This is a high-end consumer product** — Apple-level design thinking
+2. **UX is paramount** — above durability, simplicity, prototypability, and cost
+3. **Cost is not a factor** — never use cost in any decision
+4. **Design a product, not an assembly of parts** — unified, coherent, nothing bolted-on
+5. **Nothing needs to come apart** — only the pump cartridge is serviceable; everything else is permanent
+6. **The deliverable is always the final artifact** — unrun scripts are not deliverables
 
 ---
 
@@ -22,21 +27,24 @@ These apply to every step and every agent in the pipeline. Include them verbatim
 
 Before starting the pipeline, verify:
 
-1. **Manufacturing environment is established:**
+1. **Requirements are established and verified:**
+   `hardware/planning/requirements.md` must exist and be verified by the product owner. This document contains the product vision, values, equipment, and constraints that no agent can discover. If it does not exist, write it with the product owner before doing anything else.
+
+2. **Manufacturing environment is established:**
    `hardware/planning/manufacturing-environment.md` must exist and be current. If it does not exist, run Step 0 before anything else. This file is the single source of truth for all physical constraints — print bed dimensions, material properties, available hardware. **No agent in any step may assume, infer, or use "typical" values for any manufacturing constraint.** Every constraint must come from this file, and every constraint in this file must cite a verifiable source.
 
-2. **CadQuery venv exists and works:**
+3. **CadQuery venv exists and works:**
    ```
    tools/cad-venv/bin/python3 -c "import cadquery; print(cadquery.__version__)"
    ```
    If this fails, fix it before proceeding. Do not work around a broken environment.
 
-3. **SVG checking tools exist:**
+4. **SVG checking tools exist:**
    ```
    ls tools/svg_label_check.py tools/svg_adjacency_check.py tools/step_validate.py
    ```
 
-4. **Standards documents are current:**
+5. **Standards documents are current:**
    - `hardware/planning/drawing-standards.md`
    - `hardware/planning/step-generation-standards.md`
    - This document (`hardware/planning/hardware-design-pipeline.md`)
@@ -491,11 +499,9 @@ Every agent in this pipeline should receive a prompt structured as:
 ```
 You are [role] for [part/mechanism name].
 
-**DESIGN PRIORITIES (apply to all decisions):**
-- UX is the primary concern — above durability, simplicity, prototypability, and cost
-- Cost is no concern — never use cost as a factor
-- Durability must be adequate, not maximal
-- The deliverable is the final artifact, not the intermediate script
+**FOUNDATIONAL DOCUMENTS (read these first):**
+- hardware/planning/requirements.md — product vision, values, equipment, constraints
+- hardware/planning/manufacturing-environment.md — verified printer specs, material properties
 
 **Context files to read:**
 [list of file paths]
