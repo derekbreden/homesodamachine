@@ -50,7 +50,7 @@ For each part being modeled, the complete specification chain is:
 2. **Cross-referenced geometry descriptions** — linked from parts.md for every off-the-shelf component that mounts in or interfaces with the custom part (in `off-the-shelf-parts/*/extracted-results/geometry-description.md`)
 3. **Reference photographs** — caliper photos of the physical off-the-shelf parts (in `off-the-shelf-parts/*/raw-images/`), referenced by number in the geometry descriptions
 4. **Research files** — linked from parts.md, containing design analysis and rationale
-5. **Architecture documents** — system-level context in `planning/architecture.md` and subsystem architecture files
+5. **Requirements and vision** — `hardware/requirements.md` and `hardware/vision.md`
 
 Every cross-reference in parts.md is a relative path. Follow them all. Read the geometry descriptions. Look at the photographs. Understand what you are modeling before you write a line of code.
 
@@ -259,8 +259,6 @@ if not v.summary():
 
 ## 8. Related Documents
 
-- **Drawing standards (SVG):** `drawing-standards.md` — companion standards for 2D engineering drawings
-- **Validation helper source:** `../../tools/step_validate.py`
-- **System architecture:** `architecture.md`
-- **Spatial layout:** `spatial-layout.md`
-- **Off-the-shelf part geometry and photographs:** `../off-the-shelf-parts/*/`
+- **Drawing standards (SVG):** `hardware/procedure/engineering-drawings-SVG.md`
+- **Validation helper source:** `tools/step_validate.py`
+- **Off-the-shelf part geometry and photographs:** `hardware/off-the-shelf-parts/*/`

@@ -6,20 +6,15 @@ This document defines the procedure for designing a new 3D-printed part or mecha
 
 ---
 
-## Foundational Input: Requirements
+## Foundational Documents
 
-**`hardware/requirements.md`** is the single source of truth for what we are building, what we care about, and what we are building with. It contains facts that no agent can discover on its own — product vision, values, equipment, and constraints provided by the product owner.
+Two documents are the foundation of all design work. Every agent in every step reads both first.
 
-**Every agent in every step reads requirements.md first.** It is included verbatim or by reference in every agent prompt. If requirements.md does not exist or has not been verified by the product owner, no design work may proceed.
+1. **`hardware/requirements.md`** — what we are building, the components involved, and the hard constraints. Facts that no agent can discover on its own.
 
-The product values from requirements.md (summarized here for quick reference — the full versions are in that document):
+2. **`hardware/vision.md`** — the product values (what we care about, in priority order) and the product owner's imagined architecture (how they picture the assembled product). The values are absolute constraints. The architecture is directional — it tells you what the product owner is imagining, not what the final design must be.
 
-1. **This is a high-end consumer product** — Apple-level design thinking
-2. **UX is paramount** — above durability, simplicity, prototypability, and cost
-3. **Cost is not a factor** — never use cost in any decision
-4. **Design a product, not an assembly of parts** — unified, coherent, nothing bolted-on
-5. **Nothing needs to come apart** — only the pump cartridge is serviceable; everything else is permanent
-6. **The deliverable is always the final artifact** — unrun scripts are not deliverables
+If either document does not exist or has not been verified by the product owner, no design work may proceed.
 
 ---
 
@@ -58,7 +53,7 @@ Before starting the pipeline, verify:
 **This step exists because assumed constraints propagate unchallenged through every downstream step.** A "typical 256mm print bed" assumption shaped an entire enclosure split strategy, tongue-and-groove joint engineering, and multi-piece architecture — and the actual printer had a 325×320mm bed. No downstream step questions constraints it receives. The only defense is verifying constraints at the source, before any design work begins.
 
 **Input:** User-provided information about available manufacturing tools, materials, and hardware inventory
-**Output:** `hardware/planning/manufacturing-environment.md` — the single source of truth for all physical manufacturing constraints
+**Output:** `hardware/manufacturing-environment.md` — the single source of truth for all physical manufacturing constraints
 **Agent:** One research agent that looks up and verifies specifications
 
 This step runs once at the start of the project and is updated whenever the manufacturing environment changes (new printer, new materials, etc.). It does NOT run at the start of every part design — it produces a shared document that all parts reference.
@@ -80,7 +75,7 @@ This step runs once at the start of the project and is updated whenever the manu
 - Instruction to look up manufacturer specifications from the official website or datasheet
 - Instruction to cite every number with a source URL
 - Instruction to NOT use "typical," "standard," or "common" values — every number must be specific to the actual hardware
-- Instruction to save to `hardware/planning/manufacturing-environment.md`
+- Instruction to save to `hardware/manufacturing-environment.md`
 
 **Agent prompt must NOT include:**
 - Assumed dimensions for any equipment ("most FDM printers are...")
@@ -217,7 +212,7 @@ The concept document must address:
 - The design priorities (verbatim)
 - Path to the decision document
 - Path to the design pattern research (`planning/research/design-patterns.md`)
-- Path to `hardware/planning/manufacturing-environment.md` — the agent must read this for all print bed, material, and tolerance constraints. **The agent must not assume, infer, or use "typical" values for any manufacturing constraint.**
+- Path to `hardware/manufacturing-environment.md` — the agent must read this for all print bed, material, and tolerance constraints. **The agent must not assume, infer, or use "typical" values for any manufacturing constraint.**
 - All known physical constraints (dimensions, what goes inside)
 - Instruction to explore freely — try ideas, discard dead ends, show the reasoning
 - Instruction to settle on ONE concept and summarize it clearly at the end
@@ -245,7 +240,7 @@ The concept document must address:
 - The design priorities (verbatim)
 - Path to the Step 4a concept document (this is the primary input — the design decisions are settled)
 - Path to the decision document
-- Path to `hardware/planning/manufacturing-environment.md` — the agent must read this for all print bed, material, and tolerance constraints. **The agent must not assume, infer, or use "typical" values for any manufacturing constraint.**
+- Path to `hardware/manufacturing-environment.md` — the agent must read this for all print bed, material, and tolerance constraints. **The agent must not assume, infer, or use "typical" values for any manufacturing constraint.**
 - Paths to all existing docs that need updating (architecture, shell parts.md, etc.)
 - Paths to interfacing parts that the agent has freedom to modify (shell, panels, etc.)
 - The coordinate system convention from the shell parts.md
@@ -369,7 +364,7 @@ For every pair of parts in the mechanism:
 **Agent prompt must include:**
 - The design priorities (verbatim)
 - Path to the part's parts.md
-- Path to `hardware/planning/drawing-standards.md` (MUST read and follow)
+- Path to `hardware/procedure/engineering-drawings-SVG.md` (MUST read and follow)
 - Path to an existing drawing for style reference (e.g., release-plate.svg)
 - Path to the feedback memory on engineering drawings (`~/.claude/projects/.../memory/feedback_engineering_drawings.md`)
 - Which views are needed (front, side, section, detail)
@@ -399,7 +394,7 @@ For every pair of parts in the mechanism:
 **Agent prompt MUST include (non-negotiable):**
 - The design priorities (verbatim)
 - Path to the part's parts.md
-- Path to `hardware/planning/step-generation-standards.md` (MUST read and follow ALL rubrics)
+- Path to `hardware/procedure/3d-models-STEP.md` (MUST read and follow ALL rubrics)
 - Path to an existing CadQuery script for structure reference (e.g., `cartridge-release-plate/generate_step_cadquery.py`)
 - Paths to ALL interfacing geometry descriptions (off-the-shelf parts with caliper measurements)
 - The exact Python path for running the script:
@@ -500,8 +495,9 @@ Every agent in this pipeline should receive a prompt structured as:
 You are [role] for [part/mechanism name].
 
 **FOUNDATIONAL DOCUMENTS (read these first):**
-- hardware/requirements.md — product vision, values, equipment, constraints
-- hardware/planning/manufacturing-environment.md — verified printer specs, material properties
+- hardware/requirements.md — what we are building, hard constraints
+- hardware/vision.md — values and the product owner's imagined architecture
+- hardware/manufacturing-environment.md — verified printer specs, material properties
 
 **Context files to read:**
 [list of file paths]
@@ -520,8 +516,7 @@ You are [role] for [part/mechanism name].
 
 ## Related Documents
 
-- **Drawing standards:** `drawing-standards.md`
-- **STEP generation standards:** `step-generation-standards.md`
-- **System architecture:** `architecture.md`
-- **Cartridge architecture:** `cartridge-architecture.md`
-- **Spatial layout:** `spatial-layout.md`
+- **Requirements:** `hardware/requirements.md`
+- **Vision:** `hardware/vision.md`
+- **Drawing standards:** `hardware/procedure/engineering-drawings-SVG.md`
+- **STEP generation standards:** `hardware/procedure/3d-models-STEP.md`
