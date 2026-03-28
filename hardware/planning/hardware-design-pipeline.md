@@ -22,18 +22,21 @@ These apply to every step and every agent in the pipeline. Include them verbatim
 
 Before starting the pipeline, verify:
 
-1. **CadQuery venv exists and works:**
+1. **Manufacturing environment is established:**
+   `hardware/planning/manufacturing-environment.md` must exist and be current. If it does not exist, run Step 0 before anything else. This file is the single source of truth for all physical constraints — print bed dimensions, material properties, available hardware. **No agent in any step may assume, infer, or use "typical" values for any manufacturing constraint.** Every constraint must come from this file, and every constraint in this file must cite a verifiable source.
+
+2. **CadQuery venv exists and works:**
    ```
    tools/cad-venv/bin/python3 -c "import cadquery; print(cadquery.__version__)"
    ```
    If this fails, fix it before proceeding. Do not work around a broken environment.
 
-2. **SVG checking tools exist:**
+3. **SVG checking tools exist:**
    ```
    ls tools/svg_label_check.py tools/svg_adjacency_check.py tools/step_validate.py
    ```
 
-3. **Standards documents are current:**
+4. **Standards documents are current:**
    - `hardware/planning/drawing-standards.md`
    - `hardware/planning/step-generation-standards.md`
    - This document (`hardware/planning/hardware-design-pipeline.md`)
@@ -41,6 +44,52 @@ Before starting the pipeline, verify:
 ---
 
 ## Pipeline Steps
+
+### Step 0 — Manufacturing Environment (run once, update when hardware changes)
+
+**This step exists because assumed constraints propagate unchallenged through every downstream step.** A "typical 256mm print bed" assumption shaped an entire enclosure split strategy, tongue-and-groove joint engineering, and multi-piece architecture — and the actual printer had a 325×320mm bed. No downstream step questions constraints it receives. The only defense is verifying constraints at the source, before any design work begins.
+
+**Input:** User-provided information about available manufacturing tools, materials, and hardware inventory
+**Output:** `hardware/planning/manufacturing-environment.md` — the single source of truth for all physical manufacturing constraints
+**Agent:** One research agent that looks up and verifies specifications
+
+This step runs once at the start of the project and is updated whenever the manufacturing environment changes (new printer, new materials, etc.). It does NOT run at the start of every part design — it produces a shared document that all parts reference.
+
+**What the orchestrator must provide to the agent:**
+- Printer make and model (e.g., "Bambu Lab H2C")
+- Materials on hand or planned (e.g., "PETG, PETG-CF")
+- Any non-obvious hardware inventory (magnets, fasteners, springs, etc.)
+
+**What the agent must research and document:**
+1. **Printer specifications** — look up the manufacturer's published specs for the exact model provided. Document: build volume (W×D×H for each nozzle configuration if multi-nozzle), nozzle diameter(s), heated bed capability, enclosure, maximum print temperature, and any other relevant capabilities. **Cite the source URL.**
+2. **Material properties** — look up datasheets for each material. Document: tensile strength, heat deflection temperature, recommended print temperature, shrinkage rate, layer adhesion characteristics. **Cite the source URL.**
+3. **Practical print constraints** — derived from specs, not assumed. Maximum single-piece dimensions in each axis (accounting for bed clips, purge area, etc. — these are often smaller than the raw build volume). Recommended minimum wall thickness for structural parts. Tolerance expectations.
+4. **Hardware inventory** — document what fasteners, magnets, springs, inserts, etc. are available, with specific dimensions.
+
+**Agent prompt must include:**
+- The printer make and model (from user)
+- The materials list (from user)
+- Instruction to look up manufacturer specifications from the official website or datasheet
+- Instruction to cite every number with a source URL
+- Instruction to NOT use "typical," "standard," or "common" values — every number must be specific to the actual hardware
+- Instruction to save to `hardware/planning/manufacturing-environment.md`
+
+**Agent prompt must NOT include:**
+- Assumed dimensions for any equipment ("most FDM printers are...")
+- Guidance toward any particular conclusion about what will or won't fit
+
+**Quality gate:**
+- Every dimensional constraint cites a specific source (manufacturer spec page URL, material datasheet URL)
+- Build volume matches the manufacturer's published spec for the exact model provided
+- No "typical" or "standard" values appear anywhere in the document
+- The orchestrator verifies the key numbers against their own knowledge of the hardware
+
+**How downstream steps use this document:**
+- Step 4a and 4b agents receive the path to `manufacturing-environment.md` and are instructed to read it for all print bed, material, and tolerance constraints
+- Step 2A technical research agents receive it for material property assumptions
+- No agent in any step may invent or assume a manufacturing constraint that is not in this document
+
+---
 
 ### Step 1 — Folder Structure
 
@@ -160,7 +209,8 @@ The concept document must address:
 - The design priorities (verbatim)
 - Path to the decision document
 - Path to the design pattern research (`planning/research/design-patterns.md`)
-- All known physical constraints (dimensions, print bed, what goes inside)
+- Path to `hardware/planning/manufacturing-environment.md` — the agent must read this for all print bed, material, and tolerance constraints. **The agent must not assume, infer, or use "typical" values for any manufacturing constraint.**
+- All known physical constraints (dimensions, what goes inside)
 - Instruction to explore freely — try ideas, discard dead ends, show the reasoning
 - Instruction to settle on ONE concept and summarize it clearly at the end
 - **Instruction NOT to apply the full rubric suite** — that happens in Step 4b
@@ -187,6 +237,7 @@ The concept document must address:
 - The design priorities (verbatim)
 - Path to the Step 4a concept document (this is the primary input — the design decisions are settled)
 - Path to the decision document
+- Path to `hardware/planning/manufacturing-environment.md` — the agent must read this for all print bed, material, and tolerance constraints. **The agent must not assume, infer, or use "typical" values for any manufacturing constraint.**
 - Paths to all existing docs that need updating (architecture, shell parts.md, etc.)
 - Paths to interfacing parts that the agent has freedom to modify (shell, panels, etc.)
 - The coordinate system convention from the shell parts.md
@@ -368,29 +419,33 @@ For every pair of parts in the mechanism:
 ## Step Dependencies
 
 ```
+Step 0 (manufacturing environment — run once, verified by orchestrator)
+  │
+  ▼
 Step 1 (folders)
   │
-  ├──→ Step 2A-1 (technical research path A) ──┐
-  ├──→ Step 2A-2 (technical research path B) ──┤
-  └──→ Step 2B   (design pattern research)  ───┤
-                                                │
-                                                ▼
+  ├──→ Step 2A-1 (technical research — reads mfg env) ──┐
+  ├──→ Step 2A-2 (technical research — reads mfg env) ──┤
+  └──→ Step 2B   (design pattern research)            ───┤
+                                                          │
+                                                          ▼
                               Step 3 (decision — reads ALL research including patterns)
-                                                │
-                              Step 4a (conceptual architecture — explore, settle on one concept)
-                                                │
-                                        [orchestrator/user review]
-                                                │
-                              Step 4b (detailed parts.md — one agent per part, parallel)
-                                                │
-                    ┌───────────────────────────┼───────────────────────────┐
-                    ▼                           ▼                           ▼
-              Step 5a (drawing)           Step 5b (drawing)               ...
-                    │                           │
-                    ▼                           ▼
-              Step 6a (STEP)              Step 6b (STEP)                  ...
+                                                          │
+                              Step 4a (concept — reads mfg env, explore, settle on one concept)
+                                                          │
+                                          [orchestrator/user review]
+                                                          │
+                              Step 4b (detailed parts.md — reads mfg env, one per part, parallel)
+                                                          │
+                    ┌─────────────────────────────────────┼──────────────────────────────┐
+                    ▼                                     ▼                              ▼
+              Step 5a (drawing)                     Step 5b (drawing)                   ...
+                    │                                     │
+                    ▼                                     ▼
+              Step 6a (STEP)                        Step 6b (STEP)                      ...
 ```
 
+- **Step 0 runs once** at project start (or when hardware changes). It produces `manufacturing-environment.md`, which is verified by the orchestrator before any design work begins. All downstream steps that reference physical constraints read this document.
 - All Step 2 agents (2A-1, 2A-2, 2B) run in parallel (no dependencies between research paths)
 - Step 3 waits for ALL Step 2 agents to complete (including design pattern research)
 - Step 4a waits for Step 3
@@ -424,6 +479,8 @@ Step 1 (folders)
 9. **Combining exploration and specification in one agent** — Step 4 splits into 4a (explore the design space, settle on a concept) and 4b (specify the settled concept rigorously). Combining them causes the agent to spend most of its context on exploration, leaving the specification truncated. The 4a→4b handoff also creates a natural checkpoint for orchestrator/user review.
 
 10. **Research agent anchoring to current design** — Step 2B design pattern research must NOT receive the current design or any candidate solution. Anchoring to an existing approach causes the agent to rationalize the status quo rather than discovering better patterns. The evaluation of candidates against patterns belongs in Step 3.
+
+11. **Assumed manufacturing constraints** — No agent may assume "typical," "standard," or "common" values for any manufacturing parameter (print bed size, material properties, tolerances). A research agent once assumed a "256mm print bed" because it was a common FDM spec — the actual printer had a 325×320mm bed. The entire enclosure split strategy, joint engineering, and piece count were designed around a constraint that didn't exist. Every manufacturing constraint must come from `manufacturing-environment.md`, which is established in Step 0 from verified manufacturer specifications. If Step 0 has not been run, no design work may proceed.
 
 ---
 
