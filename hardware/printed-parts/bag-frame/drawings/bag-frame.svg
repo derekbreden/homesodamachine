@@ -1,0 +1,659 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1800 1400" width="1800" height="1400" font-family="Arial, sans-serif" font-size="11" fill="black" stroke="black">
+
+  <title>Bag Frame Assembly — Engineering Drawing</title>
+
+  <defs>
+    <marker id="arrow" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto">
+      <path d="M0,0 L8,3 L0,6 Z" fill="black"/>
+    </marker>
+    <marker id="arrow-rev" markerWidth="8" markerHeight="6" refX="0" refY="3" orient="auto">
+      <path d="M8,0 L0,3 L8,6 Z" fill="black"/>
+    </marker>
+    <style>
+      .dim { font-size: 10px; fill: black; text-anchor: middle; }
+      .dim-small { font-size: 9px; fill: black; text-anchor: middle; }
+      .label { font-size: 12px; fill: black; font-weight: bold; text-anchor: middle; }
+      .note { font-size: 9px; fill: black; }
+      .title { font-size: 16px; fill: black; font-weight: bold; }
+      .subtitle { font-size: 12px; fill: black; }
+      .hidden { stroke-dasharray: 3,2; stroke-width: 0.8; fill: none; }
+      .center { stroke-dasharray: 12,3,3,3; stroke-width: 0.5; stroke: #555; fill: none; }
+      .outline { stroke: black; stroke-width: 1.2; fill: none; }
+      .thin { stroke: black; stroke-width: 0.6; fill: none; }
+      .dimline { stroke: black; stroke-width: 0.5; fill: none; }
+      .extline { stroke: black; stroke-width: 0.4; fill: none; }
+      .section { stroke: black; stroke-width: 0.8; fill: #e8e8e8; }
+      .detail-frame { stroke: black; stroke-width: 1.0; fill: white; }
+    </style>
+  </defs>
+
+  <!-- Title Block -->
+  <text x="900" y="30" class="title" text-anchor="middle">Bag Frame Assembly</text>
+  <text x="900" y="48" class="subtitle" text-anchor="middle">Lower Cradle + Upper Cap — Third-Angle Orthographic Projection</text>
+  <text x="900" y="64" class="note" text-anchor="middle">Material: PETG | All dimensions in mm | Scale noted per view</text>
+  <line x1="200" y1="72" x2="1600" y2="72" stroke="black" stroke-width="0.5"/>
+
+  <!-- ============================================================ -->
+  <!-- FRONT VIEW (looking along -Y) -->
+  <!-- Shows cross-section: width (X) horizontal, height (Z) vertical -->
+  <!-- Scale: 3 px/mm -->
+  <!-- Origin at (80, 530) for X=0, Z=0 -->
+  <!-- ============================================================ -->
+
+  <text x="350" y="95" class="label">FRONT VIEW (looking along -Y)</text>
+  <text x="350" y="110" class="dim-small">Scale: 3 px/mm</text>
+
+  <!-- Front view constants -->
+  <!-- X: 0..180mm => 0..540px, origin_x = 80 -->
+  <!-- Z: 0..37.4mm => 0..112.2px, origin_z = 530 (Z increases upward, so subtract) -->
+  <!-- fX(mm) = 80 + mm*3 -->
+  <!-- fZ(mm) = 530 - mm*3 -->
+
+  <!-- LOWER CRADLE - Cross section -->
+  <!-- Cradle floor: Z=0 to 1.2, X=0 to 180 (outer rail) -->
+  <!-- Left rail: X=0..3, Z=0..18 -->
+  <rect x="80" y="476" width="9" height="54" class="section"/>
+  <!-- Right rail: X=177..180, Z=0..18 -->
+  <rect x="611" y="476" width="9" height="54" class="section"/>
+  <!-- Floor: X=3..177, Z=0..1.2 -->
+  <rect x="89" y="526.4" width="522" height="3.6" class="section"/>
+
+  <!-- Left tongue: protrudes 3mm left from X=0, Z=5..9 -->
+  <rect x="71" y="503" width="9" height="12" class="section"/>
+  <!-- Right tongue: protrudes 3mm right from X=180, Z=5..9 -->
+  <rect x="620" y="503" width="9" height="12" class="section"/>
+
+  <!-- Longitudinal ribs (5 ribs, showing cross-section) -->
+  <!-- Rib 1: X=16.4..18.4 (center 17.4, width 2), Z=1.2..6.2 -->
+  <rect x="129.2" y="511.4" width="6" height="15" class="section"/>
+  <!-- Rib 2: X=50.8..52.8 -->
+  <rect x="232.4" y="511.4" width="6" height="15" class="section"/>
+  <!-- Rib 3: X=85.2..87.2 (center) -->
+  <rect x="335.6" y="511.4" width="6" height="15" class="section"/>
+  <!-- Rib 4: X=119.6..121.6 -->
+  <rect x="438.8" y="511.4" width="6" height="15" class="section"/>
+  <!-- Rib 5: X=154..156 -->
+  <rect x="542" y="511.4" width="6" height="15" class="section"/>
+
+  <!-- UPPER CAP - Cross section -->
+  <!-- Cap left rail: inner face at cradle X=3.2, outer at X=3.2+173.6=176.8 -->
+  <!-- Cap rail thickness = 2mm, so outer=3.2, inner=5.2 on left; outer=176.8, inner=174.8 on right -->
+  <!-- Cap rail Z: 10.0 to 37.4 in assembled coords -->
+  <!-- Left cap rail: X=3.2..5.2, Z=10..37.4 -->
+  <rect x="89.6" y="417.8" width="6" height="82.2" class="section"/>
+  <!-- Right cap rail: X=174.8..176.8, Z=10..37.4 -->
+  <rect x="604.4" y="417.8" width="6" height="82.2" class="section"/>
+
+  <!-- Cap top plate: Z=36.2..37.4, X=5.2..174.8 (inner rail) -->
+  <rect x="95.6" y="417.8" width="508.8" height="3.6" class="section"/>
+
+  <!-- Cap cross-ribs (4 ribs hanging down from top plate) -->
+  <!-- In front view, we see them all overlapped since they run along X -->
+  <!-- Rib undersurface at Z=33.2, top at Z=36.2 -->
+  <!-- X extent: 5.2 to 174.8 (inner rail) => px 95.6 to 604.4 -->
+  <!-- Show one representative rib as hidden (they're behind the front rail in this view) -->
+  <rect x="95.6" y="421.4" width="508.8" height="9" class="section"/>
+
+  <!-- 27mm gap annotation arrow -->
+  <!-- Gap from Z=6.2 (rib top) to Z=33.2 (cap rib bottom) -->
+
+  <!-- Barb receiver detail on left rail (hidden, inside) -->
+  <!-- Receiver at Z=10..18, 1.5mm deep into 3mm rail inner face -->
+  <!-- Left rail inner face at X=3, receiver goes from X=3 to X=1.5 (inward) -->
+  <line x1="84.5" y1="476" x2="84.5" y2="500" class="hidden"/>
+  <line x1="84.5" y1="500" x2="89" y2="500" class="hidden"/>
+
+  <!-- Barb ridge on cap left rail (at Z=10..12.73 assembled) -->
+  <!-- Ridge protrudes 1mm outward from cap rail outer face (X=3.2) toward X=2.2 -->
+  <line x1="83.2" y1="500" x2="86.6" y2="492.81" class="thin"/>
+  <line x1="83.2" y1="500" x2="83.2" y2="497" class="thin"/>
+  <line x1="83.2" y1="497" x2="86.6" y2="497" class="thin"/>
+
+  <!-- Lock ledge on left receiver at Z=11 -->
+  <line x1="86" y1="497" x2="89" y2="497" class="hidden"/>
+
+  <!-- Right side barb (mirror) -->
+  <line x1="616.8" y1="500" x2="613.4" y2="492.81" class="thin"/>
+  <line x1="616.8" y1="500" x2="616.8" y2="497" class="thin"/>
+  <line x1="616.8" y1="497" x2="613.4" y2="497" class="thin"/>
+  <line x1="615.5" y1="476" x2="615.5" y2="500" class="hidden"/>
+  <line x1="611" y1="500" x2="615.5" y2="500" class="hidden"/>
+  <line x1="611" y1="497" x2="614" y2="497" class="hidden"/>
+
+  <!-- DIMENSION CALLOUTS - Front View -->
+
+  <!-- Overall width: 180mm -->
+  <line x1="80" y1="530" x2="80" y2="550" class="extline"/>
+  <line x1="620" y1="530" x2="620" y2="550" class="extline"/>
+  <line x1="80" y1="546" x2="620" y2="546" class="dimline" marker-start="url(#arrow-rev)" marker-end="url(#arrow)"/>
+  <text x="350" y="557" class="dim">180</text>
+
+  <!-- Cradle height: 18mm -->
+  <line x1="620" y1="530" x2="645" y2="530" class="extline"/>
+  <line x1="620" y1="476" x2="645" y2="476" class="extline"/>
+  <line x1="641" y1="530" x2="641" y2="476" class="dimline" marker-start="url(#arrow-rev)" marker-end="url(#arrow)"/>
+  <text x="660" y="507" class="dim">18</text>
+
+  <!-- Total assembled height: 37.4mm -->
+  <line x1="611" y1="417.8" x2="660" y2="417.8" class="extline"/>
+  <line x1="620" y1="530" x2="660" y2="530" class="extline"/>
+  <line x1="656" y1="530" x2="656" y2="417.8" class="dimline" marker-start="url(#arrow-rev)" marker-end="url(#arrow)"/>
+  <text x="678" y="478" class="dim">37.4</text>
+
+  <!-- 27mm gap -->
+  <line x1="542" y1="511.4" x2="565" y2="511.4" class="extline"/>
+  <line x1="509" y1="430.4" x2="565" y2="430.4" class="extline"/>
+  <line x1="561" y1="511.4" x2="561" y2="430.4" class="dimline" marker-start="url(#arrow-rev)" marker-end="url(#arrow)"/>
+  <text x="577" y="474" class="dim">27</text>
+
+  <!-- Rail thickness: 3mm -->
+  <line x1="80" y1="476" x2="80" y2="466" class="extline"/>
+  <line x1="89" y1="476" x2="89" y2="466" class="extline"/>
+  <line x1="80" y1="468" x2="89" y2="468" class="dimline" marker-start="url(#arrow-rev)" marker-end="url(#arrow)"/>
+  <text x="84.5" y="464" class="dim-small">3</text>
+
+  <!-- Rib height: 5mm (above floor) -->
+  <line x1="129.2" y1="526.4" x2="115" y2="526.4" class="extline"/>
+  <line x1="129.2" y1="511.4" x2="115" y2="511.4" class="extline"/>
+  <line x1="118" y1="526.4" x2="118" y2="511.4" class="dimline" marker-start="url(#arrow-rev)" marker-end="url(#arrow)"/>
+  <text x="108" y="521" class="dim-small">5</text>
+
+  <!-- Floor thickness: 1.2mm -->
+  <line x1="95" y1="530" x2="95" y2="538" class="extline"/>
+  <line x1="95" y1="526.4" x2="95" y2="522" class="extline"/>
+  <text x="105" y="536" class="dim-small">1.2</text>
+
+  <!-- Tongue protrusion: 3mm -->
+  <line x1="71" y1="500" x2="71" y2="514" class="extline"/>
+  <line x1="80" y1="500" x2="80" y2="514" class="extline"/>
+  <line x1="71" y1="511" x2="80" y2="511" class="dimline" marker-start="url(#arrow-rev)" marker-end="url(#arrow)"/>
+  <text x="75.5" y="520" class="dim-small">3</text>
+
+  <!-- Cap rail thickness: 2mm -->
+  <line x1="89.6" y1="440" x2="89.6" y2="434" class="extline"/>
+  <line x1="95.6" y1="440" x2="95.6" y2="434" class="extline"/>
+  <line x1="89.6" y1="436" x2="95.6" y2="436" class="dimline" marker-start="url(#arrow-rev)" marker-end="url(#arrow)"/>
+  <text x="92.6" y="432" class="dim-small">2</text>
+
+  <!-- Top plate thickness: 1.2mm -->
+  <line x1="95.6" y1="417.8" x2="95.6" y2="412" class="extline"/>
+  <line x1="95.6" y1="421.4" x2="95.6" y2="410" class="extline"/>
+  <text x="108" y="414" class="dim-small">1.2</text>
+
+  <!-- Rib spacing: 34.4mm (center to center, rib 1 to rib 2) -->
+  <line x1="132.2" y1="511.4" x2="132.2" y2="504" class="extline"/>
+  <line x1="235.4" y1="511.4" x2="235.4" y2="504" class="extline"/>
+  <line x1="132.2" y1="506" x2="235.4" y2="506" class="dimline" marker-start="url(#arrow-rev)" marker-end="url(#arrow)"/>
+  <text x="183.8" y="503" class="dim-small">34.4</text>
+
+  <!-- Detail A callout circle -->
+  <circle cx="86" cy="497" r="18" stroke="black" stroke-width="0.8" fill="none"/>
+  <text x="66" y="490" class="dim" font-weight="bold">A</text>
+
+  <!-- ============================================================ -->
+  <!-- SIDE VIEW (looking along -X) -->
+  <!-- Shows length (Y) horizontal, height (Z) vertical -->
+  <!-- Scale: 2.2 px/mm -->
+  <!-- Origin at (720, 530) for Y=0, Z=0 -->
+  <!-- ============================================================ -->
+
+  <text x="1000" y="95" class="label">SIDE VIEW (looking along -X)</text>
+  <text x="1000" y="110" class="dim-small">Scale: 2.2 px/mm</text>
+
+  <!-- sX(mm) = 720 + mm*2.2 -->
+  <!-- sZ(mm) = 530 - mm*2.2 -->
+
+  <!-- LOWER CRADLE - Side view -->
+  <!-- Uphill rail (Y=0..3): full height Z=0..18 -->
+  <rect x="720" y="490.4" width="6.6" height="39.6" class="section"/>
+  <!-- Floor: Y=3..247, Z=0..1.2 -->
+  <rect x="726.6" y="527.36" width="536.8" height="2.64" class="section"/>
+  <!-- Downhill short rail segment: Y=247..250, Z=0..18 -->
+  <rect x="1263.4" y="490.4" width="6.6" height="39.6" class="section"/>
+  <!-- Stop wall: Y=235..238, Z=0..18 -->
+  <rect x="1237" y="490.4" width="6.6" height="39.6" class="section"/>
+
+  <!-- Tubing notch in stop wall: semicircle R=8mm at X=90, Z=18 down to Z=10 -->
+  <!-- In side view (looking along -X), the notch at X=90 is visible -->
+  <!-- Semicircular notch from Z=10 to Z=18, centered at top of stop wall -->
+  <!-- notch center at sZ(18)=490.4, radius=8*2.2=17.6 -->
+  <path d="M 1240.3 490.4 A 17.6 17.6 0 0 1 1240.3 490.4" class="hidden"/>
+  <!-- Show notch as dashed arc in the stop wall -->
+  <path d="M 1237 490.4 L 1237 508 L 1243.6 508 L 1243.6 490.4" stroke="none" fill="#e8e8e8"/>
+  <!-- Notch curve (semicircle seen from side = hidden since at centerline) -->
+  <line x1="1237" y1="508" x2="1243.6" y2="508" class="hidden"/>
+
+  <!-- Longitudinal rib profile (side view - shows taper) -->
+  <!-- One rib shown (they overlap in this view). Full height zone Y=46..195 at Z=6.2 -->
+  <!-- Uphill taper: Y=6..46, Z ramps from 1.2 to 6.2 -->
+  <!-- Downhill taper: Y=195..235, Z ramps from 6.2 to 1.2 -->
+  <!-- fY=6 => px=733.2, fY=46 => px=821.2, fY=195 => px=1149, fY=235 => px=1237 -->
+  <!-- Z=1.2 => px=527.36, Z=6.2 => px=516.36 -->
+  <path d="M 733.2 527.36 L 821.2 516.36 L 1149 516.36 L 1237 527.36" class="thin" fill="none"/>
+  <!-- Rib top line (full height zone) -->
+
+  <!-- UPPER CAP - Side view -->
+  <!-- Cap uphill rail: at cradle Y=3.2 inner, so cap starts at Y~3.2 -->
+  <!-- Cap rail from Y=3.2 to Y=246.8 (inner face of cradle downhill rail = 247, cap clearance) -->
+  <!-- Cap Z: 10..37.4 -->
+  <!-- sX(3.2)=727.04, sX(246.8)=1262.96 -->
+  <!-- sZ(10)=508, sZ(37.4)=447.72 -->
+
+  <!-- Cap uphill rail wall: Y=3.2..5.2, Z=10..37.4 -->
+  <rect x="727.04" y="447.72" width="4.4" height="60.28" class="section"/>
+  <!-- Cap downhill rail wall (partial - has exit opening) -->
+  <!-- The cap exit opening is centered at X=86.8, width 31mm in X. In side view looking along -X, -->
+  <!-- we see the cap rail at Y=241.6..243.6 but the exit opening means no wall at center -->
+  <!-- Show the rail segments flanking the exit -->
+  <rect x="1251.52" y="447.72" width="4.4" height="60.28" class="section"/>
+
+  <!-- Cap top plate: Z=36.2..37.4, Y=5.2..241.6 -->
+  <rect x="731.44" y="447.72" width="520.08" height="2.64" class="section"/>
+
+  <!-- Cap cross-ribs (4 ribs, seen as thin rectangles in side view) -->
+  <!-- Rib width = 3mm in Y, depth = 3mm in Z (Z=33.2 to 36.2) -->
+  <!-- Y positions (assembled): 50.1, 100.1, 150.1, 200.1 -->
+  <!-- sZ(33.2)=457.0, sZ(36.2)=450.36 -->
+  <!-- Rib 1: Y=48.6..51.6 => sX=826.9..833.5 -->
+  <rect x="826.9" y="450.36" width="6.6" height="6.64" class="section"/>
+  <!-- Rib 2: Y=98.6..101.6 => sX=936.9..943.5 -->
+  <rect x="936.9" y="450.36" width="6.6" height="6.64" class="section"/>
+  <!-- Rib 3: Y=148.6..151.6 => sX=1046.9..1053.5 -->
+  <rect x="1046.9" y="450.36" width="6.6" height="6.64" class="section"/>
+  <!-- Rib 4: Y=198.6..201.6 => sX=1156.9..1163.5 -->
+  <rect x="1156.9" y="450.36" width="6.6" height="6.64" class="section"/>
+
+  <!-- Clip tab extending past uphill end -->
+  <!-- Tab from Y=0 extending 20mm in -Y direction, so Y=-20..0 in assembled coords -->
+  <!-- But clip tab is on upper cap, starts at cap uphill rail and extends 20mm past cradle uphill wall -->
+  <!-- Tab Z: 35.4..37.4 (assembled), Y: -17 to 3.2 (extends 20mm from cap rail Y=3.2) -->
+  <!-- Wait - the clip tab extends from cap Y=0 which is cradle Y=3.2, extending 20mm in -Y -->
+  <!-- So in assembled coords: Y=3.2 to Y=-16.8 -->
+  <!-- sX(-16.8)=683.04, sX(3.2)=727.04 -->
+  <!-- sZ(35.4)=452.12, sZ(37.4)=447.72 -->
+  <rect x="683.04" y="447.72" width="44" height="4.4" class="section"/>
+
+  <!-- Hook at end of clip tab -->
+  <!-- Hook goes downward 5mm from tab bottom (Z=35.4), so Z=35.4 to 30.4 -->
+  <!-- Hook tip thickness 2mm, inner radius 3mm -->
+  <!-- sZ(30.4)=463.12, hook at Y=-16.8 (sX=683.04) -->
+  <!-- Hook descends from tab bottom, curves inward -->
+  <path d="M 683.04 452.12 L 683.04 463.12 Q 683.04 467.52 687.44 467.52 L 689.64 467.52 L 689.64 463.12" class="thin" fill="none"/>
+  <!-- Hook tip pointing toward +Y -->
+  <line x1="689.64" y1="463.12" x2="689.64" y2="458.72" class="thin"/>
+
+  <!-- Cap exit opening in side view (at downhill end) -->
+  <!-- The opening is at the downhill end of the cap rail -->
+  <!-- In side view, the exit opening means no cap rail wall from Y~243 to Y~247 at center X -->
+  <!-- Show as dashed to indicate the opening is behind -->
+  <line x1="1255.92" y1="447.72" x2="1255.92" y2="508" class="hidden"/>
+
+  <!-- DIMENSION CALLOUTS - Side View -->
+
+  <!-- Overall length: 250mm -->
+  <line x1="720" y1="530" x2="720" y2="550" class="extline"/>
+  <line x1="1270" y1="530" x2="1270" y2="550" class="extline"/>
+  <line x1="720" y1="546" x2="1270" y2="546" class="dimline" marker-start="url(#arrow-rev)" marker-end="url(#arrow)"/>
+  <text x="995" y="557" class="dim">250</text>
+
+  <!-- Stop wall position: Y=235 from uphill end -->
+  <line x1="1237" y1="490.4" x2="1237" y2="482" class="extline"/>
+  <line x1="720" y1="490.4" x2="720" y2="482" class="extline"/>
+  <line x1="720" y1="484" x2="1237" y2="484" class="dimline" marker-start="url(#arrow-rev)" marker-end="url(#arrow)"/>
+  <text x="978.5" y="481" class="dim">235</text>
+
+  <!-- Uphill taper zone: 40mm -->
+  <line x1="733.2" y1="527.36" x2="733.2" y2="570" class="extline"/>
+  <line x1="821.2" y1="516.36" x2="821.2" y2="570" class="extline"/>
+  <line x1="733.2" y1="566" x2="821.2" y2="566" class="dimline" marker-start="url(#arrow-rev)" marker-end="url(#arrow)"/>
+  <text x="777.2" y="577" class="dim">40</text>
+
+  <!-- Full-height zone: 149mm -->
+  <line x1="821.2" y1="570" x2="821.2" y2="584" class="extline"/>
+  <line x1="1149" y1="570" x2="1149" y2="584" class="extline"/>
+  <line x1="821.2" y1="580" x2="1149" y2="580" class="dimline" marker-start="url(#arrow-rev)" marker-end="url(#arrow)"/>
+  <text x="985.1" y="591" class="dim">149</text>
+
+  <!-- Downhill taper zone: 40mm -->
+  <line x1="1149" y1="516.36" x2="1149" y2="570" class="extline"/>
+  <line x1="1237" y1="527.36" x2="1237" y2="570" class="extline"/>
+  <line x1="1149" y1="566" x2="1237" y2="566" class="dimline" marker-start="url(#arrow-rev)" marker-end="url(#arrow)"/>
+  <text x="1193" y="577" class="dim">40</text>
+
+  <!-- Cross-rib spacing: 50mm -->
+  <line x1="830.2" y1="450.36" x2="830.2" y2="438" class="extline"/>
+  <line x1="940.2" y1="450.36" x2="940.2" y2="438" class="extline"/>
+  <line x1="830.2" y1="440" x2="940.2" y2="440" class="dimline" marker-start="url(#arrow-rev)" marker-end="url(#arrow)"/>
+  <text x="885.2" y="437" class="dim">50</text>
+
+  <!-- Clip tab overhang: 20mm -->
+  <line x1="683.04" y1="447.72" x2="683.04" y2="430" class="extline"/>
+  <line x1="727.04" y1="447.72" x2="727.04" y2="430" class="extline"/>
+  <line x1="683.04" y1="432" x2="727.04" y2="432" class="dimline" marker-start="url(#arrow-rev)" marker-end="url(#arrow)"/>
+  <text x="705.04" y="429" class="dim">20</text>
+
+  <!-- Total assembled height: 37.4mm on side view -->
+  <line x1="1256" y1="530" x2="1290" y2="530" class="extline"/>
+  <line x1="1256" y1="447.72" x2="1290" y2="447.72" class="extline"/>
+  <line x1="1286" y1="530" x2="1286" y2="447.72" class="dimline" marker-start="url(#arrow-rev)" marker-end="url(#arrow)"/>
+  <text x="1308" y="492" class="dim">37.4</text>
+
+  <!-- Detail B callout circle (clip tab hook) -->
+  <circle cx="686" cy="460" r="22" stroke="black" stroke-width="0.8" fill="none"/>
+  <text x="662" y="448" class="dim" font-weight="bold">B</text>
+
+  <!-- Tubing notch radius: 8mm -->
+  <text x="1220" y="517" class="dim-small" text-anchor="end">R8</text>
+
+  <!-- Cap exit opening label -->
+  <text x="1260" y="470" class="dim-small" text-anchor="start">Cap exit</text>
+
+  <!-- ============================================================ -->
+  <!-- TOP VIEW (looking along -Z, down from above) -->
+  <!-- Shows width (X) horizontal, length (Y) vertical (increasing downward = +Y) -->
+  <!-- Scale: 2.0 px/mm -->
+  <!-- Origin at (80, 650) for X=0, Y=0 -->
+  <!-- ============================================================ -->
+
+  <text x="260" y="630" class="label">TOP VIEW (looking along -Z)</text>
+  <text x="370" y="645" class="dim-small">Scale: 2.0 px/mm</text>
+
+  <!-- tX(mm) = 80 + mm*2.0 -->
+  <!-- tY(mm) = 660 + mm*2.0 (Y increases downward on drawing = +Y in part coords) -->
+
+  <!-- Cradle outer perimeter: X=0..180, Y=0..250 -->
+  <rect x="80" y="660" width="360" height="500" class="outline"/>
+
+  <!-- Cap exit opening at Y=247..250 end: X=72.5..107.5 -->
+  <!-- Show the opening by breaking the bottom perimeter line -->
+  <line x1="225" y1="1154" x2="295" y2="1154" stroke="white" stroke-width="3"/>
+  <line x1="225" y1="1160" x2="225" y2="1154" class="outline"/>
+  <line x1="295" y1="1160" x2="295" y2="1154" class="outline"/>
+
+  <!-- Upper cap perimeter (inside cradle, shown as inner rect) -->
+  <!-- Cap outer: X=3.2..176.8, Y=3.2..246.8 -->
+  <rect x="86.4" y="666.4" width="347.2" height="487.2" class="thin" stroke-dasharray="none"/>
+
+  <!-- Cap top plate outline (inner to cap rail) -->
+  <!-- X=5.2..174.8, Y=5.2..244.8 -->
+  <rect x="90.4" y="670.4" width="339.2" height="479.2" class="thin"/>
+
+  <!-- Cap exit opening on cap rail -->
+  <!-- X=71.3..102.3 in cap coords => assembled X=74.5..105.5 (approx) -->
+  <!-- Actually cap X coords directly: X=71.3..102.3 cap = cradle X=71.3+3.2=74.5 to 102.3+3.2=105.5 -->
+  <line x1="229" y1="1153.6" x2="291" y2="1153.6" stroke="white" stroke-width="2"/>
+
+  <!-- Cross-ribs (seen as thin lines running across width) -->
+  <!-- Y positions (assembled): 50.1, 100.1, 150.1, 200.1 -->
+  <line x1="90.4" y1="760.2" x2="429.6" y2="760.2" class="hidden"/>
+  <line x1="90.4" y1="860.2" x2="429.6" y2="860.2" class="hidden"/>
+  <line x1="90.4" y1="960.2" x2="429.6" y2="960.2" class="hidden"/>
+  <line x1="90.4" y1="1060.2" x2="429.6" y2="1060.2" class="hidden"/>
+
+  <!-- Longitudinal ribs (seen as thin lines running along Y) -->
+  <!-- X positions: 17.4, 51.8, 86.2, 120.6, 155.0 -->
+  <line x1="114.8" y1="672" x2="114.8" y2="1130" class="hidden"/>
+  <line x1="183.6" y1="672" x2="183.6" y2="1130" class="hidden"/>
+  <line x1="252.4" y1="672" x2="252.4" y2="1130" class="hidden"/>
+  <line x1="321.2" y1="672" x2="321.2" y2="1130" class="hidden"/>
+  <line x1="390" y1="672" x2="390" y2="1130" class="hidden"/>
+
+  <!-- Stop wall at Y=235..238 -->
+  <line x1="86.4" y1="1130" x2="433.6" y2="1130" class="hidden"/>
+  <line x1="86.4" y1="1136" x2="433.6" y2="1136" class="hidden"/>
+
+  <!-- Tubing notch (semicircle at X=90, Y=235, R=8) - seen as semicircle from top -->
+  <!-- Center at tX(90)=260, tY(235)=1130, R=8*2=16 -->
+  <path d="M 244 1130 A 16 16 0 0 1 276 1130" class="hidden"/>
+
+  <!-- Clip tab extending past Y=0 -->
+  <!-- Tab X: 46.8..126.8 => tX=173.6..333.6 -->
+  <!-- Tab Y: -16.8..3.2 => tY=626.4..666.4 -->
+  <rect x="173.6" y="626.4" width="160" height="40" class="thin"/>
+  <!-- Hook at the -Y end as a thin line -->
+  <line x1="173.6" y1="626.4" x2="333.6" y2="626.4" class="outline"/>
+
+  <!-- Barb receiver positions (shown as small marks on rails) -->
+  <!-- Y=75: tY=810, Y=175: tY=1010 -->
+  <!-- Left rail at X=0..3 -->
+  <line x1="80" y1="798" x2="86" y2="798" class="hidden"/>
+  <line x1="80" y1="822" x2="86" y2="822" class="hidden"/>
+  <line x1="80" y1="998" x2="86" y2="998" class="hidden"/>
+  <line x1="80" y1="1022" x2="86" y2="1022" class="hidden"/>
+  <!-- Right rail -->
+  <line x1="434" y1="798" x2="440" y2="798" class="hidden"/>
+  <line x1="434" y1="822" x2="440" y2="822" class="hidden"/>
+  <line x1="434" y1="998" x2="440" y2="998" class="hidden"/>
+  <line x1="434" y1="1022" x2="440" y2="1022" class="hidden"/>
+
+  <!-- DIMENSION CALLOUTS - Top View -->
+
+  <!-- Overall width: 180mm -->
+  <line x1="80" y1="1160" x2="80" y2="1178" class="extline"/>
+  <line x1="440" y1="1160" x2="440" y2="1178" class="extline"/>
+  <line x1="80" y1="1174" x2="440" y2="1174" class="dimline" marker-start="url(#arrow-rev)" marker-end="url(#arrow)"/>
+  <text x="260" y="1185" class="dim">180</text>
+
+  <!-- Overall length: 250mm -->
+  <line x1="440" y1="660" x2="460" y2="660" class="extline"/>
+  <line x1="440" y1="1160" x2="460" y2="1160" class="extline"/>
+  <line x1="456" y1="660" x2="456" y2="1160" class="dimline" marker-start="url(#arrow-rev)" marker-end="url(#arrow)"/>
+  <text x="473" y="914" class="dim">250</text>
+
+  <!-- Cap exit opening: 35mm -->
+  <line x1="225" y1="1160" x2="225" y2="1196" class="extline"/>
+  <line x1="295" y1="1160" x2="295" y2="1196" class="extline"/>
+  <line x1="225" y1="1192" x2="295" y2="1192" class="dimline" marker-start="url(#arrow-rev)" marker-end="url(#arrow)"/>
+  <text x="260" y="1203" class="dim">35</text>
+
+  <!-- Clip tab width: 80mm -->
+  <line x1="173.6" y1="626.4" x2="173.6" y2="614" class="extline"/>
+  <line x1="333.6" y1="626.4" x2="333.6" y2="614" class="extline"/>
+  <line x1="173.6" y1="617" x2="333.6" y2="617" class="dimline" marker-start="url(#arrow-rev)" marker-end="url(#arrow)"/>
+  <text x="253.6" y="612" class="dim">80</text>
+
+  <!-- Clip tab overhang label -->
+  <text x="155" y="648" class="dim-small" text-anchor="end">20 overhang</text>
+
+  <!-- Barb position Y=75 -->
+  <line x1="80" y1="810" x2="66" y2="810" class="extline"/>
+  <line x1="80" y1="660" x2="66" y2="660" class="extline"/>
+  <line x1="69" y1="660" x2="69" y2="810" class="dimline" marker-start="url(#arrow-rev)" marker-end="url(#arrow)"/>
+  <text x="57" y="740" class="dim-small">75</text>
+
+  <!-- Centerline X -->
+  <line x1="260" y1="620" x2="260" y2="1165" class="center"/>
+
+  <!-- ============================================================ -->
+  <!-- DETAIL A: Barb Ridge / Lock Receiver Interface -->
+  <!-- Cross-section at barb location, looking along Y -->
+  <!-- Scale: 15 px/mm (5x magnification relative to front view) -->
+  <!-- ============================================================ -->
+
+  <rect x="490" y="615" width="300" height="290" class="detail-frame"/>
+  <text x="640" y="635" class="label">DETAIL A — Barb Interface</text>
+  <text x="640" y="653" class="dim-small">Scale: 15 px/mm | Cross-section at Y=75</text>
+
+  <!-- Detail A coordinate system -->
+  <!-- Showing the interface between cradle left rail inner face and cap left rail outer face -->
+  <!-- Focus area: X ~0..6mm, Z ~7..18mm -->
+  <!-- dAx(mm) = 520 + (mm - 0)*15 -->
+  <!-- dAz(mm) = 880 - (mm - 7)*15   => Z=7 at y=880, Z=18 at y=715 -->
+
+  <!-- Cradle left rail (X=0..3mm): solid section -->
+  <rect x="520" y="715" width="45" height="165" fill="#d0d0d0" stroke="black" stroke-width="1"/>
+  <!-- Rail inner face at X=3mm = px 565 -->
+
+  <!-- Receiver slot: X=1.5..3, Z=10..18 -->
+  <!-- Receiver is 1.5mm deep into rail from inner face, Z=10..18 -->
+  <!-- dAx(1.5)=542.5, dAx(3)=565 -->
+  <!-- dAz(10)=835, dAz(18)=715 -->
+  <!-- The receiver is a notch cut into the rail inner face -->
+  <rect x="542.5" y="715" width="22.5" height="120" fill="white" stroke="black" stroke-width="0.8"/>
+
+  <!-- Lock ledge: protrudes 1mm from receiver back wall at Z=10..11 -->
+  <!-- Ledge at X=1.5, extends 1mm inward to X=2.5, Z=10..11 -->
+  <!-- dAx(2.5)=557.5, dAz(10)=835, dAz(11)=820 -->
+  <rect x="542.5" y="820" width="15" height="15" fill="#d0d0d0" stroke="black" stroke-width="0.8"/>
+
+  <!-- Gap between ledge top and receiver: X=2.5..3, Z=11..18 -->
+  <!-- This 0.5mm zone is where the barb clears -->
+
+  <!-- Cap left rail (X=3.2..5.2): separate piece -->
+  <!-- dAx(3.2)=568, dAx(5.2)=598 -->
+  <!-- dAz(10)=835, dAz(37.4)=424 (but we only show to Z=18) -->
+  <rect x="568" y="715" width="30" height="120" fill="#c0c8d0" stroke="black" stroke-width="1"/>
+
+  <!-- Barb ridge on cap rail outer face at X=3.2, protruding toward X=2.2 -->
+  <!-- Ridge Z position: assembled Z=10 to Z=12.73 -->
+  <!-- 30-degree ramp from Z=10 (flush with rail) to Z=11.73 (1mm protrusion) -->
+  <!-- Then vertical lock face from Z=11.73 to Z=12.73 (1mm tall) -->
+  <!-- dAx(2.2)=553, dAx(3.2)=568 -->
+  <!-- dAz(10)=835, dAz(11.73)=809.05, dAz(12.73)=794.05 -->
+
+  <!-- 30-degree lead-in ramp -->
+  <polygon points="568,835 553,809 553,794 568,794" fill="#c0c8d0" stroke="black" stroke-width="0.8"/>
+
+  <!-- 0.2mm clearance between cap rail outer (X=3.2) and cradle rail inner (X=3.0) -->
+  <!-- dAx(3.0)=565, dAx(3.2)=568 — 3px gap -->
+
+  <!-- Labels inside Detail A -->
+  <text x="540" y="670" class="dim-small" text-anchor="middle">Cradle</text>
+  <text x="583" y="670" class="dim-small" text-anchor="middle">Cap</text>
+
+  <!-- Dimension: 1.0mm barb engagement -->
+  <line x1="553" y1="809" x2="535" y2="809" class="extline"/>
+  <line x1="553" y1="794" x2="535" y2="794" class="extline"/>
+  <line x1="538" y1="809" x2="538" y2="794" class="dimline" marker-start="url(#arrow-rev)" marker-end="url(#arrow)"/>
+  <text x="525" y="804" class="dim-small">1.0</text>
+
+  <!-- Dimension: 1.5mm receiver depth -->
+  <line x1="542.5" y1="770" x2="542.5" y2="758" class="extline"/>
+  <line x1="565" y1="770" x2="565" y2="758" class="extline"/>
+  <line x1="542.5" y1="761" x2="565" y2="761" class="dimline" marker-start="url(#arrow-rev)" marker-end="url(#arrow)"/>
+  <text x="553.75" y="756" class="dim-small">1.5</text>
+
+  <!-- Dimension: 1.0mm ledge -->
+  <line x1="542.5" y1="835" x2="530" y2="835" class="extline"/>
+  <line x1="542.5" y1="820" x2="530" y2="820" class="extline"/>
+  <line x1="533" y1="835" x2="533" y2="820" class="dimline" marker-start="url(#arrow-rev)" marker-end="url(#arrow)"/>
+  <text x="521" y="830" class="dim-small">1.0</text>
+
+  <!-- 30-degree angle label -->
+  <text x="555" y="822" class="dim-small">30°</text>
+
+  <!-- Dimension: 0.2mm clearance -->
+  <line x1="565" y1="846" x2="565" y2="855" class="extline"/>
+  <line x1="568" y1="846" x2="568" y2="855" class="extline"/>
+  <text x="566.5" y="866" class="dim-small">0.2</text>
+
+  <!-- Vertical lock face label -->
+  <!-- Lock face indicator removed to avoid collisions -->
+
+  <!-- Lead-in ramp label -->
+  <text x="508" y="892" class="dim-small" text-anchor="start">Ramp</text>
+  <line x1="518" y1="888" x2="558" y2="830" stroke="#888" stroke-width="0.4"/>
+
+  <!-- ============================================================ -->
+  <!-- DETAIL B: Clip Tab Hook -->
+  <!-- Cross-section looking along X, showing hook capturing bag film -->
+  <!-- Scale: 10 px/mm -->
+  <!-- ============================================================ -->
+
+  <rect x="825" y="620" width="290" height="280" class="detail-frame"/>
+  <text x="970" y="638" class="label">DETAIL B — Clip Tab Hook</text>
+  <text x="970" y="653" class="dim-small">Scale: 10 px/mm | Cross-section at X=90</text>
+
+  <!-- Detail B coordinate system -->
+  <!-- Focus: Y from -20 to 10, Z from 10 to 40 -->
+  <!-- dBx(Ymm) = 870 + (Ymm + 20)*10 -->
+  <!-- dBz(Zmm) = 870 - (Zmm - 10)*10 -->
+
+  <!-- Cradle uphill wall: Y=0..3, Z=0..18 -->
+  <!-- dBx(0)=1070, dBx(3)=1100 -->
+  <!-- dBz(0)=970 (but we clip to view area), dBz(18)=790 -->
+  <rect x="1070" y="790" width="30" height="90" fill="#d0d0d0" stroke="black" stroke-width="1"/>
+  <text x="1085" y="785" class="dim-small" text-anchor="middle">Wall</text>
+
+  <!-- Cap top plate extending from Y=3.2 toward -Y -->
+  <!-- Top plate at Z=36.2..37.4 -->
+  <!-- dBx(3.2)=1072, extends left past Y=0 -->
+  <!-- dBz(36.2)=688, dBz(37.4)=676 -->
+  <rect x="870" y="676" width="202" height="12" fill="#c0c8d0" stroke="black" stroke-width="1"/>
+
+  <!-- Clip tab: Y=-16.8..3.2, Z=35.4..37.4 -->
+  <!-- dBx(-16.8)=902, dBx(3.2)=1072 -->
+  <!-- Tab is part of the cap, already shown in top plate area -->
+  <!-- Show the tab portion that extends past the cap rail (Y<3.2) -->
+
+  <!-- Hook descending from tab at Y=-16.8 -->
+  <!-- Hook goes Z=35.4 down to Z=30.4 (5mm), with 3mm inner radius -->
+  <!-- dBx(-16.8)=902 -->
+  <!-- dBz(35.4)=696, dBz(30.4)=746 -->
+  <!-- Hook inner curve: 3mm radius from tab bottom, curving right -->
+
+  <!-- Hook outer profile -->
+  <path d="M 902 688 L 902 746 Q 902 766 922 766 L 932 766 L 932 746" fill="#c0c8d0" stroke="black" stroke-width="1"/>
+  <!-- Hook inner profile (2mm tip thickness) -->
+  <line x1="922" y1="766" x2="922" y2="746" stroke="black" stroke-width="0.8"/>
+
+  <!-- Bag film (thin line between hook and cradle wall) -->
+  <path d="M 1070 790 L 1070 770 Q 1068 760 1060 756 L 940 756" stroke="#888" stroke-width="0.6" fill="none" stroke-dasharray="4,2"/>
+  <text x="990" y="752" class="dim-small" fill="#888">Bag film</text>
+
+  <!-- Dimension: Hook depth 5mm -->
+  <line x1="898" y1="696" x2="885" y2="696" class="extline"/>
+  <line x1="898" y1="746" x2="885" y2="746" class="extline"/>
+  <line x1="888" y1="696" x2="888" y2="746" class="dimline" marker-start="url(#arrow-rev)" marker-end="url(#arrow)"/>
+  <text x="880" y="724" class="dim-small" text-anchor="end">5</text>
+
+  <!-- Dimension: Inner radius 3mm -->
+  <text x="912" y="780" class="dim-small">R3</text>
+
+  <!-- Dimension: Hook tip thickness 2mm -->
+  <line x1="922" y1="770" x2="922" y2="780" class="extline"/>
+  <line x1="932" y1="770" x2="932" y2="780" class="extline"/>
+  <line x1="922" y1="777" x2="932" y2="777" class="dimline" marker-start="url(#arrow-rev)" marker-end="url(#arrow)"/>
+  <text x="927" y="790" class="dim-small">2</text>
+
+  <!-- Dimension: Tab thickness 2mm -->
+  <line x1="942" y1="676" x2="942" y2="670" class="extline"/>
+  <line x1="942" y1="688" x2="942" y2="694" class="extline"/>
+  <line x1="946" y1="676" x2="946" y2="688" class="dimline" marker-start="url(#arrow-rev)" marker-end="url(#arrow)"/>
+  <text x="958" y="685" class="dim-small">2</text>
+
+  <!-- Dimension: 3mm gap between hook and wall -->
+  <line x1="932" y1="756" x2="932" y2="802" class="extline"/>
+  <line x1="1070" y1="790" x2="1070" y2="802" class="extline"/>
+  <line x1="932" y1="798" x2="1060" y2="798" class="dimline" marker-start="url(#arrow-rev)" marker-end="url(#arrow)"/>
+  <text x="990" y="815" class="dim-small">Film gap</text>
+
+  <!-- Labels -->
+  <text x="904" y="724" class="dim-small" transform="rotate(-90, 904, 724)">Hook</text>
+  <text x="950" y="672" class="dim-small">Cap top plate / tab</text>
+
+  <!-- ============================================================ -->
+  <!-- NOTES -->
+  <!-- ============================================================ -->
+
+  <text x="1200" y="920" class="note" font-weight="bold">NOTES:</text>
+  <text x="1200" y="937" class="note">1. 4 barb points total (2 per long side)</text>
+  <text x="1200" y="952" class="note">2. Barb Y positions: Y=75, Y=175</text>
+  <text x="1200" y="967" class="note">3. Min bag-contact radius: 3.0 mm</text>
+  <text x="1200" y="982" class="note">4. Anti-adhesion texture: 0.4 mm pitch</text>
+  <text x="1200" y="997" class="note">5. No supports required for either part</text>
+  <text x="1200" y="1012" class="note">6. Cradle prints flat, ribs up</text>
+  <text x="1200" y="1027" class="note">7. Cap prints inverted, top plate on bed</text>
+  <text x="1200" y="1042" class="note">8. Tongue slides into enclosure groove</text>
+  <text x="1200" y="1057" class="note">   at 35° from horizontal</text>
+  <text x="1200" y="1072" class="note">9. Total for 2 bags: 4 printed parts,</text>
+  <text x="1200" y="1087" class="note">   no fasteners</text>
+
+  <!-- ============================================================ -->
+  <!-- ALIGNMENT VERIFICATION -->
+  <!-- Front and Side share Z pixel range: Z=0 at y=530, Z=37.4 at y~418 -->
+  <!-- Front and Top share X pixel range: X=0 at x=80 -->
+  <!-- (Top view uses 2.0 px/mm vs front view 3 px/mm, so they don't share exact pixel range) -->
+  <!-- ============================================================ -->
+
+</svg>
