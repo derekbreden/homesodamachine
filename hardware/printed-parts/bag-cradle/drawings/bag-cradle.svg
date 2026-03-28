@@ -1,0 +1,535 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1400 1050" width="1400" height="1050" font-family="Arial, Helvetica, sans-serif">
+  <title>Bag Cradle — Third-Angle Orthographic Projection</title>
+
+  <defs>
+    <marker id="arrow-start" markerWidth="8" markerHeight="6" refX="0" refY="3" orient="auto">
+      <path d="M8,0 L0,3 L8,6" fill="none" stroke="#333" stroke-width="0.8"/>
+    </marker>
+    <marker id="arrow-end" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto">
+      <path d="M0,0 L8,3 L0,6" fill="none" stroke="#333" stroke-width="0.8"/>
+    </marker>
+    <style>
+      .dim-line { stroke: #333; stroke-width: 0.6; marker-start: url(#arrow-start); marker-end: url(#arrow-end); }
+      .ext-line { stroke: #333; stroke-width: 0.4; }
+      .dim-text { font-size: 10px; fill: #333; text-anchor: middle; }
+      .dim-text-small { font-size: 8px; fill: #333; text-anchor: middle; }
+      .label { font-size: 12px; fill: #000; font-weight: bold; }
+      .note { font-size: 9px; fill: #555; }
+      .visible { stroke: #000; stroke-width: 1.2; fill: none; }
+      .hidden { stroke: #000; stroke-width: 0.8; fill: none; stroke-dasharray: 4,3; }
+      .center { stroke: #666; stroke-width: 0.4; fill: none; stroke-dasharray: 12,3,2,3; }
+      .detail-vis { stroke: #000; stroke-width: 1.2; fill: none; }
+      .detail-hid { stroke: #000; stroke-width: 0.8; fill: none; stroke-dasharray: 3,2; }
+      .section-fill { fill: #e8e8e8; stroke: none; }
+      .frame { stroke: #000; stroke-width: 0.8; fill: none; }
+    </style>
+  </defs>
+
+  <!-- Title block -->
+  <text x="700" y="30" font-size="16" font-weight="bold" text-anchor="middle" fill="#000">BAG CRADLE — ENGINEERING DRAWING</text>
+  <text x="700" y="48" font-size="10" text-anchor="middle" fill="#555">Material: PETG | Qty: 2 | Third-Angle Projection | Scale noted per view</text>
+  <text x="700" y="63" font-size="10" text-anchor="middle" fill="#555">Coordinate origin: exterior front-left-bottom corner | X=width, Y=length, Z=height</text>
+
+  <!-- ============================================================ -->
+  <!-- FRONT VIEW (looking along -Y): shows X horizontal, Z vertical -->
+  <!-- Scale: 2 px/mm. Origin pixel: (80, 140) = part (X=0, Z=30) top-left -->
+  <!-- Part X: 0..206mm = 0..412px. Z: 0..30mm = 0..60px (Z increases upward, pixel increases downward so Z=30 at top) -->
+  <!-- Pixel mapping: px_x = 80 + X*2, px_z = 140 + (30-Z)*2 -->
+  <!-- ============================================================ -->
+  <text x="286" y="118" class="label">FRONT VIEW (looking along -Y)</text>
+  <text x="286" y="130" class="note">Scale: 2 px/mm</text>
+
+  <!-- Outer rectangle: X=0..206, Z=0..30 -->
+  <!-- px: (80,140) to (492,200) -->
+  <rect x="80" y="140" width="412" height="60" class="visible"/>
+
+  <!-- Left sidewall interior: X=3mm => px 86 -->
+  <line x1="86" y1="140" x2="86" y2="200" class="hidden"/>
+  <!-- Right sidewall interior: X=203mm => px 486 -->
+  <line x1="486" y1="140" x2="486" y2="200" class="hidden"/>
+
+  <!-- Concave floor profile (arc in X-Z plane) -->
+  <!-- Floor exterior (underside) at Z=0 => px_z=200. Already the bottom edge. -->
+  <!-- Floor interior: at X=3 (px 86), Z=7mm => px_z = 140+(30-7)*2 = 140+46=186 -->
+  <!-- Floor interior: at X=103 (px 286), Z=3mm => px_z = 140+(30-3)*2 = 140+54=194 -->
+  <!-- Floor interior: at X=203 (px 486), Z=7mm => px_z = 186 -->
+  <!-- Draw as arc: from (86,186) curving down to (286,194) and back up to (486,186) -->
+  <path d="M86,186 Q286,202 486,186" class="hidden"/>
+
+  <!-- Left mounting tab: X=-6..0, Z=0..2.8 -->
+  <!-- px: X=-6 => 80+(-6)*2=68. X=0 => 80. Z=2.8 => 140+(30-2.8)*2=194.4. Z=0 => 200 -->
+  <rect x="68" y="194" width="12" height="6" class="visible"/>
+
+  <!-- Left barb: X=-4..-2 (outer 2mm of 6mm tab), Z=-0.8..0 -->
+  <!-- px: X=-4 => 72. X=-2 => 76. Z=0 => 200. Z=-0.8 => 200+1.6=201.6 -->
+  <!-- 45deg lead-in + 90deg retention face -->
+  <path d="M76,200 L76,201.6 L72,201.6 L76,200" class="visible"/>
+
+  <!-- Right mounting tab: X=206..212, Z=0..2.8 -->
+  <!-- px: X=206 => 492. X=212 => 504. Z=2.8 => 194.4. Z=0 => 200 -->
+  <rect x="492" y="194" width="12" height="6" class="visible"/>
+
+  <!-- Right barb (mirrored) -->
+  <path d="M496,200 L496,201.6 L500,201.6 L496,200" class="visible"/>
+
+  <!-- Spout notch (hidden - at far Y end): semicircle in floor, shows as dashed horizontal gap -->
+  <!-- Notch at Y=355, diameter 34mm centered at X=103. In front view, it's at the back, so hidden. -->
+  <!-- It cuts through the floor, so in front view (X-Z), shows as gap in floor from X=86 to X=120 (103-17=86, 103+17=120) -->
+  <!-- Actually X = 103-17=86mm to 103+17=120mm. px: 86*2+80=252 to 120*2+80=320 -->
+  <!-- This is a through-cut at the floor level. Show as dashed lines indicating the notch edges -->
+
+  <!-- Tube clip (hidden - at Y=350): C-clip hanging below floor -->
+  <!-- Clip OD=10mm, centered at X=103, extends from Z=0 to Z=-10 -->
+  <!-- In front view: circle of diameter 10mm centered at X=103, Z=-5 -->
+  <!-- px: cx=286, cy=200+5*2=210, r=5*2=10 -->
+  <!-- But the clip opening is 4.5mm wide at bottom, 270deg arc. Show as dashed since it's at far Y -->
+  <circle cx="286" cy="210" r="10" class="hidden"/>
+
+  <!-- FRONT VIEW DIMENSIONS -->
+
+  <!-- Overall width: 206mm -->
+  <line x1="80" y1="228" x2="80" y2="220" class="ext-line"/>
+  <line x1="492" y1="228" x2="492" y2="220" class="ext-line"/>
+  <line x1="80" y1="225" x2="492" y2="225" class="dim-line"/>
+  <text x="286" y="222" class="dim-text">206</text>
+
+  <!-- Overall height: 30mm -->
+  <line x1="510" y1="140" x2="520" y2="140" class="ext-line"/>
+  <line x1="510" y1="200" x2="520" y2="200" class="ext-line"/>
+  <line x1="516" y1="140" x2="516" y2="200" class="dim-line"/>
+  <text x="533" y="174" class="dim-text">30</text>
+
+  <!-- Wall thickness: 3mm (left wall) -->
+  <line x1="80" y1="137" x2="80" y2="132" class="ext-line"/>
+  <line x1="86" y1="137" x2="86" y2="132" class="ext-line"/>
+  <line x1="80" y1="134" x2="86" y2="134" class="dim-line"/>
+  <text x="83" y="128" class="dim-text-small">3</text>
+
+  <!-- Tab width: 6mm (left tab) -->
+  <line x1="68" y1="206" x2="68" y2="212" class="ext-line"/>
+  <line x1="80" y1="206" x2="80" y2="212" class="ext-line"/>
+  <line x1="68" y1="209" x2="80" y2="209" class="dim-line"/>
+  <text x="74" y="220" class="dim-text-small">6</text>
+
+  <!-- Width with tabs: 218mm -->
+  <line x1="68" y1="240" x2="68" y2="233" class="ext-line"/>
+  <line x1="504" y1="240" x2="504" y2="233" class="ext-line"/>
+  <line x1="68" y1="237" x2="504" y2="237" class="dim-line"/>
+  <text x="286" y="248" class="dim-text">218 (with tabs)</text>
+
+  <!-- Floor concavity sagitta: 4mm -->
+  <!-- From Z=7 (floor at edges) to Z=3 (floor at center) = 4mm sagitta -->
+  <!-- px: Z=7 => 186, Z=3 => 194. Center X=103 => px 286 -->
+  <line x1="286" y1="186" x2="278" y2="186" class="ext-line"/>
+  <line x1="286" y1="194" x2="278" y2="194" class="ext-line"/>
+  <line x1="280" y1="186" x2="280" y2="194" class="dim-line"/>
+  <text x="265" y="192" class="dim-text-small">4</text>
+
+  <!-- Tab thickness: 2.8mm -->
+  <line x1="55" y1="194" x2="64" y2="194" class="ext-line"/>
+  <line x1="55" y1="200" x2="64" y2="200" class="ext-line"/>
+  <line x1="59" y1="194" x2="59" y2="200" class="dim-line"/>
+  <text x="38" y="194" class="dim-text-small">2.8</text>
+
+  <!-- Barb height: 0.8mm -->
+  <line x1="55" y1="200" x2="64" y2="200" class="ext-line"/>
+  <line x1="55" y1="202" x2="64" y2="202" class="ext-line"/>
+  <line x1="59" y1="200" x2="59" y2="202" class="dim-line"/>
+  <text x="38" y="206" class="dim-text-small">0.8</text>
+
+  <!-- ============================================================ -->
+  <!-- SIDE VIEW (looking along -X): shows Y horizontal, Z vertical -->
+  <!-- Scale: 1.5 px/mm. Origin pixel: (560, 140) = part (Y=0, Z=30) -->
+  <!-- Y: 0..370mm. Z: 0..30mm -->
+  <!-- Pixel mapping: px_y = 560 + Y*1.5, px_z = 140 + (30-Z)*1.5 -->
+  <!-- Total: width=370*1.5=555px, height=30*1.5=45px -->
+  <!-- Bottom edge at px_z = 140+30*1.5 = 185 -->
+  <!-- ============================================================ -->
+  <text x="838" y="118" class="label">SIDE VIEW (looking along -X)</text>
+  <text x="838" y="130" class="note">Scale: 1.5 px/mm</text>
+
+  <!-- Outer rectangle: Y=0..370, Z=0..30 -->
+  <!-- px: (560,140) to (560+555, 140+45) = (560,140) to (1115,185) -->
+  <line x1="560" y1="140" x2="1115" y2="140" class="visible"/>
+  <line x1="560" y1="185" x2="1115" y2="185" class="visible"/>
+  <line x1="560" y1="140" x2="560" y2="185" class="visible"/>
+  <!-- Cap end (Y=370) is open - no vertical line at right for top portion -->
+  <!-- The floor extends to Y=370 but walls stop where the spout notch begins -->
+  <!-- Actually the sidewalls run to Y=370 (no end wall at cap end, but sidewalls extend full length) -->
+  <line x1="1115" y1="140" x2="1115" y2="185" class="visible"/>
+
+  <!-- Front end wall interior face: Y=3mm => px 560+3*1.5=564.5 -->
+  <line x1="564" y1="140" x2="564" y2="185" class="hidden"/>
+
+  <!-- Floor interior line (flat along Y in side view): at Z=7mm (edge height, since we see the sidewall edge profile) -->
+  <!-- Actually in side view looking along -X, we see the left sidewall. Floor meets sidewall at Z=7. -->
+  <!-- px_z at Z=7: 140+(30-7)*1.5 = 140+34.5 = 174.5 -->
+  <line x1="564" y1="174" x2="1115" y2="174" class="hidden"/>
+
+  <!-- Floor at center Z=3 is hidden behind the sidewall in this view -->
+  <!-- Show as hidden line: Z=3 => 140+(30-3)*1.5=140+40.5=180.5 -->
+  <line x1="564" y1="181" x2="1115" y2="181" class="hidden" stroke-dasharray="2,2" stroke-width="0.6"/>
+
+  <!-- Spout notch in side view: at Y=355, semicircle cuts into floor -->
+  <!-- The notch center is at Y=355, radius 17mm. In side view, it shows as a rectangular gap in the floor -->
+  <!-- From Y=355-17=338 to Y=355+17=372 (but clipped at Y=370) -->
+  <!-- Actually: the notch is semicircular in X-Y plane. In side view (looking along X), we see the Y-Z profile -->
+  <!-- The notch at centerline goes from Y=338 to Y=370 (semicircle open toward +Y). It's a through-cut in Z. -->
+  <!-- But we're looking from the side (along -X), so we see the sidewall. The notch is at X=86..120 (centered at 103). -->
+  <!-- Since sidewall is at X=0..3, the notch (at X=86..120) is hidden behind the sidewall. Show dashed. -->
+  <!-- In side view, the notch appears as a gap in the floor from Y=338 to Y=370 at Z=0..~3 -->
+  <!-- px: Y=338 => 560+338*1.5=1067, Y=370 => 1115. Z=0..3 => 185 to 181 -->
+  <!-- The semicircle edge at centerline: at Y=355 the notch extends full radius. Just show the notch limits as hidden lines -->
+
+  <!-- Tube clip in side view: at Y=350, Z=0 to Z=-10. Looking along -X, clip is at X=103 (center), hidden behind sidewall -->
+  <!-- Show as circle cross-section. Clip OD=10mm, so in side view it's a circle of diameter 10mm -->
+  <!-- Center at Y=350, Z=-5. px: 560+350*1.5=1085, 185+5*1.5=192.5, r=5*1.5=7.5 -->
+  <circle cx="1085" cy="192" r="8" class="hidden"/>
+
+  <!-- Mounting tab in side view: runs from Y=10 to Y=360 as thin line at Z=0..2.8 -->
+  <!-- px: Y=10 => 575, Y=360 => 1100. Z=0 => 185, Z=2.8 => 140+(30-2.8)*1.5=180.8 -->
+  <!-- Tab is visible (it's at the exterior of the sidewall, we're looking along -X so left tab is in front) -->
+  <line x1="575" y1="181" x2="1100" y2="181" class="visible" stroke-width="0.8"/>
+  <line x1="575" y1="185" x2="1100" y2="185" class="visible" stroke-width="0.0"/>
+  <!-- Tab top at Z=2.8. Tab bottom at Z=0 merges with floor bottom -->
+  <!-- Short end caps of tab -->
+  <line x1="575" y1="181" x2="575" y2="185" class="visible" stroke-width="0.8"/>
+  <line x1="1100" y1="181" x2="1100" y2="185" class="visible" stroke-width="0.8"/>
+
+  <!-- Barb detents in side view: two bumps at Y=90..110 and Y=270..290 -->
+  <!-- Front detent: Y=90..110 => px 695..725. Barb at Z=-0.8 => 185+0.8*1.5=186.2 -->
+  <rect x="695" y="185" width="30" height="1" class="visible" fill="none"/>
+  <line x1="695" y1="185" x2="695" y2="186" class="visible" stroke-width="0.8"/>
+  <line x1="695" y1="186" x2="725" y2="186" class="visible" stroke-width="0.8"/>
+  <line x1="725" y1="186" x2="725" y2="185" class="visible" stroke-width="0.8"/>
+  <!-- Rear detent: Y=270..290 => px 965..995 -->
+  <line x1="965" y1="185" x2="965" y2="186" class="visible" stroke-width="0.8"/>
+  <line x1="965" y1="186" x2="995" y2="186" class="visible" stroke-width="0.8"/>
+  <line x1="995" y1="186" x2="995" y2="185" class="visible" stroke-width="0.8"/>
+
+  <!-- SIDE VIEW DIMENSIONS -->
+
+  <!-- Overall length: 370mm -->
+  <line x1="560" y1="200" x2="560" y2="194" class="ext-line"/>
+  <line x1="1115" y1="200" x2="1115" y2="194" class="ext-line"/>
+  <line x1="560" y1="197" x2="1115" y2="197" class="dim-line"/>
+  <text x="838" y="194" class="dim-text">370</text>
+
+  <!-- Height: 30mm (shares with front view) -->
+  <line x1="1122" y1="140" x2="1132" y2="140" class="ext-line"/>
+  <line x1="1122" y1="185" x2="1132" y2="185" class="ext-line"/>
+  <line x1="1128" y1="140" x2="1128" y2="185" class="dim-line"/>
+  <text x="1145" y="166" class="dim-text">30</text>
+
+  <!-- Front wall thickness: 3mm -->
+  <line x1="560" y1="137" x2="560" y2="132" class="ext-line"/>
+  <line x1="564" y1="137" x2="564" y2="132" class="ext-line"/>
+  <line x1="560" y1="134" x2="564" y2="134" class="dim-line"/>
+  <text x="562" y="128" class="dim-text-small">3</text>
+
+  <!-- ============================================================ -->
+  <!-- TOP VIEW (looking along -Z): shows X horizontal, Y vertical -->
+  <!-- Scale: 1.5 px/mm. Origin pixel: (80, 270) = part (X=0, Y=0) -->
+  <!-- X: 0..206mm = 0..309px. Y: 0..370mm = 0..555px -->
+  <!-- Pixel mapping: px_x = 80 + X*1.5, px_y = 270 + Y*1.5 -->
+  <!-- Right edge: 80+206*1.5 = 389. Bottom: 270+370*1.5 = 825 -->
+  <!-- ============================================================ -->
+  <text x="235" y="258" class="label">TOP VIEW (looking along -Z)</text>
+  <text x="235" y="270" class="note">Scale: 1.5 px/mm</text>
+
+  <!-- Outer rectangle -->
+  <rect x="80" y="280" width="309" height="555" class="visible"/>
+
+  <!-- Left wall interior: X=3 => 80+3*1.5=84.5 -->
+  <line x1="84" y1="280" x2="84" y2="835" class="hidden"/>
+  <!-- Right wall interior: X=203 => 80+203*1.5=384.5 -->
+  <line x1="385" y1="280" x2="385" y2="835" class="hidden"/>
+  <!-- Front wall interior: Y=3 => 270+3*1.5=274.5. But view starts at 280 (Y=0). Y=3 => 280+3*1.5=284.5 -->
+  <!-- Correction: px_y = 280 + Y*1.5 (I'll use 280 as the Y=0 baseline since that's where the rect starts) -->
+  <line x1="80" y1="284" x2="389" y2="284" class="hidden"/>
+
+  <!-- Centerline along X=103 -->
+  <!-- px: 80+103*1.5=234.5 -->
+  <line x1="234" y1="275" x2="234" y2="840" class="center"/>
+
+  <!-- Spout notch: semicircle at Y=355, centered at X=103, diameter 34 (radius 17) -->
+  <!-- Notch center: px_x=234, px_y=280+355*1.5=812.5 -->
+  <!-- Radius in px: 17*1.5=25.5 -->
+  <!-- Semicircle open toward +Y. Arc from (234-25.5, 812.5) to (234+25.5, 812.5) curving toward +Y -->
+  <path d="M209,812 A25.5,25.5 0 0,0 260,812" class="visible"/>
+  <!-- Floor beyond notch (Y=355 to Y=370) exists only on sides -->
+  <!-- Left floor flank: X=0..86 (before notch) and Right: X=120..206 -->
+  <!-- Actually the notch edges connect to the tray end. Let me draw the floor end edge minus the notch -->
+  <!-- The floor at Y=370 is the bottom of the tray in top view. Already shown by rect bottom at 280+370*1.5=835 -->
+  <!-- Need to show that the middle section at Y=370 is open (notch). The semicircle handles this. -->
+  <!-- Add lines from notch endpoints to tray end -->
+  <line x1="209" y1="812" x2="209" y2="835" class="visible" stroke-width="0.8"/>
+  <line x1="260" y1="812" x2="260" y2="835" class="visible" stroke-width="0.8"/>
+
+  <!-- Mounting tabs in top view: thin strips along long edges -->
+  <!-- Left tab: X=-6..0, Y=10..360. px: X=-6 => 80+(-6)*1.5=71. X=0 => 80. Y=10 => 295. Y=360 => 820 -->
+  <rect x="71" y="295" width="9" height="525" class="visible" fill="none" stroke-width="0.8"/>
+  <!-- Right tab: X=206..212. px: X=206 => 389. X=212 => 398 -->
+  <rect x="389" y="295" width="9" height="525" class="visible" fill="none" stroke-width="0.8"/>
+
+  <!-- Barb detent positions (hidden - on underside) -->
+  <!-- Left tab, front detent: Y=90..110 => px 415..445. Correction: 280+90*1.5=415, 280+110*1.5=445 -->
+  <!-- These are on the underside, so hidden in top view -->
+  <rect x="71" y="415" width="9" height="30" class="hidden" fill="none" stroke-dasharray="2,2" stroke-width="0.6"/>
+  <rect x="71" y="685" width="9" height="30" class="hidden" fill="none" stroke-dasharray="2,2" stroke-width="0.6"/>
+  <!-- Right tab detents (mirrored) -->
+  <rect x="389" y="415" width="9" height="30" class="hidden" fill="none" stroke-dasharray="2,2" stroke-width="0.6"/>
+  <rect x="389" y="685" width="9" height="30" class="hidden" fill="none" stroke-dasharray="2,2" stroke-width="0.6"/>
+
+  <!-- Tube clip in top view: circle at X=103, Y=350 -->
+  <!-- px: 234, 280+350*1.5=805. OD=10mm => r=7.5px -->
+  <!-- Hidden (on underside) -->
+  <circle cx="234" cy="805" r="8" class="hidden"/>
+
+  <!-- TOP VIEW DIMENSIONS -->
+
+  <!-- Overall width: 206mm -->
+  <line x1="80" y1="845" x2="80" y2="852" class="ext-line"/>
+  <line x1="389" y1="845" x2="389" y2="852" class="ext-line"/>
+  <line x1="80" y1="849" x2="389" y2="849" class="dim-line"/>
+  <text x="235" y="862" class="dim-text">206</text>
+
+  <!-- Overall length: 370mm -->
+  <line x1="405" y1="280" x2="415" y2="280" class="ext-line"/>
+  <line x1="405" y1="835" x2="415" y2="835" class="ext-line"/>
+  <line x1="411" y1="280" x2="411" y2="835" class="dim-line"/>
+  <text x="430" y="560" class="dim-text" transform="rotate(90,430,560)">370</text>
+
+  <!-- Spout notch diameter: 34mm -->
+  <line x1="209" y1="808" x2="209" y2="800" class="ext-line"/>
+  <line x1="260" y1="808" x2="260" y2="800" class="ext-line"/>
+  <line x1="209" y1="803" x2="260" y2="803" class="dim-line"/>
+  <text x="235" y="798" class="dim-text-small">34</text>
+
+  <!-- Wall thickness on top view: left wall 3mm -->
+  <line x1="80" y1="274" x2="80" y2="268" class="ext-line"/>
+  <line x1="84" y1="274" x2="84" y2="268" class="ext-line"/>
+  <line x1="80" y1="271" x2="84" y2="271" class="dim-line"/>
+  <text x="82" y="265" class="dim-text-small">3</text>
+
+  <!-- ============================================================ -->
+  <!-- DETAIL A: Mounting Tab / Barb Profile (cross-section in X-Z) -->
+  <!-- Scale: 8 px/mm -->
+  <!-- Shows left sidewall + tab + barb -->
+  <!-- Region: X = -8 to 10mm, Z = -2 to 10mm -->
+  <!-- px origin at (540, 350) for X=-8, Z=10 -->
+  <!-- px_x = 540 + (X+8)*8, px_z = 350 + (10-Z)*8 -->
+  <!-- ============================================================ -->
+  <rect x="520" y="280" width="200" height="200" class="frame"/>
+  <text x="620" y="296" class="label" text-anchor="middle">DETAIL A: Tab/Barb Profile</text>
+  <text x="620" y="310" class="note" text-anchor="middle">Scale: 8 px/mm | Section X-Z at Y=100</text>
+
+  <!-- Sidewall cross-section: X=0..3, Z=0..30 but we show Z=-2 to 10 -->
+  <!-- X=0: px_x = 540+8*8=604. X=3: 540+11*8=628 -->
+  <!-- Z=0: px_z = 350+10*8=430. Z=10: 350. Z=-2: 350+12*8=446 -->
+  <!-- Sidewall from Z=0 to Z=10 (clipped at view boundary) -->
+  <rect x="604" y="350" width="24" height="80" class="section-fill"/>
+  <rect x="604" y="350" width="24" height="80" class="detail-vis"/>
+
+  <!-- Floor section at sidewall: X=0..3, Z=0..7 (floor thickness at edge) -->
+  <!-- Already included in sidewall rect above from Z=0..10. Let's draw floor separately. -->
+  <!-- Actually let's draw the full cross-section properly. -->
+  <!-- Clear the above and redraw properly. -->
+
+  <!-- Section fill: sidewall + floor + tab material shown as filled -->
+  <!-- Sidewall: X=0..3, Z=0..10 (what we can see) -->
+  <!-- Floor: X=3..10(view edge), Z=0..7 at X=3, tapering to Z=0..3 at center -->
+  <!-- Tab: X=-6..0, Z=0..2.8 -->
+  <!-- Barb: X=-4..-2, Z=-0.8..0 -->
+
+  <!-- Section polygon: outer boundary of the cut material -->
+  <!-- Going clockwise from top-left of sidewall: -->
+  <!-- (X=0,Z=10) -> (X=3,Z=10) -> (X=3,Z=7) -> floor curves to right -> clip at view edge -->
+  <!-- -> back along bottom -> (X=0,Z=0) -> tab extends left -> (X=-6,Z=0) -> (X=-6,Z=2.8) -> (X=0,Z=2.8) -> (X=0,Z=0) -->
+  <!-- This is getting complex. Let me draw the pieces as separate rects for clarity. -->
+
+  <!-- Sidewall body: X=0..3, Z=0..10 -->
+  <!-- px: (604,350) to (628,430) -->
+  <polygon points="604,350 628,350 628,430 604,430" fill="#ddd" stroke="none"/>
+  <line x1="604" y1="350" x2="604" y2="430" class="detail-vis"/>
+  <line x1="628" y1="350" x2="628" y2="430" class="detail-vis"/>
+  <line x1="604" y1="350" x2="628" y2="350" class="detail-vis"/>
+
+  <!-- Floor at sidewall: X=3..10(view clip), Z=0..7 -->
+  <!-- X=3 => 628. X=10 => 540+18*8=684. Z=7 => 350+(10-7)*8=374. Z=0 => 430 -->
+  <polygon points="628,374 684,374 684,430 628,430" fill="#ddd" stroke="none"/>
+  <line x1="628" y1="374" x2="684" y2="374" class="detail-vis"/>
+  <line x1="684" y1="374" x2="684" y2="430" class="detail-vis"/>
+
+  <!-- Actually the floor interior at X=10 is higher than at X=3 (concavity). At X=10 (7mm from wall): -->
+  <!-- The arc: sagitta 4mm over 100mm half-width. At X=10, distance from center = 103-10=93mm. -->
+  <!-- Using circular arc: Z_floor = 3 + 4*(1 - (93/100)^2)... actually simpler: the floor is 7mm at X=3 and 3mm at X=103. -->
+  <!-- For the detail view showing a small section near the wall, the floor interior is approximately at Z=7 -->
+  <!-- This is fine for a detail inset showing the tab/barb. -->
+
+  <!-- Tab: X=-6..0, Z=0..2.8 -->
+  <!-- X=-6: 540+2*8=556. X=0: 604. Z=2.8: 350+(10-2.8)*8=407.6. Z=0: 430 -->
+  <polygon points="556,408 604,408 604,430 556,430" fill="#ddd" stroke="none"/>
+  <line x1="556" y1="408" x2="604" y2="408" class="detail-vis"/>
+  <line x1="556" y1="408" x2="556" y2="430" class="detail-vis"/>
+  <line x1="556" y1="430" x2="604" y2="430" class="detail-vis"/>
+
+  <!-- Barb: triangle on underside of tab outer edge -->
+  <!-- X=-4..-2, Z=-0.8..0. Barb shape: 45deg lead-in, 90deg retention -->
+  <!-- X=-4 => 540+4*8=572. X=-2 => 540+6*8=588. Z=0 => 430. Z=-0.8 => 430+0.8*8=436.4 -->
+  <!-- Lead-in: 45deg slope from (X=-2,Z=0) to (X=-4,Z=-0.8) => from px (588,430) to (572,436) -->
+  <!-- Retention face: vertical from (X=-4,Z=-0.8) to (X=-4,Z=0) => px (572,436) to (572,430) -->
+  <polygon points="588,430 572,436 572,430" fill="#ddd" stroke="none"/>
+  <line x1="588" y1="430" x2="572" y2="436" class="detail-vis"/>
+  <line x1="572" y1="436" x2="572" y2="430" class="detail-vis"/>
+
+  <!-- DETAIL A DIMENSIONS -->
+
+  <!-- Tab thickness: 2.8mm -->
+  <line x1="546" y1="408" x2="540" y2="408" class="ext-line"/>
+  <line x1="546" y1="430" x2="540" y2="430" class="ext-line"/>
+  <line x1="542" y1="408" x2="542" y2="430" class="dim-line"/>
+  <text x="532" y="422" class="dim-text-small">2.8</text>
+
+  <!-- Tab width: 6mm -->
+  <line x1="556" y1="438" x2="556" y2="448" class="ext-line"/>
+  <line x1="604" y1="438" x2="604" y2="448" class="ext-line"/>
+  <line x1="556" y1="444" x2="604" y2="444" class="dim-line"/>
+  <text x="580" y="458" class="dim-text-small">6</text>
+
+  <!-- Barb height: 0.8mm -->
+  <line x1="564" y1="430" x2="558" y2="430" class="ext-line"/>
+  <line x1="564" y1="436" x2="558" y2="436" class="ext-line"/>
+  <line x1="560" y1="430" x2="560" y2="436" class="dim-line"/>
+  <text x="548" y="440" class="dim-text-small">0.8</text>
+
+  <!-- Wall thickness: 3mm -->
+  <line x1="604" y1="346" x2="604" y2="340" class="ext-line"/>
+  <line x1="628" y1="346" x2="628" y2="340" class="ext-line"/>
+  <line x1="604" y1="342" x2="628" y2="342" class="dim-line"/>
+  <text x="616" y="338" class="dim-text-small">3</text>
+
+  <!-- 45deg and 90deg angle labels -->
+  <text x="592" y="426" class="dim-text-small">45°</text>
+  <text x="564" y="426" class="dim-text-small">90°</text>
+
+  <!-- ============================================================ -->
+  <!-- DETAIL B: Tube Clip Cross-Section (X-Z plane at Y=350) -->
+  <!-- Scale: 8 px/mm -->
+  <!-- Shows C-clip hanging below tray floor -->
+  <!-- Region: X = 95..111mm, Z = -12..4mm -->
+  <!-- px origin at (760, 530) for X=95, Z=4 -->
+  <!-- px_x = 760 + (X-95)*8, px_z = 530 + (4-Z)*8 -->
+  <!-- ============================================================ -->
+  <rect x="740" y="510" width="200" height="200" class="frame"/>
+  <text x="840" y="526" class="label" text-anchor="middle">DETAIL B: Tube Clip Section</text>
+  <text x="840" y="540" class="note" text-anchor="middle">Scale: 8 px/mm | Section X-Z at Y=350</text>
+
+  <!-- Floor section: X=95..111, Z=0..3 (floor at center ~3mm thick) -->
+  <!-- X=95 => 760. X=111 => 760+16*8=888. Z=3 => 530+(4-3)*8=538. Z=0 => 530+4*8=562 -->
+  <rect x="760" y="538" width="128" height="24" fill="#ddd" stroke="none"/>
+  <rect x="760" y="538" width="128" height="24" class="detail-vis"/>
+
+  <!-- Floor interior surface (top): Z=3 => px 538 (approximate, at center the floor is 3mm from bottom) -->
+  <!-- Floor exterior (bottom): Z=0 => px 562 -->
+
+  <!-- C-Clip: centered at X=103, OD=10mm, ID=7mm, wall=1.5mm -->
+  <!-- Clip extends from Z=0 down to Z=-10 -->
+  <!-- Clip center: X=103 => 760+(103-95)*8=824. Z=-5 => 530+(4-(-5))*8=530+72=602 -->
+  <!-- OD radius: 5mm => 40px. ID radius: 3.5mm => 28px -->
+  <!-- 270deg arc, opening at bottom (-Z) -->
+  <!-- The opening is 4.5mm wide at the bottom. Opening half-angle: the gap is 90deg total centered at bottom -->
+
+  <!-- Outer arc: 270deg from -135deg to 135deg (measuring from top, 0=top) -->
+  <!-- Or: from 225deg to -45deg in standard math angles. Let's use SVG arc. -->
+  <!-- Clip attaches to floor at Z=0. Top of clip at Z=0, extends to Z=-10 -->
+  <!-- Center of arc at X=103, Z=-5 (center of clip body) -->
+  <!-- But clip top touches floor at Z=0, so arc center at Z=-5 -->
+
+  <!-- The C-clip: outer circle radius 5mm (40px), inner circle radius 3.5mm (28px) -->
+  <!-- Opening 90deg at bottom: opening from 225deg to 315deg (math convention) or equiv. -->
+  <!-- Let me draw with arcs. Center at (824, 602). -->
+
+  <!-- Outer arc (270 degrees, gap at bottom) -->
+  <!-- Start at 225deg: cx+r*cos(225)=824+40*(-0.707)=824-28.3=795.7, cy-r*sin(225)=602-40*(-0.707)=602+28.3=630.3 -->
+  <!-- End at 315deg: cx+r*cos(315)=824+40*(0.707)=852.3, cy-r*sin(315)=602-40*(-0.707)=630.3 -->
+  <!-- Hmm, let me think in SVG coords (Y increases downward). -->
+  <!-- 0deg=right, 90deg=down. Opening at bottom (90deg). Gap from 45deg to 135deg (in SVG convention). -->
+  <!-- Arc goes from 135deg clockwise to 45deg (i.e., 270deg sweep). -->
+  <!-- Start: 135deg => (824+40*cos(135), 602+40*sin(135)) = (824-28.3, 602+28.3) = (795.7, 630.3) -->
+  <!-- End: 45deg => (824+40*cos(45), 602+40*sin(45)) = (852.3, 630.3) -->
+
+  <!-- Outer 270deg arc -->
+  <path d="M796,630 A40,40 0 1,0 852,630" class="detail-vis" fill="none"/>
+  <!-- Inner 270deg arc -->
+  <!-- Inner radius 28px -->
+  <!-- Start: (824-28*0.707, 602+28*0.707) = (804.2, 621.8) -->
+  <!-- End: (824+28*0.707, 602+28*0.707) = (843.8, 621.8) -->
+  <path d="M804,622 A28,28 0 1,0 844,622" class="detail-vis" fill="none"/>
+
+  <!-- Close the clip walls (connect inner and outer at opening ends) -->
+  <line x1="796" y1="630" x2="804" y2="622" class="detail-vis"/>
+  <line x1="852" y1="630" x2="844" y2="622" class="detail-vis"/>
+
+  <!-- Section fill for clip walls -->
+  <path d="M796,630 A40,40 0 1,0 852,630 L844,622 A28,28 0 1,1 804,622 Z" fill="#ddd" stroke="none"/>
+  <!-- Redraw outlines on top -->
+  <path d="M796,630 A40,40 0 1,0 852,630" class="detail-vis" fill="none"/>
+  <path d="M804,622 A28,28 0 1,0 844,622" class="detail-vis" fill="none"/>
+  <line x1="796" y1="630" x2="804" y2="622" class="detail-vis"/>
+  <line x1="852" y1="630" x2="844" y2="622" class="detail-vis"/>
+
+  <!-- Connector from clip to floor: the clip top connects to the floor underside -->
+  <!-- At the top of the clip (Z=0), the clip wall merges into the floor -->
+  <!-- Top of outer arc at (824, 602-40) = (824, 562). This matches floor bottom at Z=0 (px 562). Good. -->
+  <line x1="812" y1="562" x2="812" y2="538" class="detail-vis" stroke-width="0.6"/>
+  <line x1="836" y1="562" x2="836" y2="538" class="detail-vis" stroke-width="0.6"/>
+
+  <!-- Tube cross-section inside clip (dashed circle) -->
+  <!-- Tube OD 6.35mm => radius 3.175mm => 25.4px. Center at clip center (824, 602) -->
+  <circle cx="824" cy="602" r="25" class="detail-hid" fill="none"/>
+
+  <!-- DETAIL B DIMENSIONS -->
+
+  <!-- Clip OD: 10mm (horizontal across clip center) -->
+  <line x1="784" y1="602" x2="864" y2="602" class="dim-line"/>
+  <text x="824" y="578" class="dim-text-small">OD 10</text>
+
+  <!-- Clip ID: 7mm -->
+  <line x1="796" y1="590" x2="852" y2="590" class="dim-line"/>
+  <text x="824" y="568" class="dim-text-small">ID 7</text>
+
+  <!-- Clip wall: 1.5mm -->
+  <text x="760" y="590" class="dim-text-small" text-anchor="start">Wall 1.5</text>
+
+  <!-- Opening: 4.5mm -->
+  <line x1="796" y1="634" x2="796" y2="644" class="ext-line"/>
+  <line x1="852" y1="634" x2="852" y2="644" class="ext-line"/>
+  <line x1="796" y1="640" x2="852" y2="640" class="dim-line"/>
+  <text x="824" y="654" class="dim-text-small">Opening 4.5</text>
+
+  <!-- Floor thickness: 3mm -->
+  <line x1="895" y1="538" x2="905" y2="538" class="ext-line"/>
+  <line x1="895" y1="562" x2="905" y2="562" class="ext-line"/>
+  <line x1="900" y1="538" x2="900" y2="562" class="dim-line"/>
+  <text x="916" y="554" class="dim-text-small">3</text>
+
+  <!-- Clip height: 10mm -->
+  <line x1="900" y1="562" x2="910" y2="562" class="ext-line"/>
+  <line x1="900" y1="642" x2="910" y2="642" class="ext-line"/>
+  <line x1="906" y1="562" x2="906" y2="642" class="dim-line"/>
+  <text x="920" y="606" class="dim-text-small">10</text>
+
+  <!-- ============================================================ -->
+  <!-- Notes -->
+  <!-- ============================================================ -->
+  <text x="560" y="740" class="note">NOTES:</text>
+  <text x="560" y="755" class="note">1. Interior fillet radius: 3.0 mm at all floor-to-wall junctions</text>
+  <text x="560" y="770" class="note">2. Sidewall draft angle: 3 deg outward (top wider than base)</text>
+  <text x="560" y="785" class="note">3. Spout notch: 1.0 mm chamfer on top edge</text>
+  <text x="560" y="800" class="note">4. Tab barb: 45 deg lead-in chamfer, 90 deg retention face</text>
+  <text x="560" y="815" class="note">5. Two barb detents per tab: at Y=100 (20mm long) and Y=280 (20mm long)</text>
+  <text x="560" y="830" class="note">6. Print: PETG, 0.2mm layer, 15-20% infill, 3 perimeters</text>
+  <text x="560" y="845" class="note">7. Clip arc: 270 deg (90 deg opening faces -Z)</text>
+
+</svg>
