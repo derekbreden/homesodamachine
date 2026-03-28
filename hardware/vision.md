@@ -17,7 +17,7 @@ These values are absolute and apply to every decision at every level:
 
 ## 2. An architecture the user imagines
 
-- The outer enclosure is 220 mm x 300 mm x 400 mm
+- The outer enclosure is 220 mm x 300 mm x 400 mm (the depth is necessary for the bags to sit in their natural shape without kinking)
 - It is printed in two halves, snapped together permanently
 - Every single interior piece has specific snap connecting points on those outer two halves, so that the entire thing is assembled by pressing things together, and once together, so shall they remain
 - The 2L bags are mounted one above the other, diagonally, such that the "cap" is at the back and bottom of the enclosure, and the "top" of each bag is pinned flat against the front wall of the device
