@@ -1,185 +1,191 @@
 # Bag Frame Design Decision
 
+## Decision Context
+
+The bag frame holds two Platypus 2L bags at 35 degrees inside a permanently sealed enclosure. The critical insight: this mechanism is assembled once during initial build, then never accessed again during normal operation. The enclosure is snapped shut permanently. Bag replacement is a rare service event (years apart, if ever). This is not a daily-access consumer interaction.
+
+This realization eliminates the primary driver behind hinged/latched designs. The frame does not need to open, close, latch, or cycle. It needs to be assembled correctly once.
+
+---
+
 ## Candidates Evaluated
 
-Five frame architectures were considered for constraining each Platypus 2L bag at 35 degrees inside the 220x300x400mm enclosure.
+### Candidate A: Hinged Flip Lid (3 pieces per bag)
 
-### Candidate 1: Hinged Clamshell
+Lower cradle + hinged lid + filament pin. Lid swings open for bag placement, latches closed with cantilever snap. This is the design from the previous concept document.
 
-Two lens-profiled halves connected by a living hinge along one long edge. The user opens the clamshell like a book, lays the bag in the lower half, and closes it. Snap latches along the opposite long edge hold it shut. The assembled clamshell mounts to the enclosure via snap rails on the enclosure interior walls.
+**Assembly UX:** Good. Gravity holds lid open at 35 degrees, both hands free. Drop bag in, close lid, click. Intuitive single-axis motion.
 
-**Hand motion:** One hand holds the clamshell open, the other lays the bag flat, then press closed. Single-axis closing motion.
+**Long-term bag behavior:** Good. Continuous lower cradle, cross-rib upper constraint at 27mm gap. Tapered entry/exit prevents kinking.
 
-**Design pattern alignment:** Strong. The clamshell hides the bag completely once closed (Pattern B -- compression between two surfaces). The closing action is a single-axis motion (Key Observation 5). The rigid shell becomes the object the user handles (Pattern A -- rigid shell as shape proxy). The snap closure provides tactile confirmation (breast pump adapter pattern).
+**Mechanical complexity:** Moderate. Hinge posts, sockets, filament pin, cantilever snap latch. Three pieces per bag, six total. The hinge and latch are permanent moving parts that exist inside a sealed enclosure and will never move again after initial assembly. They are over-designed for the actual use case.
 
-**Mechanical feasibility:** The living hinge must survive repeated open/close cycles. In PETG, a living hinge with 0.3-0.4mm thickness at the fold survives hundreds of cycles. The hinge runs along the 250mm constraint zone length -- printable on the Bambu H2C without issue. The clamshell halves are each approximately 190mm wide x 250mm long x 15mm deep -- well within print volume.
+**Failure modes:** The cantilever snap could theoretically creep or relax over years under the modest ~10N bag pressure. Unlikely to fail catastrophically, but it is a moving part solving a problem that does not require movement.
 
-**Simplicity:** Two parts if the hinge is integral (printed-in-place). Three parts if the hinge is a separate pin/rod. Snap latches are integral to the print. No purchased hardware.
-
-**Drawback:** The hinge axis must be accessible to the user, which constrains enclosure mounting orientation. If the clamshell is mounted flush against a wall on its hinge side, the user cannot open it. Requires clearance on the hinge side equal to the full width of the open lid.
-
-### Candidate 2: Tray + Separate Lid
-
-A lower cradle (tray) that the bag sits in, plus a separate upper constraint (lid) that drops on top and locks down with snap tabs. The tray has integrated rails or posts that guide the lid into alignment. The tray mounts to the enclosure; the lid is a loose piece the user handles.
-
-**Hand motion:** Pull lid off (lift straight up), lay bag in tray, place lid back on (drop straight down), press until snaps engage.
-
-**Design pattern alignment:** Moderate. The drop-in motion matches Boxxle (open, drop, close) and Keurig (drop pod into cradle). But the loose lid is a separate piece the user must store or hold -- it is not attached to the tray. This is the "cardboard box" level of integration (Pattern A without the product unity of Keurig). The two pieces do not feel like a single mechanism.
-
-**Mechanical feasibility:** Straightforward. The tray and lid are simple flat-ish shapes with snap features. No hinges, no moving parts. The snap tabs must be robust enough to resist the bag's internal pressure pushing the lid upward (~10N distributed).
-
-**Simplicity:** Two completely separate prints. Both are flat and easy to print. Snap alignment posts/tabs are standard FDM features.
-
-**Drawback:** The loose lid is a UX liability. Where does the user put it while handling the bag? It will be set on the counter, dropped, or lost. Every bag change requires two hands: one for the lid, one for the bag. It does not feel like a single product -- it feels like parts.
-
-### Candidate 3: Slide-In Tray with Captive Lid
-
-A lower cradle permanently mounted in the enclosure, plus an upper constraint lid that is captive -- it slides along rails integrated into the cradle or enclosure walls. The lid cannot be fully removed; it slides open (toward the user) to expose the bag, and slides closed to constrain it. A detent or snap at the closed position locks it.
-
-**Hand motion:** Slide the lid toward you (one hand, one finger), lay the bag in with the other hand, slide the lid back until it clicks shut.
-
-**Design pattern alignment:** Strong. The slide-open/slide-closed motion is a single-axis interaction. The lid is captive, so there is no loose piece. The closed state hides the bag completely. The click at the closed position provides tactile confirmation. This is closest to Pattern C (rigid backer with shaped sleeve) -- the lid slides along a defined path like a drawer. The enclosure interior becomes the "product surface" and the slide mechanism is integrated into it.
-
-**Mechanical feasibility:** The slide rails must be precise enough for smooth travel but loose enough to not bind with thermal expansion or print tolerance. Rail length is approximately 250mm. PLA/PETG rail-in-groove tolerances of 0.3-0.4mm clearance are well-established for FDM. The rails could be on the enclosure interior walls (integral to the enclosure halves) rather than on the cradle itself, distributing the alignment function across parts that are already being printed.
-
-**Simplicity:** Two printed parts (cradle + sliding lid), but the rails add geometric complexity to either the cradle or the enclosure walls. The rail geometry must be designed into the enclosure halves, coupling the bag frame design to the enclosure design.
-
-**Drawback:** Slide travel distance must be long enough to fully expose the bag for insertion/removal. At 35 degrees inside a 220mm-wide enclosure, the available slide distance may be limited by the enclosure walls. If the lid cannot slide far enough, the user is reaching into a partially-covered slot to place the bag -- poor UX.
-
-### Candidate 4: Fixed Lower Cradle + Hinged Upper (Top-Hinged Flip Lid)
-
-A lower cradle permanently mounted in the enclosure. An upper constraint plate hinged at the uphill (sealed) end of the bag, so it flips open toward the front/top of the enclosure. The hinge is at the high end; the latch is at the low (cap) end. The user flips the lid up, lays the bag in, and flips it down until the latch engages.
-
-**Hand motion:** Flip lid up (one finger, it stays open by gravity since the hinge is at the high end of the 35-degree tilt), lay bag in with both hands free, flip lid down, press latch at the bottom edge.
-
-**Design pattern alignment:** Very strong. This is the Boxxle pattern (open lid, drop in, close lid) adapted to a tilted geometry. The hinge at the uphill end means the lid naturally stays open during bag placement -- gravity holds it. The user never holds the lid while placing the bag. Both hands are free for bag handling. The latch at the low end is at the front of the enclosure (most accessible point). The closed state fully constrains the bag. The lid is captive (hinged, cannot be lost). The interaction reads as: flip, place, close -- three steps, all single-axis, all one-handed except placing the bag.
-
-**Mechanical feasibility:** The hinge can be a pin-in-socket (two printed posts on the cradle + holes in the lid, with a printed or wire pin). At 35 degrees, the lid's center of gravity is behind the hinge when open, so it stays propped open without a detent. The latch at the low end can be a cantilever snap. The lid is approximately 180mm wide x 200-250mm long -- a flat plate with cross-ribs. The cradle is a continuous surface with side rails and a cap-end stop.
-
-The hinge must be accessible inside the enclosure. Since the hinge is at the uphill (sealed) end of the bag, which faces the front/top of the enclosure per the vision, the hinge is near the front panel. The lid opens toward the user, which is the natural direction.
-
-**Simplicity:** Two printed parts (cradle + lid) plus a hinge pin (could be a short length of 1.75mm filament or a printed pin). The cradle mounts to enclosure snap points. The hinge geometry is simple: two posts with holes.
-
-**Drawback:** The hinge adds a failure point. If the pin breaks, the lid becomes a loose piece (falls back to Candidate 2). The hinge posts must be robust enough for repeated use. PETG pin-in-socket joints at this scale (3-4mm pin diameter) are durable but not indestructible.
-
-### Candidate 5: Integrated Cage (Single Print)
-
-A single-piece cage with an opening large enough to slide the bag in from one end. The cage is a skeleton: two lens-profiled rings connected by longitudinal ribs, with one end open for bag insertion. The bag slides in lengthwise through the open end.
-
-**Hand motion:** Thread the bag into the cage lengthwise, cap-end first, pushing it through until the cap protrudes from the far end.
-
-**Design pattern alignment:** Weak. Threading a floppy filled bag through a cage is the worst-case interaction -- the user is "stuffing a floppy bag into a hole" (Key Observation 3). There is no datum surface guiding insertion. The motion is not single-axis in practice because the bag must be wiggled and coaxed through the opening. No tactile confirmation of correct seating.
-
-**Mechanical feasibility:** The cage must have an opening larger than the bag's filled cross-section (~190mm x 30mm lenticular). Longitudinal ribs connecting the rings must span 200-250mm without sagging. Printable but structurally marginal for thin ribs.
-
-**Simplicity:** Single print, no assembly. But the geometry is complex (skeletal frame with tight tolerances on the internal profile).
-
-**Drawback:** The insertion experience is fundamentally poor. A filled 2L bag weighing 2kg, flexible and slippery, does not thread through a skeleton cage gracefully. This approach fails the primary design criterion.
+**Print complexity:** Low. No supports needed. ~10-12 hours total print time.
 
 ---
 
-## UX Ranking
+### Candidate B: Two-Piece Permanent Cage (2 pieces per bag)
 
-| Rank | Candidate | Key UX Strengths | Key UX Weaknesses |
-|------|-----------|-------------------|---------------------|
-| 1 | **4: Fixed Cradle + Hinged Flip Lid** | Both hands free for bag placement; lid stays open via gravity; one-finger open/close; captive lid; latch at front (most accessible); Boxxle-level interaction | Hinge is a mechanical dependency |
-| 2 | 1: Hinged Clamshell | Single-axis open/close; bag fully hidden; tactile snap | One hand occupied holding it open; requires clearance on hinge side; entire assembly removed from enclosure for bag change |
-| 3 | 3: Slide-In Tray + Captive Lid | Captive lid; single-axis slide; click confirmation | May not slide far enough to fully expose bag; reaching into slot |
-| 4 | 2: Tray + Separate Lid | Simple drop-in motion | Loose lid (lost, dropped, requires two-hand coordination) |
-| 5 | 5: Integrated Cage | Single piece, no assembly | Threading a filled bag through a skeleton; no tactile confirmation; worst insertion experience |
+Lower cradle + upper cap that snap together permanently around the bag. No hinge, no latch, no moving parts. The two halves join with permanent snap-fits (ratcheting barbs or through-post captures that click once and do not release).
+
+**Assembly UX:** Excellent for the actual use case. Place bag on lower cradle. Align upper cap. Press down until snaps engage -- a firm, definitive click. Done. No fiddling with hinge pins. No threading filament. No testing whether a latch caught. The single press-to-close motion is the highest-confidence assembly interaction (Pattern F from design-patterns: registration features make alignment automatic).
+
+The bag is limp when empty, so placement on the lower cradle is trivial -- drape it in, route the cap/tubing out the end notch, set the upper piece on top, press. This is the Keurig paradigm: drop, close, done.
+
+**Long-term bag behavior:** Excellent. Identical constraint geometry to Candidate A (continuous lower cradle, cross-rib upper frame, 27mm gap, tapered transitions). The mechanical constraint is the same. The only difference is that the upper half is permanently fixed rather than hinged. This is strictly better for long-term reliability: no latch to relax, no hinge to develop play. The constraint gap is locked at print-time and cannot drift.
+
+**Mechanical complexity:** Minimal. Two pieces, no moving parts, no consumables (filament pin). The permanent snap-fits are simpler than a hinge + latch because they only need to work once. A ratcheting barb (angled lead-in, vertical lock face) is the simplest snap geometry in FDM printing.
+
+**Failure modes:** Essentially none during normal operation. The cage is a rigid, closed structure with no moving parts. The only failure mode is if the permanent snaps are not fully engaged during assembly -- mitigated by designing the snaps to produce an audible/tactile click and by making partial engagement visually obvious (gap between halves).
+
+**Print complexity:** Lower than Candidate A. Two pieces per bag, four total. No hinge posts to get right. Same print orientations. Estimated ~8-10 hours total.
+
+**Service (rare bag replacement):** The permanent snaps must be pried apart or cut. This is acceptable because: (1) bag replacement is expected to happen zero or one times in the product's life, (2) the cage is cheap to reprint if damaged during service, (3) this is the same paradigm as the enclosure itself (snapped shut permanently, pried apart for service). Designing the frame for easy reopening serves a use case that almost never occurs, at the expense of adding moving parts.
 
 ---
 
-## Recommendation: Candidate 4 -- Fixed Lower Cradle + Top-Hinged Flip Lid
+### Candidate C: Enclosure-Integrated Constraint (0 separate pieces per bag)
 
-### Why This Wins
+The bag constraint surfaces are molded directly into the enclosure interior walls. Horizontal ledges on each enclosure half form the lower cradle and upper constraint when the halves close together. The bag is placed on one enclosure half's ledges, tubing is routed, and closing the enclosure captures the bag.
 
-The top-hinged flip lid at 35 degrees is the only candidate where gravity works in favor of the UX. When the user flips the lid up, it stays open on its own -- the 35-degree tilt means the lid's weight holds it past vertical against the hinge. Both hands are free to place the bag. This is a meaningful advantage over every other candidate, where at least one hand is occupied holding something open or managing a loose piece.
+**Assembly UX:** Mixed. On one hand, zero separate frame pieces to manage -- the bag goes directly onto the enclosure wall features. On the other hand, the assembly sequence becomes rigid: the bag must be placed before the enclosure closes, and the enclosure closure must not pinch, shift, or kink the bag. There is no opportunity to verify bag position and close a local frame before committing to the full enclosure closure. If the bag shifts during enclosure assembly, the entire enclosure must be re-opened.
 
-The interaction sequence:
+This is the core UX problem. With a separate frame, the assembler can: (1) load bag into frame, (2) verify position and constraint, (3) close frame, (4) place closed frame into enclosure, (5) close enclosure. Steps are independent and each is verifiable. With integrated constraint, steps 1-3 are entangled with step 5. The assembler cannot verify bag position without also closing the enclosure.
 
-1. **Flip lid up** (one finger on the latch at the front/bottom of the enclosure). The lid swings open and stays open.
-2. **Lay bag in cradle** (both hands). The cradle's side rails and cap-end stop guide placement. The bag drops into a lens-profiled trough -- self-aligning, like a Keurig pod dropping into its holder (Pattern F).
-3. **Flip lid down** (one hand). It swings closed under its own weight once past the balance point.
-4. **Press latch** (one finger, same spot as step 1). Click. Done.
+**Long-term bag behavior:** Good, assuming the enclosure halves produce the correct gap geometry when closed. The constraint is as rigid as the enclosure walls.
 
-This matches the Boxxle pattern (open, drop, close) and adds the gravity-assisted lid hold that Boxxle achieves with a spring but which the 35-degree angle provides for free.
+**Mechanical complexity:** Lowest piece count (zero frame pieces). But the enclosure design becomes significantly more complex: the internal ledge geometry must account for the bag constraint profile, the enclosure halves must align precisely to produce the correct 27mm gap, and the enclosure walls in the bag zone must be thick enough to support the bag weight and pressure.
 
-### Against the Design Patterns
+**Failure modes:** Misalignment of the two enclosure halves produces incorrect bag constraint. Unlike a self-contained frame where the gap is defined by a single print, the gap here is defined by two separate prints that must mate precisely. Any warp, tolerance stack, or assembly error in the enclosure directly affects bag behavior.
 
-| Pattern | Alignment |
-|---------|-----------|
-| A: Rigid shell as shape proxy | Yes. The cradle + lid form a rigid shell that defines the bag's shape. The user handles rigid surfaces, not the bag. |
-| B: Compression between two surfaces | Yes. The bag is sandwiched between the cradle (below) and the lid (above). The constraint is passive -- no springs or actuators needed because the bag's internal pressure is modest. |
-| C: Rigid backer with shaped sleeve | Partial. The cradle acts as the rigid datum surface. The lid is not a sleeve but provides the same function (predictable insertion path). |
-| E: Gravity angle + atmospheric collapse | Yes. The 35-degree mount is integral. Cap-down orientation drains toward the outlet. |
-| F: Registration at transfer point | Yes. The cap protrudes through the downhill end of the cradle, aligning with the tubing connection below. |
-| Key Observation 1 (hide the bag) | Yes. Lid closed = bag invisible. |
-| Key Observation 3 (rigid datum) | Yes. The cradle is the datum surface. |
-| Key Observation 5 (single-axis motion) | Yes. Flip up, drop in, flip down. All single-axis. |
-| Key Observation 6 (continuous compression) | Partial. The lid maintains constraint at full and partial fill. At low fill, the upper portion of the bag collapses away from the lid, but the lower portion remains constrained. This is acceptable because the 35-degree angle concentrates liquid at the cap end where constraint matters most. |
+**Print complexity:** Reduces total piece count but increases enclosure complexity. The enclosure halves are already the largest, most complex prints. Adding internal constraint geometry (curved cradle surfaces, cross-ribs, tapers) makes them harder to design, harder to iterate, and harder to reprint if only the bag constraint needs adjustment.
 
-### Product-Surface Integration
+---
 
-The cradle mounts to snap points on the enclosure interior walls. The hinge posts are part of the cradle. The lid is part of the bag frame assembly, not a separate enclosure feature. The latch at the front edge can be designed to sit flush with the enclosure front panel opening -- so the latch click-point is a small, deliberate feature on the product's exterior surface, not an afterthought.
+### Candidate D: Slide-In Channel (2 pieces per bag)
 
-This is product-surface integration: the user touches a latch on the enclosure surface and the internal mechanism responds. The bag, cradle, hinge, and lid are all invisible behind the enclosure panel.
+A U-shaped lower channel and a flat upper lid that slides in from one end. The channel has internal tracks/rails; the lid slides along those rails to close. No hinge, no snap, no permanent join -- the lid is captured by the enclosure when it closes.
 
-### Detailed Component Design
+**Assembly UX:** Moderate. Requires sliding the lid in from one end, which is a linear motion but must be aligned with the rail. If the bag is already in the channel, the lid must slide over the bag without dragging or bunching the film. This is a riskier interaction than the top-down press of Candidate B.
+
+**Long-term bag behavior:** Adequate. Same constraint geometry as other candidates. The lid is held in place by the enclosure walls rather than by its own snaps.
+
+**Mechanical complexity:** Low. Two pieces with simple geometry. But the rail tolerance is critical -- too loose and the lid rattles, too tight and it binds. FDM tolerance on mating rails (typically +/- 0.2mm) makes this interaction less predictable than a snap.
+
+**Failure modes:** Lid could shift within its rails during the enclosure closure step if not fully seated. The enclosure must positively capture the lid.
+
+**Print complexity:** Low. Similar to Candidate B.
+
+---
+
+## Ranking
+
+| Criterion | Weight | A: Hinged Lid | B: Permanent Cage | C: Enclosure-Integrated | D: Slide-In |
+|-----------|--------|--------------|-------------------|------------------------|-------------|
+| Assembly UX (primary UX) | 1st | Good | Excellent | Poor | Moderate |
+| Long-term bag behavior (daily UX) | 1st | Good | Excellent | Good | Adequate |
+| Mechanical feasibility | 2nd | Proven | Proven | Feasible but coupled | Feasible |
+| Simplicity (print + assemble) | 3rd | Moderate | Simple | Complex (enclosure coupling) | Simple |
+| Durability adequacy | 4th | Good | Excellent | Good | Adequate |
+
+**Assembly UX detail:**
+- B wins because the interaction is: place bag, place upper half, press until click. One decisive motion confirms completion. No hinge pin to thread, no latch to verify, no sliding to align.
+- A is good but has unnecessary assembly steps (thread filament pin, verify latch catch).
+- C fails because bag position cannot be verified independently of enclosure closure.
+- D is adequate but the slide-over-bag interaction risks film bunching.
+
+**Long-term bag behavior detail:**
+- B wins because the constraint gap is permanently fixed at print-time with no moving parts that could relax or develop play.
+- A is nearly identical but the hinge and latch are theoretically capable of developing play over years.
+- C and D are adequate but the constraint depends on external assemblies (enclosure alignment, rail capture) rather than a self-contained structure.
+
+---
+
+## Recommendation: Candidate B -- Two-Piece Permanent Cage
+
+A lower cradle and an upper cap that snap together permanently around the Platypus 2L bag. No hinge, no latch, no pins, no moving parts. The two halves are pressed together once during assembly and never separated again.
+
+### Design Specifics
 
 **Lower cradle:**
-- Continuous smooth surface, gently concave (lens-profile matching half of a 27mm-gap lenticular cross-section)
-- Width: 180mm (narrower than the 190mm bag to avoid pinching the heat-sealed edges)
-- Length: 250mm (midsection constraint zone, leaving 50mm unconstrained at each end)
-- Side rails: 8mm tall along both long edges, preventing lateral shift
-- Cap-end stop: a lip or wall at the downhill end, with a notch for the cap/tubing to pass through
-- Sealed-end taper: over the last 40mm, the side rails flare outward and the cradle floor ramps down, creating a gradual transition from constrained to unconstrained
-- Cap-end taper: similar 40mm ramp at the downhill end
-- Surface texture: 0.4mm-pitch longitudinal ribs (parallel to the bag's long axis) to prevent PE film adhesion
-- Hinge posts: two cylindrical posts (4mm OD, 6mm tall) at the uphill (sealed) end, spaced 160mm apart
-- Enclosure mounting: snap tabs on the underside of the cradle engage rails or posts on the enclosure interior walls
-- Edge radii: 3mm minimum on all edges contacting the bag
+- 250 x 180 x 20 mm footprint
+- Continuous smooth concave floor (~3mm sag across 180mm width)
+- 8mm side rails along both long edges
+- Cap-end wall with notch for tubing pass-through (prevents 11N sliding force from pushing bag downhill)
+- Entry/exit tapers: gap widens from 27mm to 45mm over the last 40mm at each end
+- 0.4mm-pitch longitudinal anti-adhesion ribs on bag-contact surfaces
+- 3mm minimum radius on all bag-contact edges
+- 4 snap-fit receptacles (vertical holes or C-shaped sockets) positioned along the side rails, two per side
 
-**Flip lid (upper constraint):**
-- Open frame with 4 cross-ribs spanning the 180mm width, spaced 50mm apart along the 250mm length
-- Each cross-rib: 3mm wide x 12mm tall, with the bag-contact edge gently curved (matching the upper half of the 27mm lenticular profile)
-- Perimeter rail connects the cross-ribs into a rigid frame
-- Hinge sockets: two holes (4.2mm ID) at the uphill end, mating with the cradle's hinge posts
-- Latch tab: a cantilever snap at the downhill end, engaging a catch on the cradle's cap-end wall
-- Bag-contact surfaces on cross-ribs: 0.4mm-pitch transverse ribs (perpendicular to bag long axis) to prevent adhesion
-- Edge radii: 3mm minimum on all cross-rib edges contacting the bag
+**Upper cap:**
+- 250 x 180 x 15 mm footprint
+- Open frame with 4 cross-ribs spanning 180mm width, spaced 50mm apart
+- Each rib: 3mm wide x 12mm tall, gently curved underside matching upper half of 27mm gap
+- Perimeter rail connecting the ribs
+- 0.4mm-pitch transverse anti-adhesion texture on rib undersurfaces
+- 3mm minimum radius on all bag-contact edges
+- 4 ratcheting barb posts extending downward from the perimeter rail, mating with the cradle receptacles
 
-**Hinge pin:**
-- 1.75mm filament segment or a printed PETG pin, 170mm long, threaded through the hinge post holes and lid socket holes
-- Retained by friction fit or small printed caps on each end
-- Alternative: print the hinge as a pin-in-socket with 0.3mm clearance -- the pin is integral to the lid, the socket is integral to the cradle. This eliminates the loose pin but requires more careful print orientation.
+**Snap-fit detail:**
+- Ratcheting barb geometry: angled lead-in (30-degree ramp) for easy insertion, vertical lock face for permanent retention
+- Barb engagement: 1.0mm (sufficient for permanent hold in PETG, impossible to accidentally disengage)
+- Post diameter: 4mm; receptacle ID: 4.2mm (0.2mm clearance for FDM tolerance)
+- Designed to produce a tactile and audible click at full engagement
+- Partial engagement is visually obvious: a 1-2mm gap between cradle rail and cap rail indicates incomplete closure
 
-**Constraint gap geometry:**
-- Center gap between cradle floor and lid cross-rib undersurface: 27mm
-- Side gap at 180mm width edges: 5mm minimum (the side rails are shorter than the cross-ribs)
-- Entry taper (both ends): gap widens from 27mm to 45mm over 40mm of length
-- The cap-end notch in the cradle allows the bag cap to protrude downhill and below the cradle floor, connecting to tubing underneath
+**Constraint zone:**
+- Center gap: 27mm (midpoint of 25-30mm target)
+- Constraint zone length: 200-250mm centered on bag midsection
+- Constraint zone width: 170-180mm (narrower than 190mm bag width, heat-sealed edges overhang freely)
+- Side edge gap: 5mm minimum to avoid pinching perimeter seals
 
-### Bill of Materials
+**Mounting to enclosure:** Identical to the concept document's approach. The enclosure interior has horizontal ledges. The cradle has downward-facing tabs that drop into ledge slots. Gravity-seated, captured when enclosure halves close. The bag frame is a self-contained module that is assembled and verified before going into the enclosure.
 
-| Part | Qty | Material | Approx Print Mass | Notes |
-|------|-----|----------|-------------------|-------|
-| Lower cradle | 2 | PETG | ~80g each | One per bag. Prints flat, no supports needed. |
-| Flip lid | 2 | PETG | ~35g each | One per bag. Open-frame design, minimal material. |
-| Hinge pin | 2 | PETG filament or printed | <1g each | 170mm length of 1.75mm filament, or printed-in-place. |
-| **Total per bag** | **3 parts** | | **~116g** | |
-| **Total for 2 bags** | **6 parts** | | **~232g** | |
+### Assembly Sequence
 
-No purchased components. No screws, no springs, no metal hardware. All PETG, all snap-fit or press-fit.
+1. Lay lower cradle on work surface
+2. Drape empty Platypus bag onto cradle, cap hanging off the downhill end through the notch
+3. Fill bag partially (~500mL) to give it enough body to sit correctly in the cradle (optional but recommended -- gives visual confirmation of position)
+4. Place upper cap onto cradle, aligning the 4 snap posts with receptacles
+5. Press down firmly until all 4 snaps click -- the bag is now permanently caged
+6. Verify: no visible gap between cradle rail and cap rail at any of the 4 snap points
+7. Repeat for second bag
+8. Mount both caged bags onto enclosure half ledges
+9. Route tubing
+10. Close enclosure
 
-### What Would Change This Recommendation
+### BOM (per bag frame -- multiply by 2 for complete machine)
 
-1. **If the enclosure interior cannot provide clearance for the lid to flip open.** The lid, when open, sweeps an arc approximately 250mm long. At 35 degrees, the uphill end of the lid rises about 200mm above the cradle. If the enclosure ceiling or the bag above prevents this, the lid cannot open fully. Mitigation: the lid could be split into two shorter halves, each with its own hinge, reducing the sweep arc. This adds parts but preserves the interaction model.
+| Part | Qty | Source | Notes |
+|------|-----|--------|-------|
+| Lower cradle (PETG print) | 1 | Printed | ~250 x 180 x 20 mm, ~3-4 hr print |
+| Upper cap (PETG print) | 1 | Printed | ~250 x 180 x 15 mm, ~1.5-2 hr print |
 
-2. **If the bags need to be removed frequently (daily or more).** The flip-lid-and-lay-in interaction is optimized for monthly or weekly bag changes. If bags are swapped daily, a slide-in mechanism (Candidate 3) might be faster despite its UX compromises, because it does not require reaching into the enclosure cavity.
+**Total for both bags: 4 printed parts. No purchased hardware. No consumables.**
 
-3. **If the hinge proves unreliable in testing.** If the pin-in-socket hinge breaks or binds after repeated use, the fallback is Candidate 1 (clamshell with living hinge). A PETG living hinge at 0.3mm is more durable in flex cycles than a pin joint, though it requires the entire assembly to be removable from the enclosure for bag changes.
+### Print Specifications
 
-4. **If the Platypus bag is replaced with a gusseted or box-shaped bag.** The lens-profiled cradle and cross-rib lid are optimized for the Platypus's lenticular cross-section. A bag with flat faces and gusseted sides (like a BIB bladder) would need flat constraint surfaces instead of curved ones. The frame architecture (hinged lid, fixed cradle) would remain the same; only the surface profiles would change.
+| Parameter | Value |
+|-----------|-------|
+| Material | PETG |
+| Layer height | 0.2mm |
+| Nozzle | 0.4mm |
+| Infill | 20-30% (structural, not visible) |
+| Supports | None required |
+| Cradle orientation | Flat, concave face up (bag-contact surface is top/smoothest layer) |
+| Cap orientation | Flat, ribs pointing up (ribs print vertically for strength) |
+| Estimated total print time | ~8-10 hours for all 4 pieces |
 
-5. **If active compression is needed for complete drainage.** The current design is passive -- the bag drains by gravity at 35 degrees, and atmospheric collapse helps. If testing reveals that the bag retains significant liquid in internal folds, a spring-loaded element in the lid (pressing the bag toward the cradle as it empties) would improve drainage. This would add a compression spring and change the lid from an open frame to a more solid platen. The Boxxle pattern explicitly solves this with a spring platform.
+---
+
+## What Would Change This Recommendation
+
+1. **If bag replacement became a routine operation** (e.g., bags wear out every 6 months instead of lasting years): The permanent cage becomes a liability because it must be destroyed and reprinted for each replacement. In that case, Candidate A (hinged flip lid) would be the right choice. The threshold is roughly: if bag replacement happens more than once per year, switch to a hinged design.
+
+2. **If the bags were pre-filled at the factory** (user receives a sealed machine with bags already installed): The frame would never need to be assembled by a human at all. In that case, Candidate C (enclosure-integrated) becomes viable because the manufacturer controls alignment precision and can verify bag position on an assembly line.
+
+3. **If the constraint gap needed to be adjustable** (e.g., different bag brands with different thicknesses): A permanent cage locks the gap at print-time. An adjustable design (threaded spacers, shim plates) would be needed. This does not currently apply -- the Platypus 2L is the specified bag.
+
+4. **If the enclosure interior geometry changed** so that the bag frame could not be assembled as a module outside the enclosure (e.g., the bag zone is only accessible from inside): The modular pre-assembly advantage of Candidates A and B is lost, and the slide-in approach (D) or enclosure-integrated approach (C) would need reconsideration.
