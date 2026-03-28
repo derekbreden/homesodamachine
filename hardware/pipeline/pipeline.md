@@ -158,9 +158,11 @@ You are [role] for [part/mechanism name].
 - hardware/vision.md — values and the product owner's imagined architecture
 - hardware/manufacturing-environment.md — verified printer specs, material properties
 
-**Web research:** Use Chrome MCP tools (mcp__Claude_in_Chrome__navigate,
-mcp__Claude_in_Chrome__read_page) for all web research. Do NOT use WebFetch —
-many manufacturer sites return 403 to non-browser requests.
+**Web research:** Use WebFetch first. If it returns 403 or empty/useless content,
+fall back to Chrome MCP tools (mcp__Claude_in_Chrome__navigate,
+mcp__Claude_in_Chrome__read_page). Never give up on a URL just because
+WebFetch failed — many manufacturer sites block non-browser requests but
+work fine in Chrome.
 
 **Context files to read:**
 [list of file paths]

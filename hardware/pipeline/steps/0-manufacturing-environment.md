@@ -25,7 +25,7 @@ This step runs once at the start of the project and is updated whenever the manu
 
 - The printer make and model (from user)
 - The materials list (from user)
-- Instruction to use Chrome MCP tools (`mcp__Claude_in_Chrome__navigate`, `mcp__Claude_in_Chrome__read_page`) for all web research — NOT `WebFetch`, which gets 403'd by many manufacturer sites
+- Instruction to use `WebFetch` for web research first, but if it returns a 403 or empty/useless content, fall back to Chrome MCP tools (`mcp__Claude_in_Chrome__navigate`, `mcp__Claude_in_Chrome__read_page`). Do not give up on a URL just because `WebFetch` fails — many manufacturer sites block non-browser requests but work fine in Chrome.
 - Instruction to look up manufacturer specifications from the official website or datasheet
 - Instruction to cite every number with a source URL
 - Instruction to NOT use "typical," "standard," or "common" values — every number must be specific to the actual hardware
