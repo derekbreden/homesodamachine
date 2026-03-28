@@ -8,7 +8,7 @@ This document defines the procedure for designing a new 3D-printed part or mecha
 
 ## Foundational Input: Requirements
 
-**`hardware/planning/requirements.md`** is the single source of truth for what we are building, what we care about, and what we are building with. It contains facts that no agent can discover on its own — product vision, values, equipment, and constraints provided by the product owner.
+**`hardware/requirements.md`** is the single source of truth for what we are building, what we care about, and what we are building with. It contains facts that no agent can discover on its own — product vision, values, equipment, and constraints provided by the product owner.
 
 **Every agent in every step reads requirements.md first.** It is included verbatim or by reference in every agent prompt. If requirements.md does not exist or has not been verified by the product owner, no design work may proceed.
 
@@ -27,11 +27,11 @@ The product values from requirements.md (summarized here for quick reference —
 
 Before starting the pipeline, verify:
 
-1. **Requirements are established and verified:**
-   `hardware/planning/requirements.md` must exist and be verified by the product owner. This document contains the product vision, values, equipment, and constraints that no agent can discover. If it does not exist, write it with the product owner before doing anything else.
+1. **Requirements exist:**
+   `hardware/requirements.md` must exist. This document contains the hard requirements that are not flexible.
 
-2. **Manufacturing environment is established:**
-   `hardware/planning/manufacturing-environment.md` must exist and be current. If it does not exist, run Step 0 before anything else. This file is the single source of truth for all physical constraints — print bed dimensions, material properties, available hardware. **No agent in any step may assume, infer, or use "typical" values for any manufacturing constraint.** Every constraint must come from this file, and every constraint in this file must cite a verifiable source.
+2. **Vision exists:**
+   `hardware/vision.md` must exist. This document contains the soft vision that should expand you and your agent spawns' horizons.
 
 3. **CadQuery venv exists and works:**
    ```
@@ -44,10 +44,10 @@ Before starting the pipeline, verify:
    ls tools/svg_label_check.py tools/svg_adjacency_check.py tools/step_validate.py
    ```
 
-5. **Standards documents are current:**
-   - `hardware/planning/drawing-standards.md`
-   - `hardware/planning/step-generation-standards.md`
-   - This document (`hardware/planning/hardware-design-pipeline.md`)
+5. **Standards documents exist:**
+   - `hardware/procedure/engineering-drawings-SVG.md`
+   - `hardware/procedure/3d-models-STEP.md`
+   - This document (`hardware/procedure/managing-agent-process.md`)
 
 ---
 
@@ -500,7 +500,7 @@ Every agent in this pipeline should receive a prompt structured as:
 You are [role] for [part/mechanism name].
 
 **FOUNDATIONAL DOCUMENTS (read these first):**
-- hardware/planning/requirements.md — product vision, values, equipment, constraints
+- hardware/requirements.md — product vision, values, equipment, constraints
 - hardware/planning/manufacturing-environment.md — verified printer specs, material properties
 
 **Context files to read:**
