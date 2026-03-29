@@ -1,0 +1,787 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1800 1400" width="1800" height="1400" font-family="Arial, sans-serif" font-size="11" fill="black" stroke="black">
+
+  <title>Sub-C: Pump Mounting Bosses — Engineering Drawing</title>
+
+  <defs>
+    <marker id="arrow" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto">
+      <path d="M0,0 L8,3 L0,6 Z" fill="black"/>
+    </marker>
+    <marker id="arrow-rev" markerWidth="8" markerHeight="6" refX="0" refY="3" orient="auto">
+      <path d="M8,0 L0,3 L8,6 Z" fill="black"/>
+    </marker>
+    <style>
+      .dim { font-size: 10px; fill: black; text-anchor: middle; }
+      .dim-small { font-size: 9px; fill: black; text-anchor: middle; }
+      .label { font-size: 12px; fill: black; font-weight: bold; text-anchor: middle; }
+      .note { font-size: 9px; fill: black; }
+      .title-text { font-size: 16px; fill: black; font-weight: bold; }
+      .subtitle { font-size: 12px; fill: black; }
+      .hidden { stroke-dasharray: 3,2; stroke-width: 0.8; fill: none; }
+      .center { stroke-dasharray: 12,3,3,3; stroke-width: 0.5; stroke: #555; fill: none; }
+      .outline { stroke: black; stroke-width: 1.2; fill: none; }
+      .thin { stroke: black; stroke-width: 0.6; fill: none; }
+      .dimline { stroke: black; stroke-width: 0.5; fill: none; }
+      .ext { stroke: black; stroke-width: 0.4; fill: none; }
+      .section { stroke: black; stroke-width: 0.8; fill: #e8e8e8; }
+      .detail-frame { stroke: black; stroke-width: 1.0; fill: white; }
+    </style>
+  </defs>
+
+  <!-- Title Block -->
+  <text x="900" y="30" class="title-text" text-anchor="middle">Sub-C: Pump Mounting Bosses</text>
+  <text x="900" y="48" class="subtitle" text-anchor="middle">4x Mounting Bosses + 2x Motor Cradles — Third-Angle Orthographic Projection</text>
+  <text x="900" y="64" class="note" text-anchor="middle">Material: PETG | All dimensions in mm | Printed integral with tray floor (Sub-A)</text>
+  <line x1="100" y1="72" x2="1700" y2="72" stroke="black" stroke-width="0.5"/>
+
+  <!-- ============================================================ -->
+  <!-- FRONT VIEW (looking along -Y)                                -->
+  <!-- Horizontal: X (width), Vertical: Z (height)                  -->
+  <!-- Scale: 3 px/mm                                               -->
+  <!-- fX(mm) = 80 + mm*3                                           -->
+  <!-- fZ(mm) = 350 - (mm - 3)*3   (Z=3 at y=350, Z up = y down)   -->
+  <!-- Visible Z range: 0..58 mm (floor to just above cradle tips)  -->
+  <!-- ============================================================ -->
+
+  <text x="330" y="95" class="label">FRONT VIEW (looking along -Y)</text>
+  <text x="330" y="110" class="dim-small">Scale 3:1 (3 px/mm)</text>
+
+  <g id="front-view">
+    <!-- Floor (Sub-A reference): Z=0 to Z=3, full tray width X=0..160 -->
+    <rect x="80" y="350" width="480" height="9" class="section"/>
+
+    <!-- ===== Boss P1-L: center X=18.48, Z=3..34.30 ===== -->
+    <!-- Boss column: 8mm OD => 4mm each side of center -->
+    <!-- fX(18.48-4) = 80+14.48*3 = 123.44 -->
+    <!-- fX(18.48+4) = 80+22.48*3 = 147.44 -->
+    <!-- fZ(34.30) = 350-(34.30-3)*3 = 350-93.9 = 256.1 -->
+    <!-- fZ(3) = 350 -->
+    <!-- Height in px: 350-256.1 = 93.9 -->
+    <rect x="123.4" y="256.1" width="24" height="93.9" class="section"/>
+    <!-- +X rib: extends 4mm from boss surface => X=22.48 to 26.48 -->
+    <!-- fX(22.48)=147.44, fX(26.48)=159.44, width 2mm thick => show 6px -->
+    <rect x="147.4" y="256.1" width="6" height="93.9" class="section"/>
+    <!-- -X rib: extends 4mm from boss surface => X=10.48 to 14.48 -->
+    <!-- fX(10.48)=111.44, width=6px -->
+    <rect x="111.4" y="256.1" width="6" height="93.9" class="section"/>
+    <!-- +Y/-Y ribs: hidden behind boss in front view (along Z axis, 2mm thick) -->
+    <!-- Center of boss: fX(18.48)=135.44. Rib is 2mm wide centered => 134.44 to 136.44 -->
+    <line x1="134.4" y1="256.1" x2="134.4" y2="350" class="hidden"/>
+    <line x1="136.4" y1="256.1" x2="136.4" y2="350" class="hidden"/>
+    <!-- Pilot hole: 4mm dia, 7mm deep from top face -->
+    <!-- fX(18.48-2)=129.44, fX(18.48+2)=141.44 -->
+    <!-- fZ(34.30)=256.1, fZ(34.30-7)=fZ(27.30)=350-(27.30-3)*3=350-72.9=277.1 -->
+    <line x1="129.4" y1="256.1" x2="129.4" y2="277.1" class="hidden"/>
+    <line x1="141.4" y1="256.1" x2="141.4" y2="277.1" class="hidden"/>
+    <line x1="129.4" y1="277.1" x2="141.4" y2="277.1" class="hidden"/>
+
+    <!-- ===== Boss P1-R: center X=67.93, Z=3..34.30 ===== -->
+    <!-- fX(67.93-4)=80+63.93*3=271.79, fX(67.93+4)=80+71.93*3=295.79 -->
+    <rect x="271.8" y="256.1" width="24" height="93.9" class="section"/>
+    <!-- +X rib -->
+    <rect x="295.8" y="256.1" width="6" height="93.9" class="section"/>
+    <!-- -X rib -->
+    <rect x="259.8" y="256.1" width="6" height="93.9" class="section"/>
+    <!-- +Y/-Y ribs hidden -->
+    <line x1="282.8" y1="256.1" x2="282.8" y2="350" class="hidden"/>
+    <line x1="284.8" y1="256.1" x2="284.8" y2="350" class="hidden"/>
+    <!-- Pilot hole -->
+    <line x1="277.8" y1="256.1" x2="277.8" y2="277.1" class="hidden"/>
+    <line x1="289.8" y1="256.1" x2="289.8" y2="277.1" class="hidden"/>
+    <line x1="277.8" y1="277.1" x2="289.8" y2="277.1" class="hidden"/>
+
+    <!-- ===== Boss P2-L: center X=92.08, Z=3..34.30 ===== -->
+    <!-- fX(92.08-4)=80+88.08*3=344.24, fX(92.08+4)=80+96.08*3=368.24 -->
+    <rect x="344.2" y="256.1" width="24" height="93.9" class="section"/>
+    <!-- +X rib -->
+    <rect x="368.2" y="256.1" width="6" height="93.9" class="section"/>
+    <!-- -X rib -->
+    <rect x="332.2" y="256.1" width="6" height="93.9" class="section"/>
+    <!-- +Y/-Y ribs hidden -->
+    <line x1="355.2" y1="256.1" x2="355.2" y2="350" class="hidden"/>
+    <line x1="357.2" y1="256.1" x2="357.2" y2="350" class="hidden"/>
+    <!-- Pilot hole -->
+    <line x1="350.2" y1="256.1" x2="350.2" y2="277.1" class="hidden"/>
+    <line x1="362.2" y1="256.1" x2="362.2" y2="277.1" class="hidden"/>
+    <line x1="350.2" y1="277.1" x2="362.2" y2="277.1" class="hidden"/>
+
+    <!-- ===== Boss P2-R: center X=141.53, Z=3..34.30 ===== -->
+    <!-- fX(141.53-4)=80+137.53*3=492.59, fX(141.53+4)=80+145.53*3=516.59 -->
+    <rect x="492.6" y="256.1" width="24" height="93.9" class="section"/>
+    <!-- +X rib -->
+    <rect x="516.6" y="256.1" width="6" height="93.9" class="section"/>
+    <!-- -X rib -->
+    <rect x="480.6" y="256.1" width="6" height="93.9" class="section"/>
+    <!-- +Y/-Y ribs hidden -->
+    <line x1="503.6" y1="256.1" x2="503.6" y2="350" class="hidden"/>
+    <line x1="505.6" y1="256.1" x2="505.6" y2="350" class="hidden"/>
+    <!-- Pilot hole -->
+    <line x1="498.6" y1="256.1" x2="498.6" y2="277.1" class="hidden"/>
+    <line x1="510.6" y1="256.1" x2="510.6" y2="277.1" class="hidden"/>
+    <line x1="498.6" y1="277.1" x2="510.6" y2="277.1" class="hidden"/>
+
+    <!-- ===== Motor Cradle 1: center X=43.20, Z center=34.30 ===== -->
+    <!-- In front view, the cradle is BEHIND the bosses (Y=116.50 vs bosses at Y=83) -->
+    <!-- So the cradle is hidden in front view. Show as dashed. -->
+    <!-- Cradle outer extent: X=22.45..63.95, inner radius 17.75, outer 20.75 -->
+    <!-- Arc center at fX(43.20)=209.6, fZ(34.30)=256.1 -->
+    <!-- Outer radius: 20.75mm = 62.25px. Left arm tip: 209.6-62.25=147.35, right: 209.6+62.25=271.85 -->
+    <!-- Arm tips at Z=55.05 => fZ(55.05)=350-(55.05-3)*3=350-156.15=193.85 -->
+    <!-- Support rib below: X=22.45..63.95, Z=3..16.55 -->
+    <!-- fX(22.45)=147.35, fX(63.95)=271.85 -->
+    <!-- fZ(16.55)=350-(16.55-3)*3=350-40.65=309.35 -->
+    <!-- Support rib (hidden behind bosses in Y): -->
+    <line x1="147.4" y1="309.4" x2="147.4" y2="350" class="hidden"/>
+    <line x1="271.9" y1="309.4" x2="271.9" y2="350" class="hidden"/>
+    <line x1="147.4" y1="309.4" x2="271.9" y2="309.4" class="hidden"/>
+    <!-- Semicircular arc (hidden): approximate with polyline -->
+    <!-- Arc from 9 o'clock (left, Z=34.30) through bottom (Z=16.55) to 3 o'clock (right, Z=34.30) -->
+    <!-- Then up to arm tips at Z=55.05 -->
+    <!-- Left arm: fX(22.45)=147.35, from fZ(34.30)=256.1 up to fZ(55.05)=193.85 -->
+    <line x1="147.4" y1="256.1" x2="147.4" y2="193.9" class="hidden"/>
+    <!-- Right arm: fX(63.95)=271.85 -->
+    <line x1="271.9" y1="256.1" x2="271.9" y2="193.9" class="hidden"/>
+    <!-- Bottom of arc at Z=16.55 is already shown by support rib top -->
+
+    <!-- ===== Motor Cradle 2: center X=116.80 ===== -->
+    <!-- fX(116.80)=80+116.80*3=430.4 -->
+    <!-- fX(96.05)=80+96.05*3=368.15, fX(137.55)=80+137.55*3=492.65 -->
+    <!-- Support rib (hidden) -->
+    <line x1="368.2" y1="309.4" x2="368.2" y2="350" class="hidden"/>
+    <line x1="492.6" y1="309.4" x2="492.6" y2="350" class="hidden"/>
+    <line x1="368.2" y1="309.4" x2="492.6" y2="309.4" class="hidden"/>
+    <!-- Cradle arms (hidden) -->
+    <line x1="368.2" y1="256.1" x2="368.2" y2="193.9" class="hidden"/>
+    <line x1="492.6" y1="256.1" x2="492.6" y2="193.9" class="hidden"/>
+
+    <!-- Boss center lines (front view) -->
+    <!-- P1-L center: fX(18.48)=135.44 -->
+    <line x1="135.4" y1="250" x2="135.4" y2="356" class="center"/>
+    <!-- P1-R center: fX(67.93)=283.79 -->
+    <line x1="283.8" y1="250" x2="283.8" y2="356" class="center"/>
+    <!-- P2-L center: fX(92.08)=356.24 -->
+    <line x1="356.2" y1="250" x2="356.2" y2="356" class="center"/>
+    <!-- P2-R center: fX(141.53)=504.59 -->
+    <line x1="504.6" y1="250" x2="504.6" y2="356" class="center"/>
+
+    <!-- Bracket ear Z center line at Z=34.30 -->
+    <line x1="74" y1="256.1" x2="566" y2="256.1" class="center"/>
+
+    <!-- ===== DIMENSIONS - Front View ===== -->
+
+    <!-- Overall tray width: 160mm -->
+    <line x1="80" y1="359" x2="80" y2="382" class="ext"/>
+    <line x1="560" y1="359" x2="560" y2="382" class="ext"/>
+    <line x1="80" y1="378" x2="560" y2="378" class="dimline" marker-start="url(#arrow-rev)" marker-end="url(#arrow)"/>
+    <text x="320" y="392" class="dim">160</text>
+
+    <!-- Boss P1-L center X=18.48 from left wall -->
+    <line x1="80" y1="245" x2="80" y2="237" class="ext"/>
+    <line x1="135.4" y1="245" x2="135.4" y2="237" class="ext"/>
+    <line x1="80" y1="240" x2="135.4" y2="240" class="dimline" marker-start="url(#arrow-rev)" marker-end="url(#arrow)"/>
+    <text x="107.7" y="235" class="dim-small">18.48</text>
+
+    <!-- Boss pair spacing P1-L to P1-R: 49.45mm -->
+    <line x1="135.4" y1="245" x2="135.4" y2="230" class="ext"/>
+    <line x1="283.8" y1="245" x2="283.8" y2="230" class="ext"/>
+    <line x1="135.4" y1="232" x2="283.8" y2="232" class="dimline" marker-start="url(#arrow-rev)" marker-end="url(#arrow)"/>
+    <text x="209.6" y="227" class="dim-small">49.45</text>
+
+    <!-- Inter-pump gap P1-R to P2-L: 24.15mm -->
+    <line x1="283.8" y1="245" x2="283.8" y2="222" class="ext"/>
+    <line x1="356.2" y1="245" x2="356.2" y2="222" class="ext"/>
+    <line x1="283.8" y1="224" x2="356.2" y2="224" class="dimline" marker-start="url(#arrow-rev)" marker-end="url(#arrow)"/>
+    <text x="320" y="219" class="dim-small">24.15</text>
+
+    <!-- Boss pair spacing P2-L to P2-R: 49.45mm -->
+    <line x1="356.2" y1="245" x2="356.2" y2="230" class="ext"/>
+    <line x1="504.6" y1="245" x2="504.6" y2="230" class="ext"/>
+    <line x1="356.2" y1="232" x2="504.6" y2="232" class="dimline" marker-start="url(#arrow-rev)" marker-end="url(#arrow)"/>
+    <text x="430.4" y="227" class="dim-small">49.45</text>
+
+    <!-- Boss height: 31.30mm (Z=3 to Z=34.30) -->
+    <line x1="522.6" y1="350" x2="548" y2="350" class="ext"/>
+    <line x1="522.6" y1="256.1" x2="548" y2="256.1" class="ext"/>
+    <line x1="544" y1="350" x2="544" y2="256.1" class="dimline" marker-start="url(#arrow-rev)" marker-end="url(#arrow)"/>
+    <text x="562" y="307" class="dim">31.30</text>
+
+    <!-- Boss OD: 8mm -->
+    <!-- Boss OD dimension moved to P2-R for clarity -->
+    <line x1="492.6" y1="252" x2="492.6" y2="200" class="ext"/>
+    <line x1="516.6" y1="252" x2="516.6" y2="200" class="ext"/>
+    <line x1="492.6" y1="203" x2="516.6" y2="203" class="dimline" marker-start="url(#arrow-rev)" marker-end="url(#arrow)"/>
+    <text x="504.6" y="199" class="dim-small">8</text>
+
+    <!-- Cradle arm tip height Z=55.05 dimension -->
+    <line x1="273.9" y1="193.9" x2="296" y2="193.9" class="ext"/>
+    <line x1="273.9" y1="256.1" x2="296" y2="256.1" class="ext"/>
+    <line x1="292" y1="193.9" x2="292" y2="256.1" class="dimline" marker-start="url(#arrow-rev)" marker-end="url(#arrow)"/>
+    <text x="308" y="228" class="dim-small">20.75</text>
+
+    <!-- Floor thickness: 3mm -->
+    <line x1="564" y1="350" x2="576" y2="350" class="ext"/>
+    <line x1="564" y1="359" x2="576" y2="359" class="ext"/>
+    <line x1="572" y1="350" x2="572" y2="359" class="dimline" marker-start="url(#arrow-rev)" marker-end="url(#arrow)"/>
+    <text x="585" y="357" class="dim-small">3</text>
+
+    <!-- Boss labels -->
+    <text x="135.4" y="210" class="dim-small">P1-L</text>
+    <text x="283.8" y="210" class="dim-small">P1-R</text>
+    <text x="356.2" y="210" class="dim-small">P2-L</text>
+    <text x="504.6" y="210" class="dim-small">P2-R</text>
+
+    <!-- Cradle labels -->
+    <text x="209.6" y="188" class="dim-small">Cradle 1</text>
+    <text x="430.4" y="188" class="dim-small">Cradle 2</text>
+  </g>
+
+  <!-- ============================================================ -->
+  <!-- SIDE VIEW (looking along -X, from right)                     -->
+  <!-- Horizontal: Y (depth, 0=dock/rear at left), Vertical: Z      -->
+  <!-- Scale: 2.5 px/mm                                             -->
+  <!-- sY(mm) = 700 + mm*2.5                                        -->
+  <!-- sZ(mm) = 350 - (mm - 3)*2.5  (Z=3 at y=350, same as front)  -->
+  <!-- ============================================================ -->
+
+  <text x="980" y="95" class="label">SIDE VIEW (looking along -X)</text>
+  <text x="980" y="110" class="dim-small">Scale 2.5:1 (2.5 px/mm)</text>
+
+  <g id="side-view">
+    <!-- Floor: Z=0..3, Y=0..155 -->
+    <!-- sY(0)=700, sY(155)=700+155*2.5=1087.5 -->
+    <!-- sZ(0)=350-(0-3)*2.5=357.5, sZ(3)=350 -->
+    <rect x="700" y="350" width="387.5" height="7.5" class="section"/>
+
+    <!-- Boss column (side view shows one boss as a rectangle: 8mm wide in Y? No - -->
+    <!-- In side view looking along -X, we see Y horizontal, Z vertical -->
+    <!-- All 4 bosses are at Y=83.00. They overlap in side view. -->
+    <!-- Boss: 8mm OD => 4mm each side of center Y=83 -->
+    <!-- sY(83-4)=700+79*2.5=897.5, sY(83+4)=700+87*2.5=917.5, width=20px -->
+    <!-- sZ(34.30)=350-(34.30-3)*2.5=350-78.25=271.75, sZ(3)=350, height=78.25 -->
+    <rect x="897.5" y="271.8" width="20" height="78.2" class="section"/>
+
+    <!-- +Y rib: extends 4mm from boss surface at Y=87 to Y=91 -->
+    <!-- sY(87)=917.5, width 2mm => 5px, show as 5px wide, full height -->
+    <rect x="917.5" y="271.8" width="5" height="78.2" class="section"/>
+    <!-- -Y rib: Y=75 to Y=79 -->
+    <!-- sY(75)=887.5, width=5px -->
+    <rect x="887.5" y="271.8" width="5" height="78.2" class="section"/>
+
+    <!-- +X/-X ribs: hidden behind boss in side view -->
+    <!-- 2mm thick at boss center Y=83 => sY(82)=905, sY(84)=910 -->
+    <line x1="905" y1="271.8" x2="905" y2="350" class="hidden"/>
+    <line x1="910" y1="271.8" x2="910" y2="350" class="hidden"/>
+
+    <!-- Pilot hole (hidden, 4mm dia = 2mm each side, 7mm deep) -->
+    <!-- sY(81)=902.5, sY(85)=912.5 -->
+    <!-- sZ(34.30)=271.75, sZ(27.30)=350-(27.30-3)*2.5=350-60.75=289.25 -->
+    <line x1="902.5" y1="271.8" x2="902.5" y2="289.3" class="hidden"/>
+    <line x1="912.5" y1="271.8" x2="912.5" y2="289.3" class="hidden"/>
+    <line x1="902.5" y1="289.3" x2="912.5" y2="289.3" class="hidden"/>
+
+    <!-- Motor Cradle (side view): at Y=109..124, showing 15mm depth -->
+    <!-- sY(109)=700+109*2.5=972.5, sY(124)=700+124*2.5=1010 -->
+    <!-- Cradle is a rectangular block in side view: 15mm wide x height from Z=3 to Z=55.05 -->
+    <!-- Support rib: Z=3 to Z=16.55 -->
+    <!-- sZ(16.55)=350-(16.55-3)*2.5=350-33.875=316.1 -->
+    <rect x="972.5" y="316.1" width="37.5" height="33.9" class="section"/>
+
+    <!-- Cradle arc (side view shows as a rectangle from Z=16.55 to Z=55.05) -->
+    <!-- Wall thickness 3mm on each side, but in side view it's the full depth -->
+    <!-- sZ(55.05)=350-(55.05-3)*2.5=350-130.125=219.9 -->
+    <!-- Outer rect from Z=16.55 to Z=55.05 -->
+    <rect x="972.5" y="219.9" width="37.5" height="96.2" class="outline"/>
+    <!-- Inner void (the motor sits here): 3mm wall each side in Y, so inner Y: 112..121 -->
+    <!-- sY(112)=980, sY(121)=1002.5 -->
+    <!-- Inner Z: bottom of arc at Z=16.55, top of arc at Z=52.05 -->
+    <!-- sZ(52.05)=350-(52.05-3)*2.5=350-122.625=227.4 -->
+    <!-- Actually the cradle is open at top so inner goes up to arm tips -->
+    <!-- Inner: sY(112)=980, sY(121)=1002.5, sZ(16.55)=316.1, sZ(52.05)=227.4 -->
+    <rect x="980" y="227.4" width="22.5" height="88.7" stroke="black" stroke-width="0.6" stroke-dasharray="3,2" fill="none"/>
+
+    <!-- Boss center line (Y=83) -->
+    <line x1="907.5" y1="265" x2="907.5" y2="360" class="center"/>
+
+    <!-- Cradle center line (Y=116.50) -->
+    <!-- sY(116.50)=700+116.5*2.5=991.25 -->
+    <line x1="991.3" y1="213" x2="991.3" y2="360" class="center"/>
+
+    <!-- ===== DIMENSIONS - Side View ===== -->
+
+    <!-- Boss Y position from rear wall (Y=8.5 inner face to Y=83) -->
+    <!-- sY(8.5)=700+8.5*2.5=721.25 -->
+    <line x1="721.3" y1="271.8" x2="721.3" y2="260" class="ext"/>
+    <line x1="907.5" y1="271.8" x2="907.5" y2="260" class="ext"/>
+    <line x1="721.3" y1="263" x2="907.5" y2="263" class="dimline" marker-start="url(#arrow-rev)" marker-end="url(#arrow)"/>
+    <text x="814.4" y="258" class="dim">74.50</text>
+
+    <!-- Cradle Y position (Y=83 to Y=116.50) = 33.50mm -->
+    <line x1="907.5" y1="271.8" x2="907.5" y2="252" class="ext"/>
+    <line x1="991.3" y1="271.8" x2="991.3" y2="252" class="ext"/>
+    <line x1="907.5" y1="255" x2="991.3" y2="255" class="dimline" marker-start="url(#arrow-rev)" marker-end="url(#arrow)"/>
+    <text x="949.4" y="250" class="dim">33.50</text>
+
+    <!-- Cradle depth: 15mm -->
+    <line x1="972.5" y1="215" x2="972.5" y2="207" class="ext"/>
+    <line x1="1010" y1="215" x2="1010" y2="207" class="ext"/>
+    <line x1="972.5" y1="210" x2="1010" y2="210" class="dimline" marker-start="url(#arrow-rev)" marker-end="url(#arrow)"/>
+    <text x="991.3" y="205" class="dim">15</text>
+
+    <!-- Boss height (same as front: 31.30mm) -->
+    <line x1="920" y1="350" x2="940" y2="350" class="ext"/>
+    <line x1="920" y1="271.8" x2="940" y2="271.8" class="ext"/>
+    <line x1="936" y1="350" x2="936" y2="271.8" class="dimline" marker-start="url(#arrow-rev)" marker-end="url(#arrow)"/>
+    <text x="953" y="315" class="dim">31.30</text>
+
+    <!-- Cradle arm tip height from bracket plane: 20.75mm -->
+    <line x1="1014" y1="271.8" x2="1030" y2="271.8" class="ext"/>
+    <line x1="1014" y1="219.9" x2="1030" y2="219.9" class="ext"/>
+    <line x1="1026" y1="271.8" x2="1026" y2="219.9" class="dimline" marker-start="url(#arrow-rev)" marker-end="url(#arrow)"/>
+    <text x="1046" y="249" class="dim-small">20.75</text>
+
+    <!-- Rear wall inner face reference: Y=8.5 -->
+    <line x1="721.3" y1="350" x2="721.3" y2="357.5" class="thin"/>
+    <text x="721.3" y="370" class="dim-small">Y=8.5</text>
+
+    <!-- Pilot hole depth: 7mm -->
+    <line x1="914.5" y1="271.8" x2="926" y2="271.8" class="ext"/>
+    <line x1="914.5" y1="289.3" x2="926" y2="289.3" class="ext"/>
+    <line x1="922" y1="271.8" x2="922" y2="289.3" class="dimline" marker-start="url(#arrow-rev)" marker-end="url(#arrow)"/>
+    <text x="922" y="284" class="dim-small">7</text>
+  </g>
+
+  <!-- ============================================================ -->
+  <!-- TOP VIEW (looking along -Z, from above)                      -->
+  <!-- Horizontal: X (width), Vertical: Y (depth, 0=rear at top)    -->
+  <!-- Scale: 2.5 px/mm                                              -->
+  <!-- tX(mm) = 80 + mm*2.5                                         -->
+  <!-- tY(mm) = 480 + mm*2.5                                        -->
+  <!-- Shares X pixel alignment with front view approximately       -->
+  <!-- ============================================================ -->
+
+  <text x="280" y="430" class="label">TOP VIEW (looking along -Z)</text>
+  <text x="280" y="445" class="dim-small">Scale 2.5:1 (2.5 px/mm)</text>
+
+  <g id="top-view">
+    <!-- Tray outline: X=0..160, Y=0..155 -->
+    <!-- tX(0)=80, tX(160)=480 -->
+    <!-- tY(0)=480, tY(155)=867.5 -->
+    <rect x="80" y="480" width="400" height="387.5" class="outline"/>
+
+    <!-- Wall inner faces for reference -->
+    <!-- Left wall inner: X=5 => tX=92.5 -->
+    <!-- Right wall inner: X=155 => tX=467.5 -->
+    <!-- Rear wall inner: Y=8.5 => tY=501.25 -->
+
+    <!-- ===== Boss P1-L top view: circle at X=18.48, Y=83 ===== -->
+    <!-- tX(18.48)=80+18.48*2.5=126.2, tY(83)=480+83*2.5=687.5 -->
+    <!-- OD=8mm => r=4mm => 10px radius -->
+    <circle cx="126.2" cy="687.5" r="10" class="section"/>
+    <!-- Pilot hole: 4mm dia => r=2mm => 5px -->
+    <circle cx="126.2" cy="687.5" r="5" class="hidden"/>
+    <!-- Cross-shaped ribs: 4 ribs extending 4mm (10px) radially, 2mm (5px) wide -->
+    <!-- +X rib: from circle edge (136.2) to 136.2+10=146.2, 2.5px each side of center Y -->
+    <rect x="136.2" y="685" width="10" height="5" class="section"/>
+    <!-- -X rib: 116.2-10=106.2 to 116.2 -->
+    <rect x="106.2" y="685" width="10" height="5" class="section"/>
+    <!-- +Y rib: from 697.5 to 707.5 -->
+    <rect x="123.7" y="697.5" width="5" height="10" class="section"/>
+    <!-- -Y rib: from 667.5 to 677.5 -->
+    <rect x="123.7" y="667.5" width="5" height="10" class="section"/>
+    <!-- Center lines -->
+    <line x1="100" y1="687.5" x2="152" y2="687.5" class="center"/>
+    <line x1="126.2" y1="661" x2="126.2" y2="714" class="center"/>
+
+    <!-- ===== Boss P1-R: X=67.93, Y=83 ===== -->
+    <!-- tX(67.93)=80+67.93*2.5=249.8 -->
+    <circle cx="249.8" cy="687.5" r="10" class="section"/>
+    <circle cx="249.8" cy="687.5" r="5" class="hidden"/>
+    <rect x="259.8" y="685" width="10" height="5" class="section"/>
+    <rect x="229.8" y="685" width="10" height="5" class="section"/>
+    <rect x="247.3" y="697.5" width="5" height="10" class="section"/>
+    <rect x="247.3" y="667.5" width="5" height="10" class="section"/>
+    <line x1="224" y1="687.5" x2="276" y2="687.5" class="center"/>
+    <line x1="249.8" y1="661" x2="249.8" y2="714" class="center"/>
+
+    <!-- ===== Boss P2-L: X=92.08, Y=83 ===== -->
+    <!-- tX(92.08)=80+92.08*2.5=310.2 -->
+    <circle cx="310.2" cy="687.5" r="10" class="section"/>
+    <circle cx="310.2" cy="687.5" r="5" class="hidden"/>
+    <rect x="320.2" y="685" width="10" height="5" class="section"/>
+    <rect x="290.2" y="685" width="10" height="5" class="section"/>
+    <rect x="307.7" y="697.5" width="5" height="10" class="section"/>
+    <rect x="307.7" y="667.5" width="5" height="10" class="section"/>
+    <line x1="284" y1="687.5" x2="336" y2="687.5" class="center"/>
+    <line x1="310.2" y1="661" x2="310.2" y2="714" class="center"/>
+
+    <!-- ===== Boss P2-R: X=141.53, Y=83 ===== -->
+    <!-- tX(141.53)=80+141.53*2.5=433.8 -->
+    <circle cx="433.8" cy="687.5" r="10" class="section"/>
+    <circle cx="433.8" cy="687.5" r="5" class="hidden"/>
+    <rect x="443.8" y="685" width="10" height="5" class="section"/>
+    <rect x="413.8" y="685" width="10" height="5" class="section"/>
+    <rect x="431.3" y="697.5" width="5" height="10" class="section"/>
+    <rect x="431.3" y="667.5" width="5" height="10" class="section"/>
+    <line x1="408" y1="687.5" x2="460" y2="687.5" class="center"/>
+    <line x1="433.8" y1="661" x2="433.8" y2="714" class="center"/>
+
+    <!-- ===== Motor Cradle 1 (top view): rectangle at X=22.45..63.95, Y=109..124 ===== -->
+    <!-- tX(22.45)=80+22.45*2.5=136.1, tX(63.95)=80+63.95*2.5=239.9 -->
+    <!-- tY(109)=480+109*2.5=752.5, tY(124)=480+124*2.5=790 -->
+    <rect x="136.1" y="752.5" width="103.8" height="37.5" class="outline"/>
+    <!-- Inner void (motor cavity): inner radius 17.75 from X center 43.20 -->
+    <!-- X: 43.20-17.75=25.45 to 43.20+17.75=60.95 -->
+    <!-- tX(25.45)=143.6, tX(60.95)=232.4, width=88.8px -->
+    <!-- Y: centered at 116.5, 15-2*3=9mm inner depth? No - inner is the motor hole -->
+    <!-- Actually in top view the circle cross-section is visible: 35.5mm ID circle -->
+    <!-- But it's 180 degree arc, open at top. In top view (looking down), we see the opening. -->
+    <!-- Inner hole: tY(109+3)=tY(112)=760, tY(124-3)=tY(121)=782.5 -->
+    <rect x="143.6" y="760" width="88.8" height="22.5" stroke="black" stroke-width="0.6" stroke-dasharray="3,2" fill="none"/>
+    <!-- Cradle center line -->
+    <line x1="130" y1="771.3" x2="246" y2="771.3" class="center"/>
+    <line x1="188" y1="746" x2="188" y2="796" class="center"/>
+
+    <!-- ===== Motor Cradle 2: X=96.05..137.55, Y=109..124 ===== -->
+    <!-- tX(96.05)=80+96.05*2.5=320.1, tX(137.55)=80+137.55*2.5=423.9 -->
+    <rect x="320.1" y="752.5" width="103.8" height="37.5" class="outline"/>
+    <!-- Inner void: X center=116.80, 116.80-17.75=99.05, 116.80+17.75=134.55 -->
+    <!-- tX(99.05)=327.6, tX(134.55)=416.4, width=88.8 -->
+    <rect x="327.6" y="760" width="88.8" height="22.5" stroke="black" stroke-width="0.6" stroke-dasharray="3,2" fill="none"/>
+    <line x1="314" y1="771.3" x2="430" y2="771.3" class="center"/>
+    <line x1="372" y1="746" x2="372" y2="796" class="center"/>
+
+    <!-- ===== DIMENSIONS - Top View ===== -->
+
+    <!-- Boss Y from rear wall: Y=8.5 to Y=83 = 74.5mm -->
+    <!-- Boss row center line at tY(83)=687.5 -->
+    <line x1="74" y1="501.3" x2="66" y2="501.3" class="ext"/>
+    <line x1="74" y1="687.5" x2="66" y2="687.5" class="ext"/>
+    <line x1="70" y1="501.3" x2="70" y2="687.5" class="dimline" marker-start="url(#arrow-rev)" marker-end="url(#arrow)"/>
+    <text x="56" y="598" class="dim" transform="rotate(-90,56,598)">74.50</text>
+
+    <!-- Cradle Y center: Y=83 to Y=116.50 = 33.5mm -->
+    <line x1="74" y1="687.5" x2="58" y2="687.5" class="ext"/>
+    <line x1="74" y1="771.3" x2="58" y2="771.3" class="ext"/>
+    <line x1="62" y1="687.5" x2="62" y2="771.3" class="dimline" marker-start="url(#arrow-rev)" marker-end="url(#arrow)"/>
+    <text x="48" y="732" class="dim" transform="rotate(-90,48,732)">33.50</text>
+
+    <!-- Cradle outer width: 41.50mm (Cradle 1) -->
+    <line x1="136.1" y1="796" x2="136.1" y2="808" class="ext"/>
+    <line x1="239.9" y1="796" x2="239.9" y2="808" class="ext"/>
+    <line x1="136.1" y1="804" x2="239.9" y2="804" class="dimline" marker-start="url(#arrow-rev)" marker-end="url(#arrow)"/>
+    <text x="188" y="818" class="dim">41.50</text>
+
+    <!-- Boss labels in top view -->
+    <text x="126.2" y="660" class="dim-small">P1-L</text>
+    <text x="249.8" y="660" class="dim-small">P1-R</text>
+    <text x="310.2" y="660" class="dim-small">P2-L</text>
+    <text x="433.8" y="660" class="dim-small">P2-R</text>
+
+    <text x="188" y="744" class="dim-small">Cradle 1</text>
+    <text x="372" y="744" class="dim-small">Cradle 2</text>
+  </g>
+
+  <!-- ============================================================ -->
+  <!-- DETAIL A: Boss Cross-Section (top view, enlarged)            -->
+  <!-- Scale: 8 px/mm                                               -->
+  <!-- Shows boss OD, pilot hole, 4 reinforcement ribs              -->
+  <!-- ============================================================ -->
+
+  <text x="1120" y="430" class="label">DETAIL A: Boss Cross-Section (Top View)</text>
+  <text x="1120" y="445" class="dim-small">Scale 8:1 (8 px/mm)</text>
+
+  <g id="detail-boss">
+    <!-- Detail frame -->
+    <rect x="980" y="455" width="280" height="280" class="detail-frame"/>
+
+    <!-- Boss center at (1120, 595) in detail view -->
+    <!-- OD=8mm, r=4mm => 32px radius -->
+    <!-- Pilot hole: 4mm dia, r=2mm => 16px radius -->
+
+    <!-- Boss circle (filled section) -->
+    <circle cx="1120" cy="595" r="32" class="section"/>
+    <!-- Pilot hole (open) -->
+    <circle cx="1120" cy="595" r="16" stroke="black" stroke-width="0.8" fill="white"/>
+
+    <!-- +X rib: from boss surface to +4mm (32px) -->
+    <!-- 2mm thick (16px) centered on boss center Y=595 -->
+    <rect x="1152" y="587" width="32" height="16" class="section"/>
+    <!-- -X rib -->
+    <rect x="1056" y="587" width="32" height="16" class="section"/>
+    <!-- +Y rib (downward in SVG) -->
+    <rect x="1112" y="627" width="16" height="32" class="section"/>
+    <!-- -Y rib (upward in SVG) -->
+    <rect x="1112" y="531" width="16" height="32" class="section"/>
+
+    <!-- Center lines -->
+    <line x1="1040" y1="595" x2="1200" y2="595" class="center"/>
+    <line x1="1120" y1="515" x2="1120" y2="675" class="center"/>
+
+    <!-- DIMENSIONS -->
+
+    <!-- Boss OD: 8mm (horizontal) -->
+    <line x1="1088" y1="560" x2="1088" y2="548" class="ext"/>
+    <line x1="1152" y1="560" x2="1152" y2="548" class="ext"/>
+    <line x1="1088" y1="552" x2="1152" y2="552" class="dimline" marker-start="url(#arrow-rev)" marker-end="url(#arrow)"/>
+    <text x="1120" y="546" class="dim">8.00</text>
+
+    <!-- Pilot hole dia: 4mm -->
+    <line x1="1104" y1="595" x2="1104" y2="625" class="ext"/>
+    <line x1="1136" y1="595" x2="1136" y2="625" class="ext"/>
+    <line x1="1104" y1="621" x2="1136" y2="621" class="dimline" marker-start="url(#arrow-rev)" marker-end="url(#arrow)"/>
+    <text x="1120" y="636" class="dim">4.00</text>
+
+    <!-- Rib radial extent: 4mm -->
+    <line x1="1152" y1="580" x2="1152" y2="572" class="ext"/>
+    <line x1="1184" y1="580" x2="1184" y2="572" class="ext"/>
+    <line x1="1152" y1="576" x2="1184" y2="576" class="dimline" marker-start="url(#arrow-rev)" marker-end="url(#arrow)"/>
+    <text x="1168" y="570" class="dim-small">4.00</text>
+
+    <!-- Rib thickness: 2mm -->
+    <line x1="1190" y1="587" x2="1200" y2="587" class="ext"/>
+    <line x1="1190" y1="603" x2="1200" y2="603" class="ext"/>
+    <line x1="1196" y1="587" x2="1196" y2="603" class="dimline" marker-start="url(#arrow-rev)" marker-end="url(#arrow)"/>
+    <text x="1220" y="598" class="dim-small">2.00</text>
+
+    <!-- Total bounding dia: 16mm -->
+    <line x1="1056" y1="670" x2="1056" y2="682" class="ext"/>
+    <line x1="1184" y1="670" x2="1184" y2="682" class="ext"/>
+    <line x1="1056" y1="678" x2="1184" y2="678" class="dimline" marker-start="url(#arrow-rev)" marker-end="url(#arrow)"/>
+    <text x="1120" y="694" class="dim">16.00</text>
+
+    <text x="1120" y="725" class="dim-small">Bounding circle incl. ribs</text>
+  </g>
+
+  <!-- ============================================================ -->
+  <!-- DETAIL B: Boss Side Section (front view cut through boss)    -->
+  <!-- Scale: 6 px/mm                                               -->
+  <!-- Shows pilot hole, heat-set insert, M3 screw, bracket ear     -->
+  <!-- ============================================================ -->
+
+  <text x="1440" y="95" class="label">DETAIL B: Boss Section (XZ plane)</text>
+  <text x="1440" y="110" class="dim-small">Scale 6:1 (6 px/mm)</text>
+
+  <g id="detail-section">
+    <!-- Detail frame -->
+    <rect x="1290" y="120" width="300" height="300" class="detail-frame"/>
+
+    <!-- Section through boss center, XZ plane -->
+    <!-- Scale: 6px/mm. Boss bottom at Z=3 near frame bottom, top at Z=34.30 -->
+    <!-- Place Z=3 at frame-y=390 (near bottom of frame) -->
+    <!-- dX(mm from boss center) = 1440 + mm*6 -->
+    <!-- dZ(mm) = 390 - (mm-3)*6 -->
+
+    <!-- Boss column section: 8mm OD, cut through center -->
+    <!-- Left edge: 1440-4*6=1416, right edge: 1440+4*6=1464 -->
+    <!-- Z=3: y=390, Z=34.30: y=390-(34.30-3)*6=390-187.8=202.2 -->
+    <rect x="1416" y="202.2" width="48" height="187.8" class="section"/>
+
+    <!-- Pilot hole: 4mm dia => 2mm each side, 7mm deep from top -->
+    <!-- Left: 1440-2*6=1428, Right: 1440+2*6=1452 -->
+    <!-- Top: Z=34.30 => y=202.2, Bottom: Z=27.30 => y=390-(27.30-3)*6=390-145.8=244.2 -->
+    <rect x="1428" y="202.2" width="24" height="42" stroke="black" stroke-width="0.8" fill="white"/>
+
+    <!-- Heat-set insert: M3 x 5.7mm, ~4mm OD, from Z=34.30 down 5.7mm to Z=28.60 -->
+    <!-- dZ(28.60)=390-(28.60-3)*6=390-153.6=236.4 -->
+    <!-- Insert OD ~4mm => same as pilot hole edges -->
+    <rect x="1428" y="202.2" width="24" height="34.2" stroke="black" stroke-width="1" fill="#d4a843" fill-opacity="0.6"/>
+    <!-- Insert knurling indication -->
+    <line x1="1428" y1="210" x2="1428" y2="236.4" stroke="#8B6914" stroke-width="1.5"/>
+    <line x1="1452" y1="210" x2="1452" y2="236.4" stroke="#8B6914" stroke-width="1.5"/>
+
+    <!-- M3 SHCS (above boss): head dia 5.5mm, head height 3mm, shaft 3mm dia -->
+    <!-- Screw head: Z=34.30+1.5(bracket)+3(head)=38.80 to Z=34.30+1.5=35.80 -->
+    <!-- dZ(38.80)=390-(38.80-3)*6=390-214.8=175.2 -->
+    <!-- dZ(35.80)=390-(35.80-3)*6=390-196.8=193.2 -->
+    <!-- Head width: 5.5mm => 1440-2.75*6=1423.5 to 1440+2.75*6=1456.5 -->
+    <rect x="1423.5" y="175.2" width="33" height="18" stroke="black" stroke-width="0.8" fill="#aaa"/>
+
+    <!-- Screw shaft through bracket: 3mm dia => 1440-1.5*6=1431 to 1440+1.5*6=1449 -->
+    <!-- From Z=35.80 (under head) down into insert -->
+    <rect x="1431" y="193.2" width="18" height="9" stroke="black" stroke-width="0.8" fill="#aaa"/>
+
+    <!-- Bracket ear (hatched differently): at Z=34.30 to Z=35.80 (1.5mm thick) -->
+    <!-- dZ(34.30)=202.2, dZ(35.80)=193.2 -->
+    <!-- Bracket ear wider than boss: ~6mm per side overhang. Show 14mm width -->
+    <!-- 1440-7*6=1398 to 1440+7*6=1482 -->
+    <rect x="1398" y="193.2" width="84" height="9" stroke="black" stroke-width="0.8" fill="#ccc" fill-opacity="0.5"/>
+
+    <!-- Floor reference line at Z=3 -->
+    <line x1="1398" y1="390" x2="1482" y2="390" stroke="black" stroke-width="1.2"/>
+
+    <!-- Center line -->
+    <line x1="1440" y1="168" x2="1440" y2="396" class="center"/>
+
+    <!-- ===== DIMENSIONS - Detail B ===== -->
+
+    <!-- Boss height: 31.30mm -->
+    <line x1="1468" y1="390" x2="1490" y2="390" class="ext"/>
+    <line x1="1468" y1="202.2" x2="1490" y2="202.2" class="ext"/>
+    <line x1="1486" y1="390" x2="1486" y2="202.2" class="dimline" marker-start="url(#arrow-rev)" marker-end="url(#arrow)"/>
+    <text x="1510" y="300" class="dim">31.30</text>
+
+    <!-- Pilot hole depth: 7mm -->
+    <line x1="1456" y1="202.2" x2="1468" y2="202.2" class="ext"/>
+    <line x1="1456" y1="244.2" x2="1468" y2="244.2" class="ext"/>
+    <line x1="1464" y1="202.2" x2="1464" y2="244.2" class="dimline" marker-start="url(#arrow-rev)" marker-end="url(#arrow)"/>
+    <text x="1476" y="226" class="dim-small">7.00</text>
+
+    <!-- Insert length: 5.7mm -->
+    <line x1="1424" y1="202.2" x2="1406" y2="202.2" class="ext"/>
+    <line x1="1424" y1="236.4" x2="1406" y2="236.4" class="ext"/>
+    <line x1="1410" y1="202.2" x2="1410" y2="236.4" class="dimline" marker-start="url(#arrow-rev)" marker-end="url(#arrow)"/>
+    <text x="1396" y="222" class="dim-small">5.70</text>
+
+    <!-- Screw head height: 3mm -->
+    <line x1="1460" y1="175.2" x2="1476" y2="175.2" class="ext"/>
+    <line x1="1460" y1="193.2" x2="1476" y2="193.2" class="ext"/>
+    <line x1="1472" y1="175.2" x2="1472" y2="193.2" class="dimline" marker-start="url(#arrow-rev)" marker-end="url(#arrow)"/>
+    <text x="1484" y="187" class="dim-small">3.00</text>
+
+    <!-- Boss OD: 8mm -->
+    <line x1="1416" y1="394" x2="1416" y2="406" class="ext"/>
+    <line x1="1464" y1="394" x2="1464" y2="406" class="ext"/>
+    <line x1="1416" y1="402" x2="1464" y2="402" class="dimline" marker-start="url(#arrow-rev)" marker-end="url(#arrow)"/>
+    <text x="1440" y="414" class="dim">8.00</text>
+
+    <!-- Pilot hole dia: 4mm -->
+    <line x1="1428" y1="246" x2="1428" y2="258" class="ext"/>
+    <line x1="1452" y1="246" x2="1452" y2="258" class="ext"/>
+    <line x1="1428" y1="254" x2="1452" y2="254" class="dimline" marker-start="url(#arrow-rev)" marker-end="url(#arrow)"/>
+    <text x="1440" y="268" class="dim">4.00</text>
+
+    <!-- Bracket thickness: ~1.5mm -->
+    <line x1="1486" y1="193.2" x2="1498" y2="193.2" class="ext"/>
+    <line x1="1486" y1="202.2" x2="1498" y2="202.2" class="ext"/>
+    <line x1="1494" y1="193.2" x2="1494" y2="202.2" class="dimline" marker-start="url(#arrow-rev)" marker-end="url(#arrow)"/>
+    <text x="1518" y="200" class="dim-small">~1.5</text>
+
+    <!-- Labels -->
+    <text x="1320" y="196" class="note">Bracket ear</text>
+    <text x="1320" y="180" class="note">M3 x 8 SHCS</text>
+    <text x="1310" y="254" class="note">Heat-set insert</text>
+    <text x="1310" y="268" class="note">M3 x 5.7 brass</text>
+    <text x="1320" y="350" class="note">Boss (PETG)</text>
+    <text x="1320" y="395" class="note">Floor Z=3.00</text>
+  </g>
+
+  <!-- ============================================================ -->
+  <!-- DETAIL C: Motor Cradle Cross-Section (XZ plane at Y=116.50)  -->
+  <!-- Scale: 4 px/mm                                               -->
+  <!-- Shows semicircular arc, support rib, motor body outline      -->
+  <!-- ============================================================ -->
+
+  <text x="1120" y="780" class="label">DETAIL C: Cradle Section (XZ at Y=116.5)</text>
+  <text x="1120" y="795" class="dim-small">Scale 4:1 (4 px/mm)</text>
+
+  <g id="detail-cradle">
+    <!-- Detail frame -->
+    <rect x="940" y="805" width="360" height="320" class="detail-frame"/>
+
+    <!-- Cradle 1 center at X=43.20. Place center of view at (1120, 980) -->
+    <!-- cX(mm from center) = 1120 + mm*4 -->
+    <!-- cZ(mm) = 980 + (34.30 - mm)*4   (Z=34.30 at y=980, Z up = y up) -->
+    <!-- Wait: Z increases upward, SVG y increases downward -->
+    <!-- cZ(mm) = 980 - (mm - 34.30)*4 = 980 - mm*4 + 137.2 = 1117.2 - mm*4 -->
+
+    <!-- Floor at Z=3: y=1117.2-3*4=1105.2 -->
+    <!-- Floor line -->
+    <line x1="960" y1="1105.2" x2="1280" y2="1105.2" stroke="black" stroke-width="1.2"/>
+
+    <!-- Support rib: Z=3 to Z=16.55, full outer width 41.50mm -->
+    <!-- X extent: center +/- 20.75mm => cX(-20.75)=1037, cX(+20.75)=1203 -->
+    <!-- cZ(3)=1105.2, cZ(16.55)=1117.2-16.55*4=1117.2-66.2=1051 -->
+    <rect x="1037" y="1051" width="166" height="54.2" class="section"/>
+
+    <!-- Cradle arc: outer radius 20.75mm (83px), inner radius 17.75mm (71px) -->
+    <!-- Arc center at (1120, 980), 180 degrees bottom half -->
+    <!-- Outer arc from (-20.75, 0) around bottom to (+20.75, 0) relative to center -->
+    <!-- In SVG: arc from (1037, 980) curving down to bottom then to (1203, 980) -->
+    <!-- Outer arc: sweeps from 180deg to 0deg (bottom semicircle) -->
+    <!-- Start: (1120-83, 980) = (1037, 980), End: (1120+83, 980) = (1203, 980) -->
+    <!-- The arc goes downward (positive y) since it's the bottom half -->
+    <path d="M1037,980 A83,83 0 0,0 1203,980" class="section"/>
+    <!-- Top edges of arms (left arm from (1037,980) up, right arm from (1203,980) up) -->
+    <!-- Arm tip height at Z=55.05: cZ(55.05)=1117.2-55.05*4=1117.2-220.2=897 -->
+    <!-- But that's above the frame. Let me just show the arms to the frame edge. -->
+    <!-- Z=52.05 (inner) and Z=55.05 (outer) are the arm tips -->
+    <!-- cZ(55.05)=897, cZ(52.05)=1117.2-52.05*4=908.8 -->
+    <!-- Left arm outer: x=1037, from y=980 up to y=897 -->
+    <line x1="1037" y1="980" x2="1037" y2="897" stroke="black" stroke-width="0.8"/>
+    <!-- Right arm outer: x=1203 -->
+    <line x1="1203" y1="980" x2="1203" y2="897" stroke="black" stroke-width="0.8"/>
+    <!-- Left arm inner: x=1037+12=1049 (3mm wall = 12px) -->
+    <!-- Inner arc: radius 71px -->
+    <path d="M1049,980 A71,71 0 0,0 1191,980" stroke="black" stroke-width="0.8" fill="white"/>
+    <!-- Left arm inner wall -->
+    <line x1="1049" y1="980" x2="1049" y2="908.8" stroke="black" stroke-width="0.8"/>
+    <!-- Right arm inner wall: 1203-12=1191 -->
+    <line x1="1191" y1="980" x2="1191" y2="908.8" stroke="black" stroke-width="0.8"/>
+    <!-- Arm top caps -->
+    <line x1="1037" y1="897" x2="1049" y2="897" stroke="black" stroke-width="0.8"/>
+    <line x1="1191" y1="897" x2="1203" y2="897" stroke="black" stroke-width="0.8"/>
+    <!-- Inner arm top caps (inner arm tips at Z=52.05) -->
+    <line x1="1049" y1="908.8" x2="1049" y2="908.8" stroke="black" stroke-width="0.8"/>
+    <line x1="1191" y1="908.8" x2="1191" y2="908.8" stroke="black" stroke-width="0.8"/>
+
+    <!-- Fill the arm walls as sections -->
+    <!-- Left arm fill -->
+    <rect x="1037" y="897" width="12" height="83" class="section"/>
+    <!-- Right arm fill -->
+    <rect x="1191" y="897" width="12" height="83" class="section"/>
+
+    <!-- Motor body outline (phantom/dashed): 35mm diameter circle -->
+    <!-- Radius 17.5mm = 70px, center at (1120, 980) -->
+    <circle cx="1120" cy="980" r="70" stroke="black" stroke-width="0.6" stroke-dasharray="6,3" fill="none"/>
+
+    <!-- Center lines -->
+    <line x1="1120" y1="880" x2="1120" y2="1112" class="center"/>
+    <line x1="1030" y1="980" x2="1210" y2="980" class="center"/>
+
+    <!-- ===== DIMENSIONS - Detail C ===== -->
+
+    <!-- Cradle outer diameter: 41.50mm -->
+    <line x1="1037" y1="890" x2="1037" y2="876" class="ext"/>
+    <line x1="1203" y1="890" x2="1203" y2="876" class="ext"/>
+    <line x1="1037" y1="880" x2="1203" y2="880" class="dimline" marker-start="url(#arrow-rev)" marker-end="url(#arrow)"/>
+    <text x="1120" y="873" class="dim">41.50</text>
+
+    <!-- Inner diameter: 35.50mm -->
+    <line x1="1049" y1="904" x2="1049" y2="892" class="ext"/>
+    <line x1="1191" y1="904" x2="1191" y2="892" class="ext"/>
+    <line x1="1049" y1="896" x2="1191" y2="896" class="dimline" marker-start="url(#arrow-rev)" marker-end="url(#arrow)"/>
+    <text x="1120" y="891" class="dim">35.50</text>
+
+    <!-- Wall thickness: 3mm -->
+    <!-- Wall thickness: 3mm on left arm -->
+    <line x1="1037" y1="950" x2="1025" y2="950" class="ext"/>
+    <line x1="1049" y1="950" x2="1042" y2="950" class="ext"/>
+    <line x1="1029" y1="937" x2="1029" y2="963" class="dimline" marker-start="url(#arrow-rev)" marker-end="url(#arrow)"/>
+    <text x="1015" y="955" class="dim-small">3.00</text>
+
+    <!-- Support rib height: 13.55mm (Z=3 to Z=16.55) -->
+    <line x1="1210" y1="1105.2" x2="1222" y2="1105.2" class="ext"/>
+    <line x1="1210" y1="1051" x2="1222" y2="1051" class="ext"/>
+    <line x1="1218" y1="1105.2" x2="1218" y2="1051" class="dimline" marker-start="url(#arrow-rev)" marker-end="url(#arrow)"/>
+    <text x="1240" y="1082" class="dim-small">13.55</text>
+
+    <!-- Motor body label -->
+    <text x="1120" y="975" class="dim-small">Motor ~35mm</text>
+
+    <text x="960" y="1115" class="note">Floor Z=3.00</text>
+  </g>
+
+  <!-- ============================================================ -->
+  <!-- NOTES                                                         -->
+  <!-- ============================================================ -->
+
+  <g id="notes">
+    <text x="700" y="1150" class="note" font-weight="bold">NOTES:</text>
+    <text x="700" y="1165" class="note">1. All features printed integral with tray floor (Sub-A). No separate attachment.</text>
+    <text x="700" y="1180" class="note">2. Heat-set inserts: M3 x 5.7mm brass, pressed with soldering iron into 4.00mm pilot holes.</text>
+    <text x="700" y="1195" class="note">3. Fasteners: M3 x 8mm SHCS, stainless steel, 2.5mm hex key. 4 total (2 per pump).</text>
+    <text x="700" y="1210" class="note">4. Motor cradle arcs require support material during printing (overhang > 45 deg).</text>
+    <text x="700" y="1225" class="note">5. Motor body diameter is LOW confidence (~35mm). Verify before final print.</text>
+    <text x="700" y="1240" class="note">6. Bracket ear thickness estimated ~1.5mm. Verify for screw engagement calculation.</text>
+  </g>
+
+</svg>
