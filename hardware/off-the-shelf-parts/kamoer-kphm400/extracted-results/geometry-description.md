@@ -10,11 +10,11 @@ This document describes the physical geometry of the Kamoer KPHM400-SW3B25 peris
 
 The pump is a **two-body assembly**: a black plastic **pump head** housing (roughly square cross-section when viewed from front) permanently attached to a silver cylindrical **DC motor** via a white plastic **adapter plate**. The motor shaft enters the pump head from the rear, driving an internal 3-roller peristaltic mechanism.
 
-When viewed from the front (tube connector face), the pump head appears nearly square with rounded corners. The motor protrudes behind it, creating an elongated overall profile. A **black mounting bracket** (stamped metal plate) is sandwiched between the pump head and motor, extending outward on two sides to provide mounting ears with screw holes.
+When viewed from the front (tube connector face), the pump head appears nearly square with rounded corners. The motor protrudes behind it, creating an elongated overall profile. A **black mounting bracket** (stamped metal plate) sits at the junction between the pump head and motor. The bracket face (the flat surface where the pump head and motor meet) contains **4 mounting holes in a square pattern**, with screws oriented parallel to the motor cylinder axis.
 
 ## Axis and Orientation Convention
 
-- **X (width):** Horizontal when pump is in its normal operating orientation. The mounting bracket ears extend along this axis.
+- **X (width):** Horizontal when pump is in its normal operating orientation.
 - **Y (depth):** From front face (tube connectors) toward rear (motor terminals). This is the longest dimension.
 - **Z (height):** Vertical. The pump head is roughly symmetric about the XY midplane.
 - **Front face:** The face with the Kamoer branding label, yellow priming cap, 4 corner screws, and tube connector exits.
@@ -38,15 +38,15 @@ When viewed from the front (tube connector face), the pump head appears nearly s
 - Depth of the pump head body: **~47.88–48.88mm** (caliper readings from photos 05/14 area, though see mounting hole notes below)
 
 ### Section 3: Mounting Bracket (Y ≈ 48mm)
-- Black stamped metal bracket plate at the junction between pump head and motor
-- **Extends beyond the pump head body on two sides** (mounting ears)
-- Bracket width including ears: **~68.6mm** (matches datasheet — wider than 62.6mm pump head by ~3mm per side)
+- Black stamped metal bracket plate at the junction face between pump head and motor
+- The bracket face is perpendicular to the motor cylinder axis (i.e., parallel to the pump head's rear face)
+- Bracket width: **~68.6mm** (matches datasheet — wider than 62.6mm pump head by ~3mm per side)
 - **Mounting holes:**
-  - **2x M3 through-holes** (hole diameter: **3.13mm**, caliper-verified from photo 06)
-  - **Center-to-center spacing: 49.45mm** (derived: 47.88mm edge-to-edge + 3.13mm/2 per user measurement)
-  - Measurement method: calipers squeezed into the sides of the holes measured 47.88mm edge-to-edge (photo 05), hole diameter measured directly at 3.13mm (photo 06)
-  - Holes are positioned on the mounting ears, symmetric about the pump center axis
-  - **Note:** This measures ONE axis of spacing. If the bracket has a 1x2 hole pattern (one hole per ear), this is the full pattern. If 2x2, the perpendicular spacing is TBD.
+  - **4x M3 through-holes** in a square pattern on the bracket face (hole diameter: **3.13mm**, caliper-verified from photo 06)
+  - **Center-to-center spacing: 48mm x 48mm square** (user-verified)
+  - Caliper reference: photo 05 measured 47.88mm edge-to-edge across one pair of holes; photo 06 measured hole diameter at 3.13mm
+  - The 4 holes surround the motor cylinder — screws pass through the bracket face parallel to the motor axis, threading into the pump head
+  - **This is the face where the pump mounts to a surface.** The natural mounting approach is a flat plate with a bore hole for the motor cylinder to pass through, with 4 screw holes surrounding the bore matching this 48mm square pattern.
 - Bracket thickness: ~1.5–2mm (estimated from photos)
 
 ### Section 4: Motor Adapter Plate (Y ≈ 48–52mm)
@@ -77,7 +77,7 @@ When viewed from the front (tube connector face), the pump head appears nearly s
 | 02 | 62.51mm | Pump head width, side view | HIGH |
 | 03 | 62.61mm | Pump head width, front view | HIGH |
 | 04 | 62.61mm | Pump head width, front face with branding | HIGH |
-| 05 | 47.88mm | Mounting hole edge-to-edge spacing | HIGH |
+| 05 | 47.88mm | Mounting hole edge-to-edge spacing (one axis of 4-hole square pattern) | HIGH |
 | 06 | 3.13mm | Mounting hole diameter | HIGH |
 | 07 | 116.48mm | Total length with motor nub (sideways display) | HIGH (user-verified) |
 | 08 | 115.48mm | Total length with motor nub, alt angle | MEDIUM (similar to 07) |
@@ -97,38 +97,45 @@ The Kamoer datasheet lists: **68.6W x 115.6D x 62.7H mm**
 
 | Dimension | Datasheet | Caliper | Notes |
 |-----------|-----------|---------|-------|
-| Width (X) | 68.6mm | 62.61mm (head), ~68.6 (with bracket ears) | Pump head is 62.6mm; bracket ears add ~3mm per side |
+| Width (X) | 68.6mm | 62.61mm (head), ~68.6 (with bracket) | Pump head is 62.6mm; bracket extends ~3mm per side beyond pump head |
 | Depth (Y) | 115.6mm | 116.48mm (with nub), 111.43mm (without) | Datasheet likely measures to motor end cap |
 | Height (Z) | 62.7mm | 62.51–62.61mm | Pump head is nearly square |
 
 ## Mounting Hole Pattern — Critical for Pump Tray Design
 
-```
-          ◄── 49.45mm center-to-center ──►
+The mounting holes are on the **junction face** between the pump head and motor — the flat face where the black cube meets the metal cylinder. Screws pass through this face parallel to the motor cylinder axis.
 
-    ○─────────────────────────────────────○
-    │            mounting bracket          │
-    │     ┌────────────────────────┐      │
-    │     │      pump head         │      │
-    │     │      62.6 x 62.6      │      │
-    │     └────────────────────────┘      │
-    │                                      │
-    └──────────────────────────────────────┘
-    ◄────────── ~68.6mm total ────────────►
+```
+VIEW OF THE JUNCTION FACE (looking at the pump from the motor side):
+
+              ◄── 48mm c-c ──►
+
+         ○─────────────────────○
+         │                     │  ▲
+         │    ╱ ‾ ‾ ‾ ‾ ╲     │  │
+         │   │  ~35mm     │    │  48mm c-c
+         │   │  motor     │    │  │
+         │    ╲ _ _ _ _ ╱      │  ▼
+         │                     │
+         ○─────────────────────○
+
+    ◄──────── ~68.6mm bracket ────────►
+    ◄───── 62.6mm pump head ─────►
 ```
 
+- **Hole count:** 4 (square pattern)
 - **Hole diameter:** 3.13mm (accepts M3 screws with ~0.13mm clearance)
-- **Center-to-center:** 49.45mm (one axis)
-- **Hole positions:** On the bracket ears, outside the 62.6mm pump head body, symmetric about center
-- **Ear overhang per side:** (68.6 - 62.6) / 2 ≈ 3mm — holes are roughly centered on each 3mm ear
-- **Second axis spacing:** TBD — not measured in these photos. The bracket may have only 2 holes total (1 per ear), or 4 holes in a 2x2 pattern.
+- **Pattern:** 48mm x 48mm square, center-to-center (user-verified)
+- **Hole positions:** On the bracket face surrounding the motor cylinder, symmetric about the pump center axis
+- **Orientation:** Screws are parallel to the motor/cylinder axis — they thread into the pump head from the motor side
+- **Mounting approach:** A flat mounting surface with a bore hole (~36mm+) for the motor cylinder to pass through, with 4 screw holes at 48mm square surrounding the bore
 
 ## Clearance Zones for 3D Modeling
 
 When designing a pump tray or cartridge that holds this pump:
 
 1. **Pump head envelope:** 62.6mm x 62.6mm square (rounded corners), ~48mm deep
-2. **Bracket clearance:** Bracket ears extend to 68.6mm total width. Mount with M3 screws at 49.45mm center-to-center.
+2. **Bracket/mounting face:** The junction face between pump head and motor has 4x M3 mounting holes in a 48mm square. The bracket is ~68.6mm wide. A mounting surface needs a bore hole for the ~35mm motor cylinder, surrounded by 4 screw holes at the 48mm square pattern.
 3. **Motor protrusion behind bracket:** ~63–68mm cylindrical body (~35mm diameter) with a 5mm nub at the very end. Total behind bracket: ~68mm.
 4. **Tube exit clearance in front:** ~30–50mm of BPT tube stubs protrude forward.
 5. **Wiring clearance at rear:** Motor terminals at the back need ~5mm for solder connections.
@@ -138,6 +145,5 @@ When designing a pump tray or cartridge that holds this pump:
 ## Remaining Unknowns
 
 1. **Motor body diameter:** ~35mm but uncertain. Low-confidence readings from photos 15, 16.
-2. **Second axis mounting hole spacing:** If the bracket has a 2x2 pattern, the perpendicular spacing is not measured.
-3. **Tube connector exit positions:** Exact X/Z positions of the two tube stubs on the front face.
-4. **Bracket-to-pump-head attachment:** Whether the bracket can be separated from the pump head (for measurement) or is permanently fixed.
+2. **Tube connector exit positions:** Exact X/Z positions of the two tube stubs on the front face.
+3. **Bracket-to-pump-head attachment:** Whether the bracket can be separated from the pump head (for measurement) or is permanently fixed.
