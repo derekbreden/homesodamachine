@@ -39,11 +39,11 @@
 
 ## 3. On the cartridge specifically
 
-- The release plate is inside of the cartridge, and so the quick connects are even further inside of the cartridge
+- The release plate is inside of the cartridge, and the quick connects are even further inside the cartridge than that
+- When I say the release plate is inside the cartridge, I want to be very clear - the cartridge should NOT have a release plate sitting outside of it in any way - it is important that this entire mechanism is hidden from the user. It is important that to them, the cartridge is a "black box" (with 4 holes on the back barely big enough for the tubes, and inset grooves on the side that fit onto the rails, and the "squeeze" mechanism inset on the front for them to hold and squeeze). Everything that the user can see has a purpose the user can understand at a glance.
 - The user will need to pull the release plate towards them somehow (with their fingers), and so they will need leverage to push against (with their palm), but both surfaces can be perfectly flat and that will still provide the satisfying user experience we seek.
   - The surface the users palm pushes against must eventually be attached to whatever the quick connects are mounted in
 	- The surface the users fingers pull must eventually be attached to the release plate
 	- The release plate must be able to move towards the quick connect collets
-- The cartridge itself will be on guides or rails of some sort to make a consistent and smooth motion removing and putting a new one back in
 - For putting it back in, there is no need to worry about the collets at all, regardless of their position the tubes can be pushed into the quick connects and proper mechanisms in the quick connects will ensure the the cartridge will no longer be able to be removed (without of course pushing the collets again)
 - The pumps each mount to a flat surface via 4 screws surrounding the motor cylinder — the measurements and photos in the repo have the exact dimensions.
