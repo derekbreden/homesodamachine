@@ -1,0 +1,426 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1400 950" width="1400" height="950" font-family="Arial, sans-serif" font-size="11" fill="black" stroke="black">
+
+  <title>Sub-B T-Rail Tongues — Engineering Drawing</title>
+
+  <defs>
+    <marker id="arrow" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto">
+      <path d="M0,0 L8,3 L0,6 Z" fill="black"/>
+    </marker>
+    <marker id="arrow-rev" markerWidth="8" markerHeight="6" refX="0" refY="3" orient="auto">
+      <path d="M8,0 L0,3 L8,6 Z" fill="black"/>
+    </marker>
+    <style>
+      .dim { font-size: 10px; fill: black; text-anchor: middle; }
+      .dim-small { font-size: 9px; fill: black; text-anchor: middle; }
+      .label { font-size: 12px; fill: black; font-weight: bold; text-anchor: middle; }
+      .note { font-size: 9px; fill: black; }
+      .title-text { font-size: 16px; fill: black; font-weight: bold; }
+      .subtitle { font-size: 12px; fill: black; }
+      .hidden { stroke-dasharray: 3,2; stroke-width: 0.8; fill: none; }
+      .center { stroke-dasharray: 12,3,3,3; stroke-width: 0.5; stroke: #555; fill: none; }
+      .outline { stroke: black; stroke-width: 1.2; fill: none; }
+      .thin { stroke: black; stroke-width: 0.6; fill: none; }
+      .dimline { stroke: black; stroke-width: 0.5; fill: none; }
+      .extline { stroke: black; stroke-width: 0.4; fill: none; }
+      .section { stroke: black; stroke-width: 0.8; fill: #e8e8e8; }
+      .tongue { stroke: black; stroke-width: 1.0; fill: #c8d8e8; }
+      .detail-frame { stroke: black; stroke-width: 1.0; fill: white; }
+      .viewlbl { font-size: 12px; fill: black; font-weight: bold; text-anchor: middle; }
+    </style>
+  </defs>
+
+  <!-- Title Block -->
+  <text x="700" y="30" class="title-text" text-anchor="middle">Sub-B T-Rail Tongues</text>
+  <text x="700" y="48" class="subtitle" text-anchor="middle">Cartridge Tray — Third-Angle Orthographic Projection</text>
+  <text x="700" y="64" class="note" text-anchor="middle">Material: PETG | All dimensions in mm | Tongues integral to tray (boolean union)</text>
+  <line x1="100" y1="72" x2="1300" y2="72" stroke="black" stroke-width="0.5"/>
+
+  <!-- ============================================================ -->
+  <!-- FRONT VIEW (looking along -Y)                                -->
+  <!-- Horizontal: X (width), Vertical: Z (height)                 -->
+  <!-- Scale: 3 px/mm                                              -->
+  <!-- Origin: (120, 420) => X=0mm, Z=0mm                          -->
+  <!-- fX(mm) = 120 + mm*3                                         -->
+  <!-- fZ(mm) = 420 - mm*3                                         -->
+  <!-- Tray: X=0..160 => px 120..600, Z=0..72 => px 420..204      -->
+  <!-- Left tongue: X=-4..0 => px 108..120, Z=51..57 => px 267..249 -->
+  <!-- Right tongue: X=160..164 => px 600..612, Z=15..21 => px 375..357 -->
+  <!-- ============================================================ -->
+
+  <text x="360" y="95" class="viewlbl">FRONT VIEW (looking along -Y)</text>
+  <text x="360" y="110" class="dim-small">Scale 3:1 (3 px/mm)</text>
+
+  <!-- Tray body outline (context) -->
+  <rect x="120" y="204" width="480" height="216" class="outline"/>
+
+  <!-- Left T-tongue cross-section (filled) -->
+  <!-- Stem: X=-2..0 (px 114..120), Z=52.5..55.5 (px 253.5..262.5) -->
+  <!-- Cap: X=-4..-2 (px 108..114), Z=51..57 (px 249..267) -->
+  <polygon points="120,262.5 114,262.5 114,267 108,267 108,249 114,249 114,253.5 120,253.5" class="tongue"/>
+
+  <!-- Right T-tongue cross-section (filled) -->
+  <!-- Stem: X=160..162 (px 600..606), Z=16.5..19.5 (px 370.5..361.5) -->
+  <!-- Cap: X=162..164 (px 606..612), Z=15..21 (px 375..357) -->
+  <polygon points="600,361.5 606,361.5 606,357 612,357 612,375 606,375 606,370.5 600,370.5" class="tongue"/>
+
+  <!-- Center lines for tongue Z positions -->
+  <!-- Left tongue center Z=54 => px 258 -->
+  <line x1="104" y1="258" x2="124" y2="258" class="center"/>
+  <!-- Right tongue center Z=18 => px 366 -->
+  <line x1="596" y1="366" x2="616" y2="366" class="center"/>
+
+  <!-- === FRONT VIEW DIMENSIONS === -->
+
+  <!-- Left tongue Z position: Z=54 from bottom -->
+  <!-- Vertical dim from Z=0 (px 420) to Z=54 (px 258) on left side -->
+  <line x1="98" y1="420" x2="98" y2="258" class="dimline" marker-start="url(#arrow-rev)" marker-end="url(#arrow)"/>
+  <line x1="108" y1="420" x2="94" y2="420" class="ext extline"/>
+  <line x1="108" y1="258" x2="94" y2="258" class="ext extline"/>
+  <text x="86" y="343" class="dim" transform="rotate(-90,86,343)">54.0</text>
+
+  <!-- Left tongue cap height: 6mm, Z=51..57 => px 267..249 -->
+  <line x1="102" y1="267" x2="102" y2="249" class="dimline" marker-start="url(#arrow-rev)" marker-end="url(#arrow)"/>
+  <line x1="108" y1="267" x2="99" y2="267" class="ext extline"/>
+  <line x1="108" y1="249" x2="99" y2="249" class="ext extline"/>
+  <text x="96" y="256" class="dim-small">6.0</text>
+
+  <!-- Right tongue Z position: Z=18 from bottom -->
+  <line x1="622" y1="420" x2="622" y2="366" class="dimline" marker-start="url(#arrow-rev)" marker-end="url(#arrow)"/>
+  <line x1="612" y1="420" x2="626" y2="420" class="ext extline"/>
+  <line x1="612" y1="366" x2="626" y2="366" class="ext extline"/>
+  <text x="634" y="397" class="dim" transform="rotate(-90,634,397)">18.0</text>
+
+  <!-- Tray width dimension: 160mm along bottom -->
+  <line x1="120" y1="434" x2="600" y2="434" class="dimline" marker-start="url(#arrow-rev)" marker-end="url(#arrow)"/>
+  <line x1="120" y1="420" x2="120" y2="438" class="ext extline"/>
+  <line x1="600" y1="420" x2="600" y2="438" class="ext extline"/>
+  <text x="360" y="448" class="dim">160.0</text>
+
+  <!-- Tray height dimension: 72mm along right side -->
+  <line x1="614" y1="420" x2="614" y2="204" class="dimline" marker-start="url(#arrow-rev)" marker-end="url(#arrow)"/>
+  <line x1="600" y1="204" x2="618" y2="204" class="ext extline"/>
+  <text x="626" y="316" class="dim" transform="rotate(-90,626,316)">72.0</text>
+
+  <!-- Left tongue protrusion: 4mm, X=-4..0 => px 108..120 -->
+  <line x1="108" y1="243" x2="120" y2="243" class="dimline" marker-start="url(#arrow-rev)" marker-end="url(#arrow)"/>
+  <line x1="108" y1="249" x2="108" y2="240" class="ext extline"/>
+  <line x1="120" y1="249" x2="120" y2="240" class="ext extline"/>
+  <text x="114" y="237" class="dim-small">4.0</text>
+
+  <!-- Keying offset annotation -->
+  <line x1="104" y1="258" x2="104" y2="366" class="dim dimline" stroke-dasharray="2,2" stroke="#888"/>
+  <text x="40" y="296" class="note" text-anchor="start">36.0 keying</text>
+  <text x="40" y="306" class="note" text-anchor="start">offset (Z)</text>
+
+  <!-- ============================================================ -->
+  <!-- SIDE VIEW (looking along -X, left side)                      -->
+  <!-- Horizontal: Y (depth), Vertical: Z (height)                 -->
+  <!-- Scale: Y at 1.5 px/mm, Z at 3 px/mm (shared with front)    -->
+  <!-- Origin: (680, 420) => Y=0, Z=0                              -->
+  <!-- sY(mm) = 680 + mm*1.5                                       -->
+  <!-- sZ(mm) = 420 - mm*3 (same Z mapping as front)               -->
+  <!-- Tray: Y=0..155 => px 680..912.5, Z=0..72 => px 420..204    -->
+  <!-- ============================================================ -->
+
+  <text x="797" y="95" class="viewlbl">LEFT SIDE VIEW (looking along -X)</text>
+  <text x="797" y="110" class="dim-small">Scale Y: 1.5 px/mm, Z: 3 px/mm</text>
+
+  <!-- Tray body outline -->
+  <rect x="680" y="204" width="232.5" height="216" class="outline"/>
+
+  <!-- Left tongue visible as rectangle: Y=0..155, Z=51..57 (cap) -->
+  <!-- Y: px 680..912.5, Z=51..57 => px 267..249 -->
+  <rect x="680" y="249" width="232.5" height="18" class="tongue"/>
+
+  <!-- Stem hidden behind cap in this view: Z=52.5..55.5, but it's
+       behind the wall face so shown as hidden lines -->
+  <!-- The stem connects at the wall face (X=0 plane) which is behind
+       the cap. In side view looking along -X, cap occludes stem. -->
+
+  <!-- Center line at Z=54 (px 258) -->
+  <line x1="674" y1="258" x2="918" y2="258" class="center"/>
+
+  <!-- === SIDE VIEW DIMENSIONS === -->
+
+  <!-- Depth dimension: 155mm -->
+  <line x1="680" y1="434" x2="912.5" y2="434" class="dimline" marker-start="url(#arrow-rev)" marker-end="url(#arrow)"/>
+  <line x1="680" y1="420" x2="680" y2="438" class="ext extline"/>
+  <line x1="912.5" y1="420" x2="912.5" y2="438" class="ext extline"/>
+  <text x="796" y="448" class="dim">155.0</text>
+
+  <!-- Cap height: 6mm visible on side -->
+  <line x1="920" y1="267" x2="920" y2="249" class="dimline" marker-start="url(#arrow-rev)" marker-end="url(#arrow)"/>
+  <line x1="912.5" y1="267" x2="924" y2="267" class="ext extline"/>
+  <line x1="912.5" y1="249" x2="924" y2="249" class="ext extline"/>
+  <text x="935" y="260" class="dim-small">6.0</text>
+
+  <!-- Y labels -->
+  <text x="680" y="460" class="dim-small">Y=0</text>
+  <text x="912" y="460" class="dim-small">Y=155</text>
+
+  <!-- ============================================================ -->
+  <!-- TOP VIEW (looking along -Z)                                  -->
+  <!-- Horizontal: X (width) shared with front, Vertical: Y (depth)-->
+  <!-- Scale: X at 3 px/mm (shared), Y at 1.5 px/mm               -->
+  <!-- Origin: (120, 490) => X=0, Y=0                              -->
+  <!-- tX(mm) = 120 + mm*3 (same as front X)                       -->
+  <!-- tY(mm) = 490 + mm*1.5 (Y increases downward in SVG)         -->
+  <!-- Tray: X=0..160 => px 120..600, Y=0..155 => px 490..722.5   -->
+  <!-- ============================================================ -->
+
+  <text x="360" y="478" class="viewlbl">TOP VIEW (looking along -Z)</text>
+
+  <!-- Tray body outline -->
+  <rect x="120" y="490" width="480" height="232.5" class="outline"/>
+
+  <!-- Left tongue visible: X=-4..0, Y=0..155 -->
+  <!-- X: px 108..120, Y: px 490..722.5 -->
+  <rect x="108" y="490" width="12" height="232.5" class="tongue"/>
+
+  <!-- Right tongue visible: X=160..164, Y=0..155 -->
+  <!-- X: px 600..612, Y: px 490..722.5 -->
+  <rect x="600" y="490" width="12" height="232.5" class="tongue"/>
+
+  <!-- Stem hidden lines within tongues (narrower portion) -->
+  <!-- Left: X=-2..0 => px 114..120, stem narrower than cap -->
+  <line x1="114" y1="490" x2="114" y2="722.5" class="hidden"/>
+  <!-- Right: X=160..162 => px 600..606 -->
+  <line x1="606" y1="490" x2="606" y2="722.5" class="hidden"/>
+
+  <!-- === TOP VIEW DIMENSIONS === -->
+
+  <!-- Left tongue protrusion: 4mm -->
+  <line x1="108" y1="484" x2="120" y2="484" class="dimline" marker-start="url(#arrow-rev)" marker-end="url(#arrow)"/>
+  <line x1="108" y1="490" x2="108" y2="481" class="ext extline"/>
+  <line x1="120" y1="490" x2="120" y2="481" class="ext extline"/>
+  <text x="114" y="479" class="dim-small">4.0</text>
+
+  <!-- Right tongue protrusion: 4mm -->
+  <line x1="600" y1="484" x2="612" y2="484" class="dimline" marker-start="url(#arrow-rev)" marker-end="url(#arrow)"/>
+  <line x1="600" y1="490" x2="600" y2="481" class="ext extline"/>
+  <line x1="612" y1="490" x2="612" y2="481" class="ext extline"/>
+  <text x="606" y="479" class="dim-small">4.0</text>
+
+  <!-- Total envelope width: 168mm from X=-4 to X=164 -->
+  <line x1="108" y1="736" x2="612" y2="736" class="dimline" marker-start="url(#arrow-rev)" marker-end="url(#arrow)"/>
+  <line x1="108" y1="722.5" x2="108" y2="740" class="ext extline"/>
+  <line x1="612" y1="722.5" x2="612" y2="740" class="ext extline"/>
+  <text x="360" y="750" class="dim">168.0 total envelope</text>
+
+  <!-- ============================================================ -->
+  <!-- DETAIL A: Left Tongue T-Profile Cross-Section                -->
+  <!-- Scale: 10 px/mm                                             -->
+  <!-- Shows the T-profile with all labeled points A-H             -->
+  <!-- X range: -4..2 => 60px, Z range: 50..58 => 80px            -->
+  <!-- Detail origin: dX(mm) = 1020 + (mm+4)*10, dZ(mm) = 300 - (mm-50)*10 -->
+  <!-- ============================================================ -->
+
+  <text x="1100" y="95" class="viewlbl">DETAIL A: Left Tongue T-Profile</text>
+  <text x="1100" y="110" class="dim-small">Scale 10:1 (10 px/mm) | XZ cross-section</text>
+
+  <!-- Detail frame -->
+  <rect x="960" y="120" width="280" height="240" class="detail-frame"/>
+
+  <!-- T-profile polygon (left tongue) -->
+  <!-- Points in mm: A(0,52.5) B(-2,52.5) C(-2,51) D(-4,51) E(-4,57) F(-2,57) G(-2,55.5) H(0,55.5) -->
+  <!-- dX(mm) = 1020 + (mm+4)*10: X=0=>1060, X=-2=>1040, X=-4=>1020 -->
+  <!-- dZ(mm) = 300 - (mm-50)*10: Z=50=>200, Z=51=>190, Z=52.5=>175, Z=55.5=>145, Z=57=>130, Z=58=>120 -->
+  <!-- A: (1060,175) B: (1040,175) C: (1040,190) D: (1020,190) E: (1020,130) F: (1040,130) G: (1040,145) H: (1060,145) -->
+  <polygon points="1060,175 1040,175 1040,190 1020,190 1020,130 1040,130 1040,145 1060,145" class="tongue"/>
+
+  <!-- Wall face at X=0 (closing the profile) -->
+  <line x1="1060" y1="145" x2="1060" y2="175" stroke="black" stroke-width="1.2"/>
+
+  <!-- Wall context (tray wall shown as hatched region right of X=0) -->
+  <rect x="1060" y="120" width="40" height="240" fill="#f0f0f0" stroke="black" stroke-width="0.6"/>
+  <text x="1080" y="240" font-size="9" fill="black" text-anchor="middle">Wall</text>
+
+  <!-- Point labels A-H -->
+  <circle cx="1060" cy="175" r="2" fill="black"/>
+  <text x="1068" y="180" class="dim-small" text-anchor="start">A</text>
+  <circle cx="1040" cy="175" r="2" fill="black"/>
+  <text x="1032" y="183" class="dim-small" text-anchor="end">B</text>
+  <circle cx="1040" cy="190" r="2" fill="black"/>
+  <text x="1032" y="197" class="dim-small" text-anchor="end">C</text>
+  <circle cx="1020" cy="190" r="2" fill="black"/>
+  <text x="1012" y="197" class="dim-small" text-anchor="end">D</text>
+  <circle cx="1020" cy="130" r="2" fill="black"/>
+  <text x="1012" y="127" class="dim-small" text-anchor="end">E</text>
+  <circle cx="1040" cy="130" r="2" fill="black"/>
+  <text x="1032" y="127" class="dim-small" text-anchor="end">F</text>
+  <circle cx="1040" cy="145" r="2" fill="black"/>
+  <text x="1032" y="142" class="dim-small" text-anchor="end">G</text>
+  <circle cx="1060" cy="145" r="2" fill="black"/>
+  <text x="1068" y="142" class="dim-small" text-anchor="start">H</text>
+
+  <!-- Detail A dimensions -->
+
+  <!-- Cap width (Z): 6.0mm, Z=51..57 => px 190..130 -->
+  <line x1="1008" y1="190" x2="1008" y2="130" class="dimline" marker-start="url(#arrow-rev)" marker-end="url(#arrow)"/>
+  <line x1="1020" y1="190" x2="1004" y2="190" class="ext extline"/>
+  <line x1="1020" y1="130" x2="1004" y2="130" class="ext extline"/>
+  <text x="994" y="164" class="dim" transform="rotate(-90,994,164)">6.0</text>
+
+  <!-- Stem height (Z): 3.0mm, Z=52.5..55.5 => px 175..145 -->
+  <line x1="1072" y1="175" x2="1072" y2="145" class="dimline" marker-start="url(#arrow-rev)" marker-end="url(#arrow)"/>
+  <line x1="1060" y1="175" x2="1076" y2="175" class="ext extline"/>
+  <line x1="1060" y1="145" x2="1076" y2="145" class="ext extline"/>
+  <text x="1084" y="164" class="dim" transform="rotate(-90,1084,164)">3.0</text>
+
+  <!-- Total protrusion (X): 4.0mm, X=-4..0 => px 1020..1060 -->
+  <line x1="1020" y1="200" x2="1060" y2="200" class="dimline" marker-start="url(#arrow-rev)" marker-end="url(#arrow)"/>
+  <line x1="1020" y1="190" x2="1020" y2="204" class="ext extline"/>
+  <line x1="1060" y1="190" x2="1060" y2="204" class="ext extline"/>
+  <text x="1040" y="214" class="dim">4.0</text>
+
+  <!-- Cap thickness (X): 2.0mm, X=-4..-2 => px 1020..1040 -->
+  <line x1="1020" y1="124" x2="1040" y2="124" class="dimline" marker-start="url(#arrow-rev)" marker-end="url(#arrow)"/>
+  <line x1="1020" y1="130" x2="1020" y2="121" class="ext extline"/>
+  <line x1="1040" y1="130" x2="1040" y2="121" class="ext extline"/>
+  <text x="1030" y="118" class="dim-small">2.0</text>
+
+  <!-- Stem depth (X): 2.0mm, X=-2..0 => px 1040..1060 -->
+  <line x1="1040" y1="124" x2="1060" y2="124" class="dimline" marker-start="url(#arrow-rev)" marker-end="url(#arrow)"/>
+  <line x1="1060" y1="130" x2="1060" y2="121" class="ext extline"/>
+  <text x="1050" y="118" class="dim-small">2.0</text>
+
+  <!-- Flange overhang: 1.5mm per side -->
+  <!-- Top flange: Z=55.5..57 => px 145..130 -->
+  <line x1="1034" y1="145" x2="1034" y2="130" class="dimline" marker-start="url(#arrow-rev)" marker-end="url(#arrow)"/>
+  <text x="1026" y="139" class="dim-small" text-anchor="end">1.5</text>
+  <!-- Bottom flange: Z=51..52.5 => px 190..175 -->
+  <line x1="1034" y1="175" x2="1034" y2="190" class="dimline" marker-start="url(#arrow-rev)" marker-end="url(#arrow)"/>
+  <text x="1026" y="186" class="dim-small" text-anchor="end">1.5</text>
+
+  <!-- Center line through tongue at Z=54 => px 160 -->
+  <line x1="1004" y1="160" x2="1076" y2="160" class="center"/>
+
+  <!-- ============================================================ -->
+  <!-- DETAIL B: Dock C-Channel Interface (Section View)            -->
+  <!-- Scale: 10 px/mm                                             -->
+  <!-- Shows tongue inside dock channel with clearances             -->
+  <!-- ============================================================ -->
+
+  <text x="1100" y="410" class="viewlbl">DETAIL B: Dock C-Channel Interface</text>
+  <text x="1100" y="425" class="dim-small">Scale 10:1 | Tongue inside channel (left rail)</text>
+
+  <!-- Detail frame -->
+  <rect x="960" y="435" width="280" height="260" class="detail-frame"/>
+
+  <!-- Dock C-channel cavity (outer rectangle) -->
+  <!-- Cavity: 4.3mm deep (X), 6.6mm wide (Z) -->
+  <!-- Center at same Z as tongue center (Z=54) -->
+  <!-- Cavity Z: 50.7..57.3 => 6.6mm -->
+  <!-- In detail coords: center at px 565 vertically -->
+  <!-- dX(mm) = 1020 + (mm+4.3)*10, dZ(mm) = 610 - (mm-50)*10 -->
+  <!-- Cavity: X=-4.3..0 => px 1020..1063, Z=50.7..57.3 => px 547..481 -->
+  <!-- Slot opening: Z=52.2..55.8 => px 532..502 (3.6mm) -->
+
+  <!-- Dock body (gray fill for the channel walls) -->
+  <!-- Top wall: Z=57.3..58 => px 481..474 -->
+  <rect x="1000" y="468" width="80" height="13" fill="#d0d0d0" stroke="black" stroke-width="0.6"/>
+  <!-- Bottom wall: Z=50..50.7 => px 560..553 -->
+  <rect x="1000" y="553" width="80" height="13" fill="#d0d0d0" stroke="black" stroke-width="0.6"/>
+  <!-- Back wall: X at tip, small cap -->
+  <rect x="1000" y="481" width="17" height="72" fill="#d0d0d0" stroke="black" stroke-width="0.6"/>
+
+  <!-- Slot walls (between cavity and exterior) -->
+  <!-- Upper slot wall: Z=55.8..57.3 => px 502..481 -->
+  <rect x="1063" y="481" width="20" height="21" fill="#d0d0d0" stroke="black" stroke-width="0.6"/>
+  <!-- Lower slot wall: Z=50.7..52.2 => px 553..532 -->
+  <rect x="1063" y="532" width="20" height="21" fill="#d0d0d0" stroke="black" stroke-width="0.6"/>
+
+  <!-- Tongue cross-section inside channel -->
+  <!-- Same T-profile but shifted to detail B coords -->
+  <!-- dX(mm) = 1020 + (mm+4.3)*10: X=0=>1063, X=-2=>1043, X=-4=>1023 -->
+  <!-- dZ(mm) = 610 - (mm-50)*10: Z=51=>550, Z=52.5=>535, Z=54=>520, Z=55.5=>505, Z=57=>480 -->
+  <polygon points="1063,535 1043,535 1043,550 1023,550 1023,480 1043,480 1043,505 1063,505" class="tongue"/>
+
+  <!-- Clearance annotations -->
+  <!-- Top clearance: 0.3mm between tongue cap top (Z=57, px 480) and cavity top (Z=57.3, px 481) -->
+  <!-- This is only 3px at 10:1, use small annotations -->
+
+  <!-- 0.3mm clearance arrows - top -->
+  <line x1="1030" y1="480" x2="1030" y2="481" stroke="red" stroke-width="0.8"/>
+  <text x="1030" y="475" font-size="8" fill="red" text-anchor="middle">0.3</text>
+
+  <!-- 0.3mm clearance - bottom -->
+  <line x1="1030" y1="550" x2="1030" y2="553" stroke="red" stroke-width="0.8"/>
+  <text x="1030" y="565" font-size="8" fill="red" text-anchor="middle">0.3</text>
+
+  <!-- 0.3mm clearance - tip -->
+  <line x1="1023" y1="515" x2="1017" y2="515" stroke="red" stroke-width="0.8"/>
+  <text x="1010" y="518" font-size="8" fill="red" text-anchor="end">0.3</text>
+
+  <!-- 0.3mm clearance - slot top -->
+  <line x1="1070" y1="502" x2="1070" y2="505" stroke="red" stroke-width="0.8"/>
+  <text x="1080" y="500" font-size="8" fill="red" text-anchor="start">0.3</text>
+
+  <!-- 0.3mm clearance - slot bottom -->
+  <line x1="1070" y1="532" x2="1070" y2="535" stroke="red" stroke-width="0.8"/>
+  <text x="1080" y="540" font-size="8" fill="red" text-anchor="start">0.3</text>
+
+  <!-- Cavity width dimension: 6.6mm -->
+  <line x1="996" y1="553" x2="996" y2="481" class="dimline" marker-start="url(#arrow-rev)" marker-end="url(#arrow)"/>
+  <line x1="1000" y1="553" x2="992" y2="553" class="ext extline"/>
+  <line x1="1000" y1="481" x2="992" y2="481" class="ext extline"/>
+  <text x="982" y="521" class="dim" transform="rotate(-90,982,521)">6.6</text>
+
+  <!-- Slot opening dimension: 3.6mm -->
+  <line x1="1090" y1="532" x2="1090" y2="502" class="dimline" marker-start="url(#arrow-rev)" marker-end="url(#arrow)"/>
+  <line x1="1083" y1="532" x2="1094" y2="532" class="ext extline"/>
+  <line x1="1083" y1="502" x2="1094" y2="502" class="ext extline"/>
+  <text x="1102" y="521" class="dim" transform="rotate(-90,1102,521)">3.6</text>
+
+  <!-- Channel depth: 4.3mm -->
+  <line x1="1017" y1="574" x2="1063" y2="574" class="dimline" marker-start="url(#arrow-rev)" marker-end="url(#arrow)"/>
+  <line x1="1017" y1="566" x2="1017" y2="578" class="ext extline"/>
+  <line x1="1063" y1="566" x2="1063" y2="578" class="ext extline"/>
+  <text x="1040" y="586" class="dim">4.3</text>
+
+  <!-- Legend -->
+  <rect x="970" y="650" width="12" height="8" class="tongue"/>
+  <text x="988" y="658" class="note" text-anchor="start">Tongue (Sub-B)</text>
+  <rect x="970" y="665" width="12" height="8" fill="#d0d0d0" stroke="black" stroke-width="0.6"/>
+  <text x="988" y="673" class="note" text-anchor="start">Dock body</text>
+  <text x="970" y="688" font-size="8" fill="red">0.3 = clearance (mm)</text>
+
+  <!-- ============================================================ -->
+  <!-- KEYING DIAGRAM                                               -->
+  <!-- Simplified front view showing asymmetric rail placement      -->
+  <!-- ============================================================ -->
+
+  <text x="360" y="790" class="viewlbl">KEYING: Asymmetric Rail Placement</text>
+
+  <!-- Simplified tray outline, scale ~1.5 px/mm -->
+  <!-- X: 0..160 => 0..240px, origin at (240, 900) -->
+  <!-- kX(mm) = 240 + mm*1.5, kZ(mm) = 900 - mm*1.5 -->
+  <!-- Tray: px 240..480, Z=0..72 => px 900..792 -->
+  <rect x="240" y="792" width="240" height="108" stroke="black" stroke-width="1.0" fill="none"/>
+
+  <!-- Left tongue at Z=54 => px 819, cap Z=51..57 => px 823.5..814.5 -->
+  <rect x="234" y="814.5" width="6" height="9" class="tongue"/>
+
+  <!-- Right tongue at Z=18 => px 873, cap Z=15..21 => px 877.5..868.5 -->
+  <rect x="480" y="868.5" width="6" height="9" class="tongue"/>
+
+  <!-- Z dimension annotations -->
+  <line x1="232" y1="900" x2="232" y2="819" class="dimline" marker-start="url(#arrow-rev)" marker-end="url(#arrow)"/>
+  <text x="222" y="862" class="dim-small" transform="rotate(-90,222,862)">54.0</text>
+
+  <line x1="488" y1="900" x2="488" y2="873" class="dimline" marker-start="url(#arrow-rev)" marker-end="url(#arrow)"/>
+  <text x="498" y="889" class="dim-small" transform="rotate(-90,498,889)">18.0</text>
+
+  <!-- 36mm offset brace -->
+  <line x1="500" y1="819" x2="500" y2="873" class="dimline" stroke-dasharray="2,2" marker-start="url(#arrow-rev)" marker-end="url(#arrow)"/>
+  <text x="512" y="850" class="dim-small" transform="rotate(-90,512,850)">36.0</text>
+
+  <!-- Labels -->
+  <text x="226" y="810" class="dim-small" text-anchor="end">Left</text>
+  <text x="494" y="865" class="dim-small" text-anchor="start">Right</text>
+
+  <!-- Notes -->
+  <text x="240" y="928" class="note">Upside-down insertion blocked: rails would swap to Z=18 (left) and Z=54 (right),</text>
+  <text x="240" y="940" class="note">which do not match dock channels at Z=54 (left) and Z=18 (right).</text>
+
+</svg>

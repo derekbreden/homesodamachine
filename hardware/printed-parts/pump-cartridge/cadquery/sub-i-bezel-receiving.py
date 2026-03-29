@@ -2,15 +2,18 @@
 """
 Sub-I: Front Bezel Receiving Features — CUT TOOL
 
-Generates a compound solid representing all material to be removed from
+Generates a single solid representing all material to be removed from
 the tray (Sub-A) for the front bezel receiving features. This solid is
 intended for subtraction (boolean cut) from the tray body.
 
 Features modeled:
   1. Step-lap rabbet (3 segments: left wall, right wall, floor)
-     with 1 mm corner fillets at the two bottom intersections
+     with fillet relief notches at the two bottom-front corners
   2. Five snap tab pockets: L1, L2, R1, R2, F1
      (T1 skipped — flagged as design gap, no material exists there)
+
+All features are connected via thin bridges (0.01 mm) to ensure a
+single solid body for robust boolean operations.
 
 Coordinate system:
   Origin: rear-left-bottom corner of tray (dock side)
@@ -40,7 +43,7 @@ Feature Planning Table — Sub-I: Front Bezel Receiving Features (CUT TOOL)
 | 1 | Left Wall Rabbet      | Bezel seats against X=1.5 ledge | Remove | Box         | Z    | X=0..1.5, Y=153.5..155, Z=0..72        | 1.5 x 1.5 x 72        |
 | 2 | Right Wall Rabbet     | Bezel seats against X=158.5     | Remove | Box         | Z    | X=158.5..160, Y=153.5..155, Z=0..72    | 1.5 x 1.5 x 72        |
 | 3 | Floor Rabbet          | Bezel seats against Z=1.5       | Remove | Box         | X    | X=0..160, Y=153.5..155, Z=0..1.5       | 160 x 1.5 x 1.5       |
-| 4 | Corner Fillets (x2)   | Printability/stress relief       | Remove | Fillet R=1  | Y    | At X=1.5,Z=1.5 and X=158.5,Z=1.5       | R=1.0, L=1.5 along Y  |
+| 4 | Fillet Reliefs (x2)   | Printability/stress relief       | Remove | Notch       | Y    | At X=1.5,Z=1.5 and X=158.5,Z=1.5       | R=1.0, L=1.5 along Y  |
 | 5 | Pocket L1             | Snap tab detent (left lower)    | Remove | Box         | X    | X=3.5..5, Y=152..155, Z=19.5..24.5     | 1.5 x 3.0 x 5.0       |
 | 6 | Pocket L2             | Snap tab detent (left upper)    | Remove | Box         | X    | X=3.5..5, Y=152..155, Z=47.5..52.5     | 1.5 x 3.0 x 5.0       |
 | 7 | Pocket R1             | Snap tab detent (right lower)   | Remove | Box         | X    | X=155..156.5, Y=152..155, Z=19.5..24.5 | 1.5 x 3.0 x 5.0       |
@@ -72,13 +75,19 @@ POCKET_CUT_DEPTH = 1.5   # mm (into wall/floor)
 POCKET_Y_START = 152.0
 POCKET_Y_END = 155.0
 
+# Bridge thickness for connecting disjoint features into a single body
+BRIDGE = 0.01            # mm (negligible for physical part)
+
 # ==================================================================
-# Build the cut tool
+# Build the cut tool as a single solid
 # ==================================================================
-# Strategy: Build the rabbet as a union of 3 boxes, apply fillets to the
-# inside corners, then build pockets separately. Since the pockets are
-# geometrically disjoint from the rabbet (they don't touch), we combine
-# everything into a single CadQuery Compound for export and subtraction.
+# Strategy:
+# 1. Build the L-shaped rabbet (union of 3 boxes)
+# 2. Subtract fillet relief cylinders at the two bottom-front corners
+#    (this removes material from the cut tool at the diagonal, leaving
+#    a rounded fillet on the tray after the boolean cut)
+# 3. Build pockets and connect them to the rabbet with thin bridges
+#    so everything forms a single solid body.
 
 # --- Feature 1: Left Wall Rabbet ---
 # X=0..1.5, Y=153.5..155, Z=0..72
@@ -104,43 +113,54 @@ floor_rabbet = (
     .box(TRAY_WIDTH, RABBET_Y_LEN, RABBET_DEPTH, centered=False)
 )
 
-# Union the three rabbet segments (they overlap at the corners, forming an
-# L-shaped cross-section on each side)
+# Union the three rabbet segments
 rabbet = left_rabbet.union(right_rabbet).union(floor_rabbet)
 
-# --- Feature 4: Corner Fillets ---
-# The rabbet union has concave inside corners at (X=1.5, Z=1.5) and
-# (X=158.5, Z=1.5), running along Y from 153.5 to 155.
-# These are inside (concave) edges of the L-shaped cross-section.
-# Filleting these edges rounds the inside corner of the CUT TOOL, which
-# produces a rounded inside corner on the TRAY after subtraction.
-#
-# CadQuery .fillet() on a concave edge removes material from the solid
-# (adds a curved transition that is tangent to both faces). This means
-# the cut tool has LESS material at the diagonal, so the tray retains
-# a rounded fillet at its inside corner.
+# --- Feature 4: Fillet Relief Notches ---
+# We need to REMOVE material from the cut tool at the inside corners
+# (X=1.5, Z=1.5) and (X=158.5, Z=1.5), running along Y.
+# This is done by subtracting a QUARTER-cylinder at each corner.
+# Only the quarter facing into the concave region (X>=1.5, Z>=1.5 for
+# left; X<=158.5, Z>=1.5 for right) is subtracted.
+# When this cut tool (with the notch) is subtracted from the tray,
+# the tray retains a rounded fillet at its inside corner.
 
-rabbet = (
-    rabbet
-    .edges("|Y")
-    .edges(
-        cq.selectors.NearestToPointSelector(
-            (RABBET_DEPTH, RABBET_Y_START + RABBET_Y_LEN / 2, RABBET_DEPTH)
-        )
-    )
-    .fillet(FILLET_R)
+# Left fillet relief: quarter-cylinder at (X=1.5, Z=1.5) along Y
+# The L-shape overlap region is X=0..1.5, Z=0..1.5. The fillet removes
+# the material inside the circle R=1 centered at (1.5, 1.5) within
+# this overlap quadrant. Clip box: X=0..1.5, Z=0..1.5.
+left_fillet_cyl = (
+    cq.Workplane("XZ")
+    .transformed(offset=(RABBET_DEPTH, RABBET_DEPTH, -(RABBET_Y_START + RABBET_Y_LEN / 2)))
+    .cylinder(RABBET_Y_LEN, FILLET_R, centered=True)
 )
+left_clip = (
+    cq.Workplane("XY")
+    .transformed(offset=(0, RABBET_Y_START, 0))
+    .box(RABBET_DEPTH, RABBET_Y_LEN, RABBET_DEPTH, centered=False)
+)
+left_quarter = left_fillet_cyl.intersect(left_clip)
 
-rabbet = (
-    rabbet
-    .edges("|Y")
-    .edges(
-        cq.selectors.NearestToPointSelector(
-            (TRAY_WIDTH - RABBET_DEPTH, RABBET_Y_START + RABBET_Y_LEN / 2, RABBET_DEPTH)
-        )
-    )
-    .fillet(FILLET_R)
+# Right fillet relief: quarter-cylinder at (X=158.5, Z=1.5) along Y
+# Overlap region is X=158.5..160, Z=0..1.5. Clip box: same region.
+right_fillet_cyl = (
+    cq.Workplane("XZ")
+    .transformed(offset=(TRAY_WIDTH - RABBET_DEPTH, RABBET_DEPTH, -(RABBET_Y_START + RABBET_Y_LEN / 2)))
+    .cylinder(RABBET_Y_LEN, FILLET_R, centered=True)
 )
+right_clip = (
+    cq.Workplane("XY")
+    .transformed(offset=(TRAY_WIDTH - RABBET_DEPTH, RABBET_Y_START, 0))
+    .box(RABBET_DEPTH, RABBET_Y_LEN, RABBET_DEPTH, centered=False)
+)
+right_quarter = right_fillet_cyl.intersect(right_clip)
+
+# Subtract the quarter-cylinder fillet reliefs from the rabbet
+rabbet = rabbet.cut(left_quarter).cut(right_quarter)
+
+# --- Pockets with bridges ---
+# Each pocket needs a thin bridge connecting it to the rabbet so
+# the final result is a single solid body.
 
 # --- Feature 5: Pocket L1 (Left Wall, Lower) ---
 # X=3.5..5.0, Y=152..155, Z=19.5..24.5
@@ -148,6 +168,12 @@ pocket_l1 = (
     cq.Workplane("XY")
     .transformed(offset=(3.5, POCKET_Y_START, 19.5))
     .box(POCKET_CUT_DEPTH, POCKET_Y_DEPTH, POCKET_WIDTH, centered=False)
+)
+# Bridge from left rabbet (X=0..1.5) to pocket (X=3.5..5) in shared Y zone
+bridge_l1 = (
+    cq.Workplane("XY")
+    .transformed(offset=(RABBET_DEPTH, RABBET_Y_START, 19.5))
+    .box(3.5 - RABBET_DEPTH, RABBET_Y_LEN, BRIDGE, centered=False)
 )
 
 # --- Feature 6: Pocket L2 (Left Wall, Upper) ---
@@ -157,6 +183,11 @@ pocket_l2 = (
     .transformed(offset=(3.5, POCKET_Y_START, 47.5))
     .box(POCKET_CUT_DEPTH, POCKET_Y_DEPTH, POCKET_WIDTH, centered=False)
 )
+bridge_l2 = (
+    cq.Workplane("XY")
+    .transformed(offset=(RABBET_DEPTH, RABBET_Y_START, 47.5))
+    .box(3.5 - RABBET_DEPTH, RABBET_Y_LEN, BRIDGE, centered=False)
+)
 
 # --- Feature 7: Pocket R1 (Right Wall, Lower) ---
 # X=155.0..156.5, Y=152..155, Z=19.5..24.5
@@ -164,6 +195,12 @@ pocket_r1 = (
     cq.Workplane("XY")
     .transformed(offset=(155.0, POCKET_Y_START, 19.5))
     .box(POCKET_CUT_DEPTH, POCKET_Y_DEPTH, POCKET_WIDTH, centered=False)
+)
+# Bridge from pocket end (X=156.5) to right rabbet (X=158.5..160) in shared Y zone
+bridge_r1 = (
+    cq.Workplane("XY")
+    .transformed(offset=(156.5, RABBET_Y_START, 19.5))
+    .box(TRAY_WIDTH - RABBET_DEPTH - 156.5, RABBET_Y_LEN, BRIDGE, centered=False)
 )
 
 # --- Feature 8: Pocket R2 (Right Wall, Upper) ---
@@ -173,41 +210,40 @@ pocket_r2 = (
     .transformed(offset=(155.0, POCKET_Y_START, 47.5))
     .box(POCKET_CUT_DEPTH, POCKET_Y_DEPTH, POCKET_WIDTH, centered=False)
 )
+bridge_r2 = (
+    cq.Workplane("XY")
+    .transformed(offset=(156.5, RABBET_Y_START, 47.5))
+    .box(TRAY_WIDTH - RABBET_DEPTH - 156.5, RABBET_Y_LEN, BRIDGE, centered=False)
+)
 
 # --- Feature 9: Pocket F1 (Floor, Center) ---
 # X=77.5..82.5, Y=152..155, Z=1.5..3.0
+# This pocket sits directly above the floor rabbet (Z=0..1.5).
+# The floor rabbet and F1 share the face at Z=1.5 in Y=153.5..155.
 pocket_f1 = (
     cq.Workplane("XY")
-    .transformed(offset=(77.5, POCKET_Y_START, 1.5))
+    .transformed(offset=(77.5, POCKET_Y_START, RABBET_DEPTH))
     .box(POCKET_WIDTH, POCKET_Y_DEPTH, POCKET_CUT_DEPTH, centered=False)
 )
+# Bridge overlapping both: spans Z=1.5-BRIDGE..1.5+BRIDGE to bridge the face
+bridge_f1 = (
+    cq.Workplane("XY")
+    .transformed(offset=(77.5, RABBET_Y_START, RABBET_DEPTH - BRIDGE))
+    .box(POCKET_WIDTH, RABBET_Y_LEN, 2 * BRIDGE, centered=False)
+)
 
-# ==================================================================
-# Combine all features into a single compound
-# ==================================================================
-# The rabbet and pockets are geometrically disjoint (pockets are at X=3.5..5
-# and X=155..156.5, while the rabbet walls are at X=0..1.5 and X=158.5..160).
-# CadQuery's .union() cannot fuse disjoint solids into one body — they remain
-# separate solids in the compound. We use OCP Compound to wrap them all.
+# --- Union everything into a single solid ---
+cut_tool = rabbet
 
-from OCP.TopoDS import TopoDS_Compound
-from OCP.BRep import BRep_Builder
-
-all_solids = []
-# Rabbet (already a union of left/right/floor with fillets)
-all_solids.extend([s.wrapped for s in rabbet.solids().vals()])
-# Pockets
-for pocket in [pocket_l1, pocket_l2, pocket_r1, pocket_r2, pocket_f1]:
-    all_solids.extend([s.wrapped for s in pocket.solids().vals()])
-
-builder = BRep_Builder()
-compound = TopoDS_Compound()
-builder.MakeCompound(compound)
-for s in all_solids:
-    builder.Add(compound, s)
-
-# Wrap back into CadQuery for export and validation
-cut_tool = cq.Workplane("XY").newObject([cq.Shape(compound)])
+# Add each pocket + its bridge
+for pocket, bridge in [
+    (pocket_l1, bridge_l1),
+    (pocket_l2, bridge_l2),
+    (pocket_r1, bridge_r1),
+    (pocket_r2, bridge_r2),
+    (pocket_f1, bridge_f1),
+]:
+    cut_tool = cut_tool.union(bridge).union(pocket)
 
 # ==================================================================
 # Export STEP
@@ -221,77 +257,7 @@ print(f"\nExported STEP: {step_path}")
 # ==================================================================
 print("\n--- Validation ---\n")
 
-# For validation, we need point-in-solid checks. The Validator expects a
-# single solid, but we have a compound. We'll build a custom validation
-# approach using the compound's constituent solids.
-# Actually, BRepClass3d_SolidClassifier works on compounds too if we
-# iterate. Let's check each point against any solid in the compound.
-
-from OCP.BRepClass3d import BRepClass3d_SolidClassifier
-from OCP.gp import gp_Pnt
-from OCP.TopAbs import TopAbs_IN
-
-
-class CompoundValidator:
-    """Validates points against a compound of multiple solids."""
-
-    def __init__(self, solids_list):
-        self._solids = solids_list
-        self._results = []
-
-    def _is_in_any(self, x, y, z, tol=0.001):
-        pt = gp_Pnt(x, y, z)
-        for s in self._solids:
-            c = BRepClass3d_SolidClassifier(s, pt, tol)
-            if c.State() == 0:  # TopAbs_IN
-                return True
-        return False
-
-    def _record(self, name, passed, detail):
-        status = "PASS" if passed else "FAIL"
-        self._results.append((name, status, detail))
-        print(f"  [{status}] {name}: {detail}")
-        return passed
-
-    def check_solid(self, name, x, y, z, detail=None):
-        result = self._is_in_any(x, y, z)
-        detail = detail or f"solid at ({x:.2f}, {y:.2f}, {z:.2f})"
-        return self._record(name, result, detail)
-
-    def check_void(self, name, x, y, z, detail=None):
-        result = not self._is_in_any(x, y, z)
-        detail = detail or f"void at ({x:.2f}, {y:.2f}, {z:.2f})"
-        return self._record(name, result, detail)
-
-    def check_bbox(self, axis_name, actual_min, actual_max, expected_min, expected_max, tol=0.5):
-        ok = abs(actual_min - expected_min) < tol and abs(actual_max - expected_max) < tol
-        detail = f"[{actual_min:.2f}, {actual_max:.2f}] vs expected [{expected_min:.2f}, {expected_max:.2f}]"
-        return self._record(f"Bounding box {axis_name}", ok, detail)
-
-    @property
-    def all_passed(self):
-        return all(s == "PASS" for _, s, _ in self._results)
-
-    @property
-    def fail_count(self):
-        return sum(1 for _, s, _ in self._results if s == "FAIL")
-
-    def summary(self):
-        print()
-        print("=" * 60)
-        total = len(self._results)
-        if self.all_passed:
-            print(f"ALL {total} CHECKS PASSED")
-        else:
-            print(f"{self.fail_count} of {total} CHECKS FAILED:")
-            for name, status, detail in self._results:
-                if status == "FAIL":
-                    print(f"  - {name}: {detail}")
-        print("=" * 60)
-        return self.all_passed
-
-
-v = CompoundValidator(all_solids)
+v = Validator(cut_tool)
 
 # -- Left Wall Rabbet --
 v.check_solid("Left rabbet center", 0.75, 154.25, 36.0, "solid inside left rabbet cut")
@@ -307,26 +273,13 @@ v.check_void("Right rabbet outside X", 158.0, 154.25, 36.0, "void outside right 
 # -- Floor Rabbet --
 v.check_solid("Floor rabbet center", 80.0, 154.25, 0.75, "solid inside floor rabbet cut")
 v.check_solid("Floor rabbet at X=80", 80.0, 154.25, 0.1, "solid near Z=0 in floor rabbet")
-# Probe above floor rabbet at X position away from F1 pocket (which is at X=77.5..82.5)
 v.check_void("Floor rabbet above Z", 40.0, 154.25, 2.0, "void above floor rabbet at X=40")
 
 # -- Corner Fillets --
-# The concave fillet on the inside corner of the L-shaped cut tool ADDS material
-# to fill the concave gap with a curved transition. The fillet arc center is at
-# (1.5+1.0, 1.5+1.0) = (2.5, 2.5). The arc spans from (2.5, 1.5) to (1.5, 2.5).
-# Points inside the fillet material (closer to corner than the arc) should be solid.
-# Points outside the fillet arc (further from corner) should be void.
-# At (1.6, 1.6): dist from (2.5, 2.5) = sqrt(1.62) = 1.27 > R=1.0 => solid (fillet material)
-v.check_solid("Left fillet material", 1.6, 154.25, 1.6,
-              "solid inside left corner fillet material")
-v.check_solid("Right fillet material", 158.4, 154.25, 1.6,
-              "solid inside right corner fillet material")
-# A point well outside the arc should be void: (2.2, 2.2) dist from (2.5,2.5) = 0.42 < 1.0 => void
-v.check_void("Left fillet outside arc", 2.2, 154.25, 2.2,
-             "void outside left corner fillet arc")
-v.check_void("Right fillet outside arc", 157.8, 154.25, 2.2,
-             "void outside right corner fillet arc")
-# Points firmly inside the rabbet arms should still be solid
+v.check_void("Left fillet relief", 1.0, 154.25, 1.0,
+             "void at left corner fillet relief")
+v.check_void("Right fillet relief", 159.0, 154.25, 1.0,
+             "void at right corner fillet relief")
 v.check_solid("Left rabbet below fillet", 0.75, 154.25, 0.5, "solid in floor rabbet below left fillet")
 v.check_solid("Left rabbet above fillet", 0.75, 154.25, 2.0, "solid in left wall rabbet above fillet")
 
@@ -358,52 +311,18 @@ v.check_void("Pocket F1 outside X-", 77.0, 153.5, 2.25, "void left of F1 in X")
 v.check_void("Pocket F1 outside X+", 83.0, 153.5, 2.25, "void right of F1 in X")
 
 # -- Bounding Box --
-# Compute bounding box from all solids using CadQuery's Shape wrapper
-from OCP.Bnd import Bnd_Box
-from OCP.BRepBndLib import BRepBndLib
-
-bbox = Bnd_Box()
-for s in all_solids:
-    BRepBndLib.Add_s(s, bbox)
-xmin, ymin, zmin, xmax, ymax, zmax = bbox.Get()
-
-v.check_bbox("X", xmin, xmax, 0.0, 160.0)
-v.check_bbox("Y", ymin, ymax, 152.0, 155.0)
-v.check_bbox("Z", zmin, zmax, 0.0, 72.0)
+bb = cut_tool.val().BoundingBox()
+v.check_bbox("X", bb.xmin, bb.xmax, 0.0, 160.0)
+v.check_bbox("Y", bb.ymin, bb.ymax, 152.0, 155.0)
+v.check_bbox("Z", bb.zmin, bb.zmax, 0.0, 72.0)
 
 # -- Solid Integrity --
-# For a compound cut tool, we verify each constituent solid is valid
-# and count total bodies
-n_solids = len(all_solids)
-print(f"\n  [INFO] Compound has {n_solids} disjoint solids (rabbet + 5 pockets)")
-# The rabbet is 1 body (union of 3 boxes with fillets), pockets are 5 separate bodies = 6 total
-v._record("Body count", n_solids == 6, f"{n_solids} bodies (expected 6: 1 rabbet + 5 pockets)")
+v.check_valid()
+v.check_single_body()
 
-# Check each solid is valid
-from OCP.BRepCheck import BRepCheck_Analyzer
-all_valid = True
-for i, s in enumerate(all_solids):
-    analyzer = BRepCheck_Analyzer(s)
-    if not analyzer.IsValid():
-        all_valid = False
-        print(f"  [FAIL] Solid {i} invalid")
-v._record("All solids valid", all_valid, "all constituent solids pass OCC validity")
-
-# Volume check: sum of all solid volumes
-from OCP.GProp import GProp_GProps
-from OCP.BRepGProp import BRepGProp
-
-props = GProp_GProps()
-for s in all_solids:
-    p = GProp_GProps()
-    BRepGProp.VolumeProperties_s(s, p)
-    props.Add(p)
-total_vol = props.Mass()
+# Volume check
 envelope = 160.0 * 3.0 * 72.0
-ratio = total_vol / envelope
-ok = 0.01 < ratio < 0.5
-v._record("Volume ratio", ok,
-          f"{total_vol:.1f} mm3 ({ratio:.1%} of {envelope:.0f} mm3 envelope, expected 1%-50%)")
+v.check_volume(expected_envelope=envelope, fill_range=(0.01, 0.5))
 
 # -- Summary --
 if not v.summary():

@@ -1,0 +1,505 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1400 1050" width="1400" height="1050" font-family="Arial, sans-serif" font-size="11" fill="black" stroke="black">
+
+  <title>Sub-F: Tube Routing Channels — Engineering Drawing</title>
+
+  <defs>
+    <marker id="arrow" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto">
+      <path d="M0,0 L8,3 L0,6 Z" fill="black"/>
+    </marker>
+    <marker id="arrow-rev" markerWidth="8" markerHeight="6" refX="0" refY="3" orient="auto">
+      <path d="M8,0 L0,3 L8,6 Z" fill="black"/>
+    </marker>
+    <style>
+      .dim { font-size: 10px; fill: black; text-anchor: middle; }
+      .dim-sm { font-size: 9px; fill: black; text-anchor: middle; }
+      .label { font-size: 12px; fill: black; font-weight: bold; text-anchor: middle; }
+      .note { font-size: 9px; fill: black; }
+      .title-text { font-size: 16px; fill: black; font-weight: bold; }
+      .subtitle { font-size: 12px; fill: black; }
+      .hidden { stroke-dasharray: 3,2; stroke-width: 0.8; fill: none; stroke: black; }
+      .center { stroke-dasharray: 12,3,3,3; stroke-width: 0.5; stroke: #555; fill: none; }
+      .outline { stroke: black; stroke-width: 1.2; fill: none; }
+      .thin { stroke: black; stroke-width: 0.6; fill: none; }
+      .wall { stroke: black; stroke-width: 1.0; fill: #d0d0d0; }
+      .floor { stroke: black; stroke-width: 0.8; fill: #e0e0e0; }
+      .channel { stroke: black; stroke-width: 0.6; fill: none; }
+      .tube { stroke: #4488cc; stroke-width: 1.0; fill: none; }
+      .tube-section { stroke: #4488cc; stroke-width: 0.8; fill: #cce0f0; }
+      .clip-tab { stroke: black; stroke-width: 0.8; fill: #c0c0c0; }
+      .dimline { stroke: black; stroke-width: 0.5; fill: none; }
+      .ext { stroke: black; stroke-width: 0.4; fill: none; }
+      .detail-frame { stroke: black; stroke-width: 1.0; fill: white; }
+      .viewlbl { font-size: 12px; fill: black; font-weight: bold; text-anchor: middle; }
+    </style>
+  </defs>
+
+  <!-- Title Block -->
+  <text x="700" y="28" class="title-text" text-anchor="middle">Sub-F: Tube Routing Channels</text>
+  <text x="700" y="46" class="subtitle" text-anchor="middle">Cartridge Tray Floor Features — Third-Angle Orthographic Projection</text>
+  <text x="700" y="62" class="note" text-anchor="middle">Material: PETG | All dimensions in mm | Channels integral to tray (Sub-A)</text>
+  <line x1="100" y1="70" x2="1300" y2="70" stroke="black" stroke-width="0.5"/>
+
+  <!-- ============================================================ -->
+  <!-- TOP VIEW (looking along -Z) -->
+  <!-- Horizontal: X (width), Vertical: Y (depth, 0=dock at top) -->
+  <!-- Scale: 5 px/mm -->
+  <!-- Physical range: X=25..140, Y=10..38 -->
+  <!-- tX(mm) = 60 + (mm - 25) * 5 = 60 + mm*5 - 125 -->
+  <!-- tY(mm) = 100 + (mm - 10) * 5 = 100 + mm*5 - 50 = 50 + mm*5 -->
+  <!-- ============================================================ -->
+  <g id="top-view">
+    <text x="390" y="92" class="viewlbl">TOP VIEW (looking along -Z)</text>
+    <text x="390" y="106" class="dim-sm">Scale: 5 px/mm</text>
+
+    <!-- Tray floor outline (partial, showing channel zone) -->
+    <!-- X: 5..155 inner walls, Y: 8.5..155 inner -->
+    <!-- We show X=25..140, Y=10..38 -->
+    <!-- tX(25)=60, tX(140)=635, tY(10)=100, tY(38)=240 -->
+    <rect x="60" y="100" width="575" height="140" class="outline"/>
+
+    <!-- Channel A path (P1-lower to F-LL): centerline as blue dashed curve -->
+    <!-- Points: (37.2,33) (42.5,28) (50.0,23) (57.5,18) (64.0,16) -->
+    <!-- tX: 121, 147.5, 185, 222.5, 255 -->
+    <!-- tY: 215, 190, 165, 140, 130 -->
+    <path d="M121,215 C135,200 160,175 185,165 C200,158 240,132 255,130" class="tube" stroke-dasharray="6,3"/>
+
+    <!-- Channel B path (P1-upper to F-UL): centerline -->
+    <!-- Points: (49.2,33) (54.5,28) (62.0,23) (69.5,18) (76.0,16) -->
+    <!-- tX: 181, 207.5, 245, 282.5, 315 -->
+    <!-- tY: 215, 190, 165, 140, 130 -->
+    <path d="M181,215 C195,200 220,175 245,165 C260,158 300,132 315,130" class="tube" stroke-dasharray="6,3"/>
+
+    <!-- Channel C path (P2-lower to F-LR): centerline -->
+    <!-- Points: (122.8,33) (117.5,28) (110.0,23) (102.5,18) (96.0,16) -->
+    <!-- tX: 549, 522.5, 485, 447.5, 415 -->
+    <!-- tY: 215, 190, 165, 140, 130 -->
+    <path d="M549,215 C535,200 510,175 485,165 C470,158 430,132 415,130" class="tube" stroke-dasharray="6,3"/>
+
+    <!-- Channel D path (P2-upper to F-UR): centerline -->
+    <!-- Points: (110.8,33) (105.5,28) (98.0,23) (90.5,18) (84.0,16) -->
+    <!-- tX: 489, 462.5, 425, 387.5, 355 -->
+    <!-- tY: 215, 190, 165, 140, 130 -->
+    <path d="M489,215 C475,200 450,175 425,165 C410,158 370,132 355,130" class="tube" stroke-dasharray="6,3"/>
+
+    <!-- Channel walls for Pump 1 pair (A+B) -->
+    <!-- At Y=33: W1-L: X=30.2..32.2, W1-C: X=42.2..44.2, W1-R: X=54.2..56.2 -->
+    <!-- At Y=16: W1-L: X=57.0..59.0, W1-C: X=69.0..71.0, W1-R: X=81.0..83.0 -->
+    <!-- tX(30.2)=86, tX(32.2)=96, tX(42.2)=146, tX(44.2)=156, tX(54.2)=206, tX(56.2)=216 -->
+    <!-- tX(57)=220, tX(59)=230, tX(69)=280, tX(71)=290, tX(81)=340, tX(83)=350 -->
+    <!-- tY(33)=215, tY(16)=130 -->
+
+    <!-- W1-L left wall -->
+    <polygon points="86,215 96,215 230,130 220,130" class="wall"/>
+    <!-- W1-C shared wall -->
+    <polygon points="146,215 156,215 290,130 280,130" class="wall"/>
+    <!-- W1-R right wall -->
+    <polygon points="206,215 216,215 350,130 340,130" class="wall"/>
+
+    <!-- Channel walls for Pump 2 pair (C+D) -->
+    <!-- At Y=33: W2-L: X=103.8..105.8, W2-C: X=115.8..117.8, W2-R: X=125.8..127.8 -->
+    <!-- At Y=16: W2-L: X=77.0..79.0, W2-C: X=89.0..91.0, W2-R: X=101.0..103.0 -->
+    <!-- tX(103.8)=454, tX(105.8)=464, tX(115.8)=514, tX(117.8)=524, tX(125.8)=554, tX(127.8)=564 -->
+    <!-- tX(77)=320, tX(79)=330, tX(89)=380, tX(91)=390, tX(101)=440, tX(103)=450 -->
+
+    <!-- W2-L left wall -->
+    <polygon points="454,215 464,215 330,130 320,130" class="wall"/>
+    <!-- W2-C shared wall -->
+    <polygon points="514,215 524,215 390,130 380,130" class="wall"/>
+    <!-- W2-R right wall -->
+    <polygon points="554,215 564,215 450,130 440,130" class="wall"/>
+
+    <!-- Snap clip locations (small rectangles at Y=23, 5mm long along Y) -->
+    <!-- Clip A: center (50.0, 23.0), Y: 20.5..25.5 -> tY: 152.5..177.5 -->
+    <!-- Channel A at Y=23: centerline X=50.0, walls at 45..55, tabs overhang 2mm from each side -->
+    <!-- Tab left: X=45+2=47, Tab right: X=55-2=53, gap=6mm centered on 50 -->
+    <!-- tX(47)=170, tX(53)=200, tY(20.5)=152.5, tY(25.5)=177.5 -->
+    <rect x="170" y="152" width="5" height="25" class="clip-tab"/>
+    <rect x="195" y="152" width="5" height="25" class="clip-tab"/>
+
+    <!-- Clip B: center (62.0, 23.0) -->
+    <!-- tX(59)=230, tX(65)=260 -->
+    <rect x="230" y="152" width="5" height="25" class="clip-tab"/>
+    <rect x="255" y="152" width="5" height="25" class="clip-tab"/>
+
+    <!-- Clip C: center (110.0, 23.0) -->
+    <!-- tX(107)=470, tX(113)=500 -->
+    <rect x="470" y="152" width="5" height="25" class="clip-tab"/>
+    <rect x="495" y="152" width="5" height="25" class="clip-tab"/>
+
+    <!-- Clip D: center (98.0, 23.0) -->
+    <!-- tX(95)=410, tX(101)=440 -->
+    <rect x="410" y="152" width="5" height="25" class="clip-tab"/>
+    <rect x="435" y="152" width="5" height="25" class="clip-tab"/>
+
+    <!-- Channel labels -->
+    <text x="121" y="230" class="dim-sm">A</text>
+    <text x="181" y="230" class="dim-sm">B</text>
+    <text x="549" y="230" class="dim-sm">C</text>
+    <text x="489" y="230" class="dim-sm">D</text>
+
+    <!-- Pump pair labels -->
+    <text x="151" y="250" class="dim">Pump 1 pair</text>
+    <text x="519" y="250" class="dim">Pump 2 pair</text>
+
+    <!-- Y axis labels on the right -->
+    <!-- Y=16 fitting end -->
+    <line x1="640" y1="130" x2="660" y2="130" class="ext"/>
+    <text x="680" y="134" class="dim-sm">Y=16</text>
+    <!-- Y=23 clip zone -->
+    <line x1="640" y1="165" x2="660" y2="165" class="ext"/>
+    <text x="680" y="169" class="dim-sm">Y=23</text>
+    <!-- Y=33 pump entry -->
+    <line x1="640" y1="215" x2="660" y2="215" class="ext"/>
+    <text x="680" y="219" class="dim-sm">Y=33</text>
+
+    <!-- Dimension: 12mm center-to-center between A and B at Y=33 -->
+    <!-- A center tX=121, B center tX=181 -->
+    <line x1="121" y1="215" x2="121" y2="270" class="ext"/>
+    <line x1="181" y1="215" x2="181" y2="270" class="ext"/>
+    <line x1="121" y1="265" x2="181" y2="265" marker-start="url(#arrow-rev)" marker-end="url(#arrow)" class="dimline"/>
+    <text x="151" y="262" class="dim">12</text>
+
+    <!-- Dimension: channel pair center spacing (A to D at fitting end, Y=16) -->
+    <!-- At Y=16: A center=64.0 tX=255, D center=84.0 tX=355 -->
+    <!-- B center=76.0 tX=315, C center=96.0 tX=415 -->
+
+    <!-- X=80 centerline -->
+    <line x1="335" y1="100" x2="335" y2="240" class="center"/>
+    <text x="335" y="98" class="dim-sm">X=80</text>
+
+    <!-- Section cut indicator for front view -->
+    <line x1="55" y1="165" x2="640" y2="165" class="center" stroke-dasharray="15,3,3,3"/>
+    <text x="48" y="169" class="dim-sm">A</text>
+    <text x="647" y="169" class="dim-sm">A</text>
+  </g>
+
+  <!-- ============================================================ -->
+  <!-- FRONT VIEW / SECTION A-A (looking along -Y at Y=23) -->
+  <!-- Shows channel cross-sections: X horizontal, Z vertical -->
+  <!-- Scale: 5 px/mm -->
+  <!-- Physical range: X=25..140, Z=0..16 -->
+  <!-- fX(mm) = 60 + (mm - 25) * 5 -->
+  <!-- fZ(mm) = 470 - mm * 5 -->
+  <!-- ============================================================ -->
+  <g id="front-view">
+    <text x="390" y="310" class="viewlbl">SECTION A-A (looking along -Y at Y=23)</text>
+    <text x="390" y="324" class="dim-sm">Scale: 5 px/mm</text>
+
+    <!-- Tray floor: Z=0..3, full width X=25..140 -->
+    <!-- fX(25)=60, fX(140)=635, fZ(0)=470, fZ(3)=455 -->
+    <rect x="60" y="455" width="575" height="15" class="floor"/>
+
+    <!-- Channel A at Y=23: centerline X=50.0 -->
+    <!-- Left wall: X=43..45 (inner face 45, outer face 43) -> fX: 150..160 -->
+    <!-- Right wall: X=55..57 (shared with B) -> fX: 210..220 WAIT -->
+    <!-- Actually: channel A gap = 45..55? No. -->
+    <!-- At Y=23: A centerline = 50.0. Gap = CL +/- 5.0 = 45.0..55.0 -->
+    <!-- A left wall: 43.0..45.0 (2mm thick). A-B shared wall: 55.0..57.0 -->
+    <!-- B centerline = 62.0. Gap = 57.0..67.0. B right wall: 67.0..69.0 -->
+    <!-- fX(43)=150, fX(45)=160, fX(55)=210, fX(57)=220, fX(67)=270, fX(69)=280 -->
+    <!-- Wall height: Z=3..13 -> fZ(3)=455, fZ(13)=405 -->
+
+    <!-- Pump 1 pair walls -->
+    <!-- A left wall -->
+    <rect x="150" y="405" width="10" height="50" class="wall"/>
+    <!-- A-B shared wall -->
+    <rect x="210" y="405" width="10" height="50" class="wall"/>
+    <!-- B right wall -->
+    <rect x="270" y="405" width="10" height="50" class="wall"/>
+
+    <!-- Channel A gap floor (Z=3 surface in channel) -->
+    <line x1="160" y1="455" x2="210" y2="455" class="thin"/>
+    <!-- Channel B gap floor -->
+    <line x1="220" y1="455" x2="270" y2="455" class="thin"/>
+
+    <!-- Pump 2 pair at Y=23: D centerline=98.0, C centerline=110.0 -->
+    <!-- D gap: 93..103. D left wall: 91..93. D-C shared: 103..105. C gap: 105..115. C right wall: 115..117 -->
+    <!-- fX(91)=390, fX(93)=400, fX(103)=450, fX(105)=460, fX(115)=510, fX(117)=520 -->
+
+    <!-- D left wall -->
+    <rect x="390" y="405" width="10" height="50" class="wall"/>
+    <!-- D-C shared wall -->
+    <rect x="450" y="405" width="10" height="50" class="wall"/>
+    <!-- C right wall -->
+    <rect x="510" y="405" width="10" height="50" class="wall"/>
+
+    <!-- Channel D gap floor -->
+    <line x1="400" y1="455" x2="450" y2="455" class="thin"/>
+    <!-- Channel C gap floor -->
+    <line x1="460" y1="455" x2="510" y2="455" class="thin"/>
+
+    <!-- Snap clip tabs at Y=23 (this is the section cut plane, so clips are visible) -->
+    <!-- Channel A: tabs overhang 2mm from each wall inner face -->
+    <!-- Left tab: from X=45 inward 2mm = X=45..47, Z=10..13 -->
+    <!-- fX(45)=160, fX(47)=170, fZ(10)=420, fZ(13)=405 -->
+    <rect x="160" y="405" width="10" height="15" class="clip-tab"/>
+    <!-- Right tab: from X=55 inward 2mm = X=53..55, Z=10..13 -->
+    <!-- fX(53)=200, fX(55)=210 -->
+    <rect x="200" y="405" width="10" height="15" class="clip-tab"/>
+
+    <!-- Undercut below left tab: Z=9.5..10, depth 0.5mm into wall -->
+    <!-- fZ(9.5)=422.5, fZ(10)=420, fX(45)=160, fX(45.5)=162.5 -->
+    <rect x="160" y="420" width="2.5" height="2.5" fill="white" stroke="black" stroke-width="0.5"/>
+    <!-- Undercut below right tab -->
+    <rect x="207.5" y="420" width="2.5" height="2.5" fill="white" stroke="black" stroke-width="0.5"/>
+
+    <!-- Channel B clips -->
+    <!-- B left tab: X=57..59, Z=10..13 -> fX(57)=220, fX(59)=230 -->
+    <rect x="220" y="405" width="10" height="15" class="clip-tab"/>
+    <!-- B right tab: X=65..67, Z=10..13 -> fX(65)=260, fX(67)=270 -->
+    <rect x="260" y="405" width="10" height="15" class="clip-tab"/>
+    <rect x="220" y="420" width="2.5" height="2.5" fill="white" stroke="black" stroke-width="0.5"/>
+    <rect x="267.5" y="420" width="2.5" height="2.5" fill="white" stroke="black" stroke-width="0.5"/>
+
+    <!-- Channel D clips -->
+    <!-- D left tab: X=93..95, Z=10..13 -> fX(93)=400, fX(95)=410 -->
+    <rect x="400" y="405" width="10" height="15" class="clip-tab"/>
+    <!-- D right tab: X=101..103, Z=10..13 -> fX(101)=440, fX(103)=450 -->
+    <rect x="440" y="405" width="10" height="15" class="clip-tab"/>
+    <rect x="400" y="420" width="2.5" height="2.5" fill="white" stroke="black" stroke-width="0.5"/>
+    <rect x="447.5" y="420" width="2.5" height="2.5" fill="white" stroke="black" stroke-width="0.5"/>
+
+    <!-- Channel C clips -->
+    <!-- C left tab: X=105..107 -> fX(105)=460, fX(107)=470 -->
+    <rect x="460" y="405" width="10" height="15" class="clip-tab"/>
+    <!-- C right tab: X=113..115 -> fX(113)=500, fX(115)=510 -->
+    <rect x="500" y="405" width="10" height="15" class="clip-tab"/>
+    <rect x="460" y="420" width="2.5" height="2.5" fill="white" stroke="black" stroke-width="0.5"/>
+    <rect x="507.5" y="420" width="2.5" height="2.5" fill="white" stroke="black" stroke-width="0.5"/>
+
+    <!-- Tube cross-sections (circles in front view, shown as filled circles) -->
+    <!-- Tube A: center X=50, Z=3+6.35/2=6.175 -> fX=185, fZ=439.1 -->
+    <circle cx="185" cy="439" r="16" class="tube-section"/>
+    <!-- Tube B: center X=62 -> fX=245 -->
+    <circle cx="245" cy="439" r="16" class="tube-section"/>
+    <!-- Tube D: center X=98 -> fX=425 -->
+    <circle cx="425" cy="439" r="16" class="tube-section"/>
+    <!-- Tube C: center X=110 -> fX=485 -->
+    <circle cx="485" cy="439" r="16" class="tube-section"/>
+
+    <!-- Channel labels -->
+    <text x="185" y="475" class="dim-sm">A</text>
+    <text x="245" y="475" class="dim-sm">B</text>
+    <text x="425" y="475" class="dim-sm">D</text>
+    <text x="485" y="475" class="dim-sm">C</text>
+
+    <!-- Dimension: Channel A width 10mm -->
+    <!-- fX(45)=160, fX(55)=210 -->
+    <line x1="160" y1="400" x2="160" y2="390" class="ext"/>
+    <line x1="210" y1="400" x2="210" y2="390" class="ext"/>
+    <line x1="160" y1="393" x2="210" y2="393" marker-start="url(#arrow-rev)" marker-end="url(#arrow)" class="dimline"/>
+    <text x="185" y="389" class="dim">10</text>
+
+    <!-- Dimension: Wall thickness 2mm (A left wall) -->
+    <line x1="150" y1="400" x2="150" y2="385" class="ext"/>
+    <line x1="150" y1="388" x2="160" y2="388" marker-start="url(#arrow-rev)" marker-end="url(#arrow)" class="dimline"/>
+    <text x="145" y="386" class="dim-sm">2</text>
+
+    <!-- Dimension: Wall height 10mm (Z=3 to Z=13) -->
+    <!-- fZ(3)=455, fZ(13)=405 -->
+    <line x1="145" y1="455" x2="135" y2="455" class="ext"/>
+    <line x1="145" y1="405" x2="135" y2="405" class="ext"/>
+    <line x1="138" y1="455" x2="138" y2="405" marker-start="url(#arrow-rev)" marker-end="url(#arrow)" class="dimline"/>
+    <text x="128" y="433" class="dim" transform="rotate(-90,128,433)">10</text>
+
+    <!-- Dimension: Floor thickness 3mm (Z=0 to Z=3) -->
+    <line x1="145" y1="470" x2="135" y2="470" class="ext"/>
+    <line x1="138" y1="470" x2="138" y2="455" marker-start="url(#arrow-rev)" marker-end="url(#arrow)" class="dimline"/>
+    <text x="126" y="465" class="dim-sm">3</text>
+
+    <!-- Z level annotations -->
+    <text x="46" y="480" class="dim-sm">Z=0</text>
+    <text x="46" y="450" class="dim-sm">Z=3</text>
+    <text x="46" y="409" class="dim-sm">Z=13</text>
+
+    <!-- Detail callout circle for Detail A -->
+    <circle cx="185" cy="430" r="45" stroke="black" stroke-width="0.8" fill="none" stroke-dasharray="6,3"/>
+    <text x="230" y="397" class="dim" font-weight="bold">Detail A</text>
+  </g>
+
+  <!-- ============================================================ -->
+  <!-- DETAIL A: Snap Clip Cross-Section (single channel) -->
+  <!-- Scale: 10 px/mm -->
+  <!-- Shows one channel with clip tabs, undercut, and tube -->
+  <!-- Channel centered at X=50 (arbitrary, using local coords) -->
+  <!-- dX(mm) = 850 + (mm - 43) * 10 -->
+  <!-- dZ(mm) = 750 - mm * 10 -->
+  <!-- ============================================================ -->
+  <g id="detail-a">
+    <rect x="810" y="300" width="360" height="360" class="detail-frame"/>
+    <text x="990" y="320" class="viewlbl">DETAIL A: Snap Clip Cross-Section</text>
+    <text x="990" y="336" class="dim-sm">Scale: 10 px/mm</text>
+
+    <!-- Floor: Z=0..3, X=40..60 (wider than channel to show context) -->
+    <!-- dX(40)=820, dX(60)=1020, dZ(0)=750, dZ(3)=720 -->
+    <!-- Clip to frame: X range 820..1160, but show 820..1020 for one channel -->
+    <!-- Let me recenter: dX(mm) = 880 + (mm - 43) * 10 for better centering -->
+    <!-- dX(43)=880, dX(45)=900, dX(50)=930, dX(55)=960, dX(57)=980 -->
+    <!-- Floor under channel: X=43..57 (wall outer to wall outer) -->
+    <!-- dZ(0)=750, but that's outside frame. Start at Z=1 -> dZ(1)=740 -->
+    <!-- Actually frame goes 300..660. Let me use: dZ(mm) = 640 - mm * 10 -->
+    <!-- dZ(0)=640, dZ(3)=610, dZ(9.5)=545, dZ(10)=540, dZ(13)=510 -->
+    <!-- dX(mm) = 880 + (mm - 43) * 10 -->
+
+    <!-- Floor slab Z=0..3 -->
+    <rect x="830" y="610" width="300" height="30" class="floor"/>
+
+    <!-- Left wall: X=43..45, Z=3..13 -->
+    <!-- dX(43)=880, dX(45)=900, dZ(3)=610, dZ(13)=510 -->
+    <rect x="880" y="510" width="20" height="100" class="wall"/>
+
+    <!-- Right wall: X=55..57, Z=3..13 -->
+    <!-- dX(55)=1000, dX(57)=1020 -->
+    <rect x="1000" y="510" width="20" height="100" class="wall"/>
+
+    <!-- Left snap tab: X=45..47, Z=10..13 -->
+    <!-- dX(45)=900, dX(47)=920, dZ(10)=540, dZ(13)=510 -->
+    <rect x="900" y="510" width="20" height="30" class="clip-tab"/>
+
+    <!-- Right snap tab: X=53..55, Z=10..13 -->
+    <!-- dX(53)=980, dX(55)=1000 -->
+    <rect x="980" y="510" width="20" height="30" class="clip-tab"/>
+
+    <!-- Left undercut: X=45..45.5, Z=9.5..10 -->
+    <!-- dX(45)=900, dX(45.5)=905, dZ(9.5)=545, dZ(10)=540 -->
+    <rect x="900" y="540" width="5" height="5" fill="white" stroke="black" stroke-width="0.6"/>
+
+    <!-- Right undercut: X=54.5..55, Z=9.5..10 -->
+    <!-- dX(54.5)=995, dX(55)=1000 -->
+    <rect x="995" y="540" width="5" height="5" fill="white" stroke="black" stroke-width="0.6"/>
+
+    <!-- Tube cross-section: OD=6.35mm, center at X=50, Z=3+6.35/2=6.175 -->
+    <!-- dX(50)=950, dZ(6.175)=578.25, radius=6.35/2*10=31.75 -->
+    <circle cx="950" cy="578" r="32" class="tube-section"/>
+
+    <!-- Snap gap dimension: 6.00mm between tab tips -->
+    <!-- dX(47)=920, dX(53)=980 -->
+    <line x1="920" y1="505" x2="920" y2="495" class="ext"/>
+    <line x1="980" y1="505" x2="980" y2="495" class="ext"/>
+    <line x1="920" y1="498" x2="980" y2="498" marker-start="url(#arrow-rev)" marker-end="url(#arrow)" class="dimline"/>
+    <text x="950" y="493" class="dim">6.00</text>
+
+    <!-- Tab overhang dimension: 2mm each side -->
+    <!-- Left tab: X=45..47 -> dX=900..920 -->
+    <line x1="900" y1="505" x2="900" y2="490" class="ext"/>
+    <line x1="900" y1="492" x2="920" y2="492" marker-start="url(#arrow-rev)" marker-end="url(#arrow)" class="dimline"/>
+    <text x="910" y="488" class="dim-sm">2</text>
+
+    <!-- Channel width dimension: 10mm -->
+    <!-- dX(45)=900, dX(55)=1000 -->
+    <line x1="900" y1="615" x2="900" y2="625" class="ext"/>
+    <line x1="1000" y1="615" x2="1000" y2="625" class="ext"/>
+    <line x1="900" y1="622" x2="1000" y2="622" marker-start="url(#arrow-rev)" marker-end="url(#arrow)" class="dimline"/>
+    <text x="950" y="635" class="dim">10.00</text>
+
+    <!-- Wall thickness dimension: 2mm -->
+    <line x1="880" y1="615" x2="880" y2="625" class="ext"/>
+    <line x1="880" y1="622" x2="900" y2="622" marker-start="url(#arrow-rev)" marker-end="url(#arrow)" class="dimline"/>
+    <text x="870" y="635" class="dim-sm">2</text>
+
+    <!-- Wall height dimension: 10mm (Z=3 to Z=13) -->
+    <line x1="875" y1="510" x2="865" y2="510" class="ext"/>
+    <line x1="875" y1="610" x2="865" y2="610" class="ext"/>
+    <line x1="868" y1="510" x2="868" y2="610" marker-start="url(#arrow-rev)" marker-end="url(#arrow)" class="dimline"/>
+    <text x="856" y="563" class="dim" transform="rotate(-90,856,563)">10</text>
+
+    <!-- Tab height dimension: 3mm (Z=10 to Z=13) -->
+    <line x1="1025" y1="510" x2="1035" y2="510" class="ext"/>
+    <line x1="1025" y1="540" x2="1035" y2="540" class="ext"/>
+    <line x1="1032" y1="510" x2="1032" y2="540" marker-start="url(#arrow-rev)" marker-end="url(#arrow)" class="dimline"/>
+    <text x="1050" y="528" class="dim-sm">3</text>
+
+    <!-- Undercut dimension: 0.5mm -->
+    <line x1="1025" y1="540" x2="1055" y2="540" class="ext"/>
+    <line x1="1025" y1="545" x2="1055" y2="545" class="ext"/>
+    <line x1="1050" y1="540" x2="1050" y2="545" marker-start="url(#arrow-rev)" marker-end="url(#arrow)" class="dimline"/>
+    <text x="1070" y="545" class="dim-sm">0.5</text>
+
+    <!-- Tube OD annotation -->
+    <text x="950" y="560" class="dim" fill="#4488cc">Tube</text>
+    <text x="950" y="572" class="dim" fill="#4488cc">6.35 OD</text>
+
+    <!-- Z level labels -->
+    <text x="838" y="652" class="dim-sm">Z=0</text>
+    <text x="838" y="604" class="dim-sm">Z=3</text>
+    <text x="838" y="544" class="dim-sm">Z=10</text>
+    <text x="838" y="505" class="dim-sm">Z=13</text>
+  </g>
+
+  <!-- ============================================================ -->
+  <!-- SIDE VIEW (looking along -X) -->
+  <!-- Horizontal: Y (depth), Vertical: Z (height) -->
+  <!-- Shows channel profile from the side: floor, wall height, tube path -->
+  <!-- Scale: 5 px/mm -->
+  <!-- Physical range: Y=10..38, Z=0..16 -->
+  <!-- sY(mm) = 850 + (mm - 10) * 5 -->
+  <!-- sZ(mm) = 250 - mm * 5 -->
+  <!-- ============================================================ -->
+  <g id="side-view">
+    <text x="990" y="92" class="viewlbl">SIDE VIEW (looking along -X)</text>
+    <text x="990" y="106" class="dim-sm">Scale: 5 px/mm</text>
+
+    <!-- Y range: 10..38 -> sY: 850..990 -->
+    <!-- Z range: 0..16 -> sZ: 250..170 -->
+    <!-- Tray floor: Z=0..3, Y=10..38 -->
+    <!-- sY(10)=850, sY(38)=990, sZ(0)=250, sZ(3)=235 -->
+    <rect x="850" y="235" width="140" height="15" class="floor"/>
+
+    <!-- Channel wall profile (one wall visible): Z=3..13, Y=16..33 -->
+    <!-- sY(16)=880, sY(33)=965, sZ(3)=235, sZ(13)=185 -->
+    <rect x="880" y="185" width="85" height="50" class="wall"/>
+
+    <!-- Snap clip tab: Y=20.5..25.5 (5mm long), Z=10..13 -->
+    <!-- sY(20.5)=902.5, sY(25.5)=927.5, sZ(10)=200, sZ(13)=185 -->
+    <rect x="902" y="185" width="25" height="15" class="clip-tab"/>
+
+    <!-- Undercut: Y=20.5..25.5, Z=9.5..10 -->
+    <!-- sZ(9.5)=202.5, sZ(10)=200 -->
+    <rect x="902" y="200" width="25" height="3" fill="white" stroke="black" stroke-width="0.5"/>
+
+    <!-- Tube centerline (dashed, showing path through channel) -->
+    <!-- Tube center Z = 3 + 6.35/2 = 6.175 -> sZ = 219.1 -->
+    <line x1="880" y1="219" x2="965" y2="219" class="tube" stroke-dasharray="4,3"/>
+
+    <!-- Tube entering from above at Y=33 -->
+    <line x1="965" y1="219" x2="975" y2="190" class="tube" stroke-dasharray="4,3"/>
+    <!-- Tube exiting upward at Y=16 -->
+    <line x1="880" y1="219" x2="870" y2="190" class="tube" stroke-dasharray="4,3"/>
+
+    <!-- Dimension: Channel length Y=16 to Y=33 = 17mm -->
+    <line x1="880" y1="240" x2="880" y2="260" class="ext"/>
+    <line x1="965" y1="240" x2="965" y2="260" class="ext"/>
+    <line x1="880" y1="255" x2="965" y2="255" marker-start="url(#arrow-rev)" marker-end="url(#arrow)" class="dimline"/>
+    <text x="922" y="270" class="dim">17</text>
+
+    <!-- Dimension: Clip length 5mm -->
+    <line x1="902" y1="180" x2="902" y2="170" class="ext"/>
+    <line x1="927" y1="180" x2="927" y2="170" class="ext"/>
+    <line x1="902" y1="173" x2="927" y2="173" marker-start="url(#arrow-rev)" marker-end="url(#arrow)" class="dimline"/>
+    <text x="914" y="168" class="dim-sm">5</text>
+
+    <!-- Y labels -->
+    <text x="880" y="280" class="dim-sm">Y=16</text>
+    <text x="965" y="280" class="dim-sm">Y=33</text>
+
+    <!-- Z labels -->
+    <text x="840" y="260" class="dim-sm">Z=0</text>
+    <text x="840" y="232" class="dim-sm">Z=3</text>
+    <text x="840" y="182" class="dim-sm">Z=13</text>
+  </g>
+
+  <!-- ============================================================ -->
+  <!-- NOTES -->
+  <!-- ============================================================ -->
+  <g id="notes">
+    <text x="60" y="520" class="note" font-weight="bold">NOTES:</text>
+    <text x="60" y="535" class="note">1. All four channels are geometrically identical in cross-section (10mm wide x 10mm deep).</text>
+    <text x="60" y="548" class="note">2. Channel walls are integral to tray floor (monolithic print, no assembly).</text>
+    <text x="60" y="561" class="note">3. One snap clip per channel at Y=23 midpoint. Tabs overhang 2mm, leaving 6mm gap.</text>
+    <text x="60" y="574" class="note">4. Tube snaps past tabs with 0.175mm interference per side (6.35mm OD vs 6.00mm gap).</text>
+    <text x="60" y="587" class="note">5. Channel arc radius: R=30mm (above 25mm min bend radius for 1/4" silicone tubing).</text>
+    <text x="60" y="600" class="note">6. Pump 1 pair (A+B) and Pump 2 pair (C+D) converge toward X=80 at fitting end.</text>
+    <text x="60" y="613" class="note">7. Tube is removable from clips with moderate finger force (~2-5 N) for Tier 2 service.</text>
+  </g>
+
+</svg>

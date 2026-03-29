@@ -1,0 +1,431 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1400 1050" width="1400" height="1050" font-family="Arial, sans-serif" font-size="11" fill="black" stroke="black">
+
+  <title>Sub-G: Linkage Rod Guide Slots — Engineering Drawing</title>
+
+  <defs>
+    <marker id="arrow" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto">
+      <path d="M0,0 L8,3 L0,6 Z" fill="black"/>
+    </marker>
+    <marker id="arrow-rev" markerWidth="8" markerHeight="6" refX="0" refY="3" orient="auto">
+      <path d="M8,0 L0,3 L8,6 Z" fill="black"/>
+    </marker>
+    <style>
+      .dim { font-size: 10px; fill: black; text-anchor: middle; }
+      .dim-sm { font-size: 9px; fill: black; text-anchor: middle; }
+      .label { font-size: 12px; fill: black; font-weight: bold; text-anchor: middle; }
+      .note { font-size: 9px; fill: black; }
+      .title-text { font-size: 16px; fill: black; font-weight: bold; }
+      .subtitle { font-size: 12px; fill: black; }
+      .hidden { stroke-dasharray: 3,2; stroke-width: 0.8; fill: none; stroke: black; }
+      .center { stroke-dasharray: 12,3,3,3; stroke-width: 0.5; stroke: #555; fill: none; }
+      .outline { stroke: black; stroke-width: 1.2; fill: none; }
+      .thin { stroke: black; stroke-width: 0.6; fill: none; }
+      .wall { stroke: black; stroke-width: 1.2; fill: #e8e8e8; }
+      .slot { stroke: black; stroke-width: 1.0; fill: white; }
+      .rod { stroke: #0066cc; stroke-width: 0.8; fill: none; stroke-dasharray: 3,2; }
+      .dimline { stroke: black; stroke-width: 0.5; fill: none; }
+      .ext { stroke: black; stroke-width: 0.4; fill: none; }
+      .detail-frame { stroke: black; stroke-width: 1.0; fill: white; }
+      .viewlbl { font-size: 12px; fill: black; font-weight: bold; text-anchor: middle; }
+    </style>
+  </defs>
+
+  <!-- Title Block -->
+  <text x="700" y="30" class="title-text" text-anchor="middle">Sub-G: Linkage Rod Guide Slots</text>
+  <text x="700" y="48" class="subtitle" text-anchor="middle">Two Identical Rectangular Through-Slots in Side Walls — Third-Angle Orthographic Projection</text>
+  <text x="700" y="64" class="note" text-anchor="middle">Material: PETG | All dimensions in mm | Slots are subtractive cuts in Sub-A tray walls</text>
+  <line x1="100" y1="72" x2="1300" y2="72" stroke="black" stroke-width="0.5"/>
+
+  <!-- ============================================================ -->
+  <!-- FRONT VIEW (looking along -Y) -->
+  <!-- Horizontal = X (width, 0..160), Vertical = Z (height, 0..72) -->
+  <!-- Scale: 2.5 px/mm -->
+  <!-- Origin: ox=60, oz=520 (Z increases upward => subtract) -->
+  <!-- fX(mm) = 60 + mm*2.5 -->
+  <!-- fZ(mm) = 520 - mm*2.5 -->
+  <!-- ============================================================ -->
+  <g id="front-view">
+    <text x="260" y="95" class="viewlbl">FRONT VIEW (looking along -Y)</text>
+    <text x="260" y="110" class="dim-sm">Scale 2.5:1 (2.5 px/mm)</text>
+
+    <!-- Left wall: X=0..5, Z=0..72 => px (60,340) to (72.5,520) -->
+    <rect x="60" y="340" width="12.5" height="180" class="wall"/>
+
+    <!-- Right wall: X=155..160, Z=0..72 => px (447.5,340) to (460,520) -->
+    <rect x="447.5" y="340" width="12.5" height="180" class="wall"/>
+
+    <!-- Tray floor outline (thin, context): X=5..155, Z=0..5 => bottom strip -->
+    <line x1="72.5" y1="520" x2="447.5" y2="520" class="thin"/>
+    <line x1="72.5" y1="507.5" x2="447.5" y2="507.5" class="thin"/>
+
+    <!-- Top edge of tray walls -->
+    <line x1="60" y1="340" x2="72.5" y2="340" class="outline"/>
+    <line x1="447.5" y1="340" x2="460" y2="340" class="outline"/>
+
+    <!-- LEFT SLOT: X=0..5, Z=35..40 => px x=(60,72.5), z=(420,432.5) -->
+    <!-- fZ(35)=520-87.5=432.5, fZ(40)=520-100=420 -->
+    <rect x="60" y="420" width="12.5" height="12.5" class="slot"/>
+
+    <!-- RIGHT SLOT: X=155..160, Z=35..40 => same Z, x=(447.5,460) -->
+    <rect x="447.5" y="420" width="12.5" height="12.5" class="slot"/>
+
+    <!-- Rod cross-section in left slot (circle, diam 4mm => r=5px, center at X=2.5,Z=37.5) -->
+    <!-- fX(2.5)=66.25, fZ(37.5)=520-93.75=426.25 -->
+    <circle cx="66.25" cy="426.25" r="5" class="rod"/>
+
+    <!-- Rod cross-section in right slot -->
+    <!-- fX(157.5)=453.75, fZ(37.5)=426.25 -->
+    <circle cx="453.75" cy="426.25" r="5" class="rod"/>
+
+    <!-- Center lines through slots -->
+    <!-- Vertical center line through left slot at X=2.5: fX(2.5)=66.25 -->
+    <line x1="66.25" y1="414" x2="66.25" y2="439" class="center"/>
+    <!-- Horizontal center line through left slot at Z=37.5: fZ(37.5)=426.25 -->
+    <line x1="54" y1="426.25" x2="79" y2="426.25" class="center"/>
+
+    <!-- Center lines through right slot -->
+    <line x1="453.75" y1="414" x2="453.75" y2="439" class="center"/>
+    <line x1="441" y1="426.25" x2="466" y2="426.25" class="center"/>
+
+    <!-- DIMENSIONS — Left slot Z position from bottom -->
+    <!-- Z=35 to Z=0: dim from slot bottom to tray bottom -->
+    <!-- Extension lines from slot bottom edge (y=432.5) and tray bottom (y=520) -->
+    <line x1="40" y1="432.5" x2="52" y2="432.5" class="ext"/>
+    <line x1="40" y1="420" x2="52" y2="420" class="ext"/>
+    <line x1="40" y1="520" x2="52" y2="520" class="ext"/>
+    <!-- Dim line: Z=0 to Z=35 -->
+    <line x1="46" y1="520" x2="46" y2="432.5" marker-start="url(#arrow-rev)" marker-end="url(#arrow)" class="dimline"/>
+    <text x="30" y="479" class="dim" transform="rotate(-90,30,479)">35</text>
+
+    <!-- Slot height dim: Z=35 to Z=40 (12.5px) -->
+    <line x1="46" y1="432.5" x2="46" y2="420" marker-start="url(#arrow-rev)" marker-end="url(#arrow)" class="dimline"/>
+    <text x="30" y="426" class="dim" transform="rotate(-90,30,426)">5</text>
+
+    <!-- Z from slot top to tray top: Z=40 to Z=72 -->
+    <line x1="40" y1="340" x2="52" y2="340" class="ext"/>
+    <line x1="46" y1="420" x2="46" y2="340" marker-start="url(#arrow-rev)" marker-end="url(#arrow)" class="dimline"/>
+    <text x="30" y="380" class="dim" transform="rotate(-90,30,380)">32</text>
+
+    <!-- Wall thickness dim: X=0..5 on top -->
+    <line x1="60" y1="332" x2="60" y2="338" class="ext"/>
+    <line x1="72.5" y1="332" x2="72.5" y2="338" class="ext"/>
+    <line x1="60" y1="335" x2="72.5" y2="335" marker-start="url(#arrow-rev)" marker-end="url(#arrow)" class="dimline"/>
+    <text x="66.25" y="330" class="dim">5</text>
+
+    <!-- Overall width dim: X=0..160 -->
+    <line x1="60" y1="530" x2="60" y2="540" class="ext"/>
+    <line x1="460" y1="530" x2="460" y2="540" class="ext"/>
+    <line x1="60" y1="537" x2="460" y2="537" marker-start="url(#arrow-rev)" marker-end="url(#arrow)" class="dimline"/>
+    <text x="260" y="550" class="dim">160</text>
+
+    <!-- Detail circle callout for left slot -->
+    <circle cx="66.25" cy="426.25" r="22" stroke="black" stroke-width="0.8" fill="none"/>
+    <text x="90" y="408" class="dim-sm">Detail A</text>
+  </g>
+
+  <!-- ============================================================ -->
+  <!-- SIDE VIEW (looking along -X, from the left) -->
+  <!-- Horizontal = Y (depth, 0..155), Vertical = Z (height, 0..72) -->
+  <!-- Scale: 2.5 px/mm -->
+  <!-- Origin: oy=560, oz=520 (same Z as front) -->
+  <!-- sY(mm) = 560 + mm*2.5 -->
+  <!-- sZ(mm) = 520 - mm*2.5 -->
+  <!-- ============================================================ -->
+  <g id="side-view">
+    <text x="753.75" y="95" class="viewlbl">SIDE VIEW (looking along -X)</text>
+    <text x="753.75" y="110" class="dim-sm">Scale 2.5:1 (2.5 px/mm)</text>
+
+    <!-- Side wall outline: Y=0..155, Z=0..72 -->
+    <!-- sY(0)=560, sY(155)=947.5, sZ(0)=520, sZ(72)=340 -->
+    <rect x="560" y="340" width="387.5" height="180" class="wall"/>
+
+    <!-- SLOT (visible as rectangle cut in the wall): Y=17..23, Z=35..40 -->
+    <!-- sY(17)=602.5, sY(23)=617.5, sZ(35)=432.5, sZ(40)=420 -->
+    <rect x="602.5" y="420" width="15" height="12.5" class="slot"/>
+
+    <!-- Rod inside slot (shown as dashed rectangle, side profile of cylinder along X) -->
+    <!-- Rod diam 4mm: Z=35.5..39.5 => sZ(35.5)=431.25, sZ(39.5)=421.25 -->
+    <!-- Rod at rest center Y=20, diam=4: Y=18..22 => sY(18)=605, sY(22)=615 -->
+    <rect x="605" y="421.25" width="10" height="10" class="rod"/>
+
+    <!-- Center lines through slot -->
+    <!-- Horizontal center at Z=37.5: sZ(37.5)=426.25 -->
+    <line x1="595" y1="426.25" x2="625" y2="426.25" class="center"/>
+    <!-- Vertical center at Y=20: sY(20)=610 -->
+    <line x1="610" y1="413" x2="610" y2="439" class="center"/>
+
+    <!-- DIMENSIONS — Slot Y position from rear wall -->
+    <!-- Y=0 to Y=17 (rear to slot start) -->
+    <line x1="560" y1="440" x2="560" y2="452" class="ext"/>
+    <line x1="602.5" y1="440" x2="602.5" y2="452" class="ext"/>
+    <line x1="560" y1="448" x2="602.5" y2="448" marker-start="url(#arrow-rev)" marker-end="url(#arrow)" class="dimline"/>
+    <text x="581" y="460" class="dim">17</text>
+
+    <!-- Slot length: Y=17..23 (6mm) -->
+    <line x1="617.5" y1="440" x2="617.5" y2="452" class="ext"/>
+    <line x1="602.5" y1="448" x2="617.5" y2="448" marker-start="url(#arrow-rev)" marker-end="url(#arrow)" class="dimline"/>
+    <text x="610" y="460" class="dim">6</text>
+
+    <!-- Slot Z position from bottom: same as front view, Z=35 -->
+    <line x1="545" y1="432.5" x2="557" y2="432.5" class="ext"/>
+    <line x1="545" y1="420" x2="557" y2="420" class="ext"/>
+    <line x1="545" y1="520" x2="557" y2="520" class="ext"/>
+    <line x1="551" y1="520" x2="551" y2="432.5" marker-start="url(#arrow-rev)" marker-end="url(#arrow)" class="dimline"/>
+    <text x="537" y="479" class="dim" transform="rotate(-90,537,479)">35</text>
+
+    <!-- Slot height: Z=35..40 (5mm) -->
+    <line x1="551" y1="432.5" x2="551" y2="420" marker-start="url(#arrow-rev)" marker-end="url(#arrow)" class="dimline"/>
+    <text x="537" y="426" class="dim" transform="rotate(-90,537,426)">5</text>
+
+    <!-- Overall depth: Y=0..155 -->
+    <line x1="560" y1="530" x2="560" y2="540" class="ext"/>
+    <line x1="947.5" y1="530" x2="947.5" y2="540" class="ext"/>
+    <line x1="560" y1="537" x2="947.5" y2="537" marker-start="url(#arrow-rev)" marker-end="url(#arrow)" class="dimline"/>
+    <text x="753.75" y="550" class="dim">155</text>
+
+    <!-- Overall height: Z=0..72 -->
+    <line x1="955" y1="520" x2="965" y2="520" class="ext"/>
+    <line x1="955" y1="340" x2="965" y2="340" class="ext"/>
+    <line x1="960" y1="520" x2="960" y2="340" marker-start="url(#arrow-rev)" marker-end="url(#arrow)" class="dimline"/>
+    <text x="978" y="430" class="dim" transform="rotate(-90,978,430)">72</text>
+
+    <!-- Detail circle callout for slot -->
+    <circle cx="610" cy="426.25" r="22" stroke="black" stroke-width="0.8" fill="none"/>
+    <text x="636" y="410" class="dim-sm">Detail B</text>
+  </g>
+
+  <!-- ============================================================ -->
+  <!-- TOP VIEW (looking along -Z) -->
+  <!-- Horizontal = X (width, 0..160), Vertical = Y (depth, 0..155) -->
+  <!-- Scale: 2.5 px/mm -->
+  <!-- Origin: same X as front view (ox=60), oy=580 -->
+  <!-- tX(mm) = 60 + mm*2.5 -->
+  <!-- tY(mm) = 580 + mm*2.5 -->
+  <!-- ============================================================ -->
+  <g id="top-view">
+    <text x="260" y="570" class="viewlbl">TOP VIEW (looking along -Z)</text>
+    <text x="260" y="585" class="dim-sm">Scale 2.5:1 (2.5 px/mm)</text>
+
+    <!-- Left wall: X=0..5, Y=0..155 => px x=(60,72.5), y=(600,987.5) -->
+    <rect x="60" y="600" width="12.5" height="387.5" class="wall"/>
+
+    <!-- Right wall: X=155..160, Y=0..155 => px x=(447.5,460), y=(600,987.5) -->
+    <rect x="447.5" y="600" width="12.5" height="387.5" class="wall"/>
+
+    <!-- Tray outline top and bottom edges (context) -->
+    <line x1="72.5" y1="600" x2="447.5" y2="600" class="thin"/>
+    <line x1="72.5" y1="987.5" x2="447.5" y2="987.5" class="thin"/>
+
+    <!-- LEFT SLOT: X=0..5, Y=17..23 => px x=(60,72.5), y=(642.5,657.5) -->
+    <!-- tY(17)=600+42.5=642.5, tY(23)=600+57.5=657.5 -->
+    <rect x="60" y="642.5" width="12.5" height="15" class="slot"/>
+
+    <!-- RIGHT SLOT: X=155..160, Y=17..23 => px x=(447.5,460), y=(642.5,657.5) -->
+    <rect x="447.5" y="642.5" width="12.5" height="15" class="slot"/>
+
+    <!-- Rod in left slot (dashed, showing plan view of cylinder axis along X) -->
+    <!-- Rod diam 4mm: Y=18..22, X=0..5 => tY(18)=645, tY(22)=655, tX(0)=60, tX(5)=72.5 -->
+    <rect x="60" y="645" width="12.5" height="10" class="rod"/>
+
+    <!-- Rod in right slot -->
+    <rect x="447.5" y="645" width="12.5" height="10" class="rod"/>
+
+    <!-- Center lines through left slot -->
+    <!-- Y center at Y=20: tY(20)=650 -->
+    <line x1="54" y1="650" x2="79" y2="650" class="center"/>
+    <!-- X center at X=2.5: tX(2.5)=66.25 -->
+    <line x1="66.25" y1="636" x2="66.25" y2="664" class="center"/>
+
+    <!-- Center lines through right slot -->
+    <line x1="441" y1="650" x2="466" y2="650" class="center"/>
+    <line x1="453.75" y1="636" x2="453.75" y2="664" class="center"/>
+
+    <!-- DIMENSIONS — Slot Y position -->
+    <!-- Y=0 to Y=17 -->
+    <line x1="470" y1="600" x2="482" y2="600" class="ext"/>
+    <line x1="470" y1="642.5" x2="482" y2="642.5" class="ext"/>
+    <line x1="476" y1="600" x2="476" y2="642.5" marker-start="url(#arrow-rev)" marker-end="url(#arrow)" class="dimline"/>
+    <text x="490" y="624" class="dim">17</text>
+
+    <!-- Slot length Y=17..23 (6mm) -->
+    <line x1="470" y1="657.5" x2="482" y2="657.5" class="ext"/>
+    <line x1="476" y1="642.5" x2="476" y2="657.5" marker-start="url(#arrow-rev)" marker-end="url(#arrow)" class="dimline"/>
+    <text x="490" y="652" class="dim">6</text>
+
+    <!-- Symmetry center line at X=80 -->
+    <!-- tX(80)=260 -->
+    <line x1="260" y1="594" x2="260" y2="670" class="center"/>
+    <text x="260" y="678" class="dim-sm">CL (X=80)</text>
+  </g>
+
+  <!-- ============================================================ -->
+  <!-- DETAIL A — Front View of Left Slot (zoomed) -->
+  <!-- Scale: 8 px/mm -->
+  <!-- Shows: wall section, slot cut, rod cross-section, clearances -->
+  <!-- Region: X=-2..8, Z=33..42 (10mm x 9mm = 80px x 72px) -->
+  <!-- ============================================================ -->
+  <g id="detail-a" transform="translate(560,580)">
+    <rect x="0" y="0" width="220" height="200" class="detail-frame"/>
+    <text x="110" y="-12" class="viewlbl">DETAIL A — Left Slot, Front View</text>
+    <text x="110" y="-1" class="dim-sm">Scale 8:1 (8 px/mm)</text>
+
+    <!-- Coordinate mapping within detail:
+         dX(mm) = 20 + (mm - 0)*8  (X origin at X=0mm, offset 20px)
+         dZ(mm) = 170 - (mm - 33)*8 (Z origin at Z=33mm, offset 170px from top of inset)
+         So: dX(0)=20, dX(5)=60, dZ(33)=170, dZ(35)=154, dZ(37.5)=134, dZ(40)=114, dZ(42)=98
+    -->
+
+    <!-- Wall section (left wall X=0..5, full Z range) -->
+    <!-- dX(0)=20, dX(5)=60, dZ(33)=170, dZ(42)=98 => we show Z=33..42 region -->
+    <rect x="20" y="98" width="40" height="72" class="wall"/>
+
+    <!-- Slot opening: X=0..5, Z=35..40 -->
+    <!-- dX(0)=20, dX(5)=60, dZ(35)=154, dZ(40)=114 -->
+    <rect x="20" y="114" width="40" height="40" class="slot"/>
+
+    <!-- Rod cross-section (circle, diam=4mm=32px, center at X=2.5, Z=37.5) -->
+    <!-- dX(2.5)=40, dZ(37.5)=134 -->
+    <circle cx="40" cy="134" r="16" stroke="#0066cc" stroke-width="1.2" fill="none" stroke-dasharray="4,3"/>
+
+    <!-- Center lines -->
+    <line x1="40" y1="100" x2="40" y2="168" class="center"/>
+    <line x1="12" y1="134" x2="68" y2="134" class="center"/>
+
+    <!-- CLEARANCE DIMENSIONS -->
+    <!-- Z clearance: slot top (Z=40) to rod top (Z=39.5) = 0.5mm -->
+    <!-- dZ(40)=114, dZ(39.5)=118 => 4px gap -->
+    <!-- Rod top at dZ(39.5)=134-16=118 -->
+    <!-- Top clearance: between Z=40 (px 114) and rod top Z=39.5 (px 118) -->
+    <line x1="70" y1="114" x2="82" y2="114" class="ext"/>
+    <line x1="70" y1="118" x2="82" y2="118" class="ext"/>
+    <line x1="76" y1="114" x2="76" y2="118" marker-start="url(#arrow-rev)" marker-end="url(#arrow)" class="dimline"/>
+    <text x="100" y="118" class="dim-sm">0.5</text>
+
+    <!-- Bottom clearance: rod bottom Z=35.5 to slot bottom Z=35 = 0.5mm -->
+    <!-- dZ(35.5)=134+16=150, dZ(35)=154 -->
+    <line x1="70" y1="150" x2="82" y2="150" class="ext"/>
+    <line x1="70" y1="154" x2="82" y2="154" class="ext"/>
+    <line x1="76" y1="150" x2="76" y2="154" marker-start="url(#arrow-rev)" marker-end="url(#arrow)" class="dimline"/>
+    <text x="100" y="154" class="dim-sm">0.5</text>
+
+    <!-- Slot width (Z) dim: Z=35..40 = 5mm -->
+    <!-- Full dim on far right -->
+    <line x1="150" y1="114" x2="162" y2="114" class="ext"/>
+    <line x1="150" y1="154" x2="162" y2="154" class="ext"/>
+    <line x1="156" y1="114" x2="156" y2="154" marker-start="url(#arrow-rev)" marker-end="url(#arrow)" class="dimline"/>
+    <text x="174" y="137" class="dim">5</text>
+
+    <!-- Rod diameter dim -->
+    <!-- Diameter line through center: from rod top to rod bottom -->
+    <line x1="40" y1="118" x2="40" y2="150" marker-start="url(#arrow-rev)" marker-end="url(#arrow)" stroke="#0066cc" stroke-width="0.5"/>
+    <text x="40" y="170" class="dim" fill="#0066cc">&#x2300;4 rod</text>
+
+    <!-- Wall thickness (X) dim: X=0..5 = 5mm -->
+    <line x1="20" y1="176" x2="20" y2="188" class="ext"/>
+    <line x1="60" y1="176" x2="60" y2="188" class="ext"/>
+    <line x1="20" y1="184" x2="60" y2="184" marker-start="url(#arrow-rev)" marker-end="url(#arrow)" class="dimline"/>
+    <text x="40" y="196" class="dim">5</text>
+  </g>
+
+  <!-- ============================================================ -->
+  <!-- DETAIL B — Side View of Left Slot (zoomed) -->
+  <!-- Scale: 8 px/mm -->
+  <!-- Shows: slot in wall, rod position, Y travel clearances -->
+  <!-- Region: Y=14..26, Z=33..42 (12mm x 9mm = 96px x 72px) -->
+  <!-- ============================================================ -->
+  <g id="detail-b" transform="translate(560,830)">
+    <rect x="0" y="0" width="260" height="190" class="detail-frame"/>
+    <text x="130" y="-8" class="viewlbl">DETAIL B — Left Slot, Side View</text>
+    <text x="130" y="6" class="dim-sm">Scale 8:1 (8 px/mm)</text>
+
+    <!-- Coordinate mapping within detail:
+         eY(mm) = 20 + (mm - 14)*8  (Y origin at Y=14mm, offset 20px)
+         eZ(mm) = 165 - (mm - 33)*8 (Z origin at Z=33mm, offset 165px)
+         So: eY(14)=20, eY(17)=44, eY(20)=68, eY(23)=92, eY(26)=116
+         eZ(33)=165, eZ(35)=149, eZ(37.5)=129, eZ(40)=109, eZ(42)=93
+    -->
+
+    <!-- Wall section (side view of wall, full Z shown) -->
+    <!-- The wall spans all Y, so we see Y=14..26 as solid, with slot cut out -->
+    <rect x="20" y="93" width="96" height="72" class="wall"/>
+
+    <!-- Slot opening: Y=17..23, Z=35..40 -->
+    <!-- eY(17)=44, eY(23)=92, eZ(35)=149, eZ(40)=109 -->
+    <rect x="44" y="109" width="48" height="40" class="slot"/>
+
+    <!-- Rod (side profile, rectangle): Y=18..22, Z=35.5..39.5 at rest -->
+    <!-- eY(18)=52, eY(22)=84, eZ(35.5)=145, eZ(39.5)=113 -->
+    <rect x="52" y="113" width="32" height="32" stroke="#0066cc" stroke-width="1.2" fill="none" stroke-dasharray="4,3"/>
+
+    <!-- Travel ghost position: rod shifted +1.5mm in Y (squeezed) -->
+    <!-- Y=19.5..23.5 but slot ends at 23, so rod at Y=19.5..23.5 -->
+    <!-- eY(19.5)=64, eY(23.5)=96 -->
+    <!-- Show as lighter dashed -->
+    <rect x="64" y="113" width="32" height="32" stroke="#0066cc" stroke-width="0.6" fill="none" stroke-dasharray="2,3" opacity="0.5"/>
+
+    <!-- Center lines -->
+    <line x1="68" y1="88" x2="68" y2="166" class="center"/>
+    <line x1="15" y1="129" x2="120" y2="129" class="center"/>
+
+    <!-- CLEARANCE DIMENSIONS -->
+    <!-- Y clearance at rest: rod front (Y=22) to slot end (Y=23) = 1.0mm -->
+    <!-- eY(22)=84, eY(23)=92 -->
+    <line x1="84" y1="170" x2="84" y2="178" class="ext"/>
+    <line x1="92" y1="170" x2="92" y2="178" class="ext"/>
+    <line x1="84" y1="175" x2="92" y2="175" marker-start="url(#arrow-rev)" marker-end="url(#arrow)" class="dimline"/>
+    <text x="88" y="188" class="dim-sm">1.0</text>
+
+    <!-- Y clearance at rest: slot start (Y=17) to rod rear (Y=18) = 1.0mm -->
+    <!-- eY(17)=44, eY(18)=52 -->
+    <line x1="44" y1="170" x2="44" y2="178" class="ext"/>
+    <line x1="52" y1="170" x2="52" y2="178" class="ext"/>
+    <line x1="44" y1="175" x2="52" y2="175" marker-start="url(#arrow-rev)" marker-end="url(#arrow)" class="dimline"/>
+    <text x="48" y="188" class="dim-sm">1.0</text>
+
+    <!-- Slot length (Y) dim: Y=17..23 = 6mm -->
+    <line x1="44" y1="98" x2="44" y2="86" class="ext"/>
+    <line x1="92" y1="98" x2="92" y2="86" class="ext"/>
+    <line x1="44" y1="90" x2="92" y2="90" marker-start="url(#arrow-rev)" marker-end="url(#arrow)" class="dimline"/>
+    <text x="68" y="84" class="dim">6</text>
+
+    <!-- Rod diameter (Y dimension = 4mm) -->
+    <line x1="52" y1="98" x2="52" y2="86" class="ext"/>
+    <line x1="84" y1="98" x2="84" y2="86" class="ext"/>
+
+    <!-- Slot height (Z) dim: 5mm -->
+    <line x1="130" y1="109" x2="142" y2="109" class="ext"/>
+    <line x1="130" y1="149" x2="142" y2="149" class="ext"/>
+    <line x1="136" y1="109" x2="136" y2="149" marker-start="url(#arrow-rev)" marker-end="url(#arrow)" class="dimline"/>
+    <text x="152" y="132" class="dim">5</text>
+
+    <!-- Travel annotation -->
+    <!-- Arrow showing 1.5mm travel direction -->
+    <line x1="68" y1="105" x2="80" y2="105" marker-end="url(#arrow)" stroke="#0066cc" stroke-width="0.8"/>
+    <text x="100" y="104" class="dim-sm" fill="#0066cc">1.5 travel</text>
+
+    <!-- Rod diameter label -->
+    <text x="68" y="165" class="dim" fill="#0066cc">&#x2300;4 rod</text>
+  </g>
+
+  <!-- ============================================================ -->
+  <!-- NOTES -->
+  <!-- ============================================================ -->
+  <g id="notes" transform="translate(1000,580)">
+    <text x="0" y="0" class="label" text-anchor="start">NOTES</text>
+    <text x="0" y="18" class="note">1. Two identical slots, mirrored about CL at X=80 mm.</text>
+    <text x="0" y="32" class="note">2. Slots are subtractive cuts (no separate part).</text>
+    <text x="0" y="46" class="note">3. Rod shown in blue dashed for reference only.</text>
+    <text x="0" y="60" class="note">4. Ghost outline in Detail B shows rod at full</text>
+    <text x="0" y="74" class="note">   squeeze (+1.5 mm travel in +Y direction).</text>
+    <text x="0" y="88" class="note">5. Sharp corners (no fillet/chamfer required).</text>
+    <text x="0" y="102" class="note">6. Print orientation: slots bridge 5.0 mm in Z</text>
+    <text x="0" y="116" class="note">   across wall thickness (well within FDM limits).</text>
+    <text x="0" y="140" class="note" font-weight="bold">SLOT PARAMETERS (each):</text>
+    <text x="0" y="156" class="note">  Y extent: 17.0 to 23.0 mm (6.0 mm length)</text>
+    <text x="0" y="170" class="note">  Z extent: 35.0 to 40.0 mm (5.0 mm width)</text>
+    <text x="0" y="184" class="note">  X extent: through full wall (5.0 mm)</text>
+    <text x="0" y="198" class="note">  Rod clearance (Z): 0.5 mm per side</text>
+    <text x="0" y="212" class="note">  Rod clearance (Y): 0.25 mm per end at full travel</text>
+  </g>
+
+</svg>
