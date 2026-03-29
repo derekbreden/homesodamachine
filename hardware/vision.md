@@ -45,5 +45,6 @@
   - The surface the users palm pushes against must eventually be attached to whatever the quick connects are mounted in
 	- The surface the users fingers pull must eventually be attached to the release plate
 	- The release plate must be able to move towards the quick connect collets
+	- The user's hand is palm-up during the squeeze — fingers curl upward to pull the release surface while the palm pushes against the cartridge body. 
 - For putting it back in, there is no need to worry about the collets at all, regardless of their position the tubes can be pushed into the quick connects and proper mechanisms in the quick connects will ensure the the cartridge will no longer be able to be removed (without of course pushing the collets again)
 - The pumps each mount to a flat surface via 4 screws surrounding the motor cylinder — the measurements and photos in the repo have the exact dimensions.

@@ -184,6 +184,7 @@ Step 1 (folders)
 13. **Multiple parts in flight simultaneously** — The manager processes one part at a time through 4d → 6c. Running multiple parts in parallel overwhelms the manager's context and produces interface mismatches.
 14. **One agent for all sub-components** — After decomposition, each sub-component is a SEPARATE agent. If 4d produces 3 sub-components, spawn 3 agents for 4s, 3 for 4b, 3 for 6g. A single agent handling all sub-components defeats the purpose of decomposition — it reintroduces the multi-paradigm complexity that decomposition was designed to eliminate.
 15. **Orchestrator pre-judging complexity** — The orchestrator must never tell an agent its task is "trivial" or "straightforward," or suggest it should produce a short document. The agent discovers the complexity by doing the work. Quality gates are fixed, not adjustable per sub-component.
+16. **Features serving imagined stakeholders** — Every feature must trace to the vision or a physical necessity (structural, manufacturing, assembly, routing). "Good engineering practice," "developer convenience," "future flexibility," and "robustness to scenarios the vision doesn't contemplate" are not justifications. Rubric H catches this.
 
 ---
 

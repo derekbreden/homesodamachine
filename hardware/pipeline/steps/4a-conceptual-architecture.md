@@ -17,7 +17,7 @@ The agent designing a mechanism is not limited to the mechanism's own parts. If 
 3. **Seam placement** — where are the seams and how are they treated
 4. **User-facing surface composition** — what does the user see and touch, visual hierarchy
 5. **Design language** — surface finish, corner treatment, material, what makes this a product
-6. **Service access strategy** — how are internals accessed, tiered by frequency
+6. **Service access strategy** — only the service interactions the vision describes (e.g., cartridge replacement). Do not invent service scenarios beyond what the vision specifies.
 7. **Manufacturing constraints** — print bed limits, orientation, material selection
 
 ## Agent prompt must include

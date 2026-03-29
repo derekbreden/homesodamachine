@@ -148,6 +148,29 @@ This rubric verifies that every feature in the part can be FDM-printed as design
 
 **Step 5 — Layer strength check.** For every feature that flexes, bears tension, or is a snap-fit arm: verify that the intended print orientation places layer lines parallel to (not perpendicular to) the load direction. If the print orientation conflicts between features, note the tradeoff and state which feature took priority and why.
 
+### Rubric H — Feature Traceability (MANDATORY)
+
+For every feature in the design, the agent must state its justification. Every feature must trace to one of exactly two sources:
+
+1. **The vision.** Name the specific line or requirement from `hardware/vision.md` that this feature serves.
+2. **Physical necessity.** The feature exists because the part would not function without it. Physical necessity has exactly four categories:
+   - **Structural** — the part would deform, flex, or fail without this feature. Name the load.
+   - **Manufacturing** — FDM printability requires this feature. (Rubric G should already cover this.)
+   - **Assembly** — the parts cannot be aligned or joined without this feature.
+   - **Routing** — a wire, tube, or cable needs a path and this feature provides it.
+
+Print a table:
+
+```
+| Feature | Justification source | Specific reference |
+```
+
+- If the source is the vision, the "Specific reference" column quotes or paraphrases the vision line.
+- If the source is physical necessity, the "Specific reference" column names the category and the specific load, constraint, or path.
+- **If a feature cannot be traced to either source, it is unjustified.** Flag it: **"UNJUSTIFIED: [feature] serves no vision requirement and no physical necessity. Flag for removal."**
+
+Do not invent justifications. "Good engineering practice," "robustness," "future flexibility," "serviceability beyond what the vision describes," and "development convenience" are not valid sources. If a feature exists only because it seems like a good idea, it is unjustified.
+
 ---
 
 ## Quality gate
@@ -162,3 +185,4 @@ After all agents complete, verify:
 - Rubric E assembly sequence is physically feasible
 - Rubric F part count is minimized
 - Rubric G printability: no unresolved overhangs, no sub-minimum walls, no unsupported long bridges, print orientation stated with rationale
+- Rubric H traceability: every feature traces to a vision line or a physical necessity (structural, manufacturing, assembly, routing). No unjustified features remain.
