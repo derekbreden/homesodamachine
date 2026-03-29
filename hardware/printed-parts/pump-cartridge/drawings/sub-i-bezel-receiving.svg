@@ -1,0 +1,515 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1800 1400" width="1800" height="1400" font-family="Arial, sans-serif" font-size="11" fill="black" stroke="black">
+
+  <title>Sub-I: Front Bezel Receiving Features — Engineering Drawing</title>
+
+  <defs>
+    <marker id="arrow" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto">
+      <path d="M0,0 L8,3 L0,6 Z" fill="black"/>
+    </marker>
+    <marker id="arrow-rev" markerWidth="8" markerHeight="6" refX="0" refY="3" orient="auto">
+      <path d="M8,0 L0,3 L8,6 Z" fill="black"/>
+    </marker>
+    <style>
+      .dim { font-size: 10px; fill: black; text-anchor: middle; }
+      .dim-sm { font-size: 9px; fill: black; text-anchor: middle; }
+      .label { font-size: 12px; fill: black; font-weight: bold; text-anchor: middle; }
+      .note { font-size: 9px; fill: black; }
+      .title-text { font-size: 16px; fill: black; font-weight: bold; }
+      .subtitle { font-size: 12px; fill: black; }
+      .hidden { stroke-dasharray: 3,2; stroke-width: 0.8; fill: none; }
+      .center { stroke-dasharray: 12,3,3,3; stroke-width: 0.5; stroke: #555; fill: none; }
+      .outline { stroke: black; stroke-width: 1.2; fill: none; }
+      .thin { stroke: black; stroke-width: 0.6; fill: none; }
+      .dimline { stroke: black; stroke-width: 0.5; fill: none; }
+      .ext { stroke: black; stroke-width: 0.4; fill: none; }
+      .section { stroke: black; stroke-width: 0.8; fill: #e8e8e8; }
+      .cut { stroke: black; stroke-width: 0.8; fill: #fff0f0; }
+      .detail-frame { stroke: black; stroke-width: 1.0; fill: white; }
+      .viewlbl { font-size: 12px; fill: black; font-weight: bold; text-anchor: middle; }
+    </style>
+  </defs>
+
+  <!-- Title Block -->
+  <text x="900" y="30" class="title-text" text-anchor="middle">Sub-I: Front Bezel Receiving Features</text>
+  <text x="900" y="48" class="subtitle" text-anchor="middle">Cuts on Tray (Sub-A) at Y=155 Front Face — Third-Angle Orthographic Projection</text>
+  <text x="900" y="64" class="note" text-anchor="middle">Material: PETG | All dimensions in mm | Coordinate system: X=width, Y=depth (0=dock, 155=user), Z=height</text>
+  <line x1="100" y1="72" x2="1700" y2="72" stroke="black" stroke-width="0.5"/>
+
+  <!-- ============================================================ -->
+  <!-- FRONT VIEW (looking along -Y toward Y=155 face)              -->
+  <!-- Horizontal: X (width, 0..160)  Vertical: Z (height, 0..72)  -->
+  <!-- Scale: 4 px/mm                                               -->
+  <!-- Origin pixel: (100, 480) = (X=0, Z=0)                       -->
+  <!-- fX(mm) = 100 + mm*4,  fZ(mm) = 480 - mm*4                   -->
+  <!-- ============================================================ -->
+
+  <g id="front-view">
+    <text x="420" y="95" class="viewlbl">FRONT VIEW (looking along -Y)</text>
+    <text x="420" y="112" class="dim">Scale: 4 px/mm</text>
+
+    <!-- Tray outer outline: X=0..160, Z=0..72 -->
+    <!-- fX(0)=100, fX(160)=740, fZ(0)=480, fZ(72)=192 -->
+    <rect x="100" y="192" width="640" height="288" class="outline"/>
+
+    <!-- Left wall interior face: X=5 => fX=120 -->
+    <line x1="120" y1="192" x2="120" y2="480" class="thin"/>
+    <!-- Right wall interior face: X=155 => fX=720 -->
+    <line x1="720" y1="192" x2="720" y2="480" class="thin"/>
+    <!-- Floor top: Z=3 => fZ=468 -->
+    <line x1="100" y1="468" x2="740" y2="468" class="thin"/>
+
+    <!-- LEFT WALL RABBET: removes X=0..1.5, Z=0..72 at front face -->
+    <!-- Rabbet ledge at X=1.5 => fX=106 -->
+    <!-- Shown as dashed hidden line (this is the ledge surface visible inside the step) -->
+    <line x1="106" y1="192" x2="106" y2="480" class="hidden"/>
+
+    <!-- RIGHT WALL RABBET: removes X=158.5..160, Z=0..72 -->
+    <!-- Rabbet ledge at X=158.5 => fX=734 -->
+    <line x1="734" y1="192" x2="734" y2="480" class="hidden"/>
+
+    <!-- FLOOR RABBET: removes Z=0..1.5 across full width -->
+    <!-- Rabbet ledge at Z=1.5 => fZ=474 -->
+    <line x1="100" y1="474" x2="740" y2="474" class="hidden"/>
+
+    <!-- Corner fillets (1mm R) shown as small arcs at X=1.5,Z=1.5 and X=158.5,Z=1.5 -->
+    <!-- Left: center at fX=106, fZ=474; radius=4px (1mm*4) -->
+    <path d="M 106 478 A 4 4 0 0 1 102 474" class="hidden"/>
+    <!-- Right: center at fX=734, fZ=474; radius=4px -->
+    <path d="M 738 474 A 4 4 0 0 1 734 478" class="hidden"/>
+
+    <!-- POCKET L1 (Left wall, lower): Z=19.5..24.5, cut into X=3.5..5 -->
+    <!-- fZ(24.5)=382, fZ(19.5)=402, fX(3.5)=114, fX(5)=120 -->
+    <!-- Pocket opening is at left wall interior face X=5 (fX=120) -->
+    <!-- Pocket goes from X=3.5 to 5 (into the wall), shown as hidden rectangle -->
+    <rect x="114" y="382" width="6" height="20" class="hidden"/>
+    <text x="96" y="395" class="dim-sm" text-anchor="end">L1</text>
+
+    <!-- POCKET L2 (Left wall, upper): Z=47.5..52.5 -->
+    <!-- fZ(52.5)=270, fZ(47.5)=290 -->
+    <rect x="114" y="270" width="6" height="20" class="hidden"/>
+    <text x="96" y="283" class="dim-sm" text-anchor="end">L2</text>
+
+    <!-- POCKET R1 (Right wall, lower): Z=19.5..24.5, X=155..156.5 -->
+    <!-- fX(155)=720, fX(156.5)=726 -->
+    <rect x="720" y="382" width="6" height="20" class="hidden"/>
+    <text x="744" y="395" class="dim-sm">R1</text>
+
+    <!-- POCKET R2 (Right wall, upper): Z=47.5..52.5 -->
+    <rect x="720" y="270" width="6" height="20" class="hidden"/>
+    <text x="744" y="283" class="dim-sm">R2</text>
+
+    <!-- POCKET F1 (Floor, center): X=77.5..82.5, cut Z=1.5..3 -->
+    <!-- fX(77.5)=410, fX(82.5)=430, fZ(3)=468, fZ(1.5)=474 -->
+    <rect x="410" y="468" width="20" height="6" class="hidden"/>
+    <text x="420" y="490" class="dim-sm">F1</text>
+
+    <!-- POCKET T1 (Top edge, center): X=77.5..82.5, Z=70.5..72 -->
+    <!-- fX(77.5)=410, fX(82.5)=430, fZ(72)=192, fZ(70.5)=198 -->
+    <rect x="410" y="192" width="20" height="6" class="hidden"/>
+    <text x="420" y="186" class="dim-sm">T1*</text>
+
+    <!-- DIMENSIONS -->
+
+    <!-- Overall width: 160mm -->
+    <line x1="100" y1="510" x2="740" y2="510" class="dimline" marker-start="url(#arrow-rev)" marker-end="url(#arrow)"/>
+    <line x1="100" y1="480" x2="100" y2="515" class="ext"/>
+    <line x1="740" y1="480" x2="740" y2="515" class="ext"/>
+    <text x="420" y="508" class="dim">160</text>
+
+    <!-- Overall height: 72mm -->
+    <line x1="770" y1="192" x2="770" y2="480" class="dimline" marker-start="url(#arrow-rev)" marker-end="url(#arrow)"/>
+    <line x1="740" y1="192" x2="775" y2="192" class="ext"/>
+    <line x1="740" y1="480" x2="775" y2="480" class="ext"/>
+    <text x="788" y="340" class="dim" transform="rotate(-90,788,340)">72</text>
+
+    <!-- Left wall thickness: 5mm (X=0..5) -->
+    <line x1="100" y1="170" x2="120" y2="170" class="dimline" marker-start="url(#arrow-rev)" marker-end="url(#arrow)"/>
+    <line x1="100" y1="192" x2="100" y2="165" class="ext"/>
+    <line x1="120" y1="192" x2="120" y2="165" class="ext"/>
+    <text x="110" y="163" class="dim">5</text>
+
+    <!-- Rabbet depth left: 1.5mm (X=0..1.5) -->
+    <line x1="100" y1="148" x2="106" y2="148" class="dimline" marker-start="url(#arrow-rev)" marker-end="url(#arrow)"/>
+    <line x1="106" y1="192" x2="106" y2="143" class="ext"/>
+    <text x="103" y="140" class="dim">1.5</text>
+
+    <!-- Floor thickness: 3mm (Z=0..3) -->
+    <line x1="60" y1="468" x2="60" y2="480" class="dimline" marker-start="url(#arrow-rev)" marker-end="url(#arrow)"/>
+    <line x1="100" y1="468" x2="55" y2="468" class="ext"/>
+    <line x1="100" y1="480" x2="55" y2="480" class="ext"/>
+    <text x="42" y="477" class="dim">3</text>
+
+    <!-- Floor rabbet: 1.5mm (Z=0..1.5) -->
+    <line x1="76" y1="474" x2="76" y2="480" class="dimline" marker-start="url(#arrow-rev)" marker-end="url(#arrow)"/>
+    <line x1="100" y1="474" x2="71" y2="474" class="ext"/>
+    <text x="76" y="494" class="dim">1.5</text>
+
+    <!-- Pocket L1 center Z=22 -->
+    <line x1="82" y1="392" x2="114" y2="392" class="ext"/>
+    <text x="50" y="395" class="dim-sm" text-anchor="end">Z=22</text>
+
+    <!-- Pocket L2 center Z=50 -->
+    <line x1="82" y1="280" x2="114" y2="280" class="ext"/>
+    <text x="50" y="283" class="dim-sm" text-anchor="end">Z=50</text>
+
+    <!-- Pocket width: 5mm (L1 example) -->
+    <line x1="114" y1="378" x2="114" y2="370" class="ext"/>
+    <line x1="114" y1="402" x2="114" y2="410" class="ext"/>
+    <line x1="114" y1="372" x2="114" y2="408" class="dimline" marker-start="url(#arrow-rev)" marker-end="url(#arrow)"/>
+    <text x="106" y="394" class="dim-sm" transform="rotate(-90,106,394)">5</text>
+
+    <!-- F1 pocket width: 5mm -->
+    <line x1="410" y1="468" x2="410" y2="446" class="ext"/>
+    <line x1="430" y1="468" x2="430" y2="446" class="ext"/>
+    <line x1="410" y1="448" x2="430" y2="448" class="dimline" marker-start="url(#arrow-rev)" marker-end="url(#arrow)"/>
+    <text x="420" y="444" class="dim">5</text>
+
+    <!-- F1 center X=80 -->
+    <text x="420" y="432" class="dim-sm">X=80</text>
+  </g>
+
+  <!-- ============================================================ -->
+  <!-- SIDE VIEW (looking along -X, right side shown)               -->
+  <!-- Horizontal: Y (depth)  Vertical: Z (height)                  -->
+  <!-- Showing only Y=148..155 zone (7mm depth near front)          -->
+  <!-- Scale: 8 px/mm                                               -->
+  <!-- Origin pixel: (920, 480) = (Y=148, Z=0)                     -->
+  <!-- sY(mm) = 920 + (mm-148)*8,  sZ(mm) = 480 - mm*8             -->
+  <!-- ============================================================ -->
+
+  <g id="side-view">
+    <text x="960" y="95" class="viewlbl">SIDE VIEW (section at X=80, looking -X)</text>
+    <text x="960" y="112" class="dim">Scale: 8 px/mm</text>
+
+    <!-- Tray outline: Y=148..155 (56px), Z=0..72 (576px) -->
+    <!-- sY(148)=920, sY(155)=976 -->
+    <!-- sZ(0)=480, sZ(72)=-96... too tall. Let me rescale. -->
+    <!-- Use Z range 0..72 at 4px/mm to match front view Z range -->
+    <!-- sZ(mm) = 480 - mm*4 -->
+    <!-- Y at 8px/mm: sY(148)=920, sY(155)=976 -->
+
+    <!-- Tray section: outer wall from Y=148..155, Z=0..72 -->
+    <!-- This is a section cut through the right wall at X=80 (through the interior) -->
+    <!-- At X=80 we see: floor (Z=0..3) and open space above -->
+
+    <!-- Floor: Y=148..155, Z=0..3 -->
+    <!-- sY(148)=920, sY(155)=976, sZ(3)=468, sZ(0)=480 -->
+    <rect x="920" y="468" width="56" height="12" class="section"/>
+
+    <!-- Side walls would be at X=0..5 and X=155..160, but at X=80 there's no wall -->
+    <!-- Show the floor extending and indicate the front face at Y=155 -->
+
+    <!-- Front face line at Y=155 -->
+    <line x1="976" y1="192" x2="976" y2="480" class="outline"/>
+    <!-- Back reference line at Y=148 -->
+    <line x1="920" y1="468" x2="920" y2="192" class="thin" stroke-dasharray="6,3"/>
+
+    <!-- Floor rabbet cut: Z=0..1.5, Y=153.5..155 -->
+    <!-- sY(153.5)=964, sY(155)=976, sZ(1.5)=474, sZ(0)=480 -->
+    <!-- The rabbet removes the bottom 1.5mm of the floor at the front edge -->
+    <rect x="964" y="474" width="12" height="6" class="cut"/>
+
+    <!-- Pocket F1: Z=1.5..3, Y=152..155 (at X=80) -->
+    <!-- sY(152)=952, sZ(3)=468, sZ(1.5)=474 -->
+    <rect x="952" y="468" width="24" height="6" class="cut"/>
+
+    <!-- Pocket T1: Z=70.5..72, Y=152..155 (at X=80) -->
+    <!-- sZ(72)=192, sZ(70.5)=198 -->
+    <!-- Note: T1 has design gap - shown with annotation -->
+    <rect x="952" y="192" width="24" height="6" class="cut" stroke-dasharray="2,2"/>
+
+    <!-- Dimensions for side view -->
+
+    <!-- Rabbet Y extent: 1.5mm (Y=153.5..155) -->
+    <line x1="964" y1="488" x2="976" y2="488" class="dimline" marker-start="url(#arrow-rev)" marker-end="url(#arrow)"/>
+    <line x1="964" y1="480" x2="964" y2="493" class="ext"/>
+    <line x1="976" y1="480" x2="976" y2="493" class="ext"/>
+    <text x="970" y="502" class="dim">1.5</text>
+
+    <!-- Pocket depth: 3mm (Y=152..155) -->
+    <line x1="952" y1="498" x2="976" y2="498" class="dimline" marker-start="url(#arrow-rev)" marker-end="url(#arrow)"/>
+    <line x1="952" y1="480" x2="952" y2="503" class="ext"/>
+    <text x="964" y="514" class="dim">3</text>
+
+    <!-- Floor thickness: 3mm -->
+    <line x1="912" y1="468" x2="912" y2="480" class="dimline" marker-start="url(#arrow-rev)" marker-end="url(#arrow)"/>
+    <line x1="920" y1="468" x2="907" y2="468" class="ext"/>
+    <line x1="920" y1="480" x2="907" y2="480" class="ext"/>
+    <text x="900" y="477" class="dim">3</text>
+
+    <!-- Rabbet cut height: 1.5mm (Z=0..1.5) -->
+    <line x1="984" y1="474" x2="984" y2="480" class="dimline" marker-start="url(#arrow-rev)" marker-end="url(#arrow)"/>
+    <line x1="976" y1="474" x2="989" y2="474" class="ext"/>
+    <line x1="976" y1="480" x2="989" y2="480" class="ext"/>
+    <text x="1002" y="480" class="dim">1.5</text>
+
+    <!-- Pocket height into floor: 1.5mm (Z=1.5..3) -->
+    <line x1="1014" y1="468" x2="1014" y2="474" class="dimline" marker-start="url(#arrow-rev)" marker-end="url(#arrow)"/>
+    <line x1="976" y1="468" x2="1019" y2="468" class="ext"/>
+    <text x="1030" y="464" class="dim">1.5</text>
+
+    <!-- Y coordinate labels along top (staggered heights) -->
+    <text x="944" y="172" class="dim-sm" text-anchor="end">Y=152</text>
+    <line x1="952" y1="176" x2="952" y2="192" class="ext"/>
+    <text x="984" y="182" class="dim-sm" text-anchor="start">Y=155</text>
+    <line x1="976" y1="186" x2="976" y2="192" class="ext"/>
+  </g>
+
+  <!-- ============================================================ -->
+  <!-- TOP VIEW (looking along -Z, from above)                      -->
+  <!-- Horizontal: X (width)  Vertical: Y (depth, 0=dock at top)   -->
+  <!-- Showing Y=148..155 zone (front edge)                         -->
+  <!-- Scale: 4 px/mm (X), 8 px/mm (Y exaggerated for clarity)     -->
+  <!-- Aligned below front view                                     -->
+  <!-- Origin: (100, 570) = (X=0, Y=148)                           -->
+  <!-- tX(mm) = 100 + mm*4, tY(mm) = 570 + (mm-148)*8              -->
+  <!-- ============================================================ -->
+
+  <g id="top-view">
+    <text x="420" y="545" class="viewlbl">TOP VIEW (looking along -Z)</text>
+    <text x="420" y="560" class="dim">Scale: 4 px/mm (X), 8 px/mm (Y)</text>
+
+    <!-- tY(148)=570, tY(155)=626 -->
+    <!-- Tray outline: X=0..160 (100..740), Y=148..155 (570..626) -->
+    <rect x="100" y="570" width="640" height="56" class="outline"/>
+
+    <!-- Left wall: X=0..5 => 100..120 -->
+    <line x1="120" y1="570" x2="120" y2="626" class="thin"/>
+    <!-- Right wall: X=155..160 => 720..740 -->
+    <line x1="720" y1="570" x2="720" y2="626" class="thin"/>
+
+    <!-- LEFT RABBET: X=0..1.5, Y=153.5..155 -->
+    <!-- tX(1.5)=106, tY(153.5)=614 -->
+    <rect x="100" y="614" width="6" height="12" class="cut"/>
+
+    <!-- RIGHT RABBET: X=158.5..160, Y=153.5..155 -->
+    <!-- tX(158.5)=734 -->
+    <rect x="734" y="614" width="6" height="12" class="cut"/>
+
+    <!-- FLOOR RABBET: X=0..160, Y=153.5..155 (full width, shown as strip) -->
+    <!-- Already partially shown by left/right rabbets; floor rabbet is the bottom strip -->
+    <!-- tX(0)=100, tX(160)=740 -->
+    <rect x="106" y="614" width="628" height="12" class="hidden"/>
+
+    <!-- POCKET L1: X=3.5..5, Y=152..155, Z centered at 22 (not visible in top) -->
+    <!-- tX(3.5)=114, tX(5)=120, tY(152)=602 -->
+    <rect x="114" y="602" width="6" height="24" class="hidden"/>
+    <text x="110" y="598" class="dim-sm" text-anchor="middle">L1</text>
+
+    <!-- POCKET L2: same X, same Y extent -->
+    <!-- L2 is at different Z but same plan position -->
+    <!-- Overlaps with L1 in top view; mark with label only -->
+
+    <!-- POCKET R1: X=155..156.5, Y=152..155 -->
+    <!-- tX(155)=720, tX(156.5)=726 -->
+    <rect x="720" y="602" width="6" height="24" class="hidden"/>
+    <text x="730" y="598" class="dim-sm" text-anchor="middle">R1</text>
+
+    <!-- POCKET F1: X=77.5..82.5, Y=152..155 -->
+    <!-- tX(77.5)=410, tX(82.5)=430 -->
+    <rect x="410" y="602" width="20" height="24" class="hidden"/>
+    <text x="420" y="598" class="dim-sm" text-anchor="middle">F1</text>
+
+    <!-- POCKET T1: X=77.5..82.5, Y=152..155 (same plan as F1) -->
+    <!-- Overlaps F1 in top view; not separately drawn -->
+
+    <!-- Front face at Y=155 -->
+    <text x="420" y="644" class="dim-sm">Y = 155 (front face)</text>
+
+    <!-- Pocket depth dimension: 3mm (Y=152..155) -->
+    <line x1="440" y1="602" x2="440" y2="626" class="dimline" marker-start="url(#arrow-rev)" marker-end="url(#arrow)"/>
+    <line x1="430" y1="602" x2="445" y2="602" class="ext"/>
+    <line x1="430" y1="626" x2="445" y2="626" class="ext"/>
+    <text x="458" y="616" class="dim">3</text>
+
+    <!-- Rabbet depth dimension: 1.5mm (Y=153.5..155) -->
+    <line x1="450" y1="614" x2="450" y2="626" class="dimline" marker-start="url(#arrow-rev)" marker-end="url(#arrow)"/>
+    <line x1="440" y1="614" x2="455" y2="614" class="ext"/>
+    <text x="468" y="622" class="dim">1.5</text>
+  </g>
+
+  <!-- ============================================================ -->
+  <!-- DETAIL A: Left Bottom Corner Rabbet + Pocket L1              -->
+  <!-- Section view at Y=153 (through pocket zone)                  -->
+  <!-- Scale: 12 px/mm                                              -->
+  <!-- Shows X=0..10, Z=0..30                                       -->
+  <!-- Origin: (1100, 430) = (X=0, Z=0)                             -->
+  <!-- dX(mm) = 1100 + mm*12, dZ(mm) = 430 - mm*12                 -->
+  <!-- ============================================================ -->
+
+  <g id="detail-a">
+    <rect x="1080" y="60" width="380" height="400" class="detail-frame"/>
+    <text x="1270" y="82" class="viewlbl">DETAIL A: Left Corner + Pocket L1</text>
+    <text x="1270" y="98" class="dim">Section at Y=153 | Scale: 12 px/mm</text>
+
+    <!-- Left wall section: X=0..5, Z=0..72 (show Z=0..28) -->
+    <!-- dX(0)=1100, dX(5)=1160, dZ(0)=430, dZ(28)=94 -->
+    <!-- Wall: X=0..5, Z=0..28 shown -->
+    <rect x="1100" y="94" width="60" height="336" class="section"/>
+
+    <!-- Floor section: X=0..10 (shown), Z=0..3 -->
+    <!-- dX(10)=1220, dZ(3)=394 -->
+    <!-- Floor already part of wall at X=0..5; extend floor Z=0..3 from X=5 to X=10 -->
+    <rect x="1160" y="394" width="60" height="36" class="section"/>
+
+    <!-- RABBET CUT in wall: X=0..1.5, Z=0..28 (removes outer strip) -->
+    <!-- At this section (Y=153, which is inside the rabbet zone Y=153.5..155) -->
+    <!-- Actually Y=153 is BEHIND the rabbet (rabbet is Y=153.5..155) -->
+    <!-- Show the section at Y=154 instead to see the rabbet -->
+    <!-- Rabbet cut: X=0..1.5 removed from wall => wall now X=1.5..5 -->
+    <!-- dX(1.5)=1118 -->
+    <!-- Show the cut as a white void over the wall -->
+    <rect x="1100" y="94" width="18" height="336" fill="white" stroke="none"/>
+    <rect x="1100" y="94" width="18" height="336" fill="none" stroke="black" stroke-width="0.8" stroke-dasharray="3,2"/>
+
+    <!-- RABBET CUT in floor: Z=0..1.5 across shown width -->
+    <!-- dZ(1.5)=412 -->
+    <!-- Cut: X=0..10, Z=0..1.5 -->
+    <rect x="1100" y="412" width="120" height="18" fill="white" stroke="none"/>
+    <rect x="1100" y="412" width="120" height="18" fill="none" stroke="black" stroke-width="0.8" stroke-dasharray="3,2"/>
+
+    <!-- Remaining wall after rabbet: X=1.5..5, shown as solid -->
+    <!-- dX(1.5)=1118, dX(5)=1160 -->
+    <!-- Already shown by wall section minus the cut -->
+
+    <!-- Corner fillet: 1mm radius at X=1.5, Z=1.5 intersection -->
+    <!-- dX(1.5)=1118, dZ(1.5)=412, radius=12px -->
+    <path d="M 1118 424 A 12 12 0 0 1 1106 412" stroke="black" stroke-width="0.8" fill="none"/>
+
+    <!-- POCKET L1 CUT: X=3.5..5, Z=19.5..24.5 -->
+    <!-- dX(3.5)=1142, dX(5)=1160, dZ(24.5)=136, dZ(19.5)=196 -->
+    <rect x="1142" y="136" width="18" height="60" fill="white" stroke="none"/>
+    <rect x="1142" y="136" width="18" height="60" fill="#fff0f0" stroke="black" stroke-width="1.0"/>
+    <text x="1175" y="170" class="dim-sm">L1 Pocket</text>
+
+    <!-- Dimension: rabbet depth 1.5mm -->
+    <line x1="1100" y1="440" x2="1118" y2="440" class="dimline" marker-start="url(#arrow-rev)" marker-end="url(#arrow)"/>
+    <line x1="1100" y1="430" x2="1100" y2="445" class="ext"/>
+    <line x1="1118" y1="412" x2="1118" y2="445" class="ext"/>
+    <text x="1109" y="455" class="dim">1.5</text>
+
+    <!-- Dimension: wall thickness 5mm (X=0..5) -->
+    <line x1="1100" y1="80" x2="1160" y2="80" class="dimline" marker-start="url(#arrow-rev)" marker-end="url(#arrow)"/>
+    <line x1="1100" y1="94" x2="1100" y2="75" class="ext"/>
+    <line x1="1160" y1="94" x2="1160" y2="75" class="ext"/>
+    <text x="1130" y="74" class="dim">5</text>
+
+    <!-- Dimension: floor rabbet 1.5mm (Z=0..1.5) -->
+    <line x1="1228" y1="412" x2="1228" y2="430" class="dimline" marker-start="url(#arrow-rev)" marker-end="url(#arrow)"/>
+    <line x1="1220" y1="412" x2="1233" y2="412" class="ext"/>
+    <line x1="1220" y1="430" x2="1233" y2="430" class="ext"/>
+    <text x="1248" y="424" class="dim">1.5</text>
+
+    <!-- Dimension: floor thickness 3mm (Z=0..3) -->
+    <line x1="1240" y1="394" x2="1240" y2="430" class="dimline" marker-start="url(#arrow-rev)" marker-end="url(#arrow)"/>
+    <line x1="1220" y1="394" x2="1245" y2="394" class="ext"/>
+    <text x="1258" y="416" class="dim">3</text>
+
+    <!-- Dimension: pocket depth into wall 1.5mm (X=3.5..5) -->
+    <line x1="1142" y1="126" x2="1160" y2="126" class="dimline" marker-start="url(#arrow-rev)" marker-end="url(#arrow)"/>
+    <line x1="1142" y1="136" x2="1142" y2="121" class="ext"/>
+    <line x1="1160" y1="136" x2="1160" y2="121" class="ext"/>
+    <text x="1151" y="118" class="dim">1.5</text>
+
+    <!-- Dimension: pocket width 5mm (Z=19.5..24.5) -->
+    <line x1="1132" y1="136" x2="1132" y2="196" class="dimline" marker-start="url(#arrow-rev)" marker-end="url(#arrow)"/>
+    <line x1="1142" y1="136" x2="1127" y2="136" class="ext"/>
+    <line x1="1142" y1="196" x2="1127" y2="196" class="ext"/>
+    <text x="1120" y="170" class="dim" transform="rotate(-90,1120,170)">5</text>
+
+    <!-- Remaining wall annotation -->
+    <text x="1200" y="200" class="dim-sm">Remaining wall: 3.5</text>
+  </g>
+
+  <!-- ============================================================ -->
+  <!-- DETAIL B: Floor Pocket F1 Section                            -->
+  <!-- Section at X=80 (center of F1), looking along -X             -->
+  <!-- Scale: 12 px/mm                                              -->
+  <!-- Shows Y=148..156, Z=0..8                                     -->
+  <!-- Origin: (1100, 820) = (Y=148, Z=0)                           -->
+  <!-- bY(mm) = 1100 + (mm-148)*12, bZ(mm) = 820 - mm*12           -->
+  <!-- ============================================================ -->
+
+  <g id="detail-b">
+    <rect x="1080" y="500" width="380" height="360" class="detail-frame"/>
+    <text x="1270" y="522" class="viewlbl">DETAIL B: Floor Pocket F1</text>
+    <text x="1270" y="538" class="dim">Section at X=80 | Scale: 12 px/mm</text>
+
+    <!-- Floor section: Y=148..155, Z=0..3 -->
+    <!-- bY(148)=1100, bY(155)=1184, bZ(3)=784, bZ(0)=820 -->
+    <rect x="1100" y="784" width="84" height="36" class="section"/>
+
+    <!-- Front face at Y=155 -->
+    <line x1="1184" y1="724" x2="1184" y2="820" class="outline"/>
+
+    <!-- Floor rabbet cut: Y=153.5..155, Z=0..1.5 -->
+    <!-- bY(153.5)=1166, bZ(1.5)=802 -->
+    <rect x="1166" y="802" width="18" height="18" fill="white" stroke="none"/>
+    <rect x="1166" y="802" width="18" height="18" fill="#fff0f0" stroke="black" stroke-width="1.0"/>
+
+    <!-- F1 pocket cut: Y=152..155, Z=1.5..3 -->
+    <!-- bY(152)=1148, bZ(3)=784 -->
+    <rect x="1148" y="784" width="36" height="18" fill="white" stroke="none"/>
+    <rect x="1148" y="784" width="36" height="18" fill="#fff0f0" stroke="black" stroke-width="1.0"/>
+    <text x="1166" y="778" class="dim-sm">F1 Pocket</text>
+
+    <!-- Show the pocket rear wall at Y=152 -->
+    <line x1="1148" y1="784" x2="1148" y2="802" class="outline"/>
+
+    <!-- Dimensions -->
+
+    <!-- Floor thickness 3mm -->
+    <line x1="1090" y1="784" x2="1090" y2="820" class="dimline" marker-start="url(#arrow-rev)" marker-end="url(#arrow)"/>
+    <line x1="1100" y1="784" x2="1085" y2="784" class="ext"/>
+    <line x1="1100" y1="820" x2="1085" y2="820" class="ext"/>
+    <text x="1078" y="806" class="dim">3</text>
+
+    <!-- Rabbet cut height 1.5mm (Z=0..1.5) -->
+    <line x1="1192" y1="802" x2="1192" y2="820" class="dimline" marker-start="url(#arrow-rev)" marker-end="url(#arrow)"/>
+    <line x1="1184" y1="802" x2="1197" y2="802" class="ext"/>
+    <line x1="1184" y1="820" x2="1197" y2="820" class="ext"/>
+    <text x="1210" y="814" class="dim">1.5</text>
+
+    <!-- Pocket height 1.5mm (Z=1.5..3) -->
+    <line x1="1200" y1="784" x2="1200" y2="802" class="dimline" marker-start="url(#arrow-rev)" marker-end="url(#arrow)"/>
+    <line x1="1184" y1="784" x2="1205" y2="784" class="ext"/>
+    <text x="1218" y="796" class="dim">1.5</text>
+
+    <!-- Pocket Y depth 3mm (Y=152..155) -->
+    <line x1="1148" y1="830" x2="1184" y2="830" class="dimline" marker-start="url(#arrow-rev)" marker-end="url(#arrow)"/>
+    <line x1="1148" y1="802" x2="1148" y2="835" class="ext"/>
+    <line x1="1184" y1="820" x2="1184" y2="835" class="ext"/>
+    <text x="1166" y="846" class="dim">3</text>
+
+    <!-- Rabbet Y depth 1.5mm (Y=153.5..155) -->
+    <line x1="1166" y1="842" x2="1184" y2="842" class="dimline" marker-start="url(#arrow-rev)" marker-end="url(#arrow)"/>
+    <line x1="1166" y1="820" x2="1166" y2="847" class="ext"/>
+    <text x="1175" y="858" class="dim">1.5</text>
+
+    <!-- Y labels (staggered to avoid collision) -->
+    <text x="1148" y="762" class="dim-sm" text-anchor="middle">Y=152</text>
+    <text x="1184" y="762" class="dim-sm" text-anchor="middle">Y=155</text>
+
+    <!-- Z labels -->
+    <text x="1080" y="822" class="dim-sm" text-anchor="end">Z=0</text>
+    <text x="1080" y="804" class="dim-sm" text-anchor="end">Z=1.5</text>
+    <text x="1080" y="786" class="dim-sm" text-anchor="end">Z=3</text>
+  </g>
+
+  <!-- ============================================================ -->
+  <!-- NOTES                                                         -->
+  <!-- ============================================================ -->
+
+  <g id="notes">
+    <text x="100" y="700" class="note" font-weight="bold">NOTES:</text>
+    <text x="100" y="716" class="note">1. All Sub-I features are subtractive cuts — no material is added.</text>
+    <text x="100" y="732" class="note">2. Step-lap rabbet: 1.5 x 1.5 mm step on left wall, right wall, and floor at Y=153.5..155.</text>
+    <text x="100" y="748" class="note">3. Six snap tab pockets: 5 mm wide x 3 mm deep (Y) x 1.5 mm into wall/floor.</text>
+    <text x="100" y="764" class="note">4. Corner fillets: R1.0 mm at rabbet inside corners (left/right bottom).</text>
+    <text x="100" y="780" class="note">5. *T1 pocket (top center) has a DESIGN GAP: no solid material exists at X=77.5..82.5, Z=70.5..72.</text>
+    <text x="115" y="796" class="note">Resolution required: add cross-beam to Sub-A, relocate T1, or eliminate T1.</text>
+    <text x="100" y="812" class="note">6. Pocket rear wall at Y=152 captures bezel snap tab barbs (1.5 mm engagement behind rabbet step).</text>
+    <text x="100" y="828" class="note">7. Minimum remaining material: 1.5 mm (floor at F1 and floor rabbet).</text>
+  </g>
+
+</svg>
