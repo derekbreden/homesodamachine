@@ -28,7 +28,7 @@ The orchestration is:
 2. Step 4a (concept) covers the full mechanism — all parts and how they fit together.
 3. Steps 4d through 6c run for one part at a time:
    - Pick the most constrained or highest-risk part first.
-   - Run it through 4d → 4s → 4b → 5 → 6g → 6c.
+   - Run it through 4d → 4s → 4b → 6g → 6c.
    - Commit the results.
    - Then start the next part, reading the previous part's docs as interface context.
 
@@ -55,7 +55,7 @@ Before starting the pipeline, verify:
 1. **Requirements exist:** `hardware/requirements.md` must exist.
 2. **Vision exists:** `hardware/vision.md` must exist.
 3. **CadQuery venv works:** `tools/cad-venv/bin/python3 -c "import cadquery; print(cadquery.__version__)"`
-4. **Validation tools exist:** `tools/svg_label_check.py`, `tools/svg_adjacency_check.py`, `tools/step_validate.py`
+4. **Validation tools exist:** `tools/step_validate.py`
 
 ---
 
@@ -73,7 +73,6 @@ Each step has a detailed procedure document in `hardware/pipeline/steps/`. The o
 | 4d | Decomposition (or pass-through) | `steps/4d-decomposition.md` | per part |
 | 4s | Spatial resolution document | `steps/4s-spatial-resolution.md` | per sub-component |
 | 4b | parts.md | `steps/4b-parts-specification.md` | per sub-component |
-| 5 | SVG engineering drawings | `steps/5-engineering-drawings.md` | per sub-component |
 | 6g | CadQuery scripts + STEP files | `steps/6-step-generation.md` | per sub-component |
 | 6c | Composed STEP file | `steps/6c-composition.md` | per part (if decomposed) |
 
@@ -84,7 +83,6 @@ Create directly (no agent needed):
 hardware/printed-parts/<mechanism-name>/
 ├── planning/
 │   └── research/
-└── drawings/
 ```
 
 ### Steps 2A, 2B — Research (parallel)
@@ -107,15 +105,13 @@ One agent per part reads the concept and decides: is this part a single geometri
 
 **This is the fan-out point.** After 4d, every subsequent step runs per-sub-component. The decomposition determines how many parallel tracks the pipeline will have for this part.
 
-### Steps 4s, 4b, 5, 6g — Per-Sub-Component Steps
+### Steps 4s, 4b, 6g — Per-Sub-Component Steps
 
-**CRITICAL: Each sub-component is a separate agent.** If Step 4d decomposes a part into 3 sub-components, the orchestrator spawns 3 separate agents for Step 4s (one per sub-component), then 3 for Step 4b, then 3 for Step 5, then 3 for Step 6g. Do NOT spawn one agent and ask it to handle all sub-components — that defeats the entire purpose of decomposition. Each agent sees ONLY its own sub-component's documents and works on ONE 2.5D problem.
+**CRITICAL: Each sub-component is a separate agent.** If Step 4d decomposes a part into 3 sub-components, the orchestrator spawns 3 separate agents for Step 4s (one per sub-component), then 3 for Step 4b, then 3 for Step 6g. Do NOT spawn one agent and ask it to handle all sub-components — that defeats the entire purpose of decomposition. Each agent sees ONLY its own sub-component's documents and works on ONE 2.5D problem.
 
 **Step 4s — Spatial Resolution:** One agent per sub-component resolves every multi-frame spatial relationship into concrete coordinates in the sub-component's own reference frame. Cross-sectional profiles that depend on physics (gravity, fluid fill, material drape at installation angle) are tabulated as coordinate data, not described in prose. Interface positions are pre-computed in the sub-component's local frame.
 
 **Step 4b — Detailed Parts Specification:** The most important step. One agent per sub-component takes that sub-component's spatial resolution document and rigorously specifies it with full rubric suite. The spatial resolution document provides every derived dimension — the 4b agent should not need to perform trigonometry, coordinate transforms, or physics calculations. If it does, the spatial resolution step is incomplete.
-
-**Step 5 — Engineering Drawings:** One agent per sub-component produces SVG engineering drawings. Must run SVG checking tools and achieve zero TEXT-TEXT collisions.
 
 **Step 6g — CadQuery Generation:** One agent per sub-component produces CadQuery scripts AND validated STEP files. **The agent MUST run the script.** Zero validation FAILs required. Unrun scripts are not deliverables. Each agent sees ONLY its sub-component's parts.md and produces ONE CadQuery script for ONE 2.5D solid.
 
@@ -145,7 +141,7 @@ Step 1 (folders)
                │                                                  │
         ┌──────┴──────┐  (fan-out)                                │
         ▼             ▼                                           │
-   4s → 4b → 5 → 6g  4s → 4b → 5 → 6g                           │
+   4s → 4b → 6g      4s → 4b → 6g                           │
    (sub-comp A)       (sub-comp B)                                │
         │             │                                           │
         └──────┬──────┘                                           │
@@ -164,7 +160,7 @@ Step 1 (folders)
 - Step 3 waits for ALL Step 2 agents.
 - Step 4a waits for Step 3.
 - **Parts are processed sequentially** through steps 4d → 6c. One part completes and is committed before the next begins.
-- Within a part, sub-component tracks (4s → 4b → 5 → 6g) can run in parallel after 4d.
+- Within a part, sub-component tracks (4s → 4b → 6g) can run in parallel after 4d.
 - Step 6c waits for ALL 6g agents for that part.
 
 ---
@@ -176,17 +172,16 @@ Step 1 (folders)
 3. **Separate parts that should be one** — Rubric F catches this.
 4. **Stale references to old mechanisms** — Quality gate requires checking.
 5. **Agents not reading the standards** — Every agent prompt includes the path to its procedure doc.
-6. **Skipping SVG tool checks** — Step 5 requires running tools and getting clean results.
-7. **Missing the CadQuery venv** — Prerequisites verify it exists.
-8. **Optimizing throughput over correctness** — Quality gates are mandatory. Fast + wrong < slow + right.
-9. **Combining exploration and specification** — 4a explores, 4b specifies. Never combine them.
-10. **Research agent anchoring to current design** — 2B must not know about the current design.
-11. **Assumed manufacturing constraints** — All printer specs and materials are in `requirements.md`. No agent may assume "typical" values. If a constraint isn't in requirements.md, ask the product owner.
-12. **CadQuery agent doing spatial reasoning** — All multi-frame geometry is resolved in Step 4s. By the time a CadQuery agent runs, every dimension is a concrete number in the sub-component's own frame.
-13. **Single agent handling multi-paradigm geometry** — Step 4d decomposes complex parts so each CadQuery agent works on a 2.5D problem. If an agent needs both prismatic and rotational operations, the decomposition is wrong.
-14. **Multiple parts in flight simultaneously** — The manager processes one part at a time through 4d → 6c. Running multiple parts in parallel overwhelms the manager's context and produces interface mismatches.
-15. **One agent for all sub-components** — After decomposition, each sub-component is a SEPARATE agent. If 4d produces 3 sub-components, spawn 3 agents for 4s, 3 for 4b, 3 for 5, 3 for 6g. A single agent handling all sub-components defeats the purpose of decomposition — it reintroduces the multi-paradigm complexity that decomposition was designed to eliminate.
-16. **Orchestrator pre-judging complexity** — The orchestrator must never tell an agent its task is "trivial" or "straightforward," or suggest it should produce a short document. The agent discovers the complexity by doing the work. Quality gates are fixed, not adjustable per sub-component.
+6. **Missing the CadQuery venv** — Prerequisites verify it exists.
+7. **Optimizing throughput over correctness** — Quality gates are mandatory. Fast + wrong < slow + right.
+8. **Combining exploration and specification** — 4a explores, 4b specifies. Never combine them.
+9. **Research agent anchoring to current design** — 2B must not know about the current design.
+10. **Assumed manufacturing constraints** — All printer specs and materials are in `requirements.md`. No agent may assume "typical" values. If a constraint isn't in requirements.md, ask the product owner.
+11. **CadQuery agent doing spatial reasoning** — All multi-frame geometry is resolved in Step 4s. By the time a CadQuery agent runs, every dimension is a concrete number in the sub-component's own frame.
+12. **Single agent handling multi-paradigm geometry** — Step 4d decomposes complex parts so each CadQuery agent works on a 2.5D problem. If an agent needs both prismatic and rotational operations, the decomposition is wrong.
+13. **Multiple parts in flight simultaneously** — The manager processes one part at a time through 4d → 6c. Running multiple parts in parallel overwhelms the manager's context and produces interface mismatches.
+14. **One agent for all sub-components** — After decomposition, each sub-component is a SEPARATE agent. If 4d produces 3 sub-components, spawn 3 agents for 4s, 3 for 4b, 3 for 6g. A single agent handling all sub-components defeats the purpose of decomposition — it reintroduces the multi-paradigm complexity that decomposition was designed to eliminate.
+15. **Orchestrator pre-judging complexity** — The orchestrator must never tell an agent its task is "trivial" or "straightforward," or suggest it should produce a short document. The agent discovers the complexity by doing the work. Quality gates are fixed, not adjustable per sub-component.
 
 ---
 
