@@ -6,6 +6,18 @@ This document defines the procedure for designing a new 3D-printed part or mecha
 
 ---
 
+## Orchestrator Discipline: Inputs, Not Effort
+
+The orchestrator's job is to provide each agent with the correct inputs, context, and quality gate. **The orchestrator does not judge how much effort an agent should apply.** Every agent receives the same quality expectations regardless of how "simple" the orchestrator believes the sub-component to be. The agent discovers the complexity by doing the work — the orchestrator cannot predict it.
+
+Concretely:
+- **Do:** Select the right input documents for each agent. Frame the task clearly. Point to the quality gate in the step's procedure doc.
+- **Do not:** Tell an agent its task is "trivial," "straightforward," or "simple." Do not suggest an agent should produce a short document or skip checks. Do not modulate quality expectations based on perceived difficulty.
+
+The quality gates are fixed by the step procedure documents. They are not parameters the orchestrator adjusts per sub-component.
+
+---
+
 ## Scoping Rule: One Part at a Time
 
 **The pipeline processes one printed part at a time.** A mechanism may contain multiple printed parts (e.g., the bag frame has a lower cradle and an upper cap). The pipeline runs steps 4a through 6 for ONE part before moving to the next. Do not run multiple parts through the pipeline simultaneously — the manager agent's context cannot hold the full state of multiple parts in flight.
@@ -99,7 +111,7 @@ One agent per part reads the concept and decides: is this part a single geometri
 
 **CRITICAL: Each sub-component is a separate agent.** If Step 4d decomposes a part into 3 sub-components, the orchestrator spawns 3 separate agents for Step 4s (one per sub-component), then 3 for Step 4b, then 3 for Step 5, then 3 for Step 6g. Do NOT spawn one agent and ask it to handle all sub-components — that defeats the entire purpose of decomposition. Each agent sees ONLY its own sub-component's documents and works on ONE 2.5D problem.
 
-**Step 4s — Spatial Resolution:** One agent per sub-component resolves every multi-frame spatial relationship into concrete coordinates in the sub-component's own reference frame. Cross-sectional profiles that depend on physics (gravity, fluid fill, material drape at installation angle) are tabulated as coordinate data, not described in prose. Interface positions are pre-computed in the sub-component's local frame. For simple sub-components with no angled mounting or physics-dependent profiles, this step produces a trivial document and imposes no overhead.
+**Step 4s — Spatial Resolution:** One agent per sub-component resolves every multi-frame spatial relationship into concrete coordinates in the sub-component's own reference frame. Cross-sectional profiles that depend on physics (gravity, fluid fill, material drape at installation angle) are tabulated as coordinate data, not described in prose. Interface positions are pre-computed in the sub-component's local frame.
 
 **Step 4b — Detailed Parts Specification:** The most important step. One agent per sub-component takes that sub-component's spatial resolution document and rigorously specifies it with full rubric suite. The spatial resolution document provides every derived dimension — the 4b agent should not need to perform trigonometry, coordinate transforms, or physics calculations. If it does, the spatial resolution step is incomplete.
 
@@ -174,6 +186,7 @@ Step 1 (folders)
 13. **Single agent handling multi-paradigm geometry** — Step 4d decomposes complex parts so each CadQuery agent works on a 2.5D problem. If an agent needs both prismatic and rotational operations, the decomposition is wrong.
 14. **Multiple parts in flight simultaneously** — The manager processes one part at a time through 4d → 6c. Running multiple parts in parallel overwhelms the manager's context and produces interface mismatches.
 15. **One agent for all sub-components** — After decomposition, each sub-component is a SEPARATE agent. If 4d produces 3 sub-components, spawn 3 agents for 4s, 3 for 4b, 3 for 5, 3 for 6g. A single agent handling all sub-components defeats the purpose of decomposition — it reintroduces the multi-paradigm complexity that decomposition was designed to eliminate.
+16. **Orchestrator pre-judging complexity** — The orchestrator must never tell an agent its task is "trivial" or "straightforward," or suggest it should produce a short document. The agent discovers the complexity by doing the work. Quality gates are fixed, not adjustable per sub-component.
 
 ---
 
