@@ -1,0 +1,460 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1400 1050" width="1400" height="1050" font-family="Arial, sans-serif" font-size="11" fill="black" stroke="black">
+
+  <title>Sub-H Lid Snap Detent Ridges — Engineering Drawing</title>
+
+  <defs>
+    <marker id="arrow" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto">
+      <path d="M0,0 L8,3 L0,6 Z" fill="black"/>
+    </marker>
+    <marker id="arrow-rev" markerWidth="8" markerHeight="6" refX="0" refY="3" orient="auto">
+      <path d="M8,0 L0,3 L8,6 Z" fill="black"/>
+    </marker>
+    <style>
+      .dim { font-size: 10px; fill: black; text-anchor: middle; }
+      .dim-sm { font-size: 9px; fill: black; text-anchor: middle; }
+      .label { font-size: 12px; fill: black; font-weight: bold; text-anchor: middle; }
+      .note { font-size: 9px; fill: black; }
+      .title-text { font-size: 16px; fill: black; font-weight: bold; }
+      .subtitle { font-size: 12px; fill: black; }
+      .hidden { stroke-dasharray: 3,2; stroke-width: 0.8; fill: none; }
+      .center { stroke-dasharray: 12,3,3,3; stroke-width: 0.5; stroke: #555; fill: none; }
+      .outline { stroke: black; stroke-width: 1.2; fill: none; }
+      .thin { stroke: black; stroke-width: 0.6; fill: none; }
+      .wall { stroke: black; stroke-width: 1.0; fill: #e8e8e8; }
+      .ridge { stroke: black; stroke-width: 0.8; fill: #c0c0c0; }
+      .dimline { stroke: black; stroke-width: 0.5; fill: none; }
+      .ext { stroke: black; stroke-width: 0.4; fill: none; }
+      .detail-frame { stroke: black; stroke-width: 1.0; fill: white; }
+      .section { stroke: black; stroke-width: 0.8; fill: #e8e8e8; }
+    </style>
+  </defs>
+
+  <!-- Title Block -->
+  <text x="700" y="30" class="title-text" text-anchor="middle">Sub-H: Lid Snap Detent Ridges</text>
+  <text x="700" y="48" class="subtitle" text-anchor="middle">8 Ridges on Tray Interior Side Walls — Third-Angle Orthographic Projection</text>
+  <text x="700" y="64" class="note" text-anchor="middle">Material: PETG | All dimensions in mm | Ridges are integral to tray walls (Sub-A)</text>
+  <line x1="100" y1="72" x2="1300" y2="72" stroke="black" stroke-width="0.5"/>
+
+  <!-- ============================================================ -->
+  <!-- FRONT VIEW (looking along -Y, showing one ridge pair at Y=20) -->
+  <!-- Horizontal: X (width), Vertical: Z (height) -->
+  <!-- Scale: 4 px/mm -->
+  <!-- Only showing upper portion of tray (Z=65..72) to focus on ridges -->
+  <!-- Origin: fX(mm) = 60 + mm*4, fZ(mm) = 430 - (mm-65)*4 = 690 - mm*4 -->
+  <!-- Full tray width shown: X=0..160 => px 60..700 -->
+  <!-- Z=65 => y=430, Z=72 => y=402 -->
+  <!-- ============================================================ -->
+
+  <g id="front-view">
+    <text x="380" y="95" class="label">FRONT VIEW (looking along -Y)</text>
+    <text x="380" y="110" class="dim-sm">Scale 4:1 (upper wall detail, Z = 65-72 mm)</text>
+
+    <!-- Left wall section: X=0..5, Z=65..72 -->
+    <!-- fX(0)=60, fX(5)=80, fZ(65)=430, fZ(72)=402 -->
+    <rect x="60" y="402" width="20" height="28" class="wall"/>
+
+    <!-- Right wall section: X=155..160, Z=65..72 -->
+    <!-- fX(155)=680, fX(160)=700 -->
+    <rect x="680" y="402" width="20" height="28" class="wall"/>
+
+    <!-- Interior space between walls (open, no fill) -->
+    <line x1="80" y1="402" x2="680" y2="402" class="outline"/>
+    <line x1="80" y1="430" x2="680" y2="430" class="outline"/>
+
+    <!-- Left ridge profile (L1, representative) -->
+    <!-- A(5.0, 71.5) => px(80, 404) -->
+    <!-- B(6.0, 70.5) => px(84, 408) -->
+    <!-- D(6.0, 69.5) => px(84, 412) -->
+    <!-- C(5.0, 69.5) => px(80, 412) -->
+    <polygon points="80,404 84,408 84,412 80,412" class="ridge"/>
+
+    <!-- Right ridge profile (R1, mirrored) -->
+    <!-- A(155.0, 71.5) => px(680, 404) -->
+    <!-- B(154.0, 70.5) => px(676, 408) -->
+    <!-- D(154.0, 69.5) => px(676, 412) -->
+    <!-- C(155.0, 69.5) => px(680, 412) -->
+    <polygon points="680,404 676,408 676,412 680,412" class="ridge"/>
+
+    <!-- Wall top edge -->
+    <!-- Z=72 => y=402, spans full width -->
+
+    <!-- Center line at X=80 -->
+    <line x1="380" y1="398" x2="380" y2="434" class="center"/>
+
+    <!-- Dimension: Wall thickness left 5mm -->
+    <line x1="60" y1="438" x2="60" y2="448" class="ext"/>
+    <line x1="80" y1="438" x2="80" y2="448" class="ext"/>
+    <line x1="60" y1="445" x2="80" y2="445" marker-start="url(#arrow-rev)" marker-end="url(#arrow)" class="dimline"/>
+    <text x="70" y="457" class="dim">5</text>
+
+    <!-- Dimension: Ridge protrusion 1mm left -->
+    <line x1="80" y1="406" x2="80" y2="396" class="ext"/>
+    <line x1="84" y1="406" x2="84" y2="396" class="ext"/>
+    <line x1="80" y1="398" x2="84" y2="398" marker-start="url(#arrow-rev)" marker-end="url(#arrow)" class="dimline"/>
+    <text x="82" y="393" class="dim-sm">1.0</text>
+
+    <!-- Dimension: Overall width 160mm -->
+    <line x1="60" y1="460" x2="60" y2="470" class="ext"/>
+    <line x1="700" y1="460" x2="700" y2="470" class="ext"/>
+    <line x1="60" y1="467" x2="700" y2="467" marker-start="url(#arrow-rev)" marker-end="url(#arrow)" class="dimline"/>
+    <text x="380" y="479" class="dim">160</text>
+
+    <!-- Dimension: Clear span between ridge tips 148mm -->
+    <line x1="84" y1="416" x2="84" y2="426" class="ext"/>
+    <line x1="676" y1="416" x2="676" y2="426" class="ext"/>
+    <line x1="84" y1="423" x2="676" y2="423" marker-start="url(#arrow-rev)" marker-end="url(#arrow)" class="dimline"/>
+    <text x="380" y="420" class="dim">148</text>
+
+    <!-- Dimension: Z height right side -->
+    <line x1="704" y1="402" x2="724" y2="402" class="ext"/>
+    <line x1="704" y1="412" x2="724" y2="412" class="ext"/>
+    <line x1="704" y1="430" x2="724" y2="430" class="ext"/>
+    <!-- Z=72 to Z=69.5 = 2.5mm from wall top to ridge bottom -->
+    <line x1="720" y1="402" x2="720" y2="412" marker-start="url(#arrow-rev)" marker-end="url(#arrow)" class="dimline"/>
+    <text x="746" y="408" class="dim-sm">2.5</text>
+
+    <!-- Dimension: Ridge height 2.0mm -->
+    <line x1="708" y1="404" x2="714" y2="404" class="ext"/>
+    <line x1="708" y1="412" x2="714" y2="412" class="ext"/>
+    <line x1="711" y1="404" x2="711" y2="412" marker-start="url(#arrow-rev)" marker-end="url(#arrow)" class="dimline"/>
+    <text x="711" y="400" class="dim-sm">2.0</text>
+
+    <!-- Ridge labels -->
+    <text x="96" y="410" class="dim-sm">L1</text>
+    <text x="662" y="410" class="dim-sm">R1</text>
+
+    <!-- Vertex labels (left ridge) -->
+    <text x="72" y="401" class="dim-sm">A</text>
+    <text x="87" y="404" class="dim-sm">B</text>
+    <text x="87" y="420" class="dim-sm">D</text>
+    <text x="72" y="416" class="dim-sm">C</text>
+  </g>
+
+  <!-- ============================================================ -->
+  <!-- SIDE VIEW (looking along -X, from the left) -->
+  <!-- Horizontal: Y (depth), Vertical: Z (height) -->
+  <!-- Scale: 2.5 px/mm -->
+  <!-- Showing upper portion: Z=65..72, Y=0..155 -->
+  <!-- Origin: sY(mm) = 60 + mm*2.5, sZ(mm) = 620 - (mm-65)*2.5 = 782.5 - mm*2.5 -->
+  <!-- Y=0 => px 60, Y=155 => px 447.5 -->
+  <!-- Z=65 => y=620, Z=72 => y=602 -->
+  <!-- ============================================================ -->
+
+  <g id="side-view">
+    <text x="260" y="520" class="label">LEFT SIDE VIEW (looking along -X)</text>
+    <text x="260" y="535" class="dim-sm">Scale 2.5:1 (upper wall detail, Z = 65-72 mm)</text>
+
+    <!-- Left wall interior face, full depth -->
+    <!-- Y=0..155 => px 60..447.5, Z=65..72 => y=620..602 -->
+    <rect x="60" y="602" width="387.5" height="18" class="wall"/>
+
+    <!-- 4 ridges on left wall: L1 at Y=17-23, L2 at Y=57-63, L3 at Y=97-103, L4 at Y=137-143 -->
+    <!-- Ridge profile in YZ: rectangle from Z=69.5..71.5, extruded along Y -->
+    <!-- But viewed from the side, we see the protrusion in X — which is INTO the screen -->
+    <!-- So ridges appear as rectangles at their Y positions, Z=69.5..71.5 -->
+
+    <!-- L1: Y=17..23 => px 102.5..117.5, Z=69.5..71.5 => y=608.75..603.75 -->
+    <rect x="102.5" y="603.75" width="15" height="5" class="ridge"/>
+
+    <!-- L2: Y=57..63 => px 202.5..217.5 -->
+    <rect x="202.5" y="603.75" width="15" height="5" class="ridge"/>
+
+    <!-- L3: Y=97..103 => px 302.5..317.5 -->
+    <rect x="302.5" y="603.75" width="15" height="5" class="ridge"/>
+
+    <!-- L4: Y=137..143 => px 402.5..417.5 -->
+    <rect x="402.5" y="603.75" width="15" height="5" class="ridge"/>
+
+    <!-- Dimension: Ridge Y extent 6mm (on L1) -->
+    <line x1="102.5" y1="622" x2="102.5" y2="632" class="ext"/>
+    <line x1="117.5" y1="622" x2="117.5" y2="632" class="ext"/>
+    <line x1="102.5" y1="629" x2="117.5" y2="629" marker-start="url(#arrow-rev)" marker-end="url(#arrow)" class="dimline"/>
+    <text x="110" y="641" class="dim">6</text>
+
+    <!-- Dimension: Center-to-center spacing 40mm (L1 to L2) -->
+    <!-- L1 center Y=20 => px 110, L2 center Y=60 => px 210 -->
+    <line x1="110" y1="598" x2="110" y2="594" class="ext"/>
+    <line x1="210" y1="598" x2="210" y2="594" class="ext"/>
+    <line x1="110" y1="596" x2="210" y2="596" marker-start="url(#arrow-rev)" marker-end="url(#arrow)" class="dimline"/>
+    <text x="160" y="593" class="dim">40</text>
+
+    <!-- Dimension: First ridge center from rear Y=20mm -->
+    <line x1="60" y1="645" x2="60" y2="655" class="ext"/>
+    <line x1="110" y1="645" x2="110" y2="655" class="ext"/>
+    <line x1="60" y1="652" x2="110" y2="652" marker-start="url(#arrow-rev)" marker-end="url(#arrow)" class="dimline"/>
+    <text x="85" y="664" class="dim">20</text>
+
+    <!-- Dimension: Total depth 155mm -->
+    <line x1="60" y1="669" x2="60" y2="679" class="ext"/>
+    <line x1="447.5" y1="669" x2="447.5" y2="679" class="ext"/>
+    <line x1="60" y1="676" x2="447.5" y2="676" marker-start="url(#arrow-rev)" marker-end="url(#arrow)" class="dimline"/>
+    <text x="253.75" y="688" class="dim">155</text>
+
+    <!-- Ridge labels -->
+    <text x="110" y="600" class="dim-sm">L1</text>
+    <text x="210" y="600" class="dim-sm">L2</text>
+    <text x="310" y="600" class="dim-sm">L3</text>
+    <text x="410" y="600" class="dim-sm">L4</text>
+
+    <!-- Z dimension annotations on right -->
+    <line x1="452" y1="602" x2="490" y2="602" class="ext"/>
+    <line x1="452" y1="608.75" x2="490" y2="608.75" class="ext"/>
+    <line x1="452" y1="620" x2="490" y2="620" class="ext"/>
+
+    <!-- Z=72 label -->
+    <text x="496" y="600" class="dim-sm">Z=72</text>
+    <!-- Z=69.5 label -->
+    <text x="496" y="612" class="dim-sm">Z=69.5</text>
+    <!-- Z=65 label -->
+    <text x="496" y="623" class="dim-sm">Z=65</text>
+
+    <!-- Y direction labels -->
+    <text x="60" y="598" class="dim-sm">Y=0</text>
+    <text x="438" y="598" class="dim-sm">Y=155</text>
+  </g>
+
+  <!-- ============================================================ -->
+  <!-- TOP VIEW (looking along -Z, from above) -->
+  <!-- Horizontal: X (width), Vertical: Y (depth) -->
+  <!-- Scale: 2 px/mm -->
+  <!-- Shows ridge positions as small rectangles on wall interior faces -->
+  <!-- Origin: tX(mm) = 760 + mm*2, tY(mm) = 115 + mm*2 -->
+  <!-- X=0 => px 760, X=160 => px 1080 -->
+  <!-- Y=0 => px 115, Y=155 => px 425 -->
+  <!-- ============================================================ -->
+
+  <g id="top-view">
+    <text x="920" y="95" class="label">TOP VIEW (looking along -Z)</text>
+    <text x="920" y="110" class="dim-sm">Scale 2:1</text>
+
+    <!-- Tray outline: X=0..160, Y=0..155 -->
+    <rect x="760" y="115" width="320" height="310" class="outline"/>
+
+    <!-- Left wall: X=0..5 => px 760..770 -->
+    <rect x="760" y="115" width="10" height="310" class="wall"/>
+
+    <!-- Right wall: X=155..160 => px 1070..1080 -->
+    <rect x="1070" y="115" width="10" height="310" class="wall"/>
+
+    <!-- Left ridges (protrude +X from wall at X=5, 1mm protrusion => 2px) -->
+    <!-- L1: Y=17..23 => py 149..161, X=5..6 => px 770..772 -->
+    <rect x="770" y="149" width="2" height="12" class="ridge"/>
+    <!-- L2: Y=57..63 => py 229..241 -->
+    <rect x="770" y="229" width="2" height="12" class="ridge"/>
+    <!-- L3: Y=97..103 => py 309..321 -->
+    <rect x="770" y="309" width="2" height="12" class="ridge"/>
+    <!-- L4: Y=137..143 => py 389..401 -->
+    <rect x="770" y="389" width="2" height="12" class="ridge"/>
+
+    <!-- Right ridges (protrude -X from wall at X=155, X=154..155 => px 1068..1070) -->
+    <!-- R1: Y=17..23 => py 149..161 -->
+    <rect x="1068" y="149" width="2" height="12" class="ridge"/>
+    <!-- R2: Y=57..63 -->
+    <rect x="1068" y="229" width="2" height="12" class="ridge"/>
+    <!-- R3: Y=97..103 -->
+    <rect x="1068" y="309" width="2" height="12" class="ridge"/>
+    <!-- R4: Y=137..143 -->
+    <rect x="1068" y="389" width="2" height="12" class="ridge"/>
+
+    <!-- Center line X=80 => px 920 -->
+    <line x1="920" y1="111" x2="920" y2="429" class="center"/>
+
+    <!-- Ridge labels -->
+    <text x="780" y="158" class="dim-sm">L1</text>
+    <text x="780" y="238" class="dim-sm">L2</text>
+    <text x="780" y="318" class="dim-sm">L3</text>
+    <text x="780" y="398" class="dim-sm">L4</text>
+    <text x="1060" y="158" class="dim-sm" text-anchor="end">R1</text>
+    <text x="1060" y="238" class="dim-sm" text-anchor="end">R2</text>
+    <text x="1060" y="318" class="dim-sm" text-anchor="end">R3</text>
+    <text x="1060" y="398" class="dim-sm" text-anchor="end">R4</text>
+
+    <!-- Dimension: Y positions -->
+    <!-- Y=20 center of L1 => py 155 -->
+    <line x1="756" y1="155" x2="746" y2="155" class="ext"/>
+    <line x1="756" y1="235" x2="746" y2="235" class="ext"/>
+    <line x1="748" y1="155" x2="748" y2="235" marker-start="url(#arrow-rev)" marker-end="url(#arrow)" class="dimline"/>
+    <text x="740" y="198" class="dim-sm" text-anchor="end">40</text>
+
+    <!-- Y=0 to first ridge center -->
+    <line x1="756" y1="115" x2="736" y2="115" class="ext"/>
+    <line x1="756" y1="155" x2="736" y2="155" class="ext"/>
+    <line x1="738" y1="115" x2="738" y2="155" marker-start="url(#arrow-rev)" marker-end="url(#arrow)" class="dimline"/>
+    <text x="730" y="138" class="dim-sm" text-anchor="end">20</text>
+
+    <!-- Rear/Front labels -->
+    <text x="920" y="440" class="dim-sm" text-anchor="middle">FRONT (Y=155)</text>
+    <text x="830" y="112" class="dim-sm" text-anchor="middle">REAR (Y=0)</text>
+  </g>
+
+  <!-- ============================================================ -->
+  <!-- DETAIL A: Ridge Cross-Section (zoomed) -->
+  <!-- Looking along -Y (same as front view), zoomed at left wall -->
+  <!-- Scale: 30 px/mm -->
+  <!-- Shows vertices A, B, D, C of left ridge profile -->
+  <!-- Origin: dX(mm) = px, where X=3 => 760, so dX(mm) = 760 + (mm-3)*30 = 670 + mm*30 -->
+  <!-- dZ(mm) = py, where Z=72 => 530, so dZ(mm) = 530 - (mm-72)*30 = 2690 - mm*30... -->
+  <!-- Let me pick: X range 3..8 => 150px, Z range 68..73 => 150px -->
+  <!-- dX(mm) = 770 + (mm - 3)*30, dZ(mm) = 710 - (mm - 68)*30 -->
+  <!-- X=3 => 770, X=5 => 830, X=6 => 860, X=8 => 920 -->
+  <!-- Z=68 => 710, Z=69.5 => 665, Z=70.5 => 635, Z=71.5 => 605, Z=72 => 590 -->
+  <!-- ============================================================ -->
+
+  <g id="detail-a">
+    <!-- Detail frame -->
+    <rect x="750" y="500" width="260" height="230" class="detail-frame"/>
+    <text x="880" y="520" class="label">DETAIL A: Ridge Profile (Left Wall)</text>
+    <text x="880" y="535" class="dim-sm">Scale 30:1 | Section through Y center</text>
+
+    <!-- Wall section: X=3..5 => px 770..830, Z=68..72 => y=710..590 -->
+    <rect x="770" y="590" width="60" height="120" class="section"/>
+
+    <!-- Ridge polygon: A(5,71.5)=>830,605  B(6,70.5)=>860,635  D(6,69.5)=>860,665  C(5,69.5)=>830,665 -->
+    <polygon points="830,605 860,635 860,665 830,665" class="ridge"/>
+
+    <!-- Wall top edge Z=72 => y=590 -->
+    <line x1="770" y1="590" x2="920" y2="590" class="outline"/>
+
+    <!-- Wall interior face X=5 line extended above ridge -->
+    <line x1="830" y1="590" x2="830" y2="710" class="outline"/>
+
+    <!-- Interior open space right of ridge -->
+    <line x1="860" y1="665" x2="920" y2="665" class="thin"/>
+    <line x1="860" y1="635" x2="860" y2="665" class="outline"/>
+    <line x1="830" y1="605" x2="860" y2="635" class="outline"/>
+
+    <!-- 45-degree ramp annotation -->
+    <text x="855" y="616" class="dim-sm" transform="rotate(-45,855,616)">45°</text>
+
+    <!-- Vertex labels -->
+    <text x="823" y="603" class="dim-sm">A</text>
+    <text x="865" y="633" class="dim-sm">B</text>
+    <text x="865" y="670" class="dim-sm">D</text>
+    <text x="823" y="670" class="dim-sm">C</text>
+
+    <!-- Dimension: Protrusion 1.0mm (X=5 to X=6 => px 830 to 860) -->
+    <line x1="830" y1="672" x2="830" y2="688" class="ext"/>
+    <line x1="860" y1="672" x2="860" y2="688" class="ext"/>
+    <line x1="830" y1="685" x2="860" y2="685" marker-start="url(#arrow-rev)" marker-end="url(#arrow)" class="dimline"/>
+    <text x="845" y="698" class="dim">1.0</text>
+
+    <!-- Dimension: Catch face height 1.0mm (Z=69.5 to Z=70.5 => y=665 to 635) -->
+    <line x1="862" y1="665" x2="878" y2="665" class="ext"/>
+    <line x1="862" y1="635" x2="878" y2="635" class="ext"/>
+    <line x1="875" y1="665" x2="875" y2="635" marker-start="url(#arrow-rev)" marker-end="url(#arrow)" class="dimline"/>
+    <text x="893" y="653" class="dim">1.0</text>
+
+    <!-- Dimension: Ramp height 1.0mm (Z=70.5 to Z=71.5 => y=635 to 605) -->
+    <line x1="862" y1="635" x2="898" y2="635" class="ext"/>
+    <line x1="832" y1="605" x2="898" y2="605" class="ext"/>
+    <line x1="895" y1="635" x2="895" y2="605" marker-start="url(#arrow-rev)" marker-end="url(#arrow)" class="dimline"/>
+    <text x="913" y="623" class="dim">1.0</text>
+
+    <!-- Dimension: Total ridge height 2.0mm (Z=69.5 to Z=71.5 => y=665 to 605) -->
+    <line x1="920" y1="665" x2="940" y2="665" class="ext"/>
+    <line x1="920" y1="605" x2="940" y2="605" class="ext"/>
+    <line x1="937" y1="665" x2="937" y2="605" marker-start="url(#arrow-rev)" marker-end="url(#arrow)" class="dimline"/>
+    <text x="955" y="638" class="dim">2.0</text>
+
+    <!-- Dimension: Wall top to ridge top 0.5mm (Z=71.5 to Z=72 => y=605 to 590) -->
+    <line x1="766" y1="590" x2="756" y2="590" class="ext"/>
+    <line x1="766" y1="605" x2="756" y2="605" class="ext"/>
+    <line x1="758" y1="590" x2="758" y2="605" marker-start="url(#arrow-rev)" marker-end="url(#arrow)" class="dimline"/>
+    <text x="758" y="586" class="dim-sm">0.5</text>
+
+    <!-- Z coordinate labels -->
+    <text x="775" y="588" class="dim-sm">Z=72</text>
+    <text x="775" y="603" class="dim-sm">Z=71.5</text>
+    <text x="775" y="637" class="dim-sm">Z=70.5</text>
+    <text x="775" y="668" class="dim-sm">Z=69.5</text>
+  </g>
+
+  <!-- ============================================================ -->
+  <!-- DETAIL B: Lid Tab Engagement (section view showing tab interaction) -->
+  <!-- Same orientation as Detail A but showing engagement zone -->
+  <!-- Scale: 25 px/mm -->
+  <!-- ============================================================ -->
+
+  <g id="detail-b">
+    <rect x="750" y="750" width="260" height="195" class="detail-frame"/>
+    <text x="880" y="770" class="label">DETAIL B: Tab Engagement Zone</text>
+    <text x="880" y="785" class="dim-sm">Scale 25:1 | Shows retention geometry</text>
+
+    <!-- Wall section: X=3..5 in this scale -->
+    <!-- dX(mm) = 770 + (mm - 3)*25, dZ(mm) = 920 - (mm - 67)*25 -->
+    <!-- X=3 => 770, X=5 => 820, X=6 => 845, X=7 => 870 -->
+    <!-- Z=67 => 920, Z=67.5 => 907.5, Z=69.5 => 857.5, Z=70.5 => 832.5, Z=71.5 => 807.5, Z=72 => 795 -->
+
+    <rect x="770" y="795" width="50" height="125" class="section"/>
+
+    <!-- Ridge polygon -->
+    <polygon points="820,807.5 845,832.5 845,857.5 820,857.5" class="ridge"/>
+
+    <!-- Wall top -->
+    <line x1="770" y1="795" x2="895" y2="795" class="outline"/>
+    <line x1="820" y1="795" x2="820" y2="920" class="outline"/>
+
+    <!-- Engagement zone (dashed box): X=5..7, Z=67.5..69.5 -->
+    <!-- px: 820..870, y: 907.5..857.5 -->
+    <rect x="820" y="857.5" width="50" height="50" fill="none" stroke="#0066cc" stroke-width="0.8" stroke-dasharray="4,2"/>
+
+    <!-- Engagement zone label -->
+    <text x="870" y="895" font-size="8" fill="#0066cc">Tab engagement</text>
+    <text x="870" y="905" font-size="8" fill="#0066cc">zone (2.0 mm)</text>
+
+    <!-- Dimension: Engagement depth 2.0mm (Z=67.5 to Z=69.5) -->
+    <line x1="900" y1="907.5" x2="920" y2="907.5" class="ext"/>
+    <line x1="900" y1="857.5" x2="920" y2="857.5" class="ext"/>
+    <line x1="917" y1="907.5" x2="917" y2="857.5" marker-start="url(#arrow-rev)" marker-end="url(#arrow)" class="dimline"/>
+    <text x="935" y="885" class="dim">2.0</text>
+
+    <!-- Dimension: Tab reach from wall 2.0mm (X=5 to X=7) -->
+    <line x1="820" y1="922" x2="820" y2="935" class="ext"/>
+    <line x1="870" y1="922" x2="870" y2="935" class="ext"/>
+    <line x1="820" y1="932" x2="870" y2="932" marker-start="url(#arrow-rev)" marker-end="url(#arrow)" class="dimline"/>
+    <text x="845" y="944" class="dim">2.0</text>
+
+    <!-- Catch face and ridge outline -->
+    <line x1="845" y1="857.5" x2="895" y2="857.5" class="thin"/>
+    <line x1="845" y1="832.5" x2="845" y2="857.5" class="outline"/>
+    <line x1="820" y1="807.5" x2="845" y2="832.5" class="outline"/>
+
+    <!-- Z labels -->
+    <text x="775" y="793" class="dim-sm">Z=72</text>
+    <text x="775" y="860" class="dim-sm">Z=69.5</text>
+    <text x="775" y="910" class="dim-sm">Z=67.5</text>
+  </g>
+
+  <!-- ============================================================ -->
+  <!-- NOTES -->
+  <!-- ============================================================ -->
+
+  <g id="notes">
+    <text x="80" y="740" font-size="11" font-weight="bold">NOTES:</text>
+    <text x="80" y="756" class="note">1. All 8 ridges are identical in cross-section (mirrored left/right about X=80 mm).</text>
+    <text x="80" y="770" class="note">2. Ridges are printed integral with tray side walls — no assembly required.</text>
+    <text x="80" y="784" class="note">3. Ridge profile is a uniform extrusion along Y (prismatic, 6 mm long).</text>
+    <text x="80" y="798" class="note">4. The 45-degree ramp requires no support material (at FDM support threshold).</text>
+    <text x="80" y="812" class="note">5. Ridge positions: Y = 20, 60, 100, 140 mm (center), 40 mm spacing, symmetric L/R.</text>
+    <text x="80" y="826" class="note">6. Mating feature: lid snap tabs (not shown) deflect 1.0 mm outward to clear ridge peaks.</text>
+    <text x="80" y="840" class="note">7. Catch face (B-D edge) is vertical — provides positive retention against +Z lid lift.</text>
+  </g>
+
+  <!-- ============================================================ -->
+  <!-- RIDGE POSITION TABLE -->
+  <!-- ============================================================ -->
+
+  <g id="ridge-table">
+    <text x="80" y="870" font-size="11" font-weight="bold">RIDGE POSITIONS (tray coordinates):</text>
+    <text x="80" y="886" class="note">ID    Wall    X face (mm)    Y center (mm)    Y range (mm)     Z peak (mm)</text>
+    <text x="80" y="899" class="note">L1    Left    5.0            20               17 - 23          70.5</text>
+    <text x="80" y="912" class="note">L2    Left    5.0            60               57 - 63          70.5</text>
+    <text x="80" y="925" class="note">L3    Left    5.0            100              97 - 103         70.5</text>
+    <text x="80" y="938" class="note">L4    Left    5.0            140              137 - 143        70.5</text>
+    <text x="80" y="951" class="note">R1    Right   155.0          20               17 - 23          70.5</text>
+    <text x="80" y="964" class="note">R2    Right   155.0          60               57 - 63          70.5</text>
+    <text x="80" y="977" class="note">R3    Right   155.0          100              97 - 103         70.5</text>
+    <text x="80" y="990" class="note">R4    Right   155.0          140              137 - 143        70.5</text>
+  </g>
+
+</svg>
