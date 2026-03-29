@@ -1,0 +1,427 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1500 1100" width="1500" height="1100" font-family="Arial, sans-serif" font-size="11" fill="black" stroke="black">
+
+  <title>Lid — Engineering Drawing</title>
+
+  <defs>
+    <marker id="arrow" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto">
+      <path d="M0,0 L8,3 L0,6 Z" fill="black"/>
+    </marker>
+    <marker id="arrow-rev" markerWidth="8" markerHeight="6" refX="0" refY="3" orient="auto">
+      <path d="M8,0 L0,3 L8,6 Z" fill="black"/>
+    </marker>
+    <style>
+      .dim { font-size: 10px; fill: black; stroke: none; text-anchor: middle; }
+      .dim-sm { font-size: 9px; fill: black; stroke: none; text-anchor: middle; }
+      .dim-left { font-size: 10px; fill: black; stroke: none; text-anchor: end; }
+      .dim-right { font-size: 10px; fill: black; stroke: none; text-anchor: start; }
+      .label { font-size: 12px; fill: black; stroke: none; font-weight: bold; text-anchor: middle; }
+      .note { font-size: 9px; fill: black; stroke: none; }
+      .title-text { font-size: 16px; fill: black; stroke: none; font-weight: bold; }
+      .subtitle { font-size: 12px; fill: black; stroke: none; }
+      .hidden { stroke-dasharray: 3,2; stroke-width: 0.8; fill: none; stroke: black; }
+      .center { stroke-dasharray: 12,3,3,3; stroke-width: 0.5; stroke: #555; fill: none; }
+      .outline { stroke: black; stroke-width: 1.2; fill: none; }
+      .thin { stroke: black; stroke-width: 0.6; fill: none; }
+      .dimline { stroke: black; stroke-width: 0.5; fill: none; }
+      .ext { stroke: black; stroke-width: 0.4; fill: none; }
+      .section { stroke: black; stroke-width: 0.8; fill: #e8e8e8; }
+      .detail-frame { stroke: black; stroke-width: 1.0; fill: white; }
+      .hatch { stroke: #888; stroke-width: 0.3; fill: none; }
+    </style>
+  </defs>
+
+  <!-- Title Block -->
+  <text x="750" y="30" class="title-text" text-anchor="middle">Lid</text>
+  <text x="750" y="48" class="subtitle" text-anchor="middle">Pump Cartridge — Third-Angle Orthographic Projection</text>
+  <text x="750" y="64" class="note" text-anchor="middle">Material: PETG | All dimensions in mm | Lid frame: X=width(0..160), Y=depth(0..155), Z=thickness(0..4, bottom=0)</text>
+  <line x1="50" y1="72" x2="1450" y2="72" stroke="black" stroke-width="0.5"/>
+
+  <!-- ============================================================ -->
+  <!-- TOP VIEW (looking along -Z, from above)                      -->
+  <!-- Horizontal = X (width, 0..160), Vertical = Y (depth, 0..155) -->
+  <!-- Scale: 3 px/mm                                               -->
+  <!-- px_x(mm) = 60 + mm*3                                         -->
+  <!-- px_y(mm) = 580 - mm*3 (Y=0 at bottom=rear, Y=155 at top=front) -->
+  <!-- Panel: x=60..540, y=115..580                                  -->
+  <!-- ============================================================ -->
+
+  <text x="300" y="95" class="label">TOP VIEW (looking along -Z, from above)</text>
+  <text x="300" y="110" class="dim-sm">Scale 3:1 (3 px/mm)</text>
+
+  <g id="top-view">
+    <!-- Bearing zone shading (under outline) -->
+    <rect x="60" y="115" width="15" height="465" stroke="none" fill="#f0f0f0"/>
+    <rect x="525" y="115" width="15" height="465" stroke="none" fill="#f0f0f0"/>
+    <rect x="60" y="554.5" width="480" height="25.5" stroke="none" fill="#f0f0f0"/>
+
+    <!-- Panel outline: 160mm x 155mm => 480px x 465px -->
+    <rect x="60" y="115" width="480" height="465" class="outline"/>
+
+    <!-- Snap tab positions (dashed rectangles, hidden below lid) -->
+    <!-- Left tabs: X=6..7 (px=78..81), 6mm wide in Y (18px) -->
+    <rect x="78" y="511" width="3" height="18" class="hidden"/>
+    <rect x="78" y="391" width="3" height="18" class="hidden"/>
+    <rect x="78" y="271" width="3" height="18" class="hidden"/>
+    <rect x="78" y="151" width="3" height="18" class="hidden"/>
+
+    <!-- Right tabs: X=153..154 (px=519..522) -->
+    <rect x="519" y="511" width="3" height="18" class="hidden"/>
+    <rect x="519" y="391" width="3" height="18" class="hidden"/>
+    <rect x="519" y="271" width="3" height="18" class="hidden"/>
+    <rect x="519" y="151" width="3" height="18" class="hidden"/>
+
+    <!-- Relief slots (dashed, through lid body) -->
+    <!-- Left slots: X=5..6 (px=75..78) -->
+    <rect x="75" y="511" width="3" height="18" stroke="black" stroke-width="0.6" stroke-dasharray="2,2" fill="none"/>
+    <rect x="75" y="391" width="3" height="18" stroke="black" stroke-width="0.6" stroke-dasharray="2,2" fill="none"/>
+    <rect x="75" y="271" width="3" height="18" stroke="black" stroke-width="0.6" stroke-dasharray="2,2" fill="none"/>
+    <rect x="75" y="151" width="3" height="18" stroke="black" stroke-width="0.6" stroke-dasharray="2,2" fill="none"/>
+    <!-- Right slots: X=154..155 (px=522..525) -->
+    <rect x="522" y="511" width="3" height="18" stroke="black" stroke-width="0.6" stroke-dasharray="2,2" fill="none"/>
+    <rect x="522" y="391" width="3" height="18" stroke="black" stroke-width="0.6" stroke-dasharray="2,2" fill="none"/>
+    <rect x="522" y="271" width="3" height="18" stroke="black" stroke-width="0.6" stroke-dasharray="2,2" fill="none"/>
+    <rect x="522" y="151" width="3" height="18" stroke="black" stroke-width="0.6" stroke-dasharray="2,2" fill="none"/>
+
+    <!-- Stiffening ribs (dashed, on underside) -->
+    <!-- Rib 1: Y=39..41 (py=457..463), X=5..155 (px=75..525) -->
+    <line x1="75" y1="457" x2="525" y2="457" class="hidden"/>
+    <line x1="75" y1="463" x2="525" y2="463" class="hidden"/>
+    <!-- Rib 2: Y=79..81 (py=337..343) -->
+    <line x1="75" y1="337" x2="525" y2="337" class="hidden"/>
+    <line x1="75" y1="343" x2="525" y2="343" class="hidden"/>
+    <!-- Rib 3: Y=119..121 (py=217..223) -->
+    <line x1="75" y1="217" x2="525" y2="217" class="hidden"/>
+    <line x1="75" y1="223" x2="525" y2="223" class="hidden"/>
+
+    <!-- Bezel pocket T1: X=77.5..82.5 (px=292.5..307.5), Y=152..155 (py=115..124) -->
+    <rect x="292.5" y="115" width="15" height="9" stroke="black" stroke-width="0.8" stroke-dasharray="2,2" fill="none"/>
+
+    <!-- Orientation arrow on top face -->
+    <polygon points="300,130 293,145 300,140 307,145" stroke="black" stroke-width="0.8" fill="none"/>
+
+    <!-- Section line B-B through tab at Y=60 (py=400) -->
+    <line x1="45" y1="400" x2="555" y2="400" stroke="black" stroke-width="0.8" stroke-dasharray="15,3,3,3"/>
+    <text x="30" y="403" class="dim" text-anchor="end">B</text>
+    <text x="570" y="403" class="dim" text-anchor="start">B</text>
+
+    <!-- Tab labels (well outside panel outline) -->
+    <text x="42" y="524" class="dim-sm" text-anchor="end">LT1</text>
+    <text x="42" y="394" class="dim-sm" text-anchor="end">LT2</text>
+    <text x="42" y="284" class="dim-sm" text-anchor="end">LT3</text>
+    <text x="42" y="164" class="dim-sm" text-anchor="end">LT4</text>
+    <text x="558" y="524" class="dim-sm" text-anchor="start">RT1</text>
+    <text x="570" y="394" class="dim-sm" text-anchor="start">RT2</text>
+    <text x="558" y="284" class="dim-sm" text-anchor="start">RT3</text>
+    <text x="558" y="164" class="dim-sm" text-anchor="start">RT4</text>
+
+    <!-- Rib labels (inside panel, centered on ribs) -->
+    <text x="300" y="453" class="dim-sm">Rib 1 (Y=40)</text>
+    <text x="300" y="333" class="dim-sm">Rib 2 (Y=80)</text>
+    <text x="300" y="213" class="dim-sm">Rib 3 (Y=120)</text>
+
+    <!-- Bezel pocket label -->
+    <text x="330" y="122" class="dim-sm" text-anchor="start">pocket T1</text>
+
+    <!-- FRONT arrow label -->
+    <text x="300" y="158" class="dim-sm" text-anchor="middle">FRONT</text>
+
+    <!-- Dimension: panel width 160mm -->
+    <line x1="60" y1="580" x2="60" y2="605" class="ext"/>
+    <line x1="540" y1="580" x2="540" y2="605" class="ext"/>
+    <line x1="60" y1="600" x2="540" y2="600" class="dimline" marker-start="url(#arrow-rev)" marker-end="url(#arrow)"/>
+    <text x="300" y="614" class="dim">160</text>
+
+    <!-- Dimension: panel depth 155mm -->
+    <line x1="540" y1="580" x2="580" y2="580" class="ext"/>
+    <line x1="540" y1="115" x2="580" y2="115" class="ext"/>
+    <line x1="575" y1="580" x2="575" y2="115" class="dimline" marker-start="url(#arrow-rev)" marker-end="url(#arrow)"/>
+    <text x="590" y="351" class="dim-right">155</text>
+
+    <!-- Dimension: tab spacing 40mm (Y=20 to Y=60) -->
+    <line x1="30" y1="520" x2="30" y2="400" class="dimline" marker-start="url(#arrow-rev)" marker-end="url(#arrow)"/>
+    <text x="17" y="464" class="dim-left">40</text>
+
+    <!-- Dimension: bezel pocket width 5mm (above the top view) -->
+    <line x1="292.5" y1="87" x2="307.5" y2="87" class="dimline" marker-start="url(#arrow-rev)" marker-end="url(#arrow)"/>
+    <line x1="292.5" y1="87" x2="292.5" y2="115" class="ext"/>
+    <line x1="307.5" y1="87" x2="307.5" y2="115" class="ext"/>
+    <text x="320" y="80" class="dim-right">5</text>
+  </g>
+
+  <!-- ============================================================ -->
+  <!-- SECTION B-B (looking along +Y, cut at Y=60 through tab LT2) -->
+  <!-- Horizontal = X, Vertical = Z                                  -->
+  <!-- Scale: 8 px/mm                                               -->
+  <!-- Left portion X=0..25, break, right portion X=150..160         -->
+  <!-- px_z(mm) = 780 - mm*8  (Z=0 -> py=780, Z=4 -> py=748)       -->
+  <!-- ============================================================ -->
+
+  <text x="300" y="650" class="label">SECTION B-B (looking along +Y, cut at Y=60)</text>
+  <text x="300" y="665" class="dim-sm">Scale 8:1 (8 px/mm)</text>
+
+  <g id="section-bb">
+    <!-- Left chunk: X=0..25 (px=60..260), Z=0..4 (py=748..780) -->
+    <rect x="60" y="748" width="200" height="32" class="section"/>
+
+    <!-- Relief slot: X=5..6 (px=100..108), Z=0..3.5 (py=752..780) -->
+    <rect x="100" y="752" width="8" height="28" fill="white" stroke="black" stroke-width="0.8"/>
+
+    <!-- Beam: X=6..7 (px=108..116), Z=+3.5..-2.5 (py=752..800) -->
+    <rect x="108" y="752" width="8" height="48" fill="#e8e8e8" stroke="black" stroke-width="0.8"/>
+
+    <!-- Hook: X=5..7 (px=100..116), Z=-2.5..-4.5 (py=800..816) -->
+    <rect x="100" y="800" width="16" height="16" fill="#e8e8e8" stroke="black" stroke-width="0.8"/>
+
+    <!-- Break lines -->
+    <line x1="260" y1="748" x2="265" y2="756" stroke="black" stroke-width="0.8"/>
+    <line x1="265" y1="756" x2="255" y2="772" stroke="black" stroke-width="0.8"/>
+    <line x1="255" y1="772" x2="260" y2="780" stroke="black" stroke-width="0.8"/>
+
+    <!-- Right edge: X=150..160 at px=290..370 -->
+    <rect x="290" y="748" width="80" height="32" class="section"/>
+    <line x1="290" y1="748" x2="285" y2="756" stroke="black" stroke-width="0.8"/>
+    <line x1="285" y1="756" x2="295" y2="772" stroke="black" stroke-width="0.8"/>
+    <line x1="295" y1="772" x2="290" y2="780" stroke="black" stroke-width="0.8"/>
+
+    <!-- Right relief slot: X=154..155 (px=322..330), Z=0..3.5 -->
+    <rect x="322" y="752" width="8" height="28" fill="white" stroke="black" stroke-width="0.8"/>
+    <!-- Right beam: X=153..154 (px=314..322) -->
+    <rect x="314" y="752" width="8" height="48" fill="#e8e8e8" stroke="black" stroke-width="0.8"/>
+    <!-- Right hook: X=153..155 (px=314..330) -->
+    <rect x="314" y="800" width="16" height="16" fill="#e8e8e8" stroke="black" stroke-width="0.8"/>
+
+    <!-- Dimension: panel thickness 4mm (left of section) -->
+    <line x1="46" y1="748" x2="46" y2="780" class="dimline" marker-start="url(#arrow-rev)" marker-end="url(#arrow)"/>
+    <line x1="46" y1="748" x2="60" y2="748" class="ext"/>
+    <line x1="46" y1="780" x2="60" y2="780" class="ext"/>
+    <text x="33" y="767" class="dim-left">4</text>
+
+    <!-- Dimension: tab extent 4.5mm below lid -->
+    <line x1="88" y1="780" x2="88" y2="816" class="dimline" marker-start="url(#arrow-rev)" marker-end="url(#arrow)"/>
+    <line x1="88" y1="780" x2="100" y2="780" class="ext"/>
+    <line x1="88" y1="816" x2="100" y2="816" class="ext"/>
+    <text x="75" y="801" class="dim-left">4.5</text>
+
+    <!-- Dimension: beam thickness 1.0mm -->
+    <line x1="108" y1="830" x2="116" y2="830" class="dimline" marker-start="url(#arrow-rev)" marker-end="url(#arrow)"/>
+    <line x1="108" y1="816" x2="108" y2="835" class="ext"/>
+    <line x1="116" y1="816" x2="116" y2="835" class="ext"/>
+    <text x="112" y="845" class="dim">1.0</text>
+
+    <!-- Dimension: hook height 2.0mm -->
+    <line x1="128" y1="800" x2="128" y2="816" class="dimline" marker-start="url(#arrow-rev)" marker-end="url(#arrow)"/>
+    <line x1="116" y1="800" x2="133" y2="800" class="ext"/>
+    <line x1="116" y1="816" x2="133" y2="816" class="ext"/>
+    <text x="140" y="811" class="dim-right">2.0</text>
+
+    <!-- Dimension: wall bearing width 5mm -->
+    <line x1="60" y1="738" x2="100" y2="738" class="dimline" marker-start="url(#arrow-rev)" marker-end="url(#arrow)"/>
+    <line x1="60" y1="738" x2="60" y2="748" class="ext"/>
+    <line x1="100" y1="738" x2="100" y2="748" class="ext"/>
+    <text x="80" y="735" class="dim">5</text>
+
+    <!-- Labels (positioned clearly outside geometry) -->
+    <text x="165" y="770" class="dim-right">panel body</text>
+    <text x="165" y="800" class="dim-right">cantilever</text>
+    <text x="165" y="825" class="dim-right">hook</text>
+    <text x="104" y="746" class="dim" font-size="7">slot</text>
+  </g>
+
+  <!-- ============================================================ -->
+  <!-- LEFT SIDE VIEW (looking along -X)                            -->
+  <!-- Horizontal = Y (depth, 0..155), Vertical = Z                 -->
+  <!-- Scale: 3 px/mm                                               -->
+  <!-- px_y(mm) = 620 + mm*3  (Y=0 at left=rear)                   -->
+  <!-- px_z(mm) = 930 - mm*3  (Z=0 -> py=930, Z=4 -> py=918)       -->
+  <!-- ============================================================ -->
+
+  <text x="852" y="880" class="label">LEFT SIDE VIEW (looking along -X)</text>
+  <text x="852" y="895" class="dim-sm">Scale 3:1 (3 px/mm)</text>
+
+  <g id="side-view">
+    <!-- Panel profile: Y=0..155 (px=620..1085), Z=0..4 (py=918..930) -->
+    <rect x="620" y="918" width="465" height="12" class="outline"/>
+
+    <!-- Snap tabs LT1..LT4 (visible from left side) -->
+    <!-- LT1 at Y=17..23 (px=671..689), beam Z=0..-2.5 (py=930..937.5), hook Z=-2.5..-4.5 (py=937.5..943.5) -->
+    <rect x="671" y="930" width="18" height="7.5" stroke="black" stroke-width="0.6" fill="none"/>
+    <rect x="671" y="937.5" width="18" height="6" stroke="black" stroke-width="0.6" fill="none"/>
+    <!-- LT2 -->
+    <rect x="791" y="930" width="18" height="7.5" stroke="black" stroke-width="0.6" fill="none"/>
+    <rect x="791" y="937.5" width="18" height="6" stroke="black" stroke-width="0.6" fill="none"/>
+    <!-- LT3 -->
+    <rect x="911" y="930" width="18" height="7.5" stroke="black" stroke-width="0.6" fill="none"/>
+    <rect x="911" y="937.5" width="18" height="6" stroke="black" stroke-width="0.6" fill="none"/>
+    <!-- LT4 -->
+    <rect x="1031" y="930" width="18" height="7.5" stroke="black" stroke-width="0.6" fill="none"/>
+    <rect x="1031" y="937.5" width="18" height="6" stroke="black" stroke-width="0.6" fill="none"/>
+
+    <!-- Stiffening ribs: Z=0..-3 (py=930..939), 2mm thick -->
+    <!-- Rib 1 at Y=39..41 (px=737..743) -->
+    <rect x="737" y="930" width="6" height="9" stroke="black" stroke-width="0.6" fill="none"/>
+    <!-- Rib 2 at Y=79..81 (px=857..863) -->
+    <rect x="857" y="930" width="6" height="9" stroke="black" stroke-width="0.6" fill="none"/>
+    <!-- Rib 3 at Y=119..121 (px=977..983) -->
+    <rect x="977" y="930" width="6" height="9" stroke="black" stroke-width="0.6" fill="none"/>
+
+    <!-- Bezel pocket (hidden from side view): Y=152..155 (px=1076..1085), Z=0..2.5 (py=922.5..930) -->
+    <rect x="1076" y="922.5" width="9" height="7.5" stroke="black" stroke-width="0.6" stroke-dasharray="2,2" fill="none"/>
+
+    <!-- Dimension: overall depth 155mm -->
+    <line x1="620" y1="930" x2="620" y2="960" class="ext"/>
+    <line x1="1085" y1="930" x2="1085" y2="960" class="ext"/>
+    <line x1="620" y1="957" x2="1085" y2="957" class="dimline" marker-start="url(#arrow-rev)" marker-end="url(#arrow)"/>
+    <text x="852" y="970" class="dim">155</text>
+
+    <!-- Dimension: panel thickness 4mm -->
+    <line x1="1095" y1="918" x2="1095" y2="930" class="dimline" marker-start="url(#arrow-rev)" marker-end="url(#arrow)"/>
+    <line x1="1085" y1="918" x2="1100" y2="918" class="ext"/>
+    <line x1="1085" y1="930" x2="1100" y2="930" class="ext"/>
+    <text x="1108" y="927" class="dim-right">4</text>
+
+    <!-- Dimension: rib height 3mm -->
+    <line x1="1108" y1="930" x2="1108" y2="939" class="dimline" marker-start="url(#arrow-rev)" marker-end="url(#arrow)"/>
+    <line x1="983" y1="939" x2="1113" y2="939" class="ext"/>
+    <text x="1120" y="938" class="dim-right">3</text>
+
+    <!-- Dimension: tab extent 4.5mm -->
+    <line x1="610" y1="930" x2="610" y2="943.5" class="dimline" marker-start="url(#arrow-rev)" marker-end="url(#arrow)"/>
+    <line x1="610" y1="943.5" x2="671" y2="943.5" class="ext"/>
+    <text x="600" y="940" class="dim-left">4.5</text>
+
+    <!-- Tab spacing: 40mm typ -->
+    <line x1="680" y1="952" x2="800" y2="952" class="dimline" marker-start="url(#arrow-rev)" marker-end="url(#arrow)"/>
+    <line x1="680" y1="943.5" x2="680" y2="955" class="ext"/>
+    <line x1="800" y1="943.5" x2="800" y2="955" class="ext"/>
+    <text x="740" y="966" class="dim">40 typ.</text>
+  </g>
+
+  <!-- ============================================================ -->
+  <!-- DETAIL A: Snap Tab Cross-Section (left side, XZ section)      -->
+  <!-- Scale: 15 px/mm                                              -->
+  <!-- ============================================================ -->
+
+  <text x="850" y="650" class="label">DETAIL A: Snap Tab (left side, XZ section)</text>
+  <text x="850" y="665" class="dim-sm">Scale 15:1 (15 px/mm)</text>
+
+  <g id="detail-a">
+    <rect x="680" y="675" width="340" height="200" class="detail-frame"/>
+
+    <!-- Coordinate mapping (15 px/mm): -->
+    <!-- px_x(mm) = 700 + (mm - 2) * 15 => X=2->700, X=5->745, X=6->760, X=7->775, X=9->805 -->
+    <!-- px_z(mm) = 785 - mm * 15 => Z=4->725, Z=3.5->732.5, Z=0->785, Z=-2.5->822.5, Z=-4.5->852.5 -->
+
+    <!-- Panel body: X=2..9, Z=0..4 => px=700..805, py=725..785 -->
+    <rect x="700" y="725" width="105" height="60" fill="#e8e8e8" stroke="black" stroke-width="1.0"/>
+
+    <!-- Relief slot: X=5..6 (px=745..760), Z=0..3.5 (py=732.5..785) -->
+    <rect x="745" y="732.5" width="15" height="52.5" fill="white" stroke="black" stroke-width="1.0"/>
+
+    <!-- Cantilever beam: X=6..7 (px=760..775), Z=+3.5..-2.5 (py=732.5..822.5) -->
+    <rect x="760" y="732.5" width="15" height="90" fill="#d8d8d8" stroke="black" stroke-width="1.0"/>
+
+    <!-- Hook: X=5..7 (px=745..775), Z=-2.5..-4.5 (py=822.5..852.5) -->
+    <rect x="745" y="822.5" width="30" height="30" fill="#d8d8d8" stroke="black" stroke-width="1.0"/>
+
+    <!-- Tray wall context: X=2..5, shown as dashed outline -->
+    <rect x="700" y="725" width="45" height="60" stroke="#999" stroke-width="0.6" stroke-dasharray="4,2" fill="none"/>
+    <text x="715" y="745" class="note" fill="#999" text-anchor="middle">wall</text>
+
+    <!-- Ridge context: triangular on wall interior -->
+    <!-- A: (5, Z=-0.5) = (745, 792.5), B: (6, Z=-1.5) = (760, 807.5), C: (6, Z=-2.5) = (760, 822.5), D: (5, Z=-2.5) = (745, 822.5) -->
+    <polygon points="745,792.5 760,807.5 760,822.5 745,822.5" stroke="#999" stroke-width="0.8" fill="#ddd"/>
+    <text x="730" y="812" class="note" fill="#999" text-anchor="end">ridge</text>
+
+    <!-- Dimensions -->
+    <!-- Slot depth 3.5mm: Z=0 to Z=3.5 (py=785 to py=732.5) -->
+    <line x1="740" y1="732.5" x2="740" y2="785" class="dimline" marker-start="url(#arrow-rev)" marker-end="url(#arrow)"/>
+    <text x="727" y="762" class="dim-left">3.5</text>
+
+    <!-- Remaining 0.5mm above slot: Z=3.5 to Z=4 (py=732.5 to py=725) -->
+    <line x1="752" y1="725" x2="752" y2="732.5" class="dimline"/>
+    <text x="752" y="718" class="dim">0.5</text>
+
+    <!-- Beam thickness 1.0mm: X=6..7 -->
+    <line x1="760" y1="862" x2="775" y2="862" class="dimline" marker-start="url(#arrow-rev)" marker-end="url(#arrow)"/>
+    <line x1="760" y1="852.5" x2="760" y2="867" class="ext"/>
+    <line x1="775" y1="852.5" x2="775" y2="867" class="ext"/>
+    <text x="767" y="876" class="dim">1.0</text>
+
+    <!-- Hook height 2.0mm: Z=-2.5 to Z=-4.5 -->
+    <line x1="785" y1="822.5" x2="785" y2="852.5" class="dimline" marker-start="url(#arrow-rev)" marker-end="url(#arrow)"/>
+    <line x1="775" y1="822.5" x2="790" y2="822.5" class="ext"/>
+    <line x1="775" y1="852.5" x2="790" y2="852.5" class="ext"/>
+    <text x="798" y="841" class="dim-right">2.0</text>
+
+    <!-- Effective cantilever length 8.0mm: Z=+3.5 to Z=-4.5 -->
+    <line x1="810" y1="732.5" x2="810" y2="852.5" class="dimline" marker-start="url(#arrow-rev)" marker-end="url(#arrow)"/>
+    <line x1="775" y1="732.5" x2="815" y2="732.5" class="ext"/>
+    <line x1="775" y1="852.5" x2="815" y2="852.5" class="ext"/>
+    <text x="823" y="796" class="dim-right">8.0</text>
+
+    <!-- Panel thickness 4mm -->
+    <line x1="690" y1="725" x2="690" y2="785" class="dimline" marker-start="url(#arrow-rev)" marker-end="url(#arrow)"/>
+    <line x1="690" y1="725" x2="700" y2="725" class="ext"/>
+    <line x1="690" y1="785" x2="700" y2="785" class="ext"/>
+    <text x="685" y="760" class="dim-left">4</text>
+
+    <!-- Z=0 reference line -->
+    <line x1="695" y1="785" x2="820" y2="785" stroke="#aaa" stroke-width="0.4" stroke-dasharray="4,3"/>
+    <text x="825" y="788" class="note" fill="#aaa">Z=0</text>
+  </g>
+
+  <!-- ============================================================ -->
+  <!-- DETAIL B: Bezel Pocket T1 (front edge, YZ section at X=80)   -->
+  <!-- Scale: 15 px/mm                                              -->
+  <!-- ============================================================ -->
+
+  <text x="1200" y="650" class="label">DETAIL B: Bezel Pocket T1</text>
+  <text x="1200" y="665" class="dim-sm">Scale 15:1 (15 px/mm) — YZ section at X=80</text>
+
+  <g id="detail-b">
+    <rect x="1080" y="675" width="240" height="170" class="detail-frame"/>
+
+    <!-- Coordinate mapping (15 px/mm): -->
+    <!-- px_y(mm) = 1095 + (mm - 149) * 15 => Y=149->1095, Y=152->1140, Y=155->1185 -->
+    <!-- px_z(mm) = 790 - mm * 15 => Z=4->730, Z=2.5->752.5, Z=0->790 -->
+
+    <!-- Panel body: Y=149..155 (px=1095..1185), Z=0..4 (py=730..790) -->
+    <rect x="1095" y="730" width="90" height="60" fill="#e8e8e8" stroke="black" stroke-width="1.0"/>
+
+    <!-- Pocket cut: Y=152..155 (px=1140..1185), Z=0..2.5 (py=752.5..790) -->
+    <rect x="1140" y="752.5" width="45" height="37.5" fill="white" stroke="black" stroke-width="1.0"/>
+
+    <!-- Dimension: pocket depth 3mm (Y direction) -->
+    <line x1="1140" y1="800" x2="1185" y2="800" class="dimline" marker-start="url(#arrow-rev)" marker-end="url(#arrow)"/>
+    <line x1="1140" y1="790" x2="1140" y2="805" class="ext"/>
+    <line x1="1185" y1="790" x2="1185" y2="805" class="ext"/>
+    <text x="1162" y="815" class="dim">3</text>
+
+    <!-- Dimension: pocket height 2.5mm (Z direction) -->
+    <line x1="1195" y1="752.5" x2="1195" y2="790" class="dimline" marker-start="url(#arrow-rev)" marker-end="url(#arrow)"/>
+    <line x1="1185" y1="752.5" x2="1200" y2="752.5" class="ext"/>
+    <line x1="1185" y1="790" x2="1200" y2="790" class="ext"/>
+    <text x="1208" y="775" class="dim-right">2.5</text>
+
+    <!-- Dimension: remaining lid 1.5mm above pocket -->
+    <line x1="1195" y1="730" x2="1195" y2="752.5" class="dimline" marker-start="url(#arrow-rev)" marker-end="url(#arrow)"/>
+    <text x="1208" y="745" class="dim-right">1.5</text>
+
+    <!-- Panel thickness 4mm -->
+    <line x1="1085" y1="730" x2="1085" y2="790" class="dimline" marker-start="url(#arrow-rev)" marker-end="url(#arrow)"/>
+    <line x1="1085" y1="730" x2="1095" y2="730" class="ext"/>
+    <line x1="1085" y1="790" x2="1095" y2="790" class="ext"/>
+    <text x="1078" y="765" class="dim-left">4</text>
+
+    <!-- Labels -->
+    <text x="1110" y="748" class="dim">panel</text>
+    <text x="1162" y="768" class="dim">pocket</text>
+    <text x="1190" y="728" class="note" text-anchor="start">Y=155</text>
+  </g>
+
+  <!-- Notes -->
+  <text x="60" y="1060" class="note">NOTES:</text>
+  <text x="60" y="1075" class="note">1. 8 snap tabs (4 per long edge) engage tray detent ridges (Sub-H). Slot-released cantilever design, 8mm effective length.</text>
+  <text x="60" y="1088" class="note">2. Bezel pocket T1 resolves design gap in Sub-I: lid hosts the top bezel snap tab pocket (5mm wide x 3mm deep x 2.5mm tall).</text>
+
+</svg>
