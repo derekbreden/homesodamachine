@@ -101,7 +101,7 @@ Verification: part-local Z-up maps to system (0, -sin35°, cos35°) ✓
 - Path to the conceptual architecture document (4a output)
 - Path to the decomposition document (4d output) — identifies which sub-component this agent is resolving, its reference frame, and its interface boundaries
 - Path to all research documents that contain physical measurements (bag geometry, off-the-shelf part dimensions, etc.)
-- Path to the decision document (for context on the chosen approach)
+- Path to the synthesis document (for context on the execution plan)
 - All known physical properties that affect geometry derivation: gravity direction relative to the installed part, fluid fill levels, material properties of flexible elements, etc.
 - Instruction to resolve EVERY spatial relationship into the part's local frame — no "the agent will figure out the angle" hand-offs
 - Instruction to provide cross-sectional profiles as coordinate tables when the shape depends on physics, not just as prose descriptions

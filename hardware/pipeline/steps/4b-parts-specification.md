@@ -18,7 +18,7 @@ Same as conceptual architecture: the agent may modify any interfacing part if th
 - Path to the conceptual architecture document (the design decisions are settled)
 - Path to the decomposition document (4d output) — identifies this sub-component and its interface boundaries
 - Path to the spatial resolution document (4s output) — this is the primary dimensional input. Every derived dimension is already resolved into the sub-component's local frame.
-- Path to the decision document
+- Path to the synthesis document
 - Printer specs and materials are in `hardware/requirements.md`. **The agent must not assume, infer, or use "typical" values for any manufacturing constraint.**
 - Paths to all existing docs that need updating (architecture, shell parts.md, etc.)
 - Paths to interfacing parts that the agent has freedom to modify (shell, panels, etc.)

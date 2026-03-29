@@ -68,7 +68,7 @@ Each step has a detailed procedure document in `hardware/pipeline/steps/`. The o
 | 1 | Folder tree | (none — do directly) | mechanism |
 | 2A | Technical research docs | `steps/2a-technical-research.md` | mechanism |
 | 2B | Design pattern research | `steps/2b-design-pattern-research.md` | mechanism |
-| 3 | Decision document | `steps/3-design-decision.md` | mechanism |
+| 3 | Synthesis document | `steps/3-design-decision.md` | mechanism |
 | 4a | Concept document | `steps/4a-conceptual-architecture.md` | mechanism |
 | 4d | Decomposition (or pass-through) | `steps/4d-decomposition.md` | per part |
 | 4s | Spatial resolution document | `steps/4s-spatial-resolution.md` | per sub-component |
@@ -87,13 +87,15 @@ hardware/printed-parts/<mechanism-name>/
 
 ### Steps 2A, 2B — Research (parallel)
 
-All research agents run in parallel. 2A agents investigate technical approaches. The 2B agent researches how real consumer products solve the same interaction.
+All research agents run in parallel. The vision specifies the interaction; the research investigates how to execute it.
 
-**Critical: The 2B agent must NOT know about the current design.** Anchoring to an existing approach causes rationalization of the status quo.
+**2A agents** each answer one technical question the vision raises: forces, dimensions, materials, tolerances, failure modes. They do not explore alternative approaches — the approach is set by the vision.
 
-### Step 3 — Decision
+**The 2B agent** studies how existing consumer products achieve the specific UX qualities the vision demands (squeeze feedback, hidden mechanisms, flush surfaces, seating confidence). It researches the details that make those qualities real, not alternative interaction types.
 
-One agent reads ALL research (including design patterns) and makes a recommendation. Reads patterns first, then evaluates technical candidates against them.
+### Step 3 — Synthesis
+
+One agent reads ALL research (technical and design pattern) and synthesizes them into a concrete execution plan for the vision. This step combines research findings into a coherent mechanism description — it does not choose between alternatives. If the research reveals a conflict with the vision, the agent flags the conflict and proposes the minimum modification, not a wholesale redesign.
 
 ### Step 4a — Conceptual Architecture
 
@@ -168,14 +170,14 @@ Step 1 (folders)
 ## Common Mistakes This Procedure Prevents
 
 1. **"Do not run the script"** — Never. The STEP file is the deliverable.
-2. **Decision agent ignoring UX** — Product values are in every agent prompt. UX is always #1.
+2. **Research exploring alternatives to the vision** — The vision specifies the interaction. Research investigates how to execute it, not whether to use a different approach.
 3. **Separate parts that should be one** — Rubric F catches this.
 4. **Stale references to old mechanisms** — Quality gate requires checking.
 5. **Agents not reading the standards** — Every agent prompt includes the path to its procedure doc.
 6. **Missing the CadQuery venv** — Prerequisites verify it exists.
 7. **Optimizing throughput over correctness** — Quality gates are mandatory. Fast + wrong < slow + right.
 8. **Combining exploration and specification** — 4a explores, 4b specifies. Never combine them.
-9. **Research agent anchoring to current design** — 2B must not know about the current design.
+9. **Synthesis agent replacing the vision** — If research reveals a feasibility conflict, the synthesis flags it and proposes the minimum modification. It does not silently substitute a different approach.
 10. **Assumed manufacturing constraints** — All printer specs and materials are in `requirements.md`. No agent may assume "typical" values. If a constraint isn't in requirements.md, ask the product owner.
 11. **CadQuery agent doing spatial reasoning** — All multi-frame geometry is resolved in Step 4s. By the time a CadQuery agent runs, every dimension is a concrete number in the sub-component's own frame.
 12. **Single agent handling multi-paradigm geometry** — Step 4d decomposes complex parts so each CadQuery agent works on a 2.5D problem. If an agent needs both prismatic and rotational operations, the decomposition is wrong.

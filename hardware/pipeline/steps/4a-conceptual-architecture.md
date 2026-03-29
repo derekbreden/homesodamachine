@@ -21,7 +21,7 @@ The agent designing a mechanism is not limited to the mechanism's own parts. If 
 ## Agent prompt must include
 
 - Path to `hardware/requirements.md` and `hardware/vision.md`
-- Path to the decision document
+- Path to the synthesis document
 - Path to the design pattern research (`planning/research/design-patterns.md`)
 - Printer specs and materials are in `hardware/requirements.md`. **The agent must not assume, infer, or use "typical" values for any manufacturing constraint.**
 - All known physical constraints (dimensions, what goes inside)
