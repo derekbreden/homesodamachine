@@ -1,0 +1,478 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1500 1300" width="1500" height="1300" font-family="Arial, sans-serif" font-size="11" fill="black" stroke="black">
+
+  <title>Front Bezel — Engineering Drawing</title>
+
+  <defs>
+    <marker id="arrow" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto">
+      <path d="M0,0 L8,3 L0,6 Z" fill="black"/>
+    </marker>
+    <marker id="arrow-rev" markerWidth="8" markerHeight="6" refX="0" refY="3" orient="auto">
+      <path d="M8,0 L0,3 L8,6 Z" fill="black"/>
+    </marker>
+    <pattern id="hatch" x="0" y="0" width="8" height="8" patternUnits="userSpaceOnUse" patternTransform="rotate(45)">
+      <line x1="0" y1="0" x2="0" y2="8" stroke="#888" stroke-width="0.3"/>
+    </pattern>
+    <style>
+      .dim { font-size: 10px; fill: black; stroke: none; text-anchor: middle; }
+      .dim-sm { font-size: 9px; fill: black; stroke: none; text-anchor: middle; }
+      .dim-left { font-size: 10px; fill: black; stroke: none; text-anchor: end; }
+      .dim-right { font-size: 10px; fill: black; stroke: none; text-anchor: start; }
+      .label { font-size: 12px; fill: black; stroke: none; font-weight: bold; text-anchor: middle; }
+      .note { font-size: 9px; fill: black; stroke: none; }
+      .title-text { font-size: 16px; fill: black; stroke: none; font-weight: bold; }
+      .subtitle { font-size: 12px; fill: black; stroke: none; }
+      .hidden { stroke-dasharray: 3,2; stroke-width: 0.8; fill: none; stroke: black; }
+      .center { stroke-dasharray: 12,3,3,3; stroke-width: 0.5; stroke: #555; fill: none; }
+      .outline { stroke: black; stroke-width: 1.2; fill: none; }
+      .thin { stroke: black; stroke-width: 0.6; fill: none; }
+      .dimline { stroke: black; stroke-width: 0.5; fill: none; }
+      .ext { stroke: black; stroke-width: 0.4; fill: none; }
+      .detail-frame { stroke: black; stroke-width: 1.0; fill: white; }
+      .hatch { stroke: #888; stroke-width: 0.3; fill: none; }
+    </style>
+  </defs>
+
+  <!-- Title Block -->
+  <text x="750" y="30" class="title-text" text-anchor="middle">Front Bezel</text>
+  <text x="750" y="48" class="subtitle" text-anchor="middle">Pump Cartridge — Third-Angle Orthographic Projection</text>
+  <text x="750" y="64" class="note" text-anchor="middle">Material: PETG | All dimensions in mm | Bezel frame: X=width(0..160), Z=height(0..72), Y=depth(0=outer, +toward interior)</text>
+  <line x1="50" y1="72" x2="1450" y2="72" stroke="black" stroke-width="0.5"/>
+
+  <!-- ================================================================ -->
+  <!-- FRONT VIEW (looking along -Y, at outer face)                     -->
+  <!-- Horizontal = X (width, 0..160), Vertical = Z (height, 0..72)     -->
+  <!-- Scale: 3 px/mm                                                   -->
+  <!-- px(X_mm) = 100 + X*3     X=0->100, X=160->580                   -->
+  <!-- pz(Z_mm) = 380 - Z*3     Z=0->380, Z=72->164                    -->
+  <!-- ================================================================ -->
+
+  <text x="340" y="100" class="label">FRONT VIEW (looking along -Y, outer face)</text>
+  <text x="340" y="115" class="dim-sm">Scale 3:1 (3 px/mm)</text>
+
+  <g id="front-view">
+    <!-- Outer panel: 160x72mm -> 480x216px -->
+    <rect x="100" y="164" width="480" height="216" class="outline"/>
+
+    <!-- Left finger channel: X=0..25, Z=21..51 -> px 100..175, pz 227..317 -->
+    <rect x="100" y="227" width="75" height="90" stroke="black" stroke-width="1.2" fill="white"/>
+
+    <!-- Right finger channel: X=135..160, Z=21..51 -> px 505..580, pz 227..317 -->
+    <rect x="505" y="227" width="75" height="90" stroke="black" stroke-width="1.2" fill="white"/>
+
+    <!-- 3mm fillets at channel inner corners (shown as quarter-arcs, 9px radius) -->
+    <!-- Left channel top-inner (X=25,Z=51): arc from vertical to horizontal -->
+    <path d="M 175,236 Q 175,227 166,227" stroke="black" stroke-width="1.0" fill="none"/>
+    <!-- Left channel bottom-inner (X=25,Z=21) -->
+    <path d="M 166,317 Q 175,317 175,308" stroke="black" stroke-width="1.0" fill="none"/>
+    <!-- Right channel top-inner (X=135,Z=51) -->
+    <path d="M 505,236 Q 505,227 514,227" stroke="black" stroke-width="1.0" fill="none"/>
+    <!-- Right channel bottom-inner (X=135,Z=21) -->
+    <path d="M 514,317 Q 505,317 505,308" stroke="black" stroke-width="1.0" fill="none"/>
+
+    <!-- Palm crown contour lines (concentric ellipses on outer face) -->
+    <!-- Crown apex at X=80, Z=36 -> px(340, 272) -->
+    <ellipse cx="340" cy="272" rx="185" ry="85" stroke="#999" stroke-width="0.4" stroke-dasharray="4,3" fill="none"/>
+    <ellipse cx="340" cy="272" rx="135" ry="62" stroke="#999" stroke-width="0.4" stroke-dasharray="4,3" fill="none"/>
+
+    <!-- Snap tab positions (dashed hidden lines) -->
+    <!-- BL1: X=0..1.5, Z centered on 22, width 4.5mm -> Z=19.75..24.25 -->
+    <!-- px 100..104.5, pz 307.25..320.75 -> approx 100..104, 307..321 -->
+    <rect x="100" y="307" width="4.5" height="13.5" class="hidden"/>
+    <!-- BL2: Z centered on 50 -> Z=47.75..52.25, pz 223.25..236.75 -->
+    <rect x="100" y="223" width="4.5" height="13.5" class="hidden"/>
+    <!-- BR1 -->
+    <rect x="575.5" y="307" width="4.5" height="13.5" class="hidden"/>
+    <!-- BR2 -->
+    <rect x="575.5" y="223" width="4.5" height="13.5" class="hidden"/>
+    <!-- BF1: X=77.75..82.25 -> px 333.25..346.75, Z=0..1.5 -> pz 375.5..380 -->
+    <rect x="333" y="375.5" width="13.5" height="4.5" class="hidden"/>
+    <!-- BT1: at top edge -->
+    <rect x="333" y="160" width="13.5" height="4" class="hidden"/>
+
+    <!-- Center lines -->
+    <line x1="340" y1="155" x2="340" y2="390" class="center"/>
+    <line x1="90" y1="272" x2="590" y2="272" class="center"/>
+
+    <!-- Section line A-A at Z=36 -->
+    <line x1="75" y1="272" x2="595" y2="272" stroke="black" stroke-width="0.8" stroke-dasharray="15,3,3,3"/>
+    <text x="65" y="275" class="dim" text-anchor="end">A</text>
+    <text x="605" y="275" class="dim" text-anchor="start">A</text>
+
+    <!-- Section line C-C at Z=10 (px=380-30=350) -->
+    <line x1="75" y1="350" x2="595" y2="350" stroke="black" stroke-width="0.8" stroke-dasharray="15,3,3,3"/>
+    <text x="65" y="353" class="dim" text-anchor="end">C</text>
+    <text x="605" y="353" class="dim" text-anchor="start">C</text>
+
+    <!-- Tab labels -->
+    <text x="85" y="318" class="dim-sm" text-anchor="end">BL1</text>
+    <text x="85" y="234" class="dim-sm" text-anchor="end">BL2</text>
+    <text x="595" y="318" class="dim-sm" text-anchor="start">BR1</text>
+    <text x="595" y="234" class="dim-sm" text-anchor="start">BR2</text>
+    <text x="340" y="395" class="dim-sm">BF1</text>
+    <text x="340" y="155" class="dim-sm">BT1</text>
+
+    <!-- Dimension: overall width 160mm -->
+    <line x1="100" y1="380" x2="100" y2="410" class="ext"/>
+    <line x1="580" y1="380" x2="580" y2="410" class="ext"/>
+    <line x1="100" y1="405" x2="580" y2="405" class="dimline" marker-start="url(#arrow-rev)" marker-end="url(#arrow)"/>
+    <text x="340" y="420" class="dim">160</text>
+
+    <!-- Dimension: overall height 72mm -->
+    <line x1="580" y1="380" x2="620" y2="380" class="ext"/>
+    <line x1="580" y1="164" x2="620" y2="164" class="ext"/>
+    <line x1="615" y1="380" x2="615" y2="164" class="dimline" marker-start="url(#arrow-rev)" marker-end="url(#arrow)"/>
+    <text x="630" y="275" class="dim-right">72</text>
+
+    <!-- Dimension: left channel width 25mm -->
+    <line x1="100" y1="317" x2="100" y2="340" class="ext"/>
+    <line x1="175" y1="317" x2="175" y2="340" class="ext"/>
+    <line x1="100" y1="335" x2="175" y2="335" class="dimline" marker-start="url(#arrow-rev)" marker-end="url(#arrow)"/>
+    <text x="137" y="332" class="dim">25</text>
+
+    <!-- Dimension: channel height 30mm (left side) -->
+    <line x1="90" y1="227" x2="100" y2="227" class="ext"/>
+    <line x1="90" y1="317" x2="100" y2="317" class="ext"/>
+    <line x1="85" y1="227" x2="85" y2="317" class="dimline" marker-start="url(#arrow-rev)" marker-end="url(#arrow)"/>
+    <text x="72" y="275" class="dim-left">30</text>
+
+    <!-- Dimension: Z=21 from bottom edge to channel -->
+    <line x1="75" y1="317" x2="75" y2="380" class="dimline" marker-start="url(#arrow-rev)" marker-end="url(#arrow)"/>
+    <text x="62" y="365" class="dim-left">21</text>
+
+    <!-- Crown annotation -->
+    <text x="340" y="262" class="dim-sm">1.5mm palm crown apex</text>
+
+    <!-- Fillet annotations -->
+    <text x="180" y="245" class="dim-sm" text-anchor="start">R3</text>
+    <text x="498" y="245" class="dim-sm" text-anchor="end">R3</text>
+  </g>
+
+  <!-- ================================================================ -->
+  <!-- LEFT SIDE VIEW (looking along +X from left)                      -->
+  <!-- Horizontal = Y (0..8), Vertical = Z (0..72)                     -->
+  <!-- Scale: 5 px/mm                                                   -->
+  <!-- Placed to right of front view, sharing Z alignment               -->
+  <!-- px(Y) = 660 + Y*5    Y=0->660, Y=8->700                        -->
+  <!-- pz(Z) = 380 - Z*5    Z=0->380, Z=72->20 — use same Z as front  -->
+  <!-- Rescale: front view Z: pz=380-Z*3. Side view Z must match.      -->
+  <!-- Side view Z: pz(Z) = 380 - Z*3 (same scale as front view)       -->
+  <!-- Side view Y: px(Y) = 660 + Y*5                                  -->
+  <!-- ================================================================ -->
+
+  <text x="680" y="100" class="label">LEFT SIDE VIEW</text>
+  <text x="680" y="115" class="dim-sm">Y=5px/mm, Z=3px/mm</text>
+
+  <g id="side-view">
+    <!-- Front panel: Y=0..5, Z=0..72 -> px 660..685, pz 164..380 -->
+    <rect x="660" y="164" width="25" height="216" class="outline"/>
+
+    <!-- Left return wall below channel: Y=5..8, Z=0..21 -> px 685..700, pz 317..380 -->
+    <rect x="685" y="317" width="15" height="63" class="outline"/>
+
+    <!-- Left return wall above channel: Y=5..8, Z=51..72 -> px 685..700, pz 164..227 -->
+    <rect x="685" y="164" width="15" height="63" class="outline"/>
+
+    <!-- Channel void markers: Z=21..51 -> pz 227..317 -->
+    <!-- Channel opening spans full depth Y=0..8 at side view -->
+    <line x1="660" y1="227" x2="700" y2="227" stroke="black" stroke-width="1.2"/>
+    <line x1="660" y1="317" x2="700" y2="317" stroke="black" stroke-width="1.2"/>
+
+    <!-- Snap tab BL1 (Z=22, in channel zone) shown as dashed -->
+    <!-- Tab beam: Y=5..8, ~1mm thick at Z=22 -> pz=380-66=314, beam is ~3px tall -->
+    <line x1="685" y1="312" x2="700" y2="312" class="hidden"/>
+    <line x1="685" y1="315" x2="700" y2="315" class="hidden"/>
+
+    <!-- Snap tab BL2 (Z=50) -> pz=380-150=230 -->
+    <line x1="685" y1="228" x2="700" y2="228" class="hidden"/>
+    <line x1="685" y1="231" x2="700" y2="231" class="hidden"/>
+
+    <!-- Dimension: total depth 8mm -->
+    <line x1="660" y1="164" x2="660" y2="150" class="ext"/>
+    <line x1="700" y1="164" x2="700" y2="150" class="ext"/>
+    <line x1="660" y1="153" x2="700" y2="153" class="dimline" marker-start="url(#arrow-rev)" marker-end="url(#arrow)"/>
+    <text x="680" y="147" class="dim">8</text>
+
+    <!-- Dimension: panel thickness 5mm -->
+    <line x1="660" y1="380" x2="660" y2="395" class="ext"/>
+    <line x1="685" y1="380" x2="685" y2="395" class="ext"/>
+    <line x1="660" y1="392" x2="685" y2="392" class="dimline" marker-start="url(#arrow-rev)" marker-end="url(#arrow)"/>
+    <text x="672" y="406" class="dim">5</text>
+
+    <!-- Dimension: return wall depth 3mm -->
+    <line x1="685" y1="317" x2="685" y2="335" class="ext"/>
+    <line x1="700" y1="317" x2="700" y2="335" class="ext"/>
+    <line x1="685" y1="332" x2="700" y2="332" class="dimline" marker-start="url(#arrow-rev)" marker-end="url(#arrow)"/>
+    <text x="692" y="346" class="dim">3</text>
+
+    <!-- Channel label -->
+    <text x="673" y="275" class="dim-sm">CH</text>
+
+    <!-- Tab labels -->
+    <text x="710" y="315" class="dim-sm" text-anchor="start">BL1</text>
+    <text x="710" y="231" class="dim-sm" text-anchor="start">BL2</text>
+  </g>
+
+  <!-- ================================================================ -->
+  <!-- SECTION A-A (cut at Z=36, looking along -Z)                      -->
+  <!-- Shows C-channel cross-section at mid-height (inside channels)    -->
+  <!-- Horizontal = X (0..160), Vertical = Y (0..8)                    -->
+  <!-- Scale: 3 px/mm for X, 10 px/mm for Y (exaggerated for clarity) -->
+  <!-- px(X) = 100 + X*3, py(Y) = 510 + Y*10                          -->
+  <!-- X=0->100, X=160->580;  Y=0->510, Y=8->590                     -->
+  <!-- ================================================================ -->
+
+  <text x="340" y="465" class="label">SECTION A-A (cut at Z=36, looking along -Z)</text>
+  <text x="340" y="480" class="dim-sm">Scale: X=3px/mm, Y=10px/mm (Y exaggerated)</text>
+
+  <g id="section-aa">
+    <!-- At Z=36, channels (Z=21..51) are open: left X=0..25 and right X=135..160 are void -->
+    <!-- Solid front panel: X=25..135, Y=0..5 -> px 175..505, py 510..560 -->
+    <rect x="175" y="510" width="330" height="50" fill="url(#hatch)" stroke="black" stroke-width="1.2"/>
+
+    <!-- Left channel void outline: X=0..25 -> px 100..175, Y=0..8 -> py 510..590 -->
+    <rect x="100" y="510" width="75" height="80" stroke="black" stroke-width="0.6" stroke-dasharray="3,2" fill="none"/>
+    <text x="137" y="555" class="dim-sm">VOID</text>
+
+    <!-- Right channel void outline: X=135..160 -> px 505..580, Y=0..8 -> py 510..590 -->
+    <rect x="505" y="510" width="75" height="80" stroke="black" stroke-width="0.6" stroke-dasharray="3,2" fill="none"/>
+    <text x="542" y="555" class="dim-sm">VOID</text>
+
+    <!-- Dimension: panel thickness Y=5mm -->
+    <line x1="170" y1="510" x2="170" y2="560" class="dimline" marker-start="url(#arrow-rev)" marker-end="url(#arrow)"/>
+    <line x1="170" y1="510" x2="175" y2="510" class="ext"/>
+    <line x1="170" y1="560" x2="175" y2="560" class="ext"/>
+    <text x="158" y="539" class="dim-left">5</text>
+
+    <!-- Dimension: overall width 160mm -->
+    <line x1="100" y1="510" x2="100" y2="498" class="ext"/>
+    <line x1="580" y1="510" x2="580" y2="498" class="ext"/>
+    <line x1="100" y1="500" x2="580" y2="500" class="dimline" marker-start="url(#arrow-rev)" marker-end="url(#arrow)"/>
+    <text x="340" y="496" class="dim">160</text>
+
+    <!-- Dimension: center span 110mm -->
+    <line x1="175" y1="560" x2="175" y2="605" class="ext"/>
+    <line x1="505" y1="560" x2="505" y2="605" class="ext"/>
+    <line x1="175" y1="600" x2="505" y2="600" class="dimline" marker-start="url(#arrow-rev)" marker-end="url(#arrow)"/>
+    <text x="340" y="615" class="dim">110</text>
+
+    <!-- Dimension: channel width 25mm -->
+    <line x1="100" y1="590" x2="100" y2="605" class="ext"/>
+    <line x1="175" y1="590" x2="175" y2="605" class="ext"/>
+    <!-- Shared with 110mm dim line -->
+
+    <!-- Y-axis labels -->
+    <text x="340" y="508" class="dim-sm">Y=0 (outer face)</text>
+    <text x="340" y="575" class="dim-sm">Y=5 (panel inner)</text>
+  </g>
+
+  <!-- ================================================================ -->
+  <!-- SECTION C-C (cut at Z=10, looking along -Z)                      -->
+  <!-- Shows full C-channel with intact return walls (below channels)   -->
+  <!-- Same scales as Section A-A                                       -->
+  <!-- px(X) = 100 + X*3, py(Y) = 700 + Y*10                          -->
+  <!-- ================================================================ -->
+
+  <text x="340" y="650" class="label">SECTION C-C (cut at Z=10, looking along -Z)</text>
+  <text x="340" y="665" class="dim-sm">Scale: X=3px/mm, Y=10px/mm (Y exaggerated)</text>
+
+  <g id="section-cc">
+    <!-- Full front panel: X=0..160, Y=0..5 -> px 100..580, py 700..750 -->
+    <rect x="100" y="700" width="480" height="50" fill="url(#hatch)" stroke="black" stroke-width="1.2"/>
+
+    <!-- Left return wall: X=0..1.5, Y=5..8 -> px 100..104.5, py 750..780 -->
+    <rect x="100" y="750" width="4.5" height="30" fill="url(#hatch)" stroke="black" stroke-width="1.0"/>
+
+    <!-- Right return wall: X=158.5..160, Y=5..8 -> px 575.5..580, py 750..780 -->
+    <rect x="575.5" y="750" width="4.5" height="30" fill="url(#hatch)" stroke="black" stroke-width="1.0"/>
+
+    <!-- Internal fillet arcs (1mm radius = 3px in X, 10px in Y) -->
+    <path d="M 104.5,745 Q 104.5,750 107.5,750" stroke="black" stroke-width="0.6" fill="none"/>
+    <path d="M 575.5,745 Q 575.5,750 572.5,750" stroke="black" stroke-width="0.6" fill="none"/>
+
+    <!-- Dimension: return wall thickness 1.5mm -->
+    <line x1="100" y1="780" x2="100" y2="798" class="ext"/>
+    <line x1="104.5" y1="780" x2="104.5" y2="798" class="ext"/>
+    <line x1="100" y1="795" x2="104.5" y2="795" class="dimline" marker-start="url(#arrow-rev)" marker-end="url(#arrow)"/>
+    <text x="102" y="810" class="dim">1.5</text>
+
+    <!-- Dimension: return wall depth 3mm (Y=5..8) -->
+    <line x1="92" y1="750" x2="100" y2="750" class="ext"/>
+    <line x1="92" y1="780" x2="100" y2="780" class="ext"/>
+    <line x1="95" y1="750" x2="95" y2="780" class="dimline" marker-start="url(#arrow-rev)" marker-end="url(#arrow)"/>
+    <text x="83" y="768" class="dim-left">3</text>
+
+    <!-- Dimension: panel thickness 5mm -->
+    <line x1="585" y1="700" x2="598" y2="700" class="ext"/>
+    <line x1="585" y1="750" x2="598" y2="750" class="ext"/>
+    <line x1="595" y1="700" x2="595" y2="750" class="dimline" marker-start="url(#arrow-rev)" marker-end="url(#arrow)"/>
+    <text x="605" y="728" class="dim-right">5</text>
+
+    <!-- Dimension: inner width 157mm (X=1.5 to X=158.5) -->
+    <line x1="104.5" y1="750" x2="104.5" y2="765" class="ext"/>
+    <line x1="575.5" y1="750" x2="575.5" y2="765" class="ext"/>
+    <line x1="104.5" y1="762" x2="575.5" y2="762" class="dimline" marker-start="url(#arrow-rev)" marker-end="url(#arrow)"/>
+    <text x="340" y="758" class="dim">157 (inner)</text>
+
+    <!-- Internal fillet label -->
+    <text x="115" y="745" class="dim-sm" text-anchor="start">R1</text>
+  </g>
+
+  <!-- ================================================================ -->
+  <!-- DETAIL D1: SNAP TAB BARB GEOMETRY (BL1 type)                     -->
+  <!-- XY section at Z=22, looking along -Z                             -->
+  <!-- Scale: 15 px/mm                                                  -->
+  <!-- Shows: front panel left edge, cantilever beam, barb              -->
+  <!-- X range shown: -3..6mm, Y range: 2..10mm                        -->
+  <!-- px(X) = 810 + X*15  => X=-3->765, X=6->900                     -->
+  <!-- py(Y) = 140 + (Y-2)*15 = 110 + Y*15 => Y=2->140, Y=10->260    -->
+  <!-- Frame: 755..910 x 120..275                                      -->
+  <!-- ================================================================ -->
+
+  <text x="835" y="108" class="label">DETAIL D1: SNAP TAB</text>
+  <text x="835" y="122" class="dim-sm">XY section at Z=22, Scale 15:1</text>
+
+  <rect x="755" y="130" width="165" height="150" class="detail-frame"/>
+
+  <g id="detail-snap-tab">
+    <!-- Front panel section: X=0..5, Y=0..5 (show Y=2..5 visible portion) -->
+    <!-- px: 810..885, py: 140..185 -->
+    <!-- Show full panel width: X=0..5 -> px 810..885 -->
+    <!-- Y=2..5 -> py 140..185 -->
+    <rect x="810" y="140" width="75" height="45" fill="url(#hatch)" stroke="black" stroke-width="1.0"/>
+
+    <!-- Tab cantilever beam: X=0..1 (1mm thick), Y=5..8 (3mm visible free length) -->
+    <!-- px 810..825, py 185..230 -->
+    <rect x="810" y="185" width="15" height="45" fill="url(#hatch)" stroke="black" stroke-width="1.0"/>
+
+    <!-- Barb: protrudes 1.5mm in -X direction from beam -->
+    <!-- Barb sits at tip of beam, Y~7..8.5 region -->
+    <!-- 45-deg ramp (leading face, toward Y=0 / outer face) -->
+    <!-- Lock face (perpendicular, faces -Y) -->
+    <!-- Barb shape: -->
+    <!--   Ramp top: (0, 7) -> px 810, py 215 -->
+    <!--   Ramp bottom-left: (-1.5, 8) -> px 787.5, py 230 -->
+    <!--   Lock face bottom: (-1.5, 9) -> px 787.5, py 245 -->
+    <!--   Return to beam: (0, 9) -> px 810, py 245 -->
+    <path d="M 810,215 L 787.5,230 L 787.5,245 L 810,245"
+          fill="url(#hatch)" stroke="black" stroke-width="1.0"/>
+
+    <!-- 45-deg chamfer on barb underside (printability) -->
+    <line x1="787.5" y1="245" x2="798" y2="256" stroke="black" stroke-width="0.6" stroke-dasharray="2,2"/>
+    <text x="800" y="265" class="dim-sm" text-anchor="start" style="font-size:7px;">chamfer</text>
+
+    <!-- Pocket wall outline (dashed - tray wall, not part of bezel) -->
+    <!-- Tray wall at X=-1.5..0 (bezel frame), pocket recess at X=0..1.5 inside wall -->
+    <!-- Show tray wall edge at X=0, Y=5..8 -> px 810, py 185..230 -->
+    <!-- Already shown as beam edge. Show pocket outline: -->
+    <!-- Pocket: X=-1.5..0, Y=5..8 -> px 787.5..810, py 185..230 -->
+    <rect x="787.5" y="185" width="22.5" height="45" stroke="black" stroke-width="0.5" stroke-dasharray="4,2" fill="none"/>
+    <text x="782" y="210" class="dim-sm" text-anchor="end" style="font-size:7px;">pocket</text>
+
+    <!-- Dimension: beam thickness 1.0mm (X direction) -->
+    <line x1="810" y1="198" x2="800" y2="198" class="ext"/>
+    <line x1="825" y1="198" x2="835" y2="198" class="ext"/>
+    <line x1="800" y1="198" x2="810" y2="198" class="dimline" marker-start="url(#arrow-rev)"/>
+    <line x1="825" y1="198" x2="835" y2="198" class="dimline" marker-end="url(#arrow)"/>
+    <text x="838" y="202" class="dim-sm" text-anchor="start">1.0</text>
+
+    <!-- Dimension: barb protrusion 1.5mm -->
+    <line x1="787.5" y1="250" x2="787.5" y2="260" class="ext"/>
+    <line x1="810" y1="250" x2="810" y2="260" class="ext"/>
+    <line x1="787.5" y1="258" x2="810" y2="258" class="dimline" marker-start="url(#arrow-rev)" marker-end="url(#arrow)"/>
+    <text x="798" y="274" class="dim">1.5</text>
+
+    <!-- Label: 45-deg ramp angle -->
+    <text x="782" y="225" class="dim-sm" text-anchor="end" style="font-size:7px;">45-deg</text>
+
+    <!-- Label: lock face -->
+    <text x="770" y="240" class="dim-sm" text-anchor="start" style="font-size:7px;">lock</text>
+  </g>
+
+  <!-- ================================================================ -->
+  <!-- DETAIL D2: FINGER CHANNEL PROFILE (YZ section at X=12.5)        -->
+  <!-- Looking along +X into the left channel                           -->
+  <!-- Horizontal = Y (0..15), Vertical = Z (18..54)                   -->
+  <!-- Scale: 4 px/mm                                                   -->
+  <!-- px(Y) = 985 + Y*4, pz(Z) = 360 - (Z-18)*4 = 432 - Z*4         -->
+  <!-- Frame: 970..1060 x 120..290                                     -->
+  <!-- ================================================================ -->
+
+  <text x="1020" y="108" class="label">DETAIL D2: CHANNEL</text>
+  <text x="1020" y="122" class="dim-sm">YZ section at X=12.5, Scale 4:1</text>
+
+  <!-- ================================================================ -->
+  <!-- DETAIL D2: FINGER CHANNEL YZ SECTION                             -->
+  <!-- pz(Z) = 364 - Z*4:  Z=16->300, Z=21->280, Z=51->160, Z=56->140 -->
+  <!-- px(Y) = 985 + Y*4:  Y=0->985, Y=5->1005, Y=8->1017, Y=15->1045 -->
+  <!-- ================================================================ -->
+
+  <rect x="970" y="130" width="100" height="185" class="detail-frame"/>
+
+  <g id="detail-channel-v2">
+    <!-- Panel above channel: Y=0..5, Z=51..56 -> px 985..1005, pz 160..140 -->
+    <rect x="985" y="140" width="20" height="20" fill="url(#hatch)" stroke="black" stroke-width="1.0"/>
+
+    <!-- Panel below channel: Y=0..5, Z=16..21 -> px 985..1005, pz 300..280 -->
+    <rect x="985" y="280" width="20" height="20" fill="url(#hatch)" stroke="black" stroke-width="1.0"/>
+
+    <!-- Channel opening: Y=0..8, Z=21..51 -> px 985..1017, pz 280..160 -->
+    <rect x="985" y="160" width="32" height="120" stroke="black" stroke-width="0.8" fill="none"/>
+
+    <!-- 3mm fillet at top (Z=51 edge, Y=0): radius 3mm = 12px -->
+    <path d="M 985,160 Q 985,148 997,148" stroke="black" stroke-width="0.8" fill="none"/>
+    <!-- 3mm fillet at bottom (Z=21 edge, Y=0) -->
+    <path d="M 997,292 Q 985,292 985,280" stroke="black" stroke-width="0.8" fill="none"/>
+
+    <!-- Pull-tab paddle reference (dashed - separate part) -->
+    <!-- Paddle face at Y=12 -> px 985+48=1033 -->
+    <line x1="1033" y1="160" x2="1033" y2="280" stroke="black" stroke-width="0.6" stroke-dasharray="4,3"/>
+
+    <!-- Dimension: channel height 30mm -->
+    <line x1="978" y1="160" x2="985" y2="160" class="ext"/>
+    <line x1="978" y1="280" x2="985" y2="280" class="ext"/>
+    <line x1="980" y1="160" x2="980" y2="280" class="dimline" marker-start="url(#arrow-rev)" marker-end="url(#arrow)"/>
+    <text x="976" y="223" class="dim-left" style="font-size:8px;">30</text>
+
+    <!-- Dimension: panel thickness 5mm -->
+    <line x1="985" y1="136" x2="1005" y2="136" class="dimline" marker-start="url(#arrow-rev)" marker-end="url(#arrow)"/>
+    <text x="995" y="133" class="dim-sm">5</text>
+
+    <!-- Dimension: grip span ~12mm (outer face to paddle) -->
+    <line x1="985" y1="284" x2="985" y2="300" class="ext"/>
+    <line x1="1033" y1="284" x2="1033" y2="300" class="ext"/>
+    <line x1="985" y1="297" x2="1033" y2="297" class="dimline" marker-start="url(#arrow-rev)" marker-end="url(#arrow)"/>
+    <text x="1009" y="310" class="dim-sm">~12</text>
+
+    <!-- Labels -->
+    <text x="1040" y="223" class="dim-sm" text-anchor="start" style="font-size:7px;">paddle</text>
+    <text x="1000" y="223" class="dim-sm" style="font-size:7px;">CH</text>
+    <text x="1008" y="153" class="dim-sm" text-anchor="start" style="font-size:7px;">R3</text>
+  </g>
+
+  <!-- ================================================================ -->
+  <!-- NOTES AND SNAP TAB TABLE                                         -->
+  <!-- ================================================================ -->
+
+  <g id="notes">
+    <text x="780" y="350" class="note" font-weight="bold">NOTES:</text>
+    <text x="780" y="365" class="note">1. Single PETG print, no fasteners</text>
+    <text x="780" y="380" class="note">2. Print: outer face (Y=0) on build plate</text>
+    <text x="780" y="395" class="note">3. 6 integral snap tabs (BL1, BL2, BR1, BR2, BF1, BT1)</text>
+    <text x="780" y="410" class="note">4. 2mm external fillets on all outer edges</text>
+    <text x="780" y="425" class="note">5. 3mm fillets at finger channel entries</text>
+    <text x="780" y="440" class="note">6. 1mm internal fillets at return wall junctions</text>
+    <text x="780" y="455" class="note">7. 1.5mm ellipsoidal palm crown on outer face</text>
+    <text x="780" y="470" class="note">8. Step-lap rabbet: 1.5mm walls fill Sub-I pockets</text>
+    <text x="780" y="485" class="note">9. Tab cantilever: 10mm eff. length, 1mm beam, 1.5mm barb</text>
+    <text x="780" y="500" class="note">10. 0.2mm clearance per side on rabbet mating faces</text>
+
+    <text x="780" y="530" class="note" font-weight="bold">SNAP TAB POSITIONS (bezel frame X,Y,Z):</text>
+    <text x="780" y="545" class="note">BL1: (1.5, 6.5, 22.0) left wall, lower</text>
+    <text x="780" y="560" class="note">BL2: (1.5, 6.5, 50.0) left wall, upper</text>
+    <text x="780" y="575" class="note">BR1: (158.5, 6.5, 22.0) right wall, lower</text>
+    <text x="780" y="590" class="note">BR2: (158.5, 6.5, 50.0) right wall, upper</text>
+    <text x="780" y="605" class="note">BF1: (80.0, 6.5, 1.5) bottom, center</text>
+    <text x="780" y="620" class="note">BT1: (80.0, 6.5, 72.0) top, center (lid pocket)</text>
+  </g>
+
+</svg>
