@@ -1,0 +1,371 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 800" width="1200" height="800" font-family="Arial, sans-serif" font-size="11" fill="black" stroke="black">
+
+  <title>Floor Plate — Engineering Drawing</title>
+
+  <defs>
+    <marker id="arrow" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto">
+      <path d="M0,0 L8,3 L0,6 Z" fill="black"/>
+    </marker>
+    <marker id="arrow-rev" markerWidth="8" markerHeight="6" refX="0" refY="3" orient="auto">
+      <path d="M8,0 L0,3 L8,6 Z" fill="black"/>
+    </marker>
+    <style>
+      .dim { font-size: 10px; fill: black; stroke: none; text-anchor: middle; }
+      .dim-sm { font-size: 9px; fill: black; stroke: none; text-anchor: middle; }
+      .label { font-size: 12px; fill: black; stroke: none; font-weight: bold; text-anchor: middle; }
+      .note { font-size: 9px; fill: black; stroke: none; }
+      .title-text { font-size: 16px; fill: black; stroke: none; font-weight: bold; }
+      .subtitle { font-size: 12px; fill: black; stroke: none; }
+      .hidden { stroke-dasharray: 3,2; stroke-width: 0.8; fill: none; }
+      .center { stroke-dasharray: 12,3,3,3; stroke-width: 0.5; stroke: #555; fill: none; }
+      .outline { stroke: black; stroke-width: 1.2; fill: none; }
+      .thin { stroke: black; stroke-width: 0.6; fill: none; }
+      .dimline { stroke: black; stroke-width: 0.5; fill: none; }
+      .ext { stroke: black; stroke-width: 0.4; fill: none; }
+      .section { stroke: black; stroke-width: 0.8; fill: #e8e8e8; }
+      .detail-frame { stroke: black; stroke-width: 1.0; fill: white; }
+      .hatch { stroke: #888; stroke-width: 0.3; fill: none; }
+    </style>
+  </defs>
+
+  <!-- Title Block -->
+  <text x="600" y="30" class="title-text" text-anchor="middle">Floor Plate (Part #5)</text>
+  <text x="600" y="48" class="subtitle" text-anchor="middle">Pump Cartridge — Third-Angle Orthographic Projection</text>
+  <text x="600" y="64" class="note" text-anchor="middle">Material: PETG | All dimensions in mm | Plate frame: X=width(0..148), Y=depth(0..60), Z=thickness(0..-4)</text>
+  <line x1="50" y1="72" x2="1150" y2="72" stroke="black" stroke-width="0.5"/>
+
+  <!-- ============================================================ -->
+  <!-- TOP VIEW (looking along -Z, from above)                      -->
+  <!-- Horizontal = plate X (0..148), Vertical = plate Y (0..60)    -->
+  <!-- Scale: 4 px/mm                                               -->
+  <!-- tX(mm) = 80 + mm*4                                           -->
+  <!-- tY(mm) = 100 + mm*4                                          -->
+  <!-- ============================================================ -->
+
+  <text x="200" y="90" class="label" text-anchor="start">TOP VIEW (looking along -Z)</text>
+  <text x="200" y="105" class="dim-sm" text-anchor="start">Scale 4:1 (4 px/mm)</text>
+
+  <g id="top-view">
+    <!-- Plate outline: 148x60mm => 592x240 px, from (80,110) to (672,350) -->
+    <rect x="80" y="110" width="592" height="240" class="outline"/>
+
+    <!-- Section line A-A at Y=30 (py = 110 + 30*4 = 230) -->
+    <line x1="60" y1="230" x2="692" y2="230" stroke="black" stroke-width="0.8" stroke-dasharray="15,3,3,3"/>
+    <text x="52" y="234" class="dim" text-anchor="end">A</text>
+    <text x="700" y="234" class="dim" text-anchor="start">A</text>
+
+    <!-- Hole 1 at (21.50, 30.00): cx=80+21.5*4=166, cy=110+30*4=230 -->
+    <!-- Through-hole 3.40mm dia => r=6.8px (visible from top) -->
+    <circle cx="166" cy="230" r="6.8" class="outline"/>
+    <!-- Counterbore 5.70mm dia => r=11.4px (hidden, on bottom face) -->
+    <circle cx="166" cy="230" r="11.4" class="hidden"/>
+    <!-- Center marks -->
+    <line x1="150" y1="230" x2="182" y2="230" class="center"/>
+    <line x1="166" y1="214" x2="166" y2="246" class="center"/>
+
+    <!-- Hole 2 at (126.50, 30.00): cx=80+126.5*4=586, cy=230 -->
+    <circle cx="586" cy="230" r="6.8" class="outline"/>
+    <circle cx="586" cy="230" r="11.4" class="hidden"/>
+    <line x1="570" y1="230" x2="602" y2="230" class="center"/>
+    <line x1="586" y1="214" x2="586" y2="246" class="center"/>
+
+    <!-- ===== DIMENSIONS ===== -->
+
+    <!-- Overall width: 148 mm (top edge) -->
+    <line x1="80" y1="110" x2="80" y2="96" class="ext"/>
+    <line x1="672" y1="110" x2="672" y2="96" class="ext"/>
+    <line x1="80" y1="100" x2="672" y2="100" class="dimline" marker-start="url(#arrow-rev)" marker-end="url(#arrow)"/>
+    <text x="376" y="97" class="dim">148</text>
+
+    <!-- Overall depth: 60 mm (right edge) -->
+    <line x1="672" y1="110" x2="700" y2="110" class="ext"/>
+    <line x1="672" y1="350" x2="700" y2="350" class="ext"/>
+    <line x1="696" y1="110" x2="696" y2="350" class="dimline" marker-start="url(#arrow-rev)" marker-end="url(#arrow)"/>
+    <text x="696" y="234" class="dim" transform="rotate(-90,696,234)">60</text>
+
+    <!-- Hole 1 X position: 21.50 from left -->
+    <line x1="80" y1="350" x2="80" y2="370" class="ext"/>
+    <line x1="166" y1="350" x2="166" y2="370" class="ext"/>
+    <line x1="80" y1="366" x2="166" y2="366" class="dimline" marker-start="url(#arrow-rev)" marker-end="url(#arrow)"/>
+    <text x="123" y="363" class="dim">21.50</text>
+
+    <!-- Hole-to-hole spacing: 105 mm -->
+    <line x1="166" y1="350" x2="166" y2="390" class="ext"/>
+    <line x1="586" y1="350" x2="586" y2="390" class="ext"/>
+    <line x1="166" y1="386" x2="586" y2="386" class="dimline" marker-start="url(#arrow-rev)" marker-end="url(#arrow)"/>
+    <text x="376" y="383" class="dim">105.00</text>
+
+    <!-- Hole 2 X position: 21.50 from right (126.50 from left; 148-126.50=21.50) -->
+    <line x1="586" y1="350" x2="586" y2="410" class="ext"/>
+    <line x1="672" y1="350" x2="672" y2="410" class="ext"/>
+    <line x1="586" y1="406" x2="672" y2="406" class="dimline" marker-start="url(#arrow-rev)" marker-end="url(#arrow)"/>
+    <text x="629" y="403" class="dim">21.50</text>
+
+    <!-- Hole Y position: 30 from rear edge (center) -->
+    <line x1="80" y1="110" x2="56" y2="110" class="ext"/>
+    <line x1="80" y1="230" x2="56" y2="230" class="ext"/>
+    <line x1="60" y1="110" x2="60" y2="230" class="dimline" marker-start="url(#arrow-rev)" marker-end="url(#arrow)"/>
+    <text x="60" y="174" class="dim" transform="rotate(-90,60,174)">30.00</text>
+
+    <!-- Hole diameters callout (leader from hole 1) -->
+    <line x1="174" y1="222" x2="210" y2="190" stroke="black" stroke-width="0.4"/>
+    <text x="213" y="186" class="note" text-anchor="start">2x ⌀3.40 THRU</text>
+    <text x="213" y="197" class="note" text-anchor="start">⌀5.70 x 3.20 C'BORE (bottom)</text>
+  </g>
+
+  <!-- ============================================================ -->
+  <!-- SECTION A-A (Side view cut through Y=30, looking along +Y)   -->
+  <!-- Horizontal = plate X (0..148), Vertical = plate Z (0..-4)    -->
+  <!-- X Scale: 4 px/mm (same as top view for alignment)            -->
+  <!-- Z Scale: 10 px/mm (exaggerated to show thickness)            -->
+  <!-- tX(mm) = 80 + mm*4                                           -->
+  <!-- tZ(mm) = 490 - mm*10  (Z=0 at py=490, Z=-4 at py=530)       -->
+  <!-- ============================================================ -->
+
+  <text x="376" y="450" class="label">SECTION A-A</text>
+  <text x="376" y="465" class="dim-sm">Scale 4:1 horiz, 10:1 vert (exaggerated thickness)</text>
+
+  <g id="section-aa">
+    <!-- Section material fill: solid plate body -->
+    <!-- Full plate rectangle: X=0..148 => px 80..672, Z=0..-4 => py 490..530 -->
+    <rect x="80" y="490" width="592" height="40" class="section"/>
+
+    <!-- Hole 1 at X=21.5: clearance hole 3.4mm dia through full thickness -->
+    <!-- Clearance hole: half-width = 1.7mm = 6.8px -->
+    <!-- Center at px=166, full height cut from py=490 to py=530 -->
+    <rect x="159.2" y="490" width="13.6" height="40" fill="white" stroke="none"/>
+    <line x1="159.2" y1="490" x2="159.2" y2="530" class="thin"/>
+    <line x1="172.8" y1="490" x2="172.8" y2="530" class="thin"/>
+
+    <!-- Counterbore 1: 5.7mm dia, 3.2mm deep from bottom (Z=-4 to Z=-0.8) -->
+    <!-- Half-width = 2.85mm = 11.4px. Depth: 3.2mm*10 = 32px from bottom -->
+    <!-- Bottom at py=530, top of counterbore at py=530-32=498 -->
+    <rect x="154.6" y="498" width="22.8" height="32" fill="white" stroke="none"/>
+    <line x1="154.6" y1="530" x2="154.6" y2="498" class="thin"/>
+    <line x1="172.8" y1="530" x2="172.8" y2="498" class="thin"/>
+    <!-- Counterbore ceiling (horizontal line at Z=-0.8) -->
+    <line x1="154.6" y1="498" x2="159.2" y2="498" class="thin"/>
+    <line x1="172.8" y1="498" x2="177.4" y2="498" class="thin"/>
+    <!-- Right side of counterbore -->
+    <line x1="177.4" y1="530" x2="177.4" y2="498" class="thin"/>
+
+    <!-- Hole 2 at X=126.5: same geometry -->
+    <!-- Center at px=586 -->
+    <rect x="579.2" y="490" width="13.6" height="40" fill="white" stroke="none"/>
+    <line x1="579.2" y1="490" x2="579.2" y2="530" class="thin"/>
+    <line x1="592.8" y1="490" x2="592.8" y2="530" class="thin"/>
+
+    <!-- Counterbore 2 -->
+    <rect x="574.6" y="498" width="22.8" height="32" fill="white" stroke="none"/>
+    <line x1="574.6" y1="530" x2="574.6" y2="498" class="thin"/>
+    <line x1="592.8" y1="530" x2="592.8" y2="498" class="thin"/>
+    <line x1="574.6" y1="498" x2="579.2" y2="498" class="thin"/>
+    <line x1="592.8" y1="498" x2="597.4" y2="498" class="thin"/>
+    <line x1="597.4" y1="530" x2="597.4" y2="498" class="thin"/>
+
+    <!-- Chamfers on bottom edges: 0.30mm x 45deg -->
+    <!-- Left chamfer: at X=0, Z=-4. 0.30mm = 1.2px(X), 3px(Z) -->
+    <line x1="80" y1="530" x2="81.2" y2="527" class="thin"/>
+    <!-- Right chamfer -->
+    <line x1="672" y1="530" x2="670.8" y2="527" class="thin"/>
+
+    <!-- Section hatching (diagonal lines in material) -->
+    <line x1="80" y1="530" x2="92" y2="490" class="hatch"/>
+    <line x1="92" y1="530" x2="104" y2="490" class="hatch"/>
+    <line x1="104" y1="530" x2="116" y2="490" class="hatch"/>
+    <line x1="116" y1="530" x2="128" y2="490" class="hatch"/>
+    <line x1="128" y1="530" x2="140" y2="490" class="hatch"/>
+    <line x1="140" y1="530" x2="152" y2="490" class="hatch"/>
+    <!-- skip hole 1 area (154.6 to 177.4) -->
+    <line x1="180" y1="530" x2="192" y2="490" class="hatch"/>
+    <line x1="192" y1="530" x2="204" y2="490" class="hatch"/>
+    <line x1="204" y1="530" x2="216" y2="490" class="hatch"/>
+    <line x1="216" y1="530" x2="228" y2="490" class="hatch"/>
+    <line x1="228" y1="530" x2="240" y2="490" class="hatch"/>
+    <line x1="240" y1="530" x2="252" y2="490" class="hatch"/>
+    <line x1="252" y1="530" x2="264" y2="490" class="hatch"/>
+    <line x1="264" y1="530" x2="276" y2="490" class="hatch"/>
+    <line x1="276" y1="530" x2="288" y2="490" class="hatch"/>
+    <line x1="288" y1="530" x2="300" y2="490" class="hatch"/>
+    <line x1="300" y1="530" x2="312" y2="490" class="hatch"/>
+    <line x1="312" y1="530" x2="324" y2="490" class="hatch"/>
+    <line x1="324" y1="530" x2="336" y2="490" class="hatch"/>
+    <line x1="336" y1="530" x2="348" y2="490" class="hatch"/>
+    <line x1="348" y1="530" x2="360" y2="490" class="hatch"/>
+    <line x1="360" y1="530" x2="372" y2="490" class="hatch"/>
+    <line x1="372" y1="530" x2="384" y2="490" class="hatch"/>
+    <line x1="384" y1="530" x2="396" y2="490" class="hatch"/>
+    <line x1="396" y1="530" x2="408" y2="490" class="hatch"/>
+    <line x1="408" y1="530" x2="420" y2="490" class="hatch"/>
+    <line x1="420" y1="530" x2="432" y2="490" class="hatch"/>
+    <line x1="432" y1="530" x2="444" y2="490" class="hatch"/>
+    <line x1="444" y1="530" x2="456" y2="490" class="hatch"/>
+    <line x1="456" y1="530" x2="468" y2="490" class="hatch"/>
+    <line x1="468" y1="530" x2="480" y2="490" class="hatch"/>
+    <line x1="480" y1="530" x2="492" y2="490" class="hatch"/>
+    <line x1="492" y1="530" x2="504" y2="490" class="hatch"/>
+    <line x1="504" y1="530" x2="516" y2="490" class="hatch"/>
+    <line x1="516" y1="530" x2="528" y2="490" class="hatch"/>
+    <line x1="528" y1="530" x2="540" y2="490" class="hatch"/>
+    <line x1="540" y1="530" x2="552" y2="490" class="hatch"/>
+    <line x1="552" y1="530" x2="564" y2="490" class="hatch"/>
+    <line x1="564" y1="530" x2="572" y2="490" class="hatch"/>
+    <!-- skip hole 2 area (574.6 to 597.4) -->
+    <line x1="600" y1="530" x2="612" y2="490" class="hatch"/>
+    <line x1="612" y1="530" x2="624" y2="490" class="hatch"/>
+    <line x1="624" y1="530" x2="636" y2="490" class="hatch"/>
+    <line x1="636" y1="530" x2="648" y2="490" class="hatch"/>
+    <line x1="648" y1="530" x2="660" y2="490" class="hatch"/>
+    <line x1="660" y1="530" x2="672" y2="490" class="hatch"/>
+
+    <!-- ===== SECTION DIMENSIONS ===== -->
+
+    <!-- Plate thickness: 4 mm (left side) -->
+    <line x1="80" y1="490" x2="56" y2="490" class="ext"/>
+    <line x1="80" y1="530" x2="56" y2="530" class="ext"/>
+    <line x1="60" y1="490" x2="60" y2="530" class="dimline" marker-start="url(#arrow-rev)" marker-end="url(#arrow)"/>
+    <text x="46" y="514" class="dim">4</text>
+
+    <!-- Top face label Z=0 -->
+    <text x="72" y="488" class="dim-sm">Z=0</text>
+    <!-- Bottom face label Z=-4 -->
+    <text x="68" y="542" class="dim-sm">Z=-4</text>
+
+    <!-- Detail circle around hole 1 -->
+    <circle cx="166" cy="510" r="40" stroke="black" stroke-width="0.8" stroke-dasharray="6,3" fill="none"/>
+    <text x="200" y="555" class="dim" font-weight="bold">DETAIL B</text>
+  </g>
+
+  <!-- ============================================================ -->
+  <!-- DETAIL B — Counterbore Cross-Section (Hole 1)                -->
+  <!-- Scale: 20 px/mm                                              -->
+  <!-- Shows the through-hole + counterbore profile in section      -->
+  <!-- Center of detail at (900, 300)                               -->
+  <!-- ============================================================ -->
+
+  <text x="900" y="130" class="label">DETAIL B — Counterbore Section</text>
+  <text x="900" y="145" class="dim-sm">Scale 20:1 (20 px/mm)</text>
+
+  <g id="detail-b">
+    <!-- Frame -->
+    <rect x="760" y="155" width="280" height="310" class="detail-frame"/>
+
+    <!-- Part cross-section centered at (900, 300) -->
+    <!-- Plate body: width shown = 10mm of plate around hole = 200px -->
+    <!-- Z: 0 to -4mm => 0 to -80px. Top at y=260, bottom at y=340 -->
+    <!-- X range: -5mm to +5mm from hole center => px 800..1000 -->
+
+    <!-- Material fill (full plate slice) -->
+    <rect x="800" y="260" width="200" height="80" fill="#e8e8e8" stroke="none"/>
+
+    <!-- Through-hole: 3.4mm dia => half=1.7mm=34px. Cut from top to bottom -->
+    <rect x="866" y="260" width="68" height="80" fill="white" stroke="none"/>
+
+    <!-- Counterbore: 5.7mm dia => half=2.85mm=57px. Depth 3.2mm=64px from bottom -->
+    <!-- Bottom at y=340, counterbore ceiling at y=340-64=276 -->
+    <rect x="843" y="276" width="114" height="64" fill="white" stroke="none"/>
+
+    <!-- Outline the material edges -->
+    <!-- Top face (Z=0): y=260 -->
+    <line x1="800" y1="260" x2="866" y2="260" stroke="black" stroke-width="1.0"/>
+    <line x1="934" y1="260" x2="1000" y2="260" stroke="black" stroke-width="1.0"/>
+
+    <!-- Bottom face (Z=-4): y=340 -->
+    <line x1="800" y1="340" x2="843" y2="340" stroke="black" stroke-width="1.0"/>
+    <line x1="957" y1="340" x2="1000" y2="340" stroke="black" stroke-width="1.0"/>
+
+    <!-- Left side -->
+    <line x1="800" y1="260" x2="800" y2="340" stroke="black" stroke-width="1.0"/>
+    <!-- Right side -->
+    <line x1="1000" y1="260" x2="1000" y2="340" stroke="black" stroke-width="1.0"/>
+
+    <!-- Through-hole walls -->
+    <line x1="866" y1="260" x2="866" y2="276" stroke="black" stroke-width="1.0"/>
+    <line x1="934" y1="260" x2="934" y2="276" stroke="black" stroke-width="1.0"/>
+
+    <!-- Counterbore walls -->
+    <line x1="843" y1="340" x2="843" y2="276" stroke="black" stroke-width="1.0"/>
+    <line x1="957" y1="340" x2="957" y2="276" stroke="black" stroke-width="1.0"/>
+
+    <!-- Counterbore ceiling -->
+    <line x1="843" y1="276" x2="866" y2="276" stroke="black" stroke-width="1.0"/>
+    <line x1="934" y1="276" x2="957" y2="276" stroke="black" stroke-width="1.0"/>
+
+    <!-- Center line (vertical) -->
+    <line x1="900" y1="250" x2="900" y2="350" class="center"/>
+
+    <!-- Section hatching in material -->
+    <!-- Left material block: x=800..843, y=260..340 -->
+    <line x1="800" y1="340" x2="812" y2="260" class="hatch"/>
+    <line x1="812" y1="340" x2="824" y2="260" class="hatch"/>
+    <line x1="824" y1="340" x2="836" y2="260" class="hatch"/>
+    <line x1="836" y1="340" x2="843" y2="290" class="hatch"/>
+    <!-- Left thin ring: x=843..866, y=260..276 -->
+    <line x1="843" y1="276" x2="855" y2="260" class="hatch"/>
+    <line x1="855" y1="276" x2="866" y2="262" class="hatch"/>
+    <!-- Right thin ring: x=934..957, y=260..276 -->
+    <line x1="934" y1="276" x2="946" y2="260" class="hatch"/>
+    <line x1="946" y1="276" x2="957" y2="262" class="hatch"/>
+    <!-- Right material block: x=957..1000, y=260..340 -->
+    <line x1="957" y1="340" x2="969" y2="260" class="hatch"/>
+    <line x1="969" y1="340" x2="981" y2="260" class="hatch"/>
+    <line x1="981" y1="340" x2="993" y2="260" class="hatch"/>
+    <line x1="993" y1="340" x2="1000" y2="297" class="hatch"/>
+
+    <!-- ===== DETAIL DIMENSIONS ===== -->
+
+    <!-- Through-hole diameter: 3.40 -->
+    <line x1="866" y1="265" x2="866" y2="250" class="ext"/>
+    <line x1="934" y1="265" x2="934" y2="250" class="ext"/>
+    <line x1="866" y1="253" x2="934" y2="253" class="dimline" marker-start="url(#arrow-rev)" marker-end="url(#arrow)"/>
+    <text x="900" y="248" class="dim">⌀3.40</text>
+
+    <!-- Counterbore diameter: 5.70 -->
+    <line x1="843" y1="340" x2="843" y2="360" class="ext"/>
+    <line x1="957" y1="340" x2="957" y2="360" class="ext"/>
+    <line x1="843" y1="356" x2="957" y2="356" class="dimline" marker-start="url(#arrow-rev)" marker-end="url(#arrow)"/>
+    <text x="900" y="369" class="dim">⌀5.70</text>
+
+    <!-- Counterbore depth: 3.20 (right side, from bottom to ceiling) -->
+    <line x1="957" y1="276" x2="985" y2="276" class="ext"/>
+    <line x1="957" y1="340" x2="985" y2="340" class="ext"/>
+    <line x1="981" y1="276" x2="981" y2="340" class="dimline" marker-start="url(#arrow-rev)" marker-end="url(#arrow)"/>
+    <text x="981" y="312" class="dim" transform="rotate(-90,981,312)">3.20</text>
+
+    <!-- Remaining thickness: 0.80 (right side, from top to ceiling) -->
+    <line x1="957" y1="260" x2="1010" y2="260" class="ext"/>
+    <line x1="957" y1="276" x2="1010" y2="276" class="ext"/>
+    <line x1="1006" y1="260" x2="1006" y2="276" class="dimline" marker-start="url(#arrow-rev)" marker-end="url(#arrow)"/>
+    <text x="1006" y="272" class="dim" transform="rotate(-90,1006,272)">0.80</text>
+
+    <!-- Full plate thickness: 4.00 (left side) -->
+    <line x1="800" y1="260" x2="775" y2="260" class="ext"/>
+    <line x1="800" y1="340" x2="775" y2="340" class="ext"/>
+    <line x1="779" y1="260" x2="779" y2="340" class="dimline" marker-start="url(#arrow-rev)" marker-end="url(#arrow)"/>
+    <text x="779" y="304" class="dim" transform="rotate(-90,779,304)">4.00</text>
+
+    <!-- Labels -->
+    <text x="820" y="395" class="note" text-anchor="start">Top face (Z=0, bearing surface)</text>
+    <line x1="820" y1="390" x2="820" y2="262" stroke="black" stroke-width="0.3"/>
+
+    <text x="820" y="410" class="note" text-anchor="start">Bottom face (Z=-4, on build plate)</text>
+    <line x1="818" y1="406" x2="818" y2="342" stroke="black" stroke-width="0.3"/>
+
+    <text x="900" y="435" class="note" text-anchor="middle">Screw enters from bottom,</text>
+    <text x="900" y="446" class="note" text-anchor="middle">threads into heat-set insert above</text>
+  </g>
+
+  <!-- ============================================================ -->
+  <!-- NOTES                                                         -->
+  <!-- ============================================================ -->
+
+  <g id="notes">
+    <text x="80" y="600" class="note" font-weight="bold">NOTES:</text>
+    <text x="80" y="615" class="note">1. 2x M3 x 8 mm SHCS from bottom face, into M3 x 5.7 mm heat-set inserts in tray floor boss pads.</text>
+    <text x="80" y="630" class="note">2. 0.30 mm x 45° chamfer on all four bottom-face perimeter edges (elephant's foot mitigation).</text>
+    <text x="80" y="645" class="note">3. Print orientation: bottom face (Z=-4) on build plate, top face (Z=0) up. No supports needed.</text>
+    <text x="80" y="660" class="note">4. Counterbore recesses screw head 0.20 mm below bottom face (3.20 depth &gt; 3.00 head height).</text>
+    <text x="80" y="675" class="note">5. Hole positions symmetric about plate X centerline (X=74). Both holes on Y centerline (Y=30).</text>
+  </g>
+
+</svg>
