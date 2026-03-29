@@ -95,25 +95,17 @@ One agent per part reads the concept and decides: is this part a single geometri
 
 **This is the fan-out point.** After 4d, every subsequent step runs per-sub-component. The decomposition determines how many parallel tracks the pipeline will have for this part.
 
-### Step 4s — Spatial Resolution (per sub-component)
+### Steps 4s, 4b, 5, 6g — Per-Sub-Component Steps
 
-One agent per sub-component resolves every multi-frame spatial relationship into concrete coordinates in the sub-component's own reference frame. Cross-sectional profiles that depend on physics (gravity, fluid fill, material drape at installation angle) are tabulated as coordinate data, not described in prose. Interface positions are pre-computed in the sub-component's local frame.
+**CRITICAL: Each sub-component is a separate agent.** If Step 4d decomposes a part into 3 sub-components, the orchestrator spawns 3 separate agents for Step 4s (one per sub-component), then 3 for Step 4b, then 3 for Step 5, then 3 for Step 6g. Do NOT spawn one agent and ask it to handle all sub-components — that defeats the entire purpose of decomposition. Each agent sees ONLY its own sub-component's documents and works on ONE 2.5D problem.
 
-**For simple sub-components with no angled mounting, no physics-dependent profiles, and no multi-frame interfaces**, this step produces a trivial document ("single frame, no transforms needed") and imposes no overhead.
+**Step 4s — Spatial Resolution:** One agent per sub-component resolves every multi-frame spatial relationship into concrete coordinates in the sub-component's own reference frame. Cross-sectional profiles that depend on physics (gravity, fluid fill, material drape at installation angle) are tabulated as coordinate data, not described in prose. Interface positions are pre-computed in the sub-component's local frame. For simple sub-components with no angled mounting or physics-dependent profiles, this step produces a trivial document and imposes no overhead.
 
-### Step 4b — Detailed Parts Specification (per sub-component)
+**Step 4b — Detailed Parts Specification:** The most important step. One agent per sub-component takes that sub-component's spatial resolution document and rigorously specifies it with full rubric suite. The spatial resolution document provides every derived dimension — the 4b agent should not need to perform trigonometry, coordinate transforms, or physics calculations. If it does, the spatial resolution step is incomplete.
 
-The most important step. Takes the sub-component's spatial resolution document and rigorously specifies it with full rubric suite (grounding rule, mechanism narrative, constraint chains, direction checks, interface dimensions, assembly feasibility, part count).
+**Step 5 — Engineering Drawings:** One agent per sub-component produces SVG engineering drawings. Must run SVG checking tools and achieve zero TEXT-TEXT collisions.
 
-The spatial resolution document provides every derived dimension — the 4b agent should not need to perform trigonometry, coordinate transforms, or physics calculations. If it does, the spatial resolution step is incomplete.
-
-### Step 5 — Engineering Drawings (per sub-component)
-
-One agent per sub-component produces SVG engineering drawings. Must run SVG checking tools and achieve zero TEXT-TEXT collisions.
-
-### Step 6g — CadQuery Generation (per sub-component)
-
-One agent per sub-component produces CadQuery scripts AND validated STEP files. **The agent MUST run the script.** Zero validation FAILs required. Unrun scripts are not deliverables.
+**Step 6g — CadQuery Generation:** One agent per sub-component produces CadQuery scripts AND validated STEP files. **The agent MUST run the script.** Zero validation FAILs required. Unrun scripts are not deliverables. Each agent sees ONLY its sub-component's parts.md and produces ONE CadQuery script for ONE 2.5D solid.
 
 ### Step 6c — Composition (per decomposed part)
 
@@ -181,6 +173,7 @@ Step 1 (folders)
 12. **CadQuery agent doing spatial reasoning** — All multi-frame geometry is resolved in Step 4s. By the time a CadQuery agent runs, every dimension is a concrete number in the sub-component's own frame.
 13. **Single agent handling multi-paradigm geometry** — Step 4d decomposes complex parts so each CadQuery agent works on a 2.5D problem. If an agent needs both prismatic and rotational operations, the decomposition is wrong.
 14. **Multiple parts in flight simultaneously** — The manager processes one part at a time through 4d → 6c. Running multiple parts in parallel overwhelms the manager's context and produces interface mismatches.
+15. **One agent for all sub-components** — After decomposition, each sub-component is a SEPARATE agent. If 4d produces 3 sub-components, spawn 3 agents for 4s, 3 for 4b, 3 for 5, 3 for 6g. A single agent handling all sub-components defeats the purpose of decomposition — it reintroduces the multi-paradigm complexity that decomposition was designed to eliminate.
 
 ---
 
