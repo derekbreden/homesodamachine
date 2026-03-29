@@ -65,6 +65,7 @@ These are hard constraints on part geometry. Every printed part must comply, or 
 **Overhangs and supports:**
 - No unsupported face angle below 45° from horizontal. Surfaces steeper than 45° from horizontal (i.e. more than 45° overhang from vertical) require either a design change or intentional support structure.
 - Where supports are unavoidable (e.g., snap-fit hook undercuts, internal ledges), they must be designed intentionally: the part geometry must include features that make support removal possible (access clearance, break-away ribs, sacrificial surfaces). Do not rely on slicer-generated supports in locations where removal would be difficult or would damage a functional surface.
+- **Designed support geometry must not be a solid union with the main body.** Include a 0.2mm interface gap between the support surface and the part surface it supports. The printer bridges this gap with a thin fragile connection that breaks away cleanly. Alternatively, connect supports via break-away tabs (0.3mm wide, spaced every 5–10mm along the contact edge). Both approaches leave the part surface intact after removal. These are starting values — calibrate with test prints.
 - Prefer adding material (chamfers, fillets, gussets, tapered transitions) to eliminate overhangs rather than accepting supports. A 45° chamfer on the underside of a ledge is almost always better than a supported 90° ledge.
 
 **Minimum feature sizes (0.4mm nozzle):**
