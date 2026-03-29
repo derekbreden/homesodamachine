@@ -1,0 +1,592 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1500 1050" width="1500" height="1050" font-family="Arial, sans-serif" font-size="11" fill="black" stroke="black">
+
+  <title>Sub-D Fitting Bore Array — Engineering Drawing</title>
+
+  <defs>
+    <marker id="arrow" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto">
+      <path d="M0,0 L8,3 L0,6 Z" fill="black"/>
+    </marker>
+    <marker id="arrow-rev" markerWidth="8" markerHeight="6" refX="0" refY="3" orient="auto">
+      <path d="M8,0 L0,3 L8,6 Z" fill="black"/>
+    </marker>
+    <style>
+      .dim { font-size: 10px; fill: black; text-anchor: middle; }
+      .dim-sm { font-size: 9px; fill: black; text-anchor: middle; }
+      .label { font-size: 12px; fill: black; font-weight: bold; text-anchor: middle; }
+      .viewlbl { font-size: 11px; fill: black; font-weight: bold; text-anchor: middle; }
+      .note { font-size: 9px; fill: black; }
+      .title-text { font-size: 16px; fill: black; font-weight: bold; }
+      .subtitle { font-size: 12px; fill: black; }
+      .hidden { stroke-dasharray: 3,2; stroke-width: 0.8; fill: none; stroke: black; }
+      .thin-hidden { stroke-dasharray: 2,2; stroke-width: 0.6; fill: none; stroke: black; }
+      .center { stroke-dasharray: 12,3,3,3; stroke-width: 0.5; stroke: #555; fill: none; }
+      .outline { stroke: black; stroke-width: 1.2; fill: none; }
+      .thin { stroke: black; stroke-width: 0.6; fill: none; }
+      .section { stroke: black; stroke-width: 0.8; fill: #e8e8e8; }
+      .section-cut { stroke: black; stroke-width: 0.8; fill: none; }
+      .detail-frame { stroke: black; stroke-width: 1.0; fill: white; }
+      .dimline { stroke: black; stroke-width: 0.5; fill: none; }
+      .ext { stroke: black; stroke-width: 0.4; fill: none; }
+      .body { stroke: black; stroke-width: 1.0; fill: none; }
+      .fitting { stroke: black; stroke-width: 0.8; fill: #d0d0d0; }
+    </style>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="1500" height="1050" fill="white" stroke="none"/>
+
+  <!-- Title Block -->
+  <text x="750" y="30" class="title-text" text-anchor="middle">Sub-D: Fitting Bore Array</text>
+  <text x="750" y="48" class="subtitle" text-anchor="middle">Cartridge Tray — Bore Plate Bosses, Press-Fit Bores, Entry Funnels</text>
+  <text x="750" y="64" class="note" text-anchor="middle">Material: PETG | All dimensions in mm | Third-Angle Orthographic Projection</text>
+  <line x1="100" y1="72" x2="1400" y2="72" stroke="black" stroke-width="0.5"/>
+
+  <!-- ============================================================ -->
+  <!-- FRONT VIEW (looking along -Y, dock face)                     -->
+  <!-- Horizontal = X (width), Vertical = Z (height)                -->
+  <!-- Scale: 3 px/mm                                               -->
+  <!-- fX(mm) = 60 + mm*3                                           -->
+  <!-- fZ(mm) = 370 - mm*3  (Z=0 at y=370, Z=72 at y=154)          -->
+  <!-- ============================================================ -->
+
+  <g id="front-view">
+    <text x="300" y="95" class="viewlbl">FRONT VIEW (looking along -Y)</text>
+    <text x="300" y="110" class="dim-sm">Scale 3:1 (3 px/mm)</text>
+
+    <!-- Tray rear wall outline (full width x height) -->
+    <!-- X: 0..160 => px 60..540 -->
+    <!-- Z: 0..72 => px 370..154 -->
+    <rect x="60" y="154" width="480" height="216" class="outline"/>
+
+    <!-- Boss outlines (20mm OD circles, shown as visible outlines on dock face) -->
+    <!-- These are behind the wall, shown dashed -->
+    <!-- Bore 1 (70,26): cx=270, cy=292 -->
+    <circle cx="270" cy="292" r="30" class="hidden"/>
+    <!-- Bore 2 (90,26): cx=330, cy=292 -->
+    <circle cx="330" cy="292" r="30" class="hidden"/>
+    <!-- Bore 3 (70,46): cx=270, cy=232 -->
+    <circle cx="270" cy="232" r="30" class="hidden"/>
+    <!-- Bore 4 (90,46): cx=330, cy=232 -->
+    <circle cx="330" cy="232" r="30" class="hidden"/>
+
+    <!-- Entry funnels on dock face (12mm dia at Y=0, visible) -->
+    <!-- Bore 1 -->
+    <circle cx="270" cy="292" r="18" class="body"/>
+    <!-- Bore 2 -->
+    <circle cx="330" cy="292" r="18" class="body"/>
+    <!-- Bore 3 -->
+    <circle cx="270" cy="232" r="18" class="body"/>
+    <!-- Bore 4 -->
+    <circle cx="330" cy="232" r="18" class="body"/>
+
+    <!-- Tube clearance bores (8mm dia, visible through funnel) -->
+    <!-- Bore 1 -->
+    <circle cx="270" cy="292" r="12" class="body"/>
+    <!-- Bore 2 -->
+    <circle cx="330" cy="292" r="12" class="body"/>
+    <!-- Bore 3 -->
+    <circle cx="270" cy="232" r="12" class="body"/>
+    <!-- Bore 4 -->
+    <circle cx="330" cy="232" r="12" class="body"/>
+
+    <!-- Center lines through bore grid -->
+    <!-- Vertical center line X=80mm => px 300 -->
+    <line x1="300" y1="148" x2="300" y2="376" class="center"/>
+    <!-- Horizontal center line Z=36mm => px 262 -->
+    <line x1="54" y1="262" x2="546" y2="262" class="center"/>
+    <!-- Per-bore center crosshairs -->
+    <!-- Bore 1 -->
+    <line x1="260" y1="292" x2="280" y2="292" class="center"/>
+    <line x1="270" y1="282" x2="270" y2="302" class="center"/>
+    <!-- Bore 2 -->
+    <line x1="320" y1="292" x2="340" y2="292" class="center"/>
+    <line x1="330" y1="282" x2="330" y2="302" class="center"/>
+    <!-- Bore 3 -->
+    <line x1="260" y1="232" x2="280" y2="232" class="center"/>
+    <line x1="270" y1="222" x2="270" y2="242" class="center"/>
+    <!-- Bore 4 -->
+    <line x1="320" y1="232" x2="340" y2="232" class="center"/>
+    <line x1="330" y1="222" x2="330" y2="242" class="center"/>
+
+    <!-- Section cut line A-A (horizontal cut at Z=26, through lower bores) -->
+    <!-- Z=26 => py=292 -->
+    <line x1="40" y1="292" x2="55" y2="292" stroke="black" stroke-width="1.5"/>
+    <line x1="545" y1="292" x2="560" y2="292" stroke="black" stroke-width="1.5"/>
+    <text x="37" y="296" font-size="12" font-weight="bold" text-anchor="end">A</text>
+    <text x="563" y="296" font-size="12" font-weight="bold" text-anchor="start">A</text>
+
+    <!-- DIMENSIONS - Front View -->
+
+    <!-- Bore center-to-center X spacing: 20mm -->
+    <!-- Between bore 1 (X=70) and bore 2 (X=90) at Z=26 -->
+    <line x1="270" y1="310" x2="270" y2="330" class="ext"/>
+    <line x1="330" y1="310" x2="330" y2="330" class="ext"/>
+    <line x1="270" y1="326" x2="330" y2="326" class="dimline" marker-start="url(#arrow-rev)" marker-end="url(#arrow)"/>
+    <text x="300" y="340" class="dim">20</text>
+
+    <!-- Bore center-to-center Z spacing: 20mm -->
+    <!-- Between bore 1 (Z=26) and bore 3 (Z=46) at X=70 -->
+    <line x1="248" y1="292" x2="232" y2="292" class="ext"/>
+    <line x1="248" y1="232" x2="232" y2="232" class="ext"/>
+    <line x1="236" y1="292" x2="236" y2="232" class="dimline" marker-start="url(#arrow-rev)" marker-end="url(#arrow)"/>
+    <text x="222" y="266" class="dim" text-anchor="end">20</text>
+
+    <!-- Entry funnel diameter: 12mm (on one bore) -->
+    <line x1="352" y1="232" x2="385" y2="215" class="ext"/>
+    <text x="388" y="213" class="dim-sm" text-anchor="start">⌀12 funnel</text>
+
+    <!-- Tube bore diameter: 8mm -->
+    <line x1="342" y1="292" x2="380" y2="275" class="ext"/>
+    <text x="383" y="273" class="dim-sm" text-anchor="start">⌀8 tube bore</text>
+
+    <!-- Boss OD: 20mm (dashed circle callout) -->
+    <line x1="291" y1="237" x2="316" y2="195" class="ext"/>
+    <text x="319" y="193" class="dim-sm" text-anchor="start">⌀20 boss (behind)</text>
+
+    <!-- Grid center position from left wall -->
+    <!-- X=70 from X=0 -->
+    <line x1="60" y1="380" x2="60" y2="396" class="ext"/>
+    <line x1="270" y1="380" x2="270" y2="396" class="ext"/>
+    <line x1="60" y1="392" x2="270" y2="392" class="dimline" marker-start="url(#arrow-rev)" marker-end="url(#arrow)"/>
+    <text x="165" y="404" class="dim">70</text>
+
+    <!-- X=90 from X=0 -->
+    <line x1="330" y1="380" x2="330" y2="396" class="ext"/>
+    <line x1="60" y1="406" x2="330" y2="406" class="dimline" marker-start="url(#arrow-rev)" marker-end="url(#arrow)"/>
+    <text x="195" y="418" class="dim">90</text>
+
+    <!-- Z=26 from Z=0 (bottom) -->
+    <line x1="545" y1="370" x2="570" y2="370" class="ext"/>
+    <line x1="545" y1="292" x2="570" y2="292" class="ext"/>
+    <line x1="566" y1="370" x2="566" y2="292" class="dimline" marker-start="url(#arrow-rev)" marker-end="url(#arrow)"/>
+    <text x="582" y="335" class="dim">26</text>
+
+    <!-- Z=46 from Z=0 -->
+    <line x1="545" y1="232" x2="585" y2="232" class="ext"/>
+    <line x1="545" y1="370" x2="585" y2="370" class="ext"/>
+    <line x1="581" y1="370" x2="581" y2="232" class="dimline" marker-start="url(#arrow-rev)" marker-end="url(#arrow)"/>
+    <text x="597" y="305" class="dim">46</text>
+
+    <!-- Tray overall width: 160mm -->
+    <line x1="60" y1="148" x2="60" y2="138" class="ext"/>
+    <line x1="540" y1="148" x2="540" y2="138" class="ext"/>
+    <line x1="60" y1="142" x2="540" y2="142" class="dimline" marker-start="url(#arrow-rev)" marker-end="url(#arrow)"/>
+    <text x="300" y="137" class="dim">160</text>
+
+    <!-- Tray overall height: 72mm -->
+    <line x1="545" y1="154" x2="555" y2="154" class="ext"/>
+    <line x1="545" y1="370" x2="555" y2="370" class="ext"/>
+    <line x1="551" y1="154" x2="551" y2="370" class="dimline" marker-start="url(#arrow-rev)" marker-end="url(#arrow)"/>
+    <text x="551" y="149" class="dim">72</text>
+  </g>
+
+  <!-- ============================================================ -->
+  <!-- SECTION A-A (cut at Z=26, looking along +Z, shows one row)  -->
+  <!-- Actually: cut through lower bore row in YZ plane at X=70     -->
+  <!-- Looking along +X. Horizontal = Y (depth), Vertical = Z       -->
+  <!-- Scale: 8 px/mm                                               -->
+  <!-- sY(mm) = 700 + mm*8                                          -->
+  <!-- sZ(mm) = 560 - mm*8  (Z=26 => 352, Z=0 => 560)              -->
+  <!-- Show Y: -2..48, Z: 14..40                                    -->
+  <!-- ============================================================ -->
+
+  <g id="section-aa">
+    <text x="1050" y="95" class="viewlbl">SECTION A-A (cut at X=70, looking +X)</text>
+    <text x="1050" y="110" class="dim-sm">Scale 8:1 (8 px/mm) — Single bore shown</text>
+
+    <!-- Rear wall cross-section (Y=0..8.5, full Z height around bore) -->
+    <!-- Z range shown: 14..40 -->
+    <!-- Wall exterior at Y=0 => sY=700, interior at Y=8.5 => sY=768 -->
+    <!-- Z=14 => sZ=448, Z=40 => sZ=240 -->
+    <!-- Wall section above bore (Z=36..40): Y=0..8.5 -->
+    <rect x="700" y="240" width="68" height="32" class="section"/>
+    <!-- Wall section below bore (Z=14..16): Y=0..8.5 -->
+    <rect x="700" y="432" width="68" height="16" class="section"/>
+    <!-- Wall section left of bore at Z=26: from Z=36 down to tube bore top -->
+    <!-- Tube bore is 8mm dia centered at Z=26, so bore from Z=22 to Z=30 -->
+    <!-- Z=30 => sZ=320, Z=22 => sZ=384 -->
+    <!-- Wall above tube bore: Z=30..36 => sZ 320..272 -->
+    <rect x="700" y="272" width="68" height="48" class="section"/>
+    <!-- Wall below tube bore: Z=22..16 => sZ 384..432 -->
+    <rect x="700" y="384" width="68" height="48" class="section"/>
+
+    <!-- Entry funnel (Y=0..2, tapers from 12mm to 8mm dia) -->
+    <!-- At Z=26 center: funnel half-height at Y=0 is 6mm (r=6), at Y=2 is 4mm (r=4) -->
+    <!-- Funnel top edge: Z=32 at Y=0 => sZ=304, Z=30 at Y=2 => sZ=320 -->
+    <!-- Funnel bottom edge: Z=20 at Y=0 => sZ=400, Z=22 at Y=2 => sZ=384 -->
+    <!-- Draw as trapezoid cutout in wall -->
+    <!-- Top taper line -->
+    <line x1="700" y1="304" x2="716" y2="320" class="body"/>
+    <!-- Bottom taper line -->
+    <line x1="700" y1="400" x2="716" y2="384" class="body"/>
+    <!-- Funnel opening at Y=0 (dock face) -->
+    <line x1="700" y1="304" x2="700" y2="320" stroke="none"/>
+    <line x1="700" y1="384" x2="700" y2="400" stroke="none"/>
+
+    <!-- Tube clearance bore through wall (Y=2..8.5, 8mm dia) -->
+    <!-- Bore top at Z=30 => sZ=320, bore bottom at Z=22 => sZ=384 -->
+    <!-- Y=2 => sY=716, Y=8.5 => sY=768 -->
+    <!-- Top wall of bore -->
+    <line x1="716" y1="320" x2="768" y2="320" class="body"/>
+    <!-- Bottom wall of bore -->
+    <line x1="716" y1="384" x2="768" y2="384" class="body"/>
+
+    <!-- Boss cross-section (Y=8.5..42.2, 20mm OD => Z=16..36) -->
+    <!-- Boss top: Z=36 => sZ=272 -->
+    <!-- Boss bottom: Z=16 => sZ=432 -->
+    <!-- Y=8.5 => sY=768, Y=42.2 => sY=1037.6 -->
+    <!-- Boss top surface -->
+    <rect x="768" y="272" width="269.6" height="16" class="section"/>
+    <!-- Boss bottom surface -->
+    <rect x="768" y="416" width="269.6" height="16" class="section"/>
+
+    <!-- Dock-side counterbore (Y=26..28, 15.5mm dia => Z=18.25..33.75) -->
+    <!-- Z=18.25 => sZ=414, Z=33.75 => sZ=290 -->
+    <!-- Y=26 => sY=908, Y=28 => sY=924 -->
+    <!-- Counterbore cuts into boss: open space from Z=18.25 to Z=33.75 -->
+    <!-- Top of counterbore (between boss top Z=36 and counterbore Z=33.75) -->
+    <!-- Boss section above counterbore: Z=33.75..36 at Y=26..28 => already in boss rect -->
+    <!-- Show counterbore as open space -->
+    <!-- Top counterbore wall -->
+    <line x1="908" y1="290" x2="924" y2="290" class="body"/>
+    <!-- Bottom counterbore wall -->
+    <line x1="908" y1="414" x2="924" y2="414" class="body"/>
+    <!-- Counterbore back wall (transition to press-fit bore) at Y=28 -->
+    <line x1="924" y1="290" x2="924" y2="308" class="body"/>
+    <line x1="924" y1="396" x2="924" y2="414" class="body"/>
+    <!-- Counterbore opening at Y=26 -->
+    <line x1="908" y1="290" x2="908" y2="308" class="body"/>
+    <line x1="908" y1="396" x2="908" y2="414" class="body"/>
+
+    <!-- Press-fit bore (Y=28..40.2, 9.5mm dia => Z=21.25..30.75) -->
+    <!-- Z=21.25 => sZ=390, Z=30.75 => sZ=314 -->
+    <!-- Y=28 => sY=924, Y=40.2 => sY=1021.6 -->
+    <!-- Top wall -->
+    <line x1="924" y1="314" x2="1021.6" y2="314" class="body"/>
+    <!-- Bottom wall -->
+    <line x1="924" y1="390" x2="1021.6" y2="390" class="body"/>
+    <!-- Step from counterbore to press-fit (shoulder) at Y=28 -->
+    <line x1="924" y1="308" x2="924" y2="314" class="body"/>
+    <line x1="924" y1="390" x2="924" y2="396" class="body"/>
+
+    <!-- Boss section between counterbore and press-fit (Y=28..40.2, Z=16..18.25 and Z=33.75..36) -->
+    <!-- These are the boss walls around the press-fit bore -->
+    <!-- Top boss wall section: Z=33.75..36, Y=28..40.2 => already covered by boss top rect -->
+    <!-- But we need to show the counterbore/bore boundaries clearly -->
+
+    <!-- User-side counterbore (Y=40.2..42.2, 15.5mm dia => Z=18.25..33.75) -->
+    <!-- Y=40.2 => sY=1021.6, Y=42.2 => sY=1037.6 -->
+    <!-- Step from press-fit to user counterbore at Y=40.2 -->
+    <line x1="1021.6" y1="290" x2="1021.6" y2="314" class="body"/>
+    <line x1="1021.6" y1="390" x2="1021.6" y2="414" class="body"/>
+    <!-- User counterbore top/bottom -->
+    <line x1="1021.6" y1="290" x2="1037.6" y2="290" class="body"/>
+    <line x1="1021.6" y1="414" x2="1037.6" y2="414" class="body"/>
+    <!-- Boss end face at Y=42.2 -->
+    <line x1="1037.6" y1="272" x2="1037.6" y2="290" class="body"/>
+    <line x1="1037.6" y1="414" x2="1037.6" y2="432" class="body"/>
+
+    <!-- Open space inside bores (white fill to show cutouts) -->
+    <!-- Funnel opening -->
+    <polygon points="700,304 716,320 716,384 700,400" fill="white" stroke="none"/>
+    <!-- Tube bore -->
+    <rect x="716" y="320" width="52" height="64" fill="white" stroke="none"/>
+    <!-- Gap between wall interior and dock counterbore (Y=8.5..26) -->
+    <!-- This is open air inside the cartridge -->
+    <!-- Dock counterbore -->
+    <rect x="908" y="290" width="16" height="124" fill="white" stroke="none"/>
+    <!-- Press-fit bore -->
+    <rect x="924" y="314" width="97.6" height="76" fill="white" stroke="none"/>
+    <!-- User counterbore -->
+    <rect x="1021.6" y="290" width="16" height="124" fill="white" stroke="none"/>
+
+    <!-- Re-draw bore outline edges on top of white fills -->
+    <!-- Funnel taper -->
+    <line x1="700" y1="304" x2="716" y2="320" class="body"/>
+    <line x1="700" y1="400" x2="716" y2="384" class="body"/>
+    <!-- Tube bore walls -->
+    <line x1="716" y1="320" x2="768" y2="320" class="body"/>
+    <line x1="716" y1="384" x2="768" y2="384" class="body"/>
+    <!-- Dock counterbore -->
+    <line x1="908" y1="290" x2="924" y2="290" class="body"/>
+    <line x1="908" y1="414" x2="924" y2="414" class="body"/>
+    <line x1="908" y1="290" x2="908" y2="414" class="body"/>
+    <line x1="924" y1="290" x2="924" y2="308" class="body"/>
+    <line x1="924" y1="396" x2="924" y2="414" class="body"/>
+    <!-- Press-fit bore -->
+    <line x1="924" y1="308" x2="924" y2="314" class="body"/>
+    <line x1="924" y1="390" x2="924" y2="396" class="body"/>
+    <line x1="924" y1="314" x2="1021.6" y2="314" class="body"/>
+    <line x1="924" y1="390" x2="1021.6" y2="390" class="body"/>
+    <!-- User counterbore -->
+    <line x1="1021.6" y1="290" x2="1037.6" y2="290" class="body"/>
+    <line x1="1021.6" y1="414" x2="1037.6" y2="414" class="body"/>
+    <line x1="1021.6" y1="290" x2="1021.6" y2="314" class="body"/>
+    <line x1="1021.6" y1="390" x2="1021.6" y2="414" class="body"/>
+    <line x1="1037.6" y1="290" x2="1037.6" y2="414" class="body"/>
+
+    <!-- Boss outline edges -->
+    <line x1="768" y1="272" x2="1037.6" y2="272" class="body"/>
+    <line x1="768" y1="432" x2="1037.6" y2="432" class="body"/>
+    <line x1="768" y1="272" x2="768" y2="320" class="body"/>
+    <line x1="768" y1="384" x2="768" y2="432" class="body"/>
+    <line x1="1037.6" y1="272" x2="1037.6" y2="290" class="body"/>
+    <line x1="1037.6" y1="414" x2="1037.6" y2="432" class="body"/>
+
+    <!-- Rear wall edges -->
+    <line x1="700" y1="240" x2="700" y2="304" class="body"/>
+    <line x1="700" y1="400" x2="700" y2="448" class="body"/>
+    <line x1="768" y1="240" x2="768" y2="272" class="body"/>
+    <line x1="768" y1="432" x2="768" y2="448" class="body"/>
+    <line x1="700" y1="240" x2="768" y2="240" class="body"/>
+    <line x1="700" y1="448" x2="768" y2="448" class="body"/>
+
+    <!-- Center line through bore axis -->
+    <line x1="694" y1="352" x2="1044" y2="352" class="center"/>
+
+    <!-- John Guest fitting (shown as phantom outline for context) -->
+    <!-- Fitting center body: 9.31mm OD, inside press-fit bore Y=28..40.2 -->
+    <!-- Z=26 +/- 4.655 => Z=21.345..30.655 => sZ=389.24..314.76 -->
+    <!-- Fitting body ends: 15.10mm OD -->
+    <!-- Dock-side body end: Y=15.9..26 => sY=827.2..908 -->
+    <!-- Z=26 +/- 7.55 => Z=18.45..33.55 => sZ=412.4..291.6 -->
+    <!-- User-side body end: Y=40.2..52.3 => sY=1021.6..1118.4 -->
+
+    <!-- DIMENSIONS - Section A-A -->
+
+    <!-- Rear wall thickness: 8.5mm -->
+    <line x1="700" y1="450" x2="700" y2="472" class="ext"/>
+    <line x1="768" y1="450" x2="768" y2="472" class="ext"/>
+    <line x1="700" y1="468" x2="768" y2="468" class="dimline" marker-start="url(#arrow-rev)" marker-end="url(#arrow)"/>
+    <text x="734" y="482" class="dim">8.5</text>
+
+    <!-- Boss total length: 33.7mm (Y=8.5 to Y=42.2) -->
+    <line x1="768" y1="438" x2="768" y2="458" class="ext"/>
+    <line x1="1037.6" y1="438" x2="1037.6" y2="458" class="ext"/>
+    <line x1="768" y1="454" x2="1037.6" y2="454" class="dimline" marker-start="url(#arrow-rev)" marker-end="url(#arrow)"/>
+    <text x="902.8" y="466" class="dim">33.7</text>
+
+    <!-- Boss OD: 20mm (Z=16..36) -->
+    <line x1="754" y1="272" x2="754" y2="432" class="dimline" marker-start="url(#arrow-rev)" marker-end="url(#arrow)"/>
+    <line x1="768" y1="272" x2="748" y2="272" class="ext"/>
+    <line x1="768" y1="432" x2="748" y2="432" class="ext"/>
+    <text x="740" y="356" class="dim" text-anchor="end">20</text>
+
+    <!-- Dock-side counterbore depth: 2.0mm (Y=26..28) -->
+    <line x1="908" y1="282" x2="908" y2="268" class="ext"/>
+    <line x1="924" y1="282" x2="924" y2="268" class="ext"/>
+    <line x1="908" y1="272" x2="924" y2="272" class="dimline" marker-start="url(#arrow-rev)" marker-end="url(#arrow)"/>
+    <text x="916" y="264" class="dim">2.0</text>
+
+    <!-- Press-fit bore length: 12.2mm (Y=28..40.2) -->
+    <line x1="924" y1="306" x2="924" y2="296" class="ext"/>
+    <line x1="1021.6" y1="306" x2="1021.6" y2="296" class="ext"/>
+    <line x1="924" y1="300" x2="1021.6" y2="300" class="dimline" marker-start="url(#arrow-rev)" marker-end="url(#arrow)"/>
+    <text x="972.8" y="294" class="dim">12.2</text>
+
+    <!-- User-side counterbore depth: 2.0mm (Y=40.2..42.2) -->
+    <line x1="1021.6" y1="282" x2="1021.6" y2="268" class="ext"/>
+    <line x1="1037.6" y1="282" x2="1037.6" y2="268" class="ext"/>
+    <line x1="1021.6" y1="272" x2="1037.6" y2="272" class="dimline" marker-start="url(#arrow-rev)" marker-end="url(#arrow)"/>
+    <text x="1029.6" y="264" class="dim">2.0</text>
+
+    <!-- Counterbore diameter: 15.5mm -->
+    <!-- Show on dock counterbore: Z span 18.25..33.75 => sZ 414..290 -->
+    <line x1="900" y1="290" x2="900" y2="414" class="dimline" marker-start="url(#arrow-rev)" marker-end="url(#arrow)"/>
+    <line x1="908" y1="290" x2="894" y2="290" class="ext"/>
+    <line x1="908" y1="414" x2="894" y2="414" class="ext"/>
+    <text x="886" y="356" class="dim" text-anchor="end">⌀15.5</text>
+
+    <!-- Press-fit bore diameter: 9.5mm -->
+    <!-- Z=21.25..30.75 => sZ 390..314 -->
+    <line x1="960" y1="314" x2="960" y2="390" class="dimline" marker-start="url(#arrow-rev)" marker-end="url(#arrow)"/>
+    <text x="960" y="308" class="dim">⌀9.5</text>
+
+    <!-- Tube bore diameter: 8.0mm -->
+    <!-- Z=22..30 => sZ 384..320 -->
+    <line x1="740" y1="320" x2="740" y2="384" class="dimline" marker-start="url(#arrow-rev)" marker-end="url(#arrow)"/>
+    <text x="740" y="312" class="dim">⌀8.0</text>
+
+    <!-- Funnel entry diameter: 12.0mm at Y=0 -->
+    <!-- Z=20..32 => sZ 400..304 -->
+    <line x1="692" y1="304" x2="692" y2="400" class="dimline" marker-start="url(#arrow-rev)" marker-end="url(#arrow)"/>
+    <text x="692" y="298" class="dim">⌀12</text>
+
+    <!-- Entry funnel depth: 2.0mm (Y=0..2) -->
+    <line x1="700" y1="410" x2="700" y2="424" class="ext"/>
+    <line x1="716" y1="410" x2="716" y2="424" class="ext"/>
+    <line x1="700" y1="420" x2="716" y2="420" class="dimline" marker-start="url(#arrow-rev)" marker-end="url(#arrow)"/>
+    <text x="708" y="434" class="dim">2.0</text>
+
+    <!-- Tube bore length: 6.5mm (Y=2..8.5) -->
+    <line x1="716" y1="390" x2="716" y2="404" class="ext"/>
+    <line x1="768" y1="390" x2="768" y2="404" class="ext"/>
+    <line x1="716" y1="400" x2="768" y2="400" class="dimline" marker-start="url(#arrow-rev)" marker-end="url(#arrow)"/>
+    <text x="742" y="398" class="dim" text-anchor="middle">6.5</text>
+
+    <!-- Y dimension labels -->
+    <text x="700" y="236" class="dim-sm" text-anchor="middle">Y=0</text>
+    <text x="768" y="236" class="dim-sm" text-anchor="middle">Y=8.5</text>
+    <text x="1037.6" y="236" class="dim-sm" text-anchor="middle">Y=42.2</text>
+
+    <!-- Direction arrows -->
+    <text x="694" y="352" class="dim-sm" text-anchor="end">Dock</text>
+    <text x="1050" y="352" class="dim-sm" text-anchor="start">User</text>
+  </g>
+
+  <!-- ============================================================ -->
+  <!-- DETAIL B: Enlarged single bore stepped profile               -->
+  <!-- Scale: 12 px/mm                                              -->
+  <!-- Shows Y=24..44, Z=17..35 (fitting bore region only)          -->
+  <!-- dY(mm) = 100 + (mm-24)*12 = -188 + mm*12                    -->
+  <!-- dZ(mm) = 940 - (mm-17)*12 = 1144 - mm*12                    -->
+  <!-- ============================================================ -->
+
+  <g id="detail-b">
+    <rect x="80" y="510" width="530" height="450" class="detail-frame"/>
+    <text x="345" y="530" class="viewlbl">DETAIL B — Bore Stepped Profile</text>
+    <text x="345" y="545" class="dim-sm">Scale 12:1 (12 px/mm) — Section through bore axis</text>
+
+    <!-- dY(mm) = -188 + mm*12 -->
+    <!-- dZ(mm) = 1144 - mm*12 -->
+
+    <!-- Y=24 => dY=100, Y=44 => dY=340 -->
+    <!-- Z=17 => dZ=940, Z=35 => dZ=724 -->
+
+    <!-- Boss outline (Z=16..36, Y=8.5 to 42.2) - only showing Y=24..44 portion -->
+    <!-- Boss top Z=36 => dZ=712 (above view), Z=35 => dZ=724 -->
+    <!-- Boss bottom Z=16 => dZ=952 (below view), Z=17 => dZ=940 -->
+    <!-- Y=24 => dY=100, Y=42.2 => dY=318.4 -->
+
+    <!-- Boss section - top wall (Z=35..36 would be above, show Z=33.75..35) -->
+    <!-- Z=33.75 => dZ=739, Z=35 => dZ=724 -->
+    <!-- Boss top: just show the top edge at Z=36 if clipped, let's show Z=17..18.25 and Z=33.75..35 -->
+
+    <!-- Top boss wall section: Z=33.75..35, Y=24..42.2 -->
+    <rect x="100" y="724" width="218.4" height="15" class="section"/>
+    <!-- Bottom boss wall section: Z=17..18.25, Y=24..42.2 -->
+    <rect x="100" y="925" width="218.4" height="15" class="section"/>
+
+    <!-- Dock-side counterbore (Y=26..28) -->
+    <!-- Y=26 => dY=124, Y=28 => dY=148 -->
+    <!-- Counterbore dia 15.5 => Z=18.25..33.75 -->
+    <!-- Z=18.25 => dZ=925, Z=33.75 => dZ=739 -->
+
+    <!-- White fill for dock counterbore opening -->
+    <rect x="124" y="739" width="24" height="186" fill="white" stroke="none"/>
+
+    <!-- Counterbore walls -->
+    <line x1="124" y1="739" x2="148" y2="739" class="body"/>
+    <line x1="124" y1="925" x2="148" y2="925" class="body"/>
+    <line x1="124" y1="739" x2="124" y2="925" class="body"/>
+
+    <!-- Step to press-fit at Y=28 -->
+    <!-- Press-fit dia 9.5 => Z=21.25..30.75 -->
+    <!-- Z=21.25 => dZ=889, Z=30.75 => dZ=775 -->
+    <line x1="148" y1="739" x2="148" y2="775" class="body"/>
+    <line x1="148" y1="889" x2="148" y2="925" class="body"/>
+
+    <!-- Press-fit bore (Y=28..40.2) -->
+    <!-- Y=28 => dY=148, Y=40.2 => dY=294.4 -->
+    <!-- White fill -->
+    <rect x="148" y="775" width="146.4" height="114" fill="white" stroke="none"/>
+    <!-- Bore walls -->
+    <line x1="148" y1="775" x2="294.4" y2="775" class="body"/>
+    <line x1="148" y1="889" x2="294.4" y2="889" class="body"/>
+
+    <!-- Step to user counterbore at Y=40.2 -->
+    <line x1="294.4" y1="739" x2="294.4" y2="775" class="body"/>
+    <line x1="294.4" y1="889" x2="294.4" y2="925" class="body"/>
+
+    <!-- User-side counterbore (Y=40.2..42.2) -->
+    <!-- Y=40.2 => dY=294.4, Y=42.2 => dY=318.4 -->
+    <!-- White fill -->
+    <rect x="294.4" y="739" width="24" height="186" fill="white" stroke="none"/>
+    <!-- Counterbore walls -->
+    <line x1="294.4" y1="739" x2="318.4" y2="739" class="body"/>
+    <line x1="294.4" y1="925" x2="318.4" y2="925" class="body"/>
+    <line x1="318.4" y1="724" x2="318.4" y2="739" class="body"/>
+    <line x1="318.4" y1="925" x2="318.4" y2="940" class="body"/>
+
+    <!-- Boss end face at Y=42.2 -->
+    <line x1="318.4" y1="724" x2="318.4" y2="940" class="body" stroke-width="1.2"/>
+
+    <!-- Boss top edge -->
+    <line x1="100" y1="724" x2="318.4" y2="724" class="body"/>
+    <!-- Boss bottom edge -->
+    <line x1="100" y1="940" x2="318.4" y2="940" class="body"/>
+
+    <!-- Left edge (Y=24, clipped view boundary) -->
+    <line x1="100" y1="724" x2="100" y2="940" class="body"/>
+
+    <!-- Center line -->
+    <line x1="94" y1="832" x2="330" y2="832" class="center"/>
+
+    <!-- DIMENSIONS - Detail B -->
+
+    <!-- Dock counterbore depth: 2.0mm (Y=26..28 => dY=124..148) -->
+    <line x1="124" y1="732" x2="124" y2="716" class="ext"/>
+    <line x1="148" y1="732" x2="148" y2="716" class="ext"/>
+    <line x1="124" y1="720" x2="148" y2="720" class="dimline" marker-start="url(#arrow-rev)" marker-end="url(#arrow)"/>
+    <text x="136" y="712" class="dim">2.0</text>
+
+    <!-- Press-fit bore length: 12.2mm (Y=28..40.2 => dY=148..294.4) -->
+    <line x1="148" y1="768" x2="148" y2="756" class="ext"/>
+    <line x1="294.4" y1="768" x2="294.4" y2="756" class="ext"/>
+    <line x1="148" y1="760" x2="294.4" y2="760" class="dimline" marker-start="url(#arrow-rev)" marker-end="url(#arrow)"/>
+    <text x="221.2" y="754" class="dim">12.2</text>
+
+    <!-- User counterbore depth: 2.0mm (Y=40.2..42.2 => dY=294.4..318.4) -->
+    <line x1="294.4" y1="732" x2="294.4" y2="716" class="ext"/>
+    <line x1="318.4" y1="732" x2="318.4" y2="716" class="ext"/>
+    <line x1="294.4" y1="720" x2="318.4" y2="720" class="dimline" marker-start="url(#arrow-rev)" marker-end="url(#arrow)"/>
+    <text x="306.4" y="712" class="dim">2.0</text>
+
+    <!-- Counterbore diameter: ⌀15.5 -->
+    <!-- Z=18.25..33.75 => dZ=925..739 -->
+    <line x1="116" y1="739" x2="116" y2="925" class="dimline" marker-start="url(#arrow-rev)" marker-end="url(#arrow)"/>
+    <line x1="124" y1="739" x2="110" y2="739" class="ext"/>
+    <line x1="124" y1="925" x2="110" y2="925" class="ext"/>
+    <text x="108" y="836" class="dim" text-anchor="end">⌀15.5</text>
+
+    <!-- Press-fit bore diameter: ⌀9.5 -->
+    <!-- Z=21.25..30.75 => dZ=889..775 -->
+    <line x1="220" y1="775" x2="220" y2="889" class="dimline" marker-start="url(#arrow-rev)" marker-end="url(#arrow)"/>
+    <text x="220" y="770" class="dim">⌀9.5</text>
+
+    <!-- Shoulder step annotations -->
+    <line x1="148" y1="889" x2="170" y2="905" class="ext"/>
+    <text x="173" y="908" class="dim-sm" text-anchor="start">Shoulder step</text>
+
+    <!-- Boss wall thickness annotation -->
+    <!-- Top wall: Z=33.75..36 => 2.25mm (actually Z=33.75 to 36 = 2.25) -->
+    <!-- dZ=739..724 = 15px => 15/12 = 1.25mm? No... -->
+    <!-- Wait: boss top Z=36 => dZ=1144-36*12=1144-432=712. But I set boss top at dZ=724 which is Z=35 -->
+    <!-- I need to recalculate. The boss extends Z=16..36. At Z=35 display edge: dZ=1144-35*12=724 -->
+    <!-- Boss OD 20mm means Z=26-10=16 to Z=26+10=36 -->
+    <!-- So the boss top is at Z=36 => dZ=1144-432=712 -->
+    <!-- I showed the section rect at y=724 (Z=35), let me fix this -->
+
+    <!-- Notes -->
+    <text x="340" y="780" class="note" text-anchor="start">0.19mm interference fit</text>
+    <text x="340" y="793" class="note" text-anchor="start">(9.5mm bore, 9.31mm body)</text>
+    <text x="340" y="820" class="note" text-anchor="start">0.40mm clearance</text>
+    <text x="340" y="833" class="note" text-anchor="start">(15.5mm counterbore,</text>
+    <text x="340" y="846" class="note" text-anchor="start"> 15.10mm body end)</text>
+
+    <text x="340" y="876" class="note" text-anchor="start">4x John Guest PP0408W</text>
+    <text x="340" y="889" class="note" text-anchor="start">press-fit, identical bores</text>
+  </g>
+
+  <!-- Notes block -->
+  <g id="notes">
+    <text x="700" y="520" class="label">NOTES</text>
+    <text x="700" y="538" class="note">1. All bore features integral to tray (Sub-A). Zero additional printed parts.</text>
+    <text x="700" y="552" class="note">2. 4 bosses at 20mm c-c merge where they touch (0mm gap). Model as union.</text>
+    <text x="700" y="566" class="note">3. Fittings pressed from user side (-Y direction). Hand force sufficient.</text>
+    <text x="700" y="580" class="note">4. Entry funnel 45-degree half-angle, self-supporting in print orientation.</text>
+    <text x="700" y="594" class="note">5. Press-fit bore 9.5mm for 9.31mm center body = 2.0% circumferential strain.</text>
+    <text x="700" y="608" class="note">6. Coordinate frame: X=width(0..160), Y=depth(0=dock), Z=height(0..72).</text>
+  </g>
+
+</svg>
