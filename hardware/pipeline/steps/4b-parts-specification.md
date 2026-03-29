@@ -124,6 +124,30 @@ For every pair of parts in the mechanism:
 3. Are they the same material and could be printed as one piece without support issues?
    - If yes and they don't move relative to each other -> consider combining.
 
+### Rubric G — FDM Printability (MANDATORY)
+
+This rubric verifies that every feature in the part can be FDM-printed as designed. The FDM manufacturing constraints in `hardware/requirements.md` (Section 6) are the authoritative source — read them before applying this rubric.
+
+**Step 1 — Print orientation.** State the intended print orientation (which face sits on the build plate). If multiple orientations were considered, state why this one was chosen. If the part's function constrains the orientation (e.g., a mating surface that must be on the build plate for accuracy, or a flex feature that must be oriented for layer strength), state that constraint.
+
+**Step 2 — Overhang audit.** For every surface in the part, determine its angle relative to horizontal in the stated print orientation. Print a table:
+
+```
+| Surface / Feature | Angle from horizontal | Printable? | Resolution |
+```
+
+- **≥ 45° from horizontal** (i.e., ≤ 45° overhang): Printable without support. Mark "OK."
+- **< 45° from horizontal** (i.e., > 45° overhang): Requires resolution. Options:
+  - **Redesign to eliminate:** Add a chamfer, fillet, gusset, or taper that brings the angle above 45°. This is the preferred resolution. State the specific geometry added.
+  - **Intentional designed support:** If the overhang is functionally necessary (e.g., snap-fit undercut, internal ledge), state: what the support geometry is, how it will be removed, and confirm there is physical access for removal. Do not write "slicer will add supports" — that is not a design decision.
+  - **DESIGN GAP:** If neither redesign nor intentional support is feasible, flag it explicitly.
+
+**Step 3 — Wall thickness check.** For every wall, rib, and thin feature, verify thickness against the minimums in requirements.md (0.8mm standard, 1.2mm structural). Flag any violations.
+
+**Step 4 — Bridge span check.** For every horizontal unsupported span, verify length is under 15mm. If over, either add support geometry or break the span with intermediate supports designed into the part.
+
+**Step 5 — Layer strength check.** For every feature that flexes, bears tension, or is a snap-fit arm: verify that the intended print orientation places layer lines parallel to (not perpendicular to) the load direction. If the print orientation conflicts between features, note the tradeoff and state which feature took priority and why.
+
 ---
 
 ## Quality gate
@@ -137,3 +161,4 @@ After all agents complete, verify:
 - Rubric D interface table has no zero-clearance or mismatched dimensions
 - Rubric E assembly sequence is physically feasible
 - Rubric F part count is minimized
+- Rubric G printability: no unresolved overhangs, no sub-minimum walls, no unsupported long bridges, print orientation stated with rationale
