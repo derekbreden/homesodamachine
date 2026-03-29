@@ -1,6 +1,8 @@
 # Conceptual Architecture
 
-This document defines the procedure for the conceptual architecture agent (Step 4a). This agent explores the design space freely and settles on one concept. It is explicitly separate from the detailed specification step because exploring and specifying are fundamentally different tasks — combining them causes exploration to consume the agent's context window, leaving specification truncated.
+This document defines the procedure for the conceptual architecture agent (Step 4a). This agent takes the synthesis document's execution plan and works out the concrete architecture: how the mechanism is split into printed parts, how those parts connect, where the seams fall, and how the whole thing prints and assembles. It is explicitly separate from the detailed specification step because architecture and specification are fundamentally different tasks — combining them causes architecture decisions to consume the agent's context window, leaving specification truncated.
+
+**The vision and synthesis set the interaction. This step sets the physical form.** The agent does not reconsider the interaction design (squeeze-release, rail-guided slide, etc.) — that was settled upstream. It works out how to embody that interaction in printable parts that look and feel like a product.
 
 ---
 
@@ -21,19 +23,22 @@ The agent designing a mechanism is not limited to the mechanism's own parts. If 
 ## Agent prompt must include
 
 - Path to `hardware/requirements.md` and `hardware/vision.md`
-- Path to the synthesis document
+- Path to the synthesis document (this is the primary input — the execution plan for the vision)
 - Path to the design pattern research (`planning/research/design-patterns.md`)
+- Path to all technical research documents
 - Printer specs and materials are in `hardware/requirements.md`. **The agent must not assume, infer, or use "typical" values for any manufacturing constraint.**
 - All known physical constraints (dimensions, what goes inside)
-- Instruction to explore freely — try ideas, discard dead ends, show the reasoning
-- Instruction to settle on ONE concept and summarize it clearly at the end
+- Instruction to work out the architecture for the synthesis's execution plan — piece count, splits, joins, seams, surfaces, manufacturing approach
+- Instruction to settle on ONE architecture and summarize it clearly at the end
 - **Instruction NOT to apply the full rubric suite** — that happens in the detailed specification step
+- **Instruction NOT to reconsider the interaction design** — the vision and synthesis set the interaction. If the agent discovers a conflict between the interaction and printability, it flags the conflict rather than silently changing the interaction.
 
 ## Quality gate
 
 The concept document must:
 - Clearly state what the design IS (not just what it isn't or what was considered)
 - Address all 7 topics listed above
+- Be consistent with the vision's specified interaction and the synthesis's execution plan
 - Be free of unresolved contradictions (e.g., a piece that doesn't fit the print bed)
 - Be concise enough that the specification agent can read it without losing context
 

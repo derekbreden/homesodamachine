@@ -99,7 +99,7 @@ One agent reads ALL research (technical and design pattern) and synthesizes them
 
 ### Step 4a — Conceptual Architecture
 
-One agent explores the design space and settles on ONE concept. Covers the full mechanism — all parts and how they relate. Does not apply the full rubric suite — that's 4b's job.
+One agent takes the synthesis's execution plan and works out the concrete architecture: piece count, split strategy, join methods, seam placement, surfaces, and manufacturing approach. Covers the full mechanism — all parts and how they relate. Does not reconsider the interaction design (that's settled by the vision and synthesis) and does not apply the full rubric suite (that's 4b's job).
 
 ### Step 4d — Sub-Component Decomposition (per part)
 
@@ -176,7 +176,7 @@ Step 1 (folders)
 5. **Agents not reading the standards** — Every agent prompt includes the path to its procedure doc.
 6. **Missing the CadQuery venv** — Prerequisites verify it exists.
 7. **Optimizing throughput over correctness** — Quality gates are mandatory. Fast + wrong < slow + right.
-8. **Combining exploration and specification** — 4a explores, 4b specifies. Never combine them.
+8. **Combining architecture and specification** — 4a works out the architecture, 4b specifies the parts. Never combine them.
 9. **Synthesis agent replacing the vision** — If research reveals a feasibility conflict, the synthesis flags it and proposes the minimum modification. It does not silently substitute a different approach.
 10. **Assumed manufacturing constraints** — All printer specs and materials are in `requirements.md`. No agent may assume "typical" values. If a constraint isn't in requirements.md, ask the product owner.
 11. **CadQuery agent doing spatial reasoning** — All multi-frame geometry is resolved in Step 4s. By the time a CadQuery agent runs, every dimension is a concrete number in the sub-component's own frame.
