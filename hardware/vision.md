@@ -88,19 +88,18 @@ The release plate has 4 bores in a 2×2 grid. The coupler tray has 4 coupler poc
 10. **Add strut bores to pump tray** — 4 holes sized to the strut cross-section, positioned so the struts pass through cleanly.
 11. **Add strut bores to coupler tray** — same. The bores must be positioned so they don't interfere with the coupler pockets.
 
-#### Phase 5: Widen interior plates to resolve bore/mounting overlap
+#### Phase 5: Split the coupler tray
+
+12. **Split coupler tray into two halves** — the two halves are a top plate and a bottom plate that stack face-to-face. Every coupler passes through both halves. Each half has half-depth pockets so that when the halves are pressed together, they capture the narrow center section of each coupler, and the wider shoulders on each end provide axial retention. This is NOT a left/right cut — do not cut the tray in half along its length. Produce two STEP files. Plain flat mating faces — no dovetail geometry.
+
+#### Phase 6: Widen interior plates to resolve bore/mounting overlap
 
 The strut bores on the pump tray overlap with the pump mounting holes. Fix by widening the pump tray so the strut bores can move outward, then cascade that new width to every other interior plate so all strut positions stay aligned.
 
-12. **Widen pump tray** — make the pump tray wider so that the strut bores can be moved outward and no longer overlap the pump mounting holes.
-13. **Widen coupler tray** — match the pump tray's new width and strut bore positions.
-14. **Widen lever** — match the new width and move its struts to align with the new strut bore positions on the pump tray.
-15. **Widen release plate** — match the new width and move its struts to align with the new strut bore positions and the lever's struts.
-
-
-#### Phase 6: Split the coupler tray
-
-16. **Split coupler tray into two halves** — the two halves are a top plate and a bottom plate that stack face-to-face. Every coupler passes through both halves. Each half has half-depth pockets so that when the halves are pressed together, they capture the narrow center section of each coupler, and the wider shoulders on each end provide axial retention. This is NOT a left/right cut — do not cut the tray in half along its length. Produce two STEP files. Plain flat mating faces — no dovetail geometry.
+13. **Widen pump tray** — make the pump tray wider so that the strut bores can be moved outward and no longer overlap the pump mounting holes.
+14. **Widen coupler tray** — match the pump tray's new width and strut bore positions.
+15. **Widen lever** — match the new width and move its struts to align with the new strut bore positions on the pump tray.
+16. **Widen release plate** — match the new width and move its struts to align with the new strut bore positions and the lever's struts.
 
 ---
 
