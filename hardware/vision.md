@@ -92,25 +92,34 @@ The release plate has 4 bores in a 2×2 grid. The coupler tray has 4 coupler poc
 
 12. **Split coupler tray into two halves** — the two halves are a top plate and a bottom plate that stack face-to-face. Every coupler passes through both halves. Each half has half-depth pockets so that when the halves are pressed together, they capture the narrow center section of each coupler, and the wider shoulders on each end provide axial retention. This is NOT a left/right cut — do not cut the tray in half along its length. Produce two STEP files. Plain flat mating faces — no dovetail geometry.
 
+#### Phase 6: Widen interior plates to resolve bore/mounting overlap
+
+The strut bores on the pump tray overlap with the pump mounting holes. Fix by widening the pump tray so the strut bores can move outward, then cascade that new width to every other interior plate so all strut positions stay aligned.
+
+13. **Widen pump tray** — make the pump tray wider so that the strut bores can be moved outward and no longer overlap the pump mounting holes.
+14. **Widen coupler tray** — match the pump tray's new width and strut bore positions.
+15. **Widen lever** — match the new width and move its struts to align with the new strut bore positions on the pump tray.
+16. **Widen release plate** — match the new width and move its struts to align with the new strut bore positions and the lever's struts.
+
 ---
 
 ### Season 2: Walls
 
 The 6 flat panels that form the cartridge box. Each one is a flat panel. The side walls get rails, everything else is just flat with maybe a hole or two.
 
-#### Phase 6: Make the walls
+#### Phase 7: Make the walls
 
-13. **Left wall** — flat panel, correct outer dimensions. Protruding rails on the interior face for: front panel, back panel, bottom panel, top panel, pump tray, coupler tray. Interior rails are the only features. No detents, no retention, no exterior tracks for the enclosure bay.
-14. **Right wall** — mirror of left wall.
-15. **Back panel** — flat panel with 4 holes for tube stubs. Outer dimensions sized to fit the left/right wall rails. No detent geometry.
-16. **Front panel** — flat panel with rectangular hole in lower half. Outer dimensions sized to fit the left/right wall rails. No detent geometry.
-17. **Bottom panel** — flat panel, no features. Outer dimensions sized to fit the left/right wall rails.
-18. **Top panel** — flat panel, no features. Outer dimensions sized to fit the left/right wall rails. This is the last piece that goes in during assembly.
+17. **Left wall** — flat panel, correct outer dimensions. Protruding rails on the interior face for: front panel, back panel, bottom panel, top panel, pump tray, coupler tray. Interior rails are the only features. No detents, no retention, no exterior tracks for the enclosure bay.
+18. **Right wall** — mirror of left wall.
+19. **Back panel** — flat panel with 4 holes for tube stubs. Outer dimensions sized to fit the left/right wall rails. No detent geometry.
+20. **Front panel** — flat panel with rectangular hole in lower half. Outer dimensions sized to fit the left/right wall rails. No detent geometry.
+21. **Bottom panel** — flat panel, no features. Outer dimensions sized to fit the left/right wall rails.
+22. **Top panel** — flat panel, no features. Outer dimensions sized to fit the left/right wall rails. This is the last piece that goes in during assembly.
 
-#### Phase 7: Refine panel holes
+#### Phase 8: Refine panel holes
 
-19. **Refine front panel hole** — adjust hole position and size so the user's fingers actually reach the lever comfortably.
-20. **Refine back panel holes** — adjust hole positions so tube stubs actually pass through and reach the quick connects.
+23. **Refine front panel hole** — adjust hole position and size so the user's fingers actually reach the lever comfortably.
+24. **Refine back panel holes** — adjust hole positions so tube stubs actually pass through and reach the quick connects.
 
 ---
 
@@ -118,39 +127,39 @@ The 6 flat panels that form the cartridge box. Each one is a flat panel. The sid
 
 Everything exists as simple geometry. Now add the features that make things hold together. Each joint feature is its own step.
 
-#### Phase 8: Coupler tray dovetail
+#### Phase 9: Coupler tray dovetail
 
-21. **Add dovetail geometry to coupler tray halves** — the tapered dovetail slide that joins the two halves along the split line. No snap detent yet.
+25. **Add dovetail geometry to coupler tray halves** — the tapered dovetail slide that joins the two halves along the split line. No snap detent yet.
 
-#### Phase 9: Coupler tray snap detent
+#### Phase 10: Coupler tray snap detent
 
-22. **Add snap detent to coupler tray halves** — the prong barbs that lock the halves permanently at end of travel.
+26. **Add snap detent to coupler tray halves** — the prong barbs that lock the halves permanently at end of travel.
 
-#### Phase 10: Strut dovetail
+#### Phase 11: Strut dovetail
 
-23. **Add dovetail geometry to lever strut ends** — the male dovetail tongue on each strut.
-24. **Add dovetail geometry to release plate strut ends** — the female dovetail channel on each strut.
+27. **Add dovetail geometry to lever strut ends** — the male dovetail tongue on each strut.
+28. **Add dovetail geometry to release plate strut ends** — the female dovetail channel on each strut.
 
-#### Phase 11: Strut snap detent
+#### Phase 12: Strut snap detent
 
-25. **Add snap detent to strut dovetail joints** — the prong barbs that lock the strut joints permanently.
+29. **Add snap detent to strut dovetail joints** — the prong barbs that lock the strut joints permanently.
 
-#### Phase 12: Wall-to-wall dovetails
+#### Phase 13: Wall-to-wall dovetails
 
-26. **Add dovetail geometry to left wall rails** — tapered dovetails on the rails so the front, back, bottom, and top panels lock along the slide axis.
-27. **Add matching dovetail geometry to front, back, bottom, top panels** — the receiving features.
+30. **Add dovetail geometry to left wall rails** — tapered dovetails on the rails so the front, back, bottom, and top panels lock along the slide axis.
+31. **Add matching dovetail geometry to front, back, bottom, top panels** — the receiving features.
 
-#### Phase 13: Wall-to-wall snap detents
+#### Phase 14: Wall-to-wall snap detents
 
-28. **Add snap detent to wall rail dovetails** — the features that lock panels at end of travel.
+32. **Add snap detent to wall rail dovetails** — the features that lock panels at end of travel.
 
-#### Phase 14: Interior plate dovetails
+#### Phase 15: Interior plate dovetails
 
-29. **Add dovetail geometry to interior plate rails** — pump tray and coupler tray lock along the slide axis in the side wall rails.
+33. **Add dovetail geometry to interior plate rails** — pump tray and coupler tray lock along the slide axis in the side wall rails.
 
-#### Phase 15: Interior plate snap detents
+#### Phase 16: Interior plate snap detents
 
-30. **Add snap detent to interior plate rail dovetails.**
+34. **Add snap detent to interior plate rail dovetails.**
 
 ---
 
@@ -158,25 +167,25 @@ Everything exists as simple geometry. Now add the features that make things hold
 
 Everything works mechanically. Now make it feel like a product.
 
-#### Phase 16: Strut bore bosses
+#### Phase 17: Strut bore bosses
 
-31. **Add bosses around strut bores in pump tray** — reinforce the bores now that we know the exact strut dimensions and clearances from prototyping.
-32. **Add bosses around strut bores in coupler tray** — same.
+35. **Add bosses around strut bores in pump tray** — reinforce the bores now that we know the exact strut dimensions and clearances from prototyping.
+36. **Add bosses around strut bores in coupler tray** — same.
 
-#### Phase 17: Cosmetics and UX
+#### Phase 18: Cosmetics and UX
 
-33. **Front panel exterior surface treatment** — the palm-push surface the user touches. Texture, radii, visual design.
-34. **Lever surface treatment** — the finger-pull surface. Smooth or lightly textured for finger comfort.
-35. **Side wall exterior surface treatment** — the surfaces visible when the cartridge is partially ejected from the enclosure.
+37. **Front panel exterior surface treatment** — the palm-push surface the user touches. Texture, radii, visual design.
+38. **Lever surface treatment** — the finger-pull surface. Smooth or lightly textured for finger comfort.
+39. **Side wall exterior surface treatment** — the surfaces visible when the cartridge is partially ejected from the enclosure.
 
-#### Phase 18: Exterior tracks
+#### Phase 19: Exterior tracks
 
-36. **Add exterior protruding tracks to side walls** — the tracks that ride in the enclosure bay channels.
+40. **Add exterior protruding tracks to side walls** — the tracks that ride in the enclosure bay channels.
 
-#### Phase 19: Spring return and final mechanism tuning
+#### Phase 20: Spring return and final mechanism tuning
 
-37. **Add spring pockets** — wherever the return springs end up living (TBD based on interior plate positions and available space).
-38. **Tune squeeze force** — adjust spring rate, strut friction, bore clearances so the squeeze feels right.
+41. **Add spring pockets** — wherever the return springs end up living (TBD based on interior plate positions and available space).
+42. **Tune squeeze force** — adjust spring rate, strut friction, bore clearances so the squeeze feels right.
 
 ---
 
