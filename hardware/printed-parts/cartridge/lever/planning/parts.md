@@ -14,7 +14,7 @@
 | Part type | Single printed PETG part |
 | Function | Pull surface for the squeeze mechanism. The user's fingers contact the lever plate front face; struts transmit the pull force rearward through the interior plates to the release plate (via Phase 2 joint). In Phase 1 the strut ends are free — no joint geometry exists. |
 | Material | PETG |
-| Envelope (W × H × D) | 80.0 mm × 50.0 mm × 94.0 mm (plate 80×50×4, struts extend 90 mm rearward) |
+| Envelope (W × H × D) | 80.0 mm × 65.0 mm × 94.0 mm (plate 80×65×4, struts extend 90 mm rearward) |
 | Print orientation | Front face DOWN on build plate (XZ plane on build plate). Struts extend upward (+Y print direction). |
 | Piece count | 1 |
 | Fasteners | None |
@@ -26,7 +26,7 @@
 |---|---|---|
 | X | Width, left to right as seen by user | 0 → 80.0 mm |
 | Y | Depth, front (user-facing) to rear (strut-tip end) | 0 → 94.0 mm |
-| Z | Height, bottom to top | 0 → 50.0 mm |
+| Z | Height, bottom to top | 0 → 65.0 mm |
 
 Origin: bottom-left corner of the lever plate front face (the corner at X=0, Y=0, Z=0) as seen from the front face.
 Y=0 = lever plate front face (pull surface — user finger contact; sits on build plate in print orientation).
@@ -71,7 +71,7 @@ None in Phase 1. Return springs are a Phase 12 (Season 4) item. The spring pocke
 
 ### The user's physical interaction
 
-The user's hand is palm-up. The palm presses forward against the front panel exterior face (the stationary surface). The fingers curl upward through the rectangular front panel hole and contact the lever plate front face (Y=0 in lever local frame). The 80.0 mm × 50.0 mm contact area provides a two-to-three finger contact zone (grip width 80 mm; grip height 40 mm usable — the bottom 10 mm zone is immediately adjacent to the strut attachment zone on the rear face but presents a flat front face surface to the fingers). The user squeezes: fingers pull rearward, palm pushes forward. The lever translates 3.0 mm rearward until the release plate hard-stops. The user feels and hears the four collets release and withdraws the cartridge.
+The user's hand is palm-up. The palm presses forward against the front panel exterior face (the stationary surface). The fingers curl upward through the rectangular front panel hole and contact the lever plate front face (Y=0 in lever local frame). The 80.0 mm × 65.0 mm contact area provides a two-to-three finger contact zone (grip width 80 mm; grip height 55 mm usable — the bottom 5 mm and top 5 mm zones are immediately adjacent to the strut attachment zones on the rear face but present a flat front face surface to the fingers). The user squeezes: fingers pull rearward, palm pushes forward. The lever translates 3.0 mm rearward until the release plate hard-stops. The user feels and hears the four collets release and withdraws the cartridge.
 
 **Grounding note:** The 80.0 mm plate width, 50.0 mm plate height, and 4.0 mm plate thickness are the geometric features that produce the grip feel. The 3.0 mm travel comes from the release plate specification (collet release at 1.33 mm, hard stop at plate body shoulder). No additional feature on the lever plate produces tactile feedback during Phase 1.
 
@@ -130,8 +130,8 @@ Coordinate system: lever local frame (Y = rearward into cartridge; X = rightward
 | Return springs push lever/release plate toward user | Toward user | −Y (lever local) | Yes | Springs in rear wall push release plate toward user; lever follows via struts |
 | Collets are depressed rearward | Into cartridge | +Y (cartridge) | Yes | PP0408W collets are on the rear face of the release plate; depression is in the +Y cartridge direction, consistent with release plate synthesis |
 | Strut tips are at Y=94mm | Rearward from plate | +Y direction from plate | Yes | Y=94mm = 4mm plate + 90mm strut, rearward of front face |
-| Lever plate spans Z=0 to Z=50mm | Bottom to top | +Z | Yes | Origin at bottom-left; Z increases upward |
-| Struts positioned at Z=10mm and Z=40mm | Within plate height | Z in [0, 50] | Yes | 10mm from bottom edge, 10mm from top edge |
+| Lever plate spans Z=0 to Z=65mm | Bottom to top | +Z | Yes | Origin at bottom-left; Z increases upward |
+| Struts positioned at Z=5mm and Z=60mm | Within plate height | Z in [0, 65] | Yes | 5mm from bottom edge, 5mm from top edge |
 
 No directional contradictions found.
 
@@ -148,10 +148,10 @@ Every feature is described with: name, operation type (Add = material added to b
 | Operation | Add (base body) |
 | Shape | Rectangular prism |
 | Width (X) | 80.0 mm |
-| Height (Z) | 50.0 mm |
+| Height (Z) | 65.0 mm |
 | Depth (Y) | 4.0 mm |
-| Position | X: 0→80.0, Y: 0→4.0, Z: 0→50.0 |
-| Justification | Physical necessity (structural): provides the rigid load-transfer body between the user's finger contact surface (Y=0) and the strut attachment zone (Y=4). Width 80.0 mm matches the release plate width so lever strut positions align with release plate strut positions (vision §3: "lever connects to release plate struts"). Height 50.0 mm provides adequate finger contact area (synthesis §3: two-to-three finger grip requires 25–35 mm; 50 mm provides 40 mm usable zone with margin for strut attachment band). Depth 4.0 mm provides rigid plate with center deflection <0.1 mm under 30 N (synthesis §3 calculation: δ ≈ 0.063 mm at 4.0 mm thickness). |
+| Position | X: 0→80.0, Y: 0→4.0, Z: 0→65.0 |
+| Justification | Physical necessity (structural): provides the rigid load-transfer body between the user's finger contact surface (Y=0) and the strut attachment zone (Y=4). Width 80.0 mm matches the release plate width so lever strut positions align with release plate strut positions (vision §3: "lever connects to release plate struts"). Height 65.0 mm matches the release plate height so the strut Z positions (Z=5.0 and Z=60.0) align with the release plate strut Z positions in the assembly. Depth 4.0 mm provides rigid plate with center deflection <0.1 mm under 30 N (synthesis §3 calculation: δ ≈ 0.063 mm at 4.0 mm thickness). |
 
 ### Feature 2 — Plate Perimeter Corner Radii
 
@@ -159,7 +159,7 @@ Every feature is described with: name, operation type (Add = material added to b
 |---|---|
 | Operation | Remove (blend, CadQuery fillet) |
 | Shape | Convex cylindrical fillet |
-| Affected edges | The four vertical edges of the plate parallel to Y, at the four XZ corners: (X=0, Z=0), (X=80.0, Z=0), (X=0, Z=50.0), (X=80.0, Z=50.0). Each edge runs from Y=0 to Y=4.0. |
+| Affected edges | The four vertical edges of the plate parallel to Y, at the four XZ corners: (X=0, Z=0), (X=80.0, Z=0), (X=0, Z=65.0), (X=80.0, Z=65.0). Each edge runs from Y=0 to Y=4.0. |
 | Radius | 2.0 mm |
 | Justification | Vision §3: consistent design language with the release plate (concept.md §5: "corner treatment: 2–3mm radii, consistent with the release plate's corner language"). A 2.0 mm radius prevents sharp rectangle corners from reading as raw rectangular stock. Also physical necessity (assembly): the corner radius reduces the risk of the plate perimeter snagging against the front panel hole edges during lever travel. |
 
@@ -181,12 +181,12 @@ Every feature is described with: name, operation type (Add = material added to b
 | Shape | Rectangular prism |
 | Cross-section | 6.0 mm (X) × 6.0 mm (Z) |
 | Length (Y) | 90.0 mm |
-| Center position (X, Z) | X = 9.0 mm, Z = 40.0 mm |
+| Center position (X, Z) | X = 9.0 mm, Z = 60.0 mm |
 | Extents in X | 6.0 mm to 12.0 mm (center ±3 mm) |
-| Extents in Z | 37.0 mm to 43.0 mm (center ±3 mm) |
+| Extents in Z | 57.0 mm to 63.0 mm (center ±3 mm) |
 | Y start (plate rear face) | Y = 4.0 mm |
 | Y end (strut tip) | Y = 94.0 mm |
-| Justification | Physical necessity (structural): transmits pull force from lever plate to Phase 2 joint. Position is derived from release plate bore horizontal spacing (±31 mm from cartridge centerline → 62 mm c-c → 9.0 mm and 71.0 mm in lever local X). Z position derived from release plate bore vertical spacing (±15 mm from release plate center → 30 mm c-c → Z=10 mm and Z=40 mm in lever local frame). Cross-section 6.0×6.0 mm: Euler buckling critical load ≈333 N at 90 mm length, design load 15 N per strut — 22× margin. |
+| Justification | Physical necessity (structural): transmits pull force from lever plate to Phase 2 joint. Position matches release plate strut TL position (X=9.0, Z=60.0) so struts align when the two parts are held together. X=9.0 mm derives from release plate bore horizontal spacing. Z=60.0 mm is the release plate's TL strut Z position, adopted directly. Cross-section 6.0×6.0 mm: Euler buckling critical load ≈333 N at 90 mm length, design load 15 N per strut — 22× margin. |
 
 ### Feature 5 — Strut TR (Top-Right)
 
@@ -196,12 +196,12 @@ Every feature is described with: name, operation type (Add = material added to b
 | Shape | Rectangular prism |
 | Cross-section | 6.0 mm (X) × 6.0 mm (Z) |
 | Length (Y) | 90.0 mm |
-| Center position (X, Z) | X = 71.0 mm, Z = 40.0 mm |
+| Center position (X, Z) | X = 71.0 mm, Z = 60.0 mm |
 | Extents in X | 68.0 mm to 74.0 mm |
-| Extents in Z | 37.0 mm to 43.0 mm |
+| Extents in Z | 57.0 mm to 63.0 mm |
 | Y start | Y = 4.0 mm |
 | Y end | Y = 94.0 mm |
-| Justification | Physical necessity (structural): same as Feature 4. Mirror of TL about plate center (X=40.0 mm). Horizontal spacing from TL: 71.0 − 9.0 = 62.0 mm = 2×31 mm, matching release plate bore pattern. |
+| Justification | Physical necessity (structural): same as Feature 4. Mirror of TL about X=40.0 mm. Position matches release plate strut TR position (X=71.0, Z=60.0). Horizontal spacing from TL: 71.0 − 9.0 = 62.0 mm. |
 
 ### Feature 6 — Strut BL (Bottom-Left)
 
@@ -211,12 +211,12 @@ Every feature is described with: name, operation type (Add = material added to b
 | Shape | Rectangular prism |
 | Cross-section | 6.0 mm (X) × 6.0 mm (Z) |
 | Length (Y) | 90.0 mm |
-| Center position (X, Z) | X = 9.0 mm, Z = 10.0 mm |
+| Center position (X, Z) | X = 9.0 mm, Z = 5.0 mm |
 | Extents in X | 6.0 mm to 12.0 mm |
-| Extents in Z | 7.0 mm to 13.0 mm |
+| Extents in Z | 2.0 mm to 8.0 mm |
 | Y start | Y = 4.0 mm |
 | Y end | Y = 94.0 mm |
-| Justification | Physical necessity (structural): same as Feature 4. Mirror of TL about plate Z-center (Z=25.0 mm). Vertical spacing from TL: 40.0 − 10.0 = 30.0 mm = 2×15 mm, matching release plate bore pattern. |
+| Justification | Physical necessity (structural): same as Feature 4. Position matches release plate strut BL position (X=9.0, Z=5.0). Vertical spacing from TL: 60.0 − 5.0 = 55.0 mm, matching release plate strut vertical spacing. |
 
 ### Feature 7 — Strut BR (Bottom-Right)
 
@@ -226,12 +226,12 @@ Every feature is described with: name, operation type (Add = material added to b
 | Shape | Rectangular prism |
 | Cross-section | 6.0 mm (X) × 6.0 mm (Z) |
 | Length (Y) | 90.0 mm |
-| Center position (X, Z) | X = 71.0 mm, Z = 10.0 mm |
+| Center position (X, Z) | X = 71.0 mm, Z = 5.0 mm |
 | Extents in X | 68.0 mm to 74.0 mm |
-| Extents in Z | 7.0 mm to 13.0 mm |
+| Extents in Z | 2.0 mm to 8.0 mm |
 | Y start | Y = 4.0 mm |
 | Y end | Y = 94.0 mm |
-| Justification | Physical necessity (structural): same as Feature 4. Mirror of BL about plate X-center (X=40.0 mm). Also mirror of TR about plate Z-center. Diagonal distance from TL (9.0, 40.0) to BR (71.0, 10.0): √(62²+30²) = √(3844+900) = √4744 = 68.9 mm. This diagonal spacing provides anti-rotation stability when struts are constrained by Phase 4 bores. |
+| Justification | Physical necessity (structural): same as Feature 4. Mirror of BL about X=40.0 mm. Position matches release plate strut BR position (X=71.0, Z=5.0). Diagonal distance from TL (9.0, 60.0) to BR (71.0, 5.0): √(62²+55²) = √(3844+3025) = √6869 = 82.9 mm. This diagonal spacing provides anti-rotation stability when struts are constrained by Phase 4 bores. |
 
 ---
 
@@ -241,8 +241,8 @@ All values in lever local frame (origin: bottom-left corner of plate front face)
 
 | Dimension | Value | Source |
 |---|---|---|
-| Plate width (X) | 80.0 mm | Spatial resolution §3a / synthesis §3 |
-| Plate height (Z) | 50.0 mm | Spatial resolution §5 / synthesis §3 |
+| Plate width (X) | 80.0 mm | Matches release plate width for strut alignment |
+| Plate height (Z) | 65.0 mm | Matches release plate height for strut Z alignment |
 | Plate thickness (Y) | 4.0 mm | Spatial resolution §5 / synthesis §3 |
 | Plate front face | Y = 0 | Part local frame definition |
 | Plate rear face | Y = 4.0 mm | Part local frame definition |
@@ -250,16 +250,16 @@ All values in lever local frame (origin: bottom-left corner of plate front face)
 | Strut length | 90.0 mm (estimated) | Synthesis §6 — pending cartridge depth confirmation |
 | Strut Y start | Y = 4.0 mm | Plate rear face |
 | Strut Y end (tips) | Y = 94.0 mm | Y=4 + 90mm strut length |
-| Strut TL center (X, Z) | (9.0, 40.0) mm | Spatial resolution §3a |
-| Strut TR center (X, Z) | (71.0, 40.0) mm | Spatial resolution §3a |
-| Strut BL center (X, Z) | (9.0, 10.0) mm | Spatial resolution §3a |
-| Strut BR center (X, Z) | (71.0, 10.0) mm | Spatial resolution §3a |
-| Horizontal strut spacing (c-c) | 62.0 mm | 71.0 − 9.0 = 62.0 = 2×31 mm |
-| Vertical strut spacing (c-c) | 30.0 mm | 40.0 − 10.0 = 30.0 = 2×15 mm |
+| Strut TL center (X, Z) | (9.0, 60.0) mm | Matches release plate strut TL position |
+| Strut TR center (X, Z) | (71.0, 60.0) mm | Matches release plate strut TR position |
+| Strut BL center (X, Z) | (9.0, 5.0) mm | Matches release plate strut BL position |
+| Strut BR center (X, Z) | (71.0, 5.0) mm | Matches release plate strut BR position |
+| Horizontal strut spacing (c-c) | 62.0 mm | 71.0 − 9.0 = 62.0 mm |
+| Vertical strut spacing (c-c) | 55.0 mm | 60.0 − 5.0 = 55.0 mm (matches release plate) |
 | Strut center to nearest plate edge (X sides) | 9.0 mm | Min of 9.0mm (left) and 9.0mm (right) |
-| Strut center to nearest plate edge (Z sides) | 10.0 mm | Min of 10.0mm (bottom) and 10.0mm (top) |
+| Strut center to nearest plate edge (Z sides) | 5.0 mm | Min of 5.0mm (bottom) and 5.0mm (top) |
 | Plate material from strut bore edge to plate perimeter (sides) | 5.9 mm | 9.0 − 3.1 (bore radius 6.2/2) |
-| Plate material from strut bore edge to plate perimeter (top/bottom) | 6.9 mm | 10.0 − 3.1 |
+| Plate material from strut bore edge to plate perimeter (top/bottom) | 1.9 mm | 5.0 − 3.1 — exceeds 1.2 mm structural minimum |
 | Perimeter corner radii | 2.0 mm | Concept §5 |
 | Bottom chamfer (elephant's foot) | 0.3 mm × 45° | Requirements.md §6 |
 | Min clearance strut bore to pump hole (Phase 4 reference) | 17.0 mm edge-to-edge | Spatial resolution §3c |
@@ -276,7 +276,7 @@ All values in lever local frame (origin: bottom-left corner of plate front face)
 | Strut cross-section → pump tray bore (Phase 4) | 6.0 × 6.0 mm square | 6.2 × 6.2 mm square bore | 0.2 mm per side | Requirements.md §6: "0.2mm clearance for sliding fits" |
 | Strut cross-section → coupler tray bore (Phase 4) | 6.0 × 6.0 mm square | 6.2 × 6.2 mm square bore | 0.2 mm per side | Requirements.md §6: "0.2mm clearance for sliding fits" |
 | Strut tips → Phase 2 joint (Phase 2) | 6.0 × 6.0 mm plain square end at Y=94 | TBD in Phase 2 | TBD | Joint geometry not in Phase 1 scope |
-| Lever plate front face → user fingers | 80.0 × 50.0 mm flat PETG surface | N/A (skin contact) | N/A | Synthesis §3 |
+| Lever plate front face → user fingers | 80.0 × 65.0 mm flat PETG surface | N/A (skin contact) | N/A | Synthesis §3 |
 
 No zero-clearance or mismatched interfaces exist among the Phase 1 features. The Phase 4 strut-to-bore interfaces are pre-specified with the correct 0.2 mm sliding fit clearance per requirements.md. The Phase 2 joint interface is deferred and listed as TBD.
 
@@ -336,7 +336,7 @@ Rationale:
 - The struts extend vertically in the print direction — no overhangs on any strut face.
 - Compressive load on struts during squeeze acts along the strut length, which in this orientation is the Z print axis. FDM is strongest in compression along the layer axis (layers in compression, not tension). This is the mechanically correct orientation.
 - Total build height: 94 mm (4 mm plate + 90 mm struts). Well within 320 mm build height.
-- Build plate footprint: 80 mm × 50 mm. Fits within 325 mm × 320 mm single-nozzle build area with 245 mm × 270 mm margin.
+- Build plate footprint: 80 mm × 65 mm. Fits within 325 mm × 320 mm single-nozzle build area with 245 mm × 255 mm margin.
 - No functional constraint forces a different orientation.
 
 In print coordinate terms: plate XZ plane on build plate; struts extend in the +Z print direction. Lever part-local Y axis aligns with print Z axis.
@@ -350,7 +350,7 @@ Print orientation: lever plate front face down. Struts extend upward (+Z print d
 | Plate front face (Y=0) | 90° from horizontal (horizontal face, on build plate) | OK — on build plate |  |
 | Plate rear face (Y=4) | 90° from horizontal (horizontal face, fully supported by plate body below it) | OK — fully supported |  |
 | Plate side faces (X=0, X=80) | 0° from horizontal (vertical walls, no overhang) | OK |  |
-| Plate top/bottom faces (Z=0, Z=50 in part frame — sides in print orientation) | 0° from horizontal (vertical walls, no overhang) | OK |  |
+| Plate top/bottom faces (Z=0, Z=65 in part frame — sides in print orientation) | 0° from horizontal (vertical walls, no overhang) | OK |  |
 | Strut side faces (4 faces per strut, parallel to print Z) | 0° from horizontal (vertical walls) | OK |  |
 | Strut top faces (Y=94 in part frame — strut tips, horizontal caps) | 90° from horizontal (horizontal face, fully supported by strut below) | OK — no overhang |  |
 | Strut base junction (strut meets plate rear face) | Transition from horizontal plate to vertical strut — right-angle step, no cantilever | OK — fully supported |  |
@@ -366,7 +366,7 @@ No overhangs below 45° from horizontal anywhere in this geometry. No supports r
 | Plate thickness | 4.0 mm | 1.2 mm (structural) | Pass — 3.3× minimum |
 | Strut cross-section (solid — no walls) | 6.0 × 6.0 mm solid | 1.2 mm (structural) | Pass — solid, 5× minimum dimension |
 | Plate material from strut bore edge to plate perimeter (X sides) | 5.9 mm | 1.2 mm | Pass |
-| Plate material from strut bore edge to plate perimeter (Z top/bottom) | 6.9 mm | 1.2 mm | Pass |
+| Plate material from strut bore edge to plate perimeter (Z top/bottom) | 1.9 mm | 1.2 mm | Pass — 1.6× minimum |
 
 All wall thicknesses exceed minimum requirements by substantial margin.
 
@@ -391,13 +391,13 @@ No layer orientation conflict. All critical loads are oriented favorably relativ
 
 | Feature | Justification source | Specific reference |
 |---|---|---|
-| Plate body (80×50×4 mm) | Physical necessity — structural | Load-transfer body between user contact surface (Y=0) and strut attachment zone (Y=4). Width 80 mm derives from release plate width matching for strut alignment. Height 50 mm provides two-to-three finger grip. Thickness 4 mm resists plate deflection under 30 N pull force (δ=0.063 mm). |
+| Plate body (80×65×4 mm) | Physical necessity — structural | Load-transfer body between user contact surface (Y=0) and strut attachment zone (Y=4). Width 80 mm and height 65 mm match the release plate dimensions so lever strut positions (Z=5.0 and Z=60.0) align with release plate strut positions in the assembly. Thickness 4 mm resists plate deflection under 30 N pull force (δ=0.063 mm). |
 | Plate perimeter corner radii (2.0 mm) | Vision + physical necessity | Vision §2/§3: "This is a consumer appliance. It should look and feel like one." Consistent design language with release plate (concept.md §5: "2–3mm radii, consistent with the release plate's corner language"). Physical necessity (assembly): reduces snagging risk during lever travel past front panel hole edges. |
 | Plate bottom chamfer (0.3 mm × 45°) | Physical necessity — manufacturing | Requirements.md §6: "Elephant's foot: first 0.2–0.3mm flares outward from bed adhesion. If the bottom face is a mating surface, add a 0.3mm×45° chamfer." The plate is printed face-down; the bottom perimeter edge is the build plate edge. |
-| Strut TL (6×6×90 mm at X=9, Z=40) | Physical necessity — structural | Four struts required to transmit 60 N pull force (15 N each) and to provide anti-rotation stability during lever translation. TL position derived from release plate stepped bore horizontal spacing (±31 mm from cartridge center = 62 mm c-c) and vertical spacing (±15 mm from release plate center = 30 mm c-c). Vision §3: "The lever itself is just a flat surface, with struts extending through the two interior panels." |
-| Strut TR (6×6×90 mm at X=71, Z=40) | Physical necessity — structural | Same as TL. Mirror about X=40 (plate center). |
-| Strut BL (6×6×90 mm at X=9, Z=10) | Physical necessity — structural | Same as TL. Mirror about Z=25 (plate center). |
-| Strut BR (6×6×90 mm at X=71, Z=10) | Physical necessity — structural | Same as TL. Mirror about both plate centers. |
+| Strut TL (6×6×90 mm at X=9, Z=60) | Physical necessity — structural | Four struts required to transmit 60 N pull force (15 N each) and to provide anti-rotation stability during lever translation. TL position matches release plate strut TL (X=9.0, Z=60.0). Vision §3: "The lever itself is just a flat surface, with struts extending through the two interior panels." |
+| Strut TR (6×6×90 mm at X=71, Z=60) | Physical necessity — structural | Same as TL. Matches release plate strut TR (X=71.0, Z=60.0). |
+| Strut BL (6×6×90 mm at X=9, Z=5) | Physical necessity — structural | Same as TL. Matches release plate strut BL (X=9.0, Z=5.0). |
+| Strut BR (6×6×90 mm at X=71, Z=5) | Physical necessity — structural | Same as TL. Matches release plate strut BR (X=71.0, Z=5.0). |
 
 All features traced. No unjustified features found.
 
