@@ -67,7 +67,7 @@ The flat surfaces inside the cartridge. Each one is a flat panel with holes. Not
 
 1. **Release plate** — flat plate with stepped bores for 4 collet interfaces, 2 guide pins. DONE.
 2. **Pump tray** — flat plate with 2 motor bores (~37mm, for the motor cylinder to pass through) and 8 screw holes (4 per pump, M3, in a 50mm square pattern around each motor bore). The screws approach from the motor side — you cannot reach them without the motor bore. No strut bores — those come in Phase 4.
-3. **Coupler tray** — flat plate with holes/pockets for capturing 4 John Guest union couplers. The layout will be 2×2 or whatever falls out of the geometry — this is temporary. The layout changes to 1×4 (all four in a line) in Phase 3 to enable the split. No strut bores — those come in Phase 4.
+3. **Coupler tray** — flat plate with holes/pockets for capturing 4 John Guest union couplers. 12.08mm height with four 9.5mm holes.  No strut bores — those come in Phase 4.
 4. **Lever** — flat plate with 4 struts extending from it. Plain rectangular struts — no dovetail or joint geometry on the strut ends. That comes in Season 3.
 
 #### Phase 2: Match strut count and position
