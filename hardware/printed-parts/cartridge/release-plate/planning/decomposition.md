@@ -21,9 +21,9 @@ The part's complete feature set:
 | Feature | Operation | CadQuery technique |
 |---|---|---|
 | Plate body (80mm × 65mm × 5mm) | Add | `box()` |
-| Guide pin × 2 (Ø5mm × 30mm, rear face, diagonal corners) | Add | `cylinder()` union |
+| Guide pin × 2 (Ø5mm × 30mm, user-facing face, diagonal corners) | Add | `cylinder()` union |
 | Stepped bore × 4 (Ø15.6mm outer / Ø10.07mm inner / Ø6.5mm through) | Remove | revolved profile cut |
-| Perimeter edge radius (3mm, front face rearward edge) | Add/blend | `fillet()` on selected edges |
+| Perimeter edge radius (3mm, fitting-facing face rearward edge) | Add/blend | `fillet()` on selected edges |
 | Perimeter corner radii (2–3mm, XY corners) | Add/blend | `fillet()` on selected edges |
 | Elephant's foot chamfer (0.3mm × 45°, bottom perimeter edge) | Remove | `chamfer()` on selected edge |
 

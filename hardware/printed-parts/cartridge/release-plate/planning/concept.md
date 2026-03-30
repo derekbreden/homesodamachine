@@ -18,13 +18,13 @@ The synthesis settled this question. Integral PETG pins work structurally — th
 
 Metal pins would be stronger in bending, but the loading does not demand it. The synthesis confirmed PETG is adequate. Metal pins also create a dissimilar-material sliding interface (metal pin in PETG bore) that is actually worse for long-term sliding than PETG-on-PETG: the harder metal abrades the softer bore, eventually loosening the fit. PETG-on-PETG wears symmetrically and maintains close clearance over the service life.
 
-**Why not split the plate into a structural body and a cosmetic front face:**
+**Why not split the plate into a structural body and a cosmetic user-facing face:**
 
-The front face of the plate is the pull surface — it is a functional surface, not a cosmetic cap. Any joint between a cosmetic front face and a structural body would run directly through the primary load path (finger pull force → plate body → collet lips). A joint there is a crack initiation site and a delamination risk under repeated squeeze cycling. The pull surface must be the plate body itself.
+The user-facing face of the plate is the pull surface — it is a functional surface, not a cosmetic cap. Any joint between a cosmetic face and a structural body would run directly through the primary load path (finger pull force → plate body → collet lips). A joint there is a crack initiation site and a delamination risk under repeated squeeze cycling. The pull surface must be the plate body itself.
 
 **Why not a two-plate sandwich (a thin face plate captured in the body, allowing surface material substitution):**
 
-The inset geometry accomplishes the design goal without this complexity. The pull surface is the plate front face at rest position, naturally inset 10mm below the cartridge body front face. The surface quality of PETG printed flat (XY plane) is excellent on the top face — the layer lines run parallel to the face, producing a smooth surface that is appropriate as a finger contact surface with minimal post-processing. A cosmetic sandwich would be a solution to a problem that does not exist in this configuration.
+The inset geometry accomplishes the design goal without this complexity. The pull surface is the plate user-facing face at rest position, naturally inset 10mm below the cartridge body front face. The surface quality of PETG printed flat (XY plane) is excellent on the top face — the layer lines run parallel to the face, producing a smooth surface that is appropriate as a finger contact surface with minimal post-processing. A cosmetic sandwich would be a solution to a problem that does not exist in this configuration.
 
 **Conclusion:** 1 printed part. Integral pins. No joints within the release plate itself.
 
@@ -46,21 +46,21 @@ The pins slide in bores in the cartridge body — a PETG-on-PETG running fit wit
 
 ### 2b. Return springs
 
-The springs are not attached to the plate. Each spring sits in a pocket in the cartridge body rear wall (8mm diameter, 10mm deep, concentric with or immediately adjacent to each guide pin bore). The plate's rear face closes each pocket when the plate is in its resting position. On squeeze, the plate face compresses the spring; on release, the spring pushes the plate forward to rest. No clip, no retention, no adhesive. The spring is captured by the pocket depth and the plate face.
+The springs are not attached to the plate. Each spring sits in a pocket in the cartridge body rear wall (8mm diameter, 10mm deep, concentric with or immediately adjacent to each guide pin bore). The plate's fitting-facing face closes each pocket when the plate is in its resting position. On squeeze, the plate face compresses the spring; on release, the spring pushes the plate forward to rest. No clip, no retention, no adhesive. The spring is captured by the pocket depth and the plate face.
 
 **What the cartridge body must provide:**
-- Two spring pockets, 8mm diameter, 10mm deep, positioned so the spring bears against the plate rear face in the zone outside the guide pin boss base circle. The pocket center may be concentric with the bore or offset by a few mm — either works as long as the spring bears flat against the plate face.
+- Two spring pockets, 8mm diameter, 10mm deep, positioned so the spring bears against the plate user-facing face in the zone outside the guide pin boss base circle. The pocket center may be concentric with the bore or offset by a few mm — either works as long as the spring bears flat against the plate face.
 - The pocket diameter (8mm) must not overlap the guide pin bore (5.5mm). If concentric, the spring runs around the outside of the pin (spring OD 7–8mm wraps the 5.5mm bore). This is the cleanest arrangement: the spring is automatically centered on the pin and the pin prevents the spring from collapsing sideways.
 
-**Spring-to-plate interface:** Contact only — flat plate rear face against the spring's end coil. No pocket or boss on the plate itself. Keeping the plate rear face flat simplifies printing and assembly. The spring sits in the cartridge body pocket; the plate does not need to capture or guide the spring.
+**Spring-to-plate interface:** Contact only — flat plate user-facing face against the spring's end coil. No pocket or boss on the plate itself. Keeping the plate user-facing face flat simplifies printing and assembly. The spring sits in the cartridge body pocket; the plate does not need to capture or guide the spring.
 
 ### 2c. Pull surface load transfer
 
-The front face of the plate is the pull surface. The user's finger pads contact this face directly and pull it forward. The force path is: finger contact → plate front face surface layer → plate body in tension along the Z-axis (print direction) → stepped bore inner lips → collet annular faces. This is a through-thickness tensile load on the plate.
+The user-facing face of the plate (Y=5) is the pull surface. The user's finger pads contact this face directly and pull it forward. The force path is: finger contact → plate user-facing face surface layer → plate body in tension along the Z-axis (print direction) → stepped bore inner lips → collet annular faces. This is a through-thickness tensile load on the plate.
 
-The plate front face does not need any reinforcement feature to transfer this load because the load is distributed across the full face area (the user's palm-up fingers contact a broad band, not a point). The face is the plate's front perimeter wall plus the material between the bores. At the minimum section — the material between adjacent stepped bore outer diameters (14.4mm edge-to-edge clearance between the horizontal bore pair, as derived in synthesis Section 5) — there is ample cross-sectional area.
+The plate user-facing face does not need any reinforcement feature to transfer this load because the load is distributed across the full face area (the user's palm-up fingers contact a broad band, not a point). The face is the plate's front perimeter wall plus the material between the bores. At the minimum section — the material between adjacent stepped bore outer diameters (14.4mm edge-to-edge clearance between the horizontal bore pair, as derived in synthesis Section 5) — there is ample cross-sectional area.
 
-The 3mm radius on the rearward pull edge (the edge the finger pads bear against during the pull stroke) is a surface geometry feature on the plate itself. It is not a separate component — it is simply the rearward perimeter edge of the plate front face, radiused. This radius is printed as part of the plate and requires no special treatment in the print orientation (the edge faces upward on the build plate and prints as a series of stepped layers that closely approximate the radius at 0.1–0.2mm layer heights).
+The 3mm radius on the rearward pull edge (the edge the finger pads bear against during the pull stroke) is a surface geometry feature on the plate itself. It is not a separate component — it is simply the rearward perimeter edge of the plate user-facing face, radiused. This radius is printed as part of the plate and requires no special treatment in the print orientation (the edge faces upward on the build plate and prints as a series of stepped layers that closely approximate the radius at 0.1–0.2mm layer heights).
 
 ---
 
@@ -78,9 +78,9 @@ The gap's appearance is determined by two things — its uniformity and its edge
 
 Both the plate perimeter edge and the pocket wall inner edge are sharp (no fillet, no chamfer). This is the correct choice for a designed parting line. A sharp edge on a gap reads as intentional precision — the same visual language as the gap between a laptop lid and its body, or the gap between a phone's glass face and its aluminum frame. A chamfered or filleted edge on a gap reads as "the designer tried to hide something" or "this was sanded to fit."
 
-Sharp edges are achievable at this scale in FDM if the plate is printed flat: the perimeter walls print vertically, and the top layer (the plate's front face plane) creates a crisp edge at the perimeter. The pocket walls in the cartridge body print the same way.
+Sharp edges are achievable at this scale in FDM if the plate is printed flat: the perimeter walls print vertically, and the top layer (the plate's user-facing face plane) creates a crisp edge at the perimeter. The pocket walls in the cartridge body print the same way.
 
-**Seam position relative to depth:** The gap runs around the perimeter of the plate in the plane of the cartridge body front face. Because the plate front face is inset 10mm below the cartridge body face, the user sees the seam only when looking at the cartridge from below or at an angle — from the natural viewing angle (looking at the front face of the cartridge), the seam is in the shadow of the 10mm deep pocket. This means the seam is effectively invisible during normal use. The user sees the pocket opening (a clean rectangular recess) and the plate face at the bottom of it.
+**Seam position relative to depth:** The gap runs around the perimeter of the plate in the plane of the cartridge body front face. Because the plate user-facing face is inset 10mm below the cartridge body face, the user sees the seam only when looking at the cartridge from below or at an angle — from the natural viewing angle (looking at the front face of the cartridge), the seam is in the shadow of the 10mm deep pocket. This means the seam is effectively invisible during normal use. The user sees the pocket opening (a clean rectangular recess) and the plate face at the bottom of it.
 
 **What makes the pocket opening read as a product feature, not a gap:**
 
@@ -89,7 +89,7 @@ The pocket opening is a rectangular inset that fills most of the cartridge front
 **Cartridge body pocket geometry required for this seam:**
 - Pocket inner dimensions: plate outer dimensions + 0.6–1.0mm on each side (uniform)
 - Pocket wall faces: flat and parallel to the plate perimeter faces
-- Pocket depth: 10mm, measured from the cartridge body front face to the plate front face at rest
+- Pocket depth: 10mm, measured from the cartridge body front face to the plate user-facing face at rest
 - Pocket corners: matching the plate perimeter corner treatment (see Section 5)
 
 ---
@@ -98,21 +98,21 @@ The pocket opening is a rectangular inset that fills most of the cartridge front
 
 The user sees two surfaces on the cartridge front face: the surrounding cartridge body face (the palm surface) and the inset plate face (the pull surface). The plate is responsible for the pull surface and the seam between them.
 
-**What is on the plate's front face:**
+**What is on the plate's user-facing face:**
 
-The pull surface is the entire front face of the plate. It is a flat PETG surface approximately 75mm wide × 65mm tall (nominal, final dimensions from fitting layout), inset 10mm below the surrounding cartridge body face. The surface is smooth or very lightly textured — the synthesis specifies smooth or very light texture because the finger pads must slide slightly as they flex during the pull stroke, and a heavily textured surface creates friction that fights the natural curl of the fingers.
+The pull surface is the entire user-facing face of the plate (Y=5). It is a flat PETG surface approximately 75mm wide × 65mm tall (nominal, final dimensions from fitting layout), inset 10mm below the surrounding cartridge body face. The surface is smooth or very lightly textured — the synthesis specifies smooth or very light texture because the finger pads must slide slightly as they flex during the pull stroke, and a heavily textured surface creates friction that fights the natural curl of the fingers.
 
 In practice, "smooth or very lightly textured" means: print top surface with default FDM finish (layer lines visible at close inspection but not tactilely prominent). No embossed pattern. No sanding required. The FDM top-face finish at 0.1–0.2mm layer height is appropriate as-printed.
 
-**Four through-holes on the pull surface:**
+**Four through-holes visible on the user-facing face:**
 
-The four tube clearance holes (6.5mm diameter) are visible on the pull surface. Their arrangement (62mm horizontal × 30mm vertical center spacing, per synthesis Section 5) is symmetrical and geometrically confident. These holes should not be treated as features to hide — they are small, clean, and read as functional precision. Their presence communicates that something goes through this surface (the tubes), which is accurate and appropriate. They should not be chamfered on the front face: a sharp entry edge reads as precision. A chamfer reads as decorative and draws attention.
+The four tube clearance holes (6.5mm diameter) are visible on the user-facing face. Their arrangement (62mm horizontal × 30mm vertical center spacing, per synthesis Section 5) is symmetrical and geometrically confident. These holes should not be treated as features to hide — they are small, clean, and read as functional precision. Their presence communicates that something goes through this surface (the tubes), which is accurate and appropriate. They should not be chamfered on the user-facing face: a sharp entry edge reads as precision. A chamfer reads as decorative and draws attention.
 
 **The rearward pull edge:**
 
-This is the edge at the perimeter of the plate front face that the finger pads bear against when pulling. It is the most important tactile feature on the plate. The 3mm radius runs continuously around the plate perimeter at this edge. This radius is not visible from the front (it faces rearward, toward the inside of the pocket) but is deeply felt — the difference between a sharp edge pressing into the finger pad during the squeeze and a smooth curved surface distributing that load. It must be correctly oriented to the print: this edge is a convex radius on the perimeter of the plate, which in the flat print orientation lies at the bottom of the plate (the build plate side). See Section 7 for the printability analysis of this edge.
+This is the edge at the perimeter of the plate user-facing face that the finger pads bear against when pulling. It is the most important tactile feature on the plate. The 3mm radius runs continuously around the plate perimeter at this edge. This radius is not visible from the front (it faces rearward, toward the inside of the pocket) but is deeply felt — the difference between a sharp edge pressing into the finger pad during the squeeze and a smooth curved surface distributing that load. It must be correctly oriented to the print: this edge is a convex radius on the perimeter of the plate, which in the flat print orientation lies at the bottom of the plate (the build plate side). See Section 7 for the printability analysis of this edge.
 
-**What the plate does NOT have on its front face:**
+**What the plate does NOT have on its user-facing face:**
 
 - No label, text, or embossed graphic (the cartridge body may carry labels, but the pull surface does not)
 - No ridge, rib, or guide feature (the pocket geometry and finger ergonomics do this without help)
@@ -176,46 +176,46 @@ The plate therefore has no access holes, no retention tabs the user can release,
 
 ### Print orientation
 
-**The release plate prints flat — front face down on the build plate (Z face down).**
+**The release plate prints flat — fitting-facing face down on the build plate (Z face down).**
 
-This is the orientation with the plate's front face (the pull surface, the user-facing face) flat on the build plate. The guide pins extend upward from the plate rear face — since the front face is down, the rear face is up, and the pins point straight up (positive Z from build plate).
+This is the orientation with the plate's fitting-facing face (Y=0, tube exit side) flat on the build plate. The guide pins extend upward from the plate user-facing face — since the fitting-facing face is down, the user-facing face is up, and the pins point straight up (positive Z from build plate).
 
 This orientation places the most critical dimensional features in the XY plane:
 - The stepped bore diameters (15.6mm outer, 10.07mm inner, 6.5mm through) are all circular features in the XY plane — they print with the full XY accuracy of the printer, not as extruded circles in the Z direction.
 - The 62mm × 30mm center-to-center spacing of the bores is an XY dimension — accurate.
 - The guide pin diameters (5.0mm) are in the XY plane at the base but extrude in Z — pins printed as vertical cylinders are the standard approach for maximum pin strength (layers perpendicular to bending load = bending loads in-plane, which is the strong direction).
 
-**Front face down (preferred) vs. rear face down:**
+**Fitting-facing face down (preferred) vs. user-facing face down:**
 
-Front face down places the cosmetically important surface on the build plate. The build plate contact surface will have the best dimensional accuracy (no elephant's foot on interior features, though a 0.3mm × 45° chamfer on the plate perimeter bottom edge is required per requirements.md to prevent elephant's foot flare on the seam-facing edge). The FDM first-layer compression gives the front face an extremely smooth surface finish — appropriate for the pull surface.
+Fitting-facing face down places the tube-exit surface on the build plate. The build plate contact surface will have the best dimensional accuracy (no elephant's foot on interior features, though a 0.3mm × 45° chamfer on the plate perimeter bottom edge is required per requirements.md to prevent elephant's foot flare on the seam-facing edge). The FDM first-layer compression gives this face an extremely smooth surface finish.
 
-Rear face down is the alternative. It places the stepped bore features on the build plate side, which is also the side with the most accurate Z-depth control. However, this orientation has one significant problem: the guide pins would be on the bottom (build plate side) rather than on the top, and the pins would need to print with the bore entry faces (the ends of 30mm cylinders) suspended above the build plate — these would have clean surfaces since they're on the top, but the pin bodies print fine either way. The actual problem with rear-face-down is that the three-step bore geometry has unsupported overhangs on the front face side (the bore inner lips and outer counterbore floors face upward away from the build plate, which means they print as bridged features). Front-face-down avoids this: the bores drill up from the build plate side, and the bore floors print on supported surfaces.
+User-facing face down is the alternative. It places the stepped bore features on the build plate side, which is also the side with the most accurate Z-depth control. However, this orientation has one significant problem: the guide pins would be on the bottom (build plate side) rather than on the top, and the pins would need to print with the bore entry faces (the ends of 30mm cylinders) suspended above the build plate — these would have clean surfaces since they're on the top, but the pin bodies print fine either way. The actual problem with user-facing-face-down is that the three-step bore geometry has unsupported overhangs on the fitting-facing side (the bore inner lips and outer counterbore floors face upward away from the build plate, which means they print as bridged features). Fitting-facing-face-down avoids this: the bores open upward from the user-facing side, and the bore floors print on supported surfaces.
 
-**Front face down is the confirmed orientation.**
+**Fitting-facing face down is the confirmed orientation.**
 
 ### Overhang analysis — integral guide pins (the critical case)
 
-The synthesis flags this as the key constraint to analyze: the pins extend rearward from the plate rear face (now the top of the printed part in build orientation), meaning the pins point straight up from the build plate. This is exactly the correct orientation for printed cylinders — vertical cylinders print without any overhang concern. The pin tip (top surface) is a flat circle that prints as a standard top-layer feature. The pin body is a continuous vertical cylinder. No overhangs anywhere on the pin geometry.
+The synthesis flags this as the key constraint to analyze: the pins extend from the plate user-facing face (now the top of the printed part in build orientation), meaning the pins point straight up from the build plate. This is exactly the correct orientation for printed cylinders — vertical cylinders print without any overhang concern. The pin tip (top surface) is a flat circle that prints as a standard top-layer feature. The pin body is a continuous vertical cylinder. No overhangs anywhere on the pin geometry.
 
 **This concern from the synthesis resolves cleanly: pins pointing up in the print orientation have no overhang issues.**
 
-The synthesis noted concern about "pins on the bottom (build plate side)" — this would apply if the rear face were on the build plate. In front-face-down orientation, the pins are on the top, and the concern disappears entirely. No resolution needed.
+The synthesis noted concern about "pins on the bottom (build plate side)" — this would apply if the user-facing face were on the build plate. In fitting-face-down orientation, the pins are on the top, and the concern disappears entirely. No resolution needed.
 
 ### Overhang analysis — stepped bores
 
-The four stepped bores are concentric circular features printed as the drill goes down from the front face. In front-face-down orientation:
+The four stepped bores are concentric circular features. The counterbore (Zone 1) opens at the user-facing face (Y=5, top of print) and the through-hole (Zone 3) exits at the fitting-facing face (Y=0, build plate). In fitting-face-down orientation:
 
-- **Zone 1 (outer bore, 15.6mm, 1.3–1.5mm deep):** A counterbore opening on the bottom face (build plate side, the front face). This prints as a depression into the build plate contact surface — no overhang concern. The floor of this counterbore is the annular step between Zone 1 and Zone 2, a flat horizontal surface supported from below. No overhang.
+- **Zone 3 (tube clearance through-hole, 6.5mm):** Exits at the fitting-facing face (build plate side). A simple through-hole in the XY plane — prints without overhang issues as holes in layers as they stack.
 
-- **Zone 2 (inner lip bore, 10.07mm, 2.0mm deep beyond Zone 1):** A second counterbore inside Zone 1, continuing inward. The floor of Zone 2 is the step between Zone 2 and Zone 3 — the contact face for the collet's annular end face. This floor is a flat horizontal surface supported from below. No overhang.
+- **Zone 2 (inner lip bore, 10.07mm, 2.0mm deep):** A bore section above Zone 3, continuing upward. The floor of Zone 2 (the step between Zone 3 and Zone 2) is a flat horizontal surface supported from below. No overhang.
 
-- **Zone 3 (tube clearance through-hole, 6.5mm):** A through-hole from rear face to front face. Through-holes in the XY plane print without overhang issues — they are simply holes in layers as they stack.
+- **Zone 1 (outer bore, 15.6mm, 1.3–1.5mm deep):** The widest counterbore, opening at the user-facing face (top of print). The floor of Zone 1 (the step between Zone 2 and Zone 1) is a flat horizontal surface supported from below. No overhang.
 
-All three bore zones print without overhang concern in front-face-down orientation. The step transitions between zones are flat horizontal surfaces facing downward (toward the build plate) — fully supported.
+All three bore zones print without overhang concern in fitting-face-down orientation. The step transitions between zones are flat horizontal surfaces facing downward (toward the build plate) — fully supported.
 
 ### Overhang analysis — pull edge radius
 
-The 3mm radius on the rearward pull edge runs around the plate's perimeter at the front face edge, but faces rearward (toward the rear of the pocket). In front-face-down orientation, this radius is at the very bottom of the part (the front face is down), running along the perimeter of the first layers. This edge radius, being on the bottom perimeter, is essentially in the first 3mm of print height and is supported by the build plate contact. No overhang.
+The 3mm radius on the pull edge runs around the plate's perimeter at the fitting-facing face edge (Y=0). In fitting-face-down orientation, this radius is at the very bottom of the part (the fitting-facing face is down), running along the perimeter of the first layers. This edge radius, being on the bottom perimeter, is essentially in the first 3mm of print height and is supported by the build plate contact. No overhang.
 
 ### Wall thickness check
 
@@ -230,9 +230,9 @@ Critical sections:
 
 ### Layer orientation vs. load direction
 
-In front-face-down orientation:
+In fitting-face-down orientation:
 - **Squeeze load (Z-axis, through-thickness):** The user pulls the plate forward (in the direction the plate travels — let's call this the X direction, front-to-back of the cartridge). The plate translates in X. The collet contact forces act in X. The pins resist bending in X. Layer lines are horizontal (XY planes stacking in Z). The plate's resistance to translation in X is in-plane (XY), which is the strong direction. The pin bending load is also resisted by in-plane material (layers stack along the pin length in the Z-print-direction, which is in-plane with the print layers). This is the correct orientation.
-- **Through-thickness tensile (Z print direction, pull):** The finger pull force is transmitted from the front face surface through the plate thickness in the Z print direction to the inner lip faces on the rear. This is Z-axis tension — the weakest direction for FDM. However, at the 5mm plate thickness, the shear area between layers is enormous: the full plate width × height cross-section area minus the bore areas (approximately 75mm × 65mm − 4×bore areas ≈ 4,000 mm² cross-section). At 60N pull force, the through-thickness shear stress is 0.015 MPa — negligibly small. The inter-layer weakness in Z is not a concern at this plate thickness and load level.
+- **Through-thickness tensile (Z print direction, pull):** The finger pull force is transmitted from the user-facing face surface through the plate thickness in the Z print direction to the inner lip faces on the fitting side. This is Z-axis tension — the weakest direction for FDM. However, at the 5mm plate thickness, the shear area between layers is enormous: the full plate width × height cross-section area minus the bore areas (approximately 75mm × 65mm − 4×bore areas ≈ 4,000 mm² cross-section). At 60N pull force, the through-thickness shear stress is 0.015 MPa — negligibly small. The inter-layer weakness in Z is not a concern at this plate thickness and load level.
 
 ### Material selection
 
@@ -256,15 +256,15 @@ PETG is confirmed per the synthesis. PETG is appropriate for:
 
 **Piece count:** 1 printed PETG part.
 
-**Print orientation:** Front face down (XY plane on build plate). Guide pins point upward (Z direction). All stepped bore features print as downward-facing counterbores, fully supported.
+**Print orientation:** Fitting-facing face down (XY plane on build plate). Guide pins point upward (Z direction). Stepped bore counterbores open upward at the user-facing face, with step transitions fully supported.
 
 **Key design decisions:**
 
 1. Integral guide pins are correct — the structural margin is adequate, PETG-on-PETG sliding is appropriate for this service life, and integral construction eliminates assembly tolerance stack between the pin position and the plate.
 
-2. Front face down resolves the synthesis's overhang concern entirely — pins pointing up have no overhang issues. This is the orientation.
+2. Fitting-facing face down resolves the synthesis's overhang concern entirely — pins pointing up have no overhang issues. This is the orientation.
 
-3. The pull surface (plate front face) and the plate body are one part — no joint in the load path.
+3. The pull surface (plate user-facing face) and the plate body are one part — no joint in the load path.
 
 4. The seam gap (0.6–1.0mm, sharp edges both sides) is the only evidence of the plate being a separate moving part, and it reads as a designed parting line when the pocket proportions are correct.
 
@@ -280,7 +280,7 @@ PETG is confirmed per the synthesis. PETG is appropriate for:
 | Bore entry chamfers | 0.5mm × 45° | Assembly guidance, edge protection |
 | Spring pockets | 8mm diameter, 10mm deep | Concentric with pin bores; spring wraps pin |
 | Pocket (grip inset) inner dimensions | Plate outer + 0.6–1.0mm on each side | Uniform gap all around |
-| Pocket depth | 10mm | From body front face to plate front face at rest |
+| Pocket depth | 10mm | From body front face to plate user-facing face at rest |
 | Structural wall around pin bores | ≥1.2mm | Per requirements.md |
 
 ---
@@ -288,7 +288,7 @@ PETG is confirmed per the synthesis. PETG is appropriate for:
 ## Diagram — Plate Surfaces and Features
 
 ```
-FRONT VIEW (user-facing surface, as printed — front face down)
+FRONT VIEW (user-facing surface, as printed — fitting-facing face down)
 
 ┌──────────────────────────────────────────────────────────────────────────┐
 │                                                                          │
@@ -315,13 +315,13 @@ FRONT VIEW (user-facing surface, as printed — front face down)
 
 SIDE / CROSS-SECTION VIEW (looking from the side, plate only)
 
-  Front face (pull surface,          Rear face (faces fittings,
-  user touches here)                  stepped bores here)
+  Fitting-facing face (Y=0,          User-facing face (Y=5,
+  tube exit, build plate side)        pull surface, stepped bores here)
        ↓                                      ↓
   ─────┬──────────────────────────────────────┬──────────
        │                                      │  ──────── Zone 1 outer bore depth: 1.3–1.5mm
        │◄──── 5mm plate thickness ───────────►│  ──────── Zone 2 inner lip depth: 2.0mm (cumulative 3.3–3.5mm)
-       │                                      │  ──────── Zone 3 through-hole to front face
+       │                                      │  ──────── Zone 3 through-hole to fitting-facing face
   ─────┴──────────────────────────────────────┴──────────
                                               │
                                               │  ←── Guide pin (5mm Ø, 30mm long)
@@ -330,22 +330,22 @@ SIDE / CROSS-SECTION VIEW (looking from the side, plate only)
                                          (one of 2 pins,
                                           diagonal corners)
 
-  ←— 3mm radius here (pull edge, rearward-facing perimeter of front face) ——
+  ←— 3mm radius here (pull edge, perimeter of fitting-facing face Y=0) ——
 
 
 PRINT ORIENTATION (build plate view)
 
   BUILD PLATE
   ───────────────────────────────────────────
-  [  FRONT FACE of plate — down on build plate  ]
-  [  4 stepped bores drill upward from here     ]
+  [  FITTING-FACING FACE of plate — down on build plate  ]
+  [  Tube through-holes (Zone 3) exit here               ]
   [  Perimeter chamfer 0.3mm × 45° on this edge ]
   ───────────────────────────────────────────
        ↑ Z direction (build direction)
        │
   [  Plate body 5mm thick                       ]
        │
-  [  REAR FACE — top of print                   ]
+  [  USER-FACING FACE — top of print             ]
   [  2 guide pins extend upward (Z direction)   ]
   [  Pin 1: top-left corner                     ]
   [  Pin 2: bottom-right corner                 ]

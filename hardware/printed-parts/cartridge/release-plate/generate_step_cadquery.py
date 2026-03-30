@@ -13,17 +13,17 @@ v3 change: Redesign to 1×4 bore layout matching coupler tray v3.
   - 4 struts repositioned to plate corners (clear of all bores).
   - 2 guide pins repositioned diagonally to match new plate geometry.
 
-v4 change: Struts moved from front face to rear face; guide pins removed.
-  - Struts now extend from Y=5.0 (rear face) to Y=95.0 (90 mm beyond rear face).
+v4 change: Struts moved from fitting-facing face to user-facing face; guide pins removed.
+  - Struts now extend from Y=5.0 (user-facing face) to Y=95.0 (90 mm beyond user-facing face).
   - Guide pins (Features 8-9) removed entirely — not a feature of this plate.
 
 Coordinate system (part local frame):
-  Origin: plate bottom-left-front corner (X=0, Y=0, Z=0)
+  Origin: plate bottom-left corner at fitting-facing face (X=0, Y=0, Z=0)
   X: plate width, left to right, 0 → 137.2 mm
-  Y: plate depth, front (user-facing, build-plate face) to rear (fitting-facing)
-       Y=0  = front face (pull surface, sits on build plate in print orientation)
-       Y=5  = rear face (bore-entry face, faces PP0408W fittings)
-       Y=95 = strut tips (90 mm beyond rear face, toward lever)
+  Y: plate depth, fitting-facing to user-facing; struts extend beyond user-facing face
+       Y=0  = fitting-facing face (tube exit side, sits on build plate in print orientation)
+       Y=5  = user-facing face (stepped bore entry, pull surface, struts attach here)
+       Y=95 = strut tips (90 mm beyond user-facing face, toward lever)
   Z: plate height, bottom to top, 0 → 68.6 mm
   Plate envelope:          X:[0,137.2]  Y:[0,5]     Z:[0,68.6]
   With struts:             X:[0,137.2]  Y:[0,95]    Z:[0,68.6]
@@ -32,16 +32,16 @@ Coordinate system (part local frame):
 CadQuery XZ workplane notes (verified by test):
   XZ workplane origin: (0,0,0), normal (zDir): (0,-1,0) = -Y direction
   workplane(offset=X) shifts plane by X in the normal direction (-Y):
-    offset=-5 → plane at Y = 0 + (-5)*(-1) = +5  (REAR FACE)
+    offset=-5 → plane at Y = 0 + (-5)*(-1) = +5  (USER-FACING FACE)
     offset=+5 → plane at Y = 0 + (+5)*(-1) = -5  (outside part — WRONG)
   extrude(positive) → goes in normal direction (-Y)
   extrude(negative) → goes opposite to normal (+Y)
 
-  For bores running Y=5 → Y=0 (rear to front, -Y direction):
+  For bores running Y=5 → Y=0 (user-facing to fitting-facing, -Y direction):
     Use offset=-Y_start (e.g., offset=-5.0 for plane at Y=5)
     Extrude positive depth (goes -Y from plane)
 
-  For struts running Y=5 → Y=95 (rear outward, +Y direction):
+  For struts running Y=5 → Y=95 (user-facing outward, +Y direction):
     Use plain XY workplane, then translate strut box to correct position.
 """
 
@@ -73,11 +73,11 @@ Z1_R = Z1_D / 2   # 7.80
 Z2_R = Z2_D / 2   # 5.035
 Z3_R = Z3_D / 2   # 3.25
 
-# Zone Y boundaries (measured from front face, Y increases toward rear)
-Y_REAR     = 5.0   # rear face
+# Zone Y boundaries (measured from fitting-facing face, Y increases toward user)
+Y_USER     = 5.0   # user-facing face (stepped bore entry, struts)
 Y_Z1_FLOOR = 3.6   # Zone 1 floor / Zone 2 top
 Y_Z2_FLOOR = 1.6   # Zone 2 floor / Zone 3 top
-Y_FRONT    = 0.0   # front face
+Y_FITTING  = 0.0   # fitting-facing face (tube exit, build plate)
 
 # Bore center positions (X, Z) — 1×4 row matching coupler tray v3
 # H1: X=43.1, Z=34.3
@@ -95,8 +95,8 @@ BORE_CENTERS = [
 STRUT_W  = 6.0    # X cross-section
 STRUT_H  = 6.0    # Z cross-section
 STRUT_L  = 90.0   # Y length
-STRUT_Y0 = 5.0    # strut base at rear face (Y=5)
-STRUT_Y1 = 95.0   # strut tips (90 mm beyond rear face, toward lever)
+STRUT_Y0 = 5.0    # strut base at user-facing face (Y=5)
+STRUT_Y1 = 95.0   # strut tips (90 mm beyond user-facing face, toward lever)
 
 # Strut center positions (X, Z) — corner placement, clear of all bore outer circles
 # Bore outer radius = 7.8 mm. Nearest bore to corner struts:
@@ -113,7 +113,7 @@ STRUTS = {
 
 # Fillet radii
 CORNER_R = 2.0   # Perimeter corner radii (4 vertical edges parallel to Y)
-PULL_R   = 3.0   # Pull edge radius (4 front-face perimeter edges)
+PULL_R   = 3.0   # Pull edge radius (4 fitting-face perimeter edges at Y=0)
 
 # ==============================================================================
 # Rubric 1 — Feature Planning Table
@@ -126,7 +126,7 @@ RELEASE PLATE v3 — FEATURE PLANNING TABLE (Rubric 1)
   #   Feature Name              Op      Shape         Axis  Center / Position                Dimensions
   1   Plate body                Add     Rect prism    Y     Origin (0,0,0)                   137.2W × 5D × 68.6H mm
   2   Perimeter corner radii    Remove  Fillet R2     Y     4 vertical edges at XZ corners   R = 2.0 mm
-  3   Pull edge radius          Remove  Fillet R3     X,Z   4 front-face perimeter edges      R = 3.0 mm
+  3   Pull edge radius          Remove  Fillet R3     X,Z   4 fitting-face perimeter edges    R = 3.0 mm
   4   Stepped bore A            Remove  3-step cyl    Y     X=43.1, Z=34.3                   Z1:Ø15.60 Z2:Ø10.07 Z3:Ø6.50
   5   Stepped bore B            Remove  3-step cyl    Y     X=60.1, Z=34.3                   (same)
   6   Stepped bore C            Remove  3-step cyl    Y     X=77.1, Z=34.3                   (same)
@@ -137,9 +137,9 @@ RELEASE PLATE v3 — FEATURE PLANNING TABLE (Rubric 1)
   13  Strut BR (Bottom-Right)   Add     Rect prism    Y     X=127.2, Z=5.0                   6W × 90D × 6H mm, Y:5→95
 
 Bore zone detail (identical for all 4 bores):
-  Zone 1 (outer counterbore): Ø15.60 mm, Y: 5.0 → 3.6 mm (depth 1.4 mm from rear face)
+  Zone 1 (outer counterbore): Ø15.60 mm, Y: 5.0 → 3.6 mm (depth 1.4 mm from user-facing face)
   Zone 2 (inner lip bore):    Ø10.07 mm, Y: 3.6 → 1.6 mm (depth 2.0 mm)
-  Zone 3 (through-hole):      Ø 6.50 mm, Y: 1.6 → 0.0 mm (depth 1.6 mm, exits front face)
+  Zone 3 (through-hole):      Ø 6.50 mm, Y: 1.6 → 0.0 mm (depth 1.6 mm, exits fitting-facing face)
 
 Bore pattern: 1×4 row at Z=34.3, X=43.1/60.1/77.1/94.1 (17mm c-c spacing).
 Bore row centered at X=68.6 (plate midpoint), Z=34.3 (plate midpoint).
@@ -151,17 +151,17 @@ Strut clearances (all struts, worst-case nearest bore):
   BR (127.2, 5.0): nearest bore D (94.1, 34.3) → 40.0mm c-c → 32.2mm edge-to-edge ✓
 
 Coordinate system declaration (Rubric 2):
-  Origin: plate bottom-left-front corner
+  Origin: plate bottom-left corner at fitting-facing face
   X: plate width, left to right, 0 → 137.2 mm
-  Y: plate depth, front (Y=0) to rear (Y=5), struts to Y=95
+  Y: plate depth, fitting-facing (Y=0) to user-facing (Y=5), struts to Y=95
   Z: plate height, bottom to top, 0 → 68.6 mm
   Full bounding box: X:[0,137.2] Y:[0,95] Z:[0,68.6]
 
 XZ workplane convention (verified):
   Normal = -Y direction.
   offset = -Y_position (offset=-5.0 puts plane at Y=5.0)
-  positive extrude = -Y direction (from plane toward front)
-  negative extrude = +Y direction (from plane toward rear)
+  positive extrude = -Y direction (from plane toward fitting face)
+  negative extrude = +Y direction (from plane toward user face)
 """
 
 # ==============================================================================
@@ -191,43 +191,43 @@ plate = plate.edges("|Y").fillet(CORNER_R)
 print("  [+] Feature 2: Corner radii R2.0 on 4 vertical (Y-parallel) edges")
 
 # ------------------------------------------------------------------------------
-# Feature 3: Pull edge radius — R3 on 4 front-face perimeter edges (at Y=0)
-# These are the 4 perimeter edges of the front face (minimum Y face).
+# Feature 3: Pull edge radius — R3 on 4 fitting-face perimeter edges (at Y=0)
+# These are the 4 perimeter edges of the fitting-facing face (minimum Y face).
 # Select with face("<Y") then edges().
 # ------------------------------------------------------------------------------
 plate = plate.faces("<Y").edges().fillet(PULL_R)
-print("  [+] Feature 3: Pull edge radius R3.0 on front-face (Y=0) perimeter edges")
+print("  [+] Feature 3: Pull edge radius R3.0 on fitting-face (Y=0) perimeter edges")
 
 # ------------------------------------------------------------------------------
 # Features 4-7: Stepped bores A, B, C, D
 #
-# Each bore runs along -Y from rear face (Y=5) to front face (Y=0).
+# Each bore runs along -Y from user-facing face (Y=5) to fitting-facing face (Y=0).
 # Three cylindrical zones are cut separately.
 #
 # XZ workplane convention:
 #   - workplane(offset=-Y_pos) places the XZ plane at Y = Y_pos
-#   - positive extrude depth goes in -Y direction (from plane toward front face)
+#   - positive extrude depth goes in -Y direction (from plane toward fitting face)
 #   - center(cx, cz) on XZ sets X=cx, Z=cz
 #
-# Zone 1: Ø15.60 mm, from Y=5.0 → Y=3.6 (depth 1.4 mm, opens at rear face)
+# Zone 1: Ø15.60 mm, from Y=5.0 → Y=3.6 (depth 1.4 mm, opens at user-facing face)
 # Zone 2: Ø10.07 mm, from Y=3.6 → Y=1.6 (depth 2.0 mm)
-# Zone 3: Ø 6.50 mm, from Y=1.6 → Y=0.0 (depth 1.6 mm, exits front face)
+# Zone 3: Ø 6.50 mm, from Y=1.6 → Y=0.0 (depth 1.6 mm, exits fitting-facing face)
 # ------------------------------------------------------------------------------
 
 for bore_idx, (cx, cz) in enumerate(BORE_CENTERS):
     label = ["A", "B", "C", "D"][bore_idx]
 
-    # Zone 1: plane at Y=5.0, extrude 1.4 mm toward front (−Y)
+    # Zone 1: plane at Y=5.0, extrude 1.4 mm toward fitting face (−Y)
     zone1 = (
         cq.Workplane("XZ")
-        .workplane(offset=-Y_REAR)         # offset=-5.0 → plane at Y=5.0
+        .workplane(offset=-Y_USER)         # offset=-5.0 → plane at Y=5.0
         .center(cx, cz)
         .circle(Z1_R)
-        .extrude(Y_REAR - Y_Z1_FLOOR)      # 1.4 mm in -Y direction
+        .extrude(Y_USER - Y_Z1_FLOOR)      # 1.4 mm in -Y direction
     )
     plate = plate.cut(zone1)
 
-    # Zone 2: plane at Y=3.6, extrude 2.0 mm toward front (−Y)
+    # Zone 2: plane at Y=3.6, extrude 2.0 mm toward fitting face (−Y)
     zone2 = (
         cq.Workplane("XZ")
         .workplane(offset=-Y_Z1_FLOOR)     # offset=-3.6 → plane at Y=3.6
@@ -237,13 +237,13 @@ for bore_idx, (cx, cz) in enumerate(BORE_CENTERS):
     )
     plate = plate.cut(zone2)
 
-    # Zone 3: plane at Y=1.6, extrude 1.6 mm toward front (−Y)
+    # Zone 3: plane at Y=1.6, extrude 1.6 mm toward fitting face (−Y)
     zone3 = (
         cq.Workplane("XZ")
         .workplane(offset=-Y_Z2_FLOOR)     # offset=-1.6 → plane at Y=1.6
         .center(cx, cz)
         .circle(Z3_R)
-        .extrude(Y_Z2_FLOOR - Y_FRONT)     # 1.6 mm in -Y direction
+        .extrude(Y_Z2_FLOOR - Y_FITTING)     # 1.6 mm in -Y direction
     )
     plate = plate.cut(zone3)
 
@@ -252,9 +252,9 @@ for bore_idx, (cx, cz) in enumerate(BORE_CENTERS):
 # ------------------------------------------------------------------------------
 # Features 10-13: Struts TL, TR, BL, BR
 #
-# Each strut is a 6×6 mm rectangular prism extending from Y=5 (rear face)
-# to Y=95 (90 mm beyond rear face, toward lever). The strut base is flush with
-# the plate rear face; the strut tips are plain square ends (no joinery).
+# Each strut is a 6×6 mm rectangular prism extending from Y=5 (user-facing face)
+# to Y=95 (90 mm beyond user-facing face, toward lever). The strut base is flush
+# with the plate user-facing face; the strut tips are plain square ends (no joinery).
 #
 # Placement: center at (cx, cz) in XZ, Y from STRUT_Y0 to STRUT_Y1 (i.e.
 # from 5 to 95). The box starts at (cx - STRUT_W/2, STRUT_Y0, cz - STRUT_H/2)
@@ -274,7 +274,7 @@ strut_feature_num = 10
 for label, (cx, cz) in STRUTS.items():
     sx0 = cx - STRUT_W / 2    # left X edge of strut
     sz0 = cz - STRUT_H / 2    # bottom Z edge of strut
-    sy0 = STRUT_Y0             # Y start = 5.0 (base at rear face)
+    sy0 = STRUT_Y0             # Y start = 5.0 (base at user-facing face)
     strut = (
         cq.Workplane("XY")
         .transformed(offset=cq.Vector(sx0, sy0, sz0))
@@ -353,10 +353,10 @@ for label, (cx, cz) in STRUTS.items():
                   cx, strut_mid_y, cz,
                   f"solid at strut {label} center (X={cx}, Y={strut_mid_y}, Z={cz})")
 
-    # Probe solid at strut base (Y just beyond rear face, inside strut)
+    # Probe solid at strut base (Y just beyond user-facing face, inside strut)
     v.check_solid(f"Strut {label} base",
                   cx, STRUT_Y0 + 1.0, cz,
-                  f"solid at strut {label} base (Y={STRUT_Y0 + 1.0}, just beyond rear face)")
+                  f"solid at strut {label} base (Y={STRUT_Y0 + 1.0}, just beyond user-facing face)")
 
     # Probe solid near strut tip
     v.check_solid(f"Strut {label} tip",

@@ -53,7 +53,7 @@ All values are derived directly from the research documents.
 
 ### Stepped bore geometry (per fitting, 4 identical bores)
 
-The stepped bore is a three-diameter concentric feature machined into the release plate face that faces the fittings. From outermost to innermost (front of plate to rear of plate):
+The stepped bore is a three-diameter concentric feature in the release plate. The counterbore opens at the user-facing face (Y=5); the through-hole exits at the fitting-facing face (Y=0). From outermost to innermost:
 
 | Feature | Designed diameter | Rationale |
 |---|---|---|
@@ -65,7 +65,7 @@ The stepped bore is a three-diameter concentric feature machined into the releas
 
 **Inner lip axial depth (the bore section that hugs the collet OD):** 2.0mm minimum. This depth keeps the collet square during the full 1.33mm depression stroke, preventing collet canting that would cause incomplete tube release.
 
-**Summary of bore step depths from rear face of plate:**
+**Summary of bore step depths from user-facing face of plate:**
 
 - Zone 1 (outer bore, 15.6mm diameter): 1.3–1.5mm deep — admits body end, provides over-travel stop surface
 - Zone 2 (inner lip, 10.07mm diameter): continues inward 2.0mm beyond Zone 1 — hugs collet OD, prevents canting
@@ -132,7 +132,7 @@ The plate's outer dimensions are driven by: the 4-fitting arrangement (derived i
 
 The 5mm thickness provides:
 - Zone 1 outer bore: 1.3–1.5mm deep
-- Zone 2 inner lip bore: 2.0mm deep (cumulative 3.3–3.5mm from rear face)
+- Zone 2 inner lip bore: 2.0mm deep (cumulative 3.3–3.5mm from user-facing face)
 - Zone 3 tube clearance through-hole: remaining ~1.5mm
 - Full through-plate path for tube clearance holes: the tube clearance hole (6.50mm) continues through the full plate thickness so tubes can pass freely
 
@@ -144,26 +144,26 @@ See Section 5 for fitting spacing. The four bores are arranged to match the four
 
 ### Guide pin bosses
 
-Two cylindrical bosses (solid, integral to the plate) protrude from the front face of the plate, positioned at diagonally opposite corners — top-left and bottom-right (or top-right and bottom-left). Each boss:
+Two cylindrical bosses (solid, integral to the plate) protrude from the user-facing face of the plate, positioned at diagonally opposite corners — top-left and bottom-right (or top-right and bottom-left). Each boss:
 - Diameter: 5.0mm
-- Length from plate front face: 30mm minimum
+- Length from plate user-facing face: 30mm minimum
 - Wall at boss base: the boss must have ≥1.2mm of plate material between its base circle and the nearest stepped bore feature
 
 The pins point toward the front of the cartridge (toward the user) and slide in bores in the cartridge body forward wall. This means the cartridge body must have sufficient depth forward of the fitting rear wall to accommodate 30mm of pin travel.
 
-**Cartridge front-to-back depth constraint from pin length:** The pin length (30mm from plate front face) plus the plate thickness (5mm) plus the gap between the plate rear face and the fitting rear wall (set by the outer bore depth of ~1.5mm at rest) means the distance from the cartridge body front face to the fitting rear wall must be at least 30mm + 5mm + 1.5mm = 36.5mm. This is a constraint on the cartridge body depth specification.
+**Cartridge front-to-back depth constraint from pin length:** The pin length (30mm from plate user-facing face) plus the plate thickness (5mm) plus the gap between the plate fitting-facing face and the fitting rear wall (set by the outer bore depth of ~1.5mm at rest) means the distance from the cartridge body front face to the fitting rear wall must be at least 30mm + 5mm + 1.5mm = 36.5mm. This is a constraint on the cartridge body depth specification.
 
 ### Pull surface connection
 
-The front face of the plate (the face pointing toward the user) is the pull surface. It is not a separate component — it is the plate face itself. The user's finger pads contact this face directly. The face is smooth to lightly textured (low friction for finger curl). The perimeter of this face, where it meets the gap with the surrounding cartridge body face, has sharp edges (no fillet on the release plate side; the cartridge body side of the gap may have a subtle chamfer for appearance). The pull zone — the inset area the fingers actually contact — is the plate face itself, inset 10mm from the surrounding cartridge body face plane.
+The user-facing face of the plate (Y=5) is the pull surface. It is not a separate component — it is the plate face itself. The user's finger pads contact this face directly. The face is smooth to lightly textured (low friction for finger curl). The perimeter of this face, where it meets the gap with the surrounding cartridge body face, has sharp edges (no fillet on the release plate side; the cartridge body side of the gap may have a subtle chamfer for appearance). The pull zone — the inset area the fingers actually contact — is the plate face itself, inset 10mm from the surrounding cartridge body face plane.
 
-**How the inset is achieved:** The cartridge body front face protrudes forward 10mm relative to the plane of the release plate front face. The release plate travels within a pocket in the cartridge body that is 10mm deep, measured from the cartridge body front face plane to the release plate front face at rest. The gap between the plate perimeter and the pocket walls is 0.6–1.0mm uniform, creating the designed parting line.
+**How the inset is achieved:** The cartridge body front face protrudes forward 10mm relative to the plane of the release plate user-facing face. The release plate travels within a pocket in the cartridge body that is 10mm deep, measured from the cartridge body front face plane to the release plate user-facing face at rest. The gap between the plate perimeter and the pocket walls is 0.6–1.0mm uniform, creating the designed parting line.
 
 The rearward edge of the pull zone (the edge the finger pads curl against when pulling) has a 3mm radius. This is the edge that bears finger pad pressure during the squeeze and must not feel sharp.
 
 ### Spring pocket locations
 
-Two spring pockets in the cartridge body rear wall structure, one per guide pin position. Each pocket is 8mm diameter, 10mm deep, positioned concentric with or immediately adjacent to the guide pin bore. The spring sits loosely in the pocket; the plate front face closes it. No retention feature needed.
+Two spring pockets in the cartridge body rear wall structure, one per guide pin position. Each pocket is 8mm diameter, 10mm deep, positioned concentric with or immediately adjacent to the guide pin bore. The spring sits loosely in the pocket; the plate fitting-facing face closes it. No retention feature needed.
 
 ---
 
@@ -227,21 +227,21 @@ The rear-facing port of each fitting protrudes rearward from the rear wall face,
 
 **Research finding:** The HP/Dell blade ejector reference (design-patterns.md Section 3) establishes that fingertip-only contact on a shallow surface (2–4mm inset) produces fatigue and uncertain purchase. The minimum effective finger-pad contact depth is 8mm; the recommended target is 10mm. At 0mm inset (truly flat pull surface coplanar with the cartridge body face), the user has no grip surface — fingers would slide off the plate face with no edge to pull against.
 
-**Conflict resolution:** The vision's intent — that the mechanism be invisible and that the grip require no visible hardware — is fully preserved. The modification is minimum: the release plate front face sits 10mm inset from the cartridge body face plane (i.e., inside a 10mm deep pocket). To the user this appears as one recessed zone on the front face, similar to the Makita battery's release panel that fills most of the face. The cartridge body face is the "palm surface" and the inset plate face is the "finger surface." Both are flat. The inset is the only departure from "perfectly flat" — but the vision's text also describes "both surfaces can be perfectly flat," implying a two-surface interaction is expected. A 10mm inset between two flat surfaces is the minimum geometry that makes this interaction work ergonomically.
+**Conflict resolution:** The vision's intent — that the mechanism be invisible and that the grip require no visible hardware — is fully preserved. The modification is minimum: the release plate user-facing face sits 10mm inset from the cartridge body face plane (i.e., inside a 10mm deep pocket). To the user this appears as one recessed zone on the front face, similar to the Makita battery's release panel that fills most of the face. The cartridge body face is the "palm surface" and the inset plate face is the "finger surface." Both are flat. The inset is the only departure from "perfectly flat" — but the vision's text also describes "both surfaces can be perfectly flat," implying a two-surface interaction is expected. A 10mm inset between two flat surfaces is the minimum geometry that makes this interaction work ergonomically.
 
-**Proposed minimum modification:** The cartridge front face has one 10mm deep rectangular pocket occupying most of the face width and at least 30mm of face height. The release plate's front face is the floor of this pocket. Both exposed surfaces (pocket floor = pull surface; surrounding rim = palm surface) are flat. The pocket's rearward edge (the edge the finger pads curl against) has a 3mm radius. This is consistent with the vision's text: "both surfaces can be perfectly flat" describes the surfaces themselves, not their coplanarity.
+**Proposed minimum modification:** The cartridge front face has one 10mm deep rectangular pocket occupying most of the face width and at least 30mm of face height. The release plate's user-facing face is the floor of this pocket. Both exposed surfaces (pocket floor = pull surface; surrounding rim = palm surface) are flat. The pocket's rearward edge (the edge the finger pads curl against) has a 3mm radius. This is consistent with the vision's text: "both surfaces can be perfectly flat" describes the surfaces themselves, not their coplanarity.
 
 ### Conflict 2: Pin length vs. cartridge depth
 
-**Finding:** The guide pins extend 30mm forward from the release plate front face. The cartridge body front wall must accommodate 30mm of pin bore depth ahead of the plate. Given that the plate itself sits 10mm inset from the cartridge front face, the pins must travel within the 10mm deep pocket region — they extend from the plate front face forward into the cartridge body front wall.
+**Finding:** The guide pins extend 30mm from the release plate user-facing face. The cartridge body front wall must accommodate 30mm of pin bore depth ahead of the plate. Given that the plate itself sits 10mm inset from the cartridge front face, the pins must travel within the 10mm deep pocket region — they extend from the plate user-facing face into the cartridge body interior.
 
 **Check:** The front wall of the cartridge (the wall that forms the pocket) must be at least 30mm thick to provide the full 30mm pin bore. However, the pocket depth is only 10mm (the inset depth). The pins cannot bore into the pocket depth — they must go rearward, not forward.
 
-**Correction:** The pins must extend rearward from the plate rear face (toward the fittings), not forward. The plate translates forward when pulled; the pins (attached to the plate) slide in bores that go through the rear wall structure of the cartridge body rearward of the plate. The pins point toward the rear of the cartridge and are contained within the space between the plate and the fitting rear wall.
+**Correction:** The pins extend from the plate user-facing face (toward the lever and interior plates). The plate translates forward when pulled; the pins (attached to the plate) slide in bores that go through the rear wall structure of the cartridge body rearward of the plate. The pins point toward the rear of the cartridge and are contained within the space between the plate and the fitting rear wall.
 
-**Revised pin geometry:** Pins extend from the rear face of the release plate, pointing rearward. The plate translates forward by 3mm when squeezed; the pins simultaneously travel 3mm forward in their bores. The bores go from the release plate's resting position rearward for 30mm into the cartridge body's internal structure (the walls and intermediate structure between the plate and the fitting rear wall). This requires 30mm of structural depth between the plate resting position and the rear of the cartridge body.
+**Revised pin geometry:** Pins extend from the user-facing face of the release plate. The plate translates forward by 3mm when squeezed; the pins simultaneously travel 3mm forward in their bores. The bores go from the release plate's resting position rearward for 30mm into the cartridge body's internal structure (the walls and intermediate structure between the plate and the fitting rear wall). This requires 30mm of structural depth between the plate resting position and the rear of the cartridge body.
 
-**Constraint:** The total interior depth of the cartridge between the plate rear face (at rest) and the fitting rear wall face is:
+**Constraint:** The total interior depth of the cartridge between the plate fitting-facing face (at rest) and the fitting rear wall face is:
 - Outer bore depth (plate to body end): 1.5mm at rest
 - The fittings extend 12.16mm rearward from the rear wall face into the cartridge interior (the rear-facing body end section)
 
