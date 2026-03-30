@@ -91,7 +91,49 @@ All holes are through-holes: they enter at Y=0 (front face) and exit at Y=3.0mm 
 - Outermost holes from plate edges: X=9.3mm from left edge; X=127.9mm → 137.2-127.9=9.3mm from right edge. Z=9.3mm from bottom edge; Z=59.3mm → 68.6-59.3=9.3mm from top edge.
 - 9.3mm edge-to-center clearance on all four sides. Minimum required for M3: ~4mm. ✓
 
-### 3.3 Interface: Pump Bracket Mates to Plate Front Face
+### 3.3 Motor Bore Positions — Local Frame
+
+2 motor bores, one per pump. Each bore is a through-hole parallel to the Y axis: enters at Y=0 (front face), exits at Y=3.0mm (back face). Bore diameter: 37mm (motor cylinder is 35.73mm per caliper photo 16; bore per vision.md Section 4 Season 1 Phase 1 Item 2).
+
+| Bore | Center X (mm) | Center Z (mm) | Diameter | Y entry | Y exit |
+|------|--------------|--------------|----------|---------|--------|
+| Bore 1 (Pump 1 motor axis) | 34.3 | 34.3 | 37mm | Y=0 | Y=3.0mm |
+| Bore 2 (Pump 2 motor axis) | 102.9 | 34.3 | 37mm | Y=0 | Y=3.0mm |
+
+**Bore radius:** 18.5mm.
+
+**Clearance verification — bore edge to screw hole centers:**
+
+Distance formula: sqrt((bore_X - hole_X)² + (bore_Z - hole_Z)²). Clearance = distance − 18.5mm.
+
+Bore 1 center (34.3, 34.3) to Pump 1 screw holes:
+
+| Hole | Hole (X, Z) | Distance | Clearance |
+|------|------------|----------|-----------|
+| 1-A | (9.3, 59.3) | sqrt(25² + 25²) = sqrt(1250) = 35.36mm | 35.36 − 18.5 = 16.86mm ✓ |
+| 1-B | (59.3, 59.3) | sqrt(25² + 25²) = 35.36mm | 16.86mm ✓ |
+| 1-C | (59.3, 9.3) | sqrt(25² + 25²) = 35.36mm | 16.86mm ✓ |
+| 1-D | (9.3, 9.3) | sqrt(25² + 25²) = 35.36mm | 16.86mm ✓ |
+
+Bore 2 center (102.9, 34.3) to Pump 2 screw holes:
+
+| Hole | Hole (X, Z) | Distance | Clearance |
+|------|------------|----------|-----------|
+| 2-A | (77.9, 59.3) | sqrt(25² + 25²) = 35.36mm | 16.86mm ✓ |
+| 2-B | (127.9, 59.3) | sqrt(25² + 25²) = 35.36mm | 16.86mm ✓ |
+| 2-C | (127.9, 9.3) | sqrt(25² + 25²) = 35.36mm | 16.86mm ✓ |
+| 2-D | (77.9, 9.3) | sqrt(25² + 25²) = 35.36mm | 16.86mm ✓ |
+
+All bore-to-hole clearances are 16.86mm. The bore edge does not reach any screw hole.
+
+**Plate edge clearance verification:**
+
+- Bore 1 extends X = 34.3 ± 18.5mm → X=15.8..52.8mm. Plate spans X=0..137.2mm. Bore stays within plate. ✓
+- Bore 1 extends Z = 34.3 ± 18.5mm → Z=15.8..52.8mm. Plate spans Z=0..68.6mm. Bore stays within plate. ✓
+- Bore 2 extends X = 102.9 ± 18.5mm → X=84.4..121.4mm. Plate spans X=0..137.2mm. Bore stays within plate. ✓
+- Bore 2 extends Z = 34.3 ± 18.5mm → Z=15.8..52.8mm. Same as Bore 1 in Z. ✓
+
+### 3.4 Interface: Pump Bracket Mates to Plate Front Face
 
 **From the plate side (local frame):**
 
@@ -118,9 +160,7 @@ Screws originate from behind the bracket (motor side, Y < 0), pass through the b
 - Pump 2 motor axis at (X=102.9mm, Z=34.3mm) in plate frame.
 - Bracket flat face contacts plate at Y=0.
 
-**No bore through the plate for the motor cylinder.** The motor (35.73mm diameter) extends from the back face of the plate (Y=3.0mm) outward in the +Y direction. There is no obstruction — the back face is open. A bore is not needed in Phase 1.
-
-### 3.4 Interface: Cartridge Interior Rails
+### 3.5 Interface: Cartridge Interior Rails
 
 **Not resolvable in Phase 1.**
 
@@ -183,6 +223,7 @@ This part has no cross-sectional profiles that depend on physics (gravity, fluid
 
 4. **Interfaces specified from both sides.**
    - Pump bracket / plate front face: described from the plate side (contact face Y=0, bracket footprint, hole positions) and from the pump bracket side (bracket presents 50mm c-c pattern, motor axis position). ✓
+   - Motor bore: described from the plate side (bore diameter 37mm, center positions, Y entry/exit) and from the pump side (motor cylinder 35.73mm diameter must pass through; screws approach from motor side and require bore clearance). Clearance computed and verified. ✓
    - Cartridge rail interface: described as not resolvable in Phase 1; known edge locations stated. ✓
 
 5. **Transform summary is self-consistent.** Three test points stated above map correctly under a pure translation. Identity rotation confirmed. ✓
