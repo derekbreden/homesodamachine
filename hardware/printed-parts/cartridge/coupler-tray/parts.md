@@ -1,6 +1,6 @@
 # Coupler Tray — Parts Specification
 
-**Season 1, Phase 5 — Split coupler tray into two halves**
+**Season 1, Phase 6 — Widen coupler tray to match pump tray**
 
 ---
 
@@ -11,7 +11,7 @@
 | Part names | Coupler Tray Base Half, Coupler Tray Boss Half |
 | Piece count | 2 |
 | Assembly | Press together: mating faces at Z=34.3mm, plain flat |
-| Assembled outer dimensions | 137.2mm (X) x 12.08mm (Y, bounding box incl. bosses) x 68.6mm (Z) |
+| Assembled outer dimensions | 140.0mm (X) x 12.08mm (Y, bounding box incl. bosses) x 68.6mm (Z) |
 | Material | PLA or PETG |
 | Supports required | None |
 | User-facing | No |
@@ -23,7 +23,7 @@
 Origin: bottom-left corner of the front face of the assembled plate.
 
 ```
-X: width axis — left to right, 0..137.2mm
+X: width axis — left to right, 0..140.0mm
 Y: thickness axis — front to back through the plate, 0..3mm (base) + bosses extend to 12.08mm
     Y=0:     front face (on build plate)
     Y=3mm:   back face of base plate / base of bosses
@@ -36,14 +36,14 @@ Both halves share this coordinate system. The split is a horizontal cut at Z=34.
 
 ---
 
-## What Changed from Phase 4
+## What Changed from Phase 5
 
-**Phase 4** was a single-piece coupler tray (base plate + 4 bosses + 4 coupler holes + 4 strut bores).
-All geometry was identical to Phase 3 (v3) plus 4 strut bores.
+**Phase 5** split the coupler tray into two halves (base half and boss half) at Z=34.3mm.
+Width was 137.2mm. Strut bore X positions were 10.0 (left) and 127.2 (right).
 
-**Phase 5** splits the Phase 4 part into two halves at Z=34.3mm (the centerline of all 4 coupler
-holes and bosses). The split plane cuts straight through the center of each coupler hole and through
-the center of each boss. No dovetail geometry, no snap detents — plain flat mating faces only.
+**Phase 6** widens the coupler tray to match the pump tray's new width and strut bore positions.
+Width: 137.2mm → 140.0mm. Strut bore X positions: 10.0 → 4.0 (left), 127.2 → 136.0 (right).
+All other geometry (Z positions, split plane, coupler holes, bosses) unchanged.
 
 ---
 
@@ -54,7 +54,7 @@ the center of each boss. No dovetail geometry, no snap detents — plain flat ma
 | Property | Value |
 |----------|-------|
 | Part name | Coupler Tray Base Half |
-| Outer dimensions | 137.2mm (X) x 12.08mm (Y) x 34.3mm (Z) |
+| Outer dimensions | 140.0mm (X) x 12.08mm (Y) x 34.3mm (Z) |
 | Z range | Z=0 to Z=34.3mm (bottom half of assembled tray) |
 | Mating face | Z=34.3mm, flat |
 | Print orientation | Front face (XZ plane, Y=0) down on build plate |
@@ -65,7 +65,7 @@ the center of each boss. No dovetail geometry, no snap detents — plain flat ma
 | Property | Value |
 |----------|-------|
 | Geometry | Rectangular solid |
-| Width (X) | 137.2mm |
+| Width (X) | 140.0mm |
 | Thickness (Y) | 3mm |
 | Height (Z) | 34.3mm |
 | All corners | Square (no chamfer, no fillet) |
@@ -111,8 +111,8 @@ The two top strut bores (Z=63.6mm) are in the boss half — not present in the b
 
 | Bore ID | X (mm) | Z (mm) | Size (X x Z) | Depth |
 |---------|--------|--------|---------------|-------|
-| S-BL | 10.0 | 5.0 | 6.4 x 6.4 mm | Through (Y=0 to Y=3mm) |
-| S-BR | 127.2 | 5.0 | 6.4 x 6.4 mm | Through (Y=0 to Y=3mm) |
+| S-BL | 4.0 | 5.0 | 6.4 x 6.4 mm | Through (Y=0 to Y=3mm) |
+| S-BR | 136.0 | 5.0 | 6.4 x 6.4 mm | Through (Y=0 to Y=3mm) |
 
 ### FDM Check — Base Half
 
@@ -124,7 +124,8 @@ The two top strut bores (Z=63.6mm) are in the boss half — not present in the b
 | Boss height | Overhang | Vertical, no overhang | <=45 deg | Yes |
 | Semicircular channels | Bridge at mating face | Half-circle opening, 4.75mm radius — no overhang since open face is at top (mating face is top face during print) | <=45 deg | Yes |
 | Strut bore span | Bridge span | 6.4mm | 15mm max | Yes |
-| Strut bore wall to plate edge | Wall thickness | 1.8mm (Z direction from S-BL/S-BR) | 1.2mm min | Yes |
+| Strut bore wall to plate edge (X) | Wall thickness | 0.8mm (X direction from S-BL/S-BR to plate edge) | 0.8mm min | Yes |
+| Strut bore wall to plate edge (Z) | Wall thickness | 1.8mm (Z direction from S-BL/S-BR to bottom edge) | 1.2mm min | Yes |
 
 Print orientation: front face (Y=0) down on build plate. Z is up during printing.
 The mating face is at the top during printing. The semicircular channels open upward —
@@ -139,7 +140,7 @@ no overhang. Strut bores (at Z=5.0mm) print as vertical rectangular channels.
 | Property | Value |
 |----------|-------|
 | Part name | Coupler Tray Boss Half |
-| Outer dimensions | 137.2mm (X) x 12.08mm (Y) x 34.3mm (Z) |
+| Outer dimensions | 140.0mm (X) x 12.08mm (Y) x 34.3mm (Z) |
 | Z range | Z=34.3mm to Z=68.6mm (top half of assembled tray) |
 | Mating face | Z=34.3mm (bottom face of this part), flat |
 | Print orientation | Mating face (Z=34.3mm) down on build plate |
@@ -154,7 +155,7 @@ puts the semicircular channels at the bottom, opening downward — no overhang. 
 | Property | Value |
 |----------|-------|
 | Geometry | Rectangular solid |
-| Width (X) | 137.2mm |
+| Width (X) | 140.0mm |
 | Thickness (Y) | 3mm |
 | Height (Z) | 34.3mm |
 | All corners | Square (no chamfer, no fillet) |
@@ -193,8 +194,8 @@ The two bottom strut bores (Z=5.0mm) are in the base half — not present in the
 
 | Bore ID | X (mm) | Z (mm) | Size (X x Z) | Depth |
 |---------|--------|--------|---------------|-------|
-| S-TL | 10.0 | 63.6 | 6.4 x 6.4 mm | Through (Y=0 to Y=3mm) |
-| S-TR | 127.2 | 63.6 | 6.4 x 6.4 mm | Through (Y=0 to Y=3mm) |
+| S-TL | 4.0 | 63.6 | 6.4 x 6.4 mm | Through (Y=0 to Y=3mm) |
+| S-TR | 136.0 | 63.6 | 6.4 x 6.4 mm | Through (Y=0 to Y=3mm) |
 
 ### FDM Check — Boss Half
 
@@ -206,7 +207,8 @@ The two bottom strut bores (Z=5.0mm) are in the base half — not present in the
 | Boss height | Overhang | Vertical, no overhang | <=45 deg | Yes |
 | Semicircular channels | Bridge at mating face | Half-circle opening at bottom during print (mating face down) — no overhang | <=45 deg | Yes |
 | Strut bore span | Bridge span | 6.4mm | 15mm max | Yes |
-| Strut bore wall to plate edge | Wall thickness | 1.8mm (Z direction from S-TL/S-TR) | 1.2mm min | Yes |
+| Strut bore wall to plate edge (X) | Wall thickness | 0.8mm (X direction from S-TL/S-TR to plate edge) | 0.8mm min | Yes |
+| Strut bore wall to plate edge (Z) | Wall thickness | 1.8mm (Z direction from S-TL/S-TR to top edge) | 1.2mm min | Yes |
 
 Print orientation: mating face (assembly Z=34.3mm) down on build plate. The semicircular
 channels open downward toward the build plate — no overhang. Bosses protrude upward (away
@@ -218,10 +220,12 @@ from build plate) in the +Y direction. Strut bores print as vertical rectangular
 
 | Feature | Traces to |
 |---------|-----------|
-| Split at Z=34.3mm | Build sequence Phase 5: "slice along centerline of the 4 holes, cutting through the center of each hole." Hole centers all at Z=34.3mm. |
-| Plain flat mating faces | Phase 5 spec: "Plain flat mating faces — no dovetail geometry." Dovetail is Phase 9. |
-| Semicircular channels, r=4.75mm | Derived from Phase 4 coupler holes, 9.5mm diameter. Half-diameter = 4.75mm. |
-| Semicircular boss halves | Derived from Phase 4 bosses (OD=16mm, ID=9.5mm). Split cuts through boss centers at Z=34.3mm. |
-| S-BL, S-BR in base half | Bore Z=5.0mm < 34.3mm — entirely within base half Z range. |
-| S-TL, S-TR in boss half | Bore Z=63.6mm > 34.3mm — entirely within boss half Z range. |
-| All other geometry | Unchanged from Phase 4. Width 137.2mm, thickness 3mm, boss OD 16mm, bore dia 9.5mm, strut bore 6.4x6.4mm. |
+| Split at Z=34.3mm | Build sequence Phase 5: "slice along centerline of the 4 holes, cutting through the center of each hole." Hole centers all at Z=34.3mm. Unchanged in Phase 6. |
+| Plain flat mating faces | Phase 5 spec: "Plain flat mating faces — no dovetail geometry." Dovetail is Phase 9. Unchanged in Phase 6. |
+| Semicircular channels, r=4.75mm | Derived from Phase 4 coupler holes, 9.5mm diameter. Half-diameter = 4.75mm. Unchanged in Phase 6. |
+| Semicircular boss halves | Derived from Phase 4 bosses (OD=16mm, ID=9.5mm). Split cuts through boss centers at Z=34.3mm. Unchanged in Phase 6. |
+| Width 140.0mm | Phase 6: match pump tray width. Pump tray widened from 137.2mm to 140.0mm in its Phase 6. |
+| S-BL X=4.0, S-BR X=136.0 | Phase 6: match pump tray strut bore X positions. Moved outward from 10.0/127.2 to 4.0/136.0. |
+| S-TL X=4.0, S-TR X=136.0 | Phase 6: match pump tray strut bore X positions. Moved outward from 10.0/127.2 to 4.0/136.0. |
+| S-BL, S-BR in base half | Bore Z=5.0mm < 34.3mm — entirely within base half Z range. Unchanged in Phase 6. |
+| S-TL, S-TR in boss half | Bore Z=63.6mm > 34.3mm — entirely within boss half Z range. Unchanged in Phase 6. |
