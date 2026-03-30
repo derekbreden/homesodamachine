@@ -48,6 +48,7 @@ This is not optional. Agents will add geometry for future phases unless the buil
 - When a round of printing and testing reveals that the sequence needs to change
 - When the product owner adds new parts or features to the vision and they need to be sequenced
 - When an orchestrator needs to know what the next pipeline run should produce
+- When the product owner is frustrated that agents aren't doing the simple thing. That's the signal that the build sequence either doesn't exist, has gaps, or isn't being read. Translate the frustration into explicit exclusions.
 
 ## What this agent needs as input
 
