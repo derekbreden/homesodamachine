@@ -1,21 +1,20 @@
 """
-Pump Tray v2 — CadQuery STEP Generation Script
-Build sequence line: Add strut bores to pump tray — 4 holes sized to the
-strut cross-section, positioned so the struts pass through cleanly.
+Pump Tray v3 — CadQuery STEP Generation Script
+Build sequence line: Widen pump tray — make the pump tray wider so that the
+strut bores can be moved outward and no longer overlap the pump mounting holes.
 
 Specification source: hardware/printed-parts/cartridge/pump-tray/planning/parts.md
-Strut positions source: hardware/printed-parts/cartridge/release-plate/generate_step_cadquery.py
 
-v2 change: Added 4 rectangular strut bores (6.4 x 6.4 mm) at positions
-matching the release plate strut centers: TL(10.0, 63.6), TR(127.2, 63.6),
-BL(10.0, 5.0), BR(127.2, 5.0).
+v3 change: Plate widened from 137.2mm to 140.0mm. Pump pattern re-centered.
+Strut bores moved outward to X=4.0/136.0 (from 10.0/127.2), fully clearing
+the M3 mounting holes with 1.85mm edge-to-edge gap.
 
 Coordinate system (part local frame):
   Origin: plate bottom-left-front corner (X=0, Y=0, Z=0)
-  X: plate width axis — left to right, 0..137.2mm
+  X: plate width axis — left to right, 0..140.0mm
   Y: plate thickness axis — front face (Y=0, pump bracket side) to back face (Y=3.0mm, motor side)
   Z: plate height axis — bottom to top, 0..68.6mm
-  Envelope: 137.2mm (X) × 3.0mm (Y) × 68.6mm (Z)
+  Envelope: 140.0mm (X) × 3.0mm (Y) × 68.6mm (Z)
 """
 
 import sys
@@ -28,11 +27,11 @@ import cadquery as cq
 from step_validate import Validator
 
 # ==============================================================================
-# Part parameters (from parts.md)
+# Part parameters (from parts.md v3)
 # ==============================================================================
 
 # Plate envelope
-PLATE_W = 137.2   # X — width left to right
+PLATE_W = 140.0   # X — width left to right (was 137.2 in v2)
 PLATE_D = 3.0     # Y — thickness front to back
 PLATE_H = 68.6    # Z — height bottom to top
 
@@ -40,43 +39,45 @@ PLATE_H = 68.6    # Z — height bottom to top
 MOTOR_BORE_DIA = 37.0
 MOTOR_BORE_R = MOTOR_BORE_DIA / 2.0
 
-# Motor bore centers (XZ positions)
+# Motor bore centers (XZ positions) — re-centered in wider plate
+# Pump center-to-center: 68.6mm. Plate center: 70.0mm.
+# Pump 1: 70.0 - 34.3 = 35.7. Pump 2: 70.0 + 34.3 = 104.3.
 MOTOR_BORES = [
-    ("bore-1", 34.3,  34.3),   # Pump 1 motor axis
-    ("bore-2", 102.9, 34.3),   # Pump 2 motor axis
+    ("bore-1", 35.7,  34.3),   # Pump 1 motor axis
+    ("bore-2", 104.3, 34.3),   # Pump 2 motor axis
 ]
 
 # M3 clearance hole diameter
 HOLE_DIA = 3.3
 HOLE_R = HOLE_DIA / 2.0
 
-# M3 hole XZ positions
+# M3 hole XZ positions — 50mm square pattern around each motor bore, re-centered
 HOLES = [
-    ("1-A", 9.3,   59.3),   # Pump 1, top-left
-    ("1-B", 59.3,  59.3),   # Pump 1, top-right
-    ("1-C", 59.3,  9.3),    # Pump 1, bottom-right
-    ("1-D", 9.3,   9.3),    # Pump 1, bottom-left
-    ("2-A", 77.9,  59.3),   # Pump 2, top-left
-    ("2-B", 127.9, 59.3),   # Pump 2, top-right
-    ("2-C", 127.9, 9.3),    # Pump 2, bottom-right
-    ("2-D", 77.9,  9.3),    # Pump 2, bottom-left
+    ("1-A", 10.7,  59.3),   # Pump 1, top-left
+    ("1-B", 60.7,  59.3),   # Pump 1, top-right
+    ("1-C", 60.7,   9.3),   # Pump 1, bottom-right
+    ("1-D", 10.7,   9.3),   # Pump 1, bottom-left
+    ("2-A", 79.3,  59.3),   # Pump 2, top-left
+    ("2-B", 129.3, 59.3),   # Pump 2, top-right
+    ("2-C", 129.3,  9.3),   # Pump 2, bottom-right
+    ("2-D", 79.3,   9.3),   # Pump 2, bottom-left
 ]
 
-# Strut bore parameters (NEW in v2)
+# Strut bore parameters
 # Strut cross-section on release plate: 6.0 x 6.0 mm
-# Bore clearance: 0.2mm per side (requirements.md sliding fit)
+# Bore clearance: 0.2mm per side × 2 sides = 0.4mm total
 # Bore size: 6.0 + 0.4 = 6.4 mm per axis
-STRUT_SIZE = 6.0       # release plate strut cross-section
-BORE_CLEARANCE = 0.4   # 0.2mm per side × 2 sides
+STRUT_SIZE = 6.0
+BORE_CLEARANCE = 0.4
 STRUT_BORE_W = STRUT_SIZE + BORE_CLEARANCE  # 6.4 mm (X)
 STRUT_BORE_H = STRUT_SIZE + BORE_CLEARANCE  # 6.4 mm (Z)
 
-# Strut bore center positions (X, Z) — match release plate strut centers
+# Strut bore center positions (X, Z) — moved outward to clear M3 holes
 STRUT_BORES = [
-    ("S-TL", 10.0,  63.6),   # Top-Left
-    ("S-TR", 127.2, 63.6),   # Top-Right
-    ("S-BL", 10.0,   5.0),   # Bottom-Left
-    ("S-BR", 127.2,  5.0),   # Bottom-Right
+    ("S-TL",   4.0, 63.6),   # Top-Left (was 10.0)
+    ("S-TR", 136.0, 63.6),   # Top-Right (was 127.2)
+    ("S-BL",   4.0,  5.0),   # Bottom-Left (was 10.0)
+    ("S-BR", 136.0,  5.0),   # Bottom-Right (was 127.2)
 ]
 
 # ==============================================================================
@@ -84,38 +85,38 @@ STRUT_BORES = [
 # ==============================================================================
 
 FEATURE_TABLE = """
-PUMP TRAY v2 — FEATURE PLANNING TABLE (Rubric 1)
+PUMP TRAY v3 — FEATURE PLANNING TABLE (Rubric 1)
 ===================================================
 
   #   Feature Name              Op      Shape         Axis  Center / Position                Dimensions
-  1   Plate body                Add     Rect prism    —     Origin (0,0,0)                   137.2W × 3.0D × 68.6H mm
-  2   Motor bore 1              Remove  Cylinder      Y     X=34.3, Z=34.3                   37mm dia, TH
-  3   Motor bore 2              Remove  Cylinder      Y     X=102.9, Z=34.3                  37mm dia, TH
-  4   Hole 1-A (P1 top-left)    Remove  Cylinder      Y     X=9.3, Z=59.3                    3.3mm dia, TH
-  5   Hole 1-B (P1 top-right)   Remove  Cylinder      Y     X=59.3, Z=59.3                   3.3mm dia, TH
-  6   Hole 1-C (P1 bot-right)   Remove  Cylinder      Y     X=59.3, Z=9.3                    3.3mm dia, TH
-  7   Hole 1-D (P1 bot-left)    Remove  Cylinder      Y     X=9.3, Z=9.3                     3.3mm dia, TH
-  8   Hole 2-A (P2 top-left)    Remove  Cylinder      Y     X=77.9, Z=59.3                   3.3mm dia, TH
-  9   Hole 2-B (P2 top-right)   Remove  Cylinder      Y     X=127.9, Z=59.3                  3.3mm dia, TH
-  10  Hole 2-C (P2 bot-right)   Remove  Cylinder      Y     X=127.9, Z=9.3                   3.3mm dia, TH
-  11  Hole 2-D (P2 bot-left)    Remove  Cylinder      Y     X=77.9, Z=9.3                    3.3mm dia, TH
-  12  Strut bore S-TL           Remove  Rect prism    Y     X=10.0, Z=63.6                   6.4W × 3.0D × 6.4H mm, TH
-  13  Strut bore S-TR           Remove  Rect prism    Y     X=127.2, Z=63.6                  6.4W × 3.0D × 6.4H mm, TH
-  14  Strut bore S-BL           Remove  Rect prism    Y     X=10.0, Z=5.0                    6.4W × 3.0D × 6.4H mm, TH
-  15  Strut bore S-BR           Remove  Rect prism    Y     X=127.2, Z=5.0                   6.4W × 3.0D × 6.4H mm, TH
+  1   Plate body                Add     Rect prism    —     Origin (0,0,0)                   140.0W × 3.0D × 68.6H mm
+  2   Motor bore 1              Remove  Cylinder      Y     X=35.7, Z=34.3                   37mm dia, TH
+  3   Motor bore 2              Remove  Cylinder      Y     X=104.3, Z=34.3                  37mm dia, TH
+  4   Hole 1-A (P1 top-left)    Remove  Cylinder      Y     X=10.7, Z=59.3                   3.3mm dia, TH
+  5   Hole 1-B (P1 top-right)   Remove  Cylinder      Y     X=60.7, Z=59.3                   3.3mm dia, TH
+  6   Hole 1-C (P1 bot-right)   Remove  Cylinder      Y     X=60.7, Z=9.3                    3.3mm dia, TH
+  7   Hole 1-D (P1 bot-left)    Remove  Cylinder      Y     X=10.7, Z=9.3                    3.3mm dia, TH
+  8   Hole 2-A (P2 top-left)    Remove  Cylinder      Y     X=79.3, Z=59.3                   3.3mm dia, TH
+  9   Hole 2-B (P2 top-right)   Remove  Cylinder      Y     X=129.3, Z=59.3                  3.3mm dia, TH
+  10  Hole 2-C (P2 bot-right)   Remove  Cylinder      Y     X=129.3, Z=9.3                   3.3mm dia, TH
+  11  Hole 2-D (P2 bot-left)    Remove  Cylinder      Y     X=79.3, Z=9.3                    3.3mm dia, TH
+  12  Strut bore S-TL           Remove  Rect prism    Y     X=4.0, Z=63.6                    6.4W × 3.0D × 6.4H mm, TH
+  13  Strut bore S-TR           Remove  Rect prism    Y     X=136.0, Z=63.6                  6.4W × 3.0D × 6.4H mm, TH
+  14  Strut bore S-BL           Remove  Rect prism    Y     X=4.0, Z=5.0                     6.4W × 3.0D × 6.4H mm, TH
+  15  Strut bore S-BR           Remove  Rect prism    Y     X=136.0, Z=5.0                   6.4W × 3.0D × 6.4H mm, TH
 
 TH = through-hole, full Y depth (Y=0 to Y=3.0mm)
 
 Coordinate system (Rubric 2):
   Origin: plate bottom-left-front corner (X=0, Y=0, Z=0)
-  X: plate width, left to right, 0 → 137.2 mm
+  X: plate width, left to right, 0 → 140.0 mm
   Y: plate thickness, front (Y=0) to back (Y=3.0)
   Z: plate height, bottom to top, 0 → 68.6 mm
-  Bounding box: X:[0, 137.2] Y:[0, 3.0] Z:[0, 68.6]
+  Bounding box: X:[0, 140.0] Y:[0, 3.0] Z:[0, 68.6]
 """
 
 print("=" * 70)
-print("PUMP TRAY v2 — CadQuery STEP Generation")
+print("PUMP TRAY v3 — CadQuery STEP Generation")
 print("=" * 70)
 print(FEATURE_TABLE)
 print("Building model...")
@@ -126,10 +127,10 @@ print("Building model...")
 
 # ------------------------------------------------------------------------------
 # Feature 1: Plate body
-# box(W, D, H, centered=False) → X:[0,137.2] Y:[0,3.0] Z:[0,68.6]
+# box(W, D, H, centered=False) → X:[0,140.0] Y:[0,3.0] Z:[0,68.6]
 # ------------------------------------------------------------------------------
 plate = cq.Workplane("XY").box(PLATE_W, PLATE_D, PLATE_H, centered=False)
-print("  [+] Feature 1: Plate body (137.2 × 3.0 × 68.6 mm)")
+print("  [+] Feature 1: Plate body (140.0 × 3.0 × 68.6 mm)")
 
 # ------------------------------------------------------------------------------
 # Features 2-3: Motor bores (37mm dia, through Y)
@@ -217,11 +218,11 @@ v = Validator(plate)
 
 # --- Feature 1: Plate body ---
 print("--- Feature 1: Plate body ---")
-v.check_solid("Plate body center", 68.6, 1.5, 34.3,
+v.check_solid("Plate body center", 70.0, 1.5, 34.3,
               "solid at plate geometric center")
-v.check_solid("Plate near front face", 68.6, 0.1, 34.3,
+v.check_solid("Plate near front face", 70.0, 0.1, 34.3,
               "solid near Y=0 front face")
-v.check_solid("Plate near back face", 68.6, 2.9, 34.3,
+v.check_solid("Plate near back face", 70.0, 2.9, 34.3,
               "solid near Y=3.0 back face")
 print()
 
@@ -270,8 +271,7 @@ for bore_id, cx, cz in STRUT_BORES:
                  cx, 2.9, cz,
                  f"void near back face Y=2.9")
 
-    # Void at bore corners (checks rectangular extent, not just center)
-    # Probe 0.3mm inside each bore corner to confirm rectangular shape
+    # Void at bore corners (checks rectangular extent)
     inset = 0.3
     v.check_void(f"Strut bore {bore_id} corner +X+Z",
                  cx + half_w - inset, 1.5, cz + half_h - inset,
@@ -281,14 +281,12 @@ for bore_id, cx, cz in STRUT_BORES:
                  f"void near -X-Z corner of bore")
 
     # Solid outside bore in X direction (1mm beyond bore edge)
-    # Only check if not near plate edge (bore edge + 1mm < plate width)
     outside_x = cx + half_w + 1.0
     if outside_x < PLATE_W:
         v.check_solid(f"Strut bore {bore_id} wall +X",
                       outside_x, 1.5, cz,
                       f"solid outside bore +X edge at X={outside_x:.1f}")
 
-    # Solid outside bore in -X direction
     outside_x_neg = cx - half_w - 1.0
     if outside_x_neg > 0:
         v.check_solid(f"Strut bore {bore_id} wall -X",
@@ -297,11 +295,26 @@ for bore_id, cx, cz in STRUT_BORES:
 
 print()
 
+# --- Verify strut bores do NOT overlap M3 holes (the v3 fix) ---
+print("--- Strut bore / M3 hole separation check ---")
+# Between each corner strut bore and its nearest M3 hole, probe the gap.
+# The gap region should be solid, confirming the two voids are separated.
+gap_checks = [
+    ("S-TL vs 1-A", 8.1, 1.5, 61.0),   # Midpoint between strut right edge (7.2) and hole left edge (9.05)
+    ("S-TR vs 2-B", 131.9, 1.5, 61.0),  # Midpoint between strut left edge (132.8) and hole right edge (130.95)
+    ("S-BL vs 1-D", 8.1, 1.5, 7.3),     # Midpoint between strut right edge (7.2) and hole left edge (9.05)
+    ("S-BR vs 2-C", 131.9, 1.5, 7.3),   # Midpoint between strut left edge (132.8) and hole right edge (130.95)
+]
+for name, gx, gy, gz in gap_checks:
+    v.check_solid(f"Gap {name}", gx, gy, gz,
+                  f"solid in gap between strut bore and M3 hole — confirms no overlap")
+print()
+
 # --- Bounding box (Rubric 5) ---
 print("--- Bounding box (Rubric 5) ---")
 bb = plate.val().BoundingBox()
 print(f"  Actual bounding box:")
-print(f"    X: [{bb.xmin:.3f}, {bb.xmax:.3f}]  (expected [0, 137.2])")
+print(f"    X: [{bb.xmin:.3f}, {bb.xmax:.3f}]  (expected [0, 140.0])")
 print(f"    Y: [{bb.ymin:.3f}, {bb.ymax:.3f}]  (expected [0, 3.0])")
 print(f"    Z: [{bb.zmin:.3f}, {bb.zmax:.3f}]  (expected [0, 68.6])")
 
@@ -316,12 +329,12 @@ v.check_valid()
 v.check_single_body()
 
 # Volume estimate:
-# Plate body: 137.2 × 3.0 × 68.6 = 28237 mm³
+# Plate body: 140.0 × 3.0 × 68.6 = 28812 mm³
 # - 2 motor bores: 2 × π × 18.5² × 3.0 = 6472 mm³
 # - 8 M3 holes: 8 × π × 1.65² × 3.0 = 205 mm³
 # - 4 strut bores: 4 × 6.4 × 6.4 × 3.0 = 491 mm³
-# Estimated: 28237 - 6472 - 205 - 491 ≈ 21069 mm³
-# Fill ratio: 21069 / 28237 ≈ 0.746
+# Estimated: 28812 - 6472 - 205 - 491 ≈ 21644 mm³
+# Fill ratio: 21644 / 28812 ≈ 0.751
 envelope_vol = PLATE_W * PLATE_D * PLATE_H
 v.check_volume(expected_envelope=envelope_vol, fill_range=(0.5, 1.2))
 print()
