@@ -90,7 +90,7 @@ The release plate has 4 bores in a 2×2 grid. The coupler tray has 4 coupler poc
 
 #### Phase 5: Split the coupler tray
 
-12. **Split coupler tray into two halves** — split between couplers 2 and 3 (the natural midpoint of the 1×4 line). Produce two STEP files. Plain flat mating faces at the split — no dovetail geometry.
+12. **Split coupler tray into two halves** — the two halves are a top plate and a bottom plate that stack face-to-face. Every coupler passes through both halves. Each half has half-depth pockets so that when the halves are pressed together, they capture the narrow center section of each coupler, and the wider shoulders on each end provide axial retention. This is NOT a left/right cut — do not cut the tray in half along its length. Produce two STEP files. Plain flat mating faces — no dovetail geometry.
 
 ---
 
