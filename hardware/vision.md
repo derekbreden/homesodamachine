@@ -66,8 +66,8 @@ The flat surfaces inside the cartridge. Each one is a flat panel with holes. Not
 #### Phase 1: Make the plates
 
 1. **Release plate** — flat plate with stepped bores for 4 collet interfaces, 2 guide pins. DONE.
-2. **Pump tray** — flat plate with holes for mounting 2 Kamoer KPHM400 pumps (4 screws each, 8 holes total).
-3. **Coupler tray** — flat plate with holes/pockets for capturing 4 John Guest union couplers.
+2. **Pump tray** — flat plate with holes for mounting 2 Kamoer KPHM400 pumps (4 screws each, 8 holes total). No strut bores — those come in Phase 4.
+3. **Coupler tray** — flat plate with holes/pockets for capturing 4 John Guest union couplers. No strut bores — those come in Phase 4.
 4. **Lever** — flat plate with 4 struts extending from it.
 
 #### Phase 2: Connect the plates to each other
