@@ -58,6 +58,37 @@ After each step. Every step produces a checkpoint. We would rather have a checkp
 
 ---
 
+## Revision Archive
+
+When a build sequence item modifies an existing part (e.g., "coupler tray v2" replaces "coupler tray v1"), the orchestrator archives the current files before starting the new iteration.
+
+**Before overwriting, copy the current files into:**
+
+```
+hardware/printed-parts/<part-name>/revisions/<label>/
+```
+
+Where `<label>` is: `s<season>-p<phase>-item<number>-v<version>`
+
+Example: coupler tray v1 was Season 1, Phase 1, item 3, first version:
+
+```
+hardware/printed-parts/cartridge/coupler-tray/
+├── planning/
+│   └── parts.md                ← always current
+├── generate_step_cadquery.py   ← always current
+├── coupler-tray-cadquery.step  ← always current
+└── revisions/
+    └── s1-p1-item3-v1/
+        ├── parts.md
+        ├── generate_step_cadquery.py
+        └── coupler-tray-cadquery.step
+```
+
+The working files are always the latest version. The `revisions/` folder is the browsable history — any agent or human can see what a prior iteration looked like without digging through git.
+
+---
+
 ## Technical Research (optional, rare)
 
 Most parts can be fully specified from the build sequence line, requirements, vision, and component datasheets. Occasionally a part involves physics that no agent can derive from existing information (e.g., how a flexible bag behaves under gravity at a specific angle). In that case, commission a research agent to answer the specific technical question before starting the spec. See `steps/2a-technical-research.md`.
