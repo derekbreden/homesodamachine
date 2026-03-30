@@ -36,6 +36,16 @@ This sequential approach means later parts can reference the exact dimensions of
 
 ---
 
+## Explicit Scoping
+
+**The orchestrator must explicitly state what is in scope and what is out of scope for each run.** The vision describes the whole product. A single pipeline run does not produce the whole product. The synthesis prompt must say exactly which parts are being designed and, critically, what is NOT being designed in this run.
+
+Example: "This run: six flat panels and their rail joints. Out of scope: retention mechanisms, strut routing, squeeze mechanism internals. These will be designed in future runs."
+
+Agents will see unresolved interfaces — a hole that will later receive a strut, a rail that doesn't yet have a retention detent. This is expected. **Incomplete geometry is a valid deliverable.** A part that occupies the correct space with the correct outer dimensions and the features that are in scope is a finished deliverable for that run, even if it will gain features in future runs. Agents must not block on, design for, or add geometry to accommodate future work that is explicitly out of scope.
+
+---
+
 ## Foundational Documents
 
 Two documents are the foundation of all design work. Every agent in every step reads both first.
@@ -168,6 +178,7 @@ Step 1 (folders)
 14. **One agent for all sub-components** — After decomposition, each sub-component is a SEPARATE agent. If 4d produces 3 sub-components, spawn 3 agents for 4s, 3 for 4b, 3 for 6g. A single agent handling all sub-components defeats the purpose of decomposition — it reintroduces the multi-paradigm complexity that decomposition was designed to eliminate.
 15. **Orchestrator pre-judging complexity** — The orchestrator must never tell an agent its task is "trivial" or "straightforward," or suggest it should produce a short document. The agent discovers the complexity by doing the work. Quality gates are fixed, not adjustable per sub-component.
 16. **Features serving imagined stakeholders** — Every feature must trace to the vision or a physical necessity (structural, manufacturing, assembly, routing). "Good engineering practice," "developer convenience," "future flexibility," and "robustness to scenarios the vision doesn't contemplate" are not justifications. Rubric H catches this.
+17. **Designing for out-of-scope future work** — If the orchestrator's scoping says retention mechanisms are out of scope, do not add detent geometry, snap-fit hooks, or screw bosses "so they're ready." A flat panel without retention is the correct deliverable. Future runs will add features to existing parts. Do not anticipate them.
 
 ---
 
