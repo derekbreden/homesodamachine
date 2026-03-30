@@ -1,6 +1,6 @@
 """
-Coupler Tray v2 — CadQuery STEP Generation Script
-Season 1, Phase 1, Item 4
+Coupler Tray v3 — CadQuery STEP Generation Script
+Season 1, Phase 3, Item 9
 
 Specification source: hardware/printed-parts/cartridge/coupler-tray/planning/parts.md
 JG union geometry:    hardware/off-the-shelf-parts/john-guest-union/extracted-results/geometry-description.md
@@ -15,6 +15,12 @@ Rubric 2 — Coordinate System Declaration:
 
   Hole/boss axes are parallel to Y.
   Print orientation: Y=0 face down on build plate; holes and bosses become vertical cylinders.
+
+  Layout change from v2:
+    v2: 4 couplers in a 2×2 grid centered at (X=68.6, Z=34.3), 17mm c-c in both X and Z.
+    v3: 4 couplers in a 1×4 row along X, all at Z=34.3mm (plate midpoint), 17mm c-c along X.
+        Centers at X = 43.1, 60.1, 77.1, 94.1mm.
+        Split line at X=68.6mm (plate midpoint) falls between H2 and H3 for Phase 5.
 """
 
 import sys
@@ -31,27 +37,28 @@ from step_validate import Validator
 # ---------------------------------------------------------------------------
 
 FEATURE_TABLE = """
-╔════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╗
-║  COUPLER TRAY v2 — Feature Planning Table (Rubric 1)                                                                                   ║
-╠═══╦══════════════════════╦══════════════════════════════════════════╦═══════════╦═════════╦══════╦══════════════════╦══════════════════╗
-║ # ║ Feature Name         ║ Mechanical Function                      ║ Operation ║ Shape   ║ Axis ║ Center (X,Y,Z)   ║ Dimensions       ║
-╠═══╬══════════════════════╬══════════════════════════════════════════╬═══════════╬═════════╬══════╬══════════════════╬══════════════════╣
-║ 1 ║ Base plate           ║ Structural substrate; fits same rails    ║ Add       ║ Box     ║  —   ║ (68.6,1.5,34.3)  ║ 137.2×3×68.6 mm  ║
-║   ║                      ║ as pump tray (3mm thick)                 ║           ║         ║      ║                  ║                  ║
-╠═══╬══════════════════════╬══════════════════════════════════════════╬═══════════╬═════════╬══════╬══════════════════╬══════════════════╣
-║ 2 ║ Boss B1 (bot-left)   ║ Provides 12.08mm capture depth;         ║ Add       ║ Cyl     ║  Y   ║ (60.1,7.54,25.8) ║ OD 16mm, h 9.08  ║
-║ 3 ║ Boss B2 (bot-right)  ║ boss tip face (Y=12.08) is shoulder-    ║ Add       ║ Cyl     ║  Y   ║ (77.1,7.54,25.8) ║ OD 16mm, h 9.08  ║
-║ 4 ║ Boss B3 (top-left)   ║ bearing surface for JG union body-end   ║ Add       ║ Cyl     ║  Y   ║ (60.1,7.54,42.8) ║ OD 16mm, h 9.08  ║
-║ 5 ║ Boss B4 (top-right)  ║ shoulder (15.10mm OD → 9.31mm)          ║ Add       ║ Cyl     ║  Y   ║ (77.1,7.54,42.8) ║ OD 16mm, h 9.08  ║
-╠═══╬══════════════════════╬══════════════════════════════════════════╬═══════════╬═════════╬══════╬══════════════════╬══════════════════╣
-║ 6 ║ Bore H1 (bot-left)   ║ Continuous 9.5mm bore Y=0→12.08mm;      ║ Remove    ║ Cyl     ║  Y   ║ (60.1,6.04,25.8) ║ 9.5mm dia, TH    ║
-║ 7 ║ Bore H2 (bot-right)  ║ captures JG union center body (9.31mm); ║ Remove    ║ Cyl     ║  Y   ║ (77.1,6.04,25.8) ║ 9.5mm dia, TH    ║
-║ 8 ║ Bore H3 (top-left)   ║ front shoulder bears on Y=0 face;       ║ Remove    ║ Cyl     ║  Y   ║ (60.1,6.04,42.8) ║ 9.5mm dia, TH    ║
-║ 9 ║ Bore H4 (top-right)  ║ back shoulder bears on boss tip Y=12.08 ║ Remove    ║ Cyl     ║  Y   ║ (77.1,6.04,42.8) ║ 9.5mm dia, TH    ║
-╚═══╩══════════════════════╩══════════════════════════════════════════╩═══════════╩═════════╩══════╩══════════════════╩══════════════════╝
+╔══════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╗
+║  COUPLER TRAY v3 — Feature Planning Table (Rubric 1)                                                                                         ║
+╠═══╦══════════════════════╦══════════════════════════════════════════╦═══════════╦═════════╦══════╦═══════════════════════╦═══════════════════╗
+║ # ║ Feature Name         ║ Mechanical Function                      ║ Operation ║ Shape   ║ Axis ║ Center (X,Y,Z)        ║ Dimensions        ║
+╠═══╬══════════════════════╬══════════════════════════════════════════╬═══════════╬═════════╬══════╬═══════════════════════╬═══════════════════╣
+║ 1 ║ Base plate           ║ Structural substrate; fits same rails    ║ Add       ║ Box     ║  —   ║ (68.6, 1.5, 34.3)     ║ 137.2×3×68.6 mm   ║
+║   ║                      ║ as pump tray (3mm thick)                 ║           ║         ║      ║                       ║                   ║
+╠═══╬══════════════════════╬══════════════════════════════════════════╬═══════════╬═════════╬══════╬═══════════════════════╬═══════════════════╣
+║ 2 ║ Boss B1              ║ Provides 12.08mm capture depth;         ║ Add       ║ Cyl     ║  Y   ║ (43.1, 7.54, 34.3)    ║ OD 16mm, h 9.08   ║
+║ 3 ║ Boss B2              ║ boss tip face (Y=12.08) is shoulder-    ║ Add       ║ Cyl     ║  Y   ║ (60.1, 7.54, 34.3)    ║ OD 16mm, h 9.08   ║
+║ 4 ║ Boss B3              ║ bearing surface for JG union body-end   ║ Add       ║ Cyl     ║  Y   ║ (77.1, 7.54, 34.3)    ║ OD 16mm, h 9.08   ║
+║ 5 ║ Boss B4              ║ shoulder (15.10mm OD → 9.31mm)          ║ Add       ║ Cyl     ║  Y   ║ (94.1, 7.54, 34.3)    ║ OD 16mm, h 9.08   ║
+╠═══╬══════════════════════╬══════════════════════════════════════════╬═══════════╬═════════╬══════╬═══════════════════════╬═══════════════════╣
+║ 6 ║ Bore H1              ║ Continuous 9.5mm bore Y=0→12.08mm;      ║ Remove    ║ Cyl     ║  Y   ║ (43.1, 6.04, 34.3)    ║ 9.5mm dia, TH     ║
+║ 7 ║ Bore H2              ║ captures JG union center body (9.31mm); ║ Remove    ║ Cyl     ║  Y   ║ (60.1, 6.04, 34.3)    ║ 9.5mm dia, TH     ║
+║ 8 ║ Bore H3              ║ front shoulder bears on Y=0 face;       ║ Remove    ║ Cyl     ║  Y   ║ (77.1, 6.04, 34.3)    ║ 9.5mm dia, TH     ║
+║ 9 ║ Bore H4              ║ back shoulder bears on boss tip Y=12.08 ║ Remove    ║ Cyl     ║  Y   ║ (94.1, 6.04, 34.3)    ║ 9.5mm dia, TH     ║
+╚═══╩══════════════════════╩══════════════════════════════════════════╩═══════════╩═════════╩══════╩═══════════════════════╩═══════════════════╝
 TH = through-bore, full depth Y=0→12.08mm (base plate + boss inner bore continuous)
 Boss Y center = (3 + 12.08) / 2 = 7.54mm
-Hole positions: 2×2 grid centered at (X=68.6, Z=34.3), 17mm c-c in both X and Z.
+Hole positions: 1×4 row at Z=34.3mm, X = 43.1, 60.1, 77.1, 94.1mm (17mm c-c along X).
+Split line at X=68.6mm (plate midpoint) falls between H2 (X=60.1) and H3 (X=77.1) — Phase 5.
 """
 
 print(FEATURE_TABLE)
@@ -77,12 +84,13 @@ BOSS_H      = FULL_DEPTH - PLATE_D   # 9.08mm — boss protrusion from back face
 HOLE_DIA = 9.5     # mm
 HOLE_R   = HOLE_DIA / 2.0   # 4.75mm
 
-# Hole/boss centers (X, Z) — 2×2 grid centered at (68.6, 34.3), 17mm c-c
+# Hole/boss centers (X, Z) — 1×4 row along X, all at Z=34.3mm, 17mm c-c
+# Row centered at X=68.6mm (plate midpoint): first center at 68.6 - 1.5*17 = 43.1mm
 HOLES = [
-    ("H1/B1", 60.1, 25.8),   # bottom-left
-    ("H2/B2", 77.1, 25.8),   # bottom-right
-    ("H3/B3", 60.1, 42.8),   # top-left
-    ("H4/B4", 77.1, 42.8),   # top-right
+    ("H1/B1", 43.1, 34.3),   # leftmost
+    ("H2/B2", 60.1, 34.3),   # center-left
+    ("H3/B3", 77.1, 34.3),   # center-right
+    ("H4/B4", 94.1, 34.3),   # rightmost
 ]
 
 MID_Y_BASE  = PLATE_D / 2.0                  # 1.5mm — mid-depth of base plate
@@ -108,7 +116,7 @@ plate = (
 # Features 2–5 — Bosses (4× solid cylinders on back face, Y=3→12.08)
 #
 # XZ workplane normal is -Y. workplane(offset=-(PLATE_D)) positions the sketch
-# at Y=PLATE_D (back face). extrude(-(BOSS_H)) goes in +Y direction, adding
+# at Y=PLATE_D (back face). extrude(-BOSS_H) goes in +Y direction, adding
 # the boss protruding from Y=3mm to Y=12.08mm.
 # ---------------------------------------------------------------------------
 
@@ -120,15 +128,6 @@ for feat_id, hx, hz in HOLES:
         cq.Workplane("XZ")
         .workplane(offset=-PLATE_D)          # sketch plane at Y=PLATE_D (back face)
         .center(hx, hz)                      # boss center in XZ
-        .circle(BOSS_R_OUT)
-        .extrude(-(BOSS_H + OVERCUT))        # +Y direction: Y=3 → Y=12.18mm (overcut trimmed below)
-    )
-    # Intersect with a bounding solid capped at Y=FULL_DEPTH to avoid the overcut
-    # Instead use exact BOSS_H without overcut — bosses are additive, no boolean issue
-    boss = (
-        cq.Workplane("XZ")
-        .workplane(offset=-PLATE_D)
-        .center(hx, hz)
         .circle(BOSS_R_OUT)
         .extrude(-BOSS_H)                    # +Y direction: Y=3mm → Y=12.08mm exactly
     )
@@ -276,6 +275,21 @@ for feat_id, hx, hz in HOLES:
                   f"solid at ({hx + HOLE_R + 0.5:.2f}, {MID_Y_BOSS:.2f}, {hz}) — boss wall outside bore")
 
     print()
+
+# --- 1×4 layout verification: confirm no solid at a 2×2 ghost position ---
+# In v2, there was material (solid base plate) everywhere. Here we verify that
+# the boss positions are NOT at the old 2×2 positions (Z=25.8 and Z=42.8),
+# i.e. no boss protrudes there. We probe at Y=MID_Y_BOSS (above base plate,
+# inside boss height) — should be void everywhere except at Z=34.3.
+print("Layout verification — 1×4 row (no bosses at old 2×2 Z positions):")
+for hx_check in [43.1, 60.1, 77.1, 94.1]:
+    v.check_void(f"No boss at X={hx_check}, Z=25.8 (old 2x2 grid position)",
+                 hx_check, MID_Y_BOSS, 25.8,
+                 f"void at (X={hx_check}, Y={MID_Y_BOSS:.2f}, Z=25.8) — no boss here in 1x4 layout")
+    v.check_void(f"No boss at X={hx_check}, Z=42.8 (old 2x2 grid position)",
+                 hx_check, MID_Y_BOSS, 42.8,
+                 f"void at (X={hx_check}, Y={MID_Y_BOSS:.2f}, Z=42.8) — no boss here in 1x4 layout")
+print()
 
 # ---------------------------------------------------------------------------
 # Rubric 4 — Solid Validity
