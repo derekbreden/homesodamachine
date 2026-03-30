@@ -1,6 +1,10 @@
 """
-Lever — CadQuery STEP Generation Script
-Season 1, Phase 1, Item 4 of the pump cartridge build sequence.
+Lever v2 — CadQuery STEP Generation Script
+Season 1, Phase 2, Item 7 of the pump cartridge build sequence.
+
+Updates from v1: strut positions updated to match release plate v2 strut positions.
+Plate height increased from 50mm to 65mm to match release plate height and
+contain struts at Z=5.0 and Z=60.0.
 
 Coordinate system:
   Origin: Bottom-left corner of lever plate front face (X=0, Y=0, Z=0)
@@ -11,9 +15,9 @@ Coordinate system:
      Y=4:  Lever plate rear face (strut attachment point)
      Y=94: Strut tips (4mm plate + 90mm struts)
   Z: Height axis — positive upward
-     Range: 0 → 50.0 mm
+     Range: 0 → 65.0 mm
 
-Envelope: 80.0 (X) × 94.0 (Y) × 50.0 (Z) mm
+Envelope: 80.0 (X) × 94.0 (Y) × 65.0 (Z) mm
 """
 
 import sys
@@ -38,13 +42,13 @@ print()
 FEATURE_TABLE = [
     ("1", "Plate Body",
      "Rigid load-transfer body: user finger contact surface (Y=0) to strut attachment (Y=4)",
-     "Add", "Box", "Y", "(40.0, 2.0, 25.0)",
-     "80W × 4D × 50H mm; X:[0,80] Y:[0,4] Z:[0,50]", "Base body"),
+     "Add", "Box", "Y", "(40.0, 2.0, 32.5)",
+     "80W × 4D × 65H mm; X:[0,80] Y:[0,4] Z:[0,65]", "Base body"),
 
     ("2", "Plate Perimeter Corner Radii",
      "Prevents sharp corners snagging front panel hole; design language consistency with release plate",
      "Remove (blend)", "Fillet", "Y",
-     "Edges at (X=0/80, Z=0/50), each runs Y=0→4",
+     "Edges at (X=0/80, Z=0/65), each runs Y=0→4",
      "R=2.0 mm on all 4 vertical (|Y) plate edges", "concept.md §5"),
 
     ("3", "Plate Bottom Chamfer (Elephant's Foot)",
@@ -55,23 +59,23 @@ FEATURE_TABLE = [
 
     ("4", "Strut TL (Top-Left)",
      "Transmits pull force from lever plate to Phase 2 joint; anti-rotation via 4-strut pattern",
-     "Add", "Box", "Y", "Center (9.0, 49.0, 40.0)",
-     "6W × 90D × 6H mm; X:[6,12] Y:[4,94] Z:[37,43]", "Euler buckling 333N >> 15N design load"),
+     "Add", "Box", "Y", "Center (9.0, 49.0, 60.0)",
+     "6W × 90D × 6H mm; X:[6,12] Y:[4,94] Z:[57,63]", "Matches release plate strut TL (X=9, Z=60)"),
 
     ("5", "Strut TR (Top-Right)",
      "Transmits pull force; mirror of TL about X=40",
-     "Add", "Box", "Y", "Center (71.0, 49.0, 40.0)",
-     "6W × 90D × 6H mm; X:[68,74] Y:[4,94] Z:[37,43]", "62mm c-c horizontal spacing"),
+     "Add", "Box", "Y", "Center (71.0, 49.0, 60.0)",
+     "6W × 90D × 6H mm; X:[68,74] Y:[4,94] Z:[57,63]", "Matches release plate strut TR (X=71, Z=60)"),
 
     ("6", "Strut BL (Bottom-Left)",
-     "Transmits pull force; mirror of TL about Z=25",
-     "Add", "Box", "Y", "Center (9.0, 49.0, 10.0)",
-     "6W × 90D × 6H mm; X:[6,12] Y:[4,94] Z:[7,13]", "30mm c-c vertical spacing"),
+     "Transmits pull force; mirror of TL about Z=32.5",
+     "Add", "Box", "Y", "Center (9.0, 49.0, 5.0)",
+     "6W × 90D × 6H mm; X:[6,12] Y:[4,94] Z:[2,8]", "Matches release plate strut BL (X=9, Z=5)"),
 
     ("7", "Strut BR (Bottom-Right)",
      "Transmits pull force; mirror of both TL and BL",
-     "Add", "Box", "Y", "Center (71.0, 49.0, 10.0)",
-     "6W × 90D × 6H mm; X:[68,74] Y:[4,94] Z:[7,13]", "Diagonal 68.9mm provides rotation stability"),
+     "Add", "Box", "Y", "Center (71.0, 49.0, 5.0)",
+     "6W × 90D × 6H mm; X:[68,74] Y:[4,94] Z:[2,8]", "Matches release plate strut BR (X=71, Z=5); diagonal 82.9mm"),
 ]
 
 col_w = [3, 26, 20, 15, 10, 6, 22, 30, 35]
@@ -99,15 +103,15 @@ print()
 print("  Origin: Bottom-left corner of lever plate front face (X=0, Y=0, Z=0)")
 print("  X: Plate width, left to right as seen from front face; range [0, 80.0] mm")
 print("  Y: Plate depth, front (user contact Y=0) to rear (strut tips Y=94.0); range [0, 94.0] mm")
-print("  Z: Plate height, bottom to top; range [0, 50.0] mm")
-print("  Envelope: 80.0 × 94.0 × 50.0 mm  →  X:[0,80]  Y:[0,94]  Z:[0,50]")
+print("  Z: Plate height, bottom to top; range [0, 65.0] mm")
+print("  Envelope: 80.0 × 94.0 × 65.0 mm  →  X:[0,80]  Y:[0,94]  Z:[0,65]")
 print()
 print("  Feature coordinate cross-check:")
-print("    Plate occupies  X:[0,80]   Y:[0,4]    Z:[0,50]")
-print("    Strut TL center X=9.0,  Z=40.0  → box X:[6,12]   Y:[4,94]  Z:[37,43]")
-print("    Strut TR center X=71.0, Z=40.0  → box X:[68,74]  Y:[4,94]  Z:[37,43]")
-print("    Strut BL center X=9.0,  Z=10.0  → box X:[6,12]   Y:[4,94]  Z:[7,13]")
-print("    Strut BR center X=71.0, Z=10.0  → box X:[68,74]  Y:[4,94]  Z:[7,13]")
+print("    Plate occupies  X:[0,80]   Y:[0,4]    Z:[0,65]")
+print("    Strut TL center X=9.0,  Z=60.0  → box X:[6,12]   Y:[4,94]  Z:[57,63]")
+print("    Strut TR center X=71.0, Z=60.0  → box X:[68,74]  Y:[4,94]  Z:[57,63]")
+print("    Strut BL center X=9.0,  Z=5.0   → box X:[6,12]   Y:[4,94]  Z:[2,8]")
+print("    Strut BR center X=71.0, Z=5.0   → box X:[68,74]  Y:[4,94]  Z:[2,8]")
 print()
 
 # ============================================================
@@ -117,7 +121,7 @@ print()
 # Plate
 PLATE_W  = 80.0   # X
 PLATE_D  =  4.0   # Y
-PLATE_H  = 50.0   # Z
+PLATE_H  = 65.0   # Z — matches release plate height so strut Z positions align
 
 # Struts
 STRUT_W  =  6.0   # X cross-section
@@ -127,11 +131,12 @@ STRUT_Y0 =  4.0   # struts start at plate rear face
 STRUT_Y1 = 94.0   # strut tips
 
 # Strut center positions in lever local X and Z
+# Positions match release plate v2 strut positions exactly (same X, same Z).
 STRUTS = {
-    "TL": (9.0,  40.0),
-    "TR": (71.0, 40.0),
-    "BL": (9.0,  10.0),
-    "BR": (71.0, 10.0),
+    "TL": (9.0,  60.0),
+    "TR": (71.0, 60.0),
+    "BL": (9.0,   5.0),
+    "BR": (71.0,  5.0),
 }
 
 # Plate corner fillet radius (Feature 2)
@@ -213,13 +218,13 @@ v.check_solid("Plate left face interior",   1.0,  2.0, 25.0, "solid near left fa
 v.check_solid("Plate right face interior", 79.0,  2.0, 25.0, "solid near right face")
 v.check_solid("Plate front face interior", 40.0,  0.5, 25.0, "solid near front face")
 v.check_solid("Plate rear face interior",  40.0,  3.5, 25.0, "solid near rear face")
-v.check_solid("Plate top interior",        40.0,  2.0, 49.0, "solid near top face")
+v.check_solid("Plate top interior",        40.0,  2.0, 64.0, "solid near top face")
 # Bottom interior — above chamfer zone
 v.check_solid("Plate bottom interior",     40.0,  2.0,  1.0, "solid near bottom face (above chamfer)")
 # Void outside plate (forward of front face)
 v.check_void("Void in front of plate",     40.0, -1.0, 25.0, "void in front of plate front face")
 # Void outside plate (above)
-v.check_void("Void above plate (no strut)",45.0,  2.0, 51.0, "void above plate where no strut")
+v.check_void("Void above plate (no strut)",45.0,  2.0, 66.0, "void above plate where no strut")
 
 print()
 
@@ -259,9 +264,9 @@ v.check_void("Corner BL fillet (should be void at removed corner)",
 v.check_void("Corner BR fillet",
              PLATE_W - 0.5, 2.0, 0.5, "void in BR corner fillet zone")
 v.check_void("Corner TL fillet",
-             0.5, 2.0, PLATE_H - 0.5, "void in TL corner fillet zone")
+             0.5, 2.0, PLATE_H - 0.5, "void in TL corner fillet zone (Z=64.5)")
 v.check_void("Corner TR fillet",
-             PLATE_W - 0.5, 2.0, PLATE_H - 0.5, "void in TR corner fillet zone")
+             PLATE_W - 0.5, 2.0, PLATE_H - 0.5, "void in TR corner fillet zone (Z=64.5)")
 # Solid should exist just inside the fillet tangent points
 v.check_solid("Plate BL near-corner solid",  3.0, 2.0,  0.5, "solid past fillet tangent on X=3")
 v.check_solid("Plate BL near-corner solid2", 0.5, 2.0,  3.0, "solid past fillet tangent on Z=3")
@@ -351,14 +356,14 @@ v.check_valid()
 v.check_single_body()
 
 # Volume estimate:
-# Plate: 80 × 4 × 50 = 16000 mm³
+# Plate: 80 × 4 × 65 = 20800 mm³
 # 4 struts: 4 × 6 × 90 × 6 = 12960 mm³
 # Minus corner fillets and chamfer (small)
-# Total ≈ 28960 mm³ (before subtractions, which are small)
-# Use plate+strut envelope: 80 × 94 × 50 = 376000 mm³
-# Fill ratio: ~28960/376000 ≈ 7.7%
+# Total ≈ 33760 mm³ (before subtractions, which are small)
+# Use plate+strut envelope: 80 × 94 × 65 = 488800 mm³
+# Fill ratio: ~33760/488800 ≈ 6.9%
 # Use a tighter fill_range since geometry is well-known
-envelope_vol = PLATE_W * STRUT_Y1 * PLATE_H  # 80 × 94 × 50 = 376000
+envelope_vol = PLATE_W * STRUT_Y1 * PLATE_H  # 80 × 94 × 65 = 488800
 v.check_volume(expected_envelope=envelope_vol, fill_range=(0.05, 0.15))
 
 print()
@@ -370,7 +375,7 @@ print("=" * 90)
 print("RUBRIC 5 — Bounding Box Reconciliation")
 print("=" * 90)
 print()
-print("Expected envelope from parts.md: 80.0mm (X) × 94.0mm (Y) × 50.0mm (Z)")
+print("Expected envelope from parts.md: 80.0mm (X) × 94.0mm (Y) × 65.0mm (Z)")
 print()
 
 bb = lever.val().BoundingBox()
