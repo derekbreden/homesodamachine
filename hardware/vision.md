@@ -57,8 +57,6 @@
 
 ## 4. Cartridge Build Sequence
 
-Each **step** is one pipeline run producing one STEP file or one modification to an existing STEP file. Each step is the simplest possible thing. Steps are grouped into **phases** (the big arcs of progress). Phases are grouped into **seasons** (the major shifts in what kind of work we're doing).
-
 ---
 
 ### Season 1: Interior Plates
