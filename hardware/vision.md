@@ -90,7 +90,7 @@ The release plate has 4 bores in a 2×2 grid. The coupler tray has 4 coupler poc
 
 #### Phase 5: Split the coupler tray
 
-12. **Split coupler tray into two halves** — slice the existing coupler tray in half along its thickness. This produces two plates, each half as thick as the original, each with the same 4 holes at the same positions and diameters. Produce two STEP files. Plain flat mating faces — no dovetail geometry.
+12. **Split coupler tray into two halves** — slice the existing coupler tray along the centerline of the 4 holes, cutting through the center of each hole. This produces two plates, each with 4 semicircular channels on its mating face. When the two halves are pressed together, the semicircles form the original circular holes. Produce two STEP files. Plain flat mating faces — no dovetail geometry.
 
 #### Phase 6: Widen interior plates to resolve bore/mounting overlap
 
