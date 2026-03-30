@@ -6,6 +6,8 @@ This document defines the procedure for the synthesis agent. One agent reads the
 
 **This step does not add features.** The synthesis describes the minimum geometry needed to execute the vision. If a feature is not required by the vision or by the physics of the mechanism, it does not belong in the synthesis.
 
+**Start from the simplest possible shape.** For every part, begin with the simplest geometry that could work — a flat plate, a rectangular box, a cylinder. Then ask: does this part fail at its job in this shape? If not, that is the geometry. Every additional surface, wall, rib, channel, or feature beyond the starting shape must be justified by a specific, quantified failure that would occur without it. "Structural rigidity" is not a justification — "the plate deflects X mm under Y N of pump load, exceeding the Z mm clearance to the adjacent part" is. If the failure cannot be quantified, the feature is not justified.
+
 ---
 
 ## Agent prompt must include
@@ -24,6 +26,7 @@ The synthesis must:
 - Execute the vision's specified interaction, not propose an alternative
 - Incorporate specific findings from technical research and component datasheets (forces, dimensions, travel distances) into the mechanism description
 - Describe the minimum geometry that achieves the vision — no features beyond what the vision requires or the physics demands
+- Every surface, wall, or feature beyond the simplest starting shape has an explicit, quantified justification. "Adds rigidity" or "provides structure" without numbers is not sufficient.
 - Flag any conflict between the vision and technical feasibility explicitly — with the proposed minimum modification, not a wholesale redesign
 - Include a concrete BOM
 - Never cite cost as a deciding factor
