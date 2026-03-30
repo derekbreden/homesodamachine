@@ -24,11 +24,10 @@ The agent designing a mechanism is not limited to the mechanism's own parts. If 
 
 - Path to `hardware/requirements.md` and `hardware/vision.md`
 - Path to the synthesis document (this is the primary input — the execution plan for the vision)
-- Path to the design pattern research (`planning/research/design-patterns.md`)
-- Path to all technical research documents
+- Path to any technical research documents (if Step 2A was invoked)
 - Printer specs and materials are in `hardware/requirements.md`. **The agent must not assume, infer, or use "typical" values for any manufacturing constraint.**
 - All known physical constraints (dimensions, what goes inside)
-- Instruction to work out the architecture for the synthesis's execution plan — piece count, splits, joins, seams, surfaces, manufacturing approach
+- Instruction to work out the simplest architecture for the synthesis's execution plan — piece count, splits, joins, seams, surfaces, manufacturing approach
 - Instruction to settle on ONE architecture and summarize it clearly at the end
 - **Instruction NOT to apply the full rubric suite** — that happens in the detailed specification step
 - **Instruction NOT to reconsider the interaction design** — the vision and synthesis set the interaction. If the agent discovers a conflict between the interaction and printability, it flags the conflict rather than silently changing the interaction.

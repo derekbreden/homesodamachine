@@ -24,7 +24,7 @@ The quality gates are fixed by the step procedure documents. They are not parame
 
 The orchestration is:
 
-1. Steps 1–3 (research and decision) apply to the mechanism as a whole.
+1. Steps 1–3 (setup and synthesis) apply to the mechanism as a whole.
 2. Step 4a (concept) covers the full mechanism — all parts and how they fit together.
 3. Steps 4d through 6c run for one part at a time:
    - Pick the most constrained or highest-risk part first.
@@ -66,8 +66,7 @@ Each step has a detailed procedure document in `hardware/pipeline/steps/`. The o
 | Step | What it produces | Procedure doc | Scope |
 |------|-----------------|---------------|-------|
 | 1 | Folder tree | (none — do directly) | mechanism |
-| 2A | Technical research docs | `steps/2a-technical-research.md` | mechanism |
-| 2B | Design pattern research | `steps/2b-design-pattern-research.md` | mechanism |
+| 2A | Technical research docs (optional) | `steps/2a-technical-research.md` | mechanism |
 | 3 | Synthesis document | `steps/3-design-decision.md` | mechanism |
 | 4a | Concept document | `steps/4a-conceptual-architecture.md` | mechanism |
 | 4d | Decomposition (or pass-through) | `steps/4d-decomposition.md` | per part |
@@ -85,17 +84,17 @@ hardware/printed-parts/<mechanism-name>/
 │   └── research/
 ```
 
-### Steps 2A, 2B — Research (parallel)
+### Step 2A — Technical Research (optional)
 
-All research agents run in parallel. The vision specifies the interaction; the research investigates how to execute it.
+Most mechanisms can be designed from the vision, requirements, and component datasheets already in the repo. Step 2A is invoked only when the orchestrator identifies a genuine open technical question that no agent can answer from existing information — typically physics that must be investigated (e.g., how a flexible bag behaves under gravity at a specific angle) or off-the-shelf component dimensions that aren't in the repo yet.
 
-**2A agents** each answer one technical question the vision raises: forces, dimensions, materials, tolerances, failure modes. They do not explore alternative approaches — the approach is set by the vision.
+When invoked, each 2A agent answers one specific technical question. They do not explore alternative approaches — the approach is set by the vision. See `steps/2a-technical-research.md` for the full procedure.
 
-**The 2B agent** studies how existing consumer products achieve the specific UX qualities the vision demands (squeeze feedback, hidden mechanisms, flush surfaces, seating confidence). It researches the details that make those qualities real, not alternative interaction types.
+**When NOT to invoke Step 2A:** If the mechanism's geometry can be fully determined from the vision, requirements.md, and component datasheets in the repo, skip directly to Step 3. Do not commission research to find features to add — the default is minimum viable geometry.
 
 ### Step 3 — Synthesis
 
-One agent reads ALL research (technical and design pattern) and synthesizes them into a concrete execution plan for the vision. This step combines research findings into a coherent mechanism description — it does not choose between alternatives. If the research reveals a conflict with the vision, the agent flags the conflict and proposes the minimum modification, not a wholesale redesign.
+One agent reads the vision, requirements, component datasheets, and any technical research (if Step 2A was invoked) and synthesizes them into a concrete execution plan for the vision. This step produces a coherent mechanism description — it does not choose between alternatives and does not add features beyond what the vision requires. If the research reveals a conflict with the vision, the agent flags the conflict and proposes the minimum modification, not a wholesale redesign.
 
 ### Step 4a — Conceptual Architecture
 
@@ -128,12 +127,10 @@ One agent per decomposed part combines the sub-component solids into a single va
 ```
 Step 1 (folders)
   │
-  ├──→ Step 2A-1 (technical research) ──┐
-  ├──→ Step 2A-2 (technical research) ──┤
-  └──→ Step 2B   (design patterns)   ───┤
-                                         │
-                                         ▼
-                     Step 3 (decision — reads ALL research)
+  ├──→ Step 2A (technical research, optional, parallel agents) ──┐
+  │    (skip if no open technical questions)                      │
+  │                                                               │
+  └──→ Step 3 (synthesis — reads vision + requirements + any 2A research)
                                          │
                      Step 4a (concept — full mechanism)
                                          │
@@ -158,8 +155,7 @@ Step 1 (folders)
                                          ...
 ```
 
-- Steps 2A and 2B run in parallel.
-- Step 3 waits for ALL Step 2 agents.
+- If Step 2A is invoked, Step 3 waits for all 2A agents. Otherwise Step 3 starts immediately after Step 1.
 - Step 4a waits for Step 3.
 - **Parts are processed sequentially** through steps 4d → 6c. One part completes and is committed before the next begins.
 - Within a part, sub-component tracks (4s → 4b → 6g) can run in parallel after 4d.
@@ -170,7 +166,7 @@ Step 1 (folders)
 ## Common Mistakes This Procedure Prevents
 
 1. **"Do not run the script"** — Never. The STEP file is the deliverable.
-2. **Research exploring alternatives to the vision** — The vision specifies the interaction. Research investigates how to execute it, not whether to use a different approach.
+2. **Research adding scope** — If Step 2A is invoked, it answers specific technical questions. It does not harvest features from other products or propose additions to the design. The default is minimum viable geometry.
 3. **Separate parts that should be one** — Rubric F catches this.
 4. **Stale references to old mechanisms** — Quality gate requires checking.
 5. **Agents not reading the standards** — Every agent prompt includes the path to its procedure doc.
