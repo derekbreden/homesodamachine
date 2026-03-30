@@ -1,8 +1,8 @@
 # Hardware Design Pipeline
 
-This document defines the procedure for designing a new 3D-printed part or mechanism from concept through validated STEP file. It is the orchestration guide for multi-agent work — every step has explicit inputs, outputs, and quality gates.
+**Parts are designed iteratively. The first version of any part is the simplest shape that occupies the correct space. Retention, joinery, and interfaces with parts that don't exist yet are added in later rounds — not anticipated in the first.**
 
-**This procedure exists because improvised orchestration produces unvalidated output.** Every step matters. Skipping validation, misweighting decisions, or treating intermediate artifacts as deliverables are the failure modes this document prevents.
+This document defines the procedure for designing a new 3D-printed part or mechanism from concept through validated STEP file. It is the orchestration guide for multi-agent work — every step has explicit inputs, outputs, and quality gates.
 
 ---
 

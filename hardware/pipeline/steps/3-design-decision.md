@@ -6,7 +6,11 @@ This document defines the procedure for the synthesis agent. One agent reads the
 
 **This step does not add features.** The synthesis describes the minimum geometry needed to execute the vision. If a feature is not required by the vision or by the physics of the mechanism, it does not belong in the synthesis.
 
+**Parts are designed iteratively. The first version of any part is the simplest shape that occupies the correct space. Retention, joinery, and interfaces with parts that don't exist yet are added in later rounds — not anticipated in the first.**
+
 **Start from the simplest possible shape.** For every part, begin with the simplest geometry that could work — a flat plate, a rectangular box, a cylinder. Then ask: does this part fail at its job in this shape? If not, that is the geometry. Every additional surface, wall, rib, channel, or feature beyond the starting shape must be justified by a specific, quantified failure that would occur without it. "Structural rigidity" is not a justification — "the plate deflects X mm under Y N of pump load, exceeding the Z mm clearance to the adjacent part" is. If the failure cannot be quantified, the feature is not justified.
+
+**Only design what is in scope for this run.** The orchestrator's scoping statement says what is being designed. If retention, joinery, or an interface with a part that doesn't exist yet is out of scope, do not include it in the synthesis. A flat panel with no retention features is a correct output.
 
 ---
 
