@@ -6,11 +6,11 @@
 
 ## 1. The Mechanism from the User's Perspective
 
-The user approaches the cartridge with one hand, palm up. The palm presses flat against the front face of the cartridge body — a matte surface with light embossed texture (0.3–0.5mm raised diamond or hex pattern, 0.4mm tall minimum to hit the FDM printability floor). The fingers curl upward and contact a surface that is inset into the front face — not a button sitting proud of the body, not a lever sticking out, just a recessed pull zone that the finger pads naturally find when the hand assumes this posture. The user squeezes: palm pushes, fingers pull. Resistance builds over roughly 5–6mm of pull travel. At about 6mm, four simultaneous clicks transmit through the cartridge body and into the palm. The resistance drops sharply. The user's hand continues the motion, pulling the cartridge forward out of the bay on its rail grooves.
+The user approaches the cartridge with one hand, palm up. The palm presses flat against the front face of the cartridge body — a matte surface with light embossed texture (0.3–0.5mm raised diamond or hex pattern, 0.4mm tall minimum to hit the FDM printability floor). The fingers curl upward and contact a surface that is inset into the front face — not a button sitting proud of the body, not a lever sticking out, just a recessed pull zone that the finger pads naturally find when the hand assumes this posture. The user squeezes: palm pushes, fingers pull. Resistance builds over roughly 5–6mm of pull travel. At about 6mm, four simultaneous clicks transmit through the cartridge body and into the palm. The resistance drops sharply. The user's hand continues the motion, pulling the cartridge forward out of the bay on its protruding tracks.
 
-From outside, the cartridge shows: a matte-textured front face with one inset pull zone occupying most of the face width, four barely-visible tube holes on the rear face, and inset groove rails on both sides. Everything else is inside.
+From outside, the cartridge shows: a matte-textured front face with one inset pull zone occupying most of the face width, four barely-visible tube holes on the rear face, and protruding tracks on both sides that ride in matching channels in the enclosure bay. Everything else is inside.
 
-When the user pushes a new cartridge in, it slides on the rails until the four tube stubs in the enclosure's dock enter the quick-connect fittings on the cartridge rear wall. The cartridge snaps the final 3–5mm home (via a dock snap feature — addressed in the cartridge body specification, outside this document's scope), the front face aligns flush with the enclosure face, and the click confirms full seating. The user does not interact with the collets or the release plate at all during insertion.
+When the user pushes a new cartridge in, it slides on the tracks until the four tube stubs in the enclosure's dock enter the quick-connect fittings on the cartridge rear wall. The cartridge snaps the final 3–5mm home (via a dock snap feature — addressed in the cartridge body specification, outside this document's scope), the front face aligns flush with the enclosure face, and the click confirms full seating. The user does not interact with the collets or the release plate at all during insertion.
 
 ---
 
@@ -28,7 +28,7 @@ When the user pushes a new cartridge in, it slides on the rails until the four t
 
 User finger pull force → release plate pull surface → plate body → inner lips on stepped bores → collet annular end faces → collet spring compression → collets depress → tube stubs release.
 
-Simultaneously: user palm push force → cartridge body front face → cartridge body rigid structure → no movement (the body is fixed to the rail groove system).
+Simultaneously: user palm push force → cartridge body front face → cartridge body rigid structure → no movement (the body is fixed to the enclosure via its protruding tracks).
 
 The net squeeze produces a clamping force between palm and fingers. The 60 N required to depress all four collets simultaneously (4 × 15 N design value) is comfortably within the capability of healthy adult users applying a one-time brief squeeze in the palm-up posture. The comfortable one-time squeeze force for the 5th–95th percentile adult range is 80–200 N, giving a 1.3×–3.3× margin with no mechanical advantage required.
 

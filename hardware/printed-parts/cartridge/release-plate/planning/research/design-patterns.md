@@ -8,7 +8,7 @@
 
 ### The design problem
 
-The vision specifies that from outside the cartridge, the user sees only: four barely-visible tube holes on the back, inset groove rails on the sides, and a squeeze grip on the front. No buttons, no visible latches, no protruding release handles. The exterior must read as a product, not as a housing that contains something.
+The vision specifies that from outside the cartridge, the user sees only: four barely-visible tube holes on the back, protruding tracks on the sides that ride in matching enclosure channels, and a squeeze grip on the front. No buttons, no visible latches, no protruding release handles. The exterior must read as a product, not as a housing that contains something.
 
 The challenge is that minimal exteriors can fail in two opposite directions: they look unfinished (the seam reads as a manufacturing gap, not a designed feature), or they look like the product is sealed shut (the user cannot discover the release action). Successful products thread the needle by making the exterior geometry itself communicate the interaction.
 
@@ -143,7 +143,7 @@ Many desktop staplers use a palm-up grip for loading: the stapler is flipped ups
 
 The grip clearance dimension in staplers: the distance between the underside of the stapler body and the nearest obstruction (desk surface or thumb pad) when held palm-up is typically 20–30 mm. This is the "hand entry depth" — how far the hand can penetrate toward the release surface before running out of room.
 
-**Design guidance from staplers:** The cartridge needs to provide at least 20 mm of clearance between the release surface and the front edge of the enclosure opening (the bay). If the cartridge extends fully to the front face of the enclosure with no recess, there is no room for the hand to enter the palm-up grip posture. The vision's design already addresses this (the cartridge slides on rails into a bay), but the bay opening depth must accommodate the hand entry.
+**Design guidance from staplers:** The cartridge needs to provide at least 20 mm of clearance between the release surface and the front edge of the enclosure opening (the bay). If the cartridge extends fully to the front face of the enclosure with no recess, there is no room for the hand to enter the palm-up grip posture. The vision's design already addresses this (the cartridge slides on protruding tracks into a bay), but the bay opening depth must accommodate the hand entry.
 
 ---
 

@@ -48,3 +48,4 @@
 	- The user's hand is palm-up during the squeeze — fingers curl upward to pull the release surface while the palm pushes against the cartridge body. 
 - For putting it back in, there is no need to worry about the collets at all, regardless of their position the tubes can be pushed into the quick connects and proper mechanisms in the quick connects will ensure the the cartridge will no longer be able to be removed (without of course pushing the collets again)
 - The pumps each mount to a flat surface via 4 screws surrounding the motor cylinder — the measurements and photos in the repo have the exact dimensions.
+- The coupler tray is two separate pieces that lock permanently together via tapered dovetails and snap detents. The geometry of the John Guest union couplers requires this — the couplers cannot be inserted into a one-piece tray. The two halves capture the narrow center section of each coupler, with the wider shoulders providing axial retention.

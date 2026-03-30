@@ -17,7 +17,7 @@ Examples of good research questions (vision-serving):
 
 Examples of bad research questions (design-space exploration):
 - "What are the pros and cons of threaded rod vs cam lever vs spring detent for collet release?" (the vision already specifies squeeze-release)
-- "Should the cartridge use rails, a bayonet mount, or a drop-in cradle?" (the vision already specifies rails)
+- "Should the cartridge use rails, a bayonet mount, or a drop-in cradle?" (the vision already specifies protruding tracks)
 
 ---
 
