@@ -46,6 +46,8 @@ This applies everywhere: mechanism narratives, assembly sequences, interface des
 
 If a claim cannot be grounded, do not invent a hand-wavy answer. State: **"DESIGN GAP: [claim] has no grounding feature. A [type of feature] is needed."** This is the most valuable output the rubric can produce — it identifies where the design needs more work.
 
+**Path claims require continuity, not just existence.** When a behavioral claim involves something traversing a path — a screw passing through a hole into a threaded insert, fluid flowing from an inlet to an outlet, a wire routed from board to connector — grounding to individually named features is not sufficient. The features must form a continuous path with no gaps or obstructions. For each path claim, verify that every segment connects to the next: check that stop depths match start depths at every transition, that diameters are compatible at every junction, and that no solid material blocks the path at any point. If segments are specified independently and a gap exists between them, that is a **DESIGN GAP** — regardless of whether each segment is individually correct.
+
 **The grounding rule also applies in reverse — from the product values to the geometry.** After writing the document, re-read the product values (from `hardware/vision.md`) and verify each value against the actual geometry of every part. If a value says the design must have property X, and a part violates X, that is a design gap — regardless of whether the document claims to satisfy it. The values are constraints on the design, not aspirations.
 
 ### Rubric A — Mechanism Narrative (MANDATORY)
@@ -90,9 +92,9 @@ Print a table:
 | Claim | Direction | Axis | Verified? | Notes |
 ```
 
-### Rubric D — Interface Dimensional Consistency (MANDATORY)
+### Rubric D — Interface and Path Consistency (MANDATORY)
 
-For every interface between two parts (mating threads, bore-to-shaft, pin-to-bushing):
+**Part 1 — Interface dimensions.** For every interface between two parts (mating threads, bore-to-shaft, pin-to-bushing):
 
 1. List both sides of the interface and their dimensions
 2. Verify clearance is specified and reasonable (not zero, not negative, not absurdly large)
@@ -103,6 +105,18 @@ For every interface between two parts (mating threads, bore-to-shaft, pin-to-bus
 ```
 
 If any interface has mismatched dimensions (e.g., 12mm shaft in a 12mm bore with no clearance), flag it.
+
+**Part 2 — Path continuity.** For every set of features that must form a continuous path or mating pair (fastener paths, fluid channels, wire routes, snap-fit hook and catch pairs):
+
+1. List every segment of the path in order, with its start and stop coordinates
+2. Verify that each segment's stop meets the next segment's start — no gaps, no overlaps that create solid obstructions
+3. Verify that diameters or cross-sections are compatible at every transition
+
+```
+| Path | Segment | Start | Stop | Diameter/Section | Connects to next? |
+```
+
+If any transition has a gap (segment A ends at Y=5.0, segment B starts at Y=5.5), flag it as a path discontinuity — a **DESIGN GAP**, not a clearance value.
 
 ### Rubric E — Assembly Feasibility Check (MANDATORY)
 
@@ -181,7 +195,7 @@ After all agents complete, verify:
 - Rubric A narrative is present and coherent — a reader can understand the mechanism from text alone
 - Rubric B constraint chain has no unlabeled arrows or unconstrained parts
 - Rubric C direction table has no contradictions or unverified claims
-- Rubric D interface table has no zero-clearance or mismatched dimensions
+- Rubric D interface table has no zero-clearance or mismatched dimensions; path continuity table has no gaps or obstructions
 - Rubric E assembly sequence is physically feasible
 - Rubric F part count is minimized
 - Rubric G printability: no unresolved overhangs, no sub-minimum walls, no unsupported long bridges, print orientation stated with rationale
