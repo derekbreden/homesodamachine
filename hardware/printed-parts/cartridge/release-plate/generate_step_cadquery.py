@@ -13,19 +13,21 @@ v3 change: Redesign to 1×4 bore layout matching coupler tray v3.
   - 4 struts repositioned to plate corners (clear of all bores).
   - 2 guide pins repositioned diagonally to match new plate geometry.
 
+v4 change: Struts moved from front face to rear face; guide pins removed.
+  - Struts now extend from Y=5.0 (rear face) to Y=95.0 (90 mm beyond rear face).
+  - Guide pins (Features 8-9) removed entirely — not a feature of this plate.
+
 Coordinate system (part local frame):
   Origin: plate bottom-left-front corner (X=0, Y=0, Z=0)
   X: plate width, left to right, 0 → 137.2 mm
   Y: plate depth, front (user-facing, build-plate face) to rear (fitting-facing)
        Y=0  = front face (pull surface, sits on build plate in print orientation)
        Y=5  = rear face (bore-entry face, faces PP0408W fittings)
-       Y=-90 = strut tips (90 mm beyond front face, toward user/lever)
-       Y=35  = guide pin tips (30 mm beyond rear face)
+       Y=95 = strut tips (90 mm beyond rear face, toward lever)
   Z: plate height, bottom to top, 0 → 68.6 mm
   Plate envelope:          X:[0,137.2]  Y:[0,5]     Z:[0,68.6]
-  With guide pins:         X:[0,137.2]  Y:[0,35]    Z:[0,68.6]
-  With struts:             X:[0,137.2]  Y:[-90,0]   Z:[0,68.6]
-  Full bounding box:       X:[0,137.2]  Y:[-90,35]  Z:[0,68.6]
+  With struts:             X:[0,137.2]  Y:[0,95]    Z:[0,68.6]
+  Full bounding box:       X:[0,137.2]  Y:[0,95]    Z:[0,68.6]
 
 CadQuery XZ workplane notes (verified by test):
   XZ workplane origin: (0,0,0), normal (zDir): (0,-1,0) = -Y direction
@@ -39,11 +41,7 @@ CadQuery XZ workplane notes (verified by test):
     Use offset=-Y_start (e.g., offset=-5.0 for plane at Y=5)
     Extrude positive depth (goes -Y from plane)
 
-  For pins running Y=5 → Y=35 (rear outward, +Y direction):
-    Use offset=-5.0 (plane at Y=5)
-    Extrude negative length (goes +Y from plane)
-
-  For struts running Y=0 → Y=-90 (front outward, -Y direction):
+  For struts running Y=5 → Y=95 (rear outward, +Y direction):
     Use plain XY workplane, then translate strut box to correct position.
 """
 
@@ -93,23 +91,12 @@ BORE_CENTERS = [
     (94.1, 34.3),   # D — H4
 ]
 
-# Guide pin parameters
-PIN_D   = 5.0
-PIN_R   = PIN_D / 2    # 2.5
-PIN_Y0  = 5.0          # pin base at rear face
-PIN_Y1  = 35.0         # pin tip (30 mm projection from rear face)
-PIN_LEN = PIN_Y1 - PIN_Y0  # 30.0 mm
-
-# Guide pins at plate corners, diagonal placement, clear of all bores
-PIN1_X, PIN1_Z = 5.0,   63.6   # Guide pin 1 (top-left)
-PIN2_X, PIN2_Z = 132.2,  5.0   # Guide pin 2 (bottom-right)
-
 # Strut parameters (Features 10-13)
 STRUT_W  = 6.0    # X cross-section
 STRUT_H  = 6.0    # Z cross-section
 STRUT_L  = 90.0   # Y length
-STRUT_Y0 = 0.0    # strut base at front face (Y=0)
-STRUT_Y1 = -90.0  # strut tips (90 mm beyond front face, toward user)
+STRUT_Y0 = 5.0    # strut base at rear face (Y=5)
+STRUT_Y1 = 95.0   # strut tips (90 mm beyond rear face, toward lever)
 
 # Strut center positions (X, Z) — corner placement, clear of all bore outer circles
 # Bore outer radius = 7.8 mm. Nearest bore to corner struts:
@@ -144,12 +131,10 @@ RELEASE PLATE v3 — FEATURE PLANNING TABLE (Rubric 1)
   5   Stepped bore B            Remove  3-step cyl    Y     X=60.1, Z=34.3                   (same)
   6   Stepped bore C            Remove  3-step cyl    Y     X=77.1, Z=34.3                   (same)
   7   Stepped bore D            Remove  3-step cyl    Y     X=94.1, Z=34.3                   (same)
-  8   Guide pin 1               Add     Cylinder      Y     X=5.0, Z=63.6                    Ø5.0 mm, Y:5→35 (30 mm)
-  9   Guide pin 2               Add     Cylinder      Y     X=132.2, Z=5.0                   Ø5.0 mm, Y:5→35 (30 mm)
-  10  Strut TL (Top-Left)       Add     Rect prism    Y     X=10.0, Z=63.6                   6W × 90D × 6H mm, Y:0→-90
-  11  Strut TR (Top-Right)      Add     Rect prism    Y     X=127.2, Z=63.6                  6W × 90D × 6H mm, Y:0→-90
-  12  Strut BL (Bottom-Left)    Add     Rect prism    Y     X=10.0, Z=5.0                    6W × 90D × 6H mm, Y:0→-90
-  13  Strut BR (Bottom-Right)   Add     Rect prism    Y     X=127.2, Z=5.0                   6W × 90D × 6H mm, Y:0→-90
+  10  Strut TL (Top-Left)       Add     Rect prism    Y     X=10.0, Z=63.6                   6W × 90D × 6H mm, Y:5→95
+  11  Strut TR (Top-Right)      Add     Rect prism    Y     X=127.2, Z=63.6                  6W × 90D × 6H mm, Y:5→95
+  12  Strut BL (Bottom-Left)    Add     Rect prism    Y     X=10.0, Z=5.0                    6W × 90D × 6H mm, Y:5→95
+  13  Strut BR (Bottom-Right)   Add     Rect prism    Y     X=127.2, Z=5.0                   6W × 90D × 6H mm, Y:5→95
 
 Bore zone detail (identical for all 4 bores):
   Zone 1 (outer counterbore): Ø15.60 mm, Y: 5.0 → 3.6 mm (depth 1.4 mm from rear face)
@@ -168,9 +153,9 @@ Strut clearances (all struts, worst-case nearest bore):
 Coordinate system declaration (Rubric 2):
   Origin: plate bottom-left-front corner
   X: plate width, left to right, 0 → 137.2 mm
-  Y: plate depth, front (Y=0) to rear (Y=5), pins to Y=35, struts to Y=-90
+  Y: plate depth, front (Y=0) to rear (Y=5), struts to Y=95
   Z: plate height, bottom to top, 0 → 68.6 mm
-  Full bounding box: X:[0,137.2] Y:[-90,35] Z:[0,68.6]
+  Full bounding box: X:[0,137.2] Y:[0,95] Z:[0,68.6]
 
 XZ workplane convention (verified):
   Normal = -Y direction.
@@ -265,43 +250,14 @@ for bore_idx, (cx, cz) in enumerate(BORE_CENTERS):
     print(f"  [-] Feature {4 + bore_idx}: Stepped bore {label} at X={cx}, Z={cz}")
 
 # ------------------------------------------------------------------------------
-# Feature 8: Guide Pin 1
-# Ø5 mm cylinder, center at (X=5.0, Z=63.6), extends from Y=5.0 to Y=35.0
-# (30 mm outward from rear face in +Y direction).
-#
-# XZ workplane at Y=5.0 (offset=-5.0), extrude negative → +Y direction
-# negative extrude on XZ (normal=-Y) goes opposite to normal = +Y
-# ------------------------------------------------------------------------------
-pin1 = (
-    cq.Workplane("XZ")
-    .workplane(offset=-PIN_Y0)         # offset=-5.0 → plane at Y=5.0 (rear face)
-    .center(PIN1_X, PIN1_Z)            # X=5.0, Z=63.6
-    .circle(PIN_R)
-    .extrude(-PIN_LEN)                 # negative extrude → +Y direction → Y: 5→35
-)
-plate = plate.union(pin1)
-print(f"  [+] Feature 8: Guide Pin 1 at X={PIN1_X}, Z={PIN1_Z}, Y:{PIN_Y0}→{PIN_Y1}")
-
-# Feature 9: Guide Pin 2
-pin2 = (
-    cq.Workplane("XZ")
-    .workplane(offset=-PIN_Y0)         # plane at Y=5.0
-    .center(PIN2_X, PIN2_Z)            # X=132.2, Z=5.0
-    .circle(PIN_R)
-    .extrude(-PIN_LEN)                 # +Y direction → Y: 5→35
-)
-plate = plate.union(pin2)
-print(f"  [+] Feature 9: Guide Pin 2 at X={PIN2_X}, Z={PIN2_Z}, Y:{PIN_Y0}→{PIN_Y1}")
-
-# ------------------------------------------------------------------------------
 # Features 10-13: Struts TL, TR, BL, BR
 #
-# Each strut is a 6×6 mm rectangular prism extending from Y=0 (front face)
-# to Y=-90 (toward user/lever). The strut base is flush with the plate front
-# face; the strut tips are plain square ends (no joinery).
+# Each strut is a 6×6 mm rectangular prism extending from Y=5 (rear face)
+# to Y=95 (90 mm beyond rear face, toward lever). The strut base is flush with
+# the plate rear face; the strut tips are plain square ends (no joinery).
 #
-# Placement: center at (cx, cz) in XZ, Y from STRUT_Y1 to STRUT_Y0 (i.e.
-# from -90 to 0). The box starts at (cx - STRUT_W/2, STRUT_Y1, cz - STRUT_H/2)
+# Placement: center at (cx, cz) in XZ, Y from STRUT_Y0 to STRUT_Y1 (i.e.
+# from 5 to 95). The box starts at (cx - STRUT_W/2, STRUT_Y0, cz - STRUT_H/2)
 # and has dimensions (STRUT_W, STRUT_L, STRUT_H).
 #
 # Using XY workplane with transformed(offset=...) to position each strut:
@@ -309,16 +265,16 @@ print(f"  [+] Feature 9: Guide Pin 2 at X={PIN2_X}, Z={PIN2_Z}, Y:{PIN_Y0}→{PI
 #   box(W, D, H, centered=False) then places the box at X:[0,W] Y:[0,D] Z:[0,H]
 #   relative to the new origin.
 #
-# For a strut with center (cx, cz), Y from STRUT_Y1 (-90) to STRUT_Y0 (0):
-#   origin = (cx - STRUT_W/2, STRUT_Y1, cz - STRUT_H/2)
+# For a strut with center (cx, cz), Y from STRUT_Y0 (5) to STRUT_Y1 (95):
+#   origin = (cx - STRUT_W/2, STRUT_Y0, cz - STRUT_H/2)
 #   box(STRUT_W, STRUT_L, STRUT_H, centered=False)
-#   → X:[cx-3, cx+3]  Y:[-90, 0]  Z:[cz-3, cz+3]
+#   → X:[cx-3, cx+3]  Y:[5, 95]  Z:[cz-3, cz+3]
 # ------------------------------------------------------------------------------
 strut_feature_num = 10
 for label, (cx, cz) in STRUTS.items():
     sx0 = cx - STRUT_W / 2    # left X edge of strut
     sz0 = cz - STRUT_H / 2    # bottom Z edge of strut
-    sy0 = STRUT_Y1             # Y start = -90.0 (tip end)
+    sy0 = STRUT_Y0             # Y start = 5.0 (base at rear face)
     strut = (
         cq.Workplane("XY")
         .transformed(offset=cq.Vector(sx0, sy0, sz0))
@@ -326,7 +282,7 @@ for label, (cx, cz) in STRUTS.items():
     )
     plate = plate.union(strut)
     print(f"  [+] Feature {strut_feature_num}: Strut {label} center (X={cx}, Z={cz}), "
-          f"box X:[{sx0},{cx+STRUT_W/2}] Y:[{sy0},{STRUT_Y0}] Z:[{sz0},{cz+STRUT_H/2}]")
+          f"box X:[{sx0},{cx+STRUT_W/2}] Y:[{sy0},{STRUT_Y1}] Z:[{sz0},{cz+STRUT_H/2}]")
     strut_feature_num += 1
 
 print()
@@ -389,44 +345,23 @@ for bore_idx, (cx, cz) in enumerate(BORE_CENTERS):
                   f"solid in annular ring between Z1 and Z2 radii at Y=2.5")
 
 print()
-print("--- Features 8-9: Guide pins ---")
-pin1_mid_y = (PIN_Y0 + PIN_Y1) / 2   # 20.0 mm
-v.check_solid("Guide Pin 1 body",
-              PIN1_X, pin1_mid_y, PIN1_Z,
-              f"solid inside pin 1 body at ({PIN1_X}, {pin1_mid_y}, {PIN1_Z})")
-v.check_solid("Guide Pin 2 body",
-              PIN2_X, pin1_mid_y, PIN2_Z,
-              f"solid inside pin 2 body at ({PIN2_X}, {pin1_mid_y}, {PIN2_Z})")
-
-v.check_solid("Guide Pin 1 mid-extension",
-              PIN1_X, 10.0, PIN1_Z,
-              f"solid in pin 1 extension at Y=10 (beyond plate)")
-v.check_solid("Guide Pin 2 mid-extension",
-              PIN2_X, 10.0, PIN2_Z,
-              f"solid in pin 2 extension at Y=10 (beyond plate)")
-
-v.check_void("Void beside Pin 1",
-             PIN1_X + PIN_R + 1.0, 10.0, PIN1_Z,
-             f"void outside pin 1 radius at Y=10")
-
-print()
 print("--- Features 10-13: Struts ---")
-strut_mid_y = (STRUT_Y0 + STRUT_Y1) / 2   # -45.0 mm (midpoint of strut length)
+strut_mid_y = (STRUT_Y0 + STRUT_Y1) / 2   # 50.0 mm (midpoint of strut length)
 for label, (cx, cz) in STRUTS.items():
     # Probe solid at strut center (midpoint of length)
     v.check_solid(f"Strut {label} body center",
                   cx, strut_mid_y, cz,
                   f"solid at strut {label} center (X={cx}, Y={strut_mid_y}, Z={cz})")
 
-    # Probe solid at strut base (Y just inside front face, inside strut)
+    # Probe solid at strut base (Y just beyond rear face, inside strut)
     v.check_solid(f"Strut {label} base",
-                  cx, -1.0, cz,
-                  f"solid at strut {label} base (Y=-1.0, just beyond front face)")
+                  cx, STRUT_Y0 + 1.0, cz,
+                  f"solid at strut {label} base (Y={STRUT_Y0 + 1.0}, just beyond rear face)")
 
     # Probe solid near strut tip
     v.check_solid(f"Strut {label} tip",
-                  cx, STRUT_Y1 + 1.0, cz,
-                  f"solid near strut {label} tip (Y={STRUT_Y1 + 1.0})")
+                  cx, STRUT_Y1 - 1.0, cz,
+                  f"solid near strut {label} tip (Y={STRUT_Y1 - 1.0})")
 
     # Probe void just outside strut X extent (in X direction)
     void_x = cx + STRUT_W / 2 + 1.0   # 1 mm outside right edge of strut
@@ -445,11 +380,11 @@ print("--- Bounding box (Rubric 5) ---")
 bb = plate.val().BoundingBox()
 print(f"  Actual bounding box:")
 print(f"    X: [{bb.xmin:.3f}, {bb.xmax:.3f}]  (expected [0, 137.2])")
-print(f"    Y: [{bb.ymin:.3f}, {bb.ymax:.3f}]  (expected [-90, 35])")
+print(f"    Y: [{bb.ymin:.3f}, {bb.ymax:.3f}]  (expected [0, 95])")
 print(f"    Z: [{bb.zmin:.3f}, {bb.zmax:.3f}]  (expected [0, 68.6])")
 
 v.check_bbox("X", bb.xmin, bb.xmax, 0.0, PLATE_W, tol=0.5)
-v.check_bbox("Y", bb.ymin, bb.ymax, -90.0, 35.0, tol=0.5)
+v.check_bbox("Y", bb.ymin, bb.ymax, 0.0, STRUT_Y1, tol=0.5)
 v.check_bbox("Z", bb.zmin, bb.zmax, 0.0, PLATE_H, tol=0.5)
 
 print()
@@ -459,17 +394,16 @@ v.check_single_body()
 
 # Volume estimate:
 # Plate body:  137.2 × 5 × 68.6 = 47051 mm³
-# + 2 pins:    2 × π × 2.5² × 30 ≈ 1178 mm³
 # + 4 struts:  4 × 6 × 90 × 6   = 12960 mm³
 # - 4 bores (approx):
 #   Zone1: 4 × π × 7.8² × 1.4 ≈ 1070 mm³
 #   Zone2: 4 × π × 5.035² × 2.0 ≈ 637 mm³
 #   Zone3: 4 × π × 3.25² × 1.6 ≈ 212 mm³
 #   Total bore removal: ≈ 1919 mm³
-# Estimated total: ≈ 47051 + 1178 + 12960 - 1919 ≈ 59270 mm³
-# Full envelope: 137.2 × 125 × 68.6 = 1176025 mm³  (Y span = 35 - (-90) = 125)
-# Fill ratio: 59270 / 1176025 ≈ 5.0%
-v.check_volume(expected_envelope=PLATE_W * (PIN_Y1 - STRUT_Y1) * PLATE_H,
+# Estimated total: ≈ 47051 + 12960 - 1919 ≈ 58092 mm³
+# Full envelope: 137.2 × 95 × 68.6 = 893888 mm³  (Y span = 0 → 95)
+# Fill ratio: 58092 / 893888 ≈ 6.5%
+v.check_volume(expected_envelope=PLATE_W * STRUT_Y1 * PLATE_H,
                fill_range=(0.03, 0.10))
 
 print()

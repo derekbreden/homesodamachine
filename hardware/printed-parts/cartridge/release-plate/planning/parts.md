@@ -13,8 +13,8 @@
 | Part type | Single printed PETG part |
 | Function | Sliding actuator that simultaneously depresses the rear-facing collets of four PP0408W quick-connect fittings, releasing the cartridge from the enclosure dock tube stubs |
 | Material | PETG |
-| Envelope (W × H × D) | 137.2 mm × 68.6 mm × 95.0 mm (plate 137.2×68.6×5; struts extend 90 mm from front face) |
-| Print orientation | Front face DOWN on build plate (XZ plane on build plate). Guide pins and struts extend upward (+Y print direction). All stepped bore features open downward toward build plate. |
+| Envelope (W × H × D) | 137.2 mm × 68.6 mm × 95.0 mm (plate 137.2×68.6×5; struts extend 90 mm from rear face) |
+| Print orientation | Front face DOWN on build plate (XZ plane on build plate). Struts extend upward (+Y print direction). All stepped bore features open downward toward build plate. |
 | Piece count | 1 |
 | Fasteners | None |
 | Sub-assemblies | None |
@@ -24,7 +24,7 @@
 | Axis | Direction | Range |
 |---|---|---|
 | X | Width, left to right | 0 → 137.2 mm |
-| Y | Depth, front (user-facing) to rear (fitting-facing) | 0 → 5.0 mm |
+| Y | Depth, front (user-facing) to rear (fitting-facing); struts extend beyond rear face | 0 → 95.0 mm |
 | Z | Height, bottom to top | 0 → 68.6 mm |
 
 Origin: bottom-left-front corner of the plate (the corner at X=0, Y=0, Z=0).
@@ -38,6 +38,8 @@ Y=5 = rear face (bore-entry face, faces the PP0408W fittings in assembled cartri
 **v2** placed the 4 bores in a 2×2 grid (two columns at X=9.0 and X=71.0, two rows at Z=47.5 and Z=17.5) on an 80×65mm plate.
 
 **v3** moves all 4 bores into a single horizontal row (1×4) at Z=34.3mm, with centers at X=43.1, 60.1, 77.1, 94.1mm, matching the coupler tray v3 layout exactly. The plate footprint is updated to 137.2×68.6mm to match the coupler tray footprint. The 4 struts are repositioned to the four corners of the plate, clear of all bore outer circles. The 2 guide pins are repositioned diagonally to match the new plate geometry.
+
+**v4** moves the 4 struts from the front face to the rear face (Y=5.0 → Y=95.0), and removes the 2 guide pins entirely. The guide pin bores, return springs on pins, and related interfaces are all moved to other parts in the assembly — they are not features of this plate.
 
 ---
 
@@ -61,15 +63,15 @@ Force path: user finger pads contact the plate front face (Y=0) → force transm
 
 ### What constrains the plate
 
-**Rotational constraint:** Two integral guide pins (Pin 1 at X=5.0, Z=63.6; Pin 2 at X=132.2, Z=5.0) extend 30.0 mm from the plate rear face (Y=5.0 to Y=35.0 in part frame) and slide in matched cylindrical bores in the cartridge body. The diagonal placement of the two pins prevents any rotation of the plate about the Y axis (or any other axis) during translation. The 0.5 mm designed diametric clearance between pin OD (5.0 mm) and bore ID (5.5 mm) limits maximum tilt.
+**Rotational constraint:** The four corner struts (Features 10–13) engage matched pockets or guide surfaces in the lever assembly. Their 117.2 mm horizontal and 58.6 mm vertical span provides the anti-rotation moment arm. Translational guidance is provided by the cartridge body pocket walls bearing on the plate perimeter.
 
 **Translational constraint (over-travel):** The Zone 1 outer bore floor acts as a hard stop. When the plate has traveled 1.33 mm toward the user, the Zone 1 bore floor (at Y=3.6 mm from front face = Y=1.4 mm depth from rear face) contacts the PP0408W body-end shoulder (15.10 mm OD annular face). The fitting body becomes the over-travel stop.
 
-**Rearward limit:** At rest, the plate is held at its resting position by the return springs. The annular lip face at Y=1.6 mm rests against the collet end faces (which are spring-loaded outward). The plate cannot travel rearward (+Y) beyond its rest position because the collets prevent it.
+**Rearward limit:** At rest, the plate is held at its resting position by the return force. The annular lip face at Y=1.6 mm rests against the collet end faces (which are spring-loaded outward). The plate cannot travel rearward (+Y) beyond its rest position because the collets prevent it.
 
 ### Return force
 
-Two compression springs, one per guide pin, provide the return force. Each spring sits in an 8 mm diameter × 10 mm deep pocket in the cartridge body rear wall, concentric with the corresponding guide pin bore. The spring bears against the flat plate rear face (Y=5.0 mm, no feature on the plate required).
+Return force is provided by the collet springs in the four PP0408W fittings bearing against the plate annular lip faces. No separate return spring features are required on this plate.
 
 ### The user's physical interaction
 
@@ -171,62 +173,19 @@ All four bores at Z=34.3mm (plate vertical midpoint at Z=34.3mm). 17.0 mm center
 - All adjacent pairs: 17.0 − 15.60 = 1.4 mm — no interference
 - Non-adjacent pairs (34mm spacing): 34.0 − 15.60 = 18.4 mm — no interference
 
-### Feature 8 — Guide Pin 1 (Top-Left)
-
-| Field | Value |
-|---|---|
-| Operation | Add (integral cylindrical boss protruding from rear face) |
-| Shape | Right circular cylinder |
-| Diameter | 5.0 mm (OD) |
-| Center position (X, Z) | X = 5.0 mm, Z = 63.6 mm |
-| Base Y | Y = 5.0 mm (at plate rear face) |
-| Tip Y | Y = 35.0 mm |
-| Length from rear face | 30.0 mm |
-| Tip geometry | Flat circular end face, Ø 5.0 mm, at Y = 35.0 mm |
-| Nearest bore (A) surface gap | Distance (5.0, 63.6) to (43.1, 34.3): sqrt(38.1²+29.3²) = sqrt(1452+858) = 48.1 mm center-to-center; minus pin radius 2.5 mm and bore outer radius 7.8 mm = 37.8 mm gap — well exceeds 1.2 mm structural minimum |
-| Distance to left plate edge | 5.0 − 2.5 = 2.5 mm — exceeds 1.2 mm structural minimum |
-| Distance to top plate edge | 68.6 − 63.6 − 2.5 = 2.5 mm — exceeds 1.2 mm structural minimum |
-| Justification | Guides plate translation in −Y; prevents rotation. Diagonal placement with Pin 2 provides anti-rotation moment arm. 30.0 mm length provides adequate bore engagement at all travel positions. |
-
-### Feature 9 — Guide Pin 2 (Bottom-Right)
-
-| Field | Value |
-|---|---|
-| Operation | Add (integral cylindrical boss protruding from rear face) |
-| Diameter | 5.0 mm (OD) |
-| Center position (X, Z) | X = 132.2 mm, Z = 5.0 mm |
-| Base Y | Y = 5.0 mm |
-| Tip Y | Y = 35.0 mm |
-| Length from rear face | 30.0 mm |
-| Tip geometry | Flat circular end face, Ø 5.0 mm, at Y = 35.0 mm |
-| Nearest bore (D) surface gap | Distance (132.2, 5.0) to (94.1, 34.3): sqrt(38.1²+29.3²) = 48.1 mm center-to-center; minus 2.5+7.8 = 37.8 mm gap — well exceeds 1.2 mm structural minimum |
-| Distance to right plate edge | 137.2 − 132.2 − 2.5 = 2.5 mm — exceeds 1.2 mm structural minimum |
-| Distance to bottom plate edge | 5.0 − 2.5 = 2.5 mm — exceeds 1.2 mm structural minimum |
-| Justification | Same as Feature 8. Diagonal pair (Pin 1 top-left, Pin 2 bottom-right) provides the anti-rotation moment arm. |
-
-**Pin geometry summary:**
-
-| Pin | Center (X, Z) | OD | Base Y | Tip Y | Length |
-|---|---|---|---|---|---|
-| Pin 1 | (5.0, 63.6) | 5.0 mm | 5.0 mm | 35.0 mm | 30.0 mm |
-| Pin 2 | (132.2, 5.0) | 5.0 mm | 5.0 mm | 35.0 mm | 30.0 mm |
-
-Pin center diagonal: sqrt((132.2−5.0)² + (5.0−63.6)²) = sqrt(127.2²+58.6²) = sqrt(16180+3434) = sqrt(19614) = 140.1 mm.
-
 ### Feature 10 — Strut TL (Top-Left)
 
 | Field | Value |
 |---|---|
-| Operation | Add (rectangular boss protruding from front face) |
+| Operation | Add (rectangular boss protruding from rear face) |
 | Shape | Rectangular prism |
 | Cross-section (X × Z) | 6.0 mm × 6.0 mm |
 | Length (Y) | 90.0 mm |
 | Center position (X, Z) | X = 10.0 mm, Z = 63.6 mm |
-| Box extents | X: 7.0→13.0, Y: −90.0→0.0, Z: 60.6→66.6 |
-| Base Y | Y = 0.0 mm (front face of plate) |
-| Tip Y | Y = −90.0 mm (plain square end, no joinery) |
+| Box extents | X: 7.0→13.0, Y: 5.0→95.0, Z: 60.6→66.6 |
+| Base Y | Y = 5.0 mm (rear face of plate) |
+| Tip Y | Y = 95.0 mm (plain square end, no joinery) |
 | Nearest bore (A) clearance | Bore A center (43.1, 34.3); strut nearest corner at (13.0, 60.6); distance = sqrt((43.1−13.0)²+(60.6−34.3)²) = sqrt(906+691) = sqrt(1597) = 40.0 mm; minus bore outer radius 7.8 mm = 32.2 mm gap — no interference |
-| Nearest pin (Pin 1) | Pin 1 at (5.0, 63.6); strut center at (10.0, 63.6) — different X, no Y overlap (pin extends in +Y, strut extends in −Y from plate) — no interference |
 | Distance to top plate edge | 68.6 − 66.6 = 2.0 mm to top edge — strut does not exceed plate |
 | Justification | Corner strut position is well clear of all 4 bores. Struts connect to lever (Season 3); corner placement maximizes moment arm for anti-rotation during actuation. |
 
@@ -234,46 +193,44 @@ Pin center diagonal: sqrt((132.2−5.0)² + (5.0−63.6)²) = sqrt(127.2²+58.6�
 
 | Field | Value |
 |---|---|
-| Operation | Add (rectangular boss protruding from front face) |
+| Operation | Add (rectangular boss protruding from rear face) |
 | Shape | Rectangular prism |
 | Cross-section (X × Z) | 6.0 mm × 6.0 mm |
 | Length (Y) | 90.0 mm |
 | Center position (X, Z) | X = 127.2 mm, Z = 63.6 mm |
-| Box extents | X: 124.2→130.2, Y: −90.0→0.0, Z: 60.6→66.6 |
-| Base Y | Y = 0.0 mm |
-| Tip Y | Y = −90.0 mm (plain square end) |
+| Box extents | X: 124.2→130.2, Y: 5.0→95.0, Z: 60.6→66.6 |
+| Base Y | Y = 5.0 mm |
+| Tip Y | Y = 95.0 mm (plain square end) |
 | Nearest bore (D) clearance | Bore D center (94.1, 34.3); strut nearest corner at (124.2, 60.6); distance = sqrt((124.2−94.1)²+(60.6−34.3)²) = sqrt(906+691) = 40.0 mm; minus 7.8 mm = 32.2 mm gap — no interference |
-| Nearest pin (Pin 2) | Pin 2 at (132.2, 5.0); strut at Z=63.6 — different Z, no overlap |
 | Justification | Mirror of Strut TL about X=68.6. |
 
 ### Feature 12 — Strut BL (Bottom-Left)
 
 | Field | Value |
 |---|---|
-| Operation | Add (rectangular boss protruding from front face) |
+| Operation | Add (rectangular boss protruding from rear face) |
 | Shape | Rectangular prism |
 | Cross-section (X × Z) | 6.0 mm × 6.0 mm |
 | Length (Y) | 90.0 mm |
 | Center position (X, Z) | X = 10.0 mm, Z = 5.0 mm |
-| Box extents | X: 7.0→13.0, Y: −90.0→0.0, Z: 2.0→8.0 |
-| Base Y | Y = 0.0 mm |
-| Tip Y | Y = −90.0 mm (plain square end) |
+| Box extents | X: 7.0→13.0, Y: 5.0→95.0, Z: 2.0→8.0 |
+| Base Y | Y = 5.0 mm |
+| Tip Y | Y = 95.0 mm (plain square end) |
 | Nearest bore (A) clearance | Bore A center (43.1, 34.3); strut nearest corner at (13.0, 8.0); distance = sqrt((43.1−13.0)²+(34.3−8.0)²) = sqrt(906+692) = sqrt(1598) = 40.0 mm; minus bore outer radius 7.8 mm = 32.2 mm gap — no interference |
-| Nearest pin (Pin 1) | Pin 1 at (5.0, 63.6); strut at Z=5.0 — different Z; no overlap |
 | Justification | Mirror of Strut TL about Z=34.3. Together with TL, the left strut pair spans 58.6 mm vertically for anti-rotation stability. |
 
 ### Feature 13 — Strut BR (Bottom-Right)
 
 | Field | Value |
 |---|---|
-| Operation | Add (rectangular boss protruding from front face) |
+| Operation | Add (rectangular boss protruding from rear face) |
 | Shape | Rectangular prism |
 | Cross-section (X × Z) | 6.0 mm × 6.0 mm |
 | Length (Y) | 90.0 mm |
 | Center position (X, Z) | X = 127.2 mm, Z = 5.0 mm |
-| Box extents | X: 124.2→130.2, Y: −90.0→0.0, Z: 2.0→8.0 |
-| Base Y | Y = 0.0 mm |
-| Tip Y | Y = −90.0 mm (plain square end) |
+| Box extents | X: 124.2→130.2, Y: 5.0→95.0, Z: 2.0→8.0 |
+| Base Y | Y = 5.0 mm |
+| Tip Y | Y = 95.0 mm (plain square end) |
 | Nearest bore (D) clearance | Bore D center (94.1, 34.3); strut nearest corner at (124.2, 8.0); distance = sqrt((124.2−94.1)²+(34.3−8.0)²) = sqrt(906+692) = 40.0 mm; minus 7.8 mm = 32.2 mm gap — no interference |
 | Justification | Mirror of Strut BL about X=68.6. Completes the 4-strut corner pattern. |
 
@@ -281,10 +238,10 @@ Pin center diagonal: sqrt((132.2−5.0)² + (5.0−63.6)²) = sqrt(127.2²+58.6�
 
 | Strut | Center (X, Z) | Cross-section | Base Y | Tip Y | Length |
 |---|---|---|---|---|---|
-| TL (Top-Left) | (10.0, 63.6) | 6.0 × 6.0 mm | 0.0 mm | −90.0 mm | 90.0 mm |
-| TR (Top-Right) | (127.2, 63.6) | 6.0 × 6.0 mm | 0.0 mm | −90.0 mm | 90.0 mm |
-| BL (Bottom-Left) | (10.0, 5.0) | 6.0 × 6.0 mm | 0.0 mm | −90.0 mm | 90.0 mm |
-| BR (Bottom-Right) | (127.2, 5.0) | 6.0 × 6.0 mm | 0.0 mm | −90.0 mm | 90.0 mm |
+| TL (Top-Left) | (10.0, 63.6) | 6.0 × 6.0 mm | 5.0 mm | 95.0 mm | 90.0 mm |
+| TR (Top-Right) | (127.2, 63.6) | 6.0 × 6.0 mm | 5.0 mm | 95.0 mm | 90.0 mm |
+| BL (Bottom-Left) | (10.0, 5.0) | 6.0 × 6.0 mm | 5.0 mm | 95.0 mm | 90.0 mm |
+| BR (Bottom-Right) | (127.2, 5.0) | 6.0 × 6.0 mm | 5.0 mm | 95.0 mm | 90.0 mm |
 
 Strut horizontal spacing (TL↔TR or BL↔BR): 117.2 mm center-to-center.
 Strut vertical spacing (TL↔BL or TR↔BR): 58.6 mm center-to-center.
@@ -295,7 +252,8 @@ All four struts clear all bore outer circles by ≥32.2 mm minimum. No interfere
 | Absent feature | Reason |
 |---|---|
 | Elephant's foot chamfer (0.3 mm × 45°) | The 3.0 mm pull edge radius (Feature 3) applied to all four front-face perimeter edges fully satisfies requirements.md §6 elephant's foot requirement. No separate chamfer needed. |
-| Spring pockets | Springs sit in pockets in the cartridge body rear wall, not in the plate. Plate rear face (Y=5.0 mm) is the spring contact surface — flat, no feature required. |
+| Guide pins | Guide pins are not a feature of this plate. Translation guidance is provided by the cartridge body pocket walls bearing on the plate perimeter. |
+| Spring pockets | No spring pockets on this plate. Return force is provided by the PP0408W collet springs. |
 | Embossed texture on pull surface | The front face is smooth (satin PETG as-printed). |
 | Labels, text, graphics | vision.md §3: the mechanism is hidden. No user-facing information on the plate. |
 | Retention tabs or service features | vision.md §3: the cartridge is a black box. The plate is not user-serviceable. |
@@ -328,16 +286,7 @@ All four struts clear all bore outer circles by ≥32.2 mm minimum. No interfere
 | Through-hole Ø | 6.50 mm | Tube OD 6.30 mm | 0.20 mm diametric tube clearance | Plate: spatial-resolution.md; Tube: geometry-description.md |
 | Through-hole Ø vs collet ID | 6.50 mm bore | Collet ID 6.69 mm | 6.50 < 6.69 → plate annular lip contacts collet face ✓ | geometry-description.md |
 
-### Interface 4: Plate guide pin OD ↔ Cartridge body guide bore ID
-
-| Dimension | Plate side (pin) | Cartridge body side (bore) | Clearance | Source |
-|---|---|---|---|---|
-| Pin OD | 5.0 mm designed | 5.5 mm designed bore ID | 0.5 mm diametric designed | spatial-resolution.md §3.5; synthesis.md §3 |
-| Pin length | 30.0 mm from rear face | Bore depth ≥ 30.0 mm | 27 mm retained at full stroke | spatial-resolution.md §3.5 |
-| Pin 1 center | (X=5.0, Z=63.6) | Bore center at matching position | ±0.2 mm positional (printer XY accuracy) | spatial-resolution.md §3.5 |
-| Pin 2 center | (X=132.2, Z=5.0) | Bore center at matching position | ±0.2 mm positional | spatial-resolution.md §3.5 |
-
-### Interface 5: Plate bore pattern ↔ Coupler tray v3 coupler positions
+### Interface 4: Plate bore pattern ↔ Coupler tray v3 coupler positions
 
 | Bore | Release plate center (X, Z) | Coupler tray v3 hole (X, Z) | Match |
 |---|---|---|---|
@@ -348,13 +297,7 @@ All four struts clear all bore outer circles by ≥32.2 mm minimum. No interfere
 
 The release plate bore centers align exactly with the coupler tray v3 coupler hole centers so the plate presses the collets that sit in the coupler tray's couplers.
 
-### Interface 6: Plate rear face (Y=5.0) ↔ Return springs
-
-| Dimension | Plate side | Cartridge body side | Notes |
-|---|---|---|---|
-| Spring contact surface | Flat rear face, Y=5.0 mm, no feature | Spring end coil; spring OD 7–8 mm, coil wraps guide pin | No plate feature needed |
-
-### Interface 7: Plate front face (Y=0) ↔ Cartridge body pocket floor (at rest)
+### Interface 5: Plate front face (Y=0) ↔ Cartridge body pocket floor (at rest)
 
 | Dimension | Plate side | Cartridge body side | Notes |
 |---|---|---|---|
@@ -371,7 +314,6 @@ The release plate bore centers align exactly with the coupler tray v3 coupler ho
 | Base plate thickness | Wall thickness | 5mm | 1.2mm structural min | Yes |
 | Bore wall to left/right edge | Thickness | 35.3mm | 1.2mm structural min | Yes |
 | Adjacent bore wall | Gap | 1.4mm edge-to-edge (outer bore) | ≥0mm no intersection | Yes |
-| Guide pin wall thickness | (5mm OD pin from rear face) | Solid cylinder on flat face | — | Yes |
 | Strut cross-section | Wall thickness | 6mm × 6mm | 1.2mm structural min | Yes |
 | Strut clearance to bores | Gap | 32.2mm minimum | ≥0mm no intersection | Yes |
 | Holes — orientation | Print as vertical cylinders | Axis parallel to print Z (Y axis) | — | Yes |
@@ -384,15 +326,11 @@ No overhangs. No supports required.
 
 1. **Before cartridge assembly:** The release plate is a complete printed part. No sub-assembly.
 
-2. **Insert guide pins into cartridge body bores:** Align the two guide pins with the two 5.5 mm bores in the cartridge body rear-wall structure. Lower the plate until the pins are fully seated.
+2. **Insert plate into cartridge body pocket:** Lower the plate into the cartridge body pocket with the rear face (Y=5) facing the PP0408W fittings and the struts extending rearward.
 
-3. **Seat return springs (cartridge body operation — for context):** Place one compression spring in each spring pocket concentric with each guide pin bore before inserting the plate.
+3. **Capture by cartridge body front wall:** The cartridge body front wall is assembled last, capturing the plate inside the pocket.
 
-4. **Insert plate over springs:** Lower the plate into the cartridge body pocket with the guide pins aligned to the bores.
-
-5. **Capture by cartridge body front wall:** The cartridge body front wall is assembled last, capturing the plate inside the pocket.
-
-6. **Verification:** With the cartridge assembled, the plate should translate smoothly 0–3 mm in the −Y direction when pressed, and return to the rest position when released.
+4. **Verification:** With the cartridge assembled, the plate should translate smoothly 0–3 mm in the −Y direction when pressed, and return to the rest position when released.
 
 ---
 
