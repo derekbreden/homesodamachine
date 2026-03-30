@@ -163,7 +163,7 @@ Pump 2 center: (109.5, 40.0)
 | 2C | **85.5** | **64.0** | Pump 2 | Top-left |
 | 2D | **133.5** | **64.0** | Pump 2 | Top-right |
 
-All holes are through-cuts along the Y-axis (Y=0 to Y=5). Hole diameter: 3.6mm CAD design value (targeting 3.4mm printed after FDM shrinkage — normal ISO 273 M3 fit, per pump-mounting-geometry.md).
+All holes are through-cuts along the Y-axis (Y=0 to Y=5.5mm). The 0.5mm extension beyond the plate rear face (Y=5 to Y=5.5) cuts through the boss floor annular ring, creating a continuous void from the clearance hole into the boss cavity. See parts.md Rubric D DG-01 for full path continuity analysis and resolution. Hole diameter: 3.6mm CAD design value (targeting 3.4mm printed after FDM shrinkage — normal ISO 273 M3 fit, per pump-mounting-geometry.md).
 
 ### 5.3 Boundary Check
 
@@ -447,7 +447,7 @@ This table gives the complete Y-range for every feature so the CAD agent has no 
 |---------|---------|-------|-------|
 | Plate body | 0 | 5mm | Full plate thickness |
 | Motor bore (through-cut) | 0 | 5mm | Through full thickness |
-| M3 clearance holes (through-cut) | 0 | 5mm | Through full thickness |
+| M3 clearance holes (through-cut) | 0 | **5.5mm** | Through full plate (Y=0–5) PLUS 0.5mm into boss floor (Y=5–5.5) for path continuity — see parts.md DG-01 |
 | Boss cylinders (union on rear face) | 5mm | 10mm | 5mm tall protrusion from rear face |
 | Boss cavities (blind bore from boss tip) | 10mm | 5.5mm | Opens at Y=10, bottom at Y=5.5 |
 | Heat-set insert (seated in boss cavity) | 10mm | 6.0mm | 4mm long insert, 0.5mm floor at Y=5.5 to Y=6.0 |
