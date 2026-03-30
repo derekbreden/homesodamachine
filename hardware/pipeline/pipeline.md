@@ -6,6 +6,7 @@
 
 ## Roles
 
+- **Orchestrator** — [`orchestrator.md`](orchestrator.md). Runs through a phase or season, launching engineering managers for each item in sequence. Stops at print-and-test steps.
 - **Engineering Manager** — reads this document. Runs pipeline steps for one build sequence item at a time.
 - **Build Planner** — [`build-planner.md`](build-planner.md). Decides what gets built when. Maintains the build sequence in `hardware/vision.md` Section 4.
 
