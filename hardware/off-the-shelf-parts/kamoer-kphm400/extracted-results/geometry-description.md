@@ -30,7 +30,7 @@ When viewed from the front (tube connector face), the pump head appears nearly s
 - **Two tube connector exits** protrude from this face:
   - White plastic barbed connectors for BPT tubing (4.8mm ID / 8.0mm OD)
   - Positioned offset from center — one above center, one below (or left/right depending on orientation)
-  - Tube stubs protrude ~30–50mm from the face (flexible BPT tubing attached)
+  - **Barb protrusion from bracket surface: 34.54mm** (caliper-verified, photo 15) — this is a sub-measurement of the 48.88mm full pump head depth (photo 14), meaning the barbs extend 34.54mm forward of the mounting bracket face
 
 ### Section 2: Pump Head Body (Y = 0 to ~48mm)
 - Black plastic housing containing the peristaltic roller mechanism
@@ -55,7 +55,7 @@ When viewed from the front (tube connector face), the pump head appears nearly s
 
 ### Section 5: DC Motor Body (Y ≈ 52mm to end)
 - Silver cylindrical motor housing (standard 3xx-series DC motor form factor)
-- **Motor diameter: ~35mm** (photos 15, 16 — display sideways, readings uncertain at ~34.54 / ~35.13mm)
+- **Motor diameter: 35.73mm** (caliper-verified, photo 16)
 - Motor has a flat on one side (standard anti-rotation feature)
 - QR code, RoHS label, and Kamoer product label on motor body
 - **Motor shaft nub:** A small protrusion from the center of the motor end cap (the non-drive end). This nub accounts for the 5mm difference between the two total-length measurements.
@@ -87,8 +87,8 @@ When viewed from the front (tube connector face), the pump head appears nearly s
 | 12 | ~61.19mm | Pump head height, alt angle | MEDIUM |
 | 13 | ~51.68mm | Pump head dimension (possibly including bracket) | MEDIUM |
 | 14 | 48.88mm | Pump head depth, side view | HIGH |
-| 15 | ~34.54mm | Motor body diameter (sideways display) | LOW — user verification needed |
-| 16 | ~35.13mm | Motor body diameter (sideways display) | LOW — user verification needed |
+| 15 | 34.54mm | Distance from mounting bracket surface to furthest edge of inlet/outlet barbs (sub-measurement of photo 14) | HIGH (user-verified) |
+| 16 | 35.73mm | Motor body diameter (sideways display) | HIGH (user-verified) |
 | 17 | 82.82mm | Height with tube connectors or partial assembly span | MEDIUM |
 
 ## Cross-Referencing with Datasheet
@@ -113,7 +113,7 @@ VIEW OF THE JUNCTION FACE (looking at the pump from the motor side):
          ○─────────────────────○
          │                     │  ▲
          │    ╱ ‾ ‾ ‾ ‾ ╲     │  │
-         │   │  ~35mm     │    │  48mm c-c
+         │   │  35.73mm     │    │  48mm c-c
          │   │  motor     │    │  │
          │    ╲ _ _ _ _ ╱      │  ▼
          │                     │
@@ -135,8 +135,8 @@ VIEW OF THE JUNCTION FACE (looking at the pump from the motor side):
 When designing a pump tray or cartridge that holds this pump:
 
 1. **Pump head envelope:** 62.6mm x 62.6mm square (rounded corners), ~48mm deep
-2. **Bracket/mounting face:** The junction face between pump head and motor has 4x M3 mounting holes in a 48mm square. The bracket is ~68.6mm wide. A mounting surface needs a bore hole for the ~35mm motor cylinder, surrounded by 4 screw holes at the 48mm square pattern.
-3. **Motor protrusion behind bracket:** ~63–68mm cylindrical body (~35mm diameter) with a 5mm nub at the very end. Total behind bracket: ~68mm.
+2. **Bracket/mounting face:** The junction face between pump head and motor has 4x M3 mounting holes in a 48mm square. The bracket is ~68.6mm wide. A mounting surface needs a bore hole for the 35.73mm motor cylinder, surrounded by 4 screw holes at the 48mm square pattern.
+3. **Motor protrusion behind bracket:** ~63–68mm cylindrical body (35.73mm diameter) with a 5mm nub at the very end. Total behind bracket: ~68mm.
 4. **Tube exit clearance in front:** ~30–50mm of BPT tube stubs protrude forward.
 5. **Wiring clearance at rear:** Motor terminals at the back need ~5mm for solder connections.
 6. **Total depth budget:** 116mm from front face to motor nub tip, plus tube stubs in front.
@@ -144,6 +144,6 @@ When designing a pump tray or cartridge that holds this pump:
 
 ## Remaining Unknowns
 
-1. **Motor body diameter:** ~35mm but uncertain. Low-confidence readings from photos 15, 16.
+1. **Motor body diameter:** 35.73mm (caliper-verified, photo 16). Photo 15 (34.54mm) measures bracket surface to barb edge, not motor diameter.
 2. **Tube connector exit positions:** Exact X/Z positions of the two tube stubs on the front face.
 3. **Bracket-to-pump-head attachment:** Whether the bracket can be separated from the pump head (for measurement) or is permanently fixed.
