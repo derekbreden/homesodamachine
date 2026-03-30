@@ -43,10 +43,10 @@ When viewed from the front (tube connector face), the pump head appears nearly s
 - Bracket width: **~68.6mm** (matches datasheet — wider than 62.6mm pump head by ~3mm per side)
 - **Mounting holes:**
   - **4x M3 through-holes** in a square pattern on the bracket face (hole diameter: **3.13mm**, caliper-verified from photo 06)
-  - **Center-to-center spacing: 48mm x 48mm square** (user-verified)
-  - Caliper reference: photo 05 measured 47.88mm edge-to-edge across one pair of holes; photo 06 measured hole diameter at 3.13mm
+  - **Center-to-center spacing: 50mm x 50mm square** (per datasheet, ±0.1mm)
+  - Caliper reference: photo 05 measured 47.88mm edge-to-edge across one pair of holes; photo 06 measured hole diameter at 3.13mm. Edge-to-edge 47.88 + hole diameter 3.13 ≈ 51mm outer edge, consistent with 50mm c-c.
   - The 4 holes surround the motor cylinder — screws pass through the bracket face parallel to the motor axis, threading into the pump head
-  - **This is the face where the pump mounts to a surface.** The natural mounting approach is a flat plate with a bore hole for the motor cylinder to pass through, with 4 screw holes surrounding the bore matching this 48mm square pattern.
+  - **This is the face where the pump mounts to a surface.** The natural mounting approach is a flat plate with a bore hole for the motor cylinder to pass through, with 4 screw holes surrounding the bore matching this 50mm square pattern.
 - Bracket thickness: ~1.5–2mm (estimated from photos)
 
 ### Section 4: Motor Adapter Plate (Y ≈ 48–52mm)
@@ -108,12 +108,12 @@ The mounting holes are on the **junction face** between the pump head and motor 
 ```
 VIEW OF THE JUNCTION FACE (looking at the pump from the motor side):
 
-              ◄── 48mm c-c ──►
+              ◄── 50mm c-c ──►
 
          ○─────────────────────○
          │                     │  ▲
          │    ╱ ‾ ‾ ‾ ‾ ╲     │  │
-         │   │  35.73mm     │    │  48mm c-c
+         │   │  35.73mm     │    │  50mm c-c
          │   │  motor     │    │  │
          │    ╲ _ _ _ _ ╱      │  ▼
          │                     │
@@ -125,17 +125,17 @@ VIEW OF THE JUNCTION FACE (looking at the pump from the motor side):
 
 - **Hole count:** 4 (square pattern)
 - **Hole diameter:** 3.13mm (accepts M3 screws with ~0.13mm clearance)
-- **Pattern:** 48mm x 48mm square, center-to-center (user-verified)
+- **Pattern:** 50mm x 50mm square, center-to-center (user-verified)
 - **Hole positions:** On the bracket face surrounding the motor cylinder, symmetric about the pump center axis
 - **Orientation:** Screws are parallel to the motor/cylinder axis — they thread into the pump head from the motor side
-- **Mounting approach:** A flat mounting surface with a bore hole (~36mm+) for the motor cylinder to pass through, with 4 screw holes at 48mm square surrounding the bore
+- **Mounting approach:** A flat mounting surface with a bore hole (~37mm+) for the 35.73mm motor cylinder to pass through, with 4 screw holes at 50mm square surrounding the bore
 
 ## Clearance Zones for 3D Modeling
 
 When designing a pump tray or cartridge that holds this pump:
 
 1. **Pump head envelope:** 62.6mm x 62.6mm square (rounded corners), ~48mm deep
-2. **Bracket/mounting face:** The junction face between pump head and motor has 4x M3 mounting holes in a 48mm square. The bracket is ~68.6mm wide. A mounting surface needs a bore hole for the 35.73mm motor cylinder, surrounded by 4 screw holes at the 48mm square pattern.
+2. **Bracket/mounting face:** The junction face between pump head and motor has 4x M3 mounting holes in a 50mm square. The bracket is ~68.6mm wide. A mounting surface needs a bore hole for the 35.73mm motor cylinder, surrounded by 4 screw holes at the 50mm square pattern.
 3. **Motor protrusion behind bracket:** ~63–68mm cylindrical body (35.73mm diameter) with a 5mm nub at the very end. Total behind bracket: ~68mm.
 4. **Tube exit clearance in front:** ~30–50mm of BPT tube stubs protrude forward.
 5. **Wiring clearance at rear:** Motor terminals at the back need ~5mm for solder connections.
@@ -144,6 +144,5 @@ When designing a pump tray or cartridge that holds this pump:
 
 ## Remaining Unknowns
 
-1. **Motor body diameter:** 35.73mm (caliper-verified, photo 16). Photo 15 (34.54mm) measures bracket surface to barb edge, not motor diameter.
-2. **Tube connector exit positions:** Exact X/Z positions of the two tube stubs on the front face.
-3. **Bracket-to-pump-head attachment:** Whether the bracket can be separated from the pump head (for measurement) or is permanently fixed.
+1. **Tube connector exit positions:** Exact X/Z positions of the two tube stubs on the front face.
+2. **Bracket-to-pump-head attachment:** Whether the bracket can be separated from the pump head (for measurement) or is permanently fixed.
