@@ -44,19 +44,6 @@ Two documents are the foundation of all design work. Every agent in every step r
 
 2. **`hardware/vision.md`** — the product values (what we care about, in priority order) and the product owner's imagined architecture (how they picture the assembled product). The values are absolute constraints. The architecture is directional — it tells you what the product owner is imagining, not what the final design must be.
 
-If either document does not exist or has not been verified by the product owner, no design work may proceed.
-
----
-
-## Prerequisites
-
-Before starting the pipeline, verify:
-
-1. **Requirements exist:** `hardware/requirements.md` must exist.
-2. **Vision exists:** `hardware/vision.md` must exist.
-3. **CadQuery venv works:** `tools/cad-venv/bin/python3 -c "import cadquery; print(cadquery.__version__)"`
-4. **Validation tools exist:** `tools/step_validate.py`
-
 ---
 
 ## Pipeline Steps
