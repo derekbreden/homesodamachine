@@ -1,6 +1,6 @@
 """
 Coupler Tray Base Half — CadQuery STEP Generation Script
-Season 1, Phase 5 — Split coupler tray into two halves
+Season 1, Phase 6 — Widen coupler tray to match pump tray
 
 Specification source: hardware/printed-parts/cartridge/coupler-tray/parts.md
 Parent geometry:      hardware/printed-parts/cartridge/coupler-tray/generate_step_cadquery.py (Phase 4)
@@ -18,13 +18,13 @@ within this half. The two top strut bores (Z=63.6mm) are in the boss half.
 
 Rubric 2 — Coordinate System Declaration:
   Origin: plate bottom-left-front corner (X=0, Y=0, Z=0)
-  X: plate width axis — left to right, 0..137.2mm
+  X: plate width axis — left to right, 0..140.0mm
   Y: plate thickness axis — front face (Y=0) to back face of base (Y=3mm);
      boss halves extend from Y=3 to Y=12.08mm
   Z: plate height axis — bottom to top, 0..34.3mm (this half only)
      Z=0: bottom face of assembled tray
      Z=34.3mm: mating face (top face of this half)
-  Bounding envelope: 137.2mm (X) x 12.08mm (Y) x 34.3mm (Z)
+  Bounding envelope: 140.0mm (X) x 12.08mm (Y) x 34.3mm (Z)
 
   Approach: Build the full Phase 4 tray body and cut away the top half
   (Z=34.3 to Z=68.6) with a box. This ensures the semicircular channels and
@@ -55,7 +55,7 @@ COUPLER TRAY BASE HALF — Feature Planning Table (Rubric 1)
 Assembly frame coordinates (Z=0..34.3mm is this half):
 
   #   Feature Name              Op      Shape         Axis  Center (X,Y,Z)              Dimensions
-  1   Base plate body           Add     Rect prism    —     (68.6, 1.5, 17.15)          137.2 x 3 x 34.3 mm
+  1   Base plate body           Add     Rect prism    —     (70.0, 1.5, 17.15)          140.0 x 3 x 34.3 mm
   2   Boss half B1              Add     Half-cyl      Y     (43.1, 7.54, 34.3)          OD 16mm, h 9.08mm, lower half (Z<=34.3)
   3   Boss half B2              Add     Half-cyl      Y     (60.1, 7.54, 34.3)          OD 16mm, h 9.08mm, lower half (Z<=34.3)
   4   Boss half B3              Add     Half-cyl      Y     (77.1, 7.54, 34.3)          OD 16mm, h 9.08mm, lower half (Z<=34.3)
@@ -64,8 +64,8 @@ Assembly frame coordinates (Z=0..34.3mm is this half):
   7   Semicircular channel C2   Remove  Half-cyl bore Y     (60.1, 6.04, 34.3)          9.5mm dia, lower half bore, TH
   8   Semicircular channel C3   Remove  Half-cyl bore Y     (77.1, 6.04, 34.3)          9.5mm dia, lower half bore, TH
   9   Semicircular channel C4   Remove  Half-cyl bore Y     (94.1, 6.04, 34.3)          9.5mm dia, lower half bore, TH
-  10  Strut bore S-BL           Remove  Rect prism    Y     (10.0, 1.5, 5.0)            6.4 x 3 x 6.4 mm, TH
-  11  Strut bore S-BR           Remove  Rect prism    Y     (127.2, 1.5, 5.0)           6.4 x 3 x 6.4 mm, TH
+  10  Strut bore S-BL           Remove  Rect prism    Y     (4.0, 1.5, 5.0)             6.4 x 3 x 6.4 mm, TH
+  11  Strut bore S-BR           Remove  Rect prism    Y     (136.0, 1.5, 5.0)           6.4 x 3 x 6.4 mm, TH
 
   Implementation: build full Phase 4 tray (Z 0..68.6), then cut top half
   (Z=34.3..68.6+overcut) with a large box to produce the base half.
@@ -84,7 +84,7 @@ print(FEATURE_TABLE)
 # Dimensions (from parts.md, unchanged from Phase 4)
 # ---------------------------------------------------------------------------
 
-PLATE_W     = 137.2    # X — width left to right
+PLATE_W     = 140.0    # X — width left to right
 PLATE_D     = 3.0      # Y — base plate thickness
 PLATE_H     = 68.6     # Z — full tray height
 SPLIT_Z     = 34.3     # Z — split plane (centerline of coupler holes)
@@ -113,8 +113,8 @@ STRUT_BORE_H = 6.4
 
 # Only bottom two strut bores are in the base half
 STRUT_BORES_BASE = [
-    ("S-BL", 10.0,   5.0),
-    ("S-BR", 127.2,  5.0),
+    ("S-BL",   4.0,  5.0),
+    ("S-BR", 136.0,  5.0),
 ]
 
 MID_Y_BASE  = PLATE_D / 2.0
@@ -132,7 +132,7 @@ print("Building full Phase 4 tray body (will then cut to base half)...")
 print()
 
 # Feature 1 — Base Plate (full height Z=0..68.6)
-print("Feature 1 — Base plate (137.2 x 3 x 68.6 mm, full height)...")
+print("Feature 1 — Base plate (140.0 x 3 x 68.6 mm, full height)...")
 plate = (
     cq.Workplane("XY")
     .box(PLATE_W, PLATE_D, PLATE_H, centered=False)
@@ -227,11 +227,11 @@ v = Validator(plate)
 
 # --- Feature 1: Base plate body ---
 print("Feature 1 — Base plate body (Z=0..34.3mm):")
-v.check_solid("Base plate center",          68.6, MID_Y_BASE, 17.15,  "solid at base plate XZ center")
-v.check_solid("Base plate near Y=0",        68.6, 0.3,        17.15,  "solid near front face Y=0")
-v.check_solid("Base plate near Y=3",        68.6, 2.7,        17.15,  "solid near back face Y=3")
+v.check_solid("Base plate center",          70.0, MID_Y_BASE, 17.15,  "solid at base plate XZ center")
+v.check_solid("Base plate near Y=0",        70.0, 0.3,        17.15,  "solid near front face Y=0")
+v.check_solid("Base plate near Y=3",        70.0, 2.7,        17.15,  "solid near back face Y=3")
 v.check_solid("Base plate left edge",        0.5, MID_Y_BASE, 17.15,  "solid near X=0")
-v.check_solid("Base plate right edge",     136.7, MID_Y_BASE, 17.15,  "solid near X=137.2")
+v.check_solid("Base plate right edge",     139.5, MID_Y_BASE, 17.15,  "solid near X=140.0")
 v.check_solid("Base plate bottom edge",     68.6, MID_Y_BASE,  0.5,   "solid near Z=0 bottom")
 v.check_solid("Base plate near mating face",68.6, MID_Y_BASE, 34.0,   "solid near Z=34.3 mating face")
 # Verify top half is gone — no material above Z=34.3 in body region (away from bosses/holes)
@@ -365,13 +365,13 @@ v.check_valid()
 v.check_single_body()
 
 # Volume estimate (base half):
-#   Base plate lower half: 137.2 x 3 x 34.3 = 14,118 mm^3
+#   Base plate lower half: 140.0 x 3 x 34.3 = 14,406 mm^3
 #   4 boss halves (solid, half-cyl): pi x 8^2 x 9.08 / 2 x 4 = 3,641 mm^3
 #   4 semicircular channels (half-bores, full depth): pi x 4.75^2 x 12.08 / 2 x 4 = 1,716 mm^3
 #   2 bottom strut bores: 2 x 6.4 x 6.4 x 3.0 = 246 mm^3
-#   Expected ~ 14,118 + 3,641 - 1,716 - 246 = 15,797 mm^3
-#   Bounding box: 137.2 x 12.08 x 34.3 = 56,911 mm^3
-#   Fill ratio ~ 15,797 / 56,911 ~ 0.278 — within (0.1, 0.8)
+#   Expected ~ 14,406 + 3,641 - 1,716 - 246 = 16,085 mm^3
+#   Bounding box: 140.0 x 12.08 x 34.3 = 58,069 mm^3
+#   Fill ratio ~ 16,085 / 58,069 ~ 0.277 — within (0.1, 0.8)
 envelope_vol = PLATE_W * FULL_DEPTH * BASE_H
 v.check_volume(expected_envelope=envelope_vol, fill_range=(0.1, 0.8))
 print()
