@@ -6,6 +6,13 @@ This document defines the procedure for designing a new 3D-printed part or mecha
 
 ---
 
+## Roles
+
+- **Engineering Manager** — reads this document. Orchestrates pipeline runs.
+- **Build Planner** — [`build-planner.md`](build-planner.md). Decides what gets built when.
+
+---
+
 ## Orchestrator Discipline: Inputs, Not Effort
 
 The orchestrator's job is to provide each agent with the correct inputs, context, and quality gate. **The orchestrator does not judge how much effort an agent should apply.** Every agent receives the same quality expectations regardless of how "simple" the orchestrator believes the sub-component to be. The agent discovers the complexity by doing the work — the orchestrator cannot predict it.
