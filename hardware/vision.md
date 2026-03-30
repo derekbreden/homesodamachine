@@ -68,7 +68,7 @@ The flat surfaces inside the cartridge. Each one is a flat panel with holes. Not
 1. **Release plate** — flat plate with stepped bores for 4 collet interfaces, 2 guide pins. DONE.
 2. **Pump tray** — flat plate with holes for mounting 2 Kamoer KPHM400 pumps (4 screws each, 8 holes total). No strut bores — those come in Phase 4.
 3. **Coupler tray** — flat plate with holes/pockets for capturing 4 John Guest union couplers. No strut bores — those come in Phase 4.
-4. **Lever** — flat plate with 4 struts extending from it.
+4. **Lever** — flat plate with 4 struts extending from it. Plain rectangular struts — no dovetail or joint geometry on the strut ends yet. That comes in Phase 2.
 
 #### Phase 2: Connect the plates to each other
 
@@ -78,7 +78,7 @@ The flat surfaces inside the cartridge. Each one is a flat panel with holes. Not
 
 #### Phase 3: Split and rejoin the coupler tray
 
-8. **Split coupler tray into two halves** — determine the split line that allows the couplers to be inserted. Produce two STEP files.
+8. **Split coupler tray into two halves** — determine the split line that allows the couplers to be inserted. Produce two STEP files. Plain flat mating faces at the split — no dovetail geometry yet. That comes in step 9.
 9. **Add dovetail geometry to coupler tray halves** — the tapered dovetail slide that joins them.
 10. **Add snap detent to coupler tray halves** — the prong barbs that lock the halves permanently.
 11. **Print and test coupler tray assembly** — two halves snap together, couplers are captured, shoulders provide axial retention.
@@ -97,10 +97,10 @@ The 6 flat panels that form the cartridge box. Each one is a flat panel. The sid
 
 #### Phase 5: Make the walls
 
-15. **Left wall** — flat panel, correct outer dimensions. Protruding rails on the interior face for: front panel, back panel, bottom panel, top panel, pump tray, coupler tray. Rails are the only features. No detents, no retention.
+15. **Left wall** — flat panel, correct outer dimensions. Protruding rails on the interior face for: front panel, back panel, bottom panel, top panel, pump tray, coupler tray. Interior rails are the only features. No detents, no retention, no exterior tracks for the enclosure bay — those come in Season 4.
 16. **Right wall** — mirror of left wall.
-17. **Back panel** — flat panel with 4 holes for tube stubs. Outer dimensions sized to fit the left/right wall rails.
-18. **Front panel** — flat panel with rectangular hole in lower half. Outer dimensions sized to fit the left/right wall rails.
+17. **Back panel** — flat panel with 4 holes for tube stubs. Outer dimensions sized to fit the left/right wall rails. No detent geometry — that comes in Phase 8.
+18. **Front panel** — flat panel with rectangular hole in lower half. Outer dimensions sized to fit the left/right wall rails. No detent geometry — that comes in Phase 8.
 19. **Bottom panel** — flat panel, no features. Outer dimensions sized to fit the left/right wall rails.
 20. **Top panel** — flat panel, no features. Outer dimensions sized to fit the left/right wall rails. This is the last piece that goes in during assembly.
 
