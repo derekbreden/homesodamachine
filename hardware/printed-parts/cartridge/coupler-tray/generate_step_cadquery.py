@@ -1,5 +1,5 @@
 """
-Coupler Tray — Split into Top and Bottom Plates
+Coupler Tray v3 — Widened Top and Bottom Plates
 CadQuery STEP Generation Script
 
 Specification source: hardware/printed-parts/cartridge/coupler-tray/planning/parts.md
@@ -14,12 +14,16 @@ each end provide axial retention against the 9.5mm bore.
 
 Both plates are geometrically identical.
 
+v3 changes: Plate widened from 137.2mm to 140.0mm to match pump tray v3.
+Coupler bores re-centered (+1.4mm X shift). Strut bores repositioned to
+match pump tray v3 strut positions.
+
 Rubric 2 — Coordinate System Declaration:
   Origin: plate bottom-left corner of outer face (X=0, Y=0, Z=0)
-  X: plate width axis — left to right, 0..137.2mm
+  X: plate width axis — left to right, 0..140.0mm
   Y: plate thickness axis — outer face (Y=0) to mating face (Y=6.08mm)
   Z: plate height axis — bottom to top, 0..68.6mm
-  Bounding envelope: 137.2mm (X) x 6.08mm (Y) x 68.6mm (Z)
+  Bounding envelope: 140.0mm (X) x 6.08mm (Y) x 68.6mm (Z)
 
   Hole/bore axes are parallel to Y.
   Print orientation: Y=0 face down on build plate.
@@ -39,20 +43,20 @@ from step_validate import Validator
 # ---------------------------------------------------------------------------
 
 FEATURE_TABLE = """
-COUPLER TRAY — SPLIT PLATE — Feature Planning Table (Rubric 1)
-================================================================
+COUPLER TRAY v3 — WIDENED SPLIT PLATE — Feature Planning Table (Rubric 1)
+==========================================================================
 Each half (top plate and bottom plate) is identical.
 
   #   Feature Name              Op      Shape         Axis  Center (X,Y,Z)          Dimensions
-  1   Base plate body           Add     Rect prism    —     (68.6, 3.04, 34.3)      137.2 x 6.08 x 68.6 mm
-  2   Coupler bore H1           Remove  Cylinder      Y     (43.1, 3.04, 34.3)      9.5mm dia, through Y
-  3   Coupler bore H2           Remove  Cylinder      Y     (60.1, 3.04, 34.3)      9.5mm dia, through Y
-  4   Coupler bore H3           Remove  Cylinder      Y     (77.1, 3.04, 34.3)      9.5mm dia, through Y
-  5   Coupler bore H4           Remove  Cylinder      Y     (94.1, 3.04, 34.3)      9.5mm dia, through Y
-  6   Strut bore S-TL           Remove  Rect prism    Y     (10.0, 3.04, 63.6)      6.4 x 6.08 x 6.4 mm, TH
-  7   Strut bore S-TR           Remove  Rect prism    Y     (127.2, 3.04, 63.6)     6.4 x 6.08 x 6.4 mm, TH
-  8   Strut bore S-BL           Remove  Rect prism    Y     (10.0, 3.04, 5.0)       6.4 x 6.08 x 6.4 mm, TH
-  9   Strut bore S-BR           Remove  Rect prism    Y     (127.2, 3.04, 5.0)      6.4 x 6.08 x 6.4 mm, TH
+  1   Base plate body           Add     Rect prism    —     (70.0, 3.04, 34.3)      140.0 x 6.08 x 68.6 mm
+  2   Coupler bore H1           Remove  Cylinder      Y     (44.5, 3.04, 34.3)      9.5mm dia, through Y
+  3   Coupler bore H2           Remove  Cylinder      Y     (61.5, 3.04, 34.3)      9.5mm dia, through Y
+  4   Coupler bore H3           Remove  Cylinder      Y     (78.5, 3.04, 34.3)      9.5mm dia, through Y
+  5   Coupler bore H4           Remove  Cylinder      Y     (95.5, 3.04, 34.3)      9.5mm dia, through Y
+  6   Strut bore S-TL           Remove  Rect prism    Y     (4.0, 3.04, 63.6)       6.4 x 6.08 x 6.4 mm, TH
+  7   Strut bore S-TR           Remove  Rect prism    Y     (136.0, 3.04, 63.6)     6.4 x 6.08 x 6.4 mm, TH
+  8   Strut bore S-BL           Remove  Rect prism    Y     (4.0, 3.04, 5.0)        6.4 x 6.08 x 6.4 mm, TH
+  9   Strut bore S-BR           Remove  Rect prism    Y     (136.0, 3.04, 5.0)      6.4 x 6.08 x 6.4 mm, TH
 
 TH = through-hole, full Y depth (0 to 6.08mm)
 """
@@ -64,7 +68,7 @@ print(FEATURE_TABLE)
 # ---------------------------------------------------------------------------
 
 # Plate envelope
-PLATE_W = 137.2    # X — width left to right
+PLATE_W = 140.0    # X — width left to right (widened from 137.2)
 PLATE_D = 6.08     # Y — half-plate thickness (half of 12.16mm center body length)
 PLATE_H = 68.6     # Z — height bottom to top
 
@@ -73,22 +77,23 @@ HOLE_DIA = 9.5     # mm — clears 9.31mm center body OD
 HOLE_R = HOLE_DIA / 2.0  # 4.75mm
 
 # Hole centers (X, Z) — 1x4 row along X, all at Z=34.3mm, 17mm c-c
+# Re-centered for 140.0mm width: old center 68.6 -> new center 70.0, shift +1.4mm
 HOLES = [
-    ("H1", 43.1, 34.3),
-    ("H2", 60.1, 34.3),
-    ("H3", 77.1, 34.3),
-    ("H4", 94.1, 34.3),
+    ("H1", 44.5, 34.3),
+    ("H2", 61.5, 34.3),
+    ("H3", 78.5, 34.3),
+    ("H4", 95.5, 34.3),
 ]
 
-# Strut bore parameters (same as previous version)
+# Strut bore parameters — positions match pump tray v3
 STRUT_BORE_W = 6.4   # mm (X) — 6.0mm strut + 0.4mm clearance
 STRUT_BORE_H = 6.4   # mm (Z) — 6.0mm strut + 0.4mm clearance
 
 STRUT_BORES = [
-    ("S-TL", 10.0,  63.6),
-    ("S-TR", 127.2, 63.6),
-    ("S-BL", 10.0,   5.0),
-    ("S-BR", 127.2,  5.0),
+    ("S-TL", 4.0,   63.6),
+    ("S-TR", 136.0, 63.6),
+    ("S-BL", 4.0,    5.0),
+    ("S-BR", 136.0,  5.0),
 ]
 
 MID_Y = PLATE_D / 2.0  # 3.04mm — mid-depth of plate
@@ -103,7 +108,7 @@ def build_half_plate(name):
     print()
 
     # --- Feature 1: Base plate body ---
-    print(f"Building Feature 1 — Base plate body (137.2 x {PLATE_D} x 68.6 mm)...")
+    print(f"Building Feature 1 — Base plate body ({PLATE_W} x {PLATE_D} x {PLATE_H} mm)...")
     plate = (
         cq.Workplane("XY")
         .box(PLATE_W, PLATE_D, PLATE_H, centered=False)
@@ -164,16 +169,16 @@ def validate_half(plate, name):
 
     # Feature 1: Base plate body
     print("Feature 1 — Base plate body:")
-    v.check_solid("Plate center",         68.6, MID_Y, 34.3,  "solid at plate geometric center")
-    v.check_solid("Plate near Y=0",       68.6, 0.3,   34.3,  "solid near outer face Y=0")
-    v.check_solid("Plate near Y=max",     68.6, PLATE_D - 0.3, 34.3, "solid near mating face")
+    v.check_solid("Plate center",         70.0, MID_Y, 34.3,  "solid at plate geometric center")
+    v.check_solid("Plate near Y=0",       70.0, 0.3,   34.3,  "solid near outer face Y=0")
+    v.check_solid("Plate near Y=max",     70.0, PLATE_D - 0.3, 34.3, "solid near mating face")
     v.check_solid("Plate left edge",      0.5,  MID_Y, 34.3,  "solid near X=0 left edge")
-    v.check_solid("Plate right edge",     136.7, MID_Y, 34.3, "solid near X=137.2 right edge")
-    v.check_solid("Plate bottom edge",    68.6, MID_Y, 0.5,   "solid near Z=0 bottom edge")
-    v.check_solid("Plate top edge",       68.6, MID_Y, 68.1,  "solid near Z=68.6 top edge")
+    v.check_solid("Plate right edge",     139.5, MID_Y, 34.3, "solid near X=140.0 right edge")
+    v.check_solid("Plate bottom edge",    70.0, MID_Y, 0.5,   "solid near Z=0 bottom edge")
+    v.check_solid("Plate top edge",       70.0, MID_Y, 68.1,  "solid near Z=68.6 top edge")
     # Verify plate does NOT extend above Y=6.08
     v.check_void("No material above plate",
-                 68.6, PLATE_D + 0.5, 34.3,
+                 70.0, PLATE_D + 0.5, 34.3,
                  "void above mating face — plate is only 6.08mm thick")
     print()
 
@@ -257,12 +262,12 @@ def validate_half(plate, name):
     v.check_single_body()
 
     # Volume estimate:
-    #   Base plate: 137.2 x 6.08 x 68.6 = 57,228 mm^3
+    #   Base plate: 140.0 x 6.08 x 68.6 = 58,357 mm^3
     #   4 coupler bores: pi x 4.75^2 x 6.08 x 4 = 1,724 mm^3
     #   4 strut bores: 4 x 6.4 x 6.4 x 6.08 = 997 mm^3
-    #   Expected ~ 57,228 - 1,724 - 997 = 54,507 mm^3
-    #   Envelope: 137.2 x 6.08 x 68.6 = 57,228 mm^3
-    #   Fill ratio ~ 54,507 / 57,228 ~ 0.952
+    #   Expected ~ 58,357 - 1,724 - 997 = 55,636 mm^3
+    #   Envelope: 140.0 x 6.08 x 68.6 = 58,357 mm^3
+    #   Fill ratio ~ 55,636 / 58,357 ~ 0.953
     envelope_vol = PLATE_W * PLATE_D * PLATE_H
     v.check_volume(expected_envelope=envelope_vol, fill_range=(0.8, 1.0))
     print()
