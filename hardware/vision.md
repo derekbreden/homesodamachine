@@ -66,41 +66,33 @@ The flat surfaces inside the cartridge. Each one is a flat panel with holes. Not
 #### Phase 1: Make the plates
 
 1. **Release plate** — flat plate with stepped bores for 4 collet interfaces, 2 guide pins. DONE.
-2. **Pump tray** — flat plate with 2 motor bores (~37mm, for the motor cylinder to pass through) and 8 screw holes (4 per pump, M3, in a 50mm square pattern around each motor bore). The screws approach from the motor side — you cannot reach them without the motor bore. No strut bores — those come in Phase 5.
-3. **Coupler tray** — flat plate with holes/pockets for capturing 4 John Guest union couplers. The layout will be 2×2 or whatever falls out of the geometry — this is temporary. The layout changes to 1×4 (all four in a line) in Phase 3 to enable the split. No strut bores — those come in Phase 5.
-4. **Lever** — flat plate with 4 struts extending from it. Plain rectangular struts — no dovetail or joint geometry on the strut ends yet. That comes in Phase 6.
+2. **Pump tray** — flat plate with 2 motor bores (~37mm, for the motor cylinder to pass through) and 8 screw holes (4 per pump, M3, in a 50mm square pattern around each motor bore). The screws approach from the motor side — you cannot reach them without the motor bore. No strut bores — those come in Phase 4.
+3. **Coupler tray** — flat plate with holes/pockets for capturing 4 John Guest union couplers. The layout will be 2×2 or whatever falls out of the geometry — this is temporary. The layout changes to 1×4 (all four in a line) in Phase 3 to enable the split. No strut bores — those come in Phase 4.
+4. **Lever** — flat plate with 4 struts extending from it. Plain rectangular struts — no dovetail or joint geometry on the strut ends. That comes in Season 3.
 
 #### Phase 2: Match strut count and position
 
-5. **Release plate v2** — update release plate from 2 struts to 4 struts. Plain rectangular struts — no dovetail or joint geometry. That comes in Phase 6.
+5. **Release plate v2** — update release plate from 2 struts to 4 struts. Plain rectangular struts — no joinery on the ends.
 6. **Verify strut positions match between lever and release plate** — the 4 struts on each must be at the same positions so they can eventually be joined. No joinery yet — just confirm the geometry lines up.
 
 #### Phase 3: Align the coupler tray and release plate patterns
 
-The release plate has 4 bores in a 2×2 grid. The coupler tray has 4 coupler pockets in whatever layout Phase 1 produced. These two patterns must match — the release plate presses the collets that sit in the coupler tray's couplers, and they're connected by rigid struts. Also, the coupler tray needs to be splittable in Phase 4, which requires all 4 couplers in a line (1×4), not a grid (2×2).
+The release plate has 4 bores in a 2×2 grid. The coupler tray has 4 coupler pockets in whatever layout Phase 1 produced. These two patterns must match — the release plate presses the collets that sit in the coupler tray's couplers, and they're connected by rigid struts. Also, the coupler tray needs to be splittable in Phase 5, which requires all 4 couplers in a line (1×4), not a grid (2×2).
 
 7. **Redesign coupler tray layout to 1×4** — all four couplers in a single row. This creates a clean split line between couplers 2 and 3.
 8. **Redesign release plate bore pattern to 1×4** — match the coupler tray's new layout so the collet interfaces align.
-9. **Print both and verify alignment** — hold them together by hand. Verify the release plate's bores line up with the coupler tray's couplers. Verify the release plate still presses all 4 collets squarely.
+9. **Print both and verify alignment** — hold them together by hand. Verify the release plate's bores line up with the coupler tray's couplers.
 
-#### Phase 4: Split and rejoin the coupler tray
+#### Phase 4: Add strut bores to interior plates
 
-10. **Split coupler tray into two halves** — split between couplers 2 and 3 (the natural midpoint of the 1×4 line). Produce two STEP files. Plain flat mating faces at the split — no dovetail geometry yet. That comes in Phase 6.
-11. **Print and test the split** — verify couplers can be inserted into each half, verify the two halves sit together and the shoulders provide axial retention. The halves are just held together by hand or gravity — no permanent join yet.
+10. **Add strut bores to pump tray** — 4 holes sized to the strut cross-section, positioned so the struts pass through cleanly.
+11. **Add strut bores to coupler tray** — same. The bores must be positioned so they don't interfere with the coupler pockets.
+12. **Full interior dry fit** — lever + struts + release plate, passing through pump tray and coupler tray. Everything held in alignment by the bores. Verify the mechanism translates smoothly with all interior plates present. Nothing is joined — just stacked and held by hand.
 
-#### Phase 5: Add strut bores to interior plates
+#### Phase 5: Split the coupler tray
 
-12. **Add strut bores to pump tray** — 4 holes sized to the strut cross-section, positioned so the struts pass through cleanly.
-13. **Add strut bores to coupler tray** — same, but the coupler tray is two halves, so the bores must align across the split line (or be entirely on one half).
-14. **Full interior dry fit** — lever + struts + release plate, passing through pump tray and coupler tray. Everything held in alignment by the bores. Verify the mechanism still translates smoothly with all interior plates present.
-
-#### Phase 6: Joinery on struts and coupler tray
-
-15. **Add dovetail geometry to coupler tray halves** — the tapered dovetail slide that joins them.
-16. **Add snap detent to coupler tray halves** — the prong barbs that lock the halves permanently.
-17. **Print and test coupler tray assembly** — two halves snap together, couplers are captured, shoulders provide axial retention.
-18. **Add dovetail geometry to strut ends** — the tapered dovetail + snap detent joint between lever struts and release plate struts.
-19. **Test the squeeze mechanism by hand** — lever + struts + release plate, assembled, held together by the strut joints, passing through both interior plates. Verify the full mechanism translates, verify the release plate presses collets.
+13. **Split coupler tray into two halves** — split between couplers 2 and 3 (the natural midpoint of the 1×4 line). Produce two STEP files. Plain flat mating faces at the split — no dovetail geometry.
+14. **Print and test the split** — verify couplers can be inserted into each half, verify the two halves sit together and the shoulders provide axial retention. The halves are just held together by hand or gravity — no permanent join yet.
 
 ---
 
@@ -108,48 +100,74 @@ The release plate has 4 bores in a 2×2 grid. The coupler tray has 4 coupler poc
 
 The 6 flat panels that form the cartridge box. Each one is a flat panel. The side walls get rails, everything else is just flat with maybe a hole or two.
 
-#### Phase 7: Make the walls
+#### Phase 6: Make the walls
 
-20. **Left wall** — flat panel, correct outer dimensions. Protruding rails on the interior face for: front panel, back panel, bottom panel, top panel, pump tray, coupler tray. Interior rails are the only features. No detents, no retention, no exterior tracks for the enclosure bay — those come in Season 4.
-21. **Right wall** — mirror of left wall.
-22. **Back panel** — flat panel with 4 holes for tube stubs. Outer dimensions sized to fit the left/right wall rails. No detent geometry — that comes in Phase 10.
-23. **Front panel** — flat panel with rectangular hole in lower half. Outer dimensions sized to fit the left/right wall rails. No detent geometry — that comes in Phase 10.
-24. **Bottom panel** — flat panel, no features. Outer dimensions sized to fit the left/right wall rails.
-25. **Top panel** — flat panel, no features. Outer dimensions sized to fit the left/right wall rails. This is the last piece that goes in during assembly.
+15. **Left wall** — flat panel, correct outer dimensions. Protruding rails on the interior face for: front panel, back panel, bottom panel, top panel, pump tray, coupler tray. Interior rails are the only features. No detents, no retention, no exterior tracks for the enclosure bay.
+16. **Right wall** — mirror of left wall.
+17. **Back panel** — flat panel with 4 holes for tube stubs. Outer dimensions sized to fit the left/right wall rails. No detent geometry.
+18. **Front panel** — flat panel with rectangular hole in lower half. Outer dimensions sized to fit the left/right wall rails. No detent geometry.
+19. **Bottom panel** — flat panel, no features. Outer dimensions sized to fit the left/right wall rails.
+20. **Top panel** — flat panel, no features. Outer dimensions sized to fit the left/right wall rails. This is the last piece that goes in during assembly.
 
-#### Phase 8: Test fit the box
+#### Phase 7: Test fit the box
 
-26. **Print all 6 panels and slide them together** — verify everything fits the rails, verify the box holds its shape by gravity and friction alone. Nothing locks. Panels may slide back out. That's fine.
-27. **Slide interior plates into the assembled box** — verify pump tray and coupler tray fit their rails inside the box. Verify the mechanism (lever + struts + release plate) still translates with the walls present.
-28. **Full assembly dry fit** — everything together for the first time. Interior mechanism, interior plates, all 6 walls. Identify what doesn't fit, what binds, what needs clearance.
+21. **Print all 6 panels and slide them together** — verify everything fits the rails. Nothing locks. Panels may slide back out. That's fine.
+22. **Slide interior plates into the assembled box** — verify pump tray and coupler tray fit their rails.
+23. **Full assembly dry fit** — everything together for the first time. Interior mechanism, interior plates, all 6 walls. Identify what doesn't fit, what binds, what needs clearance.
 
-#### Phase 9: Front and back panel features
+#### Phase 8: Refine panel holes
 
-29. **Refine front panel hole** — after dry fit, adjust hole position and size so the user's fingers actually reach the lever comfortably. This may take multiple prints.
-30. **Refine back panel holes** — after dry fit, verify tube stubs actually pass through and reach the quick connects with the release plate in its resting position.
+24. **Refine front panel hole** — after dry fit, adjust hole position and size so the user's fingers actually reach the lever comfortably. This may take multiple prints.
+25. **Refine back panel holes** — after dry fit, verify tube stubs actually pass through and reach the quick connects.
 
 ---
 
 ### Season 3: Joinery
 
-Nothing new gets designed. Everything that exists gets joined properly so it stays together.
+Everything exists as simple geometry. Now add the features that make things hold together. Each joint feature is its own step.
 
-#### Phase 10: Wall-to-wall retention
+#### Phase 9: Coupler tray dovetail
 
-31. **Add detent geometry to left wall rails** — tapered dovetails or snap detents on the rails so the front, back, bottom, and top panels lock at end of travel.
-32. **Add matching detent geometry to front, back, bottom, top panels** — the receiving features for the wall detents.
-33. **Print and test wall retention** — panels click in, don't slide back out. Iterate on tolerances.
+26. **Add dovetail geometry to coupler tray halves** — the tapered dovetail slide that joins the two halves along the split line.
+27. **Print and test the dovetail fit** — the halves slide together and hold by friction. No snap detent yet.
 
-#### Phase 11: Interior plate retention
+#### Phase 10: Coupler tray snap detent
 
-34. **Add detent geometry to interior plate rails** — pump tray and coupler tray lock into their side wall rails.
-35. **Print and test interior plate retention.**
+28. **Add snap detent to coupler tray halves** — the prong barbs that lock the halves permanently at end of travel.
+29. **Print and test the snap** — the halves click together and do not come apart.
 
-#### Phase 12: Strut bore refinement
+#### Phase 11: Strut dovetail
 
-36. **Add bosses around strut bores in pump tray** — reinforce the bores now that we know the exact strut dimensions and clearances from prototyping.
-37. **Add bosses around strut bores in coupler tray** — same.
-38. **Print and test mechanism with bosses** — verify the added material doesn't bind the struts, verify alignment is tighter.
+30. **Add dovetail geometry to lever strut ends** — the male dovetail tongue on each strut.
+31. **Add dovetail geometry to release plate strut ends** — the female dovetail channel on each strut.
+32. **Print and test the dovetail fit** — lever struts slide into release plate struts and hold by friction. No snap detent yet.
+
+#### Phase 12: Strut snap detent
+
+33. **Add snap detent to strut dovetail joints** — the prong barbs that lock the strut joints permanently.
+34. **Print and test the snap** — struts click together and do not come apart.
+35. **Full mechanism test** — lever + struts + release plate, joined by the strut dovetails, passing through both interior plates. Verify the full mechanism translates and presses the collets.
+
+#### Phase 13: Wall-to-wall dovetails
+
+36. **Add dovetail geometry to left wall rails** — tapered dovetails on the rails so the front, back, bottom, and top panels lock along the slide axis.
+37. **Add matching dovetail geometry to front, back, bottom, top panels** — the receiving features.
+38. **Print and test the dovetail fit** — panels slide in and hold by friction. No snap detent yet.
+
+#### Phase 14: Wall-to-wall snap detents
+
+39. **Add snap detent to wall rail dovetails** — the features that lock panels at end of travel.
+40. **Print and test wall retention** — panels click in, don't slide back out. Iterate on tolerances.
+
+#### Phase 15: Interior plate dovetails
+
+41. **Add dovetail geometry to interior plate rails** — pump tray and coupler tray lock along the slide axis in the side wall rails.
+42. **Print and test the dovetail fit.**
+
+#### Phase 16: Interior plate snap detents
+
+43. **Add snap detent to interior plate rail dovetails.**
+44. **Print and test interior plate retention.**
 
 ---
 
@@ -157,18 +175,28 @@ Nothing new gets designed. Everything that exists gets joined properly so it sta
 
 Everything works mechanically. Now make it feel like a product.
 
-#### Phase 13: Cosmetics and UX
+#### Phase 17: Strut bore bosses
 
-39. **Front panel exterior surface treatment** — the palm-push surface the user touches. Texture, radii, visual design.
-40. **Lever surface treatment** — the finger-pull surface. Smooth or lightly textured for finger comfort.
-41. **Side wall exterior surface treatment** — the surfaces visible when the cartridge is partially ejected from the enclosure.
-42. **Cartridge-to-enclosure track refinement** — the exterior protruding tracks on the side walls that ride in the enclosure bay channels. Smooth sliding, correct clearances.
+45. **Add bosses around strut bores in pump tray** — reinforce the bores now that we know the exact strut dimensions and clearances from prototyping.
+46. **Add bosses around strut bores in coupler tray** — same.
+47. **Print and test mechanism with bosses** — verify the added material doesn't bind the struts.
 
-#### Phase 14: Spring return and final mechanism tuning
+#### Phase 18: Cosmetics and UX
 
-43. **Add spring pockets** — wherever the return springs end up living (TBD based on interior plate positions and available space).
-44. **Tune squeeze force** — adjust spring rate, strut friction, bore clearances so the squeeze feels right.
-45. **Final full assembly test** — everything together, mechanism works, panels locked, cartridge slides in and out of enclosure bay (once the enclosure bay exists).
+48. **Front panel exterior surface treatment** — the palm-push surface the user touches. Texture, radii, visual design.
+49. **Lever surface treatment** — the finger-pull surface. Smooth or lightly textured for finger comfort.
+50. **Side wall exterior surface treatment** — the surfaces visible when the cartridge is partially ejected from the enclosure.
+
+#### Phase 19: Exterior tracks
+
+51. **Add exterior protruding tracks to side walls** — the tracks that ride in the enclosure bay channels.
+52. **Print and test track fit** — smooth sliding, correct clearances.
+
+#### Phase 20: Spring return and final mechanism tuning
+
+53. **Add spring pockets** — wherever the return springs end up living (TBD based on interior plate positions and available space).
+54. **Tune squeeze force** — adjust spring rate, strut friction, bore clearances so the squeeze feels right.
+55. **Final full assembly test** — everything together, mechanism works, panels locked, cartridge slides in and out of enclosure bay (once the enclosure bay exists).
 
 ---
 
