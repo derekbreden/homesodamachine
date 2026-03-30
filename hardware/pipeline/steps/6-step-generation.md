@@ -108,6 +108,17 @@ For each feature, probe specific spatial coordinates to verify:
 3. **Position**: Probe at the feature's expected center coordinates. Wrong position → probe hits wrong material state.
 4. **Orientation**: For directional features (stadium slots, elongated cutouts), probe at both ends of the long axis AND at the midpoint of the short axis. A 90-degree rotation error will cause the long-axis probe to hit solid instead of void.
 
+5. **Path continuity**: For every pair or chain of features that must form a continuous void path (fastener clearance hole + insert bore, stepped counterbore, fluid channel segments, wire routing channels), probe at the transition depth from both sides. A probe at `transition_depth - 0.1mm` AND `transition_depth + 0.1mm` must both return void. If either returns solid, the features do not connect — flag the failure and fix the geometry before exporting. Do not rely on each feature passing its own existence probe independently; two blind holes that don't meet are each individually "present" but together form a blocked path.
+
+Example pattern for a clearance hole (Y=0→5.5) meeting an insert bore (Y=5.5→10) at Y=5.5:
+
+```python
+# Probe both sides of the transition at Y=5.5
+v.check_void("Hole→bore transition below", cx, 5.4, cz, "void just below transition — clearance hole reaches it")
+v.check_void("Hole→bore transition above", cx, 5.6, cz, "void just above transition — insert bore reaches it")
+# If either probe fails, a solid plug exists at the transition — path is blocked.
+```
+
 Example validation pattern for a stadium slot with long axis along Z:
 
 ```python
