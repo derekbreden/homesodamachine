@@ -14,8 +14,8 @@
 | Part type | Single printed PETG part |
 | Function | Sliding actuator that simultaneously depresses the rear-facing collets of four PP0408W quick-connect fittings, releasing the cartridge from the enclosure dock tube stubs |
 | Material | PETG |
-| Envelope (W × H × D) | 80.0 mm × 65.0 mm × 5.0 mm |
-| Print orientation | Front face DOWN on build plate (XZ plane on build plate). Guide pins extend upward (+Y print direction). All stepped bore features open downward toward build plate. |
+| Envelope (W × H × D) | 80.0 mm × 65.0 mm × 95.0 mm (plate 80×65×5; struts extend 90 mm from front face) |
+| Print orientation | Front face DOWN on build plate (XZ plane on build plate). Guide pins and struts extend upward (+Y print direction). All stepped bore features open downward toward build plate. |
 | Piece count | 1 |
 | Fasteners | None |
 | Sub-assemblies | None |
@@ -209,6 +209,84 @@ Bore pattern: 62.0 mm horizontal × 30.0 mm vertical center-to-center rectangle,
 | Pin 2 | (75.0, 5.0) | 5.0 mm | 5.0 mm | 35.0 mm | 30.0 mm |
 
 Pin center diagonal: sqrt((75.0−5.0)² + (5.0−60.0)²) = sqrt(4900 + 3025) = 89.0 mm.
+
+### Feature 10 — Strut TL (Top-Left)
+
+| Field | Value |
+|---|---|
+| Operation | Add (rectangular boss protruding from front face) |
+| Shape | Rectangular prism |
+| Cross-section (X × Z) | 6.0 mm × 6.0 mm |
+| Length (Y) | 90.0 mm |
+| Center position (X, Z) | X = 9.0 mm, Z = 60.0 mm |
+| Box extents | X: 6.0→12.0, Y: −90.0→0.0, Z: 57.0→63.0 |
+| Base Y | Y = 0.0 mm (front face of plate — strut base is flush with pull surface) |
+| Tip Y | Y = −90.0 mm (plain square end, no joinery) |
+| Nearest bore (A) surface gap | Bore A center (9.0, 47.5); nearest strut edge Z=57.0; gap = 57.0 − (47.5 + 7.8) = 1.7 mm — exceeds 1.2 mm structural minimum |
+| Nearest pin surface gap | Pin 1 center (5.0, 60.0); extends in +Y from Y=5.0, struts extend in −Y from Y=0.0 — no Y overlap; no interference |
+| Justification | vision.md §3: "The lever itself is just a flat surface, with struts extending through the two interior panels … and those struts connect to the release plate." The release plate must provide matching strut stubs at the correct XZ positions for the Phase 2 joint (Season 3). Strut TL is placed at X=9.0 (matching bore column X) and Z=60.0 (above bore A, cleared by 1.7 mm from outer bore edge) to maximize the vertical moment arm with Strut BL and provide anti-rotation stability. |
+
+### Feature 11 — Strut TR (Top-Right)
+
+| Field | Value |
+|---|---|
+| Operation | Add (rectangular boss protruding from front face) |
+| Shape | Rectangular prism |
+| Cross-section (X × Z) | 6.0 mm × 6.0 mm |
+| Length (Y) | 90.0 mm |
+| Center position (X, Z) | X = 71.0 mm, Z = 60.0 mm |
+| Box extents | X: 68.0→74.0, Y: −90.0→0.0, Z: 57.0→63.0 |
+| Base Y | Y = 0.0 mm |
+| Tip Y | Y = −90.0 mm (plain square end) |
+| Nearest bore (C) surface gap | Bore C center (71.0, 47.5); nearest strut edge Z=57.0; gap = 57.0 − (47.5 + 7.8) = 1.7 mm ✓ |
+| Nearest pin | Pin 2 center (75.0, 5.0) — different Z; no overlap |
+| Justification | Mirror of Strut TL about X=40.0. Provides symmetric load distribution and right-side anti-rotation contribution. |
+
+### Feature 12 — Strut BL (Bottom-Left)
+
+| Field | Value |
+|---|---|
+| Operation | Add (rectangular boss protruding from front face) |
+| Shape | Rectangular prism |
+| Cross-section (X × Z) | 6.0 mm × 6.0 mm |
+| Length (Y) | 90.0 mm |
+| Center position (X, Z) | X = 9.0 mm, Z = 5.0 mm |
+| Box extents | X: 6.0→12.0, Y: −90.0→0.0, Z: 2.0→8.0 |
+| Base Y | Y = 0.0 mm |
+| Tip Y | Y = −90.0 mm (plain square end) |
+| Nearest bore (B) surface gap | Bore B center (9.0, 17.5); nearest strut edge Z=8.0; gap = (17.5 − 7.8) − 8.0 = 1.7 mm ✓ |
+| Nearest plate edge | Bottom plate edge Z=0.0; strut bottom at Z=2.0 → 2.0 mm from bottom edge. The strut projects in −Y from the front face and does not interact with the plate perimeter walls. |
+| Justification | Mirror of Strut TL about Z=32.5. Provides the lower strut position; together with TL, the left strut pair spans 55.0 mm vertically (Z=5.0 to Z=60.0) for strong anti-rotation. |
+
+### Feature 13 — Strut BR (Bottom-Right)
+
+| Field | Value |
+|---|---|
+| Operation | Add (rectangular boss protruding from front face) |
+| Shape | Rectangular prism |
+| Cross-section (X × Z) | 6.0 mm × 6.0 mm |
+| Length (Y) | 90.0 mm |
+| Center position (X, Z) | X = 71.0 mm, Z = 5.0 mm |
+| Box extents | X: 68.0→74.0, Y: −90.0→0.0, Z: 2.0→8.0 |
+| Base Y | Y = 0.0 mm |
+| Tip Y | Y = −90.0 mm (plain square end) |
+| Nearest bore (D) surface gap | Bore D center (71.0, 17.5); nearest strut edge Z=8.0; gap = (17.5 − 7.8) − 8.0 = 1.7 mm ✓ |
+| Justification | Mirror of Strut BL about X=40.0. Completes the 4-strut pattern. Diagonal strut pairs (TL+BR, TR+BL) provide torsional stability. |
+
+**Strut geometry summary:**
+
+| Strut | Center (X, Z) | Cross-section | Base Y | Tip Y | Length |
+|---|---|---|---|---|---|
+| TL (Top-Left) | (9.0, 60.0) | 6.0 × 6.0 mm | 0.0 mm | −90.0 mm | 90.0 mm |
+| TR (Top-Right) | (71.0, 60.0) | 6.0 × 6.0 mm | 0.0 mm | −90.0 mm | 90.0 mm |
+| BL (Bottom-Left) | (9.0, 5.0) | 6.0 × 6.0 mm | 0.0 mm | −90.0 mm | 90.0 mm |
+| BR (Bottom-Right) | (71.0, 5.0) | 6.0 × 6.0 mm | 0.0 mm | −90.0 mm | 90.0 mm |
+
+Strut horizontal spacing: 62.0 mm (same X as bore columns).
+Strut vertical spacing (TL↔BL or TR↔BR): 55.0 mm center-to-center.
+Strut diagonal: sqrt(62.0² + 55.0²) = sqrt(3844 + 3025) = 82.9 mm.
+
+All four struts clear bore outer circles by 1.7 mm minimum. This is the same clearance margin as the left/right perimeter walls at the bore X-extremes, and exceeds the 1.2 mm structural minimum.
 
 ### Features NOT Present (by explicit design decision)
 
@@ -475,6 +553,8 @@ Rationale:
 | Zone 3 through-hole (Ø6.50 mm, Z=3.4 to Z=5.0 mm in print) | Vertical cylindrical bore, exits at rear face (top of print) | Bore walls are vertical (90°) | OK | Vertical bore, no overhang |
 | Guide pin bodies (Ø5.0 mm, Z=5.0 to Z=35.0 mm in print) | Vertical cylinders | Vertical (90° from horizontal) | OK | Vertical cylinders, no overhang |
 | Guide pin tip faces (flat circles at Z=35.0 mm) | Horizontal top faces at Z=35.0 mm | Horizontal top face | OK | Standard top-face feature, fully printed |
+| Strut bodies (4×, 6.0×6.0 mm cross-section, Z=0.0 to Z=90.0 mm in print) | Vertical rectangular prisms extending from build plate face | Vertical (90° from horizontal) | OK | Vertical walls on all four faces, no overhang |
+| Strut tip faces (flat squares at Z=90.0 mm in print) | Horizontal top faces at Z=90.0 mm | Horizontal top face | OK | Standard top-face feature, fully printed |
 
 **No unresolved overhangs. All surfaces are printable without support in front-face-down orientation.**
 
@@ -482,6 +562,8 @@ Rationale:
 
 | Wall / Feature | Thickness | Minimum required | Status |
 |---|---|---|---|
+| Strut walls (all faces, 6.0 mm cross-section) | 6.0 mm | 0.8 mm (non-structural) | PASS — 7.5× minimum; compressive load along strut length, no bending expected in Phase 1 |
+| Strut-to-bore clearance (e.g. Strut TL at Z=57–63 vs bore A outer at Z=55.3) | 57.0 − 55.3 = 1.7 mm | 1.2 mm | PASS |
 | Left perimeter wall (X=0 to bore A outer edge) | 9.0 − 7.8 = 1.20 mm | 1.2 mm (structural) | PASS — exactly at minimum |
 | Right perimeter wall (X=80 to bore C/D outer edge) | 80.0 − 71.0 − 7.8 = 1.20 mm | 1.2 mm | PASS — exactly at minimum |
 | Bottom perimeter wall (Z=0 to bore B/D outer edge) | 17.5 − 7.8 = 9.7 mm | 1.2 mm | PASS |
@@ -534,6 +616,7 @@ Layer orientation is acceptable for all features. The one potential weakness (th
 | Stepped Bores B, C, D | Physical necessity — structural + routing | Same as Bore A. Four bores required for four PP0408W fittings (2 pumps × 2 tubes per pump). |
 | Guide Pin 1 (Ø5.0 mm × 30 mm, at (5.0, 60.0)) | Physical necessity — assembly | Constrains plate rotation; guides translation. Diagonal placement with Pin 2 provides 89.0 mm anti-rotation moment arm. 30.0 mm length ensures adequate bore engagement throughout 3.0 mm stroke. |
 | Guide Pin 2 (Ø5.0 mm × 30 mm, at (75.0, 5.0)) | Physical necessity — assembly | Same as Pin 1. Two pins required for anti-rotation (single pin cannot constrain rotation about its own axis). |
+| Struts TL, TR, BL, BR (6×6 mm × 90 mm, at (9,60), (71,60), (9,5), (71,5)) | Physical necessity — assembly | vision.md §3 Season 1 Phase 2: "The struts connect to the release plate." Four struts required (vs 2) per vision.md §3: "especially if we use 4 struts." Positions derived from bore column X values (9.0 and 71.0) and Z values that clear all bore outer circles by 1.7 mm minimum. Struts extend from front face (Y=0) in the −Y direction, on the opposite side from the guide pins (+Y), so no Y-space conflict. Plain ends per deliverable: "Plain rectangular struts — no joinery on the ends." |
 | Flat rear face (no spring pockets, no bosses) | Physical necessity — assembly | Springs sit in cartridge body pockets; flat rear face is the spring contact surface. Simplicity eliminates features that would complicate print orientation or add unnecessary geometry. |
 | Absence of elephant's foot chamfer | Physical necessity — manufacturing | The 3.0 mm pull edge radius (Feature 3) applied to all four build-plate-contact edges fully satisfies requirements.md §6 chamfer requirement. Adding a separate chamfer would be redundant geometry. |
 | Absence of texture on pull surface | Vision (UX) | vision.md §3 and synthesis.md §3: pull surface must be smooth or very lightly textured so finger pads can slide during the curl motion. Default PETG satin finish is correct as-printed. |
@@ -577,6 +660,14 @@ The CadQuery agent receives this document as the sole specification. No addition
      - Zone 2: Ø10.07 mm, depth 2.0 mm (Y: 3.6 → 1.6)
      - Zone 3: Ø6.50 mm, through remaining 1.6 mm (Y: 1.6 → 0.0)
    - Recommended CadQuery technique: revolved profile cut (one sketch with three coaxial diameter steps, revolve 360° and subtract from body)
-7. Export as STEP file.
+7. Four strut boxes, union to body, extending from Y=0 in −Y direction:
+   - Strut TL: `box(6.0, 90.0, 6.0)` placed at X:[6,12] Y:[−90,0] Z:[57,63]  (center X=9, Z=60)
+   - Strut TR: `box(6.0, 90.0, 6.0)` placed at X:[68,74] Y:[−90,0] Z:[57,63] (center X=71, Z=60)
+   - Strut BL: `box(6.0, 90.0, 6.0)` placed at X:[6,12] Y:[−90,0] Z:[2,8]   (center X=9, Z=5)
+   - Strut BR: `box(6.0, 90.0, 6.0)` placed at X:[68,74] Y:[−90,0] Z:[2,8]  (center X=71, Z=5)
+   - Plain ends: no joinery, no dovetail, no chamfer on tips.
+8. Export as STEP file.
+
+**Bounding box with all features: X:[0,80] Y:[−90,35] Z:[0,65]**
 
 **No supports required. Print front face (Y=0) down.**
