@@ -84,10 +84,10 @@ HOLE_R   = HOLE_DIA / 2.0
 # Coupler XZ centers (from coupler-tray boss half script, assembly frame)
 # All 4 couplers at Z=34.3mm (the coupler tray split plane / coupler centers)
 HOLES = [
-    ("H1", 43.1, 34.3),
-    ("H2", 60.1, 34.3),
-    ("H3", 77.1, 34.3),
-    ("H4", 94.1, 34.3),
+    ("H1", 44.5, 34.3),
+    ("H2", 61.5, 34.3),
+    ("H3", 78.5, 34.3),
+    ("H4", 95.5, 34.3),
 ]
 
 MID_Y   = (PANEL_Y0 + PANEL_Y1) / 2.0   # 129.3mm — Y center of panel
