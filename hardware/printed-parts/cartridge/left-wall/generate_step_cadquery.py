@@ -223,31 +223,6 @@ lip_top_b = add_lip("Feature 9: Top panel / plate-top Lip B",
 wall = wall.union(lip_top_b)
 print(f"    Top panel/plate-top channel: Z={TOP_LIP_A_Z0+LIP_W:.1f}..{TOP_LIP_B_Z0:.1f}mm ({CHANNEL_W}mm wide)")
 
-# ------------------------------------------------------------------------------
-# Features 10-11: Plate bottom rail lips (pump tray + coupler tray bottom edge)
-# Plate bottom edge at Z=INTERIOR_Z_START=5.0mm.
-# Channel centered on plate bottom edge: Z=3.3..6.7mm (3.4mm wide).
-# Lip A: Z=1.3..3.3mm (2.0mm wide), Lip B: Z=6.7..8.7mm (2.0mm wide).
-# Channel center = 5.0mm = INTERIOR_Z_START ✓
-# Lips run full Y depth (Y=0..WALL_Y)
-# ------------------------------------------------------------------------------
-PLATE_BTM_CHANNEL_CENTER = INTERIOR_Z_START    # 5.0mm
-PLATE_BTM_LIP_A_Z0 = PLATE_BTM_CHANNEL_CENTER - CHANNEL_W / 2 - LIP_W   # 5.0 - 1.7 - 2.0 = 1.3
-PLATE_BTM_LIP_B_Z0 = PLATE_BTM_CHANNEL_CENTER + CHANNEL_W / 2             # 5.0 + 1.7 = 6.7
-
-lip_plate_btm_a = add_lip("Feature 10: Plate bottom Lip A",
-                           y0=0.0, z0=PLATE_BTM_LIP_A_Z0, lip_dy=WALL_Y, lip_dz=LIP_W)
-wall = wall.union(lip_plate_btm_a)
-
-lip_plate_btm_b = add_lip("Feature 11: Plate bottom Lip B",
-                           y0=0.0, z0=PLATE_BTM_LIP_B_Z0, lip_dy=WALL_Y, lip_dz=LIP_W)
-wall = wall.union(lip_plate_btm_b)
-print(f"    Plate bottom channel: Z={PLATE_BTM_LIP_A_Z0+LIP_W:.1f}..{PLATE_BTM_LIP_B_Z0:.1f}mm ({CHANNEL_W}mm wide)")
-
-print()
-print("Model construction complete.")
-print()
-
 # ==============================================================================
 # Export STEP file
 # ==============================================================================
@@ -377,22 +352,6 @@ v.check_void("Top panel channel void",
              f"void in top panel channel (Z={TOP_CHANNEL_Z_MID})")
 print()
 
-# --- Features 10-11: Plate bottom rail ---
-print("--- Features 10-11: Plate bottom rail ---")
-LIP_A_PBTM_Z_MID = PLATE_BTM_LIP_A_Z0 + LIP_W / 2   # 1.3 + 1.0 = 2.3
-LIP_B_PBTM_Z_MID = PLATE_BTM_LIP_B_Z0 + LIP_W / 2   # 6.7 + 1.0 = 7.7
-v.check_solid("Plate bottom Lip A solid mid",
-              LIP_MID_X, WALL_Y / 2, LIP_A_PBTM_Z_MID,
-              f"solid inside plate bottom Lip A (Z={LIP_A_PBTM_Z_MID})")
-v.check_solid("Plate bottom Lip B solid mid",
-              LIP_MID_X, WALL_Y / 2, LIP_B_PBTM_Z_MID,
-              f"solid inside plate bottom Lip B (Z={LIP_B_PBTM_Z_MID})")
-PBTM_CHANNEL_Z_MID = PLATE_BTM_CHANNEL_CENTER   # 5.0mm
-v.check_void("Plate bottom channel void",
-             LIP_MID_X, WALL_Y / 2, PBTM_CHANNEL_Z_MID,
-             f"void in plate bottom channel (Z={PBTM_CHANNEL_Z_MID})")
-print()
-
 # --- Channel width verification (orientation check) ---
 # Verify channel widths are correct in the separation axis.
 # Front/back channel: 3.4mm in Y. Bottom/top/plate channels: 3.4mm in Z.
@@ -436,14 +395,6 @@ v.check_solid("Bottom Lip A full Y run at Y=10",
 v.check_solid("Bottom Lip A full Y run at Y=120",
               LIP_MID_X, 120.0, 1.0,
               "solid at Y=120mm — bottom Lip A runs full depth")
-
-# Plate bottom channel: void at Z=5.0 (channel center = interior Z start)
-v.check_void("Plate bottom channel center void at Z=5.0",
-             LIP_MID_X, WALL_Y / 2, 5.0,
-             "void at Z=5.0 (plate bottom channel center = interior Z start)")
-v.check_solid("Plate bottom Lip B at Z=7.7",
-              LIP_MID_X, WALL_Y / 2, 7.7,
-              "solid at Z=7.7 (inside plate bottom Lip B, Z=6.7..8.7)")
 
 # Top channel: void at Z=75.3 (center of top channel)
 v.check_void("Top channel center void at Z=75.3",
