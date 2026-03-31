@@ -8,7 +8,7 @@ Updates from v2: plate widened from 80mm to 140mm, height increased from
 Coordinate system:
   Origin: Bottom-left corner of lever plate front face (X=0, Y=0, Z=0)
   X: Width axis -- positive rightward as seen by user from front face
-     Range: 0 -> 140.0 mm
+     Range: 0 -> 160.0 mm
   Y: Depth axis -- positive rearward (into cartridge)
      Y=0:  Lever plate front face (user contact / pull surface)
      Y=4:  Lever plate rear face (strut attachment point)
@@ -16,7 +16,7 @@ Coordinate system:
   Z: Height axis -- positive upward
      Range: 0 -> 68.6 mm
 
-Envelope: 140.0 (X) x 94.0 (Y) x 68.6 (Z) mm
+Envelope: 160.0 (X) x 94.0 (Y) x 68.6 (Z) mm
 """
 
 import sys
@@ -41,13 +41,13 @@ print()
 FEATURE_TABLE = [
     ("1", "Plate Body",
      "Rigid load-transfer body: user finger contact surface (Y=0) to strut attachment (Y=4)",
-     "Add", "Box", "Y", "(70.0, 2.0, 34.3)",
-     "140W x 4D x 68.6H mm; X:[0,140] Y:[0,4] Z:[0,68.6]", "Base body"),
+     "Add", "Box", "Y", "(80.0, 2.0, 34.3)",
+     "160W x 4D x 68.6H mm; X:[0,160] Y:[0,4] Z:[0,68.6]", "Base body"),
 
     ("2", "Plate Perimeter Corner Radii",
      "Prevents sharp corners snagging front panel hole; design language consistency",
      "Remove (blend)", "Fillet", "Y",
-     "Edges at (X=0/140, Z=0/68.6), each runs Y=0->4",
+     "Edges at (X=0/160, Z=0/68.6), each runs Y=0->4",
      "R=2.0 mm on all 4 vertical (|Y) plate edges", "concept.md"),
 
     ("3", "Plate Bottom Chamfer (Elephant's Foot)",
@@ -63,10 +63,10 @@ FEATURE_TABLE = [
      "Matches pump tray bore S-TL center (4.0, 63.6)"),
 
     ("5", "Strut TR (Top-Right)",
-     "Transmits pull force; mirror of TL about X=70",
-     "Add", "Box", "Y", "Center (136.0, 49.0, 63.6)",
-     "6W x 90D x 6H mm; X:[133,139] Y:[4,94] Z:[60.6,66.6]",
-     "Matches pump tray bore S-TR center (136.0, 63.6)"),
+     "Transmits pull force; mirror of TL about X=80",
+     "Add", "Box", "Y", "Center (156.0, 49.0, 63.6)",
+     "6W x 90D x 6H mm; X:[153,159] Y:[4,94] Z:[60.6,66.6]",
+     "Matches pump tray bore S-TR center (161.0, 63.6) when centered"),
 
     ("6", "Strut BL (Bottom-Left)",
      "Transmits pull force; mirror of TL about Z=34.3",
@@ -76,9 +76,9 @@ FEATURE_TABLE = [
 
     ("7", "Strut BR (Bottom-Right)",
      "Transmits pull force; mirror of both TL and BL",
-     "Add", "Box", "Y", "Center (136.0, 49.0, 5.0)",
-     "6W x 90D x 6H mm; X:[133,139] Y:[4,94] Z:[2,8]",
-     "Matches pump tray bore S-BR center (136.0, 5.0)"),
+     "Add", "Box", "Y", "Center (156.0, 49.0, 5.0)",
+     "6W x 90D x 6H mm; X:[153,159] Y:[4,94] Z:[2,8]",
+     "Matches pump tray bore S-BR center (161.0, 5.0) when centered"),
 ]
 
 col_w = [3, 26, 20, 15, 10, 6, 26, 35, 40]
@@ -104,17 +104,17 @@ print("RUBRIC 2 -- Coordinate System Declaration")
 print("=" * 90)
 print()
 print("  Origin: Bottom-left corner of lever plate front face (X=0, Y=0, Z=0)")
-print("  X: Plate width, left to right as seen from front face; range [0, 140.0] mm")
+print("  X: Plate width, left to right as seen from front face; range [0, 160.0] mm")
 print("  Y: Plate depth, front (user contact Y=0) to rear (strut tips Y=94.0); range [0, 94.0] mm")
 print("  Z: Plate height, bottom to top; range [0, 68.6] mm")
-print("  Envelope: 140.0 x 94.0 x 68.6 mm  ->  X:[0,140]  Y:[0,94]  Z:[0,68.6]")
+print("  Envelope: 160.0 x 94.0 x 68.6 mm  ->  X:[0,160]  Y:[0,94]  Z:[0,68.6]")
 print()
 print("  Feature coordinate cross-check:")
-print("    Plate occupies  X:[0,140]    Y:[0,4]    Z:[0,68.6]")
+print("    Plate occupies  X:[0,160]    Y:[0,4]    Z:[0,68.6]")
 print("    Strut TL center X=4.0,   Z=63.6  -> box X:[1,7]     Y:[4,94]  Z:[60.6,66.6]")
-print("    Strut TR center X=136.0, Z=63.6  -> box X:[133,139]  Y:[4,94]  Z:[60.6,66.6]")
+print("    Strut TR center X=156.0, Z=63.6  -> box X:[153,159]  Y:[4,94]  Z:[60.6,66.6]")
 print("    Strut BL center X=4.0,   Z=5.0   -> box X:[1,7]     Y:[4,94]  Z:[2,8]")
-print("    Strut BR center X=136.0, Z=5.0   -> box X:[133,139]  Y:[4,94]  Z:[2,8]")
+print("    Strut BR center X=156.0, Z=5.0   -> box X:[153,159]  Y:[4,94]  Z:[2,8]")
 print()
 
 # ============================================================
@@ -122,7 +122,7 @@ print()
 # ============================================================
 
 # Plate
-PLATE_W  = 140.0   # X
+PLATE_W  = 160.0   # X (was 140.0, +20mm to accommodate struts moved outward)
 PLATE_D  =   4.0   # Y
 PLATE_H  =  68.6   # Z -- matches pump tray height so strut Z positions align
 
@@ -137,9 +137,9 @@ STRUT_Y1 = 94.0    # strut tips
 # Positions match pump tray v3 strut bore centers exactly.
 STRUTS = {
     "TL": (  4.0, 63.6),
-    "TR": (136.0, 63.6),
+    "TR": (156.0, 63.6),
     "BL": (  4.0,  5.0),
-    "BR": (136.0,  5.0),
+    "BR": (156.0,  5.0),
 }
 
 # Plate corner fillet radius (Feature 2)
@@ -205,16 +205,16 @@ v = Validator(lever)
 
 # --- Feature 1: Plate Body ---
 print("Feature 1: Plate Body")
-v.check_solid("Plate interior center",      70.0,  2.0, 34.3, "solid at plate center")
+v.check_solid("Plate interior center",      80.0,  2.0, 34.3, "solid at plate center")
 v.check_solid("Plate left face interior",    1.0,   2.0, 34.3, "solid near left face")
-v.check_solid("Plate right face interior", 139.0,   2.0, 34.3, "solid near right face")
-v.check_solid("Plate front face interior",  70.0,   0.5, 34.3, "solid near front face")
-v.check_solid("Plate rear face interior",   70.0,   3.5, 34.3, "solid near rear face")
-v.check_solid("Plate top interior",         70.0,   2.0, 67.6, "solid near top face")
-v.check_solid("Plate bottom interior",      70.0,   2.0,  1.0, "solid near bottom face (above chamfer)")
+v.check_solid("Plate right face interior", 159.0,   2.0, 34.3, "solid near right face")
+v.check_solid("Plate front face interior",  80.0,   0.5, 34.3, "solid near front face")
+v.check_solid("Plate rear face interior",   80.0,   3.5, 34.3, "solid near rear face")
+v.check_solid("Plate top interior",         80.0,   2.0, 67.6, "solid near top face")
+v.check_solid("Plate bottom interior",      80.0,   2.0,  1.0, "solid near bottom face (above chamfer)")
 # Void outside plate
-v.check_void("Void in front of plate",      70.0,  -1.0, 34.3, "void in front of plate front face")
-v.check_void("Void above plate (no strut)", 70.0,   2.0, 69.6, "void above plate where no strut")
+v.check_void("Void in front of plate",      80.0,  -1.0, 34.3, "void in front of plate front face")
+v.check_void("Void above plate (no strut)", 80.0,   2.0, 69.6, "void above plate where no strut")
 
 print()
 
