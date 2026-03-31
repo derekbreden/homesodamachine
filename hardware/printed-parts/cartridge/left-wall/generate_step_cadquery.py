@@ -79,18 +79,20 @@ Lip width (in separation axis): 2.0mm. Lip height (protrusion): 3.0mm.
 Interior Y span: Y=5.0..128.0mm (123.0mm — inner faces of front and back panels)
 Interior Z span: Z=5.0..73.6mm (68.6mm — inner faces of bottom and top panels)
 
-  #   Feature Name                Op    Shape    Axis  Position (Y_start, Z_start)      Dimensions (Y x Z x X protrusion)  Notes
-  1   Wall body                   Add   Box      —     Origin (0,0,0)                   3.0 x 133.0 x 79.0 mm (X x Y x Z)  Base panel
-  2   Front panel Lip A           Add   Box      Z     Y=0.0..2.0, runs Z=0..79.0       2.0(Y) x 79.0(Z) x 3.0(X) lip      Front edge of wall; panel slides -Z
-  3   Front panel Lip B           Add   Box      Z     Y=5.4..7.4, runs Z=0..79.0       2.0(Y) x 79.0(Z) x 3.0(X) lip      3.4mm channel between Lips A and B
-  4   Back panel Lip A            Add   Box      Z     Y=125.6..127.6, runs Z=0..79.0   2.0(Y) x 79.0(Z) x 3.0(X) lip      Channel: Y=127.6..131.0mm
-  5   Back panel Lip B            Add   Box      Z     Y=131.0..133.0, runs Z=0..79.0   2.0(Y) x 79.0(Z) x 3.0(X) lip      Back edge of wall
-  6   Bottom panel Lip A          Add   Box      Y     Z=0.0..2.0, runs Y=0..133.0      133.0(Y) x 2.0(Z) x 3.0(X) lip     Bottom edge of wall; panel slides +Y
-  7   Bottom panel Lip B          Add   Box      Y     Z=5.4..7.4, runs Y=0..133.0      133.0(Y) x 2.0(Z) x 3.0(X) lip     3.4mm channel between Lips A and B
-  8   Top panel / plate-top Lip A Add   Box      Y     Z=71.6..73.6, runs Y=0..133.0    133.0(Y) x 2.0(Z) x 3.0(X) lip     Shared: top panel rail + plate top rail
-  9   Top panel / plate-top Lip B Add   Box      Y     Z=77.0..79.0, runs Y=0..133.0    133.0(Y) x 2.0(Z) x 3.0(X) lip     Top edge of wall; channel Z=73.6..77.0
-  10  Plate bottom Lip A          Add   Box      Y     Z=1.3..3.3, runs Y=0..133.0      133.0(Y) x 2.0(Z) x 3.0(X) lip     Pump tray + coupler tray bottom edge rail
-  11  Plate bottom Lip B          Add   Box      Y     Z=6.7..8.7, runs Y=0..133.0      133.0(Y) x 2.0(Z) x 3.0(X) lip     3.4mm channel between Lips A and B
+  PASS_THRU_GAP = LIP_W + CHANNEL_W = 5.4mm — gap at each end of a lip where perpendicular panels pass through.
+
+  #   Feature Name                Op    Shape    Axis  Y/Z position                      Z/Y run span                           Notes
+  1   Wall body                   Add   Box      —     Origin (0,0,0)                    3.0(X) x 133.0(Y) x 79.0(Z)           Base panel
+  2   Front panel Lip A           Add   Box      Z     Y=0.0..2.0                        Z=5.4..73.6 (gapped at bottom+top)     Front edge
+  3   Front panel Lip B           Add   Box      Z     Y=5.4..7.4                        Z=5.4..73.6 (gapped at bottom+top)     Channel Y=2.0..5.4
+  4   Back panel Lip A            Add   Box      Z     Y=125.6..127.6                    Z=5.4..73.6 (gapped at bottom+top)     Channel Y=127.6..131.0
+  5   Back panel Lip B            Add   Box      Z     Y=131.0..133.0                    Z=5.4..73.6 (gapped at bottom+top)     Back edge
+  6   Bottom panel Lip A          Add   Box      Y     Z=0.0..2.0                        Y=0..133.0 (full width)                Bottom edge
+  7   Bottom panel Lip B          Add   Box      Y     Z=5.4..7.4                        Y=5.4..127.6 (gapped at front+back)    Channel Z=2.0..5.4
+  8   Top panel / plate-top Lip A Add   Box      Y     Z=71.6..73.6                      Y=5.4..127.6 (gapped at front+back)    Shared: top panel + plate top
+  9   Top panel / plate-top Lip B Add   Box      Y     Z=77.0..79.0                      Y=5.4..127.6 (gapped at front+back)    Top edge; channel Z=73.6..77.0
+  10  Plate bottom Lip A          Add   Box      Y     Z=1.3..3.3                        Y=5.4..127.6 (gapped at front+back)    Plate bottom edge
+  11  Plate bottom Lip B          Add   Box      Y     Z=6.7..8.7                        Y=5.4..127.6 (gapped at front+back)    Channel Z=3.3..6.7
 
   Total: 1 wall body + 10 rail lip bars = 11 features
 
@@ -101,6 +103,10 @@ Panel/plate rail channels:
   Top panel:    Z=73.6..77.0mm (3.4mm wide in Z), slides in Z from above
   Plate bottom: Z=3.3..6.7mm (3.4mm wide in Z), slides in Y (pump tray + coupler tray)
   Plate top:    Z=73.6..77.0mm (3.4mm wide in Z), slides in Y (same as top panel rail)
+
+Pass-through gaps: Each lip is shortened by PASS_THRU_GAP (5.4mm) at each end where
+a perpendicular panel's rail crosses. This prevents lip bars from colliding at corners.
+Exception: Bottom Lip A runs full width (Z=0..2 is below where vertical lips start).
 
 Interior validation points:
   Interior Y: 5.0mm to 128.0mm (123.0mm span)

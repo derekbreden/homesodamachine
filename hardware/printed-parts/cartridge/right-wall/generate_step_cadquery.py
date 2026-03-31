@@ -52,6 +52,7 @@ CHANNEL_W = 3.4  # gap between lip inner faces (3mm panel + 0.2mm clearance each
 # Derived — post-mirror coordinate values
 INTERIOR_X = 0.0           # X=0.0mm — interior face of right wall
 LIP_TIP_X  = -LIP_H        # X=-3.0mm — tip of rail lips (into interior)
+PASS_THRU_GAP = LIP_W + CHANNEL_W  # 5.4mm total allowing pass through
 
 # Interior coordinate span (between panel inner faces) — same as left wall
 INTERIOR_Y_START = 5.0     # inner face of front panel
@@ -83,18 +84,20 @@ Lip width (in separation axis): 2.0mm. Lip height (protrusion): 3.0mm.
 Interior Y span: Y=5.0..128.0mm (123.0mm — inner faces of front and back panels)
 Interior Z span: Z=5.0..73.6mm (68.6mm — inner faces of bottom and top panels)
 
-  #   Feature Name                Op    Shape    Axis  Y/Z position                      Dimensions                           Notes
-  1   Wall body                   Add   Box      —     X:[0,3.0] Y:[0,133.0] Z:[0,79.0]  3.0(X) x 133.0(Y) x 79.0(Z)         Base panel
-  2   Front panel Lip A           Add   Box      Z     Y=0.0..2.0, Z=0..79.0             2.0(Y) x 79.0(Z) x 3.0(X) lip        Front edge; channel at Y=2.0..5.4
-  3   Front panel Lip B           Add   Box      Z     Y=5.4..7.4, Z=0..79.0             2.0(Y) x 79.0(Z) x 3.0(X) lip        3.4mm channel between Lips A and B
-  4   Back panel Lip A            Add   Box      Z     Y=125.6..127.6, Z=0..79.0         2.0(Y) x 79.0(Z) x 3.0(X) lip        Channel at Y=127.6..131.0
-  5   Back panel Lip B            Add   Box      Z     Y=131.0..133.0, Z=0..79.0         2.0(Y) x 79.0(Z) x 3.0(X) lip        Back edge of wall
-  6   Bottom panel Lip A          Add   Box      Y     Z=0.0..2.0, Y=0..133.0            133.0(Y) x 2.0(Z) x 3.0(X) lip       Bottom edge; channel at Z=2.0..5.4
-  7   Bottom panel Lip B          Add   Box      Y     Z=5.4..7.4, Y=0..133.0            133.0(Y) x 2.0(Z) x 3.0(X) lip       3.4mm channel between Lips A and B
-  8   Top panel / plate-top Lip A Add   Box      Y     Z=71.6..73.6, Y=0..133.0          133.0(Y) x 2.0(Z) x 3.0(X) lip       Shared: top panel + plate top edge
-  9   Top panel / plate-top Lip B Add   Box      Y     Z=77.0..79.0, Y=0..133.0          133.0(Y) x 2.0(Z) x 3.0(X) lip       Top edge; channel at Z=73.6..77.0
-  10  Plate bottom Lip A          Add   Box      Y     Z=1.3..3.3, Y=0..133.0            133.0(Y) x 2.0(Z) x 3.0(X) lip       Plate bottom edge at Z=5.0mm interior
-  11  Plate bottom Lip B          Add   Box      Y     Z=6.7..8.7, Y=0..133.0            133.0(Y) x 2.0(Z) x 3.0(X) lip       Channel at Z=3.3..6.7mm
+  PASS_THRU_GAP = LIP_W + CHANNEL_W = 5.4mm — gap at each end of a lip where perpendicular panels pass through.
+
+  #   Feature Name                Op    Shape    Axis  Y/Z position                      Z/Y run span                           Notes
+  1   Wall body                   Add   Box      —     X:[0,3.0] Y:[0,133.0] Z:[0,79.0]  3.0(X) x 133.0(Y) x 79.0(Z)           Base panel
+  2   Front panel Lip A           Add   Box      Z     Y=0.0..2.0                        Z=5.4..73.6 (gapped at bottom+top)     Front edge
+  3   Front panel Lip B           Add   Box      Z     Y=5.4..7.4                        Z=5.4..73.6 (gapped at bottom+top)     Channel Y=2.0..5.4
+  4   Back panel Lip A            Add   Box      Z     Y=125.6..127.6                    Z=5.4..73.6 (gapped at bottom+top)     Channel Y=127.6..131.0
+  5   Back panel Lip B            Add   Box      Z     Y=131.0..133.0                    Z=5.4..73.6 (gapped at bottom+top)     Back edge
+  6   Bottom panel Lip A          Add   Box      Y     Z=0.0..2.0                        Y=0..133.0 (full width)                Bottom edge
+  7   Bottom panel Lip B          Add   Box      Y     Z=5.4..7.4                        Y=5.4..127.6 (gapped at front+back)    Channel Z=2.0..5.4
+  8   Top panel / plate-top Lip A Add   Box      Y     Z=71.6..73.6                      Y=5.4..127.6 (gapped at front+back)    Shared: top panel + plate top
+  9   Top panel / plate-top Lip B Add   Box      Y     Z=77.0..79.0                      Y=5.4..127.6 (gapped at front+back)    Top edge; channel Z=73.6..77.0
+  10  Plate bottom Lip A          Add   Box      Y     Z=1.3..3.3                        Y=5.4..127.6 (gapped at front+back)    Plate bottom edge
+  11  Plate bottom Lip B          Add   Box      Y     Z=6.7..8.7                        Y=5.4..127.6 (gapped at front+back)    Channel Z=3.3..6.7
 
   Total: 1 wall body + 10 rail lip bars = 11 features
 
@@ -104,6 +107,10 @@ Panel/plate rail channels (identical positions to left wall):
   Bottom panel: Z=2.0..5.4mm, slides in Y
   Top panel:    Z=73.6..77.0mm, slides in Z (shared with plate top rail)
   Plate bottom: Z=3.3..6.7mm, slides in Y (pump tray + coupler tray)
+
+Pass-through gaps: Each lip is shortened by PASS_THRU_GAP (5.4mm) at each end where
+a perpendicular panel's rail crosses. This prevents lip bars from colliding at corners.
+Exception: Bottom Lip A runs full width (Z=0..2 is below where vertical lips start).
 
 Interior validation points:
   Interior Y: 5.0mm to 128.0mm (123.0mm span)
@@ -170,11 +177,11 @@ FRONT_LIP_A_Y0 = 0.0
 FRONT_LIP_B_Y0 = 5.4   # = LIP_W + CHANNEL_W = 2.0 + 3.4
 
 lip_front_a = add_lip_right("Feature 2: Front panel Lip A",
-                             y0=FRONT_LIP_A_Y0, z0=0.0, lip_dy=LIP_W, lip_dz=WALL_Z)
+                             y0=FRONT_LIP_A_Y0, z0=PASS_THRU_GAP, lip_dy=LIP_W, lip_dz=WALL_Z - PASS_THRU_GAP * 2)
 wall = wall.union(lip_front_a)
 
 lip_front_b = add_lip_right("Feature 3: Front panel Lip B",
-                             y0=FRONT_LIP_B_Y0, z0=0.0, lip_dy=LIP_W, lip_dz=WALL_Z)
+                             y0=FRONT_LIP_B_Y0, z0=PASS_THRU_GAP, lip_dy=LIP_W, lip_dz=WALL_Z - PASS_THRU_GAP * 2)
 wall = wall.union(lip_front_b)
 print(f"    Front panel channel: Y={FRONT_LIP_A_Y0+LIP_W:.1f}..{FRONT_LIP_B_Y0:.1f}mm ({CHANNEL_W}mm wide)")
 
@@ -189,11 +196,11 @@ BACK_LIP_B_Y0 = WALL_Y - LIP_W                       # 131.0
 BACK_LIP_A_Y0 = WALL_Y - LIP_W - CHANNEL_W - LIP_W   # 125.6
 
 lip_back_a = add_lip_right("Feature 4: Back panel Lip A",
-                            y0=BACK_LIP_A_Y0, z0=0.0, lip_dy=LIP_W, lip_dz=WALL_Z)
+                            y0=BACK_LIP_A_Y0, z0=PASS_THRU_GAP, lip_dy=LIP_W, lip_dz=WALL_Z - 2 * PASS_THRU_GAP)
 wall = wall.union(lip_back_a)
 
 lip_back_b = add_lip_right("Feature 5: Back panel Lip B",
-                            y0=BACK_LIP_B_Y0, z0=0.0, lip_dy=LIP_W, lip_dz=WALL_Z)
+                            y0=BACK_LIP_B_Y0, z0=PASS_THRU_GAP, lip_dy=LIP_W, lip_dz=WALL_Z - 2 * PASS_THRU_GAP)
 wall = wall.union(lip_back_b)
 print(f"    Back panel channel: Y={BACK_LIP_A_Y0+LIP_W:.1f}..{BACK_LIP_B_Y0:.1f}mm ({CHANNEL_W}mm wide)")
 
@@ -211,7 +218,7 @@ lip_bottom_a = add_lip_right("Feature 6: Bottom panel Lip A",
 wall = wall.union(lip_bottom_a)
 
 lip_bottom_b = add_lip_right("Feature 7: Bottom panel Lip B",
-                              y0=0.0, z0=BOTTOM_LIP_B_Z0, lip_dy=WALL_Y, lip_dz=LIP_W)
+                              y0=PASS_THRU_GAP, z0=BOTTOM_LIP_B_Z0, lip_dy=WALL_Y - 2 * PASS_THRU_GAP, lip_dz=LIP_W)
 wall = wall.union(lip_bottom_b)
 print(f"    Bottom panel channel: Z={BOTTOM_LIP_A_Z0+LIP_W:.1f}..{BOTTOM_LIP_B_Z0:.1f}mm ({CHANNEL_W}mm wide)")
 
@@ -228,11 +235,11 @@ TOP_LIP_A_Z0 = INTERIOR_Z_END - LIP_W         # 71.6
 TOP_LIP_B_Z0 = INTERIOR_Z_END + CHANNEL_W     # 77.0
 
 lip_top_a = add_lip_right("Feature 8: Top panel / plate-top Lip A",
-                           y0=0.0, z0=TOP_LIP_A_Z0, lip_dy=WALL_Y, lip_dz=LIP_W)
+                           y0=PASS_THRU_GAP, z0=TOP_LIP_A_Z0, lip_dy=WALL_Y - 2 * PASS_THRU_GAP, lip_dz=LIP_W)
 wall = wall.union(lip_top_a)
 
 lip_top_b = add_lip_right("Feature 9: Top panel / plate-top Lip B",
-                           y0=0.0, z0=TOP_LIP_B_Z0, lip_dy=WALL_Y, lip_dz=LIP_W)
+                           y0=PASS_THRU_GAP, z0=TOP_LIP_B_Z0, lip_dy=WALL_Y - 2 * PASS_THRU_GAP, lip_dz=LIP_W)
 wall = wall.union(lip_top_b)
 print(f"    Top panel/plate-top channel: Z={TOP_LIP_A_Z0+LIP_W:.1f}..{TOP_LIP_B_Z0:.1f}mm ({CHANNEL_W}mm wide)")
 
@@ -249,11 +256,11 @@ PLATE_BTM_LIP_A_Z0 = PLATE_BTM_CHANNEL_CENTER - CHANNEL_W / 2 - LIP_W   # 1.3
 PLATE_BTM_LIP_B_Z0 = PLATE_BTM_CHANNEL_CENTER + CHANNEL_W / 2             # 6.7
 
 lip_plate_btm_a = add_lip_right("Feature 10: Plate bottom Lip A",
-                                 y0=0.0, z0=PLATE_BTM_LIP_A_Z0, lip_dy=WALL_Y, lip_dz=LIP_W)
+                                 y0=PASS_THRU_GAP, z0=PLATE_BTM_LIP_A_Z0, lip_dy=WALL_Y - 2 * PASS_THRU_GAP, lip_dz=LIP_W)
 wall = wall.union(lip_plate_btm_a)
 
 lip_plate_btm_b = add_lip_right("Feature 11: Plate bottom Lip B",
-                                 y0=0.0, z0=PLATE_BTM_LIP_B_Z0, lip_dy=WALL_Y, lip_dz=LIP_W)
+                                 y0=PASS_THRU_GAP, z0=PLATE_BTM_LIP_B_Z0, lip_dy=WALL_Y - 2 * PASS_THRU_GAP, lip_dz=LIP_W)
 wall = wall.union(lip_plate_btm_b)
 print(f"    Plate bottom channel: Z={PLATE_BTM_LIP_A_Z0+LIP_W:.1f}..{PLATE_BTM_LIP_B_Z0:.1f}mm ({CHANNEL_W}mm wide)")
 
