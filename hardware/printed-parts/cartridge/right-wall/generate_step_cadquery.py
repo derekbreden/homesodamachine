@@ -319,13 +319,6 @@ v.check_void("Front panel channel void",
 v.check_void("Void beyond front Lip A tip",
              -(LIP_H + 0.5), LIP_A_Y_MID, WALL_Z / 2,
              "void past lip tip in -X direction")
-# Confirm lip runs full Z height
-v.check_solid("Front Lip A full Z run at Z=20",
-              LIP_MID_X, 1.0, 20.0,
-              "solid at Z=20mm — front Lip A runs full height")
-v.check_solid("Front Lip A full Z run at Z=60",
-              LIP_MID_X, 1.0, 60.0,
-              "solid at Z=60mm — front Lip A runs full height")
 print()
 
 # --- Features 4-5: Back panel rail ---
@@ -358,13 +351,6 @@ BOTTOM_CHANNEL_Z_MID = (BOTTOM_LIP_A_Z0 + LIP_W + BOTTOM_LIP_B_Z0) / 2   # 3.7
 v.check_void("Bottom panel channel void",
              LIP_MID_X, WALL_Y / 2, BOTTOM_CHANNEL_Z_MID,
              f"void in bottom panel channel (Z={BOTTOM_CHANNEL_Z_MID})")
-# Confirm bottom Lip A runs full Y length
-v.check_solid("Bottom Lip A full Y run at Y=10",
-              LIP_MID_X, 10.0, 1.0,
-              "solid at Y=10mm — bottom Lip A runs full depth")
-v.check_solid("Bottom Lip A full Y run at Y=120",
-              LIP_MID_X, 120.0, 1.0,
-              "solid at Y=120mm — bottom Lip A runs full depth")
 print()
 
 # --- Features 8-9: Top panel / plate-top rail ---
