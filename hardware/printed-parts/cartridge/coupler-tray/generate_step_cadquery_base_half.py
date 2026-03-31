@@ -18,13 +18,13 @@ within this half. The two top strut bores (Z=63.6mm) are in the boss half.
 
 Rubric 2 — Coordinate System Declaration:
   Origin: plate bottom-left-front corner (X=0, Y=0, Z=0)
-  X: plate width axis — left to right, 0..140.0mm
+  X: plate width axis — left to right, 0..170.0mm
   Y: plate thickness axis — front face (Y=0) to back face of base (Y=3mm);
      boss halves extend from Y=3 to Y=12.08mm
   Z: plate height axis — bottom to top, 0..34.3mm (this half only)
      Z=0: bottom face of assembled tray
      Z=34.3mm: mating face (top face of this half)
-  Bounding envelope: 140.0mm (X) x 12.08mm (Y) x 34.3mm (Z)
+  Bounding envelope: 170.0mm (X) x 12.08mm (Y) x 34.3mm (Z)
 
   Approach: Build the full Phase 4 tray body and cut away the top half
   (Z=34.3 to Z=68.6) with a box. This ensures the semicircular channels and
@@ -55,17 +55,17 @@ COUPLER TRAY BASE HALF — Feature Planning Table (Rubric 1)
 Assembly frame coordinates (Z=0..34.3mm is this half):
 
   #   Feature Name              Op      Shape         Axis  Center (X,Y,Z)              Dimensions
-  1   Base plate body           Add     Rect prism    —     (70.0, 1.5, 17.15)          140.0 x 3 x 34.3 mm
-  2   Boss half B1              Add     Half-cyl      Y     (43.1, 7.54, 34.3)          OD 16mm, h 9.08mm, lower half (Z<=34.3)
-  3   Boss half B2              Add     Half-cyl      Y     (60.1, 7.54, 34.3)          OD 16mm, h 9.08mm, lower half (Z<=34.3)
-  4   Boss half B3              Add     Half-cyl      Y     (77.1, 7.54, 34.3)          OD 16mm, h 9.08mm, lower half (Z<=34.3)
-  5   Boss half B4              Add     Half-cyl      Y     (94.1, 7.54, 34.3)          OD 16mm, h 9.08mm, lower half (Z<=34.3)
-  6   Semicircular channel C1   Remove  Half-cyl bore Y     (43.1, 6.04, 34.3)          9.5mm dia, lower half bore, TH
-  7   Semicircular channel C2   Remove  Half-cyl bore Y     (60.1, 6.04, 34.3)          9.5mm dia, lower half bore, TH
-  8   Semicircular channel C3   Remove  Half-cyl bore Y     (77.1, 6.04, 34.3)          9.5mm dia, lower half bore, TH
-  9   Semicircular channel C4   Remove  Half-cyl bore Y     (94.1, 6.04, 34.3)          9.5mm dia, lower half bore, TH
-  10  Strut bore S-BL           Remove  Rect prism    Y     (4.0, 1.5, 5.0)             6.4 x 3 x 6.4 mm, TH
-  11  Strut bore S-BR           Remove  Rect prism    Y     (136.0, 1.5, 5.0)           6.4 x 3 x 6.4 mm, TH
+  1   Base plate body           Add     Rect prism    —     (85.0, 1.5, 17.15)          170.0 x 3 x 34.3 mm
+  2   Boss half B1              Add     Half-cyl      Y     (58.1, 7.54, 34.3)          OD 16mm, h 9.08mm, lower half (Z<=34.3)
+  3   Boss half B2              Add     Half-cyl      Y     (75.1, 7.54, 34.3)          OD 16mm, h 9.08mm, lower half (Z<=34.3)
+  4   Boss half B3              Add     Half-cyl      Y     (92.1, 7.54, 34.3)          OD 16mm, h 9.08mm, lower half (Z<=34.3)
+  5   Boss half B4              Add     Half-cyl      Y     (109.1, 7.54, 34.3)         OD 16mm, h 9.08mm, lower half (Z<=34.3)
+  6   Semicircular channel C1   Remove  Half-cyl bore Y     (58.1, 6.04, 34.3)          9.5mm dia, lower half bore, TH
+  7   Semicircular channel C2   Remove  Half-cyl bore Y     (75.1, 6.04, 34.3)          9.5mm dia, lower half bore, TH
+  8   Semicircular channel C3   Remove  Half-cyl bore Y     (92.1, 6.04, 34.3)          9.5mm dia, lower half bore, TH
+  9   Semicircular channel C4   Remove  Half-cyl bore Y     (109.1, 6.04, 34.3)         9.5mm dia, lower half bore, TH
+  10  Strut bore S-BL           Remove  Rect prism    Y     (9.0, 1.5, 5.0)             6.4 x 3 x 6.4 mm, TH
+  11  Strut bore S-BR           Remove  Rect prism    Y     (161.0, 1.5, 5.0)           6.4 x 3 x 6.4 mm, TH
 
   Implementation: build full Phase 4 tray (Z 0..68.6), then cut top half
   (Z=34.3..68.6+overcut) with a large box to produce the base half.
@@ -84,9 +84,9 @@ print(FEATURE_TABLE)
 # Dimensions (from parts.md, unchanged from Phase 4)
 # ---------------------------------------------------------------------------
 
-PLATE_W     = 140.0    # X — width left to right
+PLATE_W     = 170.0    # X — width left to right (widened from 140.0)
 PLATE_D     = 3.0      # Y — base plate thickness
-PLATE_H     = 68.6     # Z — full tray height
+PLATE_H     = 103.6    # Z — full tray height (was 68.6, +35mm)
 SPLIT_Z     = 34.3     # Z — split plane (centerline of coupler holes)
 BASE_H      = SPLIT_Z  # Z — height of base half (0..34.3mm)
 
@@ -102,10 +102,10 @@ HOLE_R      = HOLE_DIA / 2.0   # 4.75mm
 
 # Hole/boss centers — 1x4 row, all at Z=34.3mm (at the split plane)
 HOLES = [
-    ("H1/B1", 43.1, 34.3),
-    ("H2/B2", 60.1, 34.3),
-    ("H3/B3", 77.1, 34.3),
-    ("H4/B4", 94.1, 34.3),
+    ("H1/B1", 58.1, 34.3),
+    ("H2/B2", 75.1, 34.3),
+    ("H3/B3", 92.1, 34.3),
+    ("H4/B4", 109.1, 34.3),
 ]
 
 STRUT_BORE_W = 6.4
@@ -113,8 +113,8 @@ STRUT_BORE_H = 6.4
 
 # Only bottom two strut bores are in the base half
 STRUT_BORES_BASE = [
-    ("S-BL",   4.0,  5.0),
-    ("S-BR", 136.0,  5.0),
+    ("S-BL",   9.0,  5.0),
+    ("S-BR", 161.0,  5.0),
 ]
 
 MID_Y_BASE  = PLATE_D / 2.0
@@ -132,7 +132,7 @@ print("Building full Phase 4 tray body (will then cut to base half)...")
 print()
 
 # Feature 1 — Base Plate (full height Z=0..68.6)
-print("Feature 1 — Base plate (140.0 x 3 x 68.6 mm, full height)...")
+print("Feature 1 — Base plate (170.0 x 3 x 68.6 mm, full height)...")
 plate = (
     cq.Workplane("XY")
     .box(PLATE_W, PLATE_D, PLATE_H, centered=False)
@@ -227,13 +227,13 @@ v = Validator(plate)
 
 # --- Feature 1: Base plate body ---
 print("Feature 1 — Base plate body (Z=0..34.3mm):")
-v.check_solid("Base plate center",          70.0, MID_Y_BASE, 17.15,  "solid at base plate XZ center")
-v.check_solid("Base plate near Y=0",        70.0, 0.3,        17.15,  "solid near front face Y=0")
-v.check_solid("Base plate near Y=3",        70.0, 2.7,        17.15,  "solid near back face Y=3")
+v.check_solid("Base plate center",          85.0, MID_Y_BASE, 17.15,  "solid at base plate XZ center")
+v.check_solid("Base plate near Y=0",        85.0, 0.3,        17.15,  "solid near front face Y=0")
+v.check_solid("Base plate near Y=3",        85.0, 2.7,        17.15,  "solid near back face Y=3")
 v.check_solid("Base plate left edge",        0.5, MID_Y_BASE, 17.15,  "solid near X=0")
-v.check_solid("Base plate right edge",     139.5, MID_Y_BASE, 17.15,  "solid near X=140.0")
-v.check_solid("Base plate bottom edge",     68.6, MID_Y_BASE,  0.5,   "solid near Z=0 bottom")
-v.check_solid("Base plate near mating face",68.6, MID_Y_BASE, 34.0,   "solid near Z=34.3 mating face")
+v.check_solid("Base plate right edge",     169.5, MID_Y_BASE, 17.15,  "solid near X=170.0")
+v.check_solid("Base plate bottom edge",     85.0, MID_Y_BASE,  0.5,   "solid near Z=0 bottom")
+v.check_solid("Base plate near mating face",85.0, MID_Y_BASE, 34.0,   "solid near Z=34.3 mating face")
 # Verify top half is gone — no material above Z=34.3 in body region (away from bosses/holes)
 v.check_void("No material above split Z (away from bosses)",
              5.0, MID_Y_BASE, 35.0,
