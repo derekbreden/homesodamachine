@@ -91,18 +91,13 @@ Interior Z span: Z=5.0..73.6mm (68.6mm — inner faces of bottom and top panels)
   7   Bottom panel Lip B          Add   Box      Y     Z=5.4..7.4                        Y=5.4..127.6 (gapped at front+back)    Channel Z=2.0..5.4
   8   Top panel / plate-top Lip A Add   Box      Y     Z=71.6..73.6                      Y=5.4..127.6 (gapped at front+back)    Shared: top panel + plate top
   9   Top panel / plate-top Lip B Add   Box      Y     Z=77.0..79.0                      Y=5.4..127.6 (gapped at front+back)    Top edge; channel Z=73.6..77.0
-  10  Plate bottom Lip A          Add   Box      Y     Z=1.3..3.3                        Y=5.4..127.6 (gapped at front+back)    Plate bottom edge
-  11  Plate bottom Lip B          Add   Box      Y     Z=6.7..8.7                        Y=5.4..127.6 (gapped at front+back)    Channel Z=3.3..6.7
-
-  Total: 1 wall body + 10 rail lip bars = 11 features
+  Total: 1 wall body + 8 rail lip bars = 9 features
 
 Panel/plate rail channels:
   Front panel:  Y=2.0..5.4mm (3.4mm wide in Y), slides in Z
   Back panel:   Y=127.6..131.0mm (3.4mm wide in Y), slides in Z
   Bottom panel: Z=2.0..5.4mm (3.4mm wide in Z), slides in Y
   Top panel:    Z=73.6..77.0mm (3.4mm wide in Z), slides in Z from above
-  Plate bottom: Z=3.3..6.7mm (3.4mm wide in Z), slides in Y (pump tray + coupler tray)
-  Plate top:    Z=73.6..77.0mm (3.4mm wide in Z), slides in Y (same as top panel rail)
 
 Pass-through gaps: Each lip is shortened by PASS_THRU_GAP (5.4mm) at each end where
 a perpendicular panel's rail crosses. This prevents lip bars from colliding at corners.

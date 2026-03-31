@@ -56,8 +56,6 @@ All Y and Z positions identical to left wall. Only X protrusion direction differ
 | 7 | Bottom Lip B | Z=5.4..7.4 | Y=5.4..127.6 | Gapped front+back. Channel Z=2.0..5.4 |
 | 8 | Top / plate-top Lip A | Z=71.6..73.6 | Y=5.4..127.6 | Gapped front+back. Shared: top panel + plate top edge |
 | 9 | Top / plate-top Lip B | Z=77.0..79.0 | Y=5.4..127.6 | Gapped front+back. Channel Z=73.6..77.0 |
-| 10 | Plate bottom Lip A | Z=1.3..3.3 | Y=5.4..127.6 | Gapped front+back |
-| 11 | Plate bottom Lip B | Z=6.7..8.7 | Y=5.4..127.6 | Gapped front+back. Channel Z=3.3..6.7 |
 
 ---
 

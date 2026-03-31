@@ -56,10 +56,7 @@ Exception: Bottom Lip A runs full Y width because it sits at Z=0..2, below where
 | 7 | Bottom Lip B | Z=5.4..7.4 | Y=5.4..127.6 | Gapped front+back. Channel Z=2.0..5.4 |
 | 8 | Top / plate-top Lip A | Z=71.6..73.6 | Y=5.4..127.6 | Gapped front+back. Shared: top panel + plate top edge |
 | 9 | Top / plate-top Lip B | Z=77.0..79.0 | Y=5.4..127.6 | Gapped front+back. Channel Z=73.6..77.0 |
-| 10 | Plate bottom Lip A | Z=1.3..3.3 | Y=5.4..127.6 | Gapped front+back |
-| 11 | Plate bottom Lip B | Z=6.7..8.7 | Y=5.4..127.6 | Gapped front+back. Channel Z=3.3..6.7 |
-
-Total: 1 wall body + 10 lip bars = 11 features.
+Total: 1 wall body + 8 lip bars = 9 features.
 
 ---
 
@@ -71,7 +68,6 @@ Total: 1 wall body + 10 lip bars = 11 features.
 | Back panel | Y | 127.6..131.0mm | Z (down from top) |
 | Bottom panel | Z | 2.0..5.4mm | Y (from front) |
 | Top panel | Z | 73.6..77.0mm | Z (down from top) |
-| Plate bottom (pump+coupler tray) | Z | 3.3..6.7mm | Y (from front) |
 | Plate top (pump+coupler tray) | Z | 73.6..77.0mm | Y (shared with top panel rail) |
 
 ---
