@@ -46,7 +46,7 @@ CadQuery was chosen over build123d after comparative evaluation on the cartridge
 
 For each part being modeled, the complete specification chain is:
 
-1. **The part's `planning/parts.md`** — dimensions, features, interfaces, assembly notes
+1. **The part's `parts.md`** — dimensions, features, interfaces, assembly notes
 2. **Cross-referenced geometry descriptions** — linked from parts.md for every off-the-shelf component that mounts in or interfaces with the custom part (in `off-the-shelf-parts/*/extracted-results/geometry-description.md`)
 3. **Reference photographs** — caliper photos of the physical off-the-shelf parts (in `off-the-shelf-parts/*/raw-images/`), referenced by number in the geometry descriptions
 4. **Research files** — linked from parts.md, containing design analysis and rationale
@@ -256,7 +256,7 @@ if not v.summary():
 
 ## 7. Workflow
 
-1. Read the part's `planning/parts.md` and follow **every** cross-reference (geometry descriptions, research, architecture)
+1. Read the part's `parts.md` and follow **every** cross-reference (geometry descriptions, research, architecture)
 2. Look at reference photographs of interfacing off-the-shelf parts
 3. Complete the Feature Planning Table (Rubric 1) and Coordinate System Declaration (Rubric 2)
 4. Write the modeling code using CadQuery, referencing the planning table for every feature

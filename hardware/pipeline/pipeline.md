@@ -42,7 +42,7 @@ One agent reads the build sequence line and writes `parts.md` for the part. The 
 - Direction consistency tables, constraint chain diagrams, or assembly feasibility checklists. These were overhead for simple parts and didn't catch real errors.
 - Features for future phases. If the build sequence line says "no strut bores — those come in Phase 4," the spec does not mention strut bores except to note they are out of scope.
 
-**Save to:** `hardware/printed-parts/<part-name>/planning/parts.md`
+**Save to:** `hardware/printed-parts/<part-name>/parts.md`
 
 ### Step 2 — CadQuery Generation
 
@@ -75,8 +75,7 @@ Example: coupler tray v1 was Season 1, Phase 1, item 3, first version:
 
 ```
 hardware/printed-parts/cartridge/coupler-tray/
-├── planning/
-│   └── parts.md                ← always current
+├── parts.md                    ← always current
 ├── generate_step_cadquery.py   ← always current
 ├── coupler-tray-cadquery.step  ← always current
 └── revisions/
@@ -125,7 +124,7 @@ That line is your complete scope. Do not add features beyond what it says.
 - [paths to any existing interfacing parts]
 
 **Step 1: Write the parts spec.**
-Save to: hardware/printed-parts/<part-name>/planning/parts.md
+Save to: hardware/printed-parts/<part-name>/parts.md
 Commit and push.
 
 **Step 2: Write the CadQuery script, run it, produce the STEP file.**
