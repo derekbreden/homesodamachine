@@ -78,7 +78,7 @@ PANEL_Y0 = 127.8   # front face Y position (127.6 + 0.2)
 PANEL_Y1 = 130.8   # back face Y position  (127.8 + 3.0)
 
 # Hole geometry — pass 9.57mm John Guest collet OD with 0.2mm loose-fit tolerance
-HOLE_DIA = 10.0
+HOLE_DIA = 6.75
 HOLE_R   = HOLE_DIA / 2.0
 
 # Coupler XZ centers (from coupler-tray boss half script, assembly frame)

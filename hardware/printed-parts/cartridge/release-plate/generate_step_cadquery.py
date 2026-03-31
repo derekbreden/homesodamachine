@@ -63,7 +63,7 @@ PLATE_H = 68.6   # Z extent -- unchanged
 # Bore zone diameters (unchanged)
 Z1_D = 15.60    # Zone 1 (outer counterbore)
 Z2_D = 10.07    # Zone 2 (inner lip bore)
-Z3_D = 6.50     # Zone 3 (tube clearance through-hole)
+Z3_D = 6.75     # Zone 3 (tube clearance through-hole)
 
 Z1_R = Z1_D / 2   # 7.80
 Z2_R = Z2_D / 2   # 5.035
