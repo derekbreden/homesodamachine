@@ -16,14 +16,14 @@ v5 change: Widen plate to 140.0mm and move struts to match lever/pump tray posit
 
 Coordinate system (part local frame):
   Origin: plate bottom-left corner at fitting-facing face (X=0, Y=0, Z=0)
-  X: plate width, left to right, 0 -> 140.0 mm
+  X: plate width, left to right, 0 -> 160.0 mm
   Y: plate depth, fitting-facing to user-facing; struts extend beyond user-facing face
        Y=0  = fitting-facing face (tube exit side, sits on build plate in print orientation)
        Y=5  = user-facing face (stepped bore entry, pull surface, struts attach here)
        Y=95 = strut tips (90 mm beyond user-facing face, toward lever)
   Z: plate height, bottom to top, 0 -> 68.6 mm
-  Plate envelope:          X:[0,140.0]  Y:[0,5]     Z:[0,68.6]
-  With struts:             X:[0,140.0]  Y:[0,95]    Z:[0,68.6]
+  Plate envelope:          X:[0,160.0]  Y:[0,5]     Z:[0,68.6]
+  With struts:             X:[0,160.0]  Y:[0,95]    Z:[0,68.6]
 
 CadQuery XZ workplane notes:
   XZ workplane origin: (0,0,0), normal (zDir): (0,-1,0) = -Y direction
@@ -56,7 +56,7 @@ from step_validate import Validator
 # Part parameters (from parts.md v5)
 # ==============================================================================
 
-PLATE_W = 140.0  # X extent -- matches all interior plates (widened from 137.2)
+PLATE_W = 160.0  # X extent (was 140.0, +20mm to accommodate struts moved outward)
 PLATE_D = 5.0    # Y extent (thickness)
 PLATE_H = 68.6   # Z extent -- unchanged
 
@@ -77,10 +77,10 @@ Y_FITTING  = 0.0   # fitting-facing face (tube exit, build plate)
 
 # Bore center positions (X, Z) -- 1x4 row matching coupler tray (unchanged)
 BORE_CENTERS = [
-    (43.1, 34.3),   # A -- H1
-    (60.1, 34.3),   # B -- H2
-    (77.1, 34.3),   # C -- H3
-    (94.1, 34.3),   # D -- H4
+    (53.1, 34.3),   # A -- H1 (shifted +10mm)
+    (70.1, 34.3),   # B -- H2 (shifted +10mm)
+    (87.1, 34.3),   # C -- H3 (shifted +10mm)
+    (104.1, 34.3),  # D -- H4 (shifted +10mm)
 ]
 
 # Strut parameters (Features 10-13)
@@ -92,10 +92,10 @@ STRUT_Y1 = 95.0   # strut tips (90 mm beyond user-facing face, toward lever)
 
 # Strut center positions (X, Z) -- moved to match lever and pump tray bore centers
 STRUTS = {
-    "TL": (4.0,   63.6),   # Top-Left corner -- matches lever TL, pump tray S-TL
-    "TR": (136.0, 63.6),   # Top-Right corner -- matches lever TR, pump tray S-TR
-    "BL": (4.0,    5.0),   # Bottom-Left corner -- matches lever BL, pump tray S-BL
-    "BR": (136.0,  5.0),   # Bottom-Right corner -- matches lever BR, pump tray S-BR
+    "TL": (4.0,   63.6),   # Top-Left corner -- matches lever TL
+    "TR": (156.0, 63.6),   # Top-Right corner -- matches lever TR
+    "BL": (4.0,    5.0),   # Bottom-Left corner -- matches lever BL
+    "BR": (156.0,  5.0),   # Bottom-Right corner -- matches lever BR
 }
 
 # Fillet radii
@@ -111,34 +111,34 @@ RELEASE PLATE v5 -- FEATURE PLANNING TABLE (Rubric 1)
 ======================================================
 
   #   Feature Name              Op      Shape         Axis  Center / Position                Dimensions
-  1   Plate body                Add     Rect prism    Y     Origin (0,0,0)                   140.0W x 5D x 68.6H mm
+  1   Plate body                Add     Rect prism    Y     Origin (0,0,0)                   160.0W x 5D x 68.6H mm
   2   Perimeter corner radii    Remove  Fillet R2     Y     4 vertical edges at XZ corners   R = 2.0 mm
   3   Pull edge radius          Remove  Fillet R3     X,Z   4 fitting-face perimeter edges    R = 3.0 mm
-  4   Stepped bore A            Remove  3-step cyl    Y     X=43.1, Z=34.3                   Z1:D15.60 Z2:D10.07 Z3:D6.50
-  5   Stepped bore B            Remove  3-step cyl    Y     X=60.1, Z=34.3                   (same)
-  6   Stepped bore C            Remove  3-step cyl    Y     X=77.1, Z=34.3                   (same)
-  7   Stepped bore D            Remove  3-step cyl    Y     X=94.1, Z=34.3                   (same)
+  4   Stepped bore A            Remove  3-step cyl    Y     X=53.1, Z=34.3                   Z1:D15.60 Z2:D10.07 Z3:D6.50
+  5   Stepped bore B            Remove  3-step cyl    Y     X=70.1, Z=34.3                   (same)
+  6   Stepped bore C            Remove  3-step cyl    Y     X=87.1, Z=34.3                   (same)
+  7   Stepped bore D            Remove  3-step cyl    Y     X=104.1, Z=34.3                  (same)
   10  Strut TL (Top-Left)       Add     Rect prism    Y     X=4.0, Z=63.6                    6W x 90D x 6H mm, Y:5->95
-  11  Strut TR (Top-Right)      Add     Rect prism    Y     X=136.0, Z=63.6                  6W x 90D x 6H mm, Y:5->95
+  11  Strut TR (Top-Right)      Add     Rect prism    Y     X=156.0, Z=63.6                  6W x 90D x 6H mm, Y:5->95
   12  Strut BL (Bottom-Left)    Add     Rect prism    Y     X=4.0, Z=5.0                     6W x 90D x 6H mm, Y:5->95
-  13  Strut BR (Bottom-Right)   Add     Rect prism    Y     X=136.0, Z=5.0                   6W x 90D x 6H mm, Y:5->95
+  13  Strut BR (Bottom-Right)   Add     Rect prism    Y     X=156.0, Z=5.0                   6W x 90D x 6H mm, Y:5->95
 
 Bore zone detail (identical for all 4 bores):
   Zone 1 (outer counterbore): D15.60 mm, Y: 5.0 -> 3.6 mm (depth 1.4 mm from user-facing face)
   Zone 2 (inner lip bore):    D10.07 mm, Y: 3.6 -> 1.6 mm (depth 2.0 mm)
   Zone 3 (through-hole):      D 6.50 mm, Y: 1.6 -> 0.0 mm (depth 1.6 mm, exits fitting-facing face)
 
-Bore pattern: 1x4 row at Z=34.3, X=43.1/60.1/77.1/94.1 (17mm c-c spacing).
+Bore pattern: 1x4 row at Z=34.3, X=53.1/70.1/87.1/104.1 (17mm c-c spacing).
 
-Strut positions match lever strut centers and pump tray bore centers:
-  TL (4.0, 63.6), TR (136.0, 63.6), BL (4.0, 5.0), BR (136.0, 5.0)
+Strut positions match lever strut centers:
+  TL (4.0, 63.6), TR (156.0, 63.6), BL (4.0, 5.0), BR (156.0, 5.0)
 
 Coordinate system declaration (Rubric 2):
   Origin: plate bottom-left corner at fitting-facing face
-  X: plate width, left to right, 0 -> 140.0 mm
+  X: plate width, left to right, 0 -> 160.0 mm
   Y: plate depth, fitting-facing (Y=0) to user-facing (Y=5), struts to Y=95
   Z: plate height, bottom to top, 0 -> 68.6 mm
-  Full bounding box: X:[0,140.0] Y:[0,95] Z:[0,68.6]
+  Full bounding box: X:[0,160.0] Y:[0,95] Z:[0,68.6]
 """
 
 # ==============================================================================
@@ -154,10 +154,10 @@ print("Building model...")
 # ------------------------------------------------------------------------------
 # Feature 1: Plate body
 # box(W, D, H, centered=False) with W=140.0 (X), D=5 (Y), H=68.6 (Z)
-# -> X:[0,140.0] Y:[0,5] Z:[0,68.6]
+# -> X:[0,160.0] Y:[0,5] Z:[0,68.6]
 # ------------------------------------------------------------------------------
 plate = cq.Workplane("XY").box(PLATE_W, PLATE_D, PLATE_H, centered=False)
-print("  [+] Feature 1: Plate body (140.0 x 5 x 68.6 mm)")
+print("  [+] Feature 1: Plate body (160.0 x 5 x 68.6 mm)")
 
 # ------------------------------------------------------------------------------
 # Feature 2: Perimeter corner radii -- R2 on 4 vertical edges (parallel to Y)
@@ -268,8 +268,8 @@ v = Validator(plate)
 
 print()
 print("--- Feature 1: Plate body ---")
-v.check_solid("Plate body interior", 70.0, 2.5, 34.3,
-              "solid at plate center (70.0, 2.5, 34.3)")
+v.check_solid("Plate body interior", 80.0, 2.5, 34.3,
+              "solid at plate center (80.0, 2.5, 34.3)")
 
 print()
 print("--- Features 4-7: Stepped bores ---")
