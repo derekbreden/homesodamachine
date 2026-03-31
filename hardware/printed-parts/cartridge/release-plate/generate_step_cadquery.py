@@ -77,10 +77,10 @@ Y_FITTING  = 0.0   # fitting-facing face (tube exit, build plate)
 
 # Bore center positions (X, Z) -- 1x4 row matching coupler tray (unchanged)
 BORE_CENTERS = [
-    (53.1, 34.3),   # A -- H1 (shifted +10mm)
-    (70.1, 34.3),   # B -- H2 (shifted +10mm)
-    (87.1, 34.3),   # C -- H3 (shifted +10mm)
-    (104.1, 34.3),  # D -- H4 (shifted +10mm)
+    (54.5, 34.3),   # A -- H1 (centered)
+    (71.5, 34.3),   # B -- H2 (centered)
+    (88.5, 34.3),   # C -- H3 (centered)
+    (105.5, 34.3),  # D -- H4 (centered)
 ]
 
 # Strut parameters (Features 10-13)
