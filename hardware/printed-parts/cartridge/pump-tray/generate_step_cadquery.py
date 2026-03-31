@@ -33,7 +33,7 @@ from step_validate import Validator
 # Plate envelope
 PLATE_W = 170.0   # X — width left to right (was 140.0 in v3)
 PLATE_D = 3.0     # Y — thickness front to back
-PLATE_H = 68.6    # Z — height bottom to top
+PLATE_H = 103.6   # Z — height bottom to top (was 68.6, +35mm)
 
 # Diamond (45°-rotated square) cutout for pump base
 DIAMOND_SIDE = 42.5  # side length of the square before rotation
