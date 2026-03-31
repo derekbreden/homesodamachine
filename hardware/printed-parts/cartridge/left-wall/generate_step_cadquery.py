@@ -155,11 +155,11 @@ FRONT_LIP_A_Y0 = 0.0
 FRONT_LIP_B_Y0 = 5.4   # = LIP_W + CHANNEL_W = 2.0 + 3.4
 
 lip_front_a = add_lip("Feature 2: Front panel Lip A",
-                       y0=FRONT_LIP_A_Y0, z0=0.0, lip_dy=LIP_W, lip_dz=WALL_Z)
+                       y0=FRONT_LIP_A_Y0, z0=PASS_THRU_GAP, lip_dy=LIP_W, lip_dz=WALL_Z - PASS_THRU_GAP * 2)
 wall = wall.union(lip_front_a)
 
 lip_front_b = add_lip("Feature 3: Front panel Lip B",
-                       y0=FRONT_LIP_B_Y0, z0=0.0, lip_dy=LIP_W, lip_dz=WALL_Z)
+                       y0=FRONT_LIP_B_Y0, z0=PASS_THRU_GAP, lip_dy=LIP_W, lip_dz=WALL_Z - PASS_THRU_GAP * 2)
 wall = wall.union(lip_front_b)
 print(f"    Front panel channel: Y={FRONT_LIP_A_Y0+LIP_W:.1f}..{FRONT_LIP_B_Y0:.1f}mm ({CHANNEL_W}mm wide)")
 
@@ -174,11 +174,11 @@ BACK_LIP_B_Y0 = WALL_Y - LIP_W         # 131.0
 BACK_LIP_A_Y0 = WALL_Y - LIP_W - CHANNEL_W - LIP_W  # 125.6
 
 lip_back_a = add_lip("Feature 4: Back panel Lip A",
-                      y0=BACK_LIP_A_Y0, z0=0.0, lip_dy=LIP_W, lip_dz=WALL_Z)
+                      y0=BACK_LIP_A_Y0, z0=PASS_THRU_GAP, lip_dy=LIP_W, lip_dz=WALL_Z - 2 * PASS_THRU_GAP)
 wall = wall.union(lip_back_a)
 
 lip_back_b = add_lip("Feature 5: Back panel Lip B",
-                      y0=BACK_LIP_B_Y0, z0=0.0, lip_dy=LIP_W, lip_dz=WALL_Z)
+                      y0=BACK_LIP_B_Y0, z0=PASS_THRU_GAP, lip_dy=LIP_W, lip_dz=WALL_Z - 2 * PASS_THRU_GAP)
 wall = wall.union(lip_back_b)
 print(f"    Back panel channel: Y={BACK_LIP_A_Y0+LIP_W:.1f}..{BACK_LIP_B_Y0:.1f}mm ({CHANNEL_W}mm wide)")
 
