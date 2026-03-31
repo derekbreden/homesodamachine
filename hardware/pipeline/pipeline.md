@@ -46,7 +46,7 @@ One agent reads the build sequence line and writes `parts.md` for the part. The 
 
 ### Step 2 — CadQuery Generation
 
-One agent reads `parts.md` and produces a CadQuery script that generates a validated STEP file. See `steps/6-step-generation.md` for CadQuery standards, techniques, and validation requirements.
+One agent reads `parts.md` and produces a CadQuery script that generates a validated STEP file. See `step-generation.md` for CadQuery standards, techniques, and validation requirements.
 
 **The agent MUST run the script.** Zero validation failures required. An unrun script is not a deliverable. The STEP file is the deliverable.
 
@@ -89,14 +89,6 @@ The working files are always the latest version. The `revisions/` folder is the 
 
 ---
 
-## Technical Research (optional, rare)
-
-Most parts can be fully specified from the build sequence line, requirements, vision, and component datasheets. Occasionally a part involves physics that no agent can derive from existing information (e.g., how a flexible bag behaves under gravity at a specific angle). In that case, commission a research agent to answer the specific technical question before starting the spec. See `steps/2a-technical-research.md`.
-
-Do not commission research to find features to add. The build sequence line is the scope.
-
----
-
 ## Common Mistakes
 
 1. **Adding features the build sequence doesn't ask for.** If the line says "flat plate with 8 holes," the deliverable is a flat plate with 8 holes. Not a U-channel. Not a box. Not a plate with ribs.
@@ -128,7 +120,7 @@ Save to: hardware/printed-parts/<part-name>/parts.md
 Commit and push.
 
 **Step 2: Write the CadQuery script, run it, produce the STEP file.**
-Follow the standards in hardware/pipeline/steps/6-step-generation.md
+Follow the standards in hardware/pipeline/step-generation.md
 Save script to: hardware/printed-parts/<part-name>/generate_step_cadquery.py
 Save STEP to: hardware/printed-parts/<part-name>/<part-name>-cadquery.step
 Commit and push.
@@ -140,5 +132,5 @@ Commit and push.
 
 - **Requirements:** `hardware/requirements.md`
 - **Vision and build sequence:** `hardware/vision.md`
-- **CadQuery standards:** `hardware/pipeline/steps/6-step-generation.md`
+- **CadQuery standards:** `hardware/pipeline/step-generation.md`
 - **Build planner role:** `hardware/pipeline/build-planner.md`
