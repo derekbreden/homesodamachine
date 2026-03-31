@@ -10,8 +10,8 @@
 |----------|-------|
 | Part name | Release plate |
 | Piece count | 1 |
-| Outer dimensions | 140.0mm (X) x 5.0mm (Y plate) + 90.0mm (Y struts) x 68.6mm (Z) |
-| Envelope | 140.0mm (X) x 95.0mm (Y) x 68.6mm (Z) |
+| Outer dimensions | 160.0mm (X) x 5.0mm (Y plate) + 90.0mm (Y struts) x 68.6mm (Z) |
+| Envelope | 160.0mm (X) x 95.0mm (Y) x 68.6mm (Z) |
 | Features | Plate body + 4x stepped bores + 4x struts + corner radii + pull edge radius |
 | Print orientation | Fitting-facing face (Y=0) down on build plate. Struts extend upward in print Z. |
 | Material | PETG |
@@ -25,7 +25,7 @@
 Origin: bottom-left corner of the plate at the fitting-facing face.
 
 ```
-X: width axis -- left to right, 0..140.0mm
+X: width axis -- left to right, 0..160.0mm
 Y: depth axis -- fitting-facing to user-facing; struts extend beyond user-facing face
     Y=0: fitting-facing face (tube exit side; sits on build plate in print orientation)
     Y=5.0: user-facing face (stepped bore entry, pull surface, strut attachment)
@@ -63,9 +63,9 @@ Print orientation: fitting-facing face (XZ plane, Y=0) down on build plate. Stru
 |----------|-------|
 | Operation | Add (base body) |
 | Geometry | Rectangular prism |
-| Dimensions | 140.0 (X) x 5.0 (Y) x 68.6 (Z) mm |
-| Position | X:[0, 140.0] Y:[0, 5.0] Z:[0, 68.6] |
-| Justification | Width 140.0mm matches all interior plates (pump tray, coupler tray, lever). Height 68.6mm unchanged. Depth 5.0mm accommodates Zone 1 (1.4mm) + Zone 2 (2.0mm) + Zone 3 (1.6mm). |
+| Dimensions | 160.0 (X) x 5.0 (Y) x 68.6 (Z) mm |
+| Position | X:[0, 160.0] Y:[0, 5.0] Z:[0, 68.6] |
+| Justification | Width 160.0mm accommodates struts moved outward. Height 68.6mm unchanged. Depth 5.0mm accommodates Zone 1 (1.4mm) + Zone 2 (1.2mm) + Zone 3 (2.4mm). |
 
 ### Feature 2 -- Perimeter Corner Radii
 
@@ -73,7 +73,7 @@ Print orientation: fitting-facing face (XZ plane, Y=0) down on build plate. Stru
 |----------|-------|
 | Operation | Remove (fillet) |
 | Geometry | Convex cylindrical fillet on four vertical (Y-parallel) plate edges |
-| Affected edges | (X=0, Z=0), (X=140.0, Z=0), (X=0, Z=68.6), (X=140.0, Z=68.6); each runs Y=0 to Y=5.0 |
+| Affected edges | (X=0, Z=0), (X=160.0, Z=0), (X=0, Z=68.6), (X=160.0, Z=68.6); each runs Y=0 to Y=5.0 |
 | Radius | 2.0mm |
 | Justification | Design language consistency with lever. Corner radius must match cartridge body pocket interior corner radius. |
 
@@ -83,7 +83,7 @@ Print orientation: fitting-facing face (XZ plane, Y=0) down on build plate. Stru
 |----------|-------|
 | Operation | Remove (fillet) |
 | Geometry | Convex quarter-circle fillet on all four perimeter edges at fitting-facing face (Y=0) |
-| Affected edges | Left (X=0), right (X=140.0), bottom (Z=0), top (Z=68.6) edges at Y=0 |
+| Affected edges | Left (X=0), right (X=160.0), bottom (Z=0), top (Z=68.6) edges at Y=0 |
 | Radius | 3.0mm |
 | Justification | Tactile comfort on the edge finger pads bear against during the pull stroke. Also satisfies elephant's foot requirement. |
 
@@ -92,35 +92,35 @@ Print orientation: fitting-facing face (XZ plane, Y=0) down on build plate. Stru
 | Property | Value |
 |----------|-------|
 | Operation | Remove (three-diameter concentric bore from user-facing face through fitting-facing face) |
-| Center (X, Z) | (43.1, 34.3) |
+| Center (X, Z) | (53.1, 34.3) |
 | Bore axis | Parallel to Y |
 | Zone 1 (outer bore) | Dia 15.60mm; depth 1.4mm from user-facing face; Y: 5.0 -> 3.6 |
-| Zone 2 (inner lip bore) | Dia 10.07mm; depth 2.0mm; Y: 3.6 -> 1.6 |
-| Zone 3 (through-hole) | Dia 6.50mm; depth 1.6mm; Y: 1.6 -> 0.0 (exits fitting-facing face) |
+| Zone 2 (inner lip bore) | Dia 10.07mm; depth 1.2mm; Y: 3.6 -> 2.4 |
+| Zone 3 (through-hole) | Dia 6.75mm; depth 2.4mm; Y: 2.4 -> 0.0 (exits fitting-facing face) |
 | Justification | Position matches coupler tray hole H1. Unchanged from v4. |
 
 ### Feature 5 -- Stepped Bore B (H2)
 
-Identical geometry to Feature 4. Center (X, Z) = (60.1, 34.3). Position matches coupler tray hole H2.
+Identical geometry to Feature 4. Center (X, Z) = (70.1, 34.3). Position matches coupler tray hole H2.
 
 ### Feature 6 -- Stepped Bore C (H3)
 
-Identical geometry to Feature 4. Center (X, Z) = (77.1, 34.3). Position matches coupler tray hole H3.
+Identical geometry to Feature 4. Center (X, Z) = (87.1, 34.3). Position matches coupler tray hole H3.
 
 ### Feature 7 -- Stepped Bore D (H4)
 
-Identical geometry to Feature 4. Center (X, Z) = (94.1, 34.3). Position matches coupler tray hole H4.
+Identical geometry to Feature 4. Center (X, Z) = (104.1, 34.3). Position matches coupler tray hole H4.
 
 **Bore pattern summary (1x4 row):**
 
 | Bore | Center X | Center Z |
 |------|----------|----------|
-| A | 43.1 | 34.3 |
-| B | 60.1 | 34.3 |
-| C | 77.1 | 34.3 |
-| D | 94.1 | 34.3 |
+| A | 53.1 | 34.3 |
+| B | 70.1 | 34.3 |
+| C | 87.1 | 34.3 |
+| D | 104.1 | 34.3 |
 
-17.0mm center-to-center spacing. Row centered at X=68.6mm (plate center = 70.0mm -- note: bore row center is 68.6mm, not plate center, carried from v3 coupler tray alignment).
+17.0mm center-to-center spacing. Row centered at X=78.6mm (plate center = 80.0mm).
 
 ### Feature 10 -- Strut TL (Top-Left)
 
@@ -142,11 +142,11 @@ Identical geometry to Feature 4. Center (X, Z) = (94.1, 34.3). Position matches 
 | Operation | Add (rectangular boss protruding from user-facing face) |
 | Cross-section | 6.0mm (X) x 6.0mm (Z) |
 | Length (Y) | 90.0mm |
-| Center (X, Z) | (136.0, 63.6) |
-| Extents X | [133.0, 139.0] |
+| Center (X, Z) | (156.0, 63.6) |
+| Extents X | [153.0, 159.0] |
 | Extents Z | [60.6, 66.6] |
 | Extents Y | [5.0, 95.0] |
-| Justification | Position matches lever strut TR center (136.0, 63.6) and pump tray bore S-TR center (136.0, 63.6). |
+| Justification | Position matches lever strut TR center (156.0, 63.6). |
 
 ### Feature 12 -- Strut BL (Bottom-Left)
 
@@ -168,22 +168,22 @@ Identical geometry to Feature 4. Center (X, Z) = (94.1, 34.3). Position matches 
 | Operation | Add (rectangular boss protruding from user-facing face) |
 | Cross-section | 6.0mm (X) x 6.0mm (Z) |
 | Length (Y) | 90.0mm |
-| Center (X, Z) | (136.0, 5.0) |
-| Extents X | [133.0, 139.0] |
+| Center (X, Z) | (156.0, 5.0) |
+| Extents X | [153.0, 159.0] |
 | Extents Z | [2.0, 8.0] |
 | Extents Y | [5.0, 95.0] |
-| Justification | Position matches lever strut BR center (136.0, 5.0) and pump tray bore S-BR center (136.0, 5.0). |
+| Justification | Position matches lever strut BR center (156.0, 5.0). |
 
 **Strut geometry summary:**
 
 | Strut | Center (X, Z) | Cross-section | Extents Y | Length |
 |-------|---------------|---------------|-----------|--------|
 | TL | (4.0, 63.6) | 6.0 x 6.0 mm | 5.0 -> 95.0 | 90.0mm |
-| TR | (136.0, 63.6) | 6.0 x 6.0 mm | 5.0 -> 95.0 | 90.0mm |
+| TR | (156.0, 63.6) | 6.0 x 6.0 mm | 5.0 -> 95.0 | 90.0mm |
 | BL | (4.0, 5.0) | 6.0 x 6.0 mm | 5.0 -> 95.0 | 90.0mm |
-| BR | (136.0, 5.0) | 6.0 x 6.0 mm | 5.0 -> 95.0 | 90.0mm |
+| BR | (156.0, 5.0) | 6.0 x 6.0 mm | 5.0 -> 95.0 | 90.0mm |
 
-Strut horizontal spacing (TL-TR or BL-BR): 132.0mm center-to-center.
+Strut horizontal spacing (TL-TR or BL-BR): 152.0mm center-to-center.
 Strut vertical spacing (TL-BL or TR-BR): 58.6mm center-to-center.
 
 ---
@@ -196,11 +196,11 @@ Strut vertical spacing (TL-BL or TR-BR): 58.6mm center-to-center.
 |-------|-------------|----------------|----------------|----------------|
 | TL | X=0 (left) | 1.0 | 0.0 | 1.0mm |
 | TL | Z=68.6 (top) | 66.6 | 68.6 | 2.0mm |
-| TR | X=140.0 (right) | 139.0 | 140.0 | 1.0mm |
+| TR | X=160.0 (right) | 159.0 | 160.0 | 1.0mm |
 | TR | Z=68.6 (top) | 66.6 | 68.6 | 2.0mm |
 | BL | X=0 (left) | 1.0 | 0.0 | 1.0mm |
 | BL | Z=0 (bottom) | 2.0 | 0.0 | 2.0mm |
-| BR | X=140.0 (right) | 139.0 | 140.0 | 1.0mm |
+| BR | X=160.0 (right) | 159.0 | 160.0 | 1.0mm |
 | BR | Z=0 (bottom) | 2.0 | 0.0 | 2.0mm |
 
 All at or above 0.8mm minimum. Passes.
@@ -209,10 +209,10 @@ All at or above 0.8mm minimum. Passes.
 
 | Strut | Nearest bore | Strut nearest corner | Bore center | Center-to-center dist | Minus bore R (7.8mm) | Gap |
 |-------|-------------|---------------------|-------------|----------------------|---------------------|-----|
-| TL | A (43.1, 34.3) | (7.0, 60.6) | (43.1, 34.3) | sqrt((43.1-7.0)^2 + (34.3-60.6)^2) = sqrt(1303 + 692) = 44.7mm | 44.7 - 7.8 = 36.9mm | No interference |
-| TR | D (94.1, 34.3) | (133.0, 60.6) | (94.1, 34.3) | sqrt((133.0-94.1)^2 + (60.6-34.3)^2) = sqrt(1512 + 692) = 46.9mm | 46.9 - 7.8 = 39.1mm | No interference |
-| BL | A (43.1, 34.3) | (7.0, 8.0) | (43.1, 34.3) | sqrt((43.1-7.0)^2 + (34.3-8.0)^2) = sqrt(1303 + 692) = 44.7mm | 44.7 - 7.8 = 36.9mm | No interference |
-| BR | D (94.1, 34.3) | (133.0, 8.0) | (94.1, 34.3) | sqrt((133.0-94.1)^2 + (34.3-8.0)^2) = sqrt(1512 + 692) = 46.9mm | 46.9 - 7.8 = 39.1mm | No interference |
+| TL | A (53.1, 34.3) | (7.0, 60.6) | (53.1, 34.3) | sqrt((53.1-7.0)^2 + (34.3-60.6)^2) = 53.0mm | 53.0 - 7.8 = 45.2mm | No interference |
+| TR | D (104.1, 34.3) | (153.0, 60.6) | (104.1, 34.3) | sqrt((153.0-104.1)^2 + (60.6-34.3)^2) = 55.7mm | 55.7 - 7.8 = 47.9mm | No interference |
+| BL | A (53.1, 34.3) | (7.0, 8.0) | (53.1, 34.3) | sqrt((53.1-7.0)^2 + (34.3-8.0)^2) = 53.0mm | 53.0 - 7.8 = 45.2mm | No interference |
+| BR | D (104.1, 34.3) | (153.0, 8.0) | (104.1, 34.3) | sqrt((153.0-104.1)^2 + (34.3-8.0)^2) = 55.7mm | 55.7 - 7.8 = 47.9mm | No interference |
 
 All struts fully clear of all bore outer circles. Passes.
 
@@ -221,18 +221,18 @@ All struts fully clear of all bore outer circles. Passes.
 | Strut | Release plate center (X, Z) | Lever center (X, Z) | Match? |
 |-------|----------------------------|---------------------|--------|
 | TL | (4.0, 63.6) | (4.0, 63.6) | Yes |
-| TR | (136.0, 63.6) | (136.0, 63.6) | Yes |
+| TR | (156.0, 63.6) | (156.0, 63.6) | Yes |
 | BL | (4.0, 5.0) | (4.0, 5.0) | Yes |
-| BR | (136.0, 5.0) | (136.0, 5.0) | Yes |
+| BR | (156.0, 5.0) | (156.0, 5.0) | Yes |
 
-**Strut centers vs. pump tray bore centers (must match exactly):**
+**Strut centers vs. pump tray bore centers (must align when plates centered in assembly):**
 
-| Strut | Release plate center (X, Z) | Pump tray bore center (X, Z) | Match? |
-|-------|----------------------------|------------------------------|--------|
-| TL | (4.0, 63.6) | (4.0, 63.6) | Yes |
-| TR | (136.0, 63.6) | (136.0, 63.6) | Yes |
-| BL | (4.0, 5.0) | (4.0, 5.0) | Yes |
-| BR | (136.0, 5.0) | (136.0, 5.0) | Yes |
+| Strut | Release plate center (X, Z) | Dist from center | Pump tray bore center (X, Z) | Dist from center | Match? |
+|-------|----------------------------|-----------------|------------------------------|-----------------|--------|
+| TL | (4.0, 63.6) | 76mm | (9.0, 63.6) | 76mm | Yes |
+| TR | (156.0, 63.6) | 76mm | (161.0, 63.6) | 76mm | Yes |
+| BL | (4.0, 5.0) | 76mm | (9.0, 5.0) | 76mm | Yes |
+| BR | (156.0, 5.0) | 76mm | (161.0, 5.0) | 76mm | Yes |
 
 ---
 
@@ -240,8 +240,8 @@ All struts fully clear of all bore outer circles. Passes.
 
 | Bore | Nearest plate edge | Distance from bore outer edge to plate edge |
 |------|-------------------|---------------------------------------------|
-| A (X=43.1) | X=0 (left) | 43.1 - 7.8 = 35.3mm |
-| D (X=94.1) | X=140.0 (right) | 140.0 - 94.1 - 7.8 = 38.1mm |
+| A (X=53.1) | X=0 (left) | 53.1 - 7.8 = 45.3mm |
+| D (X=104.1) | X=160.0 (right) | 160.0 - 104.1 - 7.8 = 48.1mm |
 
 All well above 1.2mm structural minimum. Passes.
 
@@ -253,7 +253,7 @@ All well above 1.2mm structural minimum. Passes.
 |---------|-------|-------|-------|-------|
 | Plate body -- all walls | Overhang | All faces vertical or on build plate | 45 deg max | Yes |
 | Plate thickness | Wall thickness | 5.0mm | 1.2mm structural min | Yes |
-| Bore wall to left/right edge | Thickness | 35.3mm min | 1.2mm structural min | Yes |
+| Bore wall to left/right edge | Thickness | 45.3mm min | 1.2mm structural min | Yes |
 | Adjacent bore wall | Gap | 1.4mm edge-to-edge (outer bore) | No intersection | Yes |
 | Strut cross-section | Wall thickness | 6.0mm x 6.0mm | 1.2mm structural min | Yes |
 | Strut clearance to bores | Gap | 36.9mm minimum | No intersection | Yes |
