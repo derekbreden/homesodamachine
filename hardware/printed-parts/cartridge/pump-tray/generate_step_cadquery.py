@@ -31,7 +31,7 @@ from step_validate import Validator
 # ==============================================================================
 
 # Plate envelope
-PLATE_W = 140.0   # X — width left to right (was 137.2 in v2)
+PLATE_W = 170.0   # X — width left to right (was 140.0 in v3)
 PLATE_D = 3.0     # Y — thickness front to back
 PLATE_H = 68.6    # Z — height bottom to top
 
@@ -42,8 +42,8 @@ DIAMOND_SIDE = 42.5  # side length of the square before rotation
 # Pump center-to-center: 68.6mm. Plate center: 70.0mm.
 # Pump 1: 70.0 - 34.3 = 35.7. Pump 2: 70.0 + 34.3 = 104.3.
 PUMP_CUTOUTS = [
-    ("cutout-1", 35.7,  34.3),   # Pump 1
-    ("cutout-2", 104.3, 34.3),   # Pump 2
+    ("cutout-1", 50.7,  34.3),   # Pump 1 (was 35.7, +15mm for wider plate)
+    ("cutout-2", 119.3, 34.3),   # Pump 2 (was 104.3, +15mm for wider plate)
 ]
 
 # M3 clearance hole diameter
@@ -52,14 +52,14 @@ HOLE_R = HOLE_DIA / 2.0
 
 # M3 hole XZ positions — 50mm square pattern around each motor bore, re-centered
 HOLES = [
-    ("1-A", 10.7,  59.3),   # Pump 1, top-left
-    ("1-B", 60.7,  59.3),   # Pump 1, top-right
-    ("1-C", 60.7,   9.3),   # Pump 1, bottom-right
-    ("1-D", 10.7,   9.3),   # Pump 1, bottom-left
-    ("2-A", 79.3,  59.3),   # Pump 2, top-left
-    ("2-B", 129.3, 59.3),   # Pump 2, top-right
-    ("2-C", 129.3,  9.3),   # Pump 2, bottom-right
-    ("2-D", 79.3,   9.3),   # Pump 2, bottom-left
+    ("1-A", 25.7,  59.3),   # Pump 1, top-left (was 10.7, +15mm)
+    ("1-B", 75.7,  59.3),   # Pump 1, top-right (was 60.7, +15mm)
+    ("1-C", 75.7,   9.3),   # Pump 1, bottom-right (was 60.7, +15mm)
+    ("1-D", 25.7,   9.3),   # Pump 1, bottom-left (was 10.7, +15mm)
+    ("2-A", 94.3,  59.3),   # Pump 2, top-left (was 79.3, +15mm)
+    ("2-B", 144.3, 59.3),   # Pump 2, top-right (was 129.3, +15mm)
+    ("2-C", 144.3,  9.3),   # Pump 2, bottom-right (was 129.3, +15mm)
+    ("2-D", 94.3,   9.3),   # Pump 2, bottom-left (was 79.3, +15mm)
 ]
 
 # Strut bore parameters
@@ -73,10 +73,10 @@ STRUT_BORE_H = STRUT_SIZE + BORE_CLEARANCE  # 6.4 mm (Z)
 
 # Strut bore center positions (X, Z) — moved outward to clear M3 holes
 STRUT_BORES = [
-    ("S-TL",   4.0, 63.6),   # Top-Left (was 10.0)
-    ("S-TR", 136.0, 63.6),   # Top-Right (was 127.2)
-    ("S-BL",   4.0,  5.0),   # Bottom-Left (was 10.0)
-    ("S-BR", 136.0,  5.0),   # Bottom-Right (was 127.2)
+    ("S-TL",   9.0, 63.6),   # Top-Left (was 4.0, +15mm shift, -10mm outward)
+    ("S-TR", 161.0, 63.6),   # Top-Right (was 136.0, +15mm shift, +10mm outward)
+    ("S-BL",   9.0,  5.0),   # Bottom-Left (was 4.0, +15mm shift, -10mm outward)
+    ("S-BR", 161.0,  5.0),   # Bottom-Right (was 136.0, +15mm shift, +10mm outward)
 ]
 
 # ==============================================================================
@@ -223,11 +223,11 @@ v = Validator(plate)
 
 # --- Feature 1: Plate body ---
 print("--- Feature 1: Plate body ---")
-v.check_solid("Plate body center", 70.0, 1.5, 34.3,
+v.check_solid("Plate body center", 85.0, 1.5, 34.3,
               "solid at plate geometric center")
-v.check_solid("Plate near front face", 70.0, 0.1, 34.3,
+v.check_solid("Plate near front face", 85.0, 0.1, 34.3,
               "solid near Y=0 front face")
-v.check_solid("Plate near back face", 70.0, 2.9, 34.3,
+v.check_solid("Plate near back face", 85.0, 2.9, 34.3,
               "solid near Y=3.0 back face")
 print()
 
@@ -310,10 +310,10 @@ print("--- Strut bore / M3 hole separation check ---")
 # Between each corner strut bore and its nearest M3 hole, probe the gap.
 # The gap region should be solid, confirming the two voids are separated.
 gap_checks = [
-    ("S-TL vs 1-A", 8.1, 1.5, 61.0),   # Midpoint between strut right edge (7.2) and hole left edge (9.05)
-    ("S-TR vs 2-B", 131.9, 1.5, 61.0),  # Midpoint between strut left edge (132.8) and hole right edge (130.95)
-    ("S-BL vs 1-D", 8.1, 1.5, 7.3),     # Midpoint between strut right edge (7.2) and hole left edge (9.05)
-    ("S-BR vs 2-C", 131.9, 1.5, 7.3),   # Midpoint between strut left edge (132.8) and hole right edge (130.95)
+    ("S-TL vs 1-A", 18.5, 1.5, 61.0),   # Between strut right edge (12.2) and hole left edge (24.05)
+    ("S-TR vs 2-B", 152.5, 1.5, 61.0),   # Between strut left edge (157.8) and hole right edge (145.95)
+    ("S-BL vs 1-D", 18.5, 1.5, 7.3),     # Between strut right edge (12.2) and hole left edge (24.05)
+    ("S-BR vs 2-C", 152.5, 1.5, 7.3),    # Between strut left edge (157.8) and hole right edge (145.95)
 ]
 for name, gx, gy, gz in gap_checks:
     v.check_solid(f"Gap {name}", gx, gy, gz,
