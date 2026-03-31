@@ -47,6 +47,7 @@ CHANNEL_W = 3.4  # gap between lip inner faces (3mm panel + 0.2mm clearance each
 # Derived
 INTERIOR_X = WALL_T           # X=3.0mm — interior face of wall
 LIP_TIP_X  = WALL_T + LIP_H  # X=6.0mm — inner face of rail lips (tip of protrusion)
+PASS_THRU_GAP = LIP_W + CHANNEL_W  # 5.4mm total allowing pass through
 
 # Interior coordinate span (between panel inner faces)
 INTERIOR_Y_START = 5.0       # inner face of front panel (Y)
@@ -195,7 +196,7 @@ lip_bottom_a = add_lip("Feature 6: Bottom panel Lip A",
 wall = wall.union(lip_bottom_a)
 
 lip_bottom_b = add_lip("Feature 7: Bottom panel Lip B",
-                        y0=0.0, z0=BOTTOM_LIP_B_Z0, lip_dy=WALL_Y, lip_dz=LIP_W)
+                        y0=PASS_THRU_GAP, z0=BOTTOM_LIP_B_Z0, lip_dy=WALL_Y - 2 * PASS_THRU_GAP, lip_dz=LIP_W)
 wall = wall.union(lip_bottom_b)
 print(f"    Bottom panel channel: Z={BOTTOM_LIP_A_Z0+LIP_W:.1f}..{BOTTOM_LIP_B_Z0:.1f}mm ({CHANNEL_W}mm wide)")
 
@@ -215,11 +216,11 @@ TOP_LIP_A_Z0 = INTERIOR_Z_END - LIP_W         # 73.6 - 2.0 = 71.6
 TOP_LIP_B_Z0 = INTERIOR_Z_END + CHANNEL_W      # 73.6 + 3.4 = 77.0
 
 lip_top_a = add_lip("Feature 8: Top panel / plate-top Lip A",
-                     y0=0.0, z0=TOP_LIP_A_Z0, lip_dy=WALL_Y, lip_dz=LIP_W)
+                     y0=PASS_THRU_GAP, z0=TOP_LIP_A_Z0, lip_dy=WALL_Y - 2 * PASS_THRU_GAP, lip_dz=LIP_W)
 wall = wall.union(lip_top_a)
 
 lip_top_b = add_lip("Feature 9: Top panel / plate-top Lip B",
-                     y0=0.0, z0=TOP_LIP_B_Z0, lip_dy=WALL_Y, lip_dz=LIP_W)
+                     y0=PASS_THRU_GAP, z0=TOP_LIP_B_Z0, lip_dy=WALL_Y - 2 * PASS_THRU_GAP, lip_dz=LIP_W)
 wall = wall.union(lip_top_b)
 print(f"    Top panel/plate-top channel: Z={TOP_LIP_A_Z0+LIP_W:.1f}..{TOP_LIP_B_Z0:.1f}mm ({CHANNEL_W}mm wide)")
 
