@@ -35,16 +35,15 @@ PLATE_W = 140.0   # X — width left to right (was 137.2 in v2)
 PLATE_D = 3.0     # Y — thickness front to back
 PLATE_H = 68.6    # Z — height bottom to top
 
-# Motor bore diameter
-MOTOR_BORE_DIA = 37.0
-MOTOR_BORE_R = MOTOR_BORE_DIA / 2.0
+# Diamond (45°-rotated square) cutout for pump base
+DIAMOND_SIDE = 42.5  # side length of the square before rotation
 
-# Motor bore centers (XZ positions) — re-centered in wider plate
+# Pump base cutout centers (XZ positions)
 # Pump center-to-center: 68.6mm. Plate center: 70.0mm.
 # Pump 1: 70.0 - 34.3 = 35.7. Pump 2: 70.0 + 34.3 = 104.3.
-MOTOR_BORES = [
-    ("bore-1", 35.7,  34.3),   # Pump 1 motor axis
-    ("bore-2", 104.3, 34.3),   # Pump 2 motor axis
+PUMP_CUTOUTS = [
+    ("cutout-1", 35.7,  34.3),   # Pump 1
+    ("cutout-2", 104.3, 34.3),   # Pump 2
 ]
 
 # M3 clearance hole diameter
@@ -133,22 +132,28 @@ plate = cq.Workplane("XY").box(PLATE_W, PLATE_D, PLATE_H, centered=False)
 print("  [+] Feature 1: Plate body (140.0 × 3.0 × 68.6 mm)")
 
 # ------------------------------------------------------------------------------
-# Features 2-3: Motor bores (37mm dia, through Y)
-# XZ workplane: normal = -Y. offset=0 → plane at Y=0.
-# Negative extrude goes +Y direction (through plate toward back face).
+# Features 2-3: Diamond cutouts (42.5mm square rotated 45°, through Y)
+# A square rotated 45° has its corners at ±side/√2 from center on each axis.
+# We define the 4 vertices of the diamond in the XZ plane, then extrude through.
 # ------------------------------------------------------------------------------
-for bore_id, bx, bz in MOTOR_BORES:
+import math
+DIAMOND_HALF_DIAG = DIAMOND_SIDE * math.sqrt(2) / 2  # corner-to-corner half-distance
+
+for cutout_id, cx, cz in PUMP_CUTOUTS:
     overcut = 0.1
-    bore_cyl = (
+    # Diamond vertices in XZ plane relative to center: top, right, bottom, left
+    h = DIAMOND_HALF_DIAG
+    pts = [(0, h), (h, 0), (0, -h), (-h, 0)]
+    diamond = (
         cq.Workplane("XZ")
-        .workplane(offset=0)        # plane at Y=0 (front face)
-        .center(bx, bz)
-        .circle(MOTOR_BORE_R)
+        .workplane(offset=0)
+        .center(cx, cz)
+        .polyline(pts).close()
         .extrude(-(PLATE_D + overcut))
-        # negative extrude on XZ → +Y direction, cuts Y=0 to Y=3.1
     )
-    plate = plate.cut(bore_cyl)
-    print(f"  [-] Feature: Motor bore {bore_id} at X={bx}, Z={bz}")
+    plate = plate.cut(diamond)
+    print(f"  [-] Feature: Diamond {cutout_id} at X={cx}, Z={cz} "
+          f"(42.5mm square @ 45°, corner span {2*h:.1f}mm)")
 
 # ------------------------------------------------------------------------------
 # Features 4-11: M3 clearance holes (3.3mm dia, through Y)
@@ -226,17 +231,22 @@ v.check_solid("Plate near back face", 70.0, 2.9, 34.3,
               "solid near Y=3.0 back face")
 print()
 
-# --- Features 2-3: Motor bores ---
-print("--- Features 2-3: Motor bores ---")
-for bore_id, bx, bz in MOTOR_BORES:
-    v.check_void(f"Motor bore {bore_id} center", bx, 1.5, bz,
-                 f"void at bore center ({bx}, 1.5, {bz})")
-    v.check_void(f"Motor bore {bore_id} front", bx, 0.1, bz,
+# --- Features 2-3: Diamond cutouts ---
+print("--- Features 2-3: Diamond cutouts ---")
+for cutout_id, cx, cz in PUMP_CUTOUTS:
+    v.check_void(f"Diamond {cutout_id} center", cx, 1.5, cz,
+                 f"void at diamond center ({cx}, 1.5, {cz})")
+    v.check_void(f"Diamond {cutout_id} front", cx, 0.1, cz,
                  f"void near front face")
-    v.check_void(f"Motor bore {bore_id} back", bx, 2.9, bz,
+    v.check_void(f"Diamond {cutout_id} back", cx, 2.9, cz,
                  f"void near back face")
-    v.check_solid(f"Motor bore {bore_id} wall +X", bx + MOTOR_BORE_R + 2.0, 1.5, bz,
-                  f"solid outside bore radius in +X")
+    # Check void near each corner (inset slightly from the actual corner)
+    inset = 2.0
+    h = DIAMOND_HALF_DIAG
+    v.check_void(f"Diamond {cutout_id} top corner", cx, 1.5, cz + h - inset,
+                 f"void near top corner")
+    v.check_void(f"Diamond {cutout_id} right corner", cx + h - inset, 1.5, cz,
+                 f"void near right corner")
 print()
 
 # --- Features 4-11: M3 holes ---
