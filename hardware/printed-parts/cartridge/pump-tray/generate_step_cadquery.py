@@ -132,28 +132,43 @@ plate = cq.Workplane("XY").box(PLATE_W, PLATE_D, PLATE_H, centered=False)
 print("  [+] Feature 1: Plate body (140.0 × 3.0 × 68.6 mm)")
 
 # ------------------------------------------------------------------------------
-# Features 2-3: Diamond cutouts (42.5mm square rotated 45°, through Y)
-# A square rotated 45° has its corners at ±side/√2 from center on each axis.
-# We define the 4 vertices of the diamond in the XZ plane, then extrude through.
+# Features 2-3: Octagon cutouts (42.5mm square rotated 45°, corners trimmed)
+# Start with diamond (42.5mm square @ 45°), trim corners so corner-to-corner
+# span shrinks from 60.1mm to 52.5mm. Result: octagon with 4 long + 4 short edges.
 # ------------------------------------------------------------------------------
 import math
-DIAMOND_HALF_DIAG = DIAMOND_SIDE * math.sqrt(2) / 2  # corner-to-corner half-distance
+DIAMOND_HALF_DIAG = DIAMOND_SIDE * math.sqrt(2) / 2  # original corner-to-corner half = 30.05
+TRIMMED_HALF_DIAG = 52.5 / 2                          # trimmed corner-to-corner half = 26.25
 
 for cutout_id, cx, cz in PUMP_CUTOUTS:
     overcut = 0.1
-    # Diamond vertices in XZ plane relative to center: top, right, bottom, left
-    h = DIAMOND_HALF_DIAG
-    pts = [(0, h), (h, 0), (0, -h), (-h, 0)]
-    diamond = (
+    h = DIAMOND_HALF_DIAG   # 30.05 — where original corners were
+    t = TRIMMED_HALF_DIAG   # 26.25 — where we clip
+    # Each original corner (e.g. top at (0, h)) is replaced by two points
+    # on the original diamond edges, at the Z (or X) level where we clip.
+    # The trim distance from the corner along each axis: h - t = 3.8mm
+    d = h - t
+    # Octagon vertices going clockwise from top-right of top corner:
+    pts = [
+        ( d,  t),   # top corner, right side
+        ( t,  d),   # right corner, top side
+        ( t, -d),   # right corner, bottom side
+        ( d, -t),   # bottom corner, right side
+        (-d, -t),   # bottom corner, left side
+        (-t, -d),   # left corner, bottom side
+        (-t,  d),   # left corner, top side
+        (-d,  t),   # top corner, left side
+    ]
+    octagon = (
         cq.Workplane("XZ")
         .workplane(offset=0)
         .center(cx, cz)
         .polyline(pts).close()
         .extrude(-(PLATE_D + overcut))
     )
-    plate = plate.cut(diamond)
-    print(f"  [-] Feature: Diamond {cutout_id} at X={cx}, Z={cz} "
-          f"(42.5mm square @ 45°, corner span {2*h:.1f}mm)")
+    plate = plate.cut(octagon)
+    print(f"  [-] Feature: Octagon {cutout_id} at X={cx}, Z={cz} "
+          f"(42.5mm square @ 45°, corners trimmed to {2*t:.1f}mm span)")
 
 # ------------------------------------------------------------------------------
 # Features 4-11: M3 clearance holes (3.3mm dia, through Y)
@@ -231,22 +246,24 @@ v.check_solid("Plate near back face", 85.0, 2.9, 34.3,
               "solid near Y=3.0 back face")
 print()
 
-# --- Features 2-3: Diamond cutouts ---
-print("--- Features 2-3: Diamond cutouts ---")
+# --- Features 2-3: Octagon cutouts ---
+print("--- Features 2-3: Octagon cutouts ---")
 for cutout_id, cx, cz in PUMP_CUTOUTS:
-    v.check_void(f"Diamond {cutout_id} center", cx, 1.5, cz,
-                 f"void at diamond center ({cx}, 1.5, {cz})")
-    v.check_void(f"Diamond {cutout_id} front", cx, 0.1, cz,
+    v.check_void(f"Octagon {cutout_id} center", cx, 1.5, cz,
+                 f"void at octagon center ({cx}, 1.5, {cz})")
+    v.check_void(f"Octagon {cutout_id} front", cx, 0.1, cz,
                  f"void near front face")
-    v.check_void(f"Diamond {cutout_id} back", cx, 2.9, cz,
+    v.check_void(f"Octagon {cutout_id} back", cx, 2.9, cz,
                  f"void near back face")
-    # Check void near each corner (inset slightly from the actual corner)
-    inset = 2.0
-    h = DIAMOND_HALF_DIAG
-    v.check_void(f"Diamond {cutout_id} top corner", cx, 1.5, cz + h - inset,
-                 f"void near top corner")
-    v.check_void(f"Diamond {cutout_id} right corner", cx + h - inset, 1.5, cz,
-                 f"void near right corner")
+    # Check void inside the trimmed span
+    t = TRIMMED_HALF_DIAG
+    v.check_void(f"Octagon {cutout_id} near top", cx, 1.5, cz + t - 2.0,
+                 f"void near top of octagon")
+    v.check_void(f"Octagon {cutout_id} near right", cx + t - 2.0, 1.5, cz,
+                 f"void near right of octagon")
+    # Check solid OUTSIDE the trimmed span (where corners were clipped)
+    v.check_solid(f"Octagon {cutout_id} beyond top", cx, 1.5, cz + t + 1.0,
+                  f"solid beyond trimmed top corner")
 print()
 
 # --- Features 4-11: M3 holes ---
