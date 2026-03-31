@@ -72,7 +72,7 @@ Z3_R = Z3_D / 2   # 3.25
 # Zone Y boundaries (measured from fitting-facing face, Y increases toward user)
 Y_USER     = 5.0   # user-facing face (stepped bore entry, struts)
 Y_Z1_FLOOR = 3.6   # Zone 1 floor / Zone 2 top
-Y_Z2_FLOOR = 1.6   # Zone 2 floor / Zone 3 top
+Y_Z2_FLOOR = 2.4   # Zone 2 floor / Zone 3 top (inner shoulder)
 Y_FITTING  = 0.0   # fitting-facing face (tube exit, build plate)
 
 # Bore center positions (X, Z) -- 1x4 row matching coupler tray (unchanged)
