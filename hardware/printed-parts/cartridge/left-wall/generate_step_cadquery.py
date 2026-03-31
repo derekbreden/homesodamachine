@@ -49,6 +49,10 @@ INTERIOR_X = WALL_T           # X=3.0mm — interior face of wall
 LIP_TIP_X  = WALL_T + LIP_H  # X=6.0mm — inner face of rail lips (tip of protrusion)
 PASS_THRU_GAP = LIP_W + CHANNEL_W  # 5.4mm total allowing pass through
 
+# Interior plate Y positions (wall coordinates)
+PUMP_TRAY_Y_CENTER = 56.5    # pump tray front face Y=55.0, back face Y=58.0, center=56.5
+COUPLER_TRAY_Y_CENTER = 30.0 # TODO: determine actual position
+
 # Interior coordinate span (between panel inner faces)
 INTERIOR_Y_START = 5.0       # inner face of front panel (Y)
 INTERIOR_Y_END   = 128.0     # inner face of back panel (Y)
@@ -224,6 +228,47 @@ lip_top_b = add_lip("Feature 9: Top panel / plate-top Lip B",
                      y0=PASS_THRU_GAP, z0=TOP_LIP_B_Z0, lip_dy=WALL_Y - 2 * PASS_THRU_GAP, lip_dz=LIP_W)
 wall = wall.union(lip_top_b)
 print(f"    Top panel/plate-top channel: Z={TOP_LIP_A_Z0+LIP_W:.1f}..{TOP_LIP_B_Z0:.1f}mm ({CHANNEL_W}mm wide)")
+
+# ------------------------------------------------------------------------------
+# Features 10-13: Interior plate rail lips (plates slide in -Z, gripped in Y)
+# Same structure as front/back panel rails — vertical lip pairs at each plate's
+# Y position, running Z=PASS_THRU_GAP to Z=WALL_Z-2*PASS_THRU_GAP (gapped at
+# bottom and top for horizontal rails).
+# ------------------------------------------------------------------------------
+for label, y_center in [("Pump tray", PUMP_TRAY_Y_CENTER),
+                         ("Coupler tray", COUPLER_TRAY_Y_CENTER)]:
+    lip_a_y0 = y_center - CHANNEL_W / 2 - LIP_W  # outer lip
+    lip_b_y0 = y_center + CHANNEL_W / 2            # inner lip
+
+    lip_a = add_lip(f"{label} Lip A",
+                    y0=lip_a_y0, z0=PASS_THRU_GAP, lip_dy=LIP_W, lip_dz=WALL_Z - PASS_THRU_GAP * 2)
+    wall = wall.union(lip_a)
+
+    lip_b = add_lip(f"{label} Lip B",
+                    y0=lip_b_y0, z0=PASS_THRU_GAP, lip_dy=LIP_W, lip_dz=WALL_Z - PASS_THRU_GAP * 2)
+    wall = wall.union(lip_b)
+    print(f"    {label} channel: Y={lip_a_y0+LIP_W:.1f}..{lip_b_y0:.1f}mm ({CHANNEL_W}mm wide)")
+
+# ------------------------------------------------------------------------------
+# Cutouts in horizontal lips for interior plates to pass through
+# Each cutout is CHANNEL_W (3.4mm) wide in Y, centered on the plate Y center.
+# Applied to: Bottom Lip B, Top Lip A, Top Lip B
+# ------------------------------------------------------------------------------
+for label, y_center in [("pump tray", PUMP_TRAY_Y_CENTER),
+                         ("coupler tray", COUPLER_TRAY_Y_CENTER)]:
+    cutout_y0 = y_center - CHANNEL_W / 2
+    for cut_label, cut_z0, cut_dz in [
+        ("Bottom Lip B", BOTTOM_LIP_B_Z0, LIP_W),
+        ("Top Lip A", TOP_LIP_A_Z0, LIP_W),
+        ("Top Lip B", TOP_LIP_B_Z0, LIP_W),
+    ]:
+        cutout = (
+            cq.Workplane("XY")
+            .transformed(offset=cq.Vector(WALL_T, cutout_y0, cut_z0))
+            .box(LIP_H, CHANNEL_W, cut_dz, centered=False)
+        )
+        wall = wall.cut(cutout)
+        print(f"  [-] Cutout in {cut_label} for {label}: Y={cutout_y0:.1f}..{cutout_y0+CHANNEL_W:.1f}")
 
 # ==============================================================================
 # Export STEP file
