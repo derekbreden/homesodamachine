@@ -37,7 +37,7 @@ from step_validate import Validator
 # Wall body
 WALL_T = 3.0     # X — wall thickness (exterior face to interior face)
 WALL_Y = 133.0   # Y — wall depth (front to back)
-WALL_Z = 105.0   # Z — wall height (bottom to top, was 79.0)
+WALL_Z = 108.0   # Z — wall height (bottom to top, was 79.0)
 
 # Rail geometry
 LIP_H = 3.0      # X — lip protrusion height from interior face (into interior)
@@ -57,7 +57,7 @@ COUPLER_TRAY_Y_CENTER = 30.0 # TODO: determine actual position
 INTERIOR_Y_START = 5.0       # inner face of front panel (Y)
 INTERIOR_Y_END   = 128.0     # inner face of back panel (Y)
 INTERIOR_Z_START = 5.0       # inner face of bottom panel (Z)
-INTERIOR_Z_END   = 99.6      # inner face of top rail (Z)
+INTERIOR_Z_END   = 102.6     # inner face of top rail (Z)
 
 # ==============================================================================
 # Rubric 1 — Feature Planning Table (MANDATORY, before coding)
@@ -443,13 +443,13 @@ v.check_solid("Bottom Lip A full Y run at Y=120",
               LIP_MID_X, 120.0, 1.0,
               "solid at Y=120mm — bottom Lip A runs full depth")
 
-# Top channel: void at Z=101.3 (center of top channel, 99.6..103.0)
-v.check_void("Top channel center void at Z=101.3",
-             LIP_MID_X, WALL_Y / 2, 101.3,
-             "void at Z=101.3 (top channel center)")
-v.check_solid("Top Lip A at Z=98.6",
-              LIP_MID_X, WALL_Y / 2, 98.6,
-              "solid at Z=98.6 (inside top Lip A, Z=97.6..99.6)")
+# Top channel: void at Z=104.3 (center of top channel, 102.6..106.0)
+v.check_void("Top channel center void at Z=104.3",
+             LIP_MID_X, WALL_Y / 2, 104.3,
+             "void at Z=104.3 (top channel center)")
+v.check_solid("Top Lip A at Z=101.6",
+              LIP_MID_X, WALL_Y / 2, 101.6,
+              "solid at Z=101.6 (inside top Lip A, Z=100.6..102.6)")
 
 print()
 
