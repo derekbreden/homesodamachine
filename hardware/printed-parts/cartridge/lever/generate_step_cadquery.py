@@ -124,7 +124,7 @@ print()
 # Plate
 PLATE_W  = 160.0   # X (was 140.0, +20mm to accommodate struts moved outward)
 PLATE_D  =   4.0   # Y
-PLATE_H  =  68.6   # Z -- matches pump tray height so strut Z positions align
+PLATE_H  =  43.6   # Z (was 68.6, -25mm: 12.5mm from top and bottom)
 
 # Struts
 STRUT_W  =  6.0    # X cross-section
@@ -136,10 +136,10 @@ STRUT_Y1 = 94.0    # strut tips
 # Strut center positions in lever local X and Z
 # Positions match pump tray v3 strut bore centers exactly.
 STRUTS = {
-    "TL": (  4.0, 51.1),
-    "TR": (156.0, 51.1),
-    "BL": (  4.0, 17.5),
-    "BR": (156.0, 17.5),
+    "TL": (  4.0, 38.6),
+    "TR": (156.0, 38.6),
+    "BL": (  4.0,  5.0),
+    "BR": (156.0,  5.0),
 }
 
 # Plate corner fillet radius (Feature 2)
@@ -205,16 +205,16 @@ v = Validator(lever)
 
 # --- Feature 1: Plate Body ---
 print("Feature 1: Plate Body")
-v.check_solid("Plate interior center",      80.0,  2.0, 34.3, "solid at plate center")
-v.check_solid("Plate left face interior",    1.0,   2.0, 34.3, "solid near left face")
-v.check_solid("Plate right face interior", 159.0,   2.0, 34.3, "solid near right face")
-v.check_solid("Plate front face interior",  80.0,   0.5, 34.3, "solid near front face")
-v.check_solid("Plate rear face interior",   80.0,   3.5, 34.3, "solid near rear face")
-v.check_solid("Plate top interior",         80.0,   2.0, 67.6, "solid near top face")
+v.check_solid("Plate interior center",      80.0,  2.0, 21.8, "solid at plate center")
+v.check_solid("Plate left face interior",    1.0,   2.0, 21.8, "solid near left face")
+v.check_solid("Plate right face interior", 159.0,   2.0, 21.8, "solid near right face")
+v.check_solid("Plate front face interior",  80.0,   0.5, 21.8, "solid near front face")
+v.check_solid("Plate rear face interior",   80.0,   3.5, 21.8, "solid near rear face")
+v.check_solid("Plate top interior",         80.0,   2.0, 42.6, "solid near top face")
 v.check_solid("Plate bottom interior",      80.0,   2.0,  1.0, "solid near bottom face (above chamfer)")
 # Void outside plate
-v.check_void("Void in front of plate",      80.0,  -1.0, 34.3, "void in front of plate front face")
-v.check_void("Void above plate (no strut)", 80.0,   2.0, 69.6, "void above plate where no strut")
+v.check_void("Void in front of plate",      80.0,  -1.0, 21.8, "void in front of plate front face")
+v.check_void("Void above plate (no strut)", 80.0,   2.0, 44.6, "void above plate where no strut")
 
 print()
 
