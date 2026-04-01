@@ -58,7 +58,7 @@ from step_validate import Validator
 
 PLATE_W = 160.0  # X extent (was 140.0, +20mm to accommodate struts moved outward)
 PLATE_D = 5.0    # Y extent (thickness)
-PLATE_H = 68.6   # Z extent -- unchanged
+PLATE_H = 43.6   # Z extent (was 68.6, -25mm: 12.5mm from top and bottom)
 
 # Bore zone diameters (unchanged)
 Z1_D = 15.60    # Zone 1 (outer counterbore)
@@ -77,10 +77,10 @@ Y_FITTING  = 0.0   # fitting-facing face (tube exit, build plate)
 
 # Bore center positions (X, Z) -- 1x4 row matching coupler tray (unchanged)
 BORE_CENTERS = [
-    (54.5, 34.3),   # A -- H1 (centered)
-    (71.5, 34.3),   # B -- H2 (centered)
-    (88.5, 34.3),   # C -- H3 (centered)
-    (105.5, 34.3),  # D -- H4 (centered)
+    (54.5, 21.8),   # A -- H1 (centered, Z shifted -12.5mm)
+    (71.5, 21.8),   # B -- H2 (centered, Z shifted -12.5mm)
+    (88.5, 21.8),   # C -- H3 (centered, Z shifted -12.5mm)
+    (105.5, 21.8),  # D -- H4 (centered, Z shifted -12.5mm)
 ]
 
 # Strut parameters (Features 10-13)
@@ -92,10 +92,10 @@ STRUT_Y1 = 95.0   # strut tips (90 mm beyond user-facing face, toward lever)
 
 # Strut center positions (X, Z) -- moved to match lever and pump tray bore centers
 STRUTS = {
-    "TL": (4.0,   51.1),   # Top-Left corner -- matches lever TL
-    "TR": (156.0, 51.1),   # Top-Right corner -- matches lever TR
-    "BL": (4.0,   17.5),   # Bottom-Left corner -- matches lever BL
-    "BR": (156.0, 17.5),   # Bottom-Right corner -- matches lever BR
+    "TL": (4.0,   38.6),   # Top-Left corner -- matches lever TL
+    "TR": (156.0, 38.6),   # Top-Right corner -- matches lever TR
+    "BL": (4.0,    5.0),   # Bottom-Left corner -- matches lever BL
+    "BR": (156.0,  5.0),   # Bottom-Right corner -- matches lever BR
 }
 
 # Fillet radii
@@ -268,8 +268,8 @@ v = Validator(plate)
 
 print()
 print("--- Feature 1: Plate body ---")
-v.check_solid("Plate body interior", 80.0, 2.5, 34.3,
-              "solid at plate center (80.0, 2.5, 34.3)")
+v.check_solid("Plate body interior", 80.0, 2.5, 21.8,
+              "solid at plate center (80.0, 2.5, 21.8)")
 
 print()
 print("--- Features 4-7: Stepped bores ---")
