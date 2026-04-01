@@ -30,7 +30,7 @@ from step_validate import Validator
 # Part parameters (from planning/parts.md)
 # ==============================================================================
 
-PANEL_W = 140.0   # X — panel width (left to right, interior X span)
+PANEL_W = 170.0   # X — panel width (left to right, was 140.0)
 PANEL_D = 123.0   # Y — panel depth (front to back, interior Y span)
 PANEL_T = 3.0     # Z — panel thickness (fits 3.4mm channel, 0.2mm clearance each side)
 
@@ -76,15 +76,15 @@ v = Validator(panel)
 # Feature 1: Panel body — probe interior and all faces
 
 # Interior solid probe
-v.check_solid("Panel body interior center",    70.0, 61.5, 1.5,   "solid at panel center")
+v.check_solid("Panel body interior center",    85.0, 61.5, 1.5,   "solid at panel center")
 
 # Near each face — still solid (0.1mm in from each face)
-v.check_solid("Panel body X+ face interior",  139.9, 61.5, 1.5,  "solid near X+ face")
+v.check_solid("Panel body X+ face interior",  169.9, 61.5, 1.5,  "solid near X+ face")
 v.check_solid("Panel body X- face interior",    0.1, 61.5, 1.5,  "solid near X- face")
-v.check_solid("Panel body Y+ face interior",   70.0, 122.9, 1.5, "solid near Y+ face")
-v.check_solid("Panel body Y- face interior",   70.0,  0.1,  1.5, "solid near Y- face")
-v.check_solid("Panel body Z+ face interior",   70.0, 61.5, 2.9,  "solid near Z+ face")
-v.check_solid("Panel body Z- face interior",   70.0, 61.5, 0.1,  "solid near Z- face")
+v.check_solid("Panel body Y+ face interior",   85.0, 122.9, 1.5, "solid near Y+ face")
+v.check_solid("Panel body Y- face interior",   85.0,  0.1,  1.5, "solid near Y- face")
+v.check_solid("Panel body Z+ face interior",   85.0, 61.5, 2.9,  "solid near Z+ face")
+v.check_solid("Panel body Z- face interior",   85.0, 61.5, 0.1,  "solid near Z- face")
 
 # Rubric 5 — Bounding Box Reconciliation
 bb = panel.val().BoundingBox()
