@@ -37,7 +37,7 @@ PLATE_H = 103.6   # Z — height bottom to top (was 68.6, +35mm)
 
 # Diamond (45°-rotated square) cutout for pump base
 DIAMOND_SIDE = 43.0  # side length of the square before rotation
-LEDGE_DEPTH  = 1.5   # perpendicular inset from each long edge toward hole center
+LEDGE_DEPTH  = 3.0   # perpendicular inset from each long edge toward hole center
 
 # Pump base cutout centers (XZ positions)
 # Pump center-to-center: 68.6mm. Plate center: 70.0mm.
