@@ -36,7 +36,7 @@ from step_validate import Validator
 
 # Wall body
 WALL_T = 3.0     # X — wall thickness (exterior face to interior face)
-WALL_Y = 133.0   # Y — wall depth (front to back)
+WALL_Y = 188.0   # Y — wall depth (back to front)
 WALL_Z = 108.0   # Z — wall height (bottom to top, was 79.0)
 
 # Rail geometry
@@ -50,12 +50,12 @@ LIP_TIP_X  = WALL_T + LIP_H  # X=6.0mm — inner face of rail lips (tip of protr
 PASS_THRU_GAP = LIP_W + CHANNEL_W  # 5.4mm total allowing pass through
 
 # Interior plate Y positions (wall coordinates)
-PUMP_TRAY_Y_CENTER = 56.5    # pump tray front face Y=55.0, back face Y=58.0, center=56.5
+PUMP_TRAY_Y_CENTER = 111.5   # pump tray center (shifted +55mm from 56.5)
 COUPLER_TRAY_Y_CENTER = 30.0 # TODO: determine actual position
 
 # Interior coordinate span (between panel inner faces)
 INTERIOR_Y_START = 5.0       # inner face of front panel (Y)
-INTERIOR_Y_END   = 128.0     # inner face of back panel (Y)
+INTERIOR_Y_END   = 183.0     # inner face of front panel (Y)
 INTERIOR_Z_START = 5.0       # inner face of bottom panel (Z)
 INTERIOR_Z_END   = 102.6     # inner face of top rail (Z)
 
