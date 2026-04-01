@@ -73,10 +73,10 @@ STRUT_BORE_H = STRUT_SIZE + BORE_CLEARANCE  # 6.4 mm (Z)
 
 # Strut bore center positions (X, Z) — moved outward to clear M3 holes
 STRUT_BORES = [
-    ("S-TL",   9.0, 63.6),   # Top-Left (was 4.0, +15mm shift, -10mm outward)
-    ("S-TR", 161.0, 63.6),   # Top-Right (was 136.0, +15mm shift, +10mm outward)
-    ("S-BL",   9.0,  5.0),   # Bottom-Left (was 4.0, +15mm shift, -10mm outward)
-    ("S-BR", 161.0,  5.0),   # Bottom-Right (was 136.0, +15mm shift, +10mm outward)
+    ("S-TL",   9.0, 51.1),   # Top-Left
+    ("S-TR", 161.0, 51.1),   # Top-Right
+    ("S-BL",   9.0, 17.5),   # Bottom-Left
+    ("S-BR", 161.0, 17.5),   # Bottom-Right
 ]
 
 # ==============================================================================
