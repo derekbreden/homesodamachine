@@ -36,7 +36,7 @@ PLATE_D = 3.0     # Y — thickness front to back
 PLATE_H = 103.6   # Z — height bottom to top (was 68.6, +35mm)
 
 # Diamond (45°-rotated square) cutout for pump base
-DIAMOND_SIDE = 42.5  # side length of the square before rotation
+DIAMOND_SIDE = 43.0  # side length of the square before rotation
 
 # Pump base cutout centers (XZ positions)
 # Pump center-to-center: 68.6mm. Plate center: 70.0mm.
@@ -138,7 +138,7 @@ print("  [+] Feature 1: Plate body (140.0 × 3.0 × 68.6 mm)")
 # ------------------------------------------------------------------------------
 import math
 DIAMOND_HALF_DIAG = DIAMOND_SIDE * math.sqrt(2) / 2  # original corner-to-corner half = 30.05
-TRIMMED_HALF_DIAG = 52.5 / 2                          # trimmed corner-to-corner half = 26.25
+TRIMMED_HALF_DIAG = 53.0 / 2                          # trimmed corner-to-corner half = 26.50
 
 for cutout_id, cx, cz in PUMP_CUTOUTS:
     overcut = 0.1
