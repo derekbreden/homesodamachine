@@ -92,10 +92,10 @@ STRUT_Y1 = 95.0   # strut tips (90 mm beyond user-facing face, toward lever)
 
 # Strut center positions (X, Z) -- moved to match lever and pump tray bore centers
 STRUTS = {
-    "TL": (4.0,   63.6),   # Top-Left corner -- matches lever TL
-    "TR": (156.0, 63.6),   # Top-Right corner -- matches lever TR
-    "BL": (4.0,    5.0),   # Bottom-Left corner -- matches lever BL
-    "BR": (156.0,  5.0),   # Bottom-Right corner -- matches lever BR
+    "TL": (4.0,   51.1),   # Top-Left corner -- matches lever TL
+    "TR": (156.0, 51.1),   # Top-Right corner -- matches lever TR
+    "BL": (4.0,   17.5),   # Bottom-Left corner -- matches lever BL
+    "BR": (156.0, 17.5),   # Bottom-Right corner -- matches lever BR
 }
 
 # Fillet radii

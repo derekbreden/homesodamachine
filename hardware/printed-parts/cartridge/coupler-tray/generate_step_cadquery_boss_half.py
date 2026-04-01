@@ -116,8 +116,8 @@ STRUT_BORE_H = 6.4
 
 # Only top two strut bores are in the boss half
 STRUT_BORES_BOSS = [
-    ("S-TL",   9.0, 63.6),
-    ("S-TR", 161.0, 63.6),
+    ("S-TL",   9.0, 51.1),
+    ("S-TR", 161.0, 51.1),
 ]
 
 MID_Y_BASE  = PLATE_D / 2.0

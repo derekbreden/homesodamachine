@@ -136,10 +136,10 @@ STRUT_Y1 = 94.0    # strut tips
 # Strut center positions in lever local X and Z
 # Positions match pump tray v3 strut bore centers exactly.
 STRUTS = {
-    "TL": (  4.0, 63.6),
-    "TR": (156.0, 63.6),
-    "BL": (  4.0,  5.0),
-    "BR": (156.0,  5.0),
+    "TL": (  4.0, 51.1),
+    "TR": (156.0, 51.1),
+    "BL": (  4.0, 17.5),
+    "BR": (156.0, 17.5),
 }
 
 # Plate corner fillet radius (Feature 2)

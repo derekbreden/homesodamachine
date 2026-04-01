@@ -113,8 +113,8 @@ STRUT_BORE_H = 6.4
 
 # Only bottom two strut bores are in the base half
 STRUT_BORES_BASE = [
-    ("S-BL",   9.0,  5.0),
-    ("S-BR", 161.0,  5.0),
+    ("S-BL",   9.0, 17.5),
+    ("S-BR", 161.0, 17.5),
 ]
 
 MID_Y_BASE  = PLATE_D / 2.0
