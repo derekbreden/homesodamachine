@@ -139,4 +139,4 @@ Holes are through-holes (full Y span, Y=127.8..130.8mm).
 - Coupler X/Z center positions: `hardware/printed-parts/cartridge/coupler-tray/generate_step_cadquery_boss_half.py`
 - John Guest fitting geometry: `hardware/off-the-shelf-parts/john-guest-union/extracted-results/geometry-description.md`
 - FDM constraints: `hardware/requirements.md`
-- CadQuery standards: `hardware/pipeline/steps/6-step-generation.md`
+- CadQuery standards: `hardware/step-generation.md`
