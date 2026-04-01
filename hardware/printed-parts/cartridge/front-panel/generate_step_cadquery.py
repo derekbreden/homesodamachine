@@ -95,7 +95,7 @@ print()
 # Panel body
 PANEL_W = 170.0   # X — width (was 140.0)
 PANEL_D =   3.0   # Y — thickness
-PANEL_H =  79.0   # Z — height
+PANEL_H = 103.6   # Z — height (was 79.0, +24.6mm added to top)
 
 # Finger access hole
 HOLE_W  = 100.0   # X — width of hole
@@ -153,12 +153,12 @@ v.check_solid("Panel left edge",              1.0,  1.5, 60.0, "solid near left 
 v.check_solid("Panel right edge",           169.0,  1.5, 60.0, "solid near right edge")
 v.check_solid("Panel front face interior",   85.0,  0.2, 60.0, "solid near front face above hole")
 v.check_solid("Panel rear face interior",    85.0,  2.8, 60.0, "solid near rear face above hole")
-v.check_solid("Panel top interior",          85.0,  1.5, 78.0, "solid near top edge")
+v.check_solid("Panel top interior",          85.0,  1.5, 103.0, "solid near top edge")
 v.check_solid("Panel bottom interior",       85.0,  1.5,  1.0, "solid near bottom edge")
 # Void outside envelope
 v.check_void("Void in front of panel",       85.0, -0.5, 60.0, "void forward of front face")
 v.check_void("Void behind panel",            85.0,  3.5, 60.0, "void behind back face")
-v.check_void("Void above panel",             85.0,  1.5, 80.0, "void above top edge")
+v.check_void("Void above panel",             85.0,  1.5, 104.6, "void above top edge")
 v.check_void("Void below panel",             85.0,  1.5, -1.0, "void below bottom edge")
 v.check_void("Void left of panel",          -0.5,   1.5, 60.0, "void left of panel")
 v.check_void("Void right of panel",         170.5,  1.5, 60.0, "void right of panel")
