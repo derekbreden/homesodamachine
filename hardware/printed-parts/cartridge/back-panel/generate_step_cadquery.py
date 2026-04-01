@@ -69,7 +69,7 @@ print(FEATURE_TABLE)
 # Panel body
 PANEL_W = 170.0    # X — width (was 140.0)
 PANEL_D = 3.0      # Y — thickness
-PANEL_H = 79.0     # Z — height
+PANEL_H = 103.6    # Z — height (was 79.0, matches interior plates)
 
 # Installed position in assembly frame
 # Back panel rail channel: Y=127.6..131.0mm (3.4mm wide)
@@ -167,12 +167,12 @@ v.check_solid("Panel center interior",   85.0,     MID_Y, 39.5,  "solid at panel
 v.check_solid("Panel left edge",          0.5,     MID_Y, 39.5,  "solid near X=0 edge")
 v.check_solid("Panel right edge",       169.5,     MID_Y, 39.5,  "solid near X=170 edge")
 v.check_solid("Panel bottom edge",       85.0,     MID_Y,  0.5,  "solid near Z=0 edge")
-v.check_solid("Panel top edge",          85.0,     MID_Y, 78.5,  "solid near Z=79 edge")
+v.check_solid("Panel top edge",          85.0,     MID_Y, 103.1, "solid near Z=103.6 edge")
 v.check_solid("Panel front face inside", 85.0, PANEL_Y0 + 0.2, 39.5, "solid just inside front face")
 v.check_solid("Panel back face inside",  85.0, PANEL_Y1 - 0.2, 39.5, "solid just inside back face")
 # No material outside envelope
 v.check_void("No material below Z=0",   85.0,     MID_Y, -0.1,  "void below bottom edge")
-v.check_void("No material above Z=79",  85.0,     MID_Y, 79.1,  "void above top edge")
+v.check_void("No material above Z=103.6", 85.0,    MID_Y, 103.7, "void above top edge")
 v.check_void("No material before Y front",85.0, PANEL_Y0 - 0.1, 39.5, "void in front of panel")
 v.check_void("No material behind Y back", 85.0, PANEL_Y1 + 0.1, 39.5, "void behind panel")
 print()
