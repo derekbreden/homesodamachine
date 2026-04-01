@@ -37,6 +37,7 @@ PLATE_H = 103.6   # Z — height bottom to top (was 68.6, +35mm)
 
 # Diamond (45°-rotated square) cutout for pump base
 DIAMOND_SIDE = 43.0  # side length of the square before rotation
+LEDGE_DEPTH  = 3.0   # perpendicular inset from each long edge toward hole center
 
 # Pump base cutout centers (XZ positions)
 # Pump center-to-center: 68.6mm. Plate center: 70.0mm.
@@ -132,33 +133,75 @@ plate = cq.Workplane("XY").box(PLATE_W, PLATE_D, PLATE_H, centered=False)
 print("  [+] Feature 1: Plate body (140.0 × 3.0 × 68.6 mm)")
 
 # ------------------------------------------------------------------------------
-# Features 2-3: Octagon cutouts (42.5mm square rotated 45°, corners trimmed)
-# Start with diamond (42.5mm square @ 45°), trim corners so corner-to-corner
-# span shrinks from 60.1mm to 52.5mm. Result: octagon with 4 long + 4 short edges.
+# Features 2-3: Octagon cutouts with ledges
+# Start with diamond (43mm square @ 45°), trim corners so corner-to-corner
+# span shrinks to 53mm. Then add a 3mm-deep ledge on each long edge —
+# 45° ramps in/out with a parallel shelf running along the middle.
 # ------------------------------------------------------------------------------
 import math
-DIAMOND_HALF_DIAG = DIAMOND_SIDE * math.sqrt(2) / 2  # original corner-to-corner half = 30.05
-TRIMMED_HALF_DIAG = 53.0 / 2                          # trimmed corner-to-corner half = 26.50
+DIAMOND_HALF_DIAG = DIAMOND_SIDE * math.sqrt(2) / 2  # corner-to-corner half diagonal
+TRIMMED_HALF_DIAG = 53.0 / 2                          # trimmed corner-to-corner half
+
+
+def _octagon_with_ledges():
+    """Build octagon polygon with ledge indentations on all 4 long edges.
+
+    Each long edge gets a LEDGE_DEPTH-deep shelf along its middle,
+    with 45° entry/exit ramps. This reduces the cutout (adds material)
+    along the long edges.
+
+    Returns list of (x, z) tuples relative to octagon center.
+    """
+    _t = TRIMMED_HALF_DIAG
+    _d = DIAMOND_HALF_DIAG - _t
+
+    # 8 base vertices (clockwise from top-right of top short side)
+    base = [
+        ( _d,  _t), ( _t,  _d), ( _t, -_d), ( _d, -_t),
+        (-_d, -_t), (-_t, -_d), (-_t,  _d), (-_d,  _t),
+    ]
+    long_edges = {0, 2, 4, 6}  # indices where long edges start
+
+    pts = []
+    for i in range(8):
+        sx, sz = base[i]
+        ex, ez = base[(i + 1) % 8]
+        pts.append((sx, sz))
+
+        if i not in long_edges:
+            continue
+
+        dx, dz = ex - sx, ez - sz
+        elen = math.hypot(dx, dz)
+        ux, uz = dx / elen, dz / elen
+
+        # Inward normal (toward hole center at origin)
+        nx, nz = uz, -ux
+        mx, mz = (sx + ex) / 2, (sz + ez) / 2
+        if nx * (-mx) + nz * (-mz) < 0:
+            nx, nz = -uz, ux
+
+        entry = _d * math.sqrt(2)          # ~2.96mm along edge before ramp
+        ramp = LEDGE_DEPTH                  # 3mm parallel to edge per ramp
+        par = elen - 2 * entry - 2 * ramp   # ~20.03mm parallel section
+
+        p1 = (sx + entry * ux,
+              sz + entry * uz)
+        p2 = (p1[0] + ramp * ux + LEDGE_DEPTH * nx,
+              p1[1] + ramp * uz + LEDGE_DEPTH * nz)
+        p3 = (p2[0] + par * ux,
+              p2[1] + par * uz)
+        p4 = (p3[0] + ramp * ux - LEDGE_DEPTH * nx,
+              p3[1] + ramp * uz - LEDGE_DEPTH * nz)
+
+        pts.extend([p1, p2, p3, p4])
+
+    return pts
+
 
 for cutout_id, cx, cz in PUMP_CUTOUTS:
     overcut = 0.1
-    h = DIAMOND_HALF_DIAG   # 30.05 — where original corners were
-    t = TRIMMED_HALF_DIAG   # 26.25 — where we clip
-    # Each original corner (e.g. top at (0, h)) is replaced by two points
-    # on the original diamond edges, at the Z (or X) level where we clip.
-    # The trim distance from the corner along each axis: h - t = 3.8mm
-    d = h - t
-    # Octagon vertices going clockwise from top-right of top corner:
-    pts = [
-        ( d,  t),   # top corner, right side
-        ( t,  d),   # right corner, top side
-        ( t, -d),   # right corner, bottom side
-        ( d, -t),   # bottom corner, right side
-        (-d, -t),   # bottom corner, left side
-        (-t, -d),   # left corner, bottom side
-        (-t,  d),   # left corner, top side
-        (-d,  t),   # top corner, left side
-    ]
+    pts = _octagon_with_ledges()
     octagon = (
         cq.Workplane("XZ")
         .workplane(offset=0)
@@ -168,7 +211,8 @@ for cutout_id, cx, cz in PUMP_CUTOUTS:
     )
     plate = plate.cut(octagon)
     print(f"  [-] Feature: Octagon {cutout_id} at X={cx}, Z={cz} "
-          f"(42.5mm square @ 45°, corners trimmed to {2*t:.1f}mm span)")
+          f"(43mm square @ 45°, trimmed to {2*TRIMMED_HALF_DIAG:.1f}mm span, "
+          f"{LEDGE_DEPTH}mm ledges on long edges)")
 
 # ------------------------------------------------------------------------------
 # Features 4-11: M3 clearance holes (3.3mm dia, through Y)
