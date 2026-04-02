@@ -241,6 +241,8 @@ STRUT_TIP_W = 12.0   # X cross-section of tip portion
 STRUT_TIP_H = 12.0   # Z cross-section of tip portion
 STRUT_TIP_L = 20.0   # Y length of tip portion
 STRUT_TIP_Y0 = STRUT_Y1 - STRUT_TIP_L  # Y=60.0 (start of tip portion)
+STRUT_SOCKET_L = 17.0  # Y length of socket hole in tip
+STRUT_SOCKET_Y0 = STRUT_Y1 - STRUT_SOCKET_L  # Y=63.0 (start of socket)
 
 strut_feature_num = 10
 for label, (cx, cz) in STRUTS.items():
@@ -263,8 +265,16 @@ for label, (cx, cz) in STRUTS.items():
         .box(STRUT_TIP_W, STRUT_TIP_L, STRUT_TIP_H, centered=False)
     )
     plate = plate.union(tip)
+    # 6x6 socket hole in tip (last 17mm, open at tip end)
+    socket = (
+        cq.Workplane("XY")
+        .transformed(offset=cq.Vector(sx0, STRUT_SOCKET_Y0, sz0))
+        .box(STRUT_W, STRUT_SOCKET_L, STRUT_H, centered=False)
+    )
+    plate = plate.cut(socket)
     print(f"  [+] Feature {strut_feature_num}: Strut {label} center (X={cx}, Z={cz}), "
-          f"6x6 Y:[{sy0},{STRUT_Y1}], 12x12 tip Y:[{STRUT_TIP_Y0},{STRUT_Y1}]")
+          f"6x6 Y:[{sy0},{STRUT_Y1}], 12x12 tip Y:[{STRUT_TIP_Y0},{STRUT_Y1}], "
+          f"6x6 socket Y:[{STRUT_SOCKET_Y0},{STRUT_Y1}]")
     strut_feature_num += 1
 
 print()
@@ -353,10 +363,11 @@ for label, (cx, cz) in STRUTS.items():
                   cx, STRUT_Y0 + 1.0, cz,
                   f"solid at strut {label} base (Y={STRUT_Y0 + 1.0})")
 
-    # Probe solid near strut tip
+    # Probe solid in strut tip wall (between socket edge and tip edge)
+    tip_wall_x = cx + (STRUT_W / 2 + STRUT_TIP_W / 2) / 2  # midpoint of 3.0..6.0 = 4.5mm from center
     v.check_solid(f"Strut {label} tip",
-                  cx, STRUT_Y1 - 1.0, cz,
-                  f"solid near strut {label} tip (Y={STRUT_Y1 - 1.0})")
+                  tip_wall_x, STRUT_Y1 - 1.0, cz,
+                  f"solid in strut {label} tip wall (Y={STRUT_Y1 - 1.0})")
 
     # Probe void just outside strut X extent (in X direction)
     void_x = cx + STRUT_W / 2 + 1.0   # 1 mm outside right edge of strut
