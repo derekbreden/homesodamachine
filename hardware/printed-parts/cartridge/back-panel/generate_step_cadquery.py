@@ -68,8 +68,12 @@ print(FEATURE_TABLE)
 
 # Panel body
 PANEL_W = 170.0    # X — width (was 140.0)
-PANEL_D = 3.0      # Y — thickness
+PANEL_D = 3.0      # Y — thickness (channel portion)
 PANEL_H = 103.6    # Z — height (was 79.0, matches interior plates)
+
+# Extension dimensions
+EDGE_W = 3.0       # X — width of left/right edges that sit in wall channels
+EXT_DEPTH = 2.0    # Y — how far the middle extends beyond the channel edges
 
 # Installed position in assembly frame
 # Back panel rail channel: Y=127.6..131.0mm (3.4mm wide)
@@ -112,6 +116,19 @@ panel = (
     .box(PANEL_W, PANEL_D, PANEL_H, centered=False)
 )
 print("Panel body complete.")
+print()
+
+# Feature 1b — Middle extension: 2mm outward (+Y) beyond the main slab,
+# excluding the 3mm left and right edges that sit in the wall channels.
+# X: EDGE_W to PANEL_W - EDGE_W (3..167), full Z height, Y: PANEL_Y1..PANEL_Y1+EXT_DEPTH
+print(f"Feature 1b — Middle extension (2mm outward, X={EDGE_W}..{PANEL_W - EDGE_W})...")
+extension = (
+    cq.Workplane("XY")
+    .transformed(offset=cq.Vector(EDGE_W, PANEL_Y1, 0.0))
+    .box(PANEL_W - 2 * EDGE_W, EXT_DEPTH, PANEL_H, centered=False)
+)
+panel = panel.union(extension)
+print(f"  Placed at X={EDGE_W}..{PANEL_W - EDGE_W}, Y={PANEL_Y1}..{PANEL_Y1 + EXT_DEPTH}, Z=0..{PANEL_H}")
 print()
 
 # Features 2-5 — Tube stub holes H1..H4
@@ -170,11 +187,15 @@ v.check_solid("Panel bottom edge",       85.0,     MID_Y,  0.5,  "solid near Z=0
 v.check_solid("Panel top edge",          85.0,     MID_Y, 103.1, "solid near Z=103.6 edge")
 v.check_solid("Panel front face inside", 85.0, PANEL_Y0 + 0.2, 39.5, "solid just inside front face")
 v.check_solid("Panel back face inside",  85.0, PANEL_Y1 - 0.2, 39.5, "solid just inside back face")
+# Extension probes
+v.check_solid("Extension center",        85.0, PANEL_Y1 + 1.0, 39.5, "solid in middle extension")
+v.check_void("Left edge no extension",    1.5, PANEL_Y1 + 1.0, 39.5, "void behind left channel edge")
+v.check_void("Right edge no extension", 168.5, PANEL_Y1 + 1.0, 39.5, "void behind right channel edge")
 # No material outside envelope
 v.check_void("No material below Z=0",   85.0,     MID_Y, -0.1,  "void below bottom edge")
 v.check_void("No material above Z=103.6", 85.0,    MID_Y, 103.7, "void above top edge")
 v.check_void("No material before Y front",85.0, PANEL_Y0 - 0.1, 39.5, "void in front of panel")
-v.check_void("No material behind Y back", 85.0, PANEL_Y1 + 0.1, 39.5, "void behind panel")
+v.check_void("No material behind Y back", 85.0, PANEL_Y1 + EXT_DEPTH + 0.1, 39.5, "void behind panel extension")
 print()
 
 # --- Features 2-5: Tube stub holes H1..H4 ---
@@ -235,7 +256,7 @@ v.check_single_body()
 #   Expected: ~33,180 - 943 = 32,237 mm^3
 #   Bounding box: 140.0 x 3.0 x 79.0 = 33,180 mm^3
 #   Fill ratio: ~32,237 / 33,180 = 0.972 — well within (0.5, 1.2)
-envelope_vol = PANEL_W * PANEL_D * PANEL_H
+envelope_vol = PANEL_W * (PANEL_D + EXT_DEPTH) * PANEL_H
 v.check_volume(expected_envelope=envelope_vol, fill_range=(0.5, 1.2))
 print()
 
@@ -250,7 +271,7 @@ print()
 
 bb = panel.val().BoundingBox()
 v.check_bbox("X", bb.xmin, bb.xmax, 0.0,      PANEL_W)
-v.check_bbox("Y", bb.ymin, bb.ymax, PANEL_Y0, PANEL_Y1)
+v.check_bbox("Y", bb.ymin, bb.ymax, PANEL_Y0, PANEL_Y1 + EXT_DEPTH)
 v.check_bbox("Z", bb.zmin, bb.zmax, 0.0,      PANEL_H)
 print()
 
