@@ -206,6 +206,40 @@ for label, (cx, cz) in STRUTS.items():
         lever = lever.cut(groove)
 
 # ============================================================
+# Features 12-15 -- Tip lead-in ramps (chamfer on X faces at strut tips)
+# ============================================================
+print("Building Features 12-15: Tip lead-in ramps ...")
+RAMP_LENGTH = 1.5    # Y length of ramp (base of right triangle)
+RAMP_TAPER  = 0.5    # X removed from each side at tip (height of right triangle)
+RAMP_Y0 = STRUT_Y1 - RAMP_LENGTH  # Y=92.5 (ramp starts here, full 6mm width)
+
+for label, (cx, cz) in STRUTS.items():
+    sz0 = cz - STRUT_H / 2
+    overcut = 0.1
+    # +X face ramp: triangle (cx+3, 92.5) -> (cx+3, 94) -> (cx+2.5, 94)
+    wedge_px = (
+        cq.Workplane("XY")
+        .transformed(offset=cq.Vector(0, 0, sz0 - overcut))
+        .moveTo(cx + STRUT_W / 2, RAMP_Y0)
+        .lineTo(cx + STRUT_W / 2, STRUT_Y1)
+        .lineTo(cx + STRUT_W / 2 - RAMP_TAPER, STRUT_Y1)
+        .close()
+        .extrude(STRUT_H + 2 * overcut)
+    )
+    lever = lever.cut(wedge_px)
+    # -X face ramp: triangle (cx-3, 92.5) -> (cx-3, 94) -> (cx-2.5, 94)
+    wedge_nx = (
+        cq.Workplane("XY")
+        .transformed(offset=cq.Vector(0, 0, sz0 - overcut))
+        .moveTo(cx - STRUT_W / 2, RAMP_Y0)
+        .lineTo(cx - STRUT_W / 2, STRUT_Y1)
+        .lineTo(cx - STRUT_W / 2 + RAMP_TAPER, STRUT_Y1)
+        .close()
+        .extrude(STRUT_H + 2 * overcut)
+    )
+    lever = lever.cut(wedge_nx)
+
+# ============================================================
 # Export STEP file
 # ============================================================
 OUT_DIR = Path(__file__).parent
