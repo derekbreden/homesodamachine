@@ -181,9 +181,17 @@ def _octagon_with_ledges():
         if nx * (-mx) + nz * (-mz) < 0:
             nx, nz = -uz, ux
 
-        entry = _d * math.sqrt(2)          # ~2.96mm along edge before ramp
-        ramp = LEDGE_DEPTH                  # 3mm parallel to edge per ramp
-        par = elen - 2 * entry - 2 * ramp   # ~20.03mm parallel section
+        # Ledge profile along each long edge (distances measured parallel to edge):
+        #   entry | ramp | shelf | ramp | entry
+        #
+        # The 45° ramps travel LEDGE_DEPTH*√2 but project LEDGE_DEPTH along
+        # the edge, producing LEDGE_DEPTH perpendicular inset.
+        # The shelf runs 26.03mm minus the two ramp projections.
+        # Entry is whatever remains at each end.
+        shelf_total = 26.03                           # shelf span including ramps
+        ramp = LEDGE_DEPTH                            # ramp projection along edge
+        par = shelf_total - 2 * ramp                  # flat shelf between ramps
+        entry = (elen - shelf_total) / 2              # leftover at each end
 
         p1 = (sx + entry * ux,
               sz + entry * uz)
