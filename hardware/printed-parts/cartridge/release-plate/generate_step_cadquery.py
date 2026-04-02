@@ -237,19 +237,34 @@ for bore_idx, (cx, cz) in enumerate(BORE_CENTERS):
 # The box starts at (cx - STRUT_W/2, STRUT_Y0, cz - STRUT_H/2)
 # and has dimensions (STRUT_W, STRUT_L, STRUT_H).
 # ------------------------------------------------------------------------------
+STRUT_TIP_W = 12.0   # X cross-section of tip portion
+STRUT_TIP_H = 12.0   # Z cross-section of tip portion
+STRUT_TIP_L = 20.0   # Y length of tip portion
+STRUT_TIP_Y0 = STRUT_Y1 - STRUT_TIP_L  # Y=60.0 (start of tip portion)
+
 strut_feature_num = 10
 for label, (cx, cz) in STRUTS.items():
     sx0 = cx - STRUT_W / 2    # left X edge of strut
     sz0 = cz - STRUT_H / 2    # bottom Z edge of strut
     sy0 = STRUT_Y0             # Y start = 5.0 (base at user-facing face)
+    # Main 6x6 strut body (full length)
     strut = (
         cq.Workplane("XY")
         .transformed(offset=cq.Vector(sx0, sy0, sz0))
         .box(STRUT_W, STRUT_L, STRUT_H, centered=False)
     )
     plate = plate.union(strut)
+    # 12x12 tip portion (last 20mm)
+    tx0 = cx - STRUT_TIP_W / 2
+    tz0 = cz - STRUT_TIP_H / 2
+    tip = (
+        cq.Workplane("XY")
+        .transformed(offset=cq.Vector(tx0, STRUT_TIP_Y0, tz0))
+        .box(STRUT_TIP_W, STRUT_TIP_L, STRUT_TIP_H, centered=False)
+    )
+    plate = plate.union(tip)
     print(f"  [+] Feature {strut_feature_num}: Strut {label} center (X={cx}, Z={cz}), "
-          f"box X:[{sx0},{cx+STRUT_W/2}] Y:[{sy0},{STRUT_Y1}] Z:[{sz0},{cz+STRUT_H/2}]")
+          f"6x6 Y:[{sy0},{STRUT_Y1}], 12x12 tip Y:[{STRUT_TIP_Y0},{STRUT_Y1}]")
     strut_feature_num += 1
 
 print()
@@ -363,9 +378,14 @@ print(f"    X: [{bb.xmin:.3f}, {bb.xmax:.3f}]  (expected [0, 140.0])")
 print(f"    Y: [{bb.ymin:.3f}, {bb.ymax:.3f}]  (expected [0, 95])")
 print(f"    Z: [{bb.zmin:.3f}, {bb.zmax:.3f}]  (expected [0, 68.6])")
 
-v.check_bbox("X", bb.xmin, bb.xmax, 0.0, PLATE_W, tol=0.5)
+# Bounding box accounts for 12mm strut tips extending beyond plate envelope
+BBOX_X_MIN = min(cx - STRUT_TIP_W / 2 for cx, cz in STRUTS.values())  # -2.0
+BBOX_X_MAX = max(cx + STRUT_TIP_W / 2 for cx, cz in STRUTS.values())  # 162.0
+BBOX_Z_MIN = min(cz - STRUT_TIP_H / 2 for cx, cz in STRUTS.values())  # -1.0
+BBOX_Z_MAX = max(cz + STRUT_TIP_H / 2 for cx, cz in STRUTS.values())  # 44.6
+v.check_bbox("X", bb.xmin, bb.xmax, BBOX_X_MIN, BBOX_X_MAX, tol=0.5)
 v.check_bbox("Y", bb.ymin, bb.ymax, 0.0, STRUT_Y1, tol=0.5)
-v.check_bbox("Z", bb.zmin, bb.zmax, 0.0, PLATE_H, tol=0.5)
+v.check_bbox("Z", bb.zmin, bb.zmax, BBOX_Z_MIN, BBOX_Z_MAX, tol=0.5)
 
 print()
 print("--- Solid integrity (Rubric 4) ---")
