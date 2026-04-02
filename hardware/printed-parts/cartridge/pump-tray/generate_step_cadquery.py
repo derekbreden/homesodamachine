@@ -143,6 +143,27 @@ DIAMOND_HALF_DIAG = DIAMOND_SIDE * math.sqrt(2) / 2  # corner-to-corner half dia
 TRIMMED_HALF_DIAG = 53.0 / 2                          # trimmed corner-to-corner half
 
 
+class Turtle:
+    """Logo-style turtle that accumulates (x, z) polygon points."""
+
+    def __init__(self, x, z, heading_deg):
+        self.x = x
+        self.z = z
+        self.heading = math.radians(heading_deg)
+        self.points = []
+
+    def forward(self, dist):
+        self.x += dist * math.cos(self.heading)
+        self.z += dist * math.sin(self.heading)
+        self.points.append((self.x, self.z))
+
+    def left(self, deg):
+        self.heading += math.radians(deg)
+
+    def right(self, deg):
+        self.heading -= math.radians(deg)
+
+
 def _octagon_with_ledges():
     """Build octagon polygon with ledge indentations on all 4 long edges.
 
@@ -173,36 +194,38 @@ def _octagon_with_ledges():
 
         dx, dz = ex - sx, ez - sz
         elen = math.hypot(dx, dz)
-        ux, uz = dx / elen, dz / elen
+        heading = math.degrees(math.atan2(dz, dx))
 
-        # Inward normal (toward hole center at origin)
-        nx, nz = uz, -ux
+        # Inward-turn direction: which way is "toward hole center" from this edge?
         mx, mz = (sx + ex) / 2, (sz + ez) / 2
+        ux, uz = dx / elen, dz / elen
+        nx, nz = uz, -ux
         if nx * (-mx) + nz * (-mz) < 0:
-            nx, nz = -uz, ux
+            nx, nz = -nx, -nz
+        inward_is_left = (nx * (-uz) + nz * ux) > 0
 
-        # Ledge profile along each long edge (distances measured parallel to edge):
-        #   entry | ramp | shelf | ramp | entry
+        # Ledge profile along each long edge:
+        #   entry | 45° ramp in | shelf | 45° ramp out | entry
         #
-        # The 45° ramps travel LEDGE_DEPTH*√2 but project LEDGE_DEPTH along
-        # the edge, producing LEDGE_DEPTH perpendicular inset.
-        # The shelf runs 26.03mm minus the two ramp projections.
-        # Entry is whatever remains at each end.
-        shelf_total = 26.03                           # shelf span including ramps
-        ramp = LEDGE_DEPTH                            # ramp projection along edge
-        par = shelf_total - 2 * ramp                  # flat shelf between ramps
-        entry = (elen - shelf_total) / 2              # leftover at each end
+        # shelf_total (26.03mm) is the span from first ramp start to last ramp end.
+        # Entry is whatever remains at each end of the long edge.
+        ramp_hyp = LEDGE_DEPTH * math.sqrt(2)        # 45° ramp true travel
+        shelf_total = 26.03
+        entry = (elen - shelf_total) / 2
+        par = shelf_total - 2 * LEDGE_DEPTH           # flat shelf between ramps
 
-        p1 = (sx + entry * ux,
-              sz + entry * uz)
-        p2 = (p1[0] + ramp * ux + LEDGE_DEPTH * nx,
-              p1[1] + ramp * uz + LEDGE_DEPTH * nz)
-        p3 = (p2[0] + par * ux,
-              p2[1] + par * uz)
-        p4 = (p3[0] + ramp * ux - LEDGE_DEPTH * nx,
-              p3[1] + ramp * uz - LEDGE_DEPTH * nz)
+        t = Turtle(sx, sz, heading)
+        t.forward(entry)
+        if inward_is_left:
+            t.left(45);  t.forward(ramp_hyp); t.right(45)
+            t.forward(par)
+            t.right(45); t.forward(ramp_hyp); t.left(45)
+        else:
+            t.right(45); t.forward(ramp_hyp); t.left(45)
+            t.forward(par)
+            t.left(45);  t.forward(ramp_hyp); t.right(45)
 
-        pts.extend([p1, p2, p3, p4])
+        pts.extend(t.points[:-1])  # last point coincides with next vertex
 
     return pts
 
