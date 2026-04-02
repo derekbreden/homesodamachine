@@ -274,7 +274,7 @@ for label, (cx, cz) in STRUTS.items():
     plate = plate.cut(socket)
     # Snap-fit bumps on opposing X walls of socket, 2mm from closed end
     SNAP_BUMP_PROTRUSION = 0.5   # protrudes into socket in X
-    SNAP_BUMP_WIDTH = 0.5        # width in Y
+    SNAP_BUMP_WIDTH = 1.0        # width in Y
     snap_bump_y0 = STRUT_SOCKET_Y0 + 2.0 - SNAP_BUMP_WIDTH / 2  # centered 2mm from closed end
     for bump_x0 in [cx - STRUT_W / 2,                              # -X wall, protrudes inward (+X)
                      cx + STRUT_W / 2 - SNAP_BUMP_PROTRUSION]:     # +X wall, protrudes inward (-X)
