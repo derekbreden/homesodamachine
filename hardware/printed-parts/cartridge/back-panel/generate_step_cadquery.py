@@ -141,12 +141,13 @@ print(f"Features 2-5 — 4x tube stub holes (dia={HOLE_DIA}mm, through Y={PANEL_
 # Set workplane at Y=PANEL_Y1+OVERCUT, extrude D=PANEL_D+2*OVERCUT → spans Y=PANEL_Y0-OVERCUT..PANEL_Y1+OVERCUT.
 for i, (hid, hx, hz) in enumerate(HOLES, start=2):
     print(f"  Feature {i} — Hole {hid}: X={hx}, Z={hz}")
+    FULL_D = PANEL_D + EXT_DEPTH                     # 5.0mm total through both slab and extension
     hole = (
         cq.Workplane("XZ")
-        .workplane(offset=-(PANEL_Y1 + OVERCUT))    # workplane at Y = PANEL_Y1 + OVERCUT (back approach)
+        .workplane(offset=-(PANEL_Y1 + EXT_DEPTH + OVERCUT))  # workplane at Y = PANEL_Y1 + EXT_DEPTH + OVERCUT
         .center(hx, hz)
         .circle(HOLE_R)
-        .extrude(PANEL_D + 2 * OVERCUT)             # extrude in -Y; spans Y = PANEL_Y0-OVERCUT..PANEL_Y1+OVERCUT
+        .extrude(FULL_D + 2 * OVERCUT)              # extrude in -Y; spans full panel thickness
     )
     panel = panel.cut(hole)
     print(f"    [-] Hole {hid} cut at (X={hx}, Z={hz}), dia={HOLE_DIA}mm")
