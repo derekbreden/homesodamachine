@@ -187,7 +187,7 @@ for label, (cx, cz) in STRUTS.items():
 # ============================================================
 print("Building Features 8-11: Snap-fit grooves on strut X faces ...")
 SNAP_GROOVE_DEPTH = 0.5   # depth into strut X face
-SNAP_GROOVE_WIDTH = 0.5   # width in Y
+SNAP_GROOVE_WIDTH = 1.0   # width in Y
 SNAP_GROOVE_Y_CENTER = STRUT_Y1 - 2.0  # 2mm from tip, aligns with socket bumps
 snap_groove_y0 = SNAP_GROOVE_Y_CENTER - SNAP_GROOVE_WIDTH / 2
 
