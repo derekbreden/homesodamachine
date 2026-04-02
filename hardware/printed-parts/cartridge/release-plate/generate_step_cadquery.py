@@ -86,9 +86,9 @@ BORE_CENTERS = [
 # Strut parameters (Features 10-13)
 STRUT_W  = 6.0    # X cross-section
 STRUT_H  = 6.0    # Z cross-section
-STRUT_L  = 90.0   # Y length
+STRUT_L  = 75.0   # Y length
 STRUT_Y0 = 5.0    # strut base at user-facing face (Y=5)
-STRUT_Y1 = 95.0   # strut tips (90 mm beyond user-facing face, toward lever)
+STRUT_Y1 = 80.0   # strut tips (75 mm beyond user-facing face, toward lever)
 
 # Strut center positions (X, Z) -- moved to match lever and pump tray bore centers
 STRUTS = {
