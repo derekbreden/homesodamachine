@@ -183,6 +183,29 @@ for label, (cx, cz) in STRUTS.items():
     lever = lever.union(strut)
 
 # ============================================================
+# Features 8-11 -- Snap-fit grooves on strut tips
+# ============================================================
+print("Building Features 8-11: Snap-fit grooves on strut X faces ...")
+SNAP_GROOVE_DEPTH = 0.5   # depth into strut X face
+SNAP_GROOVE_WIDTH = 0.5   # width in Y
+SNAP_GROOVE_Y_CENTER = STRUT_Y1 - 2.0  # 2mm from tip, aligns with socket bumps
+snap_groove_y0 = SNAP_GROOVE_Y_CENTER - SNAP_GROOVE_WIDTH / 2
+
+for label, (cx, cz) in STRUTS.items():
+    sz0 = cz - STRUT_H / 2
+    overcut = 0.1
+    for groove_x0, groove_w in [
+        (cx - STRUT_W / 2 - overcut, SNAP_GROOVE_DEPTH + overcut),   # -X face
+        (cx + STRUT_W / 2 - SNAP_GROOVE_DEPTH, SNAP_GROOVE_DEPTH + overcut),  # +X face
+    ]:
+        groove = (
+            cq.Workplane("XY")
+            .transformed(offset=cq.Vector(groove_x0, snap_groove_y0, sz0))
+            .box(groove_w, SNAP_GROOVE_WIDTH, STRUT_H, centered=False)
+        )
+        lever = lever.cut(groove)
+
+# ============================================================
 # Export STEP file
 # ============================================================
 OUT_DIR = Path(__file__).parent

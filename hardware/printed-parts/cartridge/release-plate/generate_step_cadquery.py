@@ -272,9 +272,21 @@ for label, (cx, cz) in STRUTS.items():
         .box(STRUT_W, STRUT_SOCKET_L, STRUT_H, centered=False)
     )
     plate = plate.cut(socket)
+    # Snap-fit bumps on opposing X walls of socket, 2mm from closed end
+    SNAP_BUMP_PROTRUSION = 0.5   # protrudes into socket in X
+    SNAP_BUMP_WIDTH = 0.5        # width in Y
+    snap_bump_y0 = STRUT_SOCKET_Y0 + 2.0 - SNAP_BUMP_WIDTH / 2  # centered 2mm from closed end
+    for bump_x0 in [cx - STRUT_W / 2,                              # -X wall, protrudes inward (+X)
+                     cx + STRUT_W / 2 - SNAP_BUMP_PROTRUSION]:     # +X wall, protrudes inward (-X)
+        bump = (
+            cq.Workplane("XY")
+            .transformed(offset=cq.Vector(bump_x0, snap_bump_y0, sz0))
+            .box(SNAP_BUMP_PROTRUSION, SNAP_BUMP_WIDTH, STRUT_H, centered=False)
+        )
+        plate = plate.union(bump)
     print(f"  [+] Feature {strut_feature_num}: Strut {label} center (X={cx}, Z={cz}), "
           f"6x6 Y:[{sy0},{STRUT_Y1}], 12x12 tip Y:[{STRUT_TIP_Y0},{STRUT_Y1}], "
-          f"6x6 socket Y:[{STRUT_SOCKET_Y0},{STRUT_Y1}]")
+          f"6x6 socket Y:[{STRUT_SOCKET_Y0},{STRUT_Y1}], snap bumps at Y={snap_bump_y0 + SNAP_BUMP_WIDTH/2:.1f}")
     strut_feature_num += 1
 
 print()
