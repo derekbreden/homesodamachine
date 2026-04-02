@@ -224,6 +224,7 @@ def _octagon_with_ledges():
             t.right(45); t.forward(ramp_hyp); t.left(45)
             t.forward(par)
             t.left(45);  t.forward(ramp_hyp); t.right(45)
+        t.forward(entry)
 
         pts.extend(t.points[:-1])  # last point coincides with next vertex
 
