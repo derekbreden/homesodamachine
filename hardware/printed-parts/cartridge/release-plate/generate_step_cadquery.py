@@ -237,56 +237,47 @@ for bore_idx, (cx, cz) in enumerate(BORE_CENTERS):
 # The box starts at (cx - STRUT_W/2, STRUT_Y0, cz - STRUT_H/2)
 # and has dimensions (STRUT_W, STRUT_L, STRUT_H).
 # ------------------------------------------------------------------------------
-STRUT_TIP_W = 12.0   # X cross-section of tip portion
-STRUT_TIP_H = 12.0   # Z cross-section of tip portion
-STRUT_TIP_L = 20.0   # Y length of tip portion
-STRUT_TIP_Y0 = STRUT_Y1 - STRUT_TIP_L  # Y=60.0 (start of tip portion)
-STRUT_SOCKET_L = 17.0  # Y length of socket hole in tip
+SOCKET_W = 3.0       # X cross-section of socket hole
+SOCKET_H = 3.0       # Z cross-section of socket hole
+STRUT_SOCKET_L = 17.0  # Y length of socket hole
 STRUT_SOCKET_Y0 = STRUT_Y1 - STRUT_SOCKET_L  # Y=63.0 (start of socket)
+
+SNAP_BUMP_PROTRUSION = 0.25  # protrudes into socket in X
+SNAP_BUMP_WIDTH = 1.0        # width in Y
 
 strut_feature_num = 10
 for label, (cx, cz) in STRUTS.items():
     sx0 = cx - STRUT_W / 2    # left X edge of strut
     sz0 = cz - STRUT_H / 2    # bottom Z edge of strut
     sy0 = STRUT_Y0             # Y start = 5.0 (base at user-facing face)
-    # Main 6x6 strut body (full length)
+    # Main 6x6 strut body (full length, no expansion)
     strut = (
         cq.Workplane("XY")
         .transformed(offset=cq.Vector(sx0, sy0, sz0))
         .box(STRUT_W, STRUT_L, STRUT_H, centered=False)
     )
     plate = plate.union(strut)
-    # 12x12 tip portion (last 20mm)
-    tx0 = cx - STRUT_TIP_W / 2
-    tz0 = cz - STRUT_TIP_H / 2
-    tip = (
-        cq.Workplane("XY")
-        .transformed(offset=cq.Vector(tx0, STRUT_TIP_Y0, tz0))
-        .box(STRUT_TIP_W, STRUT_TIP_L, STRUT_TIP_H, centered=False)
-    )
-    plate = plate.union(tip)
-    # 6x6 socket hole in tip (last 17mm, open at tip end)
+    # 3x3 socket hole in tip (last 17mm, open at tip end)
+    socket_x0 = cx - SOCKET_W / 2
+    socket_z0 = cz - SOCKET_H / 2
     socket = (
         cq.Workplane("XY")
-        .transformed(offset=cq.Vector(sx0, STRUT_SOCKET_Y0, sz0))
-        .box(STRUT_W, STRUT_SOCKET_L, STRUT_H, centered=False)
+        .transformed(offset=cq.Vector(socket_x0, STRUT_SOCKET_Y0, socket_z0))
+        .box(SOCKET_W, STRUT_SOCKET_L, SOCKET_H, centered=False)
     )
     plate = plate.cut(socket)
     # Snap-fit bumps on opposing X walls of socket, 2mm from closed end
-    SNAP_BUMP_PROTRUSION = 0.5   # protrudes into socket in X
-    SNAP_BUMP_WIDTH = 1.0        # width in Y
     snap_bump_y0 = STRUT_SOCKET_Y0 + 2.0 - SNAP_BUMP_WIDTH / 2  # centered 2mm from closed end
-    for bump_x0 in [cx - STRUT_W / 2,                              # -X wall, protrudes inward (+X)
-                     cx + STRUT_W / 2 - SNAP_BUMP_PROTRUSION]:     # +X wall, protrudes inward (-X)
+    for bump_x0 in [cx - SOCKET_W / 2,                                # -X wall, protrudes inward (+X)
+                     cx + SOCKET_W / 2 - SNAP_BUMP_PROTRUSION]:       # +X wall, protrudes inward (-X)
         bump = (
             cq.Workplane("XY")
-            .transformed(offset=cq.Vector(bump_x0, snap_bump_y0, sz0))
-            .box(SNAP_BUMP_PROTRUSION, SNAP_BUMP_WIDTH, STRUT_H, centered=False)
+            .transformed(offset=cq.Vector(bump_x0, snap_bump_y0, socket_z0))
+            .box(SNAP_BUMP_PROTRUSION, SNAP_BUMP_WIDTH, SOCKET_H, centered=False)
         )
         plate = plate.union(bump)
     print(f"  [+] Feature {strut_feature_num}: Strut {label} center (X={cx}, Z={cz}), "
-          f"6x6 Y:[{sy0},{STRUT_Y1}], 12x12 tip Y:[{STRUT_TIP_Y0},{STRUT_Y1}], "
-          f"6x6 socket Y:[{STRUT_SOCKET_Y0},{STRUT_Y1}], snap bumps at Y={snap_bump_y0 + SNAP_BUMP_WIDTH/2:.1f}")
+          f"6x6 Y:[{sy0},{STRUT_Y1}], 3x3 socket Y:[{STRUT_SOCKET_Y0},{STRUT_Y1}]")
     strut_feature_num += 1
 
 print()
@@ -376,7 +367,8 @@ for label, (cx, cz) in STRUTS.items():
                   f"solid at strut {label} base (Y={STRUT_Y0 + 1.0})")
 
     # Probe solid in strut tip wall (between socket edge and tip edge)
-    tip_wall_x = cx + (STRUT_W / 2 + STRUT_TIP_W / 2) / 2  # midpoint of 3.0..6.0 = 4.5mm from center
+    # Probe solid in strut tip wall (between socket edge and strut edge)
+    tip_wall_x = cx + (SOCKET_W / 2 + STRUT_W / 2) / 2  # midpoint of 1.5..3.0 = 2.25mm from center
     v.check_solid(f"Strut {label} tip",
                   tip_wall_x, STRUT_Y1 - 1.0, cz,
                   f"solid in strut {label} tip wall (Y={STRUT_Y1 - 1.0})")
@@ -401,14 +393,10 @@ print(f"    X: [{bb.xmin:.3f}, {bb.xmax:.3f}]  (expected [0, 140.0])")
 print(f"    Y: [{bb.ymin:.3f}, {bb.ymax:.3f}]  (expected [0, 95])")
 print(f"    Z: [{bb.zmin:.3f}, {bb.zmax:.3f}]  (expected [0, 68.6])")
 
-# Bounding box accounts for 12mm strut tips extending beyond plate envelope
-BBOX_X_MIN = min(cx - STRUT_TIP_W / 2 for cx, cz in STRUTS.values())  # -2.0
-BBOX_X_MAX = max(cx + STRUT_TIP_W / 2 for cx, cz in STRUTS.values())  # 162.0
-BBOX_Z_MIN = min(cz - STRUT_TIP_H / 2 for cx, cz in STRUTS.values())  # -1.0
-BBOX_Z_MAX = max(cz + STRUT_TIP_H / 2 for cx, cz in STRUTS.values())  # 44.6
-v.check_bbox("X", bb.xmin, bb.xmax, BBOX_X_MIN, BBOX_X_MAX, tol=0.5)
+# Bounding box — plate body defines X/Z extents, struts define Y extent
+v.check_bbox("X", bb.xmin, bb.xmax, 0.0, PLATE_W, tol=0.5)
 v.check_bbox("Y", bb.ymin, bb.ymax, 0.0, STRUT_Y1, tol=0.5)
-v.check_bbox("Z", bb.zmin, bb.zmax, BBOX_Z_MIN, BBOX_Z_MAX, tol=0.5)
+v.check_bbox("Z", bb.zmin, bb.zmax, 0.0, PLATE_H, tol=0.5)
 
 print()
 print("--- Solid integrity (Rubric 4) ---")

@@ -183,59 +183,91 @@ for label, (cx, cz) in STRUTS.items():
     lever = lever.union(strut)
 
 # ============================================================
-# Features 8-11 -- Snap-fit grooves on strut tips
+# Features 8-11 -- 3x3 tips on strut ends (last 17mm)
 # ============================================================
-print("Building Features 8-11: Snap-fit grooves on strut X faces ...")
-SNAP_GROOVE_DEPTH = 0.5   # depth into strut X face
+print("Building Features 8-11: 3x3 tips on strut ends ...")
+TIP_W = 3.0          # X cross-section of tip
+TIP_H = 3.0          # Z cross-section of tip
+TIP_L = 17.0         # Y length of tip
+TIP_Y0 = STRUT_Y1 - TIP_L  # Y=77.0 (start of tip)
+
+# Cut the 6x6 strut back to 3x3 for the last 17mm by removing the excess
+for label, (cx, cz) in STRUTS.items():
+    sz0 = cz - STRUT_H / 2
+    sx0 = cx - STRUT_W / 2
+    overcut = 0.1
+    # Cut a 6x6 box and add back a 3x3 box (simpler: cut the difference)
+    # Remove the full 6x6 section at the tip
+    tip_cut = (
+        cq.Workplane("XY")
+        .transformed(offset=cq.Vector(sx0, TIP_Y0, sz0))
+        .box(STRUT_W, TIP_L, STRUT_H, centered=False)
+    )
+    lever = lever.cut(tip_cut)
+    # Add back the 3x3 tip
+    tip_x0 = cx - TIP_W / 2
+    tip_z0 = cz - TIP_H / 2
+    tip = (
+        cq.Workplane("XY")
+        .transformed(offset=cq.Vector(tip_x0, TIP_Y0, tip_z0))
+        .box(TIP_W, TIP_L, TIP_H, centered=False)
+    )
+    lever = lever.union(tip)
+
+# ============================================================
+# Features 12-15 -- Snap-fit grooves on 3x3 tips
+# ============================================================
+print("Building Features 12-15: Snap-fit grooves on 3x3 tips ...")
+SNAP_GROOVE_DEPTH = 0.25  # depth into tip X face
 SNAP_GROOVE_WIDTH = 1.0   # width in Y
-SNAP_GROOVE_Y_CENTER = STRUT_Y1 - 2.0  # 2mm from tip, aligns with socket bumps
+SNAP_GROOVE_Y_CENTER = STRUT_Y1 - 2.0  # 2mm from tip end, aligns with socket bumps
 snap_groove_y0 = SNAP_GROOVE_Y_CENTER - SNAP_GROOVE_WIDTH / 2
 
 for label, (cx, cz) in STRUTS.items():
-    sz0 = cz - STRUT_H / 2
+    tip_z0 = cz - TIP_H / 2
     overcut = 0.1
     for groove_x0, groove_w in [
-        (cx - STRUT_W / 2 - overcut, SNAP_GROOVE_DEPTH + overcut),   # -X face
-        (cx + STRUT_W / 2 - SNAP_GROOVE_DEPTH, SNAP_GROOVE_DEPTH + overcut),  # +X face
+        (cx - TIP_W / 2 - overcut, SNAP_GROOVE_DEPTH + overcut),      # -X face
+        (cx + TIP_W / 2 - SNAP_GROOVE_DEPTH, SNAP_GROOVE_DEPTH + overcut),  # +X face
     ]:
         groove = (
             cq.Workplane("XY")
-            .transformed(offset=cq.Vector(groove_x0, snap_groove_y0, sz0))
-            .box(groove_w, SNAP_GROOVE_WIDTH, STRUT_H, centered=False)
+            .transformed(offset=cq.Vector(groove_x0, snap_groove_y0, tip_z0))
+            .box(groove_w, SNAP_GROOVE_WIDTH, TIP_H, centered=False)
         )
         lever = lever.cut(groove)
 
 # ============================================================
-# Features 12-15 -- Tip lead-in ramps (chamfer on X faces at strut tips)
+# Features 16-19 -- Tip lead-in ramps on 3x3 tips
 # ============================================================
-print("Building Features 12-15: Tip lead-in ramps ...")
-RAMP_LENGTH = 1.5    # Y length of ramp (base of right triangle)
-RAMP_TAPER  = 0.5    # X removed from each side at tip (height of right triangle)
-RAMP_Y0 = STRUT_Y1 - RAMP_LENGTH  # Y=92.5 (ramp starts here, full 6mm width)
+print("Building Features 16-19: Tip lead-in ramps on 3x3 tips ...")
+RAMP_LENGTH = 1.5    # Y length of ramp
+RAMP_TAPER  = 0.25   # X removed from each side at tip
+RAMP_Y0_POS = STRUT_Y1 - RAMP_LENGTH  # Y=92.5
 
 for label, (cx, cz) in STRUTS.items():
-    sz0 = cz - STRUT_H / 2
+    tip_z0 = cz - TIP_H / 2
     overcut = 0.1
-    # +X face ramp: triangle (cx+3, 92.5) -> (cx+3, 94) -> (cx+2.5, 94)
+    # +X face ramp
     wedge_px = (
         cq.Workplane("XY")
-        .transformed(offset=cq.Vector(0, 0, sz0 - overcut))
-        .moveTo(cx + STRUT_W / 2, RAMP_Y0)
-        .lineTo(cx + STRUT_W / 2, STRUT_Y1)
-        .lineTo(cx + STRUT_W / 2 - RAMP_TAPER, STRUT_Y1)
+        .transformed(offset=cq.Vector(0, 0, tip_z0 - overcut))
+        .moveTo(cx + TIP_W / 2, RAMP_Y0_POS)
+        .lineTo(cx + TIP_W / 2, STRUT_Y1)
+        .lineTo(cx + TIP_W / 2 - RAMP_TAPER, STRUT_Y1)
         .close()
-        .extrude(STRUT_H + 2 * overcut)
+        .extrude(TIP_H + 2 * overcut)
     )
     lever = lever.cut(wedge_px)
-    # -X face ramp: triangle (cx-3, 92.5) -> (cx-3, 94) -> (cx-2.5, 94)
+    # -X face ramp
     wedge_nx = (
         cq.Workplane("XY")
-        .transformed(offset=cq.Vector(0, 0, sz0 - overcut))
-        .moveTo(cx - STRUT_W / 2, RAMP_Y0)
-        .lineTo(cx - STRUT_W / 2, STRUT_Y1)
-        .lineTo(cx - STRUT_W / 2 + RAMP_TAPER, STRUT_Y1)
+        .transformed(offset=cq.Vector(0, 0, tip_z0 - overcut))
+        .moveTo(cx - TIP_W / 2, RAMP_Y0_POS)
+        .lineTo(cx - TIP_W / 2, STRUT_Y1)
+        .lineTo(cx - TIP_W / 2 + RAMP_TAPER, STRUT_Y1)
         .close()
-        .extrude(STRUT_H + 2 * overcut)
+        .extrude(TIP_H + 2 * overcut)
     )
     lever = lever.cut(wedge_nx)
 
