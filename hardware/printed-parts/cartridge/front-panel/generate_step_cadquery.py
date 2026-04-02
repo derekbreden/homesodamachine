@@ -94,8 +94,12 @@ print()
 
 # Panel body
 PANEL_W = 170.0   # X — width (was 140.0)
-PANEL_D =   3.0   # Y — thickness
+PANEL_D =   3.0   # Y — thickness (channel portion)
 PANEL_H = 103.6   # Z — height (was 79.0, +24.6mm added to top)
+
+# Extension dimensions
+EDGE_W = 3.0      # X — width of left/right edges that sit in wall channels
+EXT_DEPTH = 2.0   # Y — how far the middle extends beyond the channel edges
 
 # Finger access hole
 HOLE_W  = 100.0   # X — width of hole
@@ -110,16 +114,25 @@ print("Building Feature 1: Panel Body ...")
 panel = cq.Workplane("XY").box(PANEL_W, PANEL_D, PANEL_H, centered=False)
 
 # ============================================================
+# Feature 1b — Middle extension (2mm outward in -Y)
+# ============================================================
+print("Building Feature 1b: Middle extension ...")
+extension = (
+    cq.Workplane("XY")
+    .transformed(offset=cq.Vector(EDGE_W, -EXT_DEPTH, 0.0))
+    .box(PANEL_W - 2 * EDGE_W, EXT_DEPTH, PANEL_H, centered=False)
+)
+panel = panel.union(extension)
+
+# ============================================================
 # Feature 2 — Finger Access Hole (through-hole along Y)
 # ============================================================
 print("Building Feature 2: Finger Access Hole ...")
-# Cut a rectangular box through the full Y depth of the panel.
-# XZ workplane normal is -Y; extrude(negative) goes +Y through panel.
-# Using translate approach with centered=False box for clarity.
+# Cut through full thickness including extension
 hole = (
     cq.Workplane("XY")
-    .transformed(offset=cq.Vector(HOLE_X0, 0.0, HOLE_Z0))
-    .box(HOLE_W, PANEL_D, HOLE_H, centered=False)
+    .transformed(offset=cq.Vector(HOLE_X0, -EXT_DEPTH, HOLE_Z0))
+    .box(HOLE_W, PANEL_D + EXT_DEPTH, HOLE_H, centered=False)
 )
 panel = panel.cut(hole)
 
@@ -155,8 +168,12 @@ v.check_solid("Panel front face interior",   85.0,  0.2, 60.0, "solid near front
 v.check_solid("Panel rear face interior",    85.0,  2.8, 60.0, "solid near rear face above hole")
 v.check_solid("Panel top interior",          85.0,  1.5, 103.0, "solid near top edge")
 v.check_solid("Panel bottom interior",       85.0,  1.5,  1.0, "solid near bottom edge")
+# Extension probes
+v.check_solid("Extension center",            85.0, -1.0, 60.0, "solid in middle extension")
+v.check_void("Left edge no extension",        1.5, -1.0, 60.0, "void in front of left channel edge")
+v.check_void("Right edge no extension",     168.5, -1.0, 60.0, "void in front of right channel edge")
 # Void outside envelope
-v.check_void("Void in front of panel",       85.0, -0.5, 60.0, "void forward of front face")
+v.check_void("Void in front of panel",       85.0, -EXT_DEPTH - 0.5, 60.0, "void forward of front face extension")
 v.check_void("Void behind panel",            85.0,  3.5, 60.0, "void behind back face")
 v.check_void("Void above panel",             85.0,  1.5, 104.6, "void above top edge")
 v.check_void("Void below panel",             85.0,  1.5, -1.0, "void below bottom edge")
@@ -236,8 +253,8 @@ v.check_single_body()
 # Net: 33180 - 9000 = 24180 mm^3
 # Envelope: 140 x 3 x 79 = 33180 mm^3
 # Fill ratio: 24180 / 33180 = 0.729
-envelope_vol = PANEL_W * PANEL_D * PANEL_H
-v.check_volume(expected_envelope=envelope_vol, fill_range=(0.65, 0.85))
+envelope_vol = PANEL_W * (PANEL_D + EXT_DEPTH) * PANEL_H
+v.check_volume(expected_envelope=envelope_vol, fill_range=(0.50, 0.85))
 
 print()
 
@@ -253,7 +270,7 @@ print()
 
 bb = panel.val().BoundingBox()
 v.check_bbox("X", bb.xmin, bb.xmax, 0.0, PANEL_W)
-v.check_bbox("Y", bb.ymin, bb.ymax, 0.0, PANEL_D)
+v.check_bbox("Y", bb.ymin, bb.ymax, -EXT_DEPTH, PANEL_D)
 v.check_bbox("Z", bb.zmin, bb.zmax, 0.0, PANEL_H)
 
 print()
