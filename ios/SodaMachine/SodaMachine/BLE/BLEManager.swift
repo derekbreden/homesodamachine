@@ -142,6 +142,7 @@ class BLEManager {
     @ObservationIgnored fileprivate var isDownloading = false
     @ObservationIgnored fileprivate var binStartReceived = false
     @ObservationIgnored fileprivate var pendingStatsRequest = false
+    @ObservationIgnored fileprivate var chartRetryTimer: DispatchWorkItem?
 
     // GATT/NUS state
     @ObservationIgnored fileprivate var nusReady = false
@@ -254,6 +255,8 @@ class BLEManager {
             populateDemoChartData()
             return
         }
+        chartRetryTimer?.cancel()
+        chartRetryTimer = nil
         statsSynced = false
         chartDataSynced = false
         rawHourlyData = [[], []]
@@ -264,6 +267,21 @@ class BLEManager {
         }
         pendingStatsRequest = false
         send("GET_CHART_DATA")
+        scheduleChartRetry()
+    }
+
+    private func scheduleChartRetry(attempt: Int = 1) {
+        chartRetryTimer?.cancel()
+        guard attempt <= 3 else { return }
+        let work = DispatchWorkItem { [weak self] in
+            guard let self, !self.chartDataSynced else { return }
+            self.rawHourlyData = [[], []]
+            self.chartCurReceived = 0
+            self.send("GET_CHART_DATA")
+            self.scheduleChartRetry(attempt: attempt + 1)
+        }
+        chartRetryTimer = work
+        DispatchQueue.main.asyncAfter(deadline: .now() + 3, execute: work)
     }
 
     func subscribeStats() {
@@ -273,6 +291,8 @@ class BLEManager {
 
     func unsubscribeStats() {
         if demoMode { return }
+        chartRetryTimer?.cancel()
+        chartRetryTimer = nil
         send("STATS_UNSUBSCRIBE")
     }
 
@@ -1025,6 +1045,7 @@ class BLEManager {
             }
             chartCurReceived += 1
             if chartCurReceived >= 2 {
+                chartRetryTimer?.cancel()
                 chartDataSynced = true
                 statsSynced = true
                 chartCurReceived = 0
