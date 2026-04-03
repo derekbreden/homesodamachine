@@ -7,34 +7,16 @@ STRUT_Z = 6.0   # constant Z height (flat faces for printing, no features)
 oc = 0.1
 OUT_DIR = Path(__file__).parent
 
-# Widths (X axis, Z is always STRUT_Z)
+# Base form
 TIP_WIDTH = 5.0
 BUMP_WIDTH = 7.0
 BODY_WIDTH = 6.0
-
-# Lengths (Y axis)
 LEAD_IN_LENGTH = 2.0
 BUMP_LENGTH = 2.0
 LEVER_SEAT_LENGTH = 4.0    # matches lever plate thickness
 RELEASE_SEAT_LENGTH = 5.0  # matches release plate thickness
-
-# Slot
 SLOT_WIDTH = 1.0
-SLOT_DEPTH_ADD = 8.0  # extra slot depth beyond the body-side bump
-
-# Lever end Y positions (from Y=0 inward)
-LEVER_LEAD_IN_END = LEAD_IN_LENGTH                                  # 1.0
-LEVER_TIP_BUMP_END = LEVER_LEAD_IN_END + BUMP_LENGTH                # 2.0
-LEVER_SEAT_END = LEVER_TIP_BUMP_END + LEVER_SEAT_LENGTH             # 6.0
-LEVER_BODY_BUMP_END = LEVER_SEAT_END + BUMP_LENGTH                  # 7.0
-
-# Release end Y positions (from Y=150 inward)
-RELEASE_LEAD_IN_START = STRUT_L - LEAD_IN_LENGTH                    # 149.0
-RELEASE_TIP_BUMP_START = RELEASE_LEAD_IN_START - BUMP_LENGTH        # 148.0
-RELEASE_SEAT_START = RELEASE_TIP_BUMP_START - RELEASE_SEAT_LENGTH   # 143.0
-RELEASE_BODY_BUMP_START = RELEASE_SEAT_START - BUMP_LENGTH          # 142.0
-
-BODY_LENGTH = RELEASE_BODY_BUMP_START - LEVER_BODY_BUMP_END         # 135.0
+SLOT_DEPTH_ADD = 8.0
 
 
 def make_bar(x_width):
@@ -77,38 +59,53 @@ def cut_taper(solid, y_narrow, y_wide, narrow_width, wide_width):
     return solid
 
 
-def export(solid, name):
+def build_strut(name, bump_width=BUMP_WIDTH, slot_width=SLOT_WIDTH, slot_depth_add=SLOT_DEPTH_ADD):
+    lever_lead_in_end = LEAD_IN_LENGTH
+    lever_tip_bump_end = lever_lead_in_end + BUMP_LENGTH
+    lever_seat_end = lever_tip_bump_end + LEVER_SEAT_LENGTH
+    lever_body_bump_end = lever_seat_end + BUMP_LENGTH
+
+    release_lead_in_start = STRUT_L - LEAD_IN_LENGTH
+    release_tip_bump_start = release_lead_in_start - BUMP_LENGTH
+    release_seat_start = release_tip_bump_start - RELEASE_SEAT_LENGTH
+    release_body_bump_start = release_seat_start - BUMP_LENGTH
+
+    body_length = release_body_bump_start - lever_body_bump_end
+
+    s = make_bar(bump_width)
+
+    # Body
+    s = cut_groove(s, lever_body_bump_end, body_length, BODY_WIDTH, bump_width)
+
+    # Lever end: seat + lead-in
+    s = cut_groove(s, lever_tip_bump_end, LEVER_SEAT_LENGTH, BODY_WIDTH, bump_width)
+    s = cut_taper(s, 0, lever_lead_in_end, TIP_WIDTH, bump_width)
+
+    # Release end: seat + lead-in
+    s = cut_groove(s, release_seat_start, RELEASE_SEAT_LENGTH, BODY_WIDTH, bump_width)
+    s = cut_taper(s, STRUT_L, release_lead_in_start, TIP_WIDTH, bump_width)
+
+    # Lever slot
+    lever_slot_depth = LEAD_IN_LENGTH + BUMP_LENGTH + LEVER_SEAT_LENGTH + slot_depth_add
+    slot_half_x = slot_width / 2
+    z_cut = STRUT_Z / 2 + oc
+    s = s.cut(cq.Workplane("XY")
+        .transformed(offset=cq.Vector(-slot_half_x, -oc, -z_cut))
+        .box(slot_width, lever_slot_depth + oc, 2 * z_cut, centered=False))
+
+    # Release slot
+    release_slot_depth = LEAD_IN_LENGTH + BUMP_LENGTH + RELEASE_SEAT_LENGTH + slot_depth_add
+    s = s.cut(cq.Workplane("XY")
+        .transformed(offset=cq.Vector(-slot_half_x, STRUT_L - release_slot_depth, -z_cut))
+        .box(slot_width, release_slot_depth + oc, 2 * z_cut, centered=False))
+
     path = OUT_DIR / f"{name}-cadquery.step"
-    cq.exporters.export(solid, str(path))
+    cq.exporters.export(s, str(path))
     print(f"Exported {path}")
 
 
-# Build: start from BUMP_WIDTH bar, cut everything else down
-s = make_bar(BUMP_WIDTH)
-
-# Body
-s = cut_groove(s, LEVER_BODY_BUMP_END, BODY_LENGTH, BODY_WIDTH, BUMP_WIDTH)
-
-# Lever end: seat + lead-in
-s = cut_groove(s, LEVER_TIP_BUMP_END, LEVER_SEAT_LENGTH, BODY_WIDTH, BUMP_WIDTH)
-s = cut_taper(s, 0, LEVER_LEAD_IN_END, TIP_WIDTH, BUMP_WIDTH)
-
-# Release end: seat + lead-in
-s = cut_groove(s, RELEASE_SEAT_START, RELEASE_SEAT_LENGTH, BODY_WIDTH, BUMP_WIDTH)
-s = cut_taper(s, STRUT_L, RELEASE_LEAD_IN_START, TIP_WIDTH, BUMP_WIDTH)
-
-# Lever slot
-lever_slot_depth = LEAD_IN_LENGTH + BUMP_LENGTH + LEVER_SEAT_LENGTH + SLOT_DEPTH_ADD
-slot_half_x = SLOT_WIDTH / 2
-z_cut = STRUT_Z / 2 + oc
-s = s.cut(cq.Workplane("XY")
-    .transformed(offset=cq.Vector(-slot_half_x, -oc, -z_cut))
-    .box(SLOT_WIDTH, lever_slot_depth + oc, 2 * z_cut, centered=False))
-
-# Release slot
-release_slot_depth = LEAD_IN_LENGTH + BUMP_LENGTH + RELEASE_SEAT_LENGTH + SLOT_DEPTH_ADD
-s = s.cut(cq.Workplane("XY")
-    .transformed(offset=cq.Vector(-slot_half_x, STRUT_L - release_slot_depth, -z_cut))
-    .box(SLOT_WIDTH, release_slot_depth + oc, 2 * z_cut, centered=False))
-
-export(s, "strut")
+build_strut("strut")
+build_strut("strut-a", bump_width=7.5)
+build_strut("strut-b", bump_width=7.5, slot_width=1.4)
+build_strut("strut-c", slot_depth_add=0)
+build_strut("strut-d", slot_depth_add=5)
