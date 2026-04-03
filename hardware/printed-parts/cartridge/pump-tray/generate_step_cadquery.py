@@ -67,10 +67,10 @@ STRUT_BORE_H = STRUT_SIZE + BORE_CLEARANCE  # 6.4 mm (Z)
 
 # Strut bore center positions (X, Z) — moved outward to clear M3 holes
 STRUT_BORES = [
-    ("S-TL",   9.0, 51.1),   # Top-Left
-    ("S-TR", 161.0, 51.1),   # Top-Right
-    ("S-BL",   9.0, 17.5),   # Bottom-Left
-    ("S-BR", 161.0, 17.5),   # Bottom-Right
+    ("S-TL",  12.0, 48.1),   # Top-Left
+    ("S-TR", 158.0, 48.1),   # Top-Right
+    ("S-BL",  12.0, 20.5),   # Bottom-Left
+    ("S-BR", 158.0, 20.5),   # Bottom-Right
 ]
 
 print("PUMP TRAY v3 — CadQuery STEP Generation")
