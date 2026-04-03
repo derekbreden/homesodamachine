@@ -44,10 +44,10 @@ print("  Envelope: 160.0 x 94.0 x 68.6 mm  ->  X:[0,160]  Y:[0,94]  Z:[0,68.6]")
 print()
 print("  Feature coordinate cross-check:")
 print("    Plate occupies  X:[0,160]    Y:[0,4]    Z:[0,68.6]")
-print("    Strut TL center X=4.0,   Z=63.6  -> box X:[1,7]     Y:[4,94]  Z:[60.6,66.6]")
-print("    Strut TR center X=156.0, Z=63.6  -> box X:[153,159]  Y:[4,94]  Z:[60.6,66.6]")
-print("    Strut BL center X=4.0,   Z=5.0   -> box X:[1,7]     Y:[4,94]  Z:[2,8]")
-print("    Strut BR center X=156.0, Z=5.0   -> box X:[153,159]  Y:[4,94]  Z:[2,8]")
+print("    Strut TL center X=7.0,   Z=35.6  -> box X:[4,10]    Y:[4,94]  Z:[32.6,38.6]")
+print("    Strut TR center X=153.0, Z=35.6  -> box X:[150,156]  Y:[4,94]  Z:[32.6,38.6]")
+print("    Strut BL center X=7.0,   Z=8.0   -> box X:[4,10]    Y:[4,94]  Z:[5,11]")
+print("    Strut BR center X=153.0, Z=8.0   -> box X:[150,156]  Y:[4,94]  Z:[5,11]")
 print()
 
 # Geometry constants
@@ -67,10 +67,10 @@ STRUT_Y1 = 94.0    # strut tips
 # Strut center positions in lever local X and Z
 # Positions match pump tray v3 strut bore centers exactly.
 STRUTS = {
-    "TL": (  4.0, 38.6),
-    "TR": (156.0, 38.6),
-    "BL": (  4.0,  5.0),
-    "BR": (156.0,  5.0),
+    "TL": (  7.0, 35.6),
+    "TR": (153.0, 35.6),
+    "BL": (  7.0,  8.0),
+    "BR": (153.0,  8.0),
 }
 
 # Plate corner fillet radius (Feature 2)
