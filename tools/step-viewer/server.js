@@ -97,21 +97,20 @@ async function runScript(pyFilePath) {
 }
 
 // --- File watcher ---
-const watcher = chokidar.watch("**/*generate_step_cadquery*.py", {
-  cwd: HARDWARE_DIR,
+const watcher = chokidar.watch(HARDWARE_DIR, {
   ignoreInitial: true,
 });
 
 const debounce = new Map();
-watcher.on("change", (relPath) => {
-  const abs = path.join(HARDWARE_DIR, relPath);
-  if (debounce.has(abs)) clearTimeout(debounce.get(abs));
+watcher.on("change", (absPath) => {
+  if (!/generate_step_cadquery.*\.py$/.test(absPath)) return;
+  if (debounce.has(absPath)) clearTimeout(debounce.get(absPath));
   debounce.set(
-    abs,
+    absPath,
     setTimeout(() => {
-      debounce.delete(abs);
-      console.log(`Changed: ${relPath}`);
-      runScript(abs);
+      debounce.delete(absPath);
+      console.log(`Changed: ${path.relative(HARDWARE_DIR, absPath)}`);
+      runScript(absPath);
     }, 500)
   );
 });
