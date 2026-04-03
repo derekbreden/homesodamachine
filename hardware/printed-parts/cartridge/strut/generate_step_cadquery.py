@@ -16,7 +16,7 @@ BUMP_LENGTH = 2.0
 LEVER_SEAT_LENGTH = 4.0    # matches lever plate thickness
 RELEASE_SEAT_LENGTH = 5.0  # matches release plate thickness
 SLOT_WIDTH = 1.0
-SLOT_DEPTH_ADD = 8.0
+SLOT_DEPTH_ADD = 0.0
 
 
 def make_bar(x_width):
@@ -105,7 +105,3 @@ def build_strut(name, bump_width=BUMP_WIDTH, slot_width=SLOT_WIDTH, slot_depth_a
 
 
 build_strut("strut")
-build_strut("strut-a", bump_width=7.5)
-build_strut("strut-b", bump_width=7.5, slot_width=1.4)
-build_strut("strut-c", slot_depth_add=0)
-build_strut("strut-d", slot_depth_add=5)
