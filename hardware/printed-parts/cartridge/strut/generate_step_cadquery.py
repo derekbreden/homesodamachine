@@ -7,6 +7,35 @@ STRUT_Z = 6.0   # constant Z height (flat faces for printing, no features)
 oc = 0.1
 OUT_DIR = Path(__file__).parent
 
+# Widths (X axis, Z is always STRUT_Z)
+TIP_WIDTH = 5.0
+BUMP_WIDTH = 6.7
+BODY_WIDTH = 6.0
+
+# Lengths (Y axis)
+LEAD_IN_LENGTH = 1.0
+BUMP_LENGTH = 1.0
+LEVER_SEAT_LENGTH = 4.0    # matches lever plate thickness
+RELEASE_SEAT_LENGTH = 5.0  # matches release plate thickness
+
+# Slot
+SLOT_WIDTH = 0.6
+SLOT_DEPTH = 15.0
+
+# Lever end Y positions (from Y=0 inward)
+LEVER_LEAD_IN_END = LEAD_IN_LENGTH                                  # 1.0
+LEVER_TIP_BUMP_END = LEVER_LEAD_IN_END + BUMP_LENGTH                # 2.0
+LEVER_SEAT_END = LEVER_TIP_BUMP_END + LEVER_SEAT_LENGTH             # 6.0
+LEVER_BODY_BUMP_END = LEVER_SEAT_END + BUMP_LENGTH                  # 7.0
+
+# Release end Y positions (from Y=150 inward)
+RELEASE_LEAD_IN_START = STRUT_L - LEAD_IN_LENGTH                    # 149.0
+RELEASE_TIP_BUMP_START = RELEASE_LEAD_IN_START - BUMP_LENGTH        # 148.0
+RELEASE_SEAT_START = RELEASE_TIP_BUMP_START - RELEASE_SEAT_LENGTH   # 143.0
+RELEASE_BODY_BUMP_START = RELEASE_SEAT_START - BUMP_LENGTH          # 142.0
+
+BODY_LENGTH = RELEASE_BODY_BUMP_START - LEVER_BODY_BUMP_END         # 135.0
+
 
 def make_bar(x_width):
     """Bar centered at XZ origin. Variable width in X, constant STRUT_Z in Z."""
@@ -54,33 +83,26 @@ def export(solid, name):
     print(f"Exported {path}")
 
 
-# --- Split-tip: 0.6mm slot, 6.7 bumps, 5.6 grooves, 0.4mm groove clearance ---
-BUMP = 6.7
-GROOVE = 5.6
-SLOT_W = 0.6
-SLOT_DEPTH = 15.0
-LEVER_GROOVE_L = 4.4    # 4mm plate + 0.4mm clearance
-RELEASE_GROOVE_L = 5.4  # 5mm plate + 0.4mm clearance
+# Build: start from BUMP_WIDTH bar, cut everything else down
+s = make_bar(BUMP_WIDTH)
 
-# Y layout lever: 0..1 taper | 1..2 bump | 2..6.4 groove | 6.4..7.4 bump | 7.4.. body
-# Y layout release: ..141.6 body | 141.6..142.6 bump | 142.6..148 groove | 148..149 bump | 149..150 taper
-LEVER_GROOVE_END = 2.0 + LEVER_GROOVE_L        # 6.4
-LEVER_BUMP_END = LEVER_GROOVE_END + 1.0         # 7.4
-RELEASE_BUMP_START = STRUT_L - 1.0 - RELEASE_GROOVE_L - 1.0 - 1.0  # 141.6
-RELEASE_GROOVE_START = RELEASE_BUMP_START + 1.0  # 142.6
+# Body
+s = cut_groove(s, LEVER_BODY_BUMP_END, BODY_LENGTH, BODY_WIDTH, BUMP_WIDTH)
 
-s = make_bar(BUMP)
-s = cut_groove(s, LEVER_BUMP_END, RELEASE_BUMP_START - LEVER_BUMP_END, 6.0, BUMP)
-s = cut_groove(s, 2.0, LEVER_GROOVE_L, GROOVE, BUMP)
-s = cut_groove(s, RELEASE_GROOVE_START, RELEASE_GROOVE_L, GROOVE, BUMP)
-s = cut_taper(s, 0, 1.0, 5.0, BUMP)
-s = cut_taper(s, 150.0, 149.0, 5.0, BUMP)
+# Lever end: seat + lead-in
+s = cut_groove(s, LEVER_TIP_BUMP_END, LEVER_SEAT_LENGTH, BODY_WIDTH, BUMP_WIDTH)
+s = cut_taper(s, 0, LEVER_LEAD_IN_END, TIP_WIDTH, BUMP_WIDTH)
 
-slot_half_x = SLOT_W / 2
+# Release end: seat + lead-in
+s = cut_groove(s, RELEASE_SEAT_START, RELEASE_SEAT_LENGTH, BODY_WIDTH, BUMP_WIDTH)
+s = cut_taper(s, STRUT_L, RELEASE_LEAD_IN_START, TIP_WIDTH, BUMP_WIDTH)
+
+# Slot: single split along X center, full Z height, from each tip
+slot_half_x = SLOT_WIDTH / 2
 z_cut = STRUT_Z / 2 + oc
 for y_start, length in [(-oc, SLOT_DEPTH + oc), (STRUT_L - SLOT_DEPTH, SLOT_DEPTH + oc)]:
     s = s.cut(cq.Workplane("XY")
         .transformed(offset=cq.Vector(-slot_half_x, y_start, -z_cut))
-        .box(SLOT_W, length, 2 * z_cut, centered=False))
+        .box(SLOT_WIDTH, length, 2 * z_cut, centered=False))
 
 export(s, "strut")
