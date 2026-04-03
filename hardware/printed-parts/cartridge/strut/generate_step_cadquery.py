@@ -104,3 +104,55 @@ for y_start, length in [(-oc, SLOT_DEPTH + oc), (STRUT_L - SLOT_DEPTH, SLOT_DEPT
         .box(SLOT_W, length, 2 * z_cut, centered=False))
 
 export(s, "strut-split-tip")
+
+# --- Split-tip narrow slot + groove clearance ---
+# 0.6mm slot, grooves 0.4mm longer than plate thickness for play
+BUMP_N = 6.5
+GROOVE_N = 5.6
+SLOT_W_N = 0.6
+SLOT_DEPTH_N = 15.0
+LEVER_GROOVE_L = 4.4    # 4mm plate + 0.4mm clearance
+RELEASE_GROOVE_L = 5.4  # 5mm plate + 0.4mm clearance
+
+# Y layout lever: 0..1 taper | 1..2 bump | 2..6.4 groove | 6.4..7.4 bump | 7.4..141.6 body
+# Y layout release: 141.6..142.6 bump | 142.6..148 groove | 148..149 bump | 149..150 taper
+LEVER_GROOVE_END = 2.0 + LEVER_GROOVE_L        # 6.4
+LEVER_BUMP_END = LEVER_GROOVE_END + 1.0         # 7.4
+RELEASE_BUMP_START = STRUT_L - 1.0 - RELEASE_GROOVE_L - 1.0 - 1.0  # 142.6 - 1.0 = 141.6
+RELEASE_GROOVE_START = RELEASE_BUMP_START + 1.0  # 142.6
+
+s = make_bar(BUMP_N)
+s = cut_groove(s, LEVER_BUMP_END, RELEASE_BUMP_START - LEVER_BUMP_END, 6.0, BUMP_N)
+s = cut_groove(s, 2.0, LEVER_GROOVE_L, GROOVE_N, BUMP_N)
+s = cut_groove(s, RELEASE_GROOVE_START, RELEASE_GROOVE_L, GROOVE_N, BUMP_N)
+s = cut_taper(s, 0, 1.0, 5.0, BUMP_N)
+s = cut_taper(s, 150.0, 149.0, 5.0, BUMP_N)
+
+slot_half_x = SLOT_W_N / 2
+z_cut = STRUT_Z / 2 + oc
+for y_start, length in [(-oc, SLOT_DEPTH_N + oc), (STRUT_L - SLOT_DEPTH_N, SLOT_DEPTH_N + oc)]:
+    s = s.cut(cq.Workplane("XY")
+        .transformed(offset=cq.Vector(-slot_half_x, y_start, -z_cut))
+        .box(SLOT_W_N, length, 2 * z_cut, centered=False))
+
+export(s, "strut-split-tip-clearance")
+
+# --- Split-tip narrow slot + groove clearance + bigger bumps ---
+# Same as above but bumps at 6.7
+BUMP_B = 6.7
+GROOVE_B = 5.6
+
+s = make_bar(BUMP_B)
+s = cut_groove(s, LEVER_BUMP_END, RELEASE_BUMP_START - LEVER_BUMP_END, 6.0, BUMP_B)
+s = cut_groove(s, 2.0, LEVER_GROOVE_L, GROOVE_B, BUMP_B)
+s = cut_groove(s, RELEASE_GROOVE_START, RELEASE_GROOVE_L, GROOVE_B, BUMP_B)
+s = cut_taper(s, 0, 1.0, 5.0, BUMP_B)
+s = cut_taper(s, 150.0, 149.0, 5.0, BUMP_B)
+
+slot_half_x = SLOT_W_N / 2
+for y_start, length in [(-oc, SLOT_DEPTH_N + oc), (STRUT_L - SLOT_DEPTH_N, SLOT_DEPTH_N + oc)]:
+    s = s.cut(cq.Workplane("XY")
+        .transformed(offset=cq.Vector(-slot_half_x, y_start, -z_cut))
+        .box(SLOT_W_N, length, 2 * z_cut, centered=False))
+
+export(s, "strut-split-tip-clearance-lg")
