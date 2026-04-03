@@ -1,0 +1,458 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>STEP Viewer</title>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, sans-serif; background: #1a1a1a; color: #ccc; }
+
+/* Grid view */
+#grid {
+  padding: 24px;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 16px;
+}
+.card {
+  background: #2a2a2a;
+  border-radius: 8px;
+  overflow: hidden;
+  cursor: pointer;
+  transition: outline 0.15s;
+  outline: 2px solid transparent;
+}
+.card:hover { outline-color: #5588cc; }
+.card img {
+  width: 100%;
+  aspect-ratio: 1;
+  object-fit: contain;
+  background: #222;
+  display: block;
+}
+.card .placeholder {
+  width: 100%;
+  aspect-ratio: 1;
+  background: #222;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #555;
+  font-size: 13px;
+}
+.card .label {
+  padding: 8px 10px;
+  font-size: 13px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  color: #aaa;
+}
+.card .label .dir {
+  color: #666;
+  font-size: 11px;
+  display: block;
+  margin-bottom: 2px;
+}
+
+/* Detail view */
+#detail {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: #1a1a1a;
+}
+#detail canvas { display: block; width: 100%; height: 100%; }
+#back {
+  position: fixed;
+  top: 16px;
+  left: 16px;
+  background: rgba(40,40,40,0.85);
+  border: 1px solid #444;
+  color: #ccc;
+  padding: 6px 14px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 14px;
+  z-index: 10;
+  backdrop-filter: blur(4px);
+}
+#back:hover { background: rgba(60,60,60,0.9); }
+#filename {
+  position: fixed;
+  top: 16px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: rgba(40,40,40,0.85);
+  border: 1px solid #444;
+  color: #aaa;
+  padding: 6px 14px;
+  border-radius: 6px;
+  font-size: 13px;
+  z-index: 10;
+  backdrop-filter: blur(4px);
+}
+#loading {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: #555;
+  font-size: 15px;
+  z-index: 10;
+  display: none;
+}
+</style>
+</head>
+<body>
+
+<div id="grid"></div>
+
+<div id="detail">
+  <button id="back">Back</button>
+  <div id="filename"></div>
+  <div id="loading">Loading...</div>
+</div>
+
+<script type="importmap">
+{
+  "imports": {
+    "three": "https://cdn.jsdelivr.net/npm/three@0.170.0/build/three.module.min.js",
+    "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.170.0/examples/jsm/"
+  }
+}
+</script>
+
+<script type="module">
+import * as THREE from "three";
+import { OrbitControls } from "three/addons/controls/OrbitControls.js";
+
+// --- occt-import-js loader (no importmap support, loaded manually) ---
+let occtReady;
+const occtPromise = new Promise((resolve) => { occtReady = resolve; });
+const occtScript = document.createElement("script");
+occtScript.src = "https://cdn.jsdelivr.net/npm/occt-import-js@0.0.23/dist/occt-import-js.js";
+occtScript.onload = () => {
+  window.occtimportjs().then((occt) => occtReady(occt));
+};
+document.head.appendChild(occtScript);
+
+// --- State ---
+let allFiles = [];
+let currentFile = null;
+const thumbnailCache = new Map(); // file -> dataURL
+
+// --- Detail view: Three.js setup ---
+const renderer = new THREE.WebGLRenderer({ antialias: true });
+renderer.setPixelRatio(window.devicePixelRatio);
+renderer.setClearColor(0x1a1a1a);
+document.getElementById("detail").prepend(renderer.domElement);
+
+const scene = new THREE.Scene();
+const camera = new THREE.PerspectiveCamera(45, 1, 0.01, 10000);
+const controls = new OrbitControls(camera, renderer.domElement);
+controls.enableDamping = true;
+controls.dampingFactor = 0.12;
+
+scene.add(new THREE.AmbientLight(0xffffff, 0.5));
+const dirLight = new THREE.DirectionalLight(0xffffff, 0.8);
+dirLight.position.set(1, 2, 1.5);
+scene.add(dirLight);
+const dirLight2 = new THREE.DirectionalLight(0xffffff, 0.3);
+dirLight2.position.set(-1, -0.5, -1);
+scene.add(dirLight2);
+
+let currentGroup = null;
+
+function resizeRenderer() {
+  const w = window.innerWidth, h = window.innerHeight;
+  renderer.setSize(w, h);
+  camera.aspect = w / h;
+  camera.updateProjectionMatrix();
+}
+window.addEventListener("resize", () => {
+  if (currentFile) resizeRenderer();
+});
+
+let animating = false;
+function animate() {
+  if (!animating) return;
+  requestAnimationFrame(animate);
+  controls.update();
+  renderer.render(scene, camera);
+}
+
+// --- STEP parsing ---
+async function parseStep(buffer) {
+  const occt = await occtPromise;
+  return occt.ReadStepFile(buffer, null);
+}
+
+function buildMesh(result) {
+  const group = new THREE.Group();
+  const mat = new THREE.MeshStandardMaterial({ color: 0x8899aa, metalness: 0.1, roughness: 0.6 });
+  const matBack = new THREE.MeshStandardMaterial({ color: 0x667788, metalness: 0.1, roughness: 0.6, side: THREE.BackSide });
+
+  for (const mesh of result.meshes) {
+    const geo = new THREE.BufferGeometry();
+    geo.setAttribute("position", new THREE.Float32BufferAttribute(new Float32Array(mesh.attributes.position.array), 3));
+    if (mesh.attributes.normal) {
+      geo.setAttribute("normal", new THREE.Float32BufferAttribute(new Float32Array(mesh.attributes.normal.array), 3));
+    }
+    if (mesh.index) {
+      geo.setIndex(new THREE.BufferAttribute(new Uint32Array(mesh.index.array), 1));
+    }
+    geo.computeBoundingBox();
+
+    // Front + back face so thin parts are visible from behind
+    group.add(new THREE.Mesh(geo, mat));
+    group.add(new THREE.Mesh(geo, matBack));
+  }
+
+  // Edge lines for CAD look
+  for (const edge of (result.brpieces || [])) {
+    // Not all versions expose edges — skip if absent
+  }
+
+  return group;
+}
+
+function resetCamera(group) {
+  const box = new THREE.Box3().setFromObject(group);
+  const center = box.getCenter(new THREE.Vector3());
+  const size = box.getSize(new THREE.Vector3());
+  const maxDim = Math.max(size.x, size.y, size.z);
+  const dist = maxDim * 2.5;
+
+  // Isometric angles
+  const el = Math.atan(1 / Math.sqrt(2)); // ~35.26 deg
+  const az = Math.PI / 4;
+  camera.position.set(
+    center.x + dist * Math.cos(el) * Math.cos(az),
+    center.y + dist * Math.sin(el),
+    center.z + dist * Math.cos(el) * Math.sin(az)
+  );
+  camera.lookAt(center);
+  controls.target.copy(center);
+  controls.update();
+}
+
+async function loadStepFile(file) {
+  const loadingEl = document.getElementById("loading");
+  loadingEl.style.display = "block";
+
+  try {
+    const resp = await fetch(`/steps/${file}`);
+    if (!resp.ok) return;
+    const buf = new Uint8Array(await resp.arrayBuffer());
+    const result = await parseStep(buf);
+
+    if (currentGroup) {
+      scene.remove(currentGroup);
+      currentGroup.traverse((c) => { if (c.geometry) c.geometry.dispose(); });
+    }
+
+    currentGroup = buildMesh(result);
+    scene.add(currentGroup);
+    resetCamera(currentGroup);
+  } finally {
+    loadingEl.style.display = "none";
+  }
+}
+
+// --- Thumbnail rendering ---
+const thumbRenderer = new THREE.WebGLRenderer({ antialias: true, preserveDrawingBuffer: true });
+thumbRenderer.setSize(400, 400);
+thumbRenderer.setPixelRatio(1);
+thumbRenderer.setClearColor(0x222222);
+const thumbScene = new THREE.Scene();
+const thumbCam = new THREE.PerspectiveCamera(45, 1, 0.01, 10000);
+thumbScene.add(new THREE.AmbientLight(0xffffff, 0.5));
+const tl = new THREE.DirectionalLight(0xffffff, 0.8);
+tl.position.set(1, 2, 1.5);
+thumbScene.add(tl);
+const tl2 = new THREE.DirectionalLight(0xffffff, 0.3);
+tl2.position.set(-1, -0.5, -1);
+thumbScene.add(tl2);
+
+async function renderThumbnail(file) {
+  if (thumbnailCache.has(file)) return thumbnailCache.get(file);
+
+  try {
+    const resp = await fetch(`/steps/${file}`);
+    if (!resp.ok) return null;
+    const buf = new Uint8Array(await resp.arrayBuffer());
+    const result = await parseStep(buf);
+    const group = buildMesh(result);
+    thumbScene.add(group);
+
+    const box = new THREE.Box3().setFromObject(group);
+    const center = box.getCenter(new THREE.Vector3());
+    const size = box.getSize(new THREE.Vector3());
+    const maxDim = Math.max(size.x, size.y, size.z);
+    const dist = maxDim * 2.5;
+    const el = Math.atan(1 / Math.sqrt(2));
+    const az = Math.PI / 4;
+    thumbCam.position.set(
+      center.x + dist * Math.cos(el) * Math.cos(az),
+      center.y + dist * Math.sin(el),
+      center.z + dist * Math.cos(el) * Math.sin(az)
+    );
+    thumbCam.lookAt(center);
+
+    thumbRenderer.render(thumbScene, thumbCam);
+    const dataURL = thumbRenderer.domElement.toDataURL();
+
+    thumbScene.remove(group);
+    group.traverse((c) => { if (c.geometry) c.geometry.dispose(); });
+
+    thumbnailCache.set(file, dataURL);
+    return dataURL;
+  } catch {
+    return null;
+  }
+}
+
+// --- Grid ---
+const gridEl = document.getElementById("grid");
+const detailEl = document.getElementById("detail");
+
+function shortName(file) {
+  const parts = file.split("/");
+  const name = parts.pop().replace(".step", "");
+  const dir = parts.join("/");
+  return { name, dir };
+}
+
+function buildGrid() {
+  gridEl.innerHTML = "";
+  for (const file of allFiles) {
+    const { name, dir } = shortName(file);
+    const card = document.createElement("div");
+    card.className = "card";
+    card.dataset.file = file;
+    card.innerHTML = `<div class="placeholder" data-file="${file}">loading...</div><div class="label"><span class="dir">${dir}</span>${name}</div>`;
+    card.addEventListener("click", () => openDetail(file));
+    gridEl.appendChild(card);
+  }
+
+  // Render thumbnails with IntersectionObserver
+  const observer = new IntersectionObserver((entries) => {
+    for (const entry of entries) {
+      if (!entry.isIntersecting) continue;
+      observer.unobserve(entry.target);
+      const file = entry.target.dataset.file;
+      renderThumbnail(file).then((url) => {
+        if (!url) {
+          entry.target.querySelector(".placeholder").textContent = "error";
+          return;
+        }
+        const img = document.createElement("img");
+        img.src = url;
+        const placeholder = entry.target.querySelector(".placeholder");
+        if (placeholder) placeholder.replaceWith(img);
+      });
+    }
+  }, { rootMargin: "200px" });
+
+  for (const card of gridEl.querySelectorAll(".card")) {
+    observer.observe(card);
+  }
+}
+
+function openDetail(file) {
+  currentFile = file;
+  location.hash = encodeURIComponent(file);
+  gridEl.style.display = "none";
+  detailEl.style.display = "block";
+  document.getElementById("filename").textContent = shortName(file).name;
+  resizeRenderer();
+  animating = true;
+  animate();
+  loadStepFile(file);
+}
+
+function closeDetail() {
+  currentFile = null;
+  location.hash = "";
+  detailEl.style.display = "none";
+  gridEl.style.display = "grid";
+  animating = false;
+}
+
+document.getElementById("back").addEventListener("click", closeDetail);
+document.addEventListener("keydown", (e) => {
+  if (e.key === "Escape" && currentFile) closeDetail();
+});
+
+// --- WebSocket ---
+function connectWS() {
+  const ws = new WebSocket(`ws://${location.host}`);
+  ws.onmessage = (e) => {
+    const msg = JSON.parse(e.data);
+    if (msg.type === "updated") {
+      // Invalidate thumbnail
+      thumbnailCache.delete(msg.file);
+      const card = gridEl.querySelector(`.card[data-file="${CSS.escape(msg.file)}"]`);
+      if (card) {
+        // Re-render thumbnail
+        const img = card.querySelector("img");
+        if (img) {
+          const ph = document.createElement("div");
+          ph.className = "placeholder";
+          ph.dataset.file = msg.file;
+          ph.textContent = "updating...";
+          img.replaceWith(ph);
+        }
+        renderThumbnail(msg.file).then((url) => {
+          if (!url) return;
+          const target = card.querySelector(".placeholder");
+          if (target) {
+            const newImg = document.createElement("img");
+            newImg.src = url;
+            target.replaceWith(newImg);
+          } else {
+            const existing = card.querySelector("img");
+            if (existing) existing.src = url;
+          }
+        });
+      } else {
+        // New file — refresh the list
+        fetchFiles();
+      }
+
+      // Reload detail view if viewing this file
+      if (currentFile === msg.file) {
+        loadStepFile(msg.file);
+      }
+    }
+  };
+  ws.onclose = () => setTimeout(connectWS, 2000);
+}
+
+// --- Init ---
+async function fetchFiles() {
+  const resp = await fetch("/api/steps");
+  allFiles = await resp.json();
+  allFiles.sort();
+  buildGrid();
+}
+
+fetchFiles();
+connectWS();
+
+// Restore from hash
+if (location.hash) {
+  const file = decodeURIComponent(location.hash.slice(1));
+  if (file) {
+    // Wait for occt to load, then open
+    occtPromise.then(() => {
+      // Small delay to let file list populate
+      setTimeout(() => openDetail(file), 100);
+    });
+  }
+}
+</script>
+</body>
+</html>
