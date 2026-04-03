@@ -98,7 +98,7 @@ s = cut_groove(s, RELEASE_SEAT_START, RELEASE_SEAT_LENGTH, BODY_WIDTH, BUMP_WIDT
 s = cut_taper(s, STRUT_L, RELEASE_LEAD_IN_START, TIP_WIDTH, BUMP_WIDTH)
 
 # Lever slot
-lever_slot_depth = LEAD_IN_LENGTH + BUMP_LENGTH + LEVER_SEAT_LENGTH + BUMP_LENGTH + SLOT_DEPTH_ADD
+lever_slot_depth = LEAD_IN_LENGTH + BUMP_LENGTH + LEVER_SEAT_LENGTH + SLOT_DEPTH_ADD
 slot_half_x = SLOT_WIDTH / 2
 z_cut = STRUT_Z / 2 + oc
 s = s.cut(cq.Workplane("XY")
@@ -106,7 +106,7 @@ s = s.cut(cq.Workplane("XY")
     .box(SLOT_WIDTH, lever_slot_depth + oc, 2 * z_cut, centered=False))
 
 # Release slot
-release_slot_depth = LEAD_IN_LENGTH + BUMP_LENGTH + RELEASE_SEAT_LENGTH + BUMP_LENGTH + SLOT_DEPTH_ADD
+release_slot_depth = LEAD_IN_LENGTH + BUMP_LENGTH + RELEASE_SEAT_LENGTH + SLOT_DEPTH_ADD
 s = s.cut(cq.Workplane("XY")
     .transformed(offset=cq.Vector(-slot_half_x, STRUT_L - release_slot_depth, -z_cut))
     .box(SLOT_WIDTH, release_slot_depth + oc, 2 * z_cut, centered=False))
