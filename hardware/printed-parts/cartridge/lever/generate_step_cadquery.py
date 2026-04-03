@@ -3,7 +3,7 @@ from pathlib import Path
 import cadquery as cq
 
 # Plate
-PLATE_W  = 160.0   # X
+PLATE_W  = 40.0   # X
 PLATE_D  =   4.0   # Y
 PLATE_H  =  43.6   # Z
 
@@ -12,9 +12,9 @@ STRUT_HOLE_W = 6.0   # X (no clearance, snap fit)
 STRUT_HOLE_H = 6.0   # Z
 STRUT_HOLES = {
     "TL": (  7.0, 35.6),
-    "TR": (153.0, 35.6),
+    "TR": (33.0, 35.6),
     "BL": (  7.0,  8.0),
-    "BR": (153.0,  8.0),
+    "BR": (33.0,  8.0),
 }
 
 # Plate body
