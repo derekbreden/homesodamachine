@@ -73,24 +73,10 @@ STRUTS = {
     "BR": (153.0,  8.0),
 }
 
-# Plate corner fillet radius (Feature 2)
-CORNER_R = 2.0    # mm
-
-# Elephant's foot chamfer (Feature 3)
-CHAMFER  = 0.3    # mm
 
 # Feature 1 -- Plate Body
 print("Building Feature 1: Plate Body ...")
 plate = cq.Workplane("XY").box(PLATE_W, PLATE_D, PLATE_H, centered=False)
-
-# Feature 2 -- Plate Perimeter Corner Radii
-print("Building Feature 2: Corner radii on vertical plate edges ...")
-plate = plate.edges("|Y").fillet(CORNER_R)
-
-# Feature 3 -- Elephant's Foot Chamfer on bottom front edge
-print("Building Feature 3: Elephant's foot chamfer ...")
-# Bottom front edge: Z=0, Y=0 intersection. Select edges on Z=0 face, then Y=0 face.
-plate = plate.edges("<Z").edges("<Y").chamfer(CHAMFER)
 
 # Features 4-7 -- Struts (union to plate)
 print("Building Features 4-7: Struts (TL, TR, BL, BR) ...")

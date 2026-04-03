@@ -94,9 +94,6 @@ STRUTS = {
     "BR": (153.0,  8.0),   # Bottom-Right corner -- matches lever BR
 }
 
-# Fillet radii
-CORNER_R = 2.0   # Perimeter corner radii (4 vertical edges parallel to Y)
-PULL_R   = 3.0   # Pull edge radius (4 fitting-face perimeter edges at Y=0)
 
 # Modeling
 
@@ -107,18 +104,6 @@ print("RELEASE PLATE v5 -- CadQuery STEP Generation")
 # -> X:[0,160.0] Y:[0,5] Z:[0,68.6]
 plate = cq.Workplane("XY").box(PLATE_W, PLATE_D, PLATE_H, centered=False)
 print("  [+] Feature 1: Plate body (160.0 x 5 x 68.6 mm)")
-
-# Feature 2: Perimeter corner radii -- R2 on 4 vertical edges (parallel to Y)
-# These are the edges at (X=0,Z=0), (X=140.0,Z=0), (X=0,Z=68.6), (X=140.0,Z=68.6)
-# running in the Y direction. Select with "|Y" edge filter.
-plate = plate.edges("|Y").fillet(CORNER_R)
-print("  [+] Feature 2: Corner radii R2.0 on 4 vertical (Y-parallel) edges")
-
-# Feature 3: Pull edge radius -- R3 on 4 fitting-face perimeter edges (at Y=0)
-# These are the 4 perimeter edges of the fitting-facing face (minimum Y face).
-# Select with face("<Y") then edges().
-plate = plate.faces("<Y").edges().fillet(PULL_R)
-print("  [+] Feature 3: Pull edge radius R3.0 on fitting-face (Y=0) perimeter edges")
 
 # Features 4-7: Stepped bores A, B, C, D
 #
