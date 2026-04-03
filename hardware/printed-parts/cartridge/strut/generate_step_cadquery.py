@@ -101,3 +101,36 @@ s = cut_taper(s, 150.0, 149.0, 5.0, 6.2)
 s = cut_taper(s, 10.0, 8.0, 6.0, 6.2)
 s = cut_taper(s, 139.0, 141.0, 6.0, 6.2)
 export(s, "strut-oversize-bump")
+
+# --- Split-tip cantilever: + slot creates 4 flexible fingers, aggressive bumps ---
+# Bumps on BOTH sides of groove act as barbs: tapered lead-in, 90° retention cliff.
+# Very hard insertion, near-permanent once seated.
+#
+# Y=0..1: taper 5→6.5 | Y=1..2: bump 6.5 | Y=2..6: groove 5.6 |
+# Y=6..7: bump 6.5 | Y=7..142: body 6.0 | Y=142..143: bump 6.5 |
+# Y=143..148: groove 5.6 | Y=148..149: bump 6.5 | Y=149..150: taper 6.5→5
+# + slot: 1mm wide, 15mm deep from each tip
+BUMP = 6.5
+SPLIT_GROOVE = 5.6
+SLOT_W = 1.0
+SLOT_DEPTH = 15.0
+
+s = make_bar(BUMP)
+s = cut_groove(s, 7.0, 135.0, 6.0, BUMP)           # body
+s = cut_groove(s, 2.0, 4.0, SPLIT_GROOVE, BUMP)     # lever groove
+s = cut_groove(s, 143.0, 5.0, SPLIT_GROOVE, BUMP)   # release groove
+s = cut_taper(s, 0, 1.0, 5.0, BUMP)                 # lever taper
+s = cut_taper(s, 150.0, 149.0, 5.0, BUMP)           # release taper
+
+# + slots from each tip
+slot_half = SLOT_W / 2
+cross_half = BUMP / 2 + oc
+for y_start, length in [(-oc, SLOT_DEPTH + oc), (STRUT_L - SLOT_DEPTH, SLOT_DEPTH + oc)]:
+    s = s.cut(cq.Workplane("XY")
+        .transformed(offset=cq.Vector(-slot_half, y_start, -cross_half))
+        .box(SLOT_W, length, 2 * cross_half, centered=False))
+    s = s.cut(cq.Workplane("XY")
+        .transformed(offset=cq.Vector(-cross_half, y_start, -slot_half))
+        .box(2 * cross_half, length, SLOT_W, centered=False))
+
+export(s, "strut-split-tip")
