@@ -67,37 +67,37 @@ def export(solid, name):
     print(f"Exported {path}")
 
 
-# --- Original: 2mm taper (5→6), grooves at 5.75 ---
-# Y=0..2: taper 5→6 | Y=2..6: groove 5.75 | Y=6..143: body 6 |
-# Y=143..148: groove 5.75 | Y=148..150: taper 6→5
+# --- Original: 2mm taper (5→6), grooves at 5.6 ---
+# Y=0..2: taper 5→6 | Y=2..6: groove 5.6 | Y=6..143: body 6 |
+# Y=143..148: groove 5.6 | Y=148..150: taper 6→5
 s = make_bar(6.0)
-s = cut_groove(s, 2.0, 4.0, 5.75, 6.0)
-s = cut_groove(s, 143.0, 5.0, 5.75, 6.0)
+s = cut_groove(s, 2.0, 4.0, 5.6, 6.0)
+s = cut_groove(s, 143.0, 5.0, 5.6, 6.0)
 s = cut_taper(s, 0, 2.0, 5.0, 6.0)
 s = cut_taper(s, 150.0, 148.0, 5.0, 6.0)
 export(s, "strut")
 
 # --- Short taper: 1mm taper (5→6), 1mm flat gap before groove ---
-# Y=0..1: taper 5→6 | Y=1..2: flat 6 | Y=2..6: groove 5.75 | Y=6..143: body 6 |
-# Y=143..148: groove 5.75 | Y=148..149: flat 6 | Y=149..150: taper 6→5
+# Y=0..1: taper 5→6 | Y=1..2: flat 6 | Y=2..6: groove 5.6 | Y=6..143: body 6 |
+# Y=143..148: groove 5.6 | Y=148..149: flat 6 | Y=149..150: taper 6→5
 s = make_bar(6.0)
-s = cut_groove(s, 2.0, 4.0, 5.75, 6.0)
-s = cut_groove(s, 143.0, 5.0, 5.75, 6.0)
+s = cut_groove(s, 2.0, 4.0, 5.6, 6.0)
+s = cut_groove(s, 143.0, 5.0, 5.6, 6.0)
 s = cut_taper(s, 0, 1.0, 5.0, 6.0)
 s = cut_taper(s, 150.0, 149.0, 5.0, 6.0)
 export(s, "strut-short-taper")
 
-# --- Oversize bump: 6.1 entry/retention bumps, 5.9 grooves, ramp to 6.0 body ---
-# Y=0..1: taper 5→6.1 | Y=1..2: flat 6.1 | Y=2..6: groove 5.9 |
-# Y=6..8: bump 6.1 | Y=8..10: ramp 6.1→6.0 | Y=10..139: body 6.0 |
-# Y=139..141: ramp 6.0→6.1 | Y=141..143: bump 6.1 | Y=143..148: groove 5.9 |
-# Y=148..149: flat 6.1 | Y=149..150: taper 6.1→5
-s = make_bar(6.1)
-s = cut_groove(s, 10.0, 129.0, 6.0, 6.1)
-s = cut_groove(s, 2.0, 4.0, 5.9, 6.1)
-s = cut_groove(s, 143.0, 5.0, 5.9, 6.1)
-s = cut_taper(s, 0, 1.0, 5.0, 6.1)
-s = cut_taper(s, 150.0, 149.0, 5.0, 6.1)
-s = cut_taper(s, 10.0, 8.0, 6.0, 6.1)
-s = cut_taper(s, 139.0, 141.0, 6.0, 6.1)
+# --- Oversize bump: 6.2 entry/retention bumps, 5.8 grooves, ramp to 6.0 body ---
+# Y=0..1: taper 5→6.2 | Y=1..2: flat 6.2 | Y=2..6: groove 5.8 |
+# Y=6..8: bump 6.2 | Y=8..10: ramp 6.2→6.0 | Y=10..139: body 6.0 |
+# Y=139..141: ramp 6.0→6.2 | Y=141..143: bump 6.2 | Y=143..148: groove 5.8 |
+# Y=148..149: flat 6.2 | Y=149..150: taper 6.2→5
+s = make_bar(6.2)
+s = cut_groove(s, 10.0, 129.0, 6.0, 6.2)
+s = cut_groove(s, 2.0, 4.0, 5.8, 6.2)
+s = cut_groove(s, 143.0, 5.0, 5.8, 6.2)
+s = cut_taper(s, 0, 1.0, 5.0, 6.2)
+s = cut_taper(s, 150.0, 149.0, 5.0, 6.2)
+s = cut_taper(s, 10.0, 8.0, 6.0, 6.2)
+s = cut_taper(s, 139.0, 141.0, 6.0, 6.2)
 export(s, "strut-oversize-bump")
