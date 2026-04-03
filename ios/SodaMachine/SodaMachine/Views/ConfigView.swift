@@ -329,7 +329,6 @@ private struct SettingsPageView: View {
             } else {
                 VStack(spacing: 0) {
                     settingsButton("Usage Stats") {
-                        ble.requestStatsAndCharts()
                         inStats = true
                     }
                     settingsButton("Prime") {
@@ -1253,7 +1252,10 @@ struct ConfigView: View {
         .sheet(isPresented: $inStats) {
             StatsSheet()
                 .environment(ble)
-                .onAppear { ble.subscribeStats() }
+                .onAppear {
+                    ble.requestStatsAndCharts()
+                    ble.subscribeStats()
+                }
                 .onDisappear { ble.unsubscribeStats() }
         }
         .sheet(isPresented: $inAbout) {
