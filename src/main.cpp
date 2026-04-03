@@ -1,4 +1,5 @@
 #include <Arduino.h>
+#include <esp_system.h>
 #include <Wire.h>
 #include <RTClib.h>
 #include <LittleFS.h>
@@ -2919,9 +2920,20 @@ void onS3CrcResponse(const char *response) {
   }
 }
 
-// ── S3 TinyProto message handler ──
-// Pending text callback (for GET_CRCS etc.)
+// ── S3 text callback timeout (mirrors rpCheckTextCallbackTimeout) ──
 static S3TextCb s3PendingTextCb = nullptr;
+static unsigned long s3TextCbStartTime = 0;
+
+static void s3CheckTextCallbackTimeout() {
+  if (s3PendingTextCb && millis() - s3TextCbStartTime > 5000) {
+    Serial.println("[S3] Text callback timeout");
+    S3TextCb cb = s3PendingTextCb;
+    s3PendingTextCb = nullptr;
+    cb(nullptr);
+  }
+}
+
+// ── S3 TinyProto message handler ──
 
 void onS3Message(ProtoLink *link, const uint8_t *data, uint16_t len) {
   // During upload: all frames are raw image data (no type byte)
@@ -3239,6 +3251,7 @@ void s3ProcessQueue() {
       protoS3.sendText(e->text);
       if (e->textCb) {
         s3PendingTextCb = e->textCb;
+        s3TextCbStartTime = millis();
         s3Pending.waiting = true;
         s3Pending.gotResponse = false;
         s3Pending.gotError = false;
@@ -3312,7 +3325,21 @@ void setup() {
 
   LittleFS.mkdir("/stats");
   plog.begin();
-  plog.println("Boot — firmware %s", FW_VERSION);
+  esp_reset_reason_t reason = esp_reset_reason();
+  const char *reasonStr = "UNKNOWN";
+  switch (reason) {
+    case ESP_RST_POWERON:  reasonStr = "POWERON"; break;
+    case ESP_RST_SW:       reasonStr = "SW"; break;
+    case ESP_RST_PANIC:    reasonStr = "PANIC"; break;
+    case ESP_RST_INT_WDT:  reasonStr = "INT_WDT"; break;
+    case ESP_RST_TASK_WDT: reasonStr = "TASK_WDT"; break;
+    case ESP_RST_WDT:      reasonStr = "WDT"; break;
+    case ESP_RST_DEEPSLEEP: reasonStr = "DEEPSLEEP"; break;
+    case ESP_RST_BROWNOUT: reasonStr = "BROWNOUT"; break;
+    default: break;
+  }
+  plog.println("Boot — firmware %s, reason=%s, heap=%lu",
+               FW_VERSION, reasonStr, (unsigned long)ESP.getFreeHeap());
 
   // ── RTC init (DS3231 on I2C: SDA=21, SCL=22) ──
   Wire.begin(21, 22);
@@ -3382,6 +3409,7 @@ void setup() {
   activeFlavor = (digitalRead(FLAVOR_SW_PIN) == LOW) ? 1 : 0;
 
   // UART to display board (bidirectional, 115200 baud)
+  Serial2.setRxBufferSize(4096);
   Serial2.begin(115200, SERIAL_8N1, DISPLAY_RX_PIN, DISPLAY_TX_PIN);
 
   // Init ProtoLink for RP2040 (TinyProto HDLC)
@@ -3422,6 +3450,7 @@ void setup() {
   sendMapToRP();
 
   // UART to config display (ESP32-S3, bidirectional, 115200 baud)
+  Serial1.setRxBufferSize(4096);
   Serial1.begin(115200, SERIAL_8N1, CONFIG_RX_PIN, CONFIG_TX_PIN);
 
   // Init ProtoLink for S3 (TinyProto HDLC)
@@ -3689,10 +3718,22 @@ void loop() {
     lastStatsFlush = now;
   }
 
+  // ── 5b. Periodic heap check (every 5 min) — detect slow leaks ──
+  static unsigned long lastHeapLog = 0;
+  if (now - lastHeapLog >= 300000) {
+    lastHeapLog = now;
+    unsigned long heap = ESP.getFreeHeap();
+    unsigned long minHeap = ESP.getMinFreeHeap();
+    Serial.printf("DIAG: heap=%lu minHeap=%lu uptime=%lus\n",
+                  heap, minHeap, now / 1000);
+    plog.println("heap=%lu min=%lu up=%lus", heap, minHeap, now / 1000);
+  }
+
   // ── 6. UART commands ─────────────────────────────────────────
   protoRP.serviceRx();
   rpProcessQueue();
   rpCheckTextCallbackTimeout();
+  s3CheckTextCallbackTimeout();
   checkConfigUART();
 
   // ── 7. Periodic device re-sync (safety net) ─────────────────
