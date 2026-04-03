@@ -1,4 +1,5 @@
 #include <Arduino.h>
+#include <esp_system.h>
 #include <Arduino_GFX_Library.h>
 #include <lvgl.h>
 #include <LittleFS.h>
@@ -307,21 +308,26 @@ class BLERxCB : public NimBLECharacteristicCallbacks {
           break;
         }
 
-        // Drop if a previous request hasn't been processed yet
-        if (bleRequest != BLE_REQ_NONE) return;
-
-        bleRequestConnHandle = connHandle;
-
         if (strcmp(textBuf, "GET_CONFIG") == 0) {
+          if (bleRequest != BLE_REQ_NONE) return;
+          bleRequestConnHandle = connHandle;
           bleRequest = BLE_REQ_GET_CONFIG;
         } else if (strcmp(textBuf, "GET_VERSION") == 0) {
+          if (bleRequest != BLE_REQ_NONE) return;
+          bleRequestConnHandle = connHandle;
           bleRequest = BLE_REQ_GET_VERSION;
         } else if (strcmp(textBuf, "LIST") == 0) {
+          if (bleRequest != BLE_REQ_NONE) return;
+          bleRequestConnHandle = connHandle;
           bleRequest = BLE_REQ_LIST;
         } else if (strncmp(textBuf, "GETPNG:", 7) == 0) {
+          if (bleRequest != BLE_REQ_NONE) return;
+          bleRequestConnHandle = connHandle;
           bleRequestSlot = atoi(textBuf + 7);
           bleRequest = BLE_REQ_GETPNG;
         } else if (strncmp(textBuf, "GETIMG:", 7) == 0) {
+          if (bleRequest != BLE_REQ_NONE) return;
+          bleRequestConnHandle = connHandle;
           bleRequestSlot = atoi(textBuf + 7);
           bleRequest = BLE_REQ_GETIMG;
         } else {
@@ -1366,7 +1372,12 @@ static void bleSendFrame(uint8_t type, const uint8_t *payload, uint16_t len) {
   bleSendChunkBuf[1] = len & 0xFF;
   bleSendChunkBuf[2] = (len >> 8) & 0xFF;
   if (len > 0 && payload) memcpy(bleSendChunkBuf + 3, payload, len);
-  pTxChar->notify(bleSendChunkBuf, 3 + len);
+  // Retry if BLE TX buffer is full (notify returns false on congestion)
+  for (int attempt = 0; attempt < 10; attempt++) {
+    if (pTxChar->notify(bleSendChunkBuf, 3 + len)) return;
+    delay(15);  // wait one BLE connection interval for buffer to drain
+  }
+  Serial.printf("BLE notify dropped: type=0x%02X len=%u\n", type, len);
 }
 
 // Broadcast a TEXT message to all connected clients
@@ -2280,6 +2291,7 @@ void handleTap() {
 
 void setup() {
   Serial.begin(115200);
+  Serial0.setRxBufferSize(4096);  // prevent RX overflow during bulk image uploads
   Serial0.begin(115200, SERIAL_8N1, 44, 43);  // UART0 on J34 connector (RX=44, TX=43)
   proto.onMessage = onMessage;
   proto.begin(Serial0, "ESP32");
@@ -2305,7 +2317,22 @@ void setup() {
     Serial.println("LittleFS mount failed!");
   }
   plog.begin();
-  plog.println("Boot — firmware %s, heap=%lu", FW_BUILD_TIME, (unsigned long)ESP.getFreeHeap());
+  esp_reset_reason_t reason = esp_reset_reason();
+  const char *reasonStr = "UNKNOWN";
+  switch (reason) {
+    case ESP_RST_POWERON:  reasonStr = "POWERON"; break;
+    case ESP_RST_SW:       reasonStr = "SW"; break;
+    case ESP_RST_PANIC:    reasonStr = "PANIC"; break;
+    case ESP_RST_INT_WDT:  reasonStr = "INT_WDT"; break;
+    case ESP_RST_TASK_WDT: reasonStr = "TASK_WDT"; break;
+    case ESP_RST_WDT:      reasonStr = "WDT"; break;
+    case ESP_RST_DEEPSLEEP: reasonStr = "DEEPSLEEP"; break;
+    case ESP_RST_BROWNOUT: reasonStr = "BROWNOUT"; break;
+    case ESP_RST_USB:      reasonStr = "USB"; break;
+    default: break;
+  }
+  plog.println("Boot — firmware %s, heap=%lu, reason=%s",
+               FW_BUILD_TIME, (unsigned long)ESP.getFreeHeap(), reasonStr);
   seedDefaultImages();
   numImages = countImages();
   loadLabels();
@@ -2492,6 +2519,17 @@ void loop() {
 
   if (dir != 0) handleNavigation(dir);
   if (tapped) handleTap();
+
+  // Periodic heap check (every 5 min) — detect slow leaks
+  static unsigned long lastHeapLog = 0;
+  if (millis() - lastHeapLog >= 300000) {
+    lastHeapLog = millis();
+    unsigned long heap = ESP.getFreeHeap();
+    unsigned long minHeap = ESP.getMinFreeHeap();
+    Serial.printf("DIAG: heap=%lu minHeap=%lu uptime=%lus\n",
+                  heap, minHeap, millis() / 1000);
+    plog.println("heap=%lu min=%lu up=%lus", heap, minHeap, millis() / 1000);
+  }
 
   lv_timer_handler();
   delay(5);
