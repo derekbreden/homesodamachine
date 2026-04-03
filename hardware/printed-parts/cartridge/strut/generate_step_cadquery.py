@@ -20,7 +20,7 @@ RELEASE_SEAT_LENGTH = 5.0  # matches release plate thickness
 
 # Slot
 SLOT_WIDTH = 0.6
-SLOT_DEPTH = 15.0
+SLOT_DEPTH_ADD = 8.0  # extra slot depth beyond the body-side bump
 
 # Lever end Y positions (from Y=0 inward)
 LEVER_LEAD_IN_END = LEAD_IN_LENGTH                                  # 1.0
@@ -97,12 +97,18 @@ s = cut_taper(s, 0, LEVER_LEAD_IN_END, TIP_WIDTH, BUMP_WIDTH)
 s = cut_groove(s, RELEASE_SEAT_START, RELEASE_SEAT_LENGTH, BODY_WIDTH, BUMP_WIDTH)
 s = cut_taper(s, STRUT_L, RELEASE_LEAD_IN_START, TIP_WIDTH, BUMP_WIDTH)
 
-# Slot: single split along X center, full Z height, from each tip
+# Lever slot
+lever_slot_depth = LEAD_IN_LENGTH + BUMP_LENGTH + LEVER_SEAT_LENGTH + BUMP_LENGTH + SLOT_DEPTH_ADD
 slot_half_x = SLOT_WIDTH / 2
 z_cut = STRUT_Z / 2 + oc
-for y_start, length in [(-oc, SLOT_DEPTH + oc), (STRUT_L - SLOT_DEPTH, SLOT_DEPTH + oc)]:
-    s = s.cut(cq.Workplane("XY")
-        .transformed(offset=cq.Vector(-slot_half_x, y_start, -z_cut))
-        .box(SLOT_WIDTH, length, 2 * z_cut, centered=False))
+s = s.cut(cq.Workplane("XY")
+    .transformed(offset=cq.Vector(-slot_half_x, -oc, -z_cut))
+    .box(SLOT_WIDTH, lever_slot_depth + oc, 2 * z_cut, centered=False))
+
+# Release slot
+release_slot_depth = LEAD_IN_LENGTH + BUMP_LENGTH + RELEASE_SEAT_LENGTH + BUMP_LENGTH + SLOT_DEPTH_ADD
+s = s.cut(cq.Workplane("XY")
+    .transformed(offset=cq.Vector(-slot_half_x, STRUT_L - release_slot_depth, -z_cut))
+    .box(SLOT_WIDTH, release_slot_depth + oc, 2 * z_cut, centered=False))
 
 export(s, "strut")
