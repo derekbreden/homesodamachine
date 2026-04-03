@@ -9,17 +9,17 @@ OUT_DIR = Path(__file__).parent
 
 # Widths (X axis, Z is always STRUT_Z)
 TIP_WIDTH = 5.0
-BUMP_WIDTH = 6.7
+BUMP_WIDTH = 7.0
 BODY_WIDTH = 6.0
 
 # Lengths (Y axis)
-LEAD_IN_LENGTH = 1.0
-BUMP_LENGTH = 1.0
+LEAD_IN_LENGTH = 2.0
+BUMP_LENGTH = 2.0
 LEVER_SEAT_LENGTH = 4.0    # matches lever plate thickness
 RELEASE_SEAT_LENGTH = 5.0  # matches release plate thickness
 
 # Slot
-SLOT_WIDTH = 0.6
+SLOT_WIDTH = 1.0
 SLOT_DEPTH_ADD = 8.0  # extra slot depth beyond the body-side bump
 
 # Lever end Y positions (from Y=0 inward)
