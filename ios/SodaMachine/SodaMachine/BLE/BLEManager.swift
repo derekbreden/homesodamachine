@@ -169,6 +169,46 @@ class BLEManager {
         centralManager = CBCentralManager(delegate: cbAdapter, queue: bleQueue)
     }
 
+    /// Called when the app returns to foreground after being backgrounded.
+    /// Restarts scanning if not connected (iOS silently stops scans while
+    /// backgrounded), and resets stale transfer state if connected (downloads
+    /// interrupted by backgrounding leave isDownloading stuck true, blocking
+    /// subsequent stats requests).
+    func handleReturnToForeground() {
+        guard !demoMode, centralManager != nil else { return }
+
+        if connectionState == .connected {
+            bleQueue.async { [weak self] in
+                guard let self, self.isDownloading else { return }
+                // Download was interrupted by backgrounding — the S3 stopped
+                // sending while we were suspended. Clear the dead transfer so
+                // requestStatsAndCharts() isn't blocked by isDownloading.
+                self.frameBuffer = Data()
+                self.imgDownloadQueue = []
+                self.imgDownloadData = Data()
+                self.imgDownloadSlot = -1
+                self.binStartReceived = false
+                DispatchQueue.main.async {
+                    self.isDownloading = false
+                    self.imageDownloadProgress = nil
+                    self.pendingStatsRequest = false
+                }
+            }
+        } else if connectionState != .bluetoothOff {
+            // iOS may have stopped our scan or stalled a connection attempt
+            // while backgrounded. Cancel any pending connection and rescan.
+            if let peripheral = connectedPeripheral {
+                userInitiatedDisconnect = true
+                centralManager.cancelPeripheralConnection(peripheral)
+                connectedPeripheral = nil
+                rxCharacteristic = nil
+                nusReady = false
+                frameBuffer = Data()
+            }
+            startScan()
+        }
+    }
+
     // MARK: - Public API
 
     /// Send a text command to the S3 via BLE GATT/NUS.
