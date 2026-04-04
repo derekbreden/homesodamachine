@@ -1935,8 +1935,10 @@ void processConfigCommand(const char *cmd, Stream &out) {
     rpQueueDelete((uint8_t)slot, [](uint8_t s, bool ok) {
       if (ok) numRpImages = rpPending.responseValue;
     });
-    // Forward delete to S3 (async)
-    s3QueueDelete((uint8_t)slot);
+    // Forward delete to S3 (async) — with callback to track S3 image count
+    s3QueueDelete((uint8_t)slot, [](uint8_t s, bool ok) {
+      if (ok) numS3Images = s3Pending.responseValue;
+    });
 
     // Adjust flavor image references
     if (flavor1Image == slot) flavor1Image = 0;
@@ -1948,13 +1950,16 @@ void processConfigCommand(const char *cmd, Stream &out) {
     saveUserConfig();
     sendMapToRP();
 
-    // Push updated config to S3 (async, fire-and-forget)
+    // Push updated config to S3 AFTER delete (queued, not direct send).
+    // Direct protoS3.sendText would arrive at S3 before the queued
+    // MSG_DELETE_IMAGE, causing S3's parseConfigResponse orphan cleanup
+    // to delete wrong files before the delete message shifts them.
     {
       char cfgBuf[128];
       snprintf(cfgBuf, sizeof(cfgBuf),
                "CONFIG:F1_RATIO=%d,F2_RATIO=%d,F1_IMAGE=%d,F2_IMAGE=%d,numImages=%d",
                flavor1Ratio, flavor2Ratio, flavor1Image, flavor2Image, numEspImages);
-      protoS3.sendText(cfgBuf);
+      s3QueueText(cfgBuf);
     }
     out.printf("OK:STORE_DELETED=%d,NUM_IMAGES=%d\n", slot, numEspImages);
 
