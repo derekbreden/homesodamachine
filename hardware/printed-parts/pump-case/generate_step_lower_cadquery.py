@@ -35,13 +35,13 @@ CENTER = FOOTPRINT / 2    # 35
 
 # Uniform 62×62 (top and top-of-ramp)
 uni_he = FOOTPRINT / 2 - NARROW_TAPER                # 31
-uni_r  = max(0, CORNER_R - NARROW_TAPER)              # 2
+uni_r  = CORNER_R                                     # 6mm corner radius on all profiles
 
 # Split 76/62 (bottom-of-ramp and bottom)
 split_wide_he   = FOOTPRINT / 2 + WIDE_FLARE         # 38
-split_wide_r    = CORNER_R + WIDE_FLARE               # 9
+split_wide_r    = CORNER_R                            # 6mm corner radius on all profiles
 split_narrow_he = uni_he                              # 31
-split_narrow_r  = uni_r                               # 2
+split_narrow_r  = CORNER_R                            # 6mm corner radius on all profiles
 
 # Transition Z values — seam plane stays at X + Z = -uni_he = -31
 # Uniform profile: both halves at he=31, transition at ~0
@@ -57,13 +57,13 @@ seam_z_shift = WALL * (math.sqrt(2) - 1)
 
 # Inner uniform
 iuni_he = uni_he - WALL                               # 28
-iuni_r  = max(0, uni_r - WALL)                         # 0
+iuni_r  = uni_r - WALL                                 # 3
 
 # Inner split
 isplit_wide_he   = split_wide_he - WALL               # 35
-isplit_wide_r    = split_wide_r - WALL                 # 6
+isplit_wide_r    = split_wide_r - WALL                 # 3
 isplit_narrow_he = split_narrow_he - WALL              # 28
-isplit_narrow_r  = max(0, split_narrow_r - WALL)       # 0
+isplit_narrow_r  = split_narrow_r - WALL               # 3
 
 # Inner transition Z (shifted for 3mm perpendicular wall thickness)
 iuni_tz_plus  =  0.01

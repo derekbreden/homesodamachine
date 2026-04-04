@@ -284,14 +284,14 @@ base_r = CORNER_R
 wall = SKIRT_THICKNESS
 
 wide_he = base_he + SKIRT_WIDE_FLARE_PER_SIDE
-wide_r = base_r + SKIRT_WIDE_FLARE_PER_SIDE
+wide_r = base_r                                        # 6mm corner radius on all profiles
 narrow_he = base_he - SKIRT_NARROW_TAPER_PER_SIDE
-narrow_r = max(0, base_r - SKIRT_NARROW_TAPER_PER_SIDE)
+narrow_r = base_r                                      # 6mm corner radius on all profiles
 
 # At the moment the wide flare completes (3mm), the narrow side
 # has only tapered by 3 of its 4mm
 mid_narrow_he = base_he - SKIRT_WIDE_FLARE_PER_SIDE
-mid_narrow_r = max(0, base_r - SKIRT_WIDE_FLARE_PER_SIDE)
+mid_narrow_r = base_r                                  # 6mm corner radius on all profiles
 
 # Narrow straight section is shorter so both halves land together
 skirt_narrow_straight_height = (
@@ -324,11 +324,11 @@ skirt_outer_profiles = [
 
 # Inner profiles (subtract wall thickness from each half-extent and radius)
 inner_wide_he = wide_he - wall
-inner_wide_r = wide_r - wall
+inner_wide_r = wide_r - wall                           # 3mm inner radius
 inner_narrow_he = narrow_he - wall
-inner_narrow_r = max(0, narrow_r - wall)
+inner_narrow_r = narrow_r - wall                       # 3mm inner radius
 inner_mid_narrow_he = mid_narrow_he - wall
-inner_mid_narrow_r = max(0, mid_narrow_r - wall)
+inner_mid_narrow_r = mid_narrow_r - wall               # 3mm inner radius
 inner_base_he = base_he - wall
 inner_base_r = base_r - wall
 
