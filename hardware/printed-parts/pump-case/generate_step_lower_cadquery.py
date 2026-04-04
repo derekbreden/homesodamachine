@@ -1,14 +1,17 @@
 """Generate the pump-case lower part STEP file.
 
-The lower part sits below the main pump case skirt.
-  Top (Y=0):   uniform 62×62 rounded rect
+The lower part sits below the main pump case skirt.  Both parts share
+the identical split 76/62 footprint at their bottoms — that is the
+mating interface.
+
+  Top (Y=0):   solid 3mm cap, then uniform 62×62 shell
   Middle:      45° ramp — wider half expands from 62→76, narrow half stays 62
-  Bottom:      split profile 76 wide / 62 narrow
+  Bottom:      split footprint 76 wide / 62 narrow (mates with main part)
 
 Layout (top to bottom):
-  11.5mm  top straight   (62×62)
-   7.0mm  ramp at 45°    (wider half: 31→38 he, 7mm/side)
-   4.5mm  bottom straight (76/62 split)
+  11.5mm  uniform straight  (62×62)
+   7.0mm  ramp at 45°       (wider half: 31→38 he, 7mm/side)
+   4.5mm  footprint straight (76/62 split)
   ─────
   23.0mm  total
 """
@@ -19,62 +22,53 @@ import math
 import cadquery as cq
 
 # ── Dimensions ──
-FOOTPRINT = 70.0
 CORNER_R = 6.0
-WALL = 3.0
-WIDE_FLARE = 3.0         # per side: 70 → 76
-NARROW_TAPER = 4.0        # per side: 70 → 62
-HEIGHT = 23.0
+WALL_THICKNESS = 3.0
+TOTAL_HEIGHT = 23.0
 ARC_SEGMENTS = 8
 OVERCUT = 0.1
 ARCH_RADIUS = 4.5
 
-CENTER = FOOTPRINT / 2    # 35
+# The bottom footprint matches the main part's split skirt bottom.
+# Wider half (+Z) is 76mm, narrower half (-Z) is 62mm.
+FOOTPRINT_WIDE_HE = 38.0     # half of 76mm
+FOOTPRINT_NARROW_HE = 31.0   # half of 62mm
 
-# ── Profile dimensions ──
+# The uniform top profile matches the narrow half (both halves are 62mm)
+UNIFORM_HE = FOOTPRINT_NARROW_HE  # 31
 
-# Uniform 62×62 (top and top-of-ramp)
-uni_he = FOOTPRINT / 2 - NARROW_TAPER                # 31
-uni_r  = CORNER_R                                     # 6mm corner radius on all profiles
+# Profile center — aligns with the main part's 70×70 footprint center
+PROFILE_CENTER = 35.0
 
-# Split 76/62 (bottom-of-ramp and bottom)
-split_wide_he   = FOOTPRINT / 2 + WIDE_FLARE         # 38
-split_wide_r    = CORNER_R                            # 6mm corner radius on all profiles
-split_narrow_he = uni_he                              # 31
-split_narrow_r  = CORNER_R                            # 6mm corner radius on all profiles
-
-# Transition Z values — seam plane stays at X + Z = -uni_he = -31
+# ── Transition Z values ──
+# Seam plane stays at X + Z = -UNIFORM_HE = -31
 # Uniform profile: both halves at he=31, transition at ~0
-uni_tz_plus  =  0.01
-uni_tz_minus = -0.01
+uniform_tz_plus  =  0.01
+uniform_tz_minus = -0.01
 
-# Split profile: wide_he=38 → tz_plus = 38 - 31 = 7;  narrow_he=31 → tz_minus = 0
-split_tz_plus  = split_wide_he - uni_he               # 7
-split_tz_minus = 0.01                                  # ~0 (avoid degenerate edge)
+# Footprint profile: wide_he=38 → tz = 38-31 = 7;  narrow_he=31 → tz ≈ 0
+footprint_tz_plus  = FOOTPRINT_WIDE_HE - UNIFORM_HE    # 7
+footprint_tz_minus = 0.01                                # ~0 (avoid degenerate edge)
 
 # ── Inner profile dimensions ──
-seam_z_shift = WALL * (math.sqrt(2) - 1)
+seam_z_shift = WALL_THICKNESS * (math.sqrt(2) - 1)
 
-# Inner uniform
-iuni_he = uni_he - WALL                               # 28
-iuni_r  = uni_r - WALL                                 # 3
+INNER_CORNER_R = CORNER_R - WALL_THICKNESS              # 3
 
-# Inner split
-isplit_wide_he   = split_wide_he - WALL               # 35
-isplit_wide_r    = split_wide_r - WALL                 # 3
-isplit_narrow_he = split_narrow_he - WALL              # 28
-isplit_narrow_r  = split_narrow_r - WALL               # 3
+inner_uniform_he = UNIFORM_HE - WALL_THICKNESS           # 28
+inner_footprint_wide_he = FOOTPRINT_WIDE_HE - WALL_THICKNESS   # 35
+inner_footprint_narrow_he = FOOTPRINT_NARROW_HE - WALL_THICKNESS  # 28
 
 # Inner transition Z (shifted for 3mm perpendicular wall thickness)
-iuni_tz_plus  =  0.01
-iuni_tz_minus = -0.01
-isplit_tz_plus  = split_tz_plus + seam_z_shift
-isplit_tz_minus = split_tz_minus + seam_z_shift
+inner_uniform_tz_plus  =  0.01
+inner_uniform_tz_minus = -0.01
+inner_footprint_tz_plus  = footprint_tz_plus + seam_z_shift
+inner_footprint_tz_minus = footprint_tz_minus + seam_z_shift
 
 # ── Section heights ──
-RAMP_HEIGHT = split_wide_he - uni_he                  # 7mm (45° = 1:1)
-BOTTOM_STRAIGHT = 4.5                                  # matches main part
-TOP_STRAIGHT = HEIGHT - RAMP_HEIGHT - BOTTOM_STRAIGHT  # 11.5
+RAMP_HEIGHT = FOOTPRINT_WIDE_HE - UNIFORM_HE             # 7mm (45° = 1:1)
+FOOTPRINT_STRAIGHT_HEIGHT = 4.5                           # matches main part
+UNIFORM_STRAIGHT_HEIGHT = TOTAL_HEIGHT - RAMP_HEIGHT - FOOTPRINT_STRAIGHT_HEIGHT  # 11.5
 
 
 def split_skirt_profile(wide_he, wide_r, narrow_he, narrow_r,
@@ -128,47 +122,49 @@ def split_skirt_profile(wide_he, wide_r, narrow_he, narrow_r,
 # ── Outer profiles at 4 Y-levels ──
 outer_profiles = [
     # Level 0: Y=0, top — uniform 62×62
-    split_skirt_profile(uni_he, uni_r, uni_he, uni_r,
-                        uni_tz_plus, uni_tz_minus),
-    # Level 1: Y=-11.5, end of top straight — still 62×62
-    split_skirt_profile(uni_he, uni_r, uni_he, uni_r,
-                        uni_tz_plus, uni_tz_minus),
-    # Level 2: Y=-18.5, end of ramp — split 76/62
-    split_skirt_profile(split_wide_he, split_wide_r,
-                        split_narrow_he, split_narrow_r,
-                        split_tz_plus, split_tz_minus),
-    # Level 3: Y=-23, bottom — split 76/62
-    split_skirt_profile(split_wide_he, split_wide_r,
-                        split_narrow_he, split_narrow_r,
-                        split_tz_plus, split_tz_minus),
+    split_skirt_profile(UNIFORM_HE, CORNER_R, UNIFORM_HE, CORNER_R,
+                        uniform_tz_plus, uniform_tz_minus),
+    # Level 1: end of uniform straight — still 62×62
+    split_skirt_profile(UNIFORM_HE, CORNER_R, UNIFORM_HE, CORNER_R,
+                        uniform_tz_plus, uniform_tz_minus),
+    # Level 2: end of ramp — split 76/62 footprint
+    split_skirt_profile(FOOTPRINT_WIDE_HE, CORNER_R,
+                        FOOTPRINT_NARROW_HE, CORNER_R,
+                        footprint_tz_plus, footprint_tz_minus),
+    # Level 3: bottom — split 76/62 footprint
+    split_skirt_profile(FOOTPRINT_WIDE_HE, CORNER_R,
+                        FOOTPRINT_NARROW_HE, CORNER_R,
+                        footprint_tz_plus, footprint_tz_minus),
 ]
 
 # ── Inner profiles at 4 Y-levels ──
 inner_profiles = [
-    split_skirt_profile(iuni_he, iuni_r, iuni_he, iuni_r,
-                        iuni_tz_plus, iuni_tz_minus),
-    split_skirt_profile(iuni_he, iuni_r, iuni_he, iuni_r,
-                        iuni_tz_plus, iuni_tz_minus),
-    split_skirt_profile(isplit_wide_he, isplit_wide_r,
-                        isplit_narrow_he, isplit_narrow_r,
-                        isplit_tz_plus, isplit_tz_minus),
-    split_skirt_profile(isplit_wide_he, isplit_wide_r,
-                        isplit_narrow_he, isplit_narrow_r,
-                        isplit_tz_plus, isplit_tz_minus),
+    split_skirt_profile(inner_uniform_he, INNER_CORNER_R,
+                        inner_uniform_he, INNER_CORNER_R,
+                        inner_uniform_tz_plus, inner_uniform_tz_minus),
+    split_skirt_profile(inner_uniform_he, INNER_CORNER_R,
+                        inner_uniform_he, INNER_CORNER_R,
+                        inner_uniform_tz_plus, inner_uniform_tz_minus),
+    split_skirt_profile(inner_footprint_wide_he, INNER_CORNER_R,
+                        inner_footprint_narrow_he, INNER_CORNER_R,
+                        inner_footprint_tz_plus, inner_footprint_tz_minus),
+    split_skirt_profile(inner_footprint_wide_he, INNER_CORNER_R,
+                        inner_footprint_narrow_he, INNER_CORNER_R,
+                        inner_footprint_tz_plus, inner_footprint_tz_minus),
 ]
 
 # Incremental Y offsets between levels
-y_steps = [TOP_STRAIGHT, RAMP_HEIGHT, BOTTOM_STRAIGHT]
+y_steps = [UNIFORM_STRAIGHT_HEIGHT, RAMP_HEIGHT, FOOTPRINT_STRAIGHT_HEIGHT]
 
 # ── Build outer loft ──
-outer_solid = cq.Workplane("XZ").workplane(offset=0).center(CENTER, CENTER)
+outer_solid = cq.Workplane("XZ").workplane(offset=0).center(PROFILE_CENTER, PROFILE_CENTER)
 outer_solid = outer_solid.polyline(outer_profiles[0]).close()
 for step, profile in zip(y_steps, outer_profiles[1:]):
     outer_solid = outer_solid.workplane(offset=step).polyline(profile).close()
 outer_solid = outer_solid.loft(ruled=True)
 
 # ── Build inner loft ──
-inner_solid = cq.Workplane("XZ").workplane(offset=0).center(CENTER, CENTER)
+inner_solid = cq.Workplane("XZ").workplane(offset=0).center(PROFILE_CENTER, PROFILE_CENTER)
 inner_solid = inner_solid.polyline(inner_profiles[0]).close()
 for i, (step, profile) in enumerate(zip(y_steps, inner_profiles[1:])):
     extra = OVERCUT if i == len(y_steps) - 1 else 0
@@ -180,27 +176,27 @@ solid = outer_solid.cut(inner_solid)
 # ── Cap: solid 3mm slab on top (Y=0 to Y=+3) ──
 CAP_THICKNESS = 3.0
 cap = (
-    cq.Workplane("XZ").workplane(offset=0).center(CENTER, CENTER)
+    cq.Workplane("XZ").workplane(offset=0).center(PROFILE_CENTER, PROFILE_CENTER)
     .polyline(outer_profiles[0]).close()
     .extrude(CAP_THICKNESS)
 )
 solid = solid.union(cap)
 
 # ── Arch notches at the bottom rim (+Z face of wider half) ──
-z_face_outer = CENTER + split_wide_he   # 73
+z_face_outer = PROFILE_CENTER + FOOTPRINT_WIDE_HE   # 73
 arch_hole_xs = [
-    CORNER_R + ARCH_RADIUS - 4,                   # 6.5
-    FOOTPRINT - CORNER_R - ARCH_RADIUS + 4,       # 63.5
+    CORNER_R + ARCH_RADIUS - 4,                       # 6.5
+    2 * PROFILE_CENTER - CORNER_R - ARCH_RADIUS + 4,  # 63.5
 ]
 
-bottom_y = -HEIGHT  # Y=-23
+bottom_y = -TOTAL_HEIGHT  # Y=-23
 for ax in arch_hole_xs:
     arch_cutter = (
         cq.Workplane("XY")
         .workplane(offset=z_face_outer + OVERCUT)
         .center(ax, bottom_y)
         .circle(ARCH_RADIUS)
-        .extrude(-(WALL + 3 + OVERCUT))
+        .extrude(-(WALL_THICKNESS + 3 + OVERCUT))
     )
     solid = solid.cut(arch_cutter)
 

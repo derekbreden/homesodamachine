@@ -18,7 +18,7 @@ RAMP_FROM_SKIRT_TO_OCTAGON_HEIGHT = 18.0
 
 # ── Skirt ──
 SKIRT_UPPER_HEIGHT = 21.0
-SKIRT_THICKNESS = 3.0
+SKIRT_WALL = WALL_THICKNESS
 SKIRT_WIDE_FLARE_PER_SIDE = 3.0   # outward, 70 → 76 exterior
 SKIRT_NARROW_TAPER_PER_SIDE = 4.0  # inward, 70 → 62 exterior
 SKIRT_WIDE_STRAIGHT_HEIGHT = 4.5
@@ -253,7 +253,7 @@ OCTAGON_TO_CYLINDER_SCALE = CYLINDER_R_OUTER / OCTAGON_WALL_OUTER_EXTENT
 # ── Build the solid ──
 
 footprint       = rounded_rect_profile(FOOTPRINT_X, FOOTPRINT_Z, CORNER_R)
-footprint_after_ramp = rounded_rect_profile(
+footprint_at_ramp_bottom = rounded_rect_profile(
     FOOTPRINT_X - 2 * RAMP_FROM_SKIRT_TO_OCTAGON_HEIGHT, FOOTPRINT_Z - 2 * RAMP_FROM_SKIRT_TO_OCTAGON_HEIGHT, CORNER_R)
 
 solid = (
@@ -264,7 +264,7 @@ solid = (
     .workplane(offset=-BASE_THICKNESS)
     .polyline(footprint).close()
     .workplane(offset=-RAMP_FROM_SKIRT_TO_OCTAGON_HEIGHT)
-    .polyline(footprint_after_ramp).close()
+    .polyline(footprint_at_ramp_bottom).close()
     .loft(ruled=True)
 )
 
@@ -281,7 +281,7 @@ solid = (
 
 base_he = FOOTPRINT_X / 2
 base_r = CORNER_R
-wall = SKIRT_THICKNESS
+wall = SKIRT_WALL
 
 wide_he = base_he + SKIRT_WIDE_FLARE_PER_SIDE
 wide_r = base_r                                        # 6mm corner radius on all profiles
@@ -400,22 +400,22 @@ for ax in arch_hole_xs:
         .workplane(offset=z_face_outer + OVERCUT)
         .center(ax, skirt_bottom_y)
         .circle(ARCH_RADIUS)
-        .extrude(-(SKIRT_THICKNESS + 3 + OVERCUT))
+        .extrude(-(SKIRT_WALL + 3 + OVERCUT))
     )
     solid = solid.cut(arch_cutter)
 
 bore_profile = bore_octagon_profile()
-wall_profile = offset_polygon(bore_profile, WALL_THICKNESS)
+bore_wall_profile = offset_polygon(bore_profile, WALL_THICKNESS)
 
-wall_prism = (
+bore_wall_prism = (
     cq.Workplane("XZ")
     .workplane(offset=0)
     .center(CENTER_X, CENTER_Z)
-    .polyline(wall_profile).close()
+    .polyline(bore_wall_profile).close()
     .extrude(-(BASE_THICKNESS + RAMP_FROM_SKIRT_TO_OCTAGON_HEIGHT))
 )
 
-solid = solid.union(wall_prism)
+solid = solid.union(bore_wall_prism)
 bore_cutter = (
     cq.Workplane("XZ")
     .workplane(offset=0)
@@ -444,22 +444,22 @@ tower_platform = (
     cq.Workplane("XZ")
     .workplane(offset=tower_base_y)
     .center(CENTER_X, CENTER_Z)
-    .polyline(wall_profile).close()
+    .polyline(bore_wall_profile).close()
     .extrude(-PLATFORM_THICKNESS)
 )
 
-wall_profile_at_cylinder = [
+bore_wall_profile_at_cylinder = [
     (x * OCTAGON_TO_CYLINDER_SCALE, z * OCTAGON_TO_CYLINDER_SCALE)
-    for x, z in wall_profile
+    for x, z in bore_wall_profile
 ]
 
 tower_ramp = (
     cq.Workplane("XZ")
     .workplane(offset=tower_base_y - PLATFORM_THICKNESS)
     .center(CENTER_X, CENTER_Z)
-    .polyline(wall_profile).close()
+    .polyline(bore_wall_profile).close()
     .workplane(offset=-RAMP_FROM_OCTAGON_TO_CYLINDER_HEIGHT)
-    .polyline(wall_profile_at_cylinder).close()
+    .polyline(bore_wall_profile_at_cylinder).close()
     .loft(ruled=True)
 )
 
