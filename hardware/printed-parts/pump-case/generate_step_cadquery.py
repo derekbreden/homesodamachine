@@ -407,7 +407,7 @@ for ax in arch_hole_xs:
         .lineTo(ARCH_RADIUS, 0)
         .threePointArc((0, ARCH_RADIUS), (-ARCH_RADIUS, 0))
         .close()
-        .extrude(-(wide_he + OVERCUT))
+        .extrude(-(SKIRT_THICKNESS + 3 + OVERCUT))
     )
     solid = solid.cut(arch_cutter)
 
