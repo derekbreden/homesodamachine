@@ -3,19 +3,22 @@ import math
 
 import cadquery as cq
 
-# ── Case envelope ──
-CASE_X = 70.0           # width  (X axis)
-CASE_Y = 21.0           # height (Y axis, vertical)
-CASE_Z = 70.0           # depth  (Z axis)
-BASE_THICKNESS = 3.0
-WALL_THICKNESS = 3.0
-RAMP_HEIGHT = CASE_Y - BASE_THICKNESS
+# ── Footprint ──
+FOOTPRINT_X = 70.0
+FOOTPRINT_Z = 70.0
 CORNER_R = 6.0
+WALL_THICKNESS = 3.0
+
+CENTER_X = FOOTPRINT_X / 2
+CENTER_Z = FOOTPRINT_Z / 2
+
+# ── Outer ramp (must reach octagon wall at rounded-corner diagonal) ──
+BASE_THICKNESS = 3.0
+RAMP_FROM_SKIRT_TO_OCTAGON_HEIGHT = 18.0
+
+# ── Skirt ──
 SKIRT_HEIGHT = 21.0
 SKIRT_THICKNESS = 3.0
-
-CENTER_X = CASE_X / 2
-CENTER_Z = CASE_Z / 2
 
 # ── Pump bore geometry ──
 # The bore is a 43mm square rotated 45 degrees, then trimmed to an octagon
@@ -187,14 +190,14 @@ CYLINDER_OD = CYLINDER_ID + 2 * WALL_THICKNESS
 CYLINDER_R_OUTER = CYLINDER_OD / 2
 CYLINDER_R_INNER = CYLINDER_ID / 2
 
-INNER_RAMP_HEIGHT = WALL_OUTER_FAR - CYLINDER_R_OUTER
+INNER_RAMP_FROM_SKIRT_TO_OCTAGON_HEIGHT = WALL_OUTER_FAR - CYLINDER_R_OUTER
 
 
 # ── Build the solid ──
 
-footprint       = rounded_rect_profile(CASE_X, CASE_Z, CORNER_R)
+footprint       = rounded_rect_profile(FOOTPRINT_X, FOOTPRINT_Z, CORNER_R)
 footprint_after_ramp = rounded_rect_profile(
-    CASE_X - 2 * RAMP_HEIGHT, CASE_Z - 2 * RAMP_HEIGHT, CORNER_R)
+    FOOTPRINT_X - 2 * RAMP_FROM_SKIRT_TO_OCTAGON_HEIGHT, FOOTPRINT_Z - 2 * RAMP_FROM_SKIRT_TO_OCTAGON_HEIGHT, CORNER_R)
 
 solid = (
     cq.Workplane("XZ")
@@ -203,14 +206,14 @@ solid = (
     .polyline(footprint).close()
     .workplane(offset=-BASE_THICKNESS)
     .polyline(footprint).close()
-    .workplane(offset=-RAMP_HEIGHT)
+    .workplane(offset=-RAMP_FROM_SKIRT_TO_OCTAGON_HEIGHT)
     .polyline(footprint_after_ramp).close()
     .loft(ruled=True)
 )
 
 # Skirt — 3mm wall extending 21mm below the base plate
-skirt_inner_width  = CASE_X - 2 * SKIRT_THICKNESS
-skirt_inner_depth  = CASE_Z - 2 * SKIRT_THICKNESS
+skirt_inner_width  = FOOTPRINT_X - 2 * SKIRT_THICKNESS
+skirt_inner_depth  = FOOTPRINT_Z - 2 * SKIRT_THICKNESS
 skirt_inner_radius = CORNER_R - SKIRT_THICKNESS
 
 skirt_outer = (
@@ -240,7 +243,7 @@ wall_prism = (
     .workplane(offset=0)
     .center(CENTER_X, CENTER_Z)
     .polyline(wall_profile).close()
-    .extrude(-CASE_Y)
+    .extrude(-(BASE_THICKNESS + RAMP_FROM_SKIRT_TO_OCTAGON_HEIGHT))
 )
 
 solid = solid.union(wall_prism)
@@ -249,7 +252,7 @@ bore_cutter = (
     .workplane(offset=0)
     .center(CENTER_X, CENTER_Z)
     .polyline(bore_profile).close()
-    .extrude(-(CASE_Y + OVERCUT))
+    .extrude(-(BASE_THICKNESS + RAMP_FROM_SKIRT_TO_OCTAGON_HEIGHT + OVERCUT))
 )
 solid = solid.cut(bore_cutter)
 
@@ -260,13 +263,13 @@ for hx, hz in HOLE_POSITIONS:
         .workplane(offset=0)
         .center(hx, hz)
         .circle(HOLE_R)
-        .extrude(-(CASE_Y + OVERCUT))
+        .extrude(-(BASE_THICKNESS + RAMP_FROM_SKIRT_TO_OCTAGON_HEIGHT + OVERCUT))
     )
     solid = solid.cut(hole_cutter)
 
 # ── Tower: octagon platform + ramp + cylinder + cap ──
 
-tower_base_y = -CASE_Y
+tower_base_y = -(BASE_THICKNESS + RAMP_FROM_SKIRT_TO_OCTAGON_HEIGHT)
 
 tower_platform = (
     cq.Workplane("XZ")
@@ -281,7 +284,7 @@ tower_taper = (
     .workplane(offset=tower_base_y - PLATFORM_THICKNESS)
     .center(CENTER_X, CENTER_Z)
     .polyline(wall_profile).close()
-    .extrude(-INNER_RAMP_HEIGHT, taper=45)
+    .extrude(-INNER_RAMP_FROM_SKIRT_TO_OCTAGON_HEIGHT, taper=45)
 )
 
 tower_cylinder = (
