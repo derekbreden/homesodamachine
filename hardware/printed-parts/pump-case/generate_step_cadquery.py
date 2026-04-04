@@ -17,8 +17,11 @@ BASE_THICKNESS = 3.0
 RAMP_FROM_SKIRT_TO_OCTAGON_HEIGHT = 18.0
 
 # ── Skirt ──
-SKIRT_HEIGHT = 21.0
+SKIRT_UPPER_HEIGHT = 21.0
 SKIRT_THICKNESS = 3.0
+SKIRT_FLARE_PER_SIDE = 3.0
+SKIRT_FLARE_HEIGHT = SKIRT_FLARE_PER_SIDE  # 45 degrees
+SKIRT_LOWER_HEIGHT = 10.0
 
 # ── Pump bore geometry ──
 # The bore is a 43mm square rotated 45 degrees, then trimmed to an octagon
@@ -212,27 +215,57 @@ solid = (
     .loft(ruled=True)
 )
 
-# Skirt — 3mm wall extending 21mm below the base plate
-skirt_inner_width  = FOOTPRINT_X - 2 * SKIRT_THICKNESS
-skirt_inner_depth  = FOOTPRINT_Z - 2 * SKIRT_THICKNESS
-skirt_inner_radius = CORNER_R - SKIRT_THICKNESS
+# ── Skirt: upper (straight) + flare (45° outward) + lower (straight) ──
 
+skirt_upper_inner = rounded_rect_profile(
+    FOOTPRINT_X - 2 * SKIRT_THICKNESS,
+    FOOTPRINT_Z - 2 * SKIRT_THICKNESS,
+    CORNER_R - SKIRT_THICKNESS)
+
+skirt_lower_x = FOOTPRINT_X + 2 * SKIRT_FLARE_PER_SIDE
+skirt_lower_z = FOOTPRINT_Z + 2 * SKIRT_FLARE_PER_SIDE
+skirt_lower_r = CORNER_R + SKIRT_FLARE_PER_SIDE
+skirt_lower_outer = rounded_rect_profile(skirt_lower_x, skirt_lower_z, skirt_lower_r)
+skirt_lower_inner = rounded_rect_profile(
+    skirt_lower_x - 2 * SKIRT_THICKNESS,
+    skirt_lower_z - 2 * SKIRT_THICKNESS,
+    skirt_lower_r - SKIRT_THICKNESS)
+
+skirt_upper_top = 0
+skirt_upper_bottom = SKIRT_UPPER_HEIGHT
+skirt_flare_bottom = skirt_upper_bottom + SKIRT_FLARE_HEIGHT
+skirt_lower_bottom = skirt_flare_bottom + SKIRT_LOWER_HEIGHT
+
+# Outer shell: upper straight → flare → lower straight
 skirt_outer = (
     cq.Workplane("XZ")
-    .workplane(offset=0)
+    .workplane(offset=skirt_upper_top)
     .center(CENTER_X, CENTER_Z)
     .polyline(footprint).close()
-    .extrude(SKIRT_HEIGHT)
+    .workplane(offset=skirt_upper_bottom)
+    .polyline(footprint).close()
+    .workplane(offset=skirt_flare_bottom)
+    .polyline(skirt_lower_outer).close()
+    .workplane(offset=skirt_lower_bottom)
+    .polyline(skirt_lower_outer).close()
+    .loft(ruled=True)
 )
-skirt_inner_profile = rounded_rect_profile(
-    skirt_inner_width, skirt_inner_depth, skirt_inner_radius)
+
+# Inner cavity: same structure, thinner profiles
 skirt_cavity = (
     cq.Workplane("XZ")
-    .workplane(offset=0)
+    .workplane(offset=skirt_upper_top)
     .center(CENTER_X, CENTER_Z)
-    .polyline(skirt_inner_profile).close()
-    .extrude(SKIRT_HEIGHT + OVERCUT)
+    .polyline(skirt_upper_inner).close()
+    .workplane(offset=skirt_upper_bottom)
+    .polyline(skirt_upper_inner).close()
+    .workplane(offset=skirt_flare_bottom)
+    .polyline(skirt_lower_inner).close()
+    .workplane(offset=skirt_lower_bottom + OVERCUT)
+    .polyline(skirt_lower_inner).close()
+    .loft(ruled=True)
 )
+
 skirt = skirt_outer.cut(skirt_cavity)
 solid = solid.union(skirt)
 
