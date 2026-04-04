@@ -190,7 +190,7 @@ CYLINDER_OD = CYLINDER_ID + 2 * WALL_THICKNESS
 CYLINDER_R_OUTER = CYLINDER_OD / 2
 CYLINDER_R_INNER = CYLINDER_ID / 2
 
-INNER_RAMP_FROM_SKIRT_TO_OCTAGON_HEIGHT = WALL_OUTER_FAR - CYLINDER_R_OUTER
+RAMP_FROM_OCTAGON_TO_CYLINDER_HEIGHT = WALL_OUTER_FAR - CYLINDER_R_OUTER
 
 
 # ── Build the solid ──
@@ -284,7 +284,7 @@ tower_taper = (
     .workplane(offset=tower_base_y - PLATFORM_THICKNESS)
     .center(CENTER_X, CENTER_Z)
     .polyline(wall_profile).close()
-    .extrude(-INNER_RAMP_FROM_SKIRT_TO_OCTAGON_HEIGHT, taper=45)
+    .extrude(-RAMP_FROM_OCTAGON_TO_CYLINDER_HEIGHT, taper=45)
 )
 
 tower_cylinder = (
