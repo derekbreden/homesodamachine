@@ -182,18 +182,23 @@ def rounded_rect_profile(width, height, radius, n=ARC_SEGMENTS):
     return pts
 
 
-def split_skirt_profile(wide_he, wide_r, narrow_he, narrow_r, n=ARC_SEGMENTS):
+def split_skirt_profile(wide_he, wide_r, narrow_he, narrow_r,
+                        fixed_transition_half_z=None, n=ARC_SEGMENTS):
     """Asymmetric profile: wider rounded rect on +Z half, narrower on -Z half,
-    with 45-degree diagonal transitions on the left and right sides.
+    with diagonal transitions on the left and right sides.
 
-    When wide_he == narrow_he, degenerates to a symmetric rounded rect
-    (with two extra colinear points on each side edge)."""
+    If fixed_transition_half_z is provided, the transition seam stays at
+    that fixed Z position regardless of the current half-extents. This
+    keeps the seam wall vertical as the halves flare/taper independently."""
     # Minimum values avoid zero-length edges in polyline
     wide_r = max(wide_r, 0.01)
     narrow_r = max(narrow_r, 0.01)
     wide_cc = wide_he - wide_r
     narrow_cc = narrow_he - narrow_r
-    transition_half_z = max((wide_he - narrow_he) / 2, 0.01)
+    if fixed_transition_half_z is not None:
+        transition_half_z = fixed_transition_half_z
+    else:
+        transition_half_z = max((wide_he - narrow_he) / 2, 0.01)
 
     pts = []
 
@@ -288,13 +293,17 @@ skirt_narrow_straight_height = (
     - (SKIRT_NARROW_TAPER_PER_SIDE - SKIRT_WIDE_FLARE_PER_SIDE)
 )
 
+# Fixed transition seam position — keeps the wall between halves vertical
+outer_transition_half_z = (wide_he - narrow_he) / 2
+inner_transition_half_z = ((wide_he - wall) - (narrow_he - wall)) / 2
+
 # Outer profiles at 5 Y-levels
 skirt_outer_profiles = [
-    split_skirt_profile(base_he, base_r, base_he, base_r),
-    split_skirt_profile(base_he, base_r, base_he, base_r),
-    split_skirt_profile(wide_he, wide_r, mid_narrow_he, mid_narrow_r),
-    split_skirt_profile(wide_he, wide_r, narrow_he, narrow_r),
-    split_skirt_profile(wide_he, wide_r, narrow_he, narrow_r),
+    split_skirt_profile(base_he, base_r, base_he, base_r, outer_transition_half_z),
+    split_skirt_profile(base_he, base_r, base_he, base_r, outer_transition_half_z),
+    split_skirt_profile(wide_he, wide_r, mid_narrow_he, mid_narrow_r, outer_transition_half_z),
+    split_skirt_profile(wide_he, wide_r, narrow_he, narrow_r, outer_transition_half_z),
+    split_skirt_profile(wide_he, wide_r, narrow_he, narrow_r, outer_transition_half_z),
 ]
 
 # Inner profiles (subtract wall thickness from each half-extent and radius)
@@ -308,11 +317,11 @@ inner_base_he = base_he - wall
 inner_base_r = base_r - wall
 
 skirt_inner_profiles = [
-    split_skirt_profile(inner_base_he, inner_base_r, inner_base_he, inner_base_r),
-    split_skirt_profile(inner_base_he, inner_base_r, inner_base_he, inner_base_r),
-    split_skirt_profile(inner_wide_he, inner_wide_r, inner_mid_narrow_he, inner_mid_narrow_r),
-    split_skirt_profile(inner_wide_he, inner_wide_r, inner_narrow_he, inner_narrow_r),
-    split_skirt_profile(inner_wide_he, inner_wide_r, inner_narrow_he, inner_narrow_r),
+    split_skirt_profile(inner_base_he, inner_base_r, inner_base_he, inner_base_r, inner_transition_half_z),
+    split_skirt_profile(inner_base_he, inner_base_r, inner_base_he, inner_base_r, inner_transition_half_z),
+    split_skirt_profile(inner_wide_he, inner_wide_r, inner_mid_narrow_he, inner_mid_narrow_r, inner_transition_half_z),
+    split_skirt_profile(inner_wide_he, inner_wide_r, inner_narrow_he, inner_narrow_r, inner_transition_half_z),
+    split_skirt_profile(inner_wide_he, inner_wide_r, inner_narrow_he, inner_narrow_r, inner_transition_half_z),
 ]
 
 # Incremental Y offsets between levels
