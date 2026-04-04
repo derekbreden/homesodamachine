@@ -3,29 +3,28 @@ import math
 
 import cadquery as cq
 
-# Plate envelope — sized for a single Kamoer pump
-# Original two-pump tray: 170mm wide. Single pump center was at x=50.7
-# with 25mm margin to each mounting hole edge. Keep same proportions.
+# --- Dimensions ---
 PLATE_W = 70.0
-PLATE_D = 18.0
+PLATE_D = 18.0          # total height (Y axis)
 PLATE_H = 70.0
+BASE_THICKNESS = 3.0     # solid floor at bottom
+WALL_THICKNESS = 3.0     # wall around octagon bore
+RAMP_HEIGHT = PLATE_D - BASE_THICKNESS  # 15mm of ramp above base
 
 # Diamond (45-degree-rotated square) cutout for pump base
 DIAMOND_SIDE = 43.0
 LEDGE_DEPTH  = 1.5
 
-# Single pump cutout centered on the plate
+# Pump center
 PUMP_CX = PLATE_W / 2
 PUMP_CZ = PLATE_H / 2
 
-PUMP_CUTOUTS = [
-    ("cutout-1", PUMP_CX, PUMP_CZ),
-]
+PUMP_CUTOUTS = [("cutout-1", PUMP_CX, PUMP_CZ)]
 
 HOLE_DIA = 3.3
 HOLE_R = HOLE_DIA / 2.0
 
-# M3 hole XZ positions — 50mm square pattern centered on pump
+# M3 holes — 50mm square pattern centered on pump
 HOLES = [
     ("1-A", PUMP_CX - 25.0, PUMP_CZ + 25.0),
     ("1-B", PUMP_CX + 25.0, PUMP_CZ + 25.0),
@@ -33,11 +32,7 @@ HOLES = [
     ("1-D", PUMP_CX - 25.0, PUMP_CZ - 25.0),
 ]
 
-# Modeling
-
-plate = cq.Workplane("XY").box(PLATE_W, PLATE_D, PLATE_H, centered=False)
-
-# Octagon cutouts with ledges
+# Octagon geometry
 DIAMOND_HALF_DIAG = DIAMOND_SIDE * math.sqrt(2) / 2
 TRIMMED_HALF_DIAG = 53.0 / 2
 
@@ -64,18 +59,10 @@ class Turtle:
 
 
 def _octagon_with_ledges():
-    """Build octagon polygon with ledge indentations on all 4 long edges.
-
-    Each long edge gets a LEDGE_DEPTH-deep shelf along its middle,
-    with 45-degree entry/exit ramps. This reduces the cutout (adds material)
-    along the long edges.
-
-    Returns list of (x, z) tuples relative to octagon center.
-    """
+    """Build octagon polygon with ledge indentations on all 4 long edges."""
     _t = TRIMMED_HALF_DIAG
     _d = DIAMOND_HALF_DIAG - _t
 
-    # 8 base vertices (clockwise from top-right of top short side)
     base = [
         ( _d,  _t), ( _t,  _d), ( _t, -_d), ( _d, -_t),
         (-_d, -_t), (-_t, -_d), (-_t,  _d), (-_d,  _t),
@@ -124,6 +111,92 @@ def _octagon_with_ledges():
     return pts
 
 
+# --- Build the solid ---
+
+# Start with full 70x70x18 block
+solid = cq.Workplane("XY").box(PLATE_W, PLATE_D, PLATE_H, centered=False)
+
+# Cut 4 ramp wedges — 45-degree slopes from each side, starting at y=BASE_THICKNESS.
+# Each wedge is a triangular prism whose diagonal edge IS the 45-degree ramp.
+oc = 0.5  # overcut beyond part boundaries for clean booleans
+
+# +X side ramp (triangle in XY, extruded along Z)
+wedge_px = (
+    cq.Workplane("XY")
+    .workplane(offset=-oc)
+    .moveTo(PLATE_W + oc, BASE_THICKNESS - oc)
+    .lineTo(PLATE_W + oc, PLATE_D + oc)
+    .lineTo(PLATE_W - RAMP_HEIGHT - oc, PLATE_D + oc)
+    .close()
+    .extrude(PLATE_H + 2 * oc)
+)
+
+# -X side ramp
+wedge_mx = (
+    cq.Workplane("XY")
+    .workplane(offset=-oc)
+    .moveTo(-oc, BASE_THICKNESS - oc)
+    .lineTo(-oc, PLATE_D + oc)
+    .lineTo(RAMP_HEIGHT + oc, PLATE_D + oc)
+    .close()
+    .extrude(PLATE_H + 2 * oc)
+)
+
+# +Z side ramp (triangle in YZ, extruded along X)
+wedge_pz = (
+    cq.Workplane("YZ")
+    .workplane(offset=-oc)
+    .moveTo(BASE_THICKNESS - oc, PLATE_H + oc)
+    .lineTo(PLATE_D + oc, PLATE_H + oc)
+    .lineTo(PLATE_D + oc, PLATE_H - RAMP_HEIGHT - oc)
+    .close()
+    .extrude(PLATE_W + 2 * oc)
+)
+
+# -Z side ramp
+wedge_mz = (
+    cq.Workplane("YZ")
+    .workplane(offset=-oc)
+    .moveTo(BASE_THICKNESS - oc, -oc)
+    .lineTo(PLATE_D + oc, -oc)
+    .lineTo(PLATE_D + oc, RAMP_HEIGHT + oc)
+    .close()
+    .extrude(PLATE_W + 2 * oc)
+)
+
+solid = solid.cut(wedge_px).cut(wedge_mx).cut(wedge_pz).cut(wedge_mz)
+
+# Wall prism — octagon offset outward by WALL_THICKNESS, extruded full height.
+# Ensures 3mm wall around the bore even where the ramp cuts past it.
+# Since WALL_THICKNESS (3mm) > LEDGE_DEPTH (1.5mm), the offset fills the ledges
+# and the wall profile is a simple octagon.
+_t = TRIMMED_HALF_DIAG
+_d = DIAMOND_HALF_DIAG - _t
+_t_off = _t + WALL_THICKNESS
+_d_off = _d + WALL_THICKNESS * (math.sqrt(2) - 1)
+
+offset_oct = [
+    ( _d_off,  _t_off),
+    ( _t_off,  _d_off),
+    ( _t_off, -_d_off),
+    ( _d_off, -_t_off),
+    (-_d_off, -_t_off),
+    (-_t_off, -_d_off),
+    (-_t_off,  _d_off),
+    (-_d_off,  _t_off),
+]
+
+wall_prism = (
+    cq.Workplane("XZ")
+    .workplane(offset=0)
+    .center(PUMP_CX, PUMP_CZ)
+    .polyline(offset_oct).close()
+    .extrude(-PLATE_D)
+)
+
+solid = solid.union(wall_prism)
+
+# Cut octagon bore through everything
 for cutout_id, cx, cz in PUMP_CUTOUTS:
     overcut = 0.1
     pts = _octagon_with_ledges()
@@ -134,9 +207,9 @@ for cutout_id, cx, cz in PUMP_CUTOUTS:
         .polyline(pts).close()
         .extrude(-(PLATE_D + overcut))
     )
-    plate = plate.cut(octagon)
+    solid = solid.cut(octagon)
 
-# M3 clearance holes (through Y)
+# Cut M3 clearance holes through everything
 for hole_id, hx, hz in HOLES:
     overcut = 0.1
     cyl = (
@@ -146,9 +219,9 @@ for hole_id, hx, hz in HOLES:
         .circle(HOLE_R)
         .extrude(-(PLATE_D + overcut))
     )
-    plate = plate.cut(cyl)
+    solid = solid.cut(cyl)
 
-# Export STEP file
+# Export
 OUTPUT_STEP = Path(__file__).resolve().parent / "pump-case-cadquery.step"
-cq.exporters.export(plate, str(OUTPUT_STEP))
+cq.exporters.export(solid, str(OUTPUT_STEP))
 print(f"Exported → {OUTPUT_STEP}")
