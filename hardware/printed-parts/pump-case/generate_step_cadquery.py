@@ -162,6 +162,31 @@ WALL_OCTAGON = [
     (-WALL_OUTER_NEAR,  WALL_OUTER_FAR),
 ]
 
+# ── Tower geometry (octagon → cylinder transition above the case) ──
+TOWER_HEIGHT = 60.0
+PLATFORM_THICKNESS = 3.0
+CAP_THICKNESS = 3.0
+CYLINDER_ID = 37.0
+CYLINDER_OD = CYLINDER_ID + 2 * WALL_THICKNESS
+CYLINDER_R_OUTER = CYLINDER_OD / 2
+CYLINDER_R_INNER = CYLINDER_ID / 2
+
+INNER_RAMP_HEIGHT = WALL_OUTER_FAR - CYLINDER_R_OUTER
+
+RAMP_TOP_FAR = CYLINDER_R_OUTER
+RAMP_TOP_NEAR = WALL_OUTER_NEAR - INNER_RAMP_HEIGHT * (math.sqrt(2) - 1)
+
+RAMP_TOP_OCTAGON = [
+    ( RAMP_TOP_NEAR,  RAMP_TOP_FAR),
+    ( RAMP_TOP_FAR,   RAMP_TOP_NEAR),
+    ( RAMP_TOP_FAR,  -RAMP_TOP_NEAR),
+    ( RAMP_TOP_NEAR, -RAMP_TOP_FAR),
+    (-RAMP_TOP_NEAR, -RAMP_TOP_FAR),
+    (-RAMP_TOP_FAR,  -RAMP_TOP_NEAR),
+    (-RAMP_TOP_FAR,   RAMP_TOP_NEAR),
+    (-RAMP_TOP_NEAR,  RAMP_TOP_FAR),
+]
+
 
 # ── Build the solid ──
 
@@ -242,6 +267,44 @@ for hx, hz in HOLE_POSITIONS:
         .extrude(-(CASE_Y + OVERCUT))
     )
     solid = solid.cut(hole_cutter)
+
+# ── Tower: octagon platform + ramp + cylinder + cap ──
+
+tower_base_y = -CASE_Y
+
+tower_ramp = (
+    cq.Workplane("XZ")
+    .workplane(offset=tower_base_y)
+    .center(CENTER_X, CENTER_Z)
+    .polyline(WALL_OCTAGON).close()
+    .workplane(offset=-PLATFORM_THICKNESS)
+    .polyline(WALL_OCTAGON).close()
+    .workplane(offset=-INNER_RAMP_HEIGHT)
+    .polyline(RAMP_TOP_OCTAGON).close()
+    .loft(ruled=True)
+)
+
+tower_cylinder = (
+    cq.Workplane("XZ")
+    .workplane(offset=tower_base_y)
+    .center(CENTER_X, CENTER_Z)
+    .circle(CYLINDER_R_OUTER)
+    .extrude(-TOWER_HEIGHT)
+)
+
+tower = tower_ramp.union(tower_cylinder)
+
+tower_bore_depth = TOWER_HEIGHT - CAP_THICKNESS
+tower_bore = (
+    cq.Workplane("XZ")
+    .workplane(offset=tower_base_y + OVERCUT)
+    .center(CENTER_X, CENTER_Z)
+    .circle(CYLINDER_R_INNER)
+    .extrude(-(tower_bore_depth + OVERCUT))
+)
+tower = tower.cut(tower_bore)
+
+solid = solid.union(tower)
 
 # ── Export ──
 OUTPUT_STEP = Path(__file__).resolve().parent / "pump-case-cadquery.step"
