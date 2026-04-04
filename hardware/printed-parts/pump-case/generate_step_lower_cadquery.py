@@ -45,14 +45,12 @@ UNIFORM_HE = FOOTPRINT_NARROW_HE  # 31
 PROFILE_CENTER = 35.0
 
 # ── Transition Z values ──
-# Seam plane stays at X + Z = -UNIFORM_HE = -31
-# Uniform profile: both halves at he=31, transition at ~0
-uniform_tz_plus  =  0.01
-uniform_tz_minus = -0.01
+# Seam plane at X + Z = -PROFILE_CENTER = -35 (matches main part)
+uniform_tz_plus  = -PROFILE_CENTER + UNIFORM_HE + 0.01   # -3.99 (near-degenerate)
+uniform_tz_minus = -PROFILE_CENTER + UNIFORM_HE - 0.01   # -4.01
 
-# Footprint profile: wide_he=38 → tz = 38-31 = 7;  narrow_he=31 → tz ≈ 0
-footprint_tz_plus  = FOOTPRINT_WIDE_HE - UNIFORM_HE    # 7
-footprint_tz_minus = 0.01                                # ~0 (avoid degenerate edge)
+footprint_tz_plus  = -PROFILE_CENTER + FOOTPRINT_WIDE_HE    # 3
+footprint_tz_minus = -PROFILE_CENTER + FOOTPRINT_NARROW_HE  # -4
 
 # ── Inner profile dimensions ──
 seam_z_shift = WALL_THICKNESS * (math.sqrt(2) - 1)
@@ -64,8 +62,8 @@ inner_footprint_wide_he = FOOTPRINT_WIDE_HE - WALL_THICKNESS   # 35
 inner_footprint_narrow_he = FOOTPRINT_NARROW_HE - WALL_THICKNESS  # 28
 
 # Inner transition Z (shifted for 3mm perpendicular wall thickness)
-inner_uniform_tz_plus  =  0.01
-inner_uniform_tz_minus = -0.01
+inner_uniform_tz_plus  = uniform_tz_plus + seam_z_shift
+inner_uniform_tz_minus = uniform_tz_minus + seam_z_shift
 inner_footprint_tz_plus  = footprint_tz_plus + seam_z_shift
 inner_footprint_tz_minus = footprint_tz_minus + seam_z_shift
 
