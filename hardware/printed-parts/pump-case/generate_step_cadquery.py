@@ -145,7 +145,7 @@ def _rounded_rect_pts(w, h, r, n=N_ARC):
 #   y=18: 40x40, R=0.5 (top — small R avoids degenerate geometry in OCC)
 s_base = _rounded_rect_pts(PLATE_W, PLATE_H, CORNER_R)
 s_top  = _rounded_rect_pts(PLATE_W - 2 * RAMP_HEIGHT,
-                           PLATE_H - 2 * RAMP_HEIGHT, 0.5)
+                           PLATE_H - 2 * RAMP_HEIGHT, CORNER_R)
 
 solid = (
     cq.Workplane("XZ")
