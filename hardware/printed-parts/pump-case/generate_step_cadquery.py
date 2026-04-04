@@ -3,43 +3,47 @@ import math
 
 import cadquery as cq
 
-# --- Dimensions ---
-PLATE_W = 70.0
-PLATE_D = 18.0          # total height (Y axis)
-PLATE_H = 70.0
-BASE_THICKNESS = 3.0     # solid floor at bottom
-WALL_THICKNESS = 3.0     # wall around octagon bore
-RAMP_HEIGHT = PLATE_D - BASE_THICKNESS  # 15mm of ramp above base
-CORNER_R = 6.0           # fillet radius on 70x70 footprint corners
+# ── Case envelope ──
+CASE_X = 70.0           # width  (X axis)
+CASE_Y = 18.0           # height (Y axis, vertical)
+CASE_Z = 70.0           # depth  (Z axis)
+BASE_THICKNESS = 3.0
+WALL_THICKNESS = 3.0
+RAMP_HEIGHT = CASE_Y - BASE_THICKNESS
+CORNER_R = 6.0
 
-# Diamond (45-degree-rotated square) cutout for pump base
-DIAMOND_SIDE = 43.0
-LEDGE_DEPTH  = 1.5
+CENTER_X = CASE_X / 2
+CENTER_Z = CASE_Z / 2
 
-# Pump center
-PUMP_CX = PLATE_W / 2
-PUMP_CZ = PLATE_H / 2
+# ── Pump bore geometry ──
+# The bore is a 43mm square rotated 45 degrees, then trimmed to an octagon
+# spanning 53mm corner-to-corner. Each long edge has a ledge indentation.
+BORE_SQUARE_SIDE = 43.0
+LEDGE_DEPTH = 1.5
+LEDGE_SHELF_SPAN = 26.03
 
-PUMP_CUTOUTS = [("cutout-1", PUMP_CX, PUMP_CZ)]
+BORE_HALF_DIAG = BORE_SQUARE_SIDE * math.sqrt(2) / 2
+BORE_HALF_SPAN = 53.0 / 2
 
-HOLE_DIA = 3.3
-HOLE_R = HOLE_DIA / 2.0
+# Each octagon vertex sits at (vertex_near, vertex_far) or (vertex_far, vertex_near)
+VERTEX_FAR  = BORE_HALF_SPAN
+VERTEX_NEAR = BORE_HALF_DIAG - BORE_HALF_SPAN
 
-# M3 holes — 50mm square pattern centered on pump
-HOLES = [
-    ("1-A", PUMP_CX - 25.0, PUMP_CZ + 25.0),
-    ("1-B", PUMP_CX + 25.0, PUMP_CZ + 25.0),
-    ("1-C", PUMP_CX + 25.0, PUMP_CZ - 25.0),
-    ("1-D", PUMP_CX - 25.0, PUMP_CZ - 25.0),
+# ── M3 mounting holes ── 50mm square pattern centered on pump
+HOLE_R = 3.3 / 2.0
+HOLE_POSITIONS = [
+    (CENTER_X - 25.0, CENTER_Z + 25.0),
+    (CENTER_X + 25.0, CENTER_Z + 25.0),
+    (CENTER_X + 25.0, CENTER_Z - 25.0),
+    (CENTER_X - 25.0, CENTER_Z - 25.0),
 ]
 
-# Octagon geometry
-DIAMOND_HALF_DIAG = DIAMOND_SIDE * math.sqrt(2) / 2
-TRIMMED_HALF_DIAG = 53.0 / 2
+# ── Shared constants ──
+OVERCUT = 0.1
+ARC_SEGMENTS = 8
 
-# Polyline resolution for rounded rectangles
-N_ARC = 8  # segments per 90-degree arc
 
+# ── Polygon generators ──
 
 class Turtle:
     """Logo-style turtle that accumulates (x, z) polygon points."""
@@ -62,156 +66,158 @@ class Turtle:
         self.heading -= math.radians(deg)
 
 
-def _octagon_with_ledges():
-    """Build octagon polygon with ledge indentations on all 4 long edges."""
-    _t = TRIMMED_HALF_DIAG
-    _d = DIAMOND_HALF_DIAG - _t
+def bore_octagon_profile():
+    """Return the pump bore octagon (with ledge indentations) as (x, z) points
+    centered at the origin."""
+    vf = VERTEX_FAR
+    vn = VERTEX_NEAR
 
-    base = [
-        ( _d,  _t), ( _t,  _d), ( _t, -_d), ( _d, -_t),
-        (-_d, -_t), (-_t, -_d), (-_t,  _d), (-_d,  _t),
+    vertices = [
+        ( vn,  vf), ( vf,  vn), ( vf, -vn), ( vn, -vf),
+        (-vn, -vf), (-vf, -vn), (-vf,  vn), (-vn,  vf),
     ]
-    long_edges = {0, 2, 4, 6}
+    long_edge_indices = {0, 2, 4, 6}
 
     pts = []
     for i in range(8):
-        sx, sz = base[i]
-        ex, ez = base[(i + 1) % 8]
-        pts.append((sx, sz))
+        start_x, start_z = vertices[i]
+        end_x, end_z = vertices[(i + 1) % 8]
+        pts.append((start_x, start_z))
 
-        if i not in long_edges:
+        if i not in long_edge_indices:
             continue
 
-        dx, dz = ex - sx, ez - sz
-        elen = math.hypot(dx, dz)
-        heading = math.degrees(math.atan2(dz, dx))
+        edge_dx, edge_dz = end_x - start_x, end_z - start_z
+        edge_length = math.hypot(edge_dx, edge_dz)
+        edge_heading = math.degrees(math.atan2(edge_dz, edge_dx))
 
-        mx, mz = (sx + ex) / 2, (sz + ez) / 2
-        ux, uz = dx / elen, dz / elen
-        nx, nz = uz, -ux
-        if nx * (-mx) + nz * (-mz) < 0:
-            nx, nz = -nx, -nz
-        inward_is_left = (nx * (-uz) + nz * ux) > 0
+        # Determine which side of this edge faces the bore center
+        mid_x, mid_z = (start_x + end_x) / 2, (start_z + end_z) / 2
+        unit_x, unit_z = edge_dx / edge_length, edge_dz / edge_length
+        normal_x, normal_z = unit_z, -unit_x
+        if normal_x * (-mid_x) + normal_z * (-mid_z) < 0:
+            normal_x, normal_z = -normal_x, -normal_z
+        inward_is_left = (normal_x * (-unit_z) + normal_z * unit_x) > 0
 
-        ramp_hyp = LEDGE_DEPTH * math.sqrt(2)
-        shelf_total = 26.03
-        entry = (elen - shelf_total) / 2
-        par = shelf_total - 2 * LEDGE_DEPTH
+        # Ledge profile: flat entry → 45° ramp in → shelf → 45° ramp out → flat exit
+        ledge_ramp_length = LEDGE_DEPTH * math.sqrt(2)
+        entry_length = (edge_length - LEDGE_SHELF_SPAN) / 2
+        shelf_length = LEDGE_SHELF_SPAN - 2 * LEDGE_DEPTH
 
-        t = Turtle(sx, sz, heading)
-        t.forward(entry)
+        t = Turtle(start_x, start_z, edge_heading)
+        t.forward(entry_length)
         if inward_is_left:
-            t.left(45);  t.forward(ramp_hyp); t.right(45)
-            t.forward(par)
-            t.right(45); t.forward(ramp_hyp); t.left(45)
+            t.left(45);  t.forward(ledge_ramp_length); t.right(45)
+            t.forward(shelf_length)
+            t.right(45); t.forward(ledge_ramp_length); t.left(45)
         else:
-            t.right(45); t.forward(ramp_hyp); t.left(45)
-            t.forward(par)
-            t.left(45);  t.forward(ramp_hyp); t.right(45)
-        t.forward(entry)
+            t.right(45); t.forward(ledge_ramp_length); t.left(45)
+            t.forward(shelf_length)
+            t.left(45);  t.forward(ledge_ramp_length); t.right(45)
+        t.forward(entry_length)
 
         pts.extend(t.points[:-1])
 
     return pts
 
 
-def _rounded_rect_pts(w, h, r, n=N_ARC):
+def rounded_rect_profile(width, height, radius, n=ARC_SEGMENTS):
     """Return CCW polygon points for a rounded rectangle centered at origin.
 
-    All sections use the same point count (4*n) so the loft can match
-    corresponding edges between sections.
+    All calls must use the same n so the loft can match edges between sections.
     """
-    hw, hh = w / 2, h / 2
-    r = max(r, 0.01)  # tiny minimum to keep topology consistent
+    hw, hh = width / 2, height / 2
     pts = []
     corners = [
-        ( hw - r,  hh - r,   0,  90),   # top-right
-        (-hw + r,  hh - r,  90, 180),   # top-left
-        (-hw + r, -hh + r, 180, 270),   # bottom-left
-        ( hw - r, -hh + r, 270, 360),   # bottom-right
+        ( hw - radius,  hh - radius,   0,  90),
+        (-hw + radius,  hh - radius,  90, 180),
+        (-hw + radius, -hh + radius, 180, 270),
+        ( hw - radius, -hh + radius, 270, 360),
     ]
-    for cx, cz, a0, a1 in corners:
+    for cx, cz, start_deg, end_deg in corners:
         for i in range(n):
-            angle = math.radians(a0 + (a1 - a0) * i / n)
-            pts.append((cx + r * math.cos(angle), cz + r * math.sin(angle)))
+            angle = math.radians(start_deg + (end_deg - start_deg) * i / n)
+            pts.append((cx + radius * math.cos(angle), cz + radius * math.sin(angle)))
     return pts
 
 
-# --- Build the solid ---
+# ── Wall prism profile ──
+# Offset the octagon outward by WALL_THICKNESS to define the minimum wall
+# around the bore. Short edges shift straight out; 45-degree edges shift
+# by a smaller amount at each vertex.
+DIAGONAL_EDGE_VERTEX_OFFSET = WALL_THICKNESS * (math.sqrt(2) - 1)
+WALL_OUTER_FAR  = VERTEX_FAR + WALL_THICKNESS
+WALL_OUTER_NEAR = VERTEX_NEAR + DIAGONAL_EDGE_VERTEX_OFFSET
 
-# Single loft combines base plate and ramp in one shape:
-#   y=0:  70x70, R=6   (bottom of base plate)
-#   y=3:  70x70, R=6   (top of base plate / start of ramp — same shape = flat)
-#   y=18: 40x40, R=0.5 (top — small R avoids degenerate geometry in OCC)
-s_base = _rounded_rect_pts(PLATE_W, PLATE_H, CORNER_R)
-s_top  = _rounded_rect_pts(PLATE_W - 2 * RAMP_HEIGHT,
-                           PLATE_H - 2 * RAMP_HEIGHT, CORNER_R)
+WALL_OCTAGON = [
+    ( WALL_OUTER_NEAR,  WALL_OUTER_FAR),
+    ( WALL_OUTER_FAR,   WALL_OUTER_NEAR),
+    ( WALL_OUTER_FAR,  -WALL_OUTER_NEAR),
+    ( WALL_OUTER_NEAR, -WALL_OUTER_FAR),
+    (-WALL_OUTER_NEAR, -WALL_OUTER_FAR),
+    (-WALL_OUTER_FAR,  -WALL_OUTER_NEAR),
+    (-WALL_OUTER_FAR,   WALL_OUTER_NEAR),
+    (-WALL_OUTER_NEAR,  WALL_OUTER_FAR),
+]
+
+
+# ── Build the solid ──
+
+# Loft combines base plate and ramp in one shape:
+#   y=0:  full footprint, R=6  (bottom of base plate)
+#   y=3:  full footprint, R=6  (top of base plate — same shape keeps it flat)
+#   y=18: ramp top, R=6        (45° inward from base)
+ramp_top_size = CASE_X - 2 * RAMP_HEIGHT
+
+base_profile = rounded_rect_profile(CASE_X, CASE_Z, CORNER_R)
+top_profile  = rounded_rect_profile(ramp_top_size, ramp_top_size, CORNER_R)
 
 solid = (
     cq.Workplane("XZ")
     .workplane(offset=0)
-    .center(PUMP_CX, PUMP_CZ)
-    .polyline(s_base).close()
-    .workplane(offset=-BASE_THICKNESS)                    # y=3
-    .polyline(s_base).close()
-    .workplane(offset=-RAMP_HEIGHT)                       # y=18
-    .polyline(s_top).close()
+    .center(CENTER_X, CENTER_Z)
+    .polyline(base_profile).close()
+    .workplane(offset=-BASE_THICKNESS)
+    .polyline(base_profile).close()
+    .workplane(offset=-RAMP_HEIGHT)
+    .polyline(top_profile).close()
     .loft()
 )
 
-# Wall prism — offset octagon extruded full height.
-_t = TRIMMED_HALF_DIAG
-_d = DIAMOND_HALF_DIAG - _t
-_t_off = _t + WALL_THICKNESS
-_d_off = _d + WALL_THICKNESS * (math.sqrt(2) - 1)
-
-offset_oct = [
-    ( _d_off,  _t_off),
-    ( _t_off,  _d_off),
-    ( _t_off, -_d_off),
-    ( _d_off, -_t_off),
-    (-_d_off, -_t_off),
-    (-_t_off, -_d_off),
-    (-_t_off,  _d_off),
-    (-_d_off,  _t_off),
-]
-
+# Wall prism ensures minimum wall thickness around bore at all heights
 wall_prism = (
     cq.Workplane("XZ")
     .workplane(offset=0)
-    .center(PUMP_CX, PUMP_CZ)
-    .polyline(offset_oct).close()
-    .extrude(-PLATE_D)
+    .center(CENTER_X, CENTER_Z)
+    .polyline(WALL_OCTAGON).close()
+    .extrude(-CASE_Y)
 )
 
 solid = solid.union(wall_prism)
 
-# Cut octagon bore through everything
-for cutout_id, cx, cz in PUMP_CUTOUTS:
-    overcut = 0.1
-    pts = _octagon_with_ledges()
-    octagon = (
-        cq.Workplane("XZ")
-        .workplane(offset=0)
-        .center(cx, cz)
-        .polyline(pts).close()
-        .extrude(-(PLATE_D + overcut))
-    )
-    solid = solid.cut(octagon)
+# Bore cutout
+bore_profile = bore_octagon_profile()
+bore_cutter = (
+    cq.Workplane("XZ")
+    .workplane(offset=0)
+    .center(CENTER_X, CENTER_Z)
+    .polyline(bore_profile).close()
+    .extrude(-(CASE_Y + OVERCUT))
+)
+solid = solid.cut(bore_cutter)
 
-# Cut M3 clearance holes through everything
-for hole_id, hx, hz in HOLES:
-    overcut = 0.1
-    cyl = (
+# M3 mounting holes
+for hx, hz in HOLE_POSITIONS:
+    hole_cutter = (
         cq.Workplane("XZ")
         .workplane(offset=0)
         .center(hx, hz)
         .circle(HOLE_R)
-        .extrude(-(PLATE_D + overcut))
+        .extrude(-(CASE_Y + OVERCUT))
     )
-    solid = solid.cut(cyl)
+    solid = solid.cut(hole_cutter)
 
-# Export
+# ── Export ──
 OUTPUT_STEP = Path(__file__).resolve().parent / "pump-case-cadquery.step"
 cq.exporters.export(solid, str(OUTPUT_STEP))
 print(f"Exported → {OUTPUT_STEP}")
