@@ -46,8 +46,8 @@ PROFILE_CENTER = 35.0
 
 # ── Transition Z values ──
 # Seam plane at X + Z = -PROFILE_CENTER = -35 (matches main part)
-uniform_tz_plus  = -PROFILE_CENTER + UNIFORM_HE + 1.0    # -3 (non-degenerate)
-uniform_tz_minus = -PROFILE_CENTER + UNIFORM_HE - 1.0    # -5
+uniform_tz_plus  = -PROFILE_CENTER + UNIFORM_HE + 0.01   # -3.99 (near-degenerate)
+uniform_tz_minus = -PROFILE_CENTER + UNIFORM_HE - 0.01   # -4.01
 
 footprint_tz_plus  = -PROFILE_CENTER + FOOTPRINT_WIDE_HE    # 3
 footprint_tz_minus = -PROFILE_CENTER + FOOTPRINT_NARROW_HE  # -4
@@ -198,7 +198,7 @@ MAIN_NARROW_HE = MAIN_BASE_HE - MAIN_NARROW_TAPER       # 31
 MAIN_MID_NARROW_HE = MAIN_BASE_HE - MAIN_WIDE_FLARE     # 32
 
 # Main part transition Z values (seam plane: X + Z = -35)
-main_tz_sym = (1.0, -1.0)
+main_tz_sym = (0.01, -0.01)
 main_tz_mid = (MAIN_WIDE_FLARE, -MAIN_WIDE_FLARE)        # (3, -3)
 main_tz_end = (MAIN_WIDE_FLARE, -MAIN_NARROW_TAPER)      # (3, -4)
 
@@ -210,7 +210,7 @@ main_inner_narrow_he = MAIN_NARROW_HE - WALL_THICKNESS     # 28
 main_inner_mid_narrow_he = MAIN_MID_NARROW_HE - WALL_THICKNESS  # 29
 
 main_seam_shift = WALL_THICKNESS * (math.sqrt(2) - 1)
-main_itz_sym = (1.0 + main_seam_shift, -1.0 + main_seam_shift)
+main_itz_sym = (0.01, -0.01)
 main_itz_mid = (main_tz_mid[0] + main_seam_shift, main_tz_mid[1] + main_seam_shift)
 main_itz_end = (main_tz_end[0] + main_seam_shift, main_tz_end[1] + main_seam_shift)
 
