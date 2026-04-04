@@ -490,18 +490,3 @@ OUTPUT_STEP = Path(__file__).resolve().parent / "pump-case-cadquery.step"
 cq.exporters.export(solid, str(OUTPUT_STEP))
 print(f"Exported → {OUTPUT_STEP}")
 
-# ── Export lower part (bottom 23mm of the full solid) ──
-LOWER_PART_HEIGHT = 23.0
-cut_y = skirt_bottom_y + LOWER_PART_HEIGHT  # -28.5 + 23 = -5.5
-
-clip = (
-    cq.Workplane("XZ")
-    .workplane(offset=-cut_y)
-    .rect(200, 200)
-    .extrude(LOWER_PART_HEIGHT + 2 * OVERCUT)
-)
-lower_part = solid.intersect(clip)
-
-OUTPUT_LOWER = Path(__file__).resolve().parent / "pump-case-lower-cadquery.step"
-cq.exporters.export(lower_part, str(OUTPUT_LOWER))
-print(f"Exported → {OUTPUT_LOWER}")
