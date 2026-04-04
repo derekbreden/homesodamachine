@@ -6,9 +6,9 @@ import cadquery as cq
 # Plate envelope — sized for a single Kamoer pump
 # Original two-pump tray: 170mm wide. Single pump center was at x=50.7
 # with 25mm margin to each mounting hole edge. Keep same proportions.
-PLATE_W = 101.4  # 2 * 50.7 — symmetric around single pump center
-PLATE_D = 3.0
-PLATE_H = 68.6   # 2 * 34.3 — symmetric around single pump center
+PLATE_W = 70.0
+PLATE_D = 18.0
+PLATE_H = 70.0
 
 # Diamond (45-degree-rotated square) cutout for pump base
 DIAMOND_SIDE = 43.0
