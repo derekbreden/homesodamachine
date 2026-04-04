@@ -1,8 +1,9 @@
 """Generate the pump-case lower part STEP file.
 
-The lower part mates to the bottom of the main pump case skirt.
-At the top it matches the split skirt profile (wider half 76mm, narrower half 62mm).
-It tapers linearly to a uniform 62×62 rounded rectangle at the bottom.
+The lower part sits below the main pump case skirt.
+At the top (Y=0) it is a uniform 62×62 rounded rect.
+At the bottom (Y=-23) it matches the split skirt profile (76 wide / 62 narrow).
+The wider half ramps outward going down; the narrow half stays straight.
 """
 
 from pathlib import Path
@@ -23,34 +24,36 @@ ARCH_RADIUS = 4.5
 
 CENTER = FOOTPRINT / 2    # 35
 
-# ── Top profile (matches skirt bottom of full part) ──
-top_wide_he     = FOOTPRINT / 2 + WIDE_FLARE         # 38
-top_wide_r      = CORNER_R + WIDE_FLARE               # 9
-top_narrow_he   = FOOTPRINT / 2 - NARROW_TAPER        # 31
-top_narrow_r    = max(0, CORNER_R - NARROW_TAPER)      # 2
-top_tz_plus     = WIDE_FLARE                           # +3
-top_tz_minus    = -NARROW_TAPER                        # -4
+# ── Bottom profile (split skirt: wider half 76, narrower half 62) ──
+bot_wide_he     = FOOTPRINT / 2 + WIDE_FLARE         # 38
+bot_wide_r      = CORNER_R + WIDE_FLARE               # 9
+bot_narrow_he   = FOOTPRINT / 2 - NARROW_TAPER        # 31
+bot_narrow_r    = max(0, CORNER_R - NARROW_TAPER)      # 2
+bot_tz_plus     = WIDE_FLARE                           # +3
+bot_tz_minus    = -NARROW_TAPER                        # -4
 
-# ── Bottom profile (uniform 62×62) ──
-bot_he    = top_narrow_he                              # 31
-bot_r     = top_narrow_r                               # 2
-bot_tz_plus  =  0.01
-bot_tz_minus = -0.01
+# ── Top profile (uniform 62×62) ──
+top_he    = bot_narrow_he                              # 31
+top_r     = bot_narrow_r                               # 2
+top_tz_plus  =  0.01
+top_tz_minus = -0.01
 
 # ── Inner profile dimensions ──
 seam_z_shift = WALL * (math.sqrt(2) - 1)
 
-itop_wide_he    = top_wide_he - WALL                   # 35
-itop_wide_r     = top_wide_r - WALL                    # 6
-itop_narrow_he  = top_narrow_he - WALL                 # 28
-itop_narrow_r   = max(0, top_narrow_r - WALL)          # 0
-itop_tz_plus    = top_tz_plus + seam_z_shift
-itop_tz_minus   = top_tz_minus + seam_z_shift
+# Inner bottom (split)
+ibot_wide_he    = bot_wide_he - WALL                   # 35
+ibot_wide_r     = bot_wide_r - WALL                    # 6
+ibot_narrow_he  = bot_narrow_he - WALL                 # 28
+ibot_narrow_r   = max(0, bot_narrow_r - WALL)          # 0
+ibot_tz_plus    = bot_tz_plus + seam_z_shift
+ibot_tz_minus   = bot_tz_minus + seam_z_shift
 
-ibot_he   = bot_he - WALL                             # 28
-ibot_r    = max(0, bot_r - WALL)                       # 0
-ibot_tz_plus  =  0.01
-ibot_tz_minus = -0.01
+# Inner top (uniform)
+itop_he   = top_he - WALL                             # 28
+itop_r    = max(0, top_r - WALL)                       # 0
+itop_tz_plus  =  0.01
+itop_tz_minus = -0.01
 
 
 def split_skirt_profile(wide_he, wide_r, narrow_he, narrow_r,
@@ -102,19 +105,19 @@ def split_skirt_profile(wide_he, wide_r, narrow_he, narrow_r,
 
 
 # ── Build outer and inner lofts ──
-# Y=0 is the top (mates with upper part), extends to Y=-23 at bottom.
+# Y=0 is the top (62×62), extends to Y=-23 at bottom (76/62 split).
 # XZ workplane normal is -Y, so workplane offsets go in -Y.
 
-top_outer = split_skirt_profile(top_wide_he, top_wide_r,
-                                top_narrow_he, top_narrow_r,
+top_outer = split_skirt_profile(top_he, top_r, top_he, top_r,
                                 top_tz_plus, top_tz_minus)
-bot_outer = split_skirt_profile(bot_he, bot_r, bot_he, bot_r,
+bot_outer = split_skirt_profile(bot_wide_he, bot_wide_r,
+                                bot_narrow_he, bot_narrow_r,
                                 bot_tz_plus, bot_tz_minus)
 
-top_inner = split_skirt_profile(itop_wide_he, itop_wide_r,
-                                itop_narrow_he, itop_narrow_r,
+top_inner = split_skirt_profile(itop_he, itop_r, itop_he, itop_r,
                                 itop_tz_plus, itop_tz_minus)
-bot_inner = split_skirt_profile(ibot_he, ibot_r, ibot_he, ibot_r,
+bot_inner = split_skirt_profile(ibot_wide_he, ibot_wide_r,
+                                ibot_narrow_he, ibot_narrow_r,
                                 ibot_tz_plus, ibot_tz_minus)
 
 outer_solid = (
@@ -135,8 +138,8 @@ inner_solid = (
 
 solid = outer_solid.cut(inner_solid)
 
-# ── Arch notches at the mating edge (Y=0, +Z face of wider half) ──
-z_face_outer = CENTER + top_wide_he   # 73
+# ── Arch notches at the bottom rim (+Z face of wider half) ──
+z_face_outer = CENTER + bot_wide_he   # 73
 arch_hole_xs = [
     CORNER_R + ARCH_RADIUS - 4,                   # 6.5
     FOOTPRINT - CORNER_R - ARCH_RADIUS + 4,       # 63.5
@@ -146,7 +149,7 @@ for ax in arch_hole_xs:
     arch_cutter = (
         cq.Workplane("XY")
         .workplane(offset=z_face_outer + OVERCUT)
-        .center(ax, 0)
+        .center(ax, -HEIGHT)          # Y=-23 = bottom rim
         .circle(ARCH_RADIUS)
         .extrude(-(WALL + 3 + OVERCUT))
     )
