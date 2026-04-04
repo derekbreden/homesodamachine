@@ -293,6 +293,16 @@ ext_inner_solid = ext_inner_solid.loft(ruled=True)
 
 extension = ext_outer_solid.cut(ext_inner_solid)
 
+# Cap at the far end of the extension (3mm solid slab ending at Y=-42)
+ext_cap = (
+    cq.Workplane("XZ")
+    .workplane(offset=TOTAL_HEIGHT + STEP_HEIGHT - CAP_THICKNESS)
+    .center(PROFILE_CENTER, PROFILE_CENTER)
+    .polyline(ext_outer_profiles[-1]).close()
+    .extrude(CAP_THICKNESS)
+)
+extension = extension.union(ext_cap)
+
 solid = solid.union(extension)
 
 # ── Arch notches at the bottom rim (+Z face of wider half) ──
