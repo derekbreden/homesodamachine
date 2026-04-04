@@ -266,12 +266,11 @@ solid = (
     .loft(ruled=True)
 )
 
-# ── Skirt: upper (straight) + asymmetric flare + lower (straight) ──
+# ── Skirt: upper (straight) + asymmetric ramp + lower (straight) ──
 #
 # The skirt splits below the upper section: one half (+Z) flares outward
-# to 76x76, the other half (-Z) tapers inward to 62x62. Both at 45°.
-# The outward flare is 3mm tall, the inward taper is 4mm tall.
-# Both halves end at the same Y level.
+# to 76x76, the other half (-Z) tapers inward to 62x62.
+# Both ramp over 4mm (narrow at 45°, wide at ~37°), ending at the same Y.
 
 base_he = FOOTPRINT_X / 2
 base_r = CORNER_R
@@ -282,28 +281,14 @@ wide_r = base_r + SKIRT_WIDE_FLARE_PER_SIDE
 narrow_he = base_he - SKIRT_NARROW_TAPER_PER_SIDE
 narrow_r = max(0, base_r - SKIRT_NARROW_TAPER_PER_SIDE)
 
-# At the moment the wide flare completes (3mm), the narrow side
-# has only tapered by 3 of its 4mm
-mid_narrow_he = base_he - SKIRT_WIDE_FLARE_PER_SIDE
-mid_narrow_r = max(0, base_r - SKIRT_WIDE_FLARE_PER_SIDE)
+skirt_ramp_height = SKIRT_NARROW_TAPER_PER_SIDE  # both halves ramp over 4mm
 
-# Narrow straight section is shorter so both halves land together
-skirt_narrow_straight_height = (
-    SKIRT_WIDE_STRAIGHT_HEIGHT
-    - (SKIRT_NARROW_TAPER_PER_SIDE - SKIRT_WIDE_FLARE_PER_SIDE)
-)
-
-# Fixed transition seam position — keeps the wall between halves vertical
-outer_transition_half_z = (wide_he - narrow_he) / 2
-inner_transition_half_z = ((wide_he - wall) - (narrow_he - wall)) / 2
-
-# Outer profiles at 5 Y-levels
+# Outer profiles at 4 Y-levels
 skirt_outer_profiles = [
-    split_skirt_profile(base_he, base_r, base_he, base_r, outer_transition_half_z),
-    split_skirt_profile(base_he, base_r, base_he, base_r, outer_transition_half_z),
-    split_skirt_profile(wide_he, wide_r, mid_narrow_he, mid_narrow_r, outer_transition_half_z),
-    split_skirt_profile(wide_he, wide_r, narrow_he, narrow_r, outer_transition_half_z),
-    split_skirt_profile(wide_he, wide_r, narrow_he, narrow_r, outer_transition_half_z),
+    split_skirt_profile(base_he, base_r, base_he, base_r),
+    split_skirt_profile(base_he, base_r, base_he, base_r),
+    split_skirt_profile(wide_he, wide_r, narrow_he, narrow_r),
+    split_skirt_profile(wide_he, wide_r, narrow_he, narrow_r),
 ]
 
 # Inner profiles (subtract wall thickness from each half-extent and radius)
@@ -311,25 +296,21 @@ inner_wide_he = wide_he - wall
 inner_wide_r = wide_r - wall
 inner_narrow_he = narrow_he - wall
 inner_narrow_r = max(0, narrow_r - wall)
-inner_mid_narrow_he = mid_narrow_he - wall
-inner_mid_narrow_r = max(0, mid_narrow_r - wall)
 inner_base_he = base_he - wall
 inner_base_r = base_r - wall
 
 skirt_inner_profiles = [
-    split_skirt_profile(inner_base_he, inner_base_r, inner_base_he, inner_base_r, inner_transition_half_z),
-    split_skirt_profile(inner_base_he, inner_base_r, inner_base_he, inner_base_r, inner_transition_half_z),
-    split_skirt_profile(inner_wide_he, inner_wide_r, inner_mid_narrow_he, inner_mid_narrow_r, inner_transition_half_z),
-    split_skirt_profile(inner_wide_he, inner_wide_r, inner_narrow_he, inner_narrow_r, inner_transition_half_z),
-    split_skirt_profile(inner_wide_he, inner_wide_r, inner_narrow_he, inner_narrow_r, inner_transition_half_z),
+    split_skirt_profile(inner_base_he, inner_base_r, inner_base_he, inner_base_r),
+    split_skirt_profile(inner_base_he, inner_base_r, inner_base_he, inner_base_r),
+    split_skirt_profile(inner_wide_he, inner_wide_r, inner_narrow_he, inner_narrow_r),
+    split_skirt_profile(inner_wide_he, inner_wide_r, inner_narrow_he, inner_narrow_r),
 ]
 
 # Incremental Y offsets between levels
 skirt_y_steps = [
-    SKIRT_UPPER_HEIGHT,                                          # upper straight
-    SKIRT_WIDE_FLARE_PER_SIDE,                                   # wide flare (3mm at 45°)
-    SKIRT_NARROW_TAPER_PER_SIDE - SKIRT_WIDE_FLARE_PER_SIDE,    # narrow finishes (1mm)
-    skirt_narrow_straight_height,                                 # straight to bottom (9mm)
+    SKIRT_UPPER_HEIGHT,          # upper straight (21mm)
+    skirt_ramp_height,           # ramp to asymmetric (4mm)
+    SKIRT_WIDE_STRAIGHT_HEIGHT,  # straight to bottom (10mm)
 ]
 
 skirt_outer_solid = cq.Workplane("XZ").workplane(offset=0).center(CENTER_X, CENTER_Z)
