@@ -582,10 +582,12 @@ full_slab = (
 )
 
 # Piece 2: narrow-half prism for the step region (offset 9.5 → 28.5).
-# The narrow half is the -Z portion of the profile.  A horizontal cut
-# at Z = 0 (profile-centered) passes through both left and right
-# transition walls, cleanly separating the wide and narrow halves.
-narrow_box = [(-50, -50), (50, -50), (50, OVERCUT), (-50, OVERCUT)]
+# The cut is placed 6mm past the transition wall's +Z end (tz_end_plus=3),
+# so all transition wall geometry ends up on the lower part.  The upper
+# part's step face is a clean flat surface with no diagonal seam walls.
+STEP_Z_CLEARANCE = 6.0
+step_z = tz_end_plus + STEP_Z_CLEARANCE                  # 9 (profile coords)
+narrow_box = [(-50, -50), (50, -50), (50, step_z + OVERCUT), (-50, step_z + OVERCUT)]
 narrow_step = (
     cq.Workplane("XZ")
     .workplane(offset=step_offset)
