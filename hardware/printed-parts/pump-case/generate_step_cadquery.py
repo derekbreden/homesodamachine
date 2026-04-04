@@ -404,41 +404,6 @@ for ax in arch_hole_xs:
     )
     solid = solid.cut(arch_cutter)
 
-# ── Step cut: remove narrow (-Z) half of skirt for bottom 19mm ──
-# Creates a stepped mating surface — the lower part gains this geometry.
-STEP_HEIGHT = 19.0
-
-
-def narrow_half_polygon(full_profile, n=ARC_SEGMENTS):
-    """Extract the narrow (-Z) half from a split_skirt_profile result.
-    Indices 2n..4n+3: left split corner, left transition, 2n narrow arcs,
-    right transition, right split corner."""
-    return list(full_profile[2 * n: 4 * n + 4])
-
-
-step_cut_start_offset = sum(skirt_y_steps) - STEP_HEIGHT  # 9.5
-
-step_narrow_profiles = [narrow_half_polygon(p) for p in skirt_outer_profiles]
-
-step_cut_y_steps = [
-    SKIRT_UPPER_HEIGHT - step_cut_start_offset,  # 11.5
-    skirt_y_steps[1],                             # 3
-    skirt_y_steps[2],                             # 1
-    skirt_y_steps[3] + OVERCUT,                   # 3.6
-]
-
-step_cut_solid = (
-    cq.Workplane("XZ")
-    .workplane(offset=step_cut_start_offset)
-    .center(CENTER_X, CENTER_Z)
-)
-step_cut_solid = step_cut_solid.polyline(step_narrow_profiles[0]).close()
-for step, profile in zip(step_cut_y_steps, step_narrow_profiles[1:]):
-    step_cut_solid = step_cut_solid.workplane(offset=step).polyline(profile).close()
-step_cut_solid = step_cut_solid.loft(ruled=True)
-
-solid = solid.cut(step_cut_solid)
-
 bore_profile = bore_octagon_profile()
 bore_wall_profile = offset_polygon(bore_profile, WALL_THICKNESS)
 
