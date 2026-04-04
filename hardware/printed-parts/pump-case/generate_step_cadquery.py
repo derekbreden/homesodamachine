@@ -183,7 +183,7 @@ solid = (
     .polyline(base_profile).close()
     .workplane(offset=-RAMP_HEIGHT)
     .polyline(top_profile).close()
-    .loft()
+    .loft(ruled=True)
 )
 
 # Skirt — 3mm wall extending 21mm below the base plate
