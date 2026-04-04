@@ -182,6 +182,132 @@ cap = (
 )
 solid = solid.union(cap)
 
+# ── Step extension: narrow (-Z) half of main part's skirt ──
+# Rises 19mm above Y=0 to create a stepped mating surface.
+# These dimensions must match generate_step_cadquery.py.
+STEP_HEIGHT = 19.0
+
+MAIN_BASE_HE = 35.0
+MAIN_WIDE_FLARE = 3.0
+MAIN_NARROW_TAPER = 4.0
+MAIN_WIDE_HE = MAIN_BASE_HE + MAIN_WIDE_FLARE          # 38
+MAIN_NARROW_HE = MAIN_BASE_HE - MAIN_NARROW_TAPER       # 31
+MAIN_MID_NARROW_HE = MAIN_BASE_HE - MAIN_WIDE_FLARE     # 32
+MAIN_UPPER_HEIGHT = 21.0
+MAIN_WIDE_STRAIGHT_HEIGHT = 4.5
+
+# Main part transition Z values (seam plane: X + Z = -35)
+main_tz_sym = (0.01, -0.01)
+main_tz_mid = (MAIN_WIDE_FLARE, -MAIN_WIDE_FLARE)        # (3, -3)
+main_tz_end = (MAIN_WIDE_FLARE, -MAIN_NARROW_TAPER)      # (3, -4)
+
+# Main part inner dimensions
+main_inner_r = CORNER_R - WALL_THICKNESS                   # 3
+main_inner_base_he = MAIN_BASE_HE - WALL_THICKNESS         # 32
+main_inner_wide_he = MAIN_WIDE_HE - WALL_THICKNESS         # 35
+main_inner_narrow_he = MAIN_NARROW_HE - WALL_THICKNESS     # 28
+main_inner_mid_narrow_he = MAIN_MID_NARROW_HE - WALL_THICKNESS  # 29
+
+main_seam_shift = WALL_THICKNESS * (math.sqrt(2) - 1)
+main_itz_sym = (0.01, -0.01)
+main_itz_mid = (main_tz_mid[0] + main_seam_shift, main_tz_mid[1] + main_seam_shift)
+main_itz_end = (main_tz_end[0] + main_seam_shift, main_tz_end[1] + main_seam_shift)
+
+# Reconstruct main part's 5 skirt profiles
+main_outer = [
+    split_skirt_profile(MAIN_BASE_HE, CORNER_R, MAIN_BASE_HE, CORNER_R,
+                        *main_tz_sym),
+    split_skirt_profile(MAIN_BASE_HE, CORNER_R, MAIN_BASE_HE, CORNER_R,
+                        *main_tz_sym),
+    split_skirt_profile(MAIN_WIDE_HE, CORNER_R, MAIN_MID_NARROW_HE, CORNER_R,
+                        *main_tz_mid),
+    split_skirt_profile(MAIN_WIDE_HE, CORNER_R, MAIN_NARROW_HE, CORNER_R,
+                        *main_tz_end),
+    split_skirt_profile(MAIN_WIDE_HE, CORNER_R, MAIN_NARROW_HE, CORNER_R,
+                        *main_tz_end),
+]
+
+main_inner = [
+    split_skirt_profile(main_inner_base_he, main_inner_r,
+                        main_inner_base_he, main_inner_r,
+                        *main_itz_sym),
+    split_skirt_profile(main_inner_base_he, main_inner_r,
+                        main_inner_base_he, main_inner_r,
+                        *main_itz_sym),
+    split_skirt_profile(main_inner_wide_he, main_inner_r,
+                        main_inner_mid_narrow_he, main_inner_r,
+                        *main_itz_mid),
+    split_skirt_profile(main_inner_wide_he, main_inner_r,
+                        main_inner_narrow_he, main_inner_r,
+                        *main_itz_end),
+    split_skirt_profile(main_inner_wide_he, main_inner_r,
+                        main_inner_narrow_he, main_inner_r,
+                        *main_itz_end),
+]
+
+
+def narrow_half_polygon(full_profile, n=ARC_SEGMENTS):
+    """Extract the narrow (-Z) half from a split_skirt_profile result."""
+    return list(full_profile[2 * n: 4 * n + 4])
+
+
+ext_outer_profiles = [narrow_half_polygon(p) for p in main_outer]
+ext_inner_profiles = [narrow_half_polygon(p) for p in main_inner]
+
+# Y steps within the extension (top to bottom: +19 → +7.5 → +4.5 → +3.5 → 0)
+main_narrow_straight = (
+    MAIN_WIDE_STRAIGHT_HEIGHT - (MAIN_NARROW_TAPER - MAIN_WIDE_FLARE)
+)
+main_skirt_total = (
+    MAIN_UPPER_HEIGHT + MAIN_WIDE_FLARE
+    + (MAIN_NARROW_TAPER - MAIN_WIDE_FLARE) + main_narrow_straight
+)
+ext_first_step = MAIN_UPPER_HEIGHT - (main_skirt_total - STEP_HEIGHT)
+
+ext_y_steps = [
+    ext_first_step,                              # 11.5
+    MAIN_WIDE_FLARE,                             # 3
+    MAIN_NARROW_TAPER - MAIN_WIDE_FLARE,         # 1
+    main_narrow_straight,                         # 3.5
+]
+
+# Build extension outer loft (Y=+19 → Y=0)
+ext_outer_solid = (
+    cq.Workplane("XZ")
+    .workplane(offset=-STEP_HEIGHT)
+    .center(PROFILE_CENTER, PROFILE_CENTER)
+)
+ext_outer_solid = ext_outer_solid.polyline(ext_outer_profiles[0]).close()
+for step, profile in zip(ext_y_steps, ext_outer_profiles[1:]):
+    ext_outer_solid = ext_outer_solid.workplane(offset=step).polyline(profile).close()
+ext_outer_solid = ext_outer_solid.loft(ruled=True)
+
+# Build extension inner loft (Y=+19 → Y=0, overcut at bottom)
+ext_inner_solid = (
+    cq.Workplane("XZ")
+    .workplane(offset=-STEP_HEIGHT)
+    .center(PROFILE_CENTER, PROFILE_CENTER)
+)
+ext_inner_solid = ext_inner_solid.polyline(ext_inner_profiles[0]).close()
+for i, (step, profile) in enumerate(zip(ext_y_steps, ext_inner_profiles[1:])):
+    extra = OVERCUT if i == len(ext_y_steps) - 1 else 0
+    ext_inner_solid = ext_inner_solid.workplane(offset=step + extra).polyline(profile).close()
+ext_inner_solid = ext_inner_solid.loft(ruled=True)
+
+extension = ext_outer_solid.cut(ext_inner_solid)
+
+# Cap on the extension top (3mm solid slab at Y=+19)
+ext_cap = (
+    cq.Workplane("XZ")
+    .workplane(offset=-STEP_HEIGHT)
+    .center(PROFILE_CENTER, PROFILE_CENTER)
+    .polyline(ext_outer_profiles[0]).close()
+    .extrude(CAP_THICKNESS)
+)
+extension = extension.union(ext_cap)
+
+solid = solid.union(extension)
+
 # ── Arch notches at the bottom rim (+Z face of wider half) ──
 z_face_outer = PROFILE_CENTER + FOOTPRINT_WIDE_HE   # 73
 arch_hole_xs = [
