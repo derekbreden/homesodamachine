@@ -9,7 +9,7 @@ OUT_DIR = Path(__file__).parent
 
 # Base form
 TIP_WIDTH = 5.0
-BUMP_WIDTH = 7.0
+BUMP_WIDTH = 7.2
 BODY_WIDTH = 6.0
 LEAD_IN_LENGTH = 2.0
 BUMP_LENGTH = 2.0
@@ -105,6 +105,3 @@ def build_strut(name, bump_width=BUMP_WIDTH, slot_width=SLOT_WIDTH, slot_depth_a
 
 
 build_strut("strut")
-build_strut("strut-a", slot_depth_add=2)
-build_strut("strut-b", bump_width=7.2)
-build_strut("strut-c", slot_depth_add=2, bump_width=7.2)
