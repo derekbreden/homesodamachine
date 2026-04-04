@@ -231,22 +231,17 @@ skirt_lower_inner = rounded_rect_profile(
     skirt_lower_z - 2 * SKIRT_THICKNESS,
     skirt_lower_r - SKIRT_THICKNESS)
 
-skirt_upper_top = 0
-skirt_upper_bottom = SKIRT_UPPER_HEIGHT
-skirt_flare_bottom = skirt_upper_bottom + SKIRT_FLARE_HEIGHT
-skirt_lower_bottom = skirt_flare_bottom + SKIRT_LOWER_HEIGHT
-
 # Outer shell: upper straight → flare → lower straight
 skirt_outer = (
     cq.Workplane("XZ")
-    .workplane(offset=skirt_upper_top)
+    .workplane(offset=0)
     .center(CENTER_X, CENTER_Z)
     .polyline(footprint).close()
-    .workplane(offset=skirt_upper_bottom)
+    .workplane(offset=SKIRT_UPPER_HEIGHT)
     .polyline(footprint).close()
-    .workplane(offset=skirt_flare_bottom)
+    .workplane(offset=SKIRT_FLARE_HEIGHT)
     .polyline(skirt_lower_outer).close()
-    .workplane(offset=skirt_lower_bottom)
+    .workplane(offset=SKIRT_LOWER_HEIGHT)
     .polyline(skirt_lower_outer).close()
     .loft(ruled=True)
 )
@@ -254,14 +249,14 @@ skirt_outer = (
 # Inner cavity: same structure, thinner profiles
 skirt_cavity = (
     cq.Workplane("XZ")
-    .workplane(offset=skirt_upper_top)
+    .workplane(offset=0)
     .center(CENTER_X, CENTER_Z)
     .polyline(skirt_upper_inner).close()
-    .workplane(offset=skirt_upper_bottom)
+    .workplane(offset=SKIRT_UPPER_HEIGHT)
     .polyline(skirt_upper_inner).close()
-    .workplane(offset=skirt_flare_bottom)
+    .workplane(offset=SKIRT_FLARE_HEIGHT)
     .polyline(skirt_lower_inner).close()
-    .workplane(offset=skirt_lower_bottom + OVERCUT)
+    .workplane(offset=SKIRT_LOWER_HEIGHT + OVERCUT)
     .polyline(skirt_lower_inner).close()
     .loft(ruled=True)
 )
