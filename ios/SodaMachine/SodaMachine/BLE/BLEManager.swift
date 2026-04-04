@@ -412,7 +412,6 @@ class BLEManager {
             uploadQueueTotal = 0
             activeUploadImage = nil
             activeUploadSlot = -1
-            cachedImages = [:]
             requestImageList()
             return
         }
@@ -781,7 +780,6 @@ class BLEManager {
             activeUploadSlot = -1
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) { [weak self] in
                 self?.uploadProgress = nil
-                self?.cachedImages = [:]
                 self?.requestImageList()
             }
         }
