@@ -10,6 +10,7 @@ PLATE_H = 70.0
 BASE_THICKNESS = 3.0     # solid floor at bottom
 WALL_THICKNESS = 3.0     # wall around octagon bore
 RAMP_HEIGHT = PLATE_D - BASE_THICKNESS  # 15mm of ramp above base
+CORNER_R = 6.0           # fillet radius on 70x70 footprint corners
 
 # Diamond (45-degree-rotated square) cutout for pump base
 DIAMOND_SIDE = 43.0
@@ -113,63 +114,34 @@ def _octagon_with_ledges():
 
 # --- Build the solid ---
 
-# Start with full 70x70x18 block
-solid = cq.Workplane("XY").box(PLATE_W, PLATE_D, PLATE_H, centered=False)
+def _rounded_rect_sketch(wp):
+    """Create a rounded-rectangle face on the given workplane."""
+    return (
+        wp
+        .center(PUMP_CX, PUMP_CZ)
+        .sketch()
+        .rect(PLATE_W, PLATE_H)
+        .vertices()
+        .fillet(CORNER_R)
+        .finalize()
+    )
 
-# Cut 4 ramp wedges — 45-degree slopes from each side, starting at y=BASE_THICKNESS.
-# Each wedge is a triangular prism whose diagonal edge IS the 45-degree ramp.
-oc = 0.5  # overcut beyond part boundaries for clean booleans
 
-# +X side ramp (triangle in XY, extruded along Z)
-wedge_px = (
-    cq.Workplane("XY")
-    .workplane(offset=-oc)
-    .moveTo(PLATE_W + oc, BASE_THICKNESS - oc)
-    .lineTo(PLATE_W + oc, PLATE_D + oc)
-    .lineTo(PLATE_W - RAMP_HEIGHT - oc, PLATE_D + oc)
-    .close()
-    .extrude(PLATE_H + 2 * oc)
-)
+# Base plate with rounded corners (y=0 to y=3)
+base = _rounded_rect_sketch(
+    cq.Workplane("XZ").workplane(offset=0)
+).extrude(-BASE_THICKNESS)
 
-# -X side ramp
-wedge_mx = (
-    cq.Workplane("XY")
-    .workplane(offset=-oc)
-    .moveTo(-oc, BASE_THICKNESS - oc)
-    .lineTo(-oc, PLATE_D + oc)
-    .lineTo(RAMP_HEIGHT + oc, PLATE_D + oc)
-    .close()
-    .extrude(PLATE_H + 2 * oc)
-)
+# Upper block with rounded corners (y=3 to y=18), then chamfered.
+# The chamfer follows the fillet arcs, producing a smooth rounded ramp at corners.
+upper = _rounded_rect_sketch(
+    cq.Workplane("XZ").workplane(offset=-BASE_THICKNESS)
+).extrude(-RAMP_HEIGHT)
 
-# +Z side ramp (triangle in YZ, extruded along X)
-wedge_pz = (
-    cq.Workplane("YZ")
-    .workplane(offset=-oc)
-    .moveTo(BASE_THICKNESS - oc, PLATE_H + oc)
-    .lineTo(PLATE_D + oc, PLATE_H + oc)
-    .lineTo(PLATE_D + oc, PLATE_H - RAMP_HEIGHT - oc)
-    .close()
-    .extrude(PLATE_W + 2 * oc)
-)
+upper = upper.edges(">Y").chamfer(RAMP_HEIGHT - 0.1)
 
-# -Z side ramp
-wedge_mz = (
-    cq.Workplane("YZ")
-    .workplane(offset=-oc)
-    .moveTo(BASE_THICKNESS - oc, -oc)
-    .lineTo(PLATE_D + oc, -oc)
-    .lineTo(PLATE_D + oc, RAMP_HEIGHT + oc)
-    .close()
-    .extrude(PLATE_W + 2 * oc)
-)
-
-solid = solid.cut(wedge_px).cut(wedge_mx).cut(wedge_pz).cut(wedge_mz)
-
-# Wall prism — octagon offset outward by WALL_THICKNESS, extruded full height.
+# Wall prism — offset octagon extruded full height.
 # Ensures 3mm wall around the bore even where the ramp cuts past it.
-# Since WALL_THICKNESS (3mm) > LEDGE_DEPTH (1.5mm), the offset fills the ledges
-# and the wall profile is a simple octagon.
 _t = TRIMMED_HALF_DIAG
 _d = DIAMOND_HALF_DIAG - _t
 _t_off = _t + WALL_THICKNESS
@@ -194,7 +166,7 @@ wall_prism = (
     .extrude(-PLATE_D)
 )
 
-solid = solid.union(wall_prism)
+solid = base.union(upper).union(wall_prism)
 
 # Cut octagon bore through everything
 for cutout_id, cx, cz in PUMP_CUTOUTS:
