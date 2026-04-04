@@ -191,6 +191,7 @@ CYLINDER_R_OUTER = CYLINDER_OD / 2
 CYLINDER_R_INNER = CYLINDER_ID / 2
 
 RAMP_FROM_OCTAGON_TO_CYLINDER_HEIGHT = OCTAGON_WALL_OUTER_EXTENT - CYLINDER_R_OUTER
+OCTAGON_TO_CYLINDER_SCALE = CYLINDER_R_OUTER / OCTAGON_WALL_OUTER_EXTENT
 
 
 # ── Build the solid ──
@@ -279,12 +280,19 @@ tower_platform = (
     .extrude(-PLATFORM_THICKNESS)
 )
 
-tower_taper = (
+wall_profile_at_cylinder = [
+    (x * OCTAGON_TO_CYLINDER_SCALE, z * OCTAGON_TO_CYLINDER_SCALE)
+    for x, z in wall_profile
+]
+
+tower_ramp = (
     cq.Workplane("XZ")
     .workplane(offset=tower_base_y - PLATFORM_THICKNESS)
     .center(CENTER_X, CENTER_Z)
     .polyline(wall_profile).close()
-    .extrude(-RAMP_FROM_OCTAGON_TO_CYLINDER_HEIGHT, taper=45)
+    .workplane(offset=-RAMP_FROM_OCTAGON_TO_CYLINDER_HEIGHT)
+    .polyline(wall_profile_at_cylinder).close()
+    .loft(ruled=True)
 )
 
 tower_cylinder = (
@@ -295,7 +303,7 @@ tower_cylinder = (
     .extrude(-TOWER_HEIGHT)
 )
 
-tower = tower_platform.union(tower_taper).union(tower_cylinder)
+tower = tower_platform.union(tower_ramp).union(tower_cylinder)
 
 tower_bore_depth = TOWER_HEIGHT - CAP_THICKNESS
 tower_bore = (
