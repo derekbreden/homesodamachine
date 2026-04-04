@@ -1,23 +1,19 @@
 """Generate the pump-case lower part STEP file.
 
-The lower part sits below the main pump case skirt.  The mating surface
-is stepped: the wide (+Z) half mates at the original level, the narrow
-(-Z) half extends 19mm further into what was the main part's skirt.
+The lower part sits below the main pump case skirt.  Both parts share
+the identical split 76/62 footprint at their bottoms — that is the
+mating interface.
 
-  Cap end (Y=0):  solid 3mm cap, then uniform 62×62 shell
-  Middle:         45° ramp — wider half expands from 62→76, narrow stays 62
-  Wide mating:    split footprint 76/62 (wide half mates with main part here)
-  Step extension: narrow (-Z) half continues 19mm, replicating main part skirt
-  Narrow mating:  3mm cap at far end (narrow half mates with main part here)
+  Top (Y=0):   solid 3mm cap, then uniform 62×62 shell
+  Middle:      45° ramp — wider half expands from 62→76, narrow half stays 62
+  Bottom:      split footprint 76 wide / 62 narrow (mates with main part)
 
-Layout (cap end to narrow mating end):
+Layout (top to bottom):
   11.5mm  uniform straight  (62×62)
    7.0mm  ramp at 45°       (wider half: 31→38 he, 7mm/side)
    4.5mm  footprint straight (76/62 split)
-  ── wide half ends here, narrow half continues ──
-  19.0mm  step extension    (narrow half of main part's skirt)
   ─────
-  42.0mm  total (narrow half)  /  23.0mm (wide half)
+  23.0mm  total
 """
 
 from pathlib import Path
@@ -187,9 +183,8 @@ cap = (
 solid = solid.union(cap)
 
 # ── Step extension: narrow (-Z) half of main part's skirt ──
-# Extends 19mm past Y=-TOTAL_HEIGHT (the mating surface) to create a
-# stepped mating surface.  The extension replicates the main part's
-# narrow-half skirt geometry.  Dimensions must match generate_step_cadquery.py.
+# Rises 19mm above Y=0 to create a stepped mating surface.
+# These dimensions must match generate_step_cadquery.py.
 STEP_HEIGHT = 19.0
 
 MAIN_BASE_HE = 35.0
@@ -198,6 +193,8 @@ MAIN_NARROW_TAPER = 4.0
 MAIN_WIDE_HE = MAIN_BASE_HE + MAIN_WIDE_FLARE          # 38
 MAIN_NARROW_HE = MAIN_BASE_HE - MAIN_NARROW_TAPER       # 31
 MAIN_MID_NARROW_HE = MAIN_BASE_HE - MAIN_WIDE_FLARE     # 32
+MAIN_UPPER_HEIGHT = 21.0
+MAIN_WIDE_STRAIGHT_HEIGHT = 4.5
 
 # Main part transition Z values (seam plane: X + Z = -35)
 main_tz_sym = (0.01, -0.01)
@@ -216,7 +213,7 @@ main_itz_sym = (0.01, -0.01)
 main_itz_mid = (main_tz_mid[0] + main_seam_shift, main_tz_mid[1] + main_seam_shift)
 main_itz_end = (main_tz_end[0] + main_seam_shift, main_tz_end[1] + main_seam_shift)
 
-# Main part's 5 skirt profiles (top to bottom: levels 0–4)
+# Reconstruct main part's 5 skirt profiles
 main_outer = [
     split_skirt_profile(MAIN_BASE_HE, CORNER_R, MAIN_BASE_HE, CORNER_R,
                         *main_tz_sym),
@@ -254,26 +251,30 @@ def narrow_half_polygon(full_profile, n=ARC_SEGMENTS):
     return list(full_profile[2 * n: 4 * n + 4])
 
 
-# Extension profiles: main part bottom→top (levels 4,3,2,1,0)
-# maps to lower part Y=-23 → Y=-42
-ext_outer_profiles = [narrow_half_polygon(main_outer[i]) for i in [4, 3, 2, 1, 0]]
-ext_inner_profiles = [narrow_half_polygon(main_inner[i]) for i in [4, 3, 2, 1, 0]]
+ext_outer_profiles = [narrow_half_polygon(p) for p in main_outer]
+ext_inner_profiles = [narrow_half_polygon(p) for p in main_inner]
 
-# Y steps from Y=-23 downward (main part steps in reverse order)
-main_narrow_straight = FOOTPRINT_STRAIGHT_HEIGHT - (MAIN_NARROW_TAPER - MAIN_WIDE_FLARE)
+# Y steps within the extension (top to bottom: +19 → +7.5 → +4.5 → +3.5 → 0)
+main_narrow_straight = (
+    MAIN_WIDE_STRAIGHT_HEIGHT - (MAIN_NARROW_TAPER - MAIN_WIDE_FLARE)
+)
+main_skirt_total = (
+    MAIN_UPPER_HEIGHT + MAIN_WIDE_FLARE
+    + (MAIN_NARROW_TAPER - MAIN_WIDE_FLARE) + main_narrow_straight
+)
+ext_first_step = MAIN_UPPER_HEIGHT - (main_skirt_total - STEP_HEIGHT)
+
 ext_y_steps = [
+    ext_first_step,                              # 11.5
+    MAIN_WIDE_FLARE,                             # 3
+    MAIN_NARROW_TAPER - MAIN_WIDE_FLARE,         # 1
     main_narrow_straight,                         # 3.5
-    MAIN_NARROW_TAPER - MAIN_WIDE_FLARE,          # 1
-    MAIN_WIDE_FLARE,                              # 3
-    STEP_HEIGHT - main_narrow_straight             # 11.5
-    - (MAIN_NARROW_TAPER - MAIN_WIDE_FLARE)
-    - MAIN_WIDE_FLARE,
 ]
 
-# Build extension outer loft (Y=-23 → Y=-42)
+# Build extension outer loft (Y=+19 → Y=0)
 ext_outer_solid = (
     cq.Workplane("XZ")
-    .workplane(offset=TOTAL_HEIGHT)
+    .workplane(offset=-STEP_HEIGHT)
     .center(PROFILE_CENTER, PROFILE_CENTER)
 )
 ext_outer_solid = ext_outer_solid.polyline(ext_outer_profiles[0]).close()
@@ -281,10 +282,10 @@ for step, profile in zip(ext_y_steps, ext_outer_profiles[1:]):
     ext_outer_solid = ext_outer_solid.workplane(offset=step).polyline(profile).close()
 ext_outer_solid = ext_outer_solid.loft(ruled=True)
 
-# Build extension inner loft (Y=-23 → Y=-42, overcut at far end)
+# Build extension inner loft (Y=+19 → Y=0, overcut at bottom)
 ext_inner_solid = (
     cq.Workplane("XZ")
-    .workplane(offset=TOTAL_HEIGHT)
+    .workplane(offset=-STEP_HEIGHT)
     .center(PROFILE_CENTER, PROFILE_CENTER)
 )
 ext_inner_solid = ext_inner_solid.polyline(ext_inner_profiles[0]).close()
@@ -295,12 +296,12 @@ ext_inner_solid = ext_inner_solid.loft(ruled=True)
 
 extension = ext_outer_solid.cut(ext_inner_solid)
 
-# Cap at the far end of the extension (3mm solid slab ending at Y=-42)
+# Cap on the extension top (3mm solid slab at Y=+19)
 ext_cap = (
     cq.Workplane("XZ")
-    .workplane(offset=TOTAL_HEIGHT + STEP_HEIGHT - CAP_THICKNESS)
+    .workplane(offset=-STEP_HEIGHT)
     .center(PROFILE_CENTER, PROFILE_CENTER)
-    .polyline(ext_outer_profiles[-1]).close()
+    .polyline(ext_outer_profiles[0]).close()
     .extrude(CAP_THICKNESS)
 )
 extension = extension.union(ext_cap)
