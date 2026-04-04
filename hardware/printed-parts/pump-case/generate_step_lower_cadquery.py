@@ -177,6 +177,15 @@ inner_solid = inner_solid.loft(ruled=True)
 
 solid = outer_solid.cut(inner_solid)
 
+# ── Cap: solid 3mm slab on top (Y=0 to Y=+3) ──
+CAP_THICKNESS = 3.0
+cap = (
+    cq.Workplane("XZ").workplane(offset=0).center(CENTER, CENTER)
+    .polyline(outer_profiles[0]).close()
+    .extrude(CAP_THICKNESS)
+)
+solid = solid.union(cap)
+
 # ── Arch notches at the bottom rim (+Z face of wider half) ──
 z_face_outer = CENTER + split_wide_he   # 73
 arch_hole_xs = [
