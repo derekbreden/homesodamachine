@@ -21,7 +21,7 @@ SKIRT_UPPER_HEIGHT = 21.0
 SKIRT_THICKNESS = 3.0
 SKIRT_WIDE_FLARE_PER_SIDE = 3.0   # outward, 70 → 76 exterior
 SKIRT_NARROW_TAPER_PER_SIDE = 4.0  # inward, 70 → 62 exterior
-SKIRT_WIDE_STRAIGHT_HEIGHT = 10.0
+SKIRT_WIDE_STRAIGHT_HEIGHT = 4.5
 
 # ── Pump bore geometry ──
 # The bore is a 43mm square rotated 45 degrees, then trimmed to an octagon
@@ -383,30 +383,23 @@ skirt = skirt_outer_solid.cut(skirt_cavity)
 solid = solid.union(skirt)
 
 # ── Arch notches on the +Z face of the wider half (lower skirt) ──
-# Two doorway-shaped notches cut through the wall, opening at the bottom
-# rim of the skirt. Each is 9mm wide: 4.5mm rectangle at the rim, then
-# 4.5mm semicircle arch above. Positioned 6mm from each side face.
+# Semicircle cutouts (r=4.5mm) centered at the bottom rim of the skirt.
 # Note: the XZ workplane normal is -Y, so the skirt extends in -Y.
 ARCH_RADIUS = 4.5
-ARCH_RECT_HEIGHT = ARCH_RADIUS
-skirt_bottom_y = -sum(skirt_y_steps)            # bottom rim at Y = -34
+skirt_bottom_y = -sum(skirt_y_steps)            # bottom rim
 z_face_outer = CENTER_Z + wide_he               # +Z outer face of wider half
 
 arch_hole_xs = [
-    CORNER_R + ARCH_RADIUS - 3,                 # left notch center: 7.5
-    FOOTPRINT_X - CORNER_R - ARCH_RADIUS + 3,   # right notch center: 62.5
+    CORNER_R + ARCH_RADIUS - 4,                 # left notch center: 6.5
+    FOOTPRINT_X - CORNER_R - ARCH_RADIUS + 4,   # right notch center: 63.5
 ]
 
 for ax in arch_hole_xs:
     arch_cutter = (
         cq.Workplane("XY")
         .workplane(offset=z_face_outer + OVERCUT)
-        .center(ax, skirt_bottom_y + ARCH_RADIUS)
-        .moveTo(-ARCH_RADIUS, -ARCH_RADIUS)
-        .lineTo(ARCH_RADIUS, -ARCH_RADIUS)
-        .lineTo(ARCH_RADIUS, 0)
-        .threePointArc((0, ARCH_RADIUS), (-ARCH_RADIUS, 0))
-        .close()
+        .center(ax, skirt_bottom_y + 1)
+        .circle(ARCH_RADIUS)
         .extrude(-(SKIRT_THICKNESS + 3 + OVERCUT))
     )
     solid = solid.cut(arch_cutter)
