@@ -301,8 +301,8 @@ skirt_narrow_straight_height = (
 
 # Transition Z coordinates at each stage — these keep the seam wall
 # in the vertical plane X + Z = -base_he at every Y level.
-tz_sym_plus  =  0.01                                   # ~0 (avoid degenerate edge)
-tz_sym_minus = -0.01
+tz_sym_plus  =  1.0                                    # non-degenerate transition
+tz_sym_minus = -1.0
 tz_mid_plus  =  SKIRT_WIDE_FLARE_PER_SIDE              # +3
 tz_mid_minus = -SKIRT_WIDE_FLARE_PER_SIDE              # -3
 tz_end_plus  =  SKIRT_WIDE_FLARE_PER_SIDE              # +3
@@ -338,8 +338,8 @@ inner_base_r = base_r - wall
 # seam plane (X + Z = -base_he).
 seam_z_shift = wall * (math.sqrt(2) - 1)
 
-itz_sym_plus  = tz_sym_plus
-itz_sym_minus = tz_sym_minus
+itz_sym_plus  = tz_sym_plus  + seam_z_shift
+itz_sym_minus = tz_sym_minus + seam_z_shift
 itz_mid_plus  = tz_mid_plus  + seam_z_shift
 itz_mid_minus = tz_mid_minus + seam_z_shift
 itz_end_plus  = tz_end_plus  + seam_z_shift
