@@ -19,9 +19,9 @@ RAMP_FROM_SKIRT_TO_OCTAGON_HEIGHT = 18.0
 # ── Skirt ──
 SKIRT_UPPER_HEIGHT = 21.0
 SKIRT_THICKNESS = 3.0
-SKIRT_FLARE_PER_SIDE = 3.0
-SKIRT_FLARE_HEIGHT = SKIRT_FLARE_PER_SIDE  # 45 degrees
-SKIRT_LOWER_HEIGHT = 10.0
+SKIRT_WIDE_FLARE_PER_SIDE = 3.0   # outward, 70 → 76 exterior
+SKIRT_NARROW_TAPER_PER_SIDE = 4.0  # inward, 70 → 62 exterior
+SKIRT_WIDE_STRAIGHT_HEIGHT = 10.0
 
 # ── Pump bore geometry ──
 # The bore is a 43mm square rotated 45 degrees, then trimmed to an octagon
@@ -182,6 +182,52 @@ def rounded_rect_profile(width, height, radius, n=ARC_SEGMENTS):
     return pts
 
 
+def split_skirt_profile(wide_he, wide_r, narrow_he, narrow_r, n=ARC_SEGMENTS):
+    """Asymmetric profile: wider rounded rect on +Z half, narrower on -Z half,
+    with 45-degree diagonal transitions on the left and right sides.
+
+    When wide_he == narrow_he, degenerates to a symmetric rounded rect
+    (with two extra colinear points on each side edge)."""
+    # Minimum values avoid zero-length edges in polyline
+    wide_r = max(wide_r, 0.01)
+    narrow_r = max(narrow_r, 0.01)
+    wide_cc = wide_he - wide_r
+    narrow_cc = narrow_he - narrow_r
+    transition_half_z = max((wide_he - narrow_he) / 2, 0.01)
+
+    pts = []
+
+    # +Z half arcs (wide)
+    for i in range(n):
+        a = math.radians(90 * i / n)
+        pts.append((wide_cc + wide_r * math.cos(a),
+                     wide_cc + wide_r * math.sin(a)))
+    for i in range(n):
+        a = math.radians(90 + 90 * i / n)
+        pts.append((-wide_cc + wide_r * math.cos(a),
+                     wide_cc + wide_r * math.sin(a)))
+
+    # Left side: 45° transition from wide to narrow
+    pts.append((-wide_he, transition_half_z))
+    pts.append((-narrow_he, -transition_half_z))
+
+    # -Z half arcs (narrow)
+    for i in range(n):
+        a = math.radians(180 + 90 * i / n)
+        pts.append((-narrow_cc + narrow_r * math.cos(a),
+                     -narrow_cc + narrow_r * math.sin(a)))
+    for i in range(n):
+        a = math.radians(270 + 90 * i / n)
+        pts.append((narrow_cc + narrow_r * math.cos(a),
+                     -narrow_cc + narrow_r * math.sin(a)))
+
+    # Right side: 45° transition from narrow back to wide
+    pts.append((narrow_he, -transition_half_z))
+    pts.append((wide_he, transition_half_z))
+
+    return pts
+
+
 OCTAGON_WALL_OUTER_EXTENT = VERTEX_FAR + WALL_THICKNESS
 
 # ── Tower geometry (octagon → cylinder transition above the case) ──
@@ -215,53 +261,82 @@ solid = (
     .loft(ruled=True)
 )
 
-# ── Skirt: upper (straight) + flare (45° outward) + lower (straight) ──
+# ── Skirt: upper (straight) + asymmetric flare + lower (straight) ──
+#
+# The skirt splits below the upper section: one half (+Z) flares outward
+# to 76x76, the other half (-Z) tapers inward to 62x62. Both at 45°.
+# The outward flare is 3mm tall, the inward taper is 4mm tall.
+# Both halves end at the same Y level.
 
-skirt_upper_inner = rounded_rect_profile(
-    FOOTPRINT_X - 2 * SKIRT_THICKNESS,
-    FOOTPRINT_Z - 2 * SKIRT_THICKNESS,
-    CORNER_R - SKIRT_THICKNESS)
+base_he = FOOTPRINT_X / 2
+base_r = CORNER_R
+wall = SKIRT_THICKNESS
 
-skirt_lower_x = FOOTPRINT_X + 2 * SKIRT_FLARE_PER_SIDE
-skirt_lower_z = FOOTPRINT_Z + 2 * SKIRT_FLARE_PER_SIDE
-skirt_lower_r = CORNER_R + SKIRT_FLARE_PER_SIDE
-skirt_lower_outer = rounded_rect_profile(skirt_lower_x, skirt_lower_z, skirt_lower_r)
-skirt_lower_inner = rounded_rect_profile(
-    skirt_lower_x - 2 * SKIRT_THICKNESS,
-    skirt_lower_z - 2 * SKIRT_THICKNESS,
-    skirt_lower_r - SKIRT_THICKNESS)
+wide_he = base_he + SKIRT_WIDE_FLARE_PER_SIDE
+wide_r = base_r + SKIRT_WIDE_FLARE_PER_SIDE
+narrow_he = base_he - SKIRT_NARROW_TAPER_PER_SIDE
+narrow_r = max(0, base_r - SKIRT_NARROW_TAPER_PER_SIDE)
 
-# Outer shell: upper straight → flare → lower straight
-skirt_outer = (
-    cq.Workplane("XZ")
-    .workplane(offset=0)
-    .center(CENTER_X, CENTER_Z)
-    .polyline(footprint).close()
-    .workplane(offset=SKIRT_UPPER_HEIGHT)
-    .polyline(footprint).close()
-    .workplane(offset=SKIRT_FLARE_HEIGHT)
-    .polyline(skirt_lower_outer).close()
-    .workplane(offset=SKIRT_LOWER_HEIGHT)
-    .polyline(skirt_lower_outer).close()
-    .loft(ruled=True)
+# At the moment the wide flare completes (3mm), the narrow side
+# has only tapered by 3 of its 4mm
+mid_narrow_he = base_he - SKIRT_WIDE_FLARE_PER_SIDE
+mid_narrow_r = max(0, base_r - SKIRT_WIDE_FLARE_PER_SIDE)
+
+# Narrow straight section is shorter so both halves land together
+skirt_narrow_straight_height = (
+    SKIRT_WIDE_STRAIGHT_HEIGHT
+    - (SKIRT_NARROW_TAPER_PER_SIDE - SKIRT_WIDE_FLARE_PER_SIDE)
 )
 
-# Inner cavity: same structure, thinner profiles
-skirt_cavity = (
-    cq.Workplane("XZ")
-    .workplane(offset=0)
-    .center(CENTER_X, CENTER_Z)
-    .polyline(skirt_upper_inner).close()
-    .workplane(offset=SKIRT_UPPER_HEIGHT)
-    .polyline(skirt_upper_inner).close()
-    .workplane(offset=SKIRT_FLARE_HEIGHT)
-    .polyline(skirt_lower_inner).close()
-    .workplane(offset=SKIRT_LOWER_HEIGHT + OVERCUT)
-    .polyline(skirt_lower_inner).close()
-    .loft(ruled=True)
-)
+# Outer profiles at 5 Y-levels
+skirt_outer_profiles = [
+    split_skirt_profile(base_he, base_r, base_he, base_r),
+    split_skirt_profile(base_he, base_r, base_he, base_r),
+    split_skirt_profile(wide_he, wide_r, mid_narrow_he, mid_narrow_r),
+    split_skirt_profile(wide_he, wide_r, narrow_he, narrow_r),
+    split_skirt_profile(wide_he, wide_r, narrow_he, narrow_r),
+]
 
-skirt = skirt_outer.cut(skirt_cavity)
+# Inner profiles (subtract wall thickness from each half-extent and radius)
+inner_wide_he = wide_he - wall
+inner_wide_r = wide_r - wall
+inner_narrow_he = narrow_he - wall
+inner_narrow_r = max(0, narrow_r - wall)
+inner_mid_narrow_he = mid_narrow_he - wall
+inner_mid_narrow_r = max(0, mid_narrow_r - wall)
+inner_base_he = base_he - wall
+inner_base_r = base_r - wall
+
+skirt_inner_profiles = [
+    split_skirt_profile(inner_base_he, inner_base_r, inner_base_he, inner_base_r),
+    split_skirt_profile(inner_base_he, inner_base_r, inner_base_he, inner_base_r),
+    split_skirt_profile(inner_wide_he, inner_wide_r, inner_mid_narrow_he, inner_mid_narrow_r),
+    split_skirt_profile(inner_wide_he, inner_wide_r, inner_narrow_he, inner_narrow_r),
+    split_skirt_profile(inner_wide_he, inner_wide_r, inner_narrow_he, inner_narrow_r),
+]
+
+# Incremental Y offsets between levels
+skirt_y_steps = [
+    SKIRT_UPPER_HEIGHT,                                          # upper straight
+    SKIRT_WIDE_FLARE_PER_SIDE,                                   # wide flare (3mm at 45°)
+    SKIRT_NARROW_TAPER_PER_SIDE - SKIRT_WIDE_FLARE_PER_SIDE,    # narrow finishes (1mm)
+    skirt_narrow_straight_height,                                 # straight to bottom (9mm)
+]
+
+skirt_outer_solid = cq.Workplane("XZ").workplane(offset=0).center(CENTER_X, CENTER_Z)
+skirt_outer_solid = skirt_outer_solid.polyline(skirt_outer_profiles[0]).close()
+for step, profile in zip(skirt_y_steps, skirt_outer_profiles[1:]):
+    skirt_outer_solid = skirt_outer_solid.workplane(offset=step).polyline(profile).close()
+skirt_outer_solid = skirt_outer_solid.loft(ruled=True)
+
+skirt_cavity = cq.Workplane("XZ").workplane(offset=0).center(CENTER_X, CENTER_Z)
+skirt_cavity = skirt_cavity.polyline(skirt_inner_profiles[0]).close()
+for i, (step, profile) in enumerate(zip(skirt_y_steps, skirt_inner_profiles[1:])):
+    extra = OVERCUT if i == len(skirt_y_steps) - 1 else 0
+    skirt_cavity = skirt_cavity.workplane(offset=step + extra).polyline(profile).close()
+skirt_cavity = skirt_cavity.loft(ruled=True)
+
+skirt = skirt_outer_solid.cut(skirt_cavity)
 solid = solid.union(skirt)
 
 bore_profile = bore_octagon_profile()
