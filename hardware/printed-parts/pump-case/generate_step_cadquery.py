@@ -37,6 +37,9 @@ HOLES = [
 DIAMOND_HALF_DIAG = DIAMOND_SIDE * math.sqrt(2) / 2
 TRIMMED_HALF_DIAG = 53.0 / 2
 
+# Polyline resolution for rounded rectangles
+N_ARC = 8  # segments per 90-degree arc
+
 
 class Turtle:
     """Logo-style turtle that accumulates (x, z) polygon points."""
@@ -112,63 +115,51 @@ def _octagon_with_ledges():
     return pts
 
 
+def _rounded_rect_pts(w, h, r, n=N_ARC):
+    """Return CCW polygon points for a rounded rectangle centered at origin.
+
+    All sections use the same point count (4*n) so the loft can match
+    corresponding edges between sections.
+    """
+    hw, hh = w / 2, h / 2
+    r = max(r, 0.01)  # tiny minimum to keep topology consistent
+    pts = []
+    corners = [
+        ( hw - r,  hh - r,   0,  90),   # top-right
+        (-hw + r,  hh - r,  90, 180),   # top-left
+        (-hw + r, -hh + r, 180, 270),   # bottom-left
+        ( hw - r, -hh + r, 270, 360),   # bottom-right
+    ]
+    for cx, cz, a0, a1 in corners:
+        for i in range(n):
+            angle = math.radians(a0 + (a1 - a0) * i / n)
+            pts.append((cx + r * math.cos(angle), cz + r * math.sin(angle)))
+    return pts
+
+
 # --- Build the solid ---
 
-# Start with full 70x70x18 block, then round the 4 vertical corner edges
-solid = cq.Workplane("XY").box(PLATE_W, PLATE_D, PLATE_H, centered=False)
-solid = solid.edges("|Y").fillet(CORNER_R)
+# Single loft combines base plate and ramp in one shape:
+#   y=0:  70x70, R=6   (bottom of base plate)
+#   y=3:  70x70, R=6   (top of base plate / start of ramp — same shape = flat)
+#   y=18: 40x40, R=0.5 (top — small R avoids degenerate geometry in OCC)
+s_base = _rounded_rect_pts(PLATE_W, PLATE_H, CORNER_R)
+s_top  = _rounded_rect_pts(PLATE_W - 2 * RAMP_HEIGHT,
+                           PLATE_H - 2 * RAMP_HEIGHT, 0.5)
 
-# Cut 4 ramp wedges — 45-degree slopes from each side, starting at y=BASE_THICKNESS.
-oc = 0.5
-
-# +X side ramp (triangle in XY, extruded along Z)
-wedge_px = (
-    cq.Workplane("XY")
-    .workplane(offset=-oc)
-    .moveTo(PLATE_W + oc, BASE_THICKNESS - oc)
-    .lineTo(PLATE_W + oc, PLATE_D + oc)
-    .lineTo(PLATE_W - RAMP_HEIGHT - oc, PLATE_D + oc)
-    .close()
-    .extrude(PLATE_H + 2 * oc)
+solid = (
+    cq.Workplane("XZ")
+    .workplane(offset=0)
+    .center(PUMP_CX, PUMP_CZ)
+    .polyline(s_base).close()
+    .workplane(offset=-BASE_THICKNESS)                    # y=3
+    .polyline(s_base).close()
+    .workplane(offset=-RAMP_HEIGHT)                       # y=18
+    .polyline(s_top).close()
+    .loft()
 )
-
-# -X side ramp
-wedge_mx = (
-    cq.Workplane("XY")
-    .workplane(offset=-oc)
-    .moveTo(-oc, BASE_THICKNESS - oc)
-    .lineTo(-oc, PLATE_D + oc)
-    .lineTo(RAMP_HEIGHT + oc, PLATE_D + oc)
-    .close()
-    .extrude(PLATE_H + 2 * oc)
-)
-
-# +Z side ramp (triangle in YZ, extruded along X)
-wedge_pz = (
-    cq.Workplane("YZ")
-    .workplane(offset=-oc)
-    .moveTo(BASE_THICKNESS - oc, PLATE_H + oc)
-    .lineTo(PLATE_D + oc, PLATE_H + oc)
-    .lineTo(PLATE_D + oc, PLATE_H - RAMP_HEIGHT - oc)
-    .close()
-    .extrude(PLATE_W + 2 * oc)
-)
-
-# -Z side ramp
-wedge_mz = (
-    cq.Workplane("YZ")
-    .workplane(offset=-oc)
-    .moveTo(BASE_THICKNESS - oc, -oc)
-    .lineTo(PLATE_D + oc, -oc)
-    .lineTo(PLATE_D + oc, RAMP_HEIGHT + oc)
-    .close()
-    .extrude(PLATE_W + 2 * oc)
-)
-
-solid = solid.cut(wedge_px).cut(wedge_mx).cut(wedge_pz).cut(wedge_mz)
 
 # Wall prism — offset octagon extruded full height.
-# Ensures 3mm wall around the bore even where the ramp cuts past it.
 _t = TRIMMED_HALF_DIAG
 _d = DIAMOND_HALF_DIAG - _t
 _t_off = _t + WALL_THICKNESS
