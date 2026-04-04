@@ -332,17 +332,30 @@ inner_mid_narrow_r = max(0, mid_narrow_r - wall)
 inner_base_he = base_he - wall
 inner_base_r = base_r - wall
 
+# The seam diagonal is at 45° in XZ, so a 3mm X-offset only gives 3/√2 ≈ 2.12mm
+# perpendicular thickness. Shift the inner transition Z values so the inner
+# seam plane (X + Z = c_inner) is a full 3mm perpendicular from the outer
+# seam plane (X + Z = -base_he).
+seam_z_shift = wall * (math.sqrt(2) - 1)
+
+itz_sym_plus  = tz_sym_plus
+itz_sym_minus = tz_sym_minus
+itz_mid_plus  = tz_mid_plus  + seam_z_shift
+itz_mid_minus = tz_mid_minus + seam_z_shift
+itz_end_plus  = tz_end_plus  + seam_z_shift
+itz_end_minus = tz_end_minus + seam_z_shift
+
 skirt_inner_profiles = [
     split_skirt_profile(inner_base_he, inner_base_r, inner_base_he, inner_base_r,
-                        tz_sym_plus, tz_sym_minus),
+                        itz_sym_plus, itz_sym_minus),
     split_skirt_profile(inner_base_he, inner_base_r, inner_base_he, inner_base_r,
-                        tz_sym_plus, tz_sym_minus),
+                        itz_sym_plus, itz_sym_minus),
     split_skirt_profile(inner_wide_he, inner_wide_r, inner_mid_narrow_he, inner_mid_narrow_r,
-                        tz_mid_plus, tz_mid_minus),
+                        itz_mid_plus, itz_mid_minus),
     split_skirt_profile(inner_wide_he, inner_wide_r, inner_narrow_he, inner_narrow_r,
-                        tz_end_plus, tz_end_minus),
+                        itz_end_plus, itz_end_minus),
     split_skirt_profile(inner_wide_he, inner_wide_r, inner_narrow_he, inner_narrow_r,
-                        tz_end_plus, tz_end_minus),
+                        itz_end_plus, itz_end_minus),
 ]
 
 # Incremental Y offsets between levels
