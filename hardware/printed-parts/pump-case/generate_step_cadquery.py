@@ -582,17 +582,15 @@ full_slab = (
 )
 
 # Piece 2: narrow-half prism for the step region (offset 9.5 → 28.5).
-# Triangle covers X + Z < -base_he (narrow side) with 0.1mm overcut
-# into the wide side for a clean boolean.
-seam_cut = base_he - OVERCUT                             # 34.9 (0.1mm into wide side)
-narrow_tri = [(-45, -45),
-              (45, -seam_cut - 45),                      # (45, -79.9)
-              (-seam_cut - 45, 45)]                      # (-79.9, 45)
+# The narrow half is the -Z portion of the profile.  A horizontal cut
+# at Z = 0 (profile-centered) passes through both left and right
+# transition walls, cleanly separating the wide and narrow halves.
+narrow_box = [(-50, -50), (50, -50), (50, OVERCUT), (-50, OVERCUT)]
 narrow_step = (
     cq.Workplane("XZ")
     .workplane(offset=step_offset)
     .center(CENTER_X, CENTER_Z)
-    .polyline(narrow_tri).close()
+    .polyline(narrow_box).close()
     .extrude(skirt_bottom_offset - step_offset)          # 19mm
 )
 
