@@ -382,27 +382,15 @@ skirt_cavity = skirt_cavity.loft(ruled=True)
 skirt = skirt_outer_solid.cut(skirt_cavity)
 solid = solid.union(skirt)
 
-# ── Arch notches on the +Z face of the wider half (lower skirt) ──
-# Semicircle cutouts (r=4.5mm) centered at the bottom rim of the skirt.
-# Note: the XZ workplane normal is -Y, so the skirt extends in -Y.
+# ── Arch notch constants (cutting deferred to after union with lower part) ──
 ARCH_RADIUS = 4.5
-skirt_bottom_y = -sum(skirt_y_steps)            # bottom rim
+skirt_bottom_y = -sum(skirt_y_steps)            # bottom rim Y in world coords
 z_face_outer = CENTER_Z + wide_he               # +Z outer face of wider half
 
 arch_hole_xs = [
     CORNER_R + ARCH_RADIUS - 4,                 # left notch center: 6.5
     FOOTPRINT_X - CORNER_R - ARCH_RADIUS + 4,   # right notch center: 63.5
 ]
-
-for ax in arch_hole_xs:
-    arch_cutter = (
-        cq.Workplane("XY")
-        .workplane(offset=z_face_outer + OVERCUT)
-        .center(ax, skirt_bottom_y)
-        .circle(ARCH_RADIUS)
-        .extrude(-(SKIRT_WALL + 3 + OVERCUT))
-    )
-    solid = solid.cut(arch_cutter)
 
 bore_profile = bore_octagon_profile()
 bore_wall_profile = offset_polygon(bore_profile, WALL_THICKNESS)
@@ -485,8 +473,138 @@ tower = tower.cut(tower_bore)
 
 solid = solid.union(tower)
 
-# ── Export full part ──
-OUTPUT_STEP = Path(__file__).resolve().parent / "pump-case-cadquery.step"
-cq.exporters.export(solid, str(OUTPUT_STEP))
-print(f"Exported → {OUTPUT_STEP}")
+# ── Build lower part geometry in main part coordinate system ──
+# The lower part starts at the skirt bottom and extends further down.
+# Profiles are reused from the main part at the mating surface for exact fit.
+
+LOWER_HEIGHT = 23.0
+LOWER_CAP = 3.0
+LOWER_FOOTPRINT_STRAIGHT = SKIRT_WIDE_STRAIGHT_HEIGHT   # 4.5
+lower_ramp_height = wide_he - narrow_he                  # 7 (45° taper)
+lower_uniform_straight = (LOWER_HEIGHT - lower_ramp_height
+                          - LOWER_FOOTPRINT_STRAIGHT)    # 11.5
+
+skirt_bottom_offset = sum(skirt_y_steps)                 # 28.5
+
+# Outer profiles — reuse main part's bottom profile at mating surface
+lower_outer_profiles = [
+    skirt_outer_profiles[-1],                            # 76/62 split (mating)
+    skirt_outer_profiles[-1],                            # end of footprint straight
+    split_skirt_profile(narrow_he, base_r, narrow_he, base_r,
+                        0.01, -0.01),                    # uniform 62×62 (end of ramp)
+    split_skirt_profile(narrow_he, base_r, narrow_he, base_r,
+                        0.01, -0.01),                    # uniform 62×62 (cap end)
+]
+
+lower_inner_profiles = [
+    skirt_inner_profiles[-1],                            # inner at mating surface
+    skirt_inner_profiles[-1],
+    split_skirt_profile(inner_narrow_he, inner_narrow_r,
+                        inner_narrow_he, inner_narrow_r,
+                        0.01, -0.01),
+    split_skirt_profile(inner_narrow_he, inner_narrow_r,
+                        inner_narrow_he, inner_narrow_r,
+                        0.01, -0.01),
+]
+
+lower_y_steps = [LOWER_FOOTPRINT_STRAIGHT, lower_ramp_height,
+                 lower_uniform_straight]
+
+# Lower outer loft
+lower_outer_solid = (
+    cq.Workplane("XZ")
+    .workplane(offset=skirt_bottom_offset)
+    .center(CENTER_X, CENTER_Z)
+)
+lower_outer_solid = lower_outer_solid.polyline(lower_outer_profiles[0]).close()
+for step, prof in zip(lower_y_steps, lower_outer_profiles[1:]):
+    lower_outer_solid = lower_outer_solid.workplane(offset=step).polyline(prof).close()
+lower_outer_solid = lower_outer_solid.loft(ruled=True)
+
+# Lower inner loft (overcut at cap end for clean boolean with cap)
+lower_inner_solid = (
+    cq.Workplane("XZ")
+    .workplane(offset=skirt_bottom_offset)
+    .center(CENTER_X, CENTER_Z)
+)
+lower_inner_solid = lower_inner_solid.polyline(lower_inner_profiles[0]).close()
+for i, (step, prof) in enumerate(zip(lower_y_steps, lower_inner_profiles[1:])):
+    extra = OVERCUT if i == len(lower_y_steps) - 1 else 0
+    lower_inner_solid = lower_inner_solid.workplane(offset=step + extra).polyline(prof).close()
+lower_inner_solid = lower_inner_solid.loft(ruled=True)
+
+lower_shell = lower_outer_solid.cut(lower_inner_solid)
+
+# Lower cap (solid slab at the cap end)
+lower_cap_offset = skirt_bottom_offset + LOWER_HEIGHT    # 51.5
+lower_cap_solid = (
+    cq.Workplane("XZ")
+    .workplane(offset=lower_cap_offset)
+    .center(CENTER_X, CENTER_Z)
+    .polyline(lower_outer_profiles[-1]).close()
+    .extrude(LOWER_CAP)
+)
+lower_shell = lower_shell.union(lower_cap_solid)
+
+# ── Union into combined solid ──
+combined = solid.union(lower_shell)
+
+# ── Arch notches (applied to combined, propagates to both parts on split) ──
+for ax in arch_hole_xs:
+    arch_cutter = (
+        cq.Workplane("XY")
+        .workplane(offset=z_face_outer + OVERCUT)
+        .center(ax, skirt_bottom_y)
+        .circle(ARCH_RADIUS)
+        .extrude(-(SKIRT_WALL + 3 + OVERCUT))
+    )
+    combined = combined.cut(arch_cutter)
+
+# ── Stepped split ──
+# The two parts meet at two different Y levels:
+#   Wide half (+Z):   offset = 28.5 (original mating surface)
+#   Narrow half (-Z): offset = 9.5  (19mm higher into the skirt)
+# The boundary between wide and narrow halves follows the seam diagonal
+# at X + Z = -base_he = -35 in profile-centered coordinates.
+
+STEP_HEIGHT = 19.0
+step_offset = skirt_bottom_offset - STEP_HEIGHT          # 9.5
+lower_end_offset = lower_cap_offset + LOWER_CAP + OVERCUT  # 54.6
+
+# Cutting tool = everything below the stepped surface.
+# Piece 1: full-width slab from the original mating level downward.
+full_slab = (
+    cq.Workplane("XZ")
+    .workplane(offset=skirt_bottom_offset)
+    .center(CENTER_X, CENTER_Z)
+    .rect(100, 100)
+    .extrude(lower_end_offset - skirt_bottom_offset)
+)
+
+# Piece 2: narrow-half prism for the step region (offset 9.5 → 28.5).
+# Triangle covers X + Z < -base_he (narrow side) with 0.1mm overcut
+# into the wide side for a clean boolean.
+seam_cut = base_he - OVERCUT                             # 34.9 (0.1mm into wide side)
+narrow_tri = [(-45, -45),
+              (45, -seam_cut - 45),                      # (45, -79.9)
+              (-seam_cut - 45, 45)]                      # (-79.9, 45)
+narrow_step = (
+    cq.Workplane("XZ")
+    .workplane(offset=step_offset)
+    .center(CENTER_X, CENTER_Z)
+    .polyline(narrow_tri).close()
+    .extrude(skirt_bottom_offset - step_offset)          # 19mm
+)
+
+step_cutter = full_slab.union(narrow_step)
+
+# ── Split and export ──
+upper = combined.cut(step_cutter)
+lower = combined.intersect(step_cutter)
+
+OUTPUT_DIR = Path(__file__).resolve().parent
+cq.exporters.export(upper, str(OUTPUT_DIR / "pump-case-cadquery.step"))
+print("Exported → pump-case-cadquery.step")
+cq.exporters.export(lower, str(OUTPUT_DIR / "pump-case-lower-cadquery.step"))
+print("Exported → pump-case-lower-cadquery.step")
 
