@@ -398,7 +398,7 @@ for ax in arch_hole_xs:
     arch_cutter = (
         cq.Workplane("XY")
         .workplane(offset=z_face_outer + OVERCUT)
-        .center(ax, skirt_bottom_y + 1)
+        .center(ax, skirt_bottom_y)
         .circle(ARCH_RADIUS)
         .extrude(-(SKIRT_THICKNESS + 3 + OVERCUT))
     )
