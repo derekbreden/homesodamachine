@@ -5,7 +5,7 @@ import cadquery as cq
 
 # ── Case envelope ──
 CASE_X = 70.0           # width  (X axis)
-CASE_Y = 18.0           # height (Y axis, vertical)
+CASE_Y = 21.0           # height (Y axis, vertical)
 CASE_Z = 70.0           # depth  (Z axis)
 BASE_THICKNESS = 3.0
 WALL_THICKNESS = 3.0
