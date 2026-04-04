@@ -124,10 +124,7 @@ def bore_octagon_profile():
 
 
 def rounded_rect_profile(width, height, radius, n=ARC_SEGMENTS):
-    """Return CCW polygon points for a rounded rectangle centered at origin.
-
-    All calls must use the same n so the loft can match edges between sections.
-    """
+    """Return polygon points for a rounded rectangle centered at origin."""
     hw, hh = width / 2, height / 2
     pts = []
     corners = [
@@ -173,41 +170,22 @@ CYLINDER_R_INNER = CYLINDER_ID / 2
 
 INNER_RAMP_HEIGHT = WALL_OUTER_FAR - CYLINDER_R_OUTER
 
-RAMP_TOP_FAR = CYLINDER_R_OUTER
-RAMP_TOP_NEAR = WALL_OUTER_NEAR - INNER_RAMP_HEIGHT * (math.sqrt(2) - 1)
-
-RAMP_TOP_OCTAGON = [
-    ( RAMP_TOP_NEAR,  RAMP_TOP_FAR),
-    ( RAMP_TOP_FAR,   RAMP_TOP_NEAR),
-    ( RAMP_TOP_FAR,  -RAMP_TOP_NEAR),
-    ( RAMP_TOP_NEAR, -RAMP_TOP_FAR),
-    (-RAMP_TOP_NEAR, -RAMP_TOP_FAR),
-    (-RAMP_TOP_FAR,  -RAMP_TOP_NEAR),
-    (-RAMP_TOP_FAR,   RAMP_TOP_NEAR),
-    (-RAMP_TOP_NEAR,  RAMP_TOP_FAR),
-]
-
 
 # ── Build the solid ──
 
-# Loft combines base plate and ramp in one shape:
-#   y=0:  full footprint, R=6  (bottom of base plate)
-#   y=3:  full footprint, R=6  (top of base plate — same shape keeps it flat)
-#   y=18: ramp top, R=6        (45° inward from base)
-ramp_top_size = CASE_X - 2 * RAMP_HEIGHT
-
-base_profile = rounded_rect_profile(CASE_X, CASE_Z, CORNER_R)
-top_profile  = rounded_rect_profile(ramp_top_size, ramp_top_size, CORNER_R)
+footprint       = rounded_rect_profile(CASE_X, CASE_Z, CORNER_R)
+footprint_after_ramp = rounded_rect_profile(
+    CASE_X - 2 * RAMP_HEIGHT, CASE_Z - 2 * RAMP_HEIGHT, CORNER_R)
 
 solid = (
     cq.Workplane("XZ")
     .workplane(offset=0)
     .center(CENTER_X, CENTER_Z)
-    .polyline(base_profile).close()
+    .polyline(footprint).close()
     .workplane(offset=-BASE_THICKNESS)
-    .polyline(base_profile).close()
+    .polyline(footprint).close()
     .workplane(offset=-RAMP_HEIGHT)
-    .polyline(top_profile).close()
+    .polyline(footprint_after_ramp).close()
     .loft(ruled=True)
 )
 
@@ -220,7 +198,7 @@ skirt_outer = (
     cq.Workplane("XZ")
     .workplane(offset=0)
     .center(CENTER_X, CENTER_Z)
-    .polyline(base_profile).close()
+    .polyline(footprint).close()
     .extrude(SKIRT_HEIGHT)
 )
 skirt_inner_profile = rounded_rect_profile(
@@ -272,16 +250,20 @@ for hx, hz in HOLE_POSITIONS:
 
 tower_base_y = -CASE_Y
 
-tower_ramp = (
+tower_platform = (
     cq.Workplane("XZ")
     .workplane(offset=tower_base_y)
     .center(CENTER_X, CENTER_Z)
     .polyline(WALL_OCTAGON).close()
-    .workplane(offset=-PLATFORM_THICKNESS)
+    .extrude(-PLATFORM_THICKNESS)
+)
+
+tower_taper = (
+    cq.Workplane("XZ")
+    .workplane(offset=tower_base_y - PLATFORM_THICKNESS)
+    .center(CENTER_X, CENTER_Z)
     .polyline(WALL_OCTAGON).close()
-    .workplane(offset=-INNER_RAMP_HEIGHT)
-    .polyline(RAMP_TOP_OCTAGON).close()
-    .loft(ruled=True)
+    .extrude(-INNER_RAMP_HEIGHT, taper=45)
 )
 
 tower_cylinder = (
@@ -292,7 +274,7 @@ tower_cylinder = (
     .extrude(-TOWER_HEIGHT)
 )
 
-tower = tower_ramp.union(tower_cylinder)
+tower = tower_platform.union(tower_taper).union(tower_cylinder)
 
 tower_bore_depth = TOWER_HEIGHT - CAP_THICKNESS
 tower_bore = (
