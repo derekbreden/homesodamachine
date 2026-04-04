@@ -11,6 +11,8 @@ BASE_THICKNESS = 3.0
 WALL_THICKNESS = 3.0
 RAMP_HEIGHT = CASE_Y - BASE_THICKNESS
 CORNER_R = 6.0
+SKIRT_HEIGHT = 21.0
+SKIRT_THICKNESS = 3.0
 
 CENTER_X = CASE_X / 2
 CENTER_Z = CASE_Z / 2
@@ -183,6 +185,30 @@ solid = (
     .polyline(top_profile).close()
     .loft()
 )
+
+# Skirt — 3mm wall extending 21mm below the base plate
+skirt_inner_width  = CASE_X - 2 * SKIRT_THICKNESS
+skirt_inner_depth  = CASE_Z - 2 * SKIRT_THICKNESS
+skirt_inner_radius = CORNER_R - SKIRT_THICKNESS
+
+skirt_outer = (
+    cq.Workplane("XZ")
+    .workplane(offset=0)
+    .center(CENTER_X, CENTER_Z)
+    .polyline(base_profile).close()
+    .extrude(SKIRT_HEIGHT)
+)
+skirt_inner_profile = rounded_rect_profile(
+    skirt_inner_width, skirt_inner_depth, skirt_inner_radius)
+skirt_cavity = (
+    cq.Workplane("XZ")
+    .workplane(offset=0)
+    .center(CENTER_X, CENTER_Z)
+    .polyline(skirt_inner_profile).close()
+    .extrude(SKIRT_HEIGHT + OVERCUT)
+)
+skirt = skirt_outer.cut(skirt_cavity)
+solid = solid.union(skirt)
 
 # Wall prism ensures minimum wall thickness around bore at all heights
 wall_prism = (
