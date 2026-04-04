@@ -393,8 +393,8 @@ skirt_bottom_y = -sum(skirt_y_steps)            # bottom rim at Y = -34
 z_face_outer = CENTER_Z + wide_he               # +Z outer face of wider half
 
 arch_hole_xs = [
-    CORNER_R + ARCH_RADIUS,                     # left notch center: 10.5
-    FOOTPRINT_X - CORNER_R - ARCH_RADIUS,       # right notch center: 59.5
+    CORNER_R + ARCH_RADIUS - 3,                 # left notch center: 7.5
+    FOOTPRINT_X - CORNER_R - ARCH_RADIUS + 3,   # right notch center: 62.5
 ]
 
 for ax in arch_hole_xs:
