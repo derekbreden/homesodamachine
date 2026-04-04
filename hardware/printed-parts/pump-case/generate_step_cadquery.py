@@ -386,9 +386,10 @@ solid = solid.union(skirt)
 # Two doorway-shaped notches cut through the wall, opening at the bottom
 # rim of the skirt. Each is 9mm wide: 4.5mm rectangle at the rim, then
 # 4.5mm semicircle arch above. Positioned 6mm from each side face.
+# Note: the XZ workplane normal is -Y, so the skirt extends in -Y.
 ARCH_RADIUS = 4.5
 ARCH_RECT_HEIGHT = ARCH_RADIUS
-skirt_bottom_y = sum(skirt_y_steps)             # bottom rim of skirt
+skirt_bottom_y = -sum(skirt_y_steps)            # bottom rim at Y = -34
 z_face_outer = CENTER_Z + wide_he               # +Z outer face of wider half
 
 arch_hole_xs = [
@@ -400,11 +401,11 @@ for ax in arch_hole_xs:
     arch_cutter = (
         cq.Workplane("XY")
         .workplane(offset=z_face_outer + OVERCUT)
-        .center(ax, skirt_bottom_y - ARCH_RADIUS)
-        .moveTo(-ARCH_RADIUS, ARCH_RADIUS)
-        .lineTo(ARCH_RADIUS, ARCH_RADIUS)
+        .center(ax, skirt_bottom_y + ARCH_RADIUS)
+        .moveTo(-ARCH_RADIUS, -ARCH_RADIUS)
+        .lineTo(ARCH_RADIUS, -ARCH_RADIUS)
         .lineTo(ARCH_RADIUS, 0)
-        .threePointArc((0, -ARCH_RADIUS), (-ARCH_RADIUS, 0))
+        .threePointArc((0, ARCH_RADIUS), (-ARCH_RADIUS, 0))
         .close()
         .extrude(-(SKIRT_THICKNESS + 2 * OVERCUT))
     )
