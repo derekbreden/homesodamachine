@@ -14,6 +14,16 @@ out_dir = sys.argv[2]
 
 os.makedirs(out_dir, exist_ok=True)
 
+# Scripts compute import paths relative to __file__, which is faked to the
+# output dir.  Add the real script's sibling directories to sys.path so
+# cross-directory imports (e.g. pump-case importing from case-snaps) work.
+real_dir = os.path.dirname(os.path.abspath(script_path))
+real_parent = os.path.dirname(real_dir)
+for entry in os.listdir(real_parent):
+    full = os.path.join(real_parent, entry)
+    if os.path.isdir(full) and full not in sys.path:
+        sys.path.insert(0, full)
+
 fake_file = os.path.join(out_dir, os.path.basename(script_path))
 
 with open(script_path) as f:
