@@ -101,8 +101,39 @@ const watcher = chokidar.watch(HARDWARE_DIR, {
   ignoreInitial: true,
 });
 
+// Collect all generate_step*.py paths for rebuild-all on shared lib changes
+function findGenerateScripts() {
+  const scripts = [];
+  function walk(dir) {
+    for (const entry of fs.readdirSync(dir, { withFileTypes: true })) {
+      const full = path.join(dir, entry.name);
+      if (entry.isDirectory()) walk(full);
+      else if (/generate_step.*\.py$/.test(entry.name)) scripts.push(full);
+    }
+  }
+  walk(HARDWARE_DIR);
+  return scripts;
+}
+
 const debounce = new Map();
 watcher.on("change", (absPath) => {
+  // Shared library changed — rebuild all scripts
+  if (absPath.includes("/cadlib/") && absPath.endsWith(".py")) {
+    if (debounce.has("cadlib")) clearTimeout(debounce.get("cadlib"));
+    debounce.set(
+      "cadlib",
+      setTimeout(async () => {
+        debounce.delete("cadlib");
+        console.log(`Shared lib changed: ${path.relative(HARDWARE_DIR, absPath)}`);
+        for (const f of findGenerateScripts()) {
+          console.log(`  Rebuilding ${path.relative(HARDWARE_DIR, f)}`);
+          await runScript(f);
+        }
+      }, 500)
+    );
+    return;
+  }
+
   if (!/generate_step.*\.py$/.test(absPath)) return;
   if (debounce.has(absPath)) clearTimeout(debounce.get(absPath));
   debounce.set(
@@ -117,18 +148,7 @@ watcher.on("change", (absPath) => {
 
 // --- Initial build ---
 async function buildAll() {
-  const glob = (await import("node:fs")).readdirSync;
-  // Find all matching .py files
-  const pyFiles = [];
-  function walk(dir) {
-    for (const entry of fs.readdirSync(dir, { withFileTypes: true })) {
-      const full = path.join(dir, entry.name);
-      if (entry.isDirectory()) walk(full);
-      else if (/generate_step.*\.py$/.test(entry.name)) pyFiles.push(full);
-    }
-  }
-  walk(HARDWARE_DIR);
-
+  const pyFiles = findGenerateScripts();
   console.log(`Building ${pyFiles.length} scripts...`);
   for (const f of pyFiles) {
     console.log(`  ${path.relative(HARDWARE_DIR, f)}`);
