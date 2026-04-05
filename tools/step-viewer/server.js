@@ -103,7 +103,7 @@ const watcher = chokidar.watch(HARDWARE_DIR, {
 
 const debounce = new Map();
 watcher.on("change", (absPath) => {
-  if (!/generate_step_cadquery.*\.py$/.test(absPath)) return;
+  if (!/generate_step.*\.py$/.test(absPath)) return;
   if (debounce.has(absPath)) clearTimeout(debounce.get(absPath));
   debounce.set(
     absPath,
@@ -124,7 +124,7 @@ async function buildAll() {
     for (const entry of fs.readdirSync(dir, { withFileTypes: true })) {
       const full = path.join(dir, entry.name);
       if (entry.isDirectory()) walk(full);
-      else if (/generate_step_cadquery.*\.py$/.test(entry.name)) pyFiles.push(full);
+      else if (/generate_step.*\.py$/.test(entry.name)) pyFiles.push(full);
     }
   }
   walk(HARDWARE_DIR);
