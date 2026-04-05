@@ -623,7 +623,11 @@ SNAP_WALL_HEIGHT = 9.0
 SNAP_CHANNEL_WIDTH = WALL_THICKNESS + SNAP_TONGUE_GROWTH          # 5.0
 SNAP_INTERLOCK = SNAP_CHANNEL_WIDTH / 2 + SNAP_DEFLECTION         # 2.8
 SNAP_RAMP = SNAP_INTERLOCK - SNAP_FLEXING_WIDTH                   # 0.8
-SNAP_EMBED = SNAP_WALL_HEIGHT - SNAP_OUTER_RAMP_START             # 5.0
+
+# +Z face (wide split) has only 4.5 mm of straight wall before the flare/taper
+# begins on both upper and lower sides.  Reduce effective wall height by 0.5 mm
+# for that face, and truncate the groove 1 mm deeper (h=5 instead of h=4).
+SNAP_WIDE_FACE_ADJ = 0.5
 
 snap_tongue_face_at_interlock = SNAP_CHANNEL_WIDTH - SNAP_INTERLOCK
 snap_tongue_face_at_flex = SNAP_CHANNEL_WIDTH - SNAP_FLEXING_WIDTH
@@ -669,6 +673,18 @@ snap_groove_pts = [
     (snap_groove_face_at_interlock, SNAP_OUTER_RAMP_START),
 ]
 
+# +Z face groove — truncated at h=5 (1 mm deeper, removing more of the initial rib)
+snap_groove_pts_wide = [
+    (0, SNAP_INITIAL_RIB),
+    (0, groove_total_height),
+    (snap_groove_face_at_flex, groove_total_height),
+    (snap_groove_face_at_interlock, groove_rib + 2 * groove_ramp + 2 * groove_engage),
+    (snap_groove_face_at_interlock, groove_rib + 2 * groove_ramp + groove_engage),
+    (snap_groove_face_at_flex, groove_rib + groove_ramp + groove_engage),
+    (snap_groove_face_at_flex, groove_rib + groove_ramp),
+    (snap_groove_face_at_interlock, groove_rib),
+]
+
 # Each face: (inner_face_pos, outward_sign, split_world_y, cross_section_plane, extrude_start)
 #   YZ plane → polyline is (Y, Z), extrude along +X
 #   XY plane → polyline is (X, Y), extrude along +Z
@@ -683,34 +699,45 @@ snap_narrow_split_y = -step_offset
 snap_yz_extrude_start = CENTER_X - SNAP_ZONE_WIDTH / 2
 snap_xy_narrow_extrude_start = CENTER_Z - narrow_he + CORNER_R + 0.5
 
+# Per-face: eff_wall_ht adjusts embedding depth; groove_pts selects profile variant
 snap_faces = [
-    (snap_plus_z_inner,         +1, snap_wide_split_y,   "YZ", snap_yz_extrude_start),
-    (snap_minus_z_inner,        -1, snap_narrow_split_y,  "YZ", snap_yz_extrude_start),
-    (snap_plus_x_narrow_inner,  +1, snap_narrow_split_y,  "XY", snap_xy_narrow_extrude_start),
-    (snap_minus_x_narrow_inner, -1, snap_narrow_split_y,  "XY", snap_xy_narrow_extrude_start),
+    (snap_plus_z_inner,         +1, snap_wide_split_y,   "YZ", snap_yz_extrude_start,
+     SNAP_WALL_HEIGHT - SNAP_WIDE_FACE_ADJ, snap_groove_pts_wide),
+    (snap_minus_z_inner,        -1, snap_narrow_split_y,  "YZ", snap_yz_extrude_start,
+     SNAP_WALL_HEIGHT, snap_groove_pts),
+    (snap_plus_x_narrow_inner,  +1, snap_narrow_split_y,  "XY", snap_xy_narrow_extrude_start,
+     SNAP_WALL_HEIGHT, snap_groove_pts),
+    (snap_minus_x_narrow_inner, -1, snap_narrow_split_y,  "XY", snap_xy_narrow_extrude_start,
+     SNAP_WALL_HEIGHT, snap_groove_pts),
 ]
 
-for inner_face, outward_sign, split_y, plane, extrude_start in snap_faces:
+for inner_face, outward_sign, split_y, plane, extrude_start, eff_wall_ht, groove_pts in snap_faces:
+
+    # Per-face embedding depths
+    tongue_trunc = SNAP_OUTER_RAMP_START                          # h=4 for all faces
+    groove_trunc = groove_pts[0][1]                               # h from first profile point
+    tongue_embed = eff_wall_ht - tongue_trunc
+    groove_embed = eff_wall_ht - groove_trunc
 
     # ── Wall cutters: remove existing wall in snap zone for embedding ──
     face_a = inner_face - outward_sign * OVERCUT
     face_b = inner_face + outward_sign * (WALL_THICKNESS + OVERCUT)
     face_lo, face_hi = min(face_a, face_b), max(face_a, face_b)
 
-    # Upper wall cutter (tongue region: 5 mm of wall above split)
+    # Upper wall cutter (tongue region)
     if plane == "YZ":
         ucut_pts = [
             (split_y - OVERCUT, face_lo),
-            (split_y + SNAP_EMBED + OVERCUT, face_lo),
-            (split_y + SNAP_EMBED + OVERCUT, face_hi),
+            (split_y + tongue_embed + OVERCUT, face_lo),
+            (split_y + tongue_embed + OVERCUT, face_hi),
             (split_y - OVERCUT, face_hi),
         ]
     else:
         ucut_pts = [
             (face_lo, split_y - OVERCUT),
             (face_hi, split_y - OVERCUT),
-            (face_hi, split_y + SNAP_EMBED + OVERCUT),
-            (face_lo, split_y + SNAP_EMBED + OVERCUT),
+            (face_hi, split_y + tongue_embed + OVERCUT),
+            (face_lo, split_y + tongue_embed + OVERCUT),
         ]
     upper = upper.cut(
         cq.Workplane(plane)
@@ -719,18 +746,18 @@ for inner_face, outward_sign, split_y, plane, extrude_start in snap_faces:
         .extrude(SNAP_ZONE_WIDTH + 2 * OVERCUT)
     )
 
-    # Lower wall cutter (groove region: 5 mm of wall below split)
+    # Lower wall cutter (groove region)
     if plane == "YZ":
         lcut_pts = [
-            (split_y - SNAP_EMBED - OVERCUT, face_lo),
+            (split_y - groove_embed - OVERCUT, face_lo),
             (split_y + OVERCUT, face_lo),
             (split_y + OVERCUT, face_hi),
-            (split_y - SNAP_EMBED - OVERCUT, face_hi),
+            (split_y - groove_embed - OVERCUT, face_hi),
         ]
     else:
         lcut_pts = [
-            (face_lo, split_y - SNAP_EMBED - OVERCUT),
-            (face_hi, split_y - SNAP_EMBED - OVERCUT),
+            (face_lo, split_y - groove_embed - OVERCUT),
+            (face_hi, split_y - groove_embed - OVERCUT),
             (face_hi, split_y + OVERCUT),
             (face_lo, split_y + OVERCUT),
         ]
@@ -741,16 +768,16 @@ for inner_face, outward_sign, split_y, plane, extrude_start in snap_faces:
         .extrude(SNAP_ZONE_WIDTH + 2 * OVERCUT)
     )
 
-    # ── Tongue (upper part) — starts 5 mm inside wall, tip 3.4 mm past split ──
-    # Height mapping: world_y = split_y + SNAP_WALL_HEIGHT - h
+    # ── Tongue (upper part) ──
+    # Height mapping: world_y = split_y + eff_wall_ht - h
     if plane == "YZ":
         tongue_world = [
-            (split_y + SNAP_WALL_HEIGHT - h, inner_face + outward_sign * o)
+            (split_y + eff_wall_ht - h, inner_face + outward_sign * o)
             for o, h in snap_tongue_pts
         ]
     else:
         tongue_world = [
-            (inner_face + outward_sign * o, split_y + SNAP_WALL_HEIGHT - h)
+            (inner_face + outward_sign * o, split_y + eff_wall_ht - h)
             for o, h in snap_tongue_pts
         ]
     upper = upper.union(
@@ -760,17 +787,17 @@ for inner_face, outward_sign, split_y, plane, extrude_start in snap_faces:
         .extrude(SNAP_ZONE_WIDTH)
     )
 
-    # ── Groove (lower part) — starts 5 mm inside wall, tip 2.4 mm past split ──
-    # Height mapping: world_y = split_y - SNAP_WALL_HEIGHT + h
+    # ── Groove (lower part) ──
+    # Height mapping: world_y = split_y - eff_wall_ht + h
     if plane == "YZ":
         groove_world = [
-            (split_y - SNAP_WALL_HEIGHT + h, inner_face + outward_sign * o)
-            for o, h in snap_groove_pts
+            (split_y - eff_wall_ht + h, inner_face + outward_sign * o)
+            for o, h in groove_pts
         ]
     else:
         groove_world = [
-            (inner_face + outward_sign * o, split_y - SNAP_WALL_HEIGHT + h)
-            for o, h in snap_groove_pts
+            (inner_face + outward_sign * o, split_y - eff_wall_ht + h)
+            for o, h in groove_pts
         ]
     lower = lower.union(
         cq.Workplane(plane)
