@@ -57,11 +57,13 @@ def apply_tongue(solid, inner_face, sign, plane, extrude_start, zone_width,
     f = CHANNEL_FLOOR
 
     # 1. Growth ramp on outer face — trapezoid from ramp start to tongue tip
+    #    Inner edge overlaps 0.1mm into existing wall to avoid coincident faces
+    oi = outer - sign * OVERCUT
     growth = [
-        _pt(outer,                      wall_base + hd * OUTER_RAMP_START, sw),
+        _pt(oi,                         wall_base + hd * OUTER_RAMP_START, sw),
         _pt(outer + sign * TONGUE_GROWTH, wall_base + hd * f, sw),
         _pt(outer + sign * TONGUE_GROWTH, wall_base + hd * TONGUE_TIP_H, sw),
-        _pt(outer,                      wall_base + hd * TONGUE_TIP_H, sw),
+        _pt(oi,                         wall_base + hd * TONGUE_TIP_H, sw),
     ]
     solid = solid.union(
         cq.Workplane(plane)
