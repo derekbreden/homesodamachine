@@ -1,11 +1,13 @@
-"""Snap-fit test case: tongue-and-groove by modifying walls in place.
+"""Snap-fit: tongue-and-groove by modifying walls in place.
 
 The snap features are geometric modifications to existing walls:
   Tongue: grow the outer face outward (ramp), then cut the engagement channel
-  Groove: cut the groove channels and cantilever rib from the outer face,
-          leaving the initial rib at full wall thickness
+  Groove: cut groove channels from the outer face, add rib extension
 
 The wall is never removed and replaced. It is shaped.
+
+Orientation parameters (height_dir, swap_axes) allow these functions to work
+on any workplane orientation — e.g. XY with Z height, or YZ with Y height.
 """
 
 from pathlib import Path
@@ -13,22 +15,20 @@ from pathlib import Path
 import cadquery as cq
 
 # ── Snap geometry constants ──
-# Names match the working version at fae9a6a for traceability.
 
 WALL_THICKNESS = 3.0
-TONGUE_GROWTH = 2.0          # TONGUE_GROWTH_BEYOND_WALL
-FLEXING_WIDTH = 2.0          # FLEXING_SECTION_WIDTH
-ENGAGEMENT = 2.0             # ENGAGEMENT_LENGTH
-CHANNEL_FLOOR = 6.0          # CHANNEL_FLOOR_HEIGHT
-OUTER_RAMP_START = 4.0       # OUTER_RAMP_START_HEIGHT
-INITIAL_RIB = 5.0            # TOP_INITIAL_RIB_HEIGHT
-DEFLECTION = 0.3             # DEFLECTION_PER_PIECE
+TONGUE_GROWTH = 2.0
+FLEXING_WIDTH = 2.0
+ENGAGEMENT = 2.0
+CHANNEL_FLOOR = 6.0
+OUTER_RAMP_START = 4.0
+INITIAL_RIB = 5.0
+DEFLECTION = 0.3
 
 CHANNEL_WIDTH = WALL_THICKNESS + TONGUE_GROWTH             # 5.0
 INTERLOCK = CHANNEL_WIDTH / 2 + DEFLECTION                 # 2.8
 RAMP = INTERLOCK - FLEXING_WIDTH                           # 0.8
 
-# How far the tongue/groove interlock faces sit from the inner face
 TONGUE_INTERLOCK_DEPTH = CHANNEL_WIDTH - INTERLOCK         # 2.2
 TONGUE_FLEX_DEPTH = CHANNEL_WIDTH - FLEXING_WIDTH          # 3.0
 GROOVE_RIB_DEPTH = INTERLOCK                               # 2.8
@@ -40,22 +40,35 @@ GROOVE_TIP_H = INITIAL_RIB + 3 * RAMP + 2 * ENGAGEMENT    # 11.4
 OVERCUT = 0.1
 
 
+def _pt(face, height, swap):
+    """Return (face, height) or (height, face) depending on axis order."""
+    return (height, face) if swap else (face, height)
+
+
 # ── Wall modification functions ──
 
 def apply_tongue(solid, inner_face, sign, plane, extrude_start, zone_width,
-                 wall_base):
-    """Grow the outer face outward, then cut the engagement channel."""
+                 wall_base, height_dir=1, swap_axes=False):
+    """Grow the outer face outward, then cut the engagement channel.
+
+    height_dir: +1 if height increases in the workplane's second axis,
+                -1 if it decreases (e.g. pump case where Y goes negative).
+    swap_axes:  True when the workplane's first axis is the height axis
+                (e.g. YZ plane with Y=height, Z=face).
+    """
     outer = inner_face + sign * WALL_THICKNESS
+    hd = height_dir
+    sw = swap_axes
     r = RAMP
     e = ENGAGEMENT
     f = CHANNEL_FLOOR
 
     # 1. Growth ramp on outer face — trapezoid from ramp start to tongue tip
     growth = [
-        (outer,                      wall_base + OUTER_RAMP_START),
-        (outer + sign * TONGUE_GROWTH, wall_base + f),
-        (outer + sign * TONGUE_GROWTH, wall_base + TONGUE_TIP_H),
-        (outer,                      wall_base + TONGUE_TIP_H),
+        _pt(outer,                      wall_base + hd * OUTER_RAMP_START, sw),
+        _pt(outer + sign * TONGUE_GROWTH, wall_base + hd * f, sw),
+        _pt(outer + sign * TONGUE_GROWTH, wall_base + hd * TONGUE_TIP_H, sw),
+        _pt(outer,                      wall_base + hd * TONGUE_TIP_H, sw),
     ]
     solid = solid.union(
         cq.Workplane(plane)
@@ -65,19 +78,19 @@ def apply_tongue(solid, inner_face, sign, plane, extrude_start, zone_width,
     )
 
     # 2. Channel cut from inner face — zigzag engagement pattern
-    ic = inner_face - sign * OVERCUT                   # slightly past inner face
-    il = inner_face + sign * TONGUE_INTERLOCK_DEPTH    # 2.2 from inner
-    fl = inner_face + sign * (TONGUE_FLEX_DEPTH + OVERCUT)  # 0.1mm past outer face
+    ic = inner_face - sign * OVERCUT
+    il = inner_face + sign * TONGUE_INTERLOCK_DEPTH
+    fl = inner_face + sign * (TONGUE_FLEX_DEPTH + OVERCUT)
 
     channel = [
-        (ic, wall_base + f),
-        (il, wall_base + f),
-        (fl, wall_base + f + r),
-        (fl, wall_base + f + r + e),
-        (il, wall_base + f + 2 * r + e),
-        (il, wall_base + f + 2 * r + 2 * e),
-        (fl, wall_base + TONGUE_TIP_H),
-        (ic, wall_base + TONGUE_TIP_H),
+        _pt(ic, wall_base + hd * f, sw),
+        _pt(il, wall_base + hd * f, sw),
+        _pt(fl, wall_base + hd * (f + r), sw),
+        _pt(fl, wall_base + hd * (f + r + e), sw),
+        _pt(il, wall_base + hd * (f + 2 * r + e), sw),
+        _pt(il, wall_base + hd * (f + 2 * r + 2 * e), sw),
+        _pt(fl, wall_base + hd * TONGUE_TIP_H, sw),
+        _pt(ic, wall_base + hd * TONGUE_TIP_H, sw),
     ]
     solid = solid.cut(
         cq.Workplane(plane)
@@ -90,28 +103,30 @@ def apply_tongue(solid, inner_face, sign, plane, extrude_start, zone_width,
 
 
 def apply_groove(solid, inner_face, sign, plane, extrude_start, zone_width,
-                 wall_base, wall_height):
-    """Cut groove channels and cantilever rib from the outer face.
+                 wall_base, wall_height, height_dir=1, swap_axes=False):
+    """Cut groove channels from the outer face, add rib extension.
 
-    The initial rib (below the engagement zone) stays at full wall thickness.
-    Only the cantilever rib gets the 0.2 mm deflection cut.
+    The initial rib stays at full wall thickness. Only the cantilever rib
+    and groove channels are cut.
     """
     outer = inner_face + sign * WALL_THICKNESS
+    hd = height_dir
+    sw = swap_axes
     r = RAMP
     e = ENGAGEMENT
-    oc = outer + sign * OVERCUT                       # slightly past outer face
-    rb = inner_face + sign * GROOVE_RIB_DEPTH         # cantilever face (2.8)
-    gr = inner_face + sign * GROOVE_GROOVE_DEPTH      # groove face (2.0 from inner)
-    wall_top = wall_base + wall_height
-    ic = inner_face - sign * OVERCUT                  # overlap into cavity for union
+    oc = outer + sign * OVERCUT
+    rb = inner_face + sign * GROOVE_RIB_DEPTH
+    gr = inner_face + sign * GROOVE_GROOVE_DEPTH
+    wall_top = wall_base + hd * wall_height
+    ic = inner_face - sign * OVERCUT
 
-    # 1. Rib extension past wall top — cantilever rib + tip groove
+    # 1. Rib extension past wall top
     extension = [
-        (ic, wall_top),
-        (ic, wall_base + GROOVE_TIP_H),
-        (gr, wall_base + GROOVE_TIP_H),
-        (rb, wall_base + INITIAL_RIB + 2 * r + 2 * e),
-        (rb, wall_top),
+        _pt(ic, wall_top, sw),
+        _pt(ic, wall_base + hd * GROOVE_TIP_H, sw),
+        _pt(gr, wall_base + hd * GROOVE_TIP_H, sw),
+        _pt(rb, wall_base + hd * (INITIAL_RIB + 2 * r + 2 * e), sw),
+        _pt(rb, wall_top, sw),
     ]
     solid = solid.union(
         cq.Workplane(plane)
@@ -120,16 +135,15 @@ def apply_groove(solid, inner_face, sign, plane, extrude_start, zone_width,
         .extrude(zone_width)
     )
 
-    # 2. Cut groove channels + cantilever rib from outer face.
-    #    Starts at initial rib top — initial rib is NOT cut (stays flush).
+    # 2. Cut groove channels + cantilever rib from outer face
     groove = [
-        (oc, wall_base + INITIAL_RIB),
-        (gr, wall_base + INITIAL_RIB + r),
-        (gr, wall_base + INITIAL_RIB + r + e),
-        (rb, wall_base + INITIAL_RIB + 2 * r + e),
-        (rb, wall_base + INITIAL_RIB + 2 * r + 2 * e),
-        (gr, wall_base + GROOVE_TIP_H),
-        (oc, wall_base + GROOVE_TIP_H),
+        _pt(oc, wall_base + hd * INITIAL_RIB, sw),
+        _pt(gr, wall_base + hd * (INITIAL_RIB + r), sw),
+        _pt(gr, wall_base + hd * (INITIAL_RIB + r + e), sw),
+        _pt(rb, wall_base + hd * (INITIAL_RIB + 2 * r + e), sw),
+        _pt(rb, wall_base + hd * (INITIAL_RIB + 2 * r + 2 * e), sw),
+        _pt(gr, wall_base + hd * GROOVE_TIP_H, sw),
+        _pt(oc, wall_base + hd * GROOVE_TIP_H, sw),
     ]
     solid = solid.cut(
         cq.Workplane(plane)
