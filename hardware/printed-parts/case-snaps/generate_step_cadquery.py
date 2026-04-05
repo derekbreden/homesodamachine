@@ -23,7 +23,7 @@ TOP_INITIAL_RIB_HEIGHT = 5.0
 CHANNEL_WIDTH = WALL_THICKNESS + TONGUE_GROWTH_BEYOND_WALL
 TONGUE_OUTER_FACE_OUTWARD = CHANNEL_WIDTH
 
-DEFLECTION_PER_PIECE_VARIANTS = [0.5, 0.4, 0.3]
+DEFLECTION_PER_PIECE = 0.3
 
 OUTPUT_DIR = Path(__file__).resolve().parent
 
@@ -181,14 +181,9 @@ def build_part_with_snap_profile(profile):
     return solid
 
 
-for deflection in DEFLECTION_PER_PIECE_VARIANTS:
-    bottom_profile = bottom_tongue_profile(deflection)
-    top_profile = top_groove_profile(deflection)
+bottom = build_part_with_snap_profile(bottom_tongue_profile(DEFLECTION_PER_PIECE))
+top = build_part_with_snap_profile(top_groove_profile(DEFLECTION_PER_PIECE))
 
-    bottom = build_part_with_snap_profile(bottom_profile)
-    top = build_part_with_snap_profile(top_profile)
-
-    tag = f"{deflection:.1f}mm-deflection"
-    cq.exporters.export(bottom, str(OUTPUT_DIR / f"case-snaps-bottom-{tag}.step"))
-    cq.exporters.export(top, str(OUTPUT_DIR / f"case-snaps-top-{tag}.step"))
-    print(f"Exported -> bottom + top @ {deflection} mm deflection per piece")
+cq.exporters.export(bottom, str(OUTPUT_DIR / "case-snaps-bottom.step"))
+cq.exporters.export(top, str(OUTPUT_DIR / "case-snaps-top.step"))
+print("Exported -> case-snaps-bottom.step + case-snaps-top.step")
