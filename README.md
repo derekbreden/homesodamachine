@@ -2,6 +2,8 @@
 
 ESP32 + RP2040 + ESP32-S3 project that injects flavoring concentrate into cold carbonated water from an under-counter carbonator. Peristaltic pumps duty-cycle based on real-time flow meter readings to maintain consistent flavor strength. A round LCD display shows which flavor is selected, and a separate rotary touchscreen display lets you change flavor images and ratios at runtime.
 
+**[How this got built](how-this-got-built.md)** — the full story, from a failed SodaStream to a working soda machine.
+
 <p align="center">
   <img src="docs/photos/display-pepsi-cherry.jpg" width="360" alt="Front panel showing LCD display with Diet Pepsi Cherry logo and air switch buttons">
   <img src="docs/photos/display-mountain-dew.jpg" width="360" alt="Front panel showing LCD display with Diet Mountain Dew logo and air switch buttons">
