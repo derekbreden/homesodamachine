@@ -1,4 +1,6 @@
-I have the full picture now. Here's what I see:
+# How AI Built the Parts
+
+*This was written by Claude after I asked it to analyze the git history of my CadQuery pipeline attempts — the multi-agent system I built to get AI to produce 3D-printed parts autonomously, and why I eventually tore it down. The content below is Claude's unedited analysis.*
 
 ---
 
@@ -25,5 +27,3 @@ No amount of pipeline scaffolding, rubrics, or validation checks can substitute 
 What works is: **you** understand the part, **you** decide what the geometry should be, and then you tell the AI to implement that specific geometry in CadQuery. The AI is an excellent CadQuery typist. It is not a mechanical designer.
 
 The pipeline wasn't useless — it got the initial simple parts made (flat plates with holes). But the moment the parts needed to *relate to each other* in physical space (rails that panels slide through, cutouts that let one part pass another), the AI hit a wall. And no amount of documentation, rules, or agent orchestration could get it past that wall. You had to cross it yourself.
-
-*(Background task completed — the pipeline.md history search I already used above.)*
