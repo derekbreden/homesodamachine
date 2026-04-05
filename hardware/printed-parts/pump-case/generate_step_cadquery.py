@@ -4,8 +4,13 @@ import sys
 
 import cadquery as cq
 
-sys.path.insert(0, str(Path(__file__).resolve().parent.parent / "case-snaps"))
-from generate_step_cadquery import apply_tongue, apply_groove
+# Import snap functions — case-snaps dir may already be on sys.path (via
+# run_redirected.py in the step viewer) or we add it from __file__.
+try:
+    from generate_step_cadquery import apply_tongue, apply_groove
+except ImportError:
+    sys.path.insert(0, str(Path(__file__).resolve().parent.parent / "case-snaps"))
+    from generate_step_cadquery import apply_tongue, apply_groove
 
 # ── Footprint ──
 FOOTPRINT_X = 70.0
