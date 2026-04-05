@@ -137,9 +137,20 @@ async function buildAll() {
   console.log("Initial build complete.");
 }
 
+// --- Clean viewer dir ---
+async function cleanViewerDir() {
+  if (!fs.existsSync(VIEWER_DIR)) return;
+  for (const entry of fs.readdirSync(VIEWER_DIR, { withFileTypes: true })) {
+    const full = path.join(VIEWER_DIR, entry.name);
+    if (entry.isDirectory()) fs.rmSync(full, { recursive: true });
+    else fs.unlinkSync(full);
+  }
+}
+
 // --- Start ---
 server.listen(PORT, async () => {
   console.log(`Step viewer: http://localhost:${PORT}`);
+  await cleanViewerDir();
   await buildAll();
   console.log("Watching for changes...");
 });
