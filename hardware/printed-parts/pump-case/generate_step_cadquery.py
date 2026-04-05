@@ -724,20 +724,21 @@ for inner_face, outward_sign, split_y, plane, extrude_start, eff_wall_ht, groove
     face_b = inner_face + outward_sign * (WALL_THICKNESS + OVERCUT)
     face_lo, face_hi = min(face_a, face_b), max(face_a, face_b)
 
-    # Upper wall cutter (tongue region)
+    # Upper wall cutter (tongue region) — no overcut on the wall-facing edge
+    # so the cutter does not notch into angled geometry (flare/taper) above
     if plane == "YZ":
         ucut_pts = [
             (split_y - OVERCUT, face_lo),
-            (split_y + tongue_embed + OVERCUT, face_lo),
-            (split_y + tongue_embed + OVERCUT, face_hi),
+            (split_y + tongue_embed, face_lo),
+            (split_y + tongue_embed, face_hi),
             (split_y - OVERCUT, face_hi),
         ]
     else:
         ucut_pts = [
             (face_lo, split_y - OVERCUT),
             (face_hi, split_y - OVERCUT),
-            (face_hi, split_y + tongue_embed + OVERCUT),
-            (face_lo, split_y + tongue_embed + OVERCUT),
+            (face_hi, split_y + tongue_embed),
+            (face_lo, split_y + tongue_embed),
         ]
     upper = upper.cut(
         cq.Workplane(plane)
@@ -746,18 +747,18 @@ for inner_face, outward_sign, split_y, plane, extrude_start, eff_wall_ht, groove
         .extrude(SNAP_ZONE_WIDTH + 2 * OVERCUT)
     )
 
-    # Lower wall cutter (groove region)
+    # Lower wall cutter (groove region) — no overcut on the wall-facing edge
     if plane == "YZ":
         lcut_pts = [
-            (split_y - groove_embed - OVERCUT, face_lo),
+            (split_y - groove_embed, face_lo),
             (split_y + OVERCUT, face_lo),
             (split_y + OVERCUT, face_hi),
-            (split_y - groove_embed - OVERCUT, face_hi),
+            (split_y - groove_embed, face_hi),
         ]
     else:
         lcut_pts = [
-            (face_lo, split_y - groove_embed - OVERCUT),
-            (face_hi, split_y - groove_embed - OVERCUT),
+            (face_lo, split_y - groove_embed),
+            (face_hi, split_y - groove_embed),
             (face_hi, split_y + OVERCUT),
             (face_lo, split_y + OVERCUT),
         ]
@@ -769,15 +770,17 @@ for inner_face, outward_sign, split_y, plane, extrude_start, eff_wall_ht, groove
     )
 
     # ── Tongue (upper part) ──
-    # Height mapping: world_y = split_y + eff_wall_ht - h
+    # Height mapping: profile extends OVERCUT past the cutter boundary into the
+    # remaining wall so the union merges with no coincident-face seam.
+    tongue_base = split_y + eff_wall_ht + OVERCUT
     if plane == "YZ":
         tongue_world = [
-            (split_y + eff_wall_ht - h, inner_face + outward_sign * o)
+            (tongue_base - h, inner_face + outward_sign * o)
             for o, h in snap_tongue_pts
         ]
     else:
         tongue_world = [
-            (inner_face + outward_sign * o, split_y + eff_wall_ht - h)
+            (inner_face + outward_sign * o, tongue_base - h)
             for o, h in snap_tongue_pts
         ]
     upper = upper.union(
@@ -788,15 +791,15 @@ for inner_face, outward_sign, split_y, plane, extrude_start, eff_wall_ht, groove
     )
 
     # ── Groove (lower part) ──
-    # Height mapping: world_y = split_y - eff_wall_ht + h
+    groove_base = split_y - eff_wall_ht - OVERCUT
     if plane == "YZ":
         groove_world = [
-            (split_y - eff_wall_ht + h, inner_face + outward_sign * o)
+            (groove_base + h, inner_face + outward_sign * o)
             for o, h in groove_pts
         ]
     else:
         groove_world = [
-            (inner_face + outward_sign * o, split_y - eff_wall_ht + h)
+            (inner_face + outward_sign * o, groove_base + h)
             for o, h in groove_pts
         ]
     lower = lower.union(
