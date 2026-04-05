@@ -180,7 +180,7 @@ def rounded_rect_profile(width, height, radius, n=ARC_SEGMENTS):
         ( hw - radius, -hh + radius, 270, 360),
     ]
     for cx, cz, start_deg, end_deg in corners:
-        for i in range(n):
+        for i in range(n + 1):
             angle = math.radians(start_deg + (end_deg - start_deg) * i / n)
             pts.append((cx + radius * math.cos(angle), cz + radius * math.sin(angle)))
     return pts
@@ -209,11 +209,11 @@ def split_skirt_profile(wide_he, wide_r, narrow_he, narrow_r,
     pts = []
 
     # +Z half arcs (wide)
-    for i in range(n):
+    for i in range(n + 1):
         a = math.radians(90 * i / n)
         pts.append((wide_cc + wide_r * math.cos(a),
                      wide_cc + wide_r * math.sin(a)))
-    for i in range(n):
+    for i in range(n + 1):
         a = math.radians(90 + 90 * i / n)
         pts.append((-wide_cc + wide_r * math.cos(a),
                      wide_cc + wide_r * math.sin(a)))
@@ -223,11 +223,11 @@ def split_skirt_profile(wide_he, wide_r, narrow_he, narrow_r,
     pts.append((-narrow_he, transition_z_minus))
 
     # -Z half arcs (narrow)
-    for i in range(n):
+    for i in range(n + 1):
         a = math.radians(180 + 90 * i / n)
         pts.append((-narrow_cc + narrow_r * math.cos(a),
                      -narrow_cc + narrow_r * math.sin(a)))
-    for i in range(n):
+    for i in range(n + 1):
         a = math.radians(270 + 90 * i / n)
         pts.append((narrow_cc + narrow_r * math.cos(a),
                      -narrow_cc + narrow_r * math.sin(a)))
