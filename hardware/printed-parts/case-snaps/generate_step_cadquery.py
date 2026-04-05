@@ -2,7 +2,8 @@
 
 The snap features are geometric modifications to existing walls:
   Tongue: grow the outer face outward (ramp), then cut the engagement channel
-  Groove: cut the engagement pattern from the outer face, add rib extension
+  Groove: cut the groove channels and cantilever rib from the outer face,
+          leaving the initial rib at full wall thickness
 
 The wall is never removed and replaced. It is shaped.
 """
@@ -12,15 +13,16 @@ from pathlib import Path
 import cadquery as cq
 
 # ── Snap geometry constants ──
+# Names match the working version at fae9a6a for traceability.
 
 WALL_THICKNESS = 3.0
-TONGUE_GROWTH = 2.0
-FLEXING_WIDTH = 2.0
-ENGAGEMENT = 2.0
-CHANNEL_FLOOR = 6.0
-OUTER_RAMP_START = 4.0
-INITIAL_RIB = 5.0
-DEFLECTION = 0.3
+TONGUE_GROWTH = 2.0          # TONGUE_GROWTH_BEYOND_WALL
+FLEXING_WIDTH = 2.0          # FLEXING_SECTION_WIDTH
+ENGAGEMENT = 2.0             # ENGAGEMENT_LENGTH
+CHANNEL_FLOOR = 6.0          # CHANNEL_FLOOR_HEIGHT
+OUTER_RAMP_START = 4.0       # OUTER_RAMP_START_HEIGHT
+INITIAL_RIB = 5.0            # TOP_INITIAL_RIB_HEIGHT
+DEFLECTION = 0.3             # DEFLECTION_PER_PIECE
 
 CHANNEL_WIDTH = WALL_THICKNESS + TONGUE_GROWTH             # 5.0
 INTERLOCK = CHANNEL_WIDTH / 2 + DEFLECTION                 # 2.8
@@ -65,7 +67,7 @@ def apply_tongue(solid, inner_face, sign, plane, extrude_start, zone_width,
     # 2. Channel cut from inner face — zigzag engagement pattern
     ic = inner_face - sign * OVERCUT                   # slightly past inner face
     il = inner_face + sign * TONGUE_INTERLOCK_DEPTH    # 2.2 from inner
-    fl = inner_face + sign * TONGUE_FLEX_DEPTH         # 3.0 from inner
+    fl = inner_face + sign * (TONGUE_FLEX_DEPTH + OVERCUT)  # 0.1mm past outer face
 
     channel = [
         (ic, wall_base + f),
@@ -89,37 +91,21 @@ def apply_tongue(solid, inner_face, sign, plane, extrude_start, zone_width,
 
 def apply_groove(solid, inner_face, sign, plane, extrude_start, zone_width,
                  wall_base, wall_height):
-    """Cut the engagement pattern from the outer face, add rib extension."""
+    """Cut groove channels and cantilever rib from the outer face.
+
+    The initial rib (below the engagement zone) stays at full wall thickness.
+    Only the cantilever rib gets the 0.2 mm deflection cut.
+    """
     outer = inner_face + sign * WALL_THICKNESS
     r = RAMP
     e = ENGAGEMENT
     oc = outer + sign * OVERCUT                       # slightly past outer face
-    rb = inner_face + sign * GROOVE_RIB_DEPTH         # rib face (2.8 from inner)
+    rb = inner_face + sign * GROOVE_RIB_DEPTH         # cantilever face (2.8)
     gr = inner_face + sign * GROOVE_GROOVE_DEPTH      # groove face (2.0 from inner)
-
-    # 1. Cut groove pattern from outer face — thins and shapes the wall
-    groove = [
-        (oc, wall_base - OVERCUT),
-        (rb, wall_base - OVERCUT),
-        (rb, wall_base + INITIAL_RIB),
-        (gr, wall_base + INITIAL_RIB + r),
-        (gr, wall_base + INITIAL_RIB + r + e),
-        (rb, wall_base + INITIAL_RIB + 2 * r + e),
-        (rb, wall_base + INITIAL_RIB + 2 * r + 2 * e),
-        (gr, wall_base + GROOVE_TIP_H),
-        (oc, wall_base + GROOVE_TIP_H),
-    ]
-    solid = solid.cut(
-        cq.Workplane(plane)
-        .workplane(offset=extrude_start - OVERCUT)
-        .polyline(groove).close()
-        .extrude(zone_width + 2 * OVERCUT)
-    )
-
-    # 2. Rib extension past mating surface — the part that protrudes
     wall_top = wall_base + wall_height
-    ic = inner_face - sign * OVERCUT                  # overlap into cavity for clean union
+    ic = inner_face - sign * OVERCUT                  # overlap into cavity for union
 
+    # 1. Rib extension past wall top — cantilever rib + tip groove
     extension = [
         (ic, wall_top),
         (ic, wall_base + GROOVE_TIP_H),
@@ -132,6 +118,24 @@ def apply_groove(solid, inner_face, sign, plane, extrude_start, zone_width,
         .workplane(offset=extrude_start)
         .polyline(extension).close()
         .extrude(zone_width)
+    )
+
+    # 2. Cut groove channels + cantilever rib from outer face.
+    #    Starts at initial rib top — initial rib is NOT cut (stays flush).
+    groove = [
+        (oc, wall_base + INITIAL_RIB),
+        (gr, wall_base + INITIAL_RIB + r),
+        (gr, wall_base + INITIAL_RIB + r + e),
+        (rb, wall_base + INITIAL_RIB + 2 * r + e),
+        (rb, wall_base + INITIAL_RIB + 2 * r + 2 * e),
+        (gr, wall_base + GROOVE_TIP_H),
+        (oc, wall_base + GROOVE_TIP_H),
+    ]
+    solid = solid.cut(
+        cq.Workplane(plane)
+        .workplane(offset=extrude_start - OVERCUT)
+        .polyline(groove).close()
+        .extrude(zone_width + 2 * OVERCUT)
     )
 
     return solid
