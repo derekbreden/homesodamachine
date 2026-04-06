@@ -59,8 +59,11 @@ def _pt(face, height, swap):
 
 
 def apply_tongue(solid, inner_face, sign, plane, extrude_start, zone_width,
-                 wall_base, height_dir=1, swap_axes=False):
-    """Grow the outer face outward, then cut the engagement channel.
+                 wall_base, wall_height, height_dir=1, swap_axes=False):
+    """Grow the outer face outward, extend wall upward, then cut the channel.
+
+    The tongue extends above the wall top, so the wall must be extended
+    upward to provide material for the channel cut's engagement zigzag.
 
     height_dir: +1 if height increases in the workplane's second axis,
                 -1 if it decreases (e.g. pump case where Y goes negative).
@@ -73,6 +76,7 @@ def apply_tongue(solid, inner_face, sign, plane, extrude_start, zone_width,
     r = TONGUE_RAMP
     e = ENGAGEMENT
     f = CHANNEL_FLOOR
+    wall_top = wall_base + hd * wall_height
 
     # 1. Growth ramp on outer face — trapezoid from ramp start to tongue tip
     #    Inner edge overlaps OVERCUT into existing wall to avoid coincident faces.
@@ -90,8 +94,23 @@ def apply_tongue(solid, inner_face, sign, plane, extrude_start, zone_width,
         .extrude(zone_width)
     )
 
-    # 2. Channel cut from inner face — zigzag engagement pattern
+    # 2. Extend wall upward past wall top to tongue tip — provides material
+    #    for the channel cut's engagement bumps above the wall.
     ic = inner_face - sign * OVERCUT
+    extension = [
+        _pt(ic, wall_top, sw),
+        _pt(ic, wall_base + hd * TONGUE_TIP_H, sw),
+        _pt(oi, wall_base + hd * TONGUE_TIP_H, sw),
+        _pt(oi, wall_top, sw),
+    ]
+    solid = solid.union(
+        cq.Workplane(plane)
+        .workplane(offset=extrude_start)
+        .polyline(extension).close()
+        .extrude(zone_width)
+    )
+
+    # 3. Channel cut from inner face — zigzag engagement pattern
     il = inner_face + sign * TONGUE_INTERLOCK_DEPTH
     fl = inner_face + sign * (TONGUE_FLEX_DEPTH + OVERCUT)
 
