@@ -155,7 +155,12 @@ Show the progression of printing the same part in different materials. Drying pr
 
 ## Production notes
 
-- **Tier 1 videos should exist before the first sale.** They are the sales funnel. A potential buyer who finds the pour video needs somewhere to go next — the full story video and the install video close the deal.
-- **Tier 2 videos can be published as the build progresses.** They build the audience that eventually contains buyers. The AI pipeline failure story and the live-reload CAD viewer are probably the highest-value Tier 2 pieces — they reach large, active communities (AI discourse, 3D printing) with genuinely novel content.
-- **Tier 3 videos are for when someone asks.** "How does the app work?" "How do you clean it?" "How do the stats work?" These answer specific questions from people already interested.
-- **Every Tier 2 and Tier 3 video should have the soda machine visible in the background or mentioned in passing.** The machine is always the context. Never the pitch, but always present.
+### The sequence: Tier 2 → Tier 1 → Tier 3
+
+**Tier 2 starts now.** These videos are about the build process, and they're most valuable *while the build is happening*. A live-reload CAD viewer demo posted during active development has an authenticity that a retrospective never matches. Build-in-public content has a shelf life — make it while it's fresh. The AI pipeline failure story and the live-reload CAD viewer are the highest-value Tier 2 pieces — they reach large, active communities (AI discourse, 3D printing) with genuinely novel content.
+
+**Tier 1 waits for the self-contained prototype.** The pour video, the full story, and the install video are the sales funnel. They need to show the product someone can actually buy — not the current Lillium-backed system that's going to change. The pour video is stronger when it pours from the finished appliance. The install video requires a finished unit to install. These should exist before the first sale, but not before the product is ready to sell.
+
+**Tier 3 comes when people start asking.** "How does the app work?" "How do you clean it?" These answer specific questions from people already interested.
+
+**Every Tier 2 and Tier 3 video should have the soda machine visible in the background or mentioned in passing.** The machine is always the context. Never the pitch, but always present. The audience built during Tier 2 is the audience that sees the Tier 1 videos when they drop.
