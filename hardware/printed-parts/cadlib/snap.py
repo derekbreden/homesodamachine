@@ -16,8 +16,8 @@ import cadquery as cq
 
 # ── Deflection tuning (change these two values) ──
 
-TONGUE_DEFLECTION = 0.3
-GROOVE_DEFLECTION = 0.3
+TONGUE_DEFLECTION = 0.5
+GROOVE_DEFLECTION = 0.5
 
 # ── Snap geometry constants ──
 
