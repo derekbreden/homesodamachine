@@ -183,10 +183,18 @@ The *Jerk* reference does three things at once:
 
 A 30-second video of the pour, ending with "He hates these cans" and a link. The people who get it will *get it*.
 
-### The purchase decision, once they believe it's real
+### The trust gap: at 10 units, the brand is a person
+
+Between discovery ("wait, that's real?") and purchase ($6,000 from a company they've never heard of), there is an enormous trust gap. No amount of product photography or website polish closes it at this stage. There is no brand. There are no reviews. There is no retail shelf lending credibility.
+
+At 10 units, the answer to "is this a real product?" is not a brand — it's Derek. His face, his kitchen, his story. "I built this because I was tired of hauling cans. Here's my kitchen. Here's me pouring a glass. Here's what's under the counter." The first 10 buyers are buying from a person they've come to trust, not from a company. That means "marketing" at this stage is not brand identity work — it's building a video presence. A person showing a real product in a real kitchen, consistently, until 10 people believe it enough to buy.
+
+At 100 units, you need the brand. At 10, you need a face they trust.
+
+### The purchase decision, once they trust the person
 
 1. **Does it taste right?** Pass/fail. Same formulation, colder, fizzier than a can. It does.
-2. **Is this a real product?** At $6,000 from an unknown company, the product itself must communicate legitimacy. Materials, finish, quality of the pour, install experience, reviews from real owners. Appliance, not prototype.
+2. **Is this real?** Answered by the founder's presence — his kitchen, his pour, his story. Not a brand promise. A person's credibility.
 3. **Is the install actually easy?** A real install video — not polished, the actual process — eliminates this objection.
 4. **What's the ongoing hassle?** Syrup every few weeks (Amazon). CO2 every few months (currently a trip to a gas supplier — a known rough edge). Cleaning automated from the app. Net: less hassle than the weekly store run.
 5. **Is $6,000 a price I can pay?** They're comparing against other major household purchases, not against cans. The decade math ($6,500+ in cans over 10 years) supports the decision but doesn't drive it.
