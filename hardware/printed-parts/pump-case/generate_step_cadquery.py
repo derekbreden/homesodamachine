@@ -643,6 +643,7 @@ for inner_face, sign, split_y, plane, extrude_start, eff_wall_ht, swap in snap_f
     upper = apply_tongue(
         upper, inner_face, sign, plane, extrude_start, SNAP_ZONE_WIDTH,
         wall_base=split_y + eff_wall_ht,
+        wall_height=eff_wall_ht,
         height_dir=-1, swap_axes=swap,
     )
     lower = apply_groove(

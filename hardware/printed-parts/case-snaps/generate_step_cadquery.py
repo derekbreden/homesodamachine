@@ -50,6 +50,7 @@ for wall_id, (face, sign, plane) in WALLS.items():
         extrude_start=-ZONE_WIDTH / 2,
         zone_width=ZONE_WIDTH,
         wall_base=BASE_PLATE,
+        wall_height=WALL_HEIGHT,
     )
     top = apply_groove(
         top, face, sign, plane,
