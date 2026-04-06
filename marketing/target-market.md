@@ -1,6 +1,6 @@
 # Target Market Definition
 
-*Working draft — April 6, 2026. This is a living document. It will sharpen as we learn more.*
+*Working draft — April 6, 2026*
 
 ---
 
@@ -10,101 +10,84 @@ A home soda machine. A self-contained, under-counter appliance that connects to 
 
 Price: $6,000. Install: plug and play — under an hour, no plumber, no special tools.
 
-Nothing like this exists for home consumers. The category does not have a name yet because no one has made one before.
+Nothing like this exists for home consumers.
 
 ---
 
-## The emotional core: "He hates these cans"
+## The market definition: "He hates these cans"
 
-The buyer hates the cans.
+The target market is **people who hate the cans.**
 
-Not in a way they think about consciously. Not in a way they'd bring up at dinner. They've been hauling cans for so long that the weight of it just feels like life. They don't know they hate the cans — the same way a person mowing their own lawn every Saturday doesn't know they hate it until someone says "you know, they have robots for that now."
+That's it. That's the definition. Everything else — income, housing, consumption level — is a qualifying filter. The emotional core is the hatred.
 
-The hatred is latent. It becomes obvious only when a solution appears next to it. The robot mower didn't create the desire to stop mowing — it gave the person permission to notice that mowing was a problem. And the relief that followed — the genuine, physical weight off the shoulders — recalibrated their tolerance for every other annoyance they were still carrying.
+**"He hates these cans!"** — the Steve Martin moment from *The Jerk* — is not a joke reference. It is the most precise description of our buyer that exists. The cathartic laugh it produces is the laugh of recognition: finally having language for something you've been carrying without naming it.
 
-This is a chain reaction. Each solved annoyance makes the next one visible:
+### What "hates the cans" looks like in daily life
 
-- The robot mower shows you that you hated mowing.
-- That leads to the robot vacuum. Now vacuuming was a problem too.
-- That leads you to look at the cans differently. Wait — I haul 24 cans a week from the store, I dedicate a fridge shelf to them, I crush and recycle them, I run out and make a special trip, and I've been doing this for *years*? There has to be a better way.
-
-The founder bought his first home in August 2025. By October he was back on YouTube researching home soda for the first time in 15 years. The home was the unlock — it gave him his own kitchen, his own counter, his own under-counter space. The frustration had been there for a decade. The home gave him permission and capability to act on it.
-
-**"He hates these cans!"** — the Steve Martin moment from *The Jerk* — is not a joke reference. It is the emotional truth of this product. The cathartic laugh it produces in the founder is the same laugh it will produce in the buyer: the laugh of recognition, of finally having language for something you've been carrying without naming it.
-
----
-
-## Who is the target market
-
-### The defining trait: the solver
-
-The buyer is not defined primarily by income, age, kitchen style, or even how much soda they drink. They are defined by a behavioral pattern: **they identify recurring friction in their daily life, and when they discover a solution exists, they act on it.**
-
-They bought the robot mower, or the robot vacuum, or the great coffee machine, or the nugget ice maker, or the water filtration system — and they felt the relief. They remember what it was like *before* and *after*. They are now tuned to that frequency. They notice when they're carrying weight they could put down. And they share what they find — they're the person in their circle who says "you know, they have a thing for that now."
-
-This is not a personality type. It's a pattern of behavior that cuts across demographics. The founder and the coworker who told him about robot mowers are both solvers. They are in an ongoing loop: one discovers a solution, mentions it to the other, the other acts on it, and the favor gets returned later. The coworker bought a Bambu 3D printer for their sons. The founder bought one too. The coworker mentioned robot mowers. The founder bought one. The founder is now building a soda machine, and the coworker is watching with interest — and the founder believes the coworker is his target market *even though he doesn't know if the coworker drinks soda*. Because the coworker is the type. If a soda machine appeared in their kitchen, they'd either use it or immediately know three people who would.
-
-**Soda consumption is the qualification, not the definition.** The definition is the solver pattern. The qualification is "and someone in the household drinks 2+ diet sodas a day." This distinction matters because it determines where we look for these people. We do not look in soda spaces — there are none worth finding. We look in solver spaces: the places where people talk about the robot vacuum that changed their life, the smart home device that eliminated a daily annoyance, the kitchen upgrade that made their morning better.
-
-### The can problem, specifically
-
-They experience most or all of these:
-
-- **Hauling.** 24-48 cans per week, from store to car to kitchen. Physical labor they do every week.
+- **Hauling.** 24-48 cans per week, from store to car to kitchen. Physical labor, every week.
 - **Storage.** A dedicated fridge shelf that's always either full of cans or empty when they want one. Pantry space consumed by 12-packs and 24-packs.
-- **Running out.** The moment the fridge is empty and the store isn't convenient. This is the peak frustration — the daily ritual interrupted.
+- **Running out.** The moment the fridge is empty and the store isn't convenient. The daily ritual interrupted. This is peak frustration.
 - **Waste.** 730+ cans per year per household. The recycling bin fills up weekly. The guilt is low-grade but persistent.
 - **Errand load.** The store run isn't just about soda — but the soda makes it heavier, more frequent, and harder to skip.
+- **Time.** They work. Their free-not-working time is scarce. The weekly can run is an errand they'd delete from their life if they could.
 
-They have been tolerating all of this because they never saw another way. The moment they see the faucet handle turn and Diet Mountain Dew pour out, the hatred crystallizes. That's the sale.
+### The hatred is latent
 
-### The purchase trigger
+Most people who hate the cans don't know they hate the cans. They've been hauling them for so long that the weight feels like life. The hatred becomes obvious only when a solution appears next to it — the same way a person mowing their own lawn every Saturday doesn't know they hate it until someone says "you know, they have robots for that now."
 
-The trigger is not dissatisfaction with cans — they've been dissatisfied for years. The trigger is one of two things:
-
-1. **Discovery.** They see this product exist — in a video, in a friend's kitchen, in an article — and the reaction is visceral: "wait, that's *real*? That's actual Diet Mountain Dew from a faucet?"
-
-2. **Life event + discovery.** A new home, a kitchen renovation, a life change that makes them look at their space with fresh eyes. The home was the unlock for the founder. The frustration was always there; the home gave him permission and capability to solve it. This may be the more common path: the life event makes them receptive, and then discovery closes it.
-
-### The decision framework (after discovery)
-
-Once they believe it's real, they ask:
-
-1. **Does it taste right?** Pass/fail. Same formulation, colder, fizzier than a can. It does.
-2. **Is this a real product?** At $6,000 from a company they've never heard of, the product itself has to communicate legitimacy. Materials, finish, the quality of the pour, the install experience, reviews from real owners. Everything says "appliance," not "prototype."
-3. **Can I actually do the install?** "Under an hour, no plumber" needs to be believable. A real install video — not polished, the actual process — eliminates this.
-4. **What's the ongoing hassle?** Syrup every few weeks (Amazon). CO2 every few months (currently a trip to a gas supplier — a known rough edge). Cleaning cycle automated from the app. Net: less hassle than the weekly store run they're currently doing.
-5. **Is $6,000 a price I can pay?** See next section.
+The founder bought his first home in August 2025. By October he was back on YouTube researching home soda for the first time in 15 years. The frustration had been there for a decade. The home gave him permission and capability to act on it. He didn't know how much he hated the cans until he saw a way to get rid of them.
 
 ---
 
-## The price and who can pay it
+## Qualifying filters
 
-$6,000 is a lot of money. It is not a casual purchase at any income level. But it is also not the same obstacle for everyone. There is a curve:
+The hatred defines the market. These filters determine who within that market can act on it at $6,000.
 
-**The more someone hates the cans, the lower the income at which they'll write the check.**
+### Consumption: 2+ diet sodas per day
 
-- At $200K+ household income, moderate annoyance is enough. This is a "that sounds great, here's my card" purchase. They've spent $6,000 on kitchen things before.
-- At $150K, the founder's income, it's a considered purchase — but the hatred is strong enough that he'd have paid it six months ago if the product existed. This is "I'm doing this" money, not "let me think about it" money, *if the motivation is there*.
-- At $100-120K, it needs to be a strong emotional driver. But people at this income buy $6,000 things — hot tubs, riding mowers, home theater setups — when they want them badly enough.
-- Below $100K, the purchase is possible but unlikely for most. The exception is someone whose can hatred is extreme and who views this as replacing an ongoing expense ($650+/year in cans), not adding a new one.
+This is the minimum bar for the can problem to be physically felt. At 2/day, a household goes through a 12-pack every 6 days. At 3/day, every 4 days. At household level (two drinkers, or one heavy drinker), the store run is weekly or more.
 
-We should not draw a hard income line. The income floor depends on the intensity of the motivation. What we can say:
+Roughly 49% of Americans drink soda regularly (Gallup). Diet/zero-sugar is ~30% of CSD volume. Daily drinkers at 2+/day are a subset of that — perhaps 7-8 million U.S. households.
 
-- **Center of the bullseye:** Household income $120K-250K, 2-4 diet sodas/day, homeowner, has solved at least one other domestic annoyance with a purchase.
-- **Reachable ring:** $80K-120K household income where consumption is high (3+/day) and the hatred is visceral. These buyers exist. They are fewer, and they need a stronger push, but they are real.
+Soda consumption is an extremely common behavior. It is the prerequisite for this product to be relevant, but it is not the interesting thing about the buyer. Enough of the population meets this bar that it should not be our focus in defining the market.
 
-### Market sizing
+### Income: a gradient, not a line
+
+$6,000 is a lot of money. But the threshold at which someone will pay it depends on how much they hate the cans.
+
+- **$200K+ household income:** Moderate annoyance is enough. They've spent $6,000 on kitchen things before.
+- **$150K (founder's income):** A considered purchase — but the hatred was strong enough that he'd have paid it six months before the product existed.
+- **$100-120K:** Needs to be a strong emotional driver. But people at this income buy $6,000 things — hot tubs, riding mowers, home theater setups — when they want them badly enough.
+- **Below $100K:** Possible but unlikely for most. The exception is someone whose can hatred is extreme and who views this as replacing an ongoing expense ($650+/year in cans), not adding a new one.
+
+**Center of the bullseye:** Household income $120K-250K, 2-4 diet sodas/day, homeowner.
+
+**Reachable ring:** $80K-120K household income where consumption is high (3+/day) and the hatred is visceral.
+
+### Housing: homeowner
+
+Under-counter installation requires ownership or a very accommodating landlord. The home has a water line accessible under the kitchen counter — same prerequisite as a dishwasher or under-counter water filter, present in virtually all owned homes.
+
+New homeownership may be a trigger event. The founder's timeline — bought first home August 2025, researching home soda by October 2025 — suggests that the moment someone has *their own kitchen* is the moment latent frustrations become actionable.
+
+### Geography: U.S. initially
+
+Suburban homes with larger kitchens and bulk-buying habits (Costco 48-packs) are the center. Urban homeowners with less storage space also feel the can problem acutely, for different reasons.
+
+---
+
+## Market sizing
+
+### How many people hate the cans?
 
 - ~131M U.S. households.
-- ~49% drink soda regularly: ~64M.
-- Diet/zero-sugar is ~30% of CSD volume: ~19M households with a regular diet drinker.
-- Daily drinkers at 2+ cans/day, ~40% of regular diet drinkers: ~7.5M.
-- Household income $120K+ (top ~35% of U.S. households): ~2.6M.
-- Homeowners in this group (~80%): ~2.1M.
-- Factor for "solved-problem awareness" — the people primed to recognize and act on latent frustration. This is genuinely hard to estimate. Conservatively, perhaps 30-50% of this group has had the experience. Call it 600K-1M households.
+- ~7.5M households with a daily diet soda drinker (2+/day).
+- ~2.6M of those with household income $120K+.
+- ~2.1M of those who are homeowners.
 
-**Addressable market: roughly 600,000 to 1 million U.S. households.**
+**Addressable market: roughly 2 million U.S. households.**
+
+Not all of them hate the cans enough to pay $6,000. But we don't need all of them.
 
 ### What we actually need
 
@@ -112,7 +95,7 @@ We should not draw a hard income line. The income floor depends on the intensity
 - **100 units/year** = $600,000. A real business.
 - **1,000 units/year** = $6M. A serious company.
 
-10 out of 600,000 is 0.0017%. The market is not the constraint. Discovery is the constraint.
+10 out of 2 million is 0.0005%. The market is not the constraint. Discovery is the constraint.
 
 ### The decade math
 
@@ -134,7 +117,7 @@ SodaStream's loyal customers drink sparkling water, not soda. SodaStream's *chur
 
 ### Not bargain hunters
 
-The person who optimizes around $0.30/can sale prices will never spend $6,000 to avoid cans. We should never try to convince them.
+The person who optimizes around $0.30/can sale prices will never spend $6,000 to avoid cans. Cost savings is math we show someone who's already decided to buy. It is never the reason they decide.
 
 ### Not gadget collectors
 
@@ -146,14 +129,29 @@ Some daily soda drinkers genuinely don't experience the cans as a burden. The fo
 
 ---
 
-## Adjacencies and expansion paths
+## Finding the first 10 buyers
 
-The core market is daily diet soda drinkers who have felt the relief of solving a domestic annoyance and are ready to solve the next one. These are adjacent markets for later — not launch targets.
+The first buyers will be **solvers** — people who have already, at least once, discovered they were tolerating a daily annoyance and fixed it with a purchase. They bought the robot mower, the robot vacuum, the espresso machine. They remember the relief. They are tuned to that frequency.
 
-- **Sugar soda drinkers.** Full-sugar Pepsi, Mountain Dew, Mug Root Beer, and Starry concentrates exist. The machine handles them equally. Diet-first is a go-to-market choice, not a technical limitation.
-- **Sparkling water power users.** 4+ LaCroix a day = same can problem, same kitchen profile. Natural expansion if the system can dispense plain or lightly flavored sparkling water.
-- **Small offices and break rooms.** SodaStream Professional is dead. That market is unserved. $6,000 in an office break room is a rounding error. Later play.
-- **Price-down model.** As BOM costs decrease with volume, a $3,000-4,000 version opens a significantly larger market. The $6,000 model establishes the brand at the top; the lower-priced model rides the credibility downhill.
+Solvers are early adopters by nature. They act on new information faster than everyone else. They are not the entire market — the broader market is everyone who hates the cans and can write the check — but they are the first 10 because they need the least convincing. Show them the faucet, tell them it's real Diet Mountain Dew, and they'll do the rest of the math themselves.
+
+### Where solvers spend time
+
+We do not look in soda spaces — there are none worth finding. We look in places where people share solutions to daily life problems:
+
+- **Smart home communities.** r/smarthome, r/homeautomation, Home Assistant forums. People who already understand "spend money once, eliminate a recurring annoyance forever."
+- **Robot vacuum / mower communities.** r/robotvacuums, r/automower, YouTube reviewers. People who have *already felt the relief*.
+- **Kitchen and home upgrade spaces.** r/kitchenremodel, r/homeowners, Wirecutter comment sections, home appliance review channels. People mid-renovation or post-move scanning for what else to improve.
+- **The "adulting upgrade" genre on TikTok/Instagram.** "Things in my house that were worth every penny," "purchases I'll never regret." Where solvers discover new things to solve.
+- **3D printing and maker communities.** Makers are solvers by nature. They're the most likely to share this with someone they know who drinks soda.
+
+### The coworker model
+
+"You know, they have a machine for that now." That casual, offhand mention from someone who knows you — that's more powerful than any ad. The founder learned about robot mowers this way. The goal is to create the conditions for that sentence to happen:
+
+1. Get units into kitchens where visitors will see them.
+2. Make the product visually obvious and conversation-starting enough that guests ask about it.
+3. Give owners something easy to share — a link, a video, a way to say "look at this" to the friend they already know drinks Diet Coke every day.
 
 ---
 
@@ -167,37 +165,31 @@ We are not running ads. We are not in retail. We are finding 10 people — one a
 
 The product sells itself once someone knows it exists and believes it works. Every hour we spend should go toward manufacturing the "wait, that's *real*?" moment.
 
-### The coworker moment is the model.
-
-"You know, they have a machine for that now." That's how the founder learned about robot mowers. That casual, almost offhand mention from someone who knows you — that's more powerful than any ad. Our goal is to create the conditions for that sentence to happen. That means:
-
-1. Getting units into kitchens where visitors will see them.
-2. Making the product so visually obvious and conversation-starting that guests ask about it.
-3. Giving owners something easy to share — a link, a video, a way to say "look at this" to the friend they already know drinks Diet Coke every day.
-
 ### Video is the discovery mechanism.
 
-The buyer needs to see the handle turn and the soda pour. Thirty seconds. The ordinariness is the message — this isn't a science project, it's Tuesday morning. Short-form video (TikTok, Instagram Reels, YouTube Shorts) is the primary channel for reaching people who don't know this exists.
+The buyer needs to see the handle turn and the soda pour. Thirty seconds. The ordinariness is the message — this isn't a science project, it's Tuesday morning. Short-form video (TikTok, Instagram Reels, YouTube Shorts) is the primary channel. Not because we're targeting a young demographic — because that's where a 30-second "wait, what?" moment gets shared.
 
 ### The kitchen is the context.
 
 Every piece of marketing shows this in a real kitchen. Nice countertop, nice faucet, glass with ice. It belongs here.
 
-### We find them in solver spaces, not soda spaces.
-
-The buyer doesn't hang out in soda forums. They hang out in places where people share solutions to daily life problems:
-
-- **Smart home communities.** r/smarthome, r/homeautomation, Home Assistant forums. These people have already automated lights, locks, thermostats. They understand the pattern of "spend money once, eliminate a recurring annoyance forever."
-- **Robot vacuum / mower communities.** r/robotvacuums, r/automower, YouTube reviewers. These people have *already felt the relief*. They are primed.
-- **Kitchen and home upgrade spaces.** r/kitchenremodel, r/homeowners, Wirecutter comment sections, home appliance review channels. People mid-renovation or post-move are scanning for what else they can improve.
-- **The "adulting upgrade" genre on TikTok/Instagram.** Videos of home improvements, "things in my house that were worth every penny," "purchases I'll never regret." This is where solvers discover new things to solve.
-- **3D printing and maker communities.** Not because the buyer is a maker — but because makers are solvers by nature, and they are the most likely to share this with someone who drinks soda.
-
-The common thread: these are all places where someone who just solved one problem is actively receptive to hearing about the next one.
-
 ### "He hates these cans" is the hook.
 
-The *Jerk* reference does three things at once: it's funny, it's immediately recognizable to the right demographic (30-55, the same people who drink diet soda daily), and it names the emotion the buyer didn't know they had. If a 30-second video of the pour ends with "He hates these cans" and a link, the people who get it will *get it*. The people who don't aren't our buyers.
+The *Jerk* reference does three things at once:
+
+1. **It names the emotion.** For people who feel it, instant recognition.
+2. **It's funny.** It disarms. You laugh before you realize you're being sold to.
+3. **It filters.** People who don't get it — either the reference or the feeling — aren't our buyers. That's fine.
+
+A 30-second video of the pour, ending with "He hates these cans" and a link. The people who get it will *get it*.
+
+### The purchase decision, once they believe it's real
+
+1. **Does it taste right?** Pass/fail. Same formulation, colder, fizzier than a can. It does.
+2. **Is this a real product?** At $6,000 from an unknown company, the product itself must communicate legitimacy. Materials, finish, quality of the pour, install experience, reviews from real owners. Appliance, not prototype.
+3. **Is the install actually easy?** A real install video — not polished, the actual process — eliminates this objection.
+4. **What's the ongoing hassle?** Syrup every few weeks (Amazon). CO2 every few months (currently a trip to a gas supplier — a known rough edge). Cleaning automated from the app. Net: less hassle than the weekly store run.
+5. **Is $6,000 a price I can pay?** They're comparing against other major household purchases, not against cans. The decade math ($6,500+ in cans over 10 years) supports the decision but doesn't drive it.
 
 ### The CO2 pain point needs honesty.
 
@@ -205,10 +197,20 @@ CO2 refills currently require a trip to a welding gas supplier during business h
 
 ---
 
+## Adjacencies and expansion paths
+
+These are adjacent markets for later — not launch targets.
+
+- **Sugar soda drinkers.** Full-sugar Pepsi, Mountain Dew, Mug Root Beer, and Starry concentrates exist. The machine handles them equally. Diet-first is a go-to-market choice, not a technical limitation.
+- **Sparkling water power users.** 4+ LaCroix a day = same can problem, same kitchen profile. Natural expansion.
+- **Small offices and break rooms.** SodaStream Professional is dead. That market is unserved. $6,000 in an office break room is a rounding error.
+- **Price-down model.** As BOM costs decrease with volume, a $3,000-4,000 version opens a significantly larger market. The $6,000 model establishes the brand at the top; the lower-priced model rides the credibility downhill.
+
+---
+
 ## Open questions
 
-1. **Real people who fit the profile.** Friends, coworkers, family who drink diet soda daily and have already solved other domestic annoyances? Even 3-4 examples validate or challenge everything above.
+1. **Real people who fit the profile.** Friends, coworkers, family who drink diet soda daily and have the can hatred? Even 3-4 examples validate or challenge everything above.
 2. **The visible product.** What does the faucet and visible hardware look like now? The legitimacy question at $6,000 lives or dies on surfaces.
 3. **Timeline to a sellable unit.** Not rushing — but 6 months vs. 18 months changes how we sequence marketing work.
 4. **The coworker.** The one who told you about robot mowers. Do they drink soda? Do they know you built this? What did they say?
-
