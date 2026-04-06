@@ -39,7 +39,7 @@ All current consumer models use the "Quick Connect" (QCC / pink cap) CO2 cylinde
 
 **Flavor ecosystem:** Bubly drops, plus licensed Pepsi, Pepsi Max, 7 Up, Mountain Dew, Pepsi Wild Cherry (added 2025). Also Kraft brands (Crystal Light, Kool-Aid, Country Time) and Ocean Spray. All flavors are manually added by the user after carbonation -- there is no automated dispensing.
 
-**SodaStream Professional:** A commercial plumbed-in dispenser for offices, campuses, and airports. Launched 2020. Connects to a water line, offers unsweetened flavors via touchscreen, tracks hydration via mobile app. This is the closest existing PepsiCo product to what we are building, but it is commercial-only, unsweetened flavors only, and not sold to consumers. More on this below.
+**SodaStream Professional (discontinued):** A commercial plumbed-in dispenser for offices, campuses, and airports. Launched 2020. Connected to a water line, offered 6 unsweetened flavors (strawberry, orange, grapefruit, lemon-mint, peach, raspberry-lime) via touchscreen, tracked hydration via QR-coded bottles and mobile app. Deployed at William & Mary, College of the Holy Cross, and Dana Hill High School. Pricing was never publicly disclosed — enterprise sales only via PepsiCo Partners. **Discontinued circa 2024-2025.** PepsiCo's own support page confirmed: "After careful consideration, we will be discontinuing SodaStream [Professional]." The website (sodastreamprofessional.com) is now dead, the PepsiCo contact page returns a 404, and all late-2024 Wayback Machine captures redirect to a login wall. PepsiCo tried commercial plumbed-in dispensing for 4 years and walked away.
 
 ---
 
@@ -49,7 +49,7 @@ PepsiCo's stated rationale for the $3.2B acquisition was sustainability (reducin
 
 **What has actually happened:**
 - PepsiCo added its brand flavors (Pepsi, Mountain Dew, 7 Up) as SodaStream-compatible concentrates
-- SodaStream Professional was launched for commercial environments
+- SodaStream Professional was launched for commercial environments (2020), then discontinued (~2024-2025)
 - Geographic expansion continued, with focus on emerging markets
 - SodaStream is positioned under PepsiCo's "pep+" sustainability strategy
 
@@ -161,7 +161,7 @@ This is the exact cycle described in how-this-got-built.md and it is not a solva
 The question: could SodaStream/PepsiCo produce a plumbed-in, refrigerated, flavor-dispensing home soda machine?
 
 **Signals that say yes (capability exists):**
-1. **SodaStream Professional already does this** -- plumbed water line, flavors, touchscreen, app -- but only for commercial customers
+1. **SodaStream Professional did this** -- plumbed water line, flavors, touchscreen, app -- but only for commercial customers, and it has since been discontinued (~2024-2025)
 2. PepsiCo owns the entire flavor portfolio (Pepsi, Mountain Dew, etc.) and already sells it as SodaStream concentrate
 3. PepsiCo has $92B in annual revenue and massive R&D capability
 4. The sustainability narrative (reducing plastic bottles) aligns with a plumbed-in system
@@ -172,10 +172,10 @@ The question: could SodaStream/PepsiCo produce a plumbed-in, refrigerated, flavo
 2. **Price point mismatch:** Our system (carbonator + pumps + controller + enclosure) has a BOM north of $300-400. SodaStream's sweet spot is $89-200. A plumbed-in system at consumer-friendly pricing is hard for a mass-market brand
 3. **Installation complexity:** SodaStream sells through Walmart and Target. A plumbed-in system requires under-counter installation, water line connection, CO2 tank -- this is not a retail-shelf product
 4. **Impairment signals disinvestment:** PepsiCo has been writing down SodaStream's value, not doubling down. The trajectory is cost-optimization, not moonshot product development
-5. **SodaStream Professional exists but has not moved to consumer:** The Pro has been available since 2020. In 6 years, PepsiCo has not adapted it for home use. This suggests deliberate strategic choice, not a gap they haven't noticed
+5. **SodaStream Professional has been discontinued:** The Pro launched in 2020 for offices and campuses. PepsiCo never adapted it for home use, and by 2024-2025 they killed the product entirely -- the website is dead, the PepsiCo support page confirms discontinuation, and the brand data has been removed from PepsiCo's contact system. They didn't just decline to bring it home; they abandoned the commercial version too
 6. **Channel conflict:** PepsiCo sells cans and bottles through convenience stores and supermarkets. A genuinely good home soda machine cannibalizes their core CSD (carbonated soft drink) business, not just SodaStream's
 
-**Assessment:** PepsiCo has the technical capability but lacks the strategic incentive. Building a great home soda machine would hurt their can/bottle business, destroy SodaStream's consumable revenue model, and require a fundamentally different go-to-market (installation-based, not retail-shelf). The SodaStream Professional proves they can build the hardware but choose not to bring it home.
+**Assessment:** PepsiCo has the technical capability but lacks the strategic incentive. Building a great home soda machine would hurt their can/bottle business, destroy SodaStream's consumable revenue model, and require a fundamentally different go-to-market (installation-based, not retail-shelf). The SodaStream Professional proved they could build the hardware -- and then they killed it. They didn't just choose not to bring it home; they abandoned the commercial version after 4 years. This is the strongest signal yet that PepsiCo sees no future in plumbed-in dispensing.
 
 ---
 
@@ -198,9 +198,9 @@ SodaStream Industries Ltd. holds 65 patents and 198 trademarks worldwide.
 
 ## Summary Answers
 
-### 1. Threat Score: 3/10
+### 1. Threat: ~5%
 
-PepsiCo has the money and the flavor portfolio. They even have a commercial product (SodaStream Professional) that proves the concept. But the strategic incentives point away from a consumer plumbed-in system: it would cannibalize CO2 cylinder revenue, cannibalize CSD can/bottle sales, require installation-based distribution, and demand a price point far above SodaStream's retail sweet spot. The SodaStream brand impairment signals PepsiCo is managing costs on this business, not investing in radical product expansion. The most likely scenario in 10 years is incremental improvements to the existing countertop bottle model, not a pivot to plumbed-in home dispensing.
+PepsiCo has the money and the flavor portfolio. They had a commercial plumbed-in product (SodaStream Professional) that proved the concept -- and discontinued it after 4 years. The strategic incentives point firmly away from a consumer plumbed-in system: it would cannibalize CO2 cylinder revenue, cannibalize CSD can/bottle sales, require installation-based distribution, and demand a price point far above SodaStream's retail sweet spot. The SodaStream brand impairment and Professional discontinuation signal PepsiCo is retreating from this category, not expanding into it. The most likely scenario in 10 years is incremental improvements to the existing countertop bottle model, not a pivot to plumbed-in home dispensing.
 
 ### 2. Revenue and Units Estimate
 

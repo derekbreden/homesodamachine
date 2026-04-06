@@ -268,7 +268,7 @@ This is not the primary selling point (convenience is), but it is a powerful sec
 ### What PepsiCo Lacks (or Resists)
 
 - **Incentive alignment**: Every home-dispensed serving cannibalizes a can sale. Canned soda has significantly higher margins than concentrate. PepsiCo's entire bottling and distribution infrastructure -- hundreds of thousands of jobs, billions in assets -- exists to move cans and bottles. A successful home dispensing product would undermine this.
-- **SodaStream execution track record**: They paid $3.2B, wrote down over $1B, and the product still has the same fundamental physics problem (warm water, flat soda). There is no evidence PepsiCo knows how to build consumer hardware that works.
+- **SodaStream execution track record**: They paid $3.2B, wrote down over $1B, and the product still has the same fundamental physics problem (warm water, flat soda). Their one plumbed-in product (SodaStream Professional, launched 2020 for offices/campuses) was discontinued after ~4 years. There is no evidence PepsiCo knows how to build consumer hardware that works.
 - **Organizational DNA**: PepsiCo is a CPG (consumer packaged goods) company. They make things that go on shelves. A plumbed-in kitchen appliance with microcontrollers, peristaltic pumps, solenoid valves, and refrigeration is a consumer electronics/appliance product. This is not their competency.
 - **Channel conflict**: PepsiCo's bottling partners (independent and company-owned) would view a home dispensing product as a direct threat to their business. The channel conflict would be severe.
 - **The Innovator's Dilemma**: PepsiCo cannot disrupt their own can business without destroying shareholder value in the process. This is the textbook case described by Clayton Christensen. The rational move for PepsiCo is always to protect can sales, not to cannibalize them.
@@ -276,22 +276,22 @@ This is not the primary selling point (convenience is), but it is a powerful sec
 ### Signals to Watch
 
 - Any PepsiCo announcement about a "connected home" or "home beverage" product beyond SodaStream.
-- SodaStream launching a plumbed-in or refrigerated model (currently all countertop bottle-based).
+- SodaStream launching a plumbed-in or refrigerated model (currently all countertop bottle-based; SodaStream Professional, their only plumbed-in product, was discontinued ~2024-2025).
 - PepsiCo acquiring a home appliance company or carbonated water system maker.
 - PepsiCo hiring for hardware/firmware engineering roles tied to consumer products.
 - SodaStream partnering with an under-counter carbonator manufacturer.
 
 ### Current Signal Level: None
 
-As of April 2026, there are zero public signals that PepsiCo is developing a plumbed-in home soda dispensing system. Their "Away from Home" innovation brief focuses on commercial fountain systems, vending, and QSR (quick-service restaurant) partnerships. SodaStream continues to iterate on countertop bottle carbonators. The syrup lineup is expanding, not contracting.
+As of April 2026, there are zero public signals that PepsiCo is developing a plumbed-in home soda dispensing system. Their "Away from Home" innovation brief focuses on commercial fountain systems, vending, and QSR (quick-service restaurant) partnerships. SodaStream continues to iterate on countertop bottle carbonators. The syrup lineup is expanding, not contracting. Notably, PepsiCo has discontinued SodaStream Professional (~2024-2025) -- their only plumbed-in product, which served offices and campuses. They tried commercial plumbed-in dispensing for 4 years and walked away, which is the strongest negative signal yet for this category under PepsiCo.
 
 ---
 
 ## Three Summary Questions
 
-### 1. Threat Score: 4/10
+### 1. Threat: ~10%
 
-PepsiCo has all the assets to build a competing product (brand, syrup, SodaStream, capital) but faces crippling structural disincentives. The Innovator's Dilemma is real: every home dispense cannibalizes a high-margin can sale. Their SodaStream track record ($3.2B acquisition, $1B+ write-down, fundamental physics problem unresolved) demonstrates they do not know how to execute in consumer hardware. Their organizational DNA is CPG, not appliances. The most likely threat is not PepsiCo building a competitor -- it is PepsiCo discontinuing SodaStream concentrate (our supply chain). But the trend is toward more flavors, not fewer, and the syrup is sold through major retail channels that are difficult to unwind. Over a 10-year horizon, the probability of PepsiCo producing a direct competitor is low. The probability of them acquiring one if the category proves successful is moderate.
+PepsiCo has all the assets to build a competing product (brand, syrup, SodaStream, capital) but faces crippling structural disincentives. The Innovator's Dilemma is real: every home dispense cannibalizes a high-margin can sale. Their SodaStream track record ($3.2B acquisition, $1B+ write-down, fundamental physics problem unresolved) and the discontinuation of SodaStream Professional (their only plumbed-in product, killed after 4 years) demonstrate they do not know how to execute in hardware and have actively retreated from plumbed-in dispensing. Their organizational DNA is CPG, not appliances. The most likely threat is not PepsiCo building a competitor -- it is PepsiCo discontinuing SodaStream concentrate (our supply chain). But the trend is toward more flavors, not fewer, and the syrup is sold through major retail channels that are difficult to unwind. The ~10% probability is driven almost entirely by the acquisition scenario: if the home soda category proves viable, PepsiCo is the most likely acquirer. They are unlikely to build it themselves.
 
 ### 2. Revenue and Units Estimate
 
