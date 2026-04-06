@@ -3,11 +3,21 @@
 Functions to add tongue or groove snap features to existing CadQuery walls.
 The wall is never removed and replaced — it is shaped via union and cut.
 
-Orientation parameters (height_dir, swap_axes) allow these functions to work
-on any workplane orientation.
+Deflection tuning:
+  TONGUE_DEFLECTION — how far the tongue bumps extend past channel center.
+  GROOVE_DEFLECTION — how far the groove ribs extend past channel center.
+  Total interference at engagement ramps = sum of both.
+
+  PLA:  0.3 / 0.3  (0.6 total)
+  PETG: 0.45 / 0.95  (1.4 total)
 """
 
 import cadquery as cq
+
+# ── Deflection tuning (change these two values) ──
+
+TONGUE_DEFLECTION = 0.3
+GROOVE_DEFLECTION = 0.3
 
 # ── Snap geometry constants ──
 
@@ -18,19 +28,27 @@ ENGAGEMENT = 2.0
 CHANNEL_FLOOR = 6.0
 OUTER_RAMP_START = 4.0
 INITIAL_RIB = 5.0
-DEFLECTION = 0.3
 
 CHANNEL_WIDTH = WALL_THICKNESS + TONGUE_GROWTH             # 5.0
-INTERLOCK = CHANNEL_WIDTH / 2 + DEFLECTION                 # 2.8
-RAMP = INTERLOCK - FLEXING_WIDTH                           # 0.8
 
-TONGUE_INTERLOCK_DEPTH = CHANNEL_WIDTH - INTERLOCK         # 2.2
-TONGUE_FLEX_DEPTH = CHANNEL_WIDTH - FLEXING_WIDTH          # 3.0
-GROOVE_RIB_DEPTH = INTERLOCK                               # 2.8
-GROOVE_GROOVE_DEPTH = FLEXING_WIDTH                        # 2.0
+# ── Tongue side ──
 
-TONGUE_TIP_H = CHANNEL_FLOOR + 3 * RAMP + 2 * ENGAGEMENT  # 12.4
-GROOVE_TIP_H = INITIAL_RIB + 3 * RAMP + 2 * ENGAGEMENT    # 11.4
+TONGUE_INTERLOCK = CHANNEL_WIDTH / 2 + TONGUE_DEFLECTION
+TONGUE_RAMP = TONGUE_INTERLOCK - FLEXING_WIDTH
+TONGUE_INTERLOCK_DEPTH = CHANNEL_WIDTH - TONGUE_INTERLOCK
+TONGUE_FLEX_DEPTH = CHANNEL_WIDTH - FLEXING_WIDTH           # 3.0
+TONGUE_TIP_H = CHANNEL_FLOOR + 3 * TONGUE_RAMP + 2 * ENGAGEMENT
+
+# ── Groove side ──
+
+GROOVE_INTERLOCK = CHANNEL_WIDTH / 2 + GROOVE_DEFLECTION
+GROOVE_RAMP = GROOVE_INTERLOCK - FLEXING_WIDTH
+GROOVE_RIB_DEPTH = GROOVE_INTERLOCK
+GROOVE_GROOVE_DEPTH = FLEXING_WIDTH                         # 2.0
+GROOVE_TIP_H = INITIAL_RIB + 3 * GROOVE_RAMP + 2 * ENGAGEMENT
+
+# If groove ribs extend past wall, groove piece needs outward growth
+GROOVE_GROWTH = max(0.0, GROOVE_RIB_DEPTH - WALL_THICKNESS)
 
 OVERCUT = 0.1
 
@@ -52,7 +70,7 @@ def apply_tongue(solid, inner_face, sign, plane, extrude_start, zone_width,
     outer = inner_face + sign * WALL_THICKNESS
     hd = height_dir
     sw = swap_axes
-    r = RAMP
+    r = TONGUE_RAMP
     e = ENGAGEMENT
     f = CHANNEL_FLOOR
 
@@ -101,19 +119,34 @@ def apply_groove(solid, inner_face, sign, plane, extrude_start, zone_width,
                  wall_base, wall_height, height_dir=1, swap_axes=False):
     """Cut groove channels from the outer face, add rib extension.
 
-    The initial rib stays at full wall thickness. Only the cantilever rib
-    and groove channels are cut.
+    If GROOVE_DEFLECTION pushes the ribs past the wall thickness, growth
+    material is added on the outer face first (like the tongue's growth).
     """
     outer = inner_face + sign * WALL_THICKNESS
     hd = height_dir
     sw = swap_axes
-    r = RAMP
+    r = GROOVE_RAMP
     e = ENGAGEMENT
-    oc = outer + sign * OVERCUT
     rb = inner_face + sign * GROOVE_RIB_DEPTH
     gr = inner_face + sign * GROOVE_GROOVE_DEPTH
     wall_top = wall_base + hd * wall_height
     ic = inner_face - sign * OVERCUT
+
+    # 0. If groove ribs extend past wall, add growth on outer face
+    if GROOVE_GROWTH > 0:
+        oi = outer - sign * OVERCUT
+        growth = [
+            _pt(oi,                            wall_base + hd * INITIAL_RIB, sw),
+            _pt(outer + sign * GROOVE_GROWTH,  wall_base + hd * INITIAL_RIB, sw),
+            _pt(outer + sign * GROOVE_GROWTH,  wall_base + hd * GROOVE_TIP_H, sw),
+            _pt(oi,                            wall_base + hd * GROOVE_TIP_H, sw),
+        ]
+        solid = solid.union(
+            cq.Workplane(plane)
+            .workplane(offset=extrude_start)
+            .polyline(growth).close()
+            .extrude(zone_width)
+        )
 
     # 1. Rib extension past wall top
     extension = [
@@ -130,7 +163,8 @@ def apply_groove(solid, inner_face, sign, plane, extrude_start, zone_width,
         .extrude(zone_width)
     )
 
-    # 2. Cut groove channels + cantilever rib from outer face
+    # 2. Cut groove channels from outer face (past any growth)
+    oc = outer + sign * (GROOVE_GROWTH + OVERCUT)
     groove = [
         _pt(oc, wall_base + hd * INITIAL_RIB, sw),
         _pt(gr, wall_base + hd * (INITIAL_RIB + r), sw),
