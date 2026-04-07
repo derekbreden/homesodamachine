@@ -62,7 +62,10 @@ def apply_ramp_out_first(solid, inner_face, sign, plane, extrude_start,
     r = bump_reach - NOTCH_WALL_WIDTH                          # ramp height
     e = BUMP_HEIGHT
     f = RAMP_OUT_START
-    tip_h = f + 3 * r + 2 * e
+    snap_features_total_height = f + 3 * r + 2 * e
+    snap_features_wall_consumption_height = min(snap_features_total_height, wall_height)
+    snap_features_beyond_the_wall_height = snap_features_total_height - snap_features_wall_consumption_height
+    tip_h = snap_features_total_height
     wall_top = wall_base + hd * wall_height
 
     # Face-normal positions for bump and notch surfaces (offset from inner_face)
@@ -135,7 +138,10 @@ def apply_ramp_in_first(solid, inner_face, sign, plane, extrude_start,
     r = bump_reach - NOTCH_WALL_WIDTH                          # ramp height
     e = BUMP_HEIGHT
     s = RAMP_IN_START
-    tip_h = s + 3 * r + 2 * e
+    snap_features_total_height = s + 3 * r + 2 * e
+    snap_features_wall_consumption_height = min(snap_features_total_height, wall_height)
+    snap_features_beyond_the_wall_height = snap_features_total_height - snap_features_wall_consumption_height
+    tip_h = snap_features_total_height
     wall_top = wall_base + hd * wall_height
 
     # Face-normal positions for bump and notch surfaces (offset from inner_face)
