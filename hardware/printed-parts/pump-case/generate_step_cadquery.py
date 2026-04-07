@@ -396,7 +396,7 @@ solid = solid.union(skirt)
 # ── Arch notch constants (cutting deferred to after union with lower part) ──
 ARCH_RADIUS = 4.5
 skirt_bottom_y = -sum(skirt_y_steps)            # bottom rim Y in world coords
-z_face_outer = CENTER_Z + wide_he               # +Z outer face of wider half
+z_face_outer = CENTER_Z + base_he               # +Z outer face (now flush with 70×70)
 
 arch_hole_xs = [
     CORNER_R + ARCH_RADIUS - 4,                 # left notch center: 6.5
