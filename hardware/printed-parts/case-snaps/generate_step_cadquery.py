@@ -54,6 +54,7 @@ for wall_id, (inner_face, orientation_outward_sign, orientation_plane) in WALLS.
         coordinate_top_of_wall=BASE_PLATE + WALL_HEIGHT,
         orientation_outward_sign=orientation_outward_sign,
         orientation_plane=orientation_plane,
+        deflection_distance=2.0,
     )
     top = apply_ramp_in_first(
         solid=top,
@@ -64,6 +65,7 @@ for wall_id, (inner_face, orientation_outward_sign, orientation_plane) in WALLS.
         coordinate_top_of_wall=BASE_PLATE + WALL_HEIGHT,
         orientation_outward_sign=orientation_outward_sign,
         orientation_plane=orientation_plane,
+        deflection_distance=2.0,
     )
 
 OUTPUT_DIR = Path(__file__).resolve().parent

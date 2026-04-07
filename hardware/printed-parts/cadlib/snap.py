@@ -170,7 +170,7 @@ def apply_ramp_in_first(
     e = BUMP_HEIGHT
     outer_growth = max(0.0, bump_reach - WALL_THICKNESS)
     s = available_wall_height - 2 * r - e                      # zigzag start (alignment constraint)
-    growth_ramp_start = s - outer_growth                       # 45° ramp before zigzag (if any)
+    growth_ramp_start = s + r + e + (WALL_THICKNESS - NOTCH_WALL_WIDTH) - outer_growth  # full width before cut crosses outer face
     tip_h = s + 3 * r + 2 * e
 
     snap_base_in_wall = base + hd * growth_ramp_start
@@ -190,7 +190,7 @@ def apply_ramp_in_first(
         oi = outer - sign * OVERCUT
         growth = [
             _pt(oi,                            base + hd * growth_ramp_start, hf),
-            _pt(outer + sign * outer_growth,   base + hd * s, hf),
+            _pt(outer + sign * outer_growth,   base + hd * (s + 2 * r + e), hf),
             _pt(outer + sign * outer_growth,   base + hd * tip_h, hf),
             _pt(oi,                            base + hd * tip_h, hf),
         ]
