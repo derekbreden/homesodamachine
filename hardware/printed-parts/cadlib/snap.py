@@ -68,11 +68,13 @@ def apply_ramp_out_first(solid, inner_face, sign, plane, extrude_start,
     r = bump_reach - NOTCH_WALL_WIDTH                          # ramp height
     e = BUMP_HEIGHT
     f = RAMP_OUT_START
-    snap_features_total_height = f + 3 * r + 2 * e
-    snap_features_wall_consumption_height = min(snap_features_total_height, wall_height)
-    snap_features_beyond_the_wall_height = snap_features_total_height - snap_features_wall_consumption_height
-    tip_h = snap_features_total_height
+    tip_h = f + 3 * r + 2 * e
     wall_top = lowest_possible_snap_base_in_wall + hd * wall_height
+
+    snap_base_in_wall = lowest_possible_snap_base_in_wall + hd * OUTER_GROWTH_START
+    snap_features_total_height = tip_h - OUTER_GROWTH_START
+    snap_features_beyond_the_wall_height = max(0.0, tip_h - wall_height)
+    snap_features_wall_consumption_height = snap_features_total_height - snap_features_beyond_the_wall_height
 
     # Face-normal positions for bump and notch surfaces (offset from inner_face)
     bump_offset = CHANNEL_WIDTH - bump_reach
@@ -147,11 +149,13 @@ def apply_ramp_in_first(solid, inner_face, sign, plane, extrude_start,
     r = bump_reach - NOTCH_WALL_WIDTH                          # ramp height
     e = BUMP_HEIGHT
     s = RAMP_IN_START
-    snap_features_total_height = s + 3 * r + 2 * e
-    snap_features_wall_consumption_height = min(snap_features_total_height, wall_height)
-    snap_features_beyond_the_wall_height = snap_features_total_height - snap_features_wall_consumption_height
-    tip_h = snap_features_total_height
+    tip_h = s + 3 * r + 2 * e
     wall_top = lowest_possible_snap_base_in_wall + hd * wall_height
+
+    snap_base_in_wall = lowest_possible_snap_base_in_wall + hd * RAMP_IN_START
+    snap_features_total_height = tip_h - RAMP_IN_START
+    snap_features_beyond_the_wall_height = max(0.0, tip_h - wall_height)
+    snap_features_wall_consumption_height = snap_features_total_height - snap_features_beyond_the_wall_height
 
     # Face-normal positions for bump and notch surfaces (offset from inner_face)
     bump_face = inner_face + sign * bump_reach
