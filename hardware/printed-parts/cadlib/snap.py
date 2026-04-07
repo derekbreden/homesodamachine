@@ -28,9 +28,6 @@ WALL_THICKNESS = 3.0
 OUTER_GROWTH = 2.0          # outward growth on ramp_out_first outer face
 NOTCH_WALL_WIDTH = 2.0      # wall width at notch positions
 BUMP_HEIGHT = 2.0           # vertical height of each bump / notch section
-RAMP_OUT_START = 6.0        # height where ramp_out_first features begin
-RAMP_IN_START = 5.0         # height where ramp_in_first features begin
-OUTER_GROWTH_START = 4.0    # height where outer growth ramp begins
 
 CHANNEL_WIDTH = WALL_THICKNESS + OUTER_GROWTH  # 5.0
 
@@ -78,12 +75,13 @@ def apply_ramp_out_first(
     bump_reach = CHANNEL_WIDTH / 2 + deflection_distance / 2
     r = bump_reach - NOTCH_WALL_WIDTH                          # ramp height
     e = BUMP_HEIGHT
-    f = RAMP_OUT_START
+    f = available_wall_height - r - e                          # zigzag start (alignment constraint)
     tip_h = f + 3 * r + 2 * e
+    growth_ramp_start = f - OUTER_GROWTH                       # 45° ramp before zigzag
 
-    snap_base_in_wall = base + hd * OUTER_GROWTH_START
-    snap_features_total_height = tip_h - OUTER_GROWTH_START
-    snap_features_beyond_the_wall_height = max(0.0, tip_h - available_wall_height)
+    snap_base_in_wall = base + hd * growth_ramp_start
+    snap_features_total_height = tip_h - growth_ramp_start
+    snap_features_beyond_the_wall_height = tip_h - available_wall_height
     snap_features_wall_consumption_height = snap_features_total_height - snap_features_beyond_the_wall_height
 
     # Face-normal positions for bump and notch surfaces (offset from coordinate_inner_wall)
@@ -96,9 +94,9 @@ def apply_ramp_out_first(
     ic = coordinate_inner_wall - sign * OVERCUT       # just past inner face
     oi = outer - sign * OVERCUT                       # just inside outer face
 
-    # 1. Growth ramp on outer face — trapezoid from ramp start to tip
+    # 1. Growth ramp on outer face — trapezoid from growth start to tip
     growth = [
-        _pt(oi,                          base + hd * OUTER_GROWTH_START, hf),
+        _pt(oi,                          base + hd * growth_ramp_start, hf),
         _pt(outer + sign * OUTER_GROWTH, base + hd * f, hf),
         _pt(outer + sign * OUTER_GROWTH, base + hd * tip_h, hf),
         _pt(oi,                          base + hd * tip_h, hf),
@@ -108,7 +106,7 @@ def apply_ramp_out_first(
         .polyline(growth).close().extrude(zone_width)
     )
 
-    # 2. Extend wall upward to tip height
+    # 2. Extend wall beyond wall top to tip height
     extension = [
         _pt(ic, coordinate_top_of_wall, hf),
         _pt(ic, base + hd * tip_h, hf),
@@ -170,12 +168,14 @@ def apply_ramp_in_first(
     bump_reach = CHANNEL_WIDTH / 2 + deflection_distance / 2
     r = bump_reach - NOTCH_WALL_WIDTH                          # ramp height
     e = BUMP_HEIGHT
-    s = RAMP_IN_START
+    outer_growth = max(0.0, bump_reach - WALL_THICKNESS)
+    s = available_wall_height - 2 * r - e                      # zigzag start (alignment constraint)
+    growth_ramp_start = s - outer_growth                       # 45° ramp before zigzag (if any)
     tip_h = s + 3 * r + 2 * e
 
-    snap_base_in_wall = base + hd * RAMP_IN_START
-    snap_features_total_height = tip_h - RAMP_IN_START
-    snap_features_beyond_the_wall_height = max(0.0, tip_h - available_wall_height)
+    snap_base_in_wall = base + hd * growth_ramp_start
+    snap_features_total_height = tip_h - growth_ramp_start
+    snap_features_beyond_the_wall_height = tip_h - available_wall_height
     snap_features_wall_consumption_height = snap_features_total_height - snap_features_beyond_the_wall_height
 
     # Face-normal positions for bump and notch surfaces (offset from coordinate_inner_wall)
@@ -185,12 +185,11 @@ def apply_ramp_in_first(
     # Overcut boundaries
     ic = coordinate_inner_wall - sign * OVERCUT
 
-    # If bumps extend past wall, add growth on outer face
-    outer_growth = max(0.0, bump_reach - WALL_THICKNESS)
+    # If bumps extend past wall, add growth ramp on outer face (45° trapezoid)
     if outer_growth > 0:
         oi = outer - sign * OVERCUT
         growth = [
-            _pt(oi,                            base + hd * s, hf),
+            _pt(oi,                            base + hd * growth_ramp_start, hf),
             _pt(outer + sign * outer_growth,   base + hd * s, hf),
             _pt(outer + sign * outer_growth,   base + hd * tip_h, hf),
             _pt(oi,                            base + hd * tip_h, hf),
@@ -200,7 +199,7 @@ def apply_ramp_in_first(
             .polyline(growth).close().extrude(zone_width)
         )
 
-    # 1. Extend wall to tip height with bump/notch profile
+    # 1. Extend wall beyond wall top to tip height
     extension = [
         _pt(ic,         coordinate_top_of_wall, hf),
         _pt(ic,         base + hd * tip_h, hf),
