@@ -1,4 +1,4 @@
-"""Snap-fit test case: tongue-and-groove on a simple box shell."""
+"""Snap-fit test case: ramp_out_first and ramp_in_first on a simple box shell."""
 
 from pathlib import Path
 import sys
@@ -6,7 +6,7 @@ import sys
 import cadquery as cq
 
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent / "cadlib"))
-from snap import apply_tongue, apply_groove, WALL_THICKNESS, OVERCUT
+from snap import apply_ramp_out_first, apply_ramp_in_first, WALL_THICKNESS, OVERCUT
 
 FOOTPRINT = 40.0
 CORNER_RADIUS = 6.0
@@ -45,14 +45,14 @@ bottom = make_box_shell()
 top = make_box_shell()
 
 for wall_id, (face, sign, plane) in WALLS.items():
-    bottom = apply_tongue(
+    bottom = apply_ramp_out_first(
         bottom, face, sign, plane,
         extrude_start=-ZONE_WIDTH / 2,
         zone_width=ZONE_WIDTH,
         wall_base=BASE_PLATE,
         wall_height=WALL_HEIGHT,
     )
-    top = apply_groove(
+    top = apply_ramp_in_first(
         top, face, sign, plane,
         extrude_start=-ZONE_WIDTH / 2,
         zone_width=ZONE_WIDTH,
