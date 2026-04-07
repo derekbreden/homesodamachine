@@ -51,7 +51,7 @@ for wall_id, (inner_face, orientation_outward_sign, orientation_plane) in WALLS.
         coordinate_zone_start=-ZONE_WIDTH / 2,
         coordinate_zone_end=ZONE_WIDTH / 2,
         coordinate_lowest_possible_snap_base_in_wall=BASE_PLATE,
-        coordinate_top_of_available_wall=BASE_PLATE + WALL_HEIGHT,
+        coordinate_top_of_wall=BASE_PLATE + WALL_HEIGHT,
         orientation_outward_sign=orientation_outward_sign,
         orientation_plane=orientation_plane,
     )
@@ -61,7 +61,7 @@ for wall_id, (inner_face, orientation_outward_sign, orientation_plane) in WALLS.
         coordinate_zone_start=-ZONE_WIDTH / 2,
         coordinate_zone_end=ZONE_WIDTH / 2,
         coordinate_lowest_possible_snap_base_in_wall=BASE_PLATE,
-        coordinate_top_of_available_wall=BASE_PLATE + WALL_HEIGHT,
+        coordinate_top_of_wall=BASE_PLATE + WALL_HEIGHT,
         orientation_outward_sign=orientation_outward_sign,
         orientation_plane=orientation_plane,
     )
