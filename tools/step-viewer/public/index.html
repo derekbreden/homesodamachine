@@ -63,7 +63,7 @@ body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, sa
   inset: 0;
   background: #1a1a1a;
 }
-#detail canvas { display: block; width: 100%; height: 100%; }
+#viewport { display: block; width: 100%; height: 100%; }
 #back {
   position: fixed;
   top: 16px;
@@ -147,6 +147,7 @@ const thumbnailCache = new Map(); // file -> dataURL
 const renderer = new THREE.WebGLRenderer({ antialias: true });
 renderer.setPixelRatio(window.devicePixelRatio);
 renderer.setClearColor(0x1a1a1a);
+renderer.domElement.id = "viewport";
 document.getElementById("detail").prepend(renderer.domElement);
 
 const scene = new THREE.Scene();
@@ -165,6 +166,183 @@ scene.add(dirLight2);
 
 let currentGroup = null;
 
+// --- ViewCube ---
+const gizmoSize = 160;
+const gizmoRenderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+gizmoRenderer.setPixelRatio(window.devicePixelRatio);
+gizmoRenderer.setSize(gizmoSize, gizmoSize);
+gizmoRenderer.setClearColor(0x000000, 0);
+const gizmoCanvas = gizmoRenderer.domElement;
+gizmoCanvas.style.cssText = "position:fixed;top:16px;right:16px;z-index:10;cursor:pointer;border:1px solid #444;border-radius:6px;";
+document.getElementById("detail").appendChild(gizmoCanvas);
+
+const gizmoScene = new THREE.Scene();
+const gizmoCam = new THREE.PerspectiveCamera(45, 1, 0.1, 100);
+const gizmoRaycaster = new THREE.Raycaster();
+
+// Face definitions: label, normal (camera direction to see that face), material index
+const cubeFaces = [
+  { label: "Right",  normal: new THREE.Vector3( 1, 0, 0), index: 0 },
+  { label: "Left",   normal: new THREE.Vector3(-1, 0, 0), index: 1 },
+  { label: "Top",    normal: new THREE.Vector3( 0, 1, 0), index: 2 },
+  { label: "Bottom", normal: new THREE.Vector3( 0,-1, 0), index: 3 },
+  { label: "Front",  normal: new THREE.Vector3( 0, 0, 1), index: 4 },
+  { label: "Back",   normal: new THREE.Vector3( 0, 0,-1), index: 5 },
+];
+
+function makeFaceTexture(label, isHovered) {
+  const canvas = document.createElement("canvas");
+  canvas.width = 256; canvas.height = 256;
+  const ctx = canvas.getContext("2d");
+  const bg = isHovered ? "#363636" : "#262626";
+  const border = "#444444";
+  const radius = 16;
+
+  // Rounded rect fill
+  ctx.beginPath();
+  ctx.roundRect(2, 2, 252, 252, radius);
+  ctx.fillStyle = bg;
+  ctx.fill();
+  ctx.strokeStyle = border;
+  ctx.lineWidth = 3;
+  ctx.stroke();
+
+  ctx.font = "52px -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, sans-serif";
+  ctx.textAlign = "center";
+  ctx.textBaseline = "middle";
+  ctx.fillStyle = isHovered ? "#ffffff" : "#aaaaaa";
+  ctx.fillText(label, 128, 128);
+  const tex = new THREE.CanvasTexture(canvas);
+  tex.colorSpace = THREE.SRGBColorSpace;
+  return tex;
+}
+
+const cubeMaterials = cubeFaces.map((f) =>
+  new THREE.MeshBasicMaterial({ map: makeFaceTexture(f.label, false) })
+);
+const cubeGeo = new THREE.BoxGeometry(0.55, 0.55, 0.55);
+const cubeMesh = new THREE.Mesh(cubeGeo, cubeMaterials);
+// No offset — cube centered at origin, axes start from its corner
+gizmoScene.add(cubeMesh);
+
+// Axis lines + labels from bottom-left-front corner of cube
+const axisOrigin = new THREE.Vector3(-0.275, -0.275, 0.275);
+const axisLen = 0.7;
+
+function makeAxisLine(origin, dir, color) {
+  const end = origin.clone().add(new THREE.Vector3().copy(dir).multiplyScalar(axisLen));
+  const geo = new THREE.BufferGeometry().setFromPoints([origin, end]);
+  return new THREE.Line(geo, new THREE.LineBasicMaterial({ color }));
+}
+
+function makeAxisLabel(text, position, color) {
+  const canvas = document.createElement("canvas");
+  canvas.width = 64; canvas.height = 64;
+  const ctx = canvas.getContext("2d");
+  ctx.font = "bold 48px -apple-system, BlinkMacSystemFont, sans-serif";
+  ctx.textAlign = "center";
+  ctx.textBaseline = "middle";
+  ctx.fillStyle = color;
+  ctx.fillText(text, 32, 32);
+  const tex = new THREE.CanvasTexture(canvas);
+  const sprite = new THREE.Sprite(new THREE.SpriteMaterial({ map: tex, depthTest: false }));
+  sprite.position.copy(position);
+  sprite.scale.set(0.3, 0.3, 1);
+  return sprite;
+}
+
+gizmoScene.add(makeAxisLine(axisOrigin, new THREE.Vector3(1, 0, 0), 0xe74c3c));
+gizmoScene.add(makeAxisLine(axisOrigin, new THREE.Vector3(0, 1, 0), 0x2ecc71));
+gizmoScene.add(makeAxisLine(axisOrigin, new THREE.Vector3(0, 0, -1), 0x3498db));
+const labelOffset = axisLen + 0.15;
+gizmoScene.add(makeAxisLabel("X", axisOrigin.clone().add(new THREE.Vector3(labelOffset, 0, 0)), "#e74c3c"));
+gizmoScene.add(makeAxisLabel("Y", axisOrigin.clone().add(new THREE.Vector3(0, labelOffset, 0)), "#2ecc71"));
+gizmoScene.add(makeAxisLabel("Z", axisOrigin.clone().add(new THREE.Vector3(0, 0, -labelOffset)), "#3498db"));
+
+// Hover tracking
+let hoveredFaceIndex = -1;
+
+gizmoCanvas.addEventListener("mousemove", (e) => {
+  const rect = gizmoCanvas.getBoundingClientRect();
+  const mouse = new THREE.Vector2(
+    ((e.clientX - rect.left) / rect.width) * 2 - 1,
+    -((e.clientY - rect.top) / rect.height) * 2 + 1
+  );
+  gizmoRaycaster.setFromCamera(mouse, gizmoCam);
+  const hits = gizmoRaycaster.intersectObject(cubeMesh);
+  const newIndex = hits.length > 0 ? hits[0].face.materialIndex : -1;
+  if (newIndex !== hoveredFaceIndex) {
+    if (hoveredFaceIndex >= 0) {
+      cubeMaterials[hoveredFaceIndex].map = makeFaceTexture(cubeFaces[hoveredFaceIndex].label, false);
+      cubeMaterials[hoveredFaceIndex].needsUpdate = true;
+    }
+    if (newIndex >= 0) {
+      cubeMaterials[newIndex].map = makeFaceTexture(cubeFaces[newIndex].label, true);
+      cubeMaterials[newIndex].needsUpdate = true;
+    }
+    hoveredFaceIndex = newIndex;
+  }
+});
+
+gizmoCanvas.addEventListener("mouseleave", () => {
+  if (hoveredFaceIndex >= 0) {
+    cubeMaterials[hoveredFaceIndex].map = makeFaceTexture(cubeFaces[hoveredFaceIndex].label, false);
+    cubeMaterials[hoveredFaceIndex].needsUpdate = true;
+    hoveredFaceIndex = -1;
+  }
+});
+
+// Click to snap camera
+gizmoCanvas.addEventListener("click", (e) => {
+  const rect = gizmoCanvas.getBoundingClientRect();
+  const mouse = new THREE.Vector2(
+    ((e.clientX - rect.left) / rect.width) * 2 - 1,
+    -((e.clientY - rect.top) / rect.height) * 2 + 1
+  );
+  gizmoRaycaster.setFromCamera(mouse, gizmoCam);
+  const hits = gizmoRaycaster.intersectObject(cubeMesh);
+  if (hits.length === 0) return;
+  const face = cubeFaces[hits[0].face.materialIndex];
+  snapCameraToFace(face.normal);
+});
+
+function snapCameraToFace(normal) {
+  const target = controls.target.clone();
+  const dist = camera.position.distanceTo(target);
+  const dest = target.clone().add(normal.clone().multiplyScalar(dist));
+
+  // Up vector: use Y-up unless looking along Y axis, then use Z-up
+  const up = Math.abs(normal.y) > 0.9
+    ? new THREE.Vector3(0, 0, normal.y > 0 ? -1 : 1)
+    : new THREE.Vector3(0, 1, 0);
+
+  const startPos = camera.position.clone();
+  const startUp = camera.up.clone();
+  const duration = 300;
+  const startTime = performance.now();
+
+  function animateSnap() {
+    const t = Math.min((performance.now() - startTime) / duration, 1);
+    const ease = t * (2 - t); // ease-out quad
+    camera.position.lerpVectors(startPos, dest, ease);
+    camera.up.lerpVectors(startUp, up, ease).normalize();
+    camera.lookAt(target);
+    controls.update();
+    if (t < 1) requestAnimationFrame(animateSnap);
+  }
+  animateSnap();
+}
+
+function renderGizmo() {
+  // Mirror main camera orientation
+  const dir = new THREE.Vector3();
+  camera.getWorldDirection(dir);
+  gizmoCam.position.copy(dir).multiplyScalar(-3);
+  gizmoCam.up.copy(camera.up);
+  gizmoCam.lookAt(0, 0, 0);
+  gizmoRenderer.render(gizmoScene, gizmoCam);
+}
+
 function resizeRenderer() {
   const w = window.innerWidth, h = window.innerHeight;
   renderer.setSize(w, h);
@@ -181,6 +359,7 @@ function animate() {
   requestAnimationFrame(animate);
   controls.update();
   renderer.render(scene, camera);
+  renderGizmo();
 }
 
 // --- STEP parsing ---
