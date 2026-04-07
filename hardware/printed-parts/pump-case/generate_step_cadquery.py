@@ -661,7 +661,7 @@ for inner_face, sign, split_y, plane, zone_start, zone_end, eff_wall_ht in snap_
         orientation_plane=plane,
         orientation_height_sign=-1,
         orientation_height_axis="Y",
-        deflection_distance=2.0,
+        deflection_distance=1.5,
     )
     lower = apply_ramp_in_first(
         solid=lower,
@@ -674,7 +674,7 @@ for inner_face, sign, split_y, plane, zone_start, zone_end, eff_wall_ht in snap_
         orientation_plane=plane,
         orientation_height_sign=+1,
         orientation_height_axis="Y",
-        deflection_distance=2.0,
+        deflection_distance=1.5,
     )
 
 # ── Export ──
