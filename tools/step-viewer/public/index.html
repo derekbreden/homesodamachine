@@ -238,7 +238,7 @@ function resetCamera(group) {
   controls.update();
 }
 
-async function loadStepFile(file) {
+async function loadStepFile(file, { preserveCamera = false } = {}) {
   const loadingEl = document.getElementById("loading");
   loadingEl.style.display = "block";
 
@@ -255,7 +255,7 @@ async function loadStepFile(file) {
 
     currentGroup = buildMesh(result);
     scene.add(currentGroup);
-    resetCamera(currentGroup);
+    if (!preserveCamera) resetCamera(currentGroup);
   } finally {
     loadingEl.style.display = "none";
   }
@@ -424,7 +424,7 @@ function connectWS() {
 
       // Reload detail view if viewing this file
       if (currentFile === msg.file) {
-        loadStepFile(msg.file);
+        loadStepFile(msg.file, { preserveCamera: true });
       }
     }
   };
