@@ -5,7 +5,7 @@ import sys
 import cadquery as cq
 
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent / "cadlib"))
-from snap import apply_tongue, apply_groove
+from snap import apply_ramp_out_first, apply_ramp_in_first
 
 # ── Footprint ──
 FOOTPRINT_X = 70.0
@@ -640,13 +640,13 @@ snap_faces = [
 ]
 
 for inner_face, sign, split_y, plane, extrude_start, eff_wall_ht, swap in snap_faces:
-    upper = apply_tongue(
+    upper = apply_ramp_out_first(
         upper, inner_face, sign, plane, extrude_start, SNAP_ZONE_WIDTH,
         wall_base=split_y + eff_wall_ht,
         wall_height=eff_wall_ht,
         height_dir=-1, swap_axes=swap,
     )
-    lower = apply_groove(
+    lower = apply_ramp_in_first(
         lower, inner_face, sign, plane, extrude_start, SNAP_ZONE_WIDTH,
         wall_base=split_y - eff_wall_ht,
         wall_height=eff_wall_ht,
