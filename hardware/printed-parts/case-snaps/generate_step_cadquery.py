@@ -48,22 +48,22 @@ for wall_id, (inner_face, orientation_outward_sign, orientation_plane) in WALLS.
     bottom = apply_ramp_out_first(
         solid=bottom,
         coordinate_inner_face=inner_face,
-        orientation_outward_sign=orientation_outward_sign,
-        orientation_plane=orientation_plane,
         coordinate_zone_start=-ZONE_WIDTH / 2,
-        zone_width=ZONE_WIDTH,
         coordinate_lowest_possible_snap_base_in_wall=BASE_PLATE,
         coordinate_top_of_available_wall=BASE_PLATE + WALL_HEIGHT,
+        orientation_outward_sign=orientation_outward_sign,
+        orientation_plane=orientation_plane,
+        zone_width=ZONE_WIDTH,
     )
     top = apply_ramp_in_first(
         solid=top,
         coordinate_inner_face=inner_face,
-        orientation_outward_sign=orientation_outward_sign,
-        orientation_plane=orientation_plane,
         coordinate_zone_start=-ZONE_WIDTH / 2,
-        zone_width=ZONE_WIDTH,
         coordinate_lowest_possible_snap_base_in_wall=BASE_PLATE,
         coordinate_top_of_available_wall=BASE_PLATE + WALL_HEIGHT,
+        orientation_outward_sign=orientation_outward_sign,
+        orientation_plane=orientation_plane,
+        zone_width=ZONE_WIDTH,
     )
 
 OUTPUT_DIR = Path(__file__).resolve().parent

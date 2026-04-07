@@ -52,13 +52,18 @@ def _pt(face, height, height_first):
     return (height, face) if height_first else (face, height)
 
 
-def apply_ramp_out_first(solid, coordinate_inner_face, orientation_outward_sign,
-                         orientation_plane, coordinate_zone_start,
-                         zone_width,
-                         coordinate_lowest_possible_snap_base_in_wall,
-                         coordinate_top_of_available_wall,
-                         orientation_height_sign=1,
-                         orientation_height_axis="Z"):
+def apply_ramp_out_first(
+        solid,
+        coordinate_inner_face,
+        coordinate_zone_start,
+        coordinate_lowest_possible_snap_base_in_wall,
+        coordinate_top_of_available_wall,
+        orientation_outward_sign,
+        orientation_plane,
+        orientation_height_sign=1,
+        orientation_height_axis="Z",
+        zone_width=20.0,
+):
     """Apply ramp_out_first snap profile to a wall.
 
     Profile from base up: bump, ramp out, notch, ramp in, bump, ramp out.
@@ -137,13 +142,18 @@ def apply_ramp_out_first(solid, coordinate_inner_face, orientation_outward_sign,
     return solid
 
 
-def apply_ramp_in_first(solid, coordinate_inner_face, orientation_outward_sign,
-                        orientation_plane, coordinate_zone_start,
-                        zone_width,
-                        coordinate_lowest_possible_snap_base_in_wall,
-                        coordinate_top_of_available_wall,
-                        orientation_height_sign=1,
-                        orientation_height_axis="Z"):
+def apply_ramp_in_first(
+        solid,
+        coordinate_inner_face,
+        coordinate_zone_start,
+        coordinate_lowest_possible_snap_base_in_wall,
+        coordinate_top_of_available_wall,
+        orientation_outward_sign,
+        orientation_plane,
+        orientation_height_sign=1,
+        orientation_height_axis="Z",
+        zone_width=20.0,
+):
     """Apply ramp_in_first snap profile to a wall.
 
     Profile from base up: notch, ramp in, bump, ramp out, notch, ramp in.
