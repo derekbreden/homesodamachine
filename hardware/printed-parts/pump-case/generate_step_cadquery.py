@@ -677,6 +677,36 @@ for inner_face, sign, split_y, plane, zone_start, zone_end, eff_wall_ht in snap_
         deflection_distance=1.5,
     )
 
+# ── Bullet connector holes on +Z face of lower part ──
+BULLET_BORE_D = 5.1                                      # body diameter (no clearance)
+BULLET_STEP_D = 8.0                                      # flange recess (7.85 + 0.15 clearance)
+BULLET_STEP_DEPTH = 1.5                                  # counterbore depth for flange
+BULLET_SPACING_X = 24.0                                  # center-to-center in X
+BULLET_Y = skirt_bottom_y - 10                           # 10mm below wide split
+
+z_face_plus = CENTER_Z + base_he                         # +Z outer face
+
+for x_sign in [-1, 1]:
+    bx = CENTER_X + x_sign * BULLET_SPACING_X / 2
+    # Counterbore for flange (from inner face)
+    z_inner = z_face_plus - WALL_THICKNESS
+    flange_cut = (
+        cq.Workplane("XY")
+        .workplane(offset=z_inner - OVERCUT)
+        .center(bx, BULLET_Y)
+        .circle(BULLET_STEP_D / 2)
+        .extrude(BULLET_STEP_DEPTH + OVERCUT)
+    )
+    # Through bore for body
+    body_cut = (
+        cq.Workplane("XY")
+        .workplane(offset=z_face_plus + OVERCUT)
+        .center(bx, BULLET_Y)
+        .circle(BULLET_BORE_D / 2)
+        .extrude(-(WALL_THICKNESS + 2 * OVERCUT))
+    )
+    lower = lower.cut(flange_cut).cut(body_cut)
+
 # ── Export ──
 OUTPUT_DIR = Path(__file__).resolve().parent
 cq.exporters.export(upper, str(OUTPUT_DIR / "pump-case-cadquery.step"))
