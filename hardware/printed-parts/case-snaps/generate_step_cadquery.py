@@ -49,14 +49,14 @@ for wall_id, (face, sign, plane) in WALLS.items():
         bottom, face, sign, plane,
         extrude_start=-ZONE_WIDTH / 2,
         zone_width=ZONE_WIDTH,
-        snap_base_in_wall=BASE_PLATE,
+        lowest_possible_snap_base_in_wall=BASE_PLATE,
         wall_height=WALL_HEIGHT,
     )
     top = apply_ramp_in_first(
         top, face, sign, plane,
         extrude_start=-ZONE_WIDTH / 2,
         zone_width=ZONE_WIDTH,
-        snap_base_in_wall=BASE_PLATE,
+        lowest_possible_snap_base_in_wall=BASE_PLATE,
         wall_height=WALL_HEIGHT,
     )
 

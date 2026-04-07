@@ -642,13 +642,13 @@ snap_faces = [
 for inner_face, sign, split_y, plane, extrude_start, eff_wall_ht, swap in snap_faces:
     upper = apply_ramp_out_first(
         upper, inner_face, sign, plane, extrude_start, SNAP_ZONE_WIDTH,
-        snap_base_in_wall=split_y + eff_wall_ht,
+        lowest_possible_snap_base_in_wall=split_y + eff_wall_ht,
         wall_height=eff_wall_ht,
         height_dir=-1, swap_axes=swap,
     )
     lower = apply_ramp_in_first(
         lower, inner_face, sign, plane, extrude_start, SNAP_ZONE_WIDTH,
-        snap_base_in_wall=split_y - eff_wall_ht,
+        lowest_possible_snap_base_in_wall=split_y - eff_wall_ht,
         wall_height=eff_wall_ht,
         height_dir=+1, swap_axes=swap,
     )
