@@ -44,12 +44,12 @@ WALLS = {
 bottom = make_box_shell()
 top = make_box_shell()
 
-for wall_id, (inner_face, sign, plane) in WALLS.items():
+for wall_id, (inner_face, orientation_outward_sign, orientation_plane) in WALLS.items():
     bottom = apply_ramp_out_first(
         solid=bottom,
         inner_face=inner_face,
-        sign=sign,
-        plane=plane,
+        orientation_outward_sign=orientation_outward_sign,
+        orientation_plane=orientation_plane,
         extrude_start=-ZONE_WIDTH / 2,
         zone_width=ZONE_WIDTH,
         lowest_possible_snap_base_in_wall=BASE_PLATE,
@@ -58,8 +58,8 @@ for wall_id, (inner_face, sign, plane) in WALLS.items():
     top = apply_ramp_in_first(
         solid=top,
         inner_face=inner_face,
-        sign=sign,
-        plane=plane,
+        orientation_outward_sign=orientation_outward_sign,
+        orientation_plane=orientation_plane,
         extrude_start=-ZONE_WIDTH / 2,
         zone_width=ZONE_WIDTH,
         lowest_possible_snap_base_in_wall=BASE_PLATE,

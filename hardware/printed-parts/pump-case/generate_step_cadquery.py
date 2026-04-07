@@ -643,26 +643,26 @@ for inner_face, sign, split_y, plane, extrude_start, eff_wall_ht, swap in snap_f
     upper = apply_ramp_out_first(
         solid=upper,
         inner_face=inner_face,
-        sign=sign,
-        plane=plane,
+        orientation_outward_sign=sign,
+        orientation_plane=plane,
         extrude_start=extrude_start,
         zone_width=SNAP_ZONE_WIDTH,
         lowest_possible_snap_base_in_wall=split_y + eff_wall_ht,
         wall_height=eff_wall_ht,
-        height_dir=-1,
-        swap_axes=swap,
+        orientation_height_sign=-1,
+        orientation_height_is_first_axis=swap,
     )
     lower = apply_ramp_in_first(
         solid=lower,
         inner_face=inner_face,
-        sign=sign,
-        plane=plane,
+        orientation_outward_sign=sign,
+        orientation_plane=plane,
         extrude_start=extrude_start,
         zone_width=SNAP_ZONE_WIDTH,
         lowest_possible_snap_base_in_wall=split_y - eff_wall_ht,
         wall_height=eff_wall_ht,
-        height_dir=+1,
-        swap_axes=swap,
+        orientation_height_sign=+1,
+        orientation_height_is_first_axis=swap,
     )
 
 # ── Export ──

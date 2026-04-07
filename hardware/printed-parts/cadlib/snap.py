@@ -40,29 +40,26 @@ CHANNEL_WIDTH = WALL_THICKNESS + OUTER_GROWTH  # 5.0
 OVERCUT = 0.1
 
 
-def _pt(face, height, swap):
+def _pt(face, height, orientation_height_is_first_axis):
     """Return (face, height) or (height, face) depending on axis order."""
-    return (height, face) if swap else (face, height)
+    return (height, face) if orientation_height_is_first_axis else (face, height)
 
 
-def apply_ramp_out_first(solid, inner_face, sign, plane, extrude_start,
-                         zone_width, lowest_possible_snap_base_in_wall, wall_height,
-                         height_dir=1, swap_axes=False):
+def apply_ramp_out_first(solid, inner_face, orientation_outward_sign,
+                         orientation_plane, extrude_start,
+                         zone_width, lowest_possible_snap_base_in_wall,
+                         wall_height, orientation_height_sign=1,
+                         orientation_height_is_first_axis=False):
     """Apply ramp_out_first snap profile to a wall.
 
     Profile from base up: bump, ramp out, notch, ramp in, bump, ramp out.
     The outer face grows outward to provide material for the channel.
     The channel is cut from the inner side of the wall.
-
-    lowest_possible_snap_base_in_wall: coordinate where the snap features begin.
-    wall_height:       total wall height available from lowest_possible_snap_base_in_wall.
-    height_dir: +1 if height increases in the workplane's second axis,
-                -1 if it decreases.
-    swap_axes:  True when the workplane's first axis is the height axis.
     """
-    outer = inner_face + sign * WALL_THICKNESS
-    hd = height_dir
-    sw = swap_axes
+    outer = inner_face + orientation_outward_sign * WALL_THICKNESS
+    hd = orientation_height_sign
+    sw = orientation_height_is_first_axis
+    sign = orientation_outward_sign
 
     bump_reach = CHANNEL_WIDTH / 2 + RAMP_OUT_DEFLECTION
     r = bump_reach - NOTCH_WALL_WIDTH                          # ramp height
@@ -94,7 +91,7 @@ def apply_ramp_out_first(solid, inner_face, sign, plane, extrude_start,
         _pt(oi,                          lowest_possible_snap_base_in_wall + hd * tip_h, sw),
     ]
     solid = solid.union(
-        cq.Workplane(plane).workplane(offset=extrude_start)
+        cq.Workplane(orientation_plane).workplane(offset=extrude_start)
         .polyline(growth).close().extrude(zone_width)
     )
 
@@ -106,7 +103,7 @@ def apply_ramp_out_first(solid, inner_face, sign, plane, extrude_start,
         _pt(oi, wall_top, sw),
     ]
     solid = solid.union(
-        cq.Workplane(plane).workplane(offset=extrude_start)
+        cq.Workplane(orientation_plane).workplane(offset=extrude_start)
         .polyline(extension).close().extrude(zone_width)
     )
 
@@ -122,28 +119,28 @@ def apply_ramp_out_first(solid, inner_face, sign, plane, extrude_start,
         _pt(ic,         lowest_possible_snap_base_in_wall + hd * tip_h, sw),
     ]
     solid = solid.cut(
-        cq.Workplane(plane).workplane(offset=extrude_start - OVERCUT)
+        cq.Workplane(orientation_plane).workplane(offset=extrude_start - OVERCUT)
         .polyline(channel).close().extrude(zone_width + 2 * OVERCUT)
     )
 
     return solid
 
 
-def apply_ramp_in_first(solid, inner_face, sign, plane, extrude_start,
-                        zone_width, lowest_possible_snap_base_in_wall, wall_height,
-                        height_dir=1, swap_axes=False):
+def apply_ramp_in_first(solid, inner_face, orientation_outward_sign,
+                        orientation_plane, extrude_start,
+                        zone_width, lowest_possible_snap_base_in_wall,
+                        wall_height, orientation_height_sign=1,
+                        orientation_height_is_first_axis=False):
     """Apply ramp_in_first snap profile to a wall.
 
     Profile from base up: notch, ramp in, bump, ramp out, notch, ramp in.
     Bumps are on the outer side; notches are cut from the outer face.
     If bumps extend past the wall thickness, growth is added on the outer face.
-
-    lowest_possible_snap_base_in_wall: coordinate where the snap features begin.
-    wall_height:       total wall height available from lowest_possible_snap_base_in_wall.
     """
-    outer = inner_face + sign * WALL_THICKNESS
-    hd = height_dir
-    sw = swap_axes
+    outer = inner_face + orientation_outward_sign * WALL_THICKNESS
+    hd = orientation_height_sign
+    sw = orientation_height_is_first_axis
+    sign = orientation_outward_sign
 
     bump_reach = CHANNEL_WIDTH / 2 + RAMP_IN_DEFLECTION
     r = bump_reach - NOTCH_WALL_WIDTH                          # ramp height
@@ -175,7 +172,7 @@ def apply_ramp_in_first(solid, inner_face, sign, plane, extrude_start,
             _pt(oi,                            lowest_possible_snap_base_in_wall + hd * tip_h, sw),
         ]
         solid = solid.union(
-            cq.Workplane(plane).workplane(offset=extrude_start)
+            cq.Workplane(orientation_plane).workplane(offset=extrude_start)
             .polyline(growth).close().extrude(zone_width)
         )
 
@@ -188,7 +185,7 @@ def apply_ramp_in_first(solid, inner_face, sign, plane, extrude_start,
         _pt(bump_face,  wall_top, sw),
     ]
     solid = solid.union(
-        cq.Workplane(plane).workplane(offset=extrude_start)
+        cq.Workplane(orientation_plane).workplane(offset=extrude_start)
         .polyline(extension).close().extrude(zone_width)
     )
 
@@ -204,7 +201,7 @@ def apply_ramp_in_first(solid, inner_face, sign, plane, extrude_start,
         _pt(oc,         lowest_possible_snap_base_in_wall + hd * tip_h, sw),
     ]
     solid = solid.cut(
-        cq.Workplane(plane).workplane(offset=extrude_start - OVERCUT)
+        cq.Workplane(orientation_plane).workplane(offset=extrude_start - OVERCUT)
         .polyline(notch_cut).close().extrude(zone_width + 2 * OVERCUT)
     )
 
