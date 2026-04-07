@@ -56,13 +56,13 @@ def apply_ramp_out_first(
         solid,
         coordinate_inner_face,
         coordinate_zone_start,
+        coordinate_zone_end,
         coordinate_lowest_possible_snap_base_in_wall,
         coordinate_top_of_available_wall,
         orientation_outward_sign,
         orientation_plane,
         orientation_height_sign=1,
         orientation_height_axis="Z",
-        zone_width=20.0,
 ):
     """Apply ramp_out_first snap profile to a wall.
 
@@ -75,6 +75,7 @@ def apply_ramp_out_first(
     hf = _height_is_first_axis(orientation_plane, orientation_height_axis)
     sign = orientation_outward_sign
     base = coordinate_lowest_possible_snap_base_in_wall
+    zone_width = abs(coordinate_zone_end - coordinate_zone_start)
 
     available_wall_height = (coordinate_top_of_available_wall - base) * hd
 
@@ -146,13 +147,13 @@ def apply_ramp_in_first(
         solid,
         coordinate_inner_face,
         coordinate_zone_start,
+        coordinate_zone_end,
         coordinate_lowest_possible_snap_base_in_wall,
         coordinate_top_of_available_wall,
         orientation_outward_sign,
         orientation_plane,
         orientation_height_sign=1,
         orientation_height_axis="Z",
-        zone_width=20.0,
 ):
     """Apply ramp_in_first snap profile to a wall.
 
@@ -165,6 +166,7 @@ def apply_ramp_in_first(
     hf = _height_is_first_axis(orientation_plane, orientation_height_axis)
     sign = orientation_outward_sign
     base = coordinate_lowest_possible_snap_base_in_wall
+    zone_width = abs(coordinate_zone_end - coordinate_zone_start)
 
     available_wall_height = (coordinate_top_of_available_wall - base) * hd
 

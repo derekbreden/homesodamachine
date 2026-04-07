@@ -607,10 +607,6 @@ upper = combined.cut(step_cutter)
 lower = combined.intersect(step_cutter)
 
 # ── Snap-fit geometry ──
-# Tongue-and-groove snaps modify existing walls in place using shared functions
-# from case-snaps. No wall removal/replacement — just growth + channel cuts.
-#
-# +Z face has only 4.5 mm of straight wall; eff_wall_ht = 8.5 mm.
 
 SNAP_ZONE_WIDTH = 20.0
 SNAP_WALL_HEIGHT = 9.0
@@ -624,44 +620,50 @@ snap_minus_x_narrow_inner = CENTER_X - base_he + WALL_THICKNESS
 snap_wide_split_y = -skirt_bottom_offset
 snap_narrow_split_y = -step_offset
 
-snap_yz_extrude_start = CENTER_X - SNAP_ZONE_WIDTH / 2
-snap_xy_narrow_extrude_start = CENTER_Z - narrow_he + CORNER_R + 0.5
+snap_yz_zone_start = CENTER_X - SNAP_ZONE_WIDTH / 2
+snap_yz_zone_end = CENTER_X + SNAP_ZONE_WIDTH / 2
+snap_xy_narrow_zone_start = CENTER_Z - narrow_he + CORNER_R + 0.5
+snap_xy_narrow_zone_end = snap_xy_narrow_zone_start + SNAP_ZONE_WIDTH
 
 snap_faces = [
-    (snap_plus_z_inner,         +1, snap_wide_split_y,   "YZ", snap_yz_extrude_start,
+    (snap_plus_z_inner,         +1, snap_wide_split_y,   "YZ",
+     snap_yz_zone_start, snap_yz_zone_end,
      SNAP_WALL_HEIGHT - SNAP_WIDE_FACE_ADJ),
-    (snap_minus_z_inner,        -1, snap_narrow_split_y,  "YZ", snap_yz_extrude_start,
+    (snap_minus_z_inner,        -1, snap_narrow_split_y,  "YZ",
+     snap_yz_zone_start, snap_yz_zone_end,
      SNAP_WALL_HEIGHT),
-    (snap_plus_x_narrow_inner,  +1, snap_narrow_split_y,  "XY", snap_xy_narrow_extrude_start,
+    (snap_plus_x_narrow_inner,  +1, snap_narrow_split_y,  "XY",
+     snap_xy_narrow_zone_start, snap_xy_narrow_zone_end,
      SNAP_WALL_HEIGHT),
-    (snap_minus_x_narrow_inner, -1, snap_narrow_split_y,  "XY", snap_xy_narrow_extrude_start,
+    (snap_minus_x_narrow_inner, -1, snap_narrow_split_y,  "XY",
+     snap_xy_narrow_zone_start, snap_xy_narrow_zone_end,
      SNAP_WALL_HEIGHT),
 ]
 
-for inner_face, sign, split_y, plane, extrude_start, eff_wall_ht in snap_faces:
+for inner_face, sign, split_y, plane, zone_start, zone_end, eff_wall_ht in snap_faces:
     upper = apply_ramp_out_first(
         solid=upper,
         coordinate_inner_face=inner_face,
-        coordinate_zone_start=extrude_start,
+        coordinate_zone_start=zone_start,
+        coordinate_zone_end=zone_end,
         coordinate_lowest_possible_snap_base_in_wall=split_y + eff_wall_ht,
         coordinate_top_of_available_wall=split_y,
         orientation_outward_sign=sign,
         orientation_plane=plane,
         orientation_height_sign=-1,
         orientation_height_axis="Y",
-        zone_width=SNAP_ZONE_WIDTH,
     )
     lower = apply_ramp_in_first(
         solid=lower,
         coordinate_inner_face=inner_face,
-        coordinate_zone_start=extrude_start,
+        coordinate_zone_start=zone_start,
+        coordinate_zone_end=zone_end,
         coordinate_lowest_possible_snap_base_in_wall=split_y - eff_wall_ht,
         coordinate_top_of_available_wall=split_y,
         orientation_outward_sign=sign,
         orientation_plane=plane,
         orientation_height_sign=+1,
         orientation_height_axis="Y",
-        zone_width=SNAP_ZONE_WIDTH,
     )
 
 # ── Export ──
