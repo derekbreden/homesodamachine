@@ -44,16 +44,16 @@ WALLS = {
 bottom = make_box_shell()
 top = make_box_shell()
 
-for wall_id, (face, sign, plane) in WALLS.items():
+for wall_id, (inner_face, sign, plane) in WALLS.items():
     bottom = apply_ramp_out_first(
-        bottom, face, sign, plane,
+        bottom, inner_face, sign, plane,
         extrude_start=-ZONE_WIDTH / 2,
         zone_width=ZONE_WIDTH,
         lowest_possible_snap_base_in_wall=BASE_PLATE,
         wall_height=WALL_HEIGHT,
     )
     top = apply_ramp_in_first(
-        top, face, sign, plane,
+        top, inner_face, sign, plane,
         extrude_start=-ZONE_WIDTH / 2,
         zone_width=ZONE_WIDTH,
         lowest_possible_snap_base_in_wall=BASE_PLATE,
