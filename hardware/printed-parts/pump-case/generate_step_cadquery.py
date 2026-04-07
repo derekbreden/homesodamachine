@@ -627,19 +627,18 @@ snap_narrow_split_y = -step_offset
 snap_yz_extrude_start = CENTER_X - SNAP_ZONE_WIDTH / 2
 snap_xy_narrow_extrude_start = CENTER_Z - narrow_he + CORNER_R + 0.5
 
-# (inner_face, sign, split_y, plane, extrude_start, eff_wall_ht, swap_axes)
 snap_faces = [
     (snap_plus_z_inner,         +1, snap_wide_split_y,   "YZ", snap_yz_extrude_start,
-     SNAP_WALL_HEIGHT - SNAP_WIDE_FACE_ADJ, True),
+     SNAP_WALL_HEIGHT - SNAP_WIDE_FACE_ADJ),
     (snap_minus_z_inner,        -1, snap_narrow_split_y,  "YZ", snap_yz_extrude_start,
-     SNAP_WALL_HEIGHT, True),
+     SNAP_WALL_HEIGHT),
     (snap_plus_x_narrow_inner,  +1, snap_narrow_split_y,  "XY", snap_xy_narrow_extrude_start,
-     SNAP_WALL_HEIGHT, False),
+     SNAP_WALL_HEIGHT),
     (snap_minus_x_narrow_inner, -1, snap_narrow_split_y,  "XY", snap_xy_narrow_extrude_start,
-     SNAP_WALL_HEIGHT, False),
+     SNAP_WALL_HEIGHT),
 ]
 
-for inner_face, sign, split_y, plane, extrude_start, eff_wall_ht, swap in snap_faces:
+for inner_face, sign, split_y, plane, extrude_start, eff_wall_ht in snap_faces:
     upper = apply_ramp_out_first(
         solid=upper,
         inner_face=inner_face,
@@ -650,7 +649,7 @@ for inner_face, sign, split_y, plane, extrude_start, eff_wall_ht, swap in snap_f
         lowest_possible_snap_base_in_wall=split_y + eff_wall_ht,
         wall_height=eff_wall_ht,
         orientation_height_sign=-1,
-        orientation_height_is_first_axis=swap,
+        orientation_height_axis="Y",
     )
     lower = apply_ramp_in_first(
         solid=lower,
@@ -662,7 +661,7 @@ for inner_face, sign, split_y, plane, extrude_start, eff_wall_ht, swap in snap_f
         lowest_possible_snap_base_in_wall=split_y - eff_wall_ht,
         wall_height=eff_wall_ht,
         orientation_height_sign=+1,
-        orientation_height_is_first_axis=swap,
+        orientation_height_axis="Y",
     )
 
 # ── Export ──
