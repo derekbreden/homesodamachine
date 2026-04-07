@@ -10,7 +10,7 @@ The two sides interleave:
 
 The caller provides two coordinates defining the available wall:
   coordinate_lowest_possible_snap_base_in_wall — bottom of available space
-  coordinate_top_of_available_wall — where "within the wall" ends
+  coordinate_top_of_wall — where "within the wall" ends
 The snap geometry determines how much wall it consumes and how far it
 extends beyond the wall, based on deflection.
 
@@ -58,7 +58,7 @@ def apply_ramp_out_first(
         coordinate_zone_start,
         coordinate_zone_end,
         coordinate_lowest_possible_snap_base_in_wall,
-        coordinate_top_of_available_wall,
+        coordinate_top_of_wall,
         orientation_outward_sign,
         orientation_plane,
         orientation_height_sign=1,
@@ -77,7 +77,7 @@ def apply_ramp_out_first(
     base = coordinate_lowest_possible_snap_base_in_wall
     zone_width = abs(coordinate_zone_end - coordinate_zone_start)
 
-    available_wall_height = (coordinate_top_of_available_wall - base) * hd
+    available_wall_height = (coordinate_top_of_wall - base) * hd
 
     bump_reach = CHANNEL_WIDTH / 2 + RAMP_OUT_DEFLECTION
     r = bump_reach - NOTCH_WALL_WIDTH                          # ramp height
@@ -114,10 +114,10 @@ def apply_ramp_out_first(
 
     # 2. Extend wall upward to tip height
     extension = [
-        _pt(ic, coordinate_top_of_available_wall, hf),
+        _pt(ic, coordinate_top_of_wall, hf),
         _pt(ic, base + hd * tip_h, hf),
         _pt(oi, base + hd * tip_h, hf),
-        _pt(oi, coordinate_top_of_available_wall, hf),
+        _pt(oi, coordinate_top_of_wall, hf),
     ]
     solid = solid.union(
         cq.Workplane(orientation_plane).workplane(offset=coordinate_zone_start)
@@ -149,7 +149,7 @@ def apply_ramp_in_first(
         coordinate_zone_start,
         coordinate_zone_end,
         coordinate_lowest_possible_snap_base_in_wall,
-        coordinate_top_of_available_wall,
+        coordinate_top_of_wall,
         orientation_outward_sign,
         orientation_plane,
         orientation_height_sign=1,
@@ -168,7 +168,7 @@ def apply_ramp_in_first(
     base = coordinate_lowest_possible_snap_base_in_wall
     zone_width = abs(coordinate_zone_end - coordinate_zone_start)
 
-    available_wall_height = (coordinate_top_of_available_wall - base) * hd
+    available_wall_height = (coordinate_top_of_wall - base) * hd
 
     bump_reach = CHANNEL_WIDTH / 2 + RAMP_IN_DEFLECTION
     r = bump_reach - NOTCH_WALL_WIDTH                          # ramp height
@@ -205,11 +205,11 @@ def apply_ramp_in_first(
 
     # 1. Extend wall to tip height with bump/notch profile
     extension = [
-        _pt(ic,         coordinate_top_of_available_wall, hf),
+        _pt(ic,         coordinate_top_of_wall, hf),
         _pt(ic,         base + hd * tip_h, hf),
         _pt(notch_face, base + hd * tip_h, hf),
         _pt(bump_face,  base + hd * (s + 2 * r + 2 * e), hf),
-        _pt(bump_face,  coordinate_top_of_available_wall, hf),
+        _pt(bump_face,  coordinate_top_of_wall, hf),
     ]
     solid = solid.union(
         cq.Workplane(orientation_plane).workplane(offset=coordinate_zone_start)
