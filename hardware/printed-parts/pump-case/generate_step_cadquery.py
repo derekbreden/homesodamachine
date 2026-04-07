@@ -643,7 +643,7 @@ snap_faces = [
 for inner_face, sign, split_y, plane, zone_start, zone_end, eff_wall_ht in snap_faces:
     upper = apply_ramp_out_first(
         solid=upper,
-        coordinate_inner_face=inner_face,
+        coordinate_inner_wall=inner_face,
         coordinate_zone_start=zone_start,
         coordinate_zone_end=zone_end,
         coordinate_lowest_possible_snap_base_in_wall=split_y + eff_wall_ht,
@@ -655,7 +655,7 @@ for inner_face, sign, split_y, plane, zone_start, zone_end, eff_wall_ht in snap_
     )
     lower = apply_ramp_in_first(
         solid=lower,
-        coordinate_inner_face=inner_face,
+        coordinate_inner_wall=inner_face,
         coordinate_zone_start=zone_start,
         coordinate_zone_end=zone_end,
         coordinate_lowest_possible_snap_base_in_wall=split_y - eff_wall_ht,
