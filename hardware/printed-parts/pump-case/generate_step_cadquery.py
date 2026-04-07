@@ -188,6 +188,7 @@ def rounded_rect_profile(width, height, radius, n=ARC_SEGMENTS):
 
 def split_skirt_profile(wide_he, wide_r, narrow_he, narrow_r,
                         transition_z_plus=None, transition_z_minus=None,
+                        wide_he_z=None, narrow_he_z=None,
                         n=ARC_SEGMENTS):
     """Asymmetric profile: wider rounded rect on +Z half, narrower on -Z half,
     with diagonal transitions on the left and right sides.
@@ -198,8 +199,14 @@ def split_skirt_profile(wide_he, wide_r, narrow_he, narrow_r,
     independently at different rates."""
     wide_r = max(wide_r, 0.01)
     narrow_r = max(narrow_r, 0.01)
-    wide_cc = wide_he - wide_r
-    narrow_cc = narrow_he - narrow_r
+    if wide_he_z is None:
+        wide_he_z = wide_he
+    if narrow_he_z is None:
+        narrow_he_z = narrow_he
+    wide_cc_x = wide_he - wide_r
+    wide_cc_z = wide_he_z - wide_r
+    narrow_cc_x = narrow_he - narrow_r
+    narrow_cc_z = narrow_he_z - narrow_r
 
     if transition_z_plus is None:
         transition_z_plus = max((wide_he - narrow_he) / 2, 0.01)
@@ -211,12 +218,12 @@ def split_skirt_profile(wide_he, wide_r, narrow_he, narrow_r,
     # +Z half arcs (wide)
     for i in range(n + 1):
         a = math.radians(90 * i / n)
-        pts.append((wide_cc + wide_r * math.cos(a),
-                     wide_cc + wide_r * math.sin(a)))
+        pts.append((wide_cc_x + wide_r * math.cos(a),
+                     wide_cc_z + wide_r * math.sin(a)))
     for i in range(n + 1):
         a = math.radians(90 + 90 * i / n)
-        pts.append((-wide_cc + wide_r * math.cos(a),
-                     wide_cc + wide_r * math.sin(a)))
+        pts.append((-wide_cc_x + wide_r * math.cos(a),
+                     wide_cc_z + wide_r * math.sin(a)))
 
     # Left side: transition from wide to narrow
     pts.append((-wide_he, transition_z_plus))
@@ -225,12 +232,12 @@ def split_skirt_profile(wide_he, wide_r, narrow_he, narrow_r,
     # -Z half arcs (narrow)
     for i in range(n + 1):
         a = math.radians(180 + 90 * i / n)
-        pts.append((-narrow_cc + narrow_r * math.cos(a),
-                     -narrow_cc + narrow_r * math.sin(a)))
+        pts.append((-narrow_cc_x + narrow_r * math.cos(a),
+                     -narrow_cc_z + narrow_r * math.sin(a)))
     for i in range(n + 1):
         a = math.radians(270 + 90 * i / n)
-        pts.append((narrow_cc + narrow_r * math.cos(a),
-                     -narrow_cc + narrow_r * math.sin(a)))
+        pts.append((narrow_cc_x + narrow_r * math.cos(a),
+                     -narrow_cc_z + narrow_r * math.sin(a)))
 
     # Right side: transition from narrow back to wide
     pts.append((narrow_he, transition_z_minus))
@@ -319,11 +326,11 @@ skirt_outer_profiles = [
     split_skirt_profile(base_he, base_r, base_he, base_r,
                         tz_sym_plus, tz_sym_minus),
     split_skirt_profile(wide_he, wide_r, mid_narrow_he, mid_narrow_r,
-                        tz_mid_plus, tz_mid_minus),
+                        tz_mid_plus, tz_mid_minus, wide_he_z=base_he, narrow_he_z=base_he),
     split_skirt_profile(wide_he, wide_r, narrow_he, narrow_r,
-                        tz_end_plus, tz_end_minus),
+                        tz_end_plus, tz_end_minus, wide_he_z=base_he, narrow_he_z=base_he),
     split_skirt_profile(wide_he, wide_r, narrow_he, narrow_r,
-                        tz_end_plus, tz_end_minus),
+                        tz_end_plus, tz_end_minus, wide_he_z=base_he, narrow_he_z=base_he),
 ]
 
 # Inner profiles (subtract wall thickness from each half-extent and radius)
@@ -355,11 +362,11 @@ skirt_inner_profiles = [
     split_skirt_profile(inner_base_he, inner_base_r, inner_base_he, inner_base_r,
                         itz_sym_plus, itz_sym_minus),
     split_skirt_profile(inner_wide_he, inner_wide_r, inner_mid_narrow_he, inner_mid_narrow_r,
-                        itz_mid_plus, itz_mid_minus),
+                        itz_mid_plus, itz_mid_minus, wide_he_z=inner_base_he, narrow_he_z=inner_base_he),
     split_skirt_profile(inner_wide_he, inner_wide_r, inner_narrow_he, inner_narrow_r,
-                        itz_end_plus, itz_end_minus),
+                        itz_end_plus, itz_end_minus, wide_he_z=inner_base_he, narrow_he_z=inner_base_he),
     split_skirt_profile(inner_wide_he, inner_wide_r, inner_narrow_he, inner_narrow_r,
-                        itz_end_plus, itz_end_minus),
+                        itz_end_plus, itz_end_minus, wide_he_z=inner_base_he, narrow_he_z=inner_base_he),
 ]
 
 # Incremental Y offsets between levels
@@ -495,9 +502,11 @@ lower_outer_profiles = [
     skirt_outer_profiles[-1],                            # 76/62 split (mating)
     skirt_outer_profiles[-1],                            # end of footprint straight
     split_skirt_profile(narrow_he, base_r, narrow_he, base_r,
-                        0.01, -0.01),                    # uniform 62×62 (end of ramp)
+                        0.01, -0.01,
+                        wide_he_z=base_he, narrow_he_z=base_he),  # 62 wide, 70 in Z
     split_skirt_profile(narrow_he, base_r, narrow_he, base_r,
-                        0.01, -0.01),                    # uniform 62×62 (cap end)
+                        0.01, -0.01,
+                        wide_he_z=base_he, narrow_he_z=base_he),  # 62 wide, 70 in Z
 ]
 
 lower_inner_profiles = [
@@ -505,10 +514,12 @@ lower_inner_profiles = [
     skirt_inner_profiles[-1],
     split_skirt_profile(inner_narrow_he, inner_narrow_r,
                         inner_narrow_he, inner_narrow_r,
-                        0.01, -0.01),
+                        0.01, -0.01,
+                        wide_he_z=inner_base_he, narrow_he_z=inner_base_he),
     split_skirt_profile(inner_narrow_he, inner_narrow_r,
                         inner_narrow_he, inner_narrow_r,
-                        0.01, -0.01),
+                        0.01, -0.01,
+                        wide_he_z=inner_base_he, narrow_he_z=inner_base_he),
 ]
 
 lower_y_steps = [LOWER_FOOTPRINT_STRAIGHT, lower_ramp_height,
@@ -610,9 +621,7 @@ lower = combined.intersect(step_cutter)
 
 SNAP_ZONE_WIDTH = 20.0
 SNAP_WALL_HEIGHT = 9.0
-SNAP_WIDE_FACE_ADJ = 0.5
-
-snap_plus_z_inner = CENTER_Z + wide_he - WALL_THICKNESS
+snap_plus_z_inner = CENTER_Z + base_he - WALL_THICKNESS
 snap_minus_z_inner = CENTER_Z - base_he + WALL_THICKNESS
 snap_plus_x_narrow_inner = CENTER_X + base_he - WALL_THICKNESS
 snap_minus_x_narrow_inner = CENTER_X - base_he + WALL_THICKNESS
@@ -628,7 +637,7 @@ snap_xy_narrow_zone_end = snap_xy_narrow_zone_start + SNAP_ZONE_WIDTH
 snap_faces = [
     (snap_plus_z_inner,         +1, snap_wide_split_y,   "YZ",
      snap_yz_zone_start, snap_yz_zone_end,
-     SNAP_WALL_HEIGHT - SNAP_WIDE_FACE_ADJ),
+     SNAP_WALL_HEIGHT),
     (snap_minus_z_inner,        -1, snap_narrow_split_y,  "YZ",
      snap_yz_zone_start, snap_yz_zone_end,
      SNAP_WALL_HEIGHT),
@@ -652,6 +661,7 @@ for inner_face, sign, split_y, plane, zone_start, zone_end, eff_wall_ht in snap_
         orientation_plane=plane,
         orientation_height_sign=-1,
         orientation_height_axis="Y",
+        deflection_distance=2.0,
     )
     lower = apply_ramp_in_first(
         solid=lower,
@@ -664,6 +674,7 @@ for inner_face, sign, split_y, plane, zone_start, zone_end, eff_wall_ht in snap_
         orientation_plane=plane,
         orientation_height_sign=+1,
         orientation_height_axis="Y",
+        deflection_distance=2.0,
     )
 
 # ── Export ──
