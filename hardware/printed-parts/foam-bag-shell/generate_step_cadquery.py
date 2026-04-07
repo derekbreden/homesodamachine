@@ -1,18 +1,21 @@
 """
 Foam-bag shell: two concentric shells with integrated bag cradles.
 
-Two concentric cylinders connected by a platform floor and 4 radial divider
-walls. Below the platform is a foam cavity with its own bottom floor.
+Bottom cup:  Z=0 to PLAT_BOTTOM.  Prints right-side up (floor on bed).
+Upper shell: Z=Z_BOT to SHELL_HEIGHT.  Prints right-side up.
+             Inner wall + channel rings touch bed at Z_BOT.
+             Annular floor bridges inner wall to channel inner ring at
+             Z=PLAT_BOTTOM (3 mm above bed).
 
-Built as one solid, split at PLAT_BOTTOM into two prints. The upper shell
-gets a stacking channel (double ring + 45° chamfers) that straddles the
-bottom cup's outer wall for alignment.
-
-Bottom cup:  Z=0 to PLAT_BOTTOM  (prints upside-down)
-Upper shell: Z=PLAT_BOTTOM-CHANNEL_DEPTH to SHELL_HEIGHT (channel extends below)
+The upper shell is built from three revolved bodies unioned together:
+  A) Inner body: inner wall (Z_BOT to SHELL_HEIGHT) + annular floor
+     (SHELL_OR to R_INNER_IR, PLAT_BOTTOM to PLATFORM_Z)
+  B) Outer wall: thin tube (OUTER_SHELL_IR to OUTER_SHELL_OR,
+     Z_CHAMFER_TOP-overlap to SHELL_HEIGHT)
+  C) Channel: double ring + 45-deg chamfers connecting A and B below
+     the floor, with an overlap zone into B above Z_CHAMFER_TOP
 """
 
-import math
 import cadquery as cq
 from pathlib import Path
 
@@ -32,95 +35,66 @@ SHELL_HEIGHT = TANK_HEIGHT + 10.0          # 162.4 mm
 
 CRADLE_DEPTH = 25.0
 CRADLE_ARC_DEG = 105.0
+HALF_CRADLE = CRADLE_ARC_DEG / 2
 
 OUTER_SHELL_IR = SHELL_OR + CRADLE_DEPTH   # ~102.85 mm
 OUTER_SHELL_OR = OUTER_SHELL_IR + WALL     # ~103.85 mm
-
-HALF_CRADLE = CRADLE_ARC_DEG / 2
 
 # Derived Z levels
 PLAT_BOTTOM = FLOOR + FLOOR_FOAM_GAP       # ~26.4 mm
 PLATFORM_Z = PLAT_BOTTOM + FLOOR           # ~27.4 mm
 
-# Stacking channel dimensions
-CHANNEL_DEPTH = 3.0                         # how far rings extend below split
-CHANNEL_CLEARANCE = 0.5                     # per side (total gap = WALL + 2*0.5 = 2mm)
+# Stacking channel
+CHANNEL_DEPTH = 3.0                         # how far rings extend below floor
+CHANNEL_CLEARANCE = 0.5                     # per side
 
-# Channel ring radii
 R_INNER_OR = OUTER_SHELL_IR - CHANNEL_CLEARANCE   # inner ring outer face
 R_INNER_IR = R_INNER_OR - WALL                      # inner ring inner face
 R_OUTER_IR = OUTER_SHELL_OR + CHANNEL_CLEARANCE    # outer ring inner face
 R_OUTER_OR = R_OUTER_IR + WALL                      # outer ring outer face
 
-# Chamfer height: 45° from widest spread back to normal wall
-# Inner side: R_INNER_IR → OUTER_SHELL_IR
-# Outer side: R_OUTER_OR → OUTER_SHELL_OR
-CHAMFER_H = WALL + CHANNEL_CLEARANCE               # 1.5 mm
+CHAMFER_H = WALL + CHANNEL_CLEARANCE               # 1.5 mm (45 deg)
 
-# ── Step 1: Profile revolved 360° ──
-shells = (
+Z_BOT = PLAT_BOTTOM - CHANNEL_DEPTH                # 23.4 mm
+Z_SPLIT = PLAT_BOTTOM                               # 26.4 mm
+Z_CHAMFER_TOP = PLAT_BOTTOM + CHAMFER_H            # 27.9 mm
+
+OVERLAP = 1.0   # boolean overlap for reliable unions
+
+
+# ═══════════════════════════════════════════════════════
+# BOTTOM CUP
+# ═══════════════════════════════════════════════════════
+#
+# Simple cup: full-radius floor at Z=0, outer wall up to PLAT_BOTTOM,
+# foam floor at Z=FLOOR.  Foam cavity is the void between the two floors.
+#
+# XZ profile (revolved 360 deg around Z axis):
+#
+#   PLAT_BOTTOM ──┐              ┌──
+#                 │  foam cavity │
+#       FLOOR  ═══╧══════════════╧═══   (foam floor / bottom floor top)
+#           0  ══════════════════════   (bottom floor bottom)
+#              R=0             OUTER_SHELL_OR
+
+bottom_cup = (
     cq.Workplane("XZ")
-    .moveTo(0, PLATFORM_Z)
-    .lineTo(SHELL_IR, PLATFORM_Z)
-    .lineTo(SHELL_IR, SHELL_HEIGHT)
-    .lineTo(SHELL_OR, SHELL_HEIGHT)
-    .lineTo(SHELL_OR, PLATFORM_Z)
-    .lineTo(OUTER_SHELL_IR, PLATFORM_Z)
-    .lineTo(OUTER_SHELL_IR, SHELL_HEIGHT)
-    .lineTo(OUTER_SHELL_OR, SHELL_HEIGHT)
+    .moveTo(0, 0)
     .lineTo(OUTER_SHELL_OR, 0)
-    .lineTo(0, 0)
-    .lineTo(0, FLOOR)
-    .lineTo(OUTER_SHELL_IR, FLOOR)
+    .lineTo(OUTER_SHELL_OR, PLAT_BOTTOM)
     .lineTo(OUTER_SHELL_IR, PLAT_BOTTOM)
-    .lineTo(0, PLAT_BOTTOM)
+    .lineTo(OUTER_SHELL_IR, FLOOR)
+    .lineTo(0, FLOOR)
     .close()
     .revolve(360, (0, 0, 0), (0, 1, 0))
 )
 
-solids = shells.solids().vals()
-print(f"After revolve: {len(solids)} solid(s)")
-
-# ── Step 2: Divider walls (flat slabs, constant thickness) ──
-DIVIDER_ANGLES = [
-    -HALF_CRADLE,
-    HALF_CRADLE,
-    180.0 - HALF_CRADLE,
-    180.0 + HALF_CRADLE,
-]
-
-OVERLAP = 1.0
-DIVIDER_BOTTOM = PLAT_BOTTOM + FLOOR / 2
-DIVIDER_HEIGHT = SHELL_HEIGHT - DIVIDER_BOTTOM
-DIVIDER_RADIAL_SPAN = (OUTER_SHELL_IR + OVERLAP) - (SHELL_OR - OVERLAP)
-
-result = shells
-for angle in DIVIDER_ANGLES:
-    div = (
-        cq.Workplane("XY")
-        .transformed(offset=(
-            (SHELL_OR - OVERLAP + OUTER_SHELL_IR + OVERLAP) / 2,
-            0,
-            DIVIDER_BOTTOM + DIVIDER_HEIGHT / 2,
-        ))
-        .box(DIVIDER_RADIAL_SPAN, WALL, DIVIDER_HEIGHT, centered=True, combine=False)
-    )
-    div = div.rotate((0, 0, 0), (0, 0, 1), angle)
-    result = result.union(div, tol=0.05)
-
-# ── Step 3: Foam cavity holes ──
+# ── Foam cavity holes ──
 FOAM_HOLE_DIA = 8.0
 
-# Center ceiling hole
-center_hole = (
-    cq.Workplane("XY")
-    .transformed(offset=(0, 0, PLAT_BOTTOM - 1))
-    .circle(FOAM_HOLE_DIA / 2)
-    .extrude(FLOOR + 2)
-)
-result = result.cut(center_hole)
+# (Center hole is on the upper shell floor, not here)
 
-# 4 wall holes — small diamonds (45° sides)
+# 4 diamond-shaped wall holes (self-supporting at 45 deg)
 DIAMOND_SIZE = 10.0
 FOAM_MID_Z = FLOOR + FLOOR_FOAM_GAP / 2
 
@@ -136,131 +110,286 @@ for angle_deg in [0, 90, 180, 270]:
         .extrude(WALL + 4)
     )
     diamond = diamond.rotate((0, 0, 0), (0, 0, 1), angle_deg)
-    result = result.cut(diamond)
+    bottom_cup = bottom_cup.cut(diamond)
 
-# ── Step 4: Split into two prints at PLAT_BOTTOM ──
-cut_above = (
-    cq.Workplane("XY")
-    .transformed(offset=(0, 0, PLAT_BOTTOM))
-    .box(OUTER_SHELL_OR * 3, OUTER_SHELL_OR * 3, SHELL_HEIGHT,
-         centered=(True, True, False), combine=False)
+bc_solids = bottom_cup.solids().vals()
+print(f"Bottom cup: {len(bc_solids)} solid(s)")
+for i, s in enumerate(bc_solids):
+    bb = s.BoundingBox()
+    print(f"  Solid {i}: X[{bb.xmin:.1f},{bb.xmax:.1f}] "
+          f"Y[{bb.ymin:.1f},{bb.ymax:.1f}] Z[{bb.zmin:.1f},{bb.zmax:.1f}]")
+
+
+# ═══════════════════════════════════════════════════════
+# UPPER SHELL — Part A: Inner body
+# ═══════════════════════════════════════════════════════
+#
+# Inner wall extends down to Z_BOT so it touches the build plate.
+# Annular floor from SHELL_OR to R_INNER_IR at PLAT_BOTTOM to PLATFORM_Z.
+# When printed right-side up, the inner wall and channel rings sit on the
+# bed at Z_BOT; the floor bridges to the inner ring at 3 mm height.
+#
+# XZ profile:
+#
+#   SHELL_HEIGHT ─┐
+#                 │ inner
+#                 │ wall
+#   PLATFORM_Z    └───────── R_INNER_IR
+#   PLAT_BOTTOM   ┌───────── R_INNER_IR
+#                 │
+#       Z_BOT  ───┘
+#            SHELL_IR  SHELL_OR
+
+inner_body = (
+    cq.Workplane("XZ")
+    .moveTo(0, Z_BOT)
+    .lineTo(R_INNER_IR, Z_BOT)
+    .lineTo(R_INNER_IR, Z_BOT + FLOOR)
+    .lineTo(SHELL_OR, Z_BOT + FLOOR)
+    .lineTo(SHELL_OR, SHELL_HEIGHT)
+    .lineTo(SHELL_IR, SHELL_HEIGHT)
+    .lineTo(SHELL_IR, Z_BOT + FLOOR)
+    .lineTo(0, Z_BOT + FLOOR)
+    .close()
+    .revolve(360, (0, 0, 0), (0, 1, 0))
 )
-cut_below = (
-    cq.Workplane("XY")
-    .box(OUTER_SHELL_OR * 3, OUTER_SHELL_OR * 3, PLAT_BOTTOM,
-         centered=(True, True, False), combine=False)
+
+ib_solids = inner_body.solids().vals()
+print(f"\nInner body: {len(ib_solids)} solid(s)")
+
+
+# ═══════════════════════════════════════════════════════
+# UPPER SHELL — Part B: Outer wall
+# ═══════════════════════════════════════════════════════
+#
+# Thin tube.  Starts at Z_CHAMFER_TOP - OVERLAP (overlaps with channel
+# chamfer for a reliable boolean union).
+
+outer_wall = (
+    cq.Workplane("XZ")
+    .moveTo(OUTER_SHELL_IR, Z_CHAMFER_TOP)
+    .lineTo(OUTER_SHELL_IR, SHELL_HEIGHT)
+    .lineTo(OUTER_SHELL_OR, SHELL_HEIGHT)
+    .lineTo(OUTER_SHELL_OR, Z_CHAMFER_TOP)
+    .close()
+    .revolve(360, (0, 0, 0), (0, 1, 0))
 )
 
-bottom_cup = result.cut(cut_above)
-upper_shell = result.cut(cut_below)
+ow_solids = outer_wall.solids().vals()
+print(f"Outer wall: {len(ow_solids)} solid(s)")
 
-# ── Step 5: Stacking channel on upper shell ──
-# Two concentric rings extending below PLAT_BOTTOM, with 45° chamfers
-# converging back to the normal outer wall above PLAT_BOTTOM.
-#
-# Cross-section (R horizontal, Z vertical):
-#
-#     OUTER_SHELL_IR ─────── OUTER_SHELL_OR          ← normal wall above chamfer
-#           /                         \               ← 45° chamfers
-#     R_INNER_IR─R_INNER_OR     R_OUTER_IR─R_OUTER_OR  ← rings at PLAT_BOTTOM
-#          |         2mm gap        |
-#     R_INNER_IR─R_INNER_OR     R_OUTER_IR─R_OUTER_OR  ← ring bottoms
-#
-# Profile traced as one closed polygon with the gap cut out:
 
-Z_BOT = PLAT_BOTTOM - CHANNEL_DEPTH
-Z_SPLIT = PLAT_BOTTOM
-Z_CHAMFER_TOP = PLAT_BOTTOM + CHAMFER_H
-Z_OVERLAP = Z_CHAMFER_TOP + 5  # extend into existing wall for clean union
+# ═══════════════════════════════════════════════════════
+# UPPER SHELL — Part C: Channel
+# ═══════════════════════════════════════════════════════
+#
+# Double ring with gap, plus 45-deg chamfers converging to outer wall.
+# Inner ring overlaps the floor at R_INNER_IR (shared edge).
+# Overlap zone above Z_CHAMFER_TOP extends into outer wall body.
+#
+# XZ cross-section (not to scale):
+#
+#                    OW_IR ─── OW_OR
+#                      │  wall  │            ← outer wall body (Part B)
+#   Z_OL_TOP   ═══════╧════════╧═══════     ← overlap into outer wall
+#                     /          \
+#   Z_CHAMFER_TOP   /   chamfer   \          ← 45 deg converging
+#                  /      45°      \
+#   Z_SPLIT     ring   2mm gap   ring        ← ring tops / gap
+#               ││                ││
+#   Z_BOT      ││                ││          ← ring bottoms
+#           R_INNER          R_OUTER
+#           IR  OR           IR  OR
+
+Z_OL_TOP = Z_CHAMFER_TOP + 5  # extend into outer wall for clean union
 
 channel = (
     cq.Workplane("XZ")
     # Inner ring inside face, going up
     .moveTo(R_INNER_IR, Z_BOT)
     .lineTo(R_INNER_IR, Z_SPLIT)
-    # 45° chamfer: inner face angles outward to meet normal wall
+    # 45-deg chamfer: inner face converges outward to meet outer wall
     .lineTo(OUTER_SHELL_IR, Z_CHAMFER_TOP)
-    # Up into existing wall (overlap zone for union)
-    .lineTo(OUTER_SHELL_IR, Z_OVERLAP)
-    .lineTo(OUTER_SHELL_OR, Z_OVERLAP)
-    # Back down to chamfer top on outer side
+    # Up into outer wall overlap zone
+    .lineTo(OUTER_SHELL_IR, Z_OL_TOP)
+    .lineTo(OUTER_SHELL_OR, Z_OL_TOP)
+    # Back down to chamfer on outer side
     .lineTo(OUTER_SHELL_OR, Z_CHAMFER_TOP)
-    # 45° chamfer: outer face angles outward to meet outer ring
+    # 45-deg chamfer: outer face diverges outward to meet outer ring
     .lineTo(R_OUTER_OR, Z_SPLIT)
-    # Down outer ring outside face
+    # Outer ring outside face, going down
     .lineTo(R_OUTER_OR, Z_BOT)
     # Across outer ring bottom
     .lineTo(R_OUTER_IR, Z_BOT)
-    # Up outer ring inside face (gap side)
+    # Outer ring inside face (gap side), going up
     .lineTo(R_OUTER_IR, Z_SPLIT)
-    # Across gap top
+    # 45-deg peaked ceiling across gap (self-supporting)
+    .lineTo((R_INNER_OR + R_OUTER_IR) / 2, Z_SPLIT + (R_OUTER_IR - R_INNER_OR) / 2)
     .lineTo(R_INNER_OR, Z_SPLIT)
-    # Down inner ring outside face (gap side)
+    # Inner ring outside face (gap side), going down
     .lineTo(R_INNER_OR, Z_BOT)
-    # Close back to start
+    # Close across inner ring bottom
     .close()
     .revolve(360, (0, 0, 0), (0, 1, 0))
 )
 
-channel_solids = channel.solids().vals()
-print(f"\nChannel: {len(channel_solids)} solid(s)")
+ch_solids = channel.solids().vals()
+print(f"Channel: {len(ch_solids)} solid(s)")
 
-upper_shell = upper_shell.union(channel, tol=0.05)
 
-# ── Step 6: Dividers in the channel/chamfer zone ──
-# The regular dividers (Step 2) already connect inner wall to outer wall
-# from Z=DIVIDER_BOTTOM to SHELL_HEIGHT. They reach to OUTER_SHELL_OR
-# (103.85), which is inside the chamfered wall material at all heights.
-# The channel rings below PLAT_BOTTOM are connected to the main wall
-# through the 360° chamfer — no additional dividers needed there.
-# The gap between rings must stay clear for the bottom cup to nest.
+# ═══════════════════════════════════════════════════════
+# UPPER SHELL — Union
+# ═══════════════════════════════════════════════════════
+
+upper_shell = inner_body.union(channel, tol=0.1)
+us_solids = upper_shell.solids().vals()
+print(f"\nAfter inner_body + channel: {len(us_solids)} solid(s)")
+
+upper_shell = upper_shell.union(outer_wall, tol=0.1)
+us_solids = upper_shell.solids().vals()
+print(f"After + outer_wall: {len(us_solids)} solid(s)")
+
+
+# ═══════════════════════════════════════════════════════
+# UPPER SHELL — Dividers
+# ═══════════════════════════════════════════════════════
+
+DIVIDER_ANGLES = [
+    -HALF_CRADLE,
+    HALF_CRADLE,
+    180.0 - HALF_CRADLE,
+    180.0 + HALF_CRADLE,
+]
+
+# Divider profile in the radial-Z plane (hexagon):
 #
-# No stub dividers needed. Removing the problematic ones from before.
+#   SHELL_HEIGHT ┌──────────────────────────┐ SHELL_HEIGHT
+#                │                          │
+#                │       divider slab       │
+#                │                          │
+#  Z_BOT+FLOOR/2├──────────┐               │
+#                           │  ramp up 45°  │
+#             SHELL_OR-OL   R_INNER_IR      │ Z_CHAMFER_TOP
+#                                           │
+#                              OUTER_SHELL_IR+OL
+#
+# Bottom is flat from inner wall to R_INNER_IR (sitting on the floor),
+# then ramps up at ~45° to Z_CHAMFER_TOP at OUTER_SHELL_IR (following
+# the chamfer slope so nothing protrudes into the groove).
 
-# (stub dividers removed — the regular dividers handle the connection)
+DIVIDER_FLOOR = Z_BOT + FLOOR / 2   # embed into actual floor
 
-# ── Diagnostics: verify cross-section ──
-print("\nUpper shell XZ profile check:")
-cut_plane = (
+# Divider profile (hexagon):
+#   Top:    flat from SHELL_OR to OUTER_SHELL_IR at SHELL_HEIGHT
+#   Bottom: flat from SHELL_OR to R_INNER_IR at DIVIDER_FLOOR (on the floor),
+#           then ramp following the chamfer from (R_INNER_IR, Z_SPLIT)
+#           to (OUTER_SHELL_IR, Z_CHAMFER_TOP) — exactly 45°
+
+for angle in DIVIDER_ANGLES:
+    div = (
+        cq.Workplane("XZ")
+        .moveTo(SHELL_OR - OVERLAP, DIVIDER_FLOOR)
+        .lineTo(SHELL_OR - OVERLAP, SHELL_HEIGHT)
+        .lineTo(OUTER_SHELL_IR + OVERLAP, SHELL_HEIGHT)
+        .lineTo(OUTER_SHELL_IR + OVERLAP, Z_CHAMFER_TOP)
+        .lineTo(R_INNER_IR, Z_SPLIT)
+        .lineTo(R_INNER_IR, DIVIDER_FLOOR)
+        .close()
+        .extrude(WALL / 2, both=True)
+    )
+    div = div.rotate((0, 0, 0), (0, 0, 1), angle)
+    upper_shell = upper_shell.union(div, tol=0.05)
+
+us_solids = upper_shell.solids().vals()
+print(f"After + dividers: {len(us_solids)} solid(s)")
+
+# ── Center floor hole (through upper shell floor) ──
+center_hole = (
     cq.Workplane("XY")
-    .box(300, 0.01, 300, centered=(True, True, True))
-    .translate((0, 0, 80))
+    .transformed(offset=(0, 0, Z_BOT - 1))
+    .circle(FOAM_HOLE_DIA / 2)
+    .extrude(FLOOR + 2)
 )
-try:
-    section = upper_shell.intersect(cut_plane)
-    verts = section.vertices().vals()
-    coords = sorted(set((round(v.X, 1), round(v.Z, 1)) for v in verts))
-    for x, z in coords:
-        if x > 0:  # just show positive X side
-            print(f"  R={x:6.1f}  Z={z:5.1f}")
-except Exception as e:
-    print(f"  Section failed: {e}")
+upper_shell = upper_shell.cut(center_hole)
 
-# ── Diagnostics ──
+
+# ═══════════════════════════════════════════════════════
+# DIAGNOSTICS
+# ═══════════════════════════════════════════════════════
+
 for name, part in [("Bottom cup", bottom_cup), ("Upper shell", upper_shell)]:
     solids = part.solids().vals()
     print(f"\n{name}: {len(solids)} solid(s)")
     for i, s in enumerate(solids):
-        sbb = s.BoundingBox()
-        print(f"  Solid {i}: X[{sbb.xmin:.1f},{sbb.xmax:.1f}] "
-              f"Y[{sbb.ymin:.1f},{sbb.ymax:.1f}] Z[{sbb.zmin:.1f},{sbb.zmax:.1f}]")
+        bb = s.BoundingBox()
+        print(f"  Solid {i}: X[{bb.xmin:.1f},{bb.xmax:.1f}] "
+              f"Y[{bb.ymin:.1f},{bb.ymax:.1f}] Z[{bb.zmin:.1f},{bb.zmax:.1f}]")
 
 print(f"\nZ levels:")
-print(f"  Z={Z_BOT:.1f}:       channel ring bottoms")
-print(f"  Z=0:           bottom floor bottom")
-print(f"  Z={FLOOR:.1f}:         bottom floor top")
-print(f"  Z={PLAT_BOTTOM:.1f}:        split line / channel ring tops")
-print(f"  Z={Z_CHAMFER_TOP:.1f}:        chamfer tops (back to normal wall)")
-print(f"  Z={PLATFORM_Z:.1f}:        platform top")
-print(f"  Z={SHELL_HEIGHT:.1f}:       shell top (open)")
+print(f"  Z={Z_BOT:.1f}:  channel ring bottoms / upper shell bed contact")
+print(f"  Z=0.0:  bottom cup floor")
+print(f"  Z={FLOOR:.1f}:  foam cavity bottom")
+print(f"  Z={PLAT_BOTTOM:.1f}: split line / ring tops / upper floor bottom")
+print(f"  Z={PLATFORM_Z:.1f}: upper floor top")
+print(f"  Z={Z_CHAMFER_TOP:.1f}: chamfer tops / outer wall starts")
+print(f"  Z={SHELL_HEIGHT:.1f}: shell top (open)")
 
-print(f"\nChannel radii:")
-print(f"  Inner ring: IR={R_INNER_IR:.1f}  OR={R_INNER_OR:.1f}")
-print(f"  Gap:        {R_INNER_OR:.1f} to {R_OUTER_IR:.1f}  ({R_OUTER_IR - R_INNER_OR:.1f}mm)")
-print(f"  Outer ring: IR={R_OUTER_IR:.1f}  OR={R_OUTER_OR:.1f}")
-print(f"  Normal wall: IR={OUTER_SHELL_IR:.1f}  OR={OUTER_SHELL_OR:.1f}")
+import math
 
-# ── Export STEP files ──
+# Cross-section through Y=0 (between dividers — shows walls/channel only)
+print("\n── XZ CROSS-SECTION at Y=0 (Z < 35) ──")
+slab_y0 = (
+    cq.Workplane("XY")
+    .box(300, 0.02, 300, centered=(True, True, True))
+    .translate((0, 0, 80))
+)
+try:
+    section = upper_shell.intersect(slab_y0)
+    verts = section.vertices().vals()
+    coords = sorted(set((round(v.X, 2), round(v.Z, 2)) for v in verts))
+    for x, z in coords:
+        if x > 0 and z < 35:
+            print(f"  R={x:7.2f}  Z={z:5.2f}")
+except Exception as e:
+    print(f"  Section failed: {e}")
+
+# Cross-section through first divider angle to see divider profile
+DIV_ANGLE_RAD = math.radians(DIVIDER_ANGLES[0])
+slab_div = (
+    cq.Workplane("XY")
+    .box(300, 0.02, 300, centered=(True, True, True))
+    .translate((0, 0, 80))
+    .rotate((0, 0, 0), (0, 0, 1), DIVIDER_ANGLES[0])
+)
+print(f"\n── CROSS-SECTION through divider at {DIVIDER_ANGLES[0]:.1f}° (Z < 35) ──")
+try:
+    section2 = upper_shell.intersect(slab_div)
+    verts2 = section2.vertices().vals()
+    # Project onto the radial direction for this angle
+    ca, sa = math.cos(DIV_ANGLE_RAD), math.sin(DIV_ANGLE_RAD)
+    coords2 = sorted(set(
+        (round(v.X * ca + v.Y * sa, 2), round(v.Z, 2))
+        for v in verts2
+    ))
+    for r, z in coords2:
+        if r > 0 and z < 35:
+            print(f"  R={r:7.2f}  Z={z:5.2f}")
+except Exception as e:
+    print(f"  Section failed: {e}")
+
+print(f"\nRadii:")
+print(f"  Inner wall:  {SHELL_IR:.2f} - {SHELL_OR:.2f}")
+print(f"  Floor to:    {R_INNER_IR:.2f}")
+print(f"  Inner ring:  {R_INNER_IR:.2f} - {R_INNER_OR:.2f}")
+print(f"  Gap:         {R_INNER_OR:.2f} - {R_OUTER_IR:.2f}  ({R_OUTER_IR - R_INNER_OR:.1f} mm)")
+print(f"  Outer ring:  {R_OUTER_IR:.2f} - {R_OUTER_OR:.2f}")
+print(f"  Outer wall:  {OUTER_SHELL_IR:.2f} - {OUTER_SHELL_OR:.2f}")
+
+
+# ═══════════════════════════════════════════════════════
+# EXPORT
+# ═══════════════════════════════════════════════════════
+
 out_dir = Path(__file__).resolve().parent
 
 bottom_path = out_dir / "foam-bag-shell-bottom.step"
