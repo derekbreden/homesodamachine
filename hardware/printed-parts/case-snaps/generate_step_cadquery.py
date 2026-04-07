@@ -47,7 +47,7 @@ top = make_box_shell()
 for wall_id, (inner_face, orientation_outward_sign, orientation_plane) in WALLS.items():
     bottom = apply_ramp_out_first(
         solid=bottom,
-        coordinate_inner_face=inner_face,
+        coordinate_inner_wall=inner_face,
         coordinate_zone_start=-ZONE_WIDTH / 2,
         coordinate_zone_end=ZONE_WIDTH / 2,
         coordinate_lowest_possible_snap_base_in_wall=BASE_PLATE,
@@ -57,7 +57,7 @@ for wall_id, (inner_face, orientation_outward_sign, orientation_plane) in WALLS.
     )
     top = apply_ramp_in_first(
         solid=top,
-        coordinate_inner_face=inner_face,
+        coordinate_inner_wall=inner_face,
         coordinate_zone_start=-ZONE_WIDTH / 2,
         coordinate_zone_end=ZONE_WIDTH / 2,
         coordinate_lowest_possible_snap_base_in_wall=BASE_PLATE,

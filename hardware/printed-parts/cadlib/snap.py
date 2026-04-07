@@ -54,7 +54,7 @@ def _pt(face, height, height_first):
 
 def apply_ramp_out_first(
         solid,
-        coordinate_inner_face,
+        coordinate_inner_wall,
         coordinate_zone_start,
         coordinate_zone_end,
         coordinate_lowest_possible_snap_base_in_wall,
@@ -70,7 +70,7 @@ def apply_ramp_out_first(
     The outer face grows outward to provide material for the channel.
     The channel is cut from the inner side of the wall.
     """
-    outer = coordinate_inner_face + orientation_outward_sign * WALL_THICKNESS
+    outer = coordinate_inner_wall + orientation_outward_sign * WALL_THICKNESS
     hd = orientation_height_sign
     hf = _height_is_first_axis(orientation_plane, orientation_height_axis)
     sign = orientation_outward_sign
@@ -90,14 +90,14 @@ def apply_ramp_out_first(
     snap_features_beyond_the_wall_height = max(0.0, tip_h - available_wall_height)
     snap_features_wall_consumption_height = snap_features_total_height - snap_features_beyond_the_wall_height
 
-    # Face-normal positions for bump and notch surfaces (offset from coordinate_inner_face)
+    # Face-normal positions for bump and notch surfaces (offset from coordinate_inner_wall)
     bump_offset = CHANNEL_WIDTH - bump_reach
     notch_offset = CHANNEL_WIDTH - NOTCH_WALL_WIDTH
-    bump_face = coordinate_inner_face + sign * bump_offset
-    notch_face = coordinate_inner_face + sign * (notch_offset + OVERCUT)
+    bump_face = coordinate_inner_wall + sign * bump_offset
+    notch_face = coordinate_inner_wall + sign * (notch_offset + OVERCUT)
 
     # Overcut boundaries
-    ic = coordinate_inner_face - sign * OVERCUT       # just past inner face
+    ic = coordinate_inner_wall - sign * OVERCUT       # just past inner face
     oi = outer - sign * OVERCUT                       # just inside outer face
 
     # 1. Growth ramp on outer face — trapezoid from ramp start to tip
@@ -145,7 +145,7 @@ def apply_ramp_out_first(
 
 def apply_ramp_in_first(
         solid,
-        coordinate_inner_face,
+        coordinate_inner_wall,
         coordinate_zone_start,
         coordinate_zone_end,
         coordinate_lowest_possible_snap_base_in_wall,
@@ -161,7 +161,7 @@ def apply_ramp_in_first(
     Bumps are on the outer side; notches are cut from the outer face.
     If bumps extend past the wall thickness, growth is added on the outer face.
     """
-    outer = coordinate_inner_face + orientation_outward_sign * WALL_THICKNESS
+    outer = coordinate_inner_wall + orientation_outward_sign * WALL_THICKNESS
     hd = orientation_height_sign
     hf = _height_is_first_axis(orientation_plane, orientation_height_axis)
     sign = orientation_outward_sign
@@ -181,12 +181,12 @@ def apply_ramp_in_first(
     snap_features_beyond_the_wall_height = max(0.0, tip_h - available_wall_height)
     snap_features_wall_consumption_height = snap_features_total_height - snap_features_beyond_the_wall_height
 
-    # Face-normal positions for bump and notch surfaces (offset from coordinate_inner_face)
-    bump_face = coordinate_inner_face + sign * bump_reach
-    notch_face = coordinate_inner_face + sign * NOTCH_WALL_WIDTH
+    # Face-normal positions for bump and notch surfaces (offset from coordinate_inner_wall)
+    bump_face = coordinate_inner_wall + sign * bump_reach
+    notch_face = coordinate_inner_wall + sign * NOTCH_WALL_WIDTH
 
     # Overcut boundaries
-    ic = coordinate_inner_face - sign * OVERCUT
+    ic = coordinate_inner_wall - sign * OVERCUT
 
     # If bumps extend past wall, add growth on outer face
     outer_growth = max(0.0, bump_reach - WALL_THICKNESS)
