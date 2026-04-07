@@ -15,17 +15,12 @@ The snap geometry determines how much wall it consumes and how far it
 extends beyond the wall, based on deflection.
 
 Deflection tuning:
-  RAMP_OUT_DEFLECTION — how far ramp_out_first bumps extend past channel center.
-  RAMP_IN_DEFLECTION  — how far ramp_in_first bumps extend past channel center.
-  Total interference at engagement = sum of both.
+  deflection_distance — total interference at engagement, split evenly
+  between both sides.  Each side's bumps extend past channel center by
+  deflection_distance / 2.
 """
 
 import cadquery as cq
-
-# ── Deflection tuning (change these two values) ──
-
-RAMP_OUT_DEFLECTION = 0.5
-RAMP_IN_DEFLECTION = 0.5
 
 # ── Snap geometry constants ──
 
@@ -63,6 +58,7 @@ def apply_ramp_out_first(
         orientation_plane,
         orientation_height_sign=1,
         orientation_height_axis="Z",
+        deflection_distance=1.0,
 ):
     """Apply ramp_out_first snap profile to a wall.
 
@@ -79,7 +75,7 @@ def apply_ramp_out_first(
 
     available_wall_height = (coordinate_top_of_wall - base) * hd
 
-    bump_reach = CHANNEL_WIDTH / 2 + RAMP_OUT_DEFLECTION
+    bump_reach = CHANNEL_WIDTH / 2 + deflection_distance / 2
     r = bump_reach - NOTCH_WALL_WIDTH                          # ramp height
     e = BUMP_HEIGHT
     f = RAMP_OUT_START
@@ -154,6 +150,7 @@ def apply_ramp_in_first(
         orientation_plane,
         orientation_height_sign=1,
         orientation_height_axis="Z",
+        deflection_distance=1.0,
 ):
     """Apply ramp_in_first snap profile to a wall.
 
@@ -170,7 +167,7 @@ def apply_ramp_in_first(
 
     available_wall_height = (coordinate_top_of_wall - base) * hd
 
-    bump_reach = CHANNEL_WIDTH / 2 + RAMP_IN_DEFLECTION
+    bump_reach = CHANNEL_WIDTH / 2 + deflection_distance / 2
     r = bump_reach - NOTCH_WALL_WIDTH                          # ramp height
     e = BUMP_HEIGHT
     s = RAMP_IN_START
