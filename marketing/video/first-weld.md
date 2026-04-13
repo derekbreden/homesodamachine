@@ -28,7 +28,7 @@ That's the script. The footage does the rest.
 
 **What not to do:** Don't edit to look competent. Edit to be interesting. If the first bead is terrible, show it. If the fifth one is better, show that too. "I've never welded, and I need to build a pressure vessel" is a hook that works on welding people, maker people, and soda-machine-curious people simultaneously.
 
-**Tier:** This is Tier 2 content (build-in-public, audience-building). The soda machine is the context, not the pitch. Build-in-public content has a shelf life — make it while it's fresh.
+**Tier:** This is Tier 2 content (build-in-public, audience-building). The soda machine is the context, not the pitch. Build-in-public content has a *capture* urgency — the moment is happening now, record it now. Publishing can wait. The footage doesn't expire; the opportunity to have the camera on your head during the actual first attempt does.
 
 ---
 
