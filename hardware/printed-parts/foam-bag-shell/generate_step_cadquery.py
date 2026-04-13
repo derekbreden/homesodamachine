@@ -415,39 +415,42 @@ print(f"After + inner channel (arcs): {len(us_solids)} solid(s)")
 # UPPER SHELL — Dividers
 # ═══════════════════════════════════════════════════════
 
-# Divider profile in the radial-Z plane (hexagon):
+# Divider profile in the radial-Z plane:
 #
-#   SHELL_HEIGHT ┌──────────────────────────┐ SHELL_HEIGHT
-#                │                          │
-#                │       divider slab       │
-#                │                          │
-#  Z_BOT+FLOOR/2├──────────┐               │
-#                           │  ramp up 45°  │
-#             SHELL_OR-OL   R_INNER_IR      │ Z_CHAMFER_TOP
-#                                           │
-#                              OUTER_SHELL_IR+OL
+#   SHELL_HEIGHT ┌──────────────────────────────────┐ SHELL_HEIGHT
+#                │          divider slab             │
+#   Z_CHAMFER_TOP├──┐                          ┌────┤ Z_CHAMFER_TOP
+#                    │ inner        outer       │
+#       Z_SPLIT      │ chamfer      chamfer    │
+#                    │                         │
+#  Z_BOT+FLOOR/2    └─────────────────────────┘ DIVIDER_FLOOR
+#          IC_OUTER_OR                    R_INNER_IR
+#   SHELL_OR-OL                              OUTER_SHELL_IR+OL
 #
-# Bottom is flat from inner wall to R_INNER_IR (sitting on the floor),
-# then ramps up at ~45° to Z_CHAMFER_TOP at OUTER_SHELL_IR (following
-# the chamfer slope so nothing protrudes into the groove).
+# Bottom follows both channel chamfer slopes:
+#   - Inner: from (SHELL_OR, Z_CHAMFER_TOP) to (IC_OUTER_OR, Z_SPLIT)
+#   - Drops to DIVIDER_FLOOR, flat across to R_INNER_IR
+#   - Outer: from (R_INNER_IR, Z_SPLIT) to (OUTER_SHELL_IR, Z_CHAMFER_TOP)
 
 DIVIDER_FLOOR = Z_BOT + FLOOR / 2   # embed into actual floor
-
-# Divider profile (hexagon):
-#   Top:    flat from SHELL_OR to OUTER_SHELL_IR at SHELL_HEIGHT
-#   Bottom: flat from SHELL_OR to R_INNER_IR at DIVIDER_FLOOR (on the floor),
-#           then ramp following the chamfer from (R_INNER_IR, Z_SPLIT)
-#           to (OUTER_SHELL_IR, Z_CHAMFER_TOP) — exactly 45°
 
 for angle in DIVIDER_ANGLES:
     div = (
         cq.Workplane("XZ")
-        .moveTo(SHELL_OR - OVERLAP, DIVIDER_FLOOR)
+        # Inner end: start above inner channel chamfer
+        .moveTo(SHELL_OR - OVERLAP, Z_CHAMFER_TOP)
         .lineTo(SHELL_OR - OVERLAP, SHELL_HEIGHT)
+        # Across top to outer end
         .lineTo(OUTER_SHELL_IR + OVERLAP, SHELL_HEIGHT)
+        # Outer channel ramp down
         .lineTo(OUTER_SHELL_IR + OVERLAP, Z_CHAMFER_TOP)
         .lineTo(R_INNER_IR, Z_SPLIT)
+        # Drop to floor, flat across
         .lineTo(R_INNER_IR, DIVIDER_FLOOR)
+        .lineTo(IC_OUTER_OR, DIVIDER_FLOOR)
+        # Inner channel ramp up
+        .lineTo(IC_OUTER_OR, Z_SPLIT)
+        .lineTo(SHELL_OR - OVERLAP, Z_CHAMFER_TOP)
         .close()
         .extrude(WALL / 2, both=True)
     )
