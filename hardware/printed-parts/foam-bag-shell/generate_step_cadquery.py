@@ -312,6 +312,30 @@ center_hole = (
 )
 upper_shell = upper_shell.cut(center_hole)
 
+# ── Cut bag cradle openings in the floor ──
+# Two arc-shaped slots through the floor at the cradle angles,
+# spanning from inner wall (SHELL_OR) to floor outer edge (R_INNER_IR).
+# Each cradle is centered at 0° and 180°, spanning ±HALF_CRADLE.
+
+for cradle_center in [0.0, 180.0]:
+    # Annular wedge: revolve a rectangle through the cradle arc
+    cradle_cut = (
+        cq.Workplane("XZ")
+        .moveTo(SHELL_OR + 0.1, Z_BOT - 0.1)
+        .lineTo(SHELL_OR + 0.1, Z_BOT + FLOOR + 0.1)
+        .lineTo(R_INNER_IR - 0.1, Z_BOT + FLOOR + 0.1)
+        .lineTo(R_INNER_IR - 0.1, Z_BOT - 0.1)
+        .close()
+        .revolve(CRADLE_ARC_DEG, (0, 0, 0), (0, 1, 0))
+    )
+    cradle_cut = cradle_cut.rotate(
+        (0, 0, 0), (0, 0, 1), cradle_center - HALF_CRADLE
+    )
+    upper_shell = upper_shell.cut(cradle_cut)
+
+us_solids = upper_shell.solids().vals()
+print(f"After cradle floor cuts: {len(us_solids)} solid(s)")
+
 
 # ═══════════════════════════════════════════════════════
 # DIAGNOSTICS
