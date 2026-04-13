@@ -127,7 +127,7 @@ for angle_deg in [90, 270]:  # 0° and 180° removed — bags sit there
 # The outer wall of the bottom cup is the 4th side.
 
 BC_WALL_BOTTOM = FLOOR / 2   # embed into foam floor
-BC_WALL_RADIAL_INNER = SHELL_OR              # start at outer face of arc wall
+BC_WALL_RADIAL_INNER = SHELL_IR               # overlap into arc wall for clean union
 BC_WALL_RADIAL_OUTER = OUTER_SHELL_IR + OVERLAP  # end at outer shell wall
 
 # Radial side walls (4 total, at divider angles)
@@ -145,9 +145,6 @@ for angle in DIVIDER_ANGLES:
     bottom_cup = bottom_cup.union(bc_div, tol=0.05)
 
 # Arc walls at the inner shell radius (one per bag zone)
-# Extend arc 1° past each divider so it overlaps with the radial walls
-ARC_WALL_EXTRA = 1.0
-ARC_WALL_DEG = CRADLE_ARC_DEG + 2 * ARC_WALL_EXTRA
 for cradle_center in [0.0, 180.0]:
     bc_arc = (
         cq.Workplane("XZ")
@@ -156,10 +153,10 @@ for cradle_center in [0.0, 180.0]:
         .lineTo(SHELL_OR, PLAT_BOTTOM)
         .lineTo(SHELL_OR, BC_WALL_BOTTOM)
         .close()
-        .revolve(ARC_WALL_DEG, (0, 0, 0), (0, 1, 0))
+        .revolve(CRADLE_ARC_DEG, (0, 0, 0), (0, 1, 0))
     )
     bc_arc = bc_arc.rotate(
-        (0, 0, 0), (0, 0, 1), cradle_center - ARC_WALL_DEG / 2
+        (0, 0, 0), (0, 0, 1), cradle_center - HALF_CRADLE
     )
     bottom_cup = bottom_cup.union(bc_arc, tol=0.05)
 
