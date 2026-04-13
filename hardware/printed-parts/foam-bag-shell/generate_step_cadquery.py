@@ -34,7 +34,7 @@ TANK_HEIGHT = 152.4
 SHELL_HEIGHT = TANK_HEIGHT + 10.0 + 3 * 25.4  # 238.6 mm (+3" for foam top + bag height)
 
 CRADLE_DEPTH = 25.0
-CRADLE_ARC_DEG = 105.0
+CRADLE_ARC_DEG = 90.7                       # reduced from 105° — bag width minus 1/2" at inner wall
 HALF_CRADLE = CRADLE_ARC_DEG / 2
 
 OUTER_SHELL_IR = SHELL_OR + CRADLE_DEPTH   # ~102.85 mm
