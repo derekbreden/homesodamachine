@@ -482,9 +482,9 @@ RC_GAP_HALF = WALL / 2 + CHANNEL_CLEARANCE          # 1.0 mm from center to gap 
 RC_RIDGE_HALF = RC_GAP_HALF + WALL                   # 2.0 mm from center to ridge outer
 RC_PEAK_Z = Z_SPLIT + RC_GAP_HALF                    # 27.4 (peaked ceiling at midpoint)
 
-# Radial extent: from inner channel outer ring to outer channel inner ring
-RC_R_INNER = IC_OUTER_OR    # 79.35
-RC_R_OUTER = R_INNER_IR     # 101.35
+# Radial extent: overlap into both arc channel ring zones for connection
+RC_R_INNER = IC_INNER_IR    # 75.35 — penetrate through inner channel rings
+RC_R_OUTER = R_OUTER_OR     # 105.35 — penetrate through outer channel rings
 RC_R_LEN = RC_R_OUTER - RC_R_INNER
 
 for angle in DIVIDER_ANGLES:
@@ -527,7 +527,10 @@ for angle in DIVIDER_ANGLES:
     peak_ceil = peak_ceil.rotate((0, 0, 0), (0, 0, 1), angle)
     upper_shell = upper_shell.union(peak_ceil, tol=0.05)
 
-    # Cut the gap: remove material between ridges from Z_BOT to peaked ceiling
+    # Cut the gap: only between the two arc channel zones (not through them)
+    RC_GAP_R_INNER = IC_OUTER_OR     # 79.35 — start outside inner channel
+    RC_GAP_R_OUTER = R_INNER_IR      # 101.35 — end inside outer channel
+    RC_GAP_R_LEN = RC_GAP_R_OUTER - RC_GAP_R_INNER
     gap_cut = (
         cq.Workplane("YZ")
         .moveTo(-RC_GAP_HALF, Z_BOT - 0.1)
@@ -536,8 +539,8 @@ for angle in DIVIDER_ANGLES:
         .lineTo(RC_GAP_HALF, Z_SPLIT)
         .lineTo(RC_GAP_HALF, Z_BOT - 0.1)
         .close()
-        .extrude(RC_R_LEN + 0.2)
-        .translate((RC_R_INNER - 0.1, 0, 0))
+        .extrude(RC_GAP_R_LEN + 0.2)
+        .translate((RC_GAP_R_INNER - 0.1, 0, 0))
     )
     gap_cut = gap_cut.rotate((0, 0, 0), (0, 0, 1), angle)
     upper_shell = upper_shell.cut(gap_cut)
