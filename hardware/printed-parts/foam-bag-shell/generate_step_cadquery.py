@@ -61,6 +61,14 @@ Z_CHAMFER_TOP = PLAT_BOTTOM + CHAMFER_H            # 27.9 mm
 
 OVERLAP = 1.0   # boolean overlap for reliable unions
 
+# Divider / internal wall angles (shared by both pieces)
+DIVIDER_ANGLES = [
+    -HALF_CRADLE,
+    HALF_CRADLE,
+    180.0 - HALF_CRADLE,
+    180.0 + HALF_CRADLE,
+]
+
 
 # ═══════════════════════════════════════════════════════
 # BOTTOM CUP
@@ -111,6 +119,28 @@ for angle_deg in [0, 90, 180, 270]:
     )
     diamond = diamond.rotate((0, 0, 0), (0, 0, 1), angle_deg)
     bottom_cup = bottom_cup.cut(diamond)
+
+# ── Internal walls to separate foam zones from bag zones ──
+# Same angles as upper shell dividers.  Span the foam cavity
+# from the foam floor (FLOOR) to the top of the cup (PLAT_BOTTOM),
+# radially from near-center to the outer wall.
+
+BC_WALL_BOTTOM = FLOOR / 2   # embed into foam floor
+BC_WALL_HEIGHT = PLAT_BOTTOM - BC_WALL_BOTTOM
+BC_WALL_RADIAL = OUTER_SHELL_IR + OVERLAP  # from center to outer wall
+
+for angle in DIVIDER_ANGLES:
+    bc_div = (
+        cq.Workplane("XZ")
+        .moveTo(0, BC_WALL_BOTTOM)
+        .lineTo(0, PLAT_BOTTOM)
+        .lineTo(BC_WALL_RADIAL, PLAT_BOTTOM)
+        .lineTo(BC_WALL_RADIAL, BC_WALL_BOTTOM)
+        .close()
+        .extrude(WALL / 2, both=True)
+    )
+    bc_div = bc_div.rotate((0, 0, 0), (0, 0, 1), angle)
+    bottom_cup = bottom_cup.union(bc_div, tol=0.05)
 
 bc_solids = bottom_cup.solids().vals()
 print(f"Bottom cup: {len(bc_solids)} solid(s)")
@@ -254,13 +284,6 @@ print(f"After + outer_wall: {len(us_solids)} solid(s)")
 # UPPER SHELL — Dividers
 # ═══════════════════════════════════════════════════════
 
-DIVIDER_ANGLES = [
-    -HALF_CRADLE,
-    HALF_CRADLE,
-    180.0 - HALF_CRADLE,
-    180.0 + HALF_CRADLE,
-]
-
 # Divider profile in the radial-Z plane (hexagon):
 #
 #   SHELL_HEIGHT ┌──────────────────────────┐ SHELL_HEIGHT
@@ -362,6 +385,26 @@ print(f"  Z={Z_CHAMFER_TOP:.1f}: chamfer tops / outer wall starts")
 print(f"  Z={SHELL_HEIGHT:.1f}: shell top (open)")
 
 import math
+
+# Bottom cup cross-section at Y=0 (cuts through bag zone + across internal walls)
+slab_bc = (
+    cq.Workplane("XY")
+    .box(300, 0.02, 300, centered=(True, True, True))
+    .translate((0, 0, 15))
+)
+print(f"\n── BOTTOM CUP cross-section at Y=0 (positive X, Z < 28) ──")
+try:
+    bc_sect = bottom_cup.intersect(slab_bc)
+    bc_verts = bc_sect.vertices().vals()
+    bc_coords = sorted(set(
+        (round(v.X, 2), round(v.Z, 2))
+        for v in bc_verts
+    ))
+    for r, z in bc_coords:
+        if r > 0 and z < 28:
+            print(f"  R={r:7.2f}  Z={z:5.2f}")
+except Exception as e:
+    print(f"  Section failed: {e}")
 
 # Cross-section through Y=0 (between dividers — shows walls/channel only)
 print("\n── XZ CROSS-SECTION at Y=0 (Z < 35) ──")
