@@ -460,6 +460,92 @@ for angle in DIVIDER_ANGLES:
 us_solids = upper_shell.solids().vals()
 print(f"After + dividers: {len(us_solids)} solid(s)")
 
+
+# ═══════════════════════════════════════════════════════
+# UPPER SHELL — Radial channel (divider wall lips)
+# ═══════════════════════════════════════════════════════
+#
+# Channel ridges straddle each bottom cup radial wall, running
+# radially from the inner channel outer ring to the outer channel
+# inner ring.  Same gap width and ring thickness as the other
+# channels (WALL + 2*CHANNEL_CLEARANCE = 2 mm gap, 1 mm ridges).
+#
+# Built as extruded slabs (like dividers) offset tangentially
+# from the divider centerline.
+#
+# Tangential offsets from divider center:
+#   gap inner edge:   WALL/2 + CHANNEL_CLEARANCE   = 1.0 mm
+#   gap outer edge:   -(WALL/2 + CHANNEL_CLEARANCE) = -1.0 mm
+#   ridge outer edge: WALL/2 + CHANNEL_CLEARANCE + WALL = 2.0 mm
+
+RC_GAP_HALF = WALL / 2 + CHANNEL_CLEARANCE          # 1.0 mm from center to gap edge
+RC_RIDGE_HALF = RC_GAP_HALF + WALL                   # 2.0 mm from center to ridge outer
+RC_PEAK_Z = Z_SPLIT + RC_GAP_HALF                    # 27.4 (peaked ceiling at midpoint)
+
+# Radial extent: from inner channel outer ring to outer channel inner ring
+RC_R_INNER = IC_OUTER_OR    # 79.35
+RC_R_OUTER = R_INNER_IR     # 101.35
+RC_R_LEN = RC_R_OUTER - RC_R_INNER
+
+for angle in DIVIDER_ANGLES:
+    # Channel body: two ridges + peaked ceiling + chamfers
+    # Profile in XZ plane, extruded tangentially.
+    # X = radial, Z = vertical.  Extrude in Y (tangential).
+    #
+    # The ridges run from RC_R_INNER to RC_R_OUTER in R,
+    # from Z_BOT to Z_SPLIT in Z.
+    # Chamfers at each end connect to inner/outer channel walls.
+    #
+    # For simplicity, build as two ridge slabs + peaked ceiling slab,
+    # then cut the gap.
+
+    # Ridge slab (one on each side of the divider)
+    for side in [+1, -1]:
+        ridge = (
+            cq.Workplane("XZ")
+            .moveTo(RC_R_INNER, Z_BOT)
+            .lineTo(RC_R_INNER, Z_SPLIT)
+            .lineTo(RC_R_OUTER, Z_SPLIT)
+            .lineTo(RC_R_OUTER, Z_BOT)
+            .close()
+            .extrude(WALL)
+            .translate((0, side * RC_GAP_HALF, 0))
+        )
+        ridge = ridge.rotate((0, 0, 0), (0, 0, 1), angle)
+        upper_shell = upper_shell.union(ridge, tol=0.05)
+
+    # Peaked ceiling: triangular wedge profile in YZ plane, extruded along R
+    peak_ceil = (
+        cq.Workplane("YZ")
+        .moveTo(-RC_GAP_HALF, Z_SPLIT)
+        .lineTo(0, RC_PEAK_Z)
+        .lineTo(RC_GAP_HALF, Z_SPLIT)
+        .close()
+        .extrude(RC_R_LEN)
+        .translate((RC_R_INNER, 0, 0))
+    )
+    peak_ceil = peak_ceil.rotate((0, 0, 0), (0, 0, 1), angle)
+    upper_shell = upper_shell.union(peak_ceil, tol=0.05)
+
+    # Cut the gap: remove material between ridges from Z_BOT to peaked ceiling
+    gap_cut = (
+        cq.Workplane("YZ")
+        .moveTo(-RC_GAP_HALF, Z_BOT - 0.1)
+        .lineTo(-RC_GAP_HALF, Z_SPLIT)
+        .lineTo(0, RC_PEAK_Z)
+        .lineTo(RC_GAP_HALF, Z_SPLIT)
+        .lineTo(RC_GAP_HALF, Z_BOT - 0.1)
+        .close()
+        .extrude(RC_R_LEN + 0.2)
+        .translate((RC_R_INNER - 0.1, 0, 0))
+    )
+    gap_cut = gap_cut.rotate((0, 0, 0), (0, 0, 1), angle)
+    upper_shell = upper_shell.cut(gap_cut)
+
+us_solids = upper_shell.solids().vals()
+print(f"After + radial channel: {len(us_solids)} solid(s)")
+
+
 # ── Center floor hole (through upper shell floor) ──
 center_hole = (
     cq.Workplane("XY")
