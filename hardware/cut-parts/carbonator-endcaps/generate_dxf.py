@@ -1,10 +1,10 @@
 """
 Carbonator end cap DXFs for SendCutSend.
 
-Generates three disc variants:
-  1. Top cap — 3 holes for 1/4" NPT weld bungs (CO2 in, water in, PRV)
-  2. Bottom cap — 1 centered hole for 1/4" NPT weld bung (carbonated water out)
-  3. Blank — no holes (spare / weld practice)
+Generates two disc variants:
+  1. Top cap — 4 holes for 1/4" NPT weld bungs
+     (CO2 in, water in, carbonated water out via dip tube, PRV)
+  2. Bottom cap — blank, no holes
 
 Material: 304 stainless steel, 0.250" (1/4") thick
 Disc diameter: 4.860" (fits inside 5.000" OD x 0.065" wall tube, ID = 4.870")
@@ -16,14 +16,16 @@ SendCutSend compensates for kerf automatically — draw nominal dimensions.
 Weld bung: 1/4" NPT female, 304 SS, stepped body OD 0.700", flange OD 1.000"
 The body drops through the hole; the flange sits on the disc surface and is fillet-welded.
 
-Top cap port layout (120° spacing on 1.0" bolt circle radius):
-  - Position 1 (0°):   CO2 inlet
-  - Position 2 (120°): Water inlet (atomization nozzle threads in from inside)
-  - Position 3 (240°): PRV (pressure relief valve)
+Top cap port layout (90° spacing on 1.0" bolt circle radius):
+  - Position 1 (0°):   CO2 inlet (headspace)
+  - Position 2 (90°):  Water inlet (atomization nozzle threads in from inside)
+  - Position 3 (180°): Carbonated water outlet (dip tube to near bottom)
+  - Position 4 (270°): PRV (pressure relief valve)
 
-The 1.0" bolt circle keeps all flanges (1.0" OD) clear of each other
-(center-to-center = 1.732", minus 1.0" = 0.732" gap) and clear of the disc
-edge (disc radius 2.430" - bolt radius 1.0" - flange radius 0.5" = 0.930").
+Clearance check at 90° spacing on 1.0" bolt circle:
+  - Center-to-center between adjacent holes: 2 * 1.0 * sin(45°) = 1.414"
+  - Minus two flange radii (0.5" + 0.5"): 0.414" gap between flanges — clears
+  - Flange edge to disc edge: 2.430" - 1.0" - 0.5" = 0.930" — clears
 """
 
 import math
@@ -40,7 +42,7 @@ HOLE_DIA = 0.710       # weld bung through-hole
 HOLE_R = HOLE_DIA / 2  # 0.355"
 
 BOLT_CIRCLE_R = 1.000  # radial distance from disc center to hole centers
-PORT_ANGLES_DEG = [0, 120, 240]  # top cap hole positions
+PORT_ANGLES_DEG = [0, 90, 180, 270]  # top cap hole positions
 
 OUT_DIR = Path(__file__).resolve().parent
 
@@ -68,7 +70,7 @@ def make_disc(name: str, holes: list[tuple[float, float]]) -> None:
     print(f"Exported: {path}  ({len(holes)} hole(s))")
 
 
-# ── Top cap: 3 holes at 120° on bolt circle ──
+# ── Top cap: 4 holes at 90° on bolt circle ──
 
 top_holes = []
 for deg in PORT_ANGLES_DEG:
@@ -76,15 +78,11 @@ for deg in PORT_ANGLES_DEG:
     top_holes.append((BOLT_CIRCLE_R * math.cos(rad),
                        BOLT_CIRCLE_R * math.sin(rad)))
 
-make_disc("endcap-top-3hole", top_holes)
+make_disc("endcap-top-4hole", top_holes)
 
-# ── Bottom cap: 1 centered hole ──
+# ── Bottom cap: blank ──
 
-make_disc("endcap-bottom-1hole", [(0.0, 0.0)])
-
-# ── Blank disc: no holes ──
-
-make_disc("endcap-blank", [])
+make_disc("endcap-bottom-blank", [])
 
 print(f"\nDisc diameter: {DISC_DIA}\"")
 print(f"Hole diameter: {HOLE_DIA}\"")
