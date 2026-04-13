@@ -167,28 +167,26 @@ for i, s in enumerate(bc_solids):
     print(f"  Solid {i}: X[{bb.xmin:.1f},{bb.xmax:.1f}] "
           f"Y[{bb.ymin:.1f},{bb.ymax:.1f}] Z[{bb.zmin:.1f},{bb.zmax:.1f}]")
 
-# Cross-section through bottom cup at a divider angle to verify radial wall extent
+# Horizontal cross-section (top-down view) through bottom cup foam cavity
 import math
-_bc_div_angle = DIVIDER_ANGLES[0]  # -45.35°
-_bc_div_rad = math.radians(_bc_div_angle)
-_bc_slab = (
+_bc_mid_z = FLOOR + FLOOR_FOAM_GAP / 2  # mid-height of foam cavity
+_bc_hz_slab = (
     cq.Workplane("XY")
-    .box(300, 0.02, 300, centered=(True, True, True))
-    .translate((0, 0, 15))
-    .rotate((0, 0, 0), (0, 0, 1), _bc_div_angle)
+    .box(300, 300, 0.5, centered=(True, True, True))
+    .translate((0, 0, _bc_mid_z))
 )
-print(f"\n── BOTTOM CUP cross-section at divider {_bc_div_angle:.1f}° (positive R) ──")
+print(f"\n── BOTTOM CUP top-down at Z={_bc_mid_z:.1f} (XY coords) ──")
 try:
-    _bc_sect = bottom_cup.intersect(_bc_slab)
-    _bc_verts = _bc_sect.vertices().vals()
-    _ca, _sa = math.cos(_bc_div_rad), math.sin(_bc_div_rad)
-    _bc_coords = sorted(set(
-        (round(v.X * _ca + v.Y * _sa, 2), round(v.Z, 2))
-        for v in _bc_verts
+    _bc_hz = bottom_cup.intersect(_bc_hz_slab)
+    _bc_hz_verts = _bc_hz.vertices().vals()
+    _bc_hz_coords = sorted(set(
+        (round(v.X, 2), round(v.Y, 2))
+        for v in _bc_hz_verts
     ))
-    for r, z in _bc_coords:
-        if r > 0:
-            print(f"  R={r:7.2f}  Z={z:5.2f}")
+    for x, y in _bc_hz_coords:
+        r = math.sqrt(x**2 + y**2)
+        ang = math.degrees(math.atan2(y, x))
+        print(f"  X={x:8.2f}  Y={y:8.2f}  (R={r:6.2f}, θ={ang:7.2f}°)")
 except Exception as e:
     print(f"  Section failed: {e}")
 
