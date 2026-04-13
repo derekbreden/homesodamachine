@@ -2,7 +2,11 @@ Derek didn't ask for a Word doc — he asked for a synopsis inline. Let me write
 
 **Carbonation subsystem**
 
-The carbonator tank is a custom-fabricated 304 stainless steel cylinder, 1/16" wall thickness, 5" outer diameter, 6" length, with three welded NPT ports: CO2 in (top, into headspace), water in (top, atomized into headspace), carbonated water out (bottom or dip tube). The 5" diameter keeps it under the ASME Section VIII 6" exemption, eliminating pressure vessel certification requirements. A pressure relief valve tees off one of the top ports.
+The carbonator tank is a custom-fabricated 304 stainless steel cylinder, 1/16" (0.065") wall thickness, 5" outer diameter, 6" length. End caps are 1/4" (0.250") 304 SS flat discs, laser-cut by SendCutSend, sized to slip-fit inside the tube (4.860" diameter into 4.870" bore). The end caps are welded from the outside through the tube wall using an 800W fiber laser welder with ER308L filler wire.
+
+All four ports are on the top end cap, via 1/4" NPT female weld bungs (body OD 0.700", flange OD 1.000") fillet-welded to the disc: CO2 in (headspace), water in (atomized into headspace via spiral cone nozzle), carbonated water out (dip tube extending to near-bottom), and a dedicated pressure relief valve port (100 PSI, ASME rated). The bottom end cap is a solid blank — no penetrations. The 5" diameter keeps it under the ASME Section VIII 6" exemption, eliminating pressure vessel certification requirements.
+
+After welding, the vessel interior is passivated with a citric acid soak (4-10% concentration, warm water, 30-60 minutes) to restore the chromium oxide layer on heat-affected zones. The vessel is then hydro-tested to 105 PSI (1.5x working pressure) for 30 minutes before service.
 
 CO2 supply is a standard regulated bottle, set to approximately 60-70 PSI, feeding directly into the tank headspace through the CO2 port.
 
