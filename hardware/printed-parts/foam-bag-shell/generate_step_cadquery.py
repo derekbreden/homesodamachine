@@ -55,6 +55,12 @@ R_OUTER_OR = R_OUTER_IR + WALL                      # outer ring outer face
 
 CHAMFER_H = WALL + CHANNEL_CLEARANCE               # 1.5 mm (45 deg)
 
+# Inner channel radii (straddle the inner wall / arc wall at SHELL_IR-SHELL_OR)
+IC_INNER_OR = SHELL_IR - CHANNEL_CLEARANCE          # 76.35
+IC_INNER_IR = IC_INNER_OR - WALL                     # 75.35
+IC_OUTER_IR = SHELL_OR + CHANNEL_CLEARANCE           # 78.35
+IC_OUTER_OR = IC_OUTER_IR + WALL                     # 79.35
+
 Z_BOT = PLAT_BOTTOM - CHANNEL_DEPTH                # 23.4 mm
 Z_SPLIT = PLAT_BOTTOM                               # 26.4 mm
 Z_CHAMFER_TOP = PLAT_BOTTOM + CHAMFER_H            # 27.9 mm
@@ -322,6 +328,90 @@ print(f"After + outer_wall: {len(us_solids)} solid(s)")
 
 
 # ═══════════════════════════════════════════════════════
+# UPPER SHELL — Inner channel (arc wall lips)
+# ═══════════════════════════════════════════════════════
+#
+# Same profile as the outer channel, but at the inner wall radii
+# and only spanning the cradle arcs (0° and 180°).
+# These rings on the upper shell straddle the bottom cup's arc walls.
+#
+# XZ cross-section (same shape as outer channel):
+#
+#                  SHELL_IR ─── SHELL_OR
+#                     │   wall   │             ← inner wall (Part A)
+#   IC_OL_TOP  ══════╧═════════╧══════        ← overlap into inner wall
+#                    /            \
+#   Z_CHAMFER_TOP  /    chamfer    \           ← 45 deg converging
+#                 /       45°       \
+#   Z_SPLIT     ring    2mm gap    ring        ← ring tops / peaked gap ceiling
+#               ││                  ││
+#   Z_BOT      ││                  ││          ← ring bottoms
+#           IC_INNER            IC_OUTER
+#           IR   OR             IR   OR
+
+IC_OL_TOP = Z_CHAMFER_TOP + 5  # overlap into inner wall for clean union
+
+for cradle_center in [0.0, 180.0]:
+    # Channel body: rings + chamfers + peaked gap ceiling
+    ic_channel = (
+        cq.Workplane("XZ")
+        # Inner ring inside face, going up
+        .moveTo(IC_INNER_IR, Z_BOT)
+        .lineTo(IC_INNER_IR, Z_SPLIT)
+        # 45-deg chamfer: converges outward to inner wall
+        .lineTo(SHELL_IR, Z_CHAMFER_TOP)
+        # Up into inner wall overlap zone
+        .lineTo(SHELL_IR, IC_OL_TOP)
+        .lineTo(SHELL_OR, IC_OL_TOP)
+        # Back down to chamfer on outer side
+        .lineTo(SHELL_OR, Z_CHAMFER_TOP)
+        # 45-deg chamfer: converges inward to outer ring
+        .lineTo(IC_OUTER_OR, Z_SPLIT)
+        # Outer ring outside face, going down
+        .lineTo(IC_OUTER_OR, Z_BOT)
+        # Across outer ring bottom
+        .lineTo(IC_OUTER_IR, Z_BOT)
+        # Outer ring inside face (gap side), going up
+        .lineTo(IC_OUTER_IR, Z_SPLIT)
+        # 45-deg peaked ceiling across gap (self-supporting)
+        .lineTo((IC_INNER_OR + IC_OUTER_IR) / 2,
+                Z_SPLIT + (IC_OUTER_IR - IC_INNER_OR) / 2)
+        .lineTo(IC_INNER_OR, Z_SPLIT)
+        # Inner ring outside face (gap side), going down
+        .lineTo(IC_INNER_OR, Z_BOT)
+        # Close across inner ring bottom
+        .close()
+        .revolve(CRADLE_ARC_DEG, (0, 0, 0), (0, 1, 0))
+    )
+    ic_channel = ic_channel.rotate(
+        (0, 0, 0), (0, 0, 1), cradle_center - HALF_CRADLE
+    )
+    upper_shell = upper_shell.union(ic_channel, tol=0.1)
+
+    # Cut the gap in the inner wall: remove material between rings
+    # so the bottom cup's arc wall can slot in.
+    # Profile traces the gap interior up to the peaked ceiling.
+    ic_gap = (
+        cq.Workplane("XZ")
+        .moveTo(IC_INNER_OR, Z_BOT - 0.1)
+        .lineTo(IC_INNER_OR, Z_SPLIT)
+        .lineTo((IC_INNER_OR + IC_OUTER_IR) / 2,
+                Z_SPLIT + (IC_OUTER_IR - IC_INNER_OR) / 2)
+        .lineTo(IC_OUTER_IR, Z_SPLIT)
+        .lineTo(IC_OUTER_IR, Z_BOT - 0.1)
+        .close()
+        .revolve(CRADLE_ARC_DEG, (0, 0, 0), (0, 1, 0))
+    )
+    ic_gap = ic_gap.rotate(
+        (0, 0, 0), (0, 0, 1), cradle_center - HALF_CRADLE
+    )
+    upper_shell = upper_shell.cut(ic_gap)
+
+us_solids = upper_shell.solids().vals()
+print(f"After + inner channel (arcs): {len(us_solids)} solid(s)")
+
+
+# ═══════════════════════════════════════════════════════
 # UPPER SHELL — Dividers
 # ═══════════════════════════════════════════════════════
 
@@ -388,8 +478,8 @@ CUT_ARC = CRADLE_ARC_DEG - 2 * DIVIDER_ANGULAR_CLEARANCE
 for cradle_center in [0.0, 180.0]:
     cradle_cut = (
         cq.Workplane("XZ")
-        .moveTo(SHELL_OR + 0.1, Z_BOT - 0.1)
-        .lineTo(SHELL_OR + 0.1, Z_BOT + FLOOR + 0.1)
+        .moveTo(IC_OUTER_OR + 0.1, Z_BOT - 0.1)
+        .lineTo(IC_OUTER_OR + 0.1, Z_BOT + FLOOR + 0.1)
         .lineTo(R_INNER_IR - 0.1, Z_BOT + FLOOR + 0.1)
         .lineTo(R_INNER_IR - 0.1, Z_BOT - 0.1)
         .close()
