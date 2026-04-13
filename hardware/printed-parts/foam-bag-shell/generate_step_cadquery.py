@@ -316,9 +316,12 @@ upper_shell = upper_shell.cut(center_hole)
 # Two arc-shaped slots through the floor at the cradle angles,
 # spanning from inner wall (SHELL_OR) to floor outer edge (R_INNER_IR).
 # Each cradle is centered at 0° and 180°, spanning ±HALF_CRADLE.
+# Inset by ~1° on each side to preserve floor under the dividers.
+
+DIVIDER_ANGULAR_CLEARANCE = 1.0  # degrees inset from each divider
+CUT_ARC = CRADLE_ARC_DEG - 2 * DIVIDER_ANGULAR_CLEARANCE
 
 for cradle_center in [0.0, 180.0]:
-    # Annular wedge: revolve a rectangle through the cradle arc
     cradle_cut = (
         cq.Workplane("XZ")
         .moveTo(SHELL_OR + 0.1, Z_BOT - 0.1)
@@ -326,10 +329,10 @@ for cradle_center in [0.0, 180.0]:
         .lineTo(R_INNER_IR - 0.1, Z_BOT + FLOOR + 0.1)
         .lineTo(R_INNER_IR - 0.1, Z_BOT - 0.1)
         .close()
-        .revolve(CRADLE_ARC_DEG, (0, 0, 0), (0, 1, 0))
+        .revolve(CUT_ARC, (0, 0, 0), (0, 1, 0))
     )
     cradle_cut = cradle_cut.rotate(
-        (0, 0, 0), (0, 0, 1), cradle_center - HALF_CRADLE
+        (0, 0, 0), (0, 0, 1), cradle_center - CUT_ARC / 2
     )
     upper_shell = upper_shell.cut(cradle_cut)
 
@@ -377,15 +380,43 @@ try:
 except Exception as e:
     print(f"  Section failed: {e}")
 
-# Cross-section through first divider angle to see divider profile
-DIV_ANGLE_RAD = math.radians(DIVIDER_ANGLES[0])
+# Cross-sections around the first divider to see floor vs cut boundary
+DIV_ANGLE = DIVIDER_ANGLES[0]  # -45.35°
+for label, angle in [
+    (f"divider at {DIV_ANGLE:.1f}°", DIV_ANGLE),
+    (f"cradle side at {DIV_ANGLE + 2:.1f}°", DIV_ANGLE + 2),
+    (f"gap side at {DIV_ANGLE - 2:.1f}°", DIV_ANGLE - 2),
+]:
+    angle_rad = math.radians(angle)
+    slab_test = (
+        cq.Workplane("XY")
+        .box(300, 0.02, 300, centered=(True, True, True))
+        .translate((0, 0, 80))
+        .rotate((0, 0, 0), (0, 0, 1), angle)
+    )
+    print(f"\n── CROSS-SECTION {label} (Z < 30, R=70-110) ──")
+    try:
+        section_test = upper_shell.intersect(slab_test)
+        verts_test = section_test.vertices().vals()
+        ca, sa = math.cos(angle_rad), math.sin(angle_rad)
+        coords_test = sorted(set(
+            (round(v.X * ca + v.Y * sa, 2), round(v.Z, 2))
+            for v in verts_test
+        ))
+        for r, z in coords_test:
+            if 70 < r < 110 and z < 30:
+                print(f"  R={r:7.2f}  Z={z:5.2f}")
+    except Exception as e:
+        print(f"  Section failed: {e}")
+
+DIV_ANGLE_RAD = math.radians(DIV_ANGLE)
 slab_div = (
     cq.Workplane("XY")
     .box(300, 0.02, 300, centered=(True, True, True))
     .translate((0, 0, 80))
-    .rotate((0, 0, 0), (0, 0, 1), DIVIDER_ANGLES[0])
+    .rotate((0, 0, 0), (0, 0, 1), DIV_ANGLE)
 )
-print(f"\n── CROSS-SECTION through divider at {DIVIDER_ANGLES[0]:.1f}° (Z < 35) ──")
+print(f"\n── FULL CROSS-SECTION through divider at {DIV_ANGLE:.1f}° (Z < 35) ──")
 try:
     section2 = upper_shell.intersect(slab_div)
     verts2 = section2.vertices().vals()
