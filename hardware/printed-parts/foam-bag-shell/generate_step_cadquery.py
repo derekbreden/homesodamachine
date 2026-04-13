@@ -106,7 +106,7 @@ FOAM_HOLE_DIA = 8.0
 DIAMOND_SIZE = 10.0
 FOAM_MID_Z = FLOOR + FLOOR_FOAM_GAP / 2
 
-for angle_deg in [0, 90, 180, 270]:
+for angle_deg in [90, 270]:  # 0° and 180° removed — bags sit there
     diamond = (
         cq.Workplane("YZ")
         .transformed(offset=(0, 0, OUTER_SHELL_IR - 2))
@@ -120,27 +120,45 @@ for angle_deg in [0, 90, 180, 270]:
     diamond = diamond.rotate((0, 0, 0), (0, 0, 1), angle_deg)
     bottom_cup = bottom_cup.cut(diamond)
 
-# ── Internal walls to separate foam zones from bag zones ──
-# Same angles as upper shell dividers.  Span the foam cavity
-# from the foam floor (FLOOR) to the top of the cup (PLAT_BOTTOM),
-# radially from near-center to the outer wall.
+# ── Internal walls to form bag pockets ──
+# Each bag zone (at 0° and 180°) gets 3 walls forming a pocket:
+#   - 2 radial side walls at ±HALF_CRADLE (same angles as dividers)
+#   - 1 arc wall at the inner shell radius spanning the cradle arc
+# The outer wall of the bottom cup is the 4th side.
 
 BC_WALL_BOTTOM = FLOOR / 2   # embed into foam floor
-BC_WALL_HEIGHT = PLAT_BOTTOM - BC_WALL_BOTTOM
-BC_WALL_RADIAL = OUTER_SHELL_IR + OVERLAP  # from center to outer wall
+BC_WALL_RADIAL_INNER = SHELL_OR              # start at outer face of arc wall
+BC_WALL_RADIAL_OUTER = OUTER_SHELL_IR + OVERLAP  # end at outer shell wall
 
+# Radial side walls (4 total, at divider angles)
 for angle in DIVIDER_ANGLES:
     bc_div = (
         cq.Workplane("XZ")
-        .moveTo(0, BC_WALL_BOTTOM)
-        .lineTo(0, PLAT_BOTTOM)
-        .lineTo(BC_WALL_RADIAL, PLAT_BOTTOM)
-        .lineTo(BC_WALL_RADIAL, BC_WALL_BOTTOM)
+        .moveTo(BC_WALL_RADIAL_INNER, BC_WALL_BOTTOM)
+        .lineTo(BC_WALL_RADIAL_INNER, PLAT_BOTTOM)
+        .lineTo(BC_WALL_RADIAL_OUTER, PLAT_BOTTOM)
+        .lineTo(BC_WALL_RADIAL_OUTER, BC_WALL_BOTTOM)
         .close()
         .extrude(WALL / 2, both=True)
     )
     bc_div = bc_div.rotate((0, 0, 0), (0, 0, 1), angle)
     bottom_cup = bottom_cup.union(bc_div, tol=0.05)
+
+# Arc walls at the inner shell radius (one per bag zone)
+for cradle_center in [0.0, 180.0]:
+    bc_arc = (
+        cq.Workplane("XZ")
+        .moveTo(SHELL_IR, BC_WALL_BOTTOM)
+        .lineTo(SHELL_IR, PLAT_BOTTOM)
+        .lineTo(SHELL_OR, PLAT_BOTTOM)
+        .lineTo(SHELL_OR, BC_WALL_BOTTOM)
+        .close()
+        .revolve(CRADLE_ARC_DEG, (0, 0, 0), (0, 1, 0))
+    )
+    bc_arc = bc_arc.rotate(
+        (0, 0, 0), (0, 0, 1), cradle_center - HALF_CRADLE
+    )
+    bottom_cup = bottom_cup.union(bc_arc, tol=0.05)
 
 bc_solids = bottom_cup.solids().vals()
 print(f"Bottom cup: {len(bc_solids)} solid(s)")
@@ -148,6 +166,31 @@ for i, s in enumerate(bc_solids):
     bb = s.BoundingBox()
     print(f"  Solid {i}: X[{bb.xmin:.1f},{bb.xmax:.1f}] "
           f"Y[{bb.ymin:.1f},{bb.ymax:.1f}] Z[{bb.zmin:.1f},{bb.zmax:.1f}]")
+
+# Cross-section through bottom cup at a divider angle to verify radial wall extent
+import math
+_bc_div_angle = DIVIDER_ANGLES[0]  # -45.35°
+_bc_div_rad = math.radians(_bc_div_angle)
+_bc_slab = (
+    cq.Workplane("XY")
+    .box(300, 0.02, 300, centered=(True, True, True))
+    .translate((0, 0, 15))
+    .rotate((0, 0, 0), (0, 0, 1), _bc_div_angle)
+)
+print(f"\n── BOTTOM CUP cross-section at divider {_bc_div_angle:.1f}° (positive R) ──")
+try:
+    _bc_sect = bottom_cup.intersect(_bc_slab)
+    _bc_verts = _bc_sect.vertices().vals()
+    _ca, _sa = math.cos(_bc_div_rad), math.sin(_bc_div_rad)
+    _bc_coords = sorted(set(
+        (round(v.X * _ca + v.Y * _sa, 2), round(v.Z, 2))
+        for v in _bc_verts
+    ))
+    for r, z in _bc_coords:
+        if r > 0:
+            print(f"  R={r:7.2f}  Z={z:5.2f}")
+except Exception as e:
+    print(f"  Section failed: {e}")
 
 
 # ═══════════════════════════════════════════════════════
