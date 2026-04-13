@@ -31,7 +31,7 @@ SHELL_IR = COLD_CORE_OR + INNER_FOAM_GAP  # ~76.85 mm
 SHELL_OR = SHELL_IR + WALL                # ~77.85 mm
 
 TANK_HEIGHT = 152.4
-SHELL_HEIGHT = TANK_HEIGHT + 10.0          # 162.4 mm
+SHELL_HEIGHT = TANK_HEIGHT + 10.0 + 3 * 25.4  # 238.6 mm (+3" for foam top + bag height)
 
 CRADLE_DEPTH = 25.0
 CRADLE_ARC_DEG = 105.0
