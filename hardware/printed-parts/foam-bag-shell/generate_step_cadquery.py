@@ -145,6 +145,9 @@ for angle in DIVIDER_ANGLES:
     bottom_cup = bottom_cup.union(bc_div, tol=0.05)
 
 # Arc walls at the inner shell radius (one per bag zone)
+# Extend arc 1° past each divider so it overlaps with the radial walls
+ARC_WALL_EXTRA = 1.0
+ARC_WALL_DEG = CRADLE_ARC_DEG + 2 * ARC_WALL_EXTRA
 for cradle_center in [0.0, 180.0]:
     bc_arc = (
         cq.Workplane("XZ")
@@ -153,10 +156,10 @@ for cradle_center in [0.0, 180.0]:
         .lineTo(SHELL_OR, PLAT_BOTTOM)
         .lineTo(SHELL_OR, BC_WALL_BOTTOM)
         .close()
-        .revolve(CRADLE_ARC_DEG, (0, 0, 0), (0, 1, 0))
+        .revolve(ARC_WALL_DEG, (0, 0, 0), (0, 1, 0))
     )
     bc_arc = bc_arc.rotate(
-        (0, 0, 0), (0, 0, 1), cradle_center - HALF_CRADLE
+        (0, 0, 0), (0, 0, 1), cradle_center - ARC_WALL_DEG / 2
     )
     bottom_cup = bottom_cup.union(bc_arc, tol=0.05)
 
