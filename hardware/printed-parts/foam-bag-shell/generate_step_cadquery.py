@@ -529,14 +529,7 @@ for angle in DIVIDER_ANGLES:
     rc_body = rc_body.rotate((0, 0, 0), (0, 0, 1), angle)
     upper_shell = upper_shell.union(rc_body, tol=0.05)
 
-    # Cut the gap: remove material between ridges.
-    # Gap cut extends THROUGH the arc ring zones (unlike the body) so
-    # the groove connects at the corners.  This cuts notches in the arc
-    # rings at each divider angle without adding ridge material into
-    # the arc gap zones.
-    RC_GAP_R_INNER = IC_INNER_OR    # 76.35 — into inner arc gap
-    RC_GAP_R_OUTER = R_OUTER_IR     # 104.35 — into outer arc gap
-    RC_GAP_R_LEN = RC_GAP_R_OUTER - RC_GAP_R_INNER
+    # Cut the gap: remove material between ridges (same extent as body).
     rc_gap = (
         cq.Workplane("YZ")
         .moveTo(-RC_GAP_HALF, Z_BOT - 0.1)
@@ -545,11 +538,29 @@ for angle in DIVIDER_ANGLES:
         .lineTo(RC_GAP_HALF, Z_SPLIT)
         .lineTo(RC_GAP_HALF, Z_BOT - 0.1)
         .close()
-        .extrude(RC_GAP_R_LEN + 0.2)
-        .translate((RC_GAP_R_INNER - 0.1, 0, 0))
+        .extrude(RC_R_LEN + 0.2)
+        .translate((RC_R_INNER - 0.1, 0, 0))
     )
     rc_gap = rc_gap.rotate((0, 0, 0), (0, 0, 1), angle)
     upper_shell = upper_shell.cut(rc_gap)
+
+    # Cut narrow rectangular notches through the arc ring walls so the
+    # groove connects at the corners.  Only the ring wall thickness is
+    # removed — no peaked ceiling, just a slot at groove height/width.
+    for ring_ir, ring_or in [(IC_OUTER_IR, IC_OUTER_OR),
+                             (R_INNER_IR, R_INNER_OR)]:
+        ring_notch = (
+            cq.Workplane("YZ")
+            .moveTo(-RC_GAP_HALF, Z_BOT - 0.1)
+            .lineTo(-RC_GAP_HALF, Z_SPLIT + 0.1)
+            .lineTo(RC_GAP_HALF, Z_SPLIT + 0.1)
+            .lineTo(RC_GAP_HALF, Z_BOT - 0.1)
+            .close()
+            .extrude(ring_or - ring_ir + 0.2)
+            .translate((ring_ir - 0.1, 0, 0))
+        )
+        ring_notch = ring_notch.rotate((0, 0, 0), (0, 0, 1), angle)
+        upper_shell = upper_shell.cut(ring_notch)
 
 us_solids = upper_shell.solids().vals()
 print(f"After + radial channel: {len(us_solids)} solid(s)")
