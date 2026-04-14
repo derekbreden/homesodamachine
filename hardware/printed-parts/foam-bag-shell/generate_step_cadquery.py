@@ -529,8 +529,14 @@ for angle in DIVIDER_ANGLES:
     rc_body = rc_body.rotate((0, 0, 0), (0, 0, 1), angle)
     upper_shell = upper_shell.union(rc_body, tol=0.05)
 
-    # Cut the gap: peaked-ceiling profile in the body zone (mid-zone).
-    rc_gap = (
+    # Build a single gap cut body: peaked ceiling in the mid-zone,
+    # rectangular in the transition zones.  Union them first, then cut
+    # once to minimize intersection edges on the main solid.
+    RC_GAP_FULL_IR = IC_INNER_OR   # 76.35
+    RC_GAP_FULL_OR = R_OUTER_IR    # 104.35
+
+    # Mid-zone: peaked ceiling (same as before)
+    rc_gap_mid = (
         cq.Workplane("YZ")
         .moveTo(-RC_GAP_HALF, Z_BOT - 0.1)
         .lineTo(-RC_GAP_HALF, Z_SPLIT)
@@ -541,27 +547,32 @@ for angle in DIVIDER_ANGLES:
         .extrude(RC_R_LEN + 0.2)
         .translate((RC_R_INNER - 0.1, 0, 0))
     )
+    # Inner transition: rectangular, from arc gap to body start
+    rc_gap_inner = (
+        cq.Workplane("YZ")
+        .moveTo(-RC_GAP_HALF, Z_BOT - 0.1)
+        .lineTo(-RC_GAP_HALF, Z_SPLIT + 0.1)
+        .lineTo(RC_GAP_HALF, Z_SPLIT + 0.1)
+        .lineTo(RC_GAP_HALF, Z_BOT - 0.1)
+        .close()
+        .extrude(RC_R_INNER - RC_GAP_FULL_IR + 0.2)
+        .translate((RC_GAP_FULL_IR - 0.1, 0, 0))
+    )
+    # Outer transition: rectangular, from body end to outer arc gap
+    rc_gap_outer = (
+        cq.Workplane("YZ")
+        .moveTo(-RC_GAP_HALF, Z_BOT - 0.1)
+        .lineTo(-RC_GAP_HALF, Z_SPLIT + 0.1)
+        .lineTo(RC_GAP_HALF, Z_SPLIT + 0.1)
+        .lineTo(RC_GAP_HALF, Z_BOT - 0.1)
+        .close()
+        .extrude(RC_GAP_FULL_OR - RC_R_OUTER + 0.2)
+        .translate((RC_R_OUTER - 0.1, 0, 0))
+    )
+    # Union into one body, then single cut
+    rc_gap = rc_gap_mid.union(rc_gap_inner).union(rc_gap_outer)
     rc_gap = rc_gap.rotate((0, 0, 0), (0, 0, 1), angle)
     upper_shell = upper_shell.cut(rc_gap)
-
-    # Extend the groove through both arc ring zones with a rectangular
-    # profile (no peaked ceiling).  This cuts through the inner wall,
-    # ring walls, and any floor material to connect the groove at the
-    # corners without cutting into the arc channel chamfer geometry.
-    for trans_ir, trans_or in [(IC_INNER_OR, RC_R_INNER),
-                               (RC_R_OUTER, R_OUTER_IR)]:
-        trans_cut = (
-            cq.Workplane("YZ")
-            .moveTo(-RC_GAP_HALF, Z_BOT - 0.1)
-            .lineTo(-RC_GAP_HALF, Z_SPLIT + 0.1)
-            .lineTo(RC_GAP_HALF, Z_SPLIT + 0.1)
-            .lineTo(RC_GAP_HALF, Z_BOT - 0.1)
-            .close()
-            .extrude(trans_or - trans_ir + 0.2)
-            .translate((trans_ir - 0.1, 0, 0))
-        )
-        trans_cut = trans_cut.rotate((0, 0, 0), (0, 0, 1), angle)
-        upper_shell = upper_shell.cut(trans_cut)
 
 us_solids = upper_shell.solids().vals()
 print(f"After + radial channel: {len(us_solids)} solid(s)")
