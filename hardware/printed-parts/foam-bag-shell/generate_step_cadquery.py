@@ -411,28 +411,8 @@ for cradle_center in [0.0, 180.0]:
     )
     upper_shell = upper_shell.cut(ic_gap)
 
-    # IC_INNER ring wall extensions: continue the center-side ring
-    # (IC_INNER_IR–IC_INNER_OR, R=75.35–76.35) past each divider end.
-    # This is the "outer arc channel wall" from the bag-hole perspective.
-    # Simple revolved rectangle — keeps boolean fast.
-    for sign, div_angle in [(-1, cradle_center - HALF_CRADLE),
-                            (+1, cradle_center + HALF_CRADLE)]:
-        ext_start = div_angle - IC_ARC_EXTENSION if sign == -1 else div_angle - 1.0
-        ext_arc = IC_ARC_EXTENSION + 1.0  # 3° extension + 1° overlap
-        ic_ext = (
-            cq.Workplane("XZ")
-            .moveTo(IC_INNER_IR, Z_BOT)
-            .lineTo(IC_INNER_IR, Z_SPLIT + OVERLAP)
-            .lineTo(IC_INNER_OR, Z_SPLIT + OVERLAP)
-            .lineTo(IC_INNER_OR, Z_BOT)
-            .close()
-            .revolve(ext_arc, (0, 0, 0), (0, 1, 0))
-        )
-        ic_ext = ic_ext.rotate((0, 0, 0), (0, 0, 1), ext_start)
-        upper_shell = upper_shell.union(ic_ext, tol=0.05)
-
 us_solids = upper_shell.solids().vals()
-print(f"After + inner channel (arcs + corner extensions): {len(us_solids)} solid(s)")
+print(f"After + inner channel (arcs): {len(us_solids)} solid(s)")
 
 
 # ═══════════════════════════════════════════════════════
@@ -461,10 +441,10 @@ DIVIDER_FLOOR = Z_BOT + FLOOR / 2   # embed into actual floor
 for angle in DIVIDER_ANGLES:
     div = (
         cq.Workplane("XZ")
-        # Inner end: start at inner wall outer surface (not past it)
-        # so the divider does not protrude into the arc channel zone.
-        .moveTo(SHELL_OR, Z_CHAMFER_TOP)
-        .lineTo(SHELL_OR, SHELL_HEIGHT)
+        # Inner end: tiny overlap into inner wall for boolean union,
+        # but NOT the full OVERLAP (1mm) that extended to SHELL_IR.
+        .moveTo(SHELL_OR - OVERLAP, Z_CHAMFER_TOP)
+        .lineTo(SHELL_OR - 0.1, SHELL_HEIGHT)
         # Across top to outer end
         .lineTo(OUTER_SHELL_IR + OVERLAP, SHELL_HEIGHT)
         # Outer channel ramp down
@@ -475,12 +455,12 @@ for angle in DIVIDER_ANGLES:
         .lineTo(IC_OUTER_OR, DIVIDER_FLOOR)
         # Inner channel ramp up
         .lineTo(IC_OUTER_OR, Z_SPLIT)
-        .lineTo(SHELL_OR, Z_CHAMFER_TOP)
+        .lineTo(SHELL_OR - OVERLAP, Z_CHAMFER_TOP)
         .close()
         .extrude(WALL / 2, both=True)
     )
     div = div.rotate((0, 0, 0), (0, 0, 1), angle)
-    upper_shell = upper_shell.union(div, tol=0.05)
+    upper_shell = upper_shell.union(div, tol=0.1)
 
 us_solids = upper_shell.solids().vals()
 print(f"After + dividers: {len(us_solids)} solid(s)")
@@ -598,6 +578,76 @@ for angle in DIVIDER_ANGLES:
 
 us_solids = upper_shell.solids().vals()
 print(f"After + radial channel: {len(us_solids)} solid(s)")
+
+
+# ═══════════════════════════════════════════════════════
+# UPPER SHELL — Inner arc channel chamfer extensions
+# ═══════════════════════════════════════════════════════
+#
+# Continue the full arc channel profile past each divider into the gap
+# side.  Done AFTER dividers and radial channel to avoid boolean
+# interference.  Uses straight extrusion (not revolve); over 4° at
+# R≈77 the straight-line error is ~0.05 mm (sagitta).
+#
+# XZ workplane normal is -Y, so extrude goes Y=0 to Y=-total.
+
+_R_MID = (IC_INNER_IR + IC_OUTER_OR) / 2  # ~77.35
+_ext_mm = _R_MID * math.tan(math.radians(IC_ARC_EXTENSION))
+_ol_mm = _R_MID * math.tan(math.radians(1.0))
+_total_mm = _ext_mm + _ol_mm
+
+# Lower dividers are at cradle_center - HALF_CRADLE: gap is below.
+# Upper dividers are at cradle_center + HALF_CRADLE: gap is above.
+_LOWER_DIVIDERS = {round(c - HALF_CRADLE, 2) for c in [0.0, 180.0]}
+
+for angle in DIVIDER_ANGLES:
+    is_lower = round(angle, 2) in _LOWER_DIVIDERS
+
+    ic_chamfer = (
+        cq.Workplane("XZ")
+        .moveTo(IC_INNER_IR, Z_BOT)
+        .lineTo(IC_INNER_IR, Z_SPLIT)
+        .lineTo(SHELL_IR, Z_CHAMFER_TOP + 3)
+        .lineTo(SHELL_OR, Z_CHAMFER_TOP + 3)
+        .lineTo(IC_OUTER_OR, Z_SPLIT)
+        .lineTo(IC_OUTER_OR, Z_BOT)
+        .lineTo(IC_OUTER_IR, Z_BOT)
+        .lineTo(IC_OUTER_IR, Z_SPLIT)
+        .lineTo((IC_INNER_OR + IC_OUTER_IR) / 2,
+                Z_SPLIT + (IC_OUTER_IR - IC_INNER_OR) / 2)
+        .lineTo(IC_INNER_OR, Z_SPLIT)
+        .lineTo(IC_INNER_OR, Z_BOT)
+        .close()
+        .extrude(_total_mm)
+    )
+    if is_lower:
+        ic_chamfer = ic_chamfer.translate((0, _ol_mm, 0))
+    else:
+        ic_chamfer = ic_chamfer.translate((0, _ext_mm, 0))
+    ic_chamfer = ic_chamfer.rotate((0, 0, 0), (0, 0, 1), angle)
+    upper_shell = upper_shell.union(ic_chamfer, tol=0.1)
+
+    # Matching gap cut
+    ic_chamfer_gap = (
+        cq.Workplane("XZ")
+        .moveTo(IC_INNER_OR, Z_BOT - 0.1)
+        .lineTo(IC_INNER_OR, Z_SPLIT)
+        .lineTo((IC_INNER_OR + IC_OUTER_IR) / 2,
+                Z_SPLIT + (IC_OUTER_IR - IC_INNER_OR) / 2)
+        .lineTo(IC_OUTER_IR, Z_SPLIT)
+        .lineTo(IC_OUTER_IR, Z_BOT - 0.1)
+        .close()
+        .extrude(_total_mm)
+    )
+    if is_lower:
+        ic_chamfer_gap = ic_chamfer_gap.translate((0, _ol_mm, 0))
+    else:
+        ic_chamfer_gap = ic_chamfer_gap.translate((0, _ext_mm, 0))
+    ic_chamfer_gap = ic_chamfer_gap.rotate((0, 0, 0), (0, 0, 1), angle)
+    upper_shell = upper_shell.cut(ic_chamfer_gap)
+
+us_solids = upper_shell.solids().vals()
+print(f"After + chamfer extensions: {len(us_solids)} solid(s)")
 
 
 # ── Center floor hole (through upper shell floor) ──
