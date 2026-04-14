@@ -411,24 +411,20 @@ for cradle_center in [0.0, 180.0]:
     )
     upper_shell = upper_shell.cut(ic_gap)
 
-    # Outer ring wall extensions: continue IC_OUTER_IR–IC_OUTER_OR
-    # past each divider end so the channel is enclosed at the corners.
-    # Two small arcs per cradle (one at each end), overlapping into the
-    # main arc body for a clean union.
+    # IC_INNER ring wall extensions: continue the center-side ring
+    # (IC_INNER_IR–IC_INNER_OR, R=75.35–76.35) past each divider end.
+    # This is the "outer arc channel wall" from the bag-hole perspective.
+    # Simple revolved rectangle — keeps boolean fast.
     for sign, div_angle in [(-1, cradle_center - HALF_CRADLE),
                             (+1, cradle_center + HALF_CRADLE)]:
-        # Arc starts 1° inside the main body (overlap) and extends
-        # IC_ARC_EXTENSION degrees past the divider into the gap side.
-        # sign=-1: lower end, gap is below → start at div - extension
-        # sign=+1: upper end, gap is above → start at div - 1° overlap
         ext_start = div_angle - IC_ARC_EXTENSION if sign == -1 else div_angle - 1.0
         ext_arc = IC_ARC_EXTENSION + 1.0  # 3° extension + 1° overlap
         ic_ext = (
             cq.Workplane("XZ")
-            .moveTo(IC_OUTER_IR, Z_BOT)
-            .lineTo(IC_OUTER_IR, Z_SPLIT + OVERLAP)
-            .lineTo(IC_OUTER_OR, Z_SPLIT + OVERLAP)
-            .lineTo(IC_OUTER_OR, Z_BOT)
+            .moveTo(IC_INNER_IR, Z_BOT)
+            .lineTo(IC_INNER_IR, Z_SPLIT + OVERLAP)
+            .lineTo(IC_INNER_OR, Z_SPLIT + OVERLAP)
+            .lineTo(IC_INNER_OR, Z_BOT)
             .close()
             .revolve(ext_arc, (0, 0, 0), (0, 1, 0))
         )
@@ -436,7 +432,7 @@ for cradle_center in [0.0, 180.0]:
         upper_shell = upper_shell.union(ic_ext, tol=0.05)
 
 us_solids = upper_shell.solids().vals()
-print(f"After + inner channel (arcs + wall extensions): {len(us_solids)} solid(s)")
+print(f"After + inner channel (arcs + corner extensions): {len(us_solids)} solid(s)")
 
 
 # ═══════════════════════════════════════════════════════
@@ -465,9 +461,10 @@ DIVIDER_FLOOR = Z_BOT + FLOOR / 2   # embed into actual floor
 for angle in DIVIDER_ANGLES:
     div = (
         cq.Workplane("XZ")
-        # Inner end: start above inner channel chamfer
-        .moveTo(SHELL_OR - OVERLAP, Z_CHAMFER_TOP)
-        .lineTo(SHELL_OR - OVERLAP, SHELL_HEIGHT)
+        # Inner end: start at inner wall outer surface (not past it)
+        # so the divider does not protrude into the arc channel zone.
+        .moveTo(SHELL_OR, Z_CHAMFER_TOP)
+        .lineTo(SHELL_OR, SHELL_HEIGHT)
         # Across top to outer end
         .lineTo(OUTER_SHELL_IR + OVERLAP, SHELL_HEIGHT)
         # Outer channel ramp down
@@ -478,7 +475,7 @@ for angle in DIVIDER_ANGLES:
         .lineTo(IC_OUTER_OR, DIVIDER_FLOOR)
         # Inner channel ramp up
         .lineTo(IC_OUTER_OR, Z_SPLIT)
-        .lineTo(SHELL_OR - OVERLAP, Z_CHAMFER_TOP)
+        .lineTo(SHELL_OR, Z_CHAMFER_TOP)
         .close()
         .extrude(WALL / 2, both=True)
     )
@@ -557,27 +554,26 @@ for angle in DIVIDER_ANGLES:
     rc_body = rc_body.rotate((0, 0, 0), (0, 0, 1), angle)
     upper_shell = upper_shell.union(rc_body, tol=0.05)
 
-    # Corner ceiling patches in the transition zones
-    # (R=76.35-79.35 inner, R=101.35-104.35 outer).
-    # Walls in the inner zone come from extending the arc channel body
-    # past the divider (see IC_ARC_EXTENSION above).  Outer channel
-    # is 360° so its walls already exist.  Both zones need ceiling.
-    for patch_ir, patch_or in [(IC_INNER_OR, RC_R_INNER),
-                                (RC_R_OUTER, R_OUTER_IR)]:
-        patch = (
-            cq.Workplane("YZ")
-            .moveTo(-RC_RIDGE_HALF, Z_SPLIT)
-            .lineTo(-WALL / 2, Z_CHAMFER_TOP)
-            .lineTo(-WALL / 2, Z_CHAMFER_TOP + 5)
-            .lineTo(WALL / 2, Z_CHAMFER_TOP + 5)
-            .lineTo(WALL / 2, Z_CHAMFER_TOP)
-            .lineTo(RC_RIDGE_HALF, Z_SPLIT)
-            .close()
-            .extrude(patch_or - patch_ir)
-            .translate((patch_ir, 0, 0))
-        )
-        patch = patch.rotate((0, 0, 0), (0, 0, 1), angle)
-        upper_shell = upper_shell.union(patch, tol=0.05)
+    # Corner ceiling patch for the OUTER transition zone only
+    # (R=101.35-104.35).  The outer channel is 360° so its ring walls
+    # already exist; only the ceiling needs patching at corners.
+    # The INNER transition (R=76.35-79.35) is handled by the arc
+    # channel extensions above — no radial-profile patch needed there.
+    patch_ir, patch_or = RC_R_OUTER, R_OUTER_IR
+    patch = (
+        cq.Workplane("YZ")
+        .moveTo(-RC_RIDGE_HALF, Z_SPLIT)
+        .lineTo(-WALL / 2, Z_CHAMFER_TOP)
+        .lineTo(-WALL / 2, Z_CHAMFER_TOP + 5)
+        .lineTo(WALL / 2, Z_CHAMFER_TOP + 5)
+        .lineTo(WALL / 2, Z_CHAMFER_TOP)
+        .lineTo(RC_RIDGE_HALF, Z_SPLIT)
+        .close()
+        .extrude(patch_or - patch_ir)
+        .translate((patch_ir, 0, 0))
+    )
+    patch = patch.rotate((0, 0, 0), (0, 0, 1), angle)
+    upper_shell = upper_shell.union(patch, tol=0.05)
 
     # Single peaked-ceiling gap cut spanning the full radial range
     # (arc gap zone through mid-zone through arc gap zone).
