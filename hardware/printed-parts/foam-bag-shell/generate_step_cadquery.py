@@ -529,26 +529,52 @@ for angle in DIVIDER_ANGLES:
     rc_body = rc_body.rotate((0, 0, 0), (0, 0, 1), angle)
     upper_shell = upper_shell.union(rc_body, tol=0.05)
 
-    # Corner ceiling patches: add chamfer-profile material in the
-    # transition zones (R=76.35-79.35 inner, R=101.35-104.35 outer)
-    # to provide the peaked ceiling that neither arc nor radial channel
-    # covers at the corners.
-    for patch_ir, patch_or in [(IC_INNER_OR, RC_R_INNER),
-                                (RC_R_OUTER, R_OUTER_IR)]:
-        patch = (
-            cq.Workplane("YZ")
-            .moveTo(-RC_RIDGE_HALF, Z_SPLIT)
-            .lineTo(-WALL / 2, Z_CHAMFER_TOP)
-            .lineTo(-WALL / 2, Z_CHAMFER_TOP + 5)
-            .lineTo(WALL / 2, Z_CHAMFER_TOP + 5)
-            .lineTo(WALL / 2, Z_CHAMFER_TOP)
-            .lineTo(RC_RIDGE_HALF, Z_SPLIT)
-            .close()
-            .extrude(patch_or - patch_ir)
-            .translate((patch_ir, 0, 0))
-        )
-        patch = patch.rotate((0, 0, 0), (0, 0, 1), angle)
-        upper_shell = upper_shell.union(patch, tol=0.05)
+    # Corner patches in the transition zones:
+    #   Inner (R=76.35-79.35): full channel walls + ceiling.
+    #     The inner arc channel only spans the cradle arc, so its ring
+    #     walls stop at the divider angle.  These patches extend the
+    #     wall material past the arc ends so the bottom cup's radial
+    #     wall has ridges to slot into through the inner arc zone.
+    #     The gap cut (below) carves the groove automatically.
+    #   Outer (R=101.35-104.35): ceiling only.
+    #     The outer channel is 360° so its ring walls already exist
+    #     everywhere; only the ceiling needs patching at corners.
+
+    # Inner corner patch — full profile (walls from Z_BOT + chamfer)
+    patch_ir, patch_or = IC_INNER_OR, RC_R_INNER
+    patch = (
+        cq.Workplane("YZ")
+        .moveTo(-RC_RIDGE_HALF, Z_BOT)
+        .lineTo(-RC_RIDGE_HALF, Z_SPLIT)
+        .lineTo(-WALL / 2, Z_CHAMFER_TOP)
+        .lineTo(-WALL / 2, Z_CHAMFER_TOP + 5)
+        .lineTo(WALL / 2, Z_CHAMFER_TOP + 5)
+        .lineTo(WALL / 2, Z_CHAMFER_TOP)
+        .lineTo(RC_RIDGE_HALF, Z_SPLIT)
+        .lineTo(RC_RIDGE_HALF, Z_BOT)
+        .close()
+        .extrude(patch_or - patch_ir)
+        .translate((patch_ir, 0, 0))
+    )
+    patch = patch.rotate((0, 0, 0), (0, 0, 1), angle)
+    upper_shell = upper_shell.union(patch, tol=0.05)
+
+    # Outer corner patch — ceiling only (outer channel has walls)
+    patch_ir, patch_or = RC_R_OUTER, R_OUTER_IR
+    patch = (
+        cq.Workplane("YZ")
+        .moveTo(-RC_RIDGE_HALF, Z_SPLIT)
+        .lineTo(-WALL / 2, Z_CHAMFER_TOP)
+        .lineTo(-WALL / 2, Z_CHAMFER_TOP + 5)
+        .lineTo(WALL / 2, Z_CHAMFER_TOP + 5)
+        .lineTo(WALL / 2, Z_CHAMFER_TOP)
+        .lineTo(RC_RIDGE_HALF, Z_SPLIT)
+        .close()
+        .extrude(patch_or - patch_ir)
+        .translate((patch_ir, 0, 0))
+    )
+    patch = patch.rotate((0, 0, 0), (0, 0, 1), angle)
+    upper_shell = upper_shell.union(patch, tol=0.05)
 
     # Single peaked-ceiling gap cut spanning the full radial range
     # (arc gap zone through mid-zone through arc gap zone).
