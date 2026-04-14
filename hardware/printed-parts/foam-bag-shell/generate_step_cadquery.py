@@ -465,73 +465,71 @@ print(f"After + dividers: {len(us_solids)} solid(s)")
 # UPPER SHELL — Radial channel (divider wall lips)
 # ═══════════════════════════════════════════════════════
 #
-# Channel ridges straddle each bottom cup radial wall, running
-# radially from the inner channel outer ring to the outer channel
-# inner ring.  Same gap width and ring thickness as the other
-# channels (WALL + 2*CHANNEL_CLEARANCE = 2 mm gap, 1 mm ridges).
+# Same cross-section profile as the arc channels, extruded along
+# the divider direction.  Runs from IC_OUTER_OR to R_INNER_IR
+# (between the two arc channel zones, not through them).
 #
-# Built as extruded slabs (like dividers) offset tangentially
-# from the divider centerline.
+# YZ cross-section (identical shape to outer/inner channel XZ profile):
 #
-# Tangential offsets from divider center:
-#   gap inner edge:   WALL/2 + CHANNEL_CLEARANCE   = 1.0 mm
-#   gap outer edge:   -(WALL/2 + CHANNEL_CLEARANCE) = -1.0 mm
-#   ridge outer edge: WALL/2 + CHANNEL_CLEARANCE + WALL = 2.0 mm
+#                  center of divider wall
+#                          │
+#   Z_CHAMFER_TOP  ───────╱│╲───────     ← chamfers converge to wall
+#                        ╱ │ ╲
+#   Z_SPLIT        ring │gap│ ring       ← peaked ceiling in gap
+#                   ││   │  │  ││
+#   Z_BOT          ││   │  │  ││
+#               ─RC_RIDGE_HALF─┘
+#                  ─RC_GAP_HALF┘
+#
+# Built as a single body per divider (full profile), then gap cut.
 
-RC_GAP_HALF = WALL / 2 + CHANNEL_CLEARANCE          # 1.0 mm from center to gap edge
-RC_RIDGE_HALF = RC_GAP_HALF + WALL                   # 2.0 mm from center to ridge outer
-RC_PEAK_Z = Z_SPLIT + RC_GAP_HALF                    # 27.4 (peaked ceiling at midpoint)
+RC_GAP_HALF = WALL / 2 + CHANNEL_CLEARANCE          # 1.0 mm
+RC_RIDGE_HALF = RC_GAP_HALF + WALL                   # 2.0 mm
+RC_PEAK_Z = Z_SPLIT + RC_GAP_HALF                    # 27.4
 
-# Radial extent: overlap into both arc channel ring zones for connection
-RC_R_INNER = IC_INNER_IR    # 75.35 — penetrate through inner channel rings
-RC_R_OUTER = R_OUTER_OR     # 105.35 — penetrate through outer channel rings
+# Radial extent: between the two arc channel zones
+RC_R_INNER = IC_OUTER_OR    # 79.35
+RC_R_OUTER = R_INNER_IR     # 101.35
 RC_R_LEN = RC_R_OUTER - RC_R_INNER
 
 for angle in DIVIDER_ANGLES:
-    # Channel body: two ridges + peaked ceiling + chamfers
-    # Profile in XZ plane, extruded tangentially.
-    # X = radial, Z = vertical.  Extrude in Y (tangential).
-    #
-    # The ridges run from RC_R_INNER to RC_R_OUTER in R,
-    # from Z_BOT to Z_SPLIT in Z.
-    # Chamfers at each end connect to inner/outer channel walls.
-    #
-    # For simplicity, build as two ridge slabs + peaked ceiling slab,
-    # then cut the gap.
-
-    # Ridge slab (one on each side of the divider)
-    for side in [+1, -1]:
-        ridge = (
-            cq.Workplane("XZ")
-            .moveTo(RC_R_INNER, Z_BOT)
-            .lineTo(RC_R_INNER, Z_SPLIT)
-            .lineTo(RC_R_OUTER, Z_SPLIT)
-            .lineTo(RC_R_OUTER, Z_BOT)
-            .close()
-            .extrude(WALL)
-            .translate((0, side * RC_GAP_HALF, 0))
-        )
-        ridge = ridge.rotate((0, 0, 0), (0, 0, 1), angle)
-        upper_shell = upper_shell.union(ridge, tol=0.05)
-
-    # Peaked ceiling: triangular wedge profile in YZ plane, extruded along R
-    peak_ceil = (
+    # Full channel body: YZ profile extruded along radial direction.
+    # Profile mirrors the arc channel shape exactly.
+    rc_body = (
         cq.Workplane("YZ")
-        .moveTo(-RC_GAP_HALF, Z_SPLIT)
-        .lineTo(0, RC_PEAK_Z)
+        # Inner ridge inside face (negative Y side), going up
+        .moveTo(-RC_RIDGE_HALF, Z_BOT)
+        .lineTo(-RC_RIDGE_HALF, Z_SPLIT)
+        # 45-deg chamfer: converges to wall center
+        .lineTo(-WALL / 2, Z_CHAMFER_TOP)
+        # Up into divider wall overlap zone
+        .lineTo(-WALL / 2, Z_CHAMFER_TOP + 5)
+        .lineTo(WALL / 2, Z_CHAMFER_TOP + 5)
+        # Back down to chamfer on other side
+        .lineTo(WALL / 2, Z_CHAMFER_TOP)
+        # 45-deg chamfer: diverges to outer ridge
+        .lineTo(RC_RIDGE_HALF, Z_SPLIT)
+        # Outer ridge outside face, going down
+        .lineTo(RC_RIDGE_HALF, Z_BOT)
+        # Across outer ridge bottom
+        .lineTo(RC_GAP_HALF, Z_BOT)
+        # Outer ridge inside face (gap side), going up
         .lineTo(RC_GAP_HALF, Z_SPLIT)
+        # Peaked ceiling across gap
+        .lineTo(0, RC_PEAK_Z)
+        .lineTo(-RC_GAP_HALF, Z_SPLIT)
+        # Inner ridge outside face (gap side), going down
+        .lineTo(-RC_GAP_HALF, Z_BOT)
+        # Close across inner ridge bottom
         .close()
         .extrude(RC_R_LEN)
         .translate((RC_R_INNER, 0, 0))
     )
-    peak_ceil = peak_ceil.rotate((0, 0, 0), (0, 0, 1), angle)
-    upper_shell = upper_shell.union(peak_ceil, tol=0.05)
+    rc_body = rc_body.rotate((0, 0, 0), (0, 0, 1), angle)
+    upper_shell = upper_shell.union(rc_body, tol=0.05)
 
-    # Cut the gap: only between the two arc channel zones (not through them)
-    RC_GAP_R_INNER = IC_OUTER_OR     # 79.35 — start outside inner channel
-    RC_GAP_R_OUTER = R_INNER_IR      # 101.35 — end inside outer channel
-    RC_GAP_R_LEN = RC_GAP_R_OUTER - RC_GAP_R_INNER
-    gap_cut = (
+    # Cut the gap: remove material between ridges
+    rc_gap = (
         cq.Workplane("YZ")
         .moveTo(-RC_GAP_HALF, Z_BOT - 0.1)
         .lineTo(-RC_GAP_HALF, Z_SPLIT)
@@ -539,11 +537,11 @@ for angle in DIVIDER_ANGLES:
         .lineTo(RC_GAP_HALF, Z_SPLIT)
         .lineTo(RC_GAP_HALF, Z_BOT - 0.1)
         .close()
-        .extrude(RC_GAP_R_LEN + 0.2)
-        .translate((RC_GAP_R_INNER - 0.1, 0, 0))
+        .extrude(RC_R_LEN + 0.2)
+        .translate((RC_R_INNER - 0.1, 0, 0))
     )
-    gap_cut = gap_cut.rotate((0, 0, 0), (0, 0, 1), angle)
-    upper_shell = upper_shell.cut(gap_cut)
+    rc_gap = rc_gap.rotate((0, 0, 0), (0, 0, 1), angle)
+    upper_shell = upper_shell.cut(rc_gap)
 
 us_solids = upper_shell.solids().vals()
 print(f"After + radial channel: {len(us_solids)} solid(s)")
