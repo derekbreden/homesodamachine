@@ -529,14 +529,35 @@ for angle in DIVIDER_ANGLES:
     rc_body = rc_body.rotate((0, 0, 0), (0, 0, 1), angle)
     upper_shell = upper_shell.union(rc_body, tol=0.05)
 
-    # Build a single gap cut body: peaked ceiling in the mid-zone,
-    # rectangular in the transition zones.  Union them first, then cut
-    # once to minimize intersection edges on the main solid.
+    # Corner ceiling patches: add chamfer-profile material in the
+    # transition zones (R=76.35-79.35 inner, R=101.35-104.35 outer)
+    # to provide the peaked ceiling that neither arc nor radial channel
+    # covers at the corners.
+    for patch_ir, patch_or in [(IC_INNER_OR, RC_R_INNER),
+                                (RC_R_OUTER, R_OUTER_IR)]:
+        patch = (
+            cq.Workplane("YZ")
+            .moveTo(-RC_RIDGE_HALF, Z_SPLIT)
+            .lineTo(-WALL / 2, Z_CHAMFER_TOP)
+            .lineTo(-WALL / 2, Z_CHAMFER_TOP + 5)
+            .lineTo(WALL / 2, Z_CHAMFER_TOP + 5)
+            .lineTo(WALL / 2, Z_CHAMFER_TOP)
+            .lineTo(RC_RIDGE_HALF, Z_SPLIT)
+            .close()
+            .extrude(patch_or - patch_ir)
+            .translate((patch_ir, 0, 0))
+        )
+        patch = patch.rotate((0, 0, 0), (0, 0, 1), angle)
+        upper_shell = upper_shell.union(patch, tol=0.05)
+
+    # Single peaked-ceiling gap cut spanning the full radial range
+    # (arc gap zone through mid-zone through arc gap zone).
+    # Below Z_SPLIT: removes groove walls/floor material for connectivity.
+    # Above Z_SPLIT: shapes the peaked ceiling in both mid-zone and patches.
     RC_GAP_FULL_IR = IC_INNER_OR   # 76.35
     RC_GAP_FULL_OR = R_OUTER_IR    # 104.35
-
-    # Mid-zone: peaked ceiling (same as before)
-    rc_gap_mid = (
+    RC_GAP_FULL_LEN = RC_GAP_FULL_OR - RC_GAP_FULL_IR
+    rc_gap = (
         cq.Workplane("YZ")
         .moveTo(-RC_GAP_HALF, Z_BOT - 0.1)
         .lineTo(-RC_GAP_HALF, Z_SPLIT)
@@ -544,33 +565,9 @@ for angle in DIVIDER_ANGLES:
         .lineTo(RC_GAP_HALF, Z_SPLIT)
         .lineTo(RC_GAP_HALF, Z_BOT - 0.1)
         .close()
-        .extrude(RC_R_LEN + 0.2)
-        .translate((RC_R_INNER - 0.1, 0, 0))
-    )
-    # Inner transition: rectangular, from arc gap to body start
-    rc_gap_inner = (
-        cq.Workplane("YZ")
-        .moveTo(-RC_GAP_HALF, Z_BOT - 0.1)
-        .lineTo(-RC_GAP_HALF, Z_SPLIT + 0.1)
-        .lineTo(RC_GAP_HALF, Z_SPLIT + 0.1)
-        .lineTo(RC_GAP_HALF, Z_BOT - 0.1)
-        .close()
-        .extrude(RC_R_INNER - RC_GAP_FULL_IR + 0.2)
+        .extrude(RC_GAP_FULL_LEN + 0.2)
         .translate((RC_GAP_FULL_IR - 0.1, 0, 0))
     )
-    # Outer transition: rectangular, from body end to outer arc gap
-    rc_gap_outer = (
-        cq.Workplane("YZ")
-        .moveTo(-RC_GAP_HALF, Z_BOT - 0.1)
-        .lineTo(-RC_GAP_HALF, Z_SPLIT + 0.1)
-        .lineTo(RC_GAP_HALF, Z_SPLIT + 0.1)
-        .lineTo(RC_GAP_HALF, Z_BOT - 0.1)
-        .close()
-        .extrude(RC_GAP_FULL_OR - RC_R_OUTER + 0.2)
-        .translate((RC_R_OUTER - 0.1, 0, 0))
-    )
-    # Union into one body, then single cut
-    rc_gap = rc_gap_mid.union(rc_gap_inner).union(rc_gap_outer)
     rc_gap = rc_gap.rotate((0, 0, 0), (0, 0, 1), angle)
     upper_shell = upper_shell.cut(rc_gap)
 
