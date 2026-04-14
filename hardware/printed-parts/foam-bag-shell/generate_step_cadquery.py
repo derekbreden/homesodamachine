@@ -487,9 +487,11 @@ RC_GAP_HALF = WALL / 2 + CHANNEL_CLEARANCE          # 1.0 mm
 RC_RIDGE_HALF = RC_GAP_HALF + WALL                   # 2.0 mm
 RC_PEAK_Z = Z_SPLIT + RC_GAP_HALF                    # 27.4
 
-# Radial extent: between the two arc channel zones
-RC_R_INNER = IC_OUTER_OR    # 79.35
-RC_R_OUTER = R_INNER_IR     # 101.35
+# Radial extent: overlap INTO both arc channel ring zones so the groove
+# forms a continuous loop.  The radial body replaces the arc ring material
+# that the gap cut removes at the corners.
+RC_R_INNER = IC_INNER_OR    # 76.35 — through inner arc ring zone
+RC_R_OUTER = R_OUTER_IR     # 104.35 — through outer arc ring zone
 RC_R_LEN = RC_R_OUTER - RC_R_INNER
 
 for angle in DIVIDER_ANGLES:
@@ -528,7 +530,11 @@ for angle in DIVIDER_ANGLES:
     rc_body = rc_body.rotate((0, 0, 0), (0, 0, 1), angle)
     upper_shell = upper_shell.union(rc_body, tol=0.05)
 
-    # Cut the gap: remove material between ridges
+    # Cut the gap: remove material between ridges.
+    # Extend through arc ring zones so groove connects at corners.
+    RC_GAP_R_INNER = IC_INNER_OR    # 76.35
+    RC_GAP_R_OUTER = R_OUTER_IR     # 104.35
+    RC_GAP_R_LEN = RC_GAP_R_OUTER - RC_GAP_R_INNER
     rc_gap = (
         cq.Workplane("YZ")
         .moveTo(-RC_GAP_HALF, Z_BOT - 0.1)
@@ -537,8 +543,8 @@ for angle in DIVIDER_ANGLES:
         .lineTo(RC_GAP_HALF, Z_SPLIT)
         .lineTo(RC_GAP_HALF, Z_BOT - 0.1)
         .close()
-        .extrude(RC_R_LEN + 0.2)
-        .translate((RC_R_INNER - 0.1, 0, 0))
+        .extrude(RC_GAP_R_LEN + 0.2)
+        .translate((RC_GAP_R_INNER - 0.1, 0, 0))
     )
     rc_gap = rc_gap.rotate((0, 0, 0), (0, 0, 1), angle)
     upper_shell = upper_shell.cut(rc_gap)
@@ -562,7 +568,10 @@ upper_shell = upper_shell.cut(center_hole)
 # Each cradle is centered at 0° and 180°, spanning ±HALF_CRADLE.
 # Inset by ~1° on each side to preserve floor under the dividers.
 
-DIVIDER_ANGULAR_CLEARANCE = 1.0  # degrees inset from each divider
+# Compute angular clearance from the radial channel ridge width.
+# At the smallest cut radius (IC_OUTER_OR + 0.1), the ridge extends
+# RC_RIDGE_HALF from center.  Convert to angle and add 0.5° margin.
+DIVIDER_ANGULAR_CLEARANCE = math.degrees(RC_RIDGE_HALF / (IC_OUTER_OR + 0.1)) + 0.5
 CUT_ARC = CRADLE_ARC_DEG - 2 * DIVIDER_ANGULAR_CLEARANCE
 
 for cradle_center in [0.0, 180.0]:
