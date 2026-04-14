@@ -385,16 +385,17 @@ for cradle_center in [0.0, 180.0]:
         .lineTo(IC_INNER_OR, Z_BOT)
         # Close across inner ring bottom
         .close()
-        .revolve(CRADLE_ARC_DEG, (0, 0, 0), (0, 1, 0))
+        .revolve(CRADLE_ARC_DEG + 2 * IC_ARC_EXTENSION, (0, 0, 0), (0, 1, 0))
     )
     ic_channel = ic_channel.rotate(
-        (0, 0, 0), (0, 0, 1), cradle_center - HALF_CRADLE
+        (0, 0, 0), (0, 0, 1), cradle_center - HALF_CRADLE - IC_ARC_EXTENSION
     )
     upper_shell = upper_shell.union(ic_channel, tol=0.1)
 
     # Cut the gap in the inner wall: remove material between rings
     # so the bottom cup's arc wall can slot in.
     # Profile traces the gap interior up to the peaked ceiling.
+    # Extended same as channel body so gap cut covers full arc + extensions.
     ic_gap = (
         cq.Workplane("XZ")
         .moveTo(IC_INNER_OR, Z_BOT - 0.1)
@@ -404,10 +405,10 @@ for cradle_center in [0.0, 180.0]:
         .lineTo(IC_OUTER_IR, Z_SPLIT)
         .lineTo(IC_OUTER_IR, Z_BOT - 0.1)
         .close()
-        .revolve(CRADLE_ARC_DEG, (0, 0, 0), (0, 1, 0))
+        .revolve(CRADLE_ARC_DEG + 2 * IC_ARC_EXTENSION, (0, 0, 0), (0, 1, 0))
     )
     ic_gap = ic_gap.rotate(
-        (0, 0, 0), (0, 0, 1), cradle_center - HALF_CRADLE
+        (0, 0, 0), (0, 0, 1), cradle_center - HALF_CRADLE - IC_ARC_EXTENSION
     )
     upper_shell = upper_shell.cut(ic_gap)
 
@@ -492,10 +493,11 @@ RC_GAP_HALF = WALL / 2 + CHANNEL_CLEARANCE          # 1.0 mm
 RC_RIDGE_HALF = RC_GAP_HALF + WALL                   # 2.0 mm
 RC_PEAK_Z = Z_SPLIT + RC_GAP_HALF                    # 27.4
 
-# Radial extent for BODY (ridges): stays between the arc channel zones.
-# Ridges must NOT extend into arc gap zones or they fill the groove.
-RC_R_INNER = IC_OUTER_OR    # 79.35 — outside inner arc ring zone
-RC_R_OUTER = R_INNER_IR     # 101.35 — outside outer arc ring zone
+# Radial extent for BODY (ridges): extends into both arc channel zones
+# to create volumetric overlap at corners for clean boolean unions.
+# The gap cut (below) carves the groove through the overlap zones.
+RC_R_INNER = IC_INNER_IR    # 75.35 — overlaps into inner arc ring zone at corners
+RC_R_OUTER = R_OUTER_IR     # 104.35 — overlaps into outer arc ring zone at corners
 RC_R_LEN = RC_R_OUTER - RC_R_INNER
 
 for angle in DIVIDER_ANGLES:
@@ -534,27 +536,6 @@ for angle in DIVIDER_ANGLES:
     rc_body = rc_body.rotate((0, 0, 0), (0, 0, 1), angle)
     upper_shell = upper_shell.union(rc_body, tol=0.05)
 
-    # Corner ceiling patch for the OUTER transition zone only
-    # (R=101.35-104.35).  The outer channel is 360° so its ring walls
-    # already exist; only the ceiling needs patching at corners.
-    # The INNER transition (R=76.35-79.35) is handled by the arc
-    # channel extensions above — no radial-profile patch needed there.
-    patch_ir, patch_or = RC_R_OUTER, R_OUTER_IR
-    patch = (
-        cq.Workplane("YZ")
-        .moveTo(-RC_RIDGE_HALF, Z_SPLIT)
-        .lineTo(-WALL / 2, Z_CHAMFER_TOP)
-        .lineTo(-WALL / 2, Z_CHAMFER_TOP + 5)
-        .lineTo(WALL / 2, Z_CHAMFER_TOP + 5)
-        .lineTo(WALL / 2, Z_CHAMFER_TOP)
-        .lineTo(RC_RIDGE_HALF, Z_SPLIT)
-        .close()
-        .extrude(patch_or - patch_ir)
-        .translate((patch_ir, 0, 0))
-    )
-    patch = patch.rotate((0, 0, 0), (0, 0, 1), angle)
-    upper_shell = upper_shell.union(patch, tol=0.05)
-
     # Single peaked-ceiling gap cut spanning the full radial range
     # (arc gap zone through mid-zone through arc gap zone).
     # Below Z_SPLIT: removes groove walls/floor material for connectivity.
@@ -578,76 +559,6 @@ for angle in DIVIDER_ANGLES:
 
 us_solids = upper_shell.solids().vals()
 print(f"After + radial channel: {len(us_solids)} solid(s)")
-
-
-# ═══════════════════════════════════════════════════════
-# UPPER SHELL — Inner arc channel chamfer extensions
-# ═══════════════════════════════════════════════════════
-#
-# Continue the full arc channel profile past each divider into the gap
-# side.  Done AFTER dividers and radial channel to avoid boolean
-# interference.  Uses straight extrusion (not revolve); over 4° at
-# R≈77 the straight-line error is ~0.05 mm (sagitta).
-#
-# XZ workplane normal is -Y, so extrude goes Y=0 to Y=-total.
-
-_R_MID = (IC_INNER_IR + IC_OUTER_OR) / 2  # ~77.35
-_ext_mm = _R_MID * math.tan(math.radians(IC_ARC_EXTENSION))
-_ol_mm = _R_MID * math.tan(math.radians(1.0))
-_total_mm = _ext_mm + _ol_mm
-
-# Lower dividers are at cradle_center - HALF_CRADLE: gap is below.
-# Upper dividers are at cradle_center + HALF_CRADLE: gap is above.
-_LOWER_DIVIDERS = {round(c - HALF_CRADLE, 2) for c in [0.0, 180.0]}
-
-for angle in DIVIDER_ANGLES:
-    is_lower = round(angle, 2) in _LOWER_DIVIDERS
-
-    ic_chamfer = (
-        cq.Workplane("XZ")
-        .moveTo(IC_INNER_IR, Z_BOT)
-        .lineTo(IC_INNER_IR, Z_SPLIT)
-        .lineTo(SHELL_IR, Z_CHAMFER_TOP + 3)
-        .lineTo(SHELL_OR, Z_CHAMFER_TOP + 3)
-        .lineTo(IC_OUTER_OR, Z_SPLIT)
-        .lineTo(IC_OUTER_OR, Z_BOT)
-        .lineTo(IC_OUTER_IR, Z_BOT)
-        .lineTo(IC_OUTER_IR, Z_SPLIT)
-        .lineTo((IC_INNER_OR + IC_OUTER_IR) / 2,
-                Z_SPLIT + (IC_OUTER_IR - IC_INNER_OR) / 2)
-        .lineTo(IC_INNER_OR, Z_SPLIT)
-        .lineTo(IC_INNER_OR, Z_BOT)
-        .close()
-        .extrude(_total_mm)
-    )
-    if is_lower:
-        ic_chamfer = ic_chamfer.translate((0, _ol_mm, 0))
-    else:
-        ic_chamfer = ic_chamfer.translate((0, _ext_mm, 0))
-    ic_chamfer = ic_chamfer.rotate((0, 0, 0), (0, 0, 1), angle)
-    upper_shell = upper_shell.union(ic_chamfer, tol=0.1)
-
-    # Matching gap cut
-    ic_chamfer_gap = (
-        cq.Workplane("XZ")
-        .moveTo(IC_INNER_OR, Z_BOT - 0.1)
-        .lineTo(IC_INNER_OR, Z_SPLIT)
-        .lineTo((IC_INNER_OR + IC_OUTER_IR) / 2,
-                Z_SPLIT + (IC_OUTER_IR - IC_INNER_OR) / 2)
-        .lineTo(IC_OUTER_IR, Z_SPLIT)
-        .lineTo(IC_OUTER_IR, Z_BOT - 0.1)
-        .close()
-        .extrude(_total_mm)
-    )
-    if is_lower:
-        ic_chamfer_gap = ic_chamfer_gap.translate((0, _ol_mm, 0))
-    else:
-        ic_chamfer_gap = ic_chamfer_gap.translate((0, _ext_mm, 0))
-    ic_chamfer_gap = ic_chamfer_gap.rotate((0, 0, 0), (0, 0, 1), angle)
-    upper_shell = upper_shell.cut(ic_chamfer_gap)
-
-us_solids = upper_shell.solids().vals()
-print(f"After + chamfer extensions: {len(us_solids)} solid(s)")
 
 
 # ── Center floor hole (through upper shell floor) ──
