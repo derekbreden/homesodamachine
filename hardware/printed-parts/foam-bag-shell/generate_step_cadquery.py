@@ -529,7 +529,7 @@ for angle in DIVIDER_ANGLES:
     rc_body = rc_body.rotate((0, 0, 0), (0, 0, 1), angle)
     upper_shell = upper_shell.union(rc_body, tol=0.05)
 
-    # Cut the gap: remove material between ridges (same extent as body).
+    # Cut the gap: peaked-ceiling profile in the body zone (mid-zone).
     rc_gap = (
         cq.Workplane("YZ")
         .moveTo(-RC_GAP_HALF, Z_BOT - 0.1)
@@ -544,23 +544,24 @@ for angle in DIVIDER_ANGLES:
     rc_gap = rc_gap.rotate((0, 0, 0), (0, 0, 1), angle)
     upper_shell = upper_shell.cut(rc_gap)
 
-    # Cut narrow rectangular notches through the arc ring walls so the
-    # groove connects at the corners.  Only the ring wall thickness is
-    # removed — no peaked ceiling, just a slot at groove height/width.
-    for ring_ir, ring_or in [(IC_OUTER_IR, IC_OUTER_OR),
-                             (R_INNER_IR, R_INNER_OR)]:
-        ring_notch = (
+    # Extend the groove through both arc ring zones with a rectangular
+    # profile (no peaked ceiling).  This cuts through the inner wall,
+    # ring walls, and any floor material to connect the groove at the
+    # corners without cutting into the arc channel chamfer geometry.
+    for trans_ir, trans_or in [(IC_INNER_OR, RC_R_INNER),
+                               (RC_R_OUTER, R_OUTER_IR)]:
+        trans_cut = (
             cq.Workplane("YZ")
             .moveTo(-RC_GAP_HALF, Z_BOT - 0.1)
             .lineTo(-RC_GAP_HALF, Z_SPLIT + 0.1)
             .lineTo(RC_GAP_HALF, Z_SPLIT + 0.1)
             .lineTo(RC_GAP_HALF, Z_BOT - 0.1)
             .close()
-            .extrude(ring_or - ring_ir + 0.2)
-            .translate((ring_ir - 0.1, 0, 0))
+            .extrude(trans_or - trans_ir + 0.2)
+            .translate((trans_ir - 0.1, 0, 0))
         )
-        ring_notch = ring_notch.rotate((0, 0, 0), (0, 0, 1), angle)
-        upper_shell = upper_shell.cut(ring_notch)
+        trans_cut = trans_cut.rotate((0, 0, 0), (0, 0, 1), angle)
+        upper_shell = upper_shell.cut(trans_cut)
 
 us_solids = upper_shell.solids().vals()
 print(f"After + radial channel: {len(us_solids)} solid(s)")
