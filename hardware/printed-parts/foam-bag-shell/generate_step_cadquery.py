@@ -493,11 +493,11 @@ RC_GAP_HALF = WALL / 2 + CHANNEL_CLEARANCE          # 1.0 mm
 RC_RIDGE_HALF = RC_GAP_HALF + WALL                   # 2.0 mm
 RC_PEAK_Z = Z_SPLIT + RC_GAP_HALF                    # 27.4
 
-# Radial extent for BODY (ridges): extends into both arc channel zones
-# to create volumetric overlap at corners for clean boolean unions.
-# The gap cut (below) carves the groove through the overlap zones.
+# Radial extent for BODY (ridges): extends into inner arc ring zone
+# at corners for overlap; stops at outer arc boundary (no walls in
+# the outer arc gap — those would block stacking).
 RC_R_INNER = IC_INNER_IR    # 75.35 — overlaps into inner arc ring zone at corners
-RC_R_OUTER = R_OUTER_IR     # 104.35 — overlaps into outer arc ring zone at corners
+RC_R_OUTER = R_INNER_IR     # 101.35 — stops at outer arc inner ring face
 RC_R_LEN = RC_R_OUTER - RC_R_INNER
 
 for angle in DIVIDER_ANGLES:
@@ -536,14 +536,14 @@ for angle in DIVIDER_ANGLES:
     rc_body = rc_body.rotate((0, 0, 0), (0, 0, 1), angle)
     upper_shell = upper_shell.union(rc_body, tol=0.05)
 
-    # Single peaked-ceiling gap cut spanning the full radial range
-    # (arc gap zone through mid-zone through arc gap zone).
-    # Below Z_SPLIT: removes groove walls/floor material for connectivity.
-    # Above Z_SPLIT: shapes the peaked ceiling in both mid-zone and patches.
-    RC_GAP_FULL_IR = IC_INNER_OR   # 76.35
-    RC_GAP_FULL_OR = R_OUTER_IR    # 104.35
-    RC_GAP_FULL_LEN = RC_GAP_FULL_OR - RC_GAP_FULL_IR
-    rc_gap = (
+    # Gap cut part 1: peaked ceiling profile from inner arc zone
+    # through the mid-zone, up to the outer arc boundary.
+    # Below Z_SPLIT: removes groove/floor for the bottom cup divider wall.
+    # Above Z_SPLIT: shapes the peaked ceiling (self-supporting).
+    RC_GAP_MID_IR = IC_INNER_OR    # 76.35
+    RC_GAP_MID_OR = R_INNER_IR     # 101.35 — stop at outer arc boundary
+    RC_GAP_MID_LEN = RC_GAP_MID_OR - RC_GAP_MID_IR
+    rc_gap_mid = (
         cq.Workplane("YZ")
         .moveTo(-RC_GAP_HALF, Z_BOT - 0.1)
         .lineTo(-RC_GAP_HALF, Z_SPLIT)
@@ -551,11 +551,32 @@ for angle in DIVIDER_ANGLES:
         .lineTo(RC_GAP_HALF, Z_SPLIT)
         .lineTo(RC_GAP_HALF, Z_BOT - 0.1)
         .close()
-        .extrude(RC_GAP_FULL_LEN + 0.2)
-        .translate((RC_GAP_FULL_IR - 0.1, 0, 0))
+        .extrude(RC_GAP_MID_LEN + 0.2)
+        .translate((RC_GAP_MID_IR - 0.1, 0, 0))
     )
-    rc_gap = rc_gap.rotate((0, 0, 0), (0, 0, 1), angle)
-    upper_shell = upper_shell.cut(rc_gap)
+    rc_gap_mid = rc_gap_mid.rotate((0, 0, 0), (0, 0, 1), angle)
+    upper_shell = upper_shell.cut(rc_gap_mid)
+
+    # Gap cut part 2: simple rectangular slot through the outer arc
+    # ring zone.  Only cuts from Z_BOT to Z_SPLIT so the outer
+    # channel's chamfer/ceiling above Z_SPLIT is preserved.
+    # This slot lets the bottom cup's radial divider wall pass through
+    # the outer rings.
+    RC_GAP_OUT_IR = R_INNER_IR     # 101.35
+    RC_GAP_OUT_OR = R_OUTER_IR     # 104.35
+    RC_GAP_OUT_LEN = RC_GAP_OUT_OR - RC_GAP_OUT_IR
+    rc_gap_out = (
+        cq.Workplane("YZ")
+        .moveTo(-RC_GAP_HALF, Z_BOT - 0.1)
+        .lineTo(-RC_GAP_HALF, Z_SPLIT + 0.1)
+        .lineTo(RC_GAP_HALF, Z_SPLIT + 0.1)
+        .lineTo(RC_GAP_HALF, Z_BOT - 0.1)
+        .close()
+        .extrude(RC_GAP_OUT_LEN + 0.2)
+        .translate((RC_GAP_OUT_IR - 0.1, 0, 0))
+    )
+    rc_gap_out = rc_gap_out.rotate((0, 0, 0), (0, 0, 1), angle)
+    upper_shell = upper_shell.cut(rc_gap_out)
 
 us_solids = upper_shell.solids().vals()
 print(f"After + radial channel: {len(us_solids)} solid(s)")
