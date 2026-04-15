@@ -14,6 +14,7 @@
 | V-H | Bag B → Pump B inlet |
 | V-I | Pump B outlet → Bag B |
 | V-J | Pump B outlet → Nozzle B |
+| V-K | BiB inlet gate |
 
 All valves are normally closed solenoid valves. Flow direction is inlet (I) to outlet (O) only.
 
@@ -21,8 +22,9 @@ All valves are normally closed solenoid valves. Flow direction is inlet (I) to o
 
 | Junction | Port 1 | Port 2 | Port 3 |
 |---|---|---|---|
-| Y-A | V-A-O (tap water) | V-B-O (hopper) | Y-B-1 (to channel split) |
-| Y-B | Y-A-3 (from tap/hopper merge) | V-C-I (channel A select) | V-D-I (channel B select) |
+| Y-A | V-A-O (tap water) | V-B-O (hopper) | Y-I-1 (to BiB merge) |
+| Y-I | Y-A-3 (from tap/hopper merge) | V-K-O (BiB) | Y-B-1 (to channel split) |
+| Y-B | Y-I-3 (from source merge) | V-C-I (channel A select) | V-D-I (channel B select) |
 | Y-C | V-C-O (channel A select) | V-E-O (bag A to pump return) | P-A-I (pump A inlet) |
 | Y-D | P-A-O (pump A outlet) | V-F-I (pump to bag A) | V-G-I (pump to nozzle A) |
 | Y-E | V-F-O (pump to bag A return) | Bag A port | V-E-I (bag A to pump) |
@@ -41,39 +43,42 @@ All valves are normally closed solenoid valves. Flow direction is inlet (I) to o
 | 3 | V-A-O | Y-A-1 | |
 | 4 | Hopper funnel bottom | V-B-I | |
 | 5 | V-B-O | Y-A-2 | |
-| 6 | Y-A-3 | Y-B-1 | |
-| 7 | Y-B-2 | V-C-I | |
-| 8 | Y-B-3 | V-D-I | |
+| 6 | Y-A-3 | Y-I-1 | |
+| 7 | BiB connector | V-K-I | |
+| 8 | V-K-O | Y-I-2 | |
+| 9 | Y-I-3 | Y-B-1 | |
+| 10 | Y-B-2 | V-C-I | |
+| 11 | Y-B-3 | V-D-I | |
 
 ### Channel A
 
 | # | From | To | Notes |
 |---|---|---|---|
-| 9 | V-C-O | Y-C-1 | |
-| 10 | V-E-O | Y-C-2 | |
-| 11 | Y-C-3 | P-A-I | |
-| 12 | P-A-O | Y-D-1 | |
-| 13 | Y-D-2 | V-F-I | |
-| 14 | V-F-O | Y-E-1 | |
-| 15 | Bag A port | Y-E-2 | |
-| 16 | Y-E-3 | V-E-I | |
-| 17 | Y-D-3 | V-G-I | |
-| 18 | V-G-O | Nozzle A | |
+| 12 | V-C-O | Y-C-1 | |
+| 13 | V-E-O | Y-C-2 | |
+| 14 | Y-C-3 | P-A-I | |
+| 15 | P-A-O | Y-D-1 | |
+| 16 | Y-D-2 | V-F-I | |
+| 17 | V-F-O | Y-E-1 | |
+| 18 | Bag A port | Y-E-2 | |
+| 19 | Y-E-3 | V-E-I | |
+| 20 | Y-D-3 | V-G-I | |
+| 21 | V-G-O | Nozzle A | |
 
 ### Channel B
 
 | # | From | To | Notes |
 |---|---|---|---|
-| 19 | V-D-O | Y-F-1 | |
-| 20 | V-H-O | Y-F-2 | |
-| 21 | Y-F-3 | P-B-I | |
-| 22 | P-B-O | Y-G-1 | |
-| 23 | Y-G-2 | V-I-I | |
-| 24 | V-I-O | Y-H-1 | |
-| 25 | Bag B port | Y-H-2 | |
-| 26 | Y-H-3 | V-H-I | |
-| 27 | Y-G-3 | V-J-I | |
-| 28 | V-J-O | Nozzle B | |
+| 22 | V-D-O | Y-F-1 | |
+| 23 | V-H-O | Y-F-2 | |
+| 24 | Y-F-3 | P-B-I | |
+| 25 | P-B-O | Y-G-1 | |
+| 26 | Y-G-2 | V-I-I | |
+| 27 | V-I-O | Y-H-1 | |
+| 28 | Bag B port | Y-H-2 | |
+| 29 | Y-H-3 | V-H-I | |
+| 30 | Y-G-3 | V-J-I | |
+| 31 | V-J-O | Nozzle B | |
 
 ---
 
@@ -104,6 +109,18 @@ Open valves listed; all others closed.
 - Open: V-B, V-D, V-I
 - Pump B: ON
 - Path: Hopper → V-B → V-D → P-B → V-I → Bag B
+
+### Fill from BiB → Bag A
+
+- Open: V-K, V-C, V-F
+- Pump A: ON
+- Path: BiB → V-K → V-C → P-A → V-F → Bag A
+
+### Fill from BiB → Bag B
+
+- Open: V-K, V-D, V-I
+- Pump B: ON
+- Path: BiB → V-K → V-D → P-B → V-I → Bag B
 
 ### Clean Water Fill → Bag A
 
