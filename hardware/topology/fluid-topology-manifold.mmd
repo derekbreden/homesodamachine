@@ -1,0 +1,73 @@
+flowchart LR
+
+  %% =========================
+  %% Remote components
+  %% =========================
+  subgraph Sources["Sources"]
+    Tap["Tap Water"]
+    Hopper["Hopper"]
+    BiB["BiB"]
+  end
+
+  subgraph Pumps["Pumps"]
+    PA["Pump A"]
+    PB["Pump B"]
+  end
+
+  subgraph Bags["Bags"]
+    BagA[("Bag A")]
+    BagB[("Bag B")]
+  end
+
+  subgraph Nozzles["Nozzles"]
+    NozzleA["Nozzle A"]
+    NozzleB["Nozzle B"]
+  end
+
+  %% =========================
+  %% Manifold
+  %% =========================
+  subgraph Manifold["Manifold"]
+    direction LR
+
+    %% Source selection
+    Reg["Flow Regulator"] --> VA["V-A"] --> YA{{"Y-A"}}
+    VB["V-B"] --> YA
+    YA --> YI{{"Y-I"}}
+    VK["V-K"] --> YI
+    YI --> YB{{"Y-B"}}
+    YB --> VC["V-C"]
+    YB --> VD["V-D"]
+
+    %% Channel A
+    VE["V-E"] --> YC{{"Y-C"}}
+    VC --> YC
+    YD{{"Y-D"}} --> VG["V-G"]
+    YD --> VF["V-F"]
+    VF --> YE{{"Y-E"}}
+    YE --> VE
+
+    %% Channel B
+    VH["V-H"] --> YF{{"Y-F"}}
+    VD --> YF
+    YG{{"Y-G"}} --> VJ["V-J"]
+    YG --> VI["V-I"]
+    VI --> YH{{"Y-H"}}
+    YH --> VH
+  end
+
+  %% =========================
+  %% Tube runs (manifold ↔ remote)
+  %% =========================
+  Tap --> Reg
+  Hopper --> VB
+  BiB --> VK
+
+  YC --> PA --> YD
+  YF --> PB --> YG
+
+  YE <--> BagA
+  YH <--> BagB
+
+  VG --> NozzleA
+  VJ --> NozzleB
