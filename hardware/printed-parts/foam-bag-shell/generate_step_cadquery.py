@@ -534,21 +534,22 @@ upper_shell = upper_shell.cut(center_hole)
 # Each cradle is centered at 0° and 180°, spanning ±HALF_CRADLE.
 # Inset by ~1° on each side to preserve floor under the dividers.
 
-# Angular clearance: must clear the sweep body's ridge wall, which
-# extends RC_RIDGE_HALF (2 mm) tangentially from each divider.
-# Using the innermost cut radius (where the angular extent is largest)
-# plus a small margin.  Radial clearance: overlap 0.1 mm into the
-# channel ridges so no paper-thin floor strips remain.
-DIVIDER_ANGULAR_CLEARANCE = math.degrees(RC_RIDGE_HALF / IC_OUTER_OR) + 0.1
+# Angular clearance: clear just the divider wall (WALL/2 = 0.5 mm) plus
+# a small margin.  The cut extends radially from the inner wall outer face
+# (SHELL_OR) to the outer wall inner face (OUTER_SHELL_IR), so there is
+# no visible floor anywhere inside the bag hole.  The channel ridge bases
+# in this zone are undercut, but they sit on the build plate and the ~1 mm
+# overhang is trivially printable.
+DIVIDER_ANGULAR_CLEARANCE = math.degrees((WALL / 2 + 0.2) / SHELL_OR)
 CUT_ARC = CRADLE_ARC_DEG - 2 * DIVIDER_ANGULAR_CLEARANCE
 
 for cradle_center in [0.0, 180.0]:
     cradle_cut = (
         cq.Workplane("XZ")
-        .moveTo(IC_OUTER_OR - 0.1, Z_BOT - 0.1)
-        .lineTo(IC_OUTER_OR - 0.1, Z_BOT + FLOOR + 0.1)
-        .lineTo(R_INNER_IR + 0.1, Z_BOT + FLOOR + 0.1)
-        .lineTo(R_INNER_IR + 0.1, Z_BOT - 0.1)
+        .moveTo(SHELL_OR, Z_BOT - 0.1)
+        .lineTo(SHELL_OR, Z_BOT + FLOOR + 0.1)
+        .lineTo(OUTER_SHELL_IR, Z_BOT + FLOOR + 0.1)
+        .lineTo(OUTER_SHELL_IR, Z_BOT - 0.1)
         .close()
         .revolve(CUT_ARC, (0, 0, 0), (0, 1, 0))
     )
