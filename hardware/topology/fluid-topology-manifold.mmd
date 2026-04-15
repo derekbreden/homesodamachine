@@ -10,18 +10,18 @@ flowchart LR
   end
 
   subgraph Pumps["Pumps"]
-    PA["Pump A"]
-    PB["Pump B"]
+    direction LR
+    PA["Pump A"] ~~~ PB["Pump B"]
   end
 
   subgraph Bags["Bags"]
-    BagA[("Bag A")]
-    BagB[("Bag B")]
+    direction LR
+    BagA[("Bag A")] ~~~ BagB[("Bag B")]
   end
 
   subgraph Nozzles["Nozzles"]
-    NozzleA["Nozzle A"]
-    NozzleB["Nozzle B"]
+    direction LR
+    NozzleA["Nozzle A"] ~~~ NozzleB["Nozzle B"]
   end
 
   %% =========================
