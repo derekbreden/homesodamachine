@@ -257,125 +257,70 @@ print(f"Outer wall: {len(ow_solids)} solid(s)")
 
 
 # ═══════════════════════════════════════════════════════
-# UPPER SHELL — Part C: Channel
+# UPPER SHELL — Union (inner body + outer wall)
 # ═══════════════════════════════════════════════════════
 #
-# Double ring with gap, plus 45-deg chamfers converging to outer wall.
-# Inner ring overlaps the floor at R_INNER_IR (shared edge).
-# Overlap zone above Z_CHAMFER_TOP extends into outer wall body.
-#
-# XZ cross-section (not to scale):
-#
-#                    OW_IR ─── OW_OR
-#                      │  wall  │            ← outer wall body (Part B)
-#   Z_OL_TOP   ═══════╧════════╧═══════     ← overlap into outer wall
-#                     /          \
-#   Z_CHAMFER_TOP   /   chamfer   \          ← 45 deg converging
-#                  /      45°      \
-#   Z_SPLIT     ring   2mm gap   ring        ← ring tops / gap
-#               ││                ││
-#   Z_BOT      ││                ││          ← ring bottoms
-#           R_INNER          R_OUTER
-#           IR  OR           IR  OR
+# The outer channel (formerly Part C, a 360-deg revolved body) is now
+# built entirely by sweeps: closed-loop pocket sweeps create the outer
+# channel at pocket positions, and gap arc sweeps cover the zones
+# between pockets.
 
-Z_OL_TOP = Z_CHAMFER_TOP + 5  # extend into outer wall for clean union
-
-channel = (
-    cq.Workplane("XZ")
-    # Inner ring inside face, going up
-    .moveTo(R_INNER_IR, Z_BOT)
-    .lineTo(R_INNER_IR, Z_SPLIT)
-    # 45-deg chamfer: inner face converges outward to meet outer wall
-    .lineTo(OUTER_SHELL_IR, Z_CHAMFER_TOP)
-    # Up into outer wall overlap zone
-    .lineTo(OUTER_SHELL_IR, Z_OL_TOP)
-    .lineTo(OUTER_SHELL_OR, Z_OL_TOP)
-    # Back down to chamfer on outer side
-    .lineTo(OUTER_SHELL_OR, Z_CHAMFER_TOP)
-    # 45-deg chamfer: outer face diverges outward to meet outer ring
-    .lineTo(R_OUTER_OR, Z_SPLIT)
-    # Outer ring outside face, going down
-    .lineTo(R_OUTER_OR, Z_BOT)
-    # Across outer ring bottom
-    .lineTo(R_OUTER_IR, Z_BOT)
-    # Outer ring inside face (gap side), going up
-    .lineTo(R_OUTER_IR, Z_SPLIT)
-    # 45-deg peaked ceiling across gap (self-supporting)
-    .lineTo((R_INNER_OR + R_OUTER_IR) / 2, Z_SPLIT + (R_OUTER_IR - R_INNER_OR) / 2)
-    .lineTo(R_INNER_OR, Z_SPLIT)
-    # Inner ring outside face (gap side), going down
-    .lineTo(R_INNER_OR, Z_BOT)
-    # Close across inner ring bottom
-    .close()
-    .revolve(360, (0, 0, 0), (0, 1, 0))
-)
-
-ch_solids = channel.solids().vals()
-print(f"Channel: {len(ch_solids)} solid(s)")
-
-
-# ═══════════════════════════════════════════════════════
-# UPPER SHELL — Union
-# ═══════════════════════════════════════════════════════
-
-upper_shell = inner_body.union(channel, tol=0.1)
+upper_shell = inner_body.union(outer_wall, tol=0.1)
 us_solids = upper_shell.solids().vals()
-print(f"\nAfter inner_body + channel: {len(us_solids)} solid(s)")
-
-upper_shell = upper_shell.union(outer_wall, tol=0.1)
-us_solids = upper_shell.solids().vals()
-print(f"After + outer_wall: {len(us_solids)} solid(s)")
+print(f"\nAfter inner_body + outer_wall: {len(us_solids)} solid(s)")
 
 
 # ═══════════════════════════════════════════════════════
-# UPPER SHELL — Pocket channels (swept along U-path)
+# UPPER SHELL — Pocket channels (closed-loop sweep)
 # ═══════════════════════════════════════════════════════
 #
-# Each bag pocket's channel is built by sweeping a single cross-section
-# profile along a U-shaped path: radial inward along one divider, arc
-# along the inner wall, radial outward along the other divider.
+# Each pocket's channel is swept around a closed rectangular loop:
+#   outer arc (CW) → radial inward → inner arc (CCW) → radial outward
 #
-# The sweep with transition='right' produces 45-degree mitered corners
-# where the radial segments meet the arc — picture-frame joints, not
-# overlapping rectangles.
+# All four corners per pocket are mitered by transition='right'.
+# The outer arc portion overlaps with Part C (360-deg channel);
+# the union absorbs this harmlessly.
 
-IC_OL_TOP = Z_CHAMFER_TOP + 5  # overlap into inner wall for clean union
+IC_OL_TOP = Z_CHAMFER_TOP + 5  # overlap into walls for clean union
 
 RC_GAP_HALF = WALL / 2 + CHANNEL_CLEARANCE    # 1.0 mm
 RC_RIDGE_HALF = RC_GAP_HALF + WALL             # 2.0 mm
 RC_PEAK_Z = Z_SPLIT + RC_GAP_HALF              # 27.4 mm
 
-R_PATH = (SHELL_IR + SHELL_OR) / 2             # 77.35 — path center on arc
-R_PATH_OUTER = R_INNER_IR                        # 101.35 — stops at outer channel inner ring
+R_PATH_INNER = (SHELL_IR + SHELL_OR) / 2       # 77.35 — inner wall center
+R_PATH_OUTER = (R_INNER_OR + R_OUTER_IR) / 2   # 103.35 — outer channel gap center
 
 for cradle_center in [0.0, 180.0]:
     a_lo = math.radians(cradle_center - HALF_CRADLE)
     a_hi = math.radians(cradle_center + HALF_CRADLE)
     a_mid = math.radians(cradle_center)
 
-    # U-path in XY: outer end of divider 1 → inner wall → outer end of divider 2
-    p_start = (R_PATH_OUTER * math.cos(a_lo), R_PATH_OUTER * math.sin(a_lo))
-    p_corner1 = (R_PATH * math.cos(a_lo), R_PATH * math.sin(a_lo))
-    p_arc_mid = (R_PATH * math.cos(a_mid), R_PATH * math.sin(a_mid))
-    p_corner2 = (R_PATH * math.cos(a_hi), R_PATH * math.sin(a_hi))
-    p_end = (R_PATH_OUTER * math.cos(a_hi), R_PATH_OUTER * math.sin(a_hi))
+    # Closed-loop path points
+    pA = (R_PATH_OUTER * math.cos(a_hi), R_PATH_OUTER * math.sin(a_hi))
+    pB = (R_PATH_OUTER * math.cos(a_mid), R_PATH_OUTER * math.sin(a_mid))
+    pC = (R_PATH_OUTER * math.cos(a_lo), R_PATH_OUTER * math.sin(a_lo))
+    pD = (R_PATH_INNER * math.cos(a_lo), R_PATH_INNER * math.sin(a_lo))
+    pE = (R_PATH_INNER * math.cos(a_mid), R_PATH_INNER * math.sin(a_mid))
+    pF = (R_PATH_INNER * math.cos(a_hi), R_PATH_INNER * math.sin(a_hi))
 
     path_wire = (
         cq.Workplane("XY")
-        .moveTo(*p_start)
-        .lineTo(*p_corner1)
-        .threePointArc(p_arc_mid, p_corner2)
-        .lineTo(*p_end)
+        .moveTo(*pA)
+        .threePointArc(pB, pC)   # outer arc: hi → mid → lo
+        .lineTo(*pD)              # radial inward along divider 1
+        .threePointArc(pE, pF)   # inner arc: lo → mid → hi
+        .lineTo(*pA)              # radial outward along divider 2 (closes loop)
         .wire().val()
     )
 
-    # Profile plane perpendicular to path at start (facing inward along divider 1)
+    # Profile plane at pA — CW tangent at angle_hi
     profile_plane = cq.Plane(
-        origin=(p_start[0], p_start[1], 0),
-        xDir=(math.sin(a_lo), -math.cos(a_lo), 0),
-        normal=(-math.cos(a_lo), -math.sin(a_lo), 0),
+        origin=(pA[0], pA[1], 0),
+        xDir=(math.cos(a_hi), math.sin(a_hi), 0),
+        normal=(math.sin(a_hi), -math.cos(a_hi), 0),
     )
 
+    # Solid body profile (no gap notch — groove cuts the gap later)
     swept_body = (
         cq.Workplane(profile_plane)
         .moveTo(-RC_RIDGE_HALF, Z_BOT)
@@ -386,18 +331,57 @@ for cradle_center in [0.0, 180.0]:
         .lineTo(WALL / 2, Z_CHAMFER_TOP)
         .lineTo(RC_RIDGE_HALF, Z_SPLIT)
         .lineTo(RC_RIDGE_HALF, Z_BOT)
-        .lineTo(RC_GAP_HALF, Z_BOT)
-        .lineTo(RC_GAP_HALF, Z_SPLIT)
-        .lineTo(0, RC_PEAK_Z)
-        .lineTo(-RC_GAP_HALF, Z_SPLIT)
-        .lineTo(-RC_GAP_HALF, Z_BOT)
         .close()
         .sweep(path_wire, transition='right')
     )
     upper_shell = upper_shell.union(swept_body, tol=0.1)
 
+# Gap arc sweeps: outer channel between pockets (from one divider to the next)
+GAP_ARCS = [
+    (HALF_CRADLE, 180.0 - HALF_CRADLE),          # +45.35° to +134.65°
+    (180.0 + HALF_CRADLE, 360.0 - HALF_CRADLE),  # +225.35° to +314.65°
+]
+
+for arc_start_deg, arc_end_deg in GAP_ARCS:
+    a_start = math.radians(arc_start_deg)
+    a_end = math.radians(arc_end_deg)
+    a_mid = math.radians((arc_start_deg + arc_end_deg) / 2)
+
+    g_start = (R_PATH_OUTER * math.cos(a_start), R_PATH_OUTER * math.sin(a_start))
+    g_mid = (R_PATH_OUTER * math.cos(a_mid), R_PATH_OUTER * math.sin(a_mid))
+    g_end = (R_PATH_OUTER * math.cos(a_end), R_PATH_OUTER * math.sin(a_end))
+
+    gap_path = (
+        cq.Workplane("XY")
+        .moveTo(*g_start)
+        .threePointArc(g_mid, g_end)
+        .wire().val()
+    )
+
+    # Profile plane: CCW tangent at start angle, xDir radially inward
+    gap_profile_plane = cq.Plane(
+        origin=(g_start[0], g_start[1], 0),
+        xDir=(-math.cos(a_start), -math.sin(a_start), 0),
+        normal=(-math.sin(a_start), math.cos(a_start), 0),
+    )
+
+    gap_body = (
+        cq.Workplane(gap_profile_plane)
+        .moveTo(-RC_RIDGE_HALF, Z_BOT)
+        .lineTo(-RC_RIDGE_HALF, Z_SPLIT)
+        .lineTo(-WALL / 2, Z_CHAMFER_TOP)
+        .lineTo(-WALL / 2, IC_OL_TOP)
+        .lineTo(WALL / 2, IC_OL_TOP)
+        .lineTo(WALL / 2, Z_CHAMFER_TOP)
+        .lineTo(RC_RIDGE_HALF, Z_SPLIT)
+        .lineTo(RC_RIDGE_HALF, Z_BOT)
+        .close()
+        .sweep(gap_path)
+    )
+    upper_shell = upper_shell.union(gap_body, tol=0.1)
+
 us_solids = upper_shell.solids().vals()
-print(f"After + swept channel bodies: {len(us_solids)} solid(s)")
+print(f"After + all channel bodies: {len(us_solids)} solid(s)")
 
 
 # ═══════════════════════════════════════════════════════
@@ -452,7 +436,7 @@ print(f"After + dividers: {len(us_solids)} solid(s)")
 
 
 # ═══════════════════════════════════════════════════════
-# UPPER SHELL — Groove cuts (swept along same U-path, after dividers)
+# UPPER SHELL — Groove cuts (closed-loop sweep, after dividers)
 # ═══════════════════════════════════════════════════════
 
 for cradle_center in [0.0, 180.0]:
@@ -460,26 +444,28 @@ for cradle_center in [0.0, 180.0]:
     a_hi = math.radians(cradle_center + HALF_CRADLE)
     a_mid = math.radians(cradle_center)
 
-    # Same U-path as the body sweep
-    p_start = (R_PATH_OUTER * math.cos(a_lo), R_PATH_OUTER * math.sin(a_lo))
-    p_corner1 = (R_PATH * math.cos(a_lo), R_PATH * math.sin(a_lo))
-    p_arc_mid = (R_PATH * math.cos(a_mid), R_PATH * math.sin(a_mid))
-    p_corner2 = (R_PATH * math.cos(a_hi), R_PATH * math.sin(a_hi))
-    p_end = (R_PATH_OUTER * math.cos(a_hi), R_PATH_OUTER * math.sin(a_hi))
+    # Same closed-loop path as the body sweep
+    pA = (R_PATH_OUTER * math.cos(a_hi), R_PATH_OUTER * math.sin(a_hi))
+    pB = (R_PATH_OUTER * math.cos(a_mid), R_PATH_OUTER * math.sin(a_mid))
+    pC = (R_PATH_OUTER * math.cos(a_lo), R_PATH_OUTER * math.sin(a_lo))
+    pD = (R_PATH_INNER * math.cos(a_lo), R_PATH_INNER * math.sin(a_lo))
+    pE = (R_PATH_INNER * math.cos(a_mid), R_PATH_INNER * math.sin(a_mid))
+    pF = (R_PATH_INNER * math.cos(a_hi), R_PATH_INNER * math.sin(a_hi))
 
     path_wire = (
         cq.Workplane("XY")
-        .moveTo(*p_start)
-        .lineTo(*p_corner1)
-        .threePointArc(p_arc_mid, p_corner2)
-        .lineTo(*p_end)
+        .moveTo(*pA)
+        .threePointArc(pB, pC)
+        .lineTo(*pD)
+        .threePointArc(pE, pF)
+        .lineTo(*pA)
         .wire().val()
     )
 
     profile_plane = cq.Plane(
-        origin=(p_start[0], p_start[1], 0),
-        xDir=(math.sin(a_lo), -math.cos(a_lo), 0),
-        normal=(-math.cos(a_lo), -math.sin(a_lo), 0),
+        origin=(pA[0], pA[1], 0),
+        xDir=(math.cos(a_hi), math.sin(a_hi), 0),
+        normal=(math.sin(a_hi), -math.cos(a_hi), 0),
     )
 
     swept_groove = (
@@ -494,21 +480,40 @@ for cradle_center in [0.0, 180.0]:
     )
     upper_shell = upper_shell.cut(swept_groove)
 
-    # V-shaped peaked cuts through outer channel rings at each divider
-    for angle in [cradle_center - HALF_CRADLE, cradle_center + HALF_CRADLE]:
-        rc_vcut = (
-            cq.Workplane("YZ")
-            .moveTo(-RC_GAP_HALF, Z_BOT - 0.1)
-            .lineTo(-RC_GAP_HALF, Z_SPLIT)
-            .lineTo(0, RC_PEAK_Z)
-            .lineTo(RC_GAP_HALF, Z_SPLIT)
-            .lineTo(RC_GAP_HALF, Z_BOT - 0.1)
-            .close()
-            .extrude(R_OUTER_IR - R_INNER_IR + 0.2)
-            .translate((R_INNER_IR - 0.1, 0, 0))
-        )
-        rc_vcut = rc_vcut.rotate((0, 0, 0), (0, 0, 1), angle)
-        upper_shell = upper_shell.cut(rc_vcut)
+# Gap arc groove cuts
+for arc_start_deg, arc_end_deg in GAP_ARCS:
+    a_start = math.radians(arc_start_deg)
+    a_end = math.radians(arc_end_deg)
+    a_mid = math.radians((arc_start_deg + arc_end_deg) / 2)
+
+    g_start = (R_PATH_OUTER * math.cos(a_start), R_PATH_OUTER * math.sin(a_start))
+    g_mid = (R_PATH_OUTER * math.cos(a_mid), R_PATH_OUTER * math.sin(a_mid))
+    g_end = (R_PATH_OUTER * math.cos(a_end), R_PATH_OUTER * math.sin(a_end))
+
+    gap_path = (
+        cq.Workplane("XY")
+        .moveTo(*g_start)
+        .threePointArc(g_mid, g_end)
+        .wire().val()
+    )
+
+    gap_groove_plane = cq.Plane(
+        origin=(g_start[0], g_start[1], 0),
+        xDir=(-math.cos(a_start), -math.sin(a_start), 0),
+        normal=(-math.sin(a_start), math.cos(a_start), 0),
+    )
+
+    gap_groove = (
+        cq.Workplane(gap_groove_plane)
+        .moveTo(-RC_GAP_HALF, Z_BOT - 0.1)
+        .lineTo(-RC_GAP_HALF, Z_SPLIT)
+        .lineTo(0, RC_PEAK_Z)
+        .lineTo(RC_GAP_HALF, Z_SPLIT)
+        .lineTo(RC_GAP_HALF, Z_BOT - 0.1)
+        .close()
+        .sweep(gap_path)
+    )
+    upper_shell = upper_shell.cut(gap_groove)
 
 us_solids = upper_shell.solids().vals()
 print(f"After + swept groove cuts: {len(us_solids)} solid(s)")
@@ -555,7 +560,7 @@ print(f"After cradle floor cuts: {len(us_solids)} solid(s)")
 
 
 # ═══════════════════════════════════════════════════════
-# DIAGNOSTICS
+# DIAGNOSTICS (bounding boxes only — slab intersections are slow on swept geometry)
 # ═══════════════════════════════════════════════════════
 
 for name, part in [("Bottom cup", bottom_cup), ("Upper shell", upper_shell)]:
@@ -566,109 +571,10 @@ for name, part in [("Bottom cup", bottom_cup), ("Upper shell", upper_shell)]:
         print(f"  Solid {i}: X[{bb.xmin:.1f},{bb.xmax:.1f}] "
               f"Y[{bb.ymin:.1f},{bb.ymax:.1f}] Z[{bb.zmin:.1f},{bb.zmax:.1f}]")
 
-print(f"\nZ levels:")
-print(f"  Z={Z_BOT:.1f}:  channel ring bottoms / upper shell bed contact")
-print(f"  Z=0.0:  bottom cup floor")
-print(f"  Z={FLOOR:.1f}:  foam cavity bottom")
-print(f"  Z={PLAT_BOTTOM:.1f}: split line / ring tops / upper floor bottom")
-print(f"  Z={PLATFORM_Z:.1f}: upper floor top")
-print(f"  Z={Z_CHAMFER_TOP:.1f}: chamfer tops / outer wall starts")
-print(f"  Z={SHELL_HEIGHT:.1f}: shell top (open)")
-
-import math
-
-# Bottom cup cross-section at Y=0 (cuts through bag zone + across internal walls)
-slab_bc = (
-    cq.Workplane("XY")
-    .box(300, 0.02, 300, centered=(True, True, True))
-    .translate((0, 0, 15))
-)
-print(f"\n── BOTTOM CUP cross-section at Y=0 (positive X, Z < 28) ──")
-try:
-    bc_sect = bottom_cup.intersect(slab_bc)
-    bc_verts = bc_sect.vertices().vals()
-    bc_coords = sorted(set(
-        (round(v.X, 2), round(v.Z, 2))
-        for v in bc_verts
-    ))
-    for r, z in bc_coords:
-        if r > 0 and z < 28:
-            print(f"  R={r:7.2f}  Z={z:5.2f}")
-except Exception as e:
-    print(f"  Section failed: {e}")
-
-# Cross-section through Y=0 (between dividers — shows walls/channel only)
-print("\n── XZ CROSS-SECTION at Y=0 (Z < 35) ──")
-slab_y0 = (
-    cq.Workplane("XY")
-    .box(300, 0.02, 300, centered=(True, True, True))
-    .translate((0, 0, 80))
-)
-try:
-    section = upper_shell.intersect(slab_y0)
-    verts = section.vertices().vals()
-    coords = sorted(set((round(v.X, 2), round(v.Z, 2)) for v in verts))
-    for x, z in coords:
-        if x > 0 and z < 35:
-            print(f"  R={x:7.2f}  Z={z:5.2f}")
-except Exception as e:
-    print(f"  Section failed: {e}")
-
-# Cross-sections around the first divider to see floor vs cut boundary
-DIV_ANGLE = DIVIDER_ANGLES[0]  # -45.35°
-for label, angle in [
-    (f"divider at {DIV_ANGLE:.1f}°", DIV_ANGLE),
-    (f"cradle side at {DIV_ANGLE + 2:.1f}°", DIV_ANGLE + 2),
-    (f"gap side at {DIV_ANGLE - 2:.1f}°", DIV_ANGLE - 2),
-]:
-    angle_rad = math.radians(angle)
-    slab_test = (
-        cq.Workplane("XY")
-        .box(300, 0.02, 300, centered=(True, True, True))
-        .translate((0, 0, 80))
-        .rotate((0, 0, 0), (0, 0, 1), angle)
-    )
-    print(f"\n── CROSS-SECTION {label} (Z < 30, R=70-110) ──")
-    try:
-        section_test = upper_shell.intersect(slab_test)
-        verts_test = section_test.vertices().vals()
-        ca, sa = math.cos(angle_rad), math.sin(angle_rad)
-        coords_test = sorted(set(
-            (round(v.X * ca + v.Y * sa, 2), round(v.Z, 2))
-            for v in verts_test
-        ))
-        for r, z in coords_test:
-            if 70 < r < 110 and z < 30:
-                print(f"  R={r:7.2f}  Z={z:5.2f}")
-    except Exception as e:
-        print(f"  Section failed: {e}")
-
-DIV_ANGLE_RAD = math.radians(DIV_ANGLE)
-slab_div = (
-    cq.Workplane("XY")
-    .box(300, 0.02, 300, centered=(True, True, True))
-    .translate((0, 0, 80))
-    .rotate((0, 0, 0), (0, 0, 1), DIV_ANGLE)
-)
-print(f"\n── FULL CROSS-SECTION through divider at {DIV_ANGLE:.1f}° (Z < 35) ──")
-try:
-    section2 = upper_shell.intersect(slab_div)
-    verts2 = section2.vertices().vals()
-    # Project onto the radial direction for this angle
-    ca, sa = math.cos(DIV_ANGLE_RAD), math.sin(DIV_ANGLE_RAD)
-    coords2 = sorted(set(
-        (round(v.X * ca + v.Y * sa, 2), round(v.Z, 2))
-        for v in verts2
-    ))
-    for r, z in coords2:
-        if r > 0 and z < 35:
-            print(f"  R={r:7.2f}  Z={z:5.2f}")
-except Exception as e:
-    print(f"  Section failed: {e}")
-
 print(f"\nRadii:")
 print(f"  Inner wall:  {SHELL_IR:.2f} - {SHELL_OR:.2f}")
-print(f"  Floor to:    {R_INNER_IR:.2f}")
+print(f"  Path inner:  {R_PATH_INNER:.2f}")
+print(f"  Path outer:  {R_PATH_OUTER:.2f}")
 print(f"  Inner ring:  {R_INNER_IR:.2f} - {R_INNER_OR:.2f}")
 print(f"  Gap:         {R_INNER_OR:.2f} - {R_OUTER_IR:.2f}  ({R_OUTER_IR - R_INNER_OR:.1f} mm)")
 print(f"  Outer ring:  {R_OUTER_IR:.2f} - {R_OUTER_OR:.2f}")
