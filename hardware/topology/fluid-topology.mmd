@@ -26,10 +26,10 @@ flowchart LR
     direction LR
 
     VE["V-E"] --> YC{{"Y-C"}} --> PA["Pump A"] --> YD{{"Y-D"}}
+    YD --> VG["V-G"] --> NozzleA["Nozzle A"]
     YD --> VF["V-F"] --> YE{{"Y-E"}}
     YE --- BagA[("Bag A")]
     YE --> VE
-    YD --> VG["V-G"] --> NozzleA["Nozzle A"]
   end
 
   %% =========================
@@ -39,10 +39,10 @@ flowchart LR
     direction LR
 
     VH["V-H"] --> YF{{"Y-F"}} --> PB["Pump B"] --> YG{{"Y-G"}}
+    YG --> VJ["V-J"] --> NozzleB["Nozzle B"]
     YG --> VI["V-I"] --> YH{{"Y-H"}}
     YH --- BagB[("Bag B")]
     YH --> VH
-    YG --> VJ["V-J"] --> NozzleB["Nozzle B"]
   end
 
   %% =========================
