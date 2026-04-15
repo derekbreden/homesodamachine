@@ -1,0 +1,49 @@
+flowchart LR
+
+  %% =========================
+  %% Shared source / selection module
+  %% =========================
+  subgraph Selector["Water / Hopper Selector"]
+    direction LR
+
+    Tap["Tap Water"] --> Reg["Flow Regulator"] --> VA["V-A"]
+    Hopper["Hopper"] --> VB["V-B"]
+
+    VA --> YA{{"Y-A"}}
+    VB --> YA
+    YA --> YB{{"Y-B"}}
+    YB --> VC["V-C"]
+    YB --> VD["V-D"]
+  end
+
+  %% =========================
+  %% Channel A module
+  %% =========================
+  subgraph PumpLoopA["Channel A Pump Loop"]
+    direction LR
+
+    VE["V-E"] --> YC{{"Y-C"}} --> PA["Pump A"] --> YD{{"Y-D"}}
+    YD --> VF["V-F"] --> YE{{"Y-E"}}
+    YE --- BagA[("Bag A")]
+    YE --> VE
+    YD --> VG["V-G"] --> NozzleA["Nozzle A"]
+  end
+
+  %% =========================
+  %% Channel B module
+  %% =========================
+  subgraph PumpLoopB["Channel B Pump Loop"]
+    direction LR
+
+    VH["V-H"] --> YF{{"Y-F"}} --> PB["Pump B"] --> YG{{"Y-G"}}
+    YG --> VI["V-I"] --> YH{{"Y-H"}}
+    YH --- BagB[("Bag B")]
+    YH --> VH
+    YG --> VJ["V-J"] --> NozzleB["Nozzle B"]
+  end
+
+  %% =========================
+  %% Cross-module connections
+  %% =========================
+  VC --> YC
+  VD --> YF
