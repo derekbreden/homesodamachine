@@ -28,7 +28,7 @@ flowchart LR
     VE["V-E"] --> YC{{"Y-C"}} --> PA["Pump A"] --> YD{{"Y-D"}}
     YD --> VG["V-G"] --> NozzleA["Nozzle A"]
     YD --> VF["V-F"] --> YE{{"Y-E"}}
-    YE --- BagA[("Bag A")]
+    YE <--> BagA[("Bag A")]
     YE --> VE
   end
 
@@ -41,7 +41,7 @@ flowchart LR
     VH["V-H"] --> YF{{"Y-F"}} --> PB["Pump B"] --> YG{{"Y-G"}}
     YG --> VJ["V-J"] --> NozzleB["Nozzle B"]
     YG --> VI["V-I"] --> YH{{"Y-H"}}
-    YH --- BagB[("Bag B")]
+    YH <--> BagB[("Bag B")]
     YH --> VH
   end
 
@@ -52,6 +52,7 @@ flowchart LR
   VD --> YF
 
   %% Long tube runs (sources, nozzles, cross-module)
-  linkStyle 0,1,2,3,15,24,29,30 stroke:#ccc,stroke-width:2px
+  linkStyle 12,13,21,22 stroke:#1a1a1a,stroke-width:4px
+  linkStyle 0,2,3,15,18,24,27 stroke:#1a1a1a,stroke-width:2px
   %% Short/negligible connections (V↔Y, Y↔Y, Y↔pump, Y↔bag)
-  linkStyle 4,5,6,7,8,9,10,11,12,13,14,16,17,18,19,20,21,22,23,25,26,27,28 stroke:#1a1a1a,stroke-width:2px
+  linkStyle 1,4,5,6,7,8,9,10,11,14,16,17,19,20,23,25,26,28,29,30 stroke:#ccc,stroke-width:2px
