@@ -30,69 +30,62 @@ flowchart LR
   subgraph Manifold["Manifold"]
     direction LR
 
-    subgraph InletGates["Inlet Gates"]
+    subgraph SourceSelection["Source Selection"]
       Reg["Flow Regulator"]
       VA["V-A"]
       VB["V-B"]
       VK["V-K"]
-    end
-
-    subgraph SourceMerge["Source Merge"]
       YA{{"Y-A"}}
       YI{{"Y-I"}}
-    end
-
-    subgraph ChannelSelect["Channel Select"]
       YB{{"Y-B"}}
       VC["V-C"]
       VD["V-D"]
     end
 
-    subgraph PumpACircuit["Pump A Circuit"]
-      VE["V-E"]
+    subgraph MfPumps["Pump Junctions"]
       YC{{"Y-C"}}
       YD{{"Y-D"}}
-      VF["V-F"]
-      VG["V-G"]
-      YE{{"Y-E"}}
-    end
-
-    subgraph PumpBCircuit["Pump B Circuit"]
-      VH["V-H"]
       YF{{"Y-F"}}
       YG{{"Y-G"}}
-      VI["V-I"]
-      VJ["V-J"]
-      YH{{"Y-H"}}
     end
 
-    %% Inlet Gates connections
+    subgraph MfNozzles["Nozzle Gates"]
+      VG["V-G"]
+      VJ["V-J"]
+    end
+
+    subgraph MfBags["Bag Circuit"]
+      VE["V-E"]
+      YE{{"Y-E"}}
+      VF["V-F"]
+      VH["V-H"]
+      YH{{"Y-H"}}
+      VI["V-I"]
+    end
+
+    %% Source Selection connections
     Reg --> VA
     VA --> YA
     VB --> YA
     VK --> YI
-
-    %% Source Merge connections
     YA --> YI
     YI --> YB
-
-    %% Channel Select connections
     YB --> VC
     YB --> VD
 
-    %% Pump A Circuit connections
+    %% Pump Junctions connections
     VC --> YC
-    VE --> YC
+    VD --> YF
     YD --> VG
     YD --> VF
-    VF --> YE
-    YE --> VE
-
-    %% Pump B Circuit connections
-    VD --> YF
-    VH --> YF
     YG --> VJ
     YG --> VI
+
+    %% Bag Circuit connections
+    VE --> YC
+    VF --> YE
+    YE --> VE
+    VH --> YF
     VI --> YH
     YH --> VH
   end
