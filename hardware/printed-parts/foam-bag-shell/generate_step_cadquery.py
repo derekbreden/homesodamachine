@@ -346,7 +346,7 @@ RC_RIDGE_HALF = RC_GAP_HALF + WALL             # 2.0 mm
 RC_PEAK_Z = Z_SPLIT + RC_GAP_HALF              # 27.4 mm
 
 R_PATH = (SHELL_IR + SHELL_OR) / 2             # 77.35 — path center on arc
-R_PATH_OUTER = R_INNER_IR                      # 101.35 — outer end of radials
+R_PATH_OUTER = (R_INNER_OR + R_OUTER_IR) / 2     # 103.35 — outer channel gap midpoint
 
 for cradle_center in [0.0, 180.0]:
     a_lo = math.radians(cradle_center - HALF_CRADLE)
@@ -493,21 +493,6 @@ for cradle_center in [0.0, 180.0]:
         .sweep(path_wire, transition='right')
     )
     upper_shell = upper_shell.cut(swept_groove)
-
-    # Outer ring slots (T-junction through the 360-deg outer channel)
-    for angle in [cradle_center - HALF_CRADLE, cradle_center + HALF_CRADLE]:
-        rc_slot = (
-            cq.Workplane("YZ")
-            .moveTo(-RC_GAP_HALF, Z_BOT - 0.1)
-            .lineTo(-RC_GAP_HALF, Z_SPLIT + 0.1)
-            .lineTo(RC_GAP_HALF, Z_SPLIT + 0.1)
-            .lineTo(RC_GAP_HALF, Z_BOT - 0.1)
-            .close()
-            .extrude(R_OUTER_IR - R_INNER_IR + 0.2)
-            .translate((R_INNER_IR - 0.1, 0, 0))
-        )
-        rc_slot = rc_slot.rotate((0, 0, 0), (0, 0, 1), angle)
-        upper_shell = upper_shell.cut(rc_slot)
 
 us_solids = upper_shell.solids().vals()
 print(f"After + swept groove cuts: {len(us_solids)} solid(s)")
