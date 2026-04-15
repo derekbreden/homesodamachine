@@ -534,19 +534,19 @@ upper_shell = upper_shell.cut(center_hole)
 # Each cradle is centered at 0° and 180°, spanning ±HALF_CRADLE.
 # Inset by ~1° on each side to preserve floor under the dividers.
 
-# Compute angular clearance from the radial channel ridge width.
-# At the smallest cut radius (IC_OUTER_OR + 0.1), the ridge extends
-# RC_RIDGE_HALF from center.  Convert to angle and add 0.5° margin.
-DIVIDER_ANGULAR_CLEARANCE = math.degrees(RC_RIDGE_HALF / (IC_OUTER_OR + 0.1)) + 0.5
+# Angular clearance: preserve floor under the divider wall (WALL/2
+# each side) + 0.3 mm margin.  Radial clearance: overlap 0.1 mm into
+# the channel ridges so no paper-thin floor strips remain.
+DIVIDER_ANGULAR_CLEARANCE = math.degrees((WALL / 2 + 0.3) / IC_OUTER_OR)
 CUT_ARC = CRADLE_ARC_DEG - 2 * DIVIDER_ANGULAR_CLEARANCE
 
 for cradle_center in [0.0, 180.0]:
     cradle_cut = (
         cq.Workplane("XZ")
-        .moveTo(IC_OUTER_OR + 0.1, Z_BOT - 0.1)
-        .lineTo(IC_OUTER_OR + 0.1, Z_BOT + FLOOR + 0.1)
-        .lineTo(R_INNER_IR - 0.1, Z_BOT + FLOOR + 0.1)
-        .lineTo(R_INNER_IR - 0.1, Z_BOT - 0.1)
+        .moveTo(IC_OUTER_OR - 0.1, Z_BOT - 0.1)
+        .lineTo(IC_OUTER_OR - 0.1, Z_BOT + FLOOR + 0.1)
+        .lineTo(R_INNER_IR + 0.1, Z_BOT + FLOOR + 0.1)
+        .lineTo(R_INNER_IR + 0.1, Z_BOT - 0.1)
         .close()
         .revolve(CUT_ARC, (0, 0, 0), (0, 1, 0))
     )
