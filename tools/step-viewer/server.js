@@ -35,6 +35,35 @@ app.get("/api/steps", (_req, res) => {
   res.json(files);
 });
 
+// --- Mermaid API ---
+function findMermaidFiles() {
+  const files = [];
+  function walk(dir, rel) {
+    for (const entry of fs.readdirSync(dir, { withFileTypes: true })) {
+      const full = path.join(dir, entry.name);
+      if (entry.isDirectory()) walk(full, path.join(rel, entry.name));
+      else if (entry.name.endsWith(".mmd")) files.push(path.join(rel, entry.name));
+    }
+  }
+  walk(HARDWARE_DIR, "");
+  return files;
+}
+
+app.get("/api/mermaid", (_req, res) => {
+  res.json(findMermaidFiles());
+});
+
+app.get("/api/mermaid-content/*", (req, res) => {
+  const relPath = req.params[0];
+  if (relPath.includes("..")) return res.status(400).send("Invalid path");
+  const absPath = path.join(HARDWARE_DIR, relPath);
+  if (!absPath.startsWith(HARDWARE_DIR) || !absPath.endsWith(".mmd")) {
+    return res.status(400).send("Invalid path");
+  }
+  if (!fs.existsSync(absPath)) return res.status(404).send("Not found");
+  res.type("text/plain").send(fs.readFileSync(absPath, "utf-8"));
+});
+
 const server = createServer(app);
 
 // --- WebSocket ---
@@ -130,6 +159,21 @@ watcher.on("change", (absPath) => {
           await runScript(f);
         }
       }, 500)
+    );
+    return;
+  }
+
+  // Mermaid file changed — broadcast update
+  if (absPath.endsWith(".mmd")) {
+    if (debounce.has(absPath)) clearTimeout(debounce.get(absPath));
+    debounce.set(
+      absPath,
+      setTimeout(() => {
+        debounce.delete(absPath);
+        const relFile = path.relative(HARDWARE_DIR, absPath);
+        console.log(`Mermaid changed: ${relFile}`);
+        broadcast({ type: "mermaid-updated", file: relFile });
+      }, 300)
     );
     return;
   }

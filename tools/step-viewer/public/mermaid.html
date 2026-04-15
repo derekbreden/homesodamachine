@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mermaid Viewer</title>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, sans-serif;
+  background: #1a1a1a;
+  color: #ccc;
+  display: flex;
+  height: 100vh;
+  overflow: hidden;
+}
+
+/* Sidebar */
+#sidebar {
+  width: 240px;
+  min-width: 240px;
+  background: #222;
+  border-right: 1px solid #333;
+  display: flex;
+  flex-direction: column;
+  overflow-y: auto;
+}
+#sidebar h2 {
+  padding: 16px;
+  font-size: 14px;
+  font-weight: 600;
+  color: #888;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  border-bottom: 1px solid #333;
+}
+.file-item {
+  padding: 10px 16px;
+  font-size: 13px;
+  cursor: pointer;
+  border-bottom: 1px solid #2a2a2a;
+  transition: background 0.1s;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.file-item:hover { background: #2a2a2a; }
+.file-item.active { background: #333; color: #fff; }
+.file-item .dir {
+  color: #666;
+  font-size: 11px;
+  display: block;
+  margin-bottom: 2px;
+}
+#back-link {
+  display: block;
+  padding: 10px 16px;
+  font-size: 13px;
+  color: #5588cc;
+  text-decoration: none;
+  border-bottom: 1px solid #333;
+}
+#back-link:hover { background: #2a2a2a; }
+
+/* Main area */
+#main {
+  flex: 1;
+  position: relative;
+  overflow: hidden;
+  cursor: grab;
+}
+#main.dragging { cursor: grabbing; }
+
+#diagram-container {
+  position: absolute;
+  transform-origin: 0 0;
+}
+
+/* Mermaid theme overrides */
+#diagram-container svg {
+  display: block;
+}
+
+#status {
+  position: fixed;
+  bottom: 16px;
+  right: 16px;
+  background: rgba(40,40,40,0.85);
+  border: 1px solid #444;
+  color: #888;
+  padding: 6px 12px;
+  border-radius: 6px;
+  font-size: 12px;
+  backdrop-filter: blur(4px);
+  z-index: 10;
+}
+
+#zoom-display {
+  position: fixed;
+  top: 16px;
+  right: 16px;
+  background: rgba(40,40,40,0.85);
+  border: 1px solid #444;
+  color: #aaa;
+  padding: 6px 12px;
+  border-radius: 6px;
+  font-size: 13px;
+  backdrop-filter: blur(4px);
+  z-index: 10;
+}
+
+#empty-state {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: #555;
+  font-size: 15px;
+}
+</style>
+</head>
+<body>
+
+<div id="sidebar">
+  <a id="back-link" href="/">STEP Viewer</a>
+  <h2>Diagrams</h2>
+  <div id="file-list"></div>
+</div>
+
+<div id="main">
+  <div id="diagram-container"></div>
+  <div id="empty-state">Select a diagram</div>
+  <div id="zoom-display" style="display:none">100%</div>
+  <div id="status">connecting...</div>
+</div>
+
+<script type="module">
+import mermaid from "https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.esm.min.mjs";
+
+mermaid.initialize({
+  startOnLoad: false,
+  theme: "dark",
+  themeVariables: {
+    darkMode: true,
+    background: "#1a1a1a",
+    primaryColor: "#334455",
+    primaryTextColor: "#ccc",
+    primaryBorderColor: "#556677",
+    lineColor: "#667788",
+    secondaryColor: "#2a3a4a",
+    tertiaryColor: "#1e2e3e",
+    fontFamily: "-apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, sans-serif",
+    fontSize: "14px",
+  },
+  flowchart: {
+    htmlLabels: true,
+    curve: "basis",
+    padding: 12,
+  },
+});
+
+// --- State ---
+let allFiles = [];
+let currentFile = null;
+let currentContent = null;
+
+// Pan/zoom state
+let scale = 1;
+let panX = 0;
+let panY = 0;
+let isDragging = false;
+let dragStartX = 0;
+let dragStartY = 0;
+let panStartX = 0;
+let panStartY = 0;
+
+const mainEl = document.getElementById("main");
+const containerEl = document.getElementById("diagram-container");
+const emptyEl = document.getElementById("empty-state");
+const zoomEl = document.getElementById("zoom-display");
+const statusEl = document.getElementById("status");
+const fileListEl = document.getElementById("file-list");
+
+// --- Transform ---
+function applyTransform() {
+  containerEl.style.transform = `translate(${panX}px, ${panY}px) scale(${scale})`;
+  zoomEl.textContent = `${Math.round(scale * 100)}%`;
+}
+
+// --- Pan ---
+mainEl.addEventListener("pointerdown", (e) => {
+  if (e.button !== 0) return;
+  isDragging = true;
+  dragStartX = e.clientX;
+  dragStartY = e.clientY;
+  panStartX = panX;
+  panStartY = panY;
+  mainEl.classList.add("dragging");
+  mainEl.setPointerCapture(e.pointerId);
+});
+
+mainEl.addEventListener("pointermove", (e) => {
+  if (!isDragging) return;
+  panX = panStartX + (e.clientX - dragStartX);
+  panY = panStartY + (e.clientY - dragStartY);
+  applyTransform();
+});
+
+mainEl.addEventListener("pointerup", () => {
+  isDragging = false;
+  mainEl.classList.remove("dragging");
+});
+
+// --- Zoom (wheel) ---
+mainEl.addEventListener("wheel", (e) => {
+  e.preventDefault();
+
+  // Mouse position relative to main
+  const rect = mainEl.getBoundingClientRect();
+  const mx = e.clientX - rect.left;
+  const my = e.clientY - rect.top;
+
+  // Point in diagram space before zoom
+  const dx = (mx - panX) / scale;
+  const dy = (my - panY) / scale;
+
+  // Apply zoom
+  const factor = e.deltaY < 0 ? 1.1 : 1 / 1.1;
+  const newScale = Math.max(0.1, Math.min(10, scale * factor));
+
+  // Adjust pan so the point under the mouse stays put
+  panX = mx - dx * newScale;
+  panY = my - dy * newScale;
+  scale = newScale;
+
+  applyTransform();
+}, { passive: false });
+
+// --- Double-click to reset ---
+mainEl.addEventListener("dblclick", () => {
+  fitDiagram();
+});
+
+function fitDiagram() {
+  const svg = containerEl.querySelector("svg");
+  if (!svg) return;
+
+  const rect = mainEl.getBoundingClientRect();
+  const svgW = svg.viewBox?.baseVal?.width || svg.getBoundingClientRect().width;
+  const svgH = svg.viewBox?.baseVal?.height || svg.getBoundingClientRect().height;
+
+  if (!svgW || !svgH) return;
+
+  const padding = 40;
+  const scaleX = (rect.width - padding * 2) / svgW;
+  const scaleY = (rect.height - padding * 2) / svgH;
+  scale = Math.min(scaleX, scaleY, 2);
+
+  panX = (rect.width - svgW * scale) / 2;
+  panY = (rect.height - svgH * scale) / 2;
+
+  applyTransform();
+}
+
+// --- Render diagram ---
+let renderCounter = 0;
+
+async function renderDiagram(content, preserveTransform = false) {
+  const id = `mermaid-${++renderCounter}`;
+
+  try {
+    const { svg } = await mermaid.render(id, content);
+    containerEl.innerHTML = svg;
+    emptyEl.style.display = "none";
+    zoomEl.style.display = "block";
+
+    if (!preserveTransform) {
+      // Wait a frame for SVG to be laid out
+      requestAnimationFrame(() => fitDiagram());
+    } else {
+      applyTransform();
+    }
+  } catch (err) {
+    containerEl.innerHTML = `<pre style="color:#c44;padding:20px;font-size:13px;">${err.message || err}</pre>`;
+  }
+}
+
+// --- File loading ---
+async function loadFile(file) {
+  const resp = await fetch(`/api/mermaid-content/${file}`);
+  if (!resp.ok) return;
+  const content = await resp.text();
+  currentContent = content;
+  currentFile = file;
+  location.hash = encodeURIComponent(file);
+
+  // Update sidebar active state
+  for (const el of fileListEl.querySelectorAll(".file-item")) {
+    el.classList.toggle("active", el.dataset.file === file);
+  }
+
+  await renderDiagram(content);
+}
+
+async function reloadCurrentFile() {
+  if (!currentFile) return;
+  const resp = await fetch(`/api/mermaid-content/${currentFile}`);
+  if (!resp.ok) return;
+  const content = await resp.text();
+  if (content === currentContent) return; // No actual change
+  currentContent = content;
+  await renderDiagram(content, true); // Preserve pan/zoom
+}
+
+// --- Sidebar ---
+function buildFileList() {
+  fileListEl.innerHTML = "";
+  for (const file of allFiles) {
+    const parts = file.split("/");
+    const name = parts.pop().replace(".mmd", "");
+    const dir = parts.join("/");
+
+    const el = document.createElement("div");
+    el.className = "file-item" + (file === currentFile ? " active" : "");
+    el.dataset.file = file;
+    el.innerHTML = dir ? `<span class="dir">${dir}/</span>${name}` : name;
+    el.addEventListener("click", () => loadFile(file));
+    fileListEl.appendChild(el);
+  }
+}
+
+async function fetchFiles() {
+  const resp = await fetch("/api/mermaid");
+  allFiles = (await resp.json()).sort();
+  buildFileList();
+}
+
+// --- WebSocket ---
+function connectWS() {
+  const ws = new WebSocket(`ws://${location.host}`);
+  ws.onopen = () => { statusEl.textContent = "watching"; };
+  ws.onmessage = (e) => {
+    const msg = JSON.parse(e.data);
+    if (msg.type === "mermaid-updated") {
+      statusEl.textContent = `updated: ${msg.file}`;
+      // Refresh file list in case new files appeared
+      fetchFiles();
+      // Reload if we're viewing the changed file
+      if (currentFile === msg.file) {
+        reloadCurrentFile();
+      }
+    }
+  };
+  ws.onclose = () => {
+    statusEl.textContent = "reconnecting...";
+    setTimeout(connectWS, 2000);
+  };
+}
+
+// --- Init ---
+await fetchFiles();
+connectWS();
+
+// Restore from hash
+if (location.hash) {
+  const file = decodeURIComponent(location.hash.slice(1));
+  if (file && allFiles.includes(file)) {
+    loadFile(file);
+  }
+} else if (allFiles.length === 1) {
+  // Auto-open if there's only one file
+  loadFile(allFiles[0]);
+}
+</script>
+</body>
+</html>
