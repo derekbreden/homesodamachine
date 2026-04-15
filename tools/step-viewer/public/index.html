@@ -626,17 +626,17 @@ function mmdApplyTransform() {
 function mmdFitDiagram() {
   const svg = mmdContainerEl.querySelector("svg");
   if (!svg) return;
-  const rect = mmdDetailEl.getBoundingClientRect();
+  const viewport = mmdDetailEl.getBoundingClientRect();
   const vb = svg.viewBox?.baseVal;
-  const svgW = vb?.width || svg.getBoundingClientRect().width;
-  const svgH = vb?.height || svg.getBoundingClientRect().height;
+  const svgW = vb?.width || parseFloat(svg.getAttribute("width")) || svg.getBoundingClientRect().width;
+  const svgH = vb?.height || parseFloat(svg.getAttribute("height")) || svg.getBoundingClientRect().height;
   if (!svgW || !svgH) return;
-  const padding = 60;
-  const sx = (rect.width - padding * 2) / svgW;
-  const sy = (rect.height - padding * 2) / svgH;
-  mmdScale = Math.min(sx, sy, 2);
-  mmdPanX = (rect.width - svgW * mmdScale) / 2;
-  mmdPanY = (rect.height - svgH * mmdScale) / 2;
+  const padding = 40;
+  const sx = (viewport.width - padding * 2) / svgW;
+  const sy = (viewport.height - padding * 2) / svgH;
+  mmdScale = Math.min(sx, sy);
+  mmdPanX = (viewport.width - svgW * mmdScale) / 2;
+  mmdPanY = (viewport.height - svgH * mmdScale) / 2;
   mmdApplyTransform();
 }
 
@@ -679,8 +679,18 @@ async function renderMmdDetail(content, preserveTransform = false) {
   try {
     const { svg } = await mermaid.render(id, content);
     mmdContainerEl.innerHTML = svg;
-    if (!preserveTransform) requestAnimationFrame(() => mmdFitDiagram());
-    else mmdApplyTransform();
+    // Mermaid sets width="100%" which collapses in an absolute container.
+    // Override to natural viewBox dimensions so we control scale via transform.
+    const svgEl = mmdContainerEl.querySelector("svg");
+    if (svgEl) {
+      const vb = svgEl.viewBox?.baseVal;
+      if (vb && vb.width && vb.height) {
+        svgEl.setAttribute("width", vb.width);
+        svgEl.setAttribute("height", vb.height);
+        svgEl.style.maxWidth = "none";
+      }
+    }
+    if (preserveTransform) mmdApplyTransform();
   } catch (err) {
     mmdContainerEl.innerHTML = `<pre style="color:#c44;padding:20px;font-size:13px;">${err.message || err}</pre>`;
   }
@@ -826,6 +836,8 @@ async function openMmdDetail(file) {
   if (!resp.ok) return;
   currentMmdContent = await resp.text();
   await renderMmdDetail(currentMmdContent);
+  // Small delay lets the SVG lay out before we measure and fit
+  setTimeout(mmdFitDiagram, 50);
 }
 
 function closeMmdDetail() {
