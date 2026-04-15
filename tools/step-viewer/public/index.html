@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>STEP Viewer</title>
+<title>Hardware Viewer</title>
 <style>
 * { margin: 0; padding: 0; box-sizing: border-box; }
 body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, sans-serif; background: #1a1a1a; color: #ccc; }
@@ -103,6 +103,93 @@ body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, sa
   z-index: 10;
   display: none;
 }
+
+/* Section headers in grid */
+.section-header {
+  grid-column: 1 / -1;
+  font-size: 12px;
+  font-weight: 600;
+  color: #666;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  padding: 16px 0 4px;
+  border-bottom: 1px solid #333;
+  margin-bottom: 4px;
+}
+.section-header:first-child { padding-top: 0; }
+
+/* Mermaid thumbnail in card */
+.card .mmd-thumb {
+  width: 100%;
+  aspect-ratio: 1;
+  background: #222;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  padding: 8px;
+}
+.card .mmd-thumb svg {
+  max-width: 100%;
+  max-height: 100%;
+}
+
+/* Mermaid detail view */
+#mmd-detail {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: #1a1a1a;
+  overflow: hidden;
+  cursor: grab;
+}
+#mmd-detail.dragging { cursor: grabbing; }
+#mmd-container {
+  position: absolute;
+  transform-origin: 0 0;
+}
+#mmd-back {
+  position: fixed;
+  top: 16px;
+  left: 16px;
+  background: rgba(40,40,40,0.85);
+  border: 1px solid #444;
+  color: #ccc;
+  padding: 6px 14px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 14px;
+  z-index: 10;
+  backdrop-filter: blur(4px);
+}
+#mmd-back:hover { background: rgba(60,60,60,0.9); }
+#mmd-filename {
+  position: fixed;
+  top: 16px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: rgba(40,40,40,0.85);
+  border: 1px solid #444;
+  color: #aaa;
+  padding: 6px 14px;
+  border-radius: 6px;
+  font-size: 13px;
+  z-index: 10;
+  backdrop-filter: blur(4px);
+}
+#mmd-zoom {
+  position: fixed;
+  top: 16px;
+  right: 16px;
+  background: rgba(40,40,40,0.85);
+  border: 1px solid #444;
+  color: #aaa;
+  padding: 6px 12px;
+  border-radius: 6px;
+  font-size: 13px;
+  z-index: 10;
+  backdrop-filter: blur(4px);
+}
 </style>
 </head>
 <body>
@@ -113,6 +200,13 @@ body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, sa
   <button id="back">Back</button>
   <div id="filename"></div>
   <div id="loading">Loading...</div>
+</div>
+
+<div id="mmd-detail">
+  <div id="mmd-container"></div>
+  <button id="mmd-back">Back</button>
+  <div id="mmd-filename"></div>
+  <div id="mmd-zoom">100%</div>
 </div>
 
 <script type="importmap">
@@ -127,6 +221,25 @@ body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, sa
 <script type="module">
 import * as THREE from "three";
 import { OrbitControls } from "three/addons/controls/OrbitControls.js";
+import mermaid from "https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.esm.min.mjs";
+
+mermaid.initialize({
+  startOnLoad: false,
+  theme: "dark",
+  themeVariables: {
+    darkMode: true,
+    background: "#222222",
+    primaryColor: "#334455",
+    primaryTextColor: "#ccc",
+    primaryBorderColor: "#556677",
+    lineColor: "#667788",
+    secondaryColor: "#2a3a4a",
+    tertiaryColor: "#1e2e3e",
+    fontFamily: "-apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, sans-serif",
+    fontSize: "14px",
+  },
+  flowchart: { htmlLabels: true, curve: "basis", padding: 12 },
+});
 
 // --- occt-import-js loader (no importmap support, loaded manually) ---
 let occtReady;
@@ -139,9 +252,13 @@ occtScript.onload = () => {
 document.head.appendChild(occtScript);
 
 // --- State ---
-let allFiles = [];
-let currentFile = null;
+let allFiles = [];       // STEP files
+let mmdFiles = [];       // Mermaid files
+let currentFile = null;  // STEP detail
+let currentMmd = null;   // Mermaid detail
+let currentMmdContent = null;
 const thumbnailCache = new Map(); // file -> dataURL
+const mmdThumbCache = new Map();  // file -> svgHTML
 
 // --- Detail view: Three.js setup ---
 const renderer = new THREE.WebGLRenderer({ antialias: true });
@@ -493,34 +610,153 @@ async function renderThumbnail(file) {
   }
 }
 
+// --- Mermaid detail view ---
+const mmdDetailEl = document.getElementById("mmd-detail");
+const mmdContainerEl = document.getElementById("mmd-container");
+const mmdZoomEl = document.getElementById("mmd-zoom");
+let mmdScale = 1, mmdPanX = 0, mmdPanY = 0;
+let mmdDragging = false, mmdDragStartX = 0, mmdDragStartY = 0, mmdPanStartX = 0, mmdPanStartY = 0;
+let mmdRenderCounter = 0;
+
+function mmdApplyTransform() {
+  mmdContainerEl.style.transform = `translate(${mmdPanX}px, ${mmdPanY}px) scale(${mmdScale})`;
+  mmdZoomEl.textContent = `${Math.round(mmdScale * 100)}%`;
+}
+
+function mmdFitDiagram() {
+  const svg = mmdContainerEl.querySelector("svg");
+  if (!svg) return;
+  const rect = mmdDetailEl.getBoundingClientRect();
+  const vb = svg.viewBox?.baseVal;
+  const svgW = vb?.width || svg.getBoundingClientRect().width;
+  const svgH = vb?.height || svg.getBoundingClientRect().height;
+  if (!svgW || !svgH) return;
+  const padding = 60;
+  const sx = (rect.width - padding * 2) / svgW;
+  const sy = (rect.height - padding * 2) / svgH;
+  mmdScale = Math.min(sx, sy, 2);
+  mmdPanX = (rect.width - svgW * mmdScale) / 2;
+  mmdPanY = (rect.height - svgH * mmdScale) / 2;
+  mmdApplyTransform();
+}
+
+mmdDetailEl.addEventListener("pointerdown", (e) => {
+  if (e.target.closest("button")) return;
+  if (e.button !== 0) return;
+  mmdDragging = true;
+  mmdDragStartX = e.clientX; mmdDragStartY = e.clientY;
+  mmdPanStartX = mmdPanX; mmdPanStartY = mmdPanY;
+  mmdDetailEl.classList.add("dragging");
+  mmdDetailEl.setPointerCapture(e.pointerId);
+});
+mmdDetailEl.addEventListener("pointermove", (e) => {
+  if (!mmdDragging) return;
+  mmdPanX = mmdPanStartX + (e.clientX - mmdDragStartX);
+  mmdPanY = mmdPanStartY + (e.clientY - mmdDragStartY);
+  mmdApplyTransform();
+});
+mmdDetailEl.addEventListener("pointerup", () => {
+  mmdDragging = false;
+  mmdDetailEl.classList.remove("dragging");
+});
+mmdDetailEl.addEventListener("wheel", (e) => {
+  e.preventDefault();
+  const rect = mmdDetailEl.getBoundingClientRect();
+  const mx = e.clientX - rect.left, my = e.clientY - rect.top;
+  const dx = (mx - mmdPanX) / mmdScale, dy = (my - mmdPanY) / mmdScale;
+  const factor = e.deltaY < 0 ? 1.1 : 1 / 1.1;
+  const ns = Math.max(0.1, Math.min(10, mmdScale * factor));
+  mmdPanX = mx - dx * ns; mmdPanY = my - dy * ns; mmdScale = ns;
+  mmdApplyTransform();
+}, { passive: false });
+mmdDetailEl.addEventListener("dblclick", (e) => {
+  if (e.target.closest("button")) return;
+  mmdFitDiagram();
+});
+
+async function renderMmdDetail(content, preserveTransform = false) {
+  const id = `mmd-detail-${++mmdRenderCounter}`;
+  try {
+    const { svg } = await mermaid.render(id, content);
+    mmdContainerEl.innerHTML = svg;
+    if (!preserveTransform) requestAnimationFrame(() => mmdFitDiagram());
+    else mmdApplyTransform();
+  } catch (err) {
+    mmdContainerEl.innerHTML = `<pre style="color:#c44;padding:20px;font-size:13px;">${err.message || err}</pre>`;
+  }
+}
+
+// --- Mermaid thumbnail rendering ---
+async function renderMmdThumbnail(file) {
+  if (mmdThumbCache.has(file)) return mmdThumbCache.get(file);
+  try {
+    const resp = await fetch(`/api/mermaid-content/${file}`);
+    if (!resp.ok) return null;
+    const content = await resp.text();
+    const id = `mmd-thumb-${file.replace(/[^a-zA-Z0-9]/g, "-")}`;
+    const { svg } = await mermaid.render(id, content);
+    mmdThumbCache.set(file, svg);
+    return svg;
+  } catch { return null; }
+}
+
 // --- Grid ---
 const gridEl = document.getElementById("grid");
 const detailEl = document.getElementById("detail");
 
-function shortName(file) {
+function shortName(file, ext = ".step") {
   const parts = file.split("/");
-  const name = parts.pop().replace(".step", "");
+  const name = parts.pop().replace(ext, "");
   const dir = parts.join("/");
   return { name, dir };
 }
 
 function buildGrid() {
   gridEl.innerHTML = "";
-  for (const file of allFiles) {
-    const { name, dir } = shortName(file);
-    const card = document.createElement("div");
-    card.className = "card";
-    card.dataset.file = file;
-    card.innerHTML = `<div class="placeholder" data-file="${file}">loading...</div><div class="label"><span class="dir">${dir}</span>${name}</div>`;
-    card.addEventListener("click", () => openDetail(file));
-    gridEl.appendChild(card);
+
+  // STEP section
+  if (allFiles.length > 0) {
+    const header = document.createElement("div");
+    header.className = "section-header";
+    header.textContent = `STEP Files (${allFiles.length})`;
+    gridEl.appendChild(header);
+
+    for (const file of allFiles) {
+      const { name, dir } = shortName(file, ".step");
+      const card = document.createElement("div");
+      card.className = "card";
+      card.dataset.file = file;
+      card.dataset.type = "step";
+      card.innerHTML = `<div class="placeholder" data-file="${file}">loading...</div><div class="label"><span class="dir">${dir}</span>${name}</div>`;
+      card.addEventListener("click", () => openDetail(file));
+      gridEl.appendChild(card);
+    }
   }
 
-  // Render thumbnails with IntersectionObserver
-  const observer = new IntersectionObserver((entries) => {
+  // Mermaid section
+  if (mmdFiles.length > 0) {
+    const header = document.createElement("div");
+    header.className = "section-header";
+    header.textContent = `Diagrams (${mmdFiles.length})`;
+    gridEl.appendChild(header);
+
+    for (const file of mmdFiles) {
+      const { name, dir } = shortName(file, ".mmd");
+      const card = document.createElement("div");
+      card.className = "card";
+      card.dataset.file = file;
+      card.dataset.type = "mmd";
+      card.innerHTML = `<div class="mmd-thumb" data-file="${file}"><div class="placeholder">loading...</div></div><div class="label"><span class="dir">${dir}</span>${name}</div>`;
+      card.addEventListener("click", () => openMmdDetail(file));
+      gridEl.appendChild(card);
+    }
+  }
+
+  // Lazy-load STEP thumbnails
+  const stepObserver = new IntersectionObserver((entries) => {
     for (const entry of entries) {
       if (!entry.isIntersecting) continue;
-      observer.unobserve(entry.target);
+      stepObserver.unobserve(entry.target);
       const file = entry.target.dataset.file;
       renderThumbnail(file).then((url) => {
         if (!url) {
@@ -535,17 +771,36 @@ function buildGrid() {
     }
   }, { rootMargin: "200px" });
 
-  for (const card of gridEl.querySelectorAll(".card")) {
-    observer.observe(card);
+  for (const card of gridEl.querySelectorAll('.card[data-type="step"]')) {
+    stepObserver.observe(card);
+  }
+
+  // Lazy-load Mermaid thumbnails
+  const mmdObserver = new IntersectionObserver((entries) => {
+    for (const entry of entries) {
+      if (!entry.isIntersecting) continue;
+      mmdObserver.unobserve(entry.target);
+      const file = entry.target.dataset.file;
+      renderMmdThumbnail(file).then((svg) => {
+        const thumbEl = entry.target.querySelector(".mmd-thumb");
+        if (!thumbEl) return;
+        if (!svg) { thumbEl.innerHTML = `<div class="placeholder">error</div>`; return; }
+        thumbEl.innerHTML = svg;
+      });
+    }
+  }, { rootMargin: "200px" });
+
+  for (const card of gridEl.querySelectorAll('.card[data-type="mmd"]')) {
+    mmdObserver.observe(card);
   }
 }
 
 function openDetail(file) {
   currentFile = file;
-  location.hash = encodeURIComponent(file);
+  location.hash = "step:" + encodeURIComponent(file);
   gridEl.style.display = "none";
   detailEl.style.display = "block";
-  document.getElementById("filename").textContent = shortName(file).name;
+  document.getElementById("filename").textContent = shortName(file, ".step").name;
   resizeRenderer();
   animating = true;
   animate();
@@ -560,9 +815,34 @@ function closeDetail() {
   animating = false;
 }
 
+async function openMmdDetail(file) {
+  currentMmd = file;
+  location.hash = "mmd:" + encodeURIComponent(file);
+  gridEl.style.display = "none";
+  mmdDetailEl.style.display = "block";
+  document.getElementById("mmd-filename").textContent = shortName(file, ".mmd").name;
+
+  const resp = await fetch(`/api/mermaid-content/${file}`);
+  if (!resp.ok) return;
+  currentMmdContent = await resp.text();
+  await renderMmdDetail(currentMmdContent);
+}
+
+function closeMmdDetail() {
+  currentMmd = null;
+  currentMmdContent = null;
+  location.hash = "";
+  mmdDetailEl.style.display = "none";
+  gridEl.style.display = "grid";
+}
+
 document.getElementById("back").addEventListener("click", closeDetail);
+document.getElementById("mmd-back").addEventListener("click", closeMmdDetail);
 document.addEventListener("keydown", (e) => {
-  if (e.key === "Escape" && currentFile) closeDetail();
+  if (e.key === "Escape") {
+    if (currentFile) closeDetail();
+    else if (currentMmd) closeMmdDetail();
+  }
 });
 
 // --- WebSocket ---
@@ -570,12 +850,12 @@ function connectWS() {
   const ws = new WebSocket(`ws://${location.host}`);
   ws.onmessage = (e) => {
     const msg = JSON.parse(e.data);
+
     if (msg.type === "updated") {
-      // Invalidate thumbnail
+      // STEP file updated
       thumbnailCache.delete(msg.file);
-      const card = gridEl.querySelector(`.card[data-file="${CSS.escape(msg.file)}"]`);
+      const card = gridEl.querySelector(`.card[data-type="step"][data-file="${CSS.escape(msg.file)}"]`);
       if (card) {
-        // Re-render thumbnail
         const img = card.querySelector("img");
         if (img) {
           const ph = document.createElement("div");
@@ -597,13 +877,38 @@ function connectWS() {
           }
         });
       } else {
-        // New file — refresh the list
         fetchFiles();
       }
-
-      // Reload detail view if viewing this file
       if (currentFile === msg.file) {
         loadStepFile(msg.file, { preserveCamera: true });
+      }
+    }
+
+    if (msg.type === "mermaid-updated") {
+      // Mermaid file updated
+      mmdThumbCache.delete(msg.file);
+      const card = gridEl.querySelector(`.card[data-type="mmd"][data-file="${CSS.escape(msg.file)}"]`);
+      if (card) {
+        const thumbEl = card.querySelector(".mmd-thumb");
+        if (thumbEl) thumbEl.innerHTML = `<div class="placeholder">updating...</div>`;
+        renderMmdThumbnail(msg.file).then((svg) => {
+          if (!thumbEl) return;
+          if (!svg) { thumbEl.innerHTML = `<div class="placeholder">error</div>`; return; }
+          thumbEl.innerHTML = svg;
+        });
+      } else {
+        fetchFiles();
+      }
+      // Reload detail if viewing this file
+      if (currentMmd === msg.file) {
+        (async () => {
+          const resp = await fetch(`/api/mermaid-content/${msg.file}`);
+          if (!resp.ok) return;
+          const content = await resp.text();
+          if (content === currentMmdContent) return;
+          currentMmdContent = content;
+          await renderMmdDetail(content, true);
+        })();
       }
     }
   };
@@ -612,9 +917,12 @@ function connectWS() {
 
 // --- Init ---
 async function fetchFiles() {
-  const resp = await fetch("/api/steps");
-  allFiles = await resp.json();
-  allFiles.sort();
+  const [stepResp, mmdResp] = await Promise.all([
+    fetch("/api/steps"),
+    fetch("/api/mermaid"),
+  ]);
+  allFiles = (await stepResp.json()).sort();
+  mmdFiles = (await mmdResp.json()).sort();
   buildGrid();
 }
 
@@ -623,13 +931,16 @@ connectWS();
 
 // Restore from hash
 if (location.hash) {
-  const file = decodeURIComponent(location.hash.slice(1));
-  if (file) {
-    // Wait for occt to load, then open
-    occtPromise.then(() => {
-      // Small delay to let file list populate
-      setTimeout(() => openDetail(file), 100);
-    });
+  const hash = decodeURIComponent(location.hash.slice(1));
+  if (hash.startsWith("step:")) {
+    const file = hash.slice(5);
+    occtPromise.then(() => setTimeout(() => openDetail(file), 100));
+  } else if (hash.startsWith("mmd:")) {
+    const file = hash.slice(4);
+    setTimeout(() => openMmdDetail(file), 100);
+  } else {
+    // Legacy hash format (just a step file path)
+    occtPromise.then(() => setTimeout(() => openDetail(hash), 100));
   }
 }
 </script>
