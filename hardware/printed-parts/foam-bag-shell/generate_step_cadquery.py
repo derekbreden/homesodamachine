@@ -534,10 +534,12 @@ upper_shell = upper_shell.cut(center_hole)
 # Each cradle is centered at 0° and 180°, spanning ±HALF_CRADLE.
 # Inset by ~1° on each side to preserve floor under the dividers.
 
-# Angular clearance: preserve floor under the divider wall (WALL/2
-# each side) + 0.3 mm margin.  Radial clearance: overlap 0.1 mm into
-# the channel ridges so no paper-thin floor strips remain.
-DIVIDER_ANGULAR_CLEARANCE = math.degrees((WALL / 2 + 0.3) / IC_OUTER_OR)
+# Angular clearance: must clear the sweep body's ridge wall, which
+# extends RC_RIDGE_HALF (2 mm) tangentially from each divider.
+# Using the innermost cut radius (where the angular extent is largest)
+# plus a small margin.  Radial clearance: overlap 0.1 mm into the
+# channel ridges so no paper-thin floor strips remain.
+DIVIDER_ANGULAR_CLEARANCE = math.degrees(RC_RIDGE_HALF / IC_OUTER_OR) + 0.1
 CUT_ARC = CRADLE_ARC_DEG - 2 * DIVIDER_ANGULAR_CLEARANCE
 
 for cradle_center in [0.0, 180.0]:
