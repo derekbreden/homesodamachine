@@ -587,7 +587,7 @@ upper_shell = upper_shell.cut(center_hole)
 
 # ── Cradle floor cuts ──
 
-DIVIDER_ANGULAR_CLEARANCE = math.degrees((WALL / 2 + 0.2) / SHELL_OR_SR)
+DIVIDER_ANGULAR_CLEARANCE = math.degrees((RC_RIDGE_HALF + 0.2) / IC_OUTER_OR_SR)
 CUT_ARC = CRADLE_ARC_DEG - 2 * DIVIDER_ANGULAR_CLEARANCE
 
 for pocket_deg, sc_x in POCKETS:
