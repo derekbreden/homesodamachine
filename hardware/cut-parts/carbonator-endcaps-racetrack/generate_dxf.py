@@ -1,16 +1,15 @@
 """
 Carbonator racetrack end cap DXFs for SendCutSend.
 
-Generates three files:
+Generates two files:
   1. Top cap blank — oversized stadium outline with 4 weld bung holes
   2. Bottom cap blank — oversized stadium outline, no holes
-  3. Die profile — external racetrack cross-section (tube OD reference)
 
 These are blanks for press-domed caps.  After pressing to 0.250" dome
-height, the rim shrinks to slip-fit dimensions inside the formed tube.
-Material is 0.065" (1/16") 304 SS — same gauge as the tube wall.
+height, the rim shrinks to slip-fit dimensions inside the rolled tube body.
+Material is 0.060" 304 SS.
 
-── Why domed caps work at 0.065" ──
+── Why domed caps work at 0.060" ──
 
 A flat head resists pressure by bending (ASME UG-34):
   t = d * sqrt(C*P / S*E) = 5.470 * sqrt(0.33*70 / 20000) = 0.186"
@@ -42,12 +41,10 @@ irregularity is covered by the weld seam.
 
 ── Racetrack geometry ──
 
-External (tube OD):
-  Two semicircles R=2.000" + two flats 1.600".
-  Overall: 5.600" x 4.000".
-  Circumference: 15.766" (from 5.000" OD circle: 15.708").
+The tube body is rolled from 0.048" 304 SS sheet on a slip roll (see
+carbonator-body-sheet/generate_dxf.py for body blank dimensions).
 
-Internal (tube ID, wall 0.065"):
+Body ID (defines end cap fit):
   R=1.935", flats 1.600". Overall: 5.470" x 3.870".
 
 End cap slip-fit (0.005" clearance/side):
@@ -56,7 +53,7 @@ End cap slip-fit (0.005" clearance/side):
 Domed blank (oversized for draw-in):
   R=1.946", flats 1.600". Overall: 5.492" x 3.892".
 
-Material: 304 SS, 0.065" thick.
+Material: 304 SS, 0.060" thick.
 Units: inches.  SendCutSend compensates for kerf automatically.
 
 Weld bung: 1/4" NPT female, 304 SS, body OD 0.700", flange OD 1.000".
@@ -69,13 +66,13 @@ Top cap port layout (90-deg spacing on 1.0" bolt circle):
   - 270deg (-Y): PRV (pressure relief valve)
 
 Assembly order:
-  1. SendCutSend cuts oversized blanks with holes from 0.065" 304 SS
+  1. SendCutSend cuts oversized blanks with holes from 0.060" 304 SS
   2. Press-dome each blank to 0.250" crown using dishing die
-  3. Fillet-weld 4 bungs to domed top cap (flange side up / outward)
-  4. Install atomization nozzle, dip tube, fittings
-  5. Press round tube into racetrack using forming die set
-  6. Weld domed top cap into formed tube (inset slip-fit)
-  7. Weld domed bottom cap into formed tube
+  3. Roll body sheet into racetrack on slip roll, butt weld seam
+  4. Fillet-weld 4 bungs to domed top cap (flange side up / outward)
+  5. Install atomization nozzle, dip tube, fittings
+  6. Weld domed top cap into rolled tube body (inset slip-fit)
+  7. Weld domed bottom cap into rolled tube body
   8. Install CO2 fitting and PRV from outside
   9. Passivate, hydro test
 """
@@ -85,22 +82,18 @@ from pathlib import Path
 
 import ezdxf
 
-# ── External racetrack (tube OD) ──
+# ── Body interface ──
+# The body ID is set by the rolled 0.048" sheet.
+# See carbonator-body-sheet/generate_dxf.py for derivation.
 
-EXT_SEMICIRCLE_R = 2.000   # radius of each semicircle end
-EXT_FLAT_LEN = 1.600       # length of each straight side
-WALL_THICKNESS = 0.065     # tube wall
-
-# ── Internal racetrack (tube ID) ──
-
-INT_SEMICIRCLE_R = EXT_SEMICIRCLE_R - WALL_THICKNESS   # 1.935"
-INT_FLAT_LEN = EXT_FLAT_LEN                            # 1.600"
+BODY_ID_SEMI_R = 1.935     # body inner semicircle radius
+BODY_ID_FLAT = 1.600       # body inner flat length
 
 # ── End cap slip-fit dimensions (after doming) ──
 
 CLEARANCE = 0.005          # per side
-CAP_SEMICIRCLE_R = INT_SEMICIRCLE_R - CLEARANCE         # 1.930"
-CAP_FLAT_LEN = INT_FLAT_LEN                             # 1.600"
+CAP_SEMICIRCLE_R = BODY_ID_SEMI_R - CLEARANCE            # 1.930"
+CAP_FLAT_LEN = BODY_ID_FLAT                               # 1.600"
 
 # ── Dome parameters ──
 
@@ -171,23 +164,6 @@ def make_cap(name: str, holes: list[tuple[float, float]]) -> None:
     print(f"Exported: {path}  ({len(holes)} hole(s))")
 
 
-def make_die_profile() -> None:
-    """Generate a DXF of the external racetrack cross-section.
-
-    This is the shape of the tube OD after pressing — use it as the
-    cavity profile for the 3D-printed forming dies.
-    """
-    doc = ezdxf.new(dxfversion="R2010")
-    doc.header["$INSUNITS"] = 1
-    msp = doc.modelspace()
-
-    add_stadium(msp, EXT_SEMICIRCLE_R, EXT_FLAT_LEN)
-
-    path = OUT_DIR / "die-profile-racetrack.dxf"
-    doc.saveas(str(path))
-    print(f"Exported: {path}  (die cavity reference)")
-
-
 # ── Compute hole positions ──
 
 top_holes = []
@@ -200,7 +176,6 @@ for deg in PORT_ANGLES_DEG:
 
 make_cap("endcap-racetrack-top", top_holes)
 make_cap("endcap-racetrack-bottom-blank", [])
-make_die_profile()
 
 # ── Summary ──
 
@@ -211,10 +186,6 @@ print(f"Flat length: {BLANK_FLAT_LEN:.3f}\"")
 print(f"Overall: {2 * BLANK_SEMICIRCLE_R + BLANK_FLAT_LEN:.4f}\" x {2 * BLANK_SEMICIRCLE_R:.4f}\"")
 print(f"After doming: {2 * CAP_SEMICIRCLE_R + CAP_FLAT_LEN:.3f}\" x {2 * CAP_SEMICIRCLE_R:.3f}\"")
 print(f"Dome height: {DOME_HEIGHT:.3f}\"")
-print(f"Material: 304 SS, 0.065\" thick")
+print(f"Material: 304 SS, 0.060\" thick")
 print(f"Hole diameter: {HOLE_DIA}\"")
 print(f"Bolt circle radius: {BOLT_CIRCLE_R}\"")
-
-print(f"\n--- Die profile (tube OD) ---")
-print(f"Overall: {2 * EXT_SEMICIRCLE_R + EXT_FLAT_LEN:.3f}\" x {2 * EXT_SEMICIRCLE_R:.3f}\"")
-print(f"Circumference: {math.pi * 2 * EXT_SEMICIRCLE_R + 2 * EXT_FLAT_LEN:.3f}\"")
