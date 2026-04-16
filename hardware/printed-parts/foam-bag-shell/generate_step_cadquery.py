@@ -275,9 +275,11 @@ print(f"\nAfter inner_body + outer_wall: {len(us_solids)} solid(s)")
 # UPPER SHELL — Pocket channels (closed-loop sweep)
 # ═══════════════════════════════════════════════════════
 #
-# Each pocket channel is a closed loop: outer arc → radial → inner arc → radial.
-# On the racetrack, pockets live entirely on the semicircular ends.
-# Path points are offset from the semicircle center (sc_x, 0).
+# Each pocket channel is swept around a closed rectangular loop:
+#   outer arc (CW) → radial inward → inner arc (CCW) → radial outward
+#
+# All four corners per pocket are mitered by transition='right'.
+# Path endpoints sit at exact divider angles (pocket_deg ± HALF_CRADLE).
 
 for pocket_deg, sc_x in POCKETS:
     a_lo  = math.radians(pocket_deg - HALF_CRADLE)
@@ -327,19 +329,19 @@ for pocket_deg, sc_x in POCKETS:
 
 
 # ═══════════════════════════════════════════════════════
-# UPPER SHELL — Gap arc sweeps (composite racetrack paths)
+# UPPER SHELL — Gap arc sweeps (bodies only)
 # ═══════════════════════════════════════════════════════
 #
 # Gap arcs span from one semicircle across a flat section to the other.
 # Each path is: semicircle arc + straight line + semicircle arc.
-#
-# Gap 1: right SC (+HC) → top flat → left SC (180-HC)
-# Gap 2: left SC (180+HC) → bottom flat → right SC (360-HC)
+# Endpoints at exact divider angles — shared with pocket channel paths.
 
 GAP_ARC_DEFS = [
     # (start_sc_x, start_deg, junction_deg, end_sc_x, end_deg)
-    ( HALF_FLAT,  HALF_CRADLE,       90,  -HALF_FLAT, 180 - HALF_CRADLE),
-    (-HALF_FLAT,  180 + HALF_CRADLE, 270,  HALF_FLAT, 360 - HALF_CRADLE),
+    ( HALF_FLAT,  HALF_CRADLE,       90,
+      -HALF_FLAT, 180 - HALF_CRADLE),
+    (-HALF_FLAT,  180 + HALF_CRADLE, 270,
+      HALF_FLAT, 360 - HALF_CRADLE),
 ]
 
 for start_sc_x, start_deg, junc_deg, end_sc_x, end_deg in GAP_ARC_DEFS:
@@ -354,7 +356,6 @@ for start_sc_x, start_deg, junc_deg, end_sc_x, end_deg in GAP_ARC_DEFS:
     p_junc_end   = sc_pt(end_sc_x,   R, a_junc)
     p_end        = sc_pt(end_sc_x,   R, a_end)
 
-    # Midpoints for threePointArc (average angle on each semicircle)
     a_mid1 = (a_start + a_junc) / 2
     p_mid1 = sc_pt(start_sc_x, R, a_mid1)
     a_mid2 = (a_junc + a_end) / 2
@@ -363,9 +364,9 @@ for start_sc_x, start_deg, junc_deg, end_sc_x, end_deg in GAP_ARC_DEFS:
     gap_path = (
         cq.Workplane("XY")
         .moveTo(*p_start)
-        .threePointArc(p_mid1, p_junc_start)   # start SC arc
-        .lineTo(*p_junc_end)                    # flat segment
-        .threePointArc(p_mid2, p_end)           # end SC arc
+        .threePointArc(p_mid1, p_junc_start)
+        .lineTo(*p_junc_end)
+        .threePointArc(p_mid2, p_end)
         .wire().val()
     )
 
@@ -390,13 +391,10 @@ for start_sc_x, start_deg, junc_deg, end_sc_x, end_deg in GAP_ARC_DEFS:
     )
     upper_shell = upper_shell.union(gap_body, tol=0.1)
 
+
 # ═══════════════════════════════════════════════════════
-# UPPER SHELL — Outermost channel (full racetrack sweep)
+# UPPER SHELL — Outermost channel (body only)
 # ═══════════════════════════════════════════════════════
-#
-# Unlike the pocket/gap channels which are split by dividers, the
-# outermost channel is a single continuous loop around the full
-# racetrack perimeter.
 
 oc_wire = (
     cq.Workplane("XY")
@@ -408,9 +406,6 @@ oc_wire = (
     .wire().val()
 )
 
-# Profile plane at start (bottom of right semicircle):
-#   xDir = radially inward (0, +1, 0)
-#   normal = CCW tangent (+1, 0, 0)
 oc_profile_plane = cq.Plane(
     origin=(HALF_FLAT, -OC_PATH_SR, 0),
     xDir=(0, 1, 0),
@@ -468,7 +463,7 @@ print(f"After + dividers: {len(us_solids)} solid(s)")
 
 
 # ═══════════════════════════════════════════════════════
-# UPPER SHELL — Groove cuts
+# UPPER SHELL — Groove cuts (after dividers so grooves cut through them)
 # ═══════════════════════════════════════════════════════
 
 # ── Pocket groove cuts (closed-loop, same paths as pocket bodies) ──
@@ -516,7 +511,7 @@ for pocket_deg, sc_x in POCKETS:
     )
     upper_shell = upper_shell.cut(swept_groove)
 
-# ── Gap arc groove cuts (composite paths, same as gap bodies) ──
+# ── Gap arc groove cuts ──
 
 for start_sc_x, start_deg, junc_deg, end_sc_x, end_deg in GAP_ARC_DEFS:
     R = R_PATH_OUTER_SR
@@ -562,7 +557,7 @@ for start_sc_x, start_deg, junc_deg, end_sc_x, end_deg in GAP_ARC_DEFS:
     )
     upper_shell = upper_shell.cut(gap_groove)
 
-# ── Outermost channel groove cut (full racetrack) ──
+# ── Outermost channel groove cut ──
 
 oc_groove = (
     cq.Workplane(oc_profile_plane)
@@ -577,7 +572,7 @@ oc_groove = (
 upper_shell = upper_shell.cut(oc_groove)
 
 us_solids = upper_shell.solids().vals()
-print(f"After + swept groove cuts: {len(us_solids)} solid(s)")
+print(f"After + groove cuts: {len(us_solids)} solid(s)")
 
 
 # ── Center floor hole ──
@@ -596,12 +591,15 @@ DIVIDER_ANGULAR_CLEARANCE = math.degrees((WALL / 2 + 0.2) / SHELL_OR_SR)
 CUT_ARC = CRADLE_ARC_DEG - 2 * DIVIDER_ANGULAR_CLEARANCE
 
 for pocket_deg, sc_x in POCKETS:
+    # Radial range avoids channel body bases:
+    #   inner channel outer edge at IC_OUTER_OR_SR (66.65)
+    #   outer channel inner edge at R_INNER_IR_SR  (88.65)
     cradle_cut = (
         cq.Workplane("XZ")
-        .moveTo(SHELL_OR_SR, Z_BOT - 0.1)
-        .lineTo(SHELL_OR_SR, Z_BOT + FLOOR + 0.1)
-        .lineTo(OUTER_SHELL_IR_SR, Z_BOT + FLOOR + 0.1)
-        .lineTo(OUTER_SHELL_IR_SR, Z_BOT - 0.1)
+        .moveTo(IC_OUTER_OR_SR, Z_BOT - 0.1)
+        .lineTo(IC_OUTER_OR_SR, Z_BOT + FLOOR + 0.1)
+        .lineTo(R_INNER_IR_SR, Z_BOT + FLOOR + 0.1)
+        .lineTo(R_INNER_IR_SR, Z_BOT - 0.1)
         .close()
         .revolve(CUT_ARC, (0, 0, 0), (0, 1, 0))
     )
