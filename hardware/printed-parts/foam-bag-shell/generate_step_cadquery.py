@@ -90,11 +90,11 @@ OC_OUTER_OR_SR = OC_OUTER_IR_SR + WALL                             # 100.00
 
 # ── Sweep profile dimensions ──
 
-OVERLAP       = 1.0
-IC_OL_TOP     = Z_CHAMFER_TOP + 5
-RC_GAP_HALF   = WALL / 2 + CHANNEL_CLEARANCE                      # 1.0
-RC_RIDGE_HALF = RC_GAP_HALF + WALL                                 # 2.0
-RC_PEAK_Z     = Z_SPLIT + RC_GAP_HALF                             # 27.4
+OVERLAP                    = 1.0
+CHANNEL_WALL_OVERLAP_TOP   = Z_CHAMFER_TOP + 5
+CHANNEL_GROOVE_HALF_WIDTH  = WALL / 2 + CHANNEL_CLEARANCE          # 1.0
+CHANNEL_RIDGE_HALF_WIDTH   = CHANNEL_GROOVE_HALF_WIDTH + WALL      # 2.0
+CHANNEL_GROOVE_PEAK_Z      = Z_SPLIT + CHANNEL_GROOVE_HALF_WIDTH   # 27.4
 
 R_PATH_INNER_SR = (SHELL_SR + SHELL_OR_SR) / 2                    # 64.65
 R_PATH_OUTER_SR = (R_INNER_OR_SR + R_OUTER_IR_SR) / 2             # 90.65
@@ -321,50 +321,47 @@ print(f"After floor cuts: {len(us_solids)} solid(s)")
 # Path endpoints sit at exact divider angles (pocket_deg ± HALF_CRADLE).
 
 for pocket_deg, sc_x in POCKETS:
-    a_lo  = math.radians(pocket_deg - HALF_CRADLE)
-    a_hi  = math.radians(pocket_deg + HALF_CRADLE)
-    a_mid = math.radians(pocket_deg)
+    clockwise_divider_angle  = math.radians(pocket_deg - HALF_CRADLE)
+    countercw_divider_angle  = math.radians(pocket_deg + HALF_CRADLE)
+    pocket_center_angle      = math.radians(pocket_deg)
 
-    RO = R_PATH_OUTER_SR
-    RI = R_PATH_INNER_SR
+    outer_ring_at_countercw_divider = sc_pt(sc_x, R_PATH_OUTER_SR, countercw_divider_angle)
+    outer_ring_arc_midpoint         = sc_pt(sc_x, R_PATH_OUTER_SR, pocket_center_angle)
+    outer_ring_at_clockwise_divider = sc_pt(sc_x, R_PATH_OUTER_SR, clockwise_divider_angle)
+    inner_ring_at_clockwise_divider = sc_pt(sc_x, R_PATH_INNER_SR, clockwise_divider_angle)
+    inner_ring_arc_midpoint         = sc_pt(sc_x, R_PATH_INNER_SR, pocket_center_angle)
+    inner_ring_at_countercw_divider = sc_pt(sc_x, R_PATH_INNER_SR, countercw_divider_angle)
 
-    pA = sc_pt(sc_x, RO, a_hi)
-    pB = sc_pt(sc_x, RO, a_mid)
-    pC = sc_pt(sc_x, RO, a_lo)
-    pD = sc_pt(sc_x, RI, a_lo)
-    pE = sc_pt(sc_x, RI, a_mid)
-    pF = sc_pt(sc_x, RI, a_hi)
-
-    path_wire = (
+    pocket_channel_path = (
         cq.Workplane("XY")
-        .moveTo(*pA)
-        .threePointArc(pB, pC)
-        .lineTo(*pD)
-        .threePointArc(pE, pF)
-        .lineTo(*pA)
+        .moveTo(*outer_ring_at_countercw_divider)
+        .threePointArc(outer_ring_arc_midpoint, outer_ring_at_clockwise_divider)
+        .lineTo(*inner_ring_at_clockwise_divider)
+        .threePointArc(inner_ring_arc_midpoint, inner_ring_at_countercw_divider)
+        .lineTo(*outer_ring_at_countercw_divider)
         .wire().val()
     )
 
-    profile_plane = cq.Plane(
-        origin=(pA[0], pA[1], 0),
-        xDir=(math.cos(a_hi), math.sin(a_hi), 0),
-        normal=(math.sin(a_hi), -math.cos(a_hi), 0),
+    pocket_channel_profile_plane = cq.Plane(
+        origin=(outer_ring_at_countercw_divider[0], outer_ring_at_countercw_divider[1], 0),
+        xDir=(math.cos(countercw_divider_angle), math.sin(countercw_divider_angle), 0),
+        normal=(math.sin(countercw_divider_angle), -math.cos(countercw_divider_angle), 0),
     )
 
-    swept_body = (
-        cq.Workplane(profile_plane)
-        .moveTo(-RC_RIDGE_HALF, Z_BOT)
-        .lineTo(-RC_RIDGE_HALF, Z_SPLIT)
+    pocket_channel = (
+        cq.Workplane(pocket_channel_profile_plane)
+        .moveTo(-CHANNEL_RIDGE_HALF_WIDTH, Z_BOT)
+        .lineTo(-CHANNEL_RIDGE_HALF_WIDTH, Z_SPLIT)
         .lineTo(-WALL / 2, Z_CHAMFER_TOP)
-        .lineTo(-WALL / 2, IC_OL_TOP)
-        .lineTo(WALL / 2, IC_OL_TOP)
+        .lineTo(-WALL / 2, CHANNEL_WALL_OVERLAP_TOP)
+        .lineTo(WALL / 2, CHANNEL_WALL_OVERLAP_TOP)
         .lineTo(WALL / 2, Z_CHAMFER_TOP)
-        .lineTo(RC_RIDGE_HALF, Z_SPLIT)
-        .lineTo(RC_RIDGE_HALF, Z_BOT)
+        .lineTo(CHANNEL_RIDGE_HALF_WIDTH, Z_SPLIT)
+        .lineTo(CHANNEL_RIDGE_HALF_WIDTH, Z_BOT)
         .close()
-        .sweep(path_wire, transition='right')
+        .sweep(pocket_channel_path, transition='right')
     )
-    upper_shell = upper_shell.union(swept_body, tol=0.1)
+    upper_shell = upper_shell.union(pocket_channel, tol=0.1)
 
 
 # ═══════════════════════════════════════════════════════
@@ -409,33 +406,33 @@ for start_sc_x, start_deg, junc_deg, end_sc_x, end_deg in GAP_ARC_DEFS:
         .wire().val()
     )
 
-    gap_profile_plane = cq.Plane(
+    gap_channel_profile_plane = cq.Plane(
         origin=(p_start[0], p_start[1], 0),
         xDir=(-math.cos(a_start), -math.sin(a_start), 0),
         normal=(-math.sin(a_start), math.cos(a_start), 0),
     )
 
-    gap_body = (
-        cq.Workplane(gap_profile_plane)
-        .moveTo(-RC_RIDGE_HALF, Z_BOT)
-        .lineTo(-RC_RIDGE_HALF, Z_SPLIT)
+    gap_channel = (
+        cq.Workplane(gap_channel_profile_plane)
+        .moveTo(-CHANNEL_RIDGE_HALF_WIDTH, Z_BOT)
+        .lineTo(-CHANNEL_RIDGE_HALF_WIDTH, Z_SPLIT)
         .lineTo(-WALL / 2, Z_CHAMFER_TOP)
-        .lineTo(-WALL / 2, IC_OL_TOP)
-        .lineTo(WALL / 2, IC_OL_TOP)
+        .lineTo(-WALL / 2, CHANNEL_WALL_OVERLAP_TOP)
+        .lineTo(WALL / 2, CHANNEL_WALL_OVERLAP_TOP)
         .lineTo(WALL / 2, Z_CHAMFER_TOP)
-        .lineTo(RC_RIDGE_HALF, Z_SPLIT)
-        .lineTo(RC_RIDGE_HALF, Z_BOT)
+        .lineTo(CHANNEL_RIDGE_HALF_WIDTH, Z_SPLIT)
+        .lineTo(CHANNEL_RIDGE_HALF_WIDTH, Z_BOT)
         .close()
         .sweep(gap_path)
     )
-    upper_shell = upper_shell.union(gap_body, tol=0.1)
+    upper_shell = upper_shell.union(gap_channel, tol=0.1)
 
 
 # ═══════════════════════════════════════════════════════
 # UPPER SHELL — Outermost channel (body only)
 # ═══════════════════════════════════════════════════════
 
-oc_wire = (
+outermost_channel_path = (
     cq.Workplane("XY")
     .moveTo(HALF_FLAT, -OC_PATH_SR)
     .threePointArc((HALF_FLAT + OC_PATH_SR, 0), (HALF_FLAT, OC_PATH_SR))
@@ -445,26 +442,26 @@ oc_wire = (
     .wire().val()
 )
 
-oc_profile_plane = cq.Plane(
+outermost_channel_profile_plane = cq.Plane(
     origin=(HALF_FLAT, -OC_PATH_SR, 0),
     xDir=(0, 1, 0),
     normal=(1, 0, 0),
 )
 
-oc_body = (
-    cq.Workplane(oc_profile_plane)
-    .moveTo(-RC_RIDGE_HALF, Z_BOT)
-    .lineTo(-RC_RIDGE_HALF, Z_SPLIT)
+outermost_channel = (
+    cq.Workplane(outermost_channel_profile_plane)
+    .moveTo(-CHANNEL_RIDGE_HALF_WIDTH, Z_BOT)
+    .lineTo(-CHANNEL_RIDGE_HALF_WIDTH, Z_SPLIT)
     .lineTo(-WALL / 2, Z_CHAMFER_TOP)
-    .lineTo(-WALL / 2, IC_OL_TOP)
-    .lineTo(WALL / 2, IC_OL_TOP)
+    .lineTo(-WALL / 2, CHANNEL_WALL_OVERLAP_TOP)
+    .lineTo(WALL / 2, CHANNEL_WALL_OVERLAP_TOP)
     .lineTo(WALL / 2, Z_CHAMFER_TOP)
-    .lineTo(RC_RIDGE_HALF, Z_SPLIT)
-    .lineTo(RC_RIDGE_HALF, Z_BOT)
+    .lineTo(CHANNEL_RIDGE_HALF_WIDTH, Z_SPLIT)
+    .lineTo(CHANNEL_RIDGE_HALF_WIDTH, Z_BOT)
     .close()
-    .sweep(oc_wire, transition='right')
+    .sweep(outermost_channel_path, transition='right')
 )
-upper_shell = upper_shell.union(oc_body, tol=0.1)
+upper_shell = upper_shell.union(outermost_channel, tol=0.1)
 
 us_solids = upper_shell.solids().vals()
 print(f"After + all channel bodies: {len(us_solids)} solid(s)")
@@ -479,7 +476,7 @@ DIVIDER_FLOOR = Z_BOT + FLOOR / 2
 for pocket_deg, sc_x in POCKETS:
     for local_angle in [HALF_CRADLE, -HALF_CRADLE]:
         angle = pocket_deg + local_angle
-        div = (
+        pocket_divider = (
             cq.Workplane("XZ")
             .moveTo(SHELL_OR_SR - OVERLAP, Z_CHAMFER_TOP)
             .lineTo(SHELL_OR_SR - 0.1, SHELL_HEIGHT)
@@ -493,9 +490,9 @@ for pocket_deg, sc_x in POCKETS:
             .close()
             .extrude(WALL / 2, both=True)
         )
-        div = div.rotate((0, 0, 0), (0, 0, 1), angle)
-        div = div.translate((sc_x, 0, 0))
-        upper_shell = upper_shell.union(div, tol=0.1)
+        pocket_divider = pocket_divider.rotate((0, 0, 0), (0, 0, 1), angle)
+        pocket_divider = pocket_divider.translate((sc_x, 0, 0))
+        upper_shell = upper_shell.union(pocket_divider, tol=0.1)
 
 us_solids = upper_shell.solids().vals()
 print(f"After + dividers: {len(us_solids)} solid(s)")
@@ -508,47 +505,44 @@ print(f"After + dividers: {len(us_solids)} solid(s)")
 # ── Pocket groove cuts (closed-loop, same paths as pocket bodies) ──
 
 for pocket_deg, sc_x in POCKETS:
-    a_lo  = math.radians(pocket_deg - HALF_CRADLE)
-    a_hi  = math.radians(pocket_deg + HALF_CRADLE)
-    a_mid = math.radians(pocket_deg)
+    clockwise_divider_angle  = math.radians(pocket_deg - HALF_CRADLE)
+    countercw_divider_angle  = math.radians(pocket_deg + HALF_CRADLE)
+    pocket_center_angle      = math.radians(pocket_deg)
 
-    RO = R_PATH_OUTER_SR
-    RI = R_PATH_INNER_SR
+    outer_ring_at_countercw_divider = sc_pt(sc_x, R_PATH_OUTER_SR, countercw_divider_angle)
+    outer_ring_arc_midpoint         = sc_pt(sc_x, R_PATH_OUTER_SR, pocket_center_angle)
+    outer_ring_at_clockwise_divider = sc_pt(sc_x, R_PATH_OUTER_SR, clockwise_divider_angle)
+    inner_ring_at_clockwise_divider = sc_pt(sc_x, R_PATH_INNER_SR, clockwise_divider_angle)
+    inner_ring_arc_midpoint         = sc_pt(sc_x, R_PATH_INNER_SR, pocket_center_angle)
+    inner_ring_at_countercw_divider = sc_pt(sc_x, R_PATH_INNER_SR, countercw_divider_angle)
 
-    pA = sc_pt(sc_x, RO, a_hi)
-    pB = sc_pt(sc_x, RO, a_mid)
-    pC = sc_pt(sc_x, RO, a_lo)
-    pD = sc_pt(sc_x, RI, a_lo)
-    pE = sc_pt(sc_x, RI, a_mid)
-    pF = sc_pt(sc_x, RI, a_hi)
-
-    path_wire = (
+    pocket_groove_path = (
         cq.Workplane("XY")
-        .moveTo(*pA)
-        .threePointArc(pB, pC)
-        .lineTo(*pD)
-        .threePointArc(pE, pF)
-        .lineTo(*pA)
+        .moveTo(*outer_ring_at_countercw_divider)
+        .threePointArc(outer_ring_arc_midpoint, outer_ring_at_clockwise_divider)
+        .lineTo(*inner_ring_at_clockwise_divider)
+        .threePointArc(inner_ring_arc_midpoint, inner_ring_at_countercw_divider)
+        .lineTo(*outer_ring_at_countercw_divider)
         .wire().val()
     )
 
-    profile_plane = cq.Plane(
-        origin=(pA[0], pA[1], 0),
-        xDir=(math.cos(a_hi), math.sin(a_hi), 0),
-        normal=(math.sin(a_hi), -math.cos(a_hi), 0),
+    pocket_groove_profile_plane = cq.Plane(
+        origin=(outer_ring_at_countercw_divider[0], outer_ring_at_countercw_divider[1], 0),
+        xDir=(math.cos(countercw_divider_angle), math.sin(countercw_divider_angle), 0),
+        normal=(math.sin(countercw_divider_angle), -math.cos(countercw_divider_angle), 0),
     )
 
-    swept_groove = (
-        cq.Workplane(profile_plane)
-        .moveTo(-RC_GAP_HALF, Z_BOT - 0.1)
-        .lineTo(-RC_GAP_HALF, Z_SPLIT)
-        .lineTo(0, RC_PEAK_Z)
-        .lineTo(RC_GAP_HALF, Z_SPLIT)
-        .lineTo(RC_GAP_HALF, Z_BOT - 0.1)
+    pocket_channel_groove = (
+        cq.Workplane(pocket_groove_profile_plane)
+        .moveTo(-CHANNEL_GROOVE_HALF_WIDTH, Z_BOT - 0.1)
+        .lineTo(-CHANNEL_GROOVE_HALF_WIDTH, Z_SPLIT)
+        .lineTo(0, CHANNEL_GROOVE_PEAK_Z)
+        .lineTo(CHANNEL_GROOVE_HALF_WIDTH, Z_SPLIT)
+        .lineTo(CHANNEL_GROOVE_HALF_WIDTH, Z_BOT - 0.1)
         .close()
-        .sweep(path_wire, transition='right')
+        .sweep(pocket_groove_path, transition='right')
     )
-    upper_shell = upper_shell.cut(swept_groove)
+    upper_shell = upper_shell.cut(pocket_channel_groove)
 
 # ── Gap arc groove cuts ──
 
@@ -578,37 +572,37 @@ for start_sc_x, start_deg, junc_deg, end_sc_x, end_deg in GAP_ARC_DEFS:
         .wire().val()
     )
 
-    gap_groove_plane = cq.Plane(
+    gap_channel_groove_plane = cq.Plane(
         origin=(p_start[0], p_start[1], 0),
         xDir=(-math.cos(a_start), -math.sin(a_start), 0),
         normal=(-math.sin(a_start), math.cos(a_start), 0),
     )
 
-    gap_groove = (
-        cq.Workplane(gap_groove_plane)
-        .moveTo(-RC_GAP_HALF, Z_BOT - 0.1)
-        .lineTo(-RC_GAP_HALF, Z_SPLIT)
-        .lineTo(0, RC_PEAK_Z)
-        .lineTo(RC_GAP_HALF, Z_SPLIT)
-        .lineTo(RC_GAP_HALF, Z_BOT - 0.1)
+    gap_channel_groove = (
+        cq.Workplane(gap_channel_groove_plane)
+        .moveTo(-CHANNEL_GROOVE_HALF_WIDTH, Z_BOT - 0.1)
+        .lineTo(-CHANNEL_GROOVE_HALF_WIDTH, Z_SPLIT)
+        .lineTo(0, CHANNEL_GROOVE_PEAK_Z)
+        .lineTo(CHANNEL_GROOVE_HALF_WIDTH, Z_SPLIT)
+        .lineTo(CHANNEL_GROOVE_HALF_WIDTH, Z_BOT - 0.1)
         .close()
         .sweep(gap_path)
     )
-    upper_shell = upper_shell.cut(gap_groove)
+    upper_shell = upper_shell.cut(gap_channel_groove)
 
 # ── Outermost channel groove cut ──
 
-oc_groove = (
-    cq.Workplane(oc_profile_plane)
-    .moveTo(-RC_GAP_HALF, Z_BOT - 0.1)
-    .lineTo(-RC_GAP_HALF, Z_SPLIT)
-    .lineTo(0, RC_PEAK_Z)
-    .lineTo(RC_GAP_HALF, Z_SPLIT)
-    .lineTo(RC_GAP_HALF, Z_BOT - 0.1)
+outermost_channel_groove = (
+    cq.Workplane(outermost_channel_profile_plane)
+    .moveTo(-CHANNEL_GROOVE_HALF_WIDTH, Z_BOT - 0.1)
+    .lineTo(-CHANNEL_GROOVE_HALF_WIDTH, Z_SPLIT)
+    .lineTo(0, CHANNEL_GROOVE_PEAK_Z)
+    .lineTo(CHANNEL_GROOVE_HALF_WIDTH, Z_SPLIT)
+    .lineTo(CHANNEL_GROOVE_HALF_WIDTH, Z_BOT - 0.1)
     .close()
-    .sweep(oc_wire, transition='right')
+    .sweep(outermost_channel_path, transition='right')
 )
-upper_shell = upper_shell.cut(oc_groove)
+upper_shell = upper_shell.cut(outermost_channel_groove)
 
 us_solids = upper_shell.solids().vals()
 print(f"After + groove cuts: {len(us_solids)} solid(s)")
