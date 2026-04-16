@@ -1,10 +1,12 @@
-Derek didn't ask for a Word doc — he asked for a synopsis inline. Let me write it directly.
-
 **Carbonation subsystem**
 
-The carbonator tank is an off-the-shelf VUYOMUA 0.8-gallon (3L) 304 stainless steel pressure tank (ASIN B0BV6FMMJP, ~$56), rated 180 PSI, with 1/4" NPT ports. This replaces the previous custom-fabricated cylinder/endcap/weld-bung approach, eliminating SendCutSend laser-cut end caps, weld bungs, fiber laser welding, and post-weld passivation. The tank is a commercially manufactured and pressure-rated horizontal cylinder. The `cut-parts/carbonator-endcaps/`, `cut-parts/carbonator-endcaps-racetrack/`, and `printed-parts/carbonator-forming-dies/` directories are now obsolete.
+The carbonator vessel is custom-fabricated from 304 stainless steel. Tube stock was ruled out at ~$80/ft; the vessel is built instead from flat sheet stock cut by SendCutSend and formed in-house.
 
-The tank requires exactly four independent ports (all 1/4" NPT). These serve distinct functions at distinct locations and cannot be combined onto shared fittings without compromising performance or safety. If the delivered tank has fewer than four usable ports, additional ports must be drilled and tapped into the 304 SS wall.
+Body: a 15.509" × 6.000" blank in 0.048" 304 SS, rolled on a slip roll into a racetrack (stadium) cross-section and closed with one longitudinal butt weld on a flat side. Rolled ID: R=1.935", flat=1.600" (5.470" × 3.870"). OD: R=1.983", flat=1.600" (5.566" × 3.966"). Hoop stress at 70 PSI: 4,058 PSI — 4.9× safety factor vs 20,000 PSI allowable for 304 SS. Blank and rolling zone dimensions are in `cut-parts/carbonator-body-sheet/generate_dxf.py`.
+
+End caps: 0.060" 304 SS blanks laser-cut by SendCutSend (racetrack outline R=1.946", flat=1.600"; four 0.710" weld bung holes on top cap), then press-domed to a 0.250" crown using PA6-CF dishing dies. After doming, the rim shrinks to the slip-fit dimension (R=1.930") and drops into the rolled body with 0.005" clearance/side. The dome converts the stress mode from plate bending to membrane — 0.060" sheet passes ASME UG-32 with a 12× margin where a flat 0.060" cap would fail UG-34 by 3×. DXF geometry in `cut-parts/carbonator-endcaps-racetrack/generate_dxf.py`; dishing die specs and CadQuery script in `printed-parts/carbonator-dishing-dies/`.
+
+The vessel requires exactly four independent ports (all 1/4" NPT). These serve distinct functions at distinct locations and cannot be combined onto shared fittings without compromising performance or safety.
 
 Port 1 — CO2 inlet (headspace): CO2 enters the gas space above the water line from a regulated bottle at 60–70 PSI. The pressurized CO2 atmosphere drives dissolution into the water surface and into atomized droplets. CO2 must not enter below the water line — submerged injection would bubble through noisily, agitate sediment, and provide less controlled carbonation than headspace pressurization.
 
@@ -38,7 +40,7 @@ Fallback: the RIGID DV1910E (~$600 + 20-30% import tax) is a factory-sealed, pre
 
 **Cold core assembly (inside out)**
 
-Layer 1: VUYOMUA 0.8-gallon 304 SS carbonator tank (horizontal cylinder — exact dimensions TBD after delivery, estimated ~5-6" diameter x ~10-12" long based on product photos).
+Layer 1: Custom-fabricated 304 SS racetrack carbonator vessel. Cross-section OD: 5.566" × 3.966". Length: 6.000". Horizontal orientation.
 
 Layer 2: Copper evaporator coil wrapped tight around the tank with thermal compound. The horizontal orientation gives a longer wrapping surface than the previous vertical cylinder.
 
@@ -48,7 +50,7 @@ Layer 4: Two 3D-printed arch-shaped cradles, each holding a 1L Platypus bladder,
 
 Layer 5: 3D-printed outer shell with ~1/2" to 3/4" gap, filled with spray foam, same process as inner layer.
 
-Total cold core dimensions: TBD after measuring delivered tank. The horizontal cylinder form factor will produce a wider, shorter cold core than the previous vertical design.
+Total cold core dimensions: TBD after spray foam and shell layers are added around the 5.566" × 3.966" × 6.000" vessel core.
 
 The flavor reservoirs passively pre-chill to roughly 8-15°C by sitting in the thermal gradient between the near-freezing inner core and ambient air. The inner foam layer prevents the bladders from freezing against the evaporator.
 
