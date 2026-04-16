@@ -2,11 +2,11 @@ Derek didn't ask for a Word doc — he asked for a synopsis inline. Let me write
 
 **Carbonation subsystem**
 
-The carbonator tank is a custom-fabricated 304 stainless steel cylinder, 1/16" (0.065") wall thickness, 5" outer diameter, 6" length. End caps are 1/4" (0.250") 304 SS flat discs, laser-cut by SendCutSend, sized to slip-fit inside the tube (4.860" diameter into 4.870" bore). The end caps are welded from the outside through the tube wall using an 800W fiber laser welder with ER308L filler wire.
+The carbonator tank is an off-the-shelf VUYOMUA 0.8-gallon (3L) 304 stainless steel pressure tank (ASIN B0BV6FMMJP, ~$56), rated 180 PSI, with 1/4" NPT ports. This replaces the previous custom-fabricated cylinder/endcap/weld-bung approach, eliminating SendCutSend laser-cut end caps, weld bungs, fiber laser welding, and post-weld passivation. The tank is a commercially manufactured and pressure-rated horizontal cylinder. The `cut-parts/carbonator-endcaps/`, `cut-parts/carbonator-endcaps-racetrack/`, and `printed-parts/carbonator-forming-dies/` directories are now obsolete.
 
-All four ports are on the top end cap, via 1/4" NPT female weld bungs (body OD 0.700", flange OD 1.000") fillet-welded to the disc: CO2 in (headspace), water in (atomized into headspace via spiral cone nozzle), carbonated water out (dip tube extending to near-bottom), and a dedicated pressure relief valve port (100 PSI, ASME rated). The bottom end cap is a solid blank — no penetrations. The 5" diameter keeps it under the ASME Section VIII 6" exemption, eliminating pressure vessel certification requirements.
+Port assignments (all 1/4" NPT — exact port count and placement TBD after inspecting the delivered unit): CO2 in (headspace), water in (atomized into headspace via spiral cone nozzle), carbonated water out (dip tube extending to near-bottom), and a dedicated pressure relief valve port (100 PSI, ASME rated). If the tank has fewer than four usable ports, additional ports can be drilled and tapped into the 304 SS wall.
 
-After welding, the vessel interior is passivated with a citric acid soak (4-10% concentration, warm water, 30-60 minutes) to restore the chromium oxide layer on heat-affected zones. The vessel is then hydro-tested to 105 PSI (1.5x working pressure) for 30 minutes before service.
+The tank interior is coated with food-safe epoxy (e.g. MaxCLR A/B, FDA compliant when cured) to protect against long-term corrosion from carbonic acid (carbonated water, pH ~3.5-4). The vessel is hydro-tested to 150 PSI (1.5x working pressure) for 30 minutes before service as a verification step.
 
 CO2 supply is a standard regulated bottle, set to approximately 60-70 PSI, feeding directly into the tank headspace through the CO2 port.
 
@@ -16,25 +16,43 @@ Dispensing is a faucet lever. The carbonated water is already cold, carbonated, 
 
 **Refrigeration subsystem**
 
-The RIGID DV1910E ($420) provides the complete refrigeration loop: a QX1901VDL 12V DC brushless rotary compressor (1.9cc, 720g, variable speed 2000-6000 RPM), driver board, micro-channel condenser (126×240×16mm) with centrifugal fan, capillary tube, filter drier, and a flexible copper coil evaporator — all pre-charged with R134a and factory sealed.
+Three options are under evaluation. Option A is actively being explored (parts on order). Options B and C are documented alternatives.
 
-The copper coil ships wound at approximately 4" diameter and is bent open slightly to wrap snugly around the 5" carbonator tank. Thermal compound and clamping straps ensure contact. No refrigerant handling or EPA 608 certification is required because the system is never opened.
+*Option A: Ice maker harvest + custom evaporator coil*
+
+Two countertop ice makers have been purchased for teardown and component evaluation:
+
+- Frigidaire EFIC117-SS (26lb/day, Copper Stainless) — ASIN B07PCZKG94, $78.70
+- Generic countertop ice maker (8 cubes/6min, 26lb/day, Black) — ASIN B0F42MT8JX, $63.80
+
+Both are compressor-based units that freeze water, well beyond the cooling capacity needed to chill a 1.2L insulated vessel to near-freezing. The plan is to extract the compressor, condenser + fan, capillary tube, and filter drier from one or both units, discard the ice mold and evaporator cold plate, and replace the evaporator with a custom-wound copper coil around the carbonator tank.
+
+Evaporator coil stock on hand: GOORY 1/4" OD x 0.187" ID x 50 ft, C12200 ACR (ASTM B280), thick-wall (0.031") — ASIN B0DKSW5VL9, $68.63. The 0.031" wall was chosen over the standard 0.028" wall to resist thinning at bends when wrapping around the carbonator tank. For production quantities (~35 ft per unit, 10 units = 350 ft), the same product in 50 ft rolls is the largest thick-wall size available on Prime. BELLA BAYS (ASIN B0BXKK62XL, $62.99/50ft) is an equivalent alternative at the same spec.
+
+This path requires EPA 608 certification (cheap, online test) to handle R134a: recover the factory charge during teardown, evacuate the reassembled system, and recharge. Total component cost per unit: ~$100-110 (ice maker + copper + R134a + filter drier). Suitable for prototyping and direct-sale units where the builder is the manufacturer. No UL/ETL listing is legally required for direct-to-consumer sales on your own website, though it provides liability protection.
+
+*Option B: RIGID DV1910E (factory-sealed OEM module)*
+
+The RIGID DV1910E (~$600 with shipping + 20-30% import tax) provides the complete refrigeration loop: a QX1901VDL 12V DC brushless rotary compressor (1.9cc, 720g, variable speed 2000-6000 RPM), driver board, micro-channel condenser (126×240×16mm) with centrifugal fan, capillary tube, filter drier, and a flexible copper coil evaporator — all pre-charged with R134a and factory sealed.
+
+The copper coil ships wound at approximately 4" diameter and is bent open to wrap snugly around the carbonator tank. Thermal compound and clamping straps ensure contact. No refrigerant handling or EPA 608 certification is required because the system is never opened. This is the primary advantage: the sealed, pre-charged, OEM-documented module simplifies NRTL (UL/ETL) certification if pursuing retail distribution through channels that require it (Amazon, big-box retail). The cost premium is effectively a certification shortcut, not a component quality difference.
 
 The condenser sits at the top front of the enclosure with the fan blowing hot air forward — no rear clearance needed. The compressor tucks beside or below the cold core.
 
+
 **Cold core assembly (inside out)**
 
-Layer 1: Stainless carbonator tank (5" diameter, 6" tall).
+Layer 1: VUYOMUA 0.8-gallon 304 SS carbonator tank (horizontal cylinder — exact dimensions TBD after delivery, estimated ~5-6" diameter x ~10-12" long based on product photos).
 
-Layer 2: Copper evaporator coil from DV1910E, wrapped tight around the tank with thermal compound.
+Layer 2: Copper evaporator coil wrapped tight around the tank with thermal compound. The horizontal orientation gives a longer wrapping surface than the previous vertical cylinder.
 
 Layer 3: 3D-printed inner shell with ~1/4" gap, filled with two-part closed-cell spray polyurethane foam (Froth-Pak or equivalent). Vent holes in the shell allow excess foam to escape during cure; trimmed flush after hardening.
 
-Layer 4: Two 3D-printed arch-shaped cradles, each holding a 1L Platypus bladder, forming a complete 360-degree wrap. The bladders serve as flavor reservoirs and as a thermal mass buffer. Each bladder cap is drilled and fitted with a John Guest bulkhead fitting connecting to 1/4" hard RO tubing that runs to the peristaltic pumps. The bladders are permanent internal plumbing — filled from a user-accessible hopper via the pumps, cleaned in place by a software-controlled rinse cycle (water in, water out to nozzle, air in, air out to nozzle, repeat).
+Layer 4: Two 3D-printed arch-shaped cradles, each holding a 1L Platypus bladder, forming a wrap around the insulated core. The bladders serve as flavor reservoirs and as a thermal mass buffer. Each bladder cap is drilled and fitted with a John Guest bulkhead fitting connecting to 1/4" hard RO tubing that runs to the peristaltic pumps. The bladders are permanent internal plumbing — filled from a user-accessible hopper via the pumps, cleaned in place by a software-controlled rinse cycle (water in, water out to nozzle, air in, air out to nozzle, repeat).
 
 Layer 5: 3D-printed outer shell with ~1/2" to 3/4" gap, filled with spray foam, same process as inner layer.
 
-Total cold core diameter: approximately 9 inches. Total height: approximately 8 inches.
+Total cold core dimensions: TBD after measuring delivered tank. The horizontal cylinder form factor will produce a wider, shorter cold core than the previous vertical design.
 
 The flavor reservoirs passively pre-chill to roughly 8-15°C by sitting in the thermal gradient between the near-freezing inner core and ambient air. The inner foam layer prevents the bladders from freezing against the evaporator.
 
