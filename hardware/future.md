@@ -16,28 +16,16 @@ Dispensing is a faucet lever. The carbonated water is already cold, carbonated, 
 
 **Refrigeration subsystem**
 
-Three options are under evaluation. Option A is actively being explored (parts on order). Options B and C are documented alternatives.
+Compressor, condenser + fan, capillary tube, and filter drier are harvested from a countertop ice maker. The evaporator cold plate is discarded and replaced with a custom-wound copper coil around the carbonator tank. Two ice makers purchased for teardown:
 
-*Option A: Ice maker harvest + custom evaporator coil*
+- Frigidaire EFIC117-SS (26lb/day) — ASIN B07PCZKG94, $78.70
+- Generic countertop (8 cubes/6min, 26lb/day) — ASIN B0F42MT8JX, $63.80
 
-Two countertop ice makers have been purchased for teardown and component evaluation:
+Evaporator coil: GOORY 1/4" OD x 0.187" ID, C12200 ACR (ASTM B280), thick-wall (0.031") — ASIN B0DKSW5VL9. The 0.031" wall resists thinning at bends around the carbonator tank. For production runs, the same product ships in 50 ft rolls (largest thick-wall size on Prime). BELLA BAYS (ASIN B0BXKK62XL) is an equivalent alternative at the same spec.
 
-- Frigidaire EFIC117-SS (26lb/day, Copper Stainless) — ASIN B07PCZKG94, $78.70
-- Generic countertop ice maker (8 cubes/6min, 26lb/day, Black) — ASIN B0F42MT8JX, $63.80
+Requires EPA 608 certification to handle R134a: recover the factory charge during teardown, evacuate the reassembled system, and recharge. Total component cost per unit: ~$100-110.
 
-Both are compressor-based units that freeze water, well beyond the cooling capacity needed to chill a 1.2L insulated vessel to near-freezing. The plan is to extract the compressor, condenser + fan, capillary tube, and filter drier from one or both units, discard the ice mold and evaporator cold plate, and replace the evaporator with a custom-wound copper coil around the carbonator tank.
-
-Evaporator coil stock on hand: GOORY 1/4" OD x 0.187" ID x 50 ft, C12200 ACR (ASTM B280), thick-wall (0.031") — ASIN B0DKSW5VL9, $68.63. The 0.031" wall was chosen over the standard 0.028" wall to resist thinning at bends when wrapping around the carbonator tank. For production quantities (~35 ft per unit, 10 units = 350 ft), the same product in 50 ft rolls is the largest thick-wall size available on Prime. BELLA BAYS (ASIN B0BXKK62XL, $62.99/50ft) is an equivalent alternative at the same spec.
-
-This path requires EPA 608 certification (cheap, online test) to handle R134a: recover the factory charge during teardown, evacuate the reassembled system, and recharge. Total component cost per unit: ~$100-110 (ice maker + copper + R134a + filter drier). Suitable for prototyping and direct-sale units where the builder is the manufacturer. No UL/ETL listing is legally required for direct-to-consumer sales on your own website, though it provides liability protection.
-
-*Option B: RIGID DV1910E (factory-sealed OEM module)*
-
-The RIGID DV1910E (~$600 with shipping + 20-30% import tax) provides the complete refrigeration loop: a QX1901VDL 12V DC brushless rotary compressor (1.9cc, 720g, variable speed 2000-6000 RPM), driver board, micro-channel condenser (126×240×16mm) with centrifugal fan, capillary tube, filter drier, and a flexible copper coil evaporator — all pre-charged with R134a and factory sealed.
-
-The copper coil ships wound at approximately 4" diameter and is bent open to wrap snugly around the carbonator tank. Thermal compound and clamping straps ensure contact. No refrigerant handling or EPA 608 certification is required because the system is never opened. This is the primary advantage: the sealed, pre-charged, OEM-documented module simplifies NRTL (UL/ETL) certification if pursuing retail distribution through channels that require it (Amazon, big-box retail). The cost premium is effectively a certification shortcut, not a component quality difference.
-
-The condenser sits at the top front of the enclosure with the fan blowing hot air forward — no rear clearance needed. The compressor tucks beside or below the cold core.
+Fallback: the RIGID DV1910E (~$600 + 20-30% import tax) is a factory-sealed, pre-charged OEM module with a flexible copper coil evaporator that can be reshaped without breaking the refrigerant loop. No EPA 608 required. The cost premium buys a certification shortcut for retail channels (Amazon, big-box) that require UL/ETL listing.
 
 
 **Cold core assembly (inside out)**
