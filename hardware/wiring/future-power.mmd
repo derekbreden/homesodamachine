@@ -1,0 +1,68 @@
+flowchart TD
+
+  %% ═══════════════════════════════════════
+  %%  Future Power Distribution — All 12V DC
+  %% ═══════════════════════════════════════
+
+  subgraph Supply["AC-DC Power Supply"]
+    PSU["120V AC → 12V DC\nbase-mounted or external brick"]
+  end
+
+  subgraph Regulation["Voltage Regulation"]
+    REG_5V["5V Regulator\n(MCUs, logic)"]
+    REG_3V3["3.3V Regulator\n(I2C devices, sensors)"]
+  end
+
+  subgraph Refrigeration["Refrigeration  (RIGID DV1910E)"]
+    COMP["QX1901VDL Compressor\n12V brushless rotary\n2000-6000 RPM"]
+    COMP_DRV["RIGID Driver Board\n12V input"]
+    FAN["Condenser Fan\n12V centrifugal"]
+    COMP_DRV --> COMP
+    COMP_DRV --> FAN
+  end
+
+  subgraph Carbonation["Carbonation"]
+    DIA_PUMP["Diaphragm Pump\n12V, 100 PSI rated"]
+  end
+
+  subgraph Flavor["Flavor Injection"]
+    direction TB
+    L298["L298N Board A\n12V input"]
+    PUMP_A["Kamoer Pump A\n12V peristaltic"]
+    PUMP_B["Kamoer Pump B\n12V peristaltic"]
+    L298 --> PUMP_A
+    L298 --> PUMP_B
+  end
+
+  subgraph Valve_Power["Valve Array"]
+    ULN["2× ULN2803A\nCOM pin → 12V"]
+    VALVES["11× Beduan Solenoid\n12V normally closed\n~300mA each"]
+    ULN --> VALVES
+  end
+
+  subgraph MCUs["Controllers"]
+    ESP32["ESP32-DevKitC-32E\n(main)"]
+    RP2040["RP2040-LCD-0.99&#34;\n(display)"]
+    S3["ESP32-S3\n(config/BLE)"]
+  end
+
+  subgraph I2C_Devices["I2C Devices"]
+    RTC["DS3231 RTC"]
+    MCP["MCP23017\nGPIO Expander"]
+    FDC["FDC1004\nLevel Sensor"]
+  end
+
+  %% ── 12V distribution ──
+  PSU ==>|"12V"| COMP_DRV
+  PSU ==>|"12V"| DIA_PUMP
+  PSU ==>|"12V"| L298
+  PSU ==>|"12V"| ULN
+  PSU ==>|"12V"| REG_5V
+
+  %% ── Regulated power ──
+  REG_5V -->|"5V"| REG_3V3
+  REG_5V -->|"5V"| MCUs
+  REG_3V3 -->|"3.3V"| I2C_Devices
+
+  %% 12V power paths thick red
+  linkStyle 4,5,6,7,8 stroke:#c44,stroke-width:3px
