@@ -1,0 +1,91 @@
+flowchart LR
+
+  %% ═══════════════════════════════════════
+  %%  Future ESP32 Pin Assignments
+  %%
+  %%  Valves move to I2C expander (MCP23017 → ULN2803A).
+  %%  L298N boards B and C eliminated. Board A kept for pumps.
+  %%  Freed GPIOs available for new subsystems.
+  %% ═══════════════════════════════════════
+
+  subgraph ESP["ESP32-DevKitC-32E"]
+    direction TB
+
+    subgraph UART_Pins["UART"]
+      P32["GPIO 32  TX → RP2040"]
+      P35["GPIO 35  RX ← RP2040"]
+      P15["GPIO 15  TX → ESP32-S3"]
+      P34["GPIO 34  RX ← ESP32-S3"]
+    end
+
+    subgraph I2C_Pins["I2C  (expanded bus)"]
+      P21["GPIO 21  SDA"]
+      P22["GPIO 22  SCL"]
+    end
+
+    subgraph Pump_Pins["L298N Board A  (pumps only)"]
+      P33["GPIO 33  A_ENA  pump A PWM"]
+      P25["GPIO 25  A_IN1  pump A dir"]
+      P26["GPIO 26  A_IN2  pump A dir"]
+      P19["GPIO 19  B_ENA  pump B PWM"]
+      P18["GPIO 18  B_IN1  pump B dir"]
+      P5["GPIO 5   B_IN2  pump B dir"]
+    end
+
+    subgraph Input_Pins["Inputs"]
+      P13["GPIO 13  Flavor Switch"]
+      P23["GPIO 23  Flow Meter"]
+    end
+
+    subgraph Freed["Freed  (were L298N valve/clean pins)"]
+      P12["GPIO 12  was A_ENB"]
+      P4["GPIO 4   was B_ENB"]
+      P27["GPIO 27  was CLEAN_SOL1"]
+      P17["GPIO 17  was CLEAN_SOL2"]
+      P2["GPIO 2   free"]
+      P16["GPIO 16  free"]
+    end
+  end
+
+  %% ── Destinations ──
+  RP["RP2040\n(display)"]
+  S3["ESP32-S3\n(config/BLE)"]
+
+  I2C_DEVICES["I2C Devices:\n  DS3231 RTC  0x68\n  MCP23017    0x20\n  FDC1004     0x50"]
+
+  DRV["L298N Board A\n(2 pumps, H-bridge)"]
+
+  PUMP1["Kamoer Pump A"]
+  PUMP2["Kamoer Pump B"]
+
+  FLOW["DIGITEN\nFlow Meter"]
+  SW["KRAUS\nAir Switch"]
+
+  VALVE_CHAIN["MCP23017\n  ↓\n2× ULN2803A\n  ↓\n11 solenoid valves\n(see future-valve-control)"]
+
+  CARBONATOR["Carbonator Subsystem\n  Diaphragm pump\n  FDC1004 level sense\n  CO2 solenoid (spare MCP pin)"]
+
+  %% ── Connections ──
+  P32 & P35 <-->|"Serial2\n115200 baud"| RP
+  P15 & P34 <-->|"Serial1\n115200 baud"| S3
+  P21 & P22 <-->|"I2C"| I2C_DEVICES
+
+  P33 & P25 & P26 -->|"Pump A"| DRV
+  P19 & P18 & P5 -->|"Pump B"| DRV
+  DRV -->|"Channel A"| PUMP1
+  DRV -->|"Channel B"| PUMP2
+
+  FLOW -->|"pulse interrupt"| P23
+  SW -->|"INPUT_PULLUP"| P13
+
+  I2C_DEVICES -.->|"MCP23017"| VALVE_CHAIN
+  I2C_DEVICES -.->|"FDC1004"| CARBONATOR
+
+  %% Freed pins dimmed
+  style P12 fill:#333,stroke:#555,color:#777
+  style P4 fill:#333,stroke:#555,color:#777
+  style P27 fill:#333,stroke:#555,color:#777
+  style P17 fill:#333,stroke:#555,color:#777
+  style P2 fill:#333,stroke:#555,color:#777
+  style P16 fill:#333,stroke:#555,color:#777
+  style Freed fill:#2a2a2a,stroke:#555,color:#999
