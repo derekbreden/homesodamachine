@@ -272,6 +272,45 @@ print(f"\nAfter inner_body + outer_wall: {len(us_solids)} solid(s)")
 
 
 # ═══════════════════════════════════════════════════════
+# UPPER SHELL — Floor cuts (before channel sweeps)
+# ═══════════════════════════════════════════════════════
+#
+# Cut cradle holes and center hole now, before the channel sweeps are
+# added.  The channel sweeps will then lay their floor material back
+# on top with exact geometry — no clearance approximation needed.
+
+center_hole = (
+    cq.Workplane("XY")
+    .transformed(offset=(0, 0, Z_BOT - 1))
+    .circle(FOAM_HOLE_DIA / 2)
+    .extrude(FLOOR + 2)
+)
+upper_shell = upper_shell.cut(center_hole)
+
+DIVIDER_ANGULAR_CLEARANCE = math.degrees((WALL / 2 + 0.2) / SHELL_OR_SR)
+CUT_ARC = CRADLE_ARC_DEG - 2 * DIVIDER_ANGULAR_CLEARANCE
+
+for pocket_deg, sc_x in POCKETS:
+    cradle_cut = (
+        cq.Workplane("XZ")
+        .moveTo(IC_OUTER_OR_SR, Z_BOT - 0.1)
+        .lineTo(IC_OUTER_OR_SR, Z_BOT + FLOOR + 0.1)
+        .lineTo(R_INNER_IR_SR, Z_BOT + FLOOR + 0.1)
+        .lineTo(R_INNER_IR_SR, Z_BOT - 0.1)
+        .close()
+        .revolve(CUT_ARC, (0, 0, 0), (0, 1, 0))
+    )
+    cradle_cut = cradle_cut.rotate(
+        (0, 0, 0), (0, 0, 1), pocket_deg - CUT_ARC / 2
+    )
+    cradle_cut = cradle_cut.translate((sc_x, 0, 0))
+    upper_shell = upper_shell.cut(cradle_cut)
+
+us_solids = upper_shell.solids().vals()
+print(f"After floor cuts: {len(us_solids)} solid(s)")
+
+
+# ═══════════════════════════════════════════════════════
 # UPPER SHELL — Pocket channels (closed-loop sweep)
 # ═══════════════════════════════════════════════════════
 #
@@ -575,42 +614,8 @@ us_solids = upper_shell.solids().vals()
 print(f"After + groove cuts: {len(us_solids)} solid(s)")
 
 
-# ── Center floor hole ──
-
-center_hole = (
-    cq.Workplane("XY")
-    .transformed(offset=(0, 0, Z_BOT - 1))
-    .circle(FOAM_HOLE_DIA / 2)
-    .extrude(FLOOR + 2)
-)
-upper_shell = upper_shell.cut(center_hole)
-
-# ── Cradle floor cuts ──
-
-DIVIDER_ANGULAR_CLEARANCE = math.degrees((RC_RIDGE_HALF + 0.2) / IC_OUTER_OR_SR)
-CUT_ARC = CRADLE_ARC_DEG - 2 * DIVIDER_ANGULAR_CLEARANCE
-
-for pocket_deg, sc_x in POCKETS:
-    # Radial range avoids channel body bases:
-    #   inner channel outer edge at IC_OUTER_OR_SR (66.65)
-    #   outer channel inner edge at R_INNER_IR_SR  (88.65)
-    cradle_cut = (
-        cq.Workplane("XZ")
-        .moveTo(IC_OUTER_OR_SR, Z_BOT - 0.1)
-        .lineTo(IC_OUTER_OR_SR, Z_BOT + FLOOR + 0.1)
-        .lineTo(R_INNER_IR_SR, Z_BOT + FLOOR + 0.1)
-        .lineTo(R_INNER_IR_SR, Z_BOT - 0.1)
-        .close()
-        .revolve(CUT_ARC, (0, 0, 0), (0, 1, 0))
-    )
-    cradle_cut = cradle_cut.rotate(
-        (0, 0, 0), (0, 0, 1), pocket_deg - CUT_ARC / 2
-    )
-    cradle_cut = cradle_cut.translate((sc_x, 0, 0))
-    upper_shell = upper_shell.cut(cradle_cut)
-
 us_solids = upper_shell.solids().vals()
-print(f"After cradle floor cuts: {len(us_solids)} solid(s)")
+print(f"Final upper shell: {len(us_solids)} solid(s)")
 
 
 # ═══════════════════════════════════════════════════════
