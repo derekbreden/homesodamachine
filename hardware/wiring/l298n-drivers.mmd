@@ -1,0 +1,97 @@
+flowchart LR
+
+  %% ═══════════════════════════════════════
+  %%  L298N Motor Driver Wiring — Current Prototype
+  %% ═══════════════════════════════════════
+
+  subgraph ESP32["ESP32 GPIOs"]
+    direction TB
+    G33["GPIO 33\nA_ENA"]
+    G25["GPIO 25\nA_IN1"]
+    G26["GPIO 26\nA_IN2"]
+    G12["GPIO 12\nA_ENB"]
+    G19["GPIO 19\nB_ENA"]
+    G18["GPIO 18\nB_IN1"]
+    G5["GPIO 5\nB_IN2"]
+    G4["GPIO 4\nB_ENB"]
+    G27["GPIO 27\nCLEAN_SOL1"]
+    G17["GPIO 17\nCLEAN_SOL2"]
+  end
+
+  subgraph BoardA["L298N Board A — Flavor 1"]
+    direction TB
+    A_ENA["ENA\nPWM speed"]
+    A_IN1["IN1\nDirection"]
+    A_IN2["IN2\nDirection"]
+    A_OUT_A["OUT A\nMotor terminals"]
+    A_ENB["ENB\nPWM on/off"]
+    A_OUT_B["OUT B\nSwitch terminals"]
+
+    A_ENA --- A_OUT_A
+    A_IN1 --- A_OUT_A
+    A_IN2 --- A_OUT_A
+    A_ENB --- A_OUT_B
+  end
+
+  subgraph BoardB["L298N Board B — Flavor 2"]
+    direction TB
+    B_ENA["ENA\nPWM speed"]
+    B_IN1["IN1\nDirection"]
+    B_IN2["IN2\nDirection"]
+    B_OUT_A["OUT A\nMotor terminals"]
+    B_ENB["ENB\nPWM on/off"]
+    B_OUT_B["OUT B\nSwitch terminals"]
+
+    B_ENA --- B_OUT_A
+    B_IN1 --- B_OUT_A
+    B_IN2 --- B_OUT_A
+    B_ENB --- B_OUT_B
+  end
+
+  subgraph BoardC["L298N Board C — Clean"]
+    direction TB
+    C_ENA["ENA\nChannel A"]
+    C_OUT_A["OUT A\nSwitch terminals"]
+    C_ENB["ENB\nChannel B"]
+    C_OUT_B["OUT B\nSwitch terminals"]
+
+    C_ENA --- C_OUT_A
+    C_ENB --- C_OUT_B
+  end
+
+  subgraph Loads["Loads (all 12V)"]
+    direction TB
+    PUMP1["Kamoer Peristaltic\nPump A\n(bidirectional)"]
+    VALVE1["Beduan Solenoid\nDispense Valve A\n(normally closed)"]
+    PUMP2["Kamoer Peristaltic\nPump B\n(bidirectional)"]
+    VALVE2["Beduan Solenoid\nDispense Valve B\n(normally closed)"]
+    CSOL1["Beduan Solenoid\nClean Valve A\n(normally closed)"]
+    CSOL2["Beduan Solenoid\nClean Valve B\n(normally closed)"]
+  end
+
+  %% ── ESP32 → Board A ──
+  G33 -->|"PWM 0-255"| A_ENA
+  G25 -->|"HIGH = fwd"| A_IN1
+  G26 -->|"HIGH = rev"| A_IN2
+  G12 -->|"PWM 0-255"| A_ENB
+
+  %% ── ESP32 → Board B ──
+  G19 -->|"PWM 0-255"| B_ENA
+  G18 -->|"HIGH = fwd"| B_IN1
+  G5 -->|"HIGH = rev"| B_IN2
+  G4 -->|"PWM 0-255"| B_ENB
+
+  %% ── ESP32 → Board C ──
+  G27 -->|"PWM 0-255"| C_ENA
+  G17 -->|"PWM 0-255"| C_ENB
+
+  %% ── Boards → Loads ──
+  A_OUT_A ==>|"Motor ±"| PUMP1
+  A_OUT_B ==>|"Switch"| VALVE1
+  B_OUT_A ==>|"Motor ±"| PUMP2
+  B_OUT_B ==>|"Switch"| VALVE2
+  C_OUT_A ==>|"Switch"| CSOL1
+  C_OUT_B ==>|"Switch"| CSOL2
+
+  %% Thick lines for power paths
+  linkStyle 14,15,16,17,18,19 stroke:#c44,stroke-width:3px

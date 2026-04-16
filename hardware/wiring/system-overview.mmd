@@ -1,0 +1,93 @@
+flowchart TD
+
+  %% ═══════════════════════════════════════
+  %%  System Overview — Current Prototype
+  %% ═══════════════════════════════════════
+
+  subgraph Power["12V DC Power"]
+    PSU["AC-DC Power Supply"]
+  end
+
+  subgraph MainMCU["ESP32-DevKitC-32E  (Main Controller)"]
+    direction TB
+    ESP32["ESP32\nFirmware: src/main.cpp"]
+  end
+
+  subgraph Display["Waveshare RP2040-LCD-0.99&#34;"]
+    direction TB
+    RP2040["RP2040\nFirmware: src_display/main.cpp"]
+    LCD_RP["0.99&#34; Round LCD\nGC9107 · 128×115\nSPI (on-board)"]
+    RP2040 --- LCD_RP
+  end
+
+  subgraph Config["Meshnology ESP32-S3 1.28&#34; Round Rotary"]
+    direction TB
+    S3["ESP32-S3\nFirmware: src_config/main.cpp"]
+    LCD_S3["1.28&#34; Round LCD\nGC9A01A · 240×240\nSPI (on-board)"]
+    TOUCH["CST816D Touch\nI2C 0x15 (on-board)"]
+    ENCODER["Rotary Encoder\n(on-board)"]
+    LEDS["5× WS2812 RGB\nGPIO 48 (unused)"]
+    S3 --- LCD_S3
+    S3 --- TOUCH
+    S3 --- ENCODER
+    S3 --- LEDS
+  end
+
+  subgraph Drivers["L298N Motor Drivers"]
+    direction TB
+    L298A["L298N Board A\nFlavor 1 Pump + Valve"]
+    L298B["L298N Board B\nFlavor 2 Pump + Valve"]
+    L298C["L298N Board C\nClean Solenoids"]
+  end
+
+  subgraph Actuators["Pumps & Valves"]
+    direction TB
+    PUMP1["Kamoer Peristaltic\nPump A (Flavor 1)"]
+    PUMP2["Kamoer Peristaltic\nPump B (Flavor 2)"]
+    VALVE1["Beduan Solenoid\nDispense Valve A"]
+    VALVE2["Beduan Solenoid\nDispense Valve B"]
+    CLEAN1["Beduan Solenoid\nClean Valve A"]
+    CLEAN2["Beduan Solenoid\nClean Valve B"]
+  end
+
+  subgraph Sensors["Sensors & Inputs"]
+    direction TB
+    FLOW["DIGITEN Flow Meter\nHall Effect"]
+    AIRSW["KRAUS Air Switch\nFlavor Select"]
+    RTC["DS3231 RTC\nI2C 0x68"]
+  end
+
+  %% ── Inter-MCU UART links ──
+  ESP32 <-->|"UART 115200\nTinyProto HDLC\nGPIO 32/35 ↔ 27/26"| RP2040
+  ESP32 <-->|"UART 115200\nTinyProto HDLC\nGPIO 15/34 ↔ 43/44"| S3
+
+  %% ── BLE ──
+  S3 -.->|"BLE"| PHONE["iOS App"]
+
+  %% ── ESP32 → Drivers ──
+  ESP32 -->|"GPIO 33, 25, 26"| L298A
+  ESP32 -->|"GPIO 12"| L298A
+  ESP32 -->|"GPIO 19, 18, 5"| L298B
+  ESP32 -->|"GPIO 4"| L298B
+  ESP32 -->|"GPIO 27"| L298C
+  ESP32 -->|"GPIO 17"| L298C
+
+  %% ── Drivers → Actuators ──
+  L298A -->|"Channel A"| PUMP1
+  L298A -->|"Channel B"| VALVE1
+  L298B -->|"Channel A"| PUMP2
+  L298B -->|"Channel B"| VALVE2
+  L298C -->|"Channel A"| CLEAN1
+  L298C -->|"Channel B"| CLEAN2
+
+  %% ── Sensors → ESP32 ──
+  FLOW -->|"GPIO 23\npulse interrupt"| ESP32
+  AIRSW -->|"GPIO 13"| ESP32
+  AIRSW -->|"GPIO 29"| RP2040
+  RTC <-->|"I2C\nSDA 21 · SCL 22"| ESP32
+
+  %% ── Power ──
+  PSU -.->|"12V"| Drivers
+  PSU -.->|"12V → 5V/3.3V"| MainMCU
+  PSU -.->|"12V → 5V/3.3V"| Display
+  PSU -.->|"12V → 5V/3.3V"| Config
