@@ -51,6 +51,10 @@ HALF_CRADLE       = CRADLE_ARC_DEG / 2
 OUTER_SHELL_IR_SR = SHELL_OR_SR + CRADLE_DEPTH                    # 90.15
 OUTER_SHELL_OR_SR = OUTER_SHELL_IR_SR + WALL                      # 91.15
 
+OUTER_FOAM_GAP    = 6.35                                           # 1/4-inch foam outside bags
+OUTERMOST_IR_SR   = OUTER_SHELL_OR_SR + OUTER_FOAM_GAP            # 97.50
+OUTERMOST_OR_SR   = OUTERMOST_IR_SR + WALL                        # 98.50
+
 TANK_HEIGHT  = 152.4
 SHELL_HEIGHT = TANK_HEIGHT + 10.0 + 3 * 25.4                      # 238.6
 
@@ -78,6 +82,12 @@ IC_INNER_IR_SR = IC_INNER_OR_SR - WALL                             # 62.65
 IC_OUTER_IR_SR = SHELL_OR_SR + CHANNEL_CLEARANCE                  # 65.65
 IC_OUTER_OR_SR = IC_OUTER_IR_SR + WALL                             # 66.65
 
+# Outermost wall channel ring semi_r values
+OC_INNER_OR_SR = OUTERMOST_IR_SR - CHANNEL_CLEARANCE              # 97.00
+OC_INNER_IR_SR = OC_INNER_OR_SR - WALL                             # 96.00
+OC_OUTER_IR_SR = OUTERMOST_OR_SR + CHANNEL_CLEARANCE              # 99.00
+OC_OUTER_OR_SR = OC_OUTER_IR_SR + WALL                             # 100.00
+
 # ── Sweep profile dimensions ──
 
 OVERLAP       = 1.0
@@ -88,6 +98,7 @@ RC_PEAK_Z     = Z_SPLIT + RC_GAP_HALF                             # 27.4
 
 R_PATH_INNER_SR = (SHELL_SR + SHELL_OR_SR) / 2                    # 64.65
 R_PATH_OUTER_SR = (R_INNER_OR_SR + R_OUTER_IR_SR) / 2             # 90.65
+OC_PATH_SR      = (OC_INNER_OR_SR + OC_OUTER_IR_SR) / 2           # 98.00
 
 HALF_FLAT     = FLAT / 2                                            # 20.32
 FOAM_HOLE_DIA = 8.0
@@ -132,18 +143,39 @@ POCKETS = [(0.0, HALF_FLAT), (180.0, -HALF_FLAT)]
 # Racetrack cup: solid floor from Z=0 to FLOOR, walls up to PLAT_BOTTOM.
 # Foam cavity between FLOOR and PLAT_BOTTOM inside the walls.
 
-bottom_cup = rt_solid(OUTER_SHELL_OR_SR, 0, PLAT_BOTTOM)
-inner_void = rt_solid(OUTER_SHELL_IR_SR, FLOOR, PLAT_BOTTOM + 1)
-bottom_cup = bottom_cup.cut(inner_void)
+# Floor slab (solid, extends to outermost wall)
+bottom_cup = rt_solid(OUTERMOST_OR_SR, 0, FLOOR)
+# Old outer wall ring (separates bag zone from outer foam)
+bottom_cup = bottom_cup.union(
+    rt_shell(OUTER_SHELL_IR_SR, OUTER_SHELL_OR_SR, FLOOR, PLAT_BOTTOM), tol=0.05)
+# Outermost wall ring (contains outer foam)
+bottom_cup = bottom_cup.union(
+    rt_shell(OUTERMOST_IR_SR, OUTERMOST_OR_SR, FLOOR, PLAT_BOTTOM), tol=0.05)
 
 # ── Diamond foam-cavity holes (at 90° and 270° — on the flat portions) ──
 
 FOAM_MID_Z = FLOOR + FLOOR_FOAM_GAP / 2
 
+# Holes through old outer wall (inner foam cavity)
 for angle_deg in [90, 270]:
     diamond = (
         cq.Workplane("YZ")
         .transformed(offset=(0, 0, OUTER_SHELL_IR_SR - 2))
+        .moveTo(0, FOAM_MID_Z - DIAMOND_SIZE / 2)
+        .lineTo(DIAMOND_SIZE / 2, FOAM_MID_Z)
+        .lineTo(0, FOAM_MID_Z + DIAMOND_SIZE / 2)
+        .lineTo(-DIAMOND_SIZE / 2, FOAM_MID_Z)
+        .close()
+        .extrude(WALL + 4)
+    )
+    diamond = diamond.rotate((0, 0, 0), (0, 0, 1), angle_deg)
+    bottom_cup = bottom_cup.cut(diamond)
+
+# Holes through outermost wall (outer foam cavity)
+for angle_deg in [90, 270]:
+    diamond = (
+        cq.Workplane("YZ")
+        .transformed(offset=(0, 0, OUTERMOST_IR_SR - 2))
         .moveTo(0, FOAM_MID_Z - DIAMOND_SIZE / 2)
         .lineTo(DIAMOND_SIZE / 2, FOAM_MID_Z)
         .lineTo(0, FOAM_MID_Z + DIAMOND_SIZE / 2)
@@ -206,7 +238,7 @@ for i, s in enumerate(bc_solids):
 # Floor: solid racetrack from Z_BOT to Z_BOT+FLOOR at R_INNER_IR_SR
 # Inner wall: racetrack shell at SHELL_SR / SHELL_OR_SR from Z_BOT to top
 
-inner_body_floor = rt_solid(R_INNER_IR_SR, Z_BOT, Z_BOT + FLOOR)
+inner_body_floor = rt_solid(OC_OUTER_OR_SR, Z_BOT, Z_BOT + FLOOR)
 inner_body_wall  = rt_shell(SHELL_SR, SHELL_OR_SR, Z_BOT, SHELL_HEIGHT)
 inner_body = inner_body_floor.union(inner_body_wall, tol=0.1)
 
@@ -221,15 +253,20 @@ print(f"\nInner body: {len(ib_solids)} solid(s)")
 outer_wall = rt_shell(OUTER_SHELL_IR_SR, OUTER_SHELL_OR_SR,
                        Z_CHAMFER_TOP, SHELL_HEIGHT)
 
+# Outermost wall (channel body connects it to floor below Z_CHAMFER_TOP)
+outermost_wall = rt_shell(OUTERMOST_IR_SR, OUTERMOST_OR_SR,
+                           Z_CHAMFER_TOP, SHELL_HEIGHT)
+
 ow_solids = outer_wall.solids().vals()
 print(f"Outer wall: {len(ow_solids)} solid(s)")
 
 
 # ═══════════════════════════════════════════════════════
-# UPPER SHELL — Union (inner body + outer wall)
+# UPPER SHELL — Union (inner body + outer wall + outermost wall)
 # ═══════════════════════════════════════════════════════
 
 upper_shell = inner_body.union(outer_wall, tol=0.1)
+upper_shell = upper_shell.union(outermost_wall, tol=0.1)
 us_solids = upper_shell.solids().vals()
 print(f"\nAfter inner_body + outer_wall: {len(us_solids)} solid(s)")
 
@@ -352,6 +389,48 @@ for start_sc_x, start_deg, junc_deg, end_sc_x, end_deg in GAP_ARC_DEFS:
         .sweep(gap_path)
     )
     upper_shell = upper_shell.union(gap_body, tol=0.1)
+
+# ═══════════════════════════════════════════════════════
+# UPPER SHELL — Outermost channel (full racetrack sweep)
+# ═══════════════════════════════════════════════════════
+#
+# Unlike the pocket/gap channels which are split by dividers, the
+# outermost channel is a single continuous loop around the full
+# racetrack perimeter.
+
+oc_wire = (
+    cq.Workplane("XY")
+    .moveTo(HALF_FLAT, -OC_PATH_SR)
+    .threePointArc((HALF_FLAT + OC_PATH_SR, 0), (HALF_FLAT, OC_PATH_SR))
+    .lineTo(-HALF_FLAT, OC_PATH_SR)
+    .threePointArc((-HALF_FLAT - OC_PATH_SR, 0), (-HALF_FLAT, -OC_PATH_SR))
+    .close()
+    .wire().val()
+)
+
+# Profile plane at start (bottom of right semicircle):
+#   xDir = radially inward (0, +1, 0)
+#   normal = CCW tangent (+1, 0, 0)
+oc_profile_plane = cq.Plane(
+    origin=(HALF_FLAT, -OC_PATH_SR, 0),
+    xDir=(0, 1, 0),
+    normal=(1, 0, 0),
+)
+
+oc_body = (
+    cq.Workplane(oc_profile_plane)
+    .moveTo(-RC_RIDGE_HALF, Z_BOT)
+    .lineTo(-RC_RIDGE_HALF, Z_SPLIT)
+    .lineTo(-WALL / 2, Z_CHAMFER_TOP)
+    .lineTo(-WALL / 2, IC_OL_TOP)
+    .lineTo(WALL / 2, IC_OL_TOP)
+    .lineTo(WALL / 2, Z_CHAMFER_TOP)
+    .lineTo(RC_RIDGE_HALF, Z_SPLIT)
+    .lineTo(RC_RIDGE_HALF, Z_BOT)
+    .close()
+    .sweep(oc_wire, transition='right')
+)
+upper_shell = upper_shell.union(oc_body, tol=0.1)
 
 us_solids = upper_shell.solids().vals()
 print(f"After + all channel bodies: {len(us_solids)} solid(s)")
@@ -483,6 +562,20 @@ for start_sc_x, start_deg, junc_deg, end_sc_x, end_deg in GAP_ARC_DEFS:
     )
     upper_shell = upper_shell.cut(gap_groove)
 
+# ── Outermost channel groove cut (full racetrack) ──
+
+oc_groove = (
+    cq.Workplane(oc_profile_plane)
+    .moveTo(-RC_GAP_HALF, Z_BOT - 0.1)
+    .lineTo(-RC_GAP_HALF, Z_SPLIT)
+    .lineTo(0, RC_PEAK_Z)
+    .lineTo(RC_GAP_HALF, Z_SPLIT)
+    .lineTo(RC_GAP_HALF, Z_BOT - 0.1)
+    .close()
+    .sweep(oc_wire, transition='right')
+)
+upper_shell = upper_shell.cut(oc_groove)
+
 us_solids = upper_shell.solids().vals()
 print(f"After + swept groove cuts: {len(us_solids)} solid(s)")
 
@@ -544,8 +637,11 @@ print(f"    Gap:         {R_INNER_OR_SR:.2f} - {R_OUTER_IR_SR:.2f}  "
       f"({R_OUTER_IR_SR - R_INNER_OR_SR:.1f} mm)")
 print(f"    Outer ring:  {R_OUTER_IR_SR:.2f} / {R_OUTER_OR_SR:.2f}")
 print(f"    Outer wall:  {OUTER_SHELL_IR_SR:.2f} / {OUTER_SHELL_OR_SR:.2f}")
+print(f"    Outermost:   {OUTERMOST_IR_SR:.2f} / {OUTERMOST_OR_SR:.2f}")
+print(f"    OC inner:    {OC_INNER_IR_SR:.2f} / {OC_INNER_OR_SR:.2f}")
+print(f"    OC outer:    {OC_OUTER_IR_SR:.2f} / {OC_OUTER_OR_SR:.2f}")
 print(f"  Overall envelope: "
-      f"{FLAT + 2 * OUTER_SHELL_OR_SR:.1f} x {2 * OUTER_SHELL_OR_SR:.1f} mm")
+      f"{FLAT + 2 * OC_OUTER_OR_SR:.1f} x {2 * OC_OUTER_OR_SR:.1f} mm")
 
 
 # ═══════════════════════════════════════════════════════
