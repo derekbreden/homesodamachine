@@ -2,62 +2,82 @@
 Carbonator racetrack end cap DXFs for SendCutSend.
 
 Generates three files:
-  1. Top cap — stadium/racetrack outline with 4 weld bung holes
-  2. Bottom cap — stadium/racetrack outline, no holes
-  3. Die profile — the external racetrack cross-section (tube OD shape)
-     used as the cavity reference for 3D-printed forming dies
+  1. Top cap blank — oversized stadium outline with 4 weld bung holes
+  2. Bottom cap blank — oversized stadium outline, no holes
+  3. Die profile — external racetrack cross-section (tube OD reference)
 
-The racetrack geometry preserves the circumference of the original 5" round
-tube (15.71") so a hydraulic press can deform round tube stock into this
-shape without stretching or compressing the material.
+These are blanks for press-domed caps.  After pressing to 0.250" dome
+height, the rim shrinks to slip-fit dimensions inside the formed tube.
+Material is 0.065" (1/16") 304 SS — same gauge as the tube wall.
 
-Racetrack (external, tube OD):
-  Two semicircles of radius 2.000" connected by two flat sides of 1.600".
-  Overall: 5.600" wide x 4.000" tall.
-  Circumference: pi * 4.000 + 2 * 1.600 = 15.766" (vs. 15.708" for 5" circle).
+── Why domed caps work at 0.065" ──
 
-Racetrack (internal, tube ID):
-  Wall thickness 0.065".  Uniform inward offset.
-  Semicircle radius: 2.000 - 0.065 = 1.935"
-  Flat length: 1.600" (unchanged by wall offset)
-  Overall: 5.470" wide x 3.870" tall.
+A flat head resists pressure by bending (ASME UG-34):
+  t = d * sqrt(C*P / S*E) = 5.470 * sqrt(0.33*70 / 20000) = 0.186"
+  Requires 1/4" plate.
 
-End cap (inset slip-fit):
-  0.005" clearance per side (0.010" total on diameter), same as circular caps.
-  Semicircle radius: 1.935 - 0.005 = 1.930"
-  Flat length: 1.600" (unchanged — clearance is radial, not axial along flats)
-  Overall: 5.460" wide x 3.860" tall.
+A domed head resists pressure by membrane stress (ASME UG-32):
+  t = 0.885 * P * L / (S*E - 0.1*P)
+  At t = 0.0625" (1/16"), max crown radius L = 20.17".
+  Min dome height for major axis half-span a = 2.8375":
+    h = L - sqrt(L^2 - a^2) = 0.201"
+  Target dome height: 0.250" (25% margin).
 
-Material: 304 stainless steel, 0.250" (1/4") thick.
-  UG-34 check: longest span 5.470", t_min = 0.186". 1/4" gives 34% margin.
+── Blank oversize compensation ──
 
-Hole diameter: 0.710" (for weld bung body OD 0.700" + 0.010" clearance)
+Doming draws material inward from the edges.  For a spherical cap of
+height h over radius r, the blank radius = sqrt(r^2 + h^2).
 
-Units: inches.
-SendCutSend compensates for kerf automatically — draw nominal dimensions.
+  r = 1.930" (final slip-fit semicircle radius)
+  h = 0.250" (dome height)
+  r_blank = sqrt(1.930^2 + 0.250^2) = 1.946"
+  delta = +0.016"
 
-Weld bung: 1/4" NPT female, 304 SS, stepped body OD 0.700", flange OD 1.000"
-The body drops through the hole; the flange sits on the disc surface and
-is fillet-welded with the laser welder.
+The flat length between semicircle centers is unchanged by doming.
 
-Top cap port layout (90-degree spacing on 1.0" bolt circle radius, same as circular):
-  - Position 1 (0deg, +X):   CO2 inlet (headspace)
-  - Position 2 (90deg, +Y):  Water inlet (atomization nozzle)
-  - Position 3 (180deg, -X): Carbonated water outlet (dip tube)
-  - Position 4 (270deg, -Y): PRV (pressure relief valve)
+Weld bung holes are cut at their final positions.  After doming, holes
+stretch slightly larger — the 0.700" bung body drops through more easily.
+The 1.000" OD flange is fillet-welded to the curved surface; minor hole
+irregularity is covered by the weld seam.
 
-All four holes sit well within the cap boundary.  At 1.0" bolt circle + 0.355"
-hole radius = 1.355" from center, vs. 1.930" minimum radius of the cap profile.
+── Racetrack geometry ──
 
-Assembly order (same as circular):
-  1. Fillet-weld all 4 bungs to top cap (flange side up / outward)
-  2. Install atomization nozzle from outside
-  3. Install dip tube compression fitting + tube through bung bore
-  4. Press round tube into racetrack using die set
-  5. Weld top cap into formed tube (inset slip-fit)
-  6. Weld bottom cap into formed tube
-  7. Install CO2 fitting and PRV from outside
-  8. Passivate, hydro test
+External (tube OD):
+  Two semicircles R=2.000" + two flats 1.600".
+  Overall: 5.600" x 4.000".
+  Circumference: 15.766" (from 5.000" OD circle: 15.708").
+
+Internal (tube ID, wall 0.065"):
+  R=1.935", flats 1.600". Overall: 5.470" x 3.870".
+
+End cap slip-fit (0.005" clearance/side):
+  R=1.930", flats 1.600". Overall: 5.460" x 3.860".
+
+Domed blank (oversized for draw-in):
+  R=1.946", flats 1.600". Overall: 5.492" x 3.892".
+
+Material: 304 SS, 0.065" thick.
+Units: inches.  SendCutSend compensates for kerf automatically.
+
+Weld bung: 1/4" NPT female, 304 SS, body OD 0.700", flange OD 1.000".
+Hole diameter: 0.710" (body OD + 0.010" clearance).
+
+Top cap port layout (90-deg spacing on 1.0" bolt circle):
+  - 0deg (+X):   CO2 inlet (headspace)
+  - 90deg (+Y):  Water inlet (atomization nozzle)
+  - 180deg (-X): Carbonated water outlet (dip tube)
+  - 270deg (-Y): PRV (pressure relief valve)
+
+Assembly order:
+  1. SendCutSend cuts oversized blanks with holes from 0.065" 304 SS
+  2. Press-dome each blank to 0.250" crown using dishing die
+  3. Fillet-weld 4 bungs to domed top cap (flange side up / outward)
+  4. Install atomization nozzle, dip tube, fittings
+  5. Press round tube into racetrack using forming die set
+  6. Weld domed top cap into formed tube (inset slip-fit)
+  7. Weld domed bottom cap into formed tube
+  8. Install CO2 fitting and PRV from outside
+  9. Passivate, hydro test
 """
 
 import math
@@ -76,11 +96,21 @@ WALL_THICKNESS = 0.065     # tube wall
 INT_SEMICIRCLE_R = EXT_SEMICIRCLE_R - WALL_THICKNESS   # 1.935"
 INT_FLAT_LEN = EXT_FLAT_LEN                            # 1.600"
 
-# ── End cap (slip-fit inside tube) ──
+# ── End cap slip-fit dimensions (after doming) ──
 
 CLEARANCE = 0.005          # per side
 CAP_SEMICIRCLE_R = INT_SEMICIRCLE_R - CLEARANCE         # 1.930"
 CAP_FLAT_LEN = INT_FLAT_LEN                             # 1.600"
+
+# ── Dome parameters ──
+
+DOME_HEIGHT = 0.250        # dome crown height
+
+# ── Blank oversize (pre-forming dimensions) ──
+
+BLANK_SEMICIRCLE_R = math.sqrt(CAP_SEMICIRCLE_R**2 + DOME_HEIGHT**2)  # 1.946"
+BLANK_FLAT_LEN = CAP_FLAT_LEN                           # 1.600" (unchanged)
+BLANK_DELTA = BLANK_SEMICIRCLE_R - CAP_SEMICIRCLE_R     # 0.016"
 
 # ── Weld bung holes ──
 
@@ -100,7 +130,6 @@ def add_stadium(msp, semicircle_r: float, flat_len: float) -> None:
     """
     half_flat = flat_len / 2
 
-    # Right semicircle: center (+half_flat, 0), from -90 to +90
     msp.add_arc(
         center=(half_flat, 0),
         radius=semicircle_r,
@@ -108,7 +137,6 @@ def add_stadium(msp, semicircle_r: float, flat_len: float) -> None:
         end_angle=90,
     )
 
-    # Left semicircle: center (-half_flat, 0), from +90 to +270
     msp.add_arc(
         center=(-half_flat, 0),
         radius=semicircle_r,
@@ -116,13 +144,11 @@ def add_stadium(msp, semicircle_r: float, flat_len: float) -> None:
         end_angle=270,
     )
 
-    # Top flat: from left semicircle top to right semicircle top
     msp.add_line(
         (-half_flat, semicircle_r),
         (half_flat, semicircle_r),
     )
 
-    # Bottom flat: from right semicircle bottom to left semicircle bottom
     msp.add_line(
         (half_flat, -semicircle_r),
         (-half_flat, -semicircle_r),
@@ -130,12 +156,12 @@ def add_stadium(msp, semicircle_r: float, flat_len: float) -> None:
 
 
 def make_cap(name: str, holes: list[tuple[float, float]]) -> None:
-    """Generate a DXF with stadium outline and optional holes."""
+    """Generate a DXF with oversized blank outline and optional holes."""
     doc = ezdxf.new(dxfversion="R2010")
     doc.header["$INSUNITS"] = 1  # inches
     msp = doc.modelspace()
 
-    add_stadium(msp, CAP_SEMICIRCLE_R, CAP_FLAT_LEN)
+    add_stadium(msp, BLANK_SEMICIRCLE_R, BLANK_FLAT_LEN)
 
     for cx, cy in holes:
         msp.add_circle((cx, cy), HOLE_R)
@@ -162,7 +188,7 @@ def make_die_profile() -> None:
     print(f"Exported: {path}  (die cavity reference)")
 
 
-# ── Top cap: 4 holes at 90-degree intervals on bolt circle ──
+# ── Compute hole positions ──
 
 top_holes = []
 for deg in PORT_ANGLES_DEG:
@@ -170,33 +196,25 @@ for deg in PORT_ANGLES_DEG:
     top_holes.append((BOLT_CIRCLE_R * math.cos(rad),
                        BOLT_CIRCLE_R * math.sin(rad)))
 
+# ── Generate blanks ──
+
 make_cap("endcap-racetrack-top", top_holes)
-
-# ── Bottom cap: blank ──
-
 make_cap("endcap-racetrack-bottom-blank", [])
-
-# ── Die profile ──
-
 make_die_profile()
 
 # ── Summary ──
 
-print(f"\n--- End cap dimensions ---")
-print(f"Semicircle radius: {CAP_SEMICIRCLE_R:.3f}\"")
-print(f"Flat length: {CAP_FLAT_LEN:.3f}\"")
-print(f"Overall: {2 * CAP_SEMICIRCLE_R + CAP_FLAT_LEN:.3f}\" x {2 * CAP_SEMICIRCLE_R:.3f}\"")
-print(f"Hole diameter: {HOLE_DIA}\" (for weld bung body)")
+print(f"\n--- Domed blank (what SendCutSend cuts) ---")
+print(f"Semicircle radius: {BLANK_SEMICIRCLE_R:.4f}\"")
+print(f"  (final {CAP_SEMICIRCLE_R:.3f}\" + {BLANK_DELTA:.4f}\" draw-in compensation)")
+print(f"Flat length: {BLANK_FLAT_LEN:.3f}\"")
+print(f"Overall: {2 * BLANK_SEMICIRCLE_R + BLANK_FLAT_LEN:.4f}\" x {2 * BLANK_SEMICIRCLE_R:.4f}\"")
+print(f"After doming: {2 * CAP_SEMICIRCLE_R + CAP_FLAT_LEN:.3f}\" x {2 * CAP_SEMICIRCLE_R:.3f}\"")
+print(f"Dome height: {DOME_HEIGHT:.3f}\"")
+print(f"Material: 304 SS, 0.065\" thick")
+print(f"Hole diameter: {HOLE_DIA}\"")
 print(f"Bolt circle radius: {BOLT_CIRCLE_R}\"")
-print(f"Material: 304 SS, 0.250\" thick")
 
-print(f"\n--- External racetrack (die profile) ---")
-print(f"Semicircle radius: {EXT_SEMICIRCLE_R:.3f}\"")
-print(f"Flat length: {EXT_FLAT_LEN:.3f}\"")
+print(f"\n--- Die profile (tube OD) ---")
 print(f"Overall: {2 * EXT_SEMICIRCLE_R + EXT_FLAT_LEN:.3f}\" x {2 * EXT_SEMICIRCLE_R:.3f}\"")
 print(f"Circumference: {math.pi * 2 * EXT_SEMICIRCLE_R + 2 * EXT_FLAT_LEN:.3f}\"")
-print(f"(Original 5\" circle: {math.pi * 5:.3f}\")")
-
-print(f"\n--- Internal racetrack (tube ID) ---")
-print(f"Semicircle radius: {INT_SEMICIRCLE_R:.3f}\"")
-print(f"Overall: {2 * INT_SEMICIRCLE_R + INT_FLAT_LEN:.3f}\" x {2 * INT_SEMICIRCLE_R:.3f}\"")
