@@ -1,0 +1,72 @@
+flowchart LR
+
+  %% ═══════════════════════════════════════
+  %%  ESP32-DevKitC-32E Pin Assignments — Current Prototype
+  %% ═══════════════════════════════════════
+
+  subgraph ESP["ESP32-DevKitC-32E"]
+    direction TB
+
+    subgraph UART_Pins["UART"]
+      P32["GPIO 32  TX → RP2040"]
+      P35["GPIO 35  RX ← RP2040"]
+      P15["GPIO 15  TX → ESP32-S3"]
+      P34["GPIO 34  RX ← ESP32-S3"]
+    end
+
+    subgraph I2C_Pins["I2C"]
+      P21["GPIO 21  SDA"]
+      P22["GPIO 22  SCL"]
+    end
+
+    subgraph L298A_Pins["L298N Board A (Flavor 1)"]
+      P33["GPIO 33  A_ENA  pump PWM"]
+      P25["GPIO 25  A_IN1  pump dir"]
+      P26["GPIO 26  A_IN2  pump dir"]
+      P12["GPIO 12  A_ENB  valve PWM"]
+    end
+
+    subgraph L298B_Pins["L298N Board B (Flavor 2)"]
+      P19["GPIO 19  B_ENA  pump PWM"]
+      P18["GPIO 18  B_IN1  pump dir"]
+      P5["GPIO 5   B_IN2  pump dir"]
+      P4["GPIO 4   B_ENB  valve PWM"]
+    end
+
+    subgraph L298C_Pins["L298N Board C (Clean)"]
+      P27["GPIO 27  CLEAN_SOL1"]
+      P17["GPIO 17  CLEAN_SOL2"]
+    end
+
+    subgraph Input_Pins["Inputs"]
+      P13["GPIO 13  Flavor Switch"]
+      P23["GPIO 23  Flow Meter"]
+    end
+
+    subgraph Free_Pins["Available"]
+      P2["GPIO 2   free"]
+      P16["GPIO 16  free"]
+    end
+  end
+
+  %% ── Destinations ──
+  RP["RP2040\n(display)"]
+  S3["ESP32-S3\n(config/BLE)"]
+  RTC["DS3231\nRTC"]
+  DRV_A["L298N\nBoard A"]
+  DRV_B["L298N\nBoard B"]
+  DRV_C["L298N\nBoard C"]
+  FLOW["DIGITEN\nFlow Meter"]
+  SW["KRAUS\nAir Switch"]
+
+  %% ── Connections ──
+  P32 & P35 <-->|"Serial2\n115200 baud\nTinyProto HDLC"| RP
+  P15 & P34 <-->|"Serial1\n115200 baud\nTinyProto HDLC"| S3
+  P21 & P22 <-->|"I2C\n0x68"| RTC
+
+  P33 & P25 & P26 & P12 -->|"PWM + dir"| DRV_A
+  P19 & P18 & P5 & P4 -->|"PWM + dir"| DRV_B
+  P27 & P17 -->|"PWM"| DRV_C
+
+  FLOW -->|"pulse\nFALLING interrupt"| P23
+  SW -->|"INPUT_PULLUP\nlatching"| P13
