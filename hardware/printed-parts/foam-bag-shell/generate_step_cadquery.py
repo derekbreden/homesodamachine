@@ -39,7 +39,7 @@ FLOOR          = 1.0
 FLOOR_FOAM_GAP = 25.4               # 1-inch foam at the bottom
 
 CRADLE_DEPTH   = 25.0               # radial depth of bag cradle zone
-CRADLE_ARC_DEG = 90.7               # angular span of each bag cradle
+CRADLE_ARC_DEG = 109.4               # angular span of each bag cradle
 HALF_CRADLE    = CRADLE_ARC_DEG / 2
 
 OUTER_FOAM_GAP = 6.35               # 1/4-inch foam outside bags
