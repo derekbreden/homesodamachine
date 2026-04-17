@@ -96,6 +96,7 @@ Dishing dies (PA6-CF) for end-cap forming are vessel-fabrication tools, not ship
 | [Silicone tubing 1/8" ID × 1/4" OD](https://www.amazon.com/dp/B0BM4KQ6RT) | B0BM4KQ6RT — pump heads + cosmetic runs | 1 | $27.86 | $27.86 |
 | [Supply Depot BIB connector, 3/8" red (2-pk)](https://www.amazon.com/dp/B0DMFK9B6P) | B0DMFK9B6P — rear-panel commercial-syrup input | 1 pk | $19.99 | $19.99 |
 | [MAACFLOW SS 1/4" NPT M × 3/8" hose barb (4-pk)](https://www.amazon.com/dp/B0DMP77B6S) | B0DMP77B6S | 1 pk | $12.97 | $12.97 |
+| [John Guest PP0208W Speedfit Single Union Tee, 1/4" OD](https://www.amazon.com/dp/B003YKF1BQ) | B003YKF1BQ — manifold Y-A/B/C/D/E/F/G/H/KA/KB per fluid-topology-manifold.mmd; NSF-61 listed | 10 | $8.48 | $84.80 |
 
 ## 9. Dispensing
 
@@ -138,13 +139,13 @@ Dishing dies (PA6-CF) for end-cap forming are vessel-fabrication tools, not ship
 | 5. Refrigeration | $147.33 |
 | 6. Cold core insulation | $160.00 |
 | 7. Printed parts (PETG) | $103.94 |
-| 8. Flavor subsystem | $215.83 |
+| 8. Flavor subsystem | $300.63 |
 | 9. Dispensing | $40.17 |
 | 10. UI | $39.95 |
 | 11. Wiring | $25.94 |
-| **Sourced + estimated subtotal** | **$1,391.61** |
+| **Sourced + estimated subtotal** | **$1,476.41** |
 | 12. Not yet sourced | $80.00 |
-| **Projected total** | **$1,471.61** |
+| **Projected total** | **$1,556.41** |
 
 ## External / user-supplied (not shipped)
 
