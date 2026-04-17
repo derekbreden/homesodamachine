@@ -6,15 +6,16 @@
 |---|---|
 | V-A | Tap water inlet gate |
 | V-B | Hopper funnel gate |
-| V-C | Hopper/tap → Pump A (channel A select) |
-| V-D | Hopper/tap → Pump B (channel B select) |
+| V-C | Shared source → Pump A (channel A select) |
+| V-D | Shared source → Pump B (channel B select) |
 | V-E | Bag A → Pump A inlet |
 | V-F | Pump A outlet → Bag A |
 | V-G | Pump A outlet → Nozzle A |
 | V-H | Bag B → Pump B inlet |
 | V-I | Pump B outlet → Bag B |
 | V-J | Pump B outlet → Nozzle B |
-| V-K | BiB inlet gate |
+| V-K-A | BiB A inlet gate (channel A) |
+| V-K-B | BiB B inlet gate (channel B) |
 
 All valves are normally closed solenoid valves. Flow direction is inlet (I) to outlet (O) only.
 
@@ -22,13 +23,14 @@ All valves are normally closed solenoid valves. Flow direction is inlet (I) to o
 
 | Junction | Port 1 | Port 2 | Port 3 |
 |---|---|---|---|
-| Y-A | V-A-O (tap water) | V-B-O (hopper) | Y-I-1 (to BiB merge) |
-| Y-I | Y-A-3 (from tap/hopper merge) | V-K-O (BiB) | Y-B-1 (to channel split) |
-| Y-B | Y-I-3 (from source merge) | V-C-I (channel A select) | V-D-I (channel B select) |
-| Y-C | V-C-O (channel A select) | V-E-O (bag A to pump return) | P-A-I (pump A inlet) |
+| Y-A | V-A-O (tap water) | V-B-O (hopper) | Y-B-1 (to channel split) |
+| Y-B | Y-A-3 (from tap/hopper merge) | V-C-I (channel A select) | V-D-I (channel B select) |
+| Y-KA | V-C-O (channel A shared source) | V-K-A-O (channel A BiB) | Y-C-1 (to pump A inlet) |
+| Y-C | Y-KA-3 (channel A source merge) | V-E-O (bag A to pump return) | P-A-I (pump A inlet) |
 | Y-D | P-A-O (pump A outlet) | V-F-I (pump to bag A) | V-G-I (pump to nozzle A) |
 | Y-E | V-F-O (pump to bag A return) | Bag A port | V-E-I (bag A to pump) |
-| Y-F | V-D-O (channel B select) | V-H-O (bag B to pump return) | P-B-I (pump B inlet) |
+| Y-KB | V-D-O (channel B shared source) | V-K-B-O (channel B BiB) | Y-F-1 (to pump B inlet) |
+| Y-F | Y-KB-3 (channel B source merge) | V-H-O (bag B to pump return) | P-B-I (pump B inlet) |
 | Y-G | P-B-O (pump B outlet) | V-I-I (pump to bag B) | V-J-I (pump to nozzle B) |
 | Y-H | V-I-O (pump to bag B return) | Bag B port | V-H-I (bag B to pump) |
 
@@ -43,18 +45,18 @@ All valves are normally closed solenoid valves. Flow direction is inlet (I) to o
 | 3 | V-A-O | Y-A-1 | |
 | 4 | Hopper funnel bottom | V-B-I | |
 | 5 | V-B-O | Y-A-2 | |
-| 6 | Y-A-3 | Y-I-1 | |
-| 7 | BiB connector | V-K-I | |
-| 8 | V-K-O | Y-I-2 | |
-| 9 | Y-I-3 | Y-B-1 | |
-| 10 | Y-B-2 | V-C-I | |
-| 11 | Y-B-3 | V-D-I | |
+| 6 | Y-A-3 | Y-B-1 | |
+| 7 | Y-B-2 | V-C-I | |
+| 8 | Y-B-3 | V-D-I | |
 
 ### Channel A
 
 | # | From | To | Notes |
 |---|---|---|---|
-| 12 | V-C-O | Y-C-1 | |
+| 9 | BiB A connector | V-K-A-I | |
+| 10 | V-K-A-O | Y-KA-2 | |
+| 11 | V-C-O | Y-KA-1 | |
+| 12 | Y-KA-3 | Y-C-1 | |
 | 13 | V-E-O | Y-C-2 | |
 | 14 | Y-C-3 | P-A-I | |
 | 15 | P-A-O | Y-D-1 | |
@@ -69,16 +71,19 @@ All valves are normally closed solenoid valves. Flow direction is inlet (I) to o
 
 | # | From | To | Notes |
 |---|---|---|---|
-| 22 | V-D-O | Y-F-1 | |
-| 23 | V-H-O | Y-F-2 | |
-| 24 | Y-F-3 | P-B-I | |
-| 25 | P-B-O | Y-G-1 | |
-| 26 | Y-G-2 | V-I-I | |
-| 27 | V-I-O | Y-H-1 | |
-| 28 | Bag B port | Y-H-2 | |
-| 29 | Y-H-3 | V-H-I | |
-| 30 | Y-G-3 | V-J-I | |
-| 31 | V-J-O | Nozzle B | |
+| 22 | BiB B connector | V-K-B-I | |
+| 23 | V-K-B-O | Y-KB-2 | |
+| 24 | V-D-O | Y-KB-1 | |
+| 25 | Y-KB-3 | Y-F-1 | |
+| 26 | V-H-O | Y-F-2 | |
+| 27 | Y-F-3 | P-B-I | |
+| 28 | P-B-O | Y-G-1 | |
+| 29 | Y-G-2 | V-I-I | |
+| 30 | V-I-O | Y-H-1 | |
+| 31 | Bag B port | Y-H-2 | |
+| 32 | Y-H-3 | V-H-I | |
+| 33 | Y-G-3 | V-J-I | |
+| 34 | V-J-O | Nozzle B | |
 
 ---
 
@@ -112,15 +117,15 @@ Open valves listed; all others closed.
 
 ### Fill from BiB → Bag A
 
-- Open: V-K, V-C, V-F
+- Open: V-K-A, V-F
 - Pump A: ON
-- Path: BiB → V-K → V-C → P-A → V-F → Bag A
+- Path: BiB A → V-K-A → P-A → V-F → Bag A
 
 ### Fill from BiB → Bag B
 
-- Open: V-K, V-D, V-I
+- Open: V-K-B, V-I
 - Pump B: ON
-- Path: BiB → V-K → V-D → P-B → V-I → Bag B
+- Path: BiB B → V-K-B → P-B → V-I → Bag B
 
 ### Clean Water Fill → Bag A
 
