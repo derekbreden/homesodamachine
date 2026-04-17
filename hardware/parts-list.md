@@ -73,7 +73,7 @@ Peristaltic pumps, solenoids, bag-in-box connector, silicone delivery tubing, ba
 | Part | ASIN link | Qty | $ | Status |
 |---|---|---|---|---|
 | Kamoer KPHM400-SW3B25 400 ml/min 12 V peristaltic pump (BPT) | [B09MS6C91D](https://www.amazon.com/dp/B09MS6C91D) | 2 | $99.40 ea | ACQUIRED |
-| Beduan 12 V 1/4" inlet water solenoid (NC) — flavor/manifold valve | [B07NWCQJK9](https://www.amazon.com/dp/B07NWCQJK9) | 3–4 lines | $9.64–$19.28 ea | ACQUIRED (short vs 11-valve manifold) |
+| Beduan 12 V 1/4" inlet water solenoid (NC) — flavor/manifold valve | [B07NWCQJK9](https://www.amazon.com/dp/B07NWCQJK9) | 3–4 lines | $9.64–$19.28 ea | ACQUIRED (short vs 12-valve manifold) |
 | Supply Depot Coke-compatible BIB connector, 3/8" red (2 pk) | [B0DMFK9B6P](https://www.amazon.com/dp/B0DMFK9B6P) | 1 pk | bundle $39.65 | ACQUIRED |
 | Platypus SoftBottle 1 L (bladder donor) | [B08PG3GMQ8](https://www.amazon.com/dp/B08PG3GMQ8) | 1 | bundle $41.65 | ACQUIRED |
 | Platypus SoftBottle 1 L "Waves" (bladder donor) | [B00ZX0ERE2](https://www.amazon.com/dp/B00ZX0ERE2) | 1 | bundle $41.65 | ACQUIRED |
@@ -199,5 +199,5 @@ Ice-maker donor units and copper coil for the chill loop.
 | **External metal-seat check valve, 150 psi, 1/4" NPT** | For pump outlet → tank. Verify or replace the ChillWaves (B0DPLBYZB4) if its seat material isn't metal/PTFE. |
 | **CO2 cylinder** | 5 lb or 10 lb aluminum, CGA-320. Regulator in hand; tank not yet on Amazon. |
 | **0–150 psi pressure transducer** | 1/4" NPT, analog or I²C, for carbonator headspace monitoring. |
-| **Additional flavor-manifold solenoids** | Manifold diagram needs ~11 V-A through V-K valves; current Beduan B07NWCQJK9 count across orders is short. Verify qty per order, then top up. |
+| **Additional flavor-manifold solenoids** | Manifold diagram needs 12 valves (V-A through V-J plus V-K-A and V-K-B); current Beduan B07NWCQJK9 count across orders is short. Verify qty per order, then top up. |
 | **EPA 608 Type I certification** | Not a part; $25 online exam. Needed only if harvest refrigeration path requires opening the refrigerant loop (clamped-plate approach avoids this). |
