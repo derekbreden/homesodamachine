@@ -3,74 +3,53 @@ from pathlib import Path
 
 OUTPUT = Path(__file__).parent
 
-# ── Body dimensions ──────────────────────────────────────────────────────────
-OD        = 50.0   # PA6-CF outer diameter (mm)
-WALL_CF   = 4.0    # PA6-CF wall and floor thickness (mm)
-WALL_TPU  = 2.0    # TPU liner wall and floor thickness (mm)
-HEIGHT    = 60.0   # vessel height (mm)
-
-# ── NPT boss ─────────────────────────────────────────────────────────────────
-BOSS_OD   = 18.0   # boss outer diameter — minimum ~16mm for 1/4-NPT thread engagement
-BOSS_H    = 8.0    # boss protrusion beyond vessel OD (mm)
-PORT_Z    = 25.0   # boss center height from vessel bottom (mm)
-TAP_DRILL = 8.5    # pilot hole; drill to 11.1mm (11/32") and tap 1/4-NPT after print
+# ── Dimensions ────────────────────────────────────────────────────────────────
+OD          = 50.0   # PA6-CF outer diameter (mm)
+WALL_CF     = 4.0    # PA6-CF wall thickness (mm)
+WALL_TPU    = 2.0    # TPU liner wall thickness (mm)
+HEIGHT      = 60.0   # vessel body height above port floor (mm)
+PORT_FLOOR  = 12.0   # solid floor thickness for 1/4-NPT engagement (mm)
+TAP_DRILL   = 8.5    # pilot hole; drill to 11.1mm (11/32") and tap 1/4-NPT after print
 
 # ── Derived ───────────────────────────────────────────────────────────────────
-CF_ID  = OD - 2 * WALL_CF       # 42.0mm — PA6-CF inner bore
-WATER  = CF_ID - 2 * WALL_TPU   # 38.0mm — water cavity ID
+CF_ID      = OD - 2 * WALL_CF        # 42.0mm — PA6-CF inner bore
+WATER      = CF_ID - 2 * WALL_TPU    # 38.0mm — water cavity ID
+TOTAL_H    = HEIGHT + PORT_FLOOR     # 72.0mm — total print height
+BORE_START = PORT_FLOOR + WALL_CF    # 16.0mm — Z where bore begins (bottom of water cavity)
 
 
 def make_body_cf():
-    # Outer cylinder with closed 4mm floor, hollowed from the top
-    shell = (
+    body = (
         cq.Workplane("XY")
         .circle(OD / 2)
-        .extrude(HEIGHT)
+        .extrude(TOTAL_H)
         .faces(">Z").workplane()
         .circle(CF_ID / 2)
         .cutBlind(HEIGHT - WALL_CF)
     )
-    # Radial NPT boss protruding in +X
-    boss = (
-        cq.Workplane("XY")
-        .transformed(
-            offset=cq.Vector(OD / 2, 0, PORT_Z),
-            rotate=cq.Vector(0, 90, 0),
-        )
-        .circle(BOSS_OD / 2)
-        .extrude(BOSS_H)
-    )
-    # Pilot through-hole from boss face inward through CF wall
+    # Vertical pilot hole through port floor — parallel to print axis, no overhang
     pilot = (
         cq.Workplane("XY")
-        .transformed(
-            offset=cq.Vector(OD / 2 + BOSS_H, 0, PORT_Z),
-            rotate=cq.Vector(0, -90, 0),
-        )
         .circle(TAP_DRILL / 2)
-        .extrude(BOSS_H + WALL_CF + 2)
+        .extrude(BORE_START + WALL_TPU + 2)
     )
-    return shell.union(boss).cut(pilot)
+    return body.cut(pilot)
 
 
 def make_body_tpu():
-    # Cup sitting on CF floor: OD = CF_ID, 2mm walls, 2mm floor at bottom
     liner = (
         cq.Workplane("XY")
-        .workplane(offset=WALL_CF)
+        .workplane(offset=BORE_START)
         .circle(CF_ID / 2)
         .extrude(HEIGHT - WALL_CF)
         .faces(">Z").workplane()
         .circle(WATER / 2)
         .cutBlind(HEIGHT - WALL_CF - WALL_TPU)
     )
-    # Clear TPU at the port so the hole is open to the water cavity
+    # Clear pilot hole through TPU floor
     port_clear = (
         cq.Workplane("XY")
-        .transformed(
-            offset=cq.Vector(CF_ID / 2, 0, PORT_Z),
-            rotate=cq.Vector(0, -90, 0),
-        )
+        .workplane(offset=BORE_START)
         .circle(TAP_DRILL / 2 + 0.5)
         .extrude(WALL_TPU + 1)
     )
