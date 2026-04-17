@@ -1,0 +1,85 @@
+flowchart LR
+
+  %% =========================
+  %% Sources
+  %% =========================
+  subgraph Sources["Sources"]
+    Tap["Tap Water<br/>(household supply)"]
+    CO2["CO2 Bottle<br/>(regulated)"]
+  end
+
+  %% =========================
+  %% Water supply path (tap → tank)
+  %% =========================
+  subgraph WaterSupply["Water Supply (Pressurized)"]
+    direction LR
+    BFP["Dual-Check<br/>Backflow Preventer<br/>(ASSE 1024, potable)"]
+    PW["Diaphragm Pump<br/>(100 PSI)"]
+    CV["External Check Valve<br/>(metal seat, 150 PSI)"]
+  end
+
+  %% =========================
+  %% CO2 supply path
+  %% =========================
+  subgraph CO2Supply["CO2 Supply"]
+    direction LR
+    RegCO2["CO2 Regulator<br/>(60-70 PSI out)"]
+  end
+
+  %% =========================
+  %% Carbonator vessel (304 SS racetrack, ~1.8L)
+  %% =========================
+  subgraph Tank["Carbonator Vessel (304 SS, 100 PSI MAWP)"]
+    direction TB
+
+    P1["Port 1: CO2 inlet<br/>(headspace)"]
+    P2["Port 2: Water inlet<br/>(atomized spray, headspace)"]
+    P4["Port 4: PRV<br/>(100 PSI ASME, dedicated)"]
+    P3["Port 3: Carbonated water out<br/>(dip tube, near bottom)"]
+
+    Headspace(("CO2 Headspace"))
+    Water(("Cold Carbonated<br/>Water"))
+
+    P1 --> Headspace
+    P2 --> Headspace
+    Headspace -.pressure.-> Water
+    Water --> P3
+    Headspace --> P4
+  end
+
+  %% =========================
+  %% Dispense
+  %% =========================
+  subgraph Dispense["Dispense"]
+    Faucet["Faucet Lever<br/>(manual valve)"]
+    Nozzle["Nozzle<br/>(to glass)"]
+  end
+
+  %% =========================
+  %% Safety
+  %% =========================
+  PRVOut["PRV Discharge<br/>(vented)"]
+  LevelSense["Level Sense<br/>(FDC1004, capacitive)"]
+
+  %% =========================
+  %% Connections
+  %% =========================
+  Tap --> BFP --> PW --> CV --> P2
+  CO2 --> RegCO2 --> P1
+  P3 --> Faucet --> Nozzle
+  P4 --> PRVOut
+  Water -.reads.-> LevelSense
+  LevelSense -.interlock.-> PW
+
+  %% =========================
+  %% Firmware interlocks (not physical flow)
+  %% =========================
+  Faucet -.lockout.-> PW
+
+  %% Styling
+  classDef safety fill:#ffe0e0,stroke:#c00,stroke-width:2px
+  classDef code fill:#fff4e0,stroke:#c80,stroke-width:2px
+  class P4,PRVOut safety
+  class BFP code
+
+  linkStyle 0,1,2,3,4,5,6,7,8,9 stroke:#1a1a1a,stroke-width:2px
