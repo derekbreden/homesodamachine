@@ -14,14 +14,14 @@ Stainless sheet body, weld bungs, end-cap material, welding + forming tools used
 |---|---|---|---|---|
 | VEVOR Slip Roll Machine, 24" forming width, 16 ga | [B0DZP1VBZY](https://www.amazon.com/dp/B0DZP1VBZY) | 1 | $235.94 | ACQUIRED |
 | VEVOR 12-ton Hydraulic Shop Press (for dishing dies) | [B0BZ7YY3CP](https://www.amazon.com/dp/B0BZ7YY3CP) | 1 | $155.50 | ACQUIRED |
-| Weldpro 3-Tier Welding Cart | [B08G5CW3DY](https://www.amazon.com/dp/B08G5CW3DY) | 1 | bundle $289.51 | ACQUIRED |
-| Blue Demon ER308L .030 stainless MIG wire, 2 lb | [B0025Q2HIU](https://www.amazon.com/dp/B0025Q2HIU) | 1 | bundle $289.51 | ACQUIRED |
-| RX Weld argon regulator / flowmeter | [B08P5BNHBX](https://www.amazon.com/dp/B08P5BNHBX) | 1 | bundle $289.51 | ACQUIRED |
-| Strong Hand magnetic V-pads welding magnet kit | [B00JXDSVA6](https://www.amazon.com/dp/B00JXDSVA6) | 1 | bundle $289.51 | ACQUIRED |
-| MAXMAN stainless steel wire brush set | [B08L7RXVG5](https://www.amazon.com/dp/B08L7RXVG5) | 1 | bundle $289.51 | ACQUIRED |
-| 1/4" NPT female weld bung, 304 SS stepped flange | [B07QNV8796](https://www.amazon.com/dp/B07QNV8796) | 1 pk | bundle $139.81 | ACQUIRED |
-| 4pc 1/4" NPT male hex nipple, 316 SS 5000 psi | [B0GD1QBLQ3](https://www.amazon.com/dp/B0GD1QBLQ3) | 1 pk | bundle $139.81 | ACQUIRED |
-| Millrose PTFE thread seal tape | [B07C9ZV4PG](https://www.amazon.com/dp/B07C9ZV4PG) | 1 | bundle $139.81 | ACQUIRED |
+| Weldpro 3-Tier Welding Cart | [B08G5CW3DY](https://www.amazon.com/dp/B08G5CW3DY) | 1 | $179.99 | ACQUIRED |
+| Blue Demon ER308L .030 stainless MIG wire, 2 lb | [B0025Q2HIU](https://www.amazon.com/dp/B0025Q2HIU) | 1 | $22.33 | ACQUIRED |
+| RX Weld argon regulator / flowmeter | [B08P5BNHBX](https://www.amazon.com/dp/B08P5BNHBX) | 1 | $28.99 | ACQUIRED |
+| Strong Hand magnetic V-pads welding magnet kit | [B00JXDSVA6](https://www.amazon.com/dp/B00JXDSVA6) | 1 | $27.24 | ACQUIRED |
+| MAXMAN stainless steel wire brush set | [B08L7RXVG5](https://www.amazon.com/dp/B08L7RXVG5) | 1 | $11.39 | ACQUIRED |
+| 1/4" NPT female weld bung, 304 SS stepped flange | [B07QNV8796](https://www.amazon.com/dp/B07QNV8796) | 1 pk | $7.99 | ACQUIRED |
+| 4pc 1/4" NPT male hex nipple, 316 SS 5000 psi | [B0GD1QBLQ3](https://www.amazon.com/dp/B0GD1QBLQ3) | 1 pk | $15.19 | ACQUIRED |
+| Millrose PTFE thread seal tape | [B07C9ZV4PG](https://www.amazon.com/dp/B07C9ZV4PG) | 1 | $20.07 | ACQUIRED |
 
 ## 2. CO2 subsystem
 
@@ -45,8 +45,8 @@ Feed-water inlet, filter, ASSE 1022 backflow preventer and its vent-line hardwar
 | Hooshing 3/8" flare × 1/4" FNPT brass adapter (2 pk) — for Multiplex MFL outlet | [B0BNHVV6HT](https://www.amazon.com/dp/B0BNHVV6HT) | 1 pk | $9.99 | ACQUIRED |
 | Sealproof 1/4" ID × 3/8" OD food-grade clear PVC, 10 ft — for atmospheric vent telltale | [B07D9DK94V](https://www.amazon.com/dp/B07D9DK94V) | 1 | $7.89 | ACQUIRED |
 | LOKMAN 304 SS worm-gear hose clamps, 10–16 mm (20 pk) — for vent line | [B076Q7QVNM](https://www.amazon.com/dp/B076Q7QVNM) | 1 pk | $8.99 | ACQUIRED |
-| Waterdrop 15UC-UF 0.01 µm inline fridge/ice-maker filter | [B085G9TZ4L](https://www.amazon.com/dp/B085G9TZ4L) | 1 | bundle $151.18 | ACQUIRED |
-| HAOCHEN brass angle stop add-a-tee 3/8"×3/8"×1/4" | [B0DLKHHGL6](https://www.amazon.com/dp/B0DLKHHGL6) | 1 | bundle $151.18 | ACQUIRED |
+| Waterdrop 15UC-UF 0.01 µm inline fridge/ice-maker filter | [B085G9TZ4L](https://www.amazon.com/dp/B085G9TZ4L) | 1 | $62.99 | ACQUIRED |
+| HAOCHEN brass angle stop add-a-tee 3/8"×3/8"×1/4" | [B0DLKHHGL6](https://www.amazon.com/dp/B0DLKHHGL6) | 1 | $11.99 | ACQUIRED |
 | Lifevant 32.8 ft 1/4" OD water tubing + 12 quick-connects | [B0DKCZ5W66](https://www.amazon.com/dp/B0DKCZ5W66) | 1 | bundle $58.93 | ACQUIRED |
 | John Guest 1/4" OD × 1/8" NPT male push-fit | [B07V6XKZG9](https://www.amazon.com/dp/B07V6XKZG9) | 1 | bundle $58.93 | ACQUIRED |
 | John Guest PI1208S acetal bulkhead union (1/4" QC) | [B0C1F3QR7N](https://www.amazon.com/dp/B0C1F3QR7N) | 1 | bundle $58.93 | ACQUIRED |
@@ -61,7 +61,7 @@ Check valves, atomization nozzle, compression fittings on the water/CO2 pressure
 | Part | ASIN link | Qty | $ | Status |
 |---|---|---|---|---|
 | ChillWaves 304 SS in-line split check valve 1/4" NPT M×F | [B0DPLBYZB4](https://www.amazon.com/dp/B0DPLBYZB4) | 1 | $18.22 | ACQUIRED |
-| Beduan 1/4" male spiral cone atomization nozzle, 316 SS | [B07LGPD3GB](https://www.amazon.com/dp/B07LGPD3GB) | 1 | bundle $139.81 | ACQUIRED |
+| Beduan 1/4" male spiral cone atomization nozzle, 316 SS | [B07LGPD3GB](https://www.amazon.com/dp/B07LGPD3GB) | 1 | $9.99 | ACQUIRED |
 | VALVENTO 316 SS 1/4" OD compression × 1/4" NPT adapter (2 pk) | [B0DXZZBK7D](https://www.amazon.com/dp/B0DXZZBK7D) | 1 pk | $31.08 | ACQUIRED |
 | VALVENTO 1/4" OD 316 SS tube, 12" length (5 pk) | [B0F6SYFK48](https://www.amazon.com/dp/B0F6SYFK48) | 1 pk | $31.08 | ACQUIRED |
 | TAISHER 304 SS compression square needle valve 1/4" | [B0CLXHZZCW](https://www.amazon.com/dp/B0CLXHZZCW) | 1 | $32.15 | ACQUIRED |
@@ -85,11 +85,11 @@ Peristaltic pumps, solenoids, bag-in-box connector, silicone delivery tubing, ba
 | Metaland 1/2" ID silicone tubing | [B0BC7K5B91](https://www.amazon.com/dp/B0BC7K5B91) | 1 | bundle $47.90 | ACQUIRED |
 | Metaland 1/8" ID silicone tubing | [B08XM1V475](https://www.amazon.com/dp/B08XM1V475) | 1 | bundle $55.44 | ACQUIRED |
 | Quickun 3/4" ID silicone tubing | [B091SXP7DD](https://www.amazon.com/dp/B091SXP7DD) | 1 | bundle $40.39 | ACQUIRED |
-| Pure silicone 3/8" ID × 1/2" OD high-temp tube, 10 ft | [B07XMGHHLK](https://www.amazon.com/dp/B07XMGHHLK) | 1 | bundle $139.81 | ACQUIRED |
+| Pure silicone 3/8" ID × 1/2" OD high-temp tube, 10 ft | [B07XMGHHLK](https://www.amazon.com/dp/B07XMGHHLK) | 1 | $16.99 | ACQUIRED |
 | ANPTGHT 1/8" ID × 1/4" OD black silicone tubing | [B0BM4KQ6RT](https://www.amazon.com/dp/B0BM4KQ6RT) | 1 | $27.86 | ACQUIRED |
 | Rebower brass hose barb 3/8" × 1/8" | [B0FP5JX2KS](https://www.amazon.com/dp/B0FP5JX2KS) | 1 | bundle $39.65 | ACQUIRED |
-| MAACFLOW SS 1/4" NPT M × 3/8" hose barb (4 pk) | [B0DMP77B6S](https://www.amazon.com/dp/B0DMP77B6S) | 1 pk | bundle $139.81 | ACQUIRED |
-| YDS butterfly SS W2 hose clamp, 10–16 mm (10 pk) | [B07C33VLQ6](https://www.amazon.com/dp/B07C33VLQ6) | 1 pk | bundle $139.81 | ACQUIRED |
+| MAACFLOW SS 1/4" NPT M × 3/8" hose barb (4 pk) | [B0DMP77B6S](https://www.amazon.com/dp/B0DMP77B6S) | 1 pk | $12.97 | ACQUIRED |
+| YDS butterfly SS W2 hose clamp, 10–16 mm (10 pk) | [B07C33VLQ6](https://www.amazon.com/dp/B07C33VLQ6) | 1 pk | $15.20 | ACQUIRED |
 | ANPTGHT 1/8" tee fitting, equal barb (5 pk) | [B08SBM4DBQ](https://www.amazon.com/dp/B08SBM4DBQ) | 1 pk | bundle $16.07 | ACQUIRED |
 | 1/8" plastic check valve, barb one-way (10 pk) | [B0CLV9BRL1](https://www.amazon.com/dp/B0CLV9BRL1) | 1 pk | bundle $16.07 | ACQUIRED |
 | Green silicone duckbill check valve 6.3 mm (10 pk) | [B07TKT9KNL](https://www.amazon.com/dp/B07TKT9KNL) | 1 pk | $13.63 | ACQUIRED |
@@ -104,7 +104,7 @@ Peristaltic pumps, solenoids, bag-in-box connector, silicone delivery tubing, ba
 | SodaStream Diet Mountain Dew concentrate | [B0CS191QMW](https://www.amazon.com/dp/B0CS191QMW) | 1 | $17.62 | ACQUIRED |
 | SodaStream Diet Mountain Dew 4-pack | [B0G26HQWBY](https://www.amazon.com/dp/B0G26HQWBY) | 1 | bundle $92.18 | ACQUIRED |
 | SodaStream Pepsi Wild Cherry Zero 4-pack | [B0G4NRDQB8](https://www.amazon.com/dp/B0G4NRDQB8) | 1 | bundle $92.18 | ACQUIRED |
-| SodaStream Diet Cola 4-pack | [B01GQ2ZMKI](https://www.amazon.com/dp/B01GQ2ZMKI) | 1 | bundle $61.77 | ACQUIRED |
+| SodaStream Diet Cola 4-pack | [B01GQ2ZMKI](https://www.amazon.com/dp/B01GQ2ZMKI) | 1 | $61.77 | ACQUIRED |
 
 ## 6. Refrigeration
 
@@ -122,7 +122,7 @@ Ice-maker donor units and copper coil for the chill loop.
 | Part | ASIN link | Qty | $ | Status |
 |---|---|---|---|---|
 | Westbrass A2031-NL-62 8" Touch-Flo cold-water faucet, matte black | [B0BXFW1J38](https://www.amazon.com/dp/B0BXFW1J38) | 1 | $32.18 | ACQUIRED |
-| Westbrass D203-NL-62 6" Touch-Flo cold-water faucet, matte black | [B01MZ6JPXW](https://www.amazon.com/dp/B01MZ6JPXW) | 1 | bundle $151.18 | ACQUIRED |
+| Westbrass D203-NL-62 6" Touch-Flo cold-water faucet, matte black | [B01MZ6JPXW](https://www.amazon.com/dp/B01MZ6JPXW) | 1 | $52.99 | ACQUIRED |
 | DIGITEN G1/4" Hall-effect flow sensor 0.3–10 L/min | [B07QRXLRTH](https://www.amazon.com/dp/B07QRXLRTH) | 1 | $20.36 | ACQUIRED |
 | DIGITEN G1/4" Hall-effect flow meter 0.3–6 L/min | [B07QS17S6Q](https://www.amazon.com/dp/B07QS17S6Q) | 1 | bundle $55.44 | ACQUIRED |
 
@@ -157,7 +157,7 @@ Ice-maker donor units and copper coil for the chill loop.
 | Twidec 20 pc 4.8/6.3 mm spade crimp | [B08F784R9W](https://www.amazon.com/dp/B08F784R9W) | 1 pk | $9.64 | ACQUIRED |
 | Dupont jumper wires (M/F, M/M, F/F) 20 cm | [B0BRTJXND9](https://www.amazon.com/dp/B0BRTJXND9) | 1 pk | $6.40 | ACQUIRED |
 | ELEGOO 120 pc Dupont jumper wire ribbon | [B01EV70C78](https://www.amazon.com/dp/B01EV70C78) | 1 pk | $7.49 | ACQUIRED |
-| Taiss Dupont crimp kit + SN-28B | [B0B11RLGDZ](https://www.amazon.com/dp/B0B11RLGDZ) | 1 | bundle $35.58 | ACQUIRED |
+| Taiss Dupont crimp kit + SN-28B | [B0B11RLGDZ](https://www.amazon.com/dp/B0B11RLGDZ) | 1 | $35.58 | ACQUIRED |
 | CR2032 3 V cell pack (RTC backup) | [B0C15WJXL2](https://www.amazon.com/dp/B0C15WJXL2) | 1 | bundle | ACQUIRED |
 | Breadboard kit, 2×830 + 2×400 pt | [B07DL13RZH](https://www.amazon.com/dp/B07DL13RZH) | 1 pk | bundle | ACQUIRED |
 | Gratury IP67 waterproof enclosure | [B08281V2RL](https://www.amazon.com/dp/B08281V2RL) | 1 | $23.58 | ACQUIRED |
