@@ -23,11 +23,11 @@ First-pass draft. Prices from resolved Amazon order history (parts-list.md) or d
 |---|---|---:|---:|---:|
 | SendCutSend-cut 304 SS blanks (body + 2 end caps) | orders SQ65E969 + SV07U813, half of combined total | 1 set | $52.86 | $52.86 |
 | [1/4" NPT female weld bung, 304 SS stepped flange](https://www.amazon.com/dp/B07QNV8796) | B07QNV8796 | 4 | $7.99 | $31.96 |
-| [4pc 1/4" NPT male hex nipple, 316 SS 5000 psi](https://www.amazon.com/dp/B0GD1QBLQ3) | B0GD1QBLQ3 — one nipple per bung for external plumbing | 1 pk | $15.19 | $15.19 |
+| [4pc 1/4" NPT male hex nipple, 316 SS 5000 psi](https://www.amazon.com/dp/B0GD1QBLQ3) | B0GD1QBLQ3 — one nipple per bung for external plumbing | 1 pk | $15.99 | $15.99 |
 | [Beduan 1/4" spiral cone atomization nozzle, 316 SS](https://www.amazon.com/dp/B07LGPD3GB) | B07LGPD3GB | 1 | $9.99 | $9.99 |
-| [VALVENTO 1/4" OD 316 SS tube, 12" (5-pk)](https://www.amazon.com/dp/B0F6SYFK48) | B0F6SYFK48 — dip tube + internal rigid lines | 1 pk | $31.08 | $31.08 |
-| [VALVENTO 1/4" OD compression × 1/4" NPT adapter (2-pk)](https://www.amazon.com/dp/B0DXZZBK7D) | B0DXZZBK7D | 1 pk | $31.08 | $31.08 |
-| [Millrose PTFE thread seal tape](https://www.amazon.com/dp/B07C9ZV4PG) | B07C9ZV4PG | 1 | $20.07 | $20.07 |
+| [VALVENTO 1/4" OD 316 SS tube, 12" (5-pk)](https://www.amazon.com/dp/B0F6SYFK48) | B0F6SYFK48 — dip tube + internal rigid lines | 1 pk | $16.99 | $16.99 |
+| [VALVENTO 1/4" OD compression × 1/4" NPT adapter (2-pk)](https://www.amazon.com/dp/B0DXZZBK7D) | B0DXZZBK7D | 1 pk | $11.99 | $11.99 |
+| [Millrose 70894 Nickel Guard anti-seize PTFE tape](https://www.amazon.com/dp/B07C9ZV4PG) | B07C9ZV4PG — anti-seize for SS-into-SS NPT joints | 1 | $22.22 | $22.22 |
 | Food-safe epoxy (MaxCLR A/B or equiv), tank interior coating | estimate | 1 kit | ~$40.00 | $40.00 |
 
 ## 3. Water inlet (tap → backflow → pump → atomizer)
@@ -38,8 +38,8 @@ First-pass draft. Prices from resolved Amazon order history (parts-list.md) or d
 | [Hooshing 3/8" flare × 1/4" FNPT adapter (2-pk)](https://www.amazon.com/dp/B0BNHVV6HT) | B0BNHVV6HT | 1 pk | $9.99 | $9.99 |
 | [Sealproof 1/4" ID × 3/8" OD clear PVC, 10 ft](https://www.amazon.com/dp/B07D9DK94V) (vent telltale) | B07D9DK94V | 1 | $7.89 | $7.89 |
 | [LOKMAN 304 SS worm-gear clamps, 10–16 mm (20-pk)](https://www.amazon.com/dp/B076Q7QVNM) | B076Q7QVNM | 1 pk | $8.99 | $8.99 |
-| [SEAFLO 22-Series 12V 1.3 GPM 100 psi diaphragm pump](https://www.amazon.com/dp/B0166UBJX4) | B0166UBJX4 | 1 | $48.25 | $48.25 |
-| [ChillWaves 304 SS 1/4" NPT external check valve](https://www.amazon.com/dp/B0DPLBYZB4) | B0DPLBYZB4 (verify metal/PTFE seat; replace if elastomer) | 1 | $18.22 | $18.22 |
+| [SEAFLO 22-Series 12V 1.3 GPM 100 psi diaphragm pump](https://www.amazon.com/dp/B0166UBJX4) | B0166UBJX4 | 1 | $44.99 | $44.99 |
+| [ChillWaves 304 SS 1/4" NPT external check valve](https://www.amazon.com/dp/B0DPLBYZB4) | B0DPLBYZB4 (verify metal/PTFE seat; replace if elastomer) | 1 | $16.99 | $16.99 |
 | [Lifevant 1/4" OD water tubing 32.8 ft + quick-connects](https://www.amazon.com/dp/B0DKCZ5W66) | B0DKCZ5W66 | 1 | $9.99 | $9.99 |
 | [John Guest 1/4" OD × 1/8" NPT push-fit](https://www.amazon.com/dp/B07V6XKZG9) | B07V6XKZG9 | 1 | $5.00 | $5.00 |
 | [John Guest PI1208S acetal bulkhead union, 1/4" QC](https://www.amazon.com/dp/B0C1F3QR7N) | B0C1F3QR7N | 1 | $11.49 | $11.49 |
@@ -49,15 +49,15 @@ First-pass draft. Prices from resolved Amazon order history (parts-list.md) or d
 | Part | ASIN | Qty | Unit $ | Line $ |
 |---|---|---:|---:|---:|
 | [TAPRITE E-T742 dual-gauge CO2 regulator, CGA-320](https://www.amazon.com/dp/B00L38DRD0) | B00L38DRD0 | 1 | $96.47 | $96.47 |
-| [5/16" ID beer CO2 line, 10 ft + clamps](https://www.amazon.com/dp/B0D1RB3TF6) | B0D1RB3TF6 | 1 | $13.50 | $13.50 |
-| [DERPIPE 5/16" tube × 1/4" NPT push-to-connect (5-pk)](https://www.amazon.com/dp/B09LXVGPG7) | B09LXVGPG7 | 1 pk | $10.71 | $10.71 |
+| [5/16" ID beer CO2 line, 10 ft + clamps](https://www.amazon.com/dp/B0D1RB3TF6) | B0D1RB3TF6 | 1 | $12.59 | $12.59 |
+| [DERPIPE 5/16" tube × 1/4" NPT push-to-connect (5-pk)](https://www.amazon.com/dp/B09LXVGPG7) | B09LXVGPG7 — **5/16" variant appears delisted; source replacement ASIN** | 1 pk | $10.71 | $10.71 |
 
 ## 5. Refrigeration (harvested compressor path)
 
 | Part | ASIN | Qty | Unit $ | Line $ |
 |---|---|---:|---:|---:|
-| [Frigidaire EFIC117-SS ice-maker donor (compressor/condenser/cap-tube/drier)](https://www.amazon.com/dp/B07PCZKG94) | B07PCZKG94 | 1 | $78.70 | $78.70 |
-| [GOORY 1/4" OD × 50 ft ACR copper coil (evaporator)](https://www.amazon.com/dp/B0DKSW5VL9) | B0DKSW5VL9 | 1 | $68.63 | $68.63 |
+| [Frigidaire EFIC117-SS ice-maker donor (compressor/condenser/cap-tube/drier)](https://www.amazon.com/dp/B07PCZKG94) | B07PCZKG94 | 1 | $73.38 | $73.38 |
+| [GOORY 1/4" OD × 50 ft ACR copper coil (evaporator)](https://www.amazon.com/dp/B0DKSW5VL9) | B0DKSW5VL9 | 1 | $63.99 | $63.99 |
 
 Fallback path (UL/ETL-retail-friendly): RIGID DV1910E sealed refrigeration module (~$600 + 20–30% import duty). Not selected for this BOM.
 
@@ -93,7 +93,7 @@ Dishing dies (PA6-CF) for end-cap forming are vessel-fabrication tools, not ship
 | [Beduan 12V 1/4" solenoid valve (NC)](https://www.amazon.com/dp/B07NWCQJK9) | B07NWCQJK9 | 2 | $8.99 | $17.98 |
 | [Platypus SoftBottle 1 L bladder](https://www.amazon.com/dp/B08PG3GMQ8) | B08PG3GMQ8 | 2 | $23.49 | $46.98 |
 | [Platypus Hoser hydration tube kit](https://www.amazon.com/dp/B07N1T6LNW) | B07N1T6LNW | 1 | $24.95 | $24.95 |
-| [Silicone tubing 1/8" ID × 1/4" OD](https://www.amazon.com/dp/B0BM4KQ6RT) | B0BM4KQ6RT — pump heads + cosmetic runs | 1 | $27.86 | $27.86 |
+| [Silicone tubing 1/8" ID × 1/4" OD](https://www.amazon.com/dp/B0BM4KQ6RT) | B0BM4KQ6RT — pump heads + cosmetic runs | 1 | $12.99 | $12.99 |
 | [Supply Depot BIB connector, 3/8" red (2-pk)](https://www.amazon.com/dp/B0DMFK9B6P) | B0DMFK9B6P — rear-panel commercial-syrup input | 1 pk | $19.99 | $19.99 |
 | [MAACFLOW SS 1/4" NPT M × 3/8" hose barb (4-pk)](https://www.amazon.com/dp/B0DMP77B6S) | B0DMP77B6S | 1 pk | $12.97 | $12.97 |
 | [PureSec TWS1414 1/4" push-to-connect Y splitter (10-pk)](https://www.amazon.com/dp/B01N5I1ZJC) | B01N5I1ZJC — manifold Y-A/B/C/D/E/F/G/H/KA/KB per fluid-topology-manifold.mmd; food/water-safe plastic | 1 pk | $7.99 | $7.99 |
@@ -102,7 +102,7 @@ Dishing dies (PA6-CF) for end-cap forming are vessel-fabrication tools, not ship
 
 | Part | ASIN | Qty | Unit $ | Line $ |
 |---|---|---:|---:|---:|
-| [Westbrass A2031-NL-62 8" Touch-Flo faucet, matte black](https://www.amazon.com/dp/B0BXFW1J38) | B0BXFW1J38 | 1 | $32.18 | $32.18 |
+| [Westbrass A2031-NL-62 8" Touch-Flo faucet, matte black](https://www.amazon.com/dp/B0BXFW1J38) | B0BXFW1J38 — **listing returns 404; re-verify or source replacement** | 1 | $32.18 | $32.18 |
 | [DIGITEN G3/8" Hall-effect flow sensor](https://www.amazon.com/dp/B07QQW4C7R) | B07QQW4C7R | 1 | $7.99 | $7.99 |
 
 ## 10. User interface
@@ -133,19 +133,19 @@ Dishing dies (PA6-CF) for end-cap forming are vessel-fabrication tools, not ship
 | Section | $ |
 |---|---:|
 | 1. Controllers + electronics | $146.73 |
-| 2. Carbonator vessel | $232.23 |
-| 3. Water inlet | $158.81 |
-| 4. CO2 subsystem | $120.68 |
-| 5. Refrigeration | $147.33 |
+| 2. Carbonator vessel | $202.00 |
+| 3. Water inlet | $154.32 |
+| 4. CO2 subsystem | $119.77 |
+| 5. Refrigeration | $137.37 |
 | 6. Cold core insulation | $160.00 |
 | 7. Printed parts (PETG) | $103.94 |
-| 8. Flavor subsystem | $223.82 |
+| 8. Flavor subsystem | $208.95 |
 | 9. Dispensing | $40.17 |
 | 10. UI | $39.95 |
 | 11. Wiring | $25.94 |
-| **Sourced + estimated subtotal** | **$1,399.60** |
+| **Sourced + estimated subtotal** | **$1,339.14** |
 | 12. Not yet sourced | $80.00 |
-| **Projected total** | **$1,479.60** |
+| **Projected total** | **$1,419.14** |
 
 ## External / user-supplied (not shipped)
 
