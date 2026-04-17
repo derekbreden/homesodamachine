@@ -90,7 +90,7 @@ Dishing dies (PA6-CF) for end-cap forming are vessel-fabrication tools, not ship
 | Part | ASIN | Qty | Unit $ | Line $ |
 |---|---|---:|---:|---:|
 | [Kamoer KPHM400-SW3B25 12V peristaltic pump](https://www.amazon.com/dp/B09MS6C91D) | B09MS6C91D | 2 | $32.55 | $65.10 |
-| [Beduan 12V 1/4" solenoid valve (NC)](https://www.amazon.com/dp/B07NWCQJK9) | B07NWCQJK9 | 2 | $8.99 | $17.98 |
+| [Beduan 12V 1/4" solenoid valve (NC)](https://www.amazon.com/dp/B07NWCQJK9) | B07NWCQJK9 — V-A/B/C/D/E/F/G/H/I/J/KA/KB per fluid-topology-manifold.mmd | 12 | $8.99 | $107.88 |
 | [Platypus SoftBottle 1 L bladder](https://www.amazon.com/dp/B08PG3GMQ8) | B08PG3GMQ8 | 2 | $23.49 | $46.98 |
 | [Platypus Hoser hydration tube kit](https://www.amazon.com/dp/B07N1T6LNW) | B07N1T6LNW | 1 | $24.95 | $24.95 |
 | [Silicone tubing 1/8" ID × 1/4" OD](https://www.amazon.com/dp/B0BM4KQ6RT) | B0BM4KQ6RT — pump heads + cosmetic runs | 1 | $12.99 | $12.99 |
@@ -139,13 +139,13 @@ Dishing dies (PA6-CF) for end-cap forming are vessel-fabrication tools, not ship
 | 5. Refrigeration | $137.37 |
 | 6. Cold core insulation | $160.00 |
 | 7. Printed parts (PETG) | $103.94 |
-| 8. Flavor subsystem | $208.95 |
+| 8. Flavor subsystem | $298.85 |
 | 9. Dispensing | $39.27 |
 | 10. UI | $39.95 |
 | 11. Wiring | $25.94 |
-| **Sourced + estimated subtotal** | **$1,334.72** |
+| **Sourced + estimated subtotal** | **$1,424.62** |
 | 12. Not yet sourced | $80.00 |
-| **Projected total** | **$1,414.72** |
+| **Projected total** | **$1,504.62** |
 
 ## External / user-supplied (not shipped)
 
