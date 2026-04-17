@@ -48,7 +48,7 @@ First-pass draft. Prices from resolved Amazon order history (parts-list.md) or d
 
 | Part | ASIN | Qty | Unit $ | Line $ |
 |---|---|---:|---:|---:|
-| [TAPRITE E-T742 dual-gauge CO2 regulator, CGA-320](https://www.amazon.com/dp/B00L38DRD0) | B00L38DRD0 | 1 | $96.47 | $96.47 |
+| [TAPRITE E-T742 dual-gauge CO2 regulator, CGA-320](https://www.amazon.com/dp/B00L38DRD0) | B00L38DRD0 | 1 | $92.95 | $92.95 |
 | [5/16" ID beer CO2 line, 10 ft + clamps](https://www.amazon.com/dp/B0D1RB3TF6) | B0D1RB3TF6 | 1 | $12.59 | $12.59 |
 | [DERPIPE 5/16" tube × 1/4" NPT push-to-connect (5-pk)](https://www.amazon.com/dp/B09LXVGPG7) | B09LXVGPG7 — **5/16" variant appears delisted; source replacement ASIN** | 1 pk | $10.71 | $10.71 |
 
@@ -102,7 +102,7 @@ Dishing dies (PA6-CF) for end-cap forming are vessel-fabrication tools, not ship
 
 | Part | ASIN | Qty | Unit $ | Line $ |
 |---|---|---:|---:|---:|
-| [Westbrass A2031-NL-62 8" Touch-Flo faucet, matte black](https://www.amazon.com/dp/B0BXFW1J38) | B0BXFW1J38 — **listing returns 404; re-verify or source replacement** | 1 | $32.18 | $32.18 |
+| [Westbrass R2031-NL-62 8" Touch-Flo dispenser faucet, matte black](https://www.amazon.com/dp/B07KH285GJ) | B07KH285GJ — direct successor to retired A2031 SKU | 1 | $31.28 | $31.28 |
 | [DIGITEN G3/8" Hall-effect flow sensor](https://www.amazon.com/dp/B07QQW4C7R) | B07QQW4C7R | 1 | $7.99 | $7.99 |
 
 ## 10. User interface
@@ -135,17 +135,17 @@ Dishing dies (PA6-CF) for end-cap forming are vessel-fabrication tools, not ship
 | 1. Controllers + electronics | $146.73 |
 | 2. Carbonator vessel | $202.00 |
 | 3. Water inlet | $154.32 |
-| 4. CO2 subsystem | $119.77 |
+| 4. CO2 subsystem | $116.25 |
 | 5. Refrigeration | $137.37 |
 | 6. Cold core insulation | $160.00 |
 | 7. Printed parts (PETG) | $103.94 |
 | 8. Flavor subsystem | $208.95 |
-| 9. Dispensing | $40.17 |
+| 9. Dispensing | $39.27 |
 | 10. UI | $39.95 |
 | 11. Wiring | $25.94 |
-| **Sourced + estimated subtotal** | **$1,339.14** |
+| **Sourced + estimated subtotal** | **$1,334.72** |
 | 12. Not yet sourced | $80.00 |
-| **Projected total** | **$1,419.14** |
+| **Projected total** | **$1,414.72** |
 
 ## External / user-supplied (not shipped)
 
