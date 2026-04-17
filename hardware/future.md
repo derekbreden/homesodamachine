@@ -64,9 +64,23 @@ Two peristaltic pumps with food-grade silicone tubing, mounted in the replaceabl
 
 Each flavor has two input paths to the reservoir. The primary path is a funnel on the user-facing side for pouring from SodaStream concentrate bottles. The funnel has a removable dishwasher-safe silicone cover. The secondary path is a bag-in-box adapter on the rear of the enclosure — a barb or quick-connect fitting that connects to a standard BiB line. Both paths feed through the pump into the same internal refrigerated bladder. The BiB adapter is present but not prominently marketed; it serves customers who source their own commercial syrup.
 
-**Enclosure layout (back to front)**
+**Enclosure layout**
 
-Cold core cylinder sits against the rear wall. Pump cartridge assembly sits in front of it. Condenser and fan sit at top front, venting forward. Compressor tucks beside the cold core. All plumbing and wiring route through the gaps between these assemblies. User-facing elements: faucet lever, flavor hopper, and pump cartridge access on the front.
+The enclosure is an under-counter appliance, installed inside the kitchen cabinet beneath the sink. Its front face points toward the kitchen cabinet door; its back sits against the kitchen cabinet's rear wall. Front-to-back the internal layout runs: condenser + fan at the front, compressor in the middle-bottom just behind the condenser, valve manifold + 100 PSI diaphragm pump + Kamoer peristaltic pump cartridges stacked above the compressor in the middle, and the cold core occupying the full rear of the enclosure against the back wall.
+
+Thermal zones separate cleanly. Hot side at the front: the condenser vents forward through a grille on the lower front face of the enclosure, drawing cool intake from the kitchen cabinet's toe-kick gap. Cold side at the back: the carbonator, bladders, and chilled dispense line, insulated by the cold core's inner and outer foam shells. The compressor bridges the two, positioned for short refrigerant lines to the front-mounted condenser; the longer suction run back to the evaporator coil around the carbonator is not efficiency-critical.
+
+Placing the cold core at the back shortens the chilled dispense run to a minimum. The faucet penetration in the countertop is typically at the back edge (where the sink meets the backsplash), so the carbonated water line runs straight up from the cold core through a short insulated tube — minimizing heat pickup on the most temperature-critical path in the system.
+
+**User-facing elements, by location**
+
+*Above counter, through-counter fixtures over the sink:* faucet lever, KRAUS air switch for flavor select, RP2040 round display showing the active flavor's logo.
+
+*Enclosure top, front half* (reached by the user opening their kitchen cabinet door — the enclosure itself has no hinged doors, its top is an integral funnel): flavor hopper, a large funnel covering most of the front half of the top face, sized to accept a pour from a SodaStream concentrate bottle without splash, feeding through solenoid-selected valves down to the appropriate internal bladder.
+
+*Enclosure front face, middle:* pump cartridge access door (this one is on the enclosure itself) for swapping the Kamoer peristaltic pump when its silicone tubing wears out.
+
+*Enclosure front face, lower:* condenser exhaust grille.
 
 **Power**
 
