@@ -50,7 +50,7 @@ First-pass draft. Prices from resolved Amazon order history (parts-list.md) or d
 
 | Part | ASIN | Qty | Unit $ | Line $ |
 |---|---|---:|---:|---:|
-| [TAPRITE E-T742 dual-gauge CO2 regulator, CGA-320](https://www.amazon.com/dp/B00L38DRD0) | B00L38DRD0 | 1 | $92.95 | $92.95 |
+| [Wellbom dual-gauge CO2 regulator, CGA-320, 0–120 PSI out / 150 PSI PRV](https://www.amazon.com/dp/B0G13P5PMY) | B0G13P5PMY | 1 | $44.99 | $44.99 |
 | [5/16" ID beer CO2 line, 10 ft + clamps](https://www.amazon.com/dp/B0D1RB3TF6) | B0D1RB3TF6 | 1 | $12.59 | $12.59 |
 | [DERPIPE 5/16" tube × 1/4" NPT push-to-connect (5-pk)](https://www.amazon.com/dp/B09LXVGPG7) | B09LXVGPG7 — **5/16" variant appears delisted; source replacement ASIN** | 1 pk | $10.71 | $10.71 |
 
@@ -141,7 +141,7 @@ Dishing dies (PA6-CF) for end-cap forming are vessel-fabrication tools, not ship
 | 1. Controllers + electronics | $166.71 |
 | 2. Carbonator vessel | $202.00 |
 | 3. Water inlet | $154.32 |
-| 4. CO2 subsystem | $116.25 |
+| 4. CO2 subsystem | $68.29 |
 | 5. Refrigeration | $167.41 |
 | 6. Cold core insulation | $160.00 |
 | 7. Printed parts (PETG) | $103.94 |
@@ -149,9 +149,9 @@ Dishing dies (PA6-CF) for end-cap forming are vessel-fabrication tools, not ship
 | 9. Dispensing | $39.27 |
 | 10. UI | $39.95 |
 | 11. Wiring | $25.94 |
-| **Sourced + estimated subtotal** | **$1,484.63** |
+| **Sourced + estimated subtotal** | **$1,436.67** |
 | 12. Not yet sourced | $80.00 |
-| **Projected total** | **$1,564.63** |
+| **Projected total** | **$1,516.67** |
 
 ## External / user-supplied (not shipped)
 
