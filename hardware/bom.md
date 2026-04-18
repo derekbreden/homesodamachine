@@ -71,7 +71,7 @@ Fallback path (UL/ETL-retail-friendly): RIGID DV1910E sealed refrigeration modul
 
 | Part | Source | Qty | Unit $ | Line $ |
 |---|---|---:|---:|---:|
-| Froth-Pak two-part closed-cell spray polyurethane foam (inner + outer shells) | retail estimate | 1 kit | ~$150.00 | $150.00 |
+| [Fiberglass Supply Depot 2 lb 2-part closed-cell pour-in-place PU foam, 1 qt kit](https://www.amazon.com/dp/B08R7TX8QJ) | B08R7TX8QJ — 1.25 ft³ yield covers inner + outer shells with margin | 1 kit | $39.99 | $39.99 |
 | Thermal compound (evaporator coil ↔ vessel wall) | estimate | 1 tube | ~$10.00 | $10.00 |
 
 ## 7. Printed mechanical parts (PETG @ $12.99/kg)
@@ -143,15 +143,15 @@ Dishing dies (PA6-CF) for end-cap forming are vessel-fabrication tools, not ship
 | 3. Water inlet | $144.33 |
 | 4. CO2 subsystem | $68.29 |
 | 5. Refrigeration | $167.41 |
-| 6. Cold core insulation | $160.00 |
+| 6. Cold core insulation | $49.99 |
 | 7. Printed parts (PETG) | $103.94 |
 | 8. Flavor subsystem | $308.84 |
 | 9. Dispensing | $39.27 |
 | 10. UI | $39.95 |
 | 11. Wiring | $25.94 |
-| **Sourced + estimated subtotal** | **$1,442.74** |
+| **Sourced + estimated subtotal** | **$1,332.73** |
 | 12. Not yet sourced | $40.00 |
-| **Projected total** | **$1,482.74** |
+| **Projected total** | **$1,372.73** |
 
 ## External / user-supplied (not shipped)
 
