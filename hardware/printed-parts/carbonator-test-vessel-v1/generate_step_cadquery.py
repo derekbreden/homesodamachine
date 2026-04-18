@@ -16,6 +16,7 @@ CAP_PLUG_OD    = 41.6   # press-fit into CF_ID bore (0.4mm undersize for FDM tol
 CAP_PLUG_H     = 8.0    # depth into bore (mm)
 CAP_FLANGE_OD  = 54.0   # flange OD — proud of vessel so hose clamp bites over the rim
 CAP_FLANGE_H   = 3.0    # flange thickness (mm)
+CAP_TPU_H      = 2.0    # TPU face disc thickness — seals against TPU liner top face
 
 # ── Derived ───────────────────────────────────────────────────────────────────
 CF_ID      = OD - 2 * WALL_CF        # 42.0mm — PA6-CF inner bore
@@ -62,14 +63,16 @@ def make_body_tpu():
     return liner.cut(port_clear)
 
 
-def make_test_cap():
-    # Plug portion: press-fits into bore
+def make_test_cap_cf():
+    # Plug with TPU recess at bottom face, then flange above
     plug = (
         cq.Workplane("XY")
         .circle(CAP_PLUG_OD / 2)
         .extrude(CAP_PLUG_H)
+        .faces("<Z").workplane()
+        .circle(CAP_PLUG_OD / 2)
+        .cutBlind(CAP_TPU_H)
     )
-    # Flange: sits on vessel rim, hose clamp bites over the edge
     flange = (
         cq.Workplane("XY")
         .workplane(offset=CAP_PLUG_H)
@@ -79,10 +82,21 @@ def make_test_cap():
     return plug.union(flange)
 
 
+def make_test_cap_tpu():
+    # Disc filling the CF plug recess — seals TPU-to-TPU against the liner top face
+    return (
+        cq.Workplane("XY")
+        .circle(CAP_PLUG_OD / 2)
+        .extrude(CAP_TPU_H)
+    )
+
+
 if __name__ == "__main__":
     cq.exporters.export(make_body_cf(), str(OUTPUT / "test_vessel_body_cf.step"))
     cq.exporters.export(make_body_tpu(), str(OUTPUT / "test_vessel_body_tpu.step"))
-    cq.exporters.export(make_test_cap(), str(OUTPUT / "test_vessel_cap.step"))
+    cq.exporters.export(make_test_cap_cf(), str(OUTPUT / "test_vessel_cap_cf.step"))
+    cq.exporters.export(make_test_cap_tpu(), str(OUTPUT / "test_vessel_cap_tpu.step"))
     print(f"CF body:   {OUTPUT}/test_vessel_body_cf.step")
     print(f"TPU liner: {OUTPUT}/test_vessel_body_tpu.step")
-    print(f"Test cap:  {OUTPUT}/test_vessel_cap.step")
+    print(f"Cap CF:    {OUTPUT}/test_vessel_cap_cf.step")
+    print(f"Cap TPU:   {OUTPUT}/test_vessel_cap_tpu.step")
