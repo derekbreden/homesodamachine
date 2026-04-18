@@ -48,11 +48,11 @@ Layer 1: Custom-fabricated 304 SS racetrack carbonator vessel. Cross-section OD:
 
 Layer 2: Copper evaporator coil wrapped tight around the tank with thermal compound. The horizontal orientation gives a longer wrapping surface than the previous vertical cylinder.
 
-Layer 3: 3D-printed inner shell with ~1/4" gap, filled with two-part closed-cell spray polyurethane foam (Froth-Pak or equivalent). Vent holes in the shell allow excess foam to escape during cure; trimmed flush after hardening.
+Layer 3: 3D-printed inner shell with ~1/4" gap, filled with two-part closed-cell pour-in-place polyurethane foam (2 lb density, ~R-6/in). Pour-in-place is preferred over spray for this closed annular geometry — two components mix 1:1, get poured through a fill port at the top of the shell, and rise to fill the cavity without overspray. Vent holes in the shell allow excess foam to escape during cure; trimmed flush after hardening.
 
 Layer 4: Two 3D-printed arch-shaped cradles, each holding a 1L Platypus bladder, forming a wrap around the insulated core. The bladders serve as flavor reservoirs and as a thermal mass buffer. Each bladder cap is drilled and fitted with a John Guest bulkhead fitting connecting to 1/4" hard RO tubing that runs to the peristaltic pumps. The bladders are permanent internal plumbing — filled from a user-accessible hopper via the pumps, cleaned in place by a software-controlled rinse cycle (water in, water out to nozzle, air in, air out to nozzle, repeat).
 
-Layer 5: 3D-printed outer shell with ~1/2" to 3/4" gap, filled with spray foam, same process as inner layer.
+Layer 5: 3D-printed outer shell with ~1/2" to 3/4" gap, filled with the same pour-in-place foam, same process as inner layer.
 
 Total cold core dimensions: TBD after spray foam and shell layers are added around the 5.566" × 3.966" × 6.000" vessel core.
 

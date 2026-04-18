@@ -118,6 +118,7 @@ Ice-maker donor units and copper coil for the chill loop.
 | Countertop ice maker 26 lb/day (2nd donor) | [B0F42MT8JX](https://www.amazon.com/dp/B0F42MT8JX) | 1 | $63.80 | ACQUIRED |
 | GOORY 1/4" OD × 50 ft ACR copper coil | [B0DKSW5VL9](https://www.amazon.com/dp/B0DKSW5VL9) | 1 | $68.63 | ACQUIRED |
 | RIGID DV1910E sealed refrigeration module (alt path) | [ridgid.com](https://www.ridgid.com/) (direct order) | 1 | ~$600 + import | ON-ORDER (2+ wks, stuck) |
+| Fiberglass Supply Depot 2 lb 2-part closed-cell pour-in-place PU foam, 1 qt kit — cold-core insulation | [B08R7TX8QJ](https://www.amazon.com/dp/B08R7TX8QJ) | 1 kit | $39.99 | LIKELY-TO-BUY |
 
 ## 7. Dispensing end — faucet, flow sensor
 
@@ -214,7 +215,7 @@ Ice-maker donor units and copper coil for the chill loop.
 |---|---|
 | ACQUIRED (total) | $2,965.38 |
 | ON-ORDER | $600.00 |
-| LIKELY-TO-BUY | $62.97 |
-| **Grand total** | $3,628.35 |
+| LIKELY-TO-BUY | $102.96 |
+| **Grand total** | $3,668.34 |
 
 Excluded from totals (price unresolved, still marked "bundle"): Meshnology ESP32-S3 display (row 135), 12 V 2 A DC power supply (row 148), Haisstronica ratchet crimper (row 154). Beduan flavor-manifold solenoid (row 76) counted at $9.64 × 4; actual qty across orders may differ.
