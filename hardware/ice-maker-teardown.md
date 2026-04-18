@@ -1,8 +1,17 @@
 # Ice Maker Teardowns
 
-Two countertop ice makers were purchased for harvesting refrigeration components (compressor, condenser + fan, capillary tube, filter-drier). The evaporator cold plate and the ice-harvest hardware are discarded — a custom copper coil wound around the carbonator vessel replaces the factory evaporator. See `hardware/future.md` for how the harvested parts fit into the cold core assembly.
+Two countertop ice makers were purchased for harvesting refrigeration components (compressor, condenser + fan, capillary tube, filter-drier). See `hardware/future.md` for how the harvested parts fit into the cold core assembly.
 
-EPA 608 Type I certification is required before recovering the factory charge. Both units ship with very small hydrocarbon charges (R600a, isobutane), so recovery equipment must be hydrocarbon-rated / intrinsically safe — R134a-only recovery machines are not appropriate.
+## Two architectural paths for the cold core
+
+As of 2026-04-18, the cold core design has two live options. Keep-vs-discard decisions below depend on which path wins.
+
+- **Path A — custom SS carbonator + new evaporator coil.** Discard the factory finger-plate evaporator; wind a custom copper coil around a fabricated 304 SS racetrack carbonator. Refrigerant loop must be opened (cut into the suction and cap-tube sides of the factory evaporator), so factory charge must be recovered, drier replaced, system evacuated, and recharged. This path is the one `future.md` currently describes.
+- **Path B — factory evaporator kept in place, FDM-printed pressure vessel around it.** Keep the factory finger-plate evaporator wired in-circuit, exactly as shipped. Surround it with a PA6-CF structural shell lined with TPU (the TPU is the pressure boundary; the CF shell carries hoop stress). The refrigerant loop is never opened — factory charge stays sealed, no recovery / recharge needed, no EPA 608 work in the critical path. The evaporator's cold fingers become the internal geometry of the vessel.
+
+Under Path B the evaporator, the cap tube, the filter-drier, and the suction line all stay intact and move out of the "discard" column. The hot-gas bypass solenoid is still deleted (we want steady cold, not harvest cycles) under both paths.
+
+EPA 608 Type I certification is still required for Path A; both R600a systems ship with small hydrocarbon charges, so recovery equipment must be hydrocarbon-rated / intrinsically safe — R134a-only recovery machines are not appropriate.
 
 ---
 
@@ -87,9 +96,27 @@ A small AC solenoid valve is teed into the refrigerant circuit:
 - Function in ice maker: during the harvest cycle, this valve opens and routes hot compressor discharge gas directly into the evaporator (bypassing the condenser and capillary tube), warming the cold fingers so formed cubes release and drop. Without it, an ice maker has no way to get cubes off the evaporator.
 - Function in our build: **none.** We want continuous steady cold around the carbonator, not a harvest cycle. Remove the valve entirely when re-piping, or (if it's more convenient to leave physically in place) never energize it and verify the bypass path is sealed.
 
-### Evaporator cold plate (DISCARD)
+### Evaporator cold plate
 
-The stainless-finger cold plate is purpose-built for cube formation and has no role in our cold core. Cut it out during re-piping. The suction-side connection point moves to the new coil wound around the carbonator vessel.
+A stainless-finger cold plate, purpose-built for ice-cube formation. Disposition depends on which cold-core path wins (see top of document):
+
+- **Path A:** cut out during re-piping; replace with custom copper coil around the SS carbonator. The suction-side connection point moves to the new coil.
+- **Path B:** keep in place, wired to the factory loop; build the printed pressure vessel around the finger geometry. The cold fingers become part of the vessel's internal topology.
+
+### Powering and control (AC wiring)
+
+The compressor is a single-phase AC hermetic with a **combined PTC start relay + overload protector** clipped to its terminal block. External connection is **two wires (black + white) coming out of that module**, not directly from the compressor pins. Believed to be **110–120 VAC** based on US market origin and the 110 V rating on the hot-gas bypass solenoid — verify the compressor nameplate before energizing.
+
+For bench testing, plug into standard 120 VAC through an **inline fuse** (5 A fast-blow is comfortable for expected ~1 A running + LRA inrush). A Kill-A-Watt inline lets you observe the LRA spike, steady running draw, and confirm the compressor is doing real work rather than just humming.
+
+Safety:
+- **R600a is flammable.** Do not energize after physical damage, near open flame, or if a butane smell is present near the compressor. The factory loop is sealed from the factory, so there's no leak risk during teardown *inspection* — leak risk only appears if the loop is opened for Path A work.
+- **Minimum off-time of 3 minutes** between power-off and power-on is a hard rule. The high-side pressure has to bleed through the capillary tube and equalize with the low side before restart, or the motor stalls against head pressure until the overload trips. Repeated hot-restart is a textbook way to burn out a hermetic compressor.
+
+For ESP32 control:
+- **Preferred: solid-state relay (SSR)** on the AC hot leg. 25 A SSRs (Fotek SSR-25 DA class or a quality-tier Crydom) take 3–32 VDC on the input and switch 120/240 VAC on the output. ESP32 GPIO drives the input directly. Mount to a heatsink — expect ~1 W dissipation per amp switched. Zero-crossing SSRs reduce EMI from inductive switching.
+- Alternative: a mechanical motor-rated relay or contactor (e.g. Omron LY2) driven by a small NPN transistor + flyback diode from the ESP32. Works fine, audibly clicks, limited cycle life.
+- **Firmware must enforce the 3-minute minimum-off-time** as a guard — the SSR will switch every loop iteration if told to, and that will destroy the compressor within days. Wrap the ON/OFF call behind a "can I switch right now?" check against the last-transition timestamp. A hysteresis band around the temperature setpoint (e.g., ±1 °C) is needed for the same reason — you want long cycles, not rapid thrash.
 
 ### Summary — keep vs discard for this unit
 
@@ -101,7 +128,7 @@ The stainless-finger cold plate is purpose-built for cube formation and has no r
 | Filter-drier | Keep in place; replace with fresh drier before recharge if the loop is opened |
 | Process tube | Keep — recovery/recharge access point |
 | Hot-gas bypass solenoid | Discard / bypass |
-| Evaporator finger plate | Discard |
+| Evaporator finger plate | Path A: discard. Path B: keep in place as the vessel internal geometry |
 | Thermostat / harvest-cycle controller | Discard (custom ESP32-S3 firmware replaces it) |
 
 ### Open items
