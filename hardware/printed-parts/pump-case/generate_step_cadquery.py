@@ -5,9 +5,9 @@ The case is built as one combined solid, then split with a stepped cut
 into a base and a cap.
 
 Base: base plate with octagon-to-footprint ramp, octagon pump bore,
-      M3 mounting holes, and a cylindrical tower below.
+      M3 mounting holes, a cylindrical tower below, and a pogo connector pocket.
 Cap:  asymmetric flared skirt (wide on +Z, narrow on -Z) with a lower
-      extension that tapers to uniform width, plus bullet connector holes.
+      extension that tapers to uniform width.
 
 The two parts mate at a stepped split surface and lock together with
 snap-fit ramps on four interior walls.
@@ -91,11 +91,12 @@ SNAP_DEFLECTION = 1.5
 # ── Arch notches ──
 ARCH_RADIUS = 4.5
 
-# ── Bullet connectors ──
-BULLET_BORE_D = 5.1
-BULLET_STEP_D = 8.0
-BULLET_STEP_DEPTH = 1.5
-BULLET_SPACING_X = 24.0
+# ── Pogo connector ──
+POGO_OUTER_LENGTH = 12.5
+POGO_OUTER_WIDTH = 4.0
+POGO_OUTER_DEPTH = 1.0
+POGO_INNER_LENGTH = 14.5
+POGO_INNER_WIDTH = 4.0
 
 # ── Shared constants ──
 OVERCUT = 0.1
@@ -651,7 +652,7 @@ def build_lower_extension():
 
 
 # ═══════════════════════════════════════════════════════
-# FEATURE FUNCTIONS — ARCH NOTCHES, SPLIT, SNAPS, BULLETS
+# FEATURE FUNCTIONS — ARCH NOTCHES, SPLIT, SNAPS
 # ═══════════════════════════════════════════════════════
 
 def cut_arch_notches(combined):
@@ -769,32 +770,30 @@ def add_snap_fits(base, cap):
     return base, cap
 
 
-def add_bullet_connector_holes(cap):
-    """Counterbored holes on the +Z face of the cap for bullet connectors."""
+# ═══════════════════════════════════════════════════════
+# FEATURE FUNCTIONS — POGO CONNECTOR POCKET
+# ═══════════════════════════════════════════════════════
+
+def add_pogo_pocket(base):
+    """Stepped pill-shaped pocket on the +Z face of the base for a pogo connector."""
     z_face_outer = CENTER_Z + FOOTPRINT_HALF_EXTENT
-    bullet_y = SKIRT_BOTTOM_Y - 10
+    pogo_y = SKIRT_BOTTOM_Y + 10
 
-    for x_sign in [-1, 1]:
-        bx = CENTER_X + x_sign * BULLET_SPACING_X / 2
-        z_inner = z_face_outer - WALL_THICKNESS
-
-        flange_counterbore = (
-            cq.Workplane("XY")
-            .workplane(offset=z_inner - OVERCUT)
-            .center(bx, bullet_y)
-            .circle(BULLET_STEP_D / 2)
-            .extrude(BULLET_STEP_DEPTH + OVERCUT)
-        )
-        through_bore = (
-            cq.Workplane("XY")
-            .workplane(offset=z_face_outer + OVERCUT)
-            .center(bx, bullet_y)
-            .circle(BULLET_BORE_D / 2)
-            .extrude(-(WALL_THICKNESS + 2 * OVERCUT))
-        )
-        cap = cap.cut(flange_counterbore).cut(through_bore)
-
-    return cap
+    outer_step = (
+        cq.Workplane("XY")
+        .workplane(offset=z_face_outer + OVERCUT)
+        .center(CENTER_X, pogo_y)
+        .slot2D(POGO_OUTER_LENGTH, POGO_OUTER_WIDTH)
+        .extrude(-(POGO_OUTER_DEPTH + OVERCUT))
+    )
+    inner_step = (
+        cq.Workplane("XY")
+        .workplane(offset=z_face_outer - POGO_OUTER_DEPTH)
+        .center(CENTER_X, pogo_y)
+        .slot2D(POGO_INNER_LENGTH, POGO_INNER_WIDTH)
+        .extrude(-(WALL_THICKNESS - POGO_OUTER_DEPTH + OVERCUT))
+    )
+    return base.cut(outer_step).cut(inner_step)
 
 
 # ═══════════════════════════════════════════════════════
@@ -811,7 +810,7 @@ def build_pump_case():
     combined = cut_arch_notches(combined)
     base, cap = split_into_base_and_cap(combined)
     base, cap = add_snap_fits(base, cap)
-    cap = add_bullet_connector_holes(cap)
+    base = add_pogo_pocket(base)
     return base, cap
 
 
@@ -830,7 +829,7 @@ for name, part in [("Base", base), ("Cap", cap)]:
               f"Y[{bb.ymin:.1f},{bb.ymax:.1f}] Z[{bb.zmin:.1f},{bb.zmax:.1f}]")
 
 OUTPUT_DIR = Path(__file__).resolve().parent
-cq.exporters.export(base, str(OUTPUT_DIR / "pump-case-cadquery.step"))
-print("Exported → pump-case-cadquery.step")
-cq.exporters.export(cap, str(OUTPUT_DIR / "pump-case-lower-cadquery.step"))
-print("Exported → pump-case-lower-cadquery.step")
+cq.exporters.export(base, str(OUTPUT_DIR / "pump-case-base-cadquery.step"))
+print("Exported → pump-case-base-cadquery.step")
+cq.exporters.export(cap, str(OUTPUT_DIR / "pump-case-cap-cadquery.step"))
+print("Exported → pump-case-cap-cadquery.step")
