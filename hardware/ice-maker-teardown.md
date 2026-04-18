@@ -114,6 +114,7 @@ Safety:
 - **Minimum off-time of 3 minutes** between power-off and power-on is a hard rule. The high-side pressure has to bleed through the capillary tube and equalize with the low side before restart, or the motor stalls against head pressure until the overload trips. Repeated hot-restart is a textbook way to burn out a hermetic compressor.
 
 For ESP32 control:
+- **Reserved GPIO: pin 14** on the main ESP32-DevKitC-32E. Not a strap pin, not input-only, not reserved for flash/PSRAM. See `hardware/wiring/future-esp32-pinout.mmd` for the full pin map.
 - **Preferred: solid-state relay (SSR)** on the AC hot leg. 25 A SSRs (Fotek SSR-25 DA class or a quality-tier Crydom) take 3–32 VDC on the input and switch 120/240 VAC on the output. ESP32 GPIO drives the input directly. Mount to a heatsink — expect ~1 W dissipation per amp switched. Zero-crossing SSRs reduce EMI from inductive switching.
 - Alternative: a mechanical motor-rated relay or contactor (e.g. Omron LY2) driven by a small NPN transistor + flyback diode from the ESP32. Works fine, audibly clicks, limited cycle life.
 - **Firmware must enforce the 3-minute minimum-off-time** as a guard — the SSR will switch every loop iteration if told to, and that will destroy the compressor within days. Wrap the ON/OFF call behind a "can I switch right now?" check against the last-transition timestamp. A hysteresis band around the temperature setpoint (e.g., ±1 °C) is needed for the same reason — you want long cycles, not rapid thrash.

@@ -37,7 +37,11 @@ flowchart LR
       P23["GPIO 23  Flow Meter"]
     end
 
-    subgraph Freed["Freed  (were L298N valve/clean pins)"]
+    subgraph Refrigeration_Pins["Refrigeration"]
+      P14["GPIO 14  Compressor SSR  (120VAC switched)"]
+    end
+
+    subgraph Freed["Freed / Available"]
       P12["GPIO 12  was A_ENB"]
       P4["GPIO 4   was B_ENB"]
       P27["GPIO 27  was CLEAN_SOL1"]
@@ -61,9 +65,12 @@ flowchart LR
   FLOW["DIGITEN\nFlow Meter"]
   SW["KRAUS\nAir Switch"]
 
-  VALVE_CHAIN["MCP23017\n  ↓\n2× ULN2803A\n  ↓\n11 solenoid valves\n(see future-valve-control)"]
+  VALVE_CHAIN["MCP23017\n  ↓\n2× ULN2803A\n  ↓\n12 solenoid valves\n(see future-valve-control)"]
 
   CARBONATOR["Carbonator Subsystem\n  Diaphragm pump\n  FDC1004 level sense\n  CO2 solenoid (spare MCP pin)"]
+
+  SSR["SSR-25DA\n  (DC-in / AC-out)"]
+  COMP_AC["AC Hermetic Compressor\n  (harvested, 120VAC)\n  see ice-maker-teardown.md"]
 
   %% ── Connections ──
   P32 & P35 <-->|"Serial2\n115200 baud"| RP
@@ -77,6 +84,9 @@ flowchart LR
 
   FLOW -->|"pulse interrupt"| P23
   SW -->|"INPUT_PULLUP"| P13
+
+  P14 -->|"3.3V gate"| SSR
+  SSR -->|"120VAC switched"| COMP_AC
 
   I2C_DEVICES -.->|"MCP23017"| VALVE_CHAIN
   I2C_DEVICES -.->|"FDC1004"| CARBONATOR
