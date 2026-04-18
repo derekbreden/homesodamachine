@@ -97,6 +97,10 @@ POGO_OUTER_WIDTH = 4.0
 POGO_OUTER_DEPTH = 1.0
 POGO_INNER_LENGTH = 14.5
 POGO_INNER_WIDTH = 4.0
+POGO_Y_OFFSET = 13.5          # offset above SKIRT_BOTTOM_Y (was implicit 10)
+POGO_RIDGE_LENGTH = 24.5
+POGO_RIDGE_WIDTH = 10.0
+POGO_RIDGE_DEPTH = 1.0
 
 # ── Shared constants ──
 OVERCUT = 0.1
@@ -775,23 +779,32 @@ def add_snap_fits(base, cap):
 # ═══════════════════════════════════════════════════════
 
 def add_pogo_pocket(base):
-    """Stepped pill-shaped pocket on the +Z face of the base for a pogo connector."""
+    """Stepped pill pocket on the +Z face with an outward pill ridge for pogo mating."""
     z_face_outer = CENTER_Z + FOOTPRINT_HALF_EXTENT
-    pogo_y = SKIRT_BOTTOM_Y + 10
+    pogo_y = SKIRT_BOTTOM_Y + POGO_Y_OFFSET
+
+    ridge = (
+        cq.Workplane("XY")
+        .workplane(offset=z_face_outer)
+        .center(CENTER_X, pogo_y)
+        .slot2D(POGO_RIDGE_LENGTH, POGO_RIDGE_WIDTH)
+        .extrude(POGO_RIDGE_DEPTH)
+    )
+    base = base.union(ridge)
 
     outer_step = (
         cq.Workplane("XY")
-        .workplane(offset=z_face_outer + OVERCUT)
+        .workplane(offset=z_face_outer + POGO_RIDGE_DEPTH + OVERCUT)
         .center(CENTER_X, pogo_y)
         .slot2D(POGO_OUTER_LENGTH, POGO_OUTER_WIDTH)
         .extrude(-(POGO_OUTER_DEPTH + OVERCUT))
     )
     inner_step = (
         cq.Workplane("XY")
-        .workplane(offset=z_face_outer - POGO_OUTER_DEPTH)
+        .workplane(offset=z_face_outer + OVERCUT)
         .center(CENTER_X, pogo_y)
         .slot2D(POGO_INNER_LENGTH, POGO_INNER_WIDTH)
-        .extrude(-(WALL_THICKNESS - POGO_OUTER_DEPTH + OVERCUT))
+        .extrude(-(WALL_THICKNESS + 2 * OVERCUT))
     )
     return base.cut(outer_step).cut(inner_step)
 
