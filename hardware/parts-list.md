@@ -105,6 +105,7 @@ Peristaltic pumps, solenoids, bag-in-box connector, silicone delivery tubing, ba
 | SodaStream Diet Mountain Dew 4-pack | [B0G26HQWBY](https://www.amazon.com/dp/B0G26HQWBY) | 1 | $28.99 | ACQUIRED |
 | SodaStream Pepsi Wild Cherry Zero 4-pack | [B0G4NRDQB8](https://www.amazon.com/dp/B0G4NRDQB8) | 1 | $28.99 | ACQUIRED |
 | SodaStream Diet Cola 4-pack | [B01GQ2ZMKI](https://www.amazon.com/dp/B01GQ2ZMKI) | 1 | $18.89 | ACQUIRED |
+| Magnetic pogo pin connector, 2-pin (2 pair) — pump cartridge | [B0CSX6ZQ1H](https://www.amazon.com/dp/B0CSX6ZQ1H) | 1 pk | $9.99 | LIKELY-TO-BUY |
 
 ## 6. Refrigeration
 
@@ -214,7 +215,7 @@ Ice-maker donor units and copper coil for the chill loop.
 |---|---|
 | ACQUIRED (total) | $2,965.38 |
 | ON-ORDER | $600.00 |
-| LIKELY-TO-BUY | $38.99 |
-| **Grand total** | $3,604.37 |
+| LIKELY-TO-BUY | $48.98 |
+| **Grand total** | $3,614.36 |
 
 Excluded from totals (price unresolved, still marked "bundle"): Meshnology ESP32-S3 display (row 135), 12 V 2 A DC power supply (row 148), Haisstronica ratchet crimper (row 154). Beduan flavor-manifold solenoid (row 76) counted at $9.64 × 4; actual qty across orders may differ.
