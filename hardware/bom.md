@@ -30,6 +30,7 @@ First-pass draft. Prices from resolved Amazon order history (parts-list.md) or d
 | [VALVENTO 1/4" OD 316 SS tube, 12" (5-pk)](https://www.amazon.com/dp/B0F6SYFK48) | B0F6SYFK48 — dip tube + internal rigid lines | 1 pk | $16.99 | $16.99 |
 | [VALVENTO 1/4" OD compression × 1/4" NPT adapter (2-pk)](https://www.amazon.com/dp/B0DXZZBK7D) | B0DXZZBK7D | 1 pk | $11.99 | $11.99 |
 | [Millrose 70894 Nickel Guard anti-seize PTFE tape](https://www.amazon.com/dp/B07C9ZV4PG) | B07C9ZV4PG — anti-seize for SS-into-SS NPT joints | 1 | $22.22 | $22.22 |
+| [Control Devices SV-100 ASME safety valve, 1/4" NPT, 100 psi](https://www.amazon.com/dp/B0D361X97X) | B0D361X97X — Port 4 tank PRV | 1 | $16.06 | $16.06 |
 | Food-safe epoxy (MaxCLR A/B or equiv), tank interior coating | estimate | 1 kit | ~$40.00 | $40.00 |
 
 ## 3. Water inlet (tap → backflow → pump → atomizer)
@@ -130,7 +131,6 @@ Dishing dies (PA6-CF) for end-cap forming are vessel-fabrication tools, not ship
 
 | Part | Notes | Est. $ |
 |---|---|---:|
-| ASME-stamped PRV @ 100 psi, 1/4" NPT | Kunkle / Conbraco Section VIII — current pop-off B0D361X97X is non-ASME | $40.00 |
 | 0–150 psi pressure transducer, 1/4" NPT | Headspace monitoring | $30.00 |
 | FDC1004 capacitive level-sensor breakout | Tank level sensing per future.md §27 — not yet in parts-list | $10.00 |
 
@@ -139,7 +139,7 @@ Dishing dies (PA6-CF) for end-cap forming are vessel-fabrication tools, not ship
 | Section | $ |
 |---|---:|
 | 1. Controllers + electronics | $166.71 |
-| 2. Carbonator vessel | $202.00 |
+| 2. Carbonator vessel | $218.06 |
 | 3. Water inlet | $154.32 |
 | 4. CO2 subsystem | $68.29 |
 | 5. Refrigeration | $167.41 |
@@ -149,9 +149,9 @@ Dishing dies (PA6-CF) for end-cap forming are vessel-fabrication tools, not ship
 | 9. Dispensing | $39.27 |
 | 10. UI | $39.95 |
 | 11. Wiring | $25.94 |
-| **Sourced + estimated subtotal** | **$1,436.67** |
-| 12. Not yet sourced | $80.00 |
-| **Projected total** | **$1,516.67** |
+| **Sourced + estimated subtotal** | **$1,452.73** |
+| 12. Not yet sourced | $40.00 |
+| **Projected total** | **$1,492.73** |
 
 ## External / user-supplied (not shipped)
 
