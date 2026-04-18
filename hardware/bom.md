@@ -31,7 +31,6 @@ First-pass draft. Prices from resolved Amazon order history (parts-list.md) or d
 | [VALVENTO 1/4" OD compression × 1/4" NPT adapter (2-pk)](https://www.amazon.com/dp/B0DXZZBK7D) | B0DXZZBK7D | 1 pk | $11.99 | $11.99 |
 | [Millrose 70894 Nickel Guard anti-seize PTFE tape](https://www.amazon.com/dp/B07C9ZV4PG) | B07C9ZV4PG — anti-seize for SS-into-SS NPT joints | 1 | $22.22 | $22.22 |
 | [Control Devices SV-100 ASME safety valve, 1/4" NPT, 100 psi](https://www.amazon.com/dp/B0D361X97X) | B0D361X97X — Port 4 tank PRV | 1 | $16.06 | $16.06 |
-| Food-safe epoxy (MaxCLR A/B or equiv), tank interior coating | estimate | 1 kit | ~$40.00 | $40.00 |
 
 ## 3. Water inlet (tap → backflow → pump → atomizer)
 
@@ -139,7 +138,7 @@ Dishing dies (PA6-CF) for end-cap forming are vessel-fabrication tools, not ship
 | Section | $ |
 |---|---:|
 | 1. Controllers + electronics | $166.71 |
-| 2. Carbonator vessel | $218.06 |
+| 2. Carbonator vessel | $178.06 |
 | 3. Water inlet | $144.33 |
 | 4. CO2 subsystem | $68.29 |
 | 5. Refrigeration | $167.41 |
@@ -149,9 +148,9 @@ Dishing dies (PA6-CF) for end-cap forming are vessel-fabrication tools, not ship
 | 9. Dispensing | $39.27 |
 | 10. UI | $39.95 |
 | 11. Wiring | $25.94 |
-| **Sourced + estimated subtotal** | **$1,332.73** |
+| **Sourced + estimated subtotal** | **$1,292.73** |
 | 12. Not yet sourced | $40.00 |
-| **Projected total** | **$1,372.73** |
+| **Projected total** | **$1,332.73** |
 
 ## External / user-supplied (not shipped)
 

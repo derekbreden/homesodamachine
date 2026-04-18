@@ -22,6 +22,8 @@ Stainless sheet body, weld bungs, end-cap material, welding + forming tools used
 | 1/4" NPT female weld bung, 304 SS stepped flange | [B07QNV8796](https://www.amazon.com/dp/B07QNV8796) | 1 pk | $7.99 | ACQUIRED |
 | 4pc 1/4" NPT male hex nipple, 316 SS 5000 psi | [B0GD1QBLQ3](https://www.amazon.com/dp/B0GD1QBLQ3) | 1 pk | $15.19 | ACQUIRED |
 | Millrose PTFE thread seal tape | [B07C9ZV4PG](https://www.amazon.com/dp/B07C9ZV4PG) | 1 | $20.07 | ACQUIRED |
+| Viva Doria 100% pure food-grade citric acid, fine grain, 2 lb — post-weld passivation soak | [B0C5NQM8S1](https://www.amazon.com/dp/B0C5NQM8S1) | 1 | — | ACQUIRED |
+| Cambro 6 QT square polycarbonate food container — citric-acid soak tub (reusable, shop equipment) | [B001BZEQ44](https://www.amazon.com/dp/B001BZEQ44) | 1 | — | ACQUIRED |
 
 ## 2. CO2 subsystem
 
