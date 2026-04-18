@@ -60,7 +60,8 @@ Check valves, atomization nozzle, compression fittings on the water/CO2 pressure
 
 | Part | ASIN link | Qty | $ | Status |
 |---|---|---|---|---|
-| ChillWaves 304 SS in-line split check valve 1/4" NPT M×F | [B0DPLBYZB4](https://www.amazon.com/dp/B0DPLBYZB4) | 1 | $18.22 | ACQUIRED |
+| ChillWaves 304 SS in-line split check valve 1/4" NPT M×F (silicone seat — bench only) | [B0DPLBYZB4](https://www.amazon.com/dp/B0DPLBYZB4) | 1 | $18.22 | ACQUIRED |
+| GASHER 1/4" NPT SS one-way check valve (2 pk) — intended production swap, pending screwdriver seat test | [B0FV2D2FFX](https://www.amazon.com/dp/B0FV2D2FFX) | 1 pk | $13.99 | LIKELY-TO-BUY |
 | Beduan 1/4" male spiral cone atomization nozzle, 316 SS | [B07LGPD3GB](https://www.amazon.com/dp/B07LGPD3GB) | 1 | $9.99 | ACQUIRED |
 | VALVENTO 316 SS 1/4" OD compression × 1/4" NPT adapter (2 pk) | [B0DXZZBK7D](https://www.amazon.com/dp/B0DXZZBK7D) | 1 pk | $31.08 | ACQUIRED |
 | VALVENTO 1/4" OD 316 SS tube, 12" length (5 pk) | [B0F6SYFK48](https://www.amazon.com/dp/B0F6SYFK48) | 1 pk | $31.08 | ACQUIRED |
@@ -200,7 +201,6 @@ Ice-maker donor units and copper coil for the chill loop.
 
 | Part | Notes |
 |---|---|
-| **External metal-seat check valve, 150 psi, 1/4" NPT** | For pump outlet → tank. Verify or replace the ChillWaves (B0DPLBYZB4) if its seat material isn't metal/PTFE. |
 | **CO2 cylinder** | 5 lb or 10 lb aluminum, CGA-320. Regulator in hand; tank not yet on Amazon. |
 | **0–150 psi pressure transducer** | 1/4" NPT, analog or I²C, for carbonator headspace monitoring. |
 | **Additional flavor-manifold solenoids** | Manifold diagram needs 12 valves (V-A through V-J plus V-K-A and V-K-B); current Beduan B07NWCQJK9 count across orders is short. Verify qty per order, then top up. |
@@ -214,7 +214,7 @@ Ice-maker donor units and copper coil for the chill loop.
 |---|---|
 | ACQUIRED (total) | $2,965.38 |
 | ON-ORDER | $600.00 |
-| LIKELY-TO-BUY | $48.98 |
-| **Grand total** | $3,614.36 |
+| LIKELY-TO-BUY | $62.97 |
+| **Grand total** | $3,628.35 |
 
 Excluded from totals (price unresolved, still marked "bundle"): Meshnology ESP32-S3 display (row 135), 12 V 2 A DC power supply (row 148), Haisstronica ratchet crimper (row 154). Beduan flavor-manifold solenoid (row 76) counted at $9.64 × 4; actual qty across orders may differ.

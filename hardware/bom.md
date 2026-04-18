@@ -42,7 +42,7 @@ First-pass draft. Prices from resolved Amazon order history (parts-list.md) or d
 | [Sealproof 1/4" ID × 3/8" OD clear PVC, 10 ft](https://www.amazon.com/dp/B07D9DK94V) (vent telltale) | B07D9DK94V | 1 | $7.89 | $7.89 |
 | [LOKMAN 304 SS worm-gear clamps, 10–16 mm (20-pk)](https://www.amazon.com/dp/B076Q7QVNM) | B076Q7QVNM | 1 pk | $8.99 | $8.99 |
 | [SEAFLO 22-Series 12V 1.3 GPM 100 psi diaphragm pump](https://www.amazon.com/dp/B0166UBJX4) | B0166UBJX4 | 1 | $44.99 | $44.99 |
-| [ChillWaves 304 SS 1/4" NPT external check valve](https://www.amazon.com/dp/B0DPLBYZB4) | B0DPLBYZB4 (verify metal/PTFE seat; replace if elastomer) | 1 | $16.99 | $16.99 |
+| [GASHER 1/4" NPT SS one-way check valve (2-pk, $13.99)](https://www.amazon.com/dp/B0FV2D2FFX) | B0FV2D2FFX — 1 of 2 per unit; half of pack price | 1 | $7.00 | $7.00 |
 | [Lifevant 1/4" OD water tubing 32.8 ft + quick-connects](https://www.amazon.com/dp/B0DKCZ5W66) | B0DKCZ5W66 | 1 | $9.99 | $9.99 |
 | [John Guest 1/4" OD × 1/8" NPT push-fit](https://www.amazon.com/dp/B07V6XKZG9) | B07V6XKZG9 | 1 | $5.00 | $5.00 |
 | [John Guest PI1208S acetal bulkhead union, 1/4" QC](https://www.amazon.com/dp/B0C1F3QR7N) | B0C1F3QR7N | 1 | $11.49 | $11.49 |
@@ -140,7 +140,7 @@ Dishing dies (PA6-CF) for end-cap forming are vessel-fabrication tools, not ship
 |---|---:|
 | 1. Controllers + electronics | $166.71 |
 | 2. Carbonator vessel | $218.06 |
-| 3. Water inlet | $154.32 |
+| 3. Water inlet | $144.33 |
 | 4. CO2 subsystem | $68.29 |
 | 5. Refrigeration | $167.41 |
 | 6. Cold core insulation | $160.00 |
@@ -149,9 +149,9 @@ Dishing dies (PA6-CF) for end-cap forming are vessel-fabrication tools, not ship
 | 9. Dispensing | $39.27 |
 | 10. UI | $39.95 |
 | 11. Wiring | $25.94 |
-| **Sourced + estimated subtotal** | **$1,452.73** |
+| **Sourced + estimated subtotal** | **$1,442.74** |
 | 12. Not yet sourced | $40.00 |
-| **Projected total** | **$1,492.73** |
+| **Projected total** | **$1,482.74** |
 
 ## External / user-supplied (not shipped)
 
