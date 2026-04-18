@@ -33,7 +33,7 @@ Regulator, CO2 line, push-to-connect adapters for the CO2 side.
 | 10 ft 5/16" ID beer CO2 line w/ 4 hose clamps | [B0D1RB3TF6](https://www.amazon.com/dp/B0D1RB3TF6) | 1 | $13.50 | ACQUIRED |
 | DERPIPE push-to-connect 5/16" tube x 1/4" NPT (5 pk) | [B09LXVGPG7](https://www.amazon.com/dp/B09LXVGPG7) | 1 pk | $10.71 | ACQUIRED |
 | VUYOMUA 0.8 gal SS portable air tank (bench test fixture) | [B0BV6FMMJP](https://www.amazon.com/dp/B0BV6FMMJP) | 1 | $60.05 | ACQUIRED |
-| 1/4" NPT 100 psi pop-off safety valve (non-ASME placeholder) | [B0D361X97X](https://www.amazon.com/dp/B0D361X97X) | 1 | $16.06 | ACQUIRED |
+| Control Devices SV-100 ASME safety valve, 1/4" NPT, 100 psi | [B0D361X97X](https://www.amazon.com/dp/B0D361X97X) | 1 | $16.06 | ACQUIRED |
 
 ## 3. Water supply + backflow prevention
 
@@ -200,7 +200,6 @@ Ice-maker donor units and copper coil for the chill loop.
 
 | Part | Notes |
 |---|---|
-| **ASME-stamped PRV @ 100 psi, 1/4" NPT** | Current B0D361X97X is a pneumatic pop-off, not ASME-stamped. Kunkle / Conbraco ASME Section VIII part needed. |
 | **External metal-seat check valve, 150 psi, 1/4" NPT** | For pump outlet → tank. Verify or replace the ChillWaves (B0DPLBYZB4) if its seat material isn't metal/PTFE. |
 | **CO2 cylinder** | 5 lb or 10 lb aluminum, CGA-320. Regulator in hand; tank not yet on Amazon. |
 | **0–150 psi pressure transducer** | 1/4" NPT, analog or I²C, for carbonator headspace monitoring. |
