@@ -98,9 +98,13 @@ POGO_OUTER_DEPTH = 1.0
 POGO_INNER_LENGTH = 14.5
 POGO_INNER_WIDTH = 4.0
 POGO_Y_OFFSET = 13.5          # offset above SKIRT_BOTTOM_Y (was implicit 10)
-POGO_RIDGE_LENGTH = 24.5
+POGO_RIDGE_LENGTH = 28.0
 POGO_RIDGE_WIDTH = 10.0
 POGO_RIDGE_DEPTH = 1.0
+POGO_RETAINER_CAVITY_OFFSET_X = 10.5
+POGO_RETAINER_CAVITY_ENTRY = 2.0
+POGO_RETAINER_CAVITY_MID = 3.0
+POGO_RETAINER_CAVITY_DEPTH = 3.0
 
 # ── Shared constants ──
 OVERCUT = 0.1
@@ -809,6 +813,34 @@ def add_pogo_pocket(base):
     return base.cut(outer_step).cut(inner_step)
 
 
+def add_retainer_cavities(base):
+    """Blind diamond-profile cavities in the ridge wings for retainer clip arms."""
+    inner_wall = CENTER_Z + FOOTPRINT_HALF_EXTENT - WALL_THICKNESS
+    pogo_y = SKIRT_BOTTOM_Y + POGO_Y_OFFSET
+
+    entry = POGO_RETAINER_CAVITY_ENTRY
+    mid = POGO_RETAINER_CAVITY_MID
+    depth = POGO_RETAINER_CAVITY_DEPTH
+
+    for sign in (-1, +1):
+        cx = CENTER_X + sign * POGO_RETAINER_CAVITY_OFFSET_X
+        cavity = (
+            cq.Workplane("XY")
+            .workplane(offset=inner_wall - OVERCUT)
+            .center(cx, pogo_y)
+            .rect(entry, entry)
+            .workplane(offset=OVERCUT + depth / 2)
+            .center(0, 0)
+            .rect(mid, mid)
+            .workplane(offset=depth / 2)
+            .center(0, 0)
+            .rect(entry, entry)
+            .loft(ruled=True)
+        )
+        base = base.cut(cavity)
+    return base
+
+
 # ═══════════════════════════════════════════════════════
 # ASSEMBLY
 # ═══════════════════════════════════════════════════════
@@ -824,6 +856,7 @@ def build_pump_case():
     base, cap = split_into_base_and_cap(combined)
     base, cap = add_snap_fits(base, cap)
     base = add_pogo_pocket(base)
+    base = add_retainer_cavities(base)
     return base, cap
 
 
