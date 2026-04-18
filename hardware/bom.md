@@ -15,6 +15,8 @@ First-pass draft. Prices from resolved Amazon order history (parts-list.md) or d
 | [Waveshare RP2040 Round LCD 0.99"](https://www.amazon.com/dp/B0CTSPYND2) | B0CTSPYND2 | 1 | $23.99 | $23.99 |
 | [Meshnology ESP32-S3 1.28" Rotary Display](https://www.amazon.com/dp/B0G5Q4LXVJ) | B0G5Q4LXVJ | 1 | $47.76 | $47.76 |
 | [L298N Dual H-Bridge (4-pack)](https://www.amazon.com/dp/B0C5JCF5RS) | B0C5JCF5RS | 1 pk | $9.99 | $9.99 |
+| [Waveshare MCP23017 I2C GPIO expander](https://www.amazon.com/dp/B07P2H1NZG) | B07P2H1NZG — expands ESP32 I2C into 16 GPIO for solenoid bank | 1 | $12.99 | $12.99 |
+| [BOJACK ULN2803APG Darlington driver IC (10-pk)](https://www.amazon.com/dp/B08CX79JSQ) | B08CX79JSQ — 2 ICs drive 12 solenoids from MCP23017 outputs | 1 pk | $6.99 | $6.99 |
 | [Mean Well LRS-200-12, 204 W / 12 V / 17 A, fanless](https://www.amazon.com/dp/B0874XQ82F) | B0874XQ82F | 1 | $28.00 | $28.00 |
 
 ## 2. Carbonator vessel (custom fabrication)
@@ -58,6 +60,9 @@ First-pass draft. Prices from resolved Amazon order history (parts-list.md) or d
 |---|---|---:|---:|---:|
 | [Frigidaire EFIC117-SS ice-maker donor (compressor/condenser/cap-tube/drier)](https://www.amazon.com/dp/B07PCZKG94) | B07PCZKG94 | 1 | $73.38 | $73.38 |
 | [GOORY 1/4" OD × 50 ft ACR copper coil (evaporator)](https://www.amazon.com/dp/B0DKSW5VL9) | B0DKSW5VL9 | 1 | $63.99 | $63.99 |
+| [Fotek SSR-25DA solid state relay, 3–32 VDC in / 24–380 VAC out](https://www.amazon.com/dp/B08FR13GYR) | B08FR13GYR — compressor AC switching, ESP32 GPIO 14 drives input | 1 | $13.92 | $13.92 |
+| [Inline AC fuse holder kit, 5×20 mm](https://www.amazon.com/dp/B07BC8DW3L) | B07BC8DW3L — 5 A fast-blow on compressor hot leg | 1 kit | $12.86 | $12.86 |
+| [Leviton CR020-W 20 A 125 VAC single receptacle](https://www.amazon.com/dp/B003ATTR8Y) | B003ATTR8Y — rear-panel appliance AC inlet | 1 | $3.26 | $3.26 |
 
 Fallback path (UL/ETL-retail-friendly): RIGID DV1910E sealed refrigeration module (~$600 + 20–30% import duty). Not selected for this BOM.
 
@@ -132,20 +137,20 @@ Dishing dies (PA6-CF) for end-cap forming are vessel-fabrication tools, not ship
 
 | Section | $ |
 |---|---:|
-| 1. Controllers + electronics | $146.73 |
+| 1. Controllers + electronics | $166.71 |
 | 2. Carbonator vessel | $202.00 |
 | 3. Water inlet | $154.32 |
 | 4. CO2 subsystem | $116.25 |
-| 5. Refrigeration | $137.37 |
+| 5. Refrigeration | $167.41 |
 | 6. Cold core insulation | $160.00 |
 | 7. Printed parts (PETG) | $103.94 |
 | 8. Flavor subsystem | $298.85 |
 | 9. Dispensing | $39.27 |
 | 10. UI | $39.95 |
 | 11. Wiring | $25.94 |
-| **Sourced + estimated subtotal** | **$1,424.62** |
+| **Sourced + estimated subtotal** | **$1,474.64** |
 | 12. Not yet sourced | $80.00 |
-| **Projected total** | **$1,504.62** |
+| **Projected total** | **$1,554.64** |
 
 ## External / user-supplied (not shipped)
 

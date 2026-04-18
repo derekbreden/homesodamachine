@@ -138,7 +138,7 @@ Ice-maker donor units and copper coil for the chill loop.
 
 | Part | ASIN link | Qty | $ | Status |
 |---|---|---|---|---|
-| Waveshare MCP23017 I2C I/O expansion board | [B07P2H1NZG](https://www.amazon.com/dp/B07P2H1NZG) | 1 | $28.50 | ACQUIRED |
+| Waveshare MCP23017 I2C I/O expansion board | [B07P2H1NZG](https://www.amazon.com/dp/B07P2H1NZG) | 1 | $12.99 | ACQUIRED |
 | BOJACK ULN2803 Darlington driver IC (10 pk) | [B08CX79JSQ](https://www.amazon.com/dp/B08CX79JSQ) | 1 pk | $6.99 | ACQUIRED |
 | ULN2803A high-current driver module (2 pc) | [B0F872W528](https://www.amazon.com/dp/B0F872W528) | 1 pk | $6.59 | ACQUIRED |
 | BOJACK L298N dual H-bridge motor driver | [B0C5JCF5RS](https://www.amazon.com/dp/B0C5JCF5RS) | 1 | $56.33 | ACQUIRED |
@@ -161,6 +161,10 @@ Ice-maker donor units and copper coil for the chill loop.
 | CR2032 3 V cell pack (RTC backup) | [B0C15WJXL2](https://www.amazon.com/dp/B0C15WJXL2) | 1 | $11.19 | ACQUIRED |
 | Breadboard kit, 2×830 + 2×400 pt | [B07DL13RZH](https://www.amazon.com/dp/B07DL13RZH) | 1 pk | $6.83 | ACQUIRED |
 | Gratury IP67 waterproof enclosure | [B08281V2RL](https://www.amazon.com/dp/B08281V2RL) | 1 | $23.58 | ACQUIRED |
+| Fotek SSR-25DA solid state relay, 3–32 VDC in / 24–380 VAC out | [B08FR13GYR](https://www.amazon.com/dp/B08FR13GYR) | 1 | $13.92 | ACQUIRED |
+| Inline AC fuse holder kit, 5×20 mm + assorted fuses | [B07BC8DW3L](https://www.amazon.com/dp/B07BC8DW3L) | 1 | $12.86 | ACQUIRED |
+| Leviton CR020-W 20 A 125 VAC single receptacle | [B003ATTR8Y](https://www.amazon.com/dp/B003ATTR8Y) | 1 | $3.26 | ACQUIRED |
+| P3 Kill-A-Watt P4400 power meter (bench) | [B00009MDBU](https://www.amazon.com/dp/B00009MDBU) | 1 | $34.31 | ACQUIRED |
 
 ## 10. User interface — buttons, LEDs, air switch
 
@@ -208,9 +212,9 @@ Ice-maker donor units and copper coil for the chill loop.
 
 | Status | $ |
 |---|---|
-| ACQUIRED (total) | $2,916.54 |
+| ACQUIRED (total) | $2,965.38 |
 | ON-ORDER | $600.00 |
 | LIKELY-TO-BUY | $38.99 |
-| **Grand total** | $3,555.53 |
+| **Grand total** | $3,604.37 |
 
 Excluded from totals (price unresolved, still marked "bundle"): Meshnology ESP32-S3 display (row 135), 12 V 2 A DC power supply (row 148), Haisstronica ratchet crimper (row 154). Beduan flavor-manifold solenoid (row 76) counted at $9.64 × 4; actual qty across orders may differ.
