@@ -39,8 +39,6 @@ ARM_TIP_Y = 3.0
 
 # ── Slit through each arm for flex ──
 SLIT_WIDTH_X       = 0.4   # thin dimension: cuts X (separates the two halves)
-# Arm cross-section is a diamond inscribed in the ARM_MID bounding square, so
-# its Z extent is ±ARM_MID/2; 0.5 overhang per side fully severs the halves.
 SLIT_Z_OVERHANG    = 0.5   # extend past arm in Z on each side
 SLIT_TOP_OVERCUT   = 0.5   # above arm tip
 SLIT_PLATE_CUT     = 0.8   # how far into the plate the slit extends (< PLATE_THICK_Y)
