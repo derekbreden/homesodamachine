@@ -46,7 +46,7 @@ R_OUTER = R_INNER + WALL                                            # 76.0 mm
 # female thread is cut directly through the 5 mm wall at the top pole —
 # no boss.  With 18 TPI that gives ~3 turns of thread engagement, which
 # plus PTFE tape is enough for a pressure test.
-TEST_R_OUTER = 25.0
+TEST_R_OUTER = 30.0
 TEST_R_INNER = TEST_R_OUTER - WALL
 
 
