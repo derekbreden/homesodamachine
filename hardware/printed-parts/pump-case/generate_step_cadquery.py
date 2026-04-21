@@ -235,34 +235,6 @@ def offset_polygon(pts, distance):
     return result
 
 
-def teardrop_profile(length, width, n=ARC_SEGMENTS):
-    """Pill with a 45 deg peak on top instead of a flat upper edge.
-
-    Length along X, width along Y. Center at origin. Lower half matches
-    a pill (rectangle body + lower semicircles); upper boundary rises
-    at 45 deg from each straight-edge top to a peak above center.
-    """
-    half_len = length / 2
-    half_wid = width / 2
-    straight_half = half_len - half_wid
-    peak_y = half_wid + straight_half
-
-    pts = []
-    # Right semicircle from +width/2 down around to -width/2
-    for i in range(n + 1):
-        a = math.radians(90 - 180 * i / n)
-        pts.append((straight_half + half_wid * math.cos(a),
-                    half_wid * math.sin(a)))
-    # Left semicircle from -width/2 up around to +width/2
-    for i in range(n + 1):
-        a = math.radians(-90 - 180 * i / n)
-        pts.append((-straight_half + half_wid * math.cos(a),
-                    half_wid * math.sin(a)))
-    # 45 deg peak closing the top (endpoints are already on the path)
-    pts.append((0, peak_y))
-    return pts
-
-
 def rounded_rect_profile(width, height, radius, n=ARC_SEGMENTS):
     """Polygon points for a rounded rectangle centered at origin."""
     hw, hh = width / 2, height / 2
@@ -828,14 +800,14 @@ def add_pogo_pocket(base):
         cq.Workplane("XY")
         .workplane(offset=z_face_outer + POGO_RIDGE_DEPTH + OVERCUT)
         .center(CENTER_X, pogo_y)
-        .polyline(teardrop_profile(POGO_OUTER_LENGTH, POGO_OUTER_WIDTH)).close()
+        .slot2D(POGO_OUTER_LENGTH, POGO_OUTER_WIDTH)
         .extrude(-(POGO_OUTER_DEPTH + OVERCUT))
     )
     inner_step = (
         cq.Workplane("XY")
         .workplane(offset=z_face_outer + OVERCUT)
         .center(CENTER_X, pogo_y)
-        .polyline(teardrop_profile(POGO_INNER_LENGTH, POGO_INNER_WIDTH)).close()
+        .slot2D(POGO_INNER_LENGTH, POGO_INNER_WIDTH)
         .extrude(-(WALL_THICKNESS + 2 * OVERCUT))
     )
     return base.cut(outer_step).cut(inner_step)
@@ -850,23 +822,19 @@ def add_retainer_cavities(base):
     mid = POGO_RETAINER_CAVITY_MID
     depth = POGO_RETAINER_CAVITY_DEPTH
 
-    def diamond(side):
-        h = side / 2
-        return [(h, 0), (0, h), (-h, 0), (0, -h)]
-
     for sign in (-1, +1):
         cx = CENTER_X + sign * POGO_RETAINER_CAVITY_OFFSET_X
         cavity = (
             cq.Workplane("XY")
             .workplane(offset=inner_wall - OVERCUT)
             .center(cx, pogo_y)
-            .polyline(diamond(entry)).close()
+            .rect(entry, entry)
             .workplane(offset=OVERCUT + depth / 2)
             .center(0, 0)
-            .polyline(diamond(mid)).close()
+            .rect(mid, mid)
             .workplane(offset=depth / 2)
             .center(0, 0)
-            .polyline(diamond(entry)).close()
+            .rect(entry, entry)
             .loft(ruled=True)
         )
         base = base.cut(cavity)
