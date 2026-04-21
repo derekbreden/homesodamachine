@@ -132,7 +132,6 @@ Dishing dies (PA6-CF) for end-cap forming are vessel-fabrication tools, not ship
 
 | Part | Notes | Est. $ |
 |---|---|---:|
-| 0–150 psi pressure transducer, 1/4" NPT | Headspace monitoring | $30.00 |
 | FDC1004 capacitive level-sensor breakout | Tank level sensing per future.md §27 — not yet in parts-list | $10.00 |
 
 ## Totals
@@ -151,8 +150,8 @@ Dishing dies (PA6-CF) for end-cap forming are vessel-fabrication tools, not ship
 | 10. UI | $39.95 |
 | 11. Wiring | $25.94 |
 | **Sourced + estimated subtotal** | **$1,303.43** |
-| 12. Not yet sourced | $40.00 |
-| **Projected total** | **$1,343.43** |
+| 12. Not yet sourced | $10.00 |
+| **Projected total** | **$1,313.43** |
 
 ## External / user-supplied (not shipped)
 
