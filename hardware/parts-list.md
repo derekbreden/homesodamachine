@@ -206,7 +206,6 @@ Ice-maker donor units and copper coil for the chill loop.
 | Part | Notes |
 |---|---|
 | **CO2 cylinder** | 5 lb or 10 lb aluminum, CGA-320. Regulator in hand; tank not yet on Amazon. |
-| **0–150 psi pressure transducer** | 1/4" NPT, analog or I²C, for carbonator headspace monitoring. |
 | **Additional flavor-manifold solenoids** | Manifold diagram needs 12 valves (V-A through V-J plus V-K-A and V-K-B); current Beduan B07NWCQJK9 count across orders is short. Verify qty per order, then top up. |
 | **EPA 608 Type I certification** | Not a part; $25 online exam. Needed only if harvest refrigeration path requires opening the refrigerant loop (clamped-plate approach avoids this). |
 
