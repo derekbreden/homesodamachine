@@ -65,6 +65,7 @@ First-pass draft. Prices from resolved Amazon order history (parts-list.md) or d
 | [Teyleten 3.3 V relay module, opto-isolated, 10 A @ 250 VAC (5-pk)](https://www.amazon.com/dp/B07XGZSYJV) | B07XGZSYJV — compressor AC switching; ESP32 GPIO 14 drives input directly; 1 of 5 per unit | 1 (of 5 pk) | $2.60 | $2.60 |
 | [HiLetgo DS18B20 waterproof 1-wire probe, 1 m SS sheath (5-pk)](https://www.amazon.com/dp/B00M1PM55K) | B00M1PM55K — 2 probes per unit: tank wall (compressor cycling setpoint) + evaporator coil (freeze-protect cutout); 2 of 5 per unit | 2 (of 5 pk) | $2.20 | $4.40 |
 | [MXR IEC 60320 C14 panel-mount AC inlet, 10 A / 250 VAC (10-pk)](https://www.amazon.com/dp/B07DCXKNXQ) | B07DCXKNXQ — rear-panel mains inlet; accepts standard NEMA 5-15P-to-C13 line cord; 1 of 10 per unit | 1 (of 10 pk) | $0.65 | $0.65 |
+| [Monoprice NEMA 5-15P → IEC C13 line cord, 18 AWG, 6 ft, UL-listed (6-pk)](https://www.amazon.com/dp/B08VS8D4WC) | B08VS8D4WC — ships in the box so the customer can plug the appliance into a standard US wall outlet; 1 of 6 per unit | 1 (of 6 pk) | $3.73 | $3.73 |
 
 Fallback path (UL/ETL-retail-friendly): RIGID DV1910E sealed refrigeration module (~$600 + 20–30% import duty). Not selected for this BOM.
 
@@ -142,16 +143,16 @@ Dishing dies (PA6-CF) for end-cap forming are vessel-fabrication tools, not ship
 | 2. Carbonator vessel | $198.56 |
 | 3. Water inlet | $144.33 |
 | 4. CO2 subsystem | $68.29 |
-| 5. Refrigeration | $145.02 |
+| 5. Refrigeration | $148.75 |
 | 6. Cold core insulation | $49.99 |
 | 7. Printed parts (PETG) | $103.94 |
 | 8. Flavor subsystem | $308.84 |
 | 9. Dispensing | $39.27 |
 | 10. UI | $39.95 |
 | 11. Wiring | $25.94 |
-| **Sourced + estimated subtotal** | **$1,292.36** |
+| **Sourced + estimated subtotal** | **$1,296.09** |
 | 12. Not yet sourced | $10.00 |
-| **Projected total** | **$1,302.36** |
+| **Projected total** | **$1,306.09** |
 
 ## External / user-supplied (not shipped)
 
