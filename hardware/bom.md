@@ -63,6 +63,7 @@ First-pass draft. Prices from resolved Amazon order history (parts-list.md) or d
 | [Frigidaire EFIC117-SS ice-maker donor (compressor/condenser/cap-tube/drier)](https://www.amazon.com/dp/B07PCZKG94) | B07PCZKG94 | 1 | $73.38 | $73.38 |
 | [GOORY 1/4" OD × 50 ft ACR copper coil (evaporator)](https://www.amazon.com/dp/B0DKSW5VL9) | B0DKSW5VL9 | 1 | $63.99 | $63.99 |
 | [Teyleten 3.3 V relay module, opto-isolated, 10 A @ 250 VAC (5-pk)](https://www.amazon.com/dp/B07XGZSYJV) | B07XGZSYJV — compressor AC switching; ESP32 GPIO 14 drives input directly; 1 of 5 per unit | 1 (of 5 pk) | $2.60 | $2.60 |
+| [HiLetgo DS18B20 waterproof 1-wire probe, 1 m SS sheath (5-pk)](https://www.amazon.com/dp/B00M1PM55K) | B00M1PM55K — 2 probes per unit: tank wall (compressor cycling setpoint) + evaporator coil (freeze-protect cutout); 2 of 5 per unit | 2 (of 5 pk) | $2.20 | $4.40 |
 | [Inline AC fuse holder kit, 5×20 mm](https://www.amazon.com/dp/B07BC8DW3L) | B07BC8DW3L — 5 A fast-blow on compressor hot leg | 1 kit | $12.86 | $12.86 |
 | [Leviton CR020-W 20 A 125 VAC single receptacle](https://www.amazon.com/dp/B003ATTR8Y) | B003ATTR8Y — rear-panel appliance AC inlet | 1 | $3.26 | $3.26 |
 
@@ -142,16 +143,16 @@ Dishing dies (PA6-CF) for end-cap forming are vessel-fabrication tools, not ship
 | 2. Carbonator vessel | $198.56 |
 | 3. Water inlet | $144.33 |
 | 4. CO2 subsystem | $68.29 |
-| 5. Refrigeration | $156.09 |
+| 5. Refrigeration | $160.49 |
 | 6. Cold core insulation | $49.99 |
 | 7. Printed parts (PETG) | $103.94 |
 | 8. Flavor subsystem | $308.84 |
 | 9. Dispensing | $39.27 |
 | 10. UI | $39.95 |
 | 11. Wiring | $25.94 |
-| **Sourced + estimated subtotal** | **$1,303.43** |
+| **Sourced + estimated subtotal** | **$1,307.83** |
 | 12. Not yet sourced | $10.00 |
-| **Projected total** | **$1,313.43** |
+| **Projected total** | **$1,317.83** |
 
 ## External / user-supplied (not shipped)
 
