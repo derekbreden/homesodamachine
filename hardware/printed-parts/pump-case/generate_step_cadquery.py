@@ -100,7 +100,7 @@ POGO_INNER_WIDTH = 4.2
 POGO_Y_OFFSET = 13.5          # offset above SKIRT_BOTTOM_Y (was implicit 10)
 POGO_RIDGE_LENGTH = 24.5
 POGO_RIDGE_WIDTH = 10.0
-POGO_RIDGE_DEPTH = 0.5         # thin outer wall so pogo pins protrude further
+POGO_RIDGE_DEPTH = 0.7         # thin outer wall so pogo pins protrude further
 
 # ── Shared constants ──
 OVERCUT = 0.1
