@@ -17,7 +17,7 @@ First-pass draft. Prices from resolved Amazon order history (parts-list.md) or d
 | [L298N Dual H-Bridge (4-pack)](https://www.amazon.com/dp/B0C5JCF5RS) | B0C5JCF5RS | 1 pk | $9.99 | $9.99 |
 | [Waveshare MCP23017 I2C GPIO expander](https://www.amazon.com/dp/B07P2H1NZG) | B07P2H1NZG — expands ESP32 I2C into 16 GPIO for solenoid bank | 1 | $12.99 | $12.99 |
 | [BOJACK ULN2803APG Darlington driver IC (10-pk)](https://www.amazon.com/dp/B08CX79JSQ) | B08CX79JSQ — 2 ICs drive 12 solenoids from MCP23017 outputs | 1 pk | $6.99 | $6.99 |
-| [Mean Well LRS-200-12, 204 W / 12 V / 17 A, fanless](https://www.amazon.com/dp/B0874XQ82F) | B0874XQ82F | 1 | $28.00 | $28.00 |
+| [Mean Well LRS-150-12, 150 W / 12 V / 12.5 A, fanless](https://www.amazon.com/dp/B0BCDTSJPY) | B0BCDTSJPY — sized for ~7 A steady + ~12 A pump-inrush peak; LRS-200 was ~2× overspec | 1 | $23.00 | $23.00 |
 
 ## 2. Carbonator vessel (custom fabrication)
 
@@ -139,7 +139,7 @@ Dishing dies (PA6-CF) for end-cap forming are vessel-fabrication tools, not ship
 
 | Section | $ |
 |---|---:|
-| 1. Controllers + electronics | $166.71 |
+| 1. Controllers + electronics | $161.71 |
 | 2. Carbonator vessel | $198.56 |
 | 3. Water inlet | $144.33 |
 | 4. CO2 subsystem | $68.29 |
@@ -150,9 +150,9 @@ Dishing dies (PA6-CF) for end-cap forming are vessel-fabrication tools, not ship
 | 9. Dispensing | $39.27 |
 | 10. UI | $39.95 |
 | 11. Wiring | $25.94 |
-| **Sourced + estimated subtotal** | **$1,301.91** |
+| **Sourced + estimated subtotal** | **$1,296.91** |
 | 12. Not yet sourced | $40.00 |
-| **Projected total** | **$1,341.91** |
+| **Projected total** | **$1,336.91** |
 
 ## External / user-supplied (not shipped)
 
