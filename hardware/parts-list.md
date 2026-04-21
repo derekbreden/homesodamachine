@@ -172,6 +172,7 @@ Ice-maker donor units and copper coil for the chill loop.
 | ~~Inline AC fuse holder kit, 5×20 mm + assorted fuses~~ (surplus — bench-test gear, not production; 5 A fast-blow would nuisance-trip compressor inrush) | [B07BC8DW3L](https://www.amazon.com/dp/B07BC8DW3L) | 1 | $12.86 | ACQUIRED (surplus) |
 | ~~Leviton CR020-W 20 A 125 VAC single receptacle~~ (surplus — wrongly spec'd as AC inlet; a female outlet isn't an inlet) | [B003ATTR8Y](https://www.amazon.com/dp/B003ATTR8Y) | 1 | $3.26 | ACQUIRED (surplus) |
 | MXR IEC 60320 C14 panel-mount AC inlet, 10 A / 250 VAC (10 pk) — rear-panel mains inlet for standard computer-style line cord | [B07DCXKNXQ](https://www.amazon.com/dp/B07DCXKNXQ) | 1 pk | $6.49 | LIKELY-TO-BUY |
+| Monoprice NEMA 5-15P → IEC C13 line cord, 18 AWG, 6 ft, UL-listed (6 pk) — ships in the box with the appliance | [B08VS8D4WC](https://www.amazon.com/dp/B08VS8D4WC) | 1 pk | $22.38 | LIKELY-TO-BUY |
 | P3 Kill-A-Watt P4400 power meter (bench) | [B00009MDBU](https://www.amazon.com/dp/B00009MDBU) | 1 | $34.31 | ACQUIRED |
 
 ## 10. User interface — buttons, LEDs, air switch
@@ -219,7 +220,7 @@ Ice-maker donor units and copper coil for the chill loop.
 |---|---|
 | ACQUIRED (total) | $3,008.36 |
 | ON-ORDER | $600.00 |
-| LIKELY-TO-BUY | $120.44 |
-| **Grand total** | $3,728.80 |
+| LIKELY-TO-BUY | $142.82 |
+| **Grand total** | $3,751.18 |
 
 Excluded from totals (price unresolved, still marked "bundle"): Meshnology ESP32-S3 display (row 135), 12 V 2 A DC power supply (row 148), Haisstronica ratchet crimper (row 154). Beduan flavor-manifold solenoid (row 76) counted at $9.64 × 4; actual qty across orders may differ.
