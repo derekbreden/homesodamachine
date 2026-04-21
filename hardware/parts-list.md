@@ -169,8 +169,9 @@ Ice-maker donor units and copper coil for the chill loop.
 | Gratury IP67 waterproof enclosure | [B08281V2RL](https://www.amazon.com/dp/B08281V2RL) | 1 | $23.58 | ACQUIRED |
 | Teyleten 3.3 V relay module, opto-isolated, 10 A @ 250 VAC (5 pk) | [B07XGZSYJV](https://www.amazon.com/dp/B07XGZSYJV) | 1 pk | $12.99 | ACQUIRED |
 | ~~Fotek SSR-25DA solid state relay~~ (surplus — overspecced for the load, not used) | [B08FR13GYR](https://www.amazon.com/dp/B08FR13GYR) | 1 | $13.92 | ACQUIRED (surplus) |
-| Inline AC fuse holder kit, 5×20 mm + assorted fuses | [B07BC8DW3L](https://www.amazon.com/dp/B07BC8DW3L) | 1 | $12.86 | ACQUIRED |
-| Leviton CR020-W 20 A 125 VAC single receptacle | [B003ATTR8Y](https://www.amazon.com/dp/B003ATTR8Y) | 1 | $3.26 | ACQUIRED |
+| ~~Inline AC fuse holder kit, 5×20 mm + assorted fuses~~ (surplus — bench-test gear, not production; 5 A fast-blow would nuisance-trip compressor inrush) | [B07BC8DW3L](https://www.amazon.com/dp/B07BC8DW3L) | 1 | $12.86 | ACQUIRED (surplus) |
+| ~~Leviton CR020-W 20 A 125 VAC single receptacle~~ (surplus — wrongly spec'd as AC inlet; a female outlet isn't an inlet) | [B003ATTR8Y](https://www.amazon.com/dp/B003ATTR8Y) | 1 | $3.26 | ACQUIRED (surplus) |
+| MXR IEC 60320 C14 panel-mount AC inlet, 10 A / 250 VAC (10 pk) — rear-panel mains inlet for standard computer-style line cord | [B07DCXKNXQ](https://www.amazon.com/dp/B07DCXKNXQ) | 1 pk | $6.49 | LIKELY-TO-BUY |
 | P3 Kill-A-Watt P4400 power meter (bench) | [B00009MDBU](https://www.amazon.com/dp/B00009MDBU) | 1 | $34.31 | ACQUIRED |
 
 ## 10. User interface — buttons, LEDs, air switch
@@ -218,7 +219,7 @@ Ice-maker donor units and copper coil for the chill loop.
 |---|---|
 | ACQUIRED (total) | $3,008.36 |
 | ON-ORDER | $600.00 |
-| LIKELY-TO-BUY | $113.95 |
-| **Grand total** | $3,722.31 |
+| LIKELY-TO-BUY | $120.44 |
+| **Grand total** | $3,728.80 |
 
 Excluded from totals (price unresolved, still marked "bundle"): Meshnology ESP32-S3 display (row 135), 12 V 2 A DC power supply (row 148), Haisstronica ratchet crimper (row 154). Beduan flavor-manifold solenoid (row 76) counted at $9.64 × 4; actual qty across orders may differ.

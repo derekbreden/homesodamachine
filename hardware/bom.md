@@ -64,8 +64,7 @@ First-pass draft. Prices from resolved Amazon order history (parts-list.md) or d
 | [GOORY 1/4" OD × 50 ft ACR copper coil (evaporator)](https://www.amazon.com/dp/B0DKSW5VL9) | B0DKSW5VL9 | 1 | $63.99 | $63.99 |
 | [Teyleten 3.3 V relay module, opto-isolated, 10 A @ 250 VAC (5-pk)](https://www.amazon.com/dp/B07XGZSYJV) | B07XGZSYJV — compressor AC switching; ESP32 GPIO 14 drives input directly; 1 of 5 per unit | 1 (of 5 pk) | $2.60 | $2.60 |
 | [HiLetgo DS18B20 waterproof 1-wire probe, 1 m SS sheath (5-pk)](https://www.amazon.com/dp/B00M1PM55K) | B00M1PM55K — 2 probes per unit: tank wall (compressor cycling setpoint) + evaporator coil (freeze-protect cutout); 2 of 5 per unit | 2 (of 5 pk) | $2.20 | $4.40 |
-| [Inline AC fuse holder kit, 5×20 mm](https://www.amazon.com/dp/B07BC8DW3L) | B07BC8DW3L — 5 A fast-blow on compressor hot leg | 1 kit | $12.86 | $12.86 |
-| [Leviton CR020-W 20 A 125 VAC single receptacle](https://www.amazon.com/dp/B003ATTR8Y) | B003ATTR8Y — rear-panel appliance AC inlet | 1 | $3.26 | $3.26 |
+| [MXR IEC 60320 C14 panel-mount AC inlet, 10 A / 250 VAC (10-pk)](https://www.amazon.com/dp/B07DCXKNXQ) | B07DCXKNXQ — rear-panel mains inlet; accepts standard NEMA 5-15P-to-C13 line cord; 1 of 10 per unit | 1 (of 10 pk) | $0.65 | $0.65 |
 
 Fallback path (UL/ETL-retail-friendly): RIGID DV1910E sealed refrigeration module (~$600 + 20–30% import duty). Not selected for this BOM.
 
@@ -143,16 +142,16 @@ Dishing dies (PA6-CF) for end-cap forming are vessel-fabrication tools, not ship
 | 2. Carbonator vessel | $198.56 |
 | 3. Water inlet | $144.33 |
 | 4. CO2 subsystem | $68.29 |
-| 5. Refrigeration | $160.49 |
+| 5. Refrigeration | $145.02 |
 | 6. Cold core insulation | $49.99 |
 | 7. Printed parts (PETG) | $103.94 |
 | 8. Flavor subsystem | $308.84 |
 | 9. Dispensing | $39.27 |
 | 10. UI | $39.95 |
 | 11. Wiring | $25.94 |
-| **Sourced + estimated subtotal** | **$1,307.83** |
+| **Sourced + estimated subtotal** | **$1,292.36** |
 | 12. Not yet sourced | $10.00 |
-| **Projected total** | **$1,317.83** |
+| **Projected total** | **$1,302.36** |
 
 ## External / user-supplied (not shipped)
 
@@ -173,6 +172,8 @@ Dishing dies (PA6-CF) for end-cap forming are vessel-fabrication tools, not ship
 - **EPA 608 Type I certification** (~$25 online exam) — required to do refrigeration harvest, not a part
 - **RIGID DV1910E** — refrigeration fallback path, not selected
 - **Westbrass D203 6" faucet B01MZ6JPXW** — duplicate of 8" variant; one ships
+- **Leviton CR020-W single receptacle B003ATTR8Y** — wrongly spec'd as "AC inlet" in an earlier revision; a female outlet cannot serve as an inlet without a suicide cord. Replaced by MXR IEC C14 chassis inlet B07DCXKNXQ
+- **Inline 5×20 mm glass-fuse holder B07BC8DW3L** — bench-test gear, not production. Consumer appliances rely on branch-breaker + compressor PTC/thermal overload, not a user-accessible glass fuse. Also wrongly spec'd: 5 A fast-blow would nuisance-trip on every compressor inrush
 
 ## Notes / open questions
 
