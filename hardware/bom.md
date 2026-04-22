@@ -2,9 +2,9 @@
 
 Per-unit parts for a single finished appliance built on the **custom-racetrack-vessel** path specified in [future.md](future.md): in-house fabricated 304 SS carbonator, compressor harvested from a countertop ice-maker, 3D-printed cold-core shells with spray-foam insulation, two 1 L Platypus bladders inside the cold core.
 
-Prototype tools, fabrication equipment (welder, slip roll, shop press, dishing dies), donor parts consumed during teardown, duplicate SKUs, and consumables live in [parts-list.md](parts-list.md).
+Prototype tools, fabrication equipment (welder, slip roll, shop press, dishing dies), donor parts consumed during teardown, duplicate SKUs, and consumables live in [purchases.md](purchases.md).
 
-First-pass draft. Prices from resolved Amazon order history (parts-list.md) or direct-source quotes. Expect revisions.
+First-pass draft. Prices from resolved Amazon order history (purchases.md) or direct-source quotes. Expect revisions.
 
 ## 1. Controllers + electronics
 
@@ -67,7 +67,7 @@ First-pass draft. Prices from resolved Amazon order history (parts-list.md) or d
 | [HiLetgo DS18B20 waterproof 1-wire probe, 1 m SS sheath (5-pk)](https://www.amazon.com/dp/B00M1PM55K) | B00M1PM55K — 2 probes per unit: tank wall (compressor cycling setpoint) + evaporator coil (freeze-protect cutout); 2 of 5 per unit | 2 (of 5 pk) | $2.20 | $4.40 |
 | [MXR IEC 60320 C14 panel-mount AC inlet, 10 A / 250 VAC (10-pk)](https://www.amazon.com/dp/B07DCXKNXQ) | B07DCXKNXQ — rear-panel mains inlet; accepts standard NEMA 5-15P-to-C13 line cord; 1 of 10 per unit | 1 (of 10 pk) | $0.65 | $0.65 |
 | [Monoprice NEMA 5-15P → IEC C13 line cord, 18 AWG, 6 ft, UL-listed (6-pk)](https://www.amazon.com/dp/B08VS8D4WC) | B08VS8D4WC — ships in the box so the customer can plug the appliance into a standard US wall outlet; 1 of 6 per unit | 1 (of 6 pk) | $3.73 | $3.73 |
-| [Enviro-Safe R-600a 3-pack + brass charging gauge](https://www.amazon.com/dp/B0CGG1WH1N) | B0CGG1WH1N — pure R-600a (not blend or n-butane); refills the sealed loop after venting factory charge; ~40 g per system × ~12 recharges per 3-can bundle; 1/12 of $67.99; brass gauge stays with tools (see parts-list.md) | 1 | $5.67 | $5.67 |
+| [Enviro-Safe R-600a 3-pack + brass charging gauge](https://www.amazon.com/dp/B0CGG1WH1N) | B0CGG1WH1N — pure R-600a (not blend or n-butane); refills the sealed loop after venting factory charge; ~40 g per system × ~12 recharges per 3-can bundle; 1/12 of $67.99; brass gauge stays with tools (see purchases.md) | 1 | $5.67 | $5.67 |
 
 Fallback path (UL/ETL-retail-friendly): RIGID DV1910E sealed refrigeration module (~$600 + 20–30% import duty). Not selected for this BOM.
 
@@ -135,7 +135,7 @@ Dishing dies (PA6-CF) for end-cap forming are vessel-fabrication tools, not ship
 
 | Part | Notes | Est. $ |
 |---|---|---:|
-| FDC1004 capacitive level-sensor breakout | Tank level sensing per future.md §27 — not yet in parts-list | $10.00 |
+| FDC1004 capacitive level-sensor breakout | Tank level sensing per future.md §27 — not yet in purchases.md | $10.00 |
 
 ## Totals
 
