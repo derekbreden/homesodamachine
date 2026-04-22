@@ -39,9 +39,9 @@ Evaporator coil: GOORY 1/4" OD x 0.187" ID, C12200 ACR (ASTM B280), thick-wall (
 
 Compressor cycling is controlled by firmware, not a mechanical thermostat. Two DS18B20 waterproof 1-wire temperature probes on a shared bus: one clamped to the carbonator tank wall reads water-side temperature for cycle control (target ~2 °C, hysteresis ~2 °C — compressor off at 2 °C, on at 4 °C); a second bonded to the evaporator suction line reads coil temperature for freeze protection (hard cutout at −8 °C to prevent the water in the tank from freezing against the coil). The ESP32 reads both probes and drives the Teyleten relay module on GPIO 14 to switch the compressor's AC hot leg. A minimum off-time enforced in firmware (~3 min) prevents short-cycling and protects the compressor's start capacitor.
 
-Requires EPA 608 certification to handle R134a: recover the factory charge during teardown, evacuate the reassembled system, and recharge. Total component cost per unit: ~$100-110.
+Factory charge is R-600a (isobutane) — R-600a is carved out of the EPA Section 608 venting prohibition as a natural refrigerant, so the loop is vented to atmosphere through a piercing valve rather than recovered into a machine. No 608 certification is legally required. Teardown sequence: vent factory charge, cut out old drier and braze in a replacement (Supco D111, integrated Schrader), pull vacuum, recharge from a 6 oz Enviro-Safe pure R-600a can (~40 g per system, metered by mass). Total component cost per unit: ~$100-110.
 
-Fallback: the RIGID DV1910E (~$600 + 20-30% import tax) is a factory-sealed, pre-charged OEM module with a flexible copper coil evaporator that can be reshaped without breaking the refrigerant loop. No EPA 608 required. The cost premium buys a certification shortcut for retail channels (Amazon, big-box) that require UL/ETL listing.
+Fallback: the RIGID DV1910E (~$600 + 20-30% import tax) is a factory-sealed, pre-charged OEM module with a flexible copper coil evaporator that can be reshaped without breaking the refrigerant loop. The cost premium buys a UL/ETL listing for retail channels (Amazon, big-box) that require one.
 
 
 **Cold core assembly (inside out)**
