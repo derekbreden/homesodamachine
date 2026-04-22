@@ -62,10 +62,12 @@ First-pass draft. Prices from resolved Amazon order history (parts-list.md) or d
 |---|---|---:|---:|---:|
 | [Frigidaire EFIC117-SS ice-maker donor (compressor/condenser/cap-tube/drier)](https://www.amazon.com/dp/B07PCZKG94) | B07PCZKG94 | 1 | $73.38 | $73.38 |
 | [GOORY 1/4" OD × 50 ft ACR copper coil (evaporator)](https://www.amazon.com/dp/B0DKSW5VL9) | B0DKSW5VL9 | 1 | $63.99 | $63.99 |
+| [Supco D111 replacement filter-drier, 1/4" × 1/4" sweat, XH-9 molecular sieve](https://www.amazon.com/dp/B00DM8KGXS) | B00DM8KGXS — replaces factory drier after venting; XH-9 desiccant is hydrocarbon-compatible; brazes into existing loop between condenser outlet and cap-tube inlet | 1 | $12.28 | $12.28 |
 | [Teyleten 3.3 V relay module, opto-isolated, 10 A @ 250 VAC (5-pk)](https://www.amazon.com/dp/B07XGZSYJV) | B07XGZSYJV — compressor AC switching; ESP32 GPIO 14 drives input directly; 1 of 5 per unit | 1 (of 5 pk) | $2.60 | $2.60 |
 | [HiLetgo DS18B20 waterproof 1-wire probe, 1 m SS sheath (5-pk)](https://www.amazon.com/dp/B00M1PM55K) | B00M1PM55K — 2 probes per unit: tank wall (compressor cycling setpoint) + evaporator coil (freeze-protect cutout); 2 of 5 per unit | 2 (of 5 pk) | $2.20 | $4.40 |
 | [MXR IEC 60320 C14 panel-mount AC inlet, 10 A / 250 VAC (10-pk)](https://www.amazon.com/dp/B07DCXKNXQ) | B07DCXKNXQ — rear-panel mains inlet; accepts standard NEMA 5-15P-to-C13 line cord; 1 of 10 per unit | 1 (of 10 pk) | $0.65 | $0.65 |
 | [Monoprice NEMA 5-15P → IEC C13 line cord, 18 AWG, 6 ft, UL-listed (6-pk)](https://www.amazon.com/dp/B08VS8D4WC) | B08VS8D4WC — ships in the box so the customer can plug the appliance into a standard US wall outlet; 1 of 6 per unit | 1 (of 6 pk) | $3.73 | $3.73 |
+| [Enviro-Safe R-600a 3-pack + brass charging gauge](https://www.amazon.com/dp/B0CGG1WH1N) | B0CGG1WH1N — pure R-600a (not blend or n-butane); refills the sealed loop after venting factory charge; ~40 g per system × ~12 recharges per 3-can bundle; 1/12 of $67.99; brass gauge stays with tools (see parts-list.md) | 1 | $5.67 | $5.67 |
 
 Fallback path (UL/ETL-retail-friendly): RIGID DV1910E sealed refrigeration module (~$600 + 20–30% import duty). Not selected for this BOM.
 
@@ -143,16 +145,16 @@ Dishing dies (PA6-CF) for end-cap forming are vessel-fabrication tools, not ship
 | 2. Carbonator vessel | $198.56 |
 | 3. Water inlet | $144.33 |
 | 4. CO2 subsystem | $68.29 |
-| 5. Refrigeration | $148.75 |
+| 5. Refrigeration | $166.70 |
 | 6. Cold core insulation | $49.99 |
 | 7. Printed parts (PETG) | $103.94 |
 | 8. Flavor subsystem | $308.84 |
 | 9. Dispensing | $39.27 |
 | 10. UI | $39.95 |
 | 11. Wiring | $25.94 |
-| **Sourced + estimated subtotal** | **$1,296.09** |
+| **Sourced + estimated subtotal** | **$1,314.04** |
 | 12. Not yet sourced | $10.00 |
-| **Projected total** | **$1,306.09** |
+| **Projected total** | **$1,324.04** |
 
 ## External / user-supplied (not shipped)
 

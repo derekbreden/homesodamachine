@@ -122,6 +122,13 @@ Ice-maker donor units and copper coil for the chill loop.
 | RIGID DV1910E sealed refrigeration module (alt path) | [ridgid.com](https://www.ridgid.com/) (direct order) | 1 | ~$600 + import | ON-ORDER (2+ wks, stuck) |
 | Fiberglass Supply Depot 2 lb 2-part closed-cell pour-in-place PU foam, 1 qt kit — cold-core insulation | [B08R7TX8QJ](https://www.amazon.com/dp/B08R7TX8QJ) | 1 kit | $39.99 | LIKELY-TO-BUY |
 | HiLetgo DS18B20 waterproof 1-wire temperature probe, 1 m SS sheath (5 pk) — tank wall + evap coil sensors for compressor control | [B00M1PM55K](https://www.amazon.com/dp/B00M1PM55K) | 1 pk | $10.99 | LIKELY-TO-BUY |
+| Supco D111 replacement filter-drier, 1/4" × 1/4" sweat, XH-9 — brazed in after venting, replaces spent factory drier | [B00DM8KGXS](https://www.amazon.com/dp/B00DM8KGXS) | 1 | $12.28 | ON-ORDER |
+| Orion Motor Tech HVAC A/C manifold gauge set, 1/4" SAE | [B07CZB2SHZ](https://www.amazon.com/dp/B07CZB2SHZ) | 1 | $44.98 | ON-ORDER |
+| Orion Motor Tech 4 CFM 1/3 HP single-stage vacuum pump, 110 V, 150 µ ultimate | [B08P1WRZ1S](https://www.amazon.com/dp/B08P1WRZ1S) | 1 | $72.99 | ON-ORDER |
+| Supco BPV31 bullet-piercing valve — taps compressor process tube for recovery/recharge access | [B00DM8J3MI](https://www.amazon.com/dp/B00DM8J3MI) | 1 | $6.87 | ON-ORDER |
+| Smart Weigh Pro pocket scale, 500 g × 0.01 g — refrigerant charge metering by mass | [B00IZ1YHZK](https://www.amazon.com/dp/B00IZ1YHZK) | 1 | $17.95 | ON-ORDER |
+| Elitech PT520A refrigerant/hydrocarbon gas leak detector | [B0BTM3G8DK](https://www.amazon.com/dp/B0BTM3G8DK) | 1 | $39.99 | ON-ORDER |
+| Enviro-Safe R-600a 3-pack (3× 6 oz self-sealing cans) + brass charging gauge — CME Biz / Enviro-Safe Refrigerants Inc., 22+ year hydrocarbon refrigerant mfr; brass gauge replaces need for separate 7/16" adapter and replaces the earlier notched-canister piercing kit | [B0CGG1WH1N](https://www.amazon.com/dp/B0CGG1WH1N) | 1 | $67.99 | ON-ORDER |
 
 ## 7. Dispensing end — faucet, flow sensor
 
@@ -219,8 +226,8 @@ Ice-maker donor units and copper coil for the chill loop.
 | Status | $ |
 |---|---|
 | ACQUIRED (total) | $3,008.36 |
-| ON-ORDER | $600.00 |
+| ON-ORDER | $863.05 |
 | LIKELY-TO-BUY | $142.82 |
-| **Grand total** | $3,751.18 |
+| **Grand total** | $4,014.23 |
 
 Excluded from totals (price unresolved, still marked "bundle"): Meshnology ESP32-S3 display (row 135), 12 V 2 A DC power supply (row 148), Haisstronica ratchet crimper (row 154). Beduan flavor-manifold solenoid (row 76) counted at $9.64 × 4; actual qty across orders may differ.
