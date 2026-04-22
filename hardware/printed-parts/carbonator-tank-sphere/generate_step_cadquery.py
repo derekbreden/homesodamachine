@@ -18,17 +18,12 @@ Wall rationale (thin-wall sphere, σ = P·r/(2t)):
   Against ~15 MPa creep-adjusted allowable for well-printed PETG,
   that's SF ~3 long-term.
 
-Alongside the main tank, a smaller test sphere with a port for a John
-Guest PP1208E 1/4" OD push-to-connect bulkhead union is generated for
-dialing in print settings (layer adhesion, support strategy, overfill,
-temps) and for pressure-testing the fitting.  The previous printed
-1/4 NPT thread was a weep point; the JG bulkhead replaces that printed
-thread with a proper mechanical seal (flange + O-ring + jam nut).
-
-A JG bulkhead clamps between its flange and a jam nut against two flat
-faces — a sphere's outside surface is curved, so the fitting cannot seat
-on the naked sphere.  Flat bosses on both the outside (for the flange
-face) and inside (for the jam nut) are added around the through-hole.
+Alongside the main tank, a smaller test sphere with a plain through-hole
+at the top pole is generated for dialing in print settings (layer
+adhesion, support strategy, overfill, temps) and for pressure-testing
+the fitting.  The hole accepts a John Guest PP1208E 1/4" OD push-to-
+connect bulkhead union — its O-ring seats directly against the curved
+outer sphere wall, so no flat boss is needed on the print.
 """
 
 import math
@@ -49,9 +44,10 @@ R_OUTER = R_INNER + WALL                                            # 76.0 mm
 
 # Test sphere: same wall, smaller diameter for dialing in print settings
 # (layer adhesion, support removal, overfill, temps).  Real 5 mm walls so
-# the tuning translates directly to the full-size part.  The JG bulkhead
-# passes through a boss at the top pole — see the JG section below.
-TEST_R_OUTER = 30.0
+# the tuning translates directly to the full-size part.  A plain through-
+# hole at the top pole passes the JG bulkhead shank; the fitting's O-ring
+# seals against the curved outer wall.
+TEST_R_OUTER = 40.0
 TEST_R_INNER = TEST_R_OUTER - WALL
 
 
@@ -62,62 +58,13 @@ TEST_R_INNER = TEST_R_OUTER - WALL
 # Published dimensions for the PP1208E (1/4" OD black polypropylene
 # push-to-connect bulkhead union, ASIN B00JYFU8MM):
 #   Panel hole:       5/8"      = 15.875 mm
-#   Body OD / flange: ~0.875"   = 22.2 mm (both flange and jam-nut hex
-#                                 fit within this envelope)
+#   Body OD / flange: ~0.875"   = 22.2 mm
 #   Overall length:   ~1.375"   = 34.9 mm
-#   Max panel thickness: not published by JG, but the overall length
-#                     minus flange thickness and collet engagement
-#                     leaves ~10–14 mm of thread, well over our 5 mm
-#                     wall even after adding a boss on each side.
 #
-# Boss design:
-#   Outside: flat-topped cylindrical pedestal tangent-merged into the
-#            sphere, wide enough that the flange (~22 mm OD) sits fully
-#            on flat plastic with margin.
-#   Inside:  matching cylindrical pedestal for the jam nut.  At
-#            TEST_R_INNER = 25 mm the interior curvature is steep enough
-#            that a 22 mm hex nut would rock on a bare sphere wall.
-#
-#   Through-hole: 5/8" + print-tolerance clearance so the shank passes
-#            cleanly without being a press fit.
+# Through-hole: 5/8" + print-tolerance clearance so the shank passes
+# cleanly without being a press fit.
 
-JG_HOLE_DIA         = 5/8 * 25.4 + 0.25        # 16.13 mm (hole w/ tolerance)
-JG_FLANGE_OD        = 22.2                     # published body/flange OD
-JG_BOSS_OD          = JG_FLANGE_OD + 4.0       # 26.2 mm — flange + 2 mm margin
-JG_BOSS_HEIGHT_OUT  = 4.0                      # apex rise above outer pole
-JG_BOSS_HEIGHT_IN   = 3.0                      # apex drop below inner pole
-
-
-def build_boss(od, height, z_base, direction):
-    """Cylindrical pedestal along +Z, merged into the sphere.
-
-    Parameters
-    ----------
-    od        : boss outer diameter
-    height    : axial thickness of the pedestal above/below the pole
-    z_base    : axial coordinate of the sphere surface at the axis
-                (TEST_R_OUTER for the outside boss,  TEST_R_INNER for
-                 the inside boss)
-    direction : +1 for an outside boss rising in +Z away from the
-                sphere, -1 for an inside boss descending in -Z from the
-                inner pole into the cavity
-    """
-    # The cylinder base is sunk well into the sphere so the boss stays
-    # connected to the wall after the through-hole is cut.  At the boss
-    # bottom (z = z_base - overlap on the outside case) the sphere's
-    # own material extends from r=0 out to sqrt(r_sphere² - z²); we
-    # need that radius to exceed the hole radius, or the hole will
-    # trim the boss off at the neck.  overlap=3 mm easily clears the
-    # 5/8" hole for both TEST_R_OUTER=30 and TEST_R_INNER=25.
-    overlap = 3.0
-    bottom = z_base - overlap if direction > 0 else z_base - height
-    length = height + overlap
-    return (
-        cq.Workplane("XY")
-        .workplane(offset=bottom)
-        .circle(od / 2)
-        .extrude(length)
-    )
+JG_HOLE_DIA = 5/8 * 25.4 + 0.25        # 16.13 mm (hole w/ tolerance)
 
 
 # ═══════════════════════════════════════════════════════
@@ -131,49 +78,27 @@ def build_hollow_sphere(r_outer, r_inner):
     )
 
 
-def build_test_sphere_with_jg_port():
+def build_test_sphere():
+    """Test sphere with a plain axial through-hole at the top pole.
+
+    The JG bulkhead's O-ring seals directly against the curved outer
+    sphere wall — no flat boss.  The cutter cylinder overshoots both
+    the outer sphere surface (above the +Z pole at TEST_R_OUTER) and
+    the inner cavity surface (below the +Z inner pole at TEST_R_INNER)
+    by ~2 mm on each side.  The overshoot guarantees clean breakthrough
+    on both sides and avoids the thin tessellation sliver OCCT can leave
+    when a cylindrical cutter just barely grazes a spherical surface.
+    """
     part = build_hollow_sphere(TEST_R_OUTER, TEST_R_INNER)
-
-    # Outside flat-top boss for the flange face.  Merges into the sphere
-    # at the top pole and rises JG_BOSS_HEIGHT_OUT above it.
-    outer_boss = build_boss(
-        od=JG_BOSS_OD,
-        height=JG_BOSS_HEIGHT_OUT,
-        z_base=TEST_R_OUTER,
-        direction=+1,
-    )
-    part = part.union(outer_boss)
-
-    # Inside flat-bottom boss for the jam-nut face.  Descends into the
-    # cavity from the inner pole by JG_BOSS_HEIGHT_IN.  TEST_R_INNER is
-    # 25 mm; the boss OD is 26.2 mm — fits easily without touching the
-    # opposite wall.
-    inner_boss = build_boss(
-        od=JG_BOSS_OD,
-        height=JG_BOSS_HEIGHT_IN,
-        z_base=TEST_R_INNER,
-        direction=-1,
-    )
-    part = part.union(inner_boss)
-
-    # Clean through-hole sized for the JG shank.  Enters the outer
-    # boss face at +Z, breaches the sphere wall, emerges through the
-    # inner boss face into the cavity.  It stops there — it does NOT
-    # continue down to the south pole, because the hole diameter is
-    # large enough that a full-axis cut would clip off the south-pole
-    # cap of the shell (where the sphere's wall-material at the axis
-    # is thinner than the hole radius).
-    z_top    = TEST_R_OUTER + JG_BOSS_HEIGHT_OUT + 1.0       # 35.0
-    z_bottom = TEST_R_INNER - JG_BOSS_HEIGHT_IN - 1.0        # 21.0
+    z_top    = TEST_R_OUTER + 2.0           # 42.0 — 2 mm past outer pole
+    z_bottom = TEST_R_INNER - 2.0           # 33.0 — 2 mm past inner pole
     hole = (
         cq.Workplane("XY")
         .workplane(offset=z_bottom)
         .circle(JG_HOLE_DIA / 2)
         .extrude(z_top - z_bottom)
     )
-    part = part.cut(hole)
-
-    return part
+    return part.cut(hole)
 
 
 # ═══════════════════════════════════════════════════════
@@ -183,7 +108,7 @@ def build_test_sphere_with_jg_port():
 out_dir = Path(__file__).resolve().parent
 
 main_tank = build_hollow_sphere(R_OUTER, R_INNER)
-test_part = build_test_sphere_with_jg_port()
+test_part = build_test_sphere()
 
 PARTS = [
     ("carbonator-tank-sphere",      main_tank, R_INNER,      R_OUTER),
