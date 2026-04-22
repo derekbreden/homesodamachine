@@ -172,7 +172,6 @@ Dishing dies (PA6-CF) for end-cap forming are vessel-fabrication tools, not ship
 - **Laminate shelf + wood screws** — prototype mounting panel, replaced by final enclosure
 - **Syrup 4-packs** — consumable, not product
 - **Klein crimper, USB flash cables** — assembly/dev tools, not product
-- **EPA 608 Type I certification** (~$25 online exam) — required to do refrigeration harvest, not a part
 - **RIGID DV1910E** — refrigeration fallback path, not selected
 - **Westbrass D203 6" faucet B01MZ6JPXW** — duplicate of 8" variant; one ships
 - **Leviton CR020-W single receptacle B003ATTR8Y** — wrongly spec'd as "AC inlet" in an earlier revision; a female outlet cannot serve as an inlet without a suicide cord. Replaced by MXR IEC C14 chassis inlet B07DCXKNXQ
@@ -182,4 +181,4 @@ Dishing dies (PA6-CF) for end-cap forming are vessel-fabrication tools, not ship
 
 - **ChillWaves check valve B0DPLBYZB4 seat material** — future.md requires metal or PTFE seat (not elastomer); confirm or substitute.
 - **Platypus 1 L vs 2 L** — future.md §53 specifies 1 L bladders. README's parts list shows 2 L. Using 1 L per future.md; revisit if cradle geometry forces larger.
-- **Refrigeration charge** — ice-maker donor path assumes R-134a recovery/recharge; cost excludes refrigerant loss if harvest fails and a top-up is needed.
+- **Refrigeration charge** — Path A vents the factory R-600a charge and recharges from Enviro-Safe cans (§5); ~40 g per system × 12 recharges per 3-can bundle amortizes to ~$5.67/unit. No recovery equipment and no EPA 608 cert required (natural-refrigerant carveout).

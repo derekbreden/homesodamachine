@@ -6,12 +6,12 @@ Two countertop ice makers were purchased for harvesting refrigeration components
 
 As of 2026-04-18, the cold core design has two live options. Keep-vs-discard decisions below depend on which path wins.
 
-- **Path A — custom SS carbonator + new evaporator coil.** Discard the factory finger-plate evaporator; wind a custom copper coil around a fabricated 304 SS racetrack carbonator. Refrigerant loop must be opened (cut into the suction and cap-tube sides of the factory evaporator), so factory charge must be recovered, drier replaced, system evacuated, and recharged. This path is the one `future.md` currently describes.
-- **Path B — factory evaporator kept in place, FDM-printed pressure vessel around it.** Keep the factory finger-plate evaporator wired in-circuit, exactly as shipped. Surround it with a PA6-CF structural shell lined with TPU (the TPU is the pressure boundary; the CF shell carries hoop stress). The refrigerant loop is never opened — factory charge stays sealed, no recovery / recharge needed, no EPA 608 work in the critical path. The evaporator's cold fingers become the internal geometry of the vessel.
+- **Path A — custom SS carbonator + new evaporator coil.** Discard the factory finger-plate evaporator; wind a custom copper coil around a fabricated 304 SS racetrack carbonator. Refrigerant loop must be opened (cut into the suction and cap-tube sides of the factory evaporator), so factory charge must be vented, drier replaced, system evacuated, and recharged. This path is the one `future.md` describes.
+- **Path B — factory evaporator kept in place, FDM-printed pressure vessel around it.** Keep the factory finger-plate evaporator wired in-circuit, exactly as shipped. Surround it with a PA6-CF structural shell lined with TPU (the TPU is the pressure boundary; the CF shell carries hoop stress). The refrigerant loop is never opened — factory charge stays sealed, no vent / recharge needed. The evaporator's cold fingers become the internal geometry of the vessel.
 
 Under Path B the evaporator, the cap tube, the filter-drier, and the suction line all stay intact and move out of the "discard" column. The hot-gas bypass solenoid is still deleted (we want steady cold, not harvest cycles) under both paths.
 
-EPA 608 Type I certification is still required for Path A; both R600a systems ship with small hydrocarbon charges, so recovery equipment must be hydrocarbon-rated / intrinsically safe — R134a-only recovery machines are not appropriate.
+R-600a is carved out of the EPA Section 608 venting prohibition as a natural refrigerant, so no 608 certification is legally required for either path. Standard (non-hydrocarbon-rated) HVAC vacuum pump and manifold are fine — we vent to atmosphere rather than recover, so recovery-equipment hydrocarbon compatibility is moot.
 
 ---
 
@@ -24,9 +24,7 @@ EPA 608 Type I certification is still required for Path A; both R600a systems sh
 
 ### Refrigerant
 
-**R600a (isobutane).** Flammable. Charge is small (well under the 150 g UL 60335-2-89 limit for small appliances; factory label will list the exact mass). Brazing anywhere in the sealed loop requires the charge to be recovered first — do not heat a pressurized R600a circuit.
-
-Note: `future.md` references R134a for the teardown-and-recharge workflow. That should be reconciled — at minimum this unit uses R600a, and the Frigidaire very likely does too (nearly all current-gen countertop ice makers are R600a). The recharge plan may need to keep the factory refrigerant rather than converting.
+**R600a (isobutane).** Flammable. Charge is small (well under the 150 g UL 60335-2-89 limit for small appliances; factory label will list the exact mass). Brazing anywhere in the sealed loop requires the charge to be vented first — do not heat a pressurized R600a circuit.
 
 ### Refrigerant circuit topology (verified by disassembly)
 
@@ -127,7 +125,7 @@ For ESP32 control:
 | Condenser + fan | Keep |
 | Capillary tube (bonded to suction line) | Keep — do not separate |
 | Filter-drier | Keep in place; replace with fresh drier before recharge if the loop is opened |
-| Process tube | Keep — recovery/recharge access point |
+| Process tube | Keep — vent/recharge access point |
 | Hot-gas bypass solenoid | Discard / bypass |
 | Evaporator finger plate | Path A: discard. Path B: keep in place as the vessel internal geometry |
 | Thermostat / harvest-cycle controller | Discard (custom ESP32-S3 firmware replaces it) |

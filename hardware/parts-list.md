@@ -125,7 +125,7 @@ Ice-maker donor units and copper coil for the chill loop.
 | Supco D111 replacement filter-drier, 1/4" × 1/4" sweat, XH-9 — brazed in after venting, replaces spent factory drier | [B00DM8KGXS](https://www.amazon.com/dp/B00DM8KGXS) | 1 | $12.28 | ON-ORDER |
 | Orion Motor Tech HVAC A/C manifold gauge set, 1/4" SAE | [B07CZB2SHZ](https://www.amazon.com/dp/B07CZB2SHZ) | 1 | $44.98 | ON-ORDER |
 | Orion Motor Tech 4 CFM 1/3 HP single-stage vacuum pump, 110 V, 150 µ ultimate | [B08P1WRZ1S](https://www.amazon.com/dp/B08P1WRZ1S) | 1 | $72.99 | ON-ORDER |
-| Supco BPV31 bullet-piercing valve — taps compressor process tube for recovery/recharge access | [B00DM8J3MI](https://www.amazon.com/dp/B00DM8J3MI) | 1 | $6.87 | ON-ORDER |
+| Supco BPV31 bullet-piercing valve — taps compressor process tube for initial vent + recharge access | [B00DM8J3MI](https://www.amazon.com/dp/B00DM8J3MI) | 1 | $6.87 | ON-ORDER |
 | Smart Weigh Pro pocket scale, 500 g × 0.01 g — refrigerant charge metering by mass | [B00IZ1YHZK](https://www.amazon.com/dp/B00IZ1YHZK) | 1 | $17.95 | ON-ORDER |
 | Elitech PT520A refrigerant/hydrocarbon gas leak detector | [B0BTM3G8DK](https://www.amazon.com/dp/B0BTM3G8DK) | 1 | $39.99 | ON-ORDER |
 | Enviro-Safe R-600a 3-pack (3× 6 oz self-sealing cans) + brass charging gauge — CME Biz / Enviro-Safe Refrigerants Inc., 22+ year hydrocarbon refrigerant mfr; brass gauge replaces need for separate 7/16" adapter and replaces the earlier notched-canister piercing kit | [B0CGG1WH1N](https://www.amazon.com/dp/B0CGG1WH1N) | 1 | $67.99 | ON-ORDER |
@@ -217,7 +217,6 @@ Ice-maker donor units and copper coil for the chill loop.
 |---|---|
 | **CO2 cylinder** | 5 lb or 10 lb aluminum, CGA-320. Regulator in hand; tank not yet on Amazon. |
 | **Additional flavor-manifold solenoids** | Manifold diagram needs 12 valves (V-A through V-J plus V-K-A and V-K-B); current Beduan B07NWCQJK9 count across orders is short. Verify qty per order, then top up. |
-| **EPA 608 Type I certification** | Not a part; $25 online exam. Needed only if harvest refrigeration path requires opening the refrigerant loop (clamped-plate approach avoids this). |
 
 ---
 
