@@ -1,8 +1,5 @@
 """
-Carbonator tank: hollow sphere, first iteration.
-
-Simplest shape that occupies the target space — no ports, no bosses,
-no retention features on the main tank.  Ports come in later rounds.
+Carbonator tank: hollow sphere with 4 top-pole bulkhead ports.
 
 Sized for 1.5 L interior at 5 mm wall (PETG at 100 psi sustained):
 
@@ -18,12 +15,18 @@ Wall rationale (thin-wall sphere, σ = P·r/(2t)):
   Against ~15 MPa creep-adjusted allowable for well-printed PETG,
   that's SF ~3 long-term.
 
-Alongside the main tank, a smaller test sphere with a plain through-hole
-at the top pole is generated for dialing in print settings (layer
-adhesion, support strategy, overfill, temps) and for pressure-testing
-the fitting.  The hole accepts a John Guest PP1208E 1/4" OD push-to-
-connect bulkhead union — its O-ring seats directly against the curved
-outer sphere wall, so no flat boss is needed on the print.
+The main tank has four parallel (+Z axis) through-holes clustered at
+the top pole in a 2×2 grid, 25 mm center-to-center, for John Guest
+PP1208E 1/4" OD push-to-connect bulkhead unions.  Each fitting's
+O-ring seals directly against the curved outer sphere wall, so no
+flat bosses are added.  25 mm spacing leaves ~2.8 mm clearance between
+the 22.2 mm flange ODs of neighbouring fittings — as tight as the
+flanges allow without overlap.
+
+Alongside the main tank, a smaller test sphere with a single plain
+through-hole at the top pole is generated for dialing in print settings
+(layer adhesion, support strategy, overfill, temps) and for pressure-
+testing a single fitting before committing to the full-size print.
 """
 
 import math
@@ -66,6 +69,19 @@ TEST_R_INNER = TEST_R_OUTER - WALL
 
 JG_HOLE_DIA = 5/8 * 25.4 + 0.25        # 16.13 mm (hole w/ tolerance)
 
+# Main-tank port layout: 2×2 grid of parallel (+Z) through-holes at
+# the top pole, 25 mm center-to-center in X and Y.  With the JG flange
+# OD of ~22.2 mm this leaves ~2.8 mm between neighbouring flanges —
+# tight but non-overlapping, "as close as fittings allow".
+PORT_SPACING = 25.0
+PORT_OFFSET  = PORT_SPACING / 2                        # 12.5 mm from axis
+PORT_XY = [
+    ( PORT_OFFSET,  PORT_OFFSET),
+    (-PORT_OFFSET,  PORT_OFFSET),
+    ( PORT_OFFSET, -PORT_OFFSET),
+    (-PORT_OFFSET, -PORT_OFFSET),
+]
+
 
 # ═══════════════════════════════════════════════════════
 # BUILDS
@@ -101,13 +117,46 @@ def build_test_sphere():
     return part.cut(hole)
 
 
+def build_main_tank_with_ports():
+    """Main 1.5 L hollow sphere with 4 parallel +Z through-holes at top.
+
+    Cutter Z extent is sized so every cutter fully breaches both the
+    outer (R_OUTER=76) and inner (R_INNER=71) spherical surfaces across
+    its whole XY footprint, with ~2 mm overshoot past the worst-case
+    grazing points on each side:
+
+      cutter radius                 = JG_HOLE_DIA / 2        = 8.065 mm
+      footprint max r from origin   = √(12.5²+12.5²) + 8.065 = 25.74 mm
+      footprint min r from origin   = √(12.5²+12.5²) − 8.065 =  9.62 mm
+      inner-shell low z under foot  = √(71² − 25.74²)        = 66.17 mm
+      outer-shell high z over foot  = √(76² −  9.62²)        = 75.39 mm
+
+    Spanning z ∈ [64, 78] covers that range with margin on both ends,
+    which avoids the thin tessellation slivers OCCT can leave when a
+    cylindrical cutter just barely grazes a spherical surface.
+    """
+    part = build_hollow_sphere(R_OUTER, R_INNER)
+    z_bottom = 64.0
+    z_top    = 78.0
+    for (x0, y0) in PORT_XY:
+        hole = (
+            cq.Workplane("XY")
+            .workplane(offset=z_bottom)
+            .center(x0, y0)
+            .circle(JG_HOLE_DIA / 2)
+            .extrude(z_top - z_bottom)
+        )
+        part = part.cut(hole)
+    return part
+
+
 # ═══════════════════════════════════════════════════════
 # EXPORT
 # ═══════════════════════════════════════════════════════
 
 out_dir = Path(__file__).resolve().parent
 
-main_tank = build_hollow_sphere(R_OUTER, R_INNER)
+main_tank = build_main_tank_with_ports()
 test_part = build_test_sphere()
 
 PARTS = [
