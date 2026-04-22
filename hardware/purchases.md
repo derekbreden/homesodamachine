@@ -1,6 +1,8 @@
-# Parts List
+# Purchases
 
-Compiled from Amazon order history (last 6 months, through Apr 17, 2026) plus known non-Amazon sources. Every item listed is either already in-hand (**ACQUIRED**), placed but not yet arrived (**ON-ORDER**), or identified as a planned purchase (**LIKELY-TO-BUY**). Non-project items (lawn/grass seed, dog products, personal groceries, shoes, filament dryers, etc.) are excluded.
+Capital expenditure ledger for the soda-flavor-injector project. Compiled from Amazon order history (last 6 months, through Apr 22, 2026) plus known non-Amazon sources. Every item is either already in-hand (**ACQUIRED**), placed but not yet arrived (**ON-ORDER**), or identified as a planned purchase (**LIKELY-TO-BUY**). Non-project items (lawn/grass seed, dog products, personal groceries, shoes, etc.) are excluded.
+
+This is **not** a bill of materials — see [bom.md](bom.md) for per-unit shipped-appliance parts. This file includes tools, fabrication equipment, donor parts, duplicates, consumables, PPE, bench fixtures, and abandoned/surplus SKUs alongside the parts that end up in the product.
 
 Price figures on bundled rows reflect the shipment total, not the per-item unit price.
 
@@ -24,6 +26,13 @@ Stainless sheet body, weld bungs, end-cap material, welding + forming tools used
 | Millrose PTFE thread seal tape | [B07C9ZV4PG](https://www.amazon.com/dp/B07C9ZV4PG) | 1 | $20.07 | ACQUIRED |
 | Viva Doria 100% pure food-grade citric acid, fine grain, 2 lb — post-weld passivation soak | [B0C5NQM8S1](https://www.amazon.com/dp/B0C5NQM8S1) | 1 | $9.99 | ACQUIRED |
 | Cambro 6 QT square polycarbonate food container — citric-acid soak tub (one-time-use per unit, ships with tank) | [B001BZEQ44](https://www.amazon.com/dp/B001BZEQ44) | 1 | $20.00 | ACQUIRED |
+| findmall ER308L .030 MIG wire, 10 lb spool — higher-volume follow-on to Blue Demon 2 lb | [B0C52XQB39](https://www.amazon.com/dp/B0C52XQB39) | 1 | $90.68 | ACQUIRED |
+| Caiman premium goat-grain TIG / multi-task welding gloves — PPE for laser welder | [B07T6VLSK3](https://www.amazon.com/dp/B07T6VLSK3) | 1 | $23.05 | ACQUIRED |
+| YTKavq 1/4" × 2" × 12" C110 pure copper flat bar, soft-annealed — weld backer / heat-sink chill bar | [B0DR2PX6TT](https://www.amazon.com/dp/B0DR2PX6TT) | 1 | $42.89 | ACQUIRED |
+| 304 SS 4" × 6" × 1/16" (16 ga / 1.5 mm) sheet, 2-pk — welding practice coupons, matches end-cap thickness | [B0DFXXQZD3](https://www.amazon.com/dp/B0DFXXQZD3) | 3 pk | $48.24 | ACQUIRED |
+| 304 SS 4" × 4" × 0.04" (19 ga / 1 mm) sheet, 4 pc — welding practice coupons, matches body thickness | [B0C5LWVLCD](https://www.amazon.com/dp/B0C5LWVLCD) | 1 | $13.93 | ACQUIRED |
+| Drill America 1/4" NPT HSS pipe tap + 1-1/2" OD round die kit — thread chasing / custom adapters | [B0DXN1LDKT](https://www.amazon.com/dp/B0DXN1LDKT) | 1 | $18.80 | ACQUIRED |
+| MOTOKU 38 mm / 1.5" OD heavy-duty round die handle — companion to Drill America die | [B073ZX58PH](https://www.amazon.com/dp/B073ZX58PH) | 1 | $13.99 | ACQUIRED |
 
 ## 2. CO2 subsystem
 
@@ -108,7 +117,7 @@ Peristaltic pumps, solenoids, bag-in-box connector, silicone delivery tubing, ba
 | SodaStream Diet Mountain Dew 4-pack | [B0G26HQWBY](https://www.amazon.com/dp/B0G26HQWBY) | 1 | $28.99 | ACQUIRED |
 | SodaStream Pepsi Wild Cherry Zero 4-pack | [B0G4NRDQB8](https://www.amazon.com/dp/B0G4NRDQB8) | 1 | $28.99 | ACQUIRED |
 | SodaStream Diet Cola 4-pack | [B01GQ2ZMKI](https://www.amazon.com/dp/B01GQ2ZMKI) | 1 | $18.89 | ACQUIRED |
-| Magnetic pogo pin connector, 2-pin (2 pair) — pump cartridge | [B0CSX6ZQ1H](https://www.amazon.com/dp/B0CSX6ZQ1H) | 1 pk | $9.99 | LIKELY-TO-BUY |
+| Magnetic pogo pin connector, 2-pin (2 pair) — pump cartridge | [B0CSX6ZQ1H](https://www.amazon.com/dp/B0CSX6ZQ1H) | 1 pk | $10.71 | ACQUIRED |
 
 ## 6. Refrigeration
 
@@ -121,14 +130,17 @@ Ice-maker donor units and copper coil for the chill loop.
 | GOORY 1/4" OD × 50 ft ACR copper coil | [B0DKSW5VL9](https://www.amazon.com/dp/B0DKSW5VL9) | 1 | $68.63 | ACQUIRED |
 | RIGID DV1910E sealed refrigeration module (alt path) | [ridgid.com](https://www.ridgid.com/) (direct order) | 1 | ~$600 + import | ON-ORDER (2+ wks, stuck) |
 | Fiberglass Supply Depot 2 lb 2-part closed-cell pour-in-place PU foam, 1 qt kit — cold-core insulation | [B08R7TX8QJ](https://www.amazon.com/dp/B08R7TX8QJ) | 1 kit | $39.99 | LIKELY-TO-BUY |
-| HiLetgo DS18B20 waterproof 1-wire temperature probe, 1 m SS sheath (5 pk) — tank wall + evap coil sensors for compressor control | [B00M1PM55K](https://www.amazon.com/dp/B00M1PM55K) | 1 pk | $10.99 | LIKELY-TO-BUY |
-| Supco D111 replacement filter-drier, 1/4" × 1/4" sweat, XH-9 — brazed in after venting, replaces spent factory drier | [B00DM8KGXS](https://www.amazon.com/dp/B00DM8KGXS) | 1 | $12.28 | ON-ORDER |
-| Orion Motor Tech HVAC A/C manifold gauge set, 1/4" SAE | [B07CZB2SHZ](https://www.amazon.com/dp/B07CZB2SHZ) | 1 | $44.98 | ON-ORDER |
-| Orion Motor Tech 4 CFM 1/3 HP single-stage vacuum pump, 110 V, 150 µ ultimate | [B08P1WRZ1S](https://www.amazon.com/dp/B08P1WRZ1S) | 1 | $72.99 | ON-ORDER |
-| Supco BPV31 bullet-piercing valve — taps compressor process tube for initial vent + recharge access | [B00DM8J3MI](https://www.amazon.com/dp/B00DM8J3MI) | 1 | $6.87 | ON-ORDER |
-| Smart Weigh Pro pocket scale, 500 g × 0.01 g — refrigerant charge metering by mass | [B00IZ1YHZK](https://www.amazon.com/dp/B00IZ1YHZK) | 1 | $17.95 | ON-ORDER |
-| Elitech PT520A refrigerant/hydrocarbon gas leak detector | [B0BTM3G8DK](https://www.amazon.com/dp/B0BTM3G8DK) | 1 | $39.99 | ON-ORDER |
-| Enviro-Safe R-600a 3-pack (3× 6 oz self-sealing cans) + brass charging gauge — CME Biz / Enviro-Safe Refrigerants Inc., 22+ year hydrocarbon refrigerant mfr; brass gauge replaces need for separate 7/16" adapter and replaces the earlier notched-canister piercing kit | [B0CGG1WH1N](https://www.amazon.com/dp/B0CGG1WH1N) | 1 | $67.99 | ON-ORDER |
+| HiLetgo DS18B20 waterproof 1-wire temperature probe, 1 m SS sheath (5 pk) — tank wall + evap coil sensors for compressor control | [B00M1PM55K](https://www.amazon.com/dp/B00M1PM55K) | 1 pk | $11.79 | ACQUIRED |
+| Supco D111 replacement filter-drier, 1/4" × 1/4" sweat, XH-9 — brazed in after venting, replaces spent factory drier | [B00DM8KGXS](https://www.amazon.com/dp/B00DM8KGXS) | 1 | $11.95 | ACQUIRED |
+| Orion Motor Tech HVAC A/C manifold gauge set, 1/4" SAE | [B07CZB2SHZ](https://www.amazon.com/dp/B07CZB2SHZ) | 1 | $48.24 | ACQUIRED |
+| Orion Motor Tech 4 CFM 1/3 HP single-stage vacuum pump, 110 V, 150 µ ultimate | [B08P1WRZ1S](https://www.amazon.com/dp/B08P1WRZ1S) | 1 | $78.28 | ACQUIRED |
+| Supco BPV31 bullet-piercing valve — taps compressor process tube for initial vent + recharge access | [B00DM8J3MI](https://www.amazon.com/dp/B00DM8J3MI) | 1 | $7.37 | ACQUIRED |
+| Smart Weigh Pro digital pocket scale, 2000 g × 0.1 g — refrigerant charge metering by mass | [B00IZ1YHZK](https://www.amazon.com/dp/B00IZ1YHZK) | 1 | $19.25 | ACQUIRED |
+| Elitech PT520A refrigerant/hydrocarbon gas leak detector | [B0BTM3G8DK](https://www.amazon.com/dp/B0BTM3G8DK) | 1 | $42.89 | ACQUIRED |
+| Enviro-Safe R-600a 3-pack (3× 6 oz self-sealing cans) + brass charging gauge — CME Biz / Enviro-Safe Refrigerants Inc., 22+ year hydrocarbon refrigerant mfr; brass gauge replaces need for separate 7/16" adapter and replaces the earlier notched-canister piercing kit | [B0CGG1WH1N](https://www.amazon.com/dp/B0CGG1WH1N) | 1 | $72.92 | ACQUIRED |
+| Klein Tools 51006 3-in-1 tube bender, 1/4 / 5/16 / 3/8" OD — for forming the 1/4" ACR evaporator coil around the carbonator tank | [B0DPQX17WM](https://www.amazon.com/dp/B0DPQX17WM) | 1 | $21.98 | ACQUIRED |
+| Wisscool 1/4" handheld tube straightener — de-coils 1/4" ACR copper before bending | [B0F6BPTW3T](https://www.amazon.com/dp/B0F6BPTW3T) | 1 | $24.99 | ACQUIRED |
+| ESCO Institute EPA Section 608 Preparatory Manual — study material for the ~$25 online cert exam required to recover/vent R-134a factory charge | [1930044607](https://www.amazon.com/dp/1930044607) | 1 | $22.47 | ACQUIRED |
 
 ## 7. Dispensing end — faucet, flow sensor
 
@@ -175,11 +187,13 @@ Ice-maker donor units and copper coil for the chill loop.
 | Breadboard kit, 2×830 + 2×400 pt | [B07DL13RZH](https://www.amazon.com/dp/B07DL13RZH) | 1 pk | $6.83 | ACQUIRED |
 | Gratury IP67 waterproof enclosure | [B08281V2RL](https://www.amazon.com/dp/B08281V2RL) | 1 | $23.58 | ACQUIRED |
 | Teyleten 3.3 V relay module, opto-isolated, 10 A @ 250 VAC (5 pk) | [B07XGZSYJV](https://www.amazon.com/dp/B07XGZSYJV) | 1 pk | $12.99 | ACQUIRED |
+| Teyleten Robot DC 1-channel optocoupler 3.3 V relay module (repeat ASIN, variant listing) — additional stock | [B07XGZSYJV](https://www.amazon.com/dp/B07XGZSYJV) | 1 | $13.93 | ACQUIRED |
 | ~~Fotek SSR-25DA solid state relay~~ (surplus — overspecced for the load, not used) | [B08FR13GYR](https://www.amazon.com/dp/B08FR13GYR) | 1 | $13.92 | ACQUIRED (surplus) |
 | ~~Inline AC fuse holder kit, 5×20 mm + assorted fuses~~ (surplus — bench-test gear, not production; 5 A fast-blow would nuisance-trip compressor inrush) | [B07BC8DW3L](https://www.amazon.com/dp/B07BC8DW3L) | 1 | $12.86 | ACQUIRED (surplus) |
 | ~~Leviton CR020-W 20 A 125 VAC single receptacle~~ (surplus — wrongly spec'd as AC inlet; a female outlet isn't an inlet) | [B003ATTR8Y](https://www.amazon.com/dp/B003ATTR8Y) | 1 | $3.26 | ACQUIRED (surplus) |
-| MXR IEC 60320 C14 panel-mount AC inlet, 10 A / 250 VAC (10 pk) — rear-panel mains inlet for standard computer-style line cord | [B07DCXKNXQ](https://www.amazon.com/dp/B07DCXKNXQ) | 1 pk | $6.49 | LIKELY-TO-BUY |
-| Monoprice NEMA 5-15P → IEC C13 line cord, 18 AWG, 6 ft, UL-listed (6 pk) — ships in the box with the appliance | [B08VS8D4WC](https://www.amazon.com/dp/B08VS8D4WC) | 1 pk | $22.38 | LIKELY-TO-BUY |
+| MXR IEC 60320 C14 panel-mount AC inlet, 10 A / 250 VAC (10 pk) — rear-panel mains inlet for standard computer-style line cord | [B07DCXKNXQ](https://www.amazon.com/dp/B07DCXKNXQ) | 1 pk | $6.96 | ACQUIRED |
+| Monoprice NEMA 5-15P → IEC C13 line cord, 18 AWG, 6 ft, UL-listed (6 pk) — ships in the box with the appliance | [B08VS8D4WC](https://www.amazon.com/dp/B08VS8D4WC) | 1 pk | $24.00 | ACQUIRED |
+| Mean Well IRM-90-12ST encapsulated 80 W / 12 V / 6.7 A PSU — primary appliance 12 V rail (per bom.md §1) | [B0CNRST18V](https://www.amazon.com/dp/B0CNRST18V) | 1 | $31.66 | ACQUIRED |
 | P3 Kill-A-Watt P4400 power meter (bench) | [B00009MDBU](https://www.amazon.com/dp/B00009MDBU) | 1 | $34.31 | ACQUIRED |
 
 ## 10. User interface — buttons, LEDs, air switch
@@ -197,6 +211,23 @@ Ice-maker donor units and copper coil for the chill loop.
 | Probrico 3-3/4" CC solid cabinet pulls, SS round T-bar, black (5 pk) | [B0DHHK94Y5](https://www.amazon.com/dp/B0DHHK94Y5) | 1 pk | $12.99 | ACQUIRED |
 | Amerock bar pulls 3-3/4" matte-black (10 pk) | [B0DLWMV3RM](https://www.amazon.com/dp/B0DLWMV3RM) | 1 pk | $25.22 | ACQUIRED |
 | Neodymium disc magnets 3×1 mm | [B0BQ3LPGZ1](https://www.amazon.com/dp/B0BQ3LPGZ1) | 1 | $19.49 | ACQUIRED |
+
+## 12. Shop / bench infrastructure
+
+General shop equipment supporting fabrication, assembly, and teardown. Not project-specific but purchased for this build.
+
+| Part | ASIN link | Qty | $ | Status |
+|---|---|---|---|---|
+| VEVOR adjustable 48" workbench w/ power outlet, wheels, pegboard, 2000 lb load | [B0FCD13KKQ](https://www.amazon.com/dp/B0FCD13KKQ) | 1 | $345.28 | ACQUIRED |
+
+## 13. Printing consumables
+
+3D-printer filament stock used for printed mechanical parts (cold-core shells, bladder cradles, pump cartridge, enclosure, hopper, etc.). PETG is the default per bom.md §7; specialty filaments below are for specific parts requiring flexibility or chemical resistance.
+
+| Part | ASIN link | Qty | $ | Status |
+|---|---|---|---|---|
+| SpoolHaus PEBA Super Bowden 1.75 mm, 1 kg — high-performance elastomer, candidate for gasket/seal prints | [B0G1L5XVH2](https://www.amazon.com/dp/B0G1L5XVH2) | 1 | $64.34 | ACQUIRED |
+| Siraya Tech Flex 1.75 mm TPU — flexible filament for compliant prints (hopper silicone cover, pogo-pin gaskets, etc.) | [B0CVXF33Z1](https://www.amazon.com/dp/B0CVXF33Z1) | 1 | $33.88 | ACQUIRED |
 
 ---
 
@@ -224,9 +255,11 @@ Ice-maker donor units and copper coil for the chill loop.
 
 | Status | $ |
 |---|---|
-| ACQUIRED (total) | $3,008.36 |
-| ON-ORDER | $863.05 |
-| LIKELY-TO-BUY | $142.82 |
-| **Grand total** | $4,014.23 |
+| ACQUIRED (total) | $4,152.83 |
+| ON-ORDER | ~$600.00 |
+| LIKELY-TO-BUY | $92.97 |
+| **Grand total** | ~$4,845.80 |
 
-Excluded from totals (price unresolved, still marked "bundle"): Meshnology ESP32-S3 display (row 135), 12 V 2 A DC power supply (row 148), Haisstronica ratchet crimper (row 154). Beduan flavor-manifold solenoid (row 76) counted at $9.64 × 4; actual qty across orders may differ.
+ON-ORDER remaining is just the RIGID DV1910E refrigeration module (~$600 + import duty, direct from ridgid.com, 2+ weeks stuck; may cancel).
+
+Excluded from totals (price unresolved, still marked "bundle"): Meshnology ESP32-S3 display, 12 V 2 A DC power supply, Haisstronica ratchet crimper. Beduan flavor-manifold solenoid counted at $9.64 × 4; actual qty across orders may differ.
