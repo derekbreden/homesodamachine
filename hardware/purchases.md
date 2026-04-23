@@ -131,7 +131,9 @@ Ice-maker donor units and copper coil for the chill loop.
 | RIGID DV1910E sealed refrigeration module (alt path) | [ridgid.com](https://www.ridgid.com/) (direct order) | 1 | ~$600 + import | ON-ORDER (2+ wks, stuck) |
 | Fiberglass Supply Depot 2 lb 2-part closed-cell pour-in-place PU foam, 1 qt kit — cold-core insulation | [B08R7TX8QJ](https://www.amazon.com/dp/B08R7TX8QJ) | 1 kit | $39.99 | LIKELY-TO-BUY |
 | HiLetgo DS18B20 waterproof 1-wire temperature probe, 1 m SS sheath (5 pk) — tank wall + evap coil sensors for compressor control | [B00M1PM55K](https://www.amazon.com/dp/B00M1PM55K) | 1 pk | $11.79 | ACQUIRED |
-| Supco D111 replacement filter-drier, 1/4" × 1/4" sweat, XH-9 — brazed in after venting, replaces spent factory drier | [B00DM8KGXS](https://www.amazon.com/dp/B00DM8KGXS) | 1 | $11.95 | ACQUIRED |
+| Supco D111 replacement filter-drier, 1/4" × 1/4" sweat, XH-9 — wrong part, retained as spare drier (same XH-9 desiccant, own Schrader; useful if loop has to be reopened later) | [B00DM8KGXS](https://www.amazon.com/dp/B00DM8KGXS) | 1 | $11.95 | ON-ORDER |
+| Supco SUD8358 UV-dye filter-drier, 1/4" × 1/4" — correct replacement drier, brazed in after venting to replace spent factory drier | [B009AX2O5W](https://www.amazon.com/dp/B009AX2O5W) | 1 | $13.40 | ON-ORDER |
+| Mastercool 70025 cap-tube cutter — cleanly severs 0.042"/0.050" capillary tubing at the process-tube junction without crushing the bore | [B00NY1YHHE](https://www.amazon.com/dp/B00NY1YHHE) | 1 | $15.74 | ON-ORDER |
 | Orion Motor Tech HVAC A/C manifold gauge set, 1/4" SAE | [B07CZB2SHZ](https://www.amazon.com/dp/B07CZB2SHZ) | 1 | $48.24 | ACQUIRED |
 | Orion Motor Tech 4 CFM 1/3 HP single-stage vacuum pump, 110 V, 150 µ ultimate | [B08P1WRZ1S](https://www.amazon.com/dp/B08P1WRZ1S) | 1 | $78.28 | ACQUIRED |
 | Supco BPV31 bullet-piercing valve — taps compressor process tube for initial vent + recharge access | [B00DM8J3MI](https://www.amazon.com/dp/B00DM8J3MI) | 1 | $7.37 | ACQUIRED |
@@ -140,7 +142,13 @@ Ice-maker donor units and copper coil for the chill loop.
 | Enviro-Safe R-600a 3-pack (3× 6 oz self-sealing cans) + brass charging gauge — CME Biz / Enviro-Safe Refrigerants Inc., 22+ year hydrocarbon refrigerant mfr; brass gauge replaces need for separate 7/16" adapter and replaces the earlier notched-canister piercing kit | [B0CGG1WH1N](https://www.amazon.com/dp/B0CGG1WH1N) | 1 | $72.92 | ACQUIRED |
 | Klein Tools 51006 3-in-1 tube bender, 1/4 / 5/16 / 3/8" OD — for forming the 1/4" ACR evaporator coil around the carbonator tank | [B0DPQX17WM](https://www.amazon.com/dp/B0DPQX17WM) | 1 | $21.98 | ACQUIRED |
 | Wisscool 1/4" handheld tube straightener — de-coils 1/4" ACR copper before bending | [B0F6BPTW3T](https://www.amazon.com/dp/B0F6BPTW3T) | 1 | $24.99 | ACQUIRED |
-| ESCO Institute EPA Section 608 Preparatory Manual — study material for the ~$25 online cert exam required to recover/vent R-134a factory charge | [1930044607](https://www.amazon.com/dp/1930044607) | 1 | $22.47 | ACQUIRED |
+| ESCO Institute EPA Section 608 Preparatory Manual — bought under the earlier assumption that recovery/recharge would hit HFC-regulated refrigerant; R-600a is Section 608-exempt (natural-refrigerant carveout) so the cert is NOT required for this build. Retained as general refrigeration reference / for any future non-hydrocarbon work. | [1930044607](https://www.amazon.com/dp/1930044607) | 1 | $22.47 | ACQUIRED |
+| Bernzomatic TS8000 high-intensity torch head + MAP-Pro 3-can kit — silver-brazing heat source for 1/4" ACR copper joints (reaches ~650 °C+ needed for BCuP-5) | [B0BPMVTJ1R](https://www.amazon.com/dp/B0BPMVTJ1R) | 1 | $109.99 | ON-ORDER |
+| Harris SSWF7 Stay Silv white brazing flux, 6.5 oz — protects joint from oxidation during brazing; required for BCuP-5 on copper-to-brass transitions | [B002BYLU52](https://www.amazon.com/dp/B002BYLU52) | 1 | $11.92 | ON-ORDER |
+| Uniweld RHP400 nitrogen regulator, CGA-580 × 1/4" male flare, 0–400 psi delivery — dry-N2 purge during brazing to prevent internal scale | [B008HQ6GXO](https://www.amazon.com/dp/B008HQ6GXO) | 1 | $90.22 | ON-ORDER |
+| RIDGID 31622 Model 150 constant-swing tubing cutter, 1/8"–1-1/8" — clean square cuts on 1/4" ACR before flaring/brazing | [B0009W6T8G](https://www.amazon.com/dp/B0009W6T8G) | 1 | $31.99 | ON-ORDER |
+| RIDGID 23332 Model 345 flaring tool, 45° SAE — produces leak-tight flares on 1/4" ACR for manifold-gauge and Schrader tap connections | [B000X4K9KO](https://www.amazon.com/dp/B000X4K9KO) | 1 | $99.99 | ON-ORDER |
+| BCuP-5 15% silver brazing alloy, 1/16" × 1 troy oz rod — low-flux-temp filler for copper-to-copper and copper-to-brass refrigeration joints | [B0DQ3ZMHK7](https://www.amazon.com/dp/B0DQ3ZMHK7) | 1 | $18.99 | ON-ORDER |
 
 ## 7. Dispensing end — faucet, flow sensor
 
@@ -239,6 +247,7 @@ General shop equipment supporting fabrication, assembly, and teardown. Not proje
 | Taprite 09T07105 ASSE 1022 backflow preventer (alternate, same spec) | [howdybrewer.com](https://www.howdybrewer.com/products/backflow-preventer-3-8inmpt3-8inmfl-x-1-4inb-vent-09t07105) | $49.99 | alt option |
 | Lillium under-counter carbonator (current prototype cold + carbonated source) | direct import (see [how-this-got-built.md](../how-this-got-built.md)) | — | ACQUIRED |
 | RIGID DV1910E sealed refrigeration module | [ridgid.com](https://www.ridgid.com/) direct | ~$600 + import | ON-ORDER (>2 weeks, stuck; may cancel) |
+| Nitrogen cylinder (industrial-grade dry N2, ~40–80 cf), CGA-580 valve — dry-purge gas for brazing; pairs with Uniweld RHP400 regulator | Airgas local pickup | ~$120–180 (tank lease + fill) | ON-ORDER (not yet picked up) |
 
 ---
 
@@ -255,11 +264,13 @@ General shop equipment supporting fabrication, assembly, and teardown. Not proje
 
 | Status | $ |
 |---|---|
-| ACQUIRED (total) | $4,152.83 |
-| ON-ORDER | ~$600.00 |
+| ACQUIRED (total) | $4,140.88 |
+| ON-ORDER | ~$1,154.19 |
 | LIKELY-TO-BUY | $92.97 |
-| **Grand total** | ~$4,845.80 |
+| **Grand total** | ~$5,388.04 |
 
-ON-ORDER remaining is just the RIGID DV1910E refrigeration module (~$600 + import duty, direct from ridgid.com, 2+ weeks stuck; may cancel).
+ON-ORDER breakdown: RIGID DV1910E refrigeration module (~$600 + import, stuck, may cancel) + Amazon brazing/refrigeration tools batch placed April 22, 2026 ($404.19: Supco D111 $11.95, Supco SUD8358 $13.40, Mastercool 70025 $15.74, Bernzomatic TS8000+MAP-Pro $109.99, Harris SSWF7 flux $11.92, Uniweld RHP400 N2 regulator $90.22, RIDGID 31622 cutter $31.99, RIDGID 23332 flare tool $99.99, BCuP-5 rod $18.99) + Airgas N2 cylinder lease/fill (~$120–180, not yet picked up; midpoint $150 used in subtotal).
+
+Note: the Supco D111 remains in the ON-ORDER bucket above even though it's the "wrong part" — price was already in the file as ACQUIRED and has been shifted to ON-ORDER pending delivery; it is kept as a spare. ACQUIRED total above was reduced by $11.95 to reflect that move.
 
 Excluded from totals (price unresolved, still marked "bundle"): Meshnology ESP32-S3 display, 12 V 2 A DC power supply, Haisstronica ratchet crimper. Beduan flavor-manifold solenoid counted at $9.64 × 4; actual qty across orders may differ.
