@@ -1,10 +1,10 @@
 # Purchases
 
-Capital expenditure ledger for the soda-flavor-injector project. Compiled from Amazon order history (last 6 months, through Apr 22, 2026) plus known non-Amazon sources. Every item is either already in-hand (**ACQUIRED**), placed but not yet arrived (**ON-ORDER**), or identified as a planned purchase (**LIKELY-TO-BUY**). Non-project items (lawn/grass seed, dog products, personal groceries, shoes, etc.) are excluded.
+Capital expenditure ledger for the soda-flavor-injector project. Scope: **2026 calendar year only** (Jan 1 → Apr 22, 2026 YTD). The project began in early 2026; nothing material predates it, and any pre-2026 spend that might otherwise be tempting to include is deliberately out of scope. Compiled from Amazon order history, direct-from-vendor receipts (Bambu Lab, XLaserlab, Namecheap), and capitalized contract labor (Anthropic / Claude API + subscription for AI-assisted engineering — CAD, firmware, electrical design, documentation, procurement research). Every item is either already in-hand (**ACQUIRED**), placed but not yet arrived (**ON-ORDER**), or identified as a planned purchase (**LIKELY-TO-BUY**). Non-project items (lawn/grass seed, dog products, personal groceries, shoes, etc.) are excluded.
 
-This is **not** a bill of materials — see [bom.md](bom.md) for per-unit shipped-appliance parts. This file includes tools, fabrication equipment, donor parts, duplicates, consumables, PPE, bench fixtures, and abandoned/surplus SKUs alongside the parts that end up in the product.
+This is **not** a bill of materials — see [bom.md](bom.md) for per-unit shipped-appliance parts. This file includes tools, fabrication equipment, donor parts, duplicates, consumables, PPE, bench fixtures, abandoned/surplus SKUs, and capitalized contract labor alongside the parts that end up in the product.
 
-Price figures on bundled rows reflect the shipment total, not the per-item unit price.
+Price figures on bundled rows reflect the shipment total, not the per-item unit price. Owner / founder time is **not** tracked here — that's sweat equity, un-booked by design. Only cash outlays (including contracted labor via Anthropic) are on this ledger.
 
 ---
 
@@ -261,6 +261,54 @@ Bench soldering capability for through-hole, wire-to-pad (pogo pin leads), and g
 | Heat-shrink tubing assortment kit, 2:1 ratio, assorted sizes/colors — wire insulation post-solder | [B0FRNMXN6Q](https://www.amazon.com/dp/B0FRNMXN6Q) | 1 | $6.99 | ON-ORDER |
 | Disposable flux brushes, horsehair, 1/2" × 6" (pack) — flux application, general cleanup | [B07PHG2DQY](https://www.amazon.com/dp/B07PHG2DQY) | 1 pk | $6.49 | ON-ORDER |
 
+## 15. 3D printing equipment and filaments (Bambu Lab direct)
+
+All purchased direct from us.store.bambulab.com (not via Amazon). Covers the printer itself (H2C AMS Combo), AMS expansion units (AMS HT × 2, AMS 2 Pro), hotends / nozzles / build plate, vision encoder, PTFE adapters, and every filament refill since the printer arrived. §13 holds the separate Amazon-sold filaments (SpoolHaus PEBA, Siraya Tech Flex TPU) — kept separate because the vendor and receipt trail are distinct.
+
+Receipts grouped by order; each line in the table is one shipment. See Bambu Lab order history for the per-SKU breakdown.
+
+| Order date | Bambu order # | Contents | $ | Status |
+|---|---|---|---|---|
+| 2026-03-22 | us712460111015776257 | **Bambu Lab H2C** (H2C AMS Combo) — founding purchase. Includes: H2C printer, initial filament assortment (PA6-CF Black ×2, TPU 95A HF Black ×2, ABS Black ×2, PLA Matte Ash Gray ×1, PLA Matte Charcoal ×1, PETG Basic Reflex Blue ×1, PETG Basic Black ×1), Vision Encoder / H2 Series, Bambu Engineering Plate / H2C, tungsten carbide nozzles 0.4mm ×2, H2C Induction Hotend (R) 0.2mm SS ×2, Bambu Hotend H2/P2S (L) 0.4mm HS ×2. Subtotal $3,080.58 + NE tax $223.33 | $3,303.91 | ACQUIRED |
+| 2026-03-23 | us712597240994926592 | Liquid glue + shipping + tax | $25.71 | ACQUIRED |
+| 2026-04-01 | us715792490246602753 | H2C Induction Hotend (R) 0.8mm HS ×1, H2C Induction Hotend (R) 0.4mm HS ×1, ASA Blue ×1, PLA Matte Marine Blue refill ×2, PLA Matte Charcoal ×4 (bulk) | $217.00 | ACQUIRED |
+| 2026-04-03 | us716485517830578177 | PETG Basic Black refill ×4 (bulk), ABS Black refill ×4 (bulk) | $120.06 | ACQUIRED |
+| 2026-04-06 | us717877837343809537 | **Bambu Lab AMS HT ×2**, Bambu 4-in-1 PTFE Adapter ×1 + shipping + tax | $314.22 | ACQUIRED |
+| 2026-04-08 | us718417332286169089 | **Bambu Lab AMS 2 Pro ×1**, ASA Aero White ×2, AMS 2 Pro Switching Adapter ×1, Bambu 4-in-1 PTFE Adapter ×1 | $471.86 | ACQUIRED |
+| 2026-04-13 | us720254914668109825 | TPU for AMS Black refill ×2 + shipping + tax | $82.54 | ACQUIRED |
+| 2026-04-19 | us722538751263612929 | TPU 90A Black ×2, TPU 85A Black ×2 | $186.57 | ACQUIRED |
+| 2026-04-21 | us722988823976337409 | PETG Translucent Clear ×4 (bulk) + shipping + tax | $81.46 | ACQUIRED |
+| **§15 subtotal — 9 orders** | | | **$4,803.33** | |
+
+## 16. Laser welding / cleaning / cutting
+
+Handheld 3-in-1 laser system (welding, cleaning, cutting) used on the stainless pressure vessel and related SS fabrication. Purchased direct from the manufacturer; not on Amazon.
+
+| Order date | Vendor / order # | Item | $ | Status |
+|---|---|---|---|---|
+| 2026-04-06 | XLaserlab (xlaserlab.com) — order #XLaserlab3271 | **XLaserlab X1 Pro** 3-in-1 Laser Welder / Cleaner / Cutter — **X1 PRO Ultimate Pack**, US plug. Ultimate Pack includes single wire feeder (confirmed in writing by vendor rep "Nina" 2026-04-08). Free shipping, no tax collected, card ending 5607. Arrived 2026-04-13. | $3,899.00 | ACQUIRED |
+
+## 17. Domain / infrastructure
+
+Internet infrastructure purchases. Currently just the product domain; additional infra (web hosting, email, SSL etc.) will land here as it's added.
+
+| Order date | Vendor / order # | Item | $ | Status |
+|---|---|---|---|---|
+| 2026-03-22 | Namecheap — order #197680608 | **homesodamachine.com** — Premium domain, 1-year term. Privacy is via Namecheap's `WithheldForPrivacy` proxy, applied post-order (not a paid add-on). No SSL / hosting / WhoisGuard add-ons bundled. | $599.00 | ACQUIRED |
+
+## 18. Capitalized contract labor — AI-assisted engineering
+
+Not a physical part — direct cash outlay to Anthropic (Claude) for engineering design services specific to this asset: CAD / CadQuery STEP generation, firmware (ESP32 / RP2040 / S3), electrical design, documentation, BOM research and procurement, regulatory analysis. Under GAAP, contracted labor that produces a specific capital asset is capitalized into the asset's cost basis — same line as paying a mechanical-engineering firm for drawings. Booked here at the actual invoice amount, not at any implied hourly rate.
+
+Scope reminder: 2026 YTD only (Jan 1 → Apr 22, 2026). Pre-2026 Claude spend is out of scope per ledger conventions (see intro). Owner / founder time is also NOT on this ledger — sweat equity, un-booked.
+
+| Date range | Type | # of receipts | $ |
+|---|---|---|---|
+| 2026-01-17 → 2026-04-18 | Claude Pro subscription (via Apple iOS in-app purchase) | 4 × $20.00 | $80.00 |
+| 2026-03-03 | Anthropic API — one-time prepaid credit | 1 | $50.00 |
+| 2026-03-12 → 2026-04-22 | Anthropic API — auto-recharges + prepaid top-ups (ramp-up to ~$60/day by mid-April) | 49 | $2,477.92 |
+| **§18 subtotal** | | **54 receipts** | **$2,607.92** |
+
 ---
 
 ## Non-Amazon / external sources
@@ -288,10 +336,14 @@ Bench soldering capability for through-hole, wire-to-pad (pogo pin leads), and g
 
 | Status | $ |
 |---|---|
-| ACQUIRED (total) | $4,140.88 |
+| ACQUIRED — hardware (§§1–13, 15, 16, 17) | $13,442.21 |
+| ACQUIRED — capitalized contract labor (§18) | $2,607.92 |
+| ACQUIRED (combined) | $16,050.13 |
 | ON-ORDER | ~$1,549.50 |
 | LIKELY-TO-BUY | $92.97 |
-| **Grand total** | ~$5,783.35 |
+| **Grand total** | ~$17,692.60 |
+
+ACQUIRED-hardware breakdown: Amazon (§§1–13) $4,140.88 + Bambu Lab direct (§15) $4,803.33 + XLaserlab X1 Pro (§16) $3,899.00 + Namecheap homesodamachine.com (§17) $599.00 = $13,442.21.
 
 ON-ORDER breakdown: RIGID DV1910E refrigeration module (~$600 + import, stuck, may cancel) + Amazon brazing/refrigeration tools batch placed April 22, 2026 ($404.19: Supco D111 $11.95, Supco SUD8358 $13.40, Mastercool 70025 $15.74, Bernzomatic TS8000+MAP-Pro $109.99, Harris SSWF7 flux $11.92, Uniweld RHP400 N2 regulator $90.22, RIDGID 31622 cutter $31.99, RIDGID 23332 flare tool $99.99, BCuP-5 rod $18.99) + Amazon soldering/small-signal electrical tools batch placed April 22, 2026 (order # 112-0066205-0960237, $395.31 pre-tax / $423.95 delivered; 17 line items — see §14) + Airgas N2 cylinder lease/fill (~$120–180, not yet picked up; midpoint $150 used in subtotal).
 
