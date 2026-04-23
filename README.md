@@ -124,7 +124,7 @@ Nearly everything was sourced from Amazon Prime. The only exception is the carbo
 
 | Part | Purpose |
 |------|---------|
-| [Westbrass Cold Water Dispenser Faucet (Matte Black)](https://www.amazon.com/dp/B0BXFW1J38) | Dispensing tap at the counter |
+| [Westbrass Cold Water Dispenser Faucet (Matte Black)](https://www.amazon.com/dp/B07KH285GJ) | Dispensing tap at the counter |
 | [Platypus 2L Collapsible Bottle](https://www.amazon.com/dp/B000J2KEGY) x2 | Flavor concentrate reservoirs |
 | [Platypus Hydration Drink Tube Kit](https://www.amazon.com/dp/B07N1T6LNW) | Tubing + bite valve for reservoirs |
 | 1/4" OD Hard Tubing (PE/PU) | All internal plumbing connections (John Guest push-to-connect fittings) |
@@ -378,7 +378,7 @@ Prices as of March 2026.
 | [DIGITEN Flow Sensor](https://www.amazon.com/dp/B07QQW4C7R) | $7.99 | 1 | $7.99 |
 | [KRAUS Air Switch](https://www.amazon.com/dp/B096319GMV) | $39.95 | 1 | $39.95 |
 | [7mm Momentary Push Buttons (12-pack)](https://www.amazon.com/dp/B0F43GYWJ6) | $7.39 | 1 | $7.39 |
-| [Westbrass Dispenser Faucet](https://www.amazon.com/dp/B0BXFW1J38) | $30.00 | 1 | $30.00 |
+| [Westbrass Dispenser Faucet](https://www.amazon.com/dp/B07KH285GJ) | $31.28 | 1 | $31.28 |
 | [Platypus 2L Collapsible Bottle](https://www.amazon.com/dp/B000J2KEGY) | $15.94 | 2 | $31.88 |
 | [Platypus Drink Tube Kit](https://www.amazon.com/dp/B07N1T6LNW) | $24.95 | 1 | $24.95 |
 | 1/4" OD Hard Tubing (25ft roll) | ~$9.00 | 1 | ~$9 |
