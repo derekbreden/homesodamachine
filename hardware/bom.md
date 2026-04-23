@@ -162,21 +162,6 @@ Dishing dies (PA6-CF) for end-cap forming are vessel-fabrication tools, not ship
 - **Flavor concentrate** — SodaStream or BIB syrup
 - **Water filter** — user's choice of inline filter upstream of the appliance
 
-## Excluded from this BOM (and why)
-
-- **Welding / fabrication tools** (slip roll, shop press, MIG welder, argon, dishing dies) — tools used to *build* the vessel, not shipped with unit
-- **Waterdrop Waterfilter B085G9TZ4L** — user supplies their own
-- **7 mm momentary pushbuttons B0F43GYWJ6** — not in final consumer design
-- **Neodymium magnets B0BQ3LPGZ1** — from a shelved air-in-system exploration
-- **EDGELEC LEDs B07PVVL2S6** — superseded by RP2040 display
-- **Laminate shelf + wood screws** — prototype mounting panel, replaced by final enclosure
-- **Syrup 4-packs** — consumable, not product
-- **Klein crimper, USB flash cables** — assembly/dev tools, not product
-- **RIGID DV1910E** — refrigeration fallback path, not selected
-- **Westbrass D203 6" faucet B01MZ6JPXW** — duplicate of 8" variant; one ships
-- **Leviton CR020-W single receptacle B003ATTR8Y** — wrongly spec'd as "AC inlet" in an earlier revision; a female outlet cannot serve as an inlet without a suicide cord. Replaced by MXR IEC C14 chassis inlet B07DCXKNXQ
-- **Inline 5×20 mm glass-fuse holder B07BC8DW3L** — bench-test gear, not production. Consumer appliances rely on branch-breaker + compressor PTC/thermal overload, not a user-accessible glass fuse. Also wrongly spec'd: 5 A fast-blow would nuisance-trip on every compressor inrush
-
 ## Notes / open questions
 
 - **ChillWaves check valve B0DPLBYZB4 seat material** — future.md requires metal or PTFE seat (not elastomer); confirm or substitute.
