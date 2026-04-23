@@ -87,3 +87,7 @@ Placing the cold core at the back shortens the chilled dispense run to a minimum
 **Power**
 
 12V DC. The compressor, driver board, diaphragm pump, peristaltic pumps, solenoid valves, and ESP32-S3 controller all run on DC. A 12V AC-DC power supply in the base or external brick provides wall power conversion.
+
+**Rear-panel nameplate**
+
+A separately-printed serialized plaque mounted on the rear face of the enclosure. Carries regulatory markings (model, serial, 120V 60Hz input rating), the Founder Edition number and signature, and a per-unit QR code linking to `homesodamachine.com/u/NNN`. Printed separately from the enclosure so its fine text and QR can use nameplate-grade print settings without forcing them onto the bulk of the cabinet. Full spec in [`printed-parts/nameplate/README.md`](printed-parts/nameplate/README.md).
