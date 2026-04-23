@@ -6,13 +6,19 @@
 
 Three distinct jobs overlap onto the same artifact:
 
-1. **Regulatory compliance.** UL 60335-1 (household appliances) requires a marking visible after installation that states model, serial, input voltage, frequency, and power input. This is that marking. It also carries a prominent "120V 60Hz only — not for 240V" warning to offset the "250V 10A" spec stamp molded into the C14 chassis inlet mounted below it (standard C14 component rating vs. actual appliance rating — see commit `45e22ef` discussion).
+1. **Safety communication.** The plaque states input voltage, frequency, and power rating, and carries a prominent "120V 60Hz only — not for 240V" warning to offset the "250V 10A" spec stamp molded into the C14 chassis inlet mounted below it (standard C14 component rating vs. actual appliance rating — see commit `45e22ef` discussion). This matters whether or not we ever carry a listing: it tells the user, and any electrician they consult during install, what the appliance actually wants.
 
 2. **Founder Edition identity.** Per `marketing/target-market.md`, units 001–050 are hand-built, numbered, and signed by the founder. This plaque is where the number and signature live. The plaque is the physical proof that a specific person built this specific machine — the Founder Edition story made tangible.
 
-3. **Per-unit QR code.** Links the physical machine to a unique persistent URL, `homesodamachine.com/u/NNN` where NNN is the unit number, zero-padded (`001`, `002`, ..., `050`). What that URL resolves to is a future customer-portal decision — the QR is the binding, and the destination can evolve without changing the physical plaque.
+3. **Per-unit QR code + serialization.** Links the physical machine to a unique persistent URL, `homesodamachine.com/u/NNN` where NNN is the unit number, zero-padded (`001`, `002`, ..., `050`). The serial number printed on the plaque ties this specific unit to a support/warranty record we can look up by QR scan. What that URL resolves to is a future customer-portal decision — the QR is the binding, and the destination can evolve without changing the physical plaque.
 
 Standard Edition (units 051+) is out of scope for this revision. Revisit if/when Founder Edition sells through.
+
+## What this is *not*
+
+The Founder Edition is not UL-listed or ETL-listed, and pursuing listing is not planned at this stage — $15k–40k+ per model of initial testing plus annual fees is not economic for a 50-unit run at $7,500/unit, listing is not legally required for a cord-and-plug D2C household appliance, and a hand-built run can't really demonstrate the production-consistency audit a listing requires.
+
+The plaque's content *happens* to resemble what a UL-listed product would carry because voltage/serial/power markings are just good product hygiene. But the framing is safety + traceability + identity, not regulatory compliance, and the plaque does not display a UL or ETL mark. If listing ever becomes worth pursuing later (retail channel, commercial expansion, insurance pressure), the plaque data is already in the right shape and the design revises to add the mark.
 
 ## Content layout
 
@@ -31,8 +37,6 @@ Input: 120V AC  60Hz  5A  600W
 ⚠ 120V 60Hz ONLY — not for 240V
 
 [QR code]   homesodamachine.com/u/027
-
-UL / ETL mark placeholder
 ```
 
 ## Why printed separately from the enclosure
