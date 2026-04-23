@@ -1,6 +1,7 @@
 # Target Market Definition
 
 *Working draft — April 6, 2026*
+*Revised April 22, 2026 — two-tier pricing (Founder Edition / Standard Edition)*
 
 ---
 
@@ -8,7 +9,9 @@
 
 A home soda machine. A self-contained, under-counter appliance that connects to a water line and a CO2 tank, refrigerates and carbonates its own water internally, and dispenses real brand-name diet soda — Diet Mountain Dew, Diet Pepsi, Pepsi Zero Sugar — from a kitchen faucet, ice cold, fully carbonated, on demand. Turn the handle, soda comes out.
 
-Price: $6,000. Install: plug and play — under an hour, no plumber, no special tools.
+The product ships in two sequential tiers. **Founder Edition** — units 001-050, **$7,500**, hand-built by the founder one at a time, each unit numbered with a plaque, signed, and shipped with a personal install consultation (phone or Zoom). This is the only tier available at launch, and the only tier for roughly four years at solo build capacity (~12 units/year). **Standard Edition** — units 051+, **$5,500**, same machine, same features, same quality, no number, no personal consult, faster lead time. Standard opens only when the Founder Edition run is committed-out. This is not a price drop. It is a new tier that replaces scarcity with availability.
+
+Install: plug and play — under an hour, no plumber, no special tools.
 
 Nothing like this exists for home consumers.
 
@@ -41,7 +44,7 @@ The founder bought his first home in August 2025. By October he was back on YouT
 
 ## Qualifying filters
 
-The hatred defines the market. These filters determine who within that market can act on it at $6,000.
+The hatred defines the market. These filters determine who within that market can act on it at $7,500 (Founder Edition) or, later, $5,500 (Standard Edition).
 
 ### Consumption: 2+ diet sodas per day
 
@@ -53,16 +56,19 @@ Soda consumption is an extremely common behavior. It is the prerequisite for thi
 
 ### Income: a gradient, not a line
 
-$6,000 is a lot of money. But the threshold at which someone will pay it depends on how much they hate the cans.
+$7,500 is a lot of money. The threshold at which someone will pay it depends on how much they hate the cans. The Founder Edition is the tier at launch, so the gradient below is calibrated to $7,500. When the Standard Edition opens at $5,500, the reachable ring widens meaningfully downward.
 
-- **$200K+ household income:** Moderate annoyance is enough. They've spent $6,000 on kitchen things before.
-- **$150K (founder's income):** A considered purchase — but the hatred was strong enough that he'd have paid it six months before the product existed.
-- **$100-120K:** Needs to be a strong emotional driver. But people at this income buy $6,000 things — hot tubs, riding mowers, home theater setups — when they want them badly enough.
-- **Below $100K:** Possible but unlikely for most. The exception is someone whose can hatred is extreme and who views this as replacing an ongoing expense ($650+/year in cans), not adding a new one.
+- **$250K+ household income:** Moderate annoyance is enough. $7,500 for a hand-built, numbered kitchen appliance is well within the range of considered purchases. The Founder Edition story — numbered plaque, signed, personal consult — reads as value, not overhead.
+- **$200K household income:** Solidly in. A considered purchase but not a stretch. They've spent this on kitchen things before.
+- **$150K (founder's income):** Considered-but-plausible. The founder himself is the proof point — the hatred was strong enough that he'd have paid $7,500 six months before the product existed. People at this income buy $7,500 things when they want them badly enough.
+- **$100-120K:** Harder at $7,500, but not impossible for the extreme-hatred edge case — the buyer who is replacing an ongoing expense and has already decided, emotionally, that the cans are over. Uncommon at this tier. More common once Standard opens at $5,500.
+- **Below $100K:** Unlikely at Founder Edition pricing. Possible at Standard for someone with extreme can hatred and a 3+/day habit they view as an ongoing expense.
 
-**Center of the bullseye:** Household income $120K-250K, 2-4 diet sodas/day, homeowner.
+**Center of the bullseye (Founder Edition):** Household income $200K+, 2-4 diet sodas/day, homeowner.
 
-**Reachable ring:** $80K-120K household income where consumption is high (3+/day) and the hatred is visceral.
+**Reachable ring (Founder Edition):** $150K-200K where consumption is high and the hatred is visceral, plus the occasional $120K-150K buyer whose hatred is extreme.
+
+**What shifts at Standard ($5,500):** The $120K-200K band becomes the center; $100-120K becomes reachable; below $100K remains edge-case.
 
 ### Housing: homeowner
 
@@ -73,6 +79,28 @@ New homeownership may be a trigger event. The founder's timeline — bought firs
 ### Geography: U.S. initially
 
 Suburban homes with larger kitchens and bulk-buying habits (Costco 48-packs) are the center. Urban homeowners with less storage space also feel the can problem acutely, for different reasons.
+
+---
+
+## Two-tier pricing
+
+The product ships in two tiers, launched sequentially. They are the same machine. The difference is the story around it, not the hardware.
+
+### Founder Edition — units 001-050, $7,500
+
+Hand-built by the founder, one at a time. Each unit carries a numbered plaque, is signed, and ships with a personal install consultation (phone or Zoom). Solo build capacity is roughly 12 units a year, so the 50-unit run is expected to take about four years. For that entire window, this is the only tier available.
+
+The Founder Edition is the real product for year one and well beyond. It is not a marketing promotion wrapped around a limited run — it is what shipping looks like while the founder is the factory. The scarcity is real because the constraint is real: one person can only build so many machines a year. The buyer at $7,500 is paying for the machine, and for access to the person who built it, and for a position in the first 50. All three of those are genuinely limited.
+
+### Standard Edition — units 051+, $5,500
+
+Same machine, same features, same quality. No number, no plaque, no personal consult. Faster lead time as production scales. The Standard Edition opens only once the Founder Edition run is committed-out and the founder is ready to batch-produce.
+
+This is not a price drop on the Founder Edition. It is a new tier that replaces scarcity with availability. The people who paid $7,500 were not overcharged — they bought something that by then no longer exists.
+
+### Why tier by scarcity and not by features
+
+The product is one configuration. Two flavors, one display, one install profile. There is no meaningful feature we would remove to justify a lower price, and there is no feature we would add to justify a higher one. The difference between the tiers is the founder's time and the number on the plaque. That is an honest story. Feature tiering would not be.
 
 ---
 
@@ -87,21 +115,22 @@ Suburban homes with larger kitchens and bulk-buying habits (Costco 48-packs) are
 
 **Addressable market: roughly 2 million U.S. households.**
 
-Not all of them hate the cans enough to pay $6,000. But we don't need all of them.
+Not all of them hate the cans enough to pay $7,500 — or, later, $5,500. But we don't need all of them. The $120K+ homeowner filter still works as the gross filter; the Founder Edition price narrows it further in the early years, and the Standard Edition price widens it back out.
 
 ### What we actually need
 
-- **10 units/year** = $60,000 revenue. Proof the product sells.
-- **100 units/year** = $600,000. A real business.
-- **1,000 units/year** = $6M. A serious company.
+- **Founder Edition, 12 units/year** ≈ $90,000 revenue. Proof the product sells, and funds continued solo development.
+- **50 units total at Founder Edition** = $375,000. The full run. Roughly four years at solo build capacity.
+- **100 Standard units/year** = $550,000. A real business, once batch production is ready.
+- **1,000 Standard units/year** = $5.5M. A serious company.
 
-10 out of 2 million is 0.0005%. The market is not the constraint. Discovery is the constraint.
+50 out of 2 million is 0.0025%. The market is not the constraint. Discovery is the constraint, and at 12 units/year during the Founder Edition, it is a very forgiving constraint.
 
 ### The decade math
 
-A 3-can-per-day household spends ~$657/year on diet soda — over $6,500 across a decade. The $6,000 machine is not a new expense category. It is a format change for money they are already spending. Per-serving cost with concentrate is $0.30-0.40 vs. $0.50-0.75 per can. The machine pays for itself in roughly 5-7 years at current concentrate pricing, faster at higher consumption.
+A 3-can-per-day household spends ~$657/year on diet soda — roughly $6,570 across a decade. At $7,500, the machine costs more than ten years of the cans it replaces. At $5,500, it's within a decade. Per-serving cost with concentrate is $0.30-0.40 vs. $0.50-0.75 per can, so the ongoing spend drops, but the payback-in-years argument is no longer clean at the Founder Edition price.
 
-This is supporting evidence for someone who's already emotionally committed. It is not the argument that makes them commit.
+The point that still holds: this is not a new expense category. It is a format change for money the household is already spending, forever, on the same drink. The decade math is supporting evidence for someone who is already emotionally committed to being done with the cans. It was never the thing that made them commit.
 
 ---
 
@@ -117,11 +146,11 @@ SodaStream's loyal customers drink sparkling water, not soda. SodaStream's *chur
 
 ### Not bargain hunters
 
-The person who optimizes around $0.30/can sale prices will never spend $6,000 to avoid cans. Cost savings is math we show someone who's already decided to buy. It is never the reason they decide.
+The person who optimizes around $0.30/can sale prices will never spend $7,500 to avoid cans. Cost savings is math we show someone who's already decided to buy. It is never the reason they decide.
 
 ### Not gadget collectors
 
-The person who buys every new kitchen thing, uses it twice, and puts it in the drawer. At $6,000 there are fewer of these, but they exist. They are returns and bad reviews. We want daily users.
+The person who buys every new kitchen thing, uses it twice, and puts it in the drawer. At $7,500 there are fewer of these, but they exist. They are returns and bad reviews. We want daily users.
 
 ### Not people who don't notice the cans
 
@@ -183,13 +212,13 @@ The *Jerk* reference does three things at once:
 
 A 30-second video of the pour, ending with "He hates these cans" and a link. The people who get it will *get it*.
 
-### The trust gap: at 10 units, the brand is a person
+### The trust gap: at Founder Edition, the brand is a person
 
-Between discovery ("wait, that's real?") and purchase ($6,000 from a company they've never heard of), there is an enormous trust gap. No amount of product photography or website polish closes it at this stage. There is no brand. There are no reviews. There is no retail shelf lending credibility.
+Between discovery ("wait, that's real?") and purchase ($7,500 from a company they've never heard of), there is an enormous trust gap. No amount of product photography or website polish closes it at this stage. There is no brand. There are no reviews. There is no retail shelf lending credibility.
 
-At 10 units, the answer to "is this a real product?" is not a brand — it's Derek. His face, his kitchen, his story. "I built this because I was tired of hauling cans. Here's my kitchen. Here's me pouring a glass. Here's what's under the counter." The first 10 buyers are buying from a person they've come to trust, not from a company. That means "marketing" at this stage is not brand identity work — it's building a video presence. A person showing a real product in a real kitchen, consistently, until 10 people believe it enough to buy.
+At Founder Edition scale, the answer to "is this a real product?" is not a brand — it's Derek. His face, his kitchen, his story. "I built this because I was tired of hauling cans. Here's my kitchen. Here's me pouring a glass. Here's what's under the counter." The first 50 buyers are buying from a person they've come to trust, not from a company — and at $7,500 with a numbered plaque and a personal install call, that is explicitly what's for sale. The founder isn't a stopgap while the brand gets built; he *is* the product for the first 50. That means "marketing" at this stage is not brand identity work — it's building a video presence. A person showing a real product in a real kitchen, consistently.
 
-At 100 units, you need the brand. At 10, you need a face they trust.
+By the time Standard opens, the brand carries more of the weight. At Founder Edition, the face does.
 
 ### The purchase decision, once they trust the person
 
@@ -197,7 +226,7 @@ At 100 units, you need the brand. At 10, you need a face they trust.
 2. **Is this real?** Answered by the founder's presence — his kitchen, his pour, his story. Not a brand promise. A person's credibility.
 3. **Is the install actually easy?** A real install video — not polished, the actual process — eliminates this objection.
 4. **What's the ongoing hassle?** Syrup every few weeks (Amazon). CO2 every few months (currently a trip to a gas supplier — a known rough edge). Cleaning automated from the app. Net: less hassle than the weekly store run.
-5. **Is $6,000 a price I can pay?** They're comparing against other major household purchases, not against cans. The decade math ($6,500+ in cans over 10 years) supports the decision but doesn't drive it.
+5. **Is $7,500 a price I can pay?** (Or, later, $5,500 at Standard.) They're comparing against other major household purchases — appliances, kitchen renovations, home theater — not against cans. The Founder Edition story reframes the number: they are buying one of 50 hand-built units from the person who designed it, not a commodity appliance. The decade math (~$6,570 in cans over 10 years) supports the decision but does not drive it; at $7,500 the machine is slightly more than a decade of the cans it replaces, and the argument lives on format change, not payback.
 
 ### The CO2 pain point needs honesty.
 
@@ -211,14 +240,14 @@ These are adjacent markets for later — not launch targets.
 
 - **Sugar soda drinkers.** Full-sugar Pepsi, Mountain Dew, Mug Root Beer, and Starry concentrates exist. The machine handles them equally. Diet-first is a go-to-market choice, not a technical limitation.
 - **Sparkling water power users.** 4+ LaCroix a day = same can problem, same kitchen profile. Natural expansion.
-- **Small offices and break rooms.** SodaStream Professional is dead. That market is unserved. $6,000 in an office break room is a rounding error.
-- **Price-down model.** As BOM costs decrease with volume, a $3,000-4,000 version opens a significantly larger market. The $6,000 model establishes the brand at the top; the lower-priced model rides the credibility downhill.
+- **Small offices and break rooms.** SodaStream Professional is dead. That market is unserved. $7,500 — or $5,500 once Standard opens — in an office break room is a rounding error.
+- **Price-down model.** As BOM costs decrease with volume, a $3,000-4,000 version opens a significantly larger market down the road. The Founder Edition establishes the brand at the top with a real story; Standard sits below it at $5,500; a future lower-priced model rides the credibility downhill from there.
 
 ---
 
 ## Open questions
 
 1. **Real people who fit the profile.** Friends, coworkers, family who drink diet soda daily and have the can hatred? Even 3-4 examples validate or challenge everything above.
-2. **The visible product.** What does the faucet and visible hardware look like now? The legitimacy question at $6,000 lives or dies on surfaces.
+2. **The visible product.** What does the faucet and visible hardware look like now? The legitimacy question at $7,500 lives or dies on surfaces.
 3. **Timeline to a sellable unit.** Not rushing — but 6 months vs. 18 months changes how we sequence marketing work.
 4. **The coworker.** The one who told you about robot mowers. Do they drink soda? Do they know you built this? What did they say?
