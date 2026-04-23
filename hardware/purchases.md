@@ -237,6 +237,30 @@ General shop equipment supporting fabrication, assembly, and teardown. Not proje
 | SpoolHaus PEBA Super Bowden 1.75 mm, 1 kg — high-performance elastomer, candidate for gasket/seal prints | [B0G1L5XVH2](https://www.amazon.com/dp/B0G1L5XVH2) | 1 | $64.34 | ACQUIRED |
 | Siraya Tech Flex 1.75 mm TPU — flexible filament for compliant prints (hopper silicone cover, pogo-pin gaskets, etc.) | [B0CVXF33Z1](https://www.amazon.com/dp/B0CVXF33Z1) | 1 | $33.88 | ACQUIRED |
 
+## 14. Soldering + small-signal electrical tools
+
+Bench soldering capability for through-hole, wire-to-pad (pogo pin leads), and general small-signal electrical work. Ordered as a single batch April 22, 2026 (Amazon order # 112-0066205-0960237, 17 line items, $395.31 pre-tax / $423.95 delivered). Iron tier intentionally chosen at the ~$100 Hakko sweet spot — above the $40 unregulated-tip trap, below the $300+ pro cartridge systems that are overkill for hobby use.
+
+| Part | ASIN link | Qty | $ | Status |
+|---|---|---|---|---|
+| Hakko FX-888D digital soldering station, 70 W, adjustable 120–899 °F — primary iron | [B0D4DJW54S](https://www.amazon.com/dp/B0D4DJW54S) | 1 | $121.47 | ON-ORDER |
+| Kester 24-6337-0027 63/37 Sn/Pb rosin-core solder, 0.031" / 1 lb — leaded rosin-core for through-hole and wire joints | [B0149K4JTY](https://www.amazon.com/dp/B0149K4JTY) | 1 | $48.60 | ON-ORDER |
+| KOTTO solder fume extractor, 60 W w/ activated-carbon filter — bench fume pull | [B07VWDN29F](https://www.amazon.com/dp/B07VWDN29F) | 1 | $39.99 | ON-ORDER |
+| AstroAI digital multimeter, 2000-count auto-ranging — continuity / voltage / resistance bench meter | [B071JL6LLL](https://www.amazon.com/dp/B071JL6LLL) | 1 | $29.99 | ON-ORDER |
+| Klein Tools 11063W Kurve self-adjusting wire stripper, AWG 10–20 — primary stripper for 18–24 AWG hookup wire | [B00CXKOEQ6](https://www.amazon.com/dp/B00CXKOEQ6) | 1 | $22.96 | ON-ORDER |
+| MG Chemicals 8341 no-clean rosin flux paste, 10 mL syringe — paste flux for stubborn joints / rework | [B09FWB6L5L](https://www.amazon.com/dp/B09FWB6L5L) | 1 | $20.20 | ON-ORDER |
+| MG Chemicals 99.9% anhydrous isopropyl alcohol, 16 oz — post-solder flux cleanup | [B0BZ21DBJ6](https://www.amazon.com/dp/B0BZ21DBJ6) | 1 | $17.35 | ON-ORDER |
+| Kaisi heat-resistant silicone repair mat, 17.7" × 11.8" — bench work surface, magnetic-section screw organizer | [B07DGVRYL3](https://www.amazon.com/dp/B07DGVRYL3) | 1 | $11.99 | ON-ORDER |
+| Chemtronics Soder-Wick #60-3-5 desoldering braid, 0.075" × 5 ft — solder removal | [B01I7Q2ULA](https://www.amazon.com/dp/B01I7Q2ULA) | 1 | $11.76 | ON-ORDER |
+| 3M Virtua CCS safety glasses, clear anti-fog — PPE for soldering + heat-gun work | [B00AEXKR4C](https://www.amazon.com/dp/B00AEXKR4C) | 1 | $11.59 | ON-ORDER |
+| BEEYUIHF no-clean liquid soldering flux, dropper bottle — wicks into joints via capillary action (complements paste) | [B0G2G6WFPZ](https://www.amazon.com/dp/B0G2G6WFPZ) | 1 | $9.99 | ON-ORDER |
+| AORAEM helping-hands w/ 4 flex arms + magnifier — work holder for wire-to-pad soldering | [B08DNMT96W](https://www.amazon.com/dp/B08DNMT96W) | 1 | $8.99 | ON-ORDER |
+| QWORK mini heat gun, 300 W / 200–450 °C — heat-shrink activation, light rework | [B09NDCCW29](https://www.amazon.com/dp/B09NDCCW29) | 1 | $8.97 | ON-ORDER |
+| Hakko T18-D16 chisel tip, 1.6 mm — general-purpose tip for FX-888D | [B004OR9BV4](https://www.amazon.com/dp/B004OR9BV4) | 1 | $8.99 | ON-ORDER |
+| Hakko T18-D12 chisel tip, 1.2 mm — fine-pitch tip for FX-888D | [B004OR6BU8](https://www.amazon.com/dp/B004OR6BU8) | 1 | $8.99 | ON-ORDER |
+| Heat-shrink tubing assortment kit, 2:1 ratio, assorted sizes/colors — wire insulation post-solder | [B0FRNMXN6Q](https://www.amazon.com/dp/B0FRNMXN6Q) | 1 | $6.99 | ON-ORDER |
+| Disposable flux brushes, horsehair, 1/2" × 6" (pack) — flux application, general cleanup | [B07PHG2DQY](https://www.amazon.com/dp/B07PHG2DQY) | 1 pk | $6.49 | ON-ORDER |
+
 ---
 
 ## Non-Amazon / external sources
@@ -265,11 +289,11 @@ General shop equipment supporting fabrication, assembly, and teardown. Not proje
 | Status | $ |
 |---|---|
 | ACQUIRED (total) | $4,140.88 |
-| ON-ORDER | ~$1,154.19 |
+| ON-ORDER | ~$1,549.50 |
 | LIKELY-TO-BUY | $92.97 |
-| **Grand total** | ~$5,388.04 |
+| **Grand total** | ~$5,783.35 |
 
-ON-ORDER breakdown: RIGID DV1910E refrigeration module (~$600 + import, stuck, may cancel) + Amazon brazing/refrigeration tools batch placed April 22, 2026 ($404.19: Supco D111 $11.95, Supco SUD8358 $13.40, Mastercool 70025 $15.74, Bernzomatic TS8000+MAP-Pro $109.99, Harris SSWF7 flux $11.92, Uniweld RHP400 N2 regulator $90.22, RIDGID 31622 cutter $31.99, RIDGID 23332 flare tool $99.99, BCuP-5 rod $18.99) + Airgas N2 cylinder lease/fill (~$120–180, not yet picked up; midpoint $150 used in subtotal).
+ON-ORDER breakdown: RIGID DV1910E refrigeration module (~$600 + import, stuck, may cancel) + Amazon brazing/refrigeration tools batch placed April 22, 2026 ($404.19: Supco D111 $11.95, Supco SUD8358 $13.40, Mastercool 70025 $15.74, Bernzomatic TS8000+MAP-Pro $109.99, Harris SSWF7 flux $11.92, Uniweld RHP400 N2 regulator $90.22, RIDGID 31622 cutter $31.99, RIDGID 23332 flare tool $99.99, BCuP-5 rod $18.99) + Amazon soldering/small-signal electrical tools batch placed April 22, 2026 (order # 112-0066205-0960237, $395.31 pre-tax / $423.95 delivered; 17 line items — see §14) + Airgas N2 cylinder lease/fill (~$120–180, not yet picked up; midpoint $150 used in subtotal).
 
 Note: the Supco D111 remains in the ON-ORDER bucket above even though it's the "wrong part" — price was already in the file as ACQUIRED and has been shifted to ON-ORDER pending delivery; it is kept as a spare. ACQUIRED total above was reduced by $11.95 to reflect that move.
 
