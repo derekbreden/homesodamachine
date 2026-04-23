@@ -1,6 +1,6 @@
 # Purchases
 
-Capital expenditure ledger for the soda-flavor-injector project. Scope: **2026 calendar year only** (Jan 1 → Apr 22, 2026 YTD). The project began in early 2026; nothing material predates it, and any pre-2026 spend that might otherwise be tempting to include is deliberately out of scope. Compiled from Amazon order history, direct-from-vendor receipts (Bambu Lab, XLaserlab, Namecheap), and capitalized contract labor (Anthropic / Claude API + subscription for AI-assisted engineering — CAD, firmware, electrical design, documentation, procurement research). Every item is either already in-hand (**ACQUIRED**), placed but not yet arrived (**ON-ORDER**), or identified as a planned purchase (**LIKELY-TO-BUY**). Non-project items (lawn/grass seed, dog products, personal groceries, shoes, etc.) are excluded.
+Capital expenditure ledger for the soda-flavor-injector project. Scope: **2026 calendar year only** (Jan 1 → Apr 23, 2026 YTD). The project began in early 2026; nothing material predates it, and any pre-2026 spend that might otherwise be tempting to include is deliberately out of scope. Compiled from Amazon order history, direct-from-vendor receipts (Bambu Lab, XLaserlab, Namecheap), and capitalized contract labor (Anthropic / Claude API + subscription for AI-assisted engineering — CAD, firmware, electrical design, documentation, procurement research). Every item is either already in-hand (**ACQUIRED**), placed but not yet arrived (**ON-ORDER**), or identified as a planned purchase (**LIKELY-TO-BUY**). Non-project items (lawn/grass seed, dog products, personal groceries, shoes, etc.) are excluded.
 
 This is **not** a bill of materials — see [bom.md](bom.md) for per-unit shipped-appliance parts. This file includes tools, fabrication equipment, donor parts, duplicates, consumables, PPE, bench fixtures, abandoned/surplus SKUs, and capitalized contract labor alongside the parts that end up in the product.
 
@@ -27,7 +27,9 @@ Stainless sheet body, weld bungs, end-cap material, welding + forming tools used
 | Viva Doria 100% pure food-grade citric acid, fine grain, 2 lb — post-weld passivation soak | [B0C5NQM8S1](https://www.amazon.com/dp/B0C5NQM8S1) | 1 | $9.99 | ACQUIRED |
 | Cambro 6 QT square polycarbonate food container — citric-acid soak tub (one-time-use per unit, ships with tank) | [B001BZEQ44](https://www.amazon.com/dp/B001BZEQ44) | 1 | $20.00 | ACQUIRED |
 | findmall ER308L .030 MIG wire, 10 lb spool — higher-volume follow-on to Blue Demon 2 lb | [B0C52XQB39](https://www.amazon.com/dp/B0C52XQB39) | 1 | $90.68 | ACQUIRED |
+| PGN ER308L .030 MIG wire, 10 lb spool — second stainless MIG wire spool (alt brand to findmall) | [B09WRZDBPN](https://www.amazon.com/dp/B09WRZDBPN) | 1 | — | ACQUIRED (price pending — order total not yet posted) |
 | Caiman premium goat-grain TIG / multi-task welding gloves — PPE for laser welder | [B07T6VLSK3](https://www.amazon.com/dp/B07T6VLSK3) | 1 | $23.05 | ACQUIRED |
+| Caiman premium goat-grain TIG welding gloves — second pair (variant ASIN, Large, white/gold) | [B07T1NYXHM](https://www.amazon.com/dp/B07T1NYXHM) | 1 | $23.05 | ACQUIRED |
 | YTKavq 1/4" × 2" × 12" C110 pure copper flat bar, soft-annealed — weld backer / heat-sink chill bar | [B0DR2PX6TT](https://www.amazon.com/dp/B0DR2PX6TT) | 1 | $42.89 | ACQUIRED |
 | 304 SS 4" × 6" × 1/16" (16 ga / 1.5 mm) sheet, 2-pk — welding practice coupons, matches end-cap thickness | [B0DFXXQZD3](https://www.amazon.com/dp/B0DFXXQZD3) | 3 pk | $48.24 | ACQUIRED |
 | 304 SS 4" × 4" × 0.04" (19 ga / 1 mm) sheet, 4 pc — welding practice coupons, matches body thickness | [B0C5LWVLCD](https://www.amazon.com/dp/B0C5LWVLCD) | 1 | $13.93 | ACQUIRED |
@@ -53,8 +55,8 @@ Feed-water inlet, filter, ASSE 1022 backflow preventer and its vent-line hardwar
 | Part | Link | Qty | $ | Status |
 |---|---|---|---|---|
 | **Multiplex 19-0897 ASSE 1022 backflow preventer, 3/8" NPT × 3/8" MFL** | [howdybrewer.com](https://www.howdybrewer.com/products/multiplex-backflow-preventor-assembly-1022-3-8-npt-x-3-8-mfl) | 1 | $38.99 | LIKELY-TO-BUY |
-| Hooshing 3/8" flare × 1/4" FNPT brass adapter (2 pk) — for Multiplex MFL outlet | [B0BNHVV6HT](https://www.amazon.com/dp/B0BNHVV6HT) | 1 pk | $9.99 | ACQUIRED |
-| Sealproof 1/4" ID × 3/8" OD food-grade clear PVC, 10 ft — for atmospheric vent telltale | [B07D9DK94V](https://www.amazon.com/dp/B07D9DK94V) | 1 | $7.89 | ACQUIRED |
+| Hooshing 3/8" flare × 1/4" FNPT brass adapter (2 pk) — for Multiplex MFL outlet | [B0BNHVV6HT](https://www.amazon.com/dp/B0BNHVV6HT) | 1 pk | $10.71 | ACQUIRED |
+| Sealproof 1/4" ID × 3/8" OD food-grade clear PVC, 10 ft — for atmospheric vent telltale | [B07D9DK94V](https://www.amazon.com/dp/B07D9DK94V) | 1 | $8.46 | ACQUIRED |
 | LOKMAN 304 SS worm-gear hose clamps, 10–16 mm (20 pk) — for vent line | [B076Q7QVNM](https://www.amazon.com/dp/B076Q7QVNM) | 1 pk | $8.99 | ACQUIRED |
 | Waterdrop 15UC-UF 0.01 µm inline fridge/ice-maker filter | [B085G9TZ4L](https://www.amazon.com/dp/B085G9TZ4L) | 1 | $62.99 | ACQUIRED |
 | HAOCHEN brass angle stop add-a-tee 3/8"×3/8"×1/4" | [B0DLKHHGL6](https://www.amazon.com/dp/B0DLKHHGL6) | 1 | $11.99 | ACQUIRED |
@@ -131,9 +133,9 @@ Ice-maker donor units and copper coil for the chill loop.
 | RIGID DV1910E sealed refrigeration module (alt path) | [ridgid.com](https://www.ridgid.com/) (direct order) | 1 | ~$600 + import | ON-ORDER (2+ wks, stuck) |
 | Fiberglass Supply Depot 2 lb 2-part closed-cell pour-in-place PU foam, 1 qt kit — cold-core insulation | [B08R7TX8QJ](https://www.amazon.com/dp/B08R7TX8QJ) | 1 kit | $39.99 | LIKELY-TO-BUY |
 | HiLetgo DS18B20 waterproof 1-wire temperature probe, 1 m SS sheath (5 pk) — tank wall + evap coil sensors for compressor control | [B00M1PM55K](https://www.amazon.com/dp/B00M1PM55K) | 1 pk | $11.79 | ACQUIRED |
-| Supco D111 replacement filter-drier, 1/4" × 1/4" sweat, XH-9 — wrong part, retained as spare drier (same XH-9 desiccant, own Schrader; useful if loop has to be reopened later) | [B00DM8KGXS](https://www.amazon.com/dp/B00DM8KGXS) | 1 | $11.95 | ON-ORDER |
-| Supco SUD8358 UV-dye filter-drier, 1/4" × 1/4" — correct replacement drier, brazed in after venting to replace spent factory drier | [B009AX2O5W](https://www.amazon.com/dp/B009AX2O5W) | 1 | $13.40 | ON-ORDER |
-| Mastercool 70025 cap-tube cutter — cleanly severs 0.042"/0.050" capillary tubing at the process-tube junction without crushing the bore | [B00NY1YHHE](https://www.amazon.com/dp/B00NY1YHHE) | 1 | $15.74 | ON-ORDER |
+| Supco D111 replacement filter-drier, 1/4" × 1/4" sweat, XH-9 — wrong part, retained as spare drier (same XH-9 desiccant, own Schrader; useful if loop has to be reopened later) | [B00DM8KGXS](https://www.amazon.com/dp/B00DM8KGXS) | 1 | $11.95 | ACQUIRED |
+| Supco SUD8358 UV-dye filter-drier, 1/4" × 1/4" — correct replacement drier, brazed in after venting to replace spent factory drier | [B009AX2O5W](https://www.amazon.com/dp/B009AX2O5W) | 1 | $13.40 | ACQUIRED |
+| Mastercool 70025 cap-tube cutter — cleanly severs 0.042"/0.050" capillary tubing at the process-tube junction without crushing the bore | [B00NY1YHHE](https://www.amazon.com/dp/B00NY1YHHE) | 1 | $15.74 | ACQUIRED |
 | Orion Motor Tech HVAC A/C manifold gauge set, 1/4" SAE | [B07CZB2SHZ](https://www.amazon.com/dp/B07CZB2SHZ) | 1 | $48.24 | ACQUIRED |
 | Orion Motor Tech 4 CFM 1/3 HP single-stage vacuum pump, 110 V, 150 µ ultimate | [B08P1WRZ1S](https://www.amazon.com/dp/B08P1WRZ1S) | 1 | $78.28 | ACQUIRED |
 | Supco BPV31 bullet-piercing valve — taps compressor process tube for initial vent + recharge access | [B00DM8J3MI](https://www.amazon.com/dp/B00DM8J3MI) | 1 | $7.37 | ACQUIRED |
@@ -143,12 +145,12 @@ Ice-maker donor units and copper coil for the chill loop.
 | Klein Tools 51006 3-in-1 tube bender, 1/4 / 5/16 / 3/8" OD — for forming the 1/4" ACR evaporator coil around the carbonator tank | [B0DPQX17WM](https://www.amazon.com/dp/B0DPQX17WM) | 1 | $21.98 | ACQUIRED |
 | Wisscool 1/4" handheld tube straightener — de-coils 1/4" ACR copper before bending | [B0F6BPTW3T](https://www.amazon.com/dp/B0F6BPTW3T) | 1 | $24.99 | ACQUIRED |
 | ESCO Institute EPA Section 608 Preparatory Manual — bought under the earlier assumption that recovery/recharge would hit HFC-regulated refrigerant; R-600a is Section 608-exempt (natural-refrigerant carveout) so the cert is NOT required for this build. Retained as general refrigeration reference / for any future non-hydrocarbon work. | [1930044607](https://www.amazon.com/dp/1930044607) | 1 | $22.47 | ACQUIRED |
-| Bernzomatic TS8000 high-intensity torch head + MAP-Pro 3-can kit — silver-brazing heat source for 1/4" ACR copper joints (reaches ~650 °C+ needed for BCuP-5) | [B0BPMVTJ1R](https://www.amazon.com/dp/B0BPMVTJ1R) | 1 | $109.99 | ON-ORDER |
-| Harris SSWF7 Stay Silv white brazing flux, 6.5 oz — protects joint from oxidation during brazing; required for BCuP-5 on copper-to-brass transitions | [B002BYLU52](https://www.amazon.com/dp/B002BYLU52) | 1 | $11.92 | ON-ORDER |
-| Uniweld RHP400 nitrogen regulator, CGA-580 × 1/4" male flare, 0–400 psi delivery — dry-N2 purge during brazing to prevent internal scale | [B008HQ6GXO](https://www.amazon.com/dp/B008HQ6GXO) | 1 | $90.22 | ON-ORDER |
-| RIDGID 31622 Model 150 constant-swing tubing cutter, 1/8"–1-1/8" — clean square cuts on 1/4" ACR before flaring/brazing | [B0009W6T8G](https://www.amazon.com/dp/B0009W6T8G) | 1 | $31.99 | ON-ORDER |
-| RIDGID 23332 Model 345 flaring tool, 45° SAE — produces leak-tight flares on 1/4" ACR for manifold-gauge and Schrader tap connections | [B000X4K9KO](https://www.amazon.com/dp/B000X4K9KO) | 1 | $99.99 | ON-ORDER |
-| BCuP-5 15% silver brazing alloy, 1/16" × 1 troy oz rod — low-flux-temp filler for copper-to-copper and copper-to-brass refrigeration joints | [B0DQ3ZMHK7](https://www.amazon.com/dp/B0DQ3ZMHK7) | 1 | $18.99 | ON-ORDER |
+| Bernzomatic TS8000 high-intensity torch head + MAP-Pro 3-can kit — silver-brazing heat source for 1/4" ACR copper joints (reaches ~650 °C+ needed for BCuP-5) | [B0BPMVTJ1R](https://www.amazon.com/dp/B0BPMVTJ1R) | 1 | $117.96 | ACQUIRED |
+| Harris SSWF7 Stay Silv white brazing flux, 6.5 oz — protects joint from oxidation during brazing; required for BCuP-5 on copper-to-brass transitions | [B002BYLU52](https://www.amazon.com/dp/B002BYLU52) | 1 | $11.92 | ACQUIRED |
+| Uniweld RHP400 nitrogen regulator, CGA-580 × 1/4" male flare, 0–400 psi delivery — dry-N2 purge during brazing to prevent internal scale | [B008HQ6GXO](https://www.amazon.com/dp/B008HQ6GXO) | 1 | $96.76 | ACQUIRED |
+| RIDGID 31622 Model 150 constant-swing tubing cutter, 1/8"–1-1/8" — clean square cuts on 1/4" ACR before flaring/brazing | [B0009W6T8G](https://www.amazon.com/dp/B0009W6T8G) | 1 | $31.99 | ACQUIRED |
+| RIDGID 23332 Model 345 flaring tool, 45° SAE — produces leak-tight flares on 1/4" ACR for manifold-gauge and Schrader tap connections | [B000X4K9KO](https://www.amazon.com/dp/B000X4K9KO) | 1 | $99.99 | ACQUIRED |
+| BCuP-5 15% silver brazing alloy, 1/16" × 1 troy oz rod — low-flux-temp filler for copper-to-copper and copper-to-brass refrigeration joints | [B0DQ3ZMHK7](https://www.amazon.com/dp/B0DQ3ZMHK7) | 1 | $18.99 | ACQUIRED |
 
 ## 7. Dispensing end — faucet, flow sensor
 
@@ -156,6 +158,11 @@ Ice-maker donor units and copper coil for the chill loop.
 |---|---|---|---|---|
 | Westbrass A2031-NL-62 8" Touch-Flo cold-water faucet, matte black | [B0BXFW1J38](https://www.amazon.com/dp/B0BXFW1J38) | 1 | $32.18 | ACQUIRED |
 | Westbrass D203-NL-62 6" Touch-Flo cold-water faucet, matte black | [B01MZ6JPXW](https://www.amazon.com/dp/B01MZ6JPXW) | 1 | $52.99 | ACQUIRED |
+| Westbrass R2031-NL-12 8" Touch-Flo faucet, oil-rubbed bronze — third donor (harvest valve body for 3-tube dispense spout) | [B01N5LVNQA](https://www.amazon.com/dp/B01N5LVNQA) | 1 | $20.95 | ACQUIRED |
+| 1/4" OD × 12" 304 SS straight tube, 4 pc — center tube for 3-tube dispense spout (carbonated water path) | [B0F87DJDZW](https://www.amazon.com/dp/B0F87DJDZW) | 1 pk | $12.86 | ACQUIRED |
+| 1/8" OD × 12" 304 SS straight tube, 4 pc — flanking tubes for 3-tube dispense spout (flavor injection paths) | [B0F87V8XCB](https://www.amazon.com/dp/B0F87V8XCB) | 1 pk | $8.57 | ACQUIRED |
+| Beduan 304 SS compression ferrule sleeve, 1/4" OD, 5 pk — decorative compression ferrules for dispense spout tips | [B07V4K2KKH](https://www.amazon.com/dp/B07V4K2KKH) | 1 pk | $6.42 | ACQUIRED |
+| Beduan 304 SS compression ferrule sleeve, 1/8" OD — decorative compression ferrules for dispense spout tips | [B07V8RJJYJ](https://www.amazon.com/dp/B07V8RJJYJ) | 1 pk | $5.35 | ACQUIRED |
 | DIGITEN G1/4" Hall-effect flow sensor 0.3–10 L/min | [B07QRXLRTH](https://www.amazon.com/dp/B07QRXLRTH) | 1 | $20.36 | ACQUIRED |
 | DIGITEN G1/4" Hall-effect flow meter 0.3–6 L/min | [B07QS17S6Q](https://www.amazon.com/dp/B07QS17S6Q) | 1 | $9.49 | ACQUIRED |
 
@@ -202,6 +209,7 @@ Ice-maker donor units and copper coil for the chill loop.
 | MXR IEC 60320 C14 panel-mount AC inlet, 10 A / 250 VAC (10 pk) — rear-panel mains inlet for standard computer-style line cord | [B07DCXKNXQ](https://www.amazon.com/dp/B07DCXKNXQ) | 1 pk | $6.96 | ACQUIRED |
 | Monoprice NEMA 5-15P → IEC C13 line cord, 18 AWG, 6 ft, UL-listed (6 pk) — ships in the box with the appliance | [B08VS8D4WC](https://www.amazon.com/dp/B08VS8D4WC) | 1 pk | $24.00 | ACQUIRED |
 | Mean Well IRM-90-12ST encapsulated 80 W / 12 V / 6.7 A PSU — primary appliance 12 V rail (per bom.md §1) | [B0CNRST18V](https://www.amazon.com/dp/B0CNRST18V) | 1 | $31.66 | ACQUIRED |
+| Mean Well LRS-200-12 enclosed 204 W / 12 V / 17 A PSU — alternate/higher-capacity 12 V rail (bench evaluation vs IRM-90) | [B0874XQ82F](https://www.amazon.com/dp/B0874XQ82F) | 1 | $30.03 | ACQUIRED |
 | P3 Kill-A-Watt P4400 power meter (bench) | [B00009MDBU](https://www.amazon.com/dp/B00009MDBU) | 1 | $34.31 | ACQUIRED |
 
 ## 10. User interface — buttons, LEDs, air switch
@@ -239,27 +247,27 @@ General shop equipment supporting fabrication, assembly, and teardown. Not proje
 
 ## 14. Soldering + small-signal electrical tools
 
-Bench soldering capability for through-hole, wire-to-pad (pogo pin leads), and general small-signal electrical work. Ordered as a single batch April 22, 2026 (Amazon order # 112-0066205-0960237, 17 line items, $395.31 pre-tax / $423.95 delivered). Iron tier intentionally chosen at the ~$100 Hakko sweet spot — above the $40 unregulated-tip trap, below the $300+ pro cartridge systems that are overkill for hobby use.
+Bench soldering capability for through-hole, wire-to-pad (pogo pin leads), and general small-signal electrical work. Ordered as a single batch April 22, 2026 (Amazon order # 112-0066205-0960237, 17 line items, $395.31 pre-tax / $423.95 delivered; delivered Apr 23, 2026). Iron tier intentionally chosen at the ~$100 Hakko sweet spot — above the $40 unregulated-tip trap, below the $300+ pro cartridge systems that are overkill for hobby use.
 
 | Part | ASIN link | Qty | $ | Status |
 |---|---|---|---|---|
-| Hakko FX-888D digital soldering station, 70 W, adjustable 120–899 °F — primary iron | [B0D4DJW54S](https://www.amazon.com/dp/B0D4DJW54S) | 1 | $121.47 | ON-ORDER |
-| Kester 24-6337-0027 63/37 Sn/Pb rosin-core solder, 0.031" / 1 lb — leaded rosin-core for through-hole and wire joints | [B0149K4JTY](https://www.amazon.com/dp/B0149K4JTY) | 1 | $48.60 | ON-ORDER |
-| KOTTO solder fume extractor, 60 W w/ activated-carbon filter — bench fume pull | [B07VWDN29F](https://www.amazon.com/dp/B07VWDN29F) | 1 | $39.99 | ON-ORDER |
-| AstroAI digital multimeter, 2000-count auto-ranging — continuity / voltage / resistance bench meter | [B071JL6LLL](https://www.amazon.com/dp/B071JL6LLL) | 1 | $29.99 | ON-ORDER |
-| Klein Tools 11063W Kurve self-adjusting wire stripper, AWG 10–20 — primary stripper for 18–24 AWG hookup wire | [B00CXKOEQ6](https://www.amazon.com/dp/B00CXKOEQ6) | 1 | $22.96 | ON-ORDER |
-| MG Chemicals 8341 no-clean rosin flux paste, 10 mL syringe — paste flux for stubborn joints / rework | [B09FWB6L5L](https://www.amazon.com/dp/B09FWB6L5L) | 1 | $20.20 | ON-ORDER |
-| MG Chemicals 99.9% anhydrous isopropyl alcohol, 16 oz — post-solder flux cleanup | [B0BZ21DBJ6](https://www.amazon.com/dp/B0BZ21DBJ6) | 1 | $17.35 | ON-ORDER |
-| Kaisi heat-resistant silicone repair mat, 17.7" × 11.8" — bench work surface, magnetic-section screw organizer | [B07DGVRYL3](https://www.amazon.com/dp/B07DGVRYL3) | 1 | $11.99 | ON-ORDER |
-| Chemtronics Soder-Wick #60-3-5 desoldering braid, 0.075" × 5 ft — solder removal | [B01I7Q2ULA](https://www.amazon.com/dp/B01I7Q2ULA) | 1 | $11.76 | ON-ORDER |
-| 3M Virtua CCS safety glasses, clear anti-fog — PPE for soldering + heat-gun work | [B00AEXKR4C](https://www.amazon.com/dp/B00AEXKR4C) | 1 | $11.59 | ON-ORDER |
-| BEEYUIHF no-clean liquid soldering flux, dropper bottle — wicks into joints via capillary action (complements paste) | [B0G2G6WFPZ](https://www.amazon.com/dp/B0G2G6WFPZ) | 1 | $9.99 | ON-ORDER |
-| AORAEM helping-hands w/ 4 flex arms + magnifier — work holder for wire-to-pad soldering | [B08DNMT96W](https://www.amazon.com/dp/B08DNMT96W) | 1 | $8.99 | ON-ORDER |
-| QWORK mini heat gun, 300 W / 200–450 °C — heat-shrink activation, light rework | [B09NDCCW29](https://www.amazon.com/dp/B09NDCCW29) | 1 | $8.97 | ON-ORDER |
-| Hakko T18-D16 chisel tip, 1.6 mm — general-purpose tip for FX-888D | [B004OR9BV4](https://www.amazon.com/dp/B004OR9BV4) | 1 | $8.99 | ON-ORDER |
-| Hakko T18-D12 chisel tip, 1.2 mm — fine-pitch tip for FX-888D | [B004OR6BU8](https://www.amazon.com/dp/B004OR6BU8) | 1 | $8.99 | ON-ORDER |
-| Heat-shrink tubing assortment kit, 2:1 ratio, assorted sizes/colors — wire insulation post-solder | [B0FRNMXN6Q](https://www.amazon.com/dp/B0FRNMXN6Q) | 1 | $6.99 | ON-ORDER |
-| Disposable flux brushes, horsehair, 1/2" × 6" (pack) — flux application, general cleanup | [B07PHG2DQY](https://www.amazon.com/dp/B07PHG2DQY) | 1 pk | $6.49 | ON-ORDER |
+| Hakko FX-888D digital soldering station, 70 W, adjustable 120–899 °F — primary iron | [B0D4DJW54S](https://www.amazon.com/dp/B0D4DJW54S) | 1 | $121.47 | ACQUIRED |
+| Kester 24-6337-0027 63/37 Sn/Pb rosin-core solder, 0.031" / 1 lb — leaded rosin-core for through-hole and wire joints | [B0149K4JTY](https://www.amazon.com/dp/B0149K4JTY) | 1 | $48.60 | ACQUIRED |
+| KOTTO solder fume extractor, 60 W w/ activated-carbon filter — bench fume pull | [B07VWDN29F](https://www.amazon.com/dp/B07VWDN29F) | 1 | $39.99 | ACQUIRED |
+| AstroAI digital multimeter, 2000-count auto-ranging — continuity / voltage / resistance bench meter | [B071JL6LLL](https://www.amazon.com/dp/B071JL6LLL) | 1 | $29.99 | ACQUIRED |
+| Klein Tools 11063W Kurve self-adjusting wire stripper, AWG 10–20 — primary stripper for 18–24 AWG hookup wire | [B00CXKOEQ6](https://www.amazon.com/dp/B00CXKOEQ6) | 1 | $22.96 | ACQUIRED |
+| MG Chemicals 8341 no-clean rosin flux paste, 10 mL syringe — paste flux for stubborn joints / rework | [B09FWB6L5L](https://www.amazon.com/dp/B09FWB6L5L) | 1 | $20.20 | ACQUIRED |
+| MG Chemicals 99.9% anhydrous isopropyl alcohol, 16 oz — post-solder flux cleanup | [B0BZ21DBJ6](https://www.amazon.com/dp/B0BZ21DBJ6) | 1 | $17.35 | ACQUIRED |
+| Kaisi heat-resistant silicone repair mat, 17.7" × 11.8" — bench work surface, magnetic-section screw organizer | [B07DGVRYL3](https://www.amazon.com/dp/B07DGVRYL3) | 1 | $11.99 | ACQUIRED |
+| Chemtronics Soder-Wick #60-3-5 desoldering braid, 0.075" × 5 ft — solder removal | [B01I7Q2ULA](https://www.amazon.com/dp/B01I7Q2ULA) | 1 | $11.76 | ACQUIRED |
+| 3M Virtua CCS safety glasses, clear anti-fog — PPE for soldering + heat-gun work | [B00AEXKR4C](https://www.amazon.com/dp/B00AEXKR4C) | 1 | $11.59 | ACQUIRED |
+| BEEYUIHF no-clean liquid soldering flux, dropper bottle — wicks into joints via capillary action (complements paste) | [B0G2G6WFPZ](https://www.amazon.com/dp/B0G2G6WFPZ) | 1 | $9.99 | ACQUIRED |
+| AORAEM helping-hands w/ 4 flex arms + magnifier — work holder for wire-to-pad soldering | [B08DNMT96W](https://www.amazon.com/dp/B08DNMT96W) | 1 | $8.99 | ACQUIRED |
+| QWORK mini heat gun, 300 W / 200–450 °C — heat-shrink activation, light rework | [B09NDCCW29](https://www.amazon.com/dp/B09NDCCW29) | 1 | $8.97 | ACQUIRED |
+| Hakko T18-D16 chisel tip, 1.6 mm — general-purpose tip for FX-888D | [B004OR9BV4](https://www.amazon.com/dp/B004OR9BV4) | 1 | $8.99 | ACQUIRED |
+| Hakko T18-D12 chisel tip, 1.2 mm — fine-pitch tip for FX-888D | [B004OR6BU8](https://www.amazon.com/dp/B004OR6BU8) | 1 | $8.99 | ACQUIRED |
+| Heat-shrink tubing assortment kit, 2:1 ratio, assorted sizes/colors — wire insulation post-solder | [B0FRNMXN6Q](https://www.amazon.com/dp/B0FRNMXN6Q) | 1 | $6.99 | ACQUIRED |
+| Disposable flux brushes, horsehair, 1/2" × 6" (pack) — flux application, general cleanup | [B07PHG2DQY](https://www.amazon.com/dp/B07PHG2DQY) | 1 pk | $6.49 | ACQUIRED |
 
 ## 15. 3D printing equipment and filaments (Bambu Lab direct)
 
@@ -336,17 +344,15 @@ Scope reminder: 2026 YTD only (Jan 1 → Apr 22, 2026). Pre-2026 Claude spend is
 
 | Status | $ |
 |---|---|
-| ACQUIRED — hardware (§§1–13, 15, 16, 17) | $13,442.21 |
+| ACQUIRED — hardware (§§1–13, 15, 16, 17) | $14,393.38 |
 | ACQUIRED — capitalized contract labor (§18) | $2,607.92 |
-| ACQUIRED (combined) | $16,050.13 |
-| ON-ORDER | ~$1,549.50 |
+| ACQUIRED (combined) | $17,001.30 |
+| ON-ORDER | ~$750.00 |
 | LIKELY-TO-BUY | $92.97 |
-| **Grand total** | ~$17,692.60 |
+| **Grand total** | ~$17,844.27 |
 
-ACQUIRED-hardware breakdown: Amazon (§§1–13) $4,140.88 + Bambu Lab direct (§15) $4,803.33 + XLaserlab X1 Pro (§16) $3,899.00 + Namecheap homesodamachine.com (§17) $599.00 = $13,442.21.
+ACQUIRED-hardware breakdown: Amazon (§§1–13) $5,092.05 + Bambu Lab direct (§15) $4,803.33 + XLaserlab X1 Pro (§16) $3,899.00 + Namecheap homesodamachine.com (§17) $599.00 = $14,393.38.
 
-ON-ORDER breakdown: RIGID DV1910E refrigeration module (~$600 + import, stuck, may cancel) + Amazon brazing/refrigeration tools batch placed April 22, 2026 ($404.19: Supco D111 $11.95, Supco SUD8358 $13.40, Mastercool 70025 $15.74, Bernzomatic TS8000+MAP-Pro $109.99, Harris SSWF7 flux $11.92, Uniweld RHP400 N2 regulator $90.22, RIDGID 31622 cutter $31.99, RIDGID 23332 flare tool $99.99, BCuP-5 rod $18.99) + Amazon soldering/small-signal electrical tools batch placed April 22, 2026 (order # 112-0066205-0960237, $395.31 pre-tax / $423.95 delivered; 17 line items — see §14) + Airgas N2 cylinder lease/fill (~$120–180, not yet picked up; midpoint $150 used in subtotal).
+ON-ORDER breakdown: RIGID DV1910E refrigeration module (~$600 + import, stuck, may cancel) + Airgas N2 cylinder lease/fill (~$120–180, not yet picked up; midpoint $150 used in subtotal). The Amazon brazing/refrigeration tools batch placed April 22, 2026 (delivered Apr 23 at $418.70: Supco D111 $11.95, Supco SUD8358 $13.40, Mastercool 70025 $15.74, Bernzomatic TS8000+MAP-Pro $117.96, Harris SSWF7 flux $11.92, Uniweld RHP400 N2 regulator $96.76, RIDGID 31622 cutter $31.99, RIDGID 23332 flare tool $99.99, BCuP-5 rod $18.99) and the soldering/small-signal electrical tools batch (order # 112-0066205-0960237, $423.95 delivered; 17 line items — see §14) both arrived April 23, 2026 and have moved from ON-ORDER → ACQUIRED.
 
-Note: the Supco D111 remains in the ON-ORDER bucket above even though it's the "wrong part" — price was already in the file as ACQUIRED and has been shifted to ON-ORDER pending delivery; it is kept as a spare. ACQUIRED total above was reduced by $11.95 to reflect that move.
-
-Excluded from totals (price unresolved, still marked "bundle"): Meshnology ESP32-S3 display, 12 V 2 A DC power supply, Haisstronica ratchet crimper. Beduan flavor-manifold solenoid counted at $9.64 × 4; actual qty across orders may differ.
+Excluded from totals (price unresolved, still marked "bundle" or "—"): Meshnology ESP32-S3 display, 12 V 2 A DC power supply, Haisstronica ratchet crimper, PGN ER308L 10 lb MIG wire B09WRZDBPN (order placed 2026-04-19 but total not yet posted). Beduan flavor-manifold solenoid counted at $9.64 × 4; actual qty across orders may differ.
