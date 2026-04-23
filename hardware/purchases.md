@@ -151,6 +151,8 @@ Ice-maker donor units and copper coil for the chill loop.
 | RIDGID 31622 Model 150 constant-swing tubing cutter, 1/8"–1-1/8" — clean square cuts on 1/4" ACR before flaring/brazing | [B0009W6T8G](https://www.amazon.com/dp/B0009W6T8G) | 1 | $31.99 | ACQUIRED |
 | RIDGID 23332 Model 345 flaring tool, 45° SAE — produces leak-tight flares on 1/4" ACR for manifold-gauge and Schrader tap connections | [B000X4K9KO](https://www.amazon.com/dp/B000X4K9KO) | 1 | $99.99 | ACQUIRED |
 | BCuP-5 15% silver brazing alloy, 1/16" × 1 troy oz rod — low-flux-temp filler for copper-to-copper and copper-to-brass refrigeration joints | [B0DQ3ZMHK7](https://www.amazon.com/dp/B0DQ3ZMHK7) | 1 | $18.99 | ACQUIRED |
+| HVAC 1/4" OD copper slip coupling, ACR-grade, sweat × sweat, 10-pack — joins new evaporator coil outlet to factory suction line (both 1/4" OD) | [B0FH549N6D](https://www.amazon.com/dp/B0FH549N6D) | 1 pk | $7.98 | ON-ORDER |
+| Knipex 86 01 180 Pliers Wrench, 7.25" — smooth parallel-jaw pliers for pinch-swaging 1/4" ACR copper inlet down onto 0.031" capillary tube (progressive 60° rotation collapse technique, no reducer fitting required) | [B07YLFLSJW](https://www.amazon.com/dp/B07YLFLSJW) | 1 | $53.20 | ON-ORDER |
 
 ## 7. Dispensing end — faucet, flow sensor
 
@@ -347,12 +349,12 @@ Scope reminder: 2026 YTD only (Jan 1 → Apr 22, 2026). Pre-2026 Claude spend is
 | ACQUIRED — hardware (§§1–13, 15, 16, 17) | $14,393.38 |
 | ACQUIRED — capitalized contract labor (§18) | $2,607.92 |
 | ACQUIRED (combined) | $17,001.30 |
-| ON-ORDER | ~$750.00 |
+| ON-ORDER | ~$811.18 |
 | LIKELY-TO-BUY | $92.97 |
-| **Grand total** | ~$17,844.27 |
+| **Grand total** | ~$17,905.45 |
 
 ACQUIRED-hardware breakdown: Amazon (§§1–13) $5,092.05 + Bambu Lab direct (§15) $4,803.33 + XLaserlab X1 Pro (§16) $3,899.00 + Namecheap homesodamachine.com (§17) $599.00 = $14,393.38.
 
-ON-ORDER breakdown: RIGID DV1910E refrigeration module (~$600 + import, stuck, may cancel) + Airgas N2 cylinder lease/fill (~$120–180, not yet picked up; midpoint $150 used in subtotal). The Amazon brazing/refrigeration tools batch placed April 22, 2026 (delivered Apr 23 at $418.70: Supco D111 $11.95, Supco SUD8358 $13.40, Mastercool 70025 $15.74, Bernzomatic TS8000+MAP-Pro $117.96, Harris SSWF7 flux $11.92, Uniweld RHP400 N2 regulator $96.76, RIDGID 31622 cutter $31.99, RIDGID 23332 flare tool $99.99, BCuP-5 rod $18.99) and the soldering/small-signal electrical tools batch (order # 112-0066205-0960237, $423.95 delivered; 17 line items — see §14) both arrived April 23, 2026 and have moved from ON-ORDER → ACQUIRED.
+ON-ORDER breakdown: RIGID DV1910E refrigeration module (~$600 + import, stuck, may cancel) + Airgas N2 cylinder lease/fill (~$120–180, not yet picked up; midpoint $150 used in subtotal) + Amazon order placed Apr 23, 2026: HVAC 1/4" ACR copper slip coupling 10-pk B0FH549N6D ($7.98) + Knipex 86 01 180 Pliers Wrench B07YLFLSJW ($53.20) = $61.18 new refrigeration spend. The Amazon brazing/refrigeration tools batch placed April 22, 2026 (delivered Apr 23 at $418.70: Supco D111 $11.95, Supco SUD8358 $13.40, Mastercool 70025 $15.74, Bernzomatic TS8000+MAP-Pro $117.96, Harris SSWF7 flux $11.92, Uniweld RHP400 N2 regulator $96.76, RIDGID 31622 cutter $31.99, RIDGID 23332 flare tool $99.99, BCuP-5 rod $18.99) and the soldering/small-signal electrical tools batch (order # 112-0066205-0960237, $423.95 delivered; 17 line items — see §14) both arrived April 23, 2026 and have moved from ON-ORDER → ACQUIRED.
 
 Excluded from totals (price unresolved, still marked "bundle" or "—"): Meshnology ESP32-S3 display, 12 V 2 A DC power supply, Haisstronica ratchet crimper, PGN ER308L 10 lb MIG wire B09WRZDBPN (order placed 2026-04-19 but total not yet posted). Beduan flavor-manifold solenoid counted at $9.64 × 4; actual qty across orders may differ.
