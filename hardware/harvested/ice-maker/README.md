@@ -135,7 +135,7 @@ For ESP32 control:
 - Factory refrigerant charge mass (read from the nameplate once fully exposed)
 - Compressor rated cooling capacity in W — confirm against expected load of holding ~1.5 L of carbonated water at 2 °C against cabinet-ambient
 - Physical dimensions of compressor + condenser pair, for enclosure layout
-- Decide whether to save photos to `hardware/ice-maker-teardowns/unit-a-b0f42mt8jx/raw-images/` alongside this doc
+- Decide whether to save photos to `hardware/harvested/ice-maker/unit-a-b0f42mt8jx/raw-images/` alongside this doc
 
 ---
 

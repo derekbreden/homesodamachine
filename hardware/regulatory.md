@@ -13,7 +13,7 @@ Consolidates the regulatory conclusions already reached across prior conversatio
 
 R-600a (isobutane) is carved out of the Section 608 venting prohibition as a natural refrigerant. No technician certification is legally required to vent, cut, braze, evacuate, or recharge the harvested refrigerant loop on this project.
 
-Primary citation: `hardware/ice-maker-teardown.md` (the line stating the 608 exemption).
+Primary citation: `hardware/harvested/ice-maker/README.md` (the line stating the 608 exemption).
 
 Does not apply to: a pivot to an R-134a or other HFC donor. In that case 608 Type I certification applies (open-book online, ~$25, 84% pass).
 
@@ -34,7 +34,7 @@ Approval conditions this project must satisfy at the product level (no third-par
 
 Charge cap for this equipment class is 150 g. Factory donor charge is 30–50 g per unit — well below the limit.
 
-Primary citation: `hardware/ice-maker-teardown.md` (the line stating charge is "well under the 150 g UL 60335-2-89 limit").
+Primary citation: `hardware/harvested/ice-maker/README.md` (the line stating charge is "well under the 150 g UL 60335-2-89 limit").
 
 This standard governs design compliance regardless of whether a UL listing is pursued. D2C sale does not require the listing but the design should still conform.
 
