@@ -35,6 +35,7 @@ Stainless sheet body, weld bungs, end-cap material, welding + forming tools used
 | 304 SS 4" × 4" × 0.04" (19 ga / 1 mm) sheet, 4 pc — welding practice coupons, matches body thickness | [B0C5LWVLCD](https://www.amazon.com/dp/B0C5LWVLCD) | 1 | $13.93 | ACQUIRED |
 | Drill America 1/4" NPT HSS pipe tap + 1-1/2" OD round die kit — thread chasing / custom adapters | [B0DXN1LDKT](https://www.amazon.com/dp/B0DXN1LDKT) | 1 | $18.80 | ACQUIRED |
 | MOTOKU 38 mm / 1.5" OD heavy-duty round die handle — companion to Drill America die | [B073ZX58PH](https://www.amazon.com/dp/B073ZX58PH) | 1 | $13.99 | ACQUIRED |
+| SendCutSend order SP54G453 — 304 SS 0.048" laser-cut + deburred body half-sheets (`carbonator_body_half_blank.dxf`, 7.754" × 6"), qty 10; invoice Apr 24, 2026; $125.30 subtotal + FREE ship + $9.08 tax = $134.38 on Visa x5607 | [SendCutSend invoice PDF](mailto:support@sendcutsend.com) | 10 | $134.38 | ON-ORDER (in production; parts entered production 2026-04-23) |
 
 ## 2. CO2 subsystem
 
@@ -351,12 +352,12 @@ Scope reminder: 2026 YTD only (Jan 1 → Apr 22, 2026). Pre-2026 Claude spend is
 | ACQUIRED — hardware (§§1–13, 15, 16, 17) | $14,393.38 |
 | ACQUIRED — capitalized contract labor (§18) | $2,607.92 |
 | ACQUIRED (combined) | $17,001.30 |
-| ON-ORDER | ~$758.14 |
+| ON-ORDER | ~$892.52 |
 | LIKELY-TO-BUY | $92.97 |
-| **Grand total** | ~$17,852.41 |
+| **Grand total** | ~$17,986.79 |
 
 ACQUIRED-hardware breakdown: Amazon (§§1–13) $5,092.05 + Bambu Lab direct (§15) $4,803.33 + XLaserlab X1 Pro (§16) $3,899.00 + Namecheap homesodamachine.com (§17) $599.00 = $14,393.38.
 
-ON-ORDER breakdown: RIGID DV1910E refrigeration module (~$600 + import, stuck, may cancel) + Amazon orders placed Apr 23, 2026: HVAC 1/4" ACR copper slip coupling 10-pk B0FH549N6D ($7.98) + Knipex 86 01 180 Pliers Wrench B07YLFLSJW ($53.20) + Joywayus 1/4" SAE flare nut 5-pk B0G1XJ2F68 ($7.99) + 3M 425 aluminum foil tape 2" × 180 ft B07BTW7C2N ($88.97) = $158.14 new refrigeration spend. The earlier Airgas nitrogen cylinder plan was dropped — argon purge reuses the existing argon cylinder currently feeding the laser welder, no new gas purchase needed. The foil tape replaces the generic "thermal compound" line in BOM §6 as the tank ↔ coil thermal interface; 180 ft roll covers ~12 builds at ~15 ft/build. The Amazon brazing/refrigeration tools batch placed April 22, 2026 (delivered Apr 23 at $418.70: Supco D111 $11.95, Supco SUD8358 $13.40, Mastercool 70025 $15.74, Bernzomatic TS8000+MAP-Pro $117.96, Harris SSWF7 flux $11.92, Uniweld RHP400 N2 regulator $96.76, RIDGID 31622 cutter $31.99, RIDGID 23332 flare tool $99.99, BCuP-5 rod $18.99) and the soldering/small-signal electrical tools batch (order # 112-0066205-0960237, $423.95 delivered; 17 line items — see §14) both arrived April 23, 2026 and have moved from ON-ORDER → ACQUIRED.
+ON-ORDER breakdown: RIGID DV1910E refrigeration module (~$600 + import, stuck, may cancel) + Amazon orders placed Apr 23, 2026: HVAC 1/4" ACR copper slip coupling 10-pk B0FH549N6D ($7.98) + Knipex 86 01 180 Pliers Wrench B07YLFLSJW ($53.20) + Joywayus 1/4" SAE flare nut 5-pk B0G1XJ2F68 ($7.99) + 3M 425 aluminum foil tape 2" × 180 ft B07BTW7C2N ($88.97) = $158.14 new refrigeration spend. SendCutSend order SP54G453 ($134.38 delivered, invoice Apr 24, 2026) adds 10× 304 SS 0.048" body half-sheets; parts entered production 2026-04-23, supersedes the body portion of the earlier SQ65E969 + SV07U813 combined runs in BOM §2 (end-cap portion of those orders remains valid). The earlier Airgas nitrogen cylinder plan was dropped — argon purge reuses the existing argon cylinder currently feeding the laser welder, no new gas purchase needed. The foil tape replaces the generic "thermal compound" line in BOM §6 as the tank ↔ coil thermal interface; 180 ft roll covers ~12 builds at ~15 ft/build. The Amazon brazing/refrigeration tools batch placed April 22, 2026 (delivered Apr 23 at $418.70: Supco D111 $11.95, Supco SUD8358 $13.40, Mastercool 70025 $15.74, Bernzomatic TS8000+MAP-Pro $117.96, Harris SSWF7 flux $11.92, Uniweld RHP400 N2 regulator $96.76, RIDGID 31622 cutter $31.99, RIDGID 23332 flare tool $99.99, BCuP-5 rod $18.99) and the soldering/small-signal electrical tools batch (order # 112-0066205-0960237, $423.95 delivered; 17 line items — see §14) both arrived April 23, 2026 and have moved from ON-ORDER → ACQUIRED.
 
 Excluded from totals (price unresolved, still marked "bundle" or "—"): Meshnology ESP32-S3 display, 12 V 2 A DC power supply, Haisstronica ratchet crimper, PGN ER308L 10 lb MIG wire B09WRZDBPN (order placed 2026-04-19 but total not yet posted). Beduan flavor-manifold solenoid counted at $9.64 × 4; actual qty across orders may differ.
