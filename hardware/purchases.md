@@ -171,6 +171,8 @@ Ice-maker donor units and copper coil for the chill loop.
 | 1/8" OD × 12" 304 SS straight tube, 4 pc — flanking tubes for 3-tube dispense spout (flavor injection paths) | [B0F87V8XCB](https://www.amazon.com/dp/B0F87V8XCB) | 1 pk | $8.57 | ACQUIRED |
 | Beduan 304 SS compression ferrule sleeve, 1/4" OD, 5 pk — decorative compression ferrules for dispense spout tips | [B07V4K2KKH](https://www.amazon.com/dp/B07V4K2KKH) | 1 pk | $6.42 | ACQUIRED |
 | Beduan 304 SS compression ferrule sleeve, 1/8" OD — decorative compression ferrules for dispense spout tips | [B07V8RJJYJ](https://www.amazon.com/dp/B07V8RJJYJ) | 1 pk | $5.35 | ACQUIRED |
+| Pysrych 304 SS reducing compression union, 1/4" OD × 1/8" OD, 2 pk — joins 1/4" LLDPE supply to 1/8" SS spout tube for each flavor line inside the shroud | [B0BM4394Z4](https://www.amazon.com/dp/B0BM4394Z4) | 1 pk | $8.99 | ACQUIRED |
+| Siptenk 1/4" OD brass tube stiffener insert, 100 pk — required on the LLDPE side of the 1/4" compression joint so the ferrule does not crush the soft tube | [B0FM77LLM1](https://www.amazon.com/dp/B0FM77LLM1) | 1 pk | $8.99 | ACQUIRED |
 | DIGITEN G1/4" Hall-effect flow sensor 0.3–10 L/min | [B07QRXLRTH](https://www.amazon.com/dp/B07QRXLRTH) | 1 | $20.36 | ACQUIRED |
 | DIGITEN G1/4" Hall-effect flow meter 0.3–6 L/min | [B07QS17S6Q](https://www.amazon.com/dp/B07QS17S6Q) | 1 | $9.49 | ACQUIRED |
 
@@ -352,14 +354,14 @@ Scope reminder: 2026 YTD only (Jan 1 → Apr 22, 2026). Pre-2026 Claude spend is
 
 | Status | $ |
 |---|---|
-| ACQUIRED — hardware (§§1–13, 15, 16, 17) | $14,499.09 |
+| ACQUIRED — hardware (§§1–13, 15, 16, 17) | $14,517.07 |
 | ACQUIRED — capitalized contract labor (§18) | $2,607.92 |
-| ACQUIRED (combined) | $17,107.01 |
+| ACQUIRED (combined) | $17,124.99 |
 | ON-ORDER | ~$935.41 |
 | LIKELY-TO-BUY | $92.97 |
-| **Grand total** | ~$18,135.39 |
+| **Grand total** | ~$18,153.37 |
 
-ACQUIRED-hardware breakdown: Amazon (§§1–13) $5,092.05 + SendCutSend (§1, orders SQ65E969 + SV07U813) $105.71 + Bambu Lab direct (§15) $4,803.33 + XLaserlab X1 Pro (§16) $3,899.00 + Namecheap homesodamachine.com (§17) $599.00 = $14,499.09.
+ACQUIRED-hardware breakdown: Amazon (§§1–13) $5,110.03 + SendCutSend (§1, orders SQ65E969 + SV07U813) $105.71 + Bambu Lab direct (§15) $4,803.33 + XLaserlab X1 Pro (§16) $3,899.00 + Namecheap homesodamachine.com (§17) $599.00 = $14,517.07.
 
 ON-ORDER breakdown: RIGID DV1910E refrigeration module (~$600 + import, stuck, may cancel) + Amazon orders placed Apr 23, 2026: HVAC 1/4" ACR copper slip coupling 10-pk B0FH549N6D ($7.98) + Knipex 86 01 180 Pliers Wrench B07YLFLSJW ($53.20) + Joywayus 1/4" SAE flare nut 5-pk B0G1XJ2F68 ($7.99) + 3M 425 aluminum foil tape 2" × 180 ft B07BTW7C2N ($88.97) = $158.14 new refrigeration spend. SendCutSend order SP54G453 ($134.38 delivered, invoice Apr 24, 2026) adds 10× 304 SS 0.048" body half-sheets; parts entered production 2026-04-23, supersedes the body portion of the earlier SQ65E969 + SV07U813 combined runs in BOM §2 (end-cap portion of those orders remains valid). The earlier Airgas nitrogen cylinder plan was dropped — argon purge reuses the existing argon cylinder currently feeding the laser welder, no new gas purchase needed. The foil tape replaces the generic "thermal compound" line in BOM §6 as the tank ↔ coil thermal interface; 180 ft roll covers ~12 builds at ~15 ft/build. The Amazon brazing/refrigeration tools batch placed April 22, 2026 (delivered Apr 23 at $418.70: Supco D111 $11.95, Supco SUD8358 $13.40, Mastercool 70025 $15.74, Bernzomatic TS8000+MAP-Pro $117.96, Harris SSWF7 flux $11.92, Uniweld RHP400 N2 regulator $96.76, RIDGID 31622 cutter $31.99, RIDGID 23332 flare tool $99.99, BCuP-5 rod $18.99) and the soldering/small-signal electrical tools batch (order # 112-0066205-0960237, $423.95 delivered; 17 line items — see §14) both arrived April 23, 2026 and have moved from ON-ORDER → ACQUIRED.
 
