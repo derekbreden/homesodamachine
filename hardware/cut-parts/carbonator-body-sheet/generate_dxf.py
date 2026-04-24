@@ -7,12 +7,23 @@ flat sides to form the racetrack tube body.
 
 ── Why two halves instead of one ──
 
-A slip roll can only produce open shells.  Once a rolled sheet wraps
-far enough that it approaches a closed loop, it cannot slide off the
-rollers axially — the captive end supports block it.  Splitting the
-racetrack into two symmetric D-halves gives two open 180° shells,
-each with a short flat tangent on either end, that roll and release
-cleanly.
+On a captive-roller slip roll (no top-roller release, no axial
+opening), the workpiece exits only out the back, in the rolling
+direction.  That's fine as long as the part never closes on itself.
+
+A full-perimeter racetrack blank would, as the far end continues
+through the rollers, curl the leading edge around and back toward
+the nip — meeting the trailing edge at the same spot where new
+material is still feeding in.  At that point the piece is trapped:
+closing the loop jams the leading edge into the nip zone, and the
+part cannot be pulled free in any direction.
+
+Splitting the racetrack into two symmetric D-halves prevents the
+leading edge from ever meeting the trailing edge.  A 180° D always
+has an open span equal to the semicircle diameter (~3.9") between
+its flat ends.  The piece exits the back of the rollers, curls
+into a D behind the machine, and drops free as the trailing flat
+tangent clears the nip.
 
 Two butt welds (one on each flat side) instead of one.  Material
 total and rolled geometry are unchanged.
