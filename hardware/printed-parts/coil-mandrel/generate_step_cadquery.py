@@ -54,9 +54,12 @@ PITCH_IN     = 0.5
 PITCH        = PITCH_IN * 25.4                # 12.7 mm per wrap
 NUM_WRAPS    = 12
 
-# Sampling density for the helical path.
-POINTS_PER_WRAP = 200
-TOTAL_POINTS    = POINTS_PER_WRAP * NUM_WRAPS  # 2400
+# Fit resolution for the helical path B-spline.  parametricCurve samples
+# the path at N points and fits a smooth B-spline through them.  At
+# N = 600 over 12 wraps, that's 50 samples per wrap — ample to capture
+# the racetrack-perimeter shape (4 tangent discontinuities per wrap at
+# the flat/semicircle boundaries) without over-smoothing the corners.
+CURVE_FIT_N = 600
 
 
 # ═══════════════════════════════════════════════════════
@@ -153,34 +156,30 @@ def helix_point(t_wraps):
 def build_helical_groove_cut():
     """Sweep a circular cross-section along the racetrack-helix path.
 
-    Samples the path as a polyline and sweeps a circle of radius
-    TUBE_RAD.  The sweep ends are pushed slightly past the winding zone
-    to guarantee clean boolean subtraction; the resulting solid is cut
-    from the mandrel body.
+    Builds a single smooth B-spline path via parametricCurve — the
+    curve is fit from CURVE_FIT_N samples and represented in the STEP
+    output as one continuous NURBS curve, yielding a single NURBS tube
+    surface when swept.  Contrast with a polyline sweep, which produces
+    one planar face segment per polyline edge and bloats the STEP by
+    ~500x for a curve of this resolution.
     """
-    # Sample the helical centerline.
-    pts = []
-    for i in range(TOTAL_POINTS + 1):
-        t = NUM_WRAPS * i / TOTAL_POINTS
-        pts.append(helix_point(t))
+    # Smooth parametric path: maps t ∈ [0, 1] to the helix at 0..NUM_WRAPS.
+    def path_func(t):
+        return helix_point(t * NUM_WRAPS)
 
-    # Build polyline path as a wire.
-    path = (
-        cq.Workplane("XY")
-        .polyline(pts)
-    )
+    path = cq.Workplane("XY").parametricCurve(path_func, N=CURVE_FIT_N)
 
     # Sweep profile: circle of TUBE_RAD, perpendicular to the initial
     # path tangent.  The groove cuts a semicircular channel of depth
     # TUBE_RAD into the racetrack surface (the inner half of the swept
     # tube lies inside the mandrel; the outer half hangs in free space
     # but is harmless to boolean-subtract).
-    start_pt = pts[0]
-    next_pt  = pts[1]
+    start_pt = path_func(0.0)
+    near_pt  = path_func(1.0 / CURVE_FIT_N)
     tangent  = (
-        next_pt[0] - start_pt[0],
-        next_pt[1] - start_pt[1],
-        next_pt[2] - start_pt[2],
+        near_pt[0] - start_pt[0],
+        near_pt[1] - start_pt[1],
+        near_pt[2] - start_pt[2],
     )
 
     profile_plane = cq.Plane(
