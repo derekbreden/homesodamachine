@@ -76,7 +76,7 @@ Fallback path (UL/ETL-retail-friendly): RIGID DV1910E sealed refrigeration modul
 | Part | Source | Qty | Unit $ | Line $ |
 |---|---|---:|---:|---:|
 | [Fiberglass Supply Depot 2 lb 2-part closed-cell pour-in-place PU foam, 1 qt kit](https://www.amazon.com/dp/B08R7TX8QJ) | B08R7TX8QJ — 1.25 ft³ yield covers inner + outer shells with margin | 1 kit | $39.99 | $39.99 |
-| Thermal compound (evaporator coil ↔ vessel wall) | estimate | 1 tube | ~$10.00 | $10.00 |
+| [3M 425 aluminum foil tape, 2" × 180 ft](https://www.amazon.com/dp/B07BTW7C2N) | B07BTW7C2N — thermally conductive aluminum foil, applied under the coil (continuous aluminum skin on tank OD, coil wraps over it) to bridge the tank ↔ coil thermal interface; replaces the earlier generic "thermal compound" plan which was unsuitable for this macro-scale gap geometry without clamping pressure; one 180 ft roll covers ~12 builds at ~15 ft/build; 1/12 of $88.97 | 1 | $7.41 | $7.41 |
 
 ## 7. Printed mechanical parts (PETG @ $12.99/kg)
 
@@ -146,15 +146,15 @@ Dishing dies (PA6-CF) for end-cap forming are vessel-fabrication tools, not ship
 | 3. Water inlet | $144.33 |
 | 4. CO2 subsystem | $68.29 |
 | 5. Refrigeration | $166.91 |
-| 6. Cold core insulation | $49.99 |
+| 6. Cold core insulation | $47.40 |
 | 7. Printed parts (PETG) | $103.94 |
 | 8. Flavor subsystem | $308.84 |
 | 9. Dispensing | $39.27 |
 | 10. UI | $39.95 |
 | 11. Wiring | $25.94 |
-| **Sourced + estimated subtotal** | **$1,314.25** |
+| **Sourced + estimated subtotal** | **$1,311.66** |
 | 12. Not yet sourced | $10.00 |
-| **Projected total** | **$1,324.25** |
+| **Projected total** | **$1,321.66** |
 
 ## External / user-supplied (not shipped)
 
