@@ -38,7 +38,7 @@ The already-owned Westbrass A2031-NL-62 ($32.18) and D203-NL-62 ($52.99) in `har
 Target end-state: three visible stainless tubes emerging from the faucet body, gently swept forward to dispense over a glass at the sink. Center tube carries carbonated water from the harvested valve. Flanking tubes carry flavor from the peristaltic pumps.
 
 - **Center tube:** 1/4" OD 304 SS, brazed or compression-joined to the harvested Touch-Flo outlet.
-- **Flanking tubes:** 1/8" OD 304 SS, routed parallel to the center tube. These carry flavor from the Kamoer KPHM400 pumps via 1/8" ID × 1/4" OD food-grade silicone — the silicone slips directly onto the 1/8" OD rigid tube, so no adapter is needed at the spout entry.
+- **Flanking tubes:** 1/8" OD 304 SS, routed parallel to the center tube. These carry flavor from the Kamoer KPHM400 pumps. The project's line-run medium is 1/4" LLDPE hard tubing everywhere (see `docs/plumbing.md`), so each flavor line needs a **1/4" LLDPE → 1/8" SS reducer** inside the shroud to transition from the LLDPE supply to the smaller visible SS tube at the spout. Specific fittings TBD pending the Prime-availability survey.
 - **Bends:** each tube takes a small number (2–3) of gentle sweeps to produce the forward angle. Rigid SS in 12" segments is easy to bend by hand around a form with a simple tube bender; intermediate unions are avoided.
 - **Decorative tip collars:** short 304 SS compression ferrules slipped over each tube at the dispense end, mimicking the "thickening" / nose cap seen on the Westbrass 8" factory spout. Stainless (not brass) was chosen deliberately so the collar matches the SS tube — the whole spout reads as one material. Ferrule acts as decoration only (not a sealed joint); retention method to be decided during prototyping (press fit, light adhesive, or swage).
 
@@ -55,8 +55,10 @@ Acquired Apr 23, 2026 — see `hardware/purchases.md` §7 for canonical prices a
 - 1/8" 304 SS compression ferrules — decorative tip collars for the flavor tubes
 
 **Deliberately not purchased for v1:**
-- 1/8" compression × hose barb adapter — the 1/8" ID × 1/4" OD food-grade silicone already in stock slips directly onto 1/8" OD SS tubing.
 - 1/8" compression union — gentle bends in 12" rigid tubes don't need mid-run joints. Add only if a bend fails.
+
+**Pending purchase (under research):**
+- 1/4" LLDPE → 1/8" SS reducer, Prime-available, ×2 per unit. Either a direct reducing union or a two-piece NPT-middle stack (1/4" LLDPE comp × 1/4" NPT male → 1/4" NPT female × 1/8" OD SS comp). Path decision waiting on the Prime-availability survey.
 
 ## Open items
 
