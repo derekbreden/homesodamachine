@@ -58,6 +58,25 @@ TUBE_AXIS_LEN = 6.000 * IN         # length along Y
 # Outside surface radii (what the female cavity sees)
 OUTSIDE_R = INSIDE_R + SHEET_T     # 1.983"
 
+# ── Springback compensation ──
+#
+# 304 SS at R/t ≈ 40 typically springs back 3–8% on tight wraps.  Batch-to-
+# batch yield variation (σ_y 205–290 MPa within the annealed spec range)
+# is the dominant source of spread.  v1 runs with zero compensation: form
+# a part, measure it against the R=1.930" end-cap slip fit, then bump this
+# number and reprint if the walls open up or the radius is loose.
+#
+# Non-zero values shrink both die radii by the same fractional amount so
+# the punch-to-cavity gap stays equal to SHEET_T at every point on the D.
+# The over-formed part then springs back toward the nominal target.
+#
+# Typical first-revision value after measuring: 0.03–0.05 (3–5%).
+
+SPRINGBACK_COMP = 0.0              # fractional over-bend (0.0 = no compensation)
+
+INSIDE_R_DIE = INSIDE_R * (1.0 - SPRINGBACK_COMP)
+OUTSIDE_R_DIE = INSIDE_R_DIE + SHEET_T
+
 # Developed flat blank length (for cross-reference with the DXF generator)
 BLANK_DEVELOPED = (
     TANGENT_LEN
@@ -72,12 +91,12 @@ FLOOR = 0.500 * IN                 # floor below cavity (female)
 BACKING = 0.500 * IN               # backing plate above flange (male)
 
 # Female cavity descent (top-of-land at Z=0 down to apex)
-FEMALE_CAVITY_DEPTH = TANGENT_LEN + OUTSIDE_R      # 0.800 + 1.983 = 2.783"
+FEMALE_CAVITY_DEPTH = TANGENT_LEN + OUTSIDE_R_DIE  # ≈ 0.800 + 1.983 = 2.783"
 # Male punch descent (flange at Z=0 down to apex)
-MALE_PUNCH_DEPTH = TANGENT_LEN + INSIDE_R          # 0.800 + 1.935 = 2.735"
+MALE_PUNCH_DEPTH = TANGENT_LEN + INSIDE_R_DIE      # ≈ 0.800 + 1.935 = 2.735"
 
 # Outer footprint (cavity + WALL on each X side, TUBE_AXIS_LEN + WALL on each Y side)
-OUTER_X = 2 * OUTSIDE_R + 2 * WALL                 # 2*1.983 + 2*0.500 = 4.966"
+OUTER_X = 2 * OUTSIDE_R_DIE + 2 * WALL             # ≈ 2*1.983 + 2*0.500 = 4.966"
 OUTER_Y = TUBE_AXIS_LEN + 2 * WALL                 # 6.000 + 1.000 = 7.000"
 
 # Block heights
@@ -134,7 +153,7 @@ def make_female_die() -> cq.Workplane:
 
     # ── Cavity: D-shape on XZ, extruded along Y ──
     # The wire lives on XZ at Y=0; extrude symmetrically ±TUBE_AXIS_LEN/2.
-    d_wire = make_d_half_wire(OUTSIDE_R, TANGENT_LEN)
+    d_wire = make_d_half_wire(OUTSIDE_R_DIE, TANGENT_LEN)
     cavity = d_wire.extrude(TUBE_AXIS_LEN / 2, both=True)
 
     result = block.cut(cavity)
@@ -168,8 +187,8 @@ def make_male_die() -> cq.Workplane:
         .extrude(BACKING)
     )
 
-    # ── Punch: D cross-section (INSIDE_R, TANGENT_LEN) extruded along Y ──
-    d_wire = make_d_half_wire(INSIDE_R, TANGENT_LEN)
+    # ── Punch: D cross-section (INSIDE_R_DIE, TANGENT_LEN) extruded along Y ──
+    d_wire = make_d_half_wire(INSIDE_R_DIE, TANGENT_LEN)
     punch = d_wire.extrude(TUBE_AXIS_LEN / 2, both=True)
 
     result = block.union(punch)
@@ -258,8 +277,11 @@ print(f"Exported: {male_path}")
 
 print(f"\n--- Body press die dimensions ---")
 print(f"Sheet thickness:       {SHEET_T / IN:.3f}\"")
-print(f"Inside semi-R  (male): {INSIDE_R / IN:.3f}\"")
-print(f"Outside semi-R (female): {OUTSIDE_R / IN:.3f}\"")
+print(f"Springback comp:       {SPRINGBACK_COMP:.3f}  ({SPRINGBACK_COMP*100:.1f}% over-bend)")
+print(f"Target inside  semi-R: {INSIDE_R / IN:.3f}\"  (formed part after springback)")
+print(f"Target outside semi-R: {OUTSIDE_R / IN:.3f}\"")
+print(f"Die inside  semi-R (male):   {INSIDE_R_DIE / IN:.3f}\"")
+print(f"Die outside semi-R (female): {OUTSIDE_R_DIE / IN:.3f}\"")
 print(f"Tangent-wall length:   {TANGENT_LEN / IN:.3f}\" per side")
 print(f"Tube axis length:      {TUBE_AXIS_LEN / IN:.3f}\"")
 print(f"Developed blank length: {BLANK_DEVELOPED / IN:.3f}\"")
@@ -269,4 +291,4 @@ print(f"Backing (male):        {BACKING / IN:.3f}\"")
 print(f"Outer footprint:       {OUTER_X / IN:.3f}\" x {OUTER_Y / IN:.3f}\"")
 print(f"Female block Z:        {FEMALE_Z / IN:.3f}\"  (cavity {FEMALE_CAVITY_DEPTH/IN:.3f}\" + floor)")
 print(f"Male block Z:          {MALE_Z / IN:.3f}\"  (punch {MALE_PUNCH_DEPTH/IN:.3f}\" + backing)")
-print(f"Radial gap at stroke:  {(OUTSIDE_R - INSIDE_R) / IN:.3f}\"  (= sheet thickness)")
+print(f"Radial gap at stroke:  {(OUTSIDE_R_DIE - INSIDE_R_DIE) / IN:.3f}\"  (= sheet thickness)")
