@@ -57,9 +57,27 @@ acceptable; sanitary-polished (Tri-Clover) not required (significantly
 more expensive and the interior surface is covered by carbonated water
 anyway).
 
-Hoop stress at 70 PSI:  sigma = P * OD / (2 * t) = 70 * 5.6 / 0.130
-                              = 3,015 PSI  (6.6× safety factor vs
-                                            20,000 PSI allowable)
+── Wall-thickness variants ──
+
+This script exports THREE wall-thickness variants of the same 5" OD,
+6" length tube.  The catalog floor for 5" OD 304 tube at general US
+distributors is 0.065", but mill-run custom pulls and some manufacturing
+platforms (Xometry, SendCutSend, Protolabs, Fictiv) may access thinner
+stock.  Upload all three to each platform and let them tell you what
+they can actually source.
+
+The 0.049" variant matches the SendCutSend sheet stock the original
+D-half plan uses, so end-cap geometry stays bit-identical if this wall
+is available.  The 0.035" variant is aggressive — a 20 ga wall — and
+may not be rollable at this OD without buckling; included for completeness.
+
+Hoop stress at 70 PSI scales with 1/wall:
+
+  0.035":  sigma = 70 * 5.07 / (2*0.035) = 5,070 PSI   (3.9× SF)
+  0.049":  sigma = 70 * 5.10 / (2*0.049) = 3,640 PSI   (5.5× SF)
+  0.065":  sigma = 70 * 5.13 / (2*0.065) = 2,761 PSI   (7.2× SF)
+
+All three clear the 20,000 PSI allowable by ample margin.
 
 Units: inches throughout, converted to mm for CadQuery at export.
 
@@ -76,55 +94,56 @@ IN = 25.4  # mm per inch
 # ── Tube stock dimensions ──
 
 OD = 5.000 * IN              # outer diameter
-WALL = 0.065 * IN            # wall thickness (smallest std on 5" OD)
 LENGTH = 6.000 * IN          # one vessel worth
 
-ID = OD - 2 * WALL           # derived inner diameter
+# Wall thicknesses to export (inches).  Ordered thinnest → thickest.
+#   0.035" — aggressive, 20 ga equivalent; mill-custom
+#   0.049" — matches SCS sheet stock; end-cap DXFs reuse unchanged
+#   0.065" — catalog floor at general US distributors
+WALLS_IN = [0.035, 0.049, 0.065]
+
+
+def make_tube(wall_in: float) -> cq.Workplane:
+    """Build a hollow round tube at the given wall thickness (inches)."""
+    wall = wall_in * IN
+    id_ = OD - 2 * wall
+    return (
+        cq.Workplane("XY")
+        .circle(OD / 2)
+        .circle(id_ / 2)
+        .extrude(LENGTH)
+    )
+
 
 # ═══════════════════════════════════════════════════════
-# BUILD
-# ═══════════════════════════════════════════════════════
-
-tube = (
-    cq.Workplane("XY")
-    .circle(OD / 2)
-    .circle(ID / 2)
-    .extrude(LENGTH)
-)
-
-
-# ═══════════════════════════════════════════════════════
-# DIAGNOSTICS
-# ═══════════════════════════════════════════════════════
-
-bb = tube.val().BoundingBox()
-dx = bb.xmax - bb.xmin
-dy = bb.ymax - bb.ymin
-dz = bb.zmax - bb.zmin
-
-vol_mm3 = tube.val().Volume()
-vol_cm3 = vol_mm3 / 1000.0
-# 304 SS density: 7.93 g/cm³
-mass_g = vol_cm3 * 7.93
-
-print(f"Tube stock (5\" OD × {WALL/IN:.3f}\" wall × {LENGTH/IN:.3f}\" long):")
-print(f"  Bounding box: {dx:.1f} × {dy:.1f} × {dz:.1f} mm")
-print(f"               ({dx/IN:.3f} × {dy/IN:.3f} × {dz/IN:.3f} in)")
-print(f"  Volume:       {vol_cm3:.1f} cm³")
-print(f"  Mass (304 SS, 7.93 g/cm³): {mass_g:.0f} g  ({mass_g/453.6:.2f} lb)")
-print(f"  OD: {OD/IN:.3f}\"   ID: {ID/IN:.3f}\"   Wall: {WALL/IN:.3f}\"")
-
-# ═══════════════════════════════════════════════════════
-# EXPORT
+# BUILD + DIAGNOSTICS + EXPORT
 # ═══════════════════════════════════════════════════════
 
 out_dir = Path(__file__).resolve().parent
 
-# Filename encodes key dimensions so suppliers can parse at a glance
-wall_tag = f"{WALL/IN:.3f}".replace(".", "p")  # e.g., "0p065"
-length_tag = f"{LENGTH/IN:.0f}in"               # e.g., "12in"
-fname = f"carbonator-body-tube-5od-{wall_tag}wall-{length_tag}.step"
+for wall_in in WALLS_IN:
+    tube = make_tube(wall_in)
 
-path = out_dir / fname
-cq.exporters.export(tube, str(path))
-print(f"\nExported: {path}")
+    bb = tube.val().BoundingBox()
+    dx = bb.xmax - bb.xmin
+    dy = bb.ymax - bb.ymin
+    dz = bb.zmax - bb.zmin
+
+    vol_cm3 = tube.val().Volume() / 1000.0
+    mass_g = vol_cm3 * 7.93   # 304 SS density
+
+    id_in = (OD - 2 * wall_in * IN) / IN
+
+    print(f"\nTube (5\" OD × {wall_in:.3f}\" wall × {LENGTH/IN:.3f}\" long):")
+    print(f"  Bounding box: {dx:.1f} × {dy:.1f} × {dz:.1f} mm"
+          f"  ({dx/IN:.3f} × {dy/IN:.3f} × {dz/IN:.3f} in)")
+    print(f"  Volume:       {vol_cm3:.1f} cm³")
+    print(f"  Mass (304 SS, 7.93 g/cm³): {mass_g:.0f} g  ({mass_g/453.6:.2f} lb)")
+    print(f"  OD: {OD/IN:.3f}\"   ID: {id_in:.3f}\"   Wall: {wall_in:.3f}\"")
+
+    wall_tag = f"{wall_in:.3f}".replace(".", "p")   # e.g., "0p065"
+    length_tag = f"{LENGTH/IN:.0f}in"
+    fname = f"carbonator-body-tube-5od-{wall_tag}wall-{length_tag}.step"
+    path = out_dir / fname
+    cq.exporters.export(tube, str(path))
+    print(f"  Exported: {path}")
