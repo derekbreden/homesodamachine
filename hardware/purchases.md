@@ -30,7 +30,8 @@ Stainless sheet body, weld bungs, end-cap material, welding + forming tools used
 | PGN ER308L .030 MIG wire, 10 lb spool — second stainless MIG wire spool (alt brand to findmall) | [B09WRZDBPN](https://www.amazon.com/dp/B09WRZDBPN) | 1 | — | ACQUIRED (price pending — order total not yet posted) |
 | Caiman premium goat-grain TIG / multi-task welding gloves — PPE for laser welder | [B07T6VLSK3](https://www.amazon.com/dp/B07T6VLSK3) | 1 | $23.05 | ACQUIRED |
 | Caiman premium goat-grain TIG welding gloves — second pair (variant ASIN, Large, white/gold) | [B07T1NYXHM](https://www.amazon.com/dp/B07T1NYXHM) | 1 | $23.05 | ACQUIRED |
-| YTKavq 1/4" × 2" × 12" C110 pure copper flat bar, soft-annealed — weld backer / heat-sink chill bar | [B0DR2PX6TT](https://www.amazon.com/dp/B0DR2PX6TT) | 1 | $42.89 | ACQUIRED |
+| YTKavq 1/4" × 2" × 12" C110 pure copper flat bar, soft-annealed — weld backer / heat-sink chill bar (order 112-0935480-2206657, Apr 22, $39.99 + $2.90 tax) | [B0DR2PX6TT](https://www.amazon.com/dp/B0DR2PX6TT) | 1 | $42.89 | MISSING — Amazon marked delivered 2026-04-23 but item never in box (co-shipped in tracking TBA330422235762 with gauge kit from order 112-9742741-7165035; only gauge kit received). No self-service refund path available; would require live chat. Refund not pursued. |
+| YTKavq 1/4" × 2" × 12" C110 pure copper flat bar — replacement buy after 112-0935480-2206657 went missing | [B0DR2PX6TT](https://www.amazon.com/dp/B0DR2PX6TT) | 1 | $42.89 | ON-ORDER (order 112-4953236-4101019, Apr 23, delivers Sat Apr 25) |
 | 304 SS 4" × 6" × 1/16" (16 ga / 1.5 mm) sheet, 2-pk — welding practice coupons, matches end-cap thickness | [B0DFXXQZD3](https://www.amazon.com/dp/B0DFXXQZD3) | 3 pk | $48.24 | ACQUIRED |
 | 304 SS 4" × 4" × 0.04" (19 ga / 1 mm) sheet, 4 pc — welding practice coupons, matches body thickness | [B0C5LWVLCD](https://www.amazon.com/dp/B0C5LWVLCD) | 1 | $13.93 | ACQUIRED |
 | Drill America 1/4" NPT HSS pipe tap + 1-1/2" OD round die kit — thread chasing / custom adapters | [B0DXN1LDKT](https://www.amazon.com/dp/B0DXN1LDKT) | 1 | $18.80 | ACQUIRED |
@@ -354,9 +355,9 @@ Scope reminder: 2026 YTD only (Jan 1 → Apr 22, 2026). Pre-2026 Claude spend is
 | ACQUIRED — hardware (§§1–13, 15, 16, 17) | $14,499.09 |
 | ACQUIRED — capitalized contract labor (§18) | $2,607.92 |
 | ACQUIRED (combined) | $17,107.01 |
-| ON-ORDER | ~$892.52 |
+| ON-ORDER | ~$935.41 |
 | LIKELY-TO-BUY | $92.97 |
-| **Grand total** | ~$18,092.50 |
+| **Grand total** | ~$18,135.39 |
 
 ACQUIRED-hardware breakdown: Amazon (§§1–13) $5,092.05 + SendCutSend (§1, orders SQ65E969 + SV07U813) $105.71 + Bambu Lab direct (§15) $4,803.33 + XLaserlab X1 Pro (§16) $3,899.00 + Namecheap homesodamachine.com (§17) $599.00 = $14,499.09.
 
