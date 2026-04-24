@@ -68,7 +68,8 @@ Top cap port layout (90-deg spacing on 1.0" bolt circle):
 Assembly order:
   1. SendCutSend cuts oversized blanks with holes from 0.060" 304 SS
   2. Press-dome each blank to 0.250" crown using dishing die
-  3. Roll body sheet into racetrack on slip roll, butt weld seam
+  3. Roll two body half-sheets into D-halves on slip roll; butt-weld
+     both flat seams together to form the closed racetrack tube
   4. Fillet-weld 4 bungs to domed top cap (flange side up / outward)
   5. Install atomization nozzle, dip tube, fittings
   6. Weld domed top cap into rolled tube body (inset slip-fit)
