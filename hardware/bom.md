@@ -23,7 +23,8 @@ First-pass draft. Prices from resolved Amazon order history (purchases.md) or di
 
 | Part | Source | Qty | Unit $ | Line $ |
 |---|---|---:|---:|---:|
-| SendCutSend-cut 304 SS blanks (body + 2 end caps) | orders SQ65E969 + SV07U813, half of combined total | 1 set | $52.86 | $52.86 |
+| SendCutSend-cut 304 SS body half-sheets, 7.754" × 6" × 0.048" (`carbonator_body_half_blank.dxf`) | order SP54G453, qty 10 @ $134.38 delivered = $13.44/ea; 2 per vessel | 2 | $13.44 | $26.87 |
+| SendCutSend-cut 304 SS end-cap blanks | orders SQ65E969 + SV07U813, end-cap share of prior combined body+caps run (body portion superseded by SP54G453) | 2 | $13.22 | $26.43 |
 | [1/4" NPT female weld bung, 304 SS stepped flange](https://www.amazon.com/dp/B07QNV8796) | B07QNV8796 | 4 | $7.99 | $31.96 |
 | [4pc 1/4" NPT male hex nipple, 316 SS 5000 psi](https://www.amazon.com/dp/B0GD1QBLQ3) | B0GD1QBLQ3 — one nipple per bung for external plumbing | 1 pk | $15.99 | $15.99 |
 | [Beduan 1/4" spiral cone atomization nozzle, 316 SS](https://www.amazon.com/dp/B07LGPD3GB) | B07LGPD3GB | 1 | $9.99 | $9.99 |
@@ -142,7 +143,7 @@ Dishing dies (PA6-CF) for end-cap forming are vessel-fabrication tools, not ship
 | Section | $ |
 |---|---:|
 | 1. Controllers + electronics | $168.23 |
-| 2. Carbonator vessel | $198.56 |
+| 2. Carbonator vessel | $199.00 |
 | 3. Water inlet | $144.33 |
 | 4. CO2 subsystem | $68.29 |
 | 5. Refrigeration | $166.91 |
@@ -152,9 +153,9 @@ Dishing dies (PA6-CF) for end-cap forming are vessel-fabrication tools, not ship
 | 9. Dispensing | $39.27 |
 | 10. UI | $39.95 |
 | 11. Wiring | $25.94 |
-| **Sourced + estimated subtotal** | **$1,311.66** |
+| **Sourced + estimated subtotal** | **$1,312.10** |
 | 12. Not yet sourced | $10.00 |
-| **Projected total** | **$1,321.66** |
+| **Projected total** | **$1,322.10** |
 
 ## External / user-supplied (not shipped)
 
