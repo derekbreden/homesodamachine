@@ -45,16 +45,10 @@ Length per vessel:  6.000"
 
 ── Stock order planning ──
 
-A single vessel needs 6.000" of tube.  Stock-length options vary:
-
-  - 12" section = 2 vessels worth; good for early prototyping
-  - 24" section = 4 vessels; better unit cost
-  - 48" or 72" bar = cheapest per inch but must be cut at supplier
-    or in-house with a cutoff saw / bandsaw
-
-This script exports at LENGTH = 12.000" by default (enough for two
-calibration presses).  Change LENGTH and rerun to regenerate for other
-stock sizes.
+A single vessel needs 6.000" of tube.  This script exports at
+LENGTH = 6.000" — one vessel — for per-part supplier quoting.
+Change LENGTH and rerun if you want a multi-vessel stock piece
+(12" = 2 vessels, 24" = 4, etc.).
 
 ── Material ──
 
@@ -83,7 +77,7 @@ IN = 25.4  # mm per inch
 
 OD = 5.000 * IN              # outer diameter
 WALL = 0.065 * IN            # wall thickness (smallest std on 5" OD)
-LENGTH = 12.000 * IN         # stock length (2 vessels worth)
+LENGTH = 6.000 * IN          # one vessel worth
 
 ID = OD - 2 * WALL           # derived inner diameter
 
