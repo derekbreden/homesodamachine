@@ -10,7 +10,7 @@ Price figures on bundled rows reflect the shipment total, not the per-item unit 
 
 ## 1. Pressure vessel / carbonator fabrication
 
-Stainless sheet body, weld bungs, end-cap material, welding + forming tools used to build the racetrack pressure vessel.
+Stainless sheet body, weld bungs, end-cap material, welding + forming tools. Originally specced for the racetrack pressure vessel (plan B); plan A has since pivoted to a vertical 5" OD × 1/16" wall 304 SS round tube + 1/4"-thick laser-cut 304 SS circular end-cap plates with 1/4" NPT direct-tapped (no weld bungs). Racetrack inventory below is retained as plan-B fallback stock.
 
 | Part | ASIN link | Qty | $ | Status |
 |---|---|---|---|---|
@@ -34,8 +34,9 @@ Stainless sheet body, weld bungs, end-cap material, welding + forming tools used
 | YTKavq 1/4" × 2" × 12" C110 pure copper flat bar — replacement buy after 112-0935480-2206657 went missing | [B0DR2PX6TT](https://www.amazon.com/dp/B0DR2PX6TT) | 1 | $42.89 | ON-ORDER (order 112-4953236-4101019, Apr 23, delivers Sat Apr 25) |
 | 304 SS 4" × 6" × 1/16" (16 ga / 1.5 mm) sheet, 2-pk — welding practice coupons, matches end-cap thickness | [B0DFXXQZD3](https://www.amazon.com/dp/B0DFXXQZD3) | 3 pk | $48.24 | ACQUIRED |
 | 304 SS 4" × 4" × 0.04" (19 ga / 1 mm) sheet, 4 pc — welding practice coupons, matches body thickness | [B0C5LWVLCD](https://www.amazon.com/dp/B0C5LWVLCD) | 1 | $13.93 | ACQUIRED |
-| Drill America 1/4" NPT HSS pipe tap + 1-1/2" OD round die kit — thread chasing / custom adapters | [B0DXN1LDKT](https://www.amazon.com/dp/B0DXN1LDKT) | 1 | $18.80 | ACQUIRED |
+| Drill America 1/4" NPT HSS pipe tap + 1-1/2" OD round die kit — thread chasing / direct-tapping 1/4" 304 SS plates for plan A vessel | [B0DXN1LDKT](https://www.amazon.com/dp/B0DXN1LDKT) | 1 | $18.80 | ACQUIRED |
 | MOTOKU 38 mm / 1.5" OD heavy-duty round die handle — companion to Drill America die | [B073ZX58PH](https://www.amazon.com/dp/B073ZX58PH) | 1 | $13.99 | ACQUIRED |
+| Tap Magic 10016E pipe-tap cutting fluid, 4 oz — required for hand-tapping 1/4" NPT into 1/4"-thick 304 SS plate (plan A direct-tap path eliminates weld bungs B07QNV8796) | [B00DHMHSGM](https://www.amazon.com/dp/B00DHMHSGM) | 1 | ~$10 | ON-ORDER |
 | SendCutSend order SQ65E969 — 304 SS 0.048" body blanks (`carbonator_body_blank.dxf`, 15.509" × 6"), qty 2 × $28.06 = $56.12 subtotal + FREE ship + $4.07 tax = $60.19; invoice Apr 16, 2026. OBSOLETE: old single-sheet plan, superseded by half-sheet plan (see SP54G453) — blanks held as spare/practice stock | sendcutsend.com | 2 | $60.19 | ACQUIRED |
 | SendCutSend order SV07U813 — 304 SS 0.060" end-cap blanks: top (`endcap_racetrack_domed_top.dxf`) qty 2 × $10.91 + bottom (`endcap_racetrack_domed_bottom_blank.dxf`) qty 2 × $10.31 = $42.44 subtotal + FREE ship + $3.08 tax = $45.52; invoice Apr 16, 2026. Covers 2 vessels (1 top + 1 bottom per vessel) | sendcutsend.com | 4 | $45.52 | ACQUIRED |
 | SendCutSend order SP54G453 — 304 SS 0.048" laser-cut + deburred body half-sheets (`carbonator_body_half_blank.dxf`, 7.754" × 6"), qty 10; invoice Apr 24, 2026; $125.30 subtotal + FREE ship + $9.08 tax = $134.38 on Visa x5607 | sendcutsend.com | 10 | $134.38 | ON-ORDER (in production; parts entered production 2026-04-23) |
@@ -73,14 +74,16 @@ Feed-water inlet, filter, ASSE 1022 backflow preventer and its vent-line hardwar
 
 ## 4. Carbonator plumbing (pressurized side)
 
-Check valves, atomization nozzle, compression fittings on the water/CO2 pressure side.
+Check valves, sparge stone + barb adapter for internal-sparge CO2 carbonation, compression fittings on the water/CO2 pressure side.
 
 | Part | ASIN link | Qty | $ | Status |
 |---|---|---|---|---|
 | ChillWaves 304 SS in-line split check valve 1/4" NPT M×F (silicone seat — bench only) | [B0DPLBYZB4](https://www.amazon.com/dp/B0DPLBYZB4) | 1 | $18.22 | ACQUIRED |
-| GASHER 1/4" NPT SS one-way check valve (2 pk) — intended production swap, pending screwdriver seat test | [B0FV2D2FFX](https://www.amazon.com/dp/B0FV2D2FFX) | 1 pk | $13.99 | LIKELY-TO-BUY |
-| Beduan 1/4" male spiral cone atomization nozzle, 316 SS | [B07LGPD3GB](https://www.amazon.com/dp/B07LGPD3GB) | 1 | $9.99 | ACQUIRED |
-| VALVENTO 316 SS 1/4" OD compression × 1/4" NPT adapter (2 pk) | [B0DXZZBK7D](https://www.amazon.com/dp/B0DXZZBK7D) | 1 pk | $31.08 | ACQUIRED |
+| GASHER 1/4" NPT SS one-way check valve (2 pk) — production water-side check valve between SeaFlo pump and top-plate water-inlet port | [B0FV2D2FFX](https://www.amazon.com/dp/B0FV2D2FFX) | 1 pk | $13.99 | ON-ORDER |
+| LTWFITTING 316 SS 1/4" hose barb × 1/4" MNPT — port-1 (CO2 in via internal sparge) bottom-plate adapter; barb faces inward to silicone tube → sparge stone | [B017N4TTMA](https://www.amazon.com/dp/B017N4TTMA) | 1 | ~$7 | ON-ORDER |
+| FERRODAY 0.5 µm sintered 316 SS sparge stone, 1/4" barb input (2-set) — internal sparge stone, hangs in vessel water column on silicone tube from port-1 barb adapter; replaces the atomizer carbonation path | [B091C5Y6L9](https://www.amazon.com/dp/B091C5Y6L9) | 1 | ~$16 | ON-ORDER |
+| ~~Beduan 1/4" male spiral cone atomization nozzle, 316 SS~~ — SUPERSEDED by internal sparge architecture; the spiral-cone nozzle requires a high pressure differential to atomize and at our working ΔP (~15–25 PSI between pump output and 70 PSI headspace) it produces a stream not a spray. Bench-test inventory only, not in shipped BOM | [B07LGPD3GB](https://www.amazon.com/dp/B07LGPD3GB) | 1 | $9.99 | ACQUIRED (superseded) |
+| VALVENTO 316 SS 1/4" OD compression × 1/4" NPT adapter (2 pk) — joins bottom-plate 1/4" NPT outlet (port 3) to 1/4" tubing run to faucet | [B0DXZZBK7D](https://www.amazon.com/dp/B0DXZZBK7D) | 1 pk | $31.08 | ACQUIRED |
 | VALVENTO 1/4" OD 316 SS tube, 12" length (5 pk) | [B0F6SYFK48](https://www.amazon.com/dp/B0F6SYFK48) | 1 pk | $31.08 | ACQUIRED |
 | TAISHER 304 SS compression square needle valve 1/4" | [B0CLXHZZCW](https://www.amazon.com/dp/B0CLXHZZCW) | 1 | $32.15 | ACQUIRED |
 
@@ -195,6 +198,9 @@ Ice-maker donor units and copper coil for the chill loop.
 | DS3231 AT24C32 RTC module (2 pk) | [B09LLMYBM1](https://www.amazon.com/dp/B09LLMYBM1) | 1 pk | $7.07 | ACQUIRED |
 | HiLetgo DS3231 high-precision RTC (5 pk) | [B01N1LZSK3](https://www.amazon.com/dp/B01N1LZSK3) | 1 pk | $16.08 | ACQUIRED |
 | HiLetgo NJK-5002C Hall-effect proximity switch (2 pk) | [B01MZYYCLH](https://www.amazon.com/dp/B01MZYYCLH) | 1 pk | $8.49 | ACQUIRED |
+| Gebildet reed switches, 14 mm glass body, NO (6 pk) — carbonator level sensing: 2 reeds per unit (low-level refill threshold + high-level full threshold) mounted externally on the 1/16" 304 SS tube wall (austenitic 304 is non-magnetic so the float magnet's field passes through) | [B0CW9418F6](https://www.amazon.com/dp/B0CW9418F6) | 1 pk | ~$6 | ON-ORDER |
+| DEVMO MINI vertical float switch — donor; harvest the magnetic donut float, discard switch body. Float slides on a 1/8" 304 SS rod TIG-welded vertically inside the carbonator vessel between the bottom and top end-cap plates | [B07T18PGJ4](https://www.amazon.com/dp/B07T18PGJ4) | 1 | ~$7 | ON-ORDER |
+| Tynulox 1/8" × 6" 304 SS round rod (10 pk) — TIG-welded vertically inside the carbonator vessel; carries the magnetic float for the external-reed level-sensing scheme. Replaces the earlier FDC1004 capacitive plan, which is invalid because capacitive sensing does not work through metal vessel walls | (ASIN TBD — Amazon Prime listing for Tynulox 1/8" × 6" 304 SS rod 10-pk) | 1 pk | ~$15 | ON-ORDER |
 | 12 V 2 A DC power supply, 9-tip | [B0DZGTTBGZ](https://www.amazon.com/dp/B0DZGTTBGZ) | 1 | bundle | ACQUIRED |
 | 5 V 3 A AC/DC adapter, 11-tip | [B09NLMVXMZ](https://www.amazon.com/dp/B09NLMVXMZ) | 1 | $8.39 | ACQUIRED |
 | Molence C45 PCB DIN-rail adapter clips (10 sets) | [B09KZHY8G4](https://www.amazon.com/dp/B09KZHY8G4) | 1 pk | $9.99 | ACQUIRED |
@@ -349,6 +355,9 @@ Scope reminder: 2026 YTD only (Jan 1 → Apr 22, 2026). Pre-2026 Claude spend is
 |---|---|
 | **CO2 cylinder** | 5 lb or 10 lb aluminum, CGA-320. Regulator in hand; tank not yet on Amazon. |
 | **Additional flavor-manifold solenoids** | Manifold diagram needs 12 valves (V-A through V-J plus V-K-A and V-K-B); current Beduan B07NWCQJK9 count across orders is short. Verify qty per order, then top up. |
+| **CO2-side check valve** | 1/4" hose-barb stainless brewing-grade CO2 check valve, between regulator-side beer line and the LTWFITTING B017N4TTMA barb adapter on the bottom plate. Prevents water back-flow into the CO2 regulator if pressures invert under fault. Prime SS option to be identified. |
+| **5" OD × 1/16" wall × ~6" length 304 SS round tube** | Plan A vessel body. McMaster, OnlineMetals, or Amazon Prime equivalent — vendor still to confirm. |
+| **SendCutSend 1/4"-thick 304 SS circular endcap plates, 5" OD with 2× tap-pilot holes** | Plan A vessel end caps (`endcap-circular-2hole.dxf`, per commit 331822b). 2 plates per vessel; quote pending. |
 
 ---
 
