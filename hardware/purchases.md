@@ -28,6 +28,7 @@ Stainless sheet body, weld bungs, end-cap material, welding + forming tools. Ori
 | Cambro 6 QT square polycarbonate food container — citric-acid soak tub (one-time-use per unit, ships with tank) | [B001BZEQ44](https://www.amazon.com/dp/B001BZEQ44) | 1 | $20.00 | ACQUIRED |
 | findmall ER308L .030 MIG wire, 10 lb spool — higher-volume follow-on to Blue Demon 2 lb | [B0C52XQB39](https://www.amazon.com/dp/B0C52XQB39) | 1 | $90.68 | ACQUIRED |
 | PGN ER308L .030 MIG wire, 10 lb spool — second stainless MIG wire spool (alt brand to findmall) | [B09WRZDBPN](https://www.amazon.com/dp/B09WRZDBPN) | 1 | — | ACQUIRED (price pending — order total not yet posted) |
+| **STARTECHWELD ER316L .030 MIG wire, 10 lb spool, 8" OD / 2" center bore** — correct filler for the 316L plan-A vessel welds (308L would lose the molybdenum across the joint, defeating the point of the 316L upgrade); same form factor as the existing 308L spools so it drops into the X1 Pro wire feeder without a drive-roll change | [B09BKFBXT9](https://www.amazon.com/dp/B09BKFBXT9) | 1 | $129.50 | ON-ORDER (order 112-2295053-5101056, Apr 24, delivers Apr 27) |
 | Caiman premium goat-grain TIG / multi-task welding gloves — PPE for laser welder | [B07T6VLSK3](https://www.amazon.com/dp/B07T6VLSK3) | 1 | $23.05 | ACQUIRED |
 | Caiman premium goat-grain TIG welding gloves — second pair (variant ASIN, Large, white/gold) | [B07T1NYXHM](https://www.amazon.com/dp/B07T1NYXHM) | 1 | $23.05 | ACQUIRED |
 | YTKavq 1/4" × 2" × 12" C110 pure copper flat bar, soft-annealed — weld backer / heat-sink chill bar (order 112-0935480-2206657, Apr 22, $39.99 + $2.90 tax) | [B0DR2PX6TT](https://www.amazon.com/dp/B0DR2PX6TT) | 1 | $42.89 | MISSING — Amazon marked delivered 2026-04-23 but item never in box (co-shipped in tracking TBA330422235762 with gauge kit from order 112-9742741-7165035; only gauge kit received). No self-service refund path available; would require live chat. Refund not pursued. |
@@ -358,7 +359,6 @@ Scope reminder: 2026 YTD only (Jan 1 → Apr 22, 2026). Pre-2026 Claude spend is
 |---|---|
 | **CO2 cylinder** | 5 lb or 10 lb aluminum, CGA-320. Regulator in hand; tank not yet on Amazon. |
 | **Additional flavor-manifold solenoids** | Manifold diagram needs 12 valves (V-A through V-J plus V-K-A and V-K-B); current Beduan B07NWCQJK9 count across orders is short. Verify qty per order, then top up. |
-| **CO2-side check valve** | 1/4" hose-barb stainless brewing-grade CO2 check valve, between regulator-side beer line and the LTWFITTING B017N4TTMA barb adapter on the bottom plate. Prevents water back-flow into the CO2 regulator if pressures invert under fault. Prime SS option to be identified. |
 
 ---
 
@@ -369,9 +369,9 @@ Scope reminder: 2026 YTD only (Jan 1 → Apr 22, 2026). Pre-2026 Claude spend is
 | ACQUIRED — hardware (§§1–13, 15, 16, 17) | $14,517.07 |
 | ACQUIRED — capitalized contract labor (§18) | $2,607.92 |
 | ACQUIRED (combined) | $17,124.99 |
-| ON-ORDER | ~$2,318.50 |
+| ON-ORDER | ~$2,448.00 |
 | LIKELY-TO-BUY | $92.97 |
-| **Grand total** | ~$19,536.46 |
+| **Grand total** | ~$19,665.96 |
 
 ACQUIRED-hardware breakdown: Amazon (§§1–13) $5,110.03 + SendCutSend (§1, orders SQ65E969 + SV07U813) $105.71 + Bambu Lab direct (§15) $4,803.33 + XLaserlab X1 Pro (§16) $3,899.00 + Namecheap homesodamachine.com (§17) $599.00 = $14,517.07.
 
