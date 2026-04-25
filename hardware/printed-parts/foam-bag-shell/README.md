@@ -308,6 +308,24 @@ Detail decisions the CAD code should make without further requirements:
 - Stacking retention during foam cure (zip-tie holes, screw bosses, or
   external clamp — TBD).
 
+## Implementation notes
+
+The CadQuery generator landed in [`generate_step_cadquery.py`](generate_step_cadquery.py) and produces the three STEP files. A few decisions were made during implementation that diverge from or refine the spec above. Documenting them here so the spec and the build agree:
+
+- **Outer shell cross-section is a rounded rectangle, not a flatted stadium.** A pure flatted stadium with arcs at radius 83.1 (the cumulative X-axis radial budget) and flats at y = ±118.9 (cumulative Y-axis budget) doesn't close geometrically — 118.9 > 83.1, so the arcs can't reach the flats. The implementation uses a 166.2 × 237.8 rounded rectangle with corner radius 12 mm. Same envelope, geometrically closed, foam-pour-equivalent.
+
+- **Tank-supporting standoffs are 6.35 mm tall, not 0.8 mm.** They span the full foam-floor gap from the inner-shell bottom disc (top face at z=30.65) up to the tank-plate seat at z=37, so they pre-position the tank during the inner-cavity foam pour without an external fixture. The 5×5 mm cross-section is unchanged. Thermal bridging through the four standoffs is ~0.1 W at typical ΔT — negligible.
+
+- **Floor 2 has 4 thin connecting ribs at compass directions** (~1 mm thick × ~6 mm radial × full Floor 2 height) joining the outer shell perimeter to the inner-system (inner shell + bag pockets + standoffs + discs). Without these, Floor 2 splits into two physically disconnected solids on print. The ribs are foam-permeable (thin enough that pour foam flows around them during Pour 2) and become permanent foam-encased PETG features after cure.
+
+- **Floor 2's inner-shell discs extend beyond the floor mating planes** — bottom disc at z=29.85 to 30.65 (sits 6.35 mm below the z=37 mating plane), top disc at z=195.75 to 196.55 (sits 7.55 mm above the z=189 mating plane). This is a deliberate consequence of keeping the inner cavity (foam-floor + tank + foam-ceiling) as a single sealed pour-region in Floor 2. Print consideration: when slicing Floor 2, the outer-shell perimeter walls start at z=37 while the inner shell starts at z=29.85, so the perimeter walls overhang the build plate by ~7 mm at their start. Auto-supports under the perimeter wall footprint will handle this; or the part can be sliced upside-down with the symmetric situation at the top. Either orientation is printable, just not as clean as a fully bounded box would be. A future revision could split the inner shell across all three floors (bottom disc with Floor 1, top disc with Floor 3, middle sidewalls with Floor 2) to eliminate the overhang — flagged for a v2 pass if the print proves problematic.
+
+- **Inner-shell vertical edge fillet is 1.5 mm** at all 16 transitions (8 inner-face + 8 outer-face).
+
+- **Outer corner radius of the rounded-rectangle outer shell is 12 mm** — gentle, no sharp external corners.
+
+- **Bag tube conduit at z = 12 mm** in Floor 1 — placeholder near the bag-cap elevation. May need adjustment once the bag's cap-end fitting geometry is finalized.
+
 ## Reference scripts
 
 For CadQuery code structure and conventions, see:
