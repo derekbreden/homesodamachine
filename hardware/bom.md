@@ -1,6 +1,6 @@
 # Bill of Materials — One Consumer Unit
 
-Per-unit parts for a single finished appliance built on the **custom-vessel** path specified in [future.md](future.md). Carbonator vessel current plan A: vertical 5" OD × 1/16" wall 304 SS round tube capped with 1/4"-thick laser-cut 304 SS plates, 1/4" NPT direct-tapped into the plates (no weld-in bungs). Plan B (racetrack press-formed body, dished racetrack end caps) retained as fallback. Compressor is harvested from a countertop ice-maker; cold core is 3D-printed shells with pour-in-place foam; flavor reservoirs are two 1 L Platypus bladders inside the cold core.
+Per-unit parts for a single finished appliance built on the **custom-vessel** path specified in [future.md](future.md). Carbonator vessel current plan A: vertical 5" OD × 0.065" wall 304 SS round tube capped with 1/4"-thick laser-cut 304 SS plates, 1/4" NPT direct-tapped into the plates (no weld-in bungs). Plan B (racetrack press-formed body, dished racetrack end caps) retained as fallback. Compressor is harvested from a countertop ice-maker; cold core is 3D-printed shells with pour-in-place foam; flavor reservoirs are two 1 L Platypus bladders inside the cold core.
 
 Prototype tools, fabrication equipment (welder, slip roll, shop press, dishing dies), donor parts consumed during teardown, duplicate SKUs, and consumables live in [purchases.md](purchases.md).
 
@@ -21,11 +21,11 @@ First-pass draft. Prices from resolved Amazon order history (purchases.md) or di
 
 ## 2. Carbonator vessel (custom fabrication — plan A: round tube + 1/4" plates)
 
-Plan A is the current path. Plan B (racetrack body half-sheets + dished racetrack end caps + 4× weld bungs) remains as fallback if the 1/4"-plate-to-1/16"-tube weld can't be made reliably; plan B parts are tracked in [purchases.md](purchases.md) §1.
+Plan A is the current path. Plan B (racetrack body half-sheets + dished racetrack end caps + 4× weld bungs) remains as fallback if the 1/4"-plate-to-0.065"-tube weld can't be made reliably; plan B parts are tracked in [purchases.md](purchases.md) §1.
 
 | Part | Source | Qty | Unit $ | Line $ |
 |---|---|---:|---:|---:|
-| Commodity 5" OD × 1/16" wall × ~6" length 304 SS round tube (vendor TBD — McMaster, OnlineMetals, or Amazon equivalent) | TBD | 1 | ~$15 | $15.00 |
+| Commodity 5" OD × 0.065" wall × ~6" length 304 SS round tube (vendor TBD — McMaster, OnlineMetals, or Amazon equivalent; 0.065" wall matches the slip-fit dim in `endcap-circular-2hole.dxf`) | TBD | 1 | ~$15 | $15.00 |
 | SendCutSend 1/4"-thick 304 SS circular endcap plate, 5" OD with 2× tap-pilot holes for 1/4" NPT (`endcap-circular-2hole.dxf`) | per commit 331822b; 2 plates per vessel; estimate based on prior SendCutSend pricing | 2 | ~$12 | $24.00 |
 | [LTWFITTING 1/4" hose barb × 1/4" MNPT, 316 SS](https://www.amazon.com/dp/B017N4TTMA) | B017N4TTMA — port 1 (CO2 in via internal sparge); threads into bottom plate, barb faces inward to silicone tube → sparge stone | 1 | $7.00 | $7.00 |
 | [FERRODAY 0.5 µm sintered 316 SS sparge stone, 1/4" barb input (2-set)](https://www.amazon.com/dp/B091C5Y6L9) | B091C5Y6L9 — internal sparge stone, hangs in water column on silicone tube from port-1 barb adapter; 1 of 2 per unit | 1 (of 2) | ~$8 | $8.00 |
@@ -142,7 +142,7 @@ Dishing dies (PA6-CF) for end-cap forming are vessel-fabrication tools, not ship
 |---|---|---:|---:|---:|
 | [Tynulox 1/8" × 6" 304 SS round rod (10-pk)](https://www.amazon.com/dp/B0BKGS32KJ) | B0BKGS32KJ — TIG-welded vertically inside vessel between bottom and top plates; carries the magnetic float; 1 of 10 per unit | 1 (of 10) | $0.86 | $0.86 |
 | [DEVMO MINI float switch (donor — harvest magnetic donut float, discard switch body)](https://www.amazon.com/dp/B07T18PGJ4) | B07T18PGJ4 — float slides on the welded SS rod; only the float is shipped product, the rest of the donor unit is discarded | 1 | ~$6 | $6.00 |
-| [Gebildet reed switches, 14 mm glass body, NO (6-pk)](https://www.amazon.com/dp/B0CW9418F6) | B0CW9418F6 — 2 reeds per unit (low-level refill threshold + high-level full threshold), mounted on the outside of the 1/16" SS tube wall; 304 SS is non-magnetic so the float magnet's field passes through | 2 (of 6) | $2.00 | $4.00 |
+| [Gebildet reed switches, 14 mm glass body, NO (6-pk)](https://www.amazon.com/dp/B0CW9418F6) | B0CW9418F6 — 2 reeds per unit (low-level refill threshold + high-level full threshold), mounted on the outside of the 0.065" SS tube wall; 304 SS is non-magnetic so the float magnet's field passes through | 2 (of 6) | $2.00 | $4.00 |
 
 The earlier FDC1004 capacitive plan was invalidated: capacitive sensing does not work through metal vessel walls and we are not adding a non-metallic window or hermetic feedthrough for it. See [future.md](future.md) carbonation subsystem.
 
@@ -183,6 +183,6 @@ The earlier FDC1004 capacitive plan was invalidated: capacitive sensing does not
 - **GASHER B0FV2D2FFX check valve seat material** — confirm metal or PTFE seat (not elastomer) on physical inspection when units arrive; substitute if elastomer.
 - **Platypus 1 L vs 2 L** — future.md specifies 1 L bladders. README's parts list shows 2 L. Using 1 L per future.md; revisit if cradle geometry forces larger.
 - **Refrigeration charge** — Path A vents the factory R-600a charge and recharges from Enviro-Safe cans (§5); ~40 g per system × 12 recharges per 3-can bundle amortizes to ~$5.67/unit. No recovery equipment and no EPA 608 cert required (natural-refrigerant carveout).
-- **5" OD tube and 1/4" plate sourcing** — placeholder pricing in §2; actual SendCutSend quote for the 1/4" circular endcap plate (`endcap-circular-2hole.dxf`) and a verified Prime/McMaster source for the 5" OD × 1/16" wall 304 SS tube still to confirm.
+- **5" OD tube and 1/4" plate sourcing** — placeholder pricing in §2; actual SendCutSend quote for the 1/4" circular endcap plate (`endcap-circular-2hole.dxf`) and a verified Prime/McMaster source for the 5" OD × 0.065" wall 304 SS tube still to confirm.
 - **Plan B (racetrack) parts** — half-sheet body blanks (SendCutSend SP54G453), dished racetrack end caps (SV07U813), 4× weld bungs (B07QNV8796), and 4× hex nipples (B0GD1QBLQ3) remain in [purchases.md](purchases.md) §1 as fallback inventory; not on this BOM unless plan A is abandoned.
 - **Beduan atomizer B07LGPD3GB** — superseded by the internal sparge architecture; will not ship in the appliance. Bench-test inventory only.

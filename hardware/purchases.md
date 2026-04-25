@@ -10,7 +10,7 @@ Price figures on bundled rows reflect the shipment total, not the per-item unit 
 
 ## 1. Pressure vessel / carbonator fabrication
 
-Stainless sheet body, weld bungs, end-cap material, welding + forming tools. Originally specced for the racetrack pressure vessel (plan B); plan A has since pivoted to a vertical 5" OD × 1/16" wall 304 SS round tube + 1/4"-thick laser-cut 304 SS circular end-cap plates with 1/4" NPT direct-tapped (no weld bungs). Racetrack inventory below is retained as plan-B fallback stock.
+Stainless sheet body, weld bungs, end-cap material, welding + forming tools. Originally specced for the racetrack pressure vessel (plan B); plan A has since pivoted to a vertical 5" OD × 0.065" wall 304 SS round tube + 1/4"-thick laser-cut 304 SS circular end-cap plates with 1/4" NPT direct-tapped (no weld bungs). Racetrack inventory below is retained as plan-B fallback stock.
 
 | Part | ASIN link | Qty | $ | Status |
 |---|---|---|---|---|
@@ -198,7 +198,7 @@ Ice-maker donor units and copper coil for the chill loop.
 | DS3231 AT24C32 RTC module (2 pk) | [B09LLMYBM1](https://www.amazon.com/dp/B09LLMYBM1) | 1 pk | $7.07 | ACQUIRED |
 | HiLetgo DS3231 high-precision RTC (5 pk) | [B01N1LZSK3](https://www.amazon.com/dp/B01N1LZSK3) | 1 pk | $16.08 | ACQUIRED |
 | HiLetgo NJK-5002C Hall-effect proximity switch (2 pk) | [B01MZYYCLH](https://www.amazon.com/dp/B01MZYYCLH) | 1 pk | $8.49 | ACQUIRED |
-| Gebildet reed switches, 14 mm glass body, NO (6 pk) — carbonator level sensing: 2 reeds per unit (low-level refill threshold + high-level full threshold) mounted externally on the 1/16" 304 SS tube wall (austenitic 304 is non-magnetic so the float magnet's field passes through) | [B0CW9418F6](https://www.amazon.com/dp/B0CW9418F6) | 1 pk | $6.42 | ON-ORDER (Apr 24, delivers Apr 25) |
+| Gebildet reed switches, 14 mm glass body, NO (6 pk) — carbonator level sensing: 2 reeds per unit (low-level refill threshold + high-level full threshold) mounted externally on the 0.065" 304 SS tube wall (austenitic 304 is non-magnetic so the float magnet's field passes through) | [B0CW9418F6](https://www.amazon.com/dp/B0CW9418F6) | 1 pk | $6.42 | ON-ORDER (Apr 24, delivers Apr 25) |
 | DEVMO MINI vertical float switch — donor; harvest the magnetic donut float, discard switch body. Float slides on a 1/8" 304 SS rod TIG-welded vertically inside the carbonator vessel between the bottom and top end-cap plates | [B07T18PGJ4](https://www.amazon.com/dp/B07T18PGJ4) | 1 | $13.93 | ON-ORDER (Apr 24, delivers Apr 25) |
 | Tynulox 1/8" × 6" 304 SS round rod (10 pk) — TIG-welded vertically inside the carbonator vessel; carries the magnetic float for the external-reed level-sensing scheme. Replaces the earlier FDC1004 capacitive plan, which is invalid because capacitive sensing does not work through metal vessel walls | [B0BKGS32KJ](https://www.amazon.com/dp/B0BKGS32KJ) | 1 pk | $8.56 | ON-ORDER (Apr 24, delivers Apr 25) |
 | 12 V 2 A DC power supply, 9-tip | [B0DZGTTBGZ](https://www.amazon.com/dp/B0DZGTTBGZ) | 1 | bundle | ACQUIRED |
@@ -356,7 +356,7 @@ Scope reminder: 2026 YTD only (Jan 1 → Apr 22, 2026). Pre-2026 Claude spend is
 | **CO2 cylinder** | 5 lb or 10 lb aluminum, CGA-320. Regulator in hand; tank not yet on Amazon. |
 | **Additional flavor-manifold solenoids** | Manifold diagram needs 12 valves (V-A through V-J plus V-K-A and V-K-B); current Beduan B07NWCQJK9 count across orders is short. Verify qty per order, then top up. |
 | **CO2-side check valve** | 1/4" hose-barb stainless brewing-grade CO2 check valve, between regulator-side beer line and the LTWFITTING B017N4TTMA barb adapter on the bottom plate. Prevents water back-flow into the CO2 regulator if pressures invert under fault. Prime SS option to be identified. |
-| **5" OD × 1/16" wall × ~6" length 304 SS round tube** | Plan A vessel body. McMaster, OnlineMetals, or Amazon Prime equivalent — vendor still to confirm. |
+| **5" OD × 0.065" wall × ~6" length 304 SS round tube** | Plan A vessel body. Wall = 0.065" matches the existing tube on hand and the commonly stocked online spec; matches the slip-fit dim in `endcap-circular-2hole.dxf`. McMaster, OnlineMetals, or Amazon Prime equivalent — vendor still to confirm. |
 | **SendCutSend 1/4"-thick 304 SS circular endcap plates, 5" OD with 2× tap-pilot holes** | Plan A vessel end caps (`endcap-circular-2hole.dxf`, per commit 331822b). 2 plates per vessel; quote pending. |
 
 ---
