@@ -154,6 +154,14 @@ PIN_Y = OUTER_HALF_Y - OUTER_SHELL_WALL - 16.0  # ≈ 102.1 (outside corner R)
 FILL_PORT_DIA = 10.0
 VENT_DIA      = 5.0
 
+# Floor 2 radial ribs — connect outer perimeter to inner system so Floor 2
+# prints as one solid. Thin enough to not significantly impede pour-foam
+# flow during Pour 2 (~1 mm tangential thickness, single 0.8 nozzle pass +
+# small margin). Ribs run radially in the outer-foam zone at the four
+# compass directions (+X, -X, +Y, -Y).
+RIB_X_THICKNESS = 1.0   # tangential thickness (along Y) of +X / -X ribs
+RIB_Y_THICKNESS = 1.0   # tangential thickness (along X) of +Y / -Y ribs
+
 # Numerical tolerance / cleanup
 OVERCUT = 0.1
 EPS     = 1e-6
@@ -703,6 +711,54 @@ def build_floor_2():
                 .extrude(z_top - z_bottom)
             )
             floor2 = floor2.union(end_wall)
+
+    # 5b) Radial ribs — bridge the outer perimeter to the inner system so
+    #     Floor 2 prints as one connected solid. Without these ribs the
+    #     perimeter and inner-system are separated by the outer-foam gap.
+    #     Thin (~1 mm) so they don't significantly impede pour-foam flow.
+    #
+    #     +X / -X ribs span from the inner-shell outer arc (radius 76.3 on
+    #     X axis) out to the outer-shell perimeter inner face (x ≈ 82.3).
+    #     +Y / -Y ribs span from the bag-pocket outboard wall outer face
+    #     (y = 112.1) out to the outer-shell perimeter inner face
+    #     (y ≈ 118.1). All ribs run the full Floor 2 z-span.
+    rib_z_bot = z_bottom
+    rib_z_top = z_top
+    rib_height = rib_z_top - rib_z_bot
+
+    # +X / -X ribs (radial along X, tangential thickness along Y)
+    x_rib_inner = INNER_ARC_R + INNER_SHELL_WALL                # 76.3
+    x_rib_outer = OUTER_HALF_X - OUTER_SHELL_WALL               # 82.3
+    x_rib_len = x_rib_outer - x_rib_inner                        # ~6.0
+    for sx in (+1, -1):
+        x_lo, x_hi = sorted((sx * x_rib_inner, sx * x_rib_outer))
+        # Slight overlap into both endpoints to ensure clean unions.
+        x_lo -= OVERCUT
+        x_hi += OVERCUT
+        rib = (
+            cq.Workplane("XY")
+            .workplane(offset=rib_z_bot)
+            .center((x_lo + x_hi) / 2, 0)
+            .rect(x_hi - x_lo, RIB_X_THICKNESS)
+            .extrude(rib_height)
+        )
+        floor2 = floor2.union(rib)
+
+    # +Y / -Y ribs (radial along Y, tangential thickness along X)
+    y_rib_inner = POCKET_OUTER_Y_OUTER                          # 112.1
+    y_rib_outer = OUTER_HALF_Y - OUTER_SHELL_WALL               # 118.1
+    for sy in (+1, -1):
+        y_lo, y_hi = sorted((sy * y_rib_inner, sy * y_rib_outer))
+        y_lo -= OVERCUT
+        y_hi += OVERCUT
+        rib = (
+            cq.Workplane("XY")
+            .workplane(offset=rib_z_bot)
+            .center(0, (y_lo + y_hi) / 2)
+            .rect(RIB_Y_THICKNESS, y_hi - y_lo)
+            .extrude(rib_height)
+        )
+        floor2 = floor2.union(rib)
 
     # 6) Pin holes on bottom face (mating with Floor 1's pins)
     floor2 = cut_locating_pin_holes_from_bottom_face(floor2, z_bottom)
