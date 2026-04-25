@@ -1,6 +1,6 @@
 # Bill of Materials — One Consumer Unit
 
-Per-unit parts for a single finished appliance built on the **custom-vessel** path specified in [future.md](future.md). Carbonator vessel current plan A: vertical 5" OD × 0.065" wall 304 SS round tube capped with 1/4"-thick laser-cut 304 SS plates, 1/4" NPT direct-tapped into the plates (no weld-in bungs). Plan B (racetrack press-formed body, dished racetrack end caps) retained as fallback. Compressor is harvested from a countertop ice-maker; cold core is 3D-printed shells with pour-in-place foam; flavor reservoirs are two 1 L Platypus bladders inside the cold core.
+Per-unit parts for a single finished appliance built on the **custom-vessel** path specified in [future.md](future.md). Carbonator vessel current plan A: vertical 5" OD × 0.065" wall 316 welded SS round tube (OnlineMetals #12498, MTRs required) capped with 1/4"-thick laser-cut 316 SS circular plates from SendCutSend (`endcap-circular-2hole.dxf`), joined with the XLaserlab X1 Pro handheld laser welder. 1/4" NPT is direct-tapped into the plates (no weld-in bungs). Plan B (racetrack press-formed body in 304 SS + dished racetrack 304 end caps) retained as fallback inventory. Compressor is harvested from a countertop ice-maker; cold core is 3D-printed shells with pour-in-place foam; flavor reservoirs are two 1 L Platypus bladders inside the cold core.
 
 Prototype tools, fabrication equipment (welder, slip roll, shop press, dishing dies), donor parts consumed during teardown, duplicate SKUs, and consumables live in [purchases.md](purchases.md).
 
@@ -19,19 +19,19 @@ First-pass draft. Prices from resolved Amazon order history (purchases.md) or di
 | [BOJACK ULN2803APG Darlington driver IC (10-pk)](https://www.amazon.com/dp/B08CX79JSQ) | B08CX79JSQ — 2 ICs drive 12 solenoids from MCP23017 outputs | 1 pk | $6.99 | $6.99 |
 | [Mean Well IRM-90-12ST, 80 W / 12 V / 6.7 A, encapsulated](https://www.amazon.com/dp/B0CNRST18V) | B0CNRST18V — firmware serializes pump vs other loads, caps worst case at ~5.4 A; IEC 60335-1 household-appliance safety listed; 190 cm³ vs 288 cm³ for LRS-75 | 1 | $29.52 | $29.52 |
 
-## 2. Carbonator vessel (custom fabrication — plan A: round tube + 1/4" plates)
+## 2. Carbonator vessel (custom fabrication — plan A: round tube + 1/4" plates, 316L)
 
-Plan A is the current path. Plan B (racetrack body half-sheets + dished racetrack end caps + 4× weld bungs) remains as fallback if the 1/4"-plate-to-0.065"-tube weld can't be made reliably; plan B parts are tracked in [purchases.md](purchases.md) §1.
+Plan A is the current path. Plan B (racetrack body half-sheets + dished racetrack end caps + 4× weld bungs, all 304 SS) remains as fallback if the 1/4"-plate-to-0.065"-tube weld can't be made reliably; plan B parts are tracked in [purchases.md](purchases.md) §1.
 
 | Part | Source | Qty | Unit $ | Line $ |
 |---|---|---:|---:|---:|
-| Commodity 5" OD × 0.065" wall × ~6" length 304 SS round tube (vendor TBD — McMaster, OnlineMetals, or Amazon equivalent; 0.065" wall matches the slip-fit dim in `endcap-circular-2hole.dxf`) | TBD | 1 | ~$15 | $15.00 |
-| SendCutSend 1/4"-thick 304 SS circular endcap plate, 5" OD with 2× tap-pilot holes for 1/4" NPT (`endcap-circular-2hole.dxf`) | per commit 331822b; 2 plates per vessel; estimate based on prior SendCutSend pricing | 2 | ~$12 | $24.00 |
+| OnlineMetals #12498 — 5" OD × 0.065" wall 316 welded SS round tube, cut to 6.0" length (MTRs required); order 1020857414 placed Apr 24, 2026, 10 pcs @ $67.35 ea + ship + tax = $736.73 delivered ÷ 10 = $73.67/vessel | OnlineMetals.com | 1 | $73.67 | $73.67 |
+| SendCutSend 1/4"-thick 316 SS circular endcap plate, 4.860" diameter with 2× 7/16" tap-pilot holes for 1/4" NPT (`endcap-circular-2hole.dxf`); order SG019619 placed Apr 24, 2026 (paid), 20 pcs @ $28.96 ea + tax = $621.19 delivered ÷ 20 = $31.06/plate; 2 plates per vessel | sendcutsend.com | 2 | $31.06 | $62.12 |
 | [LTWFITTING 1/4" hose barb × 1/4" MNPT, 316 SS](https://www.amazon.com/dp/B017N4TTMA) | B017N4TTMA — port 1 (CO2 in via internal sparge); threads into bottom plate, barb faces inward to silicone tube → sparge stone | 1 | $7.00 | $7.00 |
 | [FERRODAY 0.5 µm sintered 316 SS sparge stone, 1/4" barb input (2-set)](https://www.amazon.com/dp/B091C5Y6L9) | B091C5Y6L9 — internal sparge stone, hangs in water column on silicone tube from port-1 barb adapter; 1 of 2 per unit | 1 (of 2) | ~$8 | $8.00 |
 | Food-grade silicone tube stub, 1/4" ID × ~3" long (cut from existing Metaland 1/4" silicone B08L1ST6ST stock in §5) | B08L1ST6ST — connects port-1 barb to sparge stone inside vessel | — | ~$0.20 | $0.20 |
 | [Millrose 70894 Nickel Guard anti-seize PTFE tape](https://www.amazon.com/dp/B07C9ZV4PG) | B07C9ZV4PG — anti-seize for SS-into-SS NPT joints (4 ports per unit) | 1 | $22.22 | $22.22 |
-| [Tap Magic 10016E pipe-tap cutting fluid, 4 oz](https://www.amazon.com/dp/B00DHMHSGM) | B00DHMHSGM — required for hand-tapping 1/4" NPT into 1/4" 304 SS plate; ~$0.50 of fluid per vessel | 1 | $0.50 | $0.50 |
+| [Tap Magic EP-Xtra pipe-tap cutting fluid, 16 oz (size variant on listing B00DHMHSGM)](https://www.amazon.com/dp/B00DHMHSGM) | B00DHMHSGM — required for hand-tapping 1/4" NPT into 1/4"-thick 316 SS plate; ~$0.50 of fluid per vessel | 1 | $0.50 | $0.50 |
 | [Control Devices SV-100 ASME safety valve, 1/4" NPT, 100 psi](https://www.amazon.com/dp/B0D361X97X) | B0D361X97X — Port 4 tank PRV (top plate, dedicated) | 1 | $16.06 | $16.06 |
 | [Cambro 6 QT polycarbonate square container](https://www.amazon.com/dp/B001BZEQ44) | B001BZEQ44 — citric acid passivation soak tub, one-time-use per unit | 1 | $20.00 | $20.00 |
 | [Viva Doria food-grade citric acid, 2 lb bag](https://www.amazon.com/dp/B0C5NQM8S1) | B0C5NQM8S1 — passivation: ~1 qt of 4% solution per tank; 1/20 of $9.99 bag | 1 | $0.50 | $0.50 |
@@ -140,9 +140,9 @@ Dishing dies (PA6-CF) for end-cap forming are vessel-fabrication tools, not ship
 
 | Part | ASIN | Qty | Unit $ | Line $ |
 |---|---|---:|---:|---:|
-| [Tynulox 1/8" × 6" 304 SS round rod (10-pk)](https://www.amazon.com/dp/B0BKGS32KJ) | B0BKGS32KJ — TIG-welded vertically inside vessel between bottom and top plates; carries the magnetic float; 1 of 10 per unit | 1 (of 10) | $0.86 | $0.86 |
+| [Tandefio 1/8" × 12" 316 SS round rod (5-pk)](https://www.amazon.com/dp/B0CY4DWJFQ) | B0CY4DWJFQ — laser-welded vertically inside vessel between bottom and top plates; carries the magnetic float; cut from 12" to ~6" (one 12" stick yields 2 vessel rods, so 5-pk = 10 vessels); supersedes Tynulox 304 (B0BKGS32KJ) for production to keep all wetted parts at 316/316L | 1 (of 10) | $0.86 | $0.86 |
 | [DEVMO MINI float switch (donor — harvest magnetic donut float, discard switch body)](https://www.amazon.com/dp/B07T18PGJ4) | B07T18PGJ4 — float slides on the welded SS rod; only the float is shipped product, the rest of the donor unit is discarded | 1 | ~$6 | $6.00 |
-| [Gebildet reed switches, 14 mm glass body, NO (6-pk)](https://www.amazon.com/dp/B0CW9418F6) | B0CW9418F6 — 2 reeds per unit (low-level refill threshold + high-level full threshold), mounted on the outside of the 0.065" SS tube wall; 304 SS is non-magnetic so the float magnet's field passes through | 2 (of 6) | $2.00 | $4.00 |
+| [Gebildet reed switches, 14 mm glass body, NO (6-pk)](https://www.amazon.com/dp/B0CW9418F6) | B0CW9418F6 — 2 reeds per unit (low-level refill threshold + high-level full threshold), mounted on the outside of the 0.065" SS tube wall; 316L (and 304) are austenitic and non-magnetic so the float magnet's field passes through | 2 (of 6) | $2.00 | $4.00 |
 
 The earlier FDC1004 capacitive plan was invalidated: capacitive sensing does not work through metal vessel walls and we are not adding a non-metallic window or hermetic feedthrough for it. See [future.md](future.md) carbonation subsystem.
 
@@ -157,7 +157,7 @@ The earlier FDC1004 capacitive plan was invalidated: capacitive sensing does not
 | Section | $ |
 |---|---:|
 | 1. Controllers + electronics | $168.23 |
-| 2. Carbonator vessel (plan A) | ~$113.48 |
+| 2. Carbonator vessel (plan A, 316L) | $210.27 |
 | 3. Water inlet | $147.57 |
 | 4. CO2 subsystem | $68.29 |
 | 5. Refrigeration | $166.91 |
@@ -168,9 +168,9 @@ The earlier FDC1004 capacitive plan was invalidated: capacitive sensing does not
 | 10. UI | $39.95 |
 | 11. Wiring | $25.94 |
 | 12. Level sensing | $11.50 |
-| **Sourced + estimated subtotal** | **~$1,256.71** |
+| **Sourced + estimated subtotal** | **$1,353.50** |
 | 13. CO2-side check (TBD) | ~$15.00 |
-| **Projected total** | **~$1,271.71** |
+| **Projected total** | **~$1,368.50** |
 
 ## External / user-supplied (not shipped)
 
@@ -183,6 +183,6 @@ The earlier FDC1004 capacitive plan was invalidated: capacitive sensing does not
 - **GASHER B0FV2D2FFX check valve seat material** — confirm metal or PTFE seat (not elastomer) on physical inspection when units arrive; substitute if elastomer.
 - **Platypus 1 L vs 2 L** — future.md specifies 1 L bladders. README's parts list shows 2 L. Using 1 L per future.md; revisit if cradle geometry forces larger.
 - **Refrigeration charge** — Path A vents the factory R-600a charge and recharges from Enviro-Safe cans (§5); ~40 g per system × 12 recharges per 3-can bundle amortizes to ~$5.67/unit. No recovery equipment and no EPA 608 cert required (natural-refrigerant carveout).
-- **5" OD tube and 1/4" plate sourcing** — placeholder pricing in §2; actual SendCutSend quote for the 1/4" circular endcap plate (`endcap-circular-2hole.dxf`) and a verified Prime/McMaster source for the 5" OD × 0.065" wall 304 SS tube still to confirm.
-- **Plan B (racetrack) parts** — half-sheet body blanks (SendCutSend SP54G453), dished racetrack end caps (SV07U813), 4× weld bungs (B07QNV8796), and 4× hex nipples (B0GD1QBLQ3) remain in [purchases.md](purchases.md) §1 as fallback inventory; not on this BOM unless plan A is abandoned.
+- **5" OD tube and 1/4" plate sourcing — RESOLVED.** Tube ordered from OnlineMetals (#12498, 316 welded, MTRs required) on order 1020857414 = $73.67/vessel delivered. End-cap plates ordered from SendCutSend on order SG019619 (1/4" 316 SS, `endcap-circular-2hole.dxf`) = $31.06/plate delivered, 2 plates per vessel.
+- **Plan B (racetrack) parts** — half-sheet body blanks (SendCutSend SP54G453), dished racetrack end caps (SV07U813), 4× weld bungs (B07QNV8796), and 4× hex nipples (B0GD1QBLQ3) remain in [purchases.md](purchases.md) §1 as fallback inventory in 304 SS; not on this BOM unless plan A is abandoned.
 - **Beduan atomizer B07LGPD3GB** — superseded by the internal sparge architecture; will not ship in the appliance. Bench-test inventory only.
