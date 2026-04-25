@@ -140,7 +140,7 @@ Dishing dies (PA6-CF) for end-cap forming are vessel-fabrication tools, not ship
 
 | Part | ASIN | Qty | Unit $ | Line $ |
 |---|---|---:|---:|---:|
-| [Tynulox 1/8" × 6" 304 SS round rod (10-pk)](https://www.amazon.com/) | ASIN TBD — TIG-welded vertically inside vessel between bottom and top plates; carries the magnetic float; 1 of 10 per unit | 1 (of 10) | ~$1.50 | $1.50 |
+| [Tynulox 1/8" × 6" 304 SS round rod (10-pk)](https://www.amazon.com/dp/B0BKGS32KJ) | B0BKGS32KJ — TIG-welded vertically inside vessel between bottom and top plates; carries the magnetic float; 1 of 10 per unit | 1 (of 10) | $0.86 | $0.86 |
 | [DEVMO MINI float switch (donor — harvest magnetic donut float, discard switch body)](https://www.amazon.com/dp/B07T18PGJ4) | B07T18PGJ4 — float slides on the welded SS rod; only the float is shipped product, the rest of the donor unit is discarded | 1 | ~$6 | $6.00 |
 | [Gebildet reed switches, 14 mm glass body, NO (6-pk)](https://www.amazon.com/dp/B0CW9418F6) | B0CW9418F6 — 2 reeds per unit (low-level refill threshold + high-level full threshold), mounted on the outside of the 1/16" SS tube wall; 304 SS is non-magnetic so the float magnet's field passes through | 2 (of 6) | $2.00 | $4.00 |
 
