@@ -26,7 +26,7 @@ Stainless sheet body, weld bungs, end-cap material, welding + forming tools. Ori
 | Millrose PTFE thread seal tape | [B07C9ZV4PG](https://www.amazon.com/dp/B07C9ZV4PG) | 1 | $20.07 | ACQUIRED |
 | Viva Doria 100% pure food-grade citric acid, fine grain, 2 lb — post-weld passivation soak | [B0C5NQM8S1](https://www.amazon.com/dp/B0C5NQM8S1) | 1 | $9.99 | ACQUIRED |
 | Cambro 6 QT square polycarbonate food container — citric-acid soak tub (one-time-use per unit, ships with tank) | [B001BZEQ44](https://www.amazon.com/dp/B001BZEQ44) | 1 | $20.00 | ACQUIRED |
-| findmall ER308L .030 MIG wire, 10 lb spool — higher-volume follow-on to Blue Demon 2 lb | [B0C52XQB39](https://www.amazon.com/dp/B0C52XQB39) | 1 | $90.68 | ACQUIRED |
+| findmall ER308L .035 MIG wire, 10 lb spool — higher-volume follow-on to Blue Demon 2 lb (description fix: ledger previously said .030, actual product is .035 per Amazon listing) | [B0C52XQB39](https://www.amazon.com/dp/B0C52XQB39) | 1 | $90.68 | ACQUIRED |
 | PGN ER308L .030 MIG wire, 10 lb spool — second stainless MIG wire spool (alt brand to findmall) | [B09WRZDBPN](https://www.amazon.com/dp/B09WRZDBPN) | 1 | — | ACQUIRED (price pending — order total not yet posted) |
 | **STARTECHWELD ER316L .030 MIG wire, 10 lb spool, 8" OD / 2" center bore** — correct filler for the 316L plan-A vessel welds (308L would lose the molybdenum across the joint, defeating the point of the 316L upgrade); same form factor as the existing 308L spools so it drops into the X1 Pro wire feeder without a drive-roll change | [B09BKFBXT9](https://www.amazon.com/dp/B09BKFBXT9) | 1 | $129.50 | ON-ORDER (order 112-2295053-5101056, Apr 24, delivers Apr 27) |
 | Caiman premium goat-grain TIG / multi-task welding gloves — PPE for laser welder | [B07T6VLSK3](https://www.amazon.com/dp/B07T6VLSK3) | 1 | $23.05 | ACQUIRED |
@@ -87,8 +87,8 @@ Check valves, sparge stone + barb adapter for internal-sparge CO2 carbonation, c
 | LTWFITTING 316 SS 1/4" hose barb × 1/4" MNPT — port-1 (CO2 in via internal sparge) bottom-plate adapter; barb faces inward to silicone tube → sparge stone | [B017N4TTMA](https://www.amazon.com/dp/B017N4TTMA) | 1 | $13.65 | ON-ORDER (Apr 24, delivers Apr 25) |
 | FERRODAY 0.5 µm sintered 316 SS sparge stone, 1/4" barb input (2-set) — internal sparge stone, hangs in vessel water column on silicone tube from port-1 barb adapter; replaces the atomizer carbonation path | [B091C5Y6L9](https://www.amazon.com/dp/B091C5Y6L9) | 1 | $14.97 | ON-ORDER (Apr 24, delivers Apr 25) |
 | ~~Beduan 1/4" male spiral cone atomization nozzle, 316 SS~~ — SUPERSEDED by internal sparge architecture; the spiral-cone nozzle requires a high pressure differential to atomize and at our working ΔP (~15–25 PSI between pump output and 70 PSI headspace) it produces a stream not a spray. Bench-test inventory only, not in shipped BOM | [B07LGPD3GB](https://www.amazon.com/dp/B07LGPD3GB) | 1 | $9.99 | ACQUIRED (superseded) |
-| VALVENTO 316 SS 1/4" OD compression × 1/4" NPT adapter (2 pk) — joins bottom-plate 1/4" NPT outlet (port 3) to 1/4" tubing run to faucet | [B0DXZZBK7D](https://www.amazon.com/dp/B0DXZZBK7D) | 1 pk | $31.08 | ACQUIRED |
-| VALVENTO 1/4" OD 316 SS tube, 12" length (5 pk) | [B0F6SYFK48](https://www.amazon.com/dp/B0F6SYFK48) | 1 pk | $31.08 | ACQUIRED |
+| VALVENTO 316 SS 1/4" OD compression × 1/4" NPT adapter (2 pk) — joins bottom-plate 1/4" NPT outlet (port 3) to 1/4" tubing run to faucet (order 112-6216768-3197856 covers BOTH this and the SS tube 5-pk B0F6SYFK48 below; line price $11.99 pre-tax + $0.86 allocated tax = $12.85 delivered) | [B0DXZZBK7D](https://www.amazon.com/dp/B0DXZZBK7D) | 1 pk | $12.85 | ACQUIRED |
+| VALVENTO 1/4" OD 316 SS tube, 12" length (5 pk) — same order 112-6216768-3197856 as the compression adapter B0DXZZBK7D above; line price $16.99 pre-tax + $1.24 allocated tax = $18.23 delivered. Earlier ledger duplicated the $31.08 order grand total onto BOTH lines, double-counting by $31.08; corrected during the post-Kamoer audit pass | [B0F6SYFK48](https://www.amazon.com/dp/B0F6SYFK48) | 1 pk | $18.23 | ACQUIRED |
 | TAISHER 304 SS compression square needle valve 1/4" | [B0CLXHZZCW](https://www.amazon.com/dp/B0CLXHZZCW) | 1 | $32.15 | ACQUIRED |
 
 ## 5. Flavor subsystem
@@ -97,8 +97,8 @@ Peristaltic pumps, solenoids, bag-in-box connector, silicone delivery tubing, ba
 
 | Part | ASIN link | Qty | $ | Status |
 |---|---|---|---|---|
-| Kamoer KPHM400-SW3B25 400 ml/min 12 V peristaltic pump (BPT) | [B09MS6C91D](https://www.amazon.com/dp/B09MS6C91D) | 2 | $99.40 ea | ACQUIRED |
-| Beduan 12 V 1/4" inlet water solenoid (NC) — flavor/manifold valve | [B07NWCQJK9](https://www.amazon.com/dp/B07NWCQJK9) | 3–4 lines | $9.64–$19.28 ea | ACQUIRED (short vs 12-valve manifold) |
+| Kamoer KPHM400-SW3B25 400 ml/min 12 V peristaltic pump (BPT, sold by Kamoer Fluid Tech Shanghai) — order #114-1015191-6799441 (Feb 18, 2026, qty 1 @ $32.55) + order #112-0545074-9805025 (Feb 23, 2026, qty 2 @ $32.55) = 3 pumps total at $32.55/ea delivered. Earlier ledger entry recorded "qty 2 @ $99.40 ea" — neither figure matches Amazon's current or historical listing ($32.55 then and now), so most likely a previous editor folded the 3-pump line-item total ($97.65) into a single-unit price by mistake. | [B09MS6C91D](https://www.amazon.com/dp/B09MS6C91D) | 3 | $32.55 ea | ACQUIRED |
+| Beduan 12 V 1/4" inlet water solenoid (NC) — flavor/manifold valve; per-unit delivered $9.64 ($8.99 pre-tax + tax). Earlier ledger range "$9.64–$19.28 ea" had the high end wrong — $19.28 was a 2-unit order grand total mistakenly recorded per-unit (Kamoer-style); BOM impact nil since BOM already uses $9.64 | [B07NWCQJK9](https://www.amazon.com/dp/B07NWCQJK9) | 3–4 lines | $9.64 ea | ACQUIRED (short vs 12-valve manifold) |
 | Supply Depot Coke-compatible BIB connector, 3/8" red (2 pk) | [B0DMFK9B6P](https://www.amazon.com/dp/B0DMFK9B6P) | 1 pk | $19.99 | ACQUIRED |
 | Platypus SoftBottle 1 L (bladder donor) | [B08PG3GMQ8](https://www.amazon.com/dp/B08PG3GMQ8) | 1 | $23.49 | ACQUIRED |
 | Platypus SoftBottle 1 L "Waves" (bladder donor) | [B00ZX0ERE2](https://www.amazon.com/dp/B00ZX0ERE2) | 1 | $15.35 | ACQUIRED |
@@ -111,7 +111,7 @@ Peristaltic pumps, solenoids, bag-in-box connector, silicone delivery tubing, ba
 | Metaland 1/8" ID silicone tubing | [B08XM1V475](https://www.amazon.com/dp/B08XM1V475) | 1 | $8.99 | ACQUIRED |
 | Quickun 3/4" ID silicone tubing | [B091SXP7DD](https://www.amazon.com/dp/B091SXP7DD) | 1 | $9.99 | ACQUIRED |
 | Pure silicone 3/8" ID × 1/2" OD high-temp tube, 10 ft | [B07XMGHHLK](https://www.amazon.com/dp/B07XMGHHLK) | 1 | $16.99 | ACQUIRED |
-| ANPTGHT 1/8" ID × 1/4" OD black silicone tubing | [B0BM4KQ6RT](https://www.amazon.com/dp/B0BM4KQ6RT) | 1 | $27.86 | ACQUIRED |
+| ANPTGHT 1/8" ID × 1/4" OD black silicone tubing — actually qty 2 ordered @ $12.99 ea pre-tax = $25.98 + $1.88 tax = $27.86 delivered ($13.93/roll). Earlier ledger entry recorded "qty 1 @ $27.86" — Kamoer-style fold-up of the 2-roll grand total into a single-unit price (BOM impact nil since BOM consumes 1 roll/unit; qty fix reflects actual stock) | [B0BM4KQ6RT](https://www.amazon.com/dp/B0BM4KQ6RT) | 2 | $13.93 ea | ACQUIRED |
 | Rebower brass hose barb 3/8" × 1/8" | [B0FP5JX2KS](https://www.amazon.com/dp/B0FP5JX2KS) | 1 | $4.99 | ACQUIRED |
 | MAACFLOW SS 1/4" NPT M × 3/8" hose barb (4 pk) | [B0DMP77B6S](https://www.amazon.com/dp/B0DMP77B6S) | 1 pk | $12.97 | ACQUIRED |
 | YDS butterfly SS W2 hose clamp, 10–16 mm (10 pk) | [B07C33VLQ6](https://www.amazon.com/dp/B07C33VLQ6) | 1 pk | $15.20 | ACQUIRED |
@@ -151,7 +151,7 @@ Ice-maker donor units and copper coil for the chill loop.
 | Orion Motor Tech 4 CFM 1/3 HP single-stage vacuum pump, 110 V, 150 µ ultimate | [B08P1WRZ1S](https://www.amazon.com/dp/B08P1WRZ1S) | 1 | $78.28 | ACQUIRED |
 | Supco BPV31 bullet-piercing valve — taps compressor process tube for initial vent + recharge access | [B00DM8J3MI](https://www.amazon.com/dp/B00DM8J3MI) | 1 | $7.37 | ACQUIRED |
 | Smart Weigh Pro digital pocket scale, 2000 g × 0.1 g — refrigerant charge metering by mass | [B00IZ1YHZK](https://www.amazon.com/dp/B00IZ1YHZK) | 1 | $19.25 | ACQUIRED |
-| Elitech PT520A refrigerant/hydrocarbon gas leak detector | [B0BTM3G8DK](https://www.amazon.com/dp/B0BTM3G8DK) | 1 | $42.89 | ACQUIRED |
+| Toptes PT520A refrigerant/hydrocarbon gas leak detector (description fix: ledger previously branded "Elitech", Amazon listing brand is Toptes) | [B0BTM3G8DK](https://www.amazon.com/dp/B0BTM3G8DK) | 1 | $42.89 | ACQUIRED |
 | Enviro-Safe R-600a 3-pack (3× 6 oz self-sealing cans) + brass charging gauge — CME Biz / Enviro-Safe Refrigerants Inc., 22+ year hydrocarbon refrigerant mfr; brass gauge replaces need for separate 7/16" adapter and replaces the earlier notched-canister piercing kit | [B0CGG1WH1N](https://www.amazon.com/dp/B0CGG1WH1N) | 1 | $72.92 | ACQUIRED |
 | Klein Tools 51006 3-in-1 tube bender, 1/4 / 5/16 / 3/8" OD — for forming the 1/4" ACR evaporator coil around the carbonator tank | [B0DPQX17WM](https://www.amazon.com/dp/B0DPQX17WM) | 1 | $21.98 | ACQUIRED |
 | Wisscool 1/4" handheld tube straightener — de-coils 1/4" ACR copper before bending | [B0F6BPTW3T](https://www.amazon.com/dp/B0F6BPTW3T) | 1 | $24.99 | ACQUIRED |
@@ -257,7 +257,7 @@ General shop equipment supporting fabrication, assembly, and teardown. Not proje
 
 | Part | ASIN link | Qty | $ | Status |
 |---|---|---|---|---|
-| VEVOR adjustable 48" workbench w/ power outlet, wheels, pegboard, 2000 lb load | [B0FCD13KKQ](https://www.amazon.com/dp/B0FCD13KKQ) | 1 | $345.28 | ACQUIRED |
+| VEVOR adjustable 48" workbench w/ power outlet, wheels, pegboard, 2000 lb load — actually qty 2 ordered (order 114-1978684-7068269, Apr 20, 2026) @ $160.97 ea = $321.94 + $23.34 tax = $345.28 delivered ($172.64/unit). Earlier ledger recorded "qty 1 @ $345.28" — Kamoer-style fold-up of the 2-unit grand total into a single-unit price | [B0FCD13KKQ](https://www.amazon.com/dp/B0FCD13KKQ) | 2 | $172.64 ea | ACQUIRED |
 
 ## 13. Printing consumables
 
@@ -368,14 +368,14 @@ Scope reminder: 2026 YTD only (Jan 1 → Apr 22, 2026). Pre-2026 Claude spend is
 
 | Status | $ |
 |---|---|
-| ACQUIRED — hardware (§§1–13, 15, 16, 17) | $14,517.07 |
+| ACQUIRED — hardware (§§1–13, 15, 16, 17) | $14,518.54 |
 | ACQUIRED — capitalized contract labor (§18) | $2,607.92 |
-| ACQUIRED (combined) | $17,124.99 |
-| ON-ORDER | ~$2,646.32 |
-| LIKELY-TO-BUY | $53.98 |
-| **Grand total** | ~$19,825.29 |
+| ACQUIRED (combined) | $17,126.46 |
+| ON-ORDER | ~$2,735.86 |
+| LIKELY-TO-BUY | $39.99 |
+| **Grand total** | ~$19,902.31 |
 
-ACQUIRED-hardware breakdown: Amazon (§§1–13) $5,110.03 + SendCutSend (§1, orders SQ65E969 + SV07U813) $105.71 + Bambu Lab direct (§15) $4,803.33 + XLaserlab X1 Pro (§16) $3,899.00 + Namecheap homesodamachine.com (§17) $599.00 = $14,517.07.
+ACQUIRED-hardware breakdown: Amazon (§§1–13) $5,111.50 + SendCutSend (§1, orders SQ65E969 + SV07U813) $105.71 + Bambu Lab direct (§15) $4,803.33 + XLaserlab X1 Pro (§16) $3,899.00 + Namecheap homesodamachine.com (§17) $599.00 = $14,518.54. Post-Kamoer audit pass (Apr 24, 2026, two parallel agents over 46 high-impact line items) found 4 confirmed Kamoer-style fold-up errors and corrected them: (a) Kamoer KPHM400 — 3 pumps total @ $32.55 ea = $97.65, was wrongly $99.40 ea × 2 = $198.80; (b) VALVENTO compression 2-pk B0DXZZBK7D and (c) VALVENTO 1/4" tube 5-pk B0F6SYFK48 — both lines wrongly recorded the $31.08 shared order grand total instead of their separate line prices ($12.85 + $18.23 = $31.08), double-counting by $31.08; (d) ANPTGHT silicone B0BM4KQ6RT — actually qty 2 @ $13.93 ea, was qty 1 @ $27.86 (no $ impact since line $ stays at $27.86); (e) VEVOR Workbench B0FCD13KKQ — actually qty 2 @ $172.64 ea, was qty 1 @ $345.28 (no $ impact). Plus cosmetic fixes: Beduan range tightened, findmall .030 → .035, Elitech → Toptes brand. The remaining 42 audited line items verified as MATCH against actual order history.
 
 ON-ORDER breakdown: RIGID DV1910E refrigeration module (~$600 + import, stuck, may cancel) + Amazon orders placed Apr 23, 2026: HVAC 1/4" ACR copper slip coupling 10-pk B0FH549N6D ($7.98) + Knipex 86 01 180 Pliers Wrench B07YLFLSJW ($53.20) + Joywayus 1/4" SAE flare nut 5-pk B0G1XJ2F68 ($7.99) + 3M 425 aluminum foil tape 2" × 180 ft B07BTW7C2N ($88.97) = $158.14 new refrigeration spend. Apr 24, 2026 diagnostic cross-test pair for C14/C13 mating-fit investigation: uxcell C14 inlet B07PXSLBF4 ($7.39, order 112-2063260-0973008) + Tripp Lite P006-006 cord B0000511C0 ($9.21, order 112-2843637-5886607) = $16.60, both delivering Apr 25; cheaper premium-brand references (Schurter, Qualtek) are non-Prime only and were rejected under Prime-only sourcing rule. SendCutSend order SP54G453 ($134.38 delivered, invoice Apr 24, 2026) adds 10× 304 SS 0.048" body half-sheets; parts entered production 2026-04-23, supersedes the body portion of the earlier SQ65E969 + SV07U813 combined runs in BOM §2 (end-cap portion of those orders remains valid). **Apr 24, 2026 carbonator vessel-stock burst — plan-A 316L pivot:** OnlineMetals order 1020857414 (10× 5" OD × 0.065" wall × 6" cut 316 welded SS round tube, MTRs required, $736.73 delivered) + SendCutSend order SG019619 (20× 1/4" 316 SS endcap plates, `endcap-circular-2hole.dxf`, $621.19 delivered) + Tandefio 1/8" × 12" 316 SS rod 5-pk B0CY4DWJFQ ($8.57) = **$1,366.49** vessel raw stock for 10 production units. Plan A vessel cost-per-unit jumps from the earlier 304 placeholder estimate (~$39/vessel) to $135.79/vessel raw stock (tube $73.67 + 2× plates $62.12), reflecting both the 304 → 316L grade upgrade and accurate post-quote pricing. The earlier Airgas nitrogen cylinder plan was dropped — argon purge reuses the existing argon cylinder currently feeding the laser welder, no new gas purchase needed. The foil tape replaces the generic "thermal compound" line in BOM §6 as the tank ↔ coil thermal interface; 180 ft roll covers ~12 builds at ~15 ft/build. The Amazon brazing/refrigeration tools batch placed April 22, 2026 (delivered Apr 23 at $418.70: Supco D111 $11.95, Supco SUD8358 $13.40, Mastercool 70025 $15.74, Bernzomatic TS8000+MAP-Pro $117.96, Harris SSWF7 flux $11.92, Uniweld RHP400 N2 regulator $96.76, RIDGID 31622 cutter $31.99, RIDGID 23332 flare tool $99.99, BCuP-5 rod $18.99) and the soldering/small-signal electrical tools batch (order # 112-0066205-0960237, $423.95 delivered; 17 line items — see §14) both arrived April 23, 2026 and have moved from ON-ORDER → ACQUIRED. **ASSE 1022 backflow preventer — both orders now tracked.** Howdybrewer order #6779764932824 (Apr 16, 2026, $52.52 delivered: 1× Multiplex 19-0897 @ $38.99 + $9.99 ship + $3.54 tax) was placed first and remains ON-ORDER, unshipped 8 days later, prompting the second-source pivot. Midwest Beverage order MB11053 (Apr 24, 2026, $145.80 delivered: 4× Multiplex 19-0897 @ $29.33 = $117.32 + $28.48 UPS Ground + $0.00 tax) was placed as the active production source going forward. Combined backflow-preventer ON-ORDER spend is $198.32 for 5 units of stock. The BOM uses the Midwest allocated unit cost ($145.80/4 = $36.45/unit), dropping BOM §3 from $147.57 → $145.03/unit and the BOM grand total from $1,360.50 → $1,357.96/unit.
 
