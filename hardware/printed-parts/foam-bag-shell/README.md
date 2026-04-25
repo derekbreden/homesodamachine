@@ -316,9 +316,9 @@ For CadQuery code structure and conventions, see:
   — the racetrack-stadium predecessor; shares the geometry-by-band approach
   but is specific to plan B.
 - [`../pump-case/generate_step_cadquery.py`](../pump-case/generate_step_cadquery.py)
-  — current PETG enclosure design pattern; structure constants by concern,
-  geometry helpers, feature functions, top-level assembly as a bill of
-  operations.
+  — **gold standard** for PETG enclosure design pattern in this repo.
+  Follow its structure: constants grouped by concern, geometry helpers,
+  feature functions, top-level assembly as a bill of operations.
 
 The cadquery venv lives at `tools/cad-venv/bin/python` (per
 [`hardware/CLAUDE.md`](../../CLAUDE.md) — cadquery is not on system Python).
