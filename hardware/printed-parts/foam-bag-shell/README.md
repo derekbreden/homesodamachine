@@ -134,6 +134,41 @@ The cold core is printed as **three pieces, stacking vertically**. Each
 piece is a single integral print — multiple "rooms" within a piece, but no
 horizontal sub-division. Floors join at horizontal mating planes.
 
+### Floor mating
+
+**Pure butt joints + 4 locating pins per seam. No lap, tongue-and-groove,
+or swept mating geometry on any wall.**
+
+- The mating plane is horizontal (z = constant) at z ≈ 37 mm (Floor 1 / 2)
+  and z ≈ 189 mm (Floor 2 / 3).
+- Every wall that crosses the mating plane (outer shell perimeter, bag-
+  pocket outboard wall, bag-pocket end walls, printed PETG fitting shafts)
+  butts cleanly against its counterpart in the adjacent piece. No mating
+  geometry on any wall — both ends are flat at the mating plane.
+- **4 locating pins** on the outer shell perimeter (suggest near the four
+  corners of the bounding rectangle) — ~3 mm diameter × 4 mm tall on the
+  *lower* piece, matching holes on the *upper* piece. Pins print cleanly
+  with their long axis along Z (no overhangs). These do all the alignment.
+- Pour foam seals the seams. The Floor 1/2 and Floor 2/3 seams sit inside
+  the outer-cavity foam region (Pour 2), so liquid foam expands across
+  these seams during pour and bonds the pieces permanently after cure.
+- **Bag-pocket wall mating edges should be coated with a thin bead of
+  silicone or pour-foam paste at assembly time, before stacking.** This is
+  the only seam where liquid foam ingress would damage the assembly (foam
+  bonding to the bag), and an assembly-time sealant is sufficient. Not a
+  CAD geometry concern.
+
+This avoids the racetrack's pain points (45° swept grooves with T-
+junctions where divider walls crossed the perimeter sweep). Each crossing
+wall is independent. T-junctions between walls have no special mating
+geometry to navigate.
+
+Print orientation: each piece prints with one of its faces (the bottom
+skin for Floor 1; the top skin for Floor 3, upside-down; either mating
+face for Floor 2) on the build plate. The locating pins protrude from the
+upper face during print, so they print as vertical extrusions (no
+overhangs). All wall edges at mating planes are simple flat tops/bottoms.
+
 ### Floor 1 — bottom skin + bottom foam band
 
 - z-range: **0 to ~37 mm**
@@ -270,8 +305,6 @@ Detail decisions the CAD code should make without further requirements:
   PRV vent (depends on the specific tubing OD; budget ~8 mm ID conduit for
   1/4" tubing).
 - Foam-pour fill-port and vent-hole positions and dimensions.
-- Mating features between Floors 1/2 and 2/3 (lap joint, tongue-and-groove,
-  or similar — suggest a simple lap joint with locating pins).
 - Stacking retention during foam cure (zip-tie holes, screw bosses, or
   external clamp — TBD).
 
