@@ -46,7 +46,7 @@ Plan A is the current path. Plan B (racetrack body half-sheets + dished racetrac
 | [LOKMAN 304 SS worm-gear clamps, 10–16 mm (20-pk)](https://www.amazon.com/dp/B076Q7QVNM) | B076Q7QVNM | 1 pk | $8.99 | $8.99 |
 | [SEAFLO 22-Series 12V 1.3 GPM 100 psi diaphragm pump (3/8" hose-barb ports)](https://www.amazon.com/dp/B0166UBJX4) | B0166UBJX4 | 1 | $44.99 | $44.99 |
 | [MAACFLOW SS 1/4" NPT M × 3/8" hose barb (4-pk)](https://www.amazon.com/dp/B0DMP77B6S) | B0DMP77B6S — adapts pump 3/8" hose-barb output to 1/4" NPT plumbing for the check valve and top-plate port; 1 of 4 per unit (also used in §8) | 1 (of 4 pk) | $3.24 | $3.24 |
-| [GASHER 1/4" NPT SS one-way check valve (2-pk, $13.99)](https://www.amazon.com/dp/B0FV2D2FFX) | B0FV2D2FFX — metal-seat external check between pump and top-plate port; 1 of 2 per unit | 1 (of 2) | $7.00 | $7.00 |
+| [GASHER 1/4" NPT SS one-way check valve (2-pk, $13.99)](https://www.amazon.com/dp/B0FV2D2FFX) | B0FV2D2FFX — **water-side check** between SeaFlo pump and top-plate water-inlet port; metal seat (vs the pump's internal elastomer); 1 of 2 valves per unit (the other valve is the CO2-side check in §4) | 1 (of 2) | $7.00 | $7.00 |
 | [Lifevant 1/4" OD water tubing 32.8 ft + quick-connects](https://www.amazon.com/dp/B0DKCZ5W66) | B0DKCZ5W66 | 1 | $9.99 | $9.99 |
 | [John Guest 1/4" OD × 1/8" NPT push-fit](https://www.amazon.com/dp/B07V6XKZG9) | B07V6XKZG9 | 1 | $5.00 | $5.00 |
 | [John Guest PI1208S acetal bulkhead union, 1/4" QC](https://www.amazon.com/dp/B0C1F3QR7N) | B0C1F3QR7N | 1 | $11.49 | $11.49 |
@@ -58,6 +58,7 @@ Plan A is the current path. Plan B (racetrack body half-sheets + dished racetrac
 | [Wellbom dual-gauge CO2 regulator, CGA-320, 0–120 PSI out / 150 PSI PRV](https://www.amazon.com/dp/B0G13P5PMY) | B0G13P5PMY | 1 | $44.99 | $44.99 |
 | [5/16" ID beer CO2 line, 10 ft + clamps](https://www.amazon.com/dp/B0D1RB3TF6) | B0D1RB3TF6 | 1 | $12.59 | $12.59 |
 | [DERPIPE 5/16" tube × 1/4" NPT push-to-connect (5-pk)](https://www.amazon.com/dp/B09LXVGPG7) | B09LXVGPG7 — **5/16" variant appears delisted; source replacement ASIN** | 1 pk | $10.71 | $10.71 |
+| [GASHER 1/4" NPT SS one-way check valve (2-pk, $13.99) — second of pack](https://www.amazon.com/dp/B0FV2D2FFX) | B0FV2D2FFX — **CO2-side check** between DERPIPE 5/16"-tube × 1/4"-NPT push-to-connect and the LTWFITTING bottom-plate barb adapter; prevents water back-flow into the CO2 regulator if pressures invert under fault. Same 2-pack as the §3 water-side check, second valve of the pair | 1 (of 2) | $7.00 | $7.00 |
 
 ## 5. Refrigeration (harvested compressor path)
 
@@ -146,12 +147,6 @@ Dishing dies (PA6-CF) for end-cap forming are vessel-fabrication tools, not ship
 
 The earlier FDC1004 capacitive plan was invalidated: capacitive sensing does not work through metal vessel walls and we are not adding a non-metallic window or hermetic feedthrough for it. See [future.md](future.md) carbonation subsystem.
 
-## 13. CO2-side check valve (still to source)
-
-| Part | Notes | Est. $ |
-|---|---|---:|
-| 1/4" hose-barb stainless, brewing-grade CO2 check valve (between regulator-side beer line and the LTWFITTING B017N4TTMA barb adapter on the bottom plate) | Prevents water back-flow into the CO2 regulator if pressures invert. Prime SS option to be identified. | ~$15 |
-
 ## Totals
 
 | Section | $ |
@@ -159,7 +154,7 @@ The earlier FDC1004 capacitive plan was invalidated: capacitive sensing does not
 | 1. Controllers + electronics | $168.23 |
 | 2. Carbonator vessel (plan A, 316L) | $210.27 |
 | 3. Water inlet | $147.57 |
-| 4. CO2 subsystem | $68.29 |
+| 4. CO2 subsystem | $75.29 |
 | 5. Refrigeration | $166.91 |
 | 6. Cold core insulation | $47.40 |
 | 7. Printed parts (PETG) | $103.94 |
@@ -168,9 +163,7 @@ The earlier FDC1004 capacitive plan was invalidated: capacitive sensing does not
 | 10. UI | $39.95 |
 | 11. Wiring | $25.94 |
 | 12. Level sensing | $11.50 |
-| **Sourced + estimated subtotal** | **$1,353.50** |
-| 13. CO2-side check (TBD) | ~$15.00 |
-| **Projected total** | **~$1,368.50** |
+| **Total** | **$1,360.50** |
 
 ## External / user-supplied (not shipped)
 
