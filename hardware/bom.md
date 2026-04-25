@@ -40,7 +40,7 @@ Plan A is the current path. Plan B (racetrack body half-sheets + dished racetrac
 
 | Part | ASIN / Source | Qty | Unit $ | Line $ |
 |---|---|---:|---:|---:|
-| [Multiplex 19-0897 ASSE 1022 backflow preventer](https://www.howdybrewer.com/products/multiplex-backflow-preventor-assembly-1022-3-8-npt-x-3-8-mfl) | howdybrewer | 1 | $38.99 | $38.99 |
+| [Multiplex 19-0897 ASSE 1022 backflow preventer](https://www.midwestbev.com/products/asse-1022-backflow-preventer); midwestbev order MB11053 placed Apr 24, 2026, qty 4 @ $29.33 = $117.32 + $28.48 UPS Ground + $0.00 tax = $145.80 delivered ÷ 4 = $36.45/unit | midwestbev.com | 1 | $36.45 | $36.45 |
 | [Hooshing 3/8" flare × 1/4" FNPT adapter (2-pk)](https://www.amazon.com/dp/B0BNHVV6HT) | B0BNHVV6HT | 1 pk | $9.99 | $9.99 |
 | [Sealproof 1/4" ID × 3/8" OD clear PVC, 10 ft](https://www.amazon.com/dp/B07D9DK94V) (vent telltale) | B07D9DK94V | 1 | $7.89 | $7.89 |
 | [LOKMAN 304 SS worm-gear clamps, 10–16 mm (20-pk)](https://www.amazon.com/dp/B076Q7QVNM) | B076Q7QVNM | 1 pk | $8.99 | $8.99 |
@@ -153,7 +153,7 @@ The earlier FDC1004 capacitive plan was invalidated: capacitive sensing does not
 |---|---:|
 | 1. Controllers + electronics | $168.23 |
 | 2. Carbonator vessel (plan A, 316L) | $210.27 |
-| 3. Water inlet | $147.57 |
+| 3. Water inlet | $145.03 |
 | 4. CO2 subsystem | $75.29 |
 | 5. Refrigeration | $166.91 |
 | 6. Cold core insulation | $47.40 |
@@ -163,7 +163,7 @@ The earlier FDC1004 capacitive plan was invalidated: capacitive sensing does not
 | 10. UI | $39.95 |
 | 11. Wiring | $25.94 |
 | 12. Level sensing | $11.50 |
-| **Total** | **$1,360.50** |
+| **Total** | **$1,357.96** |
 
 ## External / user-supplied (not shipped)
 
