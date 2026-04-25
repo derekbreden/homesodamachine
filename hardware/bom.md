@@ -1,6 +1,6 @@
 # Bill of Materials — One Consumer Unit
 
-Per-unit parts for a single finished appliance built on the **custom-racetrack-vessel** path specified in [future.md](future.md): in-house fabricated 304 SS carbonator, compressor harvested from a countertop ice-maker, 3D-printed cold-core shells with spray-foam insulation, two 1 L Platypus bladders inside the cold core.
+Per-unit parts for a single finished appliance built on the **custom-vessel** path specified in [future.md](future.md). Carbonator vessel current plan A: vertical 5" OD × 1/16" wall 304 SS round tube capped with 1/4"-thick laser-cut 304 SS plates, 1/4" NPT direct-tapped into the plates (no weld-in bungs). Plan B (racetrack press-formed body, dished racetrack end caps) retained as fallback. Compressor is harvested from a countertop ice-maker; cold core is 3D-printed shells with pour-in-place foam; flavor reservoirs are two 1 L Platypus bladders inside the cold core.
 
 Prototype tools, fabrication equipment (welder, slip roll, shop press, dishing dies), donor parts consumed during teardown, duplicate SKUs, and consumables live in [purchases.md](purchases.md).
 
@@ -19,23 +19,24 @@ First-pass draft. Prices from resolved Amazon order history (purchases.md) or di
 | [BOJACK ULN2803APG Darlington driver IC (10-pk)](https://www.amazon.com/dp/B08CX79JSQ) | B08CX79JSQ — 2 ICs drive 12 solenoids from MCP23017 outputs | 1 pk | $6.99 | $6.99 |
 | [Mean Well IRM-90-12ST, 80 W / 12 V / 6.7 A, encapsulated](https://www.amazon.com/dp/B0CNRST18V) | B0CNRST18V — firmware serializes pump vs other loads, caps worst case at ~5.4 A; IEC 60335-1 household-appliance safety listed; 190 cm³ vs 288 cm³ for LRS-75 | 1 | $29.52 | $29.52 |
 
-## 2. Carbonator vessel (custom fabrication)
+## 2. Carbonator vessel (custom fabrication — plan A: round tube + 1/4" plates)
+
+Plan A is the current path. Plan B (racetrack body half-sheets + dished racetrack end caps + 4× weld bungs) remains as fallback if the 1/4"-plate-to-1/16"-tube weld can't be made reliably; plan B parts are tracked in [purchases.md](purchases.md) §1.
 
 | Part | Source | Qty | Unit $ | Line $ |
 |---|---|---:|---:|---:|
-| SendCutSend-cut 304 SS body half-sheets, 7.754" × 6" × 0.048" (`carbonator_body_half_blank.dxf`) | order SP54G453, qty 10 @ $134.38 delivered = $13.44/ea; 2 per vessel | 2 | $13.44 | $26.87 |
-| SendCutSend-cut 304 SS end-cap blanks, 5.492" × 3.892" × 0.060" (`endcap_racetrack_domed_top.dxf` + `endcap_racetrack_domed_bottom_blank.dxf`) | order SV07U813 (Apr 16, 2026): top qty 2 @ $10.91 + bottom qty 2 @ $10.31 subtotal = $42.44 + $3.08 tax = $45.52 delivered for 2 vessels = $22.76/vessel; 1 top + 1 bottom per vessel | 2 | $11.38 | $22.76 |
-| [1/4" NPT female weld bung, 304 SS stepped flange](https://www.amazon.com/dp/B07QNV8796) | B07QNV8796 | 4 | $7.99 | $31.96 |
-| [4pc 1/4" NPT male hex nipple, 316 SS 5000 psi](https://www.amazon.com/dp/B0GD1QBLQ3) | B0GD1QBLQ3 — one nipple per bung for external plumbing | 1 pk | $15.99 | $15.99 |
-| [Beduan 1/4" spiral cone atomization nozzle, 316 SS](https://www.amazon.com/dp/B07LGPD3GB) | B07LGPD3GB | 1 | $9.99 | $9.99 |
-| [VALVENTO 1/4" OD 316 SS tube, 12" (5-pk)](https://www.amazon.com/dp/B0F6SYFK48) | B0F6SYFK48 — dip tube + internal rigid lines | 1 pk | $16.99 | $16.99 |
-| [VALVENTO 1/4" OD compression × 1/4" NPT adapter (2-pk)](https://www.amazon.com/dp/B0DXZZBK7D) | B0DXZZBK7D | 1 pk | $11.99 | $11.99 |
-| [Millrose 70894 Nickel Guard anti-seize PTFE tape](https://www.amazon.com/dp/B07C9ZV4PG) | B07C9ZV4PG — anti-seize for SS-into-SS NPT joints | 1 | $22.22 | $22.22 |
-| [Control Devices SV-100 ASME safety valve, 1/4" NPT, 100 psi](https://www.amazon.com/dp/B0D361X97X) | B0D361X97X — Port 4 tank PRV | 1 | $16.06 | $16.06 |
+| Commodity 5" OD × 1/16" wall × ~6" length 304 SS round tube (vendor TBD — McMaster, OnlineMetals, or Amazon equivalent) | TBD | 1 | ~$15 | $15.00 |
+| SendCutSend 1/4"-thick 304 SS circular endcap plate, 5" OD with 2× tap-pilot holes for 1/4" NPT (`endcap-circular-2hole.dxf`) | per commit 331822b; 2 plates per vessel; estimate based on prior SendCutSend pricing | 2 | ~$12 | $24.00 |
+| [LTWFITTING 1/4" hose barb × 1/4" MNPT, 316 SS](https://www.amazon.com/dp/B017N4TTMA) | B017N4TTMA — port 1 (CO2 in via internal sparge); threads into bottom plate, barb faces inward to silicone tube → sparge stone | 1 | $7.00 | $7.00 |
+| [FERRODAY 0.5 µm sintered 316 SS sparge stone, 1/4" barb input (2-set)](https://www.amazon.com/dp/B091C5Y6L9) | B091C5Y6L9 — internal sparge stone, hangs in water column on silicone tube from port-1 barb adapter; 1 of 2 per unit | 1 (of 2) | ~$8 | $8.00 |
+| Food-grade silicone tube stub, 1/4" ID × ~3" long (cut from existing Metaland 1/4" silicone B08L1ST6ST stock in §5) | B08L1ST6ST — connects port-1 barb to sparge stone inside vessel | — | ~$0.20 | $0.20 |
+| [Millrose 70894 Nickel Guard anti-seize PTFE tape](https://www.amazon.com/dp/B07C9ZV4PG) | B07C9ZV4PG — anti-seize for SS-into-SS NPT joints (4 ports per unit) | 1 | $22.22 | $22.22 |
+| [Tap Magic 10016E pipe-tap cutting fluid, 4 oz](https://www.amazon.com/dp/B00DHMHSGM) | B00DHMHSGM — required for hand-tapping 1/4" NPT into 1/4" 304 SS plate; ~$0.50 of fluid per vessel | 1 | $0.50 | $0.50 |
+| [Control Devices SV-100 ASME safety valve, 1/4" NPT, 100 psi](https://www.amazon.com/dp/B0D361X97X) | B0D361X97X — Port 4 tank PRV (top plate, dedicated) | 1 | $16.06 | $16.06 |
 | [Cambro 6 QT polycarbonate square container](https://www.amazon.com/dp/B001BZEQ44) | B001BZEQ44 — citric acid passivation soak tub, one-time-use per unit | 1 | $20.00 | $20.00 |
 | [Viva Doria food-grade citric acid, 2 lb bag](https://www.amazon.com/dp/B0C5NQM8S1) | B0C5NQM8S1 — passivation: ~1 qt of 4% solution per tank; 1/20 of $9.99 bag | 1 | $0.50 | $0.50 |
 
-## 3. Water inlet (tap → backflow → pump → atomizer)
+## 3. Water inlet (tap → backflow → pump → top-plate port)
 
 | Part | ASIN / Source | Qty | Unit $ | Line $ |
 |---|---|---:|---:|---:|
@@ -43,8 +44,9 @@ First-pass draft. Prices from resolved Amazon order history (purchases.md) or di
 | [Hooshing 3/8" flare × 1/4" FNPT adapter (2-pk)](https://www.amazon.com/dp/B0BNHVV6HT) | B0BNHVV6HT | 1 pk | $9.99 | $9.99 |
 | [Sealproof 1/4" ID × 3/8" OD clear PVC, 10 ft](https://www.amazon.com/dp/B07D9DK94V) (vent telltale) | B07D9DK94V | 1 | $7.89 | $7.89 |
 | [LOKMAN 304 SS worm-gear clamps, 10–16 mm (20-pk)](https://www.amazon.com/dp/B076Q7QVNM) | B076Q7QVNM | 1 pk | $8.99 | $8.99 |
-| [SEAFLO 22-Series 12V 1.3 GPM 100 psi diaphragm pump](https://www.amazon.com/dp/B0166UBJX4) | B0166UBJX4 | 1 | $44.99 | $44.99 |
-| [GASHER 1/4" NPT SS one-way check valve (2-pk, $13.99)](https://www.amazon.com/dp/B0FV2D2FFX) | B0FV2D2FFX — 1 of 2 per unit; half of pack price | 1 | $7.00 | $7.00 |
+| [SEAFLO 22-Series 12V 1.3 GPM 100 psi diaphragm pump (3/8" hose-barb ports)](https://www.amazon.com/dp/B0166UBJX4) | B0166UBJX4 | 1 | $44.99 | $44.99 |
+| [MAACFLOW SS 1/4" NPT M × 3/8" hose barb (4-pk)](https://www.amazon.com/dp/B0DMP77B6S) | B0DMP77B6S — adapts pump 3/8" hose-barb output to 1/4" NPT plumbing for the check valve and top-plate port; 1 of 4 per unit (also used in §8) | 1 (of 4 pk) | $3.24 | $3.24 |
+| [GASHER 1/4" NPT SS one-way check valve (2-pk, $13.99)](https://www.amazon.com/dp/B0FV2D2FFX) | B0FV2D2FFX — metal-seat external check between pump and top-plate port; 1 of 2 per unit | 1 (of 2) | $7.00 | $7.00 |
 | [Lifevant 1/4" OD water tubing 32.8 ft + quick-connects](https://www.amazon.com/dp/B0DKCZ5W66) | B0DKCZ5W66 | 1 | $9.99 | $9.99 |
 | [John Guest 1/4" OD × 1/8" NPT push-fit](https://www.amazon.com/dp/B07V6XKZG9) | B07V6XKZG9 | 1 | $5.00 | $5.00 |
 | [John Guest PI1208S acetal bulkhead union, 1/4" QC](https://www.amazon.com/dp/B0C1F3QR7N) | B0C1F3QR7N | 1 | $11.49 | $11.49 |
@@ -110,10 +112,12 @@ Dishing dies (PA6-CF) for end-cap forming are vessel-fabrication tools, not ship
 | [MAACFLOW SS 1/4" NPT M × 3/8" hose barb (4-pk)](https://www.amazon.com/dp/B0DMP77B6S) | B0DMP77B6S | 1 pk | $12.97 | $12.97 |
 | [PureSec TWS1414 1/4" push-to-connect Y splitter (10-pk)](https://www.amazon.com/dp/B01N5I1ZJC) | B01N5I1ZJC — manifold Y-A/B/C/D/E/F/G/H/KA/KB per fluid-topology-manifold.mmd; food/water-safe plastic | 1 pk | $7.99 | $7.99 |
 
-## 9. Dispensing
+## 9. Dispensing (carbonator bottom-plate outlet → faucet)
 
 | Part | ASIN | Qty | Unit $ | Line $ |
 |---|---|---:|---:|---:|
+| [VALVENTO 1/4" OD compression × 1/4" NPT adapter (2-pk)](https://www.amazon.com/dp/B0DXZZBK7D) | B0DXZZBK7D — joins bottom-plate 1/4" NPT outlet port (port 3) to 1/4" tubing run; 1 of 2 per unit | 1 (of 2) | $11.99 | $11.99 |
+| [VALVENTO 1/4" OD 316 SS tube, 12" (5-pk)](https://www.amazon.com/dp/B0F6SYFK48) | B0F6SYFK48 — short rigid stub from compression adapter into the soft 1/4" tubing run; 1 of 5 per unit | 1 (of 5) | $3.40 | $3.40 |
 | [Westbrass R2031-NL-62 8" Touch-Flo dispenser faucet, matte black](https://www.amazon.com/dp/B07KH285GJ) | B07KH285GJ — direct successor to retired A2031 SKU | 1 | $31.28 | $31.28 |
 | [DIGITEN G3/8" Hall-effect flow sensor](https://www.amazon.com/dp/B07QQW4C7R) | B07QQW4C7R | 1 | $7.99 | $7.99 |
 
@@ -132,30 +136,41 @@ Dishing dies (PA6-CF) for end-cap forming are vessel-fabrication tools, not ship
 | [Male Quick-Disconnect Spade (100-pack)](https://www.amazon.com/dp/B01MZZGAJP) | B01MZZGAJP | 1 pk | $5.99 | $5.99 |
 | [Zip Ties (200-pack)](https://www.amazon.com/dp/B0BC1VH4XB) | B0BC1VH4XB | 1 pk | $3.99 | $3.99 |
 
-## 12. Required but not yet sourced
+## 12. Carbonator level sensing (external reed + internal float on welded SS rod)
+
+| Part | ASIN | Qty | Unit $ | Line $ |
+|---|---|---:|---:|---:|
+| [Tynulox 1/8" × 6" 304 SS round rod (10-pk)](https://www.amazon.com/) | ASIN TBD — TIG-welded vertically inside vessel between bottom and top plates; carries the magnetic float; 1 of 10 per unit | 1 (of 10) | ~$1.50 | $1.50 |
+| [DEVMO MINI float switch (donor — harvest magnetic donut float, discard switch body)](https://www.amazon.com/dp/B07T18PGJ4) | B07T18PGJ4 — float slides on the welded SS rod; only the float is shipped product, the rest of the donor unit is discarded | 1 | ~$6 | $6.00 |
+| [Gebildet reed switches, 14 mm glass body, NO (6-pk)](https://www.amazon.com/dp/B0CW9418F6) | B0CW9418F6 — 2 reeds per unit (low-level refill threshold + high-level full threshold), mounted on the outside of the 1/16" SS tube wall; 304 SS is non-magnetic so the float magnet's field passes through | 2 (of 6) | $2.00 | $4.00 |
+
+The earlier FDC1004 capacitive plan was invalidated: capacitive sensing does not work through metal vessel walls and we are not adding a non-metallic window or hermetic feedthrough for it. See [future.md](future.md) carbonation subsystem.
+
+## 13. CO2-side check valve (still to source)
 
 | Part | Notes | Est. $ |
 |---|---|---:|
-| FDC1004 capacitive level-sensor breakout | Tank level sensing per future.md §27 — not yet in purchases.md | $10.00 |
+| 1/4" hose-barb stainless, brewing-grade CO2 check valve (between regulator-side beer line and the LTWFITTING B017N4TTMA barb adapter on the bottom plate) | Prevents water back-flow into the CO2 regulator if pressures invert. Prime SS option to be identified. | ~$15 |
 
 ## Totals
 
 | Section | $ |
 |---|---:|
 | 1. Controllers + electronics | $168.23 |
-| 2. Carbonator vessel | $195.33 |
-| 3. Water inlet | $144.33 |
+| 2. Carbonator vessel (plan A) | ~$113.48 |
+| 3. Water inlet | $147.57 |
 | 4. CO2 subsystem | $68.29 |
 | 5. Refrigeration | $166.91 |
 | 6. Cold core insulation | $47.40 |
 | 7. Printed parts (PETG) | $103.94 |
 | 8. Flavor subsystem | $308.84 |
-| 9. Dispensing | $39.27 |
+| 9. Dispensing | $54.66 |
 | 10. UI | $39.95 |
 | 11. Wiring | $25.94 |
-| **Sourced + estimated subtotal** | **$1,308.43** |
-| 12. Not yet sourced | $10.00 |
-| **Projected total** | **$1,318.43** |
+| 12. Level sensing | $11.50 |
+| **Sourced + estimated subtotal** | **~$1,256.71** |
+| 13. CO2-side check (TBD) | ~$15.00 |
+| **Projected total** | **~$1,271.71** |
 
 ## External / user-supplied (not shipped)
 
@@ -165,6 +180,9 @@ Dishing dies (PA6-CF) for end-cap forming are vessel-fabrication tools, not ship
 
 ## Notes / open questions
 
-- **ChillWaves check valve B0DPLBYZB4 seat material** — future.md requires metal or PTFE seat (not elastomer); confirm or substitute.
-- **Platypus 1 L vs 2 L** — future.md §53 specifies 1 L bladders. README's parts list shows 2 L. Using 1 L per future.md; revisit if cradle geometry forces larger.
+- **GASHER B0FV2D2FFX check valve seat material** — confirm metal or PTFE seat (not elastomer) on physical inspection when units arrive; substitute if elastomer.
+- **Platypus 1 L vs 2 L** — future.md specifies 1 L bladders. README's parts list shows 2 L. Using 1 L per future.md; revisit if cradle geometry forces larger.
 - **Refrigeration charge** — Path A vents the factory R-600a charge and recharges from Enviro-Safe cans (§5); ~40 g per system × 12 recharges per 3-can bundle amortizes to ~$5.67/unit. No recovery equipment and no EPA 608 cert required (natural-refrigerant carveout).
+- **5" OD tube and 1/4" plate sourcing** — placeholder pricing in §2; actual SendCutSend quote for the 1/4" circular endcap plate (`endcap-circular-2hole.dxf`) and a verified Prime/McMaster source for the 5" OD × 1/16" wall 304 SS tube still to confirm.
+- **Plan B (racetrack) parts** — half-sheet body blanks (SendCutSend SP54G453), dished racetrack end caps (SV07U813), 4× weld bungs (B07QNV8796), and 4× hex nipples (B0GD1QBLQ3) remain in [purchases.md](purchases.md) §1 as fallback inventory; not on this BOM unless plan A is abandoned.
+- **Beduan atomizer B07LGPD3GB** — superseded by the internal sparge architecture; will not ship in the appliance. Bench-test inventory only.
