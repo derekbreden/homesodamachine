@@ -560,19 +560,13 @@ def build_inner_shell_walls():
 
     shell = outer_solid.cut(inner_solid)
 
-    # Try filleting the 8 vertical edges at the inner-shell flat-to-arc transitions
-    # Strategy: select edges at x = ±62.5, where the flat meets the vertical-jump
-    # and the vertical-jump meets the arc.  CadQuery edge selection by exact
-    # location can be brittle; if it fails, skip the fillet (printable without it).
+    # Fillet all 16 vertical edges (8 inner-face + 8 outer-face) at the
+    # flat-to-jump and jump-to-arc transitions.  This relieves the sharp
+    # corners — both for stress concentration and printability.
     try:
-        # Fillet vertical edges near the 8 join points
-        joint_xs = [INNER_FLAT_HALF, -INNER_FLAT_HALF]
-        joint_ys = [INNER_FLAT_Y, ARC_END_Y, -ARC_END_Y, -INNER_FLAT_Y]
-        # Selecting edges by spatial location is unreliable.  Skip filleting and
-        # accept sharp interior corners — printable, just a stress concentrator.
-        pass
-    except Exception:
-        pass
+        shell = shell.edges("|Z").fillet(INNER_FILLET_R)
+    except Exception as e:
+        print(f"  warning: inner-shell fillet failed ({e}); leaving sharp corners")
 
     return shell
 
