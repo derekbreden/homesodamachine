@@ -83,9 +83,11 @@ Z_FLOOR2_TO_3           = 189.0     # mating plane
 Z_TANK_BOTTOM = Z_FLOOR1_TO_2                # tank bottom plate sits on standoffs at z=37
 Z_TANK_TOP    = Z_TANK_BOTTOM + TANK_HEIGHT  # 189.4 — slightly above floor 2/3 mating
 # Inner shell discs (top & bottom of inner cavity)
-Z_INNER_DISC_BOTTOM = Z_FLOOR1_TO_2 - 6.35   # 30.65 — 6.35 mm foam-floor below tank
-Z_INNER_DISC_TOP    = Z_TANK_TOP + 6.35      # 195.75 — 6.35 mm foam-ceiling above tank
 INNER_DISC_THICKNESS = 0.8
+# Bottom disc: TOP of disc must be 6.35 mm below z=37 so the foam-floor
+# (top-of-disc -> z=37) is exactly 6.35 mm.  Disc occupies z=29.85..30.65.
+Z_INNER_DISC_BOTTOM = Z_FLOOR1_TO_2 - 6.35 - INNER_DISC_THICKNESS   # 29.85
+Z_INNER_DISC_TOP    = Z_TANK_TOP + 6.35      # 195.75 — 6.35 mm foam-ceiling above tank
 
 # Inner shell vertical extent (sealed top and bottom)
 # Per spec: bottom disc at z≈30, top disc at z≈196.
