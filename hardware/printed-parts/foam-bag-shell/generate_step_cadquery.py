@@ -495,49 +495,30 @@ def build_floor_1():
         floor1 = floor1.union(shaft).cut(bore)
 
     # 5) Lateral conduits — X-face exits for tank-line tubing
-    # Lateral runs from each fitting's elbow exit horizontally to the X-face
-    # outer shell.  Centered at z = (z_top + z_bottom) / 2 ≈ 18.5, near the
-    # 90° elbow body height.
+    # Each conduit is a horizontal PETG cylinder running from just outside
+    # the fitting shaft to just past the outer shell, centered at the
+    # 90° elbow elevation.  The bore cuts through to make a tube.
     z_lateral = z_bottom + 18.0
     for sx in (+1, -1):
-        # Conduit runs from x = sx*(TANK_PORT_RADIUS + FITTING_SHAFT_OD/2)
-        # to x = sx * OUTER_HALF_X (through the outer wall).
-        # We make the conduit's outer-wall as a horizontal cylinder, then cut
-        # the inner bore (which also pierces the outer shell wall at sx*OUTER_HALF_X).
-        x_inner = sx * (TANK_PORT_RADIUS + FITTING_SHAFT_OD / 2)
-        x_outer = sx * (OUTER_HALF_X + OVERCUT)
-        if sx > 0:
-            x_start, x_end = x_inner, x_outer
-        else:
-            x_start, x_end = x_outer, x_inner
-        # Conduit OD body
-        conduit_od = horizontal_cylinder_x(x_start, x_end, 0, z_lateral, LATERAL_CONDUIT_OD / 2)
-        # Bore (slightly longer to ensure cut through outer shell)
-        bore_x_start = x_outer if sx < 0 else x_start - OVERCUT
-        bore_x_end   = x_outer + OVERCUT if sx > 0 else x_end + OVERCUT
-        if sx > 0:
-            bore_xs, bore_xe = x_start - OVERCUT, x_outer
-        else:
-            bore_xs, bore_xe = x_outer, x_inner + OVERCUT
-        bore = horizontal_cylinder_x(bore_xs, bore_xe, 0, z_lateral, LATERAL_CONDUIT_ID / 2)
-        floor1 = floor1.union(conduit_od).cut(bore)
+        x_a = sx * (TANK_PORT_RADIUS + FITTING_SHAFT_OD / 2)
+        x_b = sx * (OUTER_HALF_X + OVERCUT)
+        x_lo, x_hi = sorted((x_a, x_b))
+        cond_od = horizontal_cylinder_x(x_lo, x_hi, 0, z_lateral, LATERAL_CONDUIT_OD / 2)
+        bore = horizontal_cylinder_x(x_lo - OVERCUT, x_hi + OVERCUT,
+                                      0, z_lateral, LATERAL_CONDUIT_ID / 2)
+        floor1 = floor1.union(cond_od).cut(bore)
 
     # 6) Bag tube conduits — Y-face exits for bag flavor tubing (2 conduits)
-    # Each runs from inside the bag-pocket outboard wall through the outer foam
-    # to the outer shell on Y face.  Position near bag-cap elevation z = BAG_TUBE_Z.
-    # Bag tube exits at the centerline of each bag (x=0 at each y-side).
+    # Each runs from inside the pocket outboard wall (just inside) through
+    # the outer foam to the Y-face outer shell at the bag-cap elevation.
     for sy in (+1, -1):
-        y_inner = sy * (POCKET_OUTER_Y_OUTER - OVERCUT)
-        y_outer = sy * (OUTER_HALF_Y + OVERCUT)
-        if sy > 0:
-            y_s, y_e = y_inner, y_outer
-        else:
-            y_s, y_e = y_outer, y_inner
-        cond_od = horizontal_cylinder_y(y_s, y_e, 0, BAG_TUBE_Z, BAG_TUBE_OD / 2)
-        cond_id = horizontal_cylinder_y(y_s - (OVERCUT if sy < 0 else 0),
-                                         y_e + (OVERCUT if sy > 0 else 0),
-                                         0, BAG_TUBE_Z, BAG_TUBE_ID / 2)
-        floor1 = floor1.union(cond_od).cut(cond_id)
+        y_a = sy * (POCKET_OUTER_Y_OUTER - OVERCUT)
+        y_b = sy * (OUTER_HALF_Y + OVERCUT)
+        y_lo, y_hi = sorted((y_a, y_b))
+        cond_od = horizontal_cylinder_y(y_lo, y_hi, 0, BAG_TUBE_Z, BAG_TUBE_OD / 2)
+        bore = horizontal_cylinder_y(y_lo - OVERCUT, y_hi + OVERCUT,
+                                      0, BAG_TUBE_Z, BAG_TUBE_ID / 2)
+        floor1 = floor1.union(cond_od).cut(bore)
 
     # 7) Locating pins on top face (this is the LOWER piece of the seam at z=37)
     floor1 = add_locating_pins_to_top_face(floor1, z_top)
@@ -776,27 +757,21 @@ def build_floor_3():
     # 4) Lateral conduits — X-face exits for top-plate tank-line tubing
     z_lateral = z_bottom + 18.0
     for sx in (+1, -1):
-        x_inner = sx * (TANK_PORT_RADIUS + FITTING_SHAFT_OD / 2)
-        x_outer = sx * (OUTER_HALF_X + OVERCUT)
-        if sx > 0:
-            x_s, x_e = x_inner, x_outer
-            bore_xs, bore_xe = x_inner - OVERCUT, x_outer
-        else:
-            x_s, x_e = x_outer, x_inner
-            bore_xs, bore_xe = x_outer, x_inner + OVERCUT
-        cond = horizontal_cylinder_x(x_s, x_e, 0, z_lateral, LATERAL_CONDUIT_OD / 2)
-        bore = horizontal_cylinder_x(bore_xs, bore_xe, 0, z_lateral, LATERAL_CONDUIT_ID / 2)
+        x_a = sx * (TANK_PORT_RADIUS + FITTING_SHAFT_OD / 2)
+        x_b = sx * (OUTER_HALF_X + OVERCUT)
+        x_lo, x_hi = sorted((x_a, x_b))
+        cond = horizontal_cylinder_x(x_lo, x_hi, 0, z_lateral, LATERAL_CONDUIT_OD / 2)
+        bore = horizontal_cylinder_x(x_lo - OVERCUT, x_hi + OVERCUT,
+                                      0, z_lateral, LATERAL_CONDUIT_ID / 2)
         floor3 = floor3.union(cond).cut(bore)
 
-    # 5) PRV vent conduit — runs from PRV body (sitting horizontally near the
-    # -X port at z_lateral) outward through the +Y or -Y face outer shell.
-    # We route to the +Y face for simplicity.
+    # 5) PRV vent conduit — runs from a PRV body location near the -X
+    # top-plate port outward through the +Y face outer shell.
     z_prv = z_bottom + 20.0
-    x_prv = -TANK_PORT_RADIUS - FITTING_SHAFT_OD / 2 - PRV_VENT_OD / 2
-    y_inner = OUTER_HALF_Y - OUTER_SHELL_WALL - 5.0
-    y_outer = OUTER_HALF_Y + OVERCUT
-    prv_cond = horizontal_cylinder_y(0, y_outer, x_prv, z_prv, PRV_VENT_OD / 2)
-    prv_bore = horizontal_cylinder_y(0 - OVERCUT, y_outer + OVERCUT, x_prv, z_prv, PRV_VENT_ID / 2)
+    x_prv = -TANK_PORT_RADIUS - FITTING_SHAFT_OD / 2 - PRV_VENT_OD / 2 - 2.0
+    y_b = OUTER_HALF_Y + OVERCUT
+    prv_cond = horizontal_cylinder_y(0, y_b, x_prv, z_prv, PRV_VENT_OD / 2)
+    prv_bore = horizontal_cylinder_y(-OVERCUT, y_b + OVERCUT, x_prv, z_prv, PRV_VENT_ID / 2)
     floor3 = floor3.union(prv_cond).cut(prv_bore)
 
     # 6) Foam-pour fill port through Floor 3's top skin (Pour 2)
