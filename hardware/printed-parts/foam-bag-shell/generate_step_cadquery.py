@@ -89,6 +89,20 @@ def build_tank_support_wedge():
     cut_object = cut_cone.union(cut_cylinder)
     return filled_cylinder.cut(cut_object)
 
+def build_a_bag_pocket_shell():
+    bag_pocket_width = 125
+    bag_pocket_depth = 35
+    bag_pocket_height = tank_copper_shell_height
+    bag_pocket_x_offset = tank_copper_shell_radius + bag_pocket_depth / 2 - wall_and_floor_thickness
+    return (
+        cq.Workplane(xz_plane_y_up)
+        .workplane(origin=(bag_pocket_x_offset, 0, 0))
+        .rect(bag_pocket_depth, bag_pocket_width)
+        .extrude(bag_pocket_height)
+        .faces(">Y")
+        .shell(-wall_and_floor_thickness)
+    )
+
 
 # ═══════════════════════════════════════════════════════
 # BUILD AND EXPORT
@@ -98,10 +112,12 @@ def main():
     tank_copper_shell = build_tank_copper_shell()
     tank_support_wedge = build_tank_support_wedge()
     bag_pocket_support_shell = build_bag_pocket_support_shell()
+    bag_pocket_shell = build_a_bag_pocket_shell()
     foam_bag_shell = (
         tank_copper_shell
         .union(tank_support_wedge)
         .union(bag_pocket_support_shell)
+        .union(bag_pocket_shell)
     )
 
     out = Path(__file__).resolve().parent / "foam-bag-shell.step"
