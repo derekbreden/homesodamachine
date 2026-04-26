@@ -112,7 +112,7 @@ flowchart LR
   VG --> NozzleA
   VJ --> NozzleB
 
-  %% Manifold internals
-  linkStyle 0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21 stroke:#1a1a1a,stroke-width:2px
-  %% Tube runs to remote components
-  linkStyle 22,23,24,25,26,27,28,29,30,31,32,33 stroke:#ccc,stroke-width:2px
+  %% All edges are fluid-flow (no sensors, no power), so workhorse white.
+  %% linkStyle default is safe here because there are no per-index
+  %% overrides to color arrowheads on.
+  linkStyle default stroke:#ccc,stroke-width:2px
