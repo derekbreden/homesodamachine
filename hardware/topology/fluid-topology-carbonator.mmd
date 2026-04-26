@@ -35,7 +35,7 @@ flowchart LR
     SpargeStone --> Water
     Water -.-> Headspace
     P2 --> Water
-    Headspace --> P4
+    Headspace ==> P4
     Water --> P3
     Float -.-> Water
   end
@@ -51,7 +51,7 @@ flowchart LR
   Tap --> BFP --> PW --> CV --> P2
   CO2 --> RegCO2 --> CV_CO2 --> P1
   P3 --> Faucet --> Nozzle
-  P4 --> PRVOut
+  P4 ==> PRVOut
   Float -.-> LevelSense
   LevelSense -.interlock.-> PW
   Faucet -.lockout.-> PW
@@ -63,6 +63,12 @@ flowchart LR
 
   %% Default link style: white solid, readable on any background.
   linkStyle default stroke:#ccc,stroke-width:2px
-  %% Safety / pressure-relief path: red, thicker.
-  %% Indices: 4 = Headspace --> P4, 16 = P4 --> PRVOut.
+  %% Safety / pressure-relief path: red, thicker. (edges use ==> so
+  %% arrowheads inherit the stroke color too.)
+  %% Indices: 4 = Headspace ==> P4, 16 = P4 ==> PRVOut.
   linkStyle 4,16 stroke:#c44,stroke-width:3px
+  %% Sensor / interlock (dashed) edges: sky blue for distinction.
+  %% Indices: 2 = Water -.-> Headspace, 6 = Float -.-> Water,
+  %% 17 = Float -.-> LevelSense, 18 = LevelSense -.interlock.-> PW,
+  %% 19 = Faucet -.lockout.-> PW.
+  linkStyle 2,6,17,18,19 stroke:#6cf,stroke-width:2px
