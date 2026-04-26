@@ -1,5 +1,5 @@
 """
-Dispense flavor tube — bent 1/4" OD 304 SS visual-companion tube.
+Dispense flavor tube — bent 1/4" OD 316 SS visual-companion tube.
 
 PURPOSE
 =======
@@ -51,13 +51,22 @@ Per `hardware/harvested/touch-flo-faucet/xometry-submission-notes.md`:
   - One single-solid STEP per tube, AP214 (CadQuery default), in mm
   - Square ends, no fittings
 
-QUOTE SUBMISSION
-================
-Upload this single STEP, set quantity = 2 (one tube per flavor side for
-one machine). Material: 304 SS. Wall: 0.035". Finish: powder coat,
-matte black (RAL 9005 or 9011) to match the A2031-NL-62 matte-black faucet.
+QUOTE SUBMISSION (Xometry, confirmed 2026-04-25)
+================================================
+Upload this single STEP. Quote spec:
+  - Material:  316 SS
+  - Stock:     1/4" OD × 0.049" wall
+  - Finish:    MIL Flat Black powder coat, matte sheen
+  - Packaging: bag-and-tag poly-bag
+  - Quantity:  2 per finished machine
+
+Confirmed pricing (2026-04-25):
+   6 ea — $819   ($137/ea)
+  20 ea — $1,422 ($71/ea)
+ 100 ea — $2,937 ($29/ea)
+
 Attach a one-page drawing PDF requesting grit-blast pre-treatment per the
-submission notes (passive 304 SS resists powder adhesion without it).
+submission notes (passive 316 SS resists powder adhesion without it).
 
 Run with: tools/cad-venv/bin/python generate_step_cadquery.py
 """
@@ -281,7 +290,7 @@ if __name__ == "__main__":
     dz = bb.zmax - bb.zmin
 
     vol_cm3 = tube.val().Volume() / 1000.0
-    mass_g = vol_cm3 * 7.93   # 304 SS density
+    mass_g = vol_cm3 * 7.99   # 316 SS density (g/cm³)
 
     arc1_len = BEND1_RADIUS * math.radians(BEND1_SWEEP_DEG)
     arc2_len = BEND2_RADIUS * math.radians(BEND2_SWEEP_DEG)
@@ -290,7 +299,7 @@ if __name__ == "__main__":
     )
 
     print()
-    print("Dispense flavor tube — bent 1/4\" OD 304 SS")
+    print("Dispense flavor tube — bent 1/4\" OD 316 SS")
     print(f"  Stock:        {OD/IN:.3f}\" OD × {WALL/IN:.3f}\" wall")
     print(f"                ({OD:.3f} mm OD × {WALL:.3f} mm wall, ID {ID:.3f} mm)")
     print(f"  Centerline:   {centerline_len:.1f} mm  ({centerline_len/IN:.2f}\")")
@@ -302,7 +311,7 @@ if __name__ == "__main__":
     print(f"  Bounding box: {dx:.1f} × {dy:.1f} × {dz:.1f} mm")
     print(f"                ({dx/IN:.2f} × {dy/IN:.2f} × {dz/IN:.2f} in)")
     print(f"  Volume:       {vol_cm3:.2f} cm³")
-    print(f"  Mass (304 SS, 7.93 g/cm³): {mass_g:.1f} g")
+    print(f"  Mass (316 SS, 7.99 g/cm³): {mass_g:.1f} g")
 
     fname = "dispense-flavor-tube-quarter-od-0p049wall.step"
     path = out_dir / fname
