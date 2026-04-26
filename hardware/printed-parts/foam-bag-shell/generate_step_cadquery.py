@@ -8,7 +8,10 @@ import cadquery as cq
 tank_outer_radius = 63.5
 copper_coil_buffer_radius = 7.0
 shell_radius = tank_outer_radius + copper_coil_buffer_radius
-shell_height = 221.0
+tank_height = 152.4
+elbows_height = 60.0
+buffer_height = 8.6
+shell_height = tank_height + elbows_height + buffer_height
 wall_thickness = 1.0
 
 def build_shell():
