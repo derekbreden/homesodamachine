@@ -1,8 +1,11 @@
 flowchart LR
 
-  %% ═══════════════════════════════════════
-  %%  L298N Motor Driver Wiring — Current Prototype
-  %% ═══════════════════════════════════════
+  %% STALE PROTOTYPE — DOES NOT REFLECT THE CURRENT PLAN.
+  %% Documents the bench prototype's three-L298N wiring (Boards A and B
+  %% for two flavor pumps, Board C for clean-cycle solenoids). The
+  %% current plan keeps only Board A (driving both peristaltic pumps);
+  %% the rest of the valve switching is on MCP23017 + ULN2803A. See
+  %% valve-control.mmd for the canonical valve wiring.
 
   subgraph ESP32["ESP32 GPIOs"]
     direction TB
