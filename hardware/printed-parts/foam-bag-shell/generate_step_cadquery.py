@@ -100,9 +100,9 @@ def build_a_bag_pocket_shell(side=1):
     bag_pocket_x_offset *= side
 
     # Hole offset
-    hole_z_offset = 200
-    hole_x_offset = bag_pocket_x_offset + (bag_pocket_depth / 2) * side
-    hole_y_offset = bag_pocket_height / 2
+    hole_z_offset = bag_pocket_width / 2 - 10
+    hole_x_offset = bag_pocket_x_offset
+    hole_y_offset = 10
 
     # Hole
     hole = build_a_hole_punch(origin=(hole_x_offset, hole_y_offset, hole_z_offset))
@@ -115,7 +115,7 @@ def build_a_bag_pocket_shell(side=1):
         .extrude(bag_pocket_height)
         .faces(">Y")
         .shell(-wall_and_floor_thickness)
-        .union(hole)
+        .cut(hole)
     )
 
 def build_a_hole_punch(origin=(0, 0, 0)):
