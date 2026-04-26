@@ -32,7 +32,7 @@ Plan A is the current path. Plan B (racetrack body half-sheets + dished racetrac
 | Food-grade silicone tube stub, 1/4" ID × ~3" long (cut from existing Metaland 1/4" silicone B08L1ST6ST stock in §5) | B08L1ST6ST — connects port-1 barb to sparge stone inside vessel | — | ~$0.20 | $0.20 |
 | [Millrose 70894 Nickel Guard anti-seize PTFE tape](https://www.amazon.com/dp/B07C9ZV4PG) | B07C9ZV4PG — anti-seize for SS-into-SS NPT joints (4 ports per unit) | 1 | $20.07 | $20.07 |
 | [Tap Magic EP-Xtra pipe-tap cutting fluid, 16 oz (size variant on listing B00DHMHSGM)](https://www.amazon.com/dp/B00DHMHSGM) | B00DHMHSGM — required for hand-tapping 1/4" NPT into 1/4"-thick 316 SS plate; ~$0.50 of fluid per vessel | 1 | $0.50 | $0.50 |
-| [Control Devices SV-100 ASME safety valve, 1/4" NPT, 100 psi](https://www.amazon.com/dp/B0D361X97X) | B0D361X97X — Port 4 tank PRV (top plate, dedicated) | 1 | $16.06 | $16.06 |
+| [Control Devices SV-100 safety valve, 1/4" NPT, 100 psi set pressure](https://www.amazon.com/dp/B0D361X97X) | B0D361X97X — Port 4 tank PRV (top plate, dedicated) | 1 | $16.06 | $16.06 |
 | [Cambro 6 QT polycarbonate square container](https://www.amazon.com/dp/B001BZEQ44) | B001BZEQ44 — citric acid passivation soak tub, one-time-use per unit | 1 | $20.00 | $20.00 |
 | [Viva Doria food-grade citric acid, 2 lb bag](https://www.amazon.com/dp/B0C5NQM8S1) | B0C5NQM8S1 — passivation: ~1 qt of 4% solution per tank; 1/20 of $9.99 bag | 1 | $0.50 | $0.50 |
 
