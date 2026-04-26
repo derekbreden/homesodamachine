@@ -61,7 +61,7 @@ Layer 4: Two 3D-printed arch-shaped cradles, each holding a 1L Platypus bladder,
 
 Layer 5: 3D-printed outer shell with ~1/2" to 3/4" gap, filled with the same pour-in-place foam, same process as inner layer.
 
-Total cold core dimensions: TBD after spray foam and shell layers are added around the 5.566" × 3.966" × 6.000" vessel core.
+Total cold core dimensions: TBD after spray foam and shell layers are added around the 5" OD × ~6" tall vessel core.
 
 The flavor reservoirs passively pre-chill to roughly 8-15°C by sitting in the thermal gradient between the near-freezing inner core and ambient air. The inner foam layer prevents the bladders from freezing against the evaporator.
 
