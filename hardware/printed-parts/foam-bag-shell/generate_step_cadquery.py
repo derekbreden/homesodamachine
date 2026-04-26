@@ -27,17 +27,20 @@ def build_tank_copper_shell():
 def build_tank_support_wedge():
     shell_radius = tank_outer_radius + copper_coil_buffer_radius
     inner_face_radius = shell_radius - wall_thickness
-    inner_radius = inner_face_radius - tank_support_height
     bottom_y = wall_thickness
-    top_y = wall_thickness + tank_support_height
-    profile = (
-        cq.Workplane("XY")
-        .moveTo(inner_radius, top_y)
-        .lineTo(inner_face_radius, top_y)
-        .lineTo(inner_face_radius, bottom_y)
-        .close()
+    cylinder = (
+        cq.Workplane("XZ")
+        .workplane(offset=bottom_y)
+        .circle(inner_face_radius)
+        .extrude(tank_support_height)
     )
-    return profile.revolve(360, axisStart=(0, 0, 0), axisEnd=(0, 1, 0))
+    cone = (
+        cq.Workplane("XZ")
+        .workplane(offset=bottom_y)
+        .circle(inner_face_radius)
+        .extrude(tank_support_height, taper=45)
+    )
+    return cylinder.cut(cone)
 
 
 # ═══════════════════════════════════════════════════════
