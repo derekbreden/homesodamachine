@@ -1,12 +1,17 @@
 flowchart LR
 
-  %% ═══════════════════════════════════════
-  %%  Future ESP32 Pin Assignments
+  %% Future ESP32 Pin Assignments.
   %%
-  %%  Valves move to I2C expander (MCP23017 → ULN2803A).
-  %%  L298N boards B and C eliminated. Board A kept for pumps.
-  %%  Freed GPIOs available for new subsystems.
-  %% ═══════════════════════════════════════
+  %% Valves move to I2C expander (MCP23017 -> ULN2803A).
+  %% L298N boards B and C eliminated. Board A kept for pumps.
+  %%
+  %% Freed GPIOs available for new subsystems:
+  %%   GPIO 2   - free
+  %%   GPIO 4   - was B_ENB
+  %%   GPIO 12  - was A_ENB
+  %%   GPIO 16  - free
+  %%   GPIO 17  - was CLEAN_SOL2
+  %%   GPIO 27  - was CLEAN_SOL1
 
   subgraph ESP["ESP32-DevKitC-32E"]
     direction TB
@@ -39,15 +44,6 @@ flowchart LR
 
     subgraph Refrigeration_Pins["Refrigeration"]
       P14["GPIO 14  Compressor SSR  (120VAC switched)"]
-    end
-
-    subgraph Freed["Freed / Available"]
-      P12["GPIO 12  was A_ENB"]
-      P4["GPIO 4   was B_ENB"]
-      P27["GPIO 27  was CLEAN_SOL1"]
-      P17["GPIO 17  was CLEAN_SOL2"]
-      P2["GPIO 2   free"]
-      P16["GPIO 16  free"]
     end
   end
 
@@ -101,12 +97,3 @@ flowchart LR
   %% Power: motor outputs and switched 120VAC (red, thick).
   %% 12-13 = L298 motor channels, 17 = SSR -> compressor AC.
   linkStyle 12,13,17 stroke:#c44,stroke-width:3px
-
-  %% Freed pins dimmed
-  style P12 fill:#333,stroke:#555,color:#777
-  style P4 fill:#333,stroke:#555,color:#777
-  style P27 fill:#333,stroke:#555,color:#777
-  style P17 fill:#333,stroke:#555,color:#777
-  style P2 fill:#333,stroke:#555,color:#777
-  style P16 fill:#333,stroke:#555,color:#777
-  style Freed fill:#2a2a2a,stroke:#555,color:#999
