@@ -5,41 +5,44 @@ import cadquery as cq
 # FEATURES
 # ═══════════════════════════════════════════════════════
 
+xz_plane_y_up = cq.Plane(origin=(0, 0, 0), xDir=(1, 0, 0), normal=(0, 1, 0))
+
 tank_outer_radius = 63.5
 copper_coil_buffer_radius = 7.0
+tank_copper_shell_radius = tank_outer_radius + copper_coil_buffer_radius
+
 tank_height = 152.4
 below_tank_elbows_height = 30.0
 above_tank_elbows_height = 30.0
-tank_support_height = 30.0
-wall_thickness = 1.0
+tank_copper_shell_height = tank_height + below_tank_elbows_height + above_tank_elbows_height
 
-xz_plane_y_up = cq.Plane(origin=(0, 0, 0), xDir=(1, 0, 0), normal=(0, 1, 0))
+tank_support_height = 30.0
+wall_and_floor_thickness = 1.0
+
 
 def build_tank_copper_shell():
-    shell_height = tank_height + below_tank_elbows_height + above_tank_elbows_height
-    shell_radius = tank_outer_radius + copper_coil_buffer_radius
+    
     return (
         cq.Workplane(xz_plane_y_up)
-        .circle(shell_radius)
-        .extrude(shell_height)
+        .circle(tank_copper_shell_radius)
+        .extrude(tank_copper_shell_height)
         .faces(">Y")
-        .shell(-wall_thickness)
+        .shell(-wall_and_floor_thickness)
     )
 
 def build_tank_support_wedge():
-    shell_radius = tank_outer_radius + copper_coil_buffer_radius
-    inner_face_radius = shell_radius - wall_thickness
-    bottom_y = wall_thickness
+    outer_edge_of_support_wedge_radius = tank_copper_shell_radius - wall_and_floor_thickness
+    lower_edge_of_support_wedge = wall_and_floor_thickness
     cylinder = (
         cq.Workplane(xz_plane_y_up)
-        .workplane(offset=bottom_y)
-        .circle(inner_face_radius)
+        .workplane(offset=lower_edge_of_support_wedge)
+        .circle(outer_edge_of_support_wedge_radius)
         .extrude(tank_support_height)
     )
     cone = (
         cq.Workplane(xz_plane_y_up)
-        .workplane(offset=bottom_y)
-        .circle(inner_face_radius)
+        .workplane(offset=lower_edge_of_support_wedge)
+        .circle(outer_edge_of_support_wedge_radius)
         .extrude(tank_support_height, taper=45)
     )
     return cylinder.cut(cone)
