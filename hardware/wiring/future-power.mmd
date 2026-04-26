@@ -17,8 +17,8 @@ flowchart TD
     COMP["QX1901VDL Compressor\n12V brushless rotary\n2000-6000 RPM"]
     COMP_DRV["RIGID Driver Board\n12V input"]
     FAN["Condenser Fan\n12V centrifugal"]
-    COMP_DRV --> COMP
-    COMP_DRV --> FAN
+    COMP_DRV ==> COMP
+    COMP_DRV ==> FAN
   end
 
   subgraph Carbonation["Carbonation"]
@@ -30,14 +30,14 @@ flowchart TD
     L298["L298N Board A\n12V input"]
     PUMP_A["Kamoer Pump A\n12V peristaltic"]
     PUMP_B["Kamoer Pump B\n12V peristaltic"]
-    L298 --> PUMP_A
-    L298 --> PUMP_B
+    L298 ==> PUMP_A
+    L298 ==> PUMP_B
   end
 
   subgraph Valve_Power["Valve Array"]
     ULN["2× ULN2803A\nCOM pin → 12V"]
     VALVES["12× Beduan Solenoid\n12V normally closed\n~300mA each"]
-    ULN --> VALVES
+    ULN ==> VALVES
   end
 
   subgraph MCUs["Controllers"]
@@ -64,5 +64,12 @@ flowchart TD
   REG_5V -->|"5V"| MCUs
   REG_3V3 -->|"3.3V"| I2C_Devices
 
-  %% 12V power paths thick red
-  linkStyle 4,5,6,7,8 stroke:#c44,stroke-width:3px
+  %% Power paths (all 12V plus motor/valve switched 12V): red, thick.
+  %% 0-1 = compressor driver -> compressor + fan
+  %% 2-3 = L298 -> peristaltic pumps
+  %% 4   = ULN2803A -> solenoid valves
+  %% 5-9 = PSU 12V trunk to all subsystems
+  linkStyle 0,1,2,3,4,5,6,7,8,9 stroke:#c44,stroke-width:3px
+  %% Regulated logic-level supplies (5V, 3.3V): white workhorse.
+  %% 10-12 = REG_5V -> REG_3V3, REG_5V -> MCUs, REG_3V3 -> I2C devices.
+  linkStyle 10,11,12 stroke:#ccc,stroke-width:2px
