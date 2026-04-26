@@ -11,6 +11,7 @@ import cadquery as cq
 # -------------------------------------------------------
 #
 xz_plane_y_up = cq.Plane(origin=(0, 0, 0), xDir=(1, 0, 0), normal=(0, 1, 0))
+xy_plane_z_up = cq.Plane(origin=(0, 0, 0), xDir=(1, 0, 0), normal=(0, 0, 1))
 wall_and_floor_thickness = 1.0
 #
 # -------------------------------------------------------
@@ -89,15 +90,24 @@ def build_tank_support_wedge():
     cut_object = cut_cone.union(cut_cylinder)
     return filled_cylinder.cut(cut_object)
 
-def build_a_bag_pocket_shell(side=0):
+def build_a_bag_pocket_shell(side=1):
     bag_pocket_width = 125
     bag_pocket_depth = 35
     bag_pocket_height = tank_copper_shell_height
+
+    # Bag pocket offset
     bag_pocket_x_offset = tank_copper_shell_radius + bag_pocket_depth / 2 - wall_and_floor_thickness
-    if side == 0:
-        bag_pocket_x_offset = bag_pocket_x_offset
-    else:
-        bag_pocket_x_offset = -bag_pocket_x_offset
+    bag_pocket_x_offset *= side
+
+    # Hole offset
+    hole_z_offset = 200
+    hole_x_offset = bag_pocket_x_offset + (bag_pocket_depth / 2) * side
+    hole_y_offset = bag_pocket_height / 2
+
+    # Hole
+    hole = build_a_hole_punch(origin=(hole_x_offset, hole_y_offset, hole_z_offset))
+
+
     return (
         cq.Workplane(xz_plane_y_up)
         .workplane(origin=(bag_pocket_x_offset, 0, 0))
@@ -105,6 +115,17 @@ def build_a_bag_pocket_shell(side=0):
         .extrude(bag_pocket_height)
         .faces(">Y")
         .shell(-wall_and_floor_thickness)
+        .union(hole)
+    )
+
+def build_a_hole_punch(origin=(0, 0, 0)):
+    hole_punch_radius = 4
+    hole_punch_height = 20
+    return (
+        cq.Workplane(xy_plane_z_up)
+        .workplane(origin=origin, offset=origin[2])
+        .circle(hole_punch_radius)
+        .extrude(hole_punch_height)
     )
 
 
@@ -117,7 +138,7 @@ def main():
     tank_support_wedge = build_tank_support_wedge()
     bag_pocket_support_shell = build_bag_pocket_support_shell()
     bag_pocket_shell = build_a_bag_pocket_shell()
-    bag_pocket_shell_2 = build_a_bag_pocket_shell(side=1)
+    bag_pocket_shell_2 = build_a_bag_pocket_shell(side=-1)
     foam_bag_shell = (
         tank_copper_shell
         .union(tank_support_wedge)
