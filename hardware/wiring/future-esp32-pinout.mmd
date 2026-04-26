@@ -79,17 +79,28 @@ flowchart LR
 
   P33 & P25 & P26 -->|"Pump A"| DRV
   P19 & P18 & P5 -->|"Pump B"| DRV
-  DRV -->|"Channel A"| PUMP1
-  DRV -->|"Channel B"| PUMP2
+  DRV ==>|"Channel A"| PUMP1
+  DRV ==>|"Channel B"| PUMP2
 
   FLOW -->|"pulse interrupt"| P23
   SW -->|"INPUT_PULLUP"| P13
 
   P14 -->|"3.3V gate"| SSR
-  SSR -->|"120VAC switched"| COMP_AC
+  SSR ==>|"120VAC switched"| COMP_AC
 
-  I2C_DEVICES -.->|"MCP23017"| VALVE_CHAIN
-  I2C_DEVICES -.->|"FDC1004"| CARBONATOR
+  I2C_DEVICES -->|"MCP23017"| VALVE_CHAIN
+  I2C_DEVICES -->|"FDC1004"| CARBONATOR
+
+  %% Signals: UART, I2C, GPIO control, semantic-reference (white).
+  %% 0-5 UART+I2C, 6-11 GPIO -> L298 inputs, 16 SSR gate, 18-19 logical
+  %% I2C-device -> subsystem references.
+  linkStyle 0,1,2,3,4,5,6,7,8,9,10,11,16,18,19 stroke:#ccc,stroke-width:2px
+  %% Sensor / button feedback to MCU (blue).
+  %% 14 = flow meter, 15 = air switch.
+  linkStyle 14,15 stroke:#09f,stroke-width:2px
+  %% Power: motor outputs and switched 120VAC (red, thick).
+  %% 12-13 = L298 motor channels, 17 = SSR -> compressor AC.
+  linkStyle 12,13,17 stroke:#c44,stroke-width:3px
 
   %% Freed pins dimmed
   style P12 fill:#333,stroke:#555,color:#777
