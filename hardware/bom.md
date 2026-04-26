@@ -17,6 +17,8 @@ First-pass draft. **Pricing convention: delivered cost** (product + shipping + t
 | [L298N Dual H-Bridge (4-pack)](https://www.amazon.com/dp/B0C5JCF5RS) | B0C5JCF5RS — 1 driver per unit drives both peristaltic pumps (dual H-bridge); 1 of 4 per unit ($10.71/4) | 1 (of 4 pk) | $2.68 | $2.68 |
 | [Waveshare MCP23017 I2C GPIO expander](https://www.amazon.com/dp/B07P2H1NZG) | B07P2H1NZG — expands ESP32 I2C into 16 GPIO for solenoid bank | 1 | $12.99 | $12.99 |
 | [HiLetgo DS3231 high-precision RTC (5-pk)](https://www.amazon.com/dp/B01N1LZSK3) | B01N1LZSK3 — I2C RTC at 0x68, referenced in `wiring/esp32-pinout.mmd` and `wiring/valve-control.mmd`; 1 of 5 per unit ($16.08/5) | 1 (of 5 pk) | $3.22 | $3.22 |
+| [EDGELEC 4.7 kΩ 1/4 W 1% metal-film resistor (100-pk)](https://www.amazon.com/dp/B07HDFHPP3) | B07HDFHPP3 — DS18B20 1-wire bus pull-up between DATA and 3.3 V; 1 of 100 per unit ($5.89/100) | 1 (of 100 pk) | $0.06 | $0.06 |
+| [Rubycon 470 µF 25 V low-ESR radial electrolytic capacitor, 10×12.5 mm (15-pk)](https://www.amazon.com/dp/B0F8BZVBKF) | B0F8BZVBKF — bulk decoupling on the 12 V solenoid rail at the ULN2803A driver modules; 25 V is 2× derated from the 12 V rail for lifetime margin + kickback headroom; 1 of 15 per unit ($7.40/15) | 1 (of 15 pk) | $0.49 | $0.49 |
 | [ULN2803A high-current driver module (2-pc)](https://www.amazon.com/dp/B0F872W528) | B0F872W528 — 2 modules drive 12 solenoids from MCP23017 outputs; each module is a small carrier PCB with mounting holes (vs the bare BOJACK B08CX79JSQ DIPs which would need a separate host board); 1 full 2-pack per unit | 1 pk | $6.59 | $6.59 |
 | [Mean Well IRM-90-12ST, 80 W / 12 V / 6.7 A, encapsulated](https://www.amazon.com/dp/B0CNRST18V) | B0CNRST18V — firmware serializes pump vs other loads, caps worst case at ~5.4 A; IEC 60335-1 household-appliance safety listed; 190 cm³ vs 288 cm³ for LRS-75 | 1 | $31.66 | $31.66 |
 
@@ -150,7 +152,7 @@ Dishing dies (PA6-CF) for end-cap forming are vessel-fabrication tools, not ship
 
 | Section | $ |
 |---|---:|
-| 1. Controllers + electronics | $165.88 |
+| 1. Controllers + electronics | $166.43 |
 | 2. Carbonator vessel (plan A, 316L) | $203.34 |
 | 3. Water inlet | $130.88 |
 | 4. CO2 subsystem | $58.13 |
@@ -162,7 +164,7 @@ Dishing dies (PA6-CF) for end-cap forming are vessel-fabrication tools, not ship
 | 10. UI | $39.95 |
 | 11. Wiring | $8.92 |
 | 12. Level sensing | $19.07 |
-| **Total** | **$1,292.27** |
+| **Total** | **$1,292.82** |
 
 ## External / user-supplied (not shipped)
 
