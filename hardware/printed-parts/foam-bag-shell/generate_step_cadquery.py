@@ -53,6 +53,16 @@ def build_tank_copper_shell():
         .shell(-wall_and_floor_thickness)
     )
 
+def build_bag_pocket_support_shell():
+    side_length = 2 * tank_copper_shell_radius
+    return (
+        cq.Workplane(xz_plane_y_up)
+        .rect(side_length, side_length)
+        .extrude(tank_copper_shell_height)
+        .faces(">Y")
+        .shell(-wall_and_floor_thickness)
+    )
+
 def build_tank_support_wedge():
     support_wedge_outer_radius = tank_copper_shell_radius - wall_and_floor_thickness
     support_wedge_bottom_y = wall_and_floor_thickness
@@ -78,7 +88,12 @@ def build_tank_support_wedge():
 def main():
     tank_copper_shell = build_tank_copper_shell()
     tank_support_wedge = build_tank_support_wedge()
-    foam_bag_shell = tank_copper_shell.union(tank_support_wedge)
+    bag_pocket_support_shell = build_bag_pocket_support_shell()
+    foam_bag_shell = (
+        tank_copper_shell
+        .union(tank_support_wedge)
+        .union(bag_pocket_support_shell)
+    )
 
     out = Path(__file__).resolve().parent / "foam-bag-shell.step"
     cq.exporters.export(foam_bag_shell, str(out))
