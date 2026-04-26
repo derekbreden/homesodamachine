@@ -112,7 +112,9 @@ flowchart LR
   VG --> NozzleA
   VJ --> NozzleB
 
-  %% All edges are fluid-flow (no sensors, no power), so workhorse white.
-  %% linkStyle default is safe here because there are no per-index
-  %% overrides to color arrowheads on.
-  linkStyle default stroke:#ccc,stroke-width:2px
+  %% Manifold internals (short stubs between valves and Y-junctions): blue.
+  %% 0-21 = Source Selection + Pump Junctions + Bag Circuit interior edges.
+  linkStyle 0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21 stroke:#09f,stroke-width:2px
+  %% Tube runs between the manifold and remote components: white.
+  %% 22-33 = sources -> manifold inlets, manifold -> pumps/bags/nozzles.
+  linkStyle 22,23,24,25,26,27,28,29,30,31,32,33 stroke:#ccc,stroke-width:2px
