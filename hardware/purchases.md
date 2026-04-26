@@ -54,7 +54,7 @@ Regulator, CO2 line, push-to-connect adapters for the CO2 side.
 | 10 ft 5/16" ID beer CO2 line w/ 4 hose clamps | [B0D1RB3TF6](https://www.amazon.com/dp/B0D1RB3TF6) | 1 | $13.50 | ACQUIRED |
 | DERPIPE push-to-connect 5/16" tube x 1/4" NPT (5 pk) | [B09LXVGPG7](https://www.amazon.com/dp/B09LXVGPG7) | 1 pk | $10.71 | ACQUIRED |
 | VUYOMUA 0.8 gal SS portable air tank (bench test fixture) | [B0BV6FMMJP](https://www.amazon.com/dp/B0BV6FMMJP) | 1 | $60.05 | ACQUIRED |
-| Control Devices SV-100 ASME safety valve, 1/4" NPT, 100 psi | [B0D361X97X](https://www.amazon.com/dp/B0D361X97X) | 1 | $16.06 | ACQUIRED |
+| Control Devices SV-100 safety valve, 1/4" NPT, 100 psi set pressure | [B0D361X97X](https://www.amazon.com/dp/B0D361X97X) | 1 | $16.06 | ACQUIRED |
 
 ## 3. Water supply + backflow prevention
 
