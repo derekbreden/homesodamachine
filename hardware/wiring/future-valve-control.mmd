@@ -132,7 +132,12 @@ flowchart LR
   U2_3 ==> VKA
   U2_4 ==> VKB
 
-  %% Power paths (thick red): ULN2803A outputs switching 12V to solenoid coils
+  %% Signals (I2C bus + MCP23017 GPIO -> ULN2803A inputs): white.
+  %% 0-5 = I2C bidir to RTC, MCP, FDC; 6-13 = MCP Port A -> U1;
+  %% 14-17 = MCP Port B -> U2.
+  linkStyle 0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17 stroke:#ccc,stroke-width:2px
+  %% Power paths (red, thick): ULN2803A outputs switching 12V to solenoid coils.
+  %% 18-25 = U1 -> 8 valves, 26-29 = U2 -> 4 valves.
   linkStyle 18,19,20,21,22,23,24,25,26,27,28,29 stroke:#c44,stroke-width:3px
 
   %% Free pins dimmed
