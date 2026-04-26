@@ -93,5 +93,9 @@ flowchart LR
   C_OUT_A ==>|"Switch"| CSOL1
   C_OUT_B ==>|"Switch"| CSOL2
 
-  %% Thick lines for power paths
-  linkStyle 14,15,16,17,18,19 stroke:#c44,stroke-width:3px
+  %% Internal H-bridge (---) and ESP32 GPIO signal lines: white workhorse.
+  %% 0-9 = board-internal IN/EN to OUT, 10-19 = ESP32 -> board inputs.
+  linkStyle 0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19 stroke:#ccc,stroke-width:2px
+  %% Power paths: board outputs (motor/switch terminals) to loads.
+  %% 20-25 = A/B/C OUT_A and OUT_B ==> pump/valve loads.
+  linkStyle 20,21,22,23,24,25 stroke:#c44,stroke-width:3px
