@@ -105,11 +105,7 @@ def build_a_bag_pocket_shell(side=1):
     hole_y_offset = 10
 
     # Hole
-    hole = (
-        build_a_hole_punch()
-        .rotate((0, 0, 0), (1, 0, 0), 90)
-        .translate((hole_x_offset, hole_y_offset, hole_z_offset))
-    )
+    hole = build_a_hole_punch(origin=(hole_x_offset, hole_y_offset, hole_z_offset))
 
 
     return (
@@ -122,11 +118,12 @@ def build_a_bag_pocket_shell(side=1):
         .cut(hole)
     )
 
-def build_a_hole_punch():
+def build_a_hole_punch(origin=(0, 0, 0)):
     hole_punch_radius = 4
     hole_punch_height = 20
     return (
-        cq.Workplane(xz_plane_y_up)
+        cq.Workplane(xy_plane_z_up)
+        .workplane(origin=origin, offset=origin[2])
         .circle(hole_punch_radius)
         .extrude(hole_punch_height)
     )
