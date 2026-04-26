@@ -60,3 +60,9 @@ flowchart LR
   classDef code stroke:#c80,stroke-width:2px
   class P4,PRVOut safety
   class BFP code
+
+  %% Default link style: white solid, readable on any background.
+  linkStyle default stroke:#ccc,stroke-width:2px
+  %% Safety / pressure-relief path: red, thicker.
+  %% Indices: 4 = Headspace --> P4, 16 = P4 --> PRVOut.
+  linkStyle 4,16 stroke:#c44,stroke-width:3px
