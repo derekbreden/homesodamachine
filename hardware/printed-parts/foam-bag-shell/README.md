@@ -86,6 +86,27 @@ pocket's tank-facing wall is coincident with the bag_pocket_support_shell's
 A second `bag_pocket_shell` mirrored on the −X side is planned but not
 yet in the code.
 
+## Penetrations
+
+Seven holes total, all sized for **1/4" OD tubing (6.35 mm)** plus a small
+clearance for fit and seal:
+
+| # | Hole | Carries |
+|---|---|---|
+| 1, 2 | Bag-pocket flavor line (×2) | 1/4" OD soft tubing from each bag's cap to its peristaltic pump |
+| 3, 4 | Evaporator coil suction & liquid (×2) | 1/4" OD copper refrigerant lines to/from the compressor |
+| 5 | Water inlet | 1/4" OD line from the diaphragm pump |
+| 6 | CO2 inlet | 1/4" OD line from the regulator |
+| 7 | Carbonated water outlet | 1/4" OD line to the dispense faucet |
+
+**Build decision:** for the water inlet and CO2 inlet, the supply-side
+tubing reduces to 1/4" OD *before* reaching the shell wall — i.e., the
+transition fittings (3/8" barb-to-NPT adapter, 5/16" push-to-connect,
+1/4" NPT check valves, etc.) all live on the warm side of the shell.
+Inside the shell, every penetration is the same 1/4" OD. This keeps
+holes small, uniform, and simple to seal during foam pour, at the cost
+of the transition fittings being a few cm further from the tank.
+
 ## Coincident-wall principle
 
 Wherever two shells share a boundary, their walls are positioned so they
