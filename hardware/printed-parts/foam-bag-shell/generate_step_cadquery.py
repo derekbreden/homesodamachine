@@ -76,11 +76,12 @@ def build_tank_support_wedge():
 # ═══════════════════════════════════════════════════════
 
 def main():
+    tank_copper_shell = build_tank_copper_shell()
+    tank_support_wedge = build_tank_support_wedge()
+    foam_bag_shell = tank_copper_shell.union(tank_support_wedge)
+
     out = Path(__file__).resolve().parent / "foam-bag-shell.step"
-    cq.exporters.export(
-        build_tank_copper_shell().union(build_tank_support_wedge()),
-        str(out),
-    )
+    cq.exporters.export(foam_bag_shell, str(out))
     print(f"-> {out.name}")
 
 
