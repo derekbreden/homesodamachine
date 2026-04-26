@@ -2,6 +2,7 @@
 
 *Working draft — April 6, 2026*
 *Revised April 22, 2026 — two-tier pricing (Founder Edition / Standard Edition)*
+*Revised April 26, 2026 — added "The internal plan: rings of trust" section, articulating an internal model that emerged from a strategy conversation. Public pricing structure unchanged.*
 
 ---
 
@@ -155,6 +156,46 @@ The person who buys every new kitchen thing, uses it twice, and puts it in the d
 ### Not people who don't notice the cans
 
 Some daily soda drinkers genuinely don't experience the cans as a burden. The founder's stepmother: 84, retired, drinks a 12-pack a week of Diet Coke, buys iPads and big TVs. She has the money and the soda habit, but she doesn't hate the cans. Twelve cans a week isn't heavy when you have the time and the store trip is already happening. She would not buy this at any price.
+
+---
+
+## The internal plan: rings of trust
+
+Everything above is the public-facing story. Founder Edition at $7,500, Standard Edition at $5,500, hand-built run of 50, then batch production. That structure stands. It is the right anchor for a cold buyer arriving at a website and trying to understand what this is and what it costs.
+
+The internal plan is different, and worth naming separately so it doesn't get confused with the public one.
+
+### The actual goal of phase one is 10 units in homes
+
+Not 10 units of revenue. Not validation that someone will pay $7,500. Ten machines, in real kitchens, used daily, generating real-world data and real supplier relationships. That is the deliverable. Revenue at this stage is a side effect of the deliverable, not the deliverable itself.
+
+### Concentric rings, not a sales funnel
+
+**Ring 1.** The first 10 units go to people the founder knows directly, or one degree out — friends, family, friends-of-friends. Pricing is whatever moves the unit. Probably $2,000-3,000. Possibly some at cost or below for family members willing to be beta testers. The "product" of ring 1 is not revenue. It is three things: units in homes generating real-world use data; supplier relationships established at quantity-of-50 for the BOM items where that matters; and a tighter, faster-to-build design by the time ring 1 closes out.
+
+**Ring 2.** The next 10 units extend one ring further out — friends-of-friends-of-friends. By this point BOM is lower, build time is shorter, and the design is more refined than what ring 1 received. Price may stay flat, drop slightly, or hold. Price is not the variable being optimized. Same outcomes: more units in the field, more learning, more supplier optimization.
+
+**Ring 3 and beyond.** Each subsequent ring extends further from the founder's network. Eventually the ring stops being personal and the buyer is a stranger arriving cold. By then there is real product data, real BOM data, real failure data, and a price that reflects a known quantity instead of a hypothesis.
+
+### Linear, not exponential
+
+Each ring is roughly the same volume as the prior one. The variable that improves between rings is unit cost and build quality, not unit count. The plan tops out at maybe 20-30 units a year, indefinitely. It might never become a "company" in the venture sense. That is a feature, not a bug. Solo build capacity is the gating constraint, and the goal is not to remove that constraint — it is to do the best work possible inside it.
+
+### The Founder Edition anchor still has a job
+
+The $7,500 number still serves a purpose. It is the public-facing artisan story for buyers who arrive cold — no network connection, no warm introduction — and need a price that signals premium-handmade. It is also the ceiling that makes ring-1 and ring-2 prices look like what they are: a deal extended to someone who came through a connection. The internal expectation is that most ring-1 and ring-2 sales happen well below the anchor. The anchor is honest because anyone who walks in cold genuinely is buying from a one-person shop with a four-year backlog. The lower prices in ring 1 and ring 2 are also honest, because those buyers are absorbing risk the cold buyer is not.
+
+### How this relates to the target-market analysis above
+
+The rings model does not replace the target-market analysis. It complements it. "Hates the cans" is still the buyer profile. The income filters, the consumption filters, the homeowner filter — all still apply. The rings are the *path* by which the founder reaches that profile, starting from a network that does not currently contain anyone who would pay $7,500 sight-unseen for a kitchen appliance from a stranger. Ring 1 is how you get from "no one I know would write that check today" to "someone three rings out will, because by then it isn't a hypothesis anymore."
+
+### Success criteria for the founder personally
+
+The "yay" outcome is this plan running indefinitely as a craft practice alongside the day job. Twenty units a year, supplier relationships stable, design maturing, real customers using a real product. That is a good outcome and it does not require anything else to be true.
+
+The "wowzers" outcome is volume reaching a level where the founder feels safe taking a sabbatical to focus on it full-time. Not "scale," not "exit" — just enough demand and enough margin to step away from the day job without anxiety.
+
+Neither outcome requires the venture-scale ramp the broader market sizing might suggest. The 2-million-household number is real, and someday someone might build a business that addresses it. That someone does not have to be this founder, and this product does not have to be the vehicle.
 
 ---
 
