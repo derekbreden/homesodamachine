@@ -67,7 +67,7 @@ Plan A is the current path. Plan B (racetrack body half-sheets + dished racetrac
 | [Frigidaire EFIC117-SS ice-maker donor (compressor/condenser/cap-tube/drier)](https://www.amazon.com/dp/B07PCZKG94) | B07PCZKG94 | 1 | $78.70 | $78.70 |
 | [GOORY 1/4" OD × 50 ft ACR copper coil (evaporator)](https://www.amazon.com/dp/B0DKSW5VL9) | B0DKSW5VL9 — single-layer wrap on 5" OD vessel at 1/8" gap pitch yields ~22 ft of wrap per unit + ~2 ft each end for compressor + suction-line tie-ins ≈ ~24 ft consumed per unit; one 50 ft roll comfortably covers 2 units, so 1/2 roll allocated per unit ($68.63/2) | 1/2 roll | $34.32 | $34.32 |
 | [Supco SUD8358 filter-drier, 1/4" sweat × cap-tube outlet, XH-9 molecular sieve, integrated Schrader access port](https://www.amazon.com/dp/B009AX2O5W) | B009AX2O5W — replaces factory drier after venting; 1/4" sweat inlet brazes to condenser outlet; cap-tube outlet accepts the factory capillary tube directly (no reducer needed); Schrader port provides vacuum + recharge access; XH-9 desiccant is hydrocarbon-compatible | 1 | $13.40 | $13.40 |
-| [Teyleten 3.3 V relay module, opto-isolated, 10 A @ 250 VAC (5-pk)](https://www.amazon.com/dp/B07XGZSYJV) | B07XGZSYJV — compressor AC switching; ESP32 GPIO 14 drives input directly; 1 of 5 per unit | 1 (of 5 pk) | $2.60 | $2.60 |
+| [Teyleten 3.3 V relay module, opto-isolated, 10 A @ 250 VAC (5-pk)](https://www.amazon.com/dp/B07XGZSYJV) | B07XGZSYJV — two relays per unit: relay #1 switches the compressor's 120 VAC hot leg (ESP32 GPIO 14), relay #2 gates 12 V to the SeaFlo diaphragm pump for firmware-controlled refill (ESP32 GPIO 4); 2 of 5 per unit | 2 (of 5 pk) | $2.60 | $5.20 |
 | [HiLetgo DS18B20 waterproof 1-wire probe, 1 m SS sheath (5-pk)](https://www.amazon.com/dp/B00M1PM55K) | B00M1PM55K — 2 probes per unit: tank wall (compressor cycling setpoint) + evaporator coil (freeze-protect cutout); 2 of 5 per unit ($11.79/5 × 2) | 2 (of 5 pk) | $2.36 | $4.72 |
 | [MXR IEC 60320 C14 panel-mount AC inlet, 10 A / 250 VAC (10-pk)](https://www.amazon.com/dp/B07DCXKNXQ) | B07DCXKNXQ — rear-panel mains inlet; accepts standard NEMA 5-15P-to-C13 line cord; 1 of 10 per unit ($6.96/10) | 1 (of 10 pk) | $0.70 | $0.70 |
 | [Monoprice NEMA 5-15P → IEC C13 line cord, 18 AWG, 6 ft, UL-listed (6-pk)](https://www.amazon.com/dp/B08VS8D4WC) | B08VS8D4WC — ships in the box so the customer can plug the appliance into a standard US wall outlet; 1 of 6 per unit ($24.00/6) | 1 (of 6 pk) | $4.00 | $4.00 |
@@ -155,7 +155,7 @@ The earlier FDC1004 capacitive plan was invalidated: capacitive sensing does not
 | 2. Carbonator vessel (plan A, 316L) | $203.34 |
 | 3. Water inlet | $130.88 |
 | 4. CO2 subsystem | $58.13 |
-| 5. Refrigeration | $144.52 |
+| 5. Refrigeration | $147.12 |
 | 6. Cold core insulation | $47.40 |
 | 7. Printed parts (PETG) | $103.94 |
 | 8. Flavor subsystem | $318.30 |
@@ -163,7 +163,7 @@ The earlier FDC1004 capacitive plan was invalidated: capacitive sensing does not
 | 10. UI | $39.95 |
 | 11. Wiring | $8.92 |
 | 12. Level sensing | $19.07 |
-| **Total** | **$1,286.85** |
+| **Total** | **$1,289.45** |
 
 ## External / user-supplied (not shipped)
 
