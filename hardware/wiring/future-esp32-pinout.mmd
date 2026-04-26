@@ -3,13 +3,14 @@ flowchart LR
   %% Future ESP32 Pin Assignments.
   %% Valves move to I2C expander (MCP23017 -> ULN2803A).
   %% L298N boards B and C eliminated. Board A kept for pumps.
-  %% Freed GPIOs available for new subsystems:
-  %%   GPIO 2   - free
-  %%   GPIO 4   - was B_ENB
-  %%   GPIO 12  - was A_ENB
-  %%   GPIO 16  - free
-  %%   GPIO 17  - was CLEAN_SOL2
-  %%   GPIO 27  - was CLEAN_SOL1
+  %% New for current plan:
+  %%   GPIO 14 drives the Teyleten relay (compressor AC, was an SSR-25DA).
+  %%   GPIO 16 hosts the DS18B20 1-wire bus (tank-wall + evap-suction probes).
+  %%   GPIO 17, 27 read the two carbonator-level reed switches.
+  %% Freed GPIOs still available:
+  %%   GPIO 2   - free (bootstrap-sensitive)
+  %%   GPIO 4   - free
+  %%   GPIO 12  - free (bootstrap-sensitive)
 
   subgraph ESP["ESP32-DevKitC-32E"]
     direction TB
@@ -41,7 +42,13 @@ flowchart LR
     end
 
     subgraph Refrigeration_Pins["Refrigeration"]
-      P14["GPIO 14  Compressor SSR  (120VAC switched)"]
+      P14["GPIO 14  Teyleten relay  (compressor AC)"]
+      P16["GPIO 16  DS18B20 1-wire bus"]
+    end
+
+    subgraph Carbonator_Sense_Pins["Carbonator Level Sense"]
+      P17["GPIO 17  Reed low  (refill threshold)"]
+      P27["GPIO 27  Reed high  (full threshold)"]
     end
   end
 
@@ -49,7 +56,7 @@ flowchart LR
   RP["RP2040\n(display)"]
   S3["ESP32-S3\n(config/BLE)"]
 
-  I2C_DEVICES["I2C Devices:\n  DS3231 RTC  0x68\n  MCP23017    0x20\n  FDC1004     0x50"]
+  I2C_DEVICES["I2C Devices:\n  DS3231 RTC  0x68\n  MCP23017    0x20"]
 
   DRV["L298N Board A\n(2 pumps, H-bridge)"]
 
@@ -61,10 +68,12 @@ flowchart LR
 
   VALVE_CHAIN["MCP23017\n  ↓\n2× ULN2803A\n  ↓\n12 solenoid valves\n(see future-valve-control)"]
 
-  CARBONATOR["Carbonator Subsystem\n  Diaphragm pump\n  FDC1004 level sense\n  CO2 solenoid (spare MCP pin)"]
+  RELAY["Teyleten 3.3V relay\n(opto-isolated)"]
+  COMP_AC["AC hermetic compressor\n  (Frigidaire EFIC117-SS donor,\n  120 VAC)"]
 
-  SSR["SSR-25DA\n  (DC-in / AC-out)"]
-  COMP_AC["AC Hermetic Compressor\n  (harvested, 120VAC)\n  see harvested/ice-maker/README.md"]
+  DS_PROBES["2× DS18B20 1-wire probes:\n  tank wall (cycle setpoint)\n  evap suction (freeze cutout)"]
+  REED_LOW["Reed switch — low level\n  (carbonator refill trigger)"]
+  REED_HIGH["Reed switch — high level\n  (carbonator full)"]
 
   %% ── Connections ──
   P32 & P35 <-->|"Serial2\n115200 baud"| RP
@@ -79,19 +88,23 @@ flowchart LR
   FLOW -->|"pulse interrupt"| P23
   SW -->|"INPUT_PULLUP"| P13
 
-  P14 -->|"3.3V gate"| SSR
-  SSR ==>|"120VAC switched"| COMP_AC
+  P14 -->|"3.3V drive"| RELAY
+  RELAY ==>|"switched 120VAC"| COMP_AC
+
+  DS_PROBES -->|"1-wire data"| P16
+  REED_LOW -->|"INPUT_PULLUP"| P17
+  REED_HIGH -->|"INPUT_PULLUP"| P27
 
   I2C_DEVICES -->|"MCP23017"| VALVE_CHAIN
-  I2C_DEVICES -->|"FDC1004"| CARBONATOR
 
   %% Signals: UART, I2C, GPIO control, semantic-reference (white).
-  %% 0-5 UART+I2C, 6-11 GPIO -> L298 inputs, 16 SSR gate, 18-19 logical
-  %% I2C-device -> subsystem references.
-  linkStyle 0,1,2,3,4,5,6,7,8,9,10,11,16,18,19 stroke:#ccc,stroke-width:2px
+  %% 0-5 UART+I2C, 6-11 GPIO -> L298 inputs, 16 relay drive,
+  %% 21 logical I2C-device -> subsystem reference.
+  linkStyle 0,1,2,3,4,5,6,7,8,9,10,11,16,21 stroke:#ccc,stroke-width:2px
   %% Sensor / button feedback to MCU (blue).
-  %% 14 = flow meter, 15 = air switch.
-  linkStyle 14,15 stroke:#09f,stroke-width:2px
-  %% Power: motor outputs and switched 120VAC (red, thick).
-  %% 12-13 = L298 motor channels, 17 = SSR -> compressor AC.
+  %% 14 = flow meter, 15 = air switch, 18 = DS18B20 1-wire,
+  %% 19 = reed low, 20 = reed high.
+  linkStyle 14,15,18,19,20 stroke:#09f,stroke-width:2px
+  %% Power: motor outputs and switched 120 VAC (red, thick).
+  %% 12-13 = L298 motor channels, 17 = relay -> compressor AC.
   linkStyle 12,13,17 stroke:#c44,stroke-width:3px
