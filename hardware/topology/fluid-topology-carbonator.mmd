@@ -9,42 +9,50 @@ flowchart LR
   end
 
   %% =========================
-  %% Water supply path (tap → tank)
+  %% Water supply path (tap -> tank, top plate)
   %% =========================
   subgraph WaterSupply["Water Supply (Pressurized)"]
     direction LR
-    BFP["Dual-Check<br/>Backflow Preventer<br/>(ASSE 1024, potable)"]
-    PW["Diaphragm Pump<br/>(100 PSI)"]
-    CV["External Check Valve<br/>(metal seat, 150 PSI)"]
+    BFP["Backflow Preventer<br/>ASSE 1022 (beverage)<br/>Multiplex 19-0897"]
+    PW["Diaphragm Pump<br/>SeaFlo 100 PSI"]
+    CV["External Check Valve<br/>GASHER 1/4&quot; NPT SS<br/>(PTFE soft-seat, 150 PSI)"]
   end
 
   %% =========================
-  %% CO2 supply path
+  %% CO2 supply path (bottle -> tank, bottom plate)
   %% =========================
   subgraph CO2Supply["CO2 Supply"]
     direction LR
-    RegCO2["CO2 Regulator<br/>(60-70 PSI out)"]
+    RegCO2["CO2 Regulator<br/>(70-80 PSI out)"]
+    CV_CO2["External Check Valve<br/>GASHER 1/4&quot; NPT SS<br/>(PTFE soft-seat, 150 PSI)"]
   end
 
   %% =========================
-  %% Carbonator vessel (304 SS racetrack, ~1.8L)
+  %% Carbonator vessel
+  %% Plan A (current): 5&quot; OD x 0.065&quot; wall 316L SS welded round tube,
+  %% 6&quot; tall, ~1.55 L, capped with 1/4&quot; 316L SS plates.
+  %% Plan B (fallback): racetrack 304 SS, not shown.
   %% =========================
-  subgraph Tank["Carbonator Vessel (304 SS, 100 PSI MAWP)"]
+  subgraph Tank["Carbonator Vessel<br/>Plan A: 5&quot; OD x 0.065&quot; wall 316L SS welded tube, 6&quot; tall<br/>1/4&quot; 316L plates top &amp; bottom, ~1.55 L<br/>70 PSI working / 150 PSI hydro"]
     direction TB
 
-    P1["Port 1: CO2 inlet<br/>(headspace)"]
-    P2["Port 2: Water inlet<br/>(atomized spray, headspace)"]
-    P4["Port 4: PRV<br/>(100 PSI ASME, dedicated)"]
-    P3["Port 3: Carbonated water out<br/>(dip tube, near bottom)"]
+    P4["Port 4 (top plate): PRV<br/>100 PSI ASME, dedicated"]
+    P2["Port 2 (top plate): Water inlet<br/>free-fall onto water surface<br/>(no atomizer, no dip tube)"]
+    P1["Port 1 (bottom plate): CO2 inlet<br/>to internal sparge stone"]
+    P3["Port 3 (bottom plate): Carbonated water out<br/>(no internal dip tube)"]
 
+    SpargeStone["Sparge Stone<br/>FERRODAY 0.5 um sintered 316 SS<br/>(silicone tube from P1 barb)"]
     Headspace(("CO2 Headspace"))
-    Water(("Cold Carbonated<br/>Water"))
+    Water(("Cold Carbonated<br/>Water Column"))
+    Float(("Magnetic Float<br/>on welded 1/8&quot; 316L SS rod"))
 
-    P1 --> Headspace
-    P2 --> Headspace
-    Headspace -.pressure.-> Water
-    Water --> P3
+    P1 --> SpargeStone
+    SpargeStone -- "fine bubbles rise" --> Water
+    Water -.gas escape.-> Headspace
+    P2 --> Water
     Headspace --> P4
+    Water --> P3
+    Float -.rides on.-> Water
   end
 
   %% =========================
@@ -56,19 +64,19 @@ flowchart LR
   end
 
   %% =========================
-  %% Safety
+  %% Safety / sensing (external to vessel)
   %% =========================
   PRVOut["PRV Discharge<br/>(vented)"]
-  LevelSense["Level Sense<br/>(FDC1004, capacitive)"]
+  LevelSense["Level Sense<br/>External reed switches (low + high)<br/>on outside of 316L SS tube wall<br/>(austenitic SS is non-magnetic;<br/>field passes through wall to float)"]
 
   %% =========================
   %% Connections
   %% =========================
   Tap --> BFP --> PW --> CV --> P2
-  CO2 --> RegCO2 --> P1
+  CO2 --> RegCO2 --> CV_CO2 --> P1
   P3 --> Faucet --> Nozzle
   P4 --> PRVOut
-  Water -.reads.-> LevelSense
+  Float -.magnetic field.-> LevelSense
   LevelSense -.interlock.-> PW
 
   %% =========================
@@ -81,5 +89,3 @@ flowchart LR
   classDef code fill:#fff4e0,stroke:#c80,stroke-width:2px
   class P4,PRVOut safety
   class BFP code
-
-  linkStyle 0,1,2,3,4,5,6,7,8,9 stroke:#1a1a1a,stroke-width:2px
