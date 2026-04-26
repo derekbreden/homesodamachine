@@ -26,9 +26,9 @@ Two-bend gooseneck, bottom-up:
   1. 105 mm vertical straight at the bottom
        (= 40 mm extension below the mounting-plate base
         + 65 mm above the base, before the first bend starts)
-  2. 30° bend, centerline radius 40 mm     ← radius is a guess, refine later
+  2. 30° bend, centerline radius 31.75 mm  (1.25", was 40 mm — Xometry caps CLR/OD at 5:1)
   3. 100 mm straight (rises forward at 30° from vertical)
-  4. 90° bend, centerline radius 40 mm     ← radius is a guess, refine later
+  4. 90° bend, centerline radius 31.75 mm  (same)
   5. 15 mm tip straight (continues forward + downward)
 
 Coordinate system:
@@ -76,8 +76,10 @@ import cadquery as cq
 IN = 25.4  # mm per inch
 
 OD = 0.250 * IN          # 6.35 mm — 1/4" OD
-WALL = 0.035 * IN        # 0.889 mm — thinner of two Xometry 1/4" walls
-ID = OD - 2.0 * WALL     # 4.572 mm
+# Xometry's live quoter rejected the OD/wall combo at 0.035" wall as not
+# in their bender's tube-stock library; bumped to 0.049" (next standard up).
+WALL = 0.049 * IN        # 1.245 mm
+ID = OD - 2.0 * WALL     # 3.861 mm
 
 # ═══════════════════════════════════════════════════════
 # CONSTANTS — GOOSENECK GEOMETRY (per user, 2026-04-24)
@@ -87,13 +89,18 @@ ID = OD - 2.0 * WALL     # 4.572 mm
 BOTTOM_STRAIGHT_LEN = 105.0   # mm
 
 # First bend: gentle forward lean.
-BEND1_RADIUS = 40.0           # mm — guess, refine
+# Xometry's quoter requires CLR-to-OD ratio between 2:1 and 5:1 AND
+# CLR in 0.25" increments. 1.25" (31.75 mm) is exactly 5:1 — at the
+# upper edge, but explicitly listed as a valid CLR option for 0.25" OD
+# in Xometry's tube-bending DFM page. Closest legal value to the user's
+# original 40 mm eyeball.
+BEND1_RADIUS = 1.25 * IN      # 31.75 mm — 5:1 CLR/OD, 0.25" increment
 BEND1_SWEEP_DEG = 30.0
 
 MID_STRAIGHT_LEN = 100.0      # mm — rises forward at 30° from vertical
 
 # Second bend: arches forward and over.
-BEND2_RADIUS = 40.0           # mm — guess, refine
+BEND2_RADIUS = 1.25 * IN      # 31.75 mm — same justification as BEND1
 BEND2_SWEEP_DEG = 90.0
 
 TIP_STRAIGHT_LEN = 15.0       # mm — continues forward + downward at 60° below horizontal
@@ -297,7 +304,7 @@ if __name__ == "__main__":
     print(f"  Volume:       {vol_cm3:.2f} cm³")
     print(f"  Mass (304 SS, 7.93 g/cm³): {mass_g:.1f} g")
 
-    fname = "dispense-flavor-tube-quarter-od-0p035wall.step"
+    fname = "dispense-flavor-tube-quarter-od-0p049wall.step"
     path = out_dir / fname
     cq.exporters.export(tube, str(path))
     print(f"  Exported:     {path}")

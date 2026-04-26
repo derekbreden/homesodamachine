@@ -11,17 +11,21 @@ hand-eyeballed by the user against the installed faucet on 2026-04-24:
 | Segment | Value |
 |---|---|
 | Bottom straight (40 mm below deck + 65 mm above) | 105 mm |
-| Bend 1 | 30° at R 40 mm *(radius is a guess)* |
+| Bend 1 | 30° at R 31.75 mm (1.25") *(snapped from 40 mm guess)* |
 | Mid straight | 100 mm |
-| Bend 2 | 90° at R 40 mm *(radius is a guess)* |
+| Bend 2 | 90° at R 31.75 mm (1.25") *(snapped from 40 mm guess)* |
 | Tip straight | 15 mm |
 
-Resulting envelope: ~5.0" forward × ~9.2" tall, centerline ~12.0",
-mass ~37 g per tube (304 SS). All within Xometry DFM (R ≥ 12.7 mm,
-straights ≥ 12.7 mm).
+Resulting envelope: ~4.5" forward × ~8.9" tall, centerline ~11.3",
+mass ~45 g per tube (304 SS, 0.049" wall).
+
+**Xometry quoter constraints (learned 2026-04-25):** CLR/OD ratio must
+be 2:1–5:1; CLR must be a 0.25" increment; on 1/4" OD, only 0.049"
+and thicker walls are actually stocked despite the capabilities page
+listing 0.035" as the minimum.
 
 **Xometry submission:** quantity = 2 (one per flavor side for one
-machine). 304 SS, 0.035" wall, powder coat matte black. See
+machine). 304 SS, 0.049" wall, powder coat matte black. See
 `hardware/harvested/touch-flo-faucet/xometry-submission-notes.md` for
 the full quote-form checklist and the grit-blast pre-treatment note.
 
