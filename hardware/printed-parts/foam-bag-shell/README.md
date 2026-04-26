@@ -46,9 +46,9 @@ Outer dimensions of the printed cold core, treated as a brick:
 
 | Axis | Dimension | Driver |
 |---|---|---|
-| X (perpendicular to bag axis) | **166.2 mm** | Tank ⌀127 + 2 × (7 + 5 + 0.8 + 6 + 0.8) |
+| X (perpendicular to bag axis) | **167 mm** | Tank ⌀127 + 2 × (7 + 5 + 1 + 6 + 1) |
 | Y (vertical) | **~226 mm** | Bag height 225 + skin clearances |
-| Z (bag axis) | **237.8 mm** | Same as X + 2 × 35 mm bag |
+| Z (bag axis) | **237 mm** | Same as X + 2 × 35 mm bag |
 
 Cross-section is a **flatted stadium** — round on X faces (tight to the
 tank), flat on Z faces (tangent to the bag's flat backs).
@@ -62,11 +62,11 @@ From the tank centerline outward, on the **Z axis** (through bag centerline):
 | Tank wall (radius) | 0–63.5 mm | 316 SS | 5" OD vessel |
 | Coil zone | 7 mm | Cu coil + foil tape + foam | Helix + tolerance |
 | Inner foam | 5 mm | Pour PU | Bag-freeze prevention; thermal break |
-| Inner shell wall | 0.8 mm | PETG | Flat at z = ±76.3 over the bag width |
+| Inner shell wall | 1 mm | PETG | Flat at z = ±76.5 over the bag width |
 | Bag | 35 mm | bag + air | Dry cavity, never foam-contacted |
-| Pocket outboard wall | 0.8 mm | PETG | Encloses bag from outer foam |
+| Pocket outboard wall | 1 mm | PETG | Encloses bag from outer foam |
 | Outer foam | 6 mm | Pour PU | Bag temp control + outer-shell condensation |
-| Outer shell wall | 0.8 mm | PETG | Sealed perimeter |
+| Outer shell wall | 1 mm | PETG | Sealed perimeter |
 
 On the **X axis** (perpendicular to bag axis, no bag in this radial line):
 
@@ -75,20 +75,20 @@ On the **X axis** (perpendicular to bag axis, no bag in this radial line):
 | Tank wall (radius) | 0–63.5 mm | 316 SS | |
 | Coil zone | 7 mm | Cu coil + tape + foam | |
 | Inner foam | 5 mm | Pour PU | |
-| Inner shell wall | 0.8 mm | PETG | Round arc, radius 76.3 mm from tank centerline |
+| Inner shell wall | 1 mm | PETG | Round arc, radius 76.5 mm from tank centerline |
 | Outer foam | 6 mm | Pour PU | |
-| Outer shell wall | 0.8 mm | PETG | |
+| Outer shell wall | 1 mm | PETG | |
 
 ## Inner shell cross-section (flatted stadium)
 
 The inner shell is a closed PETG cylinder with a flatted-stadium cross-section:
 
-- **Round arcs** of radius 76.3 mm centered at the tank centerline, covering
+- **Round arcs** of radius 76.5 mm centered at the tank centerline, covering
   the X faces (`|x| > 62.5 mm`).
-- **Flat sides** at z = ±76.3 mm, covering the bag-tangent region
+- **Flat sides** at z = ±76.5 mm, covering the bag-tangent region
   (`-62.5 ≤ x ≤ +62.5`), each flat 125 mm long matching the bag width.
 - **Vertical jump segments** at x = ±62.5 mm connecting the flats (at
-  z = ±76.3) to the round arcs (at z = ±43.8, where the radius-76.3 circle
+  z = ±76.5) to the round arcs (at z = ±44.1, where the radius-76.5 circle
   reaches the bag-corner x). These are short straight lateral walls
   (~32.5 mm in z), inside the inner shell, that close off the wedge corners
   of the bag-pocket region.
@@ -109,10 +109,10 @@ sides. The pocket has six bounding faces:
 
 | Face | Wall | Notes |
 |---|---|---|
-| Inboard (toward tank) | Inner-shell flat at z = ±76.3 | Shared with inner shell — bag's inner face rests directly against this PETG. No separate inboard pocket wall. |
-| Outboard | Pocket outboard wall | 0.8 mm PETG, parallel to inner shell flat |
-| +X end | Pocket end wall | 0.8 mm PETG, vertical |
-| -X end | Pocket end wall | 0.8 mm PETG, vertical |
+| Inboard (toward tank) | Inner-shell flat at z = ±76.5 | Shared with inner shell — bag's inner face rests directly against this PETG. No separate inboard pocket wall. |
+| Outboard | Pocket outboard wall | 1 mm PETG, parallel to inner shell flat |
+| +X end | Pocket end wall | 1 mm PETG, vertical |
+| -X end | Pocket end wall | 1 mm PETG, vertical |
 | Top (+Y) | Floor 3's top skin | Caps the pocket at y ≈ 225 mm |
 | Bottom (-Y) | Floor 1's bottom skin | Bag cap end rests on this |
 
