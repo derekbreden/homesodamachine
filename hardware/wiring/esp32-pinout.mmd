@@ -1,15 +1,15 @@
 flowchart LR
 
-  %% Future ESP32 Pin Assignments.
+  %% ESP32 Pin Assignments (current plan).
   %% Valves move to I2C expander (MCP23017 -> ULN2803A).
   %% L298N boards B and C eliminated. Board A kept for pumps.
   %% New for current plan:
-  %%   GPIO 14 drives the Teyleten relay (compressor AC, was an SSR-25DA).
+  %%   GPIO 14 drives the Teyleten relay #1 (compressor AC).
   %%   GPIO 16 hosts the DS18B20 1-wire bus (tank-wall + evap-suction probes).
   %%   GPIO 17, 27 read the two carbonator-level reed switches.
+  %%   GPIO 4 drives Teyleten relay #2 (diaphragm pump 12 V, refill).
   %% Freed GPIOs still available:
   %%   GPIO 2   - free (bootstrap-sensitive)
-  %%   GPIO 4   - free
   %%   GPIO 12  - free (bootstrap-sensitive)
 
   subgraph ESP["ESP32-DevKitC-32E"]
@@ -46,7 +46,8 @@ flowchart LR
       P16["GPIO 16  DS18B20 1-wire bus"]
     end
 
-    subgraph Carbonator_Sense_Pins["Carbonator Level Sense"]
+    subgraph Carbonator_Pins["Carbonator Water"]
+      P4["GPIO 4   Diaphragm pump relay  (refill)"]
       P17["GPIO 17  Reed low  (refill threshold)"]
       P27["GPIO 27  Reed high  (full threshold)"]
     end
@@ -66,10 +67,13 @@ flowchart LR
   FLOW["DIGITEN\nFlow Meter"]
   SW["KRAUS\nAir Switch"]
 
-  VALVE_CHAIN["MCP23017\n  ↓\n2× ULN2803A\n  ↓\n12 solenoid valves\n(see future-valve-control)"]
+  VALVE_CHAIN["MCP23017\n  ↓\n2× ULN2803A\n  ↓\n12 solenoid valves\n(see valve-control)"]
 
-  RELAY["Teyleten 3.3V relay\n(opto-isolated)"]
+  RELAY["Teyleten 3.3V relay #1\n(compressor AC)"]
   COMP_AC["AC hermetic compressor\n  (Frigidaire EFIC117-SS donor,\n  120 VAC)"]
+
+  DIA_RELAY["Teyleten 3.3V relay #2\n(diaphragm pump 12 V)"]
+  DIA_PUMP["SeaFlo diaphragm pump\n  12 V, ~5 A peak\n  (carbonator refill)"]
 
   DS_PROBES["2× DS18B20 1-wire probes:\n  tank wall (cycle setpoint)\n  evap suction (freeze cutout)"]
   REED_LOW["Reed switch — low level\n  (carbonator refill trigger)"]
@@ -91,6 +95,9 @@ flowchart LR
   P14 -->|"3.3V drive"| RELAY
   RELAY ==>|"switched 120VAC"| COMP_AC
 
+  P4 -->|"3.3V drive"| DIA_RELAY
+  DIA_RELAY ==>|"switched 12V"| DIA_PUMP
+
   DS_PROBES -->|"1-wire data"| P16
   REED_LOW -->|"INPUT_PULLUP"| P17
   REED_HIGH -->|"INPUT_PULLUP"| P27
@@ -98,13 +105,14 @@ flowchart LR
   I2C_DEVICES -->|"MCP23017"| VALVE_CHAIN
 
   %% Signals: UART, I2C, GPIO control, semantic-reference (white).
-  %% 0-5 UART+I2C, 6-11 GPIO -> L298 inputs, 16 relay drive,
-  %% 21 logical I2C-device -> subsystem reference.
-  linkStyle 0,1,2,3,4,5,6,7,8,9,10,11,16,21 stroke:#ccc,stroke-width:2px
+  %% 0-5 UART+I2C, 6-11 GPIO -> L298 inputs, 16 = P14 relay #1 drive,
+  %% 18 = P4 relay #2 drive, 23 = logical I2C-device -> subsystem ref.
+  linkStyle 0,1,2,3,4,5,6,7,8,9,10,11,16,18,23 stroke:#ccc,stroke-width:2px
   %% Sensor / button feedback to MCU (blue).
-  %% 14 = flow meter, 15 = air switch, 18 = DS18B20 1-wire,
-  %% 19 = reed low, 20 = reed high.
-  linkStyle 14,15,18,19,20 stroke:#09f,stroke-width:2px
-  %% Power: motor outputs and switched 120 VAC (red, thick).
-  %% 12-13 = L298 motor channels, 17 = relay -> compressor AC.
-  linkStyle 12,13,17 stroke:#c44,stroke-width:3px
+  %% 14 = flow meter, 15 = air switch, 20 = DS18B20 1-wire,
+  %% 21 = reed low, 22 = reed high.
+  linkStyle 14,15,20,21,22 stroke:#09f,stroke-width:2px
+  %% Power: motor/pump outputs and switched 120 VAC (red, thick).
+  %% 12-13 = L298 motor channels, 17 = relay #1 -> compressor AC,
+  %% 19 = relay #2 -> diaphragm pump 12 V.
+  linkStyle 12,13,17,19 stroke:#c44,stroke-width:3px

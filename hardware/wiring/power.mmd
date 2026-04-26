@@ -1,9 +1,11 @@
 flowchart TD
 
-  %% Future Power Distribution.
+  %% Power Distribution (current plan).
   %% 120 VAC mains in via C14 inlet; Mean Well 12 V PSU supplies the
   %% 12 V bus for everything except the compressor itself, which runs
-  %% on switched mains via a Teyleten relay (ESP32 GPIO 14).
+  %% on switched mains via Teyleten relay #1 (ESP32 GPIO 14). The 12 V
+  %% diaphragm pump is gated by Teyleten relay #2 (ESP32 GPIO 4) so
+  %% firmware can keep refill off during an active dispense.
 
   subgraph AC_Inlet["AC Inlet"]
     C14["C14 panel-mount inlet\n(MXR B07DCXKNXQ)"]
@@ -14,7 +16,7 @@ flowchart TD
   end
 
   subgraph Refrigeration["Refrigeration  (harvested ice-maker)"]
-    RELAY["Teyleten 3.3 V relay\n(opto-isolated, GPIO 14)"]
+    RELAY["Teyleten 3.3 V relay #1\n(opto-isolated, GPIO 14)"]
     COMP_AC["AC hermetic compressor\n+ condenser fan\n(Frigidaire EFIC117-SS donor)"]
     RELAY ==>|"switched AC hot"| COMP_AC
   end
@@ -25,7 +27,9 @@ flowchart TD
   end
 
   subgraph Carbonation["Carbonation"]
+    DIA_RELAY["Teyleten 3.3 V relay #2\n(opto-isolated, GPIO 4)"]
     DIA_PUMP["SeaFlo diaphragm pump\n12 V, 100 PSI"]
+    DIA_RELAY ==>|"switched 12 V"| DIA_PUMP
   end
 
   subgraph Flavor["Flavor Injection"]
@@ -59,7 +63,7 @@ flowchart TD
   C14 ==>|"120 VAC"| PSU
 
   %% 12 V distribution
-  PSU ==>|"12 V"| DIA_PUMP
+  PSU ==>|"12 V"| DIA_RELAY
   PSU ==>|"12 V"| L298
   PSU ==>|"12 V"| ULN
   PSU ==>|"12 V"| REG_5V
@@ -70,12 +74,13 @@ flowchart TD
   REG_3V3 -->|"3.3 V"| I2C_Devices
 
   %% Power paths (red, thick).
-  %% 0   = Teyleten relay -> compressor + fan (switched AC)
-  %% 1-2 = L298 -> peristaltic pumps
-  %% 3   = ULN2803A -> solenoid valves
-  %% 4-5 = C14 -> relay, C14 -> PSU (AC mains)
-  %% 6-9 = PSU 12 V trunk to all subsystems
-  linkStyle 0,1,2,3,4,5,6,7,8,9 stroke:#c44,stroke-width:3px
+  %% 0    = Teyleten relay #1 -> compressor + fan (switched AC)
+  %% 1    = Teyleten relay #2 -> diaphragm pump (switched 12 V)
+  %% 2-3  = L298 -> peristaltic pumps
+  %% 4    = ULN2803A -> solenoid valves
+  %% 5-6  = C14 -> relay #1, C14 -> PSU (AC mains)
+  %% 7-10 = PSU 12 V trunk to all subsystems
+  linkStyle 0,1,2,3,4,5,6,7,8,9,10 stroke:#c44,stroke-width:3px
   %% Regulated logic-level supplies (5V, 3.3V): white workhorse.
-  %% 10-12 = REG_5V -> REG_3V3, REG_5V -> MCUs, REG_3V3 -> I2C devices.
-  linkStyle 10,11,12 stroke:#ccc,stroke-width:2px
+  %% 11-13 = REG_5V -> REG_3V3, REG_5V -> MCUs, REG_3V3 -> I2C devices.
+  linkStyle 11,12,13 stroke:#ccc,stroke-width:2px
