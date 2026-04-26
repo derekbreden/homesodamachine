@@ -113,9 +113,9 @@ Safety:
 
 For ESP32 control:
 - **Reserved GPIO: pin 14** on the main ESP32-DevKitC-32E. Not a strap pin, not input-only, not reserved for flash/PSRAM. See `hardware/wiring/esp32-pinout.mmd` for the full pin map.
-- **Preferred: solid-state relay (SSR)** on the AC hot leg. 25 A SSRs (Fotek SSR-25 DA class or a quality-tier Crydom) take 3–32 VDC on the input and switch 120/240 VAC on the output. ESP32 GPIO drives the input directly. Mount to a heatsink — expect ~1 W dissipation per amp switched. Zero-crossing SSRs reduce EMI from inductive switching.
-- Alternative: a mechanical motor-rated relay or contactor (e.g. Omron LY2) driven by a small NPN transistor + flyback diode from the ESP32. Works fine, audibly clicks, limited cycle life.
-- **Firmware must enforce the 3-minute minimum-off-time** as a guard — the SSR will switch every loop iteration if told to, and that will destroy the compressor within days. Wrap the ON/OFF call behind a "can I switch right now?" check against the last-transition timestamp. A hysteresis band around the temperature setpoint (e.g., ±1 °C) is needed for the same reason — you want long cycles, not rapid thrash.
+- **Switching element: Teyleten 3.3 V opto-isolated relay module** (10 A @ 250 VAC, ASIN B07XGZSYJV). ESP32 GPIO drives the input pin directly — 3.3 V coil side, opto-coupled, mechanical contact on the AC hot leg. ~$2.60/unit at 5-pack pricing. Audibly clicks, finite cycle life, but at this duty (minutes-per-cycle, 3-minute minimum off-time enforced in firmware) a 100,000-cycle relay lasts decades. The same relay model is used a second time per appliance to gate 12 V to the SeaFlo diaphragm pump (see `hardware/wiring/power.mmd` and `hardware/bom.md` §5).
+- A 25 A solid-state relay (Fotek SSR-25 DA / Crydom class, zero-crossing, also opto-isolated) was the original plan but was rejected: at ~1 A running current the SSR's required heatsink and ~5× price weren't justified, and the cycle-life advantage doesn't matter when the duty cycle is already minutes-long.
+- **Firmware must enforce the 3-minute minimum-off-time** as a guard — the relay will switch every loop iteration if told to, and that will destroy the compressor within days. Wrap the ON/OFF call behind a "can I switch right now?" check against the last-transition timestamp. A hysteresis band around the temperature setpoint (e.g., ±1 °C) is needed for the same reason — you want long cycles, not rapid thrash.
 
 ### Summary — keep vs discard for this unit
 
