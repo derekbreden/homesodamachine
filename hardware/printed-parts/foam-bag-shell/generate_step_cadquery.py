@@ -65,20 +65,29 @@ def build_bag_pocket_support_shell():
 
 def build_tank_support_wedge():
     support_wedge_outer_radius = tank_copper_shell_radius - wall_and_floor_thickness
+    support_wedge_ring_width = 15
+    support_wedge_inner_radius = support_wedge_outer_radius - support_wedge_ring_width
     support_wedge_bottom_y = wall_and_floor_thickness
-    cylinder = (
+    filled_cylinder = (
         cq.Workplane(xz_plane_y_up)
         .workplane(offset=support_wedge_bottom_y)
         .circle(support_wedge_outer_radius)
         .extrude(tank_support_wedge_height)
     )
-    cone = (
+    cut_cone = (
         cq.Workplane(xz_plane_y_up)
         .workplane(offset=support_wedge_bottom_y)
         .circle(support_wedge_outer_radius)
         .extrude(tank_support_wedge_height, taper=45)
     )
-    return cylinder.cut(cone)
+    cut_cylinder = (
+        cq.Workplane(xz_plane_y_up)
+        .workplane(offset=support_wedge_bottom_y + support_wedge_ring_width)
+        .circle(support_wedge_inner_radius)
+        .extrude(tank_support_wedge_height)
+    )
+    cut_object = cut_cone.union(cut_cylinder)
+    return filled_cylinder.cut(cut_object)
 
 
 # ═══════════════════════════════════════════════════════
