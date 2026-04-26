@@ -70,3 +70,10 @@ flowchart LR
 
   FLOW -->|"pulse\nFALLING interrupt"| P23
   SW -->|"INPUT_PULLUP\nlatching"| P13
+
+  %% Signals to/from MCU (UART, I2C, GPIO control to drivers): white.
+  %% 0-5 = UART + I2C bidir, 6-15 = GPIO -> L298 board inputs.
+  linkStyle 0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15 stroke:#ccc,stroke-width:2px
+  %% Sensor / button feedback into the MCU: blue.
+  %% 16 = flow meter pulse, 17 = air-switch press.
+  linkStyle 16,17 stroke:#09f,stroke-width:2px
