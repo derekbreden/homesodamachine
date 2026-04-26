@@ -10,7 +10,7 @@ Reference for preparing instant quotes on the dispense spout's stainless tubes. 
 - AP214 is fine — CadQuery's default OCCT export (`exporters.export(obj, "part.step")`) writes AP214. AP242 is richer if you want it; set the OCCT schema override on the exporter.
 - No PMI annotations needed. The solid geometry is the spec.
 
-## DFM limits (1/4" 304 SS)
+## DFM limits (1/4" SS, applies to 304 and 316)
 
 - **Wall thickness:** 0.035" or 0.049"
 - **Min centerline bend radius:** 0.500" (2× OD); below this flags manufacturing risk
@@ -45,15 +45,31 @@ Reference for preparing instant quotes on the dispense spout's stainless tubes. 
 - Gloss: matte (default) / semi-gloss / gloss
 - Thickness: 0.006"–0.012" typical (ASTM D7803)
 
-**Critical for 304 SS:** the quoter UI does not expose a surface-prep selector. Xometry's standard process is degrease + blast, but powder does not adhere reliably to passive stainless without aggressive abrasion. **Attach a one-page drawing PDF requesting mechanical abrasion / grit blast prior to coat.**
+**Critical for 304/316 SS:** the quoter UI does not expose a surface-prep selector. Xometry's standard process is degrease + blast, but powder does not adhere reliably to passive stainless without aggressive abrasion. **Attach a one-page drawing PDF requesting mechanical abrasion / grit blast prior to coat.**
 
 ## Turnaround
 
 Not published — computed at quote time from the geometry and shown in the live quoter. Powder coat adds days. Plan to read the number off the UI; public docs won't help.
 
+## Single-CLR constraint
+
+Xometry's DFM page recommends one CLR per tube "for ease of
+manufacturability." Parts with multiple bend radii need multi-stack
+tooling or extra setups; the quoter charges for it or refuses outright.
+This bit us on the dispense flavor tube: the real Touch-Flo gooseneck
+has asymmetric radii (bend 1 ≈ 12 mm, bend 2 ≈ 48 mm), and we had to
+collapse both to a single 1.25" CLR (the legal max for 1/4" OD) to get
+a clean quote. See `hardware/cut-parts/dispense-flavor-tube/README.md`
+for the silhouette-fidelity tradeoff that creates.
+
+If a future part genuinely needs two CLRs, the path is a niche
+tube-bending shop with a custom-quote workflow (Tube-Tec, Triad
+Products, Noble Industries, Woolf Aircraft, etc.) — instant-quote
+platforms generally don't support it.
+
 ## Gaps not confirmed from public docs
 
-- Lead time numbers for 3-unit tube-bent + powder-coated 304 SS
+- Lead time numbers for low-quantity tube-bent + powder-coated SS
 - Whether surface-prep callouts are accepted via a quoter field or only via attached drawing — safe bet is the drawing PDF
 
 ## Sources

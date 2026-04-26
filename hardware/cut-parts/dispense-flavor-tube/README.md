@@ -24,6 +24,40 @@ be 2:1–5:1; CLR must be a 0.25" increment; on 1/4" OD, only 0.049"
 and thicker walls are actually stocked despite the capabilities page
 listing 0.035" as the minimum.
 
+## Open problem — single-CLR constraint vs. real Touch-Flo asymmetric radii
+
+A photo-measurement pass against a Westbrass D2031 spec image and a
+clean side-view product photo (2026-04-25) showed the real Touch-Flo
+gooseneck has **two different bend radii** — bend 1 ≈ 12 mm CLR,
+bend 2 ≈ 48 mm CLR. Xometry's tube-bending DFM page recommends a
+single CLR per part "for ease of manufacturability" — multi-CLR parts
+need either multi-stack tooling or an additional setup, which the
+quoter charges for (or refuses entirely).
+
+The current STEP uses **one** CLR (1.25" / 31.75 mm) for both bends,
+which is the largest legal value Xometry will accept for 1/4" OD
+(5:1 ratio cap). That oversells bend 1 (off by ~2.6×) and undersells
+bend 2 (off by ~1.5×). The silhouette drifts from the real faucet
+visibly, especially at the upper transition.
+
+**Status:** documented, not solved. Two paths forward if the silhouette
+mismatch turns out to matter:
+- Try a tube-bending shop that supports multiple CLRs per part natively
+  (most niche tube benders do; instant-quote services tend not to). This
+  generally means custom-quote workflows and longer lead times.
+- Accept the single-CLR approximation and adjust adjacent geometry
+  (mid-straight length, sweep angles) to recover apparent silhouette
+  fidelity even with a single CLR.
+
+**Tube-bending alternatives surveyed (2026-04-25):**
+- **OSH Cut** — instant-quote tube bending in-browser, similar UX to
+  SendCutSend. Supports steel and 304 SS only (no 316 listed in their
+  tube stock); OD range 0.75"–1.5" is also above our 0.25". Not viable
+  for this part as currently spec'd.
+- **Niche tube-bending shops** (Tube-Tec, Triad Products, Noble
+  Industries, Woolf Aircraft) — handle multi-CLR parts routinely but
+  use email/RFQ workflows, not instant quoting.
+
 ## Xometry quotes (2026-04-25)
 
 Submitted as: **316 SS**, 1/4" OD × 0.049" wall, MIL Flat Black powder
