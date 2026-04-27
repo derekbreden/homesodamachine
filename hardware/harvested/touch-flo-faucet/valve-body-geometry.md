@@ -36,9 +36,12 @@ Regenerate: `tools/cad-venv/bin/python hardware/harvested/touch-flo-faucet/valve
 | Height of cylindrical base section | 13.0 mm | 0.512" | Photo 4 | Measured |
 | Base cylinder OD = rectangle long dimension | 31.50 mm | 1.240" | Photo 5 | Measured |
 | Rectangle short dimension | 17.0 mm | 0.669" | Photo 6 | Measured |
-| Water port: edge to port wall | 2.0 mm | 0.079" | Photo 7 | Measured |
+| Water port: gap from port wall to arch inner face | ~2.125 mm | ~0.084" | Derived; ≈ 2 mm per Photo 7 | Derived |
 | Water port diameter | 9.75 mm | 0.384" | Photo 8 | Measured |
-| Water port center to body edge | 6.875 mm | 0.271" | Derived (2 + 9.75/2) | Exact |
+| Water port center (X) | 0.0 mm | 0" | Centered in 31.50 mm long axis | Exact |
+| Water port center (Y) | 0.0 mm | 0" | Centered in 14.0 mm plateau | Exact |
+| Arch width (each) | 1.5 mm | 0.059" | Confirmed | Measured |
+| Plateau width (between arch inner faces) | 14.0 mm | 0.551" | Derived (17 − 2 × 1.5) | Exact |
 | Arc height (arc base to arc peak) | 5.0 mm | 0.197" | Derived (46 − 41) | Exact |
 | Plateau below arc base | 2.0 mm | 0.079" | Derived (41 − 39) | Exact |
 | Rectangular upper body height | 26.0 mm | 1.024" | Derived (39 − 13) | Exact |
@@ -77,13 +80,13 @@ The arrangement viewed from above: two rounded humps side by side across the rec
 ### 3.3 Water Port
 
 - **Single water port only.** There is no second fluid port.
-- Location: top face of the rectangular body
+- Location: top face of the rectangular body, centered in the plateau between the two arches
 - Port diameter: **9.75 mm**
-- Distance from port wall to the **long side** (31.50 mm face) of the rectangle: **2 mm**
-- Port center distance from that long edge: **6.875 mm** (= 2 + 9.75/2)
-- Port position along the **short axis** (17 mm): **centered** (8.5 mm from each short edge)
+- Port center in long axis (X): **0 mm** — centered in the 31.50 mm long dimension
+- Port center in short axis (Y): **0 mm** — centered in the 14.0 mm plateau (between arch inner faces)
+- Gap from port wall to each arch inner face: **(14.0 − 9.75) / 2 = 2.125 mm** ≈ 2 mm (Photo 7)
 - Port fitting: brass
-- The port is covered by one of the two arc features at the top
+- The port is in the open plateau zone between the two arches; the tube exits straight upward
 
 ### 3.4 Actuator Plunger (Not a Port)
 
