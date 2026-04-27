@@ -1,3 +1,4 @@
+import math
 from pathlib import Path
 import cadquery as cq
 
@@ -283,8 +284,14 @@ def cut_slit_and_build_plug_for_copper_inlet(foam_bag_shell, which = 0):
     cup_slice = solids_by_z[0]
     outer_slice = solids_by_z[-1]
 
-    cup_inner_face = sorted(cup_slice.Faces(), key=lambda f: f.Center().z)[0]
-    outer_outer_face = sorted(outer_slice.Faces(), key=lambda f: f.Center().z)[-1]
+    # The cup slice has exactly two cylindrical faces: the cup's inner curved surface (radius 69.5 from the world Y axis)
+    # and the outer curved surface (radius 70.5). Pick the inner one — that's where the plug terminates on the cup side.
+    cup_cylinders = [f for f in cup_slice.Faces() if f.geomType() == "CYLINDER"]
+    cup_inner_face = min(cup_cylinders, key=lambda f: math.hypot(f.Center().x, f.Center().z))
+
+    # The outer-shell slice has six planar faces (the wall is a flat slab); pick the one whose center has the largest |Z|.
+    # That's the outer-shell outermost face — where the plug terminates on the outer side.
+    outer_outer_face = max(outer_slice.Faces(), key=lambda f: abs(f.Center().z))
 
     plug_solid = cq.Solid.makeLoft([cup_inner_face.outerWire(), outer_outer_face.outerWire()])
     plug = cq.Workplane().add(plug_solid).cut(copper_hole)
