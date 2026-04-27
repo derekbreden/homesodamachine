@@ -59,18 +59,7 @@ bag_pocket_depth = 35
 # Outer shell
 # -------------------------------------------------------
 #
-outer_shell_foam_gap = 8.0
-#
-# -------------------------------------------------------
-
-
-# -------------------------------------------------------
-# Leaf-spring leg slits
-# -------------------------------------------------------
-#
-leaf_spring_height = 100.0
-leaf_spring_width = 50.0
-leaf_spring_slit_y_extent = 1.0
+outer_shell_foam_gap = 16.0
 #
 # -------------------------------------------------------
 
@@ -219,21 +208,6 @@ def cut_hole_for_water_outlet(foam_bag_shell):
     hole_punch = build_a_hole_punch(origin=(hole_x_offset, hole_y_offset, hole_z_offset))
     return foam_bag_shell.cut(hole_punch)
 
-def cut_leaf_spring_leg_slits(foam_bag_shell):
-    cold_zone_center_y = below_tank_elbows_height + tank_height / 2
-    for side in (1, -1):
-        for top_or_bottom in (1, -1):
-            slit_x_offset = tank_copper_shell_radius * side
-            slit_y_offset = cold_zone_center_y + (leaf_spring_height / 2) * top_or_bottom
-            slit_z_offset = 0
-            slit = (
-                cq.Workplane(xy_plane_z_up)
-                .workplane(origin=(slit_x_offset, slit_y_offset, slit_z_offset), offset=slit_z_offset)
-                .box(bag_pocket_depth, leaf_spring_slit_y_extent, leaf_spring_width)
-            )
-            foam_bag_shell = foam_bag_shell.cut(slit)
-    return foam_bag_shell
-
 def cut_slit_and_build_plug_for_copper_inlet(foam_bag_shell, which = 0):
     hole_z_offset = 20
     hole_x_offset = -30
@@ -302,9 +276,6 @@ def main():
     # Cut slits + extract their plugs
     foam_bag_shell, copper_inlet_plug = cut_slit_and_build_plug_for_copper_inlet(foam_bag_shell)
     foam_bag_shell, copper_outlet_plug = cut_slit_and_build_plug_for_copper_inlet(foam_bag_shell, which=1)
-
-    # Cut leaf-spring leg slits (under consideration still)
-    # foam_bag_shell = cut_leaf_spring_leg_slits(foam_bag_shell)
 
     # Build the foam cap (separate part, printed twice for top and bottom)
     foam_cap = build_foam_cap()
