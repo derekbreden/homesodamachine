@@ -146,6 +146,11 @@ Dishing dies (PA6-CF) for end-cap forming are vessel-fabrication tools, not ship
 | [Female Spade Crimp Terminals (60-pack)](https://www.amazon.com/dp/B0B9MZJ2ML) | B0B9MZJ2ML — ~30 terminals per unit (12 solenoids × 2 leads + relay + flow sensor + misc); 30/60 = 1/2 pack | 30 (of 60 pk) | $5.36 | $5.36 |
 | [Male Quick-Disconnect Spade (100-pack)](https://www.amazon.com/dp/B01MZZGAJP) | B01MZZGAJP — ~30 male spades per unit (harness side, paired with female terminals); 30/100 | 30 (of 100 pk) | $1.93 | $1.93 |
 | [Zip Ties (200-pack)](https://www.amazon.com/dp/B0BC1VH4XB) | B0BC1VH4XB — ~15 zip ties per unit (cable management); 15/200 | 15 (of 200 pk) | $0.30 | $0.30 |
+| [CQRobot JST XH 2.54 mm 4-pin connector kit (50 sets)](https://www.amazon.com/dp/B0B2RB524Y) | B0B2RB524Y — male PCB headers + female housings + loose female crimp terminals; 4-pin used for I2C and UART hops between modules (ESP32↔MCP23017, ESP32↔ESP32-S3 UART, ESP32↔RP2040 UART); ~3 connectors per unit; $8.45/50 × 3 | 3 (of 50 pk) | $0.17 | $0.51 |
+| [CQRobot JST XH 2.54 mm 6-pin connector kit (50 sets)](https://www.amazon.com/dp/B0B2R8Q1JL) | B0B2R8Q1JL — 6-pin used for the DS3231 RTC (VCC/GND/SDA/SCL/SQW/32K) or any 6-conductor module hop; ~1 connector per unit; $9.19/50 × 1 | 1 (of 50 pk) | $0.18 | $0.18 |
+| [CQRobot JST XH 2.54 mm 9-pin connector kit (30 sets)](https://www.amazon.com/dp/B0B2R73RQB) | B0B2R73RQB — 9-pin used for the ULN2803A module sides (8 channels + COM/GND) and MCP23017 Port A/B rows; ~6 connectors per unit (2 ULNs × 2 sides + 2 MCP ports); $9.19/30 × 6 | 6 (of 30 pk) | $0.31 | $1.84 |
+| [CQRobot JST XH 2.54 mm pre-crimped bonded ribbon kit, 15 cm × 12 conductors × 8 ribbons + assorted housings](https://www.amazon.com/dp/B0F6C7X5CR) | B0F6C7X5CR — short-hop bonded ribbon for module-to-module connections (≤6"): factory pre-crimped female XH terminals on both ends, user inserts pre-crimped pins into housings of choice; ~2 ribbons per unit (e.g., one 9-conductor MCP↔ULN, one 4-conductor I2C/UART trunk); $15.86/8 × 2 | 2 (of 8 pk) | $1.98 | $3.97 |
+| [Keszoox JST XH 2.54 mm pre-crimped wires, 50 cm × 22 AWG silicone (20 wires/pk, 10 colors)](https://www.amazon.com/dp/B0F8HMQRRN) | B0F8HMQRRN — medium-length pre-crimped female XH pigtails for cable runs that span the cabinet (ULN→solenoid fan-outs, sensor pigtails); ~1 pack per unit covers ~12 valve fan-outs + spares; $11.63/pack | 1 pk (of 20 wires) | $11.63 | $11.63 |
 
 ## 12. Carbonator level sensing (external reed + internal float on welded SS rod)
 
@@ -169,9 +174,9 @@ Dishing dies (PA6-CF) for end-cap forming are vessel-fabrication tools, not ship
 | 8. Flavor subsystem | $318.30 |
 | 9. Dispensing | $49.34 |
 | 10. UI | $39.95 |
-| 11. Wiring | $8.92 |
+| 11. Wiring | $27.05 |
 | 12. Level sensing | $19.07 |
-| **Total** | **$1,311.83** |
+| **Total** | **$1,329.96** |
 
 ## External / user-supplied (not shipped)
 
