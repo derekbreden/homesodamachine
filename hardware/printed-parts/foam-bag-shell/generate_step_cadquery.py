@@ -203,7 +203,20 @@ def cut_slit_and_build_plug_for_copper_inlet(foam_bag_shell, which = 0):
     )
     copper_hole = build_a_hole_punch(**hole_args)
 
-    plug = foam_bag_shell.intersect(slit_punch).cut(copper_hole)
+    intersection_pieces = foam_bag_shell.intersect(slit_punch)
+    combined = cq.Compound.makeCompound(intersection_pieces.solids().vals())
+    bb = combined.BoundingBox()
+    clip_box = (
+        cq.Workplane()
+        .box(bb.xmax - bb.xmin, bb.ymax - bb.ymin, bb.zmax - bb.zmin)
+        .translate((
+            (bb.xmin + bb.xmax) / 2,
+            (bb.ymin + bb.ymax) / 2,
+            (bb.zmin + bb.zmax) / 2,
+        ))
+    )
+    plug = slit_punch.intersect(clip_box).cut(copper_hole)
+
     return foam_bag_shell.cut(slit_punch), plug
 
 # ═══════════════════════════════════════════════════════
