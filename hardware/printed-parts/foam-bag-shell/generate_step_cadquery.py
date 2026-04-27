@@ -155,23 +155,27 @@ def cut_hole_for_water_outlet(foam_bag_shell):
     hole_punch = build_a_hole_punch(origin=(hole_x_offset, hole_y_offset, hole_z_offset))
     return foam_bag_shell.cut(hole_punch)
 
-def cut_slit_for_copper_inlet(foam_bag_shell):
+def cut_slit_and_build_plug_for_copper_inlet(foam_bag_shell):
     hole_z_offset = 20
     hole_x_offset = -30
     hole_y_offset = hole_shift_from_edge + wall_and_floor_thickness + below_tank_elbows_height
     slit_above = tank_copper_shell_height
 
+    hole_args = dict(
+        origin=(hole_x_offset, hole_y_offset, hole_z_offset),
+        hole_punch_height=tank_copper_shell_radius,
+    )
+
     slit_punch = (
-        build_a_hole_punch(
-            origin=(hole_x_offset, hole_y_offset, hole_z_offset),
-            hole_punch_height=tank_copper_shell_radius,
-        )
+        build_a_hole_punch(**hole_args)
         .moveTo(0, slit_above / 2)
         .rect(8, slit_above)
         .extrude(tank_copper_shell_radius)
     )
+    copper_hole = build_a_hole_punch(**hole_args)
 
-    return foam_bag_shell.cut(slit_punch)
+    plug = foam_bag_shell.intersect(slit_punch).cut(copper_hole)
+    return foam_bag_shell.cut(slit_punch), plug
 
 # ═══════════════════════════════════════════════════════
 # BUILD AND EXPORT
@@ -198,13 +202,14 @@ def main():
     foam_bag_shell = cut_hole_for_water_inlet(foam_bag_shell)
     foam_bag_shell = cut_hole_for_water_outlet(foam_bag_shell)
 
-    # Cut slits
-    foam_bag_shell = cut_slit_for_copper_inlet(foam_bag_shell)
+    # Cut slits + extract their plugs
+    foam_bag_shell, copper_inlet_plug = cut_slit_and_build_plug_for_copper_inlet(foam_bag_shell)
 
-
-    out = Path(__file__).resolve().parent / "foam-bag-shell.step"
-    cq.exporters.export(foam_bag_shell, str(out))
-    print(f"-> {out.name}")
+    here = Path(__file__).resolve().parent
+    cq.exporters.export(foam_bag_shell, str(here / "foam-bag-shell.step"))
+    cq.exporters.export(copper_inlet_plug, str(here / "copper-inlet-plug.step"))
+    print(f"-> foam-bag-shell.step")
+    print(f"-> copper-inlet-plug.step")
 
 
 if __name__ == "__main__":
