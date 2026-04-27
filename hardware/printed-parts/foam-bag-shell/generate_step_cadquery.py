@@ -85,6 +85,21 @@ foam_cap_lid_hole_inset = 30.0
 # -------------------------------------------------------
 
 
+# -------------------------------------------------------
+# Cap-to-outer-shell pin joinery
+# -------------------------------------------------------
+# Pins on cap top (one face); holes drilled into outer-shell corners (top + bottom faces).
+# Same cap printed twice — used as bottom (pins up into outer shell) and top (flipped, pins down into outer shell).
+# Lid has corner clearance holes so the cap pin can pass freely through into the outer shell.
+#
+pin_radius = 2.0
+pin_height = 4.0
+pin_boss_size = 8.0
+lid_pin_clearance_radius = 2.5
+#
+# -------------------------------------------------------
+
+
 def build_tank_copper_shell():
     
     return (
@@ -167,25 +182,64 @@ def build_outer_shell():
     bag_pocket_outermost_x = tank_copper_shell_radius + bag_pocket_depth - wall_and_floor_thickness
     outer_shell_x_length = 2 * (bag_pocket_outermost_x + outer_shell_foam_gap + wall_and_floor_thickness)
     outer_shell_z_length = 2 * (tank_copper_shell_radius + outer_shell_foam_gap + wall_and_floor_thickness)
-    return (
+    shell = (
         cq.Workplane(xz_plane_y_up)
         .rect(outer_shell_x_length, outer_shell_z_length)
         .extrude(tank_copper_shell_height)
         .faces(">Y")
         .shell(-wall_and_floor_thickness)
     )
+    for x_sign in (1, -1):
+        for z_sign in (1, -1):
+            boss_x = x_sign * (outer_shell_x_length / 2 - pin_boss_size / 2)
+            boss_z = z_sign * (outer_shell_z_length / 2 - pin_boss_size / 2)
+            boss = (
+                cq.Workplane(xz_plane_y_up)
+                .workplane(origin=(boss_x, 0, boss_z), offset=0)
+                .rect(pin_boss_size, pin_boss_size)
+                .extrude(tank_copper_shell_height)
+            )
+            shell = shell.union(boss)
+            for hole_y in (0, tank_copper_shell_height - pin_height):
+                hole = (
+                    cq.Workplane(xz_plane_y_up)
+                    .workplane(origin=(boss_x, hole_y, boss_z), offset=hole_y)
+                    .circle(pin_radius)
+                    .extrude(pin_height)
+                )
+                shell = shell.cut(hole)
+    return shell
 
 def build_foam_cap():
     bag_pocket_outermost_x = tank_copper_shell_radius + bag_pocket_depth - wall_and_floor_thickness
     foam_cap_x_length = 2 * (bag_pocket_outermost_x + outer_shell_foam_gap + wall_and_floor_thickness)
     foam_cap_z_length = 2 * (tank_copper_shell_radius + outer_shell_foam_gap + wall_and_floor_thickness)
-    return (
+    cap = (
         cq.Workplane(xz_plane_y_up)
         .rect(foam_cap_x_length, foam_cap_z_length)
         .extrude(foam_cap_height)
         .faces(">Y")
         .shell(-wall_and_floor_thickness)
     )
+    for x_sign in (1, -1):
+        for z_sign in (1, -1):
+            boss_x = x_sign * (foam_cap_x_length / 2 - pin_boss_size / 2)
+            boss_z = z_sign * (foam_cap_z_length / 2 - pin_boss_size / 2)
+            boss = (
+                cq.Workplane(xz_plane_y_up)
+                .workplane(origin=(boss_x, 0, boss_z), offset=0)
+                .rect(pin_boss_size, pin_boss_size)
+                .extrude(foam_cap_height)
+            )
+            cap = cap.union(boss)
+            pin = (
+                cq.Workplane(xz_plane_y_up)
+                .workplane(origin=(boss_x, foam_cap_height, boss_z), offset=foam_cap_height)
+                .circle(pin_radius)
+                .extrude(pin_height)
+            )
+            cap = cap.union(pin)
+    return cap
 
 def build_foam_cap_lid():
     bag_pocket_outermost_x = tank_copper_shell_radius + bag_pocket_depth - wall_and_floor_thickness
@@ -221,7 +275,21 @@ def build_foam_cap_lid():
         .extrude(wall_and_floor_thickness * 3)
     )
 
-    return lid.cut(pour_hole).cut(vent_hole_a).cut(vent_hole_b)
+    lid = lid.cut(pour_hole).cut(vent_hole_a).cut(vent_hole_b)
+
+    for x_sign in (1, -1):
+        for z_sign in (1, -1):
+            boss_x = x_sign * (foam_cap_x_length / 2 - pin_boss_size / 2)
+            boss_z = z_sign * (foam_cap_z_length / 2 - pin_boss_size / 2)
+            clearance = (
+                cq.Workplane(xz_plane_y_up)
+                .workplane(origin=(boss_x, 0, boss_z), offset=0)
+                .circle(lid_pin_clearance_radius)
+                .extrude(wall_and_floor_thickness * 3)
+            )
+            lid = lid.cut(clearance)
+
+    return lid
 
 def build_a_hole_punch(
     origin=(0, 0, 0),
