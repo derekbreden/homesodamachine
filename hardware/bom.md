@@ -2,7 +2,7 @@
 
 Per-unit parts for a single finished appliance built on the **custom-vessel** path specified in [future.md](future.md). Carbonator vessel current plan A: vertical 5" OD × 0.065" wall 316 welded SS round tube (OnlineMetals #12498, MTRs required) capped with 1/4"-thick laser-cut 316 SS circular plates from SendCutSend (`endcap-circular-2hole.dxf`), joined with the XLaserlab X1 Pro handheld laser welder. 1/4" NPT is direct-tapped into the plates (no weld-in bungs). Plan B (racetrack press-formed body in 304 SS + dished racetrack 304 end caps) retained as fallback inventory. Compressor is harvested from a countertop ice-maker; cold core is 3D-printed shells with pour-in-place foam; flavor reservoirs are two 1 L Platypus bladders inside the cold core.
 
-Tools, fabrication equipment (welder, slip roll, shop press, dishing dies), and duplicate SKUs live in [purchases.md](purchases.md). Per-build consumables — anything used up making one unit, regardless of whether it ships in the product (mixing cups, gloves, citric acid, PTFE tape, cutting fluid, etc.) — live in this file with the rest of the per-unit parts.
+Tools, fabrication equipment (welder, slip roll, shop press, dishing dies), and duplicate SKUs live in [purchases.md](purchases.md) only. Per-build consumables — anything used up making one unit, regardless of whether it ships in the product (mixing cups, gloves, citric acid, PTFE tape, cutting fluid, etc.) — live in this file with the rest of the per-unit parts.
 
 First-pass draft. **Pricing convention: delivered cost** (product + shipping + tax) drawn from resolved order history in [purchases.md](purchases.md) wherever the SKU has been ordered or acquired; list price for forward-plan SKUs not yet purchased. Pack-amortized lines show the math in the description (e.g., `$31.08/2`). Expect revisions.
 
@@ -38,6 +38,7 @@ Plan A is the current path. Plan B (racetrack body half-sheets + dished racetrac
 | [Control Devices SV-100 safety valve, 1/4" NPT, 100 psi set pressure](https://www.amazon.com/dp/B0D361X97X) | B0D361X97X — Port 4 tank PRV (top plate, dedicated) | 1 | $16.06 | $16.06 |
 | [Cambro 6 QT polycarbonate square container](https://www.amazon.com/dp/B001BZEQ44) | B001BZEQ44 — citric acid passivation soak tub, one-time-use per unit | 1 | $20.00 | $20.00 |
 | [Viva Doria food-grade citric acid, 2 lb bag](https://www.amazon.com/dp/B0C5NQM8S1) | B0C5NQM8S1 — passivation: ~1 qt of 4% solution per tank; 1/20 of $9.99 bag | 1 | $0.50 | $0.50 |
+| [STARTECHWELD ER316L .030 MIG wire, 10-lb spool](https://www.amazon.com/dp/B09BKFBXT9) | B09BKFBXT9 — filler wire for the plate-to-tube and float-rod-to-plate laser welds; **316L (not 308L)** preserves Mo content across the weld zone to match the 316 base metal — undermatching with 308L would leave the weld less corrosion-resistant than the parent; ~12 g of wire per ~32" of weld per vessel × ~378 builds per 10-lb spool; $129.50/378 | 1 (of 378) | $0.34 | $0.34 |
 
 ## 3. Water inlet (tap → backflow → pump → top-plate port)
 
@@ -75,6 +76,9 @@ Plan A is the current path. Plan B (racetrack body half-sheets + dished racetrac
 | [MXR IEC 60320 C14 panel-mount AC inlet, 10 A / 250 VAC (10-pk)](https://www.amazon.com/dp/B07DCXKNXQ) | B07DCXKNXQ — rear-panel mains inlet; accepts standard NEMA 5-15P-to-C13 line cord; 1 of 10 per unit ($6.96/10) | 1 (of 10 pk) | $0.70 | $0.70 |
 | [Monoprice NEMA 5-15P → IEC C13 line cord, 18 AWG, 6 ft, UL-listed (6-pk)](https://www.amazon.com/dp/B08VS8D4WC) | B08VS8D4WC — ships in the box so the customer can plug the appliance into a standard US wall outlet; 1 of 6 per unit ($24.00/6) | 1 (of 6 pk) | $4.00 | $4.00 |
 | [Enviro-Safe R-600a 3-pack + brass charging gauge](https://www.amazon.com/dp/B0CGG1WH1N) | B0CGG1WH1N — pure R-600a (not blend or n-butane); refills the sealed loop after venting factory charge; ~40 g per system × ~12 recharges per 3-can bundle; 1/12 of $72.92 delivered; brass gauge stays with tools (see purchases.md) | 1 | $6.08 | $6.08 |
+| [Supco BPV31 bullet-piercing valve](https://www.amazon.com/dp/B00DM8J3MI) | B00DM8J3MI — taps the compressor process tube to vent the factory R-600a charge before brazing in the replacement drier; left clamped on the cut stub after teardown; single-use per build | 1 | $7.37 | $7.37 |
+| [BCuP-5 15% Ag silver brazing alloy, 1/16" × 1 troy oz rod](https://www.amazon.com/dp/B0DQ3ZMHK7) | B0DQ3ZMHK7 — phosphorus-bearing self-fluxing filler for copper-to-copper refrigeration joints (compressor → drier inlet, drier outlet → cap tube, evaporator coil → suction line); ~10 g per build × ~3 builds per 31 g rod; $18.99/3 | 1 (of 3) | $6.33 | $6.33 |
+| [3M Scotch-Brite Maroon General Purpose Hand Pads, 6" × 9" (1-pack of 20)](https://www.amazon.com/dp/B07CGPCTHT) | B07CGPCTHT — abrasive pads cut into strips to clean 1/4" ACR copper OD + fitting sockets before flux + braze on the 2–3 refrigeration-loop joints; 2 of 20 per build ($28.85/20 × 2) | 2 (of 20 pk) | $1.44 | $2.89 |
 
 Fallback path (UL/ETL-retail-friendly): RIGID DV1910E sealed refrigeration module (~$600 + 20–30% import duty). Not selected for this BOM.
 
@@ -156,10 +160,10 @@ Dishing dies (PA6-CF) for end-cap forming are vessel-fabrication tools, not ship
 | Section | $ |
 |---|---:|
 | 1. Controllers + electronics | $166.43 |
-| 2. Carbonator vessel (plan A, 316L) | $203.34 |
+| 2. Carbonator vessel (plan A, 316L) | $203.68 |
 | 3. Water inlet | $130.88 |
 | 4. CO2 subsystem | $58.13 |
-| 5. Refrigeration | $147.12 |
+| 5. Refrigeration | $163.71 |
 | 6. Cold core insulation | $49.48 |
 | 7. Printed parts (PETG) | $103.94 |
 | 8. Flavor subsystem | $318.30 |
@@ -167,7 +171,7 @@ Dishing dies (PA6-CF) for end-cap forming are vessel-fabrication tools, not ship
 | 10. UI | $39.95 |
 | 11. Wiring | $8.92 |
 | 12. Level sensing | $19.07 |
-| **Total** | **$1,294.90** |
+| **Total** | **$1,311.83** |
 
 ## External / user-supplied (not shipped)
 
