@@ -64,6 +64,26 @@ outer_shell_foam_gap = 8.0
 # -------------------------------------------------------
 
 
+# -------------------------------------------------------
+# Leaf-spring leg slits
+# -------------------------------------------------------
+#
+leaf_spring_height = 100.0
+leaf_spring_width = 50.0
+leaf_spring_slit_y_extent = 1.0
+#
+# -------------------------------------------------------
+
+
+# -------------------------------------------------------
+# Foam cap (top/bottom 8 mm foam pour tray, printed twice)
+# -------------------------------------------------------
+#
+foam_cap_height = 8.0
+#
+# -------------------------------------------------------
+
+
 def build_tank_copper_shell():
     
     return (
@@ -154,6 +174,18 @@ def build_outer_shell():
         .shell(-wall_and_floor_thickness)
     )
 
+def build_foam_cap():
+    bag_pocket_outermost_x = tank_copper_shell_radius + bag_pocket_depth - wall_and_floor_thickness
+    foam_cap_x_length = 2 * (bag_pocket_outermost_x + outer_shell_foam_gap + wall_and_floor_thickness)
+    foam_cap_z_length = 2 * (tank_copper_shell_radius + outer_shell_foam_gap + wall_and_floor_thickness)
+    return (
+        cq.Workplane(xz_plane_y_up)
+        .rect(foam_cap_x_length, foam_cap_z_length)
+        .extrude(foam_cap_height)
+        .faces(">Y")
+        .shell(-wall_and_floor_thickness)
+    )
+
 def build_a_hole_punch(
     origin=(0, 0, 0),
     hole_punch_radius=3.25,
@@ -186,6 +218,21 @@ def cut_hole_for_water_outlet(foam_bag_shell):
     hole_y_offset = hole_shift_from_edge + wall_and_floor_thickness
     hole_punch = build_a_hole_punch(origin=(hole_x_offset, hole_y_offset, hole_z_offset))
     return foam_bag_shell.cut(hole_punch)
+
+def cut_leaf_spring_leg_slits(foam_bag_shell):
+    cold_zone_center_y = below_tank_elbows_height + tank_height / 2
+    for side in (1, -1):
+        for top_or_bottom in (1, -1):
+            slit_x_offset = tank_copper_shell_radius * side
+            slit_y_offset = cold_zone_center_y + (leaf_spring_height / 2) * top_or_bottom
+            slit_z_offset = 0
+            slit = (
+                cq.Workplane(xy_plane_z_up)
+                .workplane(origin=(slit_x_offset, slit_y_offset, slit_z_offset), offset=slit_z_offset)
+                .box(bag_pocket_depth, leaf_spring_slit_y_extent, leaf_spring_width)
+            )
+            foam_bag_shell = foam_bag_shell.cut(slit)
+    return foam_bag_shell
 
 def cut_slit_and_build_plug_for_copper_inlet(foam_bag_shell, which = 0):
     hole_z_offset = 20
@@ -256,12 +303,21 @@ def main():
     foam_bag_shell, copper_inlet_plug = cut_slit_and_build_plug_for_copper_inlet(foam_bag_shell)
     foam_bag_shell, copper_outlet_plug = cut_slit_and_build_plug_for_copper_inlet(foam_bag_shell, which=1)
 
+    # Cut leaf-spring leg slits
+    foam_bag_shell = cut_leaf_spring_leg_slits(foam_bag_shell)
+
+    # Build the foam cap (separate part, printed twice for top and bottom)
+    foam_cap = build_foam_cap()
+
     here = Path(__file__).resolve().parent
     cq.exporters.export(foam_bag_shell, str(here / "foam-bag-shell.step"))
     cq.exporters.export(copper_inlet_plug, str(here / "copper-inlet-plug.step"))
     cq.exporters.export(copper_outlet_plug, str(here / "copper-outlet-plug.step"))
+    cq.exporters.export(foam_cap, str(here / "foam-cap.step"))
     print(f"-> foam-bag-shell.step")
     print(f"-> copper-inlet-plug.step")
+    print(f"-> copper-outlet-plug.step")
+    print(f"-> foam-cap.step")
 
 
 if __name__ == "__main__":
