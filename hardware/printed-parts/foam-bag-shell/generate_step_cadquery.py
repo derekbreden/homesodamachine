@@ -93,9 +93,10 @@ foam_cap_lid_hole_inset = 30.0
 # Lid has corner clearance holes so the cap pin can pass freely through into the outer shell.
 #
 pin_radius = 2.0
-pin_height = 4.0
+pin_height = 5.0
+pin_hole_depth = pin_height + 1.0
 pin_boss_size = 8.0
-lid_pin_clearance_radius = 2.5
+lid_pin_clearance_radius = pin_radius
 #
 # -------------------------------------------------------
 
@@ -200,12 +201,12 @@ def build_outer_shell():
                 .extrude(tank_copper_shell_height)
             )
             shell = shell.union(boss)
-            for hole_y in (0, tank_copper_shell_height - pin_height):
+            for hole_y in (0, tank_copper_shell_height - pin_hole_depth):
                 hole = (
                     cq.Workplane(xz_plane_y_up)
                     .workplane(origin=(boss_x, hole_y, boss_z), offset=hole_y)
                     .circle(pin_radius)
-                    .extrude(pin_height)
+                    .extrude(pin_hole_depth)
                 )
                 shell = shell.cut(hole)
     return shell
