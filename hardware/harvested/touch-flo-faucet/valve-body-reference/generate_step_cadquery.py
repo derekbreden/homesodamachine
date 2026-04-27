@@ -28,10 +28,10 @@ from pathlib import Path
 #
 # X = long axis   — 31.50 mm (cylinder diameter = rectangle long dim)
 # Y = short axis  — 17.00 mm (rectangle thin dim)
-# +Y = rear       — the long face near the water port arch
+# +Y = rear       — the arch near the water port side
 # -Y = front      — the user/lever side (plunger arch)
 #
-# Body is centered at XY origin.
+# Body is centered at the XY origin.
 #
 # -------------------------------------------------------
 
@@ -59,13 +59,14 @@ cylinder_height = 13.0          # mm — height at which round → rectangular (
 # Short dim (Y) = 17.0 mm (Photo 6).
 #
 # The transition at Z = cylinder_height has a concave rounded
-# curve on the two short (Y-facing) faces. Measured R = 4–6 mm;
+# curve on the two Y-facing short faces. Measured R = 4–6 mm;
 # 5.0 mm used as midpoint estimate. This first-pass model treats
 # it as a sharp step. The fillet is a TODO for the next iteration.
 #
 rect_long             = body_od     # mm — 31.50 mm (X, same as cylinder OD)
 rect_short            = 17.0        # mm — 17.00 mm (Y, Photo 6)
 rect_short_half       = rect_short / 2  # mm — 8.50 mm (half-width to long face)
+rect_long_half        = rect_long / 2   # mm — 15.75 mm (half-length to short face)
 plateau_z             = 39.0        # mm — top of rectangular body, plateau level (Photo 3)
 transition_fillet_r   = 5.0         # mm — TODO: concave R = 4–6 mm (Photo 4 context)
 #
@@ -76,31 +77,27 @@ transition_fillet_r   = 5.0         # mm — TODO: concave R = 4–6 mm (Photo 4
 # Zone 3 — Arch features  (Z = plateau_z → arc_peak_z)
 # -------------------------------------------------------
 #
-# Two narrow arch/rail features sit at the outer ±Y edges of the
-# rectangular top face. Each is 1.5 mm wide in Y and spans the full
-# X length (31.50 mm).
+# Two arch rails sit at the outer ±Y edges of the rectangular top face.
+# Each is 1.5 mm wide in Y and spans the full X length (31.50 mm).
 #
-#   Port arch    — rear (+Y side), at Y = +7.75 mm center
-#   Plunger arch — front (-Y side), at Y = −7.75 mm center
+# ARCH ORIENTATION — arch profile is in the ZX plane.
+# When viewed from the Y axis (looking along Y), you see the arch shape:
+#   - At X = ±15.75 mm (short ends):  Z rises to arc_base_z = 41 mm
+#   - At X = 0 (center):              Z peaks at arc_peak_z = 46 mm
+#   - Below arc_base_z, each arch has a 2 mm rectangular foot
+#     (from plateau_z = 39 mm to arc_base_z = 41 mm)
 #
-# Between them is the plateau/lever zone, 14 mm wide in Y
-# (= 17 mm − 2 × 1.5 mm).  The shell must be fully open across
-# the entire plateau zone so the stock lever fits and actuates.
+#   Port arch    — rear (+Y side), center at Y = +7.75 mm
+#   Plunger arch — front (-Y side), center at Y = −7.75 mm
 #
-# Heights (Photos 1–3):
-#   plateau_z  = 39 mm  — flat surface between arches
-#   arc_base_z = 41 mm  — where arches begin rising (2 mm above plateau)
-#   arc_peak_z = 46 mm  — arch peak (5 mm above arc base)
-#
-# Arch profile: the top long edges are filleted with radius = half the
-# arch width (0.75 mm), producing a semi-cylindrical crest along X.
+# The plateau between them is 14 mm wide in Y (= 17 − 2 × 1.5 mm).
+# The shell must be fully open across the plateau so the stock lever
+# can fit and actuate as designed.
 #
 arc_base_z            = 41.0                            # mm (Photo 2)
 arc_peak_z            = 46.0                            # mm (Photo 1)
-arc_rise              = arc_peak_z - arc_base_z         # mm — 5 mm
 #
-arch_block_width_y    = 1.5                             # mm — confirmed arch width
-arch_fillet_r         = arch_block_width_y / 2          # mm — 0.75 mm (semi-cylindrical crest)
+arch_block_width_y    = 1.5                             # mm — confirmed arch width in Y
 arch_port_center_y    = rect_short_half - arch_block_width_y / 2   # mm — +7.75 mm (rear)
 arch_plunger_center_y = -arch_port_center_y                         # mm — −7.75 mm (front)
 #
@@ -114,29 +111,26 @@ plateau_width_y       = rect_short - 2 * arch_block_width_y        # mm — 14.0
 # Water port
 # -------------------------------------------------------
 #
-# Single water port at the top face of the body.
-# The port is centered in BOTH axes within the plateau:
-#   X = 0  (centered in the 31.50 mm long axis)
-#   Y = 0  (centered in the 14.00 mm plateau width)
+# Single water port at the top face (plateau level, Z = plateau_z).
+# The tube exits straight upward from the port.
 #
-# This places the port wall 2.125 mm from each arch inner face
-# (= (14.00 − 9.75) / 2), consistent with the ~2 mm gap
-# measured in Photo 7.
+# Position in Y: centered in the plateau (Y = 0).
+# Position in X: 2 mm from one short face (X = +15.75 mm).
+#   Port wall at X = 15.75 − 2 = 13.75 mm from center.
+#   Port center at X = 15.75 − 2 − (9.75/2) = 8.875 mm from center.
 #
-# The tube exits straight upward through the rear portion of
-# the top opening (behind the lever, toward the +Y arch).
+# Note: the specific X end (+ or −) needs verification from the
+# physical part. Set to +X here; flip port_center_x sign if needed.
 #
-# The solid brass actuator plunger is the other top-face feature
-# (front, toward the −Y arch); no fluid passes through it.
+# Port-to-arch gap in Y: (plateau_width_y − port_diameter) / 2
+#   = (14.00 − 9.75) / 2 = 2.125 mm ≈ 2 mm (Photo 7)
 #
-port_diameter   = 9.75          # mm (Photo 8)
-port_radius     = port_diameter / 2  # mm — 4.875 mm
-port_center_x   = 0.0           # mm — centered in long axis
-port_center_y   = 0.0           # mm — centered in plateau (Y = 0)
-port_bore_depth = 20.0          # mm — approximate; exact depth not measured
-#
-# Port wall to arch inner face: (plateau_width_y − port_diameter) / 2
-#   = (14.00 − 9.75) / 2 = 2.125 mm  ≈ 2 mm (Photo 7)
+port_diameter   = 9.75                                  # mm (Photo 8)
+port_radius     = port_diameter / 2                     # mm — 4.875 mm
+port_edge_gap_x = 2.0                                   # mm — from short face (X=±15.75) to port wall
+port_center_x   = rect_long_half - port_edge_gap_x - port_radius   # mm — +8.875 mm
+port_center_y   = 0.0                                   # mm — centered in plateau
+port_bore_depth = 20.0                                  # mm — approximate; exact depth not measured
 #
 # -------------------------------------------------------
 
@@ -166,41 +160,47 @@ def build_rectangular_column():
 
 
 def build_arch(center_y):
-    """One arch rail, Z = plateau_z → arc_peak_z.
+    """One arch rail.
 
-    The arch is 1.5 mm wide in Y, spans the full rect_long in X.
-    Cross-section in YZ: a wedge — 1.5 mm wide at plateau_z,
-    tapering to a point (0.01 mm) at arc_peak_z. This is a
-    reasonable first-pass arch profile; refine if a specific
-    cross-section (semicircle, etc.) is needed later.
+    The arch is 1.5 mm wide in Y, positioned at center_y.
+    Its profile in the ZX plane (visible when looking along Y) is:
+      - A 2 mm rectangular foot from Z = plateau_z to Z = arc_base_z,
+        spanning the full X width (rect_long).
+      - An arch from Z = arc_base_z at X = ±rect_long_half rising to
+        Z = arc_peak_z at X = 0, then back down symmetrically.
 
-    The foot from plateau_z → arc_base_z remains full-width (1.5 mm)
-    because both loft profiles at those heights are essentially
-    the same width. The taper only becomes visible in the
-    arc_base_z → arc_peak_z zone.
+    Constructed by drawing the closed ZX profile on an XZ workplane
+    positioned at the arch's near Y face, then extruding arch_block_width_y
+    in the +Y direction.
 
     center_y: global Y center of this arch (±arch_port_center_y).
     """
+    y_start = center_y - arch_block_width_y / 2
+
     return (
-        cq.Workplane("XY")
-        .workplane(offset=plateau_z)
-        .center(0, center_y)
-        .rect(rect_long, arch_block_width_y)
-        .workplane(offset=arc_peak_z - plateau_z)
-        .rect(rect_long, 0.01)
-        .loft()
+        cq.Workplane("XZ")
+        .workplane(offset=y_start)
+        .moveTo(-rect_long_half, plateau_z)
+        .lineTo( rect_long_half, plateau_z)
+        .lineTo( rect_long_half, arc_base_z)
+        .threePointArc((0, arc_peak_z), (-rect_long_half, arc_base_z))
+        .close()
+        .extrude(arch_block_width_y)
     )
 
 
 def cut_water_port_bore(body):
-    """Bore the water port downward from arc_peak_z into the body.
+    """Bore the water port downward from the plateau surface.
 
-    Center: (port_center_x, port_center_y) = (0, 0) — plateau center.
+    The port is in the plateau zone (no arch above it at Y = 0),
+    so the bore starts at plateau_z and cuts downward.
+
+    Center: (port_center_x, port_center_y) = (+8.875, 0).
     Diameter: 9.75 mm.
     """
     bore = (
         cq.Workplane("XY")
-        .workplane(offset=arc_peak_z)
+        .workplane(offset=plateau_z)
         .center(port_center_x, port_center_y)
         .circle(port_radius)
         .extrude(-port_bore_depth)
@@ -232,12 +232,13 @@ def main():
     body = build_valve_body()
 
     bb = body.val().BoundingBox()
-    print(f"Envelope: X [{bb.xmin:.1f}, {bb.xmax:.1f}]  "
-          f"Y [{bb.ymin:.1f}, {bb.ymax:.1f}]  "
-          f"Z [{bb.zmin:.1f}, {bb.zmax:.1f}]")
-    print(f"  Arch width:    {arch_block_width_y} mm each  |  Plateau: {plateau_width_y} mm wide")
-    print(f"  Port center:   X={port_center_x}, Y={port_center_y}  |  Ø{port_diameter} mm")
-    print(f"  Port-to-arch gap: {(plateau_width_y - port_diameter) / 2:.3f} mm each side")
+    print(f"Envelope: X [{bb.xmin:.2f}, {bb.xmax:.2f}]  "
+          f"Y [{bb.ymin:.2f}, {bb.ymax:.2f}]  "
+          f"Z [{bb.zmin:.2f}, {bb.zmax:.2f}]")
+    print(f"  Arch width:       {arch_block_width_y} mm each  |  Plateau: {plateau_width_y} mm wide in Y")
+    print(f"  Port center:      X={port_center_x:.3f} mm, Y={port_center_y:.1f} mm  |  Ø{port_diameter} mm")
+    print(f"  Port to X face:   {rect_long_half - port_center_x - port_radius:.3f} mm (should be {port_edge_gap_x} mm)")
+    print(f"  Port to arch (Y): {(plateau_width_y - port_diameter) / 2:.3f} mm each side")
 
     here = Path(__file__).resolve().parent
     out  = here / "touch-flo-valve-body-reference.step"
