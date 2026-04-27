@@ -45,6 +45,25 @@ tank_support_wedge_height = 30.0
 # -------------------------------------------------------
 
 
+# -------------------------------------------------------
+# Bag pocket
+# -------------------------------------------------------
+#
+bag_pocket_width = 125
+bag_pocket_depth = 35
+#
+# -------------------------------------------------------
+
+
+# -------------------------------------------------------
+# Outer shell
+# -------------------------------------------------------
+#
+outer_shell_foam_gap = 8.0
+#
+# -------------------------------------------------------
+
+
 def build_tank_copper_shell():
     
     return (
@@ -96,8 +115,6 @@ def build_tank_support_wedge():
     return filled_cylinder.cut(cut_object)
 
 def build_a_bag_pocket_shell(side=1):
-    bag_pocket_width = 125
-    bag_pocket_depth = 35
     bag_pocket_height = tank_copper_shell_height
 
     # Bag pocket offset
@@ -120,6 +137,18 @@ def build_a_bag_pocket_shell(side=1):
         .faces(">Y")
         .shell(-wall_and_floor_thickness)
         .cut(hole_punch)
+    )
+
+def build_outer_shell():
+    bag_pocket_outermost_x = tank_copper_shell_radius + bag_pocket_depth - wall_and_floor_thickness
+    outer_shell_x_length = 2 * (bag_pocket_outermost_x + outer_shell_foam_gap + wall_and_floor_thickness)
+    outer_shell_z_length = 2 * (tank_copper_shell_radius + outer_shell_foam_gap + wall_and_floor_thickness)
+    return (
+        cq.Workplane(xz_plane_y_up)
+        .rect(outer_shell_x_length, outer_shell_z_length)
+        .extrude(tank_copper_shell_height)
+        .faces(">Y")
+        .shell(-wall_and_floor_thickness)
     )
 
 def build_a_hole_punch(
@@ -193,12 +222,14 @@ def main():
     bag_pocket_support_shell = build_bag_pocket_support_shell()
     bag_pocket_shell = build_a_bag_pocket_shell()
     bag_pocket_shell_2 = build_a_bag_pocket_shell(side=-1)
+    outer_shell = build_outer_shell()
     foam_bag_shell = (
         tank_copper_shell
         .union(tank_support_wedge)
         .union(bag_pocket_support_shell)
         .union(bag_pocket_shell)
         .union(bag_pocket_shell_2)
+        .union(outer_shell)
     )
 
     # Cut holes
