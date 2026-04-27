@@ -117,6 +117,21 @@ def build_a_bag_pocket_shell(side=1):
     bag_pocket_x_offset = tank_copper_shell_radius + bag_pocket_depth / 2 - wall_and_floor_thickness
     bag_pocket_x_offset *= side
 
+    return (
+        cq.Workplane(xz_plane_y_up)
+        .workplane(origin=(bag_pocket_x_offset, 0, 0))
+        .rect(bag_pocket_depth, bag_pocket_width)
+        .extrude(bag_pocket_height)
+        .faces(">Y")
+        .shell(-wall_and_floor_thickness)
+    )
+
+def punch_a_bag_pocket_shell_hole(foam_bag_shell, side=1):
+
+    # Bag pocket offset
+    bag_pocket_x_offset = tank_copper_shell_radius + bag_pocket_depth / 2 - wall_and_floor_thickness
+    bag_pocket_x_offset *= side
+
     # Hole offset
     hole_z_offset = bag_pocket_width / 2 - 10
     hole_x_offset = bag_pocket_x_offset
@@ -125,15 +140,7 @@ def build_a_bag_pocket_shell(side=1):
     # Hole
     hole_punch = build_a_hole_punch(origin=(hole_x_offset, hole_y_offset, hole_z_offset))
 
-    return (
-        cq.Workplane(xz_plane_y_up)
-        .workplane(origin=(bag_pocket_x_offset, 0, 0))
-        .rect(bag_pocket_depth, bag_pocket_width)
-        .extrude(bag_pocket_height)
-        .faces(">Y")
-        .shell(-wall_and_floor_thickness)
-        .cut(hole_punch)
-    )
+    return foam_bag_shell.cut(hole_punch)
 
 def build_outer_shell():
     bag_pocket_outermost_x = tank_copper_shell_radius + bag_pocket_depth - wall_and_floor_thickness
@@ -149,7 +156,7 @@ def build_outer_shell():
 
 def build_a_hole_punch(
     origin=(0, 0, 0),
-    hole_punch_radius=4,
+    hole_punch_radius=3.25,
     hole_punch_height=40,
 ):
     return (
@@ -239,6 +246,8 @@ def main():
     )
 
     # Cut holes
+    foam_bag_shell = punch_a_bag_pocket_shell_hole(foam_bag_shell)
+    foam_bag_shell = punch_a_bag_pocket_shell_hole(foam_bag_shell, side=-1)
     foam_bag_shell = cut_hole_for_co2_inlet(foam_bag_shell)
     foam_bag_shell = cut_hole_for_water_inlet(foam_bag_shell)
     foam_bag_shell = cut_hole_for_water_outlet(foam_bag_shell)
