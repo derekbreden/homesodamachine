@@ -167,6 +167,9 @@ Ice-maker donor units and copper coil for the chill loop.
 | Knipex 86 01 180 Pliers Wrench, 7.25" — smooth parallel-jaw pliers for pinch-swaging 1/4" ACR copper inlet down onto 0.031" capillary tube (progressive 60° rotation collapse technique, no reducer fitting required) | [B07YLFLSJW](https://www.amazon.com/dp/B07YLFLSJW) | 1 | $53.20 | ON-ORDER |
 | Joywayus brass 1/4" SAE 45° flare nut, 7/16"-20 thread, 5-pack — clamps flared 1/4" ACR copper stub onto RHP400 regulator outlet + HVAC charging hose for argon purge rig (reuses existing argon cylinder, no new gas purchase needed) | [B0G1XJ2F68](https://www.amazon.com/dp/B0G1XJ2F68) | 1 pk | $7.99 | ON-ORDER |
 | 3M 425 aluminum foil tape, 2" × 180 ft, thermally conductive — bridges tank ↔ coil thermal interface (applied under the coil, full lateral coverage of tank outer surface), replaces the generic "thermal compound" line originally specced for coil-to-tank interface; one 180 ft roll covers ~12 builds at ~15 ft/build | [B07BTW7C2N](https://www.amazon.com/dp/B07BTW7C2N) | 1 | $88.97 | ON-ORDER |
+| Pouring Masters 5 oz / 150 mL graduated plastic mixing cups (50 pk) — foam-pour consumable for batching 2-part PU foam in measured shots; 4 cups per build. Order 112-0326855-5540223, Apr 27, 2026, $18.99 + $1.38 tax = **$20.37 delivered**, arriving Apr 28 | [B08JHH1DBF](https://www.amazon.com/dp/B08JHH1DBF) | 1 pk | $20.37 | ON-ORDER |
+| JMU 6" wood tongue depressors, individually wrapped (100 pk) — foam-pour consumable; stir sticks for hand-mixing 2-part PU foam in graduated cups; 4 sticks per build. Order 112-8110646-3335448, Apr 27, 2026, $6.99 + $0.51 tax = **$7.50 delivered**, arriving Apr 28 | [B09H6ZP447](https://www.amazon.com/dp/B09H6ZP447) | 1 pk | $7.50 | ON-ORDER |
+| SUP powder-free 4 mil nitrile exam gloves, X-Large, 100 ct (= 50 pairs) — foam-pour PPE (PU foam isocyanate component is a skin sensitizer); 1 pair per build. Variant ASIN B0G8SSMVKW (XL) replaces the earlier B0G8TRBJX7 (Large) which was placed and immediately cancelled (order 112-3159250-4061051, $0.00, no charge). Live order 112-8247392-7531444, Apr 27, 2026, $6.99 + $0.50 tax = **$7.49 delivered**, arriving Wed Apr 29 | [B0G8SSMVKW](https://www.amazon.com/dp/B0G8SSMVKW) | 1 pk | $7.49 | ON-ORDER |
 
 ## 7. Dispensing end — faucet, flow sensor
 
@@ -381,9 +384,9 @@ Scope reminder: 2026 YTD only (Jan 1 → Apr 22, 2026). Pre-2026 Claude spend is
 | ACQUIRED — hardware (§§1–13, 15, 16, 17) | $14,543.11 |
 | ACQUIRED — capitalized contract labor (§18) | $2,607.92 |
 | ACQUIRED (combined) | $17,151.03 |
-| ON-ORDER | ~$2,695.67 |
+| ON-ORDER | ~$2,731.03 |
 | LIKELY-TO-BUY | $39.99 |
-| **Grand total** | ~$19,886.69 |
+| **Grand total** | ~$19,922.05 |
 
 ACQUIRED-hardware breakdown: Amazon (§§1–13) $5,136.07 + SendCutSend (§1, orders SQ65E969 + SV07U813) $105.71 + Bambu Lab direct (§15) $4,803.33 + XLaserlab X1 Pro (§16) $3,899.00 + Namecheap homesodamachine.com (§17) $599.00 = $14,543.11. Post-Kamoer audit pass (Apr 24, 2026, two parallel agents over 46 high-impact line items) found 4 confirmed Kamoer-style fold-up errors and corrected them: (a) Kamoer KPHM400 — 3 pumps total @ $32.55 ea = $97.65, was wrongly $99.40 ea × 2 = $198.80; (b) VALVENTO compression 2-pk B0DXZZBK7D and (c) VALVENTO 1/4" tube 5-pk B0F6SYFK48 — both lines wrongly recorded the $31.08 shared order grand total instead of their separate line prices ($12.85 + $18.23 = $31.08), double-counting by $31.08; (d) ANPTGHT silicone B0BM4KQ6RT — actually qty 2 @ $13.93 ea, was qty 1 @ $27.86 (no $ impact since line $ stays at $27.86); (e) VEVOR Workbench B0FCD13KKQ — actually qty 2 @ $172.64 ea, was qty 1 @ $345.28 (no $ impact). Plus cosmetic fixes: Beduan range tightened, findmall .030 → .035, Elitech → Toptes brand. The remaining 42 audited line items verified as MATCH against actual order history.
 

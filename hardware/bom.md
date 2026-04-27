@@ -84,6 +84,9 @@ Fallback path (UL/ETL-retail-friendly): RIGID DV1910E sealed refrigeration modul
 |---|---|---:|---:|---:|
 | [Fiberglass Supply Depot 2 lb 2-part closed-cell pour-in-place PU foam, 1 qt kit](https://www.amazon.com/dp/B08R7TX8QJ) | B08R7TX8QJ — 1.25 ft³ yield covers inner + outer shells with margin | 1 kit | $39.99 | $39.99 |
 | [3M 425 aluminum foil tape, 2" × 180 ft](https://www.amazon.com/dp/B07BTW7C2N) | B07BTW7C2N — thermally conductive aluminum foil, applied under the coil (continuous aluminum skin on tank OD, coil wraps over it) to bridge the tank ↔ coil thermal interface; replaces the earlier generic "thermal compound" plan which was unsuitable for this macro-scale gap geometry without clamping pressure; one 180 ft roll covers ~12 builds at ~15 ft/build; 1/12 of $88.97 | 1 | $7.41 | $7.41 |
+| [Pouring Masters 5 oz / 150 mL graduated mixing cups (50-pk)](https://www.amazon.com/dp/B08JHH1DBF) | B08JHH1DBF — foam-pour consumable; 4 cups per build for batching the 2-part PU foam in measured shots; $20.37/50 × 4 | 4 (of 50 pk) | $0.41 | $1.63 |
+| [JMU 6" tongue depressors, individually wrapped (100-pk)](https://www.amazon.com/dp/B09H6ZP447) | B09H6ZP447 — foam-pour consumable; 4 stir sticks per build for hand-mixing 2-part PU foam in the graduated cups; $7.50/100 × 4 | 4 (of 100 pk) | $0.08 | $0.30 |
+| [SUP powder-free 4 mil nitrile exam gloves, XL, 100-pk = 50 pairs](https://www.amazon.com/dp/B0G8SSMVKW) | B0G8SSMVKW — foam-pour PPE; 1 pair per build (PU foam isocyanate component is a skin sensitizer); $7.49/50 pairs × 1 | 1 pair (of 50) | $0.15 | $0.15 |
 
 ## 7. Printed mechanical parts (PETG @ $12.99/kg)
 
@@ -157,14 +160,14 @@ Dishing dies (PA6-CF) for end-cap forming are vessel-fabrication tools, not ship
 | 3. Water inlet | $130.88 |
 | 4. CO2 subsystem | $58.13 |
 | 5. Refrigeration | $147.12 |
-| 6. Cold core insulation | $47.40 |
+| 6. Cold core insulation | $49.48 |
 | 7. Printed parts (PETG) | $103.94 |
 | 8. Flavor subsystem | $318.30 |
 | 9. Dispensing | $49.34 |
 | 10. UI | $39.95 |
 | 11. Wiring | $8.92 |
 | 12. Level sensing | $19.07 |
-| **Total** | **$1,292.82** |
+| **Total** | **$1,294.90** |
 
 ## External / user-supplied (not shipped)
 
