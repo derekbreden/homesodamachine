@@ -151,11 +151,23 @@ def cut_hole_for_water_outlet(foam_bag_shell):
     hole = build_a_hole_punch(origin=(hole_x_offset, hole_y_offset, hole_z_offset))
     return foam_bag_shell.cut(hole)
 
+def cut_hole_for_copper_inlet(foam_bag_shell):
+    hole_z_offset = 20
+    hole_x_offset = -30
+    hole_y_offset = hole_shift_from_edge + wall_and_floor_thickness + below_tank_elbows_height
+    hole = build_a_hole_punch(
+        origin=(hole_x_offset, hole_y_offset, hole_z_offset),
+        hole_punch_height=tank_copper_shell_radius
+    )
+    return foam_bag_shell.cut(hole)
+
 # ═══════════════════════════════════════════════════════
 # BUILD AND EXPORT
 # ═══════════════════════════════════════════════════════
 
 def main():
+
+    # Build shell
     tank_copper_shell = build_tank_copper_shell()
     tank_support_wedge = build_tank_support_wedge()
     bag_pocket_support_shell = build_bag_pocket_support_shell()
@@ -168,9 +180,16 @@ def main():
         .union(bag_pocket_shell)
         .union(bag_pocket_shell_2)
     )
+
+    # Cut holes
     foam_bag_shell = cut_hole_for_co2_inlet(foam_bag_shell)
     foam_bag_shell = cut_hole_for_water_inlet(foam_bag_shell)
     foam_bag_shell = cut_hole_for_water_outlet(foam_bag_shell)
+
+    # Cut slits
+    foam_bag_shell = cut_hole_for_copper_inlet(foam_bag_shell)
+
+
     out = Path(__file__).resolve().parent / "foam-bag-shell.step"
     cq.exporters.export(foam_bag_shell, str(out))
     print(f"-> {out.name}")
