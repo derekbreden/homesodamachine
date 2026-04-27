@@ -56,13 +56,17 @@ def build_tank_copper_shell():
     )
 
 def build_bag_pocket_support_shell():
-    side_length = 2 * tank_copper_shell_radius
+    bag_pocket_support_side_length = 2 * tank_copper_shell_radius
+    tank_copper_cylinder = (
+        cq.Workplane(xz_plane_y_up)
+        .circle(tank_copper_shell_radius)
+        .extrude(tank_copper_shell_height)
+    )
     return (
         cq.Workplane(xz_plane_y_up)
-        .rect(side_length, side_length)
+        .rect(bag_pocket_support_side_length, bag_pocket_support_side_length)
         .extrude(tank_copper_shell_height)
-        .faces(">Y")
-        .shell(-wall_and_floor_thickness)
+        .cut(tank_copper_cylinder)
     )
 
 def build_tank_support_wedge():
