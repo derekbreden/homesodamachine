@@ -155,11 +155,15 @@ def cut_hole_for_water_outlet(foam_bag_shell):
     hole_punch = build_a_hole_punch(origin=(hole_x_offset, hole_y_offset, hole_z_offset))
     return foam_bag_shell.cut(hole_punch)
 
-def cut_slit_and_build_plug_for_copper_inlet(foam_bag_shell):
+def cut_slit_and_build_plug_for_copper_inlet(foam_bag_shell, which = 0):
     hole_z_offset = 20
     hole_x_offset = -30
     hole_y_offset = hole_shift_from_edge + wall_and_floor_thickness + below_tank_elbows_height
     slit_above = tank_copper_shell_height
+
+    if (which == 1):
+        hole_x_offset = 30
+        hole_y_offset = tank_copper_shell_height - hole_shift_from_edge - wall_and_floor_thickness - above_tank_elbows_height
 
     hole_args = dict(
         origin=(hole_x_offset, hole_y_offset, hole_z_offset),
@@ -204,10 +208,12 @@ def main():
 
     # Cut slits + extract their plugs
     foam_bag_shell, copper_inlet_plug = cut_slit_and_build_plug_for_copper_inlet(foam_bag_shell)
+    foam_bag_shell, copper_outlet_plug = cut_slit_and_build_plug_for_copper_inlet(foam_bag_shell, which=1)
 
     here = Path(__file__).resolve().parent
     cq.exporters.export(foam_bag_shell, str(here / "foam-bag-shell.step"))
     cq.exporters.export(copper_inlet_plug, str(here / "copper-inlet-plug.step"))
+    cq.exporters.export(copper_outlet_plug, str(here / "copper-outlet-plug.step"))
     print(f"-> foam-bag-shell.step")
     print(f"-> copper-inlet-plug.step")
 
