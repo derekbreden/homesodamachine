@@ -159,7 +159,20 @@ def cut_slit_for_copper_inlet(foam_bag_shell):
         origin=(hole_x_offset, hole_y_offset, hole_z_offset),
         hole_punch_height=tank_copper_shell_radius
     )
-    return foam_bag_shell.cut(hole_punch)
+
+    slit_extension_height = tank_copper_shell_height
+    slit_extension = (
+        cq.Workplane(xy_plane_z_up)
+        .workplane(
+            origin=(hole_x_offset, hole_y_offset + slit_extension_height / 2, hole_z_offset),
+            offset=hole_z_offset,
+        )
+        .rect(8, slit_extension_height)
+        .extrude(tank_copper_shell_radius)
+    )
+    slit_punch = hole_punch.union(slit_extension)
+
+    return foam_bag_shell.cut(slit_punch)
 
 # ═══════════════════════════════════════════════════════
 # BUILD AND EXPORT
