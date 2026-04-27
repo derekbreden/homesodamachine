@@ -203,20 +203,16 @@ def cut_slit_and_build_plug_for_copper_inlet(foam_bag_shell, which = 0):
     )
     copper_hole = build_a_hole_punch(**hole_args)
 
-    bag_pocket_outermost_x = tank_copper_shell_radius + bag_pocket_depth - wall_and_floor_thickness
-    outer_shell_x_length = 2 * (bag_pocket_outermost_x + outer_shell_foam_gap + wall_and_floor_thickness)
-    outer_shell_z_length = 2 * (tank_copper_shell_radius + outer_shell_foam_gap + wall_and_floor_thickness)
-    shell_envelope = (
-        cq.Workplane(xz_plane_y_up)
-        .rect(outer_shell_x_length, outer_shell_z_length)
-        .extrude(tank_copper_shell_height)
-    )
-    cup_interior = (
-        cq.Workplane(xz_plane_y_up)
-        .circle(tank_copper_shell_radius - wall_and_floor_thickness)
-        .extrude(tank_copper_shell_height)
-    )
-    plug = slit_punch.intersect(shell_envelope).cut(cup_interior).cut(copper_hole)
+    intersection_pieces = foam_bag_shell.intersect(slit_punch)
+    solids_by_z = sorted(intersection_pieces.solids().vals(), key=lambda s: s.BoundingBox().zmin)
+    cup_slice = solids_by_z[0]
+    outer_slice = solids_by_z[-1]
+
+    cup_inner_face = sorted(cup_slice.Faces(), key=lambda f: f.Center().z)[0]
+    outer_outer_face = sorted(outer_slice.Faces(), key=lambda f: f.Center().z)[-1]
+
+    plug_solid = cq.Solid.makeLoft([cup_inner_face.outerWire(), outer_outer_face.outerWire()])
+    plug = cq.Workplane().add(plug_solid).cut(copper_hole)
 
     return foam_bag_shell.cut(slit_punch), plug
 
