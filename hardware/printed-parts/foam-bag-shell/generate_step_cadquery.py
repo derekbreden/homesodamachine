@@ -303,11 +303,13 @@ def main():
     foam_bag_shell, copper_inlet_plug = cut_slit_and_build_plug_for_copper_inlet(foam_bag_shell)
     foam_bag_shell, copper_outlet_plug = cut_slit_and_build_plug_for_copper_inlet(foam_bag_shell, which=1)
 
-    # Cut leaf-spring leg slits
-    foam_bag_shell = cut_leaf_spring_leg_slits(foam_bag_shell)
+    # Cut leaf-spring leg slits (under consideration still)
+    # foam_bag_shell = cut_leaf_spring_leg_slits(foam_bag_shell)
 
     # Build the foam cap (separate part, printed twice for top and bottom)
     foam_cap = build_foam_cap()
+    # Foam cup must be unioned to turn from a "shell" into a "solid"
+    foam_cap = foam_cap.union(foam_cap)
 
     here = Path(__file__).resolve().parent
     cq.exporters.export(foam_bag_shell, str(here / "foam-bag-shell.step"))
