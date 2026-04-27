@@ -65,10 +65,10 @@ outer_shell_foam_gap = 16.0
 
 
 # -------------------------------------------------------
-# Foam cap (top/bottom 8 mm foam pour tray, printed twice)
+# Foam cap (top/bottom 16 mm foam pour tray, printed twice)
 # -------------------------------------------------------
 #
-foam_cap_height = 8.0
+foam_cap_height = 16.0
 #
 # -------------------------------------------------------
 
@@ -226,7 +226,7 @@ def cut_slit_and_build_plug_for_copper_inlet(foam_bag_shell, which = 0):
     slit_punch = (
         build_a_hole_punch(**hole_args)
         .moveTo(0, slit_above / 2)
-        .rect(8, slit_above)
+        .rect(6.5, slit_above)
         .extrude(tank_copper_shell_radius)
     )
     copper_hole = build_a_hole_punch(**hole_args)
