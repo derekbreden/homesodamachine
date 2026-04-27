@@ -13,6 +13,7 @@ import cadquery as cq
 xz_plane_y_up = cq.Plane(origin=(0, 0, 0), xDir=(1, 0, 0), normal=(0, 1, 0))
 xy_plane_z_up = cq.Plane(origin=(0, 0, 0), xDir=(1, 0, 0), normal=(0, 0, 1))
 wall_and_floor_thickness = 1.0
+hole_shift_from_edge = 15.0
 #
 # -------------------------------------------------------
 
@@ -102,11 +103,10 @@ def build_a_bag_pocket_shell(side=1):
     # Hole offset
     hole_z_offset = bag_pocket_width / 2 - 10
     hole_x_offset = bag_pocket_x_offset
-    hole_y_offset = 10
+    hole_y_offset = hole_shift_from_edge + wall_and_floor_thickness
 
     # Hole
     hole = build_a_hole_punch(origin=(hole_x_offset, hole_y_offset, hole_z_offset))
-
 
     return (
         cq.Workplane(xz_plane_y_up)
@@ -118,9 +118,11 @@ def build_a_bag_pocket_shell(side=1):
         .cut(hole)
     )
 
-def build_a_hole_punch(origin=(0, 0, 0)):
-    hole_punch_radius = 4
-    hole_punch_height = 20
+def build_a_hole_punch(
+    origin=(0, 0, 0),
+    hole_punch_radius=4,
+    hole_punch_height=40,
+):
     return (
         cq.Workplane(xy_plane_z_up)
         .workplane(origin=origin, offset=origin[2])
@@ -128,6 +130,26 @@ def build_a_hole_punch(origin=(0, 0, 0)):
         .extrude(hole_punch_height)
     )
 
+def cut_hole_for_co2_inlet(foam_bag_shell):
+    hole_z_offset = (tank_copper_shell_radius + 20) * -1
+    hole_x_offset = 0
+    hole_y_offset = hole_shift_from_edge + wall_and_floor_thickness
+    hole = build_a_hole_punch(origin=(hole_x_offset, hole_y_offset, hole_z_offset))
+    return foam_bag_shell.cut(hole)
+
+def cut_hole_for_water_inlet(foam_bag_shell):
+    hole_z_offset = tank_copper_shell_radius - 20
+    hole_x_offset = 0
+    hole_y_offset = tank_copper_shell_height - hole_shift_from_edge
+    hole = build_a_hole_punch(origin=(hole_x_offset, hole_y_offset, hole_z_offset))
+    return foam_bag_shell.cut(hole)
+
+def cut_hole_for_water_outlet(foam_bag_shell):
+    hole_z_offset = tank_copper_shell_radius - 20
+    hole_x_offset = 0
+    hole_y_offset = hole_shift_from_edge + wall_and_floor_thickness
+    hole = build_a_hole_punch(origin=(hole_x_offset, hole_y_offset, hole_z_offset))
+    return foam_bag_shell.cut(hole)
 
 # ═══════════════════════════════════════════════════════
 # BUILD AND EXPORT
@@ -146,7 +168,9 @@ def main():
         .union(bag_pocket_shell)
         .union(bag_pocket_shell_2)
     )
-
+    foam_bag_shell = cut_hole_for_co2_inlet(foam_bag_shell)
+    foam_bag_shell = cut_hole_for_water_inlet(foam_bag_shell)
+    foam_bag_shell = cut_hole_for_water_outlet(foam_bag_shell)
     out = Path(__file__).resolve().parent / "foam-bag-shell.step"
     cq.exporters.export(foam_bag_shell, str(out))
     print(f"-> {out.name}")
