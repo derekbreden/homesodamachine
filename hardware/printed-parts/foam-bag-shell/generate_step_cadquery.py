@@ -203,19 +203,20 @@ def cut_slit_and_build_plug_for_copper_inlet(foam_bag_shell, which = 0):
     )
     copper_hole = build_a_hole_punch(**hole_args)
 
-    intersection_pieces = foam_bag_shell.intersect(slit_punch)
-    combined = cq.Compound.makeCompound(intersection_pieces.solids().vals())
-    bb = combined.BoundingBox()
-    clip_box = (
-        cq.Workplane()
-        .box(bb.xmax - bb.xmin, bb.ymax - bb.ymin, bb.zmax - bb.zmin)
-        .translate((
-            (bb.xmin + bb.xmax) / 2,
-            (bb.ymin + bb.ymax) / 2,
-            (bb.zmin + bb.zmax) / 2,
-        ))
+    bag_pocket_outermost_x = tank_copper_shell_radius + bag_pocket_depth - wall_and_floor_thickness
+    outer_shell_x_length = 2 * (bag_pocket_outermost_x + outer_shell_foam_gap + wall_and_floor_thickness)
+    outer_shell_z_length = 2 * (tank_copper_shell_radius + outer_shell_foam_gap + wall_and_floor_thickness)
+    shell_envelope = (
+        cq.Workplane(xz_plane_y_up)
+        .rect(outer_shell_x_length, outer_shell_z_length)
+        .extrude(tank_copper_shell_height)
     )
-    plug = slit_punch.intersect(clip_box).cut(copper_hole)
+    cup_interior = (
+        cq.Workplane(xz_plane_y_up)
+        .circle(tank_copper_shell_radius - wall_and_floor_thickness)
+        .extrude(tank_copper_shell_height)
+    )
+    plug = slit_punch.intersect(shell_envelope).cut(cup_interior).cut(copper_hole)
 
     return foam_bag_shell.cut(slit_punch), plug
 
