@@ -73,6 +73,17 @@ foam_cap_height = 16.0
 # -------------------------------------------------------
 
 
+# -------------------------------------------------------
+# Foam cap lid (sits atop a cap during foam pour, printed twice)
+# -------------------------------------------------------
+#
+foam_cap_lid_pour_radius = 5.0
+foam_cap_lid_vent_radius = 3.0
+foam_cap_lid_hole_inset = 30.0
+#
+# -------------------------------------------------------
+
+
 def build_tank_copper_shell():
     
     return (
@@ -174,6 +185,42 @@ def build_foam_cap():
         .faces(">Y")
         .shell(-wall_and_floor_thickness)
     )
+
+def build_foam_cap_lid():
+    bag_pocket_outermost_x = tank_copper_shell_radius + bag_pocket_depth - wall_and_floor_thickness
+    foam_cap_x_length = 2 * (bag_pocket_outermost_x + outer_shell_foam_gap + wall_and_floor_thickness)
+    foam_cap_z_length = 2 * (tank_copper_shell_radius + outer_shell_foam_gap + wall_and_floor_thickness)
+
+    lid = (
+        cq.Workplane(xz_plane_y_up)
+        .rect(foam_cap_x_length, foam_cap_z_length)
+        .extrude(wall_and_floor_thickness)
+    )
+
+    pour_x = foam_cap_x_length / 2 - foam_cap_lid_hole_inset
+    vent_x = -(foam_cap_x_length / 2 - foam_cap_lid_hole_inset)
+    vent_z = foam_cap_z_length / 2 - foam_cap_lid_hole_inset
+
+    pour_hole = (
+        cq.Workplane(xz_plane_y_up)
+        .workplane(origin=(pour_x, 0, 0))
+        .circle(foam_cap_lid_pour_radius)
+        .extrude(wall_and_floor_thickness * 3)
+    )
+    vent_hole_a = (
+        cq.Workplane(xz_plane_y_up)
+        .workplane(origin=(vent_x, 0, vent_z))
+        .circle(foam_cap_lid_vent_radius)
+        .extrude(wall_and_floor_thickness * 3)
+    )
+    vent_hole_b = (
+        cq.Workplane(xz_plane_y_up)
+        .workplane(origin=(vent_x, 0, -vent_z))
+        .circle(foam_cap_lid_vent_radius)
+        .extrude(wall_and_floor_thickness * 3)
+    )
+
+    return lid.cut(pour_hole).cut(vent_hole_a).cut(vent_hole_b)
 
 def build_a_hole_punch(
     origin=(0, 0, 0),
@@ -282,15 +329,20 @@ def main():
     # Foam cup must be unioned to turn from a "shell" into a "solid"
     foam_cap = foam_cap.union(foam_cap)
 
+    # Build the foam cap lid (separate part, printed twice, sits atop a cap during pour)
+    foam_cap_lid = build_foam_cap_lid()
+
     here = Path(__file__).resolve().parent
     cq.exporters.export(foam_bag_shell, str(here / "foam-bag-shell.step"))
     cq.exporters.export(copper_inlet_plug, str(here / "copper-inlet-plug.step"))
     cq.exporters.export(copper_outlet_plug, str(here / "copper-outlet-plug.step"))
     cq.exporters.export(foam_cap, str(here / "foam-cap.step"))
+    cq.exporters.export(foam_cap_lid, str(here / "foam-cap-lid.step"))
     print(f"-> foam-bag-shell.step")
     print(f"-> copper-inlet-plug.step")
     print(f"-> copper-outlet-plug.step")
     print(f"-> foam-cap.step")
+    print(f"-> foam-cap-lid.step")
 
 
 if __name__ == "__main__":
