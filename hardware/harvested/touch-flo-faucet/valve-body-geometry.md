@@ -36,10 +36,11 @@ Regenerate: `tools/cad-venv/bin/python hardware/harvested/touch-flo-faucet/valve
 | Height of cylindrical base section | 13.0 mm | 0.512" | Photo 4 | Measured |
 | Base cylinder OD = rectangle long dimension | 31.50 mm | 1.240" | Photo 5 | Measured |
 | Rectangle short dimension | 17.0 mm | 0.669" | Photo 6 | Measured |
-| Water port: gap from port wall to arch inner face | ~2.125 mm | ~0.084" | Derived; ≈ 2 mm per Photo 7 | Derived |
+| Water port: gap from port wall to arch inner face (Y) | ~2.125 mm | ~0.084" | Derived: (14.0 − 9.75) / 2 | Derived |
+| Water port: gap from port wall to short face (X) | 2.0 mm | 0.079" | Photo 7 | Measured |
 | Water port diameter | 9.75 mm | 0.384" | Photo 8 | Measured |
-| Water port center (X) | 0.0 mm | 0" | Centered in 31.50 mm long axis | Exact |
-| Water port center (Y) | 0.0 mm | 0" | Centered in 14.0 mm plateau | Exact |
+| Water port center (X) | 8.875 mm | 0.349" | 2 mm from short face (X = ±15.75 mm); derived: 15.75 − 2 − 4.875 | Derived |
+| Water port center (Y) | 0.0 mm | 0" | Centered in 14.0 mm plateau (between arch inner faces) | Exact |
 | Arch width (each) | 1.5 mm | 0.059" | Confirmed | Measured |
 | Plateau width (between arch inner faces) | 14.0 mm | 0.551" | Derived (17 − 2 × 1.5) | Exact |
 | Arc height (arc base to arc peak) | 5.0 mm | 0.197" | Derived (46 − 41) | Exact |
@@ -82,7 +83,7 @@ The arrangement viewed from above: two rounded humps side by side across the rec
 - **Single water port only.** There is no second fluid port.
 - Location: top face of the rectangular body, centered in the plateau between the two arches
 - Port diameter: **9.75 mm**
-- Port center in long axis (X): **0 mm** — centered in the 31.50 mm long dimension
+- Port center in long axis (X): **8.875 mm** from body center — 2 mm gap from the short face at X = ±15.75 mm; derived as 15.75 − 2 − 4.875 = 8.875 mm
 - Port center in short axis (Y): **0 mm** — centered in the 14.0 mm plateau (between arch inner faces)
 - Gap from port wall to each arch inner face: **(14.0 − 9.75) / 2 = 2.125 mm** ≈ 2 mm (Photo 7)
 - Port fitting: brass
