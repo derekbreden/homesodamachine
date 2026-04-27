@@ -220,6 +220,21 @@ def build_valve_body():
         .union(arch_port)
         .union(arch_plunger)
     )
+
+    # The rectangular column's four corners (X = ±15.75 mm at Y = ±8.5 mm)
+    # and the arch rail ends extend outside the base cylinder OD footprint.
+    # The physical body is bounded by the cylinder profile all the way up —
+    # the same 31.50 mm diameter that forms the round base also clips the
+    # rectangular zone and arches above it.
+    # Intersect the whole assembled body with a full-height cylinder to remove
+    # all material beyond body_r from the XY origin.
+    clip_cyl = (
+        cq.Workplane("XY")
+        .circle(body_r)
+        .extrude(arc_peak_z)
+    )
+    body = body.intersect(clip_cyl)
+
     body = cut_water_port_bore(body)
     return body
 
