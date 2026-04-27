@@ -60,15 +60,18 @@ cylinder_height = 13.0          # mm — height at which round → rectangular (
 #
 # The transition at Z = cylinder_height has a concave rounded
 # curve on the two Y-facing short faces. Measured R = 4–6 mm;
-# 5.0 mm used as midpoint estimate. This first-pass model treats
-# it as a sharp step. The fillet is a TODO for the next iteration.
+# 5.0 mm used as midpoint estimate.
+#
+# Modeled in build_transition_cove(): a filler block fills the
+# R×R corner between the ledge and the flat face; a cylinder
+# (axis along X, radius R) scoops the concave arc from it.
 #
 rect_long             = body_od     # mm — 31.50 mm (X, same as cylinder OD)
 rect_short            = 17.0        # mm — 17.00 mm (Y, Photo 6)
 rect_short_half       = rect_short / 2  # mm — 8.50 mm (half-width to long face)
 rect_long_half        = rect_long / 2   # mm — 15.75 mm (half-length to short face)
 plateau_z             = 39.0        # mm — top of rectangular body, plateau level (Photo 3)
-transition_fillet_r   = 5.0         # mm — TODO: concave R = 4–6 mm (Photo 4 context)
+transition_fillet_r   = 5.0         # mm — concave R = 4–6 mm, 5.0 mm midpoint (Photo 4 context)
 #
 # -------------------------------------------------------
 
@@ -189,6 +192,55 @@ def build_arch(center_y):
     )
 
 
+def build_transition_cove(center_y_sign):
+    """Concave cove at the cylinder→rectangle transition for one Y face.
+
+    At Z = cylinder_height, the rectangular column (Y = ±rect_short_half)
+    is narrower than the cylinder base. A concave arc (R = transition_fillet_r)
+    smooths the corner between the horizontal ledge atop the cylinder and the
+    flat Y-facing face of the rectangular column.
+
+    Construction (see module header for coordinate convention):
+      1. Filler block: a box that fills the R×R corner between the cylinder
+         ledge (Z = cylinder_height) and the flat face (Y = flat_y).
+         Oversize in X — the final cylinder clip trims the outer edge.
+      2. Concave cutter: a cylinder with axis along X, centered at
+         (Y = flat_y + sign·R, Z = cylinder_height + R), radius R.
+         Scooping this from the filler leaves the concave cove surface.
+
+    The result is unioned into the body before the cylinder clip runs,
+    so the outer edge of the cove is automatically bounded by body_r.
+
+    center_y_sign: +1 for the +Y face, -1 for the -Y face.
+    """
+    R       = transition_fillet_r
+    flat_y  = center_y_sign * rect_short_half          # ±8.50 mm — outer Y edge of rect column
+    blk_cy  = flat_y + center_y_sign * (R / 2)         # Y center of filler block (±11.00 mm)
+    cove_cy = flat_y + center_y_sign * R                # Y of cove arc center   (±13.50 mm)
+    cove_cz = cylinder_height + R                       # Z of cove arc center   (18.00 mm)
+    ext     = body_r + 2                                # generous half-length for X extrusions
+
+    # Filler block: fills the R(Y) × R(Z) corner square, full X width.
+    filler = (
+        cq.Workplane("XY")
+        .workplane(offset=cylinder_height)
+        .center(0, blk_cy)
+        .rect(2 * ext, R)
+        .extrude(R)
+    )
+
+    # Concave cutter: cylinder axis along X, at (cove_cy, cove_cz), radius R.
+    cutter = (
+        cq.Workplane("YZ")
+        .workplane(offset=-ext)
+        .center(cove_cy, cove_cz)
+        .circle(R)
+        .extrude(2 * ext)
+    )
+
+    return filler.cut(cutter)
+
+
 def cut_water_port_bore(body):
     """Bore the water port downward from the plateau surface.
 
@@ -213,21 +265,21 @@ def build_valve_body():
     column       = build_rectangular_column()
     arch_port    = build_arch(arch_port_center_y)
     arch_plunger = build_arch(arch_plunger_center_y)
+    cove_pos     = build_transition_cove(+1)    # +Y face
+    cove_neg     = build_transition_cove(-1)    # -Y face
 
     body = (
         cylinder
         .union(column)
         .union(arch_port)
         .union(arch_plunger)
+        .union(cove_pos)
+        .union(cove_neg)
     )
 
-    # The rectangular column's four corners (X = ±15.75 mm at Y = ±8.5 mm)
-    # and the arch rail ends extend outside the base cylinder OD footprint.
-    # The physical body is bounded by the cylinder profile all the way up —
-    # the same 31.50 mm diameter that forms the round base also clips the
-    # rectangular zone and arches above it.
-    # Intersect the whole assembled body with a full-height cylinder to remove
-    # all material beyond body_r from the XY origin.
+    # Clip the entire body to the cylinder profile (removes overhanging
+    # corners from the rectangular column, arch rail ends, and any cove
+    # filler material beyond body_r).
     clip_cyl = (
         cq.Workplane("XY")
         .circle(body_r)
