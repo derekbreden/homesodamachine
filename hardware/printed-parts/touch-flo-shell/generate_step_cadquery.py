@@ -6,39 +6,55 @@ on top of the touch-flo-mounting-plate.
 WORK IN PROGRESS — GROWING BOTTOM-UP
 ====================================
 This file is being grown one zone at a time, starting at the deck and
-moving up. Right now it covers only ZONE 1 — the first 13 mm, where the
-faucet body is still a full Ø 31.5 mm cylindrical base. Later zones
-will be appended as we work our way up the body.
+moving up. Currently covers ZONE 1 + ZONE 2 — the first 39 mm of the
+body, through the cylinder→rectangle transition.
 
-GEOMETRY (zone 1 only, so far)
-==============================
-- Outer:  filled cylinder, Ø 41.175 mm × 13 mm tall, centered at
-  world (1.5875, 0) — same lateral center as the mounting plate. The
-  diameter is sized by the wall-thickness target (3 mm) at the body
-  bore's farthest edge from the shell center; see the constants
-  below for the derivation.
-- Z range: [0, 13]. Bottom face flush with the plate top (= deck).
-- Inner hole at this level: union of TWO cuts that merge into a
-  single connected opening because the body and the flavor tubes are
-  tangent in the assembly:
-    1. Body bore — Ø 32 mm at world (0, 0). 0.5 mm diametric
-       clearance over the 31.5 mm body cylindrical base; slip-fit
-       for assembly.
-    2. Flavor-tube pill — same shape as the mounting plate's pill at
-       world (17.3375, 0), 6.775 × 3.6 mm, Y-oriented.
-  The pill's -X edge at X=15.5375 sits 0.4625 mm inside the body
-  bore's +X edge at X=16, so the merged hole has a clean overlapping
-  connection rather than a knife-edge tangent point.
+ZONE 1 — Z = 0 → 13 — cylindrical region
+========================================
+- Outer:  filled cylinder, Ø 41.175 mm, centered at world (1.5875, 0).
+  Diameter derived from the wall-thickness target (3 mm) at the body
+  bore's farthest edge from the shell center.
+- Inner hole: union of body bore (Ø 32 mm at world (0, 0)) and the
+  flavor-tube pill (6.775 × 3.6 mm at world (17.3375, 0)). The two
+  cuts merge into a single connected opening because the body and
+  flavor tubes are tangent in the assembly.
+
+ZONE 2 — Z = 13 → 39 — cylinder→rectangle transition + rect column
+==================================================================
+- Outer rectangle: 41.175 × 23.5 mm (X × Y), centered at the shell
+  center. Same X width as the zone 1 cylinder OD (so the X faces
+  flow straight up from the cylinder edge with no step). Y faces
+  shrink inward by 8.84 mm per side relative to the cylinder edge.
+- Cove transition on each Y face, R = 5 mm (mirrors the body's
+  transition_fillet_r), spanning Z = 13 → 18. Tangent to the rect
+  Y face at Z = 18 and to the cylinder ledge at Z = 13. Because the
+  cove radius is smaller than the Y shrinkage, a 3.84 mm flat
+  annular ledge remains on each Y side at Z = 13 between the
+  cylinder edge and the cove start — same construction style as the
+  body, slightly wider ledge here.
+- Rectangle corners are clipped to the shell's outer cylinder
+  (R = 20.5875 mm) — same approach as the body. The corners follow
+  the cylinder profile rather than sticking out as sharp points.
+- Inner cut: cylindrical bore (Ø 32 mm) continues from zone 1
+  through the cove-transition zone (Z = 13 → 18) so the body's
+  outward-bulging cove is fully cleared. Above the cove (Z = 18 → 39)
+  the bore narrows to a rectangular bore 32 × 17.5 mm, matching the
+  body's rectangular column with 0.5 mm clearance per dimension.
+  Plus the flavor-tube pill all the way through.
 
 WALL THICKNESS NOTES
 ====================
-Shell OD is derived to give exactly the target wall thickness at the
-body bore's farthest point from the shell center (world (-16, 0),
-which is 17.5875 mm from the shell center at (1.5875, 0)). The
-pill's +X semicircle has a slightly-farther extreme at ~17.63 mm
-from the shell center, so the wall at the pill is ~0.04 mm thinner
-than the target. Acceptable; would need to bump the OD by ~0.1 mm
-to make the pill the minimum.
+Shell zone 1 cylinder OD is derived to give exactly the target wall
+thickness at the body bore's farthest point from the shell center
+(world (-16, 0), which is 17.5875 mm from the shell center at
+(1.5875, 0)). The pill's +X semicircle has a slightly-farther extreme
+at ~17.63 mm from the shell center, so the wall at the pill is
+~0.04 mm thinner than the target. Acceptable; would need to bump the
+OD by ~0.1 mm to make the pill the minimum.
+
+In zone 2, the rectangle inherits the same X half-width as the
+cylinder R, so the wall at the X face matches zone 1. Y faces are
+3 mm thick over the body bore's Y extent (8.75 mm).
 
 REGENERATE
 ==========
@@ -100,6 +116,34 @@ SHELL_OUTER_DIAMETER = 2.0 * SHELL_OUTER_R   # = 41.175 mm
 
 
 # ═══════════════════════════════════════════════════════
+# ZONE 2 — cylinder → rectangle transition + rect column
+# ═══════════════════════════════════════════════════════
+
+ZONE2_Z_BOTTOM = ZONE1_Z_TOP                       # 13.0
+ZONE2_Z_TOP    = 39.0                              # body plateau
+ZONE2_HEIGHT   = ZONE2_Z_TOP - ZONE2_Z_BOTTOM      # 26.0
+
+# Body rectangle dimensions (mirrored from valve-body-reference)
+BODY_RECT_LONG  = 31.5     # X
+BODY_RECT_SHORT = 17.0     # Y
+
+# Body bore in zone 2 — match body rect with 0.5 mm clearance per dimension
+BODY_BORE_RECT_LONG  = BODY_RECT_LONG  + 0.5       # 32.0
+BODY_BORE_RECT_SHORT = BODY_RECT_SHORT + 0.5       # 17.5
+
+# Cove transition fillet (matches the body's transition_fillet_r)
+COVE_R     = 5.0
+COVE_TOP_Z = ZONE2_Z_BOTTOM + COVE_R               # 18.0
+
+# Shell rectangle. X width matches the cylinder OD so the X faces flow
+# straight up from the cylinder. Y half is body-bore-Y plus the wall.
+SHELL_RECT_X_HALF  = SHELL_OUTER_R                                        # 20.5875
+SHELL_RECT_Y_HALF  = BODY_BORE_RECT_SHORT / 2.0 + WALL_THICKNESS_MIN      # 11.75
+SHELL_RECT_X_WIDTH = 2.0 * SHELL_RECT_X_HALF
+SHELL_RECT_Y_WIDTH = 2.0 * SHELL_RECT_Y_HALF
+
+
+# ═══════════════════════════════════════════════════════
 # GEOMETRY BUILDERS
 # ═══════════════════════════════════════════════════════
 
@@ -137,9 +181,107 @@ def build_zone1_inner_cut() -> cq.Workplane:
     return body_bore.union(pill)
 
 
+def build_zone2_outer() -> cq.Workplane:
+    """Outer geometry for zone 2.
+
+    Construction mirrors the body's `build_transition_cove`:
+      - Rectangle column from Z=ZONE2_Z_BOTTOM to ZONE2_Z_TOP.
+      - Filler block (R wide × R tall, full X extent) on each Y face.
+      - Cove cutter (cylinder along X axis, R = COVE_R) scoops a
+        concave arc from each filler.
+      - Cylinder clip rounds the rectangle corners to follow the
+        shell outer cylinder profile.
+    """
+    rect = (
+        cq.Workplane("XY")
+        .workplane(offset=ZONE2_Z_BOTTOM)
+        .moveTo(SHELL_CENTER_X, SHELL_CENTER_Y)
+        .rect(SHELL_RECT_X_WIDTH, SHELL_RECT_Y_WIDTH)
+        .extrude(ZONE2_HEIGHT)
+    )
+
+    R = COVE_R
+    ext_x = SHELL_RECT_X_HALF + 2.0   # generous half-extent in X for filler/cutter
+
+    def filler(y_sign: int) -> cq.Workplane:
+        flat_y_world = SHELL_CENTER_Y + y_sign * SHELL_RECT_Y_HALF
+        blk_cy_world = flat_y_world + y_sign * (R / 2.0)
+        return (
+            cq.Workplane("XY")
+            .workplane(offset=ZONE2_Z_BOTTOM)
+            .moveTo(SHELL_CENTER_X, blk_cy_world)
+            .rect(2.0 * ext_x, R)
+            .extrude(R)
+        )
+
+    def cove_cutter(y_sign: int) -> cq.Workplane:
+        flat_y_world  = SHELL_CENTER_Y + y_sign * SHELL_RECT_Y_HALF
+        cove_cy_world = flat_y_world + y_sign * R
+        cove_cz_world = ZONE2_Z_BOTTOM + R
+        return (
+            cq.Workplane("YZ")
+            .workplane(offset=SHELL_CENTER_X - ext_x)
+            .moveTo(cove_cy_world, cove_cz_world)
+            .circle(R)
+            .extrude(2.0 * ext_x)
+        )
+
+    outer = (
+        rect
+        .union(filler(+1))
+        .union(filler(-1))
+        .cut(cove_cutter(+1))
+        .cut(cove_cutter(-1))
+    )
+
+    # Clip to the shell's outer cylinder profile so rect corners follow
+    # the cylinder rather than sticking out as sharp points.
+    clip_cyl = (
+        cq.Workplane("XY")
+        .workplane(offset=ZONE2_Z_BOTTOM)
+        .moveTo(SHELL_CENTER_X, SHELL_CENTER_Y)
+        .circle(SHELL_OUTER_R)
+        .extrude(ZONE2_HEIGHT)
+    )
+    return outer.intersect(clip_cyl)
+
+
+def build_zone2_inner_cut() -> cq.Workplane:
+    """Inner cut for zone 2:
+       - Cylindrical bore Ø 32 mm from Z=13 to Z=18 (cove transition).
+         The body's outward-bulging cove is fully cleared.
+       - Rectangular bore 32 × 17.5 mm from Z=18 to Z=39 (rect column).
+       - Flavor-tube pill all the way through.
+    """
+    cyl_bore = (
+        cq.Workplane("XY")
+        .workplane(offset=ZONE2_Z_BOTTOM)
+        .moveTo(BODY_BORE_X, BODY_BORE_Y)
+        .circle(BODY_BORE_DIAMETER / 2.0)
+        .extrude(COVE_R)                       # Z=13 → Z=18
+    )
+    rect_bore = (
+        cq.Workplane("XY")
+        .workplane(offset=COVE_TOP_Z)
+        .moveTo(BODY_BORE_X, BODY_BORE_Y)
+        .rect(BODY_BORE_RECT_LONG, BODY_BORE_RECT_SHORT)
+        .extrude(ZONE2_Z_TOP - COVE_TOP_Z)     # Z=18 → Z=39
+    )
+    pill = (
+        cq.Workplane("XY")
+        .workplane(offset=ZONE2_Z_BOTTOM)
+        .moveTo(FLAVOR_TUBE_X, 0)
+        .slot2D(PILL_LENGTH_Y, PILL_WIDTH_X, angle=90)
+        .extrude(ZONE2_HEIGHT)
+    )
+    return cyl_bore.union(rect_bore).union(pill)
+
+
 def build_shell() -> cq.Workplane:
-    """Top-level shell — at the moment, just zone 1."""
-    return build_zone1_outer().cut(build_zone1_inner_cut())
+    """Top-level shell — zones 1 and 2 unioned, with combined inner cut."""
+    outer = build_zone1_outer().union(build_zone2_outer())
+    inner = build_zone1_inner_cut().union(build_zone2_inner_cut())
+    return outer.cut(inner)
 
 
 # ═══════════════════════════════════════════════════════
@@ -153,14 +295,23 @@ if __name__ == "__main__":
     cq.exporters.export(shell, str(out))
 
     print("Touch-Flo shell (work in progress)")
-    print(f"  Outer:           Ø{SHELL_OUTER_DIAMETER:.3f} mm cylinder")
     print(f"  Center:          X = {SHELL_CENTER_X}, Y = {SHELL_CENTER_Y}")
-    print(f"  Wall target:     {WALL_THICKNESS_MIN} mm at body bore -X edge")
-    print(f"                   (~{WALL_THICKNESS_MIN - 0.04:.2f} mm at pill +X semicircle)")
-    print(f"  Zone 1 height:   Z = {ZONE1_Z_BOTTOM} → {ZONE1_Z_TOP}")
-    print(f"  Body bore:       Ø{BODY_BORE_DIAMETER} mm at "
-          f"({BODY_BORE_X}, {BODY_BORE_Y})  "
-          f"(0.5 mm clearance over 31.5 mm body)")
+    print(f"  Wall target:     {WALL_THICKNESS_MIN} mm "
+          f"(~{WALL_THICKNESS_MIN - 0.04:.2f} mm at pill +X semicircle)")
+    print()
+    print(f"  Zone 1:          Z = {ZONE1_Z_BOTTOM} → {ZONE1_Z_TOP}")
+    print(f"    Outer:         Ø{SHELL_OUTER_DIAMETER:.3f} mm cylinder")
+    print(f"    Body bore:     Ø{BODY_BORE_DIAMETER} mm at "
+          f"({BODY_BORE_X}, {BODY_BORE_Y}) (0.5 mm clearance over 31.5 mm body)")
+    print()
+    print(f"  Zone 2:          Z = {ZONE2_Z_BOTTOM} → {ZONE2_Z_TOP}")
+    print(f"    Outer:         {SHELL_RECT_X_WIDTH:.3f} × {SHELL_RECT_Y_WIDTH} mm rect "
+          f"(corners clipped to Ø{SHELL_OUTER_DIAMETER:.3f} cylinder)")
+    print(f"    Cove:          R = {COVE_R} mm on Y faces, Z = {ZONE2_Z_BOTTOM} → {COVE_TOP_Z}")
+    print(f"    Body bore:     Ø{BODY_BORE_DIAMETER} mm cylinder Z = {ZONE2_Z_BOTTOM} → {COVE_TOP_Z}")
+    print(f"                   {BODY_BORE_RECT_LONG} × {BODY_BORE_RECT_SHORT} mm rect "
+          f"Z = {COVE_TOP_Z} → {ZONE2_Z_TOP}")
+    print()
     print(f"  Flavor pill:     {PILL_LENGTH_Y} × {PILL_WIDTH_X} mm "
-          f"at ({FLAVOR_TUBE_X}, 0), Y-oriented")
+          f"at ({FLAVOR_TUBE_X}, 0), Y-oriented, full Z = 0 → {ZONE2_Z_TOP}")
     print(f"-> {out.name}")
