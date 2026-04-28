@@ -22,47 +22,17 @@ The already-owned Westbrass A2031-NL-62 ($32.18) and D203-NL-62 ($52.99) in `har
 ## What gets kept, what gets discarded
 
 **Kept (harvested):**
-- Lever assembly (handle + pivot + actuator rod)
-- Spring
-- Poppet with silicone seat
-- Deck-mount escutcheon / shank (the part that passes through the countertop)
-- Inlet fitting (1/4" compression body)
+- Lever
+- Entire Touch-Flo body (see valve-body-reference folder)
 
 **Discarded:**
-- Factory spout tube — replaced by our fabricated three-tube spout assembly
-- Factory spout tip / nose cap — replaced by matching decorative collars on all three tubes
-- Any filter cartridge or aerator (if present on this SKU — these are not on the R2031 base model)
+- Mounting plate
 
 ## Three-tube spout — fabrication plan
 
-Target end-state: three visible stainless tubes emerging from the faucet body, gently swept forward to dispense over a glass at the sink. Center tube carries carbonated water from the harvested valve. Flanking tubes carry flavor from the peristaltic pumps.
+Target end-state: three visible powder coated stainless tubes emerging from the faucet body, bent to dispense over a glass at the sink. Center tube carries carbonated water from the harvested valve. Smaller 1/8 tubes carry flavor from the peristaltic pumps.
 
-- **Center tube:** 1/4" OD 316 SS, brazed or compression-joined to the harvested Touch-Flo outlet. Forward-spec material is 316 to match the carbonator vessel and the all-316 wetted-parts story; the in-hand 304 stock acquired Apr 23 is for prototyping only.
-- **Flanking tubes:** 1/8" OD 316 SS forward-spec; in-hand 304 acceptable for prototyping. These carry flavor from the Kamoer KPHM400 pumps. The project's line-run medium is 1/4" LLDPE hard tubing everywhere (see `docs/plumbing.md`), so each flavor line needs a **1/4" LLDPE → 1/8" SS reducer** inside the shroud to transition from the LLDPE supply to the smaller visible SS tube at the spout. Specific fittings TBD pending the Prime-availability survey.
-- **Bends:** each tube takes a small number (2–3) of gentle sweeps to produce the forward angle. Rigid SS in 12" segments is easy to bend by hand around a form with a simple tube bender; intermediate unions are avoided.
-- **Decorative tip collars:** short 304 SS compression ferrules slipped over each tube at the dispense end, mimicking the "thickening" / nose cap seen on the Westbrass 8" factory spout. Stainless (not brass) was chosen deliberately so the collar matches the SS tube — the whole spout reads as one material. Ferrule acts as decoration only (not a sealed joint); retention method to be decided during prototyping (press fit, light adhesive, or swage).
+- **Center tube:** 3/8" OD 316 SS
+- **Rear tubes:** 1/8" OD 316 SS
 
-The asymmetric diameter (1/4" center + 2× 1/8" flanks) is the intentional design language — carbonated water is the main event, flavor is the accent.
-
-## Prototype round materials
-
-Acquired Apr 23, 2026 — see `hardware/purchases.md` §7 for canonical prices and ASINs. Summary:
-
-- Westbrass R2031-NL-12 Touch-Flo donor (harvest target)
-- 1/4" OD × 12" 304 SS tube, 4-pack — center carbonated-water tube stock
-- 1/8" OD × 12" 304 SS tube, 4-pack — flanking flavor-tube stock
-- 1/4" 304 SS compression ferrules — decorative tip collars for the center tube
-- 1/8" 304 SS compression ferrules — decorative tip collars for the flavor tubes
-
-**Deliberately not purchased for v1:**
-- 1/8" compression union — gentle bends in 12" rigid tubes don't need mid-run joints. Add only if a bend fails.
-
-**Pending purchase (under research):**
-- 1/4" LLDPE → 1/8" SS reducer, Prime-available, ×2 per unit. Either a direct reducing union or a two-piece NPT-middle stack (1/4" LLDPE comp × 1/4" NPT male → 1/4" NPT female × 1/8" OD SS comp). Path decision waiting on the Prime-availability survey.
-
-## Open items
-
-- Physical teardown of the R2031-NL-12 once it arrives — confirm the poppet cartridge is actually removable as a subassembly, not swaged into the body.
-- Decide how the three tubes mount together: a printed shroud behind the visible spout section, a brazed bundle, or a machined manifold block.
-- Decide how the decorative tip ferrules are retained permanently and cleanly — light crush is the obvious path but may not survive handling; press fit + adhesive is the backup.
-- Photograph the factory Westbrass nose cap at close range to measure the "thickening" silhouette we are replicating.
+The asymmetric diameter (3/8" center + 2× 1/8") is the intentional design language — carbonated water is the main event, flavor is the accent.
