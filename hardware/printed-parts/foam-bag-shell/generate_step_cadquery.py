@@ -61,6 +61,18 @@ bag_pocket_depth = 35
 # -------------------------------------------------------
 #
 outer_shell_foam_gap = 16.0
+# Only the outer shell uses a thicker wall — the 1 mm walls on the rest of
+# the assembly print fine, but the outermost wall warps both during print
+# and on cool-down. 2 mm of PETG holds its shape.
+outer_shell_wall_thickness = 2.0
+#
+# Outer footprint shared by the outer shell, the foam cap, and the foam
+# cap lid. Defined at module level so changing outer_shell_wall_thickness
+# updates all three together (they must remain coplanar at the corners
+# so the pin bosses line up).
+bag_pocket_outermost_x = tank_copper_shell_radius + bag_pocket_depth - wall_and_floor_thickness
+outer_shell_x_length = 2 * (bag_pocket_outermost_x + outer_shell_foam_gap + outer_shell_wall_thickness)
+outer_shell_z_length = 2 * (tank_copper_shell_radius + outer_shell_foam_gap + outer_shell_wall_thickness)
 #
 # -------------------------------------------------------
 
@@ -180,15 +192,12 @@ def punch_a_bag_pocket_shell_hole(foam_bag_shell, side=1):
     return foam_bag_shell.cut(hole_punch)
 
 def build_outer_shell():
-    bag_pocket_outermost_x = tank_copper_shell_radius + bag_pocket_depth - wall_and_floor_thickness
-    outer_shell_x_length = 2 * (bag_pocket_outermost_x + outer_shell_foam_gap + wall_and_floor_thickness)
-    outer_shell_z_length = 2 * (tank_copper_shell_radius + outer_shell_foam_gap + wall_and_floor_thickness)
     shell = (
         cq.Workplane(xz_plane_y_up)
         .rect(outer_shell_x_length, outer_shell_z_length)
         .extrude(tank_copper_shell_height)
         .faces(">Y")
-        .shell(-wall_and_floor_thickness)
+        .shell(-outer_shell_wall_thickness)
     )
     for x_sign in (1, -1):
         for z_sign in (1, -1):
@@ -212,20 +221,17 @@ def build_outer_shell():
     return shell
 
 def build_foam_cap():
-    bag_pocket_outermost_x = tank_copper_shell_radius + bag_pocket_depth - wall_and_floor_thickness
-    foam_cap_x_length = 2 * (bag_pocket_outermost_x + outer_shell_foam_gap + wall_and_floor_thickness)
-    foam_cap_z_length = 2 * (tank_copper_shell_radius + outer_shell_foam_gap + wall_and_floor_thickness)
     cap = (
         cq.Workplane(xz_plane_y_up)
-        .rect(foam_cap_x_length, foam_cap_z_length)
+        .rect(outer_shell_x_length, outer_shell_z_length)
         .extrude(foam_cap_height)
         .faces(">Y")
         .shell(-wall_and_floor_thickness)
     )
     for x_sign in (1, -1):
         for z_sign in (1, -1):
-            boss_x = x_sign * (foam_cap_x_length / 2 - pin_boss_size / 2)
-            boss_z = z_sign * (foam_cap_z_length / 2 - pin_boss_size / 2)
+            boss_x = x_sign * (outer_shell_x_length / 2 - pin_boss_size / 2)
+            boss_z = z_sign * (outer_shell_z_length / 2 - pin_boss_size / 2)
             boss = (
                 cq.Workplane(xz_plane_y_up)
                 .workplane(origin=(boss_x, 0, boss_z), offset=0)
@@ -243,19 +249,15 @@ def build_foam_cap():
     return cap
 
 def build_foam_cap_lid():
-    bag_pocket_outermost_x = tank_copper_shell_radius + bag_pocket_depth - wall_and_floor_thickness
-    foam_cap_x_length = 2 * (bag_pocket_outermost_x + outer_shell_foam_gap + wall_and_floor_thickness)
-    foam_cap_z_length = 2 * (tank_copper_shell_radius + outer_shell_foam_gap + wall_and_floor_thickness)
-
     lid = (
         cq.Workplane(xz_plane_y_up)
-        .rect(foam_cap_x_length, foam_cap_z_length)
+        .rect(outer_shell_x_length, outer_shell_z_length)
         .extrude(wall_and_floor_thickness)
     )
 
-    pour_x = foam_cap_x_length / 2 - foam_cap_lid_hole_inset
-    vent_x = -(foam_cap_x_length / 2 - foam_cap_lid_hole_inset)
-    vent_z = foam_cap_z_length / 2 - foam_cap_lid_hole_inset
+    pour_x = outer_shell_x_length / 2 - foam_cap_lid_hole_inset
+    vent_x = -(outer_shell_x_length / 2 - foam_cap_lid_hole_inset)
+    vent_z = outer_shell_z_length / 2 - foam_cap_lid_hole_inset
 
     pour_hole = (
         cq.Workplane(xz_plane_y_up)
@@ -280,8 +282,8 @@ def build_foam_cap_lid():
 
     for x_sign in (1, -1):
         for z_sign in (1, -1):
-            boss_x = x_sign * (foam_cap_x_length / 2 - pin_boss_size / 2)
-            boss_z = z_sign * (foam_cap_z_length / 2 - pin_boss_size / 2)
+            boss_x = x_sign * (outer_shell_x_length / 2 - pin_boss_size / 2)
+            boss_z = z_sign * (outer_shell_z_length / 2 - pin_boss_size / 2)
             clearance = (
                 cq.Workplane(xz_plane_y_up)
                 .workplane(origin=(boss_x, 0, boss_z), offset=0)
