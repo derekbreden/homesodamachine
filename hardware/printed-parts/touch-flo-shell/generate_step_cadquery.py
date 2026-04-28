@@ -12,8 +12,11 @@ will be appended as we work our way up the body.
 
 GEOMETRY (zone 1 only, so far)
 ==============================
-- Outer:  filled cylinder, Ø 46 mm × 13 mm tall, centered at world
-  (1.5875, 0) — same lateral center as the mounting plate.
+- Outer:  filled cylinder, Ø 41.175 mm × 13 mm tall, centered at
+  world (1.5875, 0) — same lateral center as the mounting plate. The
+  diameter is sized by the wall-thickness target (3 mm) at the body
+  bore's farthest edge from the shell center; see the constants
+  below for the derivation.
 - Z range: [0, 13]. Bottom face flush with the plate top (= deck).
 - Inner hole at this level: union of TWO cuts that merge into a
   single connected opening because the body and the flavor tubes are
@@ -27,6 +30,16 @@ GEOMETRY (zone 1 only, so far)
   bore's +X edge at X=16, so the merged hole has a clean overlapping
   connection rather than a knife-edge tangent point.
 
+WALL THICKNESS NOTES
+====================
+Shell OD is derived to give exactly the target wall thickness at the
+body bore's farthest point from the shell center (world (-16, 0),
+which is 17.5875 mm from the shell center at (1.5875, 0)). The
+pill's +X semicircle has a slightly-farther extreme at ~17.63 mm
+from the shell center, so the wall at the pill is ~0.04 mm thinner
+than the target. Acceptable; would need to bump the OD by ~0.1 mm
+to make the pill the minimum.
+
 REGENERATE
 ==========
     tools/cad-venv/bin/python generate_step_cadquery.py
@@ -38,13 +51,11 @@ import cadquery as cq
 
 
 # ═══════════════════════════════════════════════════════
-# SHELL OUTER
+# SHELL CENTER (lateral)
 # ═══════════════════════════════════════════════════════
 
-SHELL_OUTER_DIAMETER = 46.0      # mm — smaller than the 50 mm mounting plate
-SHELL_OUTER_R        = SHELL_OUTER_DIAMETER / 2.0
-SHELL_CENTER_X       = 1.5875    # match the mounting plate's lateral center
-SHELL_CENTER_Y       = 0.0
+SHELL_CENTER_X = 1.5875    # match the mounting plate's lateral center
+SHELL_CENTER_Y = 0.0
 
 
 # ═══════════════════════════════════════════════════════
@@ -66,6 +77,26 @@ FLAVOR_TUBE_HOLE_DIA = 3.6
 FLAVOR_TUBE_Y_OFFSET = 1.5875
 PILL_LENGTH_Y = 2 * FLAVOR_TUBE_Y_OFFSET + FLAVOR_TUBE_HOLE_DIA   # 6.775
 PILL_WIDTH_X  = FLAVOR_TUBE_HOLE_DIA                                # 3.6
+
+
+# ═══════════════════════════════════════════════════════
+# SHELL OUTER (derived from wall-thickness target)
+# ═══════════════════════════════════════════════════════
+#
+# Wall thickness is set at the body bore's farthest edge from the
+# shell center. The body bore is offset by SHELL_CENTER_X mm from
+# shell center, so its farthest perimeter point (in -X) sits at
+# distance SHELL_CENTER_X + body_bore_radius from the shell center.
+# The pill's +X semicircle is ~0.04 mm farther; the wall is ~0.04 mm
+# thinner there. Acceptable.
+WALL_THICKNESS_MIN = 3.0   # mm — target at the body bore's -X edge
+
+_BODY_BORE_FARTHEST_FROM_SHELL_CENTER = (
+    (SHELL_CENTER_X - BODY_BORE_X) + BODY_BORE_DIAMETER / 2.0
+)   # = 17.5875 mm
+
+SHELL_OUTER_R        = _BODY_BORE_FARTHEST_FROM_SHELL_CENTER + WALL_THICKNESS_MIN
+SHELL_OUTER_DIAMETER = 2.0 * SHELL_OUTER_R   # = 41.175 mm
 
 
 # ═══════════════════════════════════════════════════════
@@ -122,8 +153,10 @@ if __name__ == "__main__":
     cq.exporters.export(shell, str(out))
 
     print("Touch-Flo shell (work in progress)")
-    print(f"  Outer:           Ø{SHELL_OUTER_DIAMETER} mm cylinder")
+    print(f"  Outer:           Ø{SHELL_OUTER_DIAMETER:.3f} mm cylinder")
     print(f"  Center:          X = {SHELL_CENTER_X}, Y = {SHELL_CENTER_Y}")
+    print(f"  Wall target:     {WALL_THICKNESS_MIN} mm at body bore -X edge")
+    print(f"                   (~{WALL_THICKNESS_MIN - 0.04:.2f} mm at pill +X semicircle)")
     print(f"  Zone 1 height:   Z = {ZONE1_Z_BOTTOM} → {ZONE1_Z_TOP}")
     print(f"  Body bore:       Ø{BODY_BORE_DIAMETER} mm at "
           f"({BODY_BORE_X}, {BODY_BORE_Y})  "
