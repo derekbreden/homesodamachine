@@ -422,9 +422,15 @@ def main():
     bag_pocket_shell = build_a_bag_pocket_shell()
     bag_pocket_shell_2 = build_a_bag_pocket_shell(side=-1)
     outer_shell = build_outer_shell()
+    # ── BISECTION 7 (root cause): water_outlet (Y=17) and CO2_inlet
+    # (Y=17) both intersect the support wedge (Y=2..32). water_inlet
+    # at Y=198.4 doesn't intersect the wedge and triggers no warning.
+    # Hypothesis: cutting the wedge at Y=17 (the wedge transition from
+    # tapered cone to constant ring) is the source of both warnings.
+    # Test: disable the wedge from the union; keep water_outlet + co2.
     foam_bag_shell = (
         tank_copper_shell
-        .union(tank_support_wedge)
+        # .union(tank_support_wedge)
         .union(bag_pocket_support_shell)
         .union(bag_pocket_shell)
         .union(bag_pocket_shell_2)
