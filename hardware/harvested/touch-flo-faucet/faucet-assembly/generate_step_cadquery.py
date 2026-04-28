@@ -20,6 +20,11 @@ PARTS CURRENTLY MODELED
    the body's water port and extending 40 mm above the plateau.
    O-rings on the actual tube exist but are not modeled (geometry
    only; envelope is the bare 9.5 mm OD).
+3. Two flavor dispense tubes — Ø 1/8" (3.175 mm), behind the water
+   tube. Each tube butts against the body's +X rectangular face and
+   against the other tube. Not inserted into the body. Span the full
+   working height — from the bottom of the shank (Z = -50) to the top
+   of the water tube (Z = 79).
 
 REGENERATE
 ==========
@@ -35,13 +40,16 @@ import cadquery as cq
 # REFERENCE BODY GEOMETRY (mirrored from valve-body-reference)
 # ═══════════════════════════════════════════════════════
 #
-# These three constants are duplicated from
+# These constants are duplicated from
 # `../valve-body-reference/generate_step_cadquery.py`.
 # If they change there, update them here too.
 #
 PORT_CENTER_X = 8.875        # mm — water port center (X axis)
 PORT_CENTER_Y = 0.0          # mm — water port center (Y axis)
 PLATEAU_Z     = 39.0         # mm — top face of the rectangular body
+BODY_OD       = 31.50        # mm — cylinder OD = rectangle long dim
+BODY_R        = BODY_OD / 2  # mm — 15.75 mm
+SHANK_LENGTH  = 50.0         # mm — shank extends from Z=0 down to Z=-SHANK_LENGTH
 
 
 # ═══════════════════════════════════════════════════════
@@ -61,6 +69,33 @@ WATER_TUBE_INTO_PORT     = 15.0   # mm — length inserted into the port
 WATER_TUBE_Z_BOTTOM = PLATEAU_Z - WATER_TUBE_INTO_PORT     # 24.0 mm
 WATER_TUBE_Z_TOP    = PLATEAU_Z + WATER_TUBE_ABOVE_PLATEAU # 79.0 mm
 WATER_TUBE_LENGTH   = WATER_TUBE_Z_TOP - WATER_TUBE_Z_BOTTOM
+
+
+# ═══════════════════════════════════════════════════════
+# FLAVOR DISPENSE TUBES (×2)
+# ═══════════════════════════════════════════════════════
+#
+# Two Ø 1/8" tubes behind the water tube. They are NOT inserted into
+# the body — they sit alongside it. Each tube is tangent to:
+#   - the +X rectangular face of the body (X = BODY_R = 15.75 mm)
+#   - the other flavor tube (so both touch at Y = 0)
+#
+# Mirror across the X-Z plane: one at +Y, one at -Y.
+# Tube centers are therefore at:
+#   X = BODY_R + (FLAVOR_TUBE_OD / 2) = 17.3375 mm
+#   Y = ± (FLAVOR_TUBE_OD / 2)        = ±1.5875 mm
+#
+# Z span matches the working height of the assembly:
+#   bottom = bottom of the shank (Z = -SHANK_LENGTH = -50 mm)
+#   top    = top of the water tube  (Z = WATER_TUBE_Z_TOP = 79 mm)
+#
+FLAVOR_TUBE_OD       = 1.0/8.0 * 25.4   # 3.175 mm — 1/8"
+FLAVOR_TUBE_R        = FLAVOR_TUBE_OD / 2.0
+FLAVOR_TUBE_X        = BODY_R + FLAVOR_TUBE_R           # 17.3375 mm
+FLAVOR_TUBE_Y_OFFSET = FLAVOR_TUBE_R                    # ±1.5875 mm
+FLAVOR_TUBE_Z_BOTTOM = -SHANK_LENGTH                    # -50.0 mm
+FLAVOR_TUBE_Z_TOP    = WATER_TUBE_Z_TOP                 # 79.0 mm
+FLAVOR_TUBE_LENGTH   = FLAVOR_TUBE_Z_TOP - FLAVOR_TUBE_Z_BOTTOM   # 129.0 mm
 
 
 # ═══════════════════════════════════════════════════════
@@ -101,6 +136,21 @@ def build_water_dispense_tube() -> cq.Workplane:
     )
 
 
+def build_flavor_tube(y_sign: int) -> cq.Workplane:
+    """One Ø 1/8" flavor tube at (FLAVOR_TUBE_X, y_sign * FLAVOR_TUBE_Y_OFFSET).
+
+    Straight cylinder spanning the full assembly working height, butting
+    the body's +X face and the other flavor tube. y_sign is +1 or -1.
+    """
+    return (
+        cq.Workplane("XY")
+        .workplane(offset=FLAVOR_TUBE_Z_BOTTOM)
+        .center(FLAVOR_TUBE_X, y_sign * FLAVOR_TUBE_Y_OFFSET)
+        .circle(FLAVOR_TUBE_R)
+        .extrude(FLAVOR_TUBE_LENGTH)
+    )
+
+
 # ═══════════════════════════════════════════════════════
 # ASSEMBLY
 # ═══════════════════════════════════════════════════════
@@ -109,11 +159,16 @@ def build_assembly() -> cq.Assembly:
     """Combine the reference body and our new parts into one assembly."""
     body = load_valve_body()
     water_tube = build_water_dispense_tube()
+    flavor_tube_pos_y = build_flavor_tube(+1)
+    flavor_tube_neg_y = build_flavor_tube(-1)
+
+    silver = cq.Color(0.85, 0.85, 0.88)   # near-stainless silver
 
     assy = cq.Assembly(name="touch-flo-faucet-assembly")
     assy.add(body, name="valve_body", color=cq.Color("black"))
-    assy.add(water_tube, name="water_dispense_tube",
-             color=cq.Color(0.85, 0.85, 0.88))   # near-stainless silver
+    assy.add(water_tube, name="water_dispense_tube", color=silver)
+    assy.add(flavor_tube_pos_y, name="flavor_tube_pos_y", color=silver)
+    assy.add(flavor_tube_neg_y, name="flavor_tube_neg_y", color=silver)
     return assy
 
 
@@ -139,7 +194,13 @@ def main():
     print(f"                         Z = {WATER_TUBE_Z_BOTTOM:.1f} → {WATER_TUBE_Z_TOP:.1f}")
     print(f"                         {WATER_TUBE_INTO_PORT} mm into port + "
           f"{WATER_TUBE_ABOVE_PLATEAU} mm above plateau")
-    print(f"  Center on port:        X = {PORT_CENTER_X} mm, Y = {PORT_CENTER_Y} mm")
+    print(f"                         center at X={PORT_CENTER_X} mm, Y={PORT_CENTER_Y} mm")
+    print(f"  Flavor tubes (×2):     Ø{FLAVOR_TUBE_OD:.3f} mm "
+          f"× {FLAVOR_TUBE_LENGTH:.1f} mm long")
+    print(f"                         Z = {FLAVOR_TUBE_Z_BOTTOM:.1f} → {FLAVOR_TUBE_Z_TOP:.1f}")
+    print(f"                         centers at X={FLAVOR_TUBE_X:.4f} mm, "
+          f"Y=±{FLAVOR_TUBE_Y_OFFSET:.4f} mm")
+    print(f"                         (tangent to body +X face and to each other)")
     print(f"-> {out.name}")
 
 
