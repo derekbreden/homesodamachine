@@ -306,6 +306,46 @@ def build_outer_shell():
 
             shell = shell.union(rib)
 
+    # Diagonal corner ribs — one at each of the 4 corners. Each rib bridges
+    # diagonally from the bag pocket's outer corner to inside the corner pin
+    # boss at 45° in X-Z. Triangulates the boss + bag pocket so the corner
+    # can't rack. ~17 mm long, full Y height, no flow holes (short enough
+    # that foam reaches both wedges via their openings to the long/short
+    # strips at each end of the rib).
+    corner_rib_start_inset = 1.0   # mm — into the bag pocket corner walls
+    corner_rib_end_inset   = 2.0   # mm — into the corner pin boss
+    for x_sign in (1, -1):
+        for z_sign in (1, -1):
+            start_x = (bag_pocket_outermost_x - corner_rib_start_inset) * x_sign
+            start_z = (tank_copper_shell_radius - corner_rib_start_inset) * z_sign
+            end_x   = (outer_shell_x_length / 2 - pin_boss_size + corner_rib_end_inset) * x_sign
+            end_z   = (outer_shell_z_length / 2 - pin_boss_size + corner_rib_end_inset) * z_sign
+
+            dx = end_x - start_x
+            dz = end_z - start_z
+            rib_length = math.sqrt(dx * dx + dz * dz)
+            ux, uz = dx / rib_length, dz / rib_length
+            # Perpendicular in X-Z plane (rotate direction 90° CCW)
+            px, pz = -uz, ux
+            ht = outer_shell_rib_thickness / 2
+
+            c1 = (start_x + px * ht, start_z + pz * ht)
+            c2 = (start_x - px * ht, start_z - pz * ht)
+            c3 = (end_x   - px * ht, end_z   - pz * ht)
+            c4 = (end_x   + px * ht, end_z   + pz * ht)
+
+            rib = (
+                cq.Workplane(xz_plane_y_up)
+                .moveTo(c1[0], c1[1])
+                .lineTo(c2[0], c2[1])
+                .lineTo(c3[0], c3[1])
+                .lineTo(c4[0], c4[1])
+                .close()
+                .extrude(tank_copper_shell_height)
+            )
+
+            shell = shell.union(rib)
+
     return shell
 
 def build_foam_cap():
