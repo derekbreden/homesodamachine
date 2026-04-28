@@ -28,10 +28,25 @@ from pathlib import Path
 #
 # X = long axis   — 31.50 mm (cylinder diameter = rectangle long dim)
 # Y = short axis  — 17.00 mm (rectangle thin dim)
-# +Y = rear       — the arch near the water port side
-# -Y = front      — the user/lever side (plunger arch)
+# +X = rear       — water port side (away from the user)
+# -X = front      — lever side (toward the user)
+#
+# The Y axis has no "front/rear" semantics — it is the body's thin
+# direction, with the two side arches sitting at +Y and -Y. They are
+# identical; the only distinction is sign.
 #
 # Body is centered at the XY origin.
+#
+# Top-face features, all at Z = plateau_z = 39 mm:
+#   - Brass actuator plunger at (X = 0, Y = 0) — the body center
+#   - Water port at (X = +8.875 mm, Y = 0) — offset toward +X (rear)
+#   - ~1 mm gap between the port wall and the plunger wall
+#   - Lever attaches to the plunger and swings in the -X half
+#
+# Shell design implication: the entire -X half of the top face,
+# plus the plateau strip from the water port forward to -X, must
+# remain OPEN. The shell can only wrap the cylindrical base, the
+# two Y-flanking arches, and the +X end behind the water port.
 #
 # -------------------------------------------------------
 
@@ -80,29 +95,28 @@ transition_fillet_r   = 5.0         # mm — concave R = 4–6 mm, 5.0 mm midpoi
 # Zone 3 — Arch features  (Z = plateau_z → arc_peak_z)
 # -------------------------------------------------------
 #
-# Two arch rails sit at the outer ±Y edges of the rectangular top face.
-# Each is 1.5 mm wide in Y and spans the full X length (31.50 mm).
+# Two IDENTICAL side arches sit at the ±Y edges of the rectangular
+# top face. Each is 1.5 mm wide in Y and spans the full X length
+# (31.50 mm). They are flanking ridges, not roof features over any
+# specific top-face component.
 #
-# ARCH ORIENTATION — arch profile is in the ZX plane.
-# When viewed from the Y axis (looking along Y), you see the arch shape:
+# ARCH ORIENTATION — each arch's profile is in the ZX plane.
+# Viewed along Y you see the arch shape:
 #   - At X = ±15.75 mm (short ends):  Z rises to arc_base_z = 41 mm
 #   - At X = 0 (center):              Z peaks at arc_peak_z = 46 mm
 #   - Below arc_base_z, each arch has a 2 mm rectangular foot
 #     (from plateau_z = 39 mm to arc_base_z = 41 mm)
 #
-#   Port arch    — rear (+Y side), center at Y = +7.75 mm
-#   Plunger arch — front (-Y side), center at Y = −7.75 mm
-#
-# The plateau between them is 14 mm wide in Y (= 17 − 2 × 1.5 mm).
-# The shell must be fully open across the plateau so the stock lever
-# can fit and actuate as designed.
+# The two arches differ only by Y sign. The plateau between them is
+# 14 mm wide in Y (= 17 − 2 × 1.5 mm); the brass plunger and the
+# water port both live in this plateau (see header comment for X/Y
+# coordinates of each).
 #
 arc_base_z            = 41.0                            # mm (Photo 2)
 arc_peak_z            = 46.0                            # mm (Photo 1)
 #
 arch_block_width_y    = 1.5                             # mm — confirmed arch width in Y
-arch_port_center_y    = rect_short_half - arch_block_width_y / 2   # mm — +7.75 mm (rear)
-arch_plunger_center_y = -arch_port_center_y                         # mm — −7.75 mm (front)
+arch_y_offset         = rect_short_half - arch_block_width_y / 2   # mm — ±7.75 mm
 #
 # Plateau geometry (derived):
 plateau_width_y       = rect_short - 2 * arch_block_width_y        # mm — 14.00 mm
@@ -261,18 +275,18 @@ def cut_water_port_bore(body):
 
 
 def build_valve_body():
-    cylinder     = build_cylinder_base()
-    column       = build_rectangular_column()
-    arch_port    = build_arch(arch_port_center_y)
-    arch_plunger = build_arch(arch_plunger_center_y)
-    cove_pos     = build_transition_cove(+1)    # +Y face
-    cove_neg     = build_transition_cove(-1)    # -Y face
+    cylinder    = build_cylinder_base()
+    column      = build_rectangular_column()
+    arch_pos_y  = build_arch(+arch_y_offset)
+    arch_neg_y  = build_arch(-arch_y_offset)
+    cove_pos    = build_transition_cove(+1)    # +Y face
+    cove_neg    = build_transition_cove(-1)    # -Y face
 
     body = (
         cylinder
         .union(column)
-        .union(arch_port)
-        .union(arch_plunger)
+        .union(arch_pos_y)
+        .union(arch_neg_y)
         .union(cove_pos)
         .union(cove_neg)
     )
