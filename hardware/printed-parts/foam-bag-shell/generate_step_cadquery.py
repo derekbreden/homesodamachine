@@ -431,15 +431,16 @@ def main():
         .union(outer_shell)
     )
 
-    # ── BISECTION (2 mm wall warnings): all cuts disabled. ───────
-    # If foam-bag-shell.step still triggers the 4 non-manifold edges or the
-    # floating-cantilever warning with no cuts at all, the issue is in the
-    # union itself. If they disappear, one of these cuts is the source.
-    # foam_bag_shell = punch_a_bag_pocket_shell_hole(foam_bag_shell)
-    # foam_bag_shell = punch_a_bag_pocket_shell_hole(foam_bag_shell, side=-1)
-    # foam_bag_shell = cut_hole_for_co2_inlet(foam_bag_shell)
-    # foam_bag_shell = cut_hole_for_water_inlet(foam_bag_shell)
-    # foam_bag_shell = cut_hole_for_water_outlet(foam_bag_shell)
+    # ── BISECTION 2 (2 mm wall warnings): bisection 1 confirmed it's
+    # one of the 7 cuts. Now: re-enable the 5 cylindrical-hole cuts;
+    # keep the 2 slit-and-plug cuts disabled. If warnings come back,
+    # it's one of these 5 holes (we'll narrow further). If they stay
+    # gone, it's one of the slits.
+    foam_bag_shell = punch_a_bag_pocket_shell_hole(foam_bag_shell)
+    foam_bag_shell = punch_a_bag_pocket_shell_hole(foam_bag_shell, side=-1)
+    foam_bag_shell = cut_hole_for_co2_inlet(foam_bag_shell)
+    foam_bag_shell = cut_hole_for_water_inlet(foam_bag_shell)
+    foam_bag_shell = cut_hole_for_water_outlet(foam_bag_shell)
     # foam_bag_shell, copper_inlet_plug = cut_slit_and_build_plug_for_copper_inlet(foam_bag_shell)
     # foam_bag_shell, copper_outlet_plug = cut_slit_and_build_plug_for_copper_inlet(foam_bag_shell, which=1)
     copper_inlet_plug = None
