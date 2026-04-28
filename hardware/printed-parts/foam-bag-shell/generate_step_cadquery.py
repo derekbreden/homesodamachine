@@ -68,10 +68,11 @@ tank_support_wedge_height = 30.0
 # Bag pocket
 # -------------------------------------------------------
 #
+# bag_pocket_width tracks tank_copper_shell_radius automatically, so the
+# bag-pocket Z interior cavity (= width − 2 × wall) stays at 139 mm. The
 # bag_pocket_depth gets +2*compensation so the X interior cavity stays
-# at 33 mm regardless of wall thickness. bag_pocket_width is set in the
-# outer-shell section (below) once support_shell_outermost is known —
-# they share the same Z extent so their walls coincide.
+# at 33 mm regardless of wall thickness.
+bag_pocket_width = tank_copper_shell_radius * 2
 bag_pocket_depth = 35 + 2 * wall_thickness_compensation
 #
 # -------------------------------------------------------
@@ -86,30 +87,13 @@ outer_shell_foam_gap = 16.0
 # its own constant in case the inner/outer split is ever needed again.
 outer_shell_wall_thickness = wall_and_floor_thickness
 #
-# Tiny clearance between the tank cylinder and the bag-pocket-support
-# shell. Without it, the cylinder's outer surface (radius
-# tank_copper_shell_radius) and the support shell's outer face (at
-# ±tank_copper_shell_radius) tangentially touch at the 4 cardinal points,
-# producing 4 non-manifold edges in the slicer. Pushing the support shell
-# outward by this clearance makes the cylinder fully interior; the
-# resulting union has clean intersections, no tangencies. Bag pocket and
-# outer shell positioning all derive from support_shell_outermost so this
-# clearance propagates correctly to keep foam gaps at 16 mm and the
-# bag pocket toward-center wall coincident with the support shell wall.
-support_shell_clearance = 0.5
-support_shell_outermost = tank_copper_shell_radius + support_shell_clearance
-# Bag pocket spans the same Z range as the support shell so their Z walls
-# coincide. (The bag pocket's Z interior cavity grows by 2 × clearance vs
-# the original 1 mm-walls design — slight expansion of the bag space.)
-bag_pocket_width = 2 * support_shell_outermost
-#
 # Outer footprint shared by the outer shell, the foam cap, and the foam
 # cap lid. Defined at module level so changing outer_shell_wall_thickness
 # updates all three together (they must remain coplanar at the corners
 # so the pin bosses line up).
-bag_pocket_outermost_x = support_shell_outermost + bag_pocket_depth - wall_and_floor_thickness
+bag_pocket_outermost_x = tank_copper_shell_radius + bag_pocket_depth - wall_and_floor_thickness
 outer_shell_x_length = 2 * (bag_pocket_outermost_x + outer_shell_foam_gap + outer_shell_wall_thickness)
-outer_shell_z_length = 2 * (support_shell_outermost + outer_shell_foam_gap + outer_shell_wall_thickness)
+outer_shell_z_length = 2 * (tank_copper_shell_radius + outer_shell_foam_gap + outer_shell_wall_thickness)
 #
 # -------------------------------------------------------
 
@@ -164,9 +148,7 @@ def build_tank_copper_shell():
     )
 
 def build_bag_pocket_support_shell():
-    # Slightly larger than 2 × tank_copper_shell_radius so the cylinder
-    # fits inside without tangentially touching the square's outer face.
-    bag_pocket_support_side_length = 2 * support_shell_outermost
+    bag_pocket_support_side_length = 2 * tank_copper_shell_radius
     return (
         cq.Workplane(xz_plane_y_up)
         .rect(bag_pocket_support_side_length, bag_pocket_support_side_length)
@@ -204,11 +186,8 @@ def build_tank_support_wedge():
 def build_a_bag_pocket_shell(side=1):
     bag_pocket_height = tank_copper_shell_height
 
-    # Bag pocket offset — centered so the toward-center outer face lands
-    # at support_shell_outermost − wall (= support shell's +X inner face),
-    # i.e., the bag pocket toward-center wall coincides with the support
-    # shell's +X wall.
-    bag_pocket_x_offset = support_shell_outermost + bag_pocket_depth / 2 - wall_and_floor_thickness
+    # Bag pocket offset
+    bag_pocket_x_offset = tank_copper_shell_radius + bag_pocket_depth / 2 - wall_and_floor_thickness
     bag_pocket_x_offset *= side
 
     return (
@@ -222,8 +201,8 @@ def build_a_bag_pocket_shell(side=1):
 
 def punch_a_bag_pocket_shell_hole(foam_bag_shell, side=1):
 
-    # Bag pocket offset (must match build_a_bag_pocket_shell)
-    bag_pocket_x_offset = support_shell_outermost + bag_pocket_depth / 2 - wall_and_floor_thickness
+    # Bag pocket offset
+    bag_pocket_x_offset = tank_copper_shell_radius + bag_pocket_depth / 2 - wall_and_floor_thickness
     bag_pocket_x_offset *= side
 
     # Hole offset
