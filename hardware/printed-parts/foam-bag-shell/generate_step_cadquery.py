@@ -13,6 +13,7 @@ import cadquery as cq
 #
 xz_plane_y_up = cq.Plane(origin=(0, 0, 0), xDir=(1, 0, 0), normal=(0, 1, 0))
 xy_plane_z_up = cq.Plane(origin=(0, 0, 0), xDir=(1, 0, 0), normal=(0, 0, 1))
+yz_plane_x_up = cq.Plane(origin=(0, 0, 0), xDir=(0, 1, 0), normal=(1, 0, 0))
 wall_and_floor_thickness = 1.0
 hole_shift_from_edge = 15.0
 #
@@ -61,10 +62,10 @@ bag_pocket_depth = 35
 # -------------------------------------------------------
 #
 outer_shell_foam_gap = 16.0
-# Only the outer shell uses a thicker wall — the 1 mm walls on the rest of
-# the assembly print fine, but the outermost wall warps both during print
-# and on cool-down. 2 mm of PETG holds its shape.
-outer_shell_wall_thickness = 2.0
+# Outer wall back at 1 mm — the 2 mm experiment didn't help (still warped/
+# shifted on the upper half of the long walls). Internal vertical ribs
+# below provide the lateral support that was missing.
+outer_shell_wall_thickness = 1.0
 #
 # Outer footprint shared by the outer shell, the foam cap, and the foam
 # cap lid. Defined at module level so changing outer_shell_wall_thickness
@@ -73,6 +74,16 @@ outer_shell_wall_thickness = 2.0
 bag_pocket_outermost_x = tank_copper_shell_radius + bag_pocket_depth - wall_and_floor_thickness
 outer_shell_x_length = 2 * (bag_pocket_outermost_x + outer_shell_foam_gap + outer_shell_wall_thickness)
 outer_shell_z_length = 2 * (tank_copper_shell_radius + outer_shell_foam_gap + outer_shell_wall_thickness)
+#
+# Internal vertical ribs along the long (+Z and -Z) walls of the outer
+# shell. Two ribs per long wall (1/3 and 2/3 of the wall length in X),
+# each spanning the full foam gap from the inner support shell to the
+# outer wall, full Y height. Through-holes in X let liquid foam flow
+# between sectors during the pour.
+outer_shell_rib_thickness = 2.0           # rib thickness in X
+outer_shell_rib_flow_hole_radius = 5.0    # 10 mm Ø flow holes
+outer_shell_rib_flow_hole_y_spacing = 50.0
+outer_shell_rib_flow_hole_y_first = 25.0  # first hole 25 mm above the floor
 #
 # -------------------------------------------------------
 
@@ -218,6 +229,47 @@ def build_outer_shell():
                     .extrude(pin_hole_depth)
                 )
                 shell = shell.cut(hole)
+
+    # Internal vertical ribs on the +Z and -Z (long) walls. Each rib bridges
+    # from the inner face of the bag-pocket-support shell (Z = ±69.5) out to
+    # the outer face of the outer wall (Z = ±outer_shell_z_length/2), so it
+    # merges cleanly with both walls when unioned. Through-holes in X let
+    # foam flow between the rib's two sides during the pour.
+    rib_x_positions = (outer_shell_x_length / 6, -outer_shell_x_length / 6)
+    flow_hole_y_values = []
+    _y = outer_shell_rib_flow_hole_y_first
+    while _y < tank_copper_shell_height:
+        flow_hole_y_values.append(_y)
+        _y += outer_shell_rib_flow_hole_y_spacing
+
+    for rib_x in rib_x_positions:
+        for z_sign in (1, -1):
+            rib_z_far = (outer_shell_z_length / 2) * z_sign
+            rib_z_near = (tank_copper_shell_radius - wall_and_floor_thickness) * z_sign
+            rib_z_center = (rib_z_far + rib_z_near) / 2
+            rib_z_length = abs(rib_z_far - rib_z_near)
+
+            rib = (
+                cq.Workplane(xz_plane_y_up)
+                .workplane(origin=(rib_x, 0, rib_z_center))
+                .rect(outer_shell_rib_thickness, rib_z_length)
+                .extrude(tank_copper_shell_height)
+            )
+
+            for y_hole in flow_hole_y_values:
+                hole = (
+                    cq.Workplane(yz_plane_x_up)
+                    .workplane(
+                        origin=(rib_x - outer_shell_rib_thickness, y_hole, rib_z_center),
+                        offset=rib_x - outer_shell_rib_thickness,
+                    )
+                    .circle(outer_shell_rib_flow_hole_radius)
+                    .extrude(2 * outer_shell_rib_thickness)
+                )
+                rib = rib.cut(hole)
+
+            shell = shell.union(rib)
+
     return shell
 
 def build_foam_cap():
