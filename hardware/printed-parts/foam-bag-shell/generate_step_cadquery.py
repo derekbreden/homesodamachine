@@ -431,15 +431,17 @@ def main():
         .union(outer_shell)
     )
 
-    # ── BISECTION 5 (cantilever warning): bisection 4 split the two
-    # warnings — cantilever comes from water inlet OR water outlet,
-    # manifold comes from CO2 inlet (verified independently). Now
-    # narrowing the cantilever: enable just water_inlet.
+    # ── BISECTION 6: water_outlet + CO2 inlet (no water_inlet).
+    # Bisection 5 ruled out water_inlet, so water_outlet must be the
+    # cantilever source. Combined with CO2 inlet to test both root
+    # causes in one round: cantilever should appear (from water_outlet)
+    # AND manifold should appear (from CO2 inlet). If both do, both
+    # are confirmed and we can move on to fixing them.
     foam_bag_shell = punch_a_bag_pocket_shell_hole(foam_bag_shell)
     foam_bag_shell = punch_a_bag_pocket_shell_hole(foam_bag_shell, side=-1)
-    # foam_bag_shell = cut_hole_for_co2_inlet(foam_bag_shell)
-    foam_bag_shell = cut_hole_for_water_inlet(foam_bag_shell)
-    # foam_bag_shell = cut_hole_for_water_outlet(foam_bag_shell)
+    foam_bag_shell = cut_hole_for_co2_inlet(foam_bag_shell)
+    # foam_bag_shell = cut_hole_for_water_inlet(foam_bag_shell)
+    foam_bag_shell = cut_hole_for_water_outlet(foam_bag_shell)
     # foam_bag_shell, copper_inlet_plug = cut_slit_and_build_plug_for_copper_inlet(foam_bag_shell)
     # foam_bag_shell, copper_outlet_plug = cut_slit_and_build_plug_for_copper_inlet(foam_bag_shell, which=1)
     copper_inlet_plug = None
