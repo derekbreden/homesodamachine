@@ -261,6 +261,16 @@ def build_flavor_tube(y_sign: int) -> cq.Workplane:
 
 
 def build_lever() -> cq.Workplane:
+    """The lever as a swing-clearance blob: union of rest position +
+    pressed-down position.
+
+    The shell needs to clear the volume the lever sweeps through during
+    actuation, not just the rest envelope. Modeling that as the union
+    of the two extremes (0° and -18° around the pivot at X=1.5, Z=46)
+    is a deliberate approximation — visually an "ugly blob" — but it
+    captures what the shell must avoid. Each position carries its own
+    vertical water-tube clearance cut.
+    """
     cut_cylinder = (
         cq.Workplane("XY")
         .workplane(offset=PLATEAU_Z + 1)
@@ -278,24 +288,32 @@ def build_lever() -> cq.Workplane:
         .rect(13, 3, centered=(True, False))
         .loft(combine=True)
     )
-    return (
+
+    # Bare lever shape — no clearance cuts, in the rest position.
+    base_lever = (
         cq.Workplane("YZ")
         .workplane(offset=9)
         .moveTo(0, PLATEAU_Z + 1)
         .rect(13, 12, centered=(True, False))
         .extrude(-15)
         .union(add_taper)
-        # Cut the clearance for its resting position
-        .cut(cut_cylinder)
-        # Put it into the pressed down position
-        .rotate((1.5, 0, PLATEAU_Z + 1 + 6), (1.5, 1, PLATEAU_Z + 1 + 6), -18)
-        # Cut the clearance for the pressed down position
-        .cut(cut_cylinder)
-        # Return it to the resting position
-        .rotate((1.5, 0, PLATEAU_Z + 1 + 6), (1.5, 1, PLATEAU_Z + 1 + 6), 18)
-        # Return it to the pressed down position
-        .rotate((1.5, 0, PLATEAU_Z + 1 + 6), (1.5, 1, PLATEAU_Z + 1 + 6), -18)
     )
+
+    # Pivot axis: parallel to Y at (X=1.5, Z=46).
+    pivot_a = (1.5, 0, PLATEAU_Z + 1 + 6)
+    pivot_b = (1.5, 1, PLATEAU_Z + 1 + 6)
+
+    # Rest position: lever as-is, with its rest-position water-tube cut.
+    lever_rest = base_lever.cut(cut_cylinder)
+
+    # Pressed-down position: rotate -18° around the pivot, then take
+    # the same vertical water-tube clearance cut. The cut is vertical
+    # in world coordinates, so it correctly clears the upright water
+    # tube even though the lever itself is tilted.
+    lever_pressed = base_lever.rotate(pivot_a, pivot_b, -18).cut(cut_cylinder)
+
+    # Union of both extremes — the swing-clearance envelope.
+    return lever_rest.union(lever_pressed)
 
 
 # ═══════════════════════════════════════════════════════
