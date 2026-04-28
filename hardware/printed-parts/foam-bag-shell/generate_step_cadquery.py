@@ -13,7 +13,19 @@ import cadquery as cq
 #
 xz_plane_y_up = cq.Plane(origin=(0, 0, 0), xDir=(1, 0, 0), normal=(0, 1, 0))
 xy_plane_z_up = cq.Plane(origin=(0, 0, 0), xDir=(1, 0, 0), normal=(0, 0, 1))
-wall_and_floor_thickness = 1.0
+# All structural walls and floors are 2 mm thick. The 1 mm originals
+# warped/shifted in PETG; 2 mm holds its shape on every wall it's been
+# tested on so far. The outer dimensions of every component are
+# refactored below so that wall-thickness growth is *added* to the
+# outer envelope rather than absorbed from inner buffers, foam gaps,
+# bag pocket cavities, etc.
+wall_and_floor_thickness = 2.0
+# Reference wall thickness used in the original 1 mm design. Outer-
+# dimension formulas use (wall_and_floor_thickness - reference_wall_thickness)
+# as a compensation term, so 1 mm walls reproduce the original geometry
+# exactly and 2 mm walls grow each affected outer dimension by 1 mm.
+reference_wall_thickness = 1.0
+wall_thickness_compensation = wall_and_floor_thickness - reference_wall_thickness
 hole_shift_from_edge = 15.0
 #
 # -------------------------------------------------------
@@ -23,16 +35,22 @@ hole_shift_from_edge = 15.0
 # Tank copper shell
 # -------------------------------------------------------
 #
-# Tank copper shell radius
+# Tank copper shell radius. The +compensation term keeps the inner face
+# of the shell wall (where the copper coil sits) at radius 69.5 regardless
+# of wall thickness, preserving the 6 mm coil buffer.
 tank_outer_radius = 63.5
 copper_coil_buffer_radius = 7.0
-tank_copper_shell_radius = tank_outer_radius + copper_coil_buffer_radius
+tank_copper_shell_radius = tank_outer_radius + copper_coil_buffer_radius + wall_thickness_compensation
 #
-# Tank copper shell height
+# Tank copper shell height. The +compensation term keeps the interior
+# Y cavity at the original 211.4 mm regardless of floor thickness.
 tank_height = 152.4
 below_tank_elbows_height = 30.0
 above_tank_elbows_height = 30.0
-tank_copper_shell_height = tank_height + below_tank_elbows_height + above_tank_elbows_height
+tank_copper_shell_height = (
+    tank_height + below_tank_elbows_height + above_tank_elbows_height
+    + wall_thickness_compensation
+)
 #
 # -------------------------------------------------------
 
@@ -50,8 +68,12 @@ tank_support_wedge_height = 30.0
 # Bag pocket
 # -------------------------------------------------------
 #
+# bag_pocket_width tracks tank_copper_shell_radius automatically, so the
+# bag-pocket Z interior cavity (= width − 2 × wall) stays at 139 mm. The
+# bag_pocket_depth gets +2*compensation so the X interior cavity stays
+# at 33 mm regardless of wall thickness.
 bag_pocket_width = tank_copper_shell_radius * 2
-bag_pocket_depth = 35
+bag_pocket_depth = 35 + 2 * wall_thickness_compensation
 #
 # -------------------------------------------------------
 
@@ -61,10 +83,9 @@ bag_pocket_depth = 35
 # -------------------------------------------------------
 #
 outer_shell_foam_gap = 16.0
-# Only the outer shell uses a thicker wall — the 1 mm walls on the rest of
-# the assembly print fine, but the outermost wall warps both during print
-# and on cool-down. 2 mm of PETG holds its shape.
-outer_shell_wall_thickness = 2.0
+# Outer wall is the same 2 mm as the rest of the assembly now. Kept as
+# its own constant in case the inner/outer split is ever needed again.
+outer_shell_wall_thickness = wall_and_floor_thickness
 #
 # Outer footprint shared by the outer shell, the foam cap, and the foam
 # cap lid. Defined at module level so changing outer_shell_wall_thickness
@@ -81,7 +102,10 @@ outer_shell_z_length = 2 * (tank_copper_shell_radius + outer_shell_foam_gap + ou
 # Foam cap (top/bottom 16 mm foam pour tray, printed twice)
 # -------------------------------------------------------
 #
-foam_cap_height = 16.0
+# Foam cap outer height. The +compensation term keeps the cap's interior
+# Y cavity (= foam thickness in the cap) at 15 mm regardless of floor
+# thickness.
+foam_cap_height = 16.0 + wall_thickness_compensation
 #
 # -------------------------------------------------------
 
@@ -344,10 +368,10 @@ def cut_slit_and_build_plug_for_copper_inlet(foam_bag_shell, which = 0):
 
     slit_width = 6.5
     # The PETG-printed plug fits loose in the printed slit at slit_width;
-    # widening just the plug's source profile by 1.5 mm in X compensates
+    # widening just the plug's source profile by 0.5 mm in X compensates
     # for shrinkage / edge effects so the printed plug snugs into the
     # printed slit. The slit cut into the shell stays at slit_width.
-    plug_x_extra = 1.5
+    plug_x_extra = 0.5
     plug_width = slit_width + plug_x_extra
 
     slit_punch = (
