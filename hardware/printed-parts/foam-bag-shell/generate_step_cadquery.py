@@ -230,19 +230,22 @@ def build_outer_shell():
                 )
                 shell = shell.cut(hole)
 
-    # Internal vertical ribs on the +Z and -Z (long) walls. Each rib bridges
-    # from the inner face of the bag-pocket-support shell (Z = ±69.5) out to
-    # the outer face of the outer wall (Z = ±outer_shell_z_length/2), so it
-    # merges cleanly with both walls when unioned. Through-holes in X let
-    # foam flow between the rib's two sides during the pour.
-    rib_x_positions = (outer_shell_x_length / 6, -outer_shell_x_length / 6)
+    # Internal vertical ribs on the long walls (+Z and -Z) and the short walls
+    # (+X and -X). Each rib bridges from the inner support structure to the
+    # outer face of the corresponding outer wall, full Y height, and carries
+    # through-holes drilled across its thickness so liquid foam can flow
+    # between sectors during a single pour.
     flow_hole_y_values = []
     _y = outer_shell_rib_flow_hole_y_first
     while _y < tank_copper_shell_height:
         flow_hole_y_values.append(_y)
         _y += outer_shell_rib_flow_hole_y_spacing
 
-    for rib_x in rib_x_positions:
+    # Long-wall ribs (+Z / -Z walls) — thick in X, spanning Z. Two per wall
+    # at X = ±outer_shell_x_length/6, dividing the wall into thirds. Holes
+    # drilled along X.
+    long_rib_x_positions = (outer_shell_x_length / 6, -outer_shell_x_length / 6)
+    for rib_x in long_rib_x_positions:
         for z_sign in (1, -1):
             rib_z_far = (outer_shell_z_length / 2) * z_sign
             rib_z_near = (tank_copper_shell_radius - wall_and_floor_thickness) * z_sign
@@ -262,6 +265,39 @@ def build_outer_shell():
                     .workplane(
                         origin=(rib_x - outer_shell_rib_thickness, y_hole, rib_z_center),
                         offset=rib_x - outer_shell_rib_thickness,
+                    )
+                    .circle(outer_shell_rib_flow_hole_radius)
+                    .extrude(2 * outer_shell_rib_thickness)
+                )
+                rib = rib.cut(hole)
+
+            shell = shell.union(rib)
+
+    # Short-wall ribs (+X / -X walls) — thick in Z, spanning X (from the bag
+    # pocket's outer face out to the outer wall). Two per wall at
+    # Z = ±outer_shell_z_length/6, dividing the wall into thirds. Holes
+    # drilled along Z.
+    short_rib_z_positions = (outer_shell_z_length / 6, -outer_shell_z_length / 6)
+    for rib_z in short_rib_z_positions:
+        for x_sign in (1, -1):
+            rib_x_far = (outer_shell_x_length / 2) * x_sign
+            rib_x_near = (bag_pocket_outermost_x - wall_and_floor_thickness) * x_sign
+            rib_x_center = (rib_x_far + rib_x_near) / 2
+            rib_x_length = abs(rib_x_far - rib_x_near)
+
+            rib = (
+                cq.Workplane(xz_plane_y_up)
+                .workplane(origin=(rib_x_center, 0, rib_z))
+                .rect(rib_x_length, outer_shell_rib_thickness)
+                .extrude(tank_copper_shell_height)
+            )
+
+            for y_hole in flow_hole_y_values:
+                hole = (
+                    cq.Workplane(xy_plane_z_up)
+                    .workplane(
+                        origin=(rib_x_center, y_hole, rib_z - outer_shell_rib_thickness),
+                        offset=rib_z - outer_shell_rib_thickness,
                     )
                     .circle(outer_shell_rib_flow_hole_radius)
                     .extrude(2 * outer_shell_rib_thickness)
