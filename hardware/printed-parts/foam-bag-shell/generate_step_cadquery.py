@@ -50,7 +50,7 @@ tank_support_wedge_height = 30.0
 # Bag pocket
 # -------------------------------------------------------
 #
-bag_pocket_width = 125
+bag_pocket_width = tank_copper_shell_radius * 2
 bag_pocket_depth = 35
 #
 # -------------------------------------------------------
