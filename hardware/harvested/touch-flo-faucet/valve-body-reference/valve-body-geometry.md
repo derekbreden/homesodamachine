@@ -74,9 +74,9 @@ The top of the rectangular body has three features across its face:
 
 **Plateau** — at **39 mm** height. A flat area (or shallow saddle) that sits between the two arc features. It is 2 mm below where the arcs begin (41 mm), making it slightly inset.
 
-**Two arc/arch features** — there are two raised arch features, one over the water port and one over the solid brass actuator plunger. They begin curving upward at **41 mm** and peak at **46 mm**, giving each arc a rise of **~5 mm**.
+**Two side arches — identical** — two raised arch ridges run along the long-axis edges of the top face, one at +Y and one at -Y. They are flanking ridges, NOT roof features over any specific top-face component. Each arch is 1.5 mm wide in Y and spans the full X length of the body. They begin curving upward at **41 mm** and peak at **46 mm** at X = 0, giving each arch a rise of **~5 mm**.
 
-The arrangement viewed from above: two rounded humps side by side across the rectangular top face, separated by the plateau between them.
+The arrangement viewed from above: two rounded humps along the long edges of the rectangular top face, separated by the plateau between them. The brass plunger and the water port both sit IN the plateau (see §3.3 and §3.4), not under the arches.
 
 ### 3.3 Water Port
 
@@ -93,9 +93,11 @@ The arrangement viewed from above: two rounded humps side by side across the rec
 
 The second brass feature visible at the top face is a **solid brass plunger** — a mechanical actuator, not a fluid port. No water flows through it.
 
-Mechanism: lever/cap pressed down → lever arm lifts the solid brass plunger upward → plunger opens the water port internally.
+- Location: **body center, X = 0, Y = 0**, in the plateau (NOT under either arch)
+- Approximately **1 mm** gap between the plunger wall and the water port wall (port wall sits at X ≈ +4.0 mm; plunger wall therefore at X ≈ +3.0 mm)
+- Plunger OD therefore ≈ **6 mm** (derived from the 1 mm gap; not yet caliper-confirmed)
 
-The plunger is covered by the second arc feature at the top. Its OD has not been directly measured (see Open Questions).
+Mechanism: lever pressed down → lever arm lifts the solid brass plunger upward → plunger opens the water port internally. The lever attaches to the plunger and swings in the **-X half** of the body.
 
 ### 3.5 Surface Treatments
 
@@ -129,9 +131,11 @@ The body mounts through a standard 1-3/8" (34.93 mm) countertop hole. The 31.50 
 
 **The arc features at the top** (up to 46 mm) protrude above the rectangular body. The shell can stop at or below 39 mm (plateau) and let the arc features and actuator cap fully protrude, or it can follow the arc profile if a closer fit is desired.
 
-**Only one tube** exits the top face — the water supply line to the 9.75 mm port. The shell needs a managed exit path for this one tube only.
+**Lever clearance — hard constraint.** The lever attaches to the plunger at body center and swings in the -X half of the body. The shell **must leave the entire -X half of the top face open**, including the plateau strip between the two arches forward (toward -X) of the water port. Concretely, the shell's top closure can extend over (a) the +X end behind the water port and (b) the two side arches at ±Y, but it cannot bridge the plateau anywhere from the water port forward to the -X edge.
 
-**The actuator plunger** needs free vertical travel as the lever operates. Any shell feature near the top of the body must not restrict the plunger's upward stroke.
+**Only one tube** exits the top face — the water supply line to the 9.75 mm port at X = +8.875 mm. The shell needs a managed exit path for this one tube only.
+
+**The actuator plunger** needs free vertical travel as the lever operates. Any shell feature near the body center (X = 0, Y = 0) must not restrict the plunger's upward stroke.
 
 **Installation sequence (single-piece cylindrical shell):**
 1. Mount the valve through the countertop and tighten the locknut.
@@ -147,7 +151,7 @@ The body mounts through a standard 1-3/8" (34.93 mm) countertop hole. The 31.50 
 | 1 | Shoulder/flange OD | Sets the shell's lower landing reference | Caliper across flange |
 | 2 | Shoulder/flange axial thickness | Sets shell base geometry | Caliper from flange bottom to body base |
 | 3 | ~~Which body edge the 2 mm port measurement is from~~ | ✅ Resolved: 2 mm from the long side (31.50 mm face); centered on the short axis | — |
-| 4 | Actuator plunger OD | Sizes clearance in any shell top face | Caliper directly on the brass plunger |
-| 5 | Port-to-plunger center-to-center distance | Locates both features on the top face | Caliper center-to-center |
+| 4 | ~~Actuator plunger OD~~ | Partially answered: ~6 mm derived from the ~1 mm gap to the 9.75 mm water port. Caliper-confirm when convenient. | Caliper directly on the brass plunger |
+| 5 | ~~Port-to-plunger center-to-center distance~~ | Resolved: port at X = +8.875 mm, plunger at X = 0 → center-to-center = 8.875 mm. | — |
 | 6 | Transition geometry (abrupt step or tapered?) at 13 mm where round becomes rectangular | Affects shell fit at the transition zone | Direct visual + caliper at the transition |
 | 7 | Overall assembled height including any cap or lever hardware that rides above the arc peak | Sets total shell height if shell follows the full profile | Ruler from deck to top of lever at rest |
