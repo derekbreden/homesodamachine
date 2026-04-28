@@ -431,16 +431,19 @@ def main():
         .union(outer_shell)
     )
 
-    # Cut holes
-    foam_bag_shell = punch_a_bag_pocket_shell_hole(foam_bag_shell)
-    foam_bag_shell = punch_a_bag_pocket_shell_hole(foam_bag_shell, side=-1)
-    foam_bag_shell = cut_hole_for_co2_inlet(foam_bag_shell)
-    foam_bag_shell = cut_hole_for_water_inlet(foam_bag_shell)
-    foam_bag_shell = cut_hole_for_water_outlet(foam_bag_shell)
-
-    # Cut slits + extract their plugs
-    foam_bag_shell, copper_inlet_plug = cut_slit_and_build_plug_for_copper_inlet(foam_bag_shell)
-    foam_bag_shell, copper_outlet_plug = cut_slit_and_build_plug_for_copper_inlet(foam_bag_shell, which=1)
+    # ── BISECTION (2 mm wall warnings): all cuts disabled. ───────
+    # If foam-bag-shell.step still triggers the 4 non-manifold edges or the
+    # floating-cantilever warning with no cuts at all, the issue is in the
+    # union itself. If they disappear, one of these cuts is the source.
+    # foam_bag_shell = punch_a_bag_pocket_shell_hole(foam_bag_shell)
+    # foam_bag_shell = punch_a_bag_pocket_shell_hole(foam_bag_shell, side=-1)
+    # foam_bag_shell = cut_hole_for_co2_inlet(foam_bag_shell)
+    # foam_bag_shell = cut_hole_for_water_inlet(foam_bag_shell)
+    # foam_bag_shell = cut_hole_for_water_outlet(foam_bag_shell)
+    # foam_bag_shell, copper_inlet_plug = cut_slit_and_build_plug_for_copper_inlet(foam_bag_shell)
+    # foam_bag_shell, copper_outlet_plug = cut_slit_and_build_plug_for_copper_inlet(foam_bag_shell, which=1)
+    copper_inlet_plug = None
+    copper_outlet_plug = None
 
     # Build the foam cap (separate part, printed twice for top and bottom)
     foam_cap = build_foam_cap()
@@ -452,13 +455,17 @@ def main():
 
     here = Path(__file__).resolve().parent
     cq.exporters.export(foam_bag_shell, str(here / "foam-bag-shell.step"))
-    cq.exporters.export(copper_inlet_plug, str(here / "copper-inlet-plug.step"))
-    cq.exporters.export(copper_outlet_plug, str(here / "copper-outlet-plug.step"))
+    if copper_inlet_plug is not None:
+        cq.exporters.export(copper_inlet_plug, str(here / "copper-inlet-plug.step"))
+    if copper_outlet_plug is not None:
+        cq.exporters.export(copper_outlet_plug, str(here / "copper-outlet-plug.step"))
     cq.exporters.export(foam_cap, str(here / "foam-cap.step"))
     cq.exporters.export(foam_cap_lid, str(here / "foam-cap-lid.step"))
     print(f"-> foam-bag-shell.step")
-    print(f"-> copper-inlet-plug.step")
-    print(f"-> copper-outlet-plug.step")
+    if copper_inlet_plug is not None:
+        print(f"-> copper-inlet-plug.step")
+    if copper_outlet_plug is not None:
+        print(f"-> copper-outlet-plug.step")
     print(f"-> foam-cap.step")
     print(f"-> foam-cap-lid.step")
 
