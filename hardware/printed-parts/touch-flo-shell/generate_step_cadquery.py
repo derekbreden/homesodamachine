@@ -190,17 +190,29 @@ def cut_tube_channel(shell, x_sign):
 
 
 def cut_lever_slot(shell):
-    """Plateau-zone opening for lever access and water tube exit.
+    """Front-face cutaway for lever access and water tube exit.
 
-    Removes shell material from Z = plateau_z upward in the
-    Y = ±lever_slot_half_y band (the 14 mm plateau between the arch
-    inner faces). The stock lever is operated and the water supply
-    tube exits through this opening.
+    Removes all shell material above plateau_z on the front (−Y / lever)
+    side, from the front face back to Y = +lever_slot_half_y (the inner
+    face of the port arch). This gives the shell a stepped profile:
+      - Front (−Y): shell height = plateau_z = 39 mm
+      - Rear  (+Y): shell height = shell_top_z = 50 mm
+
+    The lever protrudes above the front rim. The arch rails, port area,
+    and tube channels are all enclosed by the taller rear section.
+    The water supply tube exits upward through this opening.
+
+    Cut box (above plateau_z):
+      X : full shell width  (−shell_outer_r − 1  →  +shell_outer_r + 1)
+      Y : front face to arch inner face  (−shell_outer_r  →  +lever_slot_half_y)
     """
+    cut_y_span   = shell_outer_r + lever_slot_half_y          # mm — 27.175 mm
+    cut_y_center = -shell_outer_r + cut_y_span / 2            # mm — −6.5875 mm
     slot = (
         cq.Workplane("XY")
         .workplane(offset=plateau_z)
-        .rect(2 * (shell_outer_r + 1), 2 * lever_slot_half_y)
+        .center(0, cut_y_center)
+        .rect(2 * (shell_outer_r + 1), cut_y_span)
         .extrude(shell_top_z - plateau_z + 1)
     )
     return shell.cut(slot)
@@ -233,7 +245,7 @@ def main():
     print(f"  Shell OD:        {shell_od:.3f} mm  |  Inner bore: Ø{shell_inner_r * 2:.3f} mm")
     print(f"  Tube channels:   Ø{tube_channel_r * 2:.4f} mm  at  Y={tube_center_y:.4f} mm, X=±{tube_center_x:.4f} mm")
     print(f"  Tube wall (min): {shell_outer_r - tube_center_y - tube_channel_r:.3f} mm")
-    print(f"  Lever slot:      Y=±{lever_slot_half_y:.1f} mm,  Z={plateau_z:.1f} → {shell_top_z:.1f} mm")
+    print(f"  Lever slot:      Y={-shell_outer_r:.3f} → +{lever_slot_half_y:.1f} mm,  Z={plateau_z:.1f} → {shell_top_z:.1f} mm")
     print(f"  Flange:          Ø{flange_outer_r * 2:.1f} mm × {flange_t:.1f} mm thick")
 
     here = Path(__file__).resolve().parent
