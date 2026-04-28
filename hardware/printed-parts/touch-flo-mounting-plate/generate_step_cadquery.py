@@ -75,11 +75,30 @@ PILL_SLOT_WIDTH_X  = FLAVOR_TUBE_HOLE_DIA                              # 3.6
 
 
 # ═══════════════════════════════════════════════════════
+# AESTHETIC TREATMENTS
+# ═══════════════════════════════════════════════════════
+
+# Fillet on the top outer edge — softens the visible ring around the
+# body once the plate is installed. 2 mm on a 5 mm plate (40% of
+# thickness) reads as an intentional finished edge without eating the
+# flat landing area the body and shell sit on.
+TOP_OUTER_FILLET_R = 2.0   # mm
+
+
+# ═══════════════════════════════════════════════════════
 # GEOMETRY BUILDERS
 # ═══════════════════════════════════════════════════════
 
 def build_mounting_plate() -> cq.Workplane:
-    """Build the disc with shank hole and flavor-tube pill slot.
+    """Build the disc with shank hole, flavor-tube pill slot, and
+    top-outer-edge fillet.
+
+    Order of operations:
+      1. Solid disc.
+      2. Fillet the top outer edge — applied BEFORE the holes so the
+         outer circle is the only top-face edge at that moment, no
+         selector trickery needed.
+      3. Cut the shank and pill holes (these stay sharp-edged).
 
     All cuts pass through the full 5 mm thickness.
     """
@@ -90,6 +109,10 @@ def build_mounting_plate() -> cq.Workplane:
         .circle(PLATE_DIAMETER / 2.0)
         .extrude(PLATE_THICKNESS)
     )
+
+    # Fillet the single top edge (the outer circle) before any holes
+    # introduce additional top-face edges.
+    plate = plate.faces(">Z").edges().fillet(TOP_OUTER_FILLET_R)
 
     shank_hole = (
         cq.Workplane("XY")
@@ -130,4 +153,5 @@ if __name__ == "__main__":
           f"({SHANK_HOLE_X}, {SHANK_HOLE_Y})")
     print(f"  Flavor pill:    {PILL_SLOT_LENGTH_Y} × {PILL_SLOT_WIDTH_X} mm "
           f"at ({FLAVOR_TUBE_X}, 0), Y-oriented")
+    print(f"  Top outer R:    {TOP_OUTER_FILLET_R} mm fillet")
     print(f"-> {out.name}")
