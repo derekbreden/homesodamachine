@@ -35,11 +35,14 @@ ZONE 2 — Z = 13 → 39 — cylinder→rectangle transition + rect column
 - Rectangle corners are clipped to the shell's outer cylinder
   (R = 20.5875 mm) — same approach as the body. The corners follow
   the cylinder profile rather than sticking out as sharp points.
-- Inner cut: cylindrical bore (Ø 32 mm) continues from zone 1
-  through the cove-transition zone (Z = 13 → 18) so the body's
-  outward-bulging cove is fully cleared. Above the cove (Z = 18 → 39)
-  the bore narrows to a rectangular bore 32 × 17.5 mm, matching the
-  body's rectangular column with 0.5 mm clearance per dimension.
+- Inner cut: built with the SAME construction pattern as the body's
+  outer (rect column + filler block on each Y face + cove cutter +
+  cylinder clip), at 0.5 mm offset dimensions for slip-fit clearance.
+  So the bore above the cove follows the body's rect∩cylinder
+  profile — its X "faces" are curved arcs, not flat — and through
+  the cove zone the bore mirrors the body's outward-bulging
+  filler+cove rather than running straight through as a Ø 32
+  cylinder (which would poke past the shell's outer cove surface).
   Plus the flavor-tube pill all the way through.
 
 WALL THICKNESS NOTES
@@ -247,26 +250,84 @@ def build_zone2_outer() -> cq.Workplane:
 
 
 def build_zone2_inner_cut() -> cq.Workplane:
-    """Inner cut for zone 2:
-       - Cylindrical bore Ø 32 mm from Z=13 to Z=18 (cove transition).
-         The body's outward-bulging cove is fully cleared.
-       - Rectangular bore 32 × 17.5 mm from Z=18 to Z=39 (rect column).
-       - Flavor-tube pill all the way through.
+    """Inner cut for zone 2 — mirrors the body's cross-section with
+    0.5 mm dimensional clearance for slip-fit assembly.
+
+    The bore is built with the SAME construction as the body's outer:
+      - Rect column 32 × 17.5 mm from Z=13 to Z=39
+      - Filler block (R wide × R tall, full X extent) on each Y face
+        at Z=13 to Z=18
+      - Cove cutter (cylinder along X, R=5 mm) scoops the concave arc
+        from each filler
+      - Cylinder clip (R=16 mm) trims the rect corners and X faces
+        into the body's rect∩cylinder profile
+
+    This matters in two places:
+      1. Above the cove (Z=18 → 39), the body's rect column is itself
+         intersected with body_r=15.75 — so its X faces and corners
+         are curved arcs, not flat. The bore must follow that.
+      2. Through the cove zone (Z=13 → 18), the body bulges OUT in Y
+         to meet the cylinder ledge. A simple Ø32 cylindrical bore
+         here would extend past the shell's outer cove surface and
+         eat through the wall. Mirroring the body's filler+cove
+         keeps the bore inside the shell.
+
+    Plus the flavor-tube pill all the way through.
     """
-    cyl_bore = (
+    R_bore = COVE_R
+    ext_x_bore = BODY_BORE_RECT_LONG / 2.0 + 2.0   # generous half-extent in X
+
+    # Bore rect column
+    rect_col = (
+        cq.Workplane("XY")
+        .workplane(offset=ZONE2_Z_BOTTOM)
+        .moveTo(BODY_BORE_X, BODY_BORE_Y)
+        .rect(BODY_BORE_RECT_LONG, BODY_BORE_RECT_SHORT)
+        .extrude(ZONE2_HEIGHT)
+    )
+
+    def filler(y_sign: int) -> cq.Workplane:
+        flat_y_world = BODY_BORE_Y + y_sign * (BODY_BORE_RECT_SHORT / 2.0)
+        blk_cy_world = flat_y_world + y_sign * (R_bore / 2.0)
+        return (
+            cq.Workplane("XY")
+            .workplane(offset=ZONE2_Z_BOTTOM)
+            .moveTo(BODY_BORE_X, blk_cy_world)
+            .rect(2.0 * ext_x_bore, R_bore)
+            .extrude(R_bore)
+        )
+
+    def cove_cutter(y_sign: int) -> cq.Workplane:
+        flat_y_world  = BODY_BORE_Y + y_sign * (BODY_BORE_RECT_SHORT / 2.0)
+        cove_cy_world = flat_y_world + y_sign * R_bore
+        cove_cz_world = ZONE2_Z_BOTTOM + R_bore
+        return (
+            cq.Workplane("YZ")
+            .workplane(offset=BODY_BORE_X - ext_x_bore)
+            .moveTo(cove_cy_world, cove_cz_world)
+            .circle(R_bore)
+            .extrude(2.0 * ext_x_bore)
+        )
+
+    bore = (
+        rect_col
+        .union(filler(+1))
+        .union(filler(-1))
+        .cut(cove_cutter(+1))
+        .cut(cove_cutter(-1))
+    )
+
+    # Cylinder clip — match the body's rect∩cylinder profile
+    clip_cyl = (
         cq.Workplane("XY")
         .workplane(offset=ZONE2_Z_BOTTOM)
         .moveTo(BODY_BORE_X, BODY_BORE_Y)
         .circle(BODY_BORE_DIAMETER / 2.0)
-        .extrude(COVE_R)                       # Z=13 → Z=18
+        .extrude(ZONE2_HEIGHT)
     )
-    rect_bore = (
-        cq.Workplane("XY")
-        .workplane(offset=COVE_TOP_Z)
-        .moveTo(BODY_BORE_X, BODY_BORE_Y)
-        .rect(BODY_BORE_RECT_LONG, BODY_BORE_RECT_SHORT)
-        .extrude(ZONE2_Z_TOP - COVE_TOP_Z)     # Z=18 → Z=39
-    )
+    bore = bore.intersect(clip_cyl)
+
+    # Flavor-tube pill (full Z range)
     pill = (
         cq.Workplane("XY")
         .workplane(offset=ZONE2_Z_BOTTOM)
@@ -274,7 +335,8 @@ def build_zone2_inner_cut() -> cq.Workplane:
         .slot2D(PILL_LENGTH_Y, PILL_WIDTH_X, angle=90)
         .extrude(ZONE2_HEIGHT)
     )
-    return cyl_bore.union(rect_bore).union(pill)
+
+    return bore.union(pill)
 
 
 def build_shell() -> cq.Workplane:
@@ -308,9 +370,10 @@ if __name__ == "__main__":
     print(f"    Outer:         {SHELL_RECT_X_WIDTH:.3f} × {SHELL_RECT_Y_WIDTH} mm rect "
           f"(corners clipped to Ø{SHELL_OUTER_DIAMETER:.3f} cylinder)")
     print(f"    Cove:          R = {COVE_R} mm on Y faces, Z = {ZONE2_Z_BOTTOM} → {COVE_TOP_Z}")
-    print(f"    Body bore:     Ø{BODY_BORE_DIAMETER} mm cylinder Z = {ZONE2_Z_BOTTOM} → {COVE_TOP_Z}")
-    print(f"                   {BODY_BORE_RECT_LONG} × {BODY_BORE_RECT_SHORT} mm rect "
-          f"Z = {COVE_TOP_Z} → {ZONE2_Z_TOP}")
+    print(f"    Body bore:     {BODY_BORE_RECT_LONG} × {BODY_BORE_RECT_SHORT} mm rect "
+          f"∩ Ø{BODY_BORE_DIAMETER} cyl, full Z = {ZONE2_Z_BOTTOM} → {ZONE2_Z_TOP}")
+    print(f"                   with R = {COVE_R} mm cove on Y faces, Z = {ZONE2_Z_BOTTOM} → {COVE_TOP_Z}")
+    print(f"                   (mirrors body's filler+cove construction)")
     print()
     print(f"  Flavor pill:     {PILL_LENGTH_Y} × {PILL_WIDTH_X} mm "
           f"at ({FLAVOR_TUBE_X}, 0), Y-oriented, full Z = 0 → {ZONE2_Z_TOP}")
