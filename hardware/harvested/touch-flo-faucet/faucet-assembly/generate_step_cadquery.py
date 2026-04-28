@@ -123,8 +123,8 @@ FLAVOR_BEND_THETA_DEG = math.degrees(FLAVOR_BEND_THETA_RAD)
 
 # How far above the plateau the first bend starts. Kept short to mimic
 # the user's "shortly after that, as shortly as is reasonable."
-PRE_BEND_RISE = 5.0                                      # mm above plateau
-PRE_BEND_Z    = PLATEAU_Z + PRE_BEND_RISE                # 44.0 mm
+PRE_BEND_RISE = 3.0                                      # mm above plateau
+PRE_BEND_Z    = PLATEAU_Z + PRE_BEND_RISE                # 42.0 mm
 
 # Geometry checks:
 #  - lower straight (tube-local Z=0 → Z=PRE_BEND_Z − Z_BOTTOM = 94 mm)
