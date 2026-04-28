@@ -260,6 +260,35 @@ def build_flavor_tube(y_sign: int) -> cq.Workplane:
     ))
 
 
+def build_lever() -> cq.Workplane:
+    cut_cylinder = (
+        cq.Workplane("XY")
+        .workplane(offset=PLATEAU_Z + 1)
+        .moveTo(9, 0)
+        .circle(WATER_TUBE_OD / 2 + 1)  # slightly larger than water tube for clearance
+        .extrude(13)
+    )
+    add_taper = (
+        cq.Workplane("YZ")
+        .workplane(offset=-6)
+        .moveTo(0, PLATEAU_Z + 1)
+        .rect(13, 13, centered=(True, False))
+        .workplane(offset=-36)
+        .moveTo(0, PLATEAU_Z + 1 + 9)
+        .rect(13, 4, centered=(True, False))
+        .loft(combine=True)
+    )
+    return (
+        cq.Workplane("YZ")
+        .workplane(offset=9)
+        .moveTo(0, PLATEAU_Z + 1)
+        .rect(13, 13, centered=(True, False))
+        .extrude(-15)
+        .union(add_taper)
+        .cut(cut_cylinder)
+    )
+
+
 # ═══════════════════════════════════════════════════════
 # ASSEMBLY
 # ═══════════════════════════════════════════════════════
@@ -270,6 +299,7 @@ def build_assembly() -> cq.Assembly:
     water_tube = build_water_dispense_tube()
     flavor_tube_pos_y = build_flavor_tube(+1)
     flavor_tube_neg_y = build_flavor_tube(-1)
+    lever = build_lever()
 
     silver = cq.Color(0.85, 0.85, 0.88)   # near-stainless silver
 
@@ -278,6 +308,7 @@ def build_assembly() -> cq.Assembly:
     assy.add(water_tube, name="water_dispense_tube", color=silver)
     assy.add(flavor_tube_pos_y, name="flavor_tube_pos_y", color=silver)
     assy.add(flavor_tube_neg_y, name="flavor_tube_neg_y", color=silver)
+    assy.add(lever, name="lever", color=silver)
     return assy
 
 
