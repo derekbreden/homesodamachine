@@ -271,21 +271,30 @@ def build_lever() -> cq.Workplane:
     add_taper = (
         cq.Workplane("YZ")
         .workplane(offset=-6)
-        .moveTo(0, PLATEAU_Z + 1)
-        .rect(13, 13, centered=(True, False))
+        .moveTo(0, PLATEAU_Z + 4.5)
+        .rect(13, 8.5, centered=(True, False))
         .workplane(offset=-36)
         .moveTo(0, PLATEAU_Z + 1 + 9)
-        .rect(13, 4, centered=(True, False))
+        .rect(13, 3, centered=(True, False))
         .loft(combine=True)
     )
     return (
         cq.Workplane("YZ")
         .workplane(offset=9)
         .moveTo(0, PLATEAU_Z + 1)
-        .rect(13, 13, centered=(True, False))
+        .rect(13, 12, centered=(True, False))
         .extrude(-15)
         .union(add_taper)
+        # Cut the clearance for its resting position
         .cut(cut_cylinder)
+        # Put it into the pressed down position
+        .rotate((1.5, 0, PLATEAU_Z + 1 + 6), (1.5, 1, PLATEAU_Z + 1 + 6), -18)
+        # Cut the clearance for the pressed down position
+        .cut(cut_cylinder)
+        # Return it to the resting position
+        .rotate((1.5, 0, PLATEAU_Z + 1 + 6), (1.5, 1, PLATEAU_Z + 1 + 6), 18)
+        # Return it to the pressed down position
+        .rotate((1.5, 0, PLATEAU_Z + 1 + 6), (1.5, 1, PLATEAU_Z + 1 + 6), -18)
     )
 
 
