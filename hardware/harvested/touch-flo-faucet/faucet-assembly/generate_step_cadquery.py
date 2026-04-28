@@ -276,7 +276,7 @@ def build_lever() -> cq.Workplane:
         .workplane(offset=PLATEAU_Z + 1)
         .moveTo(9, 0)
         .circle(WATER_TUBE_OD / 2 + 1)  # slightly larger than water tube for clearance
-        .extrude(13)
+        .extrude(50)
     )
     add_taper = (
         cq.Workplane("YZ")
@@ -310,10 +310,12 @@ def build_lever() -> cq.Workplane:
     # the same vertical water-tube clearance cut. The cut is vertical
     # in world coordinates, so it correctly clears the upright water
     # tube even though the lever itself is tilted.
-    lever_pressed = base_lever.rotate(pivot_a, pivot_b, -18).cut(cut_cylinder)
+    lever_pressed = lever_rest.rotate(pivot_a, pivot_b, -18).cut(cut_cylinder)
+
+    lever_rest_final = lever_pressed.rotate(pivot_a, pivot_b, 18)
 
     # Union of both extremes — the swing-clearance envelope.
-    return lever_rest.union(lever_pressed)
+    return lever_rest_final.union(lever_pressed)
 
 
 # ═══════════════════════════════════════════════════════
