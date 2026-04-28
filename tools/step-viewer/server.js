@@ -79,6 +79,27 @@ function broadcast(msg) {
 // --- Script runner ---
 const running = new Map(); // pyFilePath -> AbortController
 
+// Find scripts that consume a given .step filename via cq.importers.importStep().
+// We look for scripts whose source mentions BOTH the filename and `importStep`.
+// In this project, STEP filenames are unique and importStep is the only way a
+// .py script reads another script's output, so the heuristic is precise enough
+// without needing to parse Python paths or expressions.
+function findScriptsImportingStep(stepFilename) {
+  const dependents = [];
+  for (const script of findGenerateScripts()) {
+    let source;
+    try {
+      source = fs.readFileSync(script, "utf-8");
+    } catch {
+      continue;
+    }
+    if (source.includes(stepFilename) && source.includes("importStep")) {
+      dependents.push(script);
+    }
+  }
+  return dependents;
+}
+
 async function runScript(pyFilePath) {
   // Kill previous run of the same script
   if (running.has(pyFilePath)) {
@@ -95,6 +116,7 @@ async function runScript(pyFilePath) {
   fs.mkdirSync(destDir, { recursive: true });
 
   const startTime = Date.now();
+  const producedSteps = [];
 
   try {
     const code = await new Promise((resolve, reject) => {
@@ -113,6 +135,7 @@ async function runScript(pyFilePath) {
     for (const entry of fs.readdirSync(destDir)) {
       if (!entry.endsWith(".step")) continue;
       if (fs.statSync(path.join(destDir, entry)).mtimeMs < startTime) continue;
+      producedSteps.push(entry);
       const relFile = path.join(relDir, entry);
       console.log(`  -> ${relFile}`);
       broadcast({ type: "updated", file: relFile });
@@ -122,6 +145,23 @@ async function runScript(pyFilePath) {
     // Script failed — do nothing
   } finally {
     running.delete(pyFilePath);
+  }
+
+  // Cascade: rebuild any scripts that import the STEPs we just produced.
+  // Done outside the try/finally so a failed rebuild of a dependent doesn't
+  // tangle with this run's running-map entry.
+  if (producedSteps.length === 0) return;
+
+  const dependents = new Set();
+  for (const stepName of producedSteps) {
+    for (const depScript of findScriptsImportingStep(stepName)) {
+      if (depScript === pyFilePath) continue;
+      dependents.add(depScript);
+    }
+  }
+  for (const depScript of dependents) {
+    console.log(`  ↪ dependent: ${path.relative(HARDWARE_DIR, depScript)}`);
+    await runScript(depScript);
   }
 }
 
