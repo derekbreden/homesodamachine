@@ -340,15 +340,31 @@ def cut_slit_and_build_plug_for_copper_inlet(foam_bag_shell, which = 0):
         hole_punch_height=tank_copper_shell_radius,
     )
 
+    slit_width = 6.5
+    # The PETG-printed plug fits loose in the printed slit at slit_width;
+    # widening just the plug's source profile by 1.5 mm in X compensates
+    # for shrinkage / edge effects so the printed plug snugs into the
+    # printed slit. The slit cut into the shell stays at slit_width.
+    plug_x_extra = 1.5
+    plug_width = slit_width + plug_x_extra
+
     slit_punch = (
         build_a_hole_punch(**hole_args)
         .moveTo(0, slit_above / 2)
-        .rect(6.5, slit_above)
+        .rect(slit_width, slit_above)
+        .extrude(tank_copper_shell_radius)
+    )
+    plug_punch = (
+        build_a_hole_punch(**hole_args)
+        .moveTo(0, slit_above / 2)
+        .rect(plug_width, slit_above)
         .extrude(tank_copper_shell_radius)
     )
     copper_hole = build_a_hole_punch(**hole_args)
 
-    intersection_pieces = foam_bag_shell.intersect(slit_punch)
+    # Intersect with the WIDER plug_punch so the lofted plug ends up
+    # plug_x_extra mm wider in X than the slit the shell actually has.
+    intersection_pieces = foam_bag_shell.intersect(plug_punch)
     solids_by_z = sorted(intersection_pieces.solids().vals(), key=lambda s: s.BoundingBox().zmin)
     cup_slice = solids_by_z[0]
     outer_slice = solids_by_z[-1]
