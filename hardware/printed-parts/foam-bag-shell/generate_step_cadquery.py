@@ -431,15 +431,15 @@ def main():
         .union(outer_shell)
     )
 
-    # ── BISECTION 3 (2 mm wall warnings): bisection 2 confirmed
-    # warnings come from one of the 5 cylindrical hole cuts. Splitting:
-    # bag pocket holes (2) vs inlet/outlet holes (3). This iteration
-    # enables only the 2 bag-pocket holes.
+    # ── BISECTION 4 (2 mm wall warnings): bisection 3 confirmed
+    # warnings come from one of the 3 inlet/outlet holes (co2 inlet,
+    # water inlet, water outlet). Splitting 2 vs 1: this iteration
+    # enables both water holes; co2 inlet remains disabled.
     foam_bag_shell = punch_a_bag_pocket_shell_hole(foam_bag_shell)
     foam_bag_shell = punch_a_bag_pocket_shell_hole(foam_bag_shell, side=-1)
     # foam_bag_shell = cut_hole_for_co2_inlet(foam_bag_shell)
-    # foam_bag_shell = cut_hole_for_water_inlet(foam_bag_shell)
-    # foam_bag_shell = cut_hole_for_water_outlet(foam_bag_shell)
+    foam_bag_shell = cut_hole_for_water_inlet(foam_bag_shell)
+    foam_bag_shell = cut_hole_for_water_outlet(foam_bag_shell)
     # foam_bag_shell, copper_inlet_plug = cut_slit_and_build_plug_for_copper_inlet(foam_bag_shell)
     # foam_bag_shell, copper_outlet_plug = cut_slit_and_build_plug_for_copper_inlet(foam_bag_shell, which=1)
     copper_inlet_plug = None
