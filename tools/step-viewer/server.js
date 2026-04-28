@@ -15,6 +15,12 @@ const PYTHON_BIN = path.join(PROJECT_ROOT, "tools", "cad-venv", "bin", "python")
 const WRAPPER_SCRIPT = path.join(__dirname, "run_redirected.py");
 const PORT = process.env.PORT || 3000;
 
+// Paths under hardware/.../plan-b/... are kept as fallback inventory and are
+// not part of the live build. Skip them entirely.
+function isIgnoredPath(p) {
+  return p.includes(`${path.sep}plan-b${path.sep}`) || p.includes("/plan-b/");
+}
+
 // Ensure output dir exists
 fs.mkdirSync(VIEWER_DIR, { recursive: true });
 
@@ -176,6 +182,7 @@ function findGenerateScripts() {
   function walk(dir) {
     for (const entry of fs.readdirSync(dir, { withFileTypes: true })) {
       const full = path.join(dir, entry.name);
+      if (isIgnoredPath(full)) continue;
       if (entry.isDirectory()) walk(full);
       else if (/generate_step.*\.py$/.test(entry.name)) scripts.push(full);
     }
@@ -186,6 +193,8 @@ function findGenerateScripts() {
 
 const debounce = new Map();
 watcher.on("change", (absPath) => {
+  if (isIgnoredPath(absPath)) return;
+
   // Shared library changed — rebuild all scripts
   if (absPath.includes("/cadlib/") && absPath.endsWith(".py")) {
     if (debounce.has("cadlib")) clearTimeout(debounce.get("cadlib"));
