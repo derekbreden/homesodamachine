@@ -13,8 +13,11 @@ import cadquery as cq
 #
 xz_plane_y_up = cq.Plane(origin=(0, 0, 0), xDir=(1, 0, 0), normal=(0, 1, 0))
 xy_plane_z_up = cq.Plane(origin=(0, 0, 0), xDir=(1, 0, 0), normal=(0, 0, 1))
-yz_plane_x_up = cq.Plane(origin=(0, 0, 0), xDir=(0, 1, 0), normal=(1, 0, 0))
-wall_and_floor_thickness = 1.0
+# All structural walls (outer shell + inner walls — tank copper shell,
+# bag pocket support, bag pockets, foam cap) are 2 mm thick. 1 mm walls
+# warped/shifted consistently in PETG; 2 mm has held up substantially
+# better, on the outer wall AND on the inner walls.
+wall_and_floor_thickness = 2.0
 hole_shift_from_edge = 15.0
 #
 # -------------------------------------------------------
@@ -62,10 +65,9 @@ bag_pocket_depth = 35
 # -------------------------------------------------------
 #
 outer_shell_foam_gap = 16.0
-# Outer wall back at 1 mm — the 2 mm experiment didn't help (still warped/
-# shifted on the upper half of the long walls). Internal vertical ribs
-# below provide the lateral support that was missing.
-outer_shell_wall_thickness = 1.0
+# Outer wall thickness — kept as its own constant in case it ever needs to
+# differ from the inner-wall thickness. For now the same: 2 mm.
+outer_shell_wall_thickness = wall_and_floor_thickness
 #
 # Outer footprint shared by the outer shell, the foam cap, and the foam
 # cap lid. Defined at module level so changing outer_shell_wall_thickness
@@ -74,16 +76,6 @@ outer_shell_wall_thickness = 1.0
 bag_pocket_outermost_x = tank_copper_shell_radius + bag_pocket_depth - wall_and_floor_thickness
 outer_shell_x_length = 2 * (bag_pocket_outermost_x + outer_shell_foam_gap + outer_shell_wall_thickness)
 outer_shell_z_length = 2 * (tank_copper_shell_radius + outer_shell_foam_gap + outer_shell_wall_thickness)
-#
-# Internal vertical ribs along the long (+Z and -Z) walls of the outer
-# shell. Two ribs per long wall (1/3 and 2/3 of the wall length in X),
-# each spanning the full foam gap from the inner support shell to the
-# outer wall, full Y height. Through-holes in X let liquid foam flow
-# between sectors during the pour.
-outer_shell_rib_thickness = 2.0           # rib thickness in X
-outer_shell_rib_flow_hole_radius = 5.0    # 10 mm Ø flow holes
-outer_shell_rib_flow_hole_y_spacing = 50.0
-outer_shell_rib_flow_hole_y_first = 25.0  # first hole 25 mm above the floor
 #
 # -------------------------------------------------------
 
@@ -229,123 +221,6 @@ def build_outer_shell():
                     .extrude(pin_hole_depth)
                 )
                 shell = shell.cut(hole)
-
-    # Internal vertical ribs on the long walls (+Z and -Z) and the short walls
-    # (+X and -X). Each rib bridges from the inner support structure to the
-    # outer face of the corresponding outer wall, full Y height, and carries
-    # through-holes drilled across its thickness so liquid foam can flow
-    # between sectors during a single pour.
-    flow_hole_y_values = []
-    _y = outer_shell_rib_flow_hole_y_first
-    while _y < tank_copper_shell_height:
-        flow_hole_y_values.append(_y)
-        _y += outer_shell_rib_flow_hole_y_spacing
-
-    # Long-wall ribs (+Z / -Z walls) — thick in X, spanning Z. Two per wall
-    # at X = ±outer_shell_x_length/6, dividing the wall into thirds. Holes
-    # drilled along X.
-    long_rib_x_positions = (outer_shell_x_length / 6, -outer_shell_x_length / 6)
-    for rib_x in long_rib_x_positions:
-        for z_sign in (1, -1):
-            rib_z_far = (outer_shell_z_length / 2) * z_sign
-            rib_z_near = (tank_copper_shell_radius - wall_and_floor_thickness) * z_sign
-            rib_z_center = (rib_z_far + rib_z_near) / 2
-            rib_z_length = abs(rib_z_far - rib_z_near)
-
-            rib = (
-                cq.Workplane(xz_plane_y_up)
-                .workplane(origin=(rib_x, 0, rib_z_center))
-                .rect(outer_shell_rib_thickness, rib_z_length)
-                .extrude(tank_copper_shell_height)
-            )
-
-            for y_hole in flow_hole_y_values:
-                hole = (
-                    cq.Workplane(yz_plane_x_up)
-                    .workplane(
-                        origin=(rib_x - outer_shell_rib_thickness, y_hole, rib_z_center),
-                        offset=rib_x - outer_shell_rib_thickness,
-                    )
-                    .circle(outer_shell_rib_flow_hole_radius)
-                    .extrude(2 * outer_shell_rib_thickness)
-                )
-                rib = rib.cut(hole)
-
-            shell = shell.union(rib)
-
-    # Short-wall ribs (+X / -X walls) — thick in Z, spanning X (from the bag
-    # pocket's outer face out to the outer wall). Two per wall at
-    # Z = ±outer_shell_z_length/6, dividing the wall into thirds. Holes
-    # drilled along Z.
-    short_rib_z_positions = (outer_shell_z_length / 6, -outer_shell_z_length / 6)
-    for rib_z in short_rib_z_positions:
-        for x_sign in (1, -1):
-            rib_x_far = (outer_shell_x_length / 2) * x_sign
-            rib_x_near = (bag_pocket_outermost_x - wall_and_floor_thickness) * x_sign
-            rib_x_center = (rib_x_far + rib_x_near) / 2
-            rib_x_length = abs(rib_x_far - rib_x_near)
-
-            rib = (
-                cq.Workplane(xz_plane_y_up)
-                .workplane(origin=(rib_x_center, 0, rib_z))
-                .rect(rib_x_length, outer_shell_rib_thickness)
-                .extrude(tank_copper_shell_height)
-            )
-
-            for y_hole in flow_hole_y_values:
-                hole = (
-                    cq.Workplane(xy_plane_z_up)
-                    .workplane(
-                        origin=(rib_x_center, y_hole, rib_z - outer_shell_rib_thickness),
-                        offset=rib_z - outer_shell_rib_thickness,
-                    )
-                    .circle(outer_shell_rib_flow_hole_radius)
-                    .extrude(2 * outer_shell_rib_thickness)
-                )
-                rib = rib.cut(hole)
-
-            shell = shell.union(rib)
-
-    # Diagonal corner ribs — one at each of the 4 corners. Each rib bridges
-    # diagonally from the bag pocket's outer corner to inside the corner pin
-    # boss at 45° in X-Z. Triangulates the boss + bag pocket so the corner
-    # can't rack. ~17 mm long, full Y height, no flow holes (short enough
-    # that foam reaches both wedges via their openings to the long/short
-    # strips at each end of the rib).
-    corner_rib_start_inset = 1.0   # mm — into the bag pocket corner walls
-    corner_rib_end_inset   = 2.0   # mm — into the corner pin boss
-    for x_sign in (1, -1):
-        for z_sign in (1, -1):
-            start_x = (bag_pocket_outermost_x - corner_rib_start_inset) * x_sign
-            start_z = (tank_copper_shell_radius - corner_rib_start_inset) * z_sign
-            end_x   = (outer_shell_x_length / 2 - pin_boss_size + corner_rib_end_inset) * x_sign
-            end_z   = (outer_shell_z_length / 2 - pin_boss_size + corner_rib_end_inset) * z_sign
-
-            dx = end_x - start_x
-            dz = end_z - start_z
-            rib_length = math.sqrt(dx * dx + dz * dz)
-            ux, uz = dx / rib_length, dz / rib_length
-            # Perpendicular in X-Z plane (rotate direction 90° CCW)
-            px, pz = -uz, ux
-            ht = outer_shell_rib_thickness / 2
-
-            c1 = (start_x + px * ht, start_z + pz * ht)
-            c2 = (start_x - px * ht, start_z - pz * ht)
-            c3 = (end_x   - px * ht, end_z   - pz * ht)
-            c4 = (end_x   + px * ht, end_z   + pz * ht)
-
-            rib = (
-                cq.Workplane(xz_plane_y_up)
-                .moveTo(c1[0], c1[1])
-                .lineTo(c2[0], c2[1])
-                .lineTo(c3[0], c3[1])
-                .lineTo(c4[0], c4[1])
-                .close()
-                .extrude(tank_copper_shell_height)
-            )
-
-            shell = shell.union(rib)
-
     return shell
 
 def build_foam_cap():
