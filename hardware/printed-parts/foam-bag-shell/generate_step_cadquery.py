@@ -13,11 +13,7 @@ import cadquery as cq
 #
 xz_plane_y_up = cq.Plane(origin=(0, 0, 0), xDir=(1, 0, 0), normal=(0, 1, 0))
 xy_plane_z_up = cq.Plane(origin=(0, 0, 0), xDir=(1, 0, 0), normal=(0, 0, 1))
-# All structural walls (outer shell + inner walls — tank copper shell,
-# bag pocket support, bag pockets, foam cap) are 2 mm thick. 1 mm walls
-# warped/shifted consistently in PETG; 2 mm has held up substantially
-# better, on the outer wall AND on the inner walls.
-wall_and_floor_thickness = 2.0
+wall_and_floor_thickness = 1.0
 hole_shift_from_edge = 15.0
 #
 # -------------------------------------------------------
@@ -65,9 +61,10 @@ bag_pocket_depth = 35
 # -------------------------------------------------------
 #
 outer_shell_foam_gap = 16.0
-# Outer wall thickness — kept as its own constant in case it ever needs to
-# differ from the inner-wall thickness. For now the same: 2 mm.
-outer_shell_wall_thickness = wall_and_floor_thickness
+# Only the outer shell uses a thicker wall — the 1 mm walls on the rest of
+# the assembly print fine, but the outermost wall warps both during print
+# and on cool-down. 2 mm of PETG holds its shape.
+outer_shell_wall_thickness = 2.0
 #
 # Outer footprint shared by the outer shell, the foam cap, and the foam
 # cap lid. Defined at module level so changing outer_shell_wall_thickness
