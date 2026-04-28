@@ -19,22 +19,28 @@ ZONE 1 — Z = 0 → 13 — cylindrical region
   cuts merge into a single connected opening because the body and
   flavor tubes are tangent in the assembly.
 
-ZONE 2 — Z = 13 → 39 — cylinder→rectangle transition + rect column
-==================================================================
-- Outer rectangle: 41.175 × 23.5 mm (X × Y), centered at the shell
-  center. Same X width as the zone 1 cylinder OD (so the X faces
-  flow straight up from the cylinder edge with no step). Y faces
-  shrink inward by 8.84 mm per side relative to the cylinder edge.
+ZONE 2 — cylinder→rectangle transition + rect column
+=====================================================
+The OUTER and INNER (bore) zones have different Z bounds: the bore
+follows the body's actual transition Z (13–18) so it clears the body
+correctly, while the outer surface lifts its transition by one wall
+thickness (SHELL_OUTER_LIP = 3 mm) to put cylindrical shell material
+ABOVE the body's cylinder top face. Without this lift, the outer cove
+would tangent the body's cylinder ledge from above and there would be
+no vertical wall material over the body's top face.
+
+Outer (Z = 16 → 39):
+- Rectangle: 41.175 × 23.5 mm (X × Y), centered at the shell center.
+  Same X width as the zone 1 cylinder OD (so the X faces flow
+  straight up from the cylinder edge with no step). Y faces shrink
+  inward by 8.84 mm per side relative to the cylinder edge.
 - Cove transition on each Y face, R = 5 mm (mirrors the body's
-  transition_fillet_r), spanning Z = 13 → 18. Tangent to the rect
-  Y face at Z = 18 and to the cylinder ledge at Z = 13. Because the
-  cove radius is smaller than the Y shrinkage, a 3.84 mm flat
-  annular ledge remains on each Y side at Z = 13 between the
-  cylinder edge and the cove start — same construction style as the
-  body, slightly wider ledge here.
+  transition_fillet_r), spanning Z = 16 → 21. Tangent to the rect
+  Y face at Z = 21 and to the cylinder ledge at Z = 16.
 - Rectangle corners are clipped to the shell's outer cylinder
-  (R = 20.5875 mm) — same approach as the body. The corners follow
-  the cylinder profile rather than sticking out as sharp points.
+  (R = 20.5875 mm) — same approach as the body.
+
+Inner / bore (Z = 13 → 39):
 - Inner cut: built with the SAME construction pattern as the body's
   outer (rect column + filler block on each Y face + cove cutter +
   cylinder clip), at 0.5 mm offset dimensions for slip-fit clearance.
@@ -135,8 +141,23 @@ BODY_BORE_RECT_LONG  = BODY_RECT_LONG  + 0.5       # 32.0
 BODY_BORE_RECT_SHORT = BODY_RECT_SHORT + 0.5       # 17.5
 
 # Cove transition fillet (matches the body's transition_fillet_r)
-COVE_R     = 5.0
-COVE_TOP_Z = ZONE2_Z_BOTTOM + COVE_R               # 18.0
+COVE_R = 5.0
+
+# The bore (= body + clearance) transitions at the body's actual
+# transition Z values so the body fits inside the bore correctly.
+COVE_TOP_Z = ZONE2_Z_BOTTOM + COVE_R               # 18.0  (bore cove top)
+
+# The OUTER surface, however, lifts its transition by one wall thickness
+# above the body's transition. That puts ~3 mm of cylindrical shell
+# material directly above the body's cylinder top face — the shell sits
+# ON the body's cylindrical base instead of starting to curve inward at
+# the same Z where the body's cylinder ends. Without this, the outer
+# cove tangents the body's cylinder ledge from above and the shell has
+# no vertical wall material over the body's top face.
+SHELL_OUTER_LIP   = WALL_THICKNESS_MIN              # 3.0  (lift above body)
+ZONE1_OUTER_TOP   = ZONE1_Z_TOP + SHELL_OUTER_LIP   # 16.0
+ZONE2_OUTER_BOT   = ZONE1_OUTER_TOP                 # 16.0
+COVE_TOP_OUTER_Z  = ZONE2_OUTER_BOT + COVE_R        # 21.0  (outer cove top)
 
 # Shell rectangle. X width matches the cylinder OD so the X faces flow
 # straight up from the cylinder. Y half is body-bore-Y plus the wall.
@@ -151,13 +172,20 @@ SHELL_RECT_Y_WIDTH = 2.0 * SHELL_RECT_Y_HALF
 # ═══════════════════════════════════════════════════════
 
 def build_zone1_outer() -> cq.Workplane:
-    """Filled cylinder, the bottom 13 mm of the shell."""
+    """Filled cylinder, from the deck up to ZONE1_OUTER_TOP.
+
+    ZONE1_OUTER_TOP sits SHELL_OUTER_LIP above the body's cylinder top
+    (which is at ZONE1_Z_TOP). That lift gives the shell a flat
+    cylindrical wall directly above the body's cylinder top face,
+    instead of starting the cove transition at the same Z where the
+    body's cylinder ends.
+    """
     return (
         cq.Workplane("XY")
         .workplane(offset=ZONE1_Z_BOTTOM)
         .moveTo(SHELL_CENTER_X, SHELL_CENTER_Y)
         .circle(SHELL_OUTER_R)
-        .extrude(ZONE1_HEIGHT)
+        .extrude(ZONE1_OUTER_TOP - ZONE1_Z_BOTTOM)
     )
 
 
@@ -188,19 +216,26 @@ def build_zone2_outer() -> cq.Workplane:
     """Outer geometry for zone 2.
 
     Construction mirrors the body's `build_transition_cove`:
-      - Rectangle column from Z=ZONE2_Z_BOTTOM to ZONE2_Z_TOP.
+      - Rectangle column from Z=ZONE2_OUTER_BOT to ZONE2_Z_TOP.
       - Filler block (R wide × R tall, full X extent) on each Y face.
       - Cove cutter (cylinder along X axis, R = COVE_R) scoops a
         concave arc from each filler.
       - Cylinder clip rounds the rectangle corners to follow the
         shell outer cylinder profile.
+
+    Zone 2 OUTER starts SHELL_OUTER_LIP above the body's cylinder top
+    (i.e., at Z = ZONE2_OUTER_BOT = 16, not at the body's transition Z
+    of 13). This leaves a 3 mm cylindrical shell wall above the body's
+    cylinder top face. The bore is unaffected — see build_zone2_inner_cut.
     """
+    z_height = ZONE2_Z_TOP - ZONE2_OUTER_BOT
+
     rect = (
         cq.Workplane("XY")
-        .workplane(offset=ZONE2_Z_BOTTOM)
+        .workplane(offset=ZONE2_OUTER_BOT)
         .moveTo(SHELL_CENTER_X, SHELL_CENTER_Y)
         .rect(SHELL_RECT_X_WIDTH, SHELL_RECT_Y_WIDTH)
-        .extrude(ZONE2_HEIGHT)
+        .extrude(z_height)
     )
 
     R = COVE_R
@@ -211,7 +246,7 @@ def build_zone2_outer() -> cq.Workplane:
         blk_cy_world = flat_y_world + y_sign * (R / 2.0)
         return (
             cq.Workplane("XY")
-            .workplane(offset=ZONE2_Z_BOTTOM)
+            .workplane(offset=ZONE2_OUTER_BOT)
             .moveTo(SHELL_CENTER_X, blk_cy_world)
             .rect(2.0 * ext_x, R)
             .extrude(R)
@@ -220,7 +255,7 @@ def build_zone2_outer() -> cq.Workplane:
     def cove_cutter(y_sign: int) -> cq.Workplane:
         flat_y_world  = SHELL_CENTER_Y + y_sign * SHELL_RECT_Y_HALF
         cove_cy_world = flat_y_world + y_sign * R
-        cove_cz_world = ZONE2_Z_BOTTOM + R
+        cove_cz_world = ZONE2_OUTER_BOT + R
         return (
             cq.Workplane("YZ")
             .workplane(offset=SHELL_CENTER_X - ext_x)
@@ -241,10 +276,10 @@ def build_zone2_outer() -> cq.Workplane:
     # the cylinder rather than sticking out as sharp points.
     clip_cyl = (
         cq.Workplane("XY")
-        .workplane(offset=ZONE2_Z_BOTTOM)
+        .workplane(offset=ZONE2_OUTER_BOT)
         .moveTo(SHELL_CENTER_X, SHELL_CENTER_Y)
         .circle(SHELL_OUTER_R)
-        .extrude(ZONE2_HEIGHT)
+        .extrude(z_height)
     )
     return outer.intersect(clip_cyl)
 
@@ -361,18 +396,20 @@ if __name__ == "__main__":
     print(f"  Wall target:     {WALL_THICKNESS_MIN} mm "
           f"(~{WALL_THICKNESS_MIN - 0.04:.2f} mm at pill +X semicircle)")
     print()
-    print(f"  Zone 1:          Z = {ZONE1_Z_BOTTOM} → {ZONE1_Z_TOP}")
-    print(f"    Outer:         Ø{SHELL_OUTER_DIAMETER:.3f} mm cylinder")
-    print(f"    Body bore:     Ø{BODY_BORE_DIAMETER} mm at "
-          f"({BODY_BORE_X}, {BODY_BORE_Y}) (0.5 mm clearance over 31.5 mm body)")
+    print(f"  Outer cylinder:  Ø{SHELL_OUTER_DIAMETER:.3f} mm, Z = {ZONE1_Z_BOTTOM} → {ZONE1_OUTER_TOP}")
+    print(f"                   (lifted {SHELL_OUTER_LIP} mm above body cyl top at Z={ZONE1_Z_TOP})")
+    print(f"  Outer rect+cove: {SHELL_RECT_X_WIDTH:.3f} × {SHELL_RECT_Y_WIDTH} mm, "
+          f"Z = {ZONE2_OUTER_BOT} → {ZONE2_Z_TOP}")
+    print(f"                   (corners clipped to Ø{SHELL_OUTER_DIAMETER:.3f} cylinder)")
+    print(f"    Cove:          R = {COVE_R} mm on Y faces, Z = {ZONE2_OUTER_BOT} → {COVE_TOP_OUTER_Z}")
     print()
-    print(f"  Zone 2:          Z = {ZONE2_Z_BOTTOM} → {ZONE2_Z_TOP}")
-    print(f"    Outer:         {SHELL_RECT_X_WIDTH:.3f} × {SHELL_RECT_Y_WIDTH} mm rect "
-          f"(corners clipped to Ø{SHELL_OUTER_DIAMETER:.3f} cylinder)")
-    print(f"    Cove:          R = {COVE_R} mm on Y faces, Z = {ZONE2_Z_BOTTOM} → {COVE_TOP_Z}")
-    print(f"    Body bore:     {BODY_BORE_RECT_LONG} × {BODY_BORE_RECT_SHORT} mm rect "
-          f"∩ Ø{BODY_BORE_DIAMETER} cyl, full Z = {ZONE2_Z_BOTTOM} → {ZONE2_Z_TOP}")
-    print(f"                   with R = {COVE_R} mm cove on Y faces, Z = {ZONE2_Z_BOTTOM} → {COVE_TOP_Z}")
+    print(f"  Bore cylinder:   Ø{BODY_BORE_DIAMETER} mm at "
+          f"({BODY_BORE_X}, {BODY_BORE_Y}), Z = {ZONE1_Z_BOTTOM} → {ZONE1_Z_TOP}")
+    print(f"                   (0.5 mm clearance over 31.5 mm body)")
+    print(f"  Bore rect+cove:  {BODY_BORE_RECT_LONG} × {BODY_BORE_RECT_SHORT} mm rect "
+          f"∩ Ø{BODY_BORE_DIAMETER} cyl, Z = {ZONE2_Z_BOTTOM} → {ZONE2_Z_TOP}")
+    print(f"                   with R = {COVE_R} mm cove on Y faces, "
+          f"Z = {ZONE2_Z_BOTTOM} → {COVE_TOP_Z}")
     print(f"                   (mirrors body's filler+cove construction)")
     print()
     print(f"  Flavor pill:     {PILL_LENGTH_Y} × {PILL_WIDTH_X} mm "
