@@ -159,15 +159,11 @@ def build_bag_pocket_support_shell():
 
 def build_tank_support_wedge():
     support_wedge_outer_radius = tank_copper_shell_radius - wall_and_floor_thickness
-    # ring_width was 15 — that put the cone→cylinder kink at Y = 17, the
-    # exact Y of the water-outlet and CO2-inlet hole centers. The kink
-    # intersecting the cylindrical hole punches produced 4 non-manifold
-    # edges + a cantilever warning at 2 mm walls. Dropping ring_width to
-    # 9 moves the kink down to Y = 11, well below the holes' lower edge
-    # at Y = 13.75. Tank contact ring becomes 3 mm wide on a ~390 mm
-    # circumference, ~11.7 cm² of contact — plenty for static support.
-    # Side benefit: the cylinder cavity moves outward (R = 60.5 vs 54.5),
-    # giving ~47 cm³ MORE foam volume → marginally better insulation.
+    # Hypothesis test: moving the cone→cylinder kink (ring_width=9 → kink
+    # at Y=11, below the holes at Y=17) didn't fix the warnings. Going
+    # full cylinder (no cone at all) — wedge is a constant ring at
+    # R=60.5..69.5, Y=2..32. If this clears the warnings, the cone itself
+    # is the source regardless of kink position.
     support_wedge_ring_width = 9
     support_wedge_inner_radius = support_wedge_outer_radius - support_wedge_ring_width
     support_wedge_bottom_y = wall_and_floor_thickness
@@ -177,20 +173,14 @@ def build_tank_support_wedge():
         .circle(support_wedge_outer_radius)
         .extrude(tank_support_wedge_height)
     )
-    cut_cone = (
-        cq.Workplane(xz_plane_y_up)
-        .workplane(offset=support_wedge_bottom_y)
-        .circle(support_wedge_outer_radius)
-        .extrude(tank_support_wedge_height, taper=45)
-    )
+    # Cylinder cut spans the full wedge height (Y=2..32), no cone.
     cut_cylinder = (
         cq.Workplane(xz_plane_y_up)
-        .workplane(offset=support_wedge_bottom_y + support_wedge_ring_width)
+        .workplane(offset=support_wedge_bottom_y)
         .circle(support_wedge_inner_radius)
         .extrude(tank_support_wedge_height)
     )
-    cut_object = cut_cone.union(cut_cylinder)
-    return filled_cylinder.cut(cut_object)
+    return filled_cylinder.cut(cut_cylinder)
 
 def build_a_bag_pocket_shell(side=1):
     bag_pocket_height = tank_copper_shell_height
