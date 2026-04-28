@@ -27,6 +27,12 @@ PARTS CURRENTLY MODELED
    come in tangent against the water tube. After the bends the tubes
    run vertical to Z = 79, butted against the water tube. Not inserted
    into the body.
+4. Lever (build_lever) — swing-clearance blob. Union of the lever in
+   rest position and pressed-down position (-18° around X=1.5, Z=46),
+   each with vertical water-tube clearance for both extremes.
+5. Mounting plate (loaded from `../../../printed-parts/touch-flo-mounting-plate/`).
+   50 mm × 5 mm disc centered at (1.5875, 0), spans Z = [-5, 0]. Shank
+   hole at (0, 0); flavor-tube pill slot at (17.3375, 0).
 
 REGENERATE
 ==========
@@ -143,6 +149,13 @@ REF_BODY_STEP = (
     / "touch-flo-valve-body-reference.step"
 )
 
+MOUNTING_PLATE_STEP = (
+    Path(__file__).resolve().parent.parent.parent.parent
+    / "printed-parts"
+    / "touch-flo-mounting-plate"
+    / "touch-flo-mounting-plate.step"
+)
+
 
 def load_valve_body() -> cq.Workplane:
     """Load the harvested valve body from the reference STEP file.
@@ -150,6 +163,16 @@ def load_valve_body() -> cq.Workplane:
     Read-only — this file never modifies the body geometry.
     """
     return cq.importers.importStep(str(REF_BODY_STEP))
+
+
+def load_mounting_plate() -> cq.Workplane:
+    """Load the printed mounting plate from its printed-parts STEP.
+
+    Read-only here — see
+    `hardware/printed-parts/touch-flo-mounting-plate/generate_step_cadquery.py`
+    for the source of truth.
+    """
+    return cq.importers.importStep(str(MOUNTING_PLATE_STEP))
 
 
 # ═══════════════════════════════════════════════════════
@@ -329,8 +352,10 @@ def build_assembly() -> cq.Assembly:
     flavor_tube_pos_y = build_flavor_tube(+1)
     flavor_tube_neg_y = build_flavor_tube(-1)
     lever = build_lever()
+    mounting_plate = load_mounting_plate()
 
-    silver = cq.Color(0.85, 0.85, 0.88)   # near-stainless silver
+    silver = cq.Color(0.85, 0.85, 0.88)        # near-stainless silver
+    petg_tan = cq.Color(0.85, 0.78, 0.62)      # printed-part tan
 
     assy = cq.Assembly(name="touch-flo-faucet-assembly")
     assy.add(body, name="valve_body", color=cq.Color("black"))
@@ -338,6 +363,7 @@ def build_assembly() -> cq.Assembly:
     assy.add(flavor_tube_pos_y, name="flavor_tube_pos_y", color=silver)
     assy.add(flavor_tube_neg_y, name="flavor_tube_neg_y", color=silver)
     assy.add(lever, name="lever", color=silver)
+    assy.add(mounting_plate, name="mounting_plate", color=petg_tan)
     return assy
 
 
@@ -373,6 +399,8 @@ def main():
     print(f"                         Y = ±{FLAVOR_TUBE_Y_OFFSET:.4f} mm (constant)")
     print(f"                         S-bend: 2 × R{FLAVOR_BEND_RADIUS:.1f} mm "
           f"@ {FLAVOR_BEND_THETA_DEG:.2f}° starting at Z = {PRE_BEND_Z:.1f}")
+    print(f"  Mounting plate:        loaded from printed-parts/")
+    print(f"                         {MOUNTING_PLATE_STEP.name}")
     print(f"-> {out.name}")
 
 
