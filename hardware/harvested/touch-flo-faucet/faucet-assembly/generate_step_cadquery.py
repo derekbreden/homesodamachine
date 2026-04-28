@@ -33,6 +33,10 @@ PARTS CURRENTLY MODELED
 5. Mounting plate (loaded from `../../../printed-parts/touch-flo-mounting-plate/`).
    50 mm × 5 mm disc centered at (1.5875, 0), spans Z = [-5, 0]. Shank
    hole at (0, 0); flavor-tube pill slot at (17.3375, 0).
+6. Shell (loaded from `../../../printed-parts/touch-flo-shell/`).
+   Work-in-progress, growing bottom-up. Currently only zone 1: a Ø 46 mm
+   filled cylinder spanning Z = [0, 13], with a body bore + flavor-tube
+   pill cut as a single connected hole.
 
 REGENERATE
 ==========
@@ -156,6 +160,13 @@ MOUNTING_PLATE_STEP = (
     / "touch-flo-mounting-plate.step"
 )
 
+SHELL_STEP = (
+    Path(__file__).resolve().parent.parent.parent.parent
+    / "printed-parts"
+    / "touch-flo-shell"
+    / "touch-flo-shell.step"
+)
+
 
 def load_valve_body() -> cq.Workplane:
     """Load the harvested valve body from the reference STEP file.
@@ -173,6 +184,16 @@ def load_mounting_plate() -> cq.Workplane:
     for the source of truth.
     """
     return cq.importers.importStep(str(MOUNTING_PLATE_STEP))
+
+
+def load_shell() -> cq.Workplane:
+    """Load the printed shell from its printed-parts STEP.
+
+    Read-only here — see
+    `hardware/printed-parts/touch-flo-shell/generate_step_cadquery.py`
+    for the source of truth.
+    """
+    return cq.importers.importStep(str(SHELL_STEP))
 
 
 # ═══════════════════════════════════════════════════════
@@ -353,6 +374,7 @@ def build_assembly() -> cq.Assembly:
     flavor_tube_neg_y = build_flavor_tube(-1)
     lever = build_lever()
     mounting_plate = load_mounting_plate()
+    shell = load_shell()
 
     silver = cq.Color(0.85, 0.85, 0.88)        # near-stainless silver
     petg_tan = cq.Color(0.85, 0.78, 0.62)      # printed-part tan
@@ -364,6 +386,7 @@ def build_assembly() -> cq.Assembly:
     assy.add(flavor_tube_neg_y, name="flavor_tube_neg_y", color=silver)
     assy.add(lever, name="lever", color=silver)
     assy.add(mounting_plate, name="mounting_plate", color=petg_tan)
+    assy.add(shell, name="shell", color=petg_tan)
     return assy
 
 
@@ -401,6 +424,8 @@ def main():
           f"@ {FLAVOR_BEND_THETA_DEG:.2f}° starting at Z = {PRE_BEND_Z:.1f}")
     print(f"  Mounting plate:        loaded from printed-parts/")
     print(f"                         {MOUNTING_PLATE_STEP.name}")
+    print(f"  Shell (zone 1 only):   loaded from printed-parts/")
+    print(f"                         {SHELL_STEP.name}")
     print(f"-> {out.name}")
 
 
