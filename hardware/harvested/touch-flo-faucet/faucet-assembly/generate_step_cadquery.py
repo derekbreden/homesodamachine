@@ -34,9 +34,12 @@ PARTS CURRENTLY MODELED
    50 mm × 5 mm disc centered at (1.5875, 0), spans Z = [-5, 0]. Shank
    hole at (0, 0); flavor-tube pill slot at (17.3375, 0).
 6. Shell (loaded from `../../../printed-parts/touch-flo-shell/`).
-   Work-in-progress, growing bottom-up. Currently only zone 1: a Ø 46 mm
-   filled cylinder spanning Z = [0, 13], with a body bore + flavor-tube
-   pill cut as a single connected hole.
+   Work-in-progress, growing bottom-up. Currently covers zones 1 and 2
+   (Z = [0, 39]): cylindrical base (Ø 41.175 mm), cove transition on
+   the Y faces (R = 5 mm), then a 41.175 × 23.5 mm rectangular column
+   with corners clipped to the cylinder profile. Inner cut transitions
+   from cylindrical bore to rectangular bore at Z=18 with the flavor-
+   tube pill running through.
 
 REGENERATE
 ==========
@@ -424,7 +427,7 @@ def main():
           f"@ {FLAVOR_BEND_THETA_DEG:.2f}° starting at Z = {PRE_BEND_Z:.1f}")
     print(f"  Mounting plate:        loaded from printed-parts/")
     print(f"                         {MOUNTING_PLATE_STEP.name}")
-    print(f"  Shell (zone 1 only):   loaded from printed-parts/")
+    print(f"  Shell (zones 1+2):     loaded from printed-parts/")
     print(f"                         {SHELL_STEP.name}")
     print(f"-> {out.name}")
 
