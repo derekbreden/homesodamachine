@@ -159,7 +159,16 @@ def build_bag_pocket_support_shell():
 
 def build_tank_support_wedge():
     support_wedge_outer_radius = tank_copper_shell_radius - wall_and_floor_thickness
-    support_wedge_ring_width = 15
+    # ring_width was 15 — that put the cone→cylinder kink at Y = 17, the
+    # exact Y of the water-outlet and CO2-inlet hole centers. The kink
+    # intersecting the cylindrical hole punches produced 4 non-manifold
+    # edges + a cantilever warning at 2 mm walls. Dropping ring_width to
+    # 9 moves the kink down to Y = 11, well below the holes' lower edge
+    # at Y = 13.75. Tank contact ring becomes 3 mm wide on a ~390 mm
+    # circumference, ~11.7 cm² of contact — plenty for static support.
+    # Side benefit: the cylinder cavity moves outward (R = 60.5 vs 54.5),
+    # giving ~47 cm³ MORE foam volume → marginally better insulation.
+    support_wedge_ring_width = 9
     support_wedge_inner_radius = support_wedge_outer_radius - support_wedge_ring_width
     support_wedge_bottom_y = wall_and_floor_thickness
     filled_cylinder = (
@@ -422,36 +431,25 @@ def main():
     bag_pocket_shell = build_a_bag_pocket_shell()
     bag_pocket_shell_2 = build_a_bag_pocket_shell(side=-1)
     outer_shell = build_outer_shell()
-    # ── BISECTION 7 (root cause): water_outlet (Y=17) and CO2_inlet
-    # (Y=17) both intersect the support wedge (Y=2..32). water_inlet
-    # at Y=198.4 doesn't intersect the wedge and triggers no warning.
-    # Hypothesis: cutting the wedge at Y=17 (the wedge transition from
-    # tapered cone to constant ring) is the source of both warnings.
-    # Test: disable the wedge from the union; keep water_outlet + co2.
     foam_bag_shell = (
         tank_copper_shell
-        # .union(tank_support_wedge)
+        .union(tank_support_wedge)
         .union(bag_pocket_support_shell)
         .union(bag_pocket_shell)
         .union(bag_pocket_shell_2)
         .union(outer_shell)
     )
 
-    # ── BISECTION 6: water_outlet + CO2 inlet (no water_inlet).
-    # Bisection 5 ruled out water_inlet, so water_outlet must be the
-    # cantilever source. Combined with CO2 inlet to test both root
-    # causes in one round: cantilever should appear (from water_outlet)
-    # AND manifold should appear (from CO2 inlet). If both do, both
-    # are confirmed and we can move on to fixing them.
+    # Cut holes
     foam_bag_shell = punch_a_bag_pocket_shell_hole(foam_bag_shell)
     foam_bag_shell = punch_a_bag_pocket_shell_hole(foam_bag_shell, side=-1)
     foam_bag_shell = cut_hole_for_co2_inlet(foam_bag_shell)
-    # foam_bag_shell = cut_hole_for_water_inlet(foam_bag_shell)
+    foam_bag_shell = cut_hole_for_water_inlet(foam_bag_shell)
     foam_bag_shell = cut_hole_for_water_outlet(foam_bag_shell)
-    # foam_bag_shell, copper_inlet_plug = cut_slit_and_build_plug_for_copper_inlet(foam_bag_shell)
-    # foam_bag_shell, copper_outlet_plug = cut_slit_and_build_plug_for_copper_inlet(foam_bag_shell, which=1)
-    copper_inlet_plug = None
-    copper_outlet_plug = None
+
+    # Cut slits + extract their plugs
+    foam_bag_shell, copper_inlet_plug = cut_slit_and_build_plug_for_copper_inlet(foam_bag_shell)
+    foam_bag_shell, copper_outlet_plug = cut_slit_and_build_plug_for_copper_inlet(foam_bag_shell, which=1)
 
     # Build the foam cap (separate part, printed twice for top and bottom)
     foam_cap = build_foam_cap()
@@ -463,17 +461,13 @@ def main():
 
     here = Path(__file__).resolve().parent
     cq.exporters.export(foam_bag_shell, str(here / "foam-bag-shell.step"))
-    if copper_inlet_plug is not None:
-        cq.exporters.export(copper_inlet_plug, str(here / "copper-inlet-plug.step"))
-    if copper_outlet_plug is not None:
-        cq.exporters.export(copper_outlet_plug, str(here / "copper-outlet-plug.step"))
+    cq.exporters.export(copper_inlet_plug, str(here / "copper-inlet-plug.step"))
+    cq.exporters.export(copper_outlet_plug, str(here / "copper-outlet-plug.step"))
     cq.exporters.export(foam_cap, str(here / "foam-cap.step"))
     cq.exporters.export(foam_cap_lid, str(here / "foam-cap-lid.step"))
     print(f"-> foam-bag-shell.step")
-    if copper_inlet_plug is not None:
-        print(f"-> copper-inlet-plug.step")
-    if copper_outlet_plug is not None:
-        print(f"-> copper-outlet-plug.step")
+    print(f"-> copper-inlet-plug.step")
+    print(f"-> copper-outlet-plug.step")
     print(f"-> foam-cap.step")
     print(f"-> foam-cap-lid.step")
 
