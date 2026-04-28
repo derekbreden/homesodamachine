@@ -4,7 +4,7 @@
 **Measured:** 2026-04-27  
 **Measurement tool:** Neiko digital caliper (mm mode, shown in all photos)  
 **External constraint:** Standard countertop hole = 1-3/8" = 34.93 mm diameter  
-**Note:** The threaded shank below the body is irrelevant to shell design and is excluded from all measurements.
+**Note:** The threaded shank below the body IS modeled in the reference solid (Ø 11 mm × 50 mm long, centered on the body axis) — it's the through-deck portion that the under-deck shell must accommodate.
 
 **Reference solid:** `valve-body-reference/generate_step_cadquery.py`  
 Regenerate: `tools/cad-venv/bin/python hardware/harvested/touch-flo-faucet/valve-body-reference/generate_step_cadquery.py`
@@ -47,20 +47,25 @@ Regenerate: `tools/cad-venv/bin/python hardware/harvested/touch-flo-faucet/valve
 | Plateau below arc base | 2.0 mm | 0.079" | Derived (41 − 39) | Exact |
 | Rectangular upper body height | 26.0 mm | 1.024" | Derived (39 − 13) | Exact |
 | Countertop hole (external constraint) | 34.93 mm | 1.375" | Spec | Exact |
+| Shank diameter (below deck) | 11.0 mm | 0.433" | User | Stated |
+| Shank length (below deck) | 50.0 mm | 1.969" | User | Stated |
+| Shank center | (X=0, Y=0) | — | User | Stated |
 
 ---
 
 ## 3. Geometric Description
 
-### 3.1 Overall Form — Two Zones
+### 3.1 Overall Form — Three Zones
 
-The body has two distinct axial zones:
+The reference solid has three distinct axial zones:
 
-**Zone 1 — Cylindrical base (0–13 mm from bottom)**  
-Circular cross-section, **31.50 mm OD**, **13 mm tall**. This is the section that would
-sit above the countertop shoulder/flange and establishes the body's round footprint.
+**Zone 0 — Threaded shank (Z = -50 → 0, below deck)**  
+Plain cylinder, **11 mm OD**, **50 mm long**, centered on the body axis at (X=0, Y=0). This is the through-deck portion that passes through the 1-3/8" countertop hole; a locknut clamps it from below. Thread profile is not modeled in the reference solid (irrelevant for envelope work).
 
-**Zone 2 — Rectangular upper body (13–46 mm from bottom)**  
+**Zone 1 — Cylindrical base (Z = 0 → 13 mm, above deck)**  
+Circular cross-section, **31.50 mm OD**, **13 mm tall**. The bottom face (Z=0) is the deck-resting surface — the body sits on top of the countertop with the shank passing through.
+
+**Zone 2 — Rectangular upper body (Z = 13 → 39 mm)**  
 Above 13 mm, the body transitions to a rectangular cross-section and stays rectangular
 all the way to the top arc features. Cross-section: **31.50 mm × 17 mm**.
 
@@ -113,15 +118,15 @@ Mechanism: lever pressed down → lever arm lifts the solid brass plunger upward
 
 ## 4. Countertop Mounting Interface
 
-The body mounts through a standard 1-3/8" (34.93 mm) countertop hole. The 31.50 mm body OD fits through this hole with ~3.4 mm diametric clearance (1.7 mm per side). The exact shoulder/flange geometry is not measured but must exist to stop the body from passing fully through the hole.
+The body sits on top of the countertop. The **11 mm threaded shank** (Zone 0) passes through the standard 1-3/8" (34.93 mm) hole with substantial radial clearance, and a locknut clamps the body from below. The **31.50 mm body OD** is wider than the 11 mm hole footprint, so the body's bottom face (Z=0) lands on the deck and acts as the retention shoulder — no separate flange or trim ring is required to stop pass-through.
 
 **Summary of what goes where relative to the deck:**
 
 | Position | Feature | Key Dimension |
 |----------|---------|---------------|
 | Above deck | Full body: cylindrical base + rectangular upper + arc features | 46 mm total height |
-| At deck | Shoulder/flange (not measured) | OD > 34.93 mm |
-| Below deck | Threaded shank + locknut | Not measured; not relevant to shell |
+| At deck (Z = 0) | Body bottom face — sits on the countertop | 31.50 mm OD landing |
+| Below deck | Ø 11 mm shank, 50 mm long; locknut clamps from below | Z = -50 → 0 |
 
 ---
 
@@ -148,8 +153,8 @@ The body mounts through a standard 1-3/8" (34.93 mm) countertop hole. The 31.50 
 
 | # | Unknown | Why It Matters | How to Measure |
 |---|---------|----------------|----------------|
-| 1 | Shoulder/flange OD | Sets the shell's lower landing reference | Caliper across flange |
-| 2 | Shoulder/flange axial thickness | Sets shell base geometry | Caliper from flange bottom to body base |
+| 1 | ~~Shoulder/flange OD~~ | Resolved: there's no separate flange — the 31.50 mm body bottom face is the deck-landing shoulder. | — |
+| 2 | ~~Shoulder/flange axial thickness~~ | Resolved: the body itself sits on the deck; no flange exists. | — |
 | 3 | ~~Which body edge the 2 mm port measurement is from~~ | ✅ Resolved: 2 mm from the long side (31.50 mm face); centered on the short axis | — |
 | 4 | ~~Actuator plunger OD~~ | Partially answered: ~6 mm derived from the ~1 mm gap to the 9.75 mm water port. Caliper-confirm when convenient. | Caliper directly on the brass plunger |
 | 5 | ~~Port-to-plunger center-to-center distance~~ | Resolved: port at X = +8.875 mm, plunger at X = 0 → center-to-center = 8.875 mm. | — |

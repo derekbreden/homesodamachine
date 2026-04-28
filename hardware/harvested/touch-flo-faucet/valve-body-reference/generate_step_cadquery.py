@@ -24,7 +24,9 @@ from pathlib import Path
 # -------------------------------------------------------
 #
 # Z = up (height). Z = 0 is the bottom of the black valve body,
-# which is also the countertop reference plane.
+# which is also the countertop reference plane (deck top).
+# The 11 mm threaded shank extends in the -Z direction below the body
+# from Z = 0 down to Z = -50, passing through the 1-3/8" deck hole.
 #
 # X = long axis   — 31.50 mm (cylinder diameter = rectangle long dim)
 # Y = short axis  — 17.00 mm (rectangle thin dim)
@@ -47,6 +49,22 @@ from pathlib import Path
 # plus the plateau strip from the water port forward to -X, must
 # remain OPEN. The shell can only wrap the cylindrical base, the
 # two Y-flanking arches, and the +X end behind the water port.
+#
+# -------------------------------------------------------
+
+
+# -------------------------------------------------------
+# Zone 0 — Threaded shank  (Z = -shank_length → 0)
+# -------------------------------------------------------
+#
+# The 11 mm threaded shank extends straight down from the bottom of
+# the body. It passes through a standard 1-3/8" countertop hole and
+# is clamped from below with a locknut. Centered on the body axis
+# at (X=0, Y=0).
+#
+shank_od     = 11.0          # mm — shank diameter
+shank_length = 50.0          # mm — extends below the deck (Z = -50)
+shank_r      = shank_od / 2  # mm — 5.50 mm
 #
 # -------------------------------------------------------
 
@@ -150,6 +168,20 @@ port_center_y   = 0.0                                   # mm — centered in pla
 port_bore_depth = 20.0                                  # mm — approximate; exact depth not measured
 #
 # -------------------------------------------------------
+
+
+def build_shank():
+    """Zone 0: threaded shank, Z = -shank_length → 0.
+
+    11 mm cylinder centered on the body axis, extending below the deck.
+    Drawn as a plain cylinder; thread profile is not modeled (irrelevant
+    to shell envelope work).
+    """
+    return (
+        cq.Workplane("XY")
+        .circle(shank_r)
+        .extrude(-shank_length)
+    )
 
 
 def build_cylinder_base():
@@ -291,15 +323,20 @@ def build_valve_body():
         .union(cove_neg)
     )
 
-    # Clip the entire body to the cylinder profile (removes overhanging
+    # Clip the above-deck body to the cylinder profile (removes overhanging
     # corners from the rectangular column, arch rail ends, and any cove
-    # filler material beyond body_r).
+    # filler material beyond body_r). Clip range stays at Z >= 0 so it
+    # does not interfere with the shank that gets unioned in afterwards.
     clip_cyl = (
         cq.Workplane("XY")
         .circle(body_r)
         .extrude(arc_peak_z)
     )
     body = body.intersect(clip_cyl)
+
+    # Shank is a pure cylinder below the deck — union it in after the
+    # clip so the clip does not erase it.
+    body = body.union(build_shank())
 
     body = cut_water_port_bore(body)
     return body
@@ -320,6 +357,7 @@ def main():
     print(f"  Port center:      X={port_center_x:.3f} mm, Y={port_center_y:.1f} mm  |  Ø{port_diameter} mm")
     print(f"  Port to X face:   {rect_long_half - port_center_x - port_radius:.3f} mm (should be {port_edge_gap_x} mm)")
     print(f"  Port to arch (Y): {(plateau_width_y - port_diameter) / 2:.3f} mm each side")
+    print(f"  Shank:            Ø{shank_od} mm × {shank_length} mm long, Z = -{shank_length} → 0")
 
     here = Path(__file__).resolve().parent
     out  = here / "touch-flo-valve-body-reference.step"
