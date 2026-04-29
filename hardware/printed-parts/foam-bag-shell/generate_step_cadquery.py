@@ -39,7 +39,10 @@ hole_shift_from_edge = 15.0
 # of the shell wall (where the copper coil sits) at radius 69.5 regardless
 # of wall thickness, preserving the 6 mm coil buffer.
 tank_outer_radius = 63.5
-copper_coil_buffer_radius = 7.0
+# Bumped from 7 to 8 mm so the actual radial clearance between the tank
+# (R=63.5) and the inner shell face is 7 mm (with 2 mm walls), enough
+# for 1/4" ACR copper coil + thermal tape + assembly slack.
+copper_coil_buffer_radius = 8.0
 tank_copper_shell_radius = tank_outer_radius + copper_coil_buffer_radius + wall_thickness_compensation
 #
 # Tank copper shell height. The +compensation term keeps the interior
