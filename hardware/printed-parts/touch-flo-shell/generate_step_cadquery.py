@@ -175,20 +175,57 @@ COVE_TOP_OUTER_Z  = ZONE2_OUTER_BOT + COVE_R                     # 21.25 (outer 
 # LEVER SWING CLEARANCE
 # ═══════════════════════════════════════════════════════
 #
-# A single triangular ramp wedge cut into the top of the rect column,
-# along the -X side where the pressed lever's taper passes through the
-# shell. Top of cut is flat at Z=39 (meeting the existing empty bore
-# above the rect column). Bottom of cut is a sloped plane at the lever
-# press angle (18° from horizontal): zero depth at the +X end of the
-# ramp, deepest at the shell's -X face. One piece, no head/taper split.
+# A single triangular ramp wedge cut into the top -X corner of the
+# rect column, where the pressed lever's taper passes through. The
+# wedge is a flat-plane chamfer extruded over the lever's Y span;
+# the visible cut on the wall is the wedge clipped against two
+# curved boundaries:
+#
+#   1. The shell's outer surface — rect face at Y=0, curving inward
+#      to the outer cylinder at higher |Y| (corner clip).
+#   2. The body bore — cylinder R=BODY_BORE_R around (0, 0), so the
+#      wall's inner edge is at X = -sqrt(R² - Y²) for any given Y.
+#
+# Anchors (geometry-defined, not free parameters):
+#   - Top of cut:    Z = ZONE2_Z_TOP (top face of rect column).
+#   - -X end depth:  LEVER_RAMP_DEPTH below Z_TOP at X = LEVER_RAMP_X_MIN
+#                    (the rect outer face — depth applies along the
+#                    flat-rect part at Y near 0).
+#   - +X end:        the bore-cylinder tangent at the cut's Y_HALF,
+#                    so the wedge terminates exactly where the wall
+#                    ends at the lever's Y-edge (any further +X is
+#                    inside the bore — no wall to cut).
+#
+# A small TANGENT_OVERSHOOT pushes the +X end a hair past the exact
+# tangent. At exactly the tangent the wedge edge is coincident with
+# the bore cylinder, which the CAD kernel can render as a microscopic
+# zero-thickness triangular sliver of uncut wall (visible only at
+# extreme zoom). The overshoot puts the wedge's +X end just inside
+# the bore (empty space), giving a clean termination.
+#
+# The slope angle is therefore DERIVED, not specified. With
+# DEPTH=1.0 and X_MIN=-19, X_START≈-14.508, the slope works out to
+# about 12.5° from horizontal — but the angle is incidental; what
+# matters is the two anchor points.
 
-LEVER_RAMP_ANGLE_DEG = 30.0
-LEVER_RAMP_DEPTH     = 1.0                                          # max cut depth at -X face
-LEVER_RAMP_X_MIN     = -19.0                                        # shell -X face
-LEVER_RAMP_X_START   = -14.508
-
-LEVER_Y_HALF           = 6.5
+LEVER_Y_HALF           = 6.5                                        # lever physical Y span
 LEVER_CLEARANCE_Y_HALF = LEVER_Y_HALF + BORE_CLEARANCE              # 6.75
+
+LEVER_RAMP_DEPTH      = 1.0                                         # cut depth at outer rect face
+TANGENT_OVERSHOOT     = 0.002                                       # mm past bore tangent
+
+# X_MIN: outer rect face on -X side
+LEVER_RAMP_X_MIN      = SHELL_CENTER_X - SHELL_OUTER_R              # = -19.0
+
+# X_START: bore-cylinder tangent at cut's Y_HALF, plus overshoot
+_BORE_R = BODY_BORE_DIAMETER / 2.0                                  # = 16.0
+_BORE_X_AT_LEVER_Y = -math.sqrt(_BORE_R**2 - LEVER_CLEARANCE_Y_HALF**2)  # ≈ -14.5061
+LEVER_RAMP_X_START    = _BORE_X_AT_LEVER_Y - TANGENT_OVERSHOOT      # ≈ -14.5081
+
+# Derived slope (informational; not used as input to geometry)
+LEVER_RAMP_ANGLE_DEG  = math.degrees(
+    math.atan(LEVER_RAMP_DEPTH / (LEVER_RAMP_X_START - LEVER_RAMP_X_MIN))
+)
 
 # Shell rectangle. X width matches the cylinder OD so the X faces flow
 # straight up from the cylinder. Y half is body-bore-Y plus the wall.
@@ -492,8 +529,12 @@ if __name__ == "__main__":
     print(f"  Flavor pill:     {PILL_LENGTH_Y} × {PILL_WIDTH_X} mm "
           f"at ({FLAVOR_TUBE_X}, 0), Y-oriented, full Z = 0 → {ZONE2_Z_TOP}")
     print()
-    print(f"  Lever clearance: {LEVER_RAMP_ANGLE_DEG}° ramp, "
-          f"depth {LEVER_RAMP_DEPTH} mm at X={LEVER_RAMP_X_MIN}, "
-          f"zero depth at X={LEVER_RAMP_X_START:.2f}")
-    print(f"                   Y = ±{LEVER_CLEARANCE_Y_HALF}, top at Z={ZONE2_Z_TOP}")
+    print(f"  Lever clearance: chamfer ramp on top -X corner, "
+          f"Y = ±{LEVER_CLEARANCE_Y_HALF}, top at Z={ZONE2_Z_TOP}")
+    print(f"                   -X end:  X={LEVER_RAMP_X_MIN} (outer rect face), "
+          f"depth {LEVER_RAMP_DEPTH} mm")
+    print(f"                   +X end:  X={LEVER_RAMP_X_START:.4f} "
+          f"(bore tangent at Y_HALF = {_BORE_X_AT_LEVER_Y:.4f} "
+          f"− {TANGENT_OVERSHOOT} overshoot)")
+    print(f"                   slope:   {LEVER_RAMP_ANGLE_DEG:.2f}° (derived)")
     print(f"-> {out.name}")
