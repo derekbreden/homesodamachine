@@ -613,6 +613,18 @@ def _rounded_rect_sketch(cx: float, w: float, h: float, r: float) -> cq.Sketch:
     )
 
 
+def _zone4_keep_x_min_box() -> cq.Workplane:
+    """Cut box for X < FILL_X_MIN — keeps zone 4 limited to the back third
+    of the water tube, same as zone 3 fill."""
+    return (
+        cq.Workplane("XY")
+        .workplane(offset=ZONE4_Z_BOTTOM - 1)
+        .moveTo(FILL_X_MIN - 50, 0)
+        .rect(100, 200)
+        .extrude(ZONE4_HEIGHT + 2)
+    )
+
+
 def build_zone4_outer() -> cq.Workplane:
     """Tube wrapper: constant water-tube outer cyl unioned with lofted flavor outer."""
     water_outer = (
@@ -641,7 +653,7 @@ def build_zone4_outer() -> cq.Workplane:
         .loft(ruled=True)
     )
 
-    return water_outer.union(flavor_outer)
+    return water_outer.union(flavor_outer).cut(_zone4_keep_x_min_box())
 
 
 def build_zone4_inner_cut() -> cq.Workplane:
