@@ -74,7 +74,7 @@ Derek tore down the pipeline and learned CadQuery himself. The AI taught him the
 
 The AI is simultaneously the teacher and the typist, but it cannot be the designer. It can explain to a human why a snap fit needs a specific deflection angle, but it cannot look at a STEP file and see that two parts don't fit together. This is a genuinely strange gap — and probably the most useful thing in this repository for anyone trying to use AI for physical design work.
 
-## Where it is now
+## Where it is now [April 5, 2026]
 
 The system dispenses two flavors of real Pepsi-made soda from a kitchen faucet, on demand, ice cold and fully carbonated. The firmware, iOS app, and display interfaces are feature-complete for the current phase. Clean cycles work in software; the plumbing for them is next.
 
