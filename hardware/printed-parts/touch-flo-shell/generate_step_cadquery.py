@@ -231,7 +231,31 @@ WATER_HOLE_DIAMETER = WATER_TUBE_OD + 2.0 * BORE_CLEARANCE          # 10.0
 FLAVOR_TUBE_PRE_BEND_X  = FLAVOR_TUBE_X                             # 17.3375
 FLAVOR_TUBE_POST_BEND_X = 15.0105
 
+FLAVOR_CUTOUT_CX     = (FLAVOR_TUBE_PRE_BEND_X + FLAVOR_TUBE_POST_BEND_X) / 2.0   # 16.174
+FLAVOR_CUTOUT_WIDTH  = (FLAVOR_TUBE_PRE_BEND_X - FLAVOR_TUBE_POST_BEND_X) + PILL_WIDTH_X   # 5.927
+FLAVOR_CUTOUT_LENGTH = PILL_LENGTH_Y                                              # 6.775
+FLAVOR_CUTOUT_R      = PILL_WIDTH_X / 2.0                                         # 1.8
+
 FILL_X_MIN = 10.46                                                  # back third of water tube
+
+
+# ZONE 4 — tube wrapper above the arch
+#
+# A 3 mm-thick shell wrapping just the tube cutouts (water tube + flavor
+# slot), starting at the base of the arch (Z=44.25) and extending up to
+# ~1.7 mm past the assembly's S-bend completion (bend ends at Z=50.31).
+# Built as two pieces unioned:
+#   - Water tube wrapper: constant-OD tube (Ø16 outer, Ø10 inner)
+#     extruded straight up. No transition.
+#   - Flavor wrapper: lofted between bottom and top rounded-rectangle
+#     cross-sections — bottom matches zone 3's flavor cutout (rounded
+#     rect at FLAVOR_CUTOUT_CX), top matches the existing pill from
+#     zones 1+2 (PILL_LENGTH_Y × PILL_WIDTH_X at FLAVOR_TUBE_POST_BEND_X).
+#     Linear loft draws the cavity in toward the water tube as Z rises.
+ZONE4_Z_BOTTOM = SHELL_ARCH_FOOT_TOP_Z                              # 44.25
+ZONE4_Z_TOP    = 52.0                                               # ~1.7 mm past S-bend end (50.31)
+ZONE4_HEIGHT   = ZONE4_Z_TOP - ZONE4_Z_BOTTOM                       # 7.75
+ZONE4_WALL     = WALL_THICKNESS_MIN                                 # 3.0
 
 
 # ═══════════════════════════════════════════════════════
@@ -566,19 +590,83 @@ def build_zone3_fill_inner_cut() -> cq.Workplane:
         .extrude(z_height)
     )
 
-    flavor_cx    = (FLAVOR_TUBE_PRE_BEND_X + FLAVOR_TUBE_POST_BEND_X) / 2.0
-    flavor_width = (FLAVOR_TUBE_PRE_BEND_X - FLAVOR_TUBE_POST_BEND_X) + PILL_WIDTH_X
     flavor_slot = (
         cq.Workplane("XY")
         .workplane(offset=ZONE3_Z_BOTTOM)
-        .moveTo(flavor_cx, 0)
-        .rect(flavor_width, PILL_LENGTH_Y)
+        .moveTo(FLAVOR_CUTOUT_CX, 0)
+        .rect(FLAVOR_CUTOUT_WIDTH, FLAVOR_CUTOUT_LENGTH)
         .extrude(z_height)
         .edges("|Z")
-        .fillet(PILL_WIDTH_X / 2.0)
+        .fillet(FLAVOR_CUTOUT_R)
     )
 
     return water_hole.union(flavor_slot)
+
+
+def _rounded_rect_sketch(cx: float, w: float, h: float, r: float) -> cq.Sketch:
+    return (
+        cq.Sketch()
+        .rect(w, h)
+        .vertices()
+        .fillet(r)
+        .moved(cq.Location(cq.Vector(cx, 0, 0)))
+    )
+
+
+def build_zone4_outer() -> cq.Workplane:
+    """Tube wrapper: constant water-tube outer cyl unioned with lofted flavor outer."""
+    water_outer = (
+        cq.Workplane("XY")
+        .workplane(offset=ZONE4_Z_BOTTOM)
+        .moveTo(WATER_TUBE_X, 0)
+        .circle(WATER_HOLE_DIAMETER / 2.0 + ZONE4_WALL)
+        .extrude(ZONE4_HEIGHT)
+    )
+
+    bottom_outer_sk = _rounded_rect_sketch(
+        FLAVOR_CUTOUT_CX,
+        FLAVOR_CUTOUT_WIDTH  + 2.0 * ZONE4_WALL,
+        FLAVOR_CUTOUT_LENGTH + 2.0 * ZONE4_WALL,
+        FLAVOR_CUTOUT_R      + ZONE4_WALL,
+    ).moved(cq.Location(cq.Vector(0, 0, ZONE4_Z_BOTTOM)))
+    top_outer_sk = _rounded_rect_sketch(
+        FLAVOR_TUBE_POST_BEND_X,
+        PILL_WIDTH_X  + 2.0 * ZONE4_WALL,
+        PILL_LENGTH_Y + 2.0 * ZONE4_WALL,
+        PILL_WIDTH_X / 2.0 + ZONE4_WALL,
+    ).moved(cq.Location(cq.Vector(0, 0, ZONE4_Z_TOP)))
+    flavor_outer = (
+        cq.Workplane("XY")
+        .placeSketch(bottom_outer_sk, top_outer_sk)
+        .loft(ruled=True)
+    )
+
+    return water_outer.union(flavor_outer)
+
+
+def build_zone4_inner_cut() -> cq.Workplane:
+    """Tube cavity: constant water-tube cyl unioned with lofted flavor cavity."""
+    water_inner = (
+        cq.Workplane("XY")
+        .workplane(offset=ZONE4_Z_BOTTOM)
+        .moveTo(WATER_TUBE_X, 0)
+        .circle(WATER_HOLE_DIAMETER / 2.0)
+        .extrude(ZONE4_HEIGHT)
+    )
+
+    bottom_inner_sk = _rounded_rect_sketch(
+        FLAVOR_CUTOUT_CX, FLAVOR_CUTOUT_WIDTH, FLAVOR_CUTOUT_LENGTH, FLAVOR_CUTOUT_R,
+    ).moved(cq.Location(cq.Vector(0, 0, ZONE4_Z_BOTTOM)))
+    top_inner_sk = _rounded_rect_sketch(
+        FLAVOR_TUBE_POST_BEND_X, PILL_WIDTH_X, PILL_LENGTH_Y, PILL_WIDTH_X / 2.0,
+    ).moved(cq.Location(cq.Vector(0, 0, ZONE4_Z_TOP)))
+    flavor_inner = (
+        cq.Workplane("XY")
+        .placeSketch(bottom_inner_sk, top_inner_sk)
+        .loft(ruled=True)
+    )
+
+    return water_inner.union(flavor_inner)
 
 
 def build_lever_clearance() -> cq.Workplane:
@@ -617,12 +705,14 @@ def build_shell() -> cq.Workplane:
         .union(build_zone2_outer())
         .union(build_zone3_outer())
         .union(build_zone3_fill_outer())
+        .union(build_zone4_outer())
     )
     inner = (
         build_zone1_inner_cut()
         .union(build_zone2_inner_cut())
         .union(build_zone3_inner_cut())
         .union(build_zone3_fill_inner_cut())
+        .union(build_zone4_inner_cut())
         .union(build_lever_clearance())
     )
     return outer.cut(inner)
