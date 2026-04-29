@@ -1,0 +1,157 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Home Soda Machine</title>
+    <style>
+      :root {
+        color-scheme: dark;
+        --bg: #0b0e13;
+        --fg: #e6e9ee;
+        --muted: #6b7280;
+        --accent: #4a90e2;
+        --border: #1f2530;
+      }
+      * { box-sizing: border-box; }
+      html, body { margin: 0; padding: 0; height: 100%; }
+      body {
+        background: var(--bg);
+        color: var(--fg);
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+        font-size: 16px;
+        line-height: 1.5;
+        display: flex;
+        flex-direction: column;
+        min-height: 100vh;
+      }
+      main {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        padding: 2rem 1.5rem;
+        text-align: center;
+      }
+      h1 {
+        font-size: clamp(1.75rem, 5vw, 2.5rem);
+        font-weight: 600;
+        margin: 0 0 0.5rem;
+        letter-spacing: -0.02em;
+      }
+      .tagline {
+        color: var(--muted);
+        max-width: 30rem;
+        margin: 0 0 2rem;
+      }
+      form {
+        display: flex;
+        gap: 0.5rem;
+        width: 100%;
+        max-width: 24rem;
+        flex-wrap: wrap;
+      }
+      input[type="email"] {
+        flex: 1 1 14rem;
+        min-width: 0;
+        padding: 0.75rem 1rem;
+        font-size: 1rem;
+        background: #11151c;
+        color: var(--fg);
+        border: 1px solid var(--border);
+        border-radius: 6px;
+      }
+      input[type="email"]:focus {
+        outline: none;
+        border-color: var(--accent);
+      }
+      button {
+        padding: 0.75rem 1.25rem;
+        font-size: 1rem;
+        background: var(--accent);
+        color: white;
+        border: none;
+        border-radius: 6px;
+        cursor: pointer;
+        font-weight: 500;
+      }
+      button:hover { background: #3a7bc8; }
+      button:disabled { opacity: 0.6; cursor: default; }
+      .status {
+        min-height: 1.5rem;
+        margin-top: 1rem;
+        font-size: 0.9rem;
+        color: var(--muted);
+      }
+      .status.ok { color: #5fb56f; }
+      .status.err { color: #d97070; }
+      footer {
+        padding: 1.5rem;
+        text-align: center;
+        font-size: 0.75rem;
+        color: #2c3340;
+      }
+      footer a {
+        color: inherit;
+        text-decoration: none;
+      }
+      footer a:hover { color: var(--muted); }
+    </style>
+  </head>
+  <body>
+    <main>
+      <h1>Home Soda Machine</h1>
+      <p class="tagline">
+        Refrigerated, carbonated, on tap. Pre-orders coming soon.
+      </p>
+      <form id="signup">
+        <input
+          type="email"
+          name="email"
+          placeholder="you@example.com"
+          required
+          autocomplete="email"
+        />
+        <button type="submit">Notify me</button>
+      </form>
+      <div id="status" class="status" aria-live="polite"></div>
+    </main>
+    <footer>
+      <a href="/dev">Explore development</a>
+    </footer>
+    <script>
+      const form = document.getElementById("signup");
+      const status = document.getElementById("status");
+      form.addEventListener("submit", async (e) => {
+        e.preventDefault();
+        const email = form.elements.email.value.trim();
+        const button = form.querySelector("button");
+        button.disabled = true;
+        status.className = "status";
+        status.textContent = "Submitting…";
+        try {
+          const r = await fetch("/api/subscribe", {
+            method: "POST",
+            headers: { "content-type": "application/json" },
+            body: JSON.stringify({ email }),
+          });
+          if (r.ok) {
+            status.className = "status ok";
+            status.textContent = "Thanks — we'll be in touch.";
+            form.reset();
+          } else {
+            const data = await r.json().catch(() => ({}));
+            status.className = "status err";
+            status.textContent = data.error || "Something went wrong.";
+          }
+        } catch {
+          status.className = "status err";
+          status.textContent = "Network error. Try again.";
+        } finally {
+          button.disabled = false;
+        }
+      });
+    </script>
+  </body>
+</html>
