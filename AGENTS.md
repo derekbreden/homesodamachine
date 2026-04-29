@@ -2,7 +2,7 @@
 
 ## What This Is
 
-A home soda machine — a kitchen appliance that dispenses flavored carbonated water from a faucet. Refrigerated carbonated water is provided by an external carbonator (Lillium, Brio). When flow is detected, peristaltic pumps inject flavoring through a parallel line. Two flavors, each primed and valve-locked for instant dispensing. The mixing happens in the user's glass, not before.
+A home soda machine — a kitchen appliance that dispenses flavored carbonated water from a faucet. In the prototype, refrigerated carbonated water is provided by an external carbonator (Lillium, Brio). When flow is detected, peristaltic pumps inject flavoring through a parallel line. Two flavors, each primed and valve-locked for instant dispensing. The mixing happens in the user's glass, not before. With the product now under development, the carbonator chiller is integrated, see `hardware/future.md` for details.
 
 ## Why This Exists
 
