@@ -182,8 +182,8 @@ COVE_TOP_OUTER_Z  = ZONE2_OUTER_BOT + COVE_R                     # 21.25 (outer 
 # press angle (18° from horizontal): zero depth at the +X end of the
 # ramp, deepest at the shell's -X face. One piece, no head/taper split.
 
-LEVER_RAMP_ANGLE_DEG = 18.0
-LEVER_RAMP_DEPTH     = 3.0                                          # max cut depth at -X face
+LEVER_RAMP_ANGLE_DEG = 30.0
+LEVER_RAMP_DEPTH     = 1.0                                          # max cut depth at -X face
 LEVER_RAMP_X_MIN     = -19.0                                        # shell -X face
 LEVER_RAMP_X_START   = LEVER_RAMP_X_MIN + LEVER_RAMP_DEPTH / math.tan(
     math.radians(LEVER_RAMP_ANGLE_DEG)
