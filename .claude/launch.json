@@ -6,6 +6,12 @@
       "runtimeExecutable": "node",
       "runtimeArgs": ["tools/step-viewer/server.js"],
       "port": 3000
+    },
+    {
+      "name": "homesodamachine",
+      "runtimeExecutable": "node",
+      "runtimeArgs": ["server.js"],
+      "port": 3001
     }
   ]
 }
