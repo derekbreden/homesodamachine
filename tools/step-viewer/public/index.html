@@ -293,7 +293,10 @@ gizmoRenderer.setPixelRatio(window.devicePixelRatio);
 gizmoRenderer.setSize(gizmoSize, gizmoSize);
 gizmoRenderer.setClearColor(0x000000, 0);
 const gizmoCanvas = gizmoRenderer.domElement;
-gizmoCanvas.style.cssText = "position:fixed;top:16px;right:16px;z-index:10;cursor:pointer;border:1px solid #444;border-radius:6px;";
+// Pointer-events:none so the canvas's empty corners pass touches through
+// to OrbitControls underneath. Hits on the rendered cube are picked up via
+// document-level raycast handlers below.
+gizmoCanvas.style.cssText = "position:fixed;top:16px;right:16px;z-index:10;pointer-events:none;";
 document.getElementById("detail").appendChild(gizmoCanvas);
 
 const gizmoScene = new THREE.Scene();
@@ -379,18 +382,31 @@ gizmoScene.add(makeAxisLabel("X", axisOrigin.clone().add(new THREE.Vector3(label
 gizmoScene.add(makeAxisLabel("Y", axisOrigin.clone().add(new THREE.Vector3(0, labelOffset, 0)), "#2ecc71"));
 gizmoScene.add(makeAxisLabel("Z", axisOrigin.clone().add(new THREE.Vector3(0, 0, -labelOffset)), "#3498db"));
 
-// Hover tracking
+// Hover + click tracking. Listeners are document-level (capture phase) so we
+// can decide whether the gesture belongs to the gizmo *before* OrbitControls
+// sees it. The canvas itself is pointer-events:none, so any tap that doesn't
+// raycast-hit the cube falls straight through to the 3D viewport underneath.
 let hoveredFaceIndex = -1;
+let armedAtPointerDown = false;          // true when pointerdown landed on the cube
 
-gizmoCanvas.addEventListener("mousemove", (e) => {
+function gizmoRaycastFromEvent(e) {
   const rect = gizmoCanvas.getBoundingClientRect();
+  if (
+    e.clientX < rect.left || e.clientX > rect.right ||
+    e.clientY < rect.top  || e.clientY > rect.bottom
+  ) return null;
   const mouse = new THREE.Vector2(
     ((e.clientX - rect.left) / rect.width) * 2 - 1,
-    -((e.clientY - rect.top) / rect.height) * 2 + 1
+    -((e.clientY - rect.top) / rect.height) * 2 + 1,
   );
   gizmoRaycaster.setFromCamera(mouse, gizmoCam);
   const hits = gizmoRaycaster.intersectObject(cubeMesh);
-  const newIndex = hits.length > 0 ? hits[0].face.materialIndex : -1;
+  return hits.length > 0 ? hits[0] : null;
+}
+
+document.addEventListener("mousemove", (e) => {
+  const hit = gizmoRaycastFromEvent(e);
+  const newIndex = hit ? hit.face.materialIndex : -1;
   if (newIndex !== hoveredFaceIndex) {
     if (hoveredFaceIndex >= 0) {
       cubeMaterials[hoveredFaceIndex].map = makeFaceTexture(cubeFaces[hoveredFaceIndex].label, false);
@@ -404,27 +420,30 @@ gizmoCanvas.addEventListener("mousemove", (e) => {
   }
 });
 
-gizmoCanvas.addEventListener("mouseleave", () => {
-  if (hoveredFaceIndex >= 0) {
-    cubeMaterials[hoveredFaceIndex].map = makeFaceTexture(cubeFaces[hoveredFaceIndex].label, false);
-    cubeMaterials[hoveredFaceIndex].needsUpdate = true;
-    hoveredFaceIndex = -1;
-  }
-});
+// Capture-phase pointerdown: if the tap raycast-hits the cube, claim the
+// gesture and keep OrbitControls from seeing it. Otherwise the event flows
+// through normally to OrbitControls / drag-to-orbit.
+document.addEventListener("pointerdown", (e) => {
+  const hit = gizmoRaycastFromEvent(e);
+  if (!hit) { armedAtPointerDown = false; return; }
+  armedAtPointerDown = true;
+  e.stopPropagation();
+  e.preventDefault();
+}, true);
 
-// Click to snap camera
-gizmoCanvas.addEventListener("click", (e) => {
-  const rect = gizmoCanvas.getBoundingClientRect();
-  const mouse = new THREE.Vector2(
-    ((e.clientX - rect.left) / rect.width) * 2 - 1,
-    -((e.clientY - rect.top) / rect.height) * 2 + 1
-  );
-  gizmoRaycaster.setFromCamera(mouse, gizmoCam);
-  const hits = gizmoRaycaster.intersectObject(cubeMesh);
-  if (hits.length === 0) return;
-  const face = cubeFaces[hits[0].face.materialIndex];
+// Capture-phase pointerup: complete the snap if our pointerdown landed on
+// the cube AND this pointerup also lands on the cube (so a drag off the
+// cube cancels rather than snaps).
+document.addEventListener("pointerup", (e) => {
+  if (!armedAtPointerDown) return;
+  armedAtPointerDown = false;
+  const hit = gizmoRaycastFromEvent(e);
+  e.stopPropagation();
+  e.preventDefault();
+  if (!hit) return;
+  const face = cubeFaces[hit.face.materialIndex];
   snapCameraToFace(face.normal);
-});
+}, true);
 
 function snapCameraToFace(normal) {
   const target = controls.target.clone();
