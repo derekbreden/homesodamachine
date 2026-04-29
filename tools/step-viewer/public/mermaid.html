@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1, user-scalable=no">
 <title>Mermaid Viewer</title>
 <style>
 * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -68,6 +68,7 @@ body {
   position: relative;
   overflow: hidden;
   cursor: grab;
+  touch-action: none;
 }
 #main.dragging { cursor: grabbing; }
 
@@ -168,11 +169,11 @@ let currentContent = null;
 let scale = 1;
 let panX = 0;
 let panY = 0;
-let isDragging = false;
-let dragStartX = 0;
-let dragStartY = 0;
-let panStartX = 0;
-let panStartY = 0;
+const activePointers = new Map();          // pointerId -> {x, y}
+let dragStart = null;                       // { startX, startY, panX, panY } when single-finger
+let pinchStart = null;                      // { dist, midX, midY, panX, panY, scale }
+const MIN_SCALE = 0.1;
+const MAX_SCALE = 10;
 
 const mainEl = document.getElementById("main");
 const containerEl = document.getElementById("diagram-container");
@@ -187,29 +188,72 @@ function applyTransform() {
   zoomEl.textContent = `${Math.round(scale * 100)}%`;
 }
 
-// --- Pan ---
-mainEl.addEventListener("pointerdown", (e) => {
-  if (e.button !== 0) return;
-  isDragging = true;
-  dragStartX = e.clientX;
-  dragStartY = e.clientY;
-  panStartX = panX;
-  panStartY = panY;
+// --- Pan + pinch zoom ---
+function startDragFrom(p) {
+  dragStart = { startX: p.x, startY: p.y, panX, panY };
   mainEl.classList.add("dragging");
+}
+function clearGestures() {
+  dragStart = null;
+  pinchStart = null;
+  mainEl.classList.remove("dragging");
+}
+
+mainEl.addEventListener("pointerdown", (e) => {
+  if (e.pointerType === "mouse" && e.button !== 0) return;
   mainEl.setPointerCapture(e.pointerId);
+  activePointers.set(e.pointerId, { x: e.clientX, y: e.clientY });
+  if (activePointers.size === 1) {
+    startDragFrom(activePointers.get(e.pointerId));
+  } else if (activePointers.size === 2) {
+    const [p1, p2] = [...activePointers.values()];
+    pinchStart = {
+      dist: Math.hypot(p2.x - p1.x, p2.y - p1.y) || 1,
+      midX: (p1.x + p2.x) / 2,
+      midY: (p1.y + p2.y) / 2,
+      panX, panY, scale,
+    };
+    dragStart = null;
+  }
 });
 
 mainEl.addEventListener("pointermove", (e) => {
-  if (!isDragging) return;
-  panX = panStartX + (e.clientX - dragStartX);
-  panY = panStartY + (e.clientY - dragStartY);
-  applyTransform();
+  if (!activePointers.has(e.pointerId)) return;
+  activePointers.set(e.pointerId, { x: e.clientX, y: e.clientY });
+
+  if (activePointers.size === 2 && pinchStart) {
+    const [p1, p2] = [...activePointers.values()];
+    const dist = Math.hypot(p2.x - p1.x, p2.y - p1.y) || 1;
+    const midX = (p1.x + p2.x) / 2;
+    const midY = (p1.y + p2.y) / 2;
+    const ns = Math.max(MIN_SCALE, Math.min(MAX_SCALE, pinchStart.scale * (dist / pinchStart.dist)));
+    // Anchor: original midpoint stays under the (possibly translated) current midpoint.
+    const dx = (pinchStart.midX - pinchStart.panX) / pinchStart.scale;
+    const dy = (pinchStart.midY - pinchStart.panY) / pinchStart.scale;
+    panX = midX - dx * ns;
+    panY = midY - dy * ns;
+    scale = ns;
+    applyTransform();
+  } else if (activePointers.size === 1 && dragStart) {
+    panX = dragStart.panX + (e.clientX - dragStart.startX);
+    panY = dragStart.panY + (e.clientY - dragStart.startY);
+    applyTransform();
+  }
 });
 
-mainEl.addEventListener("pointerup", () => {
-  isDragging = false;
-  mainEl.classList.remove("dragging");
-});
+function pointerEnd(e) {
+  if (!activePointers.delete(e.pointerId)) return;
+  if (activePointers.size === 0) {
+    clearGestures();
+  } else if (activePointers.size === 1) {
+    // Lifted one finger of a pinch — rebase remaining finger as a fresh drag.
+    pinchStart = null;
+    const [p] = [...activePointers.values()];
+    startDragFrom(p);
+  }
+}
+mainEl.addEventListener("pointerup", pointerEnd);
+mainEl.addEventListener("pointercancel", pointerEnd);
 
 // --- Zoom (wheel) ---
 mainEl.addEventListener("wheel", (e) => {
@@ -372,6 +416,15 @@ if (location.hash) {
   // Auto-open if there's only one file
   loadFile(allFiles[0]);
 }
+
+// Browser/OS back button: sync the open file to the new hash so the URL bar
+// is the source of truth for navigation.
+window.addEventListener("popstate", () => {
+  const file = location.hash ? decodeURIComponent(location.hash.slice(1)) : null;
+  if (file && file !== currentFile && allFiles.includes(file)) {
+    loadFile(file);
+  }
+});
 </script>
 </body>
 </html>

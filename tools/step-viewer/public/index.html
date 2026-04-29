@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1, user-scalable=no">
 <title>Hardware Viewer</title>
 <style>
 * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -63,7 +63,9 @@ body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, sa
   inset: 0;
   background: #1a1a1a;
 }
-#viewport { display: block; width: 100%; height: 100%; }
+#viewport { display: block; width: 100%; height: 100%; touch-action: none; }
+#detail { touch-action: none; }
+#mmd-detail { touch-action: none; }
 #back {
   position: fixed;
   top: 16px;
@@ -284,7 +286,8 @@ scene.add(dirLight2);
 let currentGroup = null;
 
 // --- ViewCube ---
-const gizmoSize = 160;
+// Smaller on phones so it doesn't eat the screen.
+const gizmoSize = window.innerWidth < 600 ? 80 : 120;
 const gizmoRenderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
 gizmoRenderer.setPixelRatio(window.devicePixelRatio);
 gizmoRenderer.setSize(gizmoSize, gizmoSize);
@@ -615,7 +618,9 @@ const mmdDetailEl = document.getElementById("mmd-detail");
 const mmdContainerEl = document.getElementById("mmd-container");
 const mmdZoomEl = document.getElementById("mmd-zoom");
 let mmdScale = 1, mmdPanX = 0, mmdPanY = 0;
-let mmdDragging = false, mmdDragStartX = 0, mmdDragStartY = 0, mmdPanStartX = 0, mmdPanStartY = 0;
+const mmdActive = new Map();              // pointerId -> {x, y}
+let mmdDragStart = null;                  // { startX, startY, panX, panY }
+let mmdPinchStart = null;                 // { dist, midX, midY, panX, panY, scale }
 let mmdRenderCounter = 0;
 
 function mmdApplyTransform() {
@@ -640,25 +645,66 @@ function mmdFitDiagram() {
   mmdApplyTransform();
 }
 
+function mmdStartDragFrom(p) {
+  mmdDragStart = { startX: p.x, startY: p.y, panX: mmdPanX, panY: mmdPanY };
+  mmdDetailEl.classList.add("dragging");
+}
+function mmdClearGestures() {
+  mmdDragStart = null;
+  mmdPinchStart = null;
+  mmdDetailEl.classList.remove("dragging");
+}
 mmdDetailEl.addEventListener("pointerdown", (e) => {
   if (e.target.closest("button")) return;
-  if (e.button !== 0) return;
-  mmdDragging = true;
-  mmdDragStartX = e.clientX; mmdDragStartY = e.clientY;
-  mmdPanStartX = mmdPanX; mmdPanStartY = mmdPanY;
-  mmdDetailEl.classList.add("dragging");
+  if (e.pointerType === "mouse" && e.button !== 0) return;
   mmdDetailEl.setPointerCapture(e.pointerId);
+  mmdActive.set(e.pointerId, { x: e.clientX, y: e.clientY });
+  if (mmdActive.size === 1) {
+    mmdStartDragFrom(mmdActive.get(e.pointerId));
+  } else if (mmdActive.size === 2) {
+    const [p1, p2] = [...mmdActive.values()];
+    mmdPinchStart = {
+      dist: Math.hypot(p2.x - p1.x, p2.y - p1.y) || 1,
+      midX: (p1.x + p2.x) / 2,
+      midY: (p1.y + p2.y) / 2,
+      panX: mmdPanX, panY: mmdPanY, scale: mmdScale,
+    };
+    mmdDragStart = null;
+  }
 });
 mmdDetailEl.addEventListener("pointermove", (e) => {
-  if (!mmdDragging) return;
-  mmdPanX = mmdPanStartX + (e.clientX - mmdDragStartX);
-  mmdPanY = mmdPanStartY + (e.clientY - mmdDragStartY);
-  mmdApplyTransform();
+  if (!mmdActive.has(e.pointerId)) return;
+  mmdActive.set(e.pointerId, { x: e.clientX, y: e.clientY });
+  if (mmdActive.size === 2 && mmdPinchStart) {
+    const [p1, p2] = [...mmdActive.values()];
+    const dist = Math.hypot(p2.x - p1.x, p2.y - p1.y) || 1;
+    const midX = (p1.x + p2.x) / 2;
+    const midY = (p1.y + p2.y) / 2;
+    const ns = Math.max(0.1, Math.min(10, mmdPinchStart.scale * (dist / mmdPinchStart.dist)));
+    const dx = (mmdPinchStart.midX - mmdPinchStart.panX) / mmdPinchStart.scale;
+    const dy = (mmdPinchStart.midY - mmdPinchStart.panY) / mmdPinchStart.scale;
+    mmdPanX = midX - dx * ns;
+    mmdPanY = midY - dy * ns;
+    mmdScale = ns;
+    mmdApplyTransform();
+  } else if (mmdActive.size === 1 && mmdDragStart) {
+    mmdPanX = mmdDragStart.panX + (e.clientX - mmdDragStart.startX);
+    mmdPanY = mmdDragStart.panY + (e.clientY - mmdDragStart.startY);
+    mmdApplyTransform();
+  }
 });
-mmdDetailEl.addEventListener("pointerup", () => {
-  mmdDragging = false;
-  mmdDetailEl.classList.remove("dragging");
-});
+function mmdPointerEnd(e) {
+  if (!mmdActive.delete(e.pointerId)) return;
+  if (mmdActive.size === 0) {
+    mmdClearGestures();
+  } else if (mmdActive.size === 1) {
+    mmdPinchStart = null;
+    const [p] = [...mmdActive.values()];
+    mmdStartDragFrom(p);
+  }
+}
+mmdDetailEl.addEventListener("pointerup", mmdPointerEnd);
+mmdDetailEl.addEventListener("pointercancel", mmdPointerEnd);
 mmdDetailEl.addEventListener("wheel", (e) => {
   e.preventDefault();
   const rect = mmdDetailEl.getBoundingClientRect();
@@ -805,9 +851,11 @@ function buildGrid() {
   }
 }
 
-function openDetail(file) {
+// open/close functions take a `pushHistory` flag. UI-driven calls push;
+// popstate-driven calls don't (the URL already changed).
+function openDetail(file, pushHistory = true) {
+  if (pushHistory) location.hash = "step:" + encodeURIComponent(file);
   currentFile = file;
-  location.hash = "step:" + encodeURIComponent(file);
   gridEl.style.display = "none";
   detailEl.style.display = "block";
   document.getElementById("filename").textContent = shortName(file, ".step").name;
@@ -817,17 +865,17 @@ function openDetail(file) {
   loadStepFile(file);
 }
 
-function closeDetail() {
+function closeDetail(pushHistory = true) {
+  if (pushHistory && location.hash) history.back();
   currentFile = null;
-  location.hash = "";
   detailEl.style.display = "none";
   gridEl.style.display = "grid";
   animating = false;
 }
 
-async function openMmdDetail(file) {
+async function openMmdDetail(file, pushHistory = true) {
+  if (pushHistory) location.hash = "mmd:" + encodeURIComponent(file);
   currentMmd = file;
-  location.hash = "mmd:" + encodeURIComponent(file);
   gridEl.style.display = "none";
   mmdDetailEl.style.display = "block";
   document.getElementById("mmd-filename").textContent = shortName(file, ".mmd").name;
@@ -840,16 +888,34 @@ async function openMmdDetail(file) {
   setTimeout(mmdFitDiagram, 50);
 }
 
-function closeMmdDetail() {
+function closeMmdDetail(pushHistory = true) {
+  if (pushHistory && location.hash) history.back();
   currentMmd = null;
   currentMmdContent = null;
-  location.hash = "";
   mmdDetailEl.style.display = "none";
   gridEl.style.display = "grid";
 }
 
-document.getElementById("back").addEventListener("click", closeDetail);
-document.getElementById("mmd-back").addEventListener("click", closeMmdDetail);
+document.getElementById("back").addEventListener("click", () => closeDetail());
+document.getElementById("mmd-back").addEventListener("click", () => closeMmdDetail());
+
+// Browser/OS back button: navigate to whatever the new hash represents.
+window.addEventListener("popstate", () => {
+  const hash = location.hash ? decodeURIComponent(location.hash.slice(1)) : "";
+  const want = hash.startsWith("step:") ? { type: "step", file: hash.slice(5) }
+             : hash.startsWith("mmd:")  ? { type: "mmd",  file: hash.slice(4) }
+             : { type: null };
+  if (want.type === "step") {
+    if (currentMmd) closeMmdDetail(false);
+    if (currentFile !== want.file) openDetail(want.file, false);
+  } else if (want.type === "mmd") {
+    if (currentFile) closeDetail(false);
+    if (currentMmd !== want.file) openMmdDetail(want.file, false);
+  } else {
+    if (currentFile) closeDetail(false);
+    if (currentMmd) closeMmdDetail(false);
+  }
+});
 document.addEventListener("keydown", (e) => {
   if (e.key === "Escape") {
     if (currentFile) closeDetail();
@@ -947,13 +1013,13 @@ if (location.hash) {
   const hash = decodeURIComponent(location.hash.slice(1));
   if (hash.startsWith("step:")) {
     const file = hash.slice(5);
-    occtPromise.then(() => setTimeout(() => openDetail(file), 100));
+    occtPromise.then(() => setTimeout(() => openDetail(file, false), 100));
   } else if (hash.startsWith("mmd:")) {
     const file = hash.slice(4);
-    setTimeout(() => openMmdDetail(file), 100);
+    setTimeout(() => openMmdDetail(file, false), 100);
   } else {
     // Legacy hash format (just a step file path)
-    occtPromise.then(() => setTimeout(() => openDetail(hash), 100));
+    occtPromise.then(() => setTimeout(() => openDetail(hash, false), 100));
   }
 }
 </script>

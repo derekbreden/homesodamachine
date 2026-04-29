@@ -693,7 +693,7 @@ def build_zone4_outer() -> cq.Workplane:
             .copyWorkplane(cq.Workplane("XY").workplane(offset=ZONE4_Z_TOP))
             .moveTo(cx, cy)
             .circle(r)
-            .loft(ruled=True)
+            .loft(ruled=False)
         )
 
     def _side_loft_to_slot(y_side: float, cx: float, cy: float,
@@ -707,7 +707,7 @@ def build_zone4_outer() -> cq.Workplane:
             .copyWorkplane(cq.Workplane("XY").workplane(offset=ZONE4_Z_TOP))
             .moveTo(cx, cy)
             .slot2D(length, width, angle=90)
-            .loft(ruled=True)
+            .loft(ruled=False)
         )
 
     side_loft_pos_water = _side_loft_to_circle(
