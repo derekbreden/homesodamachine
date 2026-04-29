@@ -182,12 +182,13 @@ COVE_TOP_OUTER_Z  = ZONE2_OUTER_BOT + COVE_R                     # 21.25 (outer 
 # press angle (18° from horizontal): zero depth at the +X end of the
 # ramp, deepest at the shell's -X face. One piece, no head/taper split.
 
-LEVER_RAMP_ANGLE_DEG = 18.0
+LEVER_RAMP_ANGLE_DEG = 30.0
 LEVER_RAMP_DEPTH     = 3.0                                          # max cut depth at -X face
+LEVER_RAMP_Z_TOP     = ZONE2_Z_TOP + 3.0                            # 42.0 (3 mm above rect column top)
 LEVER_RAMP_X_MIN     = -19.0                                        # shell -X face
 LEVER_RAMP_X_START   = LEVER_RAMP_X_MIN + LEVER_RAMP_DEPTH / math.tan(
     math.radians(LEVER_RAMP_ANGLE_DEG)
-)                                                                   # ≈ -9.77
+)                                                                   # ≈ -13.80
 
 LEVER_Y_HALF           = 6.5
 LEVER_CLEARANCE_Y_HALF = LEVER_Y_HALF + BORE_CLEARANCE              # 6.75
@@ -427,7 +428,7 @@ def build_lever_clearance() -> cq.Workplane:
 
     Extruded ±LEVER_CLEARANCE_Y_HALF in Y. Single piece.
     """
-    z_top = ZONE2_Z_TOP
+    z_top = LEVER_RAMP_Z_TOP
     z_bot = z_top - LEVER_RAMP_DEPTH
     y_half = LEVER_CLEARANCE_Y_HALF
 
@@ -497,5 +498,5 @@ if __name__ == "__main__":
     print(f"  Lever clearance: {LEVER_RAMP_ANGLE_DEG}° ramp, "
           f"depth {LEVER_RAMP_DEPTH} mm at X={LEVER_RAMP_X_MIN}, "
           f"zero depth at X={LEVER_RAMP_X_START:.2f}")
-    print(f"                   Y = ±{LEVER_CLEARANCE_Y_HALF}, top at Z={ZONE2_Z_TOP}")
+    print(f"                   Y = ±{LEVER_CLEARANCE_Y_HALF}, top at Z={LEVER_RAMP_Z_TOP}")
     print(f"-> {out.name}")
