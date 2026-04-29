@@ -169,6 +169,40 @@ ZONE1_OUTER_TOP   = ZONE1_Z_TOP + SHELL_OUTER_LIP                # 16.25
 ZONE2_OUTER_BOT   = ZONE1_OUTER_TOP                              # 16.25
 COVE_TOP_OUTER_Z  = ZONE2_OUTER_BOT + COVE_R                     # 21.25 (outer cove top)
 
+
+# ═══════════════════════════════════════════════════════
+# LEVER SWING CLEARANCE
+# ═══════════════════════════════════════════════════════
+#
+# When the lever is pressed -18° around its pivot at (X=1.5, Z=46),
+# the bottom edge of its taper rotates BELOW Z=39 (the body plateau /
+# shell rect-column top) within the shell's X range. Specifically:
+#   - At X = -19 (shell -X face),  taper bottom in pressed → Z ≈ 36.92
+#   - At X = -14.62 (where bore's cyl clip ends at Y = ±6.5) → Z ≈ 37.22
+#   - At X = -3.78 (pressed head/taper junction)            → Z ≈ 37.97
+#
+# At Y = ±6.5 (the lever's Y faces) the body bore's cyl-clip means the
+# bore stops at X = -14.62, so the strip from X = -19 to X = -14.62
+# is shell-wall material. The pressed taper passes through that strip,
+# so without extra clearance the lever and shell wall overlap by ~1-2 mm
+# in Z.
+#
+# This clearance box covers the lever's pressed bounding region below
+# Z=39 with BORE_CLEARANCE margin, scoped tight enough that it only
+# bites the small wall strip at the -X / Y=±6.5 corners (everywhere
+# else inside the box, the bore was already empty).
+
+LEVER_PRESSED_Z_MIN  = 35.41                          # taper user-end pressed Z
+LEVER_Y_HALF         = 6.5                            # lever Y span (head + taper)
+LEVER_PRESSED_X_MIN  = -19.0                          # shell -X face
+LEVER_PRESSED_X_MAX  = 11.0                           # past +X end of head pressed (~10.48)
+
+LEVER_CLEARANCE_X_MIN  = LEVER_PRESSED_X_MIN
+LEVER_CLEARANCE_X_MAX  = LEVER_PRESSED_X_MAX
+LEVER_CLEARANCE_Y_HALF = LEVER_Y_HALF + BORE_CLEARANCE   # 6.75
+LEVER_CLEARANCE_Z_MIN  = LEVER_PRESSED_Z_MIN - BORE_CLEARANCE   # 35.16
+LEVER_CLEARANCE_Z_MAX  = ZONE2_Z_TOP                  # 39 — meets shell rect top
+
 # Shell rectangle. X width matches the cylinder OD so the X faces flow
 # straight up from the cylinder. Y half is body-bore-Y plus the wall.
 SHELL_RECT_X_HALF  = SHELL_OUTER_R                                        # 20.5875
@@ -391,10 +425,36 @@ def build_zone2_inner_cut() -> cq.Workplane:
     return bore.union(pill)
 
 
+def build_lever_clearance() -> cq.Workplane:
+    """Box added to the inner cut to clear the lever's pressed swing
+    where the taper dips below Z=39 into the shell rect column.
+
+    Sized to the lever's pressed-state bounding region with
+    BORE_CLEARANCE margin. Most of this box overlaps the already-
+    empty bore region; the only bite into actual shell wall is the
+    narrow strip at X ∈ [-19, -14.62] at Y = ±6.5 where the body
+    bore's cyl clip leaves wall material that the pressed taper would
+    otherwise overlap.
+    """
+    cx = (LEVER_CLEARANCE_X_MIN + LEVER_CLEARANCE_X_MAX) / 2.0
+    return (
+        cq.Workplane("XY")
+        .workplane(offset=LEVER_CLEARANCE_Z_MIN)
+        .moveTo(cx, 0)
+        .rect(LEVER_CLEARANCE_X_MAX - LEVER_CLEARANCE_X_MIN,
+              2.0 * LEVER_CLEARANCE_Y_HALF)
+        .extrude(LEVER_CLEARANCE_Z_MAX - LEVER_CLEARANCE_Z_MIN)
+    )
+
+
 def build_shell() -> cq.Workplane:
     """Top-level shell — zones 1 and 2 unioned, with combined inner cut."""
     outer = build_zone1_outer().union(build_zone2_outer())
-    inner = build_zone1_inner_cut().union(build_zone2_inner_cut())
+    inner = (
+        build_zone1_inner_cut()
+        .union(build_zone2_inner_cut())
+        .union(build_lever_clearance())
+    )
     return outer.cut(inner)
 
 
@@ -437,4 +497,9 @@ if __name__ == "__main__":
     print()
     print(f"  Flavor pill:     {PILL_LENGTH_Y} × {PILL_WIDTH_X} mm "
           f"at ({FLAVOR_TUBE_X}, 0), Y-oriented, full Z = 0 → {ZONE2_Z_TOP}")
+    print()
+    print(f"  Lever clearance: X = [{LEVER_CLEARANCE_X_MIN}, {LEVER_CLEARANCE_X_MAX}], "
+          f"Y = ±{LEVER_CLEARANCE_Y_HALF}, "
+          f"Z = [{LEVER_CLEARANCE_Z_MIN:.2f}, {LEVER_CLEARANCE_Z_MAX}]")
+    print(f"                   (clears pressed-down taper at the -X / Y=±6.5 corner)")
     print(f"-> {out.name}")
