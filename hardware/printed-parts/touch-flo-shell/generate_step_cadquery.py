@@ -613,47 +613,53 @@ def _rounded_rect_sketch(cx: float, w: float, h: float, r: float) -> cq.Sketch:
     )
 
 
-def _zone4_keep_x_min_box() -> cq.Workplane:
-    """Cut box for X < FILL_X_MIN — keeps zone 4 limited to the back third
-    of the water tube, same as zone 3 fill."""
+def _zone4_outer_bottom_sketch() -> cq.Sketch:
+    """Bottom of zone 4 outer loft: zone 3's outer cross-section
+    (rect ∩ outer cyl) restricted to X ≥ FILL_X_MIN."""
+    x_at_y_half = SHELL_CENTER_X + math.sqrt(SHELL_OUTER_R**2 - SHELL_RECT_Y_HALF**2)
+    rect_x_max = SHELL_CENTER_X + SHELL_RECT_X_HALF
+    y_half = SHELL_RECT_Y_HALF
     return (
-        cq.Workplane("XY")
-        .workplane(offset=ZONE4_Z_BOTTOM - 1)
-        .moveTo(FILL_X_MIN - 50, 0)
-        .rect(100, 200)
-        .extrude(ZONE4_HEIGHT + 2)
+        cq.Sketch()
+        .segment((FILL_X_MIN, -y_half), (x_at_y_half, -y_half))
+        .arc((x_at_y_half, -y_half), (rect_x_max, 0), (x_at_y_half, +y_half))
+        .segment((x_at_y_half, +y_half), (FILL_X_MIN, +y_half))
+        .segment((FILL_X_MIN, +y_half), (FILL_X_MIN, -y_half))
+        .assemble()
     )
 
 
 def build_zone4_outer() -> cq.Workplane:
-    """Tube wrapper: constant water-tube outer cyl unioned with lofted flavor outer."""
-    water_outer = (
-        cq.Workplane("XY")
-        .workplane(offset=ZONE4_Z_BOTTOM)
-        .moveTo(WATER_TUBE_X, 0)
-        .circle(WATER_HOLE_DIAMETER / 2.0 + ZONE4_WALL)
-        .extrude(ZONE4_HEIGHT)
+    """Two lofts unioned, each from the same wide bottom (cyl-clipped rect
+    at X≥FILL_X_MIN, matching zone 3's outer edges) up to a single tube
+    cross-section at the top. Their union flares out at the bottom and
+    tightens around just the tubes at the top."""
+    bottom_sk_at_z = lambda: _zone4_outer_bottom_sketch().moved(
+        cq.Location(cq.Vector(0, 0, ZONE4_Z_BOTTOM))
     )
 
-    bottom_outer_sk = _rounded_rect_sketch(
-        FLAVOR_CUTOUT_CX,
-        FLAVOR_CUTOUT_WIDTH  + 2.0 * ZONE4_WALL,
-        FLAVOR_CUTOUT_LENGTH + 2.0 * ZONE4_WALL,
-        FLAVOR_CUTOUT_R      + ZONE4_WALL,
-    ).moved(cq.Location(cq.Vector(0, 0, ZONE4_Z_BOTTOM)))
-    top_outer_sk = _rounded_rect_sketch(
-        FLAVOR_TUBE_POST_BEND_X,
-        PILL_WIDTH_X  + 2.0 * ZONE4_WALL,
-        PILL_LENGTH_Y + 2.0 * ZONE4_WALL,
-        PILL_WIDTH_X / 2.0 + ZONE4_WALL,
-    ).moved(cq.Location(cq.Vector(0, 0, ZONE4_Z_TOP)))
-    flavor_outer = (
+    water_top_sk = cq.Sketch().circle(WATER_HOLE_DIAMETER / 2.0 + ZONE4_WALL).moved(
+        cq.Location(cq.Vector(WATER_TUBE_X, 0, ZONE4_Z_TOP))
+    )
+    flavor_top_sk = cq.Sketch().slot(
+        PILL_LENGTH_Y - PILL_WIDTH_X,
+        PILL_WIDTH_X + 2.0 * ZONE4_WALL,
+        angle=90,
+    ).moved(
+        cq.Location(cq.Vector(FLAVOR_TUBE_POST_BEND_X, 0, ZONE4_Z_TOP))
+    )
+
+    water_loft = (
         cq.Workplane("XY")
-        .placeSketch(bottom_outer_sk, top_outer_sk)
+        .placeSketch(bottom_sk_at_z(), water_top_sk)
         .loft(ruled=True)
     )
-
-    return water_outer.union(flavor_outer).cut(_zone4_keep_x_min_box())
+    flavor_loft = (
+        cq.Workplane("XY")
+        .placeSketch(bottom_sk_at_z(), flavor_top_sk)
+        .loft(ruled=True)
+    )
+    return water_loft.union(flavor_loft)
 
 
 def build_zone4_inner_cut() -> cq.Workplane:
