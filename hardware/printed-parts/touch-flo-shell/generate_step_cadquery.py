@@ -686,10 +686,16 @@ def build_zone4_outer() -> cq.Workplane:
 
     loft = Solid.makeLoft([bottom_wire, top_wire], ruled=False)
 
+    # Cutter +X face overshoots FILL_X_MIN by 0.01 mm. The loft's bottom
+    # -X edge sits exactly at FILL_X_MIN; if the cutter's +X face is at
+    # the same X, OCC's BOP silently no-ops on the coincident face and
+    # returns the original solid unchanged. (The prior two-sub-loft
+    # approach hid this — its .union() rebuilt geometry with tolerance,
+    # so the resulting edge wasn't exactly at FILL_X_MIN.)
     keep_x_min_cut = (
         cq.Workplane("XY")
         .workplane(offset=ZONE4_Z_BOTTOM - 1)
-        .moveTo(FILL_X_MIN - 50, 0)
+        .moveTo(FILL_X_MIN - 50 + 0.01, 0)
         .rect(100, 200)
         .extrude(ZONE4_HEIGHT + 2)
     )
