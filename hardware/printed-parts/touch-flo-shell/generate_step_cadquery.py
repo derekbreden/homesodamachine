@@ -637,30 +637,10 @@ def _zone4_outer_bottom_sketch() -> cq.Sketch:
 
 
 def build_zone4_outer() -> cq.Workplane:
-    """Three lofts unioned:
-      1. From below: cyl-clipped rect at Z=44.25 (XY plane) → tube
-         wrapper at Z=52 (XY plane). Vertical loft.
-      2. From +Y side: arch lens (X∈[FILL_X_MIN, ARCH_X_HALF], Z under
-         the arc) at Y=+11.75 swept inward across to Y=0 in parallel
-         XZ planes.
-      3. From -Y side: mirror of (2).
-
-    The three lofts are unioned with no surface blending — internal
-    seams will be visible where the solids meet, but the union covers
-    the volume the user described.
-    """
-    # Arc geometry (the body arch's outer arc, lifted by SHELL_OUTER_LIP):
-    # passes through (X=±15.75, Z=44.25) and (X=0, Z=49.25).
-    # Center at (X=0, Z=21.944), radius 27.305.
-    _arc_cz = 21.944
-    _arc_r2 = 27.305 ** 2
-    _arc_z_at_fill = _arc_cz + math.sqrt(_arc_r2 - FILL_X_MIN ** 2)              # ≈ 47.17
-    _arc_mid_x     = (FILL_X_MIN + ARCH_X_HALF) / 2.0                            # ≈ 13.105
-    _arc_mid_z     = _arc_cz + math.sqrt(_arc_r2 - _arc_mid_x ** 2)              # ≈ 45.90
-
-    # ──────────────────────────────────────────────
-    # Loft 1: from below (XY plane), water + flavor
-    # ──────────────────────────────────────────────
+    """Two lofts unioned, each from the same wide bottom (cyl-clipped rect
+    at X≥FILL_X_MIN, matching zone 3's outer edges) up to a single tube
+    cross-section at the top. Their union flares out at the bottom and
+    tightens around just the tubes at the top."""
     bottom_sk_at_Z = _zone4_outer_bottom_sketch().moved(
         cq.Location(cq.Vector(0, 0, ZONE4_Z_BOTTOM))
     )
@@ -676,62 +656,7 @@ def build_zone4_outer() -> cq.Workplane:
     )
     water_loft = cq.Workplane("XY").placeSketch(bottom_sk_at_Z, water_top_sk).loft(ruled=True)
     flavor_loft = cq.Workplane("XY").placeSketch(bottom_sk_at_Z, flavor_top_sk).loft(ruled=True)
-    loft_from_below = water_loft.union(flavor_loft)
 
-    # ──────────────────────────────────────────────
-    # Lofts 2 & 3: from side (XZ at Y=±11.75) up to top (XY at Z=52)
-    # Built via Workplane chaining with copyWorkplane — avoids the
-    # face-normal flip that Sketch.moved() with rotation produces.
-    # ──────────────────────────────────────────────
-    def _side_loft_to_circle(y_side: float, cx: float, cy: float, r: float) -> cq.Workplane:
-        return (
-            cq.Workplane("XZ").workplane(offset=y_side)
-            .moveTo(FILL_X_MIN, ZONE4_Z_BOTTOM)
-            .lineTo(ARCH_X_HALF, ZONE4_Z_BOTTOM)
-            .threePointArc((_arc_mid_x, _arc_mid_z), (FILL_X_MIN, _arc_z_at_fill))
-            .close()
-            .copyWorkplane(cq.Workplane("XY").workplane(offset=ZONE4_Z_TOP))
-            .moveTo(cx, cy)
-            .circle(r)
-            .loft(ruled=False)
-        )
-
-    def _side_loft_to_slot(y_side: float, cx: float, cy: float,
-                            length: float, width: float) -> cq.Workplane:
-        return (
-            cq.Workplane("XZ").workplane(offset=y_side)
-            .moveTo(FILL_X_MIN, ZONE4_Z_BOTTOM)
-            .lineTo(ARCH_X_HALF, ZONE4_Z_BOTTOM)
-            .threePointArc((_arc_mid_x, _arc_mid_z), (FILL_X_MIN, _arc_z_at_fill))
-            .close()
-            .copyWorkplane(cq.Workplane("XY").workplane(offset=ZONE4_Z_TOP))
-            .moveTo(cx, cy)
-            .slot2D(length, width, angle=90)
-            .loft(ruled=False)
-        )
-
-    side_loft_pos_water = _side_loft_to_circle(
-        +SHELL_RECT_Y_HALF, WATER_TUBE_X, 0, WATER_HOLE_DIAMETER / 2.0 + ZONE4_WALL,
-    )
-    side_loft_pos_flavor = _side_loft_to_slot(
-        +SHELL_RECT_Y_HALF, FLAVOR_TUBE_POST_BEND_X, 0,
-        PILL_LENGTH_Y + 2.0 * ZONE4_WALL,
-        PILL_WIDTH_X + 2.0 * ZONE4_WALL,
-    )
-    side_loft_neg_water = _side_loft_to_circle(
-        -SHELL_RECT_Y_HALF, WATER_TUBE_X, 0, WATER_HOLE_DIAMETER / 2.0 + ZONE4_WALL,
-    )
-    side_loft_neg_flavor = _side_loft_to_slot(
-        -SHELL_RECT_Y_HALF, FLAVOR_TUBE_POST_BEND_X, 0,
-        PILL_LENGTH_Y + 2.0 * ZONE4_WALL,
-        PILL_WIDTH_X + 2.0 * ZONE4_WALL,
-    )
-    side_loft_pos = side_loft_pos_water.union(side_loft_pos_flavor)
-    side_loft_neg = side_loft_neg_water.union(side_loft_neg_flavor)
-
-    # ──────────────────────────────────────────────
-    # Union all three + FILL_X_MIN clip
-    # ──────────────────────────────────────────────
     keep_x_min_cut = (
         cq.Workplane("XY")
         .workplane(offset=ZONE4_Z_BOTTOM - 1)
@@ -739,12 +664,7 @@ def build_zone4_outer() -> cq.Workplane:
         .rect(100, 200)
         .extrude(ZONE4_HEIGHT + 2)
     )
-    return (
-        loft_from_below
-        .union(side_loft_pos)
-        .union(side_loft_neg)
-        .cut(keep_x_min_cut)
-    )
+    return water_loft.union(flavor_loft).cut(keep_x_min_cut)
 
 
 def build_zone4_inner_cut() -> cq.Workplane:
