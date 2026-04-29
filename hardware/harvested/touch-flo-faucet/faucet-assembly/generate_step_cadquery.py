@@ -47,9 +47,16 @@ REGENERATE
 """
 
 import math
+import sys
 from pathlib import Path
 
 import cadquery as cq
+
+sys.path.insert(
+    0,
+    str(next(p for p in Path(__file__).resolve().parents if p.name == "hardware")),
+)
+from _cadq_export import save_assembly
 
 
 # ═══════════════════════════════════════════════════════
@@ -406,7 +413,7 @@ def main():
     # version but still produces correct multi-solid STEP. The
     # cq.exporters.export(assy, ...) replacement currently rejects
     # Assembly objects on this install — revisit when the venv is bumped.
-    assy.save(str(out))
+    save_assembly(assy, str(out))
 
     print("Touch-Flo faucet assembly")
     print(f"  Reference body:        {REF_BODY_STEP.name}")

@@ -6,10 +6,15 @@
     "node": ">=20"
   },
   "scripts": {
-    "start": "node server.js"
+    "start": "node server.js",
+    "dev": "node tools/step-viewer/server.js"
   },
   "dependencies": {
     "express": "^4.21.0",
     "pg": "^8.13.0"
+  },
+  "devDependencies": {
+    "chokidar": "^4.0.0",
+    "ws": "^8.18.0"
   }
 }

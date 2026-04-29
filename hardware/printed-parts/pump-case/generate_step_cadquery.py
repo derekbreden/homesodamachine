@@ -22,6 +22,12 @@ import cadquery as cq
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent / "cadlib"))
 from snap import apply_ramp_out_first, apply_ramp_in_first
 
+sys.path.insert(
+    0,
+    str(next(p for p in Path(__file__).resolve().parents if p.name == "hardware")),
+)
+from _cadq_export import export_step
+
 
 # ═══════════════════════════════════════════════════════
 # PHYSICAL DIMENSIONS
@@ -842,7 +848,7 @@ for name, part in [("Base", base), ("Cap", cap)]:
               f"Y[{bb.ymin:.1f},{bb.ymax:.1f}] Z[{bb.zmin:.1f},{bb.zmax:.1f}]")
 
 OUTPUT_DIR = Path(__file__).resolve().parent
-cq.exporters.export(base, str(OUTPUT_DIR / "pump-case-base-cadquery.step"))
+export_step(base, str(OUTPUT_DIR / "pump-case-base-cadquery.step"))
 print("Exported → pump-case-base-cadquery.step")
-cq.exporters.export(cap, str(OUTPUT_DIR / "pump-case-cap-cadquery.step"))
+export_step(cap, str(OUTPUT_DIR / "pump-case-cap-cadquery.step"))
 print("Exported → pump-case-cap-cadquery.step")

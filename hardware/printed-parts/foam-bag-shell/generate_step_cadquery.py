@@ -1,6 +1,13 @@
 import math
+import sys
 from pathlib import Path
 import cadquery as cq
+
+sys.path.insert(
+    0,
+    str(next(p for p in Path(__file__).resolve().parents if p.name == "hardware")),
+)
+from _cadq_export import export_step
 
 # ═══════════════════════════════════════════════════════
 # FEATURES
@@ -584,11 +591,11 @@ def main():
     foam_cap_lid = build_foam_cap_lid()
 
     here = Path(__file__).resolve().parent
-    cq.exporters.export(foam_bag_shell, str(here / "foam-bag-shell.step"))
-    cq.exporters.export(copper_inlet_plug, str(here / "copper-inlet-plug.step"))
-    cq.exporters.export(copper_outlet_plug, str(here / "copper-outlet-plug.step"))
-    cq.exporters.export(foam_cap, str(here / "foam-cap.step"))
-    cq.exporters.export(foam_cap_lid, str(here / "foam-cap-lid.step"))
+    export_step(foam_bag_shell, str(here / "foam-bag-shell.step"))
+    export_step(copper_inlet_plug, str(here / "copper-inlet-plug.step"))
+    export_step(copper_outlet_plug, str(here / "copper-outlet-plug.step"))
+    export_step(foam_cap, str(here / "foam-cap.step"))
+    export_step(foam_cap_lid, str(here / "foam-cap-lid.step"))
     print(f"-> foam-bag-shell.step")
     print(f"-> copper-inlet-plug.step")
     print(f"-> copper-outlet-plug.step")
