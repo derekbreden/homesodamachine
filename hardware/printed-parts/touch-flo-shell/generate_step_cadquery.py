@@ -680,33 +680,52 @@ def build_zone4_outer() -> cq.Workplane:
 
     # ──────────────────────────────────────────────
     # Lofts 2 & 3: from side (XZ at Y=±11.75) up to top (XY at Z=52)
+    # Built via Workplane chaining with copyWorkplane — avoids the
+    # face-normal flip that Sketch.moved() with rotation produces.
     # ──────────────────────────────────────────────
-    def _arch_lens_sk_at_y(y_side: float) -> cq.Sketch:
-        # Arch lens 2D sketch in default XY plane, then rotated +90° around
-        # X axis (so sketch-Y becomes world-Z) and translated to Y=y_side,
-        # placing it in the XZ plane at the specified Y.
-        sk = (
-            cq.Sketch()
-            .segment((FILL_X_MIN, ZONE4_Z_BOTTOM), (ARCH_X_HALF, ZONE4_Z_BOTTOM))
-            .arc((ARCH_X_HALF, ZONE4_Z_BOTTOM),
-                 (_arc_mid_x, _arc_mid_z),
-                 (FILL_X_MIN, _arc_z_at_fill))
-            .segment((FILL_X_MIN, _arc_z_at_fill), (FILL_X_MIN, ZONE4_Z_BOTTOM))
-            .assemble()
-        )
-        return sk.moved(cq.Location(cq.Vector(0, y_side, 0), cq.Vector(1, 0, 0), 90))
-
-    def _side_loft_to(y_side: float, target_sk: cq.Sketch) -> cq.Workplane:
+    def _side_loft_to_circle(y_side: float, cx: float, cy: float, r: float) -> cq.Workplane:
         return (
-            cq.Workplane("XY")
-            .placeSketch(_arch_lens_sk_at_y(y_side), target_sk)
+            cq.Workplane("XZ").workplane(offset=y_side)
+            .moveTo(FILL_X_MIN, ZONE4_Z_BOTTOM)
+            .lineTo(ARCH_X_HALF, ZONE4_Z_BOTTOM)
+            .threePointArc((_arc_mid_x, _arc_mid_z), (FILL_X_MIN, _arc_z_at_fill))
+            .close()
+            .copyWorkplane(cq.Workplane("XY").workplane(offset=ZONE4_Z_TOP))
+            .moveTo(cx, cy)
+            .circle(r)
             .loft(ruled=True)
         )
 
-    side_loft_pos_water  = _side_loft_to(+SHELL_RECT_Y_HALF, water_top_sk)
-    side_loft_pos_flavor = _side_loft_to(+SHELL_RECT_Y_HALF, flavor_top_sk)
-    side_loft_neg_water  = _side_loft_to(-SHELL_RECT_Y_HALF, water_top_sk)
-    side_loft_neg_flavor = _side_loft_to(-SHELL_RECT_Y_HALF, flavor_top_sk)
+    def _side_loft_to_slot(y_side: float, cx: float, cy: float,
+                            length: float, width: float) -> cq.Workplane:
+        return (
+            cq.Workplane("XZ").workplane(offset=y_side)
+            .moveTo(FILL_X_MIN, ZONE4_Z_BOTTOM)
+            .lineTo(ARCH_X_HALF, ZONE4_Z_BOTTOM)
+            .threePointArc((_arc_mid_x, _arc_mid_z), (FILL_X_MIN, _arc_z_at_fill))
+            .close()
+            .copyWorkplane(cq.Workplane("XY").workplane(offset=ZONE4_Z_TOP))
+            .moveTo(cx, cy)
+            .slot2D(length, width, angle=90)
+            .loft(ruled=True)
+        )
+
+    side_loft_pos_water = _side_loft_to_circle(
+        +SHELL_RECT_Y_HALF, WATER_TUBE_X, 0, WATER_HOLE_DIAMETER / 2.0 + ZONE4_WALL,
+    )
+    side_loft_pos_flavor = _side_loft_to_slot(
+        +SHELL_RECT_Y_HALF, FLAVOR_TUBE_POST_BEND_X, 0,
+        PILL_LENGTH_Y + 2.0 * ZONE4_WALL,
+        PILL_WIDTH_X + 2.0 * ZONE4_WALL,
+    )
+    side_loft_neg_water = _side_loft_to_circle(
+        -SHELL_RECT_Y_HALF, WATER_TUBE_X, 0, WATER_HOLE_DIAMETER / 2.0 + ZONE4_WALL,
+    )
+    side_loft_neg_flavor = _side_loft_to_slot(
+        -SHELL_RECT_Y_HALF, FLAVOR_TUBE_POST_BEND_X, 0,
+        PILL_LENGTH_Y + 2.0 * ZONE4_WALL,
+        PILL_WIDTH_X + 2.0 * ZONE4_WALL,
+    )
     side_loft_pos = side_loft_pos_water.union(side_loft_pos_flavor)
     side_loft_neg = side_loft_neg_water.union(side_loft_neg_flavor)
 
