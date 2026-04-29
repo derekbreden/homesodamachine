@@ -22,9 +22,26 @@ Usage from any generate_step_cadquery.py:
     save_assembly(assy, str(out_path))
 """
 
+import filecmp
 import os
+import re
 import tempfile
 from pathlib import Path
+
+# STEP files embed a wall-clock timestamp in the FILE_NAME header. Without
+# normalization, every run produces different bytes for identical source —
+# which churns git status and burns agent tokens chasing a non-change.
+_STEP_TIMESTAMP_RE = re.compile(rb"'\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}'")
+_STEP_CANONICAL_TIMESTAMP = b"'1970-01-01T00:00:00'"
+
+
+def _canonicalize_step(path):
+    with open(path, "rb") as f:
+        data = f.read()
+    new_data = _STEP_TIMESTAMP_RE.sub(_STEP_CANONICAL_TIMESTAMP, data, count=1)
+    if new_data != data:
+        with open(path, "wb") as f:
+            f.write(new_data)
 
 
 def _atomic_write(target_path, write_fn):
@@ -43,6 +60,14 @@ def _atomic_write(target_path, write_fn):
     os.chmod(tmp, 0o666 & ~umask)
     try:
         write_fn(tmp)
+        if target.suffix == ".step":
+            _canonicalize_step(tmp)
+        # No-change short-circuit: if the canonicalized output matches the
+        # existing target byte-for-byte, leave the target's mtime alone and
+        # leave git status clean. Only rename when content actually changed.
+        if target.exists() and filecmp.cmp(tmp, str(target), shallow=False):
+            os.unlink(tmp)
+            return
         os.replace(tmp, target)
     except BaseException:
         try:
