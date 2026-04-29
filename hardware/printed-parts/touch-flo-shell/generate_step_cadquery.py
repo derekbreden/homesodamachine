@@ -219,11 +219,11 @@ WING_OUTER_Y          = SHELL_RECT_Y_HALF                          # 11.75
 #   - Water tube: Ø10 cylinder at the port center, full Z. Only the
 #     +X portion of the cylinder overlaps the fill, so the result is
 #     a curved opening on the fill's -X face.
-#   - Flavor tubes: two pills (same dimensions as the pill in zones
-#     1+2) at the pre-bend and post-bend tube X positions, unioned.
-#     The peanut shape preserves the pill's back-half profile at the
-#     pre-bend X and extends just enough -X to cover the post-bend
-#     tube position.
+#   - Flavor tubes: a rounded rectangle covering the bend trajectory.
+#     X span = post-bend tube edge to pre-bend tube edge (= pill width
+#     extension across the bend X delta); Y span = PILL_LENGTH_Y.
+#     Corner radius = PILL_WIDTH_X/2 so the rounding matches the
+#     existing pill's end radius.
 WATER_TUBE_X        = 8.875
 WATER_TUBE_OD       = 9.5
 WATER_HOLE_DIAMETER = WATER_TUBE_OD + 2.0 * BORE_CLEARANCE          # 10.0
@@ -566,18 +566,19 @@ def build_zone3_fill_inner_cut() -> cq.Workplane:
         .extrude(z_height)
     )
 
-    def flavor_pill(x: float) -> cq.Workplane:
-        return (
-            cq.Workplane("XY")
-            .workplane(offset=ZONE3_Z_BOTTOM)
-            .moveTo(x, 0)
-            .slot2D(PILL_LENGTH_Y, PILL_WIDTH_X, angle=90)
-            .extrude(z_height)
-        )
+    flavor_cx    = (FLAVOR_TUBE_PRE_BEND_X + FLAVOR_TUBE_POST_BEND_X) / 2.0
+    flavor_width = (FLAVOR_TUBE_PRE_BEND_X - FLAVOR_TUBE_POST_BEND_X) + PILL_WIDTH_X
+    flavor_slot = (
+        cq.Workplane("XY")
+        .workplane(offset=ZONE3_Z_BOTTOM)
+        .moveTo(flavor_cx, 0)
+        .rect(flavor_width, PILL_LENGTH_Y)
+        .extrude(z_height)
+        .edges("|Z")
+        .fillet(PILL_WIDTH_X / 2.0)
+    )
 
-    return (water_hole
-            .union(flavor_pill(FLAVOR_TUBE_PRE_BEND_X))
-            .union(flavor_pill(FLAVOR_TUBE_POST_BEND_X)))
+    return water_hole.union(flavor_slot)
 
 
 def build_lever_clearance() -> cq.Workplane:
