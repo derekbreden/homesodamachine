@@ -21,35 +21,45 @@ ZONE 1 — Z = 0 → 13 — cylindrical region
 
 ZONE 2 — cylinder→rectangle transition + rect column
 =====================================================
-The OUTER and INNER (bore) zones have different Z bounds: the bore
-follows the body's actual transition Z (13–18) so it clears the body
-correctly, while the outer surface lifts its transition by one wall
-thickness (SHELL_OUTER_LIP = 3 mm) to put cylindrical shell material
-ABOVE the body's cylinder top face. Without this lift, the outer cove
-would tangent the body's cylinder ledge from above and there would be
-no vertical wall material over the body's top face.
+The OUTER and INNER (bore) zones have different Z bounds. The bore
+follows the body's actual transition Z's (lifted by BORE_CLEARANCE
+per-side: 13 → 13.25 for the cyl-top step, etc.) so it clears the
+body correctly. The outer surface lifts its transition by
+SHELL_OUTER_LIP = WALL + BORE_CLEARANCE = 3.25 mm above the body's
+cyl top, so 3 mm of shell wall sits directly above the body's
+cylinder top face. Without that lift, the outer cove would start at
+the same Z as the body's cylinder ledge and there would be no
+vertical wall material over the body's top face.
 
-Outer (Z = 16 → 39):
+Outer (Z = 16.25 → 39):
 - Rectangle: 41.175 × 23.5 mm (X × Y), centered at the shell center.
   Same X width as the zone 1 cylinder OD (so the X faces flow
   straight up from the cylinder edge with no step). Y faces shrink
   inward by 8.84 mm per side relative to the cylinder edge.
 - Cove transition on each Y face, R = 5 mm (mirrors the body's
-  transition_fillet_r), spanning Z = 16 → 21. Tangent to the rect
-  Y face at Z = 21 and to the cylinder ledge at Z = 16.
+  transition_fillet_r), spanning Z = 16.25 → 21.25. Tangent to the
+  rect Y face at the top and to the cylinder ledge at the bottom.
 - Rectangle corners are clipped to the shell's outer cylinder
   (R = 20.5875 mm) — same approach as the body.
 
-Inner / bore (Z = 13 → 39):
+Inner / bore (Z = 13.25 → 39):
 - Inner cut: built with the SAME construction pattern as the body's
   outer (rect column + filler block on each Y face + cove cutter +
-  cylinder clip), at 0.5 mm offset dimensions for slip-fit clearance.
-  So the bore above the cove follows the body's rect∩cylinder
-  profile — its X "faces" are curved arcs, not flat — and through
-  the cove zone the bore mirrors the body's outward-bulging
-  filler+cove rather than running straight through as a Ø 32
-  cylinder (which would poke past the shell's outer cove surface).
-  Plus the flavor-tube pill all the way through.
+  cylinder clip), at BORE_CLEARANCE = 0.25 mm per side for slip-fit
+  assembly. So the bore above the cove follows the body's
+  rect∩cylinder profile — its X "faces" are curved arcs, not flat —
+  and through the cove zone (Z = 13.25 → 18.25) the bore mirrors
+  the body's outward-bulging filler+cove rather than running
+  straight through as a Ø 32 cylinder (which would poke past the
+  shell's outer cove surface). Plus the flavor-tube pill all the
+  way through.
+
+Lever clearance:
+- A small chamfer ramp cut into the top -X corner of the rect
+  column for the lever's pressed-down swing. See the LEVER SWING
+  CLEARANCE block below for the geometry; anchored to the rect
+  outer face at -X and the bore-cylinder tangent at the cut's
+  Y_HALF, so it tracks both shell features automatically.
 
 WALL THICKNESS NOTES
 ====================
