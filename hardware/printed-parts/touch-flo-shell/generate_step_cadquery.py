@@ -637,25 +637,54 @@ def _zone4_outer_bottom_sketch() -> cq.Sketch:
 
 
 def build_zone4_outer() -> cq.Workplane:
-    """Two lofts unioned, each from the same wide bottom (cyl-clipped rect
-    at X≥FILL_X_MIN, matching zone 3's outer edges) up to a single tube
-    cross-section at the top. Their union flares out at the bottom and
-    tightens around just the tubes at the top."""
-    bottom_sk_at_Z = _zone4_outer_bottom_sketch().moved(
-        cq.Location(cq.Vector(0, 0, ZONE4_Z_BOTTOM))
+    """Single loft from the wide bottom (cyl-clipped rect at X≥FILL_X_MIN)
+    to the unioned outline of (water circle + flavor stadium) at the top.
+    One loft, one source wire, one target wire — no boolean fuse of
+    parallel sub-lofts.
+
+    The unioned top wire is computed by extruding each top shape into a
+    tiny solid, fusing them, and grabbing the resulting top face's outer
+    wire.
+
+    Built via Solid.makeLoft with explicit world-coord Wires (the
+    canonical idiom for cross-plane / multi-shape lofts in cadquery).
+    """
+    from cadquery.occ_impl.shapes import Solid, Edge, Wire
+
+    # ── unioned top wire: outer perimeter of (water circle ∪ flavor stadium)
+    water_solid = (
+        cq.Workplane("XY").workplane(offset=ZONE4_Z_TOP)
+        .moveTo(WATER_TUBE_X, 0)
+        .circle(WATER_HOLE_DIAMETER / 2.0 + ZONE4_WALL)
+        .extrude(0.01)
     )
-    water_top_sk = cq.Sketch().circle(WATER_HOLE_DIAMETER / 2.0 + ZONE4_WALL).moved(
-        cq.Location(cq.Vector(WATER_TUBE_X, 0, ZONE4_Z_TOP))
+    flavor_solid = (
+        cq.Workplane("XY").workplane(offset=ZONE4_Z_TOP)
+        .moveTo(FLAVOR_TUBE_POST_BEND_X, 0)
+        .slot2D(PILL_LENGTH_Y + 2.0 * ZONE4_WALL,
+                PILL_WIDTH_X + 2.0 * ZONE4_WALL, angle=90)
+        .extrude(0.01)
     )
-    flavor_top_sk = cq.Sketch().slot(
-        PILL_LENGTH_Y - PILL_WIDTH_X,
-        PILL_WIDTH_X + 2.0 * ZONE4_WALL,
-        angle=90,
-    ).moved(
-        cq.Location(cq.Vector(FLAVOR_TUBE_POST_BEND_X, 0, ZONE4_Z_TOP))
-    )
-    water_loft = cq.Workplane("XY").placeSketch(bottom_sk_at_Z, water_top_sk).loft(ruled=True)
-    flavor_loft = cq.Workplane("XY").placeSketch(bottom_sk_at_Z, flavor_top_sk).loft(ruled=True)
+    top_face = water_solid.union(flavor_solid).faces(">Z").val()
+    top_wire = top_face.outerWire()
+
+    # ── bottom wire: cyl-clipped rect at X ≥ FILL_X_MIN
+    yh = SHELL_RECT_Y_HALF
+    x_at_yh = SHELL_CENTER_X + math.sqrt(SHELL_OUTER_R**2 - yh**2)
+    rect_x_max = SHELL_CENTER_X + SHELL_RECT_X_HALF
+    bottom_wire = Wire.assembleEdges([
+        Edge.makeLine(cq.Vector(FILL_X_MIN, -yh, ZONE4_Z_BOTTOM),
+                      cq.Vector(x_at_yh, -yh, ZONE4_Z_BOTTOM)),
+        Edge.makeThreePointArc(cq.Vector(x_at_yh, -yh, ZONE4_Z_BOTTOM),
+                                cq.Vector(rect_x_max, 0, ZONE4_Z_BOTTOM),
+                                cq.Vector(x_at_yh, +yh, ZONE4_Z_BOTTOM)),
+        Edge.makeLine(cq.Vector(x_at_yh, +yh, ZONE4_Z_BOTTOM),
+                      cq.Vector(FILL_X_MIN, +yh, ZONE4_Z_BOTTOM)),
+        Edge.makeLine(cq.Vector(FILL_X_MIN, +yh, ZONE4_Z_BOTTOM),
+                      cq.Vector(FILL_X_MIN, -yh, ZONE4_Z_BOTTOM)),
+    ])
+
+    loft = Solid.makeLoft([bottom_wire, top_wire], ruled=False)
 
     keep_x_min_cut = (
         cq.Workplane("XY")
@@ -664,7 +693,7 @@ def build_zone4_outer() -> cq.Workplane:
         .rect(100, 200)
         .extrude(ZONE4_HEIGHT + 2)
     )
-    return water_loft.union(flavor_loft).cut(keep_x_min_cut)
+    return cq.Workplane("XY").newObject([loft]).cut(keep_x_min_cut)
 
 
 def build_zone4_inner_cut() -> cq.Workplane:
