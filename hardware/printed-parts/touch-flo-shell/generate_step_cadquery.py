@@ -11,9 +11,16 @@ Regenerate:  tools/cad-venv/bin/python generate_step_cadquery.py
 """
 
 import math
+import sys
 from pathlib import Path
 
 import cadquery as cq
+
+sys.path.insert(
+    0,
+    str(next(p for p in Path(__file__).resolve().parents if p.name == "hardware")),
+)
+from _cadq_export import export_step
 
 
 # ═══════════════════════════════════════════════════════
@@ -751,7 +758,7 @@ if __name__ == "__main__":
     shell = build_shell()
 
     out = Path(__file__).resolve().parent / "touch-flo-shell.step"
-    cq.exporters.export(shell, str(out))
+    export_step(shell, str(out))
 
     print("Touch-Flo shell (work in progress)")
     print(f"  Center:          X = {SHELL_CENTER_X}, Y = {SHELL_CENTER_Y}")

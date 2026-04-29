@@ -1,5 +1,12 @@
+import sys
 import cadquery as cq
 from pathlib import Path
+
+sys.path.insert(
+    0,
+    str(next(p for p in Path(__file__).resolve().parents if p.name == "hardware")),
+)
+from _cadq_export import export_step
 
 # ═══════════════════════════════════════════════════════
 # FEATURES — Touch-Flo Valve Body Reference Solid
@@ -361,7 +368,7 @@ def main():
 
     here = Path(__file__).resolve().parent
     out  = here / "touch-flo-valve-body-reference.step"
-    cq.exporters.export(body, str(out))
+    export_step(body, str(out))
     print(f"-> {out.name}")
 
 

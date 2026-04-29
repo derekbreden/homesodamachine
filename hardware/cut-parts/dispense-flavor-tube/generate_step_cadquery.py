@@ -71,11 +71,18 @@ submission notes (passive 316 SS resists powder adhesion without it).
 Run with: tools/cad-venv/bin/python generate_step_cadquery.py
 """
 
+import sys
 from pathlib import Path
 import math
 from dataclasses import dataclass
 
 import cadquery as cq
+
+sys.path.insert(
+    0,
+    str(next(p for p in Path(__file__).resolve().parents if p.name == "hardware")),
+)
+from _cadq_export import export_step
 
 
 # ═══════════════════════════════════════════════════════
@@ -315,5 +322,5 @@ if __name__ == "__main__":
 
     fname = "dispense-flavor-tube-quarter-od-0p049wall.step"
     path = out_dir / fname
-    cq.exporters.export(tube, str(path))
+    export_step(tube, str(path))
     print(f"  Exported:     {path}")

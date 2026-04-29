@@ -36,9 +36,16 @@ REGENERATE
     tools/cad-venv/bin/python generate_step_cadquery.py
 """
 
+import sys
 from pathlib import Path
 
 import cadquery as cq
+
+sys.path.insert(
+    0,
+    str(next(p for p in Path(__file__).resolve().parents if p.name == "hardware")),
+)
+from _cadq_export import export_step
 
 
 # ═══════════════════════════════════════════════════════
@@ -143,7 +150,7 @@ if __name__ == "__main__":
     plate = build_mounting_plate()
 
     out = Path(__file__).resolve().parent / "touch-flo-mounting-plate.step"
-    cq.exporters.export(plate, str(out))
+    export_step(plate, str(out))
 
     print("Touch-Flo mounting plate")
     print(f"  Disc:           Ø{PLATE_DIAMETER} mm × {PLATE_THICKNESS} mm thick")

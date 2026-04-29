@@ -1,7 +1,14 @@
 # Vase-mode orientation: Z = tube axis, prints standing up (spiral rises along Z).
 
+import sys
 from pathlib import Path
 import cadquery as cq
+
+sys.path.insert(
+    0,
+    str(next(p for p in Path(__file__).resolve().parents if p.name == "hardware")),
+)
+from _cadq_export import export_step
 
 
 # ═══════════════════════════════════════════════════════
@@ -55,5 +62,5 @@ for i, s in enumerate(solids):
 
 out_dir = Path(__file__).resolve().parent
 out_path = out_dir / "peristaltic-tube.step"
-cq.exporters.export(tube, str(out_path))
+export_step(tube, str(out_path))
 print(f"\nExported: {out_path}")
