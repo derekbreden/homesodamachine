@@ -185,9 +185,7 @@ COVE_TOP_OUTER_Z  = ZONE2_OUTER_BOT + COVE_R                     # 21.25 (outer 
 LEVER_RAMP_ANGLE_DEG = 30.0
 LEVER_RAMP_DEPTH     = 1.0                                          # max cut depth at -X face
 LEVER_RAMP_X_MIN     = -19.0                                        # shell -X face
-LEVER_RAMP_X_START   = LEVER_RAMP_X_MIN + LEVER_RAMP_DEPTH / math.tan(
-    math.radians(LEVER_RAMP_ANGLE_DEG)
-)                                                                   # ≈ -9.77
+LEVER_RAMP_X_START   = -14.508
 
 LEVER_Y_HALF           = 6.5
 LEVER_CLEARANCE_Y_HALF = LEVER_Y_HALF + BORE_CLEARANCE              # 6.75
