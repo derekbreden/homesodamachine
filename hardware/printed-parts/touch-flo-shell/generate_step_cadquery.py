@@ -174,34 +174,35 @@ COVE_TOP_OUTER_Z  = ZONE2_OUTER_BOT + COVE_R                     # 21.25 (outer 
 # LEVER SWING CLEARANCE
 # ═══════════════════════════════════════════════════════
 #
-# When the lever is pressed -18° around its pivot at (X=1.5, Z=46),
-# the bottom edge of its taper rotates BELOW Z=39 (the body plateau /
-# shell rect-column top) within the shell's X range. Specifically:
-#   - At X = -19 (shell -X face),  taper bottom in pressed → Z ≈ 36.92
-#   - At X = -14.62 (where bore's cyl clip ends at Y = ±6.5) → Z ≈ 37.22
-#   - At X = -3.78 (pressed head/taper junction)            → Z ≈ 37.97
+# The cutout is built in the lever's REST frame as a 3 mm-thick slab
+# that hugs the lever's bottom contour from below by BORE_CLEARANCE,
+# then rotated -18° around the pivot at (X=1.5, Z=46) to land in the
+# pressed-down position. Result: the cut's surfaces are sloped at the
+# lever's pressed-down angle and ride directly under the pressed lever
+# instead of dropping into a flat-bottomed pocket below it.
 #
-# At Y = ±6.5 (the lever's Y faces) the body bore's cyl-clip means the
-# bore stops at X = -14.62, so the strip from X = -19 to X = -14.62
-# is shell-wall material. The pressed taper passes through that strip,
-# so without extra clearance the lever and shell wall overlap by ~1-2 mm
-# in Z.
-#
-# This clearance box covers the lever's pressed bounding region below
-# Z=39 with BORE_CLEARANCE margin, scoped tight enough that it only
-# bites the small wall strip at the -X / Y=±6.5 corners (everywhere
-# else inside the box, the bore was already empty).
+# Lever rest geometry (mirrored from faucet-assembly's build_lever):
+#   - Head: X∈[-6, +9], Z∈[40, 52], bottom flat at Z=40
+#   - Taper: bottom rises from Z=44.5 at X=-6 to Z=49 at X=-42
+# These two segments form a stepped bottom contour, so the cutout is
+# built as two slabs unioned together.
 
-LEVER_PRESSED_Z_MIN  = 35.41                          # taper user-end pressed Z
-LEVER_Y_HALF         = 6.5                            # lever Y span (head + taper)
-LEVER_PRESSED_X_MIN  = -19.0                          # shell -X face
-LEVER_PRESSED_X_MAX  = 11.0                           # past +X end of head pressed (~10.48)
+LEVER_PIVOT_X = 1.5
+LEVER_PIVOT_Z = 46.0
+LEVER_PRESS_ANGLE_DEG = -18.0
 
-LEVER_CLEARANCE_X_MIN  = LEVER_PRESSED_X_MIN
-LEVER_CLEARANCE_X_MAX  = LEVER_PRESSED_X_MAX
-LEVER_CLEARANCE_Y_HALF = LEVER_Y_HALF + BORE_CLEARANCE   # 6.75
-LEVER_CLEARANCE_Z_MIN  = LEVER_PRESSED_Z_MIN - BORE_CLEARANCE   # 35.16
-LEVER_CLEARANCE_Z_MAX  = ZONE2_Z_TOP                  # 39 — meets shell rect top
+LEVER_HEAD_X_MIN = -6.0
+LEVER_HEAD_X_MAX = +9.0
+LEVER_HEAD_BOT_Z_REST = 40.0
+
+LEVER_TAPER_X_MIN = -42.0                                          # user end
+LEVER_TAPER_BOT_Z_AT_JUNCTION_REST = 44.5
+LEVER_TAPER_BOT_Z_AT_USER_REST     = 49.0
+
+LEVER_Y_HALF         = 6.5
+LEVER_CLEARANCE_Y_HALF = LEVER_Y_HALF + BORE_CLEARANCE              # 6.75
+LEVER_CLEARANCE_THICK  = 3.0                                        # mm (in rest frame)
+LEVER_HEAD_X_MAX_CUT   = LEVER_HEAD_X_MAX + 2.0                     # +X margin past head end
 
 # Shell rectangle. X width matches the cylinder OD so the X faces flow
 # straight up from the cylinder. Y half is body-bore-Y plus the wall.
@@ -426,25 +427,59 @@ def build_zone2_inner_cut() -> cq.Workplane:
 
 
 def build_lever_clearance() -> cq.Workplane:
-    """Box added to the inner cut to clear the lever's pressed swing
-    where the taper dips below Z=39 into the shell rect column.
+    """Sloped slab hugging the lever's pressed-down underside.
 
-    Sized to the lever's pressed-state bounding region with
-    BORE_CLEARANCE margin. Most of this box overlaps the already-
-    empty bore region; the only bite into actual shell wall is the
-    narrow strip at X ∈ [-19, -14.62] at Y = ±6.5 where the body
-    bore's cyl clip leaves wall material that the pressed taper would
-    otherwise overlap.
+    Built in the lever's REST frame as a 3 mm-thick volume sitting
+    BORE_CLEARANCE below the lever's bottom contour, then rotated by
+    LEVER_PRESS_ANGLE_DEG around the pivot to land under the pressed
+    lever. Two pieces:
+
+      - Head slab: rectangle X∈[-6, +11], Z∈[36.75, 39.75] (3 mm
+        below the head's flat bottom at rest Z=40, minus clearance).
+      - Taper slab: trapezoid following the taper's sloped bottom
+        from X=-6 to X=-42, 3 mm thick perpendicular to the rest-Z
+        axis (top edge BORE_CLEARANCE below taper bottom).
+
+    After rotation, the cut surfaces are sloped at the lever's
+    pressed-down angle, so the cutout depth in world Z is
+    ~3·cos(18°) ≈ 2.85 mm and the cut hugs the pressed lever instead
+    of dropping into a flat-bottomed pocket beneath it.
     """
-    cx = (LEVER_CLEARANCE_X_MIN + LEVER_CLEARANCE_X_MAX) / 2.0
-    return (
-        cq.Workplane("XY")
-        .workplane(offset=LEVER_CLEARANCE_Z_MIN)
-        .moveTo(cx, 0)
-        .rect(LEVER_CLEARANCE_X_MAX - LEVER_CLEARANCE_X_MIN,
-              2.0 * LEVER_CLEARANCE_Y_HALF)
-        .extrude(LEVER_CLEARANCE_Z_MAX - LEVER_CLEARANCE_Z_MIN)
+    head_top = LEVER_HEAD_BOT_Z_REST - BORE_CLEARANCE                    # 39.75
+    head_bot = head_top - LEVER_CLEARANCE_THICK                          # 36.75
+    taper_top_junction = LEVER_TAPER_BOT_Z_AT_JUNCTION_REST - BORE_CLEARANCE  # 44.25
+    taper_top_user     = LEVER_TAPER_BOT_Z_AT_USER_REST     - BORE_CLEARANCE  # 48.75
+    taper_bot_junction = taper_top_junction - LEVER_CLEARANCE_THICK      # 41.25
+    taper_bot_user     = taper_top_user     - LEVER_CLEARANCE_THICK      # 45.75
+
+    y_half = LEVER_CLEARANCE_Y_HALF
+
+    head_slab = (
+        cq.Workplane("XZ")
+        .workplane(offset=-y_half)
+        .polyline([
+            (LEVER_HEAD_X_MAX_CUT, head_bot),
+            (LEVER_HEAD_X_MIN,     head_bot),
+            (LEVER_HEAD_X_MIN,     head_top),
+            (LEVER_HEAD_X_MAX_CUT, head_top),
+        ]).close()
+        .extrude(2.0 * y_half)
     )
+    taper_slab = (
+        cq.Workplane("XZ")
+        .workplane(offset=-y_half)
+        .polyline([
+            (LEVER_HEAD_X_MIN,  taper_bot_junction),
+            (LEVER_TAPER_X_MIN, taper_bot_user),
+            (LEVER_TAPER_X_MIN, taper_top_user),
+            (LEVER_HEAD_X_MIN,  taper_top_junction),
+        ]).close()
+        .extrude(2.0 * y_half)
+    )
+
+    pivot_a = (LEVER_PIVOT_X, 0, LEVER_PIVOT_Z)
+    pivot_b = (LEVER_PIVOT_X, 1, LEVER_PIVOT_Z)
+    return head_slab.union(taper_slab).rotate(pivot_a, pivot_b, LEVER_PRESS_ANGLE_DEG)
 
 
 def build_shell() -> cq.Workplane:
@@ -498,8 +533,8 @@ if __name__ == "__main__":
     print(f"  Flavor pill:     {PILL_LENGTH_Y} × {PILL_WIDTH_X} mm "
           f"at ({FLAVOR_TUBE_X}, 0), Y-oriented, full Z = 0 → {ZONE2_Z_TOP}")
     print()
-    print(f"  Lever clearance: X = [{LEVER_CLEARANCE_X_MIN}, {LEVER_CLEARANCE_X_MAX}], "
-          f"Y = ±{LEVER_CLEARANCE_Y_HALF}, "
-          f"Z = [{LEVER_CLEARANCE_Z_MIN:.2f}, {LEVER_CLEARANCE_Z_MAX}]")
-    print(f"                   (clears pressed-down taper at the -X / Y=±6.5 corner)")
+    print(f"  Lever clearance: {LEVER_CLEARANCE_THICK} mm-thick slab in rest frame, "
+          f"Y = ±{LEVER_CLEARANCE_Y_HALF}")
+    print(f"                   rotated {LEVER_PRESS_ANGLE_DEG}° around pivot "
+          f"({LEVER_PIVOT_X}, 0, {LEVER_PIVOT_Z}) — hugs pressed lever underside")
     print(f"-> {out.name}")
