@@ -637,69 +637,120 @@ def _zone4_outer_bottom_sketch() -> cq.Sketch:
 
 
 def build_zone4_outer() -> cq.Workplane:
-    """Single loft from the wide bottom (cyl-clipped rect at X≥FILL_X_MIN)
-    to the unioned outline of (water circle + flavor stadium) at the top.
-    One loft, one source wire, one target wire — no boolean fuse of
-    parallel sub-lofts.
+    """Lofted transition from zone 3 + fill's top contour up to the
+    tube wrapper at Z=ZONE4_Z_TOP.
 
-    The unioned top wire is computed by extruding each top shape into a
-    tiny solid, fusing them, and grabbing the resulting top face's outer
-    wire.
+    Construction:
+      1. Sew zone 3 + fill's top faces (within X≥FILL_X_MIN) into a
+         shell. Get its free-edge boundary — a 3D non-planar wire of
+         10 edges that follows the arch curves at Y=±11.75, the foot
+         tops near the +X cyl-clipped corners, and the back vertical
+         at X=FILL_X_MIN.
+      2. Build a planar top face: the tube wrapper outline at
+         Z=ZONE4_Z_TOP, clipped at X≥FILL_X_MIN — exactly matching
+         zone 3 + fill's -X face so the back wall is straight.
+      3. Loft via BRepOffsetAPI_ThruSections (isSolid=False) to get
+         just the lateral shell — 16 BSpline faces, no caps.
+      4. Sew bottom (zone 3 top faces) + lateral + top cap → closed
+         shell. Convert to solid; ShapeFix orients it correctly.
 
-    Built via Solid.makeLoft with explicit world-coord Wires (the
-    canonical idiom for cross-plane / multi-shape lofts in cadquery).
+    The loft therefore starts on top of the arches rather than below
+    them, smoothly transitioning the arch contour into the tube
+    wrapper. ThruSections's built-in caps don't work for a non-planar
+    bottom wire, so we add the bottom shell explicitly.
     """
-    from cadquery.occ_impl.shapes import Solid, Edge, Wire
+    from cadquery.occ_impl.shapes import Solid, Edge, Wire, Shell, Face
+    from OCP.BRepOffsetAPI import BRepOffsetAPI_ThruSections
+    from OCP.BRepBuilderAPI import BRepBuilderAPI_Sewing, BRepBuilderAPI_MakeSolid
+    from OCP.TopExp import TopExp, TopExp_Explorer
+    from OCP.TopAbs import TopAbs_FACE, TopAbs_EDGE, TopAbs_SHELL
+    from OCP.TopoDS import TopoDS
+    from OCP.TopTools import TopTools_IndexedDataMapOfShapeListOfShape
+    from OCP.ShapeFix import ShapeFix_Solid
 
-    # ── unioned top wire: outer perimeter of (water circle ∪ flavor stadium)
-    water_solid = (
+    # ── Bottom: zone 3 + fill's top faces and their free-edge boundary ──
+    z3_combined = build_zone3_outer().val().fuse(build_zone3_fill_outer().val())
+    fill_keep = (
+        cq.Workplane("XY").box(40, 40, 30, centered=(True, True, False))
+        .translate((FILL_X_MIN + 20, 0, 30)).val()
+    )
+    z3_at_fill = z3_combined.intersect(fill_keep)
+    z3_top_faces = [f for f in z3_at_fill.Faces()
+                    if f.normalAt().z > 0.1
+                    and f.BoundingBox().zmax > ZONE4_Z_BOTTOM - 1]
+
+    sewer = BRepBuilderAPI_Sewing(1e-6)
+    for f in z3_top_faces:
+        sewer.Add(f.wrapped)
+    sewer.Perform()
+    exp = TopExp_Explorer(sewer.SewedShape(), TopAbs_SHELL)
+    z3_top_shell = Shell(TopoDS.Shell_s(exp.Current()))
+
+    edge_face_map = TopTools_IndexedDataMapOfShapeListOfShape()
+    TopExp.MapShapesAndAncestors_s(
+        z3_top_shell.wrapped, TopAbs_EDGE, TopAbs_FACE, edge_face_map
+    )
+    free_edges = []
+    for i in range(1, edge_face_map.Extent() + 1):
+        if edge_face_map.FindFromIndex(i).Extent() == 1:
+            free_edges.append(Edge(TopoDS.Edge_s(edge_face_map.FindKey(i))))
+    bottom_wire = Wire.assembleEdges(free_edges)
+
+    # ── Top: wrapper face at Z=ZONE4_Z_TOP, clipped at X ≥ FILL_X_MIN ──
+    # Match zone 3 + fill's -X face exactly.
+    EXTRUDE_H = 1.0  # extrude depth — only matters for face selection post-intersect
+    wrapper_full = (
         cq.Workplane("XY").workplane(offset=ZONE4_Z_TOP)
         .moveTo(WATER_TUBE_X, 0)
         .circle(WATER_HOLE_DIAMETER / 2.0 + ZONE4_WALL)
-        .extrude(0.01)
-    )
-    flavor_solid = (
+        .extrude(EXTRUDE_H)
+    ).union(
         cq.Workplane("XY").workplane(offset=ZONE4_Z_TOP)
         .moveTo(FLAVOR_TUBE_POST_BEND_X, 0)
         .slot2D(PILL_LENGTH_Y + 2.0 * ZONE4_WALL,
                 PILL_WIDTH_X + 2.0 * ZONE4_WALL, angle=90)
-        .extrude(0.01)
+        .extrude(EXTRUDE_H)
     )
-    top_face = water_solid.union(flavor_solid).faces(">Z").val()
+    keep_x = (
+        cq.Workplane("XY").workplane(offset=ZONE4_Z_TOP - 1)
+        .moveTo(FILL_X_MIN + 50, 0)
+        .rect(100, 200)
+        .extrude(EXTRUDE_H + 2)
+    )
+    top_face = wrapper_full.intersect(keep_x).faces("<Z").val()
     top_wire = top_face.outerWire()
 
-    # ── bottom wire: cyl-clipped rect at X ≥ FILL_X_MIN
-    yh = SHELL_RECT_Y_HALF
-    x_at_yh = SHELL_CENTER_X + math.sqrt(SHELL_OUTER_R**2 - yh**2)
-    rect_x_max = SHELL_CENTER_X + SHELL_RECT_X_HALF
-    bottom_wire = Wire.assembleEdges([
-        Edge.makeLine(cq.Vector(FILL_X_MIN, -yh, ZONE4_Z_BOTTOM),
-                      cq.Vector(x_at_yh, -yh, ZONE4_Z_BOTTOM)),
-        Edge.makeThreePointArc(cq.Vector(x_at_yh, -yh, ZONE4_Z_BOTTOM),
-                                cq.Vector(rect_x_max, 0, ZONE4_Z_BOTTOM),
-                                cq.Vector(x_at_yh, +yh, ZONE4_Z_BOTTOM)),
-        Edge.makeLine(cq.Vector(x_at_yh, +yh, ZONE4_Z_BOTTOM),
-                      cq.Vector(FILL_X_MIN, +yh, ZONE4_Z_BOTTOM)),
-        Edge.makeLine(cq.Vector(FILL_X_MIN, +yh, ZONE4_Z_BOTTOM),
-                      cq.Vector(FILL_X_MIN, -yh, ZONE4_Z_BOTTOM)),
-    ])
+    # ── Lateral shell via ThruSections (isSolid=False → just the lateral) ──
+    ts = BRepOffsetAPI_ThruSections(False, False, 1e-6)
+    ts.AddWire(bottom_wire.wrapped)
+    ts.AddWire(top_wire.wrapped)
+    ts.Build()
+    lateral_shape = ts.Shape()
+    exp_l = TopExp_Explorer(lateral_shape, TopAbs_FACE)
+    lateral_faces = []
+    while exp_l.More():
+        lateral_faces.append(Face(TopoDS.Face_s(exp_l.Current())))
+        exp_l.Next()
 
-    loft = Solid.makeLoft([bottom_wire, top_wire], ruled=False)
+    # ── Sew bottom + lateral + top → closed shell → solid ──
+    sewer = BRepBuilderAPI_Sewing(1e-6)
+    for f in z3_top_faces:
+        sewer.Add(f.wrapped)
+    for f in lateral_faces:
+        sewer.Add(f.wrapped)
+    sewer.Add(top_face.wrapped)
+    sewer.Perform()
+    exp = TopExp_Explorer(sewer.SewedShape(), TopAbs_SHELL)
+    final_shell = Shell(TopoDS.Shell_s(exp.Current()))
 
-    # Cutter +X face overshoots FILL_X_MIN by 0.01 mm. The loft's bottom
-    # -X edge sits exactly at FILL_X_MIN; if the cutter's +X face is at
-    # the same X, OCC's BOP silently no-ops on the coincident face and
-    # returns the original solid unchanged. (The prior two-sub-loft
-    # approach hid this — its .union() rebuilt geometry with tolerance,
-    # so the resulting edge wasn't exactly at FILL_X_MIN.)
-    keep_x_min_cut = (
-        cq.Workplane("XY")
-        .workplane(offset=ZONE4_Z_BOTTOM - 1)
-        .moveTo(FILL_X_MIN - 50 + 0.01, 0)
-        .rect(100, 200)
-        .extrude(ZONE4_HEIGHT + 2)
-    )
-    return cq.Workplane("XY").newObject([loft]).cut(keep_x_min_cut)
+    ms = BRepBuilderAPI_MakeSolid()
+    ms.Add(final_shell.wrapped)
+    ms.Build()
+    raw_solid = Solid(ms.Solid())
+
+    fixer = ShapeFix_Solid(raw_solid.wrapped)
+    fixer.Perform()
+    return cq.Workplane("XY").newObject([Solid(fixer.Solid())])
 
 
 def build_zone4_inner_cut() -> cq.Workplane:
