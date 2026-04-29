@@ -162,11 +162,6 @@ def build_bag_pocket_support_shell():
 
 def build_tank_support_wedge():
     support_wedge_outer_radius = tank_copper_shell_radius - wall_and_floor_thickness
-    # Hypothesis test: moving the cone→cylinder kink (ring_width=9 → kink
-    # at Y=11, below the holes at Y=17) didn't fix the warnings. Going
-    # full cylinder (no cone at all) — wedge is a constant ring at
-    # R=60.5..69.5, Y=2..32. If this clears the warnings, the cone itself
-    # is the source regardless of kink position.
     support_wedge_ring_width = 9
     support_wedge_inner_radius = support_wedge_outer_radius - support_wedge_ring_width
     support_wedge_bottom_y = wall_and_floor_thickness
@@ -176,14 +171,36 @@ def build_tank_support_wedge():
         .circle(support_wedge_outer_radius)
         .extrude(tank_support_wedge_height)
     )
-    # Cylinder cut spans the full wedge height (Y=2..32), no cone.
     cut_cylinder = (
         cq.Workplane(xz_plane_y_up)
         .workplane(offset=support_wedge_bottom_y)
         .circle(support_wedge_inner_radius)
         .extrude(tank_support_wedge_height)
     )
-    return filled_cylinder.cut(cut_cylinder)
+    ring = filled_cylinder.cut(cut_cylinder)
+    # Recover ~3% thermal loss from removing the cone: 4 angular slots cut
+    # through the ring at 45°/135°/225°/315°, 30° wide each. Leaves four
+    # 60° support segments aligned with the cardinal axes.
+    slot_radial_margin = 1.0
+    slot_inner_radius = support_wedge_inner_radius - slot_radial_margin
+    slot_outer_radius = support_wedge_outer_radius + slot_radial_margin
+    slot_half_width = math.radians(15)
+    for i in range(4):
+        center_angle = math.radians(45 + 90 * i)
+        a1 = center_angle - slot_half_width
+        a2 = center_angle + slot_half_width
+        p1 = (slot_inner_radius * math.cos(a1), slot_inner_radius * math.sin(a1))
+        p2 = (slot_outer_radius * math.cos(a1), slot_outer_radius * math.sin(a1))
+        p3 = (slot_outer_radius * math.cos(a2), slot_outer_radius * math.sin(a2))
+        p4 = (slot_inner_radius * math.cos(a2), slot_inner_radius * math.sin(a2))
+        slot = (
+            cq.Workplane(xz_plane_y_up)
+            .workplane(offset=support_wedge_bottom_y)
+            .moveTo(*p1).lineTo(*p2).lineTo(*p3).lineTo(*p4).close()
+            .extrude(tank_support_wedge_height)
+        )
+        ring = ring.cut(slot)
+    return ring
 
 def build_a_bag_pocket_shell(side=1):
     bag_pocket_height = tank_copper_shell_height
