@@ -183,11 +183,16 @@ COVE_TOP_OUTER_Z  = ZONE2_OUTER_BOT + COVE_R                     # 21.25 (outer 
 # ramp, deepest at the shell's -X face. One piece, no head/taper split.
 
 LEVER_RAMP_ANGLE_DEG = 30.0
-LEVER_RAMP_DEPTH     = 1.0                                          # max cut depth at -X face
-LEVER_RAMP_X_MIN     = -19.0                                        # shell -X face
+LEVER_RAMP_DEPTH     = 1.0                                          # max cut depth at front edge
+# Deepest point shifted +X to land on the actual outer wall at Y=±6.5
+# (the cylinder corner clip pulls the outer surface inward to X≈-17.95
+# at that Y). With the wedge starting at X=-19, the leftmost ~1 mm
+# was in empty space outside the curved shell, so only the rightmost
+# portion of the wedge intersected wall material.
+LEVER_RAMP_X_MIN     = -17.95                                       # outer wall at Y=±6.5
 LEVER_RAMP_X_START   = LEVER_RAMP_X_MIN + LEVER_RAMP_DEPTH / math.tan(
     math.radians(LEVER_RAMP_ANGLE_DEG)
-)                                                                   # ≈ -9.77
+)                                                                   # ≈ -16.22
 
 LEVER_Y_HALF           = 6.5
 LEVER_CLEARANCE_Y_HALF = LEVER_Y_HALF + BORE_CLEARANCE              # 6.75
