@@ -85,7 +85,10 @@ SHANK_LENGTH  = 50.0         # mm — shank extends from Z=0 down to Z=-SHANK_LE
 # port for retention, and 40 mm above the plateau for visualization.
 # Eventually this tube will be bent; for now it is a straight stub.
 #
-WATER_TUBE_OD            = 9.5    # mm — outer diameter of the tube body
+WATER_TUBE_OD            = 0.25 * 25.4   # 6.35 mm — 1/4" LLDPE tubing
+                                          # (replaces the factory 9.5 mm tube;
+                                          # sealed in body's 9.75 mm port via
+                                          # a printed TPU grommet — separate part)
 WATER_TUBE_ABOVE_PLATEAU = 40.0   # mm — length above the plateau
 WATER_TUBE_INTO_PORT     = 15.0   # mm — length inserted into the port
 
