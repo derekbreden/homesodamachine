@@ -70,6 +70,7 @@ REGENERATE
     tools/cad-venv/bin/python generate_step_cadquery.py
 """
 
+import math
 from pathlib import Path
 
 import cadquery as cq
@@ -174,35 +175,22 @@ COVE_TOP_OUTER_Z  = ZONE2_OUTER_BOT + COVE_R                     # 21.25 (outer 
 # LEVER SWING CLEARANCE
 # ═══════════════════════════════════════════════════════
 #
-# The cutout is built in the lever's REST frame as a 3 mm-thick slab
-# that hugs the lever's bottom contour from below by BORE_CLEARANCE,
-# then rotated -18° around the pivot at (X=1.5, Z=46) to land in the
-# pressed-down position. Result: the cut's surfaces are sloped at the
-# lever's pressed-down angle and ride directly under the pressed lever
-# instead of dropping into a flat-bottomed pocket below it.
-#
-# Lever rest geometry (mirrored from faucet-assembly's build_lever):
-#   - Head: X∈[-6, +9], Z∈[40, 52], bottom flat at Z=40
-#   - Taper: bottom rises from Z=44.5 at X=-6 to Z=49 at X=-42
-# These two segments form a stepped bottom contour, so the cutout is
-# built as two slabs unioned together.
+# A single triangular ramp wedge cut into the top of the rect column,
+# along the -X side where the pressed lever's taper passes through the
+# shell. Top of cut is flat at Z=39 (meeting the existing empty bore
+# above the rect column). Bottom of cut is a sloped plane at the lever
+# press angle (18° from horizontal): zero depth at the +X end of the
+# ramp, deepest at the shell's -X face. One piece, no head/taper split.
 
-LEVER_PIVOT_X = 1.5
-LEVER_PIVOT_Z = 46.0
-LEVER_PRESS_ANGLE_DEG = -18.0
+LEVER_RAMP_ANGLE_DEG = 18.0
+LEVER_RAMP_DEPTH     = 3.0                                          # max cut depth at -X face
+LEVER_RAMP_X_MIN     = -19.0                                        # shell -X face
+LEVER_RAMP_X_START   = LEVER_RAMP_X_MIN + LEVER_RAMP_DEPTH / math.tan(
+    math.radians(LEVER_RAMP_ANGLE_DEG)
+)                                                                   # ≈ -9.77
 
-LEVER_HEAD_X_MIN = -6.0
-LEVER_HEAD_X_MAX = +9.0
-LEVER_HEAD_BOT_Z_REST = 40.0
-
-LEVER_TAPER_X_MIN = -42.0                                          # user end
-LEVER_TAPER_BOT_Z_AT_JUNCTION_REST = 44.5
-LEVER_TAPER_BOT_Z_AT_USER_REST     = 49.0
-
-LEVER_Y_HALF         = 6.5
+LEVER_Y_HALF           = 6.5
 LEVER_CLEARANCE_Y_HALF = LEVER_Y_HALF + BORE_CLEARANCE              # 6.75
-LEVER_CLEARANCE_THICK = 1.0                                         # mm (in rest frame, both slabs)
-LEVER_HEAD_X_MAX_CUT   = LEVER_HEAD_X_MAX + 2.0                     # +X margin past head end
 
 # Shell rectangle. X width matches the cylinder OD so the X faces flow
 # straight up from the cylinder. Y half is body-bore-Y plus the wall.
@@ -427,59 +415,32 @@ def build_zone2_inner_cut() -> cq.Workplane:
 
 
 def build_lever_clearance() -> cq.Workplane:
-    """Sloped slab hugging the lever's pressed-down underside.
+    """Single triangular ramp wedge cut into the top of the rect column.
 
-    Built in the lever's REST frame as a 3 mm-thick volume sitting
-    BORE_CLEARANCE below the lever's bottom contour, then rotated by
-    LEVER_PRESS_ANGLE_DEG around the pivot to land under the pressed
-    lever. Two pieces:
+    In the XZ plane, the cut is a right triangle:
+      - top edge flat at Z=ZONE2_Z_TOP (39), from X=LEVER_RAMP_X_MIN
+        to X=LEVER_RAMP_X_START
+      - vertical edge at X=LEVER_RAMP_X_MIN, dropping LEVER_RAMP_DEPTH
+        below Z=39
+      - sloped (ramp) edge at LEVER_RAMP_ANGLE_DEG, from the bottom of
+        the vertical edge back up to the +X start point at Z=39
 
-      - Head slab: rectangle X∈[-6, +11], Z∈[36.75, 39.75] (3 mm
-        below the head's flat bottom at rest Z=40, minus clearance).
-      - Taper slab: trapezoid following the taper's sloped bottom
-        from X=-6 to X=-42, 3 mm thick perpendicular to the rest-Z
-        axis (top edge BORE_CLEARANCE below taper bottom).
-
-    After rotation, the cut surfaces are sloped at the lever's
-    pressed-down angle, so the cutout depth in world Z is
-    ~3·cos(18°) ≈ 2.85 mm and the cut hugs the pressed lever instead
-    of dropping into a flat-bottomed pocket beneath it.
+    Extruded ±LEVER_CLEARANCE_Y_HALF in Y. Single piece.
     """
-    head_top = LEVER_HEAD_BOT_Z_REST - BORE_CLEARANCE                    # 39.75
-    head_bot = head_top - LEVER_CLEARANCE_THICK                          # 38.75
-    taper_top_junction = LEVER_TAPER_BOT_Z_AT_JUNCTION_REST - BORE_CLEARANCE  # 44.25
-    taper_top_user     = LEVER_TAPER_BOT_Z_AT_USER_REST     - BORE_CLEARANCE  # 48.75
-    taper_bot_junction = taper_top_junction - LEVER_CLEARANCE_THICK      # 41.25
-    taper_bot_user     = taper_top_user     - LEVER_CLEARANCE_THICK      # 45.75
-
+    z_top = ZONE2_Z_TOP
+    z_bot = z_top - LEVER_RAMP_DEPTH
     y_half = LEVER_CLEARANCE_Y_HALF
 
-    head_slab = (
+    return (
         cq.Workplane("XZ")
         .workplane(offset=-y_half)
         .polyline([
-            (LEVER_HEAD_X_MAX_CUT, head_bot),
-            (LEVER_HEAD_X_MIN,     head_bot),
-            (LEVER_HEAD_X_MIN,     head_top),
-            (LEVER_HEAD_X_MAX_CUT, head_top),
+            (LEVER_RAMP_X_MIN,   z_bot),
+            (LEVER_RAMP_X_MIN,   z_top),
+            (LEVER_RAMP_X_START, z_top),
         ]).close()
         .extrude(2.0 * y_half)
     )
-    taper_slab = (
-        cq.Workplane("XZ")
-        .workplane(offset=-y_half)
-        .polyline([
-            (LEVER_HEAD_X_MIN,  taper_bot_junction),
-            (LEVER_TAPER_X_MIN, taper_bot_user),
-            (LEVER_TAPER_X_MIN, taper_top_user),
-            (LEVER_HEAD_X_MIN,  taper_top_junction),
-        ]).close()
-        .extrude(2.0 * y_half)
-    )
-
-    pivot_a = (LEVER_PIVOT_X, 0, LEVER_PIVOT_Z)
-    pivot_b = (LEVER_PIVOT_X, 1, LEVER_PIVOT_Z)
-    return head_slab.union(taper_slab).rotate(pivot_a, pivot_b, LEVER_PRESS_ANGLE_DEG)
 
 
 def build_shell() -> cq.Workplane:
@@ -533,8 +494,8 @@ if __name__ == "__main__":
     print(f"  Flavor pill:     {PILL_LENGTH_Y} × {PILL_WIDTH_X} mm "
           f"at ({FLAVOR_TUBE_X}, 0), Y-oriented, full Z = 0 → {ZONE2_Z_TOP}")
     print()
-    print(f"  Lever clearance: {LEVER_CLEARANCE_THICK} mm-thick slab in rest frame, "
-          f"Y = ±{LEVER_CLEARANCE_Y_HALF}")
-    print(f"                   rotated {LEVER_PRESS_ANGLE_DEG}° around pivot "
-          f"({LEVER_PIVOT_X}, 0, {LEVER_PIVOT_Z}) — hugs pressed lever underside")
+    print(f"  Lever clearance: {LEVER_RAMP_ANGLE_DEG}° ramp, "
+          f"depth {LEVER_RAMP_DEPTH} mm at X={LEVER_RAMP_X_MIN}, "
+          f"zero depth at X={LEVER_RAMP_X_START:.2f}")
+    print(f"                   Y = ±{LEVER_CLEARANCE_Y_HALF}, top at Z={ZONE2_Z_TOP}")
     print(f"-> {out.name}")
