@@ -386,15 +386,12 @@ def cut_slit_and_build_plug_for_copper_inlet(foam_bag_shell, which = 0):
     )
 
     slit_width = 6.5
-    # 12 vertical rails per plug: 2 on each face of each of the 3 walls
-    # the plug crosses (tank_copper_shell, bag_pocket_support_shell,
-    # outer_shell), one on the +X side of the slit and one on the -X side.
-    # The plug body matches slit_width exactly; the rails are the only
-    # contact with the walls so per-print tolerance shows up as rail
-    # deflection rather than slit interference.
-    rail_x_protrusion = 3.0
-    rail_z_thickness = 1.0
-    plug_z_overhang_extra = 1.0
+    # The PETG-printed plug fits loose in the printed slit at slit_width;
+    # widening just the plug's source profile by 0.5 mm in X compensates
+    # for shrinkage / edge effects so the printed plug snugs into the
+    # printed slit. The slit cut into the shell stays at slit_width.
+    plug_x_extra = 0.5
+    plug_width = slit_width + plug_x_extra
 
     slit_punch = (
         build_a_hole_punch(**hole_args)
@@ -402,73 +399,32 @@ def cut_slit_and_build_plug_for_copper_inlet(foam_bag_shell, which = 0):
         .rect(slit_width, slit_above)
         .extrude(tank_copper_shell_radius)
     )
+    plug_punch = (
+        build_a_hole_punch(**hole_args)
+        .moveTo(0, slit_above / 2)
+        .rect(plug_width, slit_above)
+        .extrude(tank_copper_shell_radius)
+    )
     copper_hole = build_a_hole_punch(**hole_args)
 
-    intersection_pieces = foam_bag_shell.intersect(slit_punch)
-    slices = sorted(intersection_pieces.solids().vals(), key=lambda s: s.BoundingBox().zmin)
+    # Intersect with the WIDER plug_punch so the lofted plug ends up
+    # plug_x_extra mm wider in X than the slit the shell actually has.
+    intersection_pieces = foam_bag_shell.intersect(plug_punch)
+    solids_by_z = sorted(intersection_pieces.solids().vals(), key=lambda s: s.BoundingBox().zmin)
+    cup_slice = solids_by_z[0]
+    outer_slice = solids_by_z[-1]
 
-    # Plug spans the union of all wall slices in Y (clipped by shell height).
-    plug_y_min = min(s.BoundingBox().ymin for s in slices)
-    plug_y_max = max(s.BoundingBox().ymax for s in slices)
-    plug_y_height = plug_y_max - plug_y_min
-    plug_y_center = (plug_y_min + plug_y_max) / 2
+    # The cup slice has exactly two cylindrical faces: the cup's inner curved surface (radius 69.5 from the world Y axis)
+    # and the outer curved surface (radius 70.5). Pick the inner one — that's where the plug terminates on the cup side.
+    cup_cylinders = [f for f in cup_slice.Faces() if f.geomType() == "CYLINDER"]
+    cup_inner_face = min(cup_cylinders, key=lambda f: math.hypot(f.Center().x, f.Center().z))
 
-    # Compute (rz_min, rz_max, rx_lo, rx_hi) for each of the 12 rails. Wall
-    # face Z is computed at the rail's outermost X for the cup wall (curved)
-    # so the rail clears the cylinder rather than crashing into it where the
-    # wall curves away from the slit edge.
-    rail_specs = []
-    for s in slices:
-        is_curved = any(f.geomType() == "CYLINDER" for f in s.Faces())
-        if is_curved:
-            r_inner = tank_copper_shell_radius - wall_and_floor_thickness
-            r_outer = tank_copper_shell_radius
-        else:
-            bb = s.BoundingBox()
-            wall_inner_z_planar = bb.zmin
-            wall_outer_z_planar = bb.zmax
+    # The outer-shell slice has six planar faces (the wall is a flat slab); pick the one whose center has the largest |Z|.
+    # That's the outer-shell outermost face — where the plug terminates on the outer side.
+    outer_outer_face = max(outer_slice.Faces(), key=lambda f: abs(f.Center().z))
 
-        for x_sign in (1, -1):
-            x_at_slit = hole_x_offset + x_sign * (slit_width / 2)
-            x_at_rail = hole_x_offset + x_sign * (slit_width / 2 + rail_x_protrusion)
-            rail_x_lo = min(x_at_slit, x_at_rail)
-            rail_x_hi = max(x_at_slit, x_at_rail)
-
-            if is_curved:
-                # Cup wall: cylinder z = sqrt(r² − x²). MIN z_inner over rail X
-                # is at MAX |x| (rail clears cup interior); MAX z_outer over
-                # rail X is at MIN |x| (rail clears cup exterior curve).
-                x_for_inner = rail_x_lo if abs(rail_x_lo) > abs(rail_x_hi) else rail_x_hi
-                x_for_outer = rail_x_lo if abs(rail_x_lo) < abs(rail_x_hi) else rail_x_hi
-                wall_inner_z = math.sqrt(r_inner**2 - x_for_inner**2)
-                wall_outer_z = math.sqrt(r_outer**2 - x_for_outer**2)
-            else:
-                wall_inner_z = wall_inner_z_planar
-                wall_outer_z = wall_outer_z_planar
-
-            rail_specs.append((wall_inner_z - rail_z_thickness, wall_inner_z, rail_x_lo, rail_x_hi))
-            rail_specs.append((wall_outer_z, wall_outer_z + rail_z_thickness, rail_x_lo, rail_x_hi))
-
-    plug_z_min = min(r[0] for r in rail_specs) - plug_z_overhang_extra
-    plug_z_max = max(r[1] for r in rail_specs) + plug_z_overhang_extra
-
-    plug = (
-        cq.Workplane(xy_plane_z_up)
-        .workplane(origin=(hole_x_offset, plug_y_center, plug_z_min), offset=0)
-        .rect(slit_width, plug_y_height)
-        .extrude(plug_z_max - plug_z_min)
-    )
-
-    for rz_min, rz_max, rx_lo, rx_hi in rail_specs:
-        rail = (
-            cq.Workplane(xy_plane_z_up)
-            .workplane(origin=((rx_lo + rx_hi) / 2, plug_y_center, rz_min), offset=0)
-            .rect(rx_hi - rx_lo, plug_y_height)
-            .extrude(rz_max - rz_min)
-        )
-        plug = plug.union(rail)
-
-    plug = plug.cut(copper_hole)
+    plug_solid = cq.Solid.makeLoft([cup_inner_face.outerWire(), outer_outer_face.outerWire()])
+    plug = cq.Workplane().add(plug_solid).cut(copper_hole)
 
     return foam_bag_shell.cut(slit_punch), plug
 
