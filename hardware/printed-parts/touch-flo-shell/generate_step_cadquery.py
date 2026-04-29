@@ -266,6 +266,34 @@ ZONE4_WALL     = WALL_THICKNESS_MIN                                 # 3.0
 
 
 # ═══════════════════════════════════════════════════════
+# ZONE 3 OUTER ARCH — reshaped to mate with zone 4
+# ═══════════════════════════════════════════════════════
+#
+# The wing/fill arch no longer mirrors the body's symmetric arch.
+# Instead it goes from (-ARCH_X_HALF, SHELL_ARCH_FOOT_TOP_Z) up to
+# (FILL_X_MIN, ZONE4_Z_TOP), tangent-horizontal at the high end so it
+# meets zone 4's flat top surface without a kink. For X > FILL_X_MIN
+# the wing/fill top is flat at ZONE4_Z_TOP, matching zone 4.
+#
+# Geometry: circular arc whose center is directly below the high end
+# (FILL_X_MIN, c_z) so the tangent there is horizontal. Solving
+# distance(center, low_end) == distance(center, high_end) gives c_z.
+_NEW_ARCH_DX     = FILL_X_MIN + ARCH_X_HALF                          # 26.21
+_NEW_ARCH_C_Z    = (
+    (ZONE4_Z_TOP + SHELL_ARCH_FOOT_TOP_Z) / 2.0
+    - _NEW_ARCH_DX**2 / (2.0 * (ZONE4_Z_TOP - SHELL_ARCH_FOOT_TOP_Z))
+)                                                                    # ≈ 3.805
+_NEW_ARCH_R      = ZONE4_Z_TOP - _NEW_ARCH_C_Z                       # ≈ 48.195
+# Midpoint of the arc — angular midway between high end (90° from
+# center, directly above) and low end.
+_NEW_ARCH_A_LOW  = math.atan2(SHELL_ARCH_FOOT_TOP_Z - _NEW_ARCH_C_Z,
+                              -_NEW_ARCH_DX)
+_NEW_ARCH_A_MID  = (math.pi / 2.0 + _NEW_ARCH_A_LOW) / 2.0
+NEW_ARCH_MID_X   = FILL_X_MIN + _NEW_ARCH_R * math.cos(_NEW_ARCH_A_MID)   # ≈ -3.24
+NEW_ARCH_MID_Z   = _NEW_ARCH_C_Z + _NEW_ARCH_R * math.sin(_NEW_ARCH_A_MID)  # ≈ 50.01
+
+
+# ═══════════════════════════════════════════════════════
 # GEOMETRY BUILDERS
 # ═══════════════════════════════════════════════════════
 
@@ -485,14 +513,19 @@ def build_zone3_outer() -> cq.Workplane:
     rect_x_max = SHELL_CENTER_X + SHELL_RECT_X_HALF
 
     def wing(y_bottom: float, y_height: float) -> cq.Workplane:
+        # Profile (in XZ plane), traversed CCW:
+        #   bottom-left → bottom-right → up to ZONE4_Z_TOP at +X
+        #   → left along top to FILL_X_MIN at ZONE4_Z_TOP
+        #   → reshaped arch down to (-ARCH_X_HALF, SHELL_ARCH_FOOT_TOP_Z)
+        #   → left along foot top to bottom-left
         return (
             cq.Workplane("XZ")
             .workplane(offset=y_bottom)
             .moveTo(rect_x_min, ZONE3_Z_BOTTOM)
             .lineTo(rect_x_max, ZONE3_Z_BOTTOM)
-            .lineTo(rect_x_max, SHELL_ARCH_FOOT_TOP_Z)
-            .lineTo(ARCH_X_HALF, SHELL_ARCH_FOOT_TOP_Z)
-            .threePointArc((0, SHELL_ARCH_PEAK_Z),
+            .lineTo(rect_x_max, ZONE4_Z_TOP)
+            .lineTo(FILL_X_MIN, ZONE4_Z_TOP)
+            .threePointArc((NEW_ARCH_MID_X, NEW_ARCH_MID_Z),
                            (-ARCH_X_HALF, SHELL_ARCH_FOOT_TOP_Z))
             .lineTo(rect_x_min, SHELL_ARCH_FOOT_TOP_Z)
             .close()
@@ -509,7 +542,7 @@ def build_zone3_outer() -> cq.Workplane:
         .workplane(offset=ZONE3_Z_BOTTOM)
         .moveTo(SHELL_CENTER_X, SHELL_CENTER_Y)
         .circle(SHELL_OUTER_R)
-        .extrude(SHELL_ARCH_PEAK_Z - ZONE3_Z_BOTTOM)
+        .extrude(ZONE4_Z_TOP - ZONE3_Z_BOTTOM)
     )
     return wings.intersect(clip_cyl)
 
@@ -558,9 +591,9 @@ def build_zone3_fill_outer() -> cq.Workplane:
         .workplane(offset=-WING_INNER_Y)
         .moveTo(rect_x_min, ZONE3_Z_BOTTOM)
         .lineTo(rect_x_max, ZONE3_Z_BOTTOM)
-        .lineTo(rect_x_max, SHELL_ARCH_FOOT_TOP_Z)
-        .lineTo(ARCH_X_HALF, SHELL_ARCH_FOOT_TOP_Z)
-        .threePointArc((0, SHELL_ARCH_PEAK_Z),
+        .lineTo(rect_x_max, ZONE4_Z_TOP)
+        .lineTo(FILL_X_MIN, ZONE4_Z_TOP)
+        .threePointArc((NEW_ARCH_MID_X, NEW_ARCH_MID_Z),
                        (-ARCH_X_HALF, SHELL_ARCH_FOOT_TOP_Z))
         .lineTo(rect_x_min, SHELL_ARCH_FOOT_TOP_Z)
         .close()
@@ -572,7 +605,7 @@ def build_zone3_fill_outer() -> cq.Workplane:
         .workplane(offset=ZONE3_Z_BOTTOM)
         .moveTo((FILL_X_MIN + rect_x_max) / 2.0, 0)
         .rect(rect_x_max - FILL_X_MIN, fill_y_thickness)
-        .extrude(SHELL_ARCH_PEAK_Z - ZONE3_Z_BOTTOM)
+        .extrude(ZONE4_Z_TOP - ZONE3_Z_BOTTOM)
     )
 
     clip_cyl = (
@@ -580,7 +613,7 @@ def build_zone3_fill_outer() -> cq.Workplane:
         .workplane(offset=ZONE3_Z_BOTTOM)
         .moveTo(SHELL_CENTER_X, SHELL_CENTER_Y)
         .circle(SHELL_OUTER_R)
-        .extrude(SHELL_ARCH_PEAK_Z - ZONE3_Z_BOTTOM)
+        .extrude(ZONE4_Z_TOP - ZONE3_Z_BOTTOM)
     )
     return arch_solid.intersect(keep_x_box).intersect(clip_cyl)
 
