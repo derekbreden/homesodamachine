@@ -211,6 +211,27 @@ SHELL_ARCH_PEAK_Z     = ARCH_PEAK_Z + SHELL_OUTER_LIP              # 49.25
 WING_INNER_Y          = SHELL_ARCH_BORE_INNER_Y                    # 6.75
 WING_OUTER_Y          = SHELL_RECT_Y_HALF                          # 11.75
 
+# ZONE 3 — plateau fill (between the wings, X ≥ FILL_X_MIN)
+#
+# Fills the plateau region behind the back third of the water tube,
+# matching the wings' arch profile so the shell reads as one continuous
+# swept arch shape across the back. Tube cutouts:
+#   - Water tube: Ø10 cylinder at the port center, full Z. Only the
+#     +X portion of the cylinder overlaps the fill, so the result is
+#     a curved opening on the fill's -X face.
+#   - Flavor tubes: a single rectangular slot wide enough in X to
+#     cover the S-bend trajectory (pre-bend at X=17.3375, post-bend
+#     at X=15.0105, both at Y=±1.5875 with tube_r+clearance=1.8).
+WATER_TUBE_X        = 8.875
+WATER_TUBE_OD       = 9.5
+WATER_HOLE_DIAMETER = WATER_TUBE_OD + 2.0 * BORE_CLEARANCE          # 10.0
+
+FLAVOR_TUBE_PRE_BEND_X  = FLAVOR_TUBE_X                             # 17.3375
+FLAVOR_TUBE_POST_BEND_X = 15.0105
+FLAVOR_TUBE_RADIUS_W_GAP = FLAVOR_TUBE_HOLE_DIA / 2.0               # 1.8 (matches existing pill clearance)
+
+FILL_X_MIN = 10.46                                                  # back third of water tube
+
 
 # ═══════════════════════════════════════════════════════
 # GEOMETRY BUILDERS
@@ -493,6 +514,70 @@ def build_zone3_inner_cut() -> cq.Workplane:
     return bores.intersect(clip_cyl)
 
 
+def build_zone3_fill_outer() -> cq.Workplane:
+    """Plateau fill behind FILL_X_MIN — same arch profile as the wings,
+    extruded across the plateau Y range."""
+    rect_x_min = SHELL_CENTER_X - SHELL_RECT_X_HALF
+    rect_x_max = SHELL_CENTER_X + SHELL_RECT_X_HALF
+    fill_y_thickness = 2.0 * WING_INNER_Y                            # 13.5
+
+    arch_solid = (
+        cq.Workplane("XZ")
+        .workplane(offset=-WING_INNER_Y)
+        .moveTo(rect_x_min, ZONE3_Z_BOTTOM)
+        .lineTo(rect_x_max, ZONE3_Z_BOTTOM)
+        .lineTo(rect_x_max, SHELL_ARCH_FOOT_TOP_Z)
+        .lineTo(ARCH_X_HALF, SHELL_ARCH_FOOT_TOP_Z)
+        .threePointArc((0, SHELL_ARCH_PEAK_Z),
+                       (-ARCH_X_HALF, SHELL_ARCH_FOOT_TOP_Z))
+        .lineTo(rect_x_min, SHELL_ARCH_FOOT_TOP_Z)
+        .close()
+        .extrude(fill_y_thickness)
+    )
+
+    keep_x_box = (
+        cq.Workplane("XY")
+        .workplane(offset=ZONE3_Z_BOTTOM)
+        .moveTo((FILL_X_MIN + rect_x_max) / 2.0, 0)
+        .rect(rect_x_max - FILL_X_MIN, fill_y_thickness)
+        .extrude(SHELL_ARCH_PEAK_Z - ZONE3_Z_BOTTOM)
+    )
+
+    clip_cyl = (
+        cq.Workplane("XY")
+        .workplane(offset=ZONE3_Z_BOTTOM)
+        .moveTo(SHELL_CENTER_X, SHELL_CENTER_Y)
+        .circle(SHELL_OUTER_R)
+        .extrude(SHELL_ARCH_PEAK_Z - ZONE3_Z_BOTTOM)
+    )
+    return arch_solid.intersect(keep_x_box).intersect(clip_cyl)
+
+
+def build_zone3_fill_inner_cut() -> cq.Workplane:
+    """Tube cutouts through the plateau fill: water tube + flavor S-bend slot."""
+    z_height = SHELL_ARCH_PEAK_Z - ZONE3_Z_BOTTOM
+
+    water_hole = (
+        cq.Workplane("XY")
+        .workplane(offset=ZONE3_Z_BOTTOM)
+        .moveTo(WATER_TUBE_X, 0)
+        .circle(WATER_HOLE_DIAMETER / 2.0)
+        .extrude(z_height)
+    )
+
+    flavor_slot_x_min = FLAVOR_TUBE_POST_BEND_X - FLAVOR_TUBE_RADIUS_W_GAP
+    flavor_slot_x_max = FLAVOR_TUBE_PRE_BEND_X  + FLAVOR_TUBE_RADIUS_W_GAP
+    flavor_slot = (
+        cq.Workplane("XY")
+        .workplane(offset=ZONE3_Z_BOTTOM)
+        .moveTo((flavor_slot_x_min + flavor_slot_x_max) / 2.0, 0)
+        .rect(flavor_slot_x_max - flavor_slot_x_min, PILL_LENGTH_Y)
+        .extrude(z_height)
+    )
+
+    return water_hole.union(flavor_slot)
+
+
 def build_lever_clearance() -> cq.Workplane:
     """Single triangular ramp wedge cut into the top of the rect column.
 
@@ -528,11 +613,13 @@ def build_shell() -> cq.Workplane:
         build_zone1_outer()
         .union(build_zone2_outer())
         .union(build_zone3_outer())
+        .union(build_zone3_fill_outer())
     )
     inner = (
         build_zone1_inner_cut()
         .union(build_zone2_inner_cut())
         .union(build_zone3_inner_cut())
+        .union(build_zone3_fill_inner_cut())
         .union(build_lever_clearance())
     )
     return outer.cut(inner)
