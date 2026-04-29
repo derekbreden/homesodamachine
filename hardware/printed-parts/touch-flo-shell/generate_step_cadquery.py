@@ -637,35 +637,32 @@ def _zone4_outer_bottom_sketch() -> cq.Sketch:
 
 
 def build_zone4_outer() -> cq.Workplane:
-    """Shell extension that holds the cyl-clipped rect cross-section up
-    to the arch peak Z, then tapers to the tube wrapper at the top.
+    """Three lofts unioned:
+      1. From below: cyl-clipped rect at Z=44.25 (XY plane) → tube
+         wrapper at Z=52 (XY plane). Vertical loft.
+      2. From +Y side: arch lens (X∈[FILL_X_MIN, ARCH_X_HALF], Z under
+         the arc) at Y=+11.75 swept inward across to Y=0 in parallel
+         XZ planes.
+      3. From -Y side: mirror of (2).
 
-    Two stages unioned:
-      1. Column (Z=44.25 → Z=49.25): the cyl-clipped rect (X≥FILL_X_MIN)
-         extruded straight up. Cross-section is held constant — Y=±11.75
-         is preserved at X=10.46 throughout this Z range, instead of
-         tapering inward like a single loft would.
-      2. Top taper (Z=49.25 → Z=52): two lofts (water + flavor) from
-         the cyl-clipped rect down to a single tube cross-section at
-         the very top — same as before, just compressed into the last
-         2.75 mm.
-
-    Step 1 maintains the wide cross-section through the arch's Z range
-    (44.25 → 49.25), so the COMBINED shell (zone 3 + 4) reaches the Y
-    extremities everywhere across that range, not only at the very
-    bottom. Step 2 still finishes at the tube wrapper at the top.
+    The three lofts are unioned with no surface blending — internal
+    seams will be visible where the solids meet, but the union covers
+    the volume the user described.
     """
-    bottom_sk = _zone4_outer_bottom_sketch()
+    # Arc geometry (the body arch's outer arc, lifted by SHELL_OUTER_LIP):
+    # passes through (X=±15.75, Z=44.25) and (X=0, Z=49.25).
+    # Center at (X=0, Z=21.944), radius 27.305.
+    _arc_cz = 21.944
+    _arc_r2 = 27.305 ** 2
+    _arc_z_at_fill = _arc_cz + math.sqrt(_arc_r2 - FILL_X_MIN ** 2)              # ≈ 47.17
+    _arc_mid_x     = (FILL_X_MIN + ARCH_X_HALF) / 2.0                            # ≈ 13.105
+    _arc_mid_z     = _arc_cz + math.sqrt(_arc_r2 - _arc_mid_x ** 2)              # ≈ 45.90
 
-    column = (
-        cq.Workplane("XY")
-        .workplane(offset=ZONE4_Z_BOTTOM)
-        .placeSketch(bottom_sk)
-        .extrude(SHELL_ARCH_PEAK_Z - ZONE4_Z_BOTTOM)
-    )
-
-    section_at_peak = bottom_sk.moved(
-        cq.Location(cq.Vector(0, 0, SHELL_ARCH_PEAK_Z))
+    # ──────────────────────────────────────────────
+    # Loft 1: from below (XY plane), water + flavor
+    # ──────────────────────────────────────────────
+    bottom_sk_at_Z = _zone4_outer_bottom_sketch().moved(
+        cq.Location(cq.Vector(0, 0, ZONE4_Z_BOTTOM))
     )
     water_top_sk = cq.Sketch().circle(WATER_HOLE_DIAMETER / 2.0 + ZONE4_WALL).moved(
         cq.Location(cq.Vector(WATER_TUBE_X, 0, ZONE4_Z_TOP))
@@ -677,18 +674,34 @@ def build_zone4_outer() -> cq.Workplane:
     ).moved(
         cq.Location(cq.Vector(FLAVOR_TUBE_POST_BEND_X, 0, ZONE4_Z_TOP))
     )
+    water_loft = cq.Workplane("XY").placeSketch(bottom_sk_at_Z, water_top_sk).loft(ruled=True)
+    flavor_loft = cq.Workplane("XY").placeSketch(bottom_sk_at_Z, flavor_top_sk).loft(ruled=True)
+    loft_from_below = water_loft.union(flavor_loft)
 
-    water_loft = (
-        cq.Workplane("XY")
-        .placeSketch(section_at_peak, water_top_sk)
-        .loft(ruled=True)
-    )
-    flavor_loft = (
-        cq.Workplane("XY")
-        .placeSketch(section_at_peak, flavor_top_sk)
-        .loft(ruled=True)
-    )
+    # ──────────────────────────────────────────────
+    # Lofts 2 & 3: from sides (parallel XZ planes)
+    # ──────────────────────────────────────────────
+    def _side_loft(y_outer: float, y_inner: float) -> cq.Workplane:
+        return (
+            cq.Workplane("XZ").workplane(offset=y_outer)
+            .moveTo(FILL_X_MIN, ZONE4_Z_BOTTOM)
+            .lineTo(ARCH_X_HALF, ZONE4_Z_BOTTOM)
+            .threePointArc((_arc_mid_x, _arc_mid_z), (FILL_X_MIN, _arc_z_at_fill))
+            .close()
+            .workplane(offset=y_inner - y_outer)
+            .moveTo(FILL_X_MIN, ZONE4_Z_BOTTOM)
+            .lineTo(ARCH_X_HALF, ZONE4_Z_BOTTOM)
+            .threePointArc((_arc_mid_x, _arc_mid_z), (FILL_X_MIN, _arc_z_at_fill))
+            .close()
+            .loft(ruled=True)
+        )
 
+    side_loft_pos = _side_loft(+SHELL_RECT_Y_HALF, 0.0)
+    side_loft_neg = _side_loft(-SHELL_RECT_Y_HALF, 0.0)
+
+    # ──────────────────────────────────────────────
+    # Union all three + FILL_X_MIN clip
+    # ──────────────────────────────────────────────
     keep_x_min_cut = (
         cq.Workplane("XY")
         .workplane(offset=ZONE4_Z_BOTTOM - 1)
@@ -696,7 +709,12 @@ def build_zone4_outer() -> cq.Workplane:
         .rect(100, 200)
         .extrude(ZONE4_HEIGHT + 2)
     )
-    return column.union(water_loft).union(flavor_loft).cut(keep_x_min_cut)
+    return (
+        loft_from_below
+        .union(side_loft_pos)
+        .union(side_loft_neg)
+        .cut(keep_x_min_cut)
+    )
 
 
 def build_zone4_inner_cut() -> cq.Workplane:
