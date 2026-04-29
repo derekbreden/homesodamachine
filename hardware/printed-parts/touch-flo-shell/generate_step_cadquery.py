@@ -679,25 +679,36 @@ def build_zone4_outer() -> cq.Workplane:
     loft_from_below = water_loft.union(flavor_loft)
 
     # ──────────────────────────────────────────────
-    # Lofts 2 & 3: from sides (parallel XZ planes)
+    # Lofts 2 & 3: from side (XZ at Y=±11.75) up to top (XY at Z=52)
     # ──────────────────────────────────────────────
-    def _side_loft(y_outer: float, y_inner: float) -> cq.Workplane:
+    def _arch_lens_sk_at_y(y_side: float) -> cq.Sketch:
+        # Arch lens 2D sketch in default XY plane, then rotated +90° around
+        # X axis (so sketch-Y becomes world-Z) and translated to Y=y_side,
+        # placing it in the XZ plane at the specified Y.
+        sk = (
+            cq.Sketch()
+            .segment((FILL_X_MIN, ZONE4_Z_BOTTOM), (ARCH_X_HALF, ZONE4_Z_BOTTOM))
+            .arc((ARCH_X_HALF, ZONE4_Z_BOTTOM),
+                 (_arc_mid_x, _arc_mid_z),
+                 (FILL_X_MIN, _arc_z_at_fill))
+            .segment((FILL_X_MIN, _arc_z_at_fill), (FILL_X_MIN, ZONE4_Z_BOTTOM))
+            .assemble()
+        )
+        return sk.moved(cq.Location(cq.Vector(0, y_side, 0), cq.Vector(1, 0, 0), 90))
+
+    def _side_loft_to(y_side: float, target_sk: cq.Sketch) -> cq.Workplane:
         return (
-            cq.Workplane("XZ").workplane(offset=y_outer)
-            .moveTo(FILL_X_MIN, ZONE4_Z_BOTTOM)
-            .lineTo(ARCH_X_HALF, ZONE4_Z_BOTTOM)
-            .threePointArc((_arc_mid_x, _arc_mid_z), (FILL_X_MIN, _arc_z_at_fill))
-            .close()
-            .workplane(offset=y_inner - y_outer)
-            .moveTo(FILL_X_MIN, ZONE4_Z_BOTTOM)
-            .lineTo(ARCH_X_HALF, ZONE4_Z_BOTTOM)
-            .threePointArc((_arc_mid_x, _arc_mid_z), (FILL_X_MIN, _arc_z_at_fill))
-            .close()
+            cq.Workplane("XY")
+            .placeSketch(_arch_lens_sk_at_y(y_side), target_sk)
             .loft(ruled=True)
         )
 
-    side_loft_pos = _side_loft(+SHELL_RECT_Y_HALF, 0.0)
-    side_loft_neg = _side_loft(-SHELL_RECT_Y_HALF, 0.0)
+    side_loft_pos_water  = _side_loft_to(+SHELL_RECT_Y_HALF, water_top_sk)
+    side_loft_pos_flavor = _side_loft_to(+SHELL_RECT_Y_HALF, flavor_top_sk)
+    side_loft_neg_water  = _side_loft_to(-SHELL_RECT_Y_HALF, water_top_sk)
+    side_loft_neg_flavor = _side_loft_to(-SHELL_RECT_Y_HALF, flavor_top_sk)
+    side_loft_pos = side_loft_pos_water.union(side_loft_pos_flavor)
+    side_loft_neg = side_loft_neg_water.union(side_loft_neg_flavor)
 
     # ──────────────────────────────────────────────
     # Union all three + FILL_X_MIN clip
