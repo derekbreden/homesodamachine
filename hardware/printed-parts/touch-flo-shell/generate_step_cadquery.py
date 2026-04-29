@@ -201,7 +201,8 @@ LEVER_TAPER_BOT_Z_AT_USER_REST     = 49.0
 
 LEVER_Y_HALF         = 6.5
 LEVER_CLEARANCE_Y_HALF = LEVER_Y_HALF + BORE_CLEARANCE              # 6.75
-LEVER_CLEARANCE_THICK  = 3.0                                        # mm (in rest frame)
+LEVER_CLEARANCE_THICK       = 3.0                                   # mm taper slab (in rest frame)
+LEVER_CLEARANCE_HEAD_THICK  = 1.0                                   # mm head slab (in rest frame)
 LEVER_HEAD_X_MAX_CUT   = LEVER_HEAD_X_MAX + 2.0                     # +X margin past head end
 
 # Shell rectangle. X width matches the cylinder OD so the X faces flow
@@ -446,7 +447,7 @@ def build_lever_clearance() -> cq.Workplane:
     of dropping into a flat-bottomed pocket beneath it.
     """
     head_top = LEVER_HEAD_BOT_Z_REST - BORE_CLEARANCE                    # 39.75
-    head_bot = head_top - LEVER_CLEARANCE_THICK                          # 36.75
+    head_bot = head_top - LEVER_CLEARANCE_HEAD_THICK                     # 38.75
     taper_top_junction = LEVER_TAPER_BOT_Z_AT_JUNCTION_REST - BORE_CLEARANCE  # 44.25
     taper_top_user     = LEVER_TAPER_BOT_Z_AT_USER_REST     - BORE_CLEARANCE  # 48.75
     taper_bot_junction = taper_top_junction - LEVER_CLEARANCE_THICK      # 41.25
