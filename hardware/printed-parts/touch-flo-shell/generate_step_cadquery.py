@@ -232,11 +232,23 @@ WING_OUTER_Y          = SHELL_RECT_Y_HALF                          # 11.75
 #     Corner radius = PILL_WIDTH_X/2 so the rounding matches the
 #     existing pill's end radius.
 WATER_TUBE_X        = 8.875
-WATER_TUBE_OD       = 9.5
-WATER_HOLE_DIAMETER = WATER_TUBE_OD + 2.0 * BORE_CLEARANCE          # 10.0
+WATER_TUBE_OD       = 0.25 * 25.4                                   # 6.35 — 1/4" LLDPE
+WATER_HOLE_DIAMETER = WATER_TUBE_OD + 2.0 * BORE_CLEARANCE          # 6.85
 
+# 1/8" LLDPE flavor tube — used only to derive POST_BEND_X so the
+# flavor tube butts up against the water tube. The shell's flavor
+# pill (PILL_WIDTH_X = 3.6) stays sized for the body's flavor
+# channel exit, with the LLDPE running through.
+FLAVOR_TUBE_OD          = 0.125 * 25.4                              # 3.175 — 1/8" LLDPE
 FLAVOR_TUBE_PRE_BEND_X  = FLAVOR_TUBE_X                             # 17.3375
-FLAVOR_TUBE_POST_BEND_X = 15.0105
+# Butt the flavor tube against the water tube at the dispense point.
+# In 3D, each flavor tube sits at Y=±FLAVOR_TUBE_Y_OFFSET (so they
+# also touch each other), so X-tangency is Pythagorean:
+#   (X_FINAL - WATER_TUBE_X)² + Y_OFFSET² = (R_water + R_flavor)²
+FLAVOR_TUBE_POST_BEND_X = WATER_TUBE_X + math.sqrt(
+    (WATER_TUBE_OD / 2.0 + FLAVOR_TUBE_OD / 2.0) ** 2
+    - FLAVOR_TUBE_Y_OFFSET ** 2
+)                                                                    # ≈ 13.365
 
 FLAVOR_CUTOUT_CX     = (FLAVOR_TUBE_PRE_BEND_X + FLAVOR_TUBE_POST_BEND_X) / 2.0   # 16.174
 FLAVOR_CUTOUT_WIDTH  = (FLAVOR_TUBE_PRE_BEND_X - FLAVOR_TUBE_POST_BEND_X) + PILL_WIDTH_X   # 5.927
