@@ -467,29 +467,66 @@ def cut_slit_and_build_plug_for_copper_inlet(foam_bag_shell, which = 0):
 
         for x_sign in (1, -1):
             slit_edge_x = hole_x_offset + x_sign * (slit_width / 2)
-            rail_x_outer = slit_edge_x + x_sign * rail_x_protrusion
-            rail_x_lo = min(slit_edge_x, rail_x_outer)
-            rail_x_hi = max(slit_edge_x, rail_x_outer)
 
-            if is_tank_copper_shell:
-                # Cylinder centered on world Y axis, so wall face Z =
-                # sqrt(R² − x²) at the slit edge X (where the rail
-                # attaches to the plug body face).
-                wall_inner_z = math.sqrt(tank_copper_shell_inner_radius**2 - slit_edge_x**2)
-                wall_outer_z = math.sqrt(tank_copper_shell_outer_radius**2 - slit_edge_x**2)
-            else:
-                wall_inner_z = bb.zmin
-                wall_outer_z = bb.zmax
+            # side_sign = -1: rail on the inner face of the wall (toward the
+            # cylinder axis for curved, toward smaller Z for planar).
+            # side_sign = +1: rail on the outer face.
+            for side_sign in (-1, +1):
+                if is_tank_copper_shell:
+                    # Cylinder centered on world Y axis, so wall face Z =
+                    # sqrt(R² − x²) at the slit edge X. The rail's tangent
+                    # direction follows the cylinder surface at that point;
+                    # its normal is radial.
+                    r_face = (
+                        tank_copper_shell_inner_radius if side_sign == -1
+                        else tank_copper_shell_outer_radius
+                    )
+                    wall_z = math.sqrt(r_face**2 - slit_edge_x**2)
+                    n_x = slit_edge_x / r_face
+                    n_z = wall_z / r_face
+                    tangent_x = x_sign * n_z
+                    tangent_z = -x_sign * n_x
+                    offset_x = side_sign * n_x
+                    offset_z = side_sign * n_z
+                else:
+                    # Planar wall: tangent along world X, normal along world Z.
+                    wall_z = bb.zmin if side_sign == -1 else bb.zmax
+                    tangent_x = x_sign
+                    tangent_z = 0
+                    offset_x = 0
+                    offset_z = side_sign
 
-            for rz_min, rz_max in [
-                (wall_inner_z - rail_z_thickness, wall_inner_z),
-                (wall_outer_z, wall_outer_z + rail_z_thickness),
-            ]:
-                rail_solid = cq.Solid.makeBox(
-                    rail_x_hi - rail_x_lo,
-                    plug_y_height,
-                    rz_max - rz_min,
-                    pnt=cq.Vector(rail_x_lo, plug_y_min, rz_min),
+                # Parallelogram in X-Z plane spanning rail_x_protrusion
+                # before AND after the slit edge along the tangent
+                # direction. The "before" half overlaps the plug body so
+                # boolean fuse has volumetric overlap to work with;
+                # otherwise the curved-wall rails meet the plug body at
+                # only a single point and fuse silently leaves them
+                # disconnected. The "after" half is the visible rail.
+                p1 = (
+                    slit_edge_x - tangent_x * rail_x_protrusion,
+                    wall_z - tangent_z * rail_x_protrusion,
+                )
+                p2 = (
+                    slit_edge_x + tangent_x * rail_x_protrusion,
+                    wall_z + tangent_z * rail_x_protrusion,
+                )
+                p3 = (
+                    p2[0] + offset_x * rail_z_thickness,
+                    p2[1] + offset_z * rail_z_thickness,
+                )
+                p4 = (
+                    p1[0] + offset_x * rail_z_thickness,
+                    p1[1] + offset_z * rail_z_thickness,
+                )
+                wire = cq.Wire.makePolygon(
+                    [cq.Vector(p[0], plug_y_min, p[1]) for p in (p1, p2, p3, p4)],
+                    close=True,
+                )
+                face = cq.Face.makeFromWires(wire)
+                rail_solid = cq.Solid.extrudeLinear(
+                    face,
+                    cq.Vector(0, plug_y_height, 0),
                 )
                 plug_solid = plug_solid.fuse(rail_solid)
 
