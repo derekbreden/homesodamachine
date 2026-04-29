@@ -3,9 +3,9 @@ Touch-Flo shell — printed shroud that wraps around the harvested faucet
 body, the flavor tubes, and the lever swing volume. Sits on top of the
 touch-flo-mounting-plate.
 
-Grown bottom-up, one zone at a time. Currently covers zones 1 + 2 —
-the first 39 mm. See the per-section comments for what each zone does
-and why.
+Grown bottom-up, one zone at a time. Currently covers zones 1, 2,
+and 3 — through the body's arch peaks at Z=46 (shell goes ~3 mm
+above). See the per-section comments for what each zone does and why.
 
 Regenerate:  tools/cad-venv/bin/python generate_step_cadquery.py
 """
@@ -173,6 +173,43 @@ SHELL_RECT_X_HALF  = SHELL_OUTER_R                                        # 20.5
 SHELL_RECT_Y_HALF  = BODY_BORE_RECT_SHORT / 2.0 + WALL_THICKNESS_MIN      # 11.75
 SHELL_RECT_X_WIDTH = 2.0 * SHELL_RECT_X_HALF
 SHELL_RECT_Y_WIDTH = 2.0 * SHELL_RECT_Y_HALF
+
+
+# ═══════════════════════════════════════════════════════
+# ZONE 3 — Arch wraps (two wings at ±Y)
+# ═══════════════════════════════════════════════════════
+#
+# Body arches: 1.5 mm wide ridges at Y = ±7.75, full X width
+# (±15.75), profile in ZX = 2 mm rectangular foot from Z=39→41 plus
+# a 3-point arc through (±15.75, 41) and (0, 46).
+#
+# The shell wraps each arch with WALL+GAP outside (top, +Y/-Y outer
+# face, X foot ends) — same lift pattern as zone 2's outer cyl over
+# the body's cyl top. The plateau between the arches (Y ∈ ±6.75) is
+# OPEN — no shell material there. So each shell wing's plateau-side
+# Y face is the bore's plateau-side Y face; they share the same edge.
+
+ZONE3_Z_BOTTOM = ZONE2_Z_TOP                                       # 39
+
+ARCH_BASE_Z       = 41.0                                           # body foot top
+ARCH_PEAK_Z       = 46.0                                           # body arc peak
+ARCH_X_HALF       = BODY_RECT_LONG / 2.0                           # 15.75 — body arch X extent
+BODY_ARCH_INNER_Y = 7.0                                            # body arch face nearest plateau
+BODY_ARCH_OUTER_Y = 8.5                                            # body arch face nearest shell exterior
+
+# Bore (inner cut): body arch + BORE_CLEARANCE per side
+SHELL_ARCH_BORE_INNER_Y    = BODY_ARCH_INNER_Y - BORE_CLEARANCE    # 6.75
+SHELL_ARCH_BORE_OUTER_Y    = BODY_ARCH_OUTER_Y + BORE_CLEARANCE    # 8.75
+SHELL_ARCH_BORE_FOOT_TOP_Z = ARCH_BASE_Z + BORE_CLEARANCE          # 41.25
+SHELL_ARCH_BORE_PEAK_Z     = ARCH_PEAK_Z + BORE_CLEARANCE          # 46.25
+
+# Outer wing: WALL+GAP above the body arch in Z; outer-Y matches the
+# rect col Y_HALF so the wing sits flush atop zone 2; inner-Y matches
+# the bore (plateau open, no extra shell material on plateau side).
+SHELL_ARCH_FOOT_TOP_Z = ARCH_BASE_Z + SHELL_OUTER_LIP              # 44.25
+SHELL_ARCH_PEAK_Z     = ARCH_PEAK_Z + SHELL_OUTER_LIP              # 49.25
+WING_INNER_Y          = SHELL_ARCH_BORE_INNER_Y                    # 6.75
+WING_OUTER_Y          = SHELL_RECT_Y_HALF                          # 11.75
 
 
 # ═══════════════════════════════════════════════════════
@@ -389,6 +426,73 @@ def build_zone2_inner_cut() -> cq.Workplane:
     return bore.union(pill)
 
 
+def build_zone3_outer() -> cq.Workplane:
+    """Two arch wings at ±Y wrapping the body's arch ridges."""
+    rect_x_min = SHELL_CENTER_X - SHELL_RECT_X_HALF
+    rect_x_max = SHELL_CENTER_X + SHELL_RECT_X_HALF
+
+    def wing(y_bottom: float, y_height: float) -> cq.Workplane:
+        return (
+            cq.Workplane("XZ")
+            .workplane(offset=y_bottom)
+            .moveTo(rect_x_min, ZONE3_Z_BOTTOM)
+            .lineTo(rect_x_max, ZONE3_Z_BOTTOM)
+            .lineTo(rect_x_max, SHELL_ARCH_FOOT_TOP_Z)
+            .lineTo(ARCH_X_HALF, SHELL_ARCH_FOOT_TOP_Z)
+            .threePointArc((0, SHELL_ARCH_PEAK_Z),
+                           (-ARCH_X_HALF, SHELL_ARCH_FOOT_TOP_Z))
+            .lineTo(rect_x_min, SHELL_ARCH_FOOT_TOP_Z)
+            .close()
+            .extrude(y_height)
+        )
+
+    wing_thickness = WING_OUTER_Y - WING_INNER_Y
+    wings = wing(+WING_INNER_Y, +wing_thickness).union(
+        wing(-WING_OUTER_Y, +wing_thickness)
+    )
+
+    clip_cyl = (
+        cq.Workplane("XY")
+        .workplane(offset=ZONE3_Z_BOTTOM)
+        .moveTo(SHELL_CENTER_X, SHELL_CENTER_Y)
+        .circle(SHELL_OUTER_R)
+        .extrude(SHELL_ARCH_PEAK_Z - ZONE3_Z_BOTTOM)
+    )
+    return wings.intersect(clip_cyl)
+
+
+def build_zone3_inner_cut() -> cq.Workplane:
+    """Two arch bores at ±Y mirroring the body arches with BORE_CLEARANCE."""
+    bore_x_oversize = BODY_BORE_DIAMETER / 2.0 + 2.0     # generous; bore-cyl-clipped below
+
+    def bore(y_bottom: float, y_height: float) -> cq.Workplane:
+        return (
+            cq.Workplane("XZ")
+            .workplane(offset=y_bottom)
+            .moveTo(-bore_x_oversize, ZONE3_Z_BOTTOM)
+            .lineTo(+bore_x_oversize, ZONE3_Z_BOTTOM)
+            .lineTo(+bore_x_oversize, SHELL_ARCH_BORE_FOOT_TOP_Z)
+            .threePointArc((0, SHELL_ARCH_BORE_PEAK_Z),
+                           (-bore_x_oversize, SHELL_ARCH_BORE_FOOT_TOP_Z))
+            .close()
+            .extrude(y_height)
+        )
+
+    bore_thickness = SHELL_ARCH_BORE_OUTER_Y - SHELL_ARCH_BORE_INNER_Y
+    bores = bore(+SHELL_ARCH_BORE_INNER_Y, +bore_thickness).union(
+        bore(-SHELL_ARCH_BORE_OUTER_Y, +bore_thickness)
+    )
+
+    clip_cyl = (
+        cq.Workplane("XY")
+        .workplane(offset=ZONE3_Z_BOTTOM)
+        .moveTo(BODY_BORE_X, BODY_BORE_Y)
+        .circle(BODY_BORE_DIAMETER / 2.0)
+        .extrude(SHELL_ARCH_BORE_PEAK_Z - ZONE3_Z_BOTTOM)
+    )
+    return bores.intersect(clip_cyl)
+
+
 def build_lever_clearance() -> cq.Workplane:
     """Single triangular ramp wedge cut into the top of the rect column.
 
@@ -419,11 +523,16 @@ def build_lever_clearance() -> cq.Workplane:
 
 
 def build_shell() -> cq.Workplane:
-    """Top-level shell — zones 1 and 2 unioned, with combined inner cut."""
-    outer = build_zone1_outer().union(build_zone2_outer())
+    """Top-level shell — zones unioned, with combined inner cut."""
+    outer = (
+        build_zone1_outer()
+        .union(build_zone2_outer())
+        .union(build_zone3_outer())
+    )
     inner = (
         build_zone1_inner_cut()
         .union(build_zone2_inner_cut())
+        .union(build_zone3_inner_cut())
         .union(build_lever_clearance())
     )
     return outer.cut(inner)
