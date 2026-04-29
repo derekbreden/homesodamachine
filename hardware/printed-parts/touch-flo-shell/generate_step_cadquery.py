@@ -637,10 +637,20 @@ def _zone4_outer_bottom_sketch() -> cq.Sketch:
 
 
 def build_zone4_outer() -> cq.Workplane:
-    """Two lofts unioned, each from the same wide bottom (cyl-clipped rect
-    at X≥FILL_X_MIN, matching zone 3's outer edges) up to a single tube
-    cross-section at the top. Their union flares out at the bottom and
-    tightens around just the tubes at the top."""
+    """Shell extension that grows from zone 3's curved outer surface up to
+    the tube wrapper at the top.
+
+    Built by lofting from the cyl-clipped rect (at zone 3's foot top
+    Z=44.25, restricted to X≥FILL_X_MIN) up to the tube wrapper, then
+    SUBTRACTING zone 3's outer skin. The subtraction is what makes the
+    bottom follow the arch — wherever zone 3 already covers the loft,
+    the loft is removed; whatever's left is the extension above and
+    around zone 3's outer surface.
+
+    Two lofts unioned (water column + flavor column), each with matched
+    1-region topology, then zone 3 outer is subtracted, then the
+    FILL_X_MIN clip keeps the front 2/3 of the water tube exposed.
+    """
     bottom_sk_at_z = lambda: _zone4_outer_bottom_sketch().moved(
         cq.Location(cq.Vector(0, 0, ZONE4_Z_BOTTOM))
     )
@@ -666,6 +676,12 @@ def build_zone4_outer() -> cq.Workplane:
         .placeSketch(bottom_sk_at_z(), flavor_top_sk)
         .loft(ruled=True)
     )
+    raw_extension = water_loft.union(flavor_loft)
+
+    # Subtract zone 3's outer skin so what remains is only the part
+    # above and around zone 3's curved outer surface.
+    zone3_outer = build_zone3_outer().union(build_zone3_fill_outer())
+
     keep_x_min_cut = (
         cq.Workplane("XY")
         .workplane(offset=ZONE4_Z_BOTTOM - 1)
@@ -673,7 +689,7 @@ def build_zone4_outer() -> cq.Workplane:
         .rect(100, 200)
         .extrude(ZONE4_HEIGHT + 2)
     )
-    return water_loft.union(flavor_loft).cut(keep_x_min_cut)
+    return raw_extension.cut(zone3_outer).cut(keep_x_min_cut)
 
 
 def build_zone4_inner_cut() -> cq.Workplane:
