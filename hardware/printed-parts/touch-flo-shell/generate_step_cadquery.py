@@ -219,16 +219,17 @@ WING_OUTER_Y          = SHELL_RECT_Y_HALF                          # 11.75
 #   - Water tube: Ø10 cylinder at the port center, full Z. Only the
 #     +X portion of the cylinder overlaps the fill, so the result is
 #     a curved opening on the fill's -X face.
-#   - Flavor tubes: a single rectangular slot wide enough in X to
-#     cover the S-bend trajectory (pre-bend at X=17.3375, post-bend
-#     at X=15.0105, both at Y=±1.5875 with tube_r+clearance=1.8).
+#   - Flavor tubes: two pills (same dimensions as the pill in zones
+#     1+2) at the pre-bend and post-bend tube X positions, unioned.
+#     The peanut shape preserves the pill's back-half profile at the
+#     pre-bend X and extends just enough -X to cover the post-bend
+#     tube position.
 WATER_TUBE_X        = 8.875
 WATER_TUBE_OD       = 9.5
 WATER_HOLE_DIAMETER = WATER_TUBE_OD + 2.0 * BORE_CLEARANCE          # 10.0
 
 FLAVOR_TUBE_PRE_BEND_X  = FLAVOR_TUBE_X                             # 17.3375
 FLAVOR_TUBE_POST_BEND_X = 15.0105
-FLAVOR_TUBE_RADIUS_W_GAP = FLAVOR_TUBE_HOLE_DIA / 2.0               # 1.8 (matches existing pill clearance)
 
 FILL_X_MIN = 10.46                                                  # back third of water tube
 
@@ -554,7 +555,7 @@ def build_zone3_fill_outer() -> cq.Workplane:
 
 
 def build_zone3_fill_inner_cut() -> cq.Workplane:
-    """Tube cutouts through the plateau fill: water tube + flavor S-bend slot."""
+    """Tube cutouts through the plateau fill: water tube + flavor pills."""
     z_height = SHELL_ARCH_PEAK_Z - ZONE3_Z_BOTTOM
 
     water_hole = (
@@ -565,17 +566,18 @@ def build_zone3_fill_inner_cut() -> cq.Workplane:
         .extrude(z_height)
     )
 
-    flavor_slot_x_min = FLAVOR_TUBE_POST_BEND_X - FLAVOR_TUBE_RADIUS_W_GAP
-    flavor_slot_x_max = FLAVOR_TUBE_PRE_BEND_X  + FLAVOR_TUBE_RADIUS_W_GAP
-    flavor_slot = (
-        cq.Workplane("XY")
-        .workplane(offset=ZONE3_Z_BOTTOM)
-        .moveTo((flavor_slot_x_min + flavor_slot_x_max) / 2.0, 0)
-        .rect(flavor_slot_x_max - flavor_slot_x_min, PILL_LENGTH_Y)
-        .extrude(z_height)
-    )
+    def flavor_pill(x: float) -> cq.Workplane:
+        return (
+            cq.Workplane("XY")
+            .workplane(offset=ZONE3_Z_BOTTOM)
+            .moveTo(x, 0)
+            .slot2D(PILL_LENGTH_Y, PILL_WIDTH_X, angle=90)
+            .extrude(z_height)
+        )
 
-    return water_hole.union(flavor_slot)
+    return (water_hole
+            .union(flavor_pill(FLAVOR_TUBE_PRE_BEND_X))
+            .union(flavor_pill(FLAVOR_TUBE_POST_BEND_X)))
 
 
 def build_lever_clearance() -> cq.Workplane:
