@@ -16,15 +16,27 @@ const pool = process.env.DATABASE_URL
     })
   : null;
 
-if (pool) {
-  await pool.query(`
-    CREATE TABLE IF NOT EXISTS subscribers (
-      id SERIAL PRIMARY KEY,
-      email TEXT NOT NULL UNIQUE,
-      created_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
-    )
-  `);
+async function initSchema() {
+  if (!pool) return;
+  for (let attempt = 1; attempt <= 30; attempt++) {
+    try {
+      await pool.query(`
+        CREATE TABLE IF NOT EXISTS subscribers (
+          id SERIAL PRIMARY KEY,
+          email TEXT NOT NULL UNIQUE,
+          created_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
+        )
+      `);
+      console.log("schema ready");
+      return;
+    } catch (e) {
+      console.log(`schema init attempt ${attempt} failed: ${e.code || e.message}`);
+      await new Promise((r) => setTimeout(r, 2000));
+    }
+  }
+  console.error("schema init giving up after 30 attempts");
 }
+initSchema();
 
 const app = express();
 app.use(express.json());
