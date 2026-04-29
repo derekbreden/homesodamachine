@@ -659,7 +659,14 @@ def build_zone4_outer() -> cq.Workplane:
         .placeSketch(bottom_sk_at_z(), flavor_top_sk)
         .loft(ruled=True)
     )
-    return water_loft.union(flavor_loft)
+    keep_x_min_cut = (
+        cq.Workplane("XY")
+        .workplane(offset=ZONE4_Z_BOTTOM - 1)
+        .moveTo(FILL_X_MIN - 50, 0)
+        .rect(100, 200)
+        .extrude(ZONE4_HEIGHT + 2)
+    )
+    return water_loft.union(flavor_loft).cut(keep_x_min_cut)
 
 
 def build_zone4_inner_cut() -> cq.Workplane:
