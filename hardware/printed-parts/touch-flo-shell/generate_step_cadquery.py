@@ -1,83 +1,13 @@
 """
 Touch-Flo shell — printed shroud that wraps around the harvested faucet
-body, the flavor tubes, and (eventually) the lever swing volume. Sits
-on top of the touch-flo-mounting-plate.
+body, the flavor tubes, and the lever swing volume. Sits on top of the
+touch-flo-mounting-plate.
 
-WORK IN PROGRESS — GROWING BOTTOM-UP
-====================================
-This file is being grown one zone at a time, starting at the deck and
-moving up. Currently covers ZONE 1 + ZONE 2 — the first 39 mm of the
-body, through the cylinder→rectangle transition.
+Grown bottom-up, one zone at a time. Currently covers zones 1 + 2 —
+the first 39 mm. See the per-section comments for what each zone does
+and why.
 
-ZONE 1 — Z = 0 → 13 — cylindrical region
-========================================
-- Outer:  filled cylinder, Ø 41.175 mm, centered at world (1.5875, 0).
-  Diameter derived from the wall-thickness target (3 mm) at the body
-  bore's farthest edge from the shell center.
-- Inner hole: union of body bore (Ø 32 mm at world (0, 0)) and the
-  flavor-tube pill (6.775 × 3.6 mm at world (17.3375, 0)). The two
-  cuts merge into a single connected opening because the body and
-  flavor tubes are tangent in the assembly.
-
-ZONE 2 — cylinder→rectangle transition + rect column
-=====================================================
-The OUTER and INNER (bore) zones have different Z bounds. The bore
-follows the body's actual transition Z's (lifted by BORE_CLEARANCE
-per-side: 13 → 13.25 for the cyl-top step, etc.) so it clears the
-body correctly. The outer surface lifts its transition by
-SHELL_OUTER_LIP = WALL + BORE_CLEARANCE = 3.25 mm above the body's
-cyl top, so 3 mm of shell wall sits directly above the body's
-cylinder top face. Without that lift, the outer cove would start at
-the same Z as the body's cylinder ledge and there would be no
-vertical wall material over the body's top face.
-
-Outer (Z = 16.25 → 39):
-- Rectangle: 41.175 × 23.5 mm (X × Y), centered at the shell center.
-  Same X width as the zone 1 cylinder OD (so the X faces flow
-  straight up from the cylinder edge with no step). Y faces shrink
-  inward by 8.84 mm per side relative to the cylinder edge.
-- Cove transition on each Y face, R = 5 mm (mirrors the body's
-  transition_fillet_r), spanning Z = 16.25 → 21.25. Tangent to the
-  rect Y face at the top and to the cylinder ledge at the bottom.
-- Rectangle corners are clipped to the shell's outer cylinder
-  (R = 20.5875 mm) — same approach as the body.
-
-Inner / bore (Z = 13.25 → 39):
-- Inner cut: built with the SAME construction pattern as the body's
-  outer (rect column + filler block on each Y face + cove cutter +
-  cylinder clip), at BORE_CLEARANCE = 0.25 mm per side for slip-fit
-  assembly. So the bore above the cove follows the body's
-  rect∩cylinder profile — its X "faces" are curved arcs, not flat —
-  and through the cove zone (Z = 13.25 → 18.25) the bore mirrors
-  the body's outward-bulging filler+cove rather than running
-  straight through as a Ø 32 cylinder (which would poke past the
-  shell's outer cove surface). Plus the flavor-tube pill all the
-  way through.
-
-Lever clearance:
-- A small chamfer ramp cut into the top -X corner of the rect
-  column for the lever's pressed-down swing. See the LEVER SWING
-  CLEARANCE block below for the geometry; anchored to the rect
-  outer face at -X and the bore-cylinder tangent at the cut's
-  Y_HALF, so it tracks both shell features automatically.
-
-WALL THICKNESS NOTES
-====================
-Shell zone 1 cylinder OD is derived to give exactly the target wall
-thickness at the body bore's farthest point from the shell center
-(world (-16, 0), which is 17.5875 mm from the shell center at
-(1.5875, 0)). The pill's +X semicircle has a slightly-farther extreme
-at ~17.63 mm from the shell center, so the wall at the pill is
-~0.04 mm thinner than the target. Acceptable; would need to bump the
-OD by ~0.1 mm to make the pill the minimum.
-
-In zone 2, the rectangle inherits the same X half-width as the
-cylinder R, so the wall at the X face matches zone 1. Y faces are
-3 mm thick over the body bore's Y extent (8.75 mm).
-
-REGENERATE
-==========
-    tools/cad-venv/bin/python generate_step_cadquery.py
+Regenerate:  tools/cad-venv/bin/python generate_step_cadquery.py
 """
 
 import math
