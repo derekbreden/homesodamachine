@@ -446,12 +446,19 @@ def cut_slit_and_build_plug_for_copper_inlet(foam_bag_shell, which = 0):
     plug_solid = plug_main.fuse(inner_slab, outer_slab)
 
     # 12 rails: 3 wall slices × 2 plug X-sides × 2 wall Z-faces. Each rail
-    # is a small tab (rail_x_protrusion in X × full plug Y × rail_z_thickness
-    # in Z) flush with one face of one wall, attached to the plug body at
-    # the slit edge.
-    plug_y_min = min(s.BoundingBox().ymin for s in slices)
+    # is a small tab (rail_x_protrusion in X × rails_y_height in Y ×
+    # rail_z_thickness in Z) flush with one face of one wall, attached to
+    # the plug body at the slit edge.
+    #
+    # Rails span the rectangular portion of the slit only — from
+    # hole_y_offset (where the slit-punch's small bore cylinder meets the
+    # rectangular slit profile) to the top of the plug body. Below
+    # hole_y_offset the plug narrows to the bore cylinder bump and there's
+    # no plug face at the rail's slit-edge X to attach to.
     plug_y_max = max(s.BoundingBox().ymax for s in slices)
-    plug_y_height = plug_y_max - plug_y_min
+    rails_y_min = hole_y_offset
+    rails_y_max = plug_y_max
+    rails_y_height = rails_y_max - rails_y_min
 
     tank_copper_shell_inner_radius = tank_copper_shell_radius - wall_and_floor_thickness
     tank_copper_shell_outer_radius = tank_copper_shell_radius
@@ -520,13 +527,13 @@ def cut_slit_and_build_plug_for_copper_inlet(foam_bag_shell, which = 0):
                     p1[1] + offset_z * rail_z_thickness,
                 )
                 wire = cq.Wire.makePolygon(
-                    [cq.Vector(p[0], plug_y_min, p[1]) for p in (p1, p2, p3, p4)],
+                    [cq.Vector(p[0], rails_y_min, p[1]) for p in (p1, p2, p3, p4)],
                     close=True,
                 )
                 face = cq.Face.makeFromWires(wire)
                 rail_solid = cq.Solid.extrudeLinear(
                     face,
-                    cq.Vector(0, plug_y_height, 0),
+                    cq.Vector(0, rails_y_height, 0),
                 )
                 plug_solid = plug_solid.fuse(rail_solid)
 
