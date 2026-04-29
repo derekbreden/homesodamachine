@@ -428,16 +428,22 @@ def cut_slit_and_build_plug_for_copper_inlet(foam_bag_shell, which = 0):
     # Plug body = original loft (curved on the tank_copper_shell side, flat
     # on the outer_shell side) with a 1 mm linear extension at each end so
     # the rails on those two end-wall faces have plug body to attach to.
-    inner_wire = tank_copper_shell_inner_face.outerWire()
-    outer_wire = outer_shell_outermost_face.outerWire()
-    inner_extended_wire = inner_wire.translate((0, 0, -plug_end_extension))
-    outer_extended_wire = outer_wire.translate((0, 0, plug_end_extension))
-    plug_solid = cq.Solid.makeLoft([
-        inner_extended_wire,
-        inner_wire,
-        outer_wire,
-        outer_extended_wire,
+    # The extensions are built with extrudeLinear on the loft's end faces;
+    # 4-wire makeLoft and loft+fuse-of-slabs both produced malformed solids
+    # that broke subsequent boolean ops with the rails.
+    plug_main = cq.Solid.makeLoft([
+        tank_copper_shell_inner_face.outerWire(),
+        outer_shell_outermost_face.outerWire(),
     ])
+    inner_slab = cq.Solid.extrudeLinear(
+        tank_copper_shell_inner_face,
+        cq.Vector(0, 0, -plug_end_extension),
+    )
+    outer_slab = cq.Solid.extrudeLinear(
+        outer_shell_outermost_face,
+        cq.Vector(0, 0, plug_end_extension),
+    )
+    plug_solid = plug_main.fuse(inner_slab, outer_slab)
 
     # 12 rails: 3 wall slices × 2 plug X-sides × 2 wall Z-faces. Each rail
     # is a small tab (rail_x_protrusion in X × full plug Y × rail_z_thickness
