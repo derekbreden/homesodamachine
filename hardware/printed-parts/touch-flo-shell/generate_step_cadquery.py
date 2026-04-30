@@ -299,7 +299,7 @@ ZONE4_WALL     = WALL_THICKNESS_MIN                                 # 3.0
 ZONE5_Z_BOTTOM = ZONE4_Z_TOP                                        # 52
 ZONE5_Z_TOP    = ZONE4_Z_TOP + 10.0                                 # 62 (provisional)
 ZONE5_HEIGHT   = ZONE5_Z_TOP - ZONE5_Z_BOTTOM                       # 10
-ZONE5_WALL     = WALL_THICKNESS_MIN                                 # 3.0
+ZONE5_WALL     = 4.0                                                # toughened from WALL_THICKNESS_MIN=3
 
 
 # ═══════════════════════════════════════════════════════
@@ -427,7 +427,8 @@ ZONE45_BACK_X      = SHELL_CENTER_X + SHELL_OUTER_R                  # 22.175
 _ZONE45_X_MARGIN   = ZONE45_BACK_X - _Z5_X_MAX                       # 4.01
 ZONE45_FRONT_X     = _Z5_X_MIN - _ZONE45_X_MARGIN                    # ≈ -1.56
 
-ZONE45_Z_TOP                = GN_BEND1_START_Z     # ≈ 78.78 — flat top at gooseneck bend start
+ZONE45_Z_TOP                = 66.2                  # provisional — roughly halfway between
+                                                    # ZONE45_BOT_Z_AT_FRONT and GN_BEND1_START_Z
 ZONE45_BOT_Z_AT_FRONT       = (
     _NEW_ARCH_C_Z
     + math.sqrt(_NEW_ARCH_R ** 2 - (ZONE45_FRONT_X - FILL_X_MIN) ** 2)
