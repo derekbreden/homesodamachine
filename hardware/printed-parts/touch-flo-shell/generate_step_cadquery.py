@@ -374,6 +374,59 @@ NEW_ARCH_MID_Z   = _NEW_ARCH_C_Z + _NEW_ARCH_R * math.sin(_NEW_ARCH_A_MID)      
 
 
 # ═══════════════════════════════════════════════════════
+# ZONE 4.5 — lid above the lever swing volume
+# ═══════════════════════════════════════════════════════
+#
+# A 3 mm flat lid sitting on top of the existing arch + zone 4 top,
+# capping the lever swing volume from above. Begins at LEVER_RIDGE_X
+# — the X where the pressed lever's tilted top crosses the rest
+# lever's flat top at Z=LEVER_REST_TOP_Z (the visible "ridge" line
+# of the swing envelope). Bottom face = arch curve from
+# (LEVER_RIDGE_X, arch_z) up to (FILL_X_MIN, ZONE4_Z_TOP), then flat
+# at ZONE4_Z_TOP out to the +X cylinder back. Top face = bottom + 3
+# in Z. -X face = vertical wall at LEVER_RIDGE_X.
+#
+# Lever swing geometry mirrors the assembly's build_lever — pivot
+# parallel to Y at (LEVER_PIVOT_X, *, LEVER_PIVOT_Z), pressed-down
+# rotates by LEVER_PRESSED_ANGLE about that axis.
+
+LEVER_PIVOT_X        = 1.5
+LEVER_PIVOT_Z        = ZONE2_Z_TOP + 7.0          # 46 — = PLATEAU_Z+1+6
+LEVER_PRESSED_ANGLE  = math.radians(18.0)
+LEVER_REST_TOP_Z     = ZONE2_Z_TOP + 13.0         # 52 — = PLATEAU_Z+1+12
+_LEVER_DZ_PIVOT      = LEVER_REST_TOP_Z - LEVER_PIVOT_Z   # 6
+
+# Closed form for where pressed top crosses Z=LEVER_REST_TOP_Z:
+# Z'(X0) = Z_pivot + (X0-X_pivot)·sin θ + dz_pivot·cos θ = Z_rest
+#   ⇒  (X0-X_pivot) = dz_pivot·(1-cos θ)/sin θ
+# X'(X0) = X_pivot + (X0-X_pivot)·cos θ - dz_pivot·sin θ
+#   ⇒  X' = X_pivot - dz_pivot·(1-cos θ)/sin θ = X_pivot - dz_pivot·tan(θ/2)
+LEVER_RIDGE_X = (
+    LEVER_PIVOT_X
+    - _LEVER_DZ_PIVOT * math.tan(LEVER_PRESSED_ANGLE / 2.0)
+)                                                  # ≈ 0.55
+
+ZONE45_THICKNESS            = 3.0
+ZONE45_BOT_Z_AT_LEVER_RIDGE = (
+    _NEW_ARCH_C_Z
+    + math.sqrt(_NEW_ARCH_R ** 2 - (LEVER_RIDGE_X - FILL_X_MIN) ** 2)
+)                                                  # ≈ 53.55
+
+# Mid-point of the bottom arch sub-arc, at the angular bisector between
+# the LEVER_RIDGE_X end and the FILL_X_MIN end.
+_a_lever = math.atan2(
+    ZONE45_BOT_Z_AT_LEVER_RIDGE - _NEW_ARCH_C_Z,
+    LEVER_RIDGE_X - FILL_X_MIN,
+)
+_a_high  = math.pi / 2.0       # FILL_X_MIN end is directly above arch center
+_a_mid45 = (_a_lever + _a_high) / 2.0
+ZONE45_BOT_MID_X = FILL_X_MIN + _NEW_ARCH_R * math.cos(_a_mid45)
+ZONE45_BOT_MID_Z = _NEW_ARCH_C_Z + _NEW_ARCH_R * math.sin(_a_mid45)
+ZONE45_TOP_MID_X = ZONE45_BOT_MID_X
+ZONE45_TOP_MID_Z = ZONE45_BOT_MID_Z + ZONE45_THICKNESS
+
+
+# ═══════════════════════════════════════════════════════
 # GEOMETRY BUILDERS
 # ═══════════════════════════════════════════════════════
 
@@ -870,6 +923,52 @@ def build_zone5_inner_cut() -> cq.Workplane:
     return water_inner.union(flavor_inner)
 
 
+def build_zone45_outer() -> cq.Workplane:
+    """Zone 4.5 lid — 3 mm flat slab capping the lever swing volume.
+
+    XZ profile (CCW), extruded across full Y range, then cylinder-clipped:
+      start at (LEVER_RIDGE_X, ZONE45_BOT_Z_AT_LEVER_RIDGE)
+      → arch up to (FILL_X_MIN, ZONE4_Z_TOP)
+      → flat to (rect_x_max, ZONE4_Z_TOP)
+      → vertical up to (rect_x_max, ZONE4_Z_TOP + ZONE45_THICKNESS)
+      → flat back to (FILL_X_MIN, ZONE4_Z_TOP + ZONE45_THICKNESS)
+      → arch down to (LEVER_RIDGE_X, ZONE45_BOT_Z_AT_LEVER_RIDGE + ZONE45_THICKNESS)
+      → close (vertical down to start)
+    """
+    rect_x_max = SHELL_CENTER_X + SHELL_RECT_X_HALF        # 22.175
+    y_half     = SHELL_RECT_Y_HALF                          # 11.75
+
+    profile_solid = (
+        cq.Workplane("XZ")
+        .workplane(offset=-y_half)
+        .moveTo(LEVER_RIDGE_X, ZONE45_BOT_Z_AT_LEVER_RIDGE)
+        .threePointArc(
+            (ZONE45_BOT_MID_X, ZONE45_BOT_MID_Z),
+            (FILL_X_MIN, ZONE4_Z_TOP),
+        )
+        .lineTo(rect_x_max, ZONE4_Z_TOP)
+        .lineTo(rect_x_max, ZONE4_Z_TOP + ZONE45_THICKNESS)
+        .lineTo(FILL_X_MIN, ZONE4_Z_TOP + ZONE45_THICKNESS)
+        .threePointArc(
+            (ZONE45_TOP_MID_X, ZONE45_TOP_MID_Z),
+            (LEVER_RIDGE_X, ZONE45_BOT_Z_AT_LEVER_RIDGE + ZONE45_THICKNESS),
+        )
+        .close()
+        .extrude(2.0 * y_half)
+    )
+
+    z_min = ZONE45_BOT_Z_AT_LEVER_RIDGE
+    z_max = ZONE4_Z_TOP + ZONE45_THICKNESS
+    clip_cyl = (
+        cq.Workplane("XY")
+        .workplane(offset=z_min - 0.5)
+        .moveTo(SHELL_CENTER_X, SHELL_CENTER_Y)
+        .circle(SHELL_OUTER_R)
+        .extrude((z_max - z_min) + 1.0)
+    )
+    return profile_solid.intersect(clip_cyl)
+
+
 def _arc_from_tangent(start, tangent, radius, theta_rad, ccw):
     """Compute (mid, end, end_tangent) for a 2D arc starting at `start`
     with `tangent`, sweeping `theta_rad` at `radius`. CCW rotates the
@@ -1025,6 +1124,7 @@ def build_shell() -> cq.Workplane:
         .union(build_zone3_outer())
         .union(build_zone3_fill_outer())
         .union(build_zone4_outer())
+        .union(build_zone45_outer())
         .union(build_zone5_outer())
         .union(build_zone6_outer())
     )
