@@ -762,18 +762,26 @@ def build_zone4_inner_cut() -> cq.Workplane:
 
 
 def build_zone5_outer() -> cq.Workplane:
-    """Tube wrapper above the lever — 3 mm wall around water + flavor.
+    """Tube wrapper above the lever — 3 mm wall around water + flavor,
+    with flat +Y/-Y sides.
 
-    Straight extrusion of (water cylinder ∪ flavor pill) inflated by
-    ZONE5_WALL on every side. No X clipping; the wrapper extends in
-    -X past FILL_X_MIN around the water tube (which is centered at
-    X=WATER_TUBE_X=8.875).
+    Outer outline = (water circle ∪ flavor stadium ∪ fill rectangle).
+    Without the fill rectangle, the union of the two shapes has a
+    "peanut" / venn-diagram concavity at +Y and -Y where they meet.
+    The rectangle spans X from the water peak to the flavor peak at
+    Y = ±water_outer_R, filling the dip so the +Y/-Y sides are flat.
+
+    No X clipping; the wrapper extends in -X past FILL_X_MIN around
+    the water tube (which is centered at X=WATER_TUBE_X=8.875). Safe
+    here because we're above the lever's swing envelope.
     """
+    water_r_outer = WATER_HOLE_DIAMETER / 2.0 + ZONE5_WALL
+
     water_outer = (
         cq.Workplane("XY")
         .workplane(offset=ZONE5_Z_BOTTOM)
         .moveTo(WATER_TUBE_X, 0)
-        .circle(WATER_HOLE_DIAMETER / 2.0 + ZONE5_WALL)
+        .circle(water_r_outer)
         .extrude(ZONE5_HEIGHT)
     )
     flavor_outer = (
@@ -784,7 +792,15 @@ def build_zone5_outer() -> cq.Workplane:
                 PILL_WIDTH_X + 2.0 * ZONE5_WALL, angle=90)
         .extrude(ZONE5_HEIGHT)
     )
-    return water_outer.union(flavor_outer)
+    fill_rect = (
+        cq.Workplane("XY")
+        .workplane(offset=ZONE5_Z_BOTTOM)
+        .moveTo((WATER_TUBE_X + FLAVOR_TUBE_POST_BEND_X) / 2.0, 0)
+        .rect(FLAVOR_TUBE_POST_BEND_X - WATER_TUBE_X,
+              2.0 * water_r_outer)
+        .extrude(ZONE5_HEIGHT)
+    )
+    return water_outer.union(flavor_outer).union(fill_rect)
 
 
 def build_zone5_inner_cut() -> cq.Workplane:
