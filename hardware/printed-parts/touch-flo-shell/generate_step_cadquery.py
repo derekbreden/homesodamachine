@@ -979,13 +979,23 @@ def build_zone45_outer() -> cq.Workplane:
     """Zone 4.5 — tall block capping the lever swing volume, reaching
     up to the gooseneck bend start.
 
-    XZ profile (CCW), extruded across full Y range, then cylinder-clipped:
+    XZ profile (CCW), extruded across full Y range, then clipped by
+    two cylinders (back + front, mirrored across the block's X
+    midpoint) so the +X and -X edges have matching rounded curves:
       start at (LEVER_RIDGE_X, ZONE45_BOT_Z_AT_LEVER_RIDGE)
       → arch up to (FILL_X_MIN, ZONE4_Z_TOP)
       → flat to (rect_x_max, ZONE4_Z_TOP)
       → vertical up to (rect_x_max, ZONE45_Z_TOP)
       → flat back to (LEVER_RIDGE_X, ZONE45_Z_TOP)
       → close (vertical down to start)
+
+    Back clip: SHELL_OUTER_R cylinder centered at SHELL_CENTER_X — the
+    same cylinder zones 1-4 use (curves the +X corner inward at large |Y|).
+    Front clip: SHELL_OUTER_R cylinder centered at LEVER_RIDGE_X +
+    SHELL_OUTER_R, mirroring the back clip across the block's X
+    midpoint. At Y=0 both clips are tangent to the block's -X / +X
+    edges; at |Y| = SHELL_RECT_Y_HALF both edges curve inward by the
+    same amount.
     """
     rect_x_max = SHELL_CENTER_X + SHELL_RECT_X_HALF        # 22.175
     y_half     = SHELL_RECT_Y_HALF                          # 11.75
@@ -1007,14 +1017,23 @@ def build_zone45_outer() -> cq.Workplane:
 
     z_min = ZONE45_BOT_Z_AT_LEVER_RIDGE
     z_max = ZONE45_Z_TOP
-    clip_cyl = (
+    clip_height = (z_max - z_min) + 1.0
+
+    back_clip_cyl = (
         cq.Workplane("XY")
         .workplane(offset=z_min - 0.5)
         .moveTo(SHELL_CENTER_X, SHELL_CENTER_Y)
         .circle(SHELL_OUTER_R)
-        .extrude((z_max - z_min) + 1.0)
+        .extrude(clip_height)
     )
-    return profile_solid.intersect(clip_cyl)
+    front_clip_cyl = (
+        cq.Workplane("XY")
+        .workplane(offset=z_min - 0.5)
+        .moveTo(LEVER_RIDGE_X + SHELL_OUTER_R, SHELL_CENTER_Y)
+        .circle(SHELL_OUTER_R)
+        .extrude(clip_height)
+    )
+    return profile_solid.intersect(back_clip_cyl).intersect(front_clip_cyl)
 
 
 def _arc_from_tangent(start, tangent, radius, theta_rad, ccw):
