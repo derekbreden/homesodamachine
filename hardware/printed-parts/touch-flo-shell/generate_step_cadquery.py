@@ -313,32 +313,34 @@ ZONE5_WALL     = 4.0                                                # toughened 
 #
 # Path (in tube-local XZ plane, origin at the zone 5 / zone 6 seam):
 #   1. vertical lift from Z=0 up to Z=GN_BEND1_START_Z − ZONE5_Z_TOP
-#   2. 30° bend at R = GN_BEND_R, bending toward -X
-#   3. GN_MID_STRAIGHT_LEN angled straight (30° from vertical)
-#   4. 90° bend at R = GN_BEND_R
-#   5. GN_TIP_STRAIGHT_LEN tip (30° below horizontal, points -X+Z down)
+#   2. bend 1 — GN_BEND1_SWEEP_RAD at R = GN_BEND1_R, bending toward -X
+#   3. GN_MID_STRAIGHT_LEN angled straight
+#   4. bend 2 — GN_BEND2_SWEEP_RAD at R = GN_BEND2_R
+#   5. GN_TIP_STRAIGHT_LEN tip
 #
 # Sweep frame: cross-section centered on the water tube. The flavor
-# pill's +X offset (FLAVOR_TUBE_POST_BEND_X − WATER_TUBE_X = 4.49 mm)
+# pill's +X offset (FLAVOR_TUBE_POST_BEND_X − WATER_TUBE_X ≈ 4.49 mm)
 # is carried in the LOCAL frame, so as the tangent rotates through
-# each bend the pill traces a parallel-offset arc at radius
-# R + 4.49 ≈ 36.24 — matching the actual flavor tubes' centerlines.
+# each bend the pill traces a parallel-offset arc at the larger
+# radius (water R + 4.49) — matching the actual flavor tubes'
+# centerlines.
 #
 # These mirror constants in the assembly (`faucet-assembly`); if the
 # assembly's gooseneck moves, update both.
 
-GN_BEND_R           = 31.75                                          # water tube CLR
+GN_BEND1_R          = 30.0                                           # water tube — bend 1
+GN_BEND2_R          = 60.0                                           # water tube — bend 2
 GN_BEND1_SWEEP_RAD  = math.radians(30.0)
-GN_BEND2_SWEEP_RAD  = math.radians(90.0)
+GN_BEND2_SWEEP_RAD  = math.radians(110.0)
 LEVER_TOP_Z         = ZONE2_Z_TOP + 13.0                             # 52
 GN_BEND1_MID_Z      = LEVER_TOP_Z + 35.0                             # 87
 GN_BEND1_START_Z    = (
     GN_BEND1_MID_Z
-    - GN_BEND_R * math.sin(GN_BEND1_SWEEP_RAD / 2.0)
-)                                                                    # ≈ 78.78
-GN_MID_STRAIGHT_LEN = 100.0
-GN_TIP_STRAIGHT_LEN = 15.0
-ZONE6_WALL          = ZONE5_WALL                                     # 3.0
+    - GN_BEND1_R * math.sin(GN_BEND1_SWEEP_RAD / 2.0)
+)                                                                    # ≈ 79.24
+GN_MID_STRAIGHT_LEN = 120.0
+GN_TIP_STRAIGHT_LEN = 30.0
+ZONE6_WALL          = ZONE5_WALL                                     # 4.0
 
 
 # ═══════════════════════════════════════════════════════
@@ -1084,8 +1086,9 @@ def _arc_from_tangent(start, tangent, radius, theta_rad, ccw):
 
 
 def _gooseneck_path_at_origin() -> cq.Workplane:
-    """Gooseneck path in XZ at origin: vertical lift to bend 1, 30°
-    bend, mid straight, 90° bend, tip straight. Bends toward -X.
+    """Gooseneck path in XZ at origin: vertical lift to bend 1, bend 1,
+    mid straight, bend 2, tip straight. Bends toward -X. Bend 1 uses
+    GN_BEND1_R, bend 2 uses GN_BEND2_R (independent radii).
     """
     z_lift = GN_BEND1_START_Z - ZONE5_Z_TOP
 
@@ -1093,12 +1096,12 @@ def _gooseneck_path_at_origin() -> cq.Workplane:
     p_bend_start = (0.0, z_lift)
 
     mid1, end1, tan1 = _arc_from_tangent(
-        p_bend_start, (0.0, 1.0), GN_BEND_R, GN_BEND1_SWEEP_RAD, ccw=True
+        p_bend_start, (0.0, 1.0), GN_BEND1_R, GN_BEND1_SWEEP_RAD, ccw=True
     )
     mid_end = (end1[0] + GN_MID_STRAIGHT_LEN * tan1[0],
                end1[1] + GN_MID_STRAIGHT_LEN * tan1[1])
     mid2, end2, tan2 = _arc_from_tangent(
-        mid_end, tan1, GN_BEND_R, GN_BEND2_SWEEP_RAD, ccw=True
+        mid_end, tan1, GN_BEND2_R, GN_BEND2_SWEEP_RAD, ccw=True
     )
     tip_end = (end2[0] + GN_TIP_STRAIGHT_LEN * tan2[0],
                end2[1] + GN_TIP_STRAIGHT_LEN * tan2[1])
