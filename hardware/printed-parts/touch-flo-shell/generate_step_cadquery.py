@@ -272,14 +272,8 @@ FILL_X_MIN = 10.46                                                  # back third
 #     zones 1+2 (PILL_LENGTH_Y × PILL_WIDTH_X at FLAVOR_TUBE_POST_BEND_X).
 #     Linear loft draws the cavity in toward the water tube as Z rises.
 ZONE4_Z_BOTTOM = SHELL_ARCH_FOOT_TOP_Z                              # 44.25
-# Zone 4 top must clear the lever's pressed-down envelope. The lever's
-# head corner at original (X=9, Z=52) rotates -18° around pivot
-# (1.5, 46) to (6.78, 54.024). That point sits inside zone 5's water-
-# circle outer outline (centered at X=8.875, R=6.425), so zone 5's
-# bottom — and therefore zone 4's top — must be above it. 55 mm gives
-# ~1 mm clearance above 54.024.
-ZONE4_Z_TOP    = 55.0
-ZONE4_HEIGHT   = ZONE4_Z_TOP - ZONE4_Z_BOTTOM                       # 10.75
+ZONE4_Z_TOP    = 52.0                                               # ~1.7 mm past S-bend end (50.31)
+ZONE4_HEIGHT   = ZONE4_Z_TOP - ZONE4_Z_BOTTOM                       # 7.75
 ZONE4_WALL     = WALL_THICKNESS_MIN                                 # 3.0
 
 
@@ -303,35 +297,31 @@ ZONE5_WALL     = WALL_THICKNESS_MIN                                 # 3.0
 
 
 # ═══════════════════════════════════════════════════════
-# ZONE 3 OUTER ARCH — full-height curve from wing bottom to zone 4
+# ZONE 3 OUTER ARCH — reshaped to mate with zone 4
 # ═══════════════════════════════════════════════════════
 #
-# The wing/fill arch is a single circular arc that spans the wing's
-# full Z range (ZONE3_Z_BOTTOM at the low-X end up to ZONE4_Z_TOP at
-# X=FILL_X_MIN), tangent-horizontal at the high end so it meets zone
-# 4's flat top surface smoothly. The arch covers the full -X extent
-# of the wing — there is no flat foot-top segment.
+# The wing/fill arch no longer mirrors the body's symmetric arch.
+# Instead it goes from (-ARCH_X_HALF, SHELL_ARCH_FOOT_TOP_Z) up to
+# (FILL_X_MIN, ZONE4_Z_TOP), tangent-horizontal at the high end so it
+# meets zone 4's flat top surface without a kink. For X > FILL_X_MIN
+# the wing/fill top is flat at ZONE4_Z_TOP, matching zone 4.
 #
 # Geometry: circular arc whose center is directly below the high end
 # (FILL_X_MIN, c_z) so the tangent there is horizontal. Solving
 # distance(center, low_end) == distance(center, high_end) gives c_z.
-_NEW_ARCH_LOW_X  = SHELL_CENTER_X - SHELL_RECT_X_HALF                # rect_x_min = -19
-_NEW_ARCH_LOW_Z  = ZONE3_Z_BOTTOM                                    # 39
-_NEW_ARCH_HIGH_X = FILL_X_MIN                                        # 10.46
-_NEW_ARCH_HIGH_Z = ZONE4_Z_TOP                                       # 55
-_NEW_ARCH_DX     = _NEW_ARCH_HIGH_X - _NEW_ARCH_LOW_X                # 29.46
+_NEW_ARCH_DX     = FILL_X_MIN + ARCH_X_HALF                          # 26.21
 _NEW_ARCH_C_Z    = (
-    (_NEW_ARCH_HIGH_Z + _NEW_ARCH_LOW_Z) / 2.0
-    - _NEW_ARCH_DX**2 / (2.0 * (_NEW_ARCH_HIGH_Z - _NEW_ARCH_LOW_Z))
-)                                                                    # ≈ 19.88
-_NEW_ARCH_R      = _NEW_ARCH_HIGH_Z - _NEW_ARCH_C_Z                  # ≈ 35.12
+    (ZONE4_Z_TOP + SHELL_ARCH_FOOT_TOP_Z) / 2.0
+    - _NEW_ARCH_DX**2 / (2.0 * (ZONE4_Z_TOP - SHELL_ARCH_FOOT_TOP_Z))
+)                                                                    # ≈ 3.805
+_NEW_ARCH_R      = ZONE4_Z_TOP - _NEW_ARCH_C_Z                       # ≈ 48.195
 # Midpoint of the arc — angular midway between high end (90° from
 # center, directly above) and low end.
-_NEW_ARCH_A_LOW  = math.atan2(_NEW_ARCH_LOW_Z - _NEW_ARCH_C_Z,
-                              _NEW_ARCH_LOW_X - _NEW_ARCH_HIGH_X)
+_NEW_ARCH_A_LOW  = math.atan2(SHELL_ARCH_FOOT_TOP_Z - _NEW_ARCH_C_Z,
+                              -_NEW_ARCH_DX)
 _NEW_ARCH_A_MID  = (math.pi / 2.0 + _NEW_ARCH_A_LOW) / 2.0
-NEW_ARCH_MID_X   = _NEW_ARCH_HIGH_X + _NEW_ARCH_R * math.cos(_NEW_ARCH_A_MID)   # ≈ -6.28
-NEW_ARCH_MID_Z   = _NEW_ARCH_C_Z + _NEW_ARCH_R * math.sin(_NEW_ARCH_A_MID)      # ≈ 50.75
+NEW_ARCH_MID_X   = FILL_X_MIN + _NEW_ARCH_R * math.cos(_NEW_ARCH_A_MID)   # ≈ -3.24
+NEW_ARCH_MID_Z   = _NEW_ARCH_C_Z + _NEW_ARCH_R * math.sin(_NEW_ARCH_A_MID)  # ≈ 50.01
 
 
 # ═══════════════════════════════════════════════════════
@@ -555,11 +545,10 @@ def build_zone3_outer() -> cq.Workplane:
 
     def wing(y_bottom: float, y_height: float) -> cq.Workplane:
         # Profile (in XZ plane), traversed CCW:
-        #   bottom-left (rect_x_min, ZONE3_Z_BOTTOM)
-        #   → bottom-right (rect_x_max, ZONE3_Z_BOTTOM)
-        #   → up to ZONE4_Z_TOP at +X
+        #   bottom-left → bottom-right → up to ZONE4_Z_TOP at +X
         #   → left along top to FILL_X_MIN at ZONE4_Z_TOP
-        #   → arch down-left back to start (rect_x_min, ZONE3_Z_BOTTOM)
+        #   → reshaped arch down to (-ARCH_X_HALF, SHELL_ARCH_FOOT_TOP_Z)
+        #   → left along foot top to bottom-left
         return (
             cq.Workplane("XZ")
             .workplane(offset=y_bottom)
@@ -568,7 +557,8 @@ def build_zone3_outer() -> cq.Workplane:
             .lineTo(rect_x_max, ZONE4_Z_TOP)
             .lineTo(FILL_X_MIN, ZONE4_Z_TOP)
             .threePointArc((NEW_ARCH_MID_X, NEW_ARCH_MID_Z),
-                           (rect_x_min, ZONE3_Z_BOTTOM))
+                           (-ARCH_X_HALF, SHELL_ARCH_FOOT_TOP_Z))
+            .lineTo(rect_x_min, SHELL_ARCH_FOOT_TOP_Z)
             .close()
             .extrude(y_height)
         )
@@ -635,7 +625,8 @@ def build_zone3_fill_outer() -> cq.Workplane:
         .lineTo(rect_x_max, ZONE4_Z_TOP)
         .lineTo(FILL_X_MIN, ZONE4_Z_TOP)
         .threePointArc((NEW_ARCH_MID_X, NEW_ARCH_MID_Z),
-                       (rect_x_min, ZONE3_Z_BOTTOM))
+                       (-ARCH_X_HALF, SHELL_ARCH_FOOT_TOP_Z))
+        .lineTo(rect_x_min, SHELL_ARCH_FOOT_TOP_Z)
         .close()
         .extrude(fill_y_thickness)
     )
