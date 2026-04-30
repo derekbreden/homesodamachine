@@ -160,30 +160,35 @@ PRE_BEND_Z    = PLATEAU_Z + PRE_BEND_RISE                # 42.0 mm
 # ═══════════════════════════════════════════════════════
 #
 # Above the lever's swing envelope, all three tubes (water + 2 flavor)
-# sweep forward toward -X via the same gooseneck shape. Spec mirrors
-# the dispense-flavor-tube part (R=31.75 mm CLR, 5× OD for 1/4"):
+# sweep forward toward -X via the same gooseneck shape:
 #   1. vertical straight up to bend 1 start
-#   2. 30° bend, R=31.75
-#   3. 100 mm angled straight (rises forward at 30° from vertical)
-#   4. 90° bend, R=31.75
-#   5. 15 mm tip straight (forward + downward at 30° below horizontal)
+#   2. bend 1 — GN_BEND1_SWEEP_RAD at R = GN_BEND1_R
+#   3. angled straight of GN_MID_STRAIGHT_LEN (rises forward)
+#   4. bend 2 — GN_BEND2_SWEEP_RAD at R = GN_BEND2_R
+#   5. tip straight of GN_TIP_STRAIGHT_LEN
+#
+# Each bend has its own radius — bend 1 is tighter (faster turn out
+# of vertical), bend 2 is wider (gentler curve at the top, sweeping
+# the tip down toward the user). The tip's exit angle below horizontal
+# = (GN_BEND1_SWEEP_RAD + GN_BEND2_SWEEP_RAD) - 90°.
 #
 # Bend-1 midpoint is anchored at Z = LEVER_TOP_Z + 35, so the start of
-# bend 1 sits R·sin(15°) ≈ 8.22 mm below that. Forward direction is -X
-# (lever / user side).
+# bend 1 sits GN_BEND1_R·sin(GN_BEND1_SWEEP_RAD/2) below that. Forward
+# direction is -X (lever / user side).
 LEVER_TOP_Z         = PLATEAU_Z + 13.0                   # 52.0 mm
-GN_BEND_R           = 31.75                              # 1.25" CLR (water tube)
+GN_BEND1_R          = 30.0                               # water tube — bend 1
+GN_BEND2_R          = 60.0                               # water tube — bend 2 (wider)
 GN_BEND1_SWEEP_RAD  = math.radians(30.0)
-GN_BEND2_SWEEP_RAD  = math.radians(90.0)
+GN_BEND2_SWEEP_RAD  = math.radians(110.0)
 GN_BEND1_MID_Z      = LEVER_TOP_Z + 35.0                 # 87.0
 GN_BEND1_START_Z    = (
     GN_BEND1_MID_Z
-    - GN_BEND_R * math.sin(GN_BEND1_SWEEP_RAD / 2.0)
-)                                                        # ≈ 78.78
-GN_MID_STRAIGHT_LEN = 100.0
-GN_TIP_STRAIGHT_LEN = 15.0
+    - GN_BEND1_R * math.sin(GN_BEND1_SWEEP_RAD / 2.0)
+)                                                        # ≈ 79.24
+GN_MID_STRAIGHT_LEN = 120.0
+GN_TIP_STRAIGHT_LEN = 30.0
 
-# Flavor tube bend radius through the gooseneck.
+# Flavor tube bend radii through the gooseneck.
 # The flavor tubes sit at +X of the water tube (X-offset in their
 # local frame = FLAVOR_TUBE_X_FINAL - PORT_CENTER_X). The gooseneck
 # bends toward -X, so flavor tubes are on the OUTSIDE of every bend
@@ -192,10 +197,9 @@ GN_TIP_STRAIGHT_LEN = 15.0
 # R_water + offset_X. Otherwise the tubes ride into each other
 # through the bend (the perpendicular component of the centerline
 # separation shrinks below R_water + R_flavor).
-GN_FLAVOR_BEND_R    = (
-    GN_BEND_R
-    + (FLAVOR_TUBE_X_FINAL - PORT_CENTER_X)
-)                                                        # ≈ 36.24
+_GN_FLAVOR_OFFSET   = FLAVOR_TUBE_X_FINAL - PORT_CENTER_X    # ≈ 4.49
+GN_FLAVOR_BEND1_R   = GN_BEND1_R + _GN_FLAVOR_OFFSET         # ≈ 34.49
+GN_FLAVOR_BEND2_R   = GN_BEND2_R + _GN_FLAVOR_OFFSET         # ≈ 64.49
 
 
 # ═══════════════════════════════════════════════════════
@@ -257,9 +261,8 @@ def load_shell() -> cq.Workplane:
 
 def build_water_dispense_tube() -> cq.Workplane:
     """Bent water tube — vertical from inside the body's port up to
-    the gooseneck, then 30° forward bend, 100 mm angled straight,
-    90° bend, 15 mm tip. Profile is Ø WATER_TUBE_OD swept along the
-    centerline path.
+    the gooseneck, then bend 1, mid straight, bend 2, tip straight.
+    Profile is Ø WATER_TUBE_OD swept along the centerline path.
     """
     # Tube-local (X-Z) frame: bottom at (0, 0), Z=0 == WATER_TUBE_Z_BOTTOM.
     z_bend_start_local = GN_BEND1_START_Z - WATER_TUBE_Z_BOTTOM
@@ -268,12 +271,12 @@ def build_water_dispense_tube() -> cq.Workplane:
     p_bend_start = (0.0, z_bend_start_local)
 
     mid1, end1, tan1 = _arc_from_tangent(
-        p_bend_start, (0.0, 1.0), GN_BEND_R, GN_BEND1_SWEEP_RAD, ccw=True
+        p_bend_start, (0.0, 1.0), GN_BEND1_R, GN_BEND1_SWEEP_RAD, ccw=True
     )
     mid_end = (end1[0] + GN_MID_STRAIGHT_LEN * tan1[0],
                end1[1] + GN_MID_STRAIGHT_LEN * tan1[1])
     mid2, end2, tan2 = _arc_from_tangent(
-        mid_end, tan1, GN_BEND_R, GN_BEND2_SWEEP_RAD, ccw=True
+        mid_end, tan1, GN_BEND2_R, GN_BEND2_SWEEP_RAD, ccw=True
     )
     tip_end = (end2[0] + GN_TIP_STRAIGHT_LEN * tan2[0],
                end2[1] + GN_TIP_STRAIGHT_LEN * tan2[1])
@@ -337,8 +340,9 @@ def _build_flavor_tube_at_origin() -> cq.Workplane:
          tangent back to (0, 1) at the end
       3. Vertical from S-bend end up to the gooseneck start (Z =
          GN_BEND1_START_Z, in tube-local coords)
-      4. Gooseneck: 30° bend → 100 mm angled straight → 90° bend →
-         15 mm tip, all bending toward -X
+      4. Gooseneck: bend 1 → mid straight → bend 2 → tip, all
+         bending toward -X. Each bend uses its own parallel-offset
+         radius (GN_FLAVOR_BEND1_R / GN_FLAVOR_BEND2_R).
     """
     pre_bend_z_local     = PRE_BEND_Z - FLAVOR_TUBE_Z_BOTTOM
     gn_bend_start_local  = GN_BEND1_START_Z - FLAVOR_TUBE_Z_BOTTOM
@@ -358,16 +362,17 @@ def _build_flavor_tube_at_origin() -> cq.Workplane:
     # Vertical to the gooseneck start, X unchanged.
     p_gn_start = (end_s2[0], gn_bend_start_local)
 
-    # Gooseneck — uses GN_FLAVOR_BEND_R (larger than water's GN_BEND_R)
-    # so the flavor tube traces a parallel-offset arc on the outside
-    # of each bend, staying tangent to the water tube.
+    # Gooseneck — each bend uses GN_FLAVOR_BENDn_R (= water's GN_BENDn_R
+    # plus the X offset between flavor and water centerlines), so the
+    # flavor tube traces a parallel-offset arc on the outside of each
+    # bend, staying tangent to the water tube.
     mid1, end1, tan1 = _arc_from_tangent(
-        p_gn_start, tan_s2, GN_FLAVOR_BEND_R, GN_BEND1_SWEEP_RAD, ccw=True
+        p_gn_start, tan_s2, GN_FLAVOR_BEND1_R, GN_BEND1_SWEEP_RAD, ccw=True
     )
     mid_end = (end1[0] + GN_MID_STRAIGHT_LEN * tan1[0],
                end1[1] + GN_MID_STRAIGHT_LEN * tan1[1])
     mid2, end2, tan2 = _arc_from_tangent(
-        mid_end, tan1, GN_FLAVOR_BEND_R, GN_BEND2_SWEEP_RAD, ccw=True
+        mid_end, tan1, GN_FLAVOR_BEND2_R, GN_BEND2_SWEEP_RAD, ccw=True
     )
     tip_end = (end2[0] + GN_TIP_STRAIGHT_LEN * tan2[0],
                end2[1] + GN_TIP_STRAIGHT_LEN * tan2[1])
@@ -520,13 +525,19 @@ def main():
     print(f"                         Y = ±{FLAVOR_TUBE_Y_OFFSET:.4f} mm (constant)")
     print(f"                         S-bend: 2 × R{FLAVOR_BEND_RADIUS:.1f} mm "
           f"@ {FLAVOR_BEND_THETA_DEG:.2f}° starting at Z = {PRE_BEND_Z:.1f}")
-    print(f"  Gooseneck:             bend 1 30°, bend 2 90°, "
+    _b1_deg = math.degrees(GN_BEND1_SWEEP_RAD)
+    _b2_deg = math.degrees(GN_BEND2_SWEEP_RAD)
+    _tip_below_horiz = (_b1_deg + _b2_deg) - 90.0
+    print(f"  Gooseneck:             bend 1 {_b1_deg:.0f}°, bend 2 {_b2_deg:.0f}°, "
           f"midpoint Z={GN_BEND1_MID_Z:.1f}, start Z={GN_BEND1_START_Z:.2f}")
-    print(f"                         water R={GN_BEND_R:.2f} mm; "
-          f"flavor R={GN_FLAVOR_BEND_R:.2f} mm (parallel offset)")
-    print(f"                         {GN_MID_STRAIGHT_LEN} mm angled straight @ 30°")
+    print(f"                         bend 1: water R={GN_BEND1_R:.2f} mm, "
+          f"flavor R={GN_FLAVOR_BEND1_R:.2f} mm (parallel offset)")
+    print(f"                         bend 2: water R={GN_BEND2_R:.2f} mm, "
+          f"flavor R={GN_FLAVOR_BEND2_R:.2f} mm (parallel offset)")
+    print(f"                         {GN_MID_STRAIGHT_LEN} mm angled straight "
+          f"@ {_b1_deg:.0f}° from vertical")
     print(f"                         {GN_TIP_STRAIGHT_LEN} mm tip "
-          f"(forward + downward at 30° below horizontal)")
+          f"({_tip_below_horiz:.0f}° below horizontal)")
     print(f"  Mounting plate:        loaded from printed-parts/")
     print(f"                         {MOUNTING_PLATE_STEP.name}")
     print(f"  Shell (zones 1+2):     loaded from printed-parts/")
