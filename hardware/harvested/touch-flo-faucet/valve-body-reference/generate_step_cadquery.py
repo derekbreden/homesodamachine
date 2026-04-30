@@ -111,7 +111,7 @@ rect_short            = 17.0        # mm — 17.00 mm (Y, Photo 6)
 rect_short_half       = rect_short / 2  # mm — 8.50 mm (half-width to long face)
 rect_long_half        = rect_long / 2   # mm — 15.75 mm (half-length to short face)
 plateau_z             = 39.0        # mm — top of rectangular body, plateau level (Photo 3)
-transition_fillet_r   = 5.0         # mm — concave R = 4–6 mm, 5.0 mm midpoint (Photo 4 context)
+transition_fillet_r   = 6.0         # mm — concave R = 4–6 mm; 5.0 mm fit was off in test print, trying upper-end 6.0
 #
 # -------------------------------------------------------
 

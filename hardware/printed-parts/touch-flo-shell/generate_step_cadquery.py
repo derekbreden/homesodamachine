@@ -96,7 +96,7 @@ BODY_BORE_RECT_LONG  = BODY_RECT_LONG  + 2.0 * BORE_CLEARANCE   # 32.0
 BODY_BORE_RECT_SHORT = BODY_RECT_SHORT + 2.0 * BORE_CLEARANCE   # 17.5
 
 # Cove transition fillet (matches the body's transition_fillet_r)
-COVE_R = 5.0
+COVE_R = 6.0
 
 # Bore Z transitions lift by BORE_CLEARANCE above the body's Z
 # transitions so face-to-face Z interfaces get the same per-side
