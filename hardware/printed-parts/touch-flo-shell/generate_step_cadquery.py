@@ -712,9 +712,44 @@ def build_zone3_inner_cut() -> cq.Workplane:
     return bores.intersect(clip_cyl)
 
 
+def _body_bore_above_body_cut(z_bottom: float, z_height: float) -> cq.Workplane:
+    """Body bore cylinder (R = BODY_BORE_DIAMETER/2 at origin) over the
+    given Z range, used as a CUT in zone 3 fill outer and zone 4 outer.
+
+    Above the body's plateau (Z > ZONE2_Z_TOP = 39) the body has ended,
+    so this column of the body bore is empty space. We keep the shell
+    from filling it for two reasons:
+
+      1. The flavor tubes' S-bend passes through this region (going
+         from the body's flavor channel at X=17.3375 down to the
+         post-bend X=13.365). They don't need a shell wrap here —
+         the body's flavor channel locates them below, and zone 4.5
+         (the lid) holds them from above.
+
+      2. Printed support material inside the dispense-tube channel
+         needs a path out. Leaving the body-bore column open all
+         the way up to ZONE4_Z_TOP gives the central cavity an
+         opening at the back, so support can be extracted after
+         printing.
+
+    Note: applied LOCAL to zones 3 fill and 4 — NOT at the build_shell
+    level — because zone 4.5 needs to span this column unbroken (the
+    lid is the structural element holding the tubes up there).
+    """
+    return (
+        cq.Workplane("XY")
+        .workplane(offset=z_bottom)
+        .moveTo(BODY_BORE_X, BODY_BORE_Y)
+        .circle(BODY_BORE_DIAMETER / 2.0)
+        .extrude(z_height)
+    )
+
+
 def build_zone3_fill_outer() -> cq.Workplane:
     """Plateau fill behind FILL_X_MIN — same arch profile as the wings,
-    extruded across the plateau Y range."""
+    extruded across the plateau Y range. The body bore column is cut
+    away (see _body_bore_above_body_cut for why).
+    """
     rect_x_min = SHELL_CENTER_X - SHELL_RECT_X_HALF
     rect_x_max = SHELL_CENTER_X + SHELL_RECT_X_HALF
     fill_y_thickness = 2.0 * WING_INNER_Y                            # 13.5
@@ -747,7 +782,15 @@ def build_zone3_fill_outer() -> cq.Workplane:
         .circle(SHELL_OUTER_R)
         .extrude(ZONE4_Z_TOP - ZONE3_Z_BOTTOM)
     )
-    return arch_solid.intersect(keep_x_box).intersect(clip_cyl)
+
+    return (
+        arch_solid
+        .intersect(keep_x_box)
+        .intersect(clip_cyl)
+        .cut(_body_bore_above_body_cut(
+            ZONE3_Z_BOTTOM, ZONE4_Z_TOP - ZONE3_Z_BOTTOM
+        ))
+    )
 
 
 def build_zone3_fill_inner_cut() -> cq.Workplane:
@@ -810,6 +853,11 @@ def build_zone4_outer() -> cq.Workplane:
     ZONE4_Z_TOP — straight vertical sides, no taper. Wall thickness
     around the tubes is whatever falls out of (outer minus inner cut),
     not a fixed 3 mm offset.
+
+    The body bore column is cut away (see _body_bore_above_body_cut for
+    why) — the central column stays open, so the flavor tubes' S-bend
+    passes through unwrapped and printed support material can be
+    extracted from the dispense channel.
     """
     z_height = ZONE4_HEIGHT
 
@@ -834,7 +882,12 @@ def build_zone4_outer() -> cq.Workplane:
         .rect(100, 200)
         .extrude(z_height + 2)
     )
-    return rect.intersect(clip_cyl).intersect(keep_x)
+    return (
+        rect
+        .intersect(clip_cyl)
+        .intersect(keep_x)
+        .cut(_body_bore_above_body_cut(ZONE4_Z_BOTTOM, ZONE4_HEIGHT))
+    )
 
 
 def build_zone4_inner_cut() -> cq.Workplane:
