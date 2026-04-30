@@ -29,7 +29,7 @@ Alternatives rejected:
 
 ## Milestone 0a — iOS Accessibility
 
-Half a day. Seven specific additions, not "labels everywhere."
+Seven specific additions, not "labels everywhere."
 
 1. **Glass animation is decorative** — wrap every use of `GlassAnimationView` with `.accessibilityHidden(true)`. The loading state is conveyed by the status text below; making VoiceOver announce "image" twice (onboarding + scanning) is noise. See `ios/SodaMachine/SodaMachine/Views/ScanView.swift:51` and `:108`.
 2. **Status text is a live region** — the `Text(...)` in `ScanView` showing "Searching for hardware…" / "Connecting…" (`ScanView.swift:140-168`) gets `.accessibilityAddTraits(.updatesFrequently)`. Without this, VoiceOver users hear scan-start once and never the connection landing.
@@ -48,7 +48,7 @@ Explicitly **not** doing: localizing strings, custom rotor actions, custom Voice
 
 ## Milestone 0b — iOS Haptics
 
-One hour. Earned moments only — two definite, one rejected.
+Earned moments only — two definite, one rejected.
 
 1. **Hold-to-Prime activation** — at `ConfigView.swift:495-506`, in the `DragGesture.onChanged` handler, fire heavy impact exactly once when `primeActive` first becomes true:
    ```swift
@@ -65,7 +65,7 @@ Explicitly **not** doing: tap haptics on regular buttons, swipe haptics on the c
 
 ## Milestone 1 — Android phase 1: splash + glass-animation handoff
 
-3–4 days. Cold-launch on a real Android device feels right. Static splash → animated glass with no perceptible gap. No BLE, no other UI yet — just the launch sequence, perfected.
+Cold-launch on a real Android device feels right. Static splash → animated glass with no perceptible gap. No BLE, no other UI yet — just the launch sequence, perfected.
 
 ### Project skeleton
 
@@ -213,7 +213,7 @@ fun SodaMachineTheme(content: @Composable () -> Unit) {
 
 ### `GlassAnimation.kt` — the phase-1 deliverable
 
-Line-for-line port of `ios/SodaMachine/SodaMachine/Views/GlassAnimationView.swift`. The skeleton showing the structure (the inner `drawGlassBody` / `drawLiquid` / `drawBubbles` are where the polish time goes):
+Line-for-line port of `ios/SodaMachine/SodaMachine/Views/GlassAnimationView.swift`. The skeleton showing the structure (the inner `drawGlassBody` / `drawLiquid` / `drawBubbles` are where the polish lives):
 
 ```kotlin
 package net.truce.sodamachine.ui.glass
@@ -320,17 +320,17 @@ The phase is done when:
 
 ## Full milestone list
 
-| # | Milestone | Where | Time |
-|---|---|---|---|
-| **M0a** | iOS accessibility (7 specific items) | iOS app | half a day |
-| **M0b** | iOS haptics (2 earned moments) | iOS app | one hour |
-| **M1** | Android: splash + glass handoff | Android phase 1 | 3–4 days |
-| M2 | Android: theme polish + ScanView wired (no BLE yet) | Android phase 2 | 2–3 days |
-| M3 | Android: BLE layer + binary protocol + demo mode | Android phase 3 | 1–2 weeks |
-| M4 | Android: image processing (median-cut, RGB565, CRC32) | Android phase 4 | 2–3 days |
-| M5 | Android: ConfigView carousel + 7 sheets | Android phase 5 | 1–2 weeks |
-| M6 | Android: charts (Vico or hand-rolled Canvas) | Android phase 6 | 3–5 days |
-| M7 | Side-by-side polish QA against iPhone | both platforms | 1 week |
-| M8 | Android: accessibility + haptics (mirror M0a/M0b) | Android | half a day |
+| # | Milestone | Where |
+|---|---|---|
+| **M0a** | iOS accessibility (7 specific items) | iOS app |
+| **M0b** | iOS haptics (2 earned moments) | iOS app |
+| **M1** | Android: splash + glass handoff | Android phase 1 |
+| M2 | Android: theme polish + ScanView wired (no BLE yet) | Android phase 2 |
+| M3 | Android: BLE layer + binary protocol + demo mode | Android phase 3 |
+| M4 | Android: image processing (median-cut, RGB565, CRC32) | Android phase 4 |
+| M5 | Android: ConfigView carousel + 7 sheets | Android phase 5 |
+| M6 | Android: charts (Vico or hand-rolled Canvas) | Android phase 6 |
+| M7 | Side-by-side polish QA against iPhone | both platforms |
+| M8 | Android: accessibility + haptics (mirror M0a/M0b) | Android |
 
 M0a and M0b are pre-Android because doing them first lets the fully-considered iOS labels and haptics carry across to Android in M8 — designed once, ported, not designed twice.
