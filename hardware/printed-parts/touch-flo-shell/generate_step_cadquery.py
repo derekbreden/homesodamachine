@@ -303,6 +303,45 @@ ZONE5_WALL     = WALL_THICKNESS_MIN                                 # 3.0
 
 
 # ═══════════════════════════════════════════════════════
+# ZONE 6 — gooseneck wrapper around the bent dispense tubes
+# ═══════════════════════════════════════════════════════
+#
+# Pure continuation of zone 5's cross-section along the same bent
+# path the dispense tubes follow above the lever-swing envelope.
+# Same wall thickness, same water/flavor/fill layout, rotated through
+# the gooseneck bends.
+#
+# Path (in tube-local XZ plane, origin at the zone 5 / zone 6 seam):
+#   1. vertical lift from Z=0 up to Z=GN_BEND1_START_Z − ZONE5_Z_TOP
+#   2. 30° bend at R = GN_BEND_R, bending toward -X
+#   3. GN_MID_STRAIGHT_LEN angled straight (30° from vertical)
+#   4. 90° bend at R = GN_BEND_R
+#   5. GN_TIP_STRAIGHT_LEN tip (30° below horizontal, points -X+Z down)
+#
+# Sweep frame: cross-section centered on the water tube. The flavor
+# pill's +X offset (FLAVOR_TUBE_POST_BEND_X − WATER_TUBE_X = 4.49 mm)
+# is carried in the LOCAL frame, so as the tangent rotates through
+# each bend the pill traces a parallel-offset arc at radius
+# R + 4.49 ≈ 36.24 — matching the actual flavor tubes' centerlines.
+#
+# These mirror constants in the assembly (`faucet-assembly`); if the
+# assembly's gooseneck moves, update both.
+
+GN_BEND_R           = 31.75                                          # water tube CLR
+GN_BEND1_SWEEP_RAD  = math.radians(30.0)
+GN_BEND2_SWEEP_RAD  = math.radians(90.0)
+LEVER_TOP_Z         = ZONE2_Z_TOP + 13.0                             # 52
+GN_BEND1_MID_Z      = LEVER_TOP_Z + 35.0                             # 87
+GN_BEND1_START_Z    = (
+    GN_BEND1_MID_Z
+    - GN_BEND_R * math.sin(GN_BEND1_SWEEP_RAD / 2.0)
+)                                                                    # ≈ 78.78
+GN_MID_STRAIGHT_LEN = 100.0
+GN_TIP_STRAIGHT_LEN = 15.0
+ZONE6_WALL          = ZONE5_WALL                                     # 3.0
+
+
+# ═══════════════════════════════════════════════════════
 # ZONE 3 OUTER ARCH — full-height curve from wing bottom to zone 4
 # ═══════════════════════════════════════════════════════
 #
@@ -831,6 +870,124 @@ def build_zone5_inner_cut() -> cq.Workplane:
     return water_inner.union(flavor_inner)
 
 
+def _arc_from_tangent(start, tangent, radius, theta_rad, ccw):
+    """Compute (mid, end, end_tangent) for a 2D arc starting at `start`
+    with `tangent`, sweeping `theta_rad` at `radius`. CCW rotates the
+    tangent counterclockwise in the plane.
+    """
+    sign = +1 if ccw else -1
+    if ccw:
+        perp = (-tangent[1], tangent[0])
+    else:
+        perp = (tangent[1], -tangent[0])
+    center = (start[0] + radius * perp[0], start[1] + radius * perp[1])
+    rad = (start[0] - center[0], start[1] - center[1])
+
+    def _rot(v, a):
+        c, s = math.cos(a), math.sin(a)
+        return (v[0] * c - v[1] * s, v[0] * s + v[1] * c)
+
+    rad_mid = _rot(rad, sign * theta_rad / 2.0)
+    rad_end = _rot(rad, sign * theta_rad)
+
+    mid = (center[0] + rad_mid[0], center[1] + rad_mid[1])
+    end = (center[0] + rad_end[0], center[1] + rad_end[1])
+    end_tangent = _rot(tangent, sign * theta_rad)
+    return mid, end, end_tangent
+
+
+def _gooseneck_path_at_origin() -> cq.Workplane:
+    """Gooseneck path in XZ at origin: vertical lift to bend 1, 30°
+    bend, mid straight, 90° bend, tip straight. Bends toward -X.
+    """
+    z_lift = GN_BEND1_START_Z - ZONE5_Z_TOP
+
+    p_bottom     = (0.0, 0.0)
+    p_bend_start = (0.0, z_lift)
+
+    mid1, end1, tan1 = _arc_from_tangent(
+        p_bend_start, (0.0, 1.0), GN_BEND_R, GN_BEND1_SWEEP_RAD, ccw=True
+    )
+    mid_end = (end1[0] + GN_MID_STRAIGHT_LEN * tan1[0],
+               end1[1] + GN_MID_STRAIGHT_LEN * tan1[1])
+    mid2, end2, tan2 = _arc_from_tangent(
+        mid_end, tan1, GN_BEND_R, GN_BEND2_SWEEP_RAD, ccw=True
+    )
+    tip_end = (end2[0] + GN_TIP_STRAIGHT_LEN * tan2[0],
+               end2[1] + GN_TIP_STRAIGHT_LEN * tan2[1])
+
+    return (
+        cq.Workplane("XZ")
+        .moveTo(*p_bottom)
+        .lineTo(*p_bend_start)
+        .threePointArc(mid1, end1)
+        .lineTo(*mid_end)
+        .threePointArc(mid2, end2)
+        .lineTo(*tip_end)
+    )
+
+
+def _zone6_outer_sketch() -> cq.Sketch:
+    """Zone 5's outer cross-section centered on the water tube.
+
+    Single connected region: water circle + flavor pill (offset +X) +
+    fill rectangle between them. The mode='a' flag unions each shape
+    into the running sketch so the sweep sees one face.
+
+    NOTE: cq.Sketch.slot(w, h) takes w as the *straight section* length
+    (between the rounded ends), not the overall length — opposite of
+    Workplane.slot2D's convention. Total length along the long axis is
+    w + h, so w_straight = total - h.
+    """
+    flavor_offset_x = FLAVOR_TUBE_POST_BEND_X - WATER_TUBE_X
+    water_r_outer = WATER_HOLE_DIAMETER / 2.0 + ZONE6_WALL
+    pill_long_total  = PILL_LENGTH_Y + 2.0 * ZONE6_WALL          # 12.775
+    pill_short_total = PILL_WIDTH_X  + 2.0 * ZONE6_WALL          #  9.6
+    pill_straight    = pill_long_total - pill_short_total        #  3.175
+    return (
+        cq.Sketch()
+        .circle(water_r_outer)
+        .push([(flavor_offset_x, 0)])
+        .slot(pill_straight, pill_short_total, angle=90, mode="a")
+        .reset()
+        .push([(flavor_offset_x / 2.0, 0)])
+        .rect(flavor_offset_x, 2.0 * water_r_outer, mode="a")
+        .clean()
+    )
+
+
+def _zone6_inner_sketch() -> cq.Sketch:
+    """Zone 5's inner-cut cross-section centered on the water tube.
+
+    See _zone6_outer_sketch's note about cq.Sketch.slot conventions.
+    """
+    flavor_offset_x = FLAVOR_TUBE_POST_BEND_X - WATER_TUBE_X
+    pill_straight = PILL_LENGTH_Y - PILL_WIDTH_X                 # 3.175
+    return (
+        cq.Sketch()
+        .circle(WATER_HOLE_DIAMETER / 2.0)
+        .push([(flavor_offset_x, 0)])
+        .slot(pill_straight, PILL_WIDTH_X, angle=90, mode="a")
+        .clean()
+    )
+
+
+def build_zone6_outer() -> cq.Workplane:
+    """Sweep the outer cross-section along the gooseneck path, then
+    place at (WATER_TUBE_X, 0, ZONE5_Z_TOP).
+    """
+    profile = cq.Workplane("XY").placeSketch(_zone6_outer_sketch())
+    swept = profile.sweep(_gooseneck_path_at_origin(), transition="right")
+    return swept.translate((WATER_TUBE_X, 0, ZONE5_Z_TOP))
+
+
+def build_zone6_inner_cut() -> cq.Workplane:
+    """Inner cut for zone 6 — same path, inner cross-section."""
+    profile = cq.Workplane("XY").placeSketch(_zone6_inner_sketch())
+    swept = profile.sweep(_gooseneck_path_at_origin(), transition="right")
+    return swept.translate((WATER_TUBE_X, 0, ZONE5_Z_TOP))
+
+
 def build_lever_clearance() -> cq.Workplane:
     """Single triangular ramp wedge cut into the top of the rect column.
 
@@ -869,6 +1026,7 @@ def build_shell() -> cq.Workplane:
         .union(build_zone3_fill_outer())
         .union(build_zone4_outer())
         .union(build_zone5_outer())
+        .union(build_zone6_outer())
     )
     inner = (
         build_zone1_inner_cut()
@@ -877,6 +1035,7 @@ def build_shell() -> cq.Workplane:
         .union(build_zone3_fill_inner_cut())
         .union(build_zone4_inner_cut())
         .union(build_zone5_inner_cut())
+        .union(build_zone6_inner_cut())
         .union(build_lever_clearance())
     )
     return outer.cut(inner)
