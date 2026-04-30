@@ -308,23 +308,19 @@ ZONE5_WALL     = WALL_THICKNESS_MIN                                 # 3.0
 #
 # The wing/fill arch no longer mirrors the body's symmetric arch.
 # Instead it goes from (-ARCH_X_HALF, SHELL_ARCH_FOOT_TOP_Z) up to
-# (FILL_X_MIN, ARCH_HIGH_Z), tangent-horizontal at the high end so the
-# arch curve is smooth. ARCH_HIGH_Z is fixed at 52 (the *original*
-# zone 4 top), independent of the current ZONE4_Z_TOP — this keeps
-# the arch curve's shape locked even when zone 4 grew taller to clear
-# the lever's pressed envelope. Above ARCH_HIGH_Z, the wing/fill
-# extend straight up via a vertical wall at X=FILL_X_MIN.
+# (FILL_X_MIN, ZONE4_Z_TOP), tangent-horizontal at the high end so it
+# meets zone 4's flat top surface without a kink. For X > FILL_X_MIN
+# the wing/fill top is flat at ZONE4_Z_TOP, matching zone 4.
 #
 # Geometry: circular arc whose center is directly below the high end
 # (FILL_X_MIN, c_z) so the tangent there is horizontal. Solving
 # distance(center, low_end) == distance(center, high_end) gives c_z.
-ARCH_HIGH_Z      = 52.0                                              # arch's high-end Z
 _NEW_ARCH_DX     = FILL_X_MIN + ARCH_X_HALF                          # 26.21
 _NEW_ARCH_C_Z    = (
-    (ARCH_HIGH_Z + SHELL_ARCH_FOOT_TOP_Z) / 2.0
-    - _NEW_ARCH_DX**2 / (2.0 * (ARCH_HIGH_Z - SHELL_ARCH_FOOT_TOP_Z))
+    (ZONE4_Z_TOP + SHELL_ARCH_FOOT_TOP_Z) / 2.0
+    - _NEW_ARCH_DX**2 / (2.0 * (ZONE4_Z_TOP - SHELL_ARCH_FOOT_TOP_Z))
 )                                                                    # ≈ 3.805
-_NEW_ARCH_R      = ARCH_HIGH_Z - _NEW_ARCH_C_Z                       # ≈ 48.195
+_NEW_ARCH_R      = ZONE4_Z_TOP - _NEW_ARCH_C_Z                       # ≈ 48.195
 # Midpoint of the arc — angular midway between high end (90° from
 # center, directly above) and low end.
 _NEW_ARCH_A_LOW  = math.atan2(SHELL_ARCH_FOOT_TOP_Z - _NEW_ARCH_C_Z,
@@ -557,7 +553,6 @@ def build_zone3_outer() -> cq.Workplane:
         # Profile (in XZ plane), traversed CCW:
         #   bottom-left → bottom-right → up to ZONE4_Z_TOP at +X
         #   → left along top to FILL_X_MIN at ZONE4_Z_TOP
-        #   → vertical down to (FILL_X_MIN, ARCH_HIGH_Z)
         #   → reshaped arch down to (-ARCH_X_HALF, SHELL_ARCH_FOOT_TOP_Z)
         #   → left along foot top to bottom-left
         return (
@@ -567,7 +562,6 @@ def build_zone3_outer() -> cq.Workplane:
             .lineTo(rect_x_max, ZONE3_Z_BOTTOM)
             .lineTo(rect_x_max, ZONE4_Z_TOP)
             .lineTo(FILL_X_MIN, ZONE4_Z_TOP)
-            .lineTo(FILL_X_MIN, ARCH_HIGH_Z)
             .threePointArc((NEW_ARCH_MID_X, NEW_ARCH_MID_Z),
                            (-ARCH_X_HALF, SHELL_ARCH_FOOT_TOP_Z))
             .lineTo(rect_x_min, SHELL_ARCH_FOOT_TOP_Z)
@@ -636,7 +630,6 @@ def build_zone3_fill_outer() -> cq.Workplane:
         .lineTo(rect_x_max, ZONE3_Z_BOTTOM)
         .lineTo(rect_x_max, ZONE4_Z_TOP)
         .lineTo(FILL_X_MIN, ZONE4_Z_TOP)
-        .lineTo(FILL_X_MIN, ARCH_HIGH_Z)
         .threePointArc((NEW_ARCH_MID_X, NEW_ARCH_MID_Z),
                        (-ARCH_X_HALF, SHELL_ARCH_FOOT_TOP_Z))
         .lineTo(rect_x_min, SHELL_ARCH_FOOT_TOP_Z)
