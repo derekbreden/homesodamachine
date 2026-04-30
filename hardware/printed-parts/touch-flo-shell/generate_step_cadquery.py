@@ -278,6 +278,25 @@ ZONE4_WALL     = WALL_THICKNESS_MIN                                 # 3.0
 
 
 # ═══════════════════════════════════════════════════════
+# ZONE 5 — tube wrapper above the lever
+# ═══════════════════════════════════════════════════════
+#
+# Above zone 4 (which ends at Z=ZONE4_Z_TOP=52 — high enough to clear
+# the lever's swing envelope), the shell wraps just the tubes with a
+# 3 mm wall. Cross-section is the union of:
+#   - water cylinder bore + 3 mm wall
+#   - flavor pill bore + 3 mm wall
+# straight-extruded vertically. This zone "violates" FILL_X_MIN —
+# the wrapper around the water tube (centered at X=8.875) extends
+# in -X past FILL_X_MIN, but that's safe because we're now above
+# the lever's reach.
+ZONE5_Z_BOTTOM = ZONE4_Z_TOP                                        # 52
+ZONE5_Z_TOP    = ZONE4_Z_TOP + 10.0                                 # 62 (provisional)
+ZONE5_HEIGHT   = ZONE5_Z_TOP - ZONE5_Z_BOTTOM                       # 10
+ZONE5_WALL     = WALL_THICKNESS_MIN                                 # 3.0
+
+
+# ═══════════════════════════════════════════════════════
 # ZONE 3 OUTER ARCH — reshaped to mate with zone 4
 # ═══════════════════════════════════════════════════════
 #
@@ -742,6 +761,51 @@ def build_zone4_inner_cut() -> cq.Workplane:
     return water_inner.union(flavor_inner)
 
 
+def build_zone5_outer() -> cq.Workplane:
+    """Tube wrapper above the lever — 3 mm wall around water + flavor.
+
+    Straight extrusion of (water cylinder ∪ flavor pill) inflated by
+    ZONE5_WALL on every side. No X clipping; the wrapper extends in
+    -X past FILL_X_MIN around the water tube (which is centered at
+    X=WATER_TUBE_X=8.875).
+    """
+    water_outer = (
+        cq.Workplane("XY")
+        .workplane(offset=ZONE5_Z_BOTTOM)
+        .moveTo(WATER_TUBE_X, 0)
+        .circle(WATER_HOLE_DIAMETER / 2.0 + ZONE5_WALL)
+        .extrude(ZONE5_HEIGHT)
+    )
+    flavor_outer = (
+        cq.Workplane("XY")
+        .workplane(offset=ZONE5_Z_BOTTOM)
+        .moveTo(FLAVOR_TUBE_POST_BEND_X, 0)
+        .slot2D(PILL_LENGTH_Y + 2.0 * ZONE5_WALL,
+                PILL_WIDTH_X + 2.0 * ZONE5_WALL, angle=90)
+        .extrude(ZONE5_HEIGHT)
+    )
+    return water_outer.union(flavor_outer)
+
+
+def build_zone5_inner_cut() -> cq.Workplane:
+    """Tube cavity for zone 5 — water cylinder ∪ flavor pill, straight."""
+    water_inner = (
+        cq.Workplane("XY")
+        .workplane(offset=ZONE5_Z_BOTTOM)
+        .moveTo(WATER_TUBE_X, 0)
+        .circle(WATER_HOLE_DIAMETER / 2.0)
+        .extrude(ZONE5_HEIGHT)
+    )
+    flavor_inner = (
+        cq.Workplane("XY")
+        .workplane(offset=ZONE5_Z_BOTTOM)
+        .moveTo(FLAVOR_TUBE_POST_BEND_X, 0)
+        .slot2D(PILL_LENGTH_Y, PILL_WIDTH_X, angle=90)
+        .extrude(ZONE5_HEIGHT)
+    )
+    return water_inner.union(flavor_inner)
+
+
 def build_lever_clearance() -> cq.Workplane:
     """Single triangular ramp wedge cut into the top of the rect column.
 
@@ -779,6 +843,7 @@ def build_shell() -> cq.Workplane:
         .union(build_zone3_outer())
         .union(build_zone3_fill_outer())
         .union(build_zone4_outer())
+        .union(build_zone5_outer())
     )
     inner = (
         build_zone1_inner_cut()
@@ -786,6 +851,7 @@ def build_shell() -> cq.Workplane:
         .union(build_zone3_inner_cut())
         .union(build_zone3_fill_inner_cut())
         .union(build_zone4_inner_cut())
+        .union(build_zone5_inner_cut())
         .union(build_lever_clearance())
     )
     return outer.cut(inner)
