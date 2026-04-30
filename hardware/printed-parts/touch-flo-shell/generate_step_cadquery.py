@@ -272,8 +272,14 @@ FILL_X_MIN = 10.46                                                  # back third
 #     zones 1+2 (PILL_LENGTH_Y × PILL_WIDTH_X at FLAVOR_TUBE_POST_BEND_X).
 #     Linear loft draws the cavity in toward the water tube as Z rises.
 ZONE4_Z_BOTTOM = SHELL_ARCH_FOOT_TOP_Z                              # 44.25
-ZONE4_Z_TOP    = 52.0                                               # ~1.7 mm past S-bend end (50.31)
-ZONE4_HEIGHT   = ZONE4_Z_TOP - ZONE4_Z_BOTTOM                       # 7.75
+# Zone 4 top must clear the lever's pressed-down envelope. The lever's
+# head corner at original (X=9, Z=52) rotates -18° around pivot
+# (1.5, 46) to (6.78, 54.024). That point sits inside zone 5's water-
+# circle outer outline (centered at X=8.875, R=6.425), so zone 5's
+# bottom — and therefore zone 4's top — must be above it. 55 mm gives
+# ~1 mm clearance above 54.024.
+ZONE4_Z_TOP    = 55.0
+ZONE4_HEIGHT   = ZONE4_Z_TOP - ZONE4_Z_BOTTOM                       # 10.75
 ZONE4_WALL     = WALL_THICKNESS_MIN                                 # 3.0
 
 
