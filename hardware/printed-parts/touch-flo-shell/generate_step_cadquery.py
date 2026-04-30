@@ -378,14 +378,21 @@ NEW_ARCH_MID_Z   = _NEW_ARCH_C_Z + _NEW_ARCH_R * math.sin(_NEW_ARCH_A_MID)      
 # ═══════════════════════════════════════════════════════
 #
 # A tall block capping the lever swing volume from above and reaching
-# all the way up to the gooseneck bend start (Z=GN_BEND1_START_Z ≈
-# 78.78). Begins at LEVER_RIDGE_X — the X where the pressed lever's
-# tilted top crosses the rest lever's flat top at Z=LEVER_REST_TOP_Z
-# (the visible "ridge" line of the swing envelope). Bottom face =
-# arch curve from (LEVER_RIDGE_X, arch_z) up to (FILL_X_MIN,
-# ZONE4_Z_TOP), then flat at ZONE4_Z_TOP out to the +X cylinder back.
-# Top face = flat at ZONE45_Z_TOP. -X face = vertical wall at
-# LEVER_RIDGE_X.
+# up to the gooseneck bend start (Z=GN_BEND1_START_Z ≈ 78.78). The -X
+# edge sits at ZONE45_FRONT_X — chosen so the front margin (zone 4.5
+# front X to zone 5's water-circle -X edge) matches the back margin
+# (zone 4.5 back X to zone 5's flavor-pill +X edge), giving zone 5
+# visually centered when looking down the X axis. This pulls the
+# front past the lever's "ridge" line LEVER_RIDGE_X (the X where the
+# pressed lever's tilted top crosses the rest lever's flat top at
+# Z=LEVER_REST_TOP_Z), but the lid's bottom on the arch curve still
+# clears the lever's swing envelope by ~0.9 mm there.
+#
+# Bottom face = arch curve from (ZONE45_FRONT_X, arch_z) up to
+# (FILL_X_MIN, ZONE4_Z_TOP), then flat at ZONE4_Z_TOP out to the +X
+# cylinder back. Top face = flat at ZONE45_Z_TOP. Both -X and +X
+# edges curve inward at large |Y| via mirrored cylinder clips of
+# radius SHELL_OUTER_R.
 #
 # Lever swing geometry mirrors the assembly's build_lever — pivot
 # parallel to Y at (LEVER_PIVOT_X, *, LEVER_PIVOT_Z), pressed-down
@@ -402,25 +409,38 @@ _LEVER_DZ_PIVOT      = LEVER_REST_TOP_Z - LEVER_PIVOT_Z   # 6
 #   ⇒  (X0-X_pivot) = dz_pivot·(1-cos θ)/sin θ
 # X'(X0) = X_pivot + (X0-X_pivot)·cos θ - dz_pivot·sin θ
 #   ⇒  X' = X_pivot - dz_pivot·(1-cos θ)/sin θ = X_pivot - dz_pivot·tan(θ/2)
+# Informational — the visible "ridge" of the lever swing envelope.
+# Not directly used in the build (ZONE45_FRONT_X overrides it).
 LEVER_RIDGE_X = (
     LEVER_PIVOT_X
     - _LEVER_DZ_PIVOT * math.tan(LEVER_PRESSED_ANGLE / 2.0)
 )                                                  # ≈ 0.55
 
-ZONE45_Z_TOP                = GN_BEND1_START_Z     # ≈ 78.78 — flat top at gooseneck bend start
-ZONE45_BOT_Z_AT_LEVER_RIDGE = (
-    _NEW_ARCH_C_Z
-    + math.sqrt(_NEW_ARCH_R ** 2 - (LEVER_RIDGE_X - FILL_X_MIN) ** 2)
-)                                                  # ≈ 53.55
+# Zone 5's X extents at Y=0, used to derive zone 4.5's matched-margin
+# front X. Mirrors the cross-section in build_zone5_outer.
+_Z5_WATER_R_OUTER = WATER_HOLE_DIAMETER / 2.0 + ZONE5_WALL           # 6.425
+_Z5_FLAVOR_X_HALF = (PILL_WIDTH_X + 2.0 * ZONE5_WALL) / 2.0          # 4.8
+_Z5_X_MIN         = WATER_TUBE_X - _Z5_WATER_R_OUTER                 # 2.45
+_Z5_X_MAX         = FLAVOR_TUBE_POST_BEND_X + _Z5_FLAVOR_X_HALF      # 18.165
 
-# Mid-point of the bottom arch sub-arc, at the angular bisector between
-# the LEVER_RIDGE_X end and the FILL_X_MIN end.
-_a_lever = math.atan2(
-    ZONE45_BOT_Z_AT_LEVER_RIDGE - _NEW_ARCH_C_Z,
-    LEVER_RIDGE_X - FILL_X_MIN,
+ZONE45_BACK_X      = SHELL_CENTER_X + SHELL_OUTER_R                  # 22.175
+_ZONE45_X_MARGIN   = ZONE45_BACK_X - _Z5_X_MAX                       # 4.01
+ZONE45_FRONT_X     = _Z5_X_MIN - _ZONE45_X_MARGIN                    # ≈ -1.56
+
+ZONE45_Z_TOP                = GN_BEND1_START_Z     # ≈ 78.78 — flat top at gooseneck bend start
+ZONE45_BOT_Z_AT_FRONT       = (
+    _NEW_ARCH_C_Z
+    + math.sqrt(_NEW_ARCH_R ** 2 - (ZONE45_FRONT_X - FILL_X_MIN) ** 2)
+)                                                  # ≈ 52.87
+
+# Mid-point of the bottom arch sub-arc, between ZONE45_FRONT_X end
+# and FILL_X_MIN end.
+_a_front = math.atan2(
+    ZONE45_BOT_Z_AT_FRONT - _NEW_ARCH_C_Z,
+    ZONE45_FRONT_X - FILL_X_MIN,
 )
 _a_high  = math.pi / 2.0       # FILL_X_MIN end is directly above arch center
-_a_mid45 = (_a_lever + _a_high) / 2.0
+_a_mid45 = (_a_front + _a_high) / 2.0
 ZONE45_BOT_MID_X = FILL_X_MIN + _NEW_ARCH_R * math.cos(_a_mid45)
 ZONE45_BOT_MID_Z = _NEW_ARCH_C_Z + _NEW_ARCH_R * math.sin(_a_mid45)
 
@@ -982,16 +1002,16 @@ def build_zone45_outer() -> cq.Workplane:
     XZ profile (CCW), extruded across full Y range, then clipped by
     two cylinders (back + front, mirrored across the block's X
     midpoint) so the +X and -X edges have matching rounded curves:
-      start at (LEVER_RIDGE_X, ZONE45_BOT_Z_AT_LEVER_RIDGE)
+      start at (ZONE45_FRONT_X, ZONE45_BOT_Z_AT_FRONT)
       → arch up to (FILL_X_MIN, ZONE4_Z_TOP)
       → flat to (rect_x_max, ZONE4_Z_TOP)
       → vertical up to (rect_x_max, ZONE45_Z_TOP)
-      → flat back to (LEVER_RIDGE_X, ZONE45_Z_TOP)
+      → flat back to (ZONE45_FRONT_X, ZONE45_Z_TOP)
       → close (vertical down to start)
 
     Back clip: SHELL_OUTER_R cylinder centered at SHELL_CENTER_X — the
     same cylinder zones 1-4 use (curves the +X corner inward at large |Y|).
-    Front clip: SHELL_OUTER_R cylinder centered at LEVER_RIDGE_X +
+    Front clip: SHELL_OUTER_R cylinder centered at ZONE45_FRONT_X +
     SHELL_OUTER_R, mirroring the back clip across the block's X
     midpoint. At Y=0 both clips are tangent to the block's -X / +X
     edges; at |Y| = SHELL_RECT_Y_HALF both edges curve inward by the
@@ -1003,19 +1023,19 @@ def build_zone45_outer() -> cq.Workplane:
     profile_solid = (
         cq.Workplane("XZ")
         .workplane(offset=-y_half)
-        .moveTo(LEVER_RIDGE_X, ZONE45_BOT_Z_AT_LEVER_RIDGE)
+        .moveTo(ZONE45_FRONT_X, ZONE45_BOT_Z_AT_FRONT)
         .threePointArc(
             (ZONE45_BOT_MID_X, ZONE45_BOT_MID_Z),
             (FILL_X_MIN, ZONE4_Z_TOP),
         )
         .lineTo(rect_x_max, ZONE4_Z_TOP)
         .lineTo(rect_x_max, ZONE45_Z_TOP)
-        .lineTo(LEVER_RIDGE_X, ZONE45_Z_TOP)
+        .lineTo(ZONE45_FRONT_X, ZONE45_Z_TOP)
         .close()
         .extrude(2.0 * y_half)
     )
 
-    z_min = ZONE45_BOT_Z_AT_LEVER_RIDGE
+    z_min = ZONE45_BOT_Z_AT_FRONT
     z_max = ZONE45_Z_TOP
     clip_height = (z_max - z_min) + 1.0
 
@@ -1029,7 +1049,7 @@ def build_zone45_outer() -> cq.Workplane:
     front_clip_cyl = (
         cq.Workplane("XY")
         .workplane(offset=z_min - 0.5)
-        .moveTo(LEVER_RIDGE_X + SHELL_OUTER_R, SHELL_CENTER_Y)
+        .moveTo(ZONE45_FRONT_X + SHELL_OUTER_R, SHELL_CENTER_Y)
         .circle(SHELL_OUTER_R)
         .extrude(clip_height)
     )
