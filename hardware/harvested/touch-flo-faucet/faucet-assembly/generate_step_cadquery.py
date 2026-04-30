@@ -172,7 +172,7 @@ PRE_BEND_Z    = PLATEAU_Z + PRE_BEND_RISE                # 42.0 mm
 # bend 1 sits R·sin(15°) ≈ 8.22 mm below that. Forward direction is -X
 # (lever / user side).
 LEVER_TOP_Z         = PLATEAU_Z + 13.0                   # 52.0 mm
-GN_BEND_R           = 31.75                              # 1.25" CLR
+GN_BEND_R           = 31.75                              # 1.25" CLR (water tube)
 GN_BEND1_SWEEP_RAD  = math.radians(30.0)
 GN_BEND2_SWEEP_RAD  = math.radians(90.0)
 GN_BEND1_MID_Z      = LEVER_TOP_Z + 35.0                 # 87.0
@@ -182,6 +182,20 @@ GN_BEND1_START_Z    = (
 )                                                        # ≈ 78.78
 GN_MID_STRAIGHT_LEN = 100.0
 GN_TIP_STRAIGHT_LEN = 15.0
+
+# Flavor tube bend radius through the gooseneck.
+# The flavor tubes sit at +X of the water tube (X-offset in their
+# local frame = FLAVOR_TUBE_X_FINAL - PORT_CENTER_X). The gooseneck
+# bends toward -X, so flavor tubes are on the OUTSIDE of every bend
+# and must trace parallel-offset arcs sharing each bend's center of
+# curvature with water — i.e. at the *larger* radius
+# R_water + offset_X. Otherwise the tubes ride into each other
+# through the bend (the perpendicular component of the centerline
+# separation shrinks below R_water + R_flavor).
+GN_FLAVOR_BEND_R    = (
+    GN_BEND_R
+    + (FLAVOR_TUBE_X_FINAL - PORT_CENTER_X)
+)                                                        # ≈ 36.24
 
 
 # ═══════════════════════════════════════════════════════
@@ -344,14 +358,16 @@ def _build_flavor_tube_at_origin() -> cq.Workplane:
     # Vertical to the gooseneck start, X unchanged.
     p_gn_start = (end_s2[0], gn_bend_start_local)
 
-    # Gooseneck.
+    # Gooseneck — uses GN_FLAVOR_BEND_R (larger than water's GN_BEND_R)
+    # so the flavor tube traces a parallel-offset arc on the outside
+    # of each bend, staying tangent to the water tube.
     mid1, end1, tan1 = _arc_from_tangent(
-        p_gn_start, tan_s2, GN_BEND_R, GN_BEND1_SWEEP_RAD, ccw=True
+        p_gn_start, tan_s2, GN_FLAVOR_BEND_R, GN_BEND1_SWEEP_RAD, ccw=True
     )
     mid_end = (end1[0] + GN_MID_STRAIGHT_LEN * tan1[0],
                end1[1] + GN_MID_STRAIGHT_LEN * tan1[1])
     mid2, end2, tan2 = _arc_from_tangent(
-        mid_end, tan1, GN_BEND_R, GN_BEND2_SWEEP_RAD, ccw=True
+        mid_end, tan1, GN_FLAVOR_BEND_R, GN_BEND2_SWEEP_RAD, ccw=True
     )
     tip_end = (end2[0] + GN_TIP_STRAIGHT_LEN * tan2[0],
                end2[1] + GN_TIP_STRAIGHT_LEN * tan2[1])
@@ -504,10 +520,11 @@ def main():
     print(f"                         Y = ±{FLAVOR_TUBE_Y_OFFSET:.4f} mm (constant)")
     print(f"                         S-bend: 2 × R{FLAVOR_BEND_RADIUS:.1f} mm "
           f"@ {FLAVOR_BEND_THETA_DEG:.2f}° starting at Z = {PRE_BEND_Z:.1f}")
-    print(f"  Gooseneck (all tubes): bend 1 R={GN_BEND_R} mm × 30° "
-          f"(midpoint Z={GN_BEND1_MID_Z:.1f}, start Z={GN_BEND1_START_Z:.2f})")
+    print(f"  Gooseneck:             bend 1 30°, bend 2 90°, "
+          f"midpoint Z={GN_BEND1_MID_Z:.1f}, start Z={GN_BEND1_START_Z:.2f}")
+    print(f"                         water R={GN_BEND_R:.2f} mm; "
+          f"flavor R={GN_FLAVOR_BEND_R:.2f} mm (parallel offset)")
     print(f"                         {GN_MID_STRAIGHT_LEN} mm angled straight @ 30°")
-    print(f"                         bend 2 R={GN_BEND_R} mm × 90°")
     print(f"                         {GN_TIP_STRAIGHT_LEN} mm tip "
           f"(forward + downward at 30° below horizontal)")
     print(f"  Mounting plate:        loaded from printed-parts/")
