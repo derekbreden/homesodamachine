@@ -20,13 +20,16 @@ from _cadq_export import export_step
 #
 xz_plane_y_up = cq.Plane(origin=(0, 0, 0), xDir=(1, 0, 0), normal=(0, 1, 0))
 xy_plane_z_up = cq.Plane(origin=(0, 0, 0), xDir=(1, 0, 0), normal=(0, 0, 1))
-# All structural walls and floors are 2 mm thick. The 1 mm originals
-# warped/shifted in PETG; 2 mm holds its shape on every wall it's been
-# tested on so far. The outer dimensions of every component are
-# refactored below so that wall-thickness growth is *added* to the
-# outer envelope rather than absorbed from inner buffers, foam gaps,
-# bag pocket cavities, etc.
-wall_and_floor_thickness = 2.0
+# All structural walls and floors are 1 mm thick. Earlier 1 mm prints of
+# the full-size shell deformed mid-print; we initially attributed that to
+# inadequate wall thickness and bumped to 2 mm. The 2 mm version printed
+# cleanly with the chamber-exhaust fix in place, which suggested the
+# original failures were chamber heat soak, not wall strength — so we're
+# back at 1 mm to confirm. Outer dimensions of every component are
+# refactored below so that wall-thickness growth is *added* to the outer
+# envelope rather than absorbed from inner buffers, foam gaps, bag
+# pocket cavities, etc.
+wall_and_floor_thickness = 1.0
 # Reference wall thickness used in the original 1 mm design. Outer-
 # dimension formulas use (wall_and_floor_thickness - reference_wall_thickness)
 # as a compensation term, so 1 mm walls reproduce the original geometry
