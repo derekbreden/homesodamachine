@@ -374,17 +374,18 @@ NEW_ARCH_MID_Z   = _NEW_ARCH_C_Z + _NEW_ARCH_R * math.sin(_NEW_ARCH_A_MID)      
 
 
 # ═══════════════════════════════════════════════════════
-# ZONE 4.5 — lid above the lever swing volume
+# ZONE 4.5 — block above the lever, up to the gooseneck bend start
 # ═══════════════════════════════════════════════════════
 #
-# A 3 mm flat lid sitting on top of the existing arch + zone 4 top,
-# capping the lever swing volume from above. Begins at LEVER_RIDGE_X
-# — the X where the pressed lever's tilted top crosses the rest
-# lever's flat top at Z=LEVER_REST_TOP_Z (the visible "ridge" line
-# of the swing envelope). Bottom face = arch curve from
-# (LEVER_RIDGE_X, arch_z) up to (FILL_X_MIN, ZONE4_Z_TOP), then flat
-# at ZONE4_Z_TOP out to the +X cylinder back. Top face = bottom + 3
-# in Z. -X face = vertical wall at LEVER_RIDGE_X.
+# A tall block capping the lever swing volume from above and reaching
+# all the way up to the gooseneck bend start (Z=GN_BEND1_START_Z ≈
+# 78.78). Begins at LEVER_RIDGE_X — the X where the pressed lever's
+# tilted top crosses the rest lever's flat top at Z=LEVER_REST_TOP_Z
+# (the visible "ridge" line of the swing envelope). Bottom face =
+# arch curve from (LEVER_RIDGE_X, arch_z) up to (FILL_X_MIN,
+# ZONE4_Z_TOP), then flat at ZONE4_Z_TOP out to the +X cylinder back.
+# Top face = flat at ZONE45_Z_TOP. -X face = vertical wall at
+# LEVER_RIDGE_X.
 #
 # Lever swing geometry mirrors the assembly's build_lever — pivot
 # parallel to Y at (LEVER_PIVOT_X, *, LEVER_PIVOT_Z), pressed-down
@@ -406,7 +407,7 @@ LEVER_RIDGE_X = (
     - _LEVER_DZ_PIVOT * math.tan(LEVER_PRESSED_ANGLE / 2.0)
 )                                                  # ≈ 0.55
 
-ZONE45_THICKNESS            = 3.0
+ZONE45_Z_TOP                = GN_BEND1_START_Z     # ≈ 78.78 — flat top at gooseneck bend start
 ZONE45_BOT_Z_AT_LEVER_RIDGE = (
     _NEW_ARCH_C_Z
     + math.sqrt(_NEW_ARCH_R ** 2 - (LEVER_RIDGE_X - FILL_X_MIN) ** 2)
@@ -422,8 +423,6 @@ _a_high  = math.pi / 2.0       # FILL_X_MIN end is directly above arch center
 _a_mid45 = (_a_lever + _a_high) / 2.0
 ZONE45_BOT_MID_X = FILL_X_MIN + _NEW_ARCH_R * math.cos(_a_mid45)
 ZONE45_BOT_MID_Z = _NEW_ARCH_C_Z + _NEW_ARCH_R * math.sin(_a_mid45)
-ZONE45_TOP_MID_X = ZONE45_BOT_MID_X
-ZONE45_TOP_MID_Z = ZONE45_BOT_MID_Z + ZONE45_THICKNESS
 
 
 # ═══════════════════════════════════════════════════════
@@ -977,15 +976,15 @@ def build_zone5_inner_cut() -> cq.Workplane:
 
 
 def build_zone45_outer() -> cq.Workplane:
-    """Zone 4.5 lid — 3 mm flat slab capping the lever swing volume.
+    """Zone 4.5 — tall block capping the lever swing volume, reaching
+    up to the gooseneck bend start.
 
     XZ profile (CCW), extruded across full Y range, then cylinder-clipped:
       start at (LEVER_RIDGE_X, ZONE45_BOT_Z_AT_LEVER_RIDGE)
       → arch up to (FILL_X_MIN, ZONE4_Z_TOP)
       → flat to (rect_x_max, ZONE4_Z_TOP)
-      → vertical up to (rect_x_max, ZONE4_Z_TOP + ZONE45_THICKNESS)
-      → flat back to (FILL_X_MIN, ZONE4_Z_TOP + ZONE45_THICKNESS)
-      → arch down to (LEVER_RIDGE_X, ZONE45_BOT_Z_AT_LEVER_RIDGE + ZONE45_THICKNESS)
+      → vertical up to (rect_x_max, ZONE45_Z_TOP)
+      → flat back to (LEVER_RIDGE_X, ZONE45_Z_TOP)
       → close (vertical down to start)
     """
     rect_x_max = SHELL_CENTER_X + SHELL_RECT_X_HALF        # 22.175
@@ -1000,18 +999,14 @@ def build_zone45_outer() -> cq.Workplane:
             (FILL_X_MIN, ZONE4_Z_TOP),
         )
         .lineTo(rect_x_max, ZONE4_Z_TOP)
-        .lineTo(rect_x_max, ZONE4_Z_TOP + ZONE45_THICKNESS)
-        .lineTo(FILL_X_MIN, ZONE4_Z_TOP + ZONE45_THICKNESS)
-        .threePointArc(
-            (ZONE45_TOP_MID_X, ZONE45_TOP_MID_Z),
-            (LEVER_RIDGE_X, ZONE45_BOT_Z_AT_LEVER_RIDGE + ZONE45_THICKNESS),
-        )
+        .lineTo(rect_x_max, ZONE45_Z_TOP)
+        .lineTo(LEVER_RIDGE_X, ZONE45_Z_TOP)
         .close()
         .extrude(2.0 * y_half)
     )
 
     z_min = ZONE45_BOT_Z_AT_LEVER_RIDGE
-    z_max = ZONE4_Z_TOP + ZONE45_THICKNESS
+    z_max = ZONE45_Z_TOP
     clip_cyl = (
         cq.Workplane("XY")
         .workplane(offset=z_min - 0.5)
