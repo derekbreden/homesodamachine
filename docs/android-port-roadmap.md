@@ -1,6 +1,6 @@
 # Android Port Roadmap
 
-The plan for porting the iOS companion app (SwiftUI, ~3.5K LOC) to Android with identical UX. Native Kotlin + Jetpack Compose. Two iOS polish milestones precede the Android work so the labels and haptics get designed once and ported across.
+The plan for porting the iOS companion app (SwiftUI, ~3.5K LOC) to Android with identical UX. Native Kotlin + Jetpack Compose. Three iOS polish milestones precede the Android work so the theme, accessibility labels, and haptic moments are settled in one place before being mirrored on Android.
 
 ## Why Compose
 
@@ -18,7 +18,7 @@ Compose is a near-1:1 mental model of SwiftUI. The mappings that matter for this
 | `UserDefaults` | `DataStore` |
 | CoreBluetooth | Nordic's `Android-BLE-Library` |
 
-The line-for-line ports: `Theme.swift`, `GlassAnimationView.swift`, `ImageProcessor.swift`, the binary frame parser inside `BLEManager.swift`. The piece needing real translation: `StatsSheet`'s charts (Compose has no first-party Swift Charts equivalent — Vico or hand-rolled `Canvas` bars).
+The line-for-line ports: `Theme.swift`, `GlassAnimationView.swift`, `ImageProcessor.swift`, the binary frame parser inside `BLEManager.swift`. The piece needing real translation: `StatsSheet`. Compose has no first-party Swift Charts equivalent — three bar charts can use Vico or hand-rolled `Canvas` bars, but the pie chart (`SectorMark` with inner radius for the 30-day flavor split) and the serving-size selector (three glass icons drawn with the SVG glass path at 12oz / 16oz / 20oz heights) are hand-rolled regardless.
 
 Alternatives rejected:
 
@@ -27,41 +27,54 @@ Alternatives rejected:
 - **KMP** — valid but doubles build complexity for a 3.5K-LOC codebase that already exists in Swift. KMP wins for parallel new development of two apps from scratch, not this situation.
 - **Native Java** — outdated; Kotlin is the standard.
 
-## Milestone 0a — iOS Accessibility
+## Milestone -1 — iOS Theme consolidation *(landed)*
 
-Seven specific additions, not "labels everywhere."
+Pull `primeBlue`, `chartPink`, `chartPurple` (file-scoped private constants in `ConfigView.swift`) and the three liquid-gradient stops (RGB literals inline in `GlassAnimationView`'s draw code) into `Theme.swift`. One source of truth on iOS, mirrors the structure the Android port will use. Pure refactor, no behavior change.
 
-1. **Glass animation is decorative** — wrap every use of `GlassAnimationView` with `.accessibilityHidden(true)`. The loading state is conveyed by the status text below; making VoiceOver announce "image" twice (onboarding + scanning) is noise. See `ios/SodaMachine/SodaMachine/Views/ScanView.swift:51` and `:108`.
-2. **Status text is a live region** — the `Text(...)` in `ScanView` showing "Searching for hardware…" / "Connecting…" (`ScanView.swift:140-168`) gets `.accessibilityAddTraits(.updatesFrequently)`. Without this, VoiceOver users hear scan-start once and never the connection landing.
-3. **Hold-to-Prime hint** — VoiceOver users can't easily long-press. The button at `ConfigView.swift:486` gets:
+## Milestone 0a — iOS Accessibility *(landed)*
+
+Six additions. No accessibility-only branches — the same UI works for sighted and VoiceOver users.
+
+1. **Glass animation is decorative** — `.accessibilityHidden(true)` on every use of `GlassAnimationView`. Loading state is conveyed by the status text below; announcing "image" twice (onboarding + scanning) is noise. Sites: `ScanView.swift` onboarding + animatedSearchView.
+2. **Status text is a live region** — `.accessibilityAddTraits(.updatesFrequently)` on each branch of `statusContent` so VoiceOver re-polls when connection state changes. Drop the 3-second `searchTextIndex` rotation between two near-identical messages — the animation already conveys the "still working" signal that the rotation was added to provide, and rotating text adds noise without information for everyone.
+3. **Hold-to-Prime label + hint + button trait** — the Text-with-DragGesture at `ConfigView.swift` PrimeSheet gets:
    ```swift
-   .accessibilityLabel("Prime flavor \(flavor)")
+   .accessibilityLabel(ble.primeActive ? "Priming flavor \(flavor)" : "Prime flavor \(flavor)")
    .accessibilityHint("Touch and hold to dispense priming fluid; release to stop.")
+   .accessibilityAddTraits(.isButton)
    ```
-   The hint is the only place to communicate the unusual interaction model.
-4. **Image carousel cells use the actual flavor name** — `.accessibilityLabel(imageNames[slot])` instead of generic "image, button". The data is already in `ble.imageNames`.
-5. **Carousel pages are named** — the 5-page `TabView` (`ConfigView.swift:1313`) gets `.accessibilityLabel("Page \(currentPage + 1) of 5: \(pageName)")` per page, names: "Flavor 1 image", "Flavor 1 ratio", "Flavor 2 image", "Flavor 2 ratio", "Settings".
-6. **Ratio wheel reads as ratio, not number** — `.accessibilityValue("1 to \(ratio)")` on the picker (`ConfigView.swift:254-295`). Reading "20" without context is wrong.
-7. **Chart bars get a value description** — Swift Charts in `StatsSheet` get per-bar `.accessibilityValue("\(flavor1Oz) ounces flavor 1, \(flavor2Oz) ounces flavor 2")`. Default chart accessibility reads raw numbers without units.
+   The hint communicates the unusual interaction model. VoiceOver double-tap won't trigger priming (hold-only is a safety mechanism for a real machine pumping fluid); a custom `accessibilityAction` for VO-friendly priming is a deliberate non-goal here.
+4. **Carousel pages 0–3 are a single VO button each** — outer container gets `.accessibilityElement(children: .combine)` + `"Page \(i + 1) of \(pageCount): \(pageLabels[i])"` label + `.isButton` trait + a hint to double-tap to change image/ratio. The existing `.onTapGesture` fires on VO double-tap. Page 4 (Settings) keeps its inner buttons individually navigable. Refactored the inline `ForEach` into a private `carouselPage(for:)` to hold the per-page conditional accessibility shape cleanly.
+5. **Ratio wheel reads as ratio, not number** — `.accessibilityLabel("1 to \(value)")` on each row in the picker `ForEach`, plus `.accessibilityLabel(flavorLabel)` on the picker so the wheel announces "Flavor 1 Ratio" as context.
+6. **Chart bars get a per-position value description** — each `BarMark` pair in `Chart24HView` / `Chart30DView` / `ChartHODView` is wrapped in a `Plot { ... }` with combined accessibility:
+   ```swift
+   .accessibilityLabel(hourLabel(...))
+   .accessibilityValue("0.5 servings of Flavor 1, 0.25 of Flavor 2")
+   ```
+   Units are *servings* (output of `toServings()` driven by the 12/16/20oz selector), not ounces. Pie chart is `.accessibilityHidden(true)` since the data is in the legend; legend images get `"Flavor N: P percent"` labels via `.accessibilityElement(children: .ignore)`.
 
 Explicitly **not** doing: localizing strings, custom rotor actions, custom VoiceOver layouts, per-bubble labels, dynamic-type sizing of the glass canvas. Overshoot.
 
-## Milestone 0b — iOS Haptics
+Explicitly **dropped**: per-image accessibility labels in the picker. The existing `imageNames` are storage IDs (`diet_wild_cherry_pepsi`, `image_3`), not display names; users aren't required to label their uploads, so no real source exists. The page-level naming above is enough orientation.
 
-Earned moments only — two definite, one rejected.
+## Milestone 0b — iOS Haptics *(landed)*
 
-1. **Hold-to-Prime activation** — at `ConfigView.swift:495-506`, in the `DragGesture.onChanged` handler, fire heavy impact exactly once when `primeActive` first becomes true:
-   ```swift
-   UIImpactFeedbackGenerator(style: .heavy).impactOccurred()
-   ```
-   Heavy because the user is initiating a physical machine action. **Don't** haptic on release — the absence of dispensing *is* the feedback.
-2. **Connection lands** — when `connectionState` transitions to `.connected`, fire success once. This is the "found it" moment. Best site: `BLEManager.swift:1443-1446` so it fires regardless of which view is mounted:
-   ```swift
-   UINotificationFeedbackGenerator().notificationOccurred(.success)
-   ```
-3. **Factory reset** — considered, rejected. The visual confirmation already feels weighty; haptic-celebrating a destructive action is style noise.
+One earned moment.
 
-Explicitly **not** doing: tap haptics on regular buttons, swipe haptics on the carousel, increment haptics on the ratio wheel. iOS pickers already self-haptic; everything else would be noise on a small surface.
+**Hold-to-Prime activation** — in the `DragGesture.onChanged` handler, fire medium impact exactly once at the start of priming:
+```swift
+UIImpactFeedbackGenerator(style: .medium).impactOccurred()
+```
+
+The HIG documents Impact-Medium for "medium-sized or medium-weight UI objects" — a conservative read for "real machine engages." Heavy is a stretch as a metaphor for this control; medium is the honest choice. Don't haptic on release — the absence of dispensing *is* the feedback.
+
+**Explicitly rejected:**
+
+- **Connection lands** — the user opens the app and may set the phone down; the BLE connect happens automatically without their direct involvement. The HIG's Notification-Success documents "task or action that has completed" (Apple's examples: depositing a check, unlocking a vehicle — both user-initiated and user-awaited). Firing a success haptic for a background-completed connect is exactly the "using a pattern to mean something else" the HIG warns against, and contributes to the "overuse" pattern the HIG also warns against. So no haptic on connect.
+- **Factory reset** — visual confirmation already feels weighty; haptic-celebrating a destructive action is style noise.
+- **Tap haptics on regular buttons, swipe haptics on the carousel, increment haptics on the ratio wheel.** iOS pickers self-haptic; everything else would be noise on a small surface.
+
+User opt-out is free — `UIImpactFeedbackGenerator` respects the iOS system-level toggle (Settings → Sounds & Haptics → System Haptics).
 
 ## Milestone 1 — Android phase 1: splash + glass-animation handoff
 
@@ -213,7 +226,65 @@ fun SodaMachineTheme(content: @Composable () -> Unit) {
 
 ### `GlassAnimation.kt` — the phase-1 deliverable
 
-Line-for-line port of `ios/SodaMachine/SodaMachine/Views/GlassAnimationView.swift`. The skeleton showing the structure (the inner `drawGlassBody` / `drawLiquid` / `drawBubbles` are where the polish lives):
+Line-for-line port of `ios/SodaMachine/SodaMachine/Views/GlassAnimationView.swift`. The actual file is more involved than a "draw a glass with a sine wave" sketch — six distinct draw passes, one of which is a clipped layer, plus a wave generated by shifting Bezier control points (not by Y-offsetting a sampled curve) and bubbles with grow/shrink phases. The Kotlin port preserves all of that.
+
+**Coordinate system.** All coordinates are in the source SVG's 1024×1024 space, scaled at render time by `s = min(width, height) / 1024f`. Don't normalize to 0..1 fractions — the constants below (bubble cx, liquid baseline, glass path nodes) are read directly off the SVG, and inheriting that space lets the Android and iOS sides cite the same numbers when iterating on shape.
+
+**Six draw passes**, in order. Each maps to a contiguous block in `GlassAnimationView.draw`:
+
+1. Glass body fill — `Color.White.copy(alpha = 0.06f)` over the closed glass path.
+2. **Clipped layer** containing the liquid + surface highlight wave + bubbles, clipped to the glass path. In Compose: `clipPath(glassPath) { ... }` inside the `DrawScope`. Skipping this clip lets the bubbles and liquid spill outside the glass walls.
+3. Glass body stroke — opacity 0.25, width `4*s`.
+4. Glass rim highlight — opacity 0.35, width `5*s`, round caps, top edge only.
+5. Glass left-edge highlight — opacity 0.10, width `8*s`, round caps.
+6. Glass surface gradient overlay — top-down white linear gradient (alpha 0.15 → 0) over the closed glass path.
+
+**Liquid wave.** A two-`addQuadCurve` Bezier path traces the wavy top edge. The wave is achieved by shifting the path's *control points* by `waveShift = sin(t * 2π) * 9` (in 1024-space units). Don't sample a sine into Y-offsets — the curve is a Bezier whose control point Y values move. The "surface highlight wave" in pass 2 is a separate 4-curve closed shape (the meniscus highlight) drawn on top of the liquid with `Color.White.copy(alpha = 0.12f)`.
+
+**Bubble model.** Four bubbles, in 1024-space coords:
+
+```kotlin
+private data class Bubble(
+    val cx: Float,            // 1024-space x
+    val r: Float,             // 1024-space radius
+    val phase: Float,         // 0..1 — offset into the cycle
+    val strokeOpacity: Float,
+    val strokeWidth: Float,   // 1024-space; multiply by s at render
+)
+private val bubbles = listOf(
+    Bubble(cx = 440f, r = 42f, phase = 0.00f, strokeOpacity = 0.20f, strokeWidth = 2.5f),
+    Bubble(cx = 580f, r = 35f, phase = 0.20f, strokeOpacity = 0.20f, strokeWidth = 2.5f),
+    Bubble(cx = 500f, r = 30f, phase = 0.42f, strokeOpacity = 0.18f, strokeWidth = 2.0f),
+    Bubble(cx = 620f, r = 26f, phase = 0.62f, strokeOpacity = 0.18f, strokeWidth = 2.0f),
+)
+```
+
+Constants used throughout: `liquidTopBase = 347f`, `waveAmplitude = 9f`, `bubbleBottom = 740f`. Bubble top (in 1024-space) is `liquidTopBase + r + waveAmplitude`.
+
+**Bubble physics.** Each bubble's local time is `bt = (t * speed + phase) mod 1`. Three regions:
+
+```
+RISING  (bt < 0.75):
+    riseT = bt / 0.75
+    easeT = 1 - (1 - riseT).pow(1.5)
+    cy    = bubbleBottom - easeT * (bubbleBottom - bubbleTop)   // bubble rises
+    cx    = bubble.cx + 8 * sin(riseT * PI * 3 + bubble.phase * 10)
+    radius = r * (1 + 0.15 * riseT)                              // grows on the way up
+    opacity = 0.8
+
+POPPING (0.75 ≤ bt < 0.85):
+    popT  = (bt - 0.75) / 0.10
+    cy    = bubbleTop                                            // pinned at surface
+    cx    = bubble.cx
+    radius = r * (1.15 - 0.5 * popT)                             // shrinks while popping
+    opacity = 0.8 * (1 - popT)
+
+INVISIBLE (bt ≥ 0.85): skip the bubble for this frame
+```
+
+Each visible bubble draws as: a radial-gradient fill (white 0.5 → 0.1 inner-to-edge, scaled by the per-frame `opacity`) plus a stroke at the bubble's `strokeOpacity` and `strokeWidth * s`. Render only when `cy` is between 250 and 780 in 1024-space (inside the glass).
+
+**Skeleton.**
 
 ```kotlin
 package net.truce.sodamachine.ui.glass
@@ -222,8 +293,9 @@ import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.layout.size
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.*
+import androidx.compose.ui.graphics.drawscope.DrawScope
+import androidx.compose.ui.graphics.drawscope.clipPath
 import androidx.compose.ui.unit.dp
 import kotlin.math.*
 
@@ -238,37 +310,27 @@ fun GlassAnimation(modifier: Modifier = Modifier) {
             withFrameMillis { now -> elapsedMs = now - start }
         }
     }
-    val t = (elapsedMs % CYCLE_MS).toFloat() / CYCLE_MS  // 0..1, matches GlassAnimationView line 24
+    val t = (elapsedMs % CYCLE_MS).toFloat() / CYCLE_MS
 
     Canvas(modifier = modifier.size(200.dp)) {
-        drawGlassBody()                  // strokes, opacity 0.25 / 0.35 / 0.10
-        drawLiquid(t)                    // sin wave, amplitude 9, period 1.6 s
-        drawBubbles(t)                   // 4 bubbles, rise [0..0.75] easeOut, pop [0.75..0.85]
-        drawGlassHighlights()            // rim + edge
+        val s = min(size.width, size.height) / 1024f
+        val glassPath = buildGlassPath(s)
+
+        drawGlassBodyFill(glassPath)                       // pass 1
+        clipPath(glassPath) {                              // pass 2
+            drawLiquid(t, s)
+            drawSurfaceHighlightWave(t, s)
+            drawBubbles(t, s)
+        }
+        drawGlassBodyStroke(glassPath, s)                  // pass 3
+        drawGlassRimHighlight(s)                           // pass 4
+        drawGlassLeftEdgeHighlight(s)                      // pass 5
+        drawGlassSurfaceGradient(glassPath, s)             // pass 6
     }
 }
-
-// Bubble model — 4 instances matching GlassAnimationView:50-55
-private data class Bubble(val xCenter: Float, val phase: Float, val radius: Float)
-private val bubbles = listOf(
-    Bubble(xCenter = 0.50f, phase = 0.00f, radius = 6f),
-    Bubble(xCenter = 0.42f, phase = 0.30f, radius = 5f),
-    Bubble(xCenter = 0.58f, phase = 0.55f, radius = 7f),
-    Bubble(xCenter = 0.48f, phase = 0.80f, radius = 4f),
-)
-
-// Drawing functions ported from GlassAnimationView.swift:60-188 line-for-line.
-// Liquid wave:    y = baseline + 9 * sin(t * 2 * PI)                                 (line 78)
-// Bubble rise:    riseT = bt / 0.75; y = bottom - (top-bottom) * (1 - (1-riseT).pow(1.5))   (line 201)
-// Bubble pop:     popT = (bt - 0.75) / 0.10; alpha = 0.8 * (1 - popT)                (line 211)
-// Lateral wobble: x += 8 * sin(riseT * PI * 3 + bubble.phase * 10)                   (line 203)
-private fun androidx.compose.ui.graphics.drawscope.DrawScope.drawGlassBody() { /* ... */ }
-private fun androidx.compose.ui.graphics.drawscope.DrawScope.drawLiquid(t: Float) { /* ... */ }
-private fun androidx.compose.ui.graphics.drawscope.DrawScope.drawBubbles(t: Float) { /* ... */ }
-private fun androidx.compose.ui.graphics.drawscope.DrawScope.drawGlassHighlights() { /* ... */ }
 ```
 
-The `withFrameMillis` loop is the direct analog of SwiftUI's `TimelineView(.animation)` — both driven by the platform's display link / vsync. This is what gets the same 60–120 fps motion.
+The `withFrameMillis` loop is the direct analog of SwiftUI's `TimelineView(.animation)` — both driven by the platform's display link / vsync.
 
 ### `ScanView.kt` phase-1 stub
 
@@ -320,17 +382,18 @@ The phase is done when:
 
 ## Full milestone list
 
-| # | Milestone | Where |
-|---|---|---|
-| **M0a** | iOS accessibility (7 specific items) | iOS app |
-| **M0b** | iOS haptics (2 earned moments) | iOS app |
-| **M1** | Android: splash + glass handoff | Android phase 1 |
-| M2 | Android: theme polish + ScanView wired (no BLE yet) | Android phase 2 |
-| M3 | Android: BLE layer + binary protocol + demo mode | Android phase 3 |
-| M4 | Android: image processing (median-cut, RGB565, CRC32) | Android phase 4 |
-| M5 | Android: ConfigView carousel + 7 sheets | Android phase 5 |
-| M6 | Android: charts (Vico or hand-rolled Canvas) | Android phase 6 |
-| M7 | Side-by-side polish QA against iPhone | both platforms |
-| M8 | Android: accessibility + haptics (mirror M0a/M0b) | Android |
+| # | Milestone | Where | Status |
+|---|---|---|---|
+| **M-1** | iOS: pull scattered colors into Theme.swift | iOS app | landed |
+| **M0a** | iOS accessibility (6 additions, no per-image labels) | iOS app | landed |
+| **M0b** | iOS haptic — medium impact at Hold-to-Prime engage | iOS app | landed |
+| **M1** | Android: splash + glass handoff | Android phase 1 | next |
+| M2 | Android: theme polish + ScanView wired (no BLE yet) | Android phase 2 | |
+| M3 | Android: BLE layer + binary protocol + demo mode | Android phase 3 | |
+| M4 | Android: image processing (median-cut, RGB565, CRC32) | Android phase 4 | |
+| M5 | Android: ConfigView carousel + 7 sheets | Android phase 5 | |
+| M6 | Android: stats sheet — pie + 3 bar charts + serving-size selector | Android phase 6 | |
+| M7 | Side-by-side polish QA against iPhone | both platforms | |
+| M8 | Android: accessibility + haptics (mirror M0a/M0b) | Android | |
 
-M0a and M0b are pre-Android because doing them first lets the fully-considered iOS labels and haptics carry across to Android in M8 — designed once, ported, not designed twice.
+M-1, M0a, M0b were pre-Android so the fully-considered iOS labels, haptics, and theme structure carry across to Android in M8 — designed once, ported, not designed twice. M6 is heavier than billed in earlier drafts: in addition to three bar charts (24h, 30d, hour-of-day), `StatsSheet` also includes a pie chart for the 30-day flavor split (no first-party `SectorMark` equivalent in Compose — hand-rolled regardless of Vico) and a custom serving-size selector that draws three glass icons at 12oz / 16oz / 20oz heights with the SVG glass path.
