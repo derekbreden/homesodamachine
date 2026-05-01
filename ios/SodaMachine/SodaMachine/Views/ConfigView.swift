@@ -495,6 +495,7 @@ private struct PrimeSheet: View {
                                 DragGesture(minimumDistance: 0)
                                     .onChanged { _ in
                                         guard !ble.primeActive else { return }
+                                        UIImpactFeedbackGenerator(style: .medium).impactOccurred()
                                         ble.startPrime(flavor: flavor)
                                         startTickTimer()
                                     }
