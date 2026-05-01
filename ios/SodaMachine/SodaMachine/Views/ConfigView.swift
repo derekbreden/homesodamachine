@@ -452,8 +452,6 @@ private struct AboutSheet: View {
 // Prime sheet — hold-to-run priming for selected flavor
 // ────────────────────────────────────────────────────────────
 
-private let primeBlue = Color(red: 0.27, green: 0.53, blue: 1.0)
-
 private struct PrimeSheet: View {
     @Environment(BLEManager.self) var ble
     @Environment(\.dismiss) var dismiss
@@ -483,7 +481,7 @@ private struct PrimeSheet: View {
 
                         Text(ble.primeActive ? "Priming..." : "Hold to Prime")
                             .font(.system(size: 16, weight: .medium))
-                            .foregroundStyle(ble.primeActive ? primeBlue : Theme.textSecondary)
+                            .foregroundStyle(ble.primeActive ? Theme.primeBlue : Theme.textSecondary)
                             .frame(maxWidth: .infinity)
                             .padding(.vertical, 12)
                             .background(
@@ -585,7 +583,7 @@ private struct CleanSheet: View {
                     if ble.cleanCycleActive {
                         Text(ble.cleanCyclePhase ?? "Starting...")
                             .font(.system(size: 16, weight: .medium))
-                            .foregroundStyle(primeBlue)
+                            .foregroundStyle(Theme.primeBlue)
 
                         Spacer().frame(height: 24)
 
@@ -656,9 +654,6 @@ private struct CleanSheet: View {
 // ────────────────────────────────────────────────────────────
 // Stats screen (usage statistics display with charts)
 // ────────────────────────────────────────────────────────────
-
-private let chartPink = Color(red: 0.9, green: 0.3, blue: 0.5)
-private let chartPurple = Color(red: 0.6, green: 0.3, blue: 0.9)
 
 private struct StatsSheet: View {
     @Environment(BLEManager.self) var ble
@@ -804,15 +799,15 @@ private struct StatsSheet: View {
 
             if total > 0 {
                 HStack(spacing: 20) {
-                    flavorLegendImage(slot: ble.flavor1Image, color: chartPink, pct: Int(f1 / total * 100))
+                    flavorLegendImage(slot: ble.flavor1Image, color: Theme.chartPink, pct: Int(f1 / total * 100))
                     Chart {
                         SectorMark(angle: .value("Flavor 1", f1), innerRadius: .ratio(0.5))
-                            .foregroundStyle(chartPink)
+                            .foregroundStyle(Theme.chartPink)
                         SectorMark(angle: .value("Flavor 2", f2), innerRadius: .ratio(0.5))
-                            .foregroundStyle(chartPurple)
+                            .foregroundStyle(Theme.chartPurple)
                     }
                     .frame(width: 120, height: 120)
-                    flavorLegendImage(slot: ble.flavor2Image, color: chartPurple, pct: Int(f2 / total * 100))
+                    flavorLegendImage(slot: ble.flavor2Image, color: Theme.chartPurple, pct: Int(f2 / total * 100))
                 }
             } else {
                 Text("No activity")
@@ -1005,7 +1000,7 @@ private struct Chart24HView: View {
                 }
             }
 
-            .chartForegroundStyleScale(["Flavor 1": chartPink, "Flavor 2": chartPurple])
+            .chartForegroundStyleScale(["Flavor 1": Theme.chartPink, "Flavor 2": Theme.chartPurple])
             .chartLegend(.hidden)
             .chartXScale(domain: -0.5...23.5)
             .chartXAxis {
@@ -1075,7 +1070,7 @@ private struct Chart30DView: View {
                 }
             }
 
-            .chartForegroundStyleScale(["Flavor 1": chartPink, "Flavor 2": chartPurple])
+            .chartForegroundStyleScale(["Flavor 1": Theme.chartPink, "Flavor 2": Theme.chartPurple])
             .chartLegend(.hidden)
             .chartXScale(domain: -0.5...29.5)
             .chartXAxis {
@@ -1138,7 +1133,7 @@ private struct ChartHODView: View {
                 }
             }
 
-            .chartForegroundStyleScale(["Flavor 1": chartPink, "Flavor 2": chartPurple])
+            .chartForegroundStyleScale(["Flavor 1": Theme.chartPink, "Flavor 2": Theme.chartPurple])
             .chartLegend(.hidden)
             .chartXScale(domain: -0.5...23.5)
             .chartXAxis {

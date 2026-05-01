@@ -98,9 +98,9 @@ struct GlassAnimationView: View {
             let lh: CGFloat = 473 * s  // to bottom of liquid
             ctx.fill(liquidPath, with: .linearGradient(
                 Gradient(stops: [
-                    .init(color: Color(red: 0.914, green: 0.271, blue: 0.376), location: 0),
-                    .init(color: Color(red: 0.761, green: 0.200, blue: 0.451), location: 0.5),
-                    .init(color: Color(red: 0.482, green: 0.184, blue: 0.969), location: 1),
+                    .init(color: Theme.liquidStop0, location: 0),
+                    .init(color: Theme.liquidStop1, location: 0.5),
+                    .init(color: Theme.liquidStop2, location: 1),
                 ]),
                 startPoint: CGPoint(x: lx, y: ly),
                 endPoint: CGPoint(x: lx + lw, y: ly + lh)
