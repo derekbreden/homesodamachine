@@ -38,7 +38,10 @@ body {
 
 /* Grid view */
 #grid {
-  padding: 24px;
+  padding: calc(env(safe-area-inset-top, 0px) + 24px)
+           calc(env(safe-area-inset-right, 0px) + 24px)
+           calc(env(safe-area-inset-bottom, 0px) + 24px)
+           calc(env(safe-area-inset-left, 0px) + 24px);
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
   gap: 16px;
@@ -96,8 +99,8 @@ body {
 #mmd-detail { touch-action: none; }
 #back, #mmd-back {
   position: fixed;
-  top: 16px;
-  left: 16px;
+  top: calc(env(safe-area-inset-top, 0px) + 16px);
+  left: calc(env(safe-area-inset-left, 0px) + 16px);
   background: rgba(35,35,66,0.85);
   border: 1px solid var(--border);
   color: var(--text);
@@ -111,7 +114,7 @@ body {
 #back:hover, #mmd-back:hover { background: rgba(58,58,90,0.9); }
 #filename, #mmd-filename {
   position: fixed;
-  top: 16px;
+  top: calc(env(safe-area-inset-top, 0px) + 16px);
   left: 50%;
   transform: translateX(-50%);
   background: rgba(35,35,66,0.85);
@@ -180,8 +183,8 @@ body {
 }
 #mmd-zoom {
   position: fixed;
-  top: 16px;
-  right: 16px;
+  top: calc(env(safe-area-inset-top, 0px) + 16px);
+  right: calc(env(safe-area-inset-right, 0px) + 16px);
   background: rgba(35,35,66,0.85);
   border: 1px solid var(--border);
   color: var(--text-2);
@@ -195,7 +198,7 @@ body {
 /* Subscribe button (in detail views) */
 .subscribe-btn {
   position: fixed;
-  top: 16px;
+  top: calc(env(safe-area-inset-top, 0px) + 16px);
   background: rgba(35,35,66,0.85);
   border: 1px solid var(--border);
   color: var(--text-2);
@@ -209,9 +212,9 @@ body {
 }
 .subscribe-btn:hover { background: rgba(58,58,90,0.9); color: var(--text); }
 .subscribe-btn.subscribed { color: var(--accent); border-color: var(--accent); }
-#subscribe-step { right: calc(16px + 120px + 12px); }
+#subscribe-step { right: calc(env(safe-area-inset-right, 0px) + 16px + 120px + 12px); }
 @media (max-width: 600px) {
-  #subscribe-step { right: calc(16px + 80px + 12px); }
+  #subscribe-step { right: calc(env(safe-area-inset-right, 0px) + 16px + 80px + 12px); }
 }
 
 /* Subscribe warning modal */
@@ -369,7 +372,7 @@ const gizmoCanvas = gizmoRenderer.domElement;
 // Pointer-events:none so the canvas's empty corners pass touches through
 // to OrbitControls underneath. Hits on the rendered cube are picked up via
 // document-level raycast handlers below.
-gizmoCanvas.style.cssText = "position:fixed;top:16px;right:16px;z-index:10;pointer-events:none;";
+gizmoCanvas.style.cssText = "position:fixed;top:calc(env(safe-area-inset-top,0px) + 16px);right:calc(env(safe-area-inset-right,0px) + 16px);z-index:10;pointer-events:none;";
 document.getElementById("detail").appendChild(gizmoCanvas);
 
 const gizmoScene = new THREE.Scene();
