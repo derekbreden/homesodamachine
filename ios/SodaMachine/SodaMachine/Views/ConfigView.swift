@@ -23,12 +23,33 @@ import PhotosUI
 // steps, multiple input methods all converging on the same model.
 // ────────────────────────────────────────────────────────────
 
+/// `UIPageControl` whose accessibility increment/decrement explicitly fire
+/// `.valueChanged` so the SwiftUI binding sees the step. The default
+/// implementation updates `currentPage` internally but doesn't always send
+/// the control event, which leaves `PagedDots`'s coordinator out of sync —
+/// VoiceOver swipe-up/down and Voice Control "swipe up [N]" appear to do
+/// nothing because the page change never propagates back. The forward
+/// direction worked through tap activation, which does fire the event.
+private final class AccessiblePageControl: UIPageControl {
+    override func accessibilityIncrement() {
+        guard currentPage < numberOfPages - 1 else { return }
+        currentPage += 1
+        sendActions(for: .valueChanged)
+    }
+
+    override func accessibilityDecrement() {
+        guard currentPage > 0 else { return }
+        currentPage -= 1
+        sendActions(for: .valueChanged)
+    }
+}
+
 private struct PagedDots: UIViewRepresentable {
     @Binding var currentPage: Int
     let pageCount: Int
 
     func makeUIView(context: Context) -> UIPageControl {
-        let pc = UIPageControl()
+        let pc = AccessiblePageControl()
         pc.numberOfPages = pageCount
         pc.currentPage = currentPage
         pc.currentPageIndicatorTintColor = UIColor(Theme.dotActive)
