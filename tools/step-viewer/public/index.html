@@ -923,8 +923,15 @@ function shortName(file, ext = ".step") {
 function buildGrid() {
   gridEl.innerHTML = "";
 
-  // Settings section (only when push is supported and configured)
-  if (pushState.available) {
+  // Settings section. Only shown in the installed PWA (standalone mode):
+  // notifications are the only setting and pushes only work in the PWA on
+  // iOS, so a tab user has nothing to toggle.
+  if (pushState.available && isStandalone()) {
+    const header = document.createElement("div");
+    header.className = "section-header";
+    header.textContent = "Settings";
+    gridEl.appendChild(header);
+
     const card = document.createElement("div");
     card.className = "settings-card";
     card.innerHTML = `
@@ -1281,6 +1288,11 @@ const subscribeModal = document.getElementById("subscribe-modal");
 
 function pushSupported() {
   return "serviceWorker" in navigator && "PushManager" in window && "Notification" in window;
+}
+
+function isStandalone() {
+  return window.matchMedia("(display-mode: standalone)").matches ||
+    window.navigator.standalone === true;
 }
 
 async function loadFirebaseConfig() {
