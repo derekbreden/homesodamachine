@@ -12,7 +12,6 @@ import fs from "fs";
 import { fileURLToPath } from "url";
 import { spawn } from "child_process";
 import chokidar from "chokidar";
-import { WebSocketServer } from "ws";
 
 import { start } from "../../server.js";
 
@@ -24,17 +23,7 @@ function isIgnoredPath(p) {
   return p.includes(`${path.sep}plan-b${path.sep}`);
 }
 
-const { server, hardwareDir: HARDWARE_DIR } = await start({ dev: true });
-
-// --- WebSocket ---
-const wss = new WebSocketServer({ server });
-
-function broadcast(msg) {
-  const data = JSON.stringify(msg);
-  for (const client of wss.clients) {
-    if (client.readyState === 1) client.send(data);
-  }
-}
+const { broadcast, hardwareDir: HARDWARE_DIR } = await start({ dev: true });
 
 // --- Script discovery ---
 function findGenerateScripts() {

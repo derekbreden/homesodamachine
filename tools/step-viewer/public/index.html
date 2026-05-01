@@ -259,8 +259,10 @@ let mmdFiles = [];       // Mermaid files
 let currentFile = null;  // STEP detail
 let currentMmd = null;   // Mermaid detail
 let currentMmdContent = null;
+let mountedStepFile = null; // file currently rendered into the 3D scene
 const thumbnailCache = new Map(); // file -> dataURL
 const mmdThumbCache = new Map();  // file -> svgHTML
+const stepEtags = new Map();      // file -> last loaded ETag (for refetch dedupe)
 
 // --- Detail view: Three.js setup ---
 const renderer = new THREE.WebGLRenderer({ antialias: true });
@@ -561,8 +563,21 @@ async function loadStepFile(file, { preserveCamera = false } = {}) {
   loadingEl.style.display = "block";
 
   try {
-    const resp = await fetch(`/steps/${file}`);
+    // If we're refetching the same file that's already in the scene, send
+    // If-None-Match so the server can answer 304 when bytes are unchanged
+    // (avoids the visible re-render flash on a deploy that didn't touch
+    // this STEP file).
+    const headers = {};
+    const prevEtag = stepEtags.get(file);
+    if (mountedStepFile === file && prevEtag) {
+      headers["If-None-Match"] = prevEtag;
+    }
+    const resp = await fetch(`/steps/${file}`, { headers });
+    if (resp.status === 304) return;
     if (!resp.ok) return;
+    const etag = resp.headers.get("etag");
+    if (etag) stepEtags.set(file, etag);
+
     const buf = new Uint8Array(await resp.arrayBuffer());
     const result = await parseStep(buf);
 
@@ -573,6 +588,7 @@ async function loadStepFile(file, { preserveCamera = false } = {}) {
 
     currentGroup = buildMesh(result);
     scene.add(currentGroup);
+    mountedStepFile = file;
     if (!preserveCamera) resetCamera(currentGroup);
   } finally {
     loadingEl.style.display = "none";
@@ -887,6 +903,12 @@ function openDetail(file, pushHistory = true) {
 function closeDetail(pushHistory = true) {
   if (pushHistory && location.hash) history.back();
   currentFile = null;
+  mountedStepFile = null;
+  if (currentGroup) {
+    scene.remove(currentGroup);
+    currentGroup.traverse((c) => { if (c.geometry) c.geometry.dispose(); });
+    currentGroup = null;
+  }
   detailEl.style.display = "none";
   gridEl.style.display = "grid";
   animating = false;
@@ -942,15 +964,54 @@ document.addEventListener("keydown", (e) => {
   }
 });
 
-// --- WebSocket ---
-function connectWS() {
-  const proto = location.protocol === "https:" ? "wss:" : "ws:";
-  const ws = new WebSocket(`${proto}//${location.host}`);
-  ws.onmessage = (e) => {
+// --- Server-Sent Events ---
+// EventSource handles reconnect (with backoff) on its own.
+//
+// `hello` arrives on every connect. The first one establishes a baseline
+// commit fingerprint. A subsequent hello with a different commit means the
+// server restarted with new code (a Render deploy in prod) — we refetch
+// whatever's currently displayed, with state (camera / pan / zoom)
+// preserved by the existing render paths.
+//
+// `updated` and `mermaid-updated` fire only in dev (chokidar). In prod
+// the source files don't change between deploys; the deploy event
+// arrives as a hello-with-different-commit.
+let firstSeenCommit = null;
+
+function refetchAfterDeploy() {
+  thumbnailCache.clear();
+  mmdThumbCache.clear();
+  fetchFiles();
+  if (currentFile) {
+    loadStepFile(currentFile, { preserveCamera: true });
+  } else if (currentMmd) {
+    (async () => {
+      const resp = await fetch(`/api/mermaid-content/${currentMmd}`);
+      if (!resp.ok) return;
+      const content = await resp.text();
+      if (content === currentMmdContent) return;
+      currentMmdContent = content;
+      await renderMmdDetail(content, true);
+    })();
+  }
+}
+
+function connectEvents() {
+  const es = new EventSource("/api/events");
+  es.onmessage = (e) => {
     const msg = JSON.parse(e.data);
 
+    if (msg.type === "hello") {
+      if (firstSeenCommit === null) {
+        firstSeenCommit = msg.commit;
+      } else if (msg.commit !== firstSeenCommit) {
+        firstSeenCommit = msg.commit;
+        refetchAfterDeploy();
+      }
+      return;
+    }
+
     if (msg.type === "updated") {
-      // STEP file updated
       thumbnailCache.delete(msg.file);
       const card = gridEl.querySelector(`.card[data-type="step"][data-file="${CSS.escape(msg.file)}"]`);
       if (card) {
@@ -983,7 +1044,6 @@ function connectWS() {
     }
 
     if (msg.type === "mermaid-updated") {
-      // Mermaid file updated
       mmdThumbCache.delete(msg.file);
       const card = gridEl.querySelector(`.card[data-type="mmd"][data-file="${CSS.escape(msg.file)}"]`);
       if (card) {
@@ -997,7 +1057,6 @@ function connectWS() {
       } else {
         fetchFiles();
       }
-      // Reload detail if viewing this file
       if (currentMmd === msg.file) {
         (async () => {
           const resp = await fetch(`/api/mermaid-content/${msg.file}`);
@@ -1010,7 +1069,6 @@ function connectWS() {
       }
     }
   };
-  ws.onclose = () => setTimeout(connectWS, 2000);
 }
 
 // --- Init ---
@@ -1025,7 +1083,7 @@ async function fetchFiles() {
 }
 
 fetchFiles();
-connectWS();
+connectEvents();
 
 // Restore from hash
 if (location.hash) {

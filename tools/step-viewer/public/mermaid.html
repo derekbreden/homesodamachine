@@ -379,32 +379,45 @@ async function fetchFiles() {
   buildFileList();
 }
 
-// --- WebSocket ---
-function connectWS() {
-  const proto = location.protocol === "https:" ? "wss:" : "ws:";
-  const ws = new WebSocket(`${proto}//${location.host}`);
-  ws.onopen = () => { statusEl.textContent = "watching"; };
-  ws.onmessage = (e) => {
+// --- Server-Sent Events ---
+// EventSource auto-reconnects with backoff. The first `hello` after a
+// reconnect with a different commit means the server restarted with new
+// code (a Render deploy in prod) — refetch the current mermaid with
+// pan/zoom preserved. `mermaid-updated` only fires in dev (chokidar).
+let firstSeenCommit = null;
+
+function connectEvents() {
+  const es = new EventSource("/api/events");
+  es.onopen = () => { statusEl.textContent = "watching"; };
+  es.onerror = () => { statusEl.textContent = "reconnecting..."; };
+  es.onmessage = (e) => {
     const msg = JSON.parse(e.data);
+
+    if (msg.type === "hello") {
+      statusEl.textContent = "watching";
+      if (firstSeenCommit === null) {
+        firstSeenCommit = msg.commit;
+      } else if (msg.commit !== firstSeenCommit) {
+        firstSeenCommit = msg.commit;
+        fetchFiles();
+        if (currentFile) reloadCurrentFile();
+      }
+      return;
+    }
+
     if (msg.type === "mermaid-updated") {
       statusEl.textContent = `updated: ${msg.file}`;
-      // Refresh file list in case new files appeared
       fetchFiles();
-      // Reload if we're viewing the changed file
       if (currentFile === msg.file) {
         reloadCurrentFile();
       }
     }
   };
-  ws.onclose = () => {
-    statusEl.textContent = "reconnecting...";
-    setTimeout(connectWS, 2000);
-  };
 }
 
 // --- Init ---
 await fetchFiles();
-connectWS();
+connectEvents();
 
 // Restore from hash
 if (location.hash) {
