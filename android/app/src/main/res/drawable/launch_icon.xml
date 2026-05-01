@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  Static glass icon used by the splash screen, ported line-for-line from
+  ios/AppIcon.svg. This is the t=0 frame of GlassAnimation — the OS holds it
+  until Compose's first frame paints, and Compose's first frame is also the
+  glass at t=0, so the static→animated handoff has no visual seam.
+
+  Coordinate space matches the source SVG (1024×1024). Android's splash API
+  scales the drawable to ~288dp and centers it on the splash background.
+
+  Six visual layers, in z-order:
+    1. Glass body fill (white @ 0.06)
+    2. Glass body stroke (white @ 0.25, width 4)
+    3. Clipped group: liquid + surface highlight + 4 bubbles
+    4. Glass rim highlight (white @ 0.35, width 5, round caps)
+    5. Glass left-edge highlight (white @ 0.10, width 8, round caps)
+    6. Glass surface gradient overlay (white 0.15 → 0 horizontally)
+-->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:aapt="http://schemas.android.com/aapt"
+    android:width="288dp"
+    android:height="288dp"
+    android:viewportWidth="1024"
+    android:viewportHeight="1024">
+
+    <!-- 1 + 2: Glass body (fill + stroke) -->
+    <path
+        android:pathData="M310,247 L340,747 Q345,777 380,777 L644,777 Q679,777 684,747 L714,247 Z"
+        android:fillColor="#0FFFFFFF"
+        android:strokeColor="#40FFFFFF"
+        android:strokeWidth="4"/>
+
+    <!-- 3: Clipped layer with liquid + surface highlight + bubbles -->
+    <group>
+        <clip-path android:pathData="M310,247 L340,747 Q345,777 380,777 L644,777 Q679,777 684,747 L714,247 Z"/>
+
+        <!-- Liquid body — wavy top matches GlassAnimationView t=0 -->
+        <path android:pathData="M300,347 Q400,327 512,352 Q624,377 724,342 L724,800 L300,800 Z">
+            <aapt:attr name="android:fillColor">
+                <gradient
+                    android:type="linear"
+                    android:startX="300" android:startY="327"
+                    android:endX="724"   android:endY="800">
+                    <item android:offset="0.0" android:color="#FFE94560"/>
+                    <item android:offset="0.5" android:color="#FFC23373"/>
+                    <item android:offset="1.0" android:color="#FF7B2FF7"/>
+                </gradient>
+            </aapt:attr>
+        </path>
+
+        <!-- Surface highlight wave (meniscus) -->
+        <path
+            android:pathData="M300,347 Q400,327 512,352 Q624,377 724,342 L724,367 Q624,397 512,372 Q400,347 300,367 Z"
+            android:fillColor="#1FFFFFFF"/>
+
+        <!-- Bubble 1 (cx=440, cy=740, r=42) -->
+        <path
+            android:pathData="M398,740 a42,42 0 1,0 84,0 a42,42 0 1,0 -84,0 Z"
+            android:strokeColor="#33FFFFFF"
+            android:strokeWidth="2.5">
+            <aapt:attr name="android:fillColor">
+                <gradient
+                    android:type="radial"
+                    android:centerX="440" android:centerY="740"
+                    android:gradientRadius="42">
+                    <item android:offset="0.0" android:color="#80FFFFFF"/>
+                    <item android:offset="1.0" android:color="#1AFFFFFF"/>
+                </gradient>
+            </aapt:attr>
+        </path>
+
+        <!-- Bubble 2 (cx=572, cy=610, r=36) -->
+        <path
+            android:pathData="M536,610 a36,36 0 1,0 72,0 a36,36 0 1,0 -72,0 Z"
+            android:strokeColor="#33FFFFFF"
+            android:strokeWidth="2.5">
+            <aapt:attr name="android:fillColor">
+                <gradient
+                    android:type="radial"
+                    android:centerX="572" android:centerY="610"
+                    android:gradientRadius="36">
+                    <item android:offset="0.0" android:color="#80FFFFFF"/>
+                    <item android:offset="1.0" android:color="#1AFFFFFF"/>
+                </gradient>
+            </aapt:attr>
+        </path>
+
+        <!-- Bubble 3 (cx=500, cy=489, r=33) -->
+        <path
+            android:pathData="M467,489 a33,33 0 1,0 66,0 a33,33 0 1,0 -66,0 Z"
+            android:strokeColor="#2EFFFFFF"
+            android:strokeWidth="2">
+            <aapt:attr name="android:fillColor">
+                <gradient
+                    android:type="radial"
+                    android:centerX="500" android:centerY="489"
+                    android:gradientRadius="33">
+                    <item android:offset="0.0" android:color="#80FFFFFF"/>
+                    <item android:offset="1.0" android:color="#1AFFFFFF"/>
+                </gradient>
+            </aapt:attr>
+        </path>
+
+        <!-- Bubble 4 (cx=628, cy=408, r=29) -->
+        <path
+            android:pathData="M599,408 a29,29 0 1,0 58,0 a29,29 0 1,0 -58,0 Z"
+            android:strokeColor="#2EFFFFFF"
+            android:strokeWidth="2">
+            <aapt:attr name="android:fillColor">
+                <gradient
+                    android:type="radial"
+                    android:centerX="628" android:centerY="408"
+                    android:gradientRadius="29">
+                    <item android:offset="0.0" android:color="#80FFFFFF"/>
+                    <item android:offset="1.0" android:color="#1AFFFFFF"/>
+                </gradient>
+            </aapt:attr>
+        </path>
+    </group>
+
+    <!-- 4: Glass rim highlight -->
+    <path
+        android:pathData="M310,247 L714,247"
+        android:strokeColor="#59FFFFFF"
+        android:strokeWidth="5"
+        android:strokeLineCap="round"/>
+
+    <!-- 5: Glass left-edge highlight -->
+    <path
+        android:pathData="M314,257 L342,737"
+        android:strokeColor="#1AFFFFFF"
+        android:strokeWidth="8"
+        android:strokeLineCap="round"/>
+
+    <!-- 6: Glass surface gradient overlay (left-side highlight, fades after 40%) -->
+    <path android:pathData="M310,247 L340,747 Q345,777 380,777 L644,777 Q679,777 684,747 L714,247 Z">
+        <aapt:attr name="android:fillColor">
+            <gradient
+                android:type="linear"
+                android:startX="310" android:startY="0"
+                android:endX="714"   android:endY="0">
+                <item android:offset="0.0" android:color="#26FFFFFF"/>
+                <item android:offset="0.4" android:color="#00FFFFFF"/>
+                <item android:offset="1.0" android:color="#00FFFFFF"/>
+            </gradient>
+        </aapt:attr>
+    </path>
+</vector>
