@@ -3,16 +3,38 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1, user-scalable=no, viewport-fit=cover">
-<title>Hardware Viewer</title>
-<link rel="manifest" href="manifest.webmanifest">
-<link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
-<meta name="theme-color" content="#1a1a1a">
+<title>Home Soda Machine</title>
+<link rel="manifest" href="/dev/manifest.webmanifest">
+<link rel="icon" type="image/png" sizes="32x32" href="/dev/pwa-icons/favicon-32.png">
+<link rel="icon" type="image/png" sizes="64x64" href="/dev/pwa-icons/favicon-64.png">
+<link rel="apple-touch-icon" sizes="152x152" href="/dev/pwa-icons/apple-touch-icon-152.png">
+<link rel="apple-touch-icon" sizes="167x167" href="/dev/pwa-icons/apple-touch-icon-167.png">
+<link rel="apple-touch-icon" sizes="180x180" href="/dev/pwa-icons/apple-touch-icon-180.png">
+<link rel="apple-touch-icon" href="/dev/pwa-icons/apple-touch-icon-180.png">
+<meta name="theme-color" content="#1a1a2e">
 <meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-title" content="HomeSoda">
+<meta name="apple-mobile-web-app-title" content="Home Soda Machine">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <style>
+/* iOS-app theme: dark navy bg, white/secondary text, primeBlue accent. */
+:root {
+  --bg: #1a1a2e;
+  --surface: #232342;
+  --surface-2: #2a2a4a;
+  --border: #3a3a5a;
+  --text: #ffffff;
+  --text-2: #999999;
+  --text-3: #595959;
+  --accent: #4488ff;
+  --chart-pink: #e64c80;
+  --chart-purple: #994ce6;
+}
 * { margin: 0; padding: 0; box-sizing: border-box; }
-body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, sans-serif; background: #1a1a1a; color: #ccc; }
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+}
 
 /* Grid view */
 #grid {
@@ -22,29 +44,29 @@ body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, sa
   gap: 16px;
 }
 .card {
-  background: #2a2a2a;
+  background: var(--surface);
   border-radius: 8px;
   overflow: hidden;
   cursor: pointer;
   transition: outline 0.15s;
   outline: 2px solid transparent;
 }
-.card:hover { outline-color: #5588cc; }
+.card:hover { outline-color: var(--accent); }
 .card img {
   width: 100%;
   aspect-ratio: 1;
   object-fit: contain;
-  background: #222;
+  background: var(--bg);
   display: block;
 }
 .card .placeholder {
   width: 100%;
   aspect-ratio: 1;
-  background: #222;
+  background: var(--bg);
   display: flex;
   align-items: center;
   justify-content: center;
-  color: #555;
+  color: var(--text-3);
   font-size: 13px;
 }
 .card .label {
@@ -53,10 +75,10 @@ body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, sa
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
-  color: #aaa;
+  color: var(--text);
 }
 .card .label .dir {
-  color: #666;
+  color: var(--text-2);
   font-size: 11px;
   display: block;
   margin-bottom: 2px;
@@ -67,18 +89,18 @@ body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, sa
   display: none;
   position: fixed;
   inset: 0;
-  background: #1a1a1a;
+  background: var(--bg);
 }
 #viewport { display: block; width: 100%; height: 100%; touch-action: none; }
 #detail { touch-action: none; }
 #mmd-detail { touch-action: none; }
-#back {
+#back, #mmd-back {
   position: fixed;
   top: 16px;
   left: 16px;
-  background: rgba(40,40,40,0.85);
-  border: 1px solid #444;
-  color: #ccc;
+  background: rgba(35,35,66,0.85);
+  border: 1px solid var(--border);
+  color: var(--text);
   padding: 6px 14px;
   border-radius: 6px;
   cursor: pointer;
@@ -86,15 +108,15 @@ body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, sa
   z-index: 10;
   backdrop-filter: blur(4px);
 }
-#back:hover { background: rgba(60,60,60,0.9); }
-#filename {
+#back:hover, #mmd-back:hover { background: rgba(58,58,90,0.9); }
+#filename, #mmd-filename {
   position: fixed;
   top: 16px;
   left: 50%;
   transform: translateX(-50%);
-  background: rgba(40,40,40,0.85);
-  border: 1px solid #444;
-  color: #aaa;
+  background: rgba(35,35,66,0.85);
+  border: 1px solid var(--border);
+  color: var(--text-2);
   padding: 6px 14px;
   border-radius: 6px;
   font-size: 13px;
@@ -106,7 +128,7 @@ body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, sa
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  color: #555;
+  color: var(--text-2);
   font-size: 15px;
   z-index: 10;
   display: none;
@@ -117,11 +139,11 @@ body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, sa
   grid-column: 1 / -1;
   font-size: 12px;
   font-weight: 600;
-  color: #666;
+  color: var(--text-2);
   text-transform: uppercase;
   letter-spacing: 0.5px;
   padding: 16px 0 4px;
-  border-bottom: 1px solid #333;
+  border-bottom: 1px solid var(--border);
   margin-bottom: 4px;
 }
 .section-header:first-child { padding-top: 0; }
@@ -130,7 +152,7 @@ body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, sa
 .card .mmd-thumb {
   width: 100%;
   aspect-ratio: 1;
-  background: #222;
+  background: var(--bg);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -147,7 +169,7 @@ body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, sa
   display: none;
   position: fixed;
   inset: 0;
-  background: #1a1a1a;
+  background: var(--bg);
   overflow: hidden;
   cursor: grab;
 }
@@ -156,42 +178,13 @@ body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, sa
   position: absolute;
   transform-origin: 0 0;
 }
-#mmd-back {
-  position: fixed;
-  top: 16px;
-  left: 16px;
-  background: rgba(40,40,40,0.85);
-  border: 1px solid #444;
-  color: #ccc;
-  padding: 6px 14px;
-  border-radius: 6px;
-  cursor: pointer;
-  font-size: 14px;
-  z-index: 10;
-  backdrop-filter: blur(4px);
-}
-#mmd-back:hover { background: rgba(60,60,60,0.9); }
-#mmd-filename {
-  position: fixed;
-  top: 16px;
-  left: 50%;
-  transform: translateX(-50%);
-  background: rgba(40,40,40,0.85);
-  border: 1px solid #444;
-  color: #aaa;
-  padding: 6px 14px;
-  border-radius: 6px;
-  font-size: 13px;
-  z-index: 10;
-  backdrop-filter: blur(4px);
-}
 #mmd-zoom {
   position: fixed;
   top: 16px;
   right: 16px;
-  background: rgba(40,40,40,0.85);
-  border: 1px solid #444;
-  color: #aaa;
+  background: rgba(35,35,66,0.85);
+  border: 1px solid var(--border);
+  color: var(--text-2);
   padding: 6px 12px;
   border-radius: 6px;
   font-size: 13px;
@@ -203,9 +196,9 @@ body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, sa
 .subscribe-btn {
   position: fixed;
   top: 16px;
-  background: rgba(40,40,40,0.85);
-  border: 1px solid #444;
-  color: #aaa;
+  background: rgba(35,35,66,0.85);
+  border: 1px solid var(--border);
+  color: var(--text-2);
   padding: 6px 12px;
   border-radius: 6px;
   cursor: pointer;
@@ -214,39 +207,11 @@ body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, sa
   backdrop-filter: blur(4px);
   display: none;
 }
-.subscribe-btn:hover { background: rgba(60,60,60,0.9); color: #fff; }
-.subscribe-btn.subscribed { color: #5588cc; border-color: #5588cc; }
+.subscribe-btn:hover { background: rgba(58,58,90,0.9); color: var(--text); }
+.subscribe-btn.subscribed { color: var(--accent); border-color: var(--accent); }
 #subscribe-step { right: calc(16px + 120px + 12px); }
 @media (max-width: 600px) {
   #subscribe-step { right: calc(16px + 80px + 12px); }
-}
-
-/* iOS Add-to-Home-Screen hint banner */
-#ios-hint {
-  display: none;
-  position: fixed;
-  bottom: env(safe-area-inset-bottom, 16px);
-  left: 16px;
-  right: 16px;
-  background: rgba(40,40,40,0.95);
-  border: 1px solid #444;
-  color: #ccc;
-  padding: 12px 14px;
-  border-radius: 8px;
-  font-size: 13px;
-  z-index: 100;
-  backdrop-filter: blur(8px);
-  line-height: 1.4;
-}
-#ios-hint .close {
-  float: right;
-  background: none;
-  border: none;
-  color: #888;
-  cursor: pointer;
-  font-size: 16px;
-  padding: 0 4px;
-  margin-left: 8px;
 }
 
 /* Subscribe warning modal */
@@ -262,30 +227,30 @@ body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, sa
 }
 .modal-backdrop.open { display: flex; }
 .modal {
-  background: #2a2a2a;
-  border: 1px solid #444;
+  background: var(--surface);
+  border: 1px solid var(--border);
   border-radius: 10px;
   max-width: 420px;
   width: 100%;
   padding: 20px;
-  color: #ccc;
+  color: var(--text);
 }
-.modal h2 { font-size: 17px; font-weight: 600; margin-bottom: 12px; color: #eee; }
-.modal p { font-size: 14px; line-height: 1.5; margin-bottom: 10px; }
-.modal p em { font-style: normal; color: #fff; font-weight: 600; }
+.modal h2 { font-size: 17px; font-weight: 600; margin-bottom: 12px; color: var(--text); }
+.modal p { font-size: 14px; line-height: 1.5; margin-bottom: 10px; color: var(--text-2); }
+.modal p em { font-style: normal; color: var(--text); font-weight: 600; }
 .modal .actions { display: flex; gap: 8px; justify-content: flex-end; margin-top: 16px; }
 .modal button {
   padding: 8px 16px;
   border-radius: 6px;
-  border: 1px solid #444;
-  background: #333;
-  color: #ccc;
+  border: 1px solid var(--border);
+  background: var(--surface-2);
+  color: var(--text);
   cursor: pointer;
   font-size: 14px;
 }
-.modal button:hover { background: #3a3a3a; }
-.modal button.primary { background: #4477aa; border-color: #4477aa; color: #fff; }
-.modal button.primary:hover { background: #5588cc; border-color: #5588cc; }
+.modal button:hover { background: var(--border); }
+.modal button.primary { background: var(--accent); border-color: var(--accent); color: #fff; }
+.modal button.primary:hover { background: #5599ff; border-color: #5599ff; }
 </style>
 </head>
 <body>
@@ -304,11 +269,6 @@ body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, sa
   <button id="mmd-back">Back</button>
   <div id="mmd-filename"></div>
   <div id="mmd-zoom">100%</div>
-</div>
-
-<div id="ios-hint">
-  <button class="close" id="ios-hint-close" aria-label="Dismiss">&times;</button>
-  To get notifications on iOS, tap <b>Share</b> &rarr; <b>Add to Home Screen</b>, then open from the home-screen icon.
 </div>
 
 <div id="subscribe-modal" class="modal-backdrop" role="dialog" aria-modal="true">
@@ -341,13 +301,13 @@ mermaid.initialize({
   theme: "dark",
   themeVariables: {
     darkMode: true,
-    background: "#222222",
-    primaryColor: "#334455",
-    primaryTextColor: "#ccc",
-    primaryBorderColor: "#556677",
-    lineColor: "#667788",
-    secondaryColor: "#2a3a4a",
-    tertiaryColor: "#1e2e3e",
+    background: "#1a1a2e",
+    primaryColor: "#2a2a4a",
+    primaryTextColor: "#ffffff",
+    primaryBorderColor: "#3a3a5a",
+    lineColor: "#999999",
+    secondaryColor: "#232342",
+    tertiaryColor: "#1a1a2e",
     fontFamily: "-apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, sans-serif",
     fontSize: "14px",
   },
@@ -378,7 +338,7 @@ const stepEtags = new Map();      // file -> last loaded ETag (for refetch dedup
 // --- Detail view: Three.js setup ---
 const renderer = new THREE.WebGLRenderer({ antialias: true });
 renderer.setPixelRatio(window.devicePixelRatio);
-renderer.setClearColor(0x1a1a1a);
+renderer.setClearColor(0x1a1a2e);
 renderer.domElement.id = "viewport";
 document.getElementById("detail").prepend(renderer.domElement);
 
@@ -430,8 +390,8 @@ function makeFaceTexture(label, isHovered) {
   const canvas = document.createElement("canvas");
   canvas.width = 256; canvas.height = 256;
   const ctx = canvas.getContext("2d");
-  const bg = isHovered ? "#363636" : "#262626";
-  const border = "#444444";
+  const bg = isHovered ? "#3a3a5a" : "#232342";
+  const border = "#3a3a5a";
   const radius = 16;
 
   // Rounded rect fill
@@ -446,7 +406,7 @@ function makeFaceTexture(label, isHovered) {
   ctx.font = "52px -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, sans-serif";
   ctx.textAlign = "center";
   ctx.textBaseline = "middle";
-  ctx.fillStyle = isHovered ? "#ffffff" : "#aaaaaa";
+  ctx.fillStyle = isHovered ? "#ffffff" : "#999999";
   ctx.fillText(label, 128, 128);
   const tex = new THREE.CanvasTexture(canvas);
   tex.colorSpace = THREE.SRGBColorSpace;
@@ -710,7 +670,7 @@ async function loadStepFile(file, { preserveCamera = false } = {}) {
 const thumbRenderer = new THREE.WebGLRenderer({ antialias: true, preserveDrawingBuffer: true });
 thumbRenderer.setSize(400, 400);
 thumbRenderer.setPixelRatio(1);
-thumbRenderer.setClearColor(0x222222);
+thumbRenderer.setClearColor(0x1a1a2e);
 const thumbScene = new THREE.Scene();
 const thumbCam = new THREE.PerspectiveCamera(45, 1, 0.01, 10000);
 thumbScene.add(new THREE.AmbientLight(0xffffff, 0.5));
@@ -1254,17 +1214,6 @@ const pushState = {
 const subscribeBtnStep = document.getElementById("subscribe-step");
 const subscribeModal = document.getElementById("subscribe-modal");
 
-function isStandalone() {
-  return window.matchMedia("(display-mode: standalone)").matches ||
-    window.navigator.standalone === true;
-}
-
-function isIOSSafari() {
-  const ua = navigator.userAgent;
-  const isIOS = /iPad|iPhone|iPod/.test(ua) || (navigator.platform === "MacIntel" && navigator.maxTouchPoints > 1);
-  return isIOS && /Safari/.test(ua) && !/CriOS|FxiOS/.test(ua);
-}
-
 function pushSupported() {
   return "serviceWorker" in navigator && "PushManager" in window && "Notification" in window;
 }
@@ -1415,18 +1364,6 @@ function refreshSubscribeButton() {
 }
 
 subscribeBtnStep.addEventListener("click", () => currentFile && toggleSubscribe(currentFile));
-
-// --- iOS Add-to-Home-Screen hint ---
-// On iOS Safari (not the PWA), web push isn't available. Show a one-time
-// dismissible banner explaining how to install. Hide once standalone.
-const iosHint = document.getElementById("ios-hint");
-if (isIOSSafari() && !isStandalone() && !localStorage.getItem("ios-hint-dismissed")) {
-  iosHint.style.display = "block";
-}
-document.getElementById("ios-hint-close").addEventListener("click", () => {
-  iosHint.style.display = "none";
-  localStorage.setItem("ios-hint-dismissed", "1");
-});
 
 fetchFiles();
 connectEvents();
