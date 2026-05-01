@@ -4,12 +4,6 @@ struct ScanView: View {
     @Environment(BLEManager.self) var ble
     @AppStorage("hasCompletedOnboarding") private var hasCompletedOnboarding = false
     @AppStorage("prefersDemoMode") private var prefersDemoMode = false
-    @State private var searchTextIndex = 0
-
-    private let searchMessages = [
-        "Searching for Soda Machine...",
-        "Looking for your device...",
-    ]
 
     var body: some View {
         Group {
@@ -50,6 +44,7 @@ struct ScanView: View {
                 GlassAnimationView()
                     .frame(width: animSize, height: animSize)
                     .position(x: geo.size.width / 2, y: animCenter)
+                    .accessibilityHidden(true)
 
                 VStack(spacing: 0) {
                     VStack(spacing: 8) {
@@ -105,6 +100,7 @@ struct ScanView: View {
                 GlassAnimationView()
                     .frame(width: 200, height: 200)
                     .position(x: geo.size.width / 2, y: geo.size.height / 2)
+                    .accessibilityHidden(true)
             }
             .ignoresSafeArea()
 
@@ -126,10 +122,6 @@ struct ScanView: View {
             }
             .padding(.horizontal, 32)
         }
-        .onReceive(Timer.publish(every: 3, on: .main, in: .common).autoconnect()) { _ in
-            guard ble.connectionState == .searching else { return }
-            searchTextIndex = (searchTextIndex + 1) % searchMessages.count
-        }
     }
 
     @ViewBuilder
@@ -144,6 +136,8 @@ struct ScanView: View {
                     .foregroundStyle(Theme.textSecondary)
                     .multilineTextAlignment(.center)
             }
+            .accessibilityElement(children: .combine)
+            .accessibilityAddTraits(.updatesFrequently)
         } else if ble.connectionState == .searchingLong {
             VStack(spacing: 8) {
                 Text("Searching for Soda Machine...")
@@ -158,14 +152,18 @@ struct ScanView: View {
                 .font(.system(size: 16))
                 .foregroundStyle(Theme.textSecondary)
             }
+            .accessibilityElement(children: .combine)
+            .accessibilityAddTraits(.updatesFrequently)
         } else if ble.connectionState == .connecting {
             Text("Connecting...")
                 .font(.system(size: 16, weight: .medium))
                 .foregroundStyle(Theme.textSecondary)
+                .accessibilityAddTraits(.updatesFrequently)
         } else {
-            Text(searchMessages[searchTextIndex])
+            Text("Searching for Soda Machine...")
                 .font(.system(size: 16, weight: .medium))
                 .foregroundStyle(Theme.textSecondary)
+                .accessibilityAddTraits(.updatesFrequently)
         }
     }
 }
