@@ -1,6 +1,63 @@
 import SwiftUI
+import UIKit
 import Charts
 import PhotosUI
+
+// ────────────────────────────────────────────────────────────
+// PagedDots — a SwiftUI wrapper around UIKit's UIPageControl.
+//
+// Why not use SwiftUI's built-in .tabViewStyle(.page) indicator? It draws
+// the same dots and forwards taps/scrubs visually, but doesn't surface the
+// underlying UIPageControl's *adjustable* accessibility trait — VoiceOver
+// can't focus it, Voice Control's "Show Numbers" doesn't number it, Switch
+// Control can't reach it. Bringing the actual UIPageControl in via
+// UIViewRepresentable is the only reliable way to get the native:
+//
+//   - tap-on-either-side          (prev / next page)
+//   - scrub                       (continuous step — rotary-knob analog)
+//   - VoiceOver adjustable trait  (focus once, swipe up/down to step)
+//   - Voice Control numbered      (increment / decrement commands)
+//   - Switch Control navigable
+//
+// Mirrors the design intent of the S3 rotary knob: one control, discrete
+// steps, multiple input methods all converging on the same model.
+// ────────────────────────────────────────────────────────────
+
+private struct PagedDots: UIViewRepresentable {
+    @Binding var currentPage: Int
+    let pageCount: Int
+
+    func makeUIView(context: Context) -> UIPageControl {
+        let pc = UIPageControl()
+        pc.numberOfPages = pageCount
+        pc.currentPage = currentPage
+        pc.currentPageIndicatorTintColor = UIColor(Theme.dotActive)
+        pc.pageIndicatorTintColor = UIColor(Theme.dotInactive)
+        pc.allowsContinuousInteraction = true        // enables scrub
+        pc.backgroundStyle = .automatic              // pill on interaction
+        pc.addTarget(
+            context.coordinator,
+            action: #selector(Coordinator.pageChanged(_:)),
+            for: .valueChanged
+        )
+        return pc
+    }
+
+    func updateUIView(_ uiView: UIPageControl, context: Context) {
+        if uiView.numberOfPages != pageCount { uiView.numberOfPages = pageCount }
+        if uiView.currentPage != currentPage { uiView.currentPage = currentPage }
+    }
+
+    func makeCoordinator() -> Coordinator { Coordinator(self) }
+
+    final class Coordinator: NSObject {
+        var parent: PagedDots
+        init(_ parent: PagedDots) { self.parent = parent }
+        @objc func pageChanged(_ sender: UIPageControl) {
+            parent.currentPage = sender.currentPage
+        }
+    }
+}
 
 // ────────────────────────────────────────────────────────────
 // Separate View structs create their own @Observable observation
@@ -1307,23 +1364,25 @@ struct ConfigView: View {
 
     // MARK: - Carousel (main menu)
 
-    // The system UIPageControl that backs `.tabViewStyle(.page)` provides:
-    //   - tap on either side of the current dot → previous / next page
-    //   - scrub (touch and drag horizontally) → continuous step through pages,
-    //     the closest UI analog to the S3 rotary knob
-    //   - the *adjustable* accessibility trait — VoiceOver focuses it once and
-    //     swipes up/down to step through pages; Voice Control numbers it once
-    //     and accepts increment/decrement; Switch Control navigates to it like
-    //     any other control
-    // Background pill defaults to .automatic (appears during interaction),
-    // which gives visual feedback during scrub.
+    // SwiftUI's .tabViewStyle(.page) draws its own dots, but they don't
+    // expose UIPageControl's accessibility traits. We hide that indicator
+    // (.never) and overlay our own PagedDots, which is a real UIPageControl
+    // wrapped via UIViewRepresentable — same look, plus the adjustable trait
+    // for VoiceOver, numbered element for Voice Control, and Switch Control
+    // navigability. See PagedDots above for the full rationale.
     private var carouselContent: some View {
-        TabView(selection: $currentPage) {
-            ForEach(0..<pageCount, id: \.self) { i in
-                carouselPage(for: i)
+        ZStack(alignment: .bottom) {
+            TabView(selection: $currentPage) {
+                ForEach(0..<pageCount, id: \.self) { i in
+                    carouselPage(for: i)
+                }
             }
+            .tabViewStyle(.page(indexDisplayMode: .never))
+
+            PagedDots(currentPage: $currentPage, pageCount: pageCount)
+                .frame(height: 30)
+                .padding(.bottom, 40)
         }
-        .tabViewStyle(.page(indexDisplayMode: .always))
     }
 
     // MARK: - Page Views
