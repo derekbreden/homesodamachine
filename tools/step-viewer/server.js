@@ -63,6 +63,7 @@ function findScriptsImportingStep(stepFilename) {
 const running = new Map(); // pyFilePath -> AbortController
 
 async function runScript(pyFilePath) {
+  console.log(`  ↪ running: ${path.relative(HARDWARE_DIR, pyFilePath)}`);
   if (running.has(pyFilePath)) {
     running.get(pyFilePath).abort();
     running.delete(pyFilePath);
@@ -75,14 +76,25 @@ async function runScript(pyFilePath) {
   const producedSteps = [];
 
   try {
+    console.log(`  ↪ spawning: ${PYTHON_BIN} ${path.relative(PROJECT_ROOT, pyFilePath)}`);
     const code = await new Promise((resolve, reject) => {
+      console.log(`  ↪ cwd: ${path.relative(PROJECT_ROOT, scriptDir)}`);
       const proc = spawn(PYTHON_BIN, [pyFilePath], {
         cwd: scriptDir,
         stdio: ["ignore", "ignore", "ignore"],
         signal: ac.signal,
       });
+      console.log(`  ↪ PID: ${proc.pid}`);
       proc.on("close", resolve);
       proc.on("error", reject);
+      proc.on("message", (msg) => {
+        console.log(`  [${path.basename(pyFilePath)}] ${msg}`);
+      });
+      proc.on("exit", (code) => {
+        if (code !== 0) {
+          reject(new Error(`Process exited with code ${code}`));
+        }
+      });
     });
 
     if (code !== 0) return;
@@ -102,6 +114,7 @@ async function runScript(pyFilePath) {
   } catch (e) {
     if (e.name === "AbortError") return;
     // Script failed — leave any prior committed STEP in place.
+    console.log(`  ↪ failed: ${e.message}`);
   } finally {
     running.delete(pyFilePath);
   }
