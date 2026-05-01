@@ -2,20 +2,35 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<link rel="manifest" href="manifest.webmanifest">
-<link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
-<meta name="theme-color" content="#1a1a1a">
+<link rel="manifest" href="/dev/manifest.webmanifest">
+<link rel="icon" type="image/png" sizes="32x32" href="/dev/pwa-icons/favicon-32.png">
+<link rel="icon" type="image/png" sizes="64x64" href="/dev/pwa-icons/favicon-64.png">
+<link rel="apple-touch-icon" sizes="152x152" href="/dev/pwa-icons/apple-touch-icon-152.png">
+<link rel="apple-touch-icon" sizes="167x167" href="/dev/pwa-icons/apple-touch-icon-167.png">
+<link rel="apple-touch-icon" sizes="180x180" href="/dev/pwa-icons/apple-touch-icon-180.png">
+<link rel="apple-touch-icon" href="/dev/pwa-icons/apple-touch-icon-180.png">
+<meta name="theme-color" content="#1a1a2e">
 <meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-title" content="HomeSoda">
+<meta name="apple-mobile-web-app-title" content="Home Soda Machine">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1, user-scalable=no">
-<title>Mermaid Viewer</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1, user-scalable=no, viewport-fit=cover">
+<title>Home Soda Machine</title>
 <style>
+:root {
+  --bg: #1a1a2e;
+  --surface: #232342;
+  --surface-2: #2a2a4a;
+  --border: #3a3a5a;
+  --text: #ffffff;
+  --text-2: #999999;
+  --text-3: #595959;
+  --accent: #4488ff;
+}
 * { margin: 0; padding: 0; box-sizing: border-box; }
 body {
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, sans-serif;
-  background: #1a1a1a;
-  color: #ccc;
+  background: var(--bg);
+  color: var(--text);
   display: flex;
   height: 100vh;
   overflow: hidden;
@@ -25,8 +40,8 @@ body {
 #sidebar {
   width: 240px;
   min-width: 240px;
-  background: #222;
-  border-right: 1px solid #333;
+  background: var(--surface);
+  border-right: 1px solid var(--border);
   display: flex;
   flex-direction: column;
   overflow-y: auto;
@@ -35,25 +50,26 @@ body {
   padding: 16px;
   font-size: 14px;
   font-weight: 600;
-  color: #888;
+  color: var(--text-2);
   text-transform: uppercase;
   letter-spacing: 0.5px;
-  border-bottom: 1px solid #333;
+  border-bottom: 1px solid var(--border);
 }
 .file-item {
   padding: 10px 16px;
   font-size: 13px;
   cursor: pointer;
-  border-bottom: 1px solid #2a2a2a;
+  border-bottom: 1px solid var(--surface-2);
   transition: background 0.1s;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+  color: var(--text);
 }
-.file-item:hover { background: #2a2a2a; }
-.file-item.active { background: #333; color: #fff; }
+.file-item:hover { background: var(--surface-2); }
+.file-item.active { background: var(--surface-2); color: var(--text); }
 .file-item .dir {
-  color: #666;
+  color: var(--text-2);
   font-size: 11px;
   display: block;
   margin-bottom: 2px;
@@ -62,11 +78,11 @@ body {
   display: block;
   padding: 10px 16px;
   font-size: 13px;
-  color: #5588cc;
+  color: var(--accent);
   text-decoration: none;
-  border-bottom: 1px solid #333;
+  border-bottom: 1px solid var(--border);
 }
-#back-link:hover { background: #2a2a2a; }
+#back-link:hover { background: var(--surface-2); }
 
 /* Main area */
 #main {
@@ -92,9 +108,9 @@ body {
   position: fixed;
   bottom: 16px;
   right: 16px;
-  background: rgba(40,40,40,0.85);
-  border: 1px solid #444;
-  color: #888;
+  background: rgba(35,35,66,0.85);
+  border: 1px solid var(--border);
+  color: var(--text-2);
   padding: 6px 12px;
   border-radius: 6px;
   font-size: 12px;
@@ -106,9 +122,9 @@ body {
   position: fixed;
   top: 16px;
   right: 16px;
-  background: rgba(40,40,40,0.85);
-  border: 1px solid #444;
-  color: #aaa;
+  background: rgba(35,35,66,0.85);
+  border: 1px solid var(--border);
+  color: var(--text-2);
   padding: 6px 12px;
   border-radius: 6px;
   font-size: 13px;
@@ -121,7 +137,7 @@ body {
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  color: #555;
+  color: var(--text-3);
   font-size: 15px;
 }
 </style>
@@ -149,13 +165,13 @@ mermaid.initialize({
   theme: "dark",
   themeVariables: {
     darkMode: true,
-    background: "#1a1a1a",
-    primaryColor: "#334455",
-    primaryTextColor: "#ccc",
-    primaryBorderColor: "#556677",
-    lineColor: "#667788",
-    secondaryColor: "#2a3a4a",
-    tertiaryColor: "#1e2e3e",
+    background: "#1a1a2e",
+    primaryColor: "#2a2a4a",
+    primaryTextColor: "#ffffff",
+    primaryBorderColor: "#3a3a5a",
+    lineColor: "#999999",
+    secondaryColor: "#232342",
+    tertiaryColor: "#1a1a2e",
     fontFamily: "-apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, sans-serif",
     fontSize: "14px",
   },
