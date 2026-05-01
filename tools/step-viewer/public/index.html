@@ -240,7 +240,27 @@ body {
 }
 .ios-toggle.on { background: var(--accent); }
 .ios-toggle.on::before { transform: translateX(20px); }
-.ios-toggle:disabled { opacity: 0.5; cursor: default; }
+.ios-toggle:disabled { cursor: default; }
+/* Loading: spinner appears centered on the knob position. No layout
+   change — the spinner is absolutely positioned and the same total
+   button size is preserved. The slide animation on the knob is
+   independent and runs as soon as .on is added. */
+.ios-toggle .ios-toggle-spinner {
+  position: absolute;
+  top: 8px;
+  left: 8px;
+  width: 15px;
+  height: 15px;
+  border: 2px solid rgba(80,80,90,0.35);
+  border-top-color: var(--accent);
+  border-radius: 50%;
+  display: none;
+  animation: ios-toggle-spin 0.7s linear infinite;
+  pointer-events: none;
+  box-sizing: border-box;
+}
+.ios-toggle.loading .ios-toggle-spinner { display: block; }
+@keyframes ios-toggle-spin { to { transform: rotate(360deg); } }
 
 /* Subscribe warning modal */
 .modal-backdrop {
@@ -910,7 +930,9 @@ function buildGrid() {
     card.innerHTML = `
       <div class="setting-row">
         <span class="setting-label">Notifications</span>
-        <button id="notifs-toggle" class="ios-toggle" type="button" role="switch" aria-checked="false" aria-label="Notifications"></button>
+        <button id="notifs-toggle" class="ios-toggle" type="button" role="switch" aria-checked="false" aria-label="Notifications">
+          <span class="ios-toggle-spinner"></span>
+        </button>
       </div>
     `;
     gridEl.appendChild(card);
@@ -1352,36 +1374,59 @@ async function persistUnsubscribed() {
 
 async function toggleNotifications() {
   if (!pushState.available) return;
+  const t = document.getElementById("notifs-toggle");
+  if (!t) return;
 
   if (pushState.subscribedAll) {
-    // Turning off — no modal, just unsubscribe.
-    await persistUnsubscribed();
+    // Turning off — slide first, persist in background. Unsubscribe is a
+    // single DELETE, no system prompt; we don't need a spinner.
     pushState.subscribedAll = false;
     refreshNotifsToggle();
+    persistUnsubscribed().catch((e) => console.warn("unsubscribe error:", e));
     return;
   }
 
-  // Turning on — confirm with the warning, then request permission and
-  // register/get-token if we haven't already.
+  // Turning on — show the warning first, then act.
   const confirmed = await showSubscribeModal();
   if (!confirmed) return;
 
-  if (Notification.permission !== "granted") {
-    const perm = await Notification.requestPermission();
-    if (perm !== "granted") {
-      alert("Notifications were blocked. Enable them in your browser/PWA settings to subscribe.");
-      return;
-    }
-  }
-  try {
-    await attachMessaging();
-  } catch (e) {
-    alert(`Couldn't enable notifications: ${e.message}`);
+  // Fast path: permission already granted in a previous session and FCM
+  // already attached. Slide immediately, persist in background.
+  if (Notification.permission === "granted" && pushState.token) {
+    pushState.subscribedAll = true;
+    refreshNotifsToggle();
+    persistSubscribed().catch((e) => {
+      pushState.subscribedAll = false;
+      refreshNotifsToggle();
+      alert(`Couldn't enable notifications: ${e.message}`);
+    });
     return;
   }
-  await persistSubscribed();
-  pushState.subscribedAll = true;
-  refreshNotifsToggle();
+
+  // Slow path: needs the system permission prompt and/or first-time FCM
+  // attach. Show a spinner inside the (still off-position) pill so the
+  // tap doesn't feel ignored. The slide runs once we flip .loading off
+  // and .on on in the same frame at the end.
+  t.classList.add("loading");
+  t.disabled = true;
+  try {
+    if (Notification.permission !== "granted") {
+      const perm = await Notification.requestPermission();
+      if (perm !== "granted") {
+        alert("Notifications were blocked. Enable them in your browser/PWA settings to subscribe.");
+        return;
+      }
+    }
+    await attachMessaging();
+    await persistSubscribed();
+    pushState.subscribedAll = true;
+  } catch (e) {
+    alert(`Couldn't enable notifications: ${e.message}`);
+  } finally {
+    t.classList.remove("loading");
+    t.disabled = false;
+    refreshNotifsToggle();
+  }
 }
 
 function showSubscribeModal() {
