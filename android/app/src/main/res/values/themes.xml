@@ -10,6 +10,16 @@
         <item name="windowSplashScreenBackground">@color/splash_bg</item>
         <item name="windowSplashScreenAnimatedIcon">@drawable/launch_icon</item>
         <item name="postSplashScreenTheme">@style/Theme.App</item>
+        <!--
+          Pin status + nav bar colors during the splash phase. Without these,
+          Theme.SplashScreen → Theme.DeviceDefault defaults the bars to
+          @android:color/black on dark-mode devices, so the splash window
+          shows splash_bg in the center but pure black at top and bottom —
+          which reads as "the whole screen is black" especially when the
+          splash holds for several seconds on a slow emulator.
+        -->
+        <item name="android:statusBarColor">@color/splash_bg</item>
+        <item name="android:navigationBarColor">@color/splash_bg</item>
     </style>
 
     <style name="Theme.App" parent="android:Theme.Material.NoActionBar">
