@@ -1,7 +1,7 @@
 /*******************************************************************************
  * Size: 64 px
  * Bpp: 4
- * Opts: --font /Users/derekbredensteiner/Documents/PlatformIO/Projects/soda-flavor-injector/.pio/libdeps/esp32s3_config/lvgl/scripts/built_in_font/Montserrat-Medium.ttf --size 64 --bpp 4 --format lvgl --symbols 0123456789: --output /Users/derekbredensteiner/Documents/PlatformIO/Projects/soda-flavor-injector/src_config/font_ratio_64.h --lv-include lvgl.h --lv-font-name font_ratio_64 --no-compress
+ * Opts: --font /Users/derekbredensteiner/Developer/homesodamachine/.pio/libdeps/esp32s3_config/lvgl/scripts/built_in_font/Montserrat-Medium.ttf --size 64 --bpp 4 --format lvgl --symbols 0123456789: --output /Users/derekbredensteiner/Developer/homesodamachine/src_config/font_ratio_64.h --lv-include lvgl.h --lv-font-name font_ratio_64 --no-compress
  ******************************************************************************/
 
 #ifdef LV_LVGL_H_INCLUDE_SIMPLE
