@@ -330,7 +330,7 @@ ZONE5_WALL     = 4.0                                                # toughened 
 # assembly's gooseneck moves, update both.
 
 GN_BEND1_R          = 30.0                                           # water tube — bend 1
-GN_BEND2_R          = 60.0                                           # water tube — bend 2
+GN_BEND2_R          = 40.0                                           # water tube — bend 2
 GN_BEND1_SWEEP_RAD  = math.radians(30.0)
 GN_BEND2_SWEEP_RAD  = math.radians(110.0)
 LEVER_TOP_Z         = ZONE2_Z_TOP + 13.0                             # 52
@@ -339,8 +339,8 @@ GN_BEND1_START_Z    = (
     GN_BEND1_MID_Z
     - GN_BEND1_R * math.sin(GN_BEND1_SWEEP_RAD / 2.0)
 )                                                                    # ≈ 79.24
-GN_MID_STRAIGHT_LEN = 120.0
-GN_TIP_STRAIGHT_LEN = 30.0
+GN_MID_STRAIGHT_LEN = 115.0
+GN_TIP_STRAIGHT_LEN = 25.0
 ZONE6_WALL          = ZONE5_WALL                                     # 4.0
 
 
