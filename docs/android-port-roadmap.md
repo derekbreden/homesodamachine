@@ -387,8 +387,8 @@ The phase is done when:
 | **M-1** | iOS: pull scattered colors into Theme.swift | iOS app | landed |
 | **M0a** | iOS accessibility (6 additions, no per-image labels) | iOS app | landed |
 | **M0b** | iOS haptic — medium impact at Hold-to-Prime engage | iOS app | landed |
-| **M1** | Android: splash + glass handoff | Android phase 1 | next |
-| M2 | Android: theme polish + ScanView wired (no BLE yet) | Android phase 2 | |
+| **M1** | Android: splash + glass handoff | Android phase 1 | landed |
+| M2 | Android: theme polish + ScanView wired (no BLE yet) | Android phase 2 | next |
 | M3 | Android: BLE layer + binary protocol + demo mode | Android phase 3 | |
 | M4 | Android: image processing (median-cut, RGB565, CRC32) | Android phase 4 | |
 | M5 | Android: ConfigView carousel + 7 sheets | Android phase 5 | |
