@@ -1398,9 +1398,16 @@ struct ConfigView: View {
             }
             .tabViewStyle(.page(indexDisplayMode: .never))
 
+            // Frame is intentionally taller than the visible dots (~8pt). The
+            // 60pt height puts the touch target comfortably above the HIG's
+            // 44pt minimum, gives VoiceOver touch-exploration room to land
+            // on the control without precise aim, and gives Voice Control's
+            // "Show Numbers" overlay a generous region to hit. Padding is
+            // reduced from 40 → 25 so the visible dots stay roughly where
+            // they were on screen — only the hit area grows.
             PagedDots(currentPage: $currentPage, pageCount: pageCount)
-                .frame(height: 30)
-                .padding(.bottom, 40)
+                .frame(height: 60)
+                .padding(.bottom, 25)
         }
     }
 
