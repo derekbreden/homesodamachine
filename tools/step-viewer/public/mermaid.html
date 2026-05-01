@@ -2,6 +2,12 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
+<meta name="theme-color" content="#1a1a1a">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="HomeSoda">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1, user-scalable=no">
 <title>Mermaid Viewer</title>
 <style>
@@ -183,9 +189,35 @@ const statusEl = document.getElementById("status");
 const fileListEl = document.getElementById("file-list");
 
 // --- Transform ---
+let transformSaveTimer = null;
 function applyTransform() {
   containerEl.style.transform = `translate(${panX}px, ${panY}px) scale(${scale})`;
   zoomEl.textContent = `${Math.round(scale * 100)}%`;
+  if (currentFile) {
+    clearTimeout(transformSaveTimer);
+    transformSaveTimer = setTimeout(() => saveTransform(currentFile), 250);
+  }
+}
+
+function saveTransform(file) {
+  try {
+    localStorage.setItem(`mmd-transform:${file}`, JSON.stringify({ scale, panX, panY }));
+  } catch {}
+}
+
+function loadTransform(file) {
+  try {
+    const raw = localStorage.getItem(`mmd-transform:${file}`);
+    if (!raw) return false;
+    const s = JSON.parse(raw);
+    if (typeof s.scale !== "number" || typeof s.panX !== "number" || typeof s.panY !== "number") return false;
+    scale = s.scale;
+    panX = s.panX;
+    panY = s.panY;
+    return true;
+  } catch {
+    return false;
+  }
 }
 
 // --- Pan + pinch zoom ---
@@ -343,7 +375,10 @@ async function loadFile(file) {
     el.classList.toggle("active", el.dataset.file === file);
   }
 
-  await renderDiagram(content);
+  // Restore previously-saved pan/zoom for this file if present; otherwise
+  // let renderDiagram run its initial fitDiagram.
+  const restored = loadTransform(file);
+  await renderDiagram(content, restored);
 }
 
 async function reloadCurrentFile() {

@@ -25,3 +25,4 @@ hardware/cartridge/scripts/output/*.stl
 
 # Lock files for internal tools
 package-lock.json
+.firebase-setup/
