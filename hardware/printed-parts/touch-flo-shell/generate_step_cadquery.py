@@ -276,9 +276,10 @@ ZONE4_Z_BOTTOM = SHELL_ARCH_FOOT_TOP_Z                              # 44.25
 # head corner at original (X=9, Z=52) rotates -18° around pivot
 # (1.5, 46) to (6.78, 54.024). That point sits inside zone 5's water-
 # circle outer outline (centered at X=8.875, R=6.425), so zone 5's
-# bottom — and therefore zone 4's top — must be above it. 55 mm gives
-# ~1 mm clearance above 54.024.
-ZONE4_Z_TOP    = 55.0
+# bottom — and therefore zone 4's top — must be above it. The first
+# PETG test print showed ~1 mm clearance was too tight in practice;
+# bumped to 57.5 mm for ~3.5 mm clearance above 54.024.
+ZONE4_Z_TOP    = 57.5
 ZONE4_HEIGHT   = ZONE4_Z_TOP - ZONE4_Z_BOTTOM                       # 10.75
 ZONE4_WALL     = WALL_THICKNESS_MIN                                 # 3.0
 
@@ -287,7 +288,7 @@ ZONE4_WALL     = WALL_THICKNESS_MIN                                 # 3.0
 # ZONE 5 — tube wrapper above the lever
 # ═══════════════════════════════════════════════════════
 #
-# Above zone 4 (which ends at Z=ZONE4_Z_TOP=52 — high enough to clear
+# Above zone 4 (which ends at Z=ZONE4_Z_TOP=57.5 — high enough to clear
 # the lever's swing envelope), the shell wraps just the tubes with a
 # 3 mm wall. Cross-section is the union of:
 #   - water cylinder bore + 3 mm wall
@@ -296,8 +297,8 @@ ZONE4_WALL     = WALL_THICKNESS_MIN                                 # 3.0
 # the wrapper around the water tube (centered at X=8.875) extends
 # in -X past FILL_X_MIN, but that's safe because we're now above
 # the lever's reach.
-ZONE5_Z_BOTTOM = ZONE4_Z_TOP                                        # 52
-ZONE5_Z_TOP    = ZONE4_Z_TOP + 10.0                                 # 62 (provisional)
+ZONE5_Z_BOTTOM = ZONE4_Z_TOP                                        # 57.5
+ZONE5_Z_TOP    = ZONE4_Z_TOP + 10.0                                 # 67.5
 ZONE5_HEIGHT   = ZONE5_Z_TOP - ZONE5_Z_BOTTOM                       # 10
 ZONE5_WALL     = 4.0                                                # toughened from WALL_THICKNESS_MIN=3
 
@@ -429,8 +430,10 @@ ZONE45_BACK_X      = SHELL_CENTER_X + SHELL_OUTER_R                  # 22.175
 _ZONE45_X_MARGIN   = ZONE45_BACK_X - _Z5_X_MAX                       # 4.01
 ZONE45_FRONT_X     = _Z5_X_MIN - _ZONE45_X_MARGIN                    # ≈ -1.56
 
-ZONE45_Z_TOP                = 66.2                  # provisional — roughly halfway between
-                                                    # ZONE45_BOT_Z_AT_FRONT and GN_BEND1_START_Z
+ZONE45_Z_TOP                = (ZONE4_Z_TOP + GN_BEND1_START_Z) / 2.0  # halfway between
+                                                                       # zone 4 top and
+                                                                       # gooseneck bend start
+                                                                       # ≈ 68.37
 ZONE45_BOT_Z_AT_FRONT       = (
     _NEW_ARCH_C_Z
     + math.sqrt(_NEW_ARCH_R ** 2 - (ZONE45_FRONT_X - FILL_X_MIN) ** 2)
