@@ -46,12 +46,18 @@ fun ScanView() {
     ) {
         Box(modifier = Modifier.fillMaxSize()) {
             // Glass animation centered vertically and horizontally.
+            // 288dp matches `launch_icon.xml`'s android:width — the splash
+            // window renders the static icon at 288dp on Android 12+, so
+            // sizing the first animated frame to the same 288dp keeps the
+            // glass visually identical across the static→animated handoff.
+            // (iOS uses 200pt to match its LaunchScreen.storyboard's icon
+            // frame; the per-platform splash conventions differ.)
             // clearAndSetSemantics() is the Compose equivalent of iOS's
             // .accessibilityHidden(true) — TalkBack will skip it entirely.
             GlassAnimation(
                 modifier = Modifier
                     .align(Alignment.Center)
-                    .size(200.dp)
+                    .size(288.dp)
                     .clearAndSetSemantics { },
             )
 
