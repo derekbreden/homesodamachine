@@ -266,11 +266,13 @@ private struct RatioPickerSheet: View {
                     ForEach(6...24, id: \.self) { value in
                         Text("1:\(value)")
                             .foregroundStyle(Theme.textPrimary)
+                            .accessibilityLabel("1 to \(value)")
                             .tag(value)
                     }
                 }
                 .pickerStyle(.wheel)
                 .labelsHidden()
+                .accessibilityLabel(flavorLabel)
             }
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
@@ -502,6 +504,10 @@ private struct PrimeSheet: View {
                                         stopTickTimer()
                                     }
                             )
+                            .accessibilityElement()
+                            .accessibilityLabel(ble.primeActive ? "Priming flavor \(flavor)" : "Prime flavor \(flavor)")
+                            .accessibilityHint("Touch and hold to dispense priming fluid; release to stop.")
+                            .accessibilityAddTraits(.isButton)
                     } else {
                         VStack(spacing: 0) {
                             Button(action: { selectedFlavor = 1 }) {
@@ -799,7 +805,7 @@ private struct StatsSheet: View {
 
             if total > 0 {
                 HStack(spacing: 20) {
-                    flavorLegendImage(slot: ble.flavor1Image, color: Theme.chartPink, pct: Int(f1 / total * 100))
+                    flavorLegendImage(flavor: 1, slot: ble.flavor1Image, color: Theme.chartPink, pct: Int(f1 / total * 100))
                     Chart {
                         SectorMark(angle: .value("Flavor 1", f1), innerRadius: .ratio(0.5))
                             .foregroundStyle(Theme.chartPink)
@@ -807,7 +813,8 @@ private struct StatsSheet: View {
                             .foregroundStyle(Theme.chartPurple)
                     }
                     .frame(width: 120, height: 120)
-                    flavorLegendImage(slot: ble.flavor2Image, color: Theme.chartPurple, pct: Int(f2 / total * 100))
+                    .accessibilityHidden(true)
+                    flavorLegendImage(flavor: 2, slot: ble.flavor2Image, color: Theme.chartPurple, pct: Int(f2 / total * 100))
                 }
             } else {
                 Text("No activity")
@@ -817,7 +824,7 @@ private struct StatsSheet: View {
         }
     }
 
-    private func flavorLegendImage(slot: Int, color: Color, pct: Int) -> some View {
+    private func flavorLegendImage(flavor: Int, slot: Int, color: Color, pct: Int) -> some View {
         VStack(spacing: 6) {
             if let uiImage = ble.imageFor(slot: slot) {
                 Image(uiImage: uiImage)
@@ -836,6 +843,8 @@ private struct StatsSheet: View {
                 .font(.system(size: 14, weight: .semibold))
                 .foregroundStyle(color)
         }
+        .accessibilityElement(children: .ignore)
+        .accessibilityLabel("Flavor \(flavor): \(pct) percent")
     }
 
 }
@@ -853,6 +862,16 @@ private func servingSizeForOz(_ oz: Int) -> Double {
 
 private func toServings(_ raw: Double, size: Double) -> Double {
     (raw / size * 4).rounded() / 4
+}
+
+private func formatBarPair(f1: Double, f2: Double, averagePrefix: Bool = false) -> String {
+    let prefix = averagePrefix ? "Average " : ""
+    return "\(prefix)\(String(format: "%g", f1)) servings of Flavor 1, \(String(format: "%g", f2)) of Flavor 2"
+}
+
+private func dayAccessibilityLabel(daysAgo: Int, today: Date, calendar: Calendar) -> String {
+    let date = calendar.date(byAdding: .day, value: -daysAgo, to: today) ?? today
+    return date.formatted(.dateTime.month(.wide).day())
 }
 
 // MARK: - Glass Icon
@@ -986,17 +1005,21 @@ private struct Chart24HView: View {
 
             Chart {
                 ForEach(0..<24, id: \.self) { i in
-                    BarMark(
-                        x: .value("Hour", i),
-                        y: .value("Servings", data0[i])
-                    )
-                    .foregroundStyle(by: .value("Flavor", "Flavor 1"))
+                    Plot {
+                        BarMark(
+                            x: .value("Hour", i),
+                            y: .value("Servings", data0[i])
+                        )
+                        .foregroundStyle(by: .value("Flavor", "Flavor 1"))
 
-                    BarMark(
-                        x: .value("Hour", i),
-                        y: .value("Servings", data1[i])
-                    )
-                    .foregroundStyle(by: .value("Flavor", "Flavor 2"))
+                        BarMark(
+                            x: .value("Hour", i),
+                            y: .value("Servings", data1[i])
+                        )
+                        .foregroundStyle(by: .value("Flavor", "Flavor 2"))
+                    }
+                    .accessibilityLabel(hourLabel((currentHour - 23 + i + 24) % 24))
+                    .accessibilityValue(formatBarPair(f1: data0[i], f2: data1[i]))
                 }
             }
 
@@ -1056,17 +1079,21 @@ private struct Chart30DView: View {
 
             Chart {
                 ForEach(0..<30, id: \.self) { i in
-                    BarMark(
-                        x: .value("Day", i),
-                        y: .value("Servings", data0[i])
-                    )
-                    .foregroundStyle(by: .value("Flavor", "Flavor 1"))
+                    Plot {
+                        BarMark(
+                            x: .value("Day", i),
+                            y: .value("Servings", data0[i])
+                        )
+                        .foregroundStyle(by: .value("Flavor", "Flavor 1"))
 
-                    BarMark(
-                        x: .value("Day", i),
-                        y: .value("Servings", data1[i])
-                    )
-                    .foregroundStyle(by: .value("Flavor", "Flavor 2"))
+                        BarMark(
+                            x: .value("Day", i),
+                            y: .value("Servings", data1[i])
+                        )
+                        .foregroundStyle(by: .value("Flavor", "Flavor 2"))
+                    }
+                    .accessibilityLabel(dayAccessibilityLabel(daysAgo: 29 - i, today: today, calendar: calendar))
+                    .accessibilityValue(formatBarPair(f1: data0[i], f2: data1[i]))
                 }
             }
 
@@ -1119,17 +1146,21 @@ private struct ChartHODView: View {
 
             Chart {
                 ForEach(0..<24, id: \.self) { h in
-                    BarMark(
-                        x: .value("Hour", h),
-                        y: .value("Avg Servings", data0[h])
-                    )
-                    .foregroundStyle(by: .value("Flavor", "Flavor 1"))
+                    Plot {
+                        BarMark(
+                            x: .value("Hour", h),
+                            y: .value("Avg Servings", data0[h])
+                        )
+                        .foregroundStyle(by: .value("Flavor", "Flavor 1"))
 
-                    BarMark(
-                        x: .value("Hour", h),
-                        y: .value("Avg Servings", data1[h])
-                    )
-                    .foregroundStyle(by: .value("Flavor", "Flavor 2"))
+                        BarMark(
+                            x: .value("Hour", h),
+                            y: .value("Avg Servings", data1[h])
+                        )
+                        .foregroundStyle(by: .value("Flavor", "Flavor 2"))
+                    }
+                    .accessibilityLabel(hourLabel(h))
+                    .accessibilityValue(formatBarPair(f1: data0[h], f2: data1[h], averagePrefix: true))
                 }
             }
 
@@ -1279,30 +1310,7 @@ struct ConfigView: View {
         ZStack(alignment: .bottom) {
             TabView(selection: $currentPage) {
                 ForEach(0..<pageCount, id: \.self) { i in
-                    VStack {
-                        Text(pageLabels[i])
-                            .font(.system(size: 16, weight: .medium))
-                            .foregroundStyle(Theme.textSecondary)
-                            .padding(.top, 60)
-
-                        Spacer()
-
-                        pageView(for: i)
-
-                        Spacer()
-                    }
-                    .padding(.bottom, 80)
-                    .contentShape(Rectangle())
-                    .onTapGesture {
-                        switch i {
-                        case 0: showFlavor1Picker = true
-                        case 1: showFlavor1Ratio = true
-                        case 2: showFlavor2Picker = true
-                        case 3: showFlavor2Ratio = true
-                        default: break
-                        }
-                    }
-                    .tag(i)
+                    carouselPage(for: i)
                 }
             }
             .tabViewStyle(.page(indexDisplayMode: .never))
@@ -1321,6 +1329,48 @@ struct ConfigView: View {
     }
 
     // MARK: - Page Views
+
+    // Pages 0–3 are tap-to-edit (open the corresponding picker); page 4 is the
+    // settings list. The first four are exposed to VoiceOver as a single
+    // button per page so the swipe-and-double-tap interaction works; page 4
+    // keeps its inner buttons individually navigable.
+    @ViewBuilder
+    private func carouselPage(for i: Int) -> some View {
+        let page = VStack {
+            Text(pageLabels[i])
+                .font(.system(size: 16, weight: .medium))
+                .foregroundStyle(Theme.textSecondary)
+                .padding(.top, 60)
+
+            Spacer()
+
+            pageView(for: i)
+
+            Spacer()
+        }
+        .padding(.bottom, 80)
+        .contentShape(Rectangle())
+        .onTapGesture {
+            switch i {
+            case 0: showFlavor1Picker = true
+            case 1: showFlavor1Ratio = true
+            case 2: showFlavor2Picker = true
+            case 3: showFlavor2Ratio = true
+            default: break
+            }
+        }
+        .tag(i)
+
+        if i < 4 {
+            page
+                .accessibilityElement(children: .combine)
+                .accessibilityLabel("Page \(i + 1) of \(pageCount): \(pageLabels[i])")
+                .accessibilityAddTraits(.isButton)
+                .accessibilityHint(i.isMultiple(of: 2) ? "Double tap to change image" : "Double tap to change ratio")
+        } else {
+            page
+        }
+    }
 
     @ViewBuilder
     private func pageView(for index: Int) -> some View {
