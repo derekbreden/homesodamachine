@@ -143,9 +143,9 @@ fun GlassAnimation(modifier: Modifier = Modifier) {
 private fun buildGlassPath(s: Float): Path = Path().apply {
     moveTo(310f * s, 247f * s)
     lineTo(340f * s, 747f * s)
-    quadraticBezierTo(345f * s, 777f * s, 380f * s, 777f * s)
+    quadraticTo(345f * s, 777f * s, 380f * s, 777f * s)
     lineTo(644f * s, 777f * s)
-    quadraticBezierTo(679f * s, 777f * s, 684f * s, 747f * s)
+    quadraticTo(679f * s, 777f * s, 684f * s, 747f * s)
     lineTo(714f * s, 247f * s)
     close()
 }
@@ -161,11 +161,11 @@ private fun DrawScope.drawLiquid(t: Float, s: Float) {
     val waveShift = sin(t * 2f * PI.toFloat()) * WAVE_AMPLITUDE
     val path = Path().apply {
         moveTo(300f * s, (347f + waveShift) * s)
-        quadraticBezierTo(
+        quadraticTo(
             400f * s, (327f + waveShift) * s,
             512f * s, (352f - waveShift) * s,
         )
-        quadraticBezierTo(
+        quadraticTo(
             624f * s, (377f - waveShift) * s,
             724f * s, (342f + waveShift) * s,
         )
@@ -197,20 +197,20 @@ private fun DrawScope.drawSurfaceHighlightWave(t: Float, s: Float) {
     val waveShift = sin(t * 2f * PI.toFloat()) * WAVE_AMPLITUDE
     val path = Path().apply {
         moveTo(300f * s, (347f + waveShift) * s)
-        quadraticBezierTo(
+        quadraticTo(
             400f * s, (327f + waveShift) * s,
             512f * s, (352f - waveShift) * s,
         )
-        quadraticBezierTo(
+        quadraticTo(
             624f * s, (377f - waveShift) * s,
             724f * s, (342f + waveShift) * s,
         )
         lineTo(724f * s, (367f + waveShift) * s)
-        quadraticBezierTo(
+        quadraticTo(
             624f * s, (397f - waveShift) * s,
             512f * s, (372f - waveShift) * s,
         )
-        quadraticBezierTo(
+        quadraticTo(
             400f * s, (347f + waveShift) * s,
             300f * s, (367f + waveShift) * s,
         )
