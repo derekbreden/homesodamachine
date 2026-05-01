@@ -195,10 +195,11 @@ body {
   backdrop-filter: blur(4px);
 }
 
-/* Subscribe button (in detail views) */
-.subscribe-btn {
+/* Notifications toggle (grid view, top-right) */
+#notifs-toggle {
   position: fixed;
   top: calc(env(safe-area-inset-top, 0px) + 16px);
+  right: calc(env(safe-area-inset-right, 0px) + 16px);
   background: rgba(35,35,66,0.85);
   border: 1px solid var(--border);
   color: var(--text-2);
@@ -210,12 +211,8 @@ body {
   backdrop-filter: blur(4px);
   display: none;
 }
-.subscribe-btn:hover { background: rgba(58,58,90,0.9); color: var(--text); }
-.subscribe-btn.subscribed { color: var(--accent); border-color: var(--accent); }
-#subscribe-step { right: calc(env(safe-area-inset-right, 0px) + 16px + 120px + 12px); }
-@media (max-width: 600px) {
-  #subscribe-step { right: calc(env(safe-area-inset-right, 0px) + 16px + 80px + 12px); }
-}
+#notifs-toggle:hover { background: rgba(58,58,90,0.9); color: var(--text); }
+#notifs-toggle.on { color: var(--accent); border-color: var(--accent); }
 
 /* Subscribe warning modal */
 .modal-backdrop {
@@ -258,12 +255,13 @@ body {
 </head>
 <body>
 
+<button id="notifs-toggle" type="button">Notifications: off</button>
+
 <div id="grid"></div>
 
 <div id="detail">
   <button id="back">Back</button>
   <div id="filename"></div>
-  <button id="subscribe-step" class="subscribe-btn" type="button">Notify</button>
   <div id="loading">Loading...</div>
 </div>
 
@@ -972,7 +970,7 @@ function openDetail(file, pushHistory = true) {
   animating = true;
   animate();
   loadStepFile(file).then(() => applyCameraState(file));
-  refreshSubscribeButton();
+  refreshNotifsToggle();
 }
 
 function closeDetail(pushHistory = true) {
@@ -987,7 +985,7 @@ function closeDetail(pushHistory = true) {
   detailEl.style.display = "none";
   gridEl.style.display = "grid";
   animating = false;
-  refreshSubscribeButton();
+  refreshNotifsToggle();
 }
 
 async function openMmdDetail(file, pushHistory = true) {
@@ -996,7 +994,7 @@ async function openMmdDetail(file, pushHistory = true) {
   gridEl.style.display = "none";
   mmdDetailEl.style.display = "block";
   document.getElementById("mmd-filename").textContent = shortName(file, ".mmd").name;
-  refreshSubscribeButton();
+  refreshNotifsToggle();
 
   const resp = await fetch(`/api/mermaid-content/${file}`);
   if (!resp.ok) return;
@@ -1012,7 +1010,7 @@ function closeMmdDetail(pushHistory = true) {
   currentMmdContent = null;
   mmdDetailEl.style.display = "none";
   gridEl.style.display = "grid";
-  refreshSubscribeButton();
+  refreshNotifsToggle();
 }
 
 document.getElementById("back").addEventListener("click", () => closeDetail());
@@ -1198,23 +1196,26 @@ controls.addEventListener("change", () => {
 });
 
 // --- Firebase Cloud Messaging (push notifications) ---
-// Subscribe flow:
-//   1. User taps "Notify" on a STEP detail.
-//   2. If no FCM token yet: show warning modal. On confirm, request
-//      Notification permission, register the FCM service worker, get a
-//      token, and POST {token, files:[file]} to /api/push/subscribe.
-//   3. If token already exists: toggle this file's membership in the
-//      stored files array and POST the new array.
+// Single global toggle: when ON, the device is subscribed to *every* STEP
+// file, persisted server-side as files=['*']. Notifications are still
+// per-file (the deploy diff fires one push per changed file with the
+// path baked in), but the user only opts in once.
+//
+// Flow:
+//   1. User taps the "Notifications" toggle on the grid view.
+//   2. If turning ON: warning modal -> request permission -> register SW
+//      -> get FCM token -> POST {token, files:['*']}.
+//   3. If turning OFF: POST /api/push/unsubscribe with the token.
 const pushState = {
-  config: null,         // /api/firebase-config response
-  messaging: null,      // FCM messaging instance
-  swRegistration: null, // ServiceWorker registration
-  token: null,          // FCM registration token (one per device)
-  files: new Set(),     // files this device is subscribed to
-  available: false,     // browser supports push at all
+  config: null,           // /api/firebase-config response
+  messaging: null,        // FCM messaging instance
+  swRegistration: null,   // ServiceWorker registration
+  token: null,            // FCM registration token (one per device)
+  subscribedAll: false,   // device is subscribed to every STEP
+  available: false,       // browser supports push at all
 };
 
-const subscribeBtnStep = document.getElementById("subscribe-step");
+const notifsToggle = document.getElementById("notifs-toggle");
 const subscribeModal = document.getElementById("subscribe-modal");
 
 function pushSupported() {
@@ -1249,7 +1250,7 @@ async function initPush() {
       console.warn("FCM silent attach failed:", e.message);
     }
   }
-  refreshSubscribeButton();
+  refreshNotifsToggle();
 }
 
 async function attachMessaging() {
@@ -1286,56 +1287,59 @@ async function syncSubscriptionFromServer() {
   if (!pushState.token) return;
   const r = await fetch(`/api/push/subscription?token=${encodeURIComponent(pushState.token)}`);
   const j = await r.json();
-  pushState.files = new Set(j.files || []);
+  pushState.subscribedAll = (j.files || []).includes("*");
 }
 
-async function persistSubscription() {
+async function persistSubscribed() {
   if (!pushState.token) return;
   await fetch("/api/push/subscribe", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({
-      token: pushState.token,
-      files: [...pushState.files],
-    }),
+    body: JSON.stringify({ token: pushState.token, files: ["*"] }),
   });
 }
 
-async function toggleSubscribe(file) {
+async function persistUnsubscribed() {
+  if (!pushState.token) return;
+  await fetch("/api/push/unsubscribe", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ token: pushState.token }),
+  });
+}
+
+async function toggleNotifications() {
   if (!pushState.available) return;
 
-  // First-time subscribe: confirm with modal, then request permission.
-  if (!pushState.token) {
-    const confirmed = await showSubscribeModal();
-    if (!confirmed) return;
-    if (Notification.permission !== "granted") {
-      const perm = await Notification.requestPermission();
-      if (perm !== "granted") {
-        alert("Notifications were blocked. Enable them in your browser/PWA settings to subscribe.");
-        return;
-      }
-    }
-    try {
-      await attachMessaging();
-      await syncSubscriptionFromServer();
-    } catch (e) {
-      alert(`Couldn't enable notifications: ${e.message}`);
-      return;
-    }
-    pushState.files.add(file);
-    await persistSubscription();
-    refreshSubscribeButton();
+  if (pushState.subscribedAll) {
+    // Turning off — no modal, just unsubscribe.
+    await persistUnsubscribed();
+    pushState.subscribedAll = false;
+    refreshNotifsToggle();
     return;
   }
 
-  // Subsequent toggle on this file.
-  if (pushState.files.has(file)) {
-    pushState.files.delete(file);
-  } else {
-    pushState.files.add(file);
+  // Turning on — confirm with the warning, then request permission and
+  // register/get-token if we haven't already.
+  const confirmed = await showSubscribeModal();
+  if (!confirmed) return;
+
+  if (Notification.permission !== "granted") {
+    const perm = await Notification.requestPermission();
+    if (perm !== "granted") {
+      alert("Notifications were blocked. Enable them in your browser/PWA settings to subscribe.");
+      return;
+    }
   }
-  await persistSubscription();
-  refreshSubscribeButton();
+  try {
+    await attachMessaging();
+  } catch (e) {
+    alert(`Couldn't enable notifications: ${e.message}`);
+    return;
+  }
+  await persistSubscribed();
+  pushState.subscribedAll = true;
+  refreshNotifsToggle();
 }
 
 function showSubscribeModal() {
@@ -1356,17 +1360,17 @@ function showSubscribeModal() {
   });
 }
 
-function refreshSubscribeButton() {
-  const showStep = currentFile && pushState.available;
-  subscribeBtnStep.style.display = showStep ? "block" : "none";
-  if (showStep) {
-    const subscribed = pushState.files.has(currentFile);
-    subscribeBtnStep.textContent = subscribed ? "Notifying" : "Notify";
-    subscribeBtnStep.classList.toggle("subscribed", subscribed);
-  }
+function refreshNotifsToggle() {
+  // Hidden when push isn't available (Firebase config blank, or unsupported
+  // browser) or while a detail view is open (so it never overlaps chrome).
+  const inDetail = !!(currentFile || currentMmd);
+  const show = pushState.available && !inDetail;
+  notifsToggle.style.display = show ? "block" : "none";
+  notifsToggle.textContent = pushState.subscribedAll ? "Notifications: on" : "Notifications: off";
+  notifsToggle.classList.toggle("on", pushState.subscribedAll);
 }
 
-subscribeBtnStep.addEventListener("click", () => currentFile && toggleSubscribe(currentFile));
+notifsToggle.addEventListener("click", toggleNotifications);
 
 fetchFiles();
 connectEvents();
