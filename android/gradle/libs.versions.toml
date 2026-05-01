@@ -20,6 +20,10 @@ compose-foundation         = { module = "androidx.compose.foundation:foundation"
 compose-material3          = { module = "androidx.compose.material3:material3" }
 
 [plugins]
-android-application = { id = "com.android.application",         version.ref = "agp" }
-kotlin-android      = { id = "org.jetbrains.kotlin.android",    version.ref = "kotlin" }
+# AGP 9.0+ has built-in Kotlin support — the standalone `kotlin-android`
+# plugin is no longer required and is rejected at apply time. AGP itself
+# now drives the Kotlin compiler. We still apply `kotlin-compose` because
+# the Compose Compiler plugin is independent of AGP. See
+# https://kotl.in/gradle/agp-built-in-kotlin
+android-application = { id = "com.android.application",             version.ref = "agp" }
 kotlin-compose      = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }
