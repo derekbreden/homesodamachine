@@ -23,24 +23,22 @@ import PhotosUI
 // steps, multiple input methods all converging on the same model.
 // ────────────────────────────────────────────────────────────
 
-/// `UIPageControl` whose accessibility increment/decrement explicitly fire
-/// `.valueChanged` so the SwiftUI binding sees the step. The default
-/// implementation updates `currentPage` internally but doesn't always send
-/// the control event, which leaves `PagedDots`'s coordinator out of sync —
-/// VoiceOver swipe-up/down and Voice Control "swipe up [N]" appear to do
-/// nothing because the page change never propagates back. The forward
-/// direction worked through tap activation, which does fire the event.
+/// `UIPageControl` that wraps from the last page back to the first when
+/// activated by an assistive technology. Default `accessibilityActivate`
+/// (invoked by VoiceOver double-tap and Voice Control "Tap [N]") sends a
+/// touch which UIPageControl reads as "advance to next page" — but on the
+/// last page there is no next, so the activation does nothing and the user
+/// gets stuck. Wrapping lets the activation keep flowing through the cycle.
+///
+/// Sighted users tapping the dots directly bypass `accessibilityActivate`
+/// and hit UIControl's regular hit-testing (tap left/right half = prev/next),
+/// so this override only changes the assistive-activation behavior.
 private final class AccessiblePageControl: UIPageControl {
-    override func accessibilityIncrement() {
-        guard currentPage < numberOfPages - 1 else { return }
-        currentPage += 1
+    override func accessibilityActivate() -> Bool {
+        guard numberOfPages > 0 else { return false }
+        currentPage = (currentPage + 1) % numberOfPages
         sendActions(for: .valueChanged)
-    }
-
-    override func accessibilityDecrement() {
-        guard currentPage > 0 else { return }
-        currentPage -= 1
-        sendActions(for: .valueChanged)
+        return true
     }
 }
 
