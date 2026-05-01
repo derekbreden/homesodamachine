@@ -195,24 +195,52 @@ body {
   backdrop-filter: blur(4px);
 }
 
-/* Notifications toggle (grid view, top-right) */
-#notifs-toggle {
-  position: fixed;
-  top: calc(env(safe-area-inset-top, 0px) + 16px);
-  right: calc(env(safe-area-inset-right, 0px) + 16px);
-  background: rgba(35,35,66,0.85);
-  border: 1px solid var(--border);
-  color: var(--text-2);
-  padding: 6px 12px;
-  border-radius: 6px;
-  cursor: pointer;
-  font-size: 13px;
-  z-index: 10;
-  backdrop-filter: blur(4px);
-  display: none;
+/* Settings section (in-flow, above STEP / Diagrams) */
+.settings-card {
+  grid-column: 1 / -1;
+  background: var(--surface);
+  border-radius: 8px;
+  overflow: hidden;
 }
-#notifs-toggle:hover { background: rgba(58,58,90,0.9); color: var(--text); }
-#notifs-toggle.on { color: var(--accent); border-color: var(--accent); }
+.setting-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+  padding: 14px 16px;
+  border-bottom: 1px solid var(--border);
+}
+.setting-row:last-child { border-bottom: none; }
+.setting-label { font-size: 14px; color: var(--text); }
+
+/* iOS-style pill toggle */
+.ios-toggle {
+  position: relative;
+  width: 51px;
+  height: 31px;
+  border-radius: 31px;
+  background: rgba(120,120,128,0.32);
+  border: none;
+  cursor: pointer;
+  transition: background 0.2s;
+  padding: 0;
+  flex-shrink: 0;
+}
+.ios-toggle::before {
+  content: "";
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  width: 27px;
+  height: 27px;
+  background: #ffffff;
+  border-radius: 50%;
+  transition: transform 0.2s;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+}
+.ios-toggle.on { background: var(--accent); }
+.ios-toggle.on::before { transform: translateX(20px); }
+.ios-toggle:disabled { opacity: 0.5; cursor: default; }
 
 /* Subscribe warning modal */
 .modal-backdrop {
@@ -254,8 +282,6 @@ body {
 </style>
 </head>
 <body>
-
-<button id="notifs-toggle" type="button">Notifications: off</button>
 
 <div id="grid"></div>
 
@@ -877,6 +903,20 @@ function shortName(file, ext = ".step") {
 function buildGrid() {
   gridEl.innerHTML = "";
 
+  // Settings section (only when push is supported and configured)
+  if (pushState.available) {
+    const card = document.createElement("div");
+    card.className = "settings-card";
+    card.innerHTML = `
+      <div class="setting-row">
+        <span class="setting-label">Notifications</span>
+        <button id="notifs-toggle" class="ios-toggle" type="button" role="switch" aria-checked="false" aria-label="Notifications"></button>
+      </div>
+    `;
+    gridEl.appendChild(card);
+    card.querySelector("#notifs-toggle").addEventListener("click", toggleNotifications);
+  }
+
   // STEP section
   if (allFiles.length > 0) {
     const header = document.createElement("div");
@@ -1215,7 +1255,6 @@ const pushState = {
   available: false,       // browser supports push at all
 };
 
-const notifsToggle = document.getElementById("notifs-toggle");
 const subscribeModal = document.getElementById("subscribe-modal");
 
 function pushSupported() {
@@ -1250,6 +1289,9 @@ async function initPush() {
       console.warn("FCM silent attach failed:", e.message);
     }
   }
+  // Settings card is rendered by buildGrid() only when pushState.available;
+  // re-render now that we know.
+  buildGrid();
   refreshNotifsToggle();
 }
 
@@ -1361,16 +1403,13 @@ function showSubscribeModal() {
 }
 
 function refreshNotifsToggle() {
-  // Hidden when push isn't available (Firebase config blank, or unsupported
-  // browser) or while a detail view is open (so it never overlaps chrome).
-  const inDetail = !!(currentFile || currentMmd);
-  const show = pushState.available && !inDetail;
-  notifsToggle.style.display = show ? "block" : "none";
-  notifsToggle.textContent = pushState.subscribedAll ? "Notifications: on" : "Notifications: off";
-  notifsToggle.classList.toggle("on", pushState.subscribedAll);
+  // The toggle lives inside the grid's Settings card and is rendered by
+  // buildGrid only when pushState.available — may not exist yet.
+  const t = document.getElementById("notifs-toggle");
+  if (!t) return;
+  t.classList.toggle("on", pushState.subscribedAll);
+  t.setAttribute("aria-checked", pushState.subscribedAll ? "true" : "false");
 }
-
-notifsToggle.addEventListener("click", toggleNotifications);
 
 fetchFiles();
 connectEvents();
