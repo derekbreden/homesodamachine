@@ -5,6 +5,7 @@ import { fileURLToPath, pathToFileURL } from "url";
 import pg from "pg";
 
 import { mountViewerRoutes } from "./lib/viewer-routes.js";
+import { mountEvents } from "./lib/events.js";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const HARDWARE_DIR = path.join(__dirname, "hardware");
@@ -66,6 +67,15 @@ export async function start({ dev = false, port } = {}) {
 
   mountViewerRoutes(app, { hardwareDir: HARDWARE_DIR });
 
+  // SSE channel for server -> client push. In dev, the wrapper calls
+  // broadcast() from chokidar handlers. In prod, only the hello-on-connect
+  // is used — clients detect a deploy by the commit field changing across
+  // reconnects and refetch what they're viewing.
+  const commit = dev
+    ? "dev"
+    : (process.env.RENDER_GIT_COMMIT || `local-${Date.now()}`);
+  const { broadcast } = mountEvents(app, { commit });
+
   let server;
 
   if (dev) {
@@ -87,7 +97,7 @@ export async function start({ dev = false, port } = {}) {
     });
   }
 
-  return { app, server, hardwareDir: HARDWARE_DIR };
+  return { app, server, broadcast, hardwareDir: HARDWARE_DIR };
 }
 
 // If run directly (i.e. by Render as `node server.js`), boot in production mode.

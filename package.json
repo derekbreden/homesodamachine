@@ -14,7 +14,6 @@
     "pg": "^8.13.0"
   },
   "devDependencies": {
-    "chokidar": "^4.0.0",
-    "ws": "^8.18.0"
+    "chokidar": "^4.0.0"
   }
 }
