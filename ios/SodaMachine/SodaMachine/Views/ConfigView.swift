@@ -1307,26 +1307,23 @@ struct ConfigView: View {
 
     // MARK: - Carousel (main menu)
 
+    // The system UIPageControl that backs `.tabViewStyle(.page)` provides:
+    //   - tap on either side of the current dot → previous / next page
+    //   - scrub (touch and drag horizontally) → continuous step through pages,
+    //     the closest UI analog to the S3 rotary knob
+    //   - the *adjustable* accessibility trait — VoiceOver focuses it once and
+    //     swipes up/down to step through pages; Voice Control numbers it once
+    //     and accepts increment/decrement; Switch Control navigates to it like
+    //     any other control
+    // Background pill defaults to .automatic (appears during interaction),
+    // which gives visual feedback during scrub.
     private var carouselContent: some View {
-        ZStack(alignment: .bottom) {
-            TabView(selection: $currentPage) {
-                ForEach(0..<pageCount, id: \.self) { i in
-                    carouselPage(for: i)
-                }
+        TabView(selection: $currentPage) {
+            ForEach(0..<pageCount, id: \.self) { i in
+                carouselPage(for: i)
             }
-            .tabViewStyle(.page(indexDisplayMode: .never))
-
-            // Fixed nav dots
-            HStack(spacing: 12) {
-                ForEach(0..<pageCount, id: \.self) { j in
-                    Circle()
-                        .fill(j == currentPage ? Theme.dotActive : Theme.dotInactive)
-                        .frame(width: 8, height: 8)
-                }
-            }
-            .padding(.bottom, 50)
-            .allowsHitTesting(false)
         }
+        .tabViewStyle(.page(indexDisplayMode: .always))
     }
 
     // MARK: - Page Views
