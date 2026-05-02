@@ -6,6 +6,10 @@ The reservoir is not the carbonator and is not a service pressure vessel. It is 
 
 For Plan B, the fluid reservoir remains a separate printed part from the foam-bag shell. Printing the reservoir and foam shell as one integrated part may be possible, but it couples leak integrity, foam-pour geometry, print failure, cleaning access, and service replacement into one experiment. That belongs in a later Plan C, not in the first hard-reservoir path.
 
+## Serviceability Constraint
+
+Plan B is intended to be a lifetime wetted part in normal use, but not a potted or sacrificial cold-core component. The foam cap / shell stack must preserve a non-destructive service path: removable dowels, screws, or heat-set-insert fasteners are acceptable, but glue in the reservoir access path is not. Reservoir replacement may require appliance disassembly, but it must not require cutting foam, cutting tubing, disturbing the refrigeration loop, or replacing the cold core.
+
 ## Candidate Filament
 
 Initial test prints should use natural / uncolored PET-family material with explicit food-contact paperwork available from the seller or manufacturer. Buy small quantities first; this phase is about proving print process and reservoir behavior, not locking a production supplier.
