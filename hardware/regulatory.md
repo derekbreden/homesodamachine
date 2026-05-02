@@ -48,10 +48,10 @@ The American Innovation and Manufacturing Act regulates HFCs. R-600a is a hydroc
 
 Applies only if the project pivots to an HFC refrigerant.
 
-## Assembly-time safety — nitrogen purge during brazing
+## Assembly-time safety — argon purge during brazing
 
 Not a regulation, but load-bearing for Path A execution.
 
-After the factory R-600a charge is vented, residual hydrocarbon remains dissolved in the compressor oil and pooled in low points of the tubing. When a torch is applied to copper near an oil-soaked compressor pocket, the flame front pulls residual hydrocarbon into itself. Mitigation is to flow low-pressure nitrogen (a few psi, flowing — not static) through the opened loop during and through the braze, sweeping residual fuel out ahead of the heat.
+After the factory R-600a charge is vented, residual hydrocarbon remains dissolved in the compressor oil and pooled in low points of the tubing. When a torch is applied to copper near an oil-soaked compressor pocket, the flame front pulls residual hydrocarbon into itself. Mitigation is to flow low-pressure argon (a few psi, flowing — not static) through the opened loop during and through the braze, sweeping residual fuel out ahead of the heat.
 
-A disposable nitrogen cylinder + regulator from a welding supplier is sufficient for a one-off build. This tooling is not in `hardware/bom.md` or `hardware/parts-list.md` yet.
+The documented build path reuses the argon cylinder already present for laser welding, with the appropriate purge-side regulator / tubing setup for refrigeration brazing.
