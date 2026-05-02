@@ -5,6 +5,7 @@ import { fileURLToPath, pathToFileURL } from "url";
 import pg from "pg";
 
 import { mountViewerRoutes } from "./lib/viewer-routes.js";
+import { mountBlogRoutes } from "./lib/blog.js";
 import { mountEvents } from "./lib/events.js";
 import {
   initPush,
@@ -15,6 +16,7 @@ import {
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const HARDWARE_DIR = path.join(__dirname, "hardware");
+const POSTS_DIR = path.join(__dirname, "posts");
 const LANDING_PUBLIC = path.join(__dirname, "public");
 const VIEWER_PUBLIC = path.join(__dirname, "tools", "step-viewer", "public");
 
@@ -165,6 +167,7 @@ export async function start({ dev = false, port } = {}) {
   });
 
   mountViewerRoutes(app, { hardwareDir: HARDWARE_DIR });
+  mountBlogRoutes(app, { postsDir: POSTS_DIR });
   mountPushRoutes(app);
   mountFirebaseConfig(app);
 
