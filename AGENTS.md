@@ -22,6 +22,6 @@ Reference scripts for how to structure CadQuery parts: `hardware/printed-parts/f
 
 Flash with `./tools/flash.sh <env>` (envs: `esp32dev`, `rp2040_display`, `esp32s3_config`). The build depends on a sibling `PersistentLog` repo at `../PersistentLog` — flash.sh errors clearly if it's missing.
 
-### Amazon Prime
+## Amazon Prime
 
 You have access to my Chrome which is signed in to my amazon through your MCP. I only care about Amazon Prime listings. Non-Prime listings are non-existent as far as I am concerned. Do not read them. Do not mention them. They do not exist.
