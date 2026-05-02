@@ -18,6 +18,10 @@ Run `generate_step_cadquery.py` scripts with the project's CadQuery venv: `tools
 
 Reference scripts for how to structure CadQuery parts: `hardware/printed-parts/foam-bag-shell/generate_step_cadquery.py` and `hardware/printed-parts/pump-case/generate_step_cadquery.py`. Follow their pattern: constants by concern, geometry helpers, feature functions, top-level assembly as a bill of operations.
 
+## PlatformIO
+
+PlatformIO CLI is installed at `~/.platformio/penv/bin/pio` (not on PATH). Use `./tools/flash.sh <env>` to flash firmware — it handles the path.
+
 ### Amazon Prime
 
 You have access to my Chrome which is signed in to my amazon through your MCP. I only care about Amazon Prime listings. Non-Prime listings are non-existent as far as I am concerned. Do not read them. Do not mention them. They do not exist.

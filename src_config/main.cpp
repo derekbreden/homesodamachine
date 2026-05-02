@@ -99,6 +99,9 @@ static uint8_t numImages = 0;
 static char labels[MAX_IMAGES][MAX_LABEL_LEN + 1];
 static uint32_t localS3Crcs[MAX_IMAGES];   // per-image CRC-32 for S3 RGB565
 static uint32_t localPngCrcs[MAX_IMAGES];  // per-image CRC-32 for PNG
+// Shared between BLE upload (phone → S3) and display rendering. Anything that
+// writes to imageBuf must check bleUpload.phase == BLE_UP_IDLE first, or it
+// will clobber an in-flight upload (see loadImageFromFS guard below).
 static uint16_t *imageBuf = nullptr;       // allocated in PSRAM at setup()
 
 // ── Config state (synced from ESP32 via UART) ──
