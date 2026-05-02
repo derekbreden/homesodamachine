@@ -19,7 +19,7 @@ vessels, and there's no "top vs. bottom" orientation error possible).
 ── Dimensions ──
 
   Disc diameter:       4.860"    (= tube ID 4.870" − 0.010" slip-fit)
-  Disc thickness:      0.250"    (1/4" 304 SS, SendCutSend laser-cut)
+  Disc thickness:      0.250"    (1/4" 316 SS, SendCutSend laser-cut)
   Hole diameter:       0.438"    (7/16" — tap drill for 1/4"-18 NPT)
   Hole spacing:        1.500"    (center-to-center along one axis)
   Hole positions:      (-0.750, 0) and (+0.750, 0)
@@ -39,7 +39,7 @@ variant).
 
 ── Material ──
 
-  304 stainless steel, 0.250" thick, laser-cut.
+  316 stainless steel, 0.250" thick, laser-cut.
 
 SendCutSend compensates for kerf automatically — draw nominal dims.
 Units: inches.  DXF $INSUNITS = 1 (inches).
@@ -86,5 +86,5 @@ print(f"\nDisc diameter:   {DISC_DIA}\"  (fits 5.000\" OD x 0.065\" wall tube, I
 print(f"Disc thickness:  0.250\"")
 print(f"Hole diameter:   {HOLE_DIA}\"  (7/16\" tap drill for 1/4\"-18 NPT)")
 print(f"Hole spacing:    1.500\" center-to-center along one axis")
-print(f"Material:        304 SS, laser-cut")
+print(f"Material:        316 SS, laser-cut")
 print(f"Per vessel:      2 identical discs, each tapped 2x 1/4\"-18 NPT")

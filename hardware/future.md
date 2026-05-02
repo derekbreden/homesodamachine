@@ -67,7 +67,9 @@ The flavor reservoirs passively pre-chill to roughly 8-15°C by sitting in the t
 
 **Flavor subsystem**
 
-Two peristaltic pumps (food-grade silicone tube inside the pump head; 1/4" LLDPE hard tubing for the line runs in and out), mounted in the replaceable pump cartridge assembly. The cartridge uses John Guest quick-connects and a palm-squeeze release plate for tool-free swap. The pumps pull flavor from the Platypus bladders and inject it at the dispense nozzle alongside the carbonated water. The same pumps run in reverse for filling the bladders from the hopper and for the clean cycle.
+Two peristaltic pumps (food-grade silicone tube inside the pump head; 1/4" LLDPE hard tubing for the line runs in and out), mounted in the replaceable pump cartridge assembly. The cartridge uses John Guest quick-connects and a palm-squeeze release plate for tool-free swap. The pumps pull flavor from the Platypus bladders and inject it at the dispense nozzle alongside the carbonated water.
+
+Pump direction is forward-only. Filling, dispensing, and clean-cycle operations are selected by the valve manifold, not by reversing the pump. The canonical valve-state truth table is `topology/fluid-topology.md`: hopper/BiB/tap-water inputs are routed to the pump inlet through source-selection valves, and the pump outlet is routed either back to the selected bag or out to the nozzle.
 
 Each flavor has two input paths to the reservoir. The primary path is the shared hopper funnel on the user-facing side for pouring from SodaStream concentrate bottles, with a solenoid-selected route to the appropriate internal bladder. The funnel has a removable dishwasher-safe silicone cover. The secondary path is a bag-in-box adapter on the rear of the enclosure — a barb or quick-connect fitting that connects to a standard BiB line. Both paths feed through the pump into the same internal refrigerated bladder. The BiB adapter is present but not prominently marketed; it serves customers who source their own commercial syrup.
 
@@ -95,7 +97,7 @@ The Multiplex 19-0897's atmospheric vent terminates inside the kitchen cabinet o
 
 **Power**
 
-12V DC. The compressor, driver board, diaphragm pump, peristaltic pumps, solenoid valves, and ESP32-S3 controller all run on DC. A 12V AC-DC power supply in the base or external brick provides wall power conversion.
+The appliance is cord-and-plug 120 VAC through the rear C14 inlet. The harvested ice-maker compressor and condenser fan remain 120 VAC loads, switched on the AC hot leg by a firmware-controlled relay. The Mean Well 12 V supply creates the low-voltage bus for the diaphragm pump, peristaltic pumps, solenoid valves, motor driver, valve drivers, controllers, displays, and sensors. Current power topology lives in `wiring/power.mmd`.
 
 **Rear-panel AC inlet**
 

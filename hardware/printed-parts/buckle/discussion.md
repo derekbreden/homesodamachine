@@ -29,7 +29,7 @@ Brass or nickel-plated brass rod press-fit into the printed case, protruding the
 
 ### Liquid near electrical — not a concern
 
-The whole device runs 12V DC through solenoid valves with liquid flowing through them, a diaphragm pump pushing water, all sharing the same enclosure. Two low-voltage contacts next to two sealed tubes is not the risk to worry about.
+The pump-cartridge interface and wet-control hardware live on the 12V DC bus: solenoid valves with liquid flowing through them, the diaphragm pump pushing water, and the peristaltic pump cartridge all share the same appliance enclosure. The harvested ice-maker compressor is a separate switched 120 VAC load. Two low-voltage cartridge contacts next to two sealed tubes is not the risk to worry about.
 
 ## The buckle
 
