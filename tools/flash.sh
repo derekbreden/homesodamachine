@@ -13,7 +13,6 @@
 
 set -e
 
-PIO="$HOME/.platformio/penv/bin/pio"
 PAUSE_FILE="/tmp/serial_logger_pause"
 
 if [ -z "$1" ]; then
@@ -61,13 +60,13 @@ trap resume_logger EXIT
 
 if [ "$BUILD_ONLY" = "build" ]; then
     echo "Building $ENV..."
-    "$PIO" run -e "$ENV"
+    pio run -e "$ENV"
 else
     echo "Pausing serial logger..."
     pause_logger
 
     echo "Building and flashing $ENV..."
-    "$PIO" run -e "$ENV" -t upload
+    pio run -e "$ENV" -t upload
 
     echo "Serial logger will resume automatically."
 fi

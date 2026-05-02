@@ -18,9 +18,9 @@ Run `generate_step_cadquery.py` scripts with the project's CadQuery venv: `tools
 
 Reference scripts for how to structure CadQuery parts: `hardware/printed-parts/foam-bag-shell/generate_step_cadquery.py` and `hardware/printed-parts/pump-case/generate_step_cadquery.py`. Follow their pattern: constants by concern, geometry helpers, feature functions, top-level assembly as a bill of operations.
 
-## PlatformIO
+## Firmware
 
-PlatformIO CLI is installed at `~/.platformio/penv/bin/pio` (not on PATH). Use `./tools/flash.sh <env>` to flash firmware — it handles the path.
+Flash with `./tools/flash.sh <env>` (envs: `esp32dev`, `rp2040_display`, `esp32s3_config`). The build depends on a sibling `PersistentLog` repo at `../PersistentLog` — flash.sh errors clearly if it's missing.
 
 ### Amazon Prime
 
