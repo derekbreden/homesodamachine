@@ -11,15 +11,15 @@
 
 - The user pours sodastream sucralose sweetened flavoring (no sugar) into a funnel
 - That funnel is as close to the front as possible, on the top side of the device
-- Liquid in the tubing connected to the funnel is detected via capacitance, and is pumped into the selected flavoring bag
+- Liquid in the tubing connected to the funnel is detected via capacitance, and is pumped into the selected flavoring reservoir
 
 ## 3. Cleaning
 
-- The user initiates a clean cycle for a flavoring bag from the iOS app or S3 interface
-- The valve allowing tap water into the bag is opened until the bag fills with water, then is closed
-- That water is pumped through the normal dispensing route from the bag
-- Air is pumped into the bag from the funnel inlet
-- That air is pumped through the normal dispensing route from the bag
+- The user initiates a clean cycle for a flavoring reservoir from the iOS app or S3 interface
+- The valve allowing tap water into the reservoir is opened until the reservoir fills with water, then is closed
+- That water is pumped through the normal dispensing route from the reservoir
+- Air is pumped into the reservoir from the funnel inlet
+- That air is pumped through the normal dispensing route from the reservoir
 - The cycle is repeated
 
 ## 4. Replacement Philosophy
@@ -31,6 +31,8 @@
 - The iOS app and BLE bridge are conveniences, not dependencies. All necessary operation — selection, dispense, fill, cleaning, ratio configuration — is reachable from the appliance's physical interfaces (faucet handle, air switch, S3 display)
 
 ## 5. The hardware that already accomplished all of this in the prototype includes:
+
+The integrated-appliance build extends this prototype hardware; see [`future.md`](future.md) for the shipping configuration.
 
 | Part | Qty |
 |------|----:|
