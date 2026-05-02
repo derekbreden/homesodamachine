@@ -4,9 +4,9 @@ Two countertop ice makers were purchased for harvesting refrigeration components
 
 ## Two architectural paths for the cold core
 
-As of 2026-04-18, the cold core design has two live options. Keep-vs-discard decisions below depend on which path wins.
+As of 2026-05-01, the cold core design is centered on Path A. Keep-vs-discard decisions below depend on whether Path B is revived as a fallback.
 
-- **Path A — custom SS carbonator + new evaporator coil.** Discard the factory finger-plate evaporator; wind a custom copper coil around a fabricated 304 SS racetrack carbonator. Refrigerant loop must be opened (cut into the suction and cap-tube sides of the factory evaporator), so factory charge must be vented, drier replaced, system evacuated, and recharged. This path is the one `future.md` describes.
+- **Path A — custom SS carbonator + new evaporator coil.** Discard the factory finger-plate evaporator; wind a custom copper coil around the fabricated 316L SS carbonator. Current `hardware/future.md` Plan A is a vertical 5" OD × 0.065" wall 316 welded round tube with 1/4"-thick 316 circular end plates. Refrigerant loop must be opened (cut into the suction and cap-tube sides of the factory evaporator), so factory charge must be vented, drier replaced, system evacuated, and recharged. This path is the one `future.md` describes.
 - **Path B — factory evaporator kept in place, FDM-printed pressure vessel around it.** Keep the factory finger-plate evaporator wired in-circuit, exactly as shipped. Surround it with a PA6-CF structural shell lined with TPU (the TPU is the pressure boundary; the CF shell carries hoop stress). The refrigerant loop is never opened — factory charge stays sealed, no vent / recharge needed. The evaporator's cold fingers become the internal geometry of the vessel.
 
 Under Path B the evaporator, the cap tube, the filter-drier, and the suction line all stay intact and move out of the "discard" column. The hot-gas bypass solenoid is still deleted (we want steady cold, not harvest cycles) under both paths.

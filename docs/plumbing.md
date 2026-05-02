@@ -81,7 +81,8 @@ Kamoer peristaltic pumps (B09MS6C91D), 400ml/min at 12V. $32.55 each.
 
 - Duty-cycle driven by flow meter readings (burst mode, not continuous)
 - Burst duration: 50-300ms realistic range
-- The pump's roller compression creates a natural seal when stopped — liquid doesn't free-flow through a stopped pump
+- A stopped pump is not a shutoff valve. Solenoid valves prevent gravity backflow, keep the dispense points primed, and define the active fluid path.
+- In the integrated manifold design, the pumps run forward only; source/destination selection is handled by valves. See `hardware/topology/fluid-topology.md`.
 - Silicone tubing through the pump head transitions to hard tubing on both the inlet and outlet sides
 
 ## Observed Failure: Leak Under Pump Backpressure
@@ -92,7 +93,9 @@ Fix: tightened the zip tie a small amount. Problem went away immediately.
 
 **Takeaway**: all joints in the line must be snug enough to withstand the pump's suction pressure, especially when bags are near-empty and more prone to kinking.
 
-## Clean Cycle Plumbing (Planned)
+## Clean Cycle Plumbing (Prototype / Legacy Plan)
+
+This section describes the small retrofit clean-cycle path for the Lilium-based prototype. The integrated appliance uses the fuller valve manifold in `hardware/topology/fluid-topology.md`, which is the canonical forward-looking topology.
 
 Two new solenoid valves (one per flavor line) and a needle valve for flow restriction. Tee fittings and hard tubing sourced from an existing ice maker kit. All connections are 1/4" push-connect with hard tubing.
 

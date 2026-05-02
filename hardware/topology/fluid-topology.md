@@ -91,6 +91,8 @@ All valves are normally closed solenoid valves. Flow direction is inlet (I) to o
 
 Open valves listed; all others closed.
 
+This table is canonical for the integrated flavor manifold. Pumps run forward only. Valve state, not pump reversal, selects whether a pump draws from a bag, hopper, BiB input, or tap-water source and whether the outlet returns to a bag or goes to the nozzle. Stopped peristaltic pumps are not used as shutoff valves; normally closed solenoid valves define the closed state and keep the dispense paths primed.
+
 ### Dispense A
 
 - Open: V-E, V-G
@@ -130,13 +132,13 @@ Open valves listed; all others closed.
 ### Clean Water Fill → Bag A
 
 - Open: V-A, V-C, V-F
-- Pump A: OFF (line pressure)
+- Pump A: OFF (line pressure through idle pump)
 - Path: Tap → V-A → V-C → P-A (idle) → V-F → Bag A
 
 ### Clean Water Fill → Bag B
 
 - Open: V-A, V-D, V-I
-- Pump B: OFF (line pressure)
+- Pump B: OFF (line pressure through idle pump)
 - Path: Tap → V-A → V-D → P-B (idle) → V-I → Bag B
 
 ### Clean Flush A (water out)
