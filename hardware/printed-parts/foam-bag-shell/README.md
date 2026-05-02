@@ -83,8 +83,9 @@ Rectangular cup attached to one side of the bag_pocket_support_shell.
 pocket's tank-facing wall is coincident with the bag_pocket_support_shell's
 +X wall.
 
-A second `bag_pocket_shell` mirrored on the −X side is planned but not
-yet in the code.
+A second `bag_pocket_shell` mirrored on the −X side is built the same
+way (`build_a_bag_pocket_shell(side=-1)`) and unioned alongside the
+first.
 
 ## Penetrations
 

@@ -12,6 +12,10 @@
 // ════════════════════════════════════════════════════════════
 //  Dual-Flavor Soda Maker
 // ════════════════════════════════════════════════════════════
+//
+// Prototype valve topology (2 dispense valves + 2 clean solenoids on
+// L298N drivers). The integrated-appliance manifold is described in
+// hardware/topology/fluid-topology.md and is not yet implemented here.
 
 // ── L298N Board A (flavor 1) ──
 #define A_ENA  33    // pump PWM

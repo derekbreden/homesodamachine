@@ -30,9 +30,9 @@
 - Internal wetted parts (reservoirs, foam shell, internal plumbing) are not glued or potted, so a service path exists for owners who choose to keep a unit running past that mark. The 10-year owner is the design target; longer-tail use is allowed by the service paths, not optimized for
 - The iOS app and BLE bridge are conveniences, not dependencies. All necessary operation — selection, dispense, fill, cleaning, ratio configuration — is reachable from the appliance's physical interfaces (faucet handle, air switch, S3 display)
 
-## 5. The hardware that already accomplished all of this in the prototype includes:
+## 5. Prototype hardware
 
-The integrated-appliance build extends this prototype hardware; see [`future.md`](future.md) for the shipping configuration.
+The prototype below already accomplishes the dispense path. The integrated-appliance build extends this hardware; see [`future.md`](future.md) for the shipping configuration.
 
 | Part | Qty |
 |------|----:|
