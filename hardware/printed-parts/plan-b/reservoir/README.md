@@ -4,6 +4,8 @@ Plan B for replacing the permanent Platypus bladders with custom hard reservoirs
 
 The reservoir is not the carbonator and is not a service pressure vessel. It is a vented syrup reservoir that must reliably hold flavor concentrate, survive pump suction and fill/clean cycles, fit the thermal envelope, and not create dead syrup pockets.
 
+For Plan B, the fluid reservoir remains a separate printed part from the foam-bag shell. Printing the reservoir and foam shell as one integrated part may be possible, but it couples leak integrity, foam-pour geometry, print failure, cleaning access, and service replacement into one experiment. That belongs in a later Plan C, not in the first hard-reservoir path.
+
 ## Candidate Filament
 
 Initial test prints should use natural / uncolored PET-family material with explicit food-contact paperwork available from the seller or manufacturer. Buy small quantities first; this phase is about proving print process and reservoir behavior, not locking a production supplier.
@@ -20,12 +22,14 @@ Use a dedicated stainless nozzle/hotend path for this work, and keep non-test fi
 Target features for the first design:
 
 - One reservoir per flavor, shaped to the cold-core shell instead of shaped like a bottle.
-- Approximately 1 L usable volume, with any extra volume treated as headspace and drain margin.
+- 1 L usable volume target, with any extra volume treated as headspace and drain margin.
 - Sloped internal floor to a low outlet sump.
 - Outlet boss sized for the same 1/4" hard-line ecosystem used elsewhere in the flavor manifold.
 - High vent port with a replaceable hydrophobic membrane filter, protected by a splash labyrinth or short standpipe.
 - Fill path from the valve manifold, not a user-opened cap on the reservoir.
 - No internal support material, no internal threads, no decorative texture, no sharp inside corners.
+
+Current `../foam-bag-shell/` CadQuery creates two mirrored bag-pocket shells. Each current pocket has a gross envelope of 35.0 mm X × 143.0 mm Z × 212.4 mm Y = 1.063 L, and an internal void of roughly 33.0 mm X × 141.0 mm Z × 211.4 mm Y = 0.984 L. A true 1 L printed reservoir is therefore close enough to today's package that Plan B should start by enlarging the bag-pocket gross envelope slightly in X only. Avoid growing Y or Z unless the pressure-vessel, fitting, or enclosure stack changes elsewhere.
 
 The first printable shape can be ugly. It needs to preserve the real wall thicknesses, bosses, vent geometry, outlet sump, and sealing surfaces. Exterior packaging elegance comes after the liquid behavior is proven.
 
