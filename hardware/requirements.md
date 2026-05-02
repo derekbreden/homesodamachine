@@ -49,6 +49,7 @@
 - The S3 is a larger display, which has a knob and allows easy changing of flavoring ratios or other settings.
 - It is expected that both displays will be mounted into the front of the final device, such that they can be "snapped out" and placed elsewhere, with a retracting 1m or 2m cat6 cable connecting them to the device still, but that that they are flush with the front of the device otherwise.
 - The ESP32 will maintain all functionality even if both displays are disconnected entirely.
+- Clean and prime each have an internal momentary button wired to the ESP32, so they remain reachable when both displays and the iOS app are unavailable.
 - The KRAUS Air Switch is also expected to be mounted and detachable and flush in the exact same fashion as the displays. However, if it is disconnected, the user will be stuck on whatever flavor was last selected.
 
 ## 6. Printed parts
