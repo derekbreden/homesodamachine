@@ -35,6 +35,11 @@ Derek said:
 - "At about layer 20 I peaked at the print and saw that somewhere around layer 15 we started printing air. At first I saw some threading sticking up"
 - "I hit unload and it unloaded just fine. I hit load and it loaded just fine. No clog."
 
+## PET-CF print attempt 5 (clean slate, settings per commit `df00c36`)
+
+Derek said:
+- "We made it to layer 33 and no air print yet — furthest it has gotten so far I think."
+
 ## Hardware / setup observations across all PET-CF attempts
 
 Derek said:
