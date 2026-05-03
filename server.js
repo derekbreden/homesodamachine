@@ -12,6 +12,8 @@ import {
   mountPushRoutes,
   detectChangedSteps,
   notifyFileChanged,
+  detectChangedPosts,
+  notifyPostChanged,
 } from "./lib/push.js";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
@@ -212,6 +214,25 @@ export async function start({ dev = false, port } = {}) {
         }
       } catch (e) {
         console.error("Push diff error:", e.message);
+      }
+    })();
+
+    // Same per-file diff for blog posts: any new or edited markdown in
+    // posts/ fires an FCM message to the same `*` global subscribers as
+    // STEP changes. First-seen posts are recorded without notifying so
+    // the initial deploy doesn't page everyone for the existing backlog.
+    (async () => {
+      try {
+        const changed = await detectChangedPosts(POSTS_DIR);
+        if (changed.length > 0) {
+          console.log(`Push: notifying for ${changed.length} changed post(s)`);
+          for (const file of changed) {
+            const result = await notifyPostChanged({ postsDir: POSTS_DIR, filename: file });
+            console.log(`  ${file}: sent=${result.sent} removed=${result.removed}`);
+          }
+        }
+      } catch (e) {
+        console.error("Push diff error (posts):", e.message);
       }
     })();
 
