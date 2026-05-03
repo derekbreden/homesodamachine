@@ -4,7 +4,7 @@
 // the existing /dev/ viewer, and trimming + resizing the frame with sharp.
 //
 // Usage:
-//   node tools/render/render-step.js <step-file-relative> <output-png>
+//   node tools/render/render-step.js <step-file-relative> <output-png> [--at <date|sha>]
 // Example:
 //   node tools/render/render-step.js \
 //     printed-parts/foam-bag-shell/foam-bag-shell.step \
@@ -12,6 +12,14 @@
 //
 // The step path is relative to hardware/ (matches /api/steps + /steps/*).
 // Output path may be relative to repo root or absolute.
+//
+// --at <date|sha>
+//   Render the source STEP as it existed at a past commit. Accepts either a
+//   date (resolved to the most recent commit on `main` on or before
+//   <date> 23:59:59) or a literal SHA. The current HEAD's tooling is used
+//   (server.js, viewer-body.html, this script); only the STEP bytes come
+//   from the historical worktree. If the file did not exist at that SHA,
+//   the tool exits non-zero with a clear error.
 
 import path from "path";
 import fs from "fs";
@@ -20,6 +28,7 @@ import puppeteer from "puppeteer";
 import sharp from "sharp";
 
 import { start } from "../../server.js";
+import { withHistoricalTree } from "./temporal.js";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const REPO_ROOT = path.resolve(__dirname, "..", "..");
@@ -27,23 +36,40 @@ const BG_HEX = "#1a1a2e";
 
 function usage(msg) {
   if (msg) console.error(`render-step: ${msg}`);
-  console.error("usage: node tools/render/render-step.js <step-file-relative> <output-png>");
+  console.error(
+    "usage: node tools/render/render-step.js <step-file-relative> <output-png> [--at <date|sha>]",
+  );
   process.exit(1);
 }
 
-async function main() {
-  const [, , stepRel, outRel] = process.argv;
-  if (!stepRel || !outRel) usage("missing arguments");
+function parseArgs(argv) {
+  const positional = [];
+  let at = null;
+  for (let i = 0; i < argv.length; i++) {
+    const a = argv[i];
+    if (a === "--at") {
+      at = argv[++i] || null;
+    } else if (a.startsWith("--at=")) {
+      at = a.slice(5);
+    } else {
+      positional.push(a);
+    }
+  }
+  return { positional, at };
+}
 
-  // Validate the STEP exists relative to hardware/.
-  const stepAbs = path.join(REPO_ROOT, "hardware", stepRel);
-  if (!fs.existsSync(stepAbs)) usage(`step file not found: ${stepAbs}`);
+// Render the STEP at <hardwareDir>/<stepRel> to <outAbs>. hardwareDir is
+// passed through to server.start so the viewer reads from the historical
+// worktree when --at is set.
+async function renderOne({ stepRel, outAbs, hardwareDir }) {
+  // Validate the STEP exists relative to hardwareDir.
+  const stepAbs = path.join(hardwareDir, stepRel);
+  if (!fs.existsSync(stepAbs)) {
+    throw new Error(`step file not found: ${stepAbs}`);
+  }
 
-  const outAbs = path.isAbsolute(outRel) ? outRel : path.join(REPO_ROOT, outRel);
-  fs.mkdirSync(path.dirname(outAbs), { recursive: true });
-
-  // Boot the prod server on an ephemeral port.
-  const { server } = await start({ port: 0, dev: false });
+  // Boot the prod server on an ephemeral port, pointed at hardwareDir.
+  const { server } = await start({ port: 0, dev: false, hardwareDir });
   const port = server.address().port;
   console.log(`server up on :${port}`);
 
@@ -85,13 +111,24 @@ async function main() {
       stepRel,
     );
 
-    // Hide chrome (nav, back button, filename, gizmo cube) and force the
-    // backdrop to the site bg so trim() has a clean color to crop against.
+    // Hide chrome so the screenshot only contains the rendered model. The
+    // STEP detail now lives inside the ContentViewer modal — hide the
+    // filename pill, close X, and gizmo cube; expand the modal card to the
+    // full viewport so the canvas covers everything; force backgrounds to
+    // the site bg so sharp's trim() has a clean color to crop against.
     await page.addStyleTag({
       content: `
-        nav, #site-nav, #back, #filename, .nav-gear, footer, #site-footer,
-        #detail > canvas:nth-of-type(2) { display: none !important; }
-        body, html, #detail, #viewport { background: ${BG_HEX} !important; }
+        nav, #site-nav, .nav-gear, footer, #site-footer,
+        .cv-filename, .cv-close, .cv-backdrop,
+        #gizmoCanvas { display: none !important; }
+        .cv-card {
+          width: 100vw !important; height: 100vh !important;
+          max-width: 100vw !important; max-height: 100vh !important;
+          border-radius: 0 !important;
+        }
+        body, html, .cv-card, .cv-content, .step-wrapper, #viewport {
+          background: ${BG_HEX} !important;
+        }
       `,
     });
 
@@ -149,7 +186,28 @@ async function main() {
   }
 }
 
+async function main() {
+  const { positional, at } = parseArgs(process.argv.slice(2));
+  const [stepRel, outRel] = positional;
+  if (!stepRel || !outRel) usage("missing arguments");
+
+  const outAbs = path.isAbsolute(outRel) ? outRel : path.join(REPO_ROOT, outRel);
+  fs.mkdirSync(path.dirname(outAbs), { recursive: true });
+
+  if (at) {
+    console.log(`--at ${at}: checking out historical tree...`);
+    await withHistoricalTree(at, async (worktreeDir, sha) => {
+      console.log(`worktree: ${worktreeDir} (sha=${sha.slice(0, 7)})`);
+      const hardwareDir = path.join(worktreeDir, "hardware");
+      await renderOne({ stepRel, outAbs, hardwareDir });
+    });
+  } else {
+    const hardwareDir = path.join(REPO_ROOT, "hardware");
+    await renderOne({ stepRel, outAbs, hardwareDir });
+  }
+}
+
 main().catch((err) => {
-  console.error(err);
+  console.error(err.message || err);
   process.exit(1);
 });
