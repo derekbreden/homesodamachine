@@ -168,8 +168,17 @@ async function renderOne({ stepRel, outAbs, hardwareDir }) {
     console.log("trimming + resizing...");
     let img = sharp(raw).trim({ background: BG_HEX, threshold: 10 });
     const meta = await img.metadata();
-    if (meta.width && meta.width > 1200) {
-      img = img.resize({ width: 1200 });
+    // Cap the longer side. Plain `width: 1200` only caps width, which lets a
+    // long thin part (e.g. the snap-strut: 1200x14242 post-trim) sail through
+    // and produce a >2000px-tall PNG that breaks the conversation image limit
+    // and is unreadable inline anyway.
+    if (meta.width && meta.height) {
+      img = img.resize({
+        width: 1200,
+        height: 1600,
+        fit: "inside",
+        withoutEnlargement: true,
+      });
     }
     // Re-flatten on the bg so trim's transparent edges (if any) become solid.
     const buf = await img.flatten({ background: BG_HEX }).png().toBuffer();
