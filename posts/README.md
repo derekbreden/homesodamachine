@@ -42,6 +42,36 @@ If "after" splits cleanly into 2–4 distinct things, expand it:
     - <thing>
 ```
 
+**Collapsing "did not exist".** Always draft each category in the full
+before/after form first. On a final pass, if the before-line is "this
+part did not exist" (or equivalent null state: "had no spec," "did not
+exist yet") AND the after expands into a sub-list, drop the
+before/after labels entirely — the headline plus the sub-list carry
+the change. Apply this only when the before-state is the trivial null.
+Example:
+
+```
+- The carbonator got an insulating shell
+  - Before today this part did not exist
+  - After today, it has:
+    - An inner cylinder hugging the cold tank with a foam gap
+    - An outer cylinder with cradle pockets for the two flavor bags
+    - A split into a bottom cup and an upper shell that nest together for printing
+```
+
+collapses to
+
+```
+- The carbonator got an insulating shell
+  - An inner cylinder hugging the cold tank with a foam gap
+  - An outer cylinder with cradle pockets for the two flavor bags
+  - A split into a bottom cup and an upper shell that nest together for printing
+```
+
+Do not collapse when the before describes specific prior state ("we had
+not got to the lever yet," "the link was a hand-rolled reliability
+layer"). The before/after labels are carrying meaning there.
+
 That is the entire format. No prose paragraphs. No headline arcs. No
 "also today" tail.
 
@@ -49,6 +79,21 @@ A 2-category post is ~70 words. 3 categories is ~110 words. If you're at
 150+, you're padding.
 
 ## What to do
+
+### Day narrative, not diff narrative
+
+You are describing what happened in the world today, not what landed
+in the repo. This is a real physical project being built in a garage;
+commits are evidence of activity, not the activity itself. A single
+commit that adds a dated snapshot in `hardware/` or `marketing/`
+(e.g. `welding-progress-*.md`, `build-readiness-*.md`,
+`first-weld.md`) can represent days or weeks of off-repo work — read
+it fully and weigh it as a candidate category, not as "docs cleanup."
+A one-line ledger update saying "X1 Pro arrived" is a heavier
+real-world inflection than 22 viewer commits. Reconstruct the day
+from the user's perspective: what did they *do* today, what
+capability is new in their world, what would they tell someone in
+person tonight?
 
 ### Categorize by outcome, not activity
 
@@ -89,6 +134,21 @@ Match the gold-standard posts (see Examples). Specifically:
   to prior posts. A reader landing cold needs enough to track.
 - Past tense for completed work, present tense if the work is genuinely
   mid-flight at the end of the window
+- **Headlines lead with subjects, not verbs.** "HomeSodaMachine.com is
+  now a live site." Not "Started a rear-panel nameplate." Verb-led
+  headlines describe activity; you want state.
+- **Sub-bullets in the expanded form are noun phrases, not full
+  sentences.** "A polished iOS-style look." Not "The pump tray and
+  coupler tray widened to 170mm."
+- **Title is "X and Y" — no commas.** "Faucet and Site." Not
+  "Pump Case, Strut, iOS."
+- **Three sub-bullets in the expanded form.** Two reads thin, four reads
+  dense. Three is calibrated.
+- **Before-line ≤15 words, plain verbs.** "Before today we had not got
+  to the lever yet." Avoid "consisted of," "had been engineered to,"
+  25-word setups.
+- **Small/punchy first, big/expanded second.** Put the heavier
+  expanded-form category at the bottom of the post.
 
 ### What's banned
 
@@ -136,6 +196,13 @@ and don't reflexively defer to the agent that drafted it either.** Read
 recent commit messages. Prior posts in this directory are also a strong
 signal of established naming. If still ambiguous after that, ask the
 user before writing.
+
+Use the term that was canonical on the post's date — not the term
+that's canonical now. The repo evolves; the post is anchored to its
+window. A part renamed three weeks after the post window should still
+appear under its earlier name. Same for capabilities: don't pull
+later-acquired terminology ("Plan A", "the printed reservoir", "the
+website") into windows where those concepts didn't exist yet.
 
 ## Procedure
 
