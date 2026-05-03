@@ -184,9 +184,19 @@ export async function start({ dev = false, port } = {}) {
 
   let server;
 
+  // Dev viewer SPA pages — Prints (default), Diagrams, Settings — all served
+  // by the same index.html. The client reads location.pathname to decide
+  // which section to render. Mounted under /dev in prod and at root in dev.
+  const VIEWER_SECTIONS = ["diagrams", "settings"];
+  const sendViewerIndex = (_req, res) =>
+    res.sendFile(path.join(VIEWER_PUBLIC, "index.html"));
+
   if (dev) {
     // Dev mode: viewer is the front page. Watcher + Python + WebSocket are
     // attached by the dev wrapper after start() returns.
+    for (const section of VIEWER_SECTIONS) {
+      app.get(`/${section}`, sendViewerIndex);
+    }
     app.use(express.static(VIEWER_PUBLIC));
     server = app.listen(port ?? process.env.PORT ?? 3000, () => {
       console.log(`Dev viewer: http://localhost:${server.address().port}`);
@@ -194,7 +204,10 @@ export async function start({ dev = false, port } = {}) {
   } else {
     // Production: landing page at /, dev viewer behind /dev/, signup endpoint.
     app.use(express.static(LANDING_PUBLIC));
-    app.get("/dev", (_req, res) => res.sendFile(path.join(VIEWER_PUBLIC, "index.html")));
+    app.get("/dev", sendViewerIndex);
+    for (const section of VIEWER_SECTIONS) {
+      app.get(`/dev/${section}`, sendViewerIndex);
+    }
     app.get("/dev/mermaid", (_req, res) => res.sendFile(path.join(VIEWER_PUBLIC, "mermaid.html")));
     app.use("/dev", express.static(VIEWER_PUBLIC));
     attachSubscribe(app, pool);

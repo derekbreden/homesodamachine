@@ -36,15 +36,44 @@ body {
   color: var(--text);
 }
 
+/* Site nav (shared with home / blog / mermaid sidebar) */
+.site-nav {
+  display: flex;
+  gap: 24px;
+  padding: calc(env(safe-area-inset-top, 0px) + 10px) 20px 10px;
+  font-size: 14px;
+  border-bottom: 1px solid var(--border);
+  background: var(--bg);
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+.site-nav a {
+  color: var(--text-2);
+  text-decoration: none;
+  letter-spacing: 0.01em;
+}
+.site-nav a:hover { color: var(--text); }
+.site-nav a.active { color: var(--text); font-weight: 600; }
+
 /* Grid view */
 #grid {
-  padding: calc(env(safe-area-inset-top, 0px) + 24px)
+  padding: 24px
            calc(env(safe-area-inset-right, 0px) + 24px)
            calc(env(safe-area-inset-bottom, 0px) + 24px)
            calc(env(safe-area-inset-left, 0px) + 24px);
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
   gap: 16px;
+}
+
+/* Empty-state messages for sections that have no content */
+.empty-state {
+  grid-column: 1 / -1;
+  padding: 48px 16px;
+  text-align: center;
+  color: var(--text-3);
+  font-size: 14px;
 }
 .card {
   background: var(--surface);
@@ -93,6 +122,7 @@ body {
   position: fixed;
   inset: 0;
   background: var(--bg);
+  z-index: 20;
 }
 #viewport { display: block; width: 100%; height: 100%; touch-action: none; }
 #detail { touch-action: none; }
@@ -108,7 +138,7 @@ body {
   border-radius: 6px;
   cursor: pointer;
   font-size: 14px;
-  z-index: 10;
+  z-index: 30;
   backdrop-filter: blur(4px);
 }
 #back:hover, #mmd-back:hover { background: rgba(58,58,90,0.9); }
@@ -123,7 +153,7 @@ body {
   padding: 6px 14px;
   border-radius: 6px;
   font-size: 13px;
-  z-index: 10;
+  z-index: 30;
   backdrop-filter: blur(4px);
 }
 #loading {
@@ -133,7 +163,7 @@ body {
   transform: translate(-50%, -50%);
   color: var(--text-2);
   font-size: 15px;
-  z-index: 10;
+  z-index: 30;
   display: none;
 }
 
@@ -175,6 +205,7 @@ body {
   background: var(--bg);
   overflow: hidden;
   cursor: grab;
+  z-index: 20;
 }
 #mmd-detail.dragging { cursor: grabbing; }
 #mmd-container {
@@ -191,7 +222,7 @@ body {
   padding: 6px 12px;
   border-radius: 6px;
   font-size: 13px;
-  z-index: 10;
+  z-index: 30;
   backdrop-filter: blur(4px);
 }
 
@@ -302,6 +333,13 @@ body {
 </style>
 </head>
 <body>
+
+<nav class="site-nav" id="site-nav" aria-label="Primary">
+  <a href="/" data-nav="home">Home</a>
+  <a href="/blog" data-nav="updates">Updates</a>
+  <a href="/dev" data-nav="prints">Prints</a>
+  <a href="/dev/diagrams" data-nav="diagrams">Diagrams</a>
+</nav>
 
 <div id="grid"></div>
 
@@ -920,39 +958,88 @@ function shortName(file, ext = ".step") {
   return { name, dir };
 }
 
-function buildGrid() {
-  gridEl.innerHTML = "";
+// One viewer page area at a time. The path determines which section the
+// grid renders. In production the viewer is mounted under /dev; in dev
+// it lives at the root.
+const NAV_PREFIX = location.pathname.startsWith("/dev") ? "/dev" : "";
+function currentSection() {
+  const tail = location.pathname.replace(NAV_PREFIX, "").replace(/\/$/, "");
+  if (tail === "/diagrams" || tail === "diagrams") return "diagrams";
+  if (tail === "/settings" || tail === "settings") return "settings";
+  return "prints";
+}
 
-  // Settings section. Only shown in the installed PWA (standalone mode):
-  // notifications are the only setting and pushes only work in the PWA on
-  // iOS, so a tab user has nothing to toggle.
-  if (pushState.available && isStandalone()) {
-    const header = document.createElement("div");
-    header.className = "section-header";
-    header.textContent = "Settings";
-    gridEl.appendChild(header);
-
-    const card = document.createElement("div");
-    card.className = "settings-card";
-    card.innerHTML = `
-      <div class="setting-row">
-        <span class="setting-label">Notifications</span>
-        <button id="notifs-toggle" class="ios-toggle" type="button" role="switch" aria-checked="false" aria-label="Notifications">
-          <span class="ios-toggle-spinner"></span>
-        </button>
-      </div>
-    `;
-    gridEl.appendChild(card);
-    card.querySelector("#notifs-toggle").addEventListener("click", toggleNotifications);
+function setupNav() {
+  // Rewrite Prints / Diagrams hrefs for the current mount point so the
+  // links work in both production (/dev/...) and dev (/...) without
+  // duplicating templates. Home and Updates always live at the root.
+  const links = document.querySelectorAll("#site-nav a[data-nav]");
+  for (const a of links) {
+    const which = a.dataset.nav;
+    if (which === "prints") a.href = NAV_PREFIX || "/";
+    if (which === "diagrams") a.href = `${NAV_PREFIX}/diagrams`;
+    if (which === "settings") a.href = `${NAV_PREFIX}/settings`;
   }
 
-  // STEP section
-  if (allFiles.length > 0) {
-    const header = document.createElement("div");
-    header.className = "section-header";
-    header.textContent = `STEP Files (${allFiles.length})`;
-    gridEl.appendChild(header);
+  // Settings link is only meaningful inside the installed PWA, so add it
+  // dynamically when standalone mode is detected.
+  if (isStandalone() && !document.querySelector('#site-nav a[data-nav="settings"]')) {
+    const a = document.createElement("a");
+    a.href = `${NAV_PREFIX}/settings`;
+    a.dataset.nav = "settings";
+    a.textContent = "Settings";
+    document.getElementById("site-nav").appendChild(a);
+  }
 
+  const section = currentSection();
+  const activeMap = { prints: "prints", diagrams: "diagrams", settings: "settings" };
+  const wantActive = activeMap[section];
+  for (const a of document.querySelectorAll("#site-nav a[data-nav]")) {
+    a.classList.toggle("active", a.dataset.nav === wantActive);
+  }
+
+  const titleMap = {
+    prints: "Prints · Home Soda Machine",
+    diagrams: "Diagrams · Home Soda Machine",
+    settings: "Settings · Home Soda Machine",
+  };
+  document.title = titleMap[section] || document.title;
+}
+
+function buildGrid() {
+  gridEl.innerHTML = "";
+  const section = currentSection();
+
+  if (section === "settings") {
+    if (pushState.available && isStandalone()) {
+      const card = document.createElement("div");
+      card.className = "settings-card";
+      card.innerHTML = `
+        <div class="setting-row">
+          <span class="setting-label">Notifications</span>
+          <button id="notifs-toggle" class="ios-toggle" type="button" role="switch" aria-checked="false" aria-label="Notifications">
+            <span class="ios-toggle-spinner"></span>
+          </button>
+        </div>
+      `;
+      gridEl.appendChild(card);
+      card.querySelector("#notifs-toggle").addEventListener("click", toggleNotifications);
+    } else {
+      const empty = document.createElement("div");
+      empty.className = "empty-state";
+      empty.textContent = "Notifications and other settings are only available in the installed app.";
+      gridEl.appendChild(empty);
+    }
+    return;
+  }
+
+  if (section === "prints") {
+    if (allFiles.length === 0) {
+      const empty = document.createElement("div");
+      empty.className = "empty-state";
+      empty.textContent = "No prints yet.";
+      gridEl.appendChild(empty);
+    }
     for (const file of allFiles) {
       const { name, dir } = shortName(file, ".step");
       const card = document.createElement("div");
@@ -965,13 +1052,13 @@ function buildGrid() {
     }
   }
 
-  // Mermaid section
-  if (mmdFiles.length > 0) {
-    const header = document.createElement("div");
-    header.className = "section-header";
-    header.textContent = `Diagrams (${mmdFiles.length})`;
-    gridEl.appendChild(header);
-
+  if (section === "diagrams") {
+    if (mmdFiles.length === 0) {
+      const empty = document.createElement("div");
+      empty.className = "empty-state";
+      empty.textContent = "No diagrams yet.";
+      gridEl.appendChild(empty);
+    }
     for (const file of mmdFiles) {
       const { name, dir } = shortName(file, ".mmd");
       const card = document.createElement("div");
@@ -1323,8 +1410,9 @@ async function initPush() {
       console.warn("FCM silent attach failed:", e.message);
     }
   }
-  // Settings card is rendered by buildGrid() only when pushState.available;
-  // re-render now that we know.
+  // Settings card and the Settings nav link both depend on
+  // pushState.available; re-render once we know it.
+  setupNav();
   buildGrid();
   refreshNotifsToggle();
 }
@@ -1468,6 +1556,7 @@ function refreshNotifsToggle() {
   t.setAttribute("aria-checked", pushState.subscribedAll ? "true" : "false");
 }
 
+setupNav();
 fetchFiles();
 connectEvents();
 initPush();
