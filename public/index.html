@@ -42,6 +42,7 @@
         gap: 1.5rem;
         padding: calc(env(safe-area-inset-top, 0px) + 0.625rem) 1.25rem 0.625rem;
         font-size: 0.875rem;
+        line-height: 1.5;
         border-bottom: 1px solid var(--border);
         background: var(--bg);
         position: sticky;
@@ -128,12 +129,27 @@
     </style>
   </head>
   <body>
-    <nav class="site-nav" aria-label="Primary">
+    <nav class="site-nav" id="site-nav" aria-label="Primary">
       <a href="/" class="active">Home</a>
       <a href="/blog">Updates</a>
       <a href="/dev">Prints</a>
       <a href="/dev/diagrams">Diagrams</a>
     </nav>
+    <script>
+      // Settings link only makes sense inside the installed PWA — same
+      // detection the dev viewer uses, kept here so all pages show the
+      // same set of nav links and the layout doesn't shift between them.
+      (function () {
+        var standalone = window.matchMedia("(display-mode: standalone)").matches
+          || window.navigator.standalone === true;
+        if (!standalone) return;
+        var nav = document.getElementById("site-nav");
+        var a = document.createElement("a");
+        a.href = "/dev/settings";
+        a.textContent = "Settings";
+        nav.appendChild(a);
+      })();
+    </script>
     <main>
       <img class="icon" src="/dev/pwa-icons/icon-192.png" alt="Home Soda Machine" />
       <h1>Home Soda Machine</h1>
