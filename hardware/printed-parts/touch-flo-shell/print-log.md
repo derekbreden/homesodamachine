@@ -74,9 +74,11 @@ Process settings:
 - `sparse_infill_speed`: 350 mm/s
 - `enable_pressure_advance`: 0
 - `enable_prime_tower`: 1
+- `enable_wrapping_detection`: 1 (clumping detection by probing enabled)
+- `wrapping_detection_layers`: 20 (probes triggered at layer_num 3, 10, 19 per gcode)
 
 ### Commit `e0752d9` — resaved during in-flight print
-Same settings as `145a852`. File-byte delta only.
+Same settings as `145a852`. File-byte delta only. `enable_wrapping_detection`: 1.
 
 ### Commit `df00c36` — clean slate
 
@@ -105,3 +107,4 @@ Process settings:
 - `enable_pressure_advance`: 0
 - `enable_prime_tower`: 1
 - `enable_wrapping_detection`: 0 (clumping detection by probing disabled)
+- `wrapping_detection_layers`: 20 (gcode unchanged; would trigger at layer_num 3, 10, 19 if enabled)
