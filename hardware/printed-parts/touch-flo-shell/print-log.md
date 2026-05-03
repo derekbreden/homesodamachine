@@ -49,6 +49,12 @@ Observed in `df00c36` 3mf:
 
 TODO for next slice: bump `support_threshold_angle` per Derek's "at least 45" practice for prints with significant overhangs. Reminder to self if the print crashes mid-air later: insufficient supports were a known concern at layer 33 of attempt 5.
 
+Derek observed during the print:
+- "I see a few places where it is an entirely solid array, think like dozens of walls, and within that, there are a few stray strands curling up, like it printed air for a micro second, or perhaps it printed too thinly of a line momentarily, or perhaps it printed fine and just something else is wrong that is causing a single 1 mm strand to break off and curl upward in the middle of an otherwise solid print."
+- "In some cases I have sent it print over these things just fine and the next layer at least has the 'short curly threads' in different spots"
+
+Action: at layer 40 of this print, Derek turned the E2 back on to 60°C (it had been off; last run 23+ hours before the print started).
+
 ## Hardware / setup observations across all PET-CF attempts
 
 Derek said:
