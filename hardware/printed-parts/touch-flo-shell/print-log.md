@@ -55,6 +55,19 @@ Derek observed during the print:
 
 Action: at layer 40 of this print, Derek turned the E2 back on to 60°C (it had been off; last run 23+ hours before the print started).
 
+Environmental readings during attempt 5 (Sunday May 3rd 2:48 AM):
+- Basement EcoBee: 64 °F
+- Upstairs EcoBee: 70 °F, 38% humidity
+- Garage Shelly: 61 °F, 34% humidity
+- Deck Shelly: 55 °F, 41% humidity
+- Upstairs Bathroom Shelly: 18 °C, 40% humidity
+- Master Bathroom Shelly: 64 °F, 39% humidity
+- Downstairs Bathroom Shelly: 64 °F, 42% humidity
+
+Two sensors nearest the 3D printer:
+- Basement EcoBee: 64 °F
+- Downstairs Bathroom Shelly: 64 °F, 42% humidity
+
 ## Hardware / setup observations across all PET-CF attempts
 
 Derek said:
