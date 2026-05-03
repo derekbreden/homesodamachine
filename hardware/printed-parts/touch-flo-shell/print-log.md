@@ -78,6 +78,11 @@ Derek observed:
   - "the center of the base plate, the innermost 90% is solid"
   - "the outermost portion of it (whatever printed last or first) there is a 'wobble' of air gaps where some layers printed more of that, some printed more air, of that outermost 10%"
 
+Derek observed on the prime tower (after tearing it apart):
+- "the first 10 layers on the PET-CF look fine"
+- "from there on up we what might be described best as 'stringing' (filament not fused to what is next to it or below it or above it, i.e. raw 'strings' of filament)"
+- "The ABS side looks solid and well fused throughout"
+
 ## Plans for attempt 6
 
 Derek's plan:
