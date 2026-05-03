@@ -399,6 +399,9 @@ Storage and capture gear used to record print runs, fab work, and assembled-prod
 |---|---|
 | **CO2 cylinder** | 5 lb or 10 lb aluminum, CGA-320. Regulator in hand; tank not yet on Amazon. |
 | **Additional flavor-manifold solenoids** | Manifold diagram needs 12 valves (V-A through V-J plus V-K-A and V-K-B); current Beduan B07NWCQJK9 count across orders is short. Verify qty per order, then top up. |
+| **Google Pixel 10a unlocked Android phone, 128 GB Obsidian (2026 model)** | Android development handset for the soda-machine app's Android side (`android/`). [B0GHRHXVN1](https://www.amazon.com/dp/B0GHRHXVN1). |
+| **Comfy Materials FDA-compliant food-grade PETG-Carbon, 1.75 mm × 1 kg** | Filament for the printed flavor reservoir per [printed-parts/plan-b/reservoir/README.md](printed-parts/plan-b/reservoir/README.md). Direct from [comfymaterials.com](https://comfymaterials.com/product/certified-food-grade-petg-3d-printer-filament-carbon-by-comfy-materials-lab-tested-fda-compliant-food-safe-1-75mm-1kg-accuracy-0-02/) (non-Amazon source, like the Multiplex / SendCutSend / RIGID / OnlineMetals lines elsewhere on this ledger). |
+| **Long-duration pressure-test gauge** | Test-vessel-resident gauge (left attached after pressurization) for tracking pressure decay across hour-scale leak soaks on welded vessels. Distinct from the in-line CO2 regulator gauge. SKU TBD; needs 1/4" NPT male, ~0–150 PSI range, accurate enough to read a small drop overnight. |
 
 ---
 
