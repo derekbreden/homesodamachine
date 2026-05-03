@@ -263,6 +263,11 @@ scene.add(dirLight2);
 
 let currentGroup = null;
 
+// Exposed for headless render tooling (tools/render/render-step.js).
+// Tiny escape hatch so Puppeteer can pose the camera and trigger a render
+// without needing to drive OrbitControls via synthetic events.
+window.__hsm = { THREE, renderer, scene, camera, controls, loadStepFile, get currentGroup() { return currentGroup; }, get mountedStepFile() { return mountedStepFile; } };
+
 // --- ViewCube ---
 // Smaller on phones so it doesn't eat the screen.
 const gizmoSize = window.innerWidth < 600 ? 80 : 120;
