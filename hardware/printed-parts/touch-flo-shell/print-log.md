@@ -55,7 +55,7 @@ Derek observed during the print:
 
 Action: at layer 40 of this print, Derek turned the E2 back on to 60°C (it had been off; last run 23+ hours before the print started).
 
-Environmental readings during attempt 5 (Sunday May 3rd 2:48 AM):
+Environmental readings during attempt 5 (Sunday May 3rd 2:48 AM, layer 44):
 - Basement EcoBee: 64 °F
 - Upstairs EcoBee: 70 °F, 38% humidity
 - Garage Shelly: 61 °F, 34% humidity
