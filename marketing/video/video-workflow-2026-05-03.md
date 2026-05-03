@@ -1,6 +1,20 @@
 # Video workflow — Snapshot 2026-05-03
 
-**This is a point-in-time snapshot, not a living document.** Captures the moment the user committed to a specific iPhone-only edit and publish workflow for marketing video, after roughly two months of capture-only mode (GoPro on cap mount, DJI Mic Mini to iPhone, no edited content shipped). Recipe and rationale recorded here for posterity. Will go stale; treat as a reference point, not the canonical pipeline doc.
+**This is a point-in-time snapshot, not a living document.** Captures the moment the user committed to a specific iPhone-only edit and publish workflow for marketing video, after roughly two months of capture-only mode (GoPro HERO13 Black on cap mount, DJI Mic Mini to iPhone, no edited content shipped). Recipe and rationale recorded here for posterity. Will go stale; treat as a reference point, not the canonical pipeline doc.
+
+## GoPro HERO13 capture settings
+
+| Setting | Pick | Why |
+|---|---|---|
+| Resolution + Aspect Ratio | **2.7K 8:7** at 30 fps | 8:7 is the full HERO13 sensor — the most pixels GoPro can capture. 2.7K gives headroom to crop to 16:9 horizontal *or* 9:16 vertical without quality loss, while keeping file sizes sane. 5.3K 8:7 also works but eats storage 2–3× faster — overkill for talking-head and table-work content. |
+| Frame rate | **30 fps** | Baseline. Bump to 60 fps only on clips where slow-mo might matter (welding sparks, fluid splash). |
+| Digital Lens | **Linear** | HERO13 lens menu offers HyperView / Wide / Linear / Linear + Horizon Lock / Narrow. Avoid HyperView and Wide — both heavily distort the frame and make hands at the table look like sausages. Linear digitally undistorts so a soldering iron looks like a soldering iron. Skip "Linear + Horizon Lock" — it crops more aggressively and adds rotation correction that misbehaves on head tilt. Plain Linear is right. |
+| HyperSmooth | **On** (or AutoBoost) | HERO13 options are Off / On / AutoBoost / Boost. Cap mount is body-stabilized; On is enough. AutoBoost uses available pixels for slightly better stabilization on bumpier moments. Avoid Boost in this mode — it crops ~30% and defeats the 8:7 capture cushion. |
+| HDR | **Off** | Wasted bitrate at this content type. |
+| Audio | Default (Stereo) | Fine for ambient (tool clicks, welder hum). Real audio comes from the DJI Mic via the iPhone. |
+| Orientation | **Auto** | Settings → Preferences → General → Orientation. Auto handles minor head tilt. "Locked Landscape" is for special use cases — not these. |
+
+**To check or change on the camera:** From the capture screen, tap the bottom strip showing current settings (e.g. "5.3K | 30 | W") to access Resolution, Aspect Ratio, Framerate, and Digital Lens. For Orientation: swipe down from the top → gear icon → Preferences → General → Orientation.
 
 ## TL;DR — the four-step commitment
 
