@@ -169,110 +169,6 @@
   backdrop-filter: blur(4px);
 }
 
-/* Settings section (in-flow, above STEP / Diagrams) */
-.settings-card {
-  grid-column: 1 / -1;
-  background: var(--surface);
-  border-radius: 8px;
-  overflow: hidden;
-}
-.setting-row {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  gap: 16px;
-  padding: 14px 16px;
-  border-bottom: 1px solid var(--border);
-}
-.setting-row:last-child { border-bottom: none; }
-.setting-label { font-size: 14px; color: var(--text); }
-
-/* iOS-style pill toggle */
-.ios-toggle {
-  position: relative;
-  width: 51px;
-  height: 31px;
-  border-radius: 31px;
-  background: rgba(120,120,128,0.32);
-  border: none;
-  cursor: pointer;
-  transition: background 0.2s;
-  padding: 0;
-  flex-shrink: 0;
-}
-.ios-toggle::before {
-  content: "";
-  position: absolute;
-  top: 2px;
-  left: 2px;
-  width: 27px;
-  height: 27px;
-  background: #ffffff;
-  border-radius: 50%;
-  transition: transform 0.2s;
-  box-shadow: 0 2px 4px rgba(0,0,0,0.2);
-}
-.ios-toggle.on { background: var(--accent); }
-.ios-toggle.on::before { transform: translateX(20px); }
-.ios-toggle:disabled { cursor: default; }
-/* Loading: spinner appears centered on the knob position. No layout
-   change — the spinner is absolutely positioned and the same total
-   button size is preserved. The slide animation on the knob is
-   independent and runs as soon as .on is added. */
-.ios-toggle .ios-toggle-spinner {
-  position: absolute;
-  top: 8px;
-  left: 8px;
-  width: 15px;
-  height: 15px;
-  border: 2px solid rgba(80,80,90,0.35);
-  border-top-color: var(--accent);
-  border-radius: 50%;
-  display: none;
-  animation: ios-toggle-spin 0.7s linear infinite;
-  pointer-events: none;
-  box-sizing: border-box;
-}
-.ios-toggle.loading .ios-toggle-spinner { display: block; }
-@keyframes ios-toggle-spin { to { transform: rotate(360deg); } }
-
-/* Subscribe warning modal */
-.modal-backdrop {
-  display: none;
-  position: fixed;
-  inset: 0;
-  background: rgba(0,0,0,0.6);
-  z-index: 1000;
-  align-items: center;
-  justify-content: center;
-  padding: 16px;
-}
-.modal-backdrop.open { display: flex; }
-.modal {
-  background: var(--surface);
-  border: 1px solid var(--border);
-  border-radius: 10px;
-  max-width: 420px;
-  width: 100%;
-  padding: 20px;
-  color: var(--text);
-}
-.modal h2 { font-size: 17px; font-weight: 600; margin-bottom: 12px; color: var(--text); }
-.modal p { font-size: 14px; line-height: 1.5; margin-bottom: 10px; color: var(--text-2); }
-.modal p em { font-style: normal; color: var(--text); font-weight: 600; }
-.modal .actions { display: flex; gap: 8px; justify-content: flex-end; margin-top: 16px; }
-.modal button {
-  padding: 8px 16px;
-  border-radius: 6px;
-  border: 1px solid var(--border);
-  background: var(--surface-2);
-  color: var(--text);
-  cursor: pointer;
-  font-size: 14px;
-}
-.modal button:hover { background: var(--border); }
-.modal button.primary { background: var(--accent); border-color: var(--accent); color: #fff; }
-.modal button.primary:hover { background: #5599ff; border-color: #5599ff; }
 </style>
 
 <div id="grid"></div>
@@ -290,16 +186,6 @@
   <div id="mmd-zoom">100%</div>
 </div>
 
-<div id="subscribe-modal" class="modal-backdrop" role="dialog" aria-modal="true">
-  <div class="modal">
-    <h2>Notify on every update?</h2>
-    <p>This will notify on <em>every</em> update, and there are times when this happens several times an hour.</p>
-    <div class="actions">
-      <button id="subscribe-cancel" type="button">Cancel</button>
-      <button id="subscribe-confirm" type="button" class="primary">Subscribe</button>
-    </div>
-  </div>
-</div>
 
 <script type="importmap">
 {
@@ -899,7 +785,6 @@ const NAV_PREFIX = location.pathname.startsWith("/dev") ? "/dev" : "";
 function currentSection() {
   const tail = location.pathname.replace(NAV_PREFIX, "").replace(/\/$/, "");
   if (tail === "/diagrams" || tail === "diagrams") return "diagrams";
-  if (tail === "/settings" || tail === "settings") return "settings";
   return "prints";
 }
 
@@ -912,21 +797,9 @@ function setupNav() {
     const which = a.dataset.nav;
     if (which === "prints") a.href = NAV_PREFIX || "/";
     if (which === "diagrams") a.href = `${NAV_PREFIX}/diagrams`;
-    if (which === "settings") a.href = `${NAV_PREFIX}/settings`;
   }
-
-  // Settings link is only meaningful inside the installed PWA, so add it
-  // dynamically when standalone mode is detected.
-  if (isStandalone() && !document.querySelector('#site-nav a[data-nav="settings"]')) {
-    const a = document.createElement("a");
-    a.href = `${NAV_PREFIX}/settings`;
-    a.dataset.nav = "settings";
-    a.textContent = "Settings";
-    document.getElementById("site-nav").appendChild(a);
-  }
-
   const section = currentSection();
-  const activeMap = { prints: "prints", diagrams: "diagrams", settings: "settings" };
+  const activeMap = { prints: "prints", diagrams: "diagrams" };
   const wantActive = activeMap[section];
   for (const a of document.querySelectorAll("#site-nav a[data-nav]")) {
     a.classList.toggle("active", a.dataset.nav === wantActive);
@@ -935,7 +808,6 @@ function setupNav() {
   const titleMap = {
     prints: "Prints · Home Soda Machine",
     diagrams: "Diagrams · Home Soda Machine",
-    settings: "Settings · Home Soda Machine",
   };
   document.title = titleMap[section] || document.title;
 }
@@ -944,28 +816,6 @@ function buildGrid() {
   gridEl.innerHTML = "";
   const section = currentSection();
 
-  if (section === "settings") {
-    if (pushState.available && isStandalone()) {
-      const card = document.createElement("div");
-      card.className = "settings-card";
-      card.innerHTML = `
-        <div class="setting-row">
-          <span class="setting-label">Notifications</span>
-          <button id="notifs-toggle" class="ios-toggle" type="button" role="switch" aria-checked="false" aria-label="Notifications">
-            <span class="ios-toggle-spinner"></span>
-          </button>
-        </div>
-      `;
-      gridEl.appendChild(card);
-      card.querySelector("#notifs-toggle").addEventListener("click", toggleNotifications);
-    } else {
-      const empty = document.createElement("div");
-      empty.className = "empty-state";
-      empty.textContent = "Notifications and other settings are only available in the installed app.";
-      gridEl.appendChild(empty);
-    }
-    return;
-  }
 
   if (section === "prints") {
     if (allFiles.length === 0) {
@@ -1060,7 +910,6 @@ function openDetail(file, pushHistory = true) {
   animating = true;
   animate();
   loadStepFile(file).then(() => applyCameraState(file));
-  refreshNotifsToggle();
 }
 
 function closeDetail(pushHistory = true) {
@@ -1075,7 +924,6 @@ function closeDetail(pushHistory = true) {
   detailEl.style.display = "none";
   gridEl.style.display = "grid";
   animating = false;
-  refreshNotifsToggle();
 }
 
 async function openMmdDetail(file, pushHistory = true) {
@@ -1084,7 +932,6 @@ async function openMmdDetail(file, pushHistory = true) {
   gridEl.style.display = "none";
   mmdDetailEl.style.display = "block";
   document.getElementById("mmd-filename").textContent = shortName(file, ".mmd").name;
-  refreshNotifsToggle();
 
   const resp = await fetch(`/api/mermaid-content/${file}`);
   if (!resp.ok) return;
@@ -1100,7 +947,6 @@ function closeMmdDetail(pushHistory = true) {
   currentMmdContent = null;
   mmdDetailEl.style.display = "none";
   gridEl.style.display = "grid";
-  refreshNotifsToggle();
 }
 
 document.getElementById("back").addEventListener("click", () => closeDetail());
@@ -1285,215 +1131,9 @@ controls.addEventListener("change", () => {
   cameraSaveTimer = setTimeout(() => saveCameraState(currentFile), 250);
 });
 
-// --- Firebase Cloud Messaging (push notifications) ---
-// Single global toggle: when ON, the device is subscribed to *every* STEP
-// file, persisted server-side as files=['*']. Notifications are still
-// per-file (the deploy diff fires one push per changed file with the
-// path baked in), but the user only opts in once.
-//
-// Flow:
-//   1. User taps the "Notifications" toggle on the grid view.
-//   2. If turning ON: warning modal -> request permission -> register SW
-//      -> get FCM token -> POST {token, files:['*']}.
-//   3. If turning OFF: POST /api/push/unsubscribe with the token.
-const pushState = {
-  config: null,           // /api/firebase-config response
-  messaging: null,        // FCM messaging instance
-  swRegistration: null,   // ServiceWorker registration
-  token: null,            // FCM registration token (one per device)
-  subscribedAll: false,   // device is subscribed to every STEP
-  available: false,       // browser supports push at all
-};
-
-const subscribeModal = document.getElementById("subscribe-modal");
-
-function pushSupported() {
-  return "serviceWorker" in navigator && "PushManager" in window && "Notification" in window;
-}
-
-function isStandalone() {
-  return window.matchMedia("(display-mode: standalone)").matches ||
-    window.navigator.standalone === true;
-}
-
-async function loadFirebaseConfig() {
-  try {
-    const r = await fetch("/api/firebase-config");
-    const cfg = await r.json();
-    if (!cfg.apiKey || !cfg.vapidKey) return null;
-    return cfg;
-  } catch {
-    return null;
-  }
-}
-
-async function initPush() {
-  if (!pushSupported()) return;
-  const cfg = await loadFirebaseConfig();
-  if (!cfg) return;
-  pushState.config = cfg;
-  pushState.available = true;
-
-  // If permission was already granted in a prior session, attach silently
-  // (no prompt) so the button reflects current subscriptions.
-  if (Notification.permission === "granted") {
-    try {
-      await attachMessaging();
-      await syncSubscriptionFromServer();
-    } catch (e) {
-      console.warn("FCM silent attach failed:", e.message);
-    }
-  }
-  // Settings card and the Settings nav link both depend on
-  // pushState.available; re-render once we know it.
-  setupNav();
-  buildGrid();
-  refreshNotifsToggle();
-}
-
-async function attachMessaging() {
-  if (pushState.messaging) return;
-  const [{ initializeApp }, { getMessaging, getToken, isSupported }] = await Promise.all([
-    import("https://www.gstatic.com/firebasejs/10.14.1/firebase-app.js"),
-    import("https://www.gstatic.com/firebasejs/10.14.1/firebase-messaging.js"),
-  ]);
-  if (!(await isSupported())) throw new Error("FCM not supported in this browser");
-  const app = initializeApp({
-    apiKey: pushState.config.apiKey,
-    authDomain: pushState.config.authDomain,
-    projectId: pushState.config.projectId,
-    storageBucket: pushState.config.storageBucket,
-    messagingSenderId: pushState.config.messagingSenderId,
-    appId: pushState.config.appId,
-  });
-  const reg = await navigator.serviceWorker.register("/firebase-messaging-sw.js", {
-    scope: location.pathname.startsWith("/dev/") ? "/dev/" : "/",
-  });
-  await navigator.serviceWorker.ready;
-  pushState.swRegistration = reg;
-  pushState.messaging = getMessaging(app);
-  pushState._getToken = getToken;
-  const token = await getToken(pushState.messaging, {
-    vapidKey: pushState.config.vapidKey,
-    serviceWorkerRegistration: reg,
-  });
-  if (!token) throw new Error("Empty FCM token");
-  pushState.token = token;
-}
-
-async function syncSubscriptionFromServer() {
-  if (!pushState.token) return;
-  const r = await fetch(`/api/push/subscription?token=${encodeURIComponent(pushState.token)}`);
-  const j = await r.json();
-  pushState.subscribedAll = (j.files || []).includes("*");
-}
-
-async function persistSubscribed() {
-  if (!pushState.token) return;
-  await fetch("/api/push/subscribe", {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ token: pushState.token, files: ["*"] }),
-  });
-}
-
-async function persistUnsubscribed() {
-  if (!pushState.token) return;
-  await fetch("/api/push/unsubscribe", {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ token: pushState.token }),
-  });
-}
-
-async function toggleNotifications() {
-  if (!pushState.available) return;
-  const t = document.getElementById("notifs-toggle");
-  if (!t) return;
-
-  if (pushState.subscribedAll) {
-    // Turning off — slide first, persist in background. Unsubscribe is a
-    // single DELETE, no system prompt; we don't need a spinner.
-    pushState.subscribedAll = false;
-    refreshNotifsToggle();
-    persistUnsubscribed().catch((e) => console.warn("unsubscribe error:", e));
-    return;
-  }
-
-  // Turning on — show the warning first, then act.
-  const confirmed = await showSubscribeModal();
-  if (!confirmed) return;
-
-  // Fast path: permission already granted in a previous session and FCM
-  // already attached. Slide immediately, persist in background.
-  if (Notification.permission === "granted" && pushState.token) {
-    pushState.subscribedAll = true;
-    refreshNotifsToggle();
-    persistSubscribed().catch((e) => {
-      pushState.subscribedAll = false;
-      refreshNotifsToggle();
-      alert(`Couldn't enable notifications: ${e.message}`);
-    });
-    return;
-  }
-
-  // Slow path: needs the system permission prompt and/or first-time FCM
-  // attach. Show a spinner inside the (still off-position) pill so the
-  // tap doesn't feel ignored. The slide runs once we flip .loading off
-  // and .on on in the same frame at the end.
-  t.classList.add("loading");
-  t.disabled = true;
-  try {
-    if (Notification.permission !== "granted") {
-      const perm = await Notification.requestPermission();
-      if (perm !== "granted") {
-        alert("Notifications were blocked. Enable them in your browser/PWA settings to subscribe.");
-        return;
-      }
-    }
-    await attachMessaging();
-    await persistSubscribed();
-    pushState.subscribedAll = true;
-  } catch (e) {
-    alert(`Couldn't enable notifications: ${e.message}`);
-  } finally {
-    t.classList.remove("loading");
-    t.disabled = false;
-    refreshNotifsToggle();
-  }
-}
-
-function showSubscribeModal() {
-  return new Promise((resolve) => {
-    subscribeModal.classList.add("open");
-    const onCancel = () => { cleanup(); resolve(false); };
-    const onConfirm = () => { cleanup(); resolve(true); };
-    function cleanup() {
-      subscribeModal.classList.remove("open");
-      document.getElementById("subscribe-cancel").removeEventListener("click", onCancel);
-      document.getElementById("subscribe-confirm").removeEventListener("click", onConfirm);
-      subscribeModal.removeEventListener("click", onBackdrop);
-    }
-    function onBackdrop(e) { if (e.target === subscribeModal) onCancel(); }
-    document.getElementById("subscribe-cancel").addEventListener("click", onCancel);
-    document.getElementById("subscribe-confirm").addEventListener("click", onConfirm);
-    subscribeModal.addEventListener("click", onBackdrop);
-  });
-}
-
-function refreshNotifsToggle() {
-  // The toggle lives inside the grid's Settings card and is rendered by
-  // buildGrid only when pushState.available — may not exist yet.
-  const t = document.getElementById("notifs-toggle");
-  if (!t) return;
-  t.classList.toggle("on", pushState.subscribedAll);
-  t.setAttribute("aria-checked", pushState.subscribedAll ? "true" : "false");
-}
-
 setupNav();
 fetchFiles();
 connectEvents();
-initPush();
 
 // --- Initial route ---
 // Prefer ?file=<step> (notification deep link), fall back to hash.
