@@ -127,11 +127,31 @@ self.addEventListener("notificationclick", (event) => {
                (event.notification.data && event.notification.data.link) ||
                "/dev/";
   event.waitUntil((async () => {
+    // Resolve the link against the SW's origin so we can compare full URLs
+    // and so client.navigate() gets a same-origin absolute URL (required).
+    const target = new URL(link, self.location.origin);
     const all = await clients.matchAll({ type: "window", includeUncontrolled: true });
+
+    // Prefer reusing an existing PWA window over spawning a new one. The
+    // previous code matched on c.url.includes(link), but the existing client
+    // is usually at "/dev/" or "/dev/?file=A.step" while link is
+    // "/dev/?file=B.step" — that substring never matches, the loop falls
+    // through to openWindow(), and inside an installed PWA openWindow()
+    // typically focuses the existing window WITHOUT navigating it. The user
+    // ends up on the old file with the old camera. Match by pathname prefix
+    // (any client under /dev/ is reusable) and explicitly navigate it.
     for (const c of all) {
-      if (c.url.includes(link) && "focus" in c) return c.focus();
+      let cUrl;
+      try { cUrl = new URL(c.url); } catch { continue; }
+      if (cUrl.origin !== target.origin) continue;
+      if (!cUrl.pathname.startsWith("/dev/")) continue;
+      try {
+        if ("navigate" in c) await c.navigate(target.href);
+      } catch {}
+      if ("focus" in c) return c.focus();
+      return c;
     }
-    if (clients.openWindow) return clients.openWindow(link);
+    if (clients.openWindow) return clients.openWindow(target.href);
   })());
 });
 `;

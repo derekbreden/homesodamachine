@@ -228,8 +228,12 @@ let currentGroup = null;
 window.__hsm = { THREE, renderer, scene, camera, controls, loadStepFile, get currentGroup() { return currentGroup; }, get mountedStepFile() { return mountedStepFile; } };
 
 // --- ViewCube ---
-// Smaller on phones so it doesn't eat the screen.
-const gizmoSize = window.innerWidth < 600 ? 80 : 120;
+// Each cube face's projected hit area is roughly gizmoSize/2 — Apple HIG
+// asks for 44pt minimum touch targets, so we size to comfortably exceed
+// that on every face. The pointer-events:none on the canvas passes empty
+// corners through to OrbitControls; the visible cube IS the touch
+// target, so growing the canvas grows the touch area too.
+const gizmoSize = window.innerWidth < 600 ? 140 : 180;
 const gizmoRenderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
 gizmoRenderer.setPixelRatio(window.devicePixelRatio);
 gizmoRenderer.setSize(gizmoSize, gizmoSize);
