@@ -6,6 +6,8 @@ import pg from "pg";
 
 import { mountViewerRoutes } from "./lib/viewer-routes.js";
 import { mountBlogRoutes } from "./lib/blog.js";
+import { mountLandingRoutes } from "./lib/landing.js";
+import { mountDevViewerRoutes } from "./lib/dev-viewer.js";
 import { mountEvents } from "./lib/events.js";
 import {
   initPush,
@@ -184,32 +186,21 @@ export async function start({ dev = false, port } = {}) {
 
   let server;
 
-  // Dev viewer SPA pages — Prints (default), Diagrams, Settings — all served
-  // by the same index.html. The client reads location.pathname to decide
-  // which section to render. Mounted under /dev in prod and at root in dev.
-  const VIEWER_SECTIONS = ["diagrams", "settings"];
-  const sendViewerIndex = (_req, res) =>
-    res.sendFile(path.join(VIEWER_PUBLIC, "index.html"));
-
   if (dev) {
-    // Dev mode: viewer is the front page. Watcher + Python + WebSocket are
-    // attached by the dev wrapper after start() returns.
-    for (const section of VIEWER_SECTIONS) {
-      app.get(`/${section}`, sendViewerIndex);
-    }
+    // Dev mode: viewer is the front page (mounted at root, no /dev/ prefix).
+    // Watcher + Python + SSE broadcast are attached by the dev wrapper
+    // (tools/step-viewer/server.js) after start() returns.
+    mountDevViewerRoutes(app, { prefix: "" });
     app.use(express.static(VIEWER_PUBLIC));
     server = app.listen(port ?? process.env.PORT ?? 3000, () => {
       console.log(`Dev viewer: http://localhost:${server.address().port}`);
     });
   } else {
-    // Production: landing page at /, dev viewer behind /dev/, signup endpoint.
-    app.use(express.static(LANDING_PUBLIC));
-    app.get("/dev", sendViewerIndex);
-    for (const section of VIEWER_SECTIONS) {
-      app.get(`/dev/${section}`, sendViewerIndex);
-    }
-    app.get("/dev/mermaid", (_req, res) => res.sendFile(path.join(VIEWER_PUBLIC, "mermaid.html")));
+    // Production: landing at /, blog at /blog, dev viewer under /dev/.
+    mountLandingRoutes(app);
+    mountDevViewerRoutes(app, { prefix: "/dev" });
     app.use("/dev", express.static(VIEWER_PUBLIC));
+    app.use(express.static(LANDING_PUBLIC));  // glass-animation.js etc.
     attachSubscribe(app, pool);
 
     // Per-file deploy-change push: hash every STEP, diff against the row
