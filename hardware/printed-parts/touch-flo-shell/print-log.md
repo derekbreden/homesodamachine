@@ -68,6 +68,25 @@ Two sensors nearest the 3D printer:
 - Basement EcoBee: 64 °F
 - Downstairs Bathroom Shelly: 64 °F, 42% humidity
 
+## End of attempt 5 (print finished)
+
+Derek observed:
+- More air gaps in the finished print
+- Some places: "many layers in a row [of air gaps] before starting again"
+- Some places: air gaps consistently start "either at the end or at the beginning of a layer only"
+- Base plate (printed simultaneously, "walls only" mode):
+  - "the center of the base plate, the innermost 90% is solid"
+  - "the outermost portion of it (whatever printed last or first) there is a 'wobble' of air gaps where some layers printed more of that, some printed more air, of that outermost 10%"
+
+## Plans for attempt 6
+
+Derek's plan:
+- Next print: base plate only, no supports
+- Before printing: re-dry the filament for 12 hours at 85°C
+- Bambu wiki confirms 85°C for PET-CF
+- The filament's box also specifies 85°C
+- Derek stated: "I have seen evidence of moisture being a problem since even when it was most recently dried"
+
 ## Hardware / setup observations across all PET-CF attempts
 
 Derek said:
