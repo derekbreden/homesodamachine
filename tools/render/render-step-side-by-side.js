@@ -7,7 +7,8 @@
 //
 // Usage:
 //   node tools/render/render-step-side-by-side.js <step-a> <step-b> <output-png> \
-//        [--label-a=<txt>] [--label-b=<txt>]
+//        [--label-a=<txt>] [--label-b=<txt>] \
+//        [--at <date|sha>] [--at-a <date|sha>] [--at-b <date|sha>]
 // Example:
 //   node tools/render/render-step-side-by-side.js \
 //     printed-parts/foam-bag-shell/foam-bag-shell.step \
@@ -18,6 +19,18 @@
 // STEP paths are relative to hardware/ (matches /api/steps + /steps/*).
 // Output path may be relative to repo root or absolute.
 //
+// --at <date|sha>           apply the same historical pin to BOTH STEPs.
+// --at-a <date|sha>         pin only STEP A (overrides --at).
+// --at-b <date|sha>         pin only STEP B (overrides --at).
+//   When a pin is set, the corresponding STEP is read from a throwaway git
+//   worktree at the resolved commit (most recent commit on `main` on or
+//   before <date> 23:59:59, or the literal SHA). All other tooling (this
+//   script, server.js, viewer-body.html) stays at HEAD. If a STEP didn't
+//   exist at its pinned SHA, the tool exits non-zero with a clear error.
+//   The pinned source bytes are staged into a temp combined hardwareDir
+//   that the server is pointed at, so the in-page viewer can load both
+//   STEPs from one origin (occt-import-js stays cached between renders).
+//
 // Speed note: occt-import-js is fetched + parsed once on the first STEP
 // load (~10-15s). The second load on the same page reuses the cached lib
 // (~1s). We drive both renders on the same page to save the second cold
@@ -25,11 +38,13 @@
 
 import path from "path";
 import fs from "fs";
+import os from "os";
 import { fileURLToPath } from "url";
 import puppeteer from "puppeteer";
 import sharp from "sharp";
 
 import { start } from "../../server.js";
+import { withHistoricalTree, registerTempDir, unregisterTempDir } from "./temporal.js";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const REPO_ROOT = path.resolve(__dirname, "..", "..");
@@ -51,7 +66,8 @@ function usage(msg) {
   if (msg) console.error(`render-step-side-by-side: ${msg}`);
   console.error(
     "usage: node tools/render/render-step-side-by-side.js " +
-      "<step-a> <step-b> <output-png> [--label-a=<txt>] [--label-b=<txt>]",
+      "<step-a> <step-b> <output-png> [--label-a=<txt>] [--label-b=<txt>] " +
+      "[--at <date|sha>] [--at-a <date|sha>] [--at-b <date|sha>]",
   );
   process.exit(1);
 }
@@ -59,10 +75,20 @@ function usage(msg) {
 function parseArgs(argv) {
   const positional = [];
   const opts = {};
-  for (const a of argv) {
-    const m = a.match(/^--([a-z-]+)=(.*)$/);
-    if (m) opts[m[1]] = m[2];
-    else positional.push(a);
+  // Support both --foo=bar and --foo bar (the latter for --at since dates
+  // and SHAs don't contain '=').
+  for (let i = 0; i < argv.length; i++) {
+    const a = argv[i];
+    const eq = a.match(/^--([a-z-]+)=(.*)$/);
+    if (eq) {
+      opts[eq[1]] = eq[2];
+      continue;
+    }
+    if (a === "--at" || a === "--at-a" || a === "--at-b") {
+      opts[a.slice(2)] = argv[++i] || "";
+      continue;
+    }
+    positional.push(a);
   }
   return { positional, opts };
 }
@@ -134,23 +160,23 @@ async function renderLabelPng(text, widthPx) {
   return sharp(Buffer.from(svg)).png().toBuffer();
 }
 
-async function main() {
-  const { positional, opts } = parseArgs(process.argv.slice(2));
-  const [stepA, stepB, outRel] = positional;
-  if (!stepA || !stepB || !outRel) usage("missing arguments");
-  const labelA = opts["label-a"] || null;
-  const labelB = opts["label-b"] || null;
+// Render the side-by-side output by booting a server pointed at hardwareDir
+// and loading the two given relative paths from it.
+async function renderPair({
+  stepAviewerRel,
+  stepBviewerRel,
+  hardwareDir,
+  outAbs,
+  labelA,
+  labelB,
+}) {
+  // Validate both files exist relative to hardwareDir.
+  const aAbs = path.join(hardwareDir, stepAviewerRel);
+  const bAbs = path.join(hardwareDir, stepBviewerRel);
+  if (!fs.existsSync(aAbs)) throw new Error(`step A not found: ${aAbs}`);
+  if (!fs.existsSync(bAbs)) throw new Error(`step B not found: ${bAbs}`);
 
-  const stepAabs = path.join(REPO_ROOT, "hardware", stepA);
-  const stepBabs = path.join(REPO_ROOT, "hardware", stepB);
-  if (!fs.existsSync(stepAabs)) usage(`step A not found: ${stepAabs}`);
-  if (!fs.existsSync(stepBabs)) usage(`step B not found: ${stepBabs}`);
-
-  const outAbs = path.isAbsolute(outRel) ? outRel : path.join(REPO_ROOT, outRel);
-  fs.mkdirSync(path.dirname(outAbs), { recursive: true });
-
-  // Boot the prod server on an ephemeral port.
-  const { server } = await start({ port: 0, dev: false });
+  const { server } = await start({ port: 0, dev: false, hardwareDir });
   const port = server.address().port;
   console.log(`server up on :${port}`);
 
@@ -172,7 +198,7 @@ async function main() {
 
     // First STEP: navigate with ?file=<A> so the viewer's normal init path
     // runs (sets up canvas, animation loop, calls loadStepFile).
-    const url = `http://localhost:${port}/dev/?file=${encodeURIComponent(stepA)}`;
+    const url = `http://localhost:${port}/dev/?file=${encodeURIComponent(stepAviewerRel)}`;
     console.log(`navigating: ${url}`);
     await page.goto(url, { waitUntil: "domcontentloaded", timeout: 60000 });
 
@@ -182,28 +208,38 @@ async function main() {
       { timeout: 30000 },
     );
 
-    // Hide chrome (nav, back button, filename, gizmo cube). The detail
-    // view's second canvas is the gizmo — hide it. Force the bg color so
-    // sharp's trim() has a clean color to crop against.
+    // Hide chrome so the screenshot only contains the rendered model. The
+    // STEP detail now lives inside the ContentViewer modal — hide the
+    // filename pill, close X, gizmo cube; expand the modal card to the
+    // full viewport so the canvas covers everything; force backgrounds to
+    // the site bg so sharp's trim() has a clean color to crop against.
     await page.addStyleTag({
       content: `
-        nav, #site-nav, #back, #filename, .nav-gear, footer, #site-footer,
-        #detail > canvas:nth-of-type(2) { display: none !important; }
-        body, html, #detail, #viewport { background: ${BG_HEX} !important; }
+        nav, #site-nav, .nav-gear, footer, #site-footer,
+        .cv-filename, .cv-close, .cv-backdrop,
+        #gizmoCanvas { display: none !important; }
+        .cv-card {
+          width: 100vw !important; height: 100vh !important;
+          max-width: 100vw !important; max-height: 100vh !important;
+          border-radius: 0 !important;
+        }
+        body, html, .cv-card, .cv-content, .step-wrapper, #viewport {
+          background: ${BG_HEX} !important;
+        }
       `,
     });
 
-    console.log(`snapping ${stepA}...`);
-    const pngA = await snapModel(page, stepA);
+    console.log(`snapping ${stepAviewerRel}...`);
+    const pngA = await snapModel(page, stepAviewerRel);
     console.log(`  ${pngA.length} bytes (trimmed)`);
 
     // Second STEP: switch in-place via the exposed loadStepFile() — no
     // navigation, occt-import-js stays cached.
-    console.log(`switching to ${stepB} on the same page...`);
-    await page.evaluate((file) => window.__hsm.loadStepFile(file), stepB);
+    console.log(`switching to ${stepBviewerRel} on the same page...`);
+    await page.evaluate((file) => window.__hsm.loadStepFile(file), stepBviewerRel);
 
-    console.log(`snapping ${stepB}...`);
-    const pngB = await snapModel(page, stepB);
+    console.log(`snapping ${stepBviewerRel}...`);
+    const pngB = await snapModel(page, stepBviewerRel);
     console.log(`  ${pngB.length} bytes (trimmed)`);
 
     console.log("compositing side-by-side...");
@@ -303,7 +339,136 @@ async function main() {
   }
 }
 
+// Recursively copy a file (creating parent dirs in dest).
+function copyFile(srcAbs, destAbs) {
+  fs.mkdirSync(path.dirname(destAbs), { recursive: true });
+  fs.copyFileSync(srcAbs, destAbs);
+}
+
+// Build a temp combined hardwareDir holding the two source files at
+// distinct sub-paths so the viewer URLs don't collide. Returns:
+//   { stagedDir, stepAviewerRel, stepBviewerRel, cleanup }
+// stagedDir is the directory the server should be pointed at. stepARel
+// and stepBRel are the original user-supplied relative paths inside the
+// historical hardware/ tree (since they may have come from different
+// commits, we can't just pass them through).
+function stageHardware({ aSrcAbs, aRel, bSrcAbs, bRel }) {
+  const stagedDir = fs.mkdtempSync(path.join(os.tmpdir(), "hsm-render-stage-"));
+  // Register before any I/O so a crash mid-copy still cleans up the empty
+  // tmp dir.
+  registerTempDir(stagedDir);
+  // Mirror under __a/<aRel> and __b/<bRel> so paths can collide between A
+  // and B without overwriting (e.g. both "foam-bag-shell.step" from
+  // different SHAs).
+  const aDest = path.join(stagedDir, "__a", aRel);
+  const bDest = path.join(stagedDir, "__b", bRel);
+  copyFile(aSrcAbs, aDest);
+  copyFile(bSrcAbs, bDest);
+  const cleanup = () => {
+    unregisterTempDir(stagedDir);
+    try {
+      fs.rmSync(stagedDir, { recursive: true, force: true });
+    } catch {
+      /* best effort */
+    }
+  };
+  return {
+    stagedDir,
+    stepAviewerRel: path.posix.join("__a", aRel.split(path.sep).join("/")),
+    stepBviewerRel: path.posix.join("__b", bRel.split(path.sep).join("/")),
+    cleanup,
+  };
+}
+
+// Resolve hardwareDir + stepRel for one side. If pinned, run inside a
+// `withHistoricalTree(at, ...)` callback that resolves the file's absolute
+// path inside the worktree; if not pinned, resolve against REPO_ROOT/hardware.
+// The async `inner` is invoked with { srcAbs, rel } where srcAbs is the
+// readable absolute path of the source file. The worktree (if any) survives
+// for the duration of the inner callback.
+async function withSidePath(at, rel, inner) {
+  if (!at) {
+    const srcAbs = path.join(REPO_ROOT, "hardware", rel);
+    if (!fs.existsSync(srcAbs)) {
+      throw new Error(`step file not found at HEAD: ${srcAbs}`);
+    }
+    return inner({ srcAbs, rel });
+  }
+  return withHistoricalTree(at, async (worktreeDir, sha) => {
+    const srcAbs = path.join(worktreeDir, "hardware", rel);
+    if (!fs.existsSync(srcAbs)) {
+      throw new Error(
+        `step file not found at sha=${sha.slice(0, 7)} (--at ${at}): ${rel}`,
+      );
+    }
+    return inner({ srcAbs, rel, sha });
+  });
+}
+
+async function main() {
+  const { positional, opts } = parseArgs(process.argv.slice(2));
+  const [stepA, stepB, outRel] = positional;
+  if (!stepA || !stepB || !outRel) usage("missing arguments");
+  const labelA = opts["label-a"] || null;
+  const labelB = opts["label-b"] || null;
+
+  // --at-a / --at-b override --at for that side.
+  const atA = opts["at-a"] || opts["at"] || null;
+  const atB = opts["at-b"] || opts["at"] || null;
+
+  const outAbs = path.isAbsolute(outRel) ? outRel : path.join(REPO_ROOT, outRel);
+  fs.mkdirSync(path.dirname(outAbs), { recursive: true });
+
+  // Fast path: no historical pin on either side. Just point the server at
+  // REPO_ROOT/hardware as before.
+  if (!atA && !atB) {
+    const stepAabs = path.join(REPO_ROOT, "hardware", stepA);
+    const stepBabs = path.join(REPO_ROOT, "hardware", stepB);
+    if (!fs.existsSync(stepAabs)) usage(`step A not found: ${stepAabs}`);
+    if (!fs.existsSync(stepBabs)) usage(`step B not found: ${stepBabs}`);
+    await renderPair({
+      stepAviewerRel: stepA,
+      stepBviewerRel: stepB,
+      hardwareDir: path.join(REPO_ROOT, "hardware"),
+      outAbs,
+      labelA,
+      labelB,
+    });
+    return;
+  }
+
+  // At least one side is pinned. Resolve each side's source file under its
+  // (optional) worktree, stage both into a combined temp hardwareDir, and
+  // point the server there.
+  if (atA) console.log(`--at-a ${atA}: resolving A from past commit...`);
+  if (atB) console.log(`--at-b ${atB}: resolving B from past commit...`);
+
+  // Nest the two withSidePath calls so both worktrees are alive while the
+  // staging dir is built (we copy out of them) — though after that the
+  // worktrees are no longer needed. We still let the closures run to
+  // completion before returning so cleanup is deterministic.
+  await withSidePath(atA, stepA, async ({ srcAbs: aSrcAbs, rel: aRel }) => {
+    await withSidePath(atB, stepB, async ({ srcAbs: bSrcAbs, rel: bRel }) => {
+      const { stagedDir, stepAviewerRel, stepBviewerRel, cleanup } =
+        stageHardware({ aSrcAbs, aRel, bSrcAbs, bRel });
+      try {
+        console.log(`staged hardwareDir: ${stagedDir}`);
+        await renderPair({
+          stepAviewerRel,
+          stepBviewerRel,
+          hardwareDir: stagedDir,
+          outAbs,
+          labelA,
+          labelB,
+        });
+      } finally {
+        cleanup();
+      }
+    });
+  });
+}
+
 main().catch((err) => {
-  console.error(err);
+  console.error(err.message || err);
   process.exit(1);
 });

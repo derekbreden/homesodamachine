@@ -20,7 +20,7 @@ import {
 } from "./lib/push.js";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
-const HARDWARE_DIR = path.join(__dirname, "hardware");
+const DEFAULT_HARDWARE_DIR = path.join(__dirname, "hardware");
 const POSTS_DIR = path.join(__dirname, "posts");
 const LANDING_PUBLIC = path.join(__dirname, "public");
 const VIEWER_PUBLIC = path.join(__dirname, "tools", "step-viewer", "public");
@@ -161,7 +161,13 @@ self.addEventListener("notificationclick", (event) => {
   app.get("/favicon.png", (_req, res) => res.sendFile(path.join(PWA_ICONS_DIR, "favicon-64.png")));
 }
 
-export async function start({ dev = false, port } = {}) {
+export async function start({ dev = false, port, hardwareDir } = {}) {
+  // hardwareDir lets callers (e.g. the historical-render tools in
+  // tools/render/) point the viewer at a git worktree's hardware/ subtree
+  // instead of the live tree, so a render captures the source artifact as
+  // it existed at a specific past commit.
+  const HARDWARE_DIR = hardwareDir || DEFAULT_HARDWARE_DIR;
+
   const app = express();
   app.use(express.json());
 

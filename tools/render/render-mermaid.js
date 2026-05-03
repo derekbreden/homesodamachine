@@ -1,7 +1,15 @@
 #!/usr/bin/env node
 // render-mermaid.js — render a .mmd file to a PNG matching the site's dark theme.
 //
-// Usage: node tools/render/render-mermaid.js <mmd-file> <output-png>
+// Usage:
+//   node tools/render/render-mermaid.js <mmd-file> <output-png> [--at <date|sha>]
+//
+// --at <date|sha>
+//   Read the .mmd source from a throwaway git worktree at the resolved
+//   commit (most recent commit on `main` on or before <date> 23:59:59, or
+//   the literal SHA). The mermaid library + theme variables remain at HEAD;
+//   only the diagram source is historical. Errors non-zero if the file
+//   didn't exist at that SHA.
 //
 // Path B: build a standalone HTML page that imports mermaid from the same CDN
 // the dev viewer uses, render the SVG with mermaid.render(), screenshot the
@@ -12,6 +20,11 @@ import path from "node:path";
 import { fileURLToPath } from "node:url";
 import puppeteer from "puppeteer";
 import sharp from "sharp";
+
+import { withHistoricalTree } from "./temporal.js";
+
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
+const REPO_ROOT = path.resolve(__dirname, "..", "..");
 
 // Site palette — keep in sync with viewer-body.html.
 const BG = "#1a1a2e";
@@ -96,19 +109,46 @@ function buildHtml(mmdSource) {
 </html>`;
 }
 
-async function main() {
-  const [, , inputArg, outputArg] = process.argv;
-  if (!inputArg || !outputArg) {
-    console.error(
-      "Usage: node tools/render/render-mermaid.js <mmd-file> <output-png>"
-    );
-    process.exit(2);
+function parseArgs(argv) {
+  const positional = [];
+  let at = null;
+  for (let i = 0; i < argv.length; i++) {
+    const a = argv[i];
+    if (a === "--at") {
+      at = argv[++i] || null;
+    } else if (a.startsWith("--at=")) {
+      at = a.slice(5);
+    } else {
+      positional.push(a);
+    }
   }
-  const inputPath = path.resolve(inputArg);
-  const outputPath = path.resolve(outputArg);
+  return { positional, at };
+}
+
+// Given the user's input path and an optional historical worktree dir,
+// return the absolute path of the .mmd file to read.
+//
+// At HEAD: behave as before — resolve against process.cwd().
+// With a worktree: resolve the user's path to a repo-relative path, then
+//   re-anchor under worktreeDir so we read the historical bytes.
+function resolveMmdPath(userPath, worktreeDir) {
+  if (!worktreeDir) return path.resolve(userPath);
+  // Resolve to absolute first against cwd, the same way the no-worktree
+  // case does — but then strip REPO_ROOT so we know the path inside the
+  // tree.
+  const abs = path.resolve(userPath);
+  if (!abs.startsWith(REPO_ROOT + path.sep)) {
+    throw new Error(
+      `--at requires a path inside the repo (REPO_ROOT=${REPO_ROOT}); got ${abs}`,
+    );
+  }
+  const rel = path.relative(REPO_ROOT, abs);
+  return path.join(worktreeDir, rel);
+}
+
+async function renderMmd({ inputPath, outputPath }) {
   if (!fs.existsSync(inputPath)) {
-    console.error(`Input not found: ${inputPath}`);
-    process.exit(1);
+    throw new Error(`Input not found: ${inputPath}`);
   }
   const mmdSource = fs.readFileSync(inputPath, "utf-8");
 
@@ -190,7 +230,37 @@ async function main() {
   }
 }
 
+async function main() {
+  const { positional, at } = parseArgs(process.argv.slice(2));
+  const [inputArg, outputArg] = positional;
+  if (!inputArg || !outputArg) {
+    console.error(
+      "Usage: node tools/render/render-mermaid.js <mmd-file> <output-png> [--at <date|sha>]"
+    );
+    process.exit(2);
+  }
+  const outputPath = path.resolve(outputArg);
+
+  if (at) {
+    console.log(`--at ${at}: checking out historical tree...`);
+    await withHistoricalTree(at, async (worktreeDir, sha) => {
+      const inputPath = resolveMmdPath(inputArg, worktreeDir);
+      console.log(`worktree: ${worktreeDir} (sha=${sha.slice(0, 7)})`);
+      console.log(`historical mmd: ${inputPath}`);
+      if (!fs.existsSync(inputPath)) {
+        throw new Error(
+          `mmd file not found at sha=${sha.slice(0, 7)} (--at ${at}): ${inputPath}`,
+        );
+      }
+      await renderMmd({ inputPath, outputPath });
+    });
+  } else {
+    const inputPath = path.resolve(inputArg);
+    await renderMmd({ inputPath, outputPath });
+  }
+}
+
 main().catch((err) => {
-  console.error(err);
+  console.error(err.message || err);
   process.exit(1);
 });
