@@ -32,7 +32,32 @@ body {
   background: var(--bg);
   color: var(--text);
   display: flex;
+  flex-direction: column;
   height: 100vh;
+  overflow: hidden;
+}
+
+/* Site nav (shared with home / blog / dev viewer) */
+.site-nav {
+  display: flex;
+  gap: 24px;
+  padding: calc(env(safe-area-inset-top, 0px) + 10px) 20px 10px;
+  font-size: 14px;
+  border-bottom: 1px solid var(--border);
+  background: var(--bg);
+  flex-shrink: 0;
+}
+.site-nav a {
+  color: var(--text-2);
+  text-decoration: none;
+  letter-spacing: 0.01em;
+}
+.site-nav a:hover { color: var(--text); }
+.site-nav a.active { color: var(--text); font-weight: 600; }
+
+#layout {
+  flex: 1;
+  display: flex;
   overflow: hidden;
 }
 
@@ -45,7 +70,6 @@ body {
   display: flex;
   flex-direction: column;
   overflow-y: auto;
-  padding-top: env(safe-area-inset-top, 0px);
   padding-bottom: env(safe-area-inset-bottom, 0px);
   padding-left: env(safe-area-inset-left, 0px);
 }
@@ -77,15 +101,6 @@ body {
   display: block;
   margin-bottom: 2px;
 }
-#back-link {
-  display: block;
-  padding: 10px 16px;
-  font-size: 13px;
-  color: var(--accent);
-  text-decoration: none;
-  border-bottom: 1px solid var(--border);
-}
-#back-link:hover { background: var(--surface-2); }
 
 /* Main area */
 #main {
@@ -147,17 +162,25 @@ body {
 </head>
 <body>
 
-<div id="sidebar">
-  <a id="back-link" href="/">STEP Viewer</a>
-  <h2>Diagrams</h2>
-  <div id="file-list"></div>
-</div>
+<nav class="site-nav" id="site-nav" aria-label="Primary">
+  <a href="/" data-nav="home">Home</a>
+  <a href="/blog" data-nav="updates">Updates</a>
+  <a href="/dev" data-nav="prints">Prints</a>
+  <a href="/dev/diagrams" data-nav="diagrams" class="active">Diagrams</a>
+</nav>
 
-<div id="main">
-  <div id="diagram-container"></div>
-  <div id="empty-state">Select a diagram</div>
-  <div id="zoom-display" style="display:none">100%</div>
-  <div id="status">connecting...</div>
+<div id="layout">
+  <div id="sidebar">
+    <h2>Diagrams</h2>
+    <div id="file-list"></div>
+  </div>
+
+  <div id="main">
+    <div id="diagram-container"></div>
+    <div id="empty-state">Select a diagram</div>
+    <div id="zoom-display" style="display:none">100%</div>
+    <div id="status">connecting...</div>
+  </div>
 </div>
 
 <script type="module">
@@ -184,6 +207,18 @@ mermaid.initialize({
     padding: 12,
   },
 });
+
+// --- Site nav ---
+// Same prefix-detection as the main viewer so Prints / Diagrams hrefs
+// work in both production (/dev/...) and dev (/...).
+(() => {
+  const NAV_PREFIX = location.pathname.startsWith("/dev") ? "/dev" : "";
+  for (const a of document.querySelectorAll("#site-nav a[data-nav]")) {
+    const which = a.dataset.nav;
+    if (which === "prints") a.href = NAV_PREFIX || "/";
+    if (which === "diagrams") a.href = `${NAV_PREFIX}/diagrams`;
+  }
+})();
 
 // --- State ---
 let allFiles = [];
