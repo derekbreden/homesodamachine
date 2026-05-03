@@ -39,6 +39,15 @@ Derek said:
 
 Derek said:
 - "We made it to layer 33 and no air print yet — furthest it has gotten so far I think."
+- "I need to switch the 'add support' angle to add more supports — I think I might have had it at the default 35, but I'd been bumping it to 45 at least on most prints and had forgotten here perhaps"
+- "I see some very stupid things happening that seem like they are going to crash the print, but they haven't exploded yet"
+
+Observed in `df00c36` 3mf:
+- `support_threshold_angle`: 25 (Derek's recollection of the default was 35; observed value is 25)
+- `support_angle`: 0
+- `support_critical_regions_only`: 0
+
+TODO for next slice: bump `support_threshold_angle` per Derek's "at least 45" practice for prints with significant overhangs. Reminder to self if the print crashes mid-air later: insufficient supports were a known concern at layer 33 of attempt 5.
 
 ## Hardware / setup observations across all PET-CF attempts
 
