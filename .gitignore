@@ -20,9 +20,6 @@ logs/*.log
 hardware/cartridge/scripts/output/*.step
 hardware/cartridge/scripts/output/*.stl
 
-# Slicer output
-*.3mf
-
 # Lock files for internal tools
 package-lock.json
 .firebase-setup/
