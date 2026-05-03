@@ -69,8 +69,7 @@
 }
 #viewport { display: block; width: 100%; height: 100%; touch-action: none; }
 #detail { touch-action: none; }
-#mmd-detail { touch-action: none; }
-#back, #mmd-back {
+#back {
   position: fixed;
   top: calc(env(safe-area-inset-top, 0px) + 16px);
   left: calc(env(safe-area-inset-left, 0px) + 16px);
@@ -84,8 +83,8 @@
   z-index: 30;
   backdrop-filter: blur(4px);
 }
-#back:hover, #mmd-back:hover { background: rgba(58,58,90,0.9); }
-#filename, #mmd-filename {
+#back:hover { background: rgba(58,58,90,0.9); }
+#filename {
   position: fixed;
   top: calc(env(safe-area-inset-top, 0px) + 16px);
   left: 50%;
@@ -140,35 +139,6 @@
   max-height: 100%;
 }
 
-/* Mermaid detail view */
-#mmd-detail {
-  display: none;
-  position: fixed;
-  inset: 0;
-  background: var(--bg);
-  overflow: hidden;
-  cursor: grab;
-  z-index: 20;
-}
-#mmd-detail.dragging { cursor: grabbing; }
-#mmd-container {
-  position: absolute;
-  transform-origin: 0 0;
-}
-#mmd-zoom {
-  position: fixed;
-  top: calc(env(safe-area-inset-top, 0px) + 16px);
-  right: calc(env(safe-area-inset-right, 0px) + 16px);
-  background: rgba(35,35,66,0.85);
-  border: 1px solid var(--border);
-  color: var(--text-2);
-  padding: 6px 12px;
-  border-radius: 6px;
-  font-size: 13px;
-  z-index: 30;
-  backdrop-filter: blur(4px);
-}
-
 </style>
 
 <div id="grid"></div>
@@ -179,13 +149,8 @@
   <div id="loading">Loading...</div>
 </div>
 
-<div id="mmd-detail">
-  <div id="mmd-container"></div>
-  <button id="mmd-back">Back</button>
-  <div id="mmd-filename"></div>
-  <div id="mmd-zoom">100%</div>
-</div>
-
+<script src="/pan-zoom.js"></script>
+<script src="/content-viewer.js"></script>
 
 <script type="importmap">
 {
@@ -630,132 +595,75 @@ async function renderThumbnail(file) {
 }
 
 // --- Mermaid detail view ---
-const mmdDetailEl = document.getElementById("mmd-detail");
-const mmdContainerEl = document.getElementById("mmd-container");
-const mmdZoomEl = document.getElementById("mmd-zoom");
-let mmdScale = 1, mmdPanX = 0, mmdPanY = 0;
-const mmdActive = new Map();              // pointerId -> {x, y}
-let mmdDragStart = null;                  // { startX, startY, panX, panY }
-let mmdPinchStart = null;                 // { dist, midX, midY, panX, panY, scale }
+// The detail opens inside ContentViewer; PanZoom drives pan/zoom; we persist
+// {scale,panX,panY} per-file in localStorage and restore on reopen. The
+// wrapper / SVG host stays mounted so SSE re-renders can swap the SVG
+// without recreating PanZoom (preserves the user's pan/zoom).
 let mmdRenderCounter = 0;
+let currentMmdWrapper = null; // host div inside the modal (PanZoom container)
+let currentMmdPz = null;      // PanZoom handle for currentMmdWrapper
 
-function mmdApplyTransform() {
-  mmdContainerEl.style.transform = `translate(${mmdPanX}px, ${mmdPanY}px) scale(${mmdScale})`;
-  mmdZoomEl.textContent = `${Math.round(mmdScale * 100)}%`;
-}
+function mmdTransformKey(file) { return `mmd-transform:${file}`; }
 
-function mmdFitDiagram() {
-  const svg = mmdContainerEl.querySelector("svg");
-  if (!svg) return;
-  const viewport = mmdDetailEl.getBoundingClientRect();
-  const vb = svg.viewBox?.baseVal;
-  const svgW = vb?.width || parseFloat(svg.getAttribute("width")) || svg.getBoundingClientRect().width;
-  const svgH = vb?.height || parseFloat(svg.getAttribute("height")) || svg.getBoundingClientRect().height;
-  if (!svgW || !svgH) return;
-  const padding = 40;
-  const sx = (viewport.width - padding * 2) / svgW;
-  const sy = (viewport.height - padding * 2) / svgH;
-  mmdScale = Math.min(sx, sy);
-  mmdPanX = (viewport.width - svgW * mmdScale) / 2;
-  mmdPanY = (viewport.height - svgH * mmdScale) / 2;
-  mmdApplyTransform();
+function mmdSaveTransform(file, t) {
+  try { localStorage.setItem(mmdTransformKey(file), JSON.stringify(t)); } catch {}
 }
-
-function mmdStartDragFrom(p) {
-  mmdDragStart = { startX: p.x, startY: p.y, panX: mmdPanX, panY: mmdPanY };
-  mmdDetailEl.classList.add("dragging");
-}
-function mmdClearGestures() {
-  mmdDragStart = null;
-  mmdPinchStart = null;
-  mmdDetailEl.classList.remove("dragging");
-}
-mmdDetailEl.addEventListener("pointerdown", (e) => {
-  if (e.target.closest("button")) return;
-  if (e.pointerType === "mouse" && e.button !== 0) return;
-  mmdDetailEl.setPointerCapture(e.pointerId);
-  mmdActive.set(e.pointerId, { x: e.clientX, y: e.clientY });
-  if (mmdActive.size === 1) {
-    mmdStartDragFrom(mmdActive.get(e.pointerId));
-  } else if (mmdActive.size === 2) {
-    const [p1, p2] = [...mmdActive.values()];
-    mmdPinchStart = {
-      dist: Math.hypot(p2.x - p1.x, p2.y - p1.y) || 1,
-      midX: (p1.x + p2.x) / 2,
-      midY: (p1.y + p2.y) / 2,
-      panX: mmdPanX, panY: mmdPanY, scale: mmdScale,
-    };
-    mmdDragStart = null;
-  }
-});
-mmdDetailEl.addEventListener("pointermove", (e) => {
-  if (!mmdActive.has(e.pointerId)) return;
-  mmdActive.set(e.pointerId, { x: e.clientX, y: e.clientY });
-  if (mmdActive.size === 2 && mmdPinchStart) {
-    const [p1, p2] = [...mmdActive.values()];
-    const dist = Math.hypot(p2.x - p1.x, p2.y - p1.y) || 1;
-    const midX = (p1.x + p2.x) / 2;
-    const midY = (p1.y + p2.y) / 2;
-    const ns = Math.max(0.1, Math.min(10, mmdPinchStart.scale * (dist / mmdPinchStart.dist)));
-    const dx = (mmdPinchStart.midX - mmdPinchStart.panX) / mmdPinchStart.scale;
-    const dy = (mmdPinchStart.midY - mmdPinchStart.panY) / mmdPinchStart.scale;
-    mmdPanX = midX - dx * ns;
-    mmdPanY = midY - dy * ns;
-    mmdScale = ns;
-    mmdApplyTransform();
-  } else if (mmdActive.size === 1 && mmdDragStart) {
-    mmdPanX = mmdDragStart.panX + (e.clientX - mmdDragStart.startX);
-    mmdPanY = mmdDragStart.panY + (e.clientY - mmdDragStart.startY);
-    mmdApplyTransform();
-  }
-});
-function mmdPointerEnd(e) {
-  if (!mmdActive.delete(e.pointerId)) return;
-  if (mmdActive.size === 0) {
-    mmdClearGestures();
-  } else if (mmdActive.size === 1) {
-    mmdPinchStart = null;
-    const [p] = [...mmdActive.values()];
-    mmdStartDragFrom(p);
-  }
-}
-mmdDetailEl.addEventListener("pointerup", mmdPointerEnd);
-mmdDetailEl.addEventListener("pointercancel", mmdPointerEnd);
-mmdDetailEl.addEventListener("wheel", (e) => {
-  e.preventDefault();
-  const rect = mmdDetailEl.getBoundingClientRect();
-  const mx = e.clientX - rect.left, my = e.clientY - rect.top;
-  const dx = (mx - mmdPanX) / mmdScale, dy = (my - mmdPanY) / mmdScale;
-  const factor = e.deltaY < 0 ? 1.1 : 1 / 1.1;
-  const ns = Math.max(0.1, Math.min(10, mmdScale * factor));
-  mmdPanX = mx - dx * ns; mmdPanY = my - dy * ns; mmdScale = ns;
-  mmdApplyTransform();
-}, { passive: false });
-mmdDetailEl.addEventListener("dblclick", (e) => {
-  if (e.target.closest("button")) return;
-  mmdFitDiagram();
-});
-
-async function renderMmdDetail(content, preserveTransform = false) {
-  const id = `mmd-detail-${++mmdRenderCounter}`;
+function mmdLoadTransform(file) {
   try {
-    const { svg } = await mermaid.render(id, content);
-    mmdContainerEl.innerHTML = svg;
-    // Mermaid sets width="100%" which collapses in an absolute container.
-    // Override to natural viewBox dimensions so we control scale via transform.
-    const svgEl = mmdContainerEl.querySelector("svg");
-    if (svgEl) {
-      const vb = svgEl.viewBox?.baseVal;
-      if (vb && vb.width && vb.height) {
-        svgEl.setAttribute("width", vb.width);
-        svgEl.setAttribute("height", vb.height);
-        svgEl.style.maxWidth = "none";
-      }
-    }
-    if (preserveTransform) mmdApplyTransform();
-  } catch (err) {
-    mmdContainerEl.innerHTML = `<pre style="color:#c44;padding:20px;font-size:13px;">${err.message || err}</pre>`;
+    const raw = localStorage.getItem(mmdTransformKey(file));
+    if (!raw) return null;
+    const s = JSON.parse(raw);
+    if (typeof s.scale !== "number") return null;
+    return s;
+  } catch { return null; }
+}
+
+// Render `content` to an SVG element with explicit width/height (so PanZoom
+// can measure natural size). Returns the SVGSVGElement, or throws.
+async function mmdRenderSvg(content) {
+  const id = `mmd-detail-${++mmdRenderCounter}`;
+  const { svg } = await mermaid.render(id, content);
+  const tmp = document.createElement("div");
+  tmp.innerHTML = svg;
+  const svgEl = tmp.querySelector("svg");
+  if (!svgEl) throw new Error("mermaid produced no <svg>");
+  // Mermaid sets width="100%"; lock to natural viewBox dims so PanZoom can
+  // fit-to-container correctly.
+  const vb = svgEl.viewBox?.baseVal;
+  if (vb && vb.width && vb.height) {
+    svgEl.setAttribute("width", vb.width);
+    svgEl.setAttribute("height", vb.height);
   }
+  svgEl.style.display = "block";
+  svgEl.style.maxWidth = "none";
+  svgEl.style.maxHeight = "none";
+  return svgEl;
+}
+
+// Replace the SVG inside the open modal's wrapper without touching PanZoom.
+// Used by the SSE re-render path so the user's pan/zoom is preserved.
+async function reRenderOpenMmd(content) {
+  if (!currentMmdWrapper || !currentMmdPz) return;
+  let svgEl;
+  try {
+    svgEl = await mmdRenderSvg(content);
+  } catch (err) {
+    currentMmdWrapper.innerHTML = `<pre style="color:#c44;padding:20px;font-size:13px;">${err.message || err}</pre>`;
+    return;
+  }
+  // Clear the wrapper but keep PanZoom listeners (they're on the wrapper, not
+  // the SVG). Re-wrap the new SVG against the same wrapper, then restore the
+  // previous transform so the swap is invisible.
+  const prev = currentMmdPz.getTransform();
+  currentMmdPz.destroy();
+  currentMmdWrapper.innerHTML = "";
+  currentMmdWrapper.appendChild(svgEl);
+  currentMmdPz = PanZoom.wrap(svgEl, {
+    container: currentMmdWrapper,
+    initialFit: false,
+    onTransformChange: (t) => mmdSaveTransform(currentMmd, t),
+  });
+  currentMmdPz.setTransform(prev);
 }
 
 // --- Mermaid thumbnail rendering ---
@@ -932,30 +840,109 @@ function closeDetail(pushHistory = true) {
 }
 
 async function openMmdDetail(file, pushHistory = true) {
+  // Synchronous state set BEFORE any await — without this, the popstate
+  // handler (which fires for programmatic hash changes in some browsers)
+  // would see currentMmd===null and re-enter openMmdDetail for the same
+  // file. The duplicate ContentViewer.open then triggers the singleton
+  // cleanup of the first viewer's onClose, which strips the hash.
   if (pushHistory) location.hash = "mmd:" + encodeURIComponent(file);
   currentMmd = file;
-  gridEl.style.display = "none";
-  mmdDetailEl.style.display = "block";
-  document.getElementById("mmd-filename").textContent = shortName(file, ".mmd").name;
 
   const resp = await fetch(`/api/mermaid-content/${file}`);
   if (!resp.ok) return;
-  currentMmdContent = await resp.text();
-  await renderMmdDetail(currentMmdContent);
-  // Small delay lets the SVG lay out before we measure and fit
-  setTimeout(mmdFitDiagram, 50);
+  const content = await resp.text();
+
+  let svgEl;
+  try {
+    svgEl = await mmdRenderSvg(content);
+  } catch (err) {
+    // Render the error inside the modal too so the user sees something.
+    const errWrapper = document.createElement("div");
+    errWrapper.style.cssText = "overflow:hidden;position:relative;width:100%;height:100%;";
+    errWrapper.innerHTML = `<pre style="color:#c44;padding:20px;font-size:13px;white-space:pre-wrap;">${err.message || err}</pre>`;
+    ContentViewer.open({
+      content: errWrapper,
+      filename: shortName(file, ".mmd").name,
+      onClose: () => {
+        currentMmd = null;
+        currentMmdContent = null;
+        currentMmdWrapper = null;
+        currentMmdPz = null;
+        if (location.hash) history.back();
+      },
+    });
+    currentMmd = file;
+    currentMmdContent = content;
+    return;
+  }
+
+  const wrapper = document.createElement("div");
+  wrapper.style.cssText = "overflow:hidden;position:relative;width:100%;height:100%;";
+  wrapper.appendChild(svgEl);
+
+  const pz = PanZoom.wrap(svgEl, {
+    container: wrapper,
+    initialFit: true,
+    onTransformChange: (t) => mmdSaveTransform(file, t),
+  });
+
+  currentMmd = file;
+  currentMmdContent = content;
+  currentMmdWrapper = wrapper;
+  currentMmdPz = pz;
+
+  ContentViewer.open({
+    content: wrapper,
+    filename: shortName(file, ".mmd").name,
+    onOpen: () => {
+      // Container's real layout box is only known after the dialog has been
+      // shown. Re-fit now (PanZoom's initialFit ran before showModal made the
+      // wrapper measurable) and then apply any saved transform on top.
+      pz.fit();
+      const saved = mmdLoadTransform(file);
+      if (saved) pz.setTransform(saved);
+    },
+    onClose: () => {
+      try { pz.destroy(); } catch {}
+      currentMmd = null;
+      currentMmdContent = null;
+      currentMmdWrapper = null;
+      currentMmdPz = null;
+      if (location.hash) history.back();
+    },
+  });
 }
 
 function closeMmdDetail(pushHistory = true) {
-  if (pushHistory && location.hash) history.back();
-  currentMmd = null;
-  currentMmdContent = null;
-  mmdDetailEl.style.display = "none";
-  gridEl.style.display = "grid";
+  // Closing is driven by ContentViewer (backdrop tap / Escape / X / swipe).
+  // The onClose handler above clears state and pops history. This wrapper
+  // exists for the popstate path, which calls us with pushHistory=false to
+  // dismiss the modal without re-popping (the URL already changed).
+  if (!ContentViewer.isOpen()) {
+    // Already closed by the user — just normalize state.
+    currentMmd = null;
+    currentMmdContent = null;
+    currentMmdWrapper = null;
+    currentMmdPz = null;
+    return;
+  }
+  // Suppress the onClose-driven history.back() so popstate-driven closes
+  // don't double-pop the history stack.
+  if (!pushHistory) {
+    const wrapper = currentMmdWrapper;
+    const pz = currentMmdPz;
+    currentMmd = null;
+    currentMmdContent = null;
+    currentMmdWrapper = null;
+    currentMmdPz = null;
+    try { pz?.destroy(); } catch {}
+    ContentViewer.close();
+    return;
+  }
+  ContentViewer.close();
 }
 
 document.getElementById("back").addEventListener("click", () => closeDetail());
-document.getElementById("mmd-back").addEventListener("click", () => closeMmdDetail());
 
 // Browser/OS back button: navigate to whatever the new hash represents.
 window.addEventListener("popstate", () => {
@@ -1008,7 +995,7 @@ function refetchAfterDeploy() {
       const content = await resp.text();
       if (content === currentMmdContent) return;
       currentMmdContent = content;
-      await renderMmdDetail(content, true);
+      await reRenderOpenMmd(content);
     })();
   }
 }
@@ -1081,7 +1068,7 @@ function connectEvents() {
           const content = await resp.text();
           if (content === currentMmdContent) return;
           currentMmdContent = content;
-          await renderMmdDetail(content, true);
+          await reRenderOpenMmd(content);
         })();
       }
     }
