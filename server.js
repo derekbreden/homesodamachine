@@ -152,7 +152,7 @@ self.addEventListener("notificationclick", (event) => {
   // user adds the page to the home screen. Without these, iOS shows a
   // letter-fallback (a white H on a black square). Serve the same artwork
   // we use elsewhere from the root paths iOS probes.
-  const PWA_ICONS_DIR = path.join(VIEWER_PUBLIC, "pwa-icons");
+  const PWA_ICONS_DIR = path.join(LANDING_PUBLIC, "pwa-icons");
   const appleTouchIcon = path.join(PWA_ICONS_DIR, "apple-touch-icon-180.png");
   app.get("/apple-touch-icon.png", (_req, res) => res.sendFile(appleTouchIcon));
   app.get("/apple-touch-icon-precomposed.png", (_req, res) => res.sendFile(appleTouchIcon));
