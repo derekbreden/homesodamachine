@@ -16,11 +16,12 @@
 
 **To check or change on the camera:** From the capture screen, tap the bottom strip showing current settings (e.g. "5.3K | 30 | W") to access Resolution, Aspect Ratio, Framerate, and Digital Lens. For Orientation: swipe down from the top → gear icon → Preferences → General → Orientation.
 
-## TL;DR — the four-step commitment
+## TL;DR — the five-step commitment
 
 The user's own summary of the plan, in their own words:
 
 > - Workflow change — transfer iPhone on capture
+> - Workflow change — DJI Mic live during shop work, narrate as you go
 > - Single task — Get CapCut
 > - Away from laptop task — make a draft from one captured video
 > - Away from laptop task — watch that draft the next day, publish or not
@@ -29,7 +30,7 @@ That's the whole plan. Capture device unchanged. No new equipment. No "video edi
 
 ## Provenance — where this came from
 
-Came out of a Claude Code conversation on 2026-05-03 between the user and Claude (Opus 4.7). The user described feeling that the post-capture work had become "monumental" and that they were stuck in capture-only mode — GoPro footage still on the GoPro, DJI Mic audio still on the iPhone, no narration ever recorded, no clips ever cut. Claude proposed an iPhone-only end-to-end workflow that bypasses the Mac entirely. The user accepted the structure and produced the four-bullet summary above as their own framing of the next steps, which is what's recorded here as the actual plan. The plain-English version: I told Claude I was stuck on the publishing side. Claude proposed a workflow that bypasses the Mac. I committed to it in four steps.
+Came out of a Claude Code conversation on 2026-05-03 between the user and Claude (Opus 4.7). The user described feeling that the post-capture work had become "monumental" and that they were stuck in capture-only mode — GoPro footage still on the GoPro, DJI Mic audio still on the iPhone, no narration ever recorded, no clips ever cut. Claude proposed an iPhone-only end-to-end workflow that bypasses the Mac entirely. The user accepted the structure and produced the four-bullet summary above as their own framing of the next steps; a fifth bullet (DJI Mic live narration during shop work) was added in the same conversation after Claude surfaced the audio-first inversion as a way to unstick the narration step specifically. The plain-English version: I told Claude I was stuck on the publishing side. Claude proposed a workflow that bypasses the Mac. I committed to it in five steps.
 
 ## Why this shape — the diagnosis behind it
 
@@ -39,13 +40,13 @@ Meanwhile the iPhone already has half the assets (DJI Mic recordings) and a perf
 
 ## Supporting decisions that go with the workflow
 
-These are not the four-step plan, but they are part of why the plan is workable:
+These are not the five-step plan, but they are part of why the plan is workable:
 
 ### Narration is optional for most clips
 The Tier 2 build-in-public content in [concepts.md](concepts.md) — pour videos, snap-fit tests, timelapses, the live-reload CAD viewer — are music-bed-and-title-card clips, not narrated clips. Narration is for the *story* videos (first weld, AI design failure, business license wall). Removing the unconscious assumption that every clip needs voiceover removes a large part of the perceived burden.
 
 ### Drafts are free, posts are expensive
-The fourth bullet (watch tomorrow, publish or not) is the central mental flip. Drafts have no consequence; published posts carry social weight. Letting the draft queue grow gives optionality without pressure. The decision to publish is decoupled from the act of producing.
+The fifth bullet (watch tomorrow, publish or not) is the central mental flip. Drafts have no consequence; published posts carry social weight. Letting the draft queue grow gives optionality without pressure. The decision to publish is decoupled from the act of producing.
 
 ### Capture habit, not publishing cadence
 The first bullet — transfer to phone on capture — is a single rule appended to existing shop sessions: before walking away from the bench, hit transfer in the GoPro Quik app. That keeps the foot on the gas while the sensation is fresh, but only for the lightweight first step. Edit-on-couch happens whenever it happens. There is no daily publishing schedule to defend.
@@ -55,7 +56,7 @@ The first execution doesn't need to be the welder unboxing or any other planned 
 
 ## What this snapshot is NOT
 
-- Not a video-production manual — the four bullets are the commitment, not a tutorial.
+- Not a video-production manual — the five bullets are the commitment, not a tutorial.
 - Not a replacement for [first-weld.md](first-weld.md) — that file covers capture and narration philosophy. This file is specifically about the post-capture workflow that file is silent on.
 - Not a permanent statement about tools — CapCut is the iPhone editor pick today; if it stops being free or the user moves to a different tool, the workflow *shape* (single device, end-to-end on iPhone) is what matters, not the specific app name.
 - Not a publish-cadence commitment. Publishing is decoupled from this workflow on purpose.
