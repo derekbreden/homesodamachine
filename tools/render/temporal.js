@@ -210,3 +210,98 @@ export async function withHistoricalTree(atSpec, callback) {
 export function resolveAtSpecSha(atSpec) {
   return resolveSha(atSpec);
 }
+
+// Boot the historical SHA's server.js in-process and call
+// callback({ baseUrl, server, worktreeDir, sha }). This is the right helper
+// for site screenshots, where the *renderer* (shell.js, landing.js, blog.js,
+// dev-viewer.js, viewer-body.html, glass-animation.js, the icon set, etc.)
+// is itself the thing being captured — feeding HEAD's server historical
+// hardware/ bytes (the withHistoricalTree pattern) is not enough.
+//
+// Mechanics:
+//   1. withHistoricalTree creates a detached worktree at the historical SHA.
+//   2. We symlink HEAD's node_modules into the worktree so we don't reinstall
+//      deps. Tradeoff: HEAD's deps must be ABI-compatible with the historical
+//      server.js — fine for recent history (days), risky for ancient SHAs.
+//   3. We dynamic-import server.js from the worktree path. Node caches ESM
+//      by file URL, so two different worktrees get separate caches; the same
+//      worktree path imported twice returns the cached module (which is
+//      fine — start() is reentrant).
+//   4. We call start({ port: 0, dev: false }) to get an ephemeral port.
+//      No env vars are passed, so the historical server's database / Firebase
+//      paths must degrade gracefully when DATABASE_URL /
+//      FIREBASE_SERVICE_ACCOUNT_JSON are absent (current code does; check
+//      the historical code path if you point this at deep history).
+//   5. We resolve baseUrl = http://localhost:<port> and hand it to callback.
+//   6. On callback exit (success OR throw) we close the server, then
+//      withHistoricalTree's finally cleans up the worktree.
+export async function withHistoricalServer(atSpec, callback) {
+  return withHistoricalTree(atSpec, async (worktreeDir, sha) => {
+    // Symlink HEAD's node_modules into the worktree. We use 'dir' so node
+    // resolves it as a real node_modules tree (no copy, no install).
+    const headNm = path.resolve(REPO_ROOT, "node_modules");
+    const wtNm = path.join(worktreeDir, "node_modules");
+    if (!fs.existsSync(headNm)) {
+      throw new Error(
+        `withHistoricalServer: HEAD has no node_modules at ${headNm}; ` +
+          `run 'npm install' in the repo root first.`,
+      );
+    }
+    // If the worktree somehow already has node_modules (shouldn't — `git
+    // worktree add` doesn't carry over .gitignored paths), leave it alone.
+    if (!fs.existsSync(wtNm)) {
+      fs.symlinkSync(headNm, wtNm, "dir");
+    }
+
+    // Dynamic-import server.js from the worktree. Use a file:// URL so the
+    // ESM loader resolves it as an absolute path; the historical server's
+    // own `import "./lib/..."` lines then resolve relative to that file,
+    // so we get the historical lib/ tree.
+    const serverPath = path.join(worktreeDir, "server.js");
+    if (!fs.existsSync(serverPath)) {
+      throw new Error(
+        `withHistoricalServer: ${serverPath} does not exist at sha ${sha.slice(0, 7)}.`,
+      );
+    }
+    const serverUrl = pathToFileUrl(serverPath);
+    const mod = await import(serverUrl);
+    if (typeof mod.start !== "function") {
+      throw new Error(
+        `withHistoricalServer: server.js at sha ${sha.slice(0, 7)} ` +
+          `does not export start().`,
+      );
+    }
+
+    // Boot on an ephemeral port. No env vars passed — we rely on the server
+    // degrading gracefully without DATABASE_URL / Firebase config.
+    const { server } = await mod.start({ port: 0, dev: false });
+    // app.listen returns the server synchronously; .address() is populated
+    // by the time we get back here in practice (Node binds the socket
+    // synchronously inside listen()). Defensive: if it isn't, wait one
+    // 'listening' tick.
+    if (!server.address()) {
+      await new Promise((resolve) => server.once("listening", resolve));
+    }
+    const port = server.address().port;
+    const baseUrl = `http://localhost:${port}`;
+
+    try {
+      return await callback({ baseUrl, server, worktreeDir, sha });
+    } finally {
+      await new Promise((resolve) => server.close(() => resolve()));
+    }
+  });
+}
+
+// Tiny pathToFileURL — we keep our own to avoid pulling node:url into the
+// public surface of this module beyond the existing import. Same semantics
+// as url.pathToFileURL for absolute paths.
+function pathToFileUrl(absPath) {
+  // path.posix.normalize for the URL portion; on Windows this would need
+  // more work, but the renderers only run on macOS/Linux.
+  const encoded = absPath
+    .split(path.sep)
+    .map((seg) => encodeURIComponent(seg))
+    .join("/");
+  return `file://${encoded.startsWith("/") ? "" : "/"}${encoded}`;
+}
