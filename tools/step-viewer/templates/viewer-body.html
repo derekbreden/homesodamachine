@@ -59,53 +59,38 @@
   margin-bottom: 2px;
 }
 
-/* Detail view */
-#detail {
-  display: none;
-  position: fixed;
-  inset: 0;
+/* STEP detail view (inside ContentViewer modal). The renderer canvas
+   fills the wrapper; the gizmo overlays the top-right corner. The loading
+   pill centers in the wrapper while occt-import-js parses the buffer. */
+.step-wrapper {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
   background: var(--bg);
-  z-index: 20;
+  touch-action: none;
 }
-#viewport { display: block; width: 100%; height: 100%; touch-action: none; }
-#detail { touch-action: none; }
-#back {
-  position: fixed;
+.step-wrapper > canvas.step-viewport {
+  display: block;
+  width: 100%;
+  height: 100%;
+  touch-action: none;
+}
+.step-wrapper > canvas.step-gizmo {
+  position: absolute;
   top: calc(env(safe-area-inset-top, 0px) + 16px);
-  left: calc(env(safe-area-inset-left, 0px) + 16px);
-  background: rgba(35,35,66,0.85);
-  border: 1px solid var(--border);
-  color: var(--text);
-  padding: 6px 14px;
-  border-radius: 6px;
-  cursor: pointer;
-  font-size: 14px;
-  z-index: 30;
-  backdrop-filter: blur(4px);
+  right: calc(env(safe-area-inset-right, 0px) + 16px);
+  z-index: 10;
+  pointer-events: none;
 }
-#back:hover { background: rgba(58,58,90,0.9); }
-#filename {
-  position: fixed;
-  top: calc(env(safe-area-inset-top, 0px) + 16px);
-  left: 50%;
-  transform: translateX(-50%);
-  background: rgba(35,35,66,0.85);
-  border: 1px solid var(--border);
-  color: var(--text-2);
-  padding: 6px 14px;
-  border-radius: 6px;
-  font-size: 13px;
-  z-index: 30;
-  backdrop-filter: blur(4px);
-}
-#loading {
-  position: fixed;
+.step-wrapper > .step-loading {
+  position: absolute;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
   color: var(--text-2);
   font-size: 15px;
-  z-index: 30;
+  z-index: 11;
   display: none;
 }
 
@@ -143,11 +128,9 @@
 
 <div id="grid"></div>
 
-<div id="detail">
-  <button id="back">Back</button>
-  <div id="filename"></div>
-  <div id="loading">Loading...</div>
-</div>
+<!-- Hidden host for the Three.js renderer + gizmo canvases. They live here
+     when no STEP is open and get moved into the modal wrapper on openDetail. -->
+<div id="step-canvas-host" style="display: none;"></div>
 
 <script src="/pan-zoom.js"></script>
 <script src="/content-viewer.js"></script>
@@ -197,20 +180,31 @@ document.head.appendChild(occtScript);
 // --- State ---
 let allFiles = [];       // STEP files
 let mmdFiles = [];       // Mermaid files
-let currentFile = null;  // STEP detail
+let currentFile = null;  // STEP detail (file shown in modal)
 let currentMmd = null;   // Mermaid detail
 let currentMmdContent = null;
 let mountedStepFile = null; // file currently rendered into the 3D scene
+let currentStepWrapper = null;        // host div inside the modal (parent of canvases)
+let currentStepResizeObserver = null; // ResizeObserver on currentStepWrapper
 const thumbnailCache = new Map(); // file -> dataURL
 const mmdThumbCache = new Map();  // file -> svgHTML
 const stepEtags = new Map();      // file -> last loaded ETag (for refetch dedupe)
 
 // --- Detail view: Three.js setup ---
+// renderer/scene/camera/controls/gizmo* are created ONCE at module load and
+// reused across opens. The two canvases (renderer.domElement and
+// gizmoCanvas) live in #step-canvas-host when no detail is open, and get
+// appendChild'd into the modal wrapper inside openDetail. This keeps
+// OrbitControls listeners (bound to renderer.domElement) alive across
+// open/close cycles and avoids reparsing GL state.
+const canvasHost = document.getElementById("step-canvas-host");
+
 const renderer = new THREE.WebGLRenderer({ antialias: true });
 renderer.setPixelRatio(window.devicePixelRatio);
 renderer.setClearColor(0x1a1a2e);
 renderer.domElement.id = "viewport";
-document.getElementById("detail").prepend(renderer.domElement);
+renderer.domElement.classList.add("step-viewport");
+canvasHost.appendChild(renderer.domElement);
 
 const scene = new THREE.Scene();
 const camera = new THREE.PerspectiveCamera(45, 1, 0.01, 10000);
@@ -241,11 +235,13 @@ gizmoRenderer.setPixelRatio(window.devicePixelRatio);
 gizmoRenderer.setSize(gizmoSize, gizmoSize);
 gizmoRenderer.setClearColor(0x000000, 0);
 const gizmoCanvas = gizmoRenderer.domElement;
-// Pointer-events:none so the canvas's empty corners pass touches through
-// to OrbitControls underneath. Hits on the rendered cube are picked up via
-// document-level raycast handlers below.
-gizmoCanvas.style.cssText = "position:fixed;top:calc(env(safe-area-inset-top,0px) + 16px);right:calc(env(safe-area-inset-right,0px) + 16px);z-index:10;pointer-events:none;";
-document.getElementById("detail").appendChild(gizmoCanvas);
+gizmoCanvas.id = "gizmoCanvas";
+// .step-gizmo: position:absolute inside the wrapper (top-right, safe-area
+// padded), pointer-events:none so empty corners pass touches through to
+// OrbitControls. Hits on the rendered cube are picked up via document-level
+// raycast handlers below.
+gizmoCanvas.classList.add("step-gizmo");
+canvasHost.appendChild(gizmoCanvas);
 
 const gizmoScene = new THREE.Scene();
 const gizmoCam = new THREE.PerspectiveCamera(45, 1, 0.1, 100);
@@ -430,23 +426,52 @@ function renderGizmo() {
   gizmoRenderer.render(gizmoScene, gizmoCam);
 }
 
+// Size the renderer to the canvas's parent (the modal wrapper when open,
+// the hidden host when not — but the host has display:none, so we only
+// expect this to do useful work when the modal is open). Falls back to
+// window size if the parent has no measured rect (e.g. headless tools that
+// drove openDetail and may inspect the canvas before layout settles).
 function resizeRenderer() {
-  const w = window.innerWidth, h = window.innerHeight;
-  renderer.setSize(w, h);
+  const parent = renderer.domElement.parentElement;
+  let w = 0, h = 0;
+  if (parent && parent !== canvasHost) {
+    const r = parent.getBoundingClientRect();
+    w = Math.floor(r.width);
+    h = Math.floor(r.height);
+  }
+  if (w === 0 || h === 0) {
+    w = window.innerWidth;
+    h = window.innerHeight;
+  }
+  renderer.setSize(w, h, false);
+  // Also re-apply CSS size — setSize(...,false) doesn't touch style, and we
+  // want the canvas to actually fill the wrapper's content box.
+  renderer.domElement.style.width = w + "px";
+  renderer.domElement.style.height = h + "px";
   camera.aspect = w / h;
   camera.updateProjectionMatrix();
 }
-window.addEventListener("resize", () => {
-  if (currentFile) resizeRenderer();
-});
 
 let animating = false;
+let animateRafId = 0;
 function animate() {
-  if (!animating) return;
-  requestAnimationFrame(animate);
+  if (!animating) { animateRafId = 0; return; }
+  animateRafId = requestAnimationFrame(animate);
   controls.update();
   renderer.render(scene, camera);
   renderGizmo();
+}
+function startAnimate() {
+  if (animating) return;
+  animating = true;
+  animate();
+}
+function stopAnimate() {
+  animating = false;
+  if (animateRafId) {
+    cancelAnimationFrame(animateRafId);
+    animateRafId = 0;
+  }
 }
 
 // --- STEP parsing ---
@@ -505,8 +530,10 @@ function resetCamera(group) {
 }
 
 async function loadStepFile(file, { preserveCamera = false } = {}) {
-  const loadingEl = document.getElementById("loading");
-  loadingEl.style.display = "block";
+  // Loading pill lives inside the current step wrapper (or none if the
+  // headless tool drove loadStepFile directly). Tolerate either.
+  const loadingEl = currentStepWrapper && currentStepWrapper.querySelector(".step-loading");
+  if (loadingEl) loadingEl.style.display = "block";
 
   try {
     // If we're refetching the same file that's already in the scene, send
@@ -537,7 +564,7 @@ async function loadStepFile(file, { preserveCamera = false } = {}) {
     mountedStepFile = file;
     if (!preserveCamera) resetCamera(currentGroup);
   } finally {
-    loadingEl.style.display = "none";
+    if (loadingEl) loadingEl.style.display = "none";
   }
 }
 
@@ -682,7 +709,6 @@ async function renderMmdThumbnail(file) {
 
 // --- Grid ---
 const gridEl = document.getElementById("grid");
-const detailEl = document.getElementById("detail");
 
 function shortName(file, ext = ".step") {
   const parts = file.split("/");
@@ -814,39 +840,116 @@ function buildGrid() {
 // open/close functions take a `pushHistory` flag. UI-driven calls push;
 // popstate-driven calls don't (the URL already changed).
 function openDetail(file, pushHistory = true) {
-  if (pushHistory) location.hash = "step:" + encodeURIComponent(file);
+  // Set currentFile BEFORE touching location.hash. In Puppeteer (and some
+  // browser configurations) setting location.hash can fire a popstate that
+  // runs synchronously before this function returns; the popstate handler
+  // dispatches on currentFile, so it must already reflect this open or it
+  // re-enters openDetail and we end up with a duplicate ContentViewer.
   currentFile = file;
-  gridEl.style.display = "none";
-  detailEl.style.display = "block";
-  document.getElementById("filename").textContent = shortName(file, ".step").name;
-  resizeRenderer();
-  animating = true;
-  animate();
+  if (pushHistory) location.hash = "step:" + encodeURIComponent(file);
+
+  // Build the modal wrapper. Renderer canvas + gizmo canvas get moved out
+  // of the hidden host into here; on close they go back. The wrapper also
+  // hosts a centered loading pill that loadStepFile toggles.
+  const wrapper = document.createElement("div");
+  wrapper.className = "step-wrapper";
+  wrapper.appendChild(renderer.domElement);
+  wrapper.appendChild(gizmoCanvas);
+  const loadingEl = document.createElement("div");
+  loadingEl.className = "step-loading";
+  loadingEl.textContent = "Loading...";
+  wrapper.appendChild(loadingEl);
+
+  currentStepWrapper = wrapper;
+
+  // Re-fit the renderer whenever the wrapper's content box changes
+  // (modal show, window resize, orientation change). The first observation
+  // fires synchronously after observe(), which gives us a correct initial
+  // size as soon as the modal lays out.
+  currentStepResizeObserver = new ResizeObserver(() => {
+    if (renderer.domElement.parentElement === wrapper) resizeRenderer();
+  });
+  currentStepResizeObserver.observe(wrapper);
+
+  ContentViewer.open({
+    content: wrapper,
+    filename: shortName(file, ".step").name,
+    onOpen: () => {
+      // Wrapper has its real size now — size the renderer + start the loop.
+      resizeRenderer();
+      startAnimate();
+    },
+    onClose: () => {
+      // Persist camera state defensively. The debounced save (controls
+      // "change" handler) usually has already fired, but if the user
+      // dismissed mid-gesture the trailing save may not have. Use the
+      // captured `file` rather than currentFile — closeDetail(false)
+      // clears currentFile before invoking us, so we'd otherwise miss
+      // the save on popstate-driven closes.
+      saveCameraState(file);
+      // Whether this onClose was triggered by a UI-driven dismissal
+      // (Escape / X / backdrop / swipe) or by closeDetail(false) from the
+      // popstate path. The popstate path clears currentFile before close
+      // fires; UI-driven closes leave currentFile set.
+      const wasUiDriven = currentFile === file;
+      stopAnimate();
+      // Disconnect ResizeObserver before moving canvases (otherwise it
+      // fires once more for the move into the hidden host).
+      if (currentStepResizeObserver) {
+        try { currentStepResizeObserver.disconnect(); } catch {}
+        currentStepResizeObserver = null;
+      }
+      // Move canvases back to the hidden host so they stay mounted for
+      // the next open. Don't dispose anything Three.js — renderer/scene/
+      // controls are reused.
+      try { canvasHost.appendChild(renderer.domElement); } catch {}
+      try { canvasHost.appendChild(gizmoCanvas); } catch {}
+      // Drop the loaded mesh — fresh load on next open.
+      if (currentGroup) {
+        scene.remove(currentGroup);
+        currentGroup.traverse((c) => { if (c.geometry) c.geometry.dispose(); });
+        currentGroup = null;
+      }
+      currentStepWrapper = null;
+      currentFile = null;
+      mountedStepFile = null;
+      // Pop the hash if the user dismissed the modal directly. popstate
+      // already moved the URL, so don't double-pop.
+      if (wasUiDriven && location.hash) history.back();
+    },
+  });
+
   loadStepFile(file).then(() => applyCameraState(file));
 }
 
+// closeDetail is the entry point for the popstate path; UI-driven closes
+// (Escape / X / backdrop / swipe) go through ContentViewer directly and run
+// the modal's onClose. All teardown lives there.
 function closeDetail(pushHistory = true) {
-  if (pushHistory && location.hash) history.back();
-  currentFile = null;
-  mountedStepFile = null;
-  if (currentGroup) {
-    scene.remove(currentGroup);
-    currentGroup.traverse((c) => { if (c.geometry) c.geometry.dispose(); });
-    currentGroup = null;
+  if (!ContentViewer.isOpen()) {
+    // Already closed by the user — normalize state.
+    currentFile = null;
+    mountedStepFile = null;
+    return;
   }
-  detailEl.style.display = "none";
-  gridEl.style.display = "grid";
-  animating = false;
+  // pushHistory=false comes from popstate (the URL already changed). Clear
+  // currentFile first so the onClose handler sees it as null and skips the
+  // history.back() that would double-pop the stack.
+  if (!pushHistory) {
+    currentFile = null;
+  }
+  ContentViewer.close();
 }
 
 async function openMmdDetail(file, pushHistory = true) {
-  // Synchronous state set BEFORE any await — without this, the popstate
-  // handler (which fires for programmatic hash changes in some browsers)
-  // would see currentMmd===null and re-enter openMmdDetail for the same
-  // file. The duplicate ContentViewer.open then triggers the singleton
-  // cleanup of the first viewer's onClose, which strips the hash.
-  if (pushHistory) location.hash = "mmd:" + encodeURIComponent(file);
+  // Set currentMmd BEFORE touching location.hash. In some browser
+  // configurations (notably Puppeteer) setting location.hash fires a
+  // popstate that runs synchronously before this function returns; the
+  // popstate handler dispatches on currentMmd, so it must already reflect
+  // this open or it re-enters openMmdDetail and we end up with a duplicate
+  // ContentViewer (whose singleton-replacement strips the hash).
   currentMmd = file;
+  if (pushHistory) location.hash = "mmd:" + encodeURIComponent(file);
 
   const resp = await fetch(`/api/mermaid-content/${file}`);
   if (!resp.ok) return;
@@ -942,9 +1045,8 @@ function closeMmdDetail(pushHistory = true) {
   ContentViewer.close();
 }
 
-document.getElementById("back").addEventListener("click", () => closeDetail());
-
 // Browser/OS back button: navigate to whatever the new hash represents.
+// ContentViewer handles Escape / X / backdrop / swipe-down on its own.
 window.addEventListener("popstate", () => {
   const hash = location.hash ? decodeURIComponent(location.hash.slice(1)) : "";
   const want = hash.startsWith("step:") ? { type: "step", file: hash.slice(5) }
@@ -959,12 +1061,6 @@ window.addEventListener("popstate", () => {
   } else {
     if (currentFile) closeDetail(false);
     if (currentMmd) closeMmdDetail(false);
-  }
-});
-document.addEventListener("keydown", (e) => {
-  if (e.key === "Escape") {
-    if (currentFile) closeDetail();
-    else if (currentMmd) closeMmdDetail();
   }
 });
 
