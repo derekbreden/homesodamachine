@@ -25,7 +25,6 @@
     style.textContent = `
 .cv-dialog {
   border: none;
-  padding: 0;
   margin: 0;
   background: transparent;
   color: inherit;
@@ -34,6 +33,16 @@
   max-width: 100vw;
   max-height: 100vh;
   inset: 0;
+  /* Card sits inside the safe area; backdrop (position:fixed inset:0) still
+     covers the full viewport including under the dynamic island and home
+     indicator. The 16px outer margin around the card comes from this
+     padding too — adds to the safe-area inset rather than replacing it,
+     so on a desktop browser (no insets) you still get the 16px gutter. */
+  padding:
+    calc(env(safe-area-inset-top, 0px) + 16px)
+    calc(env(safe-area-inset-right, 0px) + 16px)
+    calc(env(safe-area-inset-bottom, 0px) + 16px)
+    calc(env(safe-area-inset-left, 0px) + 16px);
 }
 .cv-dialog::backdrop { background: transparent; }
 .cv-dialog[open] { display: flex; align-items: center; justify-content: center; }
@@ -58,10 +67,13 @@
   background: #1a1a2e;
   border-radius: 10px;
   padding: 0;
-  max-width: calc(100vw - 32px);
-  max-height: calc(100vh - 32px);
-  width: calc(100vw - 32px);
-  height: calc(100vh - 32px);
+  /* Sized against the dialog's padded content box (= viewport minus
+     safe-area minus 16px gutter), so the card never reaches under the
+     iPhone dynamic island or home indicator. */
+  width: 100%;
+  height: 100%;
+  max-width: 100%;
+  max-height: 100%;
   overflow: hidden;
   opacity: 0;
   transform: scale(0.96);
