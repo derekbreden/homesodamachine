@@ -59,6 +59,54 @@
 
     el.style.transformOrigin = "0 0";
 
+    function clamp(v, lo, hi) { return Math.max(lo, Math.min(hi, v)); }
+
+    // The fit scale (the scale at which the content fully fits the
+    // container). Acts as the dynamic floor for the user's zoom — they can
+    // never pinch/wheel below "fully visible," because there's nothing to
+    // see down there. Returns 0 if the layout isn't ready yet.
+    function fitScale() {
+      const viewport = container.getBoundingClientRect();
+      const nat = getNaturalSize(el);
+      if (!nat.w || !nat.h || !viewport.width || !viewport.height) return 0;
+      return Math.min(viewport.width / nat.w, viewport.height / nat.h);
+    }
+
+    // Pan limits given a scale. When content is smaller than the viewport
+    // along an axis, that axis is locked to centered (min == max). When
+    // larger, pan is allowed only enough to keep some content visible —
+    // dragging stops the moment an edge meets the corresponding container
+    // edge, with no overscroll into empty space. Same category of fix as
+    // capping body min-height to 100svh on iOS Safari.
+    function panBounds(s) {
+      const viewport = container.getBoundingClientRect();
+      const nat = getNaturalSize(el);
+      if (!nat.w || !nat.h || !viewport.width || !viewport.height) {
+        return { minX: -Infinity, maxX: Infinity, minY: -Infinity, maxY: Infinity };
+      }
+      const cw = nat.w * s, ch = nat.h * s;
+      const bx = cw <= viewport.width
+        ? { min: (viewport.width - cw) / 2, max: (viewport.width - cw) / 2 }
+        : { min: viewport.width - cw, max: 0 };
+      const by = ch <= viewport.height
+        ? { min: (viewport.height - ch) / 2, max: (viewport.height - ch) / 2 }
+        : { min: viewport.height - ch, max: 0 };
+      return { minX: bx.min, maxX: bx.max, minY: by.min, maxY: by.max };
+    }
+
+    // The single state-mutating path. Every gesture / API call funnels
+    // through this so the clamping rules stay consistent.
+    function commit(s, px, py) {
+      const fs = fitScale();
+      const lo = fs > 0 ? Math.max(minScale, fs) : minScale;
+      s = clamp(s, lo, maxScale);
+      const b = panBounds(s);
+      px = clamp(px, b.minX, b.maxX);
+      py = clamp(py, b.minY, b.maxY);
+      scale = s; panX = px; panY = py;
+      apply();
+    }
+
     function apply() {
       el.style.transform =
         "translate(" + panX + "px, " + panY + "px) scale(" + scale + ")";
@@ -71,36 +119,28 @@
     }
 
     function fit() {
-      const viewport = container.getBoundingClientRect();
-      const nat = getNaturalSize(el);
-      if (!nat.w || !nat.h) return;
-      // Container not laid out yet (e.g. inside a <dialog> that hasn't been
-      // showModal'd, or detached from the DOM). Retry once layout is real.
-      if (!viewport.width || !viewport.height) {
+      const fs = fitScale();
+      if (!fs) {
+        // Container not laid out yet (e.g. inside a <dialog> that hasn't
+        // been showModal'd). Retry once layout is real.
         if (typeof requestAnimationFrame === "function" && !destroyed) {
           requestAnimationFrame(function () { if (!destroyed) fit(); });
         }
         return;
       }
-      const padding = 0;
-      const sx = (viewport.width - padding * 2) / nat.w;
-      const sy = (viewport.height - padding * 2) / nat.h;
-      scale = Math.min(sx, sy);
-      panX = (viewport.width - nat.w * scale) / 2;
-      panY = (viewport.height - nat.h * scale) / 2;
-      apply();
+      commit(fs, 0, 0);  // commit will center via panBounds
     }
 
-    function reset() { scale = 1; panX = 0; panY = 0; apply(); }
+    function reset() { commit(1, 0, 0); }
 
     function setTransform(t) {
-      if (t.scale != null) scale = clamp(t.scale, minScale, maxScale);
-      if (t.panX != null) panX = t.panX;
-      if (t.panY != null) panY = t.panY;
-      apply();
+      commit(
+        t.scale != null ? t.scale : scale,
+        t.panX != null ? t.panX : panX,
+        t.panY != null ? t.panY : panY,
+      );
     }
     function getTransform() { return { scale: scale, panX: panX, panY: panY }; }
-    function clamp(v, lo, hi) { return Math.max(lo, Math.min(hi, v)); }
 
     function onPointerDown(e) {
       if (e.target.closest && e.target.closest("button")) return;
@@ -130,17 +170,16 @@
         const dist = Math.hypot(p2.x - p1.x, p2.y - p1.y) || 1;
         const midX = (p1.x + p2.x) / 2;
         const midY = (p1.y + p2.y) / 2;
-        const ns = clamp(pinchStart.scale * (dist / pinchStart.dist), minScale, maxScale);
+        const ns = pinchStart.scale * (dist / pinchStart.dist);
         const dx = (pinchStart.midX - pinchStart.panX) / pinchStart.scale;
         const dy = (pinchStart.midY - pinchStart.panY) / pinchStart.scale;
-        panX = midX - dx * ns;
-        panY = midY - dy * ns;
-        scale = ns;
-        apply();
+        commit(ns, midX - dx * ns, midY - dy * ns);
       } else if (active.size === 1 && dragStart) {
-        panX = dragStart.panX + (e.clientX - dragStart.startX);
-        panY = dragStart.panY + (e.clientY - dragStart.startY);
-        apply();
+        commit(
+          scale,
+          dragStart.panX + (e.clientX - dragStart.startX),
+          dragStart.panY + (e.clientY - dragStart.startY),
+        );
       }
     }
     function onPointerEnd(e) {
@@ -162,9 +201,8 @@
       // Bigger deltas need a stronger response, so scale the factor by deltaY.
       const intensity = e.ctrlKey ? 0.01 : 0.0015;
       const factor = Math.exp(-e.deltaY * intensity);
-      const ns = clamp(scale * factor, minScale, maxScale);
-      panX = mx - dx * ns; panY = my - dy * ns; scale = ns;
-      apply();
+      const ns = scale * factor;
+      commit(ns, mx - dx * ns, my - dy * ns);
     }
 
     container.addEventListener("pointerdown", onPointerDown);
@@ -173,20 +211,47 @@
     container.addEventListener("pointercancel", onPointerEnd);
     container.addEventListener("wheel", onWheel, { passive: false });
 
+    let fitObserver = null;
     function maybeFit() {
       if (opts.initialFit === false) { apply(); return; }
-      // If wrapped element is an <img> still loading, wait for it so we can
-      // measure naturalWidth/Height.
+      // Always set an initial identity transform so the element renders
+      // somewhere sane while we wait for layout / image load. fit() will
+      // overwrite this once dimensions are known.
+      apply();
+      const tryFit = function () {
+        if (destroyed) return false;
+        const fs = fitScale();
+        if (fs > 0) { commit(fs, 0, 0); return true; }
+        return false;
+      };
+      const onReady = function () {
+        if (tryFit()) return;
+        // Container or element has no dimensions yet (detached, hidden,
+        // dialog not yet shown, etc.). Watch the container until it
+        // becomes measurable, then fit once. Falls back to a single rAF
+        // retry if ResizeObserver isn't available.
+        if (typeof ResizeObserver === "function") {
+          fitObserver = new ResizeObserver(function () {
+            if (destroyed) { fitObserver.disconnect(); return; }
+            if (tryFit()) {
+              fitObserver.disconnect();
+              fitObserver = null;
+            }
+          });
+          fitObserver.observe(container);
+        } else if (typeof requestAnimationFrame === "function") {
+          requestAnimationFrame(function () { if (!destroyed) onReady(); });
+        }
+      };
+      // If wrapped element is an <img> still loading, wait for it so we
+      // can measure naturalWidth/Height before fitting.
       if (el instanceof HTMLImageElement && !el.complete) {
         el.addEventListener("load", function once() {
           el.removeEventListener("load", once);
-          if (!destroyed) fit();
+          onReady();
         });
-        // Apply an initial identity so the element is positioned somewhere
-        // sane until the load fires.
-        apply();
       } else {
-        fit();
+        onReady();
       }
     }
     maybeFit();
@@ -199,6 +264,7 @@
       container.removeEventListener("pointercancel", onPointerEnd);
       container.removeEventListener("wheel", onWheel);
       if (changeTimer) clearTimeout(changeTimer);
+      if (fitObserver) { fitObserver.disconnect(); fitObserver = null; }
     }
 
     return {
