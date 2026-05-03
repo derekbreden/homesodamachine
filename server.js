@@ -8,6 +8,7 @@ import { mountViewerRoutes } from "./lib/viewer-routes.js";
 import { mountBlogRoutes } from "./lib/blog.js";
 import { mountLandingRoutes } from "./lib/landing.js";
 import { mountDevViewerRoutes } from "./lib/dev-viewer.js";
+import { mountSettingsRoutes } from "./lib/settings.js";
 import { mountEvents } from "./lib/events.js";
 import {
   initPush,
@@ -191,6 +192,7 @@ export async function start({ dev = false, port } = {}) {
     // Watcher + Python + SSE broadcast are attached by the dev wrapper
     // (tools/step-viewer/server.js) after start() returns.
     mountDevViewerRoutes(app, { prefix: "" });
+    mountSettingsRoutes(app, { surface: "dev" });
     app.use(express.static(VIEWER_PUBLIC));
     server = app.listen(port ?? process.env.PORT ?? 3000, () => {
       console.log(`Dev viewer: http://localhost:${server.address().port}`);
@@ -199,6 +201,7 @@ export async function start({ dev = false, port } = {}) {
     // Production: landing at /, blog at /blog, dev viewer under /dev/.
     mountLandingRoutes(app);
     mountDevViewerRoutes(app, { prefix: "/dev" });
+    mountSettingsRoutes(app);
     app.use("/dev", express.static(VIEWER_PUBLIC));
     app.use(express.static(LANDING_PUBLIC));  // glass-animation.js etc.
     attachSubscribe(app, pool);
