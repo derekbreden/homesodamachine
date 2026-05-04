@@ -115,6 +115,13 @@ Settings unchanged from `df00c36`:
 - `enable_support`: 1 (slice still has supports enabled; differs from Derek's earlier "no supports" plan)
 - `support_filament`: ABS
 
+Start-of-print events:
+- Derek said: "the AMS HT for the ABS hit some clogs and breaks in the PTFE feed before getting started on the first layer"
+- Derek said: "I cut a long length off of both ABS spools and confirmed both loaded successfully now"
+- Derek said: "First layer of PET-CF printed fine btw, before I had to scrape it off"
+- Print restarted Sunday May 4th at 11:50 AM
+- E2 stayed at 60°C continuously through the delay
+
 ## Hardware / setup observations across all PET-CF attempts
 
 Derek said:
