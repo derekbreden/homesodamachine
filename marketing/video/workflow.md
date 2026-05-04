@@ -18,10 +18,15 @@ End-to-end edit and publish, all on iPhone:
    - Find stop point, split, delete the tail trim.
    - Export → save to Photos.
 6. **YouTube → Create.** Upload from Photos.
-7. **Thumbnail** (during YouTube's processing window):
+7. **Title and description.** Title carries the thumbnail's hook into searchable form: `<hook> — <equipment or specifics>`. Sentence- or title-cased, not all caps (all caps is algorithmically flagged as spam in titles). Description is 2–3 sentences front-loading the hook and personal stakes, then equipment name on a final line for SEO. Reference example for *I've Never Welded — First Welds on the Xlaserlab X1 Pro*:
+   > Round four or five of learning to weld. I'm building a stainless steel carbonation tank for a home soda machine, and the only way to get the size I want is to build it myself.
+   >
+   > Welder: Xlaserlab X1 Pro
+8. **Thumbnail** (during YouTube's processing window):
    - Generate via [`../thumbnail/make.sh`](../thumbnail/make.sh) — see that script's header for the duration-pill gotcha and other thumbnail design notes.
    - Set the thumbnail in YouTube once processing finishes.
-8. **(Optional) Caption fix.** If YouTube auto-captions have an error that crosses the brand-cringe threshold ("big butt" type misheard words), open Studio → Subtitles → click into the auto-caption editor → fix the text in the textarea → Publish. The textarea uses `\n\n` as caption-segment delimiters; edits *within* a segment preserve all timestamps. Only worth it for high-impact errors; auto-captions are otherwise good enough for Tier 2 build-in-public clips.
+9. **(Optional) Caption fix.** If YouTube auto-captions have an error that crosses the brand-cringe threshold ("big butt" type misheard words), open Studio → Subtitles → click into the auto-caption editor → fix the text in the textarea → Publish. The textarea uses `\n\n` as caption-segment delimiters; edits *within* a segment preserve all timestamps. Only worth it for high-impact errors; auto-captions are otherwise good enough for Tier 2 build-in-public clips.
+10. **Updates-feed post on homesodamachine.com.** Write a video-launch post at `posts/YYYY-MM-DD-HHMM.md` per the post format documented in [`../../posts/README.md`](../../posts/README.md) — specifically the *Video-launch posts* section, which deviates from the daily-window bullet format. Reuse the YouTube thumbnail PNG as the post image: copy the 1280×720 PNG to `public/post-images/YYYY-MM-DD-<slug>-thumbnail.png` and link to the YouTube watch URL. Example: `posts/2026-05-04-0240.md` accompanying *I've Never Welded*. Committing the post triggers an FCM push to subscribers — treat as a publish action.
 
 Steady-state target: ~30–60 minutes per clip, faster as muscle memory builds.
 
@@ -39,5 +44,7 @@ The block keeping the project in capture-only mode for two months was not editin
 - [`principles.md`](principles.md) — durable production principles this workflow sits on top of (POV, voiceover, drafts vs. posts, etc.).
 - [`equipment.md`](equipment.md) — gear list and HERO13 capture settings.
 - [`concepts.md`](concepts.md) — video ideas and tier ranking.
+- [`../thumbnail/make.sh`](../thumbnail/make.sh) — thumbnail builder script with duration-pill / aspect-ratio / font gotchas in its header.
+- [`../../posts/README.md`](../../posts/README.md) — Updates-feed post format, including the video-launch post variant referenced in step 10.
 - [`snapshots/2026-05-03-workflow-commitment.md`](snapshots/2026-05-03-workflow-commitment.md) — original 5-step plan before any execution.
 - [`snapshots/2026-05-04-first-execution.md`](snapshots/2026-05-04-first-execution.md) — what changed when the plan met first execution.
