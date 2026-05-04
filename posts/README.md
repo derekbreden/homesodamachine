@@ -245,6 +245,32 @@ website") into windows where those concepts didn't exist yet.
    pages every subscriber, so a human review pass before publish is the
    default.
 
+## Video-launch posts
+
+When a marketing video ships, it gets its own post — separate from the
+daily window summary, on the date the video published. These deviate
+from the bullet-list format above:
+
+- Filename pattern is the same: `posts/YYYY-MM-DD-HHMM.md`.
+- Frontmatter is just `date` and `title`; `covers_from` /
+  `covers_through` don't apply since the post isn't covering a commit
+  window.
+- Body is short prose (1–2 sentences) plus an embedded thumbnail-
+  image-as-link to the YouTube video. No bullet list, no before/after.
+- Reuse the YouTube thumbnail PNG as the post image. Drop a copy in
+  `public/post-images/YYYY-MM-DD-<slug>-thumbnail.png`. The marketing
+  pipeline already produces a 1280×720 PNG in `marketing/thumbnail/` —
+  copy it over rather than regenerating.
+- The full publishing pipeline that produces the video upstream of this
+  post lives in
+  [`../marketing/video/workflow.md`](../marketing/video/workflow.md).
+  The video-launch post is the last step of that pipeline, regardless
+  of whether you initiated work from this directory or from the video
+  workflow.
+
+Example: `posts/2026-05-04-0240.md` accompanying *I've Never Welded —
+First Welds on the Xlaserlab X1 Pro*.
+
 ## Examples
 
 These two posts were calibrated through several rounds with the project
