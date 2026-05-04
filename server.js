@@ -14,9 +14,9 @@ import {
   initPush,
   mountPushRoutes,
   detectChangedSteps,
-  notifyFileChanged,
   detectChangedPosts,
-  notifyPostChanged,
+  notifyPostsChanged,
+  notifyStepsChanged,
 } from "./lib/push.js";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
@@ -232,37 +232,32 @@ export async function start({ dev = false, port, hardwareDir } = {}) {
     app.use(express.static(LANDING_PUBLIC));  // glass-animation.js etc.
     attachSubscribe(app, pool);
 
-    // Per-file deploy-change push: hash every STEP, diff against the row
+    // Deploy-change push: hash every STEP / post, diff against the row
     // recorded by the previous boot, fire FCM messages for what changed.
-    // Best-effort — failures don't block the listen.
+    // notifyStepsChanged / notifyPostsChanged batch when 2+ files change
+    // (one "N STEPs updated" / "N new updates" notification instead of N
+    // separate ones), so a multi-edit commit or schema reset doesn't burst-
+    // page subscribers. Best-effort — failures don't block the listen.
     (async () => {
       try {
         const changed = await detectChangedSteps(HARDWARE_DIR);
         if (changed.length > 0) {
           console.log(`Push: notifying for ${changed.length} changed STEP file(s)`);
-          for (const file of changed) {
-            const result = await notifyFileChanged(file);
-            console.log(`  ${file}: sent=${result.sent} removed=${result.removed}`);
-          }
+          const result = await notifyStepsChanged({ files: changed });
+          console.log(`  sent=${result.sent} removed=${result.removed}`);
         }
       } catch (e) {
         console.error("Push diff error:", e.message);
       }
     })();
 
-    // Same per-file diff for blog posts: any new or edited markdown in
-    // posts/ fires an FCM message to the same `*` global subscribers as
-    // STEP changes. First-seen posts are recorded without notifying so
-    // the initial deploy doesn't page everyone for the existing backlog.
     (async () => {
       try {
         const changed = await detectChangedPosts(POSTS_DIR);
         if (changed.length > 0) {
           console.log(`Push: notifying for ${changed.length} changed post(s)`);
-          for (const file of changed) {
-            const result = await notifyPostChanged({ postsDir: POSTS_DIR, filename: file });
-            console.log(`  ${file}: sent=${result.sent} removed=${result.removed}`);
-          }
+          const result = await notifyPostsChanged({ postsDir: POSTS_DIR, filenames: changed });
+          console.log(`  sent=${result.sent} removed=${result.removed}`);
         }
       } catch (e) {
         console.error("Push diff error (posts):", e.message);
