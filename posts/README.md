@@ -42,13 +42,37 @@ If "after" splits cleanly into 2–4 distinct things, expand it:
     - <thing>
 ```
 
-**Collapsing "did not exist".** Always draft each category in the full
-before/after form first. On a final pass, if the before-line is "this
-part did not exist" (or equivalent null state: "had no spec," "did not
-exist yet") AND the after expands into a sub-list, drop the
-before/after labels entirely — the headline plus the sub-list carry
-the change. Apply this only when the before-state is the trivial null.
-Example:
+**Collapse aggressively.** Always draft each category in the full
+before/after form first so you can see the change clearly. On a final
+pass, collapse using one of the three rules below. **Most categories
+will collapse** — the before/after labels are structural overhead and
+keeping them is the exception, not the default. A 150-word post with
+labels everywhere is hiding the actual changes inside scaffolding.
+
+**What "trivial null" means.** A before is trivial null when the part
+that names absence is what the headline addresses. The before may
+include other throwaway context — that doesn't disqualify it from
+counting as trivial null. Read with the headline.
+
+Trivial null:
+- "this part did not exist"
+- "had no spec," "did not exist yet"
+- "we did not have a welder"
+- "there were planning notes but no printable parts" — headline is
+  about printable parts; "planning notes" is throwaway context
+- "the vessel was a placeholder, with no decision on tube vs sheet,
+  end caps, or how to form them" — headline is about a plan
+  existing; the enumerated open questions are restating the null
+
+Specific prior state (do NOT collapse):
+- "we had not got to the lever yet" — names a real position in the work
+- "the link was a hand-rolled reliability layer" — names a prior implementation
+- "had threaded holes that weeped" — names a measured failure
+- "wrapped a round steel tube" — names a specific prior shape
+
+**Rule 1: Sub-list collapse.** Trivial-null before + after that already
+expands into a sub-list → drop the labels. Headline + sub-list carry
+the change.
 
 ```
 - The carbonator got an insulating shell
@@ -68,14 +92,12 @@ collapses to
   - A split into a bottom cup and an upper shell that nest together for printing
 ```
 
-**Collapsing to a single bullet.** Twin to the sub-list collapse, on
-the other branch: if the before is trivial null AND the after-line
-just restates the headline (adds nothing beyond what the headline
-already conveys), drop both children — the headline alone is the
-bullet. The before/after pair was padding the structure to satisfy
-the format, not carrying signal. Diagnostic: strip both lines. If
-the headline alone still tells the reader what changed, collapse.
-Example:
+**Rule 2: Single-bullet collapse.** Trivial-null before + after-line
+that mostly restates the headline → drop both children. Headline
+alone is the bullet. Minor texture in the after ("on the bench,"
+"matches the iOS app") doesn't earn its line — collapse anyway.
+Diagnostic: strip both children mentally. If the headline alone
+still tells a stranger what changed, collapse.
 
 ```
 - The laser welder arrived
@@ -89,10 +111,31 @@ collapses to
 - The laser welder arrived
 ```
 
-Do not apply either collapse rule when the before describes specific
-prior state ("we had not got to the lever yet," "the link was a hand-
-rolled reliability layer"). The before/after labels are carrying
-meaning there, regardless of after-shape.
+**Rule 3: Inline-list expansion + collapse.** Trivial-null before +
+after-line that's a comma-list of three or more distinct items →
+reformat the after as a sub-list, then apply Rule 1. A comma-list
+inside the after-line is an implicit sub-list; making it explicit
+and dropping the labels is the same outcome in two steps.
+
+```
+- Started the carbonator's chiller
+  - Before today there were no notes on what to harvest from a countertop ice maker
+  - After today, we have a $64 unit's teardown, a keep-or-discard plan, two cold-side routes, and wiring reserved for the compressor relay
+```
+
+collapses to
+
+```
+- Started the carbonator's chiller
+  - A $64 unit's teardown
+  - A keep-or-discard plan
+  - Two cold-side routes
+  - Wiring reserved for the compressor relay
+```
+
+**When NOT to collapse.** Keep the before/after labels only when the
+before names specific prior state that the headline + after would
+lose. These cases are rare — when in doubt, collapse.
 
 That is the entire format. No prose paragraphs. No headline arcs. No
 "also today" tail.
