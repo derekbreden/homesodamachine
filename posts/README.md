@@ -68,9 +68,31 @@ collapses to
   - A split into a bottom cup and an upper shell that nest together for printing
 ```
 
-Do not collapse when the before describes specific prior state ("we had
-not got to the lever yet," "the link was a hand-rolled reliability
-layer"). The before/after labels are carrying meaning there.
+**Collapsing to a single bullet.** Twin to the sub-list collapse, on
+the other branch: if the before is trivial null AND the after-line
+just restates the headline (adds nothing beyond what the headline
+already conveys), drop both children — the headline alone is the
+bullet. The before/after pair was padding the structure to satisfy
+the format, not carrying signal. Diagnostic: strip both lines. If
+the headline alone still tells the reader what changed, collapse.
+Example:
+
+```
+- The laser welder arrived
+  - Before today we did not have a welder
+  - After today, we have a laser welder on the bench
+```
+
+collapses to
+
+```
+- The laser welder arrived
+```
+
+Do not apply either collapse rule when the before describes specific
+prior state ("we had not got to the lever yet," "the link was a hand-
+rolled reliability layer"). The before/after labels are carrying
+meaning there, regardless of after-shape.
 
 That is the entire format. No prose paragraphs. No headline arcs. No
 "also today" tail.
