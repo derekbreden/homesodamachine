@@ -83,14 +83,37 @@ Derek observed on the prime tower (after tearing it apart):
 - "from there on up we what might be described best as 'stringing' (filament not fused to what is next to it or below it or above it, i.e. raw 'strings' of filament)"
 - "The ABS side looks solid and well fused throughout"
 
-## Plans for attempt 6
+## PET-CF print attempt 6 (settings per commit `0081e8f`)
 
-Derek's plan:
-- Next print: base plate only, no supports
-- Before printing: re-dry the filament for 12 hours at 85°C
-- Bambu wiki confirms 85°C for PET-CF
-- The filament's box also specifies 85°C
-- Derek stated: "I have seen evidence of moisture being a problem since even when it was most recently dried"
+Pre-print actions:
+- Filament re-dried for 12 hours at 85°C
+- E2 set to 60°C continuous during print (active maintenance drying)
+- Bambu wiki confirms 85°C for PET-CF; the filament's box also specifies 85°C
+
+Stated intent prior to slicing:
+- Derek had said: "Next print: base plate only, no supports"
+- Derek had said: "I have seen evidence of moisture being a problem since even when it was most recently dried"
+
+Settings changes observed in `0081e8f` 3mf (vs `df00c36`):
+- `nozzle_temperature` PET-CF (and initial layer): 270 → 280
+- `chamber_temperatures`: PET-CF 50 + ABS 65 → both 50 (effective max 50)
+- `layer_height`: 0.16 → 0.12
+- `inner_wall_speed`: 150 → 120
+- `sparse_infill_speed`: 180 → 100
+- `fan_max_speed` PET-CF: 30 → 0 (PET-CF cooling fan off entirely)
+- `fan_min_speed` PET-CF: 10 → 0
+- `support_threshold_angle`: 25 → 45
+- `filament_retraction_length` PET-CF: nil → 0.4 (now explicit)
+- Filament profiles: now custom copies ("Bambu PET-CF/ABS @BBL H2C ... - Copy")
+
+Settings unchanged from `df00c36`:
+- `filament_max_volumetric_speed` PET-CF: 5
+- `enable_wrapping_detection`: 0 (off)
+- `enable_pressure_advance`: 0 (off)
+- `outer_wall_speed`: 60
+- `close_fan_the_first_x_layers`: 3
+- `enable_support`: 1 (slice still has supports enabled; differs from Derek's earlier "no supports" plan)
+- `support_filament`: ABS
 
 ## Hardware / setup observations across all PET-CF attempts
 
@@ -165,6 +188,43 @@ Process settings:
 - `enable_prime_tower`: 1
 - `enable_wrapping_detection`: 0 (clumping detection by probing disabled)
 - `wrapping_detection_layers`: 20 (gcode unchanged; would trigger at layer_num 3, 10, 19 if enabled)
+
+### Commit `0081e8f` — attempt 6 (multi-lever fusion attack)
+
+Filament profiles: custom copies created — `Bambu PET-CF @BBL H2C 0.4 nozzle - Copy`, `Bambu ABS @BBL H2C - Copy`
+Filament slots in project: PET-CF (slot 0), ABS (slot 1)
+Active in slice: PET-CF + ABS
+Support filament: ABS
+Support interface filament: ABS
+
+PET-CF settings:
+- `nozzle_temperature`: 280°C
+- `nozzle_temperature_initial_layer`: 280°C
+- `filament_flow_ratio`: 1.0
+- `filament_retraction_length`: 0.4 mm (now explicit override)
+- `filament_retract_before_wipe`: nil
+- `filament_max_volumetric_speed`: 5 mm³/s
+- `chamber_temperatures`: 50°C
+- `fan_max_speed`: 0%
+- `fan_min_speed`: 0%
+- `overhang_fan_speed`: 40%
+
+ABS settings:
+- `chamber_temperatures`: 50°C (lowered from default 65°C)
+- `fan_max_speed`: 60%
+- Effective chamber for slice: 50°C
+
+Process settings:
+- `layer_height`: 0.12 mm
+- `outer_wall_speed`: 60 mm/s
+- `inner_wall_speed`: 120 mm/s
+- `sparse_infill_speed`: 100 mm/s
+- `support_threshold_angle`: 45 (from 25)
+- `enable_support`: 1
+- `enable_pressure_advance`: 0
+- `enable_prime_tower`: 1
+- `enable_wrapping_detection`: 0 (clumping detection still disabled)
+- `close_fan_the_first_x_layers`: 3
 
 ## Evidence that `enable_wrapping_detection` might be probe detection in the UI
 
