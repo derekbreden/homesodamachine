@@ -1,16 +1,6 @@
-# Video Production Notes
+# First-weld session plan — Snapshot ~2026-05-01
 
-*Practical shooting and editing notes for upcoming videos.*
-
----
-
-## Equipment
-
-- **Camera:** GoPro, baseball cap clip mount (tested, steady enough for POV workshop footage)
-- **Audio:** DJI Mic Mini (1 TX + 1 RX), USB-C receiver direct to iPhone
-- **Workflow:** GoPro on cap for video, phone with DJI receiver for audio. Sync in editing with a clap. Voiceover narrated in post while watching footage.
-
----
+**This is a point-in-time snapshot, not a living document.** Originally lived as `marketing/video/first-weld.md` — the planning doc for the first weld session, authored before any video shipped. Refactored into `marketing/video/` structure on 2026-05-04: equipment list moved to [`../equipment.md`](../equipment.md), durable principles (POV, voiceover, build-in-public) moved to [`../principles.md`](../principles.md). This snapshot retains the session-specific content. Date is approximate; original file authoring predates the project's tracked snapshot history, dated to match the welding-progress snapshot from the same week.
 
 ## First Weld Session
 
@@ -30,17 +20,16 @@ That's the script. The footage does the rest.
 
 **Tier:** This is Tier 2 content (build-in-public, audience-building). The soda machine is the context, not the pitch. Build-in-public content has a *capture* urgency — the moment is happening now, record it now. Narrate soon (same day or next day, while the experience is still in your body — you remember the feel of the trigger, which bead surprised you, where you hesitated). Edit and publish whenever. The footage and narration don't expire; the opportunity to capture and narrate from sensation instead of memory does.
 
----
-
 ## Welder Unboxing
 
 **What to record:** Cap-mount GoPro, the whole unboxing. Don't worry about making it good. This is raw footage that becomes B-roll for the welding story. Probably not standalone content.
 
----
+## Outcome
 
-## General Principles
+The first-weld video shipped on YouTube on 2026-05-04 as *I've Never Welded — First Welds on the Xlaserlab X1 Pro*. The story-arc plan above held — POV cap-mount footage, the "I've never welded" hook from this plan became the actual thumbnail and title. Narration approach diverged slightly: rather than recording in post, narration was captured live during the welding session with the DJI Mic, which produced more in-the-moment content (and revealed the audio-first inversion as a stronger workflow pattern; see [`../workflow.md`](../workflow.md) Open items → Walk). Edited to ~3:28 (out of ~10 minutes raw) on iPhone in iMovie.
 
-- **POV > talking head.** First-person footage of hands doing work is the best angle for shop/build content. It's authentic, sidesteps the "performing" problem, and is what the cap mount does well.
-- **Voiceover > on-camera narration.** Narrating while watching your own footage on the couch is easier than talking to a camera and produces better results for technical content. No pressure, unlimited retakes.
-- **Ambient audio matters.** The GoPro mic is fine for shop sounds. The DJI lav is for narration, either live or in post.
-- **Build-in-public, not tutorials.** You're not performing a weld for the camera. You're learning to weld because you need to build a pressure vessel, and the camera happens to be on your head. Tutorials require expertise. Build-in-public requires honesty.
+## What this snapshot is NOT
+
+- Not a current procedure — see [`../workflow.md`](../workflow.md) for the active pipeline.
+- Not equipment reference — see [`../equipment.md`](../equipment.md) for the gear list and HERO13 settings.
+- Not a principles doc — see [`../principles.md`](../principles.md) for the durable POV / voiceover / build-in-public principles originally in this file.
