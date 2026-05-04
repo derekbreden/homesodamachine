@@ -206,7 +206,20 @@ website") into windows where those concepts didn't exist yet.
 
 ## Procedure
 
-1. Find the day's commits:
+1. **Pick the date.** Only publish for days whose 24-hour window has
+   fully closed in US Central time. **Never publish a post dated
+   today** — today's window is still in progress; it has nothing to
+   say yet. Concretely: if running on May 4, the latest eligible date
+   is May 3 (the window May 3 00:00 -0500 → May 4 00:00 -0500 has
+   ended). If a post for that date already exists in `posts/`, walk
+   backwards one day at a time until you find a completed day with no
+   post. If every completed day back through the most recent existing
+   post is covered, **stop and do nothing** — there is no window to
+   write about right now. This is a normal outcome, not a failure;
+   most days the routine will produce nothing because the prior run
+   already published yesterday.
+
+2. Find the day's commits:
 
    ```
    git log --since="<DATE> 00:00 -0500" --until="<NEXT_DATE> 00:00 -0500" \
