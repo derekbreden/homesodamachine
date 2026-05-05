@@ -1,11 +1,17 @@
-// Dev wrapper around the production server. Boots the shared HTTP server in
-// dev mode (viewer at /), then attaches the watcher, Python runner, and
-// WebSocket broadcast — everything that only makes sense locally.
+// Dev wrapper around the production server. Boots the shared HTTP server,
+// then attaches the watcher, Python runner, and SSE broadcast for hot
+// reload — everything that only makes sense locally.
 //
-// The CadQuery scripts now write atomically to their natural location next to
-// the .py file (see hardware/_cadq_export.py), so this server no longer
-// redirects output into .viewer/steps/. Both this dev viewer and the public
-// site read STEPs from the same place: hardware/.
+// URL structure is identical to production: localhost:3000/ is the landing
+// page, localhost:3000/dev/ is the viewer, /blog is the Updates feed, and
+// so on. The wrapper is purely additive — it does NOT change any routes.
+// `dev: true` only changes the commit signal sent over SSE and skips the
+// boot-time FCM push diff that fires on real deploys.
+//
+// The CadQuery scripts write atomically to their natural location next to
+// the .py file (see hardware/_cadq_export.py), so this server doesn't
+// redirect output into .viewer/steps/. Both this dev viewer and the
+// public site read STEPs from the same place: hardware/.
 
 import path from "path";
 import fs from "fs";
