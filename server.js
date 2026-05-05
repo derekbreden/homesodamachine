@@ -167,7 +167,8 @@ self.addEventListener("push", (event) => {
     }
     try {
       const cache = await caches.open("hsm-pending-nav");
-      await cache.put(new Request("/__pending"), new Response(link));
+      const body = JSON.stringify({ url: link, ts: Date.now() });
+      await cache.put(new Request("/__pending"), new Response(body));
     } catch {}
   })());
 });
@@ -189,7 +190,16 @@ self.addEventListener("fetch", (event) => {
       const cache = await caches.open("hsm-pending-nav");
       const pending = await cache.match(new Request("/__pending"));
       if (pending) {
-        const target = await pending.text();
+        const text = await pending.text();
+        let target = null;
+        try {
+          const parsed = JSON.parse(text);
+          if (parsed && parsed.ts && Date.now() - parsed.ts < 60000) {
+            target = parsed.url;
+          }
+        } catch (e) {
+          target = text;
+        }
         await cache.delete(new Request("/__pending"));
         if (target) return Response.redirect(target, 302);
       }
@@ -212,6 +222,13 @@ self.addEventListener("notificationclick", (event) => {
     // Resolve the link against the SW's origin so we can compare full URLs
     // and so client.navigate() gets a same-origin absolute URL (required).
     const target = new URL(link, self.location.origin);
+    // Persist target so the cold-launch page-side check can pick it up
+    // even when push event didn't fire (or fired with no payload).
+    try {
+      const cache = await caches.open("hsm-pending-nav");
+      const body = JSON.stringify({ url: target.href, ts: Date.now() });
+      await cache.put(new Request("/__pending"), new Response(body));
+    } catch {}
     const all = await clients.matchAll({ type: "window", includeUncontrolled: true });
 
     // Prefer reusing an existing same-origin window over spawning a new
