@@ -116,6 +116,20 @@ firebase.initializeApp(${JSON.stringify({
 
 const messaging = firebase.messaging();
 
+// Force new SW versions to activate immediately and take control of all
+// open clients — without these, iOS PWAs can keep an old SW running for
+// a long time (until every client closes), which means notification
+// clicks fire on the OLD code even after a deploy. skipWaiting moves a
+// newly-installed SW from "waiting" → "active"; clients.claim makes the
+// active SW control all currently-open windows so postMessage targets
+// the right SW.
+self.addEventListener("install", (event) => {
+  self.skipWaiting();
+});
+self.addEventListener("activate", (event) => {
+  event.waitUntil(self.clients.claim());
+});
+
 // Background push handler. The default Firebase SW already shows a
 // notification for "notification" payloads; for "data-only" payloads we
 // build one here.
@@ -147,22 +161,24 @@ self.addEventListener("notificationclick", (event) => {
       let cUrl;
       try { cUrl = new URL(c.url); } catch { continue; }
       if (cUrl.origin !== target.origin) continue;
+      // Focus FIRST — brings the PWA to foreground and wakes its JS
+      // context so the postMessage below is processed by a running
+      // page. On iOS PWA, posting before focus risks the message
+      // hitting a suspended client and being missed entirely.
+      let target_client = c;
+      try { if ("focus" in c) target_client = (await c.focus()) || c; } catch {}
+      // Try c.navigate() — works on Chrome desktop / Android Chrome.
       try {
-        if ("navigate" in c) await c.navigate(target.href);
+        if ("navigate" in target_client) await target_client.navigate(target.href);
       } catch {}
-      // c.navigate() works on Chrome desktop / Android Chrome but
-      // silently fails inside an installed iOS PWA — the URL doesn't
-      // change and the user stays on whatever page they were on (e.g.
-      // settings) when they tap a notification. Post the target URL
-      // so the page-side handler (in shell.js HEAD_TAGS) can navigate
-      // via location.replace() / location.reload(), which DOES work
-      // from the page context on iOS PWA. Also handles the same-
-      // pathname hash-change case (e.g. /blog#post-NEW while we're on
-      // /blog#post-OLD) where c.navigate() would be a same-document
-      // hash change with no refetch.
-      try { c.postMessage({ type: "navigate", url: target.href }); } catch {}
-      if ("focus" in c) return c.focus();
-      return c;
+      // Always post navigate message — page-side handler (in shell.js
+      // HEAD_TAGS) does location.replace(), which works from the page
+      // context on iOS PWA where the SW's c.navigate() silently fails.
+      // Also handles the same-pathname hash-change case (e.g.
+      // /blog#post-NEW while on /blog#post-OLD) where c.navigate()
+      // would be a same-document hash change with no refetch.
+      try { target_client.postMessage({ type: "navigate", url: target.href }); } catch {}
+      return target_client;
     }
     if (clients.openWindow) return clients.openWindow(target.href);
   })());
