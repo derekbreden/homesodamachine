@@ -130,6 +130,38 @@ self.addEventListener("activate", (event) => {
   event.waitUntil(self.clients.claim());
 });
 
+// Push event — fires reliably on iOS PWA when a Web Push message arrives,
+// even when the PWA is in the background or closed. This is the
+// load-bearing path: post the target URL to all open clients so the
+// page-side handler navigates BEFORE the user taps the notification.
+// On notificationclick (which is unreliable on iOS PWA), the user is
+// then just refocusing a PWA that's already on the right URL.
+//
+// Firebase's compat library also handles this event to render the
+// notification — multiple push listeners coexist; both run.
+self.addEventListener("push", (event) => {
+  if (!event.data) return;
+  let payload;
+  try {
+    payload = event.data.json();
+  } catch (e) {
+    return;
+  }
+  const link =
+    (payload.notification && payload.notification.click_action) ||
+    (payload.fcmOptions && payload.fcmOptions.link) ||
+    (payload.webpush && payload.webpush.fcmOptions && payload.webpush.fcmOptions.link) ||
+    (payload.data && payload.data.link) ||
+    null;
+  if (!link) return;
+  event.waitUntil((async () => {
+    const all = await self.clients.matchAll({ type: "window", includeUncontrolled: true });
+    for (const c of all) {
+      try { c.postMessage({ type: "navigate", url: link }); } catch {}
+    }
+  })());
+});
+
 // Background push handler. The default Firebase SW already shows a
 // notification for "notification" payloads; for "data-only" payloads we
 // build one here.
