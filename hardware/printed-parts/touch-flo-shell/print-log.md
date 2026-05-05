@@ -133,6 +133,18 @@ Derek said:
 PET-CF surface quality, when it printed:
 - "I don't see layer lines like I have on everything else — if they're there, they are invisible to my eyes. It really does look great, a whole different ballgame than everything else we've been printing with (ABS, PETG, PLA)"
 
+## H2C right-side dual extruder unit — clog access procedure
+
+How to reach a clog in the dual extruder unit (gear-driven filament feed assembly above the right hot end) without damaging the Vortek pincers or flex cable. Source: Derek's hands-on procedure after damaging the right Induction Heating Assembly during attempt 6 troubleshooting; the working sequence is what he arrived at AFTER the breakage.
+
+1. Remove the back fan (needed to reach the flat ribbon cable connection point)
+2. Disconnect the flat ribbon cable for the hotend assembly
+3. Unscrew the power lines for the hotend assembly (reachable without the back fan removed for some unholy reason)
+4. Then, and only then, begin unscrewing the mounting screws for the hotend assembly
+5. With that removed, the front plate in front of the motors and the clog can be removed, and from there the clog can now be reached
+
+Do NOT use a probe (drill bit, paperclip wire, etc.) from below to push the clog upward — this approach damaged the right Induction Heating Assembly's Vortek pincer mechanism and severed its flex cable during attempt 6.
+
 ## 3mf snapshots committed
 
 ### Commit `145a852` — saved during in-flight print
