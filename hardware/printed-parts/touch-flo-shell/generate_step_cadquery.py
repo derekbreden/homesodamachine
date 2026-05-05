@@ -1236,52 +1236,130 @@ def build_shell() -> cq.Workplane:
 
 
 # ═══════════════════════════════════════════════════════
-# SPLIT FOR PRINTING — base + tube halves
+# SPLIT FOR PRINTING — base + tube shell with socket+tongue press-fit
 # ═══════════════════════════════════════════════════════
 #
 # Two-part split for support-free printing:
-#   - BASE shell    : zones 1-4 + lever clearance, single piece. Prints
-#                     bottom-up like normal parts; no overhangs needing
-#                     supports below the lever swing volume.
-#   - TUBE shell    : zones 4.5, 5, 6, split into +Y and -Y halves at Y=0.
-#                     Each half prints cut-side-down on the bed, which
-#                     eliminates supports for the gooseneck overhangs.
+#   - BASE shell    : zones 1-4 + zone 4.5 (the wider lid) + lever clearance,
+#                     single piece. The lid has a SOCKET cut into it where the
+#                     tube shell's tongue plugs in.
+#   - TUBE shell    : the 4 mm wall around the tubes — extended downward
+#                     by SOCKET_DEPTH for the tongue, plus zone 6 above.
+#                     Split into +Y and -Y halves at Y=0 so each half prints
+#                     cut-side-down on the bed, eliminating supports for the
+#                     gooseneck overhangs.
 #
-# Two interfaces, both held with the same Ø 2 × 4 mm printable dowel pin:
-#   - Base ↔ tube     : vertical dowels at Z=ZONE4_Z_TOP. Holes drilled DOWN
-#                       into the base's top face and UP into the tube's
-#                       bottom face.
-#   - Tube ↔ tube half: horizontal dowels at Y=0 cut plane, between the
-#                       tube shell's two halves.
+# Base ↔ tube interface: PRESS-FIT (no flat mating surface, no dowels). The
+# tube shell's tongue inserts into the lid socket from above. Cross-section
+# of socket = tube shell outer + SOCKET_CLEARANCE radial.
 #
-# All dowel sites have holes only (no protrusions on any printed surface),
-# so every part prints cut-side- or print-side-down with no support
-# required for the dowel features.
+# Tube ↔ tube half interface: dowel pins at the Y=0 cut plane (still needed
+# to align the two halves to each other).
 
-DOWEL_R          = 1.0    # mm — "tiny" — Ø 2 mm dowel
-DOWEL_HOLE_R     = 1.1    # mm — +0.10 mm radial clearance for press fit
-DOWEL_LEN        = 4.0    # mm — total dowel length (≤ 2 × hole depth so cut
-                          # faces meet before dowel bottoms out)
-DOWEL_HOLE_DEPTH = 2.5    # mm — each side's hole depth; > DOWEL_LEN/2
+# ─── Press-fit socket+tongue parameters ───
+SOCKET_DEPTH       = 5.0    # mm — how far the tube shell tongue extends below
+                            # zone 5's nominal bottom (current ZONE5_Z_BOTTOM)
+SOCKET_CLEARANCE   = 0.15   # mm — radial clearance around tube shell outer
+                            # (per side) — tight fit, may need adjustment
 
-# ─── Tube ↔ tube half dowels (horizontal, Y axis, at the Y=0 cut plane) ───
-# Each entry: (X, Z) world coords. Holes go ±Y from the cut plane into each
-# half. Positions chosen in solid tube-shell material (avoiding tube cutouts).
+TUBE_SHELL_BOTTOM_Z = ZONE5_Z_BOTTOM - SOCKET_DEPTH   # 52.5
+SOCKET_TOP_Z        = ZONE45_Z_TOP                    # 68.37 — clears zone 6
+                                                       # vertical lift through lid
+TUBE_SHELL_HEIGHT_VERTICAL = ZONE5_Z_TOP - TUBE_SHELL_BOTTOM_Z  # 67.5 - 52.5 = 15.0
+
+
+# ─── Tube-half dowels (horizontal, Y axis, at the Y=0 cut plane) ───
+DOWEL_R          = 1.0
+DOWEL_HOLE_R     = 1.1
+DOWEL_LEN        = 4.0
+DOWEL_HOLE_DEPTH = 2.5
+
 TUBE_HALF_DOWEL_POSITIONS_XZ = [
     (-1.0,  60.0),    # zone 4.5 lid mid
     (-1.0,  65.0),    # zone 4.5 lid upper
     ( 4.375, 70.0),   # gooseneck base, water tube's -X wall, just above lid
 ]
 
-# ─── Base ↔ tube interface dowels (vertical, Z axis, at the mating Z) ───
-# Each entry: (X, Y) world coords. Holes go DOWN into base from Z=interface,
-# and UP into tube from Z=interface. Positions are in the +X back area of
-# zone 4 / zone 4.5, well clear of tube cutouts and the body bore.
-BASE_TUBE_INTERFACE_Z         = ZONE4_Z_TOP    # 57.5
-BASE_TUBE_DOWEL_POSITIONS_XY = [
-    (18.0,  5.0),     # back, +Y side (lands in +Y tube half)
-    (18.0, -5.0),     # back, -Y side (lands in -Y tube half)
-]
+
+def _tube_shell_outer_section(z_bottom: float, z_height: float) -> cq.Workplane:
+    """Tube wrap outer (water cyl + flavor pill + fill rect, all 4 mm wall)
+    extruded vertically over the given Z range."""
+    water_r_outer = WATER_HOLE_DIAMETER / 2.0 + ZONE5_WALL  # 6.425
+    water_outer = (
+        cq.Workplane("XY")
+        .workplane(offset=z_bottom)
+        .moveTo(WATER_TUBE_X, 0)
+        .circle(water_r_outer)
+        .extrude(z_height)
+    )
+    flavor_outer = (
+        cq.Workplane("XY")
+        .workplane(offset=z_bottom)
+        .moveTo(FLAVOR_TUBE_POST_BEND_X, 0)
+        .slot2D(PILL_LENGTH_Y + 2.0 * ZONE5_WALL,
+                PILL_WIDTH_X + 2.0 * ZONE5_WALL, angle=90)
+        .extrude(z_height)
+    )
+    fill_rect = (
+        cq.Workplane("XY")
+        .workplane(offset=z_bottom)
+        .moveTo((WATER_TUBE_X + FLAVOR_TUBE_POST_BEND_X) / 2.0, 0)
+        .rect(FLAVOR_TUBE_POST_BEND_X - WATER_TUBE_X, 2.0 * water_r_outer)
+        .extrude(z_height)
+    )
+    return water_outer.union(flavor_outer).union(fill_rect)
+
+
+def _tube_shell_inner_section(z_bottom: float, z_height: float) -> cq.Workplane:
+    """Tube hole cross-section (water cyl + flavor pill) extruded vertically."""
+    water_inner = (
+        cq.Workplane("XY")
+        .workplane(offset=z_bottom)
+        .moveTo(WATER_TUBE_X, 0)
+        .circle(WATER_HOLE_DIAMETER / 2.0)
+        .extrude(z_height)
+    )
+    flavor_inner = (
+        cq.Workplane("XY")
+        .workplane(offset=z_bottom)
+        .moveTo(FLAVOR_TUBE_POST_BEND_X, 0)
+        .slot2D(PILL_LENGTH_Y, PILL_WIDTH_X, angle=90)
+        .extrude(z_height)
+    )
+    return water_inner.union(flavor_inner)
+
+
+def _socket_cutter(z_bottom: float, z_height: float) -> cq.Workplane:
+    """Socket cross-section (tube shell outer + SOCKET_CLEARANCE radial)
+    extruded vertically over the given Z range.
+
+    Cuts material away from the base shell so the tube shell's tongue can
+    insert."""
+    water_r_socket = WATER_HOLE_DIAMETER / 2.0 + ZONE5_WALL + SOCKET_CLEARANCE
+    pill_length_socket = PILL_LENGTH_Y + 2.0 * (ZONE5_WALL + SOCKET_CLEARANCE)
+    pill_width_socket  = PILL_WIDTH_X  + 2.0 * (ZONE5_WALL + SOCKET_CLEARANCE)
+    water_socket = (
+        cq.Workplane("XY")
+        .workplane(offset=z_bottom)
+        .moveTo(WATER_TUBE_X, 0)
+        .circle(water_r_socket)
+        .extrude(z_height)
+    )
+    flavor_socket = (
+        cq.Workplane("XY")
+        .workplane(offset=z_bottom)
+        .moveTo(FLAVOR_TUBE_POST_BEND_X, 0)
+        .slot2D(pill_length_socket, pill_width_socket, angle=90)
+        .extrude(z_height)
+    )
+    fill_socket = (
+        cq.Workplane("XY")
+        .workplane(offset=z_bottom)
+        .moveTo((WATER_TUBE_X + FLAVOR_TUBE_POST_BEND_X) / 2.0, 0)
+        .rect(FLAVOR_TUBE_POST_BEND_X - WATER_TUBE_X, 2.0 * water_r_socket)
+        .extrude(z_height)
+    )
+    return water_socket.union(flavor_socket).union(fill_socket)
 
 
 def _make_split_box(y_sign: int) -> cq.Workplane:
@@ -1301,10 +1379,7 @@ def _make_split_box(y_sign: int) -> cq.Workplane:
 
 
 def _make_tube_half_dowel_holes(y_sign: int) -> cq.Workplane:
-    """Dowel holes between the two tube-shell halves at Y=0.
-
-    Holes go from the cut plane (Y=0) into the half's interior along Y axis.
-    """
+    """Dowel holes between the two tube-shell halves at Y=0."""
     result = None
     for x, z in TUBE_HALF_DOWEL_POSITIONS_XZ:
         if y_sign > 0:
@@ -1322,41 +1397,21 @@ def _make_tube_half_dowel_holes(y_sign: int) -> cq.Workplane:
     return result
 
 
-def _make_base_tube_dowel_holes(side: str) -> cq.Workplane:
-    """Dowel holes at the base ↔ tube interface, vertical along Z axis.
-
-    side="base": holes go DOWN from Z=interface into the base shell.
-    side="tube": holes go UP from Z=interface into the tube shell.
-    """
-    if side == "base":
-        z_start = BASE_TUBE_INTERFACE_Z + 0.1   # slight overshoot above interface
-        z_dir = -1.0
-    elif side == "tube":
-        z_start = BASE_TUBE_INTERFACE_Z - 0.1   # slight overshoot below interface
-        z_dir = 1.0
-    else:
-        raise ValueError(f"side must be 'base' or 'tube', got {side!r}")
-
-    result = None
-    for x, y in BASE_TUBE_DOWEL_POSITIONS_XY:
-        cyl = cq.Solid.makeCylinder(
-            DOWEL_HOLE_R, DOWEL_HOLE_DEPTH + 0.2,
-            pnt=cq.Vector(x, y, z_start),
-            dir=cq.Vector(0.0, 0.0, z_dir),
-        )
-        wp = cq.Workplane("XY").newObject([cyl])
-        result = wp if result is None else result.union(wp)
-    return result
-
-
 def build_base_shell() -> cq.Workplane:
-    """Lower portion: zones 1-4 + lever clearance, single printable piece."""
+    """Lower portion: zones 1-4 + zone 4.5 (the wider lid) + lever clearance.
+
+    Includes a socket cut where the tube shell's tongue plugs in. The socket
+    spans Z = TUBE_SHELL_BOTTOM_Z (extends 5 mm below zone 4 top, into zone 4)
+    up to ZONE45_Z_TOP (the lid top — far enough to clear zone 6's vertical
+    lift coming up through the lid).
+    """
     outer = (
         build_zone1_outer()
         .union(build_zone2_outer())
         .union(build_zone3_outer())
         .union(build_zone3_fill_outer())
         .union(build_zone4_outer())
+        .union(build_zone45_outer())
     )
     inner = (
         build_zone1_inner_cut()
@@ -1366,34 +1421,29 @@ def build_base_shell() -> cq.Workplane:
         .union(build_zone4_inner_cut())
         .union(build_lever_clearance())
     )
-    return (
-        outer.cut(inner)
-        .cut(_make_base_tube_dowel_holes("base"))
+    socket = _socket_cutter(
+        TUBE_SHELL_BOTTOM_Z,
+        SOCKET_TOP_Z - TUBE_SHELL_BOTTOM_Z,
     )
+    return outer.cut(inner).cut(socket)
 
 
 def build_tube_shell() -> cq.Workplane:
-    """Upper portion: zones 4.5, 5, 6 — assembled tube-shell solid (un-split)."""
-    outer = (
-        build_zone45_outer()
-        .union(build_zone5_outer())
-        .union(build_zone6_outer())
+    """Tube shell: 4 mm wall around tubes, extended downward by SOCKET_DEPTH
+    for the tongue, then zone 6 (gooseneck wrap) above."""
+    vertical_outer = _tube_shell_outer_section(
+        TUBE_SHELL_BOTTOM_Z, TUBE_SHELL_HEIGHT_VERTICAL,
     )
-    inner = (
-        build_zone5_inner_cut()
-        .union(build_zone6_inner_cut())
+    vertical_inner = _tube_shell_inner_section(
+        TUBE_SHELL_BOTTOM_Z, TUBE_SHELL_HEIGHT_VERTICAL,
     )
-    return (
-        outer.cut(inner)
-        .cut(_make_base_tube_dowel_holes("tube"))
-    )
+    outer = vertical_outer.union(build_zone6_outer())
+    inner = vertical_inner.union(build_zone6_inner_cut())
+    return outer.cut(inner)
 
 
 def build_tube_shell_half(tube_shell: cq.Workplane, y_sign: int) -> cq.Workplane:
-    """Build one half of the tube shell, with tube-half dowel holes in the cut face."""
-    # clean=False on both ops avoids OCC's "Courbes non jointives" failure
-    # that hits when the auto-cleanup phase tries to merge edges from the
-    # complex zone-6 sweep against the halfspace cut plane.
+    """One half of the tube shell, with dowel holes in the Y=0 cut face."""
     return (
         tube_shell
         .intersect(_make_split_box(y_sign), clean=False)
@@ -1404,8 +1454,8 @@ def build_tube_shell_half(tube_shell: cq.Workplane, y_sign: int) -> cq.Workplane
 def build_dowel_pin() -> cq.Workplane:
     """A single printable dowel pin (Ø 2 × 4 mm cylinder).
 
-    Oriented along Z axis at origin. User needs N copies for assembly:
-    len(TUBE_HALF_DOWEL_POSITIONS_XZ) + len(BASE_TUBE_DOWEL_POSITIONS_XY).
+    Used only at the tube-half ↔ tube-half interface. Need N copies =
+    len(TUBE_HALF_DOWEL_POSITIONS_XZ).
     """
     return (
         cq.Workplane("XY")
@@ -1483,23 +1533,18 @@ if __name__ == "__main__":
     out_dowel = Path(__file__).resolve().parent / "touch-flo-shell-dowel-pin.step"
     export_step(dowel, str(out_dowel))
 
-    n_dowels_total = (
-        len(TUBE_HALF_DOWEL_POSITIONS_XZ)
-        + len(BASE_TUBE_DOWEL_POSITIONS_XY)
-    )
-
     print()
-    print(f"  Base shell:      zones 1-4 + lever clearance, single piece")
-    print(f"                   {len(BASE_TUBE_DOWEL_POSITIONS_XY)} dowel holes "
-          f"Ø{2*DOWEL_HOLE_R:.1f} × {DOWEL_HOLE_DEPTH} mm down into top face "
-          f"at Z={BASE_TUBE_INTERFACE_Z}")
-    print(f"  Tube shell:      zones 4.5, 5, 6, split at Y=0")
+    print(f"  Base shell:      zones 1-4 + zone 4.5 (lid) + lever clearance, single piece")
+    print(f"                   socket cut Z = {TUBE_SHELL_BOTTOM_Z} → {SOCKET_TOP_Z} "
+          f"({SOCKET_DEPTH} mm into zone 4 + full zone 4.5 at the tube footprint)")
+    print(f"                   socket cross-section = tube outer + {SOCKET_CLEARANCE} mm radial clearance")
+    print(f"  Tube shell:      4 mm wall around tubes, extended {SOCKET_DEPTH} mm "
+          f"below zone 5's nominal bottom (Z = {TUBE_SHELL_BOTTOM_Z}) for the tongue;")
+    print(f"                   plus zone 6 above. Split at Y=0 into two halves.")
     print(f"                   {len(TUBE_HALF_DOWEL_POSITIONS_XZ)} half↔half dowel holes "
           f"Ø{2*DOWEL_HOLE_R:.1f} × {DOWEL_HOLE_DEPTH} mm at the Y=0 cut plane")
-    print(f"                   {len(BASE_TUBE_DOWEL_POSITIONS_XY)} dowel holes up into "
-          f"bottom face at Z={BASE_TUBE_INTERFACE_Z}")
     print(f"  Dowel pin:       Ø{2*DOWEL_R:.1f} × {DOWEL_LEN} mm, "
-          f"{n_dowels_total} copies needed for full assembly")
+          f"{len(TUBE_HALF_DOWEL_POSITIONS_XZ)} copies needed (tube halves only)")
     print(f"-> {out_base.name}")
     print(f"-> {out_tube_pos.name}")
     print(f"-> {out_tube_neg.name}")
