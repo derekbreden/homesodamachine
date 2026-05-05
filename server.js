@@ -131,11 +131,17 @@ self.addEventListener("activate", (event) => {
 });
 
 // Push event — fires reliably on iOS PWA when a Web Push message arrives,
-// even when the PWA is in the background or closed. This is the
-// load-bearing path: post the target URL to all open clients so the
-// page-side handler navigates BEFORE the user taps the notification.
-// On notificationclick (which is unreliable on iOS PWA), the user is
-// then just refocusing a PWA that's already on the right URL.
+// even when the PWA is in the background or closed. Two-track approach:
+//
+//   1. postMessage to currently-open PWA clients (handles the case where
+//      the PWA is already open in the background — page-side handler
+//      navigates immediately).
+//
+//   2. Persist the target URL in cache storage. When the user taps the
+//      notification and iOS opens the PWA fresh at start_url ("/"), the
+//      fetch handler (below) reads the pending URL and returns a 302
+//      redirect to the target. This is the load-bearing path for the
+//      "PWA was closed when push arrived" case.
 //
 // Firebase's compat library also handles this event to render the
 // notification — multiple push listeners coexist; both run.
@@ -159,6 +165,36 @@ self.addEventListener("push", (event) => {
     for (const c of all) {
       try { c.postMessage({ type: "navigate", url: link }); } catch {}
     }
+    try {
+      const cache = await caches.open("hsm-pending-nav");
+      await cache.put(new Request("/__pending"), new Response(link));
+    } catch {}
+  })());
+});
+
+// Fetch handler — only intercepts top-level navigations to "/". When a
+// pending navigation has been persisted by the push handler (i.e. user
+// just tapped a notification and iOS opened the PWA fresh at start_url),
+// redirect to the target URL. All other requests pass through to the
+// network unchanged. We delete the pending entry on consumption so a
+// subsequent / visit isn't redirected.
+self.addEventListener("fetch", (event) => {
+  let url;
+  try { url = new URL(event.request.url); } catch { return; }
+  if (url.origin !== self.location.origin) return;
+  if (url.pathname !== "/") return;
+  if (event.request.mode !== "navigate") return;
+  event.respondWith((async () => {
+    try {
+      const cache = await caches.open("hsm-pending-nav");
+      const pending = await cache.match(new Request("/__pending"));
+      if (pending) {
+        const target = await pending.text();
+        await cache.delete(new Request("/__pending"));
+        if (target) return Response.redirect(target, 302);
+      }
+    } catch {}
+    return fetch(event.request);
   })());
 });
 
