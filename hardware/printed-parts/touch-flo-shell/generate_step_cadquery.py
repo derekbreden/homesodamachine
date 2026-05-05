@@ -1236,6 +1236,108 @@ def build_shell() -> cq.Workplane:
 
 
 # ═══════════════════════════════════════════════════════
+# SPLIT FOR PRINTING — XZ plane at Y=0
+# ═══════════════════════════════════════════════════════
+#
+# The shell is split into two mirror halves at Y=0 so each half can
+# be printed flat with the cut face on the build plate, eliminating
+# supports for the gooseneck overhangs. Halves are press-fit together
+# via small separate dowel pins (printed independently) that seat
+# into holes on BOTH halves' cut faces.
+#
+# Both halves get holes (no protrusions) so each half prints cleanly
+# with cut-side-down — protrusions on either half would block that
+# print orientation.
+#
+# Dowel positions are chosen to be in solid material (away from tube
+# cutouts, body bore, lever envelope) and distributed along the
+# part's height for alignment.
+
+DOWEL_R          = 1.0    # mm — "tiny" — Ø 2 mm dowel
+DOWEL_HOLE_R     = 1.1    # mm — +0.10 mm radial clearance for press fit
+DOWEL_LEN        = 4.0    # mm — total dowel length (≤ 2 × hole depth so cut
+                          # faces meet before dowel bottoms out)
+DOWEL_HOLE_DEPTH = 2.5    # mm — each half's hole depth; > DOWEL_LEN/2
+
+# Each entry: (X, Z) in world coords; holes are at Y=0 going into the half.
+DOWEL_POSITIONS_XZ = [
+    (-15.0,  8.0),    # zone 1 lower cylinder (solid wall, far from bore)
+    ( 15.0, 25.0),    # zone 2 mid rect column (solid wall, opposite side)
+    ( -1.0, 65.0),    # zone 4.5 lid front (above lever envelope)
+    ( 4.375, 70.0),   # gooseneck base, in water tube's -X wall, just above
+                      # the lid where the path is still vertical
+]
+
+
+def _make_split_box(y_sign: int) -> cq.Workplane:
+    """Halfspace box covering Y >= 0 (sign +1) or Y <= 0 (sign -1)."""
+    big = 500.0
+    if y_sign > 0:
+        box = cq.Solid.makeBox(
+            2.0 * big, big, 2.0 * big,
+            pnt=cq.Vector(-big, 0.0, -big),
+        )
+    else:
+        box = cq.Solid.makeBox(
+            2.0 * big, big, 2.0 * big,
+            pnt=cq.Vector(-big, -big, -big),
+        )
+    return cq.Workplane("XY").newObject([box])
+
+
+def _make_dowel_holes(y_sign: int) -> cq.Workplane:
+    """Dowel holes for the half on the given side of Y=0.
+
+    Holes go from the cut plane (Y=0) into the half's interior:
+      +Y half: holes go from Y=0 into +Y
+      -Y half: holes go from Y=0 into -Y
+    """
+    result = None
+    for x, z in DOWEL_POSITIONS_XZ:
+        if y_sign > 0:
+            pnt = cq.Vector(x, -0.1, z)  # start slightly past Y=0 for overshoot
+            direction = cq.Vector(0.0, 1.0, 0.0)
+        else:
+            pnt = cq.Vector(x, 0.1, z)
+            direction = cq.Vector(0.0, -1.0, 0.0)
+        cyl = cq.Solid.makeCylinder(
+            DOWEL_HOLE_R, DOWEL_HOLE_DEPTH + 0.2,
+            pnt=pnt, dir=direction,
+        )
+        wp = cq.Workplane("XY").newObject([cyl])
+        result = wp if result is None else result.union(wp)
+    return result
+
+
+def build_shell_half(shell: cq.Workplane, y_sign: int) -> cq.Workplane:
+    """Build one half of the shell, with dowel holes in the cut face.
+
+    y_sign: +1 for +Y half, -1 for -Y half.
+    """
+    # clean=False on both ops avoids OCC's "Courbes non jointives" failure
+    # that hits when the auto-cleanup phase tries to merge edges from the
+    # complex zone-6 sweep against the halfspace cut plane.
+    return (
+        shell
+        .intersect(_make_split_box(y_sign), clean=False)
+        .cut(_make_dowel_holes(y_sign), clean=False)
+    )
+
+
+def build_dowel_pin() -> cq.Workplane:
+    """A single printable dowel pin (Ø 2 × 4 mm cylinder).
+
+    Oriented along Z axis at origin so it lies flat for printing.
+    User needs N copies (one per DOWEL_POSITIONS_XZ entry).
+    """
+    return (
+        cq.Workplane("XY")
+        .circle(DOWEL_R)
+        .extrude(DOWEL_LEN)
+    )
+
+
+# ═══════════════════════════════════════════════════════
 # BUILD AND EXPORT
 # ═══════════════════════════════════════════════════════
 
@@ -1284,3 +1386,25 @@ if __name__ == "__main__":
           f"− {TANGENT_OVERSHOOT} overshoot)")
     print(f"                   slope:   {LEVER_RAMP_ANGLE_DEG:.2f}° (derived)")
     print(f"-> {out.name}")
+
+    # ─── Two halves for printing without supports ───
+    half_pos = build_shell_half(shell, +1)
+    out_pos = Path(__file__).resolve().parent / "touch-flo-shell-half-pos-y.step"
+    export_step(half_pos, str(out_pos))
+
+    half_neg = build_shell_half(shell, -1)
+    out_neg = Path(__file__).resolve().parent / "touch-flo-shell-half-neg-y.step"
+    export_step(half_neg, str(out_neg))
+
+    dowel = build_dowel_pin()
+    out_dowel = Path(__file__).resolve().parent / "touch-flo-shell-dowel-pin.step"
+    export_step(dowel, str(out_dowel))
+
+    print()
+    print(f"  Split halves:    XZ plane at Y=0, {len(DOWEL_POSITIONS_XZ)} alignment-dowel "
+          f"holes Ø{2*DOWEL_HOLE_R:.1f} × {DOWEL_HOLE_DEPTH} mm deep on each cut face")
+    print(f"  Dowel pin:       Ø{2*DOWEL_R:.1f} × {DOWEL_LEN} mm, "
+          f"{len(DOWEL_POSITIONS_XZ)} copies needed")
+    print(f"-> {out_pos.name}")
+    print(f"-> {out_neg.name}")
+    print(f"-> {out_dowel.name}")
