@@ -1236,36 +1236,51 @@ def build_shell() -> cq.Workplane:
 
 
 # ═══════════════════════════════════════════════════════
-# SPLIT FOR PRINTING — XZ plane at Y=0
+# SPLIT FOR PRINTING — base + tube halves
 # ═══════════════════════════════════════════════════════
 #
-# The shell is split into two mirror halves at Y=0 so each half can
-# be printed flat with the cut face on the build plate, eliminating
-# supports for the gooseneck overhangs. Halves are press-fit together
-# via small separate dowel pins (printed independently) that seat
-# into holes on BOTH halves' cut faces.
+# Two-part split for support-free printing:
+#   - BASE shell    : zones 1-4 + lever clearance, single piece. Prints
+#                     bottom-up like normal parts; no overhangs needing
+#                     supports below the lever swing volume.
+#   - TUBE shell    : zones 4.5, 5, 6, split into +Y and -Y halves at Y=0.
+#                     Each half prints cut-side-down on the bed, which
+#                     eliminates supports for the gooseneck overhangs.
 #
-# Both halves get holes (no protrusions) so each half prints cleanly
-# with cut-side-down — protrusions on either half would block that
-# print orientation.
+# Two interfaces, both held with the same Ø 2 × 4 mm printable dowel pin:
+#   - Base ↔ tube     : vertical dowels at Z=ZONE4_Z_TOP. Holes drilled DOWN
+#                       into the base's top face and UP into the tube's
+#                       bottom face.
+#   - Tube ↔ tube half: horizontal dowels at Y=0 cut plane, between the
+#                       tube shell's two halves.
 #
-# Dowel positions are chosen to be in solid material (away from tube
-# cutouts, body bore, lever envelope) and distributed along the
-# part's height for alignment.
+# All dowel sites have holes only (no protrusions on any printed surface),
+# so every part prints cut-side- or print-side-down with no support
+# required for the dowel features.
 
 DOWEL_R          = 1.0    # mm — "tiny" — Ø 2 mm dowel
 DOWEL_HOLE_R     = 1.1    # mm — +0.10 mm radial clearance for press fit
 DOWEL_LEN        = 4.0    # mm — total dowel length (≤ 2 × hole depth so cut
                           # faces meet before dowel bottoms out)
-DOWEL_HOLE_DEPTH = 2.5    # mm — each half's hole depth; > DOWEL_LEN/2
+DOWEL_HOLE_DEPTH = 2.5    # mm — each side's hole depth; > DOWEL_LEN/2
 
-# Each entry: (X, Z) in world coords; holes are at Y=0 going into the half.
-DOWEL_POSITIONS_XZ = [
-    (-15.0,  8.0),    # zone 1 lower cylinder (solid wall, far from bore)
-    ( 15.0, 25.0),    # zone 2 mid rect column (solid wall, opposite side)
-    ( -1.0, 65.0),    # zone 4.5 lid front (above lever envelope)
-    ( 4.375, 70.0),   # gooseneck base, in water tube's -X wall, just above
-                      # the lid where the path is still vertical
+# ─── Tube ↔ tube half dowels (horizontal, Y axis, at the Y=0 cut plane) ───
+# Each entry: (X, Z) world coords. Holes go ±Y from the cut plane into each
+# half. Positions chosen in solid tube-shell material (avoiding tube cutouts).
+TUBE_HALF_DOWEL_POSITIONS_XZ = [
+    (-1.0,  60.0),    # zone 4.5 lid mid
+    (-1.0,  65.0),    # zone 4.5 lid upper
+    ( 4.375, 70.0),   # gooseneck base, water tube's -X wall, just above lid
+]
+
+# ─── Base ↔ tube interface dowels (vertical, Z axis, at the mating Z) ───
+# Each entry: (X, Y) world coords. Holes go DOWN into base from Z=interface,
+# and UP into tube from Z=interface. Positions are in the +X back area of
+# zone 4 / zone 4.5, well clear of tube cutouts and the body bore.
+BASE_TUBE_INTERFACE_Z         = ZONE4_Z_TOP    # 57.5
+BASE_TUBE_DOWEL_POSITIONS_XY = [
+    (18.0,  5.0),     # back, +Y side (lands in +Y tube half)
+    (18.0, -5.0),     # back, -Y side (lands in -Y tube half)
 ]
 
 
@@ -1285,17 +1300,15 @@ def _make_split_box(y_sign: int) -> cq.Workplane:
     return cq.Workplane("XY").newObject([box])
 
 
-def _make_dowel_holes(y_sign: int) -> cq.Workplane:
-    """Dowel holes for the half on the given side of Y=0.
+def _make_tube_half_dowel_holes(y_sign: int) -> cq.Workplane:
+    """Dowel holes between the two tube-shell halves at Y=0.
 
-    Holes go from the cut plane (Y=0) into the half's interior:
-      +Y half: holes go from Y=0 into +Y
-      -Y half: holes go from Y=0 into -Y
+    Holes go from the cut plane (Y=0) into the half's interior along Y axis.
     """
     result = None
-    for x, z in DOWEL_POSITIONS_XZ:
+    for x, z in TUBE_HALF_DOWEL_POSITIONS_XZ:
         if y_sign > 0:
-            pnt = cq.Vector(x, -0.1, z)  # start slightly past Y=0 for overshoot
+            pnt = cq.Vector(x, -0.1, z)
             direction = cq.Vector(0.0, 1.0, 0.0)
         else:
             pnt = cq.Vector(x, 0.1, z)
@@ -1309,26 +1322,90 @@ def _make_dowel_holes(y_sign: int) -> cq.Workplane:
     return result
 
 
-def build_shell_half(shell: cq.Workplane, y_sign: int) -> cq.Workplane:
-    """Build one half of the shell, with dowel holes in the cut face.
+def _make_base_tube_dowel_holes(side: str) -> cq.Workplane:
+    """Dowel holes at the base ↔ tube interface, vertical along Z axis.
 
-    y_sign: +1 for +Y half, -1 for -Y half.
+    side="base": holes go DOWN from Z=interface into the base shell.
+    side="tube": holes go UP from Z=interface into the tube shell.
     """
+    if side == "base":
+        z_start = BASE_TUBE_INTERFACE_Z + 0.1   # slight overshoot above interface
+        z_dir = -1.0
+    elif side == "tube":
+        z_start = BASE_TUBE_INTERFACE_Z - 0.1   # slight overshoot below interface
+        z_dir = 1.0
+    else:
+        raise ValueError(f"side must be 'base' or 'tube', got {side!r}")
+
+    result = None
+    for x, y in BASE_TUBE_DOWEL_POSITIONS_XY:
+        cyl = cq.Solid.makeCylinder(
+            DOWEL_HOLE_R, DOWEL_HOLE_DEPTH + 0.2,
+            pnt=cq.Vector(x, y, z_start),
+            dir=cq.Vector(0.0, 0.0, z_dir),
+        )
+        wp = cq.Workplane("XY").newObject([cyl])
+        result = wp if result is None else result.union(wp)
+    return result
+
+
+def build_base_shell() -> cq.Workplane:
+    """Lower portion: zones 1-4 + lever clearance, single printable piece."""
+    outer = (
+        build_zone1_outer()
+        .union(build_zone2_outer())
+        .union(build_zone3_outer())
+        .union(build_zone3_fill_outer())
+        .union(build_zone4_outer())
+    )
+    inner = (
+        build_zone1_inner_cut()
+        .union(build_zone2_inner_cut())
+        .union(build_zone3_inner_cut())
+        .union(build_zone3_fill_inner_cut())
+        .union(build_zone4_inner_cut())
+        .union(build_lever_clearance())
+    )
+    return (
+        outer.cut(inner)
+        .cut(_make_base_tube_dowel_holes("base"))
+    )
+
+
+def build_tube_shell() -> cq.Workplane:
+    """Upper portion: zones 4.5, 5, 6 — assembled tube-shell solid (un-split)."""
+    outer = (
+        build_zone45_outer()
+        .union(build_zone5_outer())
+        .union(build_zone6_outer())
+    )
+    inner = (
+        build_zone5_inner_cut()
+        .union(build_zone6_inner_cut())
+    )
+    return (
+        outer.cut(inner)
+        .cut(_make_base_tube_dowel_holes("tube"))
+    )
+
+
+def build_tube_shell_half(tube_shell: cq.Workplane, y_sign: int) -> cq.Workplane:
+    """Build one half of the tube shell, with tube-half dowel holes in the cut face."""
     # clean=False on both ops avoids OCC's "Courbes non jointives" failure
     # that hits when the auto-cleanup phase tries to merge edges from the
     # complex zone-6 sweep against the halfspace cut plane.
     return (
-        shell
+        tube_shell
         .intersect(_make_split_box(y_sign), clean=False)
-        .cut(_make_dowel_holes(y_sign), clean=False)
+        .cut(_make_tube_half_dowel_holes(y_sign), clean=False)
     )
 
 
 def build_dowel_pin() -> cq.Workplane:
     """A single printable dowel pin (Ø 2 × 4 mm cylinder).
 
-    Oriented along Z axis at origin so it lies flat for printing.
-    User needs N copies (one per DOWEL_POSITIONS_XZ entry).
+    Oriented along Z axis at origin. User needs N copies for assembly:
+    len(TUBE_HALF_DOWEL_POSITIONS_XZ) + len(BASE_TUBE_DOWEL_POSITIONS_XY).
     """
     return (
         cq.Workplane("XY")
@@ -1387,24 +1464,43 @@ if __name__ == "__main__":
     print(f"                   slope:   {LEVER_RAMP_ANGLE_DEG:.2f}° (derived)")
     print(f"-> {out.name}")
 
-    # ─── Two halves for printing without supports ───
-    half_pos = build_shell_half(shell, +1)
-    out_pos = Path(__file__).resolve().parent / "touch-flo-shell-half-pos-y.step"
-    export_step(half_pos, str(out_pos))
+    # ─── Base + tube-halves for support-free printing ───
+    base = build_base_shell()
+    out_base = Path(__file__).resolve().parent / "touch-flo-shell-base.step"
+    export_step(base, str(out_base))
 
-    half_neg = build_shell_half(shell, -1)
-    out_neg = Path(__file__).resolve().parent / "touch-flo-shell-half-neg-y.step"
-    export_step(half_neg, str(out_neg))
+    tube = build_tube_shell()
+
+    tube_pos = build_tube_shell_half(tube, +1)
+    out_tube_pos = Path(__file__).resolve().parent / "touch-flo-shell-tube-half-pos-y.step"
+    export_step(tube_pos, str(out_tube_pos))
+
+    tube_neg = build_tube_shell_half(tube, -1)
+    out_tube_neg = Path(__file__).resolve().parent / "touch-flo-shell-tube-half-neg-y.step"
+    export_step(tube_neg, str(out_tube_neg))
 
     dowel = build_dowel_pin()
     out_dowel = Path(__file__).resolve().parent / "touch-flo-shell-dowel-pin.step"
     export_step(dowel, str(out_dowel))
 
+    n_dowels_total = (
+        len(TUBE_HALF_DOWEL_POSITIONS_XZ)
+        + len(BASE_TUBE_DOWEL_POSITIONS_XY)
+    )
+
     print()
-    print(f"  Split halves:    XZ plane at Y=0, {len(DOWEL_POSITIONS_XZ)} alignment-dowel "
-          f"holes Ø{2*DOWEL_HOLE_R:.1f} × {DOWEL_HOLE_DEPTH} mm deep on each cut face")
+    print(f"  Base shell:      zones 1-4 + lever clearance, single piece")
+    print(f"                   {len(BASE_TUBE_DOWEL_POSITIONS_XY)} dowel holes "
+          f"Ø{2*DOWEL_HOLE_R:.1f} × {DOWEL_HOLE_DEPTH} mm down into top face "
+          f"at Z={BASE_TUBE_INTERFACE_Z}")
+    print(f"  Tube shell:      zones 4.5, 5, 6, split at Y=0")
+    print(f"                   {len(TUBE_HALF_DOWEL_POSITIONS_XZ)} half↔half dowel holes "
+          f"Ø{2*DOWEL_HOLE_R:.1f} × {DOWEL_HOLE_DEPTH} mm at the Y=0 cut plane")
+    print(f"                   {len(BASE_TUBE_DOWEL_POSITIONS_XY)} dowel holes up into "
+          f"bottom face at Z={BASE_TUBE_INTERFACE_Z}")
     print(f"  Dowel pin:       Ø{2*DOWEL_R:.1f} × {DOWEL_LEN} mm, "
-          f"{len(DOWEL_POSITIONS_XZ)} copies needed")
-    print(f"-> {out_pos.name}")
-    print(f"-> {out_neg.name}")
+          f"{n_dowels_total} copies needed for full assembly")
+    print(f"-> {out_base.name}")
+    print(f"-> {out_tube_pos.name}")
+    print(f"-> {out_tube_neg.name}")
     print(f"-> {out_dowel.name}")
