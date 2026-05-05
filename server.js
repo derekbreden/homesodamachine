@@ -150,15 +150,17 @@ self.addEventListener("notificationclick", (event) => {
       try {
         if ("navigate" in c) await c.navigate(target.href);
       } catch {}
-      // c.navigate() to a same-pathname URL (e.g. /blog#post-NEW while
-      // the window is on /blog#post-OLD) is a same-document hash
-      // change — browsers don't refetch, so the user sees stale
-      // content. Post a "reload-after-navigate" message; the page has
-      // a tiny listener (in shell.js HEAD_TAGS) that calls
-      // location.reload() on receipt. For real path-changing
-      // navigations the page is already reloading and the message is
-      // harmlessly missed.
-      try { c.postMessage({ type: "reload-after-navigate" }); } catch {}
+      // c.navigate() works on Chrome desktop / Android Chrome but
+      // silently fails inside an installed iOS PWA — the URL doesn't
+      // change and the user stays on whatever page they were on (e.g.
+      // settings) when they tap a notification. Post the target URL
+      // so the page-side handler (in shell.js HEAD_TAGS) can navigate
+      // via location.replace() / location.reload(), which DOES work
+      // from the page context on iOS PWA. Also handles the same-
+      // pathname hash-change case (e.g. /blog#post-NEW while we're on
+      // /blog#post-OLD) where c.navigate() would be a same-document
+      // hash change with no refetch.
+      try { c.postMessage({ type: "navigate", url: target.href }); } catch {}
       if ("focus" in c) return c.focus();
       return c;
     }
