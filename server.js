@@ -208,10 +208,27 @@ export async function start({ dev = false, port, hardwareDir } = {}) {
     serviceAccountJson: process.env.FIREBASE_SERVICE_ACCOUNT_JSON,
   });
 
+  // URL structure is identical in dev and prod: landing at /, blog at
+  // /blog, dev viewer at /dev/, settings at /settings, with VIEWER_PUBLIC
+  // served under /dev/ and LANDING_PUBLIC at /. The dev viewer at
+  // localhost:3000/dev/ is the same page the public hits at
+  // homesodamachine.com/dev/ — keeping the URL structures aligned is what
+  // lets ContentViewer and other LANDING_PUBLIC assets just work in dev.
+  // The dev wrapper (tools/step-viewer/server.js) is purely additive: it
+  // attaches chokidar + Python + the SSE broadcast for hot reload, and
+  // doesn't change any routes. The only behavioral differences in dev:
+  //   - commit signal is "dev" instead of the deploy SHA
+  //   - the boot-time push diff is skipped (no real deploy, no FCM)
   mountViewerRoutes(app, { hardwareDir: HARDWARE_DIR });
   mountBlogRoutes(app, { postsDir: POSTS_DIR });
   mountPushRoutes(app);
   mountFirebaseConfig(app);
+  mountLandingRoutes(app);
+  mountDevViewerRoutes(app, { prefix: "/dev" });
+  mountSettingsRoutes(app);
+  attachSubscribe(app, pool);
+  app.use("/dev", express.static(VIEWER_PUBLIC));
+  app.use(express.static(LANDING_PUBLIC));
 
   // SSE channel for server -> client push. In dev, the wrapper calls
   // broadcast() from chokidar handlers. In prod, only the hello-on-connect
@@ -222,33 +239,14 @@ export async function start({ dev = false, port, hardwareDir } = {}) {
     : (process.env.RENDER_GIT_COMMIT || `local-${Date.now()}`);
   const { broadcast } = mountEvents(app, { commit });
 
-  let server;
-
-  if (dev) {
-    // Dev mode: viewer is the front page (mounted at root, no /dev/ prefix).
-    // Watcher + Python + SSE broadcast are attached by the dev wrapper
-    // (tools/step-viewer/server.js) after start() returns.
-    mountDevViewerRoutes(app, { prefix: "" });
-    mountSettingsRoutes(app, { surface: "dev" });
-    app.use(express.static(VIEWER_PUBLIC));
-    server = app.listen(port ?? process.env.PORT ?? 3000, () => {
-      console.log(`Dev viewer: http://localhost:${server.address().port}`);
-    });
-  } else {
-    // Production: landing at /, blog at /blog, dev viewer under /dev/.
-    mountLandingRoutes(app);
-    mountDevViewerRoutes(app, { prefix: "/dev" });
-    mountSettingsRoutes(app);
-    app.use("/dev", express.static(VIEWER_PUBLIC));
-    app.use(express.static(LANDING_PUBLIC));  // glass-animation.js etc.
-    attachSubscribe(app, pool);
-
-    // Deploy-change push: hash every STEP / post, diff against the row
-    // recorded by the previous boot, fire FCM messages for what changed.
-    // notifyStepsChanged / notifyPostsChanged batch when 2+ files change
-    // (one "N STEPs updated" / "N new updates" notification instead of N
-    // separate ones), so a multi-edit commit or schema reset doesn't burst-
-    // page subscribers. Best-effort — failures don't block the listen.
+  // Production-only: per-file deploy-change push. Hash every STEP / post,
+  // diff against the row recorded by the previous boot, fire FCM messages
+  // for what changed. notifyStepsChanged / notifyPostsChanged batch when
+  // 2+ files change (one "N STEPs updated" / "N new updates" notification
+  // instead of N separate ones), so a multi-edit commit or schema reset
+  // doesn't burst-page subscribers. Best-effort — failures don't block
+  // the listen. Skipped in dev because there's no real deploy event.
+  if (!dev) {
     (async () => {
       try {
         const changed = await detectChangedSteps(HARDWARE_DIR);
@@ -274,11 +272,17 @@ export async function start({ dev = false, port, hardwareDir } = {}) {
         console.error("Push diff error (posts):", e.message);
       }
     })();
-
-    server = app.listen(port ?? process.env.PORT ?? 3001, () => {
-      console.log(`Listening on :${server.address().port}`);
-    });
   }
+
+  const defaultPort = dev ? 3000 : 3001;
+  const server = app.listen(port ?? process.env.PORT ?? defaultPort, () => {
+    if (dev) {
+      console.log(`Dev server: http://localhost:${server.address().port}`);
+      console.log("  Landing /, Updates /blog, Viewer /dev/, Settings /settings");
+    } else {
+      console.log(`Listening on :${server.address().port}`);
+    }
+  });
 
   return { app, server, broadcast, hardwareDir: HARDWARE_DIR };
 }
