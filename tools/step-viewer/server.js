@@ -115,7 +115,7 @@ async function runScript(pyFilePath) {
       producedSteps.push(entry);
       const relFile = path.relative(HARDWARE_DIR, full);
       console.log(`  -> ${relFile}`);
-      broadcast({ type: "updated", file: relFile });
+      broadcast({ type: "files-changed", files: [relFile] });
     }
   } catch (e) {
     if (e.name === "AbortError") return;
@@ -174,7 +174,7 @@ watcher.on("change", (absPath) => {
         debounce.delete(absPath);
         const relFile = path.relative(HARDWARE_DIR, absPath);
         console.log(`Mermaid changed: ${relFile}`);
-        broadcast({ type: "mermaid-updated", file: relFile });
+        broadcast({ type: "files-changed", files: [relFile] });
       }, 300),
     );
     return;
