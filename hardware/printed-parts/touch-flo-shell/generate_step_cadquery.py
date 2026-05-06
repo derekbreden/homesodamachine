@@ -250,27 +250,19 @@ FLAVOR_TUBE_POST_BEND_X = WATER_TUBE_X + math.sqrt(
     - FLAVOR_TUBE_Y_OFFSET ** 2
 )                                                                    # ≈ 13.365
 
-FLAVOR_CUTOUT_CX     = (FLAVOR_TUBE_PRE_BEND_X + FLAVOR_TUBE_POST_BEND_X) / 2.0   # 16.174
-FLAVOR_CUTOUT_WIDTH  = (FLAVOR_TUBE_PRE_BEND_X - FLAVOR_TUBE_POST_BEND_X) + PILL_WIDTH_X   # 5.927
-FLAVOR_CUTOUT_LENGTH = PILL_LENGTH_Y                                              # 6.775
-FLAVOR_CUTOUT_R      = PILL_WIDTH_X / 2.0                                         # 1.8
-
 FILL_X_MIN = 10.46                                                  # back third of water tube
 
 
 # ZONE 4 — tube wrapper above the arch
 #
 # A 3 mm-thick shell wrapping just the tube cutouts (water tube + flavor
-# slot), starting at the base of the arch (Z=44.25) and extending up to
-# ~1.7 mm past the assembly's S-bend completion (bend ends at Z=50.31).
-# Built as two pieces unioned:
-#   - Water tube wrapper: constant-OD tube (Ø16 outer, Ø10 inner)
-#     extruded straight up. No transition.
-#   - Flavor wrapper: lofted between bottom and top rounded-rectangle
-#     cross-sections — bottom matches zone 3's flavor cutout (rounded
-#     rect at FLAVOR_CUTOUT_CX), top matches the existing pill from
-#     zones 1+2 (PILL_LENGTH_Y × PILL_WIDTH_X at FLAVOR_TUBE_POST_BEND_X).
-#     Linear loft draws the cavity in toward the water tube as Z rises.
+# pill), starting at the base of the arch (Z=44.25) and extending up to
+# ZONE4_Z_TOP. Built as two pieces unioned:
+#   - Water tube wrapper: constant-OD tube cylinder around WATER_TUBE_X.
+#   - Flavor wrapper: straight pill at FLAVOR_TUBE_X (flat-X- variant via
+#     _flavor_pill_flat_x_minus). The earlier loft-from-rounded-rect-to-pill
+#     transitioning toward FLAVOR_TUBE_POST_BEND_X was removed when the
+#     base/tube-shell split made the bend handled outside the base shell.
 ZONE4_Z_BOTTOM = SHELL_ARCH_FOOT_TOP_Z                              # 44.25
 # Zone 4 top must clear the lever's pressed-down envelope. The lever's
 # head corner at original (X=9, Z=52) rotates -18° around pivot
@@ -859,32 +851,6 @@ def build_zone3_fill_inner_cut() -> cq.Workplane:
     return water_hole.union(flavor_pill)
 
 
-def _rounded_rect_sketch(cx: float, w: float, h: float, r: float) -> cq.Sketch:
-    return (
-        cq.Sketch()
-        .rect(w, h)
-        .vertices()
-        .fillet(r)
-        .moved(cq.Location(cq.Vector(cx, 0, 0)))
-    )
-
-
-def _zone4_outer_bottom_sketch() -> cq.Sketch:
-    """Bottom of zone 4 outer loft: zone 3's outer cross-section
-    (rect ∩ outer cyl) restricted to X ≥ FILL_X_MIN."""
-    x_at_y_half = SHELL_CENTER_X + math.sqrt(SHELL_OUTER_R**2 - SHELL_RECT_Y_HALF**2)
-    rect_x_max = SHELL_CENTER_X + SHELL_RECT_X_HALF
-    y_half = SHELL_RECT_Y_HALF
-    return (
-        cq.Sketch()
-        .segment((FILL_X_MIN, -y_half), (x_at_y_half, -y_half))
-        .arc((x_at_y_half, -y_half), (rect_x_max, 0), (x_at_y_half, +y_half))
-        .segment((x_at_y_half, +y_half), (FILL_X_MIN, +y_half))
-        .segment((FILL_X_MIN, +y_half), (FILL_X_MIN, -y_half))
-        .assemble()
-    )
-
-
 def build_zone4_outer() -> cq.Workplane:
     """Vertical extrusion of the cyl-clipped rect at X ≥ FILL_X_MIN.
 
@@ -1288,9 +1254,9 @@ DOWEL_LEN        = 4.0
 DOWEL_HOLE_DEPTH = 2.5
 
 TUBE_HALF_DOWEL_POSITIONS_XZ = [
-    (-1.0,  60.0),    # zone 4.5 lid mid
-    (-1.0,  65.0),    # zone 4.5 lid upper
-    ( 4.375, 70.0),   # gooseneck base, water tube's -X wall, just above lid
+    (4.25,    55.0),  # water -X wall, lower (in tongue area)
+    (16.265,  62.5),  # flavor +X wall, mid (in tongue area)
+    (4.25,    73.0),  # water -X wall, upper (zone 6 vertical lift, above lid)
 ]
 
 
