@@ -819,7 +819,14 @@ def build_zone3_fill_outer() -> cq.Workplane:
 
 
 def build_zone3_fill_inner_cut() -> cq.Workplane:
-    """Tube cutouts through the plateau fill: water tube + flavor pills."""
+    """Tube cutouts through the plateau fill: water tube + straight flavor pill.
+
+    Flavor cut is a straight pill at FLAVOR_TUBE_X (matching zones 1+2). The
+    bend that previously lived here is no longer needed — with the new
+    base/tube-shell split, the LLDPE flavor tubes are routed through the
+    tube shell first (post-bend at FLAVOR_TUBE_POST_BEND_X) and then dropped
+    into the base; they flex through the socket area on the way down.
+    """
     z_height = SHELL_ARCH_PEAK_Z - ZONE3_Z_BOTTOM
 
     water_hole = (
@@ -830,17 +837,15 @@ def build_zone3_fill_inner_cut() -> cq.Workplane:
         .extrude(z_height)
     )
 
-    flavor_slot = (
+    flavor_pill = (
         cq.Workplane("XY")
         .workplane(offset=ZONE3_Z_BOTTOM)
-        .moveTo(FLAVOR_CUTOUT_CX, 0)
-        .rect(FLAVOR_CUTOUT_WIDTH, FLAVOR_CUTOUT_LENGTH)
+        .moveTo(FLAVOR_TUBE_X, 0)
+        .slot2D(PILL_LENGTH_Y, PILL_WIDTH_X, angle=90)
         .extrude(z_height)
-        .edges("|Z")
-        .fillet(FLAVOR_CUTOUT_R)
     )
 
-    return water_hole.union(flavor_slot)
+    return water_hole.union(flavor_pill)
 
 
 def _rounded_rect_sketch(cx: float, w: float, h: float, r: float) -> cq.Sketch:
@@ -916,7 +921,14 @@ def build_zone4_outer() -> cq.Workplane:
 
 
 def build_zone4_inner_cut() -> cq.Workplane:
-    """Tube cavity: constant water-tube cyl unioned with lofted flavor cavity."""
+    """Tube cavity: water-tube cyl + straight flavor pill at FLAVOR_TUBE_X.
+
+    Previously this was a 3D loft from a wider rounded-rect at the bottom
+    to a pill at FLAVOR_TUBE_POST_BEND_X at the top, transitioning the
+    flavor tube position. With the new base/tube-shell split, the bend
+    is handled in the tube shell + the socket area above, so the base
+    just needs straight pill clearance at FLAVOR_TUBE_X.
+    """
     water_inner = (
         cq.Workplane("XY")
         .workplane(offset=ZONE4_Z_BOTTOM)
@@ -925,19 +937,15 @@ def build_zone4_inner_cut() -> cq.Workplane:
         .extrude(ZONE4_HEIGHT)
     )
 
-    bottom_inner_sk = _rounded_rect_sketch(
-        FLAVOR_CUTOUT_CX, FLAVOR_CUTOUT_WIDTH, FLAVOR_CUTOUT_LENGTH, FLAVOR_CUTOUT_R,
-    ).moved(cq.Location(cq.Vector(0, 0, ZONE4_Z_BOTTOM)))
-    top_inner_sk = _rounded_rect_sketch(
-        FLAVOR_TUBE_POST_BEND_X, PILL_WIDTH_X, PILL_LENGTH_Y, PILL_WIDTH_X / 2.0,
-    ).moved(cq.Location(cq.Vector(0, 0, ZONE4_Z_TOP)))
-    flavor_inner = (
+    flavor_pill = (
         cq.Workplane("XY")
-        .placeSketch(bottom_inner_sk, top_inner_sk)
-        .loft(ruled=True)
+        .workplane(offset=ZONE4_Z_BOTTOM)
+        .moveTo(FLAVOR_TUBE_X, 0)
+        .slot2D(PILL_LENGTH_Y, PILL_WIDTH_X, angle=90)
+        .extrude(ZONE4_HEIGHT)
     )
 
-    return water_inner.union(flavor_inner)
+    return water_inner.union(flavor_pill)
 
 
 def build_zone5_outer() -> cq.Workplane:
