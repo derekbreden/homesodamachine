@@ -1263,16 +1263,17 @@ def _dowel_xz(s: float, local_x: float) -> tuple[float, float]:
     return px + local_x * bx, pz + local_x * bz
 
 
-# Three pairs of dowels spanning the full tube shell length:
-#   - Bottom pair (Z- end): in the tongue/lower vertical, at world Z = 55.
-#     Path arclength s = 55 - ZONE5_Z_TOP = -12.5 (below path origin).
+# Three pairs of dowels spanning the full tube shell length, with matching
+# path-arclength margins from the two ends of the shell (~12.5 mm each):
+#   - Bottom pair (Z- end): in the lower vertical, 12.5 mm of arclength above
+#     TUBE_SHELL_BOTTOM_Z=52.5 → world Z = 65.
 #   - Middle pair: at the midpoint of the gooseneck mid-straight section.
 #   - Top pair (Z+ end / "goose head"): at the midpoint of the tip-straight
-#     section.
+#     section (12.5 mm = GN_TIP_STRAIGHT_LEN/2 from the tip end).
 # Each pair has one dowel in the water -X wall midpoint and one in the
 # flavor +X wall midpoint, with positions rotated through the cross-section's
 # local frame at each path arclength.
-_S_BOTTOM = 55.0 - ZONE5_Z_TOP
+_S_BOTTOM = (TUBE_SHELL_BOTTOM_Z - ZONE5_Z_TOP) + GN_TIP_STRAIGHT_LEN / 2.0
 _S_MIDDLE = (
     (GN_BEND1_START_Z - ZONE5_Z_TOP)
     + GN_BEND1_R * GN_BEND1_SWEEP_RAD
