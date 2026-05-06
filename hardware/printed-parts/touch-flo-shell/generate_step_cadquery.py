@@ -919,67 +919,6 @@ def build_zone4_inner_cut() -> cq.Workplane:
     return water_inner.union(flavor_pill)
 
 
-def build_zone5_outer() -> cq.Workplane:
-    """Tube wrapper above the lever — 3 mm wall around water + flavor,
-    with flat +Y/-Y sides.
-
-    Outer outline = (water circle ∪ flavor stadium ∪ fill rectangle).
-    Without the fill rectangle, the union of the two shapes has a
-    "peanut" / venn-diagram concavity at +Y and -Y where they meet.
-    The rectangle spans X from the water peak to the flavor peak at
-    Y = ±water_outer_R, filling the dip so the +Y/-Y sides are flat.
-
-    No X clipping; the wrapper extends in -X past FILL_X_MIN around
-    the water tube (which is centered at X=WATER_TUBE_X=8.875). Safe
-    here because we're above the lever's swing envelope.
-    """
-    water_r_outer = WATER_HOLE_DIAMETER / 2.0 + ZONE5_WALL
-
-    water_outer = (
-        cq.Workplane("XY")
-        .workplane(offset=ZONE5_Z_BOTTOM)
-        .moveTo(WATER_TUBE_X, 0)
-        .circle(water_r_outer)
-        .extrude(ZONE5_HEIGHT)
-    )
-    flavor_outer = (
-        cq.Workplane("XY")
-        .workplane(offset=ZONE5_Z_BOTTOM)
-        .moveTo(FLAVOR_TUBE_POST_BEND_X, 0)
-        .slot2D(PILL_LENGTH_Y + 2.0 * ZONE5_WALL,
-                PILL_WIDTH_X + 2.0 * ZONE5_WALL, angle=90)
-        .extrude(ZONE5_HEIGHT)
-    )
-    fill_rect = (
-        cq.Workplane("XY")
-        .workplane(offset=ZONE5_Z_BOTTOM)
-        .moveTo((WATER_TUBE_X + FLAVOR_TUBE_POST_BEND_X) / 2.0, 0)
-        .rect(FLAVOR_TUBE_POST_BEND_X - WATER_TUBE_X,
-              2.0 * water_r_outer)
-        .extrude(ZONE5_HEIGHT)
-    )
-    return water_outer.union(flavor_outer).union(fill_rect)
-
-
-def build_zone5_inner_cut() -> cq.Workplane:
-    """Tube cavity for zone 5 — water cylinder ∪ flavor pill, straight."""
-    water_inner = (
-        cq.Workplane("XY")
-        .workplane(offset=ZONE5_Z_BOTTOM)
-        .moveTo(WATER_TUBE_X, 0)
-        .circle(WATER_HOLE_DIAMETER / 2.0)
-        .extrude(ZONE5_HEIGHT)
-    )
-    flavor_inner = (
-        cq.Workplane("XY")
-        .workplane(offset=ZONE5_Z_BOTTOM)
-        .moveTo(FLAVOR_TUBE_POST_BEND_X, 0)
-        .slot2D(PILL_LENGTH_Y, PILL_WIDTH_X, angle=90)
-        .extrude(ZONE5_HEIGHT)
-    )
-    return water_inner.union(flavor_inner)
-
-
 def build_zone45_outer() -> cq.Workplane:
     """Zone 4.5 — tall block capping the lever swing volume, reaching
     up to the gooseneck bend start.
@@ -1187,31 +1126,6 @@ def build_lever_clearance() -> cq.Workplane:
         ]).close()
         .extrude(2.0 * y_half)
     )
-
-
-def build_shell() -> cq.Workplane:
-    """Top-level shell — zones unioned, with combined inner cut."""
-    outer = (
-        build_zone1_outer()
-        .union(build_zone2_outer())
-        .union(build_zone3_outer())
-        .union(build_zone3_fill_outer())
-        .union(build_zone4_outer())
-        .union(build_zone45_outer())
-        .union(build_zone5_outer())
-        .union(build_zone6_outer())
-    )
-    inner = (
-        build_zone1_inner_cut()
-        .union(build_zone2_inner_cut())
-        .union(build_zone3_inner_cut())
-        .union(build_zone3_fill_inner_cut())
-        .union(build_zone4_inner_cut())
-        .union(build_zone5_inner_cut())
-        .union(build_zone6_inner_cut())
-        .union(build_lever_clearance())
-    )
-    return outer.cut(inner)
 
 
 # ═══════════════════════════════════════════════════════
@@ -1448,8 +1362,14 @@ def build_dowel_pin() -> cq.Workplane:
 # ═══════════════════════════════════════════════════════
 
 if __name__ == "__main__":
-    shell = build_shell()
+    base = build_base_shell()
+    tube = build_tube_shell()
 
+    # Assembled-view shell = base ∪ tube. The 0.15 mm socket clearance
+    # leaves a thin internal gap between socket walls and tongue surface,
+    # but visually reads as one continuous solid. This file is what the
+    # faucet-assembly script loads to show the shell in full context.
+    shell = base.union(tube)
     out = Path(__file__).resolve().parent / "touch-flo-shell.step"
     export_step(shell, str(out))
 
@@ -1494,11 +1414,8 @@ if __name__ == "__main__":
     print(f"-> {out.name}")
 
     # ─── Base + tube-halves for support-free printing ───
-    base = build_base_shell()
     out_base = Path(__file__).resolve().parent / "touch-flo-shell-base.step"
     export_step(base, str(out_base))
-
-    tube = build_tube_shell()
 
     tube_pos = build_tube_shell_half(tube, +1)
     out_tube_pos = Path(__file__).resolve().parent / "touch-flo-shell-tube-half-pos-y.step"
