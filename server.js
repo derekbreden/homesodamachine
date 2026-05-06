@@ -14,9 +14,10 @@ import {
   initPush,
   mountPushRoutes,
   detectChangedSteps,
+  detectChangedMermaid,
   detectChangedPosts,
   notifyPostsChanged,
-  notifyStepsChanged,
+  notifyFilesChanged,
 } from "./lib/push.js";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
@@ -204,19 +205,23 @@ export async function start({ dev = false, port, hardwareDir } = {}) {
 
   const pool = makePool();
 
-  // SSE channel for server -> client push. In dev, the wrapper calls
-  // broadcast() from chokidar handlers. In prod, hello-on-connect signals
-  // deploys, and broadcastToToken delivers per-client pending-nav events
-  // (used by the in-app toast — see shell.js HEAD_TAGS).
+  // SSE channel for server -> client push. Three event flows:
+  //   - hello-on-connect: deploy detection (commit fingerprint changes
+  //     across reconnects); also carries the most recent boot-diff
+  //     `recent` field so a client that reconnected after the deploy
+  //     gets the change list it missed during the server-down window.
+  //   - files-changed (broadcast): dev chokidar fires per-save; prod
+  //     fires once at boot if the diff loop found anything. Same wire
+  //     format both sides.
+  //   - viewer-only `posts-updated` etc are unrelated and stay as-is.
   const commit = dev
     ? "dev"
     : (process.env.RENDER_GIT_COMMIT || `local-${Date.now()}`);
-  const { broadcast, broadcastToToken } = mountEvents(app, { commit });
+  const { broadcast, setRecent } = mountEvents(app, { commit });
 
   initPush({
     databasePool: pool,
     serviceAccountJson: process.env.FIREBASE_SERVICE_ACCOUNT_JSON,
-    broadcastToToken,
   });
 
   // URL structure is identical in dev and prod: landing at /, blog at
@@ -241,22 +246,35 @@ export async function start({ dev = false, port, hardwareDir } = {}) {
   app.use("/dev", express.static(VIEWER_PUBLIC));
   app.use(express.static(LANDING_PUBLIC));
 
-  // Production-only: per-file deploy-change push. Hash every STEP / post,
-  // diff against the row recorded by the previous boot, fire FCM messages
-  // for what changed. notifyStepsChanged / notifyPostsChanged batch when
-  // 2+ files change (one "N STEPs updated" / "N new updates" notification
-  // instead of N separate ones), so a multi-edit commit or schema reset
-  // doesn't burst-page subscribers. Best-effort — failures don't block
-  // the listen. Skipped in dev because there's no real deploy event.
+  // Production-only: per-file deploy-change push. Hash STEP + mermaid +
+  // posts, diff against per-table hashes recorded by the previous boot,
+  // fire FCM and the SSE `files-changed` event for whatever changed.
+  // notifyFilesChanged batches mixed kinds into one message so a deploy
+  // that touches 2 STEPs and a mermaid produces ONE banner, not three.
+  // Best-effort — failures don't block the listen. Skipped in dev since
+  // no real deploy event happens; chokidar fires files-changed on save.
   if (!dev) {
     (async () => {
       try {
-        const changed = await detectChangedSteps(HARDWARE_DIR);
-        if (changed.length > 0) {
-          console.log(`Push: notifying for ${changed.length} changed STEP file(s)`);
-          const result = await notifyStepsChanged({ files: changed });
-          console.log(`  sent=${result.sent} removed=${result.removed}`);
-        }
+        const [changedSteps, changedMermaid] = await Promise.all([
+          detectChangedSteps(HARDWARE_DIR),
+          detectChangedMermaid(HARDWARE_DIR),
+        ]);
+        const changedFiles = [...changedSteps, ...changedMermaid];
+        if (changedFiles.length === 0) return;
+
+        console.log(`Push: notifying for ${changedFiles.length} changed file(s)`);
+
+        // SSE: broadcast now (catches currently-connected clients), AND
+        // store on `recent` so reconnecting clients (PWA was open during
+        // deploy, EventSource killed by shutdown) catch up via hello.
+        const sseMsg = { type: "files-changed", commit, files: changedFiles };
+        broadcast(sseMsg);
+        setRecent({ commit, files: changedFiles, ts: Date.now() });
+
+        // FCM: one banner regardless of mixed kinds.
+        const result = await notifyFilesChanged({ files: changedFiles });
+        console.log(`  sent=${result.sent} removed=${result.removed}`);
       } catch (e) {
         console.error("Push diff error:", e.message);
       }

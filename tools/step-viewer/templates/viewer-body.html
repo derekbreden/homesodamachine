@@ -1068,112 +1068,84 @@ window.addEventListener("popstate", () => {
   }
 });
 
-// --- Server-Sent Events ---
-// EventSource handles reconnect (with backoff) on its own.
+// --- Live update bridge ---
 //
-// `hello` arrives on every connect. The first one establishes a baseline
-// commit fingerprint. A subsequent hello with a different commit means the
-// server restarted with new code (a Render deploy in prod) — we refetch
-// whatever's currently displayed, with state (camera / pan / zoom)
-// preserved by the existing render paths.
+// SSE connection is owned by HEAD_TAGS (lib/shell.js) — one EventSource
+// per page, used for both the toast (page-global) and per-file refresh
+// (viewer-only). HEAD_TAGS dispatches:
 //
-// `updated` and `mermaid-updated` fire only in dev (chokidar). In prod
-// the source files don't change between deploys; the deploy event
-// arrives as a hello-with-different-commit.
-let firstSeenCommit = null;
+//   hsm:files-changed (detail.files = [...]) — fired by both dev chokidar
+//     saves and prod boot-diff. Same wire format both sides.
+//   hsm:deploy — fired when the SSE `hello` commit fingerprint changes,
+//     meaning a fresh server build is up. Files added or removed in the
+//     deploy aren't covered by hsm:files-changed, so we refetch the list.
+//
+// Per-file work is split by extension so the same handler covers .step
+// and .mmd uniformly.
 
-function refetchAfterDeploy() {
-  thumbnailCache.clear();
-  mmdThumbCache.clear();
-  fetchFiles();
-  if (currentFile) {
-    loadStepFile(currentFile, { preserveCamera: true });
-  } else if (currentMmd) {
-    (async () => {
-      const resp = await fetch(`/api/mermaid-content/${currentMmd}`);
-      if (!resp.ok) return;
-      const content = await resp.text();
-      if (content === currentMmdContent) return;
-      currentMmdContent = content;
-      await reRenderOpenMmd(content);
-    })();
+function refreshStepCard(file) {
+  thumbnailCache.delete(file);
+  const card = gridEl.querySelector(`.card[data-type="step"][data-file="${CSS.escape(file)}"]`);
+  if (!card) { fetchFiles(); return; }
+  const img = card.querySelector("img");
+  if (img) {
+    const ph = document.createElement("div");
+    ph.className = "placeholder";
+    ph.dataset.file = file;
+    ph.textContent = "updating...";
+    img.replaceWith(ph);
   }
+  renderThumbnail(file).then((url) => {
+    if (!url) return;
+    const target = card.querySelector(".placeholder");
+    if (target) {
+      const newImg = document.createElement("img");
+      newImg.src = url;
+      target.replaceWith(newImg);
+    } else {
+      const existing = card.querySelector("img");
+      if (existing) existing.src = url;
+    }
+  });
 }
 
-function connectEvents() {
-  const es = new EventSource("/api/events");
-  es.onmessage = (e) => {
-    const msg = JSON.parse(e.data);
-
-    if (msg.type === "hello") {
-      if (firstSeenCommit === null) {
-        firstSeenCommit = msg.commit;
-      } else if (msg.commit !== firstSeenCommit) {
-        firstSeenCommit = msg.commit;
-        refetchAfterDeploy();
-      }
-      return;
-    }
-
-    if (msg.type === "updated") {
-      thumbnailCache.delete(msg.file);
-      const card = gridEl.querySelector(`.card[data-type="step"][data-file="${CSS.escape(msg.file)}"]`);
-      if (card) {
-        const img = card.querySelector("img");
-        if (img) {
-          const ph = document.createElement("div");
-          ph.className = "placeholder";
-          ph.dataset.file = msg.file;
-          ph.textContent = "updating...";
-          img.replaceWith(ph);
-        }
-        renderThumbnail(msg.file).then((url) => {
-          if (!url) return;
-          const target = card.querySelector(".placeholder");
-          if (target) {
-            const newImg = document.createElement("img");
-            newImg.src = url;
-            target.replaceWith(newImg);
-          } else {
-            const existing = card.querySelector("img");
-            if (existing) existing.src = url;
-          }
-        });
-      } else {
-        fetchFiles();
-      }
-      if (currentFile === msg.file) {
-        loadStepFile(msg.file, { preserveCamera: true });
-      }
-    }
-
-    if (msg.type === "mermaid-updated") {
-      mmdThumbCache.delete(msg.file);
-      const card = gridEl.querySelector(`.card[data-type="mmd"][data-file="${CSS.escape(msg.file)}"]`);
-      if (card) {
-        const thumbEl = card.querySelector(".mmd-thumb");
-        if (thumbEl) thumbEl.innerHTML = `<div class="placeholder">updating...</div>`;
-        renderMmdThumbnail(msg.file).then((svg) => {
-          if (!thumbEl) return;
-          if (!svg) { thumbEl.innerHTML = `<div class="placeholder">error</div>`; return; }
-          thumbEl.innerHTML = svg;
-        });
-      } else {
-        fetchFiles();
-      }
-      if (currentMmd === msg.file) {
-        (async () => {
-          const resp = await fetch(`/api/mermaid-content/${msg.file}`);
-          if (!resp.ok) return;
-          const content = await resp.text();
-          if (content === currentMmdContent) return;
-          currentMmdContent = content;
-          await reRenderOpenMmd(content);
-        })();
-      }
-    }
-  };
+function refreshMmdCard(file) {
+  mmdThumbCache.delete(file);
+  const card = gridEl.querySelector(`.card[data-type="mmd"][data-file="${CSS.escape(file)}"]`);
+  if (!card) { fetchFiles(); return; }
+  const thumbEl = card.querySelector(".mmd-thumb");
+  if (thumbEl) thumbEl.innerHTML = `<div class="placeholder">updating...</div>`;
+  renderMmdThumbnail(file).then((svg) => {
+    if (!thumbEl) return;
+    thumbEl.innerHTML = svg ? svg : `<div class="placeholder">error</div>`;
+  });
 }
+
+async function refetchOpenMmd(file) {
+  const resp = await fetch(`/api/mermaid-content/${file}`);
+  if (!resp.ok) return;
+  const content = await resp.text();
+  if (content === currentMmdContent) return;
+  currentMmdContent = content;
+  await reRenderOpenMmd(content);
+}
+
+window.addEventListener("hsm:files-changed", (e) => {
+  for (const file of (e.detail && e.detail.files) || []) {
+    if (file.endsWith(".step")) {
+      refreshStepCard(file);
+      if (currentFile === file) loadStepFile(file, { preserveCamera: true });
+    } else if (file.endsWith(".mmd")) {
+      refreshMmdCard(file);
+      if (currentMmd === file) refetchOpenMmd(file);
+    }
+  }
+});
+
+// On a fresh deploy, the file list itself may have additions/removals
+// that per-file `hsm:files-changed` events don't cover (we only diff
+// content of files still on disk). Refetch the list to pick those up.
+window.addEventListener("hsm:deploy", () => { fetchFiles(); });
 
 // --- Init ---
 async function fetchFiles() {
@@ -1225,14 +1197,18 @@ controls.addEventListener("change", () => {
 
 setupNav();
 fetchFiles();
-connectEvents();
 
 // --- Initial route ---
-// Prefer ?file=<step> (notification deep link), fall back to hash.
+// Prefer ?file=<step|mmd> (notification deep link), fall back to hash.
+// Extension drives which detail surface opens.
 const initialParams = new URLSearchParams(location.search);
 const initialFile = initialParams.get("file");
 if (initialFile) {
-  occtPromise.then(() => setTimeout(() => openDetail(initialFile, true), 100));
+  if (initialFile.endsWith(".mmd")) {
+    setTimeout(() => openMmdDetail(initialFile, true), 100);
+  } else {
+    occtPromise.then(() => setTimeout(() => openDetail(initialFile, true), 100));
+  }
 } else if (location.hash) {
   const hash = decodeURIComponent(location.hash.slice(1));
   if (hash.startsWith("step:")) {
