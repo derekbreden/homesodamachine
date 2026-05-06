@@ -1167,26 +1167,130 @@ DOWEL_HOLE_R     = 1.1
 DOWEL_LEN        = 4.0
 DOWEL_HOLE_DEPTH = 2.5
 
+# Cross-section local-X positions for dowels. Local frame is centered on the
+# water tube; local +X points toward the flavor pill. Both walls are
+# ZONE5_WALL = 4 mm thick, so the midpoint is the inner+outer edges'
+# half-sum.
+#   Water -X wall: local_x ∈ [-7.425 (outer), -3.425 (bore)] → midpoint -5.425
+#   Flavor +X wall: local_x ∈ [+6.290 (bore), +10.290 (outer)] → midpoint +8.290
+_DOWEL_LOCAL_X_WATER  = -(WATER_HOLE_DIAMETER / 2.0 + ZONE5_WALL / 2.0)
+_DOWEL_LOCAL_X_FLAVOR = (
+    (FLAVOR_TUBE_POST_BEND_X - WATER_TUBE_X)
+    + (PILL_WIDTH_X / 2.0 + ZONE5_WALL / 2.0)
+)
+
+
+def _path_pos_and_bitangent_at_s(s: float) -> tuple[float, float, float, float]:
+    """World (X, Z) on the tube shell's centerline path and bitangent (Bx, Bz)
+    at arclength s. Bitangent is in world XZ plane (= local +X direction in
+    the cross-section sketch, which points toward the flavor pill).
+
+    s = 0 corresponds to the gooseneck path origin = (WATER_TUBE_X, 0, ZONE5_Z_TOP).
+    Negative s walks down through the vertical extrusion (the tongue + zone 5)
+    to TUBE_SHELL_BOTTOM_Z. Positive s walks up into bend 1, mid-straight,
+    bend 2, and the tip straight.
+    """
+    z_lift   = GN_BEND1_START_Z - ZONE5_Z_TOP
+    arc1_len = GN_BEND1_R * GN_BEND1_SWEEP_RAD
+    arc1_end_s = z_lift + arc1_len
+    mid_end_s  = arc1_end_s + GN_MID_STRAIGHT_LEN
+    arc2_len = GN_BEND2_R * GN_BEND2_SWEEP_RAD
+    arc2_end_s = mid_end_s + arc2_len
+
+    if s <= z_lift:
+        # Vertical: tangent (0, 1), bitangent (1, 0).
+        path_x_local, path_z_local = 0.0, s
+        tan_x, tan_z = 0.0, 1.0
+    elif s < arc1_end_s:
+        # Bend 1: ccw arc, R = GN_BEND1_R, center at (-R, z_lift) in path-local XZ
+        angle = (s - z_lift) / GN_BEND1_R
+        path_x_local = -GN_BEND1_R + GN_BEND1_R * math.cos(angle)
+        path_z_local = z_lift + GN_BEND1_R * math.sin(angle)
+        tan_x, tan_z = -math.sin(angle), math.cos(angle)
+    else:
+        # Past bend 1: compute end1 and tan1
+        end1_x = -GN_BEND1_R + GN_BEND1_R * math.cos(GN_BEND1_SWEEP_RAD)
+        end1_z = z_lift + GN_BEND1_R * math.sin(GN_BEND1_SWEEP_RAD)
+        tan1_x = -math.sin(GN_BEND1_SWEEP_RAD)
+        tan1_z =  math.cos(GN_BEND1_SWEEP_RAD)
+        if s < mid_end_s:
+            # Mid-straight along tan1
+            ds = s - arc1_end_s
+            path_x_local = end1_x + ds * tan1_x
+            path_z_local = end1_z + ds * tan1_z
+            tan_x, tan_z = tan1_x, tan1_z
+        else:
+            # Past mid-straight: compute mid_end and bend 2 center
+            mid_end_x = end1_x + GN_MID_STRAIGHT_LEN * tan1_x
+            mid_end_z = end1_z + GN_MID_STRAIGHT_LEN * tan1_z
+            # Bend 2 center: 90° ccw of tan1 from mid_end at distance R
+            # perpendicular ccw of (a, b) is (-b, a)
+            cx2 = mid_end_x + GN_BEND2_R * (-tan1_z)
+            cz2 = mid_end_z + GN_BEND2_R *   tan1_x
+            rad0_x = mid_end_x - cx2
+            rad0_z = mid_end_z - cz2
+            angle2 = min(s - mid_end_s, arc2_len) / GN_BEND2_R
+            cos_a, sin_a = math.cos(angle2), math.sin(angle2)
+            rad_x = rad0_x*cos_a - rad0_z*sin_a
+            rad_z = rad0_x*sin_a + rad0_z*cos_a
+            tan_x = tan1_x*cos_a - tan1_z*sin_a
+            tan_z = tan1_x*sin_a + tan1_z*cos_a
+            if s < arc2_end_s:
+                # Inside bend 2
+                path_x_local = cx2 + rad_x
+                path_z_local = cz2 + rad_z
+            else:
+                # Tip straight: extend along tan2 from end2
+                end2_x = cx2 + rad_x
+                end2_z = cz2 + rad_z
+                ds = s - arc2_end_s
+                path_x_local = end2_x + ds * tan_x
+                path_z_local = end2_z + ds * tan_z
+
+    # Bitangent = tangent rotated 90° clockwise = (tan_z, -tan_x).
+    # At s=0, tan = (0, 1) → bit = (1, 0) = +X (matching the sketch's local +X).
+    bit_x, bit_z =  tan_z, -tan_x
+    world_x = WATER_TUBE_X + path_x_local
+    world_z = ZONE5_Z_TOP  + path_z_local
+    return world_x, world_z, bit_x, bit_z
+
+
+def _dowel_xz(s: float, local_x: float) -> tuple[float, float]:
+    """World (X, Z) of a dowel hole at path arclength s and cross-section local_x."""
+    px, pz, bx, bz = _path_pos_and_bitangent_at_s(s)
+    return px + local_x * bx, pz + local_x * bz
+
+
+# Three pairs of dowels spanning the full tube shell length:
+#   - Bottom pair (Z- end): in the tongue/lower vertical, at world Z = 55.
+#     Path arclength s = 55 - ZONE5_Z_TOP = -12.5 (below path origin).
+#   - Middle pair: at the midpoint of the gooseneck mid-straight section.
+#   - Top pair (Z+ end / "goose head"): at the midpoint of the tip-straight
+#     section.
+# Each pair has one dowel in the water -X wall midpoint and one in the
+# flavor +X wall midpoint, with positions rotated through the cross-section's
+# local frame at each path arclength.
+_S_BOTTOM = 55.0 - ZONE5_Z_TOP
+_S_MIDDLE = (
+    (GN_BEND1_START_Z - ZONE5_Z_TOP)
+    + GN_BEND1_R * GN_BEND1_SWEEP_RAD
+    + GN_MID_STRAIGHT_LEN / 2.0
+)
+_S_TIP = (
+    (GN_BEND1_START_Z - ZONE5_Z_TOP)
+    + GN_BEND1_R * GN_BEND1_SWEEP_RAD
+    + GN_MID_STRAIGHT_LEN
+    + GN_BEND2_R * GN_BEND2_SWEEP_RAD
+    + GN_TIP_STRAIGHT_LEN / 2.0
+)
+
 TUBE_HALF_DOWEL_POSITIONS_XZ = [
-    # Three pairs at three Z levels along the vertical portion of the tube
-    # shell (Z=52.5 tongue bottom to Z=79.24 bend 1 start). Each pair places
-    # one dowel in the water -X wall (X=3.45 = midpoint of X=1.45–5.45) and
-    # one in the flavor +X wall (X=16.265 = midpoint of X=14.265–18.265).
-    # The bent gooseneck portion above Z=79.24 has no dowels — placing them
-    # there would require dowels oriented perpendicular to the path's local
-    # tangent, with positions rotating through the cross-section's local
-    # frame. Left as a possible future extension.
-    #
-    # Bottom pair (in tongue area, just above tube shell bottom Z=52.5)
-    (3.45,    55.0),
-    (16.265,  55.0),
-    # Middle pair (near top of tongue, at the lid level Z=ZONE45_Z_TOP=68.37)
-    (3.45,    66.0),
-    (16.265,  66.0),
-    # Top pair (above lid, in zone 6 vertical lift, just below
-    # GN_BEND1_START_Z=79.24 where the gooseneck begins to bend)
-    (3.45,    77.0),
-    (16.265,  77.0),
+    _dowel_xz(_S_BOTTOM, _DOWEL_LOCAL_X_WATER),
+    _dowel_xz(_S_BOTTOM, _DOWEL_LOCAL_X_FLAVOR),
+    _dowel_xz(_S_MIDDLE, _DOWEL_LOCAL_X_WATER),
+    _dowel_xz(_S_MIDDLE, _DOWEL_LOCAL_X_FLAVOR),
+    _dowel_xz(_S_TIP,    _DOWEL_LOCAL_X_WATER),
+    _dowel_xz(_S_TIP,    _DOWEL_LOCAL_X_FLAVOR),
 ]
 
 
