@@ -1162,10 +1162,12 @@ TUBE_SHELL_HEIGHT_VERTICAL = ZONE5_Z_TOP - TUBE_SHELL_BOTTOM_Z  # 67.5 - 52.5 = 
 
 
 # ─── Tube-half dowels (horizontal, Y axis, at the Y=0 cut plane) ───
-DOWEL_R          = 1.0
-DOWEL_HOLE_R     = 1.1
-DOWEL_LEN        = 4.0
-DOWEL_HOLE_DEPTH = 2.5
+# One half carries the dowels integrated into the print; the other half has
+# matching holes. Dowel and hole share radius and length exactly — friction
+# fit will be tuned by trial-and-error from this starting point.
+DOWEL_R                    = 1.1
+DOWEL_LEN                  = 2.5
+DOWEL_BEARING_HALF_Y_SIGN  = -1   # -Y half carries the dowels
 
 # Cross-section local-X positions for dowels. Local frame is centered on the
 # water tube; local +X points toward the flavor pill. Both walls are
@@ -1391,19 +1393,35 @@ def _make_split_box(y_sign: int) -> cq.Workplane:
     return cq.Workplane("XY").newObject([box])
 
 
-def _make_tube_half_dowel_holes(y_sign: int) -> cq.Workplane:
-    """Dowel holes between the two tube-shell halves at Y=0."""
+def _make_tube_half_dowel_features(y_sign: int) -> cq.Workplane:
+    """Cylinders for the dowel features at the Y=0 cut plane.
+
+    All cylinders point from the bearing half's cut face into the other half.
+    The bearing half UNIONs them in (as integrated dowels); the other half
+    CUTs them away (as matching holes). Both halves use the same cylinder
+    geometry — exact match for radius and length.
+    """
+    EPS = 0.1  # CSG overlap on each end of the cut plane
+    direction_sign = -DOWEL_BEARING_HALF_Y_SIGN  # +1 if -Y bears dowels
+    is_bearing = (y_sign == DOWEL_BEARING_HALF_Y_SIGN)
+    if is_bearing:
+        # Dowel cylinder: extends from EPS inside the bearing half (so the
+        # union is robust) up to DOWEL_LEN past the cut plane.
+        y_start = -EPS * direction_sign
+        length  = DOWEL_LEN + EPS
+    else:
+        # Hole cylinder: cuts from EPS past the cut plane (overlap into the
+        # bearing half is harmless — that half does its own intersect first)
+        # to DOWEL_LEN + EPS into the non-bearing half.
+        y_start = -EPS * direction_sign
+        length  = DOWEL_LEN + 2 * EPS
+
     result = None
     for x, z in TUBE_HALF_DOWEL_POSITIONS_XZ:
-        if y_sign > 0:
-            pnt = cq.Vector(x, -0.1, z)
-            direction = cq.Vector(0.0, 1.0, 0.0)
-        else:
-            pnt = cq.Vector(x, 0.1, z)
-            direction = cq.Vector(0.0, -1.0, 0.0)
         cyl = cq.Solid.makeCylinder(
-            DOWEL_HOLE_R, DOWEL_HOLE_DEPTH + 0.2,
-            pnt=pnt, dir=direction,
+            DOWEL_R, length,
+            pnt=cq.Vector(x, y_start, z),
+            dir=cq.Vector(0.0, float(direction_sign), 0.0),
         )
         wp = cq.Workplane("XY").newObject([cyl])
         result = wp if result is None else result.union(wp)
@@ -1456,25 +1474,14 @@ def build_tube_shell() -> cq.Workplane:
 
 
 def build_tube_shell_half(tube_shell: cq.Workplane, y_sign: int) -> cq.Workplane:
-    """One half of the tube shell, with dowel holes in the Y=0 cut face."""
-    return (
-        tube_shell
-        .intersect(_make_split_box(y_sign), clean=False)
-        .cut(_make_tube_half_dowel_holes(y_sign), clean=False)
-    )
-
-
-def build_dowel_pin() -> cq.Workplane:
-    """A single printable dowel pin (Ø 2 × 4 mm cylinder).
-
-    Used only at the tube-half ↔ tube-half interface. Need N copies =
-    len(TUBE_HALF_DOWEL_POSITIONS_XZ).
-    """
-    return (
-        cq.Workplane("XY")
-        .circle(DOWEL_R)
-        .extrude(DOWEL_LEN)
-    )
+    """One half of the tube shell. The bearing half (DOWEL_BEARING_HALF_Y_SIGN)
+    has integrated dowels protruding from its Y=0 cut face; the other half
+    has matching holes."""
+    half = tube_shell.intersect(_make_split_box(y_sign), clean=False)
+    features = _make_tube_half_dowel_features(y_sign)
+    if y_sign == DOWEL_BEARING_HALF_Y_SIGN:
+        return half.union(features, clean=False)
+    return half.cut(features, clean=False)
 
 
 # ═══════════════════════════════════════════════════════
@@ -1545,10 +1552,7 @@ if __name__ == "__main__":
     out_tube_neg = Path(__file__).resolve().parent / "touch-flo-shell-tube-half-neg-y.step"
     export_step(tube_neg, str(out_tube_neg))
 
-    dowel = build_dowel_pin()
-    out_dowel = Path(__file__).resolve().parent / "touch-flo-shell-dowel-pin.step"
-    export_step(dowel, str(out_dowel))
-
+    bearing_label = "-Y" if DOWEL_BEARING_HALF_Y_SIGN < 0 else "+Y"
     print()
     print(f"  Base shell:      zones 1-4 + zone 4.5 (lid) + lever clearance, single piece")
     print(f"                   socket cut Z = {TUBE_SHELL_BOTTOM_Z} → {SOCKET_TOP_Z} "
@@ -1557,11 +1561,8 @@ if __name__ == "__main__":
     print(f"  Tube shell:      4 mm wall around tubes, extended {SOCKET_DEPTH} mm "
           f"below zone 5's nominal bottom (Z = {TUBE_SHELL_BOTTOM_Z}) for the tongue;")
     print(f"                   plus zone 6 above. Split at Y=0 into two halves.")
-    print(f"                   {len(TUBE_HALF_DOWEL_POSITIONS_XZ)} half↔half dowel holes "
-          f"Ø{2*DOWEL_HOLE_R:.1f} × {DOWEL_HOLE_DEPTH} mm at the Y=0 cut plane")
-    print(f"  Dowel pin:       Ø{2*DOWEL_R:.1f} × {DOWEL_LEN} mm, "
-          f"{len(TUBE_HALF_DOWEL_POSITIONS_XZ)} copies needed (tube halves only)")
+    print(f"                   {len(TUBE_HALF_DOWEL_POSITIONS_XZ)} integrated dowels Ø{2*DOWEL_R:.1f} × "
+          f"{DOWEL_LEN} mm on the {bearing_label} half; matching holes on the other half")
     print(f"-> {out_base.name}")
     print(f"-> {out_tube_pos.name}")
     print(f"-> {out_tube_neg.name}")
-    print(f"-> {out_dowel.name}")
