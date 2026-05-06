@@ -20,6 +20,7 @@ import {
   notifyPostsChanged,
   notifyFilesChanged,
 } from "./lib/push.js";
+import { mountNotificationsRoutes } from "./lib/notifications.js";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const DEFAULT_HARDWARE_DIR = path.join(__dirname, "hardware");
@@ -239,6 +240,7 @@ export async function start({ dev = false, port, hardwareDir } = {}) {
   mountViewerRoutes(app, { hardwareDir: HARDWARE_DIR });
   mountBlogRoutes(app, { postsDir: POSTS_DIR });
   mountPushRoutes(app);
+  mountNotificationsRoutes(app, pool);
   mountFirebaseConfig(app);
   mountLandingRoutes(app);
   mountDevViewerRoutes(app, { prefix: "/dev" });
