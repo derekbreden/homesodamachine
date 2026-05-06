@@ -79,6 +79,7 @@ function attachSubscribe(app, pool) {
   // attaching DevTools to the iOS PWA. Strict size cap to avoid abuse.
   app.post("/api/log", (req, res) => {
     const event = String(req.body?.event || "").slice(0, 80);
+    const build = String(req.body?.build || "?").slice(0, 12);
     let data = req.body?.data;
     try {
       const s = typeof data === "string" ? data : JSON.stringify(data || {});
@@ -86,7 +87,7 @@ function attachSubscribe(app, pool) {
     } catch {
       data = "{}";
     }
-    if (event) console.log(`[clog] ${event} ${data}`);
+    if (event) console.log(`[clog ${build}] ${event} ${data}`);
     res.json({ ok: true });
   });
 }
@@ -117,6 +118,7 @@ function mountFirebaseConfig(app) {
   // the modular firebase-messaging-sw bundle and initializes with the
   // env-var-driven config. The SW must live at the root scope of where
   // pushes apply ("/dev/" here) so the file path matches.
+  const SW_BUILD = (process.env.RENDER_GIT_COMMIT || "dev").slice(0, 7);
   const swSource = (cfg) => `// Auto-generated. Do not edit; see server.js.
 importScripts("https://www.gstatic.com/firebasejs/10.14.1/firebase-app-compat.js");
 importScripts("https://www.gstatic.com/firebasejs/10.14.1/firebase-messaging-compat.js");
@@ -133,13 +135,16 @@ firebase.initializeApp(${JSON.stringify({
 const messaging = firebase.messaging();
 
 // Beacon logger — POSTs to /api/log so we can see which SW events
-// actually fire on iOS PWA without DevTools.
+// actually fire on iOS PWA without DevTools. Every payload carries the
+// deploy SHA the SW was generated from, so a stale SW from a prior
+// deploy is identifiable in the log stream.
+const SW_BUILD = ${JSON.stringify(SW_BUILD)};
 function swLog(ev, data) {
   try {
     fetch("/api/log", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ event: "sw:" + ev, data: data || {} }),
+      body: JSON.stringify({ event: "sw:" + ev, data: data || {}, build: SW_BUILD }),
       keepalive: true,
     }).catch(() => {});
   } catch (e) {}
@@ -158,7 +163,24 @@ self.addEventListener("install", (event) => {
 });
 self.addEventListener("activate", (event) => {
   swLog("activate");
-  event.waitUntil(self.clients.claim());
+  event.waitUntil((async () => {
+    await self.clients.claim();
+    // Force-reload any pages that were rendered against the previous SW
+    // build, so they pick up new HEAD_TAGS (page-side message handler,
+    // visibilitychange listeners, build stamp). The page-side message
+    // listener interprets {type:"navigate", url:<same-as-current>} as a
+    // reload, which works even for the OLD page-side code that knows
+    // only that single message shape.
+    try {
+      const all = await self.clients.matchAll({ type: "window", includeUncontrolled: true });
+      swLog("activate-reload", { count: all.length });
+      for (const c of all) {
+        try { c.postMessage({ type: "navigate", url: c.url }); } catch {}
+      }
+    } catch (e) {
+      swLog("activate-reload-error", { err: String(e) });
+    }
+  })());
 });
 
 // Push event — fires reliably on iOS PWA when a Web Push message arrives,
