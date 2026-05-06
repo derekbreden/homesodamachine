@@ -16,6 +16,7 @@ import {
   detectChangedSteps,
   detectChangedMermaid,
   detectChangedPosts,
+  describeChangedPosts,
   notifyPostsChanged,
   notifyFilesChanged,
 } from "./lib/push.js";
@@ -246,50 +247,63 @@ export async function start({ dev = false, port, hardwareDir } = {}) {
   app.use("/dev", express.static(VIEWER_PUBLIC));
   app.use(express.static(LANDING_PUBLIC));
 
-  // Production-only: per-file deploy-change push. Hash STEP + mermaid +
-  // posts, diff against per-table hashes recorded by the previous boot,
-  // fire FCM and the SSE `files-changed` event for whatever changed.
-  // notifyFilesChanged batches mixed kinds into one message so a deploy
-  // that touches 2 STEPs and a mermaid produces ONE banner, not three.
-  // Best-effort — failures don't block the listen. Skipped in dev since
-  // no real deploy event happens; chokidar fires files-changed on save.
+  // Production-only: deploy-change push. Hash STEP + mermaid + posts in
+  // parallel against per-kind tables, then fire SSE + FCM for what
+  // changed. SSE has two event types (`files-changed` for step/mermaid,
+  // `posts-changed` for blog) since posts carry per-item metadata
+  // (title, link) that doesn't fit the bare-paths shape `files-changed`
+  // uses. Both kinds get piggy-backed onto `recent` so reconnecting
+  // clients (PWA was open during deploy, EventSource killed by shutdown)
+  // catch up via hello. Best-effort — failures don't block the listen.
+  // Skipped in dev since no real deploy event happens; chokidar fires
+  // files-changed on save and there's no equivalent for posts in dev.
   if (!dev) {
     (async () => {
       try {
-        const [changedSteps, changedMermaid] = await Promise.all([
+        const [changedSteps, changedMermaid, changedPostFiles] = await Promise.all([
           detectChangedSteps(HARDWARE_DIR),
           detectChangedMermaid(HARDWARE_DIR),
+          detectChangedPosts(POSTS_DIR),
         ]);
         const changedFiles = [...changedSteps, ...changedMermaid];
-        if (changedFiles.length === 0) return;
+        const changedPosts = describeChangedPosts({
+          postsDir: POSTS_DIR,
+          filenames: changedPostFiles,
+        });
 
-        console.log(`Push: notifying for ${changedFiles.length} changed file(s)`);
+        if (changedFiles.length === 0 && changedPosts.length === 0) return;
 
-        // SSE: broadcast now (catches currently-connected clients), AND
-        // store on `recent` so reconnecting clients (PWA was open during
-        // deploy, EventSource killed by shutdown) catch up via hello.
-        const sseMsg = { type: "files-changed", commit, files: changedFiles };
-        broadcast(sseMsg);
-        setRecent({ commit, files: changedFiles, ts: Date.now() });
+        // SSE: broadcast each kind to currently-connected clients, AND
+        // store on `recent` so a client reconnecting after the deploy
+        // catches up via hello.
+        const ts = Date.now();
+        if (changedFiles.length > 0) {
+          broadcast({ type: "files-changed", commit, files: changedFiles });
+        }
+        if (changedPosts.length > 0) {
+          broadcast({ type: "posts-changed", commit, posts: changedPosts });
+        }
+        const snapshot = { commit, ts };
+        if (changedFiles.length > 0) snapshot.files = changedFiles;
+        if (changedPosts.length > 0) snapshot.posts = changedPosts;
+        setRecent(snapshot);
 
-        // FCM: one banner regardless of mixed kinds.
-        const result = await notifyFilesChanged({ files: changedFiles });
-        console.log(`  sent=${result.sent} removed=${result.removed}`);
-      } catch (e) {
-        console.error("Push diff error:", e.message);
-      }
-    })();
-
-    (async () => {
-      try {
-        const changed = await detectChangedPosts(POSTS_DIR);
-        if (changed.length > 0) {
-          console.log(`Push: notifying for ${changed.length} changed post(s)`);
-          const result = await notifyPostsChanged({ postsDir: POSTS_DIR, filenames: changed });
+        // FCM: one banner per kind. Files batch any mix of step/mermaid
+        // into a single banner; posts go through their own notify path.
+        // A deploy that touches both produces two banners — acceptable
+        // and rare; if it becomes annoying we can collapse later.
+        if (changedFiles.length > 0) {
+          console.log(`Push: notifying for ${changedFiles.length} changed file(s)`);
+          const result = await notifyFilesChanged({ files: changedFiles });
+          console.log(`  sent=${result.sent} removed=${result.removed}`);
+        }
+        if (changedPosts.length > 0) {
+          console.log(`Push: notifying for ${changedPosts.length} changed post(s)`);
+          const result = await notifyPostsChanged({ postsDir: POSTS_DIR, filenames: changedPostFiles });
           console.log(`  sent=${result.sent} removed=${result.removed}`);
         }
       } catch (e) {
-        console.error("Push diff error (posts):", e.message);
+        console.error("Push diff error:", e.message);
       }
     })();
   }
