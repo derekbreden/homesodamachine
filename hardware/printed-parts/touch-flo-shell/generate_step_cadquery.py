@@ -1168,9 +1168,12 @@ DOWEL_LEN        = 4.0
 DOWEL_HOLE_DEPTH = 2.5
 
 TUBE_HALF_DOWEL_POSITIONS_XZ = [
-    (4.25,    55.0),  # water -X wall, lower (in tongue area)
-    (16.265,  62.5),  # flavor +X wall, mid (in tongue area)
-    (4.25,    73.0),  # water -X wall, upper (zone 6 vertical lift, above lid)
+    (3.45,   55.0),   # water -X wall (centered: X=3.45 = midpoint of X=1.45–5.45),
+                      # low in tongue area (just above tube shell bottom Z=52.5)
+    (16.265, 66.0),   # flavor +X wall (centered: X=16.265 = midpoint of X=14.265–18.265),
+                      # near top of tongue (tongue ends at ZONE45_Z_TOP=68.37)
+    (3.45,   77.0),   # water -X wall, high (in zone 6 vertical lift area,
+                      # just below GN_BEND1_START_Z=79.24)
 ]
 
 
