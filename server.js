@@ -157,6 +157,28 @@ function swLog(ev, data) {
 // newly-installed SW from "waiting" → "active"; clients.claim makes the
 // active SW control all currently-open windows so postMessage targets
 // the right SW.
+// Comprehensive SW event instrumentation — we want to see every event
+// the SW receives during a notification flow, especially on iOS PWA
+// where some normally-reliable events silently no-op.
+self.addEventListener("message", (event) => {
+  swLog("message", { type: event.data && event.data.type });
+});
+self.addEventListener("messageerror", (event) => {
+  swLog("messageerror", {});
+});
+self.addEventListener("notificationclose", (event) => {
+  swLog("notificationclose", {});
+});
+self.addEventListener("pushsubscriptionchange", (event) => {
+  swLog("pushsubscriptionchange", {});
+});
+self.addEventListener("error", (event) => {
+  swLog("sw-error", { msg: String(event.message || event) });
+});
+self.addEventListener("unhandledrejection", (event) => {
+  swLog("sw-unhandledrejection", { reason: String(event.reason || "") });
+});
+
 self.addEventListener("install", (event) => {
   swLog("install");
   self.skipWaiting();
