@@ -1168,12 +1168,25 @@ DOWEL_LEN        = 4.0
 DOWEL_HOLE_DEPTH = 2.5
 
 TUBE_HALF_DOWEL_POSITIONS_XZ = [
-    (3.45,   55.0),   # water -X wall (centered: X=3.45 = midpoint of X=1.45–5.45),
-                      # low in tongue area (just above tube shell bottom Z=52.5)
-    (16.265, 66.0),   # flavor +X wall (centered: X=16.265 = midpoint of X=14.265–18.265),
-                      # near top of tongue (tongue ends at ZONE45_Z_TOP=68.37)
-    (3.45,   77.0),   # water -X wall, high (in zone 6 vertical lift area,
-                      # just below GN_BEND1_START_Z=79.24)
+    # Three pairs at three Z levels along the vertical portion of the tube
+    # shell (Z=52.5 tongue bottom to Z=79.24 bend 1 start). Each pair places
+    # one dowel in the water -X wall (X=3.45 = midpoint of X=1.45–5.45) and
+    # one in the flavor +X wall (X=16.265 = midpoint of X=14.265–18.265).
+    # The bent gooseneck portion above Z=79.24 has no dowels — placing them
+    # there would require dowels oriented perpendicular to the path's local
+    # tangent, with positions rotating through the cross-section's local
+    # frame. Left as a possible future extension.
+    #
+    # Bottom pair (in tongue area, just above tube shell bottom Z=52.5)
+    (3.45,    55.0),
+    (16.265,  55.0),
+    # Middle pair (near top of tongue, at the lid level Z=ZONE45_Z_TOP=68.37)
+    (3.45,    66.0),
+    (16.265,  66.0),
+    # Top pair (above lid, in zone 6 vertical lift, just below
+    # GN_BEND1_START_Z=79.24 where the gooseneck begins to bend)
+    (3.45,    77.0),
+    (16.265,  77.0),
 ]
 
 
