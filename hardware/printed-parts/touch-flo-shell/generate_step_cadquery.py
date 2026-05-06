@@ -455,6 +455,35 @@ ZONE45_BOT_MID_Z = _NEW_ARCH_C_Z + _NEW_ARCH_R * math.sin(_a_mid45)
 # GEOMETRY BUILDERS
 # ═══════════════════════════════════════════════════════
 
+def _flavor_pill_flat_x_minus(z_bottom: float, z_height: float) -> cq.Workplane:
+    """Flavor pill cutout at FLAVOR_TUBE_X with the X- side flattened.
+
+    Same as the original slot2D pill (PILL_LENGTH_Y × PILL_WIDTH_X, Y-oriented),
+    but the X- side has square corners at (FLAVOR_TUBE_X − PILL_WIDTH_X/2,
+    ±PILL_LENGTH_Y/2) instead of the rounded transitions to the Y+/Y-
+    semicircular caps. Removes thin shell features on the X- side of the
+    cutout that print poorly. The Y+/Y- caps and the X+ side stay rounded.
+
+    Construction: union of the original slot2D and a rectangle covering the
+    X- half of the pill's bounding box.
+    """
+    pill = (
+        cq.Workplane("XY")
+        .workplane(offset=z_bottom)
+        .moveTo(FLAVOR_TUBE_X, 0)
+        .slot2D(PILL_LENGTH_Y, PILL_WIDTH_X, angle=90)
+        .extrude(z_height)
+    )
+    fill_rect = (
+        cq.Workplane("XY")
+        .workplane(offset=z_bottom)
+        .moveTo(FLAVOR_TUBE_X - PILL_WIDTH_X / 4.0, 0)
+        .rect(PILL_WIDTH_X / 2.0, PILL_LENGTH_Y)
+        .extrude(z_height)
+    )
+    return pill.union(fill_rect)
+
+
 def build_zone1_outer() -> cq.Workplane:
     """Filled cylinder, from the deck up to ZONE1_OUTER_TOP.
 
@@ -491,13 +520,7 @@ def build_zone1_inner_cut() -> cq.Workplane:
         .circle(BODY_BORE_DIAMETER / 2.0)
         .extrude(body_bore_height)
     )
-    pill = (
-        cq.Workplane("XY")
-        .workplane(offset=ZONE1_Z_BOTTOM)
-        .moveTo(FLAVOR_TUBE_X, 0)
-        .slot2D(PILL_LENGTH_Y, PILL_WIDTH_X, angle=90)
-        .extrude(ZONE1_HEIGHT)
-    )
+    pill = _flavor_pill_flat_x_minus(ZONE1_Z_BOTTOM, ZONE1_HEIGHT)
     return body_bore.union(pill)
 
 
@@ -654,13 +677,7 @@ def build_zone2_inner_cut() -> cq.Workplane:
 
     # Flavor-tube pill (full Z range — pill has no body-equivalent
     # transition, so it just runs from ZONE2_Z_BOTTOM continuously)
-    pill = (
-        cq.Workplane("XY")
-        .workplane(offset=ZONE2_Z_BOTTOM)
-        .moveTo(FLAVOR_TUBE_X, 0)
-        .slot2D(PILL_LENGTH_Y, PILL_WIDTH_X, angle=90)
-        .extrude(ZONE2_HEIGHT)
-    )
+    pill = _flavor_pill_flat_x_minus(ZONE2_Z_BOTTOM, ZONE2_HEIGHT)
 
     return bore.union(pill)
 
@@ -837,13 +854,7 @@ def build_zone3_fill_inner_cut() -> cq.Workplane:
         .extrude(z_height)
     )
 
-    flavor_pill = (
-        cq.Workplane("XY")
-        .workplane(offset=ZONE3_Z_BOTTOM)
-        .moveTo(FLAVOR_TUBE_X, 0)
-        .slot2D(PILL_LENGTH_Y, PILL_WIDTH_X, angle=90)
-        .extrude(z_height)
-    )
+    flavor_pill = _flavor_pill_flat_x_minus(ZONE3_Z_BOTTOM, z_height)
 
     return water_hole.union(flavor_pill)
 
@@ -937,13 +948,7 @@ def build_zone4_inner_cut() -> cq.Workplane:
         .extrude(ZONE4_HEIGHT)
     )
 
-    flavor_pill = (
-        cq.Workplane("XY")
-        .workplane(offset=ZONE4_Z_BOTTOM)
-        .moveTo(FLAVOR_TUBE_X, 0)
-        .slot2D(PILL_LENGTH_Y, PILL_WIDTH_X, angle=90)
-        .extrude(ZONE4_HEIGHT)
-    )
+    flavor_pill = _flavor_pill_flat_x_minus(ZONE4_Z_BOTTOM, ZONE4_HEIGHT)
 
     return water_inner.union(flavor_pill)
 
