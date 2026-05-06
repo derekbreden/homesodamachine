@@ -74,22 +74,6 @@ function attachSubscribe(app, pool) {
     }
   });
 
-  // Beacon endpoint — client-side and SW-side logs come through here so we
-  // can see what fired (or didn't) during a notification flow without
-  // attaching DevTools to the iOS PWA. Strict size cap to avoid abuse.
-  app.post("/api/log", (req, res) => {
-    const event = String(req.body?.event || "").slice(0, 80);
-    const build = String(req.body?.build || "?").slice(0, 12);
-    let data = req.body?.data;
-    try {
-      const s = typeof data === "string" ? data : JSON.stringify(data || {});
-      data = s.length > 1024 ? s.slice(0, 1024) + "…" : s;
-    } catch {
-      data = "{}";
-    }
-    if (event) console.log(`[clog ${build}] ${event} ${data}`);
-    res.json({ ok: true });
-  });
 }
 
 function firebaseWebConfig() {
@@ -118,7 +102,37 @@ function mountFirebaseConfig(app) {
   // the modular firebase-messaging-sw bundle and initializes with the
   // env-var-driven config. The SW must live at the root scope of where
   // pushes apply ("/dev/" here) so the file path matches.
-  const SW_BUILD = (process.env.RENDER_GIT_COMMIT || "dev").slice(0, 7);
+  //
+  // Notification handling, in summary (verified by an instrumented session
+  // against a real iOS PWA — see lib/shell.js HEAD_TAGS for the page-side
+  // half of this dance):
+  //
+  //   • Push display: handled by firebase-messaging-compat. We send a
+  //     `notification` field in the FCM payload, so iOS / Chrome / Android
+  //     show the system banner automatically. We don't override.
+  //
+  //   • Tap → cold launch (PWA was killed): iOS opens the PWA directly at
+  //     `webpush.fcmOptions.link` from the payload. No SW or page code
+  //     needed; iOS does it natively.
+  //
+  //   • Tap → backgrounded (PWA was open but not focused): iOS just
+  //     refocuses the existing window. SW notificationclick does NOT fire
+  //     on iOS PWA. visibilitychange-to-visible / pageshow / page-load do
+  //     not fire either. The only event that does is the page's
+  //     window.focus — the page-side listener picks it up and queries
+  //     /api/pending-nav to redirect.
+  //
+  //   • Tap → foregrounded: nothing fires anywhere. iOS treats it as a
+  //     no-op. (TODO: handle this via SSE-driven in-app toast once we
+  //     have an SSE channel.)
+  //
+  //   • Chrome desktop / Android PWA: firebase-messaging-compat's default
+  //     notificationclick handler opens fcmOptions.link via openWindow.
+  //     We don't override.
+  //
+  // The only events we attach are install / activate, both for the
+  // standard skipWaiting + clients.claim + auto-reload-stale-clients
+  // pattern that gets new HEAD_TAGS into already-open pages.
   const swSource = (cfg) => `// Auto-generated. Do not edit; see server.js.
 importScripts("https://www.gstatic.com/firebasejs/10.14.1/firebase-app-compat.js");
 importScripts("https://www.gstatic.com/firebasejs/10.14.1/firebase-messaging-compat.js");
@@ -131,229 +145,24 @@ firebase.initializeApp(${JSON.stringify({
   messagingSenderId: cfg.messagingSenderId,
   appId: cfg.appId,
 })});
+firebase.messaging();
 
-const messaging = firebase.messaging();
-
-// Beacon logger — POSTs to /api/log so we can see which SW events
-// actually fire on iOS PWA without DevTools. Every payload carries the
-// deploy SHA the SW was generated from, so a stale SW from a prior
-// deploy is identifiable in the log stream.
-const SW_BUILD = ${JSON.stringify(SW_BUILD)};
-function swLog(ev, data) {
-  try {
-    fetch("/api/log", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ event: "sw:" + ev, data: data || {}, build: SW_BUILD }),
-      keepalive: true,
-    }).catch(() => {});
-  } catch (e) {}
-}
-
-// Force new SW versions to activate immediately and take control of all
-// open clients — without these, iOS PWAs can keep an old SW running for
-// a long time (until every client closes), which means notification
-// clicks fire on the OLD code even after a deploy. skipWaiting moves a
-// newly-installed SW from "waiting" → "active"; clients.claim makes the
-// active SW control all currently-open windows so postMessage targets
-// the right SW.
-// Comprehensive SW event instrumentation — we want to see every event
-// the SW receives during a notification flow, especially on iOS PWA
-// where some normally-reliable events silently no-op.
-self.addEventListener("message", (event) => {
-  swLog("message", { type: event.data && event.data.type });
-});
-self.addEventListener("messageerror", (event) => {
-  swLog("messageerror", {});
-});
-self.addEventListener("notificationclose", (event) => {
-  swLog("notificationclose", {});
-});
-self.addEventListener("pushsubscriptionchange", (event) => {
-  swLog("pushsubscriptionchange", {});
-});
-self.addEventListener("error", (event) => {
-  swLog("sw-error", { msg: String(event.message || event) });
-});
-self.addEventListener("unhandledrejection", (event) => {
-  swLog("sw-unhandledrejection", { reason: String(event.reason || "") });
-});
-
-self.addEventListener("install", (event) => {
-  swLog("install");
-  self.skipWaiting();
-});
+// skipWaiting + clients.claim let a freshly-installed SW take over open
+// pages immediately, so a deploy doesn't get stranded behind an old SW
+// until every client closes. The activate handler then posts a
+// navigate-self message to each open client; the page-side listener
+// (shell.js HEAD_TAGS) interprets that as a reload, so already-rendered
+// pages pick up new HEAD_TAGS without manual refresh.
+self.addEventListener("install", () => self.skipWaiting());
 self.addEventListener("activate", (event) => {
-  swLog("activate");
   event.waitUntil((async () => {
     await self.clients.claim();
-    // Force-reload any pages that were rendered against the previous SW
-    // build, so they pick up new HEAD_TAGS (page-side message handler,
-    // visibilitychange listeners, build stamp). The page-side message
-    // listener interprets {type:"navigate", url:<same-as-current>} as a
-    // reload, which works even for the OLD page-side code that knows
-    // only that single message shape.
     try {
       const all = await self.clients.matchAll({ type: "window", includeUncontrolled: true });
-      swLog("activate-reload", { count: all.length });
       for (const c of all) {
         try { c.postMessage({ type: "navigate", url: c.url }); } catch {}
       }
-    } catch (e) {
-      swLog("activate-reload-error", { err: String(e) });
-    }
-  })());
-});
-
-// Push event — fires reliably on iOS PWA when a Web Push message arrives,
-// even when the PWA is in the background or closed. Two-track approach:
-//
-//   1. postMessage to currently-open PWA clients (handles the case where
-//      the PWA is already open in the background — page-side handler
-//      navigates immediately).
-//
-//   2. Persist the target URL in cache storage. When the user taps the
-//      notification and iOS opens the PWA fresh at start_url ("/"), the
-//      fetch handler (below) reads the pending URL and returns a 302
-//      redirect to the target. This is the load-bearing path for the
-//      "PWA was closed when push arrived" case.
-//
-// Firebase's compat library also handles this event to render the
-// notification — multiple push listeners coexist; both run.
-self.addEventListener("push", (event) => {
-  swLog("push", { hasData: !!event.data });
-  if (!event.data) return;
-  let payload;
-  try {
-    payload = event.data.json();
-  } catch (e) {
-    swLog("push-parse-error", { err: String(e) });
-    return;
-  }
-  const link =
-    (payload.notification && payload.notification.click_action) ||
-    (payload.fcmOptions && payload.fcmOptions.link) ||
-    (payload.webpush && payload.webpush.fcmOptions && payload.webpush.fcmOptions.link) ||
-    (payload.data && payload.data.link) ||
-    null;
-  swLog("push-link", { link });
-  if (!link) return;
-  event.waitUntil((async () => {
-    const all = await self.clients.matchAll({ type: "window", includeUncontrolled: true });
-    swLog("push-clients", { count: all.length });
-    for (const c of all) {
-      try { c.postMessage({ type: "navigate", url: link }); } catch {}
-    }
-    try {
-      const cache = await caches.open("hsm-pending-nav");
-      const body = JSON.stringify({ url: link, ts: Date.now() });
-      await cache.put(new Request("/__pending"), new Response(body));
-      swLog("push-cache-write", { link });
-    } catch (e) {
-      swLog("push-cache-error", { err: String(e) });
-    }
-  })());
-});
-
-// Fetch handler — only intercepts top-level navigations to "/". When a
-// pending navigation has been persisted by the push handler (i.e. user
-// just tapped a notification and iOS opened the PWA fresh at start_url),
-// redirect to the target URL. All other requests pass through to the
-// network unchanged. We delete the pending entry on consumption so a
-// subsequent / visit isn't redirected.
-self.addEventListener("fetch", (event) => {
-  let url;
-  try { url = new URL(event.request.url); } catch { return; }
-  if (url.origin !== self.location.origin) return;
-  if (url.pathname !== "/") return;
-  if (event.request.mode !== "navigate") return;
-  event.respondWith((async () => {
-    try {
-      const cache = await caches.open("hsm-pending-nav");
-      const pending = await cache.match(new Request("/__pending"));
-      if (pending) {
-        const text = await pending.text();
-        let target = null;
-        try {
-          const parsed = JSON.parse(text);
-          if (parsed && parsed.ts && Date.now() - parsed.ts < 60000) {
-            target = parsed.url;
-          }
-        } catch (e) {
-          target = text;
-        }
-        await cache.delete(new Request("/__pending"));
-        if (target) return Response.redirect(target, 302);
-      }
     } catch {}
-    return fetch(event.request);
-  })());
-});
-
-// Background push handler. The default Firebase SW already shows a
-// notification for "notification" payloads; for "data-only" payloads we
-// build one here.
-self.addEventListener("notificationclick", (event) => {
-  swLog("notificationclick", { hasData: !!event.notification.data });
-  event.notification.close();
-  const link = (event.notification.data && event.notification.data.FCM_MSG &&
-                event.notification.data.FCM_MSG.notification &&
-                event.notification.data.FCM_MSG.notification.click_action) ||
-               (event.notification.data && event.notification.data.link) ||
-               "/dev/";
-  swLog("notificationclick-link", { link });
-  event.waitUntil((async () => {
-    // Resolve the link against the SW's origin so we can compare full URLs
-    // and so client.navigate() gets a same-origin absolute URL (required).
-    const target = new URL(link, self.location.origin);
-    // Persist target so the cold-launch page-side check can pick it up
-    // even when push event didn't fire (or fired with no payload).
-    try {
-      const cache = await caches.open("hsm-pending-nav");
-      const body = JSON.stringify({ url: target.href, ts: Date.now() });
-      await cache.put(new Request("/__pending"), new Response(body));
-      swLog("notificationclick-cache-write", { url: target.href });
-    } catch (e) {
-      swLog("notificationclick-cache-error", { err: String(e) });
-    }
-    const all = await clients.matchAll({ type: "window", includeUncontrolled: true });
-    swLog("notificationclick-clients", { count: all.length });
-
-    // Prefer reusing an existing same-origin window over spawning a new
-    // one, then explicitly navigate it to the notification target. An
-    // earlier version restricted reuse to windows whose pathname started
-    // with /dev/, which left /blog#post-foo notifications stuck whenever
-    // the PWA happened to be on /blog (or /settings, or anywhere else):
-    // the loop would skip the existing window, fall through to
-    // openWindow(), and inside an installed PWA openWindow() typically
-    // refocuses without navigating — so the user stayed on whatever they
-    // were already looking at. Reusing any same-origin client and always
-    // navigating works for /dev/?file=B.step, /blog#post-foo, and any
-    // future surface without needing a per-route allowlist.
-    for (const c of all) {
-      let cUrl;
-      try { cUrl = new URL(c.url); } catch { continue; }
-      if (cUrl.origin !== target.origin) continue;
-      // Focus FIRST — brings the PWA to foreground and wakes its JS
-      // context so the postMessage below is processed by a running
-      // page. On iOS PWA, posting before focus risks the message
-      // hitting a suspended client and being missed entirely.
-      let target_client = c;
-      try { if ("focus" in c) target_client = (await c.focus()) || c; } catch {}
-      // Try c.navigate() — works on Chrome desktop / Android Chrome.
-      try {
-        if ("navigate" in target_client) await target_client.navigate(target.href);
-      } catch {}
-      // Always post navigate message — page-side handler (in shell.js
-      // HEAD_TAGS) does location.replace(), which works from the page
-      // context on iOS PWA where the SW's c.navigate() silently fails.
-      // Also handles the same-pathname hash-change case (e.g.
-      // /blog#post-NEW while on /blog#post-OLD) where c.navigate()
-      // would be a same-document hash change with no refetch.
-      try { target_client.postMessage({ type: "navigate", url: target.href }); } catch {}
-      return target_client;
-    }
-    if (clients.openWindow) return clients.openWindow(target.href);
   })());
 });
 `;
