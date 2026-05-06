@@ -203,9 +203,20 @@ export async function start({ dev = false, port, hardwareDir } = {}) {
   app.use(express.json());
 
   const pool = makePool();
+
+  // SSE channel for server -> client push. In dev, the wrapper calls
+  // broadcast() from chokidar handlers. In prod, hello-on-connect signals
+  // deploys, and broadcastToToken delivers per-client pending-nav events
+  // (used by the in-app toast — see shell.js HEAD_TAGS).
+  const commit = dev
+    ? "dev"
+    : (process.env.RENDER_GIT_COMMIT || `local-${Date.now()}`);
+  const { broadcast, broadcastToToken } = mountEvents(app, { commit });
+
   initPush({
     databasePool: pool,
     serviceAccountJson: process.env.FIREBASE_SERVICE_ACCOUNT_JSON,
+    broadcastToToken,
   });
 
   // URL structure is identical in dev and prod: landing at /, blog at
@@ -229,15 +240,6 @@ export async function start({ dev = false, port, hardwareDir } = {}) {
   attachSubscribe(app, pool);
   app.use("/dev", express.static(VIEWER_PUBLIC));
   app.use(express.static(LANDING_PUBLIC));
-
-  // SSE channel for server -> client push. In dev, the wrapper calls
-  // broadcast() from chokidar handlers. In prod, only the hello-on-connect
-  // is used — clients detect a deploy by the commit field changing across
-  // reconnects and refetch what they're viewing.
-  const commit = dev
-    ? "dev"
-    : (process.env.RENDER_GIT_COMMIT || `local-${Date.now()}`);
-  const { broadcast } = mountEvents(app, { commit });
 
   // Production-only: per-file deploy-change push. Hash every STEP / post,
   // diff against the row recorded by the previous boot, fire FCM messages
