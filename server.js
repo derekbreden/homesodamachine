@@ -73,6 +73,22 @@ function attachSubscribe(app, pool) {
       res.status(500).json({ error: "Server error" });
     }
   });
+
+  // Beacon endpoint — client-side and SW-side logs come through here so we
+  // can see what fired (or didn't) during a notification flow without
+  // attaching DevTools to the iOS PWA. Strict size cap to avoid abuse.
+  app.post("/api/log", (req, res) => {
+    const event = String(req.body?.event || "").slice(0, 80);
+    let data = req.body?.data;
+    try {
+      const s = typeof data === "string" ? data : JSON.stringify(data || {});
+      data = s.length > 1024 ? s.slice(0, 1024) + "…" : s;
+    } catch {
+      data = "{}";
+    }
+    if (event) console.log(`[clog] ${event} ${data}`);
+    res.json({ ok: true });
+  });
 }
 
 function firebaseWebConfig() {
@@ -116,6 +132,19 @@ firebase.initializeApp(${JSON.stringify({
 
 const messaging = firebase.messaging();
 
+// Beacon logger — POSTs to /api/log so we can see which SW events
+// actually fire on iOS PWA without DevTools.
+function swLog(ev, data) {
+  try {
+    fetch("/api/log", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ event: "sw:" + ev, data: data || {} }),
+      keepalive: true,
+    }).catch(() => {});
+  } catch (e) {}
+}
+
 // Force new SW versions to activate immediately and take control of all
 // open clients — without these, iOS PWAs can keep an old SW running for
 // a long time (until every client closes), which means notification
@@ -124,9 +153,11 @@ const messaging = firebase.messaging();
 // active SW control all currently-open windows so postMessage targets
 // the right SW.
 self.addEventListener("install", (event) => {
+  swLog("install");
   self.skipWaiting();
 });
 self.addEventListener("activate", (event) => {
+  swLog("activate");
   event.waitUntil(self.clients.claim());
 });
 
@@ -146,11 +177,13 @@ self.addEventListener("activate", (event) => {
 // Firebase's compat library also handles this event to render the
 // notification — multiple push listeners coexist; both run.
 self.addEventListener("push", (event) => {
+  swLog("push", { hasData: !!event.data });
   if (!event.data) return;
   let payload;
   try {
     payload = event.data.json();
   } catch (e) {
+    swLog("push-parse-error", { err: String(e) });
     return;
   }
   const link =
@@ -159,9 +192,11 @@ self.addEventListener("push", (event) => {
     (payload.webpush && payload.webpush.fcmOptions && payload.webpush.fcmOptions.link) ||
     (payload.data && payload.data.link) ||
     null;
+  swLog("push-link", { link });
   if (!link) return;
   event.waitUntil((async () => {
     const all = await self.clients.matchAll({ type: "window", includeUncontrolled: true });
+    swLog("push-clients", { count: all.length });
     for (const c of all) {
       try { c.postMessage({ type: "navigate", url: link }); } catch {}
     }
@@ -169,7 +204,10 @@ self.addEventListener("push", (event) => {
       const cache = await caches.open("hsm-pending-nav");
       const body = JSON.stringify({ url: link, ts: Date.now() });
       await cache.put(new Request("/__pending"), new Response(body));
-    } catch {}
+      swLog("push-cache-write", { link });
+    } catch (e) {
+      swLog("push-cache-error", { err: String(e) });
+    }
   })());
 });
 
@@ -212,12 +250,14 @@ self.addEventListener("fetch", (event) => {
 // notification for "notification" payloads; for "data-only" payloads we
 // build one here.
 self.addEventListener("notificationclick", (event) => {
+  swLog("notificationclick", { hasData: !!event.notification.data });
   event.notification.close();
   const link = (event.notification.data && event.notification.data.FCM_MSG &&
                 event.notification.data.FCM_MSG.notification &&
                 event.notification.data.FCM_MSG.notification.click_action) ||
                (event.notification.data && event.notification.data.link) ||
                "/dev/";
+  swLog("notificationclick-link", { link });
   event.waitUntil((async () => {
     // Resolve the link against the SW's origin so we can compare full URLs
     // and so client.navigate() gets a same-origin absolute URL (required).
@@ -228,8 +268,12 @@ self.addEventListener("notificationclick", (event) => {
       const cache = await caches.open("hsm-pending-nav");
       const body = JSON.stringify({ url: target.href, ts: Date.now() });
       await cache.put(new Request("/__pending"), new Response(body));
-    } catch {}
+      swLog("notificationclick-cache-write", { url: target.href });
+    } catch (e) {
+      swLog("notificationclick-cache-error", { err: String(e) });
+    }
     const all = await clients.matchAll({ type: "window", includeUncontrolled: true });
+    swLog("notificationclick-clients", { count: all.length });
 
     // Prefer reusing an existing same-origin window over spawning a new
     // one, then explicitly navigate it to the notification target. An
