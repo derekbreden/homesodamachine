@@ -279,7 +279,7 @@ ZONE4_Z_BOTTOM = SHELL_ARCH_FOOT_TOP_Z                              # 44.25
 # Zone 4 top must clear the lever's pressed-down envelope. The lever's
 # head corner at original (X=9, Z=52) rotates -18° around pivot
 # (1.5, 46) to (6.78, 54.024). That point sits inside zone 5's water-
-# circle outer outline (centered at X=8.875, R=9.0125), so zone 5's
+# circle outer outline (centered at X=8.875, R=8.0125), so zone 5's
 # bottom — and therefore zone 4's top — must be above it. The first
 # PETG test print showed ~1 mm clearance was too tight in practice;
 # bumped to 57.5 mm for ~3.5 mm clearance above 54.024.
@@ -304,7 +304,11 @@ ZONE4_WALL     = WALL_THICKNESS_MIN                                 # 3.0
 ZONE5_Z_BOTTOM = ZONE4_Z_TOP                                        # 57.5
 ZONE5_Z_TOP    = ZONE4_Z_TOP + 10.0                                 # 67.5
 ZONE5_HEIGHT   = ZONE5_Z_TOP - ZONE5_Z_BOTTOM                       # 10
-ZONE5_WALL     = 4.0                                                # toughened from WALL_THICKNESS_MIN=3
+ZONE5_WALL     = WALL_THICKNESS_MIN                                 # 3.0 — matches
+                                                                     # the rest of
+                                                                     # the shell now
+                                                                     # that the tubes
+                                                                     # are bigger
 
 
 # ═══════════════════════════════════════════════════════
@@ -425,13 +429,13 @@ LEVER_RIDGE_X = (
 
 # Zone 5's X extents at Y=0, used to derive zone 4.5's matched-margin
 # front X. Mirrors the cross-section in build_zone5_outer.
-_Z5_WATER_R_OUTER = WATER_HOLE_DIAMETER / 2.0 + ZONE5_WALL           # 9.0125
-_Z5_FLAVOR_X_HALF = (PILL_WIDTH_X + 2.0 * ZONE5_WALL) / 2.0          # 7.425
-_Z5_X_MIN         = WATER_TUBE_X - _Z5_WATER_R_OUTER                 # -0.1375
-_Z5_X_MAX         = FLAVOR_TUBE_POST_BEND_X + _Z5_FLAVOR_X_HALF      # 23.575
+_Z5_WATER_R_OUTER = WATER_HOLE_DIAMETER / 2.0 + ZONE5_WALL           # 8.0125
+_Z5_FLAVOR_X_HALF = (PILL_WIDTH_X + 2.0 * ZONE5_WALL) / 2.0          # 6.425
+_Z5_X_MIN         = WATER_TUBE_X - _Z5_WATER_R_OUTER                 # 0.8625
+_Z5_X_MAX         = FLAVOR_TUBE_POST_BEND_X + _Z5_FLAVOR_X_HALF      # 22.575
 
 ZONE45_BACK_X      = SHELL_CENTER_X + SHELL_OUTER_R                  # 25.35
-_ZONE45_X_MARGIN   = ZONE45_BACK_X - _Z5_X_MAX                       # 1.775
+_ZONE45_X_MARGIN   = ZONE45_BACK_X - _Z5_X_MAX                       # 2.775
 ZONE45_FRONT_X     = _Z5_X_MIN - _ZONE45_X_MARGIN                    # ≈ -1.9125
 
 ZONE45_Z_TOP                = (ZONE4_Z_TOP + GN_BEND1_START_Z) / 2.0  # halfway between
@@ -910,13 +914,23 @@ def build_zone4_outer() -> cq.Workplane:
 
 
 def build_zone4_inner_cut() -> cq.Workplane:
-    """Tube cavity: water-tube cyl + straight flavor pill at FLAVOR_TUBE_X.
+    """Tube cavity: water-tube cyl + 3D-lofted flavor pill following the bend.
 
-    Previously this was a 3D loft from a wider rounded-rect at the bottom
-    to a pill at FLAVOR_TUBE_POST_BEND_X at the top, transitioning the
-    flavor tube position. With the new base/tube-shell split, the bend
-    is handled in the tube shell + the socket area above, so the base
-    just needs straight pill clearance at FLAVOR_TUBE_X.
+    The flavor pill lofts linearly from FLAVOR_TUBE_X (lower X, body-tangent
+    position) at the bottom of zone 4 to FLAVOR_TUBE_POST_BEND_X (upper X,
+    water-tube-tangent position) at the top of zone 4. This accommodates the
+    flavor tubes' S-bend, which transitions in this Z range. Without the loft,
+    a tube at intermediate X positions during the bend would clash with the
+    shell's solid wall.
+
+    Linear loft. The actual bend curve (two circular arcs) deviates from
+    straight-line interpolation by up to ~0.36 mm at mid-bend; the LLDPE
+    tube's elasticity absorbs that.
+
+    The flat-X- treatment from _flavor_pill_flat_x_minus is dropped here
+    because the pill X moves inward through zone 4, so the thin shell strip
+    that flat-X- removes only exists at the very bottom — and zone 3 fill's
+    flat-X- pill (which extends up to Z=49.25) covers that overlap region.
     """
     water_inner = (
         cq.Workplane("XY")
@@ -926,9 +940,18 @@ def build_zone4_inner_cut() -> cq.Workplane:
         .extrude(ZONE4_HEIGHT)
     )
 
-    flavor_pill = _flavor_pill_flat_x_minus(ZONE4_Z_BOTTOM, ZONE4_HEIGHT)
+    flavor_loft = (
+        cq.Workplane("XY")
+        .workplane(offset=ZONE4_Z_BOTTOM)
+        .moveTo(FLAVOR_TUBE_X, 0)
+        .slot2D(PILL_LENGTH_Y, PILL_WIDTH_X, angle=90)
+        .workplane(offset=ZONE4_HEIGHT)
+        .moveTo(FLAVOR_TUBE_POST_BEND_X, 0)
+        .slot2D(PILL_LENGTH_Y, PILL_WIDTH_X, angle=90)
+        .loft(combine=True)
+    )
 
-    return water_inner.union(flavor_pill)
+    return water_inner.union(flavor_loft)
 
 
 def build_zone45_outer() -> cq.Workplane:
@@ -1148,7 +1171,7 @@ def build_lever_clearance() -> cq.Workplane:
 #   - BASE shell    : zones 1-4 + zone 4.5 (the wider lid) + lever clearance,
 #                     single piece. The lid has a SOCKET cut into it where the
 #                     tube shell's tongue plugs in.
-#   - TUBE shell    : the 4 mm wall around the tubes — extended downward
+#   - TUBE shell    : the 3 mm wall around the tubes — extended downward
 #                     by SOCKET_DEPTH for the tongue, plus zone 6 above.
 #                     Split into +Y and -Y halves at Y=0 so each half prints
 #                     cut-side-down on the bed, eliminating supports for the
@@ -1183,10 +1206,10 @@ DOWEL_BEARING_HALF_Y_SIGN  = -1   # -Y half carries the dowels
 
 # Cross-section local-X positions for dowels. Local frame is centered on the
 # water tube; local +X points toward the flavor pill. Both walls are
-# ZONE5_WALL = 4 mm thick, so the midpoint is the inner+outer edges'
+# ZONE5_WALL = 3 mm thick, so the midpoint is the inner+outer edges'
 # half-sum.
-#   Water -X wall:  local_x ∈ [-9.0125 (outer), -5.0125 (bore)] → midpoint -7.0125
-#   Flavor +X wall: local_x ∈ [+10.700 (bore), +14.700 (outer)] → midpoint +12.700
+#   Water -X wall:  local_x ∈ [-8.0125 (outer), -5.0125 (bore)] → midpoint -6.5125
+#   Flavor +X wall: local_x ∈ [+10.700 (bore), +13.700 (outer)] → midpoint +12.200
 _DOWEL_LOCAL_X_WATER  = -(WATER_HOLE_DIAMETER / 2.0 + ZONE5_WALL / 2.0)
 _DOWEL_LOCAL_X_FLAVOR = (
     (FLAVOR_TUBE_POST_BEND_X - WATER_TUBE_X)
@@ -1310,9 +1333,9 @@ TUBE_HALF_DOWEL_POSITIONS_XZ = [
 
 
 def _tube_shell_outer_section(z_bottom: float, z_height: float) -> cq.Workplane:
-    """Tube wrap outer (water cyl + flavor pill + fill rect, all 4 mm wall)
-    extruded vertically over the given Z range."""
-    water_r_outer = WATER_HOLE_DIAMETER / 2.0 + ZONE5_WALL  # 9.0125
+    """Tube wrap outer (water cyl + flavor pill + fill rect, all ZONE5_WALL
+    thick) extruded vertically over the given Z range."""
+    water_r_outer = WATER_HOLE_DIAMETER / 2.0 + ZONE5_WALL  # 8.0125
     water_outer = (
         cq.Workplane("XY")
         .workplane(offset=z_bottom)
@@ -1339,7 +1362,22 @@ def _tube_shell_outer_section(z_bottom: float, z_height: float) -> cq.Workplane:
 
 
 def _tube_shell_inner_section(z_bottom: float, z_height: float) -> cq.Workplane:
-    """Tube hole cross-section (water cyl + flavor pill) extruded vertically."""
+    """Tube hole cross-section: water cyl + (lofted then straight) flavor pill.
+
+    Water bore: straight cylinder at WATER_TUBE_X, full Z range.
+
+    Flavor bore: continues zone 4's flavor-pill loft through the tongue's
+    socket overlap (Z=z_bottom up to ZONE4_Z_TOP), then runs straight at
+    FLAVOR_TUBE_POST_BEND_X from ZONE4_Z_TOP up to z_top. The flavor tubes'
+    S-bend transitions through this Z range; without the loft, the tube at
+    intermediate X positions would clash with the tongue's solid +X wall.
+
+    Slope of the loft matches zone 4's loft (same start/end points), so the
+    bore X is continuous across the zone-4 / tongue-overlap boundary.
+
+    Assumes z_bottom < ZONE4_Z_TOP < z_top, which holds for the tongue's
+    vertical section (TUBE_SHELL_BOTTOM_Z = 52.5, ZONE5_Z_TOP = 67.5).
+    """
     water_inner = (
         cq.Workplane("XY")
         .workplane(offset=z_bottom)
@@ -1347,14 +1385,35 @@ def _tube_shell_inner_section(z_bottom: float, z_height: float) -> cq.Workplane:
         .circle(WATER_HOLE_DIAMETER / 2.0)
         .extrude(z_height)
     )
-    flavor_inner = (
+
+    # Linear interpolation X at z_bottom along zone 4's flavor-pill loft.
+    frac_bot = (z_bottom - ZONE4_Z_BOTTOM) / (ZONE4_Z_TOP - ZONE4_Z_BOTTOM)
+    x_at_bottom = FLAVOR_TUBE_X + frac_bot * (FLAVOR_TUBE_POST_BEND_X - FLAVOR_TUBE_X)
+
+    # Lofted lower section: pill@x_at_bottom at z_bottom → pill@upper_X at ZONE4_Z_TOP
+    loft_height = ZONE4_Z_TOP - z_bottom
+    flavor_loft = (
         cq.Workplane("XY")
         .workplane(offset=z_bottom)
+        .moveTo(x_at_bottom, 0)
+        .slot2D(PILL_LENGTH_Y, PILL_WIDTH_X, angle=90)
+        .workplane(offset=loft_height)
         .moveTo(FLAVOR_TUBE_POST_BEND_X, 0)
         .slot2D(PILL_LENGTH_Y, PILL_WIDTH_X, angle=90)
-        .extrude(z_height)
+        .loft(combine=True)
     )
-    return water_inner.union(flavor_inner)
+
+    # Straight upper section: pill@upper_X from ZONE4_Z_TOP to z_top
+    straight_height = (z_bottom + z_height) - ZONE4_Z_TOP
+    flavor_straight = (
+        cq.Workplane("XY")
+        .workplane(offset=ZONE4_Z_TOP)
+        .moveTo(FLAVOR_TUBE_POST_BEND_X, 0)
+        .slot2D(PILL_LENGTH_Y, PILL_WIDTH_X, angle=90)
+        .extrude(straight_height)
+    )
+
+    return water_inner.union(flavor_loft).union(flavor_straight)
 
 
 def _socket_cutter(z_bottom: float, z_height: float) -> cq.Workplane:
@@ -1473,7 +1532,7 @@ def build_base_shell() -> cq.Workplane:
 
 
 def build_tube_shell() -> cq.Workplane:
-    """Tube shell: 4 mm wall around tubes, extended downward by SOCKET_DEPTH
+    """Tube shell: 3 mm wall around tubes, extended downward by SOCKET_DEPTH
     for the tongue, then zone 6 (gooseneck wrap) above."""
     vertical_outer = _tube_shell_outer_section(
         TUBE_SHELL_BOTTOM_Z, TUBE_SHELL_HEIGHT_VERTICAL,
@@ -1571,7 +1630,7 @@ if __name__ == "__main__":
     print(f"                   socket cut Z = {TUBE_SHELL_BOTTOM_Z} → {SOCKET_TOP_Z} "
           f"({SOCKET_DEPTH} mm into zone 4 + full zone 4.5 at the tube footprint)")
     print(f"                   socket cross-section = tube outer + {SOCKET_CLEARANCE} mm radial clearance")
-    print(f"  Tube shell:      4 mm wall around tubes, extended {SOCKET_DEPTH} mm "
+    print(f"  Tube shell:      {ZONE5_WALL:.0f} mm wall around tubes, extended {SOCKET_DEPTH} mm "
           f"below zone 5's nominal bottom (Z = {TUBE_SHELL_BOTTOM_Z}) for the tongue;")
     print(f"                   plus zone 6 above. Split at Y=0 into two halves.")
     print(f"                   {len(TUBE_HALF_DOWEL_POSITIONS_XZ)} integrated dowels Ø{2*DOWEL_R:.1f} × "

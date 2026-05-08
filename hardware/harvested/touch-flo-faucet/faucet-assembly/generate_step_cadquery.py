@@ -135,13 +135,14 @@ FLAVOR_TUBE_X_FINAL = PORT_CENTER_X + math.sqrt(_dx_sq)  # 16.150 mm
 # X offset the S-bend has to absorb (positive number, magnitude only)
 _x_offset = FLAVOR_TUBE_X - FLAVOR_TUBE_X_FINAL          # 2.775 mm
 
-# Bend radius: 1/4" LLDPE has a typical 4× OD = 25 mm minimum, but a
-# 25 mm radius bend's Z gain (~16.5 mm) doesn't fit in the available Z
-# budget between the body plateau (Z=39) and zone 4's top (Z=57.5).
-# 16 mm is tighter than the LLDPE spec but fits the geometry; the real
-# tubes will be hot-formed or pre-bent during assembly. Visualization-
-# only — does not affect the printed shell's geometry.
-FLAVOR_BEND_RADIUS    = 16.0
+# Bend radius: 1/4" LLDPE's typical 4× OD = 25 mm minimum. The bend's
+# Z gain at this radius (~16.5 mm) puts the S-bend end at Z ≈ 58.45,
+# past zone 4's top (57.5) and into the tongue's lower section. The
+# shell accommodates this by lofting the zone 4 inner cut AND the
+# tongue's bore from FLAVOR_TUBE_X (lower X) at the bottom to
+# FLAVOR_TUBE_POST_BEND_X (upper X) where the bend completes — see
+# touch-flo-shell's build_zone4_inner_cut and _tube_shell_inner_section.
+FLAVOR_BEND_RADIUS    = 25.0
 # Bend angle is then derived: 2·R·(1 − cos θ) = X_offset (with no middle
 # straight). Both bends use the same radius and angle.
 FLAVOR_BEND_THETA_RAD = math.acos(1.0 - _x_offset / (2.0 * FLAVOR_BEND_RADIUS))
@@ -152,11 +153,11 @@ FLAVOR_BEND_THETA_DEG = math.degrees(FLAVOR_BEND_THETA_RAD)
 PRE_BEND_RISE = 3.0                                      # mm above plateau
 PRE_BEND_Z    = PLATEAU_Z + PRE_BEND_RISE                # 42.0 mm
 
-# Geometry checks (with R=16, x_offset≈2.775, θ≈24°):
+# Geometry checks (with R=25, x_offset≈2.775, θ≈19.2°):
 #  - lower straight (tube-local Z=0 → Z=PRE_BEND_Z − Z_BOTTOM = 92 mm)
-#  - bend 1 (arc length R·θ ≈ 6.7 mm, Z gain R·sin θ ≈ 6.5 mm)
+#  - bend 1 (arc length R·θ ≈ 8.4 mm, Z gain R·sin θ ≈ 8.2 mm)
 #  - bend 2 (mirror of bend 1)
-#  - S-bend ends at Z ≈ 55, below ZONE4_Z_TOP=57.5 ✓
+#  - S-bend ends at Z ≈ 58.45 — inside the tongue's lofted bore region
 
 
 # ═══════════════════════════════════════════════════════
