@@ -12,15 +12,14 @@
 #
 # YouTube paints a duration pill in the bottom-RIGHT corner of every thumbnail
 # in feed and grid views (search results, channel page, related, sidebar — any
-# surface that's NOT the watch page itself). The pill is roughly 100x40 px on
-# a 1280x720 thumbnail and sits ~10 px in from the bottom-right edges. Any
-# text under it gets visually clipped. The watch page hides the pill once you
-# arrive, so the issue isn't the watch page — it's every surface that decides
-# whether someone clicks. Plan accordingly:
-#   - Either keep text out of the bottom-right ~120x60 px zone, or
-#   - Raise centered text high enough that its bottom edge clears y=660-ish.
-# This script takes the second approach: BOTTOM_PAD=120 lifts a centered
-# headline above the pill without compromising the bottom-band layout.
+# surface that's NOT the watch page itself). On mobile that pill takes a
+# larger proportion of the thumbnail and reliably stomps on bottom-positioned
+# text — even text "lifted" 120 px above the bottom edge gets visually
+# clipped on a phone-sized render. The clean solution is to put the text at
+# the TOP of the thumbnail and keep the bottom half clear for the pill.
+# This script does that: gravity=north + TOP_PAD=80 plants the headline near
+# the top edge with breathing room from the screen edge for safe-zone
+# considerations on cropped previews.
 #
 # Aspect ratio: source images can be any shape. -resize 1280x720^ + -extent
 # 1280x720 first scales the smallest dimension to fit, then center-crops to
@@ -68,14 +67,14 @@ TEXT="$3"
 FONT="Helvetica-Bold"
 POINTSIZE=115
 STROKE=12
-BOTTOM_PAD=120  # Lifts text above YouTube's bottom-right duration pill. See gotchas.
+TOP_PAD=80  # Distance from top edge to the text baseline area. See gotchas.
 
 magick "$SRC" \
   -resize "1280x720^" \
   -gravity center -extent 1280x720 \
-  -font "$FONT" -pointsize "$POINTSIZE" -gravity south \
-  -stroke black -strokewidth "$STROKE" -fill black -annotate "+0+${BOTTOM_PAD}" "$TEXT" \
-  -stroke none -fill white -annotate "+0+${BOTTOM_PAD}" "$TEXT" \
+  -font "$FONT" -pointsize "$POINTSIZE" -gravity north \
+  -stroke black -strokewidth "$STROKE" -fill black -annotate "+0+${TOP_PAD}" "$TEXT" \
+  -stroke none -fill white -annotate "+0+${TOP_PAD}" "$TEXT" \
   "$OUT"
 
 echo "wrote $OUT"
