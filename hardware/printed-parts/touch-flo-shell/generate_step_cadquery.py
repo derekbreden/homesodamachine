@@ -27,7 +27,10 @@ from _cadq_export import export_step
 # SHELL CENTER (lateral)
 # ═══════════════════════════════════════════════════════
 
-SHELL_CENTER_X = 1.5875    # match the mounting plate's lateral center
+SHELL_CENTER_X = 3.175     # match the mounting plate's lateral center.
+                            # = midpoint of {body -X face at -15.75,
+                            # flavor tube +X outer wall at +22.1}
+                            # with 1/4" OD flavor tubes at FLAVOR_TUBE_X = 18.925.
 SHELL_CENTER_Y = 0.0
 
 
@@ -52,11 +55,13 @@ BODY_BORE_X        = 0.0
 BODY_BORE_Y        = 0.0
 
 # Flavor-tube pill (mirrored from the mounting plate)
-FLAVOR_TUBE_X        = 17.3375
-FLAVOR_TUBE_HOLE_DIA = 3.6
-FLAVOR_TUBE_Y_OFFSET = 1.5875
-PILL_LENGTH_Y = 2 * FLAVOR_TUBE_Y_OFFSET + FLAVOR_TUBE_HOLE_DIA   # 6.775
-PILL_WIDTH_X  = FLAVOR_TUBE_HOLE_DIA                                # 3.6
+# Sized for 1/4" OD LLDPE flavor tubes (6.35 mm OD), tangent to the
+# body's +X face (at X=15.75) and tangent to each other at Y=0.
+FLAVOR_TUBE_X        = 18.925   # = BODY_R + FLAVOR_TUBE_R = 15.75 + 3.175
+FLAVOR_TUBE_HOLE_DIA = 6.85     # 6.35 mm OD + 0.5 mm clearance
+FLAVOR_TUBE_Y_OFFSET = 3.175    # = FLAVOR_TUBE_R, tubes touch at Y=0
+PILL_LENGTH_Y = 2 * FLAVOR_TUBE_Y_OFFSET + FLAVOR_TUBE_HOLE_DIA   # 13.2
+PILL_WIDTH_X  = FLAVOR_TUBE_HOLE_DIA                                # 6.85
 
 
 # ═══════════════════════════════════════════════════════
@@ -67,16 +72,21 @@ PILL_WIDTH_X  = FLAVOR_TUBE_HOLE_DIA                                # 3.6
 # shell center. The body bore is offset by SHELL_CENTER_X mm from
 # shell center, so its farthest perimeter point (in -X) sits at
 # distance SHELL_CENTER_X + body_bore_radius from the shell center.
-# The pill's +X semicircle is ~0.04 mm farther; the wall is ~0.04 mm
-# thinner there. Acceptable.
-WALL_THICKNESS_MIN = 3.0   # mm — target at the body bore's -X edge
+#
+# With SHELL_CENTER_X chosen to balance walls on both sides (body
+# bore -X edge vs. flavor pill +X edge), the two extremes are
+# equidistant from the shell center: 19.175 mm. WALL_THICKNESS_MIN
+# applies cleanly to both.
+WALL_THICKNESS_MIN = 3.0   # mm — target at body bore's -X edge AND
+                            # at flavor pill's +X edge (both at 19.175
+                            # mm from shell center, by construction).
 
 _BODY_BORE_FARTHEST_FROM_SHELL_CENTER = (
     (SHELL_CENTER_X - BODY_BORE_X) + BODY_BORE_DIAMETER / 2.0
-)   # = 17.5875 mm
+)   # = 19.175 mm
 
 SHELL_OUTER_R        = _BODY_BORE_FARTHEST_FROM_SHELL_CENTER + WALL_THICKNESS_MIN
-SHELL_OUTER_DIAMETER = 2.0 * SHELL_OUTER_R   # = 41.175 mm
+SHELL_OUTER_DIAMETER = 2.0 * SHELL_OUTER_R   # = 44.35 mm
 
 
 # ═══════════════════════════════════════════════════════
@@ -176,7 +186,7 @@ LEVER_RAMP_ANGLE_DEG  = math.degrees(
 
 # Shell rectangle. X width matches the cylinder OD so the X faces flow
 # straight up from the cylinder. Y half is body-bore-Y plus the wall.
-SHELL_RECT_X_HALF  = SHELL_OUTER_R                                        # 20.5875
+SHELL_RECT_X_HALF  = SHELL_OUTER_R                                        # 22.175
 SHELL_RECT_Y_HALF  = BODY_BORE_RECT_SHORT / 2.0 + WALL_THICKNESS_MIN      # 11.75
 SHELL_RECT_X_WIDTH = 2.0 * SHELL_RECT_X_HALF
 SHELL_RECT_Y_WIDTH = 2.0 * SHELL_RECT_Y_HALF
@@ -232,15 +242,17 @@ WING_OUTER_Y          = SHELL_RECT_Y_HALF                          # 11.75
 #     Corner radius = PILL_WIDTH_X/2 so the rounding matches the
 #     existing pill's end radius.
 WATER_TUBE_X        = 8.875
-WATER_TUBE_OD       = 0.25 * 25.4                                   # 6.35 — 1/4" LLDPE
-WATER_HOLE_DIAMETER = WATER_TUBE_OD + 2.0 * BORE_CLEARANCE          # 6.85
+WATER_TUBE_OD       = 0.375 * 25.4                                  # 9.525 — 3/8" LLDPE
+                                                                     # (sealed in body's
+                                                                     # 9.75 mm port via
+                                                                     # a TPU O-ring —
+                                                                     # 0.225 mm radial gap)
+WATER_HOLE_DIAMETER = WATER_TUBE_OD + 2.0 * BORE_CLEARANCE          # 10.025
 
-# 1/8" LLDPE flavor tube — used only to derive POST_BEND_X so the
-# flavor tube butts up against the water tube. The shell's flavor
-# pill (PILL_WIDTH_X = 3.6) stays sized for the body's flavor
-# channel exit, with the LLDPE running through.
-FLAVOR_TUBE_OD          = 0.125 * 25.4                              # 3.175 — 1/8" LLDPE
-FLAVOR_TUBE_PRE_BEND_X  = FLAVOR_TUBE_X                             # 17.3375
+# 1/4" LLDPE flavor tube — used to derive POST_BEND_X so the flavor
+# tube butts up against the water tube at the dispense point.
+FLAVOR_TUBE_OD          = 0.25 * 25.4                               # 6.35 — 1/4" LLDPE
+FLAVOR_TUBE_PRE_BEND_X  = FLAVOR_TUBE_X                             # 18.925
 # Butt the flavor tube against the water tube at the dispense point.
 # In 3D, each flavor tube sits at Y=±FLAVOR_TUBE_Y_OFFSET (so they
 # also touch each other), so X-tangency is Pythagorean:
@@ -248,7 +260,7 @@ FLAVOR_TUBE_PRE_BEND_X  = FLAVOR_TUBE_X                             # 17.3375
 FLAVOR_TUBE_POST_BEND_X = WATER_TUBE_X + math.sqrt(
     (WATER_TUBE_OD / 2.0 + FLAVOR_TUBE_OD / 2.0) ** 2
     - FLAVOR_TUBE_Y_OFFSET ** 2
-)                                                                    # ≈ 13.365
+)                                                                    # ≈ 16.150
 
 FILL_X_MIN = 10.46                                                  # back third of water tube
 
@@ -267,7 +279,7 @@ ZONE4_Z_BOTTOM = SHELL_ARCH_FOOT_TOP_Z                              # 44.25
 # Zone 4 top must clear the lever's pressed-down envelope. The lever's
 # head corner at original (X=9, Z=52) rotates -18° around pivot
 # (1.5, 46) to (6.78, 54.024). That point sits inside zone 5's water-
-# circle outer outline (centered at X=8.875, R=6.425), so zone 5's
+# circle outer outline (centered at X=8.875, R=9.0125), so zone 5's
 # bottom — and therefore zone 4's top — must be above it. The first
 # PETG test print showed ~1 mm clearance was too tight in practice;
 # bumped to 57.5 mm for ~3.5 mm clearance above 54.024.
@@ -312,10 +324,10 @@ ZONE5_WALL     = 4.0                                                # toughened 
 #   5. GN_TIP_STRAIGHT_LEN tip
 #
 # Sweep frame: cross-section centered on the water tube. The flavor
-# pill's +X offset (FLAVOR_TUBE_POST_BEND_X − WATER_TUBE_X ≈ 4.49 mm)
+# pill's +X offset (FLAVOR_TUBE_POST_BEND_X − WATER_TUBE_X ≈ 7.275 mm)
 # is carried in the LOCAL frame, so as the tangent rotates through
 # each bend the pill traces a parallel-offset arc at the larger
-# radius (water R + 4.49) — matching the actual flavor tubes'
+# radius (water R + 7.275) — matching the actual flavor tubes'
 # centerlines.
 #
 # These mirror constants in the assembly (`faucet-assembly`); if the
@@ -413,14 +425,14 @@ LEVER_RIDGE_X = (
 
 # Zone 5's X extents at Y=0, used to derive zone 4.5's matched-margin
 # front X. Mirrors the cross-section in build_zone5_outer.
-_Z5_WATER_R_OUTER = WATER_HOLE_DIAMETER / 2.0 + ZONE5_WALL           # 6.425
-_Z5_FLAVOR_X_HALF = (PILL_WIDTH_X + 2.0 * ZONE5_WALL) / 2.0          # 4.8
-_Z5_X_MIN         = WATER_TUBE_X - _Z5_WATER_R_OUTER                 # 2.45
-_Z5_X_MAX         = FLAVOR_TUBE_POST_BEND_X + _Z5_FLAVOR_X_HALF      # 18.165
+_Z5_WATER_R_OUTER = WATER_HOLE_DIAMETER / 2.0 + ZONE5_WALL           # 9.0125
+_Z5_FLAVOR_X_HALF = (PILL_WIDTH_X + 2.0 * ZONE5_WALL) / 2.0          # 7.425
+_Z5_X_MIN         = WATER_TUBE_X - _Z5_WATER_R_OUTER                 # -0.1375
+_Z5_X_MAX         = FLAVOR_TUBE_POST_BEND_X + _Z5_FLAVOR_X_HALF      # 23.575
 
-ZONE45_BACK_X      = SHELL_CENTER_X + SHELL_OUTER_R                  # 22.175
-_ZONE45_X_MARGIN   = ZONE45_BACK_X - _Z5_X_MAX                       # 4.01
-ZONE45_FRONT_X     = _Z5_X_MIN - _ZONE45_X_MARGIN                    # ≈ -1.56
+ZONE45_BACK_X      = SHELL_CENTER_X + SHELL_OUTER_R                  # 25.35
+_ZONE45_X_MARGIN   = ZONE45_BACK_X - _Z5_X_MAX                       # 1.775
+ZONE45_FRONT_X     = _Z5_X_MIN - _ZONE45_X_MARGIN                    # ≈ -1.9125
 
 ZONE45_Z_TOP                = (ZONE4_Z_TOP + GN_BEND1_START_Z) / 2.0  # halfway between
                                                                        # zone 4 top and
@@ -429,7 +441,7 @@ ZONE45_Z_TOP                = (ZONE4_Z_TOP + GN_BEND1_START_Z) / 2.0  # halfway 
 ZONE45_BOT_Z_AT_FRONT       = (
     _NEW_ARCH_C_Z
     + math.sqrt(_NEW_ARCH_R ** 2 - (ZONE45_FRONT_X - FILL_X_MIN) ** 2)
-)                                                  # ≈ 52.87
+)                                                  # ≈ 52.75
 
 # Mid-point of the bottom arch sub-arc, between ZONE45_FRONT_X end
 # and FILL_X_MIN end.
@@ -755,8 +767,8 @@ def _body_bore_above_body_cut(z_bottom: float, z_height: float) -> cq.Workplane:
     from filling it for two reasons:
 
       1. The flavor tubes' S-bend passes through this region (going
-         from the body's flavor channel at X=17.3375 down to the
-         post-bend X=13.365). They don't need a shell wrap here —
+         from the body's flavor channel at X=18.925 down to the
+         post-bend X=16.15). They don't need a shell wrap here —
          the body's flavor channel locates them below, and zone 4.5
          (the lid) holds them from above.
 
@@ -941,7 +953,7 @@ def build_zone45_outer() -> cq.Workplane:
     edges; at |Y| = SHELL_RECT_Y_HALF both edges curve inward by the
     same amount.
     """
-    rect_x_max = SHELL_CENTER_X + SHELL_RECT_X_HALF        # 22.175
+    rect_x_max = SHELL_CENTER_X + SHELL_RECT_X_HALF        # 25.35
     y_half     = SHELL_RECT_Y_HALF                          # 11.75
 
     profile_solid = (
@@ -1173,8 +1185,8 @@ DOWEL_BEARING_HALF_Y_SIGN  = -1   # -Y half carries the dowels
 # water tube; local +X points toward the flavor pill. Both walls are
 # ZONE5_WALL = 4 mm thick, so the midpoint is the inner+outer edges'
 # half-sum.
-#   Water -X wall: local_x ∈ [-7.425 (outer), -3.425 (bore)] → midpoint -5.425
-#   Flavor +X wall: local_x ∈ [+6.290 (bore), +10.290 (outer)] → midpoint +8.290
+#   Water -X wall:  local_x ∈ [-9.0125 (outer), -5.0125 (bore)] → midpoint -7.0125
+#   Flavor +X wall: local_x ∈ [+10.700 (bore), +14.700 (outer)] → midpoint +12.700
 _DOWEL_LOCAL_X_WATER  = -(WATER_HOLE_DIAMETER / 2.0 + ZONE5_WALL / 2.0)
 _DOWEL_LOCAL_X_FLAVOR = (
     (FLAVOR_TUBE_POST_BEND_X - WATER_TUBE_X)
@@ -1300,7 +1312,7 @@ TUBE_HALF_DOWEL_POSITIONS_XZ = [
 def _tube_shell_outer_section(z_bottom: float, z_height: float) -> cq.Workplane:
     """Tube wrap outer (water cyl + flavor pill + fill rect, all 4 mm wall)
     extruded vertically over the given Z range."""
-    water_r_outer = WATER_HOLE_DIAMETER / 2.0 + ZONE5_WALL  # 6.425
+    water_r_outer = WATER_HOLE_DIAMETER / 2.0 + ZONE5_WALL  # 9.0125
     water_outer = (
         cq.Workplane("XY")
         .workplane(offset=z_bottom)
@@ -1504,7 +1516,7 @@ if __name__ == "__main__":
     print("Touch-Flo shell (work in progress)")
     print(f"  Center:          X = {SHELL_CENTER_X}, Y = {SHELL_CENTER_Y}")
     print(f"  Wall target:     {WALL_THICKNESS_MIN} mm "
-          f"(~{WALL_THICKNESS_MIN - 0.04:.2f} mm at pill +X semicircle)")
+          f"(equal at body bore -X edge AND flavor pill +X edge)")
     print()
     print(f"  Per-side clearance:  {BORE_CLEARANCE} mm "
           f"(applied uniformly: X, Y, radial, AND face-to-face Z)")
