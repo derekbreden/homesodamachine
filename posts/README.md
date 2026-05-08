@@ -306,9 +306,12 @@ website") into windows where those concepts didn't exist yet.
    the post stands alone — no "yesterday," no references to the prior
    day's post.
 
-5. Don't auto-commit unless explicitly instructed. The act of committing
-   pages every subscriber, so a human review pass before publish is the
-   default.
+5. Commit and push to publish. The deploy hook diffs `posts/*.md`
+   against the `post_hashes` table and fires an FCM push per new or
+   changed post. Agents are expected to commit and push without
+   waiting for human approval — that's the whole point of the
+   pipeline. The act of committing pages every subscriber; the
+   newsletter goes out the moment the deploy completes.
 
 ## Video-launch posts
 
