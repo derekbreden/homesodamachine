@@ -1,12 +1,10 @@
 # Posts
 
 Daily Updates feed for homesodamachine.com/blog. Each markdown file in this
-directory is one day's post. Posts are committed to git like any other
-file; on deploy, the server hashes every `posts/*.md`, diffs against the
-`post_hashes` table in Postgres, and fires an FCM push notification per
-new or changed post (see `lib/push.js`). The post's frontmatter title is
-the notification heading. Treat committing a new post as a publish action
-— it pages every subscriber.
+directory is one day's post. On deploy, the server hashes every `posts/*.md`,
+diffs against the `post_hashes` table in Postgres, and fires an FCM push
+notification per new or changed post (see `lib/push.js`). The post's
+frontmatter title is the notification heading.
 
 ## The format
 
@@ -305,13 +303,6 @@ website") into windows where those concepts didn't exist yet.
    is 8 words or fewer (this is the rule that drifts most often). Verify
    the post stands alone — no "yesterday," no references to the prior
    day's post.
-
-5. Commit and push to publish. The deploy hook diffs `posts/*.md`
-   against the `post_hashes` table and fires an FCM push per new or
-   changed post. Agents are expected to commit and push without
-   waiting for human approval — that's the whole point of the
-   pipeline. The act of committing pages every subscriber; the
-   newsletter goes out the moment the deploy completes.
 
 ## Video-launch posts
 
