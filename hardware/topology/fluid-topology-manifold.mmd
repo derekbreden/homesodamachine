@@ -112,9 +112,16 @@ flowchart LR
   VG --> NozzleA
   VJ --> NozzleB
 
-  %% Manifold internals (short stubs between valves and Y-junctions): blue.
+  %% Manifold internals: blue. These edges are ZERO LENGTH — valve seats sit
+  %% directly at the Y-junctions inside a single machined manifold block. There
+  %% is no tubing between, e.g., V-A and Y-A; the only volume on a blue edge is
+  %% the valve's own downstream poppet void (sub-mL). This is what makes the
+  %% manifold a manifold rather than a network of tube runs, and why there are
+  %% no meaningful stagnant side-pockets at the Y-junctions.
   %% 0-21 = Source Selection + Pump Junctions + Bag Circuit interior edges.
   linkStyle 0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21 stroke:#09f,stroke-width:2px
-  %% Tube runs between the manifold and remote components: white.
+  %% Tube runs between the manifold and remote components: white. These are
+  %% the only real lengths of tube in the diagram; everything else is
+  %% manifold-internal.
   %% 22-33 = sources -> manifold inlets, manifold -> pumps/bags/nozzles.
   linkStyle 22,23,24,25,26,27,28,29,30,31,32,33 stroke:#ccc,stroke-width:2px
