@@ -51,12 +51,29 @@ BODY_BORE_DIAMETER = 31.5 + 2.0 * BORE_CLEARANCE   # 32.0
 BODY_BORE_X        = 0.0
 BODY_BORE_Y        = 0.0
 
-# Flavor-tube pill (mirrored from the mounting plate)
-FLAVOR_TUBE_X        = 17.3375
-FLAVOR_TUBE_HOLE_DIA = 3.6
-FLAVOR_TUBE_Y_OFFSET = 1.5875
-PILL_LENGTH_Y = 2 * FLAVOR_TUBE_Y_OFFSET + FLAVOR_TUBE_HOLE_DIA   # 6.775
-PILL_WIDTH_X  = FLAVOR_TUBE_HOLE_DIA                                # 3.6
+# Flavor-tube pill — sized for 1/4" OD LLDPE flavor tubes (6.35 mm OD),
+# tangent to the body's +X face (X=15.75) and tangent to each other at Y=0.
+# (Mounting plate not yet updated to match — coming in a later pass.)
+FLAVOR_TUBE_X        = 18.925   # = BODY_R + tube_R = 15.75 + 3.175
+FLAVOR_TUBE_HOLE_DIA = 6.85     # = 6.35 OD + 0.5 mm clearance
+FLAVOR_TUBE_Y_OFFSET = 3.175    # = tube_R, tubes touch at Y=0
+PILL_LENGTH_Y = 2 * FLAVOR_TUBE_Y_OFFSET + FLAVOR_TUBE_HOLE_DIA   # 13.2
+PILL_WIDTH_X  = FLAVOR_TUBE_HOLE_DIA                                # 6.85
+
+# Flat -X edge of the flavor pill cutout in zones 1-4 (the base shell).
+# Pulled in (more -X) past the natural pill -X edge so the cutout's
+# corners (at Y=±PILL_LENGTH_Y/2) land on the body bore's cyl curve
+# in zone 1. With 1/4" flavor tubes the natural pill -X (= 15.5) is
+# OUTSIDE the cyl bore at the corner Y=±6.6 (bore +X there is 14.57)
+# — leaving a thin sliver of shell material between cutout and bore.
+# Computing -X as `min(natural pill edge, bore +X at corner Y)` makes
+# the flat side reach the bore wherever the natural pill would not.
+# With smaller (1/8") tubes the natural pill is inside the bore at
+# its corners, so this min picks the natural value and nothing changes.
+FLAVOR_PILL_X_MINUS_EDGE = min(
+    FLAVOR_TUBE_X - PILL_WIDTH_X / 2.0,
+    math.sqrt((BODY_BORE_DIAMETER / 2.0) ** 2 - (PILL_LENGTH_Y / 2.0) ** 2),
+)                                                                    # ≈ 14.575
 
 
 # ═══════════════════════════════════════════════════════
@@ -239,12 +256,10 @@ WATER_TUBE_OD       = 0.375 * 25.4                                  # 9.525 — 
                                                                      # 0.225 mm radial gap)
 WATER_HOLE_DIAMETER = WATER_TUBE_OD + 2.0 * BORE_CLEARANCE          # 10.025
 
-# 1/8" LLDPE flavor tube — used only to derive POST_BEND_X so the
-# flavor tube butts up against the water tube. The shell's flavor
-# pill (PILL_WIDTH_X = 3.6) stays sized for the body's flavor
-# channel exit, with the LLDPE running through.
-FLAVOR_TUBE_OD          = 0.125 * 25.4                              # 3.175 — 1/8" LLDPE
-FLAVOR_TUBE_PRE_BEND_X  = FLAVOR_TUBE_X                             # 17.3375
+# 1/4" LLDPE flavor tube — used to derive POST_BEND_X so the flavor
+# tube butts up against the water tube at the dispense point.
+FLAVOR_TUBE_OD          = 0.25 * 25.4                               # 6.35 — 1/4" LLDPE
+FLAVOR_TUBE_PRE_BEND_X  = FLAVOR_TUBE_X                             # 18.925
 # Butt the flavor tube against the water tube at the dispense point.
 # In 3D, each flavor tube sits at Y=±FLAVOR_TUBE_Y_OFFSET (so they
 # also touch each other), so X-tangency is Pythagorean:
@@ -252,7 +267,7 @@ FLAVOR_TUBE_PRE_BEND_X  = FLAVOR_TUBE_X                             # 17.3375
 FLAVOR_TUBE_POST_BEND_X = WATER_TUBE_X + math.sqrt(
     (WATER_TUBE_OD / 2.0 + FLAVOR_TUBE_OD / 2.0) ** 2
     - FLAVOR_TUBE_Y_OFFSET ** 2
-)                                                                    # ≈ 15.023
+)                                                                    # ≈ 16.150
 
 FILL_X_MIN = 10.46                                                  # back third of water tube
 
@@ -455,13 +470,19 @@ def _flavor_pill_flat_x_minus(z_bottom: float, z_height: float) -> cq.Workplane:
     """Flavor pill cutout at FLAVOR_TUBE_X with the X- side flattened.
 
     Same as the original slot2D pill (PILL_LENGTH_Y × PILL_WIDTH_X, Y-oriented),
-    but the X- side has square corners at (FLAVOR_TUBE_X − PILL_WIDTH_X/2,
+    but the X- side has square corners at (FLAVOR_PILL_X_MINUS_EDGE,
     ±PILL_LENGTH_Y/2) instead of the rounded transitions to the Y+/Y-
     semicircular caps. Removes thin shell features on the X- side of the
     cutout that print poorly. The Y+/Y- caps and the X+ side stay rounded.
 
-    Construction: union of the original slot2D and a rectangle covering the
-    X- half of the pill's bounding box.
+    The flat -X edge sits at FLAVOR_PILL_X_MINUS_EDGE, which is pulled
+    past the natural slot2D edge when needed so the corners reach the
+    body bore in zone 1. See the constant's definition for the rule.
+
+    Construction: union of the original slot2D and a rectangle that
+    covers everything from FLAVOR_PILL_X_MINUS_EDGE up to FLAVOR_TUBE_X
+    on the X- side, so the flat edge ends up at FLAVOR_PILL_X_MINUS_EDGE
+    regardless of whether the slot2D edge is closer or farther.
     """
     pill = (
         cq.Workplane("XY")
@@ -470,11 +491,12 @@ def _flavor_pill_flat_x_minus(z_bottom: float, z_height: float) -> cq.Workplane:
         .slot2D(PILL_LENGTH_Y, PILL_WIDTH_X, angle=90)
         .extrude(z_height)
     )
+    fill_width = FLAVOR_TUBE_X - FLAVOR_PILL_X_MINUS_EDGE
     fill_rect = (
         cq.Workplane("XY")
         .workplane(offset=z_bottom)
-        .moveTo(FLAVOR_TUBE_X - PILL_WIDTH_X / 4.0, 0)
-        .rect(PILL_WIDTH_X / 2.0, PILL_LENGTH_Y)
+        .moveTo(FLAVOR_TUBE_X - fill_width / 2.0, 0)
+        .rect(fill_width, PILL_LENGTH_Y)
         .extrude(z_height)
     )
     return pill.union(fill_rect)
