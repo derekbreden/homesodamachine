@@ -1081,19 +1081,25 @@ def _gooseneck_path_at_origin() -> cq.Workplane:
 def _zone6_outer_sketch() -> cq.Sketch:
     """Zone 5's outer cross-section centered on the water tube.
 
-    Single connected region: water circle + flavor pill (offset +X) +
+    Single connected region: water slot + flavor pill (offset +X) +
     fill rectangle between them. The mode='a' flag unions each shape
     into the running sketch so the sweep sees one face.
 
-    Both the water side and the flavor side use the same outer
-    Y half-width — `max(natural water_r_outer, natural pill_y_half)` —
-    so the cross-section's Y+ and Y- outer apexes meet at the same Y
-    across the X range. With small (1/8) flavor tubes the water side
-    dominates and the pill grows in Y; with bigger (1/4) flavor tubes
-    the pill dominates and the water circle grows in Y to match.
-    Either way, the wall on the smaller side becomes thicker than
-    ZONE5_WALL on its Y top/bottom — X side walls and inner cavity
-    stay nominal.
+    Both the water side and the flavor side are Y-oriented slots
+    (rather than circle + pill). They share the same outer Y total
+    `2 * max(natural water_r_outer, natural pill_y_half)`, so the
+    cross-section's Y+ and Y- outer apexes meet at the same Y across
+    the X range. Each side's X width stays at natural — that is, the
+    walls on the extreme X- (around the water bore) and extreme X+
+    (around the flavor pill) are both ZONE5_WALL. The "stretch" is
+    only in Y (where the smaller side picks up extra wall thickness
+    on its Y apex) — the X side walls don't thicken.
+
+    When water dominates the natural Y (small flavor tubes), the
+    water "slot" degenerates to a circle (slot_straight = 0) and the
+    flavor pill stretches in Y. When flavor dominates (current 1/4
+    tubes), the flavor "pill" stays a pill and the water slot picks
+    up a straight section in the middle.
 
     NOTE: cq.Sketch.slot(w, h) takes w as the *straight section* length
     (between the rounded ends), not the overall length — opposite of
@@ -1104,18 +1110,21 @@ def _zone6_outer_sketch() -> cq.Sketch:
     natural_water_r = WATER_HOLE_DIAMETER / 2.0 + ZONE6_WALL
     natural_pill_y_half = PILL_LENGTH_Y / 2.0 + ZONE6_WALL
     y_half = max(natural_water_r, natural_pill_y_half)
-    water_r_outer = y_half
-    pill_long_total = 2.0 * y_half
+    y_total = 2.0 * y_half
+
+    water_x_width = 2.0 * natural_water_r
+    water_slot_straight = y_total - water_x_width
+
     pill_short_total = PILL_WIDTH_X + 2.0 * ZONE6_WALL
-    pill_straight = pill_long_total - pill_short_total
+    pill_straight = y_total - pill_short_total
     return (
         cq.Sketch()
-        .circle(water_r_outer)
+        .slot(water_slot_straight, water_x_width, angle=90)
         .push([(flavor_offset_x, 0)])
         .slot(pill_straight, pill_short_total, angle=90, mode="a")
         .reset()
         .push([(flavor_offset_x / 2.0, 0)])
-        .rect(flavor_offset_x, 2.0 * y_half, mode="a")
+        .rect(flavor_offset_x, y_total, mode="a")
         .clean()
     )
 
@@ -1351,32 +1360,35 @@ TUBE_HALF_DOWEL_POSITIONS_XZ = [
 
 
 def _tube_shell_outer_section(z_bottom: float, z_height: float) -> cq.Workplane:
-    """Tube wrap outer (water cyl + flavor pill + fill rect, all
-    ZONE5_WALL on the X sides and around the water cyl's X faces)
-    extruded vertically over the given Z range.
+    """Tube wrap outer (water Y-slot + flavor pill + fill rect, all
+    ZONE5_WALL on the X sides) extruded vertically over the given Z
+    range.
 
     Water and flavor sides share the same outer Y half-width — the
     larger of (water bore + wall) and (flavor pill + wall) — so the
     cross-section's Y+ and Y- outer apexes meet at the same Y across
-    the X range. See _zone6_outer_sketch's docstring for details.
+    the X range. The water side is a Y-oriented slot rather than a
+    circle, so the wall on the extreme -X face stays at ZONE5_WALL
+    (= 3 mm) — only the Y apex thickens. See _zone6_outer_sketch's
+    docstring for details.
     """
     natural_water_r = WATER_HOLE_DIAMETER / 2.0 + ZONE5_WALL
     natural_pill_y_half = PILL_LENGTH_Y / 2.0 + ZONE5_WALL
     y_half = max(natural_water_r, natural_pill_y_half)
-    water_r_outer = y_half
-    pill_long_total = 2.0 * y_half
+    y_total = 2.0 * y_half
+    water_x_width = 2.0 * natural_water_r
     water_outer = (
         cq.Workplane("XY")
         .workplane(offset=z_bottom)
         .moveTo(WATER_TUBE_X, 0)
-        .circle(water_r_outer)
+        .slot2D(y_total, water_x_width, angle=90)
         .extrude(z_height)
     )
     flavor_outer = (
         cq.Workplane("XY")
         .workplane(offset=z_bottom)
         .moveTo(FLAVOR_TUBE_POST_BEND_X, 0)
-        .slot2D(pill_long_total,
+        .slot2D(y_total,
                 PILL_WIDTH_X + 2.0 * ZONE5_WALL, angle=90)
         .extrude(z_height)
     )
@@ -1384,7 +1396,7 @@ def _tube_shell_outer_section(z_bottom: float, z_height: float) -> cq.Workplane:
         cq.Workplane("XY")
         .workplane(offset=z_bottom)
         .moveTo((WATER_TUBE_X + FLAVOR_TUBE_POST_BEND_X) / 2.0, 0)
-        .rect(FLAVOR_TUBE_POST_BEND_X - WATER_TUBE_X, 2.0 * y_half)
+        .rect(FLAVOR_TUBE_POST_BEND_X - WATER_TUBE_X, y_total)
         .extrude(z_height)
     )
     return water_outer.union(flavor_outer).union(fill_rect)
@@ -1414,35 +1426,36 @@ def _socket_cutter(z_bottom: float, z_height: float) -> cq.Workplane:
     extruded vertically over the given Z range.
 
     Cuts material away from the base shell so the tube shell's tongue can
-    insert. Tracks the same shared-Y rule as _tube_shell_outer_section,
-    plus SOCKET_CLEARANCE on every dimension so the socket matches the
-    tongue with uniform radial clearance.
+    insert. Tracks the same shared-Y rule as _tube_shell_outer_section
+    (water side is a Y-oriented slot, not a circle), plus SOCKET_CLEARANCE
+    on every dimension so the socket matches the tongue with uniform
+    radial clearance.
     """
     natural_water_r_socket = WATER_HOLE_DIAMETER / 2.0 + ZONE5_WALL + SOCKET_CLEARANCE
     natural_pill_y_half_socket = PILL_LENGTH_Y / 2.0 + ZONE5_WALL + SOCKET_CLEARANCE
     y_half_socket = max(natural_water_r_socket, natural_pill_y_half_socket)
-    water_r_socket = y_half_socket
-    pill_length_socket = 2.0 * y_half_socket
+    y_total_socket = 2.0 * y_half_socket
+    water_x_width_socket = 2.0 * natural_water_r_socket
     pill_width_socket  = PILL_WIDTH_X  + 2.0 * (ZONE5_WALL + SOCKET_CLEARANCE)
     water_socket = (
         cq.Workplane("XY")
         .workplane(offset=z_bottom)
         .moveTo(WATER_TUBE_X, 0)
-        .circle(water_r_socket)
+        .slot2D(y_total_socket, water_x_width_socket, angle=90)
         .extrude(z_height)
     )
     flavor_socket = (
         cq.Workplane("XY")
         .workplane(offset=z_bottom)
         .moveTo(FLAVOR_TUBE_POST_BEND_X, 0)
-        .slot2D(pill_length_socket, pill_width_socket, angle=90)
+        .slot2D(y_total_socket, pill_width_socket, angle=90)
         .extrude(z_height)
     )
     fill_socket = (
         cq.Workplane("XY")
         .workplane(offset=z_bottom)
         .moveTo((WATER_TUBE_X + FLAVOR_TUBE_POST_BEND_X) / 2.0, 0)
-        .rect(FLAVOR_TUBE_POST_BEND_X - WATER_TUBE_X, 2.0 * y_half_socket)
+        .rect(FLAVOR_TUBE_POST_BEND_X - WATER_TUBE_X, y_total_socket)
         .extrude(z_height)
     )
     return water_socket.union(flavor_socket).union(fill_socket)
