@@ -52,7 +52,6 @@ Plan A is the current path. Plan B (racetrack body half-sheets + dished racetrac
 | [MAACFLOW SS 1/4" NPT M × 3/8" hose barb (4-pk)](https://www.amazon.com/dp/B0DMP77B6S) | B0DMP77B6S — adapts pump 3/8" hose-barb output to 1/4" NPT plumbing for the check valve and top-plate port; 1 of 4 per unit (also used in §8) | 1 (of 4 pk) | $3.24 | $3.24 |
 | [GASHER 1/4" NPT SS one-way check valve (2-pk, $15.00)](https://www.amazon.com/dp/B0FV2D2FFX) | B0FV2D2FFX — **water-side check** between SeaFlo pump and top-plate water-inlet port; PTFE soft-seat on metal poppet (confirmed by inspection 2026-04-25; vs the pump's internal elastomer); 1 of 2 valves per unit (the other valve is the CO2-side check in §4) | 1 (of 2) | $7.50 | $7.50 |
 | [Lifevant 1/4" OD water tubing 32.8 ft + quick-connects](https://www.amazon.com/dp/B0DKCZ5W66) | B0DKCZ5W66 — water-inlet tubing (filter → pump → vessel) ~8–10 ft + ~5 of 12 quick-connects per unit; ~1/3 of pack. Generic Amazon PE listing with no third-party food cert (vendor doesn't list one) — short-term use without certification | 1 (~1/3 pk) | $3.33 | $3.33 |
-| [PATIKIL PE Tubing 1/4" ID × 3/8" OD, 25 ft, Black](https://www.amazon.com/dp/B0DHLNZ94C) | B0DHLNZ94C — **3/8" OD black PE tubing for the faucet's carbonated water segment** (vessel outlet → 3-tube dispense spout center tube). Material is generic "PE" per listing (LLDPE not confirmed); no third-party food cert (vendor doesn't list one) — short-term use without certification, same caveat as the Lifevant 1/4" line above. ~2 ft per unit; ~1/12 of 25 ft pack | 1 (~1/12 pk) | $1.76 | $1.76 |
 | [John Guest 1/4" OD × 1/8" NPT push-fit](https://www.amazon.com/dp/B07V6XKZG9) | B07V6XKZG9 | 1 | $5.00 | $5.00 |
 | [John Guest PI1208S acetal bulkhead union, 1/4" QC](https://www.amazon.com/dp/B0C1F3QR7N) | B0C1F3QR7N | 1 | $11.49 | $11.49 |
 
@@ -167,7 +166,7 @@ Dishing dies (PA6-CF) for end-cap forming are vessel-fabrication tools, not ship
 |---|---:|
 | 1. Controllers + electronics | $166.43 |
 | 2. Carbonator vessel (plan A, 316L) | $203.68 |
-| 3. Water inlet | $132.64 |
+| 3. Water inlet | $130.88 |
 | 4. CO2 subsystem | $58.13 |
 | 5. Refrigeration | $163.71 |
 | 6. Cold core insulation | $49.48 |
@@ -177,7 +176,7 @@ Dishing dies (PA6-CF) for end-cap forming are vessel-fabrication tools, not ship
 | 10. UI | $39.95 |
 | 11. Wiring | $27.05 |
 | 12. Level sensing | $19.07 |
-| **Total** | **$1,354.56** |
+| **Total** | **$1,352.80** |
 
 ## External / user-supplied (not shipped)
 
