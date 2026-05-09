@@ -51,7 +51,8 @@ Plan A is the current path. Plan B (racetrack body half-sheets + dished racetrac
 | [SEAFLO 22-Series 12V 1.3 GPM 100 psi diaphragm pump (3/8" hose-barb ports)](https://www.amazon.com/dp/B0166UBJX4) | B0166UBJX4 | 1 | $48.25 | $48.25 |
 | [MAACFLOW SS 1/4" NPT M × 3/8" hose barb (4-pk)](https://www.amazon.com/dp/B0DMP77B6S) | B0DMP77B6S — adapts pump 3/8" hose-barb output to 1/4" NPT plumbing for the check valve and top-plate port; 1 of 4 per unit (also used in §8) | 1 (of 4 pk) | $3.24 | $3.24 |
 | [GASHER 1/4" NPT SS one-way check valve (2-pk, $15.00)](https://www.amazon.com/dp/B0FV2D2FFX) | B0FV2D2FFX — **water-side check** between SeaFlo pump and top-plate water-inlet port; PTFE soft-seat on metal poppet (confirmed by inspection 2026-04-25; vs the pump's internal elastomer); 1 of 2 valves per unit (the other valve is the CO2-side check in §4) | 1 (of 2) | $7.50 | $7.50 |
-| [Lifevant 1/4" OD water tubing 32.8 ft + quick-connects](https://www.amazon.com/dp/B0DKCZ5W66) | B0DKCZ5W66 — water-inlet tubing (filter → pump → vessel) ~8–10 ft + ~5 of 12 quick-connects per unit; ~1/3 of pack | 1 (~1/3 pk) | $3.33 | $3.33 |
+| [Lifevant 1/4" OD water tubing 32.8 ft + quick-connects](https://www.amazon.com/dp/B0DKCZ5W66) | B0DKCZ5W66 — water-inlet tubing (filter → pump → vessel) ~8–10 ft + ~5 of 12 quick-connects per unit; ~1/3 of pack. Generic Amazon PE listing with no third-party food cert (vendor doesn't list one) — short-term use without certification | 1 (~1/3 pk) | $3.33 | $3.33 |
+| [PATIKIL PE Tubing 1/4" ID × 3/8" OD, 25 ft, Black](https://www.amazon.com/dp/B0DHLNZ94C) | B0DHLNZ94C — **3/8" OD black PE tubing for the faucet's carbonated water segment** (vessel outlet → 3-tube dispense spout center tube). Material is generic "PE" per listing (LLDPE not confirmed); no third-party food cert (vendor doesn't list one) — short-term use without certification, same caveat as the Lifevant 1/4" line above. ~2 ft per unit; ~1/12 of 25 ft pack | 1 (~1/12 pk) | $1.76 | $1.76 |
 | [John Guest 1/4" OD × 1/8" NPT push-fit](https://www.amazon.com/dp/B07V6XKZG9) | B07V6XKZG9 | 1 | $5.00 | $5.00 |
 | [John Guest PI1208S acetal bulkhead union, 1/4" QC](https://www.amazon.com/dp/B0C1F3QR7N) | B0C1F3QR7N | 1 | $11.49 | $11.49 |
 
@@ -121,7 +122,7 @@ Dishing dies (PA6-CF) for end-cap forming are vessel-fabrication tools, not ship
 | [Silicone tubing 1/8" ID × 1/4" OD](https://www.amazon.com/dp/B0BM4KQ6RT) | B0BM4KQ6RT — pump-head tube only (line runs are 1/4" LLDPE); per-roll delivered cost ($12.99 pre-tax + allocated tax = $13.93) amortized 1 roll per unit pending real per-unit consumption measurement | 1 | $13.93 | $13.93 |
 | [Supply Depot BIB connector, 3/8" red (2-pk)](https://www.amazon.com/dp/B0DMFK9B6P) | B0DMFK9B6P — rear-panel commercial-syrup input | 1 pk | $19.99 | $19.99 |
 | [MAACFLOW SS 1/4" NPT M × 3/8" hose barb (4-pk)](https://www.amazon.com/dp/B0DMP77B6S) | B0DMP77B6S | 1 pk | $12.97 | $12.97 |
-| [PureSec TWS1414 1/4" push-to-connect Y splitter (10-pk)](https://www.amazon.com/dp/B01N5I1ZJC) | B01N5I1ZJC — manifold Y-A/B/C/D/E/F/G/H/KA/KB per fluid-topology-manifold.mmd; food/water-safe plastic | 1 pk | $7.99 | $7.99 |
+| [John Guest PP2308E two-way divider, black polypropylene 1/4"](https://www.freshwatersystems.com/products/john-guest-two-way-divider-black-polypropylene-1-4) | JG PP2308E — manifold Y-A/B/C/D/E/F/G/H/KA/KB per fluid-topology-manifold.mmd, 10 per unit. Black PP body + food-grade EPDM o-ring; **NSF 51 + NSF 61 listed**, FDA-approved materials; 150 psi @ 70°F; made in Germany. Replaces the earlier PureSec TWS1414 (B01N5I1ZJC, vendor-claim food-safety only) — genuine certification upgrade. FWS order WEBFWS100673541 May 9, 2026, qty 2 bags of 10 @ $61.66 = $30.83/bag of 10 = $3.083/each delivered before tax/ship | 10 (1 bag) | $3.083 | $30.83 |
 
 ## 9. Dispensing (carbonator bottom-plate outlet → faucet)
 
@@ -166,17 +167,17 @@ Dishing dies (PA6-CF) for end-cap forming are vessel-fabrication tools, not ship
 |---|---:|
 | 1. Controllers + electronics | $166.43 |
 | 2. Carbonator vessel (plan A, 316L) | $203.68 |
-| 3. Water inlet | $130.88 |
+| 3. Water inlet | $132.64 |
 | 4. CO2 subsystem | $58.13 |
 | 5. Refrigeration | $163.71 |
 | 6. Cold core insulation | $49.48 |
 | 7. Printed parts (PETG) | $103.94 |
-| 8. Flavor subsystem | $318.30 |
+| 8. Flavor subsystem | $341.14 |
 | 9. Dispensing | $49.34 |
 | 10. UI | $39.95 |
 | 11. Wiring | $27.05 |
 | 12. Level sensing | $19.07 |
-| **Total** | **$1,329.96** |
+| **Total** | **$1,354.56** |
 
 ## External / user-supplied (not shipped)
 
