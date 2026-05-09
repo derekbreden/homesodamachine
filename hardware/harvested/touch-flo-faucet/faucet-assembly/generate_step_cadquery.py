@@ -16,10 +16,10 @@ tubes + (eventually) other inserts that the shell must accommodate.
 PARTS CURRENTLY MODELED
 =======================
 1. Valve body (loaded from the reference STEP — never modified here).
-2. Water dispense tube — Ø 9.5 mm × straight section, inserted into
-   the body's water port and extending 40 mm above the plateau.
-   O-rings on the actual tube exist but are not modeled (geometry
-   only; envelope is the bare 9.5 mm OD).
+2. Water dispense tube — Ø 9.525 mm (3/8" LLDPE), inserted into the
+   body's 9.75 mm water port and extending up through the gooseneck.
+   The TPU O-ring sealing the 0.225 mm radial gap is not modeled
+   (geometry only; envelope is the bare 9.525 mm OD).
 3. Two flavor dispense tubes — Ø 1/8" (3.175 mm), behind the water
    tube. Each tube starts at X = BODY_R + tube_R = 17.3375 mm (butting
    against the body's +X rectangular face and the other flavor tube),
@@ -79,16 +79,14 @@ SHANK_LENGTH  = 50.0         # mm — shank extends from Z=0 down to Z=-SHANK_LE
 # WATER DISPENSE TUBE
 # ═══════════════════════════════════════════════════════
 #
-# A straight Ø 9.5 mm tube that drops into the 9.75 mm water port.
-# The 0.25 mm radial gap is taken up by O-rings on the real tube
-# (not modeled). The tube extends a comfortable amount into the
-# port for retention, and 40 mm above the plateau for visualization.
-# Eventually this tube will be bent; for now it is a straight stub.
+# A Ø 9.525 mm tube (3/8" LLDPE) that drops into the body's 9.75 mm
+# water port. The 0.225 mm radial gap is taken up by a TPU O-ring on
+# the real tube (not modeled). The tube extends a comfortable amount
+# into the port for retention, and runs through the gooseneck.
 #
-WATER_TUBE_OD            = 0.25 * 25.4   # 6.35 mm — 1/4" LLDPE tubing
-                                          # (replaces the factory 9.5 mm tube;
-                                          # sealed in body's 9.75 mm port via
-                                          # a printed TPU grommet — separate part)
+WATER_TUBE_OD            = 0.375 * 25.4  # 9.525 mm — 3/8" LLDPE tubing
+                                          # (sealed in body's 9.75 mm port via
+                                          # a TPU O-ring — 0.225 mm radial gap)
 WATER_TUBE_ABOVE_PLATEAU = 40.0   # mm — length above the plateau
 WATER_TUBE_INTO_PORT     = 15.0   # mm — length inserted into the port
 
@@ -131,10 +129,10 @@ FLAVOR_TUBE_Z_TOP    = WATER_TUBE_Z_TOP                 # 79.0 mm
 # with Y constant through both bends.
 WATER_TUBE_R = WATER_TUBE_OD / 2.0
 _dx_sq = (WATER_TUBE_R + FLAVOR_TUBE_R) ** 2 - FLAVOR_TUBE_Y_OFFSET ** 2
-FLAVOR_TUBE_X_FINAL = PORT_CENTER_X + math.sqrt(_dx_sq)  # 15.012 mm
+FLAVOR_TUBE_X_FINAL = PORT_CENTER_X + math.sqrt(_dx_sq)  # 15.023 mm
 
 # X offset the S-bend has to absorb (positive number, magnitude only)
-_x_offset = FLAVOR_TUBE_X - FLAVOR_TUBE_X_FINAL          # 2.326 mm
+_x_offset = FLAVOR_TUBE_X - FLAVOR_TUBE_X_FINAL          # 2.315 mm
 
 # Bend radius: chosen for clean hand-bending of 1/8" SS — 2.5× OD,
 # well above the kink threshold and visually generous.
@@ -197,9 +195,9 @@ GN_TIP_STRAIGHT_LEN = 25.0
 # R_water + offset_X. Otherwise the tubes ride into each other
 # through the bend (the perpendicular component of the centerline
 # separation shrinks below R_water + R_flavor).
-_GN_FLAVOR_OFFSET   = FLAVOR_TUBE_X_FINAL - PORT_CENTER_X    # ≈ 4.49
-GN_FLAVOR_BEND1_R   = GN_BEND1_R + _GN_FLAVOR_OFFSET         # ≈ 34.49
-GN_FLAVOR_BEND2_R   = GN_BEND2_R + _GN_FLAVOR_OFFSET         # ≈ 64.49
+_GN_FLAVOR_OFFSET   = FLAVOR_TUBE_X_FINAL - PORT_CENTER_X    # ≈ 6.148
+GN_FLAVOR_BEND1_R   = GN_BEND1_R + _GN_FLAVOR_OFFSET         # ≈ 36.148
+GN_FLAVOR_BEND2_R   = GN_BEND2_R + _GN_FLAVOR_OFFSET         # ≈ 46.148
 
 
 # ═══════════════════════════════════════════════════════
