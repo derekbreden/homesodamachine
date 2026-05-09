@@ -16,17 +16,17 @@ tubes + (eventually) other inserts that the shell must accommodate.
 PARTS CURRENTLY MODELED
 =======================
 1. Valve body (loaded from the reference STEP — never modified here).
-2. Water dispense tube — Ø 9.525 mm (3/8" LLDPE), inserted into the
-   body's 9.75 mm water port via a TPU O-ring (0.225 mm radial gap;
-   O-ring not modeled). Extends 40 mm above the plateau through the
-   gooseneck.
-3. Two flavor dispense tubes — Ø 1/4" (6.35 mm) LLDPE, behind the
-   water tube. Each tube starts at X = BODY_R + tube_R = 18.925 mm
-   (butting against the body's +X rectangular face and the other
-   flavor tube), runs vertical from Z = -50, then S-bends just above
-   the plateau to come in tangent against the water tube. After the
-   bends the tubes run vertical to Z = 79, butted against the water
-   tube. Not inserted into the body.
+2. Water dispense tube — Ø 9.5 mm × straight section, inserted into
+   the body's water port and extending 40 mm above the plateau.
+   O-rings on the actual tube exist but are not modeled (geometry
+   only; envelope is the bare 9.5 mm OD).
+3. Two flavor dispense tubes — Ø 1/8" (3.175 mm), behind the water
+   tube. Each tube starts at X = BODY_R + tube_R = 17.3375 mm (butting
+   against the body's +X rectangular face and the other flavor tube),
+   runs vertical from Z = -50, then S-bends just above the plateau to
+   come in tangent against the water tube. After the bends the tubes
+   run vertical to Z = 79, butted against the water tube. Not inserted
+   into the body.
 4. Lever (build_lever) — swing-clearance blob. Union of the lever in
    rest position and pressed-down position (-18° around X=1.5, Z=46),
    each with vertical water-tube clearance for both extremes.
@@ -79,15 +79,16 @@ SHANK_LENGTH  = 50.0         # mm — shank extends from Z=0 down to Z=-SHANK_LE
 # WATER DISPENSE TUBE
 # ═══════════════════════════════════════════════════════
 #
-# A Ø 9.525 mm tube (3/8" LLDPE, ID ≈ 7.75 mm) that drops into the
-# body's 9.75 mm water port. The 0.225 mm radial gap is taken up by
-# a TPU O-ring on the real tube (not modeled). The tube extends a
-# comfortable amount into the port for retention, then runs through
-# the gooseneck via the build_water_dispense_tube path.
+# A straight Ø 9.5 mm tube that drops into the 9.75 mm water port.
+# The 0.25 mm radial gap is taken up by O-rings on the real tube
+# (not modeled). The tube extends a comfortable amount into the
+# port for retention, and 40 mm above the plateau for visualization.
+# Eventually this tube will be bent; for now it is a straight stub.
 #
-WATER_TUBE_OD            = 0.375 * 25.4  # 9.525 mm — 3/8" LLDPE tubing
-                                          # (sealed in body's 9.75 mm port via
-                                          # a TPU O-ring — 0.225 mm radial gap)
+WATER_TUBE_OD            = 0.25 * 25.4   # 6.35 mm — 1/4" LLDPE tubing
+                                          # (replaces the factory 9.5 mm tube;
+                                          # sealed in body's 9.75 mm port via
+                                          # a printed TPU grommet — separate part)
 WATER_TUBE_ABOVE_PLATEAU = 40.0   # mm — length above the plateau
 WATER_TUBE_INTO_PORT     = 15.0   # mm — length inserted into the port
 
@@ -100,21 +101,21 @@ WATER_TUBE_LENGTH   = WATER_TUBE_Z_TOP - WATER_TUBE_Z_BOTTOM
 # FLAVOR DISPENSE TUBES (×2)
 # ═══════════════════════════════════════════════════════
 #
-# Two Ø 1/4" LLDPE tubes behind the water tube. They are NOT inserted
-# into the body — they sit alongside it. Each tube is tangent to:
+# Two Ø 1/8" tubes behind the water tube. They are NOT inserted into
+# the body — they sit alongside it. Each tube is tangent to:
 #   - the +X rectangular face of the body (X = BODY_R = 15.75 mm)
 #   - the other flavor tube (so both touch at Y = 0)
 #
 # Mirror across the X-Z plane: one at +Y, one at -Y.
 # Tube centers are therefore at:
-#   X = BODY_R + (FLAVOR_TUBE_OD / 2) = 18.925 mm
-#   Y = ± (FLAVOR_TUBE_OD / 2)        = ±3.175 mm
+#   X = BODY_R + (FLAVOR_TUBE_OD / 2) = 17.3375 mm
+#   Y = ± (FLAVOR_TUBE_OD / 2)        = ±1.5875 mm
 #
 # Z span matches the working height of the assembly:
 #   bottom = bottom of the shank (Z = -SHANK_LENGTH = -50 mm)
 #   top    = top of the water tube  (Z = WATER_TUBE_Z_TOP = 79 mm)
 #
-FLAVOR_TUBE_OD       = 1.0/4.0 * 25.4   # 6.35 mm — 1/4" LLDPE
+FLAVOR_TUBE_OD       = 1.0/8.0 * 25.4   # 3.175 mm — 1/8"
 FLAVOR_TUBE_R        = FLAVOR_TUBE_OD / 2.0
 FLAVOR_TUBE_X        = BODY_R + FLAVOR_TUBE_R           # 17.3375 mm — initial X
 FLAVOR_TUBE_Y_OFFSET = FLAVOR_TUBE_R                    # ±1.5875 mm — constant
@@ -130,19 +131,14 @@ FLAVOR_TUBE_Z_TOP    = WATER_TUBE_Z_TOP                 # 79.0 mm
 # with Y constant through both bends.
 WATER_TUBE_R = WATER_TUBE_OD / 2.0
 _dx_sq = (WATER_TUBE_R + FLAVOR_TUBE_R) ** 2 - FLAVOR_TUBE_Y_OFFSET ** 2
-FLAVOR_TUBE_X_FINAL = PORT_CENTER_X + math.sqrt(_dx_sq)  # 16.150 mm
+FLAVOR_TUBE_X_FINAL = PORT_CENTER_X + math.sqrt(_dx_sq)  # 15.012 mm
 
 # X offset the S-bend has to absorb (positive number, magnitude only)
-_x_offset = FLAVOR_TUBE_X - FLAVOR_TUBE_X_FINAL          # 2.775 mm
+_x_offset = FLAVOR_TUBE_X - FLAVOR_TUBE_X_FINAL          # 2.326 mm
 
-# Bend radius: 1/4" LLDPE's typical 4× OD = 25 mm minimum. The bend's
-# Z gain at this radius (~16.5 mm) puts the S-bend end at Z ≈ 58.45,
-# past zone 4's top (57.5) and into the tongue's lower section. The
-# shell accommodates this by lofting the zone 4 inner cut AND the
-# tongue's bore from FLAVOR_TUBE_X (lower X) at the bottom to
-# FLAVOR_TUBE_POST_BEND_X (upper X) where the bend completes — see
-# touch-flo-shell's build_zone4_inner_cut and _tube_shell_inner_section.
-FLAVOR_BEND_RADIUS    = 25.0
+# Bend radius: chosen for clean hand-bending of 1/8" SS — 2.5× OD,
+# well above the kink threshold and visually generous.
+FLAVOR_BEND_RADIUS    = 8.0
 # Bend angle is then derived: 2·R·(1 − cos θ) = X_offset (with no middle
 # straight). Both bends use the same radius and angle.
 FLAVOR_BEND_THETA_RAD = math.acos(1.0 - _x_offset / (2.0 * FLAVOR_BEND_RADIUS))
@@ -153,11 +149,10 @@ FLAVOR_BEND_THETA_DEG = math.degrees(FLAVOR_BEND_THETA_RAD)
 PRE_BEND_RISE = 3.0                                      # mm above plateau
 PRE_BEND_Z    = PLATEAU_Z + PRE_BEND_RISE                # 42.0 mm
 
-# Geometry checks (with R=25, x_offset≈2.775, θ≈19.2°):
-#  - lower straight (tube-local Z=0 → Z=PRE_BEND_Z − Z_BOTTOM = 92 mm)
-#  - bend 1 (arc length R·θ ≈ 8.4 mm, Z gain R·sin θ ≈ 8.2 mm)
+# Geometry checks:
+#  - lower straight (tube-local Z=0 → Z=PRE_BEND_Z − Z_BOTTOM = 94 mm)
+#  - bend 1 (arc length R·θ ≈ 4.4 mm, Z gain R·sin θ ≈ 4.2 mm)
 #  - bend 2 (mirror of bend 1)
-#  - S-bend ends at Z ≈ 58.45 — inside the tongue's lofted bore region
 
 
 # ═══════════════════════════════════════════════════════
@@ -202,9 +197,9 @@ GN_TIP_STRAIGHT_LEN = 25.0
 # R_water + offset_X. Otherwise the tubes ride into each other
 # through the bend (the perpendicular component of the centerline
 # separation shrinks below R_water + R_flavor).
-_GN_FLAVOR_OFFSET   = FLAVOR_TUBE_X_FINAL - PORT_CENTER_X    # ≈ 7.275
-GN_FLAVOR_BEND1_R   = GN_BEND1_R + _GN_FLAVOR_OFFSET         # ≈ 37.275
-GN_FLAVOR_BEND2_R   = GN_BEND2_R + _GN_FLAVOR_OFFSET         # ≈ 47.275
+_GN_FLAVOR_OFFSET   = FLAVOR_TUBE_X_FINAL - PORT_CENTER_X    # ≈ 4.49
+GN_FLAVOR_BEND1_R   = GN_BEND1_R + _GN_FLAVOR_OFFSET         # ≈ 34.49
+GN_FLAVOR_BEND2_R   = GN_BEND2_R + _GN_FLAVOR_OFFSET         # ≈ 64.49
 
 
 # ═══════════════════════════════════════════════════════
