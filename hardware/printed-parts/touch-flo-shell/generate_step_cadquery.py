@@ -321,7 +321,11 @@ ZONE4_WALL     = WALL_THICKNESS_MIN                                 # 3.0
 ZONE5_Z_BOTTOM = ZONE4_Z_TOP                                        # 57.5
 ZONE5_Z_TOP    = ZONE4_Z_TOP + 10.0                                 # 67.5
 ZONE5_HEIGHT   = ZONE5_Z_TOP - ZONE5_Z_BOTTOM                       # 10
-ZONE5_WALL     = 4.0                                                # toughened from WALL_THICKNESS_MIN=3
+ZONE5_WALL     = WALL_THICKNESS_MIN                                 # 3.0 — matches
+                                                                     # the rest of
+                                                                     # the shell now
+                                                                     # that the tubes
+                                                                     # are bigger
 
 
 # ═══════════════════════════════════════════════════════
@@ -1182,7 +1186,7 @@ def build_lever_clearance() -> cq.Workplane:
 #   - BASE shell    : zones 1-4 + zone 4.5 (the wider lid) + lever clearance,
 #                     single piece. The lid has a SOCKET cut into it where the
 #                     tube shell's tongue plugs in.
-#   - TUBE shell    : the 4 mm wall around the tubes — extended downward
+#   - TUBE shell    : the 3 mm wall around the tubes — extended downward
 #                     by SOCKET_DEPTH for the tongue, plus zone 6 above.
 #                     Split into +Y and -Y halves at Y=0 so each half prints
 #                     cut-side-down on the bed, eliminating supports for the
@@ -1217,10 +1221,10 @@ DOWEL_BEARING_HALF_Y_SIGN  = -1   # -Y half carries the dowels
 
 # Cross-section local-X positions for dowels. Local frame is centered on the
 # water tube; local +X points toward the flavor pill. Both walls are
-# ZONE5_WALL = 4 mm thick, so the midpoint is the inner+outer edges'
+# ZONE5_WALL = 3 mm thick, so the midpoint is the inner+outer edges'
 # half-sum.
-#   Water -X wall:  local_x ∈ [-9.0125 (outer), -5.0125 (bore)] → midpoint -7.0125
-#   Flavor +X wall: local_x ∈ [+7.948 (bore), +11.948 (outer)] → midpoint +9.948
+#   Water -X wall:  local_x ∈ [-8.0125 (outer), -5.0125 (bore)] → midpoint -6.5125
+#   Flavor +X wall: local_x ∈ [+10.700 (bore), +13.700 (outer)] → midpoint +12.200
 _DOWEL_LOCAL_X_WATER  = -(WATER_HOLE_DIAMETER / 2.0 + ZONE5_WALL / 2.0)
 _DOWEL_LOCAL_X_FLAVOR = (
     (FLAVOR_TUBE_POST_BEND_X - WATER_TUBE_X)
@@ -1344,7 +1348,7 @@ TUBE_HALF_DOWEL_POSITIONS_XZ = [
 
 
 def _tube_shell_outer_section(z_bottom: float, z_height: float) -> cq.Workplane:
-    """Tube wrap outer (water cyl + flavor pill + fill rect, all 4 mm wall
+    """Tube wrap outer (water cyl + flavor pill + fill rect, all ZONE5_WALL
     on the X sides and around the water cyl) extruded vertically over the
     given Z range.
 
@@ -1520,7 +1524,7 @@ def build_base_shell() -> cq.Workplane:
 
 
 def build_tube_shell() -> cq.Workplane:
-    """Tube shell: 4 mm wall around tubes, extended downward by SOCKET_DEPTH
+    """Tube shell: 3 mm wall around tubes, extended downward by SOCKET_DEPTH
     for the tongue, then zone 6 (gooseneck wrap) above."""
     vertical_outer = _tube_shell_outer_section(
         TUBE_SHELL_BOTTOM_Z, TUBE_SHELL_HEIGHT_VERTICAL,
@@ -1618,7 +1622,7 @@ if __name__ == "__main__":
     print(f"                   socket cut Z = {TUBE_SHELL_BOTTOM_Z} → {SOCKET_TOP_Z} "
           f"({SOCKET_DEPTH} mm into zone 4 + full zone 4.5 at the tube footprint)")
     print(f"                   socket cross-section = tube outer + {SOCKET_CLEARANCE} mm radial clearance")
-    print(f"  Tube shell:      4 mm wall around tubes, extended {SOCKET_DEPTH} mm "
+    print(f"  Tube shell:      {ZONE5_WALL:.0f} mm wall around tubes, extended {SOCKET_DEPTH} mm "
           f"below zone 5's nominal bottom (Z = {TUBE_SHELL_BOTTOM_Z}) for the tongue;")
     print(f"                   plus zone 6 above. Split at Y=0 into two halves.")
     print(f"                   {len(TUBE_HALF_DOWEL_POSITIONS_XZ)} integrated dowels Ø{2*DOWEL_R:.1f} × "
