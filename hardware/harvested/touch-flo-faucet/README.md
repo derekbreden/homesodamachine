@@ -30,9 +30,9 @@ The already-owned Westbrass A2031-NL-62 ($32.18) and D203-NL-62 ($52.99) in `har
 
 ## Three-tube spout — fabrication plan
 
-Target end-state: three tubes emerging from the printed PET-CF spout shell, bent to dispense over a glass at the sink. Center tube carries carbonated water from the harvested valve. Smaller flavor tubes carry concentrate from the peristaltic pumps.
+Target end-state: three visible powder coated stainless tubes emerging from the faucet body, bent to dispense over a glass at the sink. Center tube carries carbonated water from the harvested valve. Smaller 1/8 tubes carry flavor from the peristaltic pumps.
 
-- **Center tube:** 3/8" OD LLDPE (sealed in the body's 9.75 mm water port via a TPU O-ring; ID ≈ 7.75 mm gives a gentle 0.7 m/s exit velocity at 2 LPM dispense)
-- **Rear tubes:** 1/4" OD LLDPE (sized to handle cold BiB syrup viscosity at full pump duty without becoming the flow bottleneck)
+- **Center tube:** 3/8" OD 316 SS
+- **Rear tubes:** 1/8" OD 316 SS
 
-The asymmetric diameter (3/8" center + 2× 1/4") is the intentional design language — carbonated water is the main event, flavor is the accent. 1/4" LLDPE also matches the project's standard line-run tubing, so connectors are off-the-shelf at every junction outside this one custom seal interface.
+The asymmetric diameter (3/8" center + 2× 1/8") is the intentional design language — carbonated water is the main event, flavor is the accent.

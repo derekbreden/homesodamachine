@@ -9,12 +9,12 @@ GEOMETRY
   bit bigger, but not by much" per the user's call).
 - Plate spans Z = [-5, 0] in world coords; top face flush with the
   deck plane (= body bottom in the faucet-assembly).
-- Plate center at world (3.175, 0) — the midpoint of the assembly's
+- Plate center at world (1.5875, 0) — the midpoint of the assembly's
   lateral footprint at Z = 0:
     -X edge: body cylindrical base at X = -15.75
-    +X edge: outer wall of the +X flavor tube at X = +22.10
-    midpoint: +3.175
-  This puts the body at world (0, 0) shifted -3.175 mm in X relative
+    +X edge: outer wall of the +X flavor tube at X = +18.925
+    midpoint: +1.5875
+  This puts the body at world (0, 0) shifted -1.5875 mm in X relative
   to the plate center, by design.
 
 HOLES
@@ -22,14 +22,14 @@ HOLES
 1. Shank hole — Ø 12.6 mm at world (0, 0). Matches the factory
    mounting plate's clearance for the 11 mm threaded shank
    (~14.5% diametric clearance).
-2. Flavor-tube pill slot — at world (18.925, 0), oriented along Y.
-   Per-tube Ø would be 6.85 mm (~8% diametric clearance applied to
-   the 6.35 mm 1/4" LLDPE flavor tubes), but the two tubes are only
-   6.35 mm apart center-to-center, so the per-tube circles overlap by
-   ~0.5 mm. We model the combined opening as a single pill
+2. Flavor-tube pill slot — at world (17.3375, 0), oriented along Y.
+   Per-tube Ø would be 3.6 mm (factory clearance ratio applied to
+   the 3.175 mm flavor tubes), but the two tubes are only 3.175 mm
+   apart center-to-center, so the per-tube circles overlap by
+   ~0.425 mm. We model the combined opening as a single pill
    (rounded-rectangle) slot for cleaner printability:
-     - Length (Y, end-to-end): 13.2 mm
-     - Width (X):              6.85 mm
+     - Length (Y, end-to-end): 6.775 mm
+     - Width (X):              3.6 mm
 
 REGENERATE
 ==========
@@ -54,7 +54,7 @@ from _cadq_export import export_step
 
 PLATE_DIAMETER  = 50.0    # mm
 PLATE_THICKNESS = 5.0     # mm
-PLATE_CENTER_X  = 3.175   # mm — assembly footprint midpoint
+PLATE_CENTER_X  = 1.5875  # mm — assembly footprint midpoint
 PLATE_CENTER_Y  = 0.0
 PLATE_Z_TOP     = 0.0
 PLATE_Z_BOTTOM  = PLATE_Z_TOP - PLATE_THICKNESS  # -5.0
@@ -70,15 +70,15 @@ SHANK_HOLE_DIAMETER = 12.6
 SHANK_HOLE_X        = 0.0
 SHANK_HOLE_Y        = 0.0
 
-# Flavor-tube pill slot. The two 1/4" (6.35 mm) LLDPE tubes are tangent
-# in Y at centers ± 3.175.
-FLAVOR_TUBE_OD       = 6.35
-FLAVOR_TUBE_HOLE_DIA = 6.85                    # ~8% diametric clearance
-FLAVOR_TUBE_X        = 18.925
-FLAVOR_TUBE_Y_OFFSET = 3.175
+# Flavor-tube pill slot. The two 1/8" (3.175 mm) tubes are tangent in
+# Y at centers ± 1.5875.
+FLAVOR_TUBE_OD       = 3.175
+FLAVOR_TUBE_HOLE_DIA = 3.6                     # ~14.5% diametric clearance
+FLAVOR_TUBE_X        = 17.3375
+FLAVOR_TUBE_Y_OFFSET = 1.5875
 
-PILL_SLOT_LENGTH_Y = 2 * FLAVOR_TUBE_Y_OFFSET + FLAVOR_TUBE_HOLE_DIA  # 13.2
-PILL_SLOT_WIDTH_X  = FLAVOR_TUBE_HOLE_DIA                              # 6.85
+PILL_SLOT_LENGTH_Y = 2 * FLAVOR_TUBE_Y_OFFSET + FLAVOR_TUBE_HOLE_DIA  # 6.775
+PILL_SLOT_WIDTH_X  = FLAVOR_TUBE_HOLE_DIA                              # 3.6
 
 
 # ═══════════════════════════════════════════════════════
