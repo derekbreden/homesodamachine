@@ -20,8 +20,8 @@ PARTS CURRENTLY MODELED
    body's 9.75 mm water port and extending up through the gooseneck.
    The TPU O-ring sealing the 0.225 mm radial gap is not modeled
    (geometry only; envelope is the bare 9.525 mm OD).
-3. Two flavor dispense tubes — Ø 1/8" (3.175 mm), behind the water
-   tube. Each tube starts at X = BODY_R + tube_R = 17.3375 mm (butting
+3. Two flavor dispense tubes — Ø 1/4" (6.35 mm), behind the water
+   tube. Each tube starts at X = BODY_R + tube_R = 18.925 mm (butting
    against the body's +X rectangular face and the other flavor tube),
    runs vertical from Z = -50, then S-bends just above the plateau to
    come in tangent against the water tube. After the bends the tubes
@@ -99,21 +99,21 @@ WATER_TUBE_LENGTH   = WATER_TUBE_Z_TOP - WATER_TUBE_Z_BOTTOM
 # FLAVOR DISPENSE TUBES (×2)
 # ═══════════════════════════════════════════════════════
 #
-# Two Ø 1/8" tubes behind the water tube. They are NOT inserted into
+# Two Ø 1/4" tubes behind the water tube. They are NOT inserted into
 # the body — they sit alongside it. Each tube is tangent to:
 #   - the +X rectangular face of the body (X = BODY_R = 15.75 mm)
 #   - the other flavor tube (so both touch at Y = 0)
 #
 # Mirror across the X-Z plane: one at +Y, one at -Y.
 # Tube centers are therefore at:
-#   X = BODY_R + (FLAVOR_TUBE_OD / 2) = 17.3375 mm
-#   Y = ± (FLAVOR_TUBE_OD / 2)        = ±1.5875 mm
+#   X = BODY_R + (FLAVOR_TUBE_OD / 2) = 18.925 mm
+#   Y = ± (FLAVOR_TUBE_OD / 2)        = ±3.175 mm
 #
 # Z span matches the working height of the assembly:
 #   bottom = bottom of the shank (Z = -SHANK_LENGTH = -50 mm)
 #   top    = top of the water tube  (Z = WATER_TUBE_Z_TOP = 79 mm)
 #
-FLAVOR_TUBE_OD       = 1.0/8.0 * 25.4   # 3.175 mm — 1/8"
+FLAVOR_TUBE_OD       = 1.0/4.0 * 25.4   # 6.35 mm — 1/4"
 FLAVOR_TUBE_R        = FLAVOR_TUBE_OD / 2.0
 FLAVOR_TUBE_X        = BODY_R + FLAVOR_TUBE_R           # 17.3375 mm — initial X
 FLAVOR_TUBE_Y_OFFSET = FLAVOR_TUBE_R                    # ±1.5875 mm — constant
@@ -393,7 +393,7 @@ def _build_flavor_tube_at_origin() -> cq.Workplane:
 
 
 def build_flavor_tube(y_sign: int) -> cq.Workplane:
-    """One Ø 1/8" flavor tube placed at its world position.
+    """One Ø 1/4" flavor tube placed at its world position.
 
     Built at the origin, then translated to (FLAVOR_TUBE_X,
     y_sign · FLAVOR_TUBE_Y_OFFSET, FLAVOR_TUBE_Z_BOTTOM).
