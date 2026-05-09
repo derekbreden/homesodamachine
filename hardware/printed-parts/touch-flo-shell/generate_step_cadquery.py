@@ -1049,6 +1049,15 @@ def _zone6_outer_sketch() -> cq.Sketch:
     fill rectangle between them. The mode='a' flag unions each shape
     into the running sketch so the sweep sees one face.
 
+    The flavor pill's outer Y dimension is `max(PILL_LENGTH_Y + 2*WALL,
+    2*water_r_outer)` so the pill end never sits inside the fill rect's
+    Y extent — which would create an ugly "shoulder" where the rect
+    overshoots a narrower pill end. With small water tubes the natural
+    pill is bigger and the max picks it; with large water tubes the
+    water_r_outer dominates and the flavor pill outer grows in Y to
+    match (extra wall-thickness on the pill's Y top/bottom only — X
+    side walls and inner cavity stay nominal).
+
     NOTE: cq.Sketch.slot(w, h) takes w as the *straight section* length
     (between the rounded ends), not the overall length — opposite of
     Workplane.slot2D's convention. Total length along the long axis is
@@ -1056,9 +1065,10 @@ def _zone6_outer_sketch() -> cq.Sketch:
     """
     flavor_offset_x = FLAVOR_TUBE_POST_BEND_X - WATER_TUBE_X
     water_r_outer = WATER_HOLE_DIAMETER / 2.0 + ZONE6_WALL
-    pill_long_total  = PILL_LENGTH_Y + 2.0 * ZONE6_WALL          # 12.775
-    pill_short_total = PILL_WIDTH_X  + 2.0 * ZONE6_WALL          #  9.6
-    pill_straight    = pill_long_total - pill_short_total        #  3.175
+    pill_long_total  = max(PILL_LENGTH_Y + 2.0 * ZONE6_WALL,
+                           2.0 * water_r_outer)
+    pill_short_total = PILL_WIDTH_X  + 2.0 * ZONE6_WALL
+    pill_straight    = pill_long_total - pill_short_total
     return (
         cq.Sketch()
         .circle(water_r_outer)
@@ -1302,9 +1312,17 @@ TUBE_HALF_DOWEL_POSITIONS_XZ = [
 
 
 def _tube_shell_outer_section(z_bottom: float, z_height: float) -> cq.Workplane:
-    """Tube wrap outer (water cyl + flavor pill + fill rect, all 4 mm wall)
-    extruded vertically over the given Z range."""
+    """Tube wrap outer (water cyl + flavor pill + fill rect, all 4 mm wall
+    on the X sides and around the water cyl) extruded vertically over the
+    given Z range.
+
+    The flavor pill's outer Y dimension is matched to the water circle's
+    outer Y when water dominates — see _zone6_outer_sketch's docstring
+    for the rationale (avoids fill-rect-overshooting-pill shoulder).
+    """
     water_r_outer = WATER_HOLE_DIAMETER / 2.0 + ZONE5_WALL  # 9.0125
+    pill_long_total = max(PILL_LENGTH_Y + 2.0 * ZONE5_WALL,
+                          2.0 * water_r_outer)
     water_outer = (
         cq.Workplane("XY")
         .workplane(offset=z_bottom)
@@ -1316,7 +1334,7 @@ def _tube_shell_outer_section(z_bottom: float, z_height: float) -> cq.Workplane:
         cq.Workplane("XY")
         .workplane(offset=z_bottom)
         .moveTo(FLAVOR_TUBE_POST_BEND_X, 0)
-        .slot2D(PILL_LENGTH_Y + 2.0 * ZONE5_WALL,
+        .slot2D(pill_long_total,
                 PILL_WIDTH_X + 2.0 * ZONE5_WALL, angle=90)
         .extrude(z_height)
     )
@@ -1354,9 +1372,14 @@ def _socket_cutter(z_bottom: float, z_height: float) -> cq.Workplane:
     extruded vertically over the given Z range.
 
     Cuts material away from the base shell so the tube shell's tongue can
-    insert."""
+    insert. Tracks the same `max(natural, 2*water_r_socket)` rule as the
+    tube shell outer so the socket exactly matches what's plugging into it.
+    """
     water_r_socket = WATER_HOLE_DIAMETER / 2.0 + ZONE5_WALL + SOCKET_CLEARANCE
-    pill_length_socket = PILL_LENGTH_Y + 2.0 * (ZONE5_WALL + SOCKET_CLEARANCE)
+    pill_length_socket = max(
+        PILL_LENGTH_Y + 2.0 * (ZONE5_WALL + SOCKET_CLEARANCE),
+        2.0 * water_r_socket,
+    )
     pill_width_socket  = PILL_WIDTH_X  + 2.0 * (ZONE5_WALL + SOCKET_CLEARANCE)
     water_socket = (
         cq.Workplane("XY")
