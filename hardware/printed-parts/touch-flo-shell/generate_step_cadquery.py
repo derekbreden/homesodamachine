@@ -1275,9 +1275,16 @@ TUBE_SHELL_HEIGHT_VERTICAL = WALL_TRANSITION_Z - TUBE_SHELL_BOTTOM_Z  # 68.37 - 
 
 # ─── Tube-half dowels (horizontal, Y axis, at the Y=0 cut plane) ───
 # One half carries the dowels integrated into the print; the other half has
-# matching holes. Dowel and hole share radius and length exactly — friction
-# fit will be tuned by trial-and-error from this starting point.
-DOWEL_R                    = 1.1
+# matching holes. The hole is enlarged and the pin is reduced by half of
+# DOWEL_FIT_CLEARANCE each, giving a symmetric radial gap between them so
+# the halves slide together rather than press-fit.
+DOWEL_R                    = 1.1   # nominal dowel radius (the bore the pin
+                                    # would need if there were zero clearance)
+DOWEL_FIT_CLEARANCE        = 0.10  # mm — total radial gap between pin and
+                                    # hole. Tune via test prints. Split
+                                    # symmetrically below.
+DOWEL_PIN_R                = DOWEL_R - DOWEL_FIT_CLEARANCE / 2.0   # 1.05
+DOWEL_HOLE_R               = DOWEL_R + DOWEL_FIT_CLEARANCE / 2.0   # 1.15
 DOWEL_LEN                  = 2.5
 DOWEL_BEARING_HALF_Y_SIGN  = -1   # -Y half carries the dowels
 
@@ -1535,9 +1542,10 @@ def _make_tube_half_dowel_features(y_sign: int) -> cq.Workplane:
     """Cylinders for the dowel features at the Y=0 cut plane.
 
     All cylinders point from the bearing half's cut face into the other half.
-    The bearing half UNIONs them in (as integrated dowels); the other half
-    CUTs them away (as matching holes). Both halves use the same cylinder
-    geometry — exact match for radius and length.
+    The bearing half UNIONs them in (as integrated dowels) using DOWEL_PIN_R;
+    the other half CUTs them away (as matching holes) using DOWEL_HOLE_R.
+    The hole is bigger than the pin by DOWEL_FIT_CLEARANCE radial total, so
+    the halves slide together with a small symmetric gap.
     """
     EPS = 0.1  # CSG overlap on each end of the cut plane
     direction_sign = -DOWEL_BEARING_HALF_Y_SIGN  # +1 if -Y bears dowels
@@ -1547,17 +1555,19 @@ def _make_tube_half_dowel_features(y_sign: int) -> cq.Workplane:
         # union is robust) up to DOWEL_LEN past the cut plane.
         y_start = -EPS * direction_sign
         length  = DOWEL_LEN + EPS
+        radius  = DOWEL_PIN_R
     else:
         # Hole cylinder: cuts from EPS past the cut plane (overlap into the
         # bearing half is harmless — that half does its own intersect first)
         # to DOWEL_LEN + EPS into the non-bearing half.
         y_start = -EPS * direction_sign
         length  = DOWEL_LEN + 2 * EPS
+        radius  = DOWEL_HOLE_R
 
     result = None
     for x, z in TUBE_HALF_DOWEL_POSITIONS_XZ:
         cyl = cq.Solid.makeCylinder(
-            DOWEL_R, length,
+            radius, length,
             pnt=cq.Vector(x, y_start, z),
             dir=cq.Vector(0.0, float(direction_sign), 0.0),
         )
@@ -1701,8 +1711,10 @@ if __name__ == "__main__":
           f"then {ZONE5_WALL_ABOVE:.0f} mm above for the gooseneck;")
     print(f"                   tongue extends {SOCKET_DEPTH} mm below zone 5's nominal bottom "
           f"(Z = {TUBE_SHELL_BOTTOM_Z}) into the base socket. Split at Y=0 into two halves.")
-    print(f"                   {len(TUBE_HALF_DOWEL_POSITIONS_XZ)} integrated dowels Ø{2*DOWEL_R:.1f} × "
-          f"{DOWEL_LEN} mm on the {bearing_label} half; matching holes on the other half")
+    print(f"                   {len(TUBE_HALF_DOWEL_POSITIONS_XZ)} integrated dowels Ø{2*DOWEL_PIN_R:.2f} × "
+          f"{DOWEL_LEN} mm on the {bearing_label} half; "
+          f"Ø{2*DOWEL_HOLE_R:.2f} mm holes on the other half "
+          f"({DOWEL_FIT_CLEARANCE:.2f} mm radial clearance)")
     print(f"-> {out_base.name}")
     print(f"-> {out_tube_pos.name}")
     print(f"-> {out_tube_neg.name}")
