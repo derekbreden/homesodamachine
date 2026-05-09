@@ -325,7 +325,24 @@ ZONE5_WALL     = WALL_THICKNESS_MIN                                 # 3.0 — ma
                                                                      # the rest of
                                                                      # the shell now
                                                                      # that the tubes
-                                                                     # are bigger
+                                                                     # are bigger.
+                                                                     # Used inside the
+                                                                     # base lid socket
+                                                                     # (everything that
+                                                                     # has to fit through
+                                                                     # the socket cut).
+ZONE5_WALL_ABOVE = 4.0                                              # mm — wall above
+                                                                     # the lid socket
+                                                                     # (exposed gooseneck
+                                                                     # + the upper part
+                                                                     # of the tube shell
+                                                                     # vertical above
+                                                                     # WALL_TRANSITION_Z).
+                                                                     # Thicker so dowel
+                                                                     # pin/hole features
+                                                                     # have enough wall
+                                                                     # to print and hold
+                                                                     # tolerance.
 
 
 # ═══════════════════════════════════════════════════════
@@ -366,7 +383,9 @@ GN_BEND1_START_Z    = (
 )                                                                    # ≈ 79.24
 GN_MID_STRAIGHT_LEN = 115.0
 GN_TIP_STRAIGHT_LEN = 25.0
-ZONE6_WALL          = ZONE5_WALL                                     # 4.0
+ZONE6_WALL          = ZONE5_WALL_ABOVE                               # 4.0 — gooseneck
+                                                                     # is entirely above
+                                                                     # the lid socket
 
 
 # ═══════════════════════════════════════════════════════
@@ -459,6 +478,11 @@ ZONE45_Z_TOP                = (ZONE4_Z_TOP + GN_BEND1_START_Z) / 2.0  # halfway 
                                                                        # zone 4 top and
                                                                        # gooseneck bend start
                                                                        # ≈ 68.37
+# Z above which the tube shell switches from ZONE5_WALL (3 mm) to
+# ZONE5_WALL_ABOVE (4 mm). Set to the lid top so the entire region
+# that has to fit through the base's lid socket stays at 3 mm wall —
+# the base socket is unchanged.
+WALL_TRANSITION_Z           = ZONE45_Z_TOP                            # ≈ 68.37
 ZONE45_BOT_Z_AT_FRONT       = (
     _NEW_ARCH_C_Z
     + math.sqrt(_NEW_ARCH_R ** 2 - (ZONE45_FRONT_X - FILL_X_MIN) ** 2)
@@ -1050,8 +1074,12 @@ def _gooseneck_path_at_origin() -> cq.Workplane:
     """Gooseneck path in XZ at origin: vertical lift to bend 1, bend 1,
     mid straight, bend 2, tip straight. Bends toward -X. Bend 1 uses
     GN_BEND1_R, bend 2 uses GN_BEND2_R (independent radii).
+
+    Path origin (s=0) is at WALL_TRANSITION_Z (= lid top), so the
+    gooseneck starts where the 4 mm wall takes over from the 3 mm
+    wall vertical section beneath.
     """
-    z_lift = GN_BEND1_START_Z - ZONE5_Z_TOP
+    z_lift = GN_BEND1_START_Z - WALL_TRANSITION_Z
 
     p_bottom     = (0.0, 0.0)
     p_bend_start = (0.0, z_lift)
@@ -1147,18 +1175,28 @@ def _zone6_inner_sketch() -> cq.Sketch:
 
 def build_zone6_outer() -> cq.Workplane:
     """Sweep the outer cross-section along the gooseneck path, then
-    place at (WATER_TUBE_X, 0, ZONE5_Z_TOP).
+    place at (WATER_TUBE_X, 0, WALL_TRANSITION_Z).
+
+    Sits on top of the 3 mm wall vertical extrusion (which extends
+    from TUBE_SHELL_BOTTOM_Z up to WALL_TRANSITION_Z = lid top). Zone
+    6 uses ZONE6_WALL = ZONE5_WALL_ABOVE = 4 mm — visible 1 mm step
+    on the outer at the seam.
     """
     profile = cq.Workplane("XY").placeSketch(_zone6_outer_sketch())
     swept = profile.sweep(_gooseneck_path_at_origin(), transition="right")
-    return swept.translate((WATER_TUBE_X, 0, ZONE5_Z_TOP))
+    return swept.translate((WATER_TUBE_X, 0, WALL_TRANSITION_Z))
 
 
 def build_zone6_inner_cut() -> cq.Workplane:
-    """Inner cut for zone 6 — same path, inner cross-section."""
+    """Inner cut for zone 6 — same path, inner cross-section.
+
+    Bore is unchanged across the wall transition — only the outer
+    profile steps. Inner cut continues the vertical bore from the
+    3 mm wall section below.
+    """
     profile = cq.Workplane("XY").placeSketch(_zone6_inner_sketch())
     swept = profile.sweep(_gooseneck_path_at_origin(), transition="right")
-    return swept.translate((WATER_TUBE_X, 0, ZONE5_Z_TOP))
+    return swept.translate((WATER_TUBE_X, 0, WALL_TRANSITION_Z))
 
 
 def build_lever_clearance() -> cq.Workplane:
@@ -1198,8 +1236,11 @@ def build_lever_clearance() -> cq.Workplane:
 #   - BASE shell    : zones 1-4 + zone 4.5 (the wider lid) + lever clearance,
 #                     single piece. The lid has a SOCKET cut into it where the
 #                     tube shell's tongue plugs in.
-#   - TUBE shell    : the 3 mm wall around the tubes — extended downward
-#                     by SOCKET_DEPTH for the tongue, plus zone 6 above.
+#   - TUBE shell    : 3 mm wall around the tubes from TUBE_SHELL_BOTTOM_Z
+#                     up to WALL_TRANSITION_Z (= lid top) — fits the base
+#                     socket. Above WALL_TRANSITION_Z, ZONE5_WALL_ABOVE
+#                     (4 mm) takes over for the exposed gooseneck so the
+#                     dowel features have enough wall to print and hold.
 #                     Split into +Y and -Y halves at Y=0 so each half prints
 #                     cut-side-down on the bed, eliminating supports for the
 #                     gooseneck overhangs.
@@ -1220,7 +1261,16 @@ SOCKET_CLEARANCE   = 0.15   # mm — radial clearance around tube shell outer
 TUBE_SHELL_BOTTOM_Z = ZONE5_Z_BOTTOM - SOCKET_DEPTH   # 52.5
 SOCKET_TOP_Z        = ZONE45_Z_TOP                    # 68.37 — clears zone 6
                                                        # vertical lift through lid
-TUBE_SHELL_HEIGHT_VERTICAL = ZONE5_Z_TOP - TUBE_SHELL_BOTTOM_Z  # 67.5 - 52.5 = 15.0
+TUBE_SHELL_HEIGHT_VERTICAL = WALL_TRANSITION_Z - TUBE_SHELL_BOTTOM_Z  # 68.37 - 52.5 ≈ 15.87
+                                                                       # extends up to the
+                                                                       # lid top, covering
+                                                                       # everything that
+                                                                       # has to fit inside
+                                                                       # the base socket.
+                                                                       # Above this Z, the
+                                                                       # gooseneck (zone 6)
+                                                                       # takes over with
+                                                                       # ZONE5_WALL_ABOVE.
 
 
 # ─── Tube-half dowels (horizontal, Y axis, at the Y=0 cut plane) ───
@@ -1232,15 +1282,15 @@ DOWEL_LEN                  = 2.5
 DOWEL_BEARING_HALF_Y_SIGN  = -1   # -Y half carries the dowels
 
 # Cross-section local-X positions for dowels. Local frame is centered on the
-# water tube; local +X points toward the flavor pill. Both walls are
-# ZONE5_WALL = 3 mm thick, so the midpoint is the inner+outer edges'
-# half-sum.
-#   Water -X wall:  local_x ∈ [-8.0125 (outer), -5.0125 (bore)] → midpoint -6.5125
-#   Flavor +X wall: local_x ∈ [+10.700 (bore), +13.700 (outer)] → midpoint +12.200
-_DOWEL_LOCAL_X_WATER  = -(WATER_HOLE_DIAMETER / 2.0 + ZONE5_WALL / 2.0)
+# water tube; local +X points toward the flavor pill. The dowels live in the
+# 4 mm wall section above the lid (ZONE5_WALL_ABOVE = 4 mm thick), so the
+# wall midpoint sits 2 mm out from the bore on each side.
+#   Water -X wall:  local_x ∈ [-9.0125 (outer), -5.0125 (bore)] → midpoint -7.0125
+#   Flavor +X wall: local_x ∈ [+10.700 (bore), +14.700 (outer)] → midpoint +12.700
+_DOWEL_LOCAL_X_WATER  = -(WATER_HOLE_DIAMETER / 2.0 + ZONE5_WALL_ABOVE / 2.0)
 _DOWEL_LOCAL_X_FLAVOR = (
     (FLAVOR_TUBE_POST_BEND_X - WATER_TUBE_X)
-    + (PILL_WIDTH_X / 2.0 + ZONE5_WALL / 2.0)
+    + (PILL_WIDTH_X / 2.0 + ZONE5_WALL_ABOVE / 2.0)
 )
 
 
@@ -1249,12 +1299,13 @@ def _path_pos_and_bitangent_at_s(s: float) -> tuple[float, float, float, float]:
     at arclength s. Bitangent is in world XZ plane (= local +X direction in
     the cross-section sketch, which points toward the flavor pill).
 
-    s = 0 corresponds to the gooseneck path origin = (WATER_TUBE_X, 0, ZONE5_Z_TOP).
-    Negative s walks down through the vertical extrusion (the tongue + zone 5)
-    to TUBE_SHELL_BOTTOM_Z. Positive s walks up into bend 1, mid-straight,
-    bend 2, and the tip straight.
+    s = 0 corresponds to the gooseneck path origin =
+    (WATER_TUBE_X, 0, WALL_TRANSITION_Z). Positive s walks up into the
+    short vertical lift, then bend 1, mid-straight, bend 2, and the tip
+    straight. Negative s would walk down into the 3 mm wall vertical
+    extrusion below the lid; the dowels live in the 4 mm wall above.
     """
-    z_lift   = GN_BEND1_START_Z - ZONE5_Z_TOP
+    z_lift   = GN_BEND1_START_Z - WALL_TRANSITION_Z
     arc1_len = GN_BEND1_R * GN_BEND1_SWEEP_RAD
     arc1_end_s = z_lift + arc1_len
     mid_end_s  = arc1_end_s + GN_MID_STRAIGHT_LEN
@@ -1314,8 +1365,8 @@ def _path_pos_and_bitangent_at_s(s: float) -> tuple[float, float, float, float]:
     # Bitangent = tangent rotated 90° clockwise = (tan_z, -tan_x).
     # At s=0, tan = (0, 1) → bit = (1, 0) = +X (matching the sketch's local +X).
     bit_x, bit_z =  tan_z, -tan_x
-    world_x = WATER_TUBE_X + path_x_local
-    world_z = ZONE5_Z_TOP  + path_z_local
+    world_x = WATER_TUBE_X     + path_x_local
+    world_z = WALL_TRANSITION_Z + path_z_local
     return world_x, world_z, bit_x, bit_z
 
 
@@ -1325,24 +1376,27 @@ def _dowel_xz(s: float, local_x: float) -> tuple[float, float]:
     return px + local_x * bx, pz + local_x * bz
 
 
-# Three pairs of dowels spanning the full tube shell length, with matching
-# path-arclength margins from the two ends of the shell (~12.5 mm each):
-#   - Bottom pair (Z- end): in the lower vertical, 12.5 mm of arclength above
-#     TUBE_SHELL_BOTTOM_Z=52.5 → world Z = 65.
+# Three pairs of dowels — all in the 4 mm wall section above the lid:
+#   - Bottom pair: 5 mm above WALL_TRANSITION_Z (= lid top), in the
+#     vertical-lift portion of the gooseneck. World Z ≈ 73.37.
 #   - Middle pair: at the midpoint of the gooseneck mid-straight section.
 #   - Top pair (Z+ end / "goose head"): at the midpoint of the tip-straight
 #     section (12.5 mm = GN_TIP_STRAIGHT_LEN/2 from the tip end).
+# The 3 mm wall vertical section below the lid (Z = TUBE_SHELL_BOTTOM_Z to
+# WALL_TRANSITION_Z) has no dowels — the two tube-shell halves are held
+# together there by the socket press-fit alone, since 3 mm wall is too
+# thin for the dowel features to print reliably.
 # Each pair has one dowel in the water -X wall midpoint and one in the
 # flavor +X wall midpoint, with positions rotated through the cross-section's
 # local frame at each path arclength.
-_S_BOTTOM = (TUBE_SHELL_BOTTOM_Z - ZONE5_Z_TOP) + GN_TIP_STRAIGHT_LEN / 2.0
+_S_BOTTOM = 5.0   # 5 mm above WALL_TRANSITION_Z, in the vertical lift
 _S_MIDDLE = (
-    (GN_BEND1_START_Z - ZONE5_Z_TOP)
+    (GN_BEND1_START_Z - WALL_TRANSITION_Z)
     + GN_BEND1_R * GN_BEND1_SWEEP_RAD
     + GN_MID_STRAIGHT_LEN / 2.0
 )
 _S_TIP = (
-    (GN_BEND1_START_Z - ZONE5_Z_TOP)
+    (GN_BEND1_START_Z - WALL_TRANSITION_Z)
     + GN_BEND1_R * GN_BEND1_SWEEP_RAD
     + GN_MID_STRAIGHT_LEN
     + GN_BEND2_R * GN_BEND2_SWEEP_RAD
@@ -1544,8 +1598,9 @@ def build_base_shell() -> cq.Workplane:
 
 
 def build_tube_shell() -> cq.Workplane:
-    """Tube shell: 3 mm wall around tubes, extended downward by SOCKET_DEPTH
-    for the tongue, then zone 6 (gooseneck wrap) above."""
+    """Tube shell: 3 mm wall around tubes from TUBE_SHELL_BOTTOM_Z up to
+    WALL_TRANSITION_Z (= lid top) — sized to fit the base socket — then
+    4 mm wall (ZONE5_WALL_ABOVE) for the gooseneck above."""
     vertical_outer = _tube_shell_outer_section(
         TUBE_SHELL_BOTTOM_Z, TUBE_SHELL_HEIGHT_VERTICAL,
     )
@@ -1642,9 +1697,10 @@ if __name__ == "__main__":
     print(f"                   socket cut Z = {TUBE_SHELL_BOTTOM_Z} → {SOCKET_TOP_Z} "
           f"({SOCKET_DEPTH} mm into zone 4 + full zone 4.5 at the tube footprint)")
     print(f"                   socket cross-section = tube outer + {SOCKET_CLEARANCE} mm radial clearance")
-    print(f"  Tube shell:      {ZONE5_WALL:.0f} mm wall around tubes, extended {SOCKET_DEPTH} mm "
-          f"below zone 5's nominal bottom (Z = {TUBE_SHELL_BOTTOM_Z}) for the tongue;")
-    print(f"                   plus zone 6 above. Split at Y=0 into two halves.")
+    print(f"  Tube shell:      {ZONE5_WALL:.0f} mm wall up to lid top (Z = {WALL_TRANSITION_Z:.2f}), "
+          f"then {ZONE5_WALL_ABOVE:.0f} mm above for the gooseneck;")
+    print(f"                   tongue extends {SOCKET_DEPTH} mm below zone 5's nominal bottom "
+          f"(Z = {TUBE_SHELL_BOTTOM_Z}) into the base socket. Split at Y=0 into two halves.")
     print(f"                   {len(TUBE_HALF_DOWEL_POSITIONS_XZ)} integrated dowels Ø{2*DOWEL_R:.1f} × "
           f"{DOWEL_LEN} mm on the {bearing_label} half; matching holes on the other half")
     print(f"-> {out_base.name}")
