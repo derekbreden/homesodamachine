@@ -17,7 +17,7 @@
 //   Boot the historical server from a throwaway git worktree at the resolved
 //   commit (most recent commit on `main` on or before <date> 23:59:59, or the
 //   literal SHA), then screenshot http://localhost:<ephemeral-port><path>.
-//   With --at, the first arg MUST be a path (e.g. "/", "/blog", "/dev"), not
+//   With --at, the first arg MUST be a path (e.g. "/", "/blog", "/3d"), not
 //   a full URL — the tool prefixes baseUrl itself.
 //   Without --at, current behavior is preserved: the first arg is treated as
 //   a fully-qualified URL and puppeteer hits it directly.
