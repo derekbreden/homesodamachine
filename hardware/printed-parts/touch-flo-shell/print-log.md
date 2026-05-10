@@ -122,6 +122,50 @@ Start-of-print events:
 - Print restarted Sunday May 4th at 11:50 AM
 - E2 stayed at 60°C continuously through the delay
 
+## PET-CF print attempt 7 (0.6 mm DUROZZLE TC nozzle + same-material supports)
+
+Hardware change before this print:
+- L-side nozzle swapped to 0.6 mm tungsten carbide DUROZZLE off-brand hotend (Amazon B0GWDDKG47, $37.43 delivered Sat May 9; see [hardware/purchases.md](../../purchases.md) §13). First L-side 0.6 mm nozzle on hand for the H2C; replaces the 0.4 mm hotends used in attempts 1–6.
+
+Derek said:
+- "The most recent PET-CF print worked beautifully."
+- "We finally got a 0.6 tungsten nozzle (off brand)."
+- "We did same material supports and they broke away cleanly." — supports printed in PET-CF (model material), broke away without contamination or fusion problems.
+
+Settings changes observed in `touch-flo-shell-4-pieces.3mf` (vs `0081e8f`):
+- Printer profile: `Bambu Lab H2C` 0.4-nozzle → `Bambu Lab H2C 0.6 nozzle` (`printer_variant`: 0.4 → 0.6)
+- Print profile: → `0.18mm Balanced Quality @BBL H2C 0.6 nozzle`
+- `nozzle_diameter` (both extruders): 0.4 → 0.6
+- `layer_height`: 0.12 → 0.18
+- `initial_layer_print_height`: 0.3
+- `line_width`: 0.62
+- PET-CF `nozzle_temperature` + initial layer: 280 → 270
+- PET-CF `filament_retraction_length`: 0.4 → nil (no override; uses printer default `retraction_length` 1.4 mm)
+- PET-CF `fan_max_speed`: 0 → 30 % (cooling fan back ON)
+- PET-CF `fan_min_speed`: 0 → 10 %
+- `outer_wall_speed`: 60 → 200 mm/s
+- `inner_wall_speed`: 120 → 300 mm/s
+- `sparse_infill_speed`: 100 → 350 mm/s
+- `support_filament`: 1 (ABS) → 0 (PET-CF, same material as model)
+- `support_interface_filament`: 1 (ABS) → 0 (PET-CF, same material as model)
+- Filament profile: `Bambu PET-CF @BBL H2C - Copy` → stock `Bambu PET-CF @BBL H2C` (no "- Copy")
+
+Settings unchanged from `0081e8f`:
+- PET-CF `filament_max_volumetric_speed`: 5 mm³/s
+- PET-CF `chamber_temperatures`: 50 °C
+- PET-CF `overhang_fan_speed`: 40 %
+- `close_fan_the_first_x_layers`: 3
+- `support_threshold_angle`: 45
+- `enable_support`: 1
+- `enable_pressure_advance`: 0
+- `enable_prime_tower`: 1
+- `enable_wrapping_detection`: 0
+
+Plate composition (per `Metadata/plate_1.json`):
+- 4 objects: `touch-flo-shell-base.step`, `touch-flo-shell-tube-half-neg-y.step`, `touch-flo-shell-tube-half-pos-y.step`, `touch-flo-mounting-plate.step`
+- All objects assigned to `extruder=1` (left), `filament_maps` all = 1 (left nozzle), `first_extruder`: 0 (PET-CF slot)
+- Bed: textured plate
+
 ## Hardware / setup observations across all PET-CF attempts
 
 Derek said:
@@ -244,6 +288,67 @@ Process settings:
 - `enable_prime_tower`: 1
 - `enable_wrapping_detection`: 0 (clumping detection still disabled)
 - `close_fan_the_first_x_layers`: 3
+
+### `touch-flo-shell-4-pieces.3mf` — attempt 7
+
+Filament profiles: stock `Bambu PET-CF @BBL H2C` (no "- Copy")
+Filament slots in project: PET-CF (slot 0), PLA, PET-CF, ABS, ABS, PETG, PETG, PETG (8 slots; only slot 0 active in slice)
+Active in slice: PET-CF (left, slot 0)
+Support filament: PET-CF (slot 0 — same material as model)
+Support interface filament: PET-CF (slot 0 — same material as model)
+Printer profile: `Bambu Lab H2C 0.6 nozzle` (`printer_variant`: 0.6)
+Print profile: `0.18mm Balanced Quality @BBL H2C 0.6 nozzle`
+
+PET-CF settings (slot 0, left nozzle):
+- `nozzle_temperature`: 270 °C
+- `nozzle_temperature_initial_layer`: 270 °C
+- `filament_flow_ratio`: 1.0
+- `filament_retraction_length`: nil (no override; uses printer default)
+- `filament_retract_before_wipe`: nil
+- `filament_max_volumetric_speed`: 5 mm³/s
+- `chamber_temperatures`: 50 °C
+- `fan_max_speed`: 30 %, `fan_min_speed`: 10 %, `overhang_fan_speed`: 40 %
+- `close_fan_the_first_x_layers`: 3
+
+Process settings:
+- `nozzle_diameter`: 0.6 mm
+- `layer_height`: 0.18 mm
+- `initial_layer_print_height`: 0.3 mm
+- `line_width`: 0.62 mm
+- `wall_loops`: 50
+- `top_shell_layers`: 3, `bottom_shell_layers`: 3
+- `sparse_infill_density`: 15 %, `sparse_infill_pattern`: grid
+- `outer_wall_speed`: 200 mm/s
+- `inner_wall_speed`: 300 mm/s
+- `sparse_infill_speed`: 350 mm/s
+- `internal_solid_infill_speed`: 250 mm/s
+- `top_surface_speed`: 200 mm/s
+- `support_speed`: 150 mm/s
+- `support_interface_speed`: 80 mm/s
+- `initial_layer_speed`: 50 mm/s
+- `initial_layer_infill_speed`: 105 mm/s
+- `outer_wall_jerk` / `inner_wall_jerk` / `infill_jerk`: 9
+- `retraction_length` (printer-side): 1.4 mm; `wipe`: on; `retract_when_changing_layer`: on
+
+Supports:
+- `enable_support`: 1
+- `support_filament`: 0 (PET-CF — same material)
+- `support_interface_filament`: 0 (PET-CF — same material)
+- `support_threshold_angle`: 45
+- `support_angle`: 0
+- `support_critical_regions_only`: 0
+- `support_top_z_distance`: 0.3
+- `support_base_pattern`: default
+- `support_interface_top_layers`: 2
+- `support_interface_pattern`: auto
+- `support_style`: default
+- `tree_support_branch_distance`: 5
+
+Other:
+- `enable_pressure_advance`: 0
+- `enable_prime_tower`: 1
+- `enable_wrapping_detection`: 0
+- `wrapping_detection_layers`: 20
 
 ## Evidence that `enable_wrapping_detection` might be probe detection in the UI
 
