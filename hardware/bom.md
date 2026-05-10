@@ -165,6 +165,8 @@ Dishing dies (PA6-CF) for end-cap forming are vessel-fabrication tools, not ship
 
 Mechanical attach for the printed touch-flo-mounting-plate up to the printed PET-CF touch-flo-shell. The T18 heat-set tip kit ([B0CS662NVK](https://www.amazon.com/dp/B0CS662NVK)) and the FX-888D iron itself are tooling — installed once on the bench, not per-unit BOM (same scope rule as the welder, drill press, etc.).
 
+A second use of heat-set + screw retention exists at the foam-bag-shell's foam_cap / outer_shell joinery (12 inserts + 12 black M3 × 25 mm SHCS + TPU 90A gasket per build, landed in commit `ed8b48d`), but the specific screw SKU is TBD pending the user's selection and order. The 14-per-build ruthex insert qty for that joinery will fold into this section once those parts are on order.
+
 | Part | ASIN / Source | Qty | Unit $ | Line $ |
 |---|---|---:|---:|---:|
 | [ruthex M3 Threaded Inserts Short, 100 pc, RX-M3Sx4.0 brass heat-set](https://www.amazon.com/dp/B0D39W228K) | B0D39W228K — M3 × 4 mm L × 4.2 mm OD knurled brass insert installed by heat into the printed PET-CF touch-flo-shell to provide a threaded socket for the McMaster ULH screws below; Amazon order 112-4234665-4274626, May 10, 2026, $9.99 + $0.72 allocated tax = $10.71 delivered ÷ 100 = $0.1071/insert | 2 (of 100 pk) | $0.11 | $0.21 |
