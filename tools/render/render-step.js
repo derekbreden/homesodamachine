@@ -7,7 +7,7 @@
 //   node tools/render/render-step.js <step-file-relative> <output-png> [--at <date|sha>]
 // Example:
 //   node tools/render/render-step.js \
-//     printed-parts/foam-bag-shell/foam-bag-shell.step \
+//     printed-parts/cold-core/foam-bag-shell/foam-bag-shell.step \
 //     public/post-images/foam-bag-shell.png
 //
 // The step path is relative to hardware/ (matches /api/steps + /steps/*).

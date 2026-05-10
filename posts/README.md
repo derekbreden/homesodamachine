@@ -236,10 +236,10 @@ Use the project's canonical terms. The two most-confused:
   source of truth. The abbreviation "BOM" is fine in titles for
   terseness; spell out "bill of materials" in body prose.
 - **The carbonator's foam shell**, not "flavor reservoir housing." The
-  foam-bag-shell (`hardware/printed-parts/foam-bag-shell/`) wraps the
-  carbonator tank and includes pockets for the soft flavor bags. The
-  plan-b hardshell flavor reservoir
-  (`hardware/printed-parts/plan-b/reservoir/`) is a different concept
+  foam-bag-shell (`hardware/printed-parts/cold-core/foam-bag-shell/`)
+  wraps the carbonator tank and includes pockets for the soft flavor
+  bags. The hardshell flavor reservoir
+  (`hardware/printed-parts/cold-core/reservoir/`) is a different concept
   that landed as docs only on 2026-05-02 — don't conflate them in earlier
   posts.
 
