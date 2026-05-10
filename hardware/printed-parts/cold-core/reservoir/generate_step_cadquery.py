@@ -133,6 +133,31 @@ boss_height = 20.0
 
 
 # -------------------------------------------------------
+# Sharp-corner fillets (where the centerward curve meets the ±Z walls)
+# -------------------------------------------------------
+#
+# At z = ±70 mm the outer centerward curve (radius 72 mm) meets the
+# outer ±Z walls. Interior angle of the body's exterior at that point
+# is only ~13° — a pointy tab that's structurally useless, won't FDM
+# cleanly, and looks like a defect. Filleted off externally.
+#
+# At z = ±66 mm the inner centerward curve (radius 76 mm) meets the
+# inner ±Z walls (cavity boundary). Interior angle of the cavity at
+# that point is ~30° — a sharp corner inside the syrup volume that
+# would trap residual liquid through clean cycles and concentrate
+# stress in the wall. Filleted off internally.
+#
+# Same fillet radius on both for visual consistency. 5 mm is large
+# relative to the wall thickness but small relative to the wall arc
+# lengths (~140 mm far wall, ~190 mm centerward curve).
+#
+outer_corner_fillet_radius = 5.0
+inner_corner_fillet_radius = 5.0
+#
+# -------------------------------------------------------
+
+
+# -------------------------------------------------------
 # Cap geometry
 # -------------------------------------------------------
 #
@@ -224,7 +249,41 @@ def build_reservoir_body(side=1):
 
     body = outer_envelope.cut(inner_cavity)
 
-    # Insert bosses at the top perimeter.
+    # Fillet the four sharp corners where the centerward concave curve
+    # meets the ±Z walls — applied to the bare wall geometry BEFORE
+    # unioning the insert bosses, because two of the inner corners
+    # coincide with boss positions (37.68, ±66) and unioning a cylinder
+    # there would replace the sharp edge with a curved boss-to-wall
+    # transition that the fillet operation can't pick up.
+    #
+    # Exterior corners (outer perimeter, ~13° interior angle) are pointy
+    # tabs. Interior corners (cavity boundary, ~30° interior angle) are
+    # sharp inside the syrup volume. Both get rounded with the same
+    # radius for visual consistency.
+    outer_corner_x = math.sqrt(outer_centerward_radius**2 - outer_z_max**2)
+    inner_corner_x = math.sqrt(inner_centerward_radius**2 - inner_z_max**2)
+    y_mid_body = (outer_floor_bottom_y + outer_top_y) / 2
+
+    for sharp_z in (outer_z_max, -outer_z_max):
+        body = (
+            body
+            .edges(cq.NearestToPointSelector(
+                (side * outer_corner_x, y_mid_body, sharp_z),
+            ))
+            .fillet(outer_corner_fillet_radius)
+        )
+
+    for sharp_z in (inner_z_max, -inner_z_max):
+        body = (
+            body
+            .edges(cq.NearestToPointSelector(
+                (side * inner_corner_x, y_mid_body, sharp_z),
+            ))
+            .fillet(inner_corner_fillet_radius)
+        )
+
+    # Insert bosses at the top perimeter (unioned AFTER the fillets so
+    # the bosses sit on top of the now-rounded corners cleanly).
     boss_bottom_y = outer_top_y - boss_height
     pocket_bottom_y = outer_top_y - insert_pocket_depth
 
@@ -319,6 +378,21 @@ def build_reservoir_cap(side=1):
             .extrude(cap_counterbore_depth + 0.1)
         )
         cap = cap.cut(counterbore)
+
+    # Fillet the two exterior sharp corners (same outer footprint as
+    # the body, so same sharp tabs). Inner perimeter-wall corners are
+    # not user-visible and left alone for now.
+    outer_corner_x = math.sqrt(outer_centerward_radius**2 - outer_z_max**2)
+    y_mid_cap = cap_total_height / 2
+
+    for sharp_z in (outer_z_max, -outer_z_max):
+        cap = (
+            cap
+            .edges(cq.NearestToPointSelector(
+                (side * outer_corner_x, y_mid_cap, sharp_z),
+            ))
+            .fillet(outer_corner_fillet_radius)
+        )
 
     return cap
 
