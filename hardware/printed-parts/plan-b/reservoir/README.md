@@ -33,9 +33,68 @@ Target features for the first design:
 - Fill path from the valve manifold, not a user-opened cap on the reservoir.
 - No internal support material, no internal threads, no decorative texture, no sharp inside corners.
 
-Current `../foam-bag-shell/` CadQuery creates two mirrored bag-pocket shells. Each current pocket has a gross envelope of 35.0 mm X × 143.0 mm Z × 212.4 mm Y = 1.063 L, and an internal void of roughly 33.0 mm X × 141.0 mm Z × 211.4 mm Y = 0.984 L. A true 1 L printed reservoir is therefore close enough to today's package that Plan B should start by enlarging the bag-pocket gross envelope slightly in X only. Avoid growing Y or Z unless the pressure-vessel, fitting, or enclosure stack changes elsewhere.
+### Cavity envelope (post centerward-wall removal)
+
+Each bag pocket cavity in `../foam-bag-shell/` opens along its centerward face directly into the support shell's interior — the bag pocket's tank-facing wall and the support shell's matching ±X wall were removed because they had air on both sides (bag cavity inside, corner-pocket air outside; see the foam-bag-shell README for the wall analysis). Each cavity per side is now:
+
+- **Top-down cross-section:** rectangle bounded at the far face (x = ±104.5 mm) and the +Z / −Z walls (z = ±70.5 mm), with a **concave cylindrical face** on the centerward side following the round cup's outer surface (radius 71.5 mm, vertical axis). Closer to a `[` than a `D` — three straight sides and one concave curve, not three straight sides and a convex bulge.
+- **Vertical extent:** y ∈ [1, 212.4] mm = 211.4 mm tall.
+- **Air volume:** ~1.42 L per cavity (up from the 0.984 L rectangular void that the previous envelope assumed).
+
+A reservoir designed to fill that cavity is a rectangular prism with a concave cylindrical cutout on its centerward face. Outer volume ~1.42 L; with a 2 mm reservoir wall, internal volume ≈ 1.30 L; with a 1.5 mm wall, ≈ 1.34 L. Both well over the 1 L usable target with comfortable headroom for sump, vent standpipe, fillets, and bosses.
+
+The previous "enlarge the bag-pocket gross envelope slightly in X" guidance is **obsolete** — that recipe was based on the 0.984 L rectangle, where a 1 L print barely fit. The current cavity exceeds 1 L by ~40 %; no envelope change is needed. Y and Z stay where they are because the pressure-vessel and plumbing envelope haven't changed.
 
 The first printable shape can be ugly. It needs to preserve the real wall thicknesses, bosses, vent geometry, outlet sump, and sealing surfaces. Exterior packaging elegance comes after the liquid behavior is proven.
+
+### Thermal coupling: actual goal is refrigerator-level
+
+The cooling target is refrigerator-level — roughly 2–5 °C in the syrup itself. The "8–15 °C passive pre-chill" range in [`../../future.md`](../../future.md) (line 68) describes what the *current geometry actually delivers*, not the goal we'd ideally hit.
+
+Per-area thermal resistances (m²·K/W) for a 2 mm-walled hard reservoir sitting flush against the round cup wall, with kitchen ambient T_amb ≈ 22 °C and tank water T_cold ≈ 2 °C:
+
+**Cold side** (syrup → tank water):
+
+| Layer | k (W/m·K) | R (m²·K/W) |
+|---|---|---|
+| Reservoir wall (PETG, 2 mm) | 0.20 | 0.010 |
+| Round cup wall (PETG, 1 mm) | 0.20 | 0.005 |
+| Inner foam (2 lb closed-cell PU, 7 mm) | 0.025 | 0.280 |
+| Tank wall (316 SS, 1.65 mm) | 16 | 0.0001 |
+| **R_cold total** | | **0.295** |
+
+**Warm side** (syrup → kitchen ambient):
+
+| Layer | k (W/m·K) | R (m²·K/W) |
+|---|---|---|
+| Reservoir wall (PETG, 2 mm) | 0.20 | 0.010 |
+| Bag pocket far wall (PETG, 1 mm) | 0.20 | 0.005 |
+| Outer foam (2 lb closed-cell PU, 16 mm) | 0.025 | 0.640 |
+| Outer shell wall (PETG, 1 mm) | 0.20 | 0.005 |
+| Outer convection (vertical, still cabinet air, h ≈ 5 W/m²·K) | — | 0.200 |
+| **R_warm total** | | **0.860** |
+
+Equilibrium syrup temperature, balancing the two heat paths:
+
+T_syrup = (T_amb × R_cold + T_cold × R_warm) / (R_cold + R_warm) = (22 × 0.295 + 2 × 0.860) / 1.155 ≈ **7.1 °C**
+
+The **dominant resistance on the cold side is the inner foam** — 0.28 of 0.295, or 95 % of R_cold. Substituting the bladder's 75 µm of LDPE (≈ 0.0002 m²·K/W) for the reservoir's 2 mm of PETG (0.010) removes ~0.010 from R_cold and shifts T_syrup by ≈ 0.1 °C. So **bladder vs hard reservoir is not the dominant variable for chilling performance**; both will sit in the ~7 °C range with the current foam thickness, regardless of wall material. The wall-thickness penalty for going hard-reservoir is real but small compared to the foam term.
+
+To hit the 4 °C target with this architecture, R_cold needs to drop from 0.295 to roughly 0.135 m²·K/W. The only large-impact lever is the inner foam:
+
+| Inner foam thickness | R_cold | T_syrup |
+|---|---|---|
+| 7 mm (current) | 0.295 | 7.1 °C |
+| 5 mm | 0.215 | 5.7 °C |
+| 3 mm | 0.135 | 4.7 °C |
+| 1 mm (structural floor) | 0.055 | 3.2 °C |
+
+Thinning the inner foam comes with trade-offs:
+- Less freeze margin if the carbonator briefly dips below 2 °C; the cup-wall outer face would track tank water more closely.
+- Reduced bag-side / reservoir-side condensation control (closed-cell foam normally prevents water from wicking against the reservoir under transient warm-up cycles).
+- Less acoustic / mechanical isolation between the cold core and the bag pocket.
+
+These are foam-bag-shell architecture decisions, not Plan B reservoir decisions — flagged here so the reservoir doesn't get blamed for falling short of refrigerator-level when the foam thickness is what sets the floor.
 
 ## Test Sequence
 
