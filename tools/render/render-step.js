@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 // render-step.js — render a STEP file as an isometric PNG against the site
 // palette by booting the prod server in-process, driving Puppeteer through
-// the existing /dev/ viewer, and trimming + resizing the frame with sharp.
+// the existing /3d viewer, and trimming + resizing the frame with sharp.
 //
 // Usage:
 //   node tools/render/render-step.js <step-file-relative> <output-png> [--at <date|sha>]
@@ -89,7 +89,7 @@ async function renderOne({ stepRel, outAbs, hardwareDir }) {
       if (t === "error" || t === "warning") console.error(`console.${t}:`, msg.text());
     });
 
-    const url = `http://localhost:${port}/dev/?file=${encodeURIComponent(stepRel)}`;
+    const url = `http://localhost:${port}/3d?file=${encodeURIComponent(stepRel)}`;
     console.log(`navigating: ${url}`);
     await page.goto(url, { waitUntil: "domcontentloaded", timeout: 60000 });
 

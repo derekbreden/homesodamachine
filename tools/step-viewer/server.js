@@ -3,10 +3,11 @@
 // reload — everything that only makes sense locally.
 //
 // URL structure is identical to production: localhost:3000/ is the landing
-// page, localhost:3000/dev/ is the viewer, /blog is the Updates feed, and
-// so on. The wrapper is purely additive — it does NOT change any routes.
-// `dev: true` only changes the commit signal sent over SSE and skips the
-// boot-time FCM push diff that fires on real deploys.
+// page, localhost:3000/3d is the parts viewer, /charts is the diagrams
+// viewer, /blog is the Updates feed, and so on. The wrapper is purely
+// additive — it does NOT change any routes. `dev: true` only changes the
+// commit signal sent over SSE and skips the boot-time FCM push diff that
+// fires on real deploys.
 //
 // The CadQuery scripts write atomically to their natural location next to
 // the .py file (see hardware/_cadq_export.py), so this server doesn't

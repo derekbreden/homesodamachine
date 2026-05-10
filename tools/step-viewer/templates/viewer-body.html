@@ -722,35 +722,24 @@ function shortName(file, ext = ".step") {
 }
 
 // One viewer page area at a time. The path determines which section the
-// grid renders. In production the viewer is mounted under /dev; in dev
-// it lives at the root.
-const NAV_PREFIX = location.pathname.startsWith("/dev") ? "/dev" : "";
+// grid renders.
 function currentSection() {
-  const tail = location.pathname.replace(NAV_PREFIX, "").replace(/\/$/, "");
-  if (tail === "/diagrams" || tail === "diagrams") return "diagrams";
-  return "prints";
+  const tail = location.pathname.replace(/\/$/, "");
+  if (tail === "/charts") return "charts";
+  return "parts";
 }
 
 function setupNav() {
-  // Rewrite Prints / Diagrams hrefs for the current mount point so the
-  // links work in both production (/dev/...) and dev (/...) without
-  // duplicating templates. Home and Updates always live at the root.
-  const links = document.querySelectorAll("#site-nav a[data-nav]");
-  for (const a of links) {
-    const which = a.dataset.nav;
-    if (which === "prints") a.href = NAV_PREFIX || "/";
-    if (which === "diagrams") a.href = `${NAV_PREFIX}/diagrams`;
-  }
+  // The shell already renders the nav with absolute hrefs (/3d, /charts);
+  // this just sets the active class for client-side navigation cases.
   const section = currentSection();
-  const activeMap = { prints: "prints", diagrams: "diagrams" };
-  const wantActive = activeMap[section];
   for (const a of document.querySelectorAll("#site-nav a[data-nav]")) {
-    a.classList.toggle("active", a.dataset.nav === wantActive);
+    a.classList.toggle("active", a.dataset.nav === section);
   }
 
   const titleMap = {
-    prints: "Prints · Home Soda Machine",
-    diagrams: "Diagrams · Home Soda Machine",
+    parts: "Parts · Home Soda Machine",
+    charts: "Charts · Home Soda Machine",
   };
   document.title = titleMap[section] || document.title;
 }
@@ -760,7 +749,7 @@ function buildGrid() {
   const section = currentSection();
 
 
-  if (section === "prints") {
+  if (section === "parts") {
     if (allFiles.length === 0) {
       const empty = document.createElement("div");
       empty.className = "empty-state";
@@ -779,11 +768,11 @@ function buildGrid() {
     }
   }
 
-  if (section === "diagrams") {
+  if (section === "charts") {
     if (mmdFiles.length === 0) {
       const empty = document.createElement("div");
       empty.className = "empty-state";
-      empty.textContent = "No diagrams yet.";
+      empty.textContent = "No charts yet.";
       gridEl.appendChild(empty);
     }
     for (const file of mmdFiles) {

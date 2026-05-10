@@ -7,7 +7,7 @@ import pg from "pg";
 import { mountViewerRoutes } from "./lib/viewer-routes.js";
 import { mountBlogRoutes } from "./lib/blog.js";
 import { mountLandingRoutes } from "./lib/landing.js";
-import { mountDevViewerRoutes } from "./lib/dev-viewer.js";
+import { mountViewerPages } from "./lib/viewer-pages.js";
 import { mountSettingsRoutes } from "./lib/settings.js";
 import { mountEvents } from "./lib/events.js";
 import {
@@ -26,7 +26,6 @@ const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const DEFAULT_HARDWARE_DIR = path.join(__dirname, "hardware");
 const POSTS_DIR = path.join(__dirname, "posts");
 const LANDING_PUBLIC = path.join(__dirname, "public");
-const VIEWER_PUBLIC = path.join(__dirname, "tools", "step-viewer", "public");
 
 function makePool() {
   if (!process.env.DATABASE_URL) return null;
@@ -104,7 +103,7 @@ function mountFirebaseConfig(app) {
   // known URL with the config available. We serve a tiny SW that imports
   // the modular firebase-messaging-sw bundle and initializes with the
   // env-var-driven config. The SW must live at the root scope of where
-  // pushes apply ("/dev/" here) so the file path matches.
+  // pushes apply ("/3d/" here) so the file path matches.
   //
   // Notification handling, in summary (verified by an instrumented session
   // against a real iOS PWA — see lib/shell.js HEAD_TAGS for the page-side
@@ -170,10 +169,12 @@ self.addEventListener("activate", (event) => {
 });
 `;
 
-  // Served at root so it's reachable in both dev (viewer at /) and prod
-  // (viewer at /dev/). The Service-Worker-Allowed header lets the client
-  // register with a custom scope; the client picks "/" in dev and "/dev/"
-  // in prod so the landing page isn't unnecessarily controlled by the SW.
+  // Served at root and at /3d/ so it's reachable from either scope.
+  // The Service-Worker-Allowed header lets the client register with a
+  // custom scope; the client picks "/3d/" so the landing page isn't
+  // unnecessarily controlled by the SW. The legacy /dev/ path is still
+  // served (in case an old SW registration is alive on a returning user)
+  // but shouldn't be picked by new registrations.
   const swHandler = (_req, res) => {
     res.set("Content-Type", "application/javascript");
     res.set("Cache-Control", "no-cache");
@@ -181,6 +182,7 @@ self.addEventListener("activate", (event) => {
     res.send(swSource(firebaseWebConfig()));
   };
   app.get("/firebase-messaging-sw.js", swHandler);
+  app.get("/3d/firebase-messaging-sw.js", swHandler);
   app.get("/dev/firebase-messaging-sw.js", swHandler);
 
   // iOS Safari looks for /apple-touch-icon.png at the domain root when the
@@ -227,11 +229,10 @@ export async function start({ dev = false, port, hardwareDir } = {}) {
   });
 
   // URL structure is identical in dev and prod: landing at /, blog at
-  // /blog, dev viewer at /dev/, settings at /settings, with VIEWER_PUBLIC
-  // served under /dev/ and LANDING_PUBLIC at /. The dev viewer at
-  // localhost:3000/dev/ is the same page the public hits at
-  // homesodamachine.com/dev/ — keeping the URL structures aligned is what
-  // lets ContentViewer and other LANDING_PUBLIC assets just work in dev.
+  // /blog, parts viewer at /3d, charts viewer at /charts, settings at
+  // /settings, with LANDING_PUBLIC served at /. The localhost dev server
+  // hits the same routes the public site does, so ContentViewer and
+  // other LANDING_PUBLIC assets just work in dev.
   // The dev wrapper (tools/step-viewer/server.js) is purely additive: it
   // attaches chokidar + Python + the SSE broadcast for hot reload, and
   // doesn't change any routes. The only behavioral differences in dev:
@@ -243,10 +244,9 @@ export async function start({ dev = false, port, hardwareDir } = {}) {
   mountNotificationsRoutes(app, pool);
   mountFirebaseConfig(app);
   mountLandingRoutes(app);
-  mountDevViewerRoutes(app, { prefix: "/dev" });
+  mountViewerPages(app);
   mountSettingsRoutes(app);
   attachSubscribe(app, pool);
-  app.use("/dev", express.static(VIEWER_PUBLIC));
   app.use(express.static(LANDING_PUBLIC));
 
   // Production-only: deploy-change push. Hash STEP + mermaid + posts in
@@ -314,7 +314,7 @@ export async function start({ dev = false, port, hardwareDir } = {}) {
   const server = app.listen(port ?? process.env.PORT ?? defaultPort, () => {
     if (dev) {
       console.log(`Dev server: http://localhost:${server.address().port}`);
-      console.log("  Landing /, Updates /blog, Viewer /dev/, Settings /settings");
+      console.log("  Landing /, Updates /blog, Parts /3d, Charts /charts, Settings /settings");
     } else {
       console.log(`Listening on :${server.address().port}`);
     }

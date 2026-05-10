@@ -214,7 +214,7 @@ export function resolveAtSpecSha(atSpec) {
 // Boot the historical SHA's server.js in-process and call
 // callback({ baseUrl, server, worktreeDir, sha }). This is the right helper
 // for site screenshots, where the *renderer* (shell.js, landing.js, blog.js,
-// dev-viewer.js, viewer-body.html, glass-animation.js, the icon set, etc.)
+// viewer-pages.js, viewer-body.html, glass-animation.js, the icon set, etc.)
 // is itself the thing being captured — feeding HEAD's server historical
 // hardware/ bytes (the withHistoricalTree pattern) is not enough.
 //

@@ -63,7 +63,7 @@ These are interesting on their own merits. They reach people who aren't looking 
 
 ### 4. The Live-Reload CAD Viewer (30-60 seconds)
 
-The system has matured into something more interesting than the original framing. The pitch now: fire off a CAD prompt on the laptop. Close the laptop. Go fold laundry. The agent edits the CadQuery script, the dev wrapper regenerates the STEP file, the production server hashes it, FCM pushes a notification to the phone. Open the homesodamachine.com PWA on the phone — the new 3D model is already rendered, same viewer as the desktop one (`tools/step-viewer/server.js` is just a dev wrapper around the production `server.js`; both serve `/dev/`).
+The system has matured into something more interesting than the original framing. The pitch now: fire off a CAD prompt on the laptop. Close the laptop. Go fold laundry. The agent edits the CadQuery script, the dev wrapper regenerates the STEP file, the production server hashes it, FCM pushes a notification to the phone. Open the homesodamachine.com PWA on the phone — the new 3D model is already rendered, same viewer as the desktop one (`tools/step-viewer/server.js` is just a dev wrapper around the production `server.js`; both serve `/3d`).
 
 This is an ambient-computing story now. The "wait, what?" beat isn't the speed of the loop — it's that you delegated a CAD edit to an agent and got back to your life until your phone said "look."
 
@@ -72,7 +72,7 @@ One possible direction: laptop screen split with terminal + viewer, fire the pro
 - **Audience:** Makers, 3D printing, CadQuery users, AI-assisted-workflow people, ambient-computing/PWA people. Anyone building physical things with code who's curious about agent + push-notification feedback loops.
 - **Shareability:** Very high in maker/dev communities. Possibly higher than the original framing — this version has a clearer "I want this" moment.
 - **Trust signal:** Strong. "This person built real infrastructure all the way from CadQuery script through FCM to phone" = "this person is serious."
-- **Where it lives in the repo:** `tools/step-viewer/server.js` (dev wrapper, file watcher, SSE), `lib/push.js` (FCM push on STEP/Mermaid changes), `lib/dev-viewer.js` and `lib/viewer-routes.js` (shared production+dev viewer).
+- **Where it lives in the repo:** `tools/step-viewer/server.js` (dev wrapper, file watcher, SSE), `lib/push.js` (FCM push on STEP/Mermaid changes), `lib/viewer-pages.js` and `lib/viewer-routes.js` (shared production+dev viewer).
 
 ### 5. The AI Design Pipeline Failure (2-3 minutes)
 

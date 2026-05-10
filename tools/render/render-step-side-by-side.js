@@ -2,7 +2,7 @@
 // render-step-side-by-side.js — render TWO STEP files into a single
 // side-by-side PNG against the site palette, for posts about part
 // redesigns. Boots the prod server in-process, drives a SINGLE Puppeteer
-// page through the existing /dev/ viewer to pose+snap each model, then
+// page through the existing /3d viewer to pose+snap each model, then
 // stitches the trimmed renders together with sharp.
 //
 // Usage:
@@ -198,7 +198,7 @@ async function renderPair({
 
     // First STEP: navigate with ?file=<A> so the viewer's normal init path
     // runs (sets up canvas, animation loop, calls loadStepFile).
-    const url = `http://localhost:${port}/dev/?file=${encodeURIComponent(stepAviewerRel)}`;
+    const url = `http://localhost:${port}/3d?file=${encodeURIComponent(stepAviewerRel)}`;
     console.log(`navigating: ${url}`);
     await page.goto(url, { waitUntil: "domcontentloaded", timeout: 60000 });
 
