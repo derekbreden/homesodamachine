@@ -221,7 +221,7 @@ foam_cap_lid_hole_inset = 30.0
 # Replaces the earlier friction-fit dowel-pin design, which clamped
 # nothing and left the cap-shell seam open to humid kitchen air —
 # the condensation/frost concern documented in
-# plan-b/reservoir/README.md.
+# reservoir/README.md.
 #
 # Standard SHCS chosen instead of the McMaster ULH used in touch-
 # flo-mounting-plate: there's no flush-mount constraint here (the
