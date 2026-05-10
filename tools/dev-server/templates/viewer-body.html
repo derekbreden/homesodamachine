@@ -108,6 +108,16 @@
   margin-bottom: 4px;
 }
 .section-header:first-child { padding-top: 0; }
+.subsection-header {
+  grid-column: 1 / -1;
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--text-2);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  padding: 10px 0 2px;
+  opacity: 0.65;
+}
 
 /* Mermaid thumbnail in card */
 .card .mmd-thumb {
@@ -1236,6 +1246,44 @@ function shortName(file, ext = ".step") {
   return { name, dir };
 }
 
+// Subsystem grouping for the Prints and Cuts grids. Files under
+// printed-parts/<subsystem>/... or cut-parts/<subsystem>/... bucket by
+// <subsystem>; anything else buckets by its top-level path segment
+// (e.g. harvested/ STEPs land in their own group). Categories sort
+// alphabetically. Within a group the card's `dir` label drops the
+// redundant subsystem prefix so the leaf folder reads cleanly under
+// the subheader.
+function categoryAndPartPath(file) {
+  const parts = file.split("/");
+  const filename = parts.pop();
+  let category, partPath;
+  if ((parts[0] === "printed-parts" || parts[0] === "cut-parts") && parts.length > 1) {
+    category = parts[1];
+    partPath = parts.slice(2).join("/");
+  } else {
+    category = parts[0] || "";
+    partPath = parts.slice(1).join("/");
+  }
+  return { category, partPath, filename };
+}
+
+function titleCaseCategory(s) {
+  return s.replace(/[-_]/g, " ")
+    .split(" ")
+    .map((w) => (w ? w.charAt(0).toUpperCase() + w.slice(1) : ""))
+    .join(" ");
+}
+
+function groupFilesByCategory(files) {
+  const groups = new Map();
+  for (const f of files) {
+    const { category } = categoryAndPartPath(f);
+    if (!groups.has(category)) groups.set(category, []);
+    groups.get(category).push(f);
+  }
+  return new Map([...groups.entries()].sort(([a], [b]) => a.localeCompare(b)));
+}
+
 // One viewer page area at a time. The path determines which section the
 // grid renders.
 function currentSection() {
@@ -1265,9 +1313,32 @@ function buildGrid() {
 
   if (section === "parts") {
     // Two subsections: Prints (STEP, 3D-printable) then Cuts (DXF, laser-
-    // cut sheet). Headers always render so the structure is explicit even
+    // cut sheet). Within each, cards are further grouped under subsystem
+    // subheaders (Cold Core, Flavor, Faucet, ...) derived from the folder
+    // structure in hardware/printed-parts/ and hardware/cut-parts/. The
+    // section headers always render so the structure is explicit even
     // when a subsection is empty; the empty-state replaces the would-be
     // card grid for that subsection.
+    const renderGroupedCards = (files, ext, type, onClick) => {
+      for (const [category, group] of groupFilesByCategory(files)) {
+        const sub = document.createElement("div");
+        sub.className = "subsection-header";
+        sub.textContent = titleCaseCategory(category);
+        gridEl.appendChild(sub);
+        for (const file of group) {
+          const { partPath, filename } = categoryAndPartPath(file);
+          const name = filename.replace(ext, "");
+          const card = document.createElement("div");
+          card.className = "card";
+          card.dataset.file = file;
+          card.dataset.type = type;
+          card.innerHTML = `<div class="placeholder" data-file="${file}">loading...</div><div class="label"><span class="dir">${partPath}</span>${name}</div>`;
+          card.addEventListener("click", () => onClick(file));
+          gridEl.appendChild(card);
+        }
+      }
+    };
+
     const printsHeader = document.createElement("div");
     printsHeader.className = "section-header";
     printsHeader.textContent = "Prints";
@@ -1277,16 +1348,8 @@ function buildGrid() {
       empty.className = "empty-state";
       empty.textContent = "No prints yet.";
       gridEl.appendChild(empty);
-    }
-    for (const file of allFiles) {
-      const { name, dir } = shortName(file, ".step");
-      const card = document.createElement("div");
-      card.className = "card";
-      card.dataset.file = file;
-      card.dataset.type = "step";
-      card.innerHTML = `<div class="placeholder" data-file="${file}">loading...</div><div class="label"><span class="dir">${dir}</span>${name}</div>`;
-      card.addEventListener("click", () => openDetail(file));
-      gridEl.appendChild(card);
+    } else {
+      renderGroupedCards(allFiles, ".step", "step", openDetail);
     }
 
     const cutsHeader = document.createElement("div");
@@ -1298,16 +1361,8 @@ function buildGrid() {
       empty.className = "empty-state";
       empty.textContent = "No cuts yet.";
       gridEl.appendChild(empty);
-    }
-    for (const file of dxfFiles) {
-      const { name, dir } = shortName(file, ".dxf");
-      const card = document.createElement("div");
-      card.className = "card";
-      card.dataset.file = file;
-      card.dataset.type = "dxf";
-      card.innerHTML = `<div class="placeholder" data-file="${file}">loading...</div><div class="label"><span class="dir">${dir}</span>${name}</div>`;
-      card.addEventListener("click", () => openDxfDetail(file));
-      gridEl.appendChild(card);
+    } else {
+      renderGroupedCards(dxfFiles, ".dxf", "dxf", openDxfDetail);
     }
   }
 
