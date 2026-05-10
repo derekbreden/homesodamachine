@@ -12,7 +12,7 @@
 // Example (the racetrack STEP lives only at the archive-plan-b tag now,
 // so STEP B is pinned to that tag while STEP A stays at HEAD):
 //   node tools/render/render-step-side-by-side.js \
-//     printed-parts/foam-bag-shell/foam-bag-shell.step \
+//     printed-parts/cold-core/foam-bag-shell/foam-bag-shell.step \
 //     printed-parts/plan-b/foam-bag-shell-racetrack/foam-bag-shell-upper.step \
 //     public/post-images/2026-04-15-foam-shell-old-vs-new.png \
 //     --label-a="round (before)" --label-b="racetrack (after)" \

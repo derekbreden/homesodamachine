@@ -30,12 +30,12 @@ PARTS CURRENTLY MODELED
 4. Lever (build_lever) — swing-clearance blob. Union of the lever in
    rest position and pressed-down position (-18° around X=1.5, Z=46),
    each with vertical water-tube clearance for both extremes.
-5. Mounting plate (loaded from `../../../printed-parts/touch-flo-mounting-plate/`).
+5. Mounting plate (loaded from `../../../printed-parts/faucet/touch-flo-mounting-plate/`).
    Ø 54.35 × 4 mm disc centered at (3.175, 0), spans Z = [-4, 0]. Shank
    hole at (0, 0); flavor-tube pill slot at (18.925, 0). 5 mm radial
    gap from the shell base (Ø 44.35) so the plate reads as a finished
    shoulder under the shell.
-6. Shell (loaded from `../../../printed-parts/touch-flo-shell/`).
+6. Shell (loaded from `../../../printed-parts/faucet/touch-flo-shell/`).
    Single-piece shroud covering zones 1–6, centered at (3.175, 0).
    Outer Ø 44.35 mm cylindrical base (zone 1, Z = [0, 13]) → cove
    transition into a 41.175 × 23.5 mm rectangular column (zone 2,
@@ -44,7 +44,7 @@ PARTS CURRENTLY MODELED
    lever (zones 4 + 4.5 + 5, Z = [44.25, 67.5]) → gooseneck wrapper
    following the bent dispense tubes through bend 1, mid straight,
    bend 2, and the tip (zone 6).
-7. Mounting gasket (loaded from `../../../printed-parts/touch-flo-mounting-gasket/`).
+7. Mounting gasket (loaded from `../../../printed-parts/faucet/touch-flo-mounting-gasket/`).
    Ø 54.35 × 2.0 mm TPU 90A disc, sits between the mounting plate
    and the countertop (Z = [-6, -4]). Hole pattern mirrors the plate.
 
@@ -220,6 +220,7 @@ REF_BODY_STEP = (
 MOUNTING_PLATE_STEP = (
     Path(__file__).resolve().parent.parent.parent.parent
     / "printed-parts"
+    / "faucet"
     / "touch-flo-mounting-plate"
     / "touch-flo-mounting-plate.step"
 )
@@ -227,6 +228,7 @@ MOUNTING_PLATE_STEP = (
 MOUNTING_GASKET_STEP = (
     Path(__file__).resolve().parent.parent.parent.parent
     / "printed-parts"
+    / "faucet"
     / "touch-flo-mounting-gasket"
     / "touch-flo-mounting-gasket.step"
 )
@@ -234,6 +236,7 @@ MOUNTING_GASKET_STEP = (
 SHELL_STEP = (
     Path(__file__).resolve().parent.parent.parent.parent
     / "printed-parts"
+    / "faucet"
     / "touch-flo-shell"
     / "touch-flo-shell.step"
 )
@@ -251,7 +254,7 @@ def load_mounting_plate() -> cq.Workplane:
     """Load the printed mounting plate from its printed-parts STEP.
 
     Read-only here — see
-    `hardware/printed-parts/touch-flo-mounting-plate/generate_step_cadquery.py`
+    `hardware/printed-parts/faucet/touch-flo-mounting-plate/generate_step_cadquery.py`
     for the source of truth.
     """
     return cq.importers.importStep(str(MOUNTING_PLATE_STEP))
@@ -261,7 +264,7 @@ def load_mounting_gasket() -> cq.Workplane:
     """Load the printed-TPU mounting gasket from its printed-parts STEP.
 
     Read-only here — see
-    `hardware/printed-parts/touch-flo-mounting-gasket/generate_step_cadquery.py`
+    `hardware/printed-parts/faucet/touch-flo-mounting-gasket/generate_step_cadquery.py`
     for the source of truth.
     """
     return cq.importers.importStep(str(MOUNTING_GASKET_STEP))
@@ -271,7 +274,7 @@ def load_shell() -> cq.Workplane:
     """Load the printed shell from its printed-parts STEP.
 
     Read-only here — see
-    `hardware/printed-parts/touch-flo-shell/generate_step_cadquery.py`
+    `hardware/printed-parts/faucet/touch-flo-shell/generate_step_cadquery.py`
     for the source of truth.
     """
     return cq.importers.importStep(str(SHELL_STEP))
