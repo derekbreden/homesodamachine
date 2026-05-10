@@ -105,18 +105,19 @@ insert_pocket_depth = 5.0
 #   1. (100, +66)   far wall × +Z wall, inner corner
 #   2. (100, −66)   far wall × −Z wall, inner corner
 #   3. (100,   0)   far wall, midpoint
-#   4. (37.68, +66) centerward curve × +Z wall, inner corner
-#                   (= √(76² − 66²); the inner-curve-meets-inner-+Z
-#                    intersection)
-#   5. (37.68, −66) centerward curve × −Z wall, inner corner
+#   4. (70,  +66)   +Z inner wall, midpoint (past the inner-corner fillet
+#                   tangent at x ≈ 56.33; rolling the boss back along
+#                   the wall keeps it in solid wall material instead of
+#                   sitting at the now-rounded curve-meets-+Z corner)
+#   5. (70,  −66)   −Z inner wall, midpoint (mirror)
 #   6. (76,    0)   centerward curve apex, midpoint
 #
 INSERT_POSITIONS_FOR_SIDE_PLUS_1 = [
     (100.0, 66.0),
     (100.0, -66.0),
     (100.0, 0.0),
-    (37.68, 66.0),
-    (37.68, -66.0),
+    (70.0, 66.0),
+    (70.0, -66.0),
     (76.0, 0.0),
 ]
 #
