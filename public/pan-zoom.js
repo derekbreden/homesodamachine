@@ -1,7 +1,7 @@
 // PanZoom — vanilla pan + pinch-zoom + wheel-zoom for any element.
 //
 // Generalized from the mermaid detail view in
-// tools/step-viewer/templates/viewer-body.html. Same pinch math (anchor at
+// tools/dev-server/templates/viewer-body.html. Same pinch math (anchor at
 // the gesture midpoint, recompute pan so that midpoint stays put), same
 // pointer state machine, just wrapped so the caller controls the target and
 // container.

@@ -31,7 +31,7 @@ const BG = "#1a1a2e";
 const PADDING = 24;
 const MAX_WIDTH = 1200;
 
-// Theme variables copied from tools/step-viewer/templates/viewer-body.html
+// Theme variables copied from tools/dev-server/templates/viewer-body.html
 // so the rendered diagram matches what users see at /charts.
 const THEME_VARIABLES = {
   darkMode: true,
