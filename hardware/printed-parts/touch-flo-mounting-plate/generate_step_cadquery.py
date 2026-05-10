@@ -5,8 +5,10 @@ and (eventually) the shell that wraps around the assembly.
 
 GEOMETRY
 ========
-- Ø 50 mm, 5 mm thick disc (factory plate is Ø 44.5 mm; this is "a
-  bit bigger, but not by much" per the user's call).
+- Ø 54.35 mm, 5 mm thick disc — sized so the plate's edge sits 5 mm
+  out from the shell base's outer cylinder (Ø 44.35 = SHELL_OUTER_R
+  × 2). 5 mm matches the standard wall / margin elsewhere in the
+  shell. Factory plate was Ø 44.5; this is bigger.
 - Plate spans Z = [-5, 0] in world coords; top face flush with the
   deck plane (= body bottom in the faucet-assembly).
 - Plate center at world (3.175, 0) — the midpoint of the assembly's
@@ -53,7 +55,7 @@ from _cadq_export import export_step
 # PLATE DIMENSIONS
 # ═══════════════════════════════════════════════════════
 
-PLATE_DIAMETER  = 50.0    # mm
+PLATE_DIAMETER  = 54.35   # mm — 5 mm radial gap to shell base (Ø 44.35)
 PLATE_THICKNESS = 5.0     # mm
 PLATE_CENTER_X  = 3.175   # mm — assembly footprint midpoint with
                            # 1/4" flavor tubes; matches SHELL_CENTER_X
