@@ -29,8 +29,8 @@ GEOMETRY
 - 2.0 mm thick — print floor for TPU 90A on a 0.4 mm nozzle is ~1.2 mm
   (3 perimeters); 2.0 mm gives ~0.4 mm of compression travel at 20%
   squish, well within Touch-Flo shank thread engagement.
-- Plate spans Z = [-7, -5] in world coords; top face flush with the
-  mounting plate's bottom face (PLATE_Z_BOTTOM = -5 in the plate
+- Gasket spans Z = [-6, -4] in world coords; top face flush with the
+  mounting plate's bottom face (PLATE_Z_BOTTOM = -4 in the plate
   script). Bottom face = countertop surface plane in this assembly.
 - Plate center at world (3.175, 0) — same as the mounting plate, so
   the two stack concentrically.
@@ -72,10 +72,10 @@ GASKET_CENTER_X  = 3.175   # mm — matches mounting plate center
 GASKET_CENTER_Y  = 0.0
 
 # Stacks immediately under the mounting plate (whose bottom face is
-# at world Z = -5.0). Top of gasket meets bottom of plate; bottom of
+# at world Z = -4.0). Top of gasket meets bottom of plate; bottom of
 # gasket sits on the countertop surface.
-GASKET_Z_TOP     = -5.0
-GASKET_Z_BOTTOM  = GASKET_Z_TOP - GASKET_THICKNESS  # -7.0
+GASKET_Z_TOP     = -4.0
+GASKET_Z_BOTTOM  = GASKET_Z_TOP - GASKET_THICKNESS  # -6.0
 
 
 # ═══════════════════════════════════════════════════════
