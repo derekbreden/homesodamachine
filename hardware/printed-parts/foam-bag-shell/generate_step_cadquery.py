@@ -78,6 +78,47 @@ tank_support_wedge_height = 30.0
 
 
 # -------------------------------------------------------
+# Foam-pour down-channels (4×, on the tank_copper_shell, at diagonals)
+# -------------------------------------------------------
+#
+# Four vertical cylindrical lobes unioned to the OUTSIDE of the
+# tank_copper_shell at azimuths 45°/135°/225°/315°, full cavity height.
+# After shelling, each lobe appears as a concave vertical flute on the
+# inside wall, locally widening the radial foam-pour gap from the design
+# 7 mm to ~11 mm at the four diagonal lines. Wall thickness everywhere
+# stays at wall_and_floor_thickness.
+#
+# Purpose: provide unobstructed top-to-bottom liquid-foam flow paths
+# that bypass the helically-wrapped copper coil. The FSi 2 lb pour-in-
+# place foam (Fiberglass Supply Depot B08R7TX8QJ, ≈ Fibre Glast #25/326)
+# has ~45 s cream / ~230 s gel at 72 °F and only 4–6 psi closed-rise
+# pressure — a thin 0.5 mm radial slot beside the coil is borderline
+# and lot-variation-sensitive. The channels make liquid flow to the
+# bottom robust; coil-side slots then fill from below by expansion.
+#
+# Aligned with diagonals to avoid every existing feature: bag pockets
+# (cardinal X), water/CO2/PRV/outlet ports (cardinal Z), copper-line
+# slits (cardinal Z, offset). They also coincide angularly with the
+# tank_support_wedge's 30°-wide slots at 45° + 90·i, so foam falls
+# down a channel and straight through a wedge slot to the under-tank
+# floor with no extra geometry change to the wedge.
+#
+foam_channel_count = 4
+foam_channel_first_angle_deg = 45.0
+foam_channel_lobe_radius = 4.0
+# Lobe centers sit on the round shell's OD (R = tank_copper_shell_radius),
+# so half the lobe overlaps the wall (becomes a local cavity bulge after
+# shelling) and half protrudes outward into the corner pocket between the
+# tank_copper_shell and the bag_pocket_support_shell. The corner pockets
+# are otherwise unused volume; lobe outermost radius is
+# tank_copper_shell_radius + foam_channel_lobe_radius, well inside the
+# square support shell's diagonal corner at √2 × tank_copper_shell_radius.
+foam_channel_lobe_center_radius = tank_copper_shell_radius
+#
+# -------------------------------------------------------
+
+
+# -------------------------------------------------------
 # Bag pocket
 # -------------------------------------------------------
 #
@@ -151,14 +192,26 @@ lid_pin_clearance_radius = pin_radius
 
 
 def build_tank_copper_shell():
-    
-    return (
+
+    shell = (
         cq.Workplane(xz_plane_y_up)
         .circle(tank_copper_shell_radius)
         .extrude(tank_copper_shell_height)
-        .faces(">Y")
-        .shell(-wall_and_floor_thickness)
     )
+    for i in range(foam_channel_count):
+        angle = math.radians(
+            foam_channel_first_angle_deg + 360.0 * i / foam_channel_count
+        )
+        center_x = foam_channel_lobe_center_radius * math.cos(angle)
+        center_z = foam_channel_lobe_center_radius * math.sin(angle)
+        lobe = (
+            cq.Workplane(xz_plane_y_up)
+            .workplane(origin=(center_x, 0, center_z))
+            .circle(foam_channel_lobe_radius)
+            .extrude(tank_copper_shell_height)
+        )
+        shell = shell.union(lobe)
+    return shell.faces(">Y").shell(-wall_and_floor_thickness)
 
 def build_bag_pocket_support_shell():
     bag_pocket_support_side_length = 2 * tank_copper_shell_radius

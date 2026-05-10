@@ -49,6 +49,29 @@ wrapped around it. Outer radius **70.5 mm** (tank radius 63.5 + coil-zone
 buffer 7). Total height **212.4 mm** (tank height 152.4 + 30 mm above +
 30 mm below for the 90° elbow space).
 
+Four **foam-pour down-channels** are unioned to the outside of the cup
+at azimuths 45°/135°/225°/315°, running the full cavity height. Each
+channel is a 4 mm-radius cylindrical lobe whose center sits on the
+shell's OD, so half the lobe overlaps the wall (becomes a concave
+flute on the inside after shelling) and half protrudes outward into
+the corner pocket between this shell and `bag_pocket_support_shell`.
+On the inside, the channels locally widen the radial foam gap from
+the design 7 mm to ~11 mm at the four diagonal lines.
+
+The channels exist because the helically-wrapped 1/4" ACR copper
+evaporator coil leaves only ~0.5 mm of radial slot on each flank —
+borderline for liquid pour-in-place foam to traverse top-to-bottom
+inside the foam's ~45 s cream window, and lot-variation-sensitive
+(FSi/Fibre Glast Side B viscosity is specced 400–2000 cP, a 5×
+range). The channels give the liquid foam a clear path to the cavity
+floor; the coil-side slots then fill from below by the foam's
+4–6 psi closed-rise expansion pressure.
+
+The channel azimuths coincide with the `tank_support_wedge`'s four
+30°-wide slots (also at 45° + 90·i), so foam falls down a channel
+and continues straight through a wedge slot to the under-tank floor
+with no wedge change.
+
 ### tank_support_wedge
 
 Annular wedge ring sitting inside the lower portion of the
