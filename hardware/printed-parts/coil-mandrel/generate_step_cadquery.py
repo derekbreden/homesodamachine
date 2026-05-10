@@ -1,32 +1,37 @@
 """
 Plan A coil winding mandrel.
 
-A 3D-printed forming mandrel that the user wraps soft-annealed 1/4" OD
-copper tubing around to produce a pre-formed helical coil.  The coil
-then stretches over the 5" OD round 316L SS pressure vessel.
+Open-tube mandrel for hand-winding 1/4" OD copper around a 5" round
+316L pressure vessel.  Smooth outer surface (no helical guide groove):
+the copper is wound by hand and pitch is set by feel or by pencil-mark
+on the surface.
 
-Geometry:
-  Solid right-circular cylinder with axis along Z.  A helical groove
-  in the center winding zone cradles the 1/4" copper tube and enforces
-  a 3/8" pitch.  0.75" plain cylindrical zones at each end serve as
-  handle/clamp zones for winding.
+An earlier version cut a helical groove via parametricCurve + sweep,
+but the boolean cut produced a degenerate solid (negative / zero volume,
+isValid()=False) for helices wrapping more than a few turns — OCCT's
+BOP can't reconcile the self-revisiting swept tube with the cylinder.
+Plan B's coil-mandrel has the same bug; its STEP exports without
+crashing but contains no real groove geometry either.
 
-Springback compensation (the whole reason this part exists):
-  Hand-winding copper directly onto the 5" tank releases to a 1-3 mm
-  radial gap between the coil and the tank — soft-annealed copper
-  springs back loose.  Bending instead onto an undersize mandrel and
+Pitch precision isn't function-critical — the coil's job is heat
+conduction through the foil-tape interface, which doesn't care whether
+loops sit at 9 mm or 11 mm spacing.  The groove was tooling polish, not
+a functional feature.  The smooth-tube version is also half the print
+time of the solid + low-infill original (no infill bridging, no surprises).
+
+Springback compensation:
+  Soft-annealed copper bent around the bare 5" tank releases to a
+  1-3 mm radial gap.  Bending instead onto an undersize mandrel and
   stretching the resulting coil over the tank biases the spring
-  direction inward (clamping the coil against the tank + 3M 425 foil
-  tape), not outward.
+  direction inward — the loop wants to close to a smaller radius
+  than the tank, so it clamps the coil against the tank + 3M 425 foil
+  tape rather than springing away from it.
 
-  Tank OD = 5.000" = 127.0 mm (R = 63.5 mm).  Mandrel ODs are picked
-  undersize by the desired radial springback compensation.  The first
-  print queue empirically brackets the right value; off-the-shelf
-  4.500" Sched 40 PVC pipe (≈6.35 mm radial undersize) is a fourth
-  data point.
-
-  Plan B uses the same approach with a racetrack mandrel ~2% undersize
-  (1.5 mm radial); see plan-b/coil-mandrel/.
+  Tank OD = 5.000" = 127.0 mm (R = 63.5 mm).  On a smooth (no groove)
+  mandrel the wound copper centerline rests one tube radius (3.175 mm)
+  outside the cylinder surface, so net copper bend radius =
+  mandrel_R + TUBE_RAD.  ODs are picked so the bend radius is undersize
+  relative to the tank by the desired springback compensation.
 """
 
 import math
@@ -46,14 +51,29 @@ from _cadq_export import export_step
 # PHYSICAL DIMENSIONS (inches → mm)
 # ═══════════════════════════════════════════════════════
 
-# Mandrel ODs to generate, in mm.  Tank OD is 5.000" = 127.0 mm.
+TUBE_OD_IN = 0.250                            # 1/4" copper tubing OD
+TUBE_RAD   = (TUBE_OD_IN / 2) * 25.4          # 3.175 mm
+
+TANK_OD_MM = 127.0                            # 5" carbonator tank OD
+TANK_R     = TANK_OD_MM / 2                   # 63.5 mm
+
+# Mandrel ODs to generate, in mm.  On a smooth mandrel, the wound copper
+# centerline ends up at radius (mandrel_OD/2 + TUBE_RAD).  Net radial
+# undersize relative to the 5" tank is shown for reference.
 #
-#   Mandrel OD     Radial undersize    Notes
-#   ----------     ----------------    -----
-#   117.0 mm       5.0 mm              tighter clamp, harder install
-#   119.0 mm       4.0 mm              recommended starting point
-#   121.0 mm       3.0 mm              looser clamp, easier install
-MANDREL_ODS_MM = [117.0, 119.0, 121.0]
+#   Mandrel OD   Copper bend R       Net undersize    Notes
+#   ----------   --------------      -------------    -----
+#   111.0 mm     55.5+3.175 = 58.7   4.8 mm           tighter clamp, harder install
+#   113.0 mm     56.5+3.175 = 59.7   3.8 mm           recommended starting point
+#   115.0 mm     57.5+3.175 = 60.7   2.8 mm           looser clamp, easier install
+MANDREL_ODS_MM = [111.0, 113.0, 115.0]
+
+# Open-tube wall thickness.  Mechanical loads on a winding mandrel are
+# tiny — tangential bend force per loop is ~20 N and forces balance
+# around the circumference (zero net crush, only distributed contact
+# pressure).  2 mm PETG has roughly three orders of magnitude of margin
+# in both beam bending and local crush.
+WALL_MM = 2.0
 
 # Mandrel length zones (along Z).
 TOTAL_LEN_IN  = 7.5
@@ -64,113 +84,24 @@ TOTAL_LEN  = TOTAL_LEN_IN  * 25.4    # 190.5 mm
 HANDLE_LEN = HANDLE_LEN_IN * 25.4    # 19.05 mm
 WIND_LEN   = WIND_LEN_IN   * 25.4    # 152.4 mm
 
-Z_GROOVE_START = HANDLE_LEN                  # 19.05 mm (top of lower handle)
-Z_GROOVE_END   = HANDLE_LEN + WIND_LEN       # 171.45 mm (bottom of upper handle)
-
-# Helical groove parameters.
-TUBE_OD_IN  = 0.250                          # 1/4" copper tubing OD
-TUBE_RAD_IN = TUBE_OD_IN / 2                 # 0.125" groove radius & depth
-
-TUBE_OD  = TUBE_OD_IN  * 25.4                # 6.35 mm
-TUBE_RAD = TUBE_RAD_IN * 25.4                # 3.175 mm
-
-# 3/8" pitch leaves 1/8" between adjacent 1/4" loops on the tank
-# surface — matches handwork.md's "single-layer wrap at ~1/8" pitch"
-# (inter-loop spacing, not center-to-center).
-PITCH_IN  = 0.375
-PITCH     = PITCH_IN * 25.4                  # 9.525 mm per wrap
-
-# 16 wraps × 0.375" pitch = 6.000" wind zone, exactly filling the tank
-# height.
-NUM_WRAPS = 16
-
-# B-spline fit resolution for the helical path.  parametricCurve samples
-# the path at N points and fits a smooth B-spline through them.  See
-# plan-b/coil-mandrel/generate_step_cadquery.py for the polyline-vs-
-# B-spline rationale (~500x STEP-size penalty for polyline sweeps).
-CURVE_FIT_N = 600
-
-
-# ═══════════════════════════════════════════════════════
-# HELICAL GROOVE PATH
-# ═══════════════════════════════════════════════════════
-
-def helix_point(t_wraps, mandrel_radius):
-    """(x, y, z) point on the helical groove centerline.
-
-    t_wraps ∈ [0, NUM_WRAPS]; integer part picks the wrap, fractional
-    part picks the angular position around the cylinder.
-    """
-    theta = 2 * math.pi * t_wraps
-    x = mandrel_radius * math.cos(theta)
-    y = mandrel_radius * math.sin(theta)
-    z = Z_GROOVE_START + t_wraps * PITCH
-    return x, y, z
-
-
-def build_helical_groove_cut(mandrel_radius):
-    """Sweep a circular cross-section along the helical path."""
-    def path_func(t):
-        return helix_point(t * NUM_WRAPS, mandrel_radius)
-
-    path = cq.Workplane("XY").parametricCurve(path_func, N=CURVE_FIT_N)
-
-    # Sweep profile: circle of TUBE_RAD perpendicular to the initial
-    # path tangent.  The groove cuts a semicircular channel of depth
-    # TUBE_RAD into the cylinder surface (the inner half of the swept
-    # tube lies inside the mandrel; the outer half hangs in free space
-    # but is harmless to boolean-subtract).
-    start_pt = path_func(0.0)
-    near_pt  = path_func(1.0 / CURVE_FIT_N)
-    tangent  = (
-        near_pt[0] - start_pt[0],
-        near_pt[1] - start_pt[1],
-        near_pt[2] - start_pt[2],
-    )
-
-    profile_plane = cq.Plane(
-        origin=start_pt,
-        xDir=(0, 0, 1),          # any direction perpendicular-ish to tangent
-        normal=tangent,
-    )
-
-    profile = cq.Workplane(profile_plane).circle(TUBE_RAD)
-
-    return profile.sweep(path)
-
 
 # ═══════════════════════════════════════════════════════
 # BUILD AND EXPORT
 # ═══════════════════════════════════════════════════════
 
-def cylinder(radius, z_bot, z_top):
+def build_mandrel(mandrel_od_mm):
+    outer_r = mandrel_od_mm / 2
+    inner_r = outer_r - WALL_MM
+
+    # Hollow open-tube: annular cross-section extruded along Z.  Open at
+    # both ends — no end caps, so trapped-air problems don't happen
+    # during print, and slicer doesn't need to bridge anything.
     return (
         cq.Workplane("XY")
-        .transformed(offset=(0, 0, z_bot))
-        .circle(radius)
-        .extrude(z_top - z_bot)
+        .circle(outer_r)
+        .circle(inner_r)
+        .extrude(TOTAL_LEN)
     )
-
-
-def build_mandrel(mandrel_od_mm):
-    radius = mandrel_od_mm / 2
-
-    body   = cylinder(radius, 0, TOTAL_LEN)
-    groove = build_helical_groove_cut(radius)
-
-    # Skip clean() — the helical sweep's sampled polyline produces a
-    # high face count that trips OCCT's shape-upgrader on the result.
-    cut_body = body.cut(groove, clean=False)
-
-    # Restore clean handle zones.  The helical sweep profile (circle of
-    # radius TUBE_RAD) bleeds slightly past Z_GROOVE_START and Z_GROOVE_END
-    # into the handle zones.  Union the original handle cylinders back
-    # on top to fill in any bleed, leaving the handle zones smooth.
-    lower_handle = cylinder(radius, 0, HANDLE_LEN)
-    upper_handle = cylinder(radius, HANDLE_LEN + WIND_LEN, TOTAL_LEN)
-    return (cut_body
-            .union(lower_handle, clean=False)
-            .union(upper_handle, clean=False))
 
 
 out_dir = Path(__file__).resolve().parent
@@ -178,13 +109,21 @@ out_dir = Path(__file__).resolve().parent
 for od in MANDREL_ODS_MM:
     mandrel = build_mandrel(od)
     solids = mandrel.solids().vals()
-    print(f"\nMandrel OD {od:.1f} mm "
-          f"(radial undersize {(127.0 - od) / 2:.2f} mm): "
-          f"{len(solids)} solid(s)")
+    bend_r = od / 2 + TUBE_RAD
+    undersize = TANK_R - bend_r
+    print(
+        f"\nMandrel OD {od:.1f} mm "
+        f"(copper bend R {bend_r:.2f} mm, "
+        f"net undersize {undersize:.2f} mm): "
+        f"{len(solids)} solid(s)"
+    )
     for i, s in enumerate(solids):
         bb = s.BoundingBox()
-        print(f"  Solid {i}: X[{bb.xmin:.1f},{bb.xmax:.1f}] "
-              f"Y[{bb.ymin:.1f},{bb.ymax:.1f}] Z[{bb.zmin:.1f},{bb.zmax:.1f}]")
+        print(
+            f"  Solid {i}: X[{bb.xmin:.1f},{bb.xmax:.1f}] "
+            f"Y[{bb.ymin:.1f},{bb.ymax:.1f}] Z[{bb.zmin:.1f},{bb.zmax:.1f}], "
+            f"V={s.Volume():.0f} mm^3"
+        )
     out_path = out_dir / f"coil-mandrel-{int(round(od))}mm.step"
     export_step(mandrel, str(out_path))
     print(f"  Exported: {out_path}")
