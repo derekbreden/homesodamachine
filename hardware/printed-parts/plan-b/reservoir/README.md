@@ -160,6 +160,57 @@ This argues for **explicit gasketing** somewhere in the cap stack, OR a defined 
 
 When the compressor is pulling and T_coil is at −5 to −10 °C, the `tank_copper_shell`'s outer face directly opposite a coil row may briefly drop below 0 °C. Any liquid water at that location freezes to the surface; subsequent condensation cycles add more ice. This is the classic freezer-frost mechanism. With a sealed cavity it's bounded (the 6 mg condenses once and freezes once); with an imperfect seal it grows. Frost on the outside of the `tank_copper_shell` doesn't break anything immediately, but it changes thermal coupling over time and is hard to inspect or service without disassembly.
 
+### Can we engineer around the condensation?
+
+#### Increasing the tank_copper_shell radius doesn't help
+
+The shell outer face temperature in steady state is set by where the shell sits in the resistor chain between the coil and the syrup:
+
+T_outer = T_syrup · (1 − R_res_wall / R_cold_total) + T_coil · (R_res_wall / R_cold_total)
+
+This is a weighted average of T_syrup and T_coil. Since T_coil < T_syrup always, **T_outer ≤ T_syrup always**. For refrigerator-level (T_syrup ≤ 5 °C), T_outer ≤ 5 °C — below the ~12 °C kitchen-air dew point, regardless of how thick the inner foam is.
+
+Adding inner foam thickness (= increasing the shell radius beyond what the coil needs) warms both the syrup and the shell outer face by similar amounts. Worked example: pushing R_cold from 0.045 to 0.53 m²·K/W (~10× more inner foam) brings T_syrup up to ~12 °C; T_outer is then also ~12 °C, right at dew point. So the only shell radius that "solves" condensation is the one that gives up refrigerator-level entirely.
+
+#### Firmware buys frost immunity, not condensation immunity
+
+The split matters: liquid condensation drips, evaporates back into cavity air during compressor-off intervals, and is manageable. **Frost** (water condensing at T_outer < 0 °C and freezing) sticks to the surface, accumulates over time, and degrades the thermal coupling.
+
+Frost requires T_outer < 0 °C. Solving the formula above for the minimum coil temperature that keeps T_outer ≥ 0:
+
+T_coil ≥ −T_syrup · (R_cold_total / R_res_wall − 1)
+
+For T_syrup = 2 °C, R_cold_total = 0.045, R_res_wall = 0.010: T_coil ≥ −7 °C.
+
+Currently `future.md:45` specifies a suction-line cutout at −8 °C. **Raising the cutout to −7 or −6 °C buys frost immunity** at the cost of slower pull-down (the coil can't get as cold during pulls, so the tank takes longer to chill back down). For a low-duty cabinet appliance, that tradeoff is usually fine.
+
+Adjacent firmware levers in the same direction:
+- Wider tank-water hysteresis (e.g., 3 °C / 5 °C instead of 2 °C / 4 °C): T_coil time-average shifts warmer.
+- Minimum compressor-off time long enough for the shell to warm above 0 °C between pulls: any frost that did form during a pull melts to liquid before the next pull.
+- Periodic defrost cycle (compressor off for ~hours): standard freezer approach; melts and evaporates accumulated frost. Tank-water temperature rises during defrost, so dispense-pour timing has to accept the warming excursion.
+
+What firmware *cannot* do is push T_outer above the kitchen dew point (~12 °C) while keeping T_syrup at refrigerator-level. That's a math constraint, not a control problem.
+
+#### Smart sensing on top
+
+A humidity sensor in the bag/corner-pocket cavity (SHT4x or similar, ~$5, I²C, fits on the existing bus alongside MPR121 and DS3231) turns "we hope the seal works" into "we can tell if it doesn't":
+
+- Persistent high humidity → flag seal failure to the iOS app.
+- Humidity spike after a service event → run an automatic warm-and-dry cycle.
+- Cross-check predicted vs observed humidity decay → bound the actual leak rate without disassembly.
+
+Optional addition, not strictly needed, but cheap and informative.
+
+#### The real fix is mechanical
+
+Two options that genuinely close the condensation problem:
+
+1. **Tight reservoir fit + cap-stack gasketing.** Reservoir wall pressed flush against the `tank_copper_shell` outer face removes the air gap at the coldest surface. Explicit silicone gasketing between `foam_cap` / `outer_shell` / `foam_cap_lid` (replacing the current friction-fit corner pins) closes the cabinet-air ingress path. With both, the residual ~6 mg of trapped-air condensation is one-time and bounded.
+
+2. **Replaceable cavity desiccant.** Desiccant cartridge inside the bag/corner-pocket cavity absorbs ongoing moisture from any imperfect seal. Bounds the accumulation between service events. Requires a defined service interval, which a lifetime-wetted-part Plan B reservoir has to address anyway.
+
+Neither is currently specified anywhere in the design. Worth pulling into the cap-stack architecture discussion before promoting Plan B to the main path. Whichever is chosen, **option 1 + firmware frost immunity is probably the smallest change** that gets the architecture into a defensible operating regime: a one-time bounded condensation event, no frost accumulation, no continuous moisture ingress.
+
 ## Test Sequence
 
 Pressure testing is a print-process screen, not a service condition. In the appliance the reservoir is vented. The pressure ladder exists to expose under-fused walls, weak seams, and bad boss geometry before syrup ever goes into the part.
