@@ -205,14 +205,13 @@ foam_cap_lid_hole_inset = 30.0
 # of the outer_shell at 6 attachment points per face, 12 inserts
 # per outer_shell.
 #
-# Screws: black M3 × 25 mm DIN 912 / ISO 4762 socket head cap.
-# Specific SKU TBD pending purchase. Head dimensions used in this
-# script (Ø 5.5 × 3.0 mm tall, 2.5 mm hex) are the DIN 912 standard
-# and apply to any M3 SHCS regardless of finish. Black finish chosen
-# over bright stainless for appearance; black oxide on alloy steel
-# is adequate corrosion protection for this dry foam-filled enclosed
-# interior. Thread up from below the bottom cap and down from above
-# the top cap + lid into the inserts. 12 screws per built unit.
+# Screws: BNUOK M3 × 25 mm DIN 912 socket head cap, 12.9 alloy steel,
+# black oxide finish (Amazon B0DJQGF665, 60-pc bag $8.57 delivered =
+# $0.14/screw, sold by BNUOK Fasterner). Head Ø 5.5 × 3.0 mm tall,
+# 2.5 mm hex socket (DIN 912 standard). Thread up from below the
+# bottom cap and down from above the top cap + lid into the inserts.
+# 12 screws per built unit. Black oxide on alloy steel is adequate
+# corrosion protection for this dry foam-filled enclosed interior.
 #
 # Gasket: 2 mm-thick TPU 90A perimeter ring (foam-cap-gasket.step)
 # matching the foam_cap footprint, with screw holes at the same

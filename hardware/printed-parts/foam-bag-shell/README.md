@@ -173,12 +173,13 @@ joinery's complete absence of any seal between cap and outer shell.
 ## Cap-to-outer-shell joinery
 
 Each cap (top and bottom) is fastened to the outer_shell with **six
-black M3 × 25 mm DIN 912 socket head cap screws** (head Ø 5.5 × 3.0 mm
-tall, 2.5 mm hex — specific Prime SKU TBD pending the user's
-selection and order) threading into **six ruthex M3 short heat-set
-inserts** ([B09ZHSGHXD](https://www.amazon.com/dp/B09ZHSGHXD) — same
-insert spec as in `touch-flo-shell`; the 100-pc bag already on order
-for that part covers ~7 builds at the combined 14-inserts-per-unit
+M3 × 25 mm DIN 912 socket head cap screws, 12.9 alloy steel, black
+oxide finish** ([BNUOK B0DJQGF665](https://www.amazon.com/dp/B0DJQGF665),
+60-pc bag $8.57 delivered = $0.14/screw, head Ø 5.5 × 3.0 mm tall,
+2.5 mm hex) threading into **six ruthex M3 short heat-set inserts**
+([B09ZHSGHXD](https://www.amazon.com/dp/B09ZHSGHXD) — same insert
+spec as in `touch-flo-shell`; the 100-pc bag already on order for
+that part covers ~7 builds at the combined 14-inserts-per-unit
 total) pressed into the corresponding face of the outer_shell.
 **Twelve inserts and twelve screws total per outer_shell:** six on
 the top face accepting the top-cap screws threading down from above,
