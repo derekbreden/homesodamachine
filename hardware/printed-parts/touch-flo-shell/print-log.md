@@ -179,7 +179,7 @@ Failure mode (Derek's description): a tall thin support structure for the faucet
 
 No `.3mf` saved for attempt 8 in isolation; the in-flight slice was re-saved with the brim-fix changes for attempt 9 (settings deltas captured below).
 
-## PET-CF print attempt 9 (support brim + on-build-plate-only — in flight as of 2026-05-10)
+## PET-CF print attempt 9 (support brim + on-build-plate-only)
 
 Hardware: same (0.6 mm DUROZZLE TC L-side hotend).
 
@@ -200,6 +200,15 @@ Plate composition (per `Metadata/plate_1.json`):
 - 2 objects: `touch-flo-shell.step`, `touch-flo-mounting-plate.step`
 - Both objects assigned to `extruder=1` (left), `filament_maps` all = 1, `first_extruder`: 0 (PET-CF slot)
 - Bed: textured plate
+
+## End of attempt 9 (print succeeded)
+
+Derek said:
+- "The last print is beautiful! Actual success, and I was able to remove all the supports even those from inside of the tube."
+- "Beautiful everywhere except where the supports were, and there it seems like we have some roughness and layer lines. Nearly stringing, but still part of the solid body. Like it is visibly a string, but still fused well so not the sort of stringing that makes a spaghetti explosion."
+
+Observed in the attempt-9 settings:
+- `support_top_z_distance`: 0.3 mm with `layer_height`: 0.18 mm = 1.67 layers (not a clean multiple of layer height; the slicer rounds the z-gap to alternating 1- and 2-layer offsets across the interface footprint).
 
 ## Hardware / setup observations across all PET-CF attempts
 
