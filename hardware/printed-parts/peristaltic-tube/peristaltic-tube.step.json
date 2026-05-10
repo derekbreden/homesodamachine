@@ -1,0 +1,6 @@
+{
+  "thickness_mm": 1.6,
+  "material": "PETG",
+  "process": "3D-print",
+  "notes": "Wall thickness; vase-mode print; 3.2 mm ID, 6.4 mm OD, 150 mm length; Kamoer KPP pump head bore"
+}

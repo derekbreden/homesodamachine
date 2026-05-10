@@ -1,0 +1,6 @@
+{
+  "thickness_mm": 3.0,
+  "material": "PETG",
+  "process": "3D-print",
+  "notes": "Wall thickness; two-piece snap-fit case for peristaltic pump (base with octagon bore + tower)"
+}
