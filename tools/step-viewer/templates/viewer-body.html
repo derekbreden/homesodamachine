@@ -59,10 +59,11 @@
   margin-bottom: 2px;
 }
 
-/* STEP detail view (inside ContentViewer modal). The renderer canvas
-   fills the wrapper; the gizmo overlays the top-right corner. The loading
-   pill centers in the wrapper while occt-import-js parses the buffer. */
-.step-wrapper {
+/* CAD detail view (inside ContentViewer modal). Used by both STEP prints
+   and DXF cuts — same renderer/scene/camera/gizmo, different geometry
+   producer. The renderer canvas fills the wrapper; the gizmo overlays
+   the top-right corner. The loading pill centers while the file parses. */
+.cad-wrapper {
   position: relative;
   width: 100%;
   height: 100%;
@@ -70,20 +71,20 @@
   background: var(--bg);
   touch-action: none;
 }
-.step-wrapper > canvas.step-viewport {
+.cad-wrapper > canvas.cad-viewport {
   display: block;
   width: 100%;
   height: 100%;
   touch-action: none;
 }
-.step-wrapper > canvas.step-gizmo {
+.cad-wrapper > canvas.cad-gizmo {
   position: absolute;
   top: calc(env(safe-area-inset-top, 0px) + 16px);
   right: calc(env(safe-area-inset-right, 0px) + 16px);
   z-index: 10;
   pointer-events: none;
 }
-.step-wrapper > .step-loading {
+.cad-wrapper > .cad-loading {
   position: absolute;
   top: 50%;
   left: 50%;
@@ -129,8 +130,9 @@
 <div id="grid"></div>
 
 <!-- Hidden host for the Three.js renderer + gizmo canvases. They live here
-     when no STEP is open and get moved into the modal wrapper on openDetail. -->
-<div id="step-canvas-host" style="display: none;"></div>
+     when no part is open and get moved into the modal wrapper when a STEP
+     or DXF is opened (both use the same renderer + camera + gizmo). -->
+<div id="cad-canvas-host" style="display: none;"></div>
 
 <script src="/pan-zoom.js"></script>
 <script src="/content-viewer.js"></script>
@@ -180,30 +182,35 @@ document.head.appendChild(occtScript);
 // --- State ---
 let allFiles = [];       // STEP files
 let mmdFiles = [];       // Mermaid files
+let dxfFiles = [];       // DXF files
 let currentFile = null;  // STEP detail (file shown in modal)
 let currentMmd = null;   // Mermaid detail
+let currentDxf = null;   // DXF detail
 let currentMmdContent = null;
-let mountedStepFile = null; // file currently rendered into the 3D scene
-let currentStepWrapper = null;        // host div inside the modal (parent of canvases)
-let currentStepResizeObserver = null; // ResizeObserver on currentStepWrapper
-const thumbnailCache = new Map(); // file -> dataURL
-const mmdThumbCache = new Map();  // file -> svgHTML
-const stepEtags = new Map();      // file -> last loaded ETag (for refetch dedupe)
+let mountedStepFile = null; // STEP file currently rendered into the 3D scene
+let mountedDxfFile = null;  // DXF file currently rendered into the 3D scene
+let currentCadWrapper = null;        // host div inside the modal (parent of canvases)
+let currentCadResizeObserver = null; // ResizeObserver on currentCadWrapper
+const thumbnailCache = new Map();  // STEP file -> dataURL
+const mmdThumbCache = new Map();   // Mermaid file -> svgHTML
+const dxfThumbCache = new Map();   // DXF file -> dataURL
+const stepEtags = new Map();       // file -> last loaded ETag (for refetch dedupe)
+const dxfEtags = new Map();        // file -> last loaded ETag
 
 // --- Detail view: Three.js setup ---
 // renderer/scene/camera/controls/gizmo* are created ONCE at module load and
 // reused across opens. The two canvases (renderer.domElement and
-// gizmoCanvas) live in #step-canvas-host when no detail is open, and get
+// gizmoCanvas) live in #cad-canvas-host when no detail is open, and get
 // appendChild'd into the modal wrapper inside openDetail. This keeps
 // OrbitControls listeners (bound to renderer.domElement) alive across
 // open/close cycles and avoids reparsing GL state.
-const canvasHost = document.getElementById("step-canvas-host");
+const canvasHost = document.getElementById("cad-canvas-host");
 
 const renderer = new THREE.WebGLRenderer({ antialias: true });
 renderer.setPixelRatio(window.devicePixelRatio);
 renderer.setClearColor(0x1a1a2e);
 renderer.domElement.id = "viewport";
-renderer.domElement.classList.add("step-viewport");
+renderer.domElement.classList.add("cad-viewport");
 canvasHost.appendChild(renderer.domElement);
 
 const scene = new THREE.Scene();
@@ -240,11 +247,11 @@ gizmoRenderer.setSize(gizmoSize, gizmoSize);
 gizmoRenderer.setClearColor(0x000000, 0);
 const gizmoCanvas = gizmoRenderer.domElement;
 gizmoCanvas.id = "gizmoCanvas";
-// .step-gizmo: position:absolute inside the wrapper (top-right, safe-area
+// .cad-gizmo: position:absolute inside the wrapper (top-right, safe-area
 // padded), pointer-events:none so empty corners pass touches through to
 // OrbitControls. Hits on the rendered cube are picked up via document-level
 // raycast handlers below.
-gizmoCanvas.classList.add("step-gizmo");
+gizmoCanvas.classList.add("cad-gizmo");
 canvasHost.appendChild(gizmoCanvas);
 
 const gizmoScene = new THREE.Scene();
@@ -536,7 +543,7 @@ function resetCamera(group) {
 async function loadStepFile(file, { preserveCamera = false } = {}) {
   // Loading pill lives inside the current step wrapper (or none if the
   // headless tool drove loadStepFile directly). Tolerate either.
-  const loadingEl = currentStepWrapper && currentStepWrapper.querySelector(".step-loading");
+  const loadingEl = currentCadWrapper && currentCadWrapper.querySelector(".cad-loading");
   if (loadingEl) loadingEl.style.display = "block";
 
   try {
@@ -619,6 +626,231 @@ async function renderThumbnail(file) {
     group.traverse((c) => { if (c.geometry) c.geometry.dispose(); });
 
     thumbnailCache.set(file, dataURL);
+    return dataURL;
+  } catch {
+    return null;
+  }
+}
+
+// --- DXF parsing + meshing ---
+//
+// DXF is a text format of repeating (group code, value) line pairs. We
+// only handle the entity types that appear in this project's CAM-exported
+// sheet-metal files: LINE, CIRCLE, ARC, LWPOLYLINE. Bigger DXFs (3DSOLID,
+// SPLINE, INSERT/blocks, HATCH, TEXT) would need a real library; if a
+// future part needs them, swap this for npm dxf-parser. For now the inline
+// parser is ~80 lines and avoids a CDN/bundler dependency.
+//
+// Files lay flat on the world XY plane at Z=0. The shared scene + camera
+// + OrbitControls + ViewCube already work for that — orbiting around a
+// flat plate is the same UX Fusion 360 / Onshape give you when you import
+// a 2D DXF onto a sketch plane. (Thickness extrusion is a future polish:
+// if the user wants extruded plates, walk closed loops + ExtrudeGeometry.)
+function parseDxf(text) {
+  const lines = text.split(/\r?\n/);
+  // Group codes come in pairs: [code, value], one per line each. Code
+  // lines have leading whitespace ("  0", " 10"); values can be anything.
+  const pairs = [];
+  for (let i = 0; i + 1 < lines.length; i += 2) {
+    const code = parseInt(lines[i].trim(), 10);
+    if (Number.isNaN(code)) continue;
+    pairs.push({ code, value: lines[i + 1] });
+  }
+
+  const entities = [];
+  let inEntities = false;
+  let cur = null;
+  for (let i = 0; i < pairs.length; i++) {
+    const { code, value } = pairs[i];
+    const v = value.trim();
+
+    if (code === 0 && v === "SECTION") {
+      const next = pairs[i + 1];
+      if (next && next.code === 2 && next.value.trim() === "ENTITIES") {
+        inEntities = true;
+      }
+      continue;
+    }
+    if (!inEntities) continue;
+
+    if (code === 0) {
+      if (cur) entities.push(cur);
+      cur = null;
+      if (v === "ENDSEC") { inEntities = false; continue; }
+      if (v === "LINE" || v === "CIRCLE" || v === "ARC") {
+        cur = { type: v };
+      } else if (v === "LWPOLYLINE") {
+        cur = { type: v, vertices: [], flags: 0 };
+      }
+      continue;
+    }
+    if (!cur) continue;
+
+    const num = parseFloat(v);
+    if (cur.type === "LWPOLYLINE") {
+      // For LWPOLYLINE, codes 10/20 repeat per vertex (no Z).
+      if (code === 10) cur.vertices.push({ x: num, y: 0 });
+      else if (code === 20) {
+        const last = cur.vertices[cur.vertices.length - 1];
+        if (last) last.y = num;
+      } else if (code === 70) cur.flags = num;
+      continue;
+    }
+    if (code === 10) cur.x = num;
+    else if (code === 20) cur.y = num;
+    else if (code === 11) cur.x2 = num;
+    else if (code === 21) cur.y2 = num;
+    else if (code === 40) cur.r = num;
+    else if (code === 50) cur.startAngle = num;
+    else if (code === 51) cur.endAngle = num;
+  }
+  if (cur) entities.push(cur);
+  return { entities };
+}
+
+const DXF_ARC_SEGS = 96;
+
+function buildDxfMesh(parsed) {
+  const positions = [];
+  const pushSeg = (x1, y1, x2, y2) => positions.push(x1, y1, 0, x2, y2, 0);
+
+  for (const e of parsed.entities) {
+    if (e.type === "LINE") {
+      pushSeg(e.x ?? 0, e.y ?? 0, e.x2 ?? 0, e.y2 ?? 0);
+    } else if (e.type === "CIRCLE") {
+      const cx = e.x ?? 0, cy = e.y ?? 0, r = e.r ?? 0;
+      let prev = null;
+      for (let i = 0; i <= DXF_ARC_SEGS; i++) {
+        const a = (i / DXF_ARC_SEGS) * Math.PI * 2;
+        const x = cx + r * Math.cos(a), y = cy + r * Math.sin(a);
+        if (prev) pushSeg(prev.x, prev.y, x, y);
+        prev = { x, y };
+      }
+    } else if (e.type === "ARC") {
+      const cx = e.x ?? 0, cy = e.y ?? 0, r = e.r ?? 0;
+      const start = (e.startAngle ?? 0) * Math.PI / 180;
+      let end = (e.endAngle ?? 360) * Math.PI / 180;
+      while (end <= start) end += Math.PI * 2;
+      const span = end - start;
+      const segs = Math.max(8, Math.ceil((span / (Math.PI * 2)) * DXF_ARC_SEGS));
+      let prev = null;
+      for (let i = 0; i <= segs; i++) {
+        const a = start + span * (i / segs);
+        const x = cx + r * Math.cos(a), y = cy + r * Math.sin(a);
+        if (prev) pushSeg(prev.x, prev.y, x, y);
+        prev = { x, y };
+      }
+    } else if (e.type === "LWPOLYLINE") {
+      const verts = e.vertices;
+      for (let i = 0; i < verts.length - 1; i++) {
+        pushSeg(verts[i].x, verts[i].y, verts[i + 1].x, verts[i + 1].y);
+      }
+      // bit 1 of group 70 = closed
+      if ((e.flags & 1) === 1 && verts.length > 1) {
+        const a = verts[verts.length - 1], b = verts[0];
+        pushSeg(a.x, a.y, b.x, b.y);
+      }
+    }
+  }
+
+  const group = new THREE.Group();
+  if (positions.length === 0) return group;
+  const geo = new THREE.BufferGeometry();
+  geo.setAttribute("position", new THREE.Float32BufferAttribute(new Float32Array(positions), 3));
+  const mat = new THREE.LineBasicMaterial({ color: 0x88ccff });
+  group.add(new THREE.LineSegments(geo, mat));
+  return group;
+}
+
+async function loadDxfFile(file, { preserveCamera = false } = {}) {
+  const loadingEl = currentCadWrapper && currentCadWrapper.querySelector(".cad-loading");
+  if (loadingEl) loadingEl.style.display = "block";
+
+  try {
+    const headers = {};
+    const prevEtag = dxfEtags.get(file);
+    if (mountedDxfFile === file && prevEtag) {
+      headers["If-None-Match"] = prevEtag;
+    }
+    const resp = await fetch(`/dxfs/${file}`, { headers });
+    if (resp.status === 304) return;
+    if (!resp.ok) return;
+    const etag = resp.headers.get("etag");
+    if (etag) dxfEtags.set(file, etag);
+
+    const text = await resp.text();
+    const parsed = parseDxf(text);
+
+    if (currentGroup) {
+      scene.remove(currentGroup);
+      currentGroup.traverse((c) => { if (c.geometry) c.geometry.dispose(); });
+    }
+
+    currentGroup = buildDxfMesh(parsed);
+    scene.add(currentGroup);
+    mountedDxfFile = file;
+    mountedStepFile = null;
+    if (!preserveCamera) resetDxfCamera(currentGroup);
+  } finally {
+    if (loadingEl) loadingEl.style.display = "none";
+  }
+}
+
+// DXF lives on Z=0 — frame it from above so the user lands on the
+// natural top-down view. They can orbit from there with OrbitControls /
+// the ViewCube. Distance is aspect-aware so a wide plate doesn't clip
+// in a narrow phone viewport (and vice versa).
+function resetDxfCamera(group) {
+  // Make sure camera.aspect reflects the wrapper's current size — the
+  // ResizeObserver / onOpen sequence races against the fetch microtask
+  // when the DXF is small, so by the time we get here the renderer may
+  // still be holding the default 1:1 aspect.
+  resizeRenderer();
+
+  const box = new THREE.Box3().setFromObject(group);
+  const center = box.getCenter(new THREE.Vector3());
+  const size = box.getSize(new THREE.Vector3());
+  const sx = Math.max(size.x, 1);
+  const sy = Math.max(size.y, 1);
+  const fovRad = camera.fov * Math.PI / 180;
+  const aspect = camera.aspect || 1;
+  const distForHeight = sy / (2 * Math.tan(fovRad / 2));
+  const distForWidth = sx / (aspect * 2 * Math.tan(fovRad / 2));
+  const dist = Math.max(distForHeight, distForWidth) * 1.15;
+  camera.position.set(center.x, center.y, center.z + dist);
+  camera.up.set(0, 1, 0);
+  camera.lookAt(center);
+  controls.target.copy(center);
+  controls.update();
+}
+
+async function renderDxfThumbnail(file) {
+  if (dxfThumbCache.has(file)) return dxfThumbCache.get(file);
+
+  try {
+    const resp = await fetch(`/dxfs/${file}`);
+    if (!resp.ok) return null;
+    const text = await resp.text();
+    const parsed = parseDxf(text);
+    const group = buildDxfMesh(parsed);
+    thumbScene.add(group);
+
+    const box = new THREE.Box3().setFromObject(group);
+    const center = box.getCenter(new THREE.Vector3());
+    const size = box.getSize(new THREE.Vector3());
+    const maxDim = Math.max(size.x, size.y, 1);
+    // Top-down for thumbs: DXF is flat, isometric would show it edge-on.
+    thumbCam.position.set(center.x, center.y, center.z + maxDim * 1.4);
+    thumbCam.up.set(0, 1, 0);
+    thumbCam.lookAt(center);
+
+    thumbRenderer.render(thumbScene, thumbCam);
+    const dataURL = thumbRenderer.domElement.toDataURL();
+
+    thumbScene.remove(group);
+    group.traverse((c) => { if (c.geometry) c.geometry.dispose(); });
+
+    dxfThumbCache.set(file, dataURL);
     return dataURL;
   } catch {
     return null;
@@ -748,8 +980,15 @@ function buildGrid() {
   gridEl.innerHTML = "";
   const section = currentSection();
 
-
   if (section === "parts") {
+    // Two subsections: Prints (STEP, 3D-printable) then Cuts (DXF, laser-
+    // cut sheet). Headers always render so the structure is explicit even
+    // when a subsection is empty; the empty-state replaces the would-be
+    // card grid for that subsection.
+    const printsHeader = document.createElement("div");
+    printsHeader.className = "section-header";
+    printsHeader.textContent = "Prints";
+    gridEl.appendChild(printsHeader);
     if (allFiles.length === 0) {
       const empty = document.createElement("div");
       empty.className = "empty-state";
@@ -764,6 +1003,27 @@ function buildGrid() {
       card.dataset.type = "step";
       card.innerHTML = `<div class="placeholder" data-file="${file}">loading...</div><div class="label"><span class="dir">${dir}</span>${name}</div>`;
       card.addEventListener("click", () => openDetail(file));
+      gridEl.appendChild(card);
+    }
+
+    const cutsHeader = document.createElement("div");
+    cutsHeader.className = "section-header";
+    cutsHeader.textContent = "Cuts";
+    gridEl.appendChild(cutsHeader);
+    if (dxfFiles.length === 0) {
+      const empty = document.createElement("div");
+      empty.className = "empty-state";
+      empty.textContent = "No cuts yet.";
+      gridEl.appendChild(empty);
+    }
+    for (const file of dxfFiles) {
+      const { name, dir } = shortName(file, ".dxf");
+      const card = document.createElement("div");
+      card.className = "card";
+      card.dataset.file = file;
+      card.dataset.type = "dxf";
+      card.innerHTML = `<div class="placeholder" data-file="${file}">loading...</div><div class="label"><span class="dir">${dir}</span>${name}</div>`;
+      card.addEventListener("click", () => openDxfDetail(file));
       gridEl.appendChild(card);
     }
   }
@@ -810,6 +1070,29 @@ function buildGrid() {
     stepObserver.observe(card);
   }
 
+  // Lazy-load DXF thumbnails (top-down render of the line geometry).
+  const dxfObserver = new IntersectionObserver((entries) => {
+    for (const entry of entries) {
+      if (!entry.isIntersecting) continue;
+      dxfObserver.unobserve(entry.target);
+      const file = entry.target.dataset.file;
+      renderDxfThumbnail(file).then((url) => {
+        if (!url) {
+          entry.target.querySelector(".placeholder").textContent = "error";
+          return;
+        }
+        const img = document.createElement("img");
+        img.src = url;
+        const placeholder = entry.target.querySelector(".placeholder");
+        if (placeholder) placeholder.replaceWith(img);
+      });
+    }
+  }, { rootMargin: "200px" });
+
+  for (const card of gridEl.querySelectorAll('.card[data-type="dxf"]')) {
+    dxfObserver.observe(card);
+  }
+
   // Lazy-load Mermaid thumbnails
   const mmdObserver = new IntersectionObserver((entries) => {
     for (const entry of entries) {
@@ -845,24 +1128,24 @@ function openDetail(file, pushHistory = true) {
   // of the hidden host into here; on close they go back. The wrapper also
   // hosts a centered loading pill that loadStepFile toggles.
   const wrapper = document.createElement("div");
-  wrapper.className = "step-wrapper";
+  wrapper.className = "cad-wrapper";
   wrapper.appendChild(renderer.domElement);
   wrapper.appendChild(gizmoCanvas);
   const loadingEl = document.createElement("div");
-  loadingEl.className = "step-loading";
+  loadingEl.className = "cad-loading";
   loadingEl.textContent = "Loading...";
   wrapper.appendChild(loadingEl);
 
-  currentStepWrapper = wrapper;
+  currentCadWrapper = wrapper;
 
   // Re-fit the renderer whenever the wrapper's content box changes
   // (modal show, window resize, orientation change). The first observation
   // fires synchronously after observe(), which gives us a correct initial
   // size as soon as the modal lays out.
-  currentStepResizeObserver = new ResizeObserver(() => {
+  currentCadResizeObserver = new ResizeObserver(() => {
     if (renderer.domElement.parentElement === wrapper) resizeRenderer();
   });
-  currentStepResizeObserver.observe(wrapper);
+  currentCadResizeObserver.observe(wrapper);
 
   ContentViewer.open({
     content: wrapper,
@@ -888,9 +1171,9 @@ function openDetail(file, pushHistory = true) {
       stopAnimate();
       // Disconnect ResizeObserver before moving canvases (otherwise it
       // fires once more for the move into the hidden host).
-      if (currentStepResizeObserver) {
-        try { currentStepResizeObserver.disconnect(); } catch {}
-        currentStepResizeObserver = null;
+      if (currentCadResizeObserver) {
+        try { currentCadResizeObserver.disconnect(); } catch {}
+        currentCadResizeObserver = null;
       }
       // Move canvases back to the hidden host so they stay mounted for
       // the next open. Don't dispose anything Three.js — renderer/scene/
@@ -903,7 +1186,7 @@ function openDetail(file, pushHistory = true) {
         currentGroup.traverse((c) => { if (c.geometry) c.geometry.dispose(); });
         currentGroup = null;
       }
-      currentStepWrapper = null;
+      currentCadWrapper = null;
       currentFile = null;
       mountedStepFile = null;
       // Pop the hash if the user dismissed the modal directly. popstate
@@ -930,6 +1213,72 @@ function closeDetail(pushHistory = true) {
   // history.back() that would double-pop the stack.
   if (!pushHistory) {
     currentFile = null;
+  }
+  ContentViewer.close();
+}
+
+// DXF detail open/close. Mirrors openDetail/closeDetail above; same
+// renderer + camera + gizmo, different geometry producer (loadDxfFile).
+function openDxfDetail(file, pushHistory = true) {
+  currentDxf = file;
+  if (pushHistory) location.hash = "dxf:" + encodeURIComponent(file);
+
+  const wrapper = document.createElement("div");
+  wrapper.className = "cad-wrapper";
+  wrapper.appendChild(renderer.domElement);
+  wrapper.appendChild(gizmoCanvas);
+  const loadingEl = document.createElement("div");
+  loadingEl.className = "cad-loading";
+  loadingEl.textContent = "Loading...";
+  wrapper.appendChild(loadingEl);
+
+  currentCadWrapper = wrapper;
+
+  currentCadResizeObserver = new ResizeObserver(() => {
+    if (renderer.domElement.parentElement === wrapper) resizeRenderer();
+  });
+  currentCadResizeObserver.observe(wrapper);
+
+  ContentViewer.open({
+    content: wrapper,
+    filename: shortName(file, ".dxf").name,
+    onOpen: () => {
+      resizeRenderer();
+      startAnimate();
+    },
+    onClose: () => {
+      saveCameraState(file);
+      const wasUiDriven = currentDxf === file;
+      stopAnimate();
+      if (currentCadResizeObserver) {
+        try { currentCadResizeObserver.disconnect(); } catch {}
+        currentCadResizeObserver = null;
+      }
+      try { canvasHost.appendChild(renderer.domElement); } catch {}
+      try { canvasHost.appendChild(gizmoCanvas); } catch {}
+      if (currentGroup) {
+        scene.remove(currentGroup);
+        currentGroup.traverse((c) => { if (c.geometry) c.geometry.dispose(); });
+        currentGroup = null;
+      }
+      currentCadWrapper = null;
+      currentDxf = null;
+      mountedDxfFile = null;
+      if (wasUiDriven && location.hash) history.back();
+    },
+  });
+
+  loadDxfFile(file).then(() => applyCameraState(file));
+}
+
+function closeDxfDetail(pushHistory = true) {
+  if (!ContentViewer.isOpen()) {
+    currentDxf = null;
+    mountedDxfFile = null;
+    return;
+  }
+  if (!pushHistory) {
+    currentDxf = null;
   }
   ContentViewer.close();
 }
@@ -1043,16 +1392,24 @@ function closeMmdDetail(pushHistory = true) {
 window.addEventListener("popstate", () => {
   const hash = location.hash ? decodeURIComponent(location.hash.slice(1)) : "";
   const want = hash.startsWith("step:") ? { type: "step", file: hash.slice(5) }
+             : hash.startsWith("dxf:")  ? { type: "dxf",  file: hash.slice(4) }
              : hash.startsWith("mmd:")  ? { type: "mmd",  file: hash.slice(4) }
              : { type: null };
   if (want.type === "step") {
+    if (currentDxf) closeDxfDetail(false);
     if (currentMmd) closeMmdDetail(false);
     if (currentFile !== want.file) openDetail(want.file, false);
+  } else if (want.type === "dxf") {
+    if (currentFile) closeDetail(false);
+    if (currentMmd) closeMmdDetail(false);
+    if (currentDxf !== want.file) openDxfDetail(want.file, false);
   } else if (want.type === "mmd") {
     if (currentFile) closeDetail(false);
+    if (currentDxf) closeDxfDetail(false);
     if (currentMmd !== want.file) openMmdDetail(want.file, false);
   } else {
     if (currentFile) closeDetail(false);
+    if (currentDxf) closeDxfDetail(false);
     if (currentMmd) closeMmdDetail(false);
   }
 });
@@ -1069,8 +1426,8 @@ window.addEventListener("popstate", () => {
 //     meaning a fresh server build is up. Files added or removed in the
 //     deploy aren't covered by hsm:files-changed, so we refetch the list.
 //
-// Per-file work is split by extension so the same handler covers .step
-// and .mmd uniformly.
+// Per-file work is split by extension so the same handler covers .step,
+// .dxf, and .mmd uniformly.
 
 function refreshStepCard(file) {
   thumbnailCache.delete(file);
@@ -1085,6 +1442,32 @@ function refreshStepCard(file) {
     img.replaceWith(ph);
   }
   renderThumbnail(file).then((url) => {
+    if (!url) return;
+    const target = card.querySelector(".placeholder");
+    if (target) {
+      const newImg = document.createElement("img");
+      newImg.src = url;
+      target.replaceWith(newImg);
+    } else {
+      const existing = card.querySelector("img");
+      if (existing) existing.src = url;
+    }
+  });
+}
+
+function refreshDxfCard(file) {
+  dxfThumbCache.delete(file);
+  const card = gridEl.querySelector(`.card[data-type="dxf"][data-file="${CSS.escape(file)}"]`);
+  if (!card) { fetchFiles(); return; }
+  const img = card.querySelector("img");
+  if (img) {
+    const ph = document.createElement("div");
+    ph.className = "placeholder";
+    ph.dataset.file = file;
+    ph.textContent = "updating...";
+    img.replaceWith(ph);
+  }
+  renderDxfThumbnail(file).then((url) => {
     if (!url) return;
     const target = card.querySelector(".placeholder");
     if (target) {
@@ -1124,6 +1507,9 @@ window.addEventListener("hsm:files-changed", (e) => {
     if (file.endsWith(".step")) {
       refreshStepCard(file);
       if (currentFile === file) loadStepFile(file, { preserveCamera: true });
+    } else if (file.endsWith(".dxf")) {
+      refreshDxfCard(file);
+      if (currentDxf === file) loadDxfFile(file, { preserveCamera: true });
     } else if (file.endsWith(".mmd")) {
       refreshMmdCard(file);
       if (currentMmd === file) refetchOpenMmd(file);
@@ -1138,12 +1524,14 @@ window.addEventListener("hsm:deploy", () => { fetchFiles(); });
 
 // --- Init ---
 async function fetchFiles() {
-  const [stepResp, mmdResp] = await Promise.all([
+  const [stepResp, mmdResp, dxfResp] = await Promise.all([
     fetch("/api/steps"),
     fetch("/api/mermaid"),
+    fetch("/api/dxf"),
   ]);
   allFiles = (await stepResp.json()).sort();
   mmdFiles = (await mmdResp.json()).sort();
+  dxfFiles = (await dxfResp.json()).sort();
   buildGrid();
 }
 
@@ -1179,22 +1567,27 @@ function applyCameraState(file) {
 
 let cameraSaveTimer = null;
 controls.addEventListener("change", () => {
-  if (!currentFile) return;
+  // Save the camera for whichever file is open. Both STEP and DXF use
+  // the same camera, scoped per-file in localStorage.
+  const openFile = currentFile || currentDxf;
+  if (!openFile) return;
   clearTimeout(cameraSaveTimer);
-  cameraSaveTimer = setTimeout(() => saveCameraState(currentFile), 250);
+  cameraSaveTimer = setTimeout(() => saveCameraState(openFile), 250);
 });
 
 setupNav();
 fetchFiles();
 
 // --- Initial route ---
-// Prefer ?file=<step|mmd> (notification deep link), fall back to hash.
+// Prefer ?file=<step|dxf|mmd> (notification deep link), fall back to hash.
 // Extension drives which detail surface opens.
 const initialParams = new URLSearchParams(location.search);
 const initialFile = initialParams.get("file");
 if (initialFile) {
   if (initialFile.endsWith(".mmd")) {
     setTimeout(() => openMmdDetail(initialFile, true), 100);
+  } else if (initialFile.endsWith(".dxf")) {
+    setTimeout(() => openDxfDetail(initialFile, true), 100);
   } else {
     occtPromise.then(() => setTimeout(() => openDetail(initialFile, true), 100));
   }
@@ -1203,6 +1596,9 @@ if (initialFile) {
   if (hash.startsWith("step:")) {
     const file = hash.slice(5);
     occtPromise.then(() => setTimeout(() => openDetail(file, false), 100));
+  } else if (hash.startsWith("dxf:")) {
+    const file = hash.slice(4);
+    setTimeout(() => openDxfDetail(file, false), 100);
   } else if (hash.startsWith("mmd:")) {
     const file = hash.slice(4);
     setTimeout(() => openMmdDetail(file, false), 100);
