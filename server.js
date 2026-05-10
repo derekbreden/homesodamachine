@@ -15,6 +15,7 @@ import {
   mountPushRoutes,
   detectChangedSteps,
   detectChangedMermaid,
+  detectChangedDxf,
   detectChangedPosts,
   describeChangedPosts,
   notifyPostsChanged,
@@ -262,12 +263,13 @@ export async function start({ dev = false, port, hardwareDir } = {}) {
   if (!dev) {
     (async () => {
       try {
-        const [changedSteps, changedMermaid, changedPostFiles] = await Promise.all([
+        const [changedSteps, changedMermaid, changedDxf, changedPostFiles] = await Promise.all([
           detectChangedSteps(HARDWARE_DIR),
           detectChangedMermaid(HARDWARE_DIR),
+          detectChangedDxf(HARDWARE_DIR),
           detectChangedPosts(POSTS_DIR),
         ]);
-        const changedFiles = [...changedSteps, ...changedMermaid];
+        const changedFiles = [...changedSteps, ...changedMermaid, ...changedDxf];
         const changedPosts = describeChangedPosts({
           postsDir: POSTS_DIR,
           filenames: changedPostFiles,

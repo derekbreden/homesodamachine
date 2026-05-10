@@ -181,6 +181,22 @@ watcher.on("change", (absPath) => {
     return;
   }
 
+  // DXF file changed — broadcast update. DXFs are hand-exported (no
+  // generator script to re-run) so we just notice the file and forward.
+  if (absPath.endsWith(".dxf")) {
+    if (debounce.has(absPath)) clearTimeout(debounce.get(absPath));
+    debounce.set(
+      absPath,
+      setTimeout(() => {
+        debounce.delete(absPath);
+        const relFile = path.relative(HARDWARE_DIR, absPath);
+        console.log(`DXF changed: ${relFile}`);
+        broadcast({ type: "files-changed", files: [relFile] });
+      }, 300),
+    );
+    return;
+  }
+
   // generate_step*.py changed — re-run that script.
   if (!/generate_step.*\.py$/.test(absPath)) return;
   if (debounce.has(absPath)) clearTimeout(debounce.get(absPath));

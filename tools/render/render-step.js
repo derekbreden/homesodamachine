@@ -126,7 +126,7 @@ async function renderOne({ stepRel, outAbs, hardwareDir }) {
           max-width: 100vw !important; max-height: 100vh !important;
           border-radius: 0 !important;
         }
-        body, html, .cv-card, .cv-content, .step-wrapper, #viewport {
+        body, html, .cv-card, .cv-content, .cad-wrapper, #viewport {
           background: ${BG_HEX} !important;
         }
       `,
