@@ -142,8 +142,6 @@ const watcher = chokidar.watch(HARDWARE_DIR, { ignoreInitial: true });
 const debounce = new Map();
 
 watcher.on("change", (absPath) => {
-  if (isIgnoredPath(absPath)) return;
-
   // Shared library changed — rebuild all scripts.
   if (absPath.includes("/cadlib/") && absPath.endsWith(".py")) {
     if (debounce.has("cadlib")) clearTimeout(debounce.get("cadlib"));
