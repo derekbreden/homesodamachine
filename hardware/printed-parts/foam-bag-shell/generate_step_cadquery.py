@@ -246,36 +246,41 @@ def build_tank_copper_shell():
     return shell.faces(">Y").shell(-wall_and_floor_thickness)
 
 def build_bag_pocket_support_shell():
-    bag_pocket_support_side_length = 2 * tank_copper_shell_radius
+    """
+    Floor + +Z wall + −Z wall. No +X / −X walls.
 
-    # Cut out the +X and -X walls. Each is coincident with a bag pocket's
-    # centerward wall (also cut, in build_a_bag_pocket_shell) and has air
-    # on both sides — bag cavity on one side, corner-pocket air on the
-    # other. Both halves of the merged wall must be removed for the wall
-    # to actually disappear from the union; cutting only one half leaves
-    # the other shell's contribution in place.
-    cut_wall_not_needed_args = dict(
-        size_x=wall_and_floor_thickness,
-        size_z=bag_pocket_support_side_length - 2 * wall_and_floor_thickness,
-        center_x_abs=bag_pocket_support_side_length / 2 - wall_and_floor_thickness / 2,
+    The omitted ±X walls would be coincident with the bag pockets'
+    centerward walls (also omitted, in build_a_bag_pocket_shell) and
+    would have air on both sides — bag cavity inside, corner-pocket
+    air outside — so they aren't earning their 1 mm of PETG.
+
+    The +Z and −Z walls *are* doing real work: they separate corner-
+    pocket air (between this shell's interior and the round cup's
+    outside) from outer-pour foam (outside this shell at +Z and −Z).
+    Without them, foam would invade the corner pocket and reach the
+    bag through the open centerward face.
+    """
+    side_length = 2 * tank_copper_shell_radius
+
+    floor = (
+        cq.Workplane(xz_plane_y_up)
+        .rect(side_length, side_length)
+        .extrude(wall_and_floor_thickness)
     )
 
-    def cut_wall_not_needed(side):
+    def build_z_wall(z_sign):
+        z_pos = z_sign * (side_length / 2 - wall_and_floor_thickness / 2)
         return (
             cq.Workplane(xz_plane_y_up)
-            .workplane(origin=(side * cut_wall_not_needed_args["center_x_abs"], 0, 0))
-            .rect(cut_wall_not_needed_args["size_x"], cut_wall_not_needed_args["size_z"])
+            .workplane(origin=(0, 0, z_pos))
+            .rect(side_length, wall_and_floor_thickness)
             .extrude(tank_copper_shell_height)
         )
 
     return (
-        cq.Workplane(xz_plane_y_up)
-        .rect(bag_pocket_support_side_length, bag_pocket_support_side_length)
-        .extrude(tank_copper_shell_height)
-        .faces(">Y")
-        .shell(-wall_and_floor_thickness)
-        .cut(cut_wall_not_needed(side=1))
-        .cut(cut_wall_not_needed(side=-1))
+        floor
+        .union(build_z_wall(z_sign=1))
+        .union(build_z_wall(z_sign=-1))
     )
 
 def build_tank_support_wedge():
@@ -321,32 +326,62 @@ def build_tank_support_wedge():
     return ring
 
 def build_a_bag_pocket_shell(side=1):
+    """
+    Floor + far wall + +Z wall + −Z wall. No centerward (toward-tank)
+    wall.
+
+    The omitted centerward wall would be coincident with the
+    bag_pocket_support_shell's matching ±X wall (also omitted) and
+    would have air on both sides — bag cavity inside, corner-pocket
+    air outside — so it isn't earning its 1 mm of PETG. Result: the
+    bag cavity opens along its centerward face into the support
+    shell's interior, becoming one continuous air volume.
+
+    side=+1 builds the +X bag pocket; side=−1 builds the −X side
+    (everything mirrored).
+    """
     bag_pocket_height = tank_copper_shell_height
+    bag_pocket_x_center = (
+        tank_copper_shell_radius + bag_pocket_depth / 2 - wall_and_floor_thickness
+    ) * side
+    half_depth = bag_pocket_depth / 2
+    half_width = bag_pocket_width / 2
 
-    # Bag pocket offset
-    bag_pocket_x_offset = tank_copper_shell_radius + bag_pocket_depth / 2 - wall_and_floor_thickness
-    bag_pocket_x_offset *= side
-
-    # Cut out the centerward wall of this bag pocket. It's coincident
-    # with the bag_pocket_support_shell's matching ±X wall (also cut)
-    # and has air on both sides — bag cavity on the inside, corner-
-    # pocket air on the outside. The wall doesn't separate any foam
-    # boundary so it isn't earning its 1 mm of PETG.
-    cut_wall_not_needed = (
+    floor = (
         cq.Workplane(xz_plane_y_up)
-        .workplane(origin=(bag_pocket_x_offset - side*(bag_pocket_depth - wall_and_floor_thickness) / 2, 0, 0))
-        .rect(wall_and_floor_thickness, bag_pocket_width - 2*wall_and_floor_thickness)
+        .workplane(origin=(bag_pocket_x_center, 0, 0))
+        .rect(bag_pocket_depth, bag_pocket_width)
+        .extrude(wall_and_floor_thickness)
+    )
+
+    # Far wall: at the +X face of the +X bag pocket (or the −X face of
+    # the −X bag pocket). Sits 1 mm inside the pocket's outer extent
+    # along the radial-out direction.
+    far_wall = (
+        cq.Workplane(xz_plane_y_up)
+        .workplane(origin=(
+            bag_pocket_x_center + side * (half_depth - wall_and_floor_thickness / 2),
+            0,
+            0,
+        ))
+        .rect(wall_and_floor_thickness, bag_pocket_width)
         .extrude(bag_pocket_height)
     )
 
+    def build_z_wall(z_sign):
+        z_pos = z_sign * (half_width - wall_and_floor_thickness / 2)
+        return (
+            cq.Workplane(xz_plane_y_up)
+            .workplane(origin=(bag_pocket_x_center, 0, z_pos))
+            .rect(bag_pocket_depth, wall_and_floor_thickness)
+            .extrude(bag_pocket_height)
+        )
+
     return (
-        cq.Workplane(xz_plane_y_up)
-        .workplane(origin=(bag_pocket_x_offset, 0, 0))
-        .rect(bag_pocket_depth, bag_pocket_width)
-        .extrude(bag_pocket_height)
-        .faces(">Y")
-        .shell(-wall_and_floor_thickness)
-        .cut(cut_wall_not_needed)
+        floor
+        .union(far_wall)
+        .union(build_z_wall(z_sign=1))
+        .union(build_z_wall(z_sign=-1))
     )
 
 def punch_a_bag_pocket_shell_hole(foam_bag_shell, side=1):

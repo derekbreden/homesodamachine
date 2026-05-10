@@ -99,32 +99,40 @@ foam fills around them.
 
 ### bag_pocket_support_shell
 
-Square cup encompassing the tank-copper-shell. **141 × 141 mm** in
-plan-view, sized so that the square's wall centerlines are tangent to the
-tank-copper-shell's wall centerline at the four cardinal axis points.
-Same total height as the tank-copper-shell. The four corners of the
-square's floor extend beyond the round cup's footprint; everywhere the
-two floors overlap (inside the inscribed circle), they coincide and the
-union produces no change.
+Channel-section structure framing the tank-copper-shell at +Z and −Z:
+**floor + +Z wall + −Z wall**, sized 143 × 143 mm in plan-view at the
+outer envelope so its wall centerlines are tangent to the tank-copper-
+shell's wall centerline at the four cardinal axis points. Same total
+height as the tank-copper-shell. The four corners of the floor extend
+beyond the round cup's footprint; everywhere the two floors overlap
+(inside the inscribed circle), they coincide and the union produces
+no change.
 
-The **±X walls of the support shell are cut out** — they're coincident
-with the bag pockets' tank-facing walls (also cut, see below) and
-separate air-from-air rather than air-from-foam. Only the +Z and −Z
-walls + floor remain on the support shell, giving it a "+Z wall + −Z
-wall + floor" channel-section profile. The +Z and −Z walls are kept
-because they separate corner-pocket air (inside the support shell)
-from outer-pour foam (outside), so they *are* doing real work.
+**No +X / −X walls** — those would be coincident with the bag pockets'
+tank-facing walls (also not built) and would have air on both sides
+(bag cavity inside, corner-pocket air outside). The +Z and −Z walls
+*do* earn their keep: they separate corner-pocket air (between this
+shell's interior and the round cup's outside) from outer-pour foam
+(outside this shell at +Z and −Z). The function `build_bag_pocket_
+support_shell` constructs floor and the two walls explicitly rather
+than building a closed cup and cutting the unneeded faces back off.
 
 ### bag_pocket_shell (one of two)
 
-Rectangular cup attached to one side of the bag_pocket_support_shell.
-**35 mm deep (along X) × 125 mm wide (along Z) × 212.4 mm tall**. The
-pocket's tank-facing wall **is cut out** for the reason described
-above — it would be coincident with the support shell's ±X wall (also
-cut), and both sides of that wall are air. The bag cavity is therefore
-open along its centerward face into the support shell's interior
-(corner-pocket region around the round cup), all of which is one
-continuous air volume during operation.
+Three-walled cup attached at one ±X face of the support shell:
+**floor + far (away from center) wall + +Z wall + −Z wall**. Outer
+envelope **35 mm deep (along X) × 143 mm wide (along Z) × 212.4 mm
+tall** so the +Z / −Z walls coincide with the support shell's +Z /
+−Z walls and merge into one continuous wall after union.
+
+**No centerward (toward-tank) wall** — same reason as the support
+shell's missing ±X walls. The bag cavity is therefore open along
+its centerward face into the support shell's interior (corner-pocket
+region around the round cup); during operation, the bag and the
+corner-pocket region are one continuous air volume bounded by the
+round cup on the inside, the bag pocket's far/+Z/−Z walls and the
+support shell's +Z/−Z walls on the outside, and the unioned floor
+beneath.
 
 A second `bag_pocket_shell` mirrored on the −X side is built the same
 way (`build_a_bag_pocket_shell(side=-1)`) and unioned alongside the
