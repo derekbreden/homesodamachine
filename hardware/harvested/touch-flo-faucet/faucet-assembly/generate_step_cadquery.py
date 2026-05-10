@@ -40,6 +40,9 @@ PARTS CURRENTLY MODELED
    with corners clipped to the cylinder profile. Inner cut transitions
    from cylindrical bore to rectangular bore at Z=18 with the flavor-
    tube pill running through.
+7. Mounting gasket (loaded from `../../../printed-parts/touch-flo-mounting-gasket/`).
+   Ø 54.35 × 2.0 mm TPU 90A disc, sits between the mounting plate
+   and the countertop (Z = [-7, -5]). Hole pattern mirrors the plate.
 
 REGENERATE
 ==========
@@ -217,6 +220,13 @@ MOUNTING_PLATE_STEP = (
     / "touch-flo-mounting-plate.step"
 )
 
+MOUNTING_GASKET_STEP = (
+    Path(__file__).resolve().parent.parent.parent.parent
+    / "printed-parts"
+    / "touch-flo-mounting-gasket"
+    / "touch-flo-mounting-gasket.step"
+)
+
 SHELL_STEP = (
     Path(__file__).resolve().parent.parent.parent.parent
     / "printed-parts"
@@ -241,6 +251,16 @@ def load_mounting_plate() -> cq.Workplane:
     for the source of truth.
     """
     return cq.importers.importStep(str(MOUNTING_PLATE_STEP))
+
+
+def load_mounting_gasket() -> cq.Workplane:
+    """Load the printed-TPU mounting gasket from its printed-parts STEP.
+
+    Read-only here — see
+    `hardware/printed-parts/touch-flo-mounting-gasket/generate_step_cadquery.py`
+    for the source of truth.
+    """
+    return cq.importers.importStep(str(MOUNTING_GASKET_STEP))
 
 
 def load_shell() -> cq.Workplane:
@@ -476,10 +496,14 @@ def build_assembly() -> cq.Assembly:
     flavor_tube_neg_y = build_flavor_tube(-1)
     lever = build_lever()
     mounting_plate = load_mounting_plate()
+    mounting_gasket = load_mounting_gasket()
     shell = load_shell()
 
     silver = cq.Color(0.85, 0.85, 0.88)        # near-stainless silver
     petg_tan = cq.Color(0.85, 0.78, 0.62)      # printed-part tan
+    tpu_black = cq.Color(0.15, 0.15, 0.15)     # TPU 90A black gasket
+                                                # (slightly lighter than the
+                                                # body so the two read apart)
 
     assy = cq.Assembly(name="touch-flo-faucet-assembly")
     assy.add(body, name="valve_body", color=cq.Color("black"))
@@ -488,6 +512,7 @@ def build_assembly() -> cq.Assembly:
     assy.add(flavor_tube_neg_y, name="flavor_tube_neg_y", color=silver)
     assy.add(lever, name="lever", color=silver)
     assy.add(mounting_plate, name="mounting_plate", color=petg_tan)
+    assy.add(mounting_gasket, name="mounting_gasket", color=tpu_black)
     assy.add(shell, name="shell", color=petg_tan)
     return assy
 
@@ -538,6 +563,8 @@ def main():
           f"({_tip_below_horiz:.0f}° below horizontal)")
     print(f"  Mounting plate:        loaded from printed-parts/")
     print(f"                         {MOUNTING_PLATE_STEP.name}")
+    print(f"  Mounting gasket:       loaded from printed-parts/")
+    print(f"                         {MOUNTING_GASKET_STEP.name}")
     print(f"  Shell (zones 1+2):     loaded from printed-parts/")
     print(f"                         {SHELL_STEP.name}")
     print(f"-> {out.name}")
