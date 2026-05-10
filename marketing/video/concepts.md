@@ -4,6 +4,26 @@
 
 ---
 
+## In flight: the carbonator build
+
+A separate track from the audience-strategy tiers below. These videos document the actual fabrication of the welded stainless steel carbonation tank — a critical component for the integrated chiller (see [`../../hardware/future.md`](../../hardware/future.md)). Not aimed at building a maker/AI/embedded audience the way Tier 2 is; aimed at being the kind of evidence a future buyer needs to trust the founder and the product. This is Tier-1-spirit content shipping while the actual Tier 1 product (the pour video) isn't possible yet — the founder's face/kitchen/story is the brand for the first 50 units per [`../target-market.md`](../target-market.md), and these videos build that.
+
+### Shipped
+
+- **2026-05-04 — *I've Never Welded — First Welds on the Xlaserlab X1 Pro*** ([TauGl60X0MU](https://youtu.be/TauGl60X0MU), 3:28). Round four or five of learning the laser welder. Cap-mount POV, sparse narration, terrible-then-better progression. First video on the channel — picked up a comment from @Xlaserlab (the welder manufacturer): "Looking good!"
+- **2026-05-08 — *I've Never Tapped — First NPT Threads in 316L Stainless*** ([MXtzmCHN1mw](https://youtu.be/MXtzmCHN1mw), 6:38). First time hand-tapping NPT into the 316L end caps. C-clamps fail, clamp re-orientation succeeds. Ends "the result is inconclusive… we'll call that good for right now." Same "I've never X" hook shape as the welding video.
+- **2026-05-09 — *Stuck Less That Time — Laser Welding A 304L Pressure Vessel*** ([vyKLnab2xGY](https://youtu.be/vyKLnab2xGY), 7:41). **Tonal shift.** No longer "I've never X." The hook is naming a recurring antagonist (the wire sticks when you let off the trigger) and beating it incrementally across three sessions, ending with a method commit ("I pretty much want to do this trimming thing every time at this point"). The hero is the iteration loop, not the inexperience.
+
+### What this arc is doing
+
+The first two videos establish the founder as a credible novice doing real work. Video 3 establishes that this is a *continuing* arc — the founder is moving from "I've never" to "here's a problem I'm solving." Future videos in this track are likely to keep that shape: name the next antagonist (warping, leak path, joint geometry, pressure test), document the iteration, ship the result.
+
+### What this arc is NOT doing
+
+Reaching the buyer profile defined in [`../target-market.md`](../target-market.md). Welders are a small niche with low overlap with diet-soda-drinking solver-personality homeowners. Audience-building for the buyer profile is what the Tier 2 list below is for. The carbonator arc is in service of *trust when they arrive*, not *how they arrive*.
+
+---
+
 ## Tier 1: The videos that sell the machine
 
 These build trust in the product and the person. They are the "wait, that's real?" moments.
@@ -43,14 +63,16 @@ These are interesting on their own merits. They reach people who aren't looking 
 
 ### 4. The Live-Reload CAD Viewer (30-60 seconds)
 
-The system you already identified. Tell an AI agent to make a CAD change. Browser updates in 3 seconds with the new 3D model. The CadQuery script changes → Python regenerates the STEP file → WebSocket pushes it → browser renders it. No manual export, no file opening, no refresh.
+The system has matured into something more interesting than the original framing. The pitch now: fire off a CAD prompt on the laptop. Close the laptop. Go fold laundry. The agent edits the CadQuery script, the dev wrapper regenerates the STEP file, the production server hashes it, FCM pushes a notification to the phone. Open the homesodamachine.com PWA on the phone — the new 3D model is already rendered, same viewer as the desktop one (`tools/step-viewer/server.js` is just a dev wrapper around the production `server.js`; both serve `/dev/`).
 
-Show the terminal, the browser, and the result. Speed it up if the agent takes too long to respond. The "wow" is the feedback loop speed.
+This is an ambient-computing story now. The "wait, what?" beat isn't the speed of the loop — it's that you delegated a CAD edit to an agent and got back to your life until your phone said "look."
 
-- **Audience:** Makers, 3D printing community, CadQuery users, anyone building physical things with code. Also: developers interested in AI-assisted workflows.
-- **Shareability:** Very high in maker/dev communities. This is a tool video — people share tools.
-- **Trust signal:** Indirect but strong. "This person built real infrastructure for their design process" = "this person is serious."
-- **Where it lives in the repo:** `tools/step-viewer/` (server.js, run_redirected.py)
+One possible direction: laptop screen split with terminal + viewer, fire the prompt, walk away (cut to laundry / coffee / dog), notification arrives on phone, open the PWA, model is right there. Could be 30 seconds with no narration. Could be 60-90 with voiceover explaining the seams. Other angles exist — the desktop live-reload during active design is still the fastest "wow" — but the laptop-to-phone handoff is the version that lands hardest in 2026, because the agent-doing-work-while-you-aren't-watching loop is the part everyone is trying to feel.
+
+- **Audience:** Makers, 3D printing, CadQuery users, AI-assisted-workflow people, ambient-computing/PWA people. Anyone building physical things with code who's curious about agent + push-notification feedback loops.
+- **Shareability:** Very high in maker/dev communities. Possibly higher than the original framing — this version has a clearer "I want this" moment.
+- **Trust signal:** Strong. "This person built real infrastructure all the way from CadQuery script through FCM to phone" = "this person is serious."
+- **Where it lives in the repo:** `tools/step-viewer/server.js` (dev wrapper, file watcher, SSE), `lib/push.js` (FCM push on STEP/Mermaid changes), `lib/dev-viewer.js` and `lib/viewer-routes.js` (shared production+dev viewer).
 
 ### 5. The AI Design Pipeline Failure (2-3 minutes)
 
@@ -155,9 +177,9 @@ Show the progression of printing the same part in different materials. Drying pr
 
 ## Production notes
 
-### The sequence: Tier 2 → Tier 1 → Tier 3
+### Tier readiness: Tier 2 → Tier 1 → Tier 3
 
-**Tier 2 starts now.** These videos are about the build process, and they're most valuable *while the build is happening*. A live-reload CAD viewer demo posted during active development has an authenticity that a retrospective never matches. Build-in-public content has a shelf life — make it while it's fresh. The AI pipeline failure story and the live-reload CAD viewer are the highest-value Tier 2 pieces — they reach large, active communities (AI discourse, 3D printing) with genuinely novel content.
+**Tier 2 is a menu, not a sequence.** These videos are about the build process, and they're most valuable *while the build is happening*. A live-reload CAD viewer demo posted during active development has an authenticity that a retrospective never matches. Build-in-public content has a shelf life — make pieces from this list when a concept becomes the natural next thing to film, not on a schedule. The AI pipeline failure story and the live-reload CAD viewer are the highest-value pieces in the list — they reach large, active communities (AI discourse, 3D printing) with genuinely novel content.
 
 **Tier 1 waits for the self-contained prototype.** The pour video, the full story, and the install video are the sales funnel. They need to show the product someone can actually buy — not the current Lillium-backed system that's going to change. The pour video is stronger when it pours from the finished appliance. The install video requires a finished unit to install. These should exist before the first sale, but not before the product is ready to sell.
 
