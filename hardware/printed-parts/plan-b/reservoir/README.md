@@ -37,7 +37,7 @@ Target features for the first design:
 
 Each bag pocket cavity in `../foam-bag-shell/` opens along its centerward face directly into the support shell's interior — the bag pocket's tank-facing wall and the support shell's matching ±X wall were removed because they had air on both sides (bag cavity inside, corner-pocket air outside; see the foam-bag-shell README for the wall analysis). Each cavity per side is now:
 
-- **Top-down cross-section:** rectangle bounded at the far face (x = ±104.5 mm) and the +Z / −Z walls (z = ±70.5 mm), with a **concave cylindrical face** on the centerward side following the round cup's outer surface (radius 71.5 mm, vertical axis). Closer to a `[` than a `D` — three straight sides and one concave curve, not three straight sides and a convex bulge.
+- **Top-down cross-section:** rectangle bounded at the far face (x = ±104.5 mm) and the +Z / −Z walls (z = ±70.5 mm), with a **concave cylindrical face** on the centerward side following the `tank_copper_shell`'s outer surface (radius 71.5 mm, vertical axis). Closer to a `[` than a `D` — three straight sides and one concave curve, not three straight sides and a convex bulge.
 - **Vertical extent:** y ∈ [1, 212.4] mm = 211.4 mm tall.
 - **Air volume:** ~1.42 L per cavity (up from the 0.984 L rectangular void that the previous envelope assumed).
 
@@ -51,34 +51,47 @@ The first printable shape can be ugly. It needs to preserve the real wall thickn
 
 The cooling target is refrigerator-level — roughly 2–5 °C in the syrup itself. The "8–15 °C passive pre-chill" range in [`../../future.md`](../../future.md) (line 68) was an aspirational realistic-target framing rather than a rigorous prediction; this section walks the actual thermal path.
 
-**Don't model the cold side as 7 mm of foam.** The radial space inside `tank_copper_shell` is 7 mm, but most of it is occupied by the 1/4" (6.35 mm OD) ACR copper evaporator coil pressed against the tank wall under 3M 425 thermal tape. Foam fills only the ~0.6 mm of remaining radial gap between the coil's outer surface and the cup wall's inner face. Between coil wraps (vertically), the full 7 mm gap exists, but only over the small fraction of cup height that isn't covered by a coil row.
+#### Why the "7 mm of foam" model is wrong
 
-Two-zone cold-side path, tiled vertically along the cup wall:
+The radial space inside `tank_copper_shell` is 7 mm, but most of it is occupied by the 1/4" (6.35 mm OD) ACR copper evaporator coil pressed against the tank wall under 3M 425 thermal tape. The coil tube center sits at radius **66.7 mm**; the `tank_copper_shell` inner face sits at radius **70.5 mm**. The radial gap between coil center and `tank_copper_shell` inner face is **3.8 mm** — but that's a center-to-wall distance, not a foam thickness, because the coil is a 6.35 mm-diameter cylinder, not a line.
 
-| Zone | Vertical fraction (close-wound, pitch ≈ coil OD) | Foam thickness | Cold source |
-|---|---|---|---|
-| At-coil rows | ~80 % | ~0.6 mm | coil outer face ≈ refrigerant saturation temp |
-| Between-coil rows | ~20 % | ~7 mm | tank wall ≈ tank water temp |
+The foam fills the space between the coil tube's outer surface and the `tank_copper_shell` inner face. That space varies in thickness as you walk around the coil tube's circumference:
 
-Coil outer face temperature swings with compressor state:
+| Position on coil circumference | Radial gap to `tank_copper_shell` inner face |
+|---|---|
+| Outermost line on the coil (closest to the shell) | **0.6 mm** (minimum) |
+| 90° around the tube (top or bottom of the coil) | ~3.8 mm |
+| Innermost line (against the tank wall) | ~7.0 mm |
+
+So 0.6 mm is the *minimum* gap, not the average. There's a small line on the coil where the foam is 0.6 mm thick, and the foam thickens away from that line.
+
+#### Effective resistance via the shape factor
+
+For a circular pipe sitting near a parallel flat wall through a uniform medium, there's a standard thermal-conduction formula (the "shape factor" for cylinder-to-plane):
+
+R_per_meter_of_pipe = (1 / (2 · π · k)) · acosh(d / a)
+
+where `a` is the pipe radius (3.175 mm), `d` is the pipe-center-to-wall distance (3.775 mm), and `k` is the foam conductivity (0.025 W/m·K). Plugging in: acosh(1.189) = 0.617, R per meter of pipe ≈ **3.93 m·K/W**.
+
+For close-wound coils (pitch ≈ coil OD ≈ 6.35 mm), one wrap of pipe covers 6.35 mm of vertical `tank_copper_shell` height, so R per unit `tank_copper_shell` area = 3.93 · 0.00635 ≈ **0.025 m²·K/W**. That's the foam-zone resistance from the coil's outer surface to the `tank_copper_shell` inner face, accounting for the geometry — equivalent to about 0.6–0.8 mm of uniform foam, not the literal 0.6 mm minimum and not the 7 mm of the bare radial gap.
+
+Coil outer face temperature, which is the cold-side source temperature, swings with compressor state:
 - **Compressor running:** R-600a saturating on the suction side ≈ **−5 to −10 °C**.
 - **Compressor off:** coil equalizes toward tank water ≈ 2 °C.
 - **Duty-cycle averaged:** roughly 0 °C in normal operation. The ESP32 firmware uses 2 °C / 4 °C hysteresis on the tank-wall probe with a hard −8 °C cutout on the suction-line probe, so the coil rarely sits long below −8 °C, but the time-weighted average is well below the tank water temperature.
 
-**Cold side (per-area resistance, syrup → cold structures):**
+#### Cold side (per-area resistance, syrup → cold structures)
 
 | Layer | R (m²·K/W) |
 |---|---|
 | Reservoir wall (PETG, 2 mm) | 0.010 |
-| Round cup wall (PETG, 1 mm) | 0.005 |
-| Foam zone, parallel-effective: 0.80 / 0.024 + 0.20 / 0.28 → R_eff = 1 / 33.6 | 0.030 |
+| `tank_copper_shell` wall (PETG, 1 mm) | 0.005 |
+| Foam zone (shape-factor-effective, close-wound coil, see above) | 0.030 |
 | **R_cold total (effective)** | **0.045** |
 
-Effective cold-side temperature, weighted by per-unit-area conductance:
+The PETG layers contribute ~33 % of R_cold (the 1 mm + 2 mm of PETG insulating about as effectively as 0.6 mm of foam). The foam-zone term carries the rest. The 1 mm of `tank_copper_shell` PETG is real and doing real work — it just isn't the bottleneck.
 
-T_cold_eff = (0.80 / 0.024) · 0 °C + (0.20 / 0.28) · 2 °C all divided by 33.6 ≈ **0.04 °C**
-
-**Warm side (syrup → kitchen ambient):**
+#### Warm side (syrup → kitchen ambient)
 
 | Layer | R (m²·K/W) |
 |---|---|
@@ -89,21 +102,23 @@ T_cold_eff = (0.80 / 0.024) · 0 °C + (0.20 / 0.28) · 2 °C all divided by 33.
 | Outer convection (vertical, still cabinet air, h ≈ 5 W/m²·K) | 0.200 |
 | **R_warm total** | **0.860** |
 
-**Equilibrium syrup temperature**, weighted by surface areas (centerward face A_c ≈ 0.042 m² counters the four warm-side faces A_w ≈ 0.082 m²):
+#### Equilibrium syrup temperature
 
-T_syrup = (T_amb · A_w/R_warm + T_cold · A_c/R_cold) / (A_w/R_warm + A_c/R_cold) = (22 · 0.096 + 0.04 · 0.949) / 1.045 ≈ **2.1 °C**
+The reservoir's centerward face (A_c ≈ 0.042 m²) is the cold side. Its other five faces (far + 2 long sides + top + bottom, A_w ≈ 0.082 m²) are the warm side. Heat in from the warm side balances heat out to the cold side at:
 
-The architecture is plausibly **already refrigerator-cold**. The cooling capacity comes from a thin film of foam over a cold copper coil, not from a 7 mm bulk foam layer over a lukewarm tank wall.
+T_syrup = (T_amb · A_w/R_warm + T_cold · A_c/R_cold) / (A_w/R_warm + A_c/R_cold) = (22 · 0.096 + 0 · 0.949) / 1.045 ≈ **2 °C**
 
-**Implications for Plan B:**
+The model says the architecture is plausibly **already refrigerator-cold**. The cooling capacity comes from a thin foam layer over a cold copper coil, not from a 7 mm bulk foam layer over a lukewarm tank wall.
+
+#### Implications
 
 1. The earlier "thin the inner foam to reach 4 °C" recipe in this section was wrong — it assumed a 7 mm foam layer that doesn't exist (the copper coil occupies that space). **Disregard it.** Foam thickness is set by `(radial gap) − (coil OD)` and isn't an independent design variable.
 
-2. The dominant risk is now **freeze**, not insufficient chilling. With T_coil dropping to −5 to −10 °C during compressor pulls and only 0.6 mm of foam between the coil and the cup wall, the cup-wall outer face directly opposite a coil row can fall below 0 °C. Whether syrup actually freezes depends on internal convection, syrup composition (sucralose concentrates have non-zero freezing-point depression but not unlimited), compressor duty cycle, and how tightly the reservoir wall sits against the cup wall.
+2. The dominant risk is now **freeze**, not insufficient chilling. With T_coil dropping to −5 to −10 °C during compressor pulls and only 0.6 mm of foam at the coil-to-`tank_copper_shell` minimum gap, the `tank_copper_shell`'s outer face directly opposite a coil row can fall below 0 °C. Whether syrup actually freezes depends on internal convection, syrup composition (sucralose concentrates have non-zero freezing-point depression but not unlimited), compressor duty cycle, and how tightly the reservoir wall sits against the `tank_copper_shell`.
 
 3. Bladder vs hard reservoir is still not the dominant variable. Replacing 2 mm of PETG (0.010) with 75 µm of LDPE (≈ 0.0002) drops R_cold to 0.035, moving T_syrup by roughly 0.5 °C — colder, not warmer. So the hard reservoir is *less aggressive* on freeze risk than the bladder by a small margin, which is a quiet point in its favor.
 
-4. **Bench instrumentation should add a third DS18B20** in the reservoir interior, alongside the existing tank-wall and suction-line probes. The current two probes tell you the cold side; a syrup-side probe tells you whether the model above is right and whether the actual operating point is above, near, or below freezing.
+4. **Model says 2–5 °C, future.md says 8–15 °C, gap to resolve via instrumentation.** Add a third DS18B20 inside the reservoir during bench testing alongside the existing tank-wall and suction-line probes; the current two probes tell you the cold side, and a syrup-side probe tells you whether the model above is right and whether the actual operating point is above, near, or below freezing.
 
 5. Levers that *do* exist for tuning the operating point:
    - Coil pitch (loosening the wind reduces the at-coil fraction and softens cooling)
@@ -112,6 +127,38 @@ The architecture is plausibly **already refrigerator-cold**. The cooling capacit
    - Outer foam thickness (reducing it raises T_syrup; the geometry already budgets 16 mm)
 
 These all live in the foam-bag-shell + firmware architecture, not in the reservoir architecture.
+
+### Condensation
+
+With T_syrup ≈ 2–3 °C and ~0.5 °C of gradient across the 2 mm reservoir wall, the `tank_copper_shell`'s **outer** face (the side facing the reservoir / bag cavity) sits at roughly **2–3 °C** in steady state. Kitchen-air dew point at 22 °C and 50 % RH is ~12 °C. So the `tank_copper_shell`'s outer face is well below dew point any time the kitchen is at indoor temperatures, and any humid air in contact with it will deposit water.
+
+#### What the geometry exposes
+
+After removing the centerward bag-pocket / support-shell wall, the bag/corner-pocket air space wraps around the round side of the `tank_copper_shell`. The air-exposed surface area of the `tank_copper_shell` outer face per side is now roughly the centerward arc of the cavity ≈ **0.04 m²**. A hard reservoir flush against that face removes the air gap (no air, no condensation possible at the contact line); but with finite manufacturing tolerance, some millimeter-scale air gaps remain along that face.
+
+#### Sealed-cavity case (if the cavity is air-tight)
+
+Once the bag/corner-pocket cavity is closed off from kitchen-cabinet air, the cold `tank_copper_shell` outer face pulls humidity out of whatever air was sealed in. The total water available is bounded:
+
+- Cavity air volume: ~1.4 L per side
+- Air mass at room conditions: 0.0017 kg
+- Absolute humidity at 22 °C, 50 % RH: ~8 g/kg
+- Saturated absolute humidity at 2.5 °C: ~4.5 g/kg
+- Maximum condensable water: 0.0017 · (8 − 4.5) ≈ **6 mg per cavity**
+
+Six milligrams. A drop. Once it's out of the air, it's done — the air dries to a dew point matching the cold surface, and no further condensation forms. Bladder swap or service events that reintroduce kitchen air repeat the 6 mg deposit each time.
+
+#### Imperfect-seal case (if humid air leaks in continuously)
+
+The current cap-stack relies on **friction-fit corner pins** between `foam_cap` and `outer_shell` (4× 2 mm-radius pins, 6 mm engagement) and between `foam_cap_lid` and `foam_cap`, and on the cured outer-pour foam sitting around them. There's no explicit gasket. **The seal is not specified, and friction-fit pins are not airtight** — kitchen air can diffuse in around the pins, around the lid edges, and through any micro-gaps the foam pour didn't fill.
+
+If humid kitchen air bleeds in continuously, the 6 mg-per-cycle bound becomes a 6 mg-per-time-constant ongoing deposit. Order-of-magnitude estimate: a 1 cm² leak path with mm-scale gap and natural-convection-driven humidity transport could drive grams of water onto the `tank_copper_shell` outer face per month. Over the lifetime of a "lifetime wetted part" reservoir (Plan B intent: years), unbounded. Unless something else removes it (running off, evaporating during compressor-off cycles, etc.), it accumulates.
+
+This argues for **explicit gasketing** somewhere in the cap stack, OR a defined drying mechanism (e.g., desiccant cartridge in the cap, or a compressor-off duty-cycle long enough to evaporate accumulated water back into the cavity air). Neither is currently in the design. Worth flagging as an open architecture question — not a Plan B reservoir question, but the reservoir doesn't get to ignore it because moisture accumulating on the `tank_copper_shell` is moisture sitting against the reservoir's centerward face.
+
+#### Sub-freezing transients → frost
+
+When the compressor is pulling and T_coil is at −5 to −10 °C, the `tank_copper_shell`'s outer face directly opposite a coil row may briefly drop below 0 °C. Any liquid water at that location freezes to the surface; subsequent condensation cycles add more ice. This is the classic freezer-frost mechanism. With a sealed cavity it's bounded (the 6 mg condenses once and freezes once); with an imperfect seal it grows. Frost on the outside of the `tank_copper_shell` doesn't break anything immediately, but it changes thermal coupling over time and is hard to inspect or service without disassembly.
 
 ## Test Sequence
 
