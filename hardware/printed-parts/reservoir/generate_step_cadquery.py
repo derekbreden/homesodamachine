@@ -32,7 +32,7 @@ xz_plane_y_up = cq.Plane(origin=(0, 0, 0), xDir=(1, 0, 0), normal=(0, 1, 0))
 #
 # These constants describe the bag-pocket cavity into which this
 # reservoir fits. They mirror — but do not import from — the analogous
-# constants in ../../foam-bag-shell/generate_step_cadquery.py. The
+# constants in ../foam-bag-shell/generate_step_cadquery.py. The
 # reservoir is a separate part with its own life cycle; treating the
 # foam-bag-shell envelope as a stable interface keeps the two parts
 # from leaking implementation details across each other.
