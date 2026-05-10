@@ -5,11 +5,11 @@ and (eventually) the shell that wraps around the assembly.
 
 GEOMETRY
 ========
-- Ø 54.35 mm, 5 mm thick disc — sized so the plate's edge sits 5 mm
+- Ø 54.35 mm, 4 mm thick disc — sized so the plate's edge sits 5 mm
   out from the shell base's outer cylinder (Ø 44.35 = SHELL_OUTER_R
   × 2). 5 mm matches the standard wall / margin elsewhere in the
   shell. Factory plate was Ø 44.5; this is bigger.
-- Plate spans Z = [-5, 0] in world coords; top face flush with the
+- Plate spans Z = [-4, 0] in world coords; top face flush with the
   deck plane (= body bottom in the faucet-assembly).
 - Plate center at world (3.175, 0) — the midpoint of the assembly's
   lateral footprint at Z = 0 with 1/4" flavor tubes:
@@ -56,12 +56,14 @@ from _cadq_export import export_step
 # ═══════════════════════════════════════════════════════
 
 PLATE_DIAMETER  = 54.35   # mm — 5 mm radial gap to shell base (Ø 44.35)
-PLATE_THICKNESS = 5.0     # mm
+PLATE_THICKNESS = 4.0     # mm — was 5; trimmed 1 mm to free shank
+                           # thread engagement for the under-counter nut
+                           # once the 2 mm TPU gasket is in the stack
 PLATE_CENTER_X  = 3.175   # mm — assembly footprint midpoint with
                            # 1/4" flavor tubes; matches SHELL_CENTER_X
 PLATE_CENTER_Y  = 0.0
 PLATE_Z_TOP     = 0.0
-PLATE_Z_BOTTOM  = PLATE_Z_TOP - PLATE_THICKNESS  # -5.0
+PLATE_Z_BOTTOM  = PLATE_Z_TOP - PLATE_THICKNESS  # -4.0
 
 
 # ═══════════════════════════════════════════════════════
@@ -90,9 +92,10 @@ PILL_SLOT_WIDTH_X  = FLAVOR_TUBE_HOLE_DIA                              # 6.85
 # ═══════════════════════════════════════════════════════
 
 # Fillet on the top outer edge — softens the visible ring around the
-# body once the plate is installed. 2 mm on a 5 mm plate (40% of
-# thickness) reads as an intentional finished edge without eating the
-# flat landing area the body and shell sit on.
+# body once the plate is installed. 2 mm on a 4 mm plate (50% of
+# thickness — half-bullnose, half-flat side) reads as an intentional
+# finished edge without eating the flat landing area the body and
+# shell sit on.
 TOP_OUTER_FILLET_R = 2.0   # mm
 
 
@@ -111,7 +114,7 @@ def build_mounting_plate() -> cq.Workplane:
          selector trickery needed.
       3. Cut the shank and pill holes (these stay sharp-edged).
 
-    All cuts pass through the full 5 mm thickness.
+    All cuts pass through the full 4 mm thickness.
     """
     plate = (
         cq.Workplane("XY")

@@ -31,7 +31,7 @@ PARTS CURRENTLY MODELED
    rest position and pressed-down position (-18° around X=1.5, Z=46),
    each with vertical water-tube clearance for both extremes.
 5. Mounting plate (loaded from `../../../printed-parts/touch-flo-mounting-plate/`).
-   Ø 54.35 × 5 mm disc centered at (3.175, 0), spans Z = [-5, 0]. Shank
+   Ø 54.35 × 4 mm disc centered at (3.175, 0), spans Z = [-4, 0]. Shank
    hole at (0, 0); flavor-tube pill slot at (18.925, 0). 5 mm radial
    gap from the shell base (Ø 44.35) so the plate reads as a finished
    shoulder under the shell.
@@ -46,7 +46,7 @@ PARTS CURRENTLY MODELED
    bend 2, and the tip (zone 6).
 7. Mounting gasket (loaded from `../../../printed-parts/touch-flo-mounting-gasket/`).
    Ø 54.35 × 2.0 mm TPU 90A disc, sits between the mounting plate
-   and the countertop (Z = [-7, -5]). Hole pattern mirrors the plate.
+   and the countertop (Z = [-6, -4]). Hole pattern mirrors the plate.
 
 REGENERATE
 ==========
