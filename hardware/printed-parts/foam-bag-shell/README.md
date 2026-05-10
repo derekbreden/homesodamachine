@@ -51,7 +51,7 @@ buffer 7). Total height **212.4 mm** (tank height 152.4 + 30 mm above +
 
 Four **foam-pour down-channels** are unioned to the outside of the cup
 at azimuths 45°/135°/225°/315°, running the full cavity height. Each
-channel is an 8 mm radial × 6 mm tangential rectangular slot whose
+channel is an 8 mm radial × 10 mm tangential rectangular slot whose
 center sits on the shell's OD, so half the slot overlaps the wall
 (becomes a rectangular flute on the inside after shelling) and half
 protrudes outward into the corner pocket between this shell and

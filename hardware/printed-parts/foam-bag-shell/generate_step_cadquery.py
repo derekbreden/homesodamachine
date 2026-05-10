@@ -126,11 +126,13 @@ foam_channel_first_angle_deg = 45.0
 # the diagonal). Outermost reach matches the prior cylindrical lobe of
 # radius 4 mm.
 foam_channel_slot_radial_depth = 8.0
-# Slot circumferential width = 6 mm. Comparable to the prior lobe's
-# throat width (~5.6 mm chord where its inner circle met the round
-# cavity) but uniform along the slot's depth, vs. the lobe's tapered
-# profile.
-foam_channel_slot_tangential_width = 6.0
+# Slot circumferential width = 10 mm. Wider than the prior cylindrical
+# variant at any cross-section — its lobe was 5.6 mm at the cavity
+# throat and 8 mm at maximum diameter. Still occupies only ~8° of arc
+# at R = 71.5, well inside the tank_support_wedge's 30°-wide diagonal
+# slots, so foam from the channel still falls cleanly through the
+# wedge into the under-tank cavity.
+foam_channel_slot_tangential_width = 10.0
 foam_channel_slot_center_radius = tank_copper_shell_radius
 #
 # -------------------------------------------------------
