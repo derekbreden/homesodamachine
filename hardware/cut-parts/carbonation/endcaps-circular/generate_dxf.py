@@ -25,8 +25,8 @@ vessels, and there's no "top vs. bottom" orientation error possible).
   Hole positions:      (-0.750, 0) and (+0.750, 0)
 
 The 1.500" center-to-center spacing matches the CNC dome-cap variants
-in hardware/cut-parts/carbonator-milled-dome-cap[-min]/ so the plumbing
-layout is identical regardless of which cap style is used.
+preserved at the archive-plan-b git tag so the plumbing layout is
+identical regardless of which cap style is used.
 
 ── Tapping notes ──
 

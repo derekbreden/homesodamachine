@@ -17,7 +17,7 @@ Geometry mirrors `generate_dxf.py` in this folder — single source of truth
 for the cut geometry is still the DXF; this PDF only annotates.
 
 Run:
-    tools/cad-venv/bin/python hardware/cut-parts/carbonator-endcaps-circular/generate_drawing.py
+    tools/cad-venv/bin/python hardware/cut-parts/carbonation/endcaps-circular/generate_drawing.py
 """
 
 from datetime import date
