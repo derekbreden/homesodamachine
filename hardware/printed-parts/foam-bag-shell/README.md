@@ -172,14 +172,18 @@ joinery's complete absence of any seal between cap and outer shell.
 
 ## Cap-to-outer-shell joinery
 
-Each cap (top and bottom) is fastened to the outer_shell with
-**six M3 × 25 mm socket head cap screws** (DIN 912) threading into
-**six ruthex M3 short heat-set inserts** (Amazon B09ZHSGHXD — same
-insert spec as in `touch-flo-shell`) pressed into the corresponding
-face of the outer_shell. Twelve inserts total per outer_shell:
-six on the top face accepting the top-cap screws threading down
-from above, six on the bottom face accepting the bottom-cap screws
-threading up from below.
+Each cap (top and bottom) is fastened to the outer_shell with **six
+black M3 × 25 mm DIN 912 socket head cap screws** (head Ø 5.5 × 3.0 mm
+tall, 2.5 mm hex — specific Prime SKU TBD pending the user's
+selection and order) threading into **six ruthex M3 short heat-set
+inserts** ([B09ZHSGHXD](https://www.amazon.com/dp/B09ZHSGHXD) — same
+insert spec as in `touch-flo-shell`; the 100-pc bag already on order
+for that part covers ~7 builds at the combined 14-inserts-per-unit
+total) pressed into the corresponding face of the outer_shell.
+**Twelve inserts and twelve screws total per outer_shell:** six on
+the top face accepting the top-cap screws threading down from above,
+six on the bottom face accepting the bottom-cap screws threading up
+from below.
 
 Stack-up under each screw head, top cap (mm):
 - Lid (1) + cap floor (1) + cap boss / interior void (14) + cap
@@ -194,12 +198,14 @@ relief so the M3 × 25 screw tip has clearance and doesn't bottom
 out). Pockets are drilled inward from each face — top face pockets
 go down, bottom face pockets go up.
 
-Standard SHCS (head Ø 5.5 × 3.0 mm) is used here instead of the
-ultra-low-profile heads used in `touch-flo-mounting-plate`: there's
-no under-counter flush-mount constraint here, the heads can protrude
-freely on the appliance top and bottom faces, and DIN 912 SHCS are
-about an order of magnitude cheaper Prime-shippable than McMaster
-ULH.
+Standard SHCS chosen instead of the ultra-low-profile heads used in
+`touch-flo-mounting-plate`: there's no under-counter flush-mount
+constraint here (the heads protrude on the appliance top and bottom
+faces; under-counter install hides both), and the standard DIN 912
+SHCS is roughly an order of magnitude cheaper Prime-shippable than
+McMaster ULH. Black finish is preferred over bright stainless for
+appearance; black oxide on alloy steel is adequate corrosion
+protection for this dry foam-filled enclosed interior.
 
 Six attachment positions per cap (vs the earlier four pin corners)
 halve the longest unsupported gasket span between adjacent screws

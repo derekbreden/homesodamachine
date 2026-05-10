@@ -199,26 +199,36 @@ foam_cap_lid_hole_inset = 30.0
 # Cap-to-outer-shell screw + heat-set joinery
 # -------------------------------------------------------
 #
-# M3 brass heat-set inserts (ruthex M3 short, Amazon B09ZHSGHXD —
-# the same insert used in touch-flo-shell) press into the top and
-# bottom faces of the outer_shell at 6 attachment points per face,
-# 12 inserts total. M3 × 25 mm standard socket-head cap screws
-# (DIN 912) thread up from below the bottom cap and down from above
-# the top cap+lid into those inserts. A 2 mm-thick TPU 90A gasket
-# (matching the foam_cap perimeter, with screw holes at the same
-# 6 positions) sits between each cap's mating edge and the
-# outer_shell's mating face, compressed by the screws.
+# Inserts: ruthex M3 short brass heat-set (Amazon B09ZHSGHXD,
+# 100-pc bag ~$0.11/insert) — reused from the touch-flo-shell order;
+# same insert spec works here. Press into the top and bottom faces
+# of the outer_shell at 6 attachment points per face, 12 inserts
+# per outer_shell.
+#
+# Screws: black M3 × 25 mm DIN 912 / ISO 4762 socket head cap.
+# Specific SKU TBD pending purchase. Head dimensions used in this
+# script (Ø 5.5 × 3.0 mm tall, 2.5 mm hex) are the DIN 912 standard
+# and apply to any M3 SHCS regardless of finish. Black finish chosen
+# over bright stainless for appearance; black oxide on alloy steel
+# is adequate corrosion protection for this dry foam-filled enclosed
+# interior. Thread up from below the bottom cap and down from above
+# the top cap + lid into the inserts. 12 screws per built unit.
+#
+# Gasket: 2 mm-thick TPU 90A perimeter ring (foam-cap-gasket.step)
+# matching the foam_cap footprint, with screw holes at the same
+# 6 positions, compressed between each cap's mating edge and the
+# outer_shell's mating face. Printed twice — one per cap.
 #
 # Replaces the earlier friction-fit dowel-pin design, which clamped
 # nothing and left the cap-shell seam open to humid kitchen air —
 # the condensation/frost concern documented in
 # plan-b/reservoir/README.md.
 #
-# Standard SHCS (head Ø 5.5 × 3.0 mm tall) chosen instead of ULH
-# socket caps: there's no flush-mount constraint here (the heads
-# protrude on the appliance top and bottom faces; under-counter
-# install hides both), and DIN 912 SHCS are roughly an order of
-# magnitude cheaper Prime-shippable than McMaster ULH.
+# Standard SHCS chosen instead of the McMaster ULH used in touch-
+# flo-mounting-plate: there's no flush-mount constraint here (the
+# heads protrude on the appliance top and bottom faces; under-
+# counter install hides both), and standard DIN 912 SHCS is roughly
+# an order of magnitude cheaper Prime-shippable than McMaster ULH.
 #
 # Stack-up under the head, top cap (mm):
 #   lid (1) + cap floor (1) + cap interior void / boss height (14)
