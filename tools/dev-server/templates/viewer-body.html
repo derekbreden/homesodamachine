@@ -233,7 +233,13 @@ let currentGroup = null;
 // Exposed for headless render tooling (tools/render/render-step.js).
 // Tiny escape hatch so Puppeteer can pose the camera and trigger a render
 // without needing to drive OrbitControls via synthetic events.
-window.__hsm = { THREE, renderer, scene, camera, controls, loadStepFile, get currentGroup() { return currentGroup; }, get mountedStepFile() { return mountedStepFile; } };
+window.__hsm = {
+  THREE, renderer, scene, camera, controls,
+  loadStepFile, loadDxfFile,
+  get currentGroup() { return currentGroup; },
+  get mountedStepFile() { return mountedStepFile; },
+  get mountedDxfFile() { return mountedDxfFile; },
+};
 
 // --- ViewCube ---
 // Each cube face's projected hit area is roughly gizmoSize/2 — Apple HIG
