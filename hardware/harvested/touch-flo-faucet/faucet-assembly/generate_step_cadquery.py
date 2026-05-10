@@ -31,15 +31,19 @@ PARTS CURRENTLY MODELED
    rest position and pressed-down position (-18° around X=1.5, Z=46),
    each with vertical water-tube clearance for both extremes.
 5. Mounting plate (loaded from `../../../printed-parts/touch-flo-mounting-plate/`).
-   50 mm × 5 mm disc centered at (1.5875, 0), spans Z = [-5, 0]. Shank
-   hole at (0, 0); flavor-tube pill slot at (17.3375, 0).
+   Ø 54.35 × 5 mm disc centered at (3.175, 0), spans Z = [-5, 0]. Shank
+   hole at (0, 0); flavor-tube pill slot at (18.925, 0). 5 mm radial
+   gap from the shell base (Ø 44.35) so the plate reads as a finished
+   shoulder under the shell.
 6. Shell (loaded from `../../../printed-parts/touch-flo-shell/`).
-   Work-in-progress, growing bottom-up. Currently covers zones 1 and 2
-   (Z = [0, 39]): cylindrical base (Ø 41.175 mm), cove transition on
-   the Y faces (R = 5 mm), then a 41.175 × 23.5 mm rectangular column
-   with corners clipped to the cylinder profile. Inner cut transitions
-   from cylindrical bore to rectangular bore at Z=18 with the flavor-
-   tube pill running through.
+   Single-piece shroud covering zones 1–6, centered at (3.175, 0).
+   Outer Ø 44.35 mm cylindrical base (zone 1, Z = [0, 13]) → cove
+   transition into a 41.175 × 23.5 mm rectangular column (zone 2,
+   Z = [13, 39]) → arch wings + plateau fill over the body's arched
+   top (zone 3, Z = [39, 44.25]) → tube wrapper above the arch and
+   lever (zones 4 + 4.5 + 5, Z = [44.25, 67.5]) → gooseneck wrapper
+   following the bent dispense tubes through bend 1, mid straight,
+   bend 2, and the tip (zone 6).
 7. Mounting gasket (loaded from `../../../printed-parts/touch-flo-mounting-gasket/`).
    Ø 54.35 × 2.0 mm TPU 90A disc, sits between the mounting plate
    and the countertop (Z = [-7, -5]). Hole pattern mirrors the plate.
@@ -565,7 +569,7 @@ def main():
     print(f"                         {MOUNTING_PLATE_STEP.name}")
     print(f"  Mounting gasket:       loaded from printed-parts/")
     print(f"                         {MOUNTING_GASKET_STEP.name}")
-    print(f"  Shell (zones 1+2):     loaded from printed-parts/")
+    print(f"  Shell (zones 1-6):     loaded from printed-parts/")
     print(f"                         {SHELL_STEP.name}")
     print(f"-> {out.name}")
 
