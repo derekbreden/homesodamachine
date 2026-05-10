@@ -160,6 +160,15 @@ Dishing dies (PA6-CF) for end-cap forming are vessel-fabrication tools, not ship
 | [DEVMO MINI float switch (donor — harvest magnetic donut float, discard switch body)](https://www.amazon.com/dp/B07T18PGJ4) | B07T18PGJ4 — float slides on the welded SS rod; only the float is shipped product, the rest of the donor unit is discarded | 1 | $13.93 | $13.93 |
 | [Gebildet reed switches, 14 mm glass body, NO (6-pk)](https://www.amazon.com/dp/B0CW9418F6) | B0CW9418F6 — 2 reeds per unit (low-level refill threshold + high-level full threshold), mounted on the outside of the 0.065" SS tube wall; 316L (and 304) are austenitic and non-magnetic so the float magnet's field passes through ($6.42/6 × 2) | 2 (of 6) | $2.14 | $4.28 |
 
+## 13. Shell-plate retention (printed plate → printed shell)
+
+Mechanical attach for the printed touch-flo-mounting-plate up to the printed PET-CF touch-flo-shell. The T18 heat-set tip kit ([B0CS662NVK](https://www.amazon.com/dp/B0CS662NVK)) and the FX-888D iron itself are tooling — installed once on the bench, not per-unit BOM (same scope rule as the welder, drill press, etc.).
+
+| Part | ASIN / Source | Qty | Unit $ | Line $ |
+|---|---|---:|---:|---:|
+| [ruthex M3 Threaded Inserts Short, 100 pc, RX-M3Sx4.0 brass heat-set](https://www.amazon.com/dp/B0D39W228K) | B0D39W228K — M3 × 4 mm L × 4.2 mm OD knurled brass insert installed by heat into the printed PET-CF touch-flo-shell to provide a threaded socket for the McMaster ULH screws below; Amazon order 112-4234665-4274626, May 10, 2026, $9.99 + $0.72 allocated tax = $10.71 delivered ÷ 100 = $0.1071/insert | 2 (of 100 pk) | $0.11 | $0.21 |
+| [McMaster-Carr 91223A413 — 316 SS Ultra-Low-Profile Socket Head Screw, M3 × 0.50 mm × 8 mm long](https://www.mcmaster.com/91223A413/) | 91223A413 — threads through the printed mounting plate into the ruthex insert above; ULH (DIN 7984 / ISO equivalent) profile minimizes head clearance under the counter; 316 SS for corrosion resistance under the under-counter faucet; McMaster order 7139410, May 10, 2026, qty 10 @ $4.36 ea = $43.60 + $12.04 UPS Ground + $4.03 tax = $59.67 delivered ÷ 10 = $5.967/screw delivered | 2 (of 10) | $5.97 | $11.94 |
+
 ## Totals
 
 | Section | $ |
@@ -176,7 +185,8 @@ Dishing dies (PA6-CF) for end-cap forming are vessel-fabrication tools, not ship
 | 10. UI | $39.95 |
 | 11. Wiring | $27.05 |
 | 12. Level sensing | $19.07 |
-| **Total** | **$1,352.80** |
+| 13. Shell-plate retention | $12.15 |
+| **Total** | **$1,364.95** |
 
 ## External / user-supplied (not shipped)
 
