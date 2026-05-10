@@ -9,12 +9,14 @@
 //   node tools/render/render-step-side-by-side.js <step-a> <step-b> <output-png> \
 //        [--label-a=<txt>] [--label-b=<txt>] \
 //        [--at <date|sha>] [--at-a <date|sha>] [--at-b <date|sha>]
-// Example:
+// Example (the racetrack STEP lives only at the archive-plan-b tag now,
+// so STEP B is pinned to that tag while STEP A stays at HEAD):
 //   node tools/render/render-step-side-by-side.js \
 //     printed-parts/foam-bag-shell/foam-bag-shell.step \
 //     printed-parts/plan-b/foam-bag-shell-racetrack/foam-bag-shell-upper.step \
 //     public/post-images/2026-04-15-foam-shell-old-vs-new.png \
-//     --label-a="round (before)" --label-b="racetrack (after)"
+//     --label-a="round (before)" --label-b="racetrack (after)" \
+//     --at-b archive-plan-b
 //
 // STEP paths are relative to hardware/ (matches /api/steps + /steps/*).
 // Output path may be relative to repo root or absolute.
