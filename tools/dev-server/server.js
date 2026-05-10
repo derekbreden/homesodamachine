@@ -26,10 +26,6 @@ const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const PROJECT_ROOT = path.resolve(__dirname, "../..");
 const PYTHON_BIN = path.join(PROJECT_ROOT, "tools", "cad-venv", "bin", "python");
 
-function isIgnoredPath(p) {
-  return p.includes(`${path.sep}plan-b${path.sep}`);
-}
-
 const { broadcast, hardwareDir: HARDWARE_DIR } = await start({ dev: true });
 
 // --- Script discovery ---
@@ -38,7 +34,6 @@ function findGenerateScripts() {
   function walk(dir) {
     for (const entry of fs.readdirSync(dir, { withFileTypes: true })) {
       const full = path.join(dir, entry.name);
-      if (isIgnoredPath(full)) continue;
       if (entry.isDirectory()) walk(full);
       else if (/generate_step.*\.py$/.test(entry.name)) scripts.push(full);
     }
