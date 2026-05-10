@@ -166,6 +166,41 @@ Plate composition (per `Metadata/plate_1.json`):
 - All objects assigned to `extruder=1` (left), `filament_maps` all = 1 (left nozzle), `first_extruder`: 0 (PET-CF slot)
 - Bed: textured plate
 
+## PET-CF print attempt 8 (failed: support tower fell over, joined faucet peak)
+
+Hardware: same as attempt 7 (0.6 mm DUROZZLE TC L-side hotend).
+
+Geometry change before this print: shell consolidated from 3 separate STEPs (base + 2 tube halves) into a single integrated `touch-flo-shell.step` per commit `41316ce` ("collapse back to a single piece, 3 mm wall throughout"), followed by `be92d9b` (drop zone-4.5 lid height to 3 mm on the back side) and `d7aa674` (heat-set retention geometry on shell + mounting plate). Plate now contains 2 objects instead of 4: `touch-flo-shell.step` (whole) + `touch-flo-mounting-plate.step`.
+
+Derek said:
+- "Most recent print failed in an interesting way, the support tower fell over[;] it finally joined up with the peak of the faucet."
+
+Failure mode (Derek's description): a tall thin support structure for the faucet bend overhang lacked stability, leaned/drifted during the print, and eventually contacted and fused into the highest point of the faucet — i.e., the support didn't sever cleanly because it had grown into the part rather than alongside it.
+
+No `.3mf` saved for attempt 8 in isolation; the in-flight slice was re-saved with the brim-fix changes for attempt 9 (settings deltas captured below).
+
+## PET-CF print attempt 9 (support brim + on-build-plate-only — in flight as of 2026-05-10)
+
+Hardware: same (0.6 mm DUROZZLE TC L-side hotend).
+
+Geometry: same as attempt 8 (`touch-flo-shell.step` whole + `touch-flo-mounting-plate.step`).
+
+Derek said:
+- "I added a brim to it (this is 'initial layer expansion' in the interface, no idea how you will find it in 3mf)."
+
+What that maps to in the 3mf (vs attempt 7 / attempt 8 baseline):
+- `raft_first_layer_expansion`: -1 (default/disabled) → 20 (mm) — this is the key the Bambu Studio UI labels "Initial layer expansion". With supports enabled, this expands the first layer of each support tower outward by 20 mm, giving the tower a much wider footprint at the bed and dramatically increasing its tip-over resistance.
+- `support_on_build_plate_only`: 0 → 1 — supports are now forced to root in the build plate; they cannot grow on top of the model surface. Combined with the 20 mm expansion, this means every support tower has a wide skirt at z=0 and nothing floating mid-print.
+
+Two related observations:
+- The standalone `brim_type: auto_brim`, `brim_width: 5 mm`, and `elefant_foot_compensation: 0.15 mm` were already on for attempt 7 and were not changed for attempt 9 — those are the part brim, not the support-tower brim.
+- All other settings — printer profile (`Bambu Lab H2C 0.6 nozzle`), print profile (`0.18mm Balanced Quality @BBL H2C 0.6 nozzle`), PET-CF temps (270 °C), wall/infill speeds (200 / 300 / 350 mm/s), same-material PET-CF supports (`support_filament: 0`, `support_interface_filament: 0`), `support_threshold_angle: 45`, fan settings (30 / 10 / 40 %), `line_width: 0.62`, `wall_loops: 50`, `layer_height: 0.18` — are unchanged from attempt 7.
+
+Plate composition (per `Metadata/plate_1.json`):
+- 2 objects: `touch-flo-shell.step`, `touch-flo-mounting-plate.step`
+- Both objects assigned to `extruder=1` (left), `filament_maps` all = 1, `first_extruder`: 0 (PET-CF slot)
+- Bed: textured plate
+
 ## Hardware / setup observations across all PET-CF attempts
 
 Derek said:
@@ -349,6 +384,33 @@ Other:
 - `enable_prime_tower`: 1
 - `enable_wrapping_detection`: 0
 - `wrapping_detection_layers`: 20
+
+### `touch-flo-shell-2-pieces.3mf` — attempt 9
+
+Filament profiles: stock `Bambu PET-CF @BBL H2C` (no "- Copy")
+Filament slots in project: PET-CF (slot 0), PLA, PET-CF, ABS, ABS, PETG, PETG, PETG (only slot 0 active in slice)
+Active in slice: PET-CF (left, slot 0)
+Support filament: PET-CF (slot 0 — same material)
+Support interface filament: PET-CF (slot 0 — same material)
+Printer profile: `Bambu Lab H2C 0.6 nozzle` (`printer_variant`: 0.6)
+Print profile: `0.18mm Balanced Quality @BBL H2C 0.6 nozzle`
+
+Plate composition (per `Metadata/plate_1.json`):
+- 2 objects: `touch-flo-shell.step` (whole, single integrated piece per commit `41316ce` + `be92d9b` + `d7aa674`), `touch-flo-mounting-plate.step`
+- Both on `extruder=1` (left), `filament_maps` all = 1, `first_extruder`: 0
+- Bed: textured plate
+
+Settings deltas vs `touch-flo-shell-4-pieces.3mf` (attempt 7):
+- `raft_first_layer_expansion`: -1 → 20 mm — Bambu Studio UI label "Initial layer expansion"; widens first layer of each support tower 20 mm outward at the bed
+- `support_on_build_plate_only`: 0 → 1 — supports root from the bed only; cannot grow on the model surface
+
+Settings unchanged from attempt 7 (selected — full list in the attempt-7 snapshot above):
+- PET-CF: `nozzle_temperature` 270 °C, `filament_flow_ratio` 1.0, `filament_retraction_length` nil, `filament_max_volumetric_speed` 5 mm³/s, `chamber_temperatures` 50 °C, `fan_max_speed` 30 % / `fan_min_speed` 10 % / `overhang_fan_speed` 40 %, `close_fan_the_first_x_layers` 3
+- Process: `nozzle_diameter` 0.6 mm, `layer_height` 0.18 mm, `initial_layer_print_height` 0.3 mm, `line_width` 0.62 mm, `wall_loops` 50, `top_shell_layers` / `bottom_shell_layers` 3, `sparse_infill_density` 15 %, `sparse_infill_pattern` grid
+- Speeds: `outer_wall_speed` 200, `inner_wall_speed` 300, `sparse_infill_speed` 350, `internal_solid_infill_speed` 250, `top_surface_speed` 200, `support_speed` 150, `support_interface_speed` 80, `initial_layer_speed` 50, `initial_layer_infill_speed` 105 (all mm/s); jerk 9
+- Supports: `enable_support` 1, `support_filament` 0 (PET-CF), `support_interface_filament` 0 (PET-CF), `support_threshold_angle` 45, `support_top_z_distance` 0.3, `support_object_xy_distance` 0.35, `support_object_first_layer_gap` 0.2, `tree_support_branch_diameter` 2, `tree_support_branch_angle` 45, `support_interface_top_layers` 2
+- Part brim (already on for attempt 7, unchanged here): `brim_type` auto_brim, `brim_width` 5 mm, `brim_object_gap` 0.1 mm, `elefant_foot_compensation` 0.15 mm
+- Other: `enable_pressure_advance` 0, `enable_prime_tower` 1, `enable_wrapping_detection` 0
 
 ## Evidence that `enable_wrapping_detection` might be probe detection in the UI
 
