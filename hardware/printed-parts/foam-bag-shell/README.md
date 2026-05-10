@@ -138,6 +138,74 @@ A second `bag_pocket_shell` mirrored on the −X side is built the same
 way (`build_a_bag_pocket_shell(side=-1)`) and unioned alongside the
 first.
 
+### foam_cap and foam_cap_lid
+
+The `foam_cap` is a 16 mm-tall cup matching the outer shell's
+footprint, printed twice — one sits on top of the assembly (flipped,
+open side mating with the outer shell's top edge) and one on the
+bottom (in normal orientation, open side mating with the outer
+shell's bottom edge). The cap interior receives the outer-pour foam
+through pour and vent holes in the lid above.
+
+The `foam_cap_lid` is a flat 1 mm plate matching the same outer
+footprint, sitting on top of the top cap during the foam pour. It
+has the pour hole (Ø 10 mm) and two vent holes (Ø 6 mm).
+
+Both the cap and the lid have **six 8 × 8 mm boss / clearance-hole
+positions** — four at the corners (inherited from the earlier dowel-
+pin layout) and two at the mid-points of the long edges (along
++Z and −Z, at x = 0). Each position passes a clearance hole for an
+M3 cap screw all the way through the part. See "Cap-to-outer-shell
+joinery" below.
+
+### foam_cap_gasket
+
+A TPU 90A perimeter-ring gasket, printed twice — one between each
+cap and its mating face on the outer_shell. 245 × 177 mm outer,
+2 mm thick, 5 mm-wide ring with six screw holes at the same six
+attachment positions as the cap and lid. The 1 mm of the ring's
+width that's aligned with the cap and shell wall edges is the part
+that actually seals when the screws compress the stack; the
+remaining 4 mm extends inward over the cavity opening for print
+stability and material continuity. Replaces the friction-fit pin
+joinery's complete absence of any seal between cap and outer shell.
+
+## Cap-to-outer-shell joinery
+
+Each cap (top and bottom) is fastened to the outer_shell with
+**six M3 × 25 mm socket head cap screws** (DIN 912) threading into
+**six ruthex M3 short heat-set inserts** (Amazon B09ZHSGHXD — same
+insert spec as in `touch-flo-shell`) pressed into the corresponding
+face of the outer_shell. Twelve inserts total per outer_shell:
+six on the top face accepting the top-cap screws threading down
+from above, six on the bottom face accepting the bottom-cap screws
+threading up from below.
+
+Stack-up under each screw head, top cap (mm):
+- Lid (1) + cap floor (1) + cap boss / interior void (14) + cap
+  mating edge (1) + gasket (2) = 19 mm above the outer_shell mating
+  face
+- 4 mm engagement into the insert
+- M3 × 25 mm screw under-head length = 25 mm, with 2 mm slack into
+  the pocket relief below the insert
+
+Insert pocket: Ø 4.0 mm × 8 mm deep (4 mm for the insert + 4 mm
+relief so the M3 × 25 screw tip has clearance and doesn't bottom
+out). Pockets are drilled inward from each face — top face pockets
+go down, bottom face pockets go up.
+
+Standard SHCS (head Ø 5.5 × 3.0 mm) is used here instead of the
+ultra-low-profile heads used in `touch-flo-mounting-plate`: there's
+no under-counter flush-mount constraint here, the heads can protrude
+freely on the appliance top and bottom faces, and DIN 912 SHCS are
+about an order of magnitude cheaper Prime-shippable than McMaster
+ULH.
+
+Six attachment positions per cap (vs the earlier four pin corners)
+halve the longest unsupported gasket span between adjacent screws
+from ~245 mm corner-to-corner along the long axis to ~120 mm, which
+matters for a TPU gasket compressed only at discrete points.
+
 ## Penetrations
 
 Seven holes total, all sized for **1/4" OD tubing (6.35 mm)** plus a small

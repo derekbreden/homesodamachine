@@ -196,17 +196,67 @@ foam_cap_lid_hole_inset = 30.0
 
 
 # -------------------------------------------------------
-# Cap-to-outer-shell pin joinery
+# Cap-to-outer-shell screw + heat-set joinery
 # -------------------------------------------------------
-# Pins on cap top (one face); holes drilled into outer-shell corners (top + bottom faces).
-# Same cap printed twice — used as bottom (pins up into outer shell) and top (flipped, pins down into outer shell).
-# Lid has corner clearance holes so the cap pin can pass freely through into the outer shell.
 #
-pin_radius = 2.0
-pin_height = 5.0
-pin_hole_depth = pin_height + 1.0
-pin_boss_size = 8.0
-lid_pin_clearance_radius = pin_radius
+# M3 brass heat-set inserts (ruthex M3 short, Amazon B09ZHSGHXD —
+# the same insert used in touch-flo-shell) press into the top and
+# bottom faces of the outer_shell at 6 attachment points per face,
+# 12 inserts total. M3 × 25 mm standard socket-head cap screws
+# (DIN 912) thread up from below the bottom cap and down from above
+# the top cap+lid into those inserts. A 2 mm-thick TPU 90A gasket
+# (matching the foam_cap perimeter, with screw holes at the same
+# 6 positions) sits between each cap's mating edge and the
+# outer_shell's mating face, compressed by the screws.
+#
+# Replaces the earlier friction-fit dowel-pin design, which clamped
+# nothing and left the cap-shell seam open to humid kitchen air —
+# the condensation/frost concern documented in
+# plan-b/reservoir/README.md.
+#
+# Standard SHCS (head Ø 5.5 × 3.0 mm tall) chosen instead of ULH
+# socket caps: there's no flush-mount constraint here (the heads
+# protrude on the appliance top and bottom faces; under-counter
+# install hides both), and DIN 912 SHCS are roughly an order of
+# magnitude cheaper Prime-shippable than McMaster ULH.
+#
+# Stack-up under the head, top cap (mm):
+#   lid (1) + cap floor (1) + cap interior void / boss height (14)
+#   + cap mating edge (1) + gasket (2)         = 19 mm
+# Plus 4 mm engagement into the insert = 23 mm. M3 × 25 rounds up
+# with 2 mm slack into the pocket relief below the insert.
+#
+# Insert pocket: Ø 4.0 mm × 8 mm deep (4 mm insert engagement +
+# 4 mm relief so the M3 × 25 screw tip has 2 mm of clearance into
+# the relief and doesn't bottom out).
+#
+screw_clearance_radius = 1.95   # = Ø 3.9, matches touch-flo screw clearance
+insert_pocket_radius   = 2.0    # = Ø 4.0, recommended for ruthex M3 short
+insert_pocket_depth    = 8.0    # 4 mm insert + 4 mm relief
+screw_boss_size        = 8.0    # 8 × 8 mm square pillar at each attachment
+#
+# Six attachment-point (x, z) positions: 4 corners (inherited from
+# the earlier pin layout) + 2 mid-long-side points at (x=0, z=±near-
+# wall). The mid-long-side adds halve the longest unsupported gasket
+# span between adjacent screws from ~245 mm (corner-to-corner along
+# the long axis) to ~120 mm.
+foam_cap_attachment_xz_positions = (
+    [(x_sign * (outer_shell_x_length / 2 - screw_boss_size / 2),
+      z_sign * (outer_shell_z_length / 2 - screw_boss_size / 2))
+     for x_sign in (1, -1) for z_sign in (1, -1)]
+    + [(0.0, z_sign * (outer_shell_z_length / 2 - screw_boss_size / 2))
+       for z_sign in (1, -1)]
+)
+#
+# Gasket: TPU 90A, rectangular perimeter ring matching the outer-
+# shell footprint, 2 mm thick, 5 mm wide (1 mm aligned with the cap
+# and shell wall edges that compress it, plus 4 mm extending inward
+# over the cavity opening for print stability and material continuity).
+# Six screw holes at the same foam_cap_attachment_xz_positions.
+gasket_thickness   = 2.0
+gasket_strip_width = 5.0
+#
+# -------------------------------------------------------
 #
 # -------------------------------------------------------
 
@@ -408,25 +458,34 @@ def build_outer_shell():
         .faces(">Y")
         .shell(-outer_shell_wall_thickness)
     )
-    for x_sign in (1, -1):
-        for z_sign in (1, -1):
-            boss_x = x_sign * (outer_shell_x_length / 2 - pin_boss_size / 2)
-            boss_z = z_sign * (outer_shell_z_length / 2 - pin_boss_size / 2)
-            boss = (
-                cq.Workplane(xz_plane_y_up)
-                .workplane(origin=(boss_x, 0, boss_z), offset=0)
-                .rect(pin_boss_size, pin_boss_size)
-                .extrude(tank_copper_shell_height)
+    for (boss_x, boss_z) in foam_cap_attachment_xz_positions:
+        boss = (
+            cq.Workplane(xz_plane_y_up)
+            .workplane(origin=(boss_x, 0, boss_z), offset=0)
+            .rect(screw_boss_size, screw_boss_size)
+            .extrude(tank_copper_shell_height)
+        )
+        shell = shell.union(boss)
+        # Heat-set insert pockets, one drilled DOWN from the top face
+        # and one drilled UP from the bottom face. Top pocket accepts
+        # the top-cap screw threading down from above; bottom pocket
+        # accepts the bottom-cap screw threading up from below.
+        top_pocket = (
+            cq.Workplane(xz_plane_y_up)
+            .workplane(
+                origin=(boss_x, tank_copper_shell_height - insert_pocket_depth, boss_z),
+                offset=tank_copper_shell_height - insert_pocket_depth,
             )
-            shell = shell.union(boss)
-            for hole_y in (0, tank_copper_shell_height - pin_hole_depth):
-                hole = (
-                    cq.Workplane(xz_plane_y_up)
-                    .workplane(origin=(boss_x, hole_y, boss_z), offset=hole_y)
-                    .circle(pin_radius)
-                    .extrude(pin_hole_depth)
-                )
-                shell = shell.cut(hole)
+            .circle(insert_pocket_radius)
+            .extrude(insert_pocket_depth)
+        )
+        bottom_pocket = (
+            cq.Workplane(xz_plane_y_up)
+            .workplane(origin=(boss_x, 0, boss_z), offset=0)
+            .circle(insert_pocket_radius)
+            .extrude(insert_pocket_depth)
+        )
+        shell = shell.cut(top_pocket).cut(bottom_pocket)
     return shell
 
 def build_foam_cap():
@@ -437,24 +496,24 @@ def build_foam_cap():
         .faces(">Y")
         .shell(-wall_and_floor_thickness)
     )
-    for x_sign in (1, -1):
-        for z_sign in (1, -1):
-            boss_x = x_sign * (outer_shell_x_length / 2 - pin_boss_size / 2)
-            boss_z = z_sign * (outer_shell_z_length / 2 - pin_boss_size / 2)
-            boss = (
-                cq.Workplane(xz_plane_y_up)
-                .workplane(origin=(boss_x, 0, boss_z), offset=0)
-                .rect(pin_boss_size, pin_boss_size)
-                .extrude(foam_cap_height)
-            )
-            cap = cap.union(boss)
-            pin = (
-                cq.Workplane(xz_plane_y_up)
-                .workplane(origin=(boss_x, foam_cap_height, boss_z), offset=foam_cap_height)
-                .circle(pin_radius)
-                .extrude(pin_height)
-            )
-            cap = cap.union(pin)
+    for (boss_x, boss_z) in foam_cap_attachment_xz_positions:
+        boss = (
+            cq.Workplane(xz_plane_y_up)
+            .workplane(origin=(boss_x, 0, boss_z), offset=0)
+            .rect(screw_boss_size, screw_boss_size)
+            .extrude(foam_cap_height)
+        )
+        cap = cap.union(boss)
+        # Screw clearance hole through the full boss height, so the
+        # screw can pass from the cap floor (top in service) all the
+        # way to the cap's mating edge (bottom in service).
+        clearance = (
+            cq.Workplane(xz_plane_y_up)
+            .workplane(origin=(boss_x, 0, boss_z), offset=0)
+            .circle(screw_clearance_radius)
+            .extrude(foam_cap_height)
+        )
+        cap = cap.cut(clearance)
     return cap
 
 def build_foam_cap_lid():
@@ -489,19 +548,61 @@ def build_foam_cap_lid():
 
     lid = lid.cut(pour_hole).cut(vent_hole_a).cut(vent_hole_b)
 
-    for x_sign in (1, -1):
-        for z_sign in (1, -1):
-            boss_x = x_sign * (outer_shell_x_length / 2 - pin_boss_size / 2)
-            boss_z = z_sign * (outer_shell_z_length / 2 - pin_boss_size / 2)
-            clearance = (
-                cq.Workplane(xz_plane_y_up)
-                .workplane(origin=(boss_x, 0, boss_z), offset=0)
-                .circle(lid_pin_clearance_radius)
-                .extrude(wall_and_floor_thickness * 3)
-            )
-            lid = lid.cut(clearance)
+    for (boss_x, boss_z) in foam_cap_attachment_xz_positions:
+        clearance = (
+            cq.Workplane(xz_plane_y_up)
+            .workplane(origin=(boss_x, 0, boss_z), offset=0)
+            .circle(screw_clearance_radius)
+            .extrude(wall_and_floor_thickness * 3)
+        )
+        lid = lid.cut(clearance)
 
     return lid
+
+def build_foam_cap_gasket():
+    """TPU 90A gasket between foam_cap mating edge and outer_shell
+    mating face.
+
+    Rectangular perimeter ring, gasket_thickness mm tall,
+    gasket_strip_width mm wide all around. The outer perimeter matches
+    the outer_shell footprint exactly; the strip extends inward, so
+    1 mm of the strip is aligned with the cap and shell wall edges
+    that compress it (where the actual seal happens) and the remaining
+    4 mm extends inward over the cavity opening for print stability.
+
+    Six screw holes at the foam_cap_attachment_xz_positions match the
+    insert pockets in the outer_shell and the clearance holes in the
+    cap and lid.
+
+    Printed twice: one gasket sits between the top cap and the
+    outer_shell top edge, one between the bottom cap and the
+    outer_shell bottom edge.
+    """
+    outer = (
+        cq.Workplane(xz_plane_y_up)
+        .rect(outer_shell_x_length, outer_shell_z_length)
+        .extrude(gasket_thickness)
+    )
+    inner = (
+        cq.Workplane(xz_plane_y_up)
+        .rect(
+            outer_shell_x_length - 2 * gasket_strip_width,
+            outer_shell_z_length - 2 * gasket_strip_width,
+        )
+        .extrude(gasket_thickness)
+    )
+    gasket = outer.cut(inner)
+
+    for (hole_x, hole_z) in foam_cap_attachment_xz_positions:
+        hole = (
+            cq.Workplane(xz_plane_y_up)
+            .workplane(origin=(hole_x, 0, hole_z), offset=0)
+            .circle(screw_clearance_radius)
+            .extrude(gasket_thickness)
+        )
+        gasket = gasket.cut(hole)
+
+    return gasket
 
 def build_a_hole_punch(
     origin=(0, 0, 0),
@@ -749,17 +850,23 @@ def main():
     # Build the foam cap lid (separate part, printed twice, sits atop a cap during pour)
     foam_cap_lid = build_foam_cap_lid()
 
+    # Build the TPU 90A gasket (separate part, printed twice — one
+    # between each cap and its mating outer_shell face)
+    foam_cap_gasket = build_foam_cap_gasket()
+
     here = Path(__file__).resolve().parent
     export_step(foam_bag_shell, str(here / "foam-bag-shell.step"))
     export_step(copper_inlet_plug, str(here / "copper-inlet-plug.step"))
     export_step(copper_outlet_plug, str(here / "copper-outlet-plug.step"))
     export_step(foam_cap, str(here / "foam-cap.step"))
     export_step(foam_cap_lid, str(here / "foam-cap-lid.step"))
+    export_step(foam_cap_gasket, str(here / "foam-cap-gasket.step"))
     print(f"-> foam-bag-shell.step")
     print(f"-> copper-inlet-plug.step")
     print(f"-> copper-outlet-plug.step")
     print(f"-> foam-cap.step")
     print(f"-> foam-cap-lid.step")
+    print(f"-> foam-cap-gasket.step")
 
 
 if __name__ == "__main__":
