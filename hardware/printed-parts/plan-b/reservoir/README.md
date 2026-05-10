@@ -150,11 +150,9 @@ Six milligrams. A drop. Once it's out of the air, it's done — the air dries to
 
 #### Imperfect-seal case (if humid air leaks in continuously)
 
-The current cap-stack relies on **friction-fit corner pins** between `foam_cap` and `outer_shell` (4× 2 mm-radius pins, 6 mm engagement) and between `foam_cap_lid` and `foam_cap`, and on the cured outer-pour foam sitting around them. There's no explicit gasket. **The seal is not specified, and friction-fit pins are not airtight** — kitchen air can diffuse in around the pins, around the lid edges, and through any micro-gaps the foam pour didn't fill.
-
 If humid kitchen air bleeds in continuously, the 6 mg-per-cycle bound becomes a 6 mg-per-time-constant ongoing deposit. Order-of-magnitude estimate: a 1 cm² leak path with mm-scale gap and natural-convection-driven humidity transport could drive grams of water onto the `tank_copper_shell` outer face per month. Over the lifetime of a "lifetime wetted part" reservoir (Plan B intent: years), unbounded. Unless something else removes it (running off, evaporating during compressor-off cycles, etc.), it accumulates.
 
-This argues for **explicit gasketing** somewhere in the cap stack, OR a defined drying mechanism (e.g., desiccant cartridge in the cap, or a compressor-off duty-cycle long enough to evaporate accumulated water back into the cavity air). Neither is currently in the design. Worth flagging as an open architecture question — not a Plan B reservoir question, but the reservoir doesn't get to ignore it because moisture accumulating on the `tank_copper_shell` is moisture sitting against the reservoir's centerward face.
+This argued for **explicit gasketing** somewhere in the cap stack — that change has now landed in [`../../foam-bag-shell/`](../../foam-bag-shell/): the friction-fit corner pins have been replaced with six M3 screws + ruthex M3 heat-set inserts + a TPU 90A perimeter-ring gasket, per cap. With the gasket compressed by the screw stack, kitchen-air ingress around the cap-shell seam is closed; the residual moisture inside the cavity is bounded by the trapped-air amount (~6 mg per cavity), one-time per service event. See the "Cap-to-outer-shell joinery" section of the foam-bag-shell README for the geometry.
 
 #### Sub-freezing transients → frost
 
@@ -205,11 +203,11 @@ Optional addition, not strictly needed, but cheap and informative.
 
 Two options that genuinely close the condensation problem:
 
-1. **Tight reservoir fit + cap-stack gasketing.** Reservoir wall pressed flush against the `tank_copper_shell` outer face removes the air gap at the coldest surface. Explicit silicone gasketing between `foam_cap` / `outer_shell` / `foam_cap_lid` (replacing the current friction-fit corner pins) closes the cabinet-air ingress path. With both, the residual ~6 mg of trapped-air condensation is one-time and bounded.
+1. **Tight reservoir fit + cap-stack gasketing.** Reservoir wall pressed flush against the `tank_copper_shell` outer face removes the air gap at the coldest surface. Explicit gasketing between `foam_cap` / `outer_shell` (replacing the earlier friction-fit corner pins) closes the cabinet-air ingress path. With both, the residual ~6 mg of trapped-air condensation is one-time and bounded. **Cap-stack gasketing has landed** as the M3-heat-set + TPU 90A perimeter-ring change in `../../foam-bag-shell/`; the reservoir-flush part remains a reservoir-design decision (tolerance Y on the centerward concave face matching `tank_copper_shell` OD).
 
-2. **Replaceable cavity desiccant.** Desiccant cartridge inside the bag/corner-pocket cavity absorbs ongoing moisture from any imperfect seal. Bounds the accumulation between service events. Requires a defined service interval, which a lifetime-wetted-part Plan B reservoir has to address anyway.
+2. **Replaceable cavity desiccant.** Desiccant cartridge inside the bag/corner-pocket cavity absorbs any residual moisture that does enter. Optional belt-and-braces on top of the gasket; useful if the gasket compression degrades over years. Requires a defined service interval, which a lifetime-wetted-part Plan B reservoir has to address anyway.
 
-Neither is currently specified anywhere in the design. Worth pulling into the cap-stack architecture discussion before promoting Plan B to the main path. Whichever is chosen, **option 1 + firmware frost immunity is probably the smallest change** that gets the architecture into a defensible operating regime: a one-time bounded condensation event, no frost accumulation, no continuous moisture ingress.
+**Option 1 + firmware frost immunity is now the smallest change** that gets the architecture into a defensible operating regime: a one-time bounded condensation event, no frost accumulation, no continuous moisture ingress.
 
 ## Test Sequence
 
