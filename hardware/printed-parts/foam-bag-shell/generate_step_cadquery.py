@@ -247,12 +247,35 @@ def build_tank_copper_shell():
 
 def build_bag_pocket_support_shell():
     bag_pocket_support_side_length = 2 * tank_copper_shell_radius
+
+    # Cut out the +X and -X walls. Each is coincident with a bag pocket's
+    # centerward wall (also cut, in build_a_bag_pocket_shell) and has air
+    # on both sides — bag cavity on one side, corner-pocket air on the
+    # other. Both halves of the merged wall must be removed for the wall
+    # to actually disappear from the union; cutting only one half leaves
+    # the other shell's contribution in place.
+    cut_wall_not_needed_args = dict(
+        size_x=wall_and_floor_thickness,
+        size_z=bag_pocket_support_side_length - 2 * wall_and_floor_thickness,
+        center_x_abs=bag_pocket_support_side_length / 2 - wall_and_floor_thickness / 2,
+    )
+
+    def cut_wall_not_needed(side):
+        return (
+            cq.Workplane(xz_plane_y_up)
+            .workplane(origin=(side * cut_wall_not_needed_args["center_x_abs"], 0, 0))
+            .rect(cut_wall_not_needed_args["size_x"], cut_wall_not_needed_args["size_z"])
+            .extrude(tank_copper_shell_height)
+        )
+
     return (
         cq.Workplane(xz_plane_y_up)
         .rect(bag_pocket_support_side_length, bag_pocket_support_side_length)
         .extrude(tank_copper_shell_height)
         .faces(">Y")
         .shell(-wall_and_floor_thickness)
+        .cut(cut_wall_not_needed(side=1))
+        .cut(cut_wall_not_needed(side=-1))
     )
 
 def build_tank_support_wedge():
@@ -304,6 +327,18 @@ def build_a_bag_pocket_shell(side=1):
     bag_pocket_x_offset = tank_copper_shell_radius + bag_pocket_depth / 2 - wall_and_floor_thickness
     bag_pocket_x_offset *= side
 
+    # Cut out the centerward wall of this bag pocket. It's coincident
+    # with the bag_pocket_support_shell's matching ±X wall (also cut)
+    # and has air on both sides — bag cavity on the inside, corner-
+    # pocket air on the outside. The wall doesn't separate any foam
+    # boundary so it isn't earning its 1 mm of PETG.
+    cut_wall_not_needed = (
+        cq.Workplane(xz_plane_y_up)
+        .workplane(origin=(bag_pocket_x_offset - side*(bag_pocket_depth - wall_and_floor_thickness) / 2, 0, 0))
+        .rect(wall_and_floor_thickness, bag_pocket_width - 2*wall_and_floor_thickness)
+        .extrude(bag_pocket_height)
+    )
+
     return (
         cq.Workplane(xz_plane_y_up)
         .workplane(origin=(bag_pocket_x_offset, 0, 0))
@@ -311,6 +346,7 @@ def build_a_bag_pocket_shell(side=1):
         .extrude(bag_pocket_height)
         .faces(">Y")
         .shell(-wall_and_floor_thickness)
+        .cut(cut_wall_not_needed)
     )
 
 def punch_a_bag_pocket_shell_hole(foam_bag_shell, side=1):

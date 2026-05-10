@@ -107,12 +107,24 @@ square's floor extend beyond the round cup's footprint; everywhere the
 two floors overlap (inside the inscribed circle), they coincide and the
 union produces no change.
 
+The **±X walls of the support shell are cut out** — they're coincident
+with the bag pockets' tank-facing walls (also cut, see below) and
+separate air-from-air rather than air-from-foam. Only the +Z and −Z
+walls + floor remain on the support shell, giving it a "+Z wall + −Z
+wall + floor" channel-section profile. The +Z and −Z walls are kept
+because they separate corner-pocket air (inside the support shell)
+from outer-pour foam (outside), so they *are* doing real work.
+
 ### bag_pocket_shell (one of two)
 
 Rectangular cup attached to one side of the bag_pocket_support_shell.
 **35 mm deep (along X) × 125 mm wide (along Z) × 212.4 mm tall**. The
-pocket's tank-facing wall is coincident with the bag_pocket_support_shell's
-+X wall.
+pocket's tank-facing wall **is cut out** for the reason described
+above — it would be coincident with the support shell's ±X wall (also
+cut), and both sides of that wall are air. The bag cavity is therefore
+open along its centerward face into the support shell's interior
+(corner-pocket region around the round cup), all of which is one
+continuous air volume during operation.
 
 A second `bag_pocket_shell` mirrored on the −X side is built the same
 way (`build_a_bag_pocket_shell(side=-1)`) and unioned alongside the
