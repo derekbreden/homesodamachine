@@ -51,12 +51,20 @@ buffer 7). Total height **212.4 mm** (tank height 152.4 + 30 mm above +
 
 Four **foam-pour down-channels** are unioned to the outside of the cup
 at azimuths 45°/135°/225°/315°, running the full cavity height. Each
-channel is a 4 mm-radius cylindrical lobe whose center sits on the
-shell's OD, so half the lobe overlaps the wall (becomes a concave
-flute on the inside after shelling) and half protrudes outward into
-the corner pocket between this shell and `bag_pocket_support_shell`.
-On the inside, the channels locally widen the radial foam gap from
-the design 7 mm to ~11 mm at the four diagonal lines.
+channel is an 8 mm radial × 6 mm tangential rectangular slot whose
+center sits on the shell's OD, so half the slot overlaps the wall
+(becomes a rectangular flute on the inside after shelling) and half
+protrudes outward into the corner pocket between this shell and
+`bag_pocket_support_shell`. On the inside, the channels locally widen
+the radial foam gap from the design 7 mm to ~11 mm at the four
+diagonal lines.
+
+A cylindrical-lobe variant lives in the project's history; the
+rectangular variant trades smooth merge curves and sharp-internal-
+corner-free walls for uniform circumferential width along the channel's
+full depth (vs. the lobe's tapered throat → max → throat profile).
+Both reach R = 75.5 mm at the diagonal and add ~4 mm of effective
+cavity depth at the channel azimuth.
 
 The channels exist because the helically-wrapped 1/4" ACR copper
 evaporator coil leaves only ~0.5 mm of radial slot on each flank —
