@@ -1,0 +1,6 @@
+{
+  "thickness_mm": 6.35,
+  "material": "316 stainless steel",
+  "process": "laser-cut",
+  "notes": "0.250\" plate, SendCutSend; thick enough to direct-tap 1/4\" NPT (4.5 turns)"
+}

@@ -197,6 +197,26 @@ watcher.on("change", (absPath) => {
     return;
   }
 
+  // Sidecar metadata file changed — broadcast a change for the part it
+  // belongs to. `foo.dxf.json` -> broadcast `foo.dxf`; `foo.step.json`
+  // -> broadcast `foo.step`. The viewer's hsm:files-changed handler
+  // refetches the part and its updated thickness (since /api/dxf
+  // returns sidecar fields in the same response). See hardware/PARTS.md.
+  if (absPath.endsWith(".dxf.json") || absPath.endsWith(".step.json")) {
+    if (debounce.has(absPath)) clearTimeout(debounce.get(absPath));
+    debounce.set(
+      absPath,
+      setTimeout(() => {
+        debounce.delete(absPath);
+        const baseAbs = absPath.replace(/\.json$/, "");
+        const relFile = path.relative(HARDWARE_DIR, baseAbs);
+        console.log(`Sidecar changed: ${path.relative(HARDWARE_DIR, absPath)} -> refresh ${relFile}`);
+        broadcast({ type: "files-changed", files: [relFile] });
+      }, 300),
+    );
+    return;
+  }
+
   // generate_step*.py changed — re-run that script.
   if (!/generate_step.*\.py$/.test(absPath)) return;
   if (debounce.has(absPath)) clearTimeout(debounce.get(absPath));

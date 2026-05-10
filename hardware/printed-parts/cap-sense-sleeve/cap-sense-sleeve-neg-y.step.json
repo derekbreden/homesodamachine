@@ -1,0 +1,6 @@
+{
+  "thickness_mm": 3.0,
+  "material": "PETG",
+  "process": "3D-print",
+  "notes": "Wall thickness; clamshell half (-Y) of cap-sense sleeve"
+}
