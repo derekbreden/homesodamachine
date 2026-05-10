@@ -130,6 +130,7 @@ Dishing dies (PA6-CF) for end-cap forming are vessel-fabrication tools, not ship
 | [VALVENTO 1/4" OD compression × 1/4" NPT adapter (2-pk)](https://www.amazon.com/dp/B0DXZZBK7D) | B0DXZZBK7D — joins bottom-plate 1/4" NPT outlet port (port 3) to 1/4" tubing run; 1 of 2 per unit (pack delivered $12.85/2) | 1 (of 2) | $6.42 | $6.42 |
 | [VALVENTO 1/4" OD 316 SS tube, 12" (5-pk)](https://www.amazon.com/dp/B0F6SYFK48) | B0F6SYFK48 — short rigid stub from compression adapter into the soft 1/4" tubing run; 1 of 5 per unit (pack delivered $18.23/5) | 1 (of 5) | $3.65 | $3.65 |
 | [Westbrass R2031-NL-62 8" Touch-Flo dispenser faucet, matte black](https://www.amazon.com/dp/B07KH285GJ) | B07KH285GJ — direct successor to retired A2031 SKU | 1 | $31.28 | $31.28 |
+| SendCutSend 0.060" 316 SS under-counter plate (`touch_flo_under_counter_plate.dxf`, Ø 54.35 mm disc with 1× Ø 12.6 mm shank hole + 1× 13.2 × 6.85 mm pill slot) — sits between countertop underside and the under-counter clamping nut, distributes nut clamping force across a wide area so the nut doesn't dish or crush the countertop bottom; same hole pattern as the printed mounting plate / TPU gasket above the counter; SCS order S064D925 placed May 10, 2026, 10 pcs @ $2.85 ea + $5.00 ship + $2.79 tax = $36.29 delivered ÷ 10 = $3.63/plate; 1 plate per build | sendcutsend.com | 1 | $3.63 | $3.63 |
 | [DIGITEN G3/8" Hall-effect flow sensor](https://www.amazon.com/dp/B07QQW4C7R) | B07QQW4C7R | 1 | $7.99 | $7.99 |
 
 ## 10. User interface
@@ -181,12 +182,12 @@ Mechanical attach for the printed touch-flo-mounting-plate up to the printed PET
 | 6. Cold core insulation | $49.48 |
 | 7. Printed parts (PETG) | $103.94 |
 | 8. Flavor subsystem | $341.14 |
-| 9. Dispensing | $49.34 |
+| 9. Dispensing | $52.97 |
 | 10. UI | $39.95 |
 | 11. Wiring | $27.05 |
 | 12. Level sensing | $19.07 |
 | 13. Shell-plate retention | $12.15 |
-| **Total** | **$1,364.95** |
+| **Total** | **$1,368.58** |
 
 ## External / user-supplied (not shipped)
 
