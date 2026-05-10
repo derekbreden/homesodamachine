@@ -49,52 +49,69 @@ The first printable shape can be ugly. It needs to preserve the real wall thickn
 
 ### Thermal coupling: actual goal is refrigerator-level
 
-The cooling target is refrigerator-level — roughly 2–5 °C in the syrup itself. The "8–15 °C passive pre-chill" range in [`../../future.md`](../../future.md) (line 68) describes what the *current geometry actually delivers*, not the goal we'd ideally hit.
+The cooling target is refrigerator-level — roughly 2–5 °C in the syrup itself. The "8–15 °C passive pre-chill" range in [`../../future.md`](../../future.md) (line 68) was an aspirational realistic-target framing rather than a rigorous prediction; this section walks the actual thermal path.
 
-Per-area thermal resistances (m²·K/W) for a 2 mm-walled hard reservoir sitting flush against the round cup wall, with kitchen ambient T_amb ≈ 22 °C and tank water T_cold ≈ 2 °C:
+**Don't model the cold side as 7 mm of foam.** The radial space inside `tank_copper_shell` is 7 mm, but most of it is occupied by the 1/4" (6.35 mm OD) ACR copper evaporator coil pressed against the tank wall under 3M 425 thermal tape. Foam fills only the ~0.6 mm of remaining radial gap between the coil's outer surface and the cup wall's inner face. Between coil wraps (vertically), the full 7 mm gap exists, but only over the small fraction of cup height that isn't covered by a coil row.
 
-**Cold side** (syrup → tank water):
+Two-zone cold-side path, tiled vertically along the cup wall:
 
-| Layer | k (W/m·K) | R (m²·K/W) |
-|---|---|---|
-| Reservoir wall (PETG, 2 mm) | 0.20 | 0.010 |
-| Round cup wall (PETG, 1 mm) | 0.20 | 0.005 |
-| Inner foam (2 lb closed-cell PU, 7 mm) | 0.025 | 0.280 |
-| Tank wall (316 SS, 1.65 mm) | 16 | 0.0001 |
-| **R_cold total** | | **0.295** |
+| Zone | Vertical fraction (close-wound, pitch ≈ coil OD) | Foam thickness | Cold source |
+|---|---|---|---|
+| At-coil rows | ~80 % | ~0.6 mm | coil outer face ≈ refrigerant saturation temp |
+| Between-coil rows | ~20 % | ~7 mm | tank wall ≈ tank water temp |
 
-**Warm side** (syrup → kitchen ambient):
+Coil outer face temperature swings with compressor state:
+- **Compressor running:** R-600a saturating on the suction side ≈ **−5 to −10 °C**.
+- **Compressor off:** coil equalizes toward tank water ≈ 2 °C.
+- **Duty-cycle averaged:** roughly 0 °C in normal operation. The ESP32 firmware uses 2 °C / 4 °C hysteresis on the tank-wall probe with a hard −8 °C cutout on the suction-line probe, so the coil rarely sits long below −8 °C, but the time-weighted average is well below the tank water temperature.
 
-| Layer | k (W/m·K) | R (m²·K/W) |
-|---|---|---|
-| Reservoir wall (PETG, 2 mm) | 0.20 | 0.010 |
-| Bag pocket far wall (PETG, 1 mm) | 0.20 | 0.005 |
-| Outer foam (2 lb closed-cell PU, 16 mm) | 0.025 | 0.640 |
-| Outer shell wall (PETG, 1 mm) | 0.20 | 0.005 |
-| Outer convection (vertical, still cabinet air, h ≈ 5 W/m²·K) | — | 0.200 |
-| **R_warm total** | | **0.860** |
+**Cold side (per-area resistance, syrup → cold structures):**
 
-Equilibrium syrup temperature, balancing the two heat paths:
+| Layer | R (m²·K/W) |
+|---|---|
+| Reservoir wall (PETG, 2 mm) | 0.010 |
+| Round cup wall (PETG, 1 mm) | 0.005 |
+| Foam zone, parallel-effective: 0.80 / 0.024 + 0.20 / 0.28 → R_eff = 1 / 33.6 | 0.030 |
+| **R_cold total (effective)** | **0.045** |
 
-T_syrup = (T_amb × R_cold + T_cold × R_warm) / (R_cold + R_warm) = (22 × 0.295 + 2 × 0.860) / 1.155 ≈ **7.1 °C**
+Effective cold-side temperature, weighted by per-unit-area conductance:
 
-The **dominant resistance on the cold side is the inner foam** — 0.28 of 0.295, or 95 % of R_cold. Substituting the bladder's 75 µm of LDPE (≈ 0.0002 m²·K/W) for the reservoir's 2 mm of PETG (0.010) removes ~0.010 from R_cold and shifts T_syrup by ≈ 0.1 °C. So **bladder vs hard reservoir is not the dominant variable for chilling performance**; both will sit in the ~7 °C range with the current foam thickness, regardless of wall material. The wall-thickness penalty for going hard-reservoir is real but small compared to the foam term.
+T_cold_eff = (0.80 / 0.024) · 0 °C + (0.20 / 0.28) · 2 °C all divided by 33.6 ≈ **0.04 °C**
 
-To hit the 4 °C target with this architecture, R_cold needs to drop from 0.295 to roughly 0.135 m²·K/W. The only large-impact lever is the inner foam:
+**Warm side (syrup → kitchen ambient):**
 
-| Inner foam thickness | R_cold | T_syrup |
-|---|---|---|
-| 7 mm (current) | 0.295 | 7.1 °C |
-| 5 mm | 0.215 | 5.7 °C |
-| 3 mm | 0.135 | 4.7 °C |
-| 1 mm (structural floor) | 0.055 | 3.2 °C |
+| Layer | R (m²·K/W) |
+|---|---|
+| Reservoir wall (PETG, 2 mm) | 0.010 |
+| Bag pocket far wall (PETG, 1 mm) | 0.005 |
+| Outer foam (2 lb closed-cell PU, 16 mm) | 0.640 |
+| Outer shell wall (PETG, 1 mm) | 0.005 |
+| Outer convection (vertical, still cabinet air, h ≈ 5 W/m²·K) | 0.200 |
+| **R_warm total** | **0.860** |
 
-Thinning the inner foam comes with trade-offs:
-- Less freeze margin if the carbonator briefly dips below 2 °C; the cup-wall outer face would track tank water more closely.
-- Reduced bag-side / reservoir-side condensation control (closed-cell foam normally prevents water from wicking against the reservoir under transient warm-up cycles).
-- Less acoustic / mechanical isolation between the cold core and the bag pocket.
+**Equilibrium syrup temperature**, weighted by surface areas (centerward face A_c ≈ 0.042 m² counters the four warm-side faces A_w ≈ 0.082 m²):
 
-These are foam-bag-shell architecture decisions, not Plan B reservoir decisions — flagged here so the reservoir doesn't get blamed for falling short of refrigerator-level when the foam thickness is what sets the floor.
+T_syrup = (T_amb · A_w/R_warm + T_cold · A_c/R_cold) / (A_w/R_warm + A_c/R_cold) = (22 · 0.096 + 0.04 · 0.949) / 1.045 ≈ **2.1 °C**
+
+The architecture is plausibly **already refrigerator-cold**. The cooling capacity comes from a thin film of foam over a cold copper coil, not from a 7 mm bulk foam layer over a lukewarm tank wall.
+
+**Implications for Plan B:**
+
+1. The earlier "thin the inner foam to reach 4 °C" recipe in this section was wrong — it assumed a 7 mm foam layer that doesn't exist (the copper coil occupies that space). **Disregard it.** Foam thickness is set by `(radial gap) − (coil OD)` and isn't an independent design variable.
+
+2. The dominant risk is now **freeze**, not insufficient chilling. With T_coil dropping to −5 to −10 °C during compressor pulls and only 0.6 mm of foam between the coil and the cup wall, the cup-wall outer face directly opposite a coil row can fall below 0 °C. Whether syrup actually freezes depends on internal convection, syrup composition (sucralose concentrates have non-zero freezing-point depression but not unlimited), compressor duty cycle, and how tightly the reservoir wall sits against the cup wall.
+
+3. Bladder vs hard reservoir is still not the dominant variable. Replacing 2 mm of PETG (0.010) with 75 µm of LDPE (≈ 0.0002) drops R_cold to 0.035, moving T_syrup by roughly 0.5 °C — colder, not warmer. So the hard reservoir is *less aggressive* on freeze risk than the bladder by a small margin, which is a quiet point in its favor.
+
+4. **Bench instrumentation should add a third DS18B20** in the reservoir interior, alongside the existing tank-wall and suction-line probes. The current two probes tell you the cold side; a syrup-side probe tells you whether the model above is right and whether the actual operating point is above, near, or below freezing.
+
+5. Levers that *do* exist for tuning the operating point:
+   - Coil pitch (loosening the wind reduces the at-coil fraction and softens cooling)
+   - Compressor hysteresis band (raising the lower bound from 2 °C narrows the pull-down range)
+   - Suction-line cutout temperature (currently −8 °C; raising it caps how cold the coil can get)
+   - Outer foam thickness (reducing it raises T_syrup; the geometry already budgets 16 mm)
+
+These all live in the foam-bag-shell + firmware architecture, not in the reservoir architecture.
 
 ## Test Sequence
 
