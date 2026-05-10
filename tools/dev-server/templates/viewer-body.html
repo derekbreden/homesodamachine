@@ -1267,7 +1267,16 @@ function categoryAndPartPath(file) {
   return { category, partPath, filename };
 }
 
+// Override map for category labels whose folder name reads worse on the
+// page than a chosen alternative. The folder stays as-is on disk; only
+// the subheader text changes. Add an entry here when the auto-derived
+// label is technically right but UX-wise jarring.
+const CATEGORY_LABEL_OVERRIDES = {
+  harvested: "Reference",
+};
+
 function titleCaseCategory(s) {
+  if (CATEGORY_LABEL_OVERRIDES[s]) return CATEGORY_LABEL_OVERRIDES[s];
   return s.replace(/[-_]/g, " ")
     .split(" ")
     .map((w) => (w ? w.charAt(0).toUpperCase() + w.slice(1) : ""))
