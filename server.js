@@ -234,7 +234,7 @@ export async function start({ dev = false, port, hardwareDir } = {}) {
   // /settings, with LANDING_PUBLIC served at /. The localhost dev server
   // hits the same routes the public site does, so ContentViewer and
   // other LANDING_PUBLIC assets just work in dev.
-  // The dev wrapper (tools/step-viewer/server.js) is purely additive: it
+  // The dev wrapper (tools/dev-server/server.js) is purely additive: it
   // attaches chokidar + Python + the SSE broadcast for hot reload, and
   // doesn't change any routes. The only behavioral differences in dev:
   //   - commit signal is "dev" instead of the deploy SHA
