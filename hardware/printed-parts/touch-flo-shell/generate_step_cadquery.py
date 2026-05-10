@@ -458,10 +458,17 @@ ZONE45_BACK_X      = SHELL_CENTER_X + SHELL_OUTER_R                  # 25.35
 _ZONE45_X_MARGIN   = ZONE45_BACK_X - _Z5_X_MAX                       # 1.775
 ZONE45_FRONT_X     = _Z5_X_MIN - _ZONE45_X_MARGIN                    # ≈ -1.9125
 
-ZONE45_Z_TOP                = (ZONE4_Z_TOP + GN_BEND1_START_Z) / 2.0  # halfway between
-                                                                       # zone 4 top and
-                                                                       # gooseneck bend start
-                                                                       # ≈ 68.37
+ZONE45_Z_TOP                = ZONE4_Z_TOP + 3.0                       # 3 mm tall on the
+                                                                       # back side (where
+                                                                       # the lid sits flat
+                                                                       # on zone 4 top);
+                                                                       # taller on the
+                                                                       # front side because
+                                                                       # the lid bottom
+                                                                       # follows the back-
+                                                                       # arch curve down
+                                                                       # to ≈ Z=52.75
+                                                                       # = 60.5
 ZONE45_BOT_Z_AT_FRONT       = (
     _NEW_ARCH_C_Z
     + math.sqrt(_NEW_ARCH_R ** 2 - (ZONE45_FRONT_X - FILL_X_MIN) ** 2)
