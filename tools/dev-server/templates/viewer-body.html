@@ -1293,6 +1293,31 @@ function groupFilesByCategory(files) {
   return new Map([...groups.entries()].sort(([a], [b]) => a.localeCompare(b)));
 }
 
+// Append a sequence of [subsection-header, card, card, ...] groups to
+// gridEl, one group per category returned by groupFilesByCategory.
+// Caller supplies the thumbnail markup (it differs between STEP/DXF
+// "loading..." placeholders and the wrapped mmd-thumb structure) plus
+// the click handler.
+function renderGroupedCards({ files, ext, type, thumbnailHtml, onClick }) {
+  for (const [category, group] of groupFilesByCategory(files)) {
+    const sub = document.createElement("div");
+    sub.className = "subsection-header";
+    sub.textContent = titleCaseCategory(category);
+    gridEl.appendChild(sub);
+    for (const file of group) {
+      const { partPath, filename } = categoryAndPartPath(file);
+      const name = filename.replace(ext, "");
+      const card = document.createElement("div");
+      card.className = "card";
+      card.dataset.file = file;
+      card.dataset.type = type;
+      card.innerHTML = `${thumbnailHtml(file)}<div class="label"><span class="dir">${partPath}</span>${name}</div>`;
+      card.addEventListener("click", () => onClick(file));
+      gridEl.appendChild(card);
+    }
+  }
+}
+
 // One viewer page area at a time. The path determines which section the
 // grid renders.
 function currentSection() {
@@ -1328,25 +1353,7 @@ function buildGrid() {
     // section headers always render so the structure is explicit even
     // when a subsection is empty; the empty-state replaces the would-be
     // card grid for that subsection.
-    const renderGroupedCards = (files, ext, type, onClick) => {
-      for (const [category, group] of groupFilesByCategory(files)) {
-        const sub = document.createElement("div");
-        sub.className = "subsection-header";
-        sub.textContent = titleCaseCategory(category);
-        gridEl.appendChild(sub);
-        for (const file of group) {
-          const { partPath, filename } = categoryAndPartPath(file);
-          const name = filename.replace(ext, "");
-          const card = document.createElement("div");
-          card.className = "card";
-          card.dataset.file = file;
-          card.dataset.type = type;
-          card.innerHTML = `<div class="placeholder" data-file="${file}">loading...</div><div class="label"><span class="dir">${partPath}</span>${name}</div>`;
-          card.addEventListener("click", () => onClick(file));
-          gridEl.appendChild(card);
-        }
-      }
-    };
+    const stepThumb = (file) => `<div class="placeholder" data-file="${file}">loading...</div>`;
 
     const printsHeader = document.createElement("div");
     printsHeader.className = "section-header";
@@ -1358,7 +1365,7 @@ function buildGrid() {
       empty.textContent = "No prints yet.";
       gridEl.appendChild(empty);
     } else {
-      renderGroupedCards(allFiles, ".step", "step", openDetail);
+      renderGroupedCards({ files: allFiles, ext: ".step", type: "step", thumbnailHtml: stepThumb, onClick: openDetail });
     }
 
     const cutsHeader = document.createElement("div");
@@ -1371,26 +1378,23 @@ function buildGrid() {
       empty.textContent = "No cuts yet.";
       gridEl.appendChild(empty);
     } else {
-      renderGroupedCards(dxfFiles, ".dxf", "dxf", openDxfDetail);
+      renderGroupedCards({ files: dxfFiles, ext: ".dxf", type: "dxf", thumbnailHtml: stepThumb, onClick: openDxfDetail });
     }
   }
 
   if (section === "charts") {
+    // Same subsystem grouping as Prints/Cuts, applied to mermaid files.
+    // Charts live in hardware/topology/ and hardware/wiring/ rather than
+    // under printed-parts/cut-parts, so categoryAndPartPath buckets them
+    // by their top-level segment ("topology", "wiring", ...).
+    const mmdThumb = (file) => `<div class="mmd-thumb" data-file="${file}"><div class="placeholder">loading...</div></div>`;
     if (mmdFiles.length === 0) {
       const empty = document.createElement("div");
       empty.className = "empty-state";
       empty.textContent = "No charts yet.";
       gridEl.appendChild(empty);
-    }
-    for (const file of mmdFiles) {
-      const { name, dir } = shortName(file, ".mmd");
-      const card = document.createElement("div");
-      card.className = "card";
-      card.dataset.file = file;
-      card.dataset.type = "mmd";
-      card.innerHTML = `<div class="mmd-thumb" data-file="${file}"><div class="placeholder">loading...</div></div><div class="label"><span class="dir">${dir}</span>${name}</div>`;
-      card.addEventListener("click", () => openMmdDetail(file));
-      gridEl.appendChild(card);
+    } else {
+      renderGroupedCards({ files: mmdFiles, ext: ".mmd", type: "mmd", thumbnailHtml: mmdThumb, onClick: openMmdDetail });
     }
   }
 
