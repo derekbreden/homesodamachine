@@ -33,12 +33,23 @@ HOLES
    (rounded-rectangle) slot for cleaner printability:
      - Length (Y, end-to-end): 13.2 mm
      - Width (X):              6.85 mm
+3. Screw clearance holes (×2, mirrored across Y=0) — Ø 3.9 mm
+   through, with Ø 5.7 × 1.25 mm counterbore on the BOTTOM face for
+   the screw head. Located at θ = ±45° about the body center, r = 20
+   from body center (world (14.142, ±14.142)) — the shell's "rear
+   shoulder" wall material. Hosts M3 × 8 mm 316 SS ultra-low-profile
+   socket cap screws (McMaster 91223A413) that thread into M3 brass
+   heat-set inserts (ruthex short, Amazon B09ZHSGHXD) pressed into
+   the shell above. Head Ø 5.5 × 1.0 tall sits 0.25 mm below the
+   plate's bottom face; Ø 3.8 unthreaded shoulder under the head
+   passes through the Ø 3.9 clearance with 0.05 mm/side fit.
 
 REGENERATE
 ==========
     tools/cad-venv/bin/python generate_step_cadquery.py
 """
 
+import math
 import sys
 from pathlib import Path
 
@@ -85,6 +96,48 @@ FLAVOR_TUBE_Y_OFFSET = 3.175
 
 PILL_SLOT_LENGTH_Y = 2 * FLAVOR_TUBE_Y_OFFSET + FLAVOR_TUBE_HOLE_DIA  # 13.2
 PILL_SLOT_WIDTH_X  = FLAVOR_TUBE_HOLE_DIA                              # 6.85
+
+
+# ═══════════════════════════════════════════════════════
+# SCREW HOLES — heat-set retention to shell
+# ═══════════════════════════════════════════════════════
+
+# Two M3 socket-cap screws come up from below the plate, pass through
+# clearance + counterbore, and thread into M3 brass heat-set inserts
+# pressed into the touch-flo-shell above. Mirrored across Y=0; placed
+# in the shell's "rear shoulder" wall material between the body bore
+# and the shell outer cylinder, well clear of the pill slot.
+#
+# Screw — McMaster 91223A413: 316 SS ultra-low-profile socket head,
+#   M3 × 0.5 × 8 mm, head Ø 5.5 × 1.0 mm tall, 2 mm hex socket,
+#   Ø 3.8 unthreaded shoulder under the head.
+#
+# Insert — ruthex M3 short (Amazon B09ZHSGHXD): Ø 4.6 knurl OD /
+#   Ø 3.9 body / 4 mm length, recommended install hole Ø 4.0.
+
+# Clearance for the Ø 3.8 shoulder under the head (0.05 mm/side).
+# Tight by intent — close fit aids screw alignment. If FDM print
+# comes in undersize for this hole, drill out with a #29 (3.9 mm)
+# bit before trying to install screws.
+SCREW_HOLE_DIAMETER = 3.9
+
+# Clearance for the Ø 5.5 head (0.1 mm/side). 1.25 mm deep =
+# 1.0 mm head height + 0.25 mm clearance, so the head sits 0.25 mm
+# below the bottom face. Plate material remaining above the
+# counterbore (Z = -2.75 to 0): 2.75 mm.
+SCREW_COUNTERBORE_DIAMETER = 5.7
+SCREW_COUNTERBORE_DEPTH    = 1.25
+
+# Position: θ = ±45° about the body center (0, 0), r = 20 mm.
+# At this point all four wall margins hold ≥ 2 mm:
+#   - to body bore (Ø 31.5 cyl @ origin):  2.25 mm
+#   - to shell outer (Ø 44.35 cyl @ +X 3.175): 2.28 mm
+#   - to pill slot (Y top edge at +6.6):     5.54 mm
+#   - between the two screws (Y separation): 24.28 mm
+SCREW_R_FROM_BODY  = 20.0
+SCREW_THETA_DEG    = 45.0
+SCREW_X            = SCREW_R_FROM_BODY * math.cos(math.radians(SCREW_THETA_DEG))   # ≈ 14.142
+SCREW_Y_OFFSET     = SCREW_R_FROM_BODY * math.sin(math.radians(SCREW_THETA_DEG))   # ≈ 14.142
 
 
 # ═══════════════════════════════════════════════════════
@@ -146,6 +199,30 @@ def build_mounting_plate() -> cq.Workplane:
     )
     plate = plate.cut(pill_slot)
 
+    # Two screw clearance holes (through) + counterbores (bottom face),
+    # mirrored across Y=0.
+    for y_sign in (+1, -1):
+        sx = SCREW_X
+        sy = y_sign * SCREW_Y_OFFSET
+
+        clear = (
+            cq.Workplane("XY")
+            .workplane(offset=PLATE_Z_BOTTOM)
+            .moveTo(sx, sy)
+            .circle(SCREW_HOLE_DIAMETER / 2.0)
+            .extrude(PLATE_THICKNESS)
+        )
+        plate = plate.cut(clear)
+
+        cbore = (
+            cq.Workplane("XY")
+            .workplane(offset=PLATE_Z_BOTTOM)
+            .moveTo(sx, sy)
+            .circle(SCREW_COUNTERBORE_DIAMETER / 2.0)
+            .extrude(SCREW_COUNTERBORE_DEPTH)
+        )
+        plate = plate.cut(cbore)
+
     return plate
 
 
@@ -167,5 +244,10 @@ if __name__ == "__main__":
           f"({SHANK_HOLE_X}, {SHANK_HOLE_Y})")
     print(f"  Flavor pill:    {PILL_SLOT_LENGTH_Y} × {PILL_SLOT_WIDTH_X} mm "
           f"at ({FLAVOR_TUBE_X}, 0), Y-oriented")
+    print(f"  Screw clear:    Ø{SCREW_HOLE_DIAMETER} mm at "
+          f"({SCREW_X:.3f}, ±{SCREW_Y_OFFSET:.3f}) "
+          f"[θ=±{SCREW_THETA_DEG}°, r={SCREW_R_FROM_BODY} from body]")
+    print(f"  Screw cbore:    Ø{SCREW_COUNTERBORE_DIAMETER} × "
+          f"{SCREW_COUNTERBORE_DEPTH} mm deep, bottom face")
     print(f"  Top outer R:    {TOP_OUTER_FILLET_R} mm fillet")
     print(f"-> {out.name}")

@@ -487,6 +487,42 @@ ZONE45_BOT_MID_Z = _NEW_ARCH_C_Z + _NEW_ARCH_R * math.sin(_a_mid45)
 
 
 # ═══════════════════════════════════════════════════════
+# HEAT-SET INSERT POCKETS — mounting-plate retention
+# ═══════════════════════════════════════════════════════
+
+# Two M3 brass heat-set inserts press into the bottom face of the
+# shell. Mounting plate sits below the shell with M3 × 8 mm 316 SS
+# ultra-low-profile socket cap screws (McMaster 91223A413) coming up
+# from below the plate, through plate clearance holes + counterbores,
+# and threading into these inserts.
+#
+# Insert: ruthex M3 short (Amazon B09ZHSGHXD) — Ø 4.6 knurl OD /
+#   Ø 3.9 body / 4 mm length. Recommended install hole Ø 4.0; knurls
+#   bite into the plastic on heat-press.
+#
+# Pocket location: θ = ±45° about the body center, r = 20 mm — in
+# the shell's "rear shoulder" wall material (between the body bore
+# and the shell outer cylinder, well clear of the pill slot). At this
+# point all four wall margins hold ≥ 2 mm:
+#   - to body bore (Ø 31.5 cyl @ origin):       2.25 mm
+#   - to shell outer (Ø 44.35 cyl @ +X 3.175):  2.28 mm
+#   - to pill slot (X-edge at corner Y):        5.66 mm
+#   - between the two pockets (Y separation):   24.28 mm
+#
+# Pocket Z range: 0 → INSERT_POCKET_DEPTH (5 mm = 4 mm insert + 1 mm
+# relief at the top to receive plastic displaced during heat-press).
+# Lives entirely in zone 1 outer (which extends to Z = 16.25), with
+# ~11 mm of solid material above the pocket ceiling.
+
+INSERT_POCKET_DIAMETER = 4.0     # mm — recommended hole for ruthex M3 short
+INSERT_POCKET_DEPTH    = 5.0     # mm — 4 insert + 1 relief
+INSERT_R_FROM_BODY     = 20.0    # mm — radial distance of insert center from body center (0,0)
+INSERT_THETA_DEG       = 45.0    # angle from +X about body center
+INSERT_X               = INSERT_R_FROM_BODY * math.cos(math.radians(INSERT_THETA_DEG))   # ≈ 14.142
+INSERT_Y_OFFSET        = INSERT_R_FROM_BODY * math.sin(math.radians(INSERT_THETA_DEG))   # ≈ 14.142
+
+
+# ═══════════════════════════════════════════════════════
 # GEOMETRY BUILDERS
 # ═══════════════════════════════════════════════════════
 
@@ -564,6 +600,34 @@ def build_zone1_inner_cut() -> cq.Workplane:
     )
     pill = _flavor_pill_flat_x_minus(ZONE1_Z_BOTTOM, ZONE1_HEIGHT)
     return body_bore.union(pill)
+
+
+def build_insert_pockets() -> cq.Workplane:
+    """Two heat-set insert pockets in the shell's bottom face.
+
+    Each pocket is a Ø INSERT_POCKET_DIAMETER cylinder extruded UP
+    from Z=0 by INSERT_POCKET_DEPTH, positioned at world
+    (INSERT_X, ±INSERT_Y_OFFSET) — the rear-shoulder zones at θ=±45°,
+    r=20 from the body center. Lives entirely within zone 1 outer
+    (which extends to Z = ZONE1_OUTER_TOP = 16.25), with ~11 mm of
+    solid material above the pocket ceiling.
+
+    Returned as a single union for the caller to subtract from the
+    shell solid.
+    """
+    pockets = None
+    for y_sign in (+1, -1):
+        sx = INSERT_X
+        sy = y_sign * INSERT_Y_OFFSET
+        pocket = (
+            cq.Workplane("XY")
+            .workplane(offset=ZONE1_Z_BOTTOM)
+            .moveTo(sx, sy)
+            .circle(INSERT_POCKET_DIAMETER / 2.0)
+            .extrude(INSERT_POCKET_DEPTH)
+        )
+        pockets = pocket if pockets is None else pockets.union(pocket)
+    return pockets
 
 
 def build_zone2_outer() -> cq.Workplane:
@@ -1317,6 +1381,7 @@ def build_shell() -> cq.Workplane:
         .union(_tube_shell_inner_section(ZONE5_Z_BOTTOM, ZONE5_HEIGHT))
         .union(build_zone6_inner_cut())
         .union(build_lever_clearance())
+        .union(build_insert_pockets())
     )
     return outer.cut(inner)
 
@@ -1371,4 +1436,9 @@ if __name__ == "__main__":
     print()
     print(f"  Tube shell:      {ZONE5_WALL:.0f} mm wall throughout (no socket, no split)")
     print(f"  Gooseneck:       starts at Z = {ZONE5_Z_TOP}, then bend 1 / mid / bend 2 / tip")
+    print()
+    print(f"  Insert pockets:  Ø{INSERT_POCKET_DIAMETER} × {INSERT_POCKET_DEPTH} mm deep at "
+          f"({INSERT_X:.3f}, ±{INSERT_Y_OFFSET:.3f}) "
+          f"[θ=±{INSERT_THETA_DEG}°, r={INSERT_R_FROM_BODY} from body]")
+    print(f"                   for ruthex M3 short heat-set inserts (B09ZHSGHXD)")
     print(f"-> {out.name}")
