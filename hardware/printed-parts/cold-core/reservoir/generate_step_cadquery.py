@@ -105,19 +105,23 @@ insert_pocket_depth = 5.0
 #   1. (100, +66)   far wall × +Z wall, inner corner
 #   2. (100, −66)   far wall × −Z wall, inner corner
 #   3. (100,   0)   far wall, midpoint
-#   4. (70,  +66)   +Z inner wall, midpoint (past the inner-corner fillet
-#                   tangent at x ≈ 56.33; rolling the boss back along
-#                   the wall keeps it in solid wall material instead of
-#                   sitting at the now-rounded curve-meets-+Z corner)
-#   5. (70,  −66)   −Z inner wall, midpoint (mirror)
+#   4. (45,  +66)   inner curve × +Z wall, in the wedge of body material
+#                   filled in by the inner-corner concave fillet. The
+#                   fillet added body material to round out the cavity's
+#                   sharp 30° corner; the wedge ends up substantially
+#                   thicker than the 4 mm walls elsewhere, so the ø8 boss
+#                   fits entirely inside it (verified by probing the
+#                   post-fillet solid: full disk at center (45, 66)
+#                   sits inside the body cross-section).
+#   5. (45,  −66)   inner curve × −Z wall (mirror)
 #   6. (76,    0)   centerward curve apex, midpoint
 #
 INSERT_POSITIONS_FOR_SIDE_PLUS_1 = [
     (100.0, 66.0),
     (100.0, -66.0),
     (100.0, 0.0),
-    (70.0, 66.0),
-    (70.0, -66.0),
+    (45.0, 66.0),
+    (45.0, -66.0),
     (76.0, 0.0),
 ]
 #
