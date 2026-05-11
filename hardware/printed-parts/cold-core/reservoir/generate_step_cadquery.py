@@ -148,15 +148,17 @@ cap_clearance_hole_diameter = 3.5
 #
 # M3 ruthex-style brass heat-set inserts (same as foam-bag-shell cap-
 # stack joinery). Insert OD 4 mm × length 4 mm; pocket is 4 mm bore
-# × 5 mm deep (4 mm insert + 1 mm relief). Screws: M3 SHCS, black
-# 12.9 alloy preferred. Length needed for the cap stack is
-# ~11–13 mm minimum (see comments in build_reservoir_cap); M3x12 or
-# M3x16 are the natural choices. The B0DJQGF665 M3x25 used on the
-# foam_cap stack is longer than necessary here; the boss is sized to
-# tolerate it anyway.
+# × 7 mm deep (4 mm insert + 3 mm relief). Screws: BNUOK M3 × 12 mm
+# DIN 912 SHCS, black oxide 12.9 alloy (Amazon B0DJQGVK8S), same
+# brand/finish as the M3 × 25 used on the foam-bag-shell cap stack
+# but the right length for the reservoir's thinner cap-stack geometry
+# (under-head stack is 7 mm cap-plus-gasket vs ~19 mm there). With
+# M3 × 12, the shaft seats 4 mm into the insert, runs another 1 mm
+# into the pocket relief, and leaves 2 mm of slack between the shaft
+# tip and the pocket floor.
 #
 insert_pocket_radius = 2.0
-insert_pocket_depth = 5.0
+insert_pocket_depth = 7.0
 #
 # Boss radii — chosen so each hole has a 2 mm PETG annulus around it:
 #   Body pocket ø4 + 2 mm PETG → body boss ø8 (radius 4)
@@ -164,7 +166,20 @@ insert_pocket_depth = 5.0
 #
 body_boss_radius = insert_pocket_radius + 2.0                          # 4
 cap_boss_radius = cap_counterbore_diameter / 2.0 + 2.0                 # 5
-boss_height = 20.0  # body boss height (extends downward from wall top)
+#
+# Body boss vertical layout (extruding downward from the wall top):
+#   top 7 mm:  pocket (ø4 hole for heat-set insert + screw shaft)
+#   next 2 mm: solid ø8 — buffer between the pocket floor and the
+#              top of the chamfer, keeping the chamfer entirely below
+#              the pocket so it never thins the 2 mm PETG annulus
+#              around the insert.
+#   bottom 4 mm: 45° chamfer tapering ø8 → ø0 at the boss bottom.
+#                The boss hangs in mid-cavity (no support under it
+#                during print), so a horizontal bottom face would be
+#                an unsupported ceiling. A 45° taper to a knife edge
+#                is fully FDM-printable as an overhang.
+boss_height = insert_pocket_depth + 2.0 + body_boss_radius             # 7 + 2 + 4 = 13
+body_boss_bottom_chamfer = body_boss_radius                            # 4 — full radius → ø8 to ø0
 #
 # Insert / screw positions, derived from the wall geometry so each
 # cap counterbore has 2 mm of PETG to every outer boundary of the
@@ -331,6 +346,16 @@ def build_reservoir_body(side=1):
             _wp_at(px_signed, boss_bottom_y, pz)
             .circle(body_boss_radius)
             .extrude(boss_height)
+        )
+        # 45° chamfer at the boss bottom edge so the boss is printable
+        # as an FDM overhang hanging in mid-cavity. The chamfer is
+        # applied to the bare boss (before unioning with the body) so
+        # the edge selector only sees the boss's own bottom edge — no
+        # risk of catching the wall's edges nearby.
+        boss = (
+            boss
+            .edges("<Y")
+            .chamfer(body_boss_bottom_chamfer)
         )
         body = body.union(boss)
 
