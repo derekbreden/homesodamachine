@@ -92,66 +92,6 @@ reservoir_clearance = 0.5
 
 
 # -------------------------------------------------------
-# Heat-set insert + screw spec
-# -------------------------------------------------------
-#
-# M3 ruthex-style brass heat-set inserts (same as foam-bag-shell cap-
-# stack joinery). Insert OD 4 mm × length 4 mm; pocket is 4 mm bore
-# × 5 mm deep (4 mm insert + 1 mm relief). Screws: M3 SHCS, black
-# 12.9 alloy preferred. Length needed for the cap stack is
-# ~11–13 mm minimum (see comments in build_reservoir_cap); M3x12 or
-# M3x16 are the natural choices. The B0DJQGF665 M3x25 used on the
-# foam_cap stack is longer than necessary here; the boss is sized to
-# tolerate it anyway.
-#
-insert_pocket_radius = 2.0
-insert_pocket_depth = 5.0
-#
-# Six insert positions (for the side=+1 reservoir; sign flips for −1):
-#   4 in the corners of the `[` + 2 mid-long-edges (the far-wall
-#   midpoint and the centerward-curve apex). Distance check: every
-#   position is within the reservoir wall material with at least 2 mm
-#   of PETG around the ø4 mm insert.
-#
-#   1. (100, +66)   far wall × +Z wall, inner corner
-#   2. (100, −66)   far wall × −Z wall, inner corner
-#   3. (100,   0)   far wall, midpoint
-#   4. ( 41, +64)   curve × +Z wall corner, pushed as deep into the
-#                   point as the ø8 boss will fit. The inner-corner
-#                   fillet at the cavity boundary added body material
-#                   to round out the sharp 30° concave corner, leaving
-#                   a substantial wedge of wall around (41, 64). The
-#                   ø8 boss disk fits entirely inside that wedge — no
-#                   cavity protrusion — and the position is much
-#                   "snugger" into the corner than the prior (45, 66)
-#                   choice was. Probing the post-fillet solid: a full
-#                   ø8 disk centered at (41, 64) tested all 8 cardinal
-#                   and diagonal perimeter points as inside the body.
-#   5. ( 41, −64)   mirror of position 4
-#   6. (76,    0)   centerward curve apex, midpoint
-#
-INSERT_POSITIONS_FOR_SIDE_PLUS_1 = [
-    (100.0, 66.0),
-    (100.0, -66.0),
-    (100.0, 0.0),
-    (41.0, 64.0),
-    (41.0, -64.0),
-    (76.0, 0.0),
-]
-#
-# Boss geometry: vertical cylindrical thickening of the wall at each
-# insert position. ø8 mm gives 2 mm of PETG around the ø4 mm insert
-# pocket. Boss extends 20 mm downward from the wall top, which is
-# enough to host the screw shaft tip for any reasonable M3 length and
-# to keep the boss/wall transition above mid-cavity.
-#
-boss_radius = 4.0
-boss_height = 20.0
-#
-# -------------------------------------------------------
-
-
-# -------------------------------------------------------
 # Sharp-corner fillets (where the centerward curve meets the ±Z walls)
 # -------------------------------------------------------
 #
@@ -180,22 +120,101 @@ inner_corner_fillet_radius = 5.0
 # Cap geometry
 # -------------------------------------------------------
 #
-# Base plate + raised perimeter wall (the "stub of wall" that recesses
-# the screw heads). The 6 mm-wide perimeter wall hosts the M3 screws
-# fully recessed via counterbores; the central base plate seals the
-# rest of the reservoir top through the gasket below.
+# Base plate (top, the flat surface) + perimeter wall (bottom, the
+# "lip" hanging down around the gasket joint). The base plate hosts
+# the counterbored screw heads on its flat top face; the perimeter
+# wall provides depth for the screw shaft to pass through to the
+# gasket + body insert below.
 #
 cap_base_thickness = 3.0
 cap_wall_height = 5.0
 cap_wall_width = 6.0
 #
 # Screw recess geometry. M3 SHCS head OD ~5.5 mm; ø6 counterbore is
-# the standard fit. Counterbore depth 3 mm leaves 5 mm of cap material
-# below it (base_thickness + wall_height − counterbore_depth), more
-# than enough for the screw shaft to traverse through clearance.
+# the standard fit. Counterbore depth 3 mm = cap_base_thickness, so
+# the counterbore recesses the screw head through the full base
+# plate; the remaining 5 mm of clearance hole through the perimeter
+# wall carries the shaft to the gasket + body insert below.
 cap_counterbore_diameter = 6.0
 cap_counterbore_depth = 3.0
 cap_clearance_hole_diameter = 3.5
+#
+# -------------------------------------------------------
+
+
+# -------------------------------------------------------
+# Heat-set insert + screw spec
+# -------------------------------------------------------
+#
+# M3 ruthex-style brass heat-set inserts (same as foam-bag-shell cap-
+# stack joinery). Insert OD 4 mm × length 4 mm; pocket is 4 mm bore
+# × 5 mm deep (4 mm insert + 1 mm relief). Screws: M3 SHCS, black
+# 12.9 alloy preferred. Length needed for the cap stack is
+# ~11–13 mm minimum (see comments in build_reservoir_cap); M3x12 or
+# M3x16 are the natural choices. The B0DJQGF665 M3x25 used on the
+# foam_cap stack is longer than necessary here; the boss is sized to
+# tolerate it anyway.
+#
+insert_pocket_radius = 2.0
+insert_pocket_depth = 5.0
+#
+# Boss radii — chosen so each hole has a 2 mm PETG annulus around it:
+#   Body pocket ø4 + 2 mm PETG → body boss ø8 (radius 4)
+#   Cap counterbore ø6 + 2 mm PETG → cap boss ø10 (radius 5)
+#
+body_boss_radius = insert_pocket_radius + 2.0                          # 4
+cap_boss_radius = cap_counterbore_diameter / 2.0 + 2.0                 # 5
+boss_height = 20.0  # body boss height (extends downward from wall top)
+#
+# Insert / screw positions, derived from the wall geometry so each
+# cap counterbore has 2 mm of PETG to every outer boundary of the
+# cap base plate it reaches toward. With a ø6 counterbore, that means
+# the counterbore center must sit 5 mm inside every outer face.
+#
+# Outer envelope (body and cap share this footprint):
+_outer_far_x_abs = bag_pocket_far_inner_x - reservoir_clearance        # 104
+_outer_z_max = bag_pocket_z_inner_max - reservoir_clearance            # 70
+_outer_centerward_radius = tank_copper_shell_outer_radius + reservoir_clearance  # 72
+#
+# 5 mm = counterbore radius (3) + PETG margin (2) — the minimum
+# distance from counterbore center to any outer boundary.
+_screw_setback = cap_counterbore_diameter / 2.0 + 2.0                  # 5
+#
+# Positions 1/2 — corner of outer +X face × outer ±Z face. Both
+# faces are flat (no fillet at this corner), so just inset 5 mm from
+# each.
+_corner_xz_x = _outer_far_x_abs - _screw_setback                       # 99
+_corner_xz_z = _outer_z_max - _screw_setback                           # 65
+#
+# Position 3 — middle of outer +X face. 5 mm in from x=104; z=0.
+_far_mid_x = _outer_far_x_abs - _screw_setback                         # 99
+#
+# Positions 4/5 — corner of outer curve × outer ±Z face. The corner
+# is filleted at outer_corner_fillet_radius (= 5 mm, by coincidence
+# the same as the screw setback). 5 mm inward from each face lands
+# exactly at the fillet center — the unique point that is 5 mm from
+# the +Z face AND 5 mm from the outer curve. The counterbore at this
+# point has exactly 2 mm of PETG to the fillet boundary in every
+# direction in the corner. Going further into the corner from here
+# would push the counterbore inside the fillet's removed region
+# (i.e., outside the cap base plate's footprint).
+_corner_curve_z = _outer_z_max - outer_corner_fillet_radius            # 65
+_corner_curve_R = _outer_centerward_radius + outer_corner_fillet_radius  # 77
+_corner_curve_x = math.sqrt(_corner_curve_R**2 - _corner_curve_z**2)   # ~41.28
+#
+# Position 6 — apex of the outer curve. 5 mm outward from the curve
+# (away from the tank), z=0.
+_curve_apex_x = _outer_centerward_radius + _screw_setback              # 77
+#
+# (for the side=+1 reservoir; sign flips for −1)
+INSERT_POSITIONS_FOR_SIDE_PLUS_1 = [
+    (_corner_xz_x, _corner_xz_z),         # 1: +X × +Z outer corner
+    (_corner_xz_x, -_corner_xz_z),        # 2: +X × −Z outer corner
+    (_far_mid_x, 0.0),                    # 3: +X face midpoint
+    (_corner_curve_x, _corner_curve_z),   # 4: curve × +Z outer corner (at outer fillet center)
+    (_corner_curve_x, -_corner_curve_z),  # 5: curve × −Z outer corner (at outer fillet center)
+    (_curve_apex_x, 0.0),                 # 6: curve apex
+]
 #
 # -------------------------------------------------------
 
@@ -308,7 +327,7 @@ def build_reservoir_body(side=1):
         px_signed = px * side
         boss = (
             _wp_at(px_signed, boss_bottom_y, pz)
-            .circle(boss_radius)
+            .circle(body_boss_radius)
             .extrude(boss_height)
         )
         body = body.union(boss)
@@ -397,7 +416,7 @@ def build_reservoir_cap(side=1):
         px_signed = px * side
         boss = (
             _wp_at(px_signed, 0.0, pz)
-            .circle(boss_radius)
+            .circle(cap_boss_radius)
             .extrude(cap_wall_height)
         )
         cap = cap.union(boss)
