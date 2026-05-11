@@ -359,7 +359,15 @@ bulkhead_dry_end_z = bulkhead_wet_end_z + bulkhead_pocket_length                
 # bulkhead's wet collet body) → port at body's −Z face. The bulkhead
 # inlet is the lowest point the pump can drain to.
 #
-floor_baseline_y = port_position_y + bulkhead_pocket_diameter / 2 + 2.0  # 29.5 — 2 mm of PETG ceiling above the chamber's curved top (y=27.5)
+floor_baseline_y = port_position_y + bulkhead_pocket_diameter / 2 + 2.0  # 29.5 — 2 mm of PETG ceiling above the chamber's curved top (y=27.5). Applies for z ≥ bulkhead_wet_end_z (the dry-side floor, where the chamber ceiling must be preserved).
+#
+# On the wet side (z < bulkhead_wet_end_z), the slope's lowest line is
+# anchored at the bulkhead INLET MIDPOINT (port_position_y = y of the
+# port's center) — about 13.5 mm below the dry-side baseline. That
+# recovers ~90 mL of cavity volume across the slope region; functional
+# drainage is unchanged (syrup at the slope drops straight into the
+# wet chamber's open ceiling), the win is purely volume.
+slope_low_y = port_position_y  # 16 — slope's lowest line at z = bulkhead_wet_end_z
 #
 port_inlet_bottom_y = port_position_y - port_tube_diameter / 2  # 12.75 — bottom edge of the wet-collet port
 floor_slope_rise = 6.0  # mm above floor_baseline_y at the far −Z wall
@@ -653,15 +661,23 @@ def build_reservoir_body(side=1):
     # ─────────────────────────────────────────────────────
     # Thick sloped floor + bulkhead pocket + well + tube exit
     # ─────────────────────────────────────────────────────
-    # Add a single wedge on top of the original 4 mm floor that
-    # thickens the floor uniformly to floor_baseline_y at z >=
-    # bulkhead_wet_end_z, and rises further up to
-    # floor_baseline_y + floor_slope_rise at z = -inner_z_max.
-    # Floor inner surface y is max(slope_plane(z), floor_baseline_y).
+    # Floor inner surface is piecewise across z:
+    #   z < bulkhead_wet_end_z (wet/slope side): floor = slope plane,
+    #       drains to slope_low_y (= bulkhead inlet midpoint y) at
+    #       z=bulkhead_wet_end_z, rises floor_slope_rise mm to the
+    #       far −Z wall.
+    #   z ≥ bulkhead_wet_end_z (dry side): floor = horizontal baseline
+    #       at floor_baseline_y, preserves the 2 mm PETG ceiling over
+    #       the dry chamber.
+    # The two regions meet at z=bulkhead_wet_end_z with a vertical step
+    # in the floor surface from slope_low_y up to floor_baseline_y
+    # (13.5 mm). The wet chamber's open ceiling already removes material
+    # at that z within the chamber's x range; the step only shows up
+    # outside the chamber's x range, where it's a wall in the cavity.
     slope_z_distance = bulkhead_wet_end_z - (-inner_z_max)
     slope_rate = floor_slope_rise / slope_z_distance
     slope_plane = cq.Plane(
-        origin=(0, floor_baseline_y, bulkhead_wet_end_z),
+        origin=(0, slope_low_y, bulkhead_wet_end_z),
         xDir=(1, 0, 0),
         normal=(0, 1, slope_rate),
     )
@@ -672,14 +688,34 @@ def build_reservoir_body(side=1):
         normal=(0, 1, 0),
     )
     above_baseline = cq.Workplane(baseline_plane).rect(500, 500).extrude(500)
-    above_cavity_floor = above_slope.intersect(above_baseline)
+
+    # Split the wedge by z at the bulkhead's wet face: slope wedge for
+    # z < bulkhead_wet_end_z, baseline wedge for z > bulkhead_wet_end_z.
+    slope_region = (
+        cq.Workplane(cq.Plane(
+            origin=(0, 0, bulkhead_wet_end_z),
+            xDir=(1, 0, 0),
+            normal=(0, 0, -1),
+        ))
+        .rect(500, 500).extrude(500)
+    )
+    baseline_region = (
+        cq.Workplane(cq.Plane(
+            origin=(0, 0, bulkhead_wet_end_z),
+            xDir=(1, 0, 0),
+            normal=(0, 0, 1),
+        ))
+        .rect(500, 500).extrude(500)
+    )
 
     wedge_top_y_safe = floor_baseline_y + floor_slope_rise + 2.0
     wedge_extrusion = _build_outer_envelope(
         side, inner_far_x_abs, inner_z_max, inner_centerward_radius,
         inner_floor_top_y, wedge_top_y_safe - inner_floor_top_y,
     )
-    wedge = wedge_extrusion.cut(above_cavity_floor)
+    wedge_slope = wedge_extrusion.intersect(slope_region).cut(above_slope)
+    wedge_baseline = wedge_extrusion.intersect(baseline_region).cut(above_baseline)
+    wedge = wedge_slope.union(wedge_baseline)
     body = body.union(wedge)
 
     port_x_signed = port_position_x * side
