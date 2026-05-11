@@ -1,8 +1,20 @@
-# Architecture
+# web/
 
-This is a **Node web server + browser-rendered SPA-ish UI**, no bundler. It runs on Render as a single web service, plus a Postgres add-on for the notification inbox and FCM hash tables. The dev story is the same code with a chokidar wrapper.
+The Node web server for **homesodamachine.com** + the browser-rendered viewer at `/3d` and `/charts`. No bundler. Runs on Render as a single web service, plus a Postgres add-on for the notification inbox and FCM hash tables. The dev story is the same code with a chokidar wrapper.
 
-The hardware/firmware/CAD content the site presents lives in [`hardware/`](hardware/) and [`posts/`](posts/) — that side is its own world (CadQuery, KiCad, ESP-IDF). This document covers the web layer only.
+The hardware/firmware/CAD content the site presents lives in [`hardware/`](../hardware/) and [`posts/`](../posts/) at the repo root — that side is its own world (CadQuery, KiCad, ESP-IDF). This document covers the web layer only.
+
+## Running it
+
+```bash
+cd web
+npm install
+npm start          # production server (port 3001 by default; PORT env overrides)
+npm run dev        # dev wrapper: chokidar + Python runner + SSE hot reload (port 3000)
+npm test           # smoke tests: route mount + Puppeteer viewer (no DB needed)
+```
+
+`npm start` boots `server.js` directly — what Render runs in production. `npm run dev` adds the file watcher that re-runs `generate_step_cadquery.py` scripts when a CAD source changes and pushes file-change events over SSE so an open `/3d` page hot-reloads its thumbnails. Set `DATABASE_URL` to enable the notification inbox + FCM push paths; both no-op without a DB so dev works fine without one.
 
 ## Page request lifecycle
 
@@ -40,7 +52,7 @@ The single shared shell is [`lib/shell.js`](lib/shell.js). Every page goes throu
 | [`server.js`](server.js) | — | Entry; orchestrates the pool, push init, route mounts, SSE diff loop on prod boot. |
 | [`lib/shell.js`](lib/shell.js) | — | `renderHead` / `renderNav` / `renderFooter`. Owns the synchronous pre-paint class flips and the `<script src="/boot.js" defer>` tag. |
 | [`lib/landing.js`](lib/landing.js) | `/` | Marketing landing + email signup form. |
-| [`lib/blog.js`](lib/blog.js) | `/blog` | Markdown posts under [`posts/`](posts/), rendered into the one index page. Individual posts are `#post-<slug>` anchors. |
+| [`lib/blog.js`](lib/blog.js) | `/blog` | Markdown posts under [`posts/`](../posts/), rendered into the one index page. Individual posts are `#post-<slug>` anchors. |
 | [`lib/viewer-pages.js`](lib/viewer-pages.js) | `/3d`, `/charts` | The parts/charts viewer pages — both render [`lib/templates/viewer-body.html`](lib/templates/viewer-body.html). |
 | [`lib/viewer-routes.js`](lib/viewer-routes.js) | `/api/{steps,dxf,mermaid}`, `/steps/*`, `/dxfs/*`, `/api/mermaid-content/*` | API for the viewer's file lists and content. |
 | [`lib/settings.js`](lib/settings.js) | `/settings` | Per-user toggles: dev-mode, FCM enable, ratio config. |
