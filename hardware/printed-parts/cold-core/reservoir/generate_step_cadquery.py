@@ -215,13 +215,16 @@ _vent_boss_extension_below_base_plate = _vent_boss_depth - cap_base_thickness  #
 #
 # Cylinder shell hangs below the boss into the reservoir, with the
 # same inside diameter as the vent hole so there's no internal step
-# in the air column. Closed bottom is a slightly-wider disk (brim)
-# that blocks direct vertical splashes from below.
+# in the air column. The cylinder outer diameter matches the brim
+# diameter (= a beefy 2.5 mm wall) so the brim is flush with the
+# cylinder rather than overhanging it — the brim becomes the closed
+# bottom of a single ø10 cylinder, and the cylinder→brim transition
+# has no overhang to print during top-down FDM of the cap.
 vent_cylinder_inner_diameter = vent_hole_diameter                       # 5
-vent_cylinder_wall_thickness = 1.5
-vent_cylinder_outer_diameter = vent_cylinder_inner_diameter + 2 * vent_cylinder_wall_thickness  # 8
+vent_cylinder_wall_thickness = 2.5
+vent_cylinder_outer_diameter = vent_cylinder_inner_diameter + 2 * vent_cylinder_wall_thickness  # 10
 vent_brim_thickness = 1.0
-vent_brim_diameter = vent_cylinder_outer_diameter + 2.0                 # 10
+vent_brim_diameter = vent_cylinder_outer_diameter                       # 10 — matches cylinder outer
 #
 # Side slots cut through the cylinder walls — four rectangular
 # windows at 0°/90°/180°/270°. Slot height equals the cylinder wall
@@ -664,9 +667,9 @@ def build_reservoir_cap(side=1):
     #   y=8 .. 5.5  filter pocket (ø13.2, holds filter + retaining ring)
     #   y=5.5 .. 5  remaining 0.5 mm of standard base plate, vent hole ø5 through it
     #   y=5 .. 3    boss extension below base plate (ø17 outer), vent hole continues
-    #   y=3 .. 1    cylinder shell (ø8 outer, ø5 inner) — wall is entirely slot zone
+    #   y=3 .. 1    cylinder shell (ø10 outer, ø5 inner) — wall is entirely slot zone
     #   y=3 .. 1    four side slots cut through the cylinder walls (full wall height)
-    #   y=1 .. 0    closed brim (ø10) — blocks direct vertical splash from below
+    #   y=1 .. 0    closed brim (ø10) — same OD as the cylinder, no overhang
     vent_x_signed = vent_position_x * side
 
     boss_bottom_y = cap_total_height - _vent_boss_depth                # 3
