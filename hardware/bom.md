@@ -79,6 +79,7 @@ Plan A is the current path. Plan B (racetrack body half-sheets + dished racetrac
 | [Supco BPV31 bullet-piercing valve](https://www.amazon.com/dp/B00DM8J3MI) | B00DM8J3MI — taps the compressor process tube to vent the factory R-600a charge before brazing in the replacement drier; left clamped on the cut stub after teardown; single-use per build | 1 | $7.37 | $7.37 |
 | [BCuP-5 15% Ag silver brazing alloy, 1/16" × 1 troy oz rod](https://www.amazon.com/dp/B0DQ3ZMHK7) | B0DQ3ZMHK7 — phosphorus-bearing self-fluxing filler for copper-to-copper refrigeration joints (compressor → drier inlet, drier outlet → cap tube, evaporator coil → suction line); ~10 g per build × ~3 builds per 31 g rod; $18.99/3 | 1 (of 3) | $6.33 | $6.33 |
 | [3M Scotch-Brite Maroon General Purpose Hand Pads, 6" × 9" (1-pack of 20)](https://www.amazon.com/dp/B07CGPCTHT) | B07CGPCTHT — abrasive pads cut into strips to clean 1/4" ACR copper OD + fitting sockets before flux + braze on the 2–3 refrigeration-loop joints; 2 of 20 per build ($28.85/20 × 2) | 2 (of 20 pk) | $1.44 | $2.89 |
+| SendCutSend 0.059" G90 hot-dipped galvanized steel compressor shroud (`cut-parts/compressor-shroud/`) — non-combustible enclosure over the compressor's terminal block + clip-on PTC start relay/overload module; UL 60335-2-89 conformance for R-600a hydrocarbon refrigerant; 1 grommeted AC pass-through, 1 PEM chassis-ground stud, 2 mounting tabs. Final dimensions TBD pending donor compressor measurement; placeholder estimate based on 0.059" G90 SendCutSend pricing for a ~130 × 130 × 100 mm flat-pattern part with 4 bends + hardware insertion: ~$8 ea at qty 5 + ~$5 ship + tax allocated, ~$45 delivered ÷ 5 = $9/shroud. Includes ~$2 for the AC pass-through grommet (Heyco SB-625-8 class). See [`wiring/ac-wiring-schedule.md`](wiring/ac-wiring-schedule.md) for the cabling that traverses it | 1 | $9.00 | $9.00 |
 
 Fallback path (UL/ETL-retail-friendly): RIGID DV1910E sealed refrigeration module (~$600 + 20–30% import duty). Not selected for this BOM.
 
@@ -152,6 +153,9 @@ Dishing dies (PA6-CF) for end-cap forming are vessel-fabrication tools, not ship
 | [CQRobot JST XH 2.54 mm 9-pin connector kit (30 sets)](https://www.amazon.com/dp/B0B2R73RQB) | B0B2R73RQB — 9-pin used for the ULN2803A module sides (8 channels + COM/GND) and MCP23017 Port A/B rows; ~6 connectors per unit (2 ULNs × 2 sides + 2 MCP ports); $9.19/30 × 6 | 6 (of 30 pk) | $0.31 | $1.84 |
 | [CQRobot JST XH 2.54 mm pre-crimped bonded ribbon kit, 15 cm × 12 conductors × 8 ribbons + assorted housings](https://www.amazon.com/dp/B0F6C7X5CR) | B0F6C7X5CR — short-hop bonded ribbon for module-to-module connections (≤6"): factory pre-crimped female XH terminals on both ends, user inserts pre-crimped pins into housings of choice; ~2 ribbons per unit (e.g., one 9-conductor MCP↔ULN, one 4-conductor I2C/UART trunk); $15.86/8 × 2 | 2 (of 8 pk) | $1.98 | $3.97 |
 | [Keszoox JST XH 2.54 mm pre-crimped wires, 50 cm × 22 AWG silicone (20 wires/pk, 10 colors)](https://www.amazon.com/dp/B0F8HMQRRN) | B0F8HMQRRN — medium-length pre-crimped female XH pigtails for cable runs that span the cabinet (ULN→solenoid fan-outs, sensor pigtails); ~1 pack per unit covers ~12 valve fan-outs + spares; $11.63/pack | 1 pk (of 20 wires) | $11.63 | $11.63 |
+| 16 AWG stranded silicone-insulated appliance wire (black/white/green) — placeholder pending sourcing decision; AC pigtails for the C14 → distribution → relay → compressor + PSU runs per [`wiring/ac-wiring-schedule.md`](wiring/ac-wiring-schedule.md); ~3 ft total per build across all AC runs (AC-1 through AC-7 in the schedule) | — | ~$1.87 | $1.87 |
+| 18 AWG stranded hookup wire (12 V trunk + branch) — placeholder pending sourcing decision; runs DC-1 through DC-7 in [`wiring/ac-wiring-schedule.md`](wiring/ac-wiring-schedule.md) | — | ~$0.50 | $0.50 |
+| Wago 221-413 lever-nut connector, 3-conductor — placeholder pending sourcing decision; AC distribution block on the electronics shelf (H, N, G — one connector per conductor); 3 connectors per build, ~$0.85 each at 10-pk pricing | 3 | $0.85 | $2.55 |
 
 ## 12. Carbonator level sensing (external reed + internal float on welded SS rod)
 
@@ -186,16 +190,16 @@ The T18 heat-set tip kit ([B0CS662NVK](https://www.amazon.com/dp/B0CS662NVK)) an
 | 2. Carbonator vessel (plan A, 316L) | $203.68 |
 | 3. Water inlet | $130.88 |
 | 4. CO2 subsystem | $58.13 |
-| 5. Refrigeration | $163.71 |
+| 5. Refrigeration | $172.71 |
 | 6. Cold core insulation | $49.48 |
 | 7. Printed parts (PETG) | $103.94 |
 | 8. Flavor subsystem | $341.14 |
 | 9. Dispensing | $52.97 |
 | 10. UI | $39.95 |
-| 11. Wiring | $27.05 |
+| 11. Wiring | $31.97 |
 | 12. Level sensing | $19.07 |
 | 13. Mechanical attach hardware | $17.29 |
-| **Total** | **$1,373.72** |
+| **Total** | **$1,387.64** |
 
 ## External / user-supplied (not shipped)
 

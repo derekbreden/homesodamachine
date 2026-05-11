@@ -38,6 +38,8 @@ Primary citation: `hardware/harvested/ice-maker/README.md` (the line stating cha
 
 This standard governs design compliance regardless of whether a UL listing is pursued. D2C sale does not require the listing but the design should still conform.
 
+The standard's fire-enclosure requirement around the ignition sources in the refrigerant compartment is implemented via a sheet-metal shroud over the compressor's terminal block + clip-on PTC start relay/overload module. Spec at `hardware/cut-parts/compressor-shroud/README.md`. The Teyleten relay that switches the compressor's AC is deliberately placed *outside* the shroud so its switching arc — a small but real ignition source — is not co-located with the protected zone; only switched AC enters the shroud through a single grommeted pass-through. The condenser fan motor is also outside the shroud (low ignition risk + needs to move air).
+
 ## CPSC general safety duty
 
 Federal Consumer Product Safety Commission applies to any consumer product sold in the US. Product must not be unreasonably dangerous. No listing or certification required — this is a general duty of care, independently honored by the project's design practice.
