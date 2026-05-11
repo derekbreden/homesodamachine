@@ -12,6 +12,10 @@ Dispensed through chilled carbonated water, the result is indistinguishable from
 
 There is no machine on the market that gives a home user this experience — turn the handle, soda comes out. The alternatives are hauling cans from the store every week, or home carbonation products that carbonate warm water into bottles that go flat within hours. Despite enormous initial sales, very few people stick with home carbonation because warm water cannot hold carbonation — it is flat before it reaches your glass.
 
+## Web layer (the dev + public sites)
+
+The Node web app under [`server.js`](server.js), [`lib/`](lib/), [`public/`](public/), and [`tools/dev-server/`](tools/dev-server/) has its own architecture doc: [`ARCHITECTURE.md`](ARCHITECTURE.md). Read it before refactoring anything in those directories. It covers the route layout, dev-vs-prod relationship, browser module graph for the viewer, SSE/FCM event flows, and a "where things go" cheat sheet for adding new pages or features.
+
 ## CadQuery
 
 Run `generate_step_cadquery.py` scripts with the project's CadQuery venv: `tools/cad-venv/bin/python`. cadquery is not installed on the system python.
