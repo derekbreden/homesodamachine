@@ -189,48 +189,20 @@ _corner_xz_z = _outer_z_max - _screw_setback                           # 65
 # Position 3 — middle of outer +X face. 5 mm in from x=104; z=0.
 _far_mid_x = _outer_far_x_abs - _screw_setback                         # 99
 #
-# Positions 4/5 — corner where the outer curve meets the outer ±Z
-# face. Two fillets define the wall in this corner: the outer-corner
-# fillet rounds the body's outer convex pointy-tab corner, and the
-# inner-corner fillet rounds the cavity's inner concave sharp corner.
-# The screw should sit in the geometric middle of the wall they bound.
-#
-# Procedure:
-#   1. Find X1 = furthest −X reach of the wall's inner edge (= leftmost
-#      x on the inner fillet arc).
-#   2. Find X2 = furthest −X reach of the wall's outer edge (= leftmost
-#      x on the outer fillet arc).
-#   3. Hole x = midpoint of X1 and X2.
-#   4. At that x, the wall in the Z direction spans from the outer +Z
-#      face (z = outer_z_max) down to where the outer curve crosses
-#      that x (z = sqrt(outer_curve_radius² − x²)).
-#   5. Hole z = midpoint of those two z values.
-#
-# Inner cavity envelope (body wall thickness inset from outer):
-_inner_z_max = _outer_z_max - reservoir_wall_thickness                  # 66
-_inner_centerward_radius = _outer_centerward_radius + reservoir_wall_thickness  # 76
-#
-# Inner-corner fillet center: on the cavity side of both inner faces,
-# distance inner_corner_fillet_radius from each.
-_inner_fillet_z = _inner_z_max - inner_corner_fillet_radius             # 61
-_inner_fillet_R = _inner_centerward_radius + inner_corner_fillet_radius  # 81
-_inner_fillet_x = math.sqrt(_inner_fillet_R**2 - _inner_fillet_z**2)    # ~53.29
-#
-# Outer-corner fillet center: on the body side of both outer faces,
-# distance outer_corner_fillet_radius from each.
-_outer_fillet_z = _outer_z_max - outer_corner_fillet_radius             # 65
-_outer_fillet_R = _outer_centerward_radius + outer_corner_fillet_radius  # 77
-_outer_fillet_x = math.sqrt(_outer_fillet_R**2 - _outer_fillet_z**2)    # ~41.28
-#
-_X1 = _inner_fillet_x - inner_corner_fillet_radius                       # ~48.29
-_X2 = _outer_fillet_x - outer_corner_fillet_radius                       # ~36.28
-_corner_curve_x = (_X1 + _X2) / 2.0                                      # ~42.285
-#
-# At _corner_curve_x, wall spans z = sqrt(R²−x²) at the bottom (outer
-# curve) up to z = outer_z_max at the top.
-_pos4_z_bottom = math.sqrt(_outer_centerward_radius**2 - _corner_curve_x**2)  # ~58.28
-_pos4_z_top = _outer_z_max                                               # 70
-_corner_curve_z = (_pos4_z_top + _pos4_z_bottom) / 2.0                   # ~64.14
+# Positions 4/5 — corner of outer curve × outer ±Z face. The corner
+# is filleted at outer_corner_fillet_radius (= 5 mm, by coincidence
+# the same as the screw setback for the ø6 counterbore + 2 mm PETG).
+# 5 mm inward from each outer face lands exactly at the outer fillet
+# center — the unique point that is 5 mm from BOTH the +Z face and
+# the outer curve, measured along the shortest path (the perpendicular
+# to each face, which at this point coincides with the radial to the
+# curve). The counterbore at this point has exactly 2 mm of PETG to
+# the outer curve and 2 mm to the +Z face in every direction. Any
+# other point on the wall midline trades cartesian PETG for radial
+# PETG; at the fillet center, all three are = 2 mm.
+_corner_curve_z = _outer_z_max - outer_corner_fillet_radius             # 65
+_corner_curve_R = _outer_centerward_radius + outer_corner_fillet_radius  # 77
+_corner_curve_x = math.sqrt(_corner_curve_R**2 - _corner_curve_z**2)    # ~41.28
 #
 # Position 6 — apex of the outer curve. 5 mm outward from the curve
 # (away from the tank), z=0.
