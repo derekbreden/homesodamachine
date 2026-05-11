@@ -169,53 +169,47 @@ cap_boss_radius = cap_counterbore_diameter / 2.0 + 2.0                 # 5
 #
 # Body boss vertical layout (extruding downward from the wall top):
 #   top 7 mm:  pocket (ø4 hole for heat-set insert + screw shaft)
-#   next 2 mm: solid ø8 — buffer between the pocket floor and the
-#              top of the chamfer, keeping the chamfer entirely below
-#              the pocket so it never thins the 2 mm PETG annulus
-#              around the insert.
-#   bottom 4 mm: 45° chamfer tapering ø8 → ø0 at the boss bottom.
-#                The boss hangs in mid-cavity (no support under it
-#                during print), so a horizontal bottom face would be
-#                an unsupported ceiling. A 45° taper to a knife edge
-#                is fully FDM-printable as an overhang.
-boss_height = insert_pocket_depth + 2.0 + body_boss_radius             # 7 + 2 + 4 = 13
-body_boss_bottom_chamfer = body_boss_radius                            # 4 — full radius → ø8 to ø0
+#   below:     solid ø8 cylinder. Built extra-long (extending below
+#              the intended boss-bottom y) and then cut with a flat
+#              45° plane through the wall at that boss-bottom y, so
+#              the wall side of the cylinder stays straight (and gets
+#              fused into the wall) and the cavity side of the
+#              cylinder gets sliced off at 45° — an FDM-printable
+#              overhang anchored on the wall.
 #
-# Insert / screw positions, derived from the wall geometry.
+# Bosses 1/2/3/6 sit 1 mm inside the cavity from the wall's inner
+# face (so the cap counterbore keeps a strict 2 mm of PETG to the
+# outer face). The 45° cut starts at the wall inner face / corner
+# at y = boss_bottom_y, NOT at the boss center, so the kept material
+# on the wall side reaches all the way down to that y. Bosses 4/5
+# (curve × ±Z corner, at outer-fillet center) sit inside the post-
+# fillet wall material and don't get a cut — the body-boss loop
+# skips them.
+boss_height = 13.0                                                     # 7 mm pocket + 6 mm of solid+cut
+_cyl_extra_below_bottom = 5.0                                          # extra cylinder length to be sliced off by the cut
+#
+# Insert / screw positions, derived from the wall geometry so the cap
+# counterbore at each position has 2 mm of PETG to the nearest outer
+# face of the cap base plate.
 #
 # Outer envelope (body and cap share this footprint):
 _outer_far_x_abs = bag_pocket_far_inner_x - reservoir_clearance        # 104
 _outer_z_max = bag_pocket_z_inner_max - reservoir_clearance            # 70
 _outer_centerward_radius = tank_copper_shell_outer_radius + reservoir_clearance  # 72
 #
-# Positions 1/2/3/6 sit on the wall's INNER face (the cavity boundary).
-# The boss is unioned with the wall there — half the ø8 boss disk
-# overlaps the 4 mm-thick wall, the other half is a cavity bump.
-# Placing the boss center on the wall inner face puts the chamfer's
-# knife-edge tip (at the boss bottom) exactly on the wall, so the
-# cavity-side cone hangs off the wall edge rather than floating 1 mm
-# into the cavity (the failure mode that showed up when the bosses
-# were positioned 1 mm inward of the inner face to give the cap
-# counterbore a strict 2 mm of PETG to the outer face).
+# 5 mm = counterbore radius (3) + PETG margin (2) — the inset from
+# every outer face the counterbore center must keep.
+_screw_setback = cap_counterbore_diameter / 2.0 + 2.0                  # 5
 #
-# The trade-off: the cap counterbore (ø6) now has only 1 mm of PETG
-# between its outer edge and the outer face of the cap base plate
-# at these positions, down from 2 mm. 1 mm is acceptable — the
-# counterbore isn't load-bearing (the screw load lives in the insert
-# threads), it's just a head clearance. The body pocket's PETG
-# annulus, which IS load-bearing because the heat-set insert displaces
-# PETG into it during installation, ends up symmetric at 2 mm
-# cavity-side and 2 mm wall-side.
+# Positions 1/2 — inset 5 mm from outer +X face × outer ±Z face.
+_corner_xz_x = _outer_far_x_abs - _screw_setback                       # 99
+_corner_xz_z = _outer_z_max - _screw_setback                           # 65
 #
-# Positions 1/2 — wall inner +X × +Z (resp. +X × −Z) corner.
-_corner_xz_x = _outer_far_x_abs - reservoir_wall_thickness             # 100
-_corner_xz_z = _outer_z_max - reservoir_wall_thickness                 # 66
+# Position 3 — inset 5 mm from outer +X face, z = 0.
+_far_mid_x = _outer_far_x_abs - _screw_setback                         # 99
 #
-# Position 3 — wall inner +X face, z = 0.
-_far_mid_x = _outer_far_x_abs - reservoir_wall_thickness               # 100
-#
-# Position 6 — wall inner centerward curve, z = 0.
-_curve_apex_x = _outer_centerward_radius + reservoir_wall_thickness    # 76
+# Position 6 — 5 mm outward from outer curve (radially), z = 0.
+_curve_apex_x = _outer_centerward_radius + _screw_setback              # 77
 #
 # Positions 4/5 — corner of outer curve × outer ±Z face. The corner
 # is filleted at outer_corner_fillet_radius (= 5 mm). The fillet
@@ -240,6 +234,36 @@ INSERT_POSITIONS_FOR_SIDE_PLUS_1 = [
     (_corner_curve_x, -_corner_curve_z),  # 5: curve × −Z outer corner (at outer fillet center)
     (_curve_apex_x, 0.0),                 # 6: curve apex
 ]
+#
+# For each body boss that needs the 45° flat cut at its bottom (i.e.,
+# the four bosses whose disks extend into the cavity, not the two
+# curve-corner bosses which sit inside the post-fillet wall), record
+# the wall pivot point (the (x, z) on the wall's inner face from which
+# the cut plane originates) and the unit direction in XZ from the boss
+# center toward that pivot. The cut plane passes through (pivot_x,
+# boss_bottom_y, pivot_z) and is tilted at 45° from horizontal, rising
+# away from the wall — keep above, cut below.
+#
+# Values stored for side=+1; the x component is multiplied by `side`
+# in the body-boss loop to mirror across x=0 for side=−1.
+_FAR_WALL_INNER_X = _outer_far_x_abs - reservoir_wall_thickness        # 100
+_PLUS_Z_WALL_INNER_Z = _outer_z_max - reservoir_wall_thickness         # 66
+_CURVE_INNER_X_AT_Z0 = _outer_centerward_radius + reservoir_wall_thickness  # 76
+_INV_SQRT2 = 1.0 / math.sqrt(2.0)
+BODY_BOSS_CUT_INFO_FOR_SIDE_PLUS_1 = {
+    # (boss_x, boss_z) → (pivot_x, pivot_z, wall_dir_x, wall_dir_z)
+    #   wall_dir is a UNIT vector in XZ pointing from the boss center toward the wall pivot
+    (_corner_xz_x, _corner_xz_z):
+        (_FAR_WALL_INNER_X, _PLUS_Z_WALL_INNER_Z, _INV_SQRT2, _INV_SQRT2),    # 1
+    (_corner_xz_x, -_corner_xz_z):
+        (_FAR_WALL_INNER_X, -_PLUS_Z_WALL_INNER_Z, _INV_SQRT2, -_INV_SQRT2),  # 2
+    (_far_mid_x, 0.0):
+        (_FAR_WALL_INNER_X, 0.0, 1.0, 0.0),                                   # 3
+    (_curve_apex_x, 0.0):
+        (_CURVE_INNER_X_AT_Z0, 0.0, -1.0, 0.0),                               # 6
+    # 4 and 5 deliberately absent — those bosses sit inside the
+    # post-fillet wall material, no cavity overhang to slice.
+}
 #
 # -------------------------------------------------------
 
@@ -350,29 +374,48 @@ def build_reservoir_body(side=1):
 
     for (px, pz) in INSERT_POSITIONS_FOR_SIDE_PLUS_1:
         px_signed = px * side
+        cut_info = BODY_BOSS_CUT_INFO_FOR_SIDE_PLUS_1.get((px, pz))
+
+        # Build the boss cylinder. If this boss needs a 45° cut,
+        # extend the cylinder _cyl_extra_below_bottom past the
+        # intended boss bottom so the cut has material to slice
+        # off; otherwise build it straight from the intended bottom.
+        if cut_info is None:
+            cyl_bottom_y = boss_bottom_y
+        else:
+            cyl_bottom_y = boss_bottom_y - _cyl_extra_below_bottom
         boss = (
-            _wp_at(px_signed, boss_bottom_y, pz)
+            _wp_at(px_signed, cyl_bottom_y, pz)
             .circle(body_boss_radius)
-            .extrude(boss_height)
+            .extrude(outer_top_y - cyl_bottom_y)
         )
-        # 45° chamfer at the boss bottom edge so the cavity-side
-        # half of the boss is printable as an FDM overhang. The
-        # corner bosses on the centerward (curve) side (positions
-        # 4/5) sit at the outer-corner fillet center, fully inside
-        # the post-fillet wall material — no cavity bump there,
-        # no overhang, no chamfer needed. Skip the chamfer call
-        # explicitly for those rather than relying on it being a
-        # silent no-op, so the code reads honestly.
-        is_curve_corner = (
-            abs(abs(px) - _corner_curve_x) < 0.01
-            and abs(abs(pz) - _corner_curve_z) < 0.01
-        )
-        if not is_curve_corner:
-            boss = (
-                boss
-                .edges("<Y")
-                .chamfer(body_boss_bottom_chamfer)
+
+        if cut_info is not None:
+            pivot_x, pivot_z, dir_x, dir_z = cut_info
+            pivot_x_signed = pivot_x * side
+            dir_x_signed = dir_x * side
+            # Cut plane: passes through (pivot_x_signed, boss_bottom_y, pivot_z),
+            # tilted 45° from horizontal with the high side toward the
+            # wall (along (dir_x_signed, dir_z) in XZ). Plane normal
+            # = (wall_dir_x, 1, wall_dir_z), magnitude sqrt(2), 45° from
+            # vertical when wall_dir is unit in XZ. xDir is perpendicular
+            # to normal in the XZ plane (so the workplane's Z axis is
+            # the cut plane's "horizontal" axis).
+            cut_plane = cq.Plane(
+                origin=(pivot_x_signed, boss_bottom_y, pivot_z),
+                xDir=(-dir_z, 0, dir_x_signed),
+                normal=(dir_x_signed, 1, dir_z),
             )
+            # Half-space below the cut plane (toward cavity-and-down)
+            # is the volume to remove. Extrude a large rect on the plane
+            # in the -normal direction.
+            cut_tool = (
+                cq.Workplane(cut_plane)
+                .rect(500, 500)
+                .extrude(-500)
+            )
+            boss = boss.cut(cut_tool)
+
         body = body.union(boss)
 
         pocket = (
