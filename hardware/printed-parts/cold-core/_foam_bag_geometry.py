@@ -450,7 +450,12 @@ def punch_a_bag_pocket_shell_hole(foam_bag_shell, side=1):
     # Hole offset
     hole_z_offset = bag_pocket_width / 2 - 10
     hole_x_offset = bag_pocket_x_offset
-    hole_y_offset = hole_shift_from_edge + wall_and_floor_thickness
+    # y must match the reservoir's bulkhead port_position_y so the dry-side
+    # tube exits straight without bending. The reservoir bumps port_position_y
+    # to 17 to keep 4 mm of PETG under the bulkhead's flange chamber; this
+    # hole follows. The CO2 and water inlets (which use hole_shift_from_edge
+    # directly) are not affected.
+    hole_y_offset = 17
 
     # Hole
     hole_punch = build_a_hole_punch(origin=(hole_x_offset, hole_y_offset, hole_z_offset))

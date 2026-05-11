@@ -126,17 +126,20 @@ inner_corner_fillet_radius = 5.0
 # wall provides depth for the screw shaft to pass through to the
 # gasket + body insert below.
 #
-cap_base_thickness = 3.0
+cap_base_thickness = 4.0                # = reservoir_wall_thickness; the cap's flat top is a fluid barrier (only the perimeter is gasket-sealed; the cavity interior reaches the cap base plate directly), so it carries the same 4 mm minimum as the body walls
 cap_wall_height = 5.0
 cap_wall_width = 6.0
 #
 # Screw recess geometry. M3 SHCS head OD ~5.5 mm; ø6 counterbore is
-# the standard fit. Counterbore depth 3 mm = cap_base_thickness, so
+# the standard fit. Counterbore depth tracks cap_base_thickness so
 # the counterbore recesses the screw head through the full base
-# plate; the remaining 5 mm of clearance hole through the perimeter
-# wall carries the shaft to the gasket + body insert below.
+# plate (M3 SHCS head is ~3 mm tall, so the deeper counterbore has
+# ~1 mm of empty clearance above the head — harmless); the remaining
+# clearance hole through the perimeter wall carries the shaft to the
+# gasket + body insert below. Keeping counterbore = base thickness
+# preserves the M3 × 12 screw stack length.
 cap_counterbore_diameter = 6.0
-cap_counterbore_depth = 3.0
+cap_counterbore_depth = cap_base_thickness
 cap_clearance_hole_diameter = 3.5
 #
 # -------------------------------------------------------
@@ -266,8 +269,11 @@ vent_position_z = 32.5
 # out the boss's −Z face into the syrup volume; on the +Z side a
 # ⌀6.5 mm cylindrical channel carries the 1/4" tube the rest of the
 # way out through the reservoir's +Z outer wall, aligning with the
-# foam-bag-shell pass-through at (±88, 16) — see
-# `_foam_bag_geometry.py` `punch_a_bag_pocket_shell_hole`.
+# foam-bag-shell pass-through at (±88, 17) — see
+# `_foam_bag_geometry.py` `punch_a_bag_pocket_shell_hole`. The y=17
+# alignment is chosen so the flange chamber's curved bottom sits on
+# the 4 mm outer-floor PETG without piercing it (4 mm fluid barrier
+# below the chamber).
 #
 # Both reservoirs (side=+1 and side=−1) put the bulkhead on the +Z
 # side; only x mirrors.
@@ -280,7 +286,7 @@ vent_position_z = 32.5
 # decision to the next pass.
 #
 port_position_x = 88.0
-port_position_y = 16.0
+port_position_y = 17.0                  # = outer_floor_bottom_y + W + bulkhead_pocket_diameter/2 = 1.5+4+11.5, so the chamber's curved bottom sits exactly on the 4 mm outer-floor PETG layer (4 mm of fluid barrier below the flange chamber)
 port_tube_diameter = 6.5                # 1/4" OD tube clearance
 #
 # The pocket is a STEPPED cavity matching the bulkhead's body
@@ -359,7 +365,7 @@ bulkhead_dry_end_z = bulkhead_wet_end_z + bulkhead_pocket_length                
 # bulkhead's wet collet body) → port at body's −Z face. The bulkhead
 # inlet is the lowest point the pump can drain to.
 #
-floor_baseline_y = port_position_y + bulkhead_pocket_diameter / 2 + 2.0  # 29.5 — 2 mm of PETG ceiling above the chamber's curved top (y=27.5). Applies for z ≥ bulkhead_wet_end_z (the dry-side floor, where the chamber ceiling must be preserved).
+floor_baseline_y = port_position_y + bulkhead_pocket_diameter / 2 + 2.0  # 30.5 — 2 mm of PETG above the chamber's curved top (y=28.5). Applies for z ≥ bulkhead_wet_end_z (the dry-side baseline, where the dry-section slab's top is anchored).
 #
 # On the wet side (z < bulkhead_wet_end_z), the slope's lowest line is
 # anchored at the bulkhead INLET MIDPOINT (port_position_y = y of the
@@ -367,9 +373,9 @@ floor_baseline_y = port_position_y + bulkhead_pocket_diameter / 2 + 2.0  # 29.5 
 # recovers ~90 mL of cavity volume across the slope region; functional
 # drainage is unchanged (syrup at the slope drops straight into the
 # wet chamber's open ceiling), the win is purely volume.
-slope_low_y = port_position_y  # 16 — slope's lowest line at z = bulkhead_wet_end_z
+slope_low_y = port_position_y  # 17 — slope's lowest line at z = bulkhead_wet_end_z
 #
-port_inlet_bottom_y = port_position_y - port_tube_diameter / 2  # 12.75 — bottom edge of the wet-collet port
+port_inlet_bottom_y = port_position_y - port_tube_diameter / 2  # 13.75 — bottom edge of the wet-collet port
 floor_slope_rise = 6.0  # mm above floor_baseline_y at the far −Z wall
 #
 # -------------------------------------------------------
@@ -834,18 +840,19 @@ def build_reservoir_cap(side=1):
 
     In cap-local coordinates:
       - y = 0 .. 5  : perimeter wall (the downward-hanging rim)
-      - y = 5 .. 8  : base plate (the flat top, full `[` footprint)
-      - y = 8       : top face of the cap (the surface the screw
+      - y = 5 .. 9  : base plate (the flat top, full `[` footprint)
+      - y = 9       : top face of the cap (the surface the screw
                       heads recess into; faces up / toward the user)
 
     To visualize the assembled stack, translate the cap up by
     (reservoir wall top y + gasket thickness) ≈ 213.9 mm. The
     perimeter-wall bottom face (cap y=0) lands at body y=213.9, the
-    cap's top face (cap y=8) at body y=221.9.
+    cap's top face (cap y=9) at body y=222.9.
 
     Six counterbored M3 holes pass through the cap at the same XZ
-    positions as the body's insert bosses. ø6 × 3 mm counterbore on
-    the top face recesses the M3 SHCS head flush in the base plate;
+    positions as the body's insert bosses. ø6 × 4 mm counterbore on
+    the top face recesses the M3 SHCS head flush in the base plate
+    (head is ~3 mm, leaving ~1 mm of empty clearance above it);
     ø3.5 clearance hole continues through the rest of the cap.
     Six cap-side bosses mirror the body bosses inside the perimeter
     wall, providing additional PETG around the clearance hole and a
