@@ -174,6 +174,74 @@ gasket_pad_radius = 4.0  # ø8, matches body boss
 
 
 # -------------------------------------------------------
+# Vent feature
+# -------------------------------------------------------
+#
+# A hydrophobic PTFE membrane filter sits in a cylindrical pocket at
+# the top of the cap, held down by a press-fit TPU 90A retaining
+# ring. Air vents through a small hole below the filter into a
+# cylindrical shell that hangs into the reservoir. The cylinder has
+# a closed floor at the bottom (in use) and four slots in its walls,
+# so syrup that splashes upward hits the closed floor or the cylinder
+# walls and has to take a 90°-turn path through a slot before it
+# could reach the membrane above.
+#
+# Filter: LVDALAB ø13 PTFE-on-PET membrane (Amazon B0D41KT345)
+# Retaining ring: 2 mm-thick TPU 90A, press-fit into the cap pocket
+#
+filter_diameter = 13.0
+filter_thickness = 0.5
+#
+retaining_ring_thickness = 2.0
+retaining_ring_outer_diameter = 13.4  # 0.1 mm interference per side vs the ø13.2 pocket, so the TPU 90A ring compresses in for a light press-fit
+retaining_ring_inner_diameter = 9.0   # leaves most of the membrane exposed for airflow
+#
+# Filter pocket (cylindrical recess in the cap top) holds the
+# filter + ring stack with 0.2 mm of slip-fit clearance.
+vent_pocket_diameter = filter_diameter + 0.2                            # 13.2
+vent_pocket_depth = filter_thickness + retaining_ring_thickness         # 2.5
+#
+# Below the pocket, the cap material is locally thicker than the
+# standard base plate so the small vent hole has enough material
+# around it to pass through cleanly before transitioning to the
+# cylinder. This local thickening = "the boss" — it protrudes below
+# the standard base plate bottom by (boss depth − base plate thickness).
+vent_hole_diameter = 5.0
+vent_below_pocket_material = 2.5  # cap material thickness between pocket bottom and boss bottom
+vent_boss_wall_around_pocket = 2.0
+vent_boss_outer_diameter = vent_pocket_diameter + 2 * vent_boss_wall_around_pocket  # 17.2
+_vent_boss_depth = vent_pocket_depth + vent_below_pocket_material       # 5.0
+_vent_boss_extension_below_base_plate = _vent_boss_depth - cap_base_thickness  # 2.0
+#
+# Cylinder shell hangs below the boss into the reservoir, with the
+# same inside diameter as the vent hole so there's no internal step
+# in the air column. Closed bottom is a slightly-wider disk (brim)
+# that blocks direct vertical splashes from below.
+vent_cylinder_inner_diameter = vent_hole_diameter                       # 5
+vent_cylinder_wall_thickness = 1.5
+vent_cylinder_outer_diameter = vent_cylinder_inner_diameter + 2 * vent_cylinder_wall_thickness  # 8
+vent_cylinder_length = 8.0  # total length of cylinder (walls + brim) below boss bottom
+vent_brim_diameter = vent_cylinder_outer_diameter + 2.0                 # 10
+vent_brim_thickness = 1.0
+#
+# Side slots cut through the cylinder walls near the brim — four
+# rectangular windows at 0°/90°/180°/270°.
+vent_slot_count = 4
+vent_slot_width = 3.0
+vent_slot_height = 2.0
+vent_slot_center_y_from_brim_top = 1.0  # slot center sits this far above the brim top, in use-y
+#
+# Vent position on the cap, in the side=+1 frame. The boss sits in
+# the cap's central [-shape opening, with its centerline well clear
+# of any wall and any of the six screw bosses. Mirrored across x=0
+# for side=−1.
+vent_position_x = 85.0
+vent_position_z = 0.0
+#
+# -------------------------------------------------------
+
+
+# -------------------------------------------------------
 # Heat-set insert + screw spec
 # -------------------------------------------------------
 #
@@ -585,6 +653,90 @@ def build_reservoir_cap(side=1):
         )
         cap = cap.cut(counterbore)
 
+    # ─────────────────────────────────────────────────────
+    # Vent feature
+    # ─────────────────────────────────────────────────────
+    # Cap-local y, top→bottom:
+    #   y=8 .. 5.5  filter pocket (ø13.2, holds filter + retaining ring)
+    #   y=5.5 .. 5  remaining 0.5 mm of standard base plate, vent hole ø5 through it
+    #   y=5 .. 3    boss extension below base plate (ø17 outer), vent hole continues
+    #   y=3 .. -4   cylinder shell (ø8 outer, ø5 inner) hanging into the reservoir
+    #   y=-3 .. -1  four side slots cut through the cylinder walls
+    #   y=-4 .. -5  closed brim (ø10) — blocks direct vertical splash from below
+    vent_x_signed = vent_position_x * side
+
+    boss_bottom_y = cap_total_height - _vent_boss_depth                # 3
+    cylinder_walls_bottom_y = boss_bottom_y - (
+        vent_cylinder_length - vent_brim_thickness
+    )                                                                   # -4
+    brim_bottom_y = cylinder_walls_bottom_y - vent_brim_thickness       # -5
+    pocket_bottom_y = cap_total_height - vent_pocket_depth              # 5.5
+
+    # Solid pieces: boss extension, cylinder body (cut hollow later),
+    # brim. All unioned with the cap so the air-column cut below
+    # carves a single continuous channel through them.
+    boss_extension = (
+        _wp_at(vent_x_signed, boss_bottom_y, vent_position_z)
+        .circle(vent_boss_outer_diameter / 2.0)
+        .extrude(_vent_boss_extension_below_base_plate)
+    )
+    cap = cap.union(boss_extension)
+
+    cylinder_solid = (
+        _wp_at(vent_x_signed, cylinder_walls_bottom_y, vent_position_z)
+        .circle(vent_cylinder_outer_diameter / 2.0)
+        .extrude(vent_cylinder_length - vent_brim_thickness)
+    )
+    cap = cap.union(cylinder_solid)
+
+    brim = (
+        _wp_at(vent_x_signed, brim_bottom_y, vent_position_z)
+        .circle(vent_brim_diameter / 2.0)
+        .extrude(vent_brim_thickness)
+    )
+    cap = cap.union(brim)
+
+    # Cut filter pocket from the cap top face.
+    pocket = (
+        _wp_at(vent_x_signed, pocket_bottom_y, vent_position_z)
+        .circle(vent_pocket_diameter / 2.0)
+        .extrude(vent_pocket_depth + 0.1)  # +0.1 breaks the cap top surface cleanly
+    )
+    cap = cap.cut(pocket)
+
+    # Cut the air column: ø5 from the cylinder bottom (top of brim) up
+    # to the pocket bottom. This both hollows out the cylinder body we
+    # just unioned in and drills the small vent hole through the boss
+    # and the 0.5 mm of base plate below the pocket.
+    air_column = (
+        _wp_at(vent_x_signed, cylinder_walls_bottom_y, vent_position_z)
+        .circle(vent_hole_diameter / 2.0)
+        .extrude(pocket_bottom_y - cylinder_walls_bottom_y)
+    )
+    cap = cap.cut(air_column)
+
+    # Side slots — four rectangular windows through the cylinder wall,
+    # spaced 90° apart, near (but not touching) the brim.
+    slot_center_y = (
+        cylinder_walls_bottom_y + vent_slot_height / 2.0 + 1.0
+    )  # 1 mm of solid wall between the slot bottom and the brim top
+    for i in range(vent_slot_count):
+        theta = 2.0 * math.pi * i / vent_slot_count
+        slot_x = vent_x_signed + (vent_cylinder_outer_diameter / 2.0) * math.cos(theta)
+        slot_z = vent_position_z + (vent_cylinder_outer_diameter / 2.0) * math.sin(theta)
+        tangent = (-math.sin(theta), 0.0, math.cos(theta))
+        radial = (math.cos(theta), 0.0, math.sin(theta))
+        slot_cut = (
+            cq.Workplane(cq.Plane(
+                origin=(slot_x, slot_center_y, slot_z),
+                xDir=tangent,
+                normal=radial,
+            ))
+            .rect(vent_slot_width, vent_slot_height)
+            .extrude(-(vent_cylinder_wall_thickness + 1.0))
+        )
+        cap = cap.cut(slot_cut)
+
     return cap
 
 
@@ -664,6 +816,25 @@ def build_reservoir_gasket(side=1):
     return gasket
 
 
+def build_reservoir_retaining_ring():
+    """TPU 90A annular retaining ring that presses into the cap's
+    filter pocket above the membrane and clamps it against the
+    pocket floor (the shelf around the small ø5 vent hole). 2 mm
+    thick. Outer ø13.0 nominal — sized for a light interference
+    press-fit into the ø13.2 pocket (TPU 90A is soft enough to
+    compress 0.1 mm per side without trouble). Inner ø9.0 leaves
+    most of the membrane exposed for airflow.
+
+    Symmetric, so one ring design works on either side; print 2
+    per build (one per reservoir cap)."""
+    return (
+        cq.Workplane(xz_plane_y_up)
+        .circle(retaining_ring_outer_diameter / 2.0)
+        .circle(retaining_ring_inner_diameter / 2.0)
+        .extrude(retaining_ring_thickness)
+    )
+
+
 # ═══════════════════════════════════════════════════════
 # BUILD AND EXPORT
 # ═══════════════════════════════════════════════════════
@@ -673,14 +844,17 @@ def main():
     body = build_reservoir_body(side=1)
     cap = build_reservoir_cap(side=1)
     gasket = build_reservoir_gasket(side=1)
+    retaining_ring = build_reservoir_retaining_ring()
 
     here = Path(__file__).resolve().parent
     export_step(body, str(here / "reservoir.step"))
     export_step(cap, str(here / "reservoir-cap.step"))
     export_step(gasket, str(here / "reservoir-gasket.step"))
+    export_step(retaining_ring, str(here / "reservoir-retaining-ring.step"))
     print(f"-> reservoir.step")
     print(f"-> reservoir-cap.step")
     print(f"-> reservoir-gasket.step")
+    print(f"-> reservoir-retaining-ring.step")
 
 
 if __name__ == "__main__":
