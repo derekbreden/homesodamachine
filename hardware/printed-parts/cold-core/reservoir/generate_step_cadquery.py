@@ -365,11 +365,27 @@ bulkhead_dry_end_z = bulkhead_wet_end_z + bulkhead_pocket_length                
 # bulkhead's wet collet body) → port at body's −Z face. The bulkhead
 # inlet is the lowest point the pump can drain to.
 #
-floor_baseline_y = port_position_y + bulkhead_pocket_diameter / 2 + 2.0  # 30.5 — 2 mm of PETG above the chamber's curved top (y=28.5). Applies for z ≥ bulkhead_wet_end_z (the dry-side baseline, where the dry-section slab's top is anchored).
+# Dry-section ceiling slab. The dry section's ONLY material in y is a
+# slab whose top face is the dry slope and whose bottom face is 4 mm
+# below that. The slab is a fluid barrier (syrup vapor and slosh sit
+# in the cavity above it; if it cracks, syrup leaks into the dry
+# section), so it carries the same 4 mm minimum as the body walls and
+# the cap base plate. The slab's bottom is constrained from below by
+# the bulkhead's dry-side flange (⌀22.9 OD, top at y=port_position_y +
+# 11.45 = 28.45), so the slab can only grow upward — i.e. the cavity
+# floor rises by the slab's thickness above the chamber top.
+bulkhead_dry_slab_thickness = 4.0
+#
+# floor_baseline_y is anchored so the slab's bottom face at z =
+# bulkhead_panel_z_min sits exactly on the chamber's curved top
+# (y=port_position_y + bulkhead_pocket_diameter / 2). The slope tilts
+# the slab bottom upward as z increases, so the bulkhead dry-flange
+# clearance is positive everywhere in z ≥ bulkhead_panel_z_max.
+floor_baseline_y = port_position_y + bulkhead_pocket_diameter / 2 + bulkhead_dry_slab_thickness  # 32.5 = chamber_top (28.5) + slab_thickness (4); the slab top sits this high at z = bulkhead_panel_z_min and the slope rises with z
 #
 # On the wet side (z < bulkhead_wet_end_z), the slope's lowest line is
 # anchored at the bulkhead INLET MIDPOINT (port_position_y = y of the
-# port's center) — about 13.5 mm below the dry-side baseline. That
+# port's center) — about 15.5 mm below the dry-side baseline. That
 # recovers ~90 mL of cavity volume across the slope region; functional
 # drainage is unchanged (syrup at the slope drops straight into the
 # wet chamber's open ceiling), the win is purely volume.
@@ -739,7 +755,7 @@ def build_reservoir_body(side=1):
     # sections: stepped wet chamber (conforming to the bulkhead body's
     # release-ring / collet / flange profile), panel hole (⌀17 through
     # the PETG annulus that the threading section clamps), and the
-    # dry section (a 2 mm slab only — see the slab cut below for why).
+    # dry section (a slab only — see the slab cut below for why).
     # The annulus between the wet and dry sections at
     # z=bulkhead_panel_z_min..z=bulkhead_panel_z_max IS the panel —
     # flange seats on its −Z face, locknut bears on its +Z face.
@@ -782,22 +798,25 @@ def build_reservoir_body(side=1):
     ))                                       # panel hole ⌀17
     # Wide-open dry section: instead of cutting a ⌀23 dry chamber + a
     # dry-floor box (the symmetric counterpart to the wet ceiling), the
-    # dry section keeps ONLY a 2 mm PETG ceiling slab spanning the
-    # entire dry footprint (z=bulkhead_panel_z_max..outer_z_max), with
-    # the slab's top face on the same dry slope as the wedge above the
+    # dry section keeps ONLY a PETG ceiling slab spanning the entire
+    # dry footprint (z=bulkhead_panel_z_max..outer_z_max), with the
+    # slab's top face on the same dry slope as the wedge above the
     # panel. Everything below the slab is removed — empty space all the
     # way down to the reservoir's outer floor and out through the side
     # walls in the dry z-range — giving a much larger opening than a
     # ⌀23 cylinder for fiddling with the locknut, collet, and tube
     # push-in from below. The slab is supported on its −Z edge by the
     # panel material at z=bulkhead_panel_z_max and along its perimeter
-    # by the +X / +Z wall material above slab_top. The slab subsumes
-    # both the dry-chamber cylinder and the dry-floor box — the
-    # bulkhead is now installed by sliding it in from below into a
-    # fully open dry section, then up through the panel hole.
-    slab_thickness = 2.0
+    # by the +X / +Z wall material above slab_top.
+    #
+    # Slab is bulkhead_dry_slab_thickness (4 mm) thick — a fluid
+    # barrier (cavity above holds syrup vapor + slosh), so it gets the
+    # same 4 mm minimum as the body walls. It can only grow upward
+    # because the bulkhead's dry-side ⌀22.9 flange occupies the y
+    # range immediately below the slab; the upward growth is baked
+    # into floor_baseline_y's offset above the chamber top.
     slab_bottom_plane = cq.Plane(
-        origin=(0, floor_baseline_y - slab_thickness, bulkhead_panel_z_min),
+        origin=(0, floor_baseline_y - bulkhead_dry_slab_thickness, bulkhead_panel_z_min),
         xDir=(1, 0, 0),
         normal=(0, 1, -slope_rate),
     )
@@ -819,7 +838,7 @@ def build_reservoir_body(side=1):
     # body's −Z face without any separate vertical channel.
 
     # No separate tube exit: the dry section is wide open from below,
-    # +X, and +Z (all bounded only by the 2 mm slab + the perimeter
+    # +X, and +Z (all bounded only by the 4 mm slab + the perimeter
     # wall material above slab_top). After install, the bulkhead body
     # passes through the panel hole and its dry collet projects into
     # the open dry section; the tube push-in is unobstructed.
