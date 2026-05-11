@@ -570,16 +570,27 @@ def build_foam_cap_gasket():
     """TPU 90A gasket between foam_cap mating edge and outer_shell
     mating face.
 
-    Rectangular perimeter ring, gasket_thickness mm tall,
-    gasket_strip_width mm wide all around. The outer perimeter matches
-    the outer_shell footprint exactly; the strip extends inward, so
-    1 mm of the strip is aligned with the cap and shell wall edges
-    that compress it (where the actual seal happens) and the remaining
-    4 mm extends inward over the cavity opening for print stability.
+    Flat 2D shape, gasket_thickness mm tall throughout. The shape is
+    a rectangular perimeter ring matching the outer_shell footprint,
+    PLUS a screw_boss_size × screw_boss_size pad at each of the 6
+    screw positions matching the matching boss footprints on the cap
+    and shell.
 
-    Six screw holes at the foam_cap_attachment_xz_positions match the
-    insert pockets in the outer_shell and the clearance holes in the
-    cap and lid.
+    Perimeter ring: gasket_strip_width (5 mm) wide. 1 mm of the
+    width is aligned with the cap and shell wall edges that compress
+    it (where the seal happens along the wall sections); the
+    remaining 4 mm extends inward over the cavity opening for print
+    stability and material continuity.
+
+    Screw-position pads: 8 × 8 mm squares centered on each
+    foam_cap_attachment_xz_position. Each screw hole sits at the
+    center of its pad with 4 mm of TPU material on all sides — same
+    buffer as the 8 × 8 boss footprint above and below the gasket —
+    so the screw clamp force compresses the full boss footprint
+    uniformly. A uniform-width ring without these pads would leave
+    the corner-boss screw holes asymmetrically supported (1 mm of
+    TPU on the cavity-facing side, 4 mm on the outer-facing side),
+    which would compress unevenly and seal poorly at the corners.
 
     Printed twice: one gasket sits between the top cap and the
     outer_shell top edge, one between the bottom cap and the
@@ -600,6 +611,21 @@ def build_foam_cap_gasket():
     )
     gasket = outer.cut(inner)
 
+    # Add 8 × 8 mm pads at each screw position, matching the cap and
+    # outer_shell boss footprints. At corner screws, the pad extends
+    # 3 mm inward beyond the perimeter ring on both axes; at mid-
+    # long-side screws, 3 mm inward on the wall-perpendicular axis.
+    for (pad_x, pad_z) in foam_cap_attachment_xz_positions:
+        pad = (
+            cq.Workplane(xz_plane_y_up)
+            .workplane(origin=(pad_x, 0, pad_z), offset=0)
+            .rect(screw_boss_size, screw_boss_size)
+            .extrude(gasket_thickness)
+        )
+        gasket = gasket.union(pad)
+
+    # Cut screw holes AFTER unioning the pads, so each hole sits at
+    # the center of an 8 × 8 mm pad surrounded by 4 mm of TPU.
     for (hole_x, hole_z) in foam_cap_attachment_xz_positions:
         hole = (
             cq.Workplane(xz_plane_y_up)

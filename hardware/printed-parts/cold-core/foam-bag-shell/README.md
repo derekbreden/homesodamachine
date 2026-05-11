@@ -160,15 +160,23 @@ joinery" below.
 
 ### foam_cap_gasket
 
-A TPU 90A perimeter-ring gasket, printed twice — one between each
-cap and its mating face on the outer_shell. 245 × 177 mm outer,
-2 mm thick, 5 mm-wide ring with six screw holes at the same six
-attachment positions as the cap and lid. The 1 mm of the ring's
-width that's aligned with the cap and shell wall edges is the part
-that actually seals when the screws compress the stack; the
-remaining 4 mm extends inward over the cavity opening for print
-stability and material continuity. Replaces the friction-fit pin
-joinery's complete absence of any seal between cap and outer shell.
+A TPU 90A gasket, printed twice — one between each cap and its
+mating face on the outer_shell. 245 × 177 mm outer envelope, 2 mm
+thick (flat 2D shape throughout — no 3D features). The shape is a
+**5 mm-wide perimeter ring + an 8 × 8 mm pad at each of the six
+screw positions**, matching the boss footprints on the cap and
+shell above and below. Each screw hole sits at the center of its
+pad with 4 mm of TPU material on all sides, so the screw clamp
+force compresses the full 8 × 8 boss footprint uniformly. A
+uniform-width ring without these pads would leave the corner-boss
+screw holes asymmetrically supported (1 mm of TPU on the cavity-
+facing side, 4 mm on the outer-facing side), compressing unevenly
+and sealing poorly. The 1 mm of the perimeter-ring width that's
+aligned with the cap and shell wall edges is the part that seals
+along the wall sections (away from the bosses); the remaining 4 mm
+extends inward over the cavity opening for print stability and
+material continuity. Replaces the friction-fit pin joinery's
+complete absence of any seal between cap and outer shell.
 
 ## Cap-to-outer-shell joinery
 
