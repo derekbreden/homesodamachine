@@ -298,18 +298,43 @@ port_tube_diameter = 6.5                # 1/4" OD tube clearance
 #
 bulkhead_pocket_diameter = 23.0         # ø22.9 flange + 0.1 clearance (snug fit)
 bulkhead_panel_hole_diameter = 17.0     # JG catalog spec for the 1/4" body family (0.67")
-bulkhead_wet_chamber_length = 12.0      # wet flange + wet collet (bulkhead body section)
-bulkhead_wet_antechamber_length = 2.0   # gap on the wet collet's outer face — must exist or syrup can't reach the port; flange + locknut still clamp the panel firmly
+#
+# The bulkhead body's wet side is *stepped* along its axis (flange,
+# collet body, release ring — narrower toward the port). The chamber
+# steps in matching sections so the syrup volume conforms to the body
+# and the residual film below the port is small. Section lengths and
+# diameters below are estimates pending dimensioned-drawing measurement
+# (see `tools/measure-from-drawings/README.md` and the JG drawings under
+# `hardware/off-the-shelf-parts/jg-bulkhead-union/raw-images/`).
+#
+bulkhead_wet_chamber_length = 12.0      # wet flange + collet body + release ring (catalog total length 34.5 ÷ split)
+bulkhead_wet_antechamber_length = 2.0   # gap on the bulkhead's wet face — must exist or syrup can't reach the port
 bulkhead_panel_thickness = 5.0          # = panel + threading section
 bulkhead_dry_chamber_length = 17.0      # locknut + dry collet
 bulkhead_pocket_length = (
     bulkhead_wet_chamber_length + bulkhead_panel_thickness + bulkhead_dry_chamber_length
 )                                       # 34 (bulkhead body length, catalog ~34.5)
+#
+# Wet-side section lengths (estimates — refine with drawing measurements):
+bulkhead_flange_length = 3.0                                   # last segment, against the panel
+bulkhead_collet_body_length = 6.0                              # middle of the wet section
+bulkhead_release_ring_length = (
+    bulkhead_wet_chamber_length - bulkhead_flange_length - bulkhead_collet_body_length
+)                                                              # 3 — the visible end with the push-to-release ring
+#
+# Wet-side chamber diameters per section (body OD + clearance):
+bulkhead_flange_chamber_diameter = bulkhead_pocket_diameter    # 23 (ø22.9 flange + 0.1 clearance)
+bulkhead_collet_chamber_diameter = 19.0                        # est. body OD ø17–18 + ~0.5 mm/side
+bulkhead_release_chamber_diameter = 11.0                       # caliper-measured release ring ø9.57 + ~0.7 mm/side
+#
 bulkhead_wet_end_z = 30.0                # z of bulkhead body's wet face (the port)
-bulkhead_wet_chamber_z_min = bulkhead_wet_end_z - bulkhead_wet_antechamber_length  # 28 — chamber's −Z face, leaves antechamber
-bulkhead_panel_z_min = bulkhead_wet_end_z + bulkhead_wet_chamber_length  # 42
-bulkhead_panel_z_max = bulkhead_panel_z_min + bulkhead_panel_thickness   # 47
-bulkhead_dry_end_z = bulkhead_wet_end_z + bulkhead_pocket_length         # 64
+bulkhead_wet_chamber_z_min = bulkhead_wet_end_z - bulkhead_wet_antechamber_length  # 28
+bulkhead_release_z_start = bulkhead_wet_end_z                   # 30 — release-ring section starts at the body's wet face
+bulkhead_collet_z_start = bulkhead_release_z_start + bulkhead_release_ring_length  # 33
+bulkhead_flange_z_start = bulkhead_collet_z_start + bulkhead_collet_body_length    # 39
+bulkhead_panel_z_min = bulkhead_flange_z_start + bulkhead_flange_length             # 42
+bulkhead_panel_z_max = bulkhead_panel_z_min + bulkhead_panel_thickness              # 47
+bulkhead_dry_end_z = bulkhead_wet_end_z + bulkhead_pocket_length                    # 64
 # The floor thickens uniformly across the cavity to a baseline whose
 # inner-top y sits just above the bulkhead pocket, so the bulkhead body
 # is fully encased in PETG along the panel section. The slope rises ON
@@ -672,24 +697,29 @@ def build_reservoir_body(side=1):
             .extrude(z_end - z_start)
         )
 
-    body = body.cut(_z_pocket_cut(
-        bulkhead_wet_chamber_z_min, bulkhead_panel_z_min, bulkhead_pocket_diameter,
-    ))                                       # wet chamber ⌀23 (incl. antechamber)
-
-    # Open the wet chamber's ceiling to the cavity above — covers the
-    # full chamber z range including the antechamber, so syrup drops in
-    # from above and surrounds the bulkhead body's wet collet and the
-    # antechamber in front of its port.
-    ceiling_box_cut = (
-        _wp_at(
-            port_x_signed,
-            port_position_y,
-            (bulkhead_wet_chamber_z_min + bulkhead_panel_z_min) / 2.0,
+    # Stepped wet chamber, conforming to the bulkhead body's profile.
+    # Each section is a (cylinder lower-half + matching-width box
+    # upper-half) "stadium" — cylinder gives a snug fit around the
+    # body's lower half, box opens the upper half to the cavity above.
+    wet_sections = [
+        # (z_start,                                z_end,                    diameter)
+        (bulkhead_wet_chamber_z_min,               bulkhead_collet_z_start,  bulkhead_release_chamber_diameter),  # release ring + antechamber
+        (bulkhead_collet_z_start,                  bulkhead_flange_z_start,  bulkhead_collet_chamber_diameter),   # collet body
+        (bulkhead_flange_z_start,                  bulkhead_panel_z_min,     bulkhead_flange_chamber_diameter),   # flange (against panel)
+    ]
+    ceiling_y_top = floor_baseline_y + 2.0
+    for z_start, z_end, diameter in wet_sections:
+        body = body.cut(_z_pocket_cut(z_start, z_end, diameter))
+        ceiling_box = (
+            _wp_at(
+                port_x_signed,
+                port_position_y,
+                (z_start + z_end) / 2.0,
+            )
+            .rect(diameter, z_end - z_start)
+            .extrude(ceiling_y_top - port_position_y)
         )
-        .rect(bulkhead_pocket_diameter, bulkhead_panel_z_min - bulkhead_wet_chamber_z_min)
-        .extrude(floor_baseline_y + 2.0 - port_position_y)
-    )
-    body = body.cut(ceiling_box_cut)
+        body = body.cut(ceiling_box)
     body = body.cut(_z_pocket_cut(
         bulkhead_panel_z_min, bulkhead_panel_z_max, bulkhead_panel_hole_diameter,
     ))                                       # panel hole ⌀17
