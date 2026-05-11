@@ -108,31 +108,34 @@ insert_pocket_radius = 2.0
 insert_pocket_depth = 5.0
 #
 # Six insert positions (for the side=+1 reservoir; sign flips for −1):
-#   4 corners of the `[` + 2 mid-long-edges (the far-wall midpoint and
-#   the centerward-curve apex). Distance check: every position is
-#   within the reservoir wall material with at least 2 mm of PETG
-#   around the ø4 mm insert.
+#   4 in the corners of the `[` + 2 mid-long-edges (the far-wall
+#   midpoint and the centerward-curve apex). Distance check: every
+#   position is within the reservoir wall material with at least 2 mm
+#   of PETG around the ø4 mm insert.
 #
 #   1. (100, +66)   far wall × +Z wall, inner corner
 #   2. (100, −66)   far wall × −Z wall, inner corner
 #   3. (100,   0)   far wall, midpoint
-#   4. (45,  +66)   inner curve × +Z wall, in the wedge of body material
-#                   filled in by the inner-corner concave fillet. The
-#                   fillet added body material to round out the cavity's
-#                   sharp 30° corner; the wedge ends up substantially
-#                   thicker than the 4 mm walls elsewhere, so the ø8 boss
-#                   fits entirely inside it (verified by probing the
-#                   post-fillet solid: full disk at center (45, 66)
-#                   sits inside the body cross-section).
-#   5. (45,  −66)   inner curve × −Z wall (mirror)
+#   4. ( 41, +64)   curve × +Z wall corner, pushed as deep into the
+#                   point as the ø8 boss will fit. The inner-corner
+#                   fillet at the cavity boundary added body material
+#                   to round out the sharp 30° concave corner, leaving
+#                   a substantial wedge of wall around (41, 64). The
+#                   ø8 boss disk fits entirely inside that wedge — no
+#                   cavity protrusion — and the position is much
+#                   "snugger" into the corner than the prior (45, 66)
+#                   choice was. Probing the post-fillet solid: a full
+#                   ø8 disk centered at (41, 64) tested all 8 cardinal
+#                   and diagonal perimeter points as inside the body.
+#   5. ( 41, −64)   mirror of position 4
 #   6. (76,    0)   centerward curve apex, midpoint
 #
 INSERT_POSITIONS_FOR_SIDE_PLUS_1 = [
     (100.0, 66.0),
     (100.0, -66.0),
     (100.0, 0.0),
-    (45.0, 66.0),
-    (45.0, -66.0),
+    (41.0, 64.0),
+    (41.0, -64.0),
     (76.0, 0.0),
 ]
 #
@@ -323,20 +326,32 @@ def build_reservoir_body(side=1):
 def build_reservoir_cap(side=1):
     """
     PETG cap that sits on top of the reservoir body through a 2 mm TPU
-    gasket. Two-piece geometry: a 3 mm base plate covering the full
-    `[`-shaped footprint, plus a 5 mm-tall × 6 mm-wide raised perimeter
-    wall around the outside (the "stub of wall" that recesses the M3
-    cap-screw heads).
+    gasket.
 
-    Six counterbored screw holes pass through the cap at the same
-    perimeter positions as the body's insert bosses. ø6 × 3 mm
-    counterbore on top recesses the M3 SHCS head fully; ø3.5 clearance
-    hole through the remaining 5 mm of cap thickness lets the screw
-    shaft pass through to the gasket + insert below.
+    Orientation: the cap is a flat lid with a downward-hanging rim.
+    The flat top face (the 3 mm base plate) is what the user sees
+    from above, and is the surface the counterbored screw heads sit
+    flush in. The 5 mm-tall × 6 mm-wide perimeter wall ("lip") hangs
+    DOWN from the base plate around the gasket joint.
 
-    Cap output is positioned at y = 0 (its own coordinate origin). To
-    visualize the assembled stack, translate the cap up by
-    (reservoir wall top y + gasket thickness) ≈ 213.9 mm.
+    In cap-local coordinates:
+      - y = 0 .. 5  : perimeter wall (the downward-hanging rim)
+      - y = 5 .. 8  : base plate (the flat top, full `[` footprint)
+      - y = 8       : top face of the cap (the surface the screw
+                      heads recess into; faces up / toward the user)
+
+    To visualize the assembled stack, translate the cap up by
+    (reservoir wall top y + gasket thickness) ≈ 213.9 mm. The
+    perimeter-wall bottom face (cap y=0) lands at body y=213.9, the
+    cap's top face (cap y=8) at body y=221.9.
+
+    Six counterbored M3 holes pass through the cap at the same XZ
+    positions as the body's insert bosses. ø6 × 3 mm counterbore on
+    the top face recesses the M3 SHCS head flush in the base plate;
+    ø3.5 clearance hole continues through the rest of the cap.
+    Six cap-side bosses mirror the body bosses inside the perimeter
+    wall, providing additional PETG around the clearance hole and a
+    matching cross-section for the gasket compression at each screw.
     """
     # Same outer footprint as the reservoir body.
     outer_far_x_abs = bag_pocket_far_inner_x - reservoir_clearance
@@ -348,41 +363,40 @@ def build_reservoir_cap(side=1):
     inner_z_max = outer_z_max - cap_wall_width
     inner_centerward_radius = outer_centerward_radius + cap_wall_width
 
-    # Base plate (full footprint, 3 mm thick) at y = [0, 3].
-    base = _build_outer_envelope(
-        side, outer_far_x_abs, outer_z_max, outer_centerward_radius,
-        0.0, cap_base_thickness,
-    )
-
-    # Perimeter wall (outer footprint − inner footprint, 5 mm tall)
-    # sitting on top of the base plate at y = [3, 8].
+    # Perimeter wall (outer − inner footprint, 5 mm tall) at the BOTTOM
+    # of the cap, y = [0, 5]. The "lip" that hangs down around the gasket.
     perimeter_outer = _build_outer_envelope(
         side, outer_far_x_abs, outer_z_max, outer_centerward_radius,
-        cap_base_thickness, cap_wall_height,
+        0.0, cap_wall_height,
     )
     perimeter_inner = _build_outer_envelope(
         side, inner_far_x_abs, inner_z_max, inner_centerward_radius,
-        cap_base_thickness, cap_wall_height,
+        0.0, cap_wall_height,
     )
     perimeter_wall = perimeter_outer.cut(perimeter_inner)
+
+    # Base plate (full footprint, 3 mm thick) at the TOP of the cap,
+    # y = [5, 8]. The flat surface the user sees from above; hosts the
+    # counterbores for the screw heads.
+    base = _build_outer_envelope(
+        side, outer_far_x_abs, outer_z_max, outer_centerward_radius,
+        cap_wall_height, cap_base_thickness,
+    )
 
     cap = base.union(perimeter_wall)
 
     cap_total_height = cap_base_thickness + cap_wall_height
 
-    # Cap-side bosses at each insert position, mirroring the body bosses.
-    # Without these, the ø6 counterbore (= cap_wall_width) extends past
-    # the perimeter wall's inner edge at the mid-edge positions, leaving
-    # the counterbore open into the cap's central opening on the inside —
-    # the screw head wouldn't be fully recessed. Each boss is a ø8
-    # cylindrical thickening that sits on top of the base plate and runs
-    # the full height of the perimeter wall, providing the same 1 mm of
-    # PETG on either side of the counterbore that the corner positions
-    # naturally have from the L-shaped wall.
+    # Cap-side bosses at each insert position, mirroring the body
+    # bosses. They sit inside the perimeter wall at y = [0, 5],
+    # locally thickening the wall inward and providing extra PETG
+    # around the clearance hole. Matching cross-sections on body and
+    # cap also give the gasket a consistent bearing surface at each
+    # screw position.
     for (px, pz) in INSERT_POSITIONS_FOR_SIDE_PLUS_1:
         px_signed = px * side
         boss = (
-            _wp_at(px_signed, cap_base_thickness, pz)
+            _wp_at(px_signed, 0.0, pz)
             .circle(boss_radius)
             .extrude(cap_wall_height)
         )
@@ -404,9 +418,11 @@ def build_reservoir_cap(side=1):
             .fillet(outer_corner_fillet_radius)
         )
 
-    # Counterbored screw holes at each insert position. ø3.5 clearance
-    # passes through the full cap thickness; ø6 × 3 mm counterbore at
-    # the top recesses the M3 SHCS head fully below the cap's top face.
+    # Counterbored screw holes. The counterbore recesses the M3 SHCS
+    # head 3 mm into the base plate (y = [5, 8.1], opening at the cap's
+    # top face); the ø3.5 clearance hole continues through the rest of
+    # the cap so the screw shaft can pass through the perimeter wall,
+    # gasket, and into the body's insert pocket below.
     for (px, pz) in INSERT_POSITIONS_FOR_SIDE_PLUS_1:
         px_signed = px * side
         clearance = (
