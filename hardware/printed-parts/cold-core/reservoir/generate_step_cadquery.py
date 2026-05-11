@@ -673,8 +673,8 @@ def build_reservoir_body(side=1):
         bulkhead_panel_z_min, bulkhead_panel_z_max, bulkhead_panel_hole_diameter,
     ))                                       # panel hole ⌀17
     body = body.cut(_z_pocket_cut(
-        bulkhead_panel_z_max, bulkhead_dry_end_z, bulkhead_pocket_diameter,
-    ))                                       # dry chamber ⌀23
+        bulkhead_panel_z_max, outer_z_max, bulkhead_pocket_diameter,
+    ))                                       # dry chamber ⌀23 — extends to +Z outer face
 
     # Well — a vertical ⌀6.5 hole at (port_x, _, bulkhead_wet_end_z),
     # dropping from the floor surface (around y=baseline) down to
@@ -692,18 +692,16 @@ def build_reservoir_body(side=1):
     )
     body = body.cut(well_cut)
 
-    # Tube exit — ⌀6.5 hole from the pocket's +Z (dry) end through the
-    # remaining floor PETG and the +Z outer wall, exiting at z=outer_z_max.
-    tube_exit_cut = (
-        cq.Workplane(cq.Plane(
-            origin=(port_x_signed, port_position_y, bulkhead_dry_end_z - 0.1),
-            xDir=(1, 0, 0),
-            normal=(0, 0, 1),
-        ))
-        .circle(port_tube_diameter / 2)
-        .extrude((outer_z_max - bulkhead_dry_end_z) + 0.2)
-    )
-    body = body.cut(tube_exit_cut)
+    # No separate tube exit: the dry chamber already opens through the
+    # +Z outer face. After install, the bulkhead body occupies the −Z
+    # 17 mm of the chamber (z=panel_z_max..bulkhead_dry_end_z=64); the
+    # remaining ~6 mm (z=64..outer_z_max=70) is just clearance for the
+    # tube that pushes into the dry collet. The ⌀23 outer-face opening
+    # is also the install path — slide the bulkhead in from outside.
+    # The PETG that was previously sealing the +Z outer face at the
+    # bulkhead's y range wasn't doing structural work — the bulkhead is
+    # recessed in the floor (y < floor_baseline_y), well below any
+    # syrup-containing wall surface.
 
     return body
 
