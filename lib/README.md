@@ -34,7 +34,7 @@ That's it. There is no central router config, no decorator metadata, no plugin r
 |---|---|---|
 | [`shell.js`](shell.js) | — | Shared `<head>` + nav + footer. Owns the synchronous pre-paint class flips and the `<script src="/boot.js" defer>` tag that every page loads. |
 | [`landing.js`](landing.js) | `/` | Marketing landing + signup form. Inline JS extracted to [`public/landing.js`](../public/landing.js). |
-| [`blog.js`](blog.js) | `/blog`, `/blog/:filename` | Markdown posts from [`posts/`](../posts/). Inline JS in [`public/blog.js`](../public/blog.js). |
+| [`blog.js`](blog.js) | `/blog` | Markdown posts from [`posts/`](../posts/), rendered into the index page (individual posts are `#post-<slug>` anchors). Inline JS in [`public/blog.js`](../public/blog.js). |
 | [`viewer-pages.js`](viewer-pages.js) | `/3d`, `/charts` | Both pages render [`templates/viewer-body.html`](templates/viewer-body.html), which loads `public/js/viewer/main.js`. The decision of "show parts vs charts" is made client-side by `currentSection()`. |
 | [`viewer-routes.js`](viewer-routes.js) | API surface for the viewer | `/api/{steps,dxf,mermaid}` (file lists), `/steps/*`, `/dxfs/*`, `/api/mermaid-content/*` (file passthroughs). Walks `hardware/` via [`walk.js`](walk.js). |
 | [`settings.js`](settings.js) | `/settings` | Per-user toggles. Inline JS in [`public/settings.js`](../public/settings.js). |

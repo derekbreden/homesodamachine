@@ -40,7 +40,7 @@ The single shared shell is [`lib/shell.js`](lib/shell.js). Every page goes throu
 | [`server.js`](server.js) | — | Entry; orchestrates the pool, push init, route mounts, SSE diff loop on prod boot. |
 | [`lib/shell.js`](lib/shell.js) | — | `renderHead` / `renderNav` / `renderFooter`. Owns the synchronous pre-paint class flips and the `<script src="/boot.js" defer>` tag. |
 | [`lib/landing.js`](lib/landing.js) | `/` | Marketing landing + email signup form. |
-| [`lib/blog.js`](lib/blog.js) | `/blog`, `/blog/:filename` | Markdown posts under [`posts/`](posts/). |
+| [`lib/blog.js`](lib/blog.js) | `/blog` | Markdown posts under [`posts/`](posts/), rendered into the one index page. Individual posts are `#post-<slug>` anchors. |
 | [`lib/viewer-pages.js`](lib/viewer-pages.js) | `/3d`, `/charts` | The parts/charts viewer pages — both render [`lib/templates/viewer-body.html`](lib/templates/viewer-body.html). |
 | [`lib/viewer-routes.js`](lib/viewer-routes.js) | `/api/{steps,dxf,mermaid}`, `/steps/*`, `/dxfs/*`, `/api/mermaid-content/*` | API for the viewer's file lists and content. |
 | [`lib/settings.js`](lib/settings.js) | `/settings` | Per-user toggles: dev-mode, FCM enable, ratio config. |
