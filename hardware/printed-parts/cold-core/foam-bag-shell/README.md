@@ -261,9 +261,60 @@ This drives several dimension choices:
 - The **tank_support_wedge**'s outer face coincides with the
   tank_copper_shell's inner wall.
 
+## Print settings
+
+Current slicer save: [`foam-bag-shell.3mf`](foam-bag-shell.3mf) (Bambu
+Studio 02.06.01.55). Plate contains three objects sliced together:
+`foam-bag-shell` + `copper-inlet-plug` + `copper-outlet-plug`. The
+`foam-cap` and `foam-cap-lid` are printed on a separate plate.
+
+### Chamber exhaust fan (the key fix)
+
+Large thin-walled PETG parts on the Bambu H2C warp when the chamber
+heat-soaks. The fix is to run the **chamber exhaust fan** during the
+print — added to the **filament start g-code** in Bambu Studio:
+
+```gcode
+M106 P2 S153
+```
+
+`P2` selects the chamber exhaust fan (P0 = part-cooling, P1 = aux);
+`S153` is ~60 % of 255. Validated on the 2 mm-wall print after 1 mm
+full-size attempts failed from heat soak; with the fan on, the
+1 mm walls succeed (see commit `24605cb`).
+
+### Printer / profile
+
+- **Printer:** Bambu Lab H2C, **0.8 mm nozzle**
+- **Print profile:** `0.40mm Standard @BBL H2C 0.8 nozzle`
+- **Layer height:** 0.4 mm (initial layer 0.4 mm)
+- **Line width:** 0.82 mm (inner / outer / top all 0.82)
+- **Wall loops:** 2
+- **Top / bottom shells:** 4 / 3
+- **Sparse infill:** 15 % grid
+- **Speeds (mm/s):** outer 200, inner 300, infill 350, top 200,
+  travel 1000, initial layer 50
+- **Supports:** off (threshold 30°)
+- **Brim:** auto, 5 mm width, 0.1 mm object gap, 0.15 mm elephant-foot
+  compensation
+- **Wrapping detection:** off
+
+### Filament
+
+- **Material:** Bambu PETG Basic @BBL H2C
+- **Nozzle temp:** 250 °C (initial layer 245 °C)
+- **Bed:** Textured PEI Plate at 70 °C
+- **Chamber:** passive (`chamber_temperatures: 0` — fan-cooled by the
+  M106 P2 S153 above)
+- **Flow ratio:** 0.97
+- **Max volumetric speed:** 21 mm³/s (28 on the second nozzle slot)
+- **Part-cooling fan:** max 40 %, min 20 %, overhang 90 % at ≥ 10 %
+  overhang, closed first 3 layers
+- **Auxiliary fan (P1):** on
+
 ## Reference
 
-- [`../pump-case/generate_step_cadquery.py`](../pump-case/generate_step_cadquery.py)
+- [`../../flavor/pump-case/generate_step_cadquery.py`](../../flavor/pump-case/generate_step_cadquery.py)
   — gold standard for the PETG-enclosure pattern in this repo.
 
 The cadquery venv lives at `tools/cad-venv/bin/python` (cadquery is not
