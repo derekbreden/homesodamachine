@@ -22,6 +22,17 @@ from _cadq_export import export_step
 # the bag-pocket axis (two cavities sit on opposite sides), +Z is
 # perpendicular to it.
 xz_plane_y_up = cq.Plane(origin=(0, 0, 0), xDir=(1, 0, 0), normal=(0, 1, 0))
+
+
+def _wp_at(x, y, z):
+    """A Workplane parallel to the xz plane at world point (x, y, z), normal
+    +Y. Use this instead of ``cq.Workplane(xz_plane_y_up).workplane(origin=(x, y, z))``
+    — the latter silently drops the Y component (which is along the
+    plane's normal, not the in-plane direction), leaving every
+    extrusion stuck at world Y=0."""
+    return cq.Workplane(
+        cq.Plane(origin=(x, y, z), xDir=(1, 0, 0), normal=(0, 1, 0))
+    )
 #
 # -------------------------------------------------------
 
@@ -196,14 +207,12 @@ def _build_outer_envelope(side, outer_far_x_abs, outer_z_max, outer_centerward_r
     cutout on the centerward side. Used for both reservoir-body and
     cap footprints."""
     rect = (
-        cq.Workplane(xz_plane_y_up)
-        .workplane(origin=(side * outer_far_x_abs / 2, floor_y, 0))
+        _wp_at(side * outer_far_x_abs / 2, floor_y, 0)
         .rect(outer_far_x_abs, 2 * outer_z_max)
         .extrude(height)
     )
     cyl = (
-        cq.Workplane(xz_plane_y_up)
-        .workplane(origin=(0, floor_y, 0))
+        _wp_at(0, floor_y, 0)
         .circle(outer_centerward_radius)
         .extrude(height)
     )
@@ -295,16 +304,14 @@ def build_reservoir_body(side=1):
     for (px, pz) in INSERT_POSITIONS_FOR_SIDE_PLUS_1:
         px_signed = px * side
         boss = (
-            cq.Workplane(xz_plane_y_up)
-            .workplane(origin=(px_signed, boss_bottom_y, pz))
+            _wp_at(px_signed, boss_bottom_y, pz)
             .circle(boss_radius)
             .extrude(boss_height)
         )
         body = body.union(boss)
 
         pocket = (
-            cq.Workplane(xz_plane_y_up)
-            .workplane(origin=(px_signed, pocket_bottom_y, pz))
+            _wp_at(px_signed, pocket_bottom_y, pz)
             .circle(insert_pocket_radius)
             .extrude(insert_pocket_depth + 0.1)  # +0.1 to break the top surface cleanly
         )
@@ -361,32 +368,30 @@ def build_reservoir_cap(side=1):
 
     cap = base.union(perimeter_wall)
 
-    # Counterbored screw holes at each insert position.
     cap_total_height = cap_base_thickness + cap_wall_height
 
+    # Cap-side bosses at each insert position, mirroring the body bosses.
+    # Without these, the ø6 counterbore (= cap_wall_width) extends past
+    # the perimeter wall's inner edge at the mid-edge positions, leaving
+    # the counterbore open into the cap's central opening on the inside —
+    # the screw head wouldn't be fully recessed. Each boss is a ø8
+    # cylindrical thickening that sits on top of the base plate and runs
+    # the full height of the perimeter wall, providing the same 1 mm of
+    # PETG on either side of the counterbore that the corner positions
+    # naturally have from the L-shaped wall.
     for (px, pz) in INSERT_POSITIONS_FOR_SIDE_PLUS_1:
         px_signed = px * side
-        clearance = (
-            cq.Workplane(xz_plane_y_up)
-            .workplane(origin=(px_signed, -0.1, pz))
-            .circle(cap_clearance_hole_diameter / 2)
-            .extrude(cap_total_height + 0.2)
+        boss = (
+            _wp_at(px_signed, cap_base_thickness, pz)
+            .circle(boss_radius)
+            .extrude(cap_wall_height)
         )
-        cap = cap.cut(clearance)
-
-        counterbore = (
-            cq.Workplane(xz_plane_y_up)
-            .workplane(
-                origin=(px_signed, cap_total_height - cap_counterbore_depth, pz),
-            )
-            .circle(cap_counterbore_diameter / 2)
-            .extrude(cap_counterbore_depth + 0.1)
-        )
-        cap = cap.cut(counterbore)
+        cap = cap.union(boss)
 
     # Fillet the two exterior sharp corners (same outer footprint as
-    # the body, so same sharp tabs). Inner perimeter-wall corners are
-    # not user-visible and left alone for now.
+    # the body, so same sharp tabs). Done before drilling so the
+    # counterbore-edge geometry doesn't confuse the edge selector.
+    # Inner perimeter-wall corners are not user-visible and left alone.
     outer_corner_x = math.sqrt(outer_centerward_radius**2 - outer_z_max**2)
     y_mid_cap = cap_total_height / 2
 
@@ -398,6 +403,27 @@ def build_reservoir_cap(side=1):
             ))
             .fillet(outer_corner_fillet_radius)
         )
+
+    # Counterbored screw holes at each insert position. ø3.5 clearance
+    # passes through the full cap thickness; ø6 × 3 mm counterbore at
+    # the top recesses the M3 SHCS head fully below the cap's top face.
+    for (px, pz) in INSERT_POSITIONS_FOR_SIDE_PLUS_1:
+        px_signed = px * side
+        clearance = (
+            _wp_at(px_signed, -0.1, pz)
+            .circle(cap_clearance_hole_diameter / 2)
+            .extrude(cap_total_height + 0.2)
+        )
+        cap = cap.cut(clearance)
+
+        counterbore = (
+            _wp_at(
+                px_signed, cap_total_height - cap_counterbore_depth, pz,
+            )
+            .circle(cap_counterbore_diameter / 2)
+            .extrude(cap_counterbore_depth + 0.1)
+        )
+        cap = cap.cut(counterbore)
 
     return cap
 
