@@ -6,6 +6,27 @@ flowchart TD
   %% on switched mains via Teyleten relay #1 (ESP32 GPIO 14). The 12 V
   %% diaphragm pump is gated by Teyleten relay #2 (ESP32 GPIO 4) so
   %% firmware can keep refill off during an active dispense.
+  %%
+  %% Physical placement:
+  %% - The C14 inlet, AC distribution, PSU, both Teyleten relays, the
+  %%   ESP32, MCP23017, ULN2803A pair, L298N, and voltage regulators
+  %%   all sit on a single electronics shelf at the top-back of the
+  %%   enclosure, behind the rear-panel C14 inlet.
+  %% - The compressor sits middle-bottom inside a fire-rated metal
+  %%   shroud (UL 60335-2-89 conformance for the R-600a charge); its
+  %%   clip-on PTC start relay + overload module is co-located with
+  %%   the compressor body inside the shroud.
+  %% - Teyleten relay #1 stays on the SHELF, OUTSIDE the shroud.
+  %%   Only switched AC enters the shroud (one wire bundle through one
+  %%   grommet: switched H + N + chassis G). This avoids placing an
+  %%   arcing contact inside the protected hydrocarbon-refrigerant
+  %%   compartment.
+  %% - The condenser fan motor is at the front of the enclosure
+  %%   (where the condenser exhausts) and is OUTSIDE the shroud; it
+  %%   shares the relay #1 switched output via a short tap.
+  %%
+  %% See `ac-wiring-schedule.md` for run-by-run gauges + lengths and
+  %% `../cut-parts/compressor-shroud/` for the shroud part.
 
   subgraph AC_Inlet["AC Inlet"]
     C14["C14 panel-mount inlet\n(MXR B07DCXKNXQ)"]
@@ -16,9 +37,11 @@ flowchart TD
   end
 
   subgraph Refrigeration["Refrigeration  (harvested ice-maker)"]
-    RELAY["Teyleten 3.3 V relay #1\n(opto-isolated, GPIO 14)"]
-    COMP_AC["AC hermetic compressor\n+ condenser fan\n(Frigidaire EFIC117-SS donor)"]
-    RELAY ==>|"switched AC hot"| COMP_AC
+    RELAY["Teyleten 3.3 V relay #1\n(opto-isolated, GPIO 14)\nLOCATION: electronics shelf"]
+    COMP_AC["AC hermetic compressor\n+ clip-on PTC start relay/overload\n(Frigidaire EFIC117-SS donor)\nLOCATION: inside compressor shroud"]
+    COND_FAN["Condenser fan motor\nLOCATION: front of enclosure"]
+    RELAY ==>|"switched AC hot\n(through shroud grommet)"| COMP_AC
+    RELAY ==>|"switched AC hot"| COND_FAN
   end
 
   subgraph Regulation["Voltage Regulation"]
@@ -74,13 +97,14 @@ flowchart TD
   REG_3V3 -->|"3.3 V"| I2C_Devices
 
   %% Power paths (red, thick).
-  %% 0    = Teyleten relay #1 -> compressor + fan (switched AC)
-  %% 1    = Teyleten relay #2 -> diaphragm pump (switched 12 V)
-  %% 2-3  = L298 -> peristaltic pumps
-  %% 4    = ULN2803A -> solenoid valves
-  %% 5-6  = C14 -> relay #1, C14 -> PSU (AC mains)
-  %% 7-10 = PSU 12 V trunk to all subsystems
-  linkStyle 0,1,2,3,4,5,6,7,8,9,10 stroke:#c44,stroke-width:3px
+  %% 0    = relay #1 -> compressor (switched AC, through shroud)
+  %% 1    = relay #1 -> condenser fan (switched AC)
+  %% 2    = Teyleten relay #2 -> diaphragm pump (switched 12 V)
+  %% 3-4  = L298 -> peristaltic pumps
+  %% 5    = ULN2803A -> solenoid valves
+  %% 6-7  = C14 -> relay #1, C14 -> PSU (AC mains)
+  %% 8-11 = PSU 12 V trunk to all subsystems
+  linkStyle 0,1,2,3,4,5,6,7,8,9,10,11 stroke:#c44,stroke-width:3px
   %% Regulated logic-level supplies (5V, 3.3V): white workhorse.
-  %% 11-13 = REG_5V -> REG_3V3, REG_5V -> MCUs, REG_3V3 -> I2C devices.
-  linkStyle 11,12,13 stroke:#ccc,stroke-width:2px
+  %% 12-14 = REG_5V -> REG_3V3, REG_5V -> MCUs, REG_3V3 -> I2C devices.
+  linkStyle 12,13,14 stroke:#ccc,stroke-width:2px
