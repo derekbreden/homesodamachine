@@ -729,14 +729,14 @@ def build_reservoir_body(side=1):
 
     port_x_signed = port_position_x * side
 
-    # Bulkhead pocket — STEPPED horizontal cavity, axis +Z, conforming
-    # to the bulkhead's body geometry. Three sequential cuts: wet
-    # chamber, panel hole, dry chamber. The PETG annulus that remains
-    # between the wet and dry chambers (around the panel hole, at
-    # z=bulkhead_panel_z_min..z=bulkhead_panel_z_max) IS the panel
-    # the bulkhead's threading section clamps — flange seats on its
-    # −Z face, locknut bears on its +Z face. Bulkhead is fully recessed
-    # inside the thick floor.
+    # Bulkhead pocket — horizontal cavity along +Z. Three logical
+    # sections: stepped wet chamber (conforming to the bulkhead body's
+    # release-ring / collet / flange profile), panel hole (⌀17 through
+    # the PETG annulus that the threading section clamps), and the
+    # dry section (a 2 mm slab only — see the slab cut below for why).
+    # The annulus between the wet and dry sections at
+    # z=bulkhead_panel_z_min..z=bulkhead_panel_z_max IS the panel —
+    # flange seats on its −Z face, locknut bears on its +Z face.
     def _z_pocket_cut(z_start, z_end, diameter):
         return (
             cq.Workplane(cq.Plane(
@@ -774,44 +774,49 @@ def build_reservoir_body(side=1):
     body = body.cut(_z_pocket_cut(
         bulkhead_panel_z_min, bulkhead_panel_z_max, bulkhead_panel_hole_diameter,
     ))                                       # panel hole ⌀17
-    body = body.cut(_z_pocket_cut(
-        bulkhead_panel_z_max, outer_z_max, bulkhead_pocket_diameter,
-    ))                                       # dry chamber ⌀23 — extends to +Z outer face
-
-    # Open the dry chamber's FLOOR — the analog of the wet ceiling cut.
-    # Same logic: the PETG below the dry chamber's centerline (y=16)
-    # down to the reservoir's outer floor (y=1) isn't doing structural
-    # work for syrup containment (the dry side is outside the syrup
-    # path; the panel + locknut already seal). Removing it saves
-    # material and gives the bulkhead a second install path (slide in
-    # from below). The dry chamber's upper half stays cylindrical
-    # (snug to the body's upper half).
-    dry_floor_box_cut = (
-        _wp_at(
-            port_x_signed,
-            outer_floor_bottom_y,
-            (bulkhead_panel_z_max + outer_z_max) / 2.0,
-        )
-        .rect(bulkhead_pocket_diameter, outer_z_max - bulkhead_panel_z_max)
-        .extrude(port_position_y - outer_floor_bottom_y)
+    # Wide-open dry section: instead of cutting a ⌀23 dry chamber + a
+    # dry-floor box (the symmetric counterpart to the wet ceiling), the
+    # dry section keeps ONLY a 2 mm PETG ceiling slab spanning the
+    # entire dry footprint (z=bulkhead_panel_z_max..outer_z_max), with
+    # the slab's top face on the same dry slope as the wedge above the
+    # panel. Everything below the slab is removed — empty space all the
+    # way down to the reservoir's outer floor and out through the side
+    # walls in the dry z-range — giving a much larger opening than a
+    # ⌀23 cylinder for fiddling with the locknut, collet, and tube
+    # push-in from below. The slab is supported on its −Z edge by the
+    # panel material at z=bulkhead_panel_z_max and along its perimeter
+    # by the +X / +Z wall material above slab_top. The slab subsumes
+    # both the dry-chamber cylinder and the dry-floor box — the
+    # bulkhead is now installed by sliding it in from below into a
+    # fully open dry section, then up through the panel hole.
+    slab_thickness = 2.0
+    slab_bottom_plane = cq.Plane(
+        origin=(0, floor_baseline_y - slab_thickness, bulkhead_panel_z_min),
+        xDir=(1, 0, 0),
+        normal=(0, 1, -slope_rate),
     )
-    body = body.cut(dry_floor_box_cut)
+    below_slab = cq.Workplane(slab_bottom_plane).rect(500, 500).extrude(-500)
+    dry_section_z = (
+        cq.Workplane(cq.Plane(
+            origin=(0, 0, bulkhead_panel_z_max),
+            xDir=(1, 0, 0),
+            normal=(0, 0, 1),
+        ))
+        .rect(500, 500)
+        .extrude(500)
+    )
+    body = body.cut(below_slab.intersect(dry_section_z))
 
     # No well needed: with the wet ceiling open, syrup drains directly
     # from the cavity into the wet chamber and around the bulkhead
     # body's narrower wet-collet section, reaching the port at the
     # body's −Z face without any separate vertical channel.
 
-    # No separate tube exit: the dry chamber already opens through the
-    # +Z outer face. After install, the bulkhead body occupies the −Z
-    # 17 mm of the chamber (z=panel_z_max..bulkhead_dry_end_z=64); the
-    # remaining ~6 mm (z=64..outer_z_max=70) is just clearance for the
-    # tube that pushes into the dry collet. The ⌀23 outer-face opening
-    # is also the install path — slide the bulkhead in from outside.
-    # The PETG that was previously sealing the +Z outer face at the
-    # bulkhead's y range wasn't doing structural work — the bulkhead is
-    # recessed in the floor (y < floor_baseline_y), well below any
-    # syrup-containing wall surface.
+    # No separate tube exit: the dry section is wide open from below,
+    # +X, and +Z (all bounded only by the 2 mm slab + the perimeter
+    # wall material above slab_top). After install, the bulkhead body
+    # passes through the panel hole and its dry collet projects into
+    # the open dry section; the tube push-in is unobstructed.
 
     return body
 
