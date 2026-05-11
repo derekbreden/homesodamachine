@@ -294,29 +294,24 @@ bulkhead_dry_end_z = bulkhead_wet_end_z + bulkhead_pocket_length   # 65
 # so the boss tucks into the corner of the cavity. The +Z outer
 # face beyond inner_z_max is the regular wall, which the ⌀6.5 tube
 # channel passes through.
-_boss_pad = 4.0
-boss_x_min = port_position_x - bulkhead_pocket_diameter / 2 - _boss_pad  # 72.5
-boss_y_top = port_position_y + bulkhead_pocket_diameter / 2 + 3.0       # 30.5 (≥3 mm PETG above pocket)
+# The floor thickens uniformly across the cavity to a baseline whose
+# inner-top y sits just above the bulkhead pocket, so the bulkhead body
+# is fully encased in PETG everywhere. The slope rises ON TOP of this
+# baseline — every point of the floor surface is at least `floor_baseline_y`,
+# and rises by `floor_slope_rise` to the far −Z wall. A WELL at the
+# bulkhead's z drops from the baseline straight down to the wet-collet
+# port; its bottom (= port_inlet_bottom_y) is the lowest point of the
+# syrup volume. Outer floor stays flat at y=1 for FDM printability.
 #
-# Sloped inner floor — a single tilted plane that drains in +Z
-# direction toward the boss's −Z face. Its lowest line runs across
-# the full X width of the cavity at z=boss_z_min, y=port_inlet_bottom_y;
-# this is the same line the wet-collet port sits on, so syrup at the
-# floor's low level reaches the port across the full X range. The
-# slope rises floor_slope_rise mm at the far −Z wall (z=-inner_z_max).
+# This follows from: bulkhead-must-exit-the-side + liquid-must-flow-to-
+# bulkhead + must-be-printable. The bulkhead inlet is the lowest point;
+# everything else higher; thickening + slope instead of raising.
 #
-# A tilted plane drains to a LINE (not a point), so syrup at the X
-# extremes pools along the line and the pump's suction draws it
-# toward the port; less aggressive than a cone-to-point apex, but
-# the STEP geometry is just a flat tilted face — easier to reason
-# about and modify than the conical surface a radial slope would
-# require.
+floor_baseline_y = port_position_y + bulkhead_pocket_diameter / 2 + 0.5  # 28 — just above pocket top y=27.5
+well_diameter = port_tube_diameter  # 6.5
 #
-# Outer floor stays flat at y=1 for FDM printability; the slope is
-# additive material above the standard 4 mm floor.
-#
-port_inlet_bottom_y = port_position_y - port_tube_diameter / 2  # 12.75
-floor_slope_rise = 6.0
+port_inlet_bottom_y = port_position_y - port_tube_diameter / 2  # 12.75 — = lowest point of the syrup volume
+floor_slope_rise = 6.0  # mm above floor_baseline_y at the far −Z wall
 #
 # -------------------------------------------------------
 
@@ -605,78 +600,47 @@ def build_reservoir_body(side=1):
         body = body.cut(pocket)
 
     # ─────────────────────────────────────────────────────
-    # Outlet bulkhead pocket + sloped floor
+    # Thick sloped floor + bulkhead pocket + well + tube exit
     # ─────────────────────────────────────────────────────
-    # Slope: a single tilted plane that drains in +Z direction toward
-    # the boss's −Z face. Its lowest line (constant y, constant z) is
-    # at (any x, port_inlet_bottom_y, boss_z_min) — the same line the
-    # bulkhead's wet collet port sits on — so syrup at the floor's low
-    # level reaches the wet port across the full X range of the cavity.
-    # Rises floor_slope_rise mm at z=−inner_z_max (the far −Z wall).
-    boss_wet_cap_thickness = 2.0
-    boss_z_min = bulkhead_wet_end_z - boss_wet_cap_thickness  # 27
-    slope_z_distance = boss_z_min - (-inner_z_max)  # 93
+    # Add a single wedge on top of the original 4 mm floor that
+    # thickens the floor uniformly to floor_baseline_y at z >=
+    # bulkhead_wet_end_z, and rises further up to
+    # floor_baseline_y + floor_slope_rise at z = -inner_z_max.
+    # Floor inner surface y is max(slope_plane(z), floor_baseline_y).
+    slope_z_distance = bulkhead_wet_end_z - (-inner_z_max)
     slope_rate = floor_slope_rise / slope_z_distance
-
-    # Plane normal (0, 1, slope_rate) — above-the-plane = the cavity
-    # side. Half-space "above slope" used as a cut tool to leave
-    # material below.
     slope_plane = cq.Plane(
-        origin=(0, port_inlet_bottom_y, boss_z_min),
+        origin=(0, floor_baseline_y, bulkhead_wet_end_z),
         xDir=(1, 0, 0),
         normal=(0, 1, slope_rate),
     )
-    above_slope = (
-        cq.Workplane(slope_plane)
-        .rect(500, 500)
-        .extrude(500)
+    above_slope = cq.Workplane(slope_plane).rect(500, 500).extrude(500)
+    baseline_plane = cq.Plane(
+        origin=(0, floor_baseline_y, 0),
+        xDir=(1, 0, 0),
+        normal=(0, 1, 0),
     )
+    above_baseline = cq.Workplane(baseline_plane).rect(500, 500).extrude(500)
+    above_cavity_floor = above_slope.intersect(above_baseline)
 
-    # Wedge: inner-footprint extrusion from y=inner_floor_top_y up to
-    # a safe height above the slope's max y, then cut by the above-
-    # slope half-space — leaves material BELOW the slope plane.
-    wedge_top_y = port_inlet_bottom_y + floor_slope_rise + 1.0
+    wedge_top_y_safe = floor_baseline_y + floor_slope_rise + 2.0
     wedge_extrusion = _build_outer_envelope(
         side, inner_far_x_abs, inner_z_max, inner_centerward_radius,
-        inner_floor_top_y, wedge_top_y - inner_floor_top_y,
+        inner_floor_top_y, wedge_top_y_safe - inner_floor_top_y,
     )
-    wedge = wedge_extrusion.cut(above_slope)
-
-    # Boss footprint (rectangle in XZ) — the local thickening that
-    # houses the bulkhead. Extends to the inner +X face and the inner
-    # +Z face of the cavity.
-    boss_x_max = inner_far_x_abs
-    boss_z_max = inner_z_max
-    boss_x_center = (boss_x_min + boss_x_max) / 2
-    boss_z_center = (boss_z_min + boss_z_max) / 2
-    boss_x_width = boss_x_max - boss_x_min
-    boss_z_depth = boss_z_max - boss_z_min
-
-    # Cut the boss footprint out of the wedge so the boss (full height
-    # to y=boss_y_top) takes over in that region.
-    boss_footprint = (
-        _wp_at(side * boss_x_center, inner_floor_top_y, boss_z_center)
-        .rect(boss_x_width, boss_z_depth)
-        .extrude(wedge_top_y - inner_floor_top_y)
-    )
-    wedge = wedge.cut(boss_footprint)
-
-    # The boss itself: same rectangular footprint, extruded up to
-    # boss_y_top (above the bulkhead pocket's upper edge).
-    boss = (
-        _wp_at(side * boss_x_center, inner_floor_top_y, boss_z_center)
-        .rect(boss_x_width, boss_z_depth)
-        .extrude(boss_y_top - inner_floor_top_y)
-    )
-
-    body = body.union(wedge).union(boss)
+    wedge = wedge_extrusion.cut(above_cavity_floor)
+    body = body.union(wedge)
 
     port_x_signed = port_position_x * side
 
-    # Bulkhead pocket — horizontal cylinder inside the boss, axis +Z,
-    # spanning the bulkhead's body length with 2 mm PETG cap walls on
-    # each axial end.
-    bulkhead_pocket = (
+    # Bulkhead pocket — horizontal cylinder buried in the thick floor,
+    # axis +Z, spanning the bulkhead body's length. Centered at
+    # y=port_position_y so the body's top edge (y=port_position_y +
+    # bulkhead_pocket_diameter/2 = 27.5) is just below the floor's
+    # baseline surface (y=28). The wet collet's tube push-in port is
+    # the ⌀6.5 disc at z=bulkhead_wet_end_z on this cylinder's −Z face,
+    # facing −Z; the well opens into it from above.
+    bulkhead_pocket_cut = (
         cq.Workplane(cq.Plane(
             origin=(port_x_signed, port_position_y, bulkhead_wet_end_z),
             xDir=(1, 0, 0),
@@ -685,29 +649,27 @@ def build_reservoir_body(side=1):
         .circle(bulkhead_pocket_diameter / 2)
         .extrude(bulkhead_pocket_length)
     )
-    body = body.cut(bulkhead_pocket)
+    body = body.cut(bulkhead_pocket_cut)
 
-    # Wet collet port — ⌀6.5 hole through the boss's -Z cap wall,
-    # connecting the syrup volume to the bulkhead's wet collet face.
-    # The bottom edge of this hole sits at y=port_inlet_bottom_y =
-    # the slope apex, so syrup at the floor's lowest level drains
-    # directly in.
-    wet_port = (
-        cq.Workplane(cq.Plane(
-            origin=(port_x_signed, port_position_y, boss_z_min - 0.1),
-            xDir=(1, 0, 0),
-            normal=(0, 0, 1),
-        ))
-        .circle(port_tube_diameter / 2)
-        .extrude((bulkhead_wet_end_z - boss_z_min) + 0.2)
+    # Well — a vertical ⌀6.5 hole at (port_x, _, bulkhead_wet_end_z),
+    # dropping from the floor surface (around y=baseline) down to
+    # port_inlet_bottom_y (=12.75), which is the bottom edge of the
+    # bulkhead's wet-collet tube port and the lowest point of the
+    # syrup volume. The well's z position (= bulkhead_wet_end_z) puts
+    # its lateral surface flush with the bulkhead pocket's −Z face;
+    # the two cavities meet through the disc that is the wet-collet
+    # port itself.
+    well_top_y = floor_baseline_y + 2.0  # extends safely above floor surface
+    well_cut = (
+        _wp_at(port_x_signed, port_inlet_bottom_y, bulkhead_wet_end_z)
+        .circle(well_diameter / 2)
+        .extrude(well_top_y - port_inlet_bottom_y)
     )
-    body = body.cut(wet_port)
+    body = body.cut(well_cut)
 
-    # Tube exit channel — ⌀6.5 hole from the bulkhead's dry end
-    # through the remaining boss PETG and the +Z outer wall, exiting
-    # at z=outer_z_max for the 1/4" tube to continue out into the
-    # foam-bag-shell pass-through.
-    tube_exit = (
+    # Tube exit — ⌀6.5 hole from the pocket's +Z (dry) end through the
+    # remaining floor PETG and the +Z outer wall, exiting at z=outer_z_max.
+    tube_exit_cut = (
         cq.Workplane(cq.Plane(
             origin=(port_x_signed, port_position_y, bulkhead_dry_end_z - 0.1),
             xDir=(1, 0, 0),
@@ -716,7 +678,7 @@ def build_reservoir_body(side=1):
         .circle(port_tube_diameter / 2)
         .extrude((outer_z_max - bulkhead_dry_end_z) + 0.2)
     )
-    body = body.cut(tube_exit)
+    body = body.cut(tube_exit_cut)
 
     return body
 
