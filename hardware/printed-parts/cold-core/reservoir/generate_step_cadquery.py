@@ -283,17 +283,31 @@ port_position_x = 88.0
 port_position_y = 16.0
 port_tube_diameter = 6.5                # 1/4" OD tube clearance
 #
-bulkhead_pocket_diameter = 23.0         # ø22.9 flange + 0.1 clearance
-bulkhead_pocket_length = 35.0           # ~34.5 catalog length + 0.5
-bulkhead_wet_end_z = 30.0               # z of boss's −Z face = wet collet outer face
-bulkhead_dry_end_z = bulkhead_wet_end_z + bulkhead_pocket_length   # 65
+# The pocket is a STEPPED cavity matching the bulkhead's body
+# geometry: a wide wet-side chamber for the flange + wet collet, a
+# narrower panel hole through the middle that the threading clamps
+# against, then a wide dry-side chamber for the locknut + dry collet.
+# The annular ring of PETG between the wet and dry chambers IS the
+# panel the bulkhead clamps — its −Z face seats the flange and its
+# +Z face is where the locknut bears.
 #
-# Boss footprint — a rectangle in XZ that contains the bulkhead
-# pocket with PETG margin on each side. Extends to the inner +X
-# face and the inner +Z face (z=inner_z_max, the boss's +Z edge),
-# so the boss tucks into the corner of the cavity. The +Z outer
-# face beyond inner_z_max is the regular wall, which the ⌀6.5 tube
-# channel passes through.
+# Section lengths along +Z are estimates from typical JG bulkhead-
+# union proportions (catalog total length 34.5 mm; threading section
+# 3–5 mm panel range). Adjust if a caliper measurement of the part
+# in hand disagrees.
+#
+bulkhead_pocket_diameter = 23.0         # ø22.9 flange + 0.1 clearance (snug fit)
+bulkhead_panel_hole_diameter = 17.0     # JG catalog spec for the 1/4" body family (0.67")
+bulkhead_wet_chamber_length = 12.0      # wet flange + wet collet
+bulkhead_panel_thickness = 5.0          # = panel + threading section
+bulkhead_dry_chamber_length = 17.0      # locknut + dry collet
+bulkhead_pocket_length = (
+    bulkhead_wet_chamber_length + bulkhead_panel_thickness + bulkhead_dry_chamber_length
+)                                       # 34
+bulkhead_wet_end_z = 30.0
+bulkhead_panel_z_min = bulkhead_wet_end_z + bulkhead_wet_chamber_length  # 42
+bulkhead_panel_z_max = bulkhead_panel_z_min + bulkhead_panel_thickness   # 47
+bulkhead_dry_end_z = bulkhead_wet_end_z + bulkhead_pocket_length         # 64
 # The floor thickens uniformly across the cavity to a baseline whose
 # inner-top y sits just above the bulkhead pocket, so the bulkhead body
 # is fully encased in PETG everywhere. The slope rises ON TOP of this
@@ -633,23 +647,34 @@ def build_reservoir_body(side=1):
 
     port_x_signed = port_position_x * side
 
-    # Bulkhead pocket — horizontal cylinder buried in the thick floor,
-    # axis +Z, spanning the bulkhead body's length. Centered at
-    # y=port_position_y so the body's top edge (y=port_position_y +
-    # bulkhead_pocket_diameter/2 = 27.5) is just below the floor's
-    # baseline surface (y=28). The wet collet's tube push-in port is
-    # the ⌀6.5 disc at z=bulkhead_wet_end_z on this cylinder's −Z face,
-    # facing −Z; the well opens into it from above.
-    bulkhead_pocket_cut = (
-        cq.Workplane(cq.Plane(
-            origin=(port_x_signed, port_position_y, bulkhead_wet_end_z),
-            xDir=(1, 0, 0),
-            normal=(0, 0, 1),
-        ))
-        .circle(bulkhead_pocket_diameter / 2)
-        .extrude(bulkhead_pocket_length)
-    )
-    body = body.cut(bulkhead_pocket_cut)
+    # Bulkhead pocket — STEPPED horizontal cavity, axis +Z, conforming
+    # to the bulkhead's body geometry. Three sequential cuts: wet
+    # chamber, panel hole, dry chamber. The PETG annulus that remains
+    # between the wet and dry chambers (around the panel hole, at
+    # z=bulkhead_panel_z_min..z=bulkhead_panel_z_max) IS the panel
+    # the bulkhead's threading section clamps — flange seats on its
+    # −Z face, locknut bears on its +Z face. Bulkhead is fully recessed
+    # inside the thick floor.
+    def _z_pocket_cut(z_start, z_end, diameter):
+        return (
+            cq.Workplane(cq.Plane(
+                origin=(port_x_signed, port_position_y, z_start),
+                xDir=(1, 0, 0),
+                normal=(0, 0, 1),
+            ))
+            .circle(diameter / 2)
+            .extrude(z_end - z_start)
+        )
+
+    body = body.cut(_z_pocket_cut(
+        bulkhead_wet_end_z, bulkhead_panel_z_min, bulkhead_pocket_diameter,
+    ))                                       # wet chamber ⌀23
+    body = body.cut(_z_pocket_cut(
+        bulkhead_panel_z_min, bulkhead_panel_z_max, bulkhead_panel_hole_diameter,
+    ))                                       # panel hole ⌀17
+    body = body.cut(_z_pocket_cut(
+        bulkhead_panel_z_max, bulkhead_dry_end_z, bulkhead_pocket_diameter,
+    ))                                       # dry chamber ⌀23
 
     # Well — a vertical ⌀6.5 hole at (port_x, _, bulkhead_wet_end_z),
     # dropping from the floor surface (around y=baseline) down to
