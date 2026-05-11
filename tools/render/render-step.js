@@ -27,7 +27,7 @@ import { fileURLToPath } from "url";
 import puppeteer from "puppeteer";
 import sharp from "sharp";
 
-import { start } from "../../server.js";
+import { start } from "../../web/server.js";
 import { withHistoricalTree } from "./temporal.js";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));

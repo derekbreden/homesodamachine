@@ -14,7 +14,9 @@ There is no machine on the market that gives a home user this experience — tur
 
 ## Web layer (the dev + public sites)
 
-The Node web app under [`server.js`](server.js), [`lib/`](lib/), [`public/`](public/), and [`tools/dev-server/`](tools/dev-server/) has its own architecture doc: [`ARCHITECTURE.md`](ARCHITECTURE.md). Read it before refactoring anything in those directories. It covers the route layout, dev-vs-prod relationship, browser module graph for the viewer, SSE/FCM event flows, and a "where things go" cheat sheet for adding new pages or features.
+The Node web app lives entirely under [`web/`](web/) — server.js, the lib/ modules, public/ assets, dev-server, and tests. It has its own architecture doc: [`web/server-js-architecture.md`](web/server-js-architecture.md). Read it before refactoring anything in there. It covers the route layout, dev-vs-prod relationship, browser module graph for the viewer, SSE/FCM event flows, and a "where things go" cheat sheet for adding new pages or features.
+
+The web service is one slice of this project — separate from the hardware/ CAD tree, the firmware sources, the iOS/Android apps, and the blog content under posts/. Render is configured (in `render.yaml`) with `rootDir: web` so production builds and runs from there; the server reads hardware/ and posts/ via `path.join("..", …)` since those are repo-root concerns.
 
 ## CadQuery
 

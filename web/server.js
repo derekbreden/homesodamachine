@@ -24,8 +24,12 @@ import {
 import { mountNotificationsRoutes } from "./lib/notifications.js";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
-const DEFAULT_HARDWARE_DIR = path.join(__dirname, "hardware");
-const POSTS_DIR = path.join(__dirname, "posts");
+// Web app lives at /web; hardware/ and posts/ stay at the repo root
+// because they're separate concerns (CAD scripts, blog content) that
+// belong to the larger project, not the web service.
+const REPO_ROOT = path.join(__dirname, "..");
+const DEFAULT_HARDWARE_DIR = path.join(REPO_ROOT, "hardware");
+const POSTS_DIR = path.join(REPO_ROOT, "posts");
 const LANDING_PUBLIC = path.join(__dirname, "public");
 
 function makePool() {
@@ -234,7 +238,7 @@ export async function start({ dev = false, port, hardwareDir } = {}) {
   // /settings, with LANDING_PUBLIC served at /. The localhost dev server
   // hits the same routes the public site does, so ContentViewer and
   // other LANDING_PUBLIC assets just work in dev.
-  // The dev wrapper (tools/dev-server/server.js) is purely additive: it
+  // The dev wrapper (web/dev-server/server.js) is purely additive: it
   // attaches chokidar + Python + the SSE broadcast for hot reload, and
   // doesn't change any routes. The only behavioral differences in dev:
   //   - commit signal is "dev" instead of the deploy SHA
