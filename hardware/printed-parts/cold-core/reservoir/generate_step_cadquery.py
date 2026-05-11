@@ -408,6 +408,30 @@ def build_reservoir_cap(side=1):
 
     cap_total_height = cap_base_thickness + cap_wall_height
 
+    # Fillet the two exterior sharp corners (same outer footprint as
+    # the body, so same sharp tabs). Done BEFORE the bosses are
+    # unioned because the corner bosses (4/5) sit exactly at the
+    # outer-fillet center, where the boss disk's outer edge IS the
+    # fillet arc — unioning them first leaves no sharp corner edge
+    # for the fillet selector to find, and CadQuery silently produces
+    # malformed geometry (a leftover triangular tab where the corner
+    # tip should have been rounded off). Filleting first, then
+    # unioning the boss, leaves the fillet correct; the corner
+    # bosses become a no-op there (the perimeter wall already covers
+    # the boss-disk footprint inside the fillet arc), and the bosses
+    # at the other four positions union normally.
+    outer_corner_x = math.sqrt(outer_centerward_radius**2 - outer_z_max**2)
+    y_mid_cap = cap_total_height / 2
+
+    for sharp_z in (outer_z_max, -outer_z_max):
+        cap = (
+            cap
+            .edges(cq.NearestToPointSelector(
+                (side * outer_corner_x, y_mid_cap, sharp_z),
+            ))
+            .fillet(outer_corner_fillet_radius)
+        )
+
     # Cap-side bosses at each insert position, mirroring the body
     # bosses. They sit inside the perimeter wall at y = [0, 5],
     # locally thickening the wall inward and providing extra PETG
@@ -422,22 +446,6 @@ def build_reservoir_cap(side=1):
             .extrude(cap_wall_height)
         )
         cap = cap.union(boss)
-
-    # Fillet the two exterior sharp corners (same outer footprint as
-    # the body, so same sharp tabs). Done before drilling so the
-    # counterbore-edge geometry doesn't confuse the edge selector.
-    # Inner perimeter-wall corners are not user-visible and left alone.
-    outer_corner_x = math.sqrt(outer_centerward_radius**2 - outer_z_max**2)
-    y_mid_cap = cap_total_height / 2
-
-    for sharp_z in (outer_z_max, -outer_z_max):
-        cap = (
-            cap
-            .edges(cq.NearestToPointSelector(
-                (side * outer_corner_x, y_mid_cap, sharp_z),
-            ))
-            .fillet(outer_corner_fillet_radius)
-        )
 
     # Counterbored screw holes. The counterbore recesses the M3 SHCS
     # head 3 mm into the base plate (y = [5, 8.1], opening at the cap's
