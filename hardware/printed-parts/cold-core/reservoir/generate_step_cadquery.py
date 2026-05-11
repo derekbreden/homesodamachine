@@ -310,21 +310,25 @@ bulkhead_panel_z_max = bulkhead_panel_z_min + bulkhead_panel_thickness   # 47
 bulkhead_dry_end_z = bulkhead_wet_end_z + bulkhead_pocket_length         # 64
 # The floor thickens uniformly across the cavity to a baseline whose
 # inner-top y sits just above the bulkhead pocket, so the bulkhead body
-# is fully encased in PETG everywhere. The slope rises ON TOP of this
-# baseline — every point of the floor surface is at least `floor_baseline_y`,
-# and rises by `floor_slope_rise` to the far −Z wall. A WELL at the
-# bulkhead's z drops from the baseline straight down to the wet-collet
-# port; its bottom (= port_inlet_bottom_y) is the lowest point of the
-# syrup volume. Outer floor stays flat at y=1 for FDM printability.
+# is fully encased in PETG along the panel section. The slope rises ON
+# TOP of this baseline — every point of the floor surface is at least
+# `floor_baseline_y`, and rises by `floor_slope_rise` to the far −Z
+# wall. Outer floor stays flat at y=1 for FDM printability.
 #
-# This follows from: bulkhead-must-exit-the-side + liquid-must-flow-to-
-# bulkhead + must-be-printable. The bulkhead inlet is the lowest point;
-# everything else higher; thickening + slope instead of raising.
+# The wet chamber's CEILING (above y=port_position_y) is open to the
+# cavity, and the dry chamber's FLOOR (below y=port_position_y) is open
+# to the outside of the reservoir — both because the bulkhead body is
+# only fully surrounded around y=port_position_y (the chamber's
+# centerline), and the PETG above the wet body or below the dry body
+# wasn't doing structural work for syrup containment.
+#
+# Syrup drains: cavity → wet ceiling opening → wet chamber (around the
+# bulkhead's wet collet body) → port at body's −Z face. The bulkhead
+# inlet is the lowest point the pump can drain to.
 #
 floor_baseline_y = port_position_y + bulkhead_pocket_diameter / 2 + 0.5  # 28 — just above pocket top y=27.5
-well_diameter = port_tube_diameter  # 6.5
 #
-port_inlet_bottom_y = port_position_y - port_tube_diameter / 2  # 12.75 — = lowest point of the syrup volume
+port_inlet_bottom_y = port_position_y - port_tube_diameter / 2  # 12.75 — bottom edge of the wet-collet port
 floor_slope_rise = 6.0  # mm above floor_baseline_y at the far −Z wall
 #
 # -------------------------------------------------------
@@ -696,21 +700,29 @@ def build_reservoir_body(side=1):
         bulkhead_panel_z_max, outer_z_max, bulkhead_pocket_diameter,
     ))                                       # dry chamber ⌀23 — extends to +Z outer face
 
-    # Well — a vertical ⌀6.5 hole at (port_x, _, bulkhead_wet_end_z),
-    # dropping from the floor surface (around y=baseline) down to
-    # port_inlet_bottom_y (=12.75), which is the bottom edge of the
-    # bulkhead's wet-collet tube port and the lowest point of the
-    # syrup volume. The well's z position (= bulkhead_wet_end_z) puts
-    # its lateral surface flush with the bulkhead pocket's −Z face;
-    # the two cavities meet through the disc that is the wet-collet
-    # port itself.
-    well_top_y = floor_baseline_y + 2.0  # extends safely above floor surface
-    well_cut = (
-        _wp_at(port_x_signed, port_inlet_bottom_y, bulkhead_wet_end_z)
-        .circle(well_diameter / 2)
-        .extrude(well_top_y - port_inlet_bottom_y)
+    # Open the dry chamber's FLOOR — the analog of the wet ceiling cut.
+    # Same logic: the PETG below the dry chamber's centerline (y=16)
+    # down to the reservoir's outer floor (y=1) isn't doing structural
+    # work for syrup containment (the dry side is outside the syrup
+    # path; the panel + locknut already seal). Removing it saves
+    # material and gives the bulkhead a second install path (slide in
+    # from below). The dry chamber's upper half stays cylindrical
+    # (snug to the body's upper half).
+    dry_floor_box_cut = (
+        _wp_at(
+            port_x_signed,
+            outer_floor_bottom_y,
+            (bulkhead_panel_z_max + outer_z_max) / 2.0,
+        )
+        .rect(bulkhead_pocket_diameter, outer_z_max - bulkhead_panel_z_max)
+        .extrude(port_position_y - outer_floor_bottom_y)
     )
-    body = body.cut(well_cut)
+    body = body.cut(dry_floor_box_cut)
+
+    # No well needed: with the wet ceiling open, syrup drains directly
+    # from the cavity into the wet chamber and around the bulkhead
+    # body's narrower wet-collet section, reaching the port at the
+    # body's −Z face without any separate vertical channel.
 
     # No separate tube exit: the dry chamber already opens through the
     # +Z outer face. After install, the bulkhead body occupies the −Z
