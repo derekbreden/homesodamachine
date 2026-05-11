@@ -1,0 +1,36 @@
+// Shared mutable state for the viewer modules. One exported object so
+// every reader/writer sees the same live binding via property access:
+// no per-module sync dance, no getter/setter ceremony, no duplicate
+// caches. The shape (the keys present and their meaning) IS the
+// contract — every module that reads or writes here treats it like
+// the file-scope `let` it replaces.
+//
+// At most one detail surface is open at a time (parts viewer is modal):
+//   currentDetail = { type: "step"|"dxf"|"mmd", file } | null
+//   mountedDetail = { type: "step"|"dxf",       file } | null
+// "current" tracks which file the modal is presenting; "mounted" tracks
+// which file is actually loaded into the shared Three.js scene (only
+// step+dxf use the scene; mmd renders separately via PanZoom). The two
+// can briefly disagree during a load — the current file is set first
+// so popstate handlers see the new state, then the loader populates
+// the scene and updates mounted to match.
+export const state = {
+  allFiles: [],       // STEP files (paths)
+  mmdFiles: [],       // Mermaid files
+  dxfFiles: [],       // DXF files
+  currentDetail: null,
+  mountedDetail: null,
+  currentMmdContent: null,
+  currentMmdWrapper: null,    // host div inside the modal (PanZoom container)
+  currentMmdPz: null,         // PanZoom handle for currentMmdWrapper
+  currentCadWrapper: null,    // host div inside the modal (parent of canvases)
+  currentCadResizeObserver: null,
+  currentGroup: null,         // Three.js group currently in scene
+  thumbnailCache: new Map(),  // STEP file -> dataURL
+  mmdThumbCache: new Map(),   // Mermaid file -> svgHTML
+  dxfThumbCache: new Map(),   // DXF file -> dataURL
+  stepEtags: new Map(),       // file -> last loaded ETag (for refetch dedupe)
+  dxfEtags: new Map(),        // file -> last loaded ETag
+  dxfMeta: new Map(),         // DXF file -> {thickness_mm, material} from sidecar (hardware/PARTS.md)
+  gridEl: null,               // set by main.js after DOM ready
+};
