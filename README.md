@@ -319,7 +319,7 @@ The RP2040 uses the [earlephilhower Arduino core](https://github.com/earlephilho
 pio run -e esp32s3_config -t upload
 ```
 
-The ESP32-S3 uses the [pioarduino platform](https://github.com/pioarduino/platform-espressif32) for Arduino core 3.x support, [LVGL v8.4](https://github.com/lvgl/lvgl) for the UI, and the [GFX Library for Arduino](https://github.com/moononournation/Arduino_GFX) for the GC9A01A display driver. A custom 64px Montserrat font (`src_config/font_ratio_64.h`) is used for the ratio edit screen.
+The ESP32-S3 uses the [pioarduino platform](https://github.com/pioarduino/platform-espressif32) for Arduino core 3.x support, [LVGL v8.4](https://github.com/lvgl/lvgl) for the UI, and the [GFX Library for Arduino](https://github.com/moononournation/Arduino_GFX) for the GC9A01A display driver. A custom 64px Montserrat font (`firmware/src_config/font_ratio_64.h`) is used for the ratio edit screen.
 
 ### Adding a New Flavor Image
 
@@ -350,7 +350,7 @@ To change config over USB serial (115200 baud), connect to the ESP32 and send te
 
 ### Compile-Time Tuning
 
-These control the pump duty cycle shape and generally don't need adjustment. They are `#define`s at the top of `src/main.cpp`:
+These control the pump duty cycle shape and generally don't need adjustment. They are `#define`s at the top of `firmware/src/main.cpp`:
 
 ```cpp
 #define PUMP_ON_MIN_MS     50    // minimum pump on-time
