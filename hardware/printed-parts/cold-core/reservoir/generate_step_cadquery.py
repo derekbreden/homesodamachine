@@ -302,10 +302,16 @@ bulkhead_panel_hole_diameter = 17.0     # JG catalog spec for the 1/4" body fami
 # The bulkhead body's wet side is *stepped* along its axis (flange,
 # collet body, release ring — narrower toward the port). The chamber
 # steps in matching sections so the syrup volume conforms to the body
-# and the residual film below the port is small. Section lengths and
-# diameters below are estimates pending dimensioned-drawing measurement
-# (see `tools/measure-from-drawings/README.md` and the JG drawings under
-# `hardware/off-the-shelf-parts/jg-bulkhead-union/raw-images/`).
+# and the residual film below the port is small.
+#
+# Section lengths and diameters below are the first-pass values from a
+# pixel-measured side view of the CI1208W (same body, white acetal),
+# calibrated against the catalog 34.5 mm total length. See
+# `hardware/off-the-shelf-parts/jg-bulkhead-union/extracted-results/
+# geometry-description.md` for the full measurement table, confidence
+# levels, and the raw images. Refine after a caliper pass on the
+# PI1208S we already own; the workflow is documented in
+# `tools/measure-from-drawings/README.md`.
 #
 bulkhead_wet_chamber_length = 12.0      # wet flange + collet body + release ring (catalog total length 34.5 ÷ split)
 bulkhead_wet_antechamber_length = 2.0   # gap on the bulkhead's wet face — must exist or syrup can't reach the port
