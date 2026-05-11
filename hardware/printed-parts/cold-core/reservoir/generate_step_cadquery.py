@@ -181,47 +181,55 @@ cap_boss_radius = cap_counterbore_diameter / 2.0 + 2.0                 # 5
 boss_height = insert_pocket_depth + 2.0 + body_boss_radius             # 7 + 2 + 4 = 13
 body_boss_bottom_chamfer = body_boss_radius                            # 4 — full radius → ø8 to ø0
 #
-# Insert / screw positions, derived from the wall geometry so each
-# cap counterbore has 2 mm of PETG to every outer boundary of the
-# cap base plate it reaches toward. With a ø6 counterbore, that means
-# the counterbore center must sit 5 mm inside every outer face.
+# Insert / screw positions, derived from the wall geometry.
 #
 # Outer envelope (body and cap share this footprint):
 _outer_far_x_abs = bag_pocket_far_inner_x - reservoir_clearance        # 104
 _outer_z_max = bag_pocket_z_inner_max - reservoir_clearance            # 70
 _outer_centerward_radius = tank_copper_shell_outer_radius + reservoir_clearance  # 72
 #
-# 5 mm = counterbore radius (3) + PETG margin (2) — the minimum
-# distance from counterbore center to any outer boundary.
-_screw_setback = cap_counterbore_diameter / 2.0 + 2.0                  # 5
+# Positions 1/2/3/6 sit on the wall's INNER face (the cavity boundary).
+# The boss is unioned with the wall there — half the ø8 boss disk
+# overlaps the 4 mm-thick wall, the other half is a cavity bump.
+# Placing the boss center on the wall inner face puts the chamfer's
+# knife-edge tip (at the boss bottom) exactly on the wall, so the
+# cavity-side cone hangs off the wall edge rather than floating 1 mm
+# into the cavity (the failure mode that showed up when the bosses
+# were positioned 1 mm inward of the inner face to give the cap
+# counterbore a strict 2 mm of PETG to the outer face).
 #
-# Positions 1/2 — corner of outer +X face × outer ±Z face. Both
-# faces are flat (no fillet at this corner), so just inset 5 mm from
-# each.
-_corner_xz_x = _outer_far_x_abs - _screw_setback                       # 99
-_corner_xz_z = _outer_z_max - _screw_setback                           # 65
+# The trade-off: the cap counterbore (ø6) now has only 1 mm of PETG
+# between its outer edge and the outer face of the cap base plate
+# at these positions, down from 2 mm. 1 mm is acceptable — the
+# counterbore isn't load-bearing (the screw load lives in the insert
+# threads), it's just a head clearance. The body pocket's PETG
+# annulus, which IS load-bearing because the heat-set insert displaces
+# PETG into it during installation, ends up symmetric at 2 mm
+# cavity-side and 2 mm wall-side.
 #
-# Position 3 — middle of outer +X face. 5 mm in from x=104; z=0.
-_far_mid_x = _outer_far_x_abs - _screw_setback                         # 99
+# Positions 1/2 — wall inner +X × +Z (resp. +X × −Z) corner.
+_corner_xz_x = _outer_far_x_abs - reservoir_wall_thickness             # 100
+_corner_xz_z = _outer_z_max - reservoir_wall_thickness                 # 66
+#
+# Position 3 — wall inner +X face, z = 0.
+_far_mid_x = _outer_far_x_abs - reservoir_wall_thickness               # 100
+#
+# Position 6 — wall inner centerward curve, z = 0.
+_curve_apex_x = _outer_centerward_radius + reservoir_wall_thickness    # 76
 #
 # Positions 4/5 — corner of outer curve × outer ±Z face. The corner
-# is filleted at outer_corner_fillet_radius (= 5 mm, by coincidence
-# the same as the screw setback for the ø6 counterbore + 2 mm PETG).
-# 5 mm inward from each outer face lands exactly at the outer fillet
-# center — the unique point that is 5 mm from BOTH the +Z face and
-# the outer curve, measured along the shortest path (the perpendicular
-# to each face, which at this point coincides with the radial to the
-# curve). The counterbore at this point has exactly 2 mm of PETG to
-# the outer curve and 2 mm to the +Z face in every direction. Any
-# other point on the wall midline trades cartesian PETG for radial
-# PETG; at the fillet center, all three are = 2 mm.
+# is filleted at outer_corner_fillet_radius (= 5 mm). The fillet
+# center is the unique point that is 5 mm from BOTH the outer +Z
+# face and the outer curve, measured along the shortest path; the
+# counterbore at this point has exactly 2 mm of PETG to the outer
+# curve and 2 mm to the +Z face. The ø8 body boss disk fits entirely
+# inside the fillet arc (radius 5), so at these positions the boss
+# is a no-op subset of the post-fillet wall material — no cavity
+# bump, no chamfer needed (the body-boss loop below skips the chamfer
+# for these two positions explicitly, for code-reading clarity).
 _corner_curve_z = _outer_z_max - outer_corner_fillet_radius             # 65
 _corner_curve_R = _outer_centerward_radius + outer_corner_fillet_radius  # 77
 _corner_curve_x = math.sqrt(_corner_curve_R**2 - _corner_curve_z**2)    # ~41.28
-#
-# Position 6 — apex of the outer curve. 5 mm outward from the curve
-# (away from the tank), z=0.
-_curve_apex_x = _outer_centerward_radius + _screw_setback              # 77
 #
 # (for the side=+1 reservoir; sign flips for −1)
 INSERT_POSITIONS_FOR_SIDE_PLUS_1 = [
@@ -347,16 +355,24 @@ def build_reservoir_body(side=1):
             .circle(body_boss_radius)
             .extrude(boss_height)
         )
-        # 45° chamfer at the boss bottom edge so the boss is printable
-        # as an FDM overhang hanging in mid-cavity. The chamfer is
-        # applied to the bare boss (before unioning with the body) so
-        # the edge selector only sees the boss's own bottom edge — no
-        # risk of catching the wall's edges nearby.
-        boss = (
-            boss
-            .edges("<Y")
-            .chamfer(body_boss_bottom_chamfer)
+        # 45° chamfer at the boss bottom edge so the cavity-side
+        # half of the boss is printable as an FDM overhang. The
+        # corner bosses on the centerward (curve) side (positions
+        # 4/5) sit at the outer-corner fillet center, fully inside
+        # the post-fillet wall material — no cavity bump there,
+        # no overhang, no chamfer needed. Skip the chamfer call
+        # explicitly for those rather than relying on it being a
+        # silent no-op, so the code reads honestly.
+        is_curve_corner = (
+            abs(abs(px) - _corner_curve_x) < 0.01
+            and abs(abs(pz) - _corner_curve_z) < 0.01
         )
+        if not is_curve_corner:
+            boss = (
+                boss
+                .edges("<Y")
+                .chamfer(body_boss_bottom_chamfer)
+            )
         body = body.union(boss)
 
         pocket = (
