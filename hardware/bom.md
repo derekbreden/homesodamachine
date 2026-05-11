@@ -163,18 +163,20 @@ Dishing dies (PA6-CF) for end-cap forming are vessel-fabrication tools, not ship
 
 ## 13. Mechanical attach hardware (heat-set inserts + screws + gasket)
 
-Heat-set + screw retention is used in two places in the unit:
+Heat-set + screw retention is used in three places in the unit:
 
 1. The printed `touch-flo-mounting-plate` clamps up to the printed PET-CF `touch-flo-shell` via 2 ruthex inserts + 2 McMaster ULH screws (ULH chosen because the plate sits flush under the countertop and head clearance matters).
-2. The printed `foam-bag-shell`'s top and bottom `foam-cap`s clamp to the `outer_shell` via 12 ruthex inserts + 12 BNUOK 12.9 alloy black-oxide SHCS, with a TPU 90A gasket per cap compressing the seal — landed in commit `ed8b48d`. Heads protrude on the appliance top and bottom faces (no flush-mount constraint), so the standard SHCS at $0.14/screw is used rather than the ULH at $5.97/screw.
+2. The printed `foam-bag-shell`'s top and bottom `foam-cap`s clamp to the `outer_shell` via 12 ruthex inserts + 12 BNUOK M3×25 12.9 alloy black-oxide SHCS, with a TPU 90A gasket per cap compressing the seal — landed in commit `ed8b48d`. Heads protrude on the appliance top and bottom faces (no flush-mount constraint), so the standard SHCS at $0.14/screw is used rather than the ULH at $5.97/screw.
+3. The printed `reservoir-cap` clamps down to the `reservoir` body on each of the two flavor-side reservoirs via 6 ruthex inserts + 6 BNUOK M3×12 12.9 alloy black-oxide SHCS per cap, with a TPU gasket between cap and body — 12 inserts + 12 screws per build total (2 caps). The shorter M3×12 length matches the reservoir cap-stack thickness (cap base 3 mm + perimeter wall 5 mm + gasket + insert 4 mm ≈ 11–13 mm needed); the M3×25 used on the foam-bag-shell is longer than necessary here. Same seller / finish / alloy as the M3×25, only the length differs.
 
 The T18 heat-set tip kit ([B0CS662NVK](https://www.amazon.com/dp/B0CS662NVK)) and the FX-888D iron are tooling — installed once on the bench, not per-unit BOM (same scope rule as the welder, drill press, etc.). The TPU 90A gasket filament is consumed from the same per-unit-trivial stock as the other TPU prints; not separately listed here.
 
 | Part | ASIN / Source | Qty | Unit $ | Line $ |
 |---|---|---:|---:|---:|
-| [ruthex M3 Threaded Inserts Short, 100 pc, RX-M3Sx4.0 brass heat-set](https://www.amazon.com/dp/B0D39W228K) | B0D39W228K — M3 × 4 mm L × 4.2 mm OD knurled brass; 2 into touch-flo-shell + 12 into foam-bag-shell outer_shell (6 top face + 6 bottom face); Amazon order 112-4234665-4274626, May 10, 2026, $9.99 + $0.72 allocated tax = $10.71 delivered ÷ 100 = $0.1071/insert | 14 (of 100 pk) | $0.11 | $1.50 |
+| [ruthex M3 Threaded Inserts Short, 100 pc, RX-M3Sx4.0 brass heat-set](https://www.amazon.com/dp/B0D39W228K) | B0D39W228K — M3 × 4 mm L × 4.2 mm OD knurled brass; 2 into touch-flo-shell + 12 into foam-bag-shell outer_shell (6 top face + 6 bottom face) + 12 into the two reservoir bodies (6 per cap × 2 reservoirs); Amazon order 112-4234665-4274626, May 10, 2026, $9.99 + $0.72 allocated tax = $10.71 delivered ÷ 100 = $0.1071/insert | 26 (of 100 pk) | $0.11 | $2.78 |
 | [McMaster-Carr 91223A413 — 316 SS Ultra-Low-Profile Socket Head Screw, M3 × 0.50 mm × 8 mm long](https://www.mcmaster.com/91223A413/) | 91223A413 — clamps the printed touch-flo-mounting-plate up to the printed touch-flo-shell via the ruthex inserts above; ULH (DIN 7984 / ISO equivalent) profile minimizes head clearance under the counter; 316 SS for corrosion resistance under the under-counter faucet; McMaster order 7139410, May 10, 2026, qty 10 @ $4.36 ea = $43.60 + $12.04 UPS Ground + $4.03 tax = $59.67 delivered ÷ 10 = $5.967/screw delivered | 2 (of 10) | $5.97 | $11.94 |
 | [BNUOK M3 × 25 mm DIN 912 socket head cap, 12.9 alloy steel, black oxide, 60 pc](https://www.amazon.com/dp/B0DJQGF665) | B0DJQGF665 — clamps the foam-bag-shell foam-cap (top and bottom) to the outer_shell via the ruthex inserts above, compressing a TPU 90A gasket between them; standard DIN 912 SHCS rather than the McMaster ULH above because there's no flush-mount constraint here (heads protrude on the appliance top and bottom faces, hidden under-counter); 12.9 alloy is much stronger than needed for a gasket-clamp joint but the black oxide finish is what carries appearance; Amazon order 112-2495614-5144234, May 10, 2026, $7.99 + $0.58 tax = $8.57 delivered ÷ 60 = $0.1428/screw | 12 (of 60 pk) | $0.14 | $1.71 |
+| [BNUOK M3 × 12 mm DIN 912 socket head cap, 12.9 alloy steel, black oxide, 120 pc](https://www.amazon.com/dp/B0DJQGVK8S) | B0DJQGVK8S — clamps each of the two reservoir-cap pieces to its reservoir body via the ruthex inserts above, compressing a TPU gasket between them. Same spec as the M3×25 above in every dimension except length — head Ø 5.5 × 3.0 mm, 2.5 mm hex socket, 12.9 alloy steel, black oxide, DIN 912. 12 mm length matches the reservoir cap-stack joint (vs the 25 mm used on the foam-bag-shell, which is longer than needed here); same seller (BNUOK Fasterner). Amazon order 112-0144900-5988250, May 10, 2026, $7.99 + $0.58 tax = $8.57 delivered ÷ 120 = $0.0714/screw | 12 (of 120 pk) | $0.07 | $0.86 |
 
 ## Totals
 
@@ -192,8 +194,8 @@ The T18 heat-set tip kit ([B0CS662NVK](https://www.amazon.com/dp/B0CS662NVK)) an
 | 10. UI | $39.95 |
 | 11. Wiring | $27.05 |
 | 12. Level sensing | $19.07 |
-| 13. Mechanical attach hardware | $15.15 |
-| **Total** | **$1,371.58** |
+| 13. Mechanical attach hardware | $17.29 |
+| **Total** | **$1,373.72** |
 
 ## External / user-supplied (not shipped)
 
