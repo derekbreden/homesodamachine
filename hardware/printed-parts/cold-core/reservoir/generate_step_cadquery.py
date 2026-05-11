@@ -249,6 +249,74 @@ vent_position_z = 32.5
 
 
 # -------------------------------------------------------
+# Outlet bulkhead pocket + sloped floor
+# -------------------------------------------------------
+#
+# Single outlet port: a John Guest PP1208E 1/4" black push-to-
+# connect bulkhead union (Amazon B00JYFU8MM, NSF 51 + NSF 61, FDA-
+# compliant) recessed ENTIRELY inside the reservoir's floor. Only
+# the 1/4" OD tube travels through the foam channel — the bulkhead
+# itself stays on the syrup side. The body geometry (catalog):
+# ≈ ø22.9 mm flange/collet OD, ≈ 34.5 mm overall length, ⌀6.35 mm
+# tube push-to-connect at each end.
+#
+# Geometry: the floor locally thickens into a chunky "boss" in the
+# +X × +Z quadrant. The bulkhead lies horizontally inside this boss
+# with its axis along +Z. The wet-collet tube port (⌀6.5 mm) opens
+# out the boss's −Z face into the syrup volume; on the +Z side a
+# ⌀6.5 mm cylindrical channel carries the 1/4" tube the rest of the
+# way out through the reservoir's +Z outer wall, aligning with the
+# foam-bag-shell pass-through at (±88, 16) — see
+# `_foam_bag_geometry.py` `punch_a_bag_pocket_shell_hole`.
+#
+# Both reservoirs (side=+1 and side=−1) put the bulkhead on the +Z
+# side; only x mirrors.
+#
+# Installation TBD: with both axial ends closed off (⌀6.5 mm
+# openings, ⌀22.9 mm body), the bulkhead can't slide into a fully-
+# closed pocket. Likely options are a print-pause-and-insert, a
+# separate cap part on the boss's +Z end, or splitting the boss
+# horizontally for two-part assembly. Geometry below leaves that
+# decision to the next pass.
+#
+port_position_x = 88.0
+port_position_y = 16.0
+port_tube_diameter = 6.5                # 1/4" OD tube clearance
+#
+bulkhead_pocket_diameter = 23.0         # ø22.9 flange + 0.1 clearance
+bulkhead_pocket_length = 35.0           # ~34.5 catalog length + 0.5
+bulkhead_wet_end_z = 30.0               # z of boss's −Z face = wet collet outer face
+bulkhead_dry_end_z = bulkhead_wet_end_z + bulkhead_pocket_length   # 65
+#
+# Boss footprint — a rectangle in XZ that contains the bulkhead
+# pocket with PETG margin on each side. Extends to the inner +X
+# face and the inner +Z face (z=inner_z_max, the boss's +Z edge),
+# so the boss tucks into the corner of the cavity. The +Z outer
+# face beyond inner_z_max is the regular wall, which the ⌀6.5 tube
+# channel passes through.
+_boss_pad = 4.0
+boss_x_min = port_position_x - bulkhead_pocket_diameter / 2 - _boss_pad  # 72.5
+boss_y_top = port_position_y + bulkhead_pocket_diameter / 2 + 3.0       # 30.5 (≥3 mm PETG above pocket)
+#
+# Sloped inner floor — a cone-shaped wedge ON TOP of the existing
+# 4 mm flat floor in the region OUTSIDE the boss. The cone's APEX
+# sits where the boss's −Z face meets the floor at the bulkhead's
+# wet-collet port: (port_position_x, port_inlet_bottom_y,
+# bulkhead_wet_end_z). The cone rises radially outward; the syrup
+# drains TO the apex, which sits at the same y as the bottom edge
+# of the wet-collet tube port — so syrup enters the bulkhead
+# directly off the floor surface, no sump needed.
+#
+# Outer floor stays flat at y=1 for FDM printability; the slope is
+# additive material above the standard 4 mm floor.
+#
+port_inlet_bottom_y = port_position_y - port_tube_diameter / 2  # 12.75
+floor_slope_rise = 6.0
+#
+# -------------------------------------------------------
+
+
+# -------------------------------------------------------
 # Heat-set insert + screw spec
 # -------------------------------------------------------
 #
@@ -530,6 +598,117 @@ def build_reservoir_body(side=1):
             .extrude(insert_pocket_depth + 0.1)  # +0.1 to break the top surface cleanly
         )
         body = body.cut(pocket)
+
+    # ─────────────────────────────────────────────────────
+    # Outlet bulkhead pocket + sloped floor
+    # ─────────────────────────────────────────────────────
+    # Slope: cone-apex at (port_x, port_inlet_bottom_y, boss_z_min) —
+    # the wet collet port's -Z face on the boss. Cone rises radially
+    # outward; max rise = floor_slope_rise at the centerward × −Z
+    # corner of the inner footprint.
+    boss_wet_cap_thickness = 2.0
+    boss_z_min = bulkhead_wet_end_z - boss_wet_cap_thickness  # 27
+    slope_apex_x_signed = port_position_x * side
+    slope_apex_z = boss_z_min  # not side-mirrored: bulkhead is on +Z for both sides
+    inner_corner_x_signed = inner_corner_x * side
+    max_slope_dist = math.hypot(
+        slope_apex_x_signed - inner_corner_x_signed,
+        slope_apex_z - (-inner_z_max),
+    )
+    slope_rate = floor_slope_rise / max_slope_dist
+    cone_top_y = port_inlet_bottom_y + floor_slope_rise + 1.0  # extra cushion
+    cone_top_radius = (cone_top_y - port_inlet_bottom_y) / slope_rate
+
+    cone_solid = cq.Solid.makeCone(
+        radius1=0,
+        radius2=cone_top_radius,
+        height=cone_top_y - port_inlet_bottom_y,
+        pnt=cq.Vector(slope_apex_x_signed, port_inlet_bottom_y, slope_apex_z),
+        dir=cq.Vector(0, 1, 0),
+    )
+
+    # Build wedge: inner-footprint extrusion from y=inner_floor_top_y
+    # up to y=cone_top_y, then cone-cut from above. Result is material
+    # from y=inner_floor_top_y up to the cone surface.
+    wedge_extrusion = _build_outer_envelope(
+        side, inner_far_x_abs, inner_z_max, inner_centerward_radius,
+        inner_floor_top_y, cone_top_y - inner_floor_top_y,
+    )
+    wedge = wedge_extrusion.cut(cq.Workplane().add(cone_solid))
+
+    # Boss footprint (rectangle in XZ) — the local thickening that
+    # houses the bulkhead. Extends to the inner +X face and the inner
+    # +Z face of the cavity.
+    boss_x_max = inner_far_x_abs
+    boss_z_max = inner_z_max
+    boss_x_center = (boss_x_min + boss_x_max) / 2
+    boss_z_center = (boss_z_min + boss_z_max) / 2
+    boss_x_width = boss_x_max - boss_x_min
+    boss_z_depth = boss_z_max - boss_z_min
+
+    # Cut the boss footprint out of the wedge so the boss (full height
+    # to y=boss_y_top) takes over in that region.
+    boss_footprint = (
+        _wp_at(side * boss_x_center, inner_floor_top_y, boss_z_center)
+        .rect(boss_x_width, boss_z_depth)
+        .extrude(cone_top_y - inner_floor_top_y)
+    )
+    wedge = wedge.cut(boss_footprint)
+
+    # The boss itself: same rectangular footprint, extruded up to
+    # boss_y_top (above the bulkhead pocket's upper edge).
+    boss = (
+        _wp_at(side * boss_x_center, inner_floor_top_y, boss_z_center)
+        .rect(boss_x_width, boss_z_depth)
+        .extrude(boss_y_top - inner_floor_top_y)
+    )
+
+    body = body.union(wedge).union(boss)
+
+    # Bulkhead pocket — horizontal cylinder inside the boss, axis +Z,
+    # spanning the bulkhead's body length with 2 mm PETG cap walls on
+    # each axial end.
+    bulkhead_pocket = (
+        cq.Workplane(cq.Plane(
+            origin=(slope_apex_x_signed, port_position_y, bulkhead_wet_end_z),
+            xDir=(1, 0, 0),
+            normal=(0, 0, 1),
+        ))
+        .circle(bulkhead_pocket_diameter / 2)
+        .extrude(bulkhead_pocket_length)
+    )
+    body = body.cut(bulkhead_pocket)
+
+    # Wet collet port — ⌀6.5 hole through the boss's -Z cap wall,
+    # connecting the syrup volume to the bulkhead's wet collet face.
+    # The bottom edge of this hole sits at y=port_inlet_bottom_y =
+    # the slope apex, so syrup at the floor's lowest level drains
+    # directly in.
+    wet_port = (
+        cq.Workplane(cq.Plane(
+            origin=(slope_apex_x_signed, port_position_y, boss_z_min - 0.1),
+            xDir=(1, 0, 0),
+            normal=(0, 0, 1),
+        ))
+        .circle(port_tube_diameter / 2)
+        .extrude((bulkhead_wet_end_z - boss_z_min) + 0.2)
+    )
+    body = body.cut(wet_port)
+
+    # Tube exit channel — ⌀6.5 hole from the bulkhead's dry end
+    # through the remaining boss PETG and the +Z outer wall, exiting
+    # at z=outer_z_max for the 1/4" tube to continue out into the
+    # foam-bag-shell pass-through.
+    tube_exit = (
+        cq.Workplane(cq.Plane(
+            origin=(slope_apex_x_signed, port_position_y, bulkhead_dry_end_z - 0.1),
+            xDir=(1, 0, 0),
+            normal=(0, 0, 1),
+        ))
+        .circle(port_tube_diameter / 2)
+        .extrude((outer_z_max - bulkhead_dry_end_z) + 0.2)
+    )
+    body = body.cut(tube_exit)
 
     return body
 
