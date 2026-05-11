@@ -220,16 +220,19 @@ _vent_boss_extension_below_base_plate = _vent_boss_depth - cap_base_thickness  #
 vent_cylinder_inner_diameter = vent_hole_diameter                       # 5
 vent_cylinder_wall_thickness = 1.5
 vent_cylinder_outer_diameter = vent_cylinder_inner_diameter + 2 * vent_cylinder_wall_thickness  # 8
-vent_cylinder_length = 5.0  # total length of cylinder (walls + brim) below boss bottom — kept tight to the slots so the vent intrudes minimally into the reservoir's usable liquid volume
-vent_brim_diameter = vent_cylinder_outer_diameter + 2.0                 # 10
 vent_brim_thickness = 1.0
+vent_brim_diameter = vent_cylinder_outer_diameter + 2.0                 # 10
 #
-# Side slots cut through the cylinder walls near the brim — four
-# rectangular windows at 0°/90°/180°/270°. With 1 mm of solid wall
-# above and below the slot, the slot fills most of the cylinder.
+# Side slots cut through the cylinder walls — four rectangular
+# windows at 0°/90°/180°/270°. Slot height equals the cylinder wall
+# height (no margin above or below), so the wall in the slot zone is
+# four angular ribs spanning between the brim below and the boss
+# extension above.
 vent_slot_count = 4
 vent_slot_width = 3.0
 vent_slot_height = 2.0
+#
+vent_cylinder_length = vent_slot_height + vent_brim_thickness           # 3
 #
 # Vent position on the cap, in the side=+1 frame. Centered between
 # the z=0 and z=+65 rows of screw bosses (so the ø17 vent boss and
@@ -661,9 +664,9 @@ def build_reservoir_cap(side=1):
     #   y=8 .. 5.5  filter pocket (ø13.2, holds filter + retaining ring)
     #   y=5.5 .. 5  remaining 0.5 mm of standard base plate, vent hole ø5 through it
     #   y=5 .. 3    boss extension below base plate (ø17 outer), vent hole continues
-    #   y=3 .. -1   cylinder shell (ø8 outer, ø5 inner) hanging into the reservoir
-    #   y=2 .. 0    four side slots cut through the cylinder walls
-    #   y=-1 .. -2  closed brim (ø10) — blocks direct vertical splash from below
+    #   y=3 .. 1    cylinder shell (ø8 outer, ø5 inner) — wall is entirely slot zone
+    #   y=3 .. 1    four side slots cut through the cylinder walls (full wall height)
+    #   y=1 .. 0    closed brim (ø10) — blocks direct vertical splash from below
     vent_x_signed = vent_position_x * side
 
     boss_bottom_y = cap_total_height - _vent_boss_depth                # 3
@@ -717,10 +720,10 @@ def build_reservoir_cap(side=1):
     cap = cap.cut(air_column)
 
     # Side slots — four rectangular windows through the cylinder wall,
-    # spaced 90° apart, near (but not touching) the brim.
-    slot_center_y = (
-        cylinder_walls_bottom_y + vent_slot_height / 2.0 + 1.0
-    )  # 1 mm of solid wall between the slot bottom and the brim top
+    # spaced 90° apart. Slot fills the cylinder wall top to bottom:
+    # slot bottom = brim top, slot top = boss extension bottom. The
+    # boss above and the brim below carry the load across the slot.
+    slot_center_y = cylinder_walls_bottom_y + vent_slot_height / 2.0
     for i in range(vent_slot_count):
         theta = 2.0 * math.pi * i / vent_slot_count
         slot_x = vent_x_signed + (vent_cylinder_outer_diameter / 2.0) * math.cos(theta)
