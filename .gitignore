@@ -5,9 +5,9 @@
 .vscode/launch.json
 .vscode/ipch
 data/
-src/fw_version.h
-src_config/fw_version.h
-src_display/fw_version.h
+firmware/src/fw_version.h
+firmware/src_config/fw_version.h
+firmware/src_display/fw_version.h
 **/xcuserdata/
 **/build/
 __pycache__/
