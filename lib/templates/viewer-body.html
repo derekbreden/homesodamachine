@@ -193,12 +193,18 @@ document.head.appendChild(occtScript);
 let allFiles = [];       // STEP files
 let mmdFiles = [];       // Mermaid files
 let dxfFiles = [];       // DXF files
-let currentFile = null;  // STEP detail (file shown in modal)
-let currentMmd = null;   // Mermaid detail
-let currentDxf = null;   // DXF detail
+// At most one detail surface is open at a time (parts viewer is modal).
+//   currentDetail = { type: "step"|"dxf"|"mmd", file } | null
+//   mountedDetail = { type: "step"|"dxf",       file } | null
+// "current" tracks which file the modal is presenting; "mounted" tracks
+// which file is actually loaded into the shared Three.js scene (only
+// step+dxf use the scene; mmd renders separately via PanZoom). The two
+// can briefly disagree during a load — the current file is set first
+// so popstate handlers see the new state, then the loader populates
+// the scene and updates mounted to match.
+let currentDetail = null;
+let mountedDetail = null;
 let currentMmdContent = null;
-let mountedStepFile = null; // STEP file currently rendered into the 3D scene
-let mountedDxfFile = null;  // DXF file currently rendered into the 3D scene
 let currentCadWrapper = null;        // host div inside the modal (parent of canvases)
 let currentCadResizeObserver = null; // ResizeObserver on currentCadWrapper
 const thumbnailCache = new Map();  // STEP file -> dataURL
@@ -247,8 +253,8 @@ window.__hsm = {
   THREE, renderer, scene, camera, controls,
   loadStepFile, loadDxfFile,
   get currentGroup() { return currentGroup; },
-  get mountedStepFile() { return mountedStepFile; },
-  get mountedDxfFile() { return mountedDxfFile; },
+  get mountedStepFile() { return mountedDetail?.type === "step" ? mountedDetail.file : null; },
+  get mountedDxfFile()  { return mountedDetail?.type === "dxf"  ? mountedDetail.file : null; },
 };
 
 // --- ViewCube ---
@@ -570,7 +576,7 @@ async function loadStepFile(file, { preserveCamera = false } = {}) {
     // this STEP file).
     const headers = {};
     const prevEtag = stepEtags.get(file);
-    if (mountedStepFile === file && prevEtag) {
+    if (mountedDetail?.type === "step" && mountedDetail.file === file && prevEtag) {
       headers["If-None-Match"] = prevEtag;
     }
     const resp = await fetch(`/steps/${file}`, { headers });
@@ -589,7 +595,7 @@ async function loadStepFile(file, { preserveCamera = false } = {}) {
 
     currentGroup = buildMesh(result);
     scene.add(currentGroup);
-    mountedStepFile = file;
+    mountedDetail = { type: "step", file };
     if (!preserveCamera) resetCamera(currentGroup);
   } finally {
     if (loadingEl) loadingEl.style.display = "none";
@@ -1029,7 +1035,7 @@ async function loadDxfFile(file, { preserveCamera = false } = {}) {
   try {
     const headers = {};
     const prevEtag = dxfEtags.get(file);
-    if (mountedDxfFile === file && prevEtag) {
+    if (mountedDetail?.type === "dxf" && mountedDetail.file === file && prevEtag) {
       headers["If-None-Match"] = prevEtag;
     }
     const resp = await fetch(`/dxfs/${file}`, { headers });
@@ -1050,8 +1056,7 @@ async function loadDxfFile(file, { preserveCamera = false } = {}) {
     const thickness = typeof meta.thickness_mm === "number" ? meta.thickness_mm : null;
     currentGroup = buildDxfMesh(parsed, thickness);
     scene.add(currentGroup);
-    mountedDxfFile = file;
-    mountedStepFile = null;
+    mountedDetail = { type: "dxf", file };
     if (!preserveCamera) resetDxfCamera(currentGroup, !!thickness);
   } finally {
     if (loadingEl) loadingEl.style.display = "none";
@@ -1217,7 +1222,7 @@ async function reRenderOpenMmd(content) {
   currentMmdPz = PanZoom.wrap(svgEl, {
     container: currentMmdWrapper,
     initialFit: false,
-    onTransformChange: (t) => mmdSaveTransform(currentMmd, t),
+    onTransformChange: (t) => mmdSaveTransform(file, t),
   });
   currentMmdPz.setTransform(prev);
 }
@@ -1466,18 +1471,31 @@ function buildGrid() {
 
 // open/close functions take a `pushHistory` flag. UI-driven calls push;
 // popstate-driven calls don't (the URL already changed).
-function openDetail(file, pushHistory = true) {
-  // Set currentFile BEFORE touching location.hash. In Puppeteer (and some
-  // browser configurations) setting location.hash can fire a popstate that
-  // runs synchronously before this function returns; the popstate handler
-  // dispatches on currentFile, so it must already reflect this open or it
-  // re-enters openDetail and we end up with a duplicate ContentViewer.
-  currentFile = file;
-  if (pushHistory) location.hash = "step:" + encodeURIComponent(file);
+// CAD detail open/close — handles both STEP and DXF, which differ only
+// in extension, hash prefix, and loader. The shared Three.js scene
+// (renderer, camera, controls) is reused across both: open swaps the
+// canvas into the modal, the loader populates currentGroup, close
+// teardown is identical. Mermaid is a separate flow (PanZoom, no
+// Three.js) — see openMmdDetail below.
+const CAD_KINDS = {
+  step: { ext: ".step", hashPrefix: "step:", loader: loadStepFile },
+  dxf:  { ext: ".dxf",  hashPrefix: "dxf:",  loader: loadDxfFile  },
+};
 
-  // Build the modal wrapper. Renderer canvas + gizmo canvas get moved out
-  // of the hidden host into here; on close they go back. The wrapper also
-  // hosts a centered loading pill that loadStepFile toggles.
+function openCadDetail(type, file, pushHistory = true) {
+  const kind = CAD_KINDS[type];
+  // Set currentDetail BEFORE touching location.hash. In Puppeteer (and
+  // some browser configurations) setting location.hash can fire a
+  // popstate that runs synchronously before this function returns; the
+  // popstate handler dispatches on currentDetail, so it must already
+  // reflect this open or we re-enter and end up with a duplicate
+  // ContentViewer.
+  currentDetail = { type, file };
+  if (pushHistory) location.hash = kind.hashPrefix + encodeURIComponent(file);
+
+  // Build the modal wrapper. Renderer canvas + gizmo canvas get moved
+  // out of the hidden host into here; on close they go back. The
+  // wrapper also hosts a centered loading pill that the loader toggles.
   const wrapper = document.createElement("div");
   wrapper.className = "cad-wrapper";
   wrapper.appendChild(renderer.domElement);
@@ -1490,9 +1508,9 @@ function openDetail(file, pushHistory = true) {
   currentCadWrapper = wrapper;
 
   // Re-fit the renderer whenever the wrapper's content box changes
-  // (modal show, window resize, orientation change). The first observation
-  // fires synchronously after observe(), which gives us a correct initial
-  // size as soon as the modal lays out.
+  // (modal show, window resize, orientation change). The first
+  // observation fires synchronously after observe(), giving us a
+  // correct initial size as soon as the modal lays out.
   currentCadResizeObserver = new ResizeObserver(() => {
     if (renderer.domElement.parentElement === wrapper) resizeRenderer();
   });
@@ -1500,7 +1518,7 @@ function openDetail(file, pushHistory = true) {
 
   ContentViewer.open({
     content: wrapper,
-    filename: shortName(file, ".step").name,
+    filename: shortName(file, kind.ext).name,
     onOpen: () => {
       // Wrapper has its real size now — size the renderer + start the loop.
       resizeRenderer();
@@ -1510,15 +1528,16 @@ function openDetail(file, pushHistory = true) {
       // Persist camera state defensively. The debounced save (controls
       // "change" handler) usually has already fired, but if the user
       // dismissed mid-gesture the trailing save may not have. Use the
-      // captured `file` rather than currentFile — closeDetail(false)
-      // clears currentFile before invoking us, so we'd otherwise miss
+      // captured `file` rather than currentDetail — closeCadDetail(false)
+      // clears currentDetail before invoking us, so we'd otherwise miss
       // the save on popstate-driven closes.
       saveCameraState(file);
       // Whether this onClose was triggered by a UI-driven dismissal
-      // (Escape / X / backdrop / swipe) or by closeDetail(false) from the
-      // popstate path. The popstate path clears currentFile before close
-      // fires; UI-driven closes leave currentFile set.
-      const wasUiDriven = currentFile === file;
+      // (Escape / X / backdrop / swipe) or by closeCadDetail(false)
+      // from the popstate path. The popstate path clears currentDetail
+      // before close fires; UI-driven closes leave it set.
+      const wasUiDriven =
+        currentDetail && currentDetail.type === type && currentDetail.file === file;
       stopAnimate();
       // Disconnect ResizeObserver before moving canvases (otherwise it
       // fires once more for the move into the hidden host).
@@ -1527,8 +1546,8 @@ function openDetail(file, pushHistory = true) {
         currentCadResizeObserver = null;
       }
       // Move canvases back to the hidden host so they stay mounted for
-      // the next open. Don't dispose anything Three.js — renderer/scene/
-      // controls are reused.
+      // the next open. Don't dispose anything Three.js — renderer/
+      // scene/controls are reused.
       try { canvasHost.appendChild(renderer.domElement); } catch {}
       try { canvasHost.appendChild(gizmoCanvas); } catch {}
       // Drop the loaded mesh — fresh load on next open.
@@ -1538,110 +1557,53 @@ function openDetail(file, pushHistory = true) {
         currentGroup = null;
       }
       currentCadWrapper = null;
-      currentFile = null;
-      mountedStepFile = null;
+      currentDetail = null;
+      mountedDetail = null;
       // Pop the hash if the user dismissed the modal directly. popstate
       // already moved the URL, so don't double-pop.
       if (wasUiDriven && location.hash) history.back();
     },
   });
 
-  loadStepFile(file).then(() => applyCameraState(file));
+  kind.loader(file).then(() => applyCameraState(file));
 }
 
-// closeDetail is the entry point for the popstate path; UI-driven closes
-// (Escape / X / backdrop / swipe) go through ContentViewer directly and run
-// the modal's onClose. All teardown lives there.
-function closeDetail(pushHistory = true) {
+// closeCadDetail is the entry point for the popstate path; UI-driven
+// closes (Escape / X / backdrop / swipe) go through ContentViewer
+// directly and run the modal's onClose. All teardown lives there.
+function closeCadDetail(pushHistory = true) {
   if (!ContentViewer.isOpen()) {
     // Already closed by the user — normalize state.
-    currentFile = null;
-    mountedStepFile = null;
+    currentDetail = null;
+    mountedDetail = null;
     return;
   }
-  // pushHistory=false comes from popstate (the URL already changed). Clear
-  // currentFile first so the onClose handler sees it as null and skips the
-  // history.back() that would double-pop the stack.
+  // pushHistory=false comes from popstate (the URL already changed).
+  // Clear currentDetail first so the onClose handler sees it as null
+  // and skips the history.back() that would double-pop the stack.
   if (!pushHistory) {
-    currentFile = null;
+    currentDetail = null;
   }
   ContentViewer.close();
 }
 
-// DXF detail open/close. Mirrors openDetail/closeDetail above; same
-// renderer + camera + gizmo, different geometry producer (loadDxfFile).
-function openDxfDetail(file, pushHistory = true) {
-  currentDxf = file;
-  if (pushHistory) location.hash = "dxf:" + encodeURIComponent(file);
-
-  const wrapper = document.createElement("div");
-  wrapper.className = "cad-wrapper";
-  wrapper.appendChild(renderer.domElement);
-  wrapper.appendChild(gizmoCanvas);
-  const loadingEl = document.createElement("div");
-  loadingEl.className = "cad-loading";
-  loadingEl.textContent = "Loading...";
-  wrapper.appendChild(loadingEl);
-
-  currentCadWrapper = wrapper;
-
-  currentCadResizeObserver = new ResizeObserver(() => {
-    if (renderer.domElement.parentElement === wrapper) resizeRenderer();
-  });
-  currentCadResizeObserver.observe(wrapper);
-
-  ContentViewer.open({
-    content: wrapper,
-    filename: shortName(file, ".dxf").name,
-    onOpen: () => {
-      resizeRenderer();
-      startAnimate();
-    },
-    onClose: () => {
-      saveCameraState(file);
-      const wasUiDriven = currentDxf === file;
-      stopAnimate();
-      if (currentCadResizeObserver) {
-        try { currentCadResizeObserver.disconnect(); } catch {}
-        currentCadResizeObserver = null;
-      }
-      try { canvasHost.appendChild(renderer.domElement); } catch {}
-      try { canvasHost.appendChild(gizmoCanvas); } catch {}
-      if (currentGroup) {
-        scene.remove(currentGroup);
-        currentGroup.traverse((c) => { if (c.geometry) c.geometry.dispose(); });
-        currentGroup = null;
-      }
-      currentCadWrapper = null;
-      currentDxf = null;
-      mountedDxfFile = null;
-      if (wasUiDriven && location.hash) history.back();
-    },
-  });
-
-  loadDxfFile(file).then(() => applyCameraState(file));
-}
-
-function closeDxfDetail(pushHistory = true) {
-  if (!ContentViewer.isOpen()) {
-    currentDxf = null;
-    mountedDxfFile = null;
-    return;
-  }
-  if (!pushHistory) {
-    currentDxf = null;
-  }
-  ContentViewer.close();
-}
+// Backward-compatible thin wrappers — call sites in grid/sse/popstate
+// still use the old per-format names; converting them belongs in the
+// viewer split (Phase 4) where each module gets its own entry surface.
+function openDetail(file, pushHistory = true)    { openCadDetail("step", file, pushHistory); }
+function openDxfDetail(file, pushHistory = true) { openCadDetail("dxf",  file, pushHistory); }
+function closeDetail(pushHistory = true)         { closeCadDetail(pushHistory); }
+function closeDxfDetail(pushHistory = true)      { closeCadDetail(pushHistory); }
 
 async function openMmdDetail(file, pushHistory = true) {
-  // Set currentMmd BEFORE touching location.hash. In some browser
+  // Set currentDetail BEFORE touching location.hash. In some browser
   // configurations (notably Puppeteer) setting location.hash fires a
   // popstate that runs synchronously before this function returns; the
-  // popstate handler dispatches on currentMmd, so it must already reflect
-  // this open or it re-enters openMmdDetail and we end up with a duplicate
-  // ContentViewer (whose singleton-replacement strips the hash).
-  currentMmd = file;
+  // popstate handler dispatches on currentDetail, so it must already
+  // reflect this open or it re-enters openMmdDetail and we end up with
+  // a duplicate ContentViewer (whose singleton-replacement strips the
+  // hash).
+  currentDetail = { type: "mmd", file };
   if (pushHistory) location.hash = "mmd:" + encodeURIComponent(file);
 
   const resp = await fetch(`/api/mermaid-content/${file}`);
@@ -1660,14 +1622,14 @@ async function openMmdDetail(file, pushHistory = true) {
       content: errWrapper,
       filename: shortName(file, ".mmd").name,
       onClose: () => {
-        currentMmd = null;
+        currentDetail = null;
         currentMmdContent = null;
         currentMmdWrapper = null;
         currentMmdPz = null;
         if (location.hash) history.back();
       },
     });
-    currentMmd = file;
+    currentDetail = { type: "mmd", file };
     currentMmdContent = content;
     return;
   }
@@ -1682,7 +1644,7 @@ async function openMmdDetail(file, pushHistory = true) {
     onTransformChange: (t) => mmdSaveTransform(file, t),
   });
 
-  currentMmd = file;
+  currentDetail = { type: "mmd", file };
   currentMmdContent = content;
   currentMmdWrapper = wrapper;
   currentMmdPz = pz;
@@ -1700,7 +1662,7 @@ async function openMmdDetail(file, pushHistory = true) {
     },
     onClose: () => {
       try { pz.destroy(); } catch {}
-      currentMmd = null;
+      currentDetail = null;
       currentMmdContent = null;
       currentMmdWrapper = null;
       currentMmdPz = null;
@@ -1716,7 +1678,7 @@ function closeMmdDetail(pushHistory = true) {
   // dismiss the modal without re-popping (the URL already changed).
   if (!ContentViewer.isOpen()) {
     // Already closed by the user — just normalize state.
-    currentMmd = null;
+    currentDetail = null;
     currentMmdContent = null;
     currentMmdWrapper = null;
     currentMmdPz = null;
@@ -1727,7 +1689,7 @@ function closeMmdDetail(pushHistory = true) {
   if (!pushHistory) {
     const wrapper = currentMmdWrapper;
     const pz = currentMmdPz;
-    currentMmd = null;
+    currentDetail = null;
     currentMmdContent = null;
     currentMmdWrapper = null;
     currentMmdPz = null;
@@ -1740,29 +1702,27 @@ function closeMmdDetail(pushHistory = true) {
 
 // Browser/OS back button: navigate to whatever the new hash represents.
 // ContentViewer handles Escape / X / backdrop / swipe-down on its own.
+const HASH_PREFIXES = { "step:": "step", "dxf:": "dxf", "mmd:": "mmd" };
+const OPENERS = { step: openDetail, dxf: openDxfDetail, mmd: openMmdDetail };
+
 window.addEventListener("popstate", () => {
   const hash = location.hash ? decodeURIComponent(location.hash.slice(1)) : "";
-  const want = hash.startsWith("step:") ? { type: "step", file: hash.slice(5) }
-             : hash.startsWith("dxf:")  ? { type: "dxf",  file: hash.slice(4) }
-             : hash.startsWith("mmd:")  ? { type: "mmd",  file: hash.slice(4) }
-             : { type: null };
-  if (want.type === "step") {
-    if (currentDxf) closeDxfDetail(false);
-    if (currentMmd) closeMmdDetail(false);
-    if (currentFile !== want.file) openDetail(want.file, false);
-  } else if (want.type === "dxf") {
-    if (currentFile) closeDetail(false);
-    if (currentMmd) closeMmdDetail(false);
-    if (currentDxf !== want.file) openDxfDetail(want.file, false);
-  } else if (want.type === "mmd") {
-    if (currentFile) closeDetail(false);
-    if (currentDxf) closeDxfDetail(false);
-    if (currentMmd !== want.file) openMmdDetail(want.file, false);
-  } else {
-    if (currentFile) closeDetail(false);
-    if (currentDxf) closeDxfDetail(false);
-    if (currentMmd) closeMmdDetail(false);
+  let want = { type: null, file: null };
+  for (const [prefix, type] of Object.entries(HASH_PREFIXES)) {
+    if (hash.startsWith(prefix)) { want = { type, file: hash.slice(prefix.length) }; break; }
   }
+  // Already showing the right thing? Nothing to do.
+  if (want.type && currentDetail
+      && currentDetail.type === want.type && currentDetail.file === want.file) {
+    return;
+  }
+  // Close whatever is currently open (cad and mmd close paths differ
+  // because mmd uses PanZoom and not the Three.js scene).
+  if (currentDetail) {
+    if (currentDetail.type === "mmd") closeMmdDetail(false);
+    else closeCadDetail(false);
+  }
+  if (want.type) OPENERS[want.type](want.file, false);
 });
 
 // --- Live update bridge ---
@@ -1853,17 +1813,21 @@ async function refetchOpenMmd(file) {
   await reRenderOpenMmd(content);
 }
 
+function isOpenAs(type, file) {
+  return currentDetail && currentDetail.type === type && currentDetail.file === file;
+}
+
 window.addEventListener("hsm:files-changed", (e) => {
   for (const file of (e.detail && e.detail.files) || []) {
     if (file.endsWith(".step")) {
       refreshStepCard(file);
-      if (currentFile === file) loadStepFile(file, { preserveCamera: true });
+      if (isOpenAs("step", file)) loadStepFile(file, { preserveCamera: true });
     } else if (file.endsWith(".dxf")) {
       refreshDxfCard(file);
-      if (currentDxf === file) loadDxfFile(file, { preserveCamera: true });
+      if (isOpenAs("dxf", file)) loadDxfFile(file, { preserveCamera: true });
     } else if (file.endsWith(".mmd")) {
       refreshMmdCard(file);
-      if (currentMmd === file) refetchOpenMmd(file);
+      if (isOpenAs("mmd", file)) refetchOpenMmd(file);
     }
   }
 });
@@ -1926,7 +1890,8 @@ let cameraSaveTimer = null;
 controls.addEventListener("change", () => {
   // Save the camera for whichever file is open. Both STEP and DXF use
   // the same camera, scoped per-file in localStorage.
-  const openFile = currentFile || currentDxf;
+  // Both STEP and DXF use the same camera; saving is keyed by file path.
+  const openFile = mountedDetail ? mountedDetail.file : null;
   if (!openFile) return;
   clearTimeout(cameraSaveTimer);
   cameraSaveTimer = setTimeout(() => saveCameraState(openFile), 250);
