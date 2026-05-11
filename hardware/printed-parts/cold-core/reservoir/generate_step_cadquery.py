@@ -143,6 +143,37 @@ cap_clearance_hole_diameter = 3.5
 
 
 # -------------------------------------------------------
+# Gasket
+# -------------------------------------------------------
+#
+# TPU 90A flat gasket that sits between the body wall top and the
+# cap base plate bottom, compressed by the six M3 × 12 screws. Same
+# material spec as the foam-bag-shell cap gasket; printed flat at
+# 2 mm thick.
+#
+# Geometry pattern, mirroring foam-cap-gasket:
+#   - 5 mm-wide perimeter ring matching the body wall outer
+#     footprint. The 4 mm-thick body wall is fully covered, plus
+#     1 mm of the ring extends inward over the cavity opening for
+#     print stability (a 4 mm-wide TPU strip alone is narrow enough
+#     to warp during a TPU print).
+#   - ø8 circular pads at each insert position. The pads extend
+#     inward beyond the perimeter ring to give the screw clamp a
+#     uniform compressed disk the same size as the body boss above
+#     and (within 1 mm) the cap boss below — so each screw seats
+#     squarely on TPU and the seal is uniform around every hole
+#     rather than being a thin ring through the wall section and a
+#     wide disk through the cavity-side pad.
+#   - ø3.5 clearance holes through each pad for the screw shaft.
+#
+gasket_thickness = 2.0
+gasket_strip_width = 5.0
+gasket_pad_radius = 4.0  # ø8, matches body boss
+#
+# -------------------------------------------------------
+
+
+# -------------------------------------------------------
 # Heat-set insert + screw spec
 # -------------------------------------------------------
 #
@@ -557,6 +588,82 @@ def build_reservoir_cap(side=1):
     return cap
 
 
+def build_reservoir_gasket(side=1):
+    """
+    Flat TPU 90A gasket between the reservoir body wall top and the
+    cap base plate bottom. 2 mm thick, exported in its own coordinate
+    space (y = 0 .. 2). To visualize the assembled stack, translate
+    up by the reservoir wall top y = 211.9 mm.
+
+    Same `[`-shape outer footprint as the body and cap (with the
+    outer-corner fillet at the curve × ±Z corners). Inner edge of
+    the perimeter ring is `gasket_strip_width` inward of the outer
+    edge — 5 mm-wide ring covers the 4 mm-thick body wall fully plus
+    1 mm extending inward over the cavity opening.
+
+    At each of the six insert positions, an ø8 pad extends inward
+    beyond the ring so the screw clamp compresses a uniform disk of
+    TPU (matching the body boss footprint), with an ø3.5 hole through
+    its center for the screw shaft.
+
+    side=+1 builds the +X gasket; side=−1 builds the −X (mirror).
+    """
+    outer_far_x_abs = bag_pocket_far_inner_x - reservoir_clearance
+    outer_z_max = bag_pocket_z_inner_max - reservoir_clearance
+    outer_centerward_radius = tank_copper_shell_outer_radius + reservoir_clearance
+
+    inner_far_x_abs = outer_far_x_abs - gasket_strip_width
+    inner_z_max = outer_z_max - gasket_strip_width
+    inner_centerward_radius = outer_centerward_radius + gasket_strip_width
+
+    outer = _build_outer_envelope(
+        side, outer_far_x_abs, outer_z_max, outer_centerward_radius,
+        0.0, gasket_thickness,
+    )
+    inner = _build_outer_envelope(
+        side, inner_far_x_abs, inner_z_max, inner_centerward_radius,
+        0.0, gasket_thickness,
+    )
+    gasket = outer.cut(inner)
+
+    # Outer fillet at the curve × ±Z corners (matches the body/cap
+    # outer profile so the gasket aligns flush with both above and
+    # below it when clamped).
+    outer_corner_x = math.sqrt(outer_centerward_radius**2 - outer_z_max**2)
+    y_mid_gasket = gasket_thickness / 2.0
+    for sharp_z in (outer_z_max, -outer_z_max):
+        gasket = (
+            gasket
+            .edges(cq.NearestToPointSelector(
+                (side * outer_corner_x, y_mid_gasket, sharp_z),
+            ))
+            .fillet(outer_corner_fillet_radius)
+        )
+
+    # Pads at every insert position — unioned BEFORE the holes are
+    # cut so each hole sits at the center of a full ø8 disk.
+    for (px, pz) in INSERT_POSITIONS_FOR_SIDE_PLUS_1:
+        px_signed = px * side
+        pad = (
+            _wp_at(px_signed, 0.0, pz)
+            .circle(gasket_pad_radius)
+            .extrude(gasket_thickness)
+        )
+        gasket = gasket.union(pad)
+
+    # Screw clearance holes.
+    for (px, pz) in INSERT_POSITIONS_FOR_SIDE_PLUS_1:
+        px_signed = px * side
+        hole = (
+            _wp_at(px_signed, -0.1, pz)
+            .circle(cap_clearance_hole_diameter / 2.0)
+            .extrude(gasket_thickness + 0.2)
+        )
+        gasket = gasket.cut(hole)
+
+    return gasket
+
+
 # ═══════════════════════════════════════════════════════
 # BUILD AND EXPORT
 # ═══════════════════════════════════════════════════════
@@ -565,12 +672,15 @@ def build_reservoir_cap(side=1):
 def main():
     body = build_reservoir_body(side=1)
     cap = build_reservoir_cap(side=1)
+    gasket = build_reservoir_gasket(side=1)
 
     here = Path(__file__).resolve().parent
     export_step(body, str(here / "reservoir.step"))
     export_step(cap, str(here / "reservoir-cap.step"))
+    export_step(gasket, str(here / "reservoir-gasket.step"))
     print(f"-> reservoir.step")
     print(f"-> reservoir-cap.step")
+    print(f"-> reservoir-gasket.step")
 
 
 if __name__ == "__main__":
