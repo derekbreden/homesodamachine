@@ -669,6 +669,26 @@ def build_reservoir_body(side=1):
     body = body.cut(_z_pocket_cut(
         bulkhead_wet_end_z, bulkhead_panel_z_min, bulkhead_pocket_diameter,
     ))                                       # wet chamber ⌀23
+
+    # Open the wet chamber's ceiling to the cavity above — same logic as
+    # the dry-side: the PETG above the chamber's centerline (y=16) up to
+    # the floor surface (y≈28) wasn't doing structural work. Removing it
+    # also gives a wet-side install path (lower the bulkhead in from
+    # above) and lets syrup drain straight into the chamber from the
+    # cavity above instead of through the narrow ⌀6.5 well. The well
+    # stays — at the chamber's −Z end, it drops below the chamber floor
+    # to port_inlet_bottom_y (=12.75), keeping the bulkhead's wet-
+    # collet port the lowest point of the syrup volume.
+    ceiling_box_cut = (
+        _wp_at(
+            port_x_signed,
+            port_position_y,
+            bulkhead_wet_end_z + bulkhead_wet_chamber_length / 2.0,
+        )
+        .rect(bulkhead_pocket_diameter, bulkhead_wet_chamber_length)
+        .extrude(floor_baseline_y + 2.0 - port_position_y)
+    )
+    body = body.cut(ceiling_box_cut)
     body = body.cut(_z_pocket_cut(
         bulkhead_panel_z_min, bulkhead_panel_z_max, bulkhead_panel_hole_diameter,
     ))                                       # panel hole ⌀17
