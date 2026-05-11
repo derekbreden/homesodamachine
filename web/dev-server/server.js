@@ -104,8 +104,12 @@ async function runScript(pyFilePath) {
     if (code !== 0) return;
 
     // Broadcast STEP files in scriptDir that were rewritten since startTime.
-    // The atomic-write helper renames into place, so the mtime reflects the
-    // moment a complete file appeared.
+    // The atomic-write helper in hardware/_cadq_export.py renames into place,
+    // so the mtime reflects the moment a complete file appeared. That same
+    // helper also short-circuits when the new bytes match the existing file
+    // exactly (timestamps are canonicalized first), so a no-op .py edit
+    // produces no .step writes and nothing here broadcasts — which is the
+    // right behavior, the file really hasn't changed.
     for (const entry of fs.readdirSync(scriptDir)) {
       if (!entry.endsWith(".step")) continue;
       const full = path.join(scriptDir, entry);
@@ -213,16 +217,55 @@ watcher.on("change", (absPath) => {
   }
 
   // generate_step*.py changed — re-run that script.
-  if (!/generate_step.*\.py$/.test(absPath)) return;
-  if (debounce.has(absPath)) clearTimeout(debounce.get(absPath));
-  debounce.set(
-    absPath,
-    setTimeout(() => {
-      debounce.delete(absPath);
-      console.log(`Changed: ${path.relative(HARDWARE_DIR, absPath)}`);
-      runScript(absPath);
-    }, 500),
-  );
+  if (/generate_step.*\.py$/.test(absPath)) {
+    if (debounce.has(absPath)) clearTimeout(debounce.get(absPath));
+    debounce.set(
+      absPath,
+      setTimeout(() => {
+        debounce.delete(absPath);
+        console.log(`Changed: ${path.relative(HARDWARE_DIR, absPath)}`);
+        runScript(absPath);
+      }, 500),
+    );
+    return;
+  }
+
+  // Shared private module (e.g. `_foam_bag_geometry.py`) changed — find
+  // every generator that imports it by module name and re-run those. The
+  // cadlib handler above is a coarser version of the same idea: anything
+  // in /cadlib/ rebuilds every generator. This handler is the targeted
+  // version for shared modules that sit alongside a small set of related
+  // generators (like the three foam-bag-shell / foam-cap / copper-plugs
+  // siblings that all import `_foam_bag_geometry`). Without this handler,
+  // editing such a module would silently fail to trigger rebuilds.
+  if (absPath.endsWith(".py")) {
+    const moduleName = path.basename(absPath, ".py");
+    if (debounce.has(absPath)) clearTimeout(debounce.get(absPath));
+    debounce.set(
+      absPath,
+      setTimeout(async () => {
+        debounce.delete(absPath);
+        const importRe = new RegExp(`(?:^|\\s)(?:from|import)\\s+${moduleName}\\b`, "m");
+        const dependents = [];
+        for (const script of findGenerateScripts()) {
+          let source;
+          try {
+            source = fs.readFileSync(script, "utf-8");
+          } catch {
+            continue;
+          }
+          if (importRe.test(source)) dependents.push(script);
+        }
+        if (dependents.length === 0) return;
+        console.log(`Shared module changed: ${path.relative(HARDWARE_DIR, absPath)}`);
+        for (const dep of dependents) {
+          console.log(`  Rebuilding ${path.relative(HARDWARE_DIR, dep)}`);
+          await runScript(dep);
+        }
+      }, 500),
+    );
+    return;
+  }
 });
 
 console.log("Watching for changes...");
