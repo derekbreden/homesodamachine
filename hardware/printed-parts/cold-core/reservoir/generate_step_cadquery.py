@@ -298,13 +298,15 @@ port_tube_diameter = 6.5                # 1/4" OD tube clearance
 #
 bulkhead_pocket_diameter = 23.0         # ø22.9 flange + 0.1 clearance (snug fit)
 bulkhead_panel_hole_diameter = 17.0     # JG catalog spec for the 1/4" body family (0.67")
-bulkhead_wet_chamber_length = 12.0      # wet flange + wet collet
+bulkhead_wet_chamber_length = 12.0      # wet flange + wet collet (bulkhead body section)
+bulkhead_wet_antechamber_length = 2.0   # gap on the wet collet's outer face — must exist or syrup can't reach the port; flange + locknut still clamp the panel firmly
 bulkhead_panel_thickness = 5.0          # = panel + threading section
 bulkhead_dry_chamber_length = 17.0      # locknut + dry collet
 bulkhead_pocket_length = (
     bulkhead_wet_chamber_length + bulkhead_panel_thickness + bulkhead_dry_chamber_length
-)                                       # 34
-bulkhead_wet_end_z = 30.0
+)                                       # 34 (bulkhead body length, catalog ~34.5)
+bulkhead_wet_end_z = 30.0                # z of bulkhead body's wet face (the port)
+bulkhead_wet_chamber_z_min = bulkhead_wet_end_z - bulkhead_wet_antechamber_length  # 28 — chamber's −Z face, leaves antechamber
 bulkhead_panel_z_min = bulkhead_wet_end_z + bulkhead_wet_chamber_length  # 42
 bulkhead_panel_z_max = bulkhead_panel_z_min + bulkhead_panel_thickness   # 47
 bulkhead_dry_end_z = bulkhead_wet_end_z + bulkhead_pocket_length         # 64
@@ -671,25 +673,20 @@ def build_reservoir_body(side=1):
         )
 
     body = body.cut(_z_pocket_cut(
-        bulkhead_wet_end_z, bulkhead_panel_z_min, bulkhead_pocket_diameter,
-    ))                                       # wet chamber ⌀23
+        bulkhead_wet_chamber_z_min, bulkhead_panel_z_min, bulkhead_pocket_diameter,
+    ))                                       # wet chamber ⌀23 (incl. antechamber)
 
-    # Open the wet chamber's ceiling to the cavity above — same logic as
-    # the dry-side: the PETG above the chamber's centerline (y=16) up to
-    # the floor surface (y≈28) wasn't doing structural work. Removing it
-    # also gives a wet-side install path (lower the bulkhead in from
-    # above) and lets syrup drain straight into the chamber from the
-    # cavity above instead of through the narrow ⌀6.5 well. The well
-    # stays — at the chamber's −Z end, it drops below the chamber floor
-    # to port_inlet_bottom_y (=12.75), keeping the bulkhead's wet-
-    # collet port the lowest point of the syrup volume.
+    # Open the wet chamber's ceiling to the cavity above — covers the
+    # full chamber z range including the antechamber, so syrup drops in
+    # from above and surrounds the bulkhead body's wet collet and the
+    # antechamber in front of its port.
     ceiling_box_cut = (
         _wp_at(
             port_x_signed,
             port_position_y,
-            bulkhead_wet_end_z + bulkhead_wet_chamber_length / 2.0,
+            (bulkhead_wet_chamber_z_min + bulkhead_panel_z_min) / 2.0,
         )
-        .rect(bulkhead_pocket_diameter, bulkhead_wet_chamber_length)
+        .rect(bulkhead_pocket_diameter, bulkhead_panel_z_min - bulkhead_wet_chamber_z_min)
         .extrude(floor_baseline_y + 2.0 - port_position_y)
     )
     body = body.cut(ceiling_box_cut)
