@@ -73,7 +73,7 @@ for spatial reference.
 
 ## Where this is consumed
 
-- `tools/dev-server/templates/viewer-body.html` — DXF extrusion uses
+- `lib/templates/viewer-body.html` — DXF extrusion uses
   `thickness_mm` from the sidecar. STEP rendering ignores the sidecar
   (the STEP file is already 3D).
 - `lib/viewer-routes.js` — `/api/dxf` returns each DXF's path alongside
