@@ -359,7 +359,7 @@ bulkhead_dry_end_z = bulkhead_wet_end_z + bulkhead_pocket_length                
 # bulkhead's wet collet body) → port at body's −Z face. The bulkhead
 # inlet is the lowest point the pump can drain to.
 #
-floor_baseline_y = port_position_y + bulkhead_pocket_diameter / 2 + 0.5  # 28 — just above pocket top y=27.5
+floor_baseline_y = port_position_y + bulkhead_pocket_diameter / 2 + 2.0  # 29.5 — 2 mm of PETG ceiling above the chamber's curved top (y=27.5)
 #
 port_inlet_bottom_y = port_position_y - port_tube_diameter / 2  # 12.75 — bottom edge of the wet-collet port
 floor_slope_rise = 6.0  # mm above floor_baseline_y at the far −Z wall
