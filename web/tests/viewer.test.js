@@ -21,7 +21,7 @@ import { fileURLToPath } from "node:url";
 import { start } from "../server.js";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
-const REPO_ROOT = path.resolve(__dirname, "..");
+const REPO_ROOT = path.resolve(__dirname, "..", "..");
 
 let server;
 let baseUrl;

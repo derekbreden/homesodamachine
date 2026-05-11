@@ -20,9 +20,11 @@ import { fileURLToPath } from "url";
 import { spawn } from "child_process";
 import chokidar from "chokidar";
 
-import { start } from "../../server.js";
+import { start } from "../server.js";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
+// dev-server lives at /web/dev-server; the cad-venv used to run
+// generators lives at the repo root under tools/cad-venv.
 const PROJECT_ROOT = path.resolve(__dirname, "../..");
 const PYTHON_BIN = path.join(PROJECT_ROOT, "tools", "cad-venv", "bin", "python");
 

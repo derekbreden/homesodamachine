@@ -23,7 +23,10 @@ import { fileURLToPath } from "node:url";
 import { start } from "../server.js";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
-const REPO_ROOT = path.resolve(__dirname, "..");
+// The web app is rooted at .../web; the larger repo root holds hardware/,
+// posts/, etc. Tests need both paths.
+const WEB_ROOT  = path.resolve(__dirname, "..");
+const REPO_ROOT = path.resolve(__dirname, "..", "..");
 
 let server;
 let baseUrl;
@@ -194,7 +197,7 @@ test("GET /api/mermaid-content/* returns text when a .mmd exists", async (t) => 
 // a parallel branch. Test what's there today; skip what isn't so this
 // suite keeps passing while the split lands.
 test("GET /css/viewer.css", async (t) => {
-  const file = path.join(REPO_ROOT, "public", "css", "viewer.css");
+  const file = path.join(WEB_ROOT, "public", "css", "viewer.css");
   if (!fs.existsSync(file)) return t.skip("viewer.css not yet present");
   const res = await fetch(baseUrl + "/css/viewer.css");
   assert.equal(res.status, 200);
@@ -202,7 +205,7 @@ test("GET /css/viewer.css", async (t) => {
 });
 
 test("GET /js/viewer/main.js", async (t) => {
-  const file = path.join(REPO_ROOT, "public", "js", "viewer", "main.js");
+  const file = path.join(WEB_ROOT, "public", "js", "viewer", "main.js");
   if (!fs.existsSync(file)) return t.skip("viewer/main.js not yet present");
   const res = await fetch(baseUrl + "/js/viewer/main.js");
   assert.equal(res.status, 200);

@@ -87,7 +87,7 @@ Served flat via `express.static(public/)`.
 
 State sharing pattern is **one shared object** (`state.js`'s exported `state`). Other modules `import { state } from './state.js'` and read/write `state.allFiles` etc. directly. Live binding via the object identity; no per-module proxy or sync ceremony.
 
-The Puppeteer escape hatch `window.__hsm` is set from `main.js` after all modules have loaded; its shape is part of the contract with [`tools/render/render-step*.js`](tools/render/) and must not change without updating those.
+The Puppeteer escape hatch `window.__hsm` is set from `main.js` after all modules have loaded; its shape is part of the contract with [`tools/render/render-step*.js`](../tools/render/) (which lives at the repo root and imports `web/server.js`) and must not change without updating those.
 
 ## Cross-module event flow
 
@@ -109,9 +109,9 @@ Three event sources land in the page (SSE, FCM, focus/visibility). All three con
 
 ## Dev vs prod
 
-There is **one server core** ([`server.js`](server.js)). The dev wrapper ([`tools/dev-server/server.js`](tools/dev-server/server.js)) imports `start({ dev: true })` and *adds*:
+There is **one server core** ([`server.js`](server.js)). The dev wrapper ([`dev-server/server.js`](dev-server/server.js)) imports `start({ dev: true })` and *adds*:
 
-- chokidar watcher on `hardware/` to re-run `generate_step_cadquery.py` and broadcast `files-changed` over SSE.
+- chokidar watcher on the repo's `hardware/` to re-run `generate_step_cadquery.py` and broadcast `files-changed` over SSE.
 - `findScriptsImportingStep` heuristic to also rebuild dependent scripts when a STEP they import changes.
 - A Python runner that picks up new `generate_step_*.py` files automatically.
 

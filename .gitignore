@@ -14,7 +14,7 @@ __pycache__/
 *.xcodeproj/
 logs/*.log
 .claude
-/node_modules/
+node_modules/
 
 # CAD script output (generated STEP/STL files)
 hardware/cartridge/scripts/output/*.step

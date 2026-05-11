@@ -10,6 +10,12 @@ services:
     plan: starter
     region: oregon
     branch: main
+    # The web app lives in /web. Render scopes buildCommand and
+    # startCommand to this directory, so `npm install` and `npm start`
+    # see web/package.json. The hardware/posts trees the server reads
+    # from stay at the repo root and are accessed via path.join("..",
+    # "hardware") in web/server.js.
+    rootDir: web
     buildCommand: npm install --omit=dev
     startCommand: npm start
     healthCheckPath: /
