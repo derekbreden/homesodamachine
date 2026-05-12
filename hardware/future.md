@@ -93,6 +93,25 @@ What's inside the shroud: the compressor body, its terminal block, and the clip-
 
 Full spec at [`cut-parts/compressor-shroud/README.md`](cut-parts/compressor-shroud/README.md). Final dimensions are TBD pending donor compressor measurement.
 
+**Floor pan (under consideration, not yet decided)**
+
+A bent sheet-metal floor pan beneath the cold core and compressor zone is on the table but not committed. The case for it:
+
+- **Drip containment.** A 5 mm lip catches anything that escapes the foam-bag shell during pour, the backflow-vent drip pan during a vent event, or a pump fitting during service. Stays flat for 10 years under load and temperature.
+- **Dimensional stability under sustained load.** The cold core has real static weight (vessel + foam + flavor reservoirs) that sits on whatever the floor is for the appliance lifetime. Polymers creep under sustained load, even engineered ones, even slowly. Metal does not.
+- **UL 60335-2-89 reinforcement.** A non-combustible base under the compressor zone extends the compressor-shroud's fire-enclosure story to the surface the compressor itself sits on. Belt-and-suspenders, but cheap.
+- **Mounting + ground reference.** The compressor-shroud's mounting tabs would attach to the floor pan rather than directly to the compressor's M5 feet (cleaner). PEM nuts in the pan accept the shroud screws. The pan also provides a single chassis ground-bond point near the compressor zone.
+
+The case against:
+
+- **Cost.** Small but nonzero — another SendCutSend part on the BOM.
+- **Noise.** A bare steel pan is a drum at compressor frequency if not damped or stiffened with ribs. Mitigatable but not free.
+- **The printed floor can do most of the same jobs** if attention is paid to first-layer adhesion at the lip-floor joint and to load-spreading geometry under the cold core.
+
+If it lands, material would mirror the shroud: 0.059" G90 hot-dipped galvanized steel from SendCutSend, bent floor + 5 mm perimeter lip. The shroud's mounting tabs attach to the pan via PEM nuts. If it doesn't, the shroud tabs attach to the compressor's M5 mounting feet directly and the printed enclosure floor handles drips on its own.
+
+No file in `cut-parts/` for it yet — revisit when the first build's enclosure mock-up is in hand and the drip-containment / load-spreading need is observable rather than theoretical.
+
 **Backflow vent monitoring**
 
 The Multiplex 19-0897's atmospheric vent terminates inside the kitchen cabinet over a small internal drip pan, not routed up through the counter. A moisture sensor in the pan ties to an ESP32 input — when the vent weeps (the mechanical telltale that check #1 has begun to leak), firmware fires an audible alarm at the device and an iOS app notification. This trades the always-visible drip of a countertop tray for a one-time-loud, persistent-software-flagged alert; in exchange the customer keeps a clean countertop with no extra penetrations.
