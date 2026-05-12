@@ -17,7 +17,7 @@ from _foam_bag_geometry import build_full_shell
 
 
 def main():
-    foam_shell, _inlet_plug, _outlet_plug = build_full_shell()
+    foam_shell = build_full_shell()
     export_step(foam_shell, str(_here / "foam-shell.step"))
     print("-> foam-shell.step")
 
