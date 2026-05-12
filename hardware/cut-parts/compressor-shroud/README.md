@@ -31,7 +31,7 @@ The condenser fan motor also runs on AC but is at the front of the enclosure (aw
 
 ## Shape concept
 
-A **5-sided open-bottom box** that drops over the compressor from above. Top panel + 4 side walls. Open bottom because the compressor sits on its mounting feet (on the appliance floor pan or directly on the cabinet floor), and the refrigerant tubes need to exit downward / sideways anyway.
+A **5-sided open-bottom box** that drops over the compressor from above. Top panel + 4 side walls. Open bottom because the compressor sits on its M5 mounting feet on the printed enclosure floor (no separate metal floor pan — see [`../../future.md`](../../future.md) "Other metal candidates considered, decided against"), and the refrigerant tubes need to exit downward / sideways anyway.
 
 Construction approach: a single SendCutSend part, bent on 4 sides. Alternative is a 2-piece U-channel + back-wall design with 2-3 bends and screw assembly — TBD when the first build's compressor measurements are in hand.
 
@@ -75,7 +75,7 @@ Alternatives considered and rejected:
 | # | Hole | Purpose |
 |---|---|---|
 | 1 | Ø ~12 mm grommet hole, one side wall | AC cable pass-through (3-conductor: switched H + N + chassis G, 18 AWG bundle) from Teyleten relay #1 on the electronics shelf to the compressor terminal block. Rubber grommet (Heyco SB-625-8 class) protects the cable from the cut edge. |
-| 2 | 2× M3 mounting tab through-holes at base flange | Anchor to either the compressor's existing M5 mounting feet (with adapter washer) or to the appliance floor pan (TBD per build mock-up). |
+| 2 | 2× M3 mounting tab through-holes at base flange | Anchor to the compressor's existing M5 mounting feet using M5→M3 step-down adapter washers. (No floor pan in this design — see [`../../future.md`](../../future.md) "Other metal candidates considered, decided against".) |
 | 3 | Ø ~6 mm chassis ground stud hole | PEM stud or threaded insert for the chassis bonding wire (run AC-6 in [`../../wiring/ac-wiring-schedule.md`](../../wiring/ac-wiring-schedule.md)) — bonds the shroud to building earth. |
 
 No top-side ventilation holes by design — the goal is to *contain* a flame event in this compartment, not vent it. The compressor's heat dissipation is through its body OD (the foot-mounting shell), which is open to the appliance interior and not affected by this shroud.
@@ -131,8 +131,9 @@ Run with `tools/cad-venv/bin/python generate_dxf.py` per the project's CadQuery 
 
 ## Open items
 
-1. **Measure the donor compressor** — terminal block envelope, PTC module standoff, mounting foot pattern, body OD/height. Without this the shroud dimensions are placeholders.
+1. **Measure the donor compressor** — terminal block envelope, PTC module standoff, mounting foot pattern (M5 thread spacing + bolt circle), body OD/height. Without this the shroud dimensions are placeholders.
 2. **Decide one-piece 5-sided box vs. two-piece U-channel + back-wall.** Driven by the 3" max box-flange height constraint and by build / install ergonomics.
 3. **Decide the AC pass-through grommet location.** Best path is the side facing the electronics shelf (back-side of shroud, since the shelf is at top-back) — minimizes wire run length.
-4. **Decide the floor pan question** ([`../../future.md`](../../future.md) discussion — drip pan / dimensional-stability argument). If a metal floor pan is added, the shroud's mounting tabs probably attach to it. If not, they attach to the compressor's M5 mounting feet directly.
-5. **Write `generate_dxf.py`** once items 1–4 are settled.
+4. **Write `generate_dxf.py`** once items 1–3 are settled.
+
+The floor pan question (earlier item 4) was resolved against a floor pan; the shroud's mounting tabs go directly to the compressor's M5 mounting feet. See [`../../future.md`](../../future.md) "Other metal candidates considered, decided against".

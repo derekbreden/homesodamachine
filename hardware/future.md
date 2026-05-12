@@ -93,24 +93,15 @@ What's inside the shroud: the compressor body, its terminal block, and the clip-
 
 Full spec at [`cut-parts/compressor-shroud/README.md`](cut-parts/compressor-shroud/README.md). Final dimensions are TBD pending donor compressor measurement.
 
-**Floor pan (under consideration, not yet decided)**
+**Other metal candidates considered (decided against)**
 
-A bent sheet-metal floor pan beneath the cold core and compressor zone is on the table but not committed. The case for it:
+Three additional sheet-metal candidates were evaluated alongside the compressor shroud and rejected. The appliance enclosure is otherwise all 3D-printed; the shroud is the only metal part.
 
-- **Drip containment.** A 5 mm lip catches anything that escapes the foam-bag shell during pour, the backflow-vent drip pan during a vent event, or a pump fitting during service. Stays flat for 10 years under load and temperature.
-- **Dimensional stability under sustained load.** The cold core has real static weight (vessel + foam + flavor reservoirs) that sits on whatever the floor is for the appliance lifetime. Polymers creep under sustained load, even engineered ones, even slowly. Metal does not.
-- **UL 60335-2-89 reinforcement.** A non-combustible base under the compressor zone extends the compressor-shroud's fire-enclosure story to the surface the compressor itself sits on. Belt-and-suspenders, but cheap.
-- **Mounting + ground reference.** The compressor-shroud's mounting tabs would attach to the floor pan rather than directly to the compressor's M5 feet (cleaner). PEM nuts in the pan accept the shroud screws. The pan also provides a single chassis ground-bond point near the compressor zone.
+- **Floor pan beneath the cold core + compressor zone.** The decisive argument against is acoustic: the compressor vibrates at ~60 Hz mechanical plus refrigerant pulsation, and a steel pan amplifies those frequencies at the surface the compressor sits on (mass damping or ribbing can mitigate but adds cost and weight). Printed floor handles drips with attention to first-layer adhesion at the lip-floor joint. Cold-core static weight (~5–10 kg over ~150 × 150 mm ≈ a few psi) produces sub-mm polymer creep in PET-CF over the 10-year design lifetime. The compressor-shroud's mounting tabs anchor directly to the compressor's M5 mounting feet rather than to a pan.
+- **Metal back panel.** Connector retention via PEM nuts vs. heat-set inserts in PET-CF doesn't matter at the actual cycle counts (C14 ~10–20× in 10 years, NPT fittings 2–3× at install + service, BiB adapter a few cycles — well within ruthex insert life). Chassis grounding runs as discrete green wires from each exposed metal part (faucet via SS plate, pressure vessel, compressor shroud) back to a ground bus on the electronics shelf — ~$2 of wire and ~30 min of build labor vs. a metal panel.
+- **Front condenser-grille insert.** Condenser exhaust at 40–50 °C is well within engineered-filament continuous-use range. Printed slats at a 0.4 mm or 0.2 mm nozzle handle the airflow geometry directly. Aesthetic stays consistent with the rest of the printed front face.
 
-The case against:
-
-- **Cost.** Small but nonzero — another SendCutSend part on the BOM.
-- **Noise.** A bare steel pan is a drum at compressor frequency if not damped or stiffened with ribs. Mitigatable but not free.
-- **The printed floor can do most of the same jobs** if attention is paid to first-layer adhesion at the lip-floor joint and to load-spreading geometry under the cold core.
-
-If it lands, material would mirror the shroud: 0.059" G90 hot-dipped galvanized steel from SendCutSend, bent floor + 5 mm perimeter lip. The shroud's mounting tabs attach to the pan via PEM nuts. If it doesn't, the shroud tabs attach to the compressor's M5 mounting feet directly and the printed enclosure floor handles drips on its own.
-
-No file in `cut-parts/` for it yet — revisit when the first build's enclosure mock-up is in hand and the drip-containment / load-spreading need is observable rather than theoretical.
+The compressor shroud remains the only metal in the appliance enclosure, driven specifically by the UL 60335-2-89 fire-enclosure clause around hydrocarbon refrigerant equipment (see [`cut-parts/compressor-shroud/README.md`](cut-parts/compressor-shroud/README.md) and [`regulatory.md`](regulatory.md) for that argument).
 
 **Backflow vent monitoring**
 
