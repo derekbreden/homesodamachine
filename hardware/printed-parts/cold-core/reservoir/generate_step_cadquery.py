@@ -957,6 +957,102 @@ def build_reservoir_body(side=1):
         .fillet(inner_corner_fillet_radius)
     )
 
+    # Pair G: slab × +Z outer face at z=outer_z_max=70.
+    #
+    # OUTER half: slab bottom face meets outer +Z face, edge along x at
+    # (y=slab_bottom_y(70), z=70). Convex outer corner — material removed.
+    # INNER half: slab top (cavity floor) meets inner +Z face, edge along
+    # x at (y=slab_top_y(66), z=66). Concave cavity tip — material added.
+    #
+    # Both edges go end-to-end between existing corner fillets (curve × +Z
+    # at one end, +X × +Z at the other), and OCCT's fillet operation fails
+    # to blend a new radius-6 fillet through those existing fillet surfaces
+    # at the endpoints — even radius 1 fails on the full edge. R=0.6 is the
+    # max for the full edge, which is essentially a sharp edge.
+    #
+    # Workaround: build the fillet material manually for the MIDDLE portion
+    # of each edge (away from the endpoint fillets), then subtract (outer)
+    # or union (inner) with the body. The corners themselves stay sharp
+    # for now — separate decision about how to handle them.
+    fillet_R = outer_corner_fillet_radius
+    pair_g_x_buffer = fillet_R + 1.0  # stay 7 mm clear of endpoint fillets
+
+    # Slab bottom y at the outer +Z face (z=outer_z_max=70). Approximated
+    # as a horizontal plane at this y for the sliver cross-section; the
+    # actual slab bottom is sloped at slope_rate but the slope's y delta
+    # over the 6 mm fillet reach in z is <0.4 mm.
+    slab_bottom_at_outer_z = (
+        floor_baseline_y
+        - bulkhead_dry_slab_thickness
+        + slope_rate * (outer_z_max - bulkhead_panel_z_min)
+    )
+    slab_outer_x_start = (
+        math.sqrt(outer_centerward_radius**2 - outer_z_max**2)
+        + pair_g_x_buffer
+    )
+    slab_outer_x_end = outer_far_x_abs - pair_g_x_buffer
+    slab_outer_x_length = slab_outer_x_end - slab_outer_x_start
+    # Sliver profile in YZ plane: corner region between sharp corner
+    # (slab_bottom, outer_z_max), tangent on outer +Z at
+    # (slab_bottom + fillet_R, outer_z_max), and tangent on slab bottom
+    # at (slab_bottom, outer_z_max - fillet_R). Extruded in +X by
+    # slab_outer_x_length, then translated to the middle of the edge.
+    slab_outer_sliver = (
+        cq.Workplane("YZ")
+        .moveTo(slab_bottom_at_outer_z, outer_z_max - fillet_R)
+        .lineTo(slab_bottom_at_outer_z, outer_z_max)
+        .lineTo(slab_bottom_at_outer_z + fillet_R, outer_z_max)
+        .radiusArc(
+            (slab_bottom_at_outer_z, outer_z_max - fillet_R),
+            -fillet_R,
+        )
+        .close()
+        .extrude(slab_outer_x_length)
+    )
+    if side > 0:
+        slab_outer_sliver = slab_outer_sliver.translate(
+            (slab_outer_x_start, 0, 0)
+        )
+    else:
+        slab_outer_sliver = slab_outer_sliver.translate(
+            (-slab_outer_x_end, 0, 0)
+        )
+    body = body.cut(slab_outer_sliver)
+
+    # Inner half: slab top × inner +Z face. Concave corner from body's
+    # perspective; cavity tip rounded with R=6, material added.
+    slab_top_at_inner_z = (
+        floor_baseline_y
+        + slope_rate * (inner_z_max - bulkhead_panel_z_min)
+    )
+    slab_inner_x_start = (
+        math.sqrt(inner_centerward_radius**2 - inner_z_max**2)
+        + pair_g_x_buffer
+    )
+    slab_inner_x_end = inner_far_x_abs - pair_g_x_buffer
+    slab_inner_x_length = slab_inner_x_end - slab_inner_x_start
+    slab_inner_sliver = (
+        cq.Workplane("YZ")
+        .moveTo(slab_top_at_inner_z, inner_z_max - fillet_R)
+        .lineTo(slab_top_at_inner_z, inner_z_max)
+        .lineTo(slab_top_at_inner_z + fillet_R, inner_z_max)
+        .radiusArc(
+            (slab_top_at_inner_z, inner_z_max - fillet_R),
+            -fillet_R,
+        )
+        .close()
+        .extrude(slab_inner_x_length)
+    )
+    if side > 0:
+        slab_inner_sliver = slab_inner_sliver.translate(
+            (slab_inner_x_start, 0, 0)
+        )
+    else:
+        slab_inner_sliver = slab_inner_sliver.translate(
+            (-slab_inner_x_end, 0, 0)
+        )
+    body = body.union(slab_inner_sliver)
+
     # No well needed: with the wet ceiling open, syrup drains directly
     # from the cavity into the wet chamber and around the bulkhead
     # body's narrower wet-collet section, reaching the port at the
