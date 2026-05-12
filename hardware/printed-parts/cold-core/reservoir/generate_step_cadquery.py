@@ -837,6 +837,35 @@ def build_reservoir_body(side=1):
     )
     body = body.cut(below_slab.intersect(dry_section_z))
 
+    # Fillet the new acute vertical edge at curve × panel-face.
+    # The slab cut exposed the panel's +Z face for y < slab_bottom_y,
+    # creating a new vertical edge where this face meets the centerward
+    # curve. In XZ projection the corner is acute (~49° interior angle
+    # — sharper than a right angle, narrower than the original peaks at
+    # curve × ±Z which were already filleted). Same reasons to fillet
+    # apply: (a) it would print as a knife-edge tab on the FDM bed,
+    # (b) it's a sharp protrusion sticking down into the dry section
+    # right where the part is handled during install, (c) the inside
+    # face of the protrusion (panel +Z face × curve face) makes a
+    # narrow crevice for any leaked syrup to wick into. Same radius as
+    # the original ± Z curve corners.
+    new_corner_x_abs = math.sqrt(
+        outer_centerward_radius**2 - bulkhead_panel_z_max**2
+    )
+    slab_bottom_at_panel_face = (
+        floor_baseline_y
+        - bulkhead_dry_slab_thickness
+        + slope_rate * (bulkhead_panel_z_max - bulkhead_panel_z_min)
+    )
+    new_corner_y_mid = (outer_floor_bottom_y + slab_bottom_at_panel_face) / 2
+    body = (
+        body
+        .edges(cq.NearestToPointSelector(
+            (side * new_corner_x_abs, new_corner_y_mid, bulkhead_panel_z_max),
+        ))
+        .fillet(outer_corner_fillet_radius)
+    )
+
     # No well needed: with the wet ceiling open, syrup drains directly
     # from the cavity into the wet chamber and around the bulkhead
     # body's narrower wet-collet section, reaching the port at the
