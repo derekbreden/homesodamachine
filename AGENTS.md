@@ -12,28 +12,13 @@ Dispensed through chilled carbonated water, the result is indistinguishable from
 
 There is no machine on the market that gives a home user this experience — turn the handle, soda comes out. The alternatives are hauling cans from the store every week, or home carbonation products that carbonate warm water into bottles that go flat within hours. Despite enormous initial sales, very few people stick with home carbonation because warm water cannot hold carbonation — it is flat before it reaches your glass.
 
-## Business and regulatory
-
-Top-level [`business/`](business/) holds cross-cutting concerns that apply across hardware, firmware, marketing, and software:
-
-- [`business/regulatory.md`](business/regulatory.md) — product regulatory posture (UL 60335-2-89, EPA §608, SNAP). Anything touching refrigerant handling, pressure vessel design, marketing claims, or shipped-product safety needs to be aware of this.
-- [`business/incorporation.md`](business/incorporation.md) — entity structure and tax framing. Working note for a future conversation with a qualified tax preparer.
-
-## Web layer (the dev + public sites)
-
-The Node web app lives entirely under [`web/`](web/) — server.js, the lib/ modules, public/ assets, dev-server, and tests. Its [`README`](web/README.md) covers the route layout, dev-vs-prod relationship, browser module graph for the viewer, SSE/FCM event flows, and a "where things go" cheat sheet. Read it before refactoring anything in there.
-
-The web service is one slice of this project — separate from the hardware/ CAD tree, the firmware sources, the iOS/Android apps, and the blog content under posts/. Render is configured (in `render.yaml`) with `rootDir: web` so production builds and runs from there; the server reads hardware/ and posts/ via `path.join("..", …)` since those are repo-root concerns.
-
 ## CadQuery
 
-Run `generate_step_cadquery.py` scripts with the project's CadQuery venv: `tools/cad-venv/bin/python`. cadquery is not installed on the system python.
-
-Reference scripts for how to structure CadQuery parts: `hardware/printed-parts/cold-core/foam-shell/generate_step_cadquery.py` and `hardware/printed-parts/flavor/pump-case/generate_step_cadquery.py`. Follow their pattern: constants by concern, geometry helpers, feature functions, top-level assembly as a bill of operations.
+Run `generate_step_cadquery.py` scripts with the project's CadQuery venv: `tools/cad-venv/bin/python`.
 
 ## Firmware
 
-Flash with `./tools/flash.sh <env>` (envs: `esp32dev`, `rp2040_display`, `esp32s3_config`). The build depends on a sibling `PersistentLog` repo at `../PersistentLog` — flash.sh errors clearly if it's missing.
+Flash with `./tools/flash.sh <env>` (envs: `esp32dev`, `rp2040_display`, `esp32s3_config`).
 
 ## Amazon Prime
 
