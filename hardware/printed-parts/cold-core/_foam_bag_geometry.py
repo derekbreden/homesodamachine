@@ -227,30 +227,7 @@ def build_tank_copper_shell():
         .circle(tank_copper_shell_radius)
         .extrude(tank_copper_shell_height)
     )
-    shell = shell.faces(">Y").shell(-wall_and_floor_thickness)
-    # Remove the +Z and −Z apex bands of the cylindrical wall (the
-    # cylinder portions at |z| > bag_pocket_z_inner_max).  In that band
-    # the bag_pocket_support_shell ±Z walls already provide the barrier,
-    # and now that nothing punches through here (no channels, no copper-
-    # plug slits, no top water-inlet port), keeping the cylinder there
-    # would just stack a second 1 mm wall behind the support-shell wall
-    # to no purpose.  After this cut the cylinder is open at z = ±70.5
-    # in the small |x| ≤ 11.92 strip; the support-shell ±Z walls close
-    # that opening when the foam_bag_shell is unioned together.
-    z_threshold = tank_copper_shell_radius - wall_and_floor_thickness  # 70.5
-    cut_plus_z = (
-        cq.Workplane(xy_plane_z_up)
-        .workplane(origin=(0, 0, z_threshold), offset=z_threshold)
-        .rect(500, 500)
-        .extrude(500)
-    )
-    cut_minus_z = (
-        cq.Workplane(xy_plane_z_up)
-        .workplane(origin=(0, 0, -z_threshold), offset=-z_threshold)
-        .rect(500, 500)
-        .extrude(-500)
-    )
-    return shell.cut(cut_plus_z).cut(cut_minus_z)
+    return shell.faces(">Y").shell(-wall_and_floor_thickness)
 
 def build_bag_pocket_support_shell():
     """
