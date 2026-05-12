@@ -75,7 +75,7 @@ Per-run gauges, terminations, and approximate lengths. Lengths assume the enclos
 Single-point chassis ground at the electronics shelf, bonded back through the C14 inlet's earth pin to the building's protective earth.
 
 - **C14 ground pin** → ground bus on electronics shelf (run AC-1 carries the green conductor).
-- **Ground bus** distributes to: PSU chassis (via AC-2 ground), compressor body / shroud (via AC-6), and any other exposed metal (faucet via the SS under-counter plate, future floor pan if installed, etc.) via short bonding wires.
+- **Ground bus** distributes to: PSU chassis (via AC-2 ground), compressor body / shroud (via AC-6), and any other exposed metal (faucet via the SS under-counter plate, the SS pressure vessel inside the cold core, etc.) via short bonding wires. The appliance has no metal floor pan, back panel, or front-panel insert — see [`../future.md`](../future.md) "Other metal candidates considered, decided against" — so chassis grounding is via these discrete bonding wires rather than via a metal chassis backbone.
 - All ground conductors are 16 AWG green-insulated. Ring terminals at the bus, ring or fork terminals at the load.
 - The chassis bond gives the appliance Class I status: if a fault energizes any exposed metal part, fault current returns to the building ground through the C14 cord and trips the upstream breaker before the user touches anything.
 
