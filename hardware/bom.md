@@ -142,6 +142,7 @@ Dishing dies (PA6-CF) for end-cap forming are vessel-fabrication tools, not ship
 | Part | ASIN | Qty | Unit $ | Line $ |
 |---|---|---:|---:|---:|
 | [KRAUS garbage-disposal air-switch, matte black](https://www.amazon.com/dp/B096319GMV) | B096319GMV | 1 | $39.95 | $39.95 |
+| [DIYables Passive Piezo Buzzer Module, 5 V (2-pack)](https://www.amazon.com/dp/B0DYDN31PV) | B0DYDN31PV — audible-alarm output: ESP32 GPIO drives a software-generated square wave so the same hardware plays friendly chimes (cycle ready, cycle complete) and urgent alarm patterns (R-600a leak from §5 MQ-6, backflow vent moisture wet, any safety condition firmware wants attention drawn to). Passive over active so firmware controls pitch + cadence — active buzzers are fixed-tone and can't differentiate alarm types; module has on-board transistor so an ESP32 GPIO drives it directly. 1 of 2 per unit ($6.42/2) | 1 (of 2 pk) | $3.21 | $3.21 |
 
 ## 11. Wiring + fasteners
 
@@ -201,11 +202,11 @@ The T18 heat-set tip kit ([B0CS662NVK](https://www.amazon.com/dp/B0CS662NVK)) an
 | 7. Printed parts (PETG) | $103.94 |
 | 8. Flavor subsystem | $346.10 |
 | 9. Dispensing | $52.97 |
-| 10. UI | $39.95 |
+| 10. UI | $43.16 |
 | 11. Wiring | $31.97 |
 | 12. Level sensing | $19.07 |
 | 13. Mechanical attach hardware + reservoir-cap vent filter | $17.55 |
-| **Total** | **$1,395.86** |
+| **Total** | **$1,399.07** |
 
 ## External / user-supplied (not shipped)
 
