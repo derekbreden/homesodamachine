@@ -339,19 +339,34 @@ def build_bag_pocket_support_shell():
         .extrude(wall_and_floor_thickness)
     )
 
-    def build_z_wall(z_sign):
+    # The ±Z walls now have a central gap in X — the strip directly
+    # above (and below) the cylinder's open ends.  Width of the gap
+    # matches the cylinder's inner-cavity opening at the cut plane
+    # (2 · sqrt((R−t)² − tank_copper_shell_open_z²)), leaving two
+    # outboard segments that still attach to the curved lobe walls'
+    # tops on the ±X sides.
+    cyl_open_x_inner = math.sqrt(
+        (tank_copper_shell_radius - wall_and_floor_thickness) ** 2
+        - tank_copper_shell_open_z ** 2
+    )
+    segment_length = side_length / 2 - cyl_open_x_inner
+    segment_center_x = cyl_open_x_inner + segment_length / 2
+
+    def build_z_wall_segment(z_sign, x_sign):
         z_pos = z_sign * (side_length / 2 - wall_and_floor_thickness / 2)
         return (
             cq.Workplane(xz_plane_y_up)
-            .workplane(origin=(0, 0, z_pos))
-            .rect(side_length, wall_and_floor_thickness)
+            .workplane(origin=(x_sign * segment_center_x, 0, z_pos))
+            .rect(segment_length, wall_and_floor_thickness)
             .extrude(tank_copper_shell_height)
         )
 
     return (
         floor
-        .union(build_z_wall(z_sign=1))
-        .union(build_z_wall(z_sign=-1))
+        .union(build_z_wall_segment(z_sign= 1, x_sign= 1))
+        .union(build_z_wall_segment(z_sign= 1, x_sign=-1))
+        .union(build_z_wall_segment(z_sign=-1, x_sign= 1))
+        .union(build_z_wall_segment(z_sign=-1, x_sign=-1))
     )
 
 def build_tank_support_wedge():
