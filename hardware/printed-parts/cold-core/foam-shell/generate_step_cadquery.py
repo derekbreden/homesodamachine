@@ -1,6 +1,9 @@
-"""Foam-bag shell — the PETG enclosure for the cold core's pressure
-vessel + copper evaporator coil + flavor bag pockets. See README.md
-for the design intent and the layer-by-layer geometry."""
+"""Foam shell — the PETG enclosure for the cold core's pressure
+vessel + copper evaporator coil + flavor reservoir pockets. See
+README.md for the design intent and the layer-by-layer geometry.
+(Previously named foam-bag-shell when the reservoirs were flexible
+bags; renamed to foam-shell when the design moved to printed PETG
+reservoirs.)"""
 
 import sys
 from pathlib import Path
@@ -14,9 +17,9 @@ from _foam_bag_geometry import build_full_shell
 
 
 def main():
-    foam_bag_shell, _inlet_plug, _outlet_plug = build_full_shell()
-    export_step(foam_bag_shell, str(_here / "foam-bag-shell.step"))
-    print("-> foam-bag-shell.step")
+    foam_shell, _inlet_plug, _outlet_plug = build_full_shell()
+    export_step(foam_shell, str(_here / "foam-shell.step"))
+    print("-> foam-shell.step")
 
 
 if __name__ == "__main__":

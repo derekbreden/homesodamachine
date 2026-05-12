@@ -18,7 +18,7 @@ from _cadq_export import export_step
 # General
 # -------------------------------------------------------
 #
-# Same coordinate convention as ../foam-bag-shell/: +Y vertical, +X is
+# Same coordinate convention as ../foam-shell/: +Y vertical, +X is
 # the bag-pocket axis (two cavities sit on opposite sides), +Z is
 # perpendicular to it.
 xz_plane_y_up = cq.Plane(origin=(0, 0, 0), xDir=(1, 0, 0), normal=(0, 1, 0))
@@ -38,14 +38,14 @@ def _wp_at(x, y, z):
 
 
 # -------------------------------------------------------
-# Cavity envelope (mirrors as-built foam-bag-shell inner-face values)
+# Cavity envelope (mirrors as-built foam-shell inner-face values)
 # -------------------------------------------------------
 #
 # These constants describe the bag-pocket cavity into which this
 # reservoir fits. They mirror — but do not import from — the analogous
-# constants in ../foam-bag-shell/generate_step_cadquery.py. The
+# constants in ../foam-shell/generate_step_cadquery.py. The
 # reservoir is a separate part with its own life cycle; treating the
-# foam-bag-shell envelope as a stable interface keeps the two parts
+# foam-shell envelope as a stable interface keeps the two parts
 # from leaking implementation details across each other.
 #
 # Bag-pocket inner faces (the surfaces the reservoir must clear):
@@ -152,7 +152,7 @@ cap_clearance_hole_diameter = 3.5
 #
 # TPU 90A flat gasket that sits between the body wall top and the
 # cap base plate bottom, compressed by the six M3 × 12 screws. Same
-# material spec as the foam-bag-shell cap gasket; printed flat at
+# material spec as the foam-shell cap gasket; printed flat at
 # 2 mm thick.
 #
 # Geometry pattern, mirroring foam-cap-gasket:
@@ -270,7 +270,7 @@ vent_position_z = 32.5
 # out the boss's −Z face into the syrup volume; on the +Z side a
 # ⌀6.5 mm cylindrical channel carries the 1/4" tube the rest of the
 # way out through the reservoir's +Z outer wall, aligning with the
-# foam-bag-shell pass-through at (±88, 17) — see
+# foam-shell pass-through at (±88, 17) — see
 # `_foam_bag_geometry.py` `punch_a_bag_pocket_shell_hole`. The y=17
 # alignment is chosen so the flange chamber's curved bottom sits on
 # the 4 mm outer-floor PETG without piercing it (4 mm fluid barrier
@@ -402,11 +402,11 @@ floor_slope_rise = 6.0  # mm above floor_baseline_y at the far −Z wall
 # Heat-set insert + screw spec
 # -------------------------------------------------------
 #
-# M3 ruthex-style brass heat-set inserts (same as foam-bag-shell cap-
+# M3 ruthex-style brass heat-set inserts (same as foam-shell cap-
 # stack joinery). Insert OD 4 mm × length 4 mm; pocket is 4 mm bore
 # × 7 mm deep (4 mm insert + 3 mm relief). Screws: BNUOK M3 × 12 mm
 # DIN 912 SHCS, black oxide 12.9 alloy (Amazon B0DJQGVK8S), same
-# brand/finish as the M3 × 25 used on the foam-bag-shell cap stack
+# brand/finish as the M3 × 25 used on the foam-shell cap stack
 # but the right length for the reservoir's thinner cap-stack geometry
 # (under-head stack is 7 mm cap-plus-gasket vs ~19 mm there). With
 # M3 × 12, the shaft seats 4 mm into the insert, runs another 1 mm

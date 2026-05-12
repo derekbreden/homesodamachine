@@ -1,4 +1,4 @@
-"""Copper-line plugs — the two solids extracted from the foam-bag shell
+"""Copper-line plugs — the two solids extracted from the foam shell
 when the inlet and outlet slits are cut. The shell builds against
 their negative space, then these plugs print separately and seal
 the slits after the copper evaporator coil is in place and the foam

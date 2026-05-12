@@ -2,5 +2,5 @@
   "thickness_mm": 1.0,
   "material": "PETG",
   "process": "3D-print",
-  "notes": "Wall thickness; plug for copper coil thermal bonding (foam-bag-shell assembly)"
+  "notes": "Wall thickness; plug for copper coil thermal bonding (foam-shell assembly)"
 }

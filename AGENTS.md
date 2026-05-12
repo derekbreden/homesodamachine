@@ -22,7 +22,7 @@ The web service is one slice of this project — separate from the hardware/ CAD
 
 Run `generate_step_cadquery.py` scripts with the project's CadQuery venv: `tools/cad-venv/bin/python`. cadquery is not installed on the system python.
 
-Reference scripts for how to structure CadQuery parts: `hardware/printed-parts/cold-core/foam-bag-shell/generate_step_cadquery.py` and `hardware/printed-parts/flavor/pump-case/generate_step_cadquery.py`. Follow their pattern: constants by concern, geometry helpers, feature functions, top-level assembly as a bill of operations.
+Reference scripts for how to structure CadQuery parts: `hardware/printed-parts/cold-core/foam-shell/generate_step_cadquery.py` and `hardware/printed-parts/flavor/pump-case/generate_step_cadquery.py`. Follow their pattern: constants by concern, geometry helpers, feature functions, top-level assembly as a bill of operations.
 
 ## Firmware
 

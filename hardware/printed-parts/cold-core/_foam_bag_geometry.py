@@ -1,8 +1,11 @@
-"""Shared geometry for the foam-bag shell, foam-cap stack, and copper-line
-plugs. Imported by the three sibling generators (foam-bag-shell/,
+"""Shared geometry for the foam shell, foam-cap stack, and copper-line
+plugs. Imported by the three sibling generators (foam-shell/,
 foam-cap/, copper-plugs/), each of which writes the STEPs for its own
 folder. Constants and build functions live here so the three generators
-produce a coherent set of mating parts."""
+produce a coherent set of mating parts. (File and function names still
+carry the "foam_bag" prefix from when reservoirs were flexible bags —
+left as-is to avoid a sweeping rename; only the visible part name has
+moved to "foam-shell".)"""
 
 import math
 import cadquery as cq
@@ -852,14 +855,14 @@ def cut_slit_and_build_plug_for_copper_inlet(foam_bag_shell, which = 0):
 # ═══════════════════════════════════════════════════════
 
 def build_full_shell():
-    """Assemble the foam-bag shell, cut its three port holes, then cut
+    """Assemble the foam shell, cut its three port holes, then cut
     the two copper-line slits and return the resulting shell plus the
     two extracted plug solids.
 
     The full sequence runs in one function because the outlet plug's
     geometry is derived from the shell *after* the inlet slit has been
     cut — splitting the steps would change the boolean inputs and the
-    plug shapes drift. Both the foam-bag-shell generator and the
+    plug shapes drift. Both the foam-shell generator and the
     copper-plugs generator call this and pick out the parts they want.
     """
     tank_copper_shell = build_tank_copper_shell()

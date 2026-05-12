@@ -4,7 +4,7 @@ Plan B for replacing the permanent Platypus bladders with custom hard reservoirs
 
 The reservoir is not the carbonator and is not a service pressure vessel. It is a vented syrup reservoir that must reliably hold flavor concentrate, survive pump suction and fill/clean cycles, fit the thermal envelope, and not create dead syrup pockets.
 
-For Plan B, the fluid reservoir remains a separate printed part from the foam-bag shell. Printing the reservoir and foam shell as one integrated part may be possible, but it couples leak integrity, foam-pour geometry, print failure, cleaning access, and service replacement into one experiment. That belongs in a later Plan C, not in the first hard-reservoir path.
+For Plan B, the fluid reservoir remains a separate printed part from the foam shell. Printing the reservoir and foam shell as one integrated part may be possible, but it couples leak integrity, foam-pour geometry, print failure, cleaning access, and service replacement into one experiment. That belongs in a later Plan C, not in the first hard-reservoir path.
 
 ## Serviceability Constraint
 
@@ -35,7 +35,7 @@ Target features for the first design:
 
 ### Cavity envelope (post centerward-wall removal)
 
-Each bag pocket cavity in `../foam-bag-shell/` opens along its centerward face directly into the support shell's interior — the bag pocket's tank-facing wall and the support shell's matching ±X wall were removed because they had air on both sides (bag cavity inside, corner-pocket air outside; see the foam-bag-shell README for the wall analysis). Each cavity per side is now:
+Each bag pocket cavity in `../foam-shell/` opens along its centerward face directly into the support shell's interior — the bag pocket's tank-facing wall and the support shell's matching ±X wall were removed because they had air on both sides (bag cavity inside, corner-pocket air outside; see the foam-shell README for the wall analysis). Each cavity per side is now:
 
 - **Top-down cross-section:** rectangle bounded at the far face (x = ±104.5 mm) and the +Z / −Z walls (z = ±70.5 mm), with a **concave cylindrical face** on the centerward side following the `tank_copper_shell`'s outer surface (radius 71.5 mm, vertical axis). Closer to a `[` than a `D` — three straight sides and one concave curve, not three straight sides and a convex bulge.
 - **Vertical extent:** y ∈ [1, 212.4] mm = 211.4 mm tall.
@@ -126,7 +126,7 @@ The model says the architecture is plausibly **already refrigerator-cold**. The 
    - Suction-line cutout temperature (currently −8 °C; raising it caps how cold the coil can get)
    - Outer foam thickness (reducing it raises T_syrup; the geometry already budgets 16 mm)
 
-These all live in the foam-bag-shell + firmware architecture, not in the reservoir architecture.
+These all live in the foam-shell + firmware architecture, not in the reservoir architecture.
 
 ### Condensation
 
@@ -152,7 +152,7 @@ Six milligrams. A drop. Once it's out of the air, it's done — the air dries to
 
 If humid kitchen air bleeds in continuously, the 6 mg-per-cycle bound becomes a 6 mg-per-time-constant ongoing deposit. Order-of-magnitude estimate: a 1 cm² leak path with mm-scale gap and natural-convection-driven humidity transport could drive grams of water onto the `tank_copper_shell` outer face per month. Over the lifetime of a "lifetime wetted part" reservoir (Plan B intent: years), unbounded. Unless something else removes it (running off, evaporating during compressor-off cycles, etc.), it accumulates.
 
-This argued for **explicit gasketing** somewhere in the cap stack — that change has now landed in [`../foam-bag-shell/`](../foam-bag-shell/): the friction-fit corner pins have been replaced with six M3 screws + ruthex M3 heat-set inserts + a TPU 90A perimeter-ring gasket, per cap. With the gasket compressed by the screw stack, kitchen-air ingress around the cap-shell seam is closed; the residual moisture inside the cavity is bounded by the trapped-air amount (~6 mg per cavity), one-time per service event. See the "Cap-to-outer-shell joinery" section of the foam-bag-shell README for the geometry.
+This argued for **explicit gasketing** somewhere in the cap stack — that change has now landed in [`../foam-shell/`](../foam-shell/): the friction-fit corner pins have been replaced with six M3 screws + ruthex M3 heat-set inserts + a TPU 90A perimeter-ring gasket, per cap. With the gasket compressed by the screw stack, kitchen-air ingress around the cap-shell seam is closed; the residual moisture inside the cavity is bounded by the trapped-air amount (~6 mg per cavity), one-time per service event. See the "Cap-to-outer-shell joinery" section of the foam-shell README for the geometry.
 
 #### Sub-freezing transients → frost
 
@@ -203,7 +203,7 @@ Optional addition, not strictly needed, but cheap and informative.
 
 Two options that genuinely close the condensation problem:
 
-1. **Tight reservoir fit + cap-stack gasketing.** Reservoir wall pressed flush against the `tank_copper_shell` outer face removes the air gap at the coldest surface. Explicit gasketing between `foam_cap` / `outer_shell` (replacing the earlier friction-fit corner pins) closes the cabinet-air ingress path. With both, the residual ~6 mg of trapped-air condensation is one-time and bounded. **Cap-stack gasketing has landed** as the M3-heat-set + TPU 90A perimeter-ring change in `../foam-bag-shell/`; the reservoir-flush part remains a reservoir-design decision (tolerance Y on the centerward concave face matching `tank_copper_shell` OD).
+1. **Tight reservoir fit + cap-stack gasketing.** Reservoir wall pressed flush against the `tank_copper_shell` outer face removes the air gap at the coldest surface. Explicit gasketing between `foam_cap` / `outer_shell` (replacing the earlier friction-fit corner pins) closes the cabinet-air ingress path. With both, the residual ~6 mg of trapped-air condensation is one-time and bounded. **Cap-stack gasketing has landed** as the M3-heat-set + TPU 90A perimeter-ring change in `../foam-shell/`; the reservoir-flush part remains a reservoir-design decision (tolerance Y on the centerward concave face matching `tank_copper_shell` OD).
 
 2. **Replaceable cavity desiccant.** Desiccant cartridge inside the bag/corner-pocket cavity absorbs any residual moisture that does enter. Optional belt-and-braces on top of the gasket; useful if the gasket compression degrades over years. Requires a defined service interval, which a lifetime-wetted-part Plan B reservoir has to address anyway.
 
