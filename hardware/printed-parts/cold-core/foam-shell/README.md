@@ -263,9 +263,9 @@ This drives several dimension choices:
 
 ## Print settings
 
-Current slicer save: [`foam-bag-shell.3mf`](foam-bag-shell.3mf) (Bambu
+Current slicer save: [`foam-shell.3mf`](foam-shell.3mf) (Bambu
 Studio 02.06.01.55). Plate contains three objects sliced together:
-`foam-bag-shell` + `copper-inlet-plug` + `copper-outlet-plug`. The
+`foam-shell` + `copper-inlet-plug` + `copper-outlet-plug`. The
 `foam-cap` and `foam-cap-lid` are printed on a separate plate.
 
 ### Chamber exhaust fan

@@ -1,5 +1,5 @@
 """Foam-cap stack — the three parts that close one end of the
-foam-bag shell during the pour-in-place foam cure: the cap tray, the
+foam shell during the pour-in-place foam cure: the cap tray, the
 lid that sits atop the cap during pouring, and the TPU 90A gasket
 that compresses between the cap and the outer-shell mating face.
 Printed twice per build (one stack on each end of the shell)."""

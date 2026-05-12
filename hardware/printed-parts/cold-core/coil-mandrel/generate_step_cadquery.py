@@ -6,7 +6,7 @@ Hollow PETG-printed mandrel for hand-winding 1/4" OD copper around the
 a shallow helical guide groove sized so the copper nests cleanly into
 the cradle but only 1 mm deep — easy to lift off after winding.
 
-Sized to align the coil's start and end with the foam-bag-shell's
+Sized to align the coil's start and end with the foam-shell's
 copper inlet/outlet plugs so the user's exit bends are purely radial
 (no vertical jog).
 
@@ -45,7 +45,7 @@ Geometry chain
   so the cut depth is only 1 mm.  Copper still nests perfectly into
   the cradle (same R), but only 1 mm engaged — easy to lift off.
 - Wind length 120.4 mm = Y span between inlet plug (Y=46) and outlet
-  plug (Y=166.4) in the foam-bag-shell — coil ends exit through the
+  plug (Y=166.4) in the foam-shell — coil ends exit through the
   plugs with purely radial (no vertical) bends.
 - 9.687 wraps total = 9 full wraps + 247.4° fractional, where 247.4°
   is the CCW azimuthal delta from inlet plug at azimuth 146.31° to
@@ -114,7 +114,7 @@ WALL_MM = 5.0
 # FOAM-BAG-SHELL ALIGNMENT
 # ═══════════════════════════════════════════════════════
 
-# Plug positions in foam-bag-shell coords (Y is the cylinder axis).
+# Plug positions in foam-shell coords (Y is the cylinder axis).
 # From hardware/printed-parts/cold-core/_foam_bag_geometry.py
 # cut_slit_and_build_plug_for_copper_inlet:
 #   inlet  (which=0): origin (-30, 46.0,  20)
