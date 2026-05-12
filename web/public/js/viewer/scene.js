@@ -110,8 +110,12 @@ const cubeMesh = new THREE.Mesh(cubeGeo, cubeMaterials);
 // No offset — cube centered at origin, axes start from its corner
 gizmoScene.add(cubeMesh);
 
-// Axis lines + labels from bottom-left-front corner of cube
-const axisOrigin = new THREE.Vector3(-0.275, -0.275, 0.275);
+// Axis lines + labels from bottom-left-back corner of cube. All three
+// axes emerge from this corner and travel in their POSITIVE directions
+// across the cube to land their labels past the opposite (+X / +Y / +Z)
+// faces — keeps the "Z" label on the +Z side of the cube to match the
+// "X" and "Y" labels on the +X and +Y sides.
+const axisOrigin = new THREE.Vector3(-0.275, -0.275, -0.275);
 const axisLen = 0.7;
 
 function makeAxisLine(origin, dir, color) {
@@ -138,11 +142,11 @@ function makeAxisLabel(text, position, color) {
 
 gizmoScene.add(makeAxisLine(axisOrigin, new THREE.Vector3(1, 0, 0), 0xe74c3c));
 gizmoScene.add(makeAxisLine(axisOrigin, new THREE.Vector3(0, 1, 0), 0x2ecc71));
-gizmoScene.add(makeAxisLine(axisOrigin, new THREE.Vector3(0, 0, -1), 0x3498db));
+gizmoScene.add(makeAxisLine(axisOrigin, new THREE.Vector3(0, 0, 1), 0x3498db));
 const labelOffset = axisLen + 0.15;
 gizmoScene.add(makeAxisLabel("X", axisOrigin.clone().add(new THREE.Vector3(labelOffset, 0, 0)), "#e74c3c"));
 gizmoScene.add(makeAxisLabel("Y", axisOrigin.clone().add(new THREE.Vector3(0, labelOffset, 0)), "#2ecc71"));
-gizmoScene.add(makeAxisLabel("Z", axisOrigin.clone().add(new THREE.Vector3(0, 0, -labelOffset)), "#3498db"));
+gizmoScene.add(makeAxisLabel("Z", axisOrigin.clone().add(new THREE.Vector3(0, 0, labelOffset)), "#3498db"));
 
 // Hover + click tracking. Listeners are document-level (capture phase) so we
 // can decide whether the gesture belongs to the gizmo *before* OrbitControls
