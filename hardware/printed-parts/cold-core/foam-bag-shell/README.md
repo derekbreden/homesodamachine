@@ -275,32 +275,27 @@ warping. The fix is to vent the chamber with the chamber exhaust fan
 (`M106 P2 S153` — `P2` selects the chamber exhaust, `P0` is part-
 cooling, `P1` is aux; `S153` is ~60 % of 255).
 
-Validated on the prior 0.4 mm-nozzle PETG print of this part: with
-`M106 P2 S153` running unconditionally from `t=0` (added to the
-filament Start G-code), the 2 mm-wall print held shape, and then
-1 mm walls did too (see commit `24605cb`).
+On the prior 0.4 mm-nozzle PETG print of this part, the fan ran
+unconditionally from `t=0` (added to the filament Start G-code) and
+both 2 mm and then 1 mm walls printed warp-free (commit `24605cb`).
 
-When the same unconditional setup was carried into the **0.8 mm
-nozzle / 0.40 mm-layer** profile for the current `foam-bag-shell.3mf`,
-the first layer curled off the bed within minutes — likely the
-chamber fan pulling heat out of the build environment before the brim
-could grip. The current attempt delays the fan with a conditional in
-the filament Start G-code so it only kicks in once the part is well
-established:
+The same unconditional setup on the **0.8 mm nozzle / 0.40 mm-layer**
+profile pulled too much heat too early — the first layer curled off
+the bed within minutes before the brim could grip. The fix is to
+delay the fan until after the part is established. The conditional
+must live in **Printer Settings → Machine G-code → Layer Change
+G-code** (appended to the existing layer-progress lines), not in the
+filament Start G-code — `layer_change_gcode` is re-emitted each layer
+with `layer_num` rebound, whereas filament Start G-code is evaluated
+once at `t=0` (where `layer_num` is 0) so the conditional would never
+fire from there:
 
 ```gcode
 {if layer_num == 15}M106 P2 S153{endif}
 ```
 
 `layer_num` is 0-indexed, so this targets the 16th layer (~6 mm up at
-0.4 mm layer height). **Unvalidated caveat:** filament Start G-code is
-emitted once at the start of the print, where `layer_num` is bound to 0
-in the template. If Bambu Studio evaluates the conditional at slice
-time (the standard slicer-template behavior), the M106 line is omitted
-entirely and the chamber fan stays off the whole print. If the
-in-progress print finishes warping-free, the question is moot; if it
-warps, move the same conditional into the printer-level Layer Change
-G-code, where `layer_num` is rebound for every layer.
+0.4 mm layer height).
 
 ### Printer / profile
 
@@ -337,7 +332,8 @@ G-code, where `layer_num` is rebound for every layer.
 |---|------|---------|-------------------------|
 | 1 | 2026-05-11 | Nozzle clumping at layer 1 | Called a fluke (no slicer change); restarted |
 | 2 | 2026-05-11 | First-layer curling off the bed; not noticed in time | Suspect chamber exhaust fan pulling heat before brim grip. Moved `M106 P2 S153` from unconditional to `{if layer_num == 15}M106 P2 S153{endif}` inside filament Start G-code |
-| 3 | 2026-05-11 | In progress | — |
+| 3 | 2026-05-11 | Cancelled mid-print after realizing the conditional in filament Start G-code wouldn't fire (`layer_num == 0` at slice time → empty expansion → fan off the whole print) | Move the conditional from filament Start G-code into printer-level Layer Change G-code, where `layer_num` is rebound per layer |
+| 4 | 2026-05-11 | In progress (chamber fan now correctly delayed to layer 16 via Layer Change G-code) | — |
 
 ## Reference
 
