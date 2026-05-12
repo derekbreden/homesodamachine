@@ -4,7 +4,7 @@ Sheet-metal shroud over the compressor terminal block area, providing a non-comb
 
 ## Why this part exists
 
-The appliance uses R-600a (isobutane), a flammable hydrocarbon refrigerant. The shroud exists for one reason: making the appliance genuinely safe in the kitchens of friends, family, and customers (the first 30+ units go to people the founder knows directly — see `marketing/target-market.md` "rings of trust"). UL 60335-2-89 (hydrocarbon appliance safety) is the engineering standard that codifies what safe handling of this refrigerant class actually requires, and the design follows it because the standard is right about safety — not as a compliance posture (per [`../../regulatory.md`](../../regulatory.md), no third-party listing is being pursued).
+The appliance uses R-600a (isobutane), a flammable hydrocarbon refrigerant. The shroud exists for one reason: making the appliance genuinely safe in the kitchens of friends, family, and customers (the first 30+ units go to people the founder knows directly — see `marketing/target-market.md` "rings of trust"). UL 60335-2-89 (hydrocarbon appliance safety) is the engineering standard that codifies what safe handling of this refrigerant class actually requires, and the design follows it because the standard is right about safety — not as a compliance posture (per [`../../../business/regulatory.md`](../../../business/regulatory.md), no third-party listing is being pursued).
 
 The standard requires a fire-rated enclosure around the ignition sources in the refrigerant compartment. The compressor's hermetic can already encloses the motor windings and oil sump. The remaining ignition-risk surfaces — exposed outside the can — are:
 
