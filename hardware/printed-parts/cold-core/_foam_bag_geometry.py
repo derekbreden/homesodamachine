@@ -233,10 +233,7 @@ def build_tank_copper_shell():
     shell = shell.faces(">Y").shell(-wall_and_floor_thickness)
     # Cut the cylindrical wall off above z = +tank_copper_shell_open_z
     # and below z = −tank_copper_shell_open_z, so the wall no longer
-    # wraps all the way around at +Z and −Z.  An additional wall will
-    # be added later to close those openings — stretching out from the
-    # cylinder's open ends toward the bag_pocket_support_shell ±Z walls
-    # more directly than the cylinder did by wrapping around.
+    # wraps all the way around at +Z and −Z.
     cut_plus_z = (
         cq.Workplane(xy_plane_z_up)
         .workplane(origin=(0, 0,  tank_copper_shell_open_z), offset= tank_copper_shell_open_z)
@@ -249,7 +246,41 @@ def build_tank_copper_shell():
         .rect(500, 500)
         .extrude(-500)
     )
-    return shell.cut(cut_plus_z).cut(cut_minus_z)
+    shell = shell.cut(cut_plus_z).cut(cut_minus_z)
+
+    # Close each of the four open ends with a simple flat wall: a
+    # `wall_and_floor_thickness`-thick rectangle in the YZ plane
+    # (constant X), running from the cylinder's open end at z =
+    # z_sign · tank_copper_shell_open_z straight to z = z_sign ·
+    # (tank_copper_shell_radius − wall_and_floor_thickness) where the
+    # bag_pocket_support_shell ±Z wall's inner face sits.  Wall outer
+    # face is flush with the cylinder's outer-face x at the open end;
+    # inner face 1 mm inward.  Full y height so the four walls share
+    # the same floor + open top as the rest of the shell.
+    cylinder_open_x = math.sqrt(
+        tank_copper_shell_radius ** 2 - tank_copper_shell_open_z ** 2
+    )
+    z_meet_wall = tank_copper_shell_radius - wall_and_floor_thickness
+    for x_sign in (1, -1):
+        for z_sign in (1, -1):
+            x_outer = x_sign * cylinder_open_x
+            x_inner = x_outer - x_sign * wall_and_floor_thickness
+            z_near  = z_sign * tank_copper_shell_open_z
+            z_far   = z_sign * z_meet_wall
+            x_min, x_max = sorted([x_outer, x_inner])
+            z_min, z_max = sorted([z_near,  z_far])
+            wall = (
+                cq.Workplane(xy_plane_z_up)
+                .box(x_max - x_min, tank_copper_shell_height, z_max - z_min)
+                .translate((
+                    (x_min + x_max) / 2.0,
+                    tank_copper_shell_height / 2.0,
+                    (z_min + z_max) / 2.0,
+                ))
+            )
+            shell = shell.union(wall)
+
+    return shell
 
 def build_bag_pocket_support_shell():
     """
