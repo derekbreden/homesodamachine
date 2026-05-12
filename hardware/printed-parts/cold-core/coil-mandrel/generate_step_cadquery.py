@@ -112,7 +112,7 @@ WALL_MM = 5.0
 
 
 # ═══════════════════════════════════════════════════════
-# FOAM-BAG-SHELL ALIGNMENT
+# FOAM-SHELL ALIGNMENT
 # ═══════════════════════════════════════════════════════
 
 # Plug positions in foam-shell coords (Y is the cylinder axis).
