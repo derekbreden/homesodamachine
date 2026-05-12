@@ -264,8 +264,9 @@ Use the term that was canonical on the post's date — not the term
 that's canonical now. The repo evolves; the post is anchored to its
 window. A part renamed three weeks after the post window should still
 appear under its earlier name. Same for capabilities: don't pull
-later-acquired terminology ("Plan A", "the printed reservoir", "the
-website") into windows where those concepts didn't exist yet.
+later-acquired terminology ("the compressor shroud", "the printed
+reservoir", "the website") into windows where those concepts didn't
+exist yet.
 
 ## Procedure
 

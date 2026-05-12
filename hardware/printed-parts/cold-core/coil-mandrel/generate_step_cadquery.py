@@ -1,5 +1,5 @@
 """
-Plan A coil winding mandrel — single first-attempt mandrel.
+Coil winding mandrel — single first-attempt mandrel.
 
 Hollow PETG-printed mandrel for hand-winding 1/4" OD copper around the
 5" round 316L pressure vessel.  5 mm solid PETG wall (no infill) with
@@ -50,8 +50,9 @@ Geometry chain
 - 9.687 wraps total = 9 full wraps + 247.4° fractional, where 247.4°
   is the CCW azimuthal delta from inlet plug at azimuth 146.31° to
   outlet plug at azimuth 33.69°.  Right-hand helix.  Pitch = 120.4 /
-  9.687 = 12.43 mm = 0.489" — close to but not exactly Plan B's 0.5",
-  driven by alignment, not by roundness.
+  9.687 = 12.43 mm = 0.489" — close to but not exactly the round-number
+  0.5" pitch, driven by alignment to the foam-shell plug positions
+  rather than by aesthetic roundness.
 
 Wall thickness (5 mm) bumped from 4 mm because the 4 mm test print
 was just slightly more flexible than wanted — well within mechanical

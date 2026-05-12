@@ -2,16 +2,15 @@
 
 Two countertop ice makers were purchased for harvesting refrigeration components (compressor, condenser + fan, capillary tube, filter-drier). See `hardware/future.md` for how the harvested parts fit into the cold core assembly.
 
-## Two architectural paths for the cold core
+## Cold core architecture
 
-As of 2026-05-01, the cold core design is centered on Path A. Keep-vs-discard decisions below depend on whether Path B is revived as a fallback.
+Custom SS carbonator + new evaporator coil. The factory finger-plate evaporator is discarded; a custom copper coil is wound around the fabricated 316L SS carbonator (vertical 5" OD × 0.065" wall 316 welded round tube with 1/4"-thick 316 circular end plates, per [`hardware/future.md`](../../future.md)). The refrigerant loop is opened (cut into the suction and cap-tube sides of the factory evaporator), the factory charge is vented, the drier is replaced, the system is evacuated, and it is recharged.
 
-- **Path A — custom SS carbonator + new evaporator coil.** Discard the factory finger-plate evaporator; wind a custom copper coil around the fabricated 316L SS carbonator. Current `hardware/future.md` Plan A is a vertical 5" OD × 0.065" wall 316 welded round tube with 1/4"-thick 316 circular end plates. Refrigerant loop must be opened (cut into the suction and cap-tube sides of the factory evaporator), so factory charge must be vented, drier replaced, system evacuated, and recharged. This path is the one `future.md` describes.
-- **Path B — factory evaporator kept in place, FDM-printed pressure vessel around it.** Keep the factory finger-plate evaporator wired in-circuit, exactly as shipped. Surround it with a PA6-CF structural shell lined with TPU (the TPU is the pressure boundary; the CF shell carries hoop stress). The refrigerant loop is never opened — factory charge stays sealed, no vent / recharge needed. The evaporator's cold fingers become the internal geometry of the vessel.
+The hot-gas bypass solenoid is deleted — we want steady cold, not harvest cycles.
 
-Under Path B the evaporator, the cap tube, the filter-drier, and the suction line all stay intact and move out of the "discard" column. The hot-gas bypass solenoid is still deleted (we want steady cold, not harvest cycles) under both paths.
+R-600a is carved out of the EPA Section 608 venting prohibition as a natural refrigerant, so no 608 certification is legally required. Standard (non-hydrocarbon-rated) HVAC vacuum pump and manifold are fine — we vent to atmosphere rather than recover, so recovery-equipment hydrocarbon compatibility is moot.
 
-R-600a is carved out of the EPA Section 608 venting prohibition as a natural refrigerant, so no 608 certification is legally required for either path. Standard (non-hydrocarbon-rated) HVAC vacuum pump and manifold are fine — we vent to atmosphere rather than recover, so recovery-equipment hydrocarbon compatibility is moot.
+(An alternative architecture was briefly considered: keep the factory finger-plate evaporator wired in-circuit and surround it with an FDM-printed pressure vessel — PA6-CF structural shell lined with TPU as the pressure boundary, with the cold fingers becoming the vessel's internal geometry. Sealed loop, no vent or recharge. Not in active development; the custom-coil path is what's being built.)
 
 ---
 
@@ -96,10 +95,7 @@ A small AC solenoid valve is teed into the refrigerant circuit:
 
 ### Evaporator cold plate
 
-A stainless-finger cold plate, purpose-built for ice-cube formation. Disposition depends on which cold-core path wins (see top of document):
-
-- **Path A:** cut out during re-piping; replace with custom copper coil around the SS carbonator. The suction-side connection point moves to the new coil.
-- **Path B:** keep in place, wired to the factory loop; build the printed pressure vessel around the finger geometry. The cold fingers become part of the vessel's internal topology.
+A stainless-finger cold plate, purpose-built for ice-cube formation. **Discarded** — cut out during re-piping; replaced with the custom copper coil wound around the SS carbonator. The suction-side connection point moves to the new coil.
 
 ### Powering and control (AC wiring)
 
@@ -108,7 +104,7 @@ The compressor is a single-phase AC hermetic with a **combined PTC start relay +
 For bench testing, plug into standard 120 VAC through an **inline fuse** (5 A fast-blow is comfortable for expected ~1 A running + LRA inrush). A Kill-A-Watt inline lets you observe the LRA spike, steady running draw, and confirm the compressor is doing real work rather than just humming.
 
 Safety:
-- **R600a is flammable.** Do not energize after physical damage, near open flame, or if a butane smell is present near the compressor. The factory loop is sealed from the factory, so there's no leak risk during teardown *inspection* — leak risk only appears if the loop is opened for Path A work.
+- **R600a is flammable.** Do not energize after physical damage, near open flame, or if a butane smell is present near the compressor. The factory loop is sealed from the factory, so there's no leak risk during teardown *inspection* — leak risk only appears once the loop is opened for re-piping.
 - **Minimum off-time of 3 minutes** between power-off and power-on is a hard rule. The high-side pressure has to bleed through the capillary tube and equalize with the low side before restart, or the motor stalls against head pressure until the overload trips. Repeated hot-restart is a textbook way to burn out a hermetic compressor.
 
 For ESP32 control:
@@ -127,7 +123,7 @@ For ESP32 control:
 | Filter-drier | Keep in place; replace with fresh drier before recharge if the loop is opened |
 | Process tube | Keep — vent/recharge access point |
 | Hot-gas bypass solenoid | Discard / bypass |
-| Evaporator finger plate | Path A: discard. Path B: keep in place as the vessel internal geometry |
+| Evaporator finger plate | Discard (replaced by custom copper coil around the SS carbonator) |
 | Thermostat / harvest-cycle controller | Discard (custom ESP32-S3 firmware replaces it) |
 
 ### Open items

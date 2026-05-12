@@ -1,14 +1,14 @@
 # Printed Flavor Reservoir
 
-Plan B for replacing the permanent Platypus bladders with custom hard reservoirs that conform to the cold-core envelope. The user-visible experience stays the same: flavor lives inside the machine, dispenses instantly, fills from the top hopper or rear BiB input, and cleans in place. This plan exists because under-sink volume is tight enough that an off-the-shelf bottle's extra cap, handle, shoulder, and clearance features cost real appliance volume.
+Custom printed hard reservoirs that conform to the cold-core envelope, replacing the prototype's permanent Platypus bladders. The user-visible experience stays the same: flavor lives inside the machine, dispenses instantly, fills from the top hopper or rear BiB input, and cleans in place. The hard reservoirs exist because under-sink volume is tight enough that an off-the-shelf bottle's extra cap, handle, shoulder, and clearance features cost real appliance volume.
 
 The reservoir is not the carbonator and is not a service pressure vessel. It is a vented syrup reservoir that must reliably hold flavor concentrate, survive pump suction and fill/clean cycles, fit the thermal envelope, and not create dead syrup pockets.
 
-For Plan B, the fluid reservoir remains a separate printed part from the foam shell. Printing the reservoir and foam shell as one integrated part may be possible, but it couples leak integrity, foam-pour geometry, print failure, cleaning access, and service replacement into one experiment. That belongs in a later Plan C, not in the first hard-reservoir path.
+The fluid reservoir is a separate printed part from the foam shell. Printing reservoir and foam shell as one integrated part may be possible in the future, but it couples leak integrity, foam-pour geometry, print failure, cleaning access, and service replacement into one experiment — out of scope for the first hard-reservoir design.
 
 ## Serviceability Constraint
 
-Plan B is intended to be a lifetime wetted part in normal use, but not a potted or sacrificial cold-core component. The foam cap / shell stack must preserve a non-destructive service path: removable dowels, screws, or heat-set-insert fasteners are acceptable, but glue in the reservoir access path is not. Reservoir replacement may require appliance disassembly, but it must not require cutting foam, cutting tubing, disturbing the refrigeration loop, or replacing the cold core.
+The reservoir is intended to be a lifetime wetted part in normal use, but not a potted or sacrificial cold-core component. The foam cap / shell stack must preserve a non-destructive service path: removable dowels, screws, or heat-set-insert fasteners are acceptable, but glue in the reservoir access path is not. Reservoir replacement may require appliance disassembly, but it must not require cutting foam, cutting tubing, disturbing the refrigeration loop, or replacing the cold core.
 
 ## Candidate Filament
 
@@ -150,7 +150,7 @@ Six milligrams. A drop. Once it's out of the air, it's done — the air dries to
 
 #### Imperfect-seal case (if humid air leaks in continuously)
 
-If humid kitchen air bleeds in continuously, the 6 mg-per-cycle bound becomes a 6 mg-per-time-constant ongoing deposit. Order-of-magnitude estimate: a 1 cm² leak path with mm-scale gap and natural-convection-driven humidity transport could drive grams of water onto the `tank_copper_shell` outer face per month. Over the lifetime of a "lifetime wetted part" reservoir (Plan B intent: years), unbounded. Unless something else removes it (running off, evaporating during compressor-off cycles, etc.), it accumulates.
+If humid kitchen air bleeds in continuously, the 6 mg-per-cycle bound becomes a 6 mg-per-time-constant ongoing deposit. Order-of-magnitude estimate: a 1 cm² leak path with mm-scale gap and natural-convection-driven humidity transport could drive grams of water onto the `tank_copper_shell` outer face per month. Over the intended lifetime of a "lifetime wetted part" reservoir (years), unbounded. Unless something else removes it (running off, evaporating during compressor-off cycles, etc.), it accumulates.
 
 This argued for **explicit gasketing** somewhere in the cap stack — that change has now landed in [`../foam-shell/`](../foam-shell/): the friction-fit corner pins have been replaced with six M3 screws + ruthex M3 heat-set inserts + a TPU 90A perimeter-ring gasket, per cap. With the gasket compressed by the screw stack, kitchen-air ingress around the cap-shell seam is closed; the residual moisture inside the cavity is bounded by the trapped-air amount (~6 mg per cavity), one-time per service event. See the "Cap-to-outer-shell joinery" section of the foam-shell README for the geometry.
 
@@ -205,7 +205,7 @@ Two options that genuinely close the condensation problem:
 
 1. **Tight reservoir fit + cap-stack gasketing.** Reservoir wall pressed flush against the `tank_copper_shell` outer face removes the air gap at the coldest surface. Explicit gasketing between `foam_cap` / `outer_shell` (replacing the earlier friction-fit corner pins) closes the cabinet-air ingress path. With both, the residual ~6 mg of trapped-air condensation is one-time and bounded. **Cap-stack gasketing has landed** as the M3-heat-set + TPU 90A perimeter-ring change in `../foam-shell/`; the reservoir-flush part remains a reservoir-design decision (tolerance Y on the centerward concave face matching `tank_copper_shell` OD).
 
-2. **Replaceable cavity desiccant.** Desiccant cartridge inside the bag/corner-pocket cavity absorbs any residual moisture that does enter. Optional belt-and-braces on top of the gasket; useful if the gasket compression degrades over years. Requires a defined service interval, which a lifetime-wetted-part Plan B reservoir has to address anyway.
+2. **Replaceable cavity desiccant.** Desiccant cartridge inside the bag/corner-pocket cavity absorbs any residual moisture that does enter. Optional belt-and-braces on top of the gasket; useful if the gasket compression degrades over years. Requires a defined service interval, which a lifetime-wetted-part reservoir has to address anyway.
 
 **Option 1 + firmware frost immunity is now the smallest change** that gets the architecture into a defensible operating regime: a one-time bounded condensation event, no frost accumulation, no continuous moisture ingress.
 
@@ -283,13 +283,13 @@ Checks:
 
 Pass condition: reservoir stays dry outside, pump delivery stays repeatable, and the clean cycle leaves no obvious syrup hold-up.
 
-## Promotion Criteria
+## Production Qualification Criteria
 
-Printed hard reservoirs move from Plan B toward the main architecture only after:
+The printed hard reservoirs are the committed design direction (replacing the prototype's Platypus bladders), but they ship in production only after:
 
 - Two different reservoir prints pass the full water sequence.
 - At least one print passes the syrup dwell sequence.
 - The vent/filter geometry survives fill, dispense, and clean cycles without becoming the flow limiter.
 - The part fits the cold-core packaging better than the Platypus-shell design by enough margin to matter.
 
-Until then, Platypus bladders remain the known-good fallback because they already work in the prototype.
+Until then, Platypus bladders remain the interim production part because they already work in the prototype.

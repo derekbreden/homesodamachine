@@ -52,7 +52,7 @@ Applies only if the project pivots to an HFC refrigerant.
 
 ## Assembly-time safety — argon purge during brazing
 
-Not a regulation, but load-bearing for Path A execution.
+Not a regulation, but load-bearing for the build path described in `hardware/harvested/ice-maker/README.md` "Cold core architecture" — wherever the refrigerant loop is opened and brazed.
 
 After the factory R-600a charge is vented, residual hydrocarbon remains dissolved in the compressor oil and pooled in low points of the tubing. When a torch is applied to copper near an oil-soaked compressor pocket, the flame front pulls residual hydrocarbon into itself. Mitigation is to flow low-pressure argon (a few psi, flowing — not static) through the opened loop during and through the braze, sweeping residual fuel out ahead of the heat.
 
