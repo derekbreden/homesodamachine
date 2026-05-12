@@ -12,6 +12,13 @@ Dispensed through chilled carbonated water, the result is indistinguishable from
 
 There is no machine on the market that gives a home user this experience — turn the handle, soda comes out. The alternatives are hauling cans from the store every week, or home carbonation products that carbonate warm water into bottles that go flat within hours. Despite enormous initial sales, very few people stick with home carbonation because warm water cannot hold carbonation — it is flat before it reaches your glass.
 
+## Business and regulatory
+
+Top-level [`business/`](business/) holds cross-cutting concerns that apply across hardware, firmware, marketing, and software:
+
+- [`business/regulatory.md`](business/regulatory.md) — product regulatory posture (UL 60335-2-89, EPA §608, SNAP). Anything touching refrigerant handling, pressure vessel design, marketing claims, or shipped-product safety needs to be aware of this.
+- [`business/incorporation.md`](business/incorporation.md) — entity structure and tax framing. Working note for a future conversation with a qualified tax preparer.
+
 ## Web layer (the dev + public sites)
 
 The Node web app lives entirely under [`web/`](web/) — server.js, the lib/ modules, public/ assets, dev-server, and tests. Its [`README`](web/README.md) covers the route layout, dev-vs-prod relationship, browser module graph for the viewer, SSE/FCM event flows, and a "where things go" cheat sheet. Read it before refactoring anything in there.
