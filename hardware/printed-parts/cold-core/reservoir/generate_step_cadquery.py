@@ -618,6 +618,25 @@ def build_reservoir_body(side=1):
             .fillet(outer_corner_fillet_radius)
         )
 
+    # +X × ±Z outer corners (90° corners between the +X face and the
+    # ±Z faces). The original fillet pass skipped these — the curve ×
+    # ±Z corners above were ~13° acute "pointy tabs" and so were the
+    # priority. The +X × ±Z corners are the remaining unfilleted outer
+    # corners on the perimeter; rounding them with the same 6 mm radius
+    # cleans up the appliance's exterior. Bosses 1 and 2 sit at these
+    # corners' fillet centers (the same _screw_setback = 6 = boss radius
+    # trick used for bosses 4/5 — boss disk inscribes the fillet arc),
+    # so the boss material is entirely inside the rounded wall and the
+    # boss's 45° cavity-overhang cut still applies normally.
+    for sharp_z in (outer_z_max, -outer_z_max):
+        body = (
+            body
+            .edges(cq.NearestToPointSelector(
+                (side * outer_far_x_abs, y_mid_body, sharp_z),
+            ))
+            .fillet(outer_corner_fillet_radius)
+        )
+
     # Separately-filleted outer envelope, used below to clip the wedge
     # so the wedge's sharp [-shape corner at (inner_corner_x, ±inner_z_max)
     # can't poke through the outer fillet arc. (Without this clip, the
@@ -634,6 +653,15 @@ def build_reservoir_body(side=1):
             outer_envelope_filleted
             .edges(cq.NearestToPointSelector(
                 (side * outer_corner_x, y_mid_body, sharp_z),
+            ))
+            .fillet(outer_corner_fillet_radius)
+        )
+    # Match the +X × ±Z corner fillets above on the clipping envelope.
+    for sharp_z in (outer_z_max, -outer_z_max):
+        outer_envelope_filleted = (
+            outer_envelope_filleted
+            .edges(cq.NearestToPointSelector(
+                (side * outer_far_x_abs, y_mid_body, sharp_z),
             ))
             .fillet(outer_corner_fillet_radius)
         )
@@ -1015,6 +1043,18 @@ def build_reservoir_cap(side=1):
             .fillet(outer_corner_fillet_radius)
         )
 
+    # Match the body's +X × ±Z corner fillets so the cap and body
+    # share the same outer envelope (gasket between them sees the
+    # same footprint on both sides).
+    for sharp_z in (outer_z_max, -outer_z_max):
+        cap = (
+            cap
+            .edges(cq.NearestToPointSelector(
+                (side * outer_far_x_abs, y_mid_cap, sharp_z),
+            ))
+            .fillet(outer_corner_fillet_radius)
+        )
+
     # Cap-side bosses at each insert position, mirroring the body
     # bosses. They sit inside the perimeter wall at y = [0, 5],
     # locally thickening the wall inward and providing extra PETG
@@ -1188,6 +1228,16 @@ def build_reservoir_gasket(side=1):
             gasket
             .edges(cq.NearestToPointSelector(
                 (side * outer_corner_x, y_mid_gasket, sharp_z),
+            ))
+            .fillet(outer_corner_fillet_radius)
+        )
+
+    # Match the body/cap +X × ±Z corner fillets.
+    for sharp_z in (outer_z_max, -outer_z_max):
+        gasket = (
+            gasket
+            .edges(cq.NearestToPointSelector(
+                (side * outer_far_x_abs, y_mid_gasket, sharp_z),
             ))
             .fillet(outer_corner_fillet_radius)
         )
