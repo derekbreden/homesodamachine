@@ -618,6 +618,26 @@ def build_reservoir_body(side=1):
             .fillet(outer_corner_fillet_radius)
         )
 
+    # Separately-filleted outer envelope, used below to clip the wedge
+    # so the wedge's sharp [-shape corner at (inner_corner_x, ±inner_z_max)
+    # can't poke through the outer fillet arc. (Without this clip, the
+    # wedge restores the pre-fillet outer corner geometry in the wedge's
+    # y range, leaving a sharp tab visible from the centerward face in a
+    # narrow Y range matching the wedge's extent — the bug that
+    # previously left a sharp protrusion under the slab cut area.)
+    outer_envelope_filleted = _build_outer_envelope(
+        side, outer_far_x_abs, outer_z_max, outer_centerward_radius,
+        outer_floor_bottom_y, outer_height,
+    )
+    for sharp_z in (outer_z_max, -outer_z_max):
+        outer_envelope_filleted = (
+            outer_envelope_filleted
+            .edges(cq.NearestToPointSelector(
+                (side * outer_corner_x, y_mid_body, sharp_z),
+            ))
+            .fillet(outer_corner_fillet_radius)
+        )
+
     for sharp_z in (inner_z_max, -inner_z_max):
         body = (
             body
@@ -752,6 +772,11 @@ def build_reservoir_body(side=1):
     wedge_slope = wedge_extrusion.intersect(slope_region).cut(above_slope)
     wedge_dry = wedge_extrusion.intersect(dry_region).cut(above_dry_slope)
     wedge = wedge_slope.union(wedge_dry)
+    # Clip the wedge to the post-outer-fillet envelope, so the wedge's
+    # sharp [-shape corner at (inner_corner_x, ±inner_z_max) doesn't
+    # poke past the outer fillet arc and leave a sharp tab visible
+    # from the centerward face in the wedge's y range.
+    wedge = wedge.intersect(outer_envelope_filleted)
     body = body.union(wedge)
 
     port_x_signed = port_position_x * side
