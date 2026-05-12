@@ -1,11 +1,10 @@
-"""Shared geometry for the foam shell, foam-cap stack, and copper-line
-plugs. Imported by the three sibling generators (foam-shell/,
-foam-cap/, copper-plugs/), each of which writes the STEPs for its own
-folder. Constants and build functions live here so the three generators
-produce a coherent set of mating parts. (File and function names still
-carry the "foam_bag" prefix from when reservoirs were flexible bags —
-left as-is to avoid a sweeping rename; only the visible part name has
-moved to "foam-shell".)"""
+"""Shared geometry for the foam shell and the foam-cap stack. Imported
+by the two sibling generators (foam-shell/, foam-cap/), each of which
+writes the STEPs for its own folder. Constants and build functions live
+here so both generators produce a coherent set of mating parts. (File
+and function names still carry the "foam_bag" prefix from when
+reservoirs were flexible bags — left as-is to avoid a sweeping rename;
+only the visible part name has moved to "foam-shell".)"""
 
 import math
 import cadquery as cq
@@ -592,193 +591,12 @@ def cut_hole_for_water_outlet(foam_bag_shell):
     hole_punch = build_a_hole_punch(origin=(hole_x_offset, hole_y_offset, hole_z_offset))
     return foam_bag_shell.cut(hole_punch)
 
-def cut_slit_and_build_plug_for_copper_inlet(foam_bag_shell, which = 0):
-    hole_z_offset = 20
-    hole_x_offset = -30
-    hole_y_offset = hole_shift_from_edge + wall_and_floor_thickness + below_tank_elbows_height
-    slit_above = tank_copper_shell_height
-
-    if (which == 1):
-        hole_x_offset = 30
-        hole_y_offset = tank_copper_shell_height - hole_shift_from_edge - wall_and_floor_thickness - above_tank_elbows_height
-
-    hole_args = dict(
-        origin=(hole_x_offset, hole_y_offset, hole_z_offset),
-        hole_punch_height=tank_copper_shell_radius,
-    )
-
-    slit_width = 6.5
-    # 12 rails per plug: one on each face of each of the 3 walls the plug
-    # crosses (tank_copper_shell, bag_pocket_support_shell, outer_shell), on
-    # each of the plug's ±X sides. Each rail is a small tab that hugs one
-    # face of one wall — together each pair of rails clips the plug onto
-    # the wall like a binder clip on a sheet of paper. Replaces the old
-    # plug_x_extra interference fit.
-    rail_x_protrusion = 1.0
-    rail_z_thickness = 1.0
-    plug_end_extension = 1.0
-
-    slit_punch = (
-        build_a_hole_punch(**hole_args)
-        .moveTo(0, slit_above / 2)
-        .rect(slit_width, slit_above)
-        .extrude(tank_copper_shell_radius)
-    )
-    copper_hole = build_a_hole_punch(**hole_args)
-
-    intersection_pieces = foam_bag_shell.intersect(slit_punch)
-    slices = sorted(intersection_pieces.solids().vals(), key=lambda s: s.BoundingBox().zmin)
-
-    # Innermost slice is the tank_copper_shell wall (cylindrical); outermost
-    # is the outer_shell wall (planar). Middle slice (if any) is the
-    # bag_pocket_support_shell wall.
-    tank_copper_shell_slice = slices[0]
-    outer_shell_slice = slices[-1]
-
-    tank_copper_shell_cylindrical_faces = [
-        f for f in tank_copper_shell_slice.Faces() if f.geomType() == "CYLINDER"
-    ]
-    tank_copper_shell_inner_face = min(
-        tank_copper_shell_cylindrical_faces,
-        key=lambda f: math.hypot(f.Center().x, f.Center().z),
-    )
-    outer_shell_outermost_face = max(
-        outer_shell_slice.Faces(),
-        key=lambda f: abs(f.Center().z),
-    )
-
-    # Plug body = original loft (curved on the tank_copper_shell side, flat
-    # on the outer_shell side) with a 1 mm linear extension at each end so
-    # the rails on those two end-wall faces have plug body to attach to.
-    # The extensions are built with extrudeLinear on the loft's end faces;
-    # 4-wire makeLoft and loft+fuse-of-slabs both produced malformed solids
-    # that broke subsequent boolean ops with the rails.
-    plug_main = cq.Solid.makeLoft([
-        tank_copper_shell_inner_face.outerWire(),
-        outer_shell_outermost_face.outerWire(),
-    ])
-    inner_slab = cq.Solid.extrudeLinear(
-        tank_copper_shell_inner_face,
-        cq.Vector(0, 0, -plug_end_extension),
-    )
-    outer_slab = cq.Solid.extrudeLinear(
-        outer_shell_outermost_face,
-        cq.Vector(0, 0, plug_end_extension),
-    )
-    plug_solid = plug_main.fuse(inner_slab, outer_slab)
-
-    # 12 rails: 3 wall slices × 2 plug X-sides × 2 wall Z-faces. Each rail
-    # is a small tab (rail_x_protrusion in X × rails_y_height in Y ×
-    # rail_z_thickness in Z) flush with one face of one wall, attached to
-    # the plug body at the slit edge.
-    #
-    # Rails span the rectangular portion of the slit only — from
-    # hole_y_offset (where the slit-punch's small bore cylinder meets the
-    # rectangular slit profile) to the top of the plug body. Below
-    # hole_y_offset the plug narrows to the bore cylinder bump and there's
-    # no plug face at the rail's slit-edge X to attach to.
-    plug_y_max = max(s.BoundingBox().ymax for s in slices)
-    rails_y_min = hole_y_offset
-    rails_y_max = plug_y_max
-    rails_y_height = rails_y_max - rails_y_min
-
-    tank_copper_shell_inner_radius = tank_copper_shell_radius - wall_and_floor_thickness
-    tank_copper_shell_outer_radius = tank_copper_shell_radius
-
-    for s in slices:
-        # Only the tank_copper_shell wall is curved. The other slices have
-        # cylindrical faces too (left over from the hole-punch's small bore
-        # cylinder), so we identify the curved wall by position — it's the
-        # innermost slice.
-        is_tank_copper_shell = s is tank_copper_shell_slice
-        if not is_tank_copper_shell:
-            bb = s.BoundingBox()
-
-        for x_sign in (1, -1):
-            slit_edge_x = hole_x_offset + x_sign * (slit_width / 2)
-
-            # side_sign = -1: rail on the inner face of the wall (toward the
-            # cylinder axis for curved, toward smaller Z for planar).
-            # side_sign = +1: rail on the outer face.
-            for side_sign in (-1, +1):
-                if is_tank_copper_shell:
-                    # Cylinder centered on world Y axis, so wall face Z =
-                    # sqrt(R² − x²) at the slit edge X. The rail's tangent
-                    # direction follows the cylinder surface at that point;
-                    # its normal is radial.
-                    r_face = (
-                        tank_copper_shell_inner_radius if side_sign == -1
-                        else tank_copper_shell_outer_radius
-                    )
-                    wall_z = math.sqrt(r_face**2 - slit_edge_x**2)
-                    n_x = slit_edge_x / r_face
-                    n_z = wall_z / r_face
-                    tangent_x = x_sign * n_z
-                    tangent_z = -x_sign * n_x
-                    offset_x = side_sign * n_x
-                    offset_z = side_sign * n_z
-                else:
-                    # Planar wall: tangent along world X, normal along world Z.
-                    wall_z = bb.zmin if side_sign == -1 else bb.zmax
-                    tangent_x = x_sign
-                    tangent_z = 0
-                    offset_x = 0
-                    offset_z = side_sign
-
-                # Parallelogram in X-Z plane spanning rail_x_protrusion
-                # before AND after the slit edge along the tangent
-                # direction. The "before" half overlaps the plug body so
-                # boolean fuse has volumetric overlap to work with;
-                # otherwise the curved-wall rails meet the plug body at
-                # only a single point and fuse silently leaves them
-                # disconnected. The "after" half is the visible rail.
-                p1 = (
-                    slit_edge_x - tangent_x * rail_x_protrusion,
-                    wall_z - tangent_z * rail_x_protrusion,
-                )
-                p2 = (
-                    slit_edge_x + tangent_x * rail_x_protrusion,
-                    wall_z + tangent_z * rail_x_protrusion,
-                )
-                p3 = (
-                    p2[0] + offset_x * rail_z_thickness,
-                    p2[1] + offset_z * rail_z_thickness,
-                )
-                p4 = (
-                    p1[0] + offset_x * rail_z_thickness,
-                    p1[1] + offset_z * rail_z_thickness,
-                )
-                wire = cq.Wire.makePolygon(
-                    [cq.Vector(p[0], rails_y_min, p[1]) for p in (p1, p2, p3, p4)],
-                    close=True,
-                )
-                face = cq.Face.makeFromWires(wire)
-                rail_solid = cq.Solid.extrudeLinear(
-                    face,
-                    cq.Vector(0, rails_y_height, 0),
-                )
-                plug_solid = plug_solid.fuse(rail_solid)
-
-    plug_solid = plug_solid.cut(copper_hole.val())
-    plug = cq.Workplane().add(plug_solid)
-
-    return foam_bag_shell.cut(slit_punch), plug
-
 # ═══════════════════════════════════════════════════════
 # TOP-LEVEL ASSEMBLY
 # ═══════════════════════════════════════════════════════
 
 def build_full_shell():
-    """Assemble the foam shell, cut its three port holes, then cut
-    the two copper-line slits and return the resulting shell plus the
-    two extracted plug solids.
-
-    The full sequence runs in one function because the outlet plug's
-    geometry is derived from the shell *after* the inlet slit has been
-    cut — splitting the steps would change the boolean inputs and the
-    plug shapes drift. Both the foam-shell generator and the
-    copper-plugs generator call this and pick out the parts they want.
-    """
+    """Assemble the foam shell and cut its three port holes."""
     tank_copper_shell = build_tank_copper_shell()
     tank_support_wedge = build_tank_support_wedge()
     bag_pocket_support_shell = build_bag_pocket_support_shell()
@@ -798,9 +616,7 @@ def build_full_shell():
     foam_bag_shell = cut_hole_for_co2_inlet(foam_bag_shell)
     foam_bag_shell = cut_hole_for_water_inlet(foam_bag_shell)
     foam_bag_shell = cut_hole_for_water_outlet(foam_bag_shell)
-    foam_bag_shell, copper_inlet_plug = cut_slit_and_build_plug_for_copper_inlet(foam_bag_shell)
-    foam_bag_shell, copper_outlet_plug = cut_slit_and_build_plug_for_copper_inlet(foam_bag_shell, which=1)
-    return foam_bag_shell, copper_inlet_plug, copper_outlet_plug
+    return foam_bag_shell
 
 
 def build_foam_cap_solid():
