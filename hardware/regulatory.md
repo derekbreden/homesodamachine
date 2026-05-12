@@ -36,7 +36,7 @@ Charge cap for this equipment class is 150 g. Factory donor charge is 30–50 g 
 
 Primary citation: `hardware/harvested/ice-maker/README.md` (the line stating charge is "well under the 150 g UL 60335-2-89 limit").
 
-This standard governs design compliance regardless of whether a UL listing is pursued. D2C sale does not require the listing but the design should still conform.
+D2C sale does not require this listing. The design follows the standard anyway because the standard codifies what safe handling of hydrocarbon refrigerant in a household appliance actually requires — charge limits, ignition-source containment, marking, service notes. The motivation is not regulatory posture: the appliance is going into kitchens used by friends, family, and customers the founder knows by name (per `marketing/target-market.md` "rings of trust"). Safety is the substance; listing is a credentialing path that's not being pursued separately.
 
 The standard's fire-enclosure requirement around the ignition sources in the refrigerant compartment is implemented via a sheet-metal shroud over the compressor's terminal block + clip-on PTC start relay/overload module. Spec at `hardware/cut-parts/compressor-shroud/README.md`. The Teyleten relay that switches the compressor's AC is deliberately placed *outside* the shroud so its switching arc — a small but real ignition source — is not co-located with the protected zone; only switched AC enters the shroud through a single grommeted pass-through. The condenser fan motor is also outside the shroud (low ignition risk + needs to move air).
 
