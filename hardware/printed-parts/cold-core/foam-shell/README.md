@@ -301,11 +301,11 @@ rebound; filament Start G-code is evaluated once at `t=0` where
 Current `foam-shell.3mf` Layer Change G-code carries:
 
 ```gcode
-{if layer_num == 15}M106 P2 S153{endif}
+{if layer_num == 29}M106 P2 S77{endif}
 ```
 
-`layer_num` is 0-indexed, so this targets the 16th layer (~6 mm up
-at 0.4 mm layer height).
+`layer_num` is 0-indexed, so this targets the 30th layer (~12 mm up
+at 0.4 mm layer height) at ~30 % fan speed (S77 / 255).
 
 ### Printer / profile
 
@@ -344,7 +344,7 @@ at 0.4 mm layer height).
 | 2 | 2026-05-11 | First-layer curling off the bed; not noticed in time | Suspect chamber exhaust fan pulling heat before brim grip. Moved `M106 P2 S153` from unconditional to `{if layer_num == 15}M106 P2 S153{endif}` inside filament Start G-code |
 | 3 | 2026-05-11 | Cancelled mid-print after realizing the conditional in filament Start G-code wouldn't fire (`layer_num == 0` at slice time → empty expansion → fan off the whole print) | Move the conditional from filament Start G-code into printer-level Layer Change G-code, where `layer_num` is rebound per layer |
 | 4 | 2026-05-11 | Conditional fired correctly at layer 16, but corners lifted within ~1 layer of fan turn-on | Suspected the chamber fan itself, on this brand-new H2C, is the failure cause regardless of trigger layer. Two candidate next attempts discussed: skip the chamber fan entirely (single-variable test) or reduce both fan speed and trigger layer (layer 30 / 30 %) |
-| 5 | 2026-05-11 | Pending — comment in `foam-shell.3mf` Layer Change G-code reads "turn on fan to 30% at layer 30", but the conditional itself was not updated and remains `{if layer_num == 15}M106 P2 S153{endif}`. As saved, this print would behave identically to attempt 4. Resolve before starting | — |
+| 5 | 2026-05-11 | In progress — Layer Change G-code now reads `{if layer_num == 29}M106 P2 S77{endif}` (~30 % fan at the 30th layer, ~12 mm up). Both axes moved in the safer direction: trigger layer 16 → 30, fan speed 60 % → 30 % | — |
 
 ## Reference
 
