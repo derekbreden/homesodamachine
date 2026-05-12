@@ -106,12 +106,13 @@ reservoir_clearance = 0.5
 # would trap residual liquid through clean cycles and concentrate
 # stress in the wall. Filleted off internally.
 #
-# Same fillet radius on both for visual consistency. 5 mm is large
-# relative to the wall thickness but small relative to the wall arc
-# lengths (~140 mm far wall, ~190 mm centerward curve).
+# Same fillet radius on both for visual consistency. 6 mm is chosen
+# to match body_boss_radius so the corner bosses (positions 4/5,
+# centered on the outer fillet) fit fully inside the post-fillet
+# wall material — see body_boss_radius below.
 #
-outer_corner_fillet_radius = 5.0
-inner_corner_fillet_radius = 5.0
+outer_corner_fillet_radius = 6.0
+inner_corner_fillet_radius = 6.0
 #
 # -------------------------------------------------------
 
@@ -160,18 +161,18 @@ cap_clearance_hole_diameter = 3.5
 #     1 mm of the ring extends inward over the cavity opening for
 #     print stability (a 4 mm-wide TPU strip alone is narrow enough
 #     to warp during a TPU print).
-#   - ø8 circular pads at each insert position. The pads extend
+#   - ø12 circular pads at each insert position. The pads extend
 #     inward beyond the perimeter ring to give the screw clamp a
 #     uniform compressed disk the same size as the body boss above
-#     and (within 1 mm) the cap boss below — so each screw seats
-#     squarely on TPU and the seal is uniform around every hole
-#     rather than being a thin ring through the wall section and a
-#     wide disk through the cavity-side pad.
+#     (and 0.25 mm wider than the cap boss below at ø11.5) — so each
+#     screw seats squarely on TPU and the seal is uniform around every
+#     hole rather than being a thin ring through the wall section and
+#     a wide disk through the cavity-side pad.
 #   - ø3.5 clearance holes through each pad for the screw shaft.
 #
 gasket_thickness = 2.0
 gasket_strip_width = 5.0
-gasket_pad_radius = 4.0  # ø8, matches body boss
+gasket_pad_radius = 6.0  # ø12, matches body boss (insert_pocket_radius + 4); the gasket pad provides full compression contact under each cap boss / body boss face
 #
 # -------------------------------------------------------
 
@@ -415,16 +416,19 @@ floor_slope_rise = 6.0  # mm above floor_baseline_y at the far −Z wall
 insert_pocket_radius = 2.0
 insert_pocket_depth = 7.0
 #
-# Boss radii — chosen so each hole has a 2 mm PETG annulus around it:
-#   Body pocket ø4 + 2 mm PETG → body boss ø8 (radius 4)
-#   Cap counterbore ø6 + 2 mm PETG → cap boss ø10 (radius 5)
+# Boss radii — chosen so each through-hole has a 4 mm PETG annulus
+# around it (matches the body-wall / floor / cap fluid-barrier minimum,
+# since the boss wall around the pocket/clearance hole separates the
+# cavity from the pocket interior):
+#   Body insert pocket ø4 + 4 mm PETG → body boss ø12 (radius 6)
+#   Cap clearance hole ø3.5 + 4 mm PETG → cap boss ø11.5 (radius 5.75)
 #
-body_boss_radius = insert_pocket_radius + 2.0                          # 4
-cap_boss_radius = cap_counterbore_diameter / 2.0 + 2.0                 # 5
+body_boss_radius = insert_pocket_radius + 4.0                          # 6
+cap_boss_radius = cap_clearance_hole_diameter / 2.0 + 4.0              # 5.75
 #
 # Body boss vertical layout (extruding downward from the wall top):
 #   top 7 mm:  pocket (ø4 hole for heat-set insert + screw shaft)
-#   below:     solid ø8 cylinder. Built extra-long (extending below
+#   below:     solid ø12 cylinder. Built extra-long (extending below
 #              the intended boss-bottom y) and then cut with a flat
 #              45° plane through the wall at that boss-bottom y, so
 #              the wall side of the cylinder stays straight (and gets
@@ -432,53 +436,54 @@ cap_boss_radius = cap_counterbore_diameter / 2.0 + 2.0                 # 5
 #              cylinder gets sliced off at 45° — an FDM-printable
 #              overhang anchored on the wall.
 #
-# Bosses 1/2/3/6 sit 1 mm inside the cavity from the wall's inner
-# face (so the cap counterbore keeps a strict 2 mm of PETG to the
-# outer face). The 45° cut starts at the wall inner face / corner
-# at y = boss_bottom_y, NOT at the boss center, so the kept material
-# on the wall side reaches all the way down to that y. Bosses 4/5
+# Bosses 1/2/3/6 sit 2 mm inside the cavity from the wall's inner
+# face. The 45° cut starts at the wall inner face / corner at
+# y = boss_bottom_y, NOT at the boss center, so the kept material on
+# the wall side reaches all the way down to that y. Bosses 4/5
 # (curve × ±Z corner, at outer-fillet center) sit inside the post-
 # fillet wall material and don't get a cut — the body-boss loop
-# skips them.
+# skips them. The outer fillet radius (6 mm) equals body_boss_radius
+# so the corner-boss disks inscribe the fillet arc exactly.
 boss_height = 13.0                                                     # 7 mm pocket + 6 mm of solid+cut
 _cyl_extra_below_bottom = 5.0                                          # extra cylinder length to be sliced off by the cut
 #
-# Insert / screw positions, derived from the wall geometry so the cap
-# counterbore at each position has 2 mm of PETG to the nearest outer
-# face of the cap base plate.
+# Insert / screw positions, derived from the wall geometry so the body
+# and cap bosses at each position fit fully inside the outer envelope
+# (the larger of the two boss radii sets the inset).
 #
 # Outer envelope (body and cap share this footprint):
 _outer_far_x_abs = bag_pocket_far_inner_x - reservoir_clearance        # 104
 _outer_z_max = bag_pocket_z_inner_max - reservoir_clearance            # 70
 _outer_centerward_radius = tank_copper_shell_outer_radius + reservoir_clearance  # 72
 #
-# 5 mm = counterbore radius (3) + PETG margin (2) — the inset from
-# every outer face the counterbore center must keep.
-_screw_setback = cap_counterbore_diameter / 2.0 + 2.0                  # 5
+# Inset equals the larger boss radius so the boss outer edge just
+# reaches the outer face at every position (no boss protrusion past
+# the body / cap outer envelope, no overhang into the bag pocket
+# clearance).
+_screw_setback = max(body_boss_radius, cap_boss_radius)                # 6
 #
-# Positions 1/2 — inset 5 mm from outer +X face × outer ±Z face.
-_corner_xz_x = _outer_far_x_abs - _screw_setback                       # 99
-_corner_xz_z = _outer_z_max - _screw_setback                           # 65
+# Positions 1/2 — inset 6 mm from outer +X face × outer ±Z face.
+_corner_xz_x = _outer_far_x_abs - _screw_setback                       # 98
+_corner_xz_z = _outer_z_max - _screw_setback                           # 64
 #
-# Position 3 — inset 5 mm from outer +X face, z = 0.
-_far_mid_x = _outer_far_x_abs - _screw_setback                         # 99
+# Position 3 — inset 6 mm from outer +X face, z = 0.
+_far_mid_x = _outer_far_x_abs - _screw_setback                         # 98
 #
-# Position 6 — 5 mm outward from outer curve (radially), z = 0.
-_curve_apex_x = _outer_centerward_radius + _screw_setback              # 77
+# Position 6 — 6 mm outward from outer curve (radially), z = 0.
+_curve_apex_x = _outer_centerward_radius + _screw_setback              # 78
 #
 # Positions 4/5 — corner of outer curve × outer ±Z face. The corner
-# is filleted at outer_corner_fillet_radius (= 5 mm). The fillet
-# center is the unique point that is 5 mm from BOTH the outer +Z
-# face and the outer curve, measured along the shortest path; the
-# counterbore at this point has exactly 2 mm of PETG to the outer
-# curve and 2 mm to the +Z face. The ø8 body boss disk fits entirely
-# inside the fillet arc (radius 5), so at these positions the boss
-# is a no-op subset of the post-fillet wall material — no cavity
-# bump, no chamfer needed (the body-boss loop below skips the chamfer
-# for these two positions explicitly, for code-reading clarity).
-_corner_curve_z = _outer_z_max - outer_corner_fillet_radius             # 65
-_corner_curve_R = _outer_centerward_radius + outer_corner_fillet_radius  # 77
-_corner_curve_x = math.sqrt(_corner_curve_R**2 - _corner_curve_z**2)    # ~41.28
+# is filleted at outer_corner_fillet_radius (= 6 mm). The fillet
+# center is the unique point that is 6 mm from BOTH the outer +Z
+# face and the outer curve, measured along the shortest path. The
+# ø12 body boss disk INSCRIBES the fillet arc (radius 6 = body
+# boss radius), so at these positions the boss is a no-op subset of
+# the post-fillet wall material — no cavity bump, no chamfer needed
+# (the body-boss loop below skips the chamfer for these two positions
+# explicitly, for code-reading clarity).
+_corner_curve_z = _outer_z_max - outer_corner_fillet_radius             # 64
+_corner_curve_R = _outer_centerward_radius + outer_corner_fillet_radius  # 78
+_corner_curve_x = math.sqrt(_corner_curve_R**2 - _corner_curve_z**2)    # ~44.55
 #
 # (for the side=+1 reservoir; sign flips for −1)
 INSERT_POSITIONS_FOR_SIDE_PLUS_1 = [
