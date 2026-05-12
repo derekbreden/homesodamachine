@@ -184,15 +184,26 @@ insert_pocket_depth    = 8.0    # 4 mm insert + 4 mm relief
 screw_boss_size        = 8.0    # 8 × 8 mm square pillar at each attachment
 #
 # Six attachment-point (x, z) positions: 4 corners (inherited from
-# the earlier pin layout) + 2 mid-long-side points at (x=0, z=±near-
-# wall). The mid-long-side adds halve the longest unsupported gasket
-# span between adjacent screws from ~245 mm (corner-to-corner along
-# the long axis) to ~120 mm.
+# the earlier pin layout) + 2 mid-long-side points near the ±Z walls.
+# The mid-long-side adds halve the longest unsupported gasket span
+# between adjacent screws from ~245 mm (corner-to-corner along the long
+# axis) to ~120 mm.
+#
+# The two mid-long-side points are offset in X by ±mid_screw_x_offset
+# (opposite signs at +Z vs −Z) so they clear the copper-line and water-
+# outlet column that runs up the centerline at x=0. The 8×8 boss
+# centered at x=0 would overlap that column; ±15 mm pushes the boss
+# edge ~7.75 mm clear of the widest cut (the ⌀6.5 copper slit). Opposite
+# signs at +Z and −Z preserve 180° rotational symmetry around the Y
+# axis, which keeps the gasket compression balanced and avoids
+# crowding both middle bosses onto one side of the foam-cap.
+mid_screw_x_offset = 15.0
 foam_cap_attachment_xz_positions = (
     [(x_sign * (outer_shell_x_length / 2 - screw_boss_size / 2),
       z_sign * (outer_shell_z_length / 2 - screw_boss_size / 2))
      for x_sign in (1, -1) for z_sign in (1, -1)]
-    + [(0.0, z_sign * (outer_shell_z_length / 2 - screw_boss_size / 2))
+    + [(z_sign * mid_screw_x_offset,
+        z_sign * (outer_shell_z_length / 2 - screw_boss_size / 2))
        for z_sign in (1, -1)]
 )
 #
