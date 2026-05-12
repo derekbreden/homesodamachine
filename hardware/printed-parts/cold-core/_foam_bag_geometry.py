@@ -220,6 +220,9 @@ gasket_strip_width = 5.0
 # -------------------------------------------------------
 
 
+tank_copper_shell_open_z = 60.0
+#
+#
 def build_tank_copper_shell():
 
     shell = (
@@ -227,7 +230,26 @@ def build_tank_copper_shell():
         .circle(tank_copper_shell_radius)
         .extrude(tank_copper_shell_height)
     )
-    return shell.faces(">Y").shell(-wall_and_floor_thickness)
+    shell = shell.faces(">Y").shell(-wall_and_floor_thickness)
+    # Cut the cylindrical wall off above z = +tank_copper_shell_open_z
+    # and below z = −tank_copper_shell_open_z, so the wall no longer
+    # wraps all the way around at +Z and −Z.  An additional wall will
+    # be added later to close those openings — stretching out from the
+    # cylinder's open ends toward the bag_pocket_support_shell ±Z walls
+    # more directly than the cylinder did by wrapping around.
+    cut_plus_z = (
+        cq.Workplane(xy_plane_z_up)
+        .workplane(origin=(0, 0,  tank_copper_shell_open_z), offset= tank_copper_shell_open_z)
+        .rect(500, 500)
+        .extrude(500)
+    )
+    cut_minus_z = (
+        cq.Workplane(xy_plane_z_up)
+        .workplane(origin=(0, 0, -tank_copper_shell_open_z), offset=-tank_copper_shell_open_z)
+        .rect(500, 500)
+        .extrude(-500)
+    )
+    return shell.cut(cut_plus_z).cut(cut_minus_z)
 
 def build_bag_pocket_support_shell():
     """
