@@ -1,6 +1,6 @@
 # Bill of Materials — One Consumer Unit
 
-Per-unit parts for a single finished appliance built on the **custom-vessel** path specified in [future.md](future.md). Carbonator vessel current plan A: vertical 5" OD × 0.065" wall 316 welded SS round tube (OnlineMetals #12498, MTRs required) capped with 1/4"-thick laser-cut 316 SS circular plates from SendCutSend (`endcap-circular-2hole.dxf`), joined with the XLaserlab X1 Pro handheld laser welder. 1/4" NPT is direct-tapped into the plates (no weld-in bungs). Plan B (racetrack press-formed body in 304 SS + dished racetrack 304 end caps) retained as fallback inventory. Compressor is harvested from a countertop ice-maker; cold core is 3D-printed shells with pour-in-place foam; flavor reservoirs are two 1 L Platypus bladders inside the cold core.
+Per-unit parts for a single finished appliance built on the **custom-vessel** path specified in [future.md](future.md). Carbonator vessel: vertical 5" OD × 0.065" wall 316 welded SS round tube (OnlineMetals #12498, MTRs required) capped with 1/4"-thick laser-cut 316 SS circular plates from SendCutSend (`endcap-circular-2hole.dxf`), joined with the XLaserlab X1 Pro handheld laser welder. 1/4" NPT is direct-tapped into the plates (no weld-in bungs). Compressor is harvested from a countertop ice-maker; cold core is 3D-printed shells with pour-in-place foam. Flavor reservoirs ship as two 1 L Platypus bladders inside the cold core in current production builds; the committed design direction is custom printed hard reservoirs (see `printed-parts/cold-core/reservoir/README.md`), which switch in once the validation criteria there are met.
 
 Tools, fabrication equipment (welder, slip roll, shop press, dishing dies), and duplicate SKUs live in [purchases.md](purchases.md) only. Per-build consumables — anything used up making one unit, regardless of whether it ships in the product (mixing cups, gloves, citric acid, PTFE tape, cutting fluid, etc.) — live in this file with the rest of the per-unit parts.
 
@@ -24,7 +24,7 @@ First-pass draft. **Pricing convention: delivered cost** (product + shipping + t
 
 ## 2. Carbonator vessel (custom fabrication — plan A: round tube + 1/4" plates, 316L)
 
-Plan A is the current path. Plan B (racetrack body half-sheets + dished racetrack end caps + 4× weld bungs, all 304 SS) remains as fallback if the 1/4"-plate-to-0.065"-tube weld can't be made reliably; plan B parts are tracked in [purchases.md](purchases.md) §1.
+An earlier racetrack-body alternative (304 SS body half-sheets + dished racetrack end caps + 4× weld bungs) is no longer in active development; its parts inventory remains tracked in [purchases.md](purchases.md) §1, and the artifacts are preserved at the `archive-plan-b` git tag, in case the round-tube path is ever blocked.
 
 | Part | Source | Qty | Unit $ | Line $ |
 |---|---|---:|---:|---:|
