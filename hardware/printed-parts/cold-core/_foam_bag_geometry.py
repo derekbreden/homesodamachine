@@ -248,37 +248,67 @@ def build_tank_copper_shell():
     )
     shell = shell.cut(cut_plus_z).cut(cut_minus_z)
 
-    # Close each of the four open ends with a simple flat wall: a
-    # `wall_and_floor_thickness`-thick rectangle in the YZ plane
-    # (constant X), running from the cylinder's open end at z =
-    # z_sign · tank_copper_shell_open_z straight to z = z_sign ·
-    # (tank_copper_shell_radius − wall_and_floor_thickness) where the
-    # bag_pocket_support_shell ±Z wall's inner face sits.  Wall outer
-    # face is flush with the cylinder's outer-face x at the open end;
-    # inner face 1 mm inward.  Full y height so the four walls share
-    # the same floor + open top as the rest of the shell.
+    # Close each of the four open ends with a curved wall that is
+    # convex toward the tank/copper cavity (origin side) and concave
+    # toward the flavor-reservoir bag-pocket side.  Each wall connects
+    # the cylinder's open end at (x_sign · cylinder_open_x,  z_sign ·
+    # tank_copper_shell_open_z) to the bag_pocket_support_shell ±Z
+    # wall's inner face at (x_sign · cylinder_open_x,  z_sign · (R −
+    # wall_and_floor_thickness)).
+    #
+    # The wall's tank-facing face is an arc of radius
+    # tank_copper_open_end_wall_arc_radius (default 6.5 mm) bulging
+    # toward the origin; its reservoir-facing face is a concentric arc
+    # of radius (arc_radius − wall_and_floor_thickness) so the wall is
+    # `wall_and_floor_thickness` thick along the radial direction
+    # (slightly thicker in pure-X measure at the chord ends — the
+    # outer arc and inner arc meet the z = z_near and z = z_far lines
+    # at different x).
+    tank_copper_open_end_wall_arc_radius = 6.5
+    # Drop the wall's near end (the one that meets the cylinder) a
+    # touch past the cylinder cut plane so the wall overlaps the
+    # cylinder solidly instead of only touching it along the 1-D edge
+    # at z = ±tank_copper_shell_open_z — otherwise OCCT's boolean
+    # union leaves the cylinder and the four walls as separate solids.
+    tank_copper_open_end_wall_overlap = 0.5
     cylinder_open_x = math.sqrt(
         tank_copper_shell_radius ** 2 - tank_copper_shell_open_z ** 2
     )
     z_meet_wall = tank_copper_shell_radius - wall_and_floor_thickness
+    outer_r = tank_copper_open_end_wall_arc_radius
+    inner_r = outer_r - wall_and_floor_thickness
     for x_sign in (1, -1):
         for z_sign in (1, -1):
-            x_outer = x_sign * cylinder_open_x
-            x_inner = x_outer - x_sign * wall_and_floor_thickness
-            z_near  = z_sign * tank_copper_shell_open_z
-            z_far   = z_sign * z_meet_wall
-            x_min, x_max = sorted([x_outer, x_inner])
-            z_min, z_max = sorted([z_near,  z_far])
-            wall = (
-                cq.Workplane(xy_plane_z_up)
-                .box(x_max - x_min, tank_copper_shell_height, z_max - z_min)
-                .translate((
-                    (x_min + x_max) / 2.0,
-                    tank_copper_shell_height / 2.0,
-                    (z_min + z_max) / 2.0,
-                ))
+            cyl_x  = x_sign * cylinder_open_x        # ±38.89
+            z_near = z_sign * (tank_copper_shell_open_z - tank_copper_open_end_wall_overlap)
+            z_far  = z_sign * z_meet_wall            # ±70.5
+            z_mid  = (z_near + z_far) / 2.0
+            half_chord = abs(z_far - z_near) / 2.0
+            # Arc center on the chord's reservoir-side perpendicular
+            # bisector so the arc bulges toward origin (away from the
+            # reservoir).
+            d_outer = math.sqrt(outer_r ** 2 - half_chord ** 2)
+            d_inner = math.sqrt(inner_r ** 2 - half_chord ** 2)
+            center_x = cyl_x + x_sign * d_outer
+            center_z = z_mid
+            # Arc apex points (the point on each arc closest to origin).
+            outer_apex_x = center_x - x_sign * outer_r
+            inner_apex_x = center_x - x_sign * inner_r
+            # Inner arc endpoints at z_near and z_far.
+            inner_end_x  = center_x - x_sign * d_inner
+            # 2D profile in xz_plane_y_up.  Local Y = world −Z on this
+            # workplane, so every world-z gets its sign flipped when
+            # passed to moveTo / lineTo / threePointArc.
+            profile = (
+                cq.Workplane(xz_plane_y_up)
+                .moveTo(cyl_x,   -z_near)
+                .threePointArc((outer_apex_x, -z_mid), (cyl_x,       -z_far))
+                .lineTo       (inner_end_x,  -z_far)
+                .threePointArc((inner_apex_x, -z_mid), (inner_end_x, -z_near))
+                .close()
+                .extrude(tank_copper_shell_height)
             )
-            shell = shell.union(wall)
+            shell = shell.union(profile)
 
     return shell
 
