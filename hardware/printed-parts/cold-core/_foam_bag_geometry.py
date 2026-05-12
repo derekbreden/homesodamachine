@@ -79,67 +79,6 @@ tank_support_wedge_height = 30.0
 
 
 # -------------------------------------------------------
-# Foam-pour down-channels (4×, on the tank_copper_shell, at diagonals)
-# -------------------------------------------------------
-#
-# Four vertical rectangular slots unioned to the OUTSIDE of the
-# tank_copper_shell at azimuths 45°/135°/225°/315°, full cavity height.
-# After shelling, each slot appears as a rectangular flute on the
-# inside wall, locally widening the radial foam-pour gap from the design
-# 7 mm to ~11 mm at the four diagonal lines. Wall thickness everywhere
-# stays at wall_and_floor_thickness.
-#
-# Each slot is a prism with its long axis along the radial direction at
-# its azimuth, centered on the round shell's OD (R = tank_copper_shell_
-# radius), so half the slot overlaps the wall (becomes a local cavity
-# bulge after shelling) and half protrudes outward into the corner
-# pocket between the tank_copper_shell and the bag_pocket_support_shell.
-# Outermost slot face sits at R = tank_copper_shell_radius +
-# slot_radial_depth/2, well inside the square support shell's diagonal
-# corner at √2 × tank_copper_shell_radius.
-#
-# Rectangular variant — paired with a cylindrical-lobe variant in the
-# project's history at HEAD~. The two variants are otherwise identical
-# (same azimuths, same outermost reach, same coincidence with
-# tank_support_wedge's slots, same nominal +4 mm channel depth in the
-# cavity), so the rectangular slot has uniform circumferential width
-# from cavity throat to maximum depth where the lobe tapered, but
-# trades smooth-curve cavity walls for sharp interior corners.
-#
-# Purpose: provide unobstructed top-to-bottom liquid-foam flow paths
-# that bypass the helically-wrapped copper coil. The FSi 2 lb pour-in-
-# place foam (Fiberglass Supply Depot B08R7TX8QJ, ≈ Fibre Glast #25/326)
-# has ~45 s cream / ~230 s gel at 72 °F and only 4–6 psi closed-rise
-# pressure — a thin 0.5 mm radial slot beside the coil is borderline
-# and lot-variation-sensitive. The channels make liquid flow to the
-# bottom robust; coil-side slots then fill from below by expansion.
-#
-# Aligned with diagonals to avoid every existing feature: bag pockets
-# (cardinal X), water/CO2/PRV/outlet ports (cardinal Z), copper-line
-# slits (cardinal Z, offset). They also coincide angularly with the
-# tank_support_wedge's 30°-wide slots at 45° + 90·i, so foam falls
-# down a channel and straight through a wedge slot to the under-tank
-# floor with no extra geometry change to the wedge.
-#
-foam_channel_count = 4
-foam_channel_first_angle_deg = 45.0
-# Slot radial depth = 8 mm (centered on the OD: spans R−4 to R+4 along
-# the diagonal). Outermost reach matches the prior cylindrical lobe of
-# radius 4 mm.
-foam_channel_slot_radial_depth = 8.0
-# Slot circumferential width = 10 mm. Wider than the prior cylindrical
-# variant at any cross-section — its lobe was 5.6 mm at the cavity
-# throat and 8 mm at maximum diameter. Still occupies only ~8° of arc
-# at R = 71.5, well inside the tank_support_wedge's 30°-wide diagonal
-# slots, so foam from the channel still falls cleanly through the
-# wedge into the under-tank cavity.
-foam_channel_slot_tangential_width = 10.0
-foam_channel_slot_center_radius = tank_copper_shell_radius
-#
-# -------------------------------------------------------
-
-
-# -------------------------------------------------------
 # Bag pocket
 # -------------------------------------------------------
 #
@@ -278,31 +217,6 @@ def build_tank_copper_shell():
         .circle(tank_copper_shell_radius)
         .extrude(tank_copper_shell_height)
     )
-    for i in range(foam_channel_count):
-        angle = math.radians(
-            foam_channel_first_angle_deg + 360.0 * i / foam_channel_count
-        )
-        center_x = foam_channel_slot_center_radius * math.cos(angle)
-        center_z = foam_channel_slot_center_radius * math.sin(angle)
-        # Workplane local +X = radial direction at this azimuth, normal = +Y.
-        # Local +Y of the workplane is the (anti-)tangent direction, but the
-        # slot is symmetric across its radial axis so handedness doesn't
-        # matter. rect(depth, width) draws the slot on this plane, then
-        # extrude lifts it the full cavity height.
-        slot_plane = cq.Plane(
-            origin=(center_x, 0, center_z),
-            xDir=(math.cos(angle), 0, math.sin(angle)),
-            normal=(0, 1, 0),
-        )
-        slot = (
-            cq.Workplane(slot_plane)
-            .rect(
-                foam_channel_slot_radial_depth,
-                foam_channel_slot_tangential_width,
-            )
-            .extrude(tank_copper_shell_height)
-        )
-        shell = shell.union(slot)
     return shell.faces(">Y").shell(-wall_and_floor_thickness)
 
 def build_bag_pocket_support_shell():
