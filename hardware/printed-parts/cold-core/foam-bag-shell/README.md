@@ -268,20 +268,39 @@ Studio 02.06.01.55). Plate contains three objects sliced together:
 `foam-bag-shell` + `copper-inlet-plug` + `copper-outlet-plug`. The
 `foam-cap` and `foam-cap-lid` are printed on a separate plate.
 
-### Chamber exhaust fan (the key fix)
+### Chamber exhaust fan
 
-Large thin-walled PETG parts on the Bambu H2C warp when the chamber
-heat-soaks. The fix is to run the **chamber exhaust fan** during the
-print — added to the **filament start g-code** in Bambu Studio:
+PETG on the H2C heat-soaks during long prints, which causes outer-wall
+warping. The fix is to vent the chamber with the chamber exhaust fan
+(`M106 P2 S153` — `P2` selects the chamber exhaust, `P0` is part-
+cooling, `P1` is aux; `S153` is ~60 % of 255).
+
+Validated on the prior 0.4 mm-nozzle PETG print of this part: with
+`M106 P2 S153` running unconditionally from `t=0` (added to the
+filament Start G-code), the 2 mm-wall print held shape, and then
+1 mm walls did too (see commit `24605cb`).
+
+When the same unconditional setup was carried into the **0.8 mm
+nozzle / 0.40 mm-layer** profile for the current `foam-bag-shell.3mf`,
+the first layer curled off the bed within minutes — likely the
+chamber fan pulling heat out of the build environment before the brim
+could grip. The current attempt delays the fan with a conditional in
+the filament Start G-code so it only kicks in once the part is well
+established:
 
 ```gcode
-M106 P2 S153
+{if layer_num == 15}M106 P2 S153{endif}
 ```
 
-`P2` selects the chamber exhaust fan (P0 = part-cooling, P1 = aux);
-`S153` is ~60 % of 255. Validated on the 2 mm-wall print after 1 mm
-full-size attempts failed from heat soak; with the fan on, the
-1 mm walls succeed (see commit `24605cb`).
+`layer_num` is 0-indexed, so this targets the 16th layer (~6 mm up at
+0.4 mm layer height). **Unvalidated caveat:** filament Start G-code is
+emitted once at the start of the print, where `layer_num` is bound to 0
+in the template. If Bambu Studio evaluates the conditional at slice
+time (the standard slicer-template behavior), the M106 line is omitted
+entirely and the chamber fan stays off the whole print. If the
+in-progress print finishes warping-free, the question is moot; if it
+warps, move the same conditional into the printer-level Layer Change
+G-code, where `layer_num` is rebound for every layer.
 
 ### Printer / profile
 
@@ -304,13 +323,21 @@ full-size attempts failed from heat soak; with the fan on, the
 - **Material:** Bambu PETG Basic @BBL H2C
 - **Nozzle temp:** 250 °C (initial layer 245 °C)
 - **Bed:** Textured PEI Plate at 70 °C
-- **Chamber:** passive (`chamber_temperatures: 0` — fan-cooled by the
-  M106 P2 S153 above)
+- **Chamber:** passive (`chamber_temperatures: 0`); chamber exhaust
+  fan delayed via conditional, see above
 - **Flow ratio:** 0.97
 - **Max volumetric speed:** 21 mm³/s (28 on the second nozzle slot)
 - **Part-cooling fan:** max 40 %, min 20 %, overhang 90 % at ≥ 10 %
   overhang, closed first 3 layers
 - **Auxiliary fan (P1):** on
+
+### Attempts (0.8 nozzle / 0.40 mm layer)
+
+| # | Date | Outcome | Change for next attempt |
+|---|------|---------|-------------------------|
+| 1 | 2026-05-11 | Nozzle clumping at layer 1 | Called a fluke (no slicer change); restarted |
+| 2 | 2026-05-11 | First-layer curling off the bed; not noticed in time | Suspect chamber exhaust fan pulling heat before brim grip. Moved `M106 P2 S153` from unconditional to `{if layer_num == 15}M106 P2 S153{endif}` inside filament Start G-code |
+| 3 | 2026-05-11 | In progress | — |
 
 ## Reference
 
