@@ -675,6 +675,23 @@ def build_reservoir_body(side=1):
             .fillet(inner_corner_fillet_radius)
         )
 
+    # Inner counterpart of the +X × ±Z outer fillets above. Rounds the
+    # cavity-side corner where the inner +X face (x=inner_far_x_abs)
+    # meets the inner ±Z face (z=±inner_z_max). Same role as the inner
+    # fillets at the curve × ±Z corners — smooths a sharp inner crevice
+    # in the syrup volume above dry_slope_y where both inner faces are
+    # exposed. Same 6 mm radius for visual consistency. Adds a small
+    # amount of material into the cavity tip; volume cost is small
+    # because the affected y range only extends from dry_slope_y up.
+    for sharp_z in (inner_z_max, -inner_z_max):
+        body = (
+            body
+            .edges(cq.NearestToPointSelector(
+                (side * inner_far_x_abs, y_mid_body, sharp_z),
+            ))
+            .fillet(inner_corner_fillet_radius)
+        )
+
     # Insert bosses at the top perimeter (unioned AFTER the fillets so
     # the bosses sit on top of the now-rounded corners cleanly).
     boss_bottom_y = outer_top_y - boss_height
