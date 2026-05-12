@@ -891,6 +891,27 @@ def build_reservoir_body(side=1):
         .fillet(outer_corner_fillet_radius)
     )
 
+    # Inner counterpart of the fillet above: round the analogous edge
+    # on the cavity side of the panel, where the cavity-facing curve
+    # (radius inner_centerward_radius) meets the wet flange seat face
+    # (z = bulkhead_panel_z_min). Same Y orientation, just on the
+    # opposite face of the panel — exposed to syrup instead of dry-side
+    # air. This corner sits inside the cavity above the wet wedge top
+    # (y = slope_low_y) and below the cavity floor (y = floor_baseline_y);
+    # without rounding it would be a narrow inner crevice the syrup
+    # could pool against.
+    inner_panel_corner_x_abs = math.sqrt(
+        inner_centerward_radius**2 - bulkhead_panel_z_min**2
+    )
+    inner_panel_corner_y_mid = (slope_low_y + floor_baseline_y) / 2
+    body = (
+        body
+        .edges(cq.NearestToPointSelector(
+            (side * inner_panel_corner_x_abs, inner_panel_corner_y_mid, bulkhead_panel_z_min),
+        ))
+        .fillet(inner_corner_fillet_radius)
+    )
+
     # No well needed: with the wet ceiling open, syrup drains directly
     # from the cavity into the wet chamber and around the bulkhead
     # body's narrower wet-collet section, reaching the port at the
