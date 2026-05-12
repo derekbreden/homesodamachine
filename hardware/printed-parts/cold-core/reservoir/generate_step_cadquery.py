@@ -975,7 +975,6 @@ def build_reservoir_body(side=1):
     # or union (inner) with the body. The corners themselves stay sharp
     # for now — separate decision about how to handle them.
     fillet_R = outer_corner_fillet_radius
-    pair_g_x_buffer = fillet_R + 1.0  # stay 7 mm clear of endpoint fillets
 
     # Slab bottom y at the outer +Z face (z=outer_z_max=70). Approximated
     # as a horizontal plane at this y for the sliver cross-section; the
@@ -986,11 +985,21 @@ def build_reservoir_body(side=1):
         - bulkhead_dry_slab_thickness
         + slope_rate * (outer_z_max - bulkhead_panel_z_min)
     )
-    slab_outer_x_start = (
-        math.sqrt(outer_centerward_radius**2 - outer_z_max**2)
-        + pair_g_x_buffer
+    # Sliver extends from the curve × +Z corner area on the −X side
+    # (x = sqrt(outer_centerward_radius² - outer_z_max²) — the curve's
+    # intersection with z=outer_z_max, where the curve face naturally
+    # peels away in -X and there's no body material for the sliver to
+    # leave a planar end-face on) all the way to the +X outer face on
+    # the +X side (x = outer_far_x_abs = 104). The sliver's +X end face
+    # coincides with the +X face plane there, so no perpendicular wall
+    # is created. In the +X corner overlap region (x = 98..104, the
+    # existing +X × +Z corner fillet area), the sliver removes some
+    # material that the existing fillet would have kept — a blended
+    # corner where the two fillets meet.
+    slab_outer_x_start = math.sqrt(
+        outer_centerward_radius**2 - outer_z_max**2
     )
-    slab_outer_x_end = outer_far_x_abs - pair_g_x_buffer
+    slab_outer_x_end = outer_far_x_abs
     slab_outer_x_length = slab_outer_x_end - slab_outer_x_start
     # Sliver profile in YZ plane: corner region between sharp corner
     # (slab_bottom, outer_z_max), tangent on outer +Z at
@@ -1025,11 +1034,10 @@ def build_reservoir_body(side=1):
         floor_baseline_y
         + slope_rate * (inner_z_max - bulkhead_panel_z_min)
     )
-    slab_inner_x_start = (
-        math.sqrt(inner_centerward_radius**2 - inner_z_max**2)
-        + pair_g_x_buffer
+    slab_inner_x_start = math.sqrt(
+        inner_centerward_radius**2 - inner_z_max**2
     )
-    slab_inner_x_end = inner_far_x_abs - pair_g_x_buffer
+    slab_inner_x_end = inner_far_x_abs
     slab_inner_x_length = slab_inner_x_end - slab_inner_x_start
     slab_inner_sliver = (
         cq.Workplane("YZ")
