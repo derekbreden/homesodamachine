@@ -275,27 +275,37 @@ warping. The fix is to vent the chamber with the chamber exhaust fan
 (`M106 P2 S153` — `P2` selects the chamber exhaust, `P0` is part-
 cooling, `P1` is aux; `S153` is ~60 % of 255).
 
-On the prior 0.4 mm-nozzle PETG print of this part, the fan ran
-unconditionally from `t=0` (added to the filament Start G-code) and
-both 2 mm and then 1 mm walls printed warp-free (commit `24605cb`).
+Background: a previous H2C running this part on PETG produced
+warp-free prints (first 2 mm walls, then 1 mm walls) once
+`M106 P2 S153` was added unconditionally to the filament Start
+G-code (commit `24605cb`). That earlier printer's nozzle size is
+not recorded in the repo. That setup was retired and the work
+moved to a **brand-new H2C** — the 0.8 mm nozzle transferred over
+physically, but plate, chamber, gaskets, and everything else are
+clean-slate.
 
-The same unconditional setup on the **0.8 mm nozzle / 0.40 mm-layer**
-profile pulled too much heat too early — the first layer curled off
-the bed within minutes before the brim could grip. The fix is to
-delay the fan until after the part is established. The conditional
-must live in **Printer Settings → Machine G-code → Layer Change
-G-code** (appended to the existing layer-progress lines), not in the
-filament Start G-code — `layer_change_gcode` is re-emitted each layer
-with `layer_num` rebound, whereas filament Start G-code is evaluated
-once at `t=0` (where `layer_num` is 0) so the conditional would never
-fire from there:
+On the new H2C, the same unconditional setup pulled too much heat
+too early and the first layer curled off the bed. Delaying the fan
+to layer 16 (in Layer Change G-code) let the print get past the
+first-layer-adhesion phase but the corners still lifted within one
+or two layers of the fan turning on. No fan-off attempt has been
+run to completion yet.
+
+Conditional placement: the M106 line **must** live in **Printer
+Settings → Machine G-code → Layer Change G-code** (appended to the
+existing layer-progress lines), not in filament Start G-code.
+`layer_change_gcode` is re-emitted each layer with `layer_num`
+rebound; filament Start G-code is evaluated once at `t=0` where
+`layer_num` is 0, so the conditional would never fire from there.
+
+Current `foam-shell.3mf` Layer Change G-code carries:
 
 ```gcode
 {if layer_num == 15}M106 P2 S153{endif}
 ```
 
-`layer_num` is 0-indexed, so this targets the 16th layer (~6 mm up at
-0.4 mm layer height).
+`layer_num` is 0-indexed, so this targets the 16th layer (~6 mm up
+at 0.4 mm layer height).
 
 ### Printer / profile
 
@@ -333,7 +343,8 @@ fire from there:
 | 1 | 2026-05-11 | Nozzle clumping at layer 1 | Called a fluke (no slicer change); restarted |
 | 2 | 2026-05-11 | First-layer curling off the bed; not noticed in time | Suspect chamber exhaust fan pulling heat before brim grip. Moved `M106 P2 S153` from unconditional to `{if layer_num == 15}M106 P2 S153{endif}` inside filament Start G-code |
 | 3 | 2026-05-11 | Cancelled mid-print after realizing the conditional in filament Start G-code wouldn't fire (`layer_num == 0` at slice time → empty expansion → fan off the whole print) | Move the conditional from filament Start G-code into printer-level Layer Change G-code, where `layer_num` is rebound per layer |
-| 4 | 2026-05-11 | In progress (chamber fan now correctly delayed to layer 16 via Layer Change G-code) | — |
+| 4 | 2026-05-11 | Conditional fired correctly at layer 16, but corners lifted within ~1 layer of fan turn-on | Suspected the chamber fan itself, on this brand-new H2C, is the failure cause regardless of trigger layer. Two candidate next attempts discussed: skip the chamber fan entirely (single-variable test) or reduce both fan speed and trigger layer (layer 30 / 30 %) |
+| 5 | 2026-05-11 | Pending — comment in `foam-shell.3mf` Layer Change G-code reads "turn on fan to 30% at layer 30", but the conditional itself was not updated and remains `{if layer_num == 15}M106 P2 S153{endif}`. As saved, this print would behave identically to attempt 4. Resolve before starting | — |
 
 ## Reference
 
