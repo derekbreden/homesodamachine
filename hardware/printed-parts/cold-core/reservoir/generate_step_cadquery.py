@@ -1006,15 +1006,26 @@ def build_reservoir_body(side=1):
     # (slab_bottom + fillet_R, outer_z_max), and tangent on slab bottom
     # at (slab_bottom, outer_z_max - fillet_R). Extruded in +X by
     # slab_outer_x_length, then translated to the middle of the edge.
+    #
+    # The sliver's y_min is extended `slab_bottom_y_slack` mm below the
+    # slab bottom at z=outer_z_max to fully cover the sloped slab bottom
+    # across the sliver z range — at z<outer_z_max, the actual slab
+    # bottom is at a lower y than at z=outer_z_max, so without the slack
+    # the sliver leaves a thin strip of body material (the visible
+    # remnant of the original sharp corner) along the slab bottom face.
+    # slope_rate * (outer_z_max - (outer_z_max - fillet_R)) ≈ 0.34 mm
+    # — slack of 1 mm comfortably covers it.
+    slab_bottom_y_slack = 1.0
     slab_outer_sliver = (
         cq.Workplane("YZ")
-        .moveTo(slab_bottom_at_outer_z, outer_z_max - fillet_R)
-        .lineTo(slab_bottom_at_outer_z, outer_z_max)
+        .moveTo(slab_bottom_at_outer_z - slab_bottom_y_slack, outer_z_max - fillet_R)
+        .lineTo(slab_bottom_at_outer_z - slab_bottom_y_slack, outer_z_max)
         .lineTo(slab_bottom_at_outer_z + fillet_R, outer_z_max)
         .radiusArc(
             (slab_bottom_at_outer_z, outer_z_max - fillet_R),
             -fillet_R,
         )
+        .lineTo(slab_bottom_at_outer_z - slab_bottom_y_slack, outer_z_max - fillet_R)
         .close()
         .extrude(slab_outer_x_length)
     )
@@ -1059,6 +1070,14 @@ def build_reservoir_body(side=1):
         slab_inner_sliver = slab_inner_sliver.translate(
             (-slab_inner_x_end, 0, 0)
         )
+    # Clip to inner_cavity so the sliver can't protrude past the
+    # body's centerward face (radius 72) into the tank space at the
+    # −X end. Without this clip, the sliver's z range (60..66) extends
+    # below the inner-curve's intersection with z=60 (x≈46.65), so at
+    # the sliver's −X start (x=37.68 from the z=66 intersection) it
+    # would union body material at radial < 72 — visible as a
+    # protrusion from the centerward face.
+    slab_inner_sliver = slab_inner_sliver.intersect(inner_cavity)
     body = body.union(slab_inner_sliver)
 
     # No well needed: with the wet ceiling open, syrup drains directly
