@@ -10,7 +10,7 @@ The hot-gas bypass solenoid is deleted — we want steady cold, not harvest cycl
 
 R-600a is carved out of the EPA Section 608 venting prohibition as a natural refrigerant, so no 608 certification is legally required. Standard (non-hydrocarbon-rated) HVAC vacuum pump and manifold are fine — we vent to atmosphere rather than recover, so recovery-equipment hydrocarbon compatibility is moot.
 
-(An alternative architecture was briefly considered: keep the factory finger-plate evaporator wired in-circuit and surround it with an FDM-printed pressure vessel — PA6-CF structural shell lined with TPU as the pressure boundary, with the cold fingers becoming the vessel's internal geometry. Sealed loop, no vent or recharge. Not in active development; the custom-coil path is what's being built.)
+(An alternative architecture was briefly considered: keep the factory finger-plate evaporator wired in-circuit and surround it with an FDM-printed pressure vessel — PA6-CF structural shell lined with TPU as the pressure boundary, with the cold fingers becoming the vessel's internal geometry. Sealed loop, no vent or recharge. Not in active development; the custom-coil path is what's being built. Full pre-removal description preserved at the `archive-plan-b-2` git tag — `git show archive-plan-b-2:hardware/harvested/ice-maker/README.md` for the side-by-side discussion.)
 
 ---
 
