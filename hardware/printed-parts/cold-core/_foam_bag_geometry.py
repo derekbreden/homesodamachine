@@ -116,10 +116,14 @@ outer_shell_z_length = 2 * (tank_copper_shell_radius + outer_shell_foam_gap + ou
 # Foam cap (top/bottom 16 mm foam pour tray, printed twice)
 # -------------------------------------------------------
 #
-# Foam cap outer height. The +compensation term keeps the cap's interior
-# Y cavity (= foam thickness in the cap) at 15 mm regardless of floor
-# thickness.
-foam_cap_height = 16.0 + wall_thickness_compensation
+# Foam cap interior cavity height (= foam thickness in the cap), matched
+# to outer_shell_foam_gap so the foam budget at the top/bottom faces of
+# the assembly equals the foam budget on the long sides — 16 mm of foam
+# everywhere around the tank.
+foam_cap_interior_height = 16.0
+# Foam cap outer height = interior cavity + floor. With
+# wall_and_floor_thickness = 2 mm, outer height = 18 mm.
+foam_cap_height = foam_cap_interior_height + wall_and_floor_thickness
 #
 # -------------------------------------------------------
 
@@ -169,11 +173,12 @@ foam_cap_lid_hole_inset = 30.0
 # counter install hides both), and standard DIN 912 SHCS is roughly
 # an order of magnitude cheaper Prime-shippable than McMaster ULH.
 #
-# Stack-up under the head, top cap (mm):
-#   lid (1) + cap floor (1) + cap interior void / boss height (14)
-#   + cap mating edge (1) + gasket (2)         = 19 mm
-# Plus 4 mm engagement into the insert = 23 mm. M3 × 25 rounds up
-# with 2 mm slack into the pocket relief below the insert.
+# Stack-up under the head, top cap (mm), with 2 mm walls/floors and
+# 16 mm interior foam:
+#   lid (2) + cap floor (2) + cap interior void / boss height (16)
+#   + cap mating edge (2) + gasket (2)         = 24 mm
+# Plus 4 mm engagement into the insert = 28 mm. The M3 × 25 is too
+# short now; a longer M3 (≥ 30 mm) is needed at next BOM update.
 #
 # Insert pocket: Ø 4.0 mm × 8 mm deep (4 mm insert engagement +
 # 4 mm relief so the M3 × 25 screw tip has 2 mm of clearance into
