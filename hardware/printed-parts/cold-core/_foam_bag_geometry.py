@@ -535,35 +535,34 @@ def build_outer_shell():
         .faces(">Y")
         .shell(-outer_shell_wall_thickness)
     )
-    for (boss_x, boss_z) in foam_cap_attachment_xz_positions:
-        boss = (
-            cq.Workplane(xz_plane_y_up)
-            .workplane(origin=(boss_x, 0, boss_z), offset=0)
-            .rect(screw_boss_size, screw_boss_size)
-            .extrude(tank_copper_shell_height)
-        )
-        shell = shell.union(boss)
-        # Heat-set insert pockets, one drilled DOWN from the top face
-        # and one drilled UP from the bottom face. Top pocket accepts
-        # the top-cap screw threading down from above; bottom pocket
-        # accepts the bottom-cap screw threading up from below.
-        top_pocket = (
-            cq.Workplane(xz_plane_y_up)
-            .workplane(
-                origin=(boss_x, tank_copper_shell_height - insert_pocket_depth, boss_z),
-                offset=tank_copper_shell_height - insert_pocket_depth,
-            )
-            .circle(insert_pocket_radius)
-            .extrude(insert_pocket_depth)
-        )
-        bottom_pocket = (
-            cq.Workplane(xz_plane_y_up)
-            .workplane(origin=(boss_x, 0, boss_z), offset=0)
-            .circle(insert_pocket_radius)
-            .extrude(insert_pocket_depth)
-        )
-        shell = shell.cut(top_pocket).cut(bottom_pocket)
-    return shell
+    # pushPoints uses workplane-local coords; on xz_plane_y_up, local Y
+    # = -world Z, so flip the z component of each (x, z) world position.
+    boss_points = [(x, -z) for (x, z) in foam_cap_attachment_xz_positions]
+    # Six full-height bosses.
+    bosses = (
+        cq.Workplane(xz_plane_y_up)
+        .pushPoints(boss_points)
+        .rect(screw_boss_size, screw_boss_size)
+        .extrude(tank_copper_shell_height)
+    )
+    # Heat-set insert pockets — one set drilled DOWN from the top face
+    # (accepting the top-cap screw threading down from above) and one
+    # set drilled UP from the bottom face (accepting the bottom-cap
+    # screw threading up from below).
+    top_pockets = (
+        cq.Workplane(xz_plane_y_up)
+        .workplane(offset=tank_copper_shell_height - insert_pocket_depth)
+        .pushPoints(boss_points)
+        .circle(insert_pocket_radius)
+        .extrude(insert_pocket_depth)
+    )
+    bottom_pockets = (
+        cq.Workplane(xz_plane_y_up)
+        .pushPoints(boss_points)
+        .circle(insert_pocket_radius)
+        .extrude(insert_pocket_depth)
+    )
+    return shell.union(bosses).cut(top_pockets).cut(bottom_pockets)
 
 def build_foam_cap():
     cap = (
@@ -573,25 +572,24 @@ def build_foam_cap():
         .faces(">Y")
         .shell(-wall_and_floor_thickness)
     )
-    for (boss_x, boss_z) in foam_cap_attachment_xz_positions:
-        boss = (
-            cq.Workplane(xz_plane_y_up)
-            .workplane(origin=(boss_x, 0, boss_z), offset=0)
-            .rect(screw_boss_size, screw_boss_size)
-            .extrude(foam_cap_height)
-        )
-        cap = cap.union(boss)
-        # Screw clearance hole through the full boss height, so the
-        # screw can pass from the cap floor (top in service) all the
-        # way to the cap's mating edge (bottom in service).
-        clearance = (
-            cq.Workplane(xz_plane_y_up)
-            .workplane(origin=(boss_x, 0, boss_z), offset=0)
-            .circle(screw_clearance_radius)
-            .extrude(foam_cap_height)
-        )
-        cap = cap.cut(clearance)
-    return cap
+    # Same workplane-local coord flip as in build_outer_shell.
+    boss_points = [(x, -z) for (x, z) in foam_cap_attachment_xz_positions]
+    bosses = (
+        cq.Workplane(xz_plane_y_up)
+        .pushPoints(boss_points)
+        .rect(screw_boss_size, screw_boss_size)
+        .extrude(foam_cap_height)
+    )
+    # Screw clearance holes through the full boss height — the screws
+    # pass from the cap floor (top in service) all the way to the cap's
+    # mating edge (bottom in service).
+    clearances = (
+        cq.Workplane(xz_plane_y_up)
+        .pushPoints(boss_points)
+        .circle(screw_clearance_radius)
+        .extrude(foam_cap_height)
+    )
+    return cap.union(bosses).cut(clearances)
 
 def build_foam_cap_lid():
     lid = (
