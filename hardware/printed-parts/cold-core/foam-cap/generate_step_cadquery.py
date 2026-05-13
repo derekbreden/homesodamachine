@@ -28,6 +28,11 @@ from _foam_shell_geometry import (
 )
 
 
+# Lid Y extent. The lid is a flat solid extruded `wall_and_floor_thickness`
+# (2 mm) high in +Y from `xz_plane_y_up` (y=0), so it spans y ∈ [0, 2].
+lid_y_height = wall_and_floor_thickness
+
+
 # CO2 inlet Z position — mirrors `cut_co2_inlet` in
 # _foam_shell_geometry.py. Recomputed here from the same primary
 # constants so the top cap's CO2 pass-through stays aligned with the
@@ -52,6 +57,23 @@ def cut_co2_inlet(cap):
         build_a_y_axis_hole_punch(
             origin=(0, -margin, co2_inlet_z),
             hole_punch_height=foam_cap_height + 2 * margin,
+        )
+    )
+
+
+def cut_co2_inlet_lid(lid):
+    """Y-axis ⌀6.5 cylindrical cut through the foam-cap lid at the same
+    (x, z) as the top cap's CO2 through-hole. The lid sits atop the cap
+    during the foam pour; this hole continues the CO2 path from the
+    outside through the lid → cap stack. Same axis (Y), same XZ position,
+    same diameter (⌀6.5) as `cut_co2_inlet`. The cut starts 5 mm below
+    y=0 and extends past y=lid_y_height so OCCT subtracts cleanly
+    through both faces."""
+    margin = 5.0
+    return lid.cut(
+        build_a_y_axis_hole_punch(
+            origin=(0, -margin, co2_inlet_z),
+            hole_punch_height=lid_y_height + 2 * margin,
         )
     )
 
@@ -108,6 +130,8 @@ def main():
     cap_top = add_co2_boss(cap_top)
     cap_bottom = cap
     lid = build_foam_cap_lid()
+    lid_top = cut_co2_inlet_lid(lid)
+    lid_bottom = lid
     gasket = build_foam_cap_gasket()
 
     # Sanity check: cap_top differs from cap_bottom by the floor
@@ -134,10 +158,18 @@ def main():
     print(f"expected (boss annular − through-hole) = {expected_diff:.3f}")
     print(f"cap_top solids = {n_solids}")
 
+    # Sanity check for the lid: lid_top differs from lid_bottom by the
+    # Y-axis ⌀6.5 cylindrical pass through the lid's full Y extent.
+    lid_hole_volume = math.pi * co2_boss_inner_radius ** 2 * lid_y_height
+    lid_actual_diff = lid_bottom.val().Volume() - lid_top.val().Volume()
+    print(f"lid_y_height = {lid_y_height}")
+    print(f"lid_bottom.Volume() - lid_top.Volume() = {lid_actual_diff:.3f}")
+    print(f"expected (⌀6.5 cylinder × lid_y_height) = {lid_hole_volume:.3f}")
+
     export_step(cap_top, str(_here / "foam-cap-top.step"))
     export_step(cap_bottom, str(_here / "foam-cap-bottom.step"))
-    export_step(lid, str(_here / "foam-cap-lid-top.step"))
-    export_step(lid, str(_here / "foam-cap-lid-bottom.step"))
+    export_step(lid_top, str(_here / "foam-cap-lid-top.step"))
+    export_step(lid_bottom, str(_here / "foam-cap-lid-bottom.step"))
     export_step(gasket, str(_here / "foam-cap-gasket.step"))
     print("-> foam-cap-top.step")
     print("-> foam-cap-bottom.step")
