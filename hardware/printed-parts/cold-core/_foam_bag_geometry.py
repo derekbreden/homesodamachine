@@ -346,25 +346,27 @@ bag_pocket_corner_inner_radius = 6.5
 
 def build_tank_and_bag_pocket_walls():
     """Cylindrical tank wall + four bridging walls + two bag-pocket
-    U-walls (+X and −X), built as a single sketch extruded in Y.
+    U-walls (+X and −X), built per side as outer-loop polyline minus
+    cavity-loop polyline, then unioned.
 
-    The sketch has four closed loops — one outer + one cavity per ±X
-    side. Even-odd fill makes each (outer, cavity) pair an annular
-    region; the two sides are disjoint in cross-section because the
-    cylinder is cut at z = ±tank_copper_shell_open_z, leaving two
-    crescents that don't touch each other in XZ.
+    The cylinder is cut at z = ±tank_copper_shell_open_z, leaving two
+    crescents disjoint in cross-section — each crescent + its two
+    bridging walls + its bag-pocket walls are one connected component.
 
-    Outer loop (each side): bag-pocket outer far face + outer corner
-    arcs + outer ±Z faces extended centerward + R=8 arc continuing
-    through the cylinder's bridging-wall tank-facing face + cylinder
-    R=70.5 inner face around the apex + back through the opposite
-    bridging arc + lobe-arc continuation + outer ±Z face on the other
-    side.
+    Outer loop (each side, +X polarity): bag-pocket outer far face
+    (x=±107.5 from z=−64 to z=+64) + ±outer corner arcs R=8.5 +
+    outer ±Z faces (z=±72.5) extended centerward to where the lobe
+    arc breaks the z=±outer_z_pos line + a single R=8 arc that runs
+    continuously from (arc_outer_x, ±outer_z) through the bridging
+    apex (±35.06, ±65.25) down to (cyl_open_x_inner, ±60) — the lobe
+    arc and the bridging tank-facing arc are co-circular and combine
+    into one arc — then the cylinder R=70.5 inner face wraps the
+    ±X apex, then mirrored on the other ±Z half to close.
 
-    Cavity loop (each side): bag-pocket inner ±Z faces + inner corner
-    arcs + bag-pocket inner far face + cylinder R=72.5 outer face
-    around the apex + bridging walls' R=8−t (reservoir-facing) inner
-    faces connecting cylinder outer to bag-pocket inner +Z/−Z faces.
+    Cavity loop (each side): bag-pocket inner faces (z=±70.5, x=±105.5)
+    + inner corner arcs R=6.5 + bridging walls' reservoir-facing
+    R=R_bridging_inner (5.76) arcs + cylinder R=72.5 outer face around
+    the ±X apex.
     """
     bag_pocket_height = tank_copper_shell_height
     half_width = bag_pocket_width / 2
@@ -399,7 +401,6 @@ def build_tank_and_bag_pocket_walls():
     arc_outer_x_abs = lobe_cx_abs - arc_outer_dx                                             # 39.68
     d_bridging_inner = abs(cyl_open_x_outer - lobe_cx_abs)                                   # 2.37
     R_bridging_inner = math.sqrt(d_bridging_inner ** 2 + half_chord ** 2)                    # 5.76
-    bridging_inner_apex_x_abs = lobe_cx_abs - R_bridging_inner                                # 37.30
 
     def outer_loop_midpoint(side, z_sign, theta):
         """A point on the R=8 lobe-arc/bridging circle at angle theta
