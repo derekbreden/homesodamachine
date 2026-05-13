@@ -67,12 +67,19 @@ export function mountEvents(app, { commit = "unknown" } = {}) {
     if (recent) helloMsg.recent = recent;
     send(res, helloMsg);
 
-    // Comment-line keepalive every 30s. EventSource ignores comment lines.
-    // This defeats idle timeouts at intermediate proxies (Render/Cloudflare
-    // edge typically idle around ~100s for streaming responses).
+    // Periodic ping every 30s. Two purposes:
+    //   - Comment-style keepalive (`:keepalive\n\n`) defeats idle timeouts
+    //     at intermediate proxies (Render/Cloudflare edge typically idle
+    //     around ~100s for streaming responses).
+    //   - Real `data:` ping fires the client's EventSource message handler
+    //     so client code has an observable heartbeat. Comment lines are
+    //     consumed by the EventSource parser and never reach the page.
+    //     Boot.js uses this to detect Safari's silent-disconnect mode
+    //     (TCP died but readyState stays OPEN) and force a reconnect.
     const keepalive = setInterval(() => {
       try {
         res.write(`:keepalive\n\n`);
+        send(res, { type: "ping", t: Date.now() });
       } catch {
         clearInterval(keepalive);
       }
