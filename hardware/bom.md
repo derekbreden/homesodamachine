@@ -31,6 +31,8 @@ An earlier racetrack-body alternative (304 SS body half-sheets + dished racetrac
 | OnlineMetals #12498 — 5" OD × 0.065" wall 316 welded SS round tube, cut to 6.0" length (MTRs required); order 1020857414 placed Apr 24, 2026, 10 pcs @ $67.35 ea + ship + tax = $736.73 delivered ÷ 10 = $73.67/vessel | OnlineMetals.com | 1 | $73.67 | $73.67 |
 | SendCutSend 1/4"-thick 316 SS circular endcap plate, 4.860" diameter with 2× 7/16" tap-pilot holes for 1/4" NPT (`endcap-circular-2hole.dxf`); order SG019619 placed Apr 24, 2026 (paid), 20 pcs @ $28.96 ea + tax = $621.19 delivered ÷ 20 = $31.06/plate; 2 plates per vessel | sendcutsend.com | 2 | $31.06 | $62.12 |
 | [LTWFITTING 1/4" hose barb × 1/4" MNPT, 316 SS (5-pk)](https://www.amazon.com/dp/B017N4TTMA) | B017N4TTMA — port 1 (CO2 in via internal sparge); threads into bottom plate, barb faces inward to silicone tube → sparge stone; 1 of 5 per unit ($13.65/5) | 1 (of 5 pk) | $2.73 | $2.73 |
+| [TAISHER 2PCS 316L SS 90° Barstock Street Elbow, 1/4" NPT M × 1/4" NPT F](https://www.amazon.com/dp/B0CZ38MYL1) | B0CZ38MYL1 — water-side vessel-port elbows (water inlet + carbonated-water outlet); turns each line laterally within the ~30 mm vertical envelope above and below the end-cap plates per `printed-parts/cold-core/foam-shell/README.md`. 316L matches the 316 end-cap plate parent metal (no galvanic mismatch, carbonic-acid-safe on the wetted side). 2 elbows per build = exactly 1 pack/build. Amazon order 112-6323725-5423434, May 13, 2026, $20.99 line + $1.52 allocated tax = $22.51 delivered ($11.26/elbow × 2 = $22.51/build) | 2 (1 pk) | $11.26 | $22.51 |
+| 1/4" NPT 90° brass elbow — dry-gas-side vessel-port elbows (CO2 inlet + PRV top-plate port); mirrors the TAISHER SS elbow geometry on the water-side ports, but on the gas side where brass lead content is fine (no carbonic-acid leaching). 2 elbows per build. Specific Prime SKU not yet selected; placeholder per-piece estimate based on typical 1/4" NPT 90° brass elbow Amazon Prime listings (~$4/elbow at single-pack pricing, ~$2/elbow amortized at multi-pack pricing). Pending procurement decision — see [purchases.md](purchases.md) "Still needed — LIKELY-TO-BUY" | — | 2 | ~$2.00 | ~$4.00 |
 | [FERRODAY 0.5 µm sintered 316 SS sparge stone, 1/4" barb input (2-set)](https://www.amazon.com/dp/B091C5Y6L9) | B091C5Y6L9 — internal sparge stone, hangs in water column on silicone tube from port-1 barb adapter; 1 of 2 per unit ($14.97/2) | 1 (of 2) | $7.49 | $7.49 |
 | Food-grade silicone tube stub, 1/4" ID × ~3" long (cut from existing Metaland 1/4" silicone B08L1ST6ST stock in §5) | B08L1ST6ST — connects port-1 barb to sparge stone inside vessel | — | ~$0.20 | $0.20 |
 | [Millrose 70894 Nickel Guard anti-seize PTFE tape](https://www.amazon.com/dp/B07C9ZV4PG) | B07C9ZV4PG — anti-seize for SS-into-SS NPT joints (4 ports per unit) | 1 | $20.07 | $20.07 |
@@ -194,7 +196,7 @@ The T18 heat-set tip kit ([B0CS662NVK](https://www.amazon.com/dp/B0CS662NVK)) an
 | Section | $ |
 |---|---:|
 | 1. Controllers + electronics | $166.43 |
-| 2. Carbonator vessel (plan A, 316L) | $203.68 |
+| 2. Carbonator vessel (plan A, 316L) | $230.19 |
 | 3. Water inlet | $130.88 |
 | 4. CO2 subsystem | $58.13 |
 | 5. Refrigeration | $175.71 |
@@ -206,7 +208,7 @@ The T18 heat-set tip kit ([B0CS662NVK](https://www.amazon.com/dp/B0CS662NVK)) an
 | 11. Wiring | $31.97 |
 | 12. Level sensing | $19.07 |
 | 13. Mechanical attach hardware + reservoir-cap vent filter | $17.55 |
-| **Total** | **$1,399.07** |
+| **Total** | **$1,425.58** |
 
 ## External / user-supplied (not shipped)
 
