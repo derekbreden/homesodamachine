@@ -765,6 +765,25 @@ def build_a_hole_punch(
         .extrude(hole_punch_height)
     )
 
+def build_a_slot_punch(
+    origin=(0, 0, 0),
+    slot_length=1.0,
+    slot_diameter=6.5,
+    slot_punch_height=40,
+):
+    """Y-elongated, Z-extruded rounded slot (circle-rect-circle), centered
+    at `origin`. The slot's long axis runs along world Y (angle=90 on a
+    workplane whose own X axis = world X), short axis along world X. The
+    rounded ends each contribute slot_diameter/2 of additional Y reach
+    beyond `slot_length` — so the through-wall opening at the top end
+    extends slot_diameter/2 above origin_y + slot_length/2."""
+    return (
+        cq.Workplane(xy_plane_z_up)
+        .workplane(origin=origin, offset=origin[2])
+        .slot2D(slot_length, slot_diameter, angle=90)
+        .extrude(slot_punch_height)
+    )
+
 def cut_hole_for_co2_inlet(foam_bag_shell):
     hole_z_offset = (tank_copper_shell_radius + 20) * -1
     hole_x_offset = 0
@@ -778,6 +797,32 @@ def cut_hole_for_water_outlet(foam_bag_shell):
     hole_y_offset = hole_shift_from_edge + wall_and_floor_thickness
     hole_punch = build_a_hole_punch(origin=(hole_x_offset, hole_y_offset, hole_z_offset))
     return foam_bag_shell.cut(hole_punch)
+
+def cut_slot_for_copper_and_water_inlet(foam_bag_shell):
+    """Single Y-elongated slot through the outer_shell +Z wall, shared by
+    the two copper plugs (low and high) and the water-inlet plug. X width
+    is 6.5 mm (rounded slot ends), matching the ⌀6.5 of the original
+    single-port holes; Y span runs from a few mm below the lowest copper
+    plug (y≈46) up to the wall's top edge (y=tank_copper_shell_height),
+    so the slot opens onto the top edge of the +Z wall and plugs can be
+    slid down into it from above. Z-extruded 40 mm starting from
+    z = R − 20 (matching the existing hole_punch convention), which is
+    enough to fully pierce the +Z wall (outer face at z ≈ R + 18).
+    With the cylinder wall now open at ±Z and the bag_pocket_support_
+    shell ±Z walls gapped at x=0, the slot pierces only this one wall."""
+    slot_diameter = 6.5
+    slot_y_bottom = 42.0
+    slot_y_top    = tank_copper_shell_height
+    slot_length   = slot_y_top - slot_y_bottom
+    slot_y_center = (slot_y_top + slot_y_bottom) / 2.0
+    slot_z_offset = tank_copper_shell_radius - 20
+    slot_x_offset = 0
+    slot_punch = build_a_slot_punch(
+        origin=(slot_x_offset, slot_y_center, slot_z_offset),
+        slot_length=slot_length,
+        slot_diameter=slot_diameter,
+    )
+    return foam_bag_shell.cut(slot_punch)
 
 # ═══════════════════════════════════════════════════════
 # TOP-LEVEL ASSEMBLY
@@ -803,6 +848,7 @@ def build_full_shell():
     foam_bag_shell = punch_a_bag_pocket_shell_hole(foam_bag_shell, side=-1)
     foam_bag_shell = cut_hole_for_co2_inlet(foam_bag_shell)
     foam_bag_shell = cut_hole_for_water_outlet(foam_bag_shell)
+    foam_bag_shell = cut_slot_for_copper_and_water_inlet(foam_bag_shell)
     return foam_bag_shell
 
 
