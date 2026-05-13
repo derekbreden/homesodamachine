@@ -285,19 +285,26 @@ can slide down into the slot from above during assembly. With the
 cylinder wall now open at ±Z and the support-shell ±Z walls gapped
 at x = 0, the slot pierces only this one outer wall.
 
-Pass-through Y heights (centers, relative to the floor at y = 0):
+Pass-through Y heights (centers, measured from the **top of the
+floor** — i.e. from the interior cavity's lower bound, not from y = 0):
 
-| Pass-through | Y center (mm) |
+| Pass-through | Y center above floor (mm) |
 |---|---|
-| Lowest copper (evaporator inlet) | 47.0 |
-| Highest copper (evaporator outlet) | 166.4 |
-| Water inlet | 198.4 |
+| Lowest copper (evaporator inlet) | 45.0 |
+| Highest copper (evaporator outlet) | 164.4 |
+| Water inlet | 196.4 |
 
-(The highest copper drifted by 1 mm from its 1 mm-wall position when
+(Absolute Y in the CadQuery model is +`wall_and_floor_thickness`
+above these — i.e. 47.0 / 166.4 / 198.4 at the current 2 mm wall
+— since the floor occupies y = 0 to y = `wall_and_floor_thickness`.)
+
+(The highest copper drifted by −1 mm relative to the floor top when
 `wall_and_floor_thickness` was bumped from 1 mm to 2 mm in commit
 `8a9ffc0`; the formula
 `tank_copper_shell_height − hole_shift_from_edge − wall_and_floor_thickness − above_tank_elbows_height`
-absorbed the wall-thickness change. The drift was accepted.)
+has a `−wall_and_floor_thickness` term that the `+wall_thickness_compensation`
+inside `tank_copper_shell_height` only half-cancels once you reframe
+against the floor top. The drift was accepted.)
 
 Three printed PETG **copper plugs** slide down into the slot from
 above to seal the gaps between (and above) the three pass-throughs:
