@@ -31,13 +31,12 @@ An earlier racetrack-body alternative (304 SS body half-sheets + dished racetrac
 | OnlineMetals #12498 — 5" OD × 0.065" wall 316 welded SS round tube, cut to 6.0" length (MTRs required); order 1020857414 placed Apr 24, 2026, 10 pcs @ $67.35 ea + ship + tax = $736.73 delivered ÷ 10 = $73.67/vessel | OnlineMetals.com | 1 | $73.67 | $73.67 |
 | SendCutSend 1/4"-thick 316 SS circular endcap plate, 4.860" diameter with 2× 7/16" tap-pilot holes for 1/4" NPT (`endcap-circular-2hole.dxf`); order SG019619 placed Apr 24, 2026 (paid), 20 pcs @ $28.96 ea + tax = $621.19 delivered ÷ 20 = $31.06/plate; 2 plates per vessel | sendcutsend.com | 2 | $31.06 | $62.12 |
 | [LTWFITTING 1/4" hose barb × 1/4" MNPT, 316 SS (5-pk)](https://www.amazon.com/dp/B017N4TTMA) | B017N4TTMA — port 1 (CO2 in via internal sparge); threads into bottom plate, barb faces inward to silicone tube → sparge stone; 1 of 5 per unit ($13.65/5) | 1 (of 5 pk) | $2.73 | $2.73 |
-| [TAISHER 2PCS 316L SS 90° Barstock Street Elbow, 1/4" NPT M × 1/4" NPT F](https://www.amazon.com/dp/B0CZ38MYL1) | B0CZ38MYL1 — water-side vessel-port elbows (water inlet + carbonated-water outlet); turns each line laterally within the ~30 mm vertical envelope above and below the end-cap plates per `printed-parts/cold-core/foam-shell/README.md`. 316L matches the 316 end-cap plate parent metal (no galvanic mismatch, carbonic-acid-safe on the wetted side). 2 elbows per build = exactly 1 pack/build. Amazon order 112-6323725-5423434, May 13, 2026, $20.99 line + $1.52 allocated tax = $22.51 delivered ($11.26/elbow × 2 = $22.51/build) | 2 (1 pk) | $11.26 | $22.51 |
-| 1/4" NPT 90° brass elbow — dry-gas-side vessel-port elbows (CO2 inlet + PRV top-plate port); mirrors the TAISHER SS elbow geometry on the water-side ports, but on the gas side where brass lead content is fine (no carbonic-acid leaching). 2 elbows per build. Specific Prime SKU not yet selected; placeholder per-piece estimate based on typical 1/4" NPT 90° brass elbow Amazon Prime listings (~$4/elbow at single-pack pricing, ~$2/elbow amortized at multi-pack pricing). Pending procurement decision — see [purchases.md](purchases.md) "Still needed — LIKELY-TO-BUY" | — | 2 | ~$2.00 | ~$4.00 |
+| [TAISHER 2PCS 316L SS 90° Barstock Street Elbow, 1/4" NPT M × 1/4" NPT F](https://www.amazon.com/dp/B0CZ38MYL1) | B0CZ38MYL1 — all-SS standardization: all four vessel-port elbows use this part (water inlet + carbonated-water outlet + CO2 inlet + PRV port). 316L matches the 316 end-cap plate parent metal (no galvanic mismatch, carbonic-acid-safe on the wetted side); same SS on the dry-gas side simplifies the assembly to one elbow SKU instead of splitting SS-water + brass-gas. Turns each line laterally within the ~30 mm vertical envelope above and below the end-cap plates per `printed-parts/cold-core/foam-shell/README.md`. 4 elbows per build = 2 packs/build. Amazon order 112-6323725-5423434, May 13, 2026, $20.99 line + $1.52 allocated tax = $22.51 delivered ($11.26/elbow × 4 = $45.04/build) | 4 (2 pk) | $11.26 | $45.04 |
 | [FERRODAY 0.5 µm sintered 316 SS sparge stone, 1/4" barb input (2-set)](https://www.amazon.com/dp/B091C5Y6L9) | B091C5Y6L9 — internal sparge stone, hangs in water column on silicone tube from port-1 barb adapter; 1 of 2 per unit ($14.97/2) | 1 (of 2) | $7.49 | $7.49 |
 | Food-grade silicone tube stub, 1/4" ID × ~3" long (cut from existing Metaland 1/4" silicone B08L1ST6ST stock in §5) | B08L1ST6ST — connects port-1 barb to sparge stone inside vessel | — | ~$0.20 | $0.20 |
 | [Millrose 70894 Nickel Guard anti-seize PTFE tape](https://www.amazon.com/dp/B07C9ZV4PG) | B07C9ZV4PG — anti-seize for SS-into-SS NPT joints (4 ports per unit) | 1 | $20.07 | $20.07 |
 | [Tap Magic EP-Xtra pipe-tap cutting fluid, 16 oz (size variant on listing B00DHMHSGM)](https://www.amazon.com/dp/B00DHMHSGM) | B00DHMHSGM — required for hand-tapping 1/4" NPT into 1/4"-thick 316 SS plate; ~$0.50 of fluid per vessel | 1 | $0.50 | $0.50 |
-| [Control Devices SV-100 safety valve, 1/4" NPT, 100 psi set pressure](https://www.amazon.com/dp/B0D361X97X) | B0D361X97X — Port 4 tank PRV (top plate, dedicated) | 1 | $16.06 | $16.06 |
+| [Control Devices SV-125 safety valve, 1/4" NPT, 125 psi set pressure, 49 SCFM relief, brass](https://www.amazon.com/dp/B01G2F6EMY) | B01G2F6EMY — Port 4 tank PRV (top plate, dedicated). Sized for 90 psi working pressure (the new fixed-regulator setpoint per the Interstate WR1110 in §4); the previous SV-100 at 100 psi was too tight a margin against 90 psi working. Amazon order 112-6323725-5423434, May 13, 2026, $7.49 line + $0.54 allocated tax = $8.03 delivered | 1 | $8.03 | $8.03 |
 | [Cambro 6 QT polycarbonate square container](https://www.amazon.com/dp/B001BZEQ44) | B001BZEQ44 — citric acid passivation soak tub, one-time-use per unit | 1 | $20.00 | $20.00 |
 | [Viva Doria food-grade citric acid, 2 lb bag](https://www.amazon.com/dp/B0C5NQM8S1) | B0C5NQM8S1 — passivation: ~1 qt of 4% solution per tank; 1/20 of $9.99 bag | 1 | $0.50 | $0.50 |
 | [STARTECHWELD ER316L .030 MIG wire, 10-lb spool](https://www.amazon.com/dp/B09BKFBXT9) | B09BKFBXT9 — filler wire for the plate-to-tube and float-rod-to-plate laser welds; **316L (not 308L)** preserves Mo content across the weld zone to match the 316 base metal — undermatching with 308L would leave the weld less corrosion-resistant than the parent; ~12 g of wire per ~32" of weld per vessel × ~378 builds per 10-lb spool; $129.50/378 | 1 (of 378) | $0.34 | $0.34 |
@@ -62,6 +61,7 @@ An earlier racetrack-body alternative (304 SS body half-sheets + dished racetrac
 | Part | ASIN | Qty | Unit $ | Line $ |
 |---|---|---:|---:|---:|
 | [Wellbom dual-gauge CO2 regulator, CGA-320, 0–120 PSI out / 150 PSI PRV](https://www.amazon.com/dp/B0G13P5PMY) | B0G13P5PMY | 1 | $44.99 | $44.99 |
+| [Interstate Pneumatics WR1110 1/4" NPT in-line 90 PSI fixed pre-set pressure regulator, 230 PSI max inlet, aluminum body](https://www.amazon.com/dp/B07J2L8LF3) | B07J2L8LF3 — in-appliance secondary regulator between the customer's CGA-320 primary regulator (above) and the vessel CO2 inlet. Fixed 90 PSI outlet matches the SV-125 PRV setpoint above (35 PSI safety margin to the 125 PSI PRV) and locks the vessel working pressure independent of the customer's primary-regulator setting. Amazon order 112-6323725-5423434, May 13, 2026, $23.93 line + $1.73 allocated tax = $25.66 delivered | 1 | $25.66 | $25.66 |
 | [5/16" ID beer CO2 line, 10 ft + 4 clamps](https://www.amazon.com/dp/B0D1RB3TF6) | B0D1RB3TF6 — ~2 ft of hose (regulator → bottom-plate barb) + 2 of 4 clamps per unit; ~1/4 of pack value | 1 (~1/4 pk) | $3.50 | $3.50 |
 | [DERPIPE 5/16" tube × 1/4" NPT push-to-connect (5-pk)](https://www.amazon.com/dp/B09LXVGPG7) | B09LXVGPG7 — CO2 line entry to vessel; 1 of 5 per unit ($10.71/5). **5/16" variant appears delisted; source replacement ASIN** | 1 (of 5 pk) | $2.14 | $2.14 |
 | [GASHER 1/4" NPT SS one-way check valve (2-pk, $15.00) — second of pack](https://www.amazon.com/dp/B0FV2D2FFX) | B0FV2D2FFX — **CO2-side check** between DERPIPE 5/16"-tube × 1/4"-NPT push-to-connect and the LTWFITTING bottom-plate barb adapter; prevents water back-flow into the CO2 regulator if pressures invert under fault. Same 2-pack as the §3 water-side check, second valve of the pair | 1 (of 2) | $7.50 | $7.50 |
@@ -196,9 +196,9 @@ The T18 heat-set tip kit ([B0CS662NVK](https://www.amazon.com/dp/B0CS662NVK)) an
 | Section | $ |
 |---|---:|
 | 1. Controllers + electronics | $166.43 |
-| 2. Carbonator vessel (plan A, 316L) | $230.19 |
+| 2. Carbonator vessel (plan A, 316L) | $240.69 |
 | 3. Water inlet | $130.88 |
-| 4. CO2 subsystem | $58.13 |
+| 4. CO2 subsystem | $83.79 |
 | 5. Refrigeration | $175.71 |
 | 6. Cold core insulation | $49.48 |
 | 7. Printed parts (PETG) | $103.94 |
@@ -208,7 +208,7 @@ The T18 heat-set tip kit ([B0CS662NVK](https://www.amazon.com/dp/B0CS662NVK)) an
 | 11. Wiring | $31.97 |
 | 12. Level sensing | $19.07 |
 | 13. Mechanical attach hardware + reservoir-cap vent filter | $17.55 |
-| **Total** | **$1,425.58** |
+| **Total** | **$1,461.74** |
 
 ## External / user-supplied (not shipped)
 
