@@ -1,0 +1,129 @@
+# Pressure Vessel Fabrication
+
+The production procedure for the carbonator pressure vessel — the 316L stainless body that holds carbonated water at the working pressure specified in [`../future.md`](../future.md) "Carbonation subsystem". This document is the repeatable procedure for taking commodity tube + cut plates to a hydro-tested, passivated vessel ready for the [refrigeration loop](refrigerant-loop.md) downstream.
+
+Design intent and material rationale live in [`../future.md`](../future.md). The dev-phase task summary lives in [`../handwork.md`](../handwork.md) (companion to this doc, not a substitute — it is the upcoming-tasks list for one builder, not the repeatable production procedure). Snapshots of single-event execution (the first tap, the first weld recipe) live in their own dated files and are referenced by step below.
+
+## Scope
+
+In: commodity 316L SS tube (OnlineMetals #12498) + laser-cut 316L SS end plates (SendCutSend [`endcap-circular-2hole.dxf`](../cut-parts/carbonation/endcaps-circular/endcap-circular-2hole.dxf)) + the small parts listed under "Inputs" below.
+
+Out: one vessel that has been tapped, welded, hydro-tested at the working-pressure-appropriate setpoint, passivated, and has the internal sparge stone + float assembly installed — ready for evaporator coil wrap.
+
+Not in scope: the evaporator coil wrap itself (boundary with [`refrigerant-loop.md`](refrigerant-loop.md)), the cold-core foam pour ([`cold-core.md`](cold-core.md)), and any system-level installation.
+
+## Inputs per vessel
+
+Per-unit BOM lives in [`../bom.md`](../bom.md) §2 (carbonator vessel) + §12 (level sensing — the float rod + donut). The table below is the procedure-level summary; bom.md is the source of truth for per-unit allocation and cost. Status (ACQUIRED / ON-ORDER / LIKELY-TO-BUY) for every item lives in [`../purchases.md`](../purchases.md) §1 (vessel fabrication), §16 (laser welding), §2 (CO2 subsystem), §4 (port-fittings including the new vessel-port elbows).
+
+| Item | Source | Notes |
+|---|---|---|
+| 5" OD × 0.065" wall × 152.4 mm 316L SS welded tube | OnlineMetals #12498 | MTRs required |
+| 1/4"-thick 316L SS circular end plate, 2-hole pattern | SendCutSend [`endcap-circular-2hole.dxf`](../cut-parts/carbonation/endcaps-circular/endcap-circular-2hole.dxf) | 2 per vessel |
+| 1/8" 316L SS rod, ~6" cut from 12" stock | Tandefio B0CY4DWJFQ | Internal float rod (bom.md §12) |
+| Magnetic donut float | Harvested from DEVMO MINI float switch B07T18PGJ4 | Slides on rod, captive after top weld (bom.md §12) |
+| 0.5 µm sintered 316 SS sparge stone (1/4" barb input) | FERRODAY B091C5Y6L9 | Internal CO2 sparge |
+| Food-grade silicone tube stub, ~3" of 1/4" ID | Metaland B08L1ST6ST (cut from §5 stock) | Connects bottom-plate barb to sparge stone |
+| 1/4" hose-barb × 1/4" MNPT 316 SS adapter | LTWFITTING B017N4TTMA | CO2 inlet barb, installed at sparge step |
+| **TAISHER 316L SS 1/4" NPT 90° street elbow, M×F** | B0CZ38MYL1 (2-pk) | **2 per vessel for Ports 2 + 3 (water-side, food-contact).** ON-ORDER as of 2026-05-13. Turns the line laterally within the ~30 mm vertical envelope around the tank — see [`../printed-parts/cold-core/foam-shell/README.md`](../printed-parts/cold-core/foam-shell/README.md) "Tank-port fittings" |
+| Brass 1/4" NPT 90° street elbow, M×F | TBD SKU (Legines B074DTTZ62 or Boeray B07318CNHG per agent search) | **2 per vessel for Ports 1 + 4 (gas-side: CO2 inlet + PRV).** LIKELY-TO-BUY as of 2026-05-13; gas-side ports tolerate lead-content brass (no food-contact path). See [`../purchases.md`](../purchases.md) "Still needed" |
+| **Control Devices SV-100 safety valve, 1/4" NPT, 100 PSI** | B0D361X97X | **Port 4 dedicated PRV — installed after passivation per step 8 below, via the brass 90° elbow to orient the body laterally.** Set pressure moves to SV-125 if 90 PSI working sticks per [`../future.md`](../future.md) |
+| Millrose PTFE thread-seal tape | B07C9ZV4PG | Anti-seize for 4 NPT ports (test plugs during hydro + final fittings after passivation) |
+| ER316L .030 filler wire | STARTECHWELD B09BKFBXT9 | Matches 316L parent metal |
+| Cambro 6 QT polycarbonate square container | B001BZEQ44 | One-time-use passivation soak tub per vessel |
+| Viva Doria food-grade citric acid | B0C5NQM8S1 | Made up to ~4 % solution, ~1 qt per vessel (~1/20 of 2 lb bag) |
+| Tap Magic EP-Xtra cutting fluid | B00DHMHSGM | ~$0.50 of fluid per vessel for NPT tapping |
+
+Tooling (per-vessel-amortized only — single-asset tools live in [`../purchases.md`](../purchases.md), not here): XLaserlab X1 Pro laser welder, WEN 4208T drill press, Drill America 1/4"-18 NPT pipe tap + tap wrench, Brown & Sharpe spring tap guide, argon at the welder, hydro test rig (see step 6).
+
+## Procedure
+
+### 1. Tap NPT in both end plates
+
+Hand-tap 1/4"-18 NPT in all four port positions — 2 ports per plate × 2 plates per vessel. Target 4.5 turns of engagement, with a 1/4" NPT test fitting snug-firm at 2-3 threads showing.
+
+The first-tap rig and hand sequence are captured in [`../tapping-plan-2026-05-03.md`](../tapping-plan-2026-05-03.md) (point-in-time snapshot of the first tap into a 316L plate). That snapshot is single-use Baltic-birch + MDF; the production fixture for the full per-vessel × 10-vessel batch is a downstream design step — see "Open items" below.
+
+### 2. Tack-weld float rod to bottom plate
+
+Cut the 1/8" 316L rod to ~6". Tack-weld it vertically to the inside face of the bottom plate (the side that will face into the vessel). Done in the same welding session as the plate-to-tube welds in steps 3 and 5 — heat the welder once.
+
+### 3. Weld bottom plate to tube
+
+Close one end of the tube with the bottom plate, float rod sticking up into what will become the interior. Current weld recipe and rationale: [`../welding-progress-2026-05-09.md`](../welding-progress-2026-05-09.md) (latest snapshot, supersedes the 05-01 recipe on the wire-stick fix). Headline parameters: power 60 %, wobble 80 Hz × 2 mm, wire feed 12 mm/s, **Bushing delay 2000 ms** (the fix for wire stick on 0.065" wall), argon 2 s pre/post, ER316L .030 filler, 8-tack opposite-side-bisecting pattern, trail-off motion at end of bead, 30 s plate prep with 80-120 grit on the cut edge.
+
+Yellow/brown coloration on the inside surface is acceptable at this stage — chromium oxide under partial argon protection, dissolves in the citric-acid passivation downstream (step 7). Black scale is not acceptable; if seen, increase argon coverage or add an internal back-purge.
+
+### 4. Install magnetic donut float
+
+Slide the donut float over the rod through the still-open top of the tube. After step 5 it is captive between the rod tack at the bottom plate and the rod-end register on the top plate's inside face.
+
+### 5. Weld top plate to tube
+
+Close the open end with the top plate. The top plate's inside face has a small register that captures the rod's top end as the plate seats against the tube end. Same weld recipe as step 3.
+
+### 6. Hydro test
+
+Hydro-test the fully welded + tapped vessel — bare, on a bench, with NPT plugs in all four ports. No PRV, no fittings, no cold core, no refrigerant loop. The test is a pre-passivation, pre-assembly bench operation.
+
+Setpoint scales with the committed working pressure (per [`../future.md`](../future.md) "Carbonation subsystem"):
+
+- 70 PSI working → **150 PSI hold for 30 minutes**
+- 90 PSI working → **180 PSI hold for 30 minutes**
+
+Beyond the 30-minute minimum, the in-vessel SENCTRL gauge (below) supports hour-scale leak soaks for catching slow weep before passivation.
+
+**Hydro test rig — committed in [`../purchases.md`](../purchases.md) §1, all ACQUIRED:**
+- **Pressure source:** BEAMNOVA hydrostatic test pump, 0–726 PSI, 3.17 gal reservoir, 1/4" hydraulic hose w/ 1/2" gasket-swivel end. Drives the test pressure; 150 PSI reads at ~21 % of scale, 180 PSI at ~25 % — comfortable working range.
+- **Pump-to-vessel adapter:** KOOTANS 1/2" NPT male × 1/4" NPT male brass reducing hex nipple (4-pack). 1/2" end seals against the BEAMNOVA swivel gasket; 1/4" end takes PTFE tape and threads into the vessel port.
+- **In-vessel soak gauge:** SENCTRL 0–200 PSI glycerin-filled, 2.5" dial, 1/4" NPT lower mount, SS case. Leaves on a vessel port across hour-scale leak soaks for fine-resolution drift; 150 PSI test sits at 75 % of scale (textbook gauge sizing).
+- **Port plugs:** ChillWaves brass 1/4" NPT outer-hex pipe plugs (12-pack), rated 1200 PSI — way over the test pressure. Three plugs hold the three unused vessel ports during the test.
+- **Post-hydro pneumatic-leak rig (separate step, post-validation):** Milton 727 industrial M-STYLE® 1/4" MNPT air plug 10-pack — threads into a vessel port and mates with a standard air-compressor coupler for a follow-on pneumatic leak check on vessels that already passed hydro. Per the May 4 audit note recorded in purchases.md, this is the *post*-validation rig; hydro is the primary new-fab sign-off because pneumatic stores ~200× the failure energy at the same pressure.
+
+**Pass criteria — open.** Working position is "no visible drop on the SENCTRL gauge, no visible weep at welds or threads." Whether to commit to a specific PSI-drop tolerance over the hold is undefined.
+
+**Failure handling — open.** A vessel that weeps at a bead surface is plausibly re-weldable; a weep through parent metal or HAZ is scrap; a vessel that won't hold pressure with no visible weep most likely has a thread leak at a port. The decision tree is undefined.
+
+### 7. Citric acid passivation
+
+One-time soak in ~4 % food-grade citric acid solution, 30-60 minutes, in a disposable plastic tub sized for the vessel. Followed by thorough water rinse.
+
+Restores the chromium oxide layer at the weld zones — what makes 316L resistant to pitting from carbonic acid in long-life carbonated-water service. The yellow/brown weld coloration from step 3/5 dissolves out during this soak. Same treatment commercial brewery bright tanks and commercial carbonators receive.
+
+Done after hydro because failures get re-welded (re-introducing oxide that the passivation needs to handle) and before sparge install because the silicone tube and sintered stone don't belong in a citric soak.
+
+### 8. Install elbows, sparge stone, PRV
+
+After passivation, the vessel receives its permanent port fittings. Per [`../printed-parts/cold-core/foam-shell/README.md`](../printed-parts/cold-core/foam-shell/README.md) "Tank-port fittings", every port gets a 1/4" NPT 90° elbow as the first downstream fitting, turning the line laterally so the rest of the stack fits within the ~30 mm vertical envelope above and below the tank.
+
+- **Ports 2 + 3 (food-contact: water inlet on top, carbonated-water outlet on bottom):** thread the TAISHER 316L SS elbow MNPT into the plate's FNPT, PTFE tape on the threads. Downstream fittings (water-side GASHER check valve + MAACFLOW adapter for Port 2, VALVENTO compression adapter for Port 3) install during cold-core integration per [`cold-core.md`](cold-core.md) — they connect to the elbow's lateral FNPT side.
+
+- **Port 4 (top-plate PRV):** brass 90° elbow MNPT into Port 4 FNPT with PTFE tape. The Control Devices SV-100 (or SV-125 per the 90 PSI working-pressure cascade) MNPT threads into the elbow's lateral FNPT, PTFE tape on the threads. PRV body extends horizontally, fitting within the cylindrical shell's headroom rather than protruding vertically. Per [`../future.md`](../future.md) "Port 4": the PRV must have an unobstructed path to the vessel interior at all times — no tee, no shared line — which the dedicated-elbow-on-dedicated-port architecture satisfies.
+
+- **Port 1 (bottom-plate CO2 inlet + internal sparge):** the LTWFITTING B017N4TTMA hose-barb × MNPT adapter handles the internal sparge — barb facing inward, food-grade silicone tube stub connecting it to the FERRODAY B091C5Y6L9 0.5 µm sintered SS sparge stone hanging in the water column. The brass 90° elbow handles the external CO2 line connection. **The relative install order of LTWFITTING vs brass elbow on Port 1 is an open item** — see Open items below.
+
+Once the four elbow stacks are in, the vessel is the input to [`refrigerant-loop.md`](refrigerant-loop.md) step 4 (coil wind).
+
+## Output condition
+
+A finished vessel is:
+
+- Fully welded, hydro-tested, no visible weep
+- Tapped with four clean 1/4" NPT ports
+- Citric-acid passivated, rinsed dry
+- Sparge stone + silicone tube installed via bottom CO2 port
+- Float rod welded into bottom plate; magnetic donut captive
+- Externally clean — no scale, no flux, no oxide bloom
+
+## Open items
+
+Procedure-level gaps not resolved by parts already committed in [`../purchases.md`](../purchases.md):
+
+1. **Production tapping fixture.** [`../tapping-plan-2026-05-03.md`](../tapping-plan-2026-05-03.md) is single-use. The repeatable fixture for the per-vessel × 10-vessel batch is undesigned. (Materials for the single-use fixture — Baltic birch, MDF, hole saw, clamps — are ACQUIRED in [`../purchases.md`](../purchases.md) §1; only the production-cadence fixture itself is open.)
+2. **Hydro pass/fail criteria.** No committed PSI-drop tolerance over the 30-min hold.
+3. **Hydro failure handling.** Re-weld vs. scrap decision tree, especially for marginal cases (faint weep, slow drift).
+4. **Post-hydro visual inspection.** What gets inspected, with what aid (loupe? dye penetrant?), against what criteria.
+5. **Working-pressure setpoint cascade if 90 PSI working sticks.** Hydro target moves 150 → 180 PSI; PRV moves SV-100 → SV-125. Cascade lives in [`../future.md`](../future.md) and propagates to this doc + [`../handwork.md`](../handwork.md).
+6. **Production weld recipe vs current snapshot.** [`../welding-progress-2026-05-09.md`](../welding-progress-2026-05-09.md) is dated; its 2000 ms Bushing delay is for the realistic-test-fixture geometry, not necessarily production stock. Production parameters derived from that snapshot + the 316L transition.
+7. **Brass elbow procurement for Ports 1 + 4.** TAISHER SS elbow is ON-ORDER for the water-side; brass elbow for the gas-side is still LIKELY-TO-BUY in [`../purchases.md`](../purchases.md). Candidates from the agent search: Legines B074DTTZ62 ($3.80 ea, M×F, 1200 PSI) or Boeray B07318CNHG ($4.50 ea, M×F, 1200 PSI, 1.6K reviews).
+8. **Port 1 elbow + LTWFITTING install sequence.** [`../future.md`](../future.md) "Port 1" describes the LTWFITTING with barb facing inward and MNPT side threaded into the plate. Two assembly orders are geometrically defensible: (a) LTWFITTING first, brass elbow's FNPT threading onto LTWFITTING's externally-protruding MNPT remainder; (b) brass elbow first into Port 1 FNPT, LTWFITTING's MNPT then threading into the elbow's lateral FNPT with the barb on the elbow's lateral side. Path (a) gives a vertical brass elbow stack on Port 1's exterior; path (b) keeps everything at the elbow's lateral plane. Pick after the brass elbow is in hand and the LTWFITTING's thread length vs plate thickness can be measured against a fitting.
