@@ -779,19 +779,6 @@ def cut_hole_for_water_outlet(foam_bag_shell):
     hole_punch = build_a_hole_punch(origin=(hole_x_offset, hole_y_offset, hole_z_offset))
     return foam_bag_shell.cut(hole_punch)
 
-def cut_hole_for_copper_and_water_inlet(foam_bag_shell):
-    # Single shared port at x=0 for both copper inlet/outlet lines and
-    # the water inlet. Sized and positioned like the previously-removed
-    # water-inlet hole (the tallest of the three earlier ports). Now
-    # that the cylinder wall is open at ±Z and the bag_pocket_support_
-    # shell ±Z walls have a central gap at x=0, this hole only pierces
-    # one remaining wall (the outer_shell +Z wall) on its path.
-    hole_z_offset = tank_copper_shell_radius - 20
-    hole_x_offset = 0
-    hole_y_offset = tank_copper_shell_height - hole_shift_from_edge
-    hole_punch = build_a_hole_punch(origin=(hole_x_offset, hole_y_offset, hole_z_offset))
-    return foam_bag_shell.cut(hole_punch)
-
 # ═══════════════════════════════════════════════════════
 # TOP-LEVEL ASSEMBLY
 # ═══════════════════════════════════════════════════════
@@ -816,7 +803,6 @@ def build_full_shell():
     foam_bag_shell = punch_a_bag_pocket_shell_hole(foam_bag_shell, side=-1)
     foam_bag_shell = cut_hole_for_co2_inlet(foam_bag_shell)
     foam_bag_shell = cut_hole_for_water_outlet(foam_bag_shell)
-    foam_bag_shell = cut_hole_for_copper_and_water_inlet(foam_bag_shell)
     return foam_bag_shell
 
 
