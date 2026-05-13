@@ -517,6 +517,39 @@ at 0.4 mm layer height) at ~30 % fan speed (S77 / 255).
 | 4 | 2026-05-11 | Conditional fired correctly at layer 16, but corners lifted within ~1 layer of fan turn-on | Suspected the chamber fan itself, on this brand-new H2C, is the failure cause regardless of trigger layer. Two candidate next attempts discussed: skip the chamber fan entirely (single-variable test) or reduce both fan speed and trigger layer (layer 30 / 30 %) |
 | 5 | 2026-05-11 | In progress — Layer Change G-code now reads `{if layer_num == 29}M106 P2 S77{endif}` (~30 % fan at the 30th layer, ~12 mm up). Both axes moved in the safer direction: trigger layer 16 → 30, fan speed 60 % → 30 % | — |
 
+## Regression baseline
+
+Source-level refactors of `_foam_shell_geometry.build_full_shell()`
+should preserve the geometry of `foam-shell.step` exactly.  These four
+scalars are the canonical regression sieve — any change to them
+(beyond OCCT numerical noise at the ~1e-6 mm³ level) is a geometry
+shift that needs a deliberate explanation:
+
+| metric | value |
+|---|---|
+| volume   | **948133.878562 mm³** |
+| bbox x   | [−125.500, +125.500] mm |
+| bbox y   | [0.000, 213.400] mm |
+| bbox z   | [−90.500, +90.500] mm |
+| centroid | (0.000013, 90.382669, −0.232246) mm |
+
+Captured at commit `24197c3` (the support-ring slot chord-slivers
+were removed in that commit; volume immediately prior was
+951393.752876 mm³ — the −3260 mm³ delta is the four slivers, ~815 mm³
+each, that the previous polygon-cut implementation left inside the
+slots).  Future refactors that introduce a deliberate geometry change
+should update this section in the same commit.
+
+Quick reproduction:
+
+```python
+import cadquery as cq
+s = cq.importers.importStep("foam-shell.step").val()
+bb = s.BoundingBox()
+com = s.Center()
+print(s.Volume(), (bb.xmin, bb.xmax, bb.ymin, bb.ymax, bb.zmin, bb.zmax), (com.x, com.y, com.z))
+```
+
 ## Reference
 
 - [`../../flavor/pump-case/generate_step_cadquery.py`](../../flavor/pump-case/generate_step_cadquery.py)
