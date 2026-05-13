@@ -49,14 +49,11 @@ co2_inlet_z   = (_z_back_mid + _z_arch_mid) / 2                          # −68
 def cut_co2_inlet(cap):
     """Y-axis ⌀6.5 cylindrical cut through the top cap at the same
     (x, z) as the foam shell's CO2 inlet, continuing the CO2 tube path
-    from the shell's −Z support arch up through the top cap. The cut
-    starts 5 mm below the cap floor and extends past the cap roof so
-    OCCT subtracts cleanly through both faces."""
-    margin = 5.0
+    from the shell's −Z support arch up through the top cap."""
     return cap.cut(
         build_a_y_axis_hole_punch(
-            origin=(0, -margin, co2_inlet_z),
-            hole_punch_height=foam_cap_height + 2 * margin,
+            origin=(0, 0, co2_inlet_z),
+            hole_punch_height=foam_cap_height,
         )
     )
 
@@ -66,14 +63,11 @@ def cut_co2_inlet_lid(lid):
     (x, z) as the top cap's CO2 through-hole. The lid sits atop the cap
     during the foam pour; this hole continues the CO2 path from the
     outside through the lid → cap stack. Same axis (Y), same XZ position,
-    same diameter (⌀6.5) as `cut_co2_inlet`. The cut starts 5 mm below
-    y=0 and extends past y=lid_y_height so OCCT subtracts cleanly
-    through both faces."""
-    margin = 5.0
+    same diameter (⌀6.5) as `cut_co2_inlet`."""
     return lid.cut(
         build_a_y_axis_hole_punch(
-            origin=(0, -margin, co2_inlet_z),
-            hole_punch_height=lid_y_height + 2 * margin,
+            origin=(0, 0, co2_inlet_z),
+            hole_punch_height=lid_y_height,
         )
     )
 
