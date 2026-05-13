@@ -556,8 +556,8 @@ bag_pocket_corner_inner_radius = 6.5
 
 def build_a_bag_pocket_shell(side=1):
     """
-    Floor + far wall + +Z wall + −Z wall. No centerward (toward-tank)
-    wall.
+    Far wall + +Z wall + −Z wall. No centerward (toward-tank) wall and
+    no floor.
 
     The omitted centerward wall would be coincident with the
     bag_pocket_support_shell's matching ±X wall (also omitted) and
@@ -565,6 +565,13 @@ def build_a_bag_pocket_shell(side=1):
     air outside — so it isn't earning its 1 mm of PETG. Result: the
     bag cavity opens along its centerward face into the support
     shell's interior, becoming one continuous air volume.
+
+    The floor is omitted for the same reason: the outer_shell's −Y
+    face (closed via `.faces(">Y").shell(-)`) already provides a
+    2 mm-thick floor across the full outer envelope, which fully
+    contains this pocket's footprint. A separate bag_pocket floor
+    here would be 100% buried inside that outer floor and contribute
+    no unique material to the final union.
 
     The two far-side corners (where the far wall meets the ±Z walls)
     have rounded inner faces matching the reservoir's outer fillet,
@@ -580,13 +587,6 @@ def build_a_bag_pocket_shell(side=1):
     ) * side
     half_depth = bag_pocket_depth / 2
     half_width = bag_pocket_width / 2
-
-    floor = (
-        cq.Workplane(xz_plane_y_up)
-        .workplane(origin=(bag_pocket_x_center, 0, 0))
-        .rect(bag_pocket_depth, bag_pocket_width)
-        .extrude(wall_and_floor_thickness)
-    )
 
     # Three walls — far + +Z + −Z — built as a single U-shaped 2-D
     # profile and extruded.  Building all three from one sketch (rather
@@ -644,7 +644,7 @@ def build_a_bag_pocket_shell(side=1):
         .extrude(bag_pocket_height)
     )
 
-    return floor.union(walls)
+    return walls
 
 def punch_a_bag_pocket_shell_hole(foam_bag_shell, side=1):
 
