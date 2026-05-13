@@ -136,6 +136,37 @@ reservoir_bulkhead_port_y = (
     + bulkhead_pocket_diameter / 2
 )
 #
+# |X| of the reservoir's outlet-bulkhead axis, AND of the matching
+# pass-through hole in the foam shell's bag-pocket +Z wall (cut in
+# `punch_a_bag_pocket_shell_hole` below). Sign flips with the
+# reservoir side. Derived from the reservoir-side geometry because the
+# bulkhead pocket (⌀23, axis along +Z) imposes the tighter X
+# constraint: at the foam-shell side the +Z wall has plenty of X
+# range to accept the ⌀6.5 hole at almost any |X|, but on the
+# reservoir side the pocket's outer edge must stay clear of the
+# cavity's inner +X face.
+#
+# Build-up from the reservoir's outer +X face inward to the pocket
+# axis:
+#   bag_pocket_far_inner_x − reservoir_clearance: reservoir's outer +X face (= 105.0 at 2 mm wall)
+#   − reservoir_floor_thickness:                  reservoir's inner +X face (cavity wall, = 101.0)
+#   − bulkhead_pocket_diameter / 2:               +X edge of the pocket (= 89.5)
+#   − bulkhead_port_x_inset_from_cavity_face:     pocket axis (= 88.0)
+# `bulkhead_port_x_inset_from_cavity_face` is the residual PETG
+# annulus between the cylindrical pocket and the cavity's inner +X
+# face. The wet-chamber's open ceiling cut already breaches this
+# annulus locally, so the value is just enough margin to keep the
+# pocket's cylindrical side from coming all the way to the cavity
+# face — it's not load-bearing on its own.
+bulkhead_port_x_inset_from_cavity_face = 1.5
+reservoir_bulkhead_port_x = (
+    bag_pocket_far_inner_x
+    - reservoir_clearance
+    - reservoir_floor_thickness
+    - bulkhead_pocket_diameter / 2
+    - bulkhead_port_x_inset_from_cavity_face
+)
+#
 # -------------------------------------------------------
 
 
@@ -617,20 +648,19 @@ def build_a_bag_pocket_shell(side=1):
 
 def punch_a_bag_pocket_shell_hole(foam_bag_shell, side=1):
 
-    # Bag pocket offset
-    bag_pocket_x_offset = tank_copper_shell_radius + bag_pocket_depth / 2 - wall_and_floor_thickness
-    bag_pocket_x_offset *= side
-
     # Hole offset
     hole_z_offset = bag_pocket_width / 2 - 10
-    hole_x_offset = bag_pocket_x_offset
-    # y must match the reservoir's bulkhead port axis so the dry-side
-    # tube exits straight without bending. Derived parametrically from
-    # `reservoir_bulkhead_port_y` (defined above) — at the current 2 mm
-    # shell wall that resolves to y=18.0, keeping 4 mm of PETG under
-    # the reservoir's bulkhead flange chamber as a fluid barrier. The
-    # CO2 and water inlets (which use hole_shift_from_edge directly)
-    # are not affected.
+    # x and y must match the reservoir's bulkhead port axis so the
+    # dry-side tube exits straight without bending. Both are derived
+    # parametrically from `reservoir_bulkhead_port_x` and
+    # `reservoir_bulkhead_port_y` (defined above), so the two parts
+    # cannot drift on future wall-thickness changes. At the current
+    # 2 mm shell wall they resolve to (|x|, y) = (88, 18) — keeping
+    # 4 mm of PETG under the reservoir's bulkhead flange chamber as
+    # a fluid barrier (y) and the pocket's +X edge 1.5 mm clear of
+    # the cavity's inner +X face (x). The CO2 and water inlets (which
+    # use hole_shift_from_edge directly) are not affected.
+    hole_x_offset = side * reservoir_bulkhead_port_x
     hole_y_offset = reservoir_bulkhead_port_y
 
     # Hole
