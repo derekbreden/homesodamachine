@@ -388,101 +388,6 @@ def build_tank_copper_shell():
 
     return shell
 
-def build_bag_pocket_support_shell():
-    """
-    Floor + +Z wall + −Z wall. No +X / −X walls.
-
-    The omitted ±X walls would be coincident with the bag pockets'
-    centerward walls (also omitted, in build_a_bag_pocket_shell) and
-    would have air on both sides — bag cavity inside, corner-pocket
-    air outside — so they aren't earning their 1 mm of PETG.
-
-    The +Z and −Z walls *are* doing real work: they separate corner-
-    pocket air (between this shell's interior and the round cup's
-    outside) from outer-pour foam (outside this shell at +Z and −Z).
-    Without them, foam would invade the corner pocket and reach the
-    bag through the open centerward face.
-    """
-    side_length = 2 * tank_copper_shell_radius
-
-    floor = (
-        cq.Workplane(xz_plane_y_up)
-        .rect(side_length, side_length)
-        .extrude(wall_and_floor_thickness)
-    )
-
-    # The ±Z walls now have a central gap in X — the strip directly
-    # above (and below) the cylinder's open ends.  Width of the gap
-    # at the wall's inner face matches the cylinder's inner-cavity
-    # opening at the cut plane (2 · sqrt((R−t)² − tank_copper_shell_open_z²)),
-    # leaving two outboard segments that still attach to the curved
-    # lobe walls' tops on the ±X sides.  At each of the four gap corners
-    # an additional curved sliver is cut so the wall's inner edge
-    # follows the lobe walls' outer (tank-facing) arc through the
-    # wall's z range, blending with the curve instead of meeting it
-    # at a sharp right angle.
-    cyl_open_x_inner = math.sqrt(
-        (tank_copper_shell_radius - wall_and_floor_thickness) ** 2
-        - tank_copper_shell_open_z ** 2
-    )
-    segment_length = side_length / 2 - cyl_open_x_inner
-    segment_center_x = cyl_open_x_inner + segment_length / 2
-
-    def build_z_wall_segment(z_sign, x_sign):
-        z_pos = z_sign * (side_length / 2 - wall_and_floor_thickness / 2)
-        return (
-            cq.Workplane(xz_plane_y_up)
-            .workplane(origin=(x_sign * segment_center_x, 0, z_pos))
-            .rect(segment_length, wall_and_floor_thickness)
-            .extrude(tank_copper_shell_height)
-        )
-
-    # Lobe-arc geometry (mirrors build_tank_copper_shell's tank_copper_
-    # open_end_wall_arc_radius and derived values — kept local instead
-    # of imported so this helper has no cross-function dependency).
-    R_lobe_arc = 8.0
-    z_meet_wall = tank_copper_shell_radius - wall_and_floor_thickness    # 70.5
-    half_chord  = (z_meet_wall - tank_copper_shell_open_z) / 2.0          # 5.25
-    d_lobe_arc  = math.sqrt(R_lobe_arc ** 2 - half_chord ** 2)            # 6.04
-    lobe_arc_center_x = cyl_open_x_inner + d_lobe_arc                     # 43.06
-    lobe_arc_center_z = (z_meet_wall + tank_copper_shell_open_z) / 2.0    # 65.25
-    wall_outer_z = tank_copper_shell_radius                                # 72.5
-
-    def build_corner_blend_cut(z_sign, x_sign):
-        inner_x = x_sign * cyl_open_x_inner
-        z_inner = z_sign * z_meet_wall
-        z_outer = z_sign * wall_outer_z
-        cx = x_sign * lobe_arc_center_x
-        cz = z_sign * lobe_arc_center_z
-        dz = z_outer - cz
-        arc_outer_x = cx - x_sign * math.sqrt(R_lobe_arc ** 2 - dz ** 2)
-        a1 = math.atan2(z_inner - cz, inner_x       - cx)
-        a2 = math.atan2(z_outer - cz, arc_outer_x  - cx)
-        a_mid = (a1 + a2) / 2.0
-        arc_mid_x = cx + R_lobe_arc * math.cos(a_mid)
-        arc_mid_z = cz + R_lobe_arc * math.sin(a_mid)
-        return (
-            cq.Workplane(xz_plane_y_up)
-            .moveTo(inner_x,      -z_inner)
-            .lineTo(inner_x,      -z_outer)
-            .lineTo(arc_outer_x,  -z_outer)
-            .threePointArc((arc_mid_x, -arc_mid_z), (inner_x, -z_inner))
-            .close()
-            .extrude(tank_copper_shell_height)
-        )
-
-    shell = (
-        floor
-        .union(build_z_wall_segment(z_sign= 1, x_sign= 1))
-        .union(build_z_wall_segment(z_sign= 1, x_sign=-1))
-        .union(build_z_wall_segment(z_sign=-1, x_sign= 1))
-        .union(build_z_wall_segment(z_sign=-1, x_sign=-1))
-    )
-    for z_sign in (1, -1):
-        for x_sign in (1, -1):
-            shell = shell.cut(build_corner_blend_cut(z_sign, x_sign))
-    return shell
-
 def build_tank_support_ring():
     support_ring_outer_radius = tank_copper_shell_radius - wall_and_floor_thickness
     support_ring_width = 9
@@ -652,6 +557,18 @@ def punch_a_bag_pocket_shell_hole(foam_bag_shell, side=1):
     return foam_bag_shell.cut(hole_punch)
 
 def build_outer_shell():
+    """Outer rectangular cup (floor + four perimeter walls) with the
+    6 corner/mid-side bosses, plus the four bag-pocket-support ±Z wall
+    segments that bridge from the cylinder's open-end lobe arcs out to
+    where the bag-pocket ±Z walls pick up.
+
+    The support-shell ±Z wall segments live inside this function (rather
+    than in a sibling builder) because their floor is already provided
+    by this cup's floor — they're just walls sticking up from it. Each
+    segment's centerward end is shaped so its inner edge follows the
+    cylinder's bridging-arc curve through the segment's z range,
+    blending with the curve instead of meeting it at a sharp angle.
+    """
     shell = (
         cq.Workplane(xz_plane_y_up)
         .rect(outer_shell_x_length, outer_shell_z_length)
@@ -687,6 +604,54 @@ def build_outer_shell():
             .extrude(insert_pocket_depth)
         )
         shell = shell.cut(top_pocket).cut(bottom_pocket)
+
+    # Bag-pocket-support ±Z wall segments. Each spans z = ±(R−t)..±R
+    # (the band between the bag-pocket inner +Z face and the cylinder's
+    # outer +Z face), and x from the cylinder's open-end inner anchor
+    # out to x = R. The centerward (x-low) end is shaped to follow the
+    # bridging arc's outer face, so the segment's inner edge blends
+    # tangentially into the cylinder lobe wall instead of meeting it
+    # at a right angle. The bridging arc is a radius-8 circle centered
+    # at (43.06, 65.25) (mirrored in x and z); above z=70.5 the same
+    # circle continues to (39.68, 72.5), so the segment's centerward
+    # boundary is an arc from (cyl_open_x_inner, 70.5) → (39.68, 72.5).
+    cyl_open_x_inner = math.sqrt(
+        (tank_copper_shell_radius - wall_and_floor_thickness) ** 2
+        - tank_copper_shell_open_z ** 2
+    )
+    R_lobe_arc = 8.0
+    z_meet_wall = tank_copper_shell_radius - wall_and_floor_thickness  # 70.5
+    half_chord = (z_meet_wall - tank_copper_shell_open_z) / 2.0        # 5.25
+    d_lobe_arc = math.sqrt(R_lobe_arc ** 2 - half_chord ** 2)          # 6.04
+    lobe_arc_center_x = cyl_open_x_inner + d_lobe_arc                  # 43.06
+    lobe_arc_center_z = (z_meet_wall + tank_copper_shell_open_z) / 2.0 # 65.25
+    wall_outer_z = tank_copper_shell_radius                             # 72.5
+    for z_sign in (1, -1):
+        for x_sign in (1, -1):
+            inner_x = x_sign * cyl_open_x_inner
+            z_inner = z_sign * z_meet_wall
+            z_outer = z_sign * wall_outer_z
+            outer_x = x_sign * tank_copper_shell_radius
+            cx = x_sign * lobe_arc_center_x
+            cz = z_sign * lobe_arc_center_z
+            dz = z_outer - cz
+            arc_outer_x = cx - x_sign * math.sqrt(R_lobe_arc ** 2 - dz ** 2)
+            a1 = math.atan2(z_inner - cz, inner_x      - cx)
+            a2 = math.atan2(z_outer - cz, arc_outer_x  - cx)
+            a_mid = (a1 + a2) / 2.0
+            arc_mid_x = cx + R_lobe_arc * math.cos(a_mid)
+            arc_mid_z = cz + R_lobe_arc * math.sin(a_mid)
+            segment = (
+                cq.Workplane(xz_plane_y_up)
+                .moveTo(arc_outer_x, -z_outer)
+                .lineTo(outer_x,     -z_outer)
+                .lineTo(outer_x,     -z_inner)
+                .lineTo(inner_x,     -z_inner)
+                .threePointArc((arc_mid_x, -arc_mid_z), (arc_outer_x, -z_outer))
+                .close()
+                .extrude(tank_copper_shell_height)
+            )
+            shell = shell.union(segment)
     return shell
 
 def build_foam_cap():
@@ -913,14 +878,12 @@ def build_full_shell():
     """Assemble the foam shell and cut its three port holes."""
     tank_copper_shell = build_tank_copper_shell()
     tank_support_ring = build_tank_support_ring()
-    bag_pocket_support_shell = build_bag_pocket_support_shell()
     bag_pocket_shell = build_a_bag_pocket_shell()
     bag_pocket_shell_2 = build_a_bag_pocket_shell(side=-1)
     outer_shell = build_outer_shell()
     foam_bag_shell = (
         tank_copper_shell
         .union(tank_support_ring)
-        .union(bag_pocket_support_shell)
         .union(bag_pocket_shell)
         .union(bag_pocket_shell_2)
         .union(outer_shell)
