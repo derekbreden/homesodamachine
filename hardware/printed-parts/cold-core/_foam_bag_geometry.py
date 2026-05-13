@@ -508,28 +508,35 @@ def build_a_bag_pocket_shell(side=1):
     # Three walls — far + +Z + −Z — built as a single U-shaped 2-D
     # profile and extruded.  Building all three from one sketch (rather
     # than as three overlapping slabs) lets us blend the two far-side
-    # inner corners with a `radiusArc` matching the reservoir's outer
-    # +X × ±Z fillet (radius 6 mm), placing the foam-shell pocket's
-    # inner arc at radius 6.5 mm centered on the same fillet center,
-    # which preserves a uniform 0.5 mm reservoir_clearance around the
-    # corner.  At wall_and_floor_thickness = 2 mm: inner walls sit at
-    # ±70.5 (z) and side·105.5 (x); outer walls one
-    # wall_and_floor_thickness further out at ±72.5 / side·107.5. All
-    # trace coordinates use absolute magnitudes signed by `side` so
-    # side=±1 are mirror images that both traverse CCW in the plane.
+    # corners with `radiusArc`s, both inner and outer.  The inner arc
+    # matches the reservoir's outer +X × ±Z fillet (radius 6 mm),
+    # placing the foam-shell pocket's inner arc at radius 6.5 mm
+    # centered on the same fillet center, which preserves a uniform
+    # 0.5 mm reservoir_clearance around the corner.  The outer arc
+    # shares the same center but uses radius (6.5 + wall_thickness),
+    # so the wall thickness stays uniform around the corner bend.
+    # At wall_and_floor_thickness = 2 mm: inner walls sit at ±70.5 (z)
+    # and side·105.5 (x); outer walls one wall_and_floor_thickness
+    # further out at ±72.5 / side·107.5; arc center sits at
+    # (side·99, ±64); outer arc radius is 8.5. All trace coordinates
+    # use absolute magnitudes signed by `side` so side=±1 are mirror
+    # images that both traverse CCW in the plane.
     outer_x_abs        = abs(bag_pocket_x_center) + half_depth                            # 107.5 at 2 mm wall
     inner_x_abs        = outer_x_abs - wall_and_floor_thickness                            # 105.5 at 2 mm wall
     centerward_x_abs   = abs(bag_pocket_x_center) - half_depth                            # 70.5
     inner_z_pos        = half_width - wall_and_floor_thickness                            # 70.5 at 2 mm wall
     outer_z_pos        = half_width                                                        # 72.5 at 2 mm wall
     R                  = bag_pocket_corner_inner_radius                                    # 6.5
+    R_outer            = R + wall_and_floor_thickness                                      # 8.5 at 2 mm wall
 
     walls = (
         cq.Workplane(xz_plane_y_up)
-        # outer +Z corner of the far wall (start)
-        .moveTo(side * outer_x_abs, +outer_z_pos)
-        # along outer far wall to the outer −Z corner
-        .lineTo(side * outer_x_abs, -outer_z_pos)
+        # outer far wall: tangent point at the +Z outer corner (start)
+        .moveTo(side * outer_x_abs, +(inner_z_pos - R))
+        # along outer far wall to the −Z outer corner tangent
+        .lineTo(side * outer_x_abs, -(inner_z_pos - R))
+        # rounded outer corner blending outer far wall ↔ outer −Z wall
+        .radiusArc((side * (inner_x_abs - R), -outer_z_pos), +side * R_outer)
         # along outer −Z wall toward the centerward end
         .lineTo(side * centerward_x_abs, -outer_z_pos)
         # step inward across the −Z wall thickness (its centerward end-face)
@@ -546,7 +553,10 @@ def build_a_bag_pocket_shell(side=1):
         .lineTo(side * centerward_x_abs, +inner_z_pos)
         # step outward across the +Z wall thickness (its centerward end-face)
         .lineTo(side * centerward_x_abs, +outer_z_pos)
-        # close back along outer +Z wall to the start
+        # along outer +Z wall to the +Z outer corner tangent
+        .lineTo(side * (inner_x_abs - R), +outer_z_pos)
+        # rounded outer corner blending outer +Z wall ↔ outer far wall (closes back to start)
+        .radiusArc((side * outer_x_abs, +(inner_z_pos - R)), +side * R_outer)
         .close()
         .extrude(bag_pocket_height)
     )
