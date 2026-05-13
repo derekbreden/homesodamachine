@@ -105,6 +105,37 @@ bag_pocket_z_inner_max = bag_pocket_width / 2 - wall_and_floor_thickness
 bag_pocket_floor_top_y = wall_and_floor_thickness
 bag_pocket_walls_top_y = tank_copper_shell_height
 #
+# Reservoir interface constants. These describe properties of the
+# printed reservoir that fits inside the bag pocket, but they live
+# here (instead of in reservoir/generate_step_cadquery.py) because
+# the foam shell's bulkhead-pass-through hole has to line up with
+# the reservoir's outlet bulkhead — so a value used by both files
+# belongs in the shared module. The reservoir imports these.
+#   reservoir_clearance:        gap between reservoir outer faces and bag-pocket inner faces
+#   reservoir_floor_thickness:  PETG thickness of the reservoir's outer floor (= reservoir wall thickness)
+#   bulkhead_pocket_diameter:   ø of the JG bulkhead's flange chamber (= 22.9 mm flange + 0.1 mm clearance)
+reservoir_clearance = 0.5
+reservoir_floor_thickness = 4.0
+bulkhead_pocket_diameter = 23.0
+#
+# Y of the reservoir's outlet-bulkhead axis, AND of the matching
+# pass-through hole in the foam shell's bag-pocket wall (cut in
+# `punch_a_bag_pocket_shell_hole` below). Derived parametrically
+# so the two values cannot drift on future wall-thickness changes:
+#   outer_floor_bottom_y of the reservoir = bag_pocket_floor_top_y + reservoir_clearance
+#   + reservoir_floor_thickness puts the inner floor top at the chamber's lower extent
+#   + bulkhead_pocket_diameter / 2 raises that to the chamber's centerline (= bulkhead axis)
+# At the current 2 mm shell wall: 2.0 + 0.5 + 4.0 + 11.5 = 18.0, which
+# leaves the chamber's curved bottom at y = 18 − 11.5 = 6.5 — exactly
+# on top of the reservoir's 4 mm outer floor (bottom y = 2.5, top y = 6.5),
+# so 4 mm of PETG sits below the flange chamber as a fluid barrier.
+reservoir_bulkhead_port_y = (
+    bag_pocket_floor_top_y
+    + reservoir_clearance
+    + reservoir_floor_thickness
+    + bulkhead_pocket_diameter / 2
+)
+#
 # -------------------------------------------------------
 
 
@@ -593,12 +624,14 @@ def punch_a_bag_pocket_shell_hole(foam_bag_shell, side=1):
     # Hole offset
     hole_z_offset = bag_pocket_width / 2 - 10
     hole_x_offset = bag_pocket_x_offset
-    # y must match the reservoir's bulkhead port_position_y so the dry-side
-    # tube exits straight without bending. The reservoir bumps port_position_y
-    # to 17 to keep 4 mm of PETG under the bulkhead's flange chamber; this
-    # hole follows. The CO2 and water inlets (which use hole_shift_from_edge
-    # directly) are not affected.
-    hole_y_offset = 17
+    # y must match the reservoir's bulkhead port axis so the dry-side
+    # tube exits straight without bending. Derived parametrically from
+    # `reservoir_bulkhead_port_y` (defined above) — at the current 2 mm
+    # shell wall that resolves to y=18.0, keeping 4 mm of PETG under
+    # the reservoir's bulkhead flange chamber as a fluid barrier. The
+    # CO2 and water inlets (which use hole_shift_from_edge directly)
+    # are not affected.
+    hole_y_offset = reservoir_bulkhead_port_y
 
     # Hole
     hole_punch = build_a_hole_punch(origin=(hole_x_offset, hole_y_offset, hole_z_offset))
