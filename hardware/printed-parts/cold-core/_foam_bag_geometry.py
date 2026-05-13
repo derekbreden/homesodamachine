@@ -503,28 +503,6 @@ def build_tank_and_bag_pocket_walls():
 
     return build_side(side=+1).union(build_side(side=-1))
 
-def punch_a_bag_pocket_shell_hole(foam_bag_shell, side=1):
-
-    # Hole offset
-    hole_z_offset = bag_pocket_width / 2 - 10
-    # x and y must match the reservoir's bulkhead port axis so the
-    # dry-side tube exits straight without bending. Both are derived
-    # parametrically from `reservoir_bulkhead_port_x` and
-    # `reservoir_bulkhead_port_y` (defined above), so the two parts
-    # cannot drift on future wall-thickness changes. At the current
-    # 2 mm shell wall they resolve to (|x|, y) = (88, 18) — keeping
-    # 4 mm of PETG under the reservoir's bulkhead flange chamber as
-    # a fluid barrier (y) and the pocket's +X edge 1.5 mm clear of
-    # the cavity's inner +X face (x). The CO2 and water inlets (which
-    # use hole_shift_from_edge directly) are not affected.
-    hole_x_offset = side * reservoir_bulkhead_port_x
-    hole_y_offset = reservoir_bulkhead_port_y
-
-    # Hole
-    hole_punch = build_a_hole_punch(origin=(hole_x_offset, hole_y_offset, hole_z_offset))
-
-    return foam_bag_shell.cut(hole_punch)
-
 def build_outer_shell():
     """Outer rectangular cup (floor + four perimeter walls) with the
     6 corner/mid-side bosses and their heat-set insert pockets."""
@@ -739,19 +717,25 @@ def build_a_slot_punch(
         .extrude(slot_punch_height)
     )
 
-def cut_hole_for_co2_inlet(foam_bag_shell):
-    hole_z_offset = (tank_copper_shell_radius + 20) * -1
-    hole_x_offset = 0
-    hole_y_offset = hole_shift_from_edge + wall_and_floor_thickness
-    hole_punch = build_a_hole_punch(origin=(hole_x_offset, hole_y_offset, hole_z_offset))
-    return foam_bag_shell.cut(hole_punch)
+# All circular port holes through the foam shell: Z-axis ⌀6.5 × 40 mm
+# cylindrical cuts, starting at the given z and extending in +Z.
+#   - co2_inlet:               outer −Z wall
+#   - water_outlet:            outer +Z wall
+#   - reservoir_bulkhead_±X:   bag-pocket +Z wall (and outer +Z wall;
+#     the bulkhead body sits in the bag-pocket wall, the dry-side tube
+#     exits through the outer wall along the same axis)
+CIRCULAR_PORT_HOLES = [
+    # (x, y, z)
+    (0,                          hole_shift_from_edge + wall_and_floor_thickness,  -(tank_copper_shell_radius + 20)),
+    (0,                          hole_shift_from_edge + wall_and_floor_thickness,    tank_copper_shell_radius - 20),
+    (+reservoir_bulkhead_port_x, reservoir_bulkhead_port_y,                          bag_pocket_width / 2 - 10),
+    (-reservoir_bulkhead_port_x, reservoir_bulkhead_port_y,                          bag_pocket_width / 2 - 10),
+]
 
-def cut_hole_for_water_outlet(foam_bag_shell):
-    hole_z_offset = tank_copper_shell_radius - 20
-    hole_x_offset = 0
-    hole_y_offset = hole_shift_from_edge + wall_and_floor_thickness
-    hole_punch = build_a_hole_punch(origin=(hole_x_offset, hole_y_offset, hole_z_offset))
-    return foam_bag_shell.cut(hole_punch)
+def cut_circular_port_holes(foam_bag_shell):
+    for (x, y, z) in CIRCULAR_PORT_HOLES:
+        foam_bag_shell = foam_bag_shell.cut(build_a_hole_punch(origin=(x, y, z)))
+    return foam_bag_shell
 
 def cut_slot_for_copper_and_water_inlet(foam_bag_shell):
     """Single Y-elongated slot through the outer_shell +Z wall, shared by
@@ -787,19 +771,13 @@ def cut_slot_for_copper_and_water_inlet(foam_bag_shell):
 # ═══════════════════════════════════════════════════════
 
 def build_full_shell():
-    """Assemble the foam shell and cut its three port holes."""
-    tank_and_bag_pocket_walls = build_tank_and_bag_pocket_walls()
-    tank_support_ring = build_tank_support_ring()
-    outer_shell = build_outer_shell()
+    """Assemble the foam shell and cut all its port holes."""
     foam_bag_shell = (
-        tank_and_bag_pocket_walls
-        .union(tank_support_ring)
-        .union(outer_shell)
+        build_tank_and_bag_pocket_walls()
+        .union(build_tank_support_ring())
+        .union(build_outer_shell())
     )
-    foam_bag_shell = punch_a_bag_pocket_shell_hole(foam_bag_shell)
-    foam_bag_shell = punch_a_bag_pocket_shell_hole(foam_bag_shell, side=-1)
-    foam_bag_shell = cut_hole_for_co2_inlet(foam_bag_shell)
-    foam_bag_shell = cut_hole_for_water_outlet(foam_bag_shell)
+    foam_bag_shell = cut_circular_port_holes(foam_bag_shell)
     foam_bag_shell = cut_slot_for_copper_and_water_inlet(foam_bag_shell)
     return foam_bag_shell
 
