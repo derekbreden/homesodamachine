@@ -3,11 +3,20 @@ import sys
 from pathlib import Path
 import cadquery as cq
 
+_here = Path(__file__).resolve().parent
 sys.path.insert(
     0,
-    str(next(p for p in Path(__file__).resolve().parents if p.name == "hardware")),
+    str(next(p for p in _here.parents if p.name == "hardware")),
 )
+sys.path.insert(0, str(_here.parent))
 from _cadq_export import export_step
+from _foam_bag_geometry import (
+    bag_pocket_far_inner_x as _shell_bag_pocket_far_inner_x,
+    bag_pocket_z_inner_max as _shell_bag_pocket_z_inner_max,
+    bag_pocket_floor_top_y as _shell_bag_pocket_floor_top_y,
+    bag_pocket_walls_top_y as _shell_bag_pocket_walls_top_y,
+    tank_copper_shell_radius as _shell_tank_copper_shell_radius,
+)
 
 # ═══════════════════════════════════════════════════════
 # CONSTANTS
@@ -42,26 +51,30 @@ def _wp_at(x, y, z):
 # -------------------------------------------------------
 #
 # These constants describe the bag-pocket cavity into which this
-# reservoir fits. They mirror — but do not import from — the analogous
-# constants in ../foam-shell/generate_step_cadquery.py. The
-# reservoir is a separate part with its own life cycle; treating the
-# foam-shell envelope as a stable interface keeps the two parts
-# from leaking implementation details across each other.
+# reservoir fits. They are imported from ../_foam_bag_geometry.py (the
+# shared foam-shell / foam-cap geometry module) so the reservoir cannot
+# drift out of sync with wall_and_floor_thickness or any other shell
+# input. Previously the values were hardcoded as a "stable interface,"
+# which silently fell out of date when the shell walls were bumped from
+# 1 mm to 2 mm — the reservoir's centerward face then overlapped the
+# tank_copper_shell outer surface by 0.5 mm. Re-importing whenever the
+# generator runs makes that class of bug impossible.
 #
-# Bag-pocket inner faces (the surfaces the reservoir must clear):
-#   - Far (away from tank): x = ±104.5 mm (sign flips with reservoir side)
+# Bag-pocket inner faces (the surfaces the reservoir must clear),
+# at the current wall_and_floor_thickness = 2 mm:
+#   - Far (away from tank): x = ±105.5 mm (sign flips with reservoir side)
 #   - +Z / −Z side: z = ±70.5 mm
-#   - Floor top: y = 1.0 mm
-#   - Top of bag-pocket walls: y = 212.4 mm
-#   - Centerward (toward tank): cylindrical surface, radius 71.5 mm,
+#   - Floor top: y = 2.0 mm
+#   - Top of bag-pocket walls: y = 213.4 mm
+#   - Centerward (toward tank): cylindrical surface, radius 72.5 mm,
 #     vertical axis on +Y through origin — this is the tank_copper_shell
 #     outer surface, which the reservoir's centerward face follows.
 #
-bag_pocket_far_inner_x = 104.5
-bag_pocket_z_inner_max = 70.5
-bag_pocket_floor_top_y = 1.0
-bag_pocket_walls_top_y = 212.4
-tank_copper_shell_outer_radius = 71.5
+bag_pocket_far_inner_x = _shell_bag_pocket_far_inner_x
+bag_pocket_z_inner_max = _shell_bag_pocket_z_inner_max
+bag_pocket_floor_top_y = _shell_bag_pocket_floor_top_y
+bag_pocket_walls_top_y = _shell_bag_pocket_walls_top_y
+tank_copper_shell_outer_radius = _shell_tank_copper_shell_radius
 #
 # -------------------------------------------------------
 

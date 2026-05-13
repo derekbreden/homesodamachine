@@ -89,6 +89,22 @@ tank_support_wedge_height = 30.0
 bag_pocket_width = tank_copper_shell_radius * 2
 bag_pocket_depth = 35 + 2 * wall_thickness_compensation
 #
+# Derived bag-pocket inner-face coordinates, exposed for downstream
+# parts (e.g. the printed reservoirs) that must clear the same cavity.
+# Keeping these here means the reservoir cannot drift out of sync with
+# wall_and_floor_thickness or any of the inputs above.
+#   bag_pocket_far_inner_x:  +X face of the bag pocket interior
+#   bag_pocket_z_inner_max:  ±Z face of the bag pocket interior
+#   bag_pocket_floor_top_y:  top of the bag-pocket floor (= floor thickness)
+#   bag_pocket_walls_top_y:  top of the bag-pocket walls (= shell height)
+# At 2 mm wall: 105.5 / 70.5 / 2.0 / 213.4.
+bag_pocket_far_inner_x = (
+    tank_copper_shell_radius + bag_pocket_depth - 2 * wall_and_floor_thickness
+)
+bag_pocket_z_inner_max = bag_pocket_width / 2 - wall_and_floor_thickness
+bag_pocket_floor_top_y = wall_and_floor_thickness
+bag_pocket_walls_top_y = tank_copper_shell_height
+#
 # -------------------------------------------------------
 
 
