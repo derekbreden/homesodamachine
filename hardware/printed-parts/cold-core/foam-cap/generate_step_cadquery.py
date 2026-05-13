@@ -13,14 +13,14 @@ sys.path.insert(0, str(_here.parent))
 
 from _cadq_export import export_step
 from _foam_bag_geometry import (
-    build_foam_cap_solid,
+    build_foam_cap,
     build_foam_cap_lid,
     build_foam_cap_gasket,
 )
 
 
 def main():
-    cap = build_foam_cap_solid()
+    cap = build_foam_cap()
     lid = build_foam_cap_lid()
     gasket = build_foam_cap_gasket()
     export_step(cap, str(_here / "foam-cap.step"))
