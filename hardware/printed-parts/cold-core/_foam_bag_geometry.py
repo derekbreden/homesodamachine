@@ -512,15 +512,16 @@ def build_a_bag_pocket_shell(side=1):
     # +X × ±Z fillet (radius 6 mm), placing the foam-shell pocket's
     # inner arc at radius 6.5 mm centered on the same fillet center,
     # which preserves a uniform 0.5 mm reservoir_clearance around the
-    # corner.  Inner walls sit at ±70.5 (z) and side·104.5 (x); outer
-    # walls one wall_and_floor_thickness further out.  All trace
-    # coordinates use absolute magnitudes signed by `side` so side=±1
-    # are mirror images that both traverse CCW in the plane.
-    outer_x_abs        = abs(bag_pocket_x_center) + half_depth                            # 105.5
-    inner_x_abs        = outer_x_abs - wall_and_floor_thickness                            # 104.5
+    # corner.  At wall_and_floor_thickness = 2 mm: inner walls sit at
+    # ±70.5 (z) and side·105.5 (x); outer walls one
+    # wall_and_floor_thickness further out at ±72.5 / side·107.5. All
+    # trace coordinates use absolute magnitudes signed by `side` so
+    # side=±1 are mirror images that both traverse CCW in the plane.
+    outer_x_abs        = abs(bag_pocket_x_center) + half_depth                            # 107.5 at 2 mm wall
+    inner_x_abs        = outer_x_abs - wall_and_floor_thickness                            # 105.5 at 2 mm wall
     centerward_x_abs   = abs(bag_pocket_x_center) - half_depth                            # 70.5
-    inner_z_pos        = half_width - wall_and_floor_thickness                            # 70.5
-    outer_z_pos        = half_width                                                        # 71.5
+    inner_z_pos        = half_width - wall_and_floor_thickness                            # 70.5 at 2 mm wall
+    outer_z_pos        = half_width                                                        # 72.5 at 2 mm wall
     R                  = bag_pocket_corner_inner_radius                                    # 6.5
 
     walls = (
