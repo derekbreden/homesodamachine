@@ -343,6 +343,8 @@ filled by the body foam pour.
 
 ## Assembly and foam pour
 
+Production-procedure framing at [`../../../assembly/cold-core.md`](../../../assembly/cold-core.md). The geometry detail below is the source-of-truth for the shells and the pour paths; the assembly doc is the production-cadence wrapper that places this pour in the appliance build sequence.
+
 The cold core is foam-filled in **three independent pour operations**:
 the top cap, the bottom cap, and the body. Each is a self-contained
 pour; nothing chains across the three.
@@ -527,18 +529,23 @@ shift that needs a deliberate explanation:
 
 | metric | value |
 |---|---|
-| volume   | **948133.878562 mm³** |
+| volume   | **947611.329082 mm³** |
 | bbox x   | [−125.500, +125.500] mm |
 | bbox y   | [0.000, 213.400] mm |
 | bbox z   | [−90.500, +90.500] mm |
-| centroid | (0.000013, 90.382669, −0.232246) mm |
+| centroid | (0.000006, 90.424212, −0.195545) mm |
 
-Captured at commit `24197c3` (the support-ring slot chord-slivers
-were removed in that commit; volume immediately prior was
-951393.752876 mm³ — the −3260 mm³ delta is the four slivers, ~815 mm³
-each, that the previous polygon-cut implementation left inside the
-slots).  Future refactors that introduce a deliberate geometry change
-should update this section in the same commit.
+Captured after the CO2 inlet was moved from the outer −Z back wall
+(Z-axis hole) to the top of the −Z support arch (Y-axis hole at
+x=0, z=−68.75). Volume immediately prior was 948133.878562 mm³
+(commit `24197c3`); the −522.5 mm³ delta is the difference between
+the new Y-axis cylinder cut (a Ø6.5 cylinder through ~32 mm of
+floor + arch material, ~1062 mm³) and the old Z-axis cut (a Ø6.5
+cylinder through ~2 mm of outer back wall + ~9 mm of arch material,
+~365 mm³ at the cylinder cross-section). The earlier baseline at
+951393.752876 mm³ predated the support-ring slot chord-sliver fix.
+Future refactors that introduce a deliberate geometry change should
+update this section in the same commit.
 
 Quick reproduction:
 
