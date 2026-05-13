@@ -136,11 +136,13 @@ def main():
 
     export_step(cap_top, str(_here / "foam-cap-top.step"))
     export_step(cap_bottom, str(_here / "foam-cap-bottom.step"))
-    export_step(lid, str(_here / "foam-cap-lid.step"))
+    export_step(lid, str(_here / "foam-cap-lid-top.step"))
+    export_step(lid, str(_here / "foam-cap-lid-bottom.step"))
     export_step(gasket, str(_here / "foam-cap-gasket.step"))
     print("-> foam-cap-top.step")
     print("-> foam-cap-bottom.step")
-    print("-> foam-cap-lid.step")
+    print("-> foam-cap-lid-top.step")
+    print("-> foam-cap-lid-bottom.step")
     print("-> foam-cap-gasket.step")
 
 
