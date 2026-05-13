@@ -144,8 +144,8 @@ The wrapped vessel + plumbed compressor + condenser assembly is the input to [`c
 
 ## Open items
 
-Procedure-level gaps not resolved by parts already committed in [`../purchases.md`](../purchases.md):
+Procedure-level gaps that need answers before unit 1 ships:
 
-1. **Coil winding production procedure** beyond the [`../handwork.md`](../handwork.md) summary — mandrel design, tension control, starting and ending tacks. (Bender + straightener tooling is ACQUIRED; the cadence is what's missing.)
-2. **Donor charge mass per unit.** Read from the donor compressor nameplate per [`../harvested/ice-maker/README.md`](../harvested/ice-maker/README.md) "Open items".
+1. **Coil winding technique for unit 1.** [`../handwork.md`](../handwork.md) "Bend copper around the pressure vessel" is a one-paragraph summary. Bender + straightener tooling is ACQUIRED, but the hands-on questions — mandrel/no-mandrel, how to start and end the helical wrap cleanly, tension control during the wind — are open.
+2. **Donor compressor charge mass.** Read from the donor nameplate per [`../harvested/ice-maker/README.md`](../harvested/ice-maker/README.md) "Open items". Until that's in hand, the recharge mass target is a placeholder.
 3. **Failure handling beyond "redo the sequence."** Decision tree for hard-to-find leaks, charge loss between vacuum check and run-up.
