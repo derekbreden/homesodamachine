@@ -20,16 +20,17 @@ import cadquery as cq
 #
 xz_plane_y_up = cq.Plane(origin=(0, 0, 0), xDir=(1, 0, 0), normal=(0, 1, 0))
 xy_plane_z_up = cq.Plane(origin=(0, 0, 0), xDir=(1, 0, 0), normal=(0, 0, 1))
-# All structural walls and floors are 1 mm thick. Earlier 1 mm prints of
+# All structural walls and floors are 2 mm thick. Earlier 1 mm prints of
 # the full-size shell deformed mid-print; we initially attributed that to
 # inadequate wall thickness and bumped to 2 mm. The 2 mm version printed
 # cleanly with the chamber-exhaust fix in place, which suggested the
-# original failures were chamber heat soak, not wall strength — so we're
-# back at 1 mm to confirm. Outer dimensions of every component are
-# refactored below so that wall-thickness growth is *added* to the outer
-# envelope rather than absorbed from inner buffers, foam gaps, bag
-# pocket cavities, etc.
-wall_and_floor_thickness = 1.0
+# original failures were chamber heat soak, not wall strength — so we
+# went back to 1 mm to confirm. Returning to 2 mm now for structural
+# robustness across the full assembly. Outer dimensions of every
+# component are refactored below so that wall-thickness growth is
+# *added* to the outer envelope rather than absorbed from inner buffers,
+# foam gaps, bag pocket cavities, etc.
+wall_and_floor_thickness = 2.0
 # Reference wall thickness used in the original 1 mm design. Outer-
 # dimension formulas use (wall_and_floor_thickness - reference_wall_thickness)
 # as a compensation term, so 1 mm walls reproduce the original geometry
@@ -257,14 +258,18 @@ def build_tank_copper_shell():
     # wall_and_floor_thickness)).
     #
     # The wall's tank-facing face is an arc of radius
-    # tank_copper_open_end_wall_arc_radius (default 6.5 mm) bulging
-    # toward the origin; its reservoir-facing face is a concentric arc
-    # of radius (arc_radius − wall_and_floor_thickness) so the wall is
+    # tank_copper_open_end_wall_arc_radius (6.5 mm at 1 mm wall,
+    # +1.5 mm per +1 mm of wall thickness) bulging toward the origin;
+    # its reservoir-facing face is a concentric arc of radius
+    # (arc_radius − wall_and_floor_thickness) so the wall is
     # `wall_and_floor_thickness` thick along the radial direction
     # (slightly thicker in pure-X measure at the chord ends — the
     # outer arc and inner arc meet the z = z_near and z = z_far lines
-    # at different x).
-    tank_copper_open_end_wall_arc_radius = 6.5
+    # at different x). The wall-thickness scaling keeps the apex
+    # thickness ≈ wall_and_floor_thickness (a fixed 6.5 mm arc gets
+    # too thin at the apex once the wall thickens) and also gives the
+    # corner-blend cut below enough z range to span the full wall.
+    tank_copper_open_end_wall_arc_radius = 6.5 + 1.5 * wall_thickness_compensation
     # The cylinder's wall occupies the radial band R ∈ [R−t, R] (inner
     # face to outer face).  At z = ±tank_copper_shell_open_z, that band
     # projects to x ∈ [cyl_open_x_inner, cyl_open_x_outer] in absolute
@@ -368,13 +373,14 @@ def build_bag_pocket_support_shell():
     # Lobe-arc geometry (mirrors build_tank_copper_shell's tank_copper_
     # open_end_wall_arc_radius and derived values — kept local instead
     # of imported so this helper has no cross-function dependency).
-    R_lobe_arc = 6.5
+    # Comment annotations reflect wall_and_floor_thickness = 2 mm.
+    R_lobe_arc = 6.5 + 1.5 * wall_thickness_compensation                  # 8.0 at 2 mm wall
     z_meet_wall = tank_copper_shell_radius - wall_and_floor_thickness    # 70.5
     half_chord  = (z_meet_wall - tank_copper_shell_open_z) / 2.0          # 5.25
-    d_lobe_arc  = math.sqrt(R_lobe_arc ** 2 - half_chord ** 2)            # 3.83
-    lobe_arc_center_x = cyl_open_x_inner + d_lobe_arc                     # 40.85
+    d_lobe_arc  = math.sqrt(R_lobe_arc ** 2 - half_chord ** 2)            # 6.04 (was 3.83 at 1 mm)
+    lobe_arc_center_x = cyl_open_x_inner + d_lobe_arc                     # 43.06 (was 40.85)
     lobe_arc_center_z = (z_meet_wall + tank_copper_shell_open_z) / 2.0    # 65.25
-    wall_outer_z = tank_copper_shell_radius                                # 71.5
+    wall_outer_z = tank_copper_shell_radius                                # 72.5 (was 71.5)
 
     def build_corner_blend_cut(z_sign, x_sign):
         inner_x = x_sign * cyl_open_x_inner

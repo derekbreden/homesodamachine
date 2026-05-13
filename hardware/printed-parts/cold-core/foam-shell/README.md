@@ -39,15 +39,16 @@ The CadQuery script uses an explicit XZ plane with +Y normal
 ## Shells
 
 The geometry is built up from open-topped shells, each printed as a
-separate solid and unioned together. **All shells use 1 mm wall and floor
+separate solid and unioned together. **All shells use 2 mm wall and floor
 thickness** (`wall_and_floor_thickness`).
 
 ### tank_copper_shell
 
 Round cup that contains the pressure vessel and the copper coil zone
-wrapped around it. Outer radius **70.5 mm** (tank radius 63.5 + coil-zone
-buffer 7). Total height **212.4 mm** (tank height 152.4 + 30 mm above +
-30 mm below for the 90° elbow space).
+wrapped around it. Outer radius **72.5 mm** (tank radius 63.5 + coil-zone
+buffer 8 + 1 mm wall-thickness compensation). Total height **213.4 mm**
+(tank height 152.4 + 30 mm above + 30 mm below for the 90° elbow space
++ 1 mm wall-thickness compensation).
 
 Four **foam-pour down-channels** are unioned to the outside of the cup
 at azimuths 45°/135°/225°/315°, running the full cavity height. Each
@@ -121,7 +122,7 @@ than building a closed cup and cutting the unneeded faces back off.
 
 Three-walled cup attached at one ±X face of the support shell:
 **floor + far (away from center) wall + +Z wall + −Z wall**. Outer
-envelope **35 mm deep (along X) × 143 mm wide (along Z) × 212.4 mm
+envelope **37 mm deep (along X) × 145 mm wide (along Z) × 213.4 mm
 tall** so the +Z / −Z walls coincide with the support shell's +Z /
 −Z walls and merge into one continuous wall after union.
 
@@ -147,7 +148,7 @@ bottom (in normal orientation, open side mating with the outer
 shell's bottom edge). The cap interior receives the outer-pour foam
 through pour and vent holes in the lid above.
 
-The `foam_cap_lid` is a flat 1 mm plate matching the same outer
+The `foam_cap_lid` is a flat 2 mm plate matching the same outer
 footprint, sitting on top of the top cap during the foam pour. It
 has the pour hole (Ø 10 mm) and two vent holes (Ø 6 mm).
 
@@ -161,7 +162,7 @@ joinery" below.
 ### foam_cap_gasket
 
 A TPU 90A gasket, printed twice — one between each cap and its
-mating face on the outer_shell. 245 × 177 mm outer envelope, 2 mm
+mating face on the outer_shell. 251 × 181 mm outer envelope, 2 mm
 thick (flat 2D shape throughout — no 3D features). The shape is a
 **5 mm-wide perimeter ring + an 8 × 8 mm pad at each of the six
 screw positions**, matching the boss footprints on the cap and
@@ -218,7 +219,7 @@ protection for this dry foam-filled enclosed interior.
 
 Six attachment positions per cap (vs the earlier four pin corners)
 halve the longest unsupported gasket span between adjacent screws
-from ~245 mm corner-to-corner along the long axis to ~120 mm, which
+from ~251 mm corner-to-corner along the long axis to ~125 mm, which
 matters for a TPU gasket compressed only at discrete points.
 
 ## Penetrations
@@ -247,7 +248,7 @@ of the transition fittings being a few cm further from the tank.
 Wherever two shells share a boundary, their walls are positioned so they
 **overlap exactly in 3D space** — same outer face, same inner face —
 rather than sitting side-by-side. After union, that boundary is one
-wall's worth of material (1 mm), not two (2 mm).
+wall's worth of material (2 mm), not two (4 mm).
 
 This drives several dimension choices:
 

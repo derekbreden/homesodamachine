@@ -85,28 +85,28 @@ Coil outer face temperature, which is the cold-side source temperature, swings w
 | Layer | R (m²·K/W) |
 |---|---|
 | Reservoir wall (PETG, 2 mm) | 0.010 |
-| `tank_copper_shell` wall (PETG, 1 mm) | 0.005 |
+| `tank_copper_shell` wall (PETG, 2 mm) | 0.010 |
 | Foam zone (shape-factor-effective, close-wound coil, see above) | 0.030 |
-| **R_cold total (effective)** | **0.045** |
+| **R_cold total (effective)** | **0.050** |
 
-The PETG layers contribute ~33 % of R_cold (the 1 mm + 2 mm of PETG insulating about as effectively as 0.6 mm of foam). The foam-zone term carries the rest. The 1 mm of `tank_copper_shell` PETG is real and doing real work — it just isn't the bottleneck.
+The PETG layers contribute ~40 % of R_cold (the 2 mm + 2 mm of PETG insulating about as effectively as 0.8 mm of foam). The foam-zone term carries the rest. The 2 mm of `tank_copper_shell` PETG is real and doing real work — it just isn't the bottleneck.
 
 #### Warm side (syrup → kitchen ambient)
 
 | Layer | R (m²·K/W) |
 |---|---|
 | Reservoir wall (PETG, 2 mm) | 0.010 |
-| Bag pocket far wall (PETG, 1 mm) | 0.005 |
+| Bag pocket far wall (PETG, 2 mm) | 0.010 |
 | Outer foam (2 lb closed-cell PU, 16 mm) | 0.640 |
-| Outer shell wall (PETG, 1 mm) | 0.005 |
+| Outer shell wall (PETG, 2 mm) | 0.010 |
 | Outer convection (vertical, still cabinet air, h ≈ 5 W/m²·K) | 0.200 |
-| **R_warm total** | **0.860** |
+| **R_warm total** | **0.870** |
 
 #### Equilibrium syrup temperature
 
 The reservoir's centerward face (A_c ≈ 0.042 m²) is the cold side. Its other five faces (far + 2 long sides + top + bottom, A_w ≈ 0.082 m²) are the warm side. Heat in from the warm side balances heat out to the cold side at:
 
-T_syrup = (T_amb · A_w/R_warm + T_cold · A_c/R_cold) / (A_w/R_warm + A_c/R_cold) = (22 · 0.096 + 0 · 0.949) / 1.045 ≈ **2 °C**
+T_syrup = (T_amb · A_w/R_warm + T_cold · A_c/R_cold) / (A_w/R_warm + A_c/R_cold) = (22 · 0.094 + 0 · 0.840) / 0.934 ≈ **2 °C**
 
 The model says the architecture is plausibly **already refrigerator-cold**. The cooling capacity comes from a thin foam layer over a cold copper coil, not from a 7 mm bulk foam layer over a lukewarm tank wall.
 
