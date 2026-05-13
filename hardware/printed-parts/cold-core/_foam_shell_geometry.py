@@ -677,10 +677,22 @@ def build_foam_cap_gasket():
     return gasket.union(pads).cut(holes)
 
 def build_a_hole_punch(
-    origin,
-    hole_punch_height,
+    origin=(0, 0, 0),
     hole_punch_radius=3.25,
+    hole_punch_height=40,
 ):
+    # Default height (40 mm) is intentionally larger than every call
+    # site's exact wall-reach distance.  Don't reduce it to the
+    # per-hole exact reach — looks like an obvious refactor, but the
+    # co2_inlet's hole is tangent to the support ring's inner curved
+    # cylinder (r = 61.5).  At the hole's outer radius |x| = 3.25 the
+    # ring extends to z ≈ -61.41, so an exact-reach height of 9 mm
+    # (ending at z = -61.5) leaves a ~1.86 mm³ sliver of ring material
+    # in the tube's actual path.  The 40 mm overshoot reliably clears
+    # that.  (Flat-wall holes — water_outlet, reservoir bulkheads —
+    # do tolerate exact-reach face coincidence, but mixing exact-reach
+    # for some and overshoot for others adds nothing here; the 40 mm
+    # extrude just cuts air past the wall in those cases.)
     return (
         cq.Workplane(xy_plane_z_up)
         .workplane(origin=origin, offset=origin[2])
@@ -707,44 +719,25 @@ def build_a_slot_punch(
         .extrude(slot_punch_height)
     )
 
-# Circular port holes through the foam shell: Z-axis ⌀6.5 cylindrical
-# cuts, each starting at `z` and extruding `height` in +Z. The height
-# is exactly the distance from `z` to the far face the cutter must
-# clear — no overshoot (face-coincident cuts in modern OCCT on clean
-# parametric geometry are reliable).
-#   - co2_inlet:              pierces the −Z 60° support ring segment
-#                             only (back wall solid; CO2 enters via
-#                             the foam cap from above and bends 90°
-#                             to enter through the ring).
-#   - water_outlet:           pierces the outer_shell +Z wall.
-#   - reservoir_bulkhead_±X:  pierces the bag-pocket +Z wall AND the
-#                             outer_shell +Z wall on the same axis.
-_outer_shell_outer_z = outer_shell_z_length / 2.0                              # 90.5
-_support_ring_radial_thickness = 9.0                                            # = R_outer − R_inner inside build_tank_support_ring
-_water_outlet_z       = tank_copper_shell_radius - 20                          # 52.5
-_reservoir_bulkhead_z = bag_pocket_width / 2 - 10                              # 62.5
-
+# All circular port holes through the foam shell: Z-axis ⌀6.5 × 40 mm
+# cylindrical cuts, starting at the given z and extending in +Z.
+#   - co2_inlet:               −Z support arch only; back wall now solid
+#                              (CO2 enters from the top through the foam cap)
+#   - water_outlet:            outer +Z wall
+#   - reservoir_bulkhead_±X:   bag-pocket +Z wall (and outer +Z wall;
+#     the bulkhead body sits in the bag-pocket wall, the dry-side tube
+#     exits through the outer wall along the same axis)
 CIRCULAR_PORT_HOLES = [
-    # (x, y, z, height) — height = far-face z − origin z, exactly
-    (0,                          hole_shift_from_edge + wall_and_floor_thickness,
-     -(tank_copper_shell_radius - wall_and_floor_thickness),
-     _support_ring_radial_thickness),
-    (0,                          hole_shift_from_edge + wall_and_floor_thickness,
-     _water_outlet_z,
-     _outer_shell_outer_z - _water_outlet_z),
-    (+reservoir_bulkhead_port_x, reservoir_bulkhead_port_y,
-     _reservoir_bulkhead_z,
-     _outer_shell_outer_z - _reservoir_bulkhead_z),
-    (-reservoir_bulkhead_port_x, reservoir_bulkhead_port_y,
-     _reservoir_bulkhead_z,
-     _outer_shell_outer_z - _reservoir_bulkhead_z),
+    # (x, y, z)
+    (0,                          hole_shift_from_edge + wall_and_floor_thickness,   -(tank_copper_shell_radius - wall_and_floor_thickness)),
+    (0,                          hole_shift_from_edge + wall_and_floor_thickness,    tank_copper_shell_radius - 20),
+    (+reservoir_bulkhead_port_x, reservoir_bulkhead_port_y,                          bag_pocket_width / 2 - 10),
+    (-reservoir_bulkhead_port_x, reservoir_bulkhead_port_y,                          bag_pocket_width / 2 - 10),
 ]
 
 def cut_circular_port_holes(foam_shell):
-    for (x, y, z, height) in CIRCULAR_PORT_HOLES:
-        foam_shell = foam_shell.cut(
-            build_a_hole_punch(origin=(x, y, z), hole_punch_height=height)
-        )
+    for (x, y, z) in CIRCULAR_PORT_HOLES:
+        foam_shell = foam_shell.cut(build_a_hole_punch(origin=(x, y, z)))
     return foam_shell
 
 def build_a_y_axis_hole_punch(
