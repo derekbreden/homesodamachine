@@ -113,12 +113,10 @@ A finished vessel is:
 
 ## Open items
 
-Procedure-level gaps not resolved by parts already committed in [`../purchases.md`](../purchases.md):
+Procedure-level gaps that need answers before unit 1 ships:
 
-1. **Production tapping fixture.** [`../tapping-plan-2026-05-03.md`](../tapping-plan-2026-05-03.md) is single-use. The repeatable fixture for the per-vessel × 10-vessel batch is undesigned. (Materials for the single-use fixture — Baltic birch, MDF, hole saw, clamps — are ACQUIRED in [`../purchases.md`](../purchases.md) §1; only the production-cadence fixture itself is open.)
-2. **Hydro pass/fail criteria.** No committed PSI-drop tolerance over the 30-min hold.
-3. **Hydro failure handling.** Re-weld vs. scrap decision tree, especially for marginal cases (faint weep, slow drift).
-4. **Post-hydro visual inspection.** What gets inspected, with what aid (loupe? dye penetrant?), against what criteria.
-5. **Production weld recipe vs current snapshot.** [`../welding-progress-2026-05-09.md`](../welding-progress-2026-05-09.md) is dated; its 2000 ms Bushing delay is for the realistic-test-fixture geometry, not necessarily production stock. Production parameters derived from that snapshot + the 316L transition.
-6. **Port 1 elbow + LTWFITTING install sequence.** [`../future.md`](../future.md) "Port 1" describes the LTWFITTING with barb facing inward and MNPT side threaded into the plate. Two assembly orders are geometrically defensible: (a) LTWFITTING first, SS elbow's FNPT threading onto LTWFITTING's externally-protruding MNPT remainder; (b) SS elbow first into Port 1 FNPT, LTWFITTING's MNPT then threading into the elbow's lateral FNPT with the barb on the elbow's lateral side. Path (a) gives a vertical elbow stack on Port 1's exterior; path (b) keeps everything at the elbow's lateral plane. Pick after the elbows are in hand and the LTWFITTING's thread length vs plate thickness can be measured against a fitting.
-7. **Elbow stock vs build cadence.** Current ON-ORDER quantity is one 2-pack of TAISHER B0CZ38MYL1 = 2 elbows. Per-vessel allocation is 4 (all-SS standardization), so ~1/2 of one build is covered. Follow-on packs needed for the 10-build vessel stock target.
+1. **Hydro pass/fail criteria.** No committed PSI-drop tolerance over the 30-min hold.
+2. **Hydro failure handling.** Re-weld vs. scrap decision tree, especially for marginal cases (faint weep, slow drift).
+3. **Post-hydro visual inspection.** What gets inspected, with what aid (loupe? dye penetrant?), against what criteria.
+4. **X1 Pro weld recipe end-to-end validation.** The [`../welding-progress-2026-05-09.md`](../welding-progress-2026-05-09.md) recipe is what we run on unit 1's vessel — same 60 % / 12 mm/s / 2000 ms Bushing delay / 8-tack pattern — but it hasn't been run end-to-end on 316L production stock yet. The 05-09 snapshot was 304L practice fixture; first 316L production weld is unit 1.
+5. **Port 1 elbow + LTWFITTING install sequence.** [`../future.md`](../future.md) "Port 1" describes the LTWFITTING with barb facing inward and MNPT side threaded into the plate. Two assembly orders are geometrically defensible: (a) LTWFITTING first, SS elbow's FNPT threading onto LTWFITTING's externally-protruding MNPT remainder; (b) SS elbow first into Port 1 FNPT, LTWFITTING's MNPT then threading into the elbow's lateral FNPT with the barb on the elbow's lateral side. Path (a) gives a vertical elbow stack on Port 1's exterior; path (b) keeps everything at the elbow's lateral plane. Pick after the elbows are in hand and the LTWFITTING's thread length vs plate thickness can be measured against a fitting.
