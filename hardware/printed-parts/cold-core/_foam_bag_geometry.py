@@ -290,104 +290,6 @@ gasket_strip_width = 5.0
 tank_copper_shell_open_z = 60.0
 #
 #
-def build_tank_copper_shell():
-    # Cylindrical wall traced as an annulus (outer R, inner R−wall) and
-    # extruded in Y.  No floor or ceiling: the outer_shell's −Y closed
-    # face already provides the floor across the full assembly
-    # footprint (so the cylinder's footprint is buried inside it), and
-    # the +Y end is the open top where the foam cap mates.
-    shell = (
-        cq.Workplane(xz_plane_y_up)
-        .circle(tank_copper_shell_radius)
-        .circle(tank_copper_shell_radius - wall_and_floor_thickness)
-        .extrude(tank_copper_shell_height)
-    )
-    # Cut the cylindrical wall off above z = +tank_copper_shell_open_z
-    # and below z = −tank_copper_shell_open_z, so the wall no longer
-    # wraps all the way around at +Z and −Z.
-    cut_plus_z = (
-        cq.Workplane(xy_plane_z_up)
-        .workplane(origin=(0, 0,  tank_copper_shell_open_z), offset= tank_copper_shell_open_z)
-        .rect(500, 500)
-        .extrude(500)
-    )
-    cut_minus_z = (
-        cq.Workplane(xy_plane_z_up)
-        .workplane(origin=(0, 0, -tank_copper_shell_open_z), offset=-tank_copper_shell_open_z)
-        .rect(500, 500)
-        .extrude(-500)
-    )
-    shell = shell.cut(cut_plus_z).cut(cut_minus_z)
-
-    # Close each of the four open ends with a curved wall that is
-    # convex toward the tank/copper cavity (origin side) and concave
-    # toward the flavor-reservoir bag-pocket side.  Each wall connects
-    # the cylinder's open end at (x_sign · cylinder_open_x,  z_sign ·
-    # tank_copper_shell_open_z) to the bag_pocket_support_shell ±Z
-    # wall's inner face at (x_sign · cylinder_open_x,  z_sign · (R −
-    # wall_and_floor_thickness)).
-    #
-    # The wall's tank-facing face is an arc of radius 8 mm bulging
-    # toward the origin; its reservoir-facing face is a concentric arc
-    # of radius (8 − wall_and_floor_thickness) so the wall is
-    # `wall_and_floor_thickness` thick along the radial direction
-    # (slightly thicker in pure-X measure at the chord ends — the
-    # outer arc and inner arc meet the z = z_near and z = z_far lines
-    # at different x). The 8 mm radius keeps the apex thickness ≈
-    # wall_and_floor_thickness and gives the corner-blend cut below
-    # enough z range to span the full wall.
-    tank_copper_open_end_wall_arc_radius = 8.0
-    # The cylinder's wall occupies the radial band R ∈ [R−t, R] (inner
-    # face to outer face).  At z = ±tank_copper_shell_open_z, that band
-    # projects to x ∈ [cyl_open_x_inner, cyl_open_x_outer] in absolute
-    # value, so we anchor the wall's tank-facing arc at the cylinder's
-    # inner face and its reservoir-facing arc at the cylinder's outer
-    # face.  The wall's chord-end x range then lines up exactly with
-    # the cylinder's wall band and the two pieces share a 2-D face at
-    # z = ±60 (not just a 1-D edge), so OCCT's boolean union merges
-    # them into a single solid without any z-overlap fudge.
-    cyl_open_x_outer = math.sqrt(
-        tank_copper_shell_radius ** 2 - tank_copper_shell_open_z ** 2
-    )
-    cyl_open_x_inner = math.sqrt(
-        (tank_copper_shell_radius - wall_and_floor_thickness) ** 2
-        - tank_copper_shell_open_z ** 2
-    )
-    z_meet_wall = tank_copper_shell_radius - wall_and_floor_thickness
-    R_outer = tank_copper_open_end_wall_arc_radius
-    for x_sign in (1, -1):
-        for z_sign in (1, -1):
-            outer_anchor_x = x_sign * cyl_open_x_inner   # ±37.02
-            inner_anchor_x = x_sign * cyl_open_x_outer   # ±38.89
-            z_near = z_sign * tank_copper_shell_open_z   # ±60
-            z_far  = z_sign * z_meet_wall                # ±70.5
-            z_mid  = (z_near + z_far) / 2.0
-            half_chord = abs(z_far - z_near) / 2.0
-            # Outer (tank-facing) arc center sits on the chord's
-            # perpendicular bisector, offset toward +X (for +X walls)
-            # so the arc bulges toward origin.
-            d_outer = math.sqrt(R_outer ** 2 - half_chord ** 2)
-            center_x = outer_anchor_x + x_sign * d_outer
-            # Inner (reservoir-facing) arc shares that center; its
-            # radius is set by the cylinder's wall thickness (its
-            # endpoint at z_near/z_far must hit inner_anchor_x).
-            d_inner = abs(inner_anchor_x - center_x)
-            R_inner = math.sqrt(d_inner ** 2 + half_chord ** 2)
-            outer_apex_x = center_x - x_sign * R_outer
-            inner_apex_x = center_x - x_sign * R_inner
-            profile = (
-                cq.Workplane(xz_plane_y_up)
-                .moveTo(outer_anchor_x, -z_near)
-                .threePointArc((outer_apex_x, -z_mid), (outer_anchor_x, -z_far))
-                .lineTo       (inner_anchor_x, -z_far)
-                .threePointArc((inner_apex_x, -z_mid), (inner_anchor_x, -z_near))
-                .close()
-                .extrude(tank_copper_shell_height)
-            )
-            shell = shell.union(profile)
-
-    return shell
-
 def build_tank_support_ring():
     support_ring_outer_radius = tank_copper_shell_radius - wall_and_floor_thickness
     support_ring_width = 9
@@ -442,98 +344,163 @@ def build_tank_support_ring():
 bag_pocket_corner_inner_radius = 6.5
 
 
-def build_a_bag_pocket_shell(side=1):
-    """
-    Bag-pocket far wall + +Z wall + −Z wall, with the ±Z walls extending
-    centerward (toward origin) past the bag-pocket cavity to bridge onto
-    the cylinder's open-end lobe arcs. No centerward wall (the bag cavity
-    opens into the cylinder cavity for shared air) and no floor (the
-    outer_shell's floor already covers this footprint).
+def build_tank_and_bag_pocket_walls():
+    """Cylindrical tank wall + four bridging walls + two bag-pocket
+    U-walls (+X and −X), built as a single sketch extruded in Y.
 
-    Built as a single closed polyline extruded in Y, so all four corner
-    blends — two at the far end (inner+outer corner arcs matching the
-    reservoir's outer fillet for snug mating) and two at the centerward
-    end (lobe arcs that pick up the cylinder's bridging-wall outer face
-    and continue it up to z = ±tank_copper_shell_radius) — are part of
-    one coherent boundary.
+    The sketch has four closed loops — one outer + one cavity per ±X
+    side. Even-odd fill makes each (outer, cavity) pair an annular
+    region; the two sides are disjoint in cross-section because the
+    cylinder is cut at z = ±tank_copper_shell_open_z, leaving two
+    crescents that don't touch each other in XZ.
 
-    side=+1 builds the +X bag pocket; side=−1 builds the −X side.
+    Outer loop (each side): bag-pocket outer far face + outer corner
+    arcs + outer ±Z faces extended centerward + R=8 arc continuing
+    through the cylinder's bridging-wall tank-facing face + cylinder
+    R=70.5 inner face around the apex + back through the opposite
+    bridging arc + lobe-arc continuation + outer ±Z face on the other
+    side.
+
+    Cavity loop (each side): bag-pocket inner ±Z faces + inner corner
+    arcs + bag-pocket inner far face + cylinder R=72.5 outer face
+    around the apex + bridging walls' R=8−t (reservoir-facing) inner
+    faces connecting cylinder outer to bag-pocket inner +Z/−Z faces.
     """
     bag_pocket_height = tank_copper_shell_height
-    half_depth = bag_pocket_depth / 2
     half_width = bag_pocket_width / 2
 
-    # Far-corner geometry (inner + outer arcs blending far wall ↔ ±Z wall).
-    outer_x_abs = tank_copper_shell_radius + bag_pocket_depth - wall_and_floor_thickness  # 107.5 at 2 mm
+    # Far-corner (bag-pocket) geometry.
+    outer_x_abs = tank_copper_shell_radius + bag_pocket_depth - wall_and_floor_thickness  # 107.5
     inner_x_abs = outer_x_abs - wall_and_floor_thickness                                   # 105.5
     inner_z_pos = half_width - wall_and_floor_thickness                                    # 70.5
     outer_z_pos = half_width                                                                # 72.5
     R           = bag_pocket_corner_inner_radius                                            # 6.5
-    R_outer     = R + wall_and_floor_thickness                                              # 8.5
+    R_pocket_outer = R + wall_and_floor_thickness                                           # 8.5
 
-    # Centerward (lobe-arc) geometry. The ±Z walls' centerward ends merge
-    # into the cylinder's bridging-arc outer face: a radius-8 arc centered
-    # at (side·43.06, ±65.25) that continues from the bridging arc's
-    # endpoint (side·37.02, ±70.5) up to (side·39.68, ±72.5).
-    R_lobe              = 8.0
-    cyl_open_x_inner    = math.sqrt(
-        (tank_copper_shell_radius - wall_and_floor_thickness) ** 2
-        - tank_copper_shell_open_z ** 2
-    )
-    half_chord          = (inner_z_pos - tank_copper_shell_open_z) / 2.0                   # 5.25
-    d_lobe              = math.sqrt(R_lobe ** 2 - half_chord ** 2)                          # 6.04
-    lobe_cx_abs         = cyl_open_x_inner + d_lobe                                         # 43.06
-    lobe_cz_abs         = (inner_z_pos + tank_copper_shell_open_z) / 2.0                    # 65.25
-    arc_outer_dx        = math.sqrt(R_lobe ** 2 - (outer_z_pos - lobe_cz_abs) ** 2)         # 3.38
-    arc_outer_x_abs     = lobe_cx_abs - arc_outer_dx                                        # 39.68
+    # Cylinder geometry (the cylinder's wall is the annulus
+    # R−t ≤ r ≤ R, clipped to |z| ≤ tank_copper_shell_open_z).
+    R_cyl_outer = tank_copper_shell_radius                                                  # 72.5
+    R_cyl_inner = tank_copper_shell_radius - wall_and_floor_thickness                       # 70.5
+    cyl_open_x_inner = math.sqrt(R_cyl_inner ** 2 - tank_copper_shell_open_z ** 2)          # 37.02
+    cyl_open_x_outer = math.sqrt(R_cyl_outer ** 2 - tank_copper_shell_open_z ** 2)          # 40.69
 
-    def lobe_arc_midpoint_local(z_sign):
-        """Lobe-arc midpoint in workplane (local) coordinates. The plane
-        flips world Z to local Y, so we negate the world-z value."""
+    # Bridging-wall arc geometry. R=8 arc (tank-facing) is the same
+    # circle as the centerward lobe arc that extends the wall up to
+    # z = ±outer_z_pos. R=R_bridging_inner (reservoir-facing) is the
+    # concentric arc one wall-thickness inboard radially; its endpoint
+    # at z = ±tank_copper_shell_open_z hits x = cyl_open_x_outer so
+    # the cylinder wall band meets the bridging wall flush at z = ±60.
+    R_lobe         = 8.0
+    half_chord     = (inner_z_pos - tank_copper_shell_open_z) / 2.0                         # 5.25
+    d_lobe         = math.sqrt(R_lobe ** 2 - half_chord ** 2)                                # 6.04
+    lobe_cx_abs    = cyl_open_x_inner + d_lobe                                               # 43.06
+    lobe_cz_abs    = (inner_z_pos + tank_copper_shell_open_z) / 2.0                          # 65.25
+    arc_outer_dx   = math.sqrt(R_lobe ** 2 - (outer_z_pos - lobe_cz_abs) ** 2)               # 3.38
+    arc_outer_x_abs = lobe_cx_abs - arc_outer_dx                                             # 39.68
+    d_bridging_inner = abs(cyl_open_x_outer - lobe_cx_abs)                                   # 2.37
+    R_bridging_inner = math.sqrt(d_bridging_inner ** 2 + half_chord ** 2)                    # 5.76
+    bridging_inner_apex_x_abs = lobe_cx_abs - R_bridging_inner                                # 37.30
+
+    def outer_loop_midpoint(side, z_sign, theta):
+        """A point on the R=8 lobe-arc/bridging circle at angle theta
+        (radians) from the center (side·43.06, z_sign·65.25), returned
+        in workplane (local) coordinates."""
         cx = side * lobe_cx_abs
         cz = z_sign * lobe_cz_abs
-        a1 = math.atan2(z_sign * inner_z_pos      - cz, side * cyl_open_x_inner - cx)
-        a2 = math.atan2(z_sign * outer_z_pos      - cz, side * arc_outer_x_abs  - cx)
-        a_mid = (a1 + a2) / 2.0
-        return (cx + R_lobe * math.cos(a_mid), -(cz + R_lobe * math.sin(a_mid)))
+        return (cx + R_lobe * math.cos(theta), -(cz + R_lobe * math.sin(theta)))
 
-    walls = (
-        cq.Workplane(xz_plane_y_up)
-        # outer far wall: tangent point at the −Z outer corner (start)
-        .moveTo(side * outer_x_abs, +(inner_z_pos - R))
-        # along outer far wall to the +Z outer corner tangent
-        .lineTo(side * outer_x_abs, -(inner_z_pos - R))
-        # rounded outer corner blending outer far wall ↔ outer +Z wall
-        .radiusArc((side * (inner_x_abs - R), -outer_z_pos), +side * R_outer)
-        # along outer +Z wall, past the (former) centerward end, all the
-        # way to where the lobe arc breaks the +Z=72.5 line
-        .lineTo(side * arc_outer_x_abs, -outer_z_pos)
-        # lobe arc into the cylinder's bridging-wall outer face
-        .threePointArc(lobe_arc_midpoint_local(z_sign=+1),
-                       (side * cyl_open_x_inner, -inner_z_pos))
-        # along inner +Z wall, from the bridging-arc inner endpoint
-        # back out to where the inner far-corner arc starts
-        .lineTo(side * (inner_x_abs - R), -inner_z_pos)
-        # rounded inner corner blending +Z wall ↔ far wall
-        .radiusArc((side * inner_x_abs, -(inner_z_pos - R)), -side * R)
-        # along inner far wall down to where the −Z corner arc starts
-        .lineTo(side * inner_x_abs, +(inner_z_pos - R))
-        # rounded inner corner blending far wall ↔ −Z wall
-        .radiusArc((side * (inner_x_abs - R), +inner_z_pos), -side * R)
-        # along inner −Z wall toward the lobe-arc endpoint at z = −70.5
-        .lineTo(side * cyl_open_x_inner, +inner_z_pos)
-        # lobe arc back out from the bridging wall to z = −72.5
-        .threePointArc(lobe_arc_midpoint_local(z_sign=-1),
-                       (side * arc_outer_x_abs, +outer_z_pos))
-        # along outer −Z wall to the −Z outer corner tangent
-        .lineTo(side * (inner_x_abs - R), +outer_z_pos)
-        # rounded outer corner blending outer −Z wall ↔ outer far wall (closes)
-        .radiusArc((side * outer_x_abs, +(inner_z_pos - R)), +side * R_outer)
-        .close()
-        .extrude(bag_pocket_height)
-    )
+    def cavity_loop_midpoint(side, z_sign, theta):
+        """Same, on the R=R_bridging_inner circle."""
+        cx = side * lobe_cx_abs
+        cz = z_sign * lobe_cz_abs
+        return (cx + R_bridging_inner * math.cos(theta),
+                -(cz + R_bridging_inner * math.sin(theta)))
 
-    return walls
+    def build_side(side):
+        """Build one ±X side as an outer-loop polyline (extruded) with
+        the cavity-loop polyline cut out of it. Done as outer-extrude
+        minus cavity-extrude rather than a single multi-loop sketch
+        because CadQuery's pending-wire heuristic mis-classifies two
+        non-nested outer wires in the same workplane as nested ones."""
+        # apex_angle: angle (in radians) on the bridging-arc circle
+        # pointing back at origin. On +X side the circle's center is at
+        # (+43.06, ±65.25), so the radius pointing toward origin (the
+        # arc apex) is at angle π. On −X side, mirrored to 0.
+        apex_angle = math.pi if side > 0 else 0.0
+
+        outer_solid = (
+            cq.Workplane(xz_plane_y_up)
+            # bag-pocket outer +X face start at +Z outer corner tangent
+            .moveTo(side * outer_x_abs, -(inner_z_pos - R))
+            # outer +X face down to −Z outer corner tangent
+            .lineTo(side * outer_x_abs, +(inner_z_pos - R))
+            # outer +X−Z corner arc
+            .radiusArc((side * (inner_x_abs - R), +outer_z_pos), -side * R_pocket_outer)
+            # outer −Z face west to where the lobe arc breaks z=−72.5
+            .lineTo(side * arc_outer_x_abs, +outer_z_pos)
+            # combined lobe arc + −Z bridging tank-facing arc on R=8,
+            # from (arc_outer_x, ±outer_z) all the way through the apex
+            # down to (cyl_open_x_inner, ±tank_copper_shell_open_z) —
+            # one continuous arc on the bridging-arc circle.
+            .threePointArc(
+                outer_loop_midpoint(side, -1, apex_angle),
+                (side * cyl_open_x_inner, +tank_copper_shell_open_z),
+            )
+            # cylinder R−t inner face around the ±X apex
+            .threePointArc(
+                (side * R_cyl_inner, 0),
+                (side * cyl_open_x_inner, -tank_copper_shell_open_z),
+            )
+            # combined +Z bridging tank-facing arc + +Z lobe arc on R=8
+            .threePointArc(
+                outer_loop_midpoint(side, +1, apex_angle),
+                (side * arc_outer_x_abs, -outer_z_pos),
+            )
+            # outer +Z face east to start of outer +X+Z corner arc
+            .lineTo(side * (inner_x_abs - R), -outer_z_pos)
+            # outer +X+Z corner arc — closes the outer loop
+            .radiusArc((side * outer_x_abs, -(inner_z_pos - R)), -side * R_pocket_outer)
+            .close()
+            .extrude(bag_pocket_height)
+        )
+        cavity_solid = (
+            cq.Workplane(xz_plane_y_up)
+            # bag-pocket inner +Z face start at the bridging inner-face
+            # endpoint (= cyl_open_x_outer at z = ±inner_z_pos)
+            .moveTo(side * cyl_open_x_outer, -inner_z_pos)
+            # inner +Z face east to start of inner +X+Z corner arc
+            .lineTo(side * (inner_x_abs - R), -inner_z_pos)
+            # inner +X+Z corner arc
+            .radiusArc((side * inner_x_abs, -(inner_z_pos - R)), -side * R)
+            # inner +X face south to start of inner +X−Z corner arc
+            .lineTo(side * inner_x_abs, +(inner_z_pos - R))
+            # inner +X−Z corner arc
+            .radiusArc((side * (inner_x_abs - R), +inner_z_pos), -side * R)
+            # inner −Z face west back to the bridging inner-face endpoint
+            .lineTo(side * cyl_open_x_outer, +inner_z_pos)
+            # −Z bridging reservoir-facing inner arc (R=R_bridging_inner),
+            # back down to z = +tank_copper_shell_open_z
+            .threePointArc(
+                cavity_loop_midpoint(side, -1, apex_angle),
+                (side * cyl_open_x_outer, +tank_copper_shell_open_z),
+            )
+            # cylinder R outer face around the ±X apex
+            .threePointArc(
+                (side * R_cyl_outer, 0),
+                (side * cyl_open_x_outer, -tank_copper_shell_open_z),
+            )
+            # +Z bridging reservoir-facing inner arc back up to z = −inner_z_pos
+            # — closes the cavity loop
+            .threePointArc(
+                cavity_loop_midpoint(side, +1, apex_angle),
+                (side * cyl_open_x_outer, -inner_z_pos),
+            )
+            .close()
+            .extrude(bag_pocket_height)
+        )
+        return outer_solid.cut(cavity_solid)
+
+    return build_side(side=+1).union(build_side(side=-1))
 
 def punch_a_bag_pocket_shell_hole(foam_bag_shell, side=1):
 
@@ -819,16 +786,12 @@ def cut_slot_for_copper_and_water_inlet(foam_bag_shell):
 
 def build_full_shell():
     """Assemble the foam shell and cut its three port holes."""
-    tank_copper_shell = build_tank_copper_shell()
+    tank_and_bag_pocket_walls = build_tank_and_bag_pocket_walls()
     tank_support_ring = build_tank_support_ring()
-    bag_pocket_shell = build_a_bag_pocket_shell()
-    bag_pocket_shell_2 = build_a_bag_pocket_shell(side=-1)
     outer_shell = build_outer_shell()
     foam_bag_shell = (
-        tank_copper_shell
+        tank_and_bag_pocket_walls
         .union(tank_support_ring)
-        .union(bag_pocket_shell)
-        .union(bag_pocket_shell_2)
         .union(outer_shell)
     )
     foam_bag_shell = punch_a_bag_pocket_shell_hole(foam_bag_shell)
