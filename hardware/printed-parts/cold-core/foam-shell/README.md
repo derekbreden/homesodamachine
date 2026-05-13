@@ -1,8 +1,8 @@
-# Foam-bag shell
+# Foam shell
 
 3D-printed PETG enclosure for the soda machine's "cold core" — the
 back-of-enclosure subsystem that holds the carbonator pressure vessel, the
-copper evaporator coil wrapped around it, and two flavor bladders in
+copper evaporator coil wrapped around it, and two flavor reservoirs in
 pockets on opposite sides. Pour-in-place polyurethane foam fills the
 cavities around the wetted/cold parts for thermal insulation.
 
@@ -27,7 +27,9 @@ The CadQuery script uses an explicit XZ plane with +Y normal
 - **Bag** — Platypus-style soft-walled bladder, 1 L max but used at
   ≤ 750 mL. Single port at the cap end with a 90° turn. Filled envelope,
   posed cap-down: **125 mm wide (along Z) × 35 mm deep (along X, radially
-  outward) × 225 mm tall**. Two bags per cold core.
+  outward) × 225 mm tall**. Two bags per cold core. (Production now uses
+  a rigid PETG reservoir matching this envelope; "bag pocket" is still
+  the geometric name in the code.)
 - **Evaporator coil** — 1/4" OD × 0.187" ID × 0.031" wall ACR copper,
   hand-wound helically around the vessel exterior, bonded with 3M 425
   aluminum foil tape. ~6.35 mm radial occupancy plus tolerance — budgeted
@@ -50,36 +52,27 @@ buffer 8 + 1 mm wall-thickness compensation). Total height **213.4 mm**
 (tank height 152.4 + 30 mm above + 30 mm below for the 90° elbow space
 + 1 mm wall-thickness compensation).
 
-Four **foam-pour down-channels** are unioned to the outside of the cup
-at azimuths 45°/135°/225°/315°, running the full cavity height. Each
-channel is an 8 mm radial × 10 mm tangential rectangular slot whose
-center sits on the shell's OD, so half the slot overlaps the wall
-(becomes a rectangular flute on the inside after shelling) and half
-protrudes outward into the corner pocket between this shell and
-`bag_pocket_support_shell`. On the inside, the channels locally widen
-the radial foam gap from the design 7 mm to ~11 mm at the four
-diagonal lines.
+The cylindrical wall is **cut at z = ±60** (`tank_copper_shell_open_z`),
+so the ±Z apex bands of the wall are removed entirely. The cylinder is
+open at +Z and at −Z over its full Y height, leaving the coil zone
+directly accessible from those two sides.
 
-A cylindrical-lobe variant lives in the project's history; the
-rectangular variant trades smooth merge curves and sharp-internal-
-corner-free walls for uniform circumferential width along the channel's
-full depth (vs. the lobe's tapered throat → max → throat profile).
-Both reach R = 75.5 mm at the diagonal and add ~4 mm of effective
-cavity depth at the channel azimuth.
+Four **curved bridging walls** close each of the four open arc ends of
+the cylinder, connecting them to the inner faces of the
+`bag_pocket_support_shell`'s ±Z walls. Each bridging wall is convex
+toward the tank/coil cavity (origin side) and concave toward the
+adjacent bag pocket; its tank-facing face is an arc of radius **8 mm**
+(at 2 mm wall, scaled from a 6.5 mm base by wall-thickness
+compensation), and its reservoir-facing face is a concentric arc one
+wall-thickness inboard. The bridging walls' chord-end X range matches
+the cylinder's wall band exactly at z = ±60, so OCCT's boolean union
+merges cylinder and bridging walls into one continuous solid.
 
-The channels exist because the helically-wrapped 1/4" ACR copper
-evaporator coil leaves only ~0.5 mm of radial slot on each flank —
-borderline for liquid pour-in-place foam to traverse top-to-bottom
-inside the foam's ~45 s cream window, and lot-variation-sensitive
-(FSi/Fibre Glast Side B viscosity is specced 400–2000 cP, a 5×
-range). The channels give the liquid foam a clear path to the cavity
-floor; the coil-side slots then fill from below by the foam's
-4–6 psi closed-rise expansion pressure.
-
-The channel azimuths coincide with the `tank_support_wedge`'s four
-30°-wide slots (also at 45° + 90·i), so foam falls down a channel
-and continues straight through a wedge slot to the under-tank floor
-with no wedge change.
+Pour-foam access to the coil zone now travels **laterally** through the
+±Z apex openings rather than top-down through the now-removed diagonal
+channels: foam falls into the cylinder's open +Y top, into the corner
+pockets at ±Z, and bleeds into the coil zone through the full-height
+±Z openings.
 
 ### tank_support_wedge
 
@@ -98,25 +91,44 @@ Inboard of R = 54.5 (and below the plateau) is open volume — so the
 tank's bottom-plate fittings have unobstructed downward space, and pour
 foam fills around them.
 
+Four 30°-wide angular slots are cut through the ring at azimuths
+45°/135°/225°/315°, leaving four 60° support segments aligned with the
+cardinal axes. The slots let pour foam reach the under-tank floor
+regardless of which cavity it enters from — they're not tied to the
+old diagonal pour-channels (now removed), they just keep the
+under-tank-floor zone connected to the rest of the cavity.
+
 ### bag_pocket_support_shell
 
 Channel-section structure framing the tank-copper-shell at +Z and −Z:
-**floor + +Z wall + −Z wall**, sized 143 × 143 mm in plan-view at the
-outer envelope so its wall centerlines are tangent to the tank-copper-
-shell's wall centerline at the four cardinal axis points. Same total
-height as the tank-copper-shell. The four corners of the floor extend
-beyond the round cup's footprint; everywhere the two floors overlap
-(inside the inscribed circle), they coincide and the union produces
-no change.
+**floor + +Z wall + −Z wall**, sized 145 × 145 mm in plan-view at the
+outer envelope so its wall centerlines are tangent to the
+tank-copper-shell's wall centerline at the four cardinal axis points.
+Same total height as the tank-copper-shell. The four corners of the
+floor extend beyond the round cup's footprint; everywhere the two
+floors overlap (inside the inscribed circle), they coincide and the
+union produces no change.
 
 **No +X / −X walls** — those would be coincident with the bag pockets'
 tank-facing walls (also not built) and would have air on both sides
 (bag cavity inside, corner-pocket air outside). The +Z and −Z walls
 *do* earn their keep: they separate corner-pocket air (between this
 shell's interior and the round cup's outside) from outer-pour foam
-(outside this shell at +Z and −Z). The function `build_bag_pocket_
-support_shell` constructs floor and the two walls explicitly rather
-than building a closed cup and cutting the unneeded faces back off.
+(outside this shell at +Z and −Z).
+
+The ±Z walls each have a **central gap at x = 0**, wide enough for the
+tank_copper_shell's ±Z apex opening to pass through directly into the
+outer foam-gap volume. Without this gap, the corner pockets would be
+sealed off from the outer foam pour and would never receive foam. At
+each of the four corners of that central gap, a **curved blend cut**
+trims the wall's inner edge to follow the same arc as the adjacent
+curved bridging wall in `tank_copper_shell` — so the support-shell
+wall doesn't terminate in a sharp right angle against the bridging
+wall's curve, but blends smoothly into it.
+
+The function `build_bag_pocket_support_shell` constructs the floor and
+the two segmented walls explicitly (rather than building a closed cup
+and cutting faces back off).
 
 ### bag_pocket_shell (one of two)
 
@@ -135,6 +147,13 @@ round cup on the inside, the bag pocket's far/+Z/−Z walls and the
 support shell's +Z/−Z walls on the outside, and the unioned floor
 beneath.
 
+The two far-side corners (where the far wall meets the ±Z walls) are
+**filleted with a 6.5 mm inner radius** (and an 8.5 mm outer radius,
+maintaining uniform wall thickness through the bend). The 6.5 mm
+inner radius matches the rigid PETG reservoir's 6 mm outer fillet
+plus the 0.5 mm `reservoir_clearance`, so the reservoir slides into
+a snugly-mated pocket with uniform clearance around the corner.
+
 A second `bag_pocket_shell` mirrored on the −X side is built the same
 way (`build_a_bag_pocket_shell(side=-1)`) and unioned alongside the
 first.
@@ -145,19 +164,20 @@ The `foam_cap` is a 16 mm-tall cup matching the outer shell's
 footprint, printed twice — one sits on top of the assembly (flipped,
 open side mating with the outer shell's top edge) and one on the
 bottom (in normal orientation, open side mating with the outer
-shell's bottom edge). The cap interior receives the outer-pour foam
+shell's bottom edge). The cap interior receives the foam pour
 through pour and vent holes in the lid above.
 
 The `foam_cap_lid` is a flat 2 mm plate matching the same outer
-footprint, sitting on top of the top cap during the foam pour. It
-has the pour hole (Ø 10 mm) and two vent holes (Ø 6 mm).
+footprint, sitting on top of a cap during its foam pour. It has the
+pour hole (Ø 10 mm) and two vent holes (Ø 6 mm).
 
 Both the cap and the lid have **six 8 × 8 mm boss / clearance-hole
 positions** — four at the corners (inherited from the earlier dowel-
-pin layout) and two at the mid-points of the long edges (along
-+Z and −Z, at x = 0). Each position passes a clearance hole for an
-M3 cap screw all the way through the part. See "Cap-to-outer-shell
-joinery" below.
+pin layout) and two at the mid-points of the long edges (one near
+the +Z wall and one near the −Z wall, offset in X by ±15 mm with
+opposite signs at +Z vs −Z for 180° rotational symmetry). Each
+position passes a clearance hole for an M3 cap screw all the way
+through the part. See "Cap-to-outer-shell joinery" below.
 
 ### foam_cap_gasket
 
@@ -220,20 +240,28 @@ protection for this dry foam-filled enclosed interior.
 Six attachment positions per cap (vs the earlier four pin corners)
 halve the longest unsupported gasket span between adjacent screws
 from ~251 mm corner-to-corner along the long axis to ~125 mm, which
-matters for a TPU gasket compressed only at discrete points.
+matters for a TPU gasket compressed only at discrete points. The
+two mid-long-side screws are offset in X by ±15 mm (opposite signs
+at +Z vs −Z) rather than centered at x = 0, both to clear the
+shared +Z slot that runs up the centerline and to preserve 180°
+rotational symmetry so the caps can be flipped end-for-end.
 
 ## Penetrations
 
-Seven holes total, all sized for **1/4" OD tubing (6.35 mm)** plus a small
-clearance for fit and seal:
+Seven pass-throughs total, all carrying **1/4" OD tubing (6.35 mm)** through
+holes sized at ⌀6.5 mm for a tight tube fit. Four pass-throughs each get
+their own dedicated round hole; the remaining three share a single
+Y-elongated slot at the +Z outer wall.
 
-| # | Hole | Carries |
-|---|---|---|
-| 1, 2 | Bag-pocket flavor line (×2) | 1/4" OD soft tubing from each bag's cap to its peristaltic pump |
-| 3, 4 | Evaporator coil suction & liquid (×2) | 1/4" OD copper refrigerant lines to/from the compressor |
-| 5 | Water inlet | 1/4" OD line from the diaphragm pump |
-| 6 | CO2 inlet | 1/4" OD line from the regulator |
-| 7 | Carbonated water outlet | 1/4" OD line to the dispense faucet |
+| # | Pass-through | Opening | Carries |
+|---|---|---|---|
+| 1 | Reservoir line (+X) | own ⌀6.5 hole | 1/4" OD soft tubing — reservoir to peristaltic pump |
+| 2 | Reservoir line (−X) | own ⌀6.5 hole | 1/4" OD soft tubing — reservoir to peristaltic pump |
+| 3 | CO2 inlet | own ⌀6.5 hole | 1/4" OD line from the regulator |
+| 4 | Water outlet | own ⌀6.5 hole | 1/4" OD line to the dispense faucet |
+| 5 | Copper evaporator inlet (low) | shared +Z slot | 1/4" OD ACR copper to compressor |
+| 6 | Copper evaporator outlet (high) | shared +Z slot | 1/4" OD ACR copper to compressor |
+| 7 | Water inlet | shared +Z slot | 1/4" OD line from the diaphragm pump |
 
 **Build decision:** for the water inlet and CO2 inlet, the supply-side
 tubing reduces to 1/4" OD *before* reaching the shell wall — i.e., the
@@ -242,6 +270,135 @@ transition fittings (3/8" barb-to-NPT adapter, 5/16" push-to-connect,
 Inside the shell, every penetration is the same 1/4" OD. This keeps
 holes small, uniform, and simple to seal during foam pour, at the cost
 of the transition fittings being a few cm further from the tank.
+
+### Shared +Z slot and copper plug stack
+
+The +Z outer_shell wall carries three pass-throughs along a single
+**Y-elongated slot** at x = 0: the two copper evaporator lines (low
+and high) and the water inlet. The slot is ⌀6.5 mm wide in X
+(rounded ends along Y), runs from y = 42 up to
+y = `tank_copper_shell_height + 10` (10 mm of open extension past
+the wall top), and is cut by `cut_slot_for_copper_and_water_inlet`
+in `_foam_bag_geometry.py`. The 10 mm top extension means no sliver
+of wall material remains above the slot — the three copper plugs
+can slide down into the slot from above during assembly. With the
+cylinder wall now open at ±Z and the support-shell ±Z walls gapped
+at x = 0, the slot pierces only this one outer wall.
+
+Pass-through Y heights (centers, relative to the floor at y = 0):
+
+| Pass-through | Y center (mm) |
+|---|---|
+| Lowest copper (evaporator inlet) | 47.0 |
+| Highest copper (evaporator outlet) | 166.4 |
+| Water inlet | 198.4 |
+
+(The highest copper drifted by 1 mm from its 1 mm-wall position when
+`wall_and_floor_thickness` was bumped from 1 mm to 2 mm in commit
+`8a9ffc0`; the formula
+`tank_copper_shell_height − hole_shift_from_edge − wall_and_floor_thickness − above_tank_elbows_height`
+absorbed the wall-thickness change. The drift was accepted.)
+
+Three printed PETG **copper plugs** slide down into the slot from
+above to seal the gaps between (and above) the three pass-throughs:
+
+| Plug | Y span (mm) | Y end arches |
+|---|---|---|
+| `copper-plug-lower` | 50.75 → 162.65 | both ends |
+| `copper-plug-middle` | 170.15 → 194.65 | both ends |
+| `copper-plug-upper` | 202.15 → 211.40 | bottom end only (top flat) |
+
+Each plug has a **binder-clip cross-section** that grips the wall
+edge instead of floating loosely in the slot. Viewed end-on, it's an
+I-beam: a 6.5 mm × 2 mm plate-body web fits the slot's wall Z range
+exactly, 4 mm-tall "wings" at the outer X edges of the slot span the
+full plug Z envelope, and 1 mm × 1 mm rail prongs branch out past
+the wings at +Z (above the wall outer face) and −Z (below the wall
+inner face). The 2 mm air gap between the top and bottom prongs at
+the rail edges is where the wall material slides in — that's how
+the plug grips the wall like a binder clip. The wings act as the
+I-beam flange linking web to prongs along a continuous 2D face
+(rather than a 1D corner edge); see the docstring at the top of
+`copper-plugs/generate_step_cadquery.py` for the full cross-section
+diagram.
+
+Each plug end that abuts a tube has a **⌀6.5 mm half-circle arch
+cutout** centered at x = 0, so the plug seats around the tube
+without crushing it. `lower` arches at both Y ends, `middle` arches
+at both Y ends, `upper` arches at the bottom Y end only (its top is
+flush with the wall top and stays flat).
+
+After the three plugs are installed, the slot still has ~3.75 mm of
+total unfilled length within the wall along Y: 1.75 mm at the
+bottom of the slot, 2 mm at the top, plus six 0.5 mm clearance bands
+(one above and one below each of the three tubes). All of that gets
+filled by the body foam pour.
+
+## Assembly and foam pour
+
+The cold core is foam-filled in **three independent pour operations**:
+the top cap, the bottom cap, and the body. Each is a self-contained
+pour; nothing chains across the three.
+
+### Top cap and bottom cap (independent, before final assembly)
+
+Each cap is a 16 mm-tall foam-filled cup. Liquid pour-in-place foam
+goes in through the `foam_cap_lid`'s Ø10 mm pour hole, air escapes
+through the lid's two Ø6 mm vents, foam expands to fill the cap's
+interior, cures to a self-contained foam puck. Done before the cap
+is mated to the body.
+
+### Body pour (after all body-side assembly)
+
+Every internal component is installed first:
+
+- Pressure vessel lowered into the cylinder, seated on the
+  `tank_support_wedge`.
+- Copper evaporator coil hand-wound around the vessel exterior and
+  bonded with 3M 425 aluminum foil tape.
+- Reservoirs installed into the two bag pockets.
+- Copper evaporator inlet (low), copper evaporator outlet (high),
+  and water inlet routed through the shared +Z slot at their three
+  Y heights.
+- Three copper plugs slid down into the slot from above (through
+  the 10 mm open extension past the wall top) to seal between the
+  pass-throughs.
+- Reservoir LLDPE lines routed through holes #1 and #2 in the
+  bag_pocket_shell ±X far walls.
+- CO2 inlet through hole #3 and water outlet through hole #4 in
+  the outer_shell −Z and +Z walls.
+
+With everything in place, liquid foam is poured **directly into the
+body's open +Y top** all at once — no cap on, no down-channels.
+Foam falls into the body and reaches every cavity in parallel:
+
+- the outer foam gap (between outer_shell and bag_pocket_support_shell);
+- the bag pockets (open at +Y, also open inward through the missing
+  centerward wall);
+- the corner pockets at ±Z (open at +Y, also connected to the outer
+  foam gap via the central gap at x = 0 in each support_shell ±Z wall);
+- the tank cavity inside the cylinder (open at +Y at the cylinder top,
+  also accessible laterally via the ±Z apex openings over the full
+  Y height).
+
+The longest required slot traverse for the foam is the ~0.5 mm
+radial gap between the coil and the cylinder's inner wall at the
+±X azimuths — ~110 mm of arc to reach from the ±Z apex openings
+around to the back of the coil. Shorter than the old top-down
+~200 mm vertical traverse the diagonal pour-channels were originally
+added to help with.
+
+Foam expansion may push a small amount of material out through the
+0.5 mm clearance bands around tubes in the +Z slot and through the
+tight-fit tube exits at the other penetrations. This is expected;
+trim flush after cure.
+
+### Final assembly (after all three foam pours have cured)
+
+TPU gasket onto the body's top edge, top cap screwed down with six
+M3 × 25 SHCS. Bottom cap screwed onto the body's underside (no
+gasket — the body floor handles the air seal). See the screw /
+insert spec under "Cap-to-outer-shell joinery" above.
 
 ## Coincident-wall principle
 
@@ -261,13 +418,19 @@ This drives several dimension choices:
   wall coincides with the bag_pocket_support_shell's +X wall.
 - The **tank_support_wedge**'s outer face coincides with the
   tank_copper_shell's inner wall.
+- The **tank_copper_shell's curved bridging walls** meet each
+  bag_pocket_support_shell ±Z wall along a 2D face (chord-end X
+  range matches the cylinder's wall band exactly at z = ±60), so
+  the union is a single continuous solid rather than two pieces
+  sharing a 1D edge.
 
 ## Print settings
 
 Current slicer save: [`foam-shell.3mf`](foam-shell.3mf) (Bambu
-Studio 02.06.01.55). Plate contains three objects sliced together:
-`foam-shell` + `copper-inlet-plug` + `copper-outlet-plug`. The
-`foam-cap` and `foam-cap-lid` are printed on a separate plate.
+Studio 02.06.01.55). Plate contains four objects sliced together:
+`foam-shell` + `copper-plug-lower` + `copper-plug-middle` +
+`copper-plug-upper`. The `foam-cap` and `foam-cap-lid` are printed
+on a separate plate.
 
 ### Chamber exhaust fan
 
