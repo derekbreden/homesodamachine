@@ -20,23 +20,8 @@ import cadquery as cq
 #
 xz_plane_y_up = cq.Plane(origin=(0, 0, 0), xDir=(1, 0, 0), normal=(0, 1, 0))
 xy_plane_z_up = cq.Plane(origin=(0, 0, 0), xDir=(1, 0, 0), normal=(0, 0, 1))
-# All structural walls and floors are 2 mm thick. Earlier 1 mm prints of
-# the full-size shell deformed mid-print; we initially attributed that to
-# inadequate wall thickness and bumped to 2 mm. The 2 mm version printed
-# cleanly with the chamber-exhaust fix in place, which suggested the
-# original failures were chamber heat soak, not wall strength — so we
-# went back to 1 mm to confirm. Returning to 2 mm now for structural
-# robustness across the full assembly. Outer dimensions of every
-# component are refactored below so that wall-thickness growth is
-# *added* to the outer envelope rather than absorbed from inner buffers,
-# foam gaps, bag pocket cavities, etc.
+# All structural walls and floors are 2 mm PETG.
 wall_and_floor_thickness = 2.0
-# Reference wall thickness used in the original 1 mm design. Outer-
-# dimension formulas use (wall_and_floor_thickness - reference_wall_thickness)
-# as a compensation term, so 1 mm walls reproduce the original geometry
-# exactly and 2 mm walls grow each affected outer dimension by 1 mm.
-reference_wall_thickness = 1.0
-wall_thickness_compensation = wall_and_floor_thickness - reference_wall_thickness
 hole_shift_from_edge = 15.0
 #
 # -------------------------------------------------------
@@ -46,25 +31,23 @@ hole_shift_from_edge = 15.0
 # Tank copper shell
 # -------------------------------------------------------
 #
-# Tank copper shell radius. The +compensation term keeps the inner face
-# of the shell wall (where the copper coil sits) at radius 69.5 regardless
-# of wall thickness, preserving the 6 mm coil buffer.
+# Outer radius of the tank-copper-shell cylinder.
+#   = tank_outer_radius (63.5) + coil_radial_clearance (7) + wall (2) = 72.5
+# The 7 mm radial clearance between the tank (R=63.5) and the inner shell
+# face accommodates 1/4" ACR copper coil + thermal tape + assembly slack.
 tank_outer_radius = 63.5
-# Bumped from 7 to 8 mm so the actual radial clearance between the tank
-# (R=63.5) and the inner shell face is 7 mm (with 2 mm walls), enough
-# for 1/4" ACR copper coil + thermal tape + assembly slack.
-copper_coil_buffer_radius = 8.0
-tank_copper_shell_radius = tank_outer_radius + copper_coil_buffer_radius + wall_thickness_compensation
+coil_radial_clearance = 7.0
+tank_copper_shell_radius = tank_outer_radius + coil_radial_clearance + wall_and_floor_thickness
 #
-# Tank copper shell height. The +compensation term keeps the interior
-# Y cavity at the original 211.4 mm regardless of floor thickness.
+# Outer height of the tank-copper-shell cylinder.
+#   = tank_height (152.4) + 30 below tank + 30 above tank + 1 mm floor allowance
+# The floor lives at y=0..wall, so the cylinder's interior cavity (above
+# the floor) is height − wall = 211.4 mm, providing the 30 mm of slack
+# above/below the tank's elbows.
 tank_height = 152.4
 below_tank_elbows_height = 30.0
 above_tank_elbows_height = 30.0
-tank_copper_shell_height = (
-    tank_height + below_tank_elbows_height + above_tank_elbows_height
-    + wall_thickness_compensation
-)
+tank_copper_shell_height = tank_height + below_tank_elbows_height + above_tank_elbows_height + 1.0
 #
 # -------------------------------------------------------
 
@@ -82,12 +65,12 @@ tank_support_wedge_height = 30.0
 # Bag pocket
 # -------------------------------------------------------
 #
-# bag_pocket_width tracks tank_copper_shell_radius automatically, so the
-# bag-pocket Z interior cavity (= width − 2 × wall) stays at 139 mm. The
-# bag_pocket_depth gets +2*compensation so the X interior cavity stays
-# at 33 mm regardless of wall thickness.
+# bag_pocket_width tracks tank_copper_shell_radius so the bag-pocket Z
+# interior cavity (= width − 2 × wall = 141 mm) matches the cylinder's
+# Z extent.  bag_pocket_depth gives an X interior cavity of 33 mm
+# (= depth − 2 × wall).
 bag_pocket_width = tank_copper_shell_radius * 2
-bag_pocket_depth = 35 + 2 * wall_thickness_compensation
+bag_pocket_depth = 33 + 2 * wall_and_floor_thickness
 #
 # Derived bag-pocket inner-face coordinates, exposed for downstream
 # parts (e.g. the printed reservoirs) that must clear the same cavity.
@@ -340,19 +323,16 @@ def build_tank_copper_shell():
     # wall's inner face at (x_sign · cylinder_open_x,  z_sign · (R −
     # wall_and_floor_thickness)).
     #
-    # The wall's tank-facing face is an arc of radius
-    # tank_copper_open_end_wall_arc_radius (6.5 mm at 1 mm wall,
-    # +1.5 mm per +1 mm of wall thickness) bulging toward the origin;
-    # its reservoir-facing face is a concentric arc of radius
-    # (arc_radius − wall_and_floor_thickness) so the wall is
+    # The wall's tank-facing face is an arc of radius 8 mm bulging
+    # toward the origin; its reservoir-facing face is a concentric arc
+    # of radius (8 − wall_and_floor_thickness) so the wall is
     # `wall_and_floor_thickness` thick along the radial direction
     # (slightly thicker in pure-X measure at the chord ends — the
     # outer arc and inner arc meet the z = z_near and z = z_far lines
-    # at different x). The wall-thickness scaling keeps the apex
-    # thickness ≈ wall_and_floor_thickness (a fixed 6.5 mm arc gets
-    # too thin at the apex once the wall thickens) and also gives the
-    # corner-blend cut below enough z range to span the full wall.
-    tank_copper_open_end_wall_arc_radius = 6.5 + 1.5 * wall_thickness_compensation
+    # at different x). The 8 mm radius keeps the apex thickness ≈
+    # wall_and_floor_thickness and gives the corner-blend cut below
+    # enough z range to span the full wall.
+    tank_copper_open_end_wall_arc_radius = 8.0
     # The cylinder's wall occupies the radial band R ∈ [R−t, R] (inner
     # face to outer face).  At z = ±tank_copper_shell_open_z, that band
     # projects to x ∈ [cyl_open_x_inner, cyl_open_x_outer] in absolute
@@ -456,14 +436,13 @@ def build_bag_pocket_support_shell():
     # Lobe-arc geometry (mirrors build_tank_copper_shell's tank_copper_
     # open_end_wall_arc_radius and derived values — kept local instead
     # of imported so this helper has no cross-function dependency).
-    # Comment annotations reflect wall_and_floor_thickness = 2 mm.
-    R_lobe_arc = 6.5 + 1.5 * wall_thickness_compensation                  # 8.0 at 2 mm wall
+    R_lobe_arc = 8.0
     z_meet_wall = tank_copper_shell_radius - wall_and_floor_thickness    # 70.5
     half_chord  = (z_meet_wall - tank_copper_shell_open_z) / 2.0          # 5.25
-    d_lobe_arc  = math.sqrt(R_lobe_arc ** 2 - half_chord ** 2)            # 6.04 (was 3.83 at 1 mm)
-    lobe_arc_center_x = cyl_open_x_inner + d_lobe_arc                     # 43.06 (was 40.85)
+    d_lobe_arc  = math.sqrt(R_lobe_arc ** 2 - half_chord ** 2)            # 6.04
+    lobe_arc_center_x = cyl_open_x_inner + d_lobe_arc                     # 43.06
     lobe_arc_center_z = (z_meet_wall + tank_copper_shell_open_z) / 2.0    # 65.25
-    wall_outer_z = tank_copper_shell_radius                                # 72.5 (was 71.5)
+    wall_outer_z = tank_copper_shell_radius                                # 72.5
 
     def build_corner_blend_cut(z_sign, x_sign):
         inner_x = x_sign * cyl_open_x_inner
