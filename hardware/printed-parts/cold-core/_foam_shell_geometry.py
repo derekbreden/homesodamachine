@@ -155,17 +155,13 @@ reservoir_bulkhead_port_x = (
 # -------------------------------------------------------
 #
 outer_shell_foam_gap = 16.0
-# Outer wall is the same 2 mm as the rest of the assembly now. Kept as
-# its own constant in case the inner/outer split is ever needed again.
-outer_shell_wall_thickness = wall_and_floor_thickness
 #
-# Outer footprint shared by the outer shell, the foam cap, and the foam
-# cap lid. Defined at module level so changing outer_shell_wall_thickness
-# updates all three together (they must remain coplanar at the corners
-# so the pin bosses line up).
+# Outer footprint, shared by the outer shell, the foam cap, and the
+# foam cap lid (they must remain coplanar at the corners so the pin
+# bosses line up).
 bag_pocket_outermost_x = tank_copper_shell_radius + bag_pocket_depth - wall_and_floor_thickness
-outer_shell_x_length = 2 * (bag_pocket_outermost_x + outer_shell_foam_gap + outer_shell_wall_thickness)
-outer_shell_z_length = 2 * (tank_copper_shell_radius + outer_shell_foam_gap + outer_shell_wall_thickness)
+outer_shell_x_length = 2 * (bag_pocket_outermost_x + outer_shell_foam_gap + wall_and_floor_thickness)
+outer_shell_z_length = 2 * (tank_copper_shell_radius + outer_shell_foam_gap + wall_and_floor_thickness)
 #
 # -------------------------------------------------------
 
@@ -511,7 +507,7 @@ def build_outer_shell():
         .rect(outer_shell_x_length, outer_shell_z_length)
         .extrude(tank_copper_shell_height)
         .faces(">Y")
-        .shell(-outer_shell_wall_thickness)
+        .shell(-wall_and_floor_thickness)
     )
     # pushPoints uses workplane-local coords; on xz_plane_y_up, local Y
     # = -world Z, so flip the z component of each (x, z) world position.
