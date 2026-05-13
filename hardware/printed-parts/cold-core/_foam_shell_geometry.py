@@ -288,44 +288,47 @@ tank_copper_shell_open_z = 60.0
 #
 #
 def build_tank_support_ring():
-    support_ring_outer_radius = tank_copper_shell_radius - wall_and_floor_thickness
-    support_ring_width = 9
-    support_ring_inner_radius = support_ring_outer_radius - support_ring_width
-    support_ring_bottom_y = wall_and_floor_thickness
-    filled_cylinder = (
-        cq.Workplane(xz_plane_y_up)
-        .workplane(offset=support_ring_bottom_y)
-        .circle(support_ring_outer_radius)
-        .extrude(tank_support_ring_height)
+    """Annular ring inside the tank-copper-shell, holding the tank up
+    by its outer rim.  Built as a revolve of a rectangular (R, y)
+    profile around the Y axis; four 30°-wide angular slots at the
+    diagonals (45°/135°/225°/315°) are cut as 30° revolves of the same
+    profile (with a small radial margin), so every slot boundary is
+    an arc on the same cylinder as the ring's inner and outer faces —
+    no chord-vs-arc slivers left behind.
+    """
+    R_outer = tank_copper_shell_radius - wall_and_floor_thickness  # 70.5
+    R_inner = R_outer - 9                                          # 61.5
+    y_bottom = wall_and_floor_thickness                             # 2
+    y_top = y_bottom + tank_support_ring_height                    # 32
+
+    ring_profile = (
+        cq.Workplane("XY")
+        .moveTo(R_inner, y_bottom)
+        .lineTo(R_outer, y_bottom)
+        .lineTo(R_outer, y_top)
+        .lineTo(R_inner, y_top)
+        .close()
     )
-    cut_cylinder = (
-        cq.Workplane(xz_plane_y_up)
-        .workplane(offset=support_ring_bottom_y)
-        .circle(support_ring_inner_radius)
-        .extrude(tank_support_ring_height)
-    )
-    ring = filled_cylinder.cut(cut_cylinder)
-    # Recover ~3% thermal loss from removing the cone: 4 angular slots cut
-    # through the ring at 45°/135°/225°/315°, 30° wide each. Leaves four
-    # 60° support segments aligned with the cardinal axes.
+    ring = ring_profile.revolve()
+
+    # Four 30°-wide slots at the diagonals, leaving four 60° support
+    # segments aligned with the cardinal axes.
     slot_radial_margin = 1.0
-    slot_inner_radius = support_ring_inner_radius - slot_radial_margin
-    slot_outer_radius = support_ring_outer_radius + slot_radial_margin
-    slot_half_width = math.radians(15)
-    for i in range(4):
-        center_angle = math.radians(45 + 90 * i)
-        a1 = center_angle - slot_half_width
-        a2 = center_angle + slot_half_width
-        p1 = (slot_inner_radius * math.cos(a1), slot_inner_radius * math.sin(a1))
-        p2 = (slot_outer_radius * math.cos(a1), slot_outer_radius * math.sin(a1))
-        p3 = (slot_outer_radius * math.cos(a2), slot_outer_radius * math.sin(a2))
-        p4 = (slot_inner_radius * math.cos(a2), slot_inner_radius * math.sin(a2))
-        slot = (
-            cq.Workplane(xz_plane_y_up)
-            .workplane(offset=support_ring_bottom_y)
-            .moveTo(*p1).lineTo(*p2).lineTo(*p3).lineTo(*p4).close()
-            .extrude(tank_support_ring_height)
+    slot_angular_width = 30
+    def build_slot():
+        return (
+            cq.Workplane("XY")
+            .moveTo(R_inner - slot_radial_margin, y_bottom)
+            .lineTo(R_outer + slot_radial_margin, y_bottom)
+            .lineTo(R_outer + slot_radial_margin, y_top)
+            .lineTo(R_inner - slot_radial_margin, y_top)
+            .close()
+            .revolve(slot_angular_width)
         )
+    for i in range(4):
+        slot_center_angle = 45 + 90 * i
+        slot_start_angle = slot_center_angle - slot_angular_width / 2
+        slot = build_slot().rotate((0, 0, 0), (0, 1, 0), slot_start_angle)
         ring = ring.cut(slot)
     return ring
 
