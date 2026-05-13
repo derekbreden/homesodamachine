@@ -36,6 +36,6 @@ See [assembly/pressure-vessel.md](assembly/pressure-vessel.md) steps 2-5 for the
 
 ## Pressure-test 316L vessels
 
-Hydro-test each fully welded + tapped vessel to 150 PSI for 30 minutes (~2× the 70 PSI working pressure). Done after tapping and welding are both complete on a given vessel. Beyond the 30-min hydro-test minimum, an in-vessel pressure-test gauge (LIKELY-TO-BUY in [purchases.md](purchases.md)) supports hour-scale leak soaks for catching slow weep before passivation and service.
+Hydro-test each fully welded + tapped vessel to 180 PSI for 30 minutes (~2× the 90 PSI working pressure). Done after tapping and welding are both complete on a given vessel. Beyond the 30-min hydro-test minimum, the in-vessel SENCTRL pressure-test gauge (B0BCHMQLFB, ACQUIRED in [purchases.md](purchases.md) §1) supports hour-scale leak soaks for catching slow weep before passivation and service.
 
 See [assembly/pressure-vessel.md](assembly/pressure-vessel.md) step 6 for the production-procedure framing, including the rig + criteria + failure-handling gaps still open.
