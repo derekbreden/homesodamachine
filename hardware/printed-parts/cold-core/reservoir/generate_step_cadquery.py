@@ -16,6 +16,10 @@ from _foam_bag_geometry import (
     bag_pocket_floor_top_y as _shell_bag_pocket_floor_top_y,
     bag_pocket_walls_top_y as _shell_bag_pocket_walls_top_y,
     tank_copper_shell_radius as _shell_tank_copper_shell_radius,
+    reservoir_clearance as _shell_reservoir_clearance,
+    reservoir_floor_thickness as _shell_reservoir_floor_thickness,
+    bulkhead_pocket_diameter as _shell_bulkhead_pocket_diameter,
+    reservoir_bulkhead_port_y as _shell_reservoir_bulkhead_port_y,
 )
 
 # ═══════════════════════════════════════════════════════
@@ -94,12 +98,19 @@ tank_copper_shell_outer_radius = _shell_tank_copper_shell_radius
 # horizontal span at 4 mm thickness with no internal supports — hence
 # the open-top + separate-cap split.
 #
-reservoir_wall_thickness = 4.0
+# Imported from the shared geometry module so the foam shell's
+# bulkhead-pass-through hole and the reservoir's bulkhead pocket
+# cannot drift apart on future wall-thickness changes. Wall and
+# floor of the reservoir are the same 4 mm — `reservoir_floor_thickness`
+# on the shell side names the dimension the foam-shell cares about
+# (the PETG layer it leaves clearance above); reused locally for
+# every wall in the reservoir body.
+reservoir_wall_thickness = _shell_reservoir_floor_thickness
 #
 # Clearance between reservoir outer surfaces and bag-pocket inner
 # faces on every face. Slack for sliding the printed reservoir into
 # the cavity from above + FDM tolerance on both prints.
-reservoir_clearance = 0.5
+reservoir_clearance = _shell_reservoir_clearance
 #
 # -------------------------------------------------------
 
@@ -283,11 +294,12 @@ vent_position_z = 32.5
 # out the boss's −Z face into the syrup volume; on the +Z side a
 # ⌀6.5 mm cylindrical channel carries the 1/4" tube the rest of the
 # way out through the reservoir's +Z outer wall, aligning with the
-# foam-shell pass-through at (±88, 17) — see
-# `_foam_bag_geometry.py` `punch_a_bag_pocket_shell_hole`. The y=17
-# alignment is chosen so the flange chamber's curved bottom sits on
-# the 4 mm outer-floor PETG without piercing it (4 mm fluid barrier
-# below the chamber).
+# foam-shell pass-through at (±88, reservoir_bulkhead_port_y) — see
+# `_foam_bag_geometry.py` `punch_a_bag_pocket_shell_hole`. Both sides
+# import `reservoir_bulkhead_port_y` from `_foam_bag_geometry.py`
+# (current value 18.0 at 2 mm shell wall), so the flange chamber's
+# curved bottom sits exactly on top of the 4 mm outer floor — 4 mm
+# of PETG below the chamber as a fluid barrier.
 #
 # Both reservoirs (side=+1 and side=−1) put the bulkhead on the +Z
 # side; only x mirrors.
@@ -300,7 +312,7 @@ vent_position_z = 32.5
 # decision to the next pass.
 #
 port_position_x = 88.0
-port_position_y = 17.0                  # held over from the 1 mm-wall era. Originally derived as outer_floor_bottom_y + W + bulkhead_pocket_diameter/2 = 1.5 + 4 + 11.5, so the flange chamber's curved bottom (y=5.5) sat exactly on the inner floor top, with 4 mm of outer-floor PETG below. With 2 mm walls, outer_floor_bottom_y is now 2.5 and inner_floor_top_y is 6.5, so the chamber's curved bottom (still at 5.5) dips 1 mm into the floor layer and leaves 3 mm of PETG below it.
+port_position_y = _shell_reservoir_bulkhead_port_y  # derived in _foam_bag_geometry.py; 18.0 at the current 2 mm shell wall, placing the flange chamber's curved bottom exactly on top of the 4 mm outer floor (4 mm of PETG below the chamber as a fluid barrier). The matching foam-shell pass-through hole reads the same constant, so the two cannot drift apart on future wall-thickness changes.
 port_tube_diameter = 6.5                # 1/4" OD tube clearance
 #
 # The pocket is a STEPPED cavity matching the bulkhead's body
@@ -316,7 +328,7 @@ port_tube_diameter = 6.5                # 1/4" OD tube clearance
 # 3–5 mm panel range). Adjust if a caliper measurement of the part
 # in hand disagrees.
 #
-bulkhead_pocket_diameter = 23.0         # ø22.9 flange + 0.1 clearance (snug fit)
+bulkhead_pocket_diameter = _shell_bulkhead_pocket_diameter  # 23.0 — ø22.9 flange + 0.1 clearance (snug fit). Imported from `_foam_bag_geometry.py` because that module derives `reservoir_bulkhead_port_y` (the Y of the foam-shell pass-through hole) from this diameter.
 bulkhead_panel_hole_diameter = 17.0     # JG catalog spec for the 1/4" body family (0.67")
 #
 # The bulkhead body's wet side is *stepped* along its axis (flange,
@@ -395,7 +407,7 @@ bulkhead_dry_slab_thickness = 4.0
 # (y=port_position_y + bulkhead_pocket_diameter / 2). The slope tilts
 # the slab bottom upward as z increases, so the bulkhead dry-flange
 # clearance is positive everywhere in z ≥ bulkhead_panel_z_max.
-floor_baseline_y = port_position_y + bulkhead_pocket_diameter / 2 + bulkhead_dry_slab_thickness  # 32.5 = chamber_top (28.5) + slab_thickness (4); the slab top sits this high at z = bulkhead_panel_z_min and the slope rises with z
+floor_baseline_y = port_position_y + bulkhead_pocket_diameter / 2 + bulkhead_dry_slab_thickness  # 33.5 = chamber_top (29.5) + slab_thickness (4); the slab top sits this high at z = bulkhead_panel_z_min and the slope rises with z
 #
 # On the wet side (z < bulkhead_wet_end_z), the slope's lowest line is
 # anchored at the bulkhead INLET MIDPOINT (port_position_y = y of the
@@ -403,9 +415,9 @@ floor_baseline_y = port_position_y + bulkhead_pocket_diameter / 2 + bulkhead_dry
 # recovers ~90 mL of cavity volume across the slope region; functional
 # drainage is unchanged (syrup at the slope drops straight into the
 # wet chamber's open ceiling), the win is purely volume.
-slope_low_y = port_position_y  # 17 — slope's lowest line at z = bulkhead_wet_end_z
+slope_low_y = port_position_y  # 18 — slope's lowest line at z = bulkhead_wet_end_z
 #
-port_inlet_bottom_y = port_position_y - port_tube_diameter / 2  # 13.75 — bottom edge of the wet-collet port
+port_inlet_bottom_y = port_position_y - port_tube_diameter / 2  # 14.75 — bottom edge of the wet-collet port
 floor_slope_rise = 6.0  # mm above floor_baseline_y at the far −Z wall
 #
 # -------------------------------------------------------
