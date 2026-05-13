@@ -156,7 +156,7 @@ def build_plug(name, y_bottom, y_top):
     if arches["bottom"]:
         cutout_bottom = (
             cq.Workplane(xy_plane_z_up)
-            .workplane(origin=(0, y_bottom, wall_z_center))
+            .workplane(origin=(0, y_bottom, wall_z_center), offset=wall_z_center)
             .circle(tube_clearance_radius)
             .extrude(plug_z_thickness, both=True)
         )
@@ -165,7 +165,7 @@ def build_plug(name, y_bottom, y_top):
     if arches["top"]:
         cutout_top = (
             cq.Workplane(xy_plane_z_up)
-            .workplane(origin=(0, y_top, wall_z_center))
+            .workplane(origin=(0, y_top, wall_z_center), offset=wall_z_center)
             .circle(tube_clearance_radius)
             .extrude(plug_z_thickness, both=True)
         )
