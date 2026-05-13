@@ -1,5 +1,5 @@
 {
-  "thickness_mm": 1.0,
+  "thickness_mm": 2.0,
   "material": "PETG",
   "process": "3D-print",
   "notes": "Wall thickness; inner shell for cold core"
