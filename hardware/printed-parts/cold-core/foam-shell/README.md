@@ -122,9 +122,14 @@ curved bridging wall in `tank_copper_shell` — so the support-shell
 wall doesn't terminate in a sharp right angle against the bridging
 wall's curve, but blends smoothly into it.
 
-The function `build_bag_pocket_support_shell` constructs the floor and
-the two segmented walls explicitly (rather than building a closed cup
-and cutting faces back off).
+The support-shell ±Z walls and the bag-pocket-shell walls share a
+single 2-D cross-section in the code; both are produced by
+`build_tank_and_bag_pocket_walls` (along with the tank cylinder and
+the bridging walls), so the wall transitions at z = ±70.5 are exact
+by construction rather than by OCCT face-merging. The support
+shell's floor is omitted entirely — it would be 100% buried inside
+the outer_shell's floor, which already spans the full assembly
+footprint.
 
 ### bag_pocket_shell (one of two)
 
@@ -150,9 +155,8 @@ inner radius matches the rigid PETG reservoir's 6 mm outer fillet
 plus the 0.5 mm `reservoir_clearance`, so the reservoir slides into
 a snugly-mated pocket with uniform clearance around the corner.
 
-A second `bag_pocket_shell` mirrored on the −X side is built the same
-way (`build_a_bag_pocket_shell(side=-1)`) and unioned alongside the
-first.
+The −X bag pocket is built as a mirror of the +X side from the same
+2-D cross-section in `build_tank_and_bag_pocket_walls`.
 
 ### foam_cap and foam_cap_lid
 
