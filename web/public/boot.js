@@ -284,11 +284,34 @@
   });
 
   // ===== 3. SSE owner =====
+  // EventSource has built-in retry, but two failure modes need explicit
+  // help:
+  //   1. After an auto-reconnect, the server's second `hello` carries
+  //      the SAME commit fingerprint as the first (especially in dev
+  //      where it's the constant "dev"). With the old "only fire
+  //      hsm:deploy on commit change" logic, that silently swallowed
+  //      every files-changed event the client missed during the
+  //      disconnect window — the user sees no live reload until they
+  //      manually refresh. Now: any non-first hello fires hsm:deploy
+  //      so the page refreshes whatever it's showing.
+  //   2. Safari (and rarely other browsers) can keep an EventSource in
+  //      OPEN state after the underlying TCP connection has actually
+  //      died — no error event, no auto-reconnect. When the page
+  //      regains focus, we check the readyState AND the freshness of
+  //      the last message; if either looks stale, force a reconnect.
+  //
+  // The server keeps connections alive with a 30s :keepalive comment
+  // (see web/lib/events.js). Any message — data or comment — counts
+  // as activity; the 60s stale threshold is generous on top of that.
   if ("EventSource" in window) {
-    var es = new EventSource("/api/events");
+    var es = null;
     var seenCommit = null;
     var seenRecentCommit = null;
-    es.addEventListener("message", function (ev) {
+    var lastActivityAt = 0;
+    var STALE_MS = 60_000;
+
+    function onSSEMessage(ev) {
+      lastActivityAt = Date.now();
       var msg;
       try { msg = JSON.parse(ev.data); } catch (e) { return; }
       if (msg.type === "hello") {
@@ -297,10 +320,12 @@
           if (msg.recent && msg.recent.commit) seenRecentCommit = msg.recent.commit;
           return;
         }
-        if (msg.commit !== seenCommit) {
-          seenCommit = msg.commit;
-          window.dispatchEvent(new CustomEvent("hsm:deploy", { detail: { commit: msg.commit } }));
-        }
+        // Reconnect — server fingerprint may or may not have changed
+        // (it does on prod deploy; in dev it's always "dev"). Either
+        // way, the client missed any broadcasts during the disconnect,
+        // so refetch as if it were a fresh deploy.
+        seenCommit = msg.commit;
+        window.dispatchEvent(new CustomEvent("hsm:deploy", { detail: { commit: msg.commit, reconnect: true } }));
         if (msg.recent && msg.recent.commit && msg.recent.commit !== seenRecentCommit) {
           seenRecentCommit = msg.recent.commit;
           if (msg.recent.files) {
@@ -309,8 +334,8 @@
           if (msg.recent.posts) {
             window.dispatchEvent(new CustomEvent("hsm:posts-changed", { detail: { posts: msg.recent.posts } }));
           }
-          fetchNotifications();
         }
+        fetchNotifications();
         return;
       }
       if (msg.type === "files-changed") {
@@ -321,7 +346,48 @@
       if (msg.type === "posts-changed") {
         window.dispatchEvent(new CustomEvent("hsm:posts-changed", { detail: { posts: msg.posts || [] } }));
         fetchNotifications();
+        return;
       }
+      // type === "ping" and anything else: lastActivityAt already
+      // bumped at the top of this handler, nothing else to do.
+    }
+
+    function connectSSE() {
+      if (es) {
+        try { es.close(); } catch (e) {}
+      }
+      es = new EventSource("/api/events");
+      lastActivityAt = Date.now();
+      es.addEventListener("message", onSSEMessage);
+      // The browser's built-in retry handles transient errors; we log
+      // for debugging and trust EventSource to come back. The
+      // visibility-change check below handles the case where it
+      // doesn't.
+      es.addEventListener("error", function () {
+        // EventSource transitions: 0=CONNECTING, 1=OPEN, 2=CLOSED.
+        // No-op here — we only listen so silent errors are visible in
+        // devtools network panel if needed.
+      });
+    }
+
+    function ensureSSEAlive() {
+      if (!es || es.readyState === EventSource.CLOSED) {
+        connectSSE();
+        return;
+      }
+      if (es.readyState === EventSource.OPEN && Date.now() - lastActivityAt > STALE_MS) {
+        // OPEN but no bytes in over a minute despite the 30s server
+        // keepalive — connection is silently dead. Force-reconnect.
+        connectSSE();
+      }
+    }
+
+    document.addEventListener("visibilitychange", function () {
+      if (document.visibilityState === "visible") ensureSSEAlive();
     });
+    window.addEventListener("focus", ensureSSEAlive);
+    window.addEventListener("pageshow", ensureSSEAlive);
+
+    connectSSE();
   }
 })();

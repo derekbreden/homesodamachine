@@ -158,7 +158,13 @@ watcher.on("change", (absPath) => {
         console.log(`Shared lib changed: ${path.relative(HARDWARE_DIR, absPath)}`);
         for (const f of findGenerateScripts()) {
           console.log(`  Rebuilding ${path.relative(HARDWARE_DIR, f)}`);
-          await runScript(f);
+          try {
+            await runScript(f);
+          } catch (e) {
+            // Newer change aborted this run; bail out and let the new
+            // change's cascade redo everything.
+            break;
+          }
         }
       }, 500),
     );
@@ -260,7 +266,14 @@ watcher.on("change", (absPath) => {
         console.log(`Shared module changed: ${path.relative(HARDWARE_DIR, absPath)}`);
         for (const dep of dependents) {
           console.log(`  Rebuilding ${path.relative(HARDWARE_DIR, dep)}`);
-          await runScript(dep);
+          try {
+            await runScript(dep);
+          } catch (e) {
+            // A newer change aborted this run; the new change's
+            // cascade will rebuild from scratch. Stop this cascade so
+            // we don't keep chasing a moving target.
+            break;
+          }
         }
       }, 500),
     );
