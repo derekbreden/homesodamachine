@@ -604,16 +604,15 @@ def build_foam_cap_lid():
 
     lid = lid.cut(pour_hole).cut(vent_hole_a).cut(vent_hole_b)
 
-    for (boss_x, boss_z) in foam_cap_attachment_xz_positions:
-        clearance = (
-            cq.Workplane(xz_plane_y_up)
-            .workplane(origin=(boss_x, 0, boss_z), offset=0)
-            .circle(screw_clearance_radius)
-            .extrude(wall_and_floor_thickness * 3)
-        )
-        lid = lid.cut(clearance)
-
-    return lid
+    # Six screw-clearance holes, one per attachment position.
+    boss_points = [(x, -z) for (x, z) in foam_cap_attachment_xz_positions]
+    clearances = (
+        cq.Workplane(xz_plane_y_up)
+        .pushPoints(boss_points)
+        .circle(screw_clearance_radius)
+        .extrude(wall_and_floor_thickness * 3)
+    )
+    return lid.cut(clearances)
 
 def build_foam_cap_gasket():
     """TPU 90A gasket between foam_cap mating edge and outer_shell
@@ -660,31 +659,26 @@ def build_foam_cap_gasket():
     )
     gasket = outer.cut(inner)
 
-    # Add 8 × 8 mm pads at each screw position, matching the cap and
-    # outer_shell boss footprints. At corner screws, the pad extends
+    # 8 × 8 mm pads at each screw position, matching the cap and
+    # outer_shell boss footprints. At corner screws, each pad extends
     # 3 mm inward beyond the perimeter ring on both axes; at mid-
     # long-side screws, 3 mm inward on the wall-perpendicular axis.
-    for (pad_x, pad_z) in foam_cap_attachment_xz_positions:
-        pad = (
-            cq.Workplane(xz_plane_y_up)
-            .workplane(origin=(pad_x, 0, pad_z), offset=0)
-            .rect(screw_boss_size, screw_boss_size)
-            .extrude(gasket_thickness)
-        )
-        gasket = gasket.union(pad)
-
-    # Cut screw holes AFTER unioning the pads, so each hole sits at
-    # the center of an 8 × 8 mm pad surrounded by 4 mm of TPU.
-    for (hole_x, hole_z) in foam_cap_attachment_xz_positions:
-        hole = (
-            cq.Workplane(xz_plane_y_up)
-            .workplane(origin=(hole_x, 0, hole_z), offset=0)
-            .circle(screw_clearance_radius)
-            .extrude(gasket_thickness)
-        )
-        gasket = gasket.cut(hole)
-
-    return gasket
+    # Holes are cut AFTER the pads are unioned in, so each hole sits
+    # at the center of an 8 × 8 mm pad surrounded by 4 mm of TPU.
+    boss_points = [(x, -z) for (x, z) in foam_cap_attachment_xz_positions]
+    pads = (
+        cq.Workplane(xz_plane_y_up)
+        .pushPoints(boss_points)
+        .rect(screw_boss_size, screw_boss_size)
+        .extrude(gasket_thickness)
+    )
+    holes = (
+        cq.Workplane(xz_plane_y_up)
+        .pushPoints(boss_points)
+        .circle(screw_clearance_radius)
+        .extrude(gasket_thickness)
+    )
+    return gasket.union(pads).cut(holes)
 
 def build_a_hole_punch(
     origin=(0, 0, 0),
