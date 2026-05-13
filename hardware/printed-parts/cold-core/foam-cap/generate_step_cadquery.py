@@ -12,7 +12,7 @@ sys.path.insert(0, str(next(p for p in _here.parents if p.name == "hardware")))
 sys.path.insert(0, str(_here.parent))
 
 from _cadq_export import export_step
-from _foam_bag_geometry import (
+from _foam_shell_geometry import (
     build_foam_cap,
     build_foam_cap_lid,
     build_foam_cap_gasket,

@@ -275,7 +275,7 @@ and high) and the water inlet. The slot is ⌀6.5 mm wide in X
 (rounded ends along Y), runs from y = 42 up to
 y = `tank_copper_shell_height + 10` (10 mm of open extension past
 the wall top), and is cut by `cut_slot_for_copper_and_water_inlet`
-in `_foam_bag_geometry.py`. The 10 mm top extension means no sliver
+in `_foam_shell_geometry.py`. The 10 mm top extension means no sliver
 of wall material remains above the slot — the three copper plugs
 can slide down into the slot from above during assembly. With the
 cylinder wall now open at ±Z and the support-shell ±Z walls gapped

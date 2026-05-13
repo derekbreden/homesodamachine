@@ -10,7 +10,7 @@ sys.path.insert(
 )
 sys.path.insert(0, str(_here.parent))
 from _cadq_export import export_step
-from _foam_bag_geometry import (
+from _foam_shell_geometry import (
     bag_pocket_far_inner_x as _shell_bag_pocket_far_inner_x,
     bag_pocket_z_inner_max as _shell_bag_pocket_z_inner_max,
     bag_pocket_floor_top_y as _shell_bag_pocket_floor_top_y,
@@ -56,7 +56,7 @@ def _wp_at(x, y, z):
 # -------------------------------------------------------
 #
 # These constants describe the bag-pocket cavity into which this
-# reservoir fits. They are imported from ../_foam_bag_geometry.py (the
+# reservoir fits. They are imported from ../_foam_shell_geometry.py (the
 # shared foam-shell / foam-cap geometry module) so the reservoir cannot
 # drift out of sync with wall_and_floor_thickness or any other shell
 # input. Previously the values were hardcoded as a "stable interface,"
@@ -296,9 +296,9 @@ vent_position_z = 32.5
 # ⌀6.5 mm cylindrical channel carries the 1/4" tube the rest of the
 # way out through the reservoir's +Z outer wall, aligning with the
 # foam-shell pass-through at (±port_position_x, port_position_y) — see
-# `_foam_bag_geometry.py` `punch_a_bag_pocket_shell_hole`. Both sides
+# `_foam_shell_geometry.py` `cut_circular_port_holes`. Both sides
 # import `reservoir_bulkhead_port_x` and `reservoir_bulkhead_port_y`
-# from `_foam_bag_geometry.py` (current values 88.0 and 18.0 at 2 mm
+# from `_foam_shell_geometry.py` (current values 88.0 and 18.0 at 2 mm
 # shell wall), so the flange chamber's curved bottom sits exactly on
 # top of the 4 mm outer floor (4 mm of PETG below the chamber as a
 # fluid barrier) and the pocket's +X edge stays 1.5 mm clear of the
@@ -314,8 +314,8 @@ vent_position_z = 32.5
 # horizontally for two-part assembly. Geometry below leaves that
 # decision to the next pass.
 #
-port_position_x = _shell_reservoir_bulkhead_port_x  # derived in _foam_bag_geometry.py from bag_pocket_far_inner_x − reservoir_clearance − reservoir_floor_thickness − bulkhead_pocket_diameter/2 − 1.5; 88.0 at the current 2 mm shell wall, leaving 1.5 mm of PETG between the pocket's +X edge and the cavity's inner +X face. The matching foam-shell pass-through hole reads the same constant, so the two cannot drift apart on future wall-thickness changes.
-port_position_y = _shell_reservoir_bulkhead_port_y  # derived in _foam_bag_geometry.py; 18.0 at the current 2 mm shell wall, placing the flange chamber's curved bottom exactly on top of the 4 mm outer floor (4 mm of PETG below the chamber as a fluid barrier). The matching foam-shell pass-through hole reads the same constant, so the two cannot drift apart on future wall-thickness changes.
+port_position_x = _shell_reservoir_bulkhead_port_x  # derived in _foam_shell_geometry.py from bag_pocket_far_inner_x − reservoir_clearance − reservoir_floor_thickness − bulkhead_pocket_diameter/2 − 1.5; 88.0 at the current 2 mm shell wall, leaving 1.5 mm of PETG between the pocket's +X edge and the cavity's inner +X face. The matching foam-shell pass-through hole reads the same constant, so the two cannot drift apart on future wall-thickness changes.
+port_position_y = _shell_reservoir_bulkhead_port_y  # derived in _foam_shell_geometry.py; 18.0 at the current 2 mm shell wall, placing the flange chamber's curved bottom exactly on top of the 4 mm outer floor (4 mm of PETG below the chamber as a fluid barrier). The matching foam-shell pass-through hole reads the same constant, so the two cannot drift apart on future wall-thickness changes.
 port_tube_diameter = 6.5                # 1/4" OD tube clearance
 #
 # The pocket is a STEPPED cavity matching the bulkhead's body
@@ -331,7 +331,7 @@ port_tube_diameter = 6.5                # 1/4" OD tube clearance
 # 3–5 mm panel range). Adjust if a caliper measurement of the part
 # in hand disagrees.
 #
-bulkhead_pocket_diameter = _shell_bulkhead_pocket_diameter  # 23.0 — ø22.9 flange + 0.1 clearance (snug fit). Imported from `_foam_bag_geometry.py` because that module derives `reservoir_bulkhead_port_y` (the Y of the foam-shell pass-through hole) from this diameter.
+bulkhead_pocket_diameter = _shell_bulkhead_pocket_diameter  # 23.0 — ø22.9 flange + 0.1 clearance (snug fit). Imported from `_foam_shell_geometry.py` because that module derives `reservoir_bulkhead_port_y` (the Y of the foam-shell pass-through hole) from this diameter.
 bulkhead_panel_hole_diameter = 17.0     # JG catalog spec for the 1/4" body family (0.67")
 #
 # The bulkhead body's wet side is *stepped* along its axis (flange,
