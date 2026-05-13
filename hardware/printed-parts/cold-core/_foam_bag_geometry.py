@@ -291,13 +291,17 @@ tank_copper_shell_open_z = 60.0
 #
 #
 def build_tank_copper_shell():
-
+    # Cylindrical wall traced as an annulus (outer R, inner R−wall) and
+    # extruded in Y.  No floor or ceiling: the outer_shell's −Y closed
+    # face already provides the floor across the full assembly
+    # footprint (so the cylinder's footprint is buried inside it), and
+    # the +Y end is the open top where the foam cap mates.
     shell = (
         cq.Workplane(xz_plane_y_up)
         .circle(tank_copper_shell_radius)
+        .circle(tank_copper_shell_radius - wall_and_floor_thickness)
         .extrude(tank_copper_shell_height)
     )
-    shell = shell.faces(">Y").shell(-wall_and_floor_thickness)
     # Cut the cylindrical wall off above z = +tank_copper_shell_open_z
     # and below z = −tank_copper_shell_open_z, so the wall no longer
     # wraps all the way around at +Z and −Z.
