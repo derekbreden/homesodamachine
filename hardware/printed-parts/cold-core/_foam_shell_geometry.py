@@ -1,10 +1,7 @@
 """Shared geometry for the foam shell and the foam-cap stack. Imported
 by the two sibling generators (foam-shell/, foam-cap/), each of which
 writes the STEPs for its own folder. Constants and build functions live
-here so both generators produce a coherent set of mating parts. (File
-and function names still carry the "foam_bag" prefix from when
-reservoirs were flexible bags — left as-is to avoid a sweeping rename;
-only the visible part name has moved to "foam-shell".)"""
+here so both generators produce a coherent set of mating parts."""
 
 import math
 import cadquery as cq
@@ -103,7 +100,7 @@ bulkhead_pocket_diameter = 23.0
 #
 # Y of the reservoir's outlet-bulkhead axis, AND of the matching
 # pass-through hole in the foam shell's bag-pocket wall (cut in
-# `punch_a_bag_pocket_shell_hole` below). Derived parametrically
+# `cut_circular_port_holes` below). Derived parametrically
 # so the two values cannot drift on future wall-thickness changes:
 #   outer_floor_bottom_y of the reservoir = bag_pocket_floor_top_y + reservoir_clearance
 #   + reservoir_floor_thickness puts the inner floor top at the chamber's lower extent
@@ -121,7 +118,7 @@ reservoir_bulkhead_port_y = (
 #
 # |X| of the reservoir's outlet-bulkhead axis, AND of the matching
 # pass-through hole in the foam shell's bag-pocket +Z wall (cut in
-# `punch_a_bag_pocket_shell_hole` below). Sign flips with the
+# `cut_circular_port_holes` below). Sign flips with the
 # reservoir side. Derived from the reservoir-side geometry because the
 # bulkhead pocket (⌀23, axis along +Z) imposes the tighter X
 # constraint: at the foam-shell side the +Z wall has plenty of X
@@ -732,12 +729,12 @@ CIRCULAR_PORT_HOLES = [
     (-reservoir_bulkhead_port_x, reservoir_bulkhead_port_y,                          bag_pocket_width / 2 - 10),
 ]
 
-def cut_circular_port_holes(foam_bag_shell):
+def cut_circular_port_holes(foam_shell):
     for (x, y, z) in CIRCULAR_PORT_HOLES:
-        foam_bag_shell = foam_bag_shell.cut(build_a_hole_punch(origin=(x, y, z)))
-    return foam_bag_shell
+        foam_shell = foam_shell.cut(build_a_hole_punch(origin=(x, y, z)))
+    return foam_shell
 
-def cut_slot_for_copper_and_water_inlet(foam_bag_shell):
+def cut_slot_for_copper_and_water_inlet(foam_shell):
     """Single Y-elongated slot through the outer_shell +Z wall, shared by
     the two copper plugs (low and high) and the water-inlet plug. X width
     is 6.5 mm (rounded slot ends), matching the ⌀6.5 of the original
@@ -764,7 +761,7 @@ def cut_slot_for_copper_and_water_inlet(foam_bag_shell):
         slot_length=slot_length,
         slot_diameter=slot_diameter,
     )
-    return foam_bag_shell.cut(slot_punch)
+    return foam_shell.cut(slot_punch)
 
 # ═══════════════════════════════════════════════════════
 # TOP-LEVEL ASSEMBLY
@@ -772,13 +769,13 @@ def cut_slot_for_copper_and_water_inlet(foam_bag_shell):
 
 def build_full_shell():
     """Assemble the foam shell and cut all its port holes."""
-    foam_bag_shell = (
+    foam_shell = (
         build_tank_and_bag_pocket_walls()
         .union(build_tank_support_ring())
         .union(build_outer_shell())
     )
-    foam_bag_shell = cut_circular_port_holes(foam_bag_shell)
-    foam_bag_shell = cut_slot_for_copper_and_water_inlet(foam_bag_shell)
-    return foam_bag_shell
+    foam_shell = cut_circular_port_holes(foam_shell)
+    foam_shell = cut_slot_for_copper_and_water_inlet(foam_shell)
+    return foam_shell
 
 

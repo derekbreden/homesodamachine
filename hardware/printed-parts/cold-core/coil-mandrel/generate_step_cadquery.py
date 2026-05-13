@@ -116,7 +116,7 @@ WALL_MM = 5.0
 # ═══════════════════════════════════════════════════════
 
 # Plug positions in foam-shell coords (Y is the cylinder axis).
-# From hardware/printed-parts/cold-core/_foam_bag_geometry.py
+# From hardware/printed-parts/cold-core/_foam_shell_geometry.py
 # cut_slit_and_build_plug_for_copper_inlet:
 #   inlet  (which=0): origin (-30, 46.0,  20)
 #   outlet (which=1): origin ( 30, 166.4, 20)
