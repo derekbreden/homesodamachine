@@ -709,15 +709,15 @@ def build_a_slot_punch(
 
 # All circular port holes through the foam shell: Z-axis ⌀6.5 × 40 mm
 # cylindrical cuts, starting at the given z and extending in +Z.
+#   - co2_inlet:               −Z support arch only; back wall now solid
+#                              (CO2 enters from the top through the foam cap)
 #   - water_outlet:            outer +Z wall
 #   - reservoir_bulkhead_±X:   bag-pocket +Z wall (and outer +Z wall;
 #     the bulkhead body sits in the bag-pocket wall, the dry-side tube
 #     exits through the outer wall along the same axis)
-# Note: co2_inlet was previously here as a Z-axis cut through the outer
-# −Z wall. It now enters from the top (Y-axis) and pierces only the −Z
-# support arch; see `cut_co2_inlet` below.
 CIRCULAR_PORT_HOLES = [
     # (x, y, z)
+    (0,                          hole_shift_from_edge + wall_and_floor_thickness,   -(tank_copper_shell_radius - wall_and_floor_thickness)),
     (0,                          hole_shift_from_edge + wall_and_floor_thickness,    tank_copper_shell_radius - 20),
     (+reservoir_bulkhead_port_x, reservoir_bulkhead_port_y,                          bag_pocket_width / 2 - 10),
     (-reservoir_bulkhead_port_x, reservoir_bulkhead_port_y,                          bag_pocket_width / 2 - 10),
@@ -741,28 +741,6 @@ def build_a_y_axis_hole_punch(
         .workplane(origin=origin, offset=origin[1])
         .circle(hole_punch_radius)
         .extrude(hole_punch_height)
-    )
-
-def cut_co2_inlet(foam_shell):
-    """Y-axis ⌀6.5 × 40 mm cylindrical cut that enters the foam shell from
-    the top and pierces only the −Z segment of the tank_support_ring (the
-    60°-wide arch at the −Z cardinal direction, sitting at y=2..32 and
-    z=−70.5..−61.5).
-
-    The hole's X/Z location places it symmetrically about the −Z support
-    arch and the (now-unpierced) outer −Z wall: at x=0 and z equal to the
-    midpoint of the two radial midpoints (back-wall radial midpoint and
-    arch radial midpoint). The hole is cut from y=0 up through y=40,
-    fully traversing the arch material at y=2..32."""
-    R_back_outer  = tank_copper_shell_radius                                     # 72.5
-    R_back_inner  = tank_copper_shell_radius - wall_and_floor_thickness          # 70.5
-    R_arch_outer  = R_back_inner                                                  # 70.5
-    R_arch_inner  = R_arch_outer - 9                                              # 61.5
-    z_back_mid    = -(R_back_outer + R_back_inner) / 2                           # −71.5
-    z_arch_mid    = -(R_arch_outer + R_arch_inner) / 2                           # −66.0
-    co2_inlet_z   = (z_back_mid + z_arch_mid) / 2                                # −68.75
-    return foam_shell.cut(
-        build_a_y_axis_hole_punch(origin=(0, 0, co2_inlet_z))
     )
 
 def cut_slot_for_copper_and_water_inlet(foam_shell):
@@ -807,7 +785,6 @@ def build_full_shell():
     )
     foam_shell = cut_circular_port_holes(foam_shell)
     foam_shell = cut_slot_for_copper_and_water_inlet(foam_shell)
-    foam_shell = cut_co2_inlet(foam_shell)
     return foam_shell
 
 

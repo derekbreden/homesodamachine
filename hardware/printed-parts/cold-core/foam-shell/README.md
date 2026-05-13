@@ -529,23 +529,25 @@ shift that needs a deliberate explanation:
 
 | metric | value |
 |---|---|
-| volume   | **947611.329082 mm³** |
+| volume   | **948199.817081 mm³** |
 | bbox x   | [−125.500, +125.500] mm |
 | bbox y   | [0.000, 213.400] mm |
 | bbox z   | [−90.500, +90.500] mm |
-| centroid | (0.000006, 90.424212, −0.195545) mm |
+| centroid | (0.000006, 90.377558, −0.238469) mm |
 
 Captured after the CO2 inlet was moved from the outer −Z back wall
-(Z-axis hole) to the top of the −Z support arch (Y-axis hole at
-x=0, z=−68.75). Volume immediately prior was 948133.878562 mm³
-(commit `24197c3`); the −522.5 mm³ delta is the difference between
-the new Y-axis cylinder cut (a Ø6.5 cylinder through ~32 mm of
-floor + arch material, ~1062 mm³) and the old Z-axis cut (a Ø6.5
-cylinder through ~2 mm of outer back wall + ~9 mm of arch material,
-~365 mm³ at the cylinder cross-section). The earlier baseline at
-951393.752876 mm³ predated the support-ring slot chord-sliver fix.
-Future refactors that introduce a deliberate geometry change should
-update this section in the same commit.
+to the −Z support arch, keeping its original Z-axis horizontal
+orientation but starting at the support arch's outer face (z =
+−(tank_copper_shell_radius − wall_and_floor_thickness) = −70.5 at
+2 mm wall) instead of the original z = −(tank_copper_shell_radius
++ 20) = −92.5. The hole pierces only the −Z support arch (z =
+−70.5..−61.5 at x = 0); the outer −Z back wall is now solid.
+Volume immediately prior to the rework of this hole was
+948133.878562 mm³ (commit `24197c3`, when the hole still started
+at z = −92.5). The earlier baseline at 951393.752876 mm³ predated
+the support-ring slot chord-sliver fix. Future refactors that
+introduce a deliberate geometry change should update this section
+in the same commit.
 
 Quick reproduction:
 
