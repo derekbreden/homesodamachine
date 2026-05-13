@@ -453,6 +453,18 @@ def build_tank_support_wedge():
         ring = ring.cut(slot)
     return ring
 
+# Inner radius of the bag pocket's two far-side corners (where the
+# far wall meets the +Z and −Z walls). Matches the reservoir's outer
+# +X × ±Z fillet so the printed reservoir slides into a snugly-mated
+# pocket. The reservoir's outer fillet is radius 6 mm with its center
+# at (±98, ±64); maintaining the existing 0.5 mm reservoir_clearance
+# uniformly around that arc puts the foam-shell pocket's inner-corner
+# arc at radius 6.5 mm with the same center, so the inner-face
+# tangents (x = ±104.5 along the far wall, z = ±70.5 along the ±Z
+# walls) line up exactly with the surrounding flat-wall inner faces.
+bag_pocket_corner_inner_radius = 6.5
+
+
 def build_a_bag_pocket_shell(side=1):
     """
     Floor + far wall + +Z wall + −Z wall. No centerward (toward-tank)
@@ -464,6 +476,11 @@ def build_a_bag_pocket_shell(side=1):
     air outside — so it isn't earning its 1 mm of PETG. Result: the
     bag cavity opens along its centerward face into the support
     shell's interior, becoming one continuous air volume.
+
+    The two far-side corners (where the far wall meets the ±Z walls)
+    have rounded inner faces matching the reservoir's outer fillet,
+    so the reservoir fits snugly into the pocket. See
+    `bag_pocket_corner_inner_radius` above.
 
     side=+1 builds the +X bag pocket; side=−1 builds the −X side
     (everything mirrored).
@@ -482,35 +499,52 @@ def build_a_bag_pocket_shell(side=1):
         .extrude(wall_and_floor_thickness)
     )
 
-    # Far wall: at the +X face of the +X bag pocket (or the −X face of
-    # the −X bag pocket). Sits 1 mm inside the pocket's outer extent
-    # along the radial-out direction.
-    far_wall = (
+    # Three walls — far + +Z + −Z — built as a single U-shaped 2-D
+    # profile and extruded.  Building all three from one sketch (rather
+    # than as three overlapping slabs) lets us blend the two far-side
+    # inner corners with a `radiusArc` matching the reservoir's outer
+    # +X × ±Z fillet (radius 6 mm), placing the foam-shell pocket's
+    # inner arc at radius 6.5 mm centered on the same fillet center,
+    # which preserves a uniform 0.5 mm reservoir_clearance around the
+    # corner.  Inner walls sit at ±70.5 (z) and side·104.5 (x); outer
+    # walls one wall_and_floor_thickness further out.  All trace
+    # coordinates use absolute magnitudes signed by `side` so side=±1
+    # are mirror images that both traverse CCW in the plane.
+    outer_x_abs        = abs(bag_pocket_x_center) + half_depth                            # 105.5
+    inner_x_abs        = outer_x_abs - wall_and_floor_thickness                            # 104.5
+    centerward_x_abs   = abs(bag_pocket_x_center) - half_depth                            # 70.5
+    inner_z_pos        = half_width - wall_and_floor_thickness                            # 70.5
+    outer_z_pos        = half_width                                                        # 71.5
+    R                  = bag_pocket_corner_inner_radius                                    # 6.5
+
+    walls = (
         cq.Workplane(xz_plane_y_up)
-        .workplane(origin=(
-            bag_pocket_x_center + side * (half_depth - wall_and_floor_thickness / 2),
-            0,
-            0,
-        ))
-        .rect(wall_and_floor_thickness, bag_pocket_width)
+        # outer +Z corner of the far wall (start)
+        .moveTo(side * outer_x_abs, +outer_z_pos)
+        # along outer far wall to the outer −Z corner
+        .lineTo(side * outer_x_abs, -outer_z_pos)
+        # along outer −Z wall toward the centerward end
+        .lineTo(side * centerward_x_abs, -outer_z_pos)
+        # step inward across the −Z wall thickness (its centerward end-face)
+        .lineTo(side * centerward_x_abs, -inner_z_pos)
+        # along inner −Z wall toward the far wall, stopping where the corner arc starts
+        .lineTo(side * (inner_x_abs - R), -inner_z_pos)
+        # rounded inner corner blending −Z wall ↔ far wall
+        .radiusArc((side * inner_x_abs, -(inner_z_pos - R)), -side * R)
+        # along inner far wall up to where the +Z corner arc starts
+        .lineTo(side * inner_x_abs, +(inner_z_pos - R))
+        # rounded inner corner blending far wall ↔ +Z wall
+        .radiusArc((side * (inner_x_abs - R), +inner_z_pos), -side * R)
+        # along inner +Z wall toward the centerward end
+        .lineTo(side * centerward_x_abs, +inner_z_pos)
+        # step outward across the +Z wall thickness (its centerward end-face)
+        .lineTo(side * centerward_x_abs, +outer_z_pos)
+        # close back along outer +Z wall to the start
+        .close()
         .extrude(bag_pocket_height)
     )
 
-    def build_z_wall(z_sign):
-        z_pos = z_sign * (half_width - wall_and_floor_thickness / 2)
-        return (
-            cq.Workplane(xz_plane_y_up)
-            .workplane(origin=(bag_pocket_x_center, 0, z_pos))
-            .rect(bag_pocket_depth, wall_and_floor_thickness)
-            .extrude(bag_pocket_height)
-        )
-
-    return (
-        floor
-        .union(far_wall)
-        .union(build_z_wall(z_sign=1))
-        .union(build_z_wall(z_sign=-1))
-    )
+    return floor.union(walls)
 
 def punch_a_bag_pocket_shell_hole(foam_bag_shell, side=1):
 
