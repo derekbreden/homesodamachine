@@ -755,12 +755,14 @@ def cut_slot_for_copper_and_water_inlet(foam_shell):
     open at ±Z and the bag_pocket_support_shell ±Z walls gapped at x=0,
     the slot pierces only this one wall.
 
-    `slot_y_top` is pushed 10 mm past `tank_copper_shell_height` so the
-    rounded top of the slot is entirely above the wall's top edge — no
-    sliver of material remains at the top of the wall."""
+    `slot_y_top` is pushed `slot_diameter/2` past `tank_copper_shell_
+    height` so the slot2D's rounded top tapers above the wall — the
+    straight (full-width) portion of the slot reaches exactly the
+    wall's top edge, so the wall is fully open at the top with no
+    sliver remaining."""
     slot_diameter = 6.5
     slot_y_bottom = 42.0
-    slot_y_top    = tank_copper_shell_height + 10
+    slot_y_top    = tank_copper_shell_height + slot_diameter / 2
     slot_length   = slot_y_top - slot_y_bottom
     slot_y_center = (slot_y_top + slot_y_bottom) / 2.0
     slot_z_offset = tank_copper_shell_radius - 20
