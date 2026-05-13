@@ -589,7 +589,10 @@ def build_foam_cap():
         .circle(screw_clearance_radius)
         .extrude(foam_cap_height)
     )
-    return cap.union(bosses).cut(clearances)
+    cap = cap.union(bosses).cut(clearances)
+    # Consolidate the multi-cut Compound into a single Solid for clean
+    # STEP export.
+    return cap.union(cap)
 
 def build_foam_cap_lid():
     lid = (
@@ -801,9 +804,3 @@ def build_full_shell():
     return foam_bag_shell
 
 
-def build_foam_cap_solid():
-    """build_foam_cap() returns a shell; unioning with itself converts
-    it into a solid (a CadQuery quirk we'd otherwise have to remember
-    at every call site)."""
-    cap = build_foam_cap()
-    return cap.union(cap)
