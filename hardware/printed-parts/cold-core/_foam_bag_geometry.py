@@ -784,42 +784,6 @@ def build_a_slot_punch(
         .extrude(slot_punch_height)
     )
 
-def build_a_top_open_slot_punch(
-    origin=(0, 0, 0),
-    slot_length=1.0,
-    slot_diameter=6.5,
-    slot_punch_height=40,
-    top_overshoot=1.0,
-):
-    """Y-elongated, Z-extruded slot with a rounded BOTTOM end (semicircle)
-    and a FLAT/RECTANGULAR TOP that extends `top_overshoot` mm beyond the
-    nominal top y of the rounded equivalent. Built as the union of two
-    cuts: the standard rounded `slot2D` cutout (which gives the rounded
-    bottom), plus a rectangle 6.5 mm wide in X stretching from the slot's
-    straight-side top (origin_y + slot_length/2) up to
-    (origin_y + slot_length/2 + slot_diameter/2 + top_overshoot). The
-    union opens the top edge of the wall fully so copper tubes can be
-    dropped in from above."""
-    rounded = build_a_slot_punch(
-        origin=origin,
-        slot_length=slot_length,
-        slot_diameter=slot_diameter,
-        slot_punch_height=slot_punch_height,
-    )
-    # Rectangular top cap. Spans from y = origin_y + slot_length/2
-    # (where the rounded slot's straight side ends) up to
-    # y = origin_y + slot_length/2 + slot_diameter/2 + top_overshoot.
-    straight_top_y = origin[1] + slot_length / 2.0
-    rect_height = slot_diameter / 2.0 + top_overshoot
-    rect_center_y = straight_top_y + rect_height / 2.0
-    rect = (
-        cq.Workplane(xy_plane_z_up)
-        .workplane(origin=(origin[0], rect_center_y, origin[2]), offset=origin[2])
-        .rect(slot_diameter, rect_height)
-        .extrude(slot_punch_height)
-    )
-    return rounded.union(rect)
-
 def cut_hole_for_co2_inlet(foam_bag_shell):
     hole_z_offset = (tank_copper_shell_radius + 20) * -1
     hole_x_offset = 0
@@ -839,36 +803,27 @@ def cut_slot_for_copper_and_water_inlet(foam_bag_shell):
     the two copper plugs (low and high) and the water-inlet plug. X width
     is 6.5 mm (rounded slot ends), matching the ⌀6.5 of the original
     single-port holes; Y span runs from a few mm below the lowest copper
-    plug (y≈46) up to the wall's top edge (y=tank_copper_shell_height),
-    so the slot opens onto the top edge of the +Z wall and plugs can be
-    slid down into it from above. Z-extruded 40 mm starting from
-    z = R − 20 (matching the existing hole_punch convention), which is
-    enough to fully pierce the +Z wall (outer face at z ≈ R + 18).
-    With the cylinder wall now open at ±Z and the bag_pocket_support_
-    shell ±Z walls gapped at x=0, the slot pierces only this one wall.
+    plug (y≈46) up past the wall's top edge so plugs can be slid down
+    into the slot from above. Z-extruded 40 mm starting from z = R − 20
+    (matching the existing hole_punch convention), enough to fully pierce
+    the +Z wall (outer face at z ≈ R + 18). With the cylinder wall now
+    open at ±Z and the bag_pocket_support_shell ±Z walls gapped at x=0,
+    the slot pierces only this one wall.
 
-    The TOP of the slot is rectangular (flat) and extends `slot_top_overshoot`
-    mm beyond the wall's top edge so the wall is fully open at the top
-    — no thin sliver of material remains between the slot arc and the
-    wall's top edge — and copper tubes can be dropped straight in from
-    above. The BOTTOM of the slot remains a semicircle."""
+    `slot_y_top` is pushed 10 mm past `tank_copper_shell_height` so the
+    rounded top of the slot is entirely above the wall's top edge — no
+    sliver of material remains at the top of the wall."""
     slot_diameter = 6.5
-    slot_top_overshoot = 1.0
-    # Define the rounded-bottom slot using the same y_top/y_bottom math as
-    # before; the flat top will then push past slot_y_top by both the
-    # rounded-end half (slot_diameter/2) and slot_top_overshoot so the
-    # wall is fully cleared.
     slot_y_bottom = 42.0
-    slot_y_top    = tank_copper_shell_height
+    slot_y_top    = tank_copper_shell_height + 10
     slot_length   = slot_y_top - slot_y_bottom
     slot_y_center = (slot_y_top + slot_y_bottom) / 2.0
     slot_z_offset = tank_copper_shell_radius - 20
     slot_x_offset = 0
-    slot_punch = build_a_top_open_slot_punch(
+    slot_punch = build_a_slot_punch(
         origin=(slot_x_offset, slot_y_center, slot_z_offset),
         slot_length=slot_length,
         slot_diameter=slot_diameter,
-        top_overshoot=slot_top_overshoot,
     )
     return foam_bag_shell.cut(slot_punch)
 
