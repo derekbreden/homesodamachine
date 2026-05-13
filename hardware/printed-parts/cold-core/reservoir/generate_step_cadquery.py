@@ -300,7 +300,7 @@ vent_position_z = 32.5
 # decision to the next pass.
 #
 port_position_x = 88.0
-port_position_y = 17.0                  # = outer_floor_bottom_y + W + bulkhead_pocket_diameter/2 = 1.5+4+11.5, so the chamber's curved bottom sits exactly on the 4 mm outer-floor PETG layer (4 mm of fluid barrier below the flange chamber)
+port_position_y = 17.0                  # held over from the 1 mm-wall era. Originally derived as outer_floor_bottom_y + W + bulkhead_pocket_diameter/2 = 1.5 + 4 + 11.5, so the flange chamber's curved bottom (y=5.5) sat exactly on the inner floor top, with 4 mm of outer-floor PETG below. With 2 mm walls, outer_floor_bottom_y is now 2.5 and inner_floor_top_y is 6.5, so the chamber's curved bottom (still at 5.5) dips 1 mm into the floor layer and leaves 3 mm of PETG below it.
 port_tube_diameter = 6.5                # 1/4" OD tube clearance
 #
 # The pocket is a STEPPED cavity matching the bulkhead's body
@@ -990,7 +990,7 @@ def build_reservoir_cap(side=1):
     gasket.
 
     Orientation: the cap is a flat lid with a downward-hanging rim.
-    The flat top face (the 3 mm base plate) is what the user sees
+    The flat top face (the 4 mm base plate) is what the user sees
     from above, and is the surface the counterbored screw heads sit
     flush in. The 5 mm-tall × 6 mm-wide perimeter wall ("lip") hangs
     DOWN from the base plate around the gasket joint.
@@ -1002,9 +1002,9 @@ def build_reservoir_cap(side=1):
                       heads recess into; faces up / toward the user)
 
     To visualize the assembled stack, translate the cap up by
-    (reservoir wall top y + gasket thickness) ≈ 213.9 mm. The
-    perimeter-wall bottom face (cap y=0) lands at body y=213.9, the
-    cap's top face (cap y=9) at body y=222.9.
+    (reservoir wall top y + gasket thickness) ≈ 214.9 mm. The
+    perimeter-wall bottom face (cap y=0) lands at body y=214.9, the
+    cap's top face (cap y=9) at body y=223.9.
 
     Six counterbored M3 holes pass through the cap at the same XZ
     positions as the body's insert bosses. ø6 × 4 mm counterbore on
@@ -1126,13 +1126,14 @@ def build_reservoir_cap(side=1):
     # ─────────────────────────────────────────────────────
     # Vent feature
     # ─────────────────────────────────────────────────────
-    # Cap-local y, top→bottom:
-    #   y=8 .. 5.5  filter pocket (ø13.2, holds filter + retaining ring)
-    #   y=5.5 .. 5  remaining 0.5 mm of standard base plate, vent hole ø5 through it
-    #   y=5 .. 3    boss extension below base plate (ø17 outer), vent hole continues
-    #   y=3 .. 1    cylinder shell (ø10 outer, ø5 inner) — wall is entirely slot zone
-    #   y=3 .. 1    four side slots cut through the cylinder walls (full wall height)
-    #   y=1 .. 0    closed brim (ø10) — same OD as the cylinder, no overhang
+    # Cap-local y, top→bottom (with cap_base_thickness=4, cap_wall_height=5,
+    # cap_total_height=9; base plate spans y=5..9, perimeter wall y=0..5):
+    #   y=9 .. 6.5  filter pocket (ø13.2, holds filter + retaining ring)
+    #   y=6.5 .. 5  remaining 1.5 mm of base plate, vent hole ø5 through it
+    #   y=5 .. 4    boss extension below base plate (ø17 outer), vent hole continues
+    #   y=4 .. 2    cylinder shell (ø10 outer, ø5 inner) — wall is entirely slot zone
+    #   y=4 .. 2    four side slots cut through the cylinder walls (full wall height)
+    #   y=2 .. 1    closed brim (ø10) — same OD as the cylinder, no overhang
     vent_x_signed = vent_position_x * side
 
     boss_bottom_y = cap_total_height - _vent_boss_depth                # 3
