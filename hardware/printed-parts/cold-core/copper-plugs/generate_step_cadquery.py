@@ -28,8 +28,9 @@ Three plugs in the stack:
                         outer_shell.
 
 Each plug is a single solid block, 6.5 mm wide in X (matching the
-slot), 3 mm thick in Z (centered on the +Z outer_shell wall — the
-3 mm thickness IS the lateral capture; no separate rails), and
+slot), 4 mm thick in Z (centered on the +Z outer_shell wall, which
+is now 2 mm thick — the plug protrudes 1 mm proud of each wall face;
+the plug body itself IS the lateral capture, no separate rails), and
 extending in Y to fill the gap between (or above) the pass-throughs
 it sits between.
 
@@ -81,11 +82,14 @@ slot_half_width_x = slot_width_x / 2.0
 tube_clearance_diameter = 6.5
 tube_clearance_radius   = tube_clearance_diameter / 2.0
 
-# Z thickness of each plug — a flat 3 mm slab centered on the +Z
-# outer_shell wall, so the plug body itself straddles the wall and
-# captures the plug laterally without separate rails. Per user
-# direction: exactly 3 mm regardless of wall thickness.
-plug_z_thickness = 3.0
+# Z thickness of each plug — a flat 4 mm slab centered on the +Z
+# outer_shell wall (now 2 mm thick), so the plug body itself straddles
+# the wall and captures the plug laterally without separate rails. The
+# 4 mm thickness leaves 1 mm proud of each wall face (1 mm + 2 mm wall
+# + 1 mm = 4 mm). Bumped from 3 mm when the wall grew from 1 mm to 2 mm
+# (commit 8a9ffc0); per user direction the plug wraps the wall with 1 mm
+# proud per face regardless of wall thickness.
+plug_z_thickness = 4.0
 
 # Z range of the +Z outer_shell wall (used only to center the plug
 # slab on the wall — the slab's own thickness, not the wall's, sets
