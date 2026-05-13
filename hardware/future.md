@@ -2,13 +2,17 @@ This file describes the appliance. The [prototype](../README.md) on the counter 
 
 The enclosure is built around a **cold core** at the back: a vertical 5" OD × ~6" tall 316L stainless carbonator vessel, a copper evaporator coil wrapped tight around it, and two flavor reservoirs nested between the inner and outer foam shells where they pre-chill passively to 8–15 °C. Forward of the core sits the compressor, with the diaphragm pump, valve manifold, and peristaltic pump cartridges stacked above it; further forward is the condenser and fan, venting through a grille at the bottom-front. The electronics shelf rides at the top-back behind the rear-panel C14 inlet. The carbonator outlet runs a short insulated path straight up through the countertop to the faucet at the back of the sink. Sections below describe each subsystem in turn, with the cold core read **inside out** and the enclosure read **back to front**.
 
+Companion docs: [`bom.md`](bom.md) (per-unit bill of materials), [`purchases.md`](purchases.md) (every line item with ACQUIRED / ON-ORDER / LIKELY-TO-BUY status), [`handwork.md`](handwork.md) (dev-phase skilled-hand task summary), [`assembly/`](assembly/) (production-procedure docs per subsystem).
+
 **Carbonation subsystem**
+
+Production procedure: [`assembly/pressure-vessel.md`](assembly/pressure-vessel.md).
 
 The carbonator vessel is custom-fabricated from 316L stainless steel and oriented vertically. 316L was chosen over 304 for the wetted pressure boundary because the molybdenum addition gives meaningfully better pitting and crevice-corrosion resistance in the chloride + carbonic-acid environment of long-life carbonated water service; the cost delta on the small per-vessel quantity was acceptable.
 
 The body is a commodity 5" OD × 0.065" wall 316 welded SS round tube (OnlineMetals part #12498, MTRs required), capped at top and bottom with 1/4"-thick laser-cut 316 SS circular plates from SendCutSend (`endcap-circular-2hole.dxf`). Plates are joined to the tube ends with the XLaserlab X1 Pro handheld laser welder. The 1/4" plate is thick enough to direct-tap 1/4" NPT (4.5 turns of engagement) without weld-in bungs.
 
-Working pressure target is 70 PSI minimum with adequate margin: this geometry gives hoop stress of ~2,690 PSI at 70 PSI, a ~7.4× safety factor vs the 20,000 PSI allowable for 316L SS in vessel-grade service. The vessel is hydro-tested to 150 PSI (~2× working pressure) for 30 minutes before service.
+Working pressure target is 70 PSI minimum with adequate margin: this geometry gives hoop stress of ~2,690 PSI at 70 PSI, a ~7.4× safety factor vs the 20,000 PSI allowable for 316L SS in vessel-grade service. The vessel is hydro-tested to 150 PSI (~2× working pressure) for 30 minutes before service — procedure in [`assembly/pressure-vessel.md`](assembly/pressure-vessel.md) step 6.
 
 The vessel has exactly four ports, all 1/4" NPT, hand-tapped directly into the 1/4" end plates. Tap Magic cutting fluid is used on the SS-into-SS tap.
 
@@ -40,6 +44,8 @@ Dispensing is a faucet lever. The carbonated water is already cold, carbonated, 
 
 **Refrigeration subsystem**
 
+Production procedure: [`assembly/refrigerant-loop.md`](assembly/refrigerant-loop.md).
+
 Compressor, condenser + fan, capillary tube, and filter drier are harvested from a countertop ice maker. The evaporator cold plate is discarded and replaced with a custom-wound copper coil around the carbonator tank. Two ice makers purchased for teardown:
 
 - Frigidaire EFIC117-SS (26lb/day) — ASIN B07PCZKG94, $78.70
@@ -55,6 +61,8 @@ Fallback: the RIGID DV1910E (~$600 + 20-30% import tax) is a factory-sealed, pre
 
 
 **Cold core assembly (inside out)**
+
+Production procedure: [`assembly/cold-core.md`](assembly/cold-core.md).
 
 Layer 1: Custom-fabricated 316L SS carbonator vessel, vertical orientation, 5" OD × ~6" tall round tube + 1/4" end plates.
 

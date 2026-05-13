@@ -20,14 +20,22 @@ Hakko station, 60/40 leaded solder, ESD mat — all already in [purchases.md §1
 
 Wind the GOORY 1/4" OD × 0.031" wall ACR copper tubing tight around the vessel OD as the evaporator coil. The 0.031" wall resists kink at the bend radius required around the 5" OD vessel. Single-layer wrap at ~1/8" pitch yields ~22 ft of wrap per vessel + ~2 ft each end for compressor and suction-line tie-ins ([bom.md §5](bom.md)). Bonded to the tank OD with 3M 425 aluminum foil tape — applied as a continuous skin under the coil so the tape spans the tank ↔ coil thermal interface ([future.md](future.md) "Refrigeration subsystem").
 
+See [assembly/refrigerant-loop.md](assembly/refrigerant-loop.md) step 4 for the production-procedure framing.
+
 ## Tap NPT in 316L end caps
 
 Hand-tap 1/4"-18 NPT directly into the 1/4"-thick laser-cut 316L end-cap plates from SendCutSend (`endcap-circular-2hole.dxf`). 2 ports per plate × 2 plates per vessel × 10 vessels of stock = 40 holes. Tap Magic EP-Xtra cutting fluid; Drill America HSS pipe tap; Brown & Sharpe spring-loaded tap guide on the WEN drill press; Drill America DWT adjustable tap wrench for the hand drive. The committed plan for the first hole is [tapping-plan-2026-05-03.md](tapping-plan-2026-05-03.md); the remaining 39 follow once that one proves the fixture and the feel.
+
+See [assembly/pressure-vessel.md](assembly/pressure-vessel.md) step 1 for the production-procedure framing.
 
 ## Weld 316L end caps to 316L tubes
 
 Join the 1/4"-thick 316L end-cap plates to the 5" OD × 0.065" wall 316L tube ends with the XLaserlab X1 Pro handheld laser welder, STARTECHWELD ER316L .030 filler (matches the 316L parent metal — undermatching with 308L would lose the molybdenum across the joint). Top + bottom plates per vessel × 10 vessels of stock. The 1/8" 316L float rod (Tandefio B0CY4DWJFQ, cut to ~6") tack-welds vertically to the inside face of the bottom plate as part of this same operation, before the bottom-plate-to-tube weld closes the vessel ([future.md](future.md) "Level sensing").
 
+See [assembly/pressure-vessel.md](assembly/pressure-vessel.md) steps 2-5 for the production-procedure framing.
+
 ## Pressure-test 316L vessels
 
 Hydro-test each fully welded + tapped vessel to 150 PSI for 30 minutes (~2× the 70 PSI working pressure). Done after tapping and welding are both complete on a given vessel. Beyond the 30-min hydro-test minimum, an in-vessel pressure-test gauge (LIKELY-TO-BUY in [purchases.md](purchases.md)) supports hour-scale leak soaks for catching slow weep before passivation and service.
+
+See [assembly/pressure-vessel.md](assembly/pressure-vessel.md) step 6 for the production-procedure framing, including the rig + criteria + failure-handling gaps still open.
