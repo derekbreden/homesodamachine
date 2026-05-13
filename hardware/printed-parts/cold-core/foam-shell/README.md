@@ -74,20 +74,16 @@ channels: foam falls into the cylinder's open +Y top, into the corner
 pockets at ±Z, and bleeds into the coil zone through the full-height
 ±Z openings.
 
-### tank_support_wedge
+### tank_support_ring
 
-Annular wedge ring sitting inside the lower portion of the
-tank-copper-shell, holding the tank up by its outer rim. The wedge's
-outer face is coincident with the tank-copper-shell's inner wall (at
-R = 69.5).
+Annular ring sitting inside the lower portion of the tank-copper-shell,
+holding the tank up by its outer rim. The ring's outer face is
+coincident with the tank-copper-shell's inner wall (at R = 70.5 at the
+current 2 mm wall thickness); its inner face sits 9 mm inboard at
+R = 61.5. The top face is a flat annular plateau where the tank's
+outer rim rests, 30 mm tall above the floor (y = 2 to y = 32).
 
-The top face of the wedge is a flat annular plateau, **15 mm wide**
-(R = 54.5 to R = 69.5), where the tank's outer rim rests. The inside of
-the wedge has a 45° slope from (R = 69.5, y = 1) up and inward to
-(R = 54.5, y = 16), then continues straight up as a vertical inner face
-to the plateau at y = 31.
-
-Inboard of R = 54.5 (and below the plateau) is open volume — so the
+Inboard of the ring's inner face (R < 61.5) is open volume — so the
 tank's bottom-plate fittings have unobstructed downward space, and pour
 foam fills around them.
 
@@ -360,7 +356,7 @@ is mated to the body.
 Every internal component is installed first:
 
 - Pressure vessel lowered into the cylinder, seated on the
-  `tank_support_wedge`.
+  `tank_support_ring`.
 - Copper evaporator coil hand-wound around the vessel exterior and
   bonded with 3M 425 aluminum foil tape.
 - Reservoirs installed into the two bag pockets.
@@ -423,7 +419,7 @@ This drives several dimension choices:
 - The **bag_pocket_shell** is offset by
   `tank_copper_shell_radius + depth/2 - wall_thickness`, so its inner
   wall coincides with the bag_pocket_support_shell's +X wall.
-- The **tank_support_wedge**'s outer face coincides with the
+- The **tank_support_ring**'s outer face coincides with the
   tank_copper_shell's inner wall.
 - The **tank_copper_shell's curved bridging walls** meet each
   bag_pocket_support_shell ±Z wall along a 2D face (chord-end X

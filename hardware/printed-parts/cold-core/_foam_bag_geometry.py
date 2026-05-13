@@ -53,10 +53,10 @@ tank_copper_shell_height = tank_height + below_tank_elbows_height + above_tank_e
 
 
 # -------------------------------------------------------
-# Tank support wedge
+# Tank support ring
 # -------------------------------------------------------
 #
-tank_support_wedge_height = 30.0
+tank_support_ring_height = 30.0
 #
 # -------------------------------------------------------
 
@@ -479,30 +479,30 @@ def build_bag_pocket_support_shell():
             shell = shell.cut(build_corner_blend_cut(z_sign, x_sign))
     return shell
 
-def build_tank_support_wedge():
-    support_wedge_outer_radius = tank_copper_shell_radius - wall_and_floor_thickness
-    support_wedge_ring_width = 9
-    support_wedge_inner_radius = support_wedge_outer_radius - support_wedge_ring_width
-    support_wedge_bottom_y = wall_and_floor_thickness
+def build_tank_support_ring():
+    support_ring_outer_radius = tank_copper_shell_radius - wall_and_floor_thickness
+    support_ring_width = 9
+    support_ring_inner_radius = support_ring_outer_radius - support_ring_width
+    support_ring_bottom_y = wall_and_floor_thickness
     filled_cylinder = (
         cq.Workplane(xz_plane_y_up)
-        .workplane(offset=support_wedge_bottom_y)
-        .circle(support_wedge_outer_radius)
-        .extrude(tank_support_wedge_height)
+        .workplane(offset=support_ring_bottom_y)
+        .circle(support_ring_outer_radius)
+        .extrude(tank_support_ring_height)
     )
     cut_cylinder = (
         cq.Workplane(xz_plane_y_up)
-        .workplane(offset=support_wedge_bottom_y)
-        .circle(support_wedge_inner_radius)
-        .extrude(tank_support_wedge_height)
+        .workplane(offset=support_ring_bottom_y)
+        .circle(support_ring_inner_radius)
+        .extrude(tank_support_ring_height)
     )
     ring = filled_cylinder.cut(cut_cylinder)
     # Recover ~3% thermal loss from removing the cone: 4 angular slots cut
     # through the ring at 45°/135°/225°/315°, 30° wide each. Leaves four
     # 60° support segments aligned with the cardinal axes.
     slot_radial_margin = 1.0
-    slot_inner_radius = support_wedge_inner_radius - slot_radial_margin
-    slot_outer_radius = support_wedge_outer_radius + slot_radial_margin
+    slot_inner_radius = support_ring_inner_radius - slot_radial_margin
+    slot_outer_radius = support_ring_outer_radius + slot_radial_margin
     slot_half_width = math.radians(15)
     for i in range(4):
         center_angle = math.radians(45 + 90 * i)
@@ -514,9 +514,9 @@ def build_tank_support_wedge():
         p4 = (slot_inner_radius * math.cos(a2), slot_inner_radius * math.sin(a2))
         slot = (
             cq.Workplane(xz_plane_y_up)
-            .workplane(offset=support_wedge_bottom_y)
+            .workplane(offset=support_ring_bottom_y)
             .moveTo(*p1).lineTo(*p2).lineTo(*p3).lineTo(*p4).close()
-            .extrude(tank_support_wedge_height)
+            .extrude(tank_support_ring_height)
         )
         ring = ring.cut(slot)
     return ring
@@ -908,14 +908,14 @@ def cut_slot_for_copper_and_water_inlet(foam_bag_shell):
 def build_full_shell():
     """Assemble the foam shell and cut its three port holes."""
     tank_copper_shell = build_tank_copper_shell()
-    tank_support_wedge = build_tank_support_wedge()
+    tank_support_ring = build_tank_support_ring()
     bag_pocket_support_shell = build_bag_pocket_support_shell()
     bag_pocket_shell = build_a_bag_pocket_shell()
     bag_pocket_shell_2 = build_a_bag_pocket_shell(side=-1)
     outer_shell = build_outer_shell()
     foam_bag_shell = (
         tank_copper_shell
-        .union(tank_support_wedge)
+        .union(tank_support_ring)
         .union(bag_pocket_support_shell)
         .union(bag_pocket_shell)
         .union(bag_pocket_shell_2)
