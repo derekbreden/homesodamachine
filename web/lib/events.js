@@ -1,30 +1,40 @@
-// Server-Sent Events transport for server -> client push.
-// Used by both the dev server (file-change notifications from chokidar) and
-// the production server (deploy-version handshake on connect). EventSource
-// on the client side handles reconnect and gap-recovery for free.
+// WebSocket transport for server -> client push.
 //
-// Wire shape:
-//   On connect, server sends a `hello` event carrying an opaque commit
-//   fingerprint. The client compares the fingerprint across reconnects; a
-//   change means the server restarted with new code and the client should
-//   refetch whatever it's currently displaying.
+// Two consumers:
+//   - Dev server: file-change broadcasts from chokidar (per-save).
+//   - Production server: deploy-version handshake + boot-time hash-diff
+//     replay so a client whose old connection died during the container
+//     swap gets the change list it missed.
 //
-//   Dev passes a constant fingerprint (so dev-server restarts don't trigger
-//   spurious refetches — chokidar handles dev refresh per-file).
-//   Production passes RENDER_GIT_COMMIT (or a boot-time fallback for local
-//   `npm start`).
+// We landed on WebSockets after Server-Sent Events proved unreliable in
+// our setup: Safari kept long-lived EventSources in OPEN readyState
+// after the underlying TCP connection had died (no error, no
+// auto-reconnect), and even when reconnect did fire there was no clean
+// way for the client to notice the "I missed some broadcasts in the
+// disconnect window" case in dev (the commit fingerprint stays "dev"
+// across reconnects). WebSocket auto-reconnect on the client and
+// server-side ping/terminate give us a single observable channel where
+// "the connection is healthy" is easy to define and easy to recover
+// from when it isn't.
+//
+// Wire shape (JSON over text frames):
+//   server -> client:
+//     {type: "hello", commit, time, recent?}          — sent on every connect
+//     {type: "ping", t}                                — every 30s, used as a heartbeat
+//     {type: "files-changed", commit, files: [...]}   — broadcast on file change
+//     {type: "posts-changed", commit, posts: [...]}   — broadcast on post change
+//   client -> server: none (the boot.js client never sends).
+//
+// `recent` snapshot: latest boot-diff result, set by server.js after
+// the production hash-diff completes. Piggy-backed onto every hello so
+// a client that reconnects after a deploy gets the change list its
+// previous connection missed. The client dedupes by recent.commit so a
+// stable connection that already saw the deploy ignores it.
 
-export function mountEvents(app, { commit = "unknown" } = {}) {
-  const subscribers = new Set();
-  // Most-recent boot diff result. Set by server.js after the prod boot
-  // hash diff completes; piggy-backed onto every `hello` payload so a
-  // client that reconnects after a deploy (its previous EventSource was
-  // killed when the old server shut down) gets the change list it would
-  // otherwise have missed. The client dedupes by recent.commit so a
-  // stable connection that already saw the deploy ignores it.
-  //
-  // Snapshot shape: {commit, ts, files?, posts?}. Either or both arrays
-  // may be present; null clears.
+import { WebSocketServer } from "ws";
+
+export function mountEvents(server, { commit = "unknown" } = {}) {
+  const wss = new WebSocketServer({ server, path: "/ws" });
   let recent = null;
 
   function setRecent(snapshot) {
@@ -33,73 +43,75 @@ export function mountEvents(app, { commit = "unknown" } = {}) {
     recent = (hasFiles || hasPosts) ? snapshot : null;
   }
 
-  function send(res, msg) {
+  function send(ws, msg) {
+    if (ws.readyState !== 1) return;
     try {
-      res.write(`data: ${JSON.stringify(msg)}\n\n`);
+      ws.send(JSON.stringify(msg));
     } catch {
-      // res may have closed; the close handler will clean up.
+      // socket may have just closed; the close handler will clean up.
     }
   }
 
   function broadcast(msg) {
-    const payload = `data: ${JSON.stringify(msg)}\n\n`;
-    for (const res of subscribers) {
-      try {
-        res.write(payload);
-      } catch {
-        // ignore; close handler will remove
-      }
+    const payload = JSON.stringify(msg);
+    for (const ws of wss.clients) {
+      if (ws.readyState !== 1) continue;
+      try { ws.send(payload); } catch {}
     }
   }
 
-  app.get("/api/events", (req, res) => {
-    res.setHeader("Content-Type", "text/event-stream");
-    res.setHeader("Cache-Control", "no-cache, no-transform");
-    res.setHeader("Connection", "keep-alive");
-    // Disable proxy buffering on the off chance an nginx-style proxy is in
-    // front of us (Render's edge ignores this header but it doesn't hurt).
-    res.setHeader("X-Accel-Buffering", "no");
-    res.flushHeaders?.();
-    req.socket.setNoDelay(true);
+  wss.on("connection", (ws) => {
+    // isAlive flag drives the ping/pong dead-connection detector below.
+    // Set true on connect, flipped to false before each ping; the pong
+    // handler flips it back to true. If the next ping finds it still
+    // false, the socket is dead and we terminate.
+    ws.isAlive = true;
+    ws.on("pong", () => { ws.isAlive = true; });
 
-    subscribers.add(res);
     const helloMsg = { type: "hello", commit, time: Date.now() };
     if (recent) helloMsg.recent = recent;
-    send(res, helloMsg);
-
-    // Periodic ping every 30s. Two purposes:
-    //   - Comment-style keepalive (`:keepalive\n\n`) defeats idle timeouts
-    //     at intermediate proxies (Render/Cloudflare edge typically idle
-    //     around ~100s for streaming responses).
-    //   - Real `data:` ping fires the client's EventSource message handler
-    //     so client code has an observable heartbeat. Comment lines are
-    //     consumed by the EventSource parser and never reach the page.
-    //     Boot.js uses this to detect Safari's silent-disconnect mode
-    //     (TCP died but readyState stays OPEN) and force a reconnect.
-    const keepalive = setInterval(() => {
-      try {
-        res.write(`:keepalive\n\n`);
-        send(res, { type: "ping", t: Date.now() });
-      } catch {
-        clearInterval(keepalive);
-      }
-    }, 30_000);
-
-    req.on("close", () => {
-      clearInterval(keepalive);
-      subscribers.delete(res);
-    });
+    send(ws, helloMsg);
   });
+
+  // Heartbeat. Every 30 seconds:
+  //   1. Send a ping frame at the protocol level (the browser auto-pongs;
+  //      ws.isAlive is set true on pong receipt above).
+  //   2. Send a {type:"ping"} data frame so the client's onmessage handler
+  //      can also observe a heartbeat — handy as a freshness check on
+  //      visibility-change for boot.js. (Belt and suspenders; the
+  //      protocol-level ping is the primary liveness signal.)
+  //   3. If ws.isAlive is still false from the previous round (no pong
+  //      came back), terminate the socket — the client's WebSocket will
+  //      see a close event and reconnect.
+  const heartbeat = setInterval(() => {
+    for (const ws of wss.clients) {
+      if (ws.isAlive === false) {
+        try { ws.terminate(); } catch {}
+        continue;
+      }
+      ws.isAlive = false;
+      try {
+        ws.ping();
+        send(ws, { type: "ping", t: Date.now() });
+      } catch {}
+    }
+  }, 30_000);
+  // Don't keep the Node event loop alive just for the heartbeat —
+  // server.close() in tests can hang otherwise. The heartbeat only
+  // exists to detect dead clients on an already-running server.
+  heartbeat.unref?.();
+
+  wss.on("close", () => clearInterval(heartbeat));
 
   // On graceful shutdown (Render sends SIGTERM before SIGKILL on deploy),
-  // close all SSE connections immediately so clients reconnect to the new
-  // container without waiting for the TCP RST when the process is killed.
+  // close all WebSocket connections immediately so clients reconnect to
+  // the new container without waiting for TCP RST when the process is
+  // killed.
   process.on("SIGTERM", () => {
-    for (const res of subscribers) {
-      try { res.end(); } catch {}
+    for (const ws of wss.clients) {
+      try { ws.close(1001, "shutdown"); } catch {}
     }
-    subscribers.clear();
   });
 
-  return { broadcast, setRecent, subscribers };
+  return { broadcast, setRecent, wss };
 }
