@@ -70,6 +70,7 @@ top_flange_outer), so the flanges don't block tubes from seating.
                  (it's the top end of the stack).
 """
 
+import math
 import sys
 from pathlib import Path
 
@@ -165,6 +166,33 @@ plug_arch_ends = {
     "upper":  {"bottom": True,  "top": False},
 }
 
+# Razor-edge mitigation for the web at each arched plug end.
+# ----------------------------------------------------------
+# The arch's half-disc (radius = tube_clearance_radius) is tangent to
+# the web's outer X edge at (x = ±slot_half_width_x, y = at_y).  For
+# Y just inside the plug from the arch center, the web survives as a
+# sliver of width (slot_half_width_x − sqrt(R² − (y−at_y)²)).  That
+# sliver narrows to zero at y = at_y, which is a razor-thin edge that
+# FDM printers can't resolve.
+#
+# Solution: don't print web where its sliver is thinner than
+# `min_printable_thickness` mm.  The web's Y range is inset from each
+# arched plug end by `web_arch_buffer`, the Y distance at which the
+# arch's X reach has narrowed enough for the web's outer-X sliver to
+# be exactly `min_printable_thickness` wide.  At the inset Y the web
+# starts abruptly with two 1 mm-wide strips at x = ±(slot_half −
+# 1)..±slot_half; both strips grow toward full ±slot_half_width_x
+# width as Y moves further from the arch center.  Flanges are
+# unchanged — their 1 mm-thick × 1 mm-wide tabs at x = ±slot_half..
+# ±plug_half_x_outer were already at the print-resolution limit at the
+# arch tangent and don't get thinner.
+min_printable_thickness = 1.0
+web_arch_buffer = math.sqrt(
+    tube_clearance_radius ** 2
+    - (slot_half_width_x - min_printable_thickness) ** 2
+)  # ≈ 2.345 mm with tube_clearance_radius = slot_half_width_x = 3.25,
+   # min_printable_thickness = 1.0
+
 
 # ───────────────────────────────────────────────────────
 # Plug builder
@@ -230,11 +258,20 @@ def build_plug(name, y_bottom, y_top):
     they pass through both flanges and the web."""
     y_height = y_top - y_bottom
 
-    plug = _build_web(y_bottom, y_height)
+    arches = plug_arch_ends[name]
+
+    # Web Y range is inset from each arched plug end by
+    # `web_arch_buffer`, so the web only exists where its outer-X
+    # sliver is at least `min_printable_thickness` mm wide.  See the
+    # razor-edge note above.  Flanges run the full plug Y range
+    # regardless.
+    web_y_bottom = y_bottom + (web_arch_buffer if arches["bottom"] else 0)
+    web_y_top    = y_top    - (web_arch_buffer if arches["top"]    else 0)
+    web_y_height = web_y_top - web_y_bottom
+
+    plug = _build_web(web_y_bottom, web_y_height)
     for z_side in ("top", "bottom"):
         plug = plug.union(_build_flange(z_side, y_bottom, y_height))
-
-    arches = plug_arch_ends[name]
 
     # Half-circle cutouts. The arch is a cylinder (radius =
     # tube_clearance_radius, axis along Z so it pierces the slab face-
@@ -274,37 +311,39 @@ def _analytical_volume(name, y_bottom, y_top):
     wall_outer+1, bottom flange at wall_inner-1..wall_inner), so no
     overlap term is needed — their volumes simply add.
 
-    Per-mm-of-Y at 2 mm wall:
-      web         = slot_width_x × wall_and_floor_thickness = 13 mm²
-      top flange  = plug_full_x  × rail_z_thickness         =  8.5 mm²
-      bot flange  = plug_full_x  × rail_z_thickness         =  8.5 mm²
-      total                                                 = 30 mm² × y_height
+    Flange Y range = plug Y range (full y_height).  Web Y range is
+    inset by `web_arch_buffer` at each arched end (razor-edge fix);
+    `web_y_height = y_height − n_arched_ends × web_arch_buffer`.
 
-    Arch cutout per end: a cylinder of radius tube_clearance_radius
-    (3.25) and axis along Z, centered on x=0 at the plug's end Y.
-    Since tube_clearance_radius == slot_half_width_x exactly, the
-    cylinder's footprint in XY is the disk |(x, Δy)| ≤ r, which has
-    its full |x| ≤ slot_half_width_x range INSIDE the web's X span.
-    So at every (x, y) in the half-disk that overlaps the plug body,
-    the plug stack in Z is contiguous (bottom flange + web + top
-    flange = plug_z_thickness, no gaps inside |x| ≤ slot_half).
-
-    Volume per arched end:
-      vol_arch_per_end = plug_z_thickness × half_disk_area
-                       = plug_z_thickness × (π × r²) / 2
+    Arch cutout per arched end: a Z-axis cylinder of radius
+    tube_clearance_radius centered at (x=0, y=at_y).  The cut volume
+    splits across the three Z bands:
+      • Each flange (full Y range): half-disc × rail_z_thickness
+      • Web (Y range only past the buffer): (half-disc − buffer cap)
+        × wall_and_floor_thickness, where buffer cap is the area of
+        the half-disc from y=at_y to y=at_y+web_arch_buffer.
     """
     y_height = y_top - y_bottom
-    import math as _math
-
-    vol_web        = slot_width_x * wall_and_floor_thickness * y_height
-    vol_top_flange = plug_full_x  * rail_z_thickness         * y_height
-    vol_bot_flange = plug_full_x  * rail_z_thickness         * y_height
 
     arches = plug_arch_ends[name]
     n_arches = sum(1 for v in arches.values() if v)
+
+    web_y_height   = y_height - n_arches * web_arch_buffer
+    vol_web        = slot_width_x * wall_and_floor_thickness * web_y_height
+    vol_top_flange = plug_full_x  * rail_z_thickness         * y_height
+    vol_bot_flange = plug_full_x  * rail_z_thickness         * y_height
+
     r = tube_clearance_radius
-    half_disk_area = 0.5 * _math.pi * r ** 2
-    vol_arch_per_end = plug_z_thickness * half_disk_area
+    b = web_arch_buffer
+    half_disc_area  = 0.5 * math.pi * r ** 2
+    # Area of the half-disc from y=0 to y=b (the "buffer cap" near
+    # the diameter — where the web is absent in the new design).
+    buffer_cap_area = b * math.sqrt(r ** 2 - b ** 2) + r ** 2 * math.asin(b / r)
+    web_in_arch_area = half_disc_area - buffer_cap_area
+    vol_arch_per_end = (
+        2 * rail_z_thickness * half_disc_area
+        + wall_and_floor_thickness * web_in_arch_area
+    )
     vol_arch_total = n_arches * vol_arch_per_end
 
     return vol_web + vol_top_flange + vol_bot_flange - vol_arch_total
