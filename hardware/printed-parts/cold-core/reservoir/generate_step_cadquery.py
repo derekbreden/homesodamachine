@@ -278,6 +278,50 @@ vent_position_z = 32.5
 
 
 # -------------------------------------------------------
+# Level-sensing strut
+# -------------------------------------------------------
+#
+# A vertical solid PETG cylinder unioned into the cap, hanging down
+# into the cavity. A small magnetic float slides up and down the
+# strut as the syrup level changes; ten reed switches mounted
+# outside the bag_pocket_shell's far +X wall (foam-encapsulated
+# during the body foam pour) detect the float's position for level
+# sensing. Same architecture as the carbonator's existing reed+float
+# level sensing (see `hardware/future.md` "Level sensing"), just
+# extended to 10 reeds per reservoir for finer granularity.
+#
+# Position: at (x = ±STRUT_POSITION_X, z = 0) in the reservoir
+# coordinate frame — x sign follows `side`. Chosen to:
+#   - keep ~1.5 mm clear of body bosses #3 (x=98) and #6 (x=78) at
+#     z=0 (boss radius 6, strut radius 2.5; gap 98-88-6-2.5 = 1.5
+#     on the +X side, 88-78-6-2.5 = 1.5 on the centerward side),
+#   - sit well inside the cavity (centerward inner curve at x≈77 at
+#     z=0, far inner face at x=101),
+#   - share x with the bulkhead port but live at z=0, outside the
+#     bulkhead pocket's z range (28..64) so the two don't interact,
+#   - keep ~21 mm clear of the vent boss (boss outer ø17.2 centered
+#     at x=85, z=32.5; strut ±2.5 around z=0 is well below the
+#     boss's z=23.9 edge).
+#
+# Length: 185 mm extending DOWN from the cap's bottom face (cap-local
+# y=0). In the assembled stack (cap-local y=0 ↔ reservoir y ≈ 213.9
+# after the 2 mm gasket above the wall top at y=211.9), the strut
+# tip lands at reservoir y ≈ 29 — about 10 mm above the wet-slope
+# max at z=0 (slope crests near y=20 at z=0) so the float never
+# bottoms out into the slope.
+#
+# Printed as ONE piece with the cap (union into build_reservoir_cap),
+# so the assembly is two PETG prints + one TPU gasket + one TPU
+# retaining ring per side, unchanged.
+#
+STRUT_POSITION_X = 88.0       # |x| of the strut centerline; mirrors with `side`
+STRUT_DIAMETER = 5.0          # solid PETG cylinder OD
+STRUT_LENGTH = 185.0          # cap-local y span: y = −STRUT_LENGTH .. 0
+#
+# -------------------------------------------------------
+
+
+# -------------------------------------------------------
 # Outlet bulkhead pocket + sloped floor
 # -------------------------------------------------------
 #
@@ -1224,6 +1268,33 @@ def build_reservoir_cap(side=1):
             .extrude(-(vent_cylinder_wall_thickness + 1.0))
         )
         cap = cap.cut(slot_cut)
+
+    # ─────────────────────────────────────────────────────
+    # Level-sensing strut
+    # ─────────────────────────────────────────────────────
+    # Solid PETG cylinder hanging straight down from the cap's bottom
+    # face into the cavity, acting as a guide rod for a magnetic float
+    # that rides up and down with the syrup level. External reed
+    # switches outside the bag-pocket far +X wall (foam-encapsulated
+    # during the body foam pour) detect the float's position — see the
+    # constants block above and `hardware/future.md` "Level sensing".
+    #
+    # Added LAST in build_reservoir_cap, after every existing feature
+    # (vent boss, screw bosses, counterbores), so the new cylinder
+    # geometry cannot perturb any earlier edge/face selector.
+    #
+    # The workplane sits at the strut's BOTTOM (cap-local y =
+    # −STRUT_LENGTH) and extrudes upward by STRUT_LENGTH to land
+    # exactly at cap y=0 — same negative-y origin pattern the vent
+    # boss extension, cylinder shell, and brim use to hang below the
+    # cap's bottom face.
+    strut_x_signed = STRUT_POSITION_X * side
+    strut = (
+        _wp_at(strut_x_signed, -STRUT_LENGTH, 0.0)
+        .circle(STRUT_DIAMETER / 2.0)
+        .extrude(STRUT_LENGTH)
+    )
+    cap = cap.union(strut)
 
     return cap
 
