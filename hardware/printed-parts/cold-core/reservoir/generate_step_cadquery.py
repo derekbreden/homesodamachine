@@ -661,10 +661,29 @@ def build_reservoir_body(side=1):
     across x = 0).
     """
     # Outer envelope dimensions.
+    #
+    # The reservoir-body's outer_top_y must leave room above for the
+    # full body-cap stack (TPU gasket + PETG cap), with reservoir_
+    # clearance to spare against the bag-pocket wall top.  Stack from
+    # the body's top face upward, in order:
+    #   body wall top         y = outer_top_y
+    #   gasket                + gasket_thickness        (2 mm)
+    #   cap perimeter rim     + cap_wall_height         (5 mm)
+    #   cap base plate        + cap_base_thickness      (4 mm)
+    #   reservoir_clearance   + reservoir_clearance     (0.5 mm)
+    #   bag-pocket wall top   = bag_pocket_walls_top_y  (= foam-shell wall top)
+    # so outer_top_y = bag_pocket_walls_top_y − reservoir_clearance −
+    # (gasket_thickness + cap_wall_height + cap_base_thickness).
+    #
+    # At 2 mm foam-shell wall thickness this resolves to 213.4 − 0.5 −
+    # (2 + 5 + 4) = 201.9, leaving the cap's top face flush at
+    # y = 212.9 (0.5 mm clear of the bag-pocket wall top).  The
+    # body alone is 201.9 − 2.5 = 199.4 mm tall.
+    cap_stack_above_body = gasket_thickness + cap_wall_height + cap_base_thickness
     outer_far_x_abs = bag_pocket_far_inner_x - reservoir_clearance
     outer_z_max = bag_pocket_z_inner_max - reservoir_clearance
     outer_floor_bottom_y = bag_pocket_floor_top_y + reservoir_clearance
-    outer_top_y = bag_pocket_walls_top_y - reservoir_clearance
+    outer_top_y = bag_pocket_walls_top_y - reservoir_clearance - cap_stack_above_body
     outer_centerward_radius = tank_copper_shell_outer_radius + reservoir_clearance
     outer_height = outer_top_y - outer_floor_bottom_y
 
