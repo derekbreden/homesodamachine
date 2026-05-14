@@ -138,20 +138,22 @@ y_lowest_copper  = hole_shift_from_edge + wall_and_floor_thickness + below_tank_
 y_highest_copper = tank_copper_shell_height - hole_shift_from_edge - wall_and_floor_thickness - above_tank_elbows_height
 y_water_inlet    = tank_copper_shell_height - hole_shift_from_edge
 
-# Pass-through clearance in Y: each pass-through is ⌀6.5, so its
-# center-to-edge clearance is tube_clearance_radius. Plug ends sit at
-# the pass-through edge; a small extra gap prevents the plug from
-# fouling the tube as the plug slides past.
-pass_through_clearance = tube_clearance_radius + 0.5
-
-# Plug Y ranges:
-#   lower:  above lowest copper, below highest copper
-#   middle: above highest copper, below water inlet
-#   upper:  above water inlet, up to (just under) the +Y top face
+# Plug end faces meet AT the tube pass-through centers. The arch
+# cutout at each tube-facing end (radius = tube_clearance_radius)
+# accommodates exactly HALF of the adjacent tube: each tube sits with
+# its upper half seated inside the plug ABOVE it (in that plug's
+# bottom arch) and its lower half seated inside the plug BELOW it
+# (in that plug's top arch).  Together, three plugs + three split-
+# arch pairs fill the slot from y_lowest_copper to the wall top
+# exactly — no linear gaps between plugs, the tube IS the gap.
+#
+# The upper plug's top face is flush with the wall top (y =
+# tank_copper_shell_height); the upper plug has no top arch since
+# nothing sits above it.
 plug_y_ranges = {
-    "lower":  (y_lowest_copper  + pass_through_clearance, y_highest_copper - pass_through_clearance),
-    "middle": (y_highest_copper + pass_through_clearance, y_water_inlet    - pass_through_clearance),
-    "upper":  (y_water_inlet    + pass_through_clearance, tank_copper_shell_height - wall_and_floor_thickness),
+    "lower":  (y_lowest_copper,  y_highest_copper),
+    "middle": (y_highest_copper, y_water_inlet),
+    "upper":  (y_water_inlet,    tank_copper_shell_height),
 }
 
 # Which plug ends get a half-circle arch cutout (sits against a tube).
