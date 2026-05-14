@@ -64,10 +64,16 @@ tank_support_ring_height = 30.0
 #
 # bag_pocket_width tracks tank_copper_shell_radius so the bag-pocket Z
 # interior cavity (= width − 2 × wall = 141 mm) matches the cylinder's
-# Z extent.  bag_pocket_depth gives an X interior cavity of 33 mm
-# (= depth − 2 × wall).
+# Z extent.  bag_pocket_depth gives an X interior cavity of 42 mm
+# (= depth − 2 × wall) — sized so each reservoir holds ≥ 1 L of
+# usable fluid (cavity volume after subtracting strut + wedge + panel
+# housing + dry-section vent + bulkhead-body displacement).  Each
+# additional mm of X interior adds ~23.6 mL of usable fluid; the
+# baseline 33 mm interior cleared 791.6 mL, so 42 mm clears ~1004 mL
+# per reservoir.  Outer-shell X width grows by 2 × 9 = 18 mm to match
+# (both reservoirs deepen on their ±X sides), 251 mm → 269 mm.
 bag_pocket_width = tank_copper_shell_radius * 2
-bag_pocket_depth = 33 + 2 * wall_and_floor_thickness
+bag_pocket_depth = 42 + 2 * wall_and_floor_thickness
 #
 # Derived bag-pocket inner-face coordinates, exposed for downstream
 # parts (e.g. the printed reservoirs) that must clear the same cavity.
