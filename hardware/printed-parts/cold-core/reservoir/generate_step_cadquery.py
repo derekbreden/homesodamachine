@@ -335,8 +335,9 @@ STRUT_POSITION_X = 88.0       # |x| of the strut centerline; mirrors with `side`
 STRUT_POSITION_Z = -45.0      # z of the strut centerline (does NOT mirror with side); opposite the bulkhead's +Z half, in the wider part of the cavity
 STRUT_DIAMETER = 4.0          # solid PETG cylinder OD; double-anchored so 4 mm is structurally adequate over the ~200 mm length
 STRUT_BOTTOM_Y = 20.0         # reservoir-frame y of the strut's bottom end; the wet slope crests near y≈22.8 at z=-45, so the strut embeds ~2.8 mm into the wedge for a solid PETG bond
-STRUT_REGISTER_DIAMETER = STRUT_DIAMETER + 1.0  # 5 mm — slip-fit pocket in the cap base plate, 0.5 mm radial clearance around the strut tip
-STRUT_REGISTER_DEPTH = 2.0    # depth of the register pocket cut up into the cap base plate (cap-local y=5..7)
+STRUT_BOSS_OD = STRUT_DIAMETER + 4.0     # 8 mm — boss outer diameter (1.5 mm radial wall around the bore)
+STRUT_BOSS_BORE = STRUT_DIAMETER + 1.0   # 5 mm — boss inner bore; 0.5 mm radial clearance for slip-fit on the strut tip
+STRUT_BOSS_HEIGHT = 4.0                  # mm; boss extends DOWN from cap-local y=0 (cap underside) to y=-STRUT_BOSS_HEIGHT. Boss bottom is 2 mm below the strut top at cap-local y=-2, giving 2 mm of axial strut-boss engagement.
 #
 # -------------------------------------------------------
 
@@ -1322,6 +1323,36 @@ def build_reservoir_cap(side=1):
         cap = cap.cut(slot_cut)
 
     # ─────────────────────────────────────────────────────
+    # ─────────────────────────────────────────────────────
+    # Level-sensing strut boss
+    # ─────────────────────────────────────────────────────
+    # Hollow boss hanging DOWN from the cap's underside into the body
+    # cavity. The strut top slides into the boss's bore from below as
+    # the cap is lowered onto the body. The gasket is a perimeter ring
+    # only — at the strut position (cavity interior) there is nothing
+    # between the body wall top and the cap's underside, so the boss
+    # is free to extend below cap-local y=0.
+    #
+    # Boss outer cylinder: solid PETG from cap-local y=-STRUT_BOSS_HEIGHT
+    # up to the base plate at cap-local y=cap_wall_height (=5).
+    # Boss bore: extends from boss bottom up to the base plate's
+    # underside, where the base plate (cap-local y=5..9) closes the
+    # bore from above.
+    strut_x_signed = STRUT_POSITION_X * side
+    boss_outer = (
+        _wp_at(strut_x_signed, -STRUT_BOSS_HEIGHT, STRUT_POSITION_Z)
+        .circle(STRUT_BOSS_OD / 2.0)
+        .extrude(STRUT_BOSS_HEIGHT + cap_wall_height)
+    )
+    cap = cap.union(boss_outer)
+
+    boss_bore = (
+        _wp_at(strut_x_signed, -STRUT_BOSS_HEIGHT - 0.1, STRUT_POSITION_Z)
+        .circle(STRUT_BOSS_BORE / 2.0)
+        .extrude(STRUT_BOSS_HEIGHT + cap_wall_height + 0.1)
+    )
+    cap = cap.cut(boss_bore)
+
     return cap
 
 
