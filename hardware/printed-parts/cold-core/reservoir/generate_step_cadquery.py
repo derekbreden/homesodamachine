@@ -281,42 +281,64 @@ vent_position_z = 32.5
 # Level-sensing strut
 # -------------------------------------------------------
 #
-# A vertical solid PETG cylinder unioned into the cap, hanging down
-# into the cavity. A small magnetic float slides up and down the
-# strut as the syrup level changes; ten reed switches mounted
+# A vertical solid PETG cylinder, body-anchored and cap-registered
+# (NOT cap-cantilever). A small magnetic float slides up and down
+# the strut as the syrup level changes; ten reed switches mounted
 # outside the bag_pocket_shell's far +X wall (foam-encapsulated
 # during the body foam pour) detect the float's position for level
 # sensing. Same architecture as the carbonator's existing reed+float
-# level sensing (see `hardware/future.md` "Level sensing"), just
-# extended to 10 reeds per reservoir for finer granularity.
+# level sensing (see `hardware/future.md` "Level sensing"): rod
+# anchored at one plate, registered at the other — just extended to
+# 10 reeds per reservoir for finer granularity.
+#
+# Architecture:
+#   - The strut is unioned into the BODY (build_reservoir_body),
+#     extending UP from the wet-side wedge.
+#   - The strut is anchored ~0.3 mm INTO the wedge at the wet slope
+#     top (z=0, where the slope crests near y≈20.3). The wedge is
+#     fully fused into the body's PETG mass, giving a solid bond at
+#     the strut's bottom end.
+#   - The strut top is captured by a slip-fit REGISTER POCKET cut
+#     into the cap's base plate from below — 2 mm deep, 0.5 mm
+#     radial clearance (ø5 pocket around the ø4 strut). The pocket
+#     is a downward-opening blind hole, cap-local y = 5..7
+#     (cap_wall_height .. cap_wall_height + STRUT_REGISTER_DEPTH).
+#   - During assembly the cap is lowered onto the body and the
+#     strut tip slides into the register as the cap seats on the
+#     gasket. The strut is doubly anchored: floor-bonded at the
+#     bottom, register-captured at the top.
 #
 # Position: at (x = ±STRUT_POSITION_X, z = 0) in the reservoir
 # coordinate frame — x sign follows `side`. Chosen to:
-#   - keep ~1.5 mm clear of body bosses #3 (x=98) and #6 (x=78) at
-#     z=0 (boss radius 6, strut radius 2.5; gap 98-88-6-2.5 = 1.5
-#     on the +X side, 88-78-6-2.5 = 1.5 on the centerward side),
+#   - keep clear of body bosses #3 (x=98) and #6 (x=78) at z=0
+#     (boss radius 6, strut radius 2.0; ample clearance on both
+#     sides at x=88),
 #   - sit well inside the cavity (centerward inner curve at x≈77 at
 #     z=0, far inner face at x=101),
 #   - share x with the bulkhead port but live at z=0, outside the
 #     bulkhead pocket's z range (28..64) so the two don't interact,
 #   - keep ~21 mm clear of the vent boss (boss outer ø17.2 centered
-#     at x=85, z=32.5; strut ±2.5 around z=0 is well below the
+#     at x=85, z=32.5; strut ±2.0 around z=0 is well below the
 #     boss's z=23.9 edge).
 #
-# Length: 185 mm extending DOWN from the cap's bottom face (cap-local
-# y=0). In the assembled stack (cap-local y=0 ↔ reservoir y ≈ 213.9
-# after the 2 mm gasket above the wall top at y=211.9), the strut
-# tip lands at reservoir y ≈ 29 — about 10 mm above the wet-slope
-# max at z=0 (slope crests near y=20 at z=0) so the float never
-# bottoms out into the slope.
+# STRUT_DIAMETER reduced from 5 mm to 4 mm to match the donor donut's
+# likely hole size. The DEVMO MINI float (Amazon B07T18PGJ4) is
+# already in the BOM for the carbonator, where its center hole rides
+# on the carbonator's 1/8" (3.175 mm) stainless rod. The donut's
+# exact hole diameter isn't documented in this project — a 4 mm
+# strut is much more likely than 5 mm to fit through, while still
+# being structurally adequate for the ~200 mm double-anchored length.
 #
-# Printed as ONE piece with the cap (union into build_reservoir_cap),
-# so the assembly is two PETG prints + one TPU gasket + one TPU
-# retaining ring per side, unchanged.
+# OPEN ITEM: Physically verify the donor donut's hole diameter
+# against this 4 mm strut. If the hole is smaller than 4 mm, the
+# strut OD will need to be reduced to suit; if it's larger (≥5 mm),
+# we could revert toward a stiffer 5 mm strut.
 #
 STRUT_POSITION_X = 88.0       # |x| of the strut centerline; mirrors with `side`
-STRUT_DIAMETER = 5.0          # solid PETG cylinder OD
-STRUT_LENGTH = 185.0          # cap-local y span: y = −STRUT_LENGTH .. 0
+STRUT_DIAMETER = 4.0          # solid PETG cylinder OD — sized for the donor donut's center hole (verify physically); double-anchored so 4 mm is structurally adequate over the ~200 mm length
+STRUT_BOTTOM_Y = 20.0         # reservoir-frame y of the strut's bottom end; the wet slope crests near y≈20.3 at z=0, so the strut embeds ~0.3 mm into the wedge for a solid PETG bond
+STRUT_REGISTER_DIAMETER = STRUT_DIAMETER + 1.0  # 5 mm — slip-fit pocket in the cap base plate, 0.5 mm radial clearance around the strut tip
+STRUT_REGISTER_DEPTH = 2.0    # depth of the register pocket cut up into the cap base plate (cap-local y=5..7)
 #
 # -------------------------------------------------------
 
@@ -1042,6 +1064,44 @@ def build_reservoir_body(side=1):
     # passes through the panel hole and its dry collet projects into
     # the open dry section; the tube push-in is unobstructed.
 
+    # ─────────────────────────────────────────────────────
+    # Level-sensing strut (body-anchored, cap-registered)
+    # ─────────────────────────────────────────────────────
+    # Vertical solid PETG cylinder extending UP from the wet-side
+    # wedge into the cavity, acting as a guide rod for a magnetic
+    # float that rides up and down with the syrup level. The top
+    # end is captured by a slip-fit register pocket in the cap's
+    # base plate (cut in build_reservoir_cap).
+    #
+    # The strut bottom sits at reservoir y=STRUT_BOTTOM_Y (20.0),
+    # which is ~0.3 mm BELOW the wet slope's max at z=0 (slope
+    # crests near y≈20.3 at z=0), so the strut embeds into the
+    # solid wedge PETG for a structural bond at the bottom.
+    #
+    # The strut top lands 1 mm INSIDE the cap's 2 mm-deep register
+    # pocket. In the assembled stack:
+    #   body wall top y = outer_top_y
+    #   gasket top y    = outer_top_y + gasket_thickness
+    #   cap bottom face (cap-local y=0)            ↔ outer_top_y + gasket_thickness
+    #   register pocket opening (cap-local y=5)    ↔ outer_top_y + gasket_thickness  [pocket opens at the cap base plate's bottom face]
+    #   register pocket top (cap-local y=5+2)      ↔ outer_top_y + gasket_thickness + STRUT_REGISTER_DEPTH
+    # So the strut top at outer_top_y + gasket_thickness + 1.0
+    # lands exactly 1 mm inside the 2 mm pocket (1 mm of axial
+    # slop to absorb stack tolerance).
+    #
+    # Added LAST in build_reservoir_body, after every existing
+    # feature (wedge, bulkhead pocket, slab cut, fillets), so the
+    # new cylinder geometry cannot perturb any earlier edge/face
+    # selector.
+    strut_x_signed = STRUT_POSITION_X * side
+    strut_top_y = outer_top_y + gasket_thickness + 1.0
+    strut = (
+        _wp_at(strut_x_signed, STRUT_BOTTOM_Y, 0.0)
+        .circle(STRUT_DIAMETER / 2.0)
+        .extrude(strut_top_y - STRUT_BOTTOM_Y)
+    )
+    body = body.union(strut)
+
     return body
 
 
@@ -1270,31 +1330,31 @@ def build_reservoir_cap(side=1):
         cap = cap.cut(slot_cut)
 
     # ─────────────────────────────────────────────────────
-    # Level-sensing strut
+    # Level-sensing strut register pocket
     # ─────────────────────────────────────────────────────
-    # Solid PETG cylinder hanging straight down from the cap's bottom
-    # face into the cavity, acting as a guide rod for a magnetic float
-    # that rides up and down with the syrup level. External reed
-    # switches outside the bag-pocket far +X wall (foam-encapsulated
-    # during the body foam pour) detect the float's position — see the
-    # constants block above and `hardware/future.md` "Level sensing".
+    # The strut itself is unioned into the BODY (see build_reservoir_body),
+    # extending up from the wet-side wedge. The strut's TOP end is
+    # captured here by a slip-fit blind pocket cut into the cap's
+    # base plate from below — opens at the cap's bottom face (cap-
+    # local y = cap_wall_height = 5) and extends upward into the
+    # base plate by STRUT_REGISTER_DEPTH (cap-local y = 5..7).
+    # STRUT_REGISTER_DIAMETER = STRUT_DIAMETER + 1.0 → 5 mm pocket
+    # around the 4 mm strut → 0.5 mm radial clearance for a slip
+    # fit. During assembly the cap is lowered onto the body and the
+    # strut tip slides into this register as the cap seats on the
+    # gasket. See the "Level-sensing strut" constants block for
+    # the full architecture rationale.
     #
-    # Added LAST in build_reservoir_cap, after every existing feature
-    # (vent boss, screw bosses, counterbores), so the new cylinder
-    # geometry cannot perturb any earlier edge/face selector.
-    #
-    # The workplane sits at the strut's BOTTOM (cap-local y =
-    # −STRUT_LENGTH) and extrudes upward by STRUT_LENGTH to land
-    # exactly at cap y=0 — same negative-y origin pattern the vent
-    # boss extension, cylinder shell, and brim use to hang below the
-    # cap's bottom face.
+    # Cut LAST in build_reservoir_cap, after every existing feature
+    # (vent boss, screw bosses, counterbores), so the new pocket
+    # cannot perturb any earlier edge/face selector.
     strut_x_signed = STRUT_POSITION_X * side
-    strut = (
-        _wp_at(strut_x_signed, -STRUT_LENGTH, 0.0)
-        .circle(STRUT_DIAMETER / 2.0)
-        .extrude(STRUT_LENGTH)
+    register_pocket = (
+        _wp_at(strut_x_signed, cap_wall_height - 0.1, 0.0)
+        .circle(STRUT_REGISTER_DIAMETER / 2.0)
+        .extrude(STRUT_REGISTER_DEPTH + 0.1)  # +0.1 breaks the cap's bottom face cleanly
     )
-    cap = cap.union(strut)
+    cap = cap.cut(register_pocket)
 
     return cap
 
