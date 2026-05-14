@@ -2,6 +2,8 @@
 
 *Pie-in-the-sky, not roadmap. Captured from a conversation 2026-05-13 / 14.*
 
+*BOM figures in this doc are first-pass estimates intended to size the idea, not specifications.*
+
 A second SKU sharing ~90% of the BOM with the under-counter Kitchen Edition. Where the Kitchen Edition disappears into the kitchen and the wow is "the faucet pours soda," the Shop Edition is the opposite — it sits on a countertop in a garage, basement bar, man-cave, or shop, and the wow is "look at this thing." Different buyer mindset, same hatred of cans, same machine underneath.
 
 ## The customer

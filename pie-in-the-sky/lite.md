@@ -2,6 +2,8 @@
 
 *Pie-in-the-sky, not roadmap. Captured 2026-05-14.*
 
+*BOM figures in this doc are first-pass estimates intended to size the idea, not specifications.*
+
 A small companion appliance that pairs with a customer-supplied countertop carbonator (Lillium, Brio, or equivalent) to add flavor injection through a real faucet. The Lite Edition does not refrigerate. It does not carbonate. It does not store water. It is a flavor-injection module — two reservoirs, two peristaltic pumps, a manifold, a faucet, the dispense controls, and a small enclosure to wrap them — and the customer's existing or newly-purchased carbonator is the source of cold carbonated water.
 
 ## What the customer buys

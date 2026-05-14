@@ -2,6 +2,8 @@
 
 *Pie-in-the-sky, not roadmap. Captured 2026-05-14.*
 
+*BOM figures in this doc are first-pass estimates intended to size the idea, not specifications.*
+
 A small external appliance that sits next to the main Kitchen Edition or Shop Edition. It adds **a second dispense point** to the household — its own faucet, its own through-counter penetration, its own flavor-select and display — pouring **four flavors** at that faucet. Two of the four come from new reservoirs that live inside the module; two are routed from the main unit's existing reservoirs. Net new flavors added to the household: two. Net new faucets added to the household: one.
 
 The module does not carbonate. It does not connect to the customer's plumbing or to the customer's CO2 tank. It has exactly two physical interfaces: an umbilical to the main unit, and the flavor-line + carbonated-water bundle that goes up through the counter to its own faucet.
