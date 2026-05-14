@@ -2,81 +2,113 @@
 
 *Pie-in-the-sky, not roadmap. Captured 2026-05-14.*
 
-A small external appliance that sits next to the main Kitchen Edition or Shop Edition and adds **four more flavors to the existing faucet**. It is not a second machine. It carbonates nothing, dispenses no water, and connects to no plumbing. It is, fundamentally, a refrigerated four-reservoir flavor cartridge with its own pumps and its own hopper, wired into the main unit and tapped into the dispense point — and that's the whole architecture.
+A small external appliance that sits next to the main Kitchen Edition or Shop Edition. It adds **a second dispense point** to the household — its own faucet, its own through-counter penetration, its own flavor-select and display — pouring **four flavors** at that faucet. Two of the four come from new reservoirs that live inside the module; two are routed from the main unit's existing reservoirs. Net new flavors added to the household: two. Net new faucets added to the household: one.
 
-The main unit still does the hard part: water, CO2, carbonation, refrigeration of the carbonator, the dispense lever, the flow sensor. The module just provides four additional chilled flavor lines that inject at the nozzle alongside the main unit's two existing flavor lines. Six flavors total through one faucet.
+The module does not carbonate. It does not connect to the customer's plumbing or to the customer's CO2 tank. It has exactly two physical interfaces: an umbilical to the main unit, and the flavor-line + carbonated-water bundle that goes up through the counter to its own faucet.
 
-## What the module is
+## What the module physically contains
 
-- **Four flavor reservoirs** in the same architecture as the main unit's two — printed hard reservoirs, vented through PTFE membranes on their caps, sized roughly 1 L each.
-- **Refrigerated to 8–15 °C** in its own enclosure. This is the only refrigeration in the module: it keeps the syrup cold. There is no carbonator, no pressure vessel, no service-temperature target, no freeze-protect cutout. It's a small AC refrigeration loop holding a small insulated chamber at flavor-storage temperature. The donor architecture (harvested compressor + condenser + fan + cap-tube + drier from a countertop appliance) and the foam-shell cold core pattern transfer directly from the main unit, just at smaller scale and warmer setpoint. Side-to-side airflow same as the main unit.
-- **Four peristaltic pumps** (Kamoer KPHM400 — same part as the main unit) on a replaceable cartridge identical in pattern to the main unit's pump cartridge. Tool-free swap when the silicone tubing wears.
-- **A flavor hopper** on top of the module — same SodaStream-pour-sized funnel architecture as the main unit, but routed via solenoid-selected paths to four reservoirs instead of two. Customer fills the module's flavors through the module's own hopper, independent of the main unit's hopper. No need to share or reroute.
-- **A small enclosure**, possibly half to two-thirds the volume of the main unit. The compressor floor, side airflow path, electronics shelf, and pump cartridge access door pattern all transfer. Front face has no faucet, no dispense, no proximity sensor — it's a quiet appliance whose only user-facing surfaces are the top hopper and the cartridge access door.
+- **Two new flavor reservoirs**, 1 L each, in the same printed hard-reservoir architecture as the main unit's two. PTFE-membrane vented caps, low outlet sump, hopper fill from above.
+- **A small refrigerated chamber** holding those two reservoirs at 8–15 °C. The architecture mirrors the main unit's cold core at smaller scale: foam-shell wrap, evaporator coil, harvested compressor / condenser / fan / cap-tube / drier. Setpoint is warmer than the main unit's (no carbonation to keep cold here — just syrup storage), which opens a possible Peltier path as a quieter alternative to the donor-compressor architecture. Side-to-side airflow same as the main unit.
+- **Two Kamoer peristaltic pumps** (one per new reservoir), in the same replaceable pump-cartridge pattern as the main unit. Tool-free swap.
+- **A top hopper** sized to accept a SodaStream-pour, routed through solenoid-selected valves to the two new reservoirs. Customer fills the two module-side flavors through the module's own hopper, independent of the main unit's hopper.
+- **A valve manifold** extension of the main unit's pattern, generalized for the four-line faucet — flavor select, clean-cycle routing, source-selection for hopper fill.
+- **Its own electronics shelf** — local microcontroller, MCP23017 expander, ULN2803A drivers, motor driver, 12 V regulation. Subordinate to the main unit's ESP32 for high-level control; runs its own refrigeration cycle and pump timing locally.
+- **A small enclosure**, roughly half to two-thirds the volume of the main appliance. No carbonator means no pressure vessel, no hydro-test, no PRV, no level reeds, no WR1110 regulator, no ASSE 1022 backflow preventer, no diaphragm pump, no water-side check valves. The cabinet is meaningfully smaller and cheaper than the main appliance's.
 
-## What it connects to
+## The new dispense point
 
-Exactly two things. No water inlet. No CO2 inlet. No drain. No tee fittings in the customer's plumbing.
+A second faucet penetration in the customer's countertop, alongside the main unit's faucet at the back of the sink (or wherever the customer chose to install it). The new faucet is the same PET-CF Touch-Flo design as the main unit's faucet, with the nozzle internal geometry extended to inject **four flavor lines** rather than two. Carbonated water enters the faucet's inlet stub and mixes with flavor at the nozzle, the same way the main unit's faucet works.
 
-**1. The main unit.** One umbilical carries everything the module needs from the main unit and everything the main unit needs to know about the module:
+Companion through-counter elements at the module's faucet:
 
-- 12 V power tapped off the main unit's Mean Well PSU bus, sized for the module's compressor (worst-case ~1 A inrush) plus its peristaltic pumps and solenoids. The module does not have its own wall plug — it is electrically a subordinate to the main unit, which is the cleanest way to keep both appliances on a single AC topology and a single C14 inlet for the household.
-- A control / sensor bus from the main unit's ESP32 to the module's local microcontroller. The main unit knows when the customer pulls the lever and which flavor is selected; the module fires the right pump on cue. The flow sensor is in the main unit — the module just pumps when told to, for the duration told to.
-- Compressor cycle control either lives in the module's own controller (with its own thermistor on the small evaporator) or is reported up to the main unit's app for unified visibility. Either works; either is invisible to the customer.
+- **A second KRAUS-class air switch** for four-flavor select (or a different selector — the module is wide enough at four flavors that a small button panel may be the more natural UI).
+- **A second RP2040 round display** showing the active flavor's logo at this faucet.
 
-**2. The dispense point.** Four 1/4" LLDPE flavor lines run from the module's pump cartridge to the dispense nozzle, joining the main unit's two existing flavor injection points at the same nozzle. The nozzle architecture in the current Kitchen Edition already injects flavor alongside carbonated water at the dispense point ("injected at the dispense nozzle alongside the carbonated water," `hardware/future.md` "Flavor subsystem"); going from two injection ports to six is a parts-count change at the nozzle, not an architectural one.
+The household ends up with two faucets, each pouring its own selection. The main faucet pours its native two flavors. The module's faucet pours four — the same two as main (routed through the umbilical), plus two new ones unique to the module.
 
-That's it. Module to main unit: one cable. Module to dispense point: one bundle of four flavor lines.
+## The umbilical
 
-## Why this is genuinely good
+A single multi-conduit bundle running from the rear of the main unit to the rear of the module. Carries everything the module needs from the main unit and routes back nothing:
 
-**It scales the flavor count without scaling the hard parts.** The hard part of the main appliance is the carbonator: 90 PSI pressure vessel, hydro-testing, sparging, level sensing, refrigeration loop tied to carbonation setpoint, dual backflow protection, the WR1110 secondary regulator, the SV-125 PRV, the welding and passivation work, the UL 60335-2-89 fire enclosure around the compressor. None of that gets duplicated in the module. The module is the easy half of the main appliance, by itself.
+- **12 V power**, tapped off the main unit's Mean Well PSU bus. The module does not have its own AC inlet; it is electrically subordinate to the main unit. One C14 on the household, not two.
+- **A control / sensor bus** between the main unit's ESP32 and the module's local microcontroller. Dispense triggers, flavor select state, telemetry, fault propagation.
+- **Chilled carbonated water**, T'd off the main unit's carbonator outlet. This is the source of soda at the module's faucet — the main unit's carbonator services both faucets.
+- **Tap water**, T'd off the main unit's water inlet downstream of the Multiplex 19-0897 ASSE 1022 backflow preventer. Used by the module's clean cycle for all four of its faucet lines. Because the water has already passed through main's backflow protection, the module needs no ASSE 1022 of its own — a meaningful BOM and complexity saving.
+- **Two flavor concentrate lines**, T'd off the main unit's two peristaltic-pump outlets. When the customer selects one of the main's two flavors at the module's faucet, main's pump fires and concentrate flows down the umbilical to inject at the module's nozzle. No duplicate syrup, no duplicate reservoir, no duplicate pump — those flavors physically live in the main unit and are reachable from either faucet.
 
-**It reuses what already works.** Foam-shell cold core, harvested-ice-maker refrigeration loop, side-to-side airflow, Kamoer peristaltic pumps, John Guest fittings and bulkheads, Beduan solenoids, MCP23017 expander, printed reservoirs, hopper architecture, pump cartridge swap pattern. Same vendors, same supply chain, same assembly procedures. From a manufacturing-process standpoint, the module is the same build as the main unit minus the carbonator subsystem.
+The umbilical is a fat bundle but its endpoints are short: out the back of main, into the back of module, both under the counter. Route once at install, no service action expected after.
 
-**It is the cleanest possible upsell.** The customer has the main unit and loves it. They want more flavors. They buy a module. They place it next to or under the main unit, plug one cable into the main unit's auxiliary port, run four flavor lines up to their existing faucet (re-using the faucet's existing nozzle assembly or a slightly extended one), prime four new reservoirs from the module's hopper, and now their faucet pours six flavors. No second faucet penetration in the countertop. No second air switch. No second display. The household has one tap and one ritual — and the ritual got better.
+## Plumbing pattern at a glance
 
-**It solves the two-flavor objection without compromising the main unit.** Going to four flavors on the main unit means a bigger enclosure, more manifold complexity, a more crowded electronics shelf, and design rework of a vessel architecture that is currently well-understood and converging. Or you can leave the main unit exactly as it is, and ship a $400-ish add-on that quadruples flavor capacity. The economics overwhelmingly favor the add-on.
-
-**Refrigeration architecture has room to be quieter.** The module doesn't need to hit 2 °C — it needs to hit 10 °C. That opens a path the main unit can't take: a thermoelectric (Peltier) cold plate sized for 30-40 W of heat lift, no compressor, no refrigerant, no UL 60335-2-89 hydrocarbon shroud, no piercing-valve recharge procedure, near-silent operation. The donor-compressor path still works as a fallback if Peltier capacity is insufficient. Either way the module is much quieter than the main unit. The bar shelf next to the dispenser hears it less than the fridge across the room.
-
-**Independent failure domains for the flavor side.** If the module's compressor fails, the main unit still pours its two base flavors. If the main unit's carbonator fails, the module's reservoirs stay cold and the household keeps the syrup until the carbonator's back. Neither failure cascades.
+```
+   customer's water        Lite-Edition-style hopper
+   + CO2                          │
+        │                         ▼
+        ▼                ┌────────────────┐
+   ┌──────────┐          │ MODULE         │
+   │ MAIN     ├──────────┤  + 2 new       │
+   │ + 2      │ umbilical│    reservoirs  │
+   │   flavors│ (power,  │  + refrig only │
+   │ + carb.  │  signal, │    on those 2  │
+   │ + refrig │  carb H2O│                │
+   │          │  tap H2O,│  + new PET-CF  │
+   │          │  2 conc. │    faucet      │
+   │          │  lines)  │    (4-line)    │
+   └────┬─────┘          └──────┬─────────┘
+        │                       │
+        ▼                       ▼
+    main faucet            module faucet
+    (2 flavors)            (4 flavors:
+                            2 from main +
+                            2 module-native)
+```
 
 ## What the customer sees
 
-Two appliances side by side under the counter or on the shelf. One faucet on the countertop. One air switch — or, more naturally, a richer six-flavor selector that the main unit now drives (the existing KRAUS air switch was already a single-pole rotary; the upgrade path to a six-position selector or a small flavor-select panel is a UI design problem, not a plumbing problem). The RP2040 round display shows the active flavor's logo regardless of which appliance the syrup came from.
+Two faucets in the kitchen. The main faucet pours the household's two everyday flavors. The module's faucet pours four — those same two plus two more. Selecting one of the main flavors at the module's faucet works exactly as selecting it at the main faucet does; under the hood, main's pump just runs concentrate down the umbilical instead of straight up to main's nozzle.
 
-From the customer's vantage, the module is just *more flavors on the same faucet*. The fact that the syrup came from a second physical appliance is implementation detail.
+From the customer's vantage the module is *one more faucet, two more flavors*. The architectural fact that two of the module's faucet lines are physically piped from main is implementation detail.
 
-## Form factor variants
-
-- **Companion under-counter module.** Mounted in the adjacent cabinet bay or sharing the under-sink bay with the main unit. Invisible. Same install-mood as the main Kitchen Edition.
-- **Companion countertop module.** Sits on the bar shelf next to a Shop Edition main unit. Same Shop-Edition front-face aesthetic minus the dispense field — just a clean cabinet face with a top hopper and a cartridge access door. Visually it reads as "second piece of bar equipment," which is exactly right for that audience.
-
-Either variant uses the same internals; only the cabinet outside differs. Same fork logic as Kitchen vs Shop on the main unit.
-
-## Rough BOM hit (per module, not per appliance)
+## Rough BOM (per module)
 
 | Item | Approx |
 |---|---:|
-| Harvested refrigeration (or Peltier) loop | $80–110 |
-| Foam shell + insulation + reservoirs (4×) | $80 |
-| Kamoer peristaltic pumps (4×) | $130 |
-| Beduan solenoids (~12 for the 4-reservoir manifold) | $115 |
-| Hopper + cabinet print | $40 |
-| Electronics (local µC, MCP23017, ULN2803A, driver, regs, umbilical connector) | $60 |
-| Wiring, fittings, fasteners, John Guest hardware | $40 |
-| Enclosure cut parts (compressor shroud if compressor path) | $10 |
-| **Module total** | **~$555–585** |
+| Harvested refrigeration loop (small donor, 2-reservoir scale) — or Peltier alternative | $80 |
+| Foam shell + insulation + 2 reservoirs + caps + membranes | $50 |
+| Kamoer peristaltic pumps (×2) | $65 |
+| Beduan solenoids (~8 for the module-side manifold) | $80 |
+| Hopper + cabinet print | $30 |
+| Electronics (local µC, MCP23017, ULN2803A, motor driver, regs) | $60 |
+| New PET-CF faucet (extended nozzle internal geometry, 4-line injection) | $40 |
+| SS under-counter plate | $4 |
+| RP2040 round display | $24 |
+| KRAUS air switch (or 4-button panel) | $40 |
+| Compressor shroud cut part (if compressor path) | $10 |
+| Umbilical — multi-conductor cable + tubing bundle + strain reliefs + connector at each end | $50 |
+| Wiring, fittings, fasteners, John Guest hardware | $30 |
+| **Module total** | **~$560** |
 
-Pre-margin module cost lands somewhere around $550-600. A Founder Edition module price of ~$2,500 — or a Standard Edition price of ~$1,800 once batch production is reached — is honest pricing for the value delivered and consistent with the main unit's pricing logic. Customers buy this *after* the main unit, after the trust is established, after they already know they love the product. The upsell narrative practically writes itself.
+Pre-margin module cost around $560. A Founder Edition module price of **~$2,500**, or a Standard Edition price of **~$1,800** once batch production is reached, sits naturally in the same pricing logic as the main appliance.
+
+## What makes this work cleanly
+
+**The hard part of the main unit doesn't get duplicated.** Carbonator vessel, 90 PSI pressure service, hydro-test, sparge stone, level reeds, PRV, WR1110 regulator, ASSE 1022 backflow preventer, diaphragm pump, hydrocarbon-refrigerant fire enclosure to UL 60335-2-89 — none of that lives in the module. The module is the easy half of the main unit, at smaller scale.
+
+**The household keeps one CO2 tank, one water tap, one wall outlet.** The customer's install action is "plug umbilical from main into module, run module's faucet bundle up through the counter, mount the second faucet." No second CO2 regulator. No second water tee. No second AC outlet. The plumbing-and-electrical footprint of adding the module is the umbilical and the one new countertop penetration.
+
+**The two-flavor objection is answered without compromising the main unit.** Going to four flavors on the main unit means a bigger main enclosure and a more crowded manifold there. Going to four flavors at a second faucet via a module leaves the main unit exactly as designed and shifts the complexity into a separate appliance that only ships when a customer wants it.
+
+**Independent failure domains for the new flavor side.** If the module's small refrigeration loop fails, the main unit still pours its two flavors at its faucet. If the main unit's carbonator fails, the module's reservoirs stay cold but its faucet stops pouring (no carbonated water source) — same blast radius as the main unit's faucet stopping, which is acceptable since the carbonator is the upstream dependency in either case.
+
+**The upsell narrative is clean.** Existing owner, year into using the main unit, wants a wider flavor selection or a second dispense point in the kitchen island or the bar nook. Buys the module. Plugs it in. Fills two new reservoirs from the module's hopper. Now their household has two faucets and four flavors, and they bought from a company they already trust.
 
 ## What's worth doing next on this
 
-Nothing immediately. The Kitchen Edition ships first. The discipline is to *not* let the module's existence influence the main unit's first 10 builds — no "module-ready" ports, no shared firmware contract, no BOM additions on Kitchen Edition that exist only to anticipate the module. Three light constraints carried in the back of mind during main-unit design:
+Nothing immediately — the Kitchen Edition ships first. Light constraints to carry through main-unit design so the module remains buildable without disturbing the main unit later:
 
-1. **The main unit's firmware should treat flavor count as a parameter, not a constant.** N=2 today, N=6 with module. Same firmware, same UI grammar, just a configuration value.
-2. **The main unit's ESP32 should have one unused UART or I2C bus reserved for an auxiliary device.** No physical connector, no wiring — just a software-level acknowledgment that this bus is unspoken-for and available later.
-3. **The dispense nozzle's injection geometry should not assume exactly two flavor lines arrive at it.** A four-line injection collar and a six-line injection collar are different printed parts, swappable later. The plumbing path from the manifold to the nozzle should be a soft assumption, not a baked-in geometry.
+1. **Firmware should treat flavor count and faucet count as parameters, not constants.** N=2 flavors, M=1 faucet today; N=4, M=2 with module. Same firmware, same UI grammar.
+2. **One unused UART or I2C bus on the main ESP32 should stay reserved** for the module's control bus. No physical connector today, no wiring, no BOM cost — just leave the bus unspoken-for.
+3. **The main unit's two flavor-pump outlets should remain branchable** without redesign — i.e. the pump-to-faucet plumbing should not become so geometrically committed that adding a T off the pump output is a redesign.
 
-None of these add cost or complexity to the main unit today. They just leave a door unblocked.
+None of those add cost or complexity to the main unit. They just leave a door unblocked.
