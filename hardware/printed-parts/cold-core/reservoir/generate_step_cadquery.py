@@ -1486,19 +1486,33 @@ def build_reservoir_retaining_ring():
 
 
 def main():
-    body = build_reservoir_body(side=1)
-    cap = build_reservoir_cap(side=1)
-    gasket = build_reservoir_gasket(side=1)
-    retaining_ring = build_reservoir_retaining_ring()
-
+    # Left/right convention. The machine's front face is +Z — water
+    # outlet, bulkhead ports, and the dispense faucet all live on the
+    # +Z side. Looking AT the machine from the front (viewer at +Z
+    # looking in the −Z direction, +Y up), the cross product x̂ × ŷ = ẑ
+    # points back toward the viewer, which puts +X on the viewer's
+    # RIGHT and −X on the viewer's LEFT.
+    #
+    #   side = +1  →  +X reservoir  →  user's RIGHT  →  "*-right.step"
+    #   side = −1  →  −X reservoir  →  user's LEFT   →  "*-left.step"
+    #
+    # The retaining ring is symmetric across x = 0, so a single
+    # un-suffixed STEP is exported.
     here = Path(__file__).resolve().parent
-    export_step(body, str(here / "reservoir.step"))
-    export_step(cap, str(here / "reservoir-cap.step"))
-    export_step(gasket, str(here / "reservoir-gasket.step"))
+
+    for side, label in ((+1, "right"), (-1, "left")):
+        body = build_reservoir_body(side=side)
+        cap = build_reservoir_cap(side=side)
+        gasket = build_reservoir_gasket(side=side)
+        export_step(body, str(here / f"reservoir-{label}.step"))
+        export_step(cap, str(here / f"reservoir-cap-{label}.step"))
+        export_step(gasket, str(here / f"reservoir-gasket-{label}.step"))
+        print(f"-> reservoir-{label}.step")
+        print(f"-> reservoir-cap-{label}.step")
+        print(f"-> reservoir-gasket-{label}.step")
+
+    retaining_ring = build_reservoir_retaining_ring()
     export_step(retaining_ring, str(here / "reservoir-retaining-ring.step"))
-    print(f"-> reservoir.step")
-    print(f"-> reservoir-cap.step")
-    print(f"-> reservoir-gasket.step")
     print(f"-> reservoir-retaining-ring.step")
 
 
