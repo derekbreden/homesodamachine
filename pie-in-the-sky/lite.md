@@ -8,10 +8,10 @@ A small companion appliance that pairs with a customer-supplied countertop carbo
 
 Two appliances, sourced separately:
 
-1. A Lillium (or Brio, or equivalent) — a countertop carbonator the customer plumbs to their cold water line and pressurizes from a CO2 tank. These run roughly $2,500 retail and produce ~4 °C carbonated water at up to ~70 PSI. The customer buys this themselves from the original manufacturer; the Lite Edition does not include it.
+1. A Lillium (or Brio, or equivalent) — a countertop carbonator the customer plumbs to their cold water line and pressurizes from a CO2 tank. These run roughly $1,000 retail and produce ~4 °C carbonated water at up to ~70 PSI. The customer buys this themselves from the original manufacturer; the Lite Edition does not include it.
 2. The Lite Edition — flavor companion, sourced from us. Price target around $1,500.
 
-The customer's total spend across both appliances is approximately $4,000.
+The customer's total spend across both appliances is approximately $2,500.
 
 ## What the Lite Edition is
 
