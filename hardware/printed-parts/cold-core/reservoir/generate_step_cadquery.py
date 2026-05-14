@@ -240,7 +240,7 @@ vent_below_pocket_material = 2.5  # cap material thickness between pocket bottom
 vent_boss_wall_around_pocket = 2.0
 vent_boss_outer_diameter = vent_pocket_diameter + 2 * vent_boss_wall_around_pocket  # 17.2
 _vent_boss_depth = vent_pocket_depth + vent_below_pocket_material       # 5.0
-_vent_boss_extension_below_base_plate = _vent_boss_depth - cap_base_thickness  # 2.0
+_vent_boss_extension_below_base_plate = _vent_boss_depth - cap_base_thickness  # 1.0
 #
 # Cylinder shell hangs below the boss into the reservoir, with the
 # same inside diameter as the vent hole so there's no internal step
@@ -307,24 +307,26 @@ vent_position_z = 32.5
 # Both reservoirs (side=+1 and side=−1) put the bulkhead on the +Z
 # side; only x mirrors.
 #
-# Installation TBD: with both axial ends closed off (⌀6.5 mm
-# openings, ⌀22.9 mm body), the bulkhead can't slide into a fully-
-# closed pocket. Likely options are a print-pause-and-insert, a
-# separate cap part on the boss's +Z end, or splitting the boss
-# horizontally for two-part assembly. Geometry below leaves that
-# decision to the next pass.
+# Installation: the dry side of the pocket is wide-open below a 4 mm
+# ceiling slab (see "Wide-open dry section" in build_reservoir_body),
+# so the bulkhead body passes through the panel hole from below and
+# the locknut + dry collet + 1/4" tube push-in are unobstructed. No
+# print-pause-and-insert or split-boss assembly needed.
 #
 port_position_x = _shell_reservoir_bulkhead_port_x  # derived in _foam_shell_geometry.py from bag_pocket_far_inner_x − reservoir_clearance − reservoir_floor_thickness − bulkhead_pocket_diameter/2 − 1.5; 88.0 at the current 2 mm shell wall, leaving 1.5 mm of PETG between the pocket's +X edge and the cavity's inner +X face. The matching foam-shell pass-through hole reads the same constant, so the two cannot drift apart on future wall-thickness changes.
 port_position_y = _shell_reservoir_bulkhead_port_y  # derived in _foam_shell_geometry.py; 18.0 at the current 2 mm shell wall, placing the flange chamber's curved bottom exactly on top of the 4 mm outer floor (4 mm of PETG below the chamber as a fluid barrier). The matching foam-shell pass-through hole reads the same constant, so the two cannot drift apart on future wall-thickness changes.
 port_tube_diameter = 6.5                # 1/4" OD tube clearance
 #
-# The pocket is a STEPPED cavity matching the bulkhead's body
-# geometry: a wide wet-side chamber for the flange + wet collet, a
-# narrower panel hole through the middle that the threading clamps
-# against, then a wide dry-side chamber for the locknut + dry collet.
-# The annular ring of PETG between the wet and dry chambers IS the
-# panel the bulkhead clamps — its −Z face seats the flange and its
-# +Z face is where the locknut bears.
+# The pocket is asymmetric across the panel. Wet side (z < panel):
+# a STEPPED cavity conforming to the bulkhead body's release-ring →
+# collet → flange profile, with each step's ceiling open to the
+# cavity above so syrup drains around the body to the −Z port. Dry
+# side (z > panel): wide-open below a 4 mm ceiling slab — no
+# symmetric "dry chamber" — so the locknut, dry collet, and 1/4"
+# tube push-in are unobstructed from below, +X, and +Z. The annulus
+# of PETG between the wet chamber and the slab IS the panel the
+# bulkhead clamps — its −Z face seats the flange and its +Z face is
+# where the locknut bears.
 #
 # Section lengths along +Z are estimates from typical JG bulkhead-
 # union proportions (catalog total length 34.5 mm; threading section
@@ -1151,12 +1153,12 @@ def build_reservoir_cap(side=1):
     #   y=2 .. 1    closed brim (ø10) — same OD as the cylinder, no overhang
     vent_x_signed = vent_position_x * side
 
-    boss_bottom_y = cap_total_height - _vent_boss_depth                # 3
+    boss_bottom_y = cap_total_height - _vent_boss_depth                # 4
     cylinder_walls_bottom_y = boss_bottom_y - (
         vent_cylinder_length - vent_brim_thickness
-    )                                                                   # -4
-    brim_bottom_y = cylinder_walls_bottom_y - vent_brim_thickness       # -5
-    pocket_bottom_y = cap_total_height - vent_pocket_depth              # 5.5
+    )                                                                   # 2
+    brim_bottom_y = cylinder_walls_bottom_y - vent_brim_thickness       # 1
+    pocket_bottom_y = cap_total_height - vent_pocket_depth              # 6.5
 
     # Solid pieces: boss extension, cylinder body (cut hollow later),
     # brim. All unioned with the cap so the air-column cut below
