@@ -1076,23 +1076,17 @@ def build_reservoir_body(side=1):
     # crests near y≈20.3 at z=0), so the strut embeds into the
     # solid wedge PETG for a structural bond at the bottom.
     #
-    # The strut top lands 1 mm INSIDE the cap's 2 mm-deep register
-    # pocket. In the assembled stack:
-    #   body wall top y = outer_top_y
-    #   gasket top y    = outer_top_y + gasket_thickness
-    #   cap bottom face (cap-local y=0)            ↔ outer_top_y + gasket_thickness
-    #   register pocket opening (cap-local y=5)    ↔ outer_top_y + gasket_thickness  [pocket opens at the cap base plate's bottom face]
-    #   register pocket top (cap-local y=5+2)      ↔ outer_top_y + gasket_thickness + STRUT_REGISTER_DEPTH
-    # So the strut top at outer_top_y + gasket_thickness + 1.0
-    # lands exactly 1 mm inside the 2 mm pocket (1 mm of axial
-    # slop to absorb stack tolerance).
+    # The strut top reaches the body wall top (outer_top_y) — the
+    # same level the gasket bottom sits on. No further. The cap's
+    # boss (built in build_reservoir_cap) engages the strut top from
+    # above.
     #
     # Added LAST in build_reservoir_body, after every existing
     # feature (wedge, bulkhead pocket, slab cut, fillets), so the
     # new cylinder geometry cannot perturb any earlier edge/face
     # selector.
     strut_x_signed = STRUT_POSITION_X * side
-    strut_top_y = outer_top_y + gasket_thickness + 1.0
+    strut_top_y = outer_top_y
     strut = (
         _wp_at(strut_x_signed, STRUT_BOTTOM_Y, STRUT_POSITION_Z)
         .circle(STRUT_DIAMETER / 2.0)
