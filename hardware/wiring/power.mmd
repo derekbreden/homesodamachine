@@ -23,9 +23,10 @@ flowchart TD
   %%   grommet: switched H + N + chassis G). This avoids placing an
   %%   arcing contact inside the protected hydrocarbon-refrigerant
   %%   compartment.
-  %% - The condenser fan motor is at the front of the enclosure
-  %%   (where the condenser exhausts) and is OUTSIDE the shroud; it
-  %%   shares the relay #1 switched output via a short tap.
+  %% - The condenser fan motor is on the side of the enclosure
+  %%   (the side-to-side intake → condenser → exhaust airflow path)
+  %%   and is OUTSIDE the shroud; it shares the relay #1 switched
+  %%   output via a short tap.
   %%
   %% See `ac-wiring-schedule.md` for run-by-run gauges + lengths and
   %% `../cut-parts/compressor-shroud/` for the shroud part.
@@ -41,7 +42,7 @@ flowchart TD
   subgraph Refrigeration["Refrigeration  (harvested ice-maker)"]
     RELAY["Teyleten 3.3 V relay #1\n(opto-isolated, GPIO 14)\nLOCATION: electronics shelf"]
     COMP_AC["AC hermetic compressor\n+ clip-on PTC start relay/overload\n(Frigidaire EFIC117-SS donor)\nLOCATION: inside compressor shroud"]
-    COND_FAN["Condenser fan motor\nLOCATION: front of enclosure"]
+    COND_FAN["Condenser fan motor\nLOCATION: side of enclosure (side-to-side airflow path)"]
     RELAY ==>|"switched AC hot\n(through shroud grommet)"| COMP_AC
     RELAY ==>|"switched AC hot"| COND_FAN
   end
