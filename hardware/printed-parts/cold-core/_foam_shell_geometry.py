@@ -98,32 +98,18 @@ reservoir_clearance = 0.5
 reservoir_floor_thickness = 4.0
 bulkhead_pocket_diameter = 23.0
 #
-# Reed-holder bulge: a localized outward bulge on the bag_pocket_shell's
-# far ±X wall that makes room for a printed PETG reed-holder strip
-# (carrying the 10 reed switches for flavor-reservoir level sensing) in
-# the bag pocket air space, between the reservoir's outer +X face and
-# the bag_pocket_shell inner face. The strip lives at z=STRUT_POSITION_Z
-# (−45), aligned with the reservoir's internal strut + magnetic float,
-# so the reeds run vertically up the strip and trigger as the float
-# slides past them. See ../reservoir/level-sensing.md "Magnet–reed
-# signal-path geometry" (option B) for the rationale.
+# Reed-holder channel: a full-height vertical rectangular slot through
+# the bag_pocket_shell's far ±X wall at z=reed_channel_z. The printed
+# PETG reed-holder strip slides in from outside (foam-zone side) and
+# is foam-encapsulated during the body pour. One `cut` operation per
+# side, no transitions, no chamfers — just a hole.
 #
-# The bulge moves the bag-pocket inner face locally from x=±105.5 out
-# to x=±108.5 (3 mm outward), and the outer face from x=±107.5 to
-# x=±110.5 (also 3 mm outward; the wall stays 2 mm thick at the bulge).
-# Footprint: 15 mm along z (centered on z=−45, ±REED_BULGE_HALF_Z) and
-# 170 mm along y (REED_BULGE_BOTTOM_Y..REED_BULGE_TOP_Y, matching the
-# float's useful Y travel range).
-#
-# `reed_bulge_strut_z` MUST match the reservoir CAD's STRUT_POSITION_Z
+# `reed_channel_z` MUST match the reservoir CAD's STRUT_POSITION_Z
 # (currently −45 in reservoir/generate_step_cadquery.py). The value is
 # duplicated here rather than imported because the dependency direction
 # in this repo is reservoir → foam-shell, not the reverse.
-reed_bulge_strut_z = -45.0
-REED_BULGE_HALF_Z = 7.5
-REED_BULGE_BOTTOM_Y = 40.0
-REED_BULGE_TOP_Y = 210.0
-REED_BULGE_DEPTH = 3.0
+reed_channel_z = -45.0
+REED_CHANNEL_HALF_Z = 7.5
 #
 # Y of the reservoir's outlet-bulkhead axis, AND of the matching
 # pass-through hole in the foam shell's bag-pocket wall (cut in
@@ -812,96 +798,22 @@ def cut_slot_for_copper_and_water_inlet(foam_shell):
     )
     return foam_shell.cut(slot_punch)
 
-def apply_reed_holder_bulges(foam_shell):
-    """Add the reed-holder bulges to the bag_pocket_shell's far ±X walls.
-
-    See the `reed_bulge_*` constants near the top of this module for the
-    geometric rationale. Applied per side: a rectangular block of new
-    material is unioned on the foam-zone side of the wall (extending
-    REED_BULGE_DEPTH mm outward of the original outer face at x=±107.5),
-    and a matching rectangular cavity is cut into the bag-pocket side
-    (recessing the inner face by REED_BULGE_DEPTH mm). Net effect:
-
-      Original wall:   105.5 ≤ |x| ≤ 107.5  (2 mm thick)
-      At the bulge:    108.5 ≤ |x| ≤ 110.5  (2 mm thick, shifted 3 mm out)
-
-    Wall thickness is preserved through the bulge; the step at each end
-    is a chamfer on the bulge's inner face (and a square step on the
-    outer face — outer face only sees foam, so cosmetics there don't
-    matter).
-    """
-    outer_x_abs   = tank_copper_shell_radius + bag_pocket_depth - wall_and_floor_thickness  # 107.5
-    inner_x_abs   = outer_x_abs - wall_and_floor_thickness                                   # 105.5
-    bulged_outer  = outer_x_abs + REED_BULGE_DEPTH                                            # 110.5
-    bulged_inner  = inner_x_abs + REED_BULGE_DEPTH                                            # 108.5
-
-    y_bottom = REED_BULGE_BOTTOM_Y
-    y_top    = REED_BULGE_TOP_Y
-    z_min    = reed_bulge_strut_z - REED_BULGE_HALF_Z   # −52.5
-    z_max    = reed_bulge_strut_z + REED_BULGE_HALF_Z   # −37.5
-    z_span   = 2 * REED_BULGE_HALF_Z
-
-    def build_bulge_addition(side):
-        # Block of new material on the outer (foam-zone) side: from the
-        # original outer face out to the new outer face, spanning the
-        # bulge's y and z footprint. `side` flips the sign on x.
-        x_lo = side * outer_x_abs       # original outer face
-        x_hi = side * bulged_outer      # bulge outer face
-        x_min, x_max = (x_lo, x_hi) if side > 0 else (x_hi, x_lo)
-        return (
-            cq.Workplane("XY")
-            .workplane(offset=z_min)
-            .moveTo((x_min + x_max) / 2, (y_bottom + y_top) / 2)
-            .rect(abs(x_max - x_min), y_top - y_bottom)
-            .extrude(z_span)
-        )
-
-    def build_bulge_cutout(side):
-        # Block of material to remove on the inner (bag-pocket) side:
-        # from the original inner face out to the new inner face. After
-        # this cut, the inner face at the bulge is at x=±bulged_inner.
-        x_lo = side * inner_x_abs       # original inner face
-        x_hi = side * bulged_inner      # bulge inner face
-        x_min, x_max = (x_lo, x_hi) if side > 0 else (x_hi, x_lo)
-        return (
-            cq.Workplane("XY")
-            .workplane(offset=z_min)
-            .moveTo((x_min + x_max) / 2, (y_bottom + y_top) / 2)
-            .rect(abs(x_max - x_min), y_top - y_bottom)
-            .extrude(z_span)
-        )
-
+def cut_reed_holder_channels(foam_shell):
+    """Cut a full-height vertical rectangular channel through the
+    bag_pocket_shell's far ±X walls at z=reed_channel_z (±REED_CHANNEL_HALF_Z
+    wide along z, full wall height along y). The printed PETG reed-holder
+    strip slides in from outside and is foam-encapsulated during the body
+    pour. One `cut` per side. Nothing else."""
     for side in (+1, -1):
-        foam_shell = foam_shell.union(build_bulge_addition(side))
-        foam_shell = foam_shell.cut(build_bulge_cutout(side))
-
-    # Chamfer the four inner-face perimeter edges of each bulge cavity
-    # — the edges at x = ±bulged_inner that bound the recess where the
-    # inner face steps from ±inner_x_abs to ±bulged_inner. A small
-    # 45° chamfer (1 mm) eases the strip-insertion transition and
-    # reduces stress risers at the bag-pocket-facing corner. The outer
-    # face keeps a square step (foam side; cosmetics don't matter).
-    chamfer_size = 1.0
-    eps = 0.1
-    for side in (+1, -1):
-        # BoxSelector spanning only the inner-face edges of this side's
-        # cavity. The four edges sit on the plane x = side * bulged_inner
-        # with y ∈ {y_bottom, y_top} or z ∈ {z_min, z_max}.
-        x_lo = side * bulged_inner - eps
-        x_hi = side * bulged_inner + eps
-        x_min, x_max = (x_lo, x_hi) if side > 0 else (x_hi, x_lo)
-        selector = cq.selectors.BoxSelector(
-            (x_min, y_bottom - eps, z_min - eps),
-            (x_max, y_top + eps, z_max + eps),
-            boundingbox=True,
+        channel = (
+            cq.Workplane(xy_plane_z_up)
+            .workplane(offset=reed_channel_z - REED_CHANNEL_HALF_Z)
+            .center(side * (bag_pocket_far_inner_x + wall_and_floor_thickness / 2),
+                    tank_copper_shell_height / 2)
+            .rect(wall_and_floor_thickness * 4, tank_copper_shell_height + 20)
+            .extrude(2 * REED_CHANNEL_HALF_Z)
         )
-        try:
-            foam_shell = foam_shell.edges(selector).chamfer(chamfer_size)
-        except Exception:
-            # Chamfer is a nicety, not a correctness requirement; if
-            # OCCT can't apply it to this edge selection, skip it.
-            pass
-
+        foam_shell = foam_shell.cut(channel)
     return foam_shell
 
 
@@ -916,7 +828,7 @@ def build_full_shell():
         .union(build_tank_support_ring())
         .union(build_outer_shell())
     )
-    foam_shell = apply_reed_holder_bulges(foam_shell)
+    foam_shell = cut_reed_holder_channels(foam_shell)
     foam_shell = cut_circular_port_holes(foam_shell)
     foam_shell = cut_slot_for_copper_and_water_inlet(foam_shell)
     return foam_shell
