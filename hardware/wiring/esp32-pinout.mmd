@@ -6,7 +6,8 @@ flowchart LR
   %% New for current plan:
   %%   GPIO 14 drives the Teyleten relay #1 (compressor AC).
   %%   GPIO 16 hosts the DS18B20 1-wire bus (tank-wall + evap-suction probes).
-  %%   GPIO 17, 27 read the two carbonator-level reed switches.
+  %%   GPIO 17, 12, 27 read the three carbonator-level reed switches
+  %%     (LOW / MID / HIGH); MID is a stuck-float sentinel + fill-rate sampler.
   %%   GPIO 4 drives Teyleten relay #2 (diaphragm pump 12 V, refill).
   %% Flavor-reservoir reed switches (20 total, 10 per reservoir) are
   %% read through the I2C MCP23017 expanders, not direct ESP32 GPIO:
@@ -18,7 +19,6 @@ flowchart LR
   %%   hardware/printed-parts/cold-core/reservoir/level-sensing.md.
   %% Freed GPIOs still available:
   %%   GPIO 2   - free (bootstrap-sensitive)
-  %%   GPIO 12  - free (bootstrap-sensitive)
 
   subgraph ESP["ESP32-DevKitC-32E"]
     direction TB
@@ -56,8 +56,9 @@ flowchart LR
 
     subgraph Carbonator_Pins["Carbonator Water"]
       P4["GPIO 4   Diaphragm pump relay  (refill)"]
-      P17["GPIO 17  Reed low  (refill threshold)"]
-      P27["GPIO 27  Reed high  (full threshold)"]
+      P17["GPIO 17  Reed LOW  (refill threshold)"]
+      P12["GPIO 12  Reed MID  (stuck-float sentinel + fill-rate)"]
+      P27["GPIO 27  Reed HIGH  (full threshold)"]
     end
   end
 
@@ -84,8 +85,9 @@ flowchart LR
   DIA_PUMP["SeaFlo diaphragm pump\n  12 V, ~5 A peak\n  (carbonator refill)"]
 
   DS_PROBES["2× DS18B20 1-wire probes:\n  tank wall (cycle setpoint)\n  evap suction (freeze cutout)"]
-  REED_LOW["Reed switch — low level\n  (carbonator refill trigger)"]
-  REED_HIGH["Reed switch — high level\n  (carbonator full)"]
+  REED_LOW["Reed switch — LOW level\n  (carbonator refill trigger)"]
+  REED_MID["Reed switch — MID level\n  (stuck-float sentinel + fill-rate)"]
+  REED_HIGH["Reed switch — HIGH level\n  (carbonator full)"]
 
   %% ── Connections ──
   P32 & P35 <-->|"Serial2\n115200 baud"| RP
@@ -108,6 +110,7 @@ flowchart LR
 
   DS_PROBES -->|"1-wire data"| P16
   REED_LOW -->|"INPUT_PULLUP"| P17
+  REED_MID -->|"INPUT_PULLUP"| P12
   REED_HIGH -->|"INPUT_PULLUP"| P27
 
   I2C_DEVICES -->|"MCP23017"| VALVE_CHAIN
