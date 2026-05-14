@@ -124,34 +124,29 @@ reservoir_bulkhead_port_y = (
 #
 # |X| of the reservoir's outlet-bulkhead axis, AND of the matching
 # pass-through hole in the foam shell's bag-pocket +Z wall (cut in
-# `cut_circular_port_holes` below). Sign flips with the
-# reservoir side. Derived from the reservoir-side geometry because the
-# bulkhead pocket (⌀23, axis along +Z) imposes the tighter X
-# constraint: at the foam-shell side the +Z wall has plenty of X
-# range to accept the ⌀6.5 hole at almost any |X|, but on the
-# reservoir side the pocket's outer edge must stay clear of the
-# cavity's inner +X face.
+# `cut_circular_port_holes` below). Sign flips with the reservoir
+# side. Derived from the reservoir-side geometry: the foam-shell +Z
+# wall has plenty of X range to accept the ⌀6.5 pass-through at
+# almost any |X|, but the reservoir's bulkhead pocket has to fit
+# inside the body's two interior X walls.
 #
-# Build-up from the reservoir's outer +X face inward to the pocket
-# axis:
-#   bag_pocket_far_inner_x − reservoir_clearance: reservoir's outer +X face (= 105.0 at 2 mm wall)
-#   − reservoir_floor_thickness:                  reservoir's inner +X face (cavity wall, = 101.0)
-#   − bulkhead_pocket_diameter / 2:               +X edge of the pocket (= 89.5)
-#   − bulkhead_port_x_inset_from_cavity_face:     pocket axis (= 88.0)
-# `bulkhead_port_x_inset_from_cavity_face` is the residual PETG
-# annulus between the cylindrical pocket and the cavity's inner +X
-# face. The wet-chamber's open ceiling cut already breaches this
-# annulus locally, so the value is just enough margin to keep the
-# pocket's cylindrical side from coming all the way to the cavity
-# face — it's not load-bearing on its own.
-bulkhead_port_x_inset_from_cavity_face = 1.5
-reservoir_bulkhead_port_x = (
-    bag_pocket_far_inner_x
-    - reservoir_clearance
-    - reservoir_floor_thickness
-    - bulkhead_pocket_diameter / 2
-    - bulkhead_port_x_inset_from_cavity_face
-)
+# Those two walls are:
+#   - the +X far inner face (flat, at bag_pocket_far_inner_x
+#     − reservoir_clearance − reservoir_floor_thickness)
+#   - the concave-arc inner cavity wall on the tank-facing side,
+#     whose deepest reach into the cavity is at z = 0, at
+#     x = tank_copper_shell_radius + reservoir_clearance
+#         + reservoir_floor_thickness
+# Center between these two — even though the bulkhead pocket lives
+# at z ≈ 30 where the arc has receded outward (toward the tank), use
+# the arc's peak (z = 0) as the conservative inner-X bound. That way
+# the centering is independent of the pocket's actual −Z reach and
+# we get equal clearance to the two walls at the binding (z = 0)
+# section, which is the part that would collide first if the pocket
+# ever grew longer.
+_reservoir_far_inner_x   = bag_pocket_far_inner_x - reservoir_clearance - reservoir_floor_thickness
+_reservoir_arch_peak_x   = tank_copper_shell_radius + reservoir_clearance + reservoir_floor_thickness
+reservoir_bulkhead_port_x = (_reservoir_arch_peak_x + _reservoir_far_inner_x) / 2
 #
 # -------------------------------------------------------
 

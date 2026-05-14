@@ -363,11 +363,11 @@ STRUT_BOSS_HEIGHT = 4.0                  # mm; boss extends DOWN from cap-local 
 # foam-shell pass-through at (±port_position_x, port_position_y) — see
 # `_foam_shell_geometry.py` `cut_circular_port_holes`. Both sides
 # import `reservoir_bulkhead_port_x` and `reservoir_bulkhead_port_y`
-# from `_foam_shell_geometry.py` (current values 88.0 and 18.0 at 2 mm
-# shell wall), so the flange chamber's curved bottom sits exactly on
-# top of the 4 mm outer floor (4 mm of PETG below the chamber as a
-# fluid barrier) and the pocket's +X edge stays 1.5 mm clear of the
-# cavity's inner +X face.
+# from `_foam_shell_geometry.py`, so the flange chamber's curved
+# bottom sits exactly on top of the 4 mm outer floor (4 mm of PETG
+# below the chamber as a fluid barrier) and the pocket is centered
+# in X between the cavity's inner +X face and the concave arc's peak
+# (the tank-facing arc's deepest reach at z = 0).
 #
 # Both reservoirs (side=+1 and side=−1) put the bulkhead on the +Z
 # side; only x mirrors.
@@ -378,7 +378,7 @@ STRUT_BOSS_HEIGHT = 4.0                  # mm; boss extends DOWN from cap-local 
 # the locknut + dry collet + 1/4" tube push-in are unobstructed. No
 # print-pause-and-insert or split-boss assembly needed.
 #
-port_position_x = _shell_reservoir_bulkhead_port_x  # derived in _foam_shell_geometry.py from bag_pocket_far_inner_x − reservoir_clearance − reservoir_floor_thickness − bulkhead_pocket_diameter/2 − 1.5; 88.0 at the current 2 mm shell wall, leaving 1.5 mm of PETG between the pocket's +X edge and the cavity's inner +X face. The matching foam-shell pass-through hole reads the same constant, so the two cannot drift apart on future wall-thickness changes.
+port_position_x = _shell_reservoir_bulkhead_port_x  # derived in _foam_shell_geometry.py as the midpoint between the body's inner +X face and the inner concave-arc peak (at z=0) — i.e. centered between the two interior X walls of the cavity. The matching foam-shell pass-through hole reads the same constant, so the two cannot drift apart on future wall-thickness changes.
 port_position_y = _shell_reservoir_bulkhead_port_y  # derived in _foam_shell_geometry.py; 18.0 at the current 2 mm shell wall, placing the flange chamber's curved bottom exactly on top of the 4 mm outer floor (4 mm of PETG below the chamber as a fluid barrier). The matching foam-shell pass-through hole reads the same constant, so the two cannot drift apart on future wall-thickness changes.
 port_tube_diameter = 6.5                # 1/4" OD tube clearance
 #
