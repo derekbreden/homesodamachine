@@ -1322,32 +1322,6 @@ def build_reservoir_cap(side=1):
         cap = cap.cut(slot_cut)
 
     # ─────────────────────────────────────────────────────
-    # Level-sensing strut register pocket
-    # ─────────────────────────────────────────────────────
-    # The strut itself is unioned into the BODY (see build_reservoir_body),
-    # extending up from the wet-side wedge. The strut's TOP end is
-    # captured here by a slip-fit blind pocket cut into the cap's
-    # base plate from below — opens at the cap's bottom face (cap-
-    # local y = cap_wall_height = 5) and extends upward into the
-    # base plate by STRUT_REGISTER_DEPTH (cap-local y = 5..7).
-    # STRUT_REGISTER_DIAMETER = STRUT_DIAMETER + 1.0 → 5 mm pocket
-    # around the 4 mm strut → 0.5 mm radial clearance for a slip
-    # fit. During assembly the cap is lowered onto the body and the
-    # strut tip slides into this register as the cap seats on the
-    # gasket. See the "Level-sensing strut" constants block for
-    # the full architecture rationale.
-    #
-    # Cut LAST in build_reservoir_cap, after every existing feature
-    # (vent boss, screw bosses, counterbores), so the new pocket
-    # cannot perturb any earlier edge/face selector.
-    strut_x_signed = STRUT_POSITION_X * side
-    register_pocket = (
-        _wp_at(strut_x_signed, cap_wall_height - 0.1, STRUT_POSITION_Z)
-        .circle(STRUT_REGISTER_DIAMETER / 2.0)
-        .extrude(STRUT_REGISTER_DEPTH + 0.1)  # +0.1 breaks the cap's bottom face cleanly
-    )
-    cap = cap.cut(register_pocket)
-
     return cap
 
 
