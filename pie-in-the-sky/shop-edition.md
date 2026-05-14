@@ -39,17 +39,25 @@ Someone who would buy the Kitchen Edition but for living-partner / kitchen-prior
 | In | Δ |
 |---|---:|
 | Front nozzle assembly (printed spout + SS internal tube) | +$8 |
-| VL53L1X ToF sensor module | +$5 |
-| Arm switch (illuminated tactile slide) | +$8 |
-| Two illuminated capacitive flavor-select buttons | +$10 |
+| VL53L5CX 8×8 ToF array sensor (glass-edge + rim-fill detection) | +$20 |
+| Arm switch — vandal-resistant SS illuminated pushbutton, 16–22 mm, ring-illuminated, momentary, real tactile click | +$30 |
+| Two flavor-select buttons — same SS illuminated pushbutton family, matched aesthetic | +$50 |
+| WS2812 LED ring around dispense field + diffuser + driver | +$10 |
 | Drain sump (printed) + SS drip grate | +$15 |
 | Second 12 V diaphragm lift pump (SeaFlo class) | +$48 |
 | Drain solenoid (Beduan, valve-manifold extension) | +$10 |
 | Sump level reeds (×2) | +$2 |
 | Drain tubing + clamps + air-gap fitting | +$10 |
-| **subtotal added** | **+$116** |
+| **subtotal added** | **+$203** |
 
-Net per-unit BOM impact: roughly **+$40** over Kitchen Edition. Both editions hold the same Founder Edition price ($7,500) and same Standard Edition price ($5,500) — the Shop Edition's value proposition isn't cheaper, it's a different aesthetic for a different room.
+Net per-unit BOM impact: roughly **+$128** over Kitchen Edition. Both editions hold the same Founder Edition price ($7,500) and same Standard Edition price ($5,500) — the Shop Edition's value proposition isn't cheaper, it's a different aesthetic for a different room.
+
+Two cost-driver observations worth naming:
+
+- **The drain subsystem is the largest single BOM addition (~$85),** not the gesture. Pump + solenoid + sump + grate + plumbing. The drain is what makes the clean cycle unattended and the dispense field self-managing on a countertop — quietly load-bearing for the whole Shop Edition concept, and quietly expensive.
+- **The gesture (proximity + arm + flavor buttons + LED ring) lands around $110.** The commodity parts for the same functions would be ~$25, but those parts are wrong here — a $5 plastic rocker on a $7,500 piece of "bar equipment" reads as cheap and undoes the front-face story the Shop Edition exists to tell. Vandal-resistant SS illuminated pushbuttons + an array ToF + a real LED ring are the honest spec.
+
+Front-face industrial design (NRE — printed cabinet face, spout sculpt, button placement, display surround, drip grate geometry) is a separate cost on top of BOM, amortized across the run rather than per-unit.
 
 ## Marketing slot
 
