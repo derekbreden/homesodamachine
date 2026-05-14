@@ -529,25 +529,23 @@ shift that needs a deliberate explanation:
 
 | metric | value |
 |---|---|
-| volume   | **948199.817081 mm³** |
-| bbox x   | [−125.500, +125.500] mm |
+| volume   | **985157.417081 mm³** |
+| bbox x   | [−134.500, +134.500] mm |
 | bbox y   | [0.000, 213.400] mm |
 | bbox z   | [−90.500, +90.500] mm |
-| centroid | (0.000006, 90.377558, −0.238469) mm |
+| centroid | (0.000005, 90.321667, −0.229523) mm |
 
-Captured after the CO2 inlet was moved from the outer −Z back wall
-to the −Z support arch, keeping its original Z-axis horizontal
-orientation but starting at the support arch's outer face (z =
-−(tank_copper_shell_radius − wall_and_floor_thickness) = −70.5 at
-2 mm wall) instead of the original z = −(tank_copper_shell_radius
-+ 20) = −92.5. The hole pierces only the −Z support arch (z =
-−70.5..−61.5 at x = 0); the outer −Z back wall is now solid.
-Volume immediately prior to the rework of this hole was
-948133.878562 mm³ (commit `24197c3`, when the hole still started
-at z = −92.5). The earlier baseline at 951393.752876 mm³ predated
-the support-ring slot chord-sliver fix. Future refactors that
-introduce a deliberate geometry change should update this section
-in the same commit.
+Captured after `bag_pocket_depth` was bumped from 37 mm to 46 mm
+(+9 mm interior X depth per reservoir, +18 mm total outer-shell X
+width), sizing each reservoir's cavity to hold ≥ 1 L of usable
+fluid (1003.75 mL per reservoir at this geometry, 2.01 L total
+between the two reservoirs).  Volume immediately prior to this
+bump was 948199.817081 mm³ (bag_pocket_depth = 37 mm,
+bbox x = ±125.5 mm); the +36957.6 mm³ delta is the new +X strip
+on each of the two bag pockets (~85.4 cm² cross-section × 195.4 mm
+extrusion × 2 sides = ~33.4 mL × 2 ≈ 66.7 mL of foam-shell
+material added).  Future refactors that introduce a deliberate
+geometry change should update this section in the same commit.
 
 Quick reproduction:
 
