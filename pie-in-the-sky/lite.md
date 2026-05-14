@@ -4,13 +4,13 @@
 
 *BOM figures in this doc are first-pass estimates intended to size the idea, not specifications.*
 
-A small companion appliance that pairs with a customer-supplied countertop carbonator (Lillium, Brio, or equivalent) to add flavor injection through a real faucet. The Lite Edition does not refrigerate. It does not carbonate. It does not store water. It is a flavor-injection module — two reservoirs, two peristaltic pumps, a manifold, a faucet, the dispense controls, and a small enclosure to wrap them — and the customer's existing or newly-purchased carbonator is the source of cold carbonated water.
+A small companion appliance that pairs with a customer-supplied under-sink carbonator (Lillium, Brio, or equivalent) to add flavor injection through a real faucet. The Lite Edition does not refrigerate. It does not carbonate. It does not store water. It is a flavor-injection module — two reservoirs, two peristaltic pumps, a manifold, a faucet, the dispense controls, and a small enclosure to wrap them — and the customer's existing or newly-purchased carbonator is the source of cold carbonated water.
 
 ## What the customer buys
 
 Two appliances, sourced separately:
 
-1. A Lillium (or Brio, or equivalent) — a countertop carbonator the customer plumbs to their cold water line and pressurizes from a CO2 tank. These run roughly $1,000 retail and produce ~4 °C carbonated water at up to ~70 PSI. The customer buys this themselves from the original manufacturer; the Lite Edition does not include it.
+1. A Lillium (or Brio, or equivalent) — an under-sink carbonator the customer plumbs to their cold water line and pressurizes from a CO2 tank. These run roughly $1,000 retail and produce ~4 °C carbonated water at up to ~70 PSI. The customer buys this themselves from the original manufacturer; the Lite Edition does not include it.
 2. The Lite Edition — flavor companion, sourced from us. Price target around $1,500.
 
 The customer's total spend across both appliances is approximately $2,500.
@@ -83,4 +83,4 @@ Time-to-first-unit at solo build cadence is short — weeks rather than the mont
 
 ## Form factor
 
-Under-counter, in the kitchen cabinet beneath the sink, alongside the customer's Lillium (which sits on the countertop above as it does in any home Lillium install). The Lite Edition's enclosure is smaller than the main appliance's because it contains no cold core and no refrigeration; it could fit a corner of the cabinet without disrupting other under-sink contents.
+Under-counter, in the kitchen cabinet beneath the sink, alongside the customer's Lillium (also a plumbed under-sink appliance). The Lite Edition's enclosure is smaller than the main appliance's because it contains no cold core and no refrigeration; it could fit a corner of the cabinet without disrupting other under-sink contents.
