@@ -415,17 +415,17 @@ bulkhead_panel_hole_diameter = 17.0     # JG catalog spec for the 1/4" body fami
 # PI1208S we already own; the workflow is documented in
 # `tools/measure-from-drawings/README.md`.
 #
-bulkhead_wet_chamber_length = 12.0      # wet flange + collet body + release ring (catalog total length 34.5 ÷ split)
+bulkhead_wet_chamber_length = 24.0      # wet flange + collet body + release ring — extended by 12 mm beyond the CI1208W's 12 mm catalog wet section (see `bulkhead_collet_body_length` below); the extra length lives entirely in the smooth collet-body middle, sliding the panel and flange chamber forward in +Z by 12 mm
 bulkhead_wet_antechamber_length = 2.0   # gap on the bulkhead's wet face — must exist or syrup can't reach the port
 bulkhead_panel_thickness = 5.0          # = panel + threading section
 bulkhead_dry_chamber_length = 17.0      # locknut + dry collet
 bulkhead_pocket_length = (
     bulkhead_wet_chamber_length + bulkhead_panel_thickness + bulkhead_dry_chamber_length
-)                                       # 34 (bulkhead body length, catalog ~34.5)
+)                                       # 46 (bulkhead body length, was 34 for the CI1208W; the +12 mm comes from the longer collet-body section below)
 #
 # Wet-side section lengths (estimates — refine with drawing measurements):
 bulkhead_flange_length = 3.0                                   # last segment, against the panel
-bulkhead_collet_body_length = 6.0                              # middle of the wet section
+bulkhead_collet_body_length = 18.0                             # middle of the wet section — extended 12 mm beyond the CI1208W's 6 mm to push the panel/flange chamber forward in +Z, recentering the wet chamber away from the cavity's curved tank-side wall. The tip channel and flange/ring channel keep their original lengths; only the smooth middle stretches.
 bulkhead_release_ring_length = (
     bulkhead_wet_chamber_length - bulkhead_flange_length - bulkhead_collet_body_length
 )                                                              # 3 — the visible end with the push-to-release ring
@@ -435,14 +435,14 @@ bulkhead_flange_chamber_diameter = bulkhead_pocket_diameter    # 23 (ø22.9 flan
 bulkhead_collet_chamber_diameter = 19.0                        # est. body OD ø17–18 + ~0.5 mm/side
 bulkhead_release_chamber_diameter = 11.0                       # caliper-measured release ring ø9.57 + ~0.7 mm/side
 #
-bulkhead_wet_end_z = 30.0                # z of bulkhead body's wet face (the port)
-bulkhead_wet_chamber_z_min = bulkhead_wet_end_z - bulkhead_wet_antechamber_length  # 28
-bulkhead_release_z_start = bulkhead_wet_end_z                   # 30 — release-ring section starts at the body's wet face
-bulkhead_collet_z_start = bulkhead_release_z_start + bulkhead_release_ring_length  # 33
-bulkhead_flange_z_start = bulkhead_collet_z_start + bulkhead_collet_body_length    # 39
-bulkhead_panel_z_min = bulkhead_flange_z_start + bulkhead_flange_length             # 42
-bulkhead_panel_z_max = bulkhead_panel_z_min + bulkhead_panel_thickness              # 47
-bulkhead_dry_end_z = bulkhead_wet_end_z + bulkhead_pocket_length                    # 64
+bulkhead_wet_end_z = 30.0                # z of bulkhead body's wet face (the port) — stays fixed; everything downstream of it slides 12 mm in +Z by way of the longer collet section
+bulkhead_wet_chamber_z_min = bulkhead_wet_end_z - bulkhead_wet_antechamber_length  # 28 (tip-channel −Z edge, stays put)
+bulkhead_release_z_start = bulkhead_wet_end_z                   # 30 — release-ring section starts at the body's wet face (stays)
+bulkhead_collet_z_start = bulkhead_release_z_start + bulkhead_release_ring_length  # 33 (release-ring → collet boundary, stays)
+bulkhead_flange_z_start = bulkhead_collet_z_start + bulkhead_collet_body_length    # 51 (was 39: collet → flange boundary moved +12 with the longer collet)
+bulkhead_panel_z_min = bulkhead_flange_z_start + bulkhead_flange_length             # 54 (was 42: panel's −Z face moved +12)
+bulkhead_panel_z_max = bulkhead_panel_z_min + bulkhead_panel_thickness              # 59 (was 47: panel's +Z face moved +12)
+bulkhead_dry_end_z = bulkhead_wet_end_z + bulkhead_pocket_length                    # 76 (was 64: bulkhead's +Z tip moved +12; this is now past outer_z_max ≈ 72, so the dry-side fittings protrude through the open dry section)
 # The floor thickens uniformly across the cavity to a baseline whose
 # inner-top y sits just above the bulkhead pocket, so the bulkhead body
 # is fully encased in PETG along the panel section. The slope rises ON
