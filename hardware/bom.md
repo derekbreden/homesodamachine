@@ -178,9 +178,8 @@ The same reed-and-float pattern is used in three places: the carbonator vessel (
 
 | Part | ASIN | Qty | Unit $ | Line $ |
 |---|---|---:|---:|---:|
-| Reservoir strut: printed PETG, 5 mm OD × 185 mm, integral to each reservoir cap | included in §7 cap print mass (no separate filament line) | 2 (1 per reservoir cap) | — | — |
-| [DEVMO MINI float switch (donor — harvest plastic donut body)](https://www.amazon.com/dp/B07T18PGJ4) | B07T18PGJ4 — float slides on the PETG strut; donor ferrite donut is replaced by the neodymium ring below for stronger field through the all-PETG wall stack (~7.5 mm magnet-to-reed gap vs the carbonator's 1.65 mm SS) | 2 (1 per reservoir) | $13.93 | $27.86 |
-| Neodymium ring magnet (placeholder: ø10 × ø5 × 3 mm, N42 or N52, axially magnetized, food-safe coating — specific SKU TBD) | TBD — sits in the float center, replacing the donor's ferrite donut. Field at 7.5 mm separation: 80–150 gauss, well above typical reed pull-in (~30–50 gauss) | 2 | ~$1.00 | ~$2.00 |
+| Reservoir strut: printed PETG, 4 mm OD, integral to each reservoir BODY, body-anchored at the wedge top, top captured by a slip-fit register pocket in the cap base plate | included in §7 body print mass (no separate filament line) | 2 (1 per reservoir body) | — | — |
+| [DEVMO MINI float switch (donor — harvest donut + ferrite magnet)](https://www.amazon.com/dp/B07T18PGJ4) | B07T18PGJ4 — float slides on the 4 mm PETG strut; donor donut + its ferrite magnet are kept (donor's switch body / cable is discarded). With the reed PCB inside the bag pocket air space (~5.5 mm magnet-to-reed path), ferrite is adequate — no neodymium upgrade needed. **Open item:** verify donor donut's center-hole ≥ 4 mm. See [printed-parts/cold-core/reservoir/level-sensing.md](printed-parts/cold-core/reservoir/level-sensing.md) | 2 (1 per reservoir) | $13.93 | $27.86 |
 | Reed-switch PCB strip (placeholder: custom JLCPCB, ~15 × 170 mm, 10 reed footprints at 17 mm pitch + JST-XH header — specific design TBD) | TBD | 2 | ~$10.00 | ~$20.00 |
 
 ### Reeds (shared SKU across carbonator + flavor reservoirs)
@@ -230,9 +229,9 @@ The T18 heat-set tip kit ([B0CS662NVK](https://www.amazon.com/dp/B0CS662NVK)) an
 | 9. Dispensing | $52.97 |
 | 10. UI | $43.16 |
 | 11. Wiring | $31.97 |
-| 12. Level sensing | $101.18 |
+| 12. Level sensing | $99.18 |
 | 13. Mechanical attach hardware + reservoir-cap vent filter | $17.55 |
-| **Total** | **$1,543.85** |
+| **Total** | **$1,541.85** |
 
 ## External / user-supplied (not shipped)
 

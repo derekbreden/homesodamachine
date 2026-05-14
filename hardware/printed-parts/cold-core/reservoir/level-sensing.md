@@ -10,8 +10,8 @@ Density-independent, mechanically overfill-safe, zero electrical penetrations of
 
 **Inside the reservoir:**
 
-- A vertical 5 mm OD PETG **strut** integral to the reservoir cap, hanging down from the cap's bottom face by 185 mm. Specified in [`generate_step_cadquery.py`](generate_step_cadquery.py) — search for `STRUT_POSITION_X` / `STRUT_LENGTH`. Position: `(x = ±88, z = 0)` in the reservoir frame, mirrored across x=0 for the two reservoirs.
-- A small **magnetic float** sliding on the strut. Equivalent to the carbonator's harvested float from the DEVMO MINI float switch (Amazon B07T18PGJ4), but with a **neodymium ring magnet** in place of (or in addition to) the donor's ferrite donut. The reed-magnet separation is larger here than in the carbonator (~6.5 mm of PETG + ~3 mm of air gaps vs the carbonator's 1.65 mm SS wall), so the magnet field needs to be stronger to ensure reliable reed triggering. Suggested magnet: neodymium ring ~10 mm OD × 5 mm ID × 3 mm thick, N42 or N52, axially magnetized, with a food-safe coating (nickel or PTFE).
+- A vertical 4 mm OD PETG **strut**, integral to the reservoir BODY, anchored ~0.3 mm into the wedge top at `(x = ±88, z = 0)` and extending upward through the cavity to a slip-fit register pocket cut into the cap's base plate. This matches the carbonator's pattern (rod welded to the bottom plate, captured at the top by a register). Mechanically stiffer than a one-end-cantilever cap-mounted strut. Specified in [`generate_step_cadquery.py`](generate_step_cadquery.py) — `STRUT_POSITION_X`, `STRUT_DIAMETER`, `STRUT_BOTTOM_Y`, `STRUT_REGISTER_DIAMETER`, `STRUT_REGISTER_DEPTH`.
+- A small **magnetic float** sliding on the strut. The first-choice donor is the same DEVMO MINI float switch (Amazon B07T18PGJ4) already in the BOM for the carbonator — harvest the donut, reuse its ferrite magnet. The strut OD (4 mm) is chosen to fit the donor donut's existing center hole, which is sized for the carbonator's 3.175 mm SS rod with sliding clearance. **The donor hole diameter is not yet physically verified against the 4 mm strut OD; this is an open item before committing the BOM to the donor.** If the hole is smaller than ~4.5 mm, either reduce the strut OD or pick a different float.
 
 **Outside the reservoir:**
 
@@ -33,17 +33,27 @@ Useful Y range for the float on the strut: ~40 mm above the floor (above the wet
 
 ## Magnet–reed signal-path geometry
 
-Working from the reservoir's +X face outward to the reed:
+The reed-PCB mount location drives the magnet-to-reed distance. Three options exist; the project's current design picks **option B** (PCB inside the bag pocket air space against the bag_pocket_shell inner face), which is the cleanest combination of "donor donut works" and "reservoir geometry doesn't get carved."
 
-| Layer | Thickness |
-|---|---|
-| Reservoir wall (PETG, +X far face) | 4 mm |
-| reservoir_clearance gap | 0.5 mm |
-| bag_pocket_shell far +X wall (PETG) | 2 mm |
-| Reed-to-wall standoff (adhesive / bracket) | ~1 mm |
-| **Total magnet-to-reed separation** | **~7.5 mm** |
+| Option | PCB location | Path through | Distance | Donor ferrite OK? |
+|---|---|---|---|---|
+| A | Outside the bag_pocket_shell, foam-side | reservoir wall (4) + clearance (0.5) + bag-shell wall (2) + standoff (~1) | ~7.5 mm | No — marginal |
+| **B** | **Inside the bag pocket, against the bag_pocket_shell inner face** | **reservoir wall (4) + clearance (0.5) + standoff (~1)** | **~5.5 mm** | **Yes — adequate** |
+| C | B + locally thin the reservoir wall to 2 mm at the reed strip | 2 mm wall + 0.5 + 1 | ~3.5 mm | Yes — generous |
 
-At that separation, a ferrite donor donut (like the carbonator's harvested float) is marginal for reliable triggering. A neodymium N42/N52 ring at the recommended size produces ~80–150 gauss at 7.5 mm — well above typical reed pull-in thresholds (~30–50 gauss). The carbonator's 1.65 mm SS wall is a much easier magnetic path, but the flavor reservoir's all-PETG stack works fine with the upgraded magnet.
+Option B requires a small foam-shell CAD change: the bag_pocket_shell's far +X wall needs a recess (~3–4 mm deep × ~15 mm wide × ~170 mm tall) on its inner face to make room for the reed PCB without squeezing the reservoir clearance gap. This locally thickens the wall outward (or trims a bit of the outer foam zone — TBD which way it grows). Foam-shell change is bounded and clean.
+
+Option C is the fallback if option B turns out to be too borderline in practice. Thinning the reservoir wall from 4 mm to 2 mm over a ~15 × 170 mm vertical strip is a real but bounded structural change — the area is not load-bearing under the reservoir's vented (atmospheric) service pressure, so a thinned strip is mechanically safe.
+
+**Honest signal-strength numbers** for the donor ferrite donut (~8 mm OD × 4 mm ID × 2 mm thick, Br ≈ 0.3 T):
+
+| Distance | Field on axis (approx) | Reed pull-in needed |
+|---|---|---|
+| 3.5 mm (option C) | ~200–300 gauss | 30–50 gauss — comfortable margin |
+| 5.5 mm (option B) | ~80–120 gauss | 30–50 gauss — adequate margin |
+| 7.5 mm (option A) | ~30–50 gauss | 30–50 gauss — at threshold, unreliable |
+
+So at the original 7.5 mm path the donor was marginal and the doc had asked for a neodymium upgrade. With the PCB moved inside the bag pocket (option B), the donor ferrite donut works with comfortable margin and the neodymium upgrade is unnecessary. **This eliminates one SKU from the BOM** and matches the carbonator's existing magnet exactly.
 
 ## GPIO budget
 
@@ -61,10 +71,9 @@ Either works. MCP23017 is the path-of-least-resistance because the I²C library 
 Per-build additions for the flavor-reservoir level sensing are tracked in [`../../../bom.md`](../../../bom.md) §12 "Level sensing":
 
 - **20 Gebildet reed switches** (B0CW9418F6) — same SKU as the carbonator's 2 reeds; 4 × 6-pack covers 22 reeds (the 2 carbonator + 20 flavor) with 2 spares per build.
-- **2 neodymium ring magnets** — one per reservoir's float.
 - **2 reed-PCB strips** — custom JLCPCB or equivalent, ~10 reeds at 17 mm pitch.
 - **1 second MCP23017** GPIO expander (B07P2H1NZG) — same SKU as the existing expander, second instance at I²C address 0x21.
-- **Float**: each reservoir reuses one DEVMO MINI float (B07T18PGJ4) for the plastic donut body, with the donor ferrite replaced by the neodymium ring above. The carbonator's existing 1 unit becomes 3 units per build (1 carbonator + 2 reservoirs).
+- **Float**: each reservoir reuses one DEVMO MINI float (B07T18PGJ4) directly — donor donut harvested, ferrite magnet kept (no neodymium upgrade needed once the reed PCB moves inside the bag pocket). The carbonator's existing 1 unit becomes 3 units per build (1 carbonator + 2 reservoirs).
 - **Wiring**: ~22 conductors of ribbon or pre-crimped silicone-insulated wire (20 reed signals + 2 commons), routed from the foam-shell exit to the electronics shelf.
 
 ## Calibration
@@ -81,7 +90,7 @@ The internal strut is integral to the cap and replaceable as a unit with the cap
 
 ## Open items
 
-- **Specific magnet SKU.** Need to pick a neodymium ring magnet that's Prime-available, food-safe-coated, and fits the float's center hole. Placeholder above.
-- **Reed PCB design.** ~$10/build at JLCPCB once finalized; geometry should be a thin rectangular strip with 10 reed footprints at 17 mm pitch, two mounting holes (for an optional printed bracket), and a 4-pin or 11-pin JST connector at the top end.
-- **Reed-strip mounting bracket.** Decide between adhesive (simpler) or a small printed PETG bracket that hooks onto a feature in the bag_pocket_shell's far +X wall (would need a small CAD addition to the foam-shell).
-- **MCP23017 wiring update.** Add the second expander to [`../../../wiring/esp32-pinout.mmd`](../../../wiring/esp32-pinout.mmd) and update the wiring schedule.
+- **Verify the donor donut's center-hole diameter** against the 4 mm strut OD. If the hole is < ~4.5 mm, either reduce strut OD (printability gets harder below 3 mm) or pick a different float. The carbonator's existing pairing of this donor donut with a 3.175 mm rod confirms the hole is ≥ ~3.5 mm; whether it's ≥ 4.5 mm is the question.
+- **Foam-shell CAD update for the PCB recess.** The bag_pocket_shell's far +X wall needs a vertical inner-face recess (~3–4 mm deep × ~15 mm wide × ~170 mm tall) to make room for the reed PCB strip inside the bag pocket air space (option B in the signal-path table above). This is a small but real addition to [`../foam-shell/generate_step_cadquery.py`](../foam-shell/generate_step_cadquery.py).
+- **Reed PCB design.** Custom JLCPCB. Thin rectangular FR4 strip, 10 reed footprints at 17 mm pitch, two M2 mounting holes for the printed bracket, JST-XH 11-pin connector at the top end. Wires exit upward and out the bag pocket via the cap-side seam (or the existing reservoir-line pass-through if the timing works).
+- **Reed-strip mounting bracket on the bag_pocket_shell.** Project pattern strongly favors a printed feature integrated into the bag_pocket_shell CAD over adhesive — heat-set inserts and screws everywhere else in the cold core, adhesive nowhere as primary fastener. Either a printed channel that snap-retains the PCB or two screw bosses with M2 heat-set inserts.
