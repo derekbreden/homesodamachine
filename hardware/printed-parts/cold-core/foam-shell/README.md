@@ -158,6 +158,25 @@ a snugly-mated pocket with uniform clearance around the corner.
 The −X bag pocket is built as a mirror of the +X side from the same
 2-D cross-section in `build_tank_and_bag_pocket_walls`.
 
+**Reed-holder bulge.** Each bag_pocket_shell far ±X wall has a
+localized outward bulge at z = −45 (matching the reservoir's internal
+strut and float, [`reservoir/generate_step_cadquery.py`](../reservoir/generate_step_cadquery.py)'s
+`STRUT_POSITION_Z`), 15 mm wide along z (z = −52.5 to −37.5), 170 mm
+tall along y (y = 40 to 210, matching the float's useful travel range).
+Through the bulge the wall is shifted **3 mm outward**: inner face from
+x = ±105.5 to x = ±108.5, outer face from x = ±107.5 to x = ±110.5.
+Wall thickness stays at 2 mm throughout — the wall material is shifted,
+not duplicated. The bulge makes room for a printed PETG **reed-holder
+strip** carrying 10 reed switches at ~17 mm pitch, press-fit into the
+bag-pocket-side recess and foam-encapsulated during the body pour. See
+[`../reservoir/level-sensing.md`](../reservoir/level-sensing.md) for the
+full level-sensing architecture and the rationale for option B (holder
+inside the bag pocket air space). Constants live in
+`_foam_shell_geometry.py`: `reed_bulge_strut_z`, `REED_BULGE_HALF_Z`,
+`REED_BULGE_BOTTOM_Y`, `REED_BULGE_TOP_Y`, `REED_BULGE_DEPTH`. Applied
+by `apply_reed_holder_bulges()` after the base shell solids are unioned
+but before port holes are cut.
+
 ### foam_cap and foam_cap_lid
 
 The `foam_cap` is a 16 mm-tall cup matching the outer shell's
@@ -529,25 +548,27 @@ shift that needs a deliberate explanation:
 
 | metric | value |
 |---|---|
-| volume   | **948199.817081 mm³** |
+| volume   | **947831.898606 mm³** |
 | bbox x   | [−125.500, +125.500] mm |
 | bbox y   | [0.000, 213.400] mm |
 | bbox z   | [−90.500, +90.500] mm |
-| centroid | (0.000006, 90.377558, −0.238469) mm |
+| centroid | (0.000006, 90.364174, −0.221125) mm |
 
-Captured after the CO2 inlet was moved from the outer −Z back wall
-to the −Z support arch, keeping its original Z-axis horizontal
-orientation but starting at the support arch's outer face (z =
-−(tank_copper_shell_radius − wall_and_floor_thickness) = −70.5 at
-2 mm wall) instead of the original z = −(tank_copper_shell_radius
-+ 20) = −92.5. The hole pierces only the −Z support arch (z =
-−70.5..−61.5 at x = 0); the outer −Z back wall is now solid.
-Volume immediately prior to the rework of this hole was
-948133.878562 mm³ (commit `24197c3`, when the hole still started
-at z = −92.5). The earlier baseline at 951393.752876 mm³ predated
-the support-ring slot chord-sliver fix. Future refactors that
-introduce a deliberate geometry change should update this section
-in the same commit.
+Captured after the reed-holder bulges were added to both bag_pocket_shell
+far ±X walls at z = −45 (see "bag_pocket_shell" above). The bulge itself
+is a pure local shift of the wall material 3 mm outward — same wall
+thickness, same wall area at the bulge — so the shift's volume
+contribution is essentially zero. The −367.92 mm³ delta versus the prior
+baseline is the 1 mm chamfer applied to the four inner-face perimeter
+edges of each cavity (4 edges × ~370 mm total length × 0.5 mm²
+cross-section × 2 sides). Volume immediately prior to this rework was
+948199.817081 mm³ (commit `e2c1cb8`). Earlier baselines:
+- 948133.878562 mm³ — CO2 inlet starting at z = −92.5 (commit `24197c3`,
+  before the hole was moved to start at the support arch face z = −70.5)
+- 951393.752876 mm³ — predated the support-ring slot chord-sliver fix
+
+Future refactors that introduce a deliberate geometry change should
+update this section in the same commit.
 
 Quick reproduction:
 
