@@ -163,13 +163,37 @@ Dishing dies (PA6-CF) for end-cap forming are vessel-fabrication tools, not ship
 | 18 AWG stranded hookup wire (12 V trunk + branch) — placeholder pending sourcing decision; runs DC-1 through DC-7 in [`wiring/ac-wiring-schedule.md`](wiring/ac-wiring-schedule.md) | — | ~$0.50 | $0.50 |
 | Wago 221-413 lever-nut connector, 3-conductor — placeholder pending sourcing decision; AC distribution block on the electronics shelf (H, N, G — one connector per conductor); 3 connectors per build, ~$0.85 each at 10-pk pricing | 3 | $0.85 | $2.55 |
 
-## 12. Carbonator level sensing (external reed + internal float on welded SS rod)
+## 12. Level sensing (external reed + internal float on welded SS rod / printed PETG strut)
+
+The same reed-and-float pattern is used in three places: the carbonator vessel (2 reeds, threshold-only) and each flavor reservoir (10 reeds per reservoir × 2 = 20 reeds, ~5-serving-step granularity). Flavor-reservoir architecture detail at [printed-parts/cold-core/reservoir/level-sensing.md](printed-parts/cold-core/reservoir/level-sensing.md); strut geometry lives in [printed-parts/cold-core/reservoir/generate_step_cadquery.py](printed-parts/cold-core/reservoir/generate_step_cadquery.py) (`STRUT_POSITION_X`, `STRUT_LENGTH`).
+
+### Carbonator (2 reeds, threshold-only)
 
 | Part | ASIN | Qty | Unit $ | Line $ |
 |---|---|---:|---:|---:|
 | [Tandefio 1/8" × 12" 316 SS round rod (5-pk)](https://www.amazon.com/dp/B0CY4DWJFQ) | B0CY4DWJFQ — laser-welded vertically inside vessel between bottom and top plates; carries the magnetic float; cut from 12" to ~6" (one 12" stick yields 2 vessel rods, so 5-pk = 10 vessels) | 1 (of 10) | $0.86 | $0.86 |
 | [DEVMO MINI float switch (donor — harvest magnetic donut float, discard switch body)](https://www.amazon.com/dp/B07T18PGJ4) | B07T18PGJ4 — float slides on the welded SS rod; only the float is shipped product, the rest of the donor unit is discarded | 1 | $13.93 | $13.93 |
-| [Gebildet reed switches, 14 mm glass body, NO (6-pk)](https://www.amazon.com/dp/B0CW9418F6) | B0CW9418F6 — 2 reeds per unit (low-level refill threshold + high-level full threshold), mounted on the outside of the 0.065" SS tube wall; 316L (and 304) are austenitic and non-magnetic so the float magnet's field passes through ($6.42/6 × 2) | 2 (of 6) | $2.14 | $4.28 |
+
+### Flavor reservoirs (10 reeds per reservoir × 2 reservoirs = 20 reeds, ~5-serving-step granularity)
+
+| Part | ASIN | Qty | Unit $ | Line $ |
+|---|---|---:|---:|---:|
+| Reservoir strut: printed PETG, 5 mm OD × 185 mm, integral to each reservoir cap | included in §7 cap print mass (no separate filament line) | 2 (1 per reservoir cap) | — | — |
+| [DEVMO MINI float switch (donor — harvest plastic donut body)](https://www.amazon.com/dp/B07T18PGJ4) | B07T18PGJ4 — float slides on the PETG strut; donor ferrite donut is replaced by the neodymium ring below for stronger field through the all-PETG wall stack (~7.5 mm magnet-to-reed gap vs the carbonator's 1.65 mm SS) | 2 (1 per reservoir) | $13.93 | $27.86 |
+| Neodymium ring magnet (placeholder: ø10 × ø5 × 3 mm, N42 or N52, axially magnetized, food-safe coating — specific SKU TBD) | TBD — sits in the float center, replacing the donor's ferrite donut. Field at 7.5 mm separation: 80–150 gauss, well above typical reed pull-in (~30–50 gauss) | 2 | ~$1.00 | ~$2.00 |
+| Reed-switch PCB strip (placeholder: custom JLCPCB, ~15 × 170 mm, 10 reed footprints at 17 mm pitch + JST-XH header — specific design TBD) | TBD | 2 | ~$10.00 | ~$20.00 |
+
+### Reeds (shared SKU across carbonator + flavor reservoirs)
+
+| Part | ASIN | Qty | Unit $ | Line $ |
+|---|---|---:|---:|---:|
+| [Gebildet reed switches, 14 mm glass body, NO (6-pk)](https://www.amazon.com/dp/B0CW9418F6) | B0CW9418F6 — 22 reeds per build (2 carbonator + 20 flavor reservoir at 10 each × 2 reservoirs). 4 × 6-pack = 24 reeds, 2 spares. Reeds mount on the outside of the SS / PETG walls and trigger through them (austenitic SS and PETG are both non-magnetic, so the field passes through) ($6.42/6 × 22 = $23.54; pack-amortized $6.42 × 4 = $25.68 with 2 spares) | 22 (of 4 × 6 = 24) | $1.07 | $23.54 |
+
+### GPIO expansion for the 20 new flavor-reservoir reed inputs
+
+| Part | ASIN | Qty | Unit $ | Line $ |
+|---|---|---:|---:|---:|
+| [Waveshare MCP23017 I2C GPIO expander, second instance](https://www.amazon.com/dp/B07P2H1NZG) | B07P2H1NZG — same SKU as the existing expander in §1, second instance at I²C address 0x21 (existing one is 0x20). Adds 16 inputs; 20 flavor-reservoir reed inputs spread across both expanders (4 inputs spare on the existing expander after the 12 valves) with 12 spare on the new one. Could be substituted with a 74HC165 shift-register chain at lower cost; MCP23017 chosen for firmware reuse | 1 | $12.99 | $12.99 |
 
 ## 13. Mechanical attach hardware (heat-set inserts + screws + gasket) + reservoir-cap vent filter
 
@@ -206,9 +230,9 @@ The T18 heat-set tip kit ([B0CS662NVK](https://www.amazon.com/dp/B0CS662NVK)) an
 | 9. Dispensing | $52.97 |
 | 10. UI | $43.16 |
 | 11. Wiring | $31.97 |
-| 12. Level sensing | $19.07 |
+| 12. Level sensing | $101.18 |
 | 13. Mechanical attach hardware + reservoir-cap vent filter | $17.55 |
-| **Total** | **$1,461.74** |
+| **Total** | **$1,543.85** |
 
 ## External / user-supplied (not shipped)
 
