@@ -260,18 +260,35 @@ def build_plug(name, y_bottom, y_top):
 
     arches = plug_arch_ends[name]
 
-    # Web Y range is inset from each arched plug end by
-    # `web_arch_buffer`, so the web only exists where its outer-X
-    # sliver is at least `min_printable_thickness` mm wide.  See the
-    # razor-edge note above.  Flanges run the full plug Y range
-    # regardless.
+    # Web and TOP FLANGE share the same Y range, inset from each
+    # arched plug end by `web_arch_buffer`.  Two reasons combine:
+    #   • Web razor edge — see razor-edge note above; web's outer-X
+    #     sliver narrows to zero at y=at_y at each arched end.
+    #   • Top-flange hanging-tab — the plug prints with its XY face
+    #     on the bed (Z = print-vertical), so the top flange is in
+    #     the LAST layers, sitting 2 mm above the bottom flange
+    #     across an air gap.  At each arched end the top flange's
+    #     ±X tab regions plus its inner razor strips (which form
+    #     between the arch cut at x = ±√(R²−(y−at_y)²) and the
+    #     flange edges at x = ±plug_half_x_outer) all print mangled.
+    # The simplest fix covers both: the top flange has the same
+    # shortened Y range as the web, so neither exists in
+    # y = at_y..at_y + web_arch_buffer at each arched end — exactly
+    # the missing region from e678489, extended in Z from the web
+    # band (z = outer_wall_inner_z..outer_wall_outer_z) into the
+    # top flange band (z = outer_wall_outer_z..plug_z_outer).
+    #
+    # Bottom flange keeps its full Y range — those tabs print fine
+    # because they're on the print bed.  The binder-clip grip on
+    # the wall's −Z face is intact at every arched end; the +Z
+    # grip is intact everywhere outside the arched-end Y bands.
     web_y_bottom = y_bottom + (web_arch_buffer if arches["bottom"] else 0)
     web_y_top    = y_top    - (web_arch_buffer if arches["top"]    else 0)
     web_y_height = web_y_top - web_y_bottom
 
     plug = _build_web(web_y_bottom, web_y_height)
-    for z_side in ("top", "bottom"):
-        plug = plug.union(_build_flange(z_side, y_bottom, y_height))
+    plug = plug.union(_build_flange("top",    web_y_bottom, web_y_height))
+    plug = plug.union(_build_flange("bottom", y_bottom,     y_height))
 
     # Half-circle cutouts. The arch is a cylinder (radius =
     # tube_clearance_radius, axis along Z so it pierces the slab face-
@@ -311,17 +328,18 @@ def _analytical_volume(name, y_bottom, y_top):
     wall_outer+1, bottom flange at wall_inner-1..wall_inner), so no
     overlap term is needed — their volumes simply add.
 
-    Flange Y range = plug Y range (full y_height).  Web Y range is
-    inset by `web_arch_buffer` at each arched end (razor-edge fix);
-    `web_y_height = y_height − n_arched_ends × web_arch_buffer`.
+    Bottom-flange Y range = plug Y range (full y_height).
+    Web AND top-flange Y range are both inset by `web_arch_buffer`
+    at each arched end (razor + hanging-tab fix).
 
     Arch cutout per arched end: a Z-axis cylinder of radius
     tube_clearance_radius centered at (x=0, y=at_y).  The cut volume
     splits across the three Z bands:
-      • Each flange (full Y range): half-disc × rail_z_thickness
-      • Web (Y range only past the buffer): (half-disc − buffer cap)
-        × wall_and_floor_thickness, where buffer cap is the area of
-        the half-disc from y=at_y to y=at_y+web_arch_buffer.
+      • Bottom flange (full Y range): half-disc × rail_z_thickness
+      • Web AND top flange (Y range only past the buffer):
+        (half-disc − buffer cap) × Z-thickness-of-that-band,
+        where the buffer cap is the area of the half-disc from
+        y=at_y to y=at_y+web_arch_buffer.
     """
     y_height = y_top - y_bottom
 
@@ -330,19 +348,21 @@ def _analytical_volume(name, y_bottom, y_top):
 
     web_y_height   = y_height - n_arches * web_arch_buffer
     vol_web        = slot_width_x * wall_and_floor_thickness * web_y_height
-    vol_top_flange = plug_full_x  * rail_z_thickness         * y_height
+    vol_top_flange = plug_full_x  * rail_z_thickness         * web_y_height
     vol_bot_flange = plug_full_x  * rail_z_thickness         * y_height
 
     r = tube_clearance_radius
     b = web_arch_buffer
     half_disc_area  = 0.5 * math.pi * r ** 2
     # Area of the half-disc from y=0 to y=b (the "buffer cap" near
-    # the diameter — where the web is absent in the new design).
+    # the diameter — where the web AND top flange are both absent
+    # in the new design).
     buffer_cap_area = b * math.sqrt(r ** 2 - b ** 2) + r ** 2 * math.asin(b / r)
-    web_in_arch_area = half_disc_area - buffer_cap_area
+    inset_in_arch_area = half_disc_area - buffer_cap_area
     vol_arch_per_end = (
-        2 * rail_z_thickness * half_disc_area
-        + wall_and_floor_thickness * web_in_arch_area
+        rail_z_thickness          * half_disc_area      # bottom flange (full Y)
+        + rail_z_thickness        * inset_in_arch_area  # top flange (inset Y)
+        + wall_and_floor_thickness * inset_in_arch_area # web (inset Y)
     )
     vol_arch_total = n_arches * vol_arch_per_end
 
