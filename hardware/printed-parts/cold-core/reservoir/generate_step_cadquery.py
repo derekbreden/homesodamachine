@@ -423,15 +423,39 @@ bulkhead_pocket_length = (
     bulkhead_wet_chamber_length + bulkhead_panel_thickness + bulkhead_dry_chamber_length
 )                                       # 46 (bulkhead body length, was 34 for the CI1208W; the +12 mm comes from the longer collet-body section below)
 #
+# Wet-side nut. The actual hardware sitting at z=panel_z_min on the
+# wet side is the *nut*, not an integral flange — the bulkhead is
+# inserted from the dry side and the integral flange ("not-a-nut",
+# fused to the body) ends up on the dry side. The nut is a stepped
+# washer+hex piece dropped into the wet pocket before insertion and
+# held there by a hex-shaped print pocket while the bulkhead screws
+# in through it.
+#
+# The nut's hex portion is technically a 12-sided shape (the 6 hex
+# corners are clipped well inside the washer's outer ⌀), but the
+# print pocket can safely treat it as a regular hex of the given
+# flat-to-flat dimension — the pocket overshoots by ~1 mm of air at
+# each corner, which doesn't affect the grip on the 6 flats.
+bulkhead_nut_hex_flat_to_flat = 19.8     # the 6 flats that grip the pocket for anti-rotation
+bulkhead_nut_hex_corner_to_corner = bulkhead_nut_hex_flat_to_flat / math.cos(math.radians(30))  # 22.86 mm, ~1 mm past the actual clipped corners
+bulkhead_nut_washer_diameter = 22.1
+bulkhead_nut_hex_depth = 4.1             # axial depth of the hex portion
+bulkhead_nut_washer_depth = 1.6          # axial depth of the washer portion
+bulkhead_nut_total_depth = bulkhead_nut_hex_depth + bulkhead_nut_washer_depth  # 5.7
+bulkhead_nut_clearance = 0.1             # per-side clearance for press-fit (both hex flats and washer ⌀)
+#
 # Wet-side section lengths (estimates — refine with drawing measurements):
-bulkhead_flange_length = 3.0                                   # last segment, against the panel
-bulkhead_collet_body_length = 18.0                             # middle of the wet section — extended 12 mm beyond the CI1208W's 6 mm to push the panel/flange chamber forward in +Z, recentering the wet chamber away from the cavity's curved tank-side wall. The tip channel and flange/ring channel keep their original lengths; only the smooth middle stretches.
+bulkhead_flange_length = bulkhead_nut_total_depth              # 5.7 — the wet-side pocket against the panel holds the *nut* (a stepped washer+hex piece), not an integral flange. Name kept for now as the geometric region label.
+bulkhead_collet_body_length = 15.3                             # middle of the wet section — extended ~9 mm beyond the CI1208W's 6 mm so the bulkhead's smooth body has room to rest comfortably when fully screwed forward into the nut. Was 18 before the nut pocket grew from 3 → 5.7; collet shrinks by the same 2.7 to keep the panel at z=54.
 bulkhead_release_ring_length = (
     bulkhead_wet_chamber_length - bulkhead_flange_length - bulkhead_collet_body_length
 )                                                              # 3 — the visible end with the push-to-release ring
 #
 # Wet-side chamber diameters per section (body OD + clearance):
-bulkhead_flange_chamber_diameter = bulkhead_pocket_diameter    # 23 (ø22.9 flange + 0.1 clearance)
+# (bulkhead_flange_chamber_diameter was here when the third wet
+# section was a simple ⌀23 cylinder. The pocket is now stepped
+# (hex + washer) — see the bulkhead_nut_* constants above for the
+# new geometry.)
 bulkhead_collet_chamber_diameter = 19.0                        # est. body OD ø17–18 + ~0.5 mm/side
 bulkhead_release_chamber_diameter = 11.0                       # caliper-measured release ring ø9.57 + ~0.7 mm/side
 #
@@ -439,8 +463,8 @@ bulkhead_wet_end_z = 30.0                # z of bulkhead body's wet face (the po
 bulkhead_wet_chamber_z_min = bulkhead_wet_end_z - bulkhead_wet_antechamber_length  # 28 (tip-channel −Z edge, stays put)
 bulkhead_release_z_start = bulkhead_wet_end_z                   # 30 — release-ring section starts at the body's wet face (stays)
 bulkhead_collet_z_start = bulkhead_release_z_start + bulkhead_release_ring_length  # 33 (release-ring → collet boundary, stays)
-bulkhead_flange_z_start = bulkhead_collet_z_start + bulkhead_collet_body_length    # 51 (was 39: collet → flange boundary moved +12 with the longer collet)
-bulkhead_panel_z_min = bulkhead_flange_z_start + bulkhead_flange_length             # 54 (was 42: panel's −Z face moved +12)
+bulkhead_flange_z_start = bulkhead_collet_z_start + bulkhead_collet_body_length    # 48.3 — the start of the nut pocket (was named flange because the geometry was originally laid out for an integral flange here; actually it's the nut)
+bulkhead_panel_z_min = bulkhead_flange_z_start + bulkhead_flange_length             # 54 (panel's −Z face; nut pocket of 5.7 mm fits between this and bulkhead_flange_z_start)
 bulkhead_panel_z_max = bulkhead_panel_z_min + bulkhead_panel_thickness              # 59 (was 47: panel's +Z face moved +12)
 bulkhead_dry_end_z = bulkhead_wet_end_z + bulkhead_pocket_length                    # 76 (was 64: bulkhead's +Z tip moved +12; this is now past outer_z_max ≈ 72, so the dry-side fittings protrude through the open dry section)
 # The floor thickens uniformly across the cavity to a baseline whose
@@ -960,14 +984,14 @@ def build_reservoir_body(side=1):
         )
 
     # Stepped wet chamber, conforming to the bulkhead body's profile.
-    # Each section is a (cylinder lower-half + matching-width box
-    # upper-half) "stadium" — cylinder gives a snug fit around the
-    # body's lower half, box opens the upper half to the cavity above.
+    # First two sections are simple (cylinder lower-half + matching-width
+    # box upper-half) "stadiums". The third section (against the panel)
+    # is the nut pocket — handled separately below because it's stepped
+    # (hex + washer counterbore), not a single cylinder.
     wet_sections = [
         # (z_start,                                z_end,                    diameter)
         (bulkhead_wet_chamber_z_min,               bulkhead_collet_z_start,  bulkhead_release_chamber_diameter),  # release ring + antechamber
-        (bulkhead_collet_z_start,                  bulkhead_flange_z_start,  bulkhead_collet_chamber_diameter),   # collet body
-        (bulkhead_flange_z_start,                  bulkhead_panel_z_min,     bulkhead_flange_chamber_diameter),   # flange (against panel)
+        (bulkhead_collet_z_start,                  bulkhead_flange_z_start,  bulkhead_collet_chamber_diameter),   # collet body — bulkhead's smooth main section rests here when fully screwed forward
     ]
     ceiling_y_top = floor_baseline_y + 2.0
     for z_start, z_end, diameter in wet_sections:
@@ -982,6 +1006,57 @@ def build_reservoir_body(side=1):
             .extrude(ceiling_y_top - port_position_y)
         )
         body = body.cut(ceiling_box)
+
+    # Nut pocket: third wet section, stepped. A flat-top hex pocket
+    # (⌀19.8 flat-to-flat + clearance) at the deeper end grips the
+    # nut's hex portion against rotation; a round counterbore (⌀22.1
+    # + clearance) above it clears the nut's washer portion, which
+    # seats against the panel's −Z face. Install sequence: drop the
+    # nut in from above (ceiling box opens to the cavity), gravity
+    # seats it, hex flats prevent rotation. Then thread the bulkhead
+    # in from the dry side; thread engagement locks the nut axially.
+    nut_hex_z_min = bulkhead_flange_z_start
+    nut_hex_z_max = nut_hex_z_min + bulkhead_nut_hex_depth
+    nut_washer_z_min = nut_hex_z_max
+    nut_washer_z_max = bulkhead_panel_z_min
+
+    # Flat-top hex (one flat at workplane +Y, one at workplane −Y),
+    # so the stadium-pattern ceiling box opens along a flat edge —
+    # matching the round chambers' geometry. Vertices at angles
+    # 0°, 60°, 120°, 180°, 240°, 300° from +X put flats at ±Y.
+    hex_R = (bulkhead_nut_hex_corner_to_corner + 2 * bulkhead_nut_clearance) / 2
+    hex_vertices_local = [
+        (hex_R * math.cos(math.radians(a)), hex_R * math.sin(math.radians(a)))
+        for a in (0, 60, 120, 180, 240, 300)
+    ]
+    hex_pocket = (
+        cq.Workplane(cq.Plane(
+            origin=(port_x_signed, port_position_y, nut_hex_z_min),
+            xDir=(1, 0, 0),
+            normal=(0, 0, 1),
+        ))
+        .polyline(hex_vertices_local)
+        .close()
+        .extrude(nut_hex_z_max - nut_hex_z_min)
+    )
+    body = body.cut(hex_pocket)
+    body = body.cut(_z_pocket_cut(
+        nut_washer_z_min, nut_washer_z_max,
+        bulkhead_nut_washer_diameter + 2 * bulkhead_nut_clearance,
+    ))
+    for (z_start, z_end, width) in (
+        (nut_hex_z_min, nut_hex_z_max,
+         bulkhead_nut_hex_corner_to_corner + 2 * bulkhead_nut_clearance),
+        (nut_washer_z_min, nut_washer_z_max,
+         bulkhead_nut_washer_diameter + 2 * bulkhead_nut_clearance),
+    ):
+        ceiling_box = (
+            _wp_at(port_x_signed, port_position_y, (z_start + z_end) / 2.0)
+            .rect(width, z_end - z_start)
+            .extrude(ceiling_y_top - port_position_y)
+        )
+        body = body.cut(ceiling_box)
+
     body = body.cut(_z_pocket_cut(
         bulkhead_panel_z_min, bulkhead_panel_z_max, bulkhead_panel_hole_diameter,
     ))                                       # panel hole ⌀17
