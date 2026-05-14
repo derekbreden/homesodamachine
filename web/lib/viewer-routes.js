@@ -56,17 +56,35 @@ export function mountViewerRoutes(app, { hardwareDir }) {
     res.type("text/plain").send(fs.readFileSync(abs, "utf-8"));
   });
 
+  // sendFile races against the atomic-rename window in
+  // hardware/_cadq_export.py: existsSync above can pass and then the
+  // file vanish for a few ms while a regen writes a new temp + rename.
+  // sendFile's NotFoundError bubbles up to Express's default handler
+  // which prints a stack trace to stderr — noisy and looks alarming.
+  // Pass a callback so we own the error path and just send a 404 / 503
+  // instead.
+  function streamFile(res, abs) {
+    res.type("application/octet-stream").sendFile(abs, (err) => {
+      if (!err) return;
+      if (res.headersSent) return; // already streaming; the client will see a truncated body
+      if (err.code === "ENOENT" || err.status === 404) {
+        return res.status(404).send("Not found");
+      }
+      res.status(500).send("File send error");
+    });
+  }
+
   app.get("/steps/*", (req, res) => {
     const abs = safeFile(hardwareDir, req.params[0], ".step");
     if (!abs) return res.status(400).send("Invalid path");
     if (!fs.existsSync(abs)) return res.status(404).send("Not found");
-    res.type("application/octet-stream").sendFile(abs);
+    streamFile(res, abs);
   });
 
   app.get("/dxfs/*", (req, res) => {
     const abs = safeFile(hardwareDir, req.params[0], ".dxf");
     if (!abs) return res.status(400).send("Invalid path");
     if (!fs.existsSync(abs)) return res.status(404).send("Not found");
-    res.type("application/octet-stream").sendFile(abs);
+    streamFile(res, abs);
   });
 }
