@@ -1496,23 +1496,34 @@ def main():
     #   side = +1  →  +X reservoir  →  user's RIGHT  →  "*-right.step"
     #   side = −1  →  −X reservoir  →  user's LEFT   →  "*-left.step"
     #
-    # The retaining ring is symmetric across x = 0, so a single
-    # un-suffixed STEP is exported.
+    # Body and cap genuinely differ between sides — they're NOT
+    # z-symmetric. The bulkhead pocket housing lives on +Z (front) for
+    # both reservoirs, and the strut and vent positions stay at fixed
+    # world Z (the strut at z=−45, the cap vent at z=+32.5) so they
+    # remain on the back / front of the machine for both reservoirs.
+    # Mirror across x=0 only — never across z=0.
+    #
+    # The gasket and the retaining ring are BOTH z-symmetric in their
+    # own right (perimeter rings with z-mirrored hole patterns), and
+    # under z-symmetry a 180° rotation about Y collapses to an x-mirror
+    # — i.e. the −X gasket is just the +X gasket flipped over. So one
+    # print serves either reservoir; only a single un-suffixed STEP is
+    # exported for each.
     here = Path(__file__).resolve().parent
 
     for side, label in ((+1, "right"), (-1, "left")):
         body = build_reservoir_body(side=side)
         cap = build_reservoir_cap(side=side)
-        gasket = build_reservoir_gasket(side=side)
         export_step(body, str(here / f"reservoir-{label}.step"))
         export_step(cap, str(here / f"reservoir-cap-{label}.step"))
-        export_step(gasket, str(here / f"reservoir-gasket-{label}.step"))
         print(f"-> reservoir-{label}.step")
         print(f"-> reservoir-cap-{label}.step")
-        print(f"-> reservoir-gasket-{label}.step")
 
+    gasket = build_reservoir_gasket(side=+1)  # z-symmetric: flip to install on −X side
     retaining_ring = build_reservoir_retaining_ring()
+    export_step(gasket, str(here / "reservoir-gasket.step"))
     export_step(retaining_ring, str(here / "reservoir-retaining-ring.step"))
+    print(f"-> reservoir-gasket.step")
     print(f"-> reservoir-retaining-ring.step")
 
 
