@@ -1,8 +1,23 @@
 flowchart LR
 
   %% ═══════════════════════════════════════
-  %%  Future Valve Control — MCP23017 + ULN2803A
+  %%  Valve Control + Flavor-Reservoir Level Sensing
+  %%  MCP23017 ×2 + ULN2803A ×2 (valves), reed inputs
   %% ═══════════════════════════════════════
+  %%
+  %% Two MCP23017 expanders on the shared I2C bus:
+  %%   0x20  outputs (valves) on Port A + Port B[0:3];
+  %%         inputs (4 reservoir reed switches) on Port B[4:7]
+  %%   0x21  inputs only (16 reservoir reed switches)
+  %%
+  %% Reservoir level sensing: 10 reeds per reservoir × 2 reservoirs
+  %% = 20 inputs. Allocation puts the top 2 reeds of each reservoir
+  %% on 0x20 PB[4:7] (the existing chip's 4 spare bits) and the
+  %% remaining 16 reeds (8 per reservoir, low-to-high indices 1-8)
+  %% on 0x21. Both chips end fully used after this addition.
+  %%
+  %% Architecture detail at
+  %% hardware/printed-parts/cold-core/reservoir/level-sensing.md.
 
   subgraph ESP32["ESP32  I2C Bus"]
     direction TB
@@ -13,34 +28,63 @@ flowchart LR
   subgraph I2C_Bus["I2C Bus  (shared)"]
     direction TB
     RTC["DS3231 RTC\n0x68"]
-    MCP["MCP23017\n0x20 (default)"]
+    MCP0["MCP23017\n0x20 (valves + 4 reed inputs)"]
+    MCP1["MCP23017\n0x21 (16 reed inputs)"]
   end
 
-  subgraph Expander["MCP23017 — 16 GPIO"]
+  subgraph Expander0["MCP23017 0x20 — 16 GPIO"]
     direction TB
 
-    subgraph PortA["Port A  (GPA0–7)"]
+    subgraph PortA0["Port A  (GPA0–7) — OUTPUTS"]
       direction TB
-      GPA0["GPA0 → V-A"]
-      GPA1["GPA1 → V-B"]
-      GPA2["GPA2 → V-C"]
-      GPA3["GPA3 → V-D"]
-      GPA4["GPA4 → V-E"]
-      GPA5["GPA5 → V-F"]
-      GPA6["GPA6 → V-G"]
-      GPA7["GPA7 → V-H"]
+      A0_GPA0["GPA0 → V-A"]
+      A0_GPA1["GPA1 → V-B"]
+      A0_GPA2["GPA2 → V-C"]
+      A0_GPA3["GPA3 → V-D"]
+      A0_GPA4["GPA4 → V-E"]
+      A0_GPA5["GPA5 → V-F"]
+      A0_GPA6["GPA6 → V-G"]
+      A0_GPA7["GPA7 → V-H"]
     end
 
-    subgraph PortB["Port B  (GPB0–7)"]
+    subgraph PortB0["Port B  (GPB0–7) — OUTPUTS + INPUTS"]
       direction TB
-      GPB0["GPB0 → V-I"]
-      GPB1["GPB1 → V-J"]
-      GPB2["GPB2 → V-K-A"]
-      GPB3["GPB3 → V-K-B"]
-      GPB4["GPB4  free"]
-      GPB5["GPB5  free"]
-      GPB6["GPB6  free"]
-      GPB7["GPB7  free"]
+      A0_GPB0["GPB0 → V-I"]
+      A0_GPB1["GPB1 → V-J"]
+      A0_GPB2["GPB2 → V-K-A"]
+      A0_GPB3["GPB3 → V-K-B"]
+      A0_GPB4["GPB4 ← Reservoir A reed 9 (in)"]
+      A0_GPB5["GPB5 ← Reservoir A reed 10 / FULL (in)"]
+      A0_GPB6["GPB6 ← Reservoir B reed 9 (in)"]
+      A0_GPB7["GPB7 ← Reservoir B reed 10 / FULL (in)"]
+    end
+  end
+
+  subgraph Expander1["MCP23017 0x21 — 16 GPIO  (all INPUTS)"]
+    direction TB
+
+    subgraph PortA1["Port A  (GPA0–7) — Reservoir A reeds 1-8"]
+      direction TB
+      A1_GPA0["GPA0 ← Rsvr A reed 1 / EMPTY"]
+      A1_GPA1["GPA1 ← Rsvr A reed 2"]
+      A1_GPA2["GPA2 ← Rsvr A reed 3"]
+      A1_GPA3["GPA3 ← Rsvr A reed 4"]
+      A1_GPA4["GPA4 ← Rsvr A reed 5"]
+      A1_GPA5["GPA5 ← Rsvr A reed 6"]
+      A1_GPA6["GPA6 ← Rsvr A reed 7"]
+      A1_GPA7["GPA7 ← Rsvr A reed 8"]
+    end
+
+    subgraph PortB1["Port B  (GPB0–7) — Reservoir B reeds 1-8"]
+      direction TB
+      A1_GPB0["GPB0 ← Rsvr B reed 1 / EMPTY"]
+      A1_GPB1["GPB1 ← Rsvr B reed 2"]
+      A1_GPB2["GPB2 ← Rsvr B reed 3"]
+      A1_GPB3["GPB3 ← Rsvr B reed 4"]
+      A1_GPB4["GPB4 ← Rsvr B reed 5"]
+      A1_GPB5["GPB5 ← Rsvr B reed 6"]
+      A1_GPB6["GPB6 ← Rsvr B reed 7"]
+      A1_GPB7["GPB7 ← Rsvr B reed 8"]
     end
   end
 
@@ -94,25 +138,84 @@ flowchart LR
     end
   end
 
+  subgraph Reeds["Reservoir Reed Switches  (10 per reservoir, INPUT_PULLUP, magnet pulls LOW)"]
+    direction TB
+
+    subgraph RsvrA["Reservoir A — bottom (reed 1) to top (reed 10)"]
+      direction TB
+      RA1["Reed 1  EMPTY threshold"]
+      RA2["Reed 2"]
+      RA3["Reed 3"]
+      RA4["Reed 4"]
+      RA5["Reed 5"]
+      RA6["Reed 6"]
+      RA7["Reed 7"]
+      RA8["Reed 8"]
+      RA9["Reed 9"]
+      RA10["Reed 10  FULL threshold"]
+    end
+
+    subgraph RsvrB["Reservoir B — bottom (reed 1) to top (reed 10)"]
+      direction TB
+      RB1["Reed 1  EMPTY threshold"]
+      RB2["Reed 2"]
+      RB3["Reed 3"]
+      RB4["Reed 4"]
+      RB5["Reed 5"]
+      RB6["Reed 6"]
+      RB7["Reed 7"]
+      RB8["Reed 8"]
+      RB9["Reed 9"]
+      RB10["Reed 10  FULL threshold"]
+    end
+  end
+
   %% ── I2C wiring ──
   SDA & SCL <-->|"I2C"| RTC
-  SDA & SCL <-->|"I2C"| MCP
+  SDA & SCL <-->|"I2C"| MCP0
+  SDA & SCL <-->|"I2C"| MCP1
 
-  %% ── MCP23017 Port A → U1 ──
-  GPA0 --> U1_1
-  GPA1 --> U1_2
-  GPA2 --> U1_3
-  GPA3 --> U1_4
-  GPA4 --> U1_5
-  GPA5 --> U1_6
-  GPA6 --> U1_7
-  GPA7 --> U1_8
+  %% ── 0x20 Port A → U1 ──
+  A0_GPA0 --> U1_1
+  A0_GPA1 --> U1_2
+  A0_GPA2 --> U1_3
+  A0_GPA3 --> U1_4
+  A0_GPA4 --> U1_5
+  A0_GPA5 --> U1_6
+  A0_GPA6 --> U1_7
+  A0_GPA7 --> U1_8
 
-  %% ── MCP23017 Port B → U2 ──
-  GPB0 --> U2_1
-  GPB1 --> U2_2
-  GPB2 --> U2_3
-  GPB3 --> U2_4
+  %% ── 0x20 Port B[0:3] → U2 ──
+  A0_GPB0 --> U2_1
+  A0_GPB1 --> U2_2
+  A0_GPB2 --> U2_3
+  A0_GPB3 --> U2_4
+
+  %% ── 0x20 Port B[4:7] ← top 2 reeds of each reservoir ──
+  RA9 -->|"INPUT_PULLUP"| A0_GPB4
+  RA10 -->|"INPUT_PULLUP"| A0_GPB5
+  RB9 -->|"INPUT_PULLUP"| A0_GPB6
+  RB10 -->|"INPUT_PULLUP"| A0_GPB7
+
+  %% ── 0x21 Port A ← Reservoir A reeds 1-8 ──
+  RA1 -->|"INPUT_PULLUP"| A1_GPA0
+  RA2 -->|"INPUT_PULLUP"| A1_GPA1
+  RA3 -->|"INPUT_PULLUP"| A1_GPA2
+  RA4 -->|"INPUT_PULLUP"| A1_GPA3
+  RA5 -->|"INPUT_PULLUP"| A1_GPA4
+  RA6 -->|"INPUT_PULLUP"| A1_GPA5
+  RA7 -->|"INPUT_PULLUP"| A1_GPA6
+  RA8 -->|"INPUT_PULLUP"| A1_GPA7
+
+  %% ── 0x21 Port B ← Reservoir B reeds 1-8 ──
+  RB1 -->|"INPUT_PULLUP"| A1_GPB0
+  RB2 -->|"INPUT_PULLUP"| A1_GPB1
+  RB3 -->|"INPUT_PULLUP"| A1_GPB2
+  RB4 -->|"INPUT_PULLUP"| A1_GPB3
+  RB5 -->|"INPUT_PULLUP"| A1_GPB4
+  RB6 -->|"INPUT_PULLUP"| A1_GPB5
+  RB7 -->|"INPUT_PULLUP"| A1_GPB6
+  RB8 -->|"INPUT_PULLUP"| A1_GPB7
 
   %% ── U1 → Valves ──
   U1_1 ==> VA
@@ -130,17 +233,5 @@ flowchart LR
   U2_3 ==> VKA
   U2_4 ==> VKB
 
-  %% Signals (I2C bus + MCP23017 GPIO -> ULN2803A inputs): white.
-  %% 0-3 = I2C bidir to RTC, MCP; 4-11 = MCP Port A -> U1;
-  %% 12-15 = MCP Port B -> U2.
-  linkStyle 0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15 stroke:#ccc,stroke-width:2px
-  %% Power paths (red, thick): ULN2803A outputs switching 12V to solenoid coils.
-  %% 16-23 = U1 -> 8 valves, 24-27 = U2 -> 4 valves.
-  linkStyle 16,17,18,19,20,21,22,23,24,25,26,27 stroke:#c44,stroke-width:3px
-
   %% Free pins dimmed
-  style GPB4 fill:#333,stroke:#555,color:#777
-  style GPB5 fill:#333,stroke:#555,color:#777
-  style GPB6 fill:#333,stroke:#555,color:#777
-  style GPB7 fill:#333,stroke:#555,color:#777
   style U2_free fill:#333,stroke:#555,color:#777
