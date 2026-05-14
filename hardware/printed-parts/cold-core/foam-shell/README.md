@@ -158,20 +158,6 @@ a snugly-mated pocket with uniform clearance around the corner.
 The −X bag pocket is built as a mirror of the +X side from the same
 2-D cross-section in `build_tank_and_bag_pocket_walls`.
 
-**Reed-holder channel.** Each bag_pocket_shell far ±X wall has a
-**full-height vertical rectangular slot** cut through it at z = −45
-(matching the reservoir's internal strut and float,
-[`reservoir/generate_step_cadquery.py`](../reservoir/generate_step_cadquery.py)'s
-`STRUT_POSITION_Z`), 15 mm wide along z (z = −52.5 to −37.5), full wall
-height along y. A printed PETG **reed-holder strip** carrying 10 reed
-switches at ~17 mm pitch slides into the channel from the outer-foam
-side before the body pour, and the foam encapsulates it. See
-[`../reservoir/level-sensing.md`](../reservoir/level-sensing.md) for the
-full level-sensing architecture and the magnet-to-reed signal-path
-math. Constants live in `_foam_shell_geometry.py`: `reed_channel_z`,
-`REED_CHANNEL_HALF_Z`. Applied by `cut_reed_holder_channels()` after
-the base shell solids are unioned but before port holes are cut.
-
 ### foam_cap and foam_cap_lid
 
 The `foam_cap` is a 16 mm-tall cup matching the outer shell's
@@ -543,26 +529,25 @@ shift that needs a deliberate explanation:
 
 | metric | value |
 |---|---|
-| volume   | **935035.357287 mm³** |
+| volume   | **948199.817081 mm³** |
 | bbox x   | [−125.500, +125.500] mm |
 | bbox y   | [0.000, 213.400] mm |
 | bbox z   | [−90.500, +90.500] mm |
-| centroid | (0.000000, 90.188500, 0.391700) mm |
+| centroid | (0.000006, 90.377558, −0.238469) mm |
 
-Captured after the reed-holder channels were cut through both
-bag_pocket_shell far ±X walls at z = −45 (see "bag_pocket_shell" above).
-The cut removes the wall material at z = −52.5..−37.5 over the full wall
-height on each side; the resulting volume delta is ~−13164 mm³ vs the
-prior baseline of 948199.817081 mm³ (commit `e2c1cb8`, before any reed-
-holder work). Earlier baselines:
-- 947831.898606 mm³ — broken bulge attempt with chamfers (commit `6d68de4`,
-  reverted in favor of this simpler full-height channel cut)
-- 948133.878562 mm³ — CO2 inlet starting at z = −92.5 (commit `24197c3`,
-  before the hole was moved to start at the support arch face z = −70.5)
-- 951393.752876 mm³ — predated the support-ring slot chord-sliver fix
-
-Future refactors that introduce a deliberate geometry change should
-update this section in the same commit.
+Captured after the CO2 inlet was moved from the outer −Z back wall
+to the −Z support arch, keeping its original Z-axis horizontal
+orientation but starting at the support arch's outer face (z =
+−(tank_copper_shell_radius − wall_and_floor_thickness) = −70.5 at
+2 mm wall) instead of the original z = −(tank_copper_shell_radius
++ 20) = −92.5. The hole pierces only the −Z support arch (z =
+−70.5..−61.5 at x = 0); the outer −Z back wall is now solid.
+Volume immediately prior to the rework of this hole was
+948133.878562 mm³ (commit `24197c3`, when the hole still started
+at z = −92.5). The earlier baseline at 951393.752876 mm³ predated
+the support-ring slot chord-sliver fix. Future refactors that
+introduce a deliberate geometry change should update this section
+in the same commit.
 
 Quick reproduction:
 
