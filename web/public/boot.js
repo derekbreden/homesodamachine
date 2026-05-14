@@ -283,111 +283,163 @@
     if (document.visibilityState === "visible") refetchAndMaybeRedirect();
   });
 
-  // ===== 3. SSE owner =====
-  // EventSource has built-in retry, but two failure modes need explicit
-  // help:
-  //   1. After an auto-reconnect, the server's second `hello` carries
-  //      the SAME commit fingerprint as the first (especially in dev
-  //      where it's the constant "dev"). With the old "only fire
-  //      hsm:deploy on commit change" logic, that silently swallowed
-  //      every files-changed event the client missed during the
-  //      disconnect window — the user sees no live reload until they
-  //      manually refresh. Now: any non-first hello fires hsm:deploy
-  //      so the page refreshes whatever it's showing.
-  //   2. Safari (and rarely other browsers) can keep an EventSource in
-  //      OPEN state after the underlying TCP connection has actually
-  //      died — no error event, no auto-reconnect. When the page
-  //      regains focus, we check the readyState AND the freshness of
-  //      the last message; if either looks stale, force a reconnect.
+  // ===== 3. WebSocket owner =====
   //
-  // The server keeps connections alive with a 30s :keepalive comment
-  // (see web/lib/events.js). Any message — data or comment — counts
-  // as activity; the 60s stale threshold is generous on top of that.
-  if ("EventSource" in window) {
-    var es = null;
-    var seenCommit = null;
-    var seenRecentCommit = null;
-    var lastActivityAt = 0;
-    var STALE_MS = 60_000;
+  // Server -> client push transport. Used by both the dev server
+  // (file-change broadcasts from chokidar) and the production server
+  // (deploy-version handshake on connect + boot-time diff replay).
+  //
+  // We're on WebSockets after SSE proved unreliable in our setup:
+  // Safari kept long-lived EventSources in OPEN state with no bytes
+  // flowing (no error event, no auto-reconnect), and even when SSE
+  // reconnect did fire there was no clean way for the client to learn
+  // "I missed some broadcasts." WebSocket gives us:
+  //   - explicit onclose (fires whenever the socket dies, in every
+  //     browser we care about) → drives our own reconnect loop with
+  //     exponential backoff
+  //   - server-side ping/pong (web/lib/events.js sends a protocol-level
+  //     ping every 30s; the browser auto-pongs; if pong doesn't arrive
+  //     the server terminate()s the socket and the client's onclose
+  //     fires)
+  //   - {type:"ping"} data frame alongside the protocol ping that the
+  //     onmessage handler observes — used as a freshness signal so
+  //     visibility-change can detect a silently dead socket even on
+  //     browsers that lie about readyState
+  //
+  // Wire shape and reconnect behavior:
+  //   - On connect, server sends {type:"hello", commit, time, recent?}.
+  //   - On the FIRST hello we record `seenCommit`. On any later hello
+  //     we treat it as a deploy/reconnect signal and fire hsm:deploy
+  //     so the page refreshes whatever it's showing — covers both the
+  //     prod-deploy case (new commit) and the dev-blip case (same
+  //     commit but we missed broadcasts during the disconnect).
+  //   - onclose schedules connectWS again with exponential backoff
+  //     (1s, 2s, 4s, capped at 8s).
+  //   - visibilitychange/focus/pageshow checks: if readyState isn't
+  //     OPEN, force a fresh connect immediately (don't wait for the
+  //     backoff timer). If readyState is OPEN but no activity in >60s,
+  //     close-and-reconnect — the 30s heartbeat means anything past
+  //     that is a stuck socket.
+  var ws = null;
+  var seenCommit = null;
+  var seenRecentCommit = null;
+  var lastActivityAt = 0;
+  var reconnectDelayMs = 1000;
+  var reconnectMaxMs = 8000;
+  var reconnectTimer = null;
+  var STALE_MS = 60_000;
 
-    function onSSEMessage(ev) {
-      lastActivityAt = Date.now();
-      var msg;
-      try { msg = JSON.parse(ev.data); } catch (e) { return; }
-      if (msg.type === "hello") {
-        if (seenCommit === null) {
-          seenCommit = msg.commit;
-          if (msg.recent && msg.recent.commit) seenRecentCommit = msg.recent.commit;
-          return;
-        }
-        // Reconnect — server fingerprint may or may not have changed
-        // (it does on prod deploy; in dev it's always "dev"). Either
-        // way, the client missed any broadcasts during the disconnect,
-        // so refetch as if it were a fresh deploy.
-        seenCommit = msg.commit;
-        window.dispatchEvent(new CustomEvent("hsm:deploy", { detail: { commit: msg.commit, reconnect: true } }));
-        if (msg.recent && msg.recent.commit && msg.recent.commit !== seenRecentCommit) {
-          seenRecentCommit = msg.recent.commit;
-          if (msg.recent.files) {
-            window.dispatchEvent(new CustomEvent("hsm:files-changed", { detail: { files: msg.recent.files } }));
-          }
-          if (msg.recent.posts) {
-            window.dispatchEvent(new CustomEvent("hsm:posts-changed", { detail: { posts: msg.recent.posts } }));
-          }
-        }
-        fetchNotifications();
-        return;
-      }
-      if (msg.type === "files-changed") {
-        window.dispatchEvent(new CustomEvent("hsm:files-changed", { detail: { files: msg.files || [] } }));
-        fetchNotifications();
-        return;
-      }
-      if (msg.type === "posts-changed") {
-        window.dispatchEvent(new CustomEvent("hsm:posts-changed", { detail: { posts: msg.posts || [] } }));
-        fetchNotifications();
-        return;
-      }
-      // type === "ping" and anything else: lastActivityAt already
-      // bumped at the top of this handler, nothing else to do.
-    }
-
-    function connectSSE() {
-      if (es) {
-        try { es.close(); } catch (e) {}
-      }
-      es = new EventSource("/api/events");
-      lastActivityAt = Date.now();
-      es.addEventListener("message", onSSEMessage);
-      // The browser's built-in retry handles transient errors; we log
-      // for debugging and trust EventSource to come back. The
-      // visibility-change check below handles the case where it
-      // doesn't.
-      es.addEventListener("error", function () {
-        // EventSource transitions: 0=CONNECTING, 1=OPEN, 2=CLOSED.
-        // No-op here — we only listen so silent errors are visible in
-        // devtools network panel if needed.
-      });
-    }
-
-    function ensureSSEAlive() {
-      if (!es || es.readyState === EventSource.CLOSED) {
-        connectSSE();
-        return;
-      }
-      if (es.readyState === EventSource.OPEN && Date.now() - lastActivityAt > STALE_MS) {
-        // OPEN but no bytes in over a minute despite the 30s server
-        // keepalive — connection is silently dead. Force-reconnect.
-        connectSSE();
-      }
-    }
-
-    document.addEventListener("visibilitychange", function () {
-      if (document.visibilityState === "visible") ensureSSEAlive();
-    });
-    window.addEventListener("focus", ensureSSEAlive);
-    window.addEventListener("pageshow", ensureSSEAlive);
-
-    connectSSE();
+  function wsUrl() {
+    var proto = window.location.protocol === "https:" ? "wss:" : "ws:";
+    return proto + "//" + window.location.host + "/ws";
   }
+
+  function onWSMessage(ev) {
+    lastActivityAt = Date.now();
+    var msg;
+    try { msg = JSON.parse(ev.data); } catch (e) { return; }
+    if (msg.type === "hello") {
+      if (seenCommit === null) {
+        seenCommit = msg.commit;
+        if (msg.recent && msg.recent.commit) seenRecentCommit = msg.recent.commit;
+        return;
+      }
+      // Reconnect: any non-first hello means the connection had
+      // dropped; we may have missed broadcasts during the disconnect.
+      // Refetch as if it were a fresh deploy.
+      seenCommit = msg.commit;
+      window.dispatchEvent(new CustomEvent("hsm:deploy", { detail: { commit: msg.commit, reconnect: true } }));
+      if (msg.recent && msg.recent.commit && msg.recent.commit !== seenRecentCommit) {
+        seenRecentCommit = msg.recent.commit;
+        if (msg.recent.files) {
+          window.dispatchEvent(new CustomEvent("hsm:files-changed", { detail: { files: msg.recent.files } }));
+        }
+        if (msg.recent.posts) {
+          window.dispatchEvent(new CustomEvent("hsm:posts-changed", { detail: { posts: msg.recent.posts } }));
+        }
+      }
+      fetchNotifications();
+      return;
+    }
+    if (msg.type === "files-changed") {
+      window.dispatchEvent(new CustomEvent("hsm:files-changed", { detail: { files: msg.files || [] } }));
+      fetchNotifications();
+      return;
+    }
+    if (msg.type === "posts-changed") {
+      window.dispatchEvent(new CustomEvent("hsm:posts-changed", { detail: { posts: msg.posts || [] } }));
+      fetchNotifications();
+      return;
+    }
+    // type === "ping" and anything else: lastActivityAt already
+    // bumped at the top of this handler.
+  }
+
+  function clearReconnectTimer() {
+    if (reconnectTimer) { clearTimeout(reconnectTimer); reconnectTimer = null; }
+  }
+
+  function connectWS() {
+    clearReconnectTimer();
+    if (ws) {
+      try { ws.close(); } catch (e) {}
+      ws = null;
+    }
+    try {
+      ws = new WebSocket(wsUrl());
+    } catch (e) {
+      // Construction itself failed (rare — bad URL, etc.). Retry on backoff.
+      scheduleReconnect();
+      return;
+    }
+    lastActivityAt = Date.now();
+    ws.addEventListener("open", function () {
+      // Successful handshake. Reset the backoff so the next reconnect
+      // starts fast.
+      reconnectDelayMs = 1000;
+      lastActivityAt = Date.now();
+    });
+    ws.addEventListener("message", onWSMessage);
+    ws.addEventListener("error", function () {
+      // The close event will follow; nothing extra to do here.
+    });
+    ws.addEventListener("close", function () {
+      ws = null;
+      scheduleReconnect();
+    });
+  }
+
+  function scheduleReconnect() {
+    if (reconnectTimer) return;
+    var delay = reconnectDelayMs;
+    reconnectDelayMs = Math.min(reconnectDelayMs * 2, reconnectMaxMs);
+    reconnectTimer = setTimeout(function () {
+      reconnectTimer = null;
+      connectWS();
+    }, delay);
+  }
+
+  function ensureWSAlive() {
+    if (!ws || ws.readyState === WebSocket.CLOSED || ws.readyState === WebSocket.CLOSING) {
+      // Force an immediate reconnect attempt — don't wait for the
+      // backoff timer that scheduled on close.
+      reconnectDelayMs = 1000;
+      connectWS();
+      return;
+    }
+    if (ws.readyState === WebSocket.OPEN && Date.now() - lastActivityAt > STALE_MS) {
+      // OPEN but no bytes in over a minute despite the 30s server
+      // heartbeat — socket is silently dead. Close to force onclose +
+      // reconnect through the normal path.
+      try { ws.close(); } catch (e) {}
+    }
+  }
+
+  document.addEventListener("visibilitychange", function () {
+    if (document.visibilityState === "visible") ensureWSAlive();
+  });
+  window.addEventListener("focus", ensureWSAlive);
+  window.addEventListener("pageshow", ensureWSAlive);
+
+  connectWS();
 })();

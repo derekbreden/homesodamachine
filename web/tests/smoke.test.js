@@ -116,32 +116,25 @@ for (const r of routes) {
   });
 }
 
-// SSE channel. The endpoint is a long-lived stream, so we open the
-// connection, verify headers + the initial `hello` event, then abort.
-test("GET /api/events emits hello on connect", async () => {
-  const ctrl = new AbortController();
-  const res = await fetch(baseUrl + "/api/events", { signal: ctrl.signal });
+// WebSocket channel. Open a connection, wait for the initial `hello`
+// frame, then close. Anything broken at the upgrade pipeline or the
+// JSON contract trips this test before any UI test runs.
+test("WS /ws emits hello on connect", async () => {
+  const wsUrl = baseUrl.replace(/^http/, "ws") + "/ws";
+  const ws = new WebSocket(wsUrl);
   try {
-    assert.equal(res.status, 200);
-    assert.match(res.headers.get("content-type") || "", /^text\/event-stream/);
-
-    // Read just enough to see the first event frame.
-    const reader = res.body.getReader();
-    const decoder = new TextDecoder();
-    let buf = "";
-    // Stream events are separated by `\n\n` per the SSE spec.
-    while (!buf.includes("\n\n")) {
-      const { value, done } = await reader.read();
-      if (done) break;
-      buf += decoder.decode(value, { stream: true });
-    }
-    assert.match(buf, /^data: \{/m, "expected an SSE data frame");
-    const dataLine = buf.split("\n").find((l) => l.startsWith("data: "));
-    const payload = JSON.parse(dataLine.slice("data: ".length));
+    const payload = await new Promise((resolve, reject) => {
+      const timer = setTimeout(() => reject(new Error("timeout waiting for hello")), 3000);
+      ws.addEventListener("message", (ev) => {
+        clearTimeout(timer);
+        try { resolve(JSON.parse(ev.data)); } catch (e) { reject(e); }
+      }, { once: true });
+      ws.addEventListener("error", (e) => { clearTimeout(timer); reject(new Error("ws error")); }, { once: true });
+    });
     assert.equal(payload.type, "hello");
     assert.equal(typeof payload.commit, "string");
   } finally {
-    ctrl.abort();
+    try { ws.close(); } catch {}
   }
 });
 

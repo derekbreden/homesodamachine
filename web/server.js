@@ -1,4 +1,5 @@
 import express from "express";
+import http from "http";
 import path from "path";
 import fs from "fs";
 import { fileURLToPath, pathToFileURL } from "url";
@@ -214,7 +215,7 @@ export async function start({ dev = false, port, hardwareDir } = {}) {
 
   const pool = makePool();
 
-  // SSE channel for server -> client push. Three event flows:
+  // WebSocket channel for server -> client push. Three event flows:
   //   - hello-on-connect: deploy detection (commit fingerprint changes
   //     across reconnects); also carries the most recent boot-diff
   //     `recent` field so a client that reconnected after the deploy
@@ -222,11 +223,15 @@ export async function start({ dev = false, port, hardwareDir } = {}) {
   //   - files-changed (broadcast): dev chokidar fires per-save; prod
   //     fires once at boot if the diff loop found anything. Same wire
   //     format both sides.
-  //   - viewer-only `posts-updated` etc are unrelated and stay as-is.
+  //   - ping/pong: 30s heartbeat used by both ends to detect a dead
+  //     socket and trigger a clean reconnect.
+  // mountEvents takes the http.Server (not the express app) so it can
+  // attach its WebSocketServer to the upgrade pipeline.
   const commit = dev
     ? "dev"
     : (process.env.RENDER_GIT_COMMIT || `local-${Date.now()}`);
-  const { broadcast, setRecent } = mountEvents(app, { commit });
+  const server = http.createServer(app);
+  const { broadcast, setRecent } = mountEvents(server, { commit });
 
   initPush({
     databasePool: pool,
@@ -317,7 +322,7 @@ export async function start({ dev = false, port, hardwareDir } = {}) {
   }
 
   const defaultPort = dev ? 3000 : 3001;
-  const server = app.listen(port ?? process.env.PORT ?? defaultPort, () => {
+  server.listen(port ?? process.env.PORT ?? defaultPort, () => {
     if (dev) {
       console.log(`Dev server: http://localhost:${server.address().port}`);
       console.log("  Landing /, Updates /blog, Parts /3d, Charts /charts, Settings /settings");
