@@ -110,7 +110,8 @@ bulkhead_pocket_diameter = 23.0
 # in this repo is reservoir → foam-shell, not the reverse.
 reed_channel_z = -45.0
 REED_CHANNEL_HALF_Z = 7.5
-REED_CHANNEL_BOTTOM_Y = 40.0   # cut starts here in Y; wall + floor below y=40 stay intact (this is the "shelf" the reed strip rests on)
+REED_CHANNEL_BOTTOM_Y = 40.0          # cut starts here in Y; wall + floor below y=40 stay intact (this is the "shelf" the reed strip rests on)
+REED_CHANNEL_BACK_WALL_THICKNESS = 1.0  # mm of wall material remaining on the cavity side (the "back" of the pocket); the cut starts this far outboard of the wall's inner face
 #
 # Y of the reservoir's outlet-bulkhead axis, AND of the matching
 # pass-through hole in the foam shell's bag-pocket wall (cut in
@@ -800,23 +801,31 @@ def cut_slot_for_copper_and_water_inlet(foam_shell):
     return foam_shell.cut(slot_punch)
 
 def cut_reed_holder_channels(foam_shell):
-    """Cut a vertical rectangular channel through the bag_pocket_shell's
-    far ±X walls at z=reed_channel_z. Channel bottom is at y=REED_CHANNEL_BOTTOM_Y
-    (so the wall + floor below that y stay intact — that material is the
-    shelf the reed strip rests on). Channel top overshoots the wall top
-    so the channel is open at the top. Three sides: bottom shelf at the
-    base, two side walls at z = ±REED_CHANNEL_HALF_Z from reed_channel_z.
-    One `cut` per side."""
+    """Cut a 3-walled pocket into the bag_pocket_shell's far ±X wall
+    from the foam-side face, leaving a thin back wall on the cavity side.
+    The pocket is open at the top (cut overshoots the wall top), bounded
+    at the bottom by the shelf at y=REED_CHANNEL_BOTTOM_Y, and bounded
+    on the ±z faces by the remaining wall material outside z=reed_channel_z
+    ± REED_CHANNEL_HALF_Z. One `cut` per side, no chamfer, no transitions."""
     top_overshoot_y = tank_copper_shell_height + 10
     center_y = (REED_CHANNEL_BOTTOM_Y + top_overshoot_y) / 2
     height_y = top_overshoot_y - REED_CHANNEL_BOTTOM_Y
+
+    # X bounds of the cut. Inner edge: REED_CHANNEL_BACK_WALL_THICKNESS
+    # mm outboard of the cavity-side face (leaves a back wall). Outer
+    # edge: overshoots the foam-side face by a few mm so the cut breaks
+    # the outer face cleanly.
+    cut_x_lo = bag_pocket_far_inner_x + REED_CHANNEL_BACK_WALL_THICKNESS
+    cut_x_hi = bag_pocket_far_inner_x + wall_and_floor_thickness + 3.0
+    cut_x_center = (cut_x_lo + cut_x_hi) / 2
+    cut_x_width = cut_x_hi - cut_x_lo
+
     for side in (+1, -1):
         channel = (
             cq.Workplane(xy_plane_z_up)
             .workplane(offset=reed_channel_z - REED_CHANNEL_HALF_Z)
-            .center(side * (bag_pocket_far_inner_x + wall_and_floor_thickness / 2),
-                    center_y)
-            .rect(wall_and_floor_thickness * 4, height_y)
+            .center(side * cut_x_center, center_y)
+            .rect(cut_x_width, height_y)
             .extrude(2 * REED_CHANNEL_HALF_Z)
         )
         foam_shell = foam_shell.cut(channel)
