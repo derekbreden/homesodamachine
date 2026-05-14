@@ -250,6 +250,34 @@ def _build_flange(z_side, y_bottom, y_height):
     )
 
 
+def _build_top_tab_remover(at_y, y_direction):
+    """Two rectangular cutter boxes that, when subtracted from the
+    plug body, remove the top-flange tab strips at one arched plug
+    end. Each box covers the outer 1 mm of the flange in X
+    (x = ±slot_half_width_x..±plug_half_x_outer), the arched
+    region's Y depth (at_y to at_y + y_direction · tube_clearance_
+    radius — same Y extent as the half-disc arch cut, so the
+    removal exactly tracks the tab's Y extent), and the top-flange
+    Z band (z = outer_wall_outer_z..outer_wall_outer_z +
+    rail_z_thickness). y_direction = +1 for a bottom arch (cut
+    extends +Y from at_y), −1 for a top arch."""
+    y_extent = tube_clearance_radius
+    y_bottom = min(at_y, at_y + y_direction * y_extent)
+    y_height = abs(y_extent)
+    boxes = []
+    for x_sign in (-1, +1):
+        x_center = x_sign * (slot_half_width_x + rail_x_extension / 2)
+        z_center = outer_wall_outer_z + rail_z_thickness / 2
+        boxes.append(
+            cq.Workplane(xz_plane_y_up)
+            .workplane(origin=(x_center, 0, z_center))
+            .rect(rail_x_extension, rail_z_thickness)
+            .extrude(y_height)
+            .translate((0, y_bottom, 0))
+        )
+    return boxes
+
+
 def build_plug(name, y_bottom, y_top):
     """Single solid plug with the I-beam cross-section described in
     the module docstring, extending y_bottom..y_top in Y. Half-
@@ -272,6 +300,32 @@ def build_plug(name, y_bottom, y_top):
     plug = _build_web(web_y_bottom, web_y_height)
     for z_side in ("top", "bottom"):
         plug = plug.union(_build_flange(z_side, y_bottom, y_height))
+
+    # Top-flange tab removal at each arched end.
+    # ------------------------------------------
+    # The plug prints with its XY face on the bed (Z = print-vertical).
+    # The bottom-flange tabs at x = ±slot_half..±plug_half_outer at
+    # each arched end face print fine — they're on the bed.  The
+    # top-flange tabs at the same XY (z = top-flange band, 2 mm above
+    # the bottom-flange tabs through an air gap) print mangled,
+    # because FDM can't reliably start a 1 × 1 mm tab in mid-air
+    # with no continuous neighbor to bridge from.
+    # Remove the top-flange tab regions at each arched end.  Two
+    # cutters per arched end (one each for the ±X tab strips), each
+    # a rectangular block spanning the outer 1 mm of the flange
+    # (x = ±slot_half..±plug_half_outer), the arched region's Y
+    # depth (at_y .. at_y + tube_clearance_radius), and the top-
+    # flange's Z thickness (1 mm).  The web and the bottom-flange
+    # tabs are untouched, so the binder-clip grip is intact on the
+    # bottom side at every arched end and on both sides everywhere
+    # else.
+    for end in ("bottom", "top"):
+        if not arches[end]:
+            continue
+        at_y = y_bottom if end == "bottom" else y_top
+        y_dir = +1 if end == "bottom" else -1
+        for tab in _build_top_tab_remover(at_y, y_dir):
+            plug = plug.cut(tab)
 
     # Half-circle cutouts. The arch is a cylinder (radius =
     # tube_clearance_radius, axis along Z so it pierces the slab face-
@@ -346,7 +400,19 @@ def _analytical_volume(name, y_bottom, y_top):
     )
     vol_arch_total = n_arches * vol_arch_per_end
 
-    return vol_web + vol_top_flange + vol_bot_flange - vol_arch_total
+    # Top-flange tab removal at each arched end: two rectangular
+    # cuts of (rail_x_extension × rail_z_thickness × tube_clearance_
+    # radius) each, removed entirely from existing flange material.
+    vol_top_tab_per_end = (
+        2 * rail_x_extension * rail_z_thickness * tube_clearance_radius
+    )
+    vol_top_tabs_total = n_arches * vol_top_tab_per_end
+
+    return (
+        vol_web + vol_top_flange + vol_bot_flange
+        - vol_arch_total
+        - vol_top_tabs_total
+    )
 
 
 def main():
