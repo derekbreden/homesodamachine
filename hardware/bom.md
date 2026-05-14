@@ -167,14 +167,12 @@ Dishing dies (PA6-CF) for end-cap forming are vessel-fabrication tools, not ship
 
 The same reed-and-float pattern is used in three places: the carbonator vessel (2 reeds, threshold-only) and each flavor reservoir (10 reeds per reservoir × 2 = 20 reeds, ~5-serving-step granularity). Flavor-reservoir architecture detail at [printed-parts/cold-core/reservoir/level-sensing.md](printed-parts/cold-core/reservoir/level-sensing.md); strut geometry lives in [printed-parts/cold-core/reservoir/generate_step_cadquery.py](printed-parts/cold-core/reservoir/generate_step_cadquery.py) (`STRUT_POSITION_X`, `STRUT_LENGTH`).
 
-### Carbonator (3 reeds — LOW / MID / HIGH)
+### Carbonator (2 reeds, threshold-only)
 
 | Part | ASIN | Qty | Unit $ | Line $ |
 |---|---|---:|---:|---:|
 | [Tandefio 1/8" × 12" 316 SS round rod (5-pk)](https://www.amazon.com/dp/B0CY4DWJFQ) | B0CY4DWJFQ — laser-welded vertically inside vessel between bottom and top plates; carries the magnetic float; cut from 12" to ~6" (one 12" stick yields 2 vessel rods, so 5-pk = 10 vessels) | 1 (of 10) | $0.86 | $0.86 |
 | [DEVMO MINI float switch (donor — harvest magnetic donut float, discard switch body)](https://www.amazon.com/dp/B07T18PGJ4) | B07T18PGJ4 — float slides on the welded SS rod; only the float is shipped product, the rest of the donor unit is discarded | 1 | $13.93 | $13.93 |
-| Carbonator reed-holder strip: printed PETG, curved to mate against the tank OD (R=63.5), 3 reed press-fit pockets at LOW / MID / HIGH positions, two SS hose-clamp grooves on the outer face. Spec at [printed-parts/cold-core/tank-reed-holder/generate_step_cadquery.py](printed-parts/cold-core/tank-reed-holder/generate_step_cadquery.py) | included in §7 print mass (no separate filament line) | 1 | — | — |
-| SS worm-drive hose clamp (placeholder — size #16/#20, fits 5" OD tube). Pair holds the reed-holder strip in compression against the tank during install before foam encapsulation | TBD — commodity SS hose clamp, ~$1-2 each | 2 | ~$1.50 | ~$3.00 |
 
 ### Flavor reservoirs (10 reeds per reservoir × 2 reservoirs = 20 reeds, ~5-serving-step granularity)
 
@@ -188,7 +186,7 @@ The same reed-and-float pattern is used in three places: the carbonator vessel (
 
 | Part | ASIN | Qty | Unit $ | Line $ |
 |---|---|---:|---:|---:|
-| [Gebildet reed switches, 14 mm glass body, NO (6-pk)](https://www.amazon.com/dp/B0CW9418F6) | B0CW9418F6 — 23 reeds per build (3 carbonator + 20 flavor reservoir at 10 each × 2 reservoirs). 4 × 6-pack = 24 reeds, 1 spare. Reeds mount on the outside of the SS / PETG walls and trigger through them (austenitic SS and PETG are both non-magnetic, so the field passes through) | 23 (of 4 × 6 = 24) | $1.07 | $24.61 |
+| [Gebildet reed switches, 14 mm glass body, NO (6-pk)](https://www.amazon.com/dp/B0CW9418F6) | B0CW9418F6 — 22 reeds per build (2 carbonator + 20 flavor reservoir at 10 each × 2 reservoirs). 4 × 6-pack = 24 reeds, 2 spares. Reeds mount on the outside of the SS / PETG walls and trigger through them (austenitic SS and PETG are both non-magnetic, so the field passes through) ($6.42/6 × 22 = $23.54; pack-amortized $6.42 × 4 = $25.68 with 2 spares) | 22 (of 4 × 6 = 24) | $1.07 | $23.54 |
 
 ### GPIO expansion for the 20 new flavor-reservoir reed inputs
 
@@ -231,9 +229,9 @@ The T18 heat-set tip kit ([B0CS662NVK](https://www.amazon.com/dp/B0CS662NVK)) an
 | 9. Dispensing | $52.97 |
 | 10. UI | $43.16 |
 | 11. Wiring | $31.97 |
-| 12. Level sensing | $83.25 |
+| 12. Level sensing | $79.18 |
 | 13. Mechanical attach hardware + reservoir-cap vent filter | $17.55 |
-| **Total** | **$1,525.92** |
+| **Total** | **$1,521.85** |
 
 ## External / user-supplied (not shipped)
 
