@@ -110,6 +110,7 @@ bulkhead_pocket_diameter = 23.0
 # in this repo is reservoir → foam-shell, not the reverse.
 reed_channel_z = -45.0
 REED_CHANNEL_HALF_Z = 7.5
+REED_CHANNEL_BOTTOM_Y = 40.0   # cut starts here in Y; wall + floor below y=40 stay intact (this is the "shelf" the reed strip rests on)
 #
 # Y of the reservoir's outlet-bulkhead axis, AND of the matching
 # pass-through hole in the foam shell's bag-pocket wall (cut in
@@ -799,18 +800,23 @@ def cut_slot_for_copper_and_water_inlet(foam_shell):
     return foam_shell.cut(slot_punch)
 
 def cut_reed_holder_channels(foam_shell):
-    """Cut a full-height vertical rectangular channel through the
-    bag_pocket_shell's far ±X walls at z=reed_channel_z (±REED_CHANNEL_HALF_Z
-    wide along z, full wall height along y). The printed PETG reed-holder
-    strip slides in from outside and is foam-encapsulated during the body
-    pour. One `cut` per side. Nothing else."""
+    """Cut a vertical rectangular channel through the bag_pocket_shell's
+    far ±X walls at z=reed_channel_z. Channel bottom is at y=REED_CHANNEL_BOTTOM_Y
+    (so the wall + floor below that y stay intact — that material is the
+    shelf the reed strip rests on). Channel top overshoots the wall top
+    so the channel is open at the top. Three sides: bottom shelf at the
+    base, two side walls at z = ±REED_CHANNEL_HALF_Z from reed_channel_z.
+    One `cut` per side."""
+    top_overshoot_y = tank_copper_shell_height + 10
+    center_y = (REED_CHANNEL_BOTTOM_Y + top_overshoot_y) / 2
+    height_y = top_overshoot_y - REED_CHANNEL_BOTTOM_Y
     for side in (+1, -1):
         channel = (
             cq.Workplane(xy_plane_z_up)
             .workplane(offset=reed_channel_z - REED_CHANNEL_HALF_Z)
             .center(side * (bag_pocket_far_inner_x + wall_and_floor_thickness / 2),
-                    tank_copper_shell_height / 2)
-            .rect(wall_and_floor_thickness * 4, tank_copper_shell_height + 20)
+                    center_y)
+            .rect(wall_and_floor_thickness * 4, height_y)
             .extrude(2 * REED_CHANNEL_HALF_Z)
         )
         foam_shell = foam_shell.cut(channel)
