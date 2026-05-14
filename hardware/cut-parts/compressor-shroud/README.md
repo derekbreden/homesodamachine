@@ -13,7 +13,7 @@ The standard requires a fire-rated enclosure around the ignition sources in the 
 
 These two items are intrinsically co-located and cannot move; they must be enclosed where they sit. The Teyleten relay #1 that switches the compressor's AC is **not** inside the shroud — it's an arc source that does NOT have to be in the protected zone, so it lives on the electronics shelf instead. See [`../../wiring/power.mmd`](../../wiring/power.mmd) for the placement rationale.
 
-The condenser fan motor also runs on AC but is at the front of the enclosure (away from the cold core), is a low-ignition-risk small induction motor, and would be defeated by being inside the shroud (it needs to move air across the condenser). It is **not** enclosed.
+The condenser fan motor also runs on AC but sits on the side wall of the enclosure (on the side-to-side intake → condenser → exhaust airflow path, away from the cold core), is a low-ignition-risk small induction motor, and would be defeated by being inside the shroud (it needs to move air across the condenser). It is **not** enclosed.
 
 ## What's inside vs outside the shroud
 
@@ -25,7 +25,7 @@ The condenser fan motor also runs on AC but is at the front of the enclosure (aw
 
 **Outside:**
 - Teyleten relay #1 (electronics shelf)
-- Condenser fan motor (front of enclosure)
+- Condenser fan motor (side of enclosure, on the side-to-side airflow path)
 - AC distribution block (electronics shelf)
 - Everything else
 
