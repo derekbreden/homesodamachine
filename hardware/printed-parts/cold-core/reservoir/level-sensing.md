@@ -15,9 +15,9 @@ Density-independent, mechanically overfill-safe, zero electrical penetrations of
 
 **Outside the reservoir:**
 
-- A vertical **reed-switch strip** mounted on the OUTSIDE of the bag_pocket_shell's far +X wall (see [`../foam-shell/`](../foam-shell/)). The strip is a small custom FR4 PCB (~15 mm wide × ~170 mm tall) carrying 10 reed switches at ~17 mm pitch, with a JST-XH header at one end for the 11-wire harness (10 reeds × signal + common return).
-- The strip is **attached to the bag_pocket_shell with adhesive or a small printed bracket** before the body foam pour, then **foam-encapsulated** during the pour. Same approach as the carbonator's reeds — sealed glass tubes inside foam, robust for the 10-year design life.
-- **Wiring exit**: the 11-wire harness exits through the same 6.5 mm pass-through used for the reservoir line (`Reservoir line (+X)` / `Reservoir line (−X)` in the foam-shell penetration table, [`../foam-shell/README.md`](../foam-shell/README.md) "Penetrations"). If that pass-through is too crowded with the reservoir tube plus the reed harness, a dedicated small (~3 mm) hole can be added in a future foam-shell revision.
+- A vertical **printed PETG reed-holder strip** carrying 10 reed switches at ~17 mm pitch in press-fit pockets. The strip sits in a localized recess (a "bulge out") on the bag_pocket_shell's far +X wall at z=−45, INSIDE the bag pocket air space — between the reservoir's outer +X face and the bag_pocket_shell. The bulge pushes the bag_pocket_shell wall locally outward by ~3 mm to create the cavity for the strip without compressing the reservoir clearance. Reeds are individually wired (no custom PCB) — 22 conductors (20 reed signals + 2 commons across the two reservoirs) routed up out of the bag pocket.
+- The strip is **press-fit into the bag_pocket_shell recess** before the body foam pour, then **foam-encapsulated** during the pour (foam fills behind the strip and bonds it into the wall). Same approach as the carbonator's reeds — sealed glass tubes inside foam, robust for the 10-year design life.
+- **Wiring exit**: 11-wire harness per reservoir exits via the existing 6.5 mm reservoir-line pass-through (`Reservoir line (+X)` / `Reservoir line (−X)` in the foam-shell penetration table, [`../foam-shell/README.md`](../foam-shell/README.md) "Penetrations") or a small dedicated hole if that pass-through is too crowded.
 
 ## Reed pitch and what it gets you
 
@@ -33,27 +33,27 @@ Useful Y range for the float on the strut: ~40 mm above the floor (above the wet
 
 ## Magnet–reed signal-path geometry
 
-The reed-PCB mount location drives the magnet-to-reed distance. Three options exist; the project's current design picks **option B** (PCB inside the bag pocket air space against the bag_pocket_shell inner face), which is the cleanest combination of "donor donut works" and "reservoir geometry doesn't get carved."
+The reed-holder mount location drives the magnet-to-reed distance. Three options exist; the project's current design picks **option B** (holder inside the bag pocket air space, against the bag_pocket_shell inner face, made possible by a localized outward bulge in the wall), which is the cleanest combination of "donor donut works" and "reservoir geometry doesn't get carved."
 
-| Option | PCB location | Path through | Distance | Donor ferrite OK? |
+| Option | Holder location | Path through | Distance | Donor ferrite OK? |
 |---|---|---|---|---|
-| A | Outside the bag_pocket_shell, foam-side | reservoir wall (4) + clearance (0.5) + bag-shell wall (2) + standoff (~1) | ~7.5 mm | No — marginal |
-| **B** | **Inside the bag pocket, against the bag_pocket_shell inner face** | **reservoir wall (4) + clearance (0.5) + standoff (~1)** | **~5.5 mm** | **Yes — adequate** |
-| C | B + locally thin the reservoir wall to 2 mm at the reed strip | 2 mm wall + 0.5 + 1 | ~3.5 mm | Yes — generous |
+| A | Outside the bag_pocket_shell, foam-side | reservoir wall (4) + clearance (0.5) + bag-shell wall (2) + standoff (~1) | ~7.5 mm | Marginal |
+| **B** | **Inside the bag pocket air space (bag_pocket_shell bulged out for clearance)** | **reservoir wall (4) + clearance (~0.5) + reed body offset (~1.5)** | **~6 mm** | **Yes — adequate** |
+| C | B + locally thin the reservoir wall to 2 mm at the reed strip | 2 mm wall + 0.5 + 1.5 | ~4 mm | Yes — generous |
 
-Option B requires a small foam-shell CAD change: the bag_pocket_shell's far +X wall needs a recess (~3–4 mm deep × ~15 mm wide × ~170 mm tall) on its inner face to make room for the reed PCB without squeezing the reservoir clearance gap. This locally thickens the wall outward (or trims a bit of the outer foam zone — TBD which way it grows). Foam-shell change is bounded and clean.
+Option B requires a small foam-shell CAD change: the bag_pocket_shell's far +X wall needs a vertical "bulge out" (~3 mm outward of the wall's inner face × ~15 mm wide × ~170 mm tall) at z=−45 (matching the strut position) to make room for the printed reed-holder strip without compressing the reservoir clearance gap. The bulge displaces ~3 mm of foam locally on the outer-foam side; thermal impact is minor (the bulge is small and the outer foam zone has plenty of remaining thickness).
 
-Option C is the fallback if option B turns out to be too borderline in practice. Thinning the reservoir wall from 4 mm to 2 mm over a ~15 × 170 mm vertical strip is a real but bounded structural change — the area is not load-bearing under the reservoir's vented (atmospheric) service pressure, so a thinned strip is mechanically safe.
+Option C is the fallback if option B turns out to be borderline in practice. Thinning the reservoir wall from 4 mm to 2 mm over a ~15 × 170 mm vertical strip is bounded and mechanically safe — the area is not load-bearing under the reservoir's vented service pressure.
 
 **Honest signal-strength numbers** for the donor ferrite donut (~8 mm OD × 4 mm ID × 2 mm thick, Br ≈ 0.3 T):
 
 | Distance | Field on axis (approx) | Reed pull-in needed |
 |---|---|---|
-| 3.5 mm (option C) | ~200–300 gauss | 30–50 gauss — comfortable margin |
-| 5.5 mm (option B) | ~80–120 gauss | 30–50 gauss — adequate margin |
-| 7.5 mm (option A) | ~30–50 gauss | 30–50 gauss — at threshold, unreliable |
+| 4 mm (option C) | ~150–200 gauss | ~60–100 gauss — comfortable margin |
+| 6 mm (option B) | ~70–100 gauss | ~60–100 gauss — adequate margin |
+| 7.5 mm (option A) | ~40–60 gauss | ~60–100 gauss — at or below threshold |
 
-So at the original 7.5 mm path the donor was marginal and the doc had asked for a neodymium upgrade. With the PCB moved inside the bag pocket (option B), the donor ferrite donut works with comfortable margin and the neodymium upgrade is unnecessary. **This eliminates one SKU from the BOM** and matches the carbonator's existing magnet exactly.
+So at the original 7.5 mm path the donor would have been marginal; with option B the donor ferrite donut works with adequate margin and **no neodymium upgrade is needed**. Same magnet as the carbonator. One SKU saved.
 
 ## GPIO budget
 
@@ -71,10 +71,10 @@ Either works. MCP23017 is the path-of-least-resistance because the I²C library 
 Per-build additions for the flavor-reservoir level sensing are tracked in [`../../../bom.md`](../../../bom.md) §12 "Level sensing":
 
 - **20 Gebildet reed switches** (B0CW9418F6) — same SKU as the carbonator's 2 reeds; 4 × 6-pack covers 22 reeds (the 2 carbonator + 20 flavor) with 2 spares per build.
-- **2 reed-PCB strips** — custom JLCPCB or equivalent, ~10 reeds at 17 mm pitch.
+- **2 printed PETG reed-holder strips** — included in §7 print mass (no separate filament line). Geometry: thin vertical strip with 10 press-fit reed pockets at 17 mm pitch, two mounting features matching the bag_pocket_shell recess.
 - **1 second MCP23017** GPIO expander (B07P2H1NZG) — same SKU as the existing expander, second instance at I²C address 0x21.
-- **Float**: each reservoir reuses one DEVMO MINI float (B07T18PGJ4) directly — donor donut harvested, ferrite magnet kept (no neodymium upgrade needed once the reed PCB moves inside the bag pocket). The carbonator's existing 1 unit becomes 3 units per build (1 carbonator + 2 reservoirs).
-- **Wiring**: ~22 conductors of ribbon or pre-crimped silicone-insulated wire (20 reed signals + 2 commons), routed from the foam-shell exit to the electronics shelf.
+- **Float**: each reservoir reuses one DEVMO MINI float (B07T18PGJ4) directly — donor donut harvested, ferrite magnet kept (no neodymium upgrade needed once the reed strip moves inside the bag pocket). The carbonator's existing 1 unit becomes 3 units per build (1 carbonator + 2 reservoirs).
+- **Wiring**: ~22 conductors of ribbon or pre-crimped silicone-insulated wire (20 reed signals + 2 commons), routed from the foam-shell exit to the electronics shelf. 40 hand-solder joints per build (20 reeds × 2 leads each); could be replaced with a custom JLCPCB in a future revision if labor cost matters.
 
 ## Calibration
 
