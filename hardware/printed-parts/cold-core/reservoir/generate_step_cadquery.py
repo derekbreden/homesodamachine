@@ -294,10 +294,9 @@ vent_position_z = 32.5
 # Architecture:
 #   - The strut is unioned into the BODY (build_reservoir_body),
 #     extending UP from the wet-side wedge.
-#   - The strut is anchored ~0.3 mm INTO the wedge at the wet slope
-#     top (z=0, where the slope crests near y≈20.3). The wedge is
-#     fully fused into the body's PETG mass, giving a solid bond at
-#     the strut's bottom end.
+#   - The strut is anchored well INTO the wedge at the wet slope
+#     top. The wedge is fully fused into the body's PETG mass,
+#     giving a solid bond at the strut's bottom end.
 #   - The strut top is captured by a slip-fit REGISTER POCKET cut
 #     into the cap's base plate from below — 2 mm deep, 0.5 mm
 #     radial clearance (ø5 pocket around the ø4 strut). The pocket
@@ -308,35 +307,34 @@ vent_position_z = 32.5
 #     gasket. The strut is doubly anchored: floor-bonded at the
 #     bottom, register-captured at the top.
 #
-# Position: at (x = ±STRUT_POSITION_X, z = 0) in the reservoir
-# coordinate frame — x sign follows `side`. Chosen to:
-#   - keep clear of body bosses #3 (x=98) and #6 (x=78) at z=0
-#     (boss radius 6, strut radius 2.0; ample clearance on both
-#     sides at x=88),
-#   - sit well inside the cavity (centerward inner curve at x≈77 at
-#     z=0, far inner face at x=101),
-#   - share x with the bulkhead port but live at z=0, outside the
-#     bulkhead pocket's z range (28..64) so the two don't interact,
-#   - keep ~21 mm clear of the vent boss (boss outer ø17.2 centered
-#     at x=85, z=32.5; strut ±2.0 around z=0 is well below the
-#     boss's z=23.9 edge).
+# Position: at (x = ±STRUT_POSITION_X, z = STRUT_POSITION_Z) in the
+# reservoir coordinate frame — x sign follows `side`; z stays
+# negative for both sides (no z mirroring). Chosen to:
+#   - sit OPPOSITE the bulkhead, which occupies z = 28..64 on the
+#     +Z half of the reservoir. Placing the strut on the -Z half
+#     puts the float in the wider, uncluttered part of the cavity
+#     and removes any geometric coupling between the level-sensing
+#     hardware and the outlet-bulkhead pocket.
+#   - sit in a wider part of the cavity (~38 mm cavity width at
+#     z=-45 vs only ~24 mm at z=0), giving generous clearance for
+#     the donor donut float regardless of its precise OD/hole.
+#   - keep clear of all screw bosses (#1/#4 at z=+64, #2/#5 at
+#     z=-64, #3/#6 at z=0): strut at z=-45 is at least 19 mm from
+#     the nearest boss on the -Z side.
+#   - keep clear of the vent boss (centered at z=+32.5) and the
+#     bulkhead pocket (z=28..64): strut at z=-45 is on the opposite
+#     half of the cavity.
 #
-# STRUT_DIAMETER reduced from 5 mm to 4 mm to match the donor donut's
-# likely hole size. The DEVMO MINI float (Amazon B07T18PGJ4) is
-# already in the BOM for the carbonator, where its center hole rides
-# on the carbonator's 1/8" (3.175 mm) stainless rod. The donut's
-# exact hole diameter isn't documented in this project — a 4 mm
-# strut is much more likely than 5 mm to fit through, while still
-# being structurally adequate for the ~200 mm double-anchored length.
-#
-# OPEN ITEM: Physically verify the donor donut's hole diameter
-# against this 4 mm strut. If the hole is smaller than 4 mm, the
-# strut OD will need to be reduced to suit; if it's larger (≥5 mm),
-# we could revert toward a stiffer 5 mm strut.
+# STRUT_DIAMETER = 4 mm sits comfortably inside whatever sliding
+# clearance the donor donut provides; the wider cavity at z=-45
+# means precise hole-to-strut tolerance is no longer a critical
+# fit question (vs. the original z=0 position where the cavity was
+# only 24 mm wide and a tight float fit mattered more).
 #
 STRUT_POSITION_X = 88.0       # |x| of the strut centerline; mirrors with `side`
-STRUT_DIAMETER = 4.0          # solid PETG cylinder OD — sized for the donor donut's center hole (verify physically); double-anchored so 4 mm is structurally adequate over the ~200 mm length
-STRUT_BOTTOM_Y = 20.0         # reservoir-frame y of the strut's bottom end; the wet slope crests near y≈20.3 at z=0, so the strut embeds ~0.3 mm into the wedge for a solid PETG bond
+STRUT_POSITION_Z = -45.0      # z of the strut centerline (does NOT mirror with side); opposite the bulkhead's +Z half, in the wider part of the cavity
+STRUT_DIAMETER = 4.0          # solid PETG cylinder OD; double-anchored so 4 mm is structurally adequate over the ~200 mm length
+STRUT_BOTTOM_Y = 20.0         # reservoir-frame y of the strut's bottom end; the wet slope crests near y≈22.8 at z=-45, so the strut embeds ~2.8 mm into the wedge for a solid PETG bond
 STRUT_REGISTER_DIAMETER = STRUT_DIAMETER + 1.0  # 5 mm — slip-fit pocket in the cap base plate, 0.5 mm radial clearance around the strut tip
 STRUT_REGISTER_DEPTH = 2.0    # depth of the register pocket cut up into the cap base plate (cap-local y=5..7)
 #
@@ -1096,7 +1094,7 @@ def build_reservoir_body(side=1):
     strut_x_signed = STRUT_POSITION_X * side
     strut_top_y = outer_top_y + gasket_thickness + 1.0
     strut = (
-        _wp_at(strut_x_signed, STRUT_BOTTOM_Y, 0.0)
+        _wp_at(strut_x_signed, STRUT_BOTTOM_Y, STRUT_POSITION_Z)
         .circle(STRUT_DIAMETER / 2.0)
         .extrude(strut_top_y - STRUT_BOTTOM_Y)
     )
@@ -1350,7 +1348,7 @@ def build_reservoir_cap(side=1):
     # cannot perturb any earlier edge/face selector.
     strut_x_signed = STRUT_POSITION_X * side
     register_pocket = (
-        _wp_at(strut_x_signed, cap_wall_height - 0.1, 0.0)
+        _wp_at(strut_x_signed, cap_wall_height - 0.1, STRUT_POSITION_Z)
         .circle(STRUT_REGISTER_DIAMETER / 2.0)
         .extrude(STRUT_REGISTER_DEPTH + 0.1)  # +0.1 breaks the cap's bottom face cleanly
     )
