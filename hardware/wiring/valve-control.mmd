@@ -8,13 +8,17 @@ flowchart LR
   %% Two MCP23017 expanders on the shared I2C bus:
   %%   0x20  outputs (valves) on Port A + Port B[0:3];
   %%         inputs (4 reservoir reed switches) on Port B[4:7]
-  %%   0x21  inputs only (16 reservoir reed switches)
+  %%   0x21  inputs (4 reservoir reed switches) on Port A[0:3];
+  %%         12 spare bits.
   %%
-  %% Reservoir level sensing: 10 reeds per reservoir × 2 reservoirs
-  %% = 20 inputs. Allocation puts the top 2 reeds of each reservoir
-  %% on 0x20 PB[4:7] (the existing chip's 4 spare bits) and the
-  %% remaining 16 reeds (8 per reservoir, low-to-high indices 1-8)
-  %% on 0x21. Both chips end fully used after this addition.
+  %% Reservoir level sensing: 4 reeds per reservoir × 2 reservoirs
+  %% = 8 inputs. Reservoir A's 4 reeds land on the existing 0x20's 4
+  %% spare bits (PB[4:7]). Reservoir B's 4 reeds land on a new chip at
+  %% 0x21 (PA[0:3]); the remaining 12 bits of 0x21 are spare.
+  %%
+  %% Conditional: 0x21 could be replaced by ESP32 direct GPIO (GPIO 2,
+  %% 12 + GPIO 36, 39 with external 10 kΩ pull-ups) or a 74HC165 shift
+  %% register — saves the chip, decision deferred.
   %%
   %% Architecture detail at
   %% hardware/printed-parts/cold-core/reservoir/level-sensing.md.
@@ -29,7 +33,7 @@ flowchart LR
     direction TB
     RTC["DS3231 RTC\n0x68"]
     MCP0["MCP23017\n0x20 (valves + 4 reed inputs)"]
-    MCP1["MCP23017\n0x21 (16 reed inputs)"]
+    MCP1["MCP23017\n0x21 (4 reed inputs, 12 spare)"]
   end
 
   subgraph Expander0["MCP23017 0x20 — 16 GPIO"]
@@ -53,38 +57,38 @@ flowchart LR
       A0_GPB1["GPB1 → V-J"]
       A0_GPB2["GPB2 → V-K-A"]
       A0_GPB3["GPB3 → V-K-B"]
-      A0_GPB4["GPB4 ← Reservoir A reed 9 (in)"]
-      A0_GPB5["GPB5 ← Reservoir A reed 10 / FULL (in)"]
-      A0_GPB6["GPB6 ← Reservoir B reed 9 (in)"]
-      A0_GPB7["GPB7 ← Reservoir B reed 10 / FULL (in)"]
+      A0_GPB4["GPB4 ← Rsvr A reed 1 / EMPTY"]
+      A0_GPB5["GPB5 ← Rsvr A reed 2"]
+      A0_GPB6["GPB6 ← Rsvr A reed 3"]
+      A0_GPB7["GPB7 ← Rsvr A reed 4 / FULL"]
     end
   end
 
-  subgraph Expander1["MCP23017 0x21 — 16 GPIO  (all INPUTS)"]
+  subgraph Expander1["MCP23017 0x21 — 16 GPIO  (4 INPUTS, 12 SPARE)"]
     direction TB
 
-    subgraph PortA1["Port A  (GPA0–7) — Reservoir A reeds 1-8"]
+    subgraph PortA1["Port A  (GPA0–7) — Reservoir B reeds 1-4 + 4 spare"]
       direction TB
-      A1_GPA0["GPA0 ← Rsvr A reed 1 / EMPTY"]
-      A1_GPA1["GPA1 ← Rsvr A reed 2"]
-      A1_GPA2["GPA2 ← Rsvr A reed 3"]
-      A1_GPA3["GPA3 ← Rsvr A reed 4"]
-      A1_GPA4["GPA4 ← Rsvr A reed 5"]
-      A1_GPA5["GPA5 ← Rsvr A reed 6"]
-      A1_GPA6["GPA6 ← Rsvr A reed 7"]
-      A1_GPA7["GPA7 ← Rsvr A reed 8"]
+      A1_GPA0["GPA0 ← Rsvr B reed 1 / EMPTY"]
+      A1_GPA1["GPA1 ← Rsvr B reed 2"]
+      A1_GPA2["GPA2 ← Rsvr B reed 3"]
+      A1_GPA3["GPA3 ← Rsvr B reed 4 / FULL"]
+      A1_GPA4["GPA4  spare"]
+      A1_GPA5["GPA5  spare"]
+      A1_GPA6["GPA6  spare"]
+      A1_GPA7["GPA7  spare"]
     end
 
-    subgraph PortB1["Port B  (GPB0–7) — Reservoir B reeds 1-8"]
+    subgraph PortB1["Port B  (GPB0–7) — 8 spare"]
       direction TB
-      A1_GPB0["GPB0 ← Rsvr B reed 1 / EMPTY"]
-      A1_GPB1["GPB1 ← Rsvr B reed 2"]
-      A1_GPB2["GPB2 ← Rsvr B reed 3"]
-      A1_GPB3["GPB3 ← Rsvr B reed 4"]
-      A1_GPB4["GPB4 ← Rsvr B reed 5"]
-      A1_GPB5["GPB5 ← Rsvr B reed 6"]
-      A1_GPB6["GPB6 ← Rsvr B reed 7"]
-      A1_GPB7["GPB7 ← Rsvr B reed 8"]
+      A1_GPB0["GPB0  spare"]
+      A1_GPB1["GPB1  spare"]
+      A1_GPB2["GPB2  spare"]
+      A1_GPB3["GPB3  spare"]
+      A1_GPB4["GPB4  spare"]
+      A1_GPB5["GPB5  spare"]
+      A1_GPB6["GPB6  spare"]
+      A1_GPB7["GPB7  spare"]
     end
   end
 
@@ -138,35 +142,23 @@ flowchart LR
     end
   end
 
-  subgraph Reeds["Reservoir Reed Switches  (10 per reservoir, INPUT_PULLUP, magnet pulls LOW)"]
+  subgraph Reeds["Reservoir Reed Switches  (4 per reservoir, INPUT_PULLUP, magnet pulls LOW)"]
     direction TB
 
-    subgraph RsvrA["Reservoir A — bottom (reed 1) to top (reed 10)"]
+    subgraph RsvrA["Reservoir A — bottom (reed 1) to top (reed 4)"]
       direction TB
       RA1["Reed 1  EMPTY threshold"]
       RA2["Reed 2"]
       RA3["Reed 3"]
-      RA4["Reed 4"]
-      RA5["Reed 5"]
-      RA6["Reed 6"]
-      RA7["Reed 7"]
-      RA8["Reed 8"]
-      RA9["Reed 9"]
-      RA10["Reed 10  FULL threshold"]
+      RA4["Reed 4  FULL threshold"]
     end
 
-    subgraph RsvrB["Reservoir B — bottom (reed 1) to top (reed 10)"]
+    subgraph RsvrB["Reservoir B — bottom (reed 1) to top (reed 4)"]
       direction TB
       RB1["Reed 1  EMPTY threshold"]
       RB2["Reed 2"]
       RB3["Reed 3"]
-      RB4["Reed 4"]
-      RB5["Reed 5"]
-      RB6["Reed 6"]
-      RB7["Reed 7"]
-      RB8["Reed 8"]
-      RB9["Reed 9"]
-      RB10["Reed 10  FULL threshold"]
+      RB4["Reed 4  FULL threshold"]
     end
   end
 
@@ -191,31 +183,17 @@ flowchart LR
   A0_GPB2 --> U2_3
   A0_GPB3 --> U2_4
 
-  %% ── 0x20 Port B[4:7] ← top 2 reeds of each reservoir ──
-  RA9 -->|"INPUT_PULLUP"| A0_GPB4
-  RA10 -->|"INPUT_PULLUP"| A0_GPB5
-  RB9 -->|"INPUT_PULLUP"| A0_GPB6
-  RB10 -->|"INPUT_PULLUP"| A0_GPB7
+  %% ── 0x20 Port B[4:7] ← Reservoir A reeds 1-4 ──
+  RA1 -->|"INPUT_PULLUP"| A0_GPB4
+  RA2 -->|"INPUT_PULLUP"| A0_GPB5
+  RA3 -->|"INPUT_PULLUP"| A0_GPB6
+  RA4 -->|"INPUT_PULLUP"| A0_GPB7
 
-  %% ── 0x21 Port A ← Reservoir A reeds 1-8 ──
-  RA1 -->|"INPUT_PULLUP"| A1_GPA0
-  RA2 -->|"INPUT_PULLUP"| A1_GPA1
-  RA3 -->|"INPUT_PULLUP"| A1_GPA2
-  RA4 -->|"INPUT_PULLUP"| A1_GPA3
-  RA5 -->|"INPUT_PULLUP"| A1_GPA4
-  RA6 -->|"INPUT_PULLUP"| A1_GPA5
-  RA7 -->|"INPUT_PULLUP"| A1_GPA6
-  RA8 -->|"INPUT_PULLUP"| A1_GPA7
-
-  %% ── 0x21 Port B ← Reservoir B reeds 1-8 ──
-  RB1 -->|"INPUT_PULLUP"| A1_GPB0
-  RB2 -->|"INPUT_PULLUP"| A1_GPB1
-  RB3 -->|"INPUT_PULLUP"| A1_GPB2
-  RB4 -->|"INPUT_PULLUP"| A1_GPB3
-  RB5 -->|"INPUT_PULLUP"| A1_GPB4
-  RB6 -->|"INPUT_PULLUP"| A1_GPB5
-  RB7 -->|"INPUT_PULLUP"| A1_GPB6
-  RB8 -->|"INPUT_PULLUP"| A1_GPB7
+  %% ── 0x21 Port A[0:3] ← Reservoir B reeds 1-4 ──
+  RB1 -->|"INPUT_PULLUP"| A1_GPA0
+  RB2 -->|"INPUT_PULLUP"| A1_GPA1
+  RB3 -->|"INPUT_PULLUP"| A1_GPA2
+  RB4 -->|"INPUT_PULLUP"| A1_GPA3
 
   %% ── U1 → Valves ──
   U1_1 ==> VA
@@ -233,5 +211,17 @@ flowchart LR
   U2_3 ==> VKA
   U2_4 ==> VKB
 
-  %% Free pins dimmed
+  %% Spare pins dimmed
+  style A1_GPA4 fill:#333,stroke:#555,color:#777
+  style A1_GPA5 fill:#333,stroke:#555,color:#777
+  style A1_GPA6 fill:#333,stroke:#555,color:#777
+  style A1_GPA7 fill:#333,stroke:#555,color:#777
+  style A1_GPB0 fill:#333,stroke:#555,color:#777
+  style A1_GPB1 fill:#333,stroke:#555,color:#777
+  style A1_GPB2 fill:#333,stroke:#555,color:#777
+  style A1_GPB3 fill:#333,stroke:#555,color:#777
+  style A1_GPB4 fill:#333,stroke:#555,color:#777
+  style A1_GPB5 fill:#333,stroke:#555,color:#777
+  style A1_GPB6 fill:#333,stroke:#555,color:#777
+  style A1_GPB7 fill:#333,stroke:#555,color:#777
   style U2_free fill:#333,stroke:#555,color:#777
