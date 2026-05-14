@@ -8,12 +8,12 @@ flowchart LR
   %%   GPIO 16 hosts the DS18B20 1-wire bus (tank-wall + evap-suction probes).
   %%   GPIO 17, 27 read the two carbonator-level reed switches.
   %%   GPIO 4 drives Teyleten relay #2 (diaphragm pump 12 V, refill).
-  %% Flavor-reservoir reed switches (20 total, 10 per reservoir) are
+  %% Flavor-reservoir reed switches (8 total, 4 per reservoir) are
   %% read through the I2C MCP23017 expanders, not direct ESP32 GPIO:
-  %%   MCP23017 0x20: valves on PA[0:7] + PB[0:3]; top 2 reeds of each
-  %%                  reservoir on PB[4:5] (Rsvr A) and PB[6:7] (Rsvr B).
-  %%   MCP23017 0x21: bottom 8 reeds of Rsvr A on PA[0:7]; bottom 8
-  %%                  reeds of Rsvr B on PB[0:7]. See valve-control.mmd.
+  %%   MCP23017 0x20: valves on PA[0:7] + PB[0:3]; Rsvr A 4 reeds on PB[4:7].
+  %%   MCP23017 0x21: Rsvr B 4 reeds on PA[0:3]; rest spare. See valve-control.mmd.
+  %% Conditional: 0x21 could be replaced by ESP32 direct GPIO (GPIO 2, 12 + GPIO
+  %% 36, 39 with external pull-ups) or a 74HC165 — saves the chip, decision deferred.
   %%   Architecture detail at
   %%   hardware/printed-parts/cold-core/reservoir/level-sensing.md.
   %% Freed GPIOs still available:
@@ -65,7 +65,7 @@ flowchart LR
   RP["RP2040\n(display)"]
   S3["ESP32-S3\n(config/BLE)"]
 
-  I2C_DEVICES["I2C Devices:\n  DS3231 RTC  0x68\n  MCP23017    0x20  (valves + 4 reservoir reed inputs)\n  MCP23017    0x21  (16 reservoir reed inputs)"]
+  I2C_DEVICES["I2C Devices:\n  DS3231 RTC  0x68\n  MCP23017    0x20  (valves + 4 reservoir reed inputs)\n  MCP23017    0x21  (4 reservoir reed inputs, 12 spare)"]
 
   DRV["L298N Board A\n(2 pumps, H-bridge)"]
 
@@ -75,7 +75,7 @@ flowchart LR
   FLOW["DIGITEN\nFlow Meter"]
   SW["KRAUS\nAir Switch"]
 
-  VALVE_CHAIN["MCP23017 0x20 (outputs + 4 inputs)\nMCP23017 0x21 (16 inputs)\n  ↓\n2× ULN2803A → 12 solenoid valves\n  ↑\n20 reservoir reed switches\n(see valve-control)"]
+  VALVE_CHAIN["MCP23017 0x20 (outputs + 4 inputs)\nMCP23017 0x21 (4 inputs)\n  ↓\n2× ULN2803A → 12 solenoid valves\n  ↑\n8 reservoir reed switches\n(see valve-control)"]
 
   RELAY["Teyleten 3.3V relay #1\n(compressor AC)"]
   COMP_AC["AC hermetic compressor\n  (Frigidaire EFIC117-SS donor,\n  120 VAC)"]
