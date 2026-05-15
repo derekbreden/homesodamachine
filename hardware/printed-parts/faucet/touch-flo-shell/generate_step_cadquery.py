@@ -264,6 +264,12 @@ WATER_TUBE_OD       = 0.375 * 25.4                                  # 9.525 — 
                                                                      # 9.75 mm port via
                                                                      # a TPU O-ring —
                                                                      # 0.225 mm radial gap)
+# NOTE: the 3/8" OD here is the 3-tube dispense spout's center tube
+# *inside* the faucet head — NOT the supply line. The harvested
+# Westbrass R2031-NL-62 valve body itself IS the 1/4"→3/8" adapter:
+# its bottom threaded metal rod accepts 1/4" OD LLDPE supply tubing
+# from the foam-shell exit (vessel→here is 1/4" OD throughout); the
+# 3/8" OD tube only exists above this port, internal to the head.
 WATER_HOLE_DIAMETER = WATER_TUBE_OD + 2.0 * BORE_CLEARANCE          # 10.025
 
 # 1/4" LLDPE flavor tube — used to derive POST_BEND_X so the flavor
