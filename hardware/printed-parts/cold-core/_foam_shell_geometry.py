@@ -855,16 +855,133 @@ def cut_slot_for_copper_and_water_inlet(foam_shell):
 # TOP-LEVEL ASSEMBLY
 # ═══════════════════════════════════════════════════════
 
+def build_reed_channels(side):
+    """Reed-and-cable channel system for one ±X reservoir, built into
+    the foam shell. Returns a single solid (new wall material) to union
+    with the foam shell.
+
+    The channel system has two segments, both with their back face on
+    the existing bag-pocket far ±X wall and extruding outward into the
+    outer-foam zone:
+
+    - **Vertical reed channel** at z = −45 (matches the reservoir's
+      STRUT_POSITION_Z, putting the reeds opposite the float-on-strut
+      on the other side of the bag-pocket wall). Cavity 8 mm wide in
+      z, 6 mm deep in x. Open at the top so the pre-soldered reed-and-
+      cable column can be dropped in from above before the foam cap is
+      installed.
+
+    - **Horizontal cable channel** running in +Z from the vertical
+      channel along the bag-pocket far ±X wall. Cavity y range
+      straddles `reservoir_bulkhead_port_y` (= 18) so the cable level
+      matches the bulkhead pass-through level, with no need to descend
+      after exiting the column. Cavity ends at z = 63, just past the
+      cable hole's z = 62.5 (the cable exits the channel at the +Z end
+      via the coaxial cable hole, see `cut_reed_cable_holes`).
+
+    Both segments' new walls are wall_and_floor_thickness (2 mm) thick.
+
+    `side` = ±1, mirroring x across the y-z plane."""
+    s = side
+    W = wall_and_floor_thickness
+
+    # Vertical reed channel
+    REED_Z_CENTER = -45.0
+    REED_Z_HALF_W = 4.0
+    REED_X_DEPTH = 6.0
+
+    # Horizontal cable channel
+    CABLE_Y_CENTER = reservoir_bulkhead_port_y  # 18 — matches bulkhead Y
+    CABLE_Y_HALF_H = 4.0
+    CABLE_X_DEPTH = 5.0
+    CABLE_Z_MAX = 63.0
+
+    bag_x = s * bag_pocket_outermost_x  # outer face of bag-pocket far ±X wall
+
+    def make_box(x_a, x_b, y_min, y_max, z_a, z_b):
+        x_min, x_max = min(x_a, x_b), max(x_a, x_b)
+        z_min, z_max = min(z_a, z_b), max(z_a, z_b)
+        return (
+            cq.Workplane(xz_plane_y_up)
+            .workplane(offset=y_min)
+            .moveTo((x_min + x_max) / 2, -(z_min + z_max) / 2)
+            .rect(x_max - x_min, z_max - z_min)
+            .extrude(y_max - y_min)
+        )
+
+    # Vertical reed channel envelope + cavity
+    vert_envelope = make_box(
+        bag_x, bag_x + s * (REED_X_DEPTH + W),
+        CABLE_Y_CENTER - CABLE_Y_HALF_H - W, tank_copper_shell_height,
+        REED_Z_CENTER - REED_Z_HALF_W - W, REED_Z_CENTER + REED_Z_HALF_W + W,
+    )
+    vert_cavity = make_box(
+        bag_x, bag_x + s * REED_X_DEPTH,
+        CABLE_Y_CENTER - CABLE_Y_HALF_H, tank_copper_shell_height,
+        REED_Z_CENTER - REED_Z_HALF_W, REED_Z_CENTER + REED_Z_HALF_W,
+    )
+
+    # Horizontal cable channel envelope + cavity
+    horiz_envelope = make_box(
+        bag_x, bag_x + s * (CABLE_X_DEPTH + W),
+        CABLE_Y_CENTER - CABLE_Y_HALF_H - W, CABLE_Y_CENTER + CABLE_Y_HALF_H + W,
+        REED_Z_CENTER - REED_Z_HALF_W - W, CABLE_Z_MAX + W,
+    )
+    horiz_cavity = make_box(
+        bag_x, bag_x + s * CABLE_X_DEPTH,
+        CABLE_Y_CENTER - CABLE_Y_HALF_H, CABLE_Y_CENTER + CABLE_Y_HALF_H,
+        REED_Z_CENTER - REED_Z_HALF_W, CABLE_Z_MAX,
+    )
+
+    return vert_envelope.union(horiz_envelope).cut(vert_cavity).cut(horiz_cavity)
+
+
+def cut_reed_cable_holes(foam_shell):
+    """Cut the coaxial cable holes — one per reservoir side — through
+    BOTH the bag-pocket far ±X wall and the outer ±X shell wall.
+    Single ±X-axis cylindrical cut per side, ⌀6.5 at
+    (y = reservoir_bulkhead_port_y, z = bag_pocket_width/2 − 10),
+    matching the existing bulkhead-tube pass-through's y and z so the
+    cable exit sits adjacent to the tube exit. The cable physically
+    enters the cut from inside the horizontal cable channel and exits
+    the cold core."""
+    CABLE_HOLE_D = 6.5
+    CABLE_HOLE_Z = bag_pocket_width / 2 - 10  # 62.5
+    CABLE_HOLE_Y = reservoir_bulkhead_port_y   # 18
+    for s in (+1, -1):
+        # Cut starts a few mm inside the bag pocket interior (in the
+        # body's dry-side empty space, which is open here because the
+        # reservoir-body slab cut removed its +Z outer wall in the dry
+        # section). Length covers everything to past the outer shell
+        # face at ±(outer_shell_x_length/2 = 134.5).
+        hole_x_start = s * (bag_pocket_outermost_x - 6.0)
+        hole_length = 35.0
+        cable_hole = (
+            cq.Workplane(cq.Plane(
+                origin=(hole_x_start, CABLE_HOLE_Y, CABLE_HOLE_Z),
+                xDir=(0, 0, 1),
+                normal=(s, 0, 0),
+            ))
+            .circle(CABLE_HOLE_D / 2)
+            .extrude(hole_length)
+        )
+        foam_shell = foam_shell.cut(cable_hole)
+    return foam_shell
+
+
 def build_full_shell():
     """Assemble the foam shell and cut all its port holes."""
     foam_shell = (
         build_tank_and_bag_pocket_walls()
         .union(build_tank_support_ring())
         .union(build_outer_shell())
+        .union(build_reed_channels(side=+1))
+        .union(build_reed_channels(side=-1))
     )
     foam_shell = cut_circular_port_holes(foam_shell)
     foam_shell = cut_co2_inlet(foam_shell)
     foam_shell = cut_slot_for_copper_and_water_inlet(foam_shell)
+    foam_shell = cut_reed_cable_holes(foam_shell)
     return foam_shell
 
 
