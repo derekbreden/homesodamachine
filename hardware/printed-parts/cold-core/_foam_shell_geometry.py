@@ -936,6 +936,72 @@ def build_reed_channels(side):
     return vert_envelope.union(horiz_envelope).cut(vert_cavity).cut(horiz_cavity)
 
 
+def cut_reed_channel_openings(foam_shell):
+    """Cut the bag-pocket far ±X wall in the reed-and-cable channel
+    footprint, so each channel becomes a true 3-walled box (open to
+    the bag pocket interior on its back face) instead of 4-walled
+    (closed by the bag-pocket wall as the back). This:
+
+    - Makes the channels visible / accessible from inside the bag
+      pocket — the reed column can be inspected and serviced from the
+      bag-pocket side without going around through the foam zone.
+    - Shortens the magnet-to-reed magnetic path: the 2 mm bag-pocket
+      wall material that used to sit between the magnet (inside the
+      reservoir body in the bag pocket) and the reed sensors (in the
+      foam-zone channel) is removed. Gap is just the 0.5 mm
+      reservoir clearance + half the reed body — well inside the
+      reed's pull-in margin.
+    - Foam-pour safety is unchanged: foam lives ONLY in the foam zone
+      (x > 124.5 for the +X reservoir's channel, between the channel's
+      outer wall and the outer shell). The opening from the channel to
+      the bag-pocket interior is on the OTHER side (x ≤ 116.5), so
+      foam can't reach it.
+    """
+    REED_Z_CENTER = -45.0
+    REED_Z_HALF_W = 4.0
+    CABLE_Y_CENTER = reservoir_bulkhead_port_y
+    CABLE_Y_HALF_H = 4.0
+    CABLE_Z_MAX = 63.0
+    W = wall_and_floor_thickness
+
+    def make_box(x_a, x_b, y_min, y_max, z_a, z_b):
+        x_min, x_max = min(x_a, x_b), max(x_a, x_b)
+        z_min, z_max = min(z_a, z_b), max(z_a, z_b)
+        return (
+            cq.Workplane(xz_plane_y_up)
+            .workplane(offset=y_min)
+            .moveTo((x_min + x_max) / 2, -(z_min + z_max) / 2)
+            .rect(x_max - x_min, z_max - z_min)
+            .extrude(y_max - y_min)
+        )
+
+    for s in (+1, -1):
+        # Bag-pocket far ±X wall material occupies x range
+        # [bag_pocket_outermost_x − W, bag_pocket_outermost_x].
+        wall_x_inner = s * (bag_pocket_outermost_x - W)
+        wall_x_outer = s * bag_pocket_outermost_x
+
+        # Vertical opening: cut the wall in the reed channel's z and
+        # y footprint (full height in y, from cavity bottom to top).
+        vert_opening = make_box(
+            wall_x_inner, wall_x_outer,
+            CABLE_Y_CENTER - CABLE_Y_HALF_H, tank_copper_shell_height,
+            REED_Z_CENTER - REED_Z_HALF_W, REED_Z_CENTER + REED_Z_HALF_W,
+        )
+        foam_shell = foam_shell.cut(vert_opening)
+
+        # Horizontal opening: cut the wall in the cable channel's z and
+        # y footprint (low y, full +Z reach).
+        horiz_opening = make_box(
+            wall_x_inner, wall_x_outer,
+            CABLE_Y_CENTER - CABLE_Y_HALF_H, CABLE_Y_CENTER + CABLE_Y_HALF_H,
+            REED_Z_CENTER - REED_Z_HALF_W, CABLE_Z_MAX,
+        )
+        foam_shell = foam_shell.cut(horiz_opening)
+
+    return foam_shell
+
+
 def cut_reed_cable_holes(foam_shell):
     """Cut the coaxial cable holes — one per reservoir side — through
     BOTH the bag-pocket far ±X wall and the outer ±X shell wall.
@@ -981,6 +1047,7 @@ def build_full_shell():
     foam_shell = cut_circular_port_holes(foam_shell)
     foam_shell = cut_co2_inlet(foam_shell)
     foam_shell = cut_slot_for_copper_and_water_inlet(foam_shell)
+    foam_shell = cut_reed_channel_openings(foam_shell)
     foam_shell = cut_reed_cable_holes(foam_shell)
     return foam_shell
 
