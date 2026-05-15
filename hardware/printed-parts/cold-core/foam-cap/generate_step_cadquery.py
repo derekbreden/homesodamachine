@@ -47,9 +47,13 @@ co2_inlet_z   = (_z_back_mid + _z_arch_mid) / 2                          # −68
 
 
 def cut_co2_inlet(cap):
-    """Y-axis ⌀6.5 cylindrical cut through the top cap at the same
-    (x, z) as the foam shell's CO2 inlet, continuing the CO2 tube path
-    from the shell's −Z support arch up through the top cap."""
+    """Y-axis ⌀6.5 cylindrical cut through the top cap, sized for the
+    1/4" OD LLDPE CO2 tube to pass through the cap floor. Same (x, z)
+    as the foam shell's CO2 inlet, but a *different* diameter: the
+    shell's `cut_co2_inlet` is a ⌀16 doorway that seats the JG PP0308E
+    90° elbow body inside the −Z support arch; only the tube itself
+    traverses the cap, hence ⌀6.5 here (tube clearance, not elbow
+    clearance)."""
     return cap.cut(
         build_a_y_axis_hole_punch(
             origin=(0, 0, co2_inlet_z),
@@ -63,7 +67,9 @@ def cut_co2_inlet_lid(lid):
     (x, z) as the top cap's CO2 through-hole. The lid sits atop the cap
     during the foam pour; this hole continues the CO2 path from the
     outside through the lid → cap stack. Same axis (Y), same XZ position,
-    same diameter (⌀6.5) as `cut_co2_inlet`."""
+    same diameter (⌀6.5) as the local `cut_co2_inlet` above — tube
+    clearance for the 1/4" OD LLDPE, not the ⌀16 elbow-body doorway
+    in the foam shell."""
     return lid.cut(
         build_a_y_axis_hole_punch(
             origin=(0, 0, co2_inlet_z),
