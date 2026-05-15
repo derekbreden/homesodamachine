@@ -95,7 +95,7 @@ Fallback path (UL/ETL-retail-friendly): RIGID DV1910E sealed refrigeration modul
 
 | Part | Source | Qty | Unit $ | Line $ |
 |---|---|---:|---:|---:|
-| [Fiberglass Supply Depot 2 lb 2-part closed-cell pour-in-place PU foam, 1 qt kit](https://www.amazon.com/dp/B08R7TX8QJ) | B08R7TX8QJ — 1.25 ft³ yield covers inner + outer shells with margin | 1 kit | $39.99 | $39.99 |
+| [Fiberglass Supply Depot 2 lb 2-part closed-cell pour-in-place PU foam, 1 qt kit](https://www.amazon.com/dp/B08R7TX8QJ) | B08R7TX8QJ — 1.25 ft³ yield covers inner + outer shells with margin; Amazon order 112-5359790-0932202, May 15, 2026, $39.99 line + $0.00 ship + $2.90 tax = $42.89 delivered | 1 kit | $42.89 | $42.89 |
 | [3M 425 aluminum foil tape, 2" × 180 ft](https://www.amazon.com/dp/B07BTW7C2N) | B07BTW7C2N — thermally conductive aluminum foil, applied under the coil (continuous aluminum skin on tank OD, coil wraps over it) to bridge the tank ↔ coil thermal interface; replaces the earlier generic "thermal compound" plan which was unsuitable for this macro-scale gap geometry without clamping pressure; one 180 ft roll covers ~12 builds at ~15 ft/build; 1/12 of $88.97 | 1 | $7.41 | $7.41 |
 | [Pouring Masters 5 oz / 150 mL graduated mixing cups (50-pk)](https://www.amazon.com/dp/B08JHH1DBF) | B08JHH1DBF — foam-pour consumable; 4 cups per build for batching the 2-part PU foam in measured shots; $20.37/50 × 4 | 4 (of 50 pk) | $0.41 | $1.63 |
 | [JMU 6" tongue depressors, individually wrapped (100-pk)](https://www.amazon.com/dp/B09H6ZP447) | B09H6ZP447 — foam-pour consumable; 4 stir sticks per build for hand-mixing 2-part PU foam in the graduated cups; $7.50/100 × 4 | 4 (of 100 pk) | $0.08 | $0.30 |
@@ -233,7 +233,7 @@ The T18 heat-set tip kit ([B0CS662NVK](https://www.amazon.com/dp/B0CS662NVK)) an
 | 3. Water inlet | $132.62 |
 | 4. CO2 subsystem | $92.61 |
 | 5. Refrigeration | $175.84 |
-| 6. Cold core insulation | $49.48 |
+| 6. Cold core insulation | $52.38 |
 | 7. Printed parts (PETG) | $103.94 |
 | 8. Flavor subsystem | $299.14 |
 | 9. Dispensing | $59.61 |
@@ -241,7 +241,7 @@ The T18 heat-set tip kit ([B0CS662NVK](https://www.amazon.com/dp/B0CS662NVK)) an
 | 11. Wiring | $31.97 |
 | 12. Level sensing | $66.35 |
 | 13. Mechanical attach hardware + reservoir-cap vent filter | $17.55 |
-| **Total** | **$1,479.39** |
+| **Total** | **$1,482.29** |
 
 ## External / user-supplied (not shipped)
 

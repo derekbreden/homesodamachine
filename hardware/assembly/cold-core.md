@@ -30,7 +30,7 @@ The **3M 425 aluminum foil tape** is *already applied to the vessel OD* at this 
 | M3 × 12 mm SHCS, 12.9 alloy, black oxide × 12 (reservoir-cap screws — upstream of cold-core assembly per "Open items") | BNUOK B0DJQGVK8S | ON-ORDER |
 | ruthex M3 short heat-set inserts × 26 per build (12 outer_shell + 12 reservoir + 2 touch-flo-shell) | ruthex B0D39W228K (100-pc bag = ~3.8 builds) | ON-ORDER |
 | LVDALAB PTFE membrane filter Ø13 mm × 0.45 µm × 2 (reservoir vent — upstream of cold-core assembly) | B0D41KT345 (100-pc bag = 50 builds) | ON-ORDER |
-| Pour-in-place 2 lb 2-part closed-cell PU foam, 1 qt kit | Fiberglass Supply Depot B08R7TX8QJ | LIKELY-TO-BUY |
+| Pour-in-place 2 lb 2-part closed-cell PU foam, 1 qt kit | Fiberglass Supply Depot B08R7TX8QJ | ON-ORDER |
 | Foam-pour consumables (mixing cups × 4, stir sticks × 4, nitrile gloves × 1 pair per build) | B08JHH1DBF / B09H6ZP447 / B0G8SSMVKW | ACQUIRED |
 
 ## Procedure
@@ -97,7 +97,7 @@ A finished cold core:
 
 Procedure-level gaps not resolved by parts already committed in [`../purchases.md`](../purchases.md):
 
-1. **Foam data-sheet spec (mix proportions, pot life, cure time, pour temperature window).** Vendor is committed (Fiberglass Supply Depot B08R7TX8QJ, LIKELY-TO-BUY); the data sheet still needs to be read and the numbers locked into this doc once the kit is in hand.
+1. **Foam data-sheet spec (mix proportions, pot life, cure time, pour temperature window).** Vendor is committed (Fiberglass Supply Depot B08R7TX8QJ, ON-ORDER — Amazon order 112-5359790-0932202, May 15, 2026, arriving Sat May 16); the data sheet still needs to be read and the numbers locked into this doc once the kit is in hand.
 2. **Trim method after foam cure.** What gets flush-cut, with what — knife, oscillating tool, both depending on location.
 3. **Reservoir-internal assembly procedure (upstream of this doc).** The reservoir arrives in this procedure already assembled — cap installed, six M3×12 SHCS into ruthex inserts clamping a TPU gasket, PTFE vent membrane installed. That reservoir-internal sequence is not captured in any production-procedure doc.
 4. **Reservoir final-qualification status.** The Comfy Materials PETG-Carbon filament is ACQUIRED but the reservoir is still under qualification. Production sign-off pending water + syrup-dwell pass.
