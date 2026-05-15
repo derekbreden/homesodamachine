@@ -1002,36 +1002,33 @@ def cut_reed_channel_openings(foam_shell):
     return foam_shell
 
 
+cable_hole_offset_from_bulkhead_hole_x = 8.0  # ±X offset of cable hole from bulkhead hole (centers 8 mm apart; ⌀6.5 + ⌀6.5 holes have 1.5 mm of PETG between them)
+
+
 def cut_reed_cable_holes(foam_shell):
-    """Cut the coaxial cable holes — one per reservoir side — through
-    BOTH the bag-pocket far ±X wall and the outer ±X shell wall.
-    Single ±X-axis cylindrical cut per side, ⌀6.5 at
-    (y = reservoir_bulkhead_port_y, z = bag_pocket_width/2 − 10),
-    matching the existing bulkhead-tube pass-through's y and z so the
-    cable exit sits adjacent to the tube exit. The cable physically
-    enters the cut from inside the horizontal cable channel and exits
-    the cold core."""
-    CABLE_HOLE_D = 6.5
-    CABLE_HOLE_Z = bag_pocket_width / 2 - 10  # 62.5
-    CABLE_HOLE_Y = reservoir_bulkhead_port_y   # 18
+    """Cut the cable holes — one per reservoir side — through both the
+    +Z bag-pocket wall and the +Z outer shell wall, in +Z direction,
+    using the same `build_a_hole_punch` pattern as the existing
+    bulkhead-tube pass-throughs. The cable hole sits at the same y and
+    z as its side's bulkhead hole, offset in X by `cable_hole_offset_
+    from_bulkhead_hole_x` away from the bulkhead hole (toward the +X
+    far wall for the +X reservoir, toward the −X far wall for the −X
+    reservoir).
+
+    Cable's path: reed column → vertical channel → horizontal channel
+    → bag-pocket-wall opening (cut by `cut_reed_channel_openings`,
+    making the channels open to the bag-pocket interior) → bag-pocket
+    interior, traversing in −X by ~13 mm through the body's dry-side
+    empty space (open at z ≥ panel_z_max due to the reservoir body's
+    slab cut) → cable hole, in +Z direction → out the front face of
+    the cold core, parallel to and next to the bulkhead-tube exit."""
     for s in (+1, -1):
-        # Cut starts a few mm inside the bag pocket interior (in the
-        # body's dry-side empty space, which is open here because the
-        # reservoir-body slab cut removed its +Z outer wall in the dry
-        # section). Length covers everything to past the outer shell
-        # face at ±(outer_shell_x_length/2 = 134.5).
-        hole_x_start = s * (bag_pocket_outermost_x - 6.0)
-        hole_length = 35.0
-        cable_hole = (
-            cq.Workplane(cq.Plane(
-                origin=(hole_x_start, CABLE_HOLE_Y, CABLE_HOLE_Z),
-                xDir=(0, 0, 1),
-                normal=(s, 0, 0),
-            ))
-            .circle(CABLE_HOLE_D / 2)
-            .extrude(hole_length)
+        hole_origin = (
+            s * (reservoir_bulkhead_port_x + cable_hole_offset_from_bulkhead_hole_x),
+            reservoir_bulkhead_port_y,
+            bag_pocket_width / 2 - 10,
         )
-        foam_shell = foam_shell.cut(cable_hole)
+        foam_shell = foam_shell.cut(build_a_hole_punch(origin=hole_origin))
     return foam_shell
 
 
