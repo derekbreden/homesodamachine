@@ -59,7 +59,7 @@ With the outer shell open-top-up on the bench, install every internal component:
   - CO2 inlet → enters from above through the foam-cap-top boss + foam-cap-lid-top Ø6.5 hole at (x=0, z=−68.75); inside the cavity, a John Guest PP0308E 1/4" PTC 90° elbow seats in the Ø16 doorway in the −Z support arch, and the line continues to the vessel's bottom-plate TAISHER NPT elbow via a PP010822E 1/4" PTC × 1/4" NPT M adapter
   - Water outlet → dedicated Ø6.5 hole, +Z outer wall
   - Reservoir lines (+X, −X) → dedicated Ø6.5 holes in the bag_pocket_shell ±X far walls
-  - Refrigerant inlet (low), refrigerant outlet (high), water inlet → shared Y-elongated slot at x=0 on the +Z outer wall
+  - Refrigerant inlet (low), refrigerant outlet (high), water inlet → shared Y-elongated slot at x=0 on the +Z outer wall. The water-inlet line transitions from the warm-side GASHER 1/4" NPT check valve via a JG PP010822E 1/4" PTC × 1/4" NPT M adapter (same NPT↔PTC fitting used on the §4 CO2 path) before entering the slot as 1/4" OD LLDPE; downstream of the slot it threads into the TAISHER 1/4" NPT 90° vessel-port elbow on Port 2 (top plate).
 - **Three copper plugs** slid down into the shared +Z slot from above, sealing between and above the three pass-throughs (binder-clip geometry in [`../printed-parts/cold-core/foam-shell/README.md`](../printed-parts/cold-core/foam-shell/README.md) "Shared +Z slot and copper plug stack")
 - **In-cavity PP0308E elbow** is angled in through the −Z support-arch doorway from above before the vessel drops into the cavity — its perpendicular legs cannot clear the bore axially, so installation order matters.
 
