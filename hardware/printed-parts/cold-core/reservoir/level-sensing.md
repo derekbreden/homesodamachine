@@ -19,7 +19,7 @@ Density-independent, mechanically overfill-safe, zero electrical penetrations of
 - The **foam shell carries the channel that holds the column** — no separate printed reed-holder part. The channel has two segments:
   - A **vertical segment** at the reed positions, parallel to the strut at z=−45, sized to slip-fit the reed-and-wire column, extending from a bottom shelf (around y=40) up past the top of the wall so the column can be inserted from above before the body pour.
   - A **horizontal segment** at the top of the vertical segment, routing the cable laterally to the existing reservoir-line pass-through in the bag_pocket_shell wall (or a small dedicated cable exit if the existing pass-through is too crowded).
-- The column is **foam-encapsulated** during the body pour: foam flows into the channel around the reeds and cable, locking everything in place. Same retention principle as the carbonator's reeds — sealed glass tubes inside cured foam, robust for the 10-year design life.
+- The column is **held mechanically** by the channel — bottom shelf catches it from below, ±z side walls constrain it laterally, the cap on top traps it from above when installed. **No foam encapsulation** — the bag pocket is an air cavity per the cold-core's overall pour architecture, so foam doesn't reach the reed column. This differs from the carbonator's reeds, which ARE foam-encapsulated because the carbonator vessel sits in the foam-poured center of the cold core.
 
 ## Reed pitch and what it gets you
 
@@ -76,7 +76,9 @@ The firmware reads the reed states as a 5-level encoding (0/4 through 4/4 trigge
 
 ## Service
 
-The reed column is foam-encapsulated and not field-serviceable without cutting foam. The expected failure mode (reed glass tube fractures, contact corrodes) is well below the appliance's 10-year design lifetime for sealed glass reeds in a dry foam-bonded environment, so this is acceptable.
+The reed column is mechanically held in the channel, not foam-encapsulated, so in principle it can be replaced — lift the cap off, pull the column up and out of the channel from above (the cap above is the only thing trapping it axially). Whether this is practical in the field depends on whether the reservoir has to come out first; the reservoir's outer +X face sits ~0.5 mm from the channel, so the column likely needs to be sized to clear that gap or the reservoir needs to lift out first.
+
+The expected failure mode (reed glass tube fractures, contact corrodes) is well below the appliance's 10-year design lifetime for sealed glass reeds in a dry air environment.
 
 The internal strut is integral to the reservoir body. The float is reachable by removing the cap (six M3 × 12 SHCS + gasket) and lifting it off the strut.
 
