@@ -415,13 +415,13 @@ bulkhead_panel_hole_diameter = 17.0     # JG catalog spec for the 1/4" body fami
 # PI1208S we already own; the workflow is documented in
 # `tools/measure-from-drawings/README.md`.
 #
-bulkhead_wet_chamber_length = 24.0      # wet flange + collet body + release ring — extended by 12 mm beyond the CI1208W's 12 mm catalog wet section (see `bulkhead_collet_body_length` below); the extra length lives entirely in the smooth collet-body middle, sliding the panel and flange chamber forward in +Z by 12 mm
+bulkhead_wet_chamber_length = 22.2      # wet flange + collet body + release ring — adjusted from 24 to free 1.8 mm for the panel's growth in −Z direction (see panel_thickness below). The reduction comes entirely from the collet body section.
 bulkhead_wet_antechamber_length = 2.0   # gap on the bulkhead's wet face — must exist or syrup can't reach the port
-bulkhead_panel_thickness = 5.0          # = panel + threading section
+bulkhead_panel_thickness = 6.8          # was 5 mm. Grown by 1.8 mm to fit 1.4 mm-deep TPU seal counterbores on BOTH faces while preserving the 4 mm minimum wall thickness in the panel core (between the two counterbores). Growth is in the −Z direction: panel's +Z face stays at z=panel_z_max, panel's −Z face moves to z=panel_z_max − 6.8.
 bulkhead_dry_chamber_length = 17.0      # locknut + dry collet
 bulkhead_pocket_length = (
     bulkhead_wet_chamber_length + bulkhead_panel_thickness + bulkhead_dry_chamber_length
-)                                       # 46 (bulkhead body length, was 34 for the CI1208W; the +12 mm comes from the longer collet-body section below)
+)                                       # 46 (bulkhead body length); the 1.8 mm shuffled between wet_chamber and panel_thickness keeps total length unchanged
 #
 # Wet-side nut. The actual hardware sitting at z=panel_z_min on the
 # wet side is the *nut*, not an integral flange — the bulkhead is
@@ -444,9 +444,27 @@ bulkhead_nut_washer_depth = 1.6          # axial depth of the washer portion
 bulkhead_nut_total_depth = bulkhead_nut_hex_depth + bulkhead_nut_washer_depth  # 5.7
 bulkhead_nut_clearance = 0.1             # per-side clearance for press-fit (both hex flats and washer ⌀)
 #
+# TPU 90A face seals at the bulkhead/panel joint. One on each side of
+# the panel: a flat printed washer that sits in a shallow counterbore
+# in the panel face and gets compressed when the mating face (nut
+# washer on the wet side, integral flange on the dry side) seats flush
+# against the panel rim outside the counterbore. Compression ratio is
+# (seal_thickness − counterbore_depth) / seal_thickness = 30%, which
+# is standard for face-seal elastomers.
+#
+# Sizing the counterbore smaller than both mating-face ODs (nut washer
+# ⌀22.1, integral flange ⌀22.9) ensures the mating faces still seat
+# directly on PETG outside the counterbore — the elastomer carries
+# only the seal load, not the clamping force.
+bulkhead_seal_id = 17.5                  # 0.25 mm/side clearance around the panel hole (⌀17)
+bulkhead_seal_od = 20.3                  # 0.1 mm/side clearance in the counterbore
+bulkhead_seal_thickness = 2.0            # matches the reservoir gasket convention
+bulkhead_seal_counterbore_diameter = 20.5
+bulkhead_seal_counterbore_depth = 1.4    # 30% compression of the 2 mm seal when the mating face seats flush
+#
 # Wet-side section lengths (estimates — refine with drawing measurements):
 bulkhead_flange_length = bulkhead_nut_total_depth              # 5.7 — the wet-side pocket against the panel holds the *nut* (a stepped washer+hex piece), not an integral flange. Name kept for now as the geometric region label.
-bulkhead_collet_body_length = 15.3                             # middle of the wet section — extended ~9 mm beyond the CI1208W's 6 mm so the bulkhead's smooth body has room to rest comfortably when fully screwed forward into the nut. Was 18 before the nut pocket grew from 3 → 5.7; collet shrinks by the same 2.7 to keep the panel at z=54.
+bulkhead_collet_body_length = 13.5                             # middle of the wet section — extended ~7.5 mm beyond the CI1208W's 6 mm so the bulkhead's smooth body has room to rest comfortably when fully screwed forward into the nut. Reduced from 15.3 → 13.5 to absorb the 1.8 mm panel growth (5 → 6.8 mm) needed to fit TPU seal counterbores on both panel faces. Panel's +Z face stays at z=panel_z_max=59; everything else cascades.
 bulkhead_release_ring_length = (
     bulkhead_wet_chamber_length - bulkhead_flange_length - bulkhead_collet_body_length
 )                                                              # 3 — the visible end with the push-to-release ring
@@ -463,10 +481,10 @@ bulkhead_wet_end_z = 30.0                # z of bulkhead body's wet face (the po
 bulkhead_wet_chamber_z_min = bulkhead_wet_end_z - bulkhead_wet_antechamber_length  # 28 (tip-channel −Z edge, stays put)
 bulkhead_release_z_start = bulkhead_wet_end_z                   # 30 — release-ring section starts at the body's wet face (stays)
 bulkhead_collet_z_start = bulkhead_release_z_start + bulkhead_release_ring_length  # 33 (release-ring → collet boundary, stays)
-bulkhead_flange_z_start = bulkhead_collet_z_start + bulkhead_collet_body_length    # 48.3 — the start of the nut pocket (was named flange because the geometry was originally laid out for an integral flange here; actually it's the nut)
-bulkhead_panel_z_min = bulkhead_flange_z_start + bulkhead_flange_length             # 54 (panel's −Z face; nut pocket of 5.7 mm fits between this and bulkhead_flange_z_start)
-bulkhead_panel_z_max = bulkhead_panel_z_min + bulkhead_panel_thickness              # 59 (was 47: panel's +Z face moved +12)
-bulkhead_dry_end_z = bulkhead_wet_end_z + bulkhead_pocket_length                    # 76 (was 64: bulkhead's +Z tip moved +12; this is now past outer_z_max ≈ 72, so the dry-side fittings protrude through the open dry section)
+bulkhead_flange_z_start = bulkhead_collet_z_start + bulkhead_collet_body_length    # 46.5 — start of the nut pocket (named flange because the geometry was originally laid out for an integral flange here; it actually houses the nut)
+bulkhead_panel_z_min = bulkhead_flange_z_start + bulkhead_flange_length             # 52.2 (panel's −Z face; was 54 before the panel grew 1.8 mm in −Z to fit the seal counterbores)
+bulkhead_panel_z_max = bulkhead_panel_z_min + bulkhead_panel_thickness              # 59 (panel's +Z face; stays put — panel grows in −Z direction only)
+bulkhead_dry_end_z = bulkhead_wet_end_z + bulkhead_pocket_length                    # 76 (bulkhead's +Z tip)
 # The floor thickens uniformly across the cavity to a baseline whose
 # inner-top y sits just above the bulkhead pocket, so the bulkhead body
 # is fully encased in PETG along the panel section. The slope rises ON
@@ -1135,6 +1153,24 @@ def build_reservoir_body(side=1):
     body = body.cut(_z_pocket_cut(
         bulkhead_panel_z_min, bulkhead_panel_z_max, bulkhead_panel_hole_diameter,
     ))                                       # panel hole ⌀17
+
+    # TPU seal counterbores — one on each panel face. A flat printed
+    # TPU washer seats in each counterbore; the mating face (nut
+    # washer on the wet side, integral flange on the dry side) presses
+    # on the exposed 0.6 mm of TPU until flush against the panel rim
+    # outside the counterbore, giving 30% compression. Panel thickness
+    # was grown from 5 → 6.8 mm to keep ≥4 mm of PETG between the two
+    # counterbore bottoms.
+    body = body.cut(_z_pocket_cut(
+        bulkhead_panel_z_min,
+        bulkhead_panel_z_min + bulkhead_seal_counterbore_depth,
+        bulkhead_seal_counterbore_diameter,
+    ))                                       # wet-side seal counterbore
+    body = body.cut(_z_pocket_cut(
+        bulkhead_panel_z_max - bulkhead_seal_counterbore_depth,
+        bulkhead_panel_z_max,
+        bulkhead_seal_counterbore_diameter,
+    ))                                       # dry-side seal counterbore
     # Wide-open dry section: instead of cutting a ⌀23 dry chamber + a
     # dry-floor box (the symmetric counterpart to the wet ceiling), the
     # dry section keeps ONLY a PETG ceiling slab spanning the entire
@@ -1630,6 +1666,25 @@ def build_reservoir_retaining_ring():
     )
 
 
+def build_reservoir_bulkhead_seal():
+    """Flat TPU 90A washer that seals between the bulkhead's clamping
+    face and the reservoir body's panel face. Sits in a 1.4 mm-deep
+    counterbore in the panel; the exposed 0.6 mm compresses to 0 (30%
+    compression) when the mating face (nut washer on the wet side or
+    integral flange on the dry side) seats flush against the panel
+    rim outside the counterbore.
+
+    Same part on both sides (symmetric, ID/OD/thickness are
+    side-independent). Print 4 per build (one per panel face × two
+    reservoirs)."""
+    return (
+        cq.Workplane(xz_plane_y_up)
+        .circle(bulkhead_seal_od / 2.0)
+        .circle(bulkhead_seal_id / 2.0)
+        .extrude(bulkhead_seal_thickness)
+    )
+
+
 # ═══════════════════════════════════════════════════════
 # BUILD AND EXPORT
 # ═══════════════════════════════════════════════════════
@@ -1671,10 +1726,13 @@ def main():
 
     gasket = build_reservoir_gasket(side=+1)  # z-symmetric: flip to install on −X side
     retaining_ring = build_reservoir_retaining_ring()
+    bulkhead_seal = build_reservoir_bulkhead_seal()
     export_step(gasket, str(here / "reservoir-gasket.step"))
     export_step(retaining_ring, str(here / "reservoir-retaining-ring.step"))
+    export_step(bulkhead_seal, str(here / "reservoir-bulkhead-seal.step"))
     print(f"-> reservoir-gasket.step")
     print(f"-> reservoir-retaining-ring.step")
+    print(f"-> reservoir-bulkhead-seal.step")
 
 
 if __name__ == "__main__":
