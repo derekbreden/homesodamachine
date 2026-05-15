@@ -629,17 +629,30 @@ _FAR_WALL_INNER_X = _outer_far_x_abs - reservoir_wall_thickness        # 100
 _PLUS_Z_WALL_INNER_Z = _outer_z_max - reservoir_wall_thickness         # 66
 _CURVE_INNER_X_AT_Z0 = _outer_centerward_radius + reservoir_wall_thickness  # 76
 _INV_SQRT2 = 1.0 / math.sqrt(2.0)
-# Bosses 4 / 5 sit on the outer fillet circle at radius _corner_curve_R
-# (= 78) from origin. The closest point on the inner cavity curve
-# (radius _CURVE_INNER_X_AT_Z0 = 76) is along the inward radial line
-# from boss to origin, at distance _corner_curve_R − _CURVE_INNER_X_AT_Z0
-# = 2 mm. Scale the boss XZ by 76/78 to get that pivot, and the unit
-# inward-radial direction is (−boss_x, −boss_z) / _corner_curve_R.
-_corner_curve_closest_xz_scale = _CURVE_INNER_X_AT_Z0 / _corner_curve_R  # 76/78 ≈ 0.974
-_corner_curve_closest_x = _corner_curve_x * _corner_curve_closest_xz_scale  # ≈ 43.45
-_corner_curve_closest_z = _corner_curve_z * _corner_curve_closest_xz_scale  # ≈ 62.36
-_corner_curve_inward_dir_x = -_corner_curve_x / _corner_curve_R               # ≈ −0.572
-_corner_curve_inward_dir_z = -_corner_curve_z / _corner_curve_R               # ≈ −0.821
+# Bosses 4 / 5 need their cut direction pointed at the inner-wall
+# CORNER (where the inner curve at radius _CURVE_INNER_X_AT_Z0 = 76
+# meets the inner ±Z wall at z = ±_PLUS_Z_WALL_INNER_Z = ±66), not
+# at the closest point on the curve along the inward radial line.
+# Pointing at the corner is the same pattern bosses 1 / 2 use (their
+# cuts slope down away from the +X × ±Z inner corner). For boss 4
+# the corner is at (≈37.68, 66), 7.19 mm from the boss in the
+# (−X, +Z) direction — too far to use as a literal pivot (a 7.19 mm
+# cut depth would eat into the 7 mm heat-set pocket). Instead, take
+# the unit vector toward the corner as wall_dir, and place the pivot
+# VIRTUALLY at 2 mm along that direction from the boss center, so
+# the cut depth at boss center matches boss 6 (the curve apex) and
+# stays well clear of the pocket.
+_inner_corner_curve_x = math.sqrt(_CURVE_INNER_X_AT_Z0**2 - _PLUS_Z_WALL_INNER_Z**2)  # ≈ 37.68
+_corner_curve_to_inner_corner_dx = _inner_corner_curve_x - _corner_curve_x        # ≈ −6.91
+_corner_curve_to_inner_corner_dz = _PLUS_Z_WALL_INNER_Z - _corner_curve_z         # ≈ 2
+_corner_curve_to_inner_corner_dist = math.sqrt(
+    _corner_curve_to_inner_corner_dx**2 + _corner_curve_to_inner_corner_dz**2
+)                                                                                  # ≈ 7.19
+_corner_curve_wall_dir_x = _corner_curve_to_inner_corner_dx / _corner_curve_to_inner_corner_dist  # ≈ −0.961
+_corner_curve_wall_dir_z = _corner_curve_to_inner_corner_dz / _corner_curve_to_inner_corner_dist  # ≈ +0.278
+_corner_curve_pivot_distance = 2.0
+_corner_curve_virtual_pivot_x = _corner_curve_x + _corner_curve_pivot_distance * _corner_curve_wall_dir_x  # ≈ 42.67
+_corner_curve_virtual_pivot_z = _corner_curve_z + _corner_curve_pivot_distance * _corner_curve_wall_dir_z  # ≈ 64.56
 BODY_BOSS_CUT_INFO_FOR_SIDE_PLUS_1 = {
     # (boss_x, boss_z) → (pivot_x, pivot_z, wall_dir_x, wall_dir_z)
     #   wall_dir is a UNIT vector in XZ pointing from the boss center toward the wall pivot
@@ -650,11 +663,11 @@ BODY_BOSS_CUT_INFO_FOR_SIDE_PLUS_1 = {
     (_far_mid_x, 0.0):
         (_FAR_WALL_INNER_X, 0.0, 1.0, 0.0),                                   # 3
     (_corner_curve_x, _corner_curve_z):
-        (_corner_curve_closest_x, _corner_curve_closest_z,
-         _corner_curve_inward_dir_x, _corner_curve_inward_dir_z),             # 4
+        (_corner_curve_virtual_pivot_x, _corner_curve_virtual_pivot_z,
+         _corner_curve_wall_dir_x, _corner_curve_wall_dir_z),                 # 4
     (_corner_curve_x, -_corner_curve_z):
-        (_corner_curve_closest_x, -_corner_curve_closest_z,
-         _corner_curve_inward_dir_x, -_corner_curve_inward_dir_z),            # 5
+        (_corner_curve_virtual_pivot_x, -_corner_curve_virtual_pivot_z,
+         _corner_curve_wall_dir_x, -_corner_curve_wall_dir_z),                # 5
     (_curve_apex_x, 0.0):
         (_CURVE_INNER_X_AT_Z0, 0.0, -1.0, 0.0),                               # 6
 }
