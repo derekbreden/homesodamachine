@@ -629,6 +629,17 @@ _FAR_WALL_INNER_X = _outer_far_x_abs - reservoir_wall_thickness        # 100
 _PLUS_Z_WALL_INNER_Z = _outer_z_max - reservoir_wall_thickness         # 66
 _CURVE_INNER_X_AT_Z0 = _outer_centerward_radius + reservoir_wall_thickness  # 76
 _INV_SQRT2 = 1.0 / math.sqrt(2.0)
+# Bosses 4 / 5 sit on the outer fillet circle at radius _corner_curve_R
+# (= 78) from origin. The closest point on the inner cavity curve
+# (radius _CURVE_INNER_X_AT_Z0 = 76) is along the inward radial line
+# from boss to origin, at distance _corner_curve_R − _CURVE_INNER_X_AT_Z0
+# = 2 mm. Scale the boss XZ by 76/78 to get that pivot, and the unit
+# inward-radial direction is (−boss_x, −boss_z) / _corner_curve_R.
+_corner_curve_closest_xz_scale = _CURVE_INNER_X_AT_Z0 / _corner_curve_R  # 76/78 ≈ 0.974
+_corner_curve_closest_x = _corner_curve_x * _corner_curve_closest_xz_scale  # ≈ 43.45
+_corner_curve_closest_z = _corner_curve_z * _corner_curve_closest_xz_scale  # ≈ 62.36
+_corner_curve_inward_dir_x = -_corner_curve_x / _corner_curve_R               # ≈ −0.572
+_corner_curve_inward_dir_z = -_corner_curve_z / _corner_curve_R               # ≈ −0.821
 BODY_BOSS_CUT_INFO_FOR_SIDE_PLUS_1 = {
     # (boss_x, boss_z) → (pivot_x, pivot_z, wall_dir_x, wall_dir_z)
     #   wall_dir is a UNIT vector in XZ pointing from the boss center toward the wall pivot
@@ -638,10 +649,14 @@ BODY_BOSS_CUT_INFO_FOR_SIDE_PLUS_1 = {
         (_FAR_WALL_INNER_X, -_PLUS_Z_WALL_INNER_Z, _INV_SQRT2, -_INV_SQRT2),  # 2
     (_far_mid_x, 0.0):
         (_FAR_WALL_INNER_X, 0.0, 1.0, 0.0),                                   # 3
+    (_corner_curve_x, _corner_curve_z):
+        (_corner_curve_closest_x, _corner_curve_closest_z,
+         _corner_curve_inward_dir_x, _corner_curve_inward_dir_z),             # 4
+    (_corner_curve_x, -_corner_curve_z):
+        (_corner_curve_closest_x, -_corner_curve_closest_z,
+         _corner_curve_inward_dir_x, -_corner_curve_inward_dir_z),            # 5
     (_curve_apex_x, 0.0):
         (_CURVE_INNER_X_AT_Z0, 0.0, -1.0, 0.0),                               # 6
-    # 4 and 5 deliberately absent — those bosses sit inside the
-    # post-fillet wall material, no cavity overhang to slice.
 }
 #
 # -------------------------------------------------------
