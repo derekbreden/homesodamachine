@@ -721,15 +721,17 @@ def build_a_slot_punch(
 
 # All circular port holes through the foam shell: Z-axis ⌀6.5 × 40 mm
 # cylindrical cuts, starting at the given z and extending in +Z.
-#   - co2_inlet:               −Z support arch only; back wall now solid
-#                              (CO2 enters from the top through the foam cap)
 #   - water_outlet:            outer +Z wall
 #   - reservoir_bulkhead_±X:   bag-pocket +Z wall (and outer +Z wall;
 #     the bulkhead body sits in the bag-pocket wall, the dry-side tube
 #     exits through the outer wall along the same axis)
+#
+# The CO2 inlet through the −Z support arch is cut separately by
+# `cut_co2_inlet()` — its bore is ⌀16 (vs ⌀6.5 here) to house an
+# in-cavity 90° push-to-connect elbow, so it doesn't fit this list's
+# default radius.
 CIRCULAR_PORT_HOLES = [
     # (x, y, z)
-    (0,                          hole_shift_from_edge + wall_and_floor_thickness,   -(tank_copper_shell_radius - wall_and_floor_thickness)),
     (0,                          hole_shift_from_edge + wall_and_floor_thickness,    tank_copper_shell_radius - 20),
     (+reservoir_bulkhead_port_x, reservoir_bulkhead_port_y,                          bag_pocket_width / 2 - 10),
     (-reservoir_bulkhead_port_x, reservoir_bulkhead_port_y,                          bag_pocket_width / 2 - 10),
@@ -739,6 +741,32 @@ def cut_circular_port_holes(foam_shell):
     for (x, y, z) in CIRCULAR_PORT_HOLES:
         foam_shell = foam_shell.cut(build_a_hole_punch(origin=(x, y, z)))
     return foam_shell
+
+def cut_co2_inlet(foam_shell):
+    """CO2 inlet through the −Z support arch: a Z-axis ⌀16 × 40 mm
+    cylindrical bore at (x=0, y=hole_shift_from_edge +
+    wall_and_floor_thickness, z=−(tank_copper_shell_radius −
+    wall_and_floor_thickness)).
+
+    The CO2 line drops vertically through the foam-cap top and then
+    makes a 90° turn inside the cylinder cavity at a John Guest PP0308E
+    push-to-connect elbow (~⌀15 mm body, ~20 mm legs). The elbow's
+    horizontal leg seats in this bore, which is sized at ⌀16 to clear
+    the elbow body (vs the ⌀6.5 of the other circular port holes, which
+    are sized for 1/4" OD tubing). A follow-up commit will extend a
+    rectangular slot downward from this bore to make a "doorway" for
+    elbow assembly access — until then it's just a circular bore, which
+    is enough to clear the body of the elbow but not enough to slide it
+    in past the support arch material above."""
+    co2_inlet_origin = (
+        0,
+        hole_shift_from_edge + wall_and_floor_thickness,
+        -(tank_copper_shell_radius - wall_and_floor_thickness),
+    )
+    # 8.0 mm radius = ⌀16, sized to clear the ~⌀15 mm PP0308E elbow body.
+    return foam_shell.cut(
+        build_a_hole_punch(origin=co2_inlet_origin, hole_punch_radius=8.0)
+    )
 
 def build_a_y_axis_hole_punch(
     origin=(0, 0, 0),
@@ -798,6 +826,7 @@ def build_full_shell():
         .union(build_outer_shell())
     )
     foam_shell = cut_circular_port_holes(foam_shell)
+    foam_shell = cut_co2_inlet(foam_shell)
     foam_shell = cut_slot_for_copper_and_water_inlet(foam_shell)
     return foam_shell
 

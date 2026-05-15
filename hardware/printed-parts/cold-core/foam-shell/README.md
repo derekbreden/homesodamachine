@@ -529,23 +529,34 @@ shift that needs a deliberate explanation:
 
 | metric | value |
 |---|---|
-| volume   | **985157.417081 mm³** |
+| volume   | **983640.568466 mm³** |
 | bbox x   | [−134.500, +134.500] mm |
 | bbox y   | [0.000, 213.400] mm |
 | bbox z   | [−90.500, +90.500] mm |
-| centroid | (0.000005, 90.321667, −0.229523) mm |
+| centroid | (0.000005, 90.434695, −0.128376) mm |
 
-Captured after `bag_pocket_depth` was bumped from 37 mm to 46 mm
-(+9 mm interior X depth per reservoir, +18 mm total outer-shell X
-width), sizing each reservoir's cavity to hold ≥ 1 L of usable
-fluid (1003.75 mL per reservoir at this geometry, 2.01 L total
-between the two reservoirs).  Volume immediately prior to this
-bump was 948199.817081 mm³ (bag_pocket_depth = 37 mm,
-bbox x = ±125.5 mm); the +36957.6 mm³ delta is the new +X strip
-on each of the two bag pockets (~85.4 cm² cross-section × 195.4 mm
-extrusion × 2 sides = ~33.4 mL × 2 ≈ 66.7 mL of foam-shell
-material added).  Future refactors that introduce a deliberate
-geometry change should update this section in the same commit.
+Captured after the −Z support-arch CO2 inlet hole was widened from
+⌀6.5 to ⌀16 (step 1/2 toward the in-cavity 90° elbow pocket — a
+John Guest PP0308E push-to-connect, ~⌀15 mm body, sits in this
+bore).  Volume immediately prior to this bump was
+985157.417081 mm³ (CO2 inlet ⌀6.5, bbox unchanged); the
+−1516.85 mm³ delta is the annular ring of arch material removed by
+the radius bump (~9 mm of arch material along the bore at x≈0,
+minus the portions of the annulus that were already air at larger
+|x| inside the cylinder cavity).
+
+Geometry-change history immediately prior: `bag_pocket_depth` was
+bumped from 37 mm to 46 mm (+9 mm interior X depth per reservoir,
++18 mm total outer-shell X width), sizing each reservoir's cavity
+to hold ≥ 1 L of usable fluid (1003.75 mL per reservoir at this
+geometry, 2.01 L total between the two reservoirs).  Volume at the
+start of that bump was 948199.817081 mm³ (bag_pocket_depth = 37 mm,
+bbox x = ±125.5 mm); the +36957.6 mm³ delta to 985157.417081 mm³
+was the new +X strip on each of the two bag pockets (~85.4 cm²
+cross-section × 195.4 mm extrusion × 2 sides = ~33.4 mL × 2 ≈
+66.7 mL of foam-shell material added).  Future refactors that
+introduce a deliberate geometry change should update this section
+in the same commit.
 
 Quick reproduction:
 
