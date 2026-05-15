@@ -1012,21 +1012,46 @@ def build_reservoir_body(side=1):
     # solid PETG, leaving the bulkhead's wet face only the radial
     # 0.5 mm-per-side gap around the collet and the stadium ceiling
     # box as flow paths to the cavity. Continue the cylinder past
-    # z=28 with a tilted segment (30° rising toward +Y), giving syrup
-    # a "designed" curved flow channel from the cavity down into the
-    # wet face. The tilt also makes the cut clearly exit the floor
-    # material so the channel opens visibly into the cavity above.
-    wet_exit_angle_rad = math.radians(30)
-    wet_exit_length = 50.0
-    wet_exit_tube = (
-        cq.Workplane(cq.Plane(
-            origin=(port_x_signed, port_position_y, bulkhead_wet_chamber_z_min),
-            xDir=(1, 0, 0),
-            normal=(0, math.sin(wet_exit_angle_rad), -math.cos(wet_exit_angle_rad)),
-        ))
-        .circle(bulkhead_release_chamber_diameter / 2)
-        .extrude(wet_exit_length)
+    # z=28 with a 90° quarter-arc swept tube of the same ⌀11, joining
+    # tangentially at z=28 (same axis along −Z, no step in cross-
+    # section), curving up through +Y over a 30 mm radius until the
+    # tube's axis is vertical. The arc punches well clear of the
+    # floor material into the open cavity above, giving syrup a
+    # designed curved flow channel from the cavity down into the
+    # bulkhead's wet face.
+    wet_exit_arc_radius = 30.0
+
+    # Profile: ⌀11 circle in the plane perpendicular to the path's
+    # initial tangent (which is world −Z), centered at the chamber's
+    # −Z face on the bulkhead axis.
+    wet_exit_profile = cq.Workplane(cq.Plane(
+        origin=(port_x_signed, port_position_y, bulkhead_wet_chamber_z_min),
+        xDir=(1, 0, 0),
+        normal=(0, 0, -1),
+    )).circle(bulkhead_release_chamber_diameter / 2)
+
+    # Path: 90° arc in the world YZ plane at x=port_x_signed.
+    #   Workplane local +x = world −Z (the direction of travel)
+    #   Workplane normal   = world +X
+    #   Workplane local +y = world +Y (computed from normal × xDir)
+    # Start at local (0, 0), end at local (R, R). Arc curves through
+    # midpoint (R sin45°, R − R cos45°).
+    wet_exit_path_plane = cq.Plane(
+        origin=(port_x_signed, port_position_y, bulkhead_wet_chamber_z_min),
+        xDir=(0, 0, -1),
+        normal=(1, 0, 0),
     )
+    _R = wet_exit_arc_radius
+    _arc_mid = (_R * math.sin(math.radians(45)),
+                _R * (1 - math.cos(math.radians(45))))
+    _arc_end = (_R, _R)
+    wet_exit_path = (
+        cq.Workplane(wet_exit_path_plane)
+        .moveTo(0, 0)
+        .threePointArc(_arc_mid, _arc_end)
+    )
+
+    wet_exit_tube = wet_exit_profile.sweep(wet_exit_path)
     body = body.cut(wet_exit_tube)
 
     # Nut pocket: third wet section, stepped. A flat-top hex pocket
