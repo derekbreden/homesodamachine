@@ -1,6 +1,6 @@
 # Bill of Materials — One Consumer Unit
 
-Per-unit parts for a single finished appliance built on the **custom-vessel** path specified in [future.md](future.md). Carbonator vessel: vertical 5" OD × 0.065" wall 316 welded SS round tube (OnlineMetals #12498, MTRs required) capped with 1/4"-thick laser-cut 316 SS circular plates from SendCutSend (`endcap-circular-2hole.dxf`), joined with the XLaserlab X1 Pro handheld laser welder. 1/4" NPT is direct-tapped into the plates (no weld-in bungs). Compressor is harvested from a countertop ice-maker; cold core is 3D-printed shells with pour-in-place foam. Flavor reservoirs ship as two 1 L Platypus bladders inside the cold core in current production builds; the committed design direction is custom printed hard reservoirs ([printed-parts/cold-core/reservoir/generate_step_cadquery.py](printed-parts/cold-core/reservoir/generate_step_cadquery.py)), which switch in once validation is complete.
+Per-unit parts for a single finished appliance built on the **custom-vessel** path specified in [future.md](future.md). Carbonator vessel: vertical 5" OD × 0.065" wall 316 welded SS round tube (OnlineMetals #12498, MTRs required) capped with 1/4"-thick laser-cut 316 SS circular plates from SendCutSend (`endcap-circular-2hole.dxf`), joined with the XLaserlab X1 Pro handheld laser welder. 1/4" NPT is direct-tapped into the plates (no weld-in bungs). Compressor is harvested from a countertop ice-maker; cold core is 3D-printed shells with pour-in-place foam. Flavor reservoirs are custom printed PETG-Carbon hard reservoirs ([printed-parts/cold-core/reservoir/generate_step_cadquery.py](printed-parts/cold-core/reservoir/generate_step_cadquery.py)), two per build.
 
 Tools, fabrication equipment (welder, slip roll, shop press, dishing dies), and duplicate SKUs live in [purchases.md](purchases.md) only. Per-build consumables — anything used up making one unit, regardless of whether it ships in the product (mixing cups, gloves, citric acid, PTFE tape, cutting fluid, etc.) — live in this file with the rest of the per-unit parts.
 
@@ -123,8 +123,6 @@ Dishing dies (PA6-CF) for end-cap forming are vessel-fabrication tools, not ship
 | [Kamoer KPHM400-SW3B25 12V peristaltic pump](https://www.amazon.com/dp/B09MS6C91D) | B09MS6C91D — paid price per Feb 2026 orders #114-1015191-6799441 + #112-0545074-9805025 (sold by Kamoer Fluid Tech Shanghai); current Amazon listing matches at $32.55 | 2 | $32.55 | $65.10 |
 | [Magnetic pogo pin connector, 2-pin (2 pair)](https://www.amazon.com/dp/B0CSX6ZQ1H) | B0CSX6ZQ1H — tool-free pump cartridge electrical connection, one pair per pump | 1 pk | $10.71 | $10.71 |
 | [Beduan 12V 1/4" solenoid valve (NC)](https://www.amazon.com/dp/B07NWCQJK9) | B07NWCQJK9 — V-A/B/C/D/E/F/G/H/I/J/KA/KB per fluid-topology-manifold.mmd; lower-bound delivered single-unit cost (range $9.64–$19.28 across user's mixed orders) | 12 | $9.64 | $115.68 |
-| [Platypus SoftBottle 1 L bladder](https://www.amazon.com/dp/B08PG3GMQ8) | B08PG3GMQ8 | 2 | $23.49 | $46.98 |
-| [Platypus Hoser hydration tube kit](https://www.amazon.com/dp/B07N1T6LNW) | B07N1T6LNW | 1 | $24.95 | $24.95 |
 | [John Guest PP1208E 1/4" OD black polypropylene push-to-connect bulkhead union (10-pk)](https://www.amazon.com/dp/B00JYFU8MM) | B00JYFU8MM — reservoir-cap outlet port: the syrup-side 1/4" QC bulkhead recessed inside the printed reservoir floor boss per [printed-parts/cold-core/reservoir/generate_step_cadquery.py](printed-parts/cold-core/reservoir/generate_step_cadquery.py) lines 251–310 (ø22.9 flange body in ø23.0 stepped pocket, ø17.0 mm panel hole, 34.5 mm overall length). UV-stabilized black PP body + EPDM O-ring; **NSF 51 + NSF 61 listed**, FDA-compliant materials; 150 psi @ 70°F. Same NSF cert tier as the PP2308E Y-divider above. The 1/4" OD tube travels out through the foam channel to the manifold while the bulkhead body stays on the syrup side. 1 bulkhead per reservoir × 2 reservoirs per build = 2 bulkheads per build; Amazon order 112-6407862-0653853, May 11, 2026, $23.11 line + $1.68 tax = $24.79 delivered ÷ 10 = $2.479/bulkhead | 2 (of 10 pk) | $2.48 | $4.96 |
 | [Silicone tubing 1/8" ID × 1/4" OD](https://www.amazon.com/dp/B0BM4KQ6RT) | B0BM4KQ6RT — pump-head tube only (line runs are 1/4" LLDPE); per-roll delivered cost ($12.99 pre-tax + allocated tax = $13.93) amortized 1 roll per unit pending real per-unit consumption measurement | 1 | $13.93 | $13.93 |
 | [Supply Depot BIB connector, 3/8" red (2-pk)](https://www.amazon.com/dp/B0DMFK9B6P) | B0DMFK9B6P — rear-panel commercial-syrup input | 1 pk | $19.99 | $19.99 |
@@ -227,13 +225,13 @@ The T18 heat-set tip kit ([B0CS662NVK](https://www.amazon.com/dp/B0CS662NVK)) an
 | 5. Refrigeration | $175.71 |
 | 6. Cold core insulation | $49.48 |
 | 7. Printed parts (PETG) | $103.94 |
-| 8. Flavor subsystem | $346.10 |
+| 8. Flavor subsystem | $274.17 |
 | 9. Dispensing | $52.97 |
 | 10. UI | $43.16 |
 | 11. Wiring | $31.97 |
 | 12. Level sensing | $66.35 |
 | 13. Mechanical attach hardware + reservoir-cap vent filter | $17.55 |
-| **Total** | **$1,517.84** |
+| **Total** | **$1,445.91** |
 
 ## External / user-supplied (not shipped)
 
