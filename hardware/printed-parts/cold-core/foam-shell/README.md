@@ -36,7 +36,10 @@ The CadQuery script uses an explicit XZ plane with +Y normal
   at 7 mm (`copper_coil_buffer_radius`).
 - **Tank-port fittings** — 1/4" NPT 90° elbows on every port, turning the
   line laterally. ~30 mm vertical envelope per elbow above and below the
-  tank.
+  tank. An additional **John Guest PP0308E 1/4" PTC 90° elbow** seats in
+  the Ø16 doorway of the −Z support arch, where the cap-top CO2 line
+  transitions 90° into a horizontal run that connects to the vessel-port
+  TAISHER elbow via a PP010822E 1/4" PTC × 1/4" NPT M adapter.
 
 ## Shells
 
@@ -374,8 +377,11 @@ Every internal component is installed first:
   pass-throughs.
 - Reservoir LLDPE lines routed through holes #1 and #2 in the
   bag_pocket_shell ±X far walls.
-- CO2 inlet through hole #3 and water outlet through hole #4 in
-  the outer_shell −Z and +Z walls.
+- Water outlet through hole #4 in the outer_shell +Z wall.
+- CO2 inlet enters from above through the foam-cap-top boss +
+  foam-cap-lid-top hole at (x=0, z=−68.75); the line drops to
+  y=17 inside the cavity and bends 90° at a PP0308E push-to-connect
+  elbow seated in the −Z support arch's Ø16 doorway.
 
 With everything in place, liquid foam is poured **directly into the
 body's open +Y top** all at once — no cap on, no down-channels.
