@@ -257,7 +257,7 @@ Y-elongated slot at the +Z outer wall.
 |---|---|---|---|
 | 1 | Reservoir line (+X) | own ⌀6.5 hole | 1/4" OD soft tubing — reservoir to peristaltic pump |
 | 2 | Reservoir line (−X) | own ⌀6.5 hole | 1/4" OD soft tubing — reservoir to peristaltic pump |
-| 3 | CO2 inlet | own ⌀6.5 hole | 1/4" OD line from the regulator |
+| 3 | CO2 inlet | own ⌀16 doorway | 1/4" OD line from the regulator (90° push-to-connect elbow seats in the doorway) |
 | 4 | Water outlet | own ⌀6.5 hole | 1/4" OD line to the dispense faucet |
 | 5 | Copper evaporator inlet (low) | shared +Z slot | 1/4" OD ACR copper to compressor |
 | 6 | Copper evaporator outlet (high) | shared +Z slot | 1/4" OD ACR copper to compressor |
@@ -529,21 +529,34 @@ shift that needs a deliberate explanation:
 
 | metric | value |
 |---|---|
-| volume   | **983640.568466 mm³** |
+| volume   | **981102.086096 mm³** |
 | bbox x   | [−134.500, +134.500] mm |
 | bbox y   | [0.000, 213.400] mm |
 | bbox z   | [−90.500, +90.500] mm |
-| centroid | (0.000005, 90.434695, −0.128376) mm |
+| centroid | (0.000005, 90.658995, 0.021587) mm |
 
-Captured after the −Z support-arch CO2 inlet hole was widened from
-⌀6.5 to ⌀16 (step 1/2 toward the in-cavity 90° elbow pocket — a
-John Guest PP0308E push-to-connect, ~⌀15 mm body, sits in this
-bore).  Volume immediately prior to this bump was
-985157.417081 mm³ (CO2 inlet ⌀6.5, bbox unchanged); the
-−1516.85 mm³ delta is the annular ring of arch material removed by
-the radius bump (~9 mm of arch material along the bore at x≈0,
-minus the portions of the annulus that were already air at larger
-|x| inside the cylinder cavity).
+Captured after the −Z support-arch CO2 inlet was extended from a
+plain ⌀16 round bore (step 1/2) into a "doorway" cut (step 2/2):
+the upper half of the Ø16 circle remains as a rounded pocket at
+y=17..25, and a 16 × 17 mm rectangular slot extends down to the
+foam-shell bottom face (y=0), opening the slot below the y=2 arch
+bottom for elbow assembly access. The composite cut still extrudes
++Z by 40 mm. The doorway is needed because the John Guest PP0308E
+90° push-to-connect elbow (~⌀15 mm body, ~20 mm legs) cannot be
+inserted along the bore axis — its perpendicular legs snag at the
+bore opening, and the z<−70.5 back wall is solid. With the doorway
+open at its bottom, the elbow can be lifted up from below the foam
+shell, through the rectangular slot, and into the round pocket.
+
+Volume immediately prior to this step (Ø16 round bore only) was
+983640.568466 mm³ (bbox/centroid unchanged in X/Z, shifted slightly
+in Y from the new material removal below y=17); the −2538.48 mm³
+delta is the arch + bag-pocket bridging-wall + outer-shell floor
+material removed by the rectangular slot in x∈[−8,8], y∈[0,17],
+z∈[−70.5,−30.5]. (Bare bore-only volume immediately prior to
+Step 1 was 985157.417081 mm³, with the CO2 inlet at ⌀6.5; the
+total CO2-inlet bump from ⌀6.5 round to ⌀16 doorway removed
+~4055 mm³.)
 
 Geometry-change history immediately prior: `bag_pocket_depth` was
 bumped from 37 mm to 46 mm (+9 mm interior X depth per reservoir,
