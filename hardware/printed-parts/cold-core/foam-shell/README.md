@@ -529,34 +529,37 @@ shift that needs a deliberate explanation:
 
 | metric | value |
 |---|---|
-| volume   | **981102.086096 mm³** |
+| volume   | **982382.157916 mm³** |
 | bbox x   | [−134.500, +134.500] mm |
 | bbox y   | [0.000, 213.400] mm |
 | bbox z   | [−90.500, +90.500] mm |
-| centroid | (0.000005, 90.658995, 0.021587) mm |
+| centroid | (0.000005, 90.542167, -0.044238) mm |
 
-Captured after the −Z support-arch CO2 inlet was extended from a
-plain ⌀16 round bore (step 1/2) into a "doorway" cut (step 2/2):
-the upper half of the Ø16 circle remains as a rounded pocket at
-y=17..25, and a 16 × 17 mm rectangular slot extends down to the
-foam-shell bottom face (y=0), opening the slot below the y=2 arch
-bottom for elbow assembly access. The composite cut still extrudes
-+Z by 40 mm. The doorway is needed because the John Guest PP0308E
-90° push-to-connect elbow (~⌀15 mm body, ~20 mm legs) cannot be
-inserted along the bore axis — its perpendicular legs snag at the
-bore opening, and the z<−70.5 back wall is solid. With the doorway
-open at its bottom, the elbow can be lifted up from below the foam
-shell, through the rectangular slot, and into the round pocket.
+Captured after the CO2-inlet doorway slot was clamped to the support
+arch's bottom face (fix for commit 68b8d3f, which had `slot_y_bottom
+= 0` and so cut through the y=0..2 foam-shell floor below the arch).
+The doorway now has its bottom flush with the floor's top face at
+y=wall_and_floor_thickness, leaving the floor intact under the cut.
+Composite shape on the arch's −Z outer face: upper half of the Ø16
+circle at y=17..25 as a rounded pocket, plus a 16 × 15 mm rectangular
+slot from y=2 (arch bottom face) up to y=17 (the bore's Y center).
+Both halves still extrude +Z by 40 mm. The doorway exists because the
+John Guest PP0308E 90° push-to-connect elbow (~⌀15 mm body, ~20 mm
+legs) cannot be inserted along the bore axis — its perpendicular legs
+snag at the bore opening, and the z<−70.5 back wall is solid. The
+slot provides angled-insertion clearance from above: the elbow is
+lowered through the open +Y top of the foam shell with one leg tilted
+into the slot opening on the arch's bottom face, then rotated into
+the round pocket.
 
-Volume immediately prior to this step (Ø16 round bore only) was
-983640.568466 mm³ (bbox/centroid unchanged in X/Z, shifted slightly
-in Y from the new material removal below y=17); the −2538.48 mm³
-delta is the arch + bag-pocket bridging-wall + outer-shell floor
-material removed by the rectangular slot in x∈[−8,8], y∈[0,17],
-z∈[−70.5,−30.5]. (Bare bore-only volume immediately prior to
-Step 1 was 985157.417081 mm³, with the CO2 inlet at ⌀6.5; the
-total CO2-inlet bump from ⌀6.5 round to ⌀16 doorway removed
-~4055 mm³.)
+Volume at commit 68b8d3f (the bug — slot extended to y=0, cutting
+through the floor at y=0..2 in x∈[−8,8], z∈[−70.5,−30.5]) was
+981102.086096 mm³. Restoring that floor strip adds +1280.07 mm³ of
+PETG back: 288 mm³ from the arch's own y=0..2 floor at x∈[−8,8],
+plus the bag-pocket bridging-wall and outer-shell floor material
+the slot was wrongly clearing in the same y=0..2 strip over the
+full +Z extrusion. The centroid shifts slightly in Y and Z because
+the recovered material is concentrated near y=1 and z=−50.5.
 
 Geometry-change history immediately prior: `bag_pocket_depth` was
 bumped from 37 mm to 46 mm (+9 mm interior X depth per reservoir,
