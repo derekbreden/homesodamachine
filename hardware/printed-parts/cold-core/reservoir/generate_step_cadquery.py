@@ -1007,6 +1007,28 @@ def build_reservoir_body(side=1):
         )
         body = body.cut(ceiling_box)
 
+    # Curved exit from the wet collet chamber. The existing straight
+    # ⌀11 half-cylinder dead-ends at z=bulkhead_wet_chamber_z_min into
+    # solid PETG, leaving the bulkhead's wet face only the radial
+    # 0.5 mm-per-side gap around the collet and the stadium ceiling
+    # box as flow paths to the cavity. Continue the cylinder past
+    # z=28 with a tilted segment (30° rising toward +Y), giving syrup
+    # a "designed" curved flow channel from the cavity down into the
+    # wet face. The tilt also makes the cut clearly exit the floor
+    # material so the channel opens visibly into the cavity above.
+    wet_exit_angle_rad = math.radians(30)
+    wet_exit_length = 50.0
+    wet_exit_tube = (
+        cq.Workplane(cq.Plane(
+            origin=(port_x_signed, port_position_y, bulkhead_wet_chamber_z_min),
+            xDir=(1, 0, 0),
+            normal=(0, math.sin(wet_exit_angle_rad), -math.cos(wet_exit_angle_rad)),
+        ))
+        .circle(bulkhead_release_chamber_diameter / 2)
+        .extrude(wet_exit_length)
+    )
+    body = body.cut(wet_exit_tube)
+
     # Nut pocket: third wet section, stepped. A flat-top hex pocket
     # (⌀19.8 flat-to-flat + clearance) at the deeper end grips the
     # nut's hex portion against rotation; a round counterbore (⌀22.1
