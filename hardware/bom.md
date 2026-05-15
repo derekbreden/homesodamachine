@@ -128,6 +128,10 @@ Dishing dies (PA6-CF) for end-cap forming are vessel-fabrication tools, not ship
 | [Supply Depot BIB connector, 3/8" red (2-pk)](https://www.amazon.com/dp/B0DMFK9B6P) | B0DMFK9B6P — rear-panel commercial-syrup input | 1 pk | $19.99 | $19.99 |
 | [MAACFLOW SS 1/4" NPT M × 3/8" hose barb (4-pk)](https://www.amazon.com/dp/B0DMP77B6S) | B0DMP77B6S | 1 pk | $12.97 | $12.97 |
 | [John Guest PP2308E two-way divider, black polypropylene 1/4"](https://www.freshwatersystems.com/products/john-guest-two-way-divider-black-polypropylene-1-4) | JG PP2308E — manifold Y-A/B/C/D/E/F/G/H/KA/KB per fluid-topology-manifold.mmd, 10 per unit. Black PP body + food-grade EPDM o-ring; **NSF 51 + NSF 61 listed**, FDA-approved materials; 150 psi @ 70°F; made in Germany. Replaces the earlier PureSec TWS1414 (B01N5I1ZJC, vendor-claim food-safety only) — genuine certification upgrade. FWS order WEBFWS100673541 May 9, 2026, qty 2 bags of 10 @ $61.66 = $30.83/bag of 10 = $3.083/each delivered before tax/ship | 10 (1 bag) | $3.083 | $30.83 |
+| [Pysrych 304 SS reducing compression union, 1/4" OD × 1/8" OD (2-pk)](https://www.amazon.com/dp/B0BM4394Z4) | B0BM4394Z4 — joins the soft 1/4" OD LLDPE flavor supply line to the rigid 1/8" OD SS flanking flavor spout tube (B0F87V8XCB below) at the dispense-head transition; one union per flavor line × 2 flavors = 2 unions per build = 1 full pack per build | 2 (1 pk) | $4.50 | $8.99 |
+| [Siptenk 1/4" OD brass tube stiffener insert (100-pk)](https://www.amazon.com/dp/B0FM77LLM1) | B0FM77LLM1 — required on the LLDPE side of the Pysrych 1/4" compression joint above so the ferrule does not crush the soft tube; 1 stiffener per joint × 2 joints per build = 2 of 100 per unit ($8.99/100 × 2) | 2 (of 100 pk) | $0.09 | $0.18 |
+| [1/8" OD × 12" 304 SS straight tube (4-pk)](https://www.amazon.com/dp/B0F87V8XCB) | B0F87V8XCB — rigid 1/8" SS flanking flavor spout tubes (the two outer tubes of the 3-tube dispense head, downstream of the Pysrych reducing union above); 2 tubes per build = 2 of 4 per pack ($8.57/4 × 2) | 2 (of 4 pk) | $2.14 | $4.29 |
+| [Eoiips polyethylene tubing 1/16" ID × 1/8" OD, 1 m](https://www.amazon.com/dp/B0BWJ3S5NM) | B0BWJ3S5NM — soft food-grade PE liner that slips inside the 1/8" OD SS flanking flavor spout tubes (B0F87V8XCB above) so pump-side flavor flow contacts PE rather than the SS spout wall, simplifying cleaning; ~6" per spout × 2 spouts ≈ 1 ft total per build, well inside the 1 m roll; order 114-9634716-3126657, Apr 29, 2026, $7.49 line + $0.54 tax = $8.03 delivered | 1 | $8.03 | $8.03 |
 
 ## 9. Dispensing (carbonator bottom-plate outlet → faucet)
 
@@ -137,6 +141,9 @@ Dishing dies (PA6-CF) for end-cap forming are vessel-fabrication tools, not ship
 | [VALVENTO 1/4" OD 316 SS tube, 12" (5-pk)](https://www.amazon.com/dp/B0F6SYFK48) | B0F6SYFK48 — short rigid stub from compression adapter into the soft 1/4" tubing run; 1 of 5 per unit (pack delivered $18.23/5) | 1 (of 5) | $3.65 | $3.65 |
 | [Westbrass R2031-NL-62 8" Touch-Flo dispenser faucet, matte black](https://www.amazon.com/dp/B07KH285GJ) | B07KH285GJ — direct successor to retired A2031 SKU | 1 | $31.28 | $31.28 |
 | SendCutSend 0.060" 316 SS under-counter plate (`touch_flo_under_counter_plate.dxf`, Ø 54.35 mm disc with 1× Ø 12.6 mm shank hole + 1× 13.2 × 6.85 mm pill slot) — sits between countertop underside and the under-counter clamping nut, distributes nut clamping force across a wide area so the nut doesn't dish or crush the countertop bottom; same hole pattern as the printed mounting plate / TPU gasket above the counter; SCS order S064D925 placed May 10, 2026, 10 pcs @ $2.85 ea + $5.00 ship + $2.79 tax = $36.29 delivered ÷ 10 = $3.63/plate; 1 plate per build | sendcutsend.com | 1 | $3.63 | $3.63 |
+| [1/4" OD × 12" 304 SS straight tube (4-pk)](https://www.amazon.com/dp/B0F87DJDZW) | B0F87DJDZW — rigid 1/4" SS center tube of the 3-tube dispense head, carrying the carbonated water from the Westbrass faucet body out through the visible faucet tip; 1 center tube per build = 1 of 4 per pack ($12.86/4) | 1 (of 4 pk) | $3.22 | $3.22 |
+| [Beduan 304 SS compression ferrule sleeve, 1/4" OD (5-pk)](https://www.amazon.com/dp/B07V4K2KKH) | B07V4K2KKH — decorative compression ferrule covering the visible tip of the 1/4" SS center tube above on the 3-tube dispense head; 1 per build = 1 of 5 per pack ($6.42/5) | 1 (of 5 pk) | $1.28 | $1.28 |
+| [Beduan 304 SS compression ferrule sleeve, 1/8" OD (5-pk)](https://www.amazon.com/dp/B07V8RJJYJ) | B07V8RJJYJ — decorative compression ferrules covering the visible tips of the two 1/8" SS flanking flavor-spout tubes (B0F87V8XCB in §8) on the 3-tube dispense head; 2 per build = 2 of 5 per pack ($5.35/5 × 2) | 2 (of 5 pk) | $1.07 | $2.14 |
 | [DIGITEN G3/8" Hall-effect flow sensor](https://www.amazon.com/dp/B07QQW4C7R) | B07QQW4C7R | 1 | $7.99 | $7.99 |
 
 ## 10. User interface
@@ -225,13 +232,13 @@ The T18 heat-set tip kit ([B0CS662NVK](https://www.amazon.com/dp/B0CS662NVK)) an
 | 5. Refrigeration | $175.71 |
 | 6. Cold core insulation | $49.48 |
 | 7. Printed parts (PETG) | $103.94 |
-| 8. Flavor subsystem | $274.17 |
-| 9. Dispensing | $52.97 |
+| 8. Flavor subsystem | $295.66 |
+| 9. Dispensing | $59.61 |
 | 10. UI | $43.16 |
 | 11. Wiring | $31.97 |
 | 12. Level sensing | $66.35 |
 | 13. Mechanical attach hardware + reservoir-cap vent filter | $17.55 |
-| **Total** | **$1,445.91** |
+| **Total** | **$1,474.04** |
 
 ## External / user-supplied (not shipped)
 
