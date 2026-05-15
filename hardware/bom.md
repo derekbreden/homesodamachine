@@ -84,7 +84,8 @@ An earlier racetrack-body alternative (304 SS body half-sheets + dished racetrac
 | [Supco BPV31 bullet-piercing valve](https://www.amazon.com/dp/B00DM8J3MI) | B00DM8J3MI — taps the compressor process tube to vent the factory R-600a charge before brazing in the replacement drier; left clamped on the cut stub after teardown; single-use per build | 1 | $7.37 | $7.37 |
 | [BCuP-5 15% Ag silver brazing alloy, 1/16" × 1 troy oz rod](https://www.amazon.com/dp/B0DQ3ZMHK7) | B0DQ3ZMHK7 — phosphorus-bearing self-fluxing filler for copper-to-copper refrigeration joints (compressor → drier inlet, drier outlet → cap tube, evaporator coil → suction line); ~10 g per build × ~3 builds per 31 g rod; $18.99/3 | 1 (of 3) | $6.33 | $6.33 |
 | [3M Scotch-Brite Maroon General Purpose Hand Pads, 6" × 9" (1-pack of 20)](https://www.amazon.com/dp/B07CGPCTHT) | B07CGPCTHT — abrasive pads cut into strips to clean 1/4" ACR copper OD + fitting sockets before flux + braze on the 2–3 refrigeration-loop joints; 2 of 20 per build ($28.85/20 × 2) | 2 (of 20 pk) | $1.44 | $2.89 |
-| SendCutSend 0.059" G90 hot-dipped galvanized steel compressor shroud (`cut-parts/compressor-shroud/`) — non-combustible enclosure over the compressor's terminal block + clip-on PTC start relay/overload module; this is the appliance's safe-handling implementation for the R-600a hydrocarbon charge per UL 60335-2-89's fire-enclosure clause; 1 grommeted AC pass-through, 1 PEM chassis-ground stud, 2 mounting tabs. Final dimensions TBD pending donor compressor measurement; placeholder estimate based on 0.059" G90 SendCutSend pricing for a ~130 × 130 × 100 mm flat-pattern part with 4 bends + hardware insertion: ~$8 ea at qty 5 + ~$5 ship + tax allocated, ~$45 delivered ÷ 5 = $9/shroud. Includes ~$2 for the AC pass-through grommet (Heyco SB-625-8 class). See [`wiring/ac-wiring-schedule.md`](wiring/ac-wiring-schedule.md) for the cabling that traverses it | 1 | $9.00 | $9.00 |
+| SendCutSend 0.059" G90 hot-dipped galvanized steel compressor shroud (`cut-parts/compressor-shroud/`) — non-combustible enclosure over the compressor's terminal block + clip-on PTC start relay/overload module; this is the appliance's safe-handling implementation for the R-600a hydrocarbon charge per UL 60335-2-89's fire-enclosure clause; 1 grommeted AC pass-through, 1 PEM chassis-ground stud, 2 mounting tabs. Final dimensions TBD pending donor compressor measurement; placeholder estimate based on 0.059" G90 SendCutSend pricing for a ~130 × 130 × 100 mm flat-pattern part with 4 bends + hardware insertion: ~$8 ea at qty 5 + ~$5 ship + tax allocated, ~$45 delivered ÷ 5 = $9/shroud. AC pass-through grommet listed separately below (Heyco UB-625). See [`wiring/ac-wiring-schedule.md`](wiring/ac-wiring-schedule.md) for the cabling that traverses it | 1 | $9.00 | $9.00 |
+| [Heyco 2077 UB-625 Black Universal Bushing, 6/6 nylon, 0.625" mounting hole, 0.125" max panel thickness, 0.437" inside diameter (250-pk)](https://www.amazon.com/dp/B001BPY752) | B001BPY752 — AC pass-through strain-relief bushing for the compressor-shroud sheet-metal wall: 5/8" hole snap-fit, flexible shutters grip arbitrary round-cable cross-sections (16-gauge SJOOW AC primary, ~7.6 mm OD), prevents G90 sheet-metal edge from chafing the AC line over the appliance's 10-year design life and provides mechanical cord retention at the shroud penetration per [`wiring/ac-wiring-schedule.md`](wiring/ac-wiring-schedule.md). Heyco UB family is the SB-625-XX series's universal-cable-shape equivalent (Heyco's only 5/8"-hole part on Prime); 6/6 nylon, kitchen-environment appropriate, UL Recognized-class Heyco product. 1 bushing per build × 250-pk = lifetime supply ($26.00 list + ~$1.89 allocated NE tax = $27.89 delivered ÷ 250 = $0.112/bushing) | 1 (of 250 pk) | $0.11 | $0.11 |
 | [BOJACK SF76E SEFUSE thermal fuse, 77 °C, 10 A / 250 V (10-pack)](https://www.amazon.com/dp/B07Y61YTTK) | B07Y61YTTK — non-resettable hardware thermal cutoff wired in series with the compressor's AC hot leg inside the shroud; opens the circuit on enclosure overheat well below R-600a auto-ignition, hardware-only backstop to the firmware-driven DS18B20 + Teyleten relay cutoff so a stuck relay or hung ESP32 cannot keep mains energized into a hot enclosure. 1 of 10 per unit ($6.42/10) | 1 (of 10 pk) | $0.64 | $0.64 |
 | [ACEIRMC MQ-6 LPG / iso-butane combustible gas sensor module (5-pack)](https://www.amazon.com/dp/B0978JSCZ8) | B0978JSCZ8 — 5 V module with analog + digital outputs tuned for the C3/C4 hydrocarbon range R-600a falls into, mounted inside the compressor shroud and polled by the ESP32 alongside the existing DS18B20 probes; triggers shutdown + user-visible alarm well below LFL if the sealed loop ever vents into the shroud. 1 of 5 per unit ($11.79/5) | 1 (of 5 pk) | $2.36 | $2.36 |
 
@@ -231,7 +232,7 @@ The T18 heat-set tip kit ([B0CS662NVK](https://www.amazon.com/dp/B0CS662NVK)) an
 | 2. Carbonator vessel (plan A, 316L) | $240.69 |
 | 3. Water inlet | $132.62 |
 | 4. CO2 subsystem | $92.61 |
-| 5. Refrigeration | $175.71 |
+| 5. Refrigeration | $175.82 |
 | 6. Cold core insulation | $49.48 |
 | 7. Printed parts (PETG) | $103.94 |
 | 8. Flavor subsystem | $299.14 |
@@ -240,7 +241,7 @@ The T18 heat-set tip kit ([B0CS662NVK](https://www.amazon.com/dp/B0CS662NVK)) an
 | 11. Wiring | $31.97 |
 | 12. Level sensing | $66.35 |
 | 13. Mechanical attach hardware + reservoir-cap vent filter | $17.55 |
-| **Total** | **$1,479.26** |
+| **Total** | **$1,479.37** |
 
 ## External / user-supplied (not shipped)
 
