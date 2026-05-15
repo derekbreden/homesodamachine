@@ -62,6 +62,8 @@ An earlier racetrack-body alternative (304 SS body half-sheets + dished racetrac
 |---|---|---:|---:|---:|
 | [Wellbom dual-gauge CO2 regulator, CGA-320, 0–120 PSI out / 150 PSI PRV](https://www.amazon.com/dp/B0G13P5PMY) | B0G13P5PMY | 1 | $44.99 | $44.99 |
 | [Interstate Pneumatics WR1110 1/4" NPT in-line 90 PSI fixed pre-set pressure regulator, 230 PSI max inlet, aluminum body](https://www.amazon.com/dp/B07J2L8LF3) | B07J2L8LF3 — in-appliance secondary regulator between the customer's CGA-320 primary regulator (above) and the vessel CO2 inlet. Fixed 90 PSI outlet matches the SV-125 PRV setpoint above (35 PSI safety margin to the 125 PSI PRV) and locks the vessel working pressure independent of the customer's primary-regulator setting. Amazon order 112-6323725-5423434, May 13, 2026, $23.93 line + $1.73 allocated tax = $25.66 delivered | 1 | $25.66 | $25.66 |
+| [John Guest PP010822E 1/4" OD × 1/4" NPT male connector, black polypropylene (10-pk)](https://www.freshwatersystems.com/products/john-guest-male-connector-nptf-black-polypropylene-1-4-x-1-4-nptf) | JG PP010822E — 1/4" NPT M × 1/4" PTC adapter pair: one at the WR1110 NPT outlet (converts NPT to PTC for the in-cavity 1/4" tube run), one threading into the TAISHER 316L SS vessel-port elbow (PTC back to NPT) on the CO2-inlet port. UV-stabilized black PP body + EPDM O-ring; **NSF 51 + NSF 61 listed**, FDA-compliant materials; 150 psi @ 70°F. Same NSF cert tier + JG quality as the PP1208E reservoir-cap bulkhead in §8 and the PP2308E manifold Y-divider. 2 adapters per build × 10-pc bag = 5 builds of stock; FWS order WEBFWS100675224 May 15, 2026, $11.00 line + $5.23 allocated shipping + $1.18 allocated tax = $17.41 delivered ÷ 10 = $1.741/each | 2 (of 10 pk) | $1.74 | $3.48 |
+| [John Guest PP0308E 1/4" OD union elbow, black polypropylene (10-pk)](https://www.freshwatersystems.com/products/john-guest-union-elbow-black-polypropylene-1-4) | JG PP0308E — equal 90° PTC × PTC union elbow that forms the in-cavity 90° bend in the CO2 path inside the foam shell, turning the 1/4" CO2 tube around the tight envelope above the vessel-port elbow per [printed-parts/cold-core/foam-shell/README.md](printed-parts/cold-core/foam-shell/README.md). UV-stabilized black PP body + EPDM O-ring; **NSF 51 + NSF 61 listed**, FDA-compliant materials; 150 psi @ 70°F. Same NSF cert tier as the PP010822E adapters above and the rest of the JG black-PP family in §4/§8. 2 elbows per build × 10-pc bag = 5 builds of stock; FWS order WEBFWS100675224 May 15, 2026, $16.87 line + $8.02 allocated shipping + $1.81 allocated tax = $26.70 delivered ÷ 10 = $2.670/each | 2 (of 10 pk) | $2.67 | $5.34 |
 | [5/16" ID beer CO2 line, 10 ft + 4 clamps](https://www.amazon.com/dp/B0D1RB3TF6) | B0D1RB3TF6 — ~2 ft of hose (regulator → bottom-plate barb) + 2 of 4 clamps per unit; ~1/4 of pack value | 1 (~1/4 pk) | $3.50 | $3.50 |
 | [DERPIPE 5/16" tube × 1/4" NPT push-to-connect (5-pk)](https://www.amazon.com/dp/B09LXVGPG7) | B09LXVGPG7 — CO2 line entry to vessel; 1 of 5 per unit ($10.71/5). **5/16" variant appears delisted; source replacement ASIN** | 1 (of 5 pk) | $2.14 | $2.14 |
 | [GASHER 1/4" NPT SS one-way check valve (2-pk, $15.00) — second of pack](https://www.amazon.com/dp/B0FV2D2FFX) | B0FV2D2FFX — **CO2-side check** between DERPIPE 5/16"-tube × 1/4"-NPT push-to-connect and the LTWFITTING bottom-plate barb adapter; prevents water back-flow into the CO2 regulator if pressures invert under fault. Same 2-pack as the §3 water-side check, second valve of the pair | 1 (of 2) | $7.50 | $7.50 |
@@ -221,7 +223,7 @@ The T18 heat-set tip kit ([B0CS662NVK](https://www.amazon.com/dp/B0CS662NVK)) an
 | 1. Controllers + electronics | $166.43 |
 | 2. Carbonator vessel (plan A, 316L) | $240.69 |
 | 3. Water inlet | $130.88 |
-| 4. CO2 subsystem | $83.79 |
+| 4. CO2 subsystem | $92.61 |
 | 5. Refrigeration | $175.71 |
 | 6. Cold core insulation | $49.48 |
 | 7. Printed parts (PETG) | $103.94 |
@@ -231,7 +233,7 @@ The T18 heat-set tip kit ([B0CS662NVK](https://www.amazon.com/dp/B0CS662NVK)) an
 | 11. Wiring | $31.97 |
 | 12. Level sensing | $66.35 |
 | 13. Mechanical attach hardware + reservoir-cap vent filter | $17.55 |
-| **Total** | **$1,509.02** |
+| **Total** | **$1,517.84** |
 
 ## External / user-supplied (not shipped)
 
