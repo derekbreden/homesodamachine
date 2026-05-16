@@ -24,54 +24,23 @@ hole_shift_from_edge = 15.0
 # -------------------------------------------------------
 
 
-# -------------------------------------------------------
-# Tank copper shell
-# -------------------------------------------------------
-#
-# Outer radius of the tank-copper-shell cylinder.
-#   = tank_outer_radius (63.5) + coil_radial_clearance (7) + wall (2) = 72.5
-# The 7 mm radial clearance between the tank (R=63.5) and the inner shell
-# face accommodates 1/4" ACR copper coil + thermal tape + assembly slack.
+# Tank copper shell. 7 mm radial clearance between the tank and the
+# inner shell face fits 1/4" ACR copper coil + thermal tape + slack.
 tank_outer_radius = 63.5
 coil_radial_clearance = 7.0
 tank_copper_shell_radius = tank_outer_radius + coil_radial_clearance + wall_and_floor_thickness
-#
-# Outer height of the tank-copper-shell cylinder.
-#   = tank_height (152.4) + 30 below tank + 30 above tank + 1 mm floor allowance
-# The floor lives at y=0..wall, so the cylinder's interior cavity (above
-# the floor) is height − wall = 211.4 mm, providing the 30 mm of slack
-# above/below the tank's elbows.
+
 tank_height = 152.4
 below_tank_elbows_height = 30.0
 above_tank_elbows_height = 30.0
 tank_copper_shell_height = tank_height + below_tank_elbows_height + above_tank_elbows_height + 1.0
-#
-# -------------------------------------------------------
 
-
-# -------------------------------------------------------
-# Tank support ring
-# -------------------------------------------------------
-#
 tank_support_ring_height = 30.0
-#
-# -------------------------------------------------------
 
-
-# -------------------------------------------------------
-# Bag pocket
-# -------------------------------------------------------
-#
-# bag_pocket_width tracks tank_copper_shell_radius so the bag-pocket Z
-# interior cavity (= width − 2 × wall = 141 mm) matches the cylinder's
-# Z extent.  bag_pocket_depth gives an X interior cavity of 42 mm
-# (= depth − 2 × wall) — sized so each reservoir holds ≥ 1 L of
-# usable fluid (cavity volume after subtracting strut + wedge + panel
-# housing + dry-section vent + bulkhead-body displacement).  Each
-# additional mm of X interior adds ~23.6 mL of usable fluid; the
-# baseline 33 mm interior cleared 791.6 mL, so 42 mm clears ~1004 mL
-# per reservoir.  Outer-shell X width grows by 2 × 9 = 18 mm to match
-# (both reservoirs deepen on their ±X sides), 251 mm → 269 mm.
+# Bag pocket. Width tracks tank_copper_shell_radius so the Z interior
+# cavity matches the cylinder's Z extent. Depth sized so each reservoir
+# holds ≥1 L of usable fluid (~23.6 mL per mm of X interior; baseline
+# 33 mm cleared 791.6 mL; 42 mm clears ~1004 mL).
 bag_pocket_width = tank_copper_shell_radius * 2
 bag_pocket_depth = 42 + 2 * wall_and_floor_thickness
 bag_pocket_far_inner_x = tank_copper_shell_radius + bag_pocket_depth - 2 * wall_and_floor_thickness
@@ -90,24 +59,14 @@ reservoir_bulkhead_port_y = (
     + bulkhead_pocket_diameter / 2
 )
 reservoir_bulkhead_port_x = (bag_pocket_far_inner_x + tank_copper_shell_radius) / 2
-#
-# -------------------------------------------------------
 
-
-# -------------------------------------------------------
-# Outer shell
-# -------------------------------------------------------
-#
+# Outer footprint shared by the outer shell, the foam cap, and the
+# foam cap lid (must be coplanar at the corners so the pin bosses
+# line up).
 outer_shell_foam_gap = 16.0
-#
-# Outer footprint, shared by the outer shell, the foam cap, and the
-# foam cap lid (they must remain coplanar at the corners so the pin
-# bosses line up).
 bag_pocket_outermost_x = tank_copper_shell_radius + bag_pocket_depth - wall_and_floor_thickness
 outer_shell_x_length = 2 * (bag_pocket_outermost_x + outer_shell_foam_gap + wall_and_floor_thickness)
 outer_shell_z_length = 2 * (tank_copper_shell_radius + outer_shell_foam_gap + wall_and_floor_thickness)
-#
-# -------------------------------------------------------
 
 
 foam_cap_interior_height = outer_shell_foam_gap
