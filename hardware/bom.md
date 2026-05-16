@@ -148,6 +148,7 @@ Dishing dies (PA6-CF) for end-cap forming are vessel-fabrication tools, not ship
 | [Beduan 304 SS compression ferrule sleeve, 1/4" OD (5-pk)](https://www.amazon.com/dp/B07V4K2KKH) | B07V4K2KKH — decorative compression ferrule covering the visible tip of the 1/4" SS center tube above on the 3-tube dispense head; 1 per build = 1 of 5 per pack ($6.42/5) | 1 (of 5 pk) | $1.28 | $1.28 |
 | [Beduan 304 SS compression ferrule sleeve, 1/8" OD (5-pk)](https://www.amazon.com/dp/B07V8RJJYJ) | B07V8RJJYJ — decorative compression ferrules covering the visible tips of the two 1/8" SS flanking flavor-spout tubes (B0F87V8XCB in §8) on the 3-tube dispense head; 2 per build = 2 of 5 per pack ($5.35/5 × 2) | 2 (of 5 pk) | $1.07 | $2.14 |
 | [DIGITEN G3/8" Hall-effect flow sensor](https://www.amazon.com/dp/B07QQW4C7R) | B07QQW4C7R | 1 | $7.99 | $7.99 |
+| [CARGEN Pipe Insulation Foam Tube, 1/4" ID × 3/8" wall × 6 ft, nitrile rubber closed-cell](https://www.amazon.com/dp/B0D2XFK337) | B0D2XFK337 — insulates the 1/4" OD LLDPE carbonated-water dispense tube on its run from the foam-shell exit, through the countertop, to the underside of the Westbrass touch-flo body; closed-cell nitrile chosen for the tight fit on 1/4" OD LLDPE (1/4" ID matches tube OD without slop). ~12" used per build out of 72"/roll = 1/6 of a roll per build. Amazon order 112-3935659-9563410, May 15, 2026, qty 2 @ $7.59 = $15.18 + $0.00 ship + $1.10 tax = $16.28 delivered ÷ 2 rolls = $8.14/roll ÷ 6 builds per roll = $1.36/build | 1/6 roll (~12") | $1.36 | $1.36 |
 
 ## 10. User interface
 
@@ -236,12 +237,12 @@ The T18 heat-set tip kit ([B0CS662NVK](https://www.amazon.com/dp/B0CS662NVK)) an
 | 6. Cold core insulation | $52.38 |
 | 7. Printed parts (PETG) | $103.94 |
 | 8. Flavor subsystem | $299.14 |
-| 9. Dispensing | $55.96 |
+| 9. Dispensing | $57.32 |
 | 10. UI | $43.16 |
 | 11. Wiring | $31.97 |
 | 12. Level sensing | $66.35 |
 | 13. Mechanical attach hardware + reservoir-cap vent filter | $17.55 |
-| **Total** | **$1,484.19** |
+| **Total** | **$1,485.55** |
 
 ## External / user-supplied (not shipped)
 
