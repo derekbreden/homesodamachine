@@ -707,95 +707,52 @@ def cut_slot_for_copper_and_water_inlet(foam_shell):
 # TOP-LEVEL ASSEMBLY
 # ═══════════════════════════════════════════════════════
 
-# Y of the horizontal cable channel cavity center, AND of the +Z cable
-# hole through the bag-pocket and outer-shell walls. Sits at half the
-# cavity height above the foam shell floor so the cavity rests on the
-# floor — printable without an unsupported envelope floor mid-air. The
-# cable hole shares this y so the cable runs straight from the channel
-# exit through the bag-pocket interior and out the +Z hole — no bend.
+# Horizontal cable channel cavity sits on the foam-shell floor
+# (bottom y = wall_and_floor_thickness) — no unsupported envelope
+# floor mid-air. The +Z cable hole shares cable_y_center, so the
+# cable runs straight from channel to hole with no y-bend.
 cable_y_half_h = 4.0
 cable_y_center = wall_and_floor_thickness + cable_y_half_h
 
-# X depth of the horizontal cable channel cavity (= 5 mm at the channel-
-# outer face). Same value also sets the run of the cavity ceiling's 45°
-# slope: slope rises from y = `cable_y_center + cable_y_half_h` at the
-# channel-outer face up to y + `cable_channel_x_depth` at the bag-pocket
-# wall outer face, then continues `wall_and_floor_thickness` further in
-# both -X and +Y through the bag-pocket wall to its inner face. Shared
-# by `build_reed_channels` (slope ceiling wedge) and
-# `cut_reed_channel_openings` (slope wall cut).
+# X depth of the cable channel cavity, also the rise of the 45°
+# printability slope on the cavity ceiling (slope runs over this same
+# x distance, then continues wall_and_floor_thickness further through
+# the bag-pocket wall).
 cable_channel_x_depth = 5.0
 
-# Vertical reed channel position + half-width in Z, matching the
-# reservoir's STRUT_POSITION_Z (so the reeds sit opposite the float-
-# on-strut on the other side of the bag-pocket wall). Shared by
-# `build_reed_channels` (envelope + cavity construction) and
-# `cut_reed_channel_openings` (the matching wall cut on the bag-pocket
-# inner face) — declaring once at module scope so the two cannot drift.
+# Vertical reed channel position in Z, matching the reservoir's
+# STRUT_POSITION_Z so reeds sit opposite the float-on-strut across
+# the bag-pocket wall.
 reed_z_center = -45.0
 reed_z_half_w = 4.0
 
-# +Z extent of the horizontal cable channel — reaches the +Z bag-pocket
-# inner face. Same source-of-truth note as reed_z_*: shared by both
-# build_reed_channels and cut_reed_channel_openings.
+# +Z extent of the horizontal cable channel — reaches the +Z
+# bag-pocket inner face.
 cable_z_max = 70.5
 
-# X depth of the vertical reed channel cavity (= 6 mm at the channel-
-# outer face). Used only by build_reed_channels today, but lifted here
-# alongside the other reed_* constants so the convention is uniform —
-# every channel-defining literal lives at module scope.
+# X depth of the vertical reed channel cavity.
 reed_x_depth = 6.0
 
 
 def build_reed_channels(side):
-    """Reed-and-cable channel system for one ±X reservoir, built into
-    the foam shell. Returns a single solid (new wall material) to union
-    with the foam shell.
+    """Reed-and-cable channel system for one ±X reservoir, returned as
+    a single solid (new wall material) to union with the foam shell.
 
-    The channel system has two segments, both with their back face on
-    the existing bag-pocket far ±X wall and extruding outward into the
-    outer-foam zone:
+    Two segments, both with back face on the bag-pocket far ±X wall,
+    extruding outward into the outer-foam zone:
 
-    - **Vertical reed channel** at z = −45 (matches the reservoir's
-      STRUT_POSITION_Z, putting the reeds opposite the float-on-strut
-      on the other side of the bag-pocket wall). Cavity 8 mm wide in
-      z, 6 mm deep in x. Open at the top so the pre-soldered reed-and-
-      cable column can be dropped in from above before the foam cap is
-      installed.
+    - Vertical reed channel at z = reed_z_center, open at the top so
+      the pre-soldered reed column can be dropped in before the foam
+      cap is installed.
+    - Horizontal cable channel running in +Z from the vertical channel
+      to the +Z bag-pocket inner face. Cavity sits on the foam-shell
+      floor; ceiling slopes 45° over the straight section for
+      printability (no bridging). Cable exits at z = cable_z_max
+      through wall openings cut by `cut_reed_channel_openings`, then
+      out the +Z cable hole at the same y = cable_y_center so no
+      y-bend is required.
 
-    - **Horizontal cable channel** running in +Z from the vertical
-      channel along the bag-pocket far ±X wall. Cavity sits ON the
-      foam shell floor (cavity y range = [wall_and_floor_thickness,
-      wall_and_floor_thickness + 2 × cable_y_half_h] = [2, 10]) so
-      the foam shell floor IS the channel's bottom wall — printable
-      without an unsupported envelope floor mid-air at y = 12 like
-      earlier revisions. The cavity ceiling in the straight section
-      (z ≤ cable_z_max - R = 64) slopes 45° from y = 10 at the
-      channel-outer face (x = ±121.5) all the way through the bag-
-      pocket wall to y = 17 at the wall's inner face (x = ±114.5),
-      cutting the bag-pocket wall material under the slope (handled
-      by `cut_reed_channel_openings`'s slope wall cut). The slope is
-      printable without bridging or internal support. Cable runs at
-      y = 6 (`cable_y_center`) inside the
-      channel; the +Z cable hole is also at y = 6 so the cable goes
-      straight from the channel exit through the bag-pocket interior
-      and out the hole — no y bend (still bends in xz to traverse
-      from the channel-outer face out the hole). Cavity ends at z =
-      70.5 — the +Z
-      bag-pocket wall's inner face — so the channel reaches all the
-      way to the bag pocket's +Z edge. The wall the channel is built
-      against curves inward at z = 64..70.5 (the +Z corner arc); the
-      channel envelope itself stays rectangular (its +X wall passes
-      through the foam zone at x = 121.5..123.5), and the corner-
-      band wall material in front of the cavity is opened up in the
-      cable's y range by `cut_reed_channel_openings`. The cable
-      drops out of the channel through that opening into the bag-
-      pocket interior at any z along the channel's length, then
-      finds its way to the +Z cable hole (see `cut_reed_cable_holes`).
-
-    Both segments' new walls are wall_and_floor_thickness (2 mm) thick.
-
-    `side` = ±1, mirroring x across the y-z plane."""
+    `side` = ±1 mirrors x across the y-z plane."""
     s = side
     W = wall_and_floor_thickness
 
@@ -876,33 +833,27 @@ def build_reed_channels(side):
         .extrude(2 * cable_y_half_h)
     )
 
-    # Sloped ceiling for printability — straight section only (z ≤
-    # cable_z_max - R = 64, the start of the +Z corner arc). Both the
-    # envelope and the cavity get a triangular wedge added on top so
-    # the ceiling rises 1:1 (45°) over cable_channel_x_depth (= 5 mm) from the
-    # channel-outer face (x = bag_x + s × cable_channel_x_depth = ±121.5) to
-    # the bag-pocket-wall side (x = bag_x = ±116.5):
-    #   envelope ceiling: y = 12 → 17  (envelope top + 5 mm rise)
-    #   cavity   ceiling: y = 10 → 15  (cavity top + 5 mm rise)
-    # Each layer of the ceiling extends 1 layer-thickness inward over
-    # 1 layer-thickness rise — self-supporting in Y-up print, no
-    # internal support needed. The +Z corner arc area (z > 64) keeps
-    # its current flat ceiling — leaves a 5 mm step at z = 64 to be
-    # addressed in a later iteration.
-    slope_z_min_env = reed_z_center - reed_z_half_w - W                                 # -51, envelope -Z
-    slope_z_min_cav = reed_z_center - reed_z_half_w                                      # -49, cavity -Z
-    slope_z_max     = cable_z_max - R                                                    # 64, +Z arc start
-    env_wedge_y_low  = cable_y_center + cable_y_half_h + W                               # 12 — top of original envelope
-    env_wedge_y_high = env_wedge_y_low + cable_channel_x_depth                                   # 17 — top of slope at bag_x
-    cav_wedge_y_low  = cable_y_center + cable_y_half_h                                   # 10 — top of original cavity
-    cav_wedge_y_high = cav_wedge_y_low + cable_channel_x_depth                                   # 15 — top of slope at bag_x
+    # Sloped ceiling on the horizontal cable channel (straight section
+    # only, z ≤ cable_z_max − R). Triangular wedge added to both
+    # envelope and cavity, rising 1:1 (45°) over cable_channel_x_depth
+    # from the channel-outer face to the bag-pocket-wall side. Self-
+    # supporting in Y-up print; no internal support material needed.
+    # The +Z corner area keeps its current flat ceiling (TODO: address
+    # the resulting step at z = cable_z_max − R in a later iteration).
+    slope_z_min_env = reed_z_center - reed_z_half_w - W
+    slope_z_min_cav = reed_z_center - reed_z_half_w
+    slope_z_max     = cable_z_max - R
+    env_wedge_y_low  = cable_y_center + cable_y_half_h + W
+    env_wedge_y_high = env_wedge_y_low + cable_channel_x_depth
+    cav_wedge_y_low  = cable_y_center + cable_y_half_h
+    cav_wedge_y_high = cav_wedge_y_low + cable_channel_x_depth
     env_wedge = (
         cq.Workplane(xy_plane_z_up)
         .workplane(offset=slope_z_min_env)
         .moveTo(bag_x, env_wedge_y_low)
-        .lineTo(bag_x + s * cable_channel_x_depth, env_wedge_y_low)                              # bottom of wedge along +X
-        .lineTo(bag_x, env_wedge_y_high)                                                 # hypotenuse: sloped envelope top
-        .close()                                                                          # -X side: bag-pocket-wall edge
+        .lineTo(bag_x + s * cable_channel_x_depth, env_wedge_y_low)
+        .lineTo(bag_x, env_wedge_y_high)
+        .close()
         .extrude(slope_z_max - slope_z_min_env)
     )
     cav_wedge = (
@@ -917,32 +868,18 @@ def build_reed_channels(side):
     horiz_envelope = horiz_envelope.union(env_wedge)
     horiz_cavity = horiz_cavity.union(cav_wedge)
 
-    # Corner wedge — fills the foam-zone gap between the bag-pocket
-    # far ±X wall's +Z corner outer arc (R = 8.5, center (±108, ±64),
-    # from (±116.5, ±64) to (±108, ±72.5)) and the channel envelope's
-    # straight -X face at x = ±bag_pocket_outermost_x = ±116.5.
-    # Without this wedge, the channel envelope's straight -X face
-    # doesn't meet the bag-pocket wall in the corner region (the wall
-    # curves inward toward x = ±108 at z = ±72.5), leaving a foam-pour
-    # wedge of foam zone between them. With the wedge, the channel
-    # envelope wraps around the corner so its -X face follows the
-    # outer corner arc, eliminating the foam-pour gap. 2D cross-
-    # section (in the x-z plane): a sector-like region bounded by
-    # the outer corner arc (south-west / curved side), the +Z outer
-    # face z = ±72.5 (top), and the straight -X face x = ±116.5
-    # (east, closing back to the arc start). Extruded in y across the
-    # envelope's full y range so the cable's y range (2..10) is also
-    # walled off from foam — `cut_reed_channel_openings` then cuts
-    # through this wedge (in y = 2..10, z ≤ 70.5) along with the
-    # corner-band wall material so the cable can pass through.
-    R_outer_corner = bag_pocket_corner_inner_radius + W                                  # 8.5
+    # Corner wedge — extends the channel envelope around the bag-pocket
+    # wall's +Z outer corner arc so the channel-outer face meets the
+    # wall continuously (no foam-pour gap behind the corner). Cut back
+    # in the cable's y range by cut_reed_channel_openings.
+    R_outer_corner = bag_pocket_corner_inner_radius + W
     corner_arc_endpoint_x = s * (
         bag_pocket_outermost_x - W - bag_pocket_corner_inner_radius
-    )                                                                                     # ±108
-    z_outer = bag_pocket_width / 2                                                        # 72.5
-    z_corner_start = z_outer - W - bag_pocket_corner_inner_radius                         # 64
-    y_min_env = cable_y_center - cable_y_half_h - W                                       # 0
-    y_max_env = cable_y_center + cable_y_half_h + W                                       # 12
+    )
+    z_outer = bag_pocket_width / 2
+    z_corner_start = z_outer - W - bag_pocket_corner_inner_radius
+    y_min_env = cable_y_center - cable_y_half_h - W
+    y_max_env = cable_y_center + cable_y_half_h + W
     corner_wedge = (
         cq.Workplane(xz_plane_y_up)
         .workplane(offset=y_min_env)
@@ -961,25 +898,17 @@ def build_reed_channels(side):
 
 def cut_reed_channel_openings(foam_shell):
     """Cut the bag-pocket far ±X wall in the reed-and-cable channel
-    footprint, so each channel becomes a true 3-walled box (open to
-    the bag pocket interior on its back face) instead of 4-walled
-    (closed by the bag-pocket wall as the back). This:
+    footprint, so each channel is open to the bag pocket interior on
+    its back face. Two payoffs:
 
-    - Makes the channels visible / accessible from inside the bag
-      pocket — the reed column can be inspected and serviced from the
-      bag-pocket side without going around through the foam zone.
-    - Shortens the magnet-to-reed magnetic path: the 2 mm bag-pocket
-      wall material that used to sit between the magnet (inside the
-      reservoir body in the bag pocket) and the reed sensors (in the
-      foam-zone channel) is removed. Gap is just the 0.5 mm
-      reservoir clearance + half the reed body — well inside the
-      reed's pull-in margin.
-    - Foam-pour safety is unchanged: foam lives ONLY in the foam zone
-      (x > 124.5 for the +X reservoir's channel, between the channel's
-      outer wall and the outer shell). The opening from the channel to
-      the bag-pocket interior is on the OTHER side (x ≤ 116.5), so
-      foam can't reach it.
-    """
+    - Shortens the magnet-to-reed magnetic path (removes the 2 mm
+      bag-pocket wall PETG between the magnet inside the reservoir
+      and the reed sensors in the foam-zone channel).
+    - Makes the channels accessible / inspectable from the bag-pocket
+      side.
+
+    Foam-pour safety is unaffected: the cut is on the bag-pocket-inner
+    side; foam lives only in the foam zone outboard of the channel."""
     W = wall_and_floor_thickness
 
     def make_box(x_a, x_b, y_min, y_max, z_a, z_b):
@@ -994,23 +923,15 @@ def cut_reed_channel_openings(foam_shell):
         )
 
     for s in (+1, -1):
-        # In the straight section of the bag-pocket far ±X wall
-        # (|z| ≤ 64), the wall material occupies x range
-        # [bag_pocket_outermost_x − W, bag_pocket_outermost_x] (= 114.5..116.5).
-        # At the +Z corner (z = 64..70.5) the wall curves inward as a
-        # 2 mm-thick band between the inner corner arc (R = 6.5, center
-        # at (±108, ±64), reaching x = ±108 at z = ±70.5) and the outer
-        # corner arc (R = 8.5, same center, reaching x = ±108 at z = ±72.5).
-        wall_x_outer = s * bag_pocket_outermost_x                    # ±116.5
-        wall_x_inner = s * (bag_pocket_outermost_x - W)              # ±114.5
-        corner_x_inner = s * (
-            bag_pocket_outermost_x - W - bag_pocket_corner_inner_radius
-        )                                                            # ±108 — corner arc x-terminus
+        # Bag-pocket far ±X wall: 2 mm-thick band at x ∈ [outer−W, outer]
+        # in the straight section, curving inward along the +Z corner
+        # arc up to its terminus at x = ±(outer − W − R).
+        wall_x_outer   = s * bag_pocket_outermost_x
+        wall_x_inner   = s * (bag_pocket_outermost_x - W)
+        corner_x_inner = s * (bag_pocket_outermost_x - W - bag_pocket_corner_inner_radius)
 
-        # Vertical opening: cut the wall in the reed channel's z and
-        # y footprint (full height in y, from cavity bottom to top).
-        # The reed channel sits at z = −45, well inside the straight
-        # wall span, so the simple x = [±114.5, ±116.5] cut is enough.
+        # Vertical opening: through the wall in the reed channel's
+        # footprint (full height).
         vert_opening = make_box(
             wall_x_inner, wall_x_outer,
             cable_y_center - cable_y_half_h, tank_copper_shell_height,
@@ -1018,17 +939,9 @@ def cut_reed_channel_openings(foam_shell):
         )
         foam_shell = foam_shell.cut(vert_opening)
 
-        # Horizontal opening: cut the wall in the cable channel's z
-        # and y footprint, reaching all the way to z = ±70.5. The x
-        # range extends inward by `bag_pocket_corner_inner_radius`
-        # past the wall's inner face so the corner-arc band material
-        # (which sits at x = ±108..±116.5 along z = ±64..±70.5, with
-        # the band's exact x depending on z) is also removed in the
-        # cable's y range. In the straight section (|z| ≤ 64), only
-        # x = ±114.5..±116.5 contains wall material — the extra
-        # x = ±108..±114.5 swept by the box at those z values is
-        # bag-pocket interior air, no material to remove. The +Z
-        # bag-pocket wall above z = 70.5 stays intact.
+        # Horizontal opening: through the wall (and the corner-arc band
+        # material) in the cable channel's y footprint, reaching to
+        # z = ±cable_z_max.
         horiz_opening = make_box(
             corner_x_inner, wall_x_outer,
             cable_y_center - cable_y_half_h, cable_y_center + cable_y_half_h,
@@ -1036,25 +949,15 @@ def cut_reed_channel_openings(foam_shell):
         )
         foam_shell = foam_shell.cut(horiz_opening)
 
-        # Slope wall cut: extend the cavity ceiling slope (built into
-        # the channel envelope by `build_reed_channels`) through the
-        # bag-pocket wall on the slope's high-y side. The slope rises
-        # 1:1 from y = `cable_y_center + cable_y_half_h` = 10 at the
-        # channel-outer face up to y + `cable_channel_x_depth` = 15 at
-        # the bag-pocket wall outer face (x = ±116.5), then continues
-        # `wall_and_floor_thickness` = 2 further in -X and +Y through
-        # the bag-pocket wall to its inner face (x = ±114.5, y = 17).
-        # This cut removes the trapezoidal slice of bag-pocket wall
-        # material under the slope's extension through the wall —
-        # only in the straight section (z ≤ cable_z_max -
-        # bag_pocket_corner_inner_radius = 64); the +Z corner area
-        # (z > 64) keeps its current flat ceiling at y = 10 and the
-        # bag-pocket wall above stays intact.
-        slope_y_low      = cable_y_center + cable_y_half_h                 # 10
-        slope_y_at_outer = slope_y_low + cable_channel_x_depth             # 15
-        slope_y_at_inner = slope_y_at_outer + W                            # 17
-        slope_z_min      = reed_z_center - reed_z_half_w                   # -49
-        slope_z_max      = cable_z_max - bag_pocket_corner_inner_radius    # 64
+        # Slope wall cut: extends the cavity ceiling's 45° slope
+        # through the bag-pocket wall — removes the trapezoidal slice
+        # of wall material under the slope's continuation. Straight
+        # section only (z ≤ cable_z_max − R).
+        slope_y_low      = cable_y_center + cable_y_half_h
+        slope_y_at_outer = slope_y_low + cable_channel_x_depth
+        slope_y_at_inner = slope_y_at_outer + W
+        slope_z_min      = reed_z_center - reed_z_half_w
+        slope_z_max      = cable_z_max - bag_pocket_corner_inner_radius
         slope_wall_cut = (
             cq.Workplane(xy_plane_z_up)
             .workplane(offset=slope_z_min)
