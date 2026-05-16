@@ -1,27 +1,22 @@
 """Shared geometry for the foam shell and the foam-cap stack. Imported
 by the two sibling generators (foam-shell/, foam-cap/), each of which
-writes the STEPs for its own folder. Constants and build functions live
-here so both generators produce a coherent set of mating parts."""
+writes the STEPs for its own folder."""
 
 import math
 import cadquery as cq
 
-# ═══════════════════════════════════════════════════════
-# FEATURES
-# ═══════════════════════════════════════════════════════
-
-
-# -------------------------------------------------------
-# General
-# -------------------------------------------------------
-#
 xz_plane_y_up = cq.Plane(origin=(0, 0, 0), xDir=(1, 0, 0), normal=(0, 1, 0))
 xy_plane_z_up = cq.Plane(origin=(0, 0, 0), xDir=(1, 0, 0), normal=(0, 0, 1))
+
+
+def xz_plane_y_up_local(world_xz_positions):
+    """World (x, z) → xz_plane_y_up local (x, y); local Y = −world Z."""
+    return [(x, -z) for (x, z) in world_xz_positions]
+
+
 # All structural walls and floors are 2 mm PETG.
 wall_and_floor_thickness = 2.0
 hole_shift_from_edge = 15.0
-#
-# -------------------------------------------------------
 
 
 # Tank copper shell. 7 mm radial clearance between the tank and the
@@ -97,36 +92,27 @@ foam_cap_attachment_xz_positions = (
         z_sign * (outer_shell_z_length / 2 - screw_boss_size / 2))
        for z_sign in (1, -1)]
 )
-#
-# Gasket: TPU 90A, rectangular perimeter ring matching the outer-
-# shell footprint, 2 mm thick, 5 mm wide (1 mm aligned with the cap
-# and shell wall edges that compress it, plus 4 mm extending inward
-# over the cavity opening for print stability and material continuity).
-# Six screw holes at the same foam_cap_attachment_xz_positions.
+# TPU 90A perimeter-ring gasket: 5 mm wide (1 mm clamped between the
+# cap and shell wall edges, 4 mm extending inward over the cavity
+# opening for print stability).
 gasket_thickness   = 2.0
 gasket_strip_width = 5.0
-#
-# -------------------------------------------------------
-#
-# -------------------------------------------------------
+
 
 
 tank_copper_shell_open_z = 60.0
-#
-#
+
 def build_tank_support_ring():
     """Annular ring inside the tank-copper-shell, holding the tank up
-    by its outer rim.  Built as a revolve of a rectangular (R, y)
+    by its outer rim. Built as a full revolve of a rectangular (R, y)
     profile around the Y axis; four 30°-wide angular slots at the
-    diagonals (45°/135°/225°/315°) are cut as 30° revolves of the same
-    profile (with a small radial margin), so every slot boundary is
-    an arc on the same cylinder as the ring's inner and outer faces —
-    no chord-vs-arc slivers left behind.
-    """
-    R_outer = tank_copper_shell_radius - wall_and_floor_thickness  # 70.5
-    R_inner = R_outer - 9                                          # 61.5
-    y_bottom = wall_and_floor_thickness                             # 2
-    y_top = y_bottom + tank_support_ring_height                    # 32
+    diagonals are cut as 30° revolves of the same profile (with a
+    radial margin), so every slot boundary stays on the same cylinder
+    as the ring faces — no chord-vs-arc slivers."""
+    R_outer = tank_copper_shell_radius - wall_and_floor_thickness
+    R_inner = R_outer - 9
+    y_bottom = wall_and_floor_thickness
+    y_top = y_bottom + tank_support_ring_height
 
     ring_profile = (
         cq.Workplane("XY")
@@ -138,8 +124,6 @@ def build_tank_support_ring():
     )
     ring = ring_profile.revolve()
 
-    # Four 30°-wide slots at the diagonals, leaving four 60° support
-    # segments aligned with the cardinal axes.
     slot_radial_margin = 1.0
     slot_angular_width = 30
     def build_slot():
@@ -159,15 +143,10 @@ def build_tank_support_ring():
         ring = ring.cut(slot)
     return ring
 
-# Inner radius of the bag pocket's two far-side corners (where the
-# far wall meets the +Z and −Z walls). Matches the reservoir's outer
-# +X × ±Z fillet so the printed reservoir slides into a snugly-mated
-# pocket. The reservoir's outer fillet is radius 6 mm with its center
-# at (±98, ±64); maintaining the existing 0.5 mm reservoir_clearance
-# uniformly around that arc puts the foam-shell pocket's inner-corner
-# arc at radius 6.5 mm with the same center, so the inner-face
-# tangents (x = ±104.5 along the far wall, z = ±70.5 along the ±Z
-# walls) line up exactly with the surrounding flat-wall inner faces.
+
+# Matches the reservoir's outer +X × ±Z fillet (R=6) with reservoir_clearance
+# on top, so the reservoir's outer arc slides into a snugly-mated arc on
+# the pocket's inner corner with uniform clearance.
 bag_pocket_corner_inner_radius = 6.5
 
 
@@ -319,9 +298,7 @@ def build_outer_shell():
         .faces(">Y")
         .shell(-wall_and_floor_thickness)
     )
-    # pushPoints uses workplane-local coords; on xz_plane_y_up, local Y
-    # = -world Z, so flip the z component of each (x, z) world position.
-    boss_points = [(x, -z) for (x, z) in foam_cap_attachment_xz_positions]
+    boss_points = xz_plane_y_up_local(foam_cap_attachment_xz_positions)
     # Six full-height bosses.
     bosses = (
         cq.Workplane(xz_plane_y_up)
@@ -356,8 +333,7 @@ def build_foam_cap():
         .faces(">Y")
         .shell(-wall_and_floor_thickness)
     )
-    # Same workplane-local coord flip as in build_outer_shell.
-    boss_points = [(x, -z) for (x, z) in foam_cap_attachment_xz_positions]
+    boss_points = xz_plane_y_up_local(foam_cap_attachment_xz_positions)
     bosses = (
         cq.Workplane(xz_plane_y_up)
         .pushPoints(boss_points)
@@ -410,8 +386,7 @@ def build_foam_cap_lid():
 
     lid = lid.cut(pour_hole).cut(vent_hole_a).cut(vent_hole_b)
 
-    # Six screw-clearance holes, one per attachment position.
-    boss_points = [(x, -z) for (x, z) in foam_cap_attachment_xz_positions]
+    boss_points = xz_plane_y_up_local(foam_cap_attachment_xz_positions)
     clearances = (
         cq.Workplane(xz_plane_y_up)
         .pushPoints(boss_points)
@@ -471,7 +446,7 @@ def build_foam_cap_gasket():
     # long-side screws, 3 mm inward on the wall-perpendicular axis.
     # Holes are cut AFTER the pads are unioned in, so each hole sits
     # at the center of an 8 × 8 mm pad surrounded by 4 mm of TPU.
-    boss_points = [(x, -z) for (x, z) in foam_cap_attachment_xz_positions]
+    boss_points = xz_plane_y_up_local(foam_cap_attachment_xz_positions)
     pads = (
         cq.Workplane(xz_plane_y_up)
         .pushPoints(boss_points)
