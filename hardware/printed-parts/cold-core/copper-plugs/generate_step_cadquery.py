@@ -45,9 +45,7 @@ The flanges grip the +Z wall edge like a binder clip: the 2 mm Z
 air gap between the top and bottom flanges (at x = ±slot_half ..
 ±plug_half_outer, i.e. the 1 mm of flange overhang past the web on
 each side) is exactly where the wall sits when the plug is dropped
-into the slot. Same Z geometry as the prior X-wing design (commit
-b8f6fa5), but the four corner prongs are now extended in X across
-the full plug width to form two continuous flanges instead.
+into the slot.
 
 Built as three boxes (web + top flange + bottom flange) unioned
 into a single solid. The web's top face shares a 2D 6.5 × y_height
