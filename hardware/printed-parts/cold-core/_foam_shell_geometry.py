@@ -889,6 +889,12 @@ reed_z_half_w = 4.0
 # build_reed_channels and cut_reed_channel_openings.
 cable_z_max = 70.5
 
+# X depth of the vertical reed channel cavity (= 6 mm at the channel-
+# outer face). Used only by build_reed_channels today, but lifted here
+# alongside the other reed_* constants so the convention is uniform —
+# every channel-defining literal lives at module scope.
+reed_x_depth = 6.0
+
 
 def build_reed_channels(side):
     """Reed-and-cable channel system for one ±X reservoir, built into
@@ -909,11 +915,11 @@ def build_reed_channels(side):
     - **Horizontal cable channel** running in +Z from the vertical
       channel along the bag-pocket far ±X wall. Cavity sits ON the
       foam shell floor (cavity y range = [wall_and_floor_thickness,
-      wall_and_floor_thickness + 2 × CABLE_Y_HALF_H] = [2, 10]) so
+      wall_and_floor_thickness + 2 × cable_y_half_h] = [2, 10]) so
       the foam shell floor IS the channel's bottom wall — printable
       without an unsupported envelope floor mid-air at y = 12 like
       earlier revisions. The cavity ceiling in the straight section
-      (z ≤ CABLE_Z_MAX - R = 64) slopes 45° from y = 10 at the
+      (z ≤ cable_z_max - R = 64) slopes 45° from y = 10 at the
       channel-outer face (x = ±121.5) all the way through the bag-
       pocket wall to y = 17 at the wall's inner face (x = ±114.5),
       cutting the bag-pocket wall material under the slope (handled
@@ -942,17 +948,6 @@ def build_reed_channels(side):
     s = side
     W = wall_and_floor_thickness
 
-    # Module-scope constants exposed under local short names for
-    # readability inside this function (single source of truth: the
-    # module-scope assignments above).
-    REED_Z_CENTER  = reed_z_center
-    REED_Z_HALF_W  = reed_z_half_w
-    REED_X_DEPTH   = 6.0
-    CABLE_Y_HALF_H = cable_y_half_h
-    CABLE_Y_CENTER = cable_y_center
-    CABLE_X_DEPTH  = cable_channel_x_depth
-    CABLE_Z_MAX    = cable_z_max
-
     bag_x = s * bag_pocket_outermost_x  # outer face of bag-pocket far ±X wall
 
     def make_box(x_a, x_b, y_min, y_max, z_a, z_b):
@@ -968,14 +963,14 @@ def build_reed_channels(side):
 
     # Vertical reed channel envelope + cavity
     vert_envelope = make_box(
-        bag_x, bag_x + s * (REED_X_DEPTH + W),
-        CABLE_Y_CENTER - CABLE_Y_HALF_H - W, tank_copper_shell_height,
-        REED_Z_CENTER - REED_Z_HALF_W - W, REED_Z_CENTER + REED_Z_HALF_W + W,
+        bag_x, bag_x + s * (reed_x_depth + W),
+        cable_y_center - cable_y_half_h - W, tank_copper_shell_height,
+        reed_z_center - reed_z_half_w - W, reed_z_center + reed_z_half_w + W,
     )
     vert_cavity = make_box(
-        bag_x, bag_x + s * REED_X_DEPTH,
-        CABLE_Y_CENTER - CABLE_Y_HALF_H, tank_copper_shell_height,
-        REED_Z_CENTER - REED_Z_HALF_W, REED_Z_CENTER + REED_Z_HALF_W,
+        bag_x, bag_x + s * reed_x_depth,
+        cable_y_center - cable_y_half_h, tank_copper_shell_height,
+        reed_z_center - reed_z_half_w, reed_z_center + reed_z_half_w,
     )
 
     # Horizontal cable channel envelope + cavity. The (+X, +Z) corner
@@ -989,52 +984,52 @@ def build_reed_channels(side):
     #
     # Built as polylines (cross-section in the xz plane, extruded in
     # +Y across the channel y range) rather than `make_box(...).fillet()`
-    # because R is larger than CABLE_X_DEPTH — the cavity's +Z face is
+    # because R is larger than cable_channel_x_depth — the cavity's +Z face is
     # too narrow for a tangent fillet, so the arc is tangent only to
     # the channel-outer face and meets the channel-inner face partway
     # up along the -X side. The envelope's +Z face IS wide enough for
-    # a true tangent fillet (CABLE_X_DEPTH + W > R), so its arc is
+    # a true tangent fillet (cable_channel_x_depth + W > R), so its arc is
     # tangent to both faces.
     R = bag_pocket_corner_inner_radius
 
     horiz_envelope = (
         cq.Workplane(xz_plane_y_up)
-        .workplane(offset=CABLE_Y_CENTER - CABLE_Y_HALF_H - W)
-        .moveTo(bag_x, -(REED_Z_CENTER - REED_Z_HALF_W - W))                # (-X, -Z) corner
-        .lineTo(bag_x + s * (CABLE_X_DEPTH + W), -(REED_Z_CENTER - REED_Z_HALF_W - W))  # +X face start
-        .lineTo(bag_x + s * (CABLE_X_DEPTH + W), -(CABLE_Z_MAX + W - R))    # +X face to arc tangent
+        .workplane(offset=cable_y_center - cable_y_half_h - W)
+        .moveTo(bag_x, -(reed_z_center - reed_z_half_w - W))                # (-X, -Z) corner
+        .lineTo(bag_x + s * (cable_channel_x_depth + W), -(reed_z_center - reed_z_half_w - W))  # +X face start
+        .lineTo(bag_x + s * (cable_channel_x_depth + W), -(cable_z_max + W - R))    # +X face to arc tangent
         .radiusArc(
-            (bag_x + s * (CABLE_X_DEPTH + W - R), -(CABLE_Z_MAX + W)),
+            (bag_x + s * (cable_channel_x_depth + W - R), -(cable_z_max + W)),
             s * R,
         )                                                                     # quarter-circle to +Z tangent
-        .lineTo(bag_x, -(CABLE_Z_MAX + W))                                   # +Z face to (-X, +Z) corner
+        .lineTo(bag_x, -(cable_z_max + W))                                   # +Z face to (-X, +Z) corner
         .close()                                                              # -X face back to start
-        .extrude(2 * (CABLE_Y_HALF_H + W))
+        .extrude(2 * (cable_y_half_h + W))
     )
 
     # Where the cavity arc crosses the channel-inner face (x = bag_x):
-    # solve (R - CABLE_X_DEPTH)² + (z - center_z)² = R² for z, where
-    # center_z = CABLE_Z_MAX - R.
-    cavity_arc_z_at_inner_x = (CABLE_Z_MAX - R) + math.sqrt(R**2 - (R - CABLE_X_DEPTH)**2)
+    # solve (R - cable_channel_x_depth)² + (z - center_z)² = R² for z, where
+    # center_z = cable_z_max - R.
+    cavity_arc_z_at_inner_x = (cable_z_max - R) + math.sqrt(R**2 - (R - cable_channel_x_depth)**2)
     horiz_cavity = (
         cq.Workplane(xz_plane_y_up)
-        .workplane(offset=CABLE_Y_CENTER - CABLE_Y_HALF_H)
-        .moveTo(bag_x, -(REED_Z_CENTER - REED_Z_HALF_W))                    # (-X, -Z) corner
-        .lineTo(bag_x + s * CABLE_X_DEPTH, -(REED_Z_CENTER - REED_Z_HALF_W))  # +X face start
-        .lineTo(bag_x + s * CABLE_X_DEPTH, -(CABLE_Z_MAX - R))              # +X face to arc tangent
+        .workplane(offset=cable_y_center - cable_y_half_h)
+        .moveTo(bag_x, -(reed_z_center - reed_z_half_w))                    # (-X, -Z) corner
+        .lineTo(bag_x + s * cable_channel_x_depth, -(reed_z_center - reed_z_half_w))  # +X face start
+        .lineTo(bag_x + s * cable_channel_x_depth, -(cable_z_max - R))              # +X face to arc tangent
         .radiusArc(
             (bag_x, -cavity_arc_z_at_inner_x),
             s * R,
         )                                                                     # arc to -X face crossing
         .close()                                                              # -X face back to start
-        .extrude(2 * CABLE_Y_HALF_H)
+        .extrude(2 * cable_y_half_h)
     )
 
     # Sloped ceiling for printability — straight section only (z ≤
-    # CABLE_Z_MAX - R = 64, the start of the +Z corner arc). Both the
+    # cable_z_max - R = 64, the start of the +Z corner arc). Both the
     # envelope and the cavity get a triangular wedge added on top so
-    # the ceiling rises 1:1 (45°) over CABLE_X_DEPTH (= 5 mm) from the
-    # channel-outer face (x = bag_x + s × CABLE_X_DEPTH = ±121.5) to
+    # the ceiling rises 1:1 (45°) over cable_channel_x_depth (= 5 mm) from the
+    # channel-outer face (x = bag_x + s × cable_channel_x_depth = ±121.5) to
     # the bag-pocket-wall side (x = bag_x = ±116.5):
     #   envelope ceiling: y = 12 → 17  (envelope top + 5 mm rise)
     #   cavity   ceiling: y = 10 → 15  (cavity top + 5 mm rise)
@@ -1043,18 +1038,18 @@ def build_reed_channels(side):
     # internal support needed. The +Z corner arc area (z > 64) keeps
     # its current flat ceiling — leaves a 5 mm step at z = 64 to be
     # addressed in a later iteration.
-    slope_z_min_env = REED_Z_CENTER - REED_Z_HALF_W - W                                 # -51, envelope -Z
-    slope_z_min_cav = REED_Z_CENTER - REED_Z_HALF_W                                      # -49, cavity -Z
-    slope_z_max     = CABLE_Z_MAX - R                                                    # 64, +Z arc start
-    env_wedge_y_low  = CABLE_Y_CENTER + CABLE_Y_HALF_H + W                               # 12 — top of original envelope
-    env_wedge_y_high = env_wedge_y_low + CABLE_X_DEPTH                                   # 17 — top of slope at bag_x
-    cav_wedge_y_low  = CABLE_Y_CENTER + CABLE_Y_HALF_H                                   # 10 — top of original cavity
-    cav_wedge_y_high = cav_wedge_y_low + CABLE_X_DEPTH                                   # 15 — top of slope at bag_x
+    slope_z_min_env = reed_z_center - reed_z_half_w - W                                 # -51, envelope -Z
+    slope_z_min_cav = reed_z_center - reed_z_half_w                                      # -49, cavity -Z
+    slope_z_max     = cable_z_max - R                                                    # 64, +Z arc start
+    env_wedge_y_low  = cable_y_center + cable_y_half_h + W                               # 12 — top of original envelope
+    env_wedge_y_high = env_wedge_y_low + cable_channel_x_depth                                   # 17 — top of slope at bag_x
+    cav_wedge_y_low  = cable_y_center + cable_y_half_h                                   # 10 — top of original cavity
+    cav_wedge_y_high = cav_wedge_y_low + cable_channel_x_depth                                   # 15 — top of slope at bag_x
     env_wedge = (
         cq.Workplane(xy_plane_z_up)
         .workplane(offset=slope_z_min_env)
         .moveTo(bag_x, env_wedge_y_low)
-        .lineTo(bag_x + s * CABLE_X_DEPTH, env_wedge_y_low)                              # bottom of wedge along +X
+        .lineTo(bag_x + s * cable_channel_x_depth, env_wedge_y_low)                              # bottom of wedge along +X
         .lineTo(bag_x, env_wedge_y_high)                                                 # hypotenuse: sloped envelope top
         .close()                                                                          # -X side: bag-pocket-wall edge
         .extrude(slope_z_max - slope_z_min_env)
@@ -1063,7 +1058,7 @@ def build_reed_channels(side):
         cq.Workplane(xy_plane_z_up)
         .workplane(offset=slope_z_min_cav)
         .moveTo(bag_x, cav_wedge_y_low)
-        .lineTo(bag_x + s * CABLE_X_DEPTH, cav_wedge_y_low)
+        .lineTo(bag_x + s * cable_channel_x_depth, cav_wedge_y_low)
         .lineTo(bag_x, cav_wedge_y_high)
         .close()
         .extrude(slope_z_max - slope_z_min_cav)
@@ -1095,8 +1090,8 @@ def build_reed_channels(side):
     )                                                                                     # ±108
     z_outer = bag_pocket_width / 2                                                        # 72.5
     z_corner_start = z_outer - W - bag_pocket_corner_inner_radius                         # 64
-    y_min_env = CABLE_Y_CENTER - CABLE_Y_HALF_H - W                                       # 0
-    y_max_env = CABLE_Y_CENTER + CABLE_Y_HALF_H + W                                       # 12
+    y_min_env = cable_y_center - cable_y_half_h - W                                       # 0
+    y_max_env = cable_y_center + cable_y_half_h + W                                       # 12
     corner_wedge = (
         cq.Workplane(xz_plane_y_up)
         .workplane(offset=y_min_env)
@@ -1134,15 +1129,6 @@ def cut_reed_channel_openings(foam_shell):
       the bag-pocket interior is on the OTHER side (x ≤ 116.5), so
       foam can't reach it.
     """
-    # Module-scope constants exposed under local short names — single
-    # source of truth: the module-scope assignments above. Must match
-    # build_reed_channels (now linked through the module so they cannot
-    # drift).
-    REED_Z_CENTER  = reed_z_center
-    REED_Z_HALF_W  = reed_z_half_w
-    CABLE_Y_HALF_H = cable_y_half_h
-    CABLE_Y_CENTER = cable_y_center
-    CABLE_Z_MAX    = cable_z_max
     W = wall_and_floor_thickness
 
     def make_box(x_a, x_b, y_min, y_max, z_a, z_b):
@@ -1176,8 +1162,8 @@ def cut_reed_channel_openings(foam_shell):
         # wall span, so the simple x = [±114.5, ±116.5] cut is enough.
         vert_opening = make_box(
             wall_x_inner, wall_x_outer,
-            CABLE_Y_CENTER - CABLE_Y_HALF_H, tank_copper_shell_height,
-            REED_Z_CENTER - REED_Z_HALF_W, REED_Z_CENTER + REED_Z_HALF_W,
+            cable_y_center - cable_y_half_h, tank_copper_shell_height,
+            reed_z_center - reed_z_half_w, reed_z_center + reed_z_half_w,
         )
         foam_shell = foam_shell.cut(vert_opening)
 
@@ -1194,8 +1180,8 @@ def cut_reed_channel_openings(foam_shell):
         # bag-pocket wall above z = 70.5 stays intact.
         horiz_opening = make_box(
             corner_x_inner, wall_x_outer,
-            CABLE_Y_CENTER - CABLE_Y_HALF_H, CABLE_Y_CENTER + CABLE_Y_HALF_H,
-            REED_Z_CENTER - REED_Z_HALF_W, CABLE_Z_MAX,
+            cable_y_center - cable_y_half_h, cable_y_center + cable_y_half_h,
+            reed_z_center - reed_z_half_w, cable_z_max,
         )
         foam_shell = foam_shell.cut(horiz_opening)
 
@@ -1209,15 +1195,15 @@ def cut_reed_channel_openings(foam_shell):
         # the bag-pocket wall to its inner face (x = ±114.5, y = 17).
         # This cut removes the trapezoidal slice of bag-pocket wall
         # material under the slope's extension through the wall —
-        # only in the straight section (z ≤ CABLE_Z_MAX -
+        # only in the straight section (z ≤ cable_z_max -
         # bag_pocket_corner_inner_radius = 64); the +Z corner area
         # (z > 64) keeps its current flat ceiling at y = 10 and the
         # bag-pocket wall above stays intact.
-        slope_y_low      = CABLE_Y_CENTER + CABLE_Y_HALF_H                 # 10
+        slope_y_low      = cable_y_center + cable_y_half_h                 # 10
         slope_y_at_outer = slope_y_low + cable_channel_x_depth             # 15
         slope_y_at_inner = slope_y_at_outer + W                            # 17
-        slope_z_min      = REED_Z_CENTER - REED_Z_HALF_W                   # -49
-        slope_z_max      = CABLE_Z_MAX - bag_pocket_corner_inner_radius    # 64
+        slope_z_min      = reed_z_center - reed_z_half_w                   # -49
+        slope_z_max      = cable_z_max - bag_pocket_corner_inner_radius    # 64
         slope_wall_cut = (
             cq.Workplane(xy_plane_z_up)
             .workplane(offset=slope_z_min)
