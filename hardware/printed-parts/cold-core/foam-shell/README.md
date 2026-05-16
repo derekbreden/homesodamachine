@@ -55,7 +55,7 @@ buffer 8 + 1 mm wall-thickness compensation). Total height **213.4 mm**
 (tank height 152.4 + 30 mm above + 30 mm below for the 90° elbow space
 + 1 mm wall-thickness compensation).
 
-The cylindrical wall is **cut at z = ±60** (`tank_copper_shell_open_z`),
+The cylindrical wall is **cut at z = ±60** (`pocket_centerward_arc_transition_z`),
 so the ±Z apex bands of the wall are removed entirely. The cylinder is
 open at +Z and at −Z over its full Y height, leaving the coil zone
 directly accessible from those two sides.
@@ -127,8 +127,8 @@ wall's curve, but blends smoothly into it.
 
 The support-shell ±Z walls and the bag-pocket-shell walls share a
 single 2-D cross-section in the code; both are produced by
-`build_tank_and_bag_pocket_walls` (along with the tank cylinder and
-the bridging walls), so the wall transitions at z = ±70.5 are exact
+`build_reservoir_pocket_walls` (along with the centerward arcs and
+the transition arcs), so the wall transitions at z = ±70.5 are exact
 by construction rather than by OCCT face-merging. The support
 shell's floor is omitted entirely — it would be 100% buried inside
 the outer_shell's floor, which already spans the full assembly
@@ -159,7 +159,7 @@ plus the 0.5 mm `reservoir_clearance`, so the reservoir slides into
 a snugly-mated pocket with uniform clearance around the corner.
 
 The −X bag pocket is built as a mirror of the +X side from the same
-2-D cross-section in `build_tank_and_bag_pocket_walls`.
+2-D cross-section in `build_reservoir_pocket_walls`.
 
 ### foam_cap and foam_cap_lid
 
@@ -280,9 +280,9 @@ The +Z outer_shell wall carries three pass-throughs along a single
 **Y-elongated slot** at x = 0: the two copper evaporator lines (low
 and high) and the water inlet. The slot is ⌀6.5 mm wide in X
 (rounded ends along Y), runs from y = 42 up to
-y = `tank_copper_shell_height + 10` (10 mm of open extension past
+y = `foam_shell_outer_height + 10` (10 mm of open extension past
 the wall top), and is cut by `cut_slot_for_copper_and_water_inlet`
-in `_foam_shell_geometry.py`. The 10 mm top extension means no sliver
+in `_port_cuts.py`. The 10 mm top extension means no sliver
 of wall material remains above the slot — the three copper plugs
 can slide down into the slot from above during assembly. With the
 cylinder wall now open at ±Z and the support-shell ±Z walls gapped
@@ -304,9 +304,9 @@ above these — i.e. 47.0 / 166.4 / 198.4 at the current 2 mm wall
 (The highest copper drifted by −1 mm relative to the floor top when
 `wall_and_floor_thickness` was bumped from 1 mm to 2 mm in commit
 `8a9ffc0`; the formula
-`tank_copper_shell_height − hole_shift_from_edge − wall_and_floor_thickness − above_tank_elbows_height`
+`foam_shell_outer_height − hole_shift_from_edge − wall_and_floor_thickness − above_tank_elbows_height`
 has a `−wall_and_floor_thickness` term that the `+wall_thickness_compensation`
-inside `tank_copper_shell_height` only half-cancels once you reframe
+inside `foam_shell_outer_height` only half-cancels once you reframe
 against the floor top. The drift was accepted.)
 
 Three printed PETG **copper plugs** slide down into the slot from
@@ -429,7 +429,7 @@ This drives several dimension choices:
   the circle's wall centerline at the four cardinal points (their walls
   coincide there).
 - The **bag_pocket_shell** is offset by
-  `tank_copper_shell_radius + depth/2 - wall_thickness`, so its inner
+  `pocket_centerward_arc_outer_radius + depth/2 - wall_thickness`, so its inner
   wall coincides with the bag_pocket_support_shell's +X wall.
 - The **tank_support_ring**'s outer face coincides with the
   tank_copper_shell's inner wall.
@@ -527,7 +527,7 @@ at 0.4 mm layer height) at ~30 % fan speed (S77 / 255).
 
 ## Regression baseline
 
-Source-level refactors of `_foam_shell_geometry.build_full_shell()`
+Source-level refactors of `_foam_shell.build_full_shell()`
 should preserve the geometry of `foam-shell.step` exactly.  These four
 scalars are the canonical regression sieve — any change to them
 (beyond OCCT numerical noise at the ~1e-6 mm³ level) is a geometry

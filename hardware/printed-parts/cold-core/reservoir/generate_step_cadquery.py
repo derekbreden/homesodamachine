@@ -15,7 +15,7 @@ from _cold_core_interface import (
     bag_pocket_z_inner_max as _shell_bag_pocket_z_inner_max,
     bag_pocket_floor_top_y as _shell_bag_pocket_floor_top_y,
     bag_pocket_walls_top_y as _shell_bag_pocket_walls_top_y,
-    tank_copper_shell_radius as _shell_tank_copper_shell_radius,
+    pocket_centerward_arc_outer_radius as _shell_pocket_centerward_arc_outer_radius,
     reservoir_clearance as _shell_reservoir_clearance,
     reservoir_floor_thickness as _shell_reservoir_floor_thickness,
     bulkhead_pocket_diameter as _shell_bulkhead_pocket_diameter,
@@ -56,30 +56,31 @@ def _wp_at(x, y, z):
 # -------------------------------------------------------
 #
 # These constants describe the bag-pocket cavity into which this
-# reservoir fits. They are imported from ../_foam_shell_geometry.py (the
-# shared foam-shell / foam-cap geometry module) so the reservoir cannot
-# drift out of sync with wall_and_floor_thickness or any other shell
-# input. Previously the values were hardcoded as a "stable interface,"
-# which silently fell out of date when the shell walls were bumped from
-# 1 mm to 2 mm — the reservoir's centerward face then overlapped the
-# tank_copper_shell outer surface by 0.5 mm. Re-importing whenever the
-# generator runs makes that class of bug impossible.
+# reservoir fits. They are imported from ../_cold_core_interface.py so
+# the reservoir cannot drift out of sync with wall_and_floor_thickness
+# or any other shell input. Previously the values were hardcoded as a
+# "stable interface," which silently fell out of date when the shell
+# walls were bumped from 1 mm to 2 mm — the reservoir's centerward
+# face then overlapped the pocket's centerward arc cavity face by
+# 0.5 mm. Re-importing whenever the generator runs makes that class
+# of bug impossible.
 #
 # Bag-pocket inner faces (the surfaces the reservoir must clear),
 # at the current wall_and_floor_thickness = 2 mm:
-#   - Far (away from tank): x = ±105.5 mm (sign flips with reservoir side)
+#   - Far (away from cold-core axis): x = ±105.5 mm (sign flips with reservoir side)
 #   - +Z / −Z side: z = ±70.5 mm
 #   - Floor top: y = 2.0 mm
 #   - Top of bag-pocket walls: y = 213.4 mm
-#   - Centerward (toward tank): cylindrical surface, radius 72.5 mm,
-#     vertical axis on +Y through origin — this is the tank_copper_shell
-#     outer surface, which the reservoir's centerward face follows.
+#   - Centerward (toward cold-core axis): cylindrical surface of
+#     radius 72.5 mm centered on the cold-core axis — this is the
+#     pocket centerward wall's cavity-side face, which the reservoir's
+#     centerward face follows.
 #
 bag_pocket_far_inner_x = _shell_bag_pocket_far_inner_x
 bag_pocket_z_inner_max = _shell_bag_pocket_z_inner_max
 bag_pocket_floor_top_y = _shell_bag_pocket_floor_top_y
 bag_pocket_walls_top_y = _shell_bag_pocket_walls_top_y
-tank_copper_shell_outer_radius = _shell_tank_copper_shell_radius
+pocket_centerward_arc_outer_radius = _shell_pocket_centerward_arc_outer_radius
 #
 # -------------------------------------------------------
 
@@ -589,7 +590,7 @@ _cyl_extra_below_bottom = 5.0                                          # extra c
 # Outer envelope (body and cap share this footprint):
 _outer_far_x_abs = bag_pocket_far_inner_x - reservoir_clearance        # 104
 _outer_z_max = bag_pocket_z_inner_max - reservoir_clearance            # 70
-_outer_centerward_radius = tank_copper_shell_outer_radius + reservoir_clearance  # 72
+_outer_centerward_radius = pocket_centerward_arc_outer_radius + reservoir_clearance  # 72
 #
 # Inset equals the larger boss radius so the boss outer edge just
 # reaches the outer face at every position (no boss protrusion past
@@ -752,7 +753,7 @@ def build_reservoir_body(side=1):
     outer_z_max = bag_pocket_z_inner_max - reservoir_clearance
     outer_floor_bottom_y = bag_pocket_floor_top_y + reservoir_clearance
     outer_top_y = bag_pocket_walls_top_y - reservoir_clearance - cap_stack_above_body
-    outer_centerward_radius = tank_copper_shell_outer_radius + reservoir_clearance
+    outer_centerward_radius = pocket_centerward_arc_outer_radius + reservoir_clearance
     outer_height = outer_top_y - outer_floor_bottom_y
 
     # Inner cavity dimensions. No ceiling — cavity extends all the way
@@ -1335,7 +1336,7 @@ def build_reservoir_cap(side=1):
     # Same outer footprint as the reservoir body.
     outer_far_x_abs = bag_pocket_far_inner_x - reservoir_clearance
     outer_z_max = bag_pocket_z_inner_max - reservoir_clearance
-    outer_centerward_radius = tank_copper_shell_outer_radius + reservoir_clearance
+    outer_centerward_radius = pocket_centerward_arc_outer_radius + reservoir_clearance
 
     # Perimeter wall inner footprint (offset inward by cap_wall_width).
     inner_far_x_abs = outer_far_x_abs - cap_wall_width
@@ -1580,7 +1581,7 @@ def build_reservoir_gasket(side=1):
     """
     outer_far_x_abs = bag_pocket_far_inner_x - reservoir_clearance
     outer_z_max = bag_pocket_z_inner_max - reservoir_clearance
-    outer_centerward_radius = tank_copper_shell_outer_radius + reservoir_clearance
+    outer_centerward_radius = pocket_centerward_arc_outer_radius + reservoir_clearance
 
     inner_far_x_abs = outer_far_x_abs - gasket_strip_width
     inner_z_max = outer_z_max - gasket_strip_width
