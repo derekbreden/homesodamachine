@@ -86,7 +86,9 @@ A hydro-tested + passivated carbonator vessel (per [`pressure-vessel.md`](pressu
 
 Bond the coil to the vessel OD with 3M 425 aluminum foil tape applied as a continuous skin between vessel and coil. The tape spans the tank-to-coil thermal interface; this replaces an earlier "thermal compound" plan that didn't suit the macro-scale gap geometry without clamping pressure.
 
-Procedure-level detail (mandrel, starting tack, tension control, end terminations) is open — see "Open items". [`../handwork.md`](../handwork.md) "Bend copper around the pressure vessel" is the summary-level dev-phase entry for this step.
+Wind around the printed [coil-mandrel](../printed-parts/cold-core/coil-mandrel/generate_step_cadquery.py) — hollow PETG cylinder with a shallow 1 mm helical guide groove, mandrel OD 123 mm vs. tank OD 127 mm so the as-wound coil inner radius is 3 mm under the tank radius and tightens onto the vessel after slip-off. Wind length 120.4 mm and 9.687 wraps (pitch 12.43 mm) are set to align the coil's inlet/outlet ends with the foam-shell copper plugs at Y=46 and Y=166.4, so the exit bends are purely radial with no vertical jog. Pull the wound coil off the mandrel and slip it onto the foil-taped vessel; coil springback (1–3 mm radial) leaves a net interference fit.
+
+[`../handwork.md`](../handwork.md) "Bend copper around the pressure vessel" is the summary-level dev-phase entry for this step.
 
 ### 5. Braze in the new filter-drier
 
@@ -146,6 +148,6 @@ The wrapped vessel + plumbed compressor + condenser assembly is the input to [`c
 
 Procedure-level gaps that need answers before unit 1 ships:
 
-1. **Coil winding technique for unit 1.** [`../handwork.md`](../handwork.md) "Bend copper around the pressure vessel" is a one-paragraph summary. Bender + straightener tooling is ACQUIRED, but the hands-on questions — mandrel/no-mandrel, how to start and end the helical wrap cleanly, tension control during the wind — are open.
+1. ~~**Coil winding technique for unit 1.**~~ Resolved by the printed [coil-mandrel](../printed-parts/cold-core/coil-mandrel/generate_step_cadquery.py): hollow PETG cylinder with a shallow helical guide groove, sized 3 mm undersize vs. the tank so the coil clamps after slip-off, with wind length and wrap count aligned to the foam-shell plug positions. Working well by hand.
 2. **Donor compressor charge mass.** Read from the donor nameplate per [`../harvested/ice-maker/README.md`](../harvested/ice-maker/README.md) "Open items". Until that's in hand, the recharge mass target is a placeholder.
 3. **Failure handling beyond "redo the sequence."** Decision tree for hard-to-find leaks, charge loss between vacuum check and run-up.
