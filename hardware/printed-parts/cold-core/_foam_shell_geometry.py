@@ -935,11 +935,45 @@ def build_reed_channels(side):
         CABLE_Y_CENTER - CABLE_Y_HALF_H - W, CABLE_Y_CENTER + CABLE_Y_HALF_H + W,
         REED_Z_CENTER - REED_Z_HALF_W - W, CABLE_Z_MAX + W,
     )
+
+    horiz_cavity_fillet_radius = bag_pocket_corner_inner_radius
+    horiz_cavity_fillet_center_x = bag_x - s * horiz_cavity_fillet_radius + s * CABLE_X_DEPTH + s * W
+    horiz_cavity_fillet_tangent_z = CABLE_Z_MAX - horiz_cavity_fillet_radius + W
+    cutter_for_cut = (
+        cq.Workplane(xz_plane_y_up)
+        .workplane(offset=CABLE_Y_CENTER - CABLE_Y_HALF_H - W)
+        .moveTo(horiz_cavity_fillet_center_x, -horiz_cavity_fillet_tangent_z)
+        .circle(horiz_cavity_fillet_radius)
+        .extrude(2 * (W + CABLE_Y_HALF_H))
+    )
+    cutter_before_cut = make_box(
+        bag_x, bag_x + s * (CABLE_X_DEPTH + W),
+        CABLE_Y_CENTER - CABLE_Y_HALF_H - W, CABLE_Y_CENTER + CABLE_Y_HALF_H + W,
+        CABLE_Z_MAX - horiz_cavity_fillet_radius + W, CABLE_Z_MAX + W,
+    )
+    cutter = cutter_before_cut.cut(cutter_for_cut)
+    horiz_envelope = horiz_envelope.cut(cutter)
+
     horiz_cavity = make_box(
         bag_x, bag_x + s * CABLE_X_DEPTH,
         CABLE_Y_CENTER - CABLE_Y_HALF_H, CABLE_Y_CENTER + CABLE_Y_HALF_H,
         REED_Z_CENTER - REED_Z_HALF_W, CABLE_Z_MAX,
     )
+    cutter_for_cut = (
+        cq.Workplane(xz_plane_y_up)
+        .workplane(offset=CABLE_Y_CENTER - CABLE_Y_HALF_H)
+        .moveTo(horiz_cavity_fillet_center_x - s * W, -horiz_cavity_fillet_tangent_z - s * W)
+        .circle(horiz_cavity_fillet_radius)
+        # .extrude(2 * CABLE_Y_HALF_H)
+        .extrude(300)
+    )
+    cutter_before_cut = make_box(
+        bag_x, bag_x + s * (CABLE_X_DEPTH),
+        CABLE_Y_CENTER - CABLE_Y_HALF_H, CABLE_Y_CENTER + CABLE_Y_HALF_H,
+        CABLE_Z_MAX - horiz_cavity_fillet_radius, CABLE_Z_MAX,
+    )
+    cutter = cutter_before_cut.cut(cutter_for_cut)
+    horiz_cavity = horiz_cavity.cut(cutter)
 
     # Corner wedge — fills the foam-zone gap between the bag-pocket
     # far ±X wall's +Z corner outer arc (R = 8.5, center (±108, ±64),
