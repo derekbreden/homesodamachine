@@ -79,7 +79,7 @@ sys.path.insert(0, str(next(p for p in _here.parents if p.name == "hardware")))
 sys.path.insert(0, str(_here.parent))
 
 from _cadq_export import export_step
-from _foam_shell_geometry import (
+from _cold_core_interface import (
     xz_plane_y_up,
     xy_plane_z_up,
     wall_and_floor_thickness,

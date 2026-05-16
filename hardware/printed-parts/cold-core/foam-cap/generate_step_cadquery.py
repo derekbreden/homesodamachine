@@ -15,10 +15,12 @@ sys.path.insert(0, str(next(p for p in _here.parents if p.name == "hardware")))
 sys.path.insert(0, str(_here.parent))
 
 from _cadq_export import export_step
-from _foam_shell_geometry import (
+from _foam_cap import (
     build_foam_cap,
     build_foam_cap_lid,
     build_foam_cap_gasket,
+)
+from _cold_core_interface import (
     build_a_y_axis_hole_punch,
     tank_copper_shell_radius,
     wall_and_floor_thickness,
