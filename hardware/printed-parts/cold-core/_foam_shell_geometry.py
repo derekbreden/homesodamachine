@@ -828,9 +828,10 @@ def cut_slot_for_copper_and_water_inlet(foam_shell):
     plug (y≈46) up past the wall's top edge so plugs can be slid down
     into the slot from above. Z-extruded 40 mm starting from z = R − 20
     (matching the existing hole_punch convention), enough to fully pierce
-    the +Z wall (outer face at z ≈ R + 18). With the cylinder wall now
-    open at ±Z and the bag_pocket_support_shell ±Z walls gapped at x=0,
-    the slot pierces only this one wall.
+    the +Z wall (outer face at z ≈ R + 18). With the tank cylinder
+    open at ±Z and the support ±Z walls gapped at x=0 (both folded
+    into `build_tank_and_bag_pocket_walls`), the slot pierces only
+    this one wall.
 
     `slot_y_top` is pushed `slot_diameter/2` past `tank_copper_shell_
     height` so the slot2D's rounded top tapers above the wall — the
@@ -873,6 +874,20 @@ cable_y_center = wall_and_floor_thickness + cable_y_half_h
 # by `build_reed_channels` (slope ceiling wedge) and
 # `cut_reed_channel_openings` (slope wall cut).
 cable_channel_x_depth = 5.0
+
+# Vertical reed channel position + half-width in Z, matching the
+# reservoir's STRUT_POSITION_Z (so the reeds sit opposite the float-
+# on-strut on the other side of the bag-pocket wall). Shared by
+# `build_reed_channels` (envelope + cavity construction) and
+# `cut_reed_channel_openings` (the matching wall cut on the bag-pocket
+# inner face) — declaring once at module scope so the two cannot drift.
+reed_z_center = -45.0
+reed_z_half_w = 4.0
+
+# +Z extent of the horizontal cable channel — reaches the +Z bag-pocket
+# inner face. Same source-of-truth note as reed_z_*: shared by both
+# build_reed_channels and cut_reed_channel_openings.
+cable_z_max = 70.5
 
 
 def build_reed_channels(side):
@@ -927,16 +942,16 @@ def build_reed_channels(side):
     s = side
     W = wall_and_floor_thickness
 
-    # Vertical reed channel
-    REED_Z_CENTER = -45.0
-    REED_Z_HALF_W = 4.0
-    REED_X_DEPTH = 6.0
-
-    # Horizontal cable channel
+    # Module-scope constants exposed under local short names for
+    # readability inside this function (single source of truth: the
+    # module-scope assignments above).
+    REED_Z_CENTER  = reed_z_center
+    REED_Z_HALF_W  = reed_z_half_w
+    REED_X_DEPTH   = 6.0
     CABLE_Y_HALF_H = cable_y_half_h
     CABLE_Y_CENTER = cable_y_center
-    CABLE_X_DEPTH = cable_channel_x_depth
-    CABLE_Z_MAX = 70.5
+    CABLE_X_DEPTH  = cable_channel_x_depth
+    CABLE_Z_MAX    = cable_z_max
 
     bag_x = s * bag_pocket_outermost_x  # outer face of bag-pocket far ±X wall
 
@@ -1016,18 +1031,18 @@ def build_reed_channels(side):
     )
 
     # Sloped ceiling for printability — straight section only (z ≤
-    # CABLE_Z_MAX - R = 64, the start of the +Z corner arc). The cavity
-    # ceiling rises 1:1 (45°) from y = CABLE_Y_CENTER + CABLE_Y_HALF_H
-    # = 10 at the channel-outer face (x = bag_x + s × CABLE_X_DEPTH =
-    # ±121.5) up to y = 15 at the bag-pocket-wall side (x = bag_x =
-    # ±116.5). Each layer of the ceiling extends 1 layer-thickness
-    # inward (toward the bag-pocket wall) over 1 layer-thickness rise
-    # — self-supporting in Y-up print, no internal support needed.
-    # Implemented as triangular wedges added to the envelope and the
-    # cavity in xy-plane cross-section, extruded along z over the
-    # straight section. The +Z corner arc area (z > 64) keeps its
-    # current flat ceiling at y = 10 — leaves a 5 mm step at z = 64
-    # to be addressed in a later iteration.
+    # CABLE_Z_MAX - R = 64, the start of the +Z corner arc). Both the
+    # envelope and the cavity get a triangular wedge added on top so
+    # the ceiling rises 1:1 (45°) over CABLE_X_DEPTH (= 5 mm) from the
+    # channel-outer face (x = bag_x + s × CABLE_X_DEPTH = ±121.5) to
+    # the bag-pocket-wall side (x = bag_x = ±116.5):
+    #   envelope ceiling: y = 12 → 17  (envelope top + 5 mm rise)
+    #   cavity   ceiling: y = 10 → 15  (cavity top + 5 mm rise)
+    # Each layer of the ceiling extends 1 layer-thickness inward over
+    # 1 layer-thickness rise — self-supporting in Y-up print, no
+    # internal support needed. The +Z corner arc area (z > 64) keeps
+    # its current flat ceiling — leaves a 5 mm step at z = 64 to be
+    # addressed in a later iteration.
     slope_z_min_env = REED_Z_CENTER - REED_Z_HALF_W - W                                 # -51, envelope -Z
     slope_z_min_cav = REED_Z_CENTER - REED_Z_HALF_W                                      # -49, cavity -Z
     slope_z_max     = CABLE_Z_MAX - R                                                    # 64, +Z arc start
@@ -1119,11 +1134,15 @@ def cut_reed_channel_openings(foam_shell):
       the bag-pocket interior is on the OTHER side (x ≤ 116.5), so
       foam can't reach it.
     """
-    REED_Z_CENTER = -45.0
-    REED_Z_HALF_W = 4.0
+    # Module-scope constants exposed under local short names — single
+    # source of truth: the module-scope assignments above. Must match
+    # build_reed_channels (now linked through the module so they cannot
+    # drift).
+    REED_Z_CENTER  = reed_z_center
+    REED_Z_HALF_W  = reed_z_half_w
     CABLE_Y_HALF_H = cable_y_half_h
     CABLE_Y_CENTER = cable_y_center
-    CABLE_Z_MAX = 70.5  # matches build_reed_channels; reaches the +Z bag-pocket inner face
+    CABLE_Z_MAX    = cable_z_max
     W = wall_and_floor_thickness
 
     def make_box(x_a, x_b, y_min, y_max, z_a, z_b):
