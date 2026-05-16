@@ -92,9 +92,6 @@ foam_cap_attachment_xz_positions = (
         z_sign * (outer_shell_z_length / 2 - screw_boss_size / 2))
        for z_sign in (1, -1)]
 )
-# TPU 90A perimeter-ring gasket: 5 mm wide (1 mm clamped between the
-# cap and shell wall edges, 4 mm extending inward over the cavity
-# opening for print stability).
 gasket_thickness   = 2.0
 gasket_strip_width = 5.0
 
@@ -188,15 +185,13 @@ def build_tank_and_bag_pocket_walls():
     R_bridging_inner = math.sqrt(d_bridging_inner ** 2 + half_chord ** 2)
 
     def outer_loop_midpoint(side, z_sign, theta):
-        """A point on the R=8 lobe-arc/bridging circle at angle theta
-        (radians) from the center (side·43.06, z_sign·65.25), returned
-        in workplane (local) coordinates."""
+        """Point on the lobe-arc / bridging circle at angle theta, in
+        workplane-local coordinates."""
         cx = side * lobe_cx_abs
         cz = z_sign * lobe_cz_abs
         return (cx + R_lobe * math.cos(theta), -(cz + R_lobe * math.sin(theta)))
 
     def cavity_loop_midpoint(side, z_sign, theta):
-        """Same, on the R=R_bridging_inner circle."""
         cx = side * lobe_cx_abs
         cz = z_sign * lobe_cz_abs
         return (cx + R_bridging_inner * math.cos(theta),
@@ -208,75 +203,49 @@ def build_tank_and_bag_pocket_walls():
         minus cavity-extrude rather than a single multi-loop sketch
         because CadQuery's pending-wire heuristic mis-classifies two
         non-nested outer wires in the same workplane as nested ones."""
-        # apex_angle: angle (in radians) on the bridging-arc circle
-        # pointing back at origin. On +X side the circle's center is at
-        # (+43.06, ±65.25), so the radius pointing toward origin (the
-        # arc apex) is at angle π. On −X side, mirrored to 0.
+        # apex_angle: bridging-arc circle's radius direction pointing
+        # toward origin (arc apex). +X side: π; −X side: 0.
         apex_angle = math.pi if side > 0 else 0.0
 
         outer_solid = (
             cq.Workplane(xz_plane_y_up)
-            # bag-pocket outer +X face start at +Z outer corner tangent
             .moveTo(side * outer_x_abs, -(inner_z_pos - R))
-            # outer +X face down to −Z outer corner tangent
             .lineTo(side * outer_x_abs, +(inner_z_pos - R))
-            # outer +X−Z corner arc
             .radiusArc((side * (inner_x_abs - R), +outer_z_pos), -side * R_pocket_outer)
-            # outer −Z face west to where the lobe arc breaks z=−72.5
             .lineTo(side * arc_outer_x_abs, +outer_z_pos)
-            # combined lobe arc + −Z bridging tank-facing arc on R=8,
-            # from (arc_outer_x, ±outer_z) all the way through the apex
-            # down to (cyl_open_x_inner, ±tank_copper_shell_open_z) —
-            # one continuous arc on the bridging-arc circle.
             .threePointArc(
                 outer_loop_midpoint(side, -1, apex_angle),
                 (side * cyl_open_x_inner, +tank_copper_shell_open_z),
             )
-            # cylinder R−t inner face around the ±X apex
             .threePointArc(
                 (side * R_cyl_inner, 0),
                 (side * cyl_open_x_inner, -tank_copper_shell_open_z),
             )
-            # combined +Z bridging tank-facing arc + +Z lobe arc on R=8
             .threePointArc(
                 outer_loop_midpoint(side, +1, apex_angle),
                 (side * arc_outer_x_abs, -outer_z_pos),
             )
-            # outer +Z face east to start of outer +X+Z corner arc
             .lineTo(side * (inner_x_abs - R), -outer_z_pos)
-            # outer +X+Z corner arc — closes the outer loop
             .radiusArc((side * outer_x_abs, -(inner_z_pos - R)), -side * R_pocket_outer)
             .close()
             .extrude(bag_pocket_height)
         )
         cavity_solid = (
             cq.Workplane(xz_plane_y_up)
-            # bag-pocket inner +Z face start at the bridging inner-face
-            # endpoint (= cyl_open_x_outer at z = ±inner_z_pos)
             .moveTo(side * cyl_open_x_outer, -inner_z_pos)
-            # inner +Z face east to start of inner +X+Z corner arc
             .lineTo(side * (inner_x_abs - R), -inner_z_pos)
-            # inner +X+Z corner arc
             .radiusArc((side * inner_x_abs, -(inner_z_pos - R)), -side * R)
-            # inner +X face south to start of inner +X−Z corner arc
             .lineTo(side * inner_x_abs, +(inner_z_pos - R))
-            # inner +X−Z corner arc
             .radiusArc((side * (inner_x_abs - R), +inner_z_pos), -side * R)
-            # inner −Z face west back to the bridging inner-face endpoint
             .lineTo(side * cyl_open_x_outer, +inner_z_pos)
-            # −Z bridging reservoir-facing inner arc (R=R_bridging_inner),
-            # back down to z = +tank_copper_shell_open_z
             .threePointArc(
                 cavity_loop_midpoint(side, -1, apex_angle),
                 (side * cyl_open_x_outer, +tank_copper_shell_open_z),
             )
-            # cylinder R outer face around the ±X apex
             .threePointArc(
                 (side * R_cyl_outer, 0),
                 (side * cyl_open_x_outer, -tank_copper_shell_open_z),
             )
-            # +Z bridging reservoir-facing inner arc back up to z = −inner_z_pos
-            # — closes the cavity loop
             .threePointArc(
                 cavity_loop_midpoint(side, +1, apex_angle),
                 (side * cyl_open_x_outer, -inner_z_pos),
