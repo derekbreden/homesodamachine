@@ -929,51 +929,57 @@ def build_reed_channels(side):
         REED_Z_CENTER - REED_Z_HALF_W, REED_Z_CENTER + REED_Z_HALF_W,
     )
 
-    # Horizontal cable channel envelope + cavity
-    horiz_envelope = make_box(
-        bag_x, bag_x + s * (CABLE_X_DEPTH + W),
-        CABLE_Y_CENTER - CABLE_Y_HALF_H - W, CABLE_Y_CENTER + CABLE_Y_HALF_H + W,
-        REED_Z_CENTER - REED_Z_HALF_W - W, CABLE_Z_MAX + W,
-    )
+    # Horizontal cable channel envelope + cavity. The (+X, +Z) corner
+    # of each — the corner opposite the bag pocket at the +Z end of
+    # the channel — is rounded with R = bag_pocket_corner_inner_radius.
+    # At this corner the cable bends from going +Z (along the channel)
+    # to going -X (out into the bag-pocket interior via the wall
+    # opening cut by `cut_reed_channel_openings`); the rounded corner
+    # gives the cable's outer fiber a smooth bend path along an arc
+    # parallel to the bag-pocket inner corner arc the channel joins.
+    #
+    # Built as polylines (cross-section in the xz plane, extruded in
+    # +Y across the channel y range) rather than `make_box(...).fillet()`
+    # because R is larger than CABLE_X_DEPTH — the cavity's +Z face is
+    # too narrow for a tangent fillet, so the arc is tangent only to
+    # the channel-outer face and meets the channel-inner face partway
+    # up along the -X side. The envelope's +Z face IS wide enough for
+    # a true tangent fillet (CABLE_X_DEPTH + W > R), so its arc is
+    # tangent to both faces.
+    R = bag_pocket_corner_inner_radius
 
-    horiz_cavity_fillet_radius = bag_pocket_corner_inner_radius
-    horiz_cavity_fillet_center_x = bag_x - s * horiz_cavity_fillet_radius + s * CABLE_X_DEPTH + s * W
-    horiz_cavity_fillet_tangent_z = CABLE_Z_MAX - horiz_cavity_fillet_radius + W
-    cutter_for_cut = (
+    horiz_envelope = (
         cq.Workplane(xz_plane_y_up)
         .workplane(offset=CABLE_Y_CENTER - CABLE_Y_HALF_H - W)
-        .moveTo(horiz_cavity_fillet_center_x, -horiz_cavity_fillet_tangent_z)
-        .circle(horiz_cavity_fillet_radius)
-        .extrude(2 * (W + CABLE_Y_HALF_H))
+        .moveTo(bag_x, -(REED_Z_CENTER - REED_Z_HALF_W - W))                # (-X, -Z) corner
+        .lineTo(bag_x + s * (CABLE_X_DEPTH + W), -(REED_Z_CENTER - REED_Z_HALF_W - W))  # +X face start
+        .lineTo(bag_x + s * (CABLE_X_DEPTH + W), -(CABLE_Z_MAX + W - R))    # +X face to arc tangent
+        .radiusArc(
+            (bag_x + s * (CABLE_X_DEPTH + W - R), -(CABLE_Z_MAX + W)),
+            s * R,
+        )                                                                     # quarter-circle to +Z tangent
+        .lineTo(bag_x, -(CABLE_Z_MAX + W))                                   # +Z face to (-X, +Z) corner
+        .close()                                                              # -X face back to start
+        .extrude(2 * (CABLE_Y_HALF_H + W))
     )
-    cutter_before_cut = make_box(
-        bag_x, bag_x + s * (CABLE_X_DEPTH + W),
-        CABLE_Y_CENTER - CABLE_Y_HALF_H - W, CABLE_Y_CENTER + CABLE_Y_HALF_H + W,
-        CABLE_Z_MAX - horiz_cavity_fillet_radius + W, CABLE_Z_MAX + W,
-    )
-    cutter = cutter_before_cut.cut(cutter_for_cut)
-    horiz_envelope = horiz_envelope.cut(cutter)
 
-    horiz_cavity = make_box(
-        bag_x, bag_x + s * CABLE_X_DEPTH,
-        CABLE_Y_CENTER - CABLE_Y_HALF_H, CABLE_Y_CENTER + CABLE_Y_HALF_H,
-        REED_Z_CENTER - REED_Z_HALF_W, CABLE_Z_MAX,
-    )
-    cutter_for_cut = (
+    # Where the cavity arc crosses the channel-inner face (x = bag_x):
+    # solve (R - CABLE_X_DEPTH)² + (z - center_z)² = R² for z, where
+    # center_z = CABLE_Z_MAX - R.
+    cavity_arc_z_at_inner_x = (CABLE_Z_MAX - R) + math.sqrt(R**2 - (R - CABLE_X_DEPTH)**2)
+    horiz_cavity = (
         cq.Workplane(xz_plane_y_up)
         .workplane(offset=CABLE_Y_CENTER - CABLE_Y_HALF_H)
-        .moveTo(horiz_cavity_fillet_center_x - s * W, -horiz_cavity_fillet_tangent_z - s * W)
-        .circle(horiz_cavity_fillet_radius)
-        # .extrude(2 * CABLE_Y_HALF_H)
-        .extrude(300)
+        .moveTo(bag_x, -(REED_Z_CENTER - REED_Z_HALF_W))                    # (-X, -Z) corner
+        .lineTo(bag_x + s * CABLE_X_DEPTH, -(REED_Z_CENTER - REED_Z_HALF_W))  # +X face start
+        .lineTo(bag_x + s * CABLE_X_DEPTH, -(CABLE_Z_MAX - R))              # +X face to arc tangent
+        .radiusArc(
+            (bag_x, -cavity_arc_z_at_inner_x),
+            s * R,
+        )                                                                     # arc to -X face crossing
+        .close()                                                              # -X face back to start
+        .extrude(2 * CABLE_Y_HALF_H)
     )
-    cutter_before_cut = make_box(
-        bag_x, bag_x + s * (CABLE_X_DEPTH),
-        CABLE_Y_CENTER - CABLE_Y_HALF_H, CABLE_Y_CENTER + CABLE_Y_HALF_H,
-        CABLE_Z_MAX - horiz_cavity_fillet_radius, CABLE_Z_MAX,
-    )
-    cutter = cutter_before_cut.cut(cutter_for_cut)
-    horiz_cavity = horiz_cavity.cut(cutter)
 
     # Corner wedge — fills the foam-zone gap between the bag-pocket
     # far ±X wall's +Z corner outer arc (R = 8.5, center (±108, ±64),
