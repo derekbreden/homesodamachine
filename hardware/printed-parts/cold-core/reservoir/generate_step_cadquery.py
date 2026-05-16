@@ -297,11 +297,12 @@ vent_position_z = 32.5
 #   - The strut is anchored well INTO the wedge at the wet slope
 #     top. The wedge is fully fused into the body's PETG mass,
 #     giving a solid bond at the strut's bottom end.
-#   - The strut top is captured by a slip-fit REGISTER POCKET cut
-#     into the cap's base plate from below — 2 mm deep, 0.5 mm
-#     radial clearance (ø5 pocket around the ø4 strut). The pocket
-#     is a downward-opening blind hole, cap-local y = 5..7
-#     (cap_wall_height .. cap_wall_height + STRUT_REGISTER_DEPTH).
+#   - The strut top is captured by a slip-fit REGISTER hanging down
+#     from the cap's underside — a hollow boss unioned to the cap
+#     body, extending below the cap's base plate, with a downward-
+#     opening blind ø5 hole around the ø4 strut top (0.5 mm radial
+#     clearance). See build_reservoir_cap for the boss + pocket
+#     geometry.
 #   - During assembly the cap is lowered onto the body and the
 #     strut tip slides into the register as the cap seats on the
 #     gasket. The strut is doubly anchored: floor-bonded at the
@@ -415,13 +416,13 @@ bulkhead_panel_hole_diameter = 17.0     # JG catalog spec for the 1/4" body fami
 # PI1208S we already own; the workflow is documented in
 # `tools/measure-from-drawings/README.md`.
 #
-bulkhead_wet_chamber_length = 22.2      # wet flange + collet body + release ring — adjusted from 24 to free 1.8 mm for the panel's growth in −Z direction (see panel_thickness below). The reduction comes entirely from the collet body section.
+bulkhead_wet_chamber_length = 22.2      # wet nut + collet body + release ring — adjusted from 24 to free 1.8 mm for the panel's growth in −Z direction (see panel_thickness below). The reduction comes entirely from the collet body section.
 bulkhead_wet_antechamber_length = 2.0   # gap on the bulkhead's wet face — must exist or syrup can't reach the port
 bulkhead_panel_thickness = 6.8          # was 5 mm. Grown by 1.8 mm to fit 1.4 mm-deep TPU seal counterbores on BOTH faces while preserving the 4 mm minimum wall thickness in the panel core (between the two counterbores). Growth is in the −Z direction: panel's +Z face stays at z=panel_z_max, panel's −Z face moves to z=panel_z_max − 6.8.
-bulkhead_dry_chamber_length = 17.0      # locknut + dry collet
-bulkhead_pocket_length = (
-    bulkhead_wet_chamber_length + bulkhead_panel_thickness + bulkhead_dry_chamber_length
-)                                       # 46 (bulkhead body length); the 1.8 mm shuffled between wet_chamber and panel_thickness keeps total length unchanged
+# (bulkhead_dry_chamber_length, bulkhead_pocket_length, and the
+# downstream bulkhead_dry_end_z below were here when the dry side was
+# enclosed; the dry side is now wide-open from the panel +Z face so
+# none of those lengths/positions feed any geometry — removed.)
 #
 # Wet-side nut. The actual hardware sitting at z=panel_z_min on the
 # wet side is the *nut*, not an integral flange — the bulkhead is
@@ -469,11 +470,9 @@ bulkhead_release_ring_length = (
     bulkhead_wet_chamber_length - bulkhead_flange_length - bulkhead_collet_body_length
 )                                                              # 3 — the visible end with the push-to-release ring
 #
-# Wet-side chamber diameters per section (body OD + clearance):
-# (bulkhead_flange_chamber_diameter was here when the third wet
-# section was a simple ⌀23 cylinder. The pocket is now stepped
-# (hex + washer) — see the bulkhead_nut_* constants above for the
-# new geometry.)
+# Wet-side chamber diameters per section (body OD + clearance).  The
+# nut pocket diameter is set by the bulkhead_nut_* constants above
+# (stepped hex + washer), so it isn't repeated here.
 bulkhead_collet_chamber_diameter = 19.0                        # est. body OD ø17–18 + ~0.5 mm/side
 bulkhead_release_chamber_diameter = 11.0                       # caliper-measured release ring ø9.57 + ~0.7 mm/side
 #
@@ -484,7 +483,6 @@ bulkhead_collet_z_start = bulkhead_release_z_start + bulkhead_release_ring_lengt
 bulkhead_flange_z_start = bulkhead_collet_z_start + bulkhead_collet_body_length    # 46.5 — start of the nut pocket (named flange because the geometry was originally laid out for an integral flange here; it actually houses the nut)
 bulkhead_panel_z_min = bulkhead_flange_z_start + bulkhead_flange_length             # 52.2 (panel's −Z face; was 54 before the panel grew 1.8 mm in −Z to fit the seal counterbores)
 bulkhead_panel_z_max = bulkhead_panel_z_min + bulkhead_panel_thickness              # 59 (panel's +Z face; stays put — panel grows in −Z direction only)
-bulkhead_dry_end_z = bulkhead_wet_end_z + bulkhead_pocket_length                    # 76 (bulkhead's +Z tip)
 # The floor thickens uniformly across the cavity to a baseline whose
 # inner-top y sits just above the bulkhead pocket, so the bulkhead body
 # is fully encased in PETG along the panel section. The slope rises ON
@@ -935,10 +933,10 @@ def build_reservoir_body(side=1):
         body = body.cut(pocket)
 
     # ─────────────────────────────────────────────────────
-    # Thick sloped floor + bulkhead pocket + well + tube exit
+    # Thick sloped floor + bulkhead pocket
     # ─────────────────────────────────────────────────────
     # Floor inner surface is piecewise across z, with the split at the
-    # PANEL's −Z face (= where the wet flange seats and the actual
+    # PANEL's −Z face (= where the wet nut seats and the actual
     # wet/dry boundary lives). Both slopes share the same rate
     # (floor_slope_rise / wet-slope z-distance), tilted in opposite
     # directions so they meet at the split.
@@ -1238,7 +1236,7 @@ def build_reservoir_body(side=1):
 
     # Inner counterpart of the fillet above: round the analogous edge
     # on the cavity side of the panel, where the cavity-facing curve
-    # (radius inner_centerward_radius) meets the wet flange seat face
+    # (radius inner_centerward_radius) meets the wet nut seat face
     # (z = bulkhead_panel_z_min). Same Y orientation, just on the
     # opposite face of the panel — exposed to syrup instead of dry-side
     # air. This corner sits inside the cavity above the wet wedge top
@@ -1527,7 +1525,6 @@ def build_reservoir_cap(side=1):
         )
         cap = cap.cut(slot_cut)
 
-    # ─────────────────────────────────────────────────────
     # ─────────────────────────────────────────────────────
     # Level-sensing strut boss
     # ─────────────────────────────────────────────────────
