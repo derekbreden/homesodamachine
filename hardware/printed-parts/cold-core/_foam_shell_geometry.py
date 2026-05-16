@@ -887,10 +887,15 @@ def build_reed_channels(side):
       wall_and_floor_thickness + 2 × CABLE_Y_HALF_H] = [2, 10]) so
       the foam shell floor IS the channel's bottom wall — printable
       without an unsupported envelope floor mid-air at y = 12 like
-      earlier revisions. Cable runs at y = 6 (`cable_y_center`)
-      inside the channel; the +Z cable hole is also at y = 6 so the
-      cable goes straight from the channel exit through the bag-
-      pocket interior and out the hole — no bend. Cavity ends at z =
+      earlier revisions. The cavity ceiling in the straight section
+      (z ≤ CABLE_Z_MAX - R = 64) slopes 45° from y = 10 at the
+      channel-outer face up to y = 15 at the bag-pocket-wall side
+      (so the ceiling is also printable without bridging or internal
+      support). Cable runs at y = 6 (`cable_y_center`) inside the
+      channel; the +Z cable hole is also at y = 6 so the cable goes
+      straight from the channel exit through the bag-pocket interior
+      and out the hole — no y bend (still bends in xz to traverse
+      from the channel-outer face out the hole). Cavity ends at z =
       70.5 — the +Z
       bag-pocket wall's inner face — so the channel reaches all the
       way to the bag pocket's +Z edge. The wall the channel is built
@@ -996,6 +1001,47 @@ def build_reed_channels(side):
         .close()                                                              # -X face back to start
         .extrude(2 * CABLE_Y_HALF_H)
     )
+
+    # Sloped ceiling for printability — straight section only (z ≤
+    # CABLE_Z_MAX - R = 64, the start of the +Z corner arc). The cavity
+    # ceiling rises 1:1 (45°) from y = CABLE_Y_CENTER + CABLE_Y_HALF_H
+    # = 10 at the channel-outer face (x = bag_x + s × CABLE_X_DEPTH =
+    # ±121.5) up to y = 15 at the bag-pocket-wall side (x = bag_x =
+    # ±116.5). Each layer of the ceiling extends 1 layer-thickness
+    # inward (toward the bag-pocket wall) over 1 layer-thickness rise
+    # — self-supporting in Y-up print, no internal support needed.
+    # Implemented as triangular wedges added to the envelope and the
+    # cavity in xy-plane cross-section, extruded along z over the
+    # straight section. The +Z corner arc area (z > 64) keeps its
+    # current flat ceiling at y = 10 — leaves a 5 mm step at z = 64
+    # to be addressed in a later iteration.
+    slope_z_min_env = REED_Z_CENTER - REED_Z_HALF_W - W                                 # -51, envelope -Z
+    slope_z_min_cav = REED_Z_CENTER - REED_Z_HALF_W                                      # -49, cavity -Z
+    slope_z_max     = CABLE_Z_MAX - R                                                    # 64, +Z arc start
+    env_wedge_y_low  = CABLE_Y_CENTER + CABLE_Y_HALF_H + W                               # 12 — top of original envelope
+    env_wedge_y_high = env_wedge_y_low + CABLE_X_DEPTH                                   # 17 — top of slope at bag_x
+    cav_wedge_y_low  = CABLE_Y_CENTER + CABLE_Y_HALF_H                                   # 10 — top of original cavity
+    cav_wedge_y_high = cav_wedge_y_low + CABLE_X_DEPTH                                   # 15 — top of slope at bag_x
+    env_wedge = (
+        cq.Workplane(xy_plane_z_up)
+        .workplane(offset=slope_z_min_env)
+        .moveTo(bag_x, env_wedge_y_low)
+        .lineTo(bag_x + s * CABLE_X_DEPTH, env_wedge_y_low)                              # bottom of wedge along +X
+        .lineTo(bag_x, env_wedge_y_high)                                                 # hypotenuse: sloped envelope top
+        .close()                                                                          # -X side: bag-pocket-wall edge
+        .extrude(slope_z_max - slope_z_min_env)
+    )
+    cav_wedge = (
+        cq.Workplane(xy_plane_z_up)
+        .workplane(offset=slope_z_min_cav)
+        .moveTo(bag_x, cav_wedge_y_low)
+        .lineTo(bag_x + s * CABLE_X_DEPTH, cav_wedge_y_low)
+        .lineTo(bag_x, cav_wedge_y_high)
+        .close()
+        .extrude(slope_z_max - slope_z_min_cav)
+    )
+    horiz_envelope = horiz_envelope.union(env_wedge)
+    horiz_cavity = horiz_cavity.union(cav_wedge)
 
     # Corner wedge — fills the foam-zone gap between the bag-pocket
     # far ±X wall's +Z corner outer arc (R = 8.5, center (±108, ±64),
