@@ -46,7 +46,7 @@ An earlier racetrack-body alternative (304 SS body half-sheets + dished racetrac
 | Part | ASIN / Source | Qty | Unit $ | Line $ |
 |---|---|---:|---:|---:|
 | [Multiplex 19-0897 ASSE 1022 backflow preventer](https://www.midwestbev.com/products/asse-1022-backflow-preventer); midwestbev order MB11053 placed Apr 24, 2026, qty 4 @ $29.33 = $117.32 + $28.48 UPS Ground + $0.00 tax = $145.80 delivered ÷ 4 = $36.45/unit | midwestbev.com | 1 | $36.45 | $36.45 |
-| [Hooshing 3/8" flare × 1/4" FNPT adapter (2-pk)](https://www.amazon.com/dp/B0BNHVV6HT) | B0BNHVV6HT — Multiplex MFL output adapter; 1 of 2 per unit ($10.71/2) | 1 (of 2 pk) | $5.36 | $5.36 |
+| [brewhardware FFL38BARB38 swivel flare adapter, 3/8" FFL × 3/8" OD SS hose barb](https://www.brewhardware.com/product_p/ffl38barb38.htm) | FFL38BARB38 — single-piece adapter on the Multiplex 19-0897 MFL outlet; replaces the prior Hooshing 3/8 → 1/4 FNPT downsize for unrestricted 3/8" flow throughout the SeaFlo suction side; 304 SS wetted barb, chrome-plated brass swivel nut never touches water; brewhardware order #156209, May 16, 2026, qty 5 @ $4.99 = $24.95 + $14.47 USPS Priority + $0.00 tax = $39.42 delivered ÷ 5 = $7.88/each | 1 (of 5 pk) | $7.88 | $7.88 |
 | [Sealproof 1/4" ID × 3/8" OD clear PVC, 10 ft](https://www.amazon.com/dp/B07D9DK94V) (vent telltale) | B07D9DK94V | 1 | $8.46 | $8.46 |
 | [LOKMAN 304 SS worm-gear clamps, 10–16 mm (20-pk)](https://www.amazon.com/dp/B076Q7QVNM) | B076Q7QVNM — vent line clamps; 4 of 20 per unit | 4 (of 20 pk) | $1.80 | $1.80 |
 | [SEAFLO 22-Series 12V 1.3 GPM 100 psi diaphragm pump (3/8" hose-barb ports)](https://www.amazon.com/dp/B0166UBJX4) | B0166UBJX4 | 1 | $48.25 | $48.25 |
@@ -230,7 +230,7 @@ The T18 heat-set tip kit ([B0CS662NVK](https://www.amazon.com/dp/B0CS662NVK)) an
 |---|---:|
 | 1. Controllers + electronics | $166.43 |
 | 2. Carbonator vessel (plan A, 316L) | $240.69 |
-| 3. Water inlet | $134.36 |
+| 3. Water inlet | $136.88 |
 | 4. CO2 subsystem | $92.61 |
 | 5. Refrigeration | $175.84 |
 | 6. Cold core insulation | $52.38 |
@@ -241,7 +241,7 @@ The T18 heat-set tip kit ([B0CS662NVK](https://www.amazon.com/dp/B0CS662NVK)) an
 | 11. Wiring | $31.97 |
 | 12. Level sensing | $66.35 |
 | 13. Mechanical attach hardware + reservoir-cap vent filter | $17.55 |
-| **Total** | **$1,484.03** |
+| **Total** | **$1,486.55** |
 
 ## External / user-supplied (not shipped)
 
