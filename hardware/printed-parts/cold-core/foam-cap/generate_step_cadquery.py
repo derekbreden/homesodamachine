@@ -33,10 +33,17 @@ from _foam_shell_geometry import (
 lid_y_height = wall_and_floor_thickness
 
 
-# CO2 inlet Z position — mirrors `cut_co2_inlet` in
-# _foam_shell_geometry.py. Recomputed here from the same primary
-# constants so the top cap's CO2 pass-through stays aligned with the
-# foam shell's Y-axis CO2 inlet hole without hard-coding −68.75.
+# Z position of the CO2 elbow's vertical leg as it passes up through
+# the cap. Chosen midway between two reference midlines so the leg
+# sits comfortably in the foam zone between the cylinder wall and the
+# support-ring wall (rather than against either):
+#   _z_back_mid: midline of the cylinder wall band (R 70.5..72.5)
+#   _z_arch_mid: midline of the support-ring wall band (R 61.5..70.5)
+#   co2_inlet_z: average of the two = −68.75 mm
+# Derived parametrically from the cylinder and support-ring radii so
+# this Z drifts coherently if those bands move; the foam shell's CO2
+# doorway in cut_co2_inlet is independent of this Z (it's a ⌀16
+# doorway in the −Z support arch, not a Y-axis through-hole).
 _R_back_outer = tank_copper_shell_radius                                # 72.5
 _R_back_inner = tank_copper_shell_radius - wall_and_floor_thickness     # 70.5
 _R_arch_outer = _R_back_inner                                            # 70.5
@@ -101,26 +108,21 @@ def add_co2_boss(cap):
     """Union an annular boss around the CO2 through-hole on the cap
     floor's cavity side. The boss is a 2 mm-wall hollow tube spanning
     the full interior cavity height, sealing the through-hole off from
-    the foam pour while keeping the bore clear so CO2 line can pass.
-
-    `workplane(origin=...)` shifts only in the in-plane axes; to shift
-    along the workplane normal (Y here) we pass `offset=co2_boss_y_bottom`
-    — same pattern used by `build_a_y_axis_hole_punch`."""
-    outer = (
+    the foam pour while keeping the bore clear so CO2 line can pass."""
+    # Single-workplane annular extrude: two concentric circles on the
+    # same workplane create an annulus by CadQuery's even-odd fill
+    # rule. Workplane sits at y = co2_boss_y_bottom (offset along the
+    # +Y normal of xz_plane_y_up); circles are centered at the local
+    # in-plane location of the CO2 axis (local Y = world −Z, so the z
+    # coordinate is negated).
+    boss = (
         cq.Workplane(xz_plane_y_up)
-        .workplane(origin=(0, co2_boss_y_bottom, co2_inlet_z),
-                   offset=co2_boss_y_bottom)
+        .workplane(offset=co2_boss_y_bottom)
+        .moveTo(0, -co2_inlet_z)
         .circle(co2_boss_outer_radius)
-        .extrude(co2_boss_y_top - co2_boss_y_bottom)
-    )
-    inner = (
-        cq.Workplane(xz_plane_y_up)
-        .workplane(origin=(0, co2_boss_y_bottom, co2_inlet_z),
-                   offset=co2_boss_y_bottom)
         .circle(co2_boss_inner_radius)
         .extrude(co2_boss_y_top - co2_boss_y_bottom)
     )
-    boss = outer.cut(inner)
     return cap.union(boss)
 
 
