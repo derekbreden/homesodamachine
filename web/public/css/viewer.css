@@ -93,6 +93,27 @@
   z-index: 11;
   display: none;
 }
+.cad-wrapper > .ruler-toggle {
+  position: absolute;
+  bottom: calc(env(safe-area-inset-bottom, 0px) + 16px);
+  left: calc(env(safe-area-inset-left, 0px) + 16px);
+  z-index: 11;
+  padding: 6px 10px;
+  background: rgba(35, 35, 66, 0.85);
+  color: var(--text);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  font: 13px -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, sans-serif;
+  cursor: pointer;
+  -webkit-appearance: none;
+  appearance: none;
+}
+.cad-wrapper > .ruler-toggle:hover {
+  background: rgba(58, 58, 90, 0.9);
+}
+.cad-wrapper > .ruler-toggle.off {
+  opacity: 0.55;
+}
 
 /* Section headers in grid */
 .section-header {
