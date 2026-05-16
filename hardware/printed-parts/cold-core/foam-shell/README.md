@@ -37,129 +37,111 @@ The CadQuery script uses an explicit XZ plane with +Y normal
 - **Tank-port fittings** — 1/4" NPT 90° elbows on every port, turning the
   line laterally. ~30 mm vertical envelope per elbow above and below the
   tank. An additional **John Guest PP0308E 1/4" PTC 90° elbow** seats in
-  the Ø16 doorway of the −Z support arch, where the cap-top CO2 line
+  the Ø16 CO2 inlet bore at x = 0, z = −70.5, where the cap-top CO2 line
   transitions 90° into a horizontal run that connects to the vessel-port
   TAISHER elbow via a PP010822E 1/4" PTC × 1/4" NPT M adapter.
 
 ## Shells
 
-The geometry is built up from open-topped shells, each printed as a
-separate solid and unioned together. **All shells use 2 mm wall and floor
+The geometry is built up from open-topped sub-shells that union into
+one foam-shell solid. **All structural walls and floors use 2 mm
 thickness** (`wall_and_floor_thickness`).
 
-### tank_copper_shell
+### reservoir_pocket_walls
 
-Round cup that contains the pressure vessel and the copper coil zone
-wrapped around it. Outer radius **72.5 mm** (tank radius 63.5 + coil-zone
-buffer 8 + 1 mm wall-thickness compensation). Total height **213.4 mm**
-(tank height 152.4 + 30 mm above + 30 mm below for the 90° elbow space
-+ 1 mm wall-thickness compensation).
+Two reservoir pockets, one on each ±X side of the cold-core, mirrored
+across the YZ plane. Each pocket is a four-walled enclosure (open at
++Y; the outer_shell's floor closes the bottom; the foam_cap closes
+the top during foam pour):
 
-The cylindrical wall is **cut at z = ±60** (`pocket_centerward_arc_transition_z`),
-so the ±Z apex bands of the wall are removed entirely. The cylinder is
-open at +Z and at −Z over its full Y height, leaving the coil zone
-directly accessible from those two sides.
+- **Far ±X wall** — outboard face at x = ±107.5, cavity face at
+  x = ±105.5.
+- **+Z wall** — outboard face at z = +72.5, cavity face at z = +70.5.
+- **−Z wall** — outboard face at z = −72.5, cavity face at z = −70.5.
+- **Centerward wall** — the only curved wall. Its cavity-side face
+  rides on a cylinder of radius **72.5 mm**
+  (`pocket_centerward_arc_outer_radius`, centered on the cold-core
+  Y axis); its tank-side face is concentric one wall-thickness
+  inboard at R = 70.5. The 7 mm of radial clearance between the
+  tank's outer face (R = 63.5) and the wall's tank-side face fits
+  the 1/4" ACR copper coil + thermal tape + slack.
 
-Four **curved bridging walls** close each of the four open arc ends of
-the cylinder, connecting them to the inner faces of the
-`bag_pocket_support_shell`'s ±Z walls. Each bridging wall is convex
-toward the tank/coil cavity (origin side) and concave toward the
-adjacent bag pocket; its tank-facing face is an arc of radius **8 mm**
-(at 2 mm wall, scaled from a 6.5 mm base by wall-thickness
-compensation), and its reservoir-facing face is a concentric arc one
-wall-thickness inboard. The bridging walls' chord-end X range matches
-the cylinder's wall band exactly at z = ±60, so OCCT's boolean union
-merges cylinder and bridging walls into one continuous solid.
+The centerward wall is one continuous curved wall built from three
+arc segments along its length:
 
-Pour-foam access to the coil zone now travels **laterally** through the
-±Z apex openings rather than top-down through the now-removed diagonal
-channels: foam falls into the cylinder's open +Y top, into the corner
-pockets at ±Z, and bleeds into the coil zone through the full-height
-±Z openings.
+1. A **middle segment** — the cylindrical arc that wraps the tank+coil
+   envelope, running from z = −60 to z = +60 (the handoff Z is
+   `pocket_centerward_arc_transition_z`).
+2. Two **transition segments**, one at each ±Z end — short 8 mm-radius
+   arcs that swing the wall out from the middle arc to the pocket's
+   ±Z wall. Each transition arc is tangent to the middle arc and to
+   the ±Z outboard face; its tank-side face has radius 8 mm and its
+   cavity-side face is concentric with the same center but a slightly
+   smaller radius derived from geometry.
+
+The two **far-side corners** (where the far +X wall meets the ±Z
+walls) are filleted: **6.5 mm inner radius, 8.5 mm outer radius** (so
+the wall thickness stays uniform through the bend). The 6.5 mm inner
+radius matches the rigid PETG reservoir's 6 mm outer fillet plus the
+0.5 mm `reservoir_clearance`, so the reservoir slides into a snugly-
+mated pocket with uniform clearance around the corner.
+
+The pocket is **open along its centerward face into the foam zone
+inside the centerward arc envelope** — there's no wall at radius
+R < 70.5. During operation, that interior region holds the tank +
+copper coil, and the foam pour fills the gap between the coil and
+the wall's tank-side face.
+
+The four walls of each pocket are traced as a single connected
+outer-perimeter polyline (with the matching cavity-perimeter polyline
+cut out of it), so the four walls union into one solid by
+construction. The +X pocket is traced explicitly; the −X pocket is
+its mirror across YZ. Total assembly height = 213.4 mm
+(`foam_shell_outer_height`).
 
 ### tank_support_ring
 
-Annular ring sitting inside the lower portion of the tank-copper-shell,
+Annular ring sitting inside the lower portion of the assembly,
 holding the tank up by its outer rim. The ring's outer face is
-coincident with the tank-copper-shell's inner wall (at R = 70.5 at the
-current 2 mm wall thickness); its inner face sits 9 mm inboard at
-R = 61.5. The top face is a flat annular plateau where the tank's
-outer rim rests, 30 mm tall above the floor (y = 2 to y = 32).
+coincident with the centerward wall's tank-side face (at R = 70.5
+at the current 2 mm wall thickness); its inner face sits 9 mm
+inboard at R = 61.5. The top face is a flat annular plateau where
+the tank's outer rim rests, 30 mm tall above the floor (y = 2 to
+y = 32).
 
 Inboard of the ring's inner face (R < 61.5) is open volume — so the
-tank's bottom-plate fittings have unobstructed downward space, and pour
-foam fills around them.
+tank's bottom-plate fittings have unobstructed downward space, and
+pour foam fills around them.
 
 Four 30°-wide angular slots are cut through the ring at azimuths
-45°/135°/225°/315°, leaving four 60° support segments aligned with the
-cardinal axes. The slots let pour foam reach the under-tank floor
-regardless of which cavity it enters from — they're not tied to the
-old diagonal pour-channels (now removed), they just keep the
-under-tank-floor zone connected to the rest of the cavity.
+45°/135°/225°/315°, leaving four 60° support segments aligned with
+the cardinal axes. The slots let pour foam reach the under-tank
+floor regardless of which cavity it enters from.
 
-### bag_pocket_support_shell
+### outer_shell
 
-Channel-section structure framing the tank-copper-shell at +Z and −Z:
-**floor + +Z wall + −Z wall**, sized 145 × 145 mm in plan-view at the
-outer envelope so its wall centerlines are tangent to the
-tank-copper-shell's wall centerline at the four cardinal axis points.
-Same total height as the tank-copper-shell. The four corners of the
-floor extend beyond the round cup's footprint; everywhere the two
-floors overlap (inside the inscribed circle), they coincide and the
-union produces no change.
+Outer rectangular cup framing the whole foam-shell: floor + four
+perimeter walls + six 8 × 8 mm bosses. Total height matches the
+foam-shell outer height (213.4 mm = `foam_shell_outer_height`).
+Outer footprint
+(`outer_shell_x_length` × `outer_shell_z_length` = 251 × 181 mm)
+sized to leave `outer_shell_foam_gap` (= 16 mm) of foam-pour zone
+between the outer_shell's inner face and the outermost reservoir-
+pocket walls on each side.
 
-**No +X / −X walls** — those would be coincident with the bag pockets'
-tank-facing walls (also not built) and would have air on both sides
-(bag cavity inside, corner-pocket air outside). The +Z and −Z walls
-*do* earn their keep: they separate corner-pocket air (between this
-shell's interior and the round cup's outside) from outer-pour foam
-(outside this shell at +Z and −Z).
+The six bosses are positioned at the four corners + two mid-long-side
+positions (offset in X by ±15 mm with opposite signs at +Z vs −Z, to
+preserve 180° rotational symmetry around the Y axis). Each boss
+carries a heat-set insert pocket at the top (drilled down from the
+top face) and at the bottom (drilled up from the bottom face) —
+twelve inserts total, six per face, for fastening the foam_cap above
+and below.
 
-The ±Z walls each have a **central gap at x = 0**, wide enough for the
-tank_copper_shell's ±Z apex opening to pass through directly into the
-outer foam-gap volume. Without this gap, the corner pockets would be
-sealed off from the outer foam pour and would never receive foam. At
-each of the four corners of that central gap, a **curved blend cut**
-trims the wall's inner edge to follow the same arc as the adjacent
-curved bridging wall in `tank_copper_shell` — so the support-shell
-wall doesn't terminate in a sharp right angle against the bridging
-wall's curve, but blends smoothly into it.
-
-The support-shell ±Z walls and the bag-pocket-shell walls share a
-single 2-D cross-section in the code; both are produced by
-`build_reservoir_pocket_walls` (along with the centerward arcs and
-the transition arcs), so the wall transitions at z = ±70.5 are exact
-by construction rather than by OCCT face-merging. The support
-shell's floor is omitted entirely — it would be 100% buried inside
-the outer_shell's floor, which already spans the full assembly
-footprint.
-
-### bag_pocket_shell (one of two)
-
-Three-walled cup attached at one ±X face of the support shell:
-**floor + far (away from center) wall + +Z wall + −Z wall**. Outer
-envelope **37 mm deep (along X) × 145 mm wide (along Z) × 213.4 mm
-tall** so the +Z / −Z walls coincide with the support shell's +Z /
-−Z walls and merge into one continuous wall after union.
-
-**No centerward (toward-tank) wall** — same reason as the support
-shell's missing ±X walls. The bag cavity is therefore open along
-its centerward face into the support shell's interior (corner-pocket
-region around the round cup); during operation, the bag and the
-corner-pocket region are one continuous air volume bounded by the
-round cup on the inside, the bag pocket's far/+Z/−Z walls and the
-support shell's +Z/−Z walls on the outside, and the unioned floor
-beneath.
-
-The two far-side corners (where the far wall meets the ±Z walls) are
-**filleted with a 6.5 mm inner radius** (and an 8.5 mm outer radius,
-maintaining uniform wall thickness through the bend). The 6.5 mm
-inner radius matches the rigid PETG reservoir's 6 mm outer fillet
-plus the 0.5 mm `reservoir_clearance`, so the reservoir slides into
-a snugly-mated pocket with uniform clearance around the corner.
-
-The −X bag pocket is built as a mirror of the +X side from the same
-2-D cross-section in `build_reservoir_pocket_walls`.
+The outer +Z wall carries the shared copper/water-inlet slot, the
+two ⌀6.5 reservoir-line holes, the two reed-cable holes, and the
+water-outlet hole. See Penetrations. (The CO2 inlet bore is internal
+to the assembly — it cuts down through the support ring at −Z, not
+through any outer wall.)
 
 ### foam_cap and foam_cap_lid
 
@@ -285,8 +267,9 @@ the wall top), and is cut by `cut_slot_for_copper_and_water_inlet`
 in `_port_cuts.py`. The 10 mm top extension means no sliver
 of wall material remains above the slot — the three copper plugs
 can slide down into the slot from above during assembly. With the
-cylinder wall now open at ±Z and the support-shell ±Z walls gapped
-at x = 0, the slot pierces only this one outer wall.
+centerward wall extending only to z = ±72.5 (where it meets the
+±Z walls via the transition arcs), the slot at x = 0, z = 52.5
+pierces only this one outer +Z wall.
 
 Pass-through Y heights (centers, measured from the **top of the
 floor** — i.e. from the interior cavity's lower bound, not from y = 0):
@@ -364,11 +347,11 @@ is mated to the body.
 
 Every internal component is installed first:
 
-- Pressure vessel lowered into the cylinder, seated on the
-  `tank_support_ring`.
+- Pressure vessel lowered into the centerward arc envelope, seated
+  on the `tank_support_ring`.
 - Copper evaporator coil hand-wound around the vessel exterior and
   bonded with 3M 425 aluminum foil tape.
-- Reservoirs installed into the two bag pockets.
+- Reservoirs installed into the two reservoir pockets.
 - Copper evaporator inlet (low), copper evaporator outlet (high),
   and water inlet routed through the shared +Z slot at their three
   Y heights.
@@ -376,30 +359,31 @@ Every internal component is installed first:
   the 10 mm open extension past the wall top) to seal between the
   pass-throughs.
 - Reservoir LLDPE lines routed through holes #1 and #2 in the
-  bag_pocket_shell ±X far walls.
+  reservoir-pocket far ±X walls.
 - Water outlet through hole #4 in the outer_shell +Z wall.
 - CO2 inlet enters from above through the foam-cap-top boss +
   foam-cap-lid-top hole at (x=0, z=−68.75); the line drops to
   y=17 inside the cavity and bends 90° at a PP0308E push-to-connect
-  elbow seated in the −Z support arch's Ø16 doorway.
+  elbow seated in the Ø16 CO2 inlet bore at x = 0, z = −70.5.
 
 With everything in place, liquid foam is poured **directly into the
 body's open +Y top** all at once — no cap on, no down-channels.
-Foam falls into the body and reaches every cavity in parallel:
+Foam falls into the body and reaches the two air volumes in
+parallel:
 
-- the outer foam gap (between outer_shell and bag_pocket_support_shell);
-- the bag pockets (open at +Y, also open inward through the missing
-  centerward wall);
-- the corner pockets at ±Z (open at +Y, also connected to the outer
-  foam gap via the central gap at x = 0 in each support_shell ±Z wall);
-- the tank cavity inside the cylinder (open at +Y at the cylinder top,
-  also accessible laterally via the ±Z apex openings over the full
-  Y height).
+- the **two reservoir-pocket cavities** (each open at +Y, fully
+  enclosed below and on its four sides);
+- the **surrounding foam zone** — a single connected volume wrapping
+  around the pockets between the outer_shell and the pockets'
+  outboard walls. This zone reaches the centerward space around the
+  tank+coil through the gap at x ∈ [−39.7, +39.7] where the pockets'
+  ±Z walls end (z = ±72.5) and the centerward walls' transition arcs
+  swing in to join them.
 
 The longest required slot traverse for the foam is the ~0.5 mm
-radial gap between the coil and the cylinder's inner wall at the
-±X azimuths — ~110 mm of arc to reach from the ±Z apex openings
-around to the back of the coil. Shorter than the old top-down
+radial gap between the coil and the centerward wall's tank-side
+face at the ±X azimuths — ~110 mm of arc to reach around the back
+of the coil from the ±Z entry. Shorter than the old top-down
 ~200 mm vertical traverse the diagonal pour-channels were originally
 added to help with.
 
@@ -417,27 +401,29 @@ insert spec under "Cap-to-outer-shell joinery" above.
 
 ## Coincident-wall principle
 
-Wherever two shells share a boundary, their walls are positioned so they
-**overlap exactly in 3D space** — same outer face, same inner face —
-rather than sitting side-by-side. After union, that boundary is one
-wall's worth of material (2 mm), not two (4 mm).
+Wherever two structural surfaces touch in the assembly, their walls
+are positioned so they **overlap exactly in 3D space** — same outer
+face, same inner face — rather than sitting side-by-side. After
+union, that boundary is one wall's worth of material (2 mm), not
+two (4 mm).
 
 This drives several dimension choices:
 
-- The **bag_pocket_support_shell** has its half-side equal to the
-  tank_copper_shell's outer radius, so the square's wall centerline meets
-  the circle's wall centerline at the four cardinal points (their walls
-  coincide there).
-- The **bag_pocket_shell** is offset by
-  `pocket_centerward_arc_outer_radius + depth/2 - wall_thickness`, so its inner
-  wall coincides with the bag_pocket_support_shell's +X wall.
-- The **tank_support_ring**'s outer face coincides with the
-  tank_copper_shell's inner wall.
-- The **tank_copper_shell's curved bridging walls** meet each
-  bag_pocket_support_shell ±Z wall along a 2D face (chord-end X
-  range matches the cylinder's wall band exactly at z = ±60), so
-  the union is a single continuous solid rather than two pieces
-  sharing a 1D edge.
+- Each **reservoir pocket's ±Z outboard face** sits at
+  z = ±`pocket_centerward_arc_outer_radius` (= ±72.5), tangent to the
+  cylinder the centerward arc rides on. The ±Z walls meet the
+  centerward wall's transition arcs along that tangent.
+- The **tank_support_ring**'s outer face sits at
+  `pocket_centerward_arc_outer_radius − wall_and_floor_thickness`
+  (= 70.5), coincident with each pocket's centerward wall on its
+  tank-side face.
+- Each **reservoir pocket's four walls** are traced as a single
+  connected outer-perimeter polyline (with one cavity-perimeter
+  polyline cut from it), so the four walls union into one solid by
+  construction rather than by OCCT face-merging.
+- The **outer_shell**'s inner face sits `outer_shell_foam_gap`
+  (= 16 mm) outboard of the outermost reservoir-pocket walls — a
+  deliberate gap, not a coincidence: this is the outer foam-pour zone.
 
 ## Print settings
 

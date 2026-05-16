@@ -285,7 +285,7 @@ vent_position_z = 32.5
 # A vertical solid PETG cylinder, body-anchored and cap-registered
 # (NOT cap-cantilever). A small magnetic float slides up and down
 # the strut as the syrup level changes; ten reed switches mounted
-# outside the bag_pocket_shell's far +X wall (foam-encapsulated
+# outside the reservoir pocket's far +X wall (foam-encapsulated
 # during the body foam pour) detect the float's position for level
 # sensing. Same architecture as the carbonator's existing reed+float
 # level sensing (see `hardware/future.md` "Level sensing"): rod

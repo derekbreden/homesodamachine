@@ -20,14 +20,13 @@ from _cold_core_interface import (
 # All circular port holes through the foam shell: Z-axis ⌀6.5 × 40 mm
 # cylindrical cuts, starting at the given z and extending in +Z.
 #   - water_outlet:            outer +Z wall
-#   - reservoir_bulkhead_±X:   bag-pocket +Z wall (and outer +Z wall;
-#     the bulkhead body sits in the bag-pocket wall, the dry-side tube
-#     exits through the outer wall along the same axis)
+#   - reservoir_bulkhead_±X:   reservoir-pocket +Z wall (and outer +Z
+#     wall; the bulkhead body sits in the pocket wall, the dry-side
+#     tube exits through the outer wall along the same axis)
 #
-# The CO2 inlet through the −Z support arch is cut separately by
-# `cut_co2_inlet()` — its bore is ⌀16 (vs ⌀6.5 here) to house an
-# in-cavity 90° push-to-connect elbow, so it doesn't fit this list's
-# default radius.
+# The CO2 inlet is cut separately by `cut_co2_inlet()` — its bore is
+# ⌀16 (vs ⌀6.5 here) to house an in-cavity 90° push-to-connect elbow,
+# so it doesn't fit this list's default radius.
 CIRCULAR_PORT_HOLES = [
     # (x, y, z)
     (0,                          hole_shift_from_edge + wall_and_floor_thickness,    pocket_centerward_arc_outer_radius - 20),
@@ -43,14 +42,14 @@ def cut_circular_port_holes(foam_shell):
 
 
 def cut_co2_inlet(foam_shell):
-    """CO2 inlet through the −Z support arch: a doorway-shaped cut —
-    ⌀16 round bore on top, rectangular slot below it down to the
-    support arch's bottom face. The bore seats a JG PP0308E elbow
-    (⌀15 body) for the in-cavity 90° turn; the slot exists for
-    angled insertion from above (the elbow's perpendicular legs
-    can't enter along the bore axis and the back wall is solid).
-    The slot's bottom is flush with the floor's top face — the
-    foam-shell floor below stays intact."""
+    """CO2 inlet — a doorway-shaped cut at x = 0, z = −70.5: a ⌀16
+    round bore at y = 17 (where the JG PP0308E elbow's ⌀15 body
+    seats for its in-cavity 90° turn) with a rectangular slot below
+    it down to the floor's top face at y = 2. The slot exists for
+    angled insertion from above — the elbow's perpendicular legs
+    can't enter along the bore axis. The cut clears a passage from
+    just outside the support ring (at z = −70.5) inward; the foam-
+    shell floor below y = 2 stays intact."""
     co2_inlet_z_start = -(pocket_centerward_arc_outer_radius - wall_and_floor_thickness)
     co2_inlet_y_center = hole_shift_from_edge + wall_and_floor_thickness
     bore_radius = 8.0
