@@ -74,79 +74,22 @@ tank_support_ring_height = 30.0
 # (both reservoirs deepen on their ±X sides), 251 mm → 269 mm.
 bag_pocket_width = tank_copper_shell_radius * 2
 bag_pocket_depth = 42 + 2 * wall_and_floor_thickness
-#
-# Derived bag-pocket inner-face coordinates, exposed for downstream
-# parts (e.g. the printed reservoirs) that must clear the same cavity.
-# Keeping these here means the reservoir cannot drift out of sync with
-# wall_and_floor_thickness or any of the inputs above.
-#   bag_pocket_far_inner_x:  +X face of the bag pocket interior
-#   bag_pocket_z_inner_max:  ±Z face of the bag pocket interior
-#   bag_pocket_floor_top_y:  top of the bag-pocket floor (= floor thickness)
-#   bag_pocket_walls_top_y:  top of the bag-pocket walls (= shell height)
-# At 2 mm wall: 105.5 / 70.5 / 2.0 / 213.4.
-bag_pocket_far_inner_x = (
-    tank_copper_shell_radius + bag_pocket_depth - 2 * wall_and_floor_thickness
-)
+bag_pocket_far_inner_x = tank_copper_shell_radius + bag_pocket_depth - 2 * wall_and_floor_thickness
 bag_pocket_z_inner_max = bag_pocket_width / 2 - wall_and_floor_thickness
 bag_pocket_floor_top_y = wall_and_floor_thickness
 bag_pocket_walls_top_y = tank_copper_shell_height
-#
-# Reservoir interface constants. These describe properties of the
-# printed reservoir that fits inside the bag pocket, but they live
-# here (instead of in reservoir/generate_step_cadquery.py) because
-# the foam shell's bulkhead-pass-through hole has to line up with
-# the reservoir's outlet bulkhead — so a value used by both files
-# belongs in the shared module. The reservoir imports these.
-#   reservoir_clearance:        gap between reservoir outer faces and bag-pocket inner faces
-#   reservoir_floor_thickness:  PETG thickness of the reservoir's outer floor (= reservoir wall thickness)
-#   bulkhead_pocket_diameter:   ø of the JG bulkhead's flange chamber (= 22.9 mm flange + 0.1 mm clearance)
+
 reservoir_clearance = 0.5
 reservoir_floor_thickness = 4.0
 bulkhead_pocket_diameter = 23.0
-#
-# Y of the reservoir's outlet-bulkhead axis, AND of the matching
-# pass-through hole in the foam shell's bag-pocket wall (cut in
-# `cut_circular_port_holes` below). Derived parametrically
-# so the two values cannot drift on future wall-thickness changes:
-#   outer_floor_bottom_y of the reservoir = bag_pocket_floor_top_y + reservoir_clearance
-#   + reservoir_floor_thickness puts the inner floor top at the chamber's lower extent
-#   + bulkhead_pocket_diameter / 2 raises that to the chamber's centerline (= bulkhead axis)
-# At the current 2 mm shell wall: 2.0 + 0.5 + 4.0 + 11.5 = 18.0, which
-# leaves the chamber's curved bottom at y = 18 − 11.5 = 6.5 — exactly
-# on top of the reservoir's 4 mm outer floor (bottom y = 2.5, top y = 6.5),
-# so 4 mm of PETG sits below the flange chamber as a fluid barrier.
+
 reservoir_bulkhead_port_y = (
     bag_pocket_floor_top_y
     + reservoir_clearance
     + reservoir_floor_thickness
     + bulkhead_pocket_diameter / 2
 )
-#
-# |X| of the reservoir's outlet-bulkhead axis, AND of the matching
-# pass-through hole in the foam shell's bag-pocket +Z wall (cut in
-# `cut_circular_port_holes` below). Sign flips with the reservoir
-# side. Derived from the reservoir-side geometry: the foam-shell +Z
-# wall has plenty of X range to accept the ⌀6.5 pass-through at
-# almost any |X|, but the reservoir's bulkhead pocket has to fit
-# inside the body's two interior X walls.
-#
-# Those two walls are:
-#   - the +X far inner face (flat, at bag_pocket_far_inner_x
-#     − reservoir_clearance − reservoir_floor_thickness)
-#   - the concave-arc inner cavity wall on the tank-facing side,
-#     whose deepest reach into the cavity is at z = 0, at
-#     x = tank_copper_shell_radius + reservoir_clearance
-#         + reservoir_floor_thickness
-# Center between these two — even though the bulkhead pocket lives
-# at z ≈ 30 where the arc has receded outward (toward the tank), use
-# the arc's peak (z = 0) as the conservative inner-X bound. That way
-# the centering is independent of the pocket's actual −Z reach and
-# we get equal clearance to the two walls at the binding (z = 0)
-# section, which is the part that would collide first if the pocket
-# ever grew longer.
-_reservoir_far_inner_x   = bag_pocket_far_inner_x - reservoir_clearance - reservoir_floor_thickness
-_reservoir_arch_peak_x   = tank_copper_shell_radius + reservoir_clearance + reservoir_floor_thickness
-reservoir_bulkhead_port_x = (_reservoir_arch_peak_x + _reservoir_far_inner_x) / 2
+reservoir_bulkhead_port_x = (bag_pocket_far_inner_x + tank_copper_shell_radius) / 2
 #
 # -------------------------------------------------------
 
