@@ -106,11 +106,9 @@ Join the new evaporator coil's inlet end (bottom of the wound coil) to the capil
 
 If total cap-tube length changes substantially relative to the donor's factory length (e.g., the new coil is significantly longer or shorter than the donor evaporator), a refrigeration tech should recalculate cap length for the new load rather than guessing — per [`../harvested/ice-maker/README.md`](../harvested/ice-maker/README.md) "Capillary tube + suction-line heat exchanger".
 
-### 8. Hot-gas bypass solenoid disposition
+### 8. ~~Hot-gas bypass solenoid disposition~~
 
-The factory hot-gas bypass solenoid (per [`../harvested/ice-maker/README.md`](../harvested/ice-maker/README.md) "Hot-gas bypass solenoid") routes hot compressor discharge directly into the evaporator during the donor's harvest cycle. We want steady cold not harvest cycles. Default disposition: **discard** the solenoid entirely during the re-pipe.
-
-Alternative if removal is mechanically awkward: leave the solenoid physically in place, never energize it, AND cap + braze the bypass line at the tee so the bypass path is sealed even if the solenoid is somehow opened.
+Resolved by dropping the solenoid entirely during donor teardown — once the factory evaporator is cut out (step 3) and replaced by the coil wound around the carbonator vessel (step 4), the bypass path has no purpose in the production refrigerant loop. The solenoid, its bypass line, and the tee come off with the discarded evaporator subassembly. Documented obliquely here only because there's no dedicated donor-teardown doc yet (see "Open items").
 
 ### 9. Pull vacuum
 
@@ -139,7 +137,7 @@ A finished refrigerant loop:
 - Charged to within ±1 g of target mass
 - No detectable leaks at any joint
 - Compressor runs and pulls the suction line cold on first run-up
-- Hot-gas bypass discarded (or sealed + de-energized)
+- Hot-gas bypass solenoid, line, and tee discarded with the factory evaporator subassembly
 - Filter-drier carries a fresh, sealed Schrader
 
 The wrapped vessel + plumbed compressor + condenser assembly is the input to [`cold-core.md`](cold-core.md) for the foam-pour install.
@@ -151,3 +149,4 @@ Procedure-level gaps that need answers before unit 1 ships:
 1. ~~**Coil winding technique for unit 1.**~~ Resolved by the printed [coil-mandrel](../printed-parts/cold-core/coil-mandrel/generate_step_cadquery.py): hollow PETG cylinder with a shallow helical guide groove, sized 3 mm undersize vs. the tank so the coil clamps after slip-off, with wind length and wrap count aligned to the foam-shell plug positions. Working well by hand.
 2. **Donor compressor charge mass.** Read from the donor nameplate per [`../harvested/ice-maker/README.md`](../harvested/ice-maker/README.md) "Open items". Until that's in hand, the recharge mass target is a placeholder.
 3. **Failure handling beyond "redo the sequence."** Decision tree for hard-to-find leaks, charge loss between vacuum check and run-up.
+4. **No dedicated donor-teardown procedure.** Which steps remove which components, in what order, what gets discarded vs. salvaged — currently scattered across this doc and [`../harvested/ice-maker/README.md`](../harvested/ice-maker/README.md). Worth a standalone teardown doc when production teardown begins for unit 1; for now, ad-hoc dispositions like the hot-gas bypass solenoid (step 8 above) are folded into per-component notes here rather than captured in one place.
