@@ -1,5 +1,7 @@
-"""Annular ring inside the tank-copper-shell, holding the tank up by
-its outer rim."""
+"""Annular ring sitting at the bottom of the foam-shell's central
+zone, holding the tank up by its outer rim. The ring's outer face is
+coincident with the reservoir pockets' centerward wall on its tank-
+side face."""
 
 import cadquery as cq
 

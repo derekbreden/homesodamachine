@@ -37,16 +37,15 @@ lid_y_height = wall_and_floor_thickness
 
 # Z position of the CO2 elbow's vertical leg as it passes up through
 # the cap. Chosen midway between two reference midlines so the leg
-# sits comfortably in the foam zone between the −Z reservoir pocket's
-# centerward wall and the support-ring wall (rather than against
-# either):
+# sits comfortably in the foam zone between the centerward wall band
+# and the support-ring wall band (rather than against either):
 #   _z_back_mid: midline of the centerward-wall band (R 70.5..72.5)
 #   _z_arch_mid: midline of the support-ring wall band (R 61.5..70.5)
 #   co2_inlet_z: average of the two = −68.75 mm
 # Derived parametrically from the centerward arc and support-ring radii
 # so this Z drifts coherently if those bands move; the foam shell's
-# CO2 doorway in cut_co2_inlet is independent of this Z (it's a ⌀16
-# doorway in the −Z support arch, not a Y-axis through-hole).
+# CO2 bore in cut_co2_inlet is independent of this Z (it's a ⌀16
+# Z-axis bore at x = 0, not a Y-axis through-hole).
 _R_back_outer = pocket_centerward_arc_outer_radius                              # 72.5
 _R_back_inner = pocket_centerward_arc_outer_radius - wall_and_floor_thickness   # 70.5
 _R_arch_outer = _R_back_inner                                                    # 70.5
@@ -60,8 +59,8 @@ def cut_co2_inlet(cap):
     """Y-axis ⌀6.5 cylindrical cut through the top cap, sized for the
     1/4" OD LLDPE CO2 tube to pass through the cap floor. Same (x, z)
     as the foam shell's CO2 inlet, but a *different* diameter: the
-    shell's `cut_co2_inlet` is a ⌀16 doorway that seats the JG PP0308E
-    90° elbow body inside the −Z support arch; only the tube itself
+    shell's `cut_co2_inlet` is a ⌀16 Z-axis bore that seats the JG
+    PP0308E 90° elbow body below the cap; only the tube itself
     traverses the cap, hence ⌀6.5 here (tube clearance, not elbow
     clearance)."""
     return cap.cut(
