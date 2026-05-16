@@ -1,6 +1,6 @@
 # Bill of Materials — One Consumer Unit
 
-Per-unit parts for a single finished appliance built on the **custom-vessel** path specified in [future.md](future.md). Carbonator vessel: vertical 5" OD × 0.065" wall 316 welded SS round tube (OnlineMetals #12498, MTRs required) capped with 1/4"-thick laser-cut 316 SS circular plates from SendCutSend (`endcap-circular-2hole.dxf`), joined with the XLaserlab X1 Pro handheld laser welder. 1/4" NPT is direct-tapped into the plates (no weld-in bungs). Compressor is harvested from a countertop ice-maker; cold core is 3D-printed shells with pour-in-place foam. Flavor reservoirs are custom printed PETG-Carbon hard reservoirs ([printed-parts/cold-core/reservoir/generate_step_cadquery.py](printed-parts/cold-core/reservoir/generate_step_cadquery.py)), two per build.
+Per-unit parts for a single finished appliance built on the **custom-vessel** path specified in [future.md](future.md). Carbonator vessel: vertical 5" OD × 0.065" wall 316 welded SS round tube (OnlineMetals #12498, MTRs required) capped with 1/4"-thick laser-cut 316 SS circular plates from SendCutSend (`endcap-circular-2hole.dxf`), joined with the XLaserlab X1 Pro handheld laser welder. 1/4" NPT is direct-tapped into the plates (no weld-in bungs). Compressor is harvested from a countertop ice-maker; cold core is 3D-printed shells with pour-in-place foam. Flavor reservoirs are custom printed food-grade PETG hard reservoirs ([printed-parts/cold-core/reservoir/generate_step_cadquery.py](printed-parts/cold-core/reservoir/generate_step_cadquery.py)), two per build.
 
 Tools, fabrication equipment (welder, slip roll, shop press, dishing dies), and duplicate SKUs live in [purchases.md](purchases.md) only. Per-build consumables — anything used up making one unit, regardless of whether it ships in the product (mixing cups, gloves, citric acid, PTFE tape, cutting fluid, etc.) — live in this file with the rest of the per-unit parts.
 
@@ -141,7 +141,6 @@ Dishing dies (PA6-CF) for end-cap forming are vessel-fabrication tools, not ship
 | Part | ASIN | Qty | Unit $ | Line $ |
 |---|---|---:|---:|---:|
 | [VALVENTO 1/4" OD compression × 1/4" NPT adapter (2-pk)](https://www.amazon.com/dp/B0DXZZBK7D) | B0DXZZBK7D — joins bottom-plate 1/4" NPT outlet port (port 3) to 1/4" tubing run; 1 of 2 per unit (pack delivered $12.85/2) | 1 (of 2) | $6.42 | $6.42 |
-| [VALVENTO 1/4" OD 316 SS tube, 12" (5-pk)](https://www.amazon.com/dp/B0F6SYFK48) | B0F6SYFK48 — short rigid stub from compression adapter into the soft 1/4" tubing run; 1 of 5 per unit (pack delivered $18.23/5) | 1 (of 5) | $3.65 | $3.65 |
 | [Westbrass R2031-NL-62 8" Touch-Flo dispenser faucet, matte black](https://www.amazon.com/dp/B07KH285GJ) | B07KH285GJ — direct successor to retired A2031 SKU | 1 | $31.28 | $31.28 |
 | SendCutSend 0.060" 316 SS under-counter plate (`touch_flo_under_counter_plate.dxf`, Ø 54.35 mm disc with 1× Ø 12.6 mm shank hole + 1× 13.2 × 6.85 mm pill slot) — sits between countertop underside and the under-counter clamping nut, distributes nut clamping force across a wide area so the nut doesn't dish or crush the countertop bottom; same hole pattern as the printed mounting plate / TPU gasket above the counter; SCS order S064D925 placed May 10, 2026, 10 pcs @ $2.85 ea + $5.00 ship + $2.79 tax = $36.29 delivered ÷ 10 = $3.63/plate; 1 plate per build | sendcutsend.com | 1 | $3.63 | $3.63 |
 | [1/4" OD × 12" 304 SS straight tube (4-pk)](https://www.amazon.com/dp/B0F87DJDZW) | B0F87DJDZW — rigid 1/4" SS center tube of the 3-tube dispense head, carrying the carbonated water from the Westbrass faucet body out through the visible faucet tip; 1 center tube per build = 1 of 4 per pack ($12.86/4) | 1 (of 4 pk) | $3.22 | $3.22 |
@@ -236,12 +235,12 @@ The T18 heat-set tip kit ([B0CS662NVK](https://www.amazon.com/dp/B0CS662NVK)) an
 | 6. Cold core insulation | $52.38 |
 | 7. Printed parts (PETG) | $103.94 |
 | 8. Flavor subsystem | $299.14 |
-| 9. Dispensing | $59.61 |
+| 9. Dispensing | $55.96 |
 | 10. UI | $43.16 |
 | 11. Wiring | $31.97 |
 | 12. Level sensing | $66.35 |
 | 13. Mechanical attach hardware + reservoir-cap vent filter | $17.55 |
-| **Total** | **$1,486.55** |
+| **Total** | **$1,482.90** |
 
 ## External / user-supplied (not shipped)
 
