@@ -553,64 +553,30 @@ def cut_circular_port_holes(foam_shell):
     return foam_shell
 
 def cut_co2_inlet(foam_shell):
-    """CO2 inlet through the −Z support arch: a Z-axis "doorway" cut
-    that combines a ⌀16 round bore (upper half) with a rectangular slot
-    clamped to the support arch's bottom face. The composite cut looks
-    like a classic doorway / tombstone profile when viewed from outside
-    the −Z support arch at z=−70.5:
-
-      - rounded top: upper half of the Ø16 circle, y=17..25, x=±8
-      - rectangular body: 16 mm wide in X × (slot_y_top − slot_y_bottom)
-        tall in Y, from y=slot_y_bottom=wall_and_floor_thickness (the
-        floor's top face / arch's bottom face) up to y=slot_y_top=17
-        (the bore's Y center)
-
-    Both halves are extruded 40 mm in +Z, so the cut pierces the full
-    Z thickness of the arch material (z=−70.5..−61.5 ≈ 9 mm of solid
-    PETG) and continues into the cavity beyond.
-
-    The CO2 line drops vertically through the foam-cap top and then
-    makes a 90° turn inside the cylinder cavity at a John Guest PP0308E
-    push-to-connect elbow (~⌀15 mm body, ~20 mm legs). The elbow's
-    horizontal leg seats in the Ø16 round pocket, which is sized to
-    clear the elbow body (vs the ⌀6.5 of the other circular port holes,
-    which are sized for 1/4" OD tubing).
-
-    Assembly rationale (step 2/2): the elbow has perpendicular legs
-    that snag at the round bore's opening if you try to insert it along
-    the bore axis, and the back wall (z<−70.5) is solid, so there is
-    no through-axis insertion path either. The rectangular slot extends
-    the bore downward to the support arch's bottom face — its bottom
-    is flush with the floor's top face at y=wall_and_floor_thickness
-    and does NOT cut through the foam-shell floor below it. The slot
-    only provides angled-insertion clearance from above: the elbow is
-    lowered through the open +Y top of the foam shell with one leg
-    tilted into the doorway opening on the arch's bottom face, then
-    rotated/translated into the round pocket. Once seated, it stays."""
+    """CO2 inlet through the −Z support arch: a doorway-shaped cut —
+    ⌀16 round bore on top, rectangular slot below it down to the
+    support arch's bottom face. The bore seats a JG PP0308E elbow
+    (⌀15 body) for the in-cavity 90° turn; the slot exists for
+    angled insertion from above (the elbow's perpendicular legs
+    can't enter along the bore axis and the back wall is solid).
+    The slot's bottom is flush with the floor's top face — the
+    foam-shell floor below stays intact."""
     co2_inlet_z_start = -(tank_copper_shell_radius - wall_and_floor_thickness)
     co2_inlet_y_center = hole_shift_from_edge + wall_and_floor_thickness
-    bore_radius = 8.0  # ⌀16, sized to clear the ~⌀15 mm PP0308E elbow body.
-    # Round bore — upper half of the doorway profile.
+    bore_radius = 8.0
     round_bore = build_a_hole_punch(
         origin=(0, co2_inlet_y_center, co2_inlet_z_start),
         hole_punch_radius=bore_radius,
     )
-    # Rectangular slot — body of the doorway, extending from the bore's
-    # Y center (= top of the slot) down to the support arch's bottom
-    # face at y=wall_and_floor_thickness (= top face of the foam-shell
-    # floor). The floor below stays intact. Width in X matches the
-    # bore's diameter so the slot sides line up tangent with the bore's
-    # vertical extents and the round/rect join is clean.
-    slot_width = 2 * bore_radius  # 16 mm — matches the bore's diameter.
-    slot_y_top = co2_inlet_y_center  # 17 — bore's Y center, the round/rect join.
-    slot_y_bottom = wall_and_floor_thickness  # 2 — flush with floor's top face / arch's bottom face.
-    slot_height_y = slot_y_top - slot_y_bottom
+    slot_width    = 2 * bore_radius
+    slot_y_top    = co2_inlet_y_center
+    slot_y_bottom = wall_and_floor_thickness
     slot_y_center = (slot_y_top + slot_y_bottom) / 2.0
-    slot_extrude_z = 40              # matches the round bore's Z extrusion.
+    slot_extrude_z = 40
     slot_punch = (
         cq.Workplane(xy_plane_z_up)
         .workplane(origin=(0, slot_y_center, co2_inlet_z_start), offset=co2_inlet_z_start)
-        .rect(slot_width, slot_height_y)
+        .rect(slot_width, slot_y_top - slot_y_bottom)
         .extrude(slot_extrude_z)
     )
     return foam_shell.cut(round_bore).cut(slot_punch)
@@ -631,23 +597,11 @@ def build_a_y_axis_hole_punch(
     )
 
 def cut_slot_for_copper_and_water_inlet(foam_shell):
-    """Single Y-elongated slot through the outer_shell +Z wall, shared by
-    the two copper plugs (low and high) and the water-inlet plug. X width
-    is 6.5 mm (rounded slot ends), matching the ⌀6.5 of the original
-    single-port holes; Y span runs from a few mm below the lowest copper
-    plug (y≈46) up past the wall's top edge so plugs can be slid down
-    into the slot from above. Z-extruded 40 mm starting from z = R − 20
-    (matching the existing hole_punch convention), enough to fully pierce
-    the +Z wall (outer face at z ≈ R + 18). With the tank cylinder
-    open at ±Z and the support ±Z walls gapped at x=0 (both folded
-    into `build_tank_and_bag_pocket_walls`), the slot pierces only
-    this one wall.
-
-    `slot_y_top` is pushed `slot_diameter/2` past `tank_copper_shell_
-    height` so the slot2D's rounded top tapers above the wall — the
-    straight (full-width) portion of the slot reaches exactly the
-    wall's top edge, so the wall is fully open at the top with no
-    sliver remaining."""
+    """Y-elongated slot through the outer-shell +Z wall, shared by the
+    two copper-line plugs and the water-inlet plug — plugs are slid
+    down in from above. slot_y_top is pushed slot_diameter/2 past the
+    wall's top edge so the rounded top tapers ABOVE the wall — the
+    straight portion reaches the wall's top exactly, no sliver left."""
     slot_diameter = 6.5
     slot_y_bottom = 42.0
     slot_y_top    = tank_copper_shell_height + slot_diameter / 2
