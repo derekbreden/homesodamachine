@@ -44,6 +44,58 @@ function findGenerateScripts() {
   return scripts;
 }
 
+function findAllPythonFiles() {
+  const files = [];
+  function walk(dir) {
+    for (const entry of fs.readdirSync(dir, { withFileTypes: true })) {
+      if (entry.name === "__pycache__") continue;
+      const full = path.join(dir, entry.name);
+      if (entry.isDirectory()) walk(full);
+      else if (entry.name.endsWith(".py")) files.push(full);
+    }
+  }
+  walk(HARDWARE_DIR);
+  return files;
+}
+
+// Walk the import graph backwards from a shared module to every
+// generate_step*.py that transitively depends on it. A generator that
+// imports a module that imports the changed module is still a dependent,
+// even though it never names the changed module itself — e.g.
+// `_reed_channels.py` is only imported by `_foam_shell.py`, which is what
+// `foam-shell/generate_step_cadquery.py` actually imports. Without the
+// transitive walk, leaf-module edits silently produce no rebuild.
+function findGeneratorsTransitivelyImporting(moduleName) {
+  const allPyFiles = findAllPythonFiles();
+  const visited = new Set();
+  const dependents = new Set();
+  const queue = [moduleName];
+
+  while (queue.length > 0) {
+    const mod = queue.shift();
+    if (visited.has(mod)) continue;
+    visited.add(mod);
+
+    const importRe = new RegExp(`(?:^|\\s)(?:from|import)\\s+${mod}\\b`, "m");
+    for (const pyFile of allPyFiles) {
+      let source;
+      try {
+        source = fs.readFileSync(pyFile, "utf-8");
+      } catch {
+        continue;
+      }
+      if (!importRe.test(source)) continue;
+      if (/^generate_step.*\.py$/.test(path.basename(pyFile))) {
+        dependents.add(pyFile);
+      } else {
+        queue.push(path.basename(pyFile, ".py"));
+      }
+    }
+  }
+
+  return Array.from(dependents);
+}
+
 // Find scripts that consume a given .step filename via cq.importers.importStep().
 // In this project, STEP filenames are unique and importStep is the only way a
 // .py script reads another script's output, so this heuristic is precise.
@@ -236,14 +288,16 @@ watcher.on("change", (absPath) => {
     return;
   }
 
-  // Shared private module (e.g. `_foam_bag_geometry.py`) changed — find
-  // every generator that imports it by module name and re-run those. The
-  // cadlib handler above is a coarser version of the same idea: anything
-  // in /cadlib/ rebuilds every generator. This handler is the targeted
-  // version for shared modules that sit alongside a small set of related
-  // generators (like the three foam-bag-shell / foam-cap / copper-plugs
-  // siblings that all import `_foam_bag_geometry`). Without this handler,
-  // editing such a module would silently fail to trigger rebuilds.
+  // Shared private module (e.g. `_foam_shell.py`, `_reed_channels.py`)
+  // changed — find every generator that transitively imports it and
+  // re-run those. The cadlib handler above is a coarser version of the
+  // same idea: anything in /cadlib/ rebuilds every generator. This
+  // handler is the targeted version for shared modules that sit
+  // alongside a small set of related generators. The walk has to be
+  // transitive because some shared modules (like `_reed_channels.py` or
+  // `_cold_core_interface.py`) are only imported by other shared modules,
+  // never by a generator directly — a direct-only check would silently
+  // skip rebuilds for those edits.
   if (absPath.endsWith(".py")) {
     const moduleName = path.basename(absPath, ".py");
     if (debounce.has(absPath)) clearTimeout(debounce.get(absPath));
@@ -251,17 +305,7 @@ watcher.on("change", (absPath) => {
       absPath,
       setTimeout(async () => {
         debounce.delete(absPath);
-        const importRe = new RegExp(`(?:^|\\s)(?:from|import)\\s+${moduleName}\\b`, "m");
-        const dependents = [];
-        for (const script of findGenerateScripts()) {
-          let source;
-          try {
-            source = fs.readFileSync(script, "utf-8");
-          } catch {
-            continue;
-          }
-          if (importRe.test(source)) dependents.push(script);
-        }
+        const dependents = findGeneratorsTransitivelyImporting(moduleName);
         if (dependents.length === 0) return;
         console.log(`Shared module changed: ${path.relative(HARDWARE_DIR, absPath)}`);
         for (const dep of dependents) {
