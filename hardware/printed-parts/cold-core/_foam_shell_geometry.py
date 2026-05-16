@@ -110,96 +110,25 @@ outer_shell_z_length = 2 * (tank_copper_shell_radius + outer_shell_foam_gap + wa
 # -------------------------------------------------------
 
 
-# -------------------------------------------------------
-# Foam cap (top/bottom 16 mm foam pour tray, printed twice)
-# -------------------------------------------------------
-#
-# Foam cap interior cavity height (= foam thickness in the cap), matched
-# to outer_shell_foam_gap so the foam budget at the top/bottom faces of
-# the assembly equals the foam budget on the long sides — 16 mm of foam
-# everywhere around the tank.
-foam_cap_interior_height = 16.0
-# Foam cap outer height = interior cavity + floor. With
-# wall_and_floor_thickness = 2 mm, outer height = 18 mm.
+foam_cap_interior_height = outer_shell_foam_gap
 foam_cap_height = foam_cap_interior_height + wall_and_floor_thickness
-#
-# -------------------------------------------------------
 
-
-# -------------------------------------------------------
-# Foam cap lid (sits atop a cap during foam pour, printed twice)
-# -------------------------------------------------------
-#
 foam_cap_lid_pour_radius = 5.0
 foam_cap_lid_vent_radius = 3.0
 foam_cap_lid_hole_inset = 30.0
-#
-# -------------------------------------------------------
 
-
-# -------------------------------------------------------
-# Cap-to-outer-shell screw + heat-set joinery
-# -------------------------------------------------------
-#
-# Inserts: ruthex M3 short brass heat-set (Amazon B09ZHSGHXD,
-# 100-pc bag ~$0.11/insert) — reused from the touch-flo-shell order;
-# same insert spec works here. Press into the top and bottom faces
-# of the outer_shell at 6 attachment points per face, 12 inserts
-# per outer_shell.
-#
-# Screws: BNUOK M3 × 25 mm DIN 912 socket head cap, 12.9 alloy steel,
-# black oxide finish (Amazon B0DJQGF665, 60-pc bag $8.57 delivered =
-# $0.14/screw, sold by BNUOK Fasterner). Head Ø 5.5 × 3.0 mm tall,
-# 2.5 mm hex socket (DIN 912 standard). Thread up from below the
-# bottom cap and down from above the top cap + lid into the inserts.
-# 12 screws per built unit. Black oxide on alloy steel is adequate
-# corrosion protection for this dry foam-filled enclosed interior.
-#
-# Gasket: 2 mm-thick TPU 90A perimeter ring (foam-cap-gasket.step)
-# matching the foam_cap footprint, with screw holes at the same
-# 6 positions, compressed between each cap's mating edge and the
-# outer_shell's mating face. Printed twice — one per cap.
-#
-# Replaces the earlier friction-fit dowel-pin design, which clamped
-# nothing and left the cap-shell seam open to humid kitchen air —
-# the condensation/frost concern.
-#
-# Standard SHCS chosen instead of the McMaster ULH used in touch-
-# flo-mounting-plate: there's no flush-mount constraint here (the
-# heads protrude on the appliance top and bottom faces; under-
-# counter install hides both), and standard DIN 912 SHCS is roughly
-# an order of magnitude cheaper Prime-shippable than McMaster ULH.
-#
-# Stack-up under the head, top cap (mm), with 2 mm walls/floors and
-# 16 mm interior foam:
-#   lid (2) + cap floor (2) + cap interior void / boss height (16)
-#   + cap mating edge (2) + gasket (2)         = 24 mm
-# Plus 4 mm engagement into the insert = 28 mm. The M3 × 25 is too
-# short now; a longer M3 (≥ 30 mm) is needed at next BOM update.
-#
-# Insert pocket: Ø 4.0 mm × 8 mm deep (4 mm insert engagement +
-# 4 mm relief so the M3 × 25 screw tip has 2 mm of clearance into
-# the relief and doesn't bottom out).
-#
-screw_clearance_radius = 1.95   # = Ø 3.9, matches touch-flo screw clearance
-insert_pocket_radius   = 2.0    # = Ø 4.0, recommended for ruthex M3 short
-insert_pocket_depth    = 8.0    # 4 mm insert + 4 mm relief
+# Cap-to-outer-shell joinery: ruthex M3 heat-set inserts + M3 SHCS,
+# 6 attachment points per face × 2 faces = 12 inserts / 12 screws.
+# Gasket compresses between each cap's mating edge and the outer shell
+# (foam-cap-gasket.step). See bom.md for hardware SKUs.
+screw_clearance_radius = 1.95   # ⌀3.9 clearance for M3 SHCS shank
+insert_pocket_radius   = 2.0    # ⌀4.0 for ruthex M3 short heat-set
+insert_pocket_depth    = 8.0    # 4 mm insert engagement + 4 mm relief
 screw_boss_size        = 8.0    # 8 × 8 mm square pillar at each attachment
-#
-# Six attachment-point (x, z) positions: 4 corners (inherited from
-# the earlier pin layout) + 2 mid-long-side points near the ±Z walls.
-# The mid-long-side adds halve the longest unsupported gasket span
-# between adjacent screws from ~245 mm (corner-to-corner along the long
-# axis) to ~120 mm.
-#
-# The two mid-long-side points are offset in X by ±mid_screw_x_offset
-# (opposite signs at +Z vs −Z) so they clear the copper-line and water-
-# outlet column that runs up the centerline at x=0. The 8×8 boss
-# centered at x=0 would overlap that column; ±15 mm pushes the boss
-# edge ~7.75 mm clear of the widest cut (the ⌀6.5 copper slit). Opposite
-# signs at +Z and −Z preserve 180° rotational symmetry around the Y
-# axis, which keeps the gasket compression balanced and avoids
-# crowding both middle bosses onto one side of the foam-cap.
+
+# Mid-long-side bosses offset in X to clear the copper/water-outlet
+# slot at x=0; opposite signs at ±Z preserve 180° rotational symmetry
+# around the Y axis (balanced gasket compression).
 mid_screw_x_offset = 15.0
 foam_cap_attachment_xz_positions = (
     [(x_sign * (outer_shell_x_length / 2 - screw_boss_size / 2),
