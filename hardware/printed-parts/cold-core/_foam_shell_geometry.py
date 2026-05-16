@@ -872,12 +872,17 @@ def build_reed_channels(side):
       installed.
 
     - **Horizontal cable channel** running in +Z from the vertical
-      channel along the bag-pocket far ±X wall. Cavity y range
-      straddles `reservoir_bulkhead_port_y` (= 18) so the cable level
-      matches the bulkhead pass-through level, with no need to descend
-      after exiting the column. Cavity ends at z = 70.5 — the +Z bag-
-      pocket wall's inner face — so the channel reaches all the way
-      to the bag pocket's +Z edge. The wall the channel is built
+      channel along the bag-pocket far ±X wall. Cavity sits ON the
+      foam shell floor (cavity y range = [wall_and_floor_thickness,
+      wall_and_floor_thickness + 2 × CABLE_Y_HALF_H] = [2, 10]) so
+      the foam shell floor IS the channel's bottom wall — printable
+      without an unsupported envelope floor mid-air at y = 12 like
+      earlier revisions. Cable runs at y = 6 inside the channel and
+      bends up to y = 18 (the cable hole + bulkhead Y) inside the
+      bag-pocket interior between exiting the wall opening and
+      entering the +Z cable hole. Cavity ends at z = 70.5 — the +Z
+      bag-pocket wall's inner face — so the channel reaches all the
+      way to the bag pocket's +Z edge. The wall the channel is built
       against curves inward at z = 64..70.5 (the +Z corner arc); the
       channel envelope itself stays rectangular (its +X wall passes
       through the foam zone at x = 121.5..123.5), and the corner-
@@ -899,8 +904,8 @@ def build_reed_channels(side):
     REED_X_DEPTH = 6.0
 
     # Horizontal cable channel
-    CABLE_Y_CENTER = reservoir_bulkhead_port_y  # 18 — matches bulkhead Y
     CABLE_Y_HALF_H = 4.0
+    CABLE_Y_CENTER = wall_and_floor_thickness + CABLE_Y_HALF_H  # = 6 — channel cavity sits on the foam shell floor for printability
     CABLE_X_DEPTH = 5.0
     CABLE_Z_MAX = 70.5
 
@@ -995,9 +1000,9 @@ def build_reed_channels(side):
     # the outer corner arc (south-west / curved side), the +Z outer
     # face z = ±72.5 (top), and the straight -X face x = ±116.5
     # (east, closing back to the arc start). Extruded in y across the
-    # envelope's full y range so the cable's y range (14..22) is also
+    # envelope's full y range so the cable's y range (2..10) is also
     # walled off from foam — `cut_reed_channel_openings` then cuts
-    # through this wedge (in y = 14..22, z ≤ 70.5) along with the
+    # through this wedge (in y = 2..10, z ≤ 70.5) along with the
     # corner-band wall material so the cable can pass through.
     R_outer_corner = bag_pocket_corner_inner_radius + W                                  # 8.5
     corner_arc_endpoint_x = s * (
@@ -1005,8 +1010,8 @@ def build_reed_channels(side):
     )                                                                                     # ±108
     z_outer = bag_pocket_width / 2                                                        # 72.5
     z_corner_start = z_outer - W - bag_pocket_corner_inner_radius                         # 64
-    y_min_env = CABLE_Y_CENTER - CABLE_Y_HALF_H - W                                       # 12
-    y_max_env = CABLE_Y_CENTER + CABLE_Y_HALF_H + W                                       # 24
+    y_min_env = CABLE_Y_CENTER - CABLE_Y_HALF_H - W                                       # 0
+    y_max_env = CABLE_Y_CENTER + CABLE_Y_HALF_H + W                                       # 12
     corner_wedge = (
         cq.Workplane(xz_plane_y_up)
         .workplane(offset=y_min_env)
@@ -1046,8 +1051,8 @@ def cut_reed_channel_openings(foam_shell):
     """
     REED_Z_CENTER = -45.0
     REED_Z_HALF_W = 4.0
-    CABLE_Y_CENTER = reservoir_bulkhead_port_y
     CABLE_Y_HALF_H = 4.0
+    CABLE_Y_CENTER = wall_and_floor_thickness + CABLE_Y_HALF_H  # = 6, matches build_reed_channels (channel sits on the foam shell floor)
     CABLE_Z_MAX = 70.5  # matches build_reed_channels; reaches the +Z bag-pocket inner face
     W = wall_and_floor_thickness
 
