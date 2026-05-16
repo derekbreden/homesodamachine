@@ -1,13 +1,20 @@
-// World-axis rulers for the CAD viewer. Three labeled axes through the
-// world origin (X red, Y green, Z blue) with tick marks at "nice" mm
-// intervals. Tick spacing auto-scales with camera distance so zooming
-// in shows finer divisions and zooming out shows coarser ones, keeping
-// the rough count of visible ticks stable across zoom levels.
+// World-axis rulers for the CAD viewer. Three labeled axes (X red,
+// Y green, Z blue) that pass through the OrbitControls target — i.e. the
+// point the camera is orbiting around — so wherever you pan or zoom to,
+// the three rulers stay anchored at the focus of the view. Tick *labels*
+// still show absolute world coordinates (in mm), so a tick labeled "120"
+// is at world X=120 regardless of where you've panned to. That way you
+// can read off real coordinates to feed an agent.
+//
+// Tick spacing auto-scales with camera distance using a 1/2/5 × 10^n nice
+// number so ~10 ticks span the visible extent. The tick range recenters
+// on the current target whenever it wanders past half the covered range,
+// so the user can pan anywhere in the model and still see numbered ticks
+// around their focus.
 //
 // Defaults to on; persisted per-browser in localStorage under "step-rulers".
 // The toggle button is created by makeRulerToggle() and appended into the
-// cad-wrapper by cad-detail.js so it sits inside the modal alongside the
-// gizmo and loading pill.
+// cad-wrapper by cad-detail.js.
 
 import * as THREE from "three";
 import { scene, camera, controls } from "./scene.js";
@@ -19,38 +26,52 @@ const LS_KEY = "step-rulers";
 const COLOR = { x: 0xe74c3c, y: 0x2ecc71, z: 0x3498db };
 const CSS_COLOR = { x: "#e74c3c", y: "#2ecc71", z: "#3498db" };
 
-// Axis lines extend this far in each direction from origin. Stays well
-// inside the perspective camera's far plane (10000) while comfortably
-// passing any part in this project.
+const AXIS_DIR = {
+  x: new THREE.Vector3(1, 0, 0),
+  y: new THREE.Vector3(0, 1, 0),
+  z: new THREE.Vector3(0, 0, 1),
+};
+// One distinct perpendicular per axis. At the crosshair point (where all
+// three axes meet at the orbit target), the three nearby tick labels
+// offset in three different directions, so they don't all stack on the
+// same screen pixel.
+const AXIS_PERP = {
+  x: new THREE.Vector3(0, 1, 0),
+  y: new THREE.Vector3(0, 0, 1),
+  z: new THREE.Vector3(1, 0, 0),
+};
+
+// Axis lines extend this far in each direction in local space. Stays
+// well inside the perspective camera's far plane (10000).
 const AXIS_HALF_LEN = 5000;
 
-// Hard cap on ticks per side. Keeps label count bounded if the user is
-// extremely zoomed out (in which case the picked step is large anyway).
+// Hard cap on ticks per side. With step=20mm this covers ±1200mm from
+// the current center, more than any part in this project.
 const MAX_TICKS_PER_SIDE = 60;
 
 const rulerGroup = new THREE.Group();
 rulerGroup.name = "rulers";
 
-const tickGroups = {
+// One sub-group per axis. Each holds: the axis line, the per-tick marks,
+// and the per-tick sprite labels — all in *local* space.
+//
+// The group's *position* translates that local content so the axis line
+// passes through controls.target along its own world direction. For
+// example, the X axis group's position is (0, target.y, target.z): its
+// local-X axis line then sits at world Y=target.y, Z=target.z, varying
+// in world X. A tick placed at local position (120, 0, 0) lands at world
+// (120, target.y, target.z) — i.e. it correctly represents world X=120
+// at the height/depth of the current focus. That's why tick *labels*
+// stay as absolute world coordinates while the rulers visually follow
+// the target.
+const axisGroups = {
   x: new THREE.Group(),
   y: new THREE.Group(),
   z: new THREE.Group(),
 };
-rulerGroup.add(tickGroups.x);
-rulerGroup.add(tickGroups.y);
-rulerGroup.add(tickGroups.z);
-
-function makeAxisLine(dir, color) {
-  const a = new THREE.Vector3().copy(dir).multiplyScalar(-AXIS_HALF_LEN);
-  const b = new THREE.Vector3().copy(dir).multiplyScalar( AXIS_HALF_LEN);
-  const geo = new THREE.BufferGeometry().setFromPoints([a, b]);
-  const mat = new THREE.LineBasicMaterial({ color, transparent: true, opacity: 0.5 });
-  return new THREE.Line(geo, mat);
-}
-
-rulerGroup.add(makeAxisLine(new THREE.Vector3(1, 0, 0), COLOR.x));
-rulerGroup.add(makeAxisLine(new THREE.Vector3(0, 1, 0), COLOR.y));
-rulerGroup.add(makeAxisLine(new THREE.Vector3(0, 0, 1), COLOR.z));
+rulerGroup.add(axisGroups.x);
+rulerGroup.add(axisGroups.y);
+rulerGroup.add(axisGroups.z);
 
 function makeLabelTexture(text, cssColor) {
   const canvas = document.createElement("canvas");
@@ -72,7 +93,7 @@ function formatTick(value, step) {
   return value.toFixed(decimals);
 }
 
-function disposeTickGroup(group) {
+function disposeGroup(group) {
   for (let i = group.children.length - 1; i >= 0; i--) {
     const obj = group.children[i];
     group.remove(obj);
@@ -81,50 +102,6 @@ function disposeTickGroup(group) {
       if (obj.material.map) obj.material.map.dispose();
       obj.material.dispose();
     }
-  }
-}
-
-function buildTicks(axis, step) {
-  const group = tickGroups[axis];
-  disposeTickGroup(group);
-
-  // Pick a perpendicular for tick-mark direction and label offset so the
-  // labels sit outboard of the axis along a sensible neighbour axis.
-  const dirVec = new THREE.Vector3();
-  const perpVec = new THREE.Vector3();
-  if (axis === "x")      { dirVec.set(1, 0, 0); perpVec.set(0, 1, 0); }
-  else if (axis === "y") { dirVec.set(0, 1, 0); perpVec.set(1, 0, 0); }
-  else                   { dirVec.set(0, 0, 1); perpVec.set(1, 0, 0); }
-
-  const tickHalf = step * 0.08;
-  const labelOffset = step * 0.45;
-  const labelW = step * 0.7;
-  const labelH = step * 0.35;
-  const color = COLOR[axis];
-  const cssColor = CSS_COLOR[axis];
-
-  const maxIndex = Math.min(MAX_TICKS_PER_SIDE, Math.floor(AXIS_HALF_LEN / step));
-
-  for (let i = -maxIndex; i <= maxIndex; i++) {
-    if (i === 0) continue; // origin is the crossing of all three axes — no label
-    const value = i * step;
-    const pos = dirVec.clone().multiplyScalar(value);
-
-    const tickGeo = new THREE.BufferGeometry().setFromPoints([
-      pos.clone().addScaledVector(perpVec, -tickHalf),
-      pos.clone().addScaledVector(perpVec,  tickHalf),
-    ]);
-    const tickMat = new THREE.LineBasicMaterial({ color, transparent: true, opacity: 0.8 });
-    group.add(new THREE.Line(tickGeo, tickMat));
-
-    const tex = makeLabelTexture(formatTick(value, step), cssColor);
-    const mat = new THREE.SpriteMaterial({ map: tex, depthTest: false, transparent: true });
-    const sprite = new THREE.Sprite(mat);
-    sprite.position.copy(pos).addScaledVector(perpVec, labelOffset);
-    sprite.scale.set(labelW, labelH, 1);
-    // Render after the model so labels stay legible through geometry.
-    sprite.renderOrder = 999;
-    group.add(sprite);
   }
 }
 
@@ -142,19 +119,92 @@ function pickStep(targetExtent) {
   return niceFraction * Math.pow(10, exponent);
 }
 
+function buildAxisContent(axis, step, center) {
+  const group = axisGroups[axis];
+  disposeGroup(group);
+
+  const dir = AXIS_DIR[axis];
+  const perp = AXIS_PERP[axis];
+  const color = COLOR[axis];
+  const cssColor = CSS_COLOR[axis];
+
+  // Axis line in local space — translated by the group's position so it
+  // passes through controls.target in world space.
+  const lineA = dir.clone().multiplyScalar(-AXIS_HALF_LEN);
+  const lineB = dir.clone().multiplyScalar( AXIS_HALF_LEN);
+  const lineGeo = new THREE.BufferGeometry().setFromPoints([lineA, lineB]);
+  const lineMat = new THREE.LineBasicMaterial({ color, transparent: true, opacity: 0.5 });
+  group.add(new THREE.Line(lineGeo, lineMat));
+
+  const tickHalf = step * 0.08;
+  const labelOffset = step * 0.45;
+  const labelW = step * 0.7;
+  const labelH = step * 0.35;
+  const maxIndex = Math.min(MAX_TICKS_PER_SIDE, Math.floor(AXIS_HALF_LEN / step));
+
+  for (let i = -maxIndex; i <= maxIndex; i++) {
+    // value is the absolute world coordinate this tick represents on its
+    // axis. Local placement at dir*value is correct because the group's
+    // position only translates the *other two* world axes — see comment
+    // on axisGroups above.
+    const value = center + i * step;
+    const pos = dir.clone().multiplyScalar(value);
+
+    const tickGeo = new THREE.BufferGeometry().setFromPoints([
+      pos.clone().addScaledVector(perp, -tickHalf),
+      pos.clone().addScaledVector(perp,  tickHalf),
+    ]);
+    const tickMat = new THREE.LineBasicMaterial({ color, transparent: true, opacity: 0.8 });
+    group.add(new THREE.Line(tickGeo, tickMat));
+
+    const tex = makeLabelTexture(formatTick(value, step), cssColor);
+    const mat = new THREE.SpriteMaterial({ map: tex, depthTest: false, transparent: true });
+    const sprite = new THREE.Sprite(mat);
+    sprite.position.copy(pos).addScaledVector(perp, labelOffset);
+    sprite.scale.set(labelW, labelH, 1);
+    // Render after the model so labels stay legible through geometry.
+    sprite.renderOrder = 999;
+    group.add(sprite);
+  }
+}
+
 let currentStep = null;
+const currentCenter = { x: 0, y: 0, z: 0 };
+
+function syncAxisGroupPositions() {
+  const t = controls.target;
+  axisGroups.x.position.set(0,   t.y, t.z);
+  axisGroups.y.position.set(t.x, 0,   t.z);
+  axisGroups.z.position.set(t.x, t.y, 0  );
+}
 
 export function updateRulers() {
   if (!rulerGroup.visible) return;
-  const dist = camera.position.distanceTo(controls.target);
+  const t = controls.target;
+  const dist = camera.position.distanceTo(t);
   const fovRad = camera.fov * Math.PI / 180;
   const extent = 2 * dist * Math.tan(fovRad / 2);
   const step = pickStep(extent);
-  if (step === currentStep) return;
+
+  // Cheap path: just translate the groups so they keep tracking target.
+  // Per-frame geometry rebuilds aren't needed.
+  syncAxisGroupPositions();
+
+  // Geometry rebuild only when step changes (a meaningful zoom event)
+  // or when the user has panned past half the tick range we built.
+  const halfRange = MAX_TICKS_PER_SIDE * step * 0.5;
+  const xOut = Math.abs(t.x - currentCenter.x) > halfRange;
+  const yOut = Math.abs(t.y - currentCenter.y) > halfRange;
+  const zOut = Math.abs(t.z - currentCenter.z) > halfRange;
+  if (step === currentStep && !xOut && !yOut && !zOut) return;
+
   currentStep = step;
-  buildTicks("x", step);
-  buildTicks("y", step);
-  buildTicks("z", step);
+  currentCenter.x = Math.round(t.x / step) * step;
+  currentCenter.y = Math.round(t.y / step) * step;
+  currentCenter.z = Math.round(t.z / step) * step;
+  buildAxisContent("x", step, currentCenter.x);
+  buildAxisContent("y", step, currentCenter.y);
+  buildAxisContent("z", step, currentCenter.z);
 }
 
 export function setRulersEnabled(on) {
@@ -190,9 +240,10 @@ export function makeRulerToggle() {
 
 scene.add(rulerGroup);
 
-// Rebuild ticks whenever the camera moves. Cheap — buildTicks only runs
-// when the chosen "nice step" actually changes, so an orbit at constant
-// zoom does nothing past the early-return inside updateRulers().
+// Rebuild ticks + reposition groups whenever the camera moves. The hot
+// path is just three Vector3.set calls (group translations); a geometry
+// rebuild only runs when the chosen "nice step" changes or the user
+// has panned past half the tick range.
 controls.addEventListener("change", updateRulers);
 
 const stored = (() => { try { return localStorage.getItem(LS_KEY); } catch { return null; } })();
