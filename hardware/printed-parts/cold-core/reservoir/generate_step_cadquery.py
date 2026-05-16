@@ -10,7 +10,7 @@ sys.path.insert(
 )
 sys.path.insert(0, str(_here.parent))
 from _cadq_export import export_step
-from _foam_shell_geometry import (
+from _cold_core_interface import (
     bag_pocket_far_inner_x as _shell_bag_pocket_far_inner_x,
     bag_pocket_z_inner_max as _shell_bag_pocket_z_inner_max,
     bag_pocket_floor_top_y as _shell_bag_pocket_floor_top_y,
