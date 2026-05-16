@@ -8,7 +8,7 @@ from _cold_core_interface import (
     xz_plane_y_up,
     xy_plane_z_up,
     wall_and_floor_thickness,
-    tank_copper_shell_height,
+    foam_shell_outer_height,
     bag_pocket_width,
     bag_pocket_outermost_x,
     bag_pocket_corner_inner_radius,
@@ -81,12 +81,12 @@ def build_reed_channels(side):
     # Vertical reed channel envelope + cavity
     vert_envelope = make_box(
         bag_x, bag_x + s * (reed_x_depth + W),
-        cable_y_center - cable_y_half_h - W, tank_copper_shell_height,
+        cable_y_center - cable_y_half_h - W, foam_shell_outer_height,
         reed_z_center - reed_z_half_w - W, reed_z_center + reed_z_half_w + W,
     )
     vert_cavity = make_box(
         bag_x, bag_x + s * reed_x_depth,
-        cable_y_center - cable_y_half_h, tank_copper_shell_height,
+        cable_y_center - cable_y_half_h, foam_shell_outer_height,
         reed_z_center - reed_z_half_w, reed_z_center + reed_z_half_w,
     )
 
@@ -235,7 +235,7 @@ def cut_reed_channel_openings(foam_shell):
         # footprint (full height).
         vert_opening = make_box(
             wall_x_inner, wall_x_outer,
-            cable_y_center - cable_y_half_h, tank_copper_shell_height,
+            cable_y_center - cable_y_half_h, foam_shell_outer_height,
             reed_z_center - reed_z_half_w, reed_z_center + reed_z_half_w,
         )
         foam_shell = foam_shell.cut(vert_opening)

@@ -19,29 +19,44 @@ wall_and_floor_thickness = 2.0
 hole_shift_from_edge = 15.0
 
 
-# Tank copper shell. 7 mm radial clearance between the tank and the
-# inner shell face fits 1/4" ACR copper coil + thermal tape + slack.
+# Reservoir-pocket centerward arc. Each pocket's centerward wall (the
+# one facing the cold-core axis) is curved; the wall's cavity-side face
+# rides on a cylinder of this radius (centered on the cold-core axis).
+# The wall's tank-side face sits one wall-thickness inboard at radius
+# (pocket_centerward_arc_outer_radius − wall_and_floor_thickness), giving
+# 7 mm of radial clearance between the tank and the wall — room for the
+# 1/4" ACR copper coil + thermal tape + slack.
 tank_outer_radius = 63.5
 coil_radial_clearance = 7.0
-tank_copper_shell_radius = tank_outer_radius + coil_radial_clearance + wall_and_floor_thickness
+pocket_centerward_arc_outer_radius = (
+    tank_outer_radius + coil_radial_clearance + wall_and_floor_thickness
+)
 
+# Foam-shell outer height. Tank height + 30 mm above for top-side elbow
+# fittings + 30 mm below for bottom-side elbow fittings + 1 mm
+# wall-thickness compensation.
 tank_height = 152.4
 below_tank_elbows_height = 30.0
 above_tank_elbows_height = 30.0
-tank_copper_shell_height = tank_height + below_tank_elbows_height + above_tank_elbows_height + 1.0
+foam_shell_outer_height = (
+    tank_height + below_tank_elbows_height + above_tank_elbows_height + 1.0
+)
 
 tank_support_ring_height = 30.0
 
-# Bag pocket. Width tracks tank_copper_shell_radius so the Z interior
-# cavity matches the cylinder's Z extent. Depth sized so each reservoir
-# holds ≥1 L of usable fluid (~23.6 mL per mm of X interior; baseline
-# 33 mm cleared 791.6 mL; 42 mm clears ~1004 mL).
-bag_pocket_width = tank_copper_shell_radius * 2
+# Bag pocket. Width tracks pocket_centerward_arc_outer_radius so the
+# pocket's ±Z outboard faces are tangent to the cylinder the centerward
+# arc rides on. Depth sized so each reservoir holds ≥1 L of usable
+# fluid (~23.6 mL per mm of X interior; baseline 33 mm cleared 791.6 mL;
+# 42 mm clears ~1004 mL).
+bag_pocket_width = pocket_centerward_arc_outer_radius * 2
 bag_pocket_depth = 42 + 2 * wall_and_floor_thickness
-bag_pocket_far_inner_x = tank_copper_shell_radius + bag_pocket_depth - 2 * wall_and_floor_thickness
+bag_pocket_far_inner_x = (
+    pocket_centerward_arc_outer_radius + bag_pocket_depth - 2 * wall_and_floor_thickness
+)
 bag_pocket_z_inner_max = bag_pocket_width / 2 - wall_and_floor_thickness
 bag_pocket_floor_top_y = wall_and_floor_thickness
-bag_pocket_walls_top_y = tank_copper_shell_height
+bag_pocket_walls_top_y = foam_shell_outer_height
 
 # Matches the reservoir's outer +X × ±Z fillet (R=6) with reservoir_clearance
 # on top, so the reservoir's outer arc slides into a snugly-mated arc on
@@ -58,15 +73,21 @@ reservoir_bulkhead_port_y = (
     + reservoir_floor_thickness
     + bulkhead_pocket_diameter / 2
 )
-reservoir_bulkhead_port_x = (bag_pocket_far_inner_x + tank_copper_shell_radius) / 2
+reservoir_bulkhead_port_x = (bag_pocket_far_inner_x + pocket_centerward_arc_outer_radius) / 2
 
 # Outer footprint shared by the outer shell, the foam cap, and the
 # foam cap lid (must be coplanar at the corners so the pin bosses
 # line up).
 outer_shell_foam_gap = 16.0
-bag_pocket_outermost_x = tank_copper_shell_radius + bag_pocket_depth - wall_and_floor_thickness
-outer_shell_x_length = 2 * (bag_pocket_outermost_x + outer_shell_foam_gap + wall_and_floor_thickness)
-outer_shell_z_length = 2 * (tank_copper_shell_radius + outer_shell_foam_gap + wall_and_floor_thickness)
+bag_pocket_outermost_x = (
+    pocket_centerward_arc_outer_radius + bag_pocket_depth - wall_and_floor_thickness
+)
+outer_shell_x_length = 2 * (
+    bag_pocket_outermost_x + outer_shell_foam_gap + wall_and_floor_thickness
+)
+outer_shell_z_length = 2 * (
+    pocket_centerward_arc_outer_radius + outer_shell_foam_gap + wall_and_floor_thickness
+)
 
 
 foam_cap_interior_height = outer_shell_foam_gap

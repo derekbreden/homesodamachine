@@ -9,12 +9,12 @@ ordered low → high in Y:
                                                    + wall_and_floor_thickness
                                                    + below_tank_elbows_height
                                                    = 47.0 mm  (at 2 mm wall)
-  • highest copper (warm-side evaporator outlet) at y = tank_copper_shell_height
+  • highest copper (warm-side evaporator outlet) at y = foam_shell_outer_height
                                                    − hole_shift_from_edge
                                                    − wall_and_floor_thickness
                                                    − above_tank_elbows_height
                                                    = 166.4 mm
-  • water inlet                                   at y = tank_copper_shell_height
+  • water inlet                                   at y = foam_shell_outer_height
                                                    − hole_shift_from_edge
                                                    = 198.4 mm
 
@@ -86,7 +86,7 @@ from _cold_core_interface import (
     hole_shift_from_edge,
     below_tank_elbows_height,
     above_tank_elbows_height,
-    tank_copper_shell_height,
+    foam_shell_outer_height,
     outer_shell_z_length,
 )
 
@@ -134,8 +134,8 @@ plug_full_x       = 2 * plug_half_x_outer                 # 8.5
 
 # Pass-through Y positions (centers).
 y_lowest_copper  = hole_shift_from_edge + wall_and_floor_thickness + below_tank_elbows_height
-y_highest_copper = tank_copper_shell_height - hole_shift_from_edge - wall_and_floor_thickness - above_tank_elbows_height
-y_water_inlet    = tank_copper_shell_height - hole_shift_from_edge
+y_highest_copper = foam_shell_outer_height - hole_shift_from_edge - wall_and_floor_thickness - above_tank_elbows_height
+y_water_inlet    = foam_shell_outer_height - hole_shift_from_edge
 
 # Plug end faces meet AT the tube pass-through centers. The arch
 # cutout at each tube-facing end (radius = tube_clearance_radius)
@@ -147,12 +147,12 @@ y_water_inlet    = tank_copper_shell_height - hole_shift_from_edge
 # exactly — no linear gaps between plugs, the tube IS the gap.
 #
 # The upper plug's top face is flush with the wall top (y =
-# tank_copper_shell_height); the upper plug has no top arch since
+# foam_shell_outer_height); the upper plug has no top arch since
 # nothing sits above it.
 plug_y_ranges = {
     "lower":  (y_lowest_copper,  y_highest_copper),
     "middle": (y_highest_copper, y_water_inlet),
-    "upper":  (y_water_inlet,    tank_copper_shell_height),
+    "upper":  (y_water_inlet,    foam_shell_outer_height),
 }
 
 # Which plug ends get a half-circle arch cutout (sits against a tube).

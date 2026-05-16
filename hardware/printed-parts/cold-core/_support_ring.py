@@ -5,7 +5,7 @@ import cadquery as cq
 
 from _cold_core_interface import (
     wall_and_floor_thickness,
-    tank_copper_shell_radius,
+    pocket_centerward_arc_outer_radius,
     tank_support_ring_height,
 )
 
@@ -16,7 +16,7 @@ def build_tank_support_ring():
     as 30° revolves of the same profile (with a radial margin), so
     every slot boundary stays on the same cylinder as the ring faces
     — no chord-vs-arc slivers."""
-    R_outer = tank_copper_shell_radius - wall_and_floor_thickness
+    R_outer = pocket_centerward_arc_outer_radius - wall_and_floor_thickness
     R_inner = R_outer - 9
     y_bottom = wall_and_floor_thickness
     y_top = y_bottom + tank_support_ring_height

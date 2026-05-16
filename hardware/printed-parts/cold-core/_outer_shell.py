@@ -7,7 +7,7 @@ from _cold_core_interface import (
     xz_plane_y_up,
     xz_plane_y_up_local,
     wall_and_floor_thickness,
-    tank_copper_shell_height,
+    foam_shell_outer_height,
     outer_shell_x_length,
     outer_shell_z_length,
     foam_cap_attachment_xz_positions,
@@ -21,7 +21,7 @@ def build_outer_shell():
     shell = (
         cq.Workplane(xz_plane_y_up)
         .rect(outer_shell_x_length, outer_shell_z_length)
-        .extrude(tank_copper_shell_height)
+        .extrude(foam_shell_outer_height)
         .faces(">Y")
         .shell(-wall_and_floor_thickness)
     )
@@ -30,14 +30,14 @@ def build_outer_shell():
         cq.Workplane(xz_plane_y_up)
         .pushPoints(boss_points)
         .rect(screw_boss_size, screw_boss_size)
-        .extrude(tank_copper_shell_height)
+        .extrude(foam_shell_outer_height)
     )
     # Heat-set insert pockets — drilled DOWN from the top (top-cap
     # screw threads down) and UP from the bottom (bottom-cap screw
     # threads up).
     top_pockets = (
         cq.Workplane(xz_plane_y_up)
-        .workplane(offset=tank_copper_shell_height - insert_pocket_depth)
+        .workplane(offset=foam_shell_outer_height - insert_pocket_depth)
         .pushPoints(boss_points)
         .circle(insert_pocket_radius)
         .extrude(insert_pocket_depth)

@@ -8,8 +8,8 @@ from _cold_core_interface import (
     xy_plane_z_up,
     wall_and_floor_thickness,
     hole_shift_from_edge,
-    tank_copper_shell_radius,
-    tank_copper_shell_height,
+    pocket_centerward_arc_outer_radius,
+    foam_shell_outer_height,
     bag_pocket_width,
     reservoir_bulkhead_port_x,
     reservoir_bulkhead_port_y,
@@ -30,7 +30,7 @@ from _cold_core_interface import (
 # default radius.
 CIRCULAR_PORT_HOLES = [
     # (x, y, z)
-    (0,                          hole_shift_from_edge + wall_and_floor_thickness,    tank_copper_shell_radius - 20),
+    (0,                          hole_shift_from_edge + wall_and_floor_thickness,    pocket_centerward_arc_outer_radius - 20),
     (+reservoir_bulkhead_port_x, reservoir_bulkhead_port_y,                          bag_pocket_width / 2 - 10),
     (-reservoir_bulkhead_port_x, reservoir_bulkhead_port_y,                          bag_pocket_width / 2 - 10),
 ]
@@ -51,7 +51,7 @@ def cut_co2_inlet(foam_shell):
     can't enter along the bore axis and the back wall is solid).
     The slot's bottom is flush with the floor's top face — the
     foam-shell floor below stays intact."""
-    co2_inlet_z_start = -(tank_copper_shell_radius - wall_and_floor_thickness)
+    co2_inlet_z_start = -(pocket_centerward_arc_outer_radius - wall_and_floor_thickness)
     co2_inlet_y_center = hole_shift_from_edge + wall_and_floor_thickness
     bore_radius = 8.0
     round_bore = build_a_hole_punch(
@@ -80,10 +80,10 @@ def cut_slot_for_copper_and_water_inlet(foam_shell):
     straight portion reaches the wall's top exactly, no sliver left."""
     slot_diameter = 6.5
     slot_y_bottom = 42.0
-    slot_y_top    = tank_copper_shell_height + slot_diameter / 2
+    slot_y_top    = foam_shell_outer_height + slot_diameter / 2
     slot_length   = slot_y_top - slot_y_bottom
     slot_y_center = (slot_y_top + slot_y_bottom) / 2.0
-    slot_z_offset = tank_copper_shell_radius - 20
+    slot_z_offset = pocket_centerward_arc_outer_radius - 20
     slot_x_offset = 0
     slot_punch = build_a_slot_punch(
         origin=(slot_x_offset, slot_y_center, slot_z_offset),
