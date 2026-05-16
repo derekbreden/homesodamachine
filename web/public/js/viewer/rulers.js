@@ -8,16 +8,25 @@
 //
 // Tick spacing auto-scales with camera distance using a 1/2/5 × 10^n nice
 // number so ~10 ticks span the visible extent. The tick range recenters
-// on the current target whenever it wanders past half the covered range,
-// so the user can pan anywhere in the model and still see numbered ticks
-// around their focus.
+// on the current target whenever it wanders past half the covered range.
+//
+// Rendering: lines are rendered with Three's LineSegments2 / LineMaterial
+// pair (the "fat lines" example shader) because the native WebGL line
+// primitive ignores linewidth on most platforms. That requires the
+// material's `resolution` to be set to the drawing buffer size in pixels
+// and kept in sync as the canvas resizes — we observe the canvas and
+// re-sync. Label sprites use the default depth test so they hide behind
+// model geometry like the axis lines do.
 //
 // Defaults to on; persisted per-browser in localStorage under "step-rulers".
 // The toggle button is created by makeRulerToggle() and appended into the
 // cad-wrapper by cad-detail.js.
 
 import * as THREE from "three";
-import { scene, camera, controls } from "./scene.js";
+import { LineSegments2 } from "three/addons/lines/LineSegments2.js";
+import { LineSegmentsGeometry } from "three/addons/lines/LineSegmentsGeometry.js";
+import { LineMaterial } from "three/addons/lines/LineMaterial.js";
+import { scene, camera, controls, renderer } from "./scene.js";
 
 const LS_KEY = "step-rulers";
 
@@ -33,7 +42,7 @@ const AXIS_DIR = {
 };
 // One distinct perpendicular per axis. At the crosshair point (where all
 // three axes meet at the orbit target), the three nearby tick labels
-// offset in three different directions, so they don't all stack on the
+// offset in three different directions so they don't all stack on the
 // same screen pixel.
 const AXIS_PERP = {
   x: new THREE.Vector3(0, 1, 0),
@@ -49,11 +58,48 @@ const AXIS_HALF_LEN = 5000;
 // the current center, more than any part in this project.
 const MAX_TICKS_PER_SIDE = 60;
 
+// Line widths in screen pixels — the LineMaterial shader gives us true
+// pixel widths regardless of camera distance.
+const AXIS_LINE_WIDTH = 5;
+const TICK_LINE_WIDTH = 5;
+
+// One LineMaterial per axis per role (axis line vs tick). All
+// LineSegments2 meshes share these so the resolution sync below only
+// has to update six objects when the canvas resizes.
+const axisLineMaterials = {
+  x: new LineMaterial({ color: COLOR.x, linewidth: AXIS_LINE_WIDTH, transparent: true, opacity: 0.55 }),
+  y: new LineMaterial({ color: COLOR.y, linewidth: AXIS_LINE_WIDTH, transparent: true, opacity: 0.55 }),
+  z: new LineMaterial({ color: COLOR.z, linewidth: AXIS_LINE_WIDTH, transparent: true, opacity: 0.55 }),
+};
+const tickLineMaterials = {
+  x: new LineMaterial({ color: COLOR.x, linewidth: TICK_LINE_WIDTH, transparent: true, opacity: 0.9 }),
+  y: new LineMaterial({ color: COLOR.y, linewidth: TICK_LINE_WIDTH, transparent: true, opacity: 0.9 }),
+  z: new LineMaterial({ color: COLOR.z, linewidth: TICK_LINE_WIDTH, transparent: true, opacity: 0.9 }),
+};
+const allLineMaterials = [
+  ...Object.values(axisLineMaterials),
+  ...Object.values(tickLineMaterials),
+];
+
+function syncLineResolution() {
+  // renderer.domElement.width / .height are the drawing buffer size in
+  // device pixels — exactly what LineMaterial.resolution wants.
+  const w = renderer.domElement.width;
+  const h = renderer.domElement.height;
+  if (!w || !h) return;
+  for (const mat of allLineMaterials) mat.resolution.set(w, h);
+}
+
+const canvasResizeObserver = new ResizeObserver(syncLineResolution);
+canvasResizeObserver.observe(renderer.domElement);
+syncLineResolution();
+
 const rulerGroup = new THREE.Group();
 rulerGroup.name = "rulers";
 
-// One sub-group per axis. Each holds: the axis line, the per-tick marks,
-// and the per-tick sprite labels — all in *local* space.
+// One sub-group per axis. Each holds: the axis line (LineSegments2 with
+// a single segment) and the per-tick marks (one LineSegments2 with N
+// segments) and the per-tick sprite labels. All in *local* space.
 //
 // The group's *position* translates that local content so the axis line
 // passes through controls.target along its own world direction. For
@@ -93,12 +139,15 @@ function formatTick(value, step) {
   return value.toFixed(decimals);
 }
 
+// Disposes geometries and per-instance materials (sprite materials and
+// their textures). Shared LineMaterials live for the module lifetime —
+// don't dispose those here.
 function disposeGroup(group) {
   for (let i = group.children.length - 1; i >= 0; i--) {
     const obj = group.children[i];
     group.remove(obj);
     if (obj.geometry) obj.geometry.dispose();
-    if (obj.material) {
+    if (obj.material && obj.material.isSpriteMaterial) {
       if (obj.material.map) obj.material.map.dispose();
       obj.material.dispose();
     }
@@ -125,16 +174,16 @@ function buildAxisContent(axis, step, center) {
 
   const dir = AXIS_DIR[axis];
   const perp = AXIS_PERP[axis];
-  const color = COLOR[axis];
   const cssColor = CSS_COLOR[axis];
 
-  // Axis line in local space — translated by the group's position so it
-  // passes through controls.target in world space.
-  const lineA = dir.clone().multiplyScalar(-AXIS_HALF_LEN);
-  const lineB = dir.clone().multiplyScalar( AXIS_HALF_LEN);
-  const lineGeo = new THREE.BufferGeometry().setFromPoints([lineA, lineB]);
-  const lineMat = new THREE.LineBasicMaterial({ color, transparent: true, opacity: 0.5 });
-  group.add(new THREE.Line(lineGeo, lineMat));
+  // Axis line — single segment from -AXIS_HALF_LEN to +AXIS_HALF_LEN
+  // along the axis direction in local space.
+  const axisGeo = new LineSegmentsGeometry();
+  axisGeo.setPositions([
+    -dir.x * AXIS_HALF_LEN, -dir.y * AXIS_HALF_LEN, -dir.z * AXIS_HALF_LEN,
+     dir.x * AXIS_HALF_LEN,  dir.y * AXIS_HALF_LEN,  dir.z * AXIS_HALF_LEN,
+  ]);
+  group.add(new LineSegments2(axisGeo, axisLineMaterials[axis]));
 
   const tickHalf = step * 0.08;
   const labelOffset = step * 0.45;
@@ -142,30 +191,30 @@ function buildAxisContent(axis, step, center) {
   const labelH = step * 0.35;
   const maxIndex = Math.min(MAX_TICKS_PER_SIDE, Math.floor(AXIS_HALF_LEN / step));
 
+  // All ticks for this axis go into one LineSegmentsGeometry (one draw
+  // call), and each tick gets its own labeled sprite.
+  const tickPositions = [];
   for (let i = -maxIndex; i <= maxIndex; i++) {
-    // value is the absolute world coordinate this tick represents on its
-    // axis. Local placement at dir*value is correct because the group's
-    // position only translates the *other two* world axes — see comment
-    // on axisGroups above.
+    // value is the absolute world coordinate this tick represents on
+    // its axis. Local placement at dir*value is correct because the
+    // group's position only translates the *other two* world axes — see
+    // comment on axisGroups above.
     const value = center + i * step;
     const pos = dir.clone().multiplyScalar(value);
-
-    const tickGeo = new THREE.BufferGeometry().setFromPoints([
-      pos.clone().addScaledVector(perp, -tickHalf),
-      pos.clone().addScaledVector(perp,  tickHalf),
-    ]);
-    const tickMat = new THREE.LineBasicMaterial({ color, transparent: true, opacity: 0.8 });
-    group.add(new THREE.Line(tickGeo, tickMat));
+    const a = pos.clone().addScaledVector(perp, -tickHalf);
+    const b = pos.clone().addScaledVector(perp,  tickHalf);
+    tickPositions.push(a.x, a.y, a.z, b.x, b.y, b.z);
 
     const tex = makeLabelTexture(formatTick(value, step), cssColor);
-    const mat = new THREE.SpriteMaterial({ map: tex, depthTest: false, transparent: true });
+    const mat = new THREE.SpriteMaterial({ map: tex, transparent: true });
     const sprite = new THREE.Sprite(mat);
     sprite.position.copy(pos).addScaledVector(perp, labelOffset);
     sprite.scale.set(labelW, labelH, 1);
-    // Render after the model so labels stay legible through geometry.
-    sprite.renderOrder = 999;
     group.add(sprite);
   }
+  const tickGeo = new LineSegmentsGeometry();
+  tickGeo.setPositions(tickPositions);
+  group.add(new LineSegments2(tickGeo, tickLineMaterials[axis]));
 }
 
 let currentStep = null;
@@ -241,9 +290,9 @@ export function makeRulerToggle() {
 scene.add(rulerGroup);
 
 // Rebuild ticks + reposition groups whenever the camera moves. The hot
-// path is just three Vector3.set calls (group translations); a geometry
-// rebuild only runs when the chosen "nice step" changes or the user
-// has panned past half the tick range.
+// path is just three Vector3.set calls (group translations); geometry
+// only rebuilds when the chosen "nice step" changes or the user has
+// panned past half the tick range.
 controls.addEventListener("change", updateRulers);
 
 const stored = (() => { try { return localStorage.getItem(LS_KEY); } catch { return null; } })();
