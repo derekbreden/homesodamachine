@@ -43,6 +43,19 @@ cable_z_max = 70.5
 reed_x_depth = 6.0
 
 
+def make_box(x_a, x_b, y_min, y_max, z_a, z_b):
+    """Axis-aligned box from world-coordinate min/max ranges in each axis."""
+    x_min, x_max = min(x_a, x_b), max(x_a, x_b)
+    z_min, z_max = min(z_a, z_b), max(z_a, z_b)
+    return (
+        cq.Workplane(xz_plane_y_up)
+        .workplane(offset=y_min)
+        .moveTo((x_min + x_max) / 2, -(z_min + z_max) / 2)
+        .rect(x_max - x_min, z_max - z_min)
+        .extrude(y_max - y_min)
+    )
+
+
 def build_reed_channels(side):
     """Reed-and-cable channel system for one ±X reservoir, returned as
     a single solid (new wall material) to union with the foam shell.
@@ -66,17 +79,6 @@ def build_reed_channels(side):
     W = wall_and_floor_thickness
 
     bag_x = s * bag_pocket_outermost_x  # outer face of bag-pocket far ±X wall
-
-    def make_box(x_a, x_b, y_min, y_max, z_a, z_b):
-        x_min, x_max = min(x_a, x_b), max(x_a, x_b)
-        z_min, z_max = min(z_a, z_b), max(z_a, z_b)
-        return (
-            cq.Workplane(xz_plane_y_up)
-            .workplane(offset=y_min)
-            .moveTo((x_min + x_max) / 2, -(z_min + z_max) / 2)
-            .rect(x_max - x_min, z_max - z_min)
-            .extrude(y_max - y_min)
-        )
 
     # Vertical reed channel envelope + cavity
     vert_envelope = make_box(
@@ -211,17 +213,6 @@ def cut_reed_channel_openings(foam_shell):
     Foam-pour safety is unaffected: the cut is on the bag-pocket-inner
     side; foam lives only in the foam zone outboard of the channel."""
     W = wall_and_floor_thickness
-
-    def make_box(x_a, x_b, y_min, y_max, z_a, z_b):
-        x_min, x_max = min(x_a, x_b), max(x_a, x_b)
-        z_min, z_max = min(z_a, z_b), max(z_a, z_b)
-        return (
-            cq.Workplane(xz_plane_y_up)
-            .workplane(offset=y_min)
-            .moveTo((x_min + x_max) / 2, -(z_min + z_max) / 2)
-            .rect(x_max - x_min, z_max - z_min)
-            .extrude(y_max - y_min)
-        )
 
     for s in (+1, -1):
         # Bag-pocket far ±X wall: 2 mm-thick band at x ∈ [outer−W, outer]
