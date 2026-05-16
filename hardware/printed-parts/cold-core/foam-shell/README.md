@@ -535,28 +535,15 @@ shift that needs a deliberate explanation:
 
 | metric | value |
 |---|---|
-| volume   | **982382.157916 mm³** |
+| volume   | **996325.726298 mm³** |
 | bbox x   | [−134.500, +134.500] mm |
 | bbox y   | [0.000, 213.400] mm |
 | bbox z   | [−90.500, +90.500] mm |
-| centroid | (0.000005, 90.542167, -0.044238) mm |
+| centroid | (0.000005, 90.742949, −0.616723) mm |
 
-Captured after the CO2-inlet doorway slot was clamped to the support
-arch's bottom face (fix for commit 68b8d3f, which had `slot_y_bottom
-= 0` and so cut through the y=0..2 foam-shell floor below the arch).
-The doorway now has its bottom flush with the floor's top face at
-y=wall_and_floor_thickness, leaving the floor intact under the cut.
-Composite shape on the arch's −Z outer face: upper half of the Ø16
-circle at y=17..25 as a rounded pocket, plus a 16 × 15 mm rectangular
-slot from y=2 (arch bottom face) up to y=17 (the bore's Y center).
-Both halves still extrude +Z by 40 mm. The doorway exists because the
-John Guest PP0308E 90° push-to-connect elbow (~⌀15 mm body, ~20 mm
-legs) cannot be inserted along the bore axis — its perpendicular legs
-snag at the bore opening, and the z<−70.5 back wall is solid. The
-slot provides angled-insertion clearance from above: the elbow is
-lowered through the open +Y top of the foam shell with one leg tilted
-into the slot opening on the arch's bottom face, then rotated into
-the round pocket.
+Captured at commit `ff24ef7` after a comment-removal pass on
+`_foam_shell_geometry.py` (geometry preserved at vol Δ = 0 across
+that pass).
 
 Volume at commit 68b8d3f (the bug — slot extended to y=0, cutting
 through the floor at y=0..2 in x∈[−8,8], z∈[−70.5,−30.5]) was
