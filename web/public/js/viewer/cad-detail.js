@@ -25,6 +25,7 @@ import {
 } from "./scene.js";
 import { loadStepFile } from "./step.js";
 import { loadDxfFile } from "./dxf.js";
+import { makeRulerToggle } from "./rulers.js";
 
 function shortName(file, ext = ".step") {
   const parts = file.split("/");
@@ -60,6 +61,7 @@ export function openCadDetail(type, file, pushHistory = true) {
   loadingEl.className = "cad-loading";
   loadingEl.textContent = "Loading...";
   wrapper.appendChild(loadingEl);
+  wrapper.appendChild(makeRulerToggle());
 
   state.currentCadWrapper = wrapper;
 
