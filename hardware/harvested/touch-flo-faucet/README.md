@@ -10,7 +10,7 @@ Building this mechanism from scratch is possible but displaces attention from th
 
 ## Harvest donor (primary)
 
-**Westbrass R2031-NL-12 Touch-Flo cold water dispenser faucet** — ASIN `B01N5LVNQA`, ~$19.53, Prime Two-Day.
+**Westbrass R2031-NL Touch-Flo cold water dispenser faucet** — either R2031-NL-62 (matte black, ASIN `B07KH285GJ`, ~$31.28) or R2031-NL-12 (oil-rubbed bronze, ASIN `B01N5LVNQA`, ~$19.53). Same R2031-NL family with identical mechanism and the same black plastic handle; the finish is fully covered by the touch-flo-shell so it doesn't matter visually — pick whichever is cheaper / Prime-available at acquisition time.
 
 - Picked as the cheapest Prime-available Touch-Flo for the prototype round — we want a repeatable pattern, not a specific brand. Any Touch-Flo–class faucet with a spring-piston poppet cartridge and a 1/4" compression inlet is substitutable.
 - Deck-mount, single-lever, self-closing.
