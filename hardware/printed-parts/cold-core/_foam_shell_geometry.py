@@ -855,6 +855,16 @@ def cut_slot_for_copper_and_water_inlet(foam_shell):
 # TOP-LEVEL ASSEMBLY
 # ═══════════════════════════════════════════════════════
 
+# Y of the horizontal cable channel cavity center, AND of the +Z cable
+# hole through the bag-pocket and outer-shell walls. Sits at half the
+# cavity height above the foam shell floor so the cavity rests on the
+# floor — printable without an unsupported envelope floor mid-air. The
+# cable hole shares this y so the cable runs straight from the channel
+# exit through the bag-pocket interior and out the +Z hole — no bend.
+cable_y_half_h = 4.0
+cable_y_center = wall_and_floor_thickness + cable_y_half_h
+
+
 def build_reed_channels(side):
     """Reed-and-cable channel system for one ±X reservoir, built into
     the foam shell. Returns a single solid (new wall material) to union
@@ -877,10 +887,11 @@ def build_reed_channels(side):
       wall_and_floor_thickness + 2 × CABLE_Y_HALF_H] = [2, 10]) so
       the foam shell floor IS the channel's bottom wall — printable
       without an unsupported envelope floor mid-air at y = 12 like
-      earlier revisions. Cable runs at y = 6 inside the channel and
-      bends up to y = 18 (the cable hole + bulkhead Y) inside the
-      bag-pocket interior between exiting the wall opening and
-      entering the +Z cable hole. Cavity ends at z = 70.5 — the +Z
+      earlier revisions. Cable runs at y = 6 (`cable_y_center`)
+      inside the channel; the +Z cable hole is also at y = 6 so the
+      cable goes straight from the channel exit through the bag-
+      pocket interior and out the hole — no bend. Cavity ends at z =
+      70.5 — the +Z
       bag-pocket wall's inner face — so the channel reaches all the
       way to the bag pocket's +Z edge. The wall the channel is built
       against curves inward at z = 64..70.5 (the +Z corner arc); the
@@ -904,8 +915,8 @@ def build_reed_channels(side):
     REED_X_DEPTH = 6.0
 
     # Horizontal cable channel
-    CABLE_Y_HALF_H = 4.0
-    CABLE_Y_CENTER = wall_and_floor_thickness + CABLE_Y_HALF_H  # = 6 — channel cavity sits on the foam shell floor for printability
+    CABLE_Y_HALF_H = cable_y_half_h
+    CABLE_Y_CENTER = cable_y_center
     CABLE_X_DEPTH = 5.0
     CABLE_Z_MAX = 70.5
 
@@ -1051,8 +1062,8 @@ def cut_reed_channel_openings(foam_shell):
     """
     REED_Z_CENTER = -45.0
     REED_Z_HALF_W = 4.0
-    CABLE_Y_HALF_H = 4.0
-    CABLE_Y_CENTER = wall_and_floor_thickness + CABLE_Y_HALF_H  # = 6, matches build_reed_channels (channel sits on the foam shell floor)
+    CABLE_Y_HALF_H = cable_y_half_h
+    CABLE_Y_CENTER = cable_y_center
     CABLE_Z_MAX = 70.5  # matches build_reed_channels; reaches the +Z bag-pocket inner face
     W = wall_and_floor_thickness
 
@@ -1113,18 +1124,20 @@ def cut_reed_channel_openings(foam_shell):
     return foam_shell
 
 
-cable_hole_offset_from_bulkhead_hole_x = 8.0  # ±X offset of cable hole from bulkhead hole (centers 8 mm apart; ⌀6.5 + ⌀6.5 holes have 1.5 mm of PETG between them)
+cable_hole_offset_from_bulkhead_hole_x = 8.0  # ±X offset of cable hole from bulkhead hole, away from the cold-core centerline. The two ⌀6.5 holes are also separated by 12 mm in y (cable hole at `cable_y_center` = 6, bulkhead at `reservoir_bulkhead_port_y` = 18), so center-to-center distance is ~14 mm — plenty of PETG between them.
 
 
 def cut_reed_cable_holes(foam_shell):
     """Cut the cable holes — one per reservoir side — through both the
     +Z bag-pocket wall and the +Z outer shell wall, in +Z direction,
     using the same `build_a_hole_punch` pattern as the existing
-    bulkhead-tube pass-throughs. The cable hole sits at the same y and
-    z as its side's bulkhead hole, offset in X by `cable_hole_offset_
-    from_bulkhead_hole_x` away from the bulkhead hole (toward the +X
-    far wall for the +X reservoir, toward the −X far wall for the −X
-    reservoir).
+    bulkhead-tube pass-throughs. The cable hole sits at the same z as
+    its side's bulkhead hole, offset in X by `cable_hole_offset_from_
+    bulkhead_hole_x` away from the bulkhead hole (toward the +X far
+    wall for the +X reservoir, toward the −X far wall for the −X
+    reservoir), and at y = `cable_y_center` (= 6, matching the channel
+    cavity center) so the cable runs straight from the channel through
+    the bag-pocket interior and out the hole — no bend.
 
     Cable's path: reed column → vertical channel → horizontal channel
     → bag-pocket-wall opening (cut by `cut_reed_channel_openings`,
@@ -1132,11 +1145,12 @@ def cut_reed_cable_holes(foam_shell):
     interior, traversing in −X by ~13 mm through the body's dry-side
     empty space (open at z ≥ panel_z_max due to the reservoir body's
     slab cut) → cable hole, in +Z direction → out the front face of
-    the cold core, parallel to and next to the bulkhead-tube exit."""
+    the cold core, parallel to and ±8 mm offset from (and 12 mm below)
+    the bulkhead-tube exit."""
     for s in (+1, -1):
         hole_origin = (
             s * (reservoir_bulkhead_port_x + cable_hole_offset_from_bulkhead_hole_x),
-            reservoir_bulkhead_port_y,
+            cable_y_center,
             bag_pocket_width / 2 - 10,
         )
         foam_shell = foam_shell.cut(build_a_hole_punch(origin=hole_origin))
