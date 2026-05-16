@@ -864,6 +864,16 @@ def cut_slot_for_copper_and_water_inlet(foam_shell):
 cable_y_half_h = 4.0
 cable_y_center = wall_and_floor_thickness + cable_y_half_h
 
+# X depth of the horizontal cable channel cavity (= 5 mm at the channel-
+# outer face). Same value also sets the run of the cavity ceiling's 45°
+# slope: slope rises from y = `cable_y_center + cable_y_half_h` at the
+# channel-outer face up to y + `cable_channel_x_depth` at the bag-pocket
+# wall outer face, then continues `wall_and_floor_thickness` further in
+# both -X and +Y through the bag-pocket wall to its inner face. Shared
+# by `build_reed_channels` (slope ceiling wedge) and
+# `cut_reed_channel_openings` (slope wall cut).
+cable_channel_x_depth = 5.0
+
 
 def build_reed_channels(side):
     """Reed-and-cable channel system for one ±X reservoir, built into
@@ -889,9 +899,12 @@ def build_reed_channels(side):
       without an unsupported envelope floor mid-air at y = 12 like
       earlier revisions. The cavity ceiling in the straight section
       (z ≤ CABLE_Z_MAX - R = 64) slopes 45° from y = 10 at the
-      channel-outer face up to y = 15 at the bag-pocket-wall side
-      (so the ceiling is also printable without bridging or internal
-      support). Cable runs at y = 6 (`cable_y_center`) inside the
+      channel-outer face (x = ±121.5) all the way through the bag-
+      pocket wall to y = 17 at the wall's inner face (x = ±114.5),
+      cutting the bag-pocket wall material under the slope (handled
+      by `cut_reed_channel_openings`'s slope wall cut). The slope is
+      printable without bridging or internal support. Cable runs at
+      y = 6 (`cable_y_center`) inside the
       channel; the +Z cable hole is also at y = 6 so the cable goes
       straight from the channel exit through the bag-pocket interior
       and out the hole — no y bend (still bends in xz to traverse
@@ -922,7 +935,7 @@ def build_reed_channels(side):
     # Horizontal cable channel
     CABLE_Y_HALF_H = cable_y_half_h
     CABLE_Y_CENTER = cable_y_center
-    CABLE_X_DEPTH = 5.0
+    CABLE_X_DEPTH = cable_channel_x_depth
     CABLE_Z_MAX = 70.5
 
     bag_x = s * bag_pocket_outermost_x  # outer face of bag-pocket far ±X wall
@@ -1166,6 +1179,37 @@ def cut_reed_channel_openings(foam_shell):
             REED_Z_CENTER - REED_Z_HALF_W, CABLE_Z_MAX,
         )
         foam_shell = foam_shell.cut(horiz_opening)
+
+        # Slope wall cut: extend the cavity ceiling slope (built into
+        # the channel envelope by `build_reed_channels`) through the
+        # bag-pocket wall on the slope's high-y side. The slope rises
+        # 1:1 from y = `cable_y_center + cable_y_half_h` = 10 at the
+        # channel-outer face up to y + `cable_channel_x_depth` = 15 at
+        # the bag-pocket wall outer face (x = ±116.5), then continues
+        # `wall_and_floor_thickness` = 2 further in -X and +Y through
+        # the bag-pocket wall to its inner face (x = ±114.5, y = 17).
+        # This cut removes the trapezoidal slice of bag-pocket wall
+        # material under the slope's extension through the wall —
+        # only in the straight section (z ≤ CABLE_Z_MAX -
+        # bag_pocket_corner_inner_radius = 64); the +Z corner area
+        # (z > 64) keeps its current flat ceiling at y = 10 and the
+        # bag-pocket wall above stays intact.
+        slope_y_low      = CABLE_Y_CENTER + CABLE_Y_HALF_H                 # 10
+        slope_y_at_outer = slope_y_low + cable_channel_x_depth             # 15
+        slope_y_at_inner = slope_y_at_outer + W                            # 17
+        slope_z_min      = REED_Z_CENTER - REED_Z_HALF_W                   # -49
+        slope_z_max      = CABLE_Z_MAX - bag_pocket_corner_inner_radius    # 64
+        slope_wall_cut = (
+            cq.Workplane(xy_plane_z_up)
+            .workplane(offset=slope_z_min)
+            .moveTo(wall_x_inner, slope_y_low)
+            .lineTo(wall_x_outer, slope_y_low)
+            .lineTo(wall_x_outer, slope_y_at_outer)
+            .lineTo(wall_x_inner, slope_y_at_inner)
+            .close()
+            .extrude(slope_z_max - slope_z_min)
+        )
+        foam_shell = foam_shell.cut(slope_wall_cut)
 
     return foam_shell
 
