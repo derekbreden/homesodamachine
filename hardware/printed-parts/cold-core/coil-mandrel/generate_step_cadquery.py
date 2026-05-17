@@ -111,6 +111,8 @@ mandrel_radius = tank_radius - net_undersize + groove_depth  # 61.5 mm
 mandrel_od = 2 * mandrel_radius  # 123.0 mm
 
 wall = 5.0
+mandrel_inner_radius = mandrel_radius - wall
+mandrel_r_range = (mandrel_inner_radius, mandrel_radius)
 
 
 # ═══════════════════════════════════════════════════════
@@ -159,27 +161,25 @@ upper_handle_z_range = (handle_length + wind_length, total_length)
 # BUILD AND EXPORT
 # ═══════════════════════════════════════════════════════
 
-def hollow_ring(outer_r, inner_r, z_range):
+def hollow_ring(r_range, z_range):
+    r_min, r_max = min(r_range), max(r_range)
     z_min, z_max = min(z_range), max(z_range)
     return (
         cq.Workplane("XY")
         .transformed(offset=(0, 0, z_min))
-        .circle(outer_r).circle(inner_r)
+        .circle(r_max).circle(r_min)
         .extrude(z_max - z_min)
     )
 
 
 def build_mandrel():
-    outer_r = mandrel_radius
-    inner_r = outer_r - wall
-
     full_z_range = (lower_handle_z_range[0], upper_handle_z_range[1])
-    body = hollow_ring(outer_r, inner_r, full_z_range)
+    body = hollow_ring(mandrel_r_range, full_z_range)
 
     # Helical groove. Path is offset OUTWARD by groove_offset so the
     # profile circle (radius = tube_radius around the path) cuts only
     # groove_depth into the cylinder.
-    helix_path_radius = outer_r + groove_offset
+    helix_path_radius = mandrel_radius + groove_offset
     helix = cq.Wire.makeHelix(
         pitch=pitch, height=wind_length, radius=helix_path_radius
     ).translate((0, 0, wind_z_range[0]))
@@ -193,8 +193,8 @@ def build_mandrel():
 
     # Restore clean handle zones — the swept tube bleeds ±groove_profile_radius
     # past the wind-zone boundaries at each end.
-    lower_handle = hollow_ring(outer_r, inner_r, lower_handle_z_range)
-    upper_handle = hollow_ring(outer_r, inner_r, upper_handle_z_range)
+    lower_handle = hollow_ring(mandrel_r_range, lower_handle_z_range)
+    upper_handle = hollow_ring(mandrel_r_range, upper_handle_z_range)
     return (cut_body
             .union(lower_handle, clean=False)
             .union(upper_handle, clean=False))
