@@ -91,31 +91,17 @@ from _cold_core_interface import (
     outer_shell_z_length,
 )
 
-
-def make_box(x_range, y_range, z_range):
-    """Axis-aligned box from world-coordinate ranges in each axis."""
-    x_min, x_max = min(x_range), max(x_range)
-    y_min, y_max = min(y_range), max(y_range)
-    z_min, z_max = min(z_range), max(z_range)
-    return (
-        WorldWorkplane(xz_plane_y_up)
-        .workplane(offset=y_min)
-        .moveTo(((x_min + x_max) / 2, (z_min + z_max) / 2))
-        .rect(x_max - x_min, z_max - z_min)
-        .extrude(y_max - y_min)
-        .unwrap()
-    )
-
 # Slot width in X equals the port's ⌀6.5 (matches the punch in
 # cut_slot_for_copper_and_water_inlet).
 slot_width_x = 6.5
 slot_half_width_x = slot_width_x / 2
 slot_x_range = (-slot_half_width_x, slot_half_width_x)
 
-# Tube clearance diameter at each pass-through (all three pass-throughs
-# share the same ⌀6.5 slot punch from cut_slot_for_copper_and_water_inlet).
-tube_clearance_diameter = 6.5
-tube_clearance_radius = tube_clearance_diameter / 2
+# Tube clearance radius at each pass-through. All three pass-throughs
+# share the same ⌀6.5 slot punch from cut_slot_for_copper_and_water_inlet,
+# so the tube clearance circle is tangent to the slot's X edges at the
+# pass-through Y.
+tube_clearance_radius = slot_half_width_x
 
 # Web fills the +Z outer_shell wall's Z range exactly (2 mm thick at
 # 2 mm wall); the two flanges sit 1 mm above and 1 mm below it.
@@ -142,8 +128,8 @@ plug_half_x_outer = slot_half_width_x + flange_x_overhang_per_side
 plug_x_range = (-plug_half_x_outer, plug_half_x_outer)
 
 # Full plug Z envelope, including the two flanges.
-plug_z_outer = outer_wall_outer_z + flange_z_thickness
 plug_z_inner = outer_wall_inner_z - flange_z_thickness
+plug_z_outer = outer_wall_outer_z + flange_z_thickness
 plug_z_range = (plug_z_inner, plug_z_outer)
 
 top_flange_z_range = (outer_wall_outer_z, plug_z_outer)
@@ -208,38 +194,41 @@ web_arch_buffer = math.sqrt(
 )
 
 
+def make_box(x_range, y_range, z_range):
+    """Axis-aligned box from world-coordinate ranges in each axis."""
+    x_min, x_max = min(x_range), max(x_range)
+    y_min, y_max = min(y_range), max(y_range)
+    z_min, z_max = min(z_range), max(z_range)
+    return (
+        WorldWorkplane(xz_plane_y_up)
+        .workplane(offset=y_min)
+        .moveTo(((x_min + x_max) / 2, (z_min + z_max) / 2))
+        .rect(x_max - x_min, z_max - z_min)
+        .extrude(y_max - y_min)
+        .unwrap()
+    )
+
+
 def build_plug(name, y_bottom, y_top):
     """Single solid plug with the I-beam cross-section described in
     the module docstring, extending y_bottom..y_top in Y. Half-
-    circle cutouts (diameter = tube_clearance_diameter) at the ends
-    that sit against a tube; the cutouts span the full Z envelope so
-    they pass through both flanges and the web."""
+    circle cutouts (radius = tube_clearance_radius) at the ends that
+    sit against a tube; the cutouts span the full Z envelope so they
+    pass through both flanges and the web."""
     plug_y_range = (y_bottom, y_top)
-
     arches = plug_arch_ends[name]
 
-    # Web and TOP FLANGE share the same Y range, inset from each
-    # arched plug end by `web_arch_buffer`.  Two reasons combine:
-    #   • Web razor edge — see razor-edge note above; web's outer-X
-    #     sliver narrows to zero at y=at_y at each arched end.
-    #   • Top-flange hanging-tab — the plug prints with its XY face
-    #     on the bed (Z = print-vertical), so the top flange is in
-    #     the LAST layers, sitting 2 mm above the bottom flange
-    #     across an air gap.  At each arched end the top flange's
-    #     ±X tab regions plus its inner razor strips (which form
-    #     between the arch cut at x = ±√(R²−(y−at_y)²) and the
-    #     flange edges at x = ±plug_half_x_outer) all print mangled.
-    # The simplest fix covers both: the top flange has the same
-    # shortened Y range as the web, so neither exists in
-    # y = at_y..at_y + web_arch_buffer at each arched end — exactly
-    # the missing region from e678489, extended in Z from the web
-    # band (z = outer_wall_inner_z..outer_wall_outer_z) into the
-    # top flange band (z = outer_wall_outer_z..plug_z_outer).
-    #
-    # Bottom flange keeps its full Y range — those tabs print fine
-    # because they're on the print bed.  The binder-clip grip on
-    # the wall's −Z face is intact at every arched end; the +Z
-    # grip is intact everywhere outside the arched-end Y bands.
+    # Web and top flange share the same Y range, inset from each arched
+    # plug end by `web_arch_buffer`. Two reasons combine:
+    #   • Web razor edge — see razor-edge note above.
+    #   • Top-flange hanging tab — the plug prints XY-face-down so the
+    #     top flange is in the last layers, sitting flange_z_thickness
+    #     above the bottom flange across an air gap. At each arched
+    #     end the top flange's tab regions plus the inner razor strips
+    #     (between arch cut and flange edge) all print mangled.
+    # Both fixes collapse to: skip web + top flange in the buffer band
+    # at each arched end. Bottom flange keeps its full Y range — those
+    # tabs print fine because they're on the print bed.
     web_y_range = (
         y_bottom + (web_arch_buffer if arches["bottom"] else 0),
         y_top - (web_arch_buffer if arches["top"] else 0),
@@ -250,15 +239,10 @@ def build_plug(name, y_bottom, y_top):
     bottom_flange = make_box(plug_x_range, plug_y_range, bottom_flange_z_range)
     plug = web.union(top_flange).union(bottom_flange)
 
-    # Half-circle cutouts. The arch is a cylinder (radius =
-    # tube_clearance_radius, axis along Z so it pierces the slab face-
-    # to-face) centered on x=0 at the plug's end y. Because the
-    # cylinder is centered ON the end face, only the half that
-    # overlaps the plug body (arching INTO the body) actually removes
-    # material. The cylinder is built tall enough to span the full
-    # plug Z envelope (z_inner .. z_outer including both flanges) so
-    # the cut goes through both flanges and the web — without this,
-    # the flanges would block tubes from seating.
+    # Arch cutter: cylinder centered on the plug's end Y face, spanning
+    # the full plug Z envelope so it pierces through both flanges and
+    # the web. Only the half inside the plug body removes material —
+    # the other half is air outside the end face.
     def arch_cutter(at_y):
         return (
             cq.Workplane(xy_plane_z_up)
@@ -302,12 +286,14 @@ def _analytical_volume(name, y_bottom, y_top):
     """
     y_height = y_top - y_bottom
     plug_full_x = plug_x_range[1] - plug_x_range[0]
+    slot_full_x = slot_x_range[1] - slot_x_range[0]
+    web_z_thickness = wall_z_range[1] - wall_z_range[0]
 
     arches = plug_arch_ends[name]
     n_arches = sum(1 for v in arches.values() if v)
 
     web_y_height = y_height - n_arches * web_arch_buffer
-    vol_web = slot_width_x * wall_and_floor_thickness * web_y_height
+    vol_web = slot_full_x * web_z_thickness * web_y_height
     vol_top_flange = plug_full_x * flange_z_thickness * web_y_height
     vol_bot_flange = plug_full_x * flange_z_thickness * y_height
 
@@ -322,7 +308,7 @@ def _analytical_volume(name, y_bottom, y_top):
     vol_arch_per_end = (
         flange_z_thickness * half_disc_area  # bottom flange (full Y)
         + flange_z_thickness * inset_in_arch_area  # top flange (inset Y)
-        + wall_and_floor_thickness * inset_in_arch_area  # web (inset Y)
+        + web_z_thickness * inset_in_arch_area  # web (inset Y)
     )
     vol_arch_total = n_arches * vol_arch_per_end
 
@@ -363,13 +349,13 @@ def main():
             f"diff {vol_diff:+.4f} mm^3"
         )
         assert len(solids) == 1, f"plug {name}: expected 1 solid, got {len(solids)}"
-        assert abs(bb.xmin - (-plug_half_x_outer)) < 1e-6 and abs(bb.xmax - plug_half_x_outer) < 1e-6, (
+        assert abs(bb.xmin - plug_x_range[0]) < 1e-6 and abs(bb.xmax - plug_x_range[1]) < 1e-6, (
             f"plug {name}: X bbox {bb.xmin:.4f}..{bb.xmax:.4f} expected "
-            f"{-plug_half_x_outer:.4f}..{plug_half_x_outer:.4f}"
+            f"{plug_x_range[0]:.4f}..{plug_x_range[1]:.4f}"
         )
-        assert abs(bb.zmin - plug_z_inner) < 1e-6 and abs(bb.zmax - plug_z_outer) < 1e-6, (
+        assert abs(bb.zmin - plug_z_range[0]) < 1e-6 and abs(bb.zmax - plug_z_range[1]) < 1e-6, (
             f"plug {name}: Z bbox {bb.zmin:.4f}..{bb.zmax:.4f} expected "
-            f"{plug_z_inner:.4f}..{plug_z_outer:.4f}"
+            f"{plug_z_range[0]:.4f}..{plug_z_range[1]:.4f}"
         )
         assert abs(vol_diff) < 0.01, (
             f"plug {name}: OCCT volume {vol:.4f} differs from analytical "
