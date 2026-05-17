@@ -29,8 +29,6 @@ from _cold_core_interface import (
 )
 
 
-# Lid Y extent. The lid is a flat solid extruded `wall_and_floor_thickness`
-# (2 mm) high in +Y from `xz_plane_y_up` (y=0), so it spans y ∈ [0, 2].
 lid_y_height = wall_and_floor_thickness
 
 
@@ -47,62 +45,47 @@ support_ring_mid_z = -(support_ring_outer_r + support_ring_inner_r) / 2
 co2_inlet_z = (centerward_wall_mid_z + support_ring_mid_z) / 2
 
 
+# ⌀6.5 tube clearance for the 1/4" OD LLDPE CO2 line. Distinct from
+# the foam shell's CO2 inlet (a ⌀16 Z-axis bore that seats the JG
+# PP0308E 90° elbow body below the cap); only the tube itself
+# traverses the cap and lid.
+co2_tube_clearance_radius = 3.25
+co2_boss_outer_radius = co2_tube_clearance_radius + wall_and_floor_thickness
+# Boss spans the full interior cavity height — from the cavity-side
+# face of the floor (y = wall_and_floor_thickness) up to the cavity
+# opening (y = foam_cap_height).
+co2_boss_y_bottom = wall_and_floor_thickness
+co2_boss_y_top = foam_cap_height
+
+
 def cut_co2_inlet(cap):
-    """Y-axis ⌀6.5 cylindrical cut through the top cap, sized for the
-    1/4" OD LLDPE CO2 tube to pass through the cap floor. Same (x, z)
-    as the foam shell's CO2 inlet, but a *different* diameter: the
-    shell's `cut_co2_inlet` is a ⌀16 Z-axis bore that seats the JG
-    PP0308E 90° elbow body below the cap; only the tube itself
-    traverses the cap, hence ⌀6.5 here (tube clearance, not elbow
-    clearance)."""
+    """Y-axis tube-clearance cut through the top cap floor."""
     return cap.cut(
         build_a_y_axis_hole_punch(
             origin=(0, 0, co2_inlet_z),
+            hole_punch_radius=co2_tube_clearance_radius,
             hole_punch_height=foam_cap_height,
         )
     )
 
 
 def cut_co2_inlet_lid(lid):
-    """Y-axis ⌀6.5 cylindrical cut through the foam-cap lid at the same
-    (x, z) as the top cap's CO2 through-hole. The lid sits atop the cap
-    during the foam pour; this hole continues the CO2 path from the
-    outside through the lid → cap stack. Same axis (Y), same XZ position,
-    same diameter (⌀6.5) as the local `cut_co2_inlet` above — tube
-    clearance for the 1/4" OD LLDPE, not the ⌀16 elbow-body doorway
-    in the foam shell."""
+    """Y-axis tube-clearance cut through the lid, continuing the CO2
+    path from outside the foam-cap lid into the top cap."""
     return lid.cut(
         build_a_y_axis_hole_punch(
             origin=(0, 0, co2_inlet_z),
+            hole_punch_radius=co2_tube_clearance_radius,
             hole_punch_height=lid_y_height,
         )
     )
 
 
-# Boss/tube geometry. The boss is a hollow cylindrical tube inside the
-# cap's foam-fill cavity, centered on the CO2 through-hole. It isolates
-# the through-hole from the foam pour: foam goes in the cavity around
-# the boss, but cannot reach the hole because the boss walls separate
-# them. With the boss present, the cap can lay flat during the foam
-# pour without a plug protruding from the through-hole.
-#
-# Inner radius matches the existing through-hole (3.25 → ⌀6.5), so the
-# tube's internal bore is continuous with the hole. Outer radius =
-# inner + wall_and_floor_thickness (per the cap's 2 mm wall convention).
-# Y range: from the cavity-side face of the floor (y =
-# wall_and_floor_thickness) to the cavity-opening face of the cap
-# (y = foam_cap_height) — i.e. the full interior cavity height.
-co2_boss_inner_radius = 3.25
-co2_boss_outer_radius = co2_boss_inner_radius + wall_and_floor_thickness
-co2_boss_y_bottom = wall_and_floor_thickness
-co2_boss_y_top = foam_cap_height
-
-
 def add_co2_boss(cap):
     """Union an annular boss around the CO2 through-hole on the cap
-    floor's cavity side. The boss is a 2 mm-wall hollow tube spanning
-    the full interior cavity height, sealing the through-hole off from
-    the foam pour while keeping the bore clear so CO2 line can pass."""
+    floor's cavity side: a 2 mm-wall hollow tube spanning the full
+    interior cavity height, sealing the through-hole off from the
+    foam pour while keeping the bore clear."""
     # Two concentric circles on the same workplane extrude as an
     # annulus via CadQuery's even-odd fill rule.
     boss = (
@@ -110,7 +93,7 @@ def add_co2_boss(cap):
         .workplane(offset=co2_boss_y_bottom)
         .moveTo((0, co2_inlet_z))
         .circle(co2_boss_outer_radius)
-        .circle(co2_boss_inner_radius)
+        .circle(co2_tube_clearance_radius)
         .extrude(co2_boss_y_top - co2_boss_y_bottom)
         .unwrap()
     )
@@ -133,10 +116,10 @@ def main():
     #   boss_annular_volume − through_hole_volume
     # where the through-hole is the ⌀6.5 floor pass and the boss is
     # the (R_outer² − R_inner²)·π · cavity_height annular ring.
-    through_hole_volume = math.pi * co2_boss_inner_radius ** 2 * wall_and_floor_thickness
+    through_hole_volume = math.pi * co2_tube_clearance_radius ** 2 * wall_and_floor_thickness
     boss_annular_volume = (
         math.pi
-        * (co2_boss_outer_radius ** 2 - co2_boss_inner_radius ** 2)
+        * (co2_boss_outer_radius ** 2 - co2_tube_clearance_radius ** 2)
         * (co2_boss_y_top - co2_boss_y_bottom)
     )
     expected_diff = boss_annular_volume - through_hole_volume
@@ -146,14 +129,14 @@ def main():
     print(f"foam_cap_height = {foam_cap_height}")
     print(f"foam_cap_interior_height = {foam_cap_interior_height}")
     print(f"boss y range = [{co2_boss_y_bottom}, {co2_boss_y_top}] (height {co2_boss_y_top - co2_boss_y_bottom})")
-    print(f"boss radii = [{co2_boss_inner_radius}, {co2_boss_outer_radius}]")
+    print(f"boss radii = [{co2_tube_clearance_radius}, {co2_boss_outer_radius}]")
     print(f"cap_top.Volume() - cap_bottom.Volume() = {actual_diff:.3f}")
     print(f"expected (boss annular − through-hole) = {expected_diff:.3f}")
     print(f"cap_top solids = {n_solids}")
 
     # Sanity check for the lid: lid_top differs from lid_bottom by the
     # Y-axis ⌀6.5 cylindrical pass through the lid's full Y extent.
-    lid_hole_volume = math.pi * co2_boss_inner_radius ** 2 * lid_y_height
+    lid_hole_volume = math.pi * co2_tube_clearance_radius ** 2 * lid_y_height
     lid_actual_diff = lid_bottom.val().Volume() - lid_top.val().Volume()
     print(f"lid_y_height = {lid_y_height}")
     print(f"lid_bottom.Volume() - lid_top.Volume() = {lid_actual_diff:.3f}")
