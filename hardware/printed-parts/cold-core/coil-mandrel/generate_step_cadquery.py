@@ -200,12 +200,12 @@ def build_mandrel():
             .union(upper_handle, clean=False))
 
 
-groove_bottom_d = mandrel_od - 2 * groove_depth
+groove_bottom_od = mandrel_od - 2 * groove_depth
 
 print(f"Tank OD:               {tank_od:.1f} mm (R = {tank_radius:.2f})")
 print(f"As-wound undersize:    {net_undersize:.1f} mm radial stretch")
 print(f"Mandrel surface OD:    {mandrel_od:.2f} mm (R = {mandrel_radius:.3f})")
-print(f"Groove bottom OD:      {groove_bottom_d:.2f} mm "
+print(f"Groove bottom OD:      {groove_bottom_od:.2f} mm "
       f"(= tank_od − 2·undersize = {tank_od - 2 * net_undersize:.1f})")
 print(f"Wall thickness:        {wall:.1f} mm  "
       f"(groove backing: {wall - groove_depth:.1f} mm)")
