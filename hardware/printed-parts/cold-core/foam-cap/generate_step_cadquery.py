@@ -19,7 +19,7 @@ from _foam_cap import (
     build_foam_cap_gasket,
 )
 from _cold_core_interface import (
-    build_a_y_axis_hole_punch,
+    build_y_axis_hole_punch,
     pocket_centerward_arc_outer_radius,
     support_ring_radial_width,
     wall_and_floor_thickness,
@@ -58,7 +58,7 @@ co2_boss_y_top = foam_cap_height
 def cut_co2_inlet(cap):
     """Y-axis tube-clearance cut through the top cap floor."""
     return cap.cut(
-        build_a_y_axis_hole_punch(
+        build_y_axis_hole_punch(
             origin=(0, 0, co2_inlet_z),
             hole_punch_radius=co2_tube_clearance_radius,
             hole_punch_height=foam_cap_height,
@@ -70,7 +70,7 @@ def cut_co2_inlet_lid(lid):
     """Y-axis tube-clearance cut through the lid, continuing the CO2
     path from outside through to the top cap."""
     return lid.cut(
-        build_a_y_axis_hole_punch(
+        build_y_axis_hole_punch(
             origin=(0, 0, co2_inlet_z),
             hole_punch_radius=co2_tube_clearance_radius,
             hole_punch_height=lid_y_height,

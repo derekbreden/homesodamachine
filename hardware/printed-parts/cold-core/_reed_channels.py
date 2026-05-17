@@ -16,7 +16,7 @@ from _cold_core_interface import (
     reservoir_bulkhead_port_z,
     port_hole_radius,
     make_box,
-    build_a_hole_punch,
+    build_hole_punch,
 )
 
 w = wall_and_floor_thickness
@@ -198,5 +198,5 @@ def cut_reed_cable_holes(foam_shell):
             cable_y_center,
             reservoir_bulkhead_port_z,
         )
-        foam_shell = foam_shell.cut(build_a_hole_punch(origin=hole_origin, hole_punch_radius=port_hole_radius))
+        foam_shell = foam_shell.cut(build_hole_punch(origin=hole_origin, hole_punch_radius=port_hole_radius))
     return foam_shell

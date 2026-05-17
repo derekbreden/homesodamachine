@@ -14,8 +14,8 @@ from _cold_core_interface import (
     reservoir_bulkhead_port_y,
     reservoir_bulkhead_port_z,
     port_hole_radius,
-    build_a_hole_punch,
-    build_a_slot_punch,
+    build_hole_punch,
+    build_slot_punch,
 )
 
 # Y at which the through-foam ports sit — water outlet and CO2 inlet
@@ -39,7 +39,7 @@ reservoir_bulkhead_minus_x_xyz = (-reservoir_bulkhead_port_x, reservoir_bulkhead
 
 def cut_circular_port_holes(foam_shell):
     for anchor in (water_outlet_xyz, reservoir_bulkhead_plus_x_xyz, reservoir_bulkhead_minus_x_xyz):
-        foam_shell = foam_shell.cut(build_a_hole_punch(origin=anchor, hole_punch_radius=port_hole_radius))
+        foam_shell = foam_shell.cut(build_hole_punch(origin=anchor, hole_punch_radius=port_hole_radius))
     return foam_shell
 
 
@@ -57,7 +57,7 @@ def cut_co2_inlet(foam_shell):
     doorway_z = -(pocket_centerward_arc_outer_radius - wall_and_floor_thickness)
     bore_radius = 8.0
     bore_y = front_face_port_y
-    round_bore = build_a_hole_punch(
+    round_bore = build_hole_punch(
         origin=(0, bore_y, doorway_z),
         hole_punch_radius=bore_radius,
     )
@@ -85,7 +85,7 @@ def cut_slot_for_copper_and_water_inlet(foam_shell):
     slot_y_bottom = 42.0
     slot_y_top = foam_shell_outer_height + slot_diameter / 2
     slot_y_center = (slot_y_top + slot_y_bottom) / 2.0
-    slot_punch = build_a_slot_punch(
+    slot_punch = build_slot_punch(
         origin=(0, slot_y_center, plus_z_wall_plug_port_z),
         slot_length=slot_y_top - slot_y_bottom,
         slot_diameter=slot_diameter,
