@@ -44,34 +44,48 @@ def _canonicalize_step(path):
             f.write(new_data)
 
 
-def _atomic_write(target_path, write_fn):
-    target = Path(target_path).resolve()
-    target.parent.mkdir(parents=True, exist_ok=True)
-    fd, tmp = tempfile.mkstemp(
+def _current_umask():
+    """Read the process umask without changing it (os.umask only offers
+    a swap; the only way to read is set-then-restore)."""
+    umask = os.umask(0)
+    os.umask(umask)
+    return umask
+
+
+def _make_sibling_tempfile(target):
+    """Create an empty temp file next to `target`, sharing its suffix so
+    canonicalization can dispatch on it. Same directory keeps the final
+    rename on one filesystem (so os.replace is atomic)."""
+    fd, tmp_path = tempfile.mkstemp(
         prefix=f".{target.name}.",
         suffix=target.suffix,
         dir=str(target.parent),
     )
     os.close(fd)
-    # mkstemp creates files at 0600; restore umask-default so rename
-    # produces a normal 0644 file rather than a private one.
-    umask = os.umask(0)
-    os.umask(umask)
-    os.chmod(tmp, 0o666 & ~umask)
+    # mkstemp creates files at 0600; restore umask-default so the renamed
+    # target ends up at 0644 rather than a private 0600.
+    os.chmod(tmp_path, 0o666 & ~_current_umask())
+    return tmp_path
+
+
+def _atomic_write(target_path, write_fn):
+    target = Path(target_path).resolve()
+    target.parent.mkdir(parents=True, exist_ok=True)
+    tmp_path = _make_sibling_tempfile(target)
     try:
-        write_fn(tmp)
+        write_fn(tmp_path)
         if target.suffix == ".step":
-            _canonicalize_step(tmp)
+            _canonicalize_step(tmp_path)
         # No-change short-circuit: if the canonicalized output matches the
         # existing target byte-for-byte, leave the target's mtime alone and
         # leave git status clean. Only rename when content actually changed.
-        if target.exists() and filecmp.cmp(tmp, str(target), shallow=False):
-            os.unlink(tmp)
+        if target.exists() and filecmp.cmp(tmp_path, str(target), shallow=False):
+            os.unlink(tmp_path)
             return
-        os.replace(tmp, target)
+        os.replace(tmp_path, target)
     except BaseException:
         try:
-            os.unlink(tmp)
+            os.unlink(tmp_path)
         except FileNotFoundError:
             pass
         raise
