@@ -635,6 +635,19 @@ def _build_outer_envelope(side, outer_far_x_abs, outer_z_max, outer_centerward_r
     return rect.cut(cyl)
 
 
+def _fillet_pair_at_z(solid, x_signed, y_mid, z_range, radius):
+    """Fillet the two vertical edges nearest (x_signed, y_mid, ±z_range)
+    with the given radius. Used to round both +Z and −Z corners on a
+    shared outer profile."""
+    for sharp_z in (z_range, -z_range):
+        solid = (
+            solid
+            .edges(cq.NearestToPointSelector((x_signed, y_mid, sharp_z)))
+            .fillet(radius)
+        )
+    return solid
+
+
 def build_reservoir_body(side=1):
     """
     Open-top `[`-shaped PETG body with 4 mm walls + 4 mm floor, sized
@@ -710,88 +723,34 @@ def build_reservoir_body(side=1):
     inner_corner_x = math.sqrt(inner_centerward_radius**2 - inner_z_max**2)
     y_mid_body = (outer_floor_bottom_y + outer_top_y) / 2
 
-    for sharp_z in (outer_z_max, -outer_z_max):
-        body = (
-            body
-            .edges(cq.NearestToPointSelector(
-                (side * outer_corner_x, y_mid_body, sharp_z),
-            ))
-            .fillet(outer_corner_fillet_radius)
-        )
-
-    # +X × ±Z outer corners (90° corners between the +X face and the
-    # ±Z faces). The original fillet pass skipped these — the curve ×
-    # ±Z corners above were ~13° acute "pointy tabs" and so were the
-    # priority. The +X × ±Z corners are the remaining unfilleted outer
-    # corners on the perimeter; rounding them with the same 6 mm radius
-    # cleans up the appliance's exterior. Bosses 1 and 2 sit at these
-    # corners' fillet centers (the same _screw_setback = 6 = boss radius
-    # trick used for bosses 4/5 — boss disk inscribes the fillet arc),
-    # so the boss material is entirely inside the rounded wall and the
-    # boss's 45° cavity-overhang cut still applies normally.
-    for sharp_z in (outer_z_max, -outer_z_max):
-        body = (
-            body
-            .edges(cq.NearestToPointSelector(
-                (side * outer_far_x_abs, y_mid_body, sharp_z),
-            ))
-            .fillet(outer_corner_fillet_radius)
-        )
+    # Outer fillets: curve × ±Z (acute "pointy tab") and +X × ±Z (90°
+    # corner). Bosses 1/2 sit at the +X × ±Z fillet centers (boss disk
+    # inscribes the fillet arc, same trick as bosses 4/5 — see
+    # body_boss_cut_info above), so boss material stays inside the
+    # rounded wall and the 45° overhang cut still applies normally.
+    body = _fillet_pair_at_z(body, side * outer_corner_x, y_mid_body, outer_z_max, outer_corner_fillet_radius)
+    body = _fillet_pair_at_z(body, side * outer_far_x_abs, y_mid_body, outer_z_max, outer_corner_fillet_radius)
 
     # Separately-filleted outer envelope, used below to clip the wedge
     # so the wedge's sharp [-shape corner at (inner_corner_x, ±inner_z_max)
     # can't poke through the outer fillet arc. (Without this clip, the
     # wedge restores the pre-fillet outer corner geometry in the wedge's
     # y range, leaving a sharp tab visible from the centerward face in a
-    # narrow Y range matching the wedge's extent — the bug that
-    # previously left a sharp protrusion under the slab cut area.)
+    # narrow Y range matching the wedge's extent.)
     outer_envelope_filleted = _build_outer_envelope(
         side, outer_far_x_abs, outer_z_max, outer_centerward_radius,
         outer_floor_bottom_y, outer_height,
     )
-    for sharp_z in (outer_z_max, -outer_z_max):
-        outer_envelope_filleted = (
-            outer_envelope_filleted
-            .edges(cq.NearestToPointSelector(
-                (side * outer_corner_x, y_mid_body, sharp_z),
-            ))
-            .fillet(outer_corner_fillet_radius)
-        )
-    # Match the +X × ±Z corner fillets above on the clipping envelope.
-    for sharp_z in (outer_z_max, -outer_z_max):
-        outer_envelope_filleted = (
-            outer_envelope_filleted
-            .edges(cq.NearestToPointSelector(
-                (side * outer_far_x_abs, y_mid_body, sharp_z),
-            ))
-            .fillet(outer_corner_fillet_radius)
-        )
+    outer_envelope_filleted = _fillet_pair_at_z(outer_envelope_filleted, side * outer_corner_x, y_mid_body, outer_z_max, outer_corner_fillet_radius)
+    outer_envelope_filleted = _fillet_pair_at_z(outer_envelope_filleted, side * outer_far_x_abs, y_mid_body, outer_z_max, outer_corner_fillet_radius)
 
-    for sharp_z in (inner_z_max, -inner_z_max):
-        body = (
-            body
-            .edges(cq.NearestToPointSelector(
-                (side * inner_corner_x, y_mid_body, sharp_z),
-            ))
-            .fillet(inner_corner_fillet_radius)
-        )
-
-    # Inner counterpart of the +X × ±Z outer fillets above. Rounds the
-    # cavity-side corner where the inner +X face (x=inner_far_x_abs)
-    # meets the inner ±Z face (z=±inner_z_max). Same role as the inner
-    # fillets at the curve × ±Z corners — smooths a sharp inner crevice
-    # in the syrup volume above dry_slope_y where both inner faces are
-    # exposed. Same 6 mm radius for visual consistency. Adds a small
-    # amount of material into the cavity tip; volume cost is small
-    # because the affected y range only extends from dry_slope_y up.
-    for sharp_z in (inner_z_max, -inner_z_max):
-        body = (
-            body
-            .edges(cq.NearestToPointSelector(
-                (side * inner_far_x_abs, y_mid_body, sharp_z),
-            ))
-            .fillet(inner_corner_fillet_radius)
-        )
+    # Inner fillets: curve × ±Z (sharp crevice in syrup volume) and
+    # +X × ±Z (analogous interior corner, exposed in syrup above
+    # dry_slope_y). Same radius as outer for visual consistency. Adds
+    # a small amount of material into the cavity tip; volume cost is
+    # small because the affected y range only extends from dry_slope_y up.
+    body = _fillet_pair_at_z(body, side * inner_corner_x, y_mid_body, inner_z_max, inner_corner_fillet_radius)
+    body = _fillet_pair_at_z(body, side * inner_far_x_abs, y_mid_body, inner_z_max, inner_corner_fillet_radius)
 
     # Insert bosses at the top perimeter (unioned AFTER the fillets so
     # the bosses sit on top of the now-rounded corners cleanly).
@@ -1344,26 +1303,11 @@ def build_reservoir_cap(side=1):
     outer_corner_x = math.sqrt(outer_centerward_radius**2 - outer_z_max**2)
     y_mid_cap = cap_total_height / 2
 
-    for sharp_z in (outer_z_max, -outer_z_max):
-        cap = (
-            cap
-            .edges(cq.NearestToPointSelector(
-                (side * outer_corner_x, y_mid_cap, sharp_z),
-            ))
-            .fillet(outer_corner_fillet_radius)
-        )
-
-    # Match the body's +X × ±Z corner fillets so the cap and body
-    # share the same outer envelope (gasket between them sees the
-    # same footprint on both sides).
-    for sharp_z in (outer_z_max, -outer_z_max):
-        cap = (
-            cap
-            .edges(cq.NearestToPointSelector(
-                (side * outer_far_x_abs, y_mid_cap, sharp_z),
-            ))
-            .fillet(outer_corner_fillet_radius)
-        )
+    # Match the body's outer fillets so the cap and body share the same
+    # outer envelope (gasket between them sees the same footprint on
+    # both sides).
+    cap = _fillet_pair_at_z(cap, side * outer_corner_x, y_mid_cap, outer_z_max, outer_corner_fillet_radius)
+    cap = _fillet_pair_at_z(cap, side * outer_far_x_abs, y_mid_cap, outer_z_max, outer_corner_fillet_radius)
 
     # Cap-side bosses at each insert position, mirroring the body
     # bosses. They sit inside the perimeter wall at y = [0, 5],
@@ -1563,29 +1507,13 @@ def build_reservoir_gasket(side=1):
     )
     gasket = outer.cut(inner)
 
-    # Outer fillet at the curve × ±Z corners (matches the body/cap
-    # outer profile so the gasket aligns flush with both above and
-    # below it when clamped).
+    # Outer fillets at the curve × ±Z and +X × ±Z corners (match the
+    # body/cap outer profile so the gasket aligns flush with both above
+    # and below it when clamped).
     outer_corner_x = math.sqrt(outer_centerward_radius**2 - outer_z_max**2)
     y_mid_gasket = gasket_thickness / 2.0
-    for sharp_z in (outer_z_max, -outer_z_max):
-        gasket = (
-            gasket
-            .edges(cq.NearestToPointSelector(
-                (side * outer_corner_x, y_mid_gasket, sharp_z),
-            ))
-            .fillet(outer_corner_fillet_radius)
-        )
-
-    # Match the body/cap +X × ±Z corner fillets.
-    for sharp_z in (outer_z_max, -outer_z_max):
-        gasket = (
-            gasket
-            .edges(cq.NearestToPointSelector(
-                (side * outer_far_x_abs, y_mid_gasket, sharp_z),
-            ))
-            .fillet(outer_corner_fillet_radius)
-        )
+    gasket = _fillet_pair_at_z(gasket, side * outer_corner_x, y_mid_gasket, outer_z_max, outer_corner_fillet_radius)
+    gasket = _fillet_pair_at_z(gasket, side * outer_far_x_abs, y_mid_gasket, outer_z_max, outer_corner_fillet_radius)
 
     # Pads at every insert position — unioned BEFORE the holes are
     # cut so each hole sits at the center of a full ø8 disk.
