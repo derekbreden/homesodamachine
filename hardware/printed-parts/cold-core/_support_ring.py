@@ -18,17 +18,17 @@ def build_tank_support_ring():
     as 30° revolves of the same profile (with a radial margin), so
     every slot boundary stays on the same cylinder as the ring faces
     — no chord-vs-arc slivers."""
-    R_outer = pocket_centerward_arc_outer_radius - wall_and_floor_thickness
-    R_inner = R_outer - 9
+    r_outer = pocket_centerward_arc_outer_radius - wall_and_floor_thickness
+    r_inner = r_outer - 9
     y_bottom = wall_and_floor_thickness
     y_top = y_bottom + tank_support_ring_height
 
     ring_profile = (
         cq.Workplane("XY")
-        .moveTo(R_inner, y_bottom)
-        .lineTo(R_outer, y_bottom)
-        .lineTo(R_outer, y_top)
-        .lineTo(R_inner, y_top)
+        .moveTo(r_inner, y_bottom)
+        .lineTo(r_outer, y_bottom)
+        .lineTo(r_outer, y_top)
+        .lineTo(r_inner, y_top)
         .close()
     )
     ring = ring_profile.revolve()
@@ -38,10 +38,10 @@ def build_tank_support_ring():
     def build_slot():
         return (
             cq.Workplane("XY")
-            .moveTo(R_inner - slot_radial_margin, y_bottom)
-            .lineTo(R_outer + slot_radial_margin, y_bottom)
-            .lineTo(R_outer + slot_radial_margin, y_top)
-            .lineTo(R_inner - slot_radial_margin, y_top)
+            .moveTo(r_inner - slot_radial_margin, y_bottom)
+            .lineTo(r_outer + slot_radial_margin, y_bottom)
+            .lineTo(r_outer + slot_radial_margin, y_top)
+            .lineTo(r_inner - slot_radial_margin, y_top)
             .close()
             .revolve(slot_angular_width)
         )
