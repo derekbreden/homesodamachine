@@ -5,7 +5,7 @@ import cadquery as cq
 
 from _cold_core_interface import (
     xz_plane_y_up,
-    xz_plane_y_up_local,
+    flip_z,
     wall_and_floor_thickness,
     foam_shell_outer_height,
     outer_shell_x_length,
@@ -25,7 +25,7 @@ def build_outer_shell():
         .faces(">Y")
         .shell(-wall_and_floor_thickness)
     )
-    boss_points = xz_plane_y_up_local(foam_cap_attachment_xz_positions)
+    boss_points = [flip_z(p) for p in foam_cap_attachment_xz_positions]
     bosses = (
         cq.Workplane(xz_plane_y_up)
         .pushPoints(boss_points)

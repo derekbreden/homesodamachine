@@ -6,7 +6,7 @@ import cadquery as cq
 
 from _cold_core_interface import (
     xz_plane_y_up,
-    xz_plane_y_up_local,
+    flip_z,
     wall_and_floor_thickness,
     outer_shell_x_length,
     outer_shell_z_length,
@@ -30,7 +30,7 @@ def build_foam_cap():
         .faces(">Y")
         .shell(-wall_and_floor_thickness)
     )
-    boss_points = xz_plane_y_up_local(foam_cap_attachment_xz_positions)
+    boss_points = [flip_z(p) for p in foam_cap_attachment_xz_positions]
     bosses = (
         cq.Workplane(xz_plane_y_up)
         .pushPoints(boss_points)
@@ -84,7 +84,7 @@ def build_foam_cap_lid():
 
     lid = lid.cut(pour_hole).cut(vent_hole_a).cut(vent_hole_b)
 
-    boss_points = xz_plane_y_up_local(foam_cap_attachment_xz_positions)
+    boss_points = [flip_z(p) for p in foam_cap_attachment_xz_positions]
     clearances = (
         cq.Workplane(xz_plane_y_up)
         .pushPoints(boss_points)
@@ -115,7 +115,7 @@ def build_foam_cap_gasket():
     )
     gasket = outer.cut(inner)
 
-    boss_points = xz_plane_y_up_local(foam_cap_attachment_xz_positions)
+    boss_points = [flip_z(p) for p in foam_cap_attachment_xz_positions]
     pads = (
         cq.Workplane(xz_plane_y_up)
         .pushPoints(boss_points)
