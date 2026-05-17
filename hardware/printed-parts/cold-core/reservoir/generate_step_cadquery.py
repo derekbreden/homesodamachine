@@ -27,12 +27,12 @@ from _cold_core_interface import (
     bag_pocket_floor_top_y,
     bag_pocket_walls_top_y,
     pocket_centerward_arc_outer_radius,
-    reservoir_clearance as _shell_reservoir_clearance,
-    reservoir_floor_thickness as _shell_reservoir_floor_thickness,
-    bulkhead_pocket_diameter as _shell_bulkhead_pocket_diameter,
-    reservoir_bulkhead_port_x as _shell_reservoir_bulkhead_port_x,
-    reservoir_bulkhead_port_y as _shell_reservoir_bulkhead_port_y,
-    reservoir_bulkhead_nut_y as _shell_reservoir_bulkhead_nut_y,
+    reservoir_clearance,
+    reservoir_floor_thickness,
+    bulkhead_pocket_diameter,
+    reservoir_bulkhead_port_x as port_position_x,
+    reservoir_bulkhead_port_y as port_position_y,
+    reservoir_bulkhead_nut_y as nut_position_y,
 )
 
 
@@ -81,15 +81,10 @@ def _y_cylinder(x, y_bottom, z, diameter, height):
 # horizontal span at 4 mm thickness with no internal supports — hence
 # the open-top + separate-cap split.
 #
-# `reservoir_floor_thickness` on the shell side names the dimension the
-# foam-shell cares about (the PETG layer it leaves clearance above);
+# `reservoir_floor_thickness` on the shell side names the PETG layer
+# the foam-shell cares about (the layer it leaves clearance above);
 # reused locally for every wall in the reservoir body.
-reservoir_wall_thickness = _shell_reservoir_floor_thickness
-
-# Clearance between reservoir outer surfaces and bag-pocket inner
-# faces on every face. Slack for sliding the printed reservoir into
-# the cavity from above + FDM tolerance on both prints.
-reservoir_clearance = _shell_reservoir_clearance
+reservoir_wall_thickness = reservoir_floor_thickness
 
 
 # Sharp-corner fillets where the centerward curve meets the ±Z walls.
@@ -261,9 +256,17 @@ body_boss_floor = 2.0          # thickness of the printed-solid PETG floor INSID
 # ceiling slab, so the bulkhead body passes through the panel hole
 # from below and the locknut + dry collet + tube push-in are
 # unobstructed. No print-pause-and-insert or split-boss assembly needed.
-port_position_x = _shell_reservoir_bulkhead_port_x  # midpoint between cavity's inner +X face and the concave arc's peak; matching foam-shell pass-through reads the same constant
-port_position_y = _shell_reservoir_bulkhead_port_y  # Y of the BULKHEAD BODY AXIS. Sits 1 mm above nut_position_y. Used for body chamber, wet exit tube, panel hole, seal counterbores, foam-shell pass-through, dry slab anchor, wet/dry slope anchor. NOT used for the nut cavity.
-nut_position_y = _shell_reservoir_bulkhead_nut_y    # Y of the NUT CAVITY center. Anchored to the floor's low point so the washer counterbore sits on top of the 4 mm reservoir floor, preserving the full fluid barrier. 1 mm below port_position_y per the 2026-05-16 print test.
+#
+# port_position_x: midpoint between cavity's inner +X face and the
+#   concave arc's peak (imported from _cold_core_interface).
+# port_position_y: Y of the BULKHEAD BODY AXIS. Sits 1 mm above
+#   nut_position_y. Used for body chamber, wet exit tube, panel hole,
+#   seal counterbores, foam-shell pass-through, dry slab anchor,
+#   wet/dry slope anchor. NOT used for the nut cavity.
+# nut_position_y: Y of the NUT CAVITY center. Anchored to the floor's
+#   low point so the washer counterbore sits on top of the 4 mm
+#   reservoir floor, preserving the full fluid barrier. 1 mm below
+#   port_position_y per the 2026-05-16 print test.
 port_tube_diameter = 6.5                # 1/4" OD tube clearance
 
 # The pocket is asymmetric across the panel. Wet side (z < panel):
@@ -281,7 +284,9 @@ port_tube_diameter = 6.5                # 1/4" OD tube clearance
 # union proportions (catalog total length 34.5 mm; threading section
 # 3–5 mm panel range). Adjust if a caliper measurement of the part
 # in hand disagrees.
-bulkhead_pocket_diameter = _shell_bulkhead_pocket_diameter  # 23.0 — ø22.9 flange + 0.1 clearance (snug fit). Imported from `_foam_shell_geometry.py` because that module derives `reservoir_bulkhead_port_y` (the Y of the foam-shell pass-through hole) from this diameter.
+# bulkhead_pocket_diameter: 23.0 — ø22.9 flange + 0.1 clearance.
+# Imported from _cold_core_interface because that module derives
+# reservoir_bulkhead_port_y from this diameter.
 bulkhead_panel_hole_diameter = 17.0     # JG catalog spec for the 1/4" body family (0.67")
 
 # The bulkhead body's wet side is *stepped* along its axis (flange,
