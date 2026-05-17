@@ -244,12 +244,13 @@ def build_plug(name, y_bottom, y_top):
     # the web. Only the half inside the plug body removes material —
     # the other half is air outside the end face.
     def arch_cutter(at_y):
+        z_min, z_max = plug_z_range
         return (
             cq.Workplane(xy_plane_z_up)
-            .workplane(offset=plug_z_inner)
+            .workplane(offset=z_min)
             .moveTo(0, at_y)
             .circle(tube_clearance_radius)
-            .extrude(plug_z_outer - plug_z_inner)
+            .extrude(z_max - z_min)
         )
 
     if arches["bottom"]:
@@ -316,39 +317,32 @@ def _analytical_volume(name, y_bottom, y_top):
 
 
 def main():
+    # Sanity report per plug: count of solids must be 1 (OCCT merged
+    # web + 2 flanges into a single contiguous body — no floating
+    # flanges); bounding box must match the I-beam X and Z envelope;
+    # analytical volume (closed-form from the three boxes minus arch
+    # cutouts) must match the OCCT-computed volume to within 0.01 mm^3.
     for name, (y_bottom, y_top) in plug_y_ranges.items():
         plug = build_plug(name, y_bottom, y_top)
         out = _here / f"copper-plug-{name}.step"
         export_step(plug, str(out))
-        # Sanity report: count of solids should be 1 (OCCT merged
-        # web + 2 flanges into a single contiguous body — no
-        # floating flanges), and the bounding box should match the
-        # I-beam envelope X[−4.25..4.25] × Z[87.5..91.5] at 2 mm
-        # wall. Analytical volume (closed-form from the three boxes
-        # minus arch cutouts) must match the OCCT-computed volume
-        # to within 0.01 mm^3.
+
         solids = plug.solids().vals()
-        bb = solids[0].BoundingBox() if solids else None
-        bb_str = (
-            f"X[{bb.xmin:6.2f}..{bb.xmax:6.2f}] "
-            f"Y[{bb.ymin:6.2f}..{bb.ymax:6.2f}] "
-            f"Z[{bb.zmin:6.2f}..{bb.zmax:6.2f}]"
-            if bb else "(no solid)"
-        )
-        vol = solids[0].Volume() if solids else 0.0
+        assert len(solids) == 1, f"plug {name}: expected 1 solid, got {len(solids)}"
+        bb = solids[0].BoundingBox()
+        vol = solids[0].Volume()
         vol_analytical = _analytical_volume(name, y_bottom, y_top)
         vol_diff = vol - vol_analytical
         print(
             f"-> copper-plug-{name}.step  "
-            f"y {y_bottom:.2f} -> {y_top:.2f} "
-            f"(h {y_top - y_bottom:.2f} mm)  "
-            f"solids={len(solids)}  "
-            f"bbox {bb_str}  "
+            f"y {y_bottom:.2f} -> {y_top:.2f} (h {y_top - y_bottom:.2f} mm)  "
+            f"bbox X[{bb.xmin:6.2f}..{bb.xmax:6.2f}] "
+            f"Y[{bb.ymin:6.2f}..{bb.ymax:6.2f}] "
+            f"Z[{bb.zmin:6.2f}..{bb.zmax:6.2f}]  "
             f"vol {vol:.3f} mm^3  "
             f"analytical {vol_analytical:.3f} mm^3  "
             f"diff {vol_diff:+.4f} mm^3"
         )
-        assert len(solids) == 1, f"plug {name}: expected 1 solid, got {len(solids)}"
         assert abs(bb.xmin - plug_x_range[0]) < 1e-6 and abs(bb.xmax - plug_x_range[1]) < 1e-6, (
             f"plug {name}: X bbox {bb.xmin:.4f}..{bb.xmax:.4f} expected "
             f"{plug_x_range[0]:.4f}..{plug_x_range[1]:.4f}"
