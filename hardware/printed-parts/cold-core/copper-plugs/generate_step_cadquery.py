@@ -136,26 +136,26 @@ top_flange_z_range = (outer_wall_outer_z, plug_z_outer)
 bottom_flange_z_range = (plug_z_inner, outer_wall_inner_z)
 
 # Pass-through Y positions (centers).
-y_lowest_copper = hole_shift_from_edge + wall_and_floor_thickness + below_tank_elbows_height
-y_highest_copper = foam_shell_outer_height - hole_shift_from_edge - wall_and_floor_thickness - above_tank_elbows_height
-y_water_inlet = foam_shell_outer_height - hole_shift_from_edge
+lowest_copper_y = hole_shift_from_edge + wall_and_floor_thickness + below_tank_elbows_height
+highest_copper_y = foam_shell_outer_height - hole_shift_from_edge - wall_and_floor_thickness - above_tank_elbows_height
+water_inlet_y = foam_shell_outer_height - hole_shift_from_edge
 
 # Plug end faces meet AT the tube pass-through centers. The arch
 # cutout at each tube-facing end (radius = tube_clearance_radius)
 # accommodates exactly HALF of the adjacent tube: each tube sits with
 # its upper half seated inside the plug ABOVE it (in that plug's
 # bottom arch) and its lower half seated inside the plug BELOW it
-# (in that plug's top arch).  Together, three plugs + three split-
-# arch pairs fill the slot from y_lowest_copper to the wall top
-# exactly — no linear gaps between plugs, the tube IS the gap.
+# (in that plug's top arch). Together, three plugs + three split-arch
+# pairs fill the slot from lowest_copper_y to the wall top exactly —
+# no linear gaps between plugs, the tube IS the gap.
 #
 # The upper plug's top face is flush with the wall top (y =
 # foam_shell_outer_height); the upper plug has no top arch since
 # nothing sits above it.
 plug_y_ranges = {
-    "lower": (y_lowest_copper, y_highest_copper),
-    "middle": (y_highest_copper, y_water_inlet),
-    "upper": (y_water_inlet, foam_shell_outer_height),
+    "lower": (lowest_copper_y, highest_copper_y),
+    "middle": (highest_copper_y, water_inlet_y),
+    "upper": (water_inlet_y, foam_shell_outer_height),
 }
 
 # Which plug ends get a half-circle arch cutout (sits against a tube).
@@ -167,26 +167,26 @@ plug_arch_ends = {
     "upper": {"bottom": True, "top": False},
 }
 
-# Razor-edge mitigation for the web at each arched plug end.
-# ----------------------------------------------------------
-# The arch's half-disc (radius = tube_clearance_radius) is tangent to
-# the web's outer X edge at (x = ±slot_half_width_x, y = at_y).  For
-# Y just inside the plug from the arch center, the web survives as a
-# sliver of width (slot_half_width_x − sqrt(R² − (y−at_y)²)).  That
-# sliver narrows to zero at y = at_y, which is a razor-thin edge that
-# FDM printers can't resolve.
+# Razor-edge mitigation for the web at each arched plug end. The
+# arch's half-disc (radius = tube_clearance_radius) is tangent to the
+# web's outer X edge at (x = ±slot_half_width_x, y = at_y). For Y just
+# inside the plug from the arch center, the web survives as a sliver
+# of width (slot_half_width_x − sqrt(R² − (y−at_y)²)). That sliver
+# narrows to zero at y = at_y, which is a razor-thin edge that FDM
+# printers can't resolve.
 #
 # Solution: don't print web where its sliver is thinner than
-# `min_printable_thickness` mm.  The web's Y range is inset from each
+# `min_printable_thickness` mm. The web's Y range is inset from each
 # arched plug end by `web_arch_buffer`, the Y distance at which the
 # arch's X reach has narrowed enough for the web's outer-X sliver to
-# be exactly `min_printable_thickness` wide.  At the inset Y the web
-# starts abruptly with two 1 mm-wide strips at x = ±(slot_half −
-# 1)..±slot_half; both strips grow toward full ±slot_half_width_x
-# width as Y moves further from the arch center.  Flanges are
-# unchanged — their 1 mm-thick × 1 mm-wide tabs at x = ±slot_half..
-# ±plug_half_x_outer were already at the print-resolution limit at the
-# arch tangent and don't get thinner.
+# be exactly `min_printable_thickness` wide. At the inset Y the web
+# starts abruptly with two strips of width `min_printable_thickness`
+# at x = ±(slot_half_width_x − min_printable_thickness) .. ±slot_half_width_x;
+# both strips grow toward full ±slot_half_width_x width as Y moves
+# further from the arch center. Flanges are unchanged — their
+# flange_z_thickness-thick × flange_x_overhang_per_side-wide tabs at
+# x = ±slot_half_width_x .. ±plug_half_x_outer were already at the
+# print-resolution limit at the arch tangent and don't get thinner.
 min_printable_thickness = 1.0
 web_arch_buffer = math.sqrt(
     tube_clearance_radius ** 2
