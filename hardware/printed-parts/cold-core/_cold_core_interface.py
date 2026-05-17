@@ -231,8 +231,8 @@ reservoir_bulkhead_port_x = (bag_pocket_far_inner_x + pocket_centerward_arc_oute
 reservoir_bulkhead_port_z = bag_pocket_width / 2 - 10
 
 # Outer footprint shared by the outer shell, the foam cap, and the
-# foam cap lid (must be coplanar at the corners so the pin bosses
-# line up).
+# foam cap lid — must be coplanar at the corners so the screw bosses
+# line up at each attachment position.
 outer_shell_foam_gap = 16.0
 bag_pocket_outermost_x = (
     pocket_centerward_arc_outer_radius + bag_pocket_depth - wall_and_floor_thickness
