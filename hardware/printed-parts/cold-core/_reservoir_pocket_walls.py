@@ -69,7 +69,10 @@ def build_reservoir_pocket_walls():
         center toward the cold-core axis."""
         return (transition_center_x - r, z_sign * transition_center_z)
 
-    # Centerward-wall joints, world coords.
+    # Centerward-wall joints, world coords. Apexes are where each
+    # middle-arc reaches its max +X excursion (at z=0).
+    middle_tank_apex = (arc_tank_r, 0)
+    middle_cavity_apex = (arc_cavity_r, 0)
     middle_tank_handoff_plus_z = (middle_tank_x, arc_z)
     middle_tank_handoff_minus_z = (middle_tank_x, -arc_z)
     middle_cavity_handoff_plus_z = (middle_cavity_x, arc_z)
@@ -106,7 +109,7 @@ def build_reservoir_pocket_walls():
         .radiusArc(flip_z(side_wall_outer_minus_z), -corner_outer_r)
         .lineTo(*flip_z(transition_tank_terminus_minus_z))
         .threePointArc(flip_z(transition_apex(-1, transition_tank_r)), flip_z(middle_tank_handoff_minus_z))
-        .threePointArc(flip_z((arc_tank_r, 0)), flip_z(middle_tank_handoff_plus_z))
+        .threePointArc(flip_z(middle_tank_apex), flip_z(middle_tank_handoff_plus_z))
         .threePointArc(flip_z(transition_apex(+1, transition_tank_r)), flip_z(transition_tank_terminus_plus_z))
         .lineTo(*flip_z(side_wall_outer_plus_z))
         .radiusArc(flip_z(far_wall_outer_plus_z), -corner_outer_r)
@@ -123,7 +126,7 @@ def build_reservoir_pocket_walls():
         .radiusArc(flip_z(side_wall_cavity_minus_z), -corner_inner_r)
         .lineTo(*flip_z(transition_cavity_terminus_minus_z))
         .threePointArc(flip_z(transition_apex(-1, transition_cavity_r)), flip_z(middle_cavity_handoff_minus_z))
-        .threePointArc(flip_z((arc_cavity_r, 0)), flip_z(middle_cavity_handoff_plus_z))
+        .threePointArc(flip_z(middle_cavity_apex), flip_z(middle_cavity_handoff_plus_z))
         .threePointArc(flip_z(transition_apex(+1, transition_cavity_r)), flip_z(transition_cavity_terminus_plus_z))
         .close()
         .extrude(height)
