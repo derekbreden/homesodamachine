@@ -283,6 +283,21 @@ gasket_thickness = 2.0
 gasket_strip_width = 5.0
 
 
+def make_box(x_range, y_range, z_range):
+    """Axis-aligned box from world-coordinate ranges in each axis."""
+    x_min, x_max = min(x_range), max(x_range)
+    y_min, y_max = min(y_range), max(y_range)
+    z_min, z_max = min(z_range), max(z_range)
+    return (
+        WorldWorkplane(xz_plane_y_up)
+        .workplane(offset=y_min)
+        .moveTo(((x_min + x_max) / 2, (z_min + z_max) / 2))
+        .rect(x_max - x_min, z_max - z_min)
+        .extrude(y_max - y_min)
+        .unwrap()
+    )
+
+
 def build_a_hole_punch(
     *,
     origin=(0, 0, 0),

@@ -15,6 +15,7 @@ from _cold_core_interface import (
     reservoir_bulkhead_port_x,
     reservoir_bulkhead_port_z,
     port_hole_radius,
+    make_box,
     build_a_hole_punch,
 )
 
@@ -59,21 +60,6 @@ cable_envelope_z_range = (reed_envelope_z_range[0], cable_z_max + w)
 # +cable_x_depth in Y from the top of the cavity/envelope.
 cable_cavity_wedge_apex_y = cable_cavity_y_range[1] + cable_x_depth
 cable_envelope_wedge_apex_y = cable_envelope_y_range[1] + cable_x_depth
-
-
-def make_box(x_range, y_range, z_range):
-    """Axis-aligned box from world-coordinate ranges in each axis."""
-    x_min, x_max = min(x_range), max(x_range)
-    y_min, y_max = min(y_range), max(y_range)
-    z_min, z_max = min(z_range), max(z_range)
-    return (
-        WorldWorkplane(xz_plane_y_up)
-        .workplane(offset=y_min)
-        .moveTo(((x_min + x_max) / 2, (z_min + z_max) / 2))
-        .rect(x_max - x_min, z_max - z_min)
-        .extrude(y_max - y_min)
-        .unwrap()
-    )
 
 
 def build_reed_channels(side):

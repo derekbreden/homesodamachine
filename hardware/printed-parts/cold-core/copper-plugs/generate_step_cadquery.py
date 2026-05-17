@@ -80,9 +80,8 @@ sys.path.insert(0, str(_here.parent))
 
 from _cadq_export import export_step
 from _cold_core_interface import (
-    xz_plane_y_up,
     xy_plane_z_up,
-    WorldWorkplane,
+    make_box,
     wall_and_floor_thickness,
     hole_shift_from_edge,
     below_tank_elbows_height,
@@ -192,21 +191,6 @@ web_arch_buffer = math.sqrt(
     tube_clearance_radius ** 2
     - (slot_half_width_x - min_printable_thickness) ** 2
 )
-
-
-def make_box(x_range, y_range, z_range):
-    """Axis-aligned box from world-coordinate ranges in each axis."""
-    x_min, x_max = min(x_range), max(x_range)
-    y_min, y_max = min(y_range), max(y_range)
-    z_min, z_max = min(z_range), max(z_range)
-    return (
-        WorldWorkplane(xz_plane_y_up)
-        .workplane(offset=y_min)
-        .moveTo(((x_min + x_max) / 2, (z_min + z_max) / 2))
-        .rect(x_max - x_min, z_max - z_min)
-        .extrude(y_max - y_min)
-        .unwrap()
-    )
 
 
 def build_plug(name, y_bottom, y_top):
