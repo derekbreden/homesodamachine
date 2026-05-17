@@ -753,19 +753,18 @@ def build_reservoir_body(side=1):
     slope_z_distance = bulkhead_panel_z_min - (-inner_z_max)
     slope_rate = floor_slope_rise / slope_z_distance
 
-    slope_plane = cq.Plane(
-        origin=(0, slope_low_y, bulkhead_panel_z_min),
-        xDir=(1, 0, 0),
-        normal=(0, 1, slope_rate),
-    )
-    above_slope = cq.Workplane(slope_plane).rect(500, 500).extrude(500)
+    def _above_slope(anchor_y, dz_rate):
+        """Half-space above a slope plane anchored at
+        (0, anchor_y, bulkhead_panel_z_min) with dy/dz = dz_rate."""
+        plane = cq.Plane(
+            origin=(0, anchor_y, bulkhead_panel_z_min),
+            xDir=(1, 0, 0),
+            normal=(0, 1, dz_rate),
+        )
+        return cq.Workplane(plane).rect(500, 500).extrude(500)
 
-    dry_slope_plane = cq.Plane(
-        origin=(0, floor_baseline_y, bulkhead_panel_z_min),
-        xDir=(1, 0, 0),
-        normal=(0, 1, -slope_rate),
-    )
-    above_dry_slope = cq.Workplane(dry_slope_plane).rect(500, 500).extrude(500)
+    above_slope = _above_slope(slope_low_y, slope_rate)
+    above_dry_slope = _above_slope(floor_baseline_y, -slope_rate)
 
     # Split the wedge at the panel's −Z face.
     slope_region = _wp_z_axis_at(0, 0, bulkhead_panel_z_min).rect(500, 500).extrude(-500)
