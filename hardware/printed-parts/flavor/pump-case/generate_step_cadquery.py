@@ -590,14 +590,23 @@ def split_into_base_and_cap(combined):
     """
     lower_end_offset = skirt_bottom_offset + lower_height + lower_cap_thickness + overcut
 
+    # Oversized rectangular cutter: the 70x70 case lives inside the 100x100
+    # span so the cut always pierces through to free air.
+    cutter_extent = 50.0
+
     full_slab = (
         case_workplane(skirt_bottom_offset)
-        .rect(100, 100)
+        .rect(2 * cutter_extent, 2 * cutter_extent)
         .extrude(lower_end_offset - skirt_bottom_offset)
     )
 
     step_z = skirt_transition_z_end_plus + step_z_clearance
-    narrow_box = [(-50, -50), (50, -50), (50, step_z + overcut), (-50, step_z + overcut)]
+    narrow_box = [
+        (-cutter_extent, -cutter_extent),
+        (cutter_extent, -cutter_extent),
+        (cutter_extent, step_z + overcut),
+        (-cutter_extent, step_z + overcut),
+    ]
     narrow_step = (
         case_workplane(narrow_split_offset)
         .polyline(narrow_box).close()
