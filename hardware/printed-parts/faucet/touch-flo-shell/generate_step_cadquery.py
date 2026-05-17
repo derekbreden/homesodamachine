@@ -147,6 +147,8 @@ shell_rect_x_half = shell_outer_r  # 22.175
 shell_rect_y_half = body_bore_rect_short / 2.0 + wall_thickness_min  # 11.75
 shell_rect_x_width = 2.0 * shell_rect_x_half
 shell_rect_y_width = 2.0 * shell_rect_y_half
+shell_rect_x_min = shell_center_x - shell_rect_x_half  # -19.0
+shell_rect_x_max = shell_center_x + shell_rect_x_half  # 25.35
 
 
 # ZONE 3 — Arch wraps (two wings at ±Y)
@@ -319,8 +321,7 @@ gn_tip_straight_len = 25.0
 # Geometry: circular arc whose center is directly below the high end
 # (fill_x_min, c_z) so the tangent there is horizontal. Solving
 # distance(center, low_end) == distance(center, high_end) gives c_z.
-_back_arch_low_x = shell_center_x - shell_rect_x_half  # rect_x_min = -19
-_back_arch_dx = fill_x_min - _back_arch_low_x  # 29.46
+_back_arch_dx = fill_x_min - shell_rect_x_min  # 29.46
 back_arch_center_z = (
     (zone4_z_top + zone3_z_bottom) / 2.0
     - _back_arch_dx ** 2 / (2.0 * (zone4_z_top - zone3_z_bottom))
@@ -329,7 +330,7 @@ back_arch_r = zone4_z_top - back_arch_center_z  # ≈ 35.12
 # Midpoint of the arc — angular midway between high end (90° from
 # center, directly above) and low end.
 _back_arch_a_low = math.atan2(zone3_z_bottom - back_arch_center_z,
-                              _back_arch_low_x - fill_x_min)
+                              shell_rect_x_min - fill_x_min)
 _back_arch_a_mid = (math.pi / 2.0 + _back_arch_a_low) / 2.0
 back_arch_mid_x = fill_x_min + back_arch_r * math.cos(_back_arch_a_mid)  # ≈ -6.28
 back_arch_mid_z = back_arch_center_z + back_arch_r * math.sin(_back_arch_a_mid)  # ≈ 50.75
@@ -357,10 +358,10 @@ back_arch_mid_z = back_arch_center_z + back_arch_r * math.sin(_back_arch_a_mid) 
 _z5_x_min = water_tube_x - tube_shell_water_r_outer  # -0.1375
 _z5_x_max = flavor_tube_post_bend_x + (pill_width_x + 2.0 * zone5_wall) / 2.0  # 23.575
 
-# Zone 4.5 X extents — front edge matched-margin from zone 5's X extents
-# so zone 5 sits visually centered above zone 4.5.
-zone45_back_x = shell_center_x + shell_outer_r  # 25.35
-zone45_front_x = _z5_x_min - (zone45_back_x - _z5_x_max)  # ≈ -1.9125
+# Zone 4.5 X extents — back edge follows the rect column; front edge
+# matched-margin from zone 5's X extents so zone 5 sits visually
+# centered above zone 4.5.
+zone45_front_x = _z5_x_min - (shell_rect_x_max - _z5_x_max)  # ≈ -1.9125
 
 # 3 mm tall on the back side (where the lid sits flat on zone 4 top);
 # taller on the front side because the lid bottom follows the back-arch
@@ -671,23 +672,21 @@ def build_zone2_inner_cut() -> cq.Workplane:
 def _arch_extrude(y_bottom: float, y_height: float) -> cq.Workplane:
     """The outer arch profile in XZ — flat bottom at zone3_z_bottom, flat
     top at zone4_z_top from +X back to fill_x_min, then the back-arch
-    curve down-left to rect_x_min — extruded across
+    curve down-left to shell_rect_x_min — extruded across
     [y_bottom, y_bottom + y_height].
 
     Shared by the zone-3 wings (extruded across each wing's Y thickness)
     and the zone-3 plateau fill (extruded across the central Y range).
     """
-    rect_x_min = shell_center_x - shell_rect_x_half
-    rect_x_max = shell_center_x + shell_rect_x_half
     return (
         cq.Workplane("XZ")
         .workplane(offset=y_bottom)
-        .moveTo(rect_x_min, zone3_z_bottom)
-        .lineTo(rect_x_max, zone3_z_bottom)
-        .lineTo(rect_x_max, zone4_z_top)
+        .moveTo(shell_rect_x_min, zone3_z_bottom)
+        .lineTo(shell_rect_x_max, zone3_z_bottom)
+        .lineTo(shell_rect_x_max, zone4_z_top)
         .lineTo(fill_x_min, zone4_z_top)
         .threePointArc((back_arch_mid_x, back_arch_mid_z),
-                       (rect_x_min, zone3_z_bottom))
+                       (shell_rect_x_min, zone3_z_bottom))
         .close()
         .extrude(y_height)
     )
@@ -731,7 +730,6 @@ def build_zone3_fill_outer() -> cq.Workplane:
     extruded across the plateau Y range. The body bore column is cut
     away (see body_bore_cyl for why).
     """
-    rect_x_max = shell_center_x + shell_rect_x_half
     fill_y_thickness = 2.0 * wing_inner_y  # 13.5
     z_height = zone4_z_top - zone3_z_bottom
 
@@ -739,8 +737,8 @@ def build_zone3_fill_outer() -> cq.Workplane:
     keep_x_box = (
         cq.Workplane("XY")
         .workplane(offset=zone3_z_bottom)
-        .moveTo((fill_x_min + rect_x_max) / 2.0, 0)
-        .rect(rect_x_max - fill_x_min, fill_y_thickness)
+        .moveTo((fill_x_min + shell_rect_x_max) / 2.0, 0)
+        .rect(shell_rect_x_max - fill_x_min, fill_y_thickness)
         .extrude(z_height)
     )
     return (
@@ -783,7 +781,6 @@ def build_zone4_outer() -> cq.Workplane:
     from the dispense channel.
     """
     z_height = zone4_height
-
     rect = (
         cq.Workplane("XY")
         .workplane(offset=zone4_z_bottom)
@@ -791,7 +788,9 @@ def build_zone4_outer() -> cq.Workplane:
         .rect(shell_rect_x_width, shell_rect_y_width)
         .extrude(z_height)
     )
-    keep_x = (
+    # X ≥ fill_x_min half-space — oversized in Y and Z so it doesn't clip
+    # anything else in the rect.
+    keep_pos_x = (
         cq.Workplane("XY")
         .workplane(offset=zone4_z_bottom - 1)
         .moveTo(fill_x_min + 50, 0)
@@ -801,7 +800,7 @@ def build_zone4_outer() -> cq.Workplane:
     return (
         rect
         .intersect(shell_outer_cyl(zone4_z_bottom, z_height))
-        .intersect(keep_x)
+        .intersect(keep_pos_x)
         .cut(body_bore_cyl(zone4_z_bottom, zone4_height))
     )
 
@@ -830,8 +829,8 @@ def build_zone45_outer() -> cq.Workplane:
     midpoint) so the +X and -X edges have matching rounded curves:
       start at (zone45_front_x, zone45_bot_z_at_front)
       → arch up to (fill_x_min, zone4_z_top)
-      → flat to (rect_x_max, zone4_z_top)
-      → vertical up to (rect_x_max, zone45_z_top)
+      → flat to (shell_rect_x_max, zone4_z_top)
+      → vertical up to (shell_rect_x_max, zone45_z_top)
       → flat back to (zone45_front_x, zone45_z_top)
       → close (vertical down to start)
 
@@ -843,9 +842,7 @@ def build_zone45_outer() -> cq.Workplane:
     edges; at |Y| = shell_rect_y_half both edges curve inward by the
     same amount.
     """
-    rect_x_max = shell_center_x + shell_rect_x_half  # 25.35
     y_half = shell_rect_y_half  # 11.75
-
     profile_solid = (
         cq.Workplane("XZ")
         .workplane(offset=-y_half)
@@ -854,8 +851,8 @@ def build_zone45_outer() -> cq.Workplane:
             (zone45_bot_mid_x, zone45_bot_mid_z),
             (fill_x_min, zone4_z_top),
         )
-        .lineTo(rect_x_max, zone4_z_top)
-        .lineTo(rect_x_max, zone45_z_top)
+        .lineTo(shell_rect_x_max, zone4_z_top)
+        .lineTo(shell_rect_x_max, zone45_z_top)
         .lineTo(zone45_front_x, zone45_z_top)
         .close()
         .extrude(2.0 * y_half)
