@@ -29,9 +29,9 @@ from _cold_core_interface import (
 # so it doesn't fit this list's default radius.
 CIRCULAR_PORT_HOLES = [
     # (x, y, z)
-    (0,                          hole_shift_from_edge + wall_and_floor_thickness,    pocket_centerward_arc_outer_radius - 20),
-    (+reservoir_bulkhead_port_x, reservoir_bulkhead_port_y,                          bag_pocket_width / 2 - 10),
-    (-reservoir_bulkhead_port_x, reservoir_bulkhead_port_y,                          bag_pocket_width / 2 - 10),
+    (0, hole_shift_from_edge + wall_and_floor_thickness, pocket_centerward_arc_outer_radius - 20),
+    (+reservoir_bulkhead_port_x, reservoir_bulkhead_port_y, bag_pocket_width / 2 - 10),
+    (-reservoir_bulkhead_port_x, reservoir_bulkhead_port_y, bag_pocket_width / 2 - 10),
 ]
 
 
@@ -57,8 +57,8 @@ def cut_co2_inlet(foam_shell):
         origin=(0, co2_inlet_y_center, co2_inlet_z_start),
         hole_punch_radius=bore_radius,
     )
-    slot_width    = 2 * bore_radius
-    slot_y_top    = co2_inlet_y_center
+    slot_width = 2 * bore_radius
+    slot_y_top = co2_inlet_y_center
     slot_y_bottom = wall_and_floor_thickness
     slot_y_center = (slot_y_top + slot_y_bottom) / 2.0
     slot_extrude_z = 40
@@ -79,8 +79,8 @@ def cut_slot_for_copper_and_water_inlet(foam_shell):
     straight portion reaches the wall's top exactly, no sliver left."""
     slot_diameter = 6.5
     slot_y_bottom = 42.0
-    slot_y_top    = foam_shell_outer_height + slot_diameter / 2
-    slot_length   = slot_y_top - slot_y_bottom
+    slot_y_top = foam_shell_outer_height + slot_diameter / 2
+    slot_length = slot_y_top - slot_y_bottom
     slot_y_center = (slot_y_top + slot_y_bottom) / 2.0
     slot_z_offset = pocket_centerward_arc_outer_radius - 20
     slot_x_offset = 0
