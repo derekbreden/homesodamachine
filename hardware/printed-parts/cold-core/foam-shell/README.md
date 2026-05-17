@@ -124,7 +124,7 @@ Outer rectangular cup framing the whole foam-shell: floor + four
 perimeter walls + six 8 × 8 mm bosses. Total height matches the
 foam-shell outer height (213.4 mm = `foam_shell_outer_height`).
 Outer footprint
-(`outer_shell_x_length` × `outer_shell_z_length` = 251 × 181 mm)
+(`outer_shell_x_length` × `outer_shell_z_length` = 283 × 181 mm)
 sized to leave `outer_shell_foam_gap` (= 16 mm) of foam-pour zone
 between the outer_shell's inner face and the outermost reservoir-
 pocket walls on each side.

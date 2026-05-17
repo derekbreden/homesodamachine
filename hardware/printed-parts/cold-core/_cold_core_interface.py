@@ -46,11 +46,15 @@ tank_support_ring_height = 30.0
 
 # Bag pocket. Width tracks pocket_centerward_arc_outer_radius so the
 # pocket's ±Z outboard faces are tangent to the cylinder the centerward
-# arc rides on. Depth sized so each reservoir holds ≥1 L of usable
-# fluid (~23.6 mL per mm of X interior; baseline 33 mm cleared 791.6 mL;
-# 42 mm clears ~1004 mL).
+# arc rides on. Depth sized so each reservoir's usable window (Reed 1
+# low warning → Reed 4 full, 135 mm of float travel) holds 2 × Soda-
+# Stream 0.44 L bottles per refill cycle = 0.88 L usable. Total
+# geometric wet volume ≈ 1.18 L. Earlier baselines: 33 mm = 791 mL
+# total; 42 mm = ~1.02 L total but only ~0.76 L usable; 49 mm hits
+# the 0.88 L usable target. ~17.8 mL per mm of X interior in the
+# usable Y range.
 bag_pocket_width = pocket_centerward_arc_outer_radius * 2
-bag_pocket_depth = 42 + 2 * wall_and_floor_thickness
+bag_pocket_depth = 49 + 2 * wall_and_floor_thickness
 bag_pocket_far_inner_x = (
     pocket_centerward_arc_outer_radius + bag_pocket_depth - 2 * wall_and_floor_thickness
 )

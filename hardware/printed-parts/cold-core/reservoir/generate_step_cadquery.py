@@ -632,9 +632,9 @@ _cyl_extra_below_bottom = 5.0                                          # extra c
 # (the larger of the two boss radii sets the inset).
 #
 # Outer envelope (body and cap share this footprint):
-_outer_far_x_abs = bag_pocket_far_inner_x - reservoir_clearance        # 104
+_outer_far_x_abs = bag_pocket_far_inner_x - reservoir_clearance        # 121
 _outer_z_max = bag_pocket_z_inner_max - reservoir_clearance            # 70
-_outer_centerward_radius = pocket_centerward_arc_outer_radius + reservoir_clearance  # 72
+_outer_centerward_radius = pocket_centerward_arc_outer_radius + reservoir_clearance  # 73
 #
 # Inset equals the larger boss radius so the boss outer edge just
 # reaches the outer face at every position (no boss protrusion past
