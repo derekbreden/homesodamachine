@@ -193,41 +193,6 @@ def load_shell():
     return cq.importers.importStep(str(shell_step))
 
 
-def build_water_dispense_tube():
-    """Bent water tube — vertical from inside the body's port up to
-    the gooseneck, then bend 1, mid straight, bend 2, tip straight.
-    Profile is Ø water_tube_od swept along the centerline path."""
-    # Tube-local (X-Z) frame: bottom at (0, 0), Z=0 == water_tube_z_bottom.
-    z_bend_start_local = gn_bend1_start_z - water_tube_z_bottom
-
-    p_bottom = (0.0, 0.0)
-    p_bend_start = (0.0, z_bend_start_local)
-
-    mid1, end1, tan1 = _arc_from_tangent(
-        p_bend_start, (0.0, 1.0), gn_bend1_r, gn_bend1_sweep_rad, ccw=True
-    )
-    mid_end = (end1[0] + gn_mid_straight_len * tan1[0],
-               end1[1] + gn_mid_straight_len * tan1[1])
-    mid2, end2, tan2 = _arc_from_tangent(
-        mid_end, tan1, gn_bend2_r, gn_bend2_sweep_rad, ccw=True
-    )
-    tip_end = (end2[0] + gn_tip_straight_len * tan2[0],
-               end2[1] + gn_tip_straight_len * tan2[1])
-
-    path = (
-        cq.Workplane("XZ")
-        .moveTo(*p_bottom)
-        .lineTo(*p_bend_start)
-        .threePointArc(mid1, end1)
-        .lineTo(*mid_end)
-        .threePointArc(mid2, end2)
-        .lineTo(*tip_end)
-    )
-    profile = cq.Workplane("XY").circle(water_tube_r)
-    tube = profile.sweep(path, transition="round")
-    return tube.translate((port_center_x, port_center_y, water_tube_z_bottom))
-
-
 def _arc_from_tangent(start, tangent, radius, theta_rad, ccw):
     """Compute waypoints of an arc starting at `start` with `tangent`,
     sweeping `theta_rad` with the given `radius`.
@@ -257,6 +222,54 @@ def _arc_from_tangent(start, tangent, radius, theta_rad, ccw):
     return mid, end, end_tangent
 
 
+def _gooseneck_segments(start, tangent, bend1_r, bend2_r):
+    """Waypoints for the four-segment gooseneck path starting at
+    `start` with `tangent`: bend 1 (R=bend1_r, sweep=gn_bend1_sweep_rad)
+    → mid straight (gn_mid_straight_len) → bend 2 (R=bend2_r,
+    sweep=gn_bend2_sweep_rad) → tip straight (gn_tip_straight_len).
+    Both bends turn CCW (toward -X for the tubes' starting tangent).
+
+    Returns ((arc1_mid, arc1_end), mid_end, (arc2_mid, arc2_end),
+    tip_end) — call sites unpack into threePointArc / lineTo calls."""
+    arc1_mid, arc1_end, tan1 = _arc_from_tangent(
+        start, tangent, bend1_r, gn_bend1_sweep_rad, ccw=True
+    )
+    mid_end = (arc1_end[0] + gn_mid_straight_len * tan1[0],
+               arc1_end[1] + gn_mid_straight_len * tan1[1])
+    arc2_mid, arc2_end, tan2 = _arc_from_tangent(
+        mid_end, tan1, bend2_r, gn_bend2_sweep_rad, ccw=True
+    )
+    tip_end = (arc2_end[0] + gn_tip_straight_len * tan2[0],
+               arc2_end[1] + gn_tip_straight_len * tan2[1])
+    return (arc1_mid, arc1_end), mid_end, (arc2_mid, arc2_end), tip_end
+
+
+def build_water_dispense_tube():
+    """Bent water tube — vertical from inside the body's port up to
+    the gooseneck, then bend 1, mid straight, bend 2, tip straight.
+    Profile is Ø water_tube_od swept along the centerline path."""
+    # Tube-local (X-Z) frame: bottom at (0, 0), Z=0 == water_tube_z_bottom.
+    p_bottom = (0.0, 0.0)
+    p_gn_start = (0.0, gn_bend1_start_z - water_tube_z_bottom)
+
+    arc1, mid_end, arc2, tip_end = _gooseneck_segments(
+        p_gn_start, (0.0, 1.0), gn_bend1_r, gn_bend2_r
+    )
+
+    path = (
+        cq.Workplane("XZ")
+        .moveTo(*p_bottom)
+        .lineTo(*p_gn_start)
+        .threePointArc(*arc1)
+        .lineTo(*mid_end)
+        .threePointArc(*arc2)
+        .lineTo(*tip_end)
+    )
+    profile = cq.Workplane("XY").circle(water_tube_r)
+    tube = profile.sweep(path, transition="round")
+    return tube.translate((port_center_x, port_center_y, water_tube_z_bottom))
+
+
 def _build_flavor_tube_at_origin():
     """Build one bent flavor tube at the origin.
 
@@ -269,50 +282,38 @@ def _build_flavor_tube_at_origin():
          gn_bend1_start_z, in tube-local coords)
       4. Gooseneck: bend 1 → mid straight → bend 2 → tip, all bending
          toward -X. Each bend uses its own parallel-offset radius
-         (gn_flavor_bend1_r / gn_flavor_bend2_r).
+         (gn_flavor_bend1_r / gn_flavor_bend2_r), so the flavor tube
+         traces a parallel-offset arc on the outside of each gooseneck
+         bend, staying tangent to the water tube.
     """
-    pre_bend_z_local = pre_bend_z - flavor_tube_z_bottom
-    gn_bend_start_local = gn_bend1_start_z - flavor_tube_z_bottom
-
-    p0 = (0.0, 0.0)
-    p1 = (0.0, pre_bend_z_local)
+    p_bottom = (0.0, 0.0)
+    p_s_bend_start = (0.0, pre_bend_z - flavor_tube_z_bottom)
 
     # S-bend (CCW then CW, ends tangent to +Z by construction).
-    mid_s1, end_s1, tan_s1 = _arc_from_tangent(
-        p1, (0.0, 1.0), flavor_bend_radius, flavor_bend_theta_rad, ccw=True
+    s1_mid, s1_end, s1_tangent = _arc_from_tangent(
+        p_s_bend_start, (0.0, 1.0), flavor_bend_radius, flavor_bend_theta_rad, ccw=True
     )
-    mid_s2, end_s2, tan_s2 = _arc_from_tangent(
-        end_s1, tan_s1, flavor_bend_radius, flavor_bend_theta_rad, ccw=False
+    s2_mid, s2_end, s2_tangent = _arc_from_tangent(
+        s1_end, s1_tangent, flavor_bend_radius, flavor_bend_theta_rad, ccw=False
     )
 
     # Vertical to the gooseneck start, X unchanged.
-    p_gn_start = (end_s2[0], gn_bend_start_local)
+    p_gn_start = (s2_end[0], gn_bend1_start_z - flavor_tube_z_bottom)
 
-    # Gooseneck — each bend uses gn_flavor_bendn_r (= water's gn_bendn_r
-    # plus the X offset between flavor and water centerlines), so the
-    # flavor tube traces a parallel-offset arc on the outside of each
-    # bend, staying tangent to the water tube.
-    mid1, end1, tan1 = _arc_from_tangent(
-        p_gn_start, tan_s2, gn_flavor_bend1_r, gn_bend1_sweep_rad, ccw=True
+    arc1, mid_end, arc2, tip_end = _gooseneck_segments(
+        p_gn_start, s2_tangent, gn_flavor_bend1_r, gn_flavor_bend2_r
     )
-    mid_end = (end1[0] + gn_mid_straight_len * tan1[0],
-               end1[1] + gn_mid_straight_len * tan1[1])
-    mid2, end2, tan2 = _arc_from_tangent(
-        mid_end, tan1, gn_flavor_bend2_r, gn_bend2_sweep_rad, ccw=True
-    )
-    tip_end = (end2[0] + gn_tip_straight_len * tan2[0],
-               end2[1] + gn_tip_straight_len * tan2[1])
 
     path = (
         cq.Workplane("XZ")
-        .moveTo(*p0)
-        .lineTo(*p1)
-        .threePointArc(mid_s1, end_s1)
-        .threePointArc(mid_s2, end_s2)
+        .moveTo(*p_bottom)
+        .lineTo(*p_s_bend_start)
+        .threePointArc(s1_mid, s1_end)
+        .threePointArc(s2_mid, s2_end)
         .lineTo(*p_gn_start)
-        .threePointArc(mid1, end1)
+        .threePointArc(*arc1)
         .lineTo(*mid_end)
-        .threePointArc(mid2, end2)
+        .threePointArc(*arc2)
         .lineTo(*tip_end)
     )
 
@@ -333,13 +334,21 @@ def build_flavor_tube(y_sign):
     ))
 
 
+# Lever pivot — axis parallel to Y at (X=lever_pivot_x, Z=lever_pivot_z).
+# The lever swings between rest (0°) and pressed (-lever_press_angle_deg)
+# around this axis, sweeping the clearance volume the shell must avoid.
+lever_pivot_x = 1.5
+lever_pivot_z = plateau_z + 7.0
+lever_press_angle_deg = 18.0
+
+
 def build_lever():
     """The lever as a swing-clearance blob: union of rest position +
     pressed-down position.
 
     The shell needs to clear the volume the lever sweeps through during
     actuation, not just the rest envelope. Modeling that as the union
-    of the two extremes (0° and -18° around the pivot at X=1.5, Z=46)
+    of the two extremes (0° and -lever_press_angle_deg around the pivot)
     is a deliberate approximation — visually an "ugly blob" — but it
     captures what the shell must avoid. Each position carries its own
     vertical water-tube clearance cut."""
@@ -371,20 +380,18 @@ def build_lever():
         .union(add_taper)
     )
 
-    # Pivot axis: parallel to Y at (X=1.5, Z=46).
-    pivot_a = (1.5, 0, plateau_z + 1 + 6)
-    pivot_b = (1.5, 1, plateau_z + 1 + 6)
+    pivot_a = (lever_pivot_x, 0, lever_pivot_z)
+    pivot_b = (lever_pivot_x, 1, lever_pivot_z)
 
     # Rest position: lever as-is, with its rest-position water-tube cut.
     lever_rest = base_lever.cut(cut_cylinder)
 
-    # Pressed-down position: rotate -18° around the pivot, then take
+    # Pressed-down position: rotate down around the pivot, then take
     # the same vertical water-tube clearance cut. The cut is vertical
     # in world coordinates, so it correctly clears the upright water
     # tube even though the lever itself is tilted.
-    lever_pressed = lever_rest.rotate(pivot_a, pivot_b, -18).cut(cut_cylinder)
-
-    lever_rest_final = lever_pressed.rotate(pivot_a, pivot_b, 18)
+    lever_pressed = lever_rest.rotate(pivot_a, pivot_b, -lever_press_angle_deg).cut(cut_cylinder)
+    lever_rest_final = lever_pressed.rotate(pivot_a, pivot_b, lever_press_angle_deg)
 
     # Union of both extremes — the swing-clearance envelope.
     return lever_rest_final.union(lever_pressed)
