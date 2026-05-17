@@ -57,10 +57,10 @@ def build_reservoir_pocket_walls():
     transition_center_z = (z_inner + arc_z) / 2.0
     transition_center_x = middle_tank_x + math.sqrt(transition_tank_r**2 - chord_half_z**2)
     transition_cavity_r = math.sqrt(
-        (transition_center_x - middle_cavity_x) ** 2 + chord_half_z ** 2
+        (transition_center_x - middle_cavity_x)**2 + chord_half_z**2
     )
     transition_tank_terminus_x = transition_center_x - math.sqrt(
-        transition_tank_r**2 - (z_outer - transition_center_z) ** 2
+        transition_tank_r**2 - (z_outer - transition_center_z)**2
     )
 
     def transition_apex(z_sign, r):
@@ -105,12 +105,9 @@ def build_reservoir_pocket_walls():
         .lineTo(*far_wall_outer_minus_z)
         .radiusArc(side_wall_outer_minus_z, -corner_outer_r)
         .lineTo(*transition_tank_terminus_minus_z)
-        .threePointArc(transition_apex(-1, transition_tank_r),
-                       middle_tank_handoff_minus_z)
-        .threePointArc((arc_tank_r, 0),
-                       middle_tank_handoff_plus_z)
-        .threePointArc(transition_apex(+1, transition_tank_r),
-                       transition_tank_terminus_plus_z)
+        .threePointArc(transition_apex(-1, transition_tank_r), middle_tank_handoff_minus_z)
+        .threePointArc((arc_tank_r, 0), middle_tank_handoff_plus_z)
+        .threePointArc(transition_apex(+1, transition_tank_r), transition_tank_terminus_plus_z)
         .lineTo(*side_wall_outer_plus_z)
         .radiusArc(far_wall_outer_plus_z, -corner_outer_r)
         .close()
@@ -125,12 +122,9 @@ def build_reservoir_pocket_walls():
         .lineTo(*far_wall_cavity_minus_z)
         .radiusArc(side_wall_cavity_minus_z, -corner_inner_r)
         .lineTo(*transition_cavity_terminus_minus_z)
-        .threePointArc(transition_apex(-1, transition_cavity_r),
-                       middle_cavity_handoff_minus_z)
-        .threePointArc((arc_cavity_r, 0),
-                       middle_cavity_handoff_plus_z)
-        .threePointArc(transition_apex(+1, transition_cavity_r),
-                       transition_cavity_terminus_plus_z)
+        .threePointArc(transition_apex(-1, transition_cavity_r), middle_cavity_handoff_minus_z)
+        .threePointArc((arc_cavity_r, 0), middle_cavity_handoff_plus_z)
+        .threePointArc(transition_apex(+1, transition_cavity_r), transition_cavity_terminus_plus_z)
         .close()
         .extrude(height)
     )
