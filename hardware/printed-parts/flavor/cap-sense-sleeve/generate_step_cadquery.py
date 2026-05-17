@@ -156,16 +156,18 @@ def build_dowel_features(y_sign):
     Bearing dowel protrudes dowel_length past y=0; matching hole is
     slightly longer (dowel_length + 2*eps) so dowels never bottom
     out before the cut faces seat."""
-    direction_sign = -dowel_bearing_y_sign
     is_bearing = (y_sign == dowel_bearing_y_sign)
+    # Cylinder always grows from the bearing-half side across y=0;
+    # only its length differs (hole gets +eps extra to clear seating).
+    direction = -dowel_bearing_y_sign
+    y_start = -eps * direction
     cyl_length = dowel_length + eps if is_bearing else dowel_length + 2 * eps
-    y_start = -eps * direction_sign
 
     cylinders = [
         cq.Solid.makeCylinder(
             dowel_radius, cyl_length,
             pnt=cq.Vector(x_sign * dowel_x_offset, y_start, z),
-            dir=cq.Vector(0, float(direction_sign), 0),
+            dir=cq.Vector(0, float(direction), 0),
         )
         for x_sign in (-1, +1)
         for z in dowel_z_positions
