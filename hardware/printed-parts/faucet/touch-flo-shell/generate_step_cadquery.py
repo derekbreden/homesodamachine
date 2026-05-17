@@ -506,6 +506,18 @@ def shell_outer_cyl(z_bottom: float, z_height: float) -> cq.Workplane:
     )
 
 
+def water_tube_cyl(z_bottom: float, z_height: float) -> cq.Workplane:
+    """Water-tube bore cylinder (R = water_hole_diameter/2 at
+    (water_tube_x, 0)) over the given Z range."""
+    return (
+        cq.Workplane("XY")
+        .workplane(offset=z_bottom)
+        .moveTo(water_tube_x, 0)
+        .circle(water_hole_diameter / 2.0)
+        .extrude(z_height)
+    )
+
+
 def body_bore_cyl(z_bottom: float, z_height: float) -> cq.Workplane:
     """Body bore cylinder (R = body_bore_diameter/2 at origin) over the
     given Z range.
@@ -849,15 +861,7 @@ def build_zone3_fill_inner_cut() -> cq.Workplane:
     into the base; they flex through the socket area on the way down.
     """
     z_height = shell_arch_peak_z - zone3_z_bottom
-
-    water_hole = (
-        cq.Workplane("XY")
-        .workplane(offset=zone3_z_bottom)
-        .moveTo(water_tube_x, 0)
-        .circle(water_hole_diameter / 2.0)
-        .extrude(z_height)
-    )
-
+    water_hole = water_tube_cyl(zone3_z_bottom, z_height)
     flavor_pill = _flavor_pill_flat_x_minus(zone3_z_bottom, z_height)
 
     return water_hole.union(flavor_pill)
@@ -911,14 +915,7 @@ def build_zone4_inner_cut() -> cq.Workplane:
     is handled in the tube shell + the socket area above, so the base
     just needs straight pill clearance at flavor_tube_x.
     """
-    water_inner = (
-        cq.Workplane("XY")
-        .workplane(offset=zone4_z_bottom)
-        .moveTo(water_tube_x, 0)
-        .circle(water_hole_diameter / 2.0)
-        .extrude(zone4_height)
-    )
-
+    water_inner = water_tube_cyl(zone4_z_bottom, zone4_height)
     flavor_pill = _flavor_pill_flat_x_minus(zone4_z_bottom, zone4_height)
 
     return water_inner.union(flavor_pill)
@@ -1211,13 +1208,6 @@ def _tube_shell_outer_section(z_bottom: float, z_height: float) -> cq.Workplane:
 
 def _tube_shell_inner_section(z_bottom: float, z_height: float) -> cq.Workplane:
     """Tube hole cross-section (water cyl + flavor pill) extruded vertically."""
-    water_inner = (
-        cq.Workplane("XY")
-        .workplane(offset=z_bottom)
-        .moveTo(water_tube_x, 0)
-        .circle(water_hole_diameter / 2.0)
-        .extrude(z_height)
-    )
     flavor_inner = (
         cq.Workplane("XY")
         .workplane(offset=z_bottom)
@@ -1225,7 +1215,7 @@ def _tube_shell_inner_section(z_bottom: float, z_height: float) -> cq.Workplane:
         .slot2D(pill_length_y, pill_width_x, angle=90)
         .extrude(z_height)
     )
-    return water_inner.union(flavor_inner)
+    return water_tube_cyl(z_bottom, z_height).union(flavor_inner)
 
 
 def build_shell() -> cq.Workplane:
