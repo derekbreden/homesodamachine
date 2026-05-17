@@ -43,6 +43,31 @@ at this step — they're routed in the downstream "tube routing" step,
 which is easier with the shell + plate already joined and the body
 clamped.
 
+## Adjacent parts
+
+Two parts in the touch-flo stack aren't joined by this sub-assembly but
+sit immediately adjacent to it, so their spec lives here for one-stop
+reference:
+
+**Donor faucet body — Westbrass R2031-NL family.** The BOM SKU is
+R2031-NL-62 (matte black, B07KH285GJ). Any finish variant in the
+R2031-NL series is interchangeable for this build because the finish is
+fully hidden by the printed touch-flo-shell — only the mechanism +
+shank are exposed. R2031-NL-12 (oil-rubbed bronze, B01N5LVNQA) is the
+same mechanism with a different finish. Pick whichever is cheaper /
+Prime-available at order time.
+
+**Under-counter plate — SendCutSend 0.060" 316 SS.** File
+`touch_flo_under_counter_plate.dxf`, Ø 54.35 mm disc with 1× Ø 12.6 mm
+shank hole + 1× 13.2 × 6.85 mm pill slot (same hole pattern as the
+printed mounting plate / TPU gasket above the counter). Sits between
+the countertop underside and the under-counter shank nut. Distributes
+the nut's clamping force over a wide area so the nut doesn't dish or
+crush the countertop bottom — the printed mounting plate alone is too
+soft / too small for that clamping load. Installed during countertop
+install (step 6 in "Where this fits in the build"), not during the
+shell + plate + body sub-assembly procedure below.
+
 ## Tools
 
 | Item                                          | Reference                                                                  |
