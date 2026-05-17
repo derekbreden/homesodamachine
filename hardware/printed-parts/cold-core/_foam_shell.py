@@ -24,9 +24,12 @@ def build_full_shell():
         .union(build_reed_channels(side=+1))
         .union(build_reed_channels(side=-1))
     )
-    foam_shell = cut_circular_port_holes(foam_shell)
-    foam_shell = cut_co2_inlet(foam_shell)
-    foam_shell = cut_slot_for_copper_and_water_inlet(foam_shell)
-    foam_shell = cut_reed_channel_openings(foam_shell)
-    foam_shell = cut_reed_cable_holes(foam_shell)
+    for cut in (
+        cut_circular_port_holes,
+        cut_co2_inlet,
+        cut_slot_for_copper_and_water_inlet,
+        cut_reed_channel_openings,
+        cut_reed_cable_holes,
+    ):
+        foam_shell = cut(foam_shell)
     return foam_shell
