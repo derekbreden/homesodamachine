@@ -58,6 +58,18 @@ def _wp_z_axis_at(x, y, z):
     )
 
 
+def _y_cylinder(x, y_bottom, z, diameter, height):
+    """A solid cylinder with axis along +Y, base at (x, y_bottom, z) and
+    `height` tall in +Y. The Y-axis is the natural extrude direction
+    for almost every cylindrical feature in this file (boss, bore,
+    pocket, cap, vent shell)."""
+    return (
+        _wp_at(x, y_bottom, z)
+        .circle(diameter / 2)
+        .extrude(height)
+    )
+
+
 # The body is an OPEN-TOP `[` cup: floor + four walls (far, +Z, −Z,
 # centerward concave-curve) of uniform 4 mm PETG. The top is closed by
 # a separately-printed cap clamped down through a TPU gasket with six
@@ -706,11 +718,7 @@ def build_reservoir_body(side=1):
             cyl_bottom_y = boss_bottom_y
         else:
             cyl_bottom_y = boss_bottom_y - _cyl_extra_below_bottom
-        boss = (
-            _wp_at(px_signed, cyl_bottom_y, pz)
-            .circle(body_boss_radius)
-            .extrude(outer_top_y - cyl_bottom_y)
-        )
+        boss = _y_cylinder(px_signed, cyl_bottom_y, pz, 2 * body_boss_radius, outer_top_y - cyl_bottom_y)
 
         if cut_info is not None:
             pivot_x, pivot_z, dir_x, dir_z = cut_info
@@ -740,11 +748,8 @@ def build_reservoir_body(side=1):
 
         body = body.union(boss)
 
-        pocket = (
-            _wp_at(px_signed, pocket_bottom_y, pz)
-            .circle(insert_pocket_radius)
-            .extrude(insert_pocket_depth + 0.1)  # +0.1 to break the top surface cleanly
-        )
+        # +0.1 extrude overshoot breaks the top surface cleanly.
+        pocket = _y_cylinder(px_signed, pocket_bottom_y, pz, 2 * insert_pocket_radius, insert_pocket_depth + 0.1)
         body = body.cut(pocket)
 
     # Thick sloped floor + bulkhead pocket.
@@ -1076,22 +1081,14 @@ def build_reservoir_body(side=1):
     # geometry cannot perturb any earlier edge/face selector.
     rod_x_signed = rod_position_x * side
     rod_slope_y_at_z = slope_low_y + slope_rate * (bulkhead_panel_z_min - rod_position_z)
-    body_boss_cylinder = (
-        _wp_at(rod_x_signed, rod_slope_y_at_z, rod_position_z)
-        .circle(rod_boss_od / 2.0)
-        .extrude(body_boss_height)
-    )
+    body_boss_cylinder = _y_cylinder(rod_x_signed, rod_slope_y_at_z, rod_position_z, rod_boss_od, body_boss_height)
     body = body.union(body_boss_cylinder)
 
     # Blind bore: base body_boss_floor mm above the slope, extruded up
     # through the top of the boss with a +0.1 overshoot so the cut
     # cleanly opens at the boss top face.
     bore_bottom_y = rod_slope_y_at_z + body_boss_floor
-    rod_bore_cut = (
-        _wp_at(rod_x_signed, bore_bottom_y, rod_position_z)
-        .circle(rod_bore / 2.0)
-        .extrude(body_boss_height - body_boss_floor + 0.1)
-    )
+    rod_bore_cut = _y_cylinder(rod_x_signed, bore_bottom_y, rod_position_z, rod_bore, body_boss_height - body_boss_floor + 0.1)
     body = body.cut(rod_bore_cut)
 
     return body
@@ -1172,11 +1169,7 @@ def build_reservoir_cap(side=1):
     # screw position.
     for (px, pz) in insert_positions_for_side_plus_1:
         px_signed = px * side
-        boss = (
-            _wp_at(px_signed, 0.0, pz)
-            .circle(cap_boss_radius)
-            .extrude(cap_wall_height)
-        )
+        boss = _y_cylinder(px_signed, 0.0, pz, 2 * cap_boss_radius, cap_wall_height)
         cap = cap.union(boss)
 
     # Counterbored screw holes. The counterbore recesses the M3 SHCS
@@ -1186,20 +1179,10 @@ def build_reservoir_cap(side=1):
     # gasket, and into the body's insert pocket below.
     for (px, pz) in insert_positions_for_side_plus_1:
         px_signed = px * side
-        clearance = (
-            _wp_at(px_signed, -0.1, pz)
-            .circle(cap_clearance_hole_diameter / 2)
-            .extrude(cap_total_height + 0.2)
-        )
+        clearance = _y_cylinder(px_signed, -0.1, pz, cap_clearance_hole_diameter, cap_total_height + 0.2)
         cap = cap.cut(clearance)
 
-        counterbore = (
-            _wp_at(
-                px_signed, cap_total_height - cap_counterbore_depth, pz,
-            )
-            .circle(cap_counterbore_diameter / 2)
-            .extrude(cap_counterbore_depth + 0.1)
-        )
+        counterbore = _y_cylinder(px_signed, cap_total_height - cap_counterbore_depth, pz, cap_counterbore_diameter, cap_counterbore_depth + 0.1)
         cap = cap.cut(counterbore)
 
     # Vent feature.
@@ -1223,44 +1206,24 @@ def build_reservoir_cap(side=1):
     # Solid pieces: boss extension, cylinder body (cut hollow later),
     # brim. All unioned with the cap so the air-column cut below
     # carves a single continuous channel through them.
-    boss_extension = (
-        _wp_at(vent_x_signed, boss_bottom_y, vent_position_z)
-        .circle(vent_boss_outer_diameter / 2.0)
-        .extrude(_vent_boss_extension_below_base_plate)
-    )
+    boss_extension = _y_cylinder(vent_x_signed, boss_bottom_y, vent_position_z, vent_boss_outer_diameter, _vent_boss_extension_below_base_plate)
     cap = cap.union(boss_extension)
 
-    cylinder_solid = (
-        _wp_at(vent_x_signed, cylinder_walls_bottom_y, vent_position_z)
-        .circle(vent_cylinder_outer_diameter / 2.0)
-        .extrude(vent_cylinder_length - vent_brim_thickness)
-    )
+    cylinder_solid = _y_cylinder(vent_x_signed, cylinder_walls_bottom_y, vent_position_z, vent_cylinder_outer_diameter, vent_cylinder_length - vent_brim_thickness)
     cap = cap.union(cylinder_solid)
 
-    brim = (
-        _wp_at(vent_x_signed, brim_bottom_y, vent_position_z)
-        .circle(vent_brim_diameter / 2.0)
-        .extrude(vent_brim_thickness)
-    )
+    brim = _y_cylinder(vent_x_signed, brim_bottom_y, vent_position_z, vent_brim_diameter, vent_brim_thickness)
     cap = cap.union(brim)
 
-    # Cut filter pocket from the cap top face.
-    pocket = (
-        _wp_at(vent_x_signed, pocket_bottom_y, vent_position_z)
-        .circle(vent_pocket_diameter / 2.0)
-        .extrude(vent_pocket_depth + 0.1)  # +0.1 breaks the cap top surface cleanly
-    )
+    # Cut filter pocket from the cap top face (+0.1 breaks the surface cleanly).
+    pocket = _y_cylinder(vent_x_signed, pocket_bottom_y, vent_position_z, vent_pocket_diameter, vent_pocket_depth + 0.1)
     cap = cap.cut(pocket)
 
     # Cut the air column: ø5 from the cylinder bottom (top of brim) up
     # to the pocket bottom. This both hollows out the cylinder body we
     # just unioned in and drills the small vent hole through the boss
     # and the 0.5 mm of base plate below the pocket.
-    air_column = (
-        _wp_at(vent_x_signed, cylinder_walls_bottom_y, vent_position_z)
-        .circle(vent_hole_diameter / 2.0)
-        .extrude(pocket_bottom_y - cylinder_walls_bottom_y)
-    )
+    air_column = _y_cylinder(vent_x_signed, cylinder_walls_bottom_y, vent_position_z, vent_hole_diameter, pocket_bottom_y - cylinder_walls_bottom_y)
     cap = cap.cut(air_column)
 
     # Side slots — four rectangular windows through the cylinder wall,
@@ -1296,18 +1259,10 @@ def build_reservoir_cap(side=1):
     # extends from boss bottom up to the base plate's underside (cap
     # closes the bore from above).
     rod_x_signed = rod_position_x * side
-    boss_outer = (
-        _wp_at(rod_x_signed, -rod_boss_height, rod_position_z)
-        .circle(rod_boss_od / 2.0)
-        .extrude(rod_boss_height + cap_wall_height)
-    )
+    boss_outer = _y_cylinder(rod_x_signed, -rod_boss_height, rod_position_z, rod_boss_od, rod_boss_height + cap_wall_height)
     cap = cap.union(boss_outer)
 
-    boss_bore = (
-        _wp_at(rod_x_signed, -rod_boss_height - 0.1, rod_position_z)
-        .circle(rod_bore / 2.0)
-        .extrude(rod_boss_height + cap_wall_height + 0.1)
-    )
+    boss_bore = _y_cylinder(rod_x_signed, -rod_boss_height - 0.1, rod_position_z, rod_bore, rod_boss_height + cap_wall_height + 0.1)
     cap = cap.cut(boss_bore)
 
     return cap
@@ -1349,21 +1304,13 @@ def build_reservoir_gasket(side=1):
     # cut so each hole sits at the center of a full ø8 disk.
     for (px, pz) in insert_positions_for_side_plus_1:
         px_signed = px * side
-        pad = (
-            _wp_at(px_signed, 0.0, pz)
-            .circle(gasket_pad_radius)
-            .extrude(gasket_thickness)
-        )
+        pad = _y_cylinder(px_signed, 0.0, pz, 2 * gasket_pad_radius, gasket_thickness)
         gasket = gasket.union(pad)
 
     # Screw clearance holes.
     for (px, pz) in insert_positions_for_side_plus_1:
         px_signed = px * side
-        hole = (
-            _wp_at(px_signed, -0.1, pz)
-            .circle(cap_clearance_hole_diameter / 2.0)
-            .extrude(gasket_thickness + 0.2)
-        )
+        hole = _y_cylinder(px_signed, -0.1, pz, cap_clearance_hole_diameter, gasket_thickness + 0.2)
         gasket = gasket.cut(hole)
 
     return gasket
