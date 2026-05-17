@@ -367,26 +367,17 @@ bulkhead_panel_z_max = bulkhead_panel_z_min + bulkhead_panel_thickness          
 # inner-top y sits just above the bulkhead pocket, so the bulkhead body
 # is fully encased in PETG along the panel section. The slope rises ON
 # TOP of this baseline — every point of the floor surface is at least
-# `floor_baseline_y`, and rises by `floor_slope_rise` to the far −Z
-# wall. Outer floor stays flat at y=1 for FDM printability.
+# floor_baseline_y, and rises by floor_slope_rise to the far −Z wall.
+# Outer floor stays flat at y=1 for FDM printability.
 #
-# The wet chamber's CEILING (above y=port_position_y) is open to the
-# cavity, and the dry chamber's FLOOR (below y=port_position_y) is open
-# to the outside of the reservoir — both because the bulkhead body is
-# only fully surrounded around y=port_position_y (the chamber's
-# centerline), and the PETG above the wet body or below the dry body
-# wasn't doing structural work for syrup containment.
+# Syrup drains: cavity → wet ceiling opening (above y=port_position_y)
+# → wet chamber (around the bulkhead's wet collet body) → port at
+# body's −Z face. The bulkhead inlet is the lowest point the pump can
+# drain to.
 #
-# Syrup drains: cavity → wet ceiling opening → wet chamber (around the
-# bulkhead's wet collet body) → port at body's −Z face. The bulkhead
-# inlet is the lowest point the pump can drain to.
-#
-# Dry-section ceiling slab. The dry section's ONLY material in y is a
-# slab whose top face is the dry slope and whose bottom face is 4 mm
-# below that. The slab is a fluid barrier (syrup vapor and slosh sit
-# in the cavity above it; if it cracks, syrup leaks into the dry
-# section), so it carries the same 4 mm minimum as the body walls and
-# the cap base plate. The slab's bottom is constrained from below by
+# Dry-section ceiling slab: the only PETG above the dry chamber, a
+# fluid barrier above the cavity (4 mm minimum, same as the body walls
+# and cap base plate). The slab's bottom is constrained from below by
 # the bulkhead's dry-side flange (⌀22.9 OD, top at y=port_position_y +
 # 11.45 = 28.45), so the slab can only grow upward — i.e. the cavity
 # floor rises by the slab's thickness above the chamber top.
