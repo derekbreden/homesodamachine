@@ -102,8 +102,11 @@ pogo_ridge_length = 24.5
 pogo_ridge_width = 10.0
 pogo_ridge_depth = 0.7  # thin outer wall so pogo pins protrude further
 
-# Shared constants
+# Slop added to cut depths so they pierce cleanly through sibling solid
+# boundaries (the resulting STEP is unaffected — the excess lives in the
+# air outside the parent).
 overcut = 0.1
+# Polygonization count per quarter-circle for round-corner profiles.
 arc_segments = 8
 
 
@@ -411,8 +414,6 @@ skirt_outer_profiles = _skirt_profile_set(0)
 skirt_inner_profiles = _skirt_profile_set(skirt_wall)
 
 
-# Feature functions — base plate and bore
-
 def build_base_plate_with_ramp():
     """Ramped platform from the 70x70 footprint down to the octagon bore."""
     footprint = rounded_rect_profile(footprint_x, footprint_z, corner_r)
@@ -461,8 +462,6 @@ def cut_mounting_holes(solid):
     return solid
 
 
-# Feature functions — skirt
-
 def loft_profile_stack(start_y_offset, y_steps, profiles, overcut_last_step=False):
     """Loft a stack of profiles, each on its own offset workplane.
 
@@ -484,8 +483,6 @@ def build_skirt():
     skirt_cavity = loft_profile_stack(0, skirt_y_steps, skirt_inner_profiles, overcut_last_step=True)
     return skirt_outer.cut(skirt_cavity)
 
-
-# Feature functions — tower
 
 def build_tower():
     """Octagon platform, octagon-to-cylinder ramp, and cylindrical tower."""
@@ -519,8 +516,6 @@ def build_tower():
     )
     return tower.cut(tower_bore)
 
-
-# Feature functions — lower extension
 
 def _lower_profile_set(wall_offset):
     """Four lower-extension cross-section profiles, top to bottom of lower section.
@@ -565,8 +560,6 @@ def build_lower_extension():
     )
     return lower_shell.union(lower_cap)
 
-
-# Feature functions — arch notches, split, snaps
 
 def cut_arch_notches(combined):
     """Semicircular notches on the +Z face for wire routing."""
@@ -673,8 +666,6 @@ def add_snap_fits(base, cap):
 
     return base, cap
 
-
-# Feature functions — pogo connector pocket
 
 def add_pogo_pocket(base):
     """Stepped pill pocket on the +Z face with an outward pill ridge for pogo mating."""
