@@ -286,6 +286,49 @@ gn_mid_straight_len = 115.0
 gn_tip_straight_len = 25.0
 
 
+# SPLIT — angled-spout ↔ upper-bend slip-fit joint
+#
+# The shell prints in two pieces, mating at the end of the mid-straight
+# (= start of bend 2) via a 20 mm slip-fit joint. Geometry:
+#
+#   - SOCKET (on the angled-spout, bottom piece): 2 mm uniform outer
+#     wall over the top 20 mm of the spout. The original water + flavor
+#     bores in this zone are absorbed into one open socket cavity.
+#   - PLUG (on the upper-bend, top piece): 20 mm extension of the
+#     spout's cross-section offset 2 mm INWARD on the outer surface, so
+#     its OD matches the socket ID. Carries the original water + flavor
+#     bores through so the tubes pass continuously across the joint.
+#   - FIT: exactly coincident — male OD ≡ female ID in CAD. Slip
+#     clearance comes from print tolerance.
+#   - MATING FACES: planes perpendicular to the angled-spout's
+#     centerline tangent. Junction plane at the end of the mid-straight;
+#     overlap plane 20 mm back along the same tangent.
+
+split_overlap_len = 20.0
+split_socket_wall = 2.0
+
+# Mid-straight tangent in the path-local XZ plane — rotation of (0, 1)
+# CCW by gn_bend1_sweep_rad. Points UP the spout (toward bend 2).
+_mid_tan_xz = (-math.sin(gn_bend1_sweep_rad), math.cos(gn_bend1_sweep_rad))
+
+# Cutting-plane normal in world (Y=0; centerline lives in the X-Z plane).
+split_normal = (_mid_tan_xz[0], 0.0, _mid_tan_xz[1])
+
+# End of mid-straight (= junction) in world coords. Closed-form
+# continuation of _gooseneck_path_at_origin's math: bend-1-end +
+# gn_mid_straight_len along the mid-straight tangent.
+_bend1_end_xz = (
+    gn_bend1_r * (math.cos(gn_bend1_sweep_rad) - 1.0),
+    (gn_bend1_start_z - zone5_z_top) + gn_bend1_r * math.sin(gn_bend1_sweep_rad),
+)
+split_junction_x = water_tube_x + _bend1_end_xz[0] + gn_mid_straight_len * _mid_tan_xz[0]
+split_junction_z = zone5_z_top + _bend1_end_xz[1] + gn_mid_straight_len * _mid_tan_xz[1]
+
+# Bottom of the 20 mm overlap zone (= top of the un-modified angled-spout).
+split_overlap_x = split_junction_x - split_overlap_len * _mid_tan_xz[0]
+split_overlap_z = split_junction_z - split_overlap_len * _mid_tan_xz[1]
+
+
 # ZONE 3 OUTER ARCH — full-height curve from wing bottom to zone 4
 #
 # The wing/fill arch is a single circular arc that spans the wing's
@@ -943,6 +986,83 @@ def build_zone6_inner_cut() -> cq.Workplane:
     return _sweep_along_gooseneck(_tube_shell_inner_sketch())
 
 
+# SPLIT — geometry builders for the angled-spout ↔ upper-bend joint.
+
+def _tube_shell_outer_shrunk_sketch(shrink: float) -> cq.Sketch:
+    """Outer cross-section offset INWARD by `shrink` mm.
+
+    Reconstructed with parameters reduced by 2·shrink so the resulting
+    boundary is the exact 2D inward offset of _tube_shell_outer_sketch:
+    each slot's width and total Y-length shrink by 2·shrink (centers
+    fixed; straight-section length unchanged), and the fill rect's Y
+    matches the new shorter slot Y. Slot centers + fill-rect X are
+    unchanged, so the three primitives still union into one connected
+    region everywhere the original did.
+    """
+    water_x_width = 2.0 * (tube_shell_water_r_outer - shrink)
+    new_y_outer = tube_shell_y_outer - 2.0 * shrink
+    water_slot_straight = new_y_outer - water_x_width
+    pill_short_total = pill_width_x + 2.0 * (zone5_wall - shrink)
+    pill_straight = new_y_outer - pill_short_total
+    return (
+        cq.Sketch()
+        .slot(water_slot_straight, water_x_width, angle=90)
+        .push([(flavor_offset_x_from_water, 0)])
+        .slot(pill_straight, pill_short_total, angle=90, mode="a")
+        .reset()
+        .push([(flavor_offset_x_from_water / 2.0, 0)])
+        .rect(flavor_offset_x_from_water, new_y_outer, mode="a")
+        .clean()
+    )
+
+
+def _build_zone6_outer_shrunk(shrink: float) -> cq.Workplane:
+    """Gooseneck outer with the cross-section offset inward by `shrink`.
+
+    Same path as build_zone6_outer; only the swept profile changes.
+    Used twice for the split joint:
+      - As the SOCKET-CAVITY cutter on the angled-spout (bottom) piece —
+        intersected with the 20 mm overlap slab and cut from the bottom
+        shell, leaving a `shrink`-thick uniform outer wall.
+      - As the PLUG OUTER on the upper-bend (top) piece — intersected
+        with the same slab, then the original bores cut through it.
+    """
+    return _sweep_along_gooseneck(_tube_shell_outer_shrunk_sketch(shrink))
+
+
+def _split_plane_halfspace(origin: tuple, normal: tuple, sign: int,
+                           extent: float = 600.0) -> cq.Workplane:
+    """Solid filling the halfspace on one side of a plane.
+
+    sign = +1: halfspace in the +normal direction (above the plane).
+    sign = -1: halfspace in the −normal direction (below the plane).
+    The halfspace is a 2·extent × 2·extent × extent box stuck to the
+    plane — extent must comfortably envelop the shell on that side.
+    """
+    plane = cq.Plane(
+        origin=cq.Vector(*origin),
+        xDir=cq.Vector(0, 1, 0),  # Y axis lies in the plane (normal is in XZ)
+        normal=cq.Vector(*normal),
+    )
+    return cq.Workplane(plane).rect(2.0 * extent, 2.0 * extent).extrude(sign * extent)
+
+
+def _split_overlap_slab() -> cq.Workplane:
+    """The 20 mm slab between the overlap plane (below) and the junction
+    plane (above), both perpendicular to the angled-spout tangent.
+
+    Intersect with shrunk-outer / bores to get the male plug or the
+    socket-cavity cutter — only the 20 mm spout chunk, not the full sweep.
+    """
+    above_overlap = _split_plane_halfspace(
+        (split_overlap_x, 0.0, split_overlap_z), split_normal, sign=+1,
+    )
+    below_junction = _split_plane_halfspace(
+        (split_junction_x, 0.0, split_junction_z), split_normal, sign=-1,
+    )
+    return above_overlap.intersect(below_junction)
+
+
 def build_lever_clearance() -> cq.Workplane:
     """Single triangular ramp wedge cut into the top of the rect column.
 
@@ -1022,7 +1142,12 @@ def _tube_shell_inner_section(z_bottom: float, z_height: float) -> cq.Workplane:
 
 
 def build_shell() -> cq.Workplane:
-    """Touch-Flo shell — single piece for printing.
+    """Touch-Flo shell — full reference solid (un-split).
+
+    For printing, this solid is split into two pieces at the angled-
+    spout ↔ upper-bend junction; see build_shell_bottom /
+    build_shell_top. This single-solid form is kept for assembly
+    visualization and as the source the split operates on.
 
     All zones unioned into one solid:
       - Zones 1–4: body wraps + lever clearance
@@ -1057,10 +1182,60 @@ def build_shell() -> cq.Workplane:
     return outer.cut(inner)
 
 
+def build_shell_bottom(full_shell: cq.Workplane | None = None) -> cq.Workplane:
+    """Angled-spout piece — bottom half of the split, with the female socket.
+
+    Everything below the junction plane, with the top 20 mm of the
+    spout hollowed out down to a 2 mm uniform wall (the female socket)
+    that receives build_shell_top's male plug. The original water +
+    flavor bores in the overlap zone are absorbed into the socket cavity.
+    """
+    full = build_shell() if full_shell is None else full_shell
+    below_junction = _split_plane_halfspace(
+        (split_junction_x, 0.0, split_junction_z), split_normal, sign=-1,
+    )
+    socket_cavity = _build_zone6_outer_shrunk(split_socket_wall).intersect(
+        _split_overlap_slab()
+    )
+    return full.intersect(below_junction).cut(socket_cavity)
+
+
+def build_shell_top(full_shell: cq.Workplane | None = None) -> cq.Workplane:
+    """Upper-bend piece — top half of the split, with the male plug.
+
+    Everything above the junction plane, plus a 20 mm male plug
+    extending DOWN the angled-spout (below the junction plane). The
+    plug is the spout's outer cross-section offset 2 mm inward (so its
+    OD matches build_shell_bottom's socket ID), with the original water +
+    flavor bores carried through so the tubes pass continuously across
+    the joint.
+    """
+    full = build_shell() if full_shell is None else full_shell
+    above_junction = _split_plane_halfspace(
+        (split_junction_x, 0.0, split_junction_z), split_normal, sign=+1,
+    )
+    overlap_slab = _split_overlap_slab()
+    plug_outer = _build_zone6_outer_shrunk(split_socket_wall).intersect(overlap_slab)
+    plug_bores = build_zone6_inner_cut().intersect(overlap_slab)
+    plug = plug_outer.cut(plug_bores)
+    return full.intersect(above_junction).union(plug)
+
+
 def main():
-    out = Path(__file__).resolve().parent / "touch-flo-shell.step"
-    export_step(build_shell(), str(out))
-    print(f"-> {out.name}")
+    out_dir = Path(__file__).resolve().parent
+    full = build_shell()
+    bottom = build_shell_bottom(full)
+    top = build_shell_top(full)
+
+    full_out = out_dir / "touch-flo-shell.step"
+    bottom_out = out_dir / "touch-flo-shell-bottom.step"
+    top_out = out_dir / "touch-flo-shell-top.step"
+    export_step(full, str(full_out))
+    export_step(bottom, str(bottom_out))
+    export_step(top, str(top_out))
+    print(f"-> {full_out.name}")
+    print(f"-> {bottom_out.name}")
+    print(f"-> {top_out.name}")
 
 
 if __name__ == "__main__":
