@@ -69,11 +69,11 @@ transition_fillet_r = 6.0
 
 # Zone 3 — arch features (z = plateau_z → arc_peak_z). Two identical
 # side arches at the ±Y edges of the rectangular top face. Each is
-# 1.5 mm wide in Y and spans the full X length; the arch profile in
-# the ZX plane rises from `arc_base_z` at the short ends to
-# `arc_peak_z` at x = 0, atop a 2 mm rectangular foot from `plateau_z`
-# to `arc_base_z`. The plateau between them is 14 mm wide in Y; the
-# plunger and water port both live in this plateau.
+# `arch_block_width_y` wide in Y and spans the full X length; the arch
+# profile in the ZX plane rises from `arc_base_z` at the short ends to
+# `arc_peak_z` at x = 0, atop a rectangular foot from `plateau_z` to
+# `arc_base_z`. The plateau between them is `plateau_width_y` wide;
+# the plunger and water port both live in this plateau.
 arc_base_z = 41.0
 arc_peak_z = 46.0
 arch_block_width_y = 1.5
@@ -82,7 +82,7 @@ plateau_width_y = rect_short - 2 * arch_block_width_y
 
 # Water port. Single port through the top face at plateau level. The
 # tube exits straight upward; depth here is approximate, not measured.
-# port_edge_gap_x is the 2 mm gap from the +X short face (x =
+# `port_edge_gap_x` is the 2 mm gap from the +X short face (x =
 # +rect_long_half) to the port wall, derived per geometry.md.
 port_diameter = 9.75
 port_radius = port_diameter / 2
@@ -122,15 +122,14 @@ def build_rectangular_column():
 
 
 def build_arch(center_y):
-    """One arch rail. 1.5 mm wide in Y, positioned at `center_y`. The
-    ZX profile (visible looking along Y) is a 2 mm rectangular foot
-    from `plateau_z` to `arc_base_z` spanning the full X width, then
-    an arc from `arc_base_z` at x = ±rect_long_half rising to
-    `arc_peak_z` at x = 0 and back down symmetrically."""
-    y_start = center_y - arch_block_width_y / 2
+    """One arch rail of `arch_block_width_y` thickness in Y, centered
+    at `center_y`. The ZX profile (visible looking along Y) is a
+    rectangular foot from `plateau_z` to `arc_base_z` spanning the
+    full X width, then an arc from `arc_base_z` at x = ±rect_long_half
+    rising to `arc_peak_z` at x = 0 and back down symmetrically."""
     return (
         cq.Workplane("XZ")
-        .workplane(offset=y_start)
+        .workplane(offset=center_y - arch_block_width_y / 2)
         .moveTo(-rect_long_half, plateau_z)
         .lineTo(rect_long_half, plateau_z)
         .lineTo(rect_long_half, arc_base_z)
@@ -159,9 +158,8 @@ def build_transition_cove(center_y_sign):
     """
     r = transition_fillet_r
     flat_y = center_y_sign * rect_short_half
-    filler_center_y = flat_y + center_y_sign * (r / 2)
-    cove_center_y = flat_y + center_y_sign * r
-    cove_center_z = cylinder_height + r
+    filler_center = (0, flat_y + center_y_sign * (r / 2))
+    cove_arc_center = (flat_y + center_y_sign * r, cylinder_height + r)
     # Generous half-length for X extrusions; final cylinder clip trims
     # anything past body_r.
     x_overshoot_half = body_r + 2
@@ -169,14 +167,14 @@ def build_transition_cove(center_y_sign):
     filler = (
         cq.Workplane("XY")
         .workplane(offset=cylinder_height)
-        .center(0, filler_center_y)
+        .center(*filler_center)
         .rect(2 * x_overshoot_half, r)
         .extrude(r)
     )
     cove_cutter = (
         cq.Workplane("YZ")
         .workplane(offset=-x_overshoot_half)
-        .center(cove_center_y, cove_center_z)
+        .center(*cove_arc_center)
         .circle(r)
         .extrude(2 * x_overshoot_half)
     )
