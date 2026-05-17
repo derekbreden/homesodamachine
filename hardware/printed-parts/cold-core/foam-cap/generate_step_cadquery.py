@@ -23,7 +23,6 @@ from _cold_core_interface import (
     pocket_centerward_arc_outer_radius,
     wall_and_floor_thickness,
     foam_cap_height,
-    foam_cap_interior_height,
     xz_plane_y_up,
     WorldWorkplane,
 )
@@ -110,37 +109,25 @@ def main():
     lid_bottom = lid
     gasket = build_foam_cap_gasket()
 
-    # Sanity check: cap_top differs from cap_bottom by the floor
-    # through-hole (subtracted) plus the cavity-side annular boss
-    # (added). With the boss present, the net volume change is:
-    #   boss_annular_volume − through_hole_volume
-    # where the through-hole is the ⌀6.5 floor pass and the boss is
-    # the (R_outer² − R_inner²)·π · cavity_height annular ring.
+    # cap_top differs from cap_bottom by the floor through-hole
+    # subtracted plus the cavity-side annular boss added; the lid
+    # differs from the bare lid by the through-hole alone.
     through_hole_volume = math.pi * co2_tube_clearance_radius ** 2 * wall_and_floor_thickness
     boss_annular_volume = (
         math.pi
         * (co2_boss_outer_radius ** 2 - co2_tube_clearance_radius ** 2)
         * (co2_boss_y_top - co2_boss_y_bottom)
     )
-    expected_diff = boss_annular_volume - through_hole_volume
-    actual_diff = cap_top.val().Volume() - cap_bottom.val().Volume()
-    n_solids = len(cap_top.solids().vals())
-    print(f"co2_inlet_z = {co2_inlet_z}")
-    print(f"foam_cap_height = {foam_cap_height}")
-    print(f"foam_cap_interior_height = {foam_cap_interior_height}")
-    print(f"boss y range = [{co2_boss_y_bottom}, {co2_boss_y_top}] (height {co2_boss_y_top - co2_boss_y_bottom})")
-    print(f"boss radii = [{co2_tube_clearance_radius}, {co2_boss_outer_radius}]")
-    print(f"cap_top.Volume() - cap_bottom.Volume() = {actual_diff:.3f}")
-    print(f"expected (boss annular − through-hole) = {expected_diff:.3f}")
-    print(f"cap_top solids = {n_solids}")
-
-    # Sanity check for the lid: lid_top differs from lid_bottom by the
-    # Y-axis ⌀6.5 cylindrical pass through the lid's full Y extent.
     lid_hole_volume = math.pi * co2_tube_clearance_radius ** 2 * lid_y_height
-    lid_actual_diff = lid_bottom.val().Volume() - lid_top.val().Volume()
-    print(f"lid_y_height = {lid_y_height}")
-    print(f"lid_bottom.Volume() - lid_top.Volume() = {lid_actual_diff:.3f}")
-    print(f"expected (⌀6.5 cylinder × lid_y_height) = {lid_hole_volume:.3f}")
+    cap_diff = cap_top.val().Volume() - cap_bottom.val().Volume()
+    lid_diff = lid_bottom.val().Volume() - lid_top.val().Volume()
+    assert math.isclose(cap_diff, boss_annular_volume - through_hole_volume, rel_tol=1e-6), (
+        f"cap diff {cap_diff:.6f} != expected {boss_annular_volume - through_hole_volume:.6f}"
+    )
+    assert math.isclose(lid_diff, lid_hole_volume, rel_tol=1e-6), (
+        f"lid diff {lid_diff:.6f} != expected {lid_hole_volume:.6f}"
+    )
+    assert len(cap_top.solids().vals()) == 1, "cap_top must be a single solid"
 
     export_step(cap_top, str(_here / "foam-cap-top.step"))
     export_step(cap_bottom, str(_here / "foam-cap-bottom.step"))
