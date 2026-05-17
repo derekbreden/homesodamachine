@@ -81,7 +81,6 @@ _body_bore_farthest_from_shell_center = (
     (shell_center_x - body_bore_x) + body_bore_diameter / 2.0
 )  # = 19.175 mm
 shell_outer_r = _body_bore_farthest_from_shell_center + wall_thickness_min
-shell_outer_diameter = 2.0 * shell_outer_r  # = 44.35 mm
 
 
 # ZONE 2 — cylinder → rectangle transition + rect column
@@ -105,7 +104,6 @@ cove_r = 6.0
 # transitions so face-to-face Z interfaces get the same per-side
 # clearance as X/Y.
 zone2_bore_bottom = zone1_z_top + bore_clearance  # 13.25
-cove_top_z = zone2_bore_bottom + cove_r  # 18.25 (bore cove top)
 
 # Outer surface lifts by wall_thickness_min + bore_clearance above the
 # body's cylinder top, so 3 mm of solid shell wall sits above the bore
@@ -114,7 +112,6 @@ cove_top_z = zone2_bore_bottom + cove_r  # 18.25 (bore cove top)
 shell_outer_lip = wall_thickness_min + bore_clearance  # 3.25
 zone1_outer_top = zone1_z_top + shell_outer_lip  # 16.25
 zone2_outer_bot = zone1_outer_top  # 16.25
-cove_top_outer_z = zone2_outer_bot + cove_r  # 21.25 (outer cove top)
 
 
 # LEVER SWING CLEARANCE — a chamfer wedge cut into the top -X corner of
