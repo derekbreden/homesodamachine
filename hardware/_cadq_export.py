@@ -68,6 +68,19 @@ def _make_sibling_tempfile(target):
     return tmp_path
 
 
+def _unlink_if_exists(path):
+    try:
+        os.unlink(path)
+    except FileNotFoundError:
+        pass
+
+
+def _matches_existing_target(tmp_path, target):
+    """True if `target` is already byte-identical to `tmp_path` — i.e.
+    the rename would be a no-op."""
+    return target.exists() and filecmp.cmp(tmp_path, str(target), shallow=False)
+
+
 def _atomic_write(target_path, write_fn):
     target = Path(target_path).resolve()
     target.parent.mkdir(parents=True, exist_ok=True)
@@ -76,18 +89,14 @@ def _atomic_write(target_path, write_fn):
         write_fn(tmp_path)
         if target.suffix == ".step":
             _canonicalize_step(tmp_path)
-        # No-change short-circuit: if the canonicalized output matches the
-        # existing target byte-for-byte, leave the target's mtime alone and
-        # leave git status clean. Only rename when content actually changed.
-        if target.exists() and filecmp.cmp(tmp_path, str(target), shallow=False):
+        # Skip the rename when content matches — keeps target.mtime stable
+        # and leaves git status clean across no-op regenerations.
+        if _matches_existing_target(tmp_path, target):
             os.unlink(tmp_path)
             return
         os.replace(tmp_path, target)
     except BaseException:
-        try:
-            os.unlink(tmp_path)
-        except FileNotFoundError:
-            pass
+        _unlink_if_exists(tmp_path)
         raise
 
 
