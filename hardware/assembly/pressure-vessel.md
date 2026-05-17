@@ -25,15 +25,19 @@ Per-unit BOM lives in [`../bom.md`](../bom.md) §2 (carbonator vessel) + §12 (l
 | 0.5 µm sintered 316 SS sparge stone (1/4" barb input) | FERRODAY B091C5Y6L9 | Internal CO2 sparge |
 | Food-grade silicone tube stub, ~3" of 1/4" ID | Metaland B08L1ST6ST (cut from §5 stock) | Connects bottom-plate barb to sparge stone |
 | 1/4" hose-barb × 1/4" MNPT 316 SS adapter | LTWFITTING B017N4TTMA | CO2 inlet barb, installed at sparge step |
-| **TAISHER 316L SS 1/4" NPT 90° street elbow, M×F** | B0CZ38MYL1 (2-pk) | **4 per vessel — all four ports (all-SS standardization).** ON-ORDER as of 2026-05-13. Turns the line laterally within the ~30 mm vertical envelope around the tank — see [`../printed-parts/cold-core/foam-shell/README.md`](../printed-parts/cold-core/foam-shell/README.md) "Tank-port fittings". SS-on-SS thread joints rely on the Millrose PTFE anti-seize tape (above) at every port. |
+| **TAISHER 316L SS 1/4" NPT 90° street elbow, M×F** | B0CZ38MYL1 (2-pk) | **4 per vessel — all four ports (all-SS standardization).** 316L on every port: matches the 316 end-cap plate parent metal so there's no galvanic mismatch on the wetted side, and standardizing one SS elbow SKU across water + gas ports avoids splitting the assembly into SS-water + brass-gas variants. Turns the line laterally within the ~30 mm vertical envelope around the tank — see [`../printed-parts/cold-core/foam-shell/README.md`](../printed-parts/cold-core/foam-shell/README.md) "Tank-port fittings". SS-on-SS thread joints rely on the Millrose PTFE anti-seize tape (above) at every port. |
 | **Control Devices SV-125 safety valve, 1/4" NPT, 125 PSI** | B01G2F6EMY (size SV-125) | **Port 4 dedicated PRV — installed after passivation per step 8 below, via the SS 90° elbow to orient the body laterally.** 125 PSI set pressure gives 1.39× margin over the 90 PSI working pressure (the prior SV-100 retained as bench/spare). 49 SCFM relief capacity. |
 | Millrose PTFE thread-seal tape | B07C9ZV4PG | Anti-seize for 4 NPT ports (test plugs during hydro + final fittings after passivation) |
-| ER316L .030 filler wire | STARTECHWELD B09BKFBXT9 | Matches 316L parent metal |
+| ER316L .030 filler wire | STARTECHWELD B09BKFBXT9 | Matches 316L parent metal. 316L (not 308L) is load-bearing here: 308L would undermatch the parent metal's Mo content across the weld zone and leave the weld less corrosion-resistant than the surrounding 316L plate + tube. |
 | Cambro 6 QT polycarbonate square container | B001BZEQ44 | One-time-use passivation soak tub per vessel |
 | Viva Doria food-grade citric acid | B0C5NQM8S1 | Made up to ~4 % solution, ~1 qt per vessel (~1/20 of 2 lb bag) |
 | Tap Magic EP-Xtra cutting fluid | B00DHMHSGM | ~$0.50 of fluid per vessel for NPT tapping |
 
 Tooling (per-vessel-amortized only — single-asset tools live in [`../purchases.md`](../purchases.md), not here): XLaserlab X1 Pro laser welder, WEN 4208T drill press, Drill America 1/4"-18 NPT pipe tap + tap wrench, Brown & Sharpe spring tap guide, argon at the welder, hydro test rig (see step 6).
+
+## CO2 supply (sets working pressure)
+
+The 90 PSI working pressure this procedure is sized against is set by an in-appliance Interstate Pneumatics WR1110 1/4" NPT fixed-90 PSI secondary regulator (B07J2L8LF3, [`bom.md`](../bom.md) §4) between the customer's CGA-320 primary regulator and the vessel CO2 port. The WR1110 holds the appliance-side pressure at 90 PSI regardless of where the customer sets their primary, eliminating customer-setpoint variance and adding a layer of safety on the highest-energy path in the appliance (the CO2-bottle pressure reservoir). Customer guidance: set the primary regulator anywhere in the 70–100 PSI range; the WR1110 takes care of the rest. The 35 PSI margin between the 90 PSI working setpoint and the SV-125 PRV (above) is the safety margin sized for normal-operation excursions.
 
 ## Procedure
 

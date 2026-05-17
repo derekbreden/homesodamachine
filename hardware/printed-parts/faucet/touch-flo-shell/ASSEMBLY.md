@@ -36,7 +36,7 @@ into a single rigid sub-assembly.
 |  1  | `touch-flo-mounting-plate` (printed)                 | [`../touch-flo-mounting-plate/`](../touch-flo-mounting-plate/)                      |
 |  1  | Touch-Flo valve body + factory shank nut (harvested) | [`../../harvested/touch-flo-faucet/`](../../harvested/touch-flo-faucet/)            |
 |  2  | ruthex M3 short heat-set inserts (Ø 4.6 knurl OD, Ø 4.0 hole, 4 mm length) | Amazon Prime [B09ZHSGHXD](https://www.amazon.com/dp/B09ZHSGHXD) |
-|  2  | 316 SS M3 × 8 mm ultra-low-profile socket cap screws (head Ø 5.5 × 1.0 mm, 2 mm hex) | McMaster [91223A413](https://www.mcmaster.com/91223A413/) |
+|  2  | 316 SS M3 × 8 mm ultra-low-profile socket cap screws (head Ø 5.5 × 1.0 mm, 2 mm hex) — ULH (not standard SHCS) so the head sits flush under the countertop; the plate's Ø 5.7 × 1.25 mm counterbore drops the Ø 5.5 × 1.0 head 0.25 mm sub-flush, which standard SHCS heads (~3 mm tall) cannot achieve at this plate thickness. | McMaster [91223A413](https://www.mcmaster.com/91223A413/) |
 
 The two flavor tubes that pass through the pill slot are NOT installed
 at this step — they're routed in the downstream "tube routing" step,

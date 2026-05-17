@@ -81,6 +81,13 @@ After all three pours (top cap, bottom cap, body) have fully cured:
 
 The cold core is now sealed and ready for enclosure integration.
 
+## Warm-side check valves (PTFE-on-metal rationale)
+
+Both the water-inlet and CO2-inlet lines carry an inline 1/4" NPT SS check valve (GASHER B0FV2D2FFX, 2-pack covers both) on the warm side, upstream of the shared +Z slot. Both are PTFE soft-seat on metal poppet (confirmed by inspection 2026-04-25), not elastomer:
+
+- **Water-side check** sits between the SeaFlo pump's MAACFLOW 1/4" NPT adapter and the first JG PP010822E PTC adapter that takes the line into 1/4" OD LLDPE for the run through the +Z slot. The pump's own internal elastomer checks are a redundant layer #3, not the primary seal — elastomer checks creep under sustained CO2 back-pressure, and gas molecules migrate through elastomer seals that would hold liquid indefinitely. PTFE-on-metal is the standard soft-seat construction in commercial beverage/brewery/food-process check valves at this pressure class: chemically inert to carbonic acid and CO2, no gas-permeation problem, suitable for long-term field service.
+- **CO2-side check** sits on the dry side, between the DERPIPE 5/16"-tube × 1/4"-NPT push-to-connect and the LTWFITTING bottom-plate barb adapter. Prevents water from back-flowing through the sparge stone, up the silicone tube, and into the CO2 regulator if pressures invert under fault.
+
 ## Output condition
 
 A finished cold core:
