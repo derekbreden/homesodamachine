@@ -45,4 +45,4 @@ def build_outer_shell():
         )
     bottom_pockets = insert_pockets_at(0)
     top_pockets = insert_pockets_at(foam_shell_outer_height - insert_pocket_depth)
-    return shell.union(bosses).cut(top_pockets).cut(bottom_pockets).unwrap()
+    return shell.union(bosses).cut(bottom_pockets).cut(top_pockets).unwrap()
