@@ -10,8 +10,8 @@ Density-independent, mechanically overfill-safe, zero electrical penetrations of
 
 **Inside the reservoir:**
 
-- A vertical 4 mm OD PETG **strut**, integral to the reservoir BODY, anchored in the wedge at `(x = ±88, z = -45)` — the −Z half of the reservoir, opposite the bulkhead pocket (which lives on the +Z half at z=28..64). Extends upward through the cavity to a boss on the cap's underside that the strut tip enters from below. Matches the carbonator's pattern (rod welded to the bottom plate, captured at the top). Mechanically stiffer than a one-end cantilever. Specified in [`generate_step_cadquery.py`](generate_step_cadquery.py) — `STRUT_POSITION_X`, `STRUT_POSITION_Z`, `STRUT_DIAMETER`, `STRUT_BOTTOM_Y`, `STRUT_BOSS_OD`, `STRUT_BOSS_BORE`, `STRUT_BOSS_HEIGHT`. The cavity at z=−45 is ~38 mm wide (vs ~24 mm at z=0), giving generous clearance for the donor donut float regardless of its precise OD.
-- A small **magnetic float** sliding on the strut. Donor is the DEVMO MINI float switch (Amazon B07T18PGJ4) already in the BOM for the carbonator — harvest the donut, reuse its ferrite magnet. The carbonator pairs this donut with a 3.175 mm SS rod; the 4 mm PETG strut is the same family of fit, comfortably inside the wider cavity at z=−45 where sliding clearance is the dominant constraint, not a tight hole tolerance.
+- A vertical **1/8" (3.175 mm) 316L SS rod** (Tandefio B0CY4DWJFQ — same SKU as the carbonator vessel's float rod), separately supplied (not printed). The rod sits at `(x = ±88, z = -45)` — the −Z half of the reservoir, opposite the bulkhead pocket (which lives on the +Z half at z=28..64). Bottom end drops into a closed-bottom printed **pocket** in the reservoir BODY wedge; top end slips into the existing register **boss** hanging from the cap's underside (resized for the 3.175 mm rod). Matches the carbonator's pattern (rod-to-plate at one end, register at the other) — mechanically stiffer than a one-end cantilever. Specified in [`generate_step_cadquery.py`](generate_step_cadquery.py) — `ROD_POSITION_X`, `ROD_POSITION_Z`, `ROD_DIAMETER`, `ROD_BORE`, `BODY_SOCKET_DEPTH`, `ROD_BOSS_OD`, `ROD_BOSS_HEIGHT`. The cavity at z=−45 is ~38 mm wide (vs ~24 mm at z=0), giving generous clearance for the donor donut float regardless of its precise OD. **Why SS rod instead of a printed PETG strut:** (1) a 4 mm OD × ~200 mm tall PETG strut printed integral to the BODY does not print reliably — the top ~50% comes out mangled; (2) over the appliance's 10-year unmaintained design lifetime (per [`../../../future.md`](../../../future.md)), FDM-printed PETG's layer-line grooves would trap sticky sucralose-syrup residue where the float-magnet wipe can't reach, whereas a drawn 316 SS rod is essentially mirror-smooth so each float pass wipes it clean. The wetted-parts path has no field service other than the pump cartridge, so the surface finish on this rod has to last the full design life.
+- A small **magnetic float** sliding on the rod. Donor is the DEVMO MINI float switch (Amazon B07T18PGJ4) already in the BOM for the carbonator — harvest the polypropylene donut, reuse its ferrite magnet. PP body pairs cleanly with the SS rod (no galvanic, no sticky contact). Same rod diameter as the carbonator already proves the fit.
 
 **Outside the reservoir:**
 
@@ -23,7 +23,7 @@ Density-independent, mechanically overfill-safe, zero electrical penetrations of
 
 ## Reed pitch and what it gets you
 
-Useful Y range for the float on the strut: ~40 mm above the floor (above the wet slope max) to ~210 mm (just below the cap) = ~170 mm of float travel.
+Useful Y range for the float on the rod: ~40 mm above the floor (above the wet slope max) to ~210 mm (just below the cap) = ~170 mm of float travel.
 
 | Reeds | Pitch (mm) | Servings per step |
 |---|---|---|
@@ -35,7 +35,7 @@ Useful Y range for the float on the strut: ~40 mm above the floor (above the wet
 
 ## Magnet–reed signal-path geometry
 
-The reed column sits IN the foam-shell channel, so the reed sensors land roughly at the wall's mid-thickness in x. Path from the float's centered magnet (donor donut OD ~8 mm, magnet outer surface at strut + ~4 mm) to the reed sensor crosses the reservoir wall (4 mm) + the cavity-side air gap (~0.5 mm) + roughly half a reed body (~1.5 mm) ≈ **~6 mm**.
+The reed column sits IN the foam-shell channel, so the reed sensors land roughly at the wall's mid-thickness in x. Path from the float's centered magnet (donor donut OD ~8 mm, magnet outer surface at rod + ~4 mm) to the reed sensor crosses the reservoir wall (4 mm) + the cavity-side air gap (~0.5 mm) + roughly half a reed body (~1.5 mm) ≈ **~6 mm**.
 
 **Honest signal-strength numbers** for the donor ferrite donut (~8 mm OD × 4 mm ID × 2 mm thick, Br ≈ 0.3 T):
 
@@ -80,7 +80,7 @@ The reed column is mechanically held in the channel, not foam-encapsulated, so i
 
 The expected failure mode (reed glass tube fractures, contact corrodes) is well below the appliance's 10-year design lifetime for sealed glass reeds in a dry air environment.
 
-The internal strut is integral to the reservoir body. The float is reachable by removing the cap (six M3 × 12 SHCS + gasket) and lifting it off the strut.
+The internal SS rod is a separately-supplied part captured at both ends by printed features: bottom in a closed-bottom pocket in the BODY wedge, top in a slip-fit register boss on the cap's underside. Removing the cap (six M3 × 12 SHCS + gasket) lifts the rod's top out of the cap-side boss; the rod can then be drawn upward out of the body-side pocket along with the float, or left standing in the pocket while the float alone is lifted off. The pocket is closed at the bottom so the rod cannot fall through into the reservoir cavity in service.
 
 ## Open items
 

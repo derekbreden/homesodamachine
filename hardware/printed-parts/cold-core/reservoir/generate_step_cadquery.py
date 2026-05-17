@@ -279,41 +279,64 @@ vent_position_z = 32.5
 
 
 # -------------------------------------------------------
-# Level-sensing strut
+# Level-sensing rod (1/8" × 12" 316 stainless steel)
 # -------------------------------------------------------
 #
-# A vertical solid PETG cylinder, body-anchored and cap-registered
-# (NOT cap-cantilever). A small magnetic float slides up and down
-# the strut as the syrup level changes; ten reed switches mounted
-# outside the reservoir pocket's far +X wall (foam-encapsulated
-# during the body foam pour) detect the float's position for level
-# sensing. Same architecture as the carbonator's existing reed+float
-# level sensing (see `hardware/future.md` "Level sensing"): rod
-# anchored at one plate, registered at the other — just extended to
-# 10 reeds per reservoir for finer granularity.
+# A vertical 3.175 mm (1/8") × 305 mm (12") 316 stainless steel
+# round rod, body-pocketed and cap-registered (NOT cap-cantilever).
+# A small magnetic float slides up and down the rod as the syrup
+# level changes; ten reed switches mounted outside the reservoir
+# pocket's far +X wall (foam-encapsulated during the body foam pour)
+# detect the float's position for level sensing. Same architecture
+# AND same SS rod SKU as the carbonator's existing reed+float level
+# sensing (see `hardware/future.md` "Level sensing" and `bom.md`
+# Tandefio B0CY4DWJFQ): rod captured at one end, registered at the
+# other — just extended to 10 reeds per reservoir for finer
+# granularity.
+#
+# Why SS rod + printed pockets instead of a printed PETG strut:
+#   - Print reliability. The previous design unioned a 4 mm × ~200
+#     mm PETG cylinder into the body; the top ~50 % consistently
+#     came out mangled (long thin un-supported axial features are
+#     not FDM-friendly). A separately-supplied SS rod side-steps
+#     the print problem entirely.
+#   - 10-year residue. The appliance is designed for ~10 years of
+#     unmaintained service. Sugary syrup builds up on FDM layer
+#     lines noticeably faster than on the smooth drawn surface of
+#     a SS rod, and the float would eventually stick. The SS rod
+#     also doesn't shed plasticizer into the syrup over a decade.
 #
 # Architecture:
-#   - The strut is unioned into the BODY (build_reservoir_body),
-#     extending UP from the wet-side wedge.
-#   - The strut is anchored well INTO the wedge at the wet slope
-#     top. The wedge is fully fused into the body's PETG mass,
-#     giving a solid bond at the strut's bottom end.
-#   - The strut top is captured by a slip-fit REGISTER hanging down
-#     from the cap's underside — a hollow boss unioned to the cap
-#     body, extending below the cap's base plate, with a downward-
-#     opening blind ø5 hole around the ø4 strut top (0.5 mm radial
-#     clearance). See build_reservoir_cap for the boss + pocket
-#     geometry.
-#   - During assembly the cap is lowered onto the body and the
-#     strut tip slides into the register as the cap seats on the
-#     gasket. The strut is doubly anchored: floor-bonded at the
-#     bottom, register-captured at the top.
+#   - The body has a closed-bottom BLIND CYLINDRICAL POCKET cut
+#     into the wet-side wedge (build_reservoir_body), opening
+#     upward through the wet slope. The rod's bottom end drops
+#     into this socket with ~0.5 mm radial clearance for slip-fit
+#     assembly. The pocket is ~10 mm deep (≈3× rod diameter — the
+#     standard rule of thumb for solid axial location of a round
+#     pin in a printed socket), bored down into solid wedge PETG.
+#   - The rod's top is captured by a slip-fit REGISTER BOSS
+#     hanging down from the cap's underside — a hollow boss
+#     unioned to the cap body, extending below the cap's base
+#     plate, with a downward-opening blind ø3.7 hole around the
+#     ø3.175 rod top (~0.5 mm radial clearance). See
+#     build_reservoir_cap for the boss + pocket geometry.
+#   - During assembly the rod is dropped into the body socket
+#     first; then the cap is lowered onto the body and the rod's
+#     top slides into the cap register as the cap seats on the
+#     gasket. The rod is mechanically captured at BOTH ends — that
+#     two-point capture is what makes a 1/8" × 305 mm rod
+#     structurally stiff enough to take float-loading without
+#     leaning. (A single-ended press-fit in only the body, or only
+#     the cap, would let the free tip walk and the float would
+#     bind.) The carbonator's rod is welded to its bottom plate;
+#     we don't have a plate to weld to, so a wedge-embedded
+#     printed socket is the printed-equivalent capture.
 #
-# Position: at (x = ±STRUT_POSITION_X, z = STRUT_POSITION_Z) in the
+# Position: at (x = ±ROD_POSITION_X, z = ROD_POSITION_Z) in the
 # reservoir coordinate frame — x sign follows `side`; z stays
 # negative for both sides (no z mirroring). Chosen to:
 #   - sit OPPOSITE the bulkhead, which occupies z = 28..64 on the
-#     +Z half of the reservoir. Placing the strut on the -Z half
+#     +Z half of the reservoir. Placing the rod on the -Z half
 #     puts the float in the wider, uncluttered part of the cavity
 #     and removes any geometric coupling between the level-sensing
 #     hardware and the outlet-bulkhead pocket.
@@ -321,25 +344,25 @@ vent_position_z = 32.5
 #     z=-45 vs only ~24 mm at z=0), giving generous clearance for
 #     the donor donut float regardless of its precise OD/hole.
 #   - keep clear of all screw bosses (#1/#4 at z=+64, #2/#5 at
-#     z=-64, #3/#6 at z=0): strut at z=-45 is at least 19 mm from
+#     z=-64, #3/#6 at z=0): rod at z=-45 is at least 19 mm from
 #     the nearest boss on the -Z side.
 #   - keep clear of the vent boss (centered at z=+32.5) and the
-#     bulkhead pocket (z=28..64): strut at z=-45 is on the opposite
+#     bulkhead pocket (z=28..64): rod at z=-45 is on the opposite
 #     half of the cavity.
 #
-# STRUT_DIAMETER = 4 mm sits comfortably inside whatever sliding
-# clearance the donor donut provides; the wider cavity at z=-45
-# means precise hole-to-strut tolerance is no longer a critical
+# ROD_DIAMETER = 3.175 mm (1/8") sits comfortably inside whatever
+# sliding clearance the donor donut provides; the wider cavity at
+# z=-45 means precise hole-to-rod tolerance is no longer a critical
 # fit question (vs. the original z=0 position where the cavity was
 # only 24 mm wide and a tight float fit mattered more).
 #
-STRUT_POSITION_X = 88.0       # |x| of the strut centerline; mirrors with `side`
-STRUT_POSITION_Z = -45.0      # z of the strut centerline (does NOT mirror with side); opposite the bulkhead's +Z half, in the wider part of the cavity
-STRUT_DIAMETER = 4.0          # solid PETG cylinder OD; double-anchored so 4 mm is structurally adequate over the ~200 mm length
-STRUT_BOTTOM_Y = 20.0         # reservoir-frame y of the strut's bottom end; the wet slope crests near y≈22.8 at z=-45, so the strut embeds ~2.8 mm into the wedge for a solid PETG bond
-STRUT_BOSS_OD = STRUT_DIAMETER + 4.0     # 8 mm — boss outer diameter (1.5 mm radial wall around the bore)
-STRUT_BOSS_BORE = STRUT_DIAMETER + 1.0   # 5 mm — boss inner bore; 0.5 mm radial clearance for slip-fit on the strut tip
-STRUT_BOSS_HEIGHT = 4.0                  # mm; boss extends DOWN from cap-local y=0 (cap underside) to y=-STRUT_BOSS_HEIGHT. Boss bottom is 2 mm below the strut top at cap-local y=-2, giving 2 mm of axial strut-boss engagement.
+ROD_POSITION_X = 88.0          # |x| of the rod centerline; mirrors with `side`
+ROD_POSITION_Z = -45.0         # z of the rod centerline (does NOT mirror with side); opposite the bulkhead's +Z half, in the wider part of the cavity
+ROD_DIAMETER = 3.175           # 1/8" 316 SS round rod OD; supplied as Tandefio B0CY4DWJFQ (already in bom.md for the carbonator's identical job — no new SKU)
+ROD_BORE = ROD_DIAMETER + 0.5  # 3.675 mm — printed bore diameter for both body socket and cap register; ~0.5 mm radial clearance for slip-fit assembly accounting for PETG shrink + FDM hole undersize
+BODY_SOCKET_DEPTH = 10.0       # mm; closed-bottom blind pocket cut DOWN into the wet-side wedge from the slope surface. ≈3× ROD_DIAMETER, the standard rule of thumb for solid axial location of a round pin in a printed socket. At z=-45 the wet slope crests near y≈22.8 and the wedge extends down to inner_floor_top_y (~6.5), leaving plenty of wedge material around the pocket walls and below the closed bottom.
+ROD_BOSS_OD = ROD_BORE + 4.0   # 7.675 mm — cap-side register-boss outer diameter (2 mm radial wall around the bore, comfortably above the 1.5–2 mm minimum for PETG to print solidly around a small bore)
+ROD_BOSS_HEIGHT = 4.0          # mm; cap-side boss extends DOWN from cap-local y=0 (cap underside) to y=-ROD_BOSS_HEIGHT. Boss bottom is 2 mm below the rod top at cap-local y=-2, giving 2 mm of axial rod-boss engagement.
 #
 # -------------------------------------------------------
 
@@ -1268,36 +1291,51 @@ def build_reservoir_body(side=1):
     # the open dry section; the tube push-in is unobstructed.
 
     # ─────────────────────────────────────────────────────
-    # Level-sensing strut (body-anchored, cap-registered)
+    # Level-sensing rod body socket (closed-bottom blind pocket)
     # ─────────────────────────────────────────────────────
-    # Vertical solid PETG cylinder extending UP from the wet-side
-    # wedge into the cavity, acting as a guide rod for a magnetic
-    # float that rides up and down with the syrup level. The top
-    # end is captured by a slip-fit register pocket in the cap's
-    # base plate (cut in build_reservoir_cap).
+    # Closed-bottom blind cylindrical pocket cut DOWN into the wet-
+    # side wedge from above. A separately-supplied 1/8" × 12" 316
+    # SS round rod (ROD_DIAMETER = 3.175) drops bottom-first into
+    # this socket during assembly; the rod's top is then captured
+    # by a register boss in the cap underside (cut in
+    # build_reservoir_cap). See the "Level-sensing rod" section at
+    # the top of this file for the full architecture rationale.
     #
-    # The strut bottom sits at reservoir y=STRUT_BOTTOM_Y (20.0),
-    # which is ~0.3 mm BELOW the wet slope's max at z=0 (slope
-    # crests near y≈20.3 at z=0), so the strut embeds into the
-    # solid wedge PETG for a structural bond at the bottom.
+    # The pocket BOTTOM sits well below the wet-slope surface, in
+    # solid wedge PETG. At z=ROD_POSITION_Z (-45) the wet slope
+    # crests near y≈22.8, and the wedge extends down to
+    # inner_floor_top_y (~6.5) with no other features in between,
+    # so a BODY_SOCKET_DEPTH (10) mm pocket sits comfortably inside
+    # the wedge with ≥6 mm of PETG below the closed bottom.
     #
-    # The strut top reaches the body wall top (outer_top_y) — the
-    # same level the gasket bottom sits on. No further. The cap's
-    # boss (built in build_reservoir_cap) engages the strut top from
-    # above.
+    # Implementation: cut a single cylinder of diameter ROD_BORE
+    # from outer_top_y straight down to the desired pocket bottom.
+    # Above the wedge there's no material to remove (the cavity is
+    # already open from inner_floor_top_y up to outer_top_y at this
+    # x,z), so the cut only takes material out of the wedge — what
+    # remains in the wedge IS the pocket: walls on all sides, a
+    # closed bottom at the cut's lower end, and an opening through
+    # the wet slope at the wedge top. Cap removal exposes the
+    # opening from above for rod insertion.
     #
     # Added LAST in build_reservoir_body, after every existing
     # feature (wedge, bulkhead pocket, slab cut, fillets), so the
     # new cylinder geometry cannot perturb any earlier edge/face
     # selector.
-    strut_x_signed = STRUT_POSITION_X * side
-    strut_top_y = outer_top_y
-    strut = (
-        _wp_at(strut_x_signed, STRUT_BOTTOM_Y, STRUT_POSITION_Z)
-        .circle(STRUT_DIAMETER / 2.0)
-        .extrude(strut_top_y - STRUT_BOTTOM_Y)
+    rod_x_signed = ROD_POSITION_X * side
+    # Pocket bottom: 10 mm below the wet slope surface at (x,z) =
+    # (±88, -45). Slope y ≈ 22.8 at z=-45, so socket bottom sits
+    # near y ≈ 12.8 — still ~6 mm above inner_floor_top_y. Compute
+    # from the slope plane directly so the offset stays correct if
+    # slope_rate or slope anchor ever change.
+    rod_slope_y_at_z = slope_low_y + slope_rate * (bulkhead_panel_z_min - ROD_POSITION_Z)
+    socket_bottom_y = rod_slope_y_at_z - BODY_SOCKET_DEPTH
+    socket_cut = (
+        _wp_at(rod_x_signed, socket_bottom_y, ROD_POSITION_Z)
+        .circle(ROD_BORE / 2.0)
+        .extrude(outer_top_y - socket_bottom_y)
     )
-    body = body.union(strut)
+    body = body.cut(socket_cut)
 
     return body
 
@@ -1527,32 +1565,40 @@ def build_reservoir_cap(side=1):
         cap = cap.cut(slot_cut)
 
     # ─────────────────────────────────────────────────────
-    # Level-sensing strut boss
+    # Level-sensing rod register boss
     # ─────────────────────────────────────────────────────
     # Hollow boss hanging DOWN from the cap's underside into the body
-    # cavity. The strut top slides into the boss's bore from below as
+    # cavity. The rod top slides into the boss's bore from below as
     # the cap is lowered onto the body. The gasket is a perimeter ring
-    # only — at the strut position (cavity interior) there is nothing
+    # only — at the rod position (cavity interior) there is nothing
     # between the body wall top and the cap's underside, so the boss
     # is free to extend below cap-local y=0.
     #
-    # Boss outer cylinder: solid PETG from cap-local y=-STRUT_BOSS_HEIGHT
+    # Bore is sized for the 1/8" SS rod (ROD_BORE = 3.675 — 0.5 mm
+    # radial clearance around the 3.175 rod) — same slip-fit
+    # clearance used by the body socket below, so the cap drops
+    # straight down onto a rod already seated in the body socket
+    # without binding. Boss OD ROD_BOSS_OD gives ~2 mm radial wall
+    # of PETG around the bore, comfortably above the print-strength
+    # minimum.
+    #
+    # Boss outer cylinder: solid PETG from cap-local y=-ROD_BOSS_HEIGHT
     # up to the base plate at cap-local y=cap_wall_height (=5).
     # Boss bore: extends from boss bottom up to the base plate's
     # underside, where the base plate (cap-local y=5..9) closes the
     # bore from above.
-    strut_x_signed = STRUT_POSITION_X * side
+    rod_x_signed = ROD_POSITION_X * side
     boss_outer = (
-        _wp_at(strut_x_signed, -STRUT_BOSS_HEIGHT, STRUT_POSITION_Z)
-        .circle(STRUT_BOSS_OD / 2.0)
-        .extrude(STRUT_BOSS_HEIGHT + cap_wall_height)
+        _wp_at(rod_x_signed, -ROD_BOSS_HEIGHT, ROD_POSITION_Z)
+        .circle(ROD_BOSS_OD / 2.0)
+        .extrude(ROD_BOSS_HEIGHT + cap_wall_height)
     )
     cap = cap.union(boss_outer)
 
     boss_bore = (
-        _wp_at(strut_x_signed, -STRUT_BOSS_HEIGHT - 0.1, STRUT_POSITION_Z)
-        .circle(STRUT_BOSS_BORE / 2.0)
-        .extrude(STRUT_BOSS_HEIGHT + cap_wall_height + 0.1)
+        _wp_at(rod_x_signed, -ROD_BOSS_HEIGHT - 0.1, ROD_POSITION_Z)
+        .circle(ROD_BORE / 2.0)
+        .extrude(ROD_BOSS_HEIGHT + cap_wall_height + 0.1)
     )
     cap = cap.cut(boss_bore)
 
