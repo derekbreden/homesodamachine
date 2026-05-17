@@ -1108,27 +1108,17 @@ def build_reservoir_cap(side=1):
     cap = _fillet_pair_at_z(cap, side * outer_corner_x, y_mid_cap, outer_z_max, outer_corner_fillet_radius)
     cap = _fillet_pair_at_z(cap, side * outer_far_x_abs, y_mid_cap, outer_z_max, outer_corner_fillet_radius)
 
-    # Cap-side bosses at each insert position, mirroring the body
-    # bosses. They sit inside the perimeter wall at y = [0, 5],
-    # locally thickening the wall inward and providing extra PETG
-    # around the clearance hole. Matching cross-sections on body and
-    # cap also give the gasket a consistent bearing surface at each
-    # screw position.
+    # At each insert position: cap-side boss thickening the perimeter
+    # wall inward (matching the body boss footprint so the gasket sees
+    # a consistent compression cross-section), ø3.5 clearance hole
+    # through the cap for the screw shaft, and ø6 counterbore recessing
+    # the M3 SHCS head flush with the cap's top face.
     for (px, pz) in insert_positions_for_side_plus_1:
         px_signed = px * side
         boss = _y_cylinder(px_signed, 0.0, pz, 2 * cap_boss_radius, cap_wall_height)
         cap = cap.union(boss)
-
-    # Counterbored screw holes. The counterbore recesses the M3 SHCS
-    # head 3 mm into the base plate (y = [5, 8.1], opening at the cap's
-    # top face); the ø3.5 clearance hole continues through the rest of
-    # the cap so the screw shaft can pass through the perimeter wall,
-    # gasket, and into the body's insert pocket below.
-    for (px, pz) in insert_positions_for_side_plus_1:
-        px_signed = px * side
         clearance = _y_cylinder(px_signed, -0.1, pz, cap_clearance_hole_diameter, cap_total_height + 0.2)
         cap = cap.cut(clearance)
-
         counterbore = _y_cylinder(px_signed, cap_total_height - cap_counterbore_depth, pz, cap_counterbore_diameter, cap_counterbore_depth + 0.1)
         cap = cap.cut(counterbore)
 
