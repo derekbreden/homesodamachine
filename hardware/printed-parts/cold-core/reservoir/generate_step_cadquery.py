@@ -607,53 +607,30 @@ def _fillet_pair_at_z(solid, x_signed, y_mid, z_range, radius):
 
 
 def build_reservoir_body(side=1):
-    """
-    Open-top `[`-shaped PETG body with 4 mm walls + 4 mm floor, sized
-    to fit one side of the bag-pocket cavity with `reservoir_clearance`
-    mm of slack on every outer face.
-
-    Six insert bosses (one per `insert_positions_for_side_plus_1`) are
-    unioned at the top of the perimeter, each with an ø4 × 5 mm-deep
-    heat-set-insert pocket drilled into the top face. The bosses
-    locally thicken the wall to ø8 mm wide so the insert has 2 mm of
-    PETG around it on all sides.
-
-    side=+1 builds the +X reservoir; side=−1 builds the −X (mirrored
-    across x = 0).
-    """
-    # Outer envelope dimensions.
-    #
-    # The reservoir-body's outer_top_y must leave room above for the
-    # full body-cap stack (TPU gasket + PETG cap), with reservoir_
-    # clearance to spare against the bag-pocket wall top.  Stack from
-    # the body's top face upward, in order:
-    #   body wall top         y = outer_top_y
-    #   gasket                + gasket_thickness        (2 mm)
-    #   cap perimeter rim     + cap_wall_height         (5 mm)
-    #   cap base plate        + cap_base_thickness      (4 mm)
-    #   reservoir_clearance   + reservoir_clearance     (0.5 mm)
-    #   bag-pocket wall top   = bag_pocket_walls_top_y  (= foam-shell wall top)
-    # so outer_top_y = bag_pocket_walls_top_y − reservoir_clearance −
-    # (gasket_thickness + cap_wall_height + cap_base_thickness).
-    #
-    # At 2 mm foam-shell wall thickness this resolves to 213.4 − 0.5 −
-    # (2 + 5 + 4) = 201.9, leaving the cap's top face flush at
-    # y = 212.9 (0.5 mm clear of the bag-pocket wall top).  The
-    # body alone is 201.9 − 2.5 = 199.4 mm tall.
+    """Open-top `[`-shaped PETG body with 4 mm walls + 4 mm floor,
+    sized to fit one side of the bag-pocket cavity with reservoir_clearance
+    mm of slack on every outer face. Six insert bosses at the top
+    perimeter (one per insert_positions_for_side_plus_1) host ø4 × 7 mm
+    heat-set inserts. side=+1 builds the +X reservoir; side=−1 the −X
+    (mirror across x=0)."""
+    # outer_top_y is set so the cap-stack above (gasket + cap rim + cap
+    # base plate) fits below the bag-pocket wall top with reservoir_clearance
+    # to spare. At 2 mm foam-shell wall thickness: 213.4 − 0.5 − (2+5+4)
+    # = 201.9, leaving the cap's top face flush at y = 212.9 (0.5 mm
+    # clear of the bag-pocket wall top); body alone is 199.4 mm tall.
     cap_stack_above_body = gasket_thickness + cap_wall_height + cap_base_thickness
     outer_floor_bottom_y = bag_pocket_floor_top_y + reservoir_clearance
     outer_top_y = bag_pocket_walls_top_y - reservoir_clearance - cap_stack_above_body
     outer_height = outer_top_y - outer_floor_bottom_y
 
-    # Inner cavity dimensions. No ceiling — cavity extends all the way
-    # to outer_top_y; the cap closes the top with a gasket between.
+    # Inner cavity: no ceiling — cavity extends all the way to outer_top_y;
+    # the cap closes the top with a gasket between.
     W = reservoir_wall_thickness
     inner_far_x_abs = outer_far_x_abs - W
     inner_z_max = outer_z_max - W
     inner_floor_top_y = outer_floor_bottom_y + W
-    inner_top_y = outer_top_y  # <- no ceiling
     inner_centerward_radius = outer_centerward_radius + W
-    inner_height = inner_top_y - inner_floor_top_y
+    inner_height = outer_top_y - inner_floor_top_y
 
     outer_envelope = _build_envelope(side, outer_floor_bottom_y, outer_height)
     inner_cavity = _build_envelope(side, inner_floor_top_y, inner_height, wall_offset=W)
@@ -1095,36 +1072,18 @@ def build_reservoir_body(side=1):
 
 
 def build_reservoir_cap(side=1):
-    """
-    PETG cap that sits on top of the reservoir body through a 2 mm TPU
-    gasket.
-
-    Orientation: the cap is a flat lid with a downward-hanging rim.
-    The flat top face (the 4 mm base plate) is what the user sees
-    from above, and is the surface the counterbored screw heads sit
-    flush in. The 5 mm-tall × 6 mm-wide perimeter wall ("lip") hangs
-    DOWN from the base plate around the gasket joint.
-
-    In cap-local coordinates:
-      - y = 0 .. 5  : perimeter wall (the downward-hanging rim)
-      - y = 5 .. 9  : base plate (the flat top, full `[` footprint)
-      - y = 9       : top face of the cap (the surface the screw
-                      heads recess into; faces up / toward the user)
+    """PETG cap that sits on top of the reservoir body through a 2 mm
+    TPU gasket. Built in cap-local coordinates:
+      - y = 0 .. cap_wall_height        : perimeter wall (the downward-hanging rim)
+      - y = cap_wall_height .. cap_total_height : base plate (the flat top, full `[` footprint)
+    The cap's top face hosts six counterbored M3 holes flush with the
+    screw heads, clearance holes continuing through the perimeter wall
+    into the body's insert pockets below. Six cap-side bosses mirror
+    the body bosses inside the perimeter wall, giving the gasket a
+    matching cross-section at each screw position.
 
     To visualize the assembled stack, translate the cap up by
-    (reservoir wall top y + gasket thickness) ≈ 214.9 mm. The
-    perimeter-wall bottom face (cap y=0) lands at body y=214.9, the
-    cap's top face (cap y=9) at body y=223.9.
-
-    Six counterbored M3 holes pass through the cap at the same XZ
-    positions as the body's insert bosses. ø6 × 4 mm counterbore on
-    the top face recesses the M3 SHCS head flush in the base plate
-    (head is ~3 mm, leaving ~1 mm of empty clearance above it);
-    ø3.5 clearance hole continues through the rest of the cap.
-    Six cap-side bosses mirror the body bosses inside the perimeter
-    wall, providing additional PETG around the clearance hole and a
-    matching cross-section for the gasket compression at each screw.
-    """
+    (reservoir wall top y + gasket thickness) ≈ 214.9 mm."""
     # Perimeter wall (outer − inner footprint, 5 mm tall) at the BOTTOM
     # of the cap, y = [0, 5]. The "lip" that hangs down around the gasket.
     perimeter_outer = _build_envelope(side, 0.0, cap_wall_height)
