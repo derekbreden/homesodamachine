@@ -20,6 +20,23 @@ slot_angular_width = 30.0
 slot_radial_margin = 1.0
 
 
+def revolve_rect(r_range, y_range, angle=360):
+    """Revolve a rectangular (r, y) profile around the Y axis by `angle`
+    degrees, starting at θ=0. The profile lives on the XY plane with x
+    interpreted as radius; revolve's default axis is +Y."""
+    r_min, r_max = min(r_range), max(r_range)
+    y_min, y_max = min(y_range), max(y_range)
+    return (
+        cq.Workplane("XY")
+        .moveTo(r_min, y_min)
+        .lineTo(r_max, y_min)
+        .lineTo(r_max, y_max)
+        .lineTo(r_min, y_max)
+        .close()
+        .revolve(angle)
+    )
+
+
 def build_tank_support_ring():
     """Built as a full revolve of a rectangular (r, y) profile around
     the Y axis; four 30°-wide angular slots at the diagonals are cut
@@ -31,30 +48,17 @@ def build_tank_support_ring():
     y_bottom = wall_and_floor_thickness
     y_top = y_bottom + tank_support_ring_height
 
-    ring_profile = (
-        cq.Workplane("XY")
-        .moveTo(r_inner, y_bottom)
-        .lineTo(r_outer, y_bottom)
-        .lineTo(r_outer, y_top)
-        .lineTo(r_inner, y_top)
-        .close()
-    )
-    ring = ring_profile.revolve()
+    ring_r_range = (r_inner, r_outer)
+    ring_y_range = (y_bottom, y_top)
+    slot_r_range = (r_inner - slot_radial_margin, r_outer + slot_radial_margin)
 
-    def build_slot():
-        return (
-            cq.Workplane("XY")
-            .moveTo(r_inner - slot_radial_margin, y_bottom)
-            .lineTo(r_outer + slot_radial_margin, y_bottom)
-            .lineTo(r_outer + slot_radial_margin, y_top)
-            .lineTo(r_inner - slot_radial_margin, y_top)
-            .close()
-            .revolve(slot_angular_width)
-        )
+    ring = revolve_rect(ring_r_range, ring_y_range)
     slot_spacing_angle = 360 / slot_count
     for i in range(slot_count):
         slot_center_angle = slot_spacing_angle / 2 + slot_spacing_angle * i
         slot_start_angle = slot_center_angle - slot_angular_width / 2
-        slot = build_slot().rotate((0, 0, 0), (0, 1, 0), slot_start_angle)
+        slot = revolve_rect(slot_r_range, ring_y_range, slot_angular_width).rotate(
+            (0, 0, 0), (0, 1, 0), slot_start_angle
+        )
         ring = ring.cut(slot)
     return ring
