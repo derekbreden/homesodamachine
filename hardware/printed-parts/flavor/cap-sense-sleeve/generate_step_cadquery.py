@@ -54,6 +54,7 @@ outer_radius = bore_radius + wall_thickness
 # zone per side (1 mm rim margin + 2 mm dowel diameter + 1.5 mm
 # dowel-to-groove clearance). 17 mm hits this with no extra.
 sleeve_length = 17.0
+sleeve_z_range = (0.0, sleeve_length)
 
 # Two foil-ring grooves on the inner bore, 5 mm apart axially.
 # Groove depth = one layer at 0.1 mm layer height — foil tape
@@ -61,14 +62,14 @@ sleeve_length = 17.0
 # room. At coarser layer heights the groove resolves marginally;
 # fall back to sticking the foil flush against the un-grooved bore.
 groove_depth = 0.1
-groove_bore_radius = bore_radius + groove_depth
+groove_outer_radius = bore_radius + groove_depth
 groove_width_z = 3.0
 groove_centers_z = (6.0, 11.0)
 
 # Radial through-wall wire exits, one per groove, on the +x side of
-# the +y half only. The slot is sized in y for the wire to bend from
-# circumferential (in the groove) to radial (out of the slot) without
-# stressing the solder joint.
+# the +y half only. The slot extends in y from -eps to slot_width_y
+# so the cutter crosses the cut plane by eps — when +y is split off,
+# the slot opens cleanly through y=0 with no paper-thin lid.
 slot_width_y = 2.0
 slot_z_padding = 0.5
 
@@ -77,27 +78,39 @@ slot_z_padding = 0.5
 # defines pin and hole, so the friction fit is tuned by trial.
 dowel_radius = 1.0
 dowel_length = 2.5
-dowel_bearing_half_y_sign = -1
 dowel_x_offset = (bore_radius + outer_radius) / 2
 dowel_z_positions = (2.0, sleeve_length - 2.0)
+dowel_bearing_y_sign = -1
 
 eps = 0.01
 
 
+def annular_extrude(r_outer, r_inner, z_range):
+    """Hollow cylinder, axis = z. Concentric circles on the same
+    workplane extrude as an annulus via CadQuery's even-odd fill rule."""
+    z_min, z_max = z_range
+    return (
+        cq.Workplane("XY")
+        .workplane(offset=z_min)
+        .circle(r_outer).circle(r_inner)
+        .extrude(z_max - z_min)
+    )
+
+
 def build_full_sleeve():
     """Plain hollow cylinder, tube axis = z."""
-    outer = cq.Workplane("XY").circle(outer_radius).extrude(sleeve_length)
-    bore = cq.Workplane("XY").circle(bore_radius).extrude(sleeve_length)
-    return outer.cut(bore)
+    return annular_extrude(outer_radius, bore_radius, sleeve_z_range)
 
 
-def build_split_box(y_sign):
-    """Halfspace box. y_sign = +1: keep y >= 0. y_sign = -1: keep y <= 0."""
+def build_half_space(y_sign):
+    """Halfspace box for splitting at y=0. y_sign = +1 keeps y >= 0;
+    y_sign = -1 keeps y <= 0."""
     big = 500.0
-    if y_sign > 0:
-        box = cq.Solid.makeBox(2 * big, big, 2 * big, pnt=cq.Vector(-big, 0.0, -big))
-    else:
-        box = cq.Solid.makeBox(2 * big, big, 2 * big, pnt=cq.Vector(-big, -big, -big))
+    y_min = 0.0 if y_sign > 0 else -big
+    box = cq.Solid.makeBox(
+        2 * big, big, 2 * big,
+        pnt=cq.Vector(-big, y_min, -big),
+    )
     return cq.Workplane("XY").newObject([box])
 
 
@@ -108,41 +121,29 @@ def cut_foil_grooves(sleeve):
     half-ring intersected at y=0 avoids the kernel leaving a paper-
     thin face at the cut plane from coplanar boolean residue."""
     for z_center in groove_centers_z:
-        z_bottom = z_center - groove_width_z / 2
-        outer = (
-            cq.Workplane("XY")
-            .workplane(offset=z_bottom)
-            .circle(groove_bore_radius)
-            .extrude(groove_width_z)
-        )
-        inner = (
-            cq.Workplane("XY")
-            .workplane(offset=z_bottom)
-            .circle(bore_radius)
-            .extrude(groove_width_z)
-        )
-        annular = outer.cut(inner)
-        sleeve = sleeve.cut(annular)
+        z_range = (z_center - groove_width_z / 2, z_center + groove_width_z / 2)
+        sleeve = sleeve.cut(annular_extrude(groove_outer_radius, bore_radius, z_range))
     return sleeve
 
 
 def cut_wire_exit_slots_pos_y(sleeve):
     """Radial slots through the +x side of the +y half, one per foil
-    groove. The slot's y range extends from -eps to slot_width_y so
-    the cutter crosses the eventual cut plane (y=0) by eps — when the
-    +y half is split off, the slot opens cleanly through the cut
-    face, leaving no paper-thin lid at y=0."""
-    slot_y_lo = -eps
-    slot_y_hi = slot_width_y
+    groove. Slot y range is (-eps, slot_width_y) so the cutter crosses
+    y=0 by eps — when the +y half is split off, the slot opens cleanly
+    through the cut face with no paper-thin lid at y=0."""
+    slot_y_range = (-eps, slot_width_y)
+    slot_x_range = (-eps, outer_radius + eps)
+    slot_y_center = sum(slot_y_range) / 2
+    slot_x_center = sum(slot_x_range) / 2
     for z_center in groove_centers_z:
-        z_height = groove_width_z + 2 * slot_z_padding
-        z_bottom = z_center - z_height / 2
+        slot_height_z = groove_width_z + 2 * slot_z_padding
+        slot_z_min = z_center - slot_height_z / 2
         slot = (
             cq.Workplane("XY")
-            .workplane(offset=z_bottom)
-            .moveTo(outer_radius / 2, (slot_y_lo + slot_y_hi) / 2)
-            .rect(outer_radius + 2 * eps, slot_y_hi - slot_y_lo)
-            .extrude(z_height)
+            .workplane(offset=slot_z_min)
+            .moveTo(slot_x_center, slot_y_center)
+            .rect(slot_x_range[1] - slot_x_range[0], slot_y_range[1] - slot_y_range[0])
+            .extrude(slot_height_z)
         )
         sleeve = sleeve.cut(slot)
     return sleeve
@@ -152,32 +153,24 @@ def build_dowel_features(y_sign):
     """Dowel cylinders at the y=0 cut plane, four per half (one near
     each end on each x side). The bearing half UNIONs them in as
     integrated dowels; the other half CUTs them as matching holes.
-    Both halves use the same cylinder geometry — friction fit will be
-    tuned by trial."""
-    direction_sign = -dowel_bearing_half_y_sign
-    is_bearing = (y_sign == dowel_bearing_half_y_sign)
-    if is_bearing:
-        # Dowel: from eps inside the bearing half to dowel_length past
-        # the cut plane (so protruding length is dowel_length).
-        y_start = -eps * direction_sign
-        length = dowel_length + eps
-    else:
-        # Matching hole: slightly longer (dowel_length + 2*eps) so
-        # the dowel never bottoms out before the cut faces seat.
-        y_start = -eps * direction_sign
-        length = dowel_length + 2 * eps
+    Bearing dowel protrudes dowel_length past y=0; matching hole is
+    slightly longer (dowel_length + 2*eps) so dowels never bottom
+    out before the cut faces seat."""
+    direction_sign = -dowel_bearing_y_sign
+    is_bearing = (y_sign == dowel_bearing_y_sign)
+    cyl_length = dowel_length + eps if is_bearing else dowel_length + 2 * eps
+    y_start = -eps * direction_sign
 
-    result = None
-    for x_sign in (-1, +1):
-        for z in dowel_z_positions:
-            cyl = cq.Solid.makeCylinder(
-                dowel_radius, length,
-                pnt=cq.Vector(x_sign * dowel_x_offset, y_start, z),
-                dir=cq.Vector(0, float(direction_sign), 0),
-            )
-            wp = cq.Workplane("XY").newObject([cyl])
-            result = wp if result is None else result.union(wp)
-    return result
+    cylinders = [
+        cq.Solid.makeCylinder(
+            dowel_radius, cyl_length,
+            pnt=cq.Vector(x_sign * dowel_x_offset, y_start, z),
+            dir=cq.Vector(0, float(direction_sign), 0),
+        )
+        for x_sign in (-1, +1)
+        for z in dowel_z_positions
+    ]
+    return cq.Workplane("XY").newObject(cylinders)
 
 
 def build_pos_y_half():
@@ -185,9 +178,8 @@ def build_pos_y_half():
     sleeve = build_full_sleeve()
     sleeve = cut_foil_grooves(sleeve)
     sleeve = cut_wire_exit_slots_pos_y(sleeve)
-    half = sleeve.intersect(build_split_box(+1), clean=False)
-    half = half.cut(build_dowel_features(+1), clean=False)
-    return half
+    half = sleeve.intersect(build_half_space(+1), clean=False)
+    return half.cut(build_dowel_features(+1), clean=False)
 
 
 def build_neg_y_half():
@@ -196,9 +188,8 @@ def build_neg_y_half():
     integrated dowel PINS at the cut plane."""
     sleeve = build_full_sleeve()
     sleeve = cut_foil_grooves(sleeve)
-    half = sleeve.intersect(build_split_box(-1), clean=False)
-    half = half.union(build_dowel_features(-1), clean=False)
-    return half
+    half = sleeve.intersect(build_half_space(-1), clean=False)
+    return half.union(build_dowel_features(-1), clean=False)
 
 
 def main():
