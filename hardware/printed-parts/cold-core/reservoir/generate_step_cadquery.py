@@ -50,6 +50,14 @@ def _wp_at(x, y, z):
     )
 
 
+def _wp_z_axis_at(x, y, z):
+    """A Workplane parallel to the xy plane at world point (x, y, z), normal
+    +Z. Subsequent .circle(...).extrude(h) extrudes along world +Z."""
+    return cq.Workplane(
+        cq.Plane(origin=(x, y, z), xDir=(1, 0, 0), normal=(0, 0, 1))
+    )
+
+
 # The body is an OPEN-TOP `[` cup: floor + four walls (far, +Z, −Z,
 # centerward concave-curve) of uniform 4 mm PETG. The top is closed by
 # a separately-printed cap clamped down through a TPU gasket with six
@@ -849,22 +857,8 @@ def build_reservoir_body(side=1):
     above_dry_slope = cq.Workplane(dry_slope_plane).rect(500, 500).extrude(500)
 
     # Split the wedge at the panel's −Z face.
-    slope_region = (
-        cq.Workplane(cq.Plane(
-            origin=(0, 0, bulkhead_panel_z_min),
-            xDir=(1, 0, 0),
-            normal=(0, 0, -1),
-        ))
-        .rect(500, 500).extrude(500)
-    )
-    dry_region = (
-        cq.Workplane(cq.Plane(
-            origin=(0, 0, bulkhead_panel_z_min),
-            xDir=(1, 0, 0),
-            normal=(0, 0, 1),
-        ))
-        .rect(500, 500).extrude(500)
-    )
+    slope_region = _wp_z_axis_at(0, 0, bulkhead_panel_z_min).rect(500, 500).extrude(-500)
+    dry_region = _wp_z_axis_at(0, 0, bulkhead_panel_z_min).rect(500, 500).extrude(500)
 
     wedge_top_y_safe = floor_baseline_y + floor_slope_rise + 2.0
     wedge_extrusion = _build_envelope(
@@ -893,11 +887,7 @@ def build_reservoir_body(side=1):
     # flange seats on its −Z face, locknut bears on its +Z face.
     def _z_pocket_cut(z_start, z_end, diameter):
         return (
-            cq.Workplane(cq.Plane(
-                origin=(port_x_signed, port_position_y, z_start),
-                xDir=(1, 0, 0),
-                normal=(0, 0, 1),
-            ))
+            _wp_z_axis_at(port_x_signed, port_position_y, z_start)
             .circle(diameter / 2)
             .extrude(z_end - z_start)
         )
@@ -943,11 +933,10 @@ def build_reservoir_body(side=1):
     # Profile: ⌀11 circle in the plane perpendicular to the path's
     # initial tangent (which is world −Z), centered at the chamber's
     # −Z face on the bulkhead axis.
-    wet_exit_profile = cq.Workplane(cq.Plane(
-        origin=(port_x_signed, port_position_y, bulkhead_wet_chamber_z_min),
-        xDir=(1, 0, 0),
-        normal=(0, 0, -1),
-    )).circle(bulkhead_release_chamber_diameter / 2)
+    wet_exit_profile = (
+        _wp_z_axis_at(port_x_signed, port_position_y, bulkhead_wet_chamber_z_min)
+        .circle(bulkhead_release_chamber_diameter / 2)
+    )
 
     # Path: 90° arc in the world YZ plane at x=port_x_signed.
     #   Workplane local +x = world −Z (the direction of travel)
@@ -1004,21 +993,13 @@ def build_reservoir_body(side=1):
         for a in (0, 60, 120, 180, 240, 300)
     ]
     nut_hex_part = (
-        cq.Workplane(cq.Plane(
-            origin=(port_x_signed, nut_position_y, nut_hex_z_min),
-            xDir=(1, 0, 0),
-            normal=(0, 0, 1),
-        ))
+        _wp_z_axis_at(port_x_signed, nut_position_y, nut_hex_z_min)
         .polyline(hex_vertices_local)
         .close()
         .extrude(nut_hex_z_max - nut_hex_z_min)
     )
     nut_washer_part = (
-        cq.Workplane(cq.Plane(
-            origin=(port_x_signed, nut_position_y, nut_hex_z_max),
-            xDir=(1, 0, 0),
-            normal=(0, 0, 1),
-        ))
+        _wp_z_axis_at(port_x_signed, nut_position_y, nut_hex_z_max)
         .circle((bulkhead_nut_washer_diameter + 2 * bulkhead_nut_clearance) / 2)
         .extrude(nut_washer_z_max - nut_hex_z_max)
     )
@@ -1089,15 +1070,7 @@ def build_reservoir_body(side=1):
         normal=(0, 1, -slope_rate),
     )
     below_slab = cq.Workplane(slab_bottom_plane).rect(500, 500).extrude(-500)
-    dry_section_z = (
-        cq.Workplane(cq.Plane(
-            origin=(0, 0, bulkhead_panel_z_max),
-            xDir=(1, 0, 0),
-            normal=(0, 0, 1),
-        ))
-        .rect(500, 500)
-        .extrude(500)
-    )
+    dry_section_z = _wp_z_axis_at(0, 0, bulkhead_panel_z_max).rect(500, 500).extrude(500)
     body = body.cut(below_slab.intersect(dry_section_z))
 
     # Fillet the new acute vertical edge at curve × panel-face.
