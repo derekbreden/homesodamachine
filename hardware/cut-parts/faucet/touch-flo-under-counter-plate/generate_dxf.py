@@ -74,29 +74,27 @@ from pathlib import Path
 
 import ezdxf
 
+# Dimensions in mm, mirrored from the mounting plate / gasket;
+# DXF $INSUNITS = 4 (millimeters).
 
-# ── Dimensions (mm) — mirrored from the mounting plate / gasket ──
+plate_diameter = 54.35
+plate_radius = plate_diameter / 2.0
+plate_center = (3.175, 0.0)
 
-PLATE_DIAMETER  = 54.35
-PLATE_R         = PLATE_DIAMETER / 2.0
-PLATE_CENTER_X  = 3.175
-PLATE_CENTER_Y  = 0.0
+shank_hole_diameter = 12.6
+shank_hole_radius = shank_hole_diameter / 2.0
+shank_hole_center = (0.0, 0.0)
 
-SHANK_HOLE_DIAMETER = 12.6
-SHANK_HOLE_R        = SHANK_HOLE_DIAMETER / 2.0
-SHANK_HOLE_X        = 0.0
-SHANK_HOLE_Y        = 0.0
+# Pill slot is Y-oriented: long axis along Y, short axis along X.
+pill_slot_length_y = 13.2
+pill_slot_width_x = 6.85
+pill_slot_center = (18.925, 0.0)
 
-PILL_SLOT_LENGTH_Y = 13.2     # along Y (long axis)
-PILL_SLOT_WIDTH_X  = 6.85     # along X (short axis)
-PILL_SLOT_X        = 18.925
-PILL_SLOT_Y        = 0.0
-
-OUT_DIR  = Path(__file__).resolve().parent
-OUT_NAME = "touch-flo-under-counter-plate"
+out_dir = Path(__file__).resolve().parent
+out_name = "touch-flo-under-counter-plate"
 
 
-def add_pill_slot_y_axis(msp, cx, cy, length, width):
+def add_pill_slot_y_axis(msp, center, length, width):
     """Y-oriented pill (rounded rectangle / stadium): two vertical
     lines connected by semicircular caps top and bottom.
 
@@ -107,24 +105,22 @@ def add_pill_slot_y_axis(msp, cx, cy, length, width):
     racetrack end-cap DXFs in this repo. SendCutSend imports the
     closed contour fine even though it's not a single polyline.
     """
-    half_len = length / 2.0
-    half_wid = width / 2.0
+    cx, cy = center
+    half_length = length / 2.0
+    half_width = width / 2.0
 
-    # Centers of the two semicircular caps (on the slot's Y axis).
-    top_center = (cx, cy + half_len - half_wid)
-    bot_center = (cx, cy - half_len + half_wid)
+    top_cap_center = (cx, cy + half_length - half_width)
+    bottom_cap_center = (cx, cy - half_length + half_width)
 
-    # Two straight sides at x = cx ± half_wid, joining the cap centers.
-    msp.add_line((cx - half_wid, top_center[1]),
-                 (cx - half_wid, bot_center[1]))
-    msp.add_line((cx + half_wid, top_center[1]),
-                 (cx + half_wid, bot_center[1]))
+    # Two straight sides at x = cx ± half_width, joining the cap centers.
+    msp.add_line((cx - half_width, top_cap_center[1]),
+                 (cx - half_width, bottom_cap_center[1]))
+    msp.add_line((cx + half_width, top_cap_center[1]),
+                 (cx + half_width, bottom_cap_center[1]))
 
-    # Top cap arc: from (cx + half_wid, top_y) CCW around the top to
-    # (cx - half_wid, top_y) — angles 0° to 180°.
-    msp.add_arc(top_center, half_wid, start_angle=0, end_angle=180)
-    # Bottom cap arc: angles 180° to 360°.
-    msp.add_arc(bot_center, half_wid, start_angle=180, end_angle=360)
+    # Top cap: CCW around the top, 0°→180°. Bottom cap: 180°→360°.
+    msp.add_arc(top_cap_center, half_width, start_angle=0, end_angle=180)
+    msp.add_arc(bottom_cap_center, half_width, start_angle=180, end_angle=360)
 
 
 def make_dxf():
@@ -132,15 +128,11 @@ def make_dxf():
     doc.header["$INSUNITS"] = 4   # 4 = millimeters
     msp = doc.modelspace()
 
-    # Outer disc.
-    msp.add_circle((PLATE_CENTER_X, PLATE_CENTER_Y), PLATE_R)
-    # Shank hole.
-    msp.add_circle((SHANK_HOLE_X, SHANK_HOLE_Y), SHANK_HOLE_R)
-    # Flavor-tube pill slot.
-    add_pill_slot_y_axis(msp, PILL_SLOT_X, PILL_SLOT_Y,
-                          PILL_SLOT_LENGTH_Y, PILL_SLOT_WIDTH_X)
+    msp.add_circle(plate_center, plate_radius)
+    msp.add_circle(shank_hole_center, shank_hole_radius)
+    add_pill_slot_y_axis(msp, pill_slot_center, pill_slot_length_y, pill_slot_width_x)
 
-    out = OUT_DIR / f"{OUT_NAME}.dxf"
+    out = out_dir / f"{out_name}.dxf"
     doc.saveas(str(out))
     return out
 
@@ -148,12 +140,10 @@ def make_dxf():
 if __name__ == "__main__":
     out = make_dxf()
     print("Touch-Flo under-counter plate")
-    print(f"  Outline:        Ø {PLATE_DIAMETER} mm at "
-          f"({PLATE_CENTER_X}, {PLATE_CENTER_Y})")
-    print(f"  Shank hole:     Ø {SHANK_HOLE_DIAMETER} mm at "
-          f"({SHANK_HOLE_X}, {SHANK_HOLE_Y})")
-    print(f"  Pill slot:      {PILL_SLOT_LENGTH_Y} × {PILL_SLOT_WIDTH_X} mm "
-          f"at ({PILL_SLOT_X}, {PILL_SLOT_Y}), Y-oriented")
+    print(f"  Outline:        Ø {plate_diameter} mm at {plate_center}")
+    print(f"  Shank hole:     Ø {shank_hole_diameter} mm at {shank_hole_center}")
+    print(f"  Pill slot:      {pill_slot_length_y} × {pill_slot_width_x} mm "
+          f"at {pill_slot_center}, Y-oriented")
     print(f"  Units in DXF:   mm (DXF $INSUNITS = 4)")
     print(f"  Material spec:  0.060\" (1.524 mm) 304 stainless, laser-cut")
     print(f"-> {out.name}")
