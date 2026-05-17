@@ -151,6 +151,18 @@ def vertical_cylinder(center, radius, z_range):
     )
 
 
+def vertical_y_slot(center, length_y, width_x, z_range):
+    """Z-axis pill (rounded-rectangle) prism with long axis along Y."""
+    z_min, z_max = z_range
+    return (
+        cq.Workplane("XY")
+        .workplane(offset=z_min)
+        .moveTo(*center)
+        .slot2D(length_y, width_x, angle=90)
+        .extrude(z_max - z_min)
+    )
+
+
 def build_mounting_plate() -> cq.Workplane:
     """Build the disc with shank hole, flavor-tube pill slot, screw
     clearances + counterbores, and top-outer-edge fillet.
@@ -166,16 +178,7 @@ def build_mounting_plate() -> cq.Workplane:
     plate = plate.faces(">Z").edges().fillet(top_outer_fillet_r)
 
     plate = plate.cut(vertical_cylinder(shank_hole_center, shank_hole_radius, plate_z_range))
-
-    z_min, z_max = plate_z_range
-    pill_slot = (
-        cq.Workplane("XY")
-        .workplane(offset=z_min)
-        .moveTo(*pill_slot_center)
-        .slot2D(pill_slot_length_y, pill_slot_width_x, angle=90)
-        .extrude(z_max - z_min)
-    )
-    plate = plate.cut(pill_slot)
+    plate = plate.cut(vertical_y_slot(pill_slot_center, pill_slot_length_y, pill_slot_width_x, plate_z_range))
 
     for screw_center in screw_centers:
         plate = plate.cut(vertical_cylinder(screw_center, screw_clearance_radius, plate_z_range))
