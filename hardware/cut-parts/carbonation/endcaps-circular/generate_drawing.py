@@ -116,7 +116,7 @@ def _arrow(c: canvas.Canvas, x: float, y: float, dx: float, dy: float, size: flo
     c.drawPath(p, stroke=0, fill=1)
 
 
-def draw_linear_dimension(
+def draw_horizontal_dimension(
     c: canvas.Canvas,
     x1: float,
     y1: float,
@@ -124,49 +124,31 @@ def draw_linear_dimension(
     y2: float,
     offset: float,
     text: str,
-    direction: str = "horizontal",
-    ext_to_point: bool = True,
 ) -> None:
-    """Draw a linear dimension between (x1,y1) and (x2,y2) offset perpendicular.
-
-    direction: 'horizontal' places the dim line at y = max(y1,y2)+offset (if +)
-               'vertical' places the dim line at x = max(x1,x2)+offset (if +)
+    """Horizontal linear dimension between (x1, y1) and (x2, y2) placed
+    at y = max(y1, y2) + offset (or y1 + offset when y1 == y2).
+    Draws extension lines from the points up to the dim line, the dim
+    line itself, inward-pointing arrows, and the centered text label.
     """
     c.setLineWidth(thin_line_width)
     c.setDash()
     c.setFillColorRGB(0, 0, 0)
     c.setStrokeColorRGB(0, 0, 0)
 
-    if direction == "horizontal":
-        dy = offset
-        dim_y = y1 + dy if abs(y1 - y2) < 1e-9 else max(y1, y2) + dy
-        # Extension lines
-        if ext_to_point:
-            c.line(x1 * inch, y1 * inch, x1 * inch, (dim_y + (0.08 if dy > 0 else -0.08)) * inch)
-            c.line(x2 * inch, y2 * inch, x2 * inch, (dim_y + (0.08 if dy > 0 else -0.08)) * inch)
-        # Dimension line
-        c.line(x1 * inch, dim_y * inch, x2 * inch, dim_y * inch)
-        # Arrows point inward
-        _arrow(c, x1, dim_y,  1, 0)
-        _arrow(c, x2, dim_y, -1, 0)
-        # Text
-        c.setFont("Helvetica", 8)
-        c.drawCentredString(((x1 + x2) / 2) * inch, (dim_y + 0.05) * inch, text)
-    else:  # vertical
-        dx = offset
-        dim_x = x1 + dx if abs(x1 - x2) < 1e-9 else max(x1, x2) + dx
-        if ext_to_point:
-            c.line(x1 * inch, y1 * inch, (dim_x + (0.08 if dx > 0 else -0.08)) * inch, y1 * inch)
-            c.line(x2 * inch, y2 * inch, (dim_x + (0.08 if dx > 0 else -0.08)) * inch, y2 * inch)
-        c.line(dim_x * inch, y1 * inch, dim_x * inch, y2 * inch)
-        _arrow(c, dim_x, y1, 0,  1)
-        _arrow(c, dim_x, y2, 0, -1)
-        c.saveState()
-        c.translate((dim_x + 0.05) * inch, ((y1 + y2) / 2) * inch)
-        c.rotate(90)
-        c.setFont("Helvetica", 8)
-        c.drawCentredString(0, 0, text)
-        c.restoreState()
+    dim_y = y1 + offset if abs(y1 - y2) < 1e-9 else max(y1, y2) + offset
+    extension_overshoot = 0.08 if offset > 0 else -0.08
+
+    # Extension lines from each endpoint up past the dim line.
+    c.line(x1 * inch, y1 * inch, x1 * inch, (dim_y + extension_overshoot) * inch)
+    c.line(x2 * inch, y2 * inch, x2 * inch, (dim_y + extension_overshoot) * inch)
+    # Dimension line.
+    c.line(x1 * inch, dim_y * inch, x2 * inch, dim_y * inch)
+    # Arrows point inward.
+    _arrow(c, x1, dim_y,  1, 0)
+    _arrow(c, x2, dim_y, -1, 0)
+    # Centered text just above the dim line.
+    c.setFont("Helvetica", 8)
+    c.drawCentredString(((x1 + x2) / 2) * inch, (dim_y + 0.05) * inch, text)
 
 
 def draw_leader(
@@ -330,14 +312,13 @@ def draw_main_view(c: canvas.Canvas) -> None:
 
     # ── Dimensions ──────────────────────────────────────────────────
 
-    # OD dimension (Ø4.860) — placed below the disc, horizontal
-    draw_linear_dimension(
+    # OD dimension placed below the disc.
+    draw_horizontal_dimension(
         c,
         view_center_x - disc_radius, view_center_y - disc_radius,
         view_center_x + disc_radius, view_center_y - disc_radius,
         offset=-0.70,
         text=f"\u00d8{disc_diameter:.3f}",
-        direction="horizontal",
     )
 
     # Hole center-to-center (1.500), placed above the holes, horizontal.
