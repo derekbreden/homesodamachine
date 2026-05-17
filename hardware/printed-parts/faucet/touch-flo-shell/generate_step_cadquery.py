@@ -181,19 +181,10 @@ shell_arch_peak_z = arch_peak_z + shell_outer_lip  # 49.25
 wing_inner_y = shell_arch_bore_inner_y  # 6.75
 wing_outer_y = shell_rect_y_half  # 11.75
 
-# ZONE 3 — plateau fill (between the wings, X ≥ fill_x_min)
-#
-# Fills the plateau region behind the back third of the water tube,
-# matching the wings' arch profile so the shell reads as one continuous
-# swept arch shape across the back. Tube cutouts:
-#   - Water tube: Ø10 cylinder at the port center, full Z. Only the
-#     +X portion of the cylinder overlaps the fill, so the result is
-#     a curved opening on the fill's -X face.
-#   - Flavor tubes: a rounded rectangle covering the bend trajectory.
-#     X span = post-bend tube edge to pre-bend tube edge (= pill width
-#     extension across the bend X delta); Y span = pill_length_y.
-#     Corner radius = pill_width_x/2 so the rounding matches the
-#     existing pill's end radius.
+# ZONE 3 — plateau fill (between the wings, X ≥ fill_x_min). Fills the
+# plateau region behind the back third of the water tube, matching the
+# wings' arch profile so the shell reads as one continuous swept arch
+# shape across the back.
 water_tube_x = 8.875
 # 3/8" LLDPE — sealed in the body's 9.75 mm port via a TPU O-ring
 # (0.225 mm radial gap). The 3/8" OD here is the 3-tube dispense spout's
@@ -231,23 +222,16 @@ zone4_z_top = 57.5
 zone4_height = zone4_z_top - zone4_z_bottom  # 10.75
 
 
-# ZONE 5 — tube wrapper above the lever
-#
-# Above zone 4 (which ends at Z=zone4_z_top=57.5 — high enough to clear
-# the lever's swing envelope), the shell wraps just the tubes with a
-# 3 mm wall. Cross-section is the union of:
-#   - water cylinder bore + 3 mm wall
-#   - flavor pill bore + 3 mm wall
-# straight-extruded vertically. This zone "violates" fill_x_min —
-# the wrapper around the water tube (centered at X=8.875) extends
-# in -X past fill_x_min, but that's safe because we're now above
-# the lever's reach.
+# ZONE 5 — tube wrapper above the lever. Above zone 4 (which ends high
+# enough to clear the lever's swing envelope), the shell wraps just the
+# tubes (water cyl bore + flavor pill bore, each + 3 mm wall),
+# straight-extruded vertically. This zone "violates" fill_x_min — the
+# wrapper around the water tube extends in -X past it, but that's safe
+# because we're now above the lever's reach.
 zone5_z_bottom = zone4_z_top  # 57.5
 zone5_z_top = zone4_z_top + 10.0  # 67.5
 zone5_height = zone5_z_top - zone5_z_bottom  # 10
-# Uniform wall around the tube wraps now that the shell is one piece
-# (no dowel features needing thicker wall).
-zone5_wall = wall_thickness_min  # 3.0
+zone5_wall = wall_thickness_min  # 3.0 — uniform around the tube wraps
 
 # Tube-shell cross-section vocabulary — shared by zone 5's vertical
 # extrusion and zone 6's sweep along the gooseneck path.
@@ -269,12 +253,9 @@ tube_shell_y_outer = 2.0 * tube_shell_y_half_outer
 flavor_offset_x_from_water = flavor_tube_post_bend_x - water_tube_x
 
 
-# ZONE 6 — gooseneck wrapper around the bent dispense tubes
-#
-# Pure continuation of zone 5's cross-section along the same bent
-# path the dispense tubes follow above the lever-swing envelope.
-# Same wall thickness, same water/flavor/fill layout, rotated through
-# the gooseneck bends.
+# ZONE 6 — gooseneck wrapper around the bent dispense tubes. Pure
+# continuation of zone 5's cross-section along a bent path above the
+# lever-swing envelope.
 #
 # Path (in tube-local XZ plane, origin at the zone 5 / zone 6 seam):
 #   1. vertical lift from Z=0 up to Z=gn_bend1_start_z − zone5_z_top
@@ -283,12 +264,10 @@ flavor_offset_x_from_water = flavor_tube_post_bend_x - water_tube_x
 #   4. bend 2 — gn_bend2_sweep_rad at R = gn_bend2_r
 #   5. gn_tip_straight_len tip
 #
-# Sweep frame: cross-section centered on the water tube. The flavor
-# pill's +X offset (flavor_tube_post_bend_x − water_tube_x ≈ 6.148 mm)
-# is carried in the LOCAL frame, so as the tangent rotates through
-# each bend the pill traces a parallel-offset arc at the larger
-# radius (water R + 6.148) — matching the actual flavor tubes'
-# centerlines.
+# The flavor pill's +X offset is carried in the LOCAL frame of the
+# sweep, so as the tangent rotates through each bend the pill traces a
+# parallel-offset arc at the larger radius — matching the actual flavor
+# tubes' centerlines.
 #
 # These mirror constants in the assembly (`faucet-assembly`); if the
 # assembly's gooseneck moves, update both.
