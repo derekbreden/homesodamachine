@@ -54,11 +54,10 @@ def build_tank_support_ring():
 
     ring = revolve_rect(ring_r_range, ring_y_range)
     slot_spacing_angle = 360 / slot_count
+    slot_template = revolve_rect(slot_r_range, ring_y_range, slot_angular_width)
     for i in range(slot_count):
-        slot_center_angle = slot_spacing_angle / 2 + slot_spacing_angle * i
+        slot_center_angle = slot_spacing_angle * (i + 0.5)
         slot_start_angle = slot_center_angle - slot_angular_width / 2
-        slot = revolve_rect(slot_r_range, ring_y_range, slot_angular_width).rotate(
-            (0, 0, 0), (0, 1, 0), slot_start_angle
-        )
+        slot = slot_template.rotate((0, 0, 0), (0, 1, 0), slot_start_angle)
         ring = ring.cut(slot)
     return ring
