@@ -24,11 +24,10 @@ def build_outer_shell():
         .faces(">Y")
         .shell(-wall_and_floor_thickness)
     )
-    boss_points = foam_cap_attachment_xz_positions
     bosses = (
         WorldWorkplane(xz_plane_y_up)
         .workplane(offset=0)
-        .pushPoints(boss_points)
+        .pushPoints(foam_cap_attachment_xz_positions)
         .rect(screw_boss_size, screw_boss_size)
         .extrude(foam_shell_outer_height)
     )
@@ -38,14 +37,14 @@ def build_outer_shell():
     top_pockets = (
         WorldWorkplane(xz_plane_y_up)
         .workplane(offset=foam_shell_outer_height - insert_pocket_depth)
-        .pushPoints(boss_points)
+        .pushPoints(foam_cap_attachment_xz_positions)
         .circle(insert_pocket_radius)
         .extrude(insert_pocket_depth)
     )
     bottom_pockets = (
         WorldWorkplane(xz_plane_y_up)
         .workplane(offset=0)
-        .pushPoints(boss_points)
+        .pushPoints(foam_cap_attachment_xz_positions)
         .circle(insert_pocket_radius)
         .extrude(insert_pocket_depth)
     )
