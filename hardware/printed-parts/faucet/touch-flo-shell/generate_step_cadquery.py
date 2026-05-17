@@ -320,20 +320,18 @@ gn_tip_straight_len = 25.0
 # (fill_x_min, c_z) so the tangent there is horizontal. Solving
 # distance(center, low_end) == distance(center, high_end) gives c_z.
 _back_arch_low_x = shell_center_x - shell_rect_x_half  # rect_x_min = -19
-_back_arch_high_x = fill_x_min  # 10.46
-_back_arch_high_z = zone4_z_top  # 55
-_back_arch_dx = _back_arch_high_x - _back_arch_low_x  # 29.46
+_back_arch_dx = fill_x_min - _back_arch_low_x  # 29.46
 back_arch_center_z = (
-    (_back_arch_high_z + zone3_z_bottom) / 2.0
-    - _back_arch_dx**2 / (2.0 * (_back_arch_high_z - zone3_z_bottom))
+    (zone4_z_top + zone3_z_bottom) / 2.0
+    - _back_arch_dx ** 2 / (2.0 * (zone4_z_top - zone3_z_bottom))
 )  # ≈ 19.88
-back_arch_r = _back_arch_high_z - back_arch_center_z  # ≈ 35.12
+back_arch_r = zone4_z_top - back_arch_center_z  # ≈ 35.12
 # Midpoint of the arc — angular midway between high end (90° from
 # center, directly above) and low end.
 _back_arch_a_low = math.atan2(zone3_z_bottom - back_arch_center_z,
-                              _back_arch_low_x - _back_arch_high_x)
+                              _back_arch_low_x - fill_x_min)
 _back_arch_a_mid = (math.pi / 2.0 + _back_arch_a_low) / 2.0
-back_arch_mid_x = _back_arch_high_x + back_arch_r * math.cos(_back_arch_a_mid)  # ≈ -6.28
+back_arch_mid_x = fill_x_min + back_arch_r * math.cos(_back_arch_a_mid)  # ≈ -6.28
 back_arch_mid_z = back_arch_center_z + back_arch_r * math.sin(_back_arch_a_mid)  # ≈ 50.75
 
 
