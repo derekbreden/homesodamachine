@@ -59,11 +59,10 @@ def build_reservoir_pocket_walls():
     middle_cavity_x = math.sqrt(arc_cavity_r**2 - arc_z**2)
 
     # Each transition arc has its center between the two endpoint
-    # circles, on the bisector of the chord between (middle_tank_x,
-    # arc_z) and (transition_x, z_inner). The tank-side face of the
-    # transition is a circle of radius transition_tank_r; the cavity-
-    # side face is the concentric circle that passes through
-    # (middle_cavity_x, arc_z).
+    # circles, on the bisector of the chord between the middle-arc
+    # handoff and the ±Z wall. The tank-side face of the transition is
+    # a circle of radius transition_tank_r; the cavity-side face is the
+    # concentric circle that passes through the cavity-side handoff.
     transition_tank_r = 8.0
     chord_half_z = (z_inner - arc_z) / 2.0
     transition_center_z = (z_inner + arc_z) / 2.0
@@ -72,7 +71,7 @@ def build_reservoir_pocket_walls():
         (transition_center_x - middle_cavity_x) ** 2 + chord_half_z ** 2
     )
     # X at which the transition arc's tank-side face hits the ±Z wall.
-    transition_x = transition_center_x - math.sqrt(
+    transition_tank_terminus_x = transition_center_x - math.sqrt(
         transition_tank_r**2 - (z_outer - transition_center_z) ** 2
     )
 
@@ -82,6 +81,23 @@ def build_reservoir_pocket_walls():
         Workplane convention: local Y = −world Z."""
         return (transition_center_x - r, -(z_sign * transition_center_z))
 
+    # Joints where the centerward wall's middle arc hands off to the
+    # ±Z transition arc, per face. The two faces share the math (same
+    # arc_z, different radii) — naming each joint surfaces that.
+    middle_tank_handoff_plus_z = (middle_tank_x, -arc_z)
+    middle_tank_handoff_minus_z = (middle_tank_x, +arc_z)
+    middle_cavity_handoff_plus_z = (middle_cavity_x, -arc_z)
+    middle_cavity_handoff_minus_z = (middle_cavity_x, +arc_z)
+
+    # Where the ±Z transition arc terminates at the ±Z wall, per face.
+    # Tank-side terminus is offset in X (computed); cavity-side
+    # terminus sits at middle_cavity_x (the transition's cavity-face
+    # circle passes through both middle-arc handoffs by construction).
+    transition_tank_terminus_plus_z = (transition_tank_terminus_x, -z_outer)
+    transition_tank_terminus_minus_z = (transition_tank_terminus_x, +z_outer)
+    transition_cavity_terminus_plus_z = (middle_cavity_x, -z_inner)
+    transition_cavity_terminus_minus_z = (middle_cavity_x, +z_inner)
+
     outer_perimeter = (
         cq.Workplane(xz_plane_y_up)
         # +X far wall outboard face.
@@ -90,15 +106,15 @@ def build_reservoir_pocket_walls():
         # −Z far-corner outboard arc.
         .radiusArc((far_x_inner - corner_inner_r, +z_outer), -corner_outer_r)
         # −Z wall outboard face.
-        .lineTo(transition_x, +z_outer)
+        .lineTo(*transition_tank_terminus_minus_z)
         # −Z transition arc, middle arc, +Z transition arc — the three
         # segments of the centerward wall's tank-side face.
         .threePointArc(transition_apex(-1, transition_tank_r),
-                       (middle_tank_x, +arc_z))
+                       middle_tank_handoff_minus_z)
         .threePointArc((arc_tank_r, 0),
-                       (middle_tank_x, -arc_z))
+                       middle_tank_handoff_plus_z)
         .threePointArc(transition_apex(+1, transition_tank_r),
-                       (transition_x, -z_outer))
+                       transition_tank_terminus_plus_z)
         # +Z wall outboard face.
         .lineTo(far_x_inner - corner_inner_r, -z_outer)
         # +Z far-corner outboard arc, closes back to start.
@@ -110,21 +126,21 @@ def build_reservoir_pocket_walls():
     cavity_perimeter = (
         cq.Workplane(xz_plane_y_up)
         # +X far wall cavity face + ±Z cavity faces + filleted corners.
-        .moveTo(middle_cavity_x, -z_inner)
+        .moveTo(*transition_cavity_terminus_plus_z)
         .lineTo(far_x_inner - corner_inner_r, -z_inner)
         .radiusArc((far_x_inner, -(z_inner - corner_inner_r)), -corner_inner_r)
         .lineTo(far_x_inner, +(z_inner - corner_inner_r))
         .radiusArc((far_x_inner - corner_inner_r, +z_inner), -corner_inner_r)
-        .lineTo(middle_cavity_x, +z_inner)
+        .lineTo(*transition_cavity_terminus_minus_z)
         # Centerward wall's cavity-side face: −Z transition, middle, +Z
         # transition. Concentric with the tank-side arcs, slightly
         # different radii.
         .threePointArc(transition_apex(-1, transition_cavity_r),
-                       (middle_cavity_x, +arc_z))
+                       middle_cavity_handoff_minus_z)
         .threePointArc((arc_cavity_r, 0),
-                       (middle_cavity_x, -arc_z))
+                       middle_cavity_handoff_plus_z)
         .threePointArc(transition_apex(+1, transition_cavity_r),
-                       (middle_cavity_x, -z_inner))
+                       transition_cavity_terminus_plus_z)
         .close()
         .extrude(height)
     )
