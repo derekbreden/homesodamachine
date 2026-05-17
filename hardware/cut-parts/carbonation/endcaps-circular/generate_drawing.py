@@ -94,23 +94,24 @@ def draw_centerline(c: canvas.Canvas, x1: float, y1: float, x2: float, y2: float
 
 
 def _arrow(c: canvas.Canvas, x: float, y: float, dx: float, dy: float, size: float = 0.08) -> None:
-    """Tiny filled arrowhead at (x,y) pointing in direction (dx,dy)."""
+    """Tiny filled arrowhead with its tip at (x, y) pointing in direction (dx, dy)."""
     length = math.hypot(dx, dy)
     if length == 0:
         return
-    ux, uy = dx / length, dy / length
-    # Perpendicular
-    px, py = -uy, ux
-    half_w = size * 0.35
-    tipx, tipy = x, y
-    basex = x - ux * size
-    basey = y - uy * size
-    lx, ly = basex + px * half_w, basey + py * half_w
-    rx, ry = basex - px * half_w, basey - py * half_w
+    unit_x, unit_y = dx / length, dy / length
+    perp_x, perp_y = -unit_y, unit_x
+    half_base = size * 0.35
+
+    tip = (x, y)
+    base_x = x - unit_x * size
+    base_y = y - unit_y * size
+    left = (base_x + perp_x * half_base, base_y + perp_y * half_base)
+    right = (base_x - perp_x * half_base, base_y - perp_y * half_base)
+
     p = c.beginPath()
-    p.moveTo(tipx * inch, tipy * inch)
-    p.lineTo(lx * inch, ly * inch)
-    p.lineTo(rx * inch, ry * inch)
+    p.moveTo(tip[0] * inch, tip[1] * inch)
+    p.lineTo(left[0] * inch, left[1] * inch)
+    p.lineTo(right[0] * inch, right[1] * inch)
     p.close()
     c.drawPath(p, stroke=0, fill=1)
 
