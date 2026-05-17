@@ -157,10 +157,10 @@ def draw_leader(
     text_anchor,
     text_lines,
 ) -> None:
-    """Multileader: one or more arrow tips at `targets` share a common
-    shoulder at `text_anchor`, and `text_lines` are stacked above it.
+    """Multileader: arrow tips at each point in `targets` share a common
+    shoulder at `text_anchor`, with `text_lines` stacked above it.
 
-    `targets` is a list of (x, y) points (or a single (x, y) tuple).
+    `targets` is a list of (x, y) points.
     `text_anchor` is the (x, y) where the shoulder meets the text.
     """
     c.setLineWidth(thin_line_width)
@@ -168,9 +168,6 @@ def draw_leader(
     c.setStrokeColorRGB(0, 0, 0)
     c.setFillColorRGB(0, 0, 0)
 
-    # Normalize to a list of points.
-    if isinstance(targets, tuple) and len(targets) == 2 and not isinstance(targets[0], (tuple, list)):
-        targets = [targets]
     text_x, text_y = text_anchor
 
     # Short horizontal shoulder shared by all leaders, on whichever side
@@ -191,8 +188,6 @@ def draw_leader(
     # Text block: left-aligned, first line just above the shoulder,
     # subsequent lines stacked below.
     c.setFont("Helvetica", 9)
-    if isinstance(text_lines, str):
-        text_lines = [text_lines]
     anchor_x = (text_x + 0.05) * inch
     line_height = 0.14
     for i, line in enumerate(text_lines):
