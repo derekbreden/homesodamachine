@@ -174,24 +174,28 @@ Dishing dies (PA6-CF) for end-cap forming are vessel-fabrication tools, not ship
 | 18 AWG stranded hookup wire (12 V trunk + branch) — placeholder pending sourcing decision; runs DC-1 through DC-7 in [`wiring/ac-wiring-schedule.md`](wiring/ac-wiring-schedule.md) | — | ~$0.50 | $0.50 |
 | Wago 221-413 lever-nut connector, 3-conductor — placeholder pending sourcing decision; AC distribution block on the electronics shelf (H, N, G — one connector per conductor); 3 connectors per build, ~$0.85 each at 10-pk pricing | 3 | $0.85 | $2.55 |
 
-## 12. Level sensing (external reed + internal float on welded SS rod / printed PETG strut)
+## 12. Level sensing (external reed + internal magnetic float on 316L SS rod, shared SKU across carbonator + reservoirs)
 
-The same reed-and-float pattern is used in three places: the carbonator vessel (2 reeds, threshold-only) and each flavor reservoir (4 reeds per reservoir × 2 = 8 reeds, ~13-serving-step granularity / 5-state fuel-gauge display). Flavor-reservoir architecture detail at [printed-parts/cold-core/reservoir/level-sensing.md](printed-parts/cold-core/reservoir/level-sensing.md); strut geometry lives in [printed-parts/cold-core/reservoir/generate_step_cadquery.py](printed-parts/cold-core/reservoir/generate_step_cadquery.py) (`STRUT_*` constants).
+The same reed-and-float pattern is used in three places: the carbonator vessel (2 reeds, threshold-only) and each flavor reservoir (4 reeds per reservoir × 2 = 8 reeds, ~13-serving-step granularity / 5-state fuel-gauge display). All three use the **same 1/8" 316L SS rod** (Tandefio B0CY4DWJFQ) as the float guide — the reservoirs previously planned a printed 4 mm PETG strut integral to the BODY, but that strut wouldn't print reliably above ~100 mm and FDM layer-line grooves would trap sucralose-syrup residue over the 10-year unmaintained design lifetime. Flavor-reservoir architecture detail at [printed-parts/cold-core/reservoir/level-sensing.md](printed-parts/cold-core/reservoir/level-sensing.md); rod-end retention geometry (cap-side register boss + body-side closed-bottom pocket) lives in [printed-parts/cold-core/reservoir/generate_step_cadquery.py](printed-parts/cold-core/reservoir/generate_step_cadquery.py) (`ROD_*` and `BODY_SOCKET_DEPTH` constants).
 
 ### Carbonator (2 reeds, threshold-only)
 
 | Part | ASIN | Qty | Unit $ | Line $ |
 |---|---|---:|---:|---:|
-| [Tandefio 1/8" × 12" 316 SS round rod (5-pk)](https://www.amazon.com/dp/B0CY4DWJFQ) | B0CY4DWJFQ — laser-welded vertically inside vessel between bottom and top plates; carries the magnetic float; cut from 12" to ~6" (one 12" stick yields 2 vessel rods, so 5-pk = 10 vessels) | 1 (of 10) | $0.86 | $0.86 |
 | [DEVMO MINI float switch (donor — harvest magnetic donut float, discard switch body)](https://www.amazon.com/dp/B07T18PGJ4) | B07T18PGJ4 — float slides on the welded SS rod; only the float is shipped product, the rest of the donor unit is discarded | 1 | $13.93 | $13.93 |
 
 ### Flavor reservoirs (4 reeds per reservoir × 2 reservoirs = 8 reeds, ~13-serving-step granularity)
 
 | Part | ASIN | Qty | Unit $ | Line $ |
 |---|---|---:|---:|---:|
-| Reservoir strut: printed PETG, 4 mm OD, integral to each reservoir BODY, body-anchored at the wedge top, top captured by a boss on the cap's underside | included in §7 body print mass (no separate filament line) | 2 (1 per reservoir body) | — | — |
 | Pre-soldered reed-and-wire column: 4 Gebildet reeds hand-soldered to a multi-conductor cable, inserted into the foam-shell channel before the body pour. No separate carrier part — the foam-shell channel IS the holder. Cable candidate under evaluation per [purchases.md](purchases.md) — KWANGIL 22 AWG 12-conductor UL2464 ([B0CSD5QZ21](https://www.amazon.com/dp/B0CSD5QZ21)) | reeds in shared §12 line below; cable TBD | 2 columns per build | — | — |
-| [DEVMO MINI float switch (donor — harvest donut + ferrite magnet)](https://www.amazon.com/dp/B07T18PGJ4) | B07T18PGJ4 — float slides on the 4 mm PETG strut at z=−45 (the wider −Z half of the cavity, opposite the bulkhead). Donor donut + its ferrite magnet are kept (switch body / cable discarded). With the reed column inside the foam-shell channel (~6 mm magnet-to-reed path), ferrite is adequate — no neodymium upgrade needed. See [printed-parts/cold-core/reservoir/level-sensing.md](printed-parts/cold-core/reservoir/level-sensing.md) | 2 (1 per reservoir) | $13.93 | $27.86 |
+| [DEVMO MINI float switch (donor — harvest donut + ferrite magnet)](https://www.amazon.com/dp/B07T18PGJ4) | B07T18PGJ4 — float slides on the 1/8" 316L SS rod at z=−45 (the wider −Z half of the cavity, opposite the bulkhead). Donor donut + its ferrite magnet are kept (switch body / cable discarded). PP donut body pairs cleanly with the SS rod. With the reed column inside the foam-shell channel (~6 mm magnet-to-reed path), ferrite is adequate — no neodymium upgrade needed. See [printed-parts/cold-core/reservoir/level-sensing.md](printed-parts/cold-core/reservoir/level-sensing.md) | 2 (1 per reservoir) | $13.93 | $27.86 |
+
+### Float-guide rod (shared SKU across carbonator + flavor reservoirs)
+
+| Part | ASIN | Qty | Unit $ | Line $ |
+|---|---|---:|---:|---:|
+| [Tandefio 1/8" × 12" 316 SS round rod (5-pk)](https://www.amazon.com/dp/B0CY4DWJFQ) | B0CY4DWJFQ — float-guide rod used in three places per build: (a) carbonator vessel — laser-welded vertically between bottom and top plates, cut from 12" stock to ~6" (one stick = 2 vessel rods, so 1/2 stick per build); (b) each flavor reservoir — drops into a closed-bottom printed pocket in the BODY wedge, top captured by a slip-fit register boss on the cap's underside, ~200 mm (≈ 7.9") long so 1 full stick per reservoir × 2 reservoirs = 2 sticks. Total per build = 1/2 (vessel) + 2 (reservoirs) = **2.5 sticks**; one 5-pk covers 2 builds; $8.57/5 × 2.5 = $4.29/build. Reservoir use replaces the prior printed 4 mm PETG strut plan (didn't print reliably, plus FDM layer-line grooves would trap sucralose residue over the appliance's 10-year unmaintained design lifetime) | 2.5 (of 5 pk) | $1.71 | $4.29 |
 
 ### Reeds (shared SKU across carbonator + flavor reservoirs)
 
@@ -240,9 +244,9 @@ The T18 heat-set tip kit ([B0CS662NVK](https://www.amazon.com/dp/B0CS662NVK)) an
 | 9. Dispensing | $57.32 |
 | 10. UI | $43.16 |
 | 11. Wiring | $31.97 |
-| 12. Level sensing | $66.35 |
+| 12. Level sensing | $69.78 |
 | 13. Mechanical attach hardware + reservoir-cap vent filter | $17.55 |
-| **Total** | **$1,485.55** |
+| **Total** | **$1,488.98** |
 
 ## External / user-supplied (not shipped)
 
