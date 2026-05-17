@@ -1132,45 +1132,17 @@ def build_reservoir_body(side=1):
     # passes through the panel hole and its dry collet projects into
     # the open dry section; the tube push-in is unobstructed.
 
-    # Level-sensing rod body anchor (standing boss + blind bore).
-    # A standing cylindrical PETG boss rising from the wet slope at
-    # (x = ±rod_position_x, z = rod_position_z), with a blind
-    # cylindrical bore cut into the boss from above. A separately-
-    # supplied 1/8" × 12" 316 SS round rod (rod_diameter = 3.175)
-    # drops bottom-first into the bore during assembly; the rod's
-    # top is then captured by a register boss in the cap underside
-    # (built in build_reservoir_cap). See the "Level-sensing rod"
-    # section at the top of this file for the full architecture
-    # rationale.
+    # Level-sensing rod body anchor: a solid cylindrical boss rising
+    # from the wet slope, with a blind bore cut into it from above —
+    # bore stops body_boss_floor mm short of the boss base so the
+    # printed PETG floor inside the boss is what the rod tip bottoms
+    # out on. The wet slope stays continuous and unbroken (no hole cut
+    # through the slope into the wedge interior).
     #
-    # The wet slope stays continuous and unbroken — the boss is
-    # added ON TOP of the slope as new material, and the bore stops
-    # body_boss_floor (2) mm short of the boss base so the printed
-    # PETG floor inside the boss is what the rod tip bottoms out
-    # on. No hole is cut through the wet slope, so syrup doesn't
-    # see any opening into the wedge interior.
-    #
-    # Implementation:
-    #   1. Compute slope_y at (z = rod_position_z) from the same
-    #      slope plane the body uses, so the boss base always sits
-    #      flush on the slope even if slope_rate or slope anchor
-    #      change later.
-    #   2. UNION a solid cylinder of diameter rod_boss_od, base at
-    #      slope_y, height body_boss_height — this is the boss.
-    #   3. CUT a cylinder of diameter rod_bore, base at
-    #      slope_y + body_boss_floor, height (body_boss_height
-    #      − body_boss_floor + 0.1) — the +0.1 ensures CADQuery
-    #      cleanly breaks through the boss top face. This carves
-    #      the blind bore.
-    #
-    # Added LAST in build_reservoir_body, after every existing
-    # feature (wedge, bulkhead pocket, slab cut, fillets), so the
-    # new boss geometry cannot perturb any earlier edge/face
-    # selector.
+    # Added LAST in build_reservoir_body, after every existing feature
+    # (wedge, bulkhead pocket, slab cut, fillets), so the new boss
+    # geometry cannot perturb any earlier edge/face selector.
     rod_x_signed = rod_position_x * side
-    # Slope y at (z = rod_position_z = -45): ≈ 22.8 with current
-    # slope parameters. Boss base sits at this y, boss top at
-    # slope_y + 10 ≈ 32.8.
     rod_slope_y_at_z = slope_low_y + slope_rate * (bulkhead_panel_z_min - rod_position_z)
     body_boss_cylinder = (
         _wp_at(rod_x_signed, rod_slope_y_at_z, rod_position_z)
@@ -1178,9 +1150,10 @@ def build_reservoir_body(side=1):
         .extrude(body_boss_height)
     )
     body = body.union(body_boss_cylinder)
-    # Blind bore: base body_boss_floor (2) mm above the slope,
-    # extruded up through the top of the boss with a small
-    # overshoot so the cut cleanly opens at the boss top face.
+
+    # Blind bore: base body_boss_floor mm above the slope, extruded up
+    # through the top of the boss with a +0.1 overshoot so the cut
+    # cleanly opens at the boss top face.
     bore_bottom_y = rod_slope_y_at_z + body_boss_floor
     rod_bore_cut = (
         _wp_at(rod_x_signed, bore_bottom_y, rod_position_z)
@@ -1380,27 +1353,16 @@ def build_reservoir_cap(side=1):
         )
         cap = cap.cut(slot_cut)
 
-    # Level-sensing rod register boss.
-    # Hollow boss hanging DOWN from the cap's underside into the body
-    # cavity. The rod top slides into the boss's bore from below as
-    # the cap is lowered onto the body. The gasket is a perimeter ring
-    # only — at the rod position (cavity interior) there is nothing
-    # between the body wall top and the cap's underside, so the boss
-    # is free to extend below cap-local y=0.
-    #
-    # Bore is sized for the 1/8" SS rod (rod_bore = 3.675 — 0.5 mm
-    # radial clearance around the 3.175 rod) — same slip-fit
-    # clearance used by the body socket below, so the cap drops
-    # straight down onto a rod already seated in the body socket
-    # without binding. Boss OD rod_boss_od gives ~2 mm radial wall
-    # of PETG around the bore, comfortably above the print-strength
-    # minimum.
-    #
-    # Boss outer cylinder: solid PETG from cap-local y=-rod_boss_height
-    # up to the base plate at cap-local y=cap_wall_height (=5).
-    # Boss bore: extends from boss bottom up to the base plate's
-    # underside, where the base plate (cap-local y=5..9) closes the
-    # bore from above.
+    # Level-sensing rod register boss: a hollow boss hanging down from
+    # the cap's underside into the body cavity. The rod top slides into
+    # the boss's bore from below as the cap is lowered onto the body.
+    # The gasket is a perimeter ring only — at the rod position
+    # (cavity interior) there is nothing between the body wall top and
+    # the cap's underside, so the boss is free to extend below cap-local
+    # y=0. Boss outer cylinder: solid PETG from cap-local y=-rod_boss_height
+    # up to the base plate at cap-local y=cap_wall_height. Boss bore
+    # extends from boss bottom up to the base plate's underside (cap
+    # closes the bore from above).
     rod_x_signed = rod_position_x * side
     boss_outer = (
         _wp_at(rod_x_signed, -rod_boss_height, rod_position_z)
