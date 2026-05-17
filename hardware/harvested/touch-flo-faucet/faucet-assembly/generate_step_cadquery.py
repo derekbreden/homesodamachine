@@ -1,9 +1,6 @@
-"""
-Touch-Flo faucet assembly — work-in-progress build-up of the user's
+"""Touch-Flo faucet assembly — work-in-progress build-up of the user's
 faucet vision on top of the reference valve body.
 
-WHAT THIS IS
-============
 A growing assembly model that combines the harvested Touch-Flo valve
 body (read from `../valve-body-reference/touch-flo-valve-body-reference.step`)
 with the parts we are designing around it. The script writes a single
@@ -13,15 +10,14 @@ This is NOT the printed shell. The shell will be a separate file that
 wraps around the assembly described here. This file is the body +
 tubes + (eventually) other inserts that the shell must accommodate.
 
-PARTS CURRENTLY MODELED
-=======================
+Parts currently modeled:
 1. Valve body (loaded from the reference STEP — never modified here).
 2. Water dispense tube — Ø 9.525 mm (3/8" LLDPE), inserted into the
    body's 9.75 mm water port and extending up through the gooseneck.
    The TPU O-ring sealing the 0.225 mm radial gap is not modeled
    (geometry only; envelope is the bare 9.525 mm OD).
 3. Two flavor dispense tubes — Ø 1/4" (6.35 mm), behind the water
-   tube. Each tube starts at X = BODY_R + tube_R = 18.925 mm (butting
+   tube. Each tube starts at X = body_r + tube_r = 18.925 mm (butting
    against the body's +X rectangular face and the other flavor tube),
    runs vertical from Z = -50, then S-bends just above the plateau to
    come in tangent against the water tube. After the bends the tubes
@@ -48,8 +44,7 @@ PARTS CURRENTLY MODELED
    Ø 54.35 × 2.0 mm TPU 90A disc, sits between the mounting plate
    and the countertop (Z = [-6, -4]). Hole pattern mirrors the plate.
 
-REGENERATE
-==========
+Regenerate:
     tools/cad-venv/bin/python generate_step_cadquery.py
 """
 
@@ -66,245 +61,158 @@ sys.path.insert(
 from _cadq_export import export_assembly
 
 
-# ═══════════════════════════════════════════════════════
-# REFERENCE BODY GEOMETRY (mirrored from valve-body-reference)
-# ═══════════════════════════════════════════════════════
-#
-# These constants are duplicated from
-# `../valve-body-reference/generate_step_cadquery.py`.
-# If they change there, update them here too.
-#
-PORT_CENTER_X = 8.875        # mm — water port center (X axis)
-PORT_CENTER_Y = 0.0          # mm — water port center (Y axis)
-PLATEAU_Z     = 39.0         # mm — top face of the rectangular body
-BODY_OD       = 31.50        # mm — cylinder OD = rectangle long dim
-BODY_R        = BODY_OD / 2  # mm — 15.75 mm
-SHANK_LENGTH  = 50.0         # mm — shank extends from Z=0 down to Z=-SHANK_LENGTH
+# Reference body geometry. Duplicated from
+# `../valve-body-reference/generate_step_cadquery.py` — keep in sync.
+port_center_x = 8.875
+port_center_y = 0.0
+plateau_z = 39.0
+body_od = 31.50  # cylinder OD = rectangle long dim
+body_r = body_od / 2
+shank_length = 50.0  # shank extends from Z=0 down to Z=-shank_length
 
 
-# ═══════════════════════════════════════════════════════
-# WATER DISPENSE TUBE
-# ═══════════════════════════════════════════════════════
-#
-# A Ø 9.525 mm tube (3/8" LLDPE) that drops into the body's 9.75 mm
-# water port. The 0.225 mm radial gap is taken up by a TPU O-ring on
-# the real tube (not modeled). The tube extends a comfortable amount
+# Water dispense tube — Ø 9.525 mm (3/8" LLDPE) — drops into the body's
+# 9.75 mm water port. The 0.225 mm radial gap is taken up by a TPU
+# O-ring on the real tube (not modeled). Extends a comfortable amount
 # into the port for retention, and runs through the gooseneck.
-#
-WATER_TUBE_OD            = 0.375 * 25.4  # 9.525 mm — 3/8" LLDPE tubing
-                                          # (sealed in body's 9.75 mm port via
-                                          # a TPU O-ring — 0.225 mm radial gap)
-WATER_TUBE_ABOVE_PLATEAU = 40.0   # mm — length above the plateau
-WATER_TUBE_INTO_PORT     = 15.0   # mm — length inserted into the port
-
-WATER_TUBE_Z_BOTTOM = PLATEAU_Z - WATER_TUBE_INTO_PORT     # 24.0 mm
-WATER_TUBE_Z_TOP    = PLATEAU_Z + WATER_TUBE_ABOVE_PLATEAU # 79.0 mm
-WATER_TUBE_LENGTH   = WATER_TUBE_Z_TOP - WATER_TUBE_Z_BOTTOM
+water_tube_od = 0.375 * 25.4  # 3/8" LLDPE
+water_tube_r = water_tube_od / 2.0
+water_tube_above_plateau = 40.0
+water_tube_into_port = 15.0
+water_tube_z_bottom = plateau_z - water_tube_into_port
+water_tube_z_top = plateau_z + water_tube_above_plateau
 
 
-# ═══════════════════════════════════════════════════════
-# FLAVOR DISPENSE TUBES (×2)
-# ═══════════════════════════════════════════════════════
-#
-# Two Ø 1/4" tubes behind the water tube. They are NOT inserted into
-# the body — they sit alongside it. Each tube is tangent to:
-#   - the +X rectangular face of the body (X = BODY_R = 15.75 mm)
+# Flavor dispense tubes — Ø 1/4" — sit behind the water tube. Not
+# inserted into the body. At their lower X, each tube is tangent to
+#   - the +X rectangular face of the body (X = body_r)
 #   - the other flavor tube (so both touch at Y = 0)
-#
-# Mirror across the X-Z plane: one at +Y, one at -Y.
-# Tube centers are therefore at:
-#   X = BODY_R + (FLAVOR_TUBE_OD / 2) = 18.925 mm
-#   Y = ± (FLAVOR_TUBE_OD / 2)        = ±3.175 mm
-#
-# Z span matches the working height of the assembly:
-#   bottom = bottom of the shank (Z = -SHANK_LENGTH = -50 mm)
-#   top    = top of the water tube  (Z = WATER_TUBE_Z_TOP = 79 mm)
-#
-FLAVOR_TUBE_OD       = 1.0/4.0 * 25.4   # 6.35 mm — 1/4"
-FLAVOR_TUBE_R        = FLAVOR_TUBE_OD / 2.0
-FLAVOR_TUBE_X        = BODY_R + FLAVOR_TUBE_R           # 17.3375 mm — initial X
-FLAVOR_TUBE_Y_OFFSET = FLAVOR_TUBE_R                    # ±1.5875 mm — constant
-FLAVOR_TUBE_Z_BOTTOM = -SHANK_LENGTH                    # -50.0 mm
-FLAVOR_TUBE_Z_TOP    = WATER_TUBE_Z_TOP                 # 79.0 mm
+# Mirror across the X-Z plane: one at +Y, one at -Y. Z span runs from
+# the bottom of the shank up to the top of the water tube.
+flavor_tube_od = 1.0 / 4.0 * 25.4  # 1/4"
+flavor_tube_r = flavor_tube_od / 2.0
+flavor_tube_x_lower = body_r + flavor_tube_r  # tangent to body +X
+flavor_tube_y_offset = flavor_tube_r  # ± — tangent to other tube at Y=0
+flavor_tube_z_bottom = -shank_length
+flavor_tube_z_top = water_tube_z_top
 
-# S-bend geometry: each flavor tube rises vertical, S-bends in toward
-# the water tube just above the plateau, then runs vertical again
-# tangent to the water tube up to the top.
-#
-# Final X position is set by tangency to the water tube at the same Y:
-#   (X_FINAL - PORT_CENTER_X)² + Y_OFFSET² = (WATER_TUBE_R + FLAVOR_TUBE_R)²
+# Upper X is set by tangency to the water tube at the same Y:
+#   (x_upper - port_center_x)² + y_offset² = (water_tube_r + flavor_tube_r)²
 # with Y constant through both bends.
-WATER_TUBE_R = WATER_TUBE_OD / 2.0
-_dx_sq = (WATER_TUBE_R + FLAVOR_TUBE_R) ** 2 - FLAVOR_TUBE_Y_OFFSET ** 2
-FLAVOR_TUBE_X_FINAL = PORT_CENTER_X + math.sqrt(_dx_sq)  # 15.023 mm
+flavor_tube_x_upper = port_center_x + math.sqrt(
+    (water_tube_r + flavor_tube_r) ** 2 - flavor_tube_y_offset ** 2
+)
 
-# X offset the S-bend has to absorb (positive number, magnitude only)
-_x_offset = FLAVOR_TUBE_X - FLAVOR_TUBE_X_FINAL          # 2.315 mm
-
-# Bend radius: chosen for clean hand-bending of 1/8" SS — 2.5× OD,
-# well above the kink threshold and visually generous.
-FLAVOR_BEND_RADIUS    = 8.0
-# Bend angle is then derived: 2·R·(1 − cos θ) = X_offset (with no middle
-# straight). Both bends use the same radius and angle.
-FLAVOR_BEND_THETA_RAD = math.acos(1.0 - _x_offset / (2.0 * FLAVOR_BEND_RADIUS))
-FLAVOR_BEND_THETA_DEG = math.degrees(FLAVOR_BEND_THETA_RAD)
+# S-bend absorbs the X offset between lower and upper positions. Bend
+# radius chosen for clean hand-bending of 1/8" SS — 2.5× OD, well above
+# the kink threshold and visually generous. Bend angle is derived from
+# 2·R·(1 − cos θ) = x_offset (no middle straight); both bends use the
+# same R and θ.
+flavor_bend_radius = 8.0
+flavor_x_offset = flavor_tube_x_lower - flavor_tube_x_upper
+flavor_bend_theta_rad = math.acos(1.0 - flavor_x_offset / (2.0 * flavor_bend_radius))
 
 # How far above the plateau the first bend starts. Kept short to mimic
 # the user's "shortly after that, as shortly as is reasonable."
-PRE_BEND_RISE = 3.0                                      # mm above plateau
-PRE_BEND_Z    = PLATEAU_Z + PRE_BEND_RISE                # 42.0 mm
-
-# Geometry checks:
-#  - lower straight (tube-local Z=0 → Z=PRE_BEND_Z − Z_BOTTOM = 94 mm)
-#  - bend 1 (arc length R·θ ≈ 4.4 mm, Z gain R·sin θ ≈ 4.2 mm)
-#  - bend 2 (mirror of bend 1)
+pre_bend_rise = 3.0
+pre_bend_z = plateau_z + pre_bend_rise
 
 
-# ═══════════════════════════════════════════════════════
-# GOOSENECK BEND (shared between water + flavor tubes)
-# ═══════════════════════════════════════════════════════
-#
-# Above the lever's swing envelope, all three tubes (water + 2 flavor)
-# sweep forward toward -X via the same gooseneck shape:
+# Gooseneck — above the lever's swing envelope all three tubes sweep
+# forward toward -X with the same shape:
 #   1. vertical straight up to bend 1 start
-#   2. bend 1 — GN_BEND1_SWEEP_RAD at R = GN_BEND1_R
-#   3. angled straight of GN_MID_STRAIGHT_LEN (rises forward)
-#   4. bend 2 — GN_BEND2_SWEEP_RAD at R = GN_BEND2_R
-#   5. tip straight of GN_TIP_STRAIGHT_LEN
-#
-# Each bend has its own radius — bend 1 is tighter (faster turn out
-# of vertical), bend 2 is wider (gentler curve at the top, sweeping
-# the tip down toward the user). The tip's exit angle below horizontal
-# = (GN_BEND1_SWEEP_RAD + GN_BEND2_SWEEP_RAD) - 90°.
-#
-# Bend-1 midpoint is anchored at Z = LEVER_TOP_Z + 35, so the start of
-# bend 1 sits GN_BEND1_R·sin(GN_BEND1_SWEEP_RAD/2) below that. Forward
-# direction is -X (lever / user side).
-LEVER_TOP_Z         = PLATEAU_Z + 13.0                   # 52.0 mm
-GN_BEND1_R          = 30.0                               # water tube — bend 1
-GN_BEND2_R          = 40.0                               # water tube — bend 2 (wider)
-GN_BEND1_SWEEP_RAD  = math.radians(30.0)
-GN_BEND2_SWEEP_RAD  = math.radians(110.0)
-GN_BEND1_MID_Z      = LEVER_TOP_Z + 35.0                 # 87.0
-GN_BEND1_START_Z    = (
-    GN_BEND1_MID_Z
-    - GN_BEND1_R * math.sin(GN_BEND1_SWEEP_RAD / 2.0)
-)                                                        # ≈ 79.24
-GN_MID_STRAIGHT_LEN = 115.0
-GN_TIP_STRAIGHT_LEN = 25.0
+#   2. bend 1 — sweep gn_bend1_sweep_rad at R = gn_bend1_r (tighter)
+#   3. angled straight of gn_mid_straight_len
+#   4. bend 2 — sweep gn_bend2_sweep_rad at R = gn_bend2_r (wider)
+#   5. tip straight of gn_tip_straight_len
+# The tip's exit angle below horizontal = (bend1_sweep + bend2_sweep) - 90°.
+# Bend-1 midpoint is anchored at Z = lever_top_z + 35, so the start of
+# bend 1 sits gn_bend1_r·sin(bend1_sweep/2) below that.
+lever_top_z = plateau_z + 13.0
+gn_bend1_r = 30.0
+gn_bend2_r = 40.0
+gn_bend1_sweep_rad = math.radians(30.0)
+gn_bend2_sweep_rad = math.radians(110.0)
+gn_bend1_mid_z = lever_top_z + 35.0
+gn_bend1_start_z = gn_bend1_mid_z - gn_bend1_r * math.sin(gn_bend1_sweep_rad / 2.0)
+gn_mid_straight_len = 115.0
+gn_tip_straight_len = 25.0
 
-# Flavor tube bend radii through the gooseneck.
-# The flavor tubes sit at +X of the water tube (X-offset in their
-# local frame = FLAVOR_TUBE_X_FINAL - PORT_CENTER_X). The gooseneck
-# bends toward -X, so flavor tubes are on the OUTSIDE of every bend
-# and must trace parallel-offset arcs sharing each bend's center of
-# curvature with water — i.e. at the *larger* radius
-# R_water + offset_X. Otherwise the tubes ride into each other
-# through the bend (the perpendicular component of the centerline
-# separation shrinks below R_water + R_flavor).
-_GN_FLAVOR_OFFSET   = FLAVOR_TUBE_X_FINAL - PORT_CENTER_X    # ≈ 6.148
-GN_FLAVOR_BEND1_R   = GN_BEND1_R + _GN_FLAVOR_OFFSET         # ≈ 36.148
-GN_FLAVOR_BEND2_R   = GN_BEND2_R + _GN_FLAVOR_OFFSET         # ≈ 46.148
+# The flavor tubes sit at +X of the water tube (X-offset in their local
+# frame = flavor_tube_x_upper - port_center_x). The gooseneck bends
+# toward -X, so flavor tubes are on the OUTSIDE of every bend and must
+# trace parallel-offset arcs sharing each bend's center of curvature
+# with water — i.e. at the *larger* radius water_r + offset_x.
+# Otherwise the tubes ride into each other through the bend (the
+# perpendicular component of the centerline separation shrinks below
+# water_r + flavor_r).
+_gn_flavor_offset_x = flavor_tube_x_upper - port_center_x
+gn_flavor_bend1_r = gn_bend1_r + _gn_flavor_offset_x
+gn_flavor_bend2_r = gn_bend2_r + _gn_flavor_offset_x
 
 
-# ═══════════════════════════════════════════════════════
-# REFERENCE BODY LOADING
-# ═══════════════════════════════════════════════════════
+# Reference STEP files — body, mounting plate, mounting gasket, shell.
+_assembly_dir = Path(__file__).resolve().parent
+_harvested_dir = _assembly_dir.parent
+_repo_hardware_dir = _harvested_dir.parent.parent
+_faucet_printed_dir = _repo_hardware_dir / "printed-parts" / "faucet"
 
-REF_BODY_STEP = (
-    Path(__file__).resolve().parent.parent
-    / "valve-body-reference"
-    / "touch-flo-valve-body-reference.step"
-)
-
-MOUNTING_PLATE_STEP = (
-    Path(__file__).resolve().parent.parent.parent.parent
-    / "printed-parts"
-    / "faucet"
-    / "touch-flo-mounting-plate"
-    / "touch-flo-mounting-plate.step"
-)
-
-MOUNTING_GASKET_STEP = (
-    Path(__file__).resolve().parent.parent.parent.parent
-    / "printed-parts"
-    / "faucet"
-    / "touch-flo-mounting-gasket"
-    / "touch-flo-mounting-gasket.step"
-)
-
-SHELL_STEP = (
-    Path(__file__).resolve().parent.parent.parent.parent
-    / "printed-parts"
-    / "faucet"
-    / "touch-flo-shell"
-    / "touch-flo-shell.step"
-)
+ref_body_step = _harvested_dir / "valve-body-reference" / "touch-flo-valve-body-reference.step"
+mounting_plate_step = _faucet_printed_dir / "touch-flo-mounting-plate" / "touch-flo-mounting-plate.step"
+mounting_gasket_step = _faucet_printed_dir / "touch-flo-mounting-gasket" / "touch-flo-mounting-gasket.step"
+shell_step = _faucet_printed_dir / "touch-flo-shell" / "touch-flo-shell.step"
 
 
-def load_valve_body() -> cq.Workplane:
+def load_valve_body():
     """Load the harvested valve body from the reference STEP file.
-
-    Read-only — this file never modifies the body geometry.
-    """
-    return cq.importers.importStep(str(REF_BODY_STEP))
+    Read-only — this file never modifies the body geometry."""
+    return cq.importers.importStep(str(ref_body_step))
 
 
-def load_mounting_plate() -> cq.Workplane:
+def load_mounting_plate():
     """Load the printed mounting plate from its printed-parts STEP.
-
     Read-only here — see
     `hardware/printed-parts/faucet/touch-flo-mounting-plate/generate_step_cadquery.py`
-    for the source of truth.
-    """
-    return cq.importers.importStep(str(MOUNTING_PLATE_STEP))
+    for the source of truth."""
+    return cq.importers.importStep(str(mounting_plate_step))
 
 
-def load_mounting_gasket() -> cq.Workplane:
+def load_mounting_gasket():
     """Load the printed-TPU mounting gasket from its printed-parts STEP.
-
     Read-only here — see
     `hardware/printed-parts/faucet/touch-flo-mounting-gasket/generate_step_cadquery.py`
-    for the source of truth.
-    """
-    return cq.importers.importStep(str(MOUNTING_GASKET_STEP))
+    for the source of truth."""
+    return cq.importers.importStep(str(mounting_gasket_step))
 
 
-def load_shell() -> cq.Workplane:
+def load_shell():
     """Load the printed shell from its printed-parts STEP.
-
     Read-only here — see
     `hardware/printed-parts/faucet/touch-flo-shell/generate_step_cadquery.py`
-    for the source of truth.
-    """
-    return cq.importers.importStep(str(SHELL_STEP))
+    for the source of truth."""
+    return cq.importers.importStep(str(shell_step))
 
 
-# ═══════════════════════════════════════════════════════
-# TUBE BUILDERS
-# ═══════════════════════════════════════════════════════
-
-def build_water_dispense_tube() -> cq.Workplane:
+def build_water_dispense_tube():
     """Bent water tube — vertical from inside the body's port up to
     the gooseneck, then bend 1, mid straight, bend 2, tip straight.
-    Profile is Ø WATER_TUBE_OD swept along the centerline path.
-    """
-    # Tube-local (X-Z) frame: bottom at (0, 0), Z=0 == WATER_TUBE_Z_BOTTOM.
-    z_bend_start_local = GN_BEND1_START_Z - WATER_TUBE_Z_BOTTOM
+    Profile is Ø water_tube_od swept along the centerline path."""
+    # Tube-local (X-Z) frame: bottom at (0, 0), Z=0 == water_tube_z_bottom.
+    z_bend_start_local = gn_bend1_start_z - water_tube_z_bottom
 
-    p_bottom     = (0.0, 0.0)
+    p_bottom = (0.0, 0.0)
     p_bend_start = (0.0, z_bend_start_local)
 
     mid1, end1, tan1 = _arc_from_tangent(
-        p_bend_start, (0.0, 1.0), GN_BEND1_R, GN_BEND1_SWEEP_RAD, ccw=True
+        p_bend_start, (0.0, 1.0), gn_bend1_r, gn_bend1_sweep_rad, ccw=True
     )
-    mid_end = (end1[0] + GN_MID_STRAIGHT_LEN * tan1[0],
-               end1[1] + GN_MID_STRAIGHT_LEN * tan1[1])
+    mid_end = (end1[0] + gn_mid_straight_len * tan1[0],
+               end1[1] + gn_mid_straight_len * tan1[1])
     mid2, end2, tan2 = _arc_from_tangent(
-        mid_end, tan1, GN_BEND2_R, GN_BEND2_SWEEP_RAD, ccw=True
+        mid_end, tan1, gn_bend2_r, gn_bend2_sweep_rad, ccw=True
     )
-    tip_end = (end2[0] + GN_TIP_STRAIGHT_LEN * tan2[0],
-               end2[1] + GN_TIP_STRAIGHT_LEN * tan2[1])
+    tip_end = (end2[0] + gn_tip_straight_len * tan2[0],
+               end2[1] + gn_tip_straight_len * tan2[1])
 
     path = (
         cq.Workplane("XZ")
@@ -315,9 +223,9 @@ def build_water_dispense_tube() -> cq.Workplane:
         .threePointArc(mid2, end2)
         .lineTo(*tip_end)
     )
-    profile = cq.Workplane("XY").circle(WATER_TUBE_OD / 2.0)
+    profile = cq.Workplane("XY").circle(water_tube_r)
     tube = profile.sweep(path, transition="round")
-    return tube.translate((PORT_CENTER_X, PORT_CENTER_Y, WATER_TUBE_Z_BOTTOM))
+    return tube.translate((port_center_x, port_center_y, water_tube_z_bottom))
 
 
 def _arc_from_tangent(start, tangent, radius, theta_rad, ccw):
@@ -325,20 +233,16 @@ def _arc_from_tangent(start, tangent, radius, theta_rad, ccw):
     sweeping `theta_rad` with the given `radius`.
 
     ccw=True: tangent rotates counterclockwise (tube turns left when
-    looking along +Y).
-    ccw=False: clockwise.
+    looking along +Y). ccw=False: clockwise.
 
-    Returns (mid, end, end_tangent) — all in the same 2D X-Z frame.
-    """
+    Returns (mid, end, end_tangent) — all in the same 2D X-Z frame."""
     sign = +1 if ccw else -1
     # Center is perpendicular to tangent, on the bending side.
     if ccw:
-        perp = (-tangent[1], tangent[0])    # rotate tangent +90°
+        perp = (-tangent[1], tangent[0])
     else:
-        perp = (tangent[1], -tangent[0])    # rotate tangent -90°
+        perp = (tangent[1], -tangent[0])
     center = (start[0] + radius * perp[0], start[1] + radius * perp[1])
-
-    # Radial vector from center to start.
     rad = (start[0] - center[0], start[1] - center[1])
 
     def _rot(v, a):
@@ -347,60 +251,57 @@ def _arc_from_tangent(start, tangent, radius, theta_rad, ccw):
 
     rad_mid = _rot(rad, sign * theta_rad / 2.0)
     rad_end = _rot(rad, sign * theta_rad)
-
     mid = (center[0] + rad_mid[0], center[1] + rad_mid[1])
     end = (center[0] + rad_end[0], center[1] + rad_end[1])
     end_tangent = _rot(tangent, sign * theta_rad)
-
     return mid, end, end_tangent
 
 
-def _build_flavor_tube_at_origin() -> cq.Workplane:
+def _build_flavor_tube_at_origin():
     """Build one bent flavor tube at the origin.
 
     Tube-local frame: bottom of the tube at Z = 0, X = 0, going +Z.
     Path:
-      1. Vertical from Z=0 up to the S-bend start (PRE_BEND_Z)
-      2. S-bend (CCW + CW pair) shifting X by _x_offset toward -X,
-         tangent back to (0, 1) at the end
+      1. Vertical from Z=0 up to the S-bend start (pre_bend_z)
+      2. S-bend (CCW + CW pair) shifting X by flavor_x_offset toward
+         -X, tangent back to (0, 1) at the end
       3. Vertical from S-bend end up to the gooseneck start (Z =
-         GN_BEND1_START_Z, in tube-local coords)
-      4. Gooseneck: bend 1 → mid straight → bend 2 → tip, all
-         bending toward -X. Each bend uses its own parallel-offset
-         radius (GN_FLAVOR_BEND1_R / GN_FLAVOR_BEND2_R).
+         gn_bend1_start_z, in tube-local coords)
+      4. Gooseneck: bend 1 → mid straight → bend 2 → tip, all bending
+         toward -X. Each bend uses its own parallel-offset radius
+         (gn_flavor_bend1_r / gn_flavor_bend2_r).
     """
-    pre_bend_z_local     = PRE_BEND_Z - FLAVOR_TUBE_Z_BOTTOM
-    gn_bend_start_local  = GN_BEND1_START_Z - FLAVOR_TUBE_Z_BOTTOM
+    pre_bend_z_local = pre_bend_z - flavor_tube_z_bottom
+    gn_bend_start_local = gn_bend1_start_z - flavor_tube_z_bottom
 
     p0 = (0.0, 0.0)
     p1 = (0.0, pre_bend_z_local)
 
-    # S-bend (CCW then CW, returns to vertical).
+    # S-bend (CCW then CW, ends tangent to +Z by construction).
     mid_s1, end_s1, tan_s1 = _arc_from_tangent(
-        p1, (0.0, 1.0), FLAVOR_BEND_RADIUS, FLAVOR_BEND_THETA_RAD, ccw=True
+        p1, (0.0, 1.0), flavor_bend_radius, flavor_bend_theta_rad, ccw=True
     )
     mid_s2, end_s2, tan_s2 = _arc_from_tangent(
-        end_s1, tan_s1, FLAVOR_BEND_RADIUS, FLAVOR_BEND_THETA_RAD, ccw=False
+        end_s1, tan_s1, flavor_bend_radius, flavor_bend_theta_rad, ccw=False
     )
-    # tan_s2 is back to (0, 1) by construction.
 
     # Vertical to the gooseneck start, X unchanged.
     p_gn_start = (end_s2[0], gn_bend_start_local)
 
-    # Gooseneck — each bend uses GN_FLAVOR_BENDn_R (= water's GN_BENDn_R
+    # Gooseneck — each bend uses gn_flavor_bendn_r (= water's gn_bendn_r
     # plus the X offset between flavor and water centerlines), so the
     # flavor tube traces a parallel-offset arc on the outside of each
     # bend, staying tangent to the water tube.
     mid1, end1, tan1 = _arc_from_tangent(
-        p_gn_start, tan_s2, GN_FLAVOR_BEND1_R, GN_BEND1_SWEEP_RAD, ccw=True
+        p_gn_start, tan_s2, gn_flavor_bend1_r, gn_bend1_sweep_rad, ccw=True
     )
-    mid_end = (end1[0] + GN_MID_STRAIGHT_LEN * tan1[0],
-               end1[1] + GN_MID_STRAIGHT_LEN * tan1[1])
+    mid_end = (end1[0] + gn_mid_straight_len * tan1[0],
+               end1[1] + gn_mid_straight_len * tan1[1])
     mid2, end2, tan2 = _arc_from_tangent(
-        mid_end, tan1, GN_FLAVOR_BEND2_R, GN_BEND2_SWEEP_RAD, ccw=True
+        mid_end, tan1, gn_flavor_bend2_r, gn_bend2_sweep_rad, ccw=True
     )
-    tip_end = (end2[0] + GN_TIP_STRAIGHT_LEN * tan2[0],
-               end2[1] + GN_TIP_STRAIGHT_LEN * tan2[1])
+    tip_end = (end2[0] + gn_tip_straight_len * tan2[0],
+               end2[1] + gn_tip_straight_len * tan2[1])
 
     path = (
         cq.Workplane("XZ")
@@ -415,25 +316,24 @@ def _build_flavor_tube_at_origin() -> cq.Workplane:
         .lineTo(*tip_end)
     )
 
-    profile = cq.Workplane("XY").circle(FLAVOR_TUBE_R)
+    profile = cq.Workplane("XY").circle(flavor_tube_r)
     return profile.sweep(path, transition="round")
 
 
-def build_flavor_tube(y_sign: int) -> cq.Workplane:
+def build_flavor_tube(y_sign):
     """One Ø 1/4" flavor tube placed at its world position.
 
-    Built at the origin, then translated to (FLAVOR_TUBE_X,
-    y_sign · FLAVOR_TUBE_Y_OFFSET, FLAVOR_TUBE_Z_BOTTOM).
-    """
+    Built at the origin, then translated to (flavor_tube_x_lower,
+    y_sign · flavor_tube_y_offset, flavor_tube_z_bottom)."""
     tube = _build_flavor_tube_at_origin()
     return tube.translate((
-        FLAVOR_TUBE_X,
-        y_sign * FLAVOR_TUBE_Y_OFFSET,
-        FLAVOR_TUBE_Z_BOTTOM,
+        flavor_tube_x_lower,
+        y_sign * flavor_tube_y_offset,
+        flavor_tube_z_bottom,
     ))
 
 
-def build_lever() -> cq.Workplane:
+def build_lever():
     """The lever as a swing-clearance blob: union of rest position +
     pressed-down position.
 
@@ -442,22 +342,21 @@ def build_lever() -> cq.Workplane:
     of the two extremes (0° and -18° around the pivot at X=1.5, Z=46)
     is a deliberate approximation — visually an "ugly blob" — but it
     captures what the shell must avoid. Each position carries its own
-    vertical water-tube clearance cut.
-    """
+    vertical water-tube clearance cut."""
     cut_cylinder = (
         cq.Workplane("XY")
-        .workplane(offset=PLATEAU_Z + 1)
+        .workplane(offset=plateau_z + 1)
         .moveTo(9, 0)
-        .circle(WATER_TUBE_OD / 2 + 1)  # slightly larger than water tube for clearance
+        .circle(water_tube_r + 1)  # slightly larger than water tube for clearance
         .extrude(50)
     )
     add_taper = (
         cq.Workplane("YZ")
         .workplane(offset=-6)
-        .moveTo(0, PLATEAU_Z + 4.5)
+        .moveTo(0, plateau_z + 4.5)
         .rect(13, 8.5, centered=(True, False))
         .workplane(offset=-36)
-        .moveTo(0, PLATEAU_Z + 1 + 9)
+        .moveTo(0, plateau_z + 1 + 9)
         .rect(13, 3, centered=(True, False))
         .loft(combine=True)
     )
@@ -466,15 +365,15 @@ def build_lever() -> cq.Workplane:
     base_lever = (
         cq.Workplane("YZ")
         .workplane(offset=9)
-        .moveTo(0, PLATEAU_Z + 1)
+        .moveTo(0, plateau_z + 1)
         .rect(13, 12, centered=(True, False))
         .extrude(-15)
         .union(add_taper)
     )
 
     # Pivot axis: parallel to Y at (X=1.5, Z=46).
-    pivot_a = (1.5, 0, PLATEAU_Z + 1 + 6)
-    pivot_b = (1.5, 1, PLATEAU_Z + 1 + 6)
+    pivot_a = (1.5, 0, plateau_z + 1 + 6)
+    pivot_b = (1.5, 1, plateau_z + 1 + 6)
 
     # Rest position: lever as-is, with its rest-position water-tube cut.
     lever_rest = base_lever.cut(cut_cylinder)
@@ -491,11 +390,7 @@ def build_lever() -> cq.Workplane:
     return lever_rest_final.union(lever_pressed)
 
 
-# ═══════════════════════════════════════════════════════
-# ASSEMBLY
-# ═══════════════════════════════════════════════════════
-
-def build_assembly() -> cq.Assembly:
+def build_assembly():
     """Combine the reference body and our new parts into one assembly."""
     body = load_valve_body()
     water_tube = build_water_dispense_tube()
@@ -506,11 +401,11 @@ def build_assembly() -> cq.Assembly:
     mounting_gasket = load_mounting_gasket()
     shell = load_shell()
 
-    silver = cq.Color(0.85, 0.85, 0.88)        # near-stainless silver
-    petg_tan = cq.Color(0.85, 0.78, 0.62)      # printed-part tan
-    tpu_black = cq.Color(0.15, 0.15, 0.15)     # TPU 90A black gasket
-                                                # (slightly lighter than the
-                                                # body so the two read apart)
+    silver = cq.Color(0.85, 0.85, 0.88)  # near-stainless silver
+    petg_tan = cq.Color(0.85, 0.78, 0.62)  # printed-part tan
+    tpu_black = cq.Color(0.15, 0.15, 0.15)  # TPU 90A black gasket — slightly
+                                            # lighter than the body so the two
+                                            # read apart
 
     assy = cq.Assembly(name="touch-flo-faucet-assembly")
     assy.add(body, name="valve_body", color=cq.Color("black"))
@@ -524,56 +419,51 @@ def build_assembly() -> cq.Assembly:
     return assy
 
 
-# ═══════════════════════════════════════════════════════
-# BUILD AND EXPORT
-# ═══════════════════════════════════════════════════════
-
 def main():
     assy = build_assembly()
 
-    here = Path(__file__).resolve().parent
-    out  = here / "touch-flo-faucet-assembly.step"
+    out = _assembly_dir / "touch-flo-faucet-assembly.step"
     # cq.Assembly.save() emits a deprecation warning in this CadQuery
     # version but still produces correct multi-solid STEP. The
     # cq.exporters.export(assy, ...) replacement currently rejects
     # Assembly objects on this install — revisit when the venv is bumped.
     export_assembly(assy, str(out))
 
+    bend1_deg = math.degrees(gn_bend1_sweep_rad)
+    bend2_deg = math.degrees(gn_bend2_sweep_rad)
+    tip_below_horiz = (bend1_deg + bend2_deg) - 90.0
     print("Touch-Flo faucet assembly")
-    print(f"  Reference body:        {REF_BODY_STEP.name}")
-    print(f"  Water dispense tube:   Ø{WATER_TUBE_OD:.3f} mm")
-    print(f"                         Z_bottom = {WATER_TUBE_Z_BOTTOM:.2f} mm "
-          f"({WATER_TUBE_INTO_PORT} mm into port)")
+    print(f"  Reference body:        {ref_body_step.name}")
+    print(f"  Water dispense tube:   Ø{water_tube_od:.3f} mm")
+    print(f"                         Z_bottom = {water_tube_z_bottom:.2f} mm "
+          f"({water_tube_into_port} mm into port)")
     print(f"                         vertical → gooseneck")
-    print(f"                         center at X={PORT_CENTER_X} mm, Y={PORT_CENTER_Y} mm")
-    print(f"  Flavor tubes (×2):     Ø{FLAVOR_TUBE_OD:.3f} mm")
-    print(f"                         Z_bottom = {FLAVOR_TUBE_Z_BOTTOM:.1f} mm")
-    print(f"                         lower X = {FLAVOR_TUBE_X:.4f} mm "
+    print(f"                         center at X={port_center_x} mm, Y={port_center_y} mm")
+    print(f"  Flavor tubes (×2):     Ø{flavor_tube_od:.3f} mm")
+    print(f"                         Z_bottom = {flavor_tube_z_bottom:.1f} mm")
+    print(f"                         lower X = {flavor_tube_x_lower:.4f} mm "
           f"(tangent to body +X + to each other)")
-    print(f"                         upper X = {FLAVOR_TUBE_X_FINAL:.4f} mm "
+    print(f"                         upper X = {flavor_tube_x_upper:.4f} mm "
           f"(tangent to water tube + to each other)")
-    print(f"                         Y = ±{FLAVOR_TUBE_Y_OFFSET:.4f} mm (constant)")
-    print(f"                         S-bend: 2 × R{FLAVOR_BEND_RADIUS:.1f} mm "
-          f"@ {FLAVOR_BEND_THETA_DEG:.2f}° starting at Z = {PRE_BEND_Z:.1f}")
-    _b1_deg = math.degrees(GN_BEND1_SWEEP_RAD)
-    _b2_deg = math.degrees(GN_BEND2_SWEEP_RAD)
-    _tip_below_horiz = (_b1_deg + _b2_deg) - 90.0
-    print(f"  Gooseneck:             bend 1 {_b1_deg:.0f}°, bend 2 {_b2_deg:.0f}°, "
-          f"midpoint Z={GN_BEND1_MID_Z:.1f}, start Z={GN_BEND1_START_Z:.2f}")
-    print(f"                         bend 1: water R={GN_BEND1_R:.2f} mm, "
-          f"flavor R={GN_FLAVOR_BEND1_R:.2f} mm (parallel offset)")
-    print(f"                         bend 2: water R={GN_BEND2_R:.2f} mm, "
-          f"flavor R={GN_FLAVOR_BEND2_R:.2f} mm (parallel offset)")
-    print(f"                         {GN_MID_STRAIGHT_LEN} mm angled straight "
-          f"@ {_b1_deg:.0f}° from vertical")
-    print(f"                         {GN_TIP_STRAIGHT_LEN} mm tip "
-          f"({_tip_below_horiz:.0f}° below horizontal)")
+    print(f"                         Y = ±{flavor_tube_y_offset:.4f} mm (constant)")
+    print(f"                         S-bend: 2 × R{flavor_bend_radius:.1f} mm "
+          f"@ {math.degrees(flavor_bend_theta_rad):.2f}° starting at Z = {pre_bend_z:.1f}")
+    print(f"  Gooseneck:             bend 1 {bend1_deg:.0f}°, bend 2 {bend2_deg:.0f}°, "
+          f"midpoint Z={gn_bend1_mid_z:.1f}, start Z={gn_bend1_start_z:.2f}")
+    print(f"                         bend 1: water R={gn_bend1_r:.2f} mm, "
+          f"flavor R={gn_flavor_bend1_r:.2f} mm (parallel offset)")
+    print(f"                         bend 2: water R={gn_bend2_r:.2f} mm, "
+          f"flavor R={gn_flavor_bend2_r:.2f} mm (parallel offset)")
+    print(f"                         {gn_mid_straight_len} mm angled straight "
+          f"@ {bend1_deg:.0f}° from vertical")
+    print(f"                         {gn_tip_straight_len} mm tip "
+          f"({tip_below_horiz:.0f}° below horizontal)")
     print(f"  Mounting plate:        loaded from printed-parts/")
-    print(f"                         {MOUNTING_PLATE_STEP.name}")
+    print(f"                         {mounting_plate_step.name}")
     print(f"  Mounting gasket:       loaded from printed-parts/")
-    print(f"                         {MOUNTING_GASKET_STEP.name}")
+    print(f"                         {mounting_gasket_step.name}")
     print(f"  Shell (zones 1-6):     loaded from printed-parts/")
-    print(f"                         {SHELL_STEP.name}")
+    print(f"                         {shell_step.name}")
     print(f"-> {out.name}")
 
 
