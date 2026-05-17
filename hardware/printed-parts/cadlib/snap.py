@@ -46,6 +46,15 @@ def _pt(face, height, height_first):
     return (height, face) if height_first else (face, height)
 
 
+def _polyline_in_zone(orientation_plane, zone_start, zone_width, points, overshoot=0.0):
+    """Extrude a closed polyline across [zone_start - overshoot, zone_start + zone_width + overshoot]."""
+    return (
+        cq.Workplane(orientation_plane).workplane(offset=zone_start - overshoot)
+        .polyline(points).close()
+        .extrude(zone_width + 2 * overshoot)
+    )
+
+
 def apply_ramp_out_first(
         solid,
         coordinate_inner_wall,
@@ -101,10 +110,7 @@ def apply_ramp_out_first(
         pt(grown_outer, tip_height),
         pt(outer_overcut, tip_height),
     ]
-    solid = solid.union(
-        cq.Workplane(orientation_plane).workplane(offset=coordinate_zone_start)
-        .polyline(growth).close().extrude(zone_width)
-    )
+    solid = solid.union(_polyline_in_zone(orientation_plane, coordinate_zone_start, zone_width, growth))
 
     # 2. Extend wall beyond wall top to tip height
     extension = [
@@ -113,10 +119,7 @@ def apply_ramp_out_first(
         pt(outer_overcut, tip_height),
         _pt(outer_overcut, coordinate_top_of_wall, height_first),
     ]
-    solid = solid.union(
-        cq.Workplane(orientation_plane).workplane(offset=coordinate_zone_start)
-        .polyline(extension).close().extrude(zone_width)
-    )
+    solid = solid.union(_polyline_in_zone(orientation_plane, coordinate_zone_start, zone_width, extension))
 
     # 3. Channel cut from inner face — zigzag of bumps and notches
     channel = [
@@ -129,10 +132,7 @@ def apply_ramp_out_first(
         pt(notch_face, tip_height),
         pt(inner_overcut, tip_height),
     ]
-    solid = solid.cut(
-        cq.Workplane(orientation_plane).workplane(offset=coordinate_zone_start - overcut)
-        .polyline(channel).close().extrude(zone_width + 2 * overcut)
-    )
+    solid = solid.cut(_polyline_in_zone(orientation_plane, coordinate_zone_start, zone_width, channel, overshoot=overcut))
 
     return solid
 
@@ -195,10 +195,7 @@ def apply_ramp_in_first(
             pt(grown_outer, tip_height),
             pt(outer_overcut, tip_height),
         ]
-        solid = solid.union(
-            cq.Workplane(orientation_plane).workplane(offset=coordinate_zone_start)
-            .polyline(growth).close().extrude(zone_width)
-        )
+        solid = solid.union(_polyline_in_zone(orientation_plane, coordinate_zone_start, zone_width, growth))
 
     # 1. Extend wall beyond wall top to tip height
     extension = [
@@ -208,10 +205,7 @@ def apply_ramp_in_first(
         pt(bump_face, bump_top),
         _pt(bump_face, coordinate_top_of_wall, height_first),
     ]
-    solid = solid.union(
-        cq.Workplane(orientation_plane).workplane(offset=coordinate_zone_start)
-        .polyline(extension).close().extrude(zone_width)
-    )
+    solid = solid.union(_polyline_in_zone(orientation_plane, coordinate_zone_start, zone_width, extension))
 
     # 2. Cut notches from outer face — zigzag of bumps and notches
     notch_cut = [
@@ -223,9 +217,6 @@ def apply_ramp_in_first(
         pt(notch_face, tip_height),
         pt(outer_overcut_past_growth, tip_height),
     ]
-    solid = solid.cut(
-        cq.Workplane(orientation_plane).workplane(offset=coordinate_zone_start - overcut)
-        .polyline(notch_cut).close().extrude(zone_width + 2 * overcut)
-    )
+    solid = solid.cut(_polyline_in_zone(orientation_plane, coordinate_zone_start, zone_width, notch_cut, overshoot=overcut))
 
     return solid
