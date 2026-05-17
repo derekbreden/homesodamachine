@@ -28,10 +28,10 @@ front_face_port_y = hole_shift_from_edge + wall_and_floor_thickness
 # wall to clear it.
 plus_z_wall_plug_port_z = pocket_centerward_arc_outer_radius - 20
 
-# Z-axis ⌀6.5 × 40 mm cylindrical cuts through the foam shell, each
-# starting at its anchor and extending in +Z. The CO2 inlet is cut
-# separately by `cut_co2_inlet()`: its bore is ⌀16 to house an
-# in-cavity 90° push-to-connect elbow, so it doesn't share this radius.
+# The three circular port holes share build_a_hole_punch's default
+# ⌀6.5 — each starts at its anchor and extrudes +Z through the shell.
+# The CO2 inlet is in its own function (`cut_co2_inlet`) because its
+# bore is ⌀16 (in-cavity 90° push-to-connect elbow), not ⌀6.5.
 water_outlet_xyz = (0, front_face_port_y, plus_z_wall_plug_port_z)
 reservoir_bulkhead_plus_x_xyz = (+reservoir_bulkhead_port_x, reservoir_bulkhead_port_y, reservoir_bulkhead_port_z)
 reservoir_bulkhead_minus_x_xyz = (-reservoir_bulkhead_port_x, reservoir_bulkhead_port_y, reservoir_bulkhead_port_z)
