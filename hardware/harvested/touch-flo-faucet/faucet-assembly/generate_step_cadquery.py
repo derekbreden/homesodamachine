@@ -109,8 +109,8 @@ flavor_tube_x_upper = port_center_x + math.sqrt(
 # 2·R·(1 − cos θ) = x_offset (no middle straight); both bends use the
 # same R and θ.
 flavor_bend_radius = 8.0
-flavor_x_offset = flavor_tube_x_lower - flavor_tube_x_upper
-flavor_bend_theta_rad = math.acos(1.0 - flavor_x_offset / (2.0 * flavor_bend_radius))
+_flavor_x_offset = flavor_tube_x_lower - flavor_tube_x_upper
+flavor_bend_theta_rad = math.acos(1.0 - _flavor_x_offset / (2.0 * flavor_bend_radius))
 
 # How far above the plateau the first bend starts. Kept short to mimic
 # the user's "shortly after that, as shortly as is reasonable."
@@ -202,12 +202,11 @@ def _arc_from_tangent(start, tangent, radius, theta_rad, ccw):
 
     Returns (mid, end, end_tangent) — all in the same 2D X-Z frame."""
     sign = +1 if ccw else -1
-    # Center is perpendicular to tangent, on the bending side.
     if ccw:
-        perp = (-tangent[1], tangent[0])
+        perp_to_tangent = (-tangent[1], tangent[0])
     else:
-        perp = (tangent[1], -tangent[0])
-    center = (start[0] + radius * perp[0], start[1] + radius * perp[1])
+        perp_to_tangent = (tangent[1], -tangent[0])
+    center = (start[0] + radius * perp_to_tangent[0], start[1] + radius * perp_to_tangent[1])
     rad = (start[0] - center[0], start[1] - center[1])
 
     def _rot(v, a):
@@ -276,8 +275,9 @@ def _build_flavor_tube_at_origin():
     Tube-local frame: bottom of the tube at Z = 0, X = 0, going +Z.
     Path:
       1. Vertical from Z=0 up to the S-bend start (pre_bend_z)
-      2. S-bend (CCW + CW pair) shifting X by flavor_x_offset toward
-         -X, tangent back to (0, 1) at the end
+      2. S-bend (CCW + CW pair) shifting X by flavor_tube_x_upper −
+         flavor_tube_x_lower toward the water tube, ending tangent
+         to +Z by construction
       3. Vertical from S-bend end up to the gooseneck start (Z =
          gn_bend1_start_z, in tube-local coords)
       4. Gooseneck: bend 1 → mid straight → bend 2 → tip, all bending
