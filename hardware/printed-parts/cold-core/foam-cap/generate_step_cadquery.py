@@ -104,8 +104,8 @@ def main():
     lid_top = cut_co2_inlet_lid(lid_bottom)
     gasket = build_foam_cap_gasket()
 
-    through_hole_volume = math.pi * co2_tube_clearance_radius ** 2 * wall_and_floor_thickness
-    boss_annular_volume = (
+    cap_floor_hole_volume = math.pi * co2_tube_clearance_radius ** 2 * wall_and_floor_thickness
+    cap_boss_annular_volume = (
         math.pi
         * (co2_boss_outer_radius ** 2 - co2_tube_clearance_radius ** 2)
         * (co2_boss_y_top - co2_boss_y_bottom)
@@ -113,12 +113,10 @@ def main():
     lid_hole_volume = math.pi * co2_tube_clearance_radius ** 2 * lid_y_height
     cap_diff = cap_top.val().Volume() - cap_bottom.val().Volume()
     lid_diff = lid_bottom.val().Volume() - lid_top.val().Volume()
-    assert math.isclose(cap_diff, boss_annular_volume - through_hole_volume, rel_tol=1e-6), (
-        f"cap diff {cap_diff:.6f} != expected {boss_annular_volume - through_hole_volume:.6f}"
-    )
-    assert math.isclose(lid_diff, lid_hole_volume, rel_tol=1e-6), (
-        f"lid diff {lid_diff:.6f} != expected {lid_hole_volume:.6f}"
-    )
+    assert math.isclose(cap_diff, cap_boss_annular_volume - cap_floor_hole_volume, rel_tol=1e-6), \
+        f"cap diff {cap_diff:.6f} != expected boss − hole = {cap_boss_annular_volume - cap_floor_hole_volume:.6f}"
+    assert math.isclose(lid_diff, lid_hole_volume, rel_tol=1e-6), \
+        f"lid diff {lid_diff:.6f} != expected lid hole = {lid_hole_volume:.6f}"
     assert len(cap_top.solids().vals()) == 1, "cap_top must be a single solid"
 
     export_step(cap_top, str(_here / "foam-cap-top.step"))
