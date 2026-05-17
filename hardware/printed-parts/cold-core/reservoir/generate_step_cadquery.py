@@ -273,7 +273,7 @@ vent_cylinder_length = vent_slot_height + vent_brim_thickness           # 3
 # its counterbore-sized pocket clear every screw counterbore and
 # every cap-side boss), and inside the perimeter wall. Mirrored
 # across x=0 for side=−1.
-vent_position_x = 85.0
+vent_position_x = 96.0
 vent_position_z = 32.5
 #
 # -------------------------------------------------------
@@ -363,7 +363,7 @@ vent_position_z = 32.5
 # fit question (vs. the original z=0 position where the cavity was
 # only 24 mm wide and a tight float fit mattered more).
 #
-ROD_POSITION_X = 88.0          # |x| of the rod centerline; mirrors with `side`
+ROD_POSITION_X = 100.0         # |x| of the rod centerline; mirrors with `side`
 ROD_POSITION_Z = -45.0         # z of the rod centerline (does NOT mirror with side); opposite the bulkhead's +Z half, in the wider part of the cavity
 ROD_DIAMETER = 3.175           # 1/8" 316 SS round rod OD; supplied as Tandefio B0CY4DWJFQ (already in bom.md for the carbonator's identical job — no new SKU)
 ROD_BORE = ROD_DIAMETER + 0.5  # 3.675 mm — printed bore diameter shared by body boss and cap register; ~0.5 mm radial clearance for slip-fit assembly accounting for PETG shrink + FDM hole undersize
