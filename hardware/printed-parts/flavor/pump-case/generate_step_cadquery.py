@@ -513,49 +513,35 @@ def build_tower():
 
 # Feature functions — lower extension
 
+def _lower_profile_set(wall_offset):
+    """Four lower-extension cross-section profiles, top to bottom of lower section.
+
+    Same wall_offset semantics as _skirt_profile_set: the wall_offset=0 set
+    is the outer surface; the wall_offset=skirt_wall set is the inner cavity.
+    """
+    narrow_he = skirt_narrow_half_extent - wall_offset
+    base_he = skirt_base_half_extent - wall_offset
+    radius = corner_r - wall_offset
+    narrow_symmetric = split_skirt_profile(
+        narrow_he, radius, narrow_he, radius,
+        0.01, -0.01,
+        wide_half_extent_z=base_he, narrow_half_extent_z=base_he,
+    )
+    top = _skirt_profile_set(wall_offset)[-1]
+    return [top, top, narrow_symmetric, narrow_symmetric]
+
+
 def build_lower_extension():
     """Lower portion extending from skirt bottom: taper to uniform, then cap."""
-    lower_ramp_height = (footprint_half_extent + skirt_wide_flare_per_side
+    lower_ramp_height = (skirt_base_half_extent + skirt_wide_flare_per_side
                          - skirt_narrow_half_extent)
     lower_uniform_straight = (lower_height - lower_ramp_height
                               - lower_footprint_straight)
-
-    inner_narrow_half_extent = skirt_narrow_half_extent - skirt_wall
-    inner_narrow_radius = corner_r - skirt_wall
-    inner_base_half_extent = footprint_half_extent - skirt_wall
-
-    lower_outer_profiles = [
-        skirt_outer_profiles[-1],
-        skirt_outer_profiles[-1],
-        split_skirt_profile(skirt_narrow_half_extent, corner_r,
-                            skirt_narrow_half_extent, corner_r,
-                            0.01, -0.01,
-                            wide_half_extent_z=footprint_half_extent,
-                            narrow_half_extent_z=footprint_half_extent),
-        split_skirt_profile(skirt_narrow_half_extent, corner_r,
-                            skirt_narrow_half_extent, corner_r,
-                            0.01, -0.01,
-                            wide_half_extent_z=footprint_half_extent,
-                            narrow_half_extent_z=footprint_half_extent),
-    ]
-
-    lower_inner_profiles = [
-        skirt_inner_profiles[-1],
-        skirt_inner_profiles[-1],
-        split_skirt_profile(inner_narrow_half_extent, inner_narrow_radius,
-                            inner_narrow_half_extent, inner_narrow_radius,
-                            0.01, -0.01,
-                            wide_half_extent_z=inner_base_half_extent,
-                            narrow_half_extent_z=inner_base_half_extent),
-        split_skirt_profile(inner_narrow_half_extent, inner_narrow_radius,
-                            inner_narrow_half_extent, inner_narrow_radius,
-                            0.01, -0.01,
-                            wide_half_extent_z=inner_base_half_extent,
-                            narrow_half_extent_z=inner_base_half_extent),
-    ]
-
     lower_y_steps = [lower_footprint_straight, lower_ramp_height,
                      lower_uniform_straight]
+
+    lower_outer_profiles = _lower_profile_set(0)
+    lower_inner_profiles = _lower_profile_set(skirt_wall)
 
     lower_outer = loft_profile_stack(skirt_bottom_offset, lower_y_steps, lower_outer_profiles)
     lower_inner = loft_profile_stack(skirt_bottom_offset, lower_y_steps, lower_inner_profiles,
