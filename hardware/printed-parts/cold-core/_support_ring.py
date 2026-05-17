@@ -39,10 +39,10 @@ def revolve_rect(r_range, y_range, angle=360):
 
 def build_tank_support_ring():
     """Built as a full revolve of a rectangular (r, y) profile around
-    the Y axis; four 30°-wide angular slots at the diagonals are cut
-    as 30° revolves of the same profile (with a radial margin), so
-    every slot boundary stays on the same cylinder as the ring faces
-    — no chord-vs-arc slivers."""
+    the Y axis; equal-spaced angular slots are cut as partial revolves
+    of the same profile (with a radial margin), so every slot boundary
+    stays on the same cylinder as the ring faces — no chord-vs-arc
+    slivers."""
     r_outer = pocket_centerward_arc_outer_radius - wall_and_floor_thickness
     r_inner = r_outer - ring_radial_width
     y_bottom = wall_and_floor_thickness
