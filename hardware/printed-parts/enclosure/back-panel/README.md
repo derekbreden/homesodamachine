@@ -43,13 +43,15 @@ Locking C13 cords (Tripp Lite P-Lock series and similar) were considered and rej
 - `../../../bom.md §11` and `../../../wiring/ac-wiring-schedule.md` — AC runs C14 inward.
 - `../nameplate/README.md` — sister rear-face artifact (separately printed plaque).
 
+## Bulkhead array arrangement
+
+The 3× PP1208E umbilical-port bulkheads are arranged in a **triangular cluster** on the rear panel — three circles tangent in the densest packing. Three 1/4" OD tubes naturally pack the same way inside the umbilical bundle (densest-three-circle triangle), so the panel-side hole pattern mirrors the bundle-side tube pattern: the user presents the bundle to the panel and each tube already sits in front of its matching bulkhead with no re-threading. An in-line row (vertical or horizontal) would require the same number of push-clicks but force a mental re-arrangement step — the user would have to peel the three tubes out of their natural triangular bundle and fan them into a line. Same physical work, more cognitive friction. The triangle also keeps the cluster compact, leaving more panel real estate around the cluster for fingertip clearance on the PTC collet release. The blue-ringed (carbonated-water) bulkhead sits at the top vertex of the triangle so it remains the visually dominant one regardless of panel orientation.
+
 ## Open items
 
-- **Bulkhead array arrangement** for the 3× PP1208E umbilical-port bulkheads: triangular cluster, in-line vertical row, or in-line horizontal row. Driven by faucet-side bundle routing through the countertop hole, panel-side fingertip clearance for the PTC collet release, and visual ordering relative to the blue-ringed bulkhead.
 - **Blue ring identification mechanism**: multi-material print on the panel itself, snap-on TPU collar, or paint touch on a printed bezel. Driven by the panel-material decision and the printer's multi-material capability.
 - **Final panel material**: PETG vs PETG-CF. The rear panel sees no thermal load but does carry threaded inserts and bulkhead clamp loads where stiffness matters; PETG-CF is the stiffer candidate at higher cost.
-- **Panel mounting** to the enclosure shell: screw pattern, heat-set insert plan, gasket-or-no-gasket. To be decided alongside the enclosure-wall design.
-- **Bulkhead-to-panel sealing**: the PP1208E ships with an EPDM O-ring on the panel-side flange; whether that O-ring is sufficient against a printed PETG/PETG-CF panel surface or whether a TPU gasket washer is added is TBD pending the first dry-fit.
+- **Panel mounting** to the enclosure shell: screw pattern, heat-set insert plan, gasket-or-no-gasket. To be decided alongside the enclosure-wall design. (Note: the panel is not a moisture or vapor barrier — the appliance is not hermetic. The PP1208E bulkheads seal the pressurized fluid path *around the tube* via their internal EPDM O-rings; the panel interface is purely mechanical capture, flange + nut sandwiching the panel through its Ø17 hole, so no panel-side bulkhead gasket is required.)
 
 ## Status
 

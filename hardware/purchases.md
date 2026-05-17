@@ -450,6 +450,7 @@ Industrial-supply orders direct from McMaster-Carr (mcmaster.com). First McMaste
 |---|---|
 | **Additional flavor-manifold solenoids** | Manifold diagram needs 12 valves (V-A through V-J plus V-K-A and V-K-B); current Beduan B07NWCQJK9 count across orders is short. Verify qty per order, then top up. |
 | **Google Pixel 10a unlocked Android phone, 128 GB Obsidian (2026 model)** | Android development handset for the soda-machine app's Android side (`android/`). [B0GHRHXVN1](https://www.amazon.com/dp/B0GHRHXVN1). |
+| **Fresh Water Systems neoFlo Blue 1/4" OD LLDPE Polyethylene Tubing (25 ft)** | For rear-panel umbilical-port carbonated-water tube identification — blue color matches the blue-ringed rear-panel bulkhead so the user can match-and-click the carbonated tube without mis-routing. Same neoFlo LLDPE family + NSF 51 + FDA compliance as the existing black LLDPE roll already on hand (FWS Order WEBFWS100673540). 25 ft / $3.75. Hold for next FWS reorder so it can ship with other planned FWS items (additional color-coded LLDPE for other install paths is a longer-term LIKELY-TO-BUY candidate). [freshwatersystems.com](https://www.freshwatersystems.com/products/blue-1-4-od-lldpe-polyethylene-tubing). |
 
 ---
 
