@@ -194,94 +194,41 @@ vent_position_x = 96.0
 vent_position_z = 32.5
 
 
-# Level-sensing rod: a vertical 3.175 mm (1/8") × 305 mm (12") 316 stainless steel
-# round rod, body-pocketed and cap-registered (NOT cap-cantilever).
-# A small magnetic float slides up and down the rod as the syrup
-# level changes; ten reed switches mounted outside the reservoir
-# pocket's far +X wall (foam-encapsulated during the body foam pour)
-# detect the float's position for level sensing. Same architecture
-# AND same SS rod SKU as the carbonator's existing reed+float level
-# sensing (see `hardware/future.md` "Level sensing" and `bom.md`
-# Tandefio B0CY4DWJFQ): rod captured at one end, registered at the
-# other — just extended to 10 reeds per reservoir for finer
-# granularity.
-#
-# Why SS rod + printed bosses instead of a printed PETG strut:
-#   - Print reliability. The previous design unioned a 4 mm × ~200
-#     mm PETG cylinder into the body; the top ~50 % consistently
-#     came out mangled (long thin un-supported axial features are
-#     not FDM-friendly). A separately-supplied SS rod side-steps
-#     the print problem entirely.
-#   - 10-year residue. The appliance is designed for ~10 years of
-#     unmaintained service. Sugary syrup builds up on FDM layer
-#     lines noticeably faster than on the smooth drawn surface of
-#     a SS rod, and the float would eventually stick. The SS rod
-#     also doesn't shed plasticizer into the syrup over a decade.
+# Level-sensing rod: a vertical 3.175 mm (1/8") × 305 mm (12") 316 SS
+# round rod, body-anchored and cap-registered. A small magnetic float
+# slides up and down the rod as the syrup level changes; ten reed
+# switches mounted outside the reservoir pocket's far +X wall (foam-
+# encapsulated during the foam pour) detect the float's position. Same
+# rod SKU as the carbonator's existing reed+float level sensing — see
+# `hardware/future.md` "Level sensing" and bom.md Tandefio B0CY4DWJFQ.
 #
 # Architecture:
-#   - The body has a STANDING CYLINDRICAL BOSS (build_reservoir_body)
-#     rising from the wet slope at (x = ±rod_position_x,
-#     z = rod_position_z). The boss is a solid PETG cylinder unioned
-#     onto the body's wet-slope surface — the slope itself stays
-#     continuous and unbroken; no hole is cut through it. A blind
-#     cylindrical bore is then cut DOWN into the boss from above,
-#     stopping body_boss_floor mm short of the boss base so a
-#     printed-solid floor remains inside the boss. The rod's bottom
-#     end drops into this bore with ~0.5 mm radial clearance for
-#     slip-fit assembly and bottoms out on the printed floor inside
-#     the boss. Rod engagement is body_boss_height − body_boss_floor
-#     ≈ 8 mm of solid axial location, plus the OD shoulder of the
-#     boss preventing radial drift at the rod's bottom end.
-#   - The rod's top is captured by a slip-fit REGISTER BOSS
-#     hanging down from the cap's underside — a hollow boss
-#     unioned to the cap body, extending below the cap's base
-#     plate, with a downward-opening blind ø3.7 hole around the
-#     ø3.175 rod top (~0.5 mm radial clearance). See
-#     build_reservoir_cap for the boss + pocket geometry.
-#   - During assembly the rod is dropped into the body boss first;
-#     then the cap is lowered onto the body and the rod's top
-#     slides into the cap register as the cap seats on the gasket.
-#     The rod is mechanically captured at BOTH ends — that two-
-#     point capture is what makes a 1/8" × 305 mm rod structurally
-#     stiff enough to take float-loading without leaning. (A
-#     single-ended press-fit in only the body, or only the cap,
-#     would let the free tip walk and the float would bind.) The
-#     carbonator's rod is welded to its bottom plate; we don't
-#     have a plate to weld to, so a printed standing boss with a
-#     blind bore is the printed-equivalent capture.
+#   - The body has a standing solid PETG cylindrical boss rising from
+#     the wet slope at (±rod_position_x, rod_position_z). A blind bore
+#     is cut down into the boss from above, stopping body_boss_floor
+#     mm short of the boss base so the rod tip bottoms out on printed-
+#     solid PETG inside the boss. The wet slope is unbroken (no hole).
+#   - The cap has a hollow register boss hanging down from its
+#     underside, with a downward-opening blind bore around the rod's
+#     top. The rod is captured at BOTH ends — that two-point capture
+#     is what keeps a 1/8" × 305 mm rod stiff enough to take float-
+#     loading without leaning.
+#   - During assembly the rod drops into the body boss first; the cap
+#     is then lowered onto the body and the rod's top slides into the
+#     cap register as the cap seats on the gasket.
 #
-# Position: at (x = ±rod_position_x, z = rod_position_z) in the
-# reservoir coordinate frame — x sign follows `side`; z stays
-# negative for both sides (no z mirroring). Chosen to:
-#   - sit OPPOSITE the bulkhead, which occupies z = 28..64 on the
-#     +Z half of the reservoir. Placing the rod on the -Z half
-#     puts the float in the wider, uncluttered part of the cavity
-#     and removes any geometric coupling between the level-sensing
-#     hardware and the outlet-bulkhead pocket.
-#   - sit in a wider part of the cavity (~38 mm cavity width at
-#     z=-45 vs only ~24 mm at z=0), giving generous clearance for
-#     the donor donut float regardless of its precise OD/hole.
-#   - keep clear of all screw bosses (#1/#4 at z=+64, #2/#5 at
-#     z=-64, #3/#6 at z=0): rod at z=-45 is at least 19 mm from
-#     the nearest boss on the -Z side.
-#   - keep clear of the vent boss (centered at z=+32.5) and the
-#     bulkhead pocket (z=28..64): rod at z=-45 is on the opposite
-#     half of the cavity.
-#
-# rod_diameter = 3.175 mm (1/8") sits comfortably inside whatever
-# sliding clearance the donor donut provides; the wider cavity at
-# z=-45 means precise hole-to-rod tolerance is no longer a critical
-# fit question (vs. the original z=0 position where the cavity was
-# only 24 mm wide and a tight float fit mattered more).
-#
+# Position chosen to sit opposite the bulkhead (z = 28..64 on the +Z
+# half), in the wider part of the cavity (~38 mm wide at z=-45 vs
+# ~24 mm at z=0) where the donor donut float has generous clearance,
+# clear of all screw bosses and the vent boss.
 rod_position_x = 100.0         # |x| of the rod centerline; mirrors with `side`
-rod_position_z = -45.0         # z of the rod centerline (does NOT mirror with side); opposite the bulkhead's +Z half, in the wider part of the cavity
-rod_diameter = 3.175           # 1/8" 316 SS round rod OD; supplied as Tandefio B0CY4DWJFQ (already in bom.md for the carbonator's identical job — no new SKU)
-rod_bore = rod_diameter + 0.5  # 3.675 mm — printed bore diameter shared by body boss and cap register; ~0.5 mm radial clearance for slip-fit assembly accounting for PETG shrink + FDM hole undersize
-rod_boss_od = rod_bore + 4.0   # 7.675 mm — boss outer diameter (2 mm radial wall around the bore, comfortably above the 1.5–2 mm minimum for PETG to print solidly around a small bore); shared by body-side anchor boss and cap-side register boss
-rod_boss_height = 4.0          # mm; CAP-side boss extends DOWN from cap-local y=0 (cap underside) to y=-rod_boss_height. Boss bottom is 2 mm below the rod top at cap-local y=-2, giving 2 mm of axial rod-boss engagement.
-body_boss_height = 10.0        # mm; BODY-side anchor boss rises from the wet slope at (x = ±rod_position_x, z = rod_position_z). Boss top sits at slope_y + body_boss_height. Taller than the cap boss because this end ANCHORS the rod (vs the cap-side which only REGISTERS the top against tip walk); ≈3× rod_diameter, the standard rule of thumb for solid axial location of a round pin in a printed boss.
-body_boss_floor = 2.0          # mm; thickness of the printed-solid PETG floor INSIDE the body boss, between the blind bore's bottom and the wet-slope surface beneath the boss base. The bore is cut down to bore_bottom = slope_y + body_boss_floor, leaving 2 mm of solid PETG for the rod tip to bottom out on. The wet slope below the boss footprint remains completely intact — there is no hole through the slope.
+rod_position_z = -45.0         # z of the rod centerline; does NOT mirror with side
+rod_diameter = 3.175           # 1/8" 316 SS round rod OD; supplied as Tandefio B0CY4DWJFQ
+rod_bore = rod_diameter + 0.5  # 3.675 mm — printed bore shared by body boss and cap register; ~0.5 mm radial slip-fit clearance accounting for PETG shrink + FDM hole undersize
+rod_boss_od = rod_bore + 4.0   # 7.675 mm — 2 mm radial wall around the bore; shared by body-side anchor boss and cap-side register boss
+rod_boss_height = 4.0          # CAP-side boss height; boss bottom 2 mm below the rod top, 2 mm of axial rod-boss engagement
+body_boss_height = 10.0        # BODY-side anchor boss height; taller than the cap boss because this end ANCHORS the rod (≈3× rod_diameter, standard rule of thumb for solid axial location)
+body_boss_floor = 2.0          # thickness of the printed-solid PETG floor INSIDE the body boss between the blind bore's bottom and the slope surface — the rod tip bottoms out on this
 
 
 # Outlet bulkhead pocket + sloped floor.
