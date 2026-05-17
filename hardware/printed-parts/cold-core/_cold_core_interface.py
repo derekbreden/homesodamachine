@@ -104,6 +104,12 @@ class WorldWorkplane:
     def threePointArc(self, m, e):
         return self._wrap(self._wp.threePointArc(self._point(m), self._point(e)))
 
+    def pushPoints(self, points):
+        return self._wrap(self._wp.pushPoints([self._point(p) for p in points]))
+
+    def polyline(self, points):
+        return self._wrap(self._wp.polyline([self._point(p) for p in points]))
+
     def profile(self, prof):
         """Play back a WorldProfile's recorded ops on this workplane,
         applying the frame transforms."""
