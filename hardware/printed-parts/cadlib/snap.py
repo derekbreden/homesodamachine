@@ -65,33 +65,36 @@ def apply_ramp_out_first(
     The outer face grows outward to provide material for the channel.
     The channel is cut from the inner side of the wall.
     """
-    outer = coordinate_inner_wall + orientation_outward_sign * wall_thickness
-    hd = orientation_height_sign
-    hf = _height_is_first_axis(orientation_plane, orientation_height_axis)
     sign = orientation_outward_sign
+    height_dir = orientation_height_sign
+    height_first = _height_is_first_axis(orientation_plane, orientation_height_axis)
     base = coordinate_lowest_possible_snap_base_in_wall
+    outer_wall = coordinate_inner_wall + sign * wall_thickness
     zone_width = abs(coordinate_zone_end - coordinate_zone_start)
 
-    available_wall_height = (coordinate_top_of_wall - base) * hd
+    available_wall_height = (coordinate_top_of_wall - base) * height_dir
 
     bump_reach = channel_width / 2 + deflection_distance / 2
-    r = bump_reach - notch_wall_width
-    e = bump_height
-    f = available_wall_height - r - e
-    tip_h = f + 3 * r + 2 * e
-    growth_ramp_start = f - outer_growth_default
+    ramp_height = bump_reach - notch_wall_width
+    zigzag_start = available_wall_height - ramp_height - bump_height
+    tip_height = zigzag_start + 3 * ramp_height + 2 * bump_height
+    growth_ramp_start = zigzag_start - outer_growth_default
 
     bump_face = coordinate_inner_wall + sign * (channel_width - bump_reach)
     notch_face = coordinate_inner_wall + sign * (channel_width - notch_wall_width + overcut)
-    ic = coordinate_inner_wall - sign * overcut
-    oi = outer - sign * overcut
+    grown_outer = outer_wall + sign * outer_growth_default
+    inner_overcut = coordinate_inner_wall - sign * overcut
+    outer_overcut = outer_wall - sign * overcut
+
+    def pt(face, height):
+        return _pt(face, base + height_dir * height, height_first)
 
     # 1. Growth ramp on outer face — trapezoid from growth start to tip
     growth = [
-        _pt(oi, base + hd * growth_ramp_start, hf),
-        _pt(outer + sign * outer_growth_default, base + hd * f, hf),
-        _pt(outer + sign * outer_growth_default, base + hd * tip_h, hf),
-        _pt(oi, base + hd * tip_h, hf),
+        pt(outer_overcut, growth_ramp_start),
+        pt(grown_outer, zigzag_start),
+        pt(grown_outer, tip_height),
+        pt(outer_overcut, tip_height),
     ]
     solid = solid.union(
         cq.Workplane(orientation_plane).workplane(offset=coordinate_zone_start)
@@ -100,10 +103,10 @@ def apply_ramp_out_first(
 
     # 2. Extend wall beyond wall top to tip height
     extension = [
-        _pt(ic, coordinate_top_of_wall, hf),
-        _pt(ic, base + hd * tip_h, hf),
-        _pt(oi, base + hd * tip_h, hf),
-        _pt(oi, coordinate_top_of_wall, hf),
+        _pt(inner_overcut, coordinate_top_of_wall, height_first),
+        pt(inner_overcut, tip_height),
+        pt(outer_overcut, tip_height),
+        _pt(outer_overcut, coordinate_top_of_wall, height_first),
     ]
     solid = solid.union(
         cq.Workplane(orientation_plane).workplane(offset=coordinate_zone_start)
@@ -112,14 +115,14 @@ def apply_ramp_out_first(
 
     # 3. Channel cut from inner face — zigzag of bumps and notches
     channel = [
-        _pt(ic, base + hd * f, hf),
-        _pt(bump_face, base + hd * f, hf),
-        _pt(notch_face, base + hd * (f + r), hf),
-        _pt(notch_face, base + hd * (f + r + e), hf),
-        _pt(bump_face, base + hd * (f + 2 * r + e), hf),
-        _pt(bump_face, base + hd * (f + 2 * r + 2 * e), hf),
-        _pt(notch_face, base + hd * tip_h, hf),
-        _pt(ic, base + hd * tip_h, hf),
+        pt(inner_overcut, zigzag_start),
+        pt(bump_face, zigzag_start),
+        pt(notch_face, zigzag_start + ramp_height),
+        pt(notch_face, zigzag_start + ramp_height + bump_height),
+        pt(bump_face, zigzag_start + 2 * ramp_height + bump_height),
+        pt(bump_face, zigzag_start + 2 * ramp_height + 2 * bump_height),
+        pt(notch_face, tip_height),
+        pt(inner_overcut, tip_height),
     ]
     solid = solid.cut(
         cq.Workplane(orientation_plane).workplane(offset=coordinate_zone_start - overcut)
@@ -148,35 +151,40 @@ def apply_ramp_in_first(
     Bumps are on the outer side; notches are cut from the outer face.
     If bumps extend past the wall thickness, growth is added on the outer face.
     """
-    outer = coordinate_inner_wall + orientation_outward_sign * wall_thickness
-    hd = orientation_height_sign
-    hf = _height_is_first_axis(orientation_plane, orientation_height_axis)
     sign = orientation_outward_sign
+    height_dir = orientation_height_sign
+    height_first = _height_is_first_axis(orientation_plane, orientation_height_axis)
     base = coordinate_lowest_possible_snap_base_in_wall
+    outer_wall = coordinate_inner_wall + sign * wall_thickness
     zone_width = abs(coordinate_zone_end - coordinate_zone_start)
 
-    available_wall_height = (coordinate_top_of_wall - base) * hd
+    available_wall_height = (coordinate_top_of_wall - base) * height_dir
 
     bump_reach = channel_width / 2 + deflection_distance / 2
-    r = bump_reach - notch_wall_width
-    e = bump_height
+    ramp_height = bump_reach - notch_wall_width
     outer_growth = max(0.0, bump_reach - wall_thickness)
-    s = available_wall_height - 2 * r - e
-    growth_ramp_start = s + r + e + (wall_thickness - notch_wall_width) - outer_growth
-    tip_h = s + 3 * r + 2 * e
+    zigzag_start = available_wall_height - 2 * ramp_height - bump_height
+    growth_ramp_start = (zigzag_start + ramp_height + bump_height
+                        + (wall_thickness - notch_wall_width) - outer_growth)
+    tip_height = zigzag_start + 3 * ramp_height + 2 * bump_height
 
     bump_face = coordinate_inner_wall + sign * bump_reach
     notch_face = coordinate_inner_wall + sign * notch_wall_width
-    ic = coordinate_inner_wall - sign * overcut
+    grown_outer = outer_wall + sign * outer_growth
+    inner_overcut = coordinate_inner_wall - sign * overcut
+    outer_overcut = outer_wall - sign * overcut
+    outer_overcut_past_growth = outer_wall + sign * (outer_growth + overcut)
+
+    def pt(face, height):
+        return _pt(face, base + height_dir * height, height_first)
 
     # If bumps extend past wall, add growth ramp on outer face (45° trapezoid)
     if outer_growth > 0:
-        oi = outer - sign * overcut
         growth = [
-            _pt(oi, base + hd * growth_ramp_start, hf),
-            _pt(outer + sign * outer_growth, base + hd * (s + 2 * r + e), hf),
-            _pt(outer + sign * outer_growth, base + hd * tip_h, hf),
-            _pt(oi, base + hd * tip_h, hf),
+            pt(outer_overcut, growth_ramp_start),
+            pt(grown_outer, zigzag_start + 2 * ramp_height + bump_height),
+            pt(grown_outer, tip_height),
+            pt(outer_overcut, tip_height),
         ]
         solid = solid.union(
             cq.Workplane(orientation_plane).workplane(offset=coordinate_zone_start)
@@ -185,11 +193,11 @@ def apply_ramp_in_first(
 
     # 1. Extend wall beyond wall top to tip height
     extension = [
-        _pt(ic, coordinate_top_of_wall, hf),
-        _pt(ic, base + hd * tip_h, hf),
-        _pt(notch_face, base + hd * tip_h, hf),
-        _pt(bump_face, base + hd * (s + 2 * r + 2 * e), hf),
-        _pt(bump_face, coordinate_top_of_wall, hf),
+        _pt(inner_overcut, coordinate_top_of_wall, height_first),
+        pt(inner_overcut, tip_height),
+        pt(notch_face, tip_height),
+        pt(bump_face, zigzag_start + 2 * ramp_height + 2 * bump_height),
+        _pt(bump_face, coordinate_top_of_wall, height_first),
     ]
     solid = solid.union(
         cq.Workplane(orientation_plane).workplane(offset=coordinate_zone_start)
@@ -197,15 +205,14 @@ def apply_ramp_in_first(
     )
 
     # 2. Cut notches from outer face — zigzag of bumps and notches
-    oc = outer + sign * (outer_growth + overcut)
     notch_cut = [
-        _pt(oc, base + hd * s, hf),
-        _pt(notch_face, base + hd * (s + r), hf),
-        _pt(notch_face, base + hd * (s + r + e), hf),
-        _pt(bump_face, base + hd * (s + 2 * r + e), hf),
-        _pt(bump_face, base + hd * (s + 2 * r + 2 * e), hf),
-        _pt(notch_face, base + hd * tip_h, hf),
-        _pt(oc, base + hd * tip_h, hf),
+        pt(outer_overcut_past_growth, zigzag_start),
+        pt(notch_face, zigzag_start + ramp_height),
+        pt(notch_face, zigzag_start + ramp_height + bump_height),
+        pt(bump_face, zigzag_start + 2 * ramp_height + bump_height),
+        pt(bump_face, zigzag_start + 2 * ramp_height + 2 * bump_height),
+        pt(notch_face, tip_height),
+        pt(outer_overcut_past_growth, tip_height),
     ]
     solid = solid.cut(
         cq.Workplane(orientation_plane).workplane(offset=coordinate_zone_start - overcut)
