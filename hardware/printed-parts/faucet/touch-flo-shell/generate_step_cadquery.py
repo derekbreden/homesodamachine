@@ -383,23 +383,22 @@ gn_tip_straight_len = 25.0
 # Geometry: circular arc whose center is directly below the high end
 # (fill_x_min, c_z) so the tangent there is horizontal. Solving
 # distance(center, low_end) == distance(center, high_end) gives c_z.
-_new_arch_low_x = shell_center_x - shell_rect_x_half  # rect_x_min = -19
-_new_arch_low_z = zone3_z_bottom  # 39
-_new_arch_high_x = fill_x_min  # 10.46
-_new_arch_high_z = zone4_z_top  # 55
-_new_arch_dx = _new_arch_high_x - _new_arch_low_x  # 29.46
-_new_arch_c_z = (
-    (_new_arch_high_z + _new_arch_low_z) / 2.0
-    - _new_arch_dx**2 / (2.0 * (_new_arch_high_z - _new_arch_low_z))
+_back_arch_low_x = shell_center_x - shell_rect_x_half  # rect_x_min = -19
+_back_arch_high_x = fill_x_min  # 10.46
+_back_arch_high_z = zone4_z_top  # 55
+_back_arch_dx = _back_arch_high_x - _back_arch_low_x  # 29.46
+back_arch_center_z = (
+    (_back_arch_high_z + zone3_z_bottom) / 2.0
+    - _back_arch_dx**2 / (2.0 * (_back_arch_high_z - zone3_z_bottom))
 )  # ≈ 19.88
-_new_arch_r = _new_arch_high_z - _new_arch_c_z  # ≈ 35.12
+back_arch_r = _back_arch_high_z - back_arch_center_z  # ≈ 35.12
 # Midpoint of the arc — angular midway between high end (90° from
 # center, directly above) and low end.
-_new_arch_a_low = math.atan2(_new_arch_low_z - _new_arch_c_z,
-                              _new_arch_low_x - _new_arch_high_x)
-_new_arch_a_mid = (math.pi / 2.0 + _new_arch_a_low) / 2.0
-new_arch_mid_x = _new_arch_high_x + _new_arch_r * math.cos(_new_arch_a_mid)  # ≈ -6.28
-new_arch_mid_z = _new_arch_c_z + _new_arch_r * math.sin(_new_arch_a_mid)  # ≈ 50.75
+_back_arch_a_low = math.atan2(zone3_z_bottom - back_arch_center_z,
+                              _back_arch_low_x - _back_arch_high_x)
+_back_arch_a_mid = (math.pi / 2.0 + _back_arch_a_low) / 2.0
+back_arch_mid_x = _back_arch_high_x + back_arch_r * math.cos(_back_arch_a_mid)  # ≈ -6.28
+back_arch_mid_z = back_arch_center_z + back_arch_r * math.sin(_back_arch_a_mid)  # ≈ 50.75
 
 
 # ZONE 4.5 — block above the lever, up to the gooseneck bend start
@@ -458,20 +457,20 @@ zone45_front_x = _z5_x_min - _zone45_x_margin  # ≈ -1.9125
 # curve down to ≈ Z=52.75.
 zone45_z_top = zone4_z_top + 3.0  # 60.5
 zone45_bot_z_at_front = (
-    _new_arch_c_z
-    + math.sqrt(_new_arch_r ** 2 - (zone45_front_x - fill_x_min) ** 2)
+    back_arch_center_z
+    + math.sqrt(back_arch_r ** 2 - (zone45_front_x - fill_x_min) ** 2)
 )  # ≈ 52.75
 
 # Mid-point of the bottom arch sub-arc, between zone45_front_x end
 # and fill_x_min end.
 _a_front = math.atan2(
-    zone45_bot_z_at_front - _new_arch_c_z,
+    zone45_bot_z_at_front - back_arch_center_z,
     zone45_front_x - fill_x_min,
 )
 _a_high = math.pi / 2.0  # fill_x_min end is directly above arch center
 _a_mid45 = (_a_front + _a_high) / 2.0
-zone45_bot_mid_x = fill_x_min + _new_arch_r * math.cos(_a_mid45)
-zone45_bot_mid_z = _new_arch_c_z + _new_arch_r * math.sin(_a_mid45)
+zone45_bot_mid_x = fill_x_min + back_arch_r * math.cos(_a_mid45)
+zone45_bot_mid_z = back_arch_center_z + back_arch_r * math.sin(_a_mid45)
 
 
 # HEAT-SET INSERT POCKETS — mounting-plate retention
@@ -788,8 +787,9 @@ def build_zone2_inner_cut() -> cq.Workplane:
 
 def _arch_extrude(y_bottom: float, y_height: float) -> cq.Workplane:
     """The outer arch profile in XZ — flat bottom at zone3_z_bottom, flat
-    top at zone4_z_top from +X back to fill_x_min, then the new_arch arc
-    down-left to rect_x_min — extruded across [y_bottom, y_bottom + y_height].
+    top at zone4_z_top from +X back to fill_x_min, then the back-arch
+    curve down-left to rect_x_min — extruded across
+    [y_bottom, y_bottom + y_height].
 
     Shared by the zone-3 wings (extruded across each wing's Y thickness)
     and the zone-3 plateau fill (extruded across the central Y range).
@@ -803,7 +803,7 @@ def _arch_extrude(y_bottom: float, y_height: float) -> cq.Workplane:
         .lineTo(rect_x_max, zone3_z_bottom)
         .lineTo(rect_x_max, zone4_z_top)
         .lineTo(fill_x_min, zone4_z_top)
-        .threePointArc((new_arch_mid_x, new_arch_mid_z),
+        .threePointArc((back_arch_mid_x, back_arch_mid_z),
                        (rect_x_min, zone3_z_bottom))
         .close()
         .extrude(y_height)
