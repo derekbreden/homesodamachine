@@ -414,7 +414,6 @@ floor_baseline_y = port_position_y + bulkhead_pocket_diameter / 2 + dry_ceiling_
 # wet chamber's open ceiling), the win is purely volume.
 slope_low_y = port_position_y  # 18 — slope's lowest line at z = bulkhead_wet_end_z
 
-port_inlet_bottom_y = port_position_y - port_tube_diameter / 2  # 14.75 — bottom edge of the wet-collet port
 floor_slope_rise = 6.0  # mm above floor_baseline_y at the far −Z wall
 
 
@@ -875,22 +874,16 @@ def build_reservoir_body(side=1):
     body = body.cut(wet_exit_tube)
 
     # Nut cavity: third wet section. The bulkhead "nut" is a single
-    # stepped washer+hex piece — hex portion at the deeper (−Z) end
-    # gripped by a flat-top hex pocket (⌀19.8 flat-to-flat +
-    # clearance) against rotation, washer portion at the panel (+Z)
-    # end cleared by a round counterbore (⌀22.1 + clearance) so the
-    # washer can seat against the panel's −Z face through a TPU seal.
-    # Install sequence: drop the nut in from above (ceiling boxes
-    # open the cavity from above), gravity seats it, hex flats
-    # prevent rotation. Then thread the bulkhead in from the dry
-    # side; thread engagement locks the nut axially.
-    #
-    # Anchored in Y to `nut_position_y` (the floor's low point), 1 mm
-    # BELOW the bulkhead axis at `port_position_y`. The nut is the
-    # deepest feature in this area, and anchoring it at the floor
-    # preserves the full 4 mm of PETG fluid barrier below. The
-    # bulkhead's ⌀~13 threaded section engages the nut at the 1 mm
-    # offset, comfortably within the ⌀17 panel hole's clearance.
+    # stepped washer+hex piece — hex portion at the −Z end gripped by
+    # a flat-top hex pocket (⌀19.8 flat-to-flat + clearance) against
+    # rotation, washer portion at the panel (+Z) end cleared by a
+    # round counterbore (⌀22.1 + clearance). Install sequence: drop
+    # the nut in from above (ceiling boxes open the cavity), gravity
+    # seats it, hex flats prevent rotation. Then thread the bulkhead
+    # in from the dry side; thread engagement locks the nut axially.
+    # Anchored in Y to nut_position_y (the floor's low point) so the
+    # washer counterbore sits on top of the 4 mm reservoir floor,
+    # preserving the full PETG fluid barrier below.
     nut_hex_z_min    = bulkhead_flange_z_start
     nut_hex_z_max    = nut_hex_z_min + bulkhead_nut_hex_depth
     nut_washer_z_max = bulkhead_panel_z_min
@@ -1228,25 +1221,16 @@ def build_reservoir_cap(side=1):
 
 
 def build_reservoir_gasket(side=1):
-    """
-    Flat TPU 90A gasket between the reservoir body wall top and the
-    cap base plate bottom. 2 mm thick, exported in its own coordinate
-    space (y = 0 .. 2). To visualize the assembled stack, translate
-    up by the reservoir wall top y = 211.9 mm.
-
-    Same `[`-shape outer footprint as the body and cap (with the
-    outer-corner fillet at the curve × ±Z corners). Inner edge of
-    the perimeter ring is `gasket_strip_width` inward of the outer
-    edge — 5 mm-wide ring covers the 4 mm-thick body wall fully plus
-    1 mm extending inward over the cavity opening.
-
-    At each of the six insert positions, an ø8 pad extends inward
+    """Flat TPU 90A gasket between the reservoir body wall top and the
+    cap base plate bottom. Same `[`-shape outer footprint as the body
+    and cap (with outer-corner fillets). The perimeter ring is
+    gasket_strip_width inward of the outer edge — covers the 4 mm body
+    wall fully plus 1 mm extending inward over the cavity opening.
+    Each of the six insert positions has an ø8 pad extending inward
     beyond the ring so the screw clamp compresses a uniform disk of
-    TPU (matching the body boss footprint), with an ø3.5 hole through
-    its center for the screw shaft.
-
-    side=+1 builds the +X gasket; side=−1 builds the −X (mirror).
-    """
+    TPU (matching the body boss footprint), with an ø3.5 clearance
+    hole through its center. side=+1 builds the +X gasket; side=−1
+    builds the −X (mirror)."""
     outer = _build_envelope(side, 0.0, gasket_thickness)
     inner = _build_envelope(side, 0.0, gasket_thickness, wall_offset=gasket_strip_width)
     gasket = outer.cut(inner)
@@ -1314,15 +1298,9 @@ def build_reservoir_bulkhead_seal():
 
 
 def main():
-    # Left/right convention. The machine's front face is +Z — water
-    # outlet, bulkhead ports, and the dispense faucet all live on the
-    # +Z side. Looking AT the machine from the front (viewer at +Z
-    # looking in the −Z direction, +Y up), the cross product x̂ × ŷ = ẑ
-    # points back toward the viewer, which puts +X on the viewer's
-    # RIGHT and −X on the viewer's LEFT.
-    #
-    #   side = +1  →  +X reservoir  →  user's RIGHT  →  "*-right.step"
-    #   side = −1  →  −X reservoir  →  user's LEFT   →  "*-left.step"
+    # Left/right convention: the machine's front face is +Z, and from
+    # the front +X is the viewer's RIGHT. So side=+1 → +X reservoir →
+    # "*-right.step"; side=-1 → -X reservoir → "*-left.step".
     #
     # Body and cap genuinely differ between sides — they're NOT
     # z-symmetric. The bulkhead pocket housing lives on +Z (front) for
