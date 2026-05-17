@@ -339,12 +339,14 @@ skirt_narrow_straight_height = (
     - (skirt_narrow_taper_per_side - skirt_wide_flare_per_side)
 )
 
-# Transition Z coordinates keep the seam wall in the vertical plane
-# X + Z = -skirt_base_half_extent at every Y level.
-skirt_tz_symmetric = (0.01, -0.01)
-skirt_tz_mid = (skirt_wide_flare_per_side, -skirt_wide_flare_per_side)
-skirt_tz_end = (skirt_wide_flare_per_side, -skirt_narrow_taper_per_side)
-skirt_transition_z_end_plus = skirt_tz_end[0]
+# Transition Z coordinates (the +/- Z endpoints of the diagonal seam wall
+# at each profile's Y level). They keep the seam wall in the vertical
+# plane X + Z = -skirt_base_half_extent at every Y as the +Z half flares
+# and the -Z half tapers at different rates.
+skirt_transition_z_symmetric = (0.01, -0.01)
+skirt_transition_z_mid = (skirt_wide_flare_per_side, -skirt_wide_flare_per_side)
+skirt_transition_z_end = (skirt_wide_flare_per_side, -skirt_narrow_taper_per_side)
+skirt_transition_z_end_plus = skirt_transition_z_end[0]
 
 skirt_y_steps = [
     skirt_upper_height,
@@ -382,11 +384,11 @@ def _skirt_profile_set(wall_offset):
     mid_narrow_he = skirt_mid_narrow_half_extent - wall_offset
     radius = corner_r - wall_offset
 
-    tz_symmetric_plus, tz_symmetric_minus = skirt_tz_symmetric
-    tz_mid_plus = skirt_tz_mid[0] + seam_z_shift
-    tz_mid_minus = skirt_tz_mid[1] + seam_z_shift
-    tz_end_plus = skirt_tz_end[0] + seam_z_shift
-    tz_end_minus = skirt_tz_end[1] + seam_z_shift
+    tz_symmetric_plus, tz_symmetric_minus = skirt_transition_z_symmetric
+    tz_mid_plus = skirt_transition_z_mid[0] + seam_z_shift
+    tz_mid_minus = skirt_transition_z_mid[1] + seam_z_shift
+    tz_end_plus = skirt_transition_z_end[0] + seam_z_shift
+    tz_end_minus = skirt_transition_z_end[1] + seam_z_shift
 
     symmetric = split_skirt_profile(
         base_he, radius, base_he, radius,
