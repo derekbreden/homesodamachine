@@ -318,128 +318,88 @@ bore_wall_profile_at_cylinder = [
 ]
 
 
-# Skirt profiles (shared by skirt, lower extension, split, and snap fits)
+# Skirt profiles (shared by skirt, lower extension, split, and snap fits).
+#
+# The skirt splits asymmetrically: +Z half flares outward (70→76), -Z half
+# tapers inward (70→62). Both flares are at 45 degrees. The transition wall
+# stays in a fixed vertical plane by tracking each endpoint's Z independently.
+# The same profile set is used by the outer skirt surface and (shrunk by
+# skirt_wall) by the inner cavity.
 
-def compute_skirt_profiles():
-    """Compute the outer and inner profiles at each Y-level of the skirt.
+skirt_base_half_extent = footprint_half_extent
+skirt_wide_half_extent = skirt_base_half_extent + skirt_wide_flare_per_side
+skirt_narrow_half_extent = skirt_base_half_extent - skirt_narrow_taper_per_side
+# At the moment the wide flare completes (3mm), the narrow side
+# has only tapered by 3 of its 4mm.
+skirt_mid_narrow_half_extent = skirt_base_half_extent - skirt_wide_flare_per_side
 
-    The skirt splits asymmetrically: +Z half flares outward (70→76),
-    -Z half tapers inward (70→62). Both are at 45 degrees. The transition
-    wall stays in a fixed vertical plane by tracking each endpoint's Z
-    independently.
+# Narrow straight section is shorter so both halves land together.
+skirt_narrow_straight_height = (
+    skirt_wide_straight_height
+    - (skirt_narrow_taper_per_side - skirt_wide_flare_per_side)
+)
 
-    Returns (outer_profiles, inner_profiles, y_steps).
-    """
-    base_half_extent = footprint_half_extent
-    base_radius = corner_r
-    wall = skirt_wall
+# Transition Z coordinates keep the seam wall in the vertical plane
+# X + Z = -skirt_base_half_extent at every Y level.
+skirt_tz_symmetric = (0.01, -0.01)
+skirt_tz_mid = (skirt_wide_flare_per_side, -skirt_wide_flare_per_side)
+skirt_tz_end = (skirt_wide_flare_per_side, -skirt_narrow_taper_per_side)
+skirt_transition_z_end_plus = skirt_tz_end[0]
 
-    wide_half_extent = base_half_extent + skirt_wide_flare_per_side
-    narrow_half_extent = base_half_extent - skirt_narrow_taper_per_side
-
-    # At the moment the wide flare completes (3mm), the narrow side
-    # has only tapered by 3 of its 4mm
-    mid_narrow_half_extent = base_half_extent - skirt_wide_flare_per_side
-
-    # Narrow straight section is shorter so both halves land together
-    narrow_straight_height = (
-        skirt_wide_straight_height
-        - (skirt_narrow_taper_per_side - skirt_wide_flare_per_side)
-    )
-
-    # Transition Z coordinates keep the seam wall in the vertical plane
-    # X + Z = -base_half_extent at every Y level
-    tz_symmetric_plus = 0.01
-    tz_symmetric_minus = -0.01
-    tz_mid_plus = skirt_wide_flare_per_side
-    tz_mid_minus = -skirt_wide_flare_per_side
-    tz_end_plus = skirt_wide_flare_per_side
-    tz_end_minus = -skirt_narrow_taper_per_side
-
-    outer_profiles = [
-        split_skirt_profile(base_half_extent, base_radius,
-                            base_half_extent, base_radius,
-                            tz_symmetric_plus, tz_symmetric_minus),
-        split_skirt_profile(base_half_extent, base_radius,
-                            base_half_extent, base_radius,
-                            tz_symmetric_plus, tz_symmetric_minus),
-        split_skirt_profile(wide_half_extent, base_radius,
-                            mid_narrow_half_extent, base_radius,
-                            tz_mid_plus, tz_mid_minus,
-                            wide_half_extent_z=base_half_extent,
-                            narrow_half_extent_z=base_half_extent),
-        split_skirt_profile(wide_half_extent, base_radius,
-                            narrow_half_extent, base_radius,
-                            tz_end_plus, tz_end_minus,
-                            wide_half_extent_z=base_half_extent,
-                            narrow_half_extent_z=base_half_extent),
-        split_skirt_profile(wide_half_extent, base_radius,
-                            narrow_half_extent, base_radius,
-                            tz_end_plus, tz_end_minus,
-                            wide_half_extent_z=base_half_extent,
-                            narrow_half_extent_z=base_half_extent),
-    ]
-
-    # Inner profiles: wall thickness inward from each half-extent and radius.
-    # The seam diagonal is at 45 deg, so a wall-thickness X-offset only gives
-    # wall/sqrt(2) perpendicular thickness. Shift inner transition Z values
-    # so the inner seam plane is a full wall-thickness perpendicular from outer.
-    inner_base_half_extent = base_half_extent - wall
-    inner_base_radius = base_radius - wall
-    inner_wide_half_extent = wide_half_extent - wall
-    inner_wide_radius = base_radius - wall
-    inner_narrow_half_extent = narrow_half_extent - wall
-    inner_narrow_radius = base_radius - wall
-    inner_mid_narrow_half_extent = mid_narrow_half_extent - wall
-    inner_mid_narrow_radius = base_radius - wall
-
-    seam_z_shift = wall * (math.sqrt(2) - 1)
-    itz_symmetric_plus = tz_symmetric_plus
-    itz_symmetric_minus = tz_symmetric_minus
-    itz_mid_plus = tz_mid_plus + seam_z_shift
-    itz_mid_minus = tz_mid_minus + seam_z_shift
-    itz_end_plus = tz_end_plus + seam_z_shift
-    itz_end_minus = tz_end_minus + seam_z_shift
-
-    inner_profiles = [
-        split_skirt_profile(inner_base_half_extent, inner_base_radius,
-                            inner_base_half_extent, inner_base_radius,
-                            itz_symmetric_plus, itz_symmetric_minus),
-        split_skirt_profile(inner_base_half_extent, inner_base_radius,
-                            inner_base_half_extent, inner_base_radius,
-                            itz_symmetric_plus, itz_symmetric_minus),
-        split_skirt_profile(inner_wide_half_extent, inner_wide_radius,
-                            inner_mid_narrow_half_extent, inner_mid_narrow_radius,
-                            itz_mid_plus, itz_mid_minus,
-                            wide_half_extent_z=inner_base_half_extent,
-                            narrow_half_extent_z=inner_base_half_extent),
-        split_skirt_profile(inner_wide_half_extent, inner_wide_radius,
-                            inner_narrow_half_extent, inner_narrow_radius,
-                            itz_end_plus, itz_end_minus,
-                            wide_half_extent_z=inner_base_half_extent,
-                            narrow_half_extent_z=inner_base_half_extent),
-        split_skirt_profile(inner_wide_half_extent, inner_wide_radius,
-                            inner_narrow_half_extent, inner_narrow_radius,
-                            itz_end_plus, itz_end_minus,
-                            wide_half_extent_z=inner_base_half_extent,
-                            narrow_half_extent_z=inner_base_half_extent),
-    ]
-
-    y_steps = [
-        skirt_upper_height,
-        skirt_wide_flare_per_side,
-        skirt_narrow_taper_per_side - skirt_wide_flare_per_side,
-        narrow_straight_height,
-    ]
-
-    return outer_profiles, inner_profiles, y_steps, narrow_half_extent, tz_end_plus
-
-
-(skirt_outer_profiles, skirt_inner_profiles, skirt_y_steps,
- skirt_narrow_half_extent, skirt_transition_z_end_plus) = compute_skirt_profiles()
-
+skirt_y_steps = [
+    skirt_upper_height,
+    skirt_wide_flare_per_side,
+    skirt_narrow_taper_per_side - skirt_wide_flare_per_side,
+    skirt_narrow_straight_height,
+]
 skirt_bottom_offset = sum(skirt_y_steps)
 skirt_bottom_y = -skirt_bottom_offset
+
+
+def _skirt_profile_set(wall_offset):
+    """Five skirt cross-section profiles, top-of-skirt to bottom-of-skirt.
+
+    wall_offset shrinks each half-extent and radius by that amount and
+    shifts each transition Z so the resulting seam plane stays a full
+    wall_offset perpendicular distance inward from the wall_offset=0 set
+    (the seam runs at 45 degrees in the XZ plane).
+    """
+    # The seam diagonal is at 45 deg, so a wall-thickness X-offset only gives
+    # wall/sqrt(2) perpendicular thickness. Shift transition Z values so the
+    # inner seam plane is a full wall-thickness perpendicular from outer.
+    seam_z_shift = wall_offset * (math.sqrt(2) - 1)
+
+    base_he = skirt_base_half_extent - wall_offset
+    wide_he = skirt_wide_half_extent - wall_offset
+    narrow_he = skirt_narrow_half_extent - wall_offset
+    mid_narrow_he = skirt_mid_narrow_half_extent - wall_offset
+    radius = corner_r - wall_offset
+
+    tz_symmetric_plus, tz_symmetric_minus = skirt_tz_symmetric
+    tz_mid_plus = skirt_tz_mid[0] + seam_z_shift
+    tz_mid_minus = skirt_tz_mid[1] + seam_z_shift
+    tz_end_plus = skirt_tz_end[0] + seam_z_shift
+    tz_end_minus = skirt_tz_end[1] + seam_z_shift
+
+    symmetric = split_skirt_profile(
+        base_he, radius, base_he, radius,
+        tz_symmetric_plus, tz_symmetric_minus,
+    )
+    mid = split_skirt_profile(
+        wide_he, radius, mid_narrow_he, radius,
+        tz_mid_plus, tz_mid_minus,
+        wide_half_extent_z=base_he, narrow_half_extent_z=base_he,
+    )
+    end = split_skirt_profile(
+        wide_he, radius, narrow_he, radius,
+        tz_end_plus, tz_end_minus,
+        wide_half_extent_z=base_he, narrow_half_extent_z=base_he,
+    )
+    return [symmetric, symmetric, mid, end, end]
+
+
+skirt_outer_profiles = _skirt_profile_set(0)
+skirt_inner_profiles = _skirt_profile_set(skirt_wall)
 
 
 # Feature functions — base plate and bore
