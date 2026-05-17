@@ -50,10 +50,6 @@ def _wp_at(x, y, z):
     )
 
 
-# -------------------------------------------------------
-# Reservoir geometry
-# -------------------------------------------------------
-#
 # The body is an OPEN-TOP `[` cup: floor + four walls (far, +Z, −Z,
 # centerward concave-curve) of uniform 4 mm PETG. The top is closed by
 # a separately-printed cap clamped down through a TPU gasket with six
@@ -65,63 +61,39 @@ def _wp_at(x, y, z):
 # horizontal span at 4 mm thickness with no internal supports — hence
 # the open-top + separate-cap split.
 #
-# Imported from the shared geometry module so the foam shell's
-# bulkhead-pass-through hole and the reservoir's bulkhead pocket
-# cannot drift apart on future wall-thickness changes. Wall and
-# floor of the reservoir are the same 4 mm — `reservoir_floor_thickness`
-# on the shell side names the dimension the foam-shell cares about
-# (the PETG layer it leaves clearance above); reused locally for
-# every wall in the reservoir body.
+# `reservoir_floor_thickness` on the shell side names the dimension the
+# foam-shell cares about (the PETG layer it leaves clearance above);
+# reused locally for every wall in the reservoir body.
 reservoir_wall_thickness = _shell_reservoir_floor_thickness
-#
+
 # Clearance between reservoir outer surfaces and bag-pocket inner
 # faces on every face. Slack for sliding the printed reservoir into
 # the cavity from above + FDM tolerance on both prints.
 reservoir_clearance = _shell_reservoir_clearance
-#
-# -------------------------------------------------------
 
 
-# -------------------------------------------------------
-# Sharp-corner fillets (where the centerward curve meets the ±Z walls)
-# -------------------------------------------------------
-#
+# Sharp-corner fillets where the centerward curve meets the ±Z walls.
 # At z = ±70 mm the outer centerward curve (radius 72 mm) meets the
-# outer ±Z walls. Interior angle of the body's exterior at that point
-# is only ~13° — a pointy tab that's structurally useless, won't FDM
-# cleanly, and looks like a defect. Filleted off externally.
-#
-# At z = ±66 mm the inner centerward curve (radius 76 mm) meets the
-# inner ±Z walls (cavity boundary). Interior angle of the cavity at
-# that point is ~30° — a sharp corner inside the syrup volume that
-# would trap residual liquid through clean cycles and concentrate
-# stress in the wall. Filleted off internally.
-#
-# Same fillet radius on both for visual consistency. 6 mm is chosen
-# to match body_boss_radius so the corner bosses (positions 4/5,
-# centered on the outer fillet) fit fully inside the post-fillet
-# wall material — see body_boss_radius below.
-#
+# outer ±Z walls — ~13° interior angle, a pointy tab that's structurally
+# useless and won't FDM cleanly. At z = ±66 mm the inner centerward curve
+# meets the inner ±Z walls inside the syrup volume — ~30° interior angle
+# that would trap residual liquid. Same radius on both for visual
+# consistency. 6 mm is chosen to match body_boss_radius so the corner
+# bosses (positions 4/5, centered on the outer fillet) fit fully inside
+# the post-fillet wall material — see body_boss_radius below.
 outer_corner_fillet_radius = 6.0
 inner_corner_fillet_radius = 6.0
-#
-# -------------------------------------------------------
 
 
-# -------------------------------------------------------
-# Cap geometry
-# -------------------------------------------------------
-#
-# Base plate (top, the flat surface) + perimeter wall (bottom, the
-# "lip" hanging down around the gasket joint). The base plate hosts
-# the counterbored screw heads on its flat top face; the perimeter
-# wall provides depth for the screw shaft to pass through to the
-# gasket + body insert below.
-#
-cap_base_thickness = 4.0                # = reservoir_wall_thickness; the cap's flat top is a fluid barrier (only the perimeter is gasket-sealed; the cavity interior reaches the cap base plate directly), so it carries the same 4 mm minimum as the body walls
+# Cap geometry. Base plate (top, the flat surface) + perimeter wall
+# (bottom, the "lip" hanging down around the gasket joint). The base
+# plate hosts the counterbored screw heads on its flat top face; the
+# perimeter wall provides depth for the screw shaft to pass through to
+# the gasket + body insert below.
+cap_base_thickness = 4.0  # = reservoir_wall_thickness; the cap's flat top is a fluid barrier (only the perimeter is gasket-sealed; the cavity interior reaches the cap base plate directly), so it carries the same 4 mm minimum as the body walls
 cap_wall_height = 5.0
 cap_wall_width = 6.0
-#
+
 # Screw recess geometry. M3 SHCS head OD ~5.5 mm; ø6 counterbore is
 # the standard fit. Counterbore depth tracks cap_base_thickness so
 # the counterbore recesses the screw head through the full base
@@ -133,69 +105,42 @@ cap_wall_width = 6.0
 cap_counterbore_diameter = 6.0
 cap_counterbore_depth = cap_base_thickness
 cap_clearance_hole_diameter = 3.5
-#
-# -------------------------------------------------------
 
 
-# -------------------------------------------------------
-# Gasket
-# -------------------------------------------------------
-#
-# TPU 90A flat gasket that sits between the body wall top and the
-# cap base plate bottom, compressed by the six M3 × 12 screws. Same
-# material spec as the foam-shell cap gasket; printed flat at
-# 2 mm thick.
-#
-# Geometry pattern, mirroring foam-cap-gasket:
-#   - 5 mm-wide perimeter ring matching the body wall outer
-#     footprint. The 4 mm-thick body wall is fully covered, plus
-#     1 mm of the ring extends inward over the cavity opening for
-#     print stability (a 4 mm-wide TPU strip alone is narrow enough
-#     to warp during a TPU print).
-#   - ø12 circular pads at each insert position. The pads extend
-#     inward beyond the perimeter ring to give the screw clamp a
-#     uniform compressed disk the same size as the body boss above
-#     (and 0.25 mm wider than the cap boss below at ø11.5) — so each
-#     screw seats squarely on TPU and the seal is uniform around every
-#     hole rather than being a thin ring through the wall section and
-#     a wide disk through the cavity-side pad.
-#   - ø3.5 clearance holes through each pad for the screw shaft.
-#
+# TPU 90A flat gasket between the body wall top and the cap base plate
+# bottom, compressed by the six M3 × 12 screws. 5 mm-wide perimeter ring
+# (covers the 4 mm body wall plus 1 mm extending inward over the cavity
+# opening, since a 4 mm TPU strip alone warps during print); ø12 circular
+# pads at each insert position give the screw clamp a uniform compressed
+# disk; ø3.5 clearance holes through each pad.
 gasket_thickness = 2.0
 gasket_strip_width = 5.0
 gasket_pad_radius = 6.0  # ø12, matches body boss (insert_pocket_radius + 4); the gasket pad provides full compression contact under each cap boss / body boss face
-#
-# -------------------------------------------------------
 
 
-# -------------------------------------------------------
-# Vent feature
-# -------------------------------------------------------
-#
-# A hydrophobic PTFE membrane filter sits in a cylindrical pocket at
-# the top of the cap, held down by a press-fit TPU 90A retaining
-# ring. Air vents through a small hole below the filter into a
-# cylindrical shell that hangs into the reservoir. The cylinder has
-# a closed floor at the bottom (in use) and four slots in its walls,
-# so syrup that splashes upward hits the closed floor or the cylinder
-# walls and has to take a 90°-turn path through a slot before it
-# could reach the membrane above.
+# Vent feature: a hydrophobic PTFE membrane filter sits in a cylindrical
+# pocket at the top of the cap, held down by a press-fit TPU 90A
+# retaining ring. Air vents through a small hole below the filter into a
+# cylindrical shell that hangs into the reservoir. The cylinder has a
+# closed floor at the bottom (in use) and four slots in its walls, so
+# splash-up syrup hits the closed floor or the cylinder walls and has to
+# take a 90°-turn path through a slot before it could reach the membrane
+# above.
 #
 # Filter: LVDALAB ø13 PTFE-on-PET membrane (Amazon B0D41KT345)
 # Retaining ring: 2 mm-thick TPU 90A, press-fit into the cap pocket
-#
 filter_diameter = 13.0
 filter_thickness = 0.5
-#
+
 retaining_ring_thickness = 2.0
 retaining_ring_outer_diameter = 13.4  # 0.1 mm interference per side vs the ø13.2 pocket, so the TPU 90A ring compresses in for a light press-fit
 retaining_ring_inner_diameter = 9.0   # leaves most of the membrane exposed for airflow
-#
+
 # Filter pocket (cylindrical recess in the cap top) holds the
 # filter + ring stack with 0.2 mm of slip-fit clearance.
 vent_pocket_diameter = filter_diameter + 0.2                            # 13.2
 vent_pocket_depth = filter_thickness + retaining_ring_thickness         # 2.5
-#
+
 # Below the pocket, the cap material is locally thicker than the
 # standard base plate so the small vent hole has enough material
 # around it to pass through cleanly before transitioning to the
@@ -207,7 +152,7 @@ vent_boss_wall_around_pocket = 2.0
 vent_boss_outer_diameter = vent_pocket_diameter + 2 * vent_boss_wall_around_pocket  # 17.2
 _vent_boss_depth = vent_pocket_depth + vent_below_pocket_material       # 5.0
 _vent_boss_extension_below_base_plate = _vent_boss_depth - cap_base_thickness  # 1.0
-#
+
 # Cylinder shell hangs below the boss into the reservoir, with the
 # same inside diameter as the vent hole so there's no internal step
 # in the air column. The cylinder outer diameter matches the brim
@@ -220,7 +165,7 @@ vent_cylinder_wall_thickness = 2.5
 vent_cylinder_outer_diameter = vent_cylinder_inner_diameter + 2 * vent_cylinder_wall_thickness  # 10
 vent_brim_thickness = 1.0
 vent_brim_diameter = vent_cylinder_outer_diameter                       # 10 — matches cylinder outer
-#
+
 # Side slots cut through the cylinder walls — four rectangular
 # windows at 0°/90°/180°/270°. Slot height equals the cylinder wall
 # height (no margin above or below), so the wall in the slot zone is
@@ -229,9 +174,9 @@ vent_brim_diameter = vent_cylinder_outer_diameter                       # 10 —
 vent_slot_count = 4
 vent_slot_width = 3.0
 vent_slot_height = 2.0
-#
+
 vent_cylinder_length = vent_slot_height + vent_brim_thickness           # 3
-#
+
 # Vent position on the cap, in the side=+1 frame. Centered between
 # the z=0 and z=+65 rows of screw bosses (so the ø17 vent boss and
 # its counterbore-sized pocket clear every screw counterbore and
@@ -239,15 +184,9 @@ vent_cylinder_length = vent_slot_height + vent_brim_thickness           # 3
 # across x=0 for side=−1.
 vent_position_x = 96.0
 vent_position_z = 32.5
-#
-# -------------------------------------------------------
 
 
-# -------------------------------------------------------
-# Level-sensing rod (1/8" × 12" 316 stainless steel)
-# -------------------------------------------------------
-#
-# A vertical 3.175 mm (1/8") × 305 mm (12") 316 stainless steel
+# Level-sensing rod: a vertical 3.175 mm (1/8") × 305 mm (12") 316 stainless steel
 # round rod, body-pocketed and cap-registered (NOT cap-cantilever).
 # A small magnetic float slides up and down the rod as the syrup
 # level changes; ten reed switches mounted outside the reservoir
@@ -273,16 +212,16 @@ vent_position_z = 32.5
 #
 # Architecture:
 #   - The body has a STANDING CYLINDRICAL BOSS (build_reservoir_body)
-#     rising from the wet slope at (x = ±ROD_POSITION_X,
-#     z = ROD_POSITION_Z). The boss is a solid PETG cylinder unioned
+#     rising from the wet slope at (x = ±rod_position_x,
+#     z = rod_position_z). The boss is a solid PETG cylinder unioned
 #     onto the body's wet-slope surface — the slope itself stays
 #     continuous and unbroken; no hole is cut through it. A blind
 #     cylindrical bore is then cut DOWN into the boss from above,
-#     stopping BODY_BOSS_FLOOR mm short of the boss base so a
+#     stopping body_boss_floor mm short of the boss base so a
 #     printed-solid floor remains inside the boss. The rod's bottom
 #     end drops into this bore with ~0.5 mm radial clearance for
 #     slip-fit assembly and bottoms out on the printed floor inside
-#     the boss. Rod engagement is BODY_BOSS_HEIGHT − BODY_BOSS_FLOOR
+#     the boss. Rod engagement is body_boss_height − body_boss_floor
 #     ≈ 8 mm of solid axial location, plus the OD shoulder of the
 #     boss preventing radial drift at the rod's bottom end.
 #   - The rod's top is captured by a slip-fit REGISTER BOSS
@@ -303,7 +242,7 @@ vent_position_z = 32.5
 #     have a plate to weld to, so a printed standing boss with a
 #     blind bore is the printed-equivalent capture.
 #
-# Position: at (x = ±ROD_POSITION_X, z = ROD_POSITION_Z) in the
+# Position: at (x = ±rod_position_x, z = rod_position_z) in the
 # reservoir coordinate frame — x sign follows `side`; z stays
 # negative for both sides (no z mirroring). Chosen to:
 #   - sit OPPOSITE the bulkhead, which occupies z = 28..64 on the
@@ -321,28 +260,23 @@ vent_position_z = 32.5
 #     bulkhead pocket (z=28..64): rod at z=-45 is on the opposite
 #     half of the cavity.
 #
-# ROD_DIAMETER = 3.175 mm (1/8") sits comfortably inside whatever
+# rod_diameter = 3.175 mm (1/8") sits comfortably inside whatever
 # sliding clearance the donor donut provides; the wider cavity at
 # z=-45 means precise hole-to-rod tolerance is no longer a critical
 # fit question (vs. the original z=0 position where the cavity was
 # only 24 mm wide and a tight float fit mattered more).
 #
-ROD_POSITION_X = 100.0         # |x| of the rod centerline; mirrors with `side`
-ROD_POSITION_Z = -45.0         # z of the rod centerline (does NOT mirror with side); opposite the bulkhead's +Z half, in the wider part of the cavity
-ROD_DIAMETER = 3.175           # 1/8" 316 SS round rod OD; supplied as Tandefio B0CY4DWJFQ (already in bom.md for the carbonator's identical job — no new SKU)
-ROD_BORE = ROD_DIAMETER + 0.5  # 3.675 mm — printed bore diameter shared by body boss and cap register; ~0.5 mm radial clearance for slip-fit assembly accounting for PETG shrink + FDM hole undersize
-ROD_BOSS_OD = ROD_BORE + 4.0   # 7.675 mm — boss outer diameter (2 mm radial wall around the bore, comfortably above the 1.5–2 mm minimum for PETG to print solidly around a small bore); shared by body-side anchor boss and cap-side register boss
-ROD_BOSS_HEIGHT = 4.0          # mm; CAP-side boss extends DOWN from cap-local y=0 (cap underside) to y=-ROD_BOSS_HEIGHT. Boss bottom is 2 mm below the rod top at cap-local y=-2, giving 2 mm of axial rod-boss engagement.
-BODY_BOSS_HEIGHT = 10.0        # mm; BODY-side anchor boss rises from the wet slope at (x = ±ROD_POSITION_X, z = ROD_POSITION_Z). Boss top sits at slope_y + BODY_BOSS_HEIGHT. Taller than the cap boss because this end ANCHORS the rod (vs the cap-side which only REGISTERS the top against tip walk); ≈3× ROD_DIAMETER, the standard rule of thumb for solid axial location of a round pin in a printed boss.
-BODY_BOSS_FLOOR = 2.0          # mm; thickness of the printed-solid PETG floor INSIDE the body boss, between the blind bore's bottom and the wet-slope surface beneath the boss base. The bore is cut down to bore_bottom = slope_y + BODY_BOSS_FLOOR, leaving 2 mm of solid PETG for the rod tip to bottom out on. The wet slope below the boss footprint remains completely intact — there is no hole through the slope.
-#
-# -------------------------------------------------------
+rod_position_x = 100.0         # |x| of the rod centerline; mirrors with `side`
+rod_position_z = -45.0         # z of the rod centerline (does NOT mirror with side); opposite the bulkhead's +Z half, in the wider part of the cavity
+rod_diameter = 3.175           # 1/8" 316 SS round rod OD; supplied as Tandefio B0CY4DWJFQ (already in bom.md for the carbonator's identical job — no new SKU)
+rod_bore = rod_diameter + 0.5  # 3.675 mm — printed bore diameter shared by body boss and cap register; ~0.5 mm radial clearance for slip-fit assembly accounting for PETG shrink + FDM hole undersize
+rod_boss_od = rod_bore + 4.0   # 7.675 mm — boss outer diameter (2 mm radial wall around the bore, comfortably above the 1.5–2 mm minimum for PETG to print solidly around a small bore); shared by body-side anchor boss and cap-side register boss
+rod_boss_height = 4.0          # mm; CAP-side boss extends DOWN from cap-local y=0 (cap underside) to y=-rod_boss_height. Boss bottom is 2 mm below the rod top at cap-local y=-2, giving 2 mm of axial rod-boss engagement.
+body_boss_height = 10.0        # mm; BODY-side anchor boss rises from the wet slope at (x = ±rod_position_x, z = rod_position_z). Boss top sits at slope_y + body_boss_height. Taller than the cap boss because this end ANCHORS the rod (vs the cap-side which only REGISTERS the top against tip walk); ≈3× rod_diameter, the standard rule of thumb for solid axial location of a round pin in a printed boss.
+body_boss_floor = 2.0          # mm; thickness of the printed-solid PETG floor INSIDE the body boss, between the blind bore's bottom and the wet-slope surface beneath the boss base. The bore is cut down to bore_bottom = slope_y + body_boss_floor, leaving 2 mm of solid PETG for the rod tip to bottom out on. The wet slope below the boss footprint remains completely intact — there is no hole through the slope.
 
 
-# -------------------------------------------------------
-# Outlet bulkhead pocket + sloped floor
-# -------------------------------------------------------
-#
+# Outlet bulkhead pocket + sloped floor.
 # Single outlet port: a John Guest PP1208E 1/4" black push-to-
 # connect bulkhead union (Amazon B00JYFU8MM, NSF 51 + NSF 61, FDA-
 # compliant) recessed ENTIRELY inside the reservoir's floor. Only
@@ -1299,9 +1233,9 @@ def build_reservoir_body(side=1):
     # Level-sensing rod body anchor (standing boss + blind bore)
     # ─────────────────────────────────────────────────────
     # A standing cylindrical PETG boss rising from the wet slope at
-    # (x = ±ROD_POSITION_X, z = ROD_POSITION_Z), with a blind
+    # (x = ±rod_position_x, z = rod_position_z), with a blind
     # cylindrical bore cut into the boss from above. A separately-
-    # supplied 1/8" × 12" 316 SS round rod (ROD_DIAMETER = 3.175)
+    # supplied 1/8" × 12" 316 SS round rod (rod_diameter = 3.175)
     # drops bottom-first into the bore during assembly; the rod's
     # top is then captured by a register boss in the cap underside
     # (built in build_reservoir_cap). See the "Level-sensing rod"
@@ -1310,21 +1244,21 @@ def build_reservoir_body(side=1):
     #
     # The wet slope stays continuous and unbroken — the boss is
     # added ON TOP of the slope as new material, and the bore stops
-    # BODY_BOSS_FLOOR (2) mm short of the boss base so the printed
+    # body_boss_floor (2) mm short of the boss base so the printed
     # PETG floor inside the boss is what the rod tip bottoms out
     # on. No hole is cut through the wet slope, so syrup doesn't
     # see any opening into the wedge interior.
     #
     # Implementation:
-    #   1. Compute slope_y at (z = ROD_POSITION_Z) from the same
+    #   1. Compute slope_y at (z = rod_position_z) from the same
     #      slope plane the body uses, so the boss base always sits
     #      flush on the slope even if slope_rate or slope anchor
     #      change later.
-    #   2. UNION a solid cylinder of diameter ROD_BOSS_OD, base at
-    #      slope_y, height BODY_BOSS_HEIGHT — this is the boss.
-    #   3. CUT a cylinder of diameter ROD_BORE, base at
-    #      slope_y + BODY_BOSS_FLOOR, height (BODY_BOSS_HEIGHT
-    #      − BODY_BOSS_FLOOR + 0.1) — the +0.1 ensures CADQuery
+    #   2. UNION a solid cylinder of diameter rod_boss_od, base at
+    #      slope_y, height body_boss_height — this is the boss.
+    #   3. CUT a cylinder of diameter rod_bore, base at
+    #      slope_y + body_boss_floor, height (body_boss_height
+    #      − body_boss_floor + 0.1) — the +0.1 ensures CADQuery
     #      cleanly breaks through the boss top face. This carves
     #      the blind bore.
     #
@@ -1332,25 +1266,25 @@ def build_reservoir_body(side=1):
     # feature (wedge, bulkhead pocket, slab cut, fillets), so the
     # new boss geometry cannot perturb any earlier edge/face
     # selector.
-    rod_x_signed = ROD_POSITION_X * side
-    # Slope y at (z = ROD_POSITION_Z = -45): ≈ 22.8 with current
+    rod_x_signed = rod_position_x * side
+    # Slope y at (z = rod_position_z = -45): ≈ 22.8 with current
     # slope parameters. Boss base sits at this y, boss top at
     # slope_y + 10 ≈ 32.8.
-    rod_slope_y_at_z = slope_low_y + slope_rate * (bulkhead_panel_z_min - ROD_POSITION_Z)
+    rod_slope_y_at_z = slope_low_y + slope_rate * (bulkhead_panel_z_min - rod_position_z)
     body_boss_cylinder = (
-        _wp_at(rod_x_signed, rod_slope_y_at_z, ROD_POSITION_Z)
-        .circle(ROD_BOSS_OD / 2.0)
-        .extrude(BODY_BOSS_HEIGHT)
+        _wp_at(rod_x_signed, rod_slope_y_at_z, rod_position_z)
+        .circle(rod_boss_od / 2.0)
+        .extrude(body_boss_height)
     )
     body = body.union(body_boss_cylinder)
-    # Blind bore: base BODY_BOSS_FLOOR (2) mm above the slope,
+    # Blind bore: base body_boss_floor (2) mm above the slope,
     # extruded up through the top of the boss with a small
     # overshoot so the cut cleanly opens at the boss top face.
-    bore_bottom_y = rod_slope_y_at_z + BODY_BOSS_FLOOR
+    bore_bottom_y = rod_slope_y_at_z + body_boss_floor
     rod_bore_cut = (
-        _wp_at(rod_x_signed, bore_bottom_y, ROD_POSITION_Z)
-        .circle(ROD_BORE / 2.0)
-        .extrude(BODY_BOSS_HEIGHT - BODY_BOSS_FLOOR + 0.1)
+        _wp_at(rod_x_signed, bore_bottom_y, rod_position_z)
+        .circle(rod_bore / 2.0)
+        .extrude(body_boss_height - body_boss_floor + 0.1)
     )
     body = body.cut(rod_bore_cut)
 
@@ -1591,31 +1525,31 @@ def build_reservoir_cap(side=1):
     # between the body wall top and the cap's underside, so the boss
     # is free to extend below cap-local y=0.
     #
-    # Bore is sized for the 1/8" SS rod (ROD_BORE = 3.675 — 0.5 mm
+    # Bore is sized for the 1/8" SS rod (rod_bore = 3.675 — 0.5 mm
     # radial clearance around the 3.175 rod) — same slip-fit
     # clearance used by the body socket below, so the cap drops
     # straight down onto a rod already seated in the body socket
-    # without binding. Boss OD ROD_BOSS_OD gives ~2 mm radial wall
+    # without binding. Boss OD rod_boss_od gives ~2 mm radial wall
     # of PETG around the bore, comfortably above the print-strength
     # minimum.
     #
-    # Boss outer cylinder: solid PETG from cap-local y=-ROD_BOSS_HEIGHT
+    # Boss outer cylinder: solid PETG from cap-local y=-rod_boss_height
     # up to the base plate at cap-local y=cap_wall_height (=5).
     # Boss bore: extends from boss bottom up to the base plate's
     # underside, where the base plate (cap-local y=5..9) closes the
     # bore from above.
-    rod_x_signed = ROD_POSITION_X * side
+    rod_x_signed = rod_position_x * side
     boss_outer = (
-        _wp_at(rod_x_signed, -ROD_BOSS_HEIGHT, ROD_POSITION_Z)
-        .circle(ROD_BOSS_OD / 2.0)
-        .extrude(ROD_BOSS_HEIGHT + cap_wall_height)
+        _wp_at(rod_x_signed, -rod_boss_height, rod_position_z)
+        .circle(rod_boss_od / 2.0)
+        .extrude(rod_boss_height + cap_wall_height)
     )
     cap = cap.union(boss_outer)
 
     boss_bore = (
-        _wp_at(rod_x_signed, -ROD_BOSS_HEIGHT - 0.1, ROD_POSITION_Z)
-        .circle(ROD_BORE / 2.0)
-        .extrude(ROD_BOSS_HEIGHT + cap_wall_height + 0.1)
+        _wp_at(rod_x_signed, -rod_boss_height - 0.1, rod_position_z)
+        .circle(rod_bore / 2.0)
+        .extrude(rod_boss_height + cap_wall_height + 0.1)
     )
     cap = cap.cut(boss_bore)
 
