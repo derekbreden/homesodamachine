@@ -76,8 +76,13 @@ def apply_ramp_out_first(
 
     bump_reach = channel_width / 2 + deflection_distance / 2
     ramp_height = bump_reach - notch_wall_width
+
     zigzag_start = available_wall_height - ramp_height - bump_height
-    tip_height = zigzag_start + 3 * ramp_height + 2 * bump_height
+    ramp_top_1 = zigzag_start + ramp_height
+    notch_top = ramp_top_1 + bump_height
+    ramp_top_2 = notch_top + ramp_height
+    bump_top = ramp_top_2 + bump_height
+    tip_height = bump_top + ramp_height
     growth_ramp_start = zigzag_start - outer_growth_default
 
     bump_face = coordinate_inner_wall + sign * (channel_width - bump_reach)
@@ -117,10 +122,10 @@ def apply_ramp_out_first(
     channel = [
         pt(inner_overcut, zigzag_start),
         pt(bump_face, zigzag_start),
-        pt(notch_face, zigzag_start + ramp_height),
-        pt(notch_face, zigzag_start + ramp_height + bump_height),
-        pt(bump_face, zigzag_start + 2 * ramp_height + bump_height),
-        pt(bump_face, zigzag_start + 2 * ramp_height + 2 * bump_height),
+        pt(notch_face, ramp_top_1),
+        pt(notch_face, notch_top),
+        pt(bump_face, ramp_top_2),
+        pt(bump_face, bump_top),
         pt(notch_face, tip_height),
         pt(inner_overcut, tip_height),
     ]
@@ -163,10 +168,14 @@ def apply_ramp_in_first(
     bump_reach = channel_width / 2 + deflection_distance / 2
     ramp_height = bump_reach - notch_wall_width
     outer_growth = max(0.0, bump_reach - wall_thickness)
+
     zigzag_start = available_wall_height - 2 * ramp_height - bump_height
-    growth_ramp_start = (zigzag_start + ramp_height + bump_height
-                        + (wall_thickness - notch_wall_width) - outer_growth)
-    tip_height = zigzag_start + 3 * ramp_height + 2 * bump_height
+    ramp_top_1 = zigzag_start + ramp_height
+    notch_top = ramp_top_1 + bump_height
+    ramp_top_2 = notch_top + ramp_height
+    bump_top = ramp_top_2 + bump_height
+    tip_height = bump_top + ramp_height
+    growth_ramp_start = notch_top + (wall_thickness - notch_wall_width) - outer_growth
 
     bump_face = coordinate_inner_wall + sign * bump_reach
     notch_face = coordinate_inner_wall + sign * notch_wall_width
@@ -182,7 +191,7 @@ def apply_ramp_in_first(
     if outer_growth > 0:
         growth = [
             pt(outer_overcut, growth_ramp_start),
-            pt(grown_outer, zigzag_start + 2 * ramp_height + bump_height),
+            pt(grown_outer, ramp_top_2),
             pt(grown_outer, tip_height),
             pt(outer_overcut, tip_height),
         ]
@@ -196,7 +205,7 @@ def apply_ramp_in_first(
         _pt(inner_overcut, coordinate_top_of_wall, height_first),
         pt(inner_overcut, tip_height),
         pt(notch_face, tip_height),
-        pt(bump_face, zigzag_start + 2 * ramp_height + 2 * bump_height),
+        pt(bump_face, bump_top),
         _pt(bump_face, coordinate_top_of_wall, height_first),
     ]
     solid = solid.union(
@@ -207,10 +216,10 @@ def apply_ramp_in_first(
     # 2. Cut notches from outer face — zigzag of bumps and notches
     notch_cut = [
         pt(outer_overcut_past_growth, zigzag_start),
-        pt(notch_face, zigzag_start + ramp_height),
-        pt(notch_face, zigzag_start + ramp_height + bump_height),
-        pt(bump_face, zigzag_start + 2 * ramp_height + bump_height),
-        pt(bump_face, zigzag_start + 2 * ramp_height + 2 * bump_height),
+        pt(notch_face, ramp_top_1),
+        pt(notch_face, notch_top),
+        pt(bump_face, ramp_top_2),
+        pt(bump_face, bump_top),
         pt(notch_face, tip_height),
         pt(outer_overcut_past_growth, tip_height),
     ]
