@@ -225,6 +225,10 @@ reservoir_bulkhead_nut_y = (
 bulkhead_axis_lift_above_nut = 1.0
 reservoir_bulkhead_port_y = reservoir_bulkhead_nut_y + bulkhead_axis_lift_above_nut
 reservoir_bulkhead_port_x = (bag_pocket_far_inner_x + pocket_centerward_arc_outer_radius) / 2
+# Z of the bulkhead pass-through (and the cable hole that shares its z so
+# the reed cable runs straight from channel to outside). 10 mm inboard
+# of the bag-pocket +Z wall outer face.
+reservoir_bulkhead_port_z = bag_pocket_width / 2 - 10
 
 # Outer footprint shared by the outer shell, the foam cap, and the
 # foam cap lid (must be coplanar at the corners so the pin bosses
