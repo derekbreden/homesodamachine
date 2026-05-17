@@ -10,7 +10,9 @@ xy_plane_z_up = cq.Plane(origin=(0, 0, 0), xDir=(1, 0, 0), normal=(0, 0, 1))
 
 
 def flip_z(world_xz):
-    """World (x, z) → xz_plane_y_up local (x, y); local Y = −world Z."""
+    """World (x, z) → (x, -z) for xz_plane_y_up workplane calls. Its 2D
+    point args (moveTo, lineTo, polyline, radiusArc, threePointArc, ...)
+    interpret their second component as -world Z."""
     x, z = world_xz
     return (x, -z)
 
