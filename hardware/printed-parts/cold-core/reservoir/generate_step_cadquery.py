@@ -21,6 +21,7 @@ from _cold_core_interface import (
     bulkhead_pocket_diameter as _shell_bulkhead_pocket_diameter,
     reservoir_bulkhead_port_x as _shell_reservoir_bulkhead_port_x,
     reservoir_bulkhead_port_y as _shell_reservoir_bulkhead_port_y,
+    reservoir_bulkhead_nut_y as _shell_reservoir_bulkhead_nut_y,
 )
 
 # ═══════════════════════════════════════════════════════
@@ -411,7 +412,8 @@ BODY_BOSS_FLOOR = 2.0          # mm; thickness of the printed-solid PETG floor I
 # print-pause-and-insert or split-boss assembly needed.
 #
 port_position_x = _shell_reservoir_bulkhead_port_x  # derived in _foam_shell_geometry.py as the midpoint between the body's inner +X face and the inner concave-arc peak (at z=0) — i.e. centered between the two interior X walls of the cavity. The matching foam-shell pass-through hole reads the same constant, so the two cannot drift apart on future wall-thickness changes.
-port_position_y = _shell_reservoir_bulkhead_port_y  # derived in _foam_shell_geometry.py; 18.0 at the current 2 mm shell wall, placing the flange chamber's curved bottom exactly on top of the 4 mm outer floor (4 mm of PETG below the chamber as a fluid barrier). The matching foam-shell pass-through hole reads the same constant, so the two cannot drift apart on future wall-thickness changes.
+port_position_y = _shell_reservoir_bulkhead_port_y  # Y of the BULKHEAD BODY AXIS. Sits 1 mm ABOVE the nut cavity center (nut_position_y) per the bulkhead_axis_lift_above_nut in _cold_core_interface.py. Used for: bulkhead body chamber (release ring + collet body), wet exit tube, panel hole, wet/dry TPU seal counterbores, foam-shell pass-through hole, dry slab anchor, wet/dry slope anchor, rod body boss (via slope_low_y). NOT used for the nut cavity — see nut_position_y below.
+nut_position_y = _shell_reservoir_bulkhead_nut_y    # Y of the NUT CAVITY center. Anchored to the floor's low point so the washer counterbore (the deepest part of the cavity) sits on top of the 4 mm reservoir floor, preserving the full fluid barrier. Sits 1 mm BELOW port_position_y per the 2026-05-16 print test — the bulkhead axis lifts up 1 mm above the nut, while the nut stays at the floor.
 port_tube_diameter = 6.5                # 1/4" OD tube clearance
 #
 # The pocket is asymmetric across the panel. Wet side (z < panel):
@@ -1129,17 +1131,25 @@ def build_reservoir_body(side=1):
     wet_exit_tube = wet_exit_profile.sweep(wet_exit_path)
     body = body.cut(wet_exit_tube)
 
-    # Nut pocket: third wet section, stepped. A flat-top hex pocket
-    # (⌀19.8 flat-to-flat + clearance) at the deeper end grips the
-    # nut's hex portion against rotation; a round counterbore (⌀22.1
-    # + clearance) above it clears the nut's washer portion, which
-    # seats against the panel's −Z face. Install sequence: drop the
-    # nut in from above (ceiling box opens to the cavity), gravity
-    # seats it, hex flats prevent rotation. Then thread the bulkhead
-    # in from the dry side; thread engagement locks the nut axially.
-    nut_hex_z_min = bulkhead_flange_z_start
-    nut_hex_z_max = nut_hex_z_min + bulkhead_nut_hex_depth
-    nut_washer_z_min = nut_hex_z_max
+    # Nut cavity: third wet section. The bulkhead "nut" is a single
+    # stepped washer+hex piece — hex portion at the deeper (−Z) end
+    # gripped by a flat-top hex pocket (⌀19.8 flat-to-flat +
+    # clearance) against rotation, washer portion at the panel (+Z)
+    # end cleared by a round counterbore (⌀22.1 + clearance) so the
+    # washer can seat against the panel's −Z face through a TPU seal.
+    # Install sequence: drop the nut in from above (ceiling boxes
+    # open the cavity from above), gravity seats it, hex flats
+    # prevent rotation. Then thread the bulkhead in from the dry
+    # side; thread engagement locks the nut axially.
+    #
+    # Anchored in Y to `nut_position_y` (the floor's low point), 1 mm
+    # BELOW the bulkhead axis at `port_position_y`. The nut is the
+    # deepest feature in this area, and anchoring it at the floor
+    # preserves the full 4 mm of PETG fluid barrier below. The
+    # bulkhead's ⌀~13 threaded section engages the nut at the 1 mm
+    # offset, comfortably within the ⌀17 panel hole's clearance.
+    nut_hex_z_min    = bulkhead_flange_z_start
+    nut_hex_z_max    = nut_hex_z_min + bulkhead_nut_hex_depth
     nut_washer_z_max = bulkhead_panel_z_min
 
     # Flat-top hex (one flat at workplane +Y, one at workplane −Y),
@@ -1151,9 +1161,9 @@ def build_reservoir_body(side=1):
         (hex_R * math.cos(math.radians(a)), hex_R * math.sin(math.radians(a)))
         for a in (0, 60, 120, 180, 240, 300)
     ]
-    hex_pocket = (
+    nut_hex_part = (
         cq.Workplane(cq.Plane(
-            origin=(port_x_signed, port_position_y, nut_hex_z_min),
+            origin=(port_x_signed, nut_position_y, nut_hex_z_min),
             xDir=(1, 0, 0),
             normal=(0, 0, 1),
         ))
@@ -1161,23 +1171,35 @@ def build_reservoir_body(side=1):
         .close()
         .extrude(nut_hex_z_max - nut_hex_z_min)
     )
-    body = body.cut(hex_pocket)
-    body = body.cut(_z_pocket_cut(
-        nut_washer_z_min, nut_washer_z_max,
-        bulkhead_nut_washer_diameter + 2 * bulkhead_nut_clearance,
-    ))
+    nut_washer_part = (
+        cq.Workplane(cq.Plane(
+            origin=(port_x_signed, nut_position_y, nut_hex_z_max),
+            xDir=(1, 0, 0),
+            normal=(0, 0, 1),
+        ))
+        .circle((bulkhead_nut_washer_diameter + 2 * bulkhead_nut_clearance) / 2)
+        .extrude(nut_washer_z_max - nut_hex_z_max)
+    )
+    nut_cavity = nut_hex_part.union(nut_washer_part)
+    body = body.cut(nut_cavity)
+
+    # Ceiling boxes — one per nut section (hex + washer) — that open
+    # the nut cavity upward to the wet volume so the nut can be
+    # dropped in before the cap is installed. Anchored to
+    # `nut_position_y` to stay co-centered with the nut cavity (NOT
+    # the bulkhead axis, which sits 1 mm above).
     for (z_start, z_end, width) in (
         (nut_hex_z_min, nut_hex_z_max,
          bulkhead_nut_hex_corner_to_corner + 2 * bulkhead_nut_clearance),
-        (nut_washer_z_min, nut_washer_z_max,
+        (nut_hex_z_max, nut_washer_z_max,
          bulkhead_nut_washer_diameter + 2 * bulkhead_nut_clearance),
     ):
-        ceiling_box = (
-            _wp_at(port_x_signed, port_position_y, (z_start + z_end) / 2.0)
+        nut_ceiling_box = (
+            _wp_at(port_x_signed, nut_position_y, (z_start + z_end) / 2.0)
             .rect(width, z_end - z_start)
-            .extrude(ceiling_y_top - port_position_y)
+            .extrude(ceiling_y_top - nut_position_y)
         )
-        body = body.cut(ceiling_box)
+        body = body.cut(nut_ceiling_box)
 
     body = body.cut(_z_pocket_cut(
         bulkhead_panel_z_min, bulkhead_panel_z_max, bulkhead_panel_hole_diameter,
