@@ -229,6 +229,14 @@ The T18 heat-set tip kit ([B0CS662NVK](https://www.amazon.com/dp/B0CS662NVK)) an
 | [BNUOK M3 × 12 mm DIN 912 socket head cap, 12.9 alloy steel, black oxide, 120 pc](https://www.amazon.com/dp/B0DJQGVK8S) | reservoir-cap clamp screws (6 per cap × 2 caps); Amazon 112-0144900 May 10: $7.99 + $0.58 tax = $8.57 ÷ 120 = $0.0714/ea | 12 (of 120 pk) | $0.07 | $0.86 |
 | [LVDALAB PTFE Membrane Filter, ø13 mm × 0.45 µm, 100 pc, non-sterile](https://www.amazon.com/dp/B0D41KT345) | hydrophobic PTFE membrane in the reservoir-cap vent pocket; architecture + sizing in [`printed-parts/cold-core/reservoir/vent.md`](printed-parts/cold-core/reservoir/vent.md); 2 per build (1 per cap × 2 caps); Amazon 112-4393734 May 11: $12.99 − $0.65 promo + $0.89 tax = $13.23 ÷ 100 = $0.1323/ea | 2 (of 100 pk) | $0.13 | $0.26 |
 
+## 14. Install kit (per-appliance install-kit tools)
+
+Per-appliance tools that ship in the install kit so the field installer can cut the 3-tube umbilical bundle to length and push each tube into its rear-panel PTC bulkhead. Each entry is a tool the installer uses once during install and keeps with the appliance (or returns to the kit) — not consumed into the fluid path, not a fab-shop tool. Future additions expected: printed stubby wrench for the compression nut, foam knife.
+
+| Part | Notes | Qty | Unit $ | Line $ |
+|---|---|---:|---:|---:|
+| [Mudder 3 Pieces PTFE Plastic Tubing Cutter, OD up to 3/4", polyacetal body + 304 SS replaceable blade](https://www.amazon.com/dp/B08VW15TK8) | installer trims the 3-tube umbilical bundle to length at field install before pushing tubes into rear-panel PTC bulkheads; OD range 1/8"–3/4" covers the 1/4" OD LLDPE umbilical easily. 3-pack = 1 cutter per install × 3 installs per pack. Amazon 112-8598924 May 17: $11.99 + $0.87 tax = $12.86 ÷ 3 = $4.29/ea | 1 (of 3 pk) | $4.29 | $4.29 |
+
 ## Totals
 
 | Section | $ |
@@ -246,7 +254,8 @@ The T18 heat-set tip kit ([B0CS662NVK](https://www.amazon.com/dp/B0CS662NVK)) an
 | 11. Wiring | $31.97 |
 | 12. Level sensing | $69.78 |
 | 13. Mechanical attach hardware + reservoir-cap vent filter | $17.55 |
-| **Total** | **$1,496.42** |
+| 14. Install kit | $4.29 |
+| **Total** | **$1,500.71** |
 
 ## External / user-supplied (not shipped)
 
