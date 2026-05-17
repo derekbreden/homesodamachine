@@ -979,20 +979,21 @@ def _tube_shell_inner_sketch() -> cq.Sketch:
     )
 
 
-def build_zone6_outer() -> cq.Workplane:
-    """Sweep the tube-shell outer cross-section along the gooseneck path,
-    then place at (water_tube_x, 0, zone5_z_top). Sits on top of zone 5's
+def _sweep_along_gooseneck(sketch: cq.Sketch) -> cq.Workplane:
+    """Sweep the given tube-shell cross-section along the gooseneck path,
+    then place at (water_tube_x, 0, zone5_z_top) — the seam atop zone 5's
     vertical extrusion of the same cross-section."""
-    profile = cq.Workplane("XY").placeSketch(_tube_shell_outer_sketch())
+    profile = cq.Workplane("XY").placeSketch(sketch)
     swept = profile.sweep(_gooseneck_path_at_origin(), transition="right")
     return swept.translate((water_tube_x, 0, zone5_z_top))
+
+
+def build_zone6_outer() -> cq.Workplane:
+    return _sweep_along_gooseneck(_tube_shell_outer_sketch())
 
 
 def build_zone6_inner_cut() -> cq.Workplane:
-    """Inner cut for zone 6 — same path, inner tube-shell cross-section."""
-    profile = cq.Workplane("XY").placeSketch(_tube_shell_inner_sketch())
-    swept = profile.sweep(_gooseneck_path_at_origin(), transition="right")
-    return swept.translate((water_tube_x, 0, zone5_z_top))
+    return _sweep_along_gooseneck(_tube_shell_inner_sketch())
 
 
 def build_lever_clearance() -> cq.Workplane:
