@@ -23,8 +23,9 @@ slot_radial_margin = 1.0
 
 def revolve_rect(r_range, y_range, angle=360):
     """Revolve a rectangular (r, y) profile around the Y axis by `angle`
-    degrees, starting at θ=0. The profile lives on the XY plane with x
-    interpreted as radius; revolve's default axis is +Y."""
+    degrees. The profile lives on the XY plane with its first coordinate
+    interpreted as radius; revolve's default axis is +Y, sweeping from
+    the +X axis."""
     r_min, r_max = min(r_range), max(r_range)
     y_min, y_max = min(y_range), max(y_range)
     return (
