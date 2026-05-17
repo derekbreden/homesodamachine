@@ -810,10 +810,10 @@ def build_reservoir_body(side=1):
     # box upper-half) "stadiums". The third section (against the panel)
     # is the nut pocket — handled separately below because it's stepped
     # (hex + washer counterbore), not a single cylinder.
+    # (z_start, z_end, diameter)
     wet_sections = [
-        # (z_start,                                z_end,                    diameter)
-        (bulkhead_wet_chamber_z_min,               bulkhead_collet_z_start,  bulkhead_release_chamber_diameter),  # release ring + antechamber
-        (bulkhead_collet_z_start,                  bulkhead_flange_z_start,  bulkhead_collet_chamber_diameter),   # collet body — bulkhead's smooth main section rests here when fully screwed forward
+        (bulkhead_wet_chamber_z_min, bulkhead_collet_z_start, bulkhead_release_chamber_diameter),  # release ring + antechamber
+        (bulkhead_collet_z_start, bulkhead_flange_z_start, bulkhead_collet_chamber_diameter),  # collet body — bulkhead's smooth main section rests here when fully screwed forward
     ]
     ceiling_y_top = floor_baseline_y + 2.0
     for z_start, z_end, diameter in wet_sections:
