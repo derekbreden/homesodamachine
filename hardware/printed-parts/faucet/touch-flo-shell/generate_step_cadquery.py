@@ -385,35 +385,21 @@ zone45_bot_mid_x = fill_x_min + back_arch_r * math.cos(_a_mid45)
 zone45_bot_mid_z = back_arch_center_z + back_arch_r * math.sin(_a_mid45)
 
 
-# HEAT-SET INSERT POCKETS — mounting-plate retention
-
-# Two M3 brass heat-set inserts press into the bottom face of the
-# shell. Mounting plate sits below the shell with M3 × 8 mm 316 SS
-# ultra-low-profile socket cap screws (McMaster 91223A413) coming up
-# from below the plate, through plate clearance holes + counterbores,
-# and threading into these inserts.
+# HEAT-SET INSERT POCKETS — mounting-plate retention. Two M3 brass
+# heat-set inserts (ruthex M3 short, Amazon B09ZHSGHXD — Ø 4.6 knurl OD,
+# Ø 3.9 body, 4 mm length) press into the bottom face of the shell. The
+# mounting plate threads to them with M3 × 8 mm SS socket cap screws
+# (McMaster 91223A413) coming up from below.
 #
-# Insert: ruthex M3 short (Amazon B09ZHSGHXD) — Ø 4.6 knurl OD /
-#   Ø 3.9 body / 4 mm length. Recommended install hole Ø 4.0; knurls
-#   bite into the plastic on heat-press.
-#
-# Pocket location: θ = ±45° about the body center, r = 20 mm — in
-# the shell's "rear shoulder" wall material (between the body bore
-# and the shell outer cylinder, well clear of the pill slot). At this
-# point all four wall margins hold ≥ 2 mm:
-#   - to body bore (Ø 31.5 cyl @ origin):       2.25 mm
-#   - to shell outer (Ø 44.35 cyl @ +X 3.175):  2.28 mm
-#   - to pill slot (X-edge at corner Y):        5.66 mm
-#   - between the two pockets (Y separation):   24.28 mm
-#
-# Pocket Z range: 0 → insert_pocket_depth (5 mm = 4 mm insert + 1 mm
-# relief at the top to receive plastic displaced during heat-press).
-# Lives entirely in zone 1 outer (which extends to Z = 16.25), with
+# Pocket location: θ = ±45° about the body center, r = 20 mm — the
+# shell's "rear shoulder" wall material (between body bore and shell
+# outer cylinder, well clear of the pill slot). All four wall margins
+# hold ≥ 2 mm; pockets live entirely in zone 1 outer (Z < 16.25), with
 # ~11 mm of solid material above the pocket ceiling.
 
-insert_pocket_diameter = 4.0  # mm — recommended hole for ruthex M3 short
-insert_pocket_depth = 5.0  # mm — 4 insert + 1 relief
-insert_r_from_body = 20.0  # mm — radial distance of insert center from body center (0,0)
+insert_pocket_diameter = 4.0  # recommended install hole for ruthex M3 short
+insert_pocket_depth = 5.0  # 4 mm insert engagement + 1 mm relief
+insert_r_from_body = 20.0  # mm from body center to insert center
 insert_theta_deg = 45.0  # angle from +X about body center
 insert_x = insert_r_from_body * math.cos(math.radians(insert_theta_deg))  # ≈ 14.142
 insert_y_offset = insert_r_from_body * math.sin(math.radians(insert_theta_deg))  # ≈ 14.142
