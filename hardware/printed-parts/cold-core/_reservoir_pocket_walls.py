@@ -98,27 +98,40 @@ def build_reservoir_pocket_walls():
     transition_cavity_terminus_plus_z = (middle_cavity_x, -z_inner)
     transition_cavity_terminus_minus_z = (middle_cavity_x, +z_inner)
 
+    # +X far wall endpoints. The outer face spans z_inner ± corner
+    # tangent; the cavity face is one wall-thickness inboard.
+    far_wall_outer_plus_z = (far_x_outer, -(z_inner - corner_inner_r))
+    far_wall_outer_minus_z = (far_x_outer, +(z_inner - corner_inner_r))
+    far_wall_cavity_plus_z = (far_x_inner, -(z_inner - corner_inner_r))
+    far_wall_cavity_minus_z = (far_x_inner, +(z_inner - corner_inner_r))
+
+    # ±Z wall corner-arc termini on the ±Z faces. Outer- and cavity-
+    # side arcs share an axis at workplane (far_x_inner - corner_inner_r,
+    # ±(z_inner - corner_inner_r)) — outer at corner_outer_r, cavity at
+    # corner_inner_r — so both arcs terminate at the same X.
+    side_wall_outer_plus_z = (far_x_inner - corner_inner_r, -z_outer)
+    side_wall_outer_minus_z = (far_x_inner - corner_inner_r, +z_outer)
+    side_wall_cavity_plus_z = (far_x_inner - corner_inner_r, -z_inner)
+    side_wall_cavity_minus_z = (far_x_inner - corner_inner_r, +z_inner)
+
     outer_perimeter = (
         cq.Workplane(xz_plane_y_up)
         # +X far wall outboard face.
-        .moveTo(far_x_outer, -(z_inner - corner_inner_r))
-        .lineTo(far_x_outer, +(z_inner - corner_inner_r))
-        # −Z far-corner outboard arc.
-        .radiusArc((far_x_inner - corner_inner_r, +z_outer), -corner_outer_r)
-        # −Z wall outboard face.
+        .moveTo(*far_wall_outer_plus_z)
+        .lineTo(*far_wall_outer_minus_z)
+        # −Z corner arc → −Z wall outboard face → centerward wall's
+        # tank-side face (−Z transition + middle + +Z transition) → +Z
+        # wall outboard face → +Z corner arc, closes back to start.
+        .radiusArc(side_wall_outer_minus_z, -corner_outer_r)
         .lineTo(*transition_tank_terminus_minus_z)
-        # −Z transition arc, middle arc, +Z transition arc — the three
-        # segments of the centerward wall's tank-side face.
         .threePointArc(transition_apex(-1, transition_tank_r),
                        middle_tank_handoff_minus_z)
         .threePointArc((arc_tank_r, 0),
                        middle_tank_handoff_plus_z)
         .threePointArc(transition_apex(+1, transition_tank_r),
                        transition_tank_terminus_plus_z)
-        # +Z wall outboard face.
-        .lineTo(far_x_inner - corner_inner_r, -z_outer)
-        # +Z far-corner outboard arc, closes back to start.
-        .radiusArc((far_x_outer, -(z_inner - corner_inner_r)), -corner_outer_r)
+        .lineTo(*side_wall_outer_plus_z)
+        .radiusArc(far_wall_outer_plus_z, -corner_outer_r)
         .close()
         .extrude(height)
     )
@@ -127,10 +140,10 @@ def build_reservoir_pocket_walls():
         cq.Workplane(xz_plane_y_up)
         # +X far wall cavity face + ±Z cavity faces + filleted corners.
         .moveTo(*transition_cavity_terminus_plus_z)
-        .lineTo(far_x_inner - corner_inner_r, -z_inner)
-        .radiusArc((far_x_inner, -(z_inner - corner_inner_r)), -corner_inner_r)
-        .lineTo(far_x_inner, +(z_inner - corner_inner_r))
-        .radiusArc((far_x_inner - corner_inner_r, +z_inner), -corner_inner_r)
+        .lineTo(*side_wall_cavity_plus_z)
+        .radiusArc(far_wall_cavity_plus_z, -corner_inner_r)
+        .lineTo(*far_wall_cavity_minus_z)
+        .radiusArc(side_wall_cavity_minus_z, -corner_inner_r)
         .lineTo(*transition_cavity_terminus_minus_z)
         # Centerward wall's cavity-side face: −Z transition, middle, +Z
         # transition. Concentric with the tank-side arcs, slightly
