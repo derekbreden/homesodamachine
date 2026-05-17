@@ -1,6 +1,6 @@
 # Rear panel
 
-3D-printed rear face of the under-counter enclosure. Carries every external connection on the appliance: AC inlet, tap-water inlet, CO2 line inlet, bag-in-box (BiB) syrup inlet, the moisture-sensor drip-pan vent that observes the §3 backflow preventer, and (new) the umbilical port that accepts the three tubes coming down from the under-cabinet faucet through the countertop. Printed in the same stock as the rest of the enclosure shell — PETG or PETG-CF, panel material TBD pending the enclosure-wide print-stock decision.
+3D-printed rear face of the under-counter enclosure. Carries every external connection on the appliance: AC inlet, tap-water inlet, CO2 line inlet, bag-in-box (BiB) syrup inlet, the moisture-sensor drip-pan vent that observes the §3 backflow preventer, and (new) the umbilical port that accepts the three tubes coming down from the under-cabinet faucet through the countertop. Printed in **Bambu PET-CF**, matching the rest of the enclosure exterior — see §"Panel material" below.
 
 The panel itself has no fluid-pressure duty. It is a connection-management plate: hole patterns sized for off-the-shelf bulkheads and panel-mount receptacles, with printed bezels, recesses, and labels where the user-facing fit-and-feel benefits.
 
@@ -26,6 +26,31 @@ User rule at install: **blue tube into the blue-ringed bulkhead**. Black-into-ei
 
 Mechanism for the blue ring is TBD — candidates include multi-material printing of the panel itself, a separately printed TPU collar that snaps over the bulkhead's exterior flange, or a paint touch on the printed bezel surrounding the bulkhead. The selection is downstream of the panel-material decision and the multi-material capability of the printer running the panel.
 
+### CO2 inlet — red color-coding
+
+The CO2 inlet at the rear panel (connection §3, DERPIPE 5/16"-tube × 1/4" NPT push-to-connect bulkhead — `bom.md §4`) is a separate connection from the umbilical port and uses a different identification color. CO2 lines are **red** by industry-standard convention across beverage, brewing, and draft-equipment practice. Stock is already supplied red by the existing BOM SKUs:
+
+- **5/16" ID beer CO2 line** (`B0D1RB3TF6`, `bom.md §4`) — standard red beer-line PVC, runs from the customer's CGA-320 regulator to the rear panel.
+- **Imaictuu 5/16" ID red PVC** (Feb 13, 2026 Amazon order, currently a ledger gap — not yet in `purchases.md`) — backup / second-source for the same line.
+
+The rear-panel CO2 bulkhead gets a **red accent ring** at its panel opening — same identification-ring approach as the carbonated water blue ring, but red and at a different bulkhead. The ring mechanism (multi-material, snap-on TPU collar, or paint touch) follows the same decision tree as the blue ring above; both colors share whatever solution is chosen.
+
+The internal 1/4" LLDPE between the rear-panel CO2 PTC and the vessel-side TAISHER elbow is currently **black** (standard FWS stock). It could be replaced with a red 1/4" LLDPE for service-technician visibility, but end users never see internal lines — flagged here as a future enhancement, not a TBD requiring action.
+
+Net identification scheme on the rear panel: **blue = carbonated water**, **red = CO2**, **black / plain = flavor lines**. Three colors, easy mental model.
+
+## Umbilical bundle construction
+
+The 3-tube umbilical from the faucet down to the rear panel is bundled into a single sleeved run. Sleeve material — braided polyester sleeve vs. spiral wrap — is TBD pending fit-up against the countertop pass-through.
+
+**Foam insulation on the carbonated-water tube only.** The two flavor tubes carry ambient-temperature syrup at low duty cycle (a few mL per dispense) — warm-in, warm-out, no thermal benefit from insulation. The carbonated-water tube is the temperature-critical run: a multi-meter cold-line carrying chilled CO2-saturated water from the cold-core reservoir up to the faucet, where every degree of warm-up costs dissolved-CO2 retention. Insulating that one tube (and leaving the flavor tubes bare inside the sleeve) is the right thermal allocation.
+
+- **Foam:** CARGEN nitrile rubber pipe insulation, 1/4" ID × 3/8" wall (`B0D2XFK337`, `bom.md §9`). Sized to slip over 1/4" OD LLDPE with a snug interference fit.
+- **Foam ships as 1-ft segments, not as a continuous tube.** Install procedure for the end-builder: slide segments onto the carbonated-water tube, discard the segments that don't fit the cabinet-routing length, butt the remaining segments together along the run. **No foam cutting in the field.** The 1-ft segment granularity is the install ergonomics: the user matches cabinet length by removing whole segments, not by measuring and cutting.
+- **Tube cutting:** the three LLDPE tubes themselves are cut once each, to length, using the kit's Mudder PEX/PE tube cutter (`bom.md §14`), then pushed into the rear-panel PP1208E bulkheads. One cut per tube, no foam cuts.
+- **Thermal cost of segmented vs. continuous foam:** ~1–3% additional heat ingress at the segment butts, assuming tight butting under the sleeve compression. Negligible against the install-ergonomics win of zero in-field foam work. The braided sleeve over the bundle also helps hold segments butted.
+- **Foam segment count and total length:** TBD pending the cabinet-routing-length spec (depends on countertop thickness, faucet drop, and rear-panel position within the cabinet).
+
 ## AC inlet recess
 
 The C14 receptacle is recessed 3–5 mm into the panel face with a printed shroud around the inlet perimeter. On insertion, the C13 cord housing nests into the recess and ends flush with the panel surface, visually masking the IEC-mandated gap between cord and inlet bezel.
@@ -47,10 +72,22 @@ Locking C13 cords (Tripp Lite P-Lock series and similar) were considered and rej
 
 The 3× PP1208E umbilical-port bulkheads are arranged in a **triangular cluster** on the rear panel — three circles tangent in the densest packing. Three 1/4" OD tubes naturally pack the same way inside the umbilical bundle (densest-three-circle triangle), so the panel-side hole pattern mirrors the bundle-side tube pattern: the user presents the bundle to the panel and each tube already sits in front of its matching bulkhead with no re-threading. An in-line row (vertical or horizontal) would require the same number of push-clicks but force a mental re-arrangement step — the user would have to peel the three tubes out of their natural triangular bundle and fan them into a line. Same physical work, more cognitive friction. The triangle also keeps the cluster compact, leaving more panel real estate around the cluster for fingertip clearance on the PTC collet release. The blue-ringed (carbonated-water) bulkhead sits at the top vertex of the triangle so it remains the visually dominant one regardless of panel orientation.
 
+## Panel material
+
+The rear panel — and the rest of the enclosure exterior — is printed in **Bambu PET-CF**. The decision is enclosure-wide, not panel-specific: one material across every visible exterior surface for aesthetic coherence and one-fewer-material to juggle in the print queue.
+
+- **Surface and dimensional quality.** PET-CF prints with no visible layer lines, a consistent matte surface finish, and dimensional stability across cabinet temperature swings. Validated empirically on prior touch-flo faucet parts in `hardware/printed-parts/touch-flo-faucet/` — the surface comes off the bed publication-grade with no post-processing.
+- **Heat resistance.** Service temperature well above the ~30–40 °C cabinet ambient (compressor + electronics waste heat). Not a thermal bottleneck.
+- **Stiffness and bulkhead capture.** Carbon-fiber reinforcement gives the panel the stiffness needed for threaded inserts and bulkhead clamp loads (3× PP1208E push-to-connect bulkheads on this panel alone) without creep under sustained nut torque.
+- **Cost.** $85/kg vs ~$30/kg for PETG-CF or ASA-CF — the premium. Enclosure mass is ~1–2 kg total per build, so the material delta is ~$60–100/build vs. mixing PETG-CF on hidden faces. Manageable at Founder Edition volumes; the aesthetic uniformity win is worth $15–25/build at minimum.
+- **Supply.** Bambu PET-CF is more reliably in-stock at Bambu than PETG-CF, which cycles out of stock frequently. Lower stocking risk for production runs.
+- **Workflow fit.** Integrates cleanly with the project's existing Bambu workflow: AMS spool compatibility, refill-spool format, tuned print profiles already proven on prior parts.
+
+This closes the prior "PETG vs PETG-CF" TBD on this panel and on the enclosure exterior at large.
+
 ## Open items
 
-- **Blue ring identification mechanism**: multi-material print on the panel itself, snap-on TPU collar, or paint touch on a printed bezel. Driven by the panel-material decision and the printer's multi-material capability.
-- **Final panel material**: PETG vs PETG-CF. The rear panel sees no thermal load but does carry threaded inserts and bulkhead clamp loads where stiffness matters; PETG-CF is the stiffer candidate at higher cost.
+- **Blue ring identification mechanism**: multi-material print on the panel itself, snap-on TPU collar, or paint touch on a printed bezel. With PET-CF committed, multi-material on the panel itself requires a second compatible filament loaded in the AMS; snap-on TPU is the lowest-risk fallback.
 - **Panel mounting** to the enclosure shell: screw pattern, heat-set insert plan, gasket-or-no-gasket. To be decided alongside the enclosure-wall design. (Note: the panel is not a moisture or vapor barrier — the appliance is not hermetic. The PP1208E bulkheads seal the pressurized fluid path *around the tube* via their internal EPDM O-rings; the panel interface is purely mechanical capture, flange + nut sandwiching the panel through its Ø17 hole, so no panel-side bulkhead gasket is required.)
 
 ## Status
