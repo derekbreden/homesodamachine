@@ -15,7 +15,7 @@ from _cold_core_interface import (
     build_a_hole_punch,
 )
 
-W = wall_and_floor_thickness
+w = wall_and_floor_thickness
 
 # X depth of the cable channel cavity (also the rise of the 45°
 # printability slope on the cavity ceiling — 1:1 slope).
@@ -29,28 +29,28 @@ reed_z_half_w = 4.0
 # +Z extent of the horizontal cable channel.
 cable_z_max = 70.5
 
-# Outer radius of the bag-pocket +Z corner fillet (inner-radius + W).
-outer_corner_R = W + bag_pocket_corner_inner_radius
+# Outer radius of the bag-pocket +Z corner fillet (inner-radius + w).
+outer_corner_r = w + bag_pocket_corner_inner_radius
 
 # Cable channel Y: shared with the +Z cable hole so the cable runs
 # straight from channel to hole with no bend. Cavity rests on the
-# foam-shell floor at y=W; envelope bottom is y=0 so no unsupported
+# foam-shell floor at y=w; envelope bottom is y=0 so no unsupported
 # floor mid-air. Reed channel is open through the cap so the pre-
 # soldered reed column can drop in before the cap is installed.
 cable_y_height = 8.0
-cable_cavity_y_range = (W, W + cable_y_height)
-cable_envelope_y_range = (0, cable_cavity_y_range[1] + W)
+cable_cavity_y_range = (w, w + cable_y_height)
+cable_envelope_y_range = (0, cable_cavity_y_range[1] + w)
 cable_y_center = sum(cable_cavity_y_range) / 2
 reed_cavity_y_range = (cable_cavity_y_range[0], foam_shell_outer_height)
 reed_envelope_y_range = (cable_envelope_y_range[0], foam_shell_outer_height)
 
 # Z ranges. Reed and cable cavities share their lower Z bound (the
-# reed-side end of the channel); envelopes are cavities padded by W
+# reed-side end of the channel); envelopes are cavities padded by w
 # on the foam-exposed sides.
 reed_cavity_z_range = (reed_z_center - reed_z_half_w, reed_z_center + reed_z_half_w)
-reed_envelope_z_range = (reed_cavity_z_range[0] - W, reed_cavity_z_range[1] + W)
+reed_envelope_z_range = (reed_cavity_z_range[0] - w, reed_cavity_z_range[1] + w)
 cable_cavity_z_range = (reed_cavity_z_range[0], cable_z_max)
-cable_envelope_z_range = (reed_envelope_z_range[0], cable_z_max + W)
+cable_envelope_z_range = (reed_envelope_z_range[0], cable_z_max + w)
 
 # Apex Y of the 45° slope wedge on the cable channel ceiling: rises
 # +cable_x_depth in Y from the top of the cavity/envelope.
@@ -83,19 +83,19 @@ def build_reed_channels(side):
     bag_x = s * bag_pocket_outermost_x  # outer face of bag-pocket far ±X wall
     z_outer = bag_pocket_width / 2
 
-    fillet_axis_x = bag_x - s * outer_corner_R
-    fillet_axis_z = z_outer - W - outer_corner_R
+    fillet_axis_x = bag_x - s * outer_corner_r
+    fillet_axis_z = z_outer - w - outer_corner_r
 
     wedge_apex_at_wall = (bag_x, cable_envelope_wedge_apex_y)
-    corner_arc_terminus = (fillet_axis_x, cable_envelope_wedge_apex_y + outer_corner_R)
+    corner_arc_terminus = (fillet_axis_x, cable_envelope_wedge_apex_y + outer_corner_r)
 
-    reed_envelope_x_range = (bag_x, bag_x + s * (reed_x_depth + W))
+    reed_envelope_x_range = (bag_x, bag_x + s * (reed_x_depth + w))
     reed_cavity_x_range = (bag_x, bag_x + s * reed_x_depth)
 
     reed_envelope = make_box(reed_envelope_x_range, reed_envelope_y_range, reed_envelope_z_range)
     reed_cavity = make_box(reed_cavity_x_range, reed_cavity_y_range, reed_cavity_z_range)
 
-    cable_envelope_x_range = (bag_x, bag_x + s * (cable_x_depth + W))
+    cable_envelope_x_range = (bag_x, bag_x + s * (cable_x_depth + w))
     cable_cavity_x_range = (bag_x, bag_x + s * cable_x_depth)
 
     cable_envelope = make_box(cable_envelope_x_range, cable_envelope_y_range, cable_envelope_z_range)
@@ -131,14 +131,14 @@ def build_reed_channels(side):
         cq.Workplane(xy_plane_z_up)
         .workplane(offset=z_outer)
         .polyline(missing_wall_profile).close()
-        .extrude(-outer_corner_R)
+        .extrude(-outer_corner_r)
     )
     inner_fillet_cut = (
         cq.Workplane(xz_plane_y_up)
         .workplane(offset=cable_envelope_wedge_apex_y)
         .moveTo(fillet_axis_x, -fillet_axis_z)
-        .circle(outer_corner_R)
-        .extrude(outer_corner_R)
+        .circle(outer_corner_r)
+        .extrude(outer_corner_r)
     )
     missing_wall = missing_wall.cut(inner_fillet_cut)
 
@@ -160,8 +160,8 @@ def cut_reed_channel_openings(foam_shell):
     makes the channels accessible from the bag-pocket side."""
     for s in (+1, -1):
         wall_x_outer = s * bag_pocket_outermost_x
-        wall_x_inner = wall_x_outer - s * W
-        corner_x_inner = wall_x_outer - s * outer_corner_R
+        wall_x_inner = wall_x_outer - s * w
+        corner_x_inner = wall_x_outer - s * outer_corner_r
 
         wall_x_range = (wall_x_inner, wall_x_outer)
         corner_x_range = (corner_x_inner, wall_x_outer)
@@ -181,7 +181,7 @@ def cut_reed_channel_openings(foam_shell):
                 (corner_x_inner, cable_cavity_y_range[1]),
                 (wall_x_outer, cable_cavity_y_range[1]),
                 (wall_x_outer, cable_cavity_wedge_apex_y),
-                (corner_x_inner, cable_cavity_wedge_apex_y + outer_corner_R),
+                (corner_x_inner, cable_cavity_wedge_apex_y + outer_corner_r),
             ]).close()
             .extrude(z_max - z_min)
         )
