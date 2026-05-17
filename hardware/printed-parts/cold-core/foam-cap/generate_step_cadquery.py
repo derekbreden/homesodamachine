@@ -44,15 +44,13 @@ support_ring_mid_z = -(support_ring_outer_r + support_ring_inner_r) / 2
 co2_inlet_z = (centerward_wall_mid_z + support_ring_mid_z) / 2
 
 
-# ⌀6.5 tube clearance for the 1/4" OD LLDPE CO2 line. Distinct from
-# the foam shell's CO2 inlet (a ⌀16 Z-axis bore that seats the JG
-# PP0308E 90° elbow body below the cap); only the tube itself
-# traverses the cap and lid.
+# ⌀6.5 tube clearance for the 1/4" OD LLDPE CO2 line — distinct from
+# the foam shell's ⌀16 elbow-body bore below the cap; only the tube
+# itself traverses the cap and lid.
 co2_tube_clearance_radius = 3.25
 co2_boss_outer_radius = co2_tube_clearance_radius + wall_and_floor_thickness
-# Boss spans the full interior cavity height — from the cavity-side
-# face of the floor (y = wall_and_floor_thickness) up to the cavity
-# opening (y = foam_cap_height).
+# Boss spans the full interior cavity height, from the floor's
+# cavity-side face to the cavity opening.
 co2_boss_y_bottom = wall_and_floor_thickness
 co2_boss_y_top = foam_cap_height
 
@@ -70,7 +68,7 @@ def cut_co2_inlet(cap):
 
 def cut_co2_inlet_lid(lid):
     """Y-axis tube-clearance cut through the lid, continuing the CO2
-    path from outside the foam-cap lid into the top cap."""
+    path from outside through to the top cap."""
     return lid.cut(
         build_a_y_axis_hole_punch(
             origin=(0, 0, co2_inlet_z),
@@ -100,18 +98,12 @@ def add_co2_boss(cap):
 
 
 def main():
-    cap = build_foam_cap()
-    cap_top = cut_co2_inlet(cap)
-    cap_top = add_co2_boss(cap_top)
-    cap_bottom = cap
-    lid = build_foam_cap_lid()
-    lid_top = cut_co2_inlet_lid(lid)
-    lid_bottom = lid
+    cap_bottom = build_foam_cap()
+    cap_top = add_co2_boss(cut_co2_inlet(cap_bottom))
+    lid_bottom = build_foam_cap_lid()
+    lid_top = cut_co2_inlet_lid(lid_bottom)
     gasket = build_foam_cap_gasket()
 
-    # cap_top differs from cap_bottom by the floor through-hole
-    # subtracted plus the cavity-side annular boss added; the lid
-    # differs from the bare lid by the through-hole alone.
     through_hole_volume = math.pi * co2_tube_clearance_radius ** 2 * wall_and_floor_thickness
     boss_annular_volume = (
         math.pi
