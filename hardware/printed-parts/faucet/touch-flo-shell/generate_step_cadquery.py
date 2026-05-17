@@ -413,26 +413,15 @@ def body_bore_cyl(z_bottom: float, z_height: float) -> cq.Workplane:
 
     Two roles:
 
-    - Clip volume in zones 2 and 3 (bore region), where the shell bore
-      must follow the body's rect ∩ cyl outline rather than a plain
-      rect.
+    - Clip in zones 2 and 3 (bore region), where the shell bore must
+      follow the body's rect ∩ cyl outline rather than a plain rect.
 
-    - Cut volume in zones 3-fill outer and zone 4 outer, ABOVE the
-      body's plateau (Z > zone2_z_top = 39). The body has ended there,
-      so this column is empty space. Two reasons to keep the shell out
-      of it:
-
-        1. The flavor tubes' S-bend passes through this region (going
-           from the body's flavor channel at X=17.3375 down to the
-           post-bend X=15.023). They don't need a shell wrap here —
-           the body's flavor channel locates them below, and zone 4.5
-           (the lid) holds them from above.
-
-        2. Printed support material inside the dispense-tube channel
-           needs a path out. Leaving the body-bore column open all
-           the way up to zone4_z_top gives the central cavity an
-           opening at the back, so support can be extracted after
-           printing.
+    - Cut in zones 3-fill outer and zone 4 outer, ABOVE the body's
+      plateau (Z > zone2_z_top = 39). The body has ended there, so this
+      column is empty space. Keeping the shell out of it (a) leaves
+      room for the flavor tubes' S-bend, located by the body's flavor
+      channel below and the zone 4.5 lid above, and (b) gives printed
+      support material inside the dispense channel a path out.
 
       Cutting is applied LOCALLY in zones 3-fill and 4 — NOT at the
       build_shell level — because zone 4.5 needs to span this column
@@ -449,22 +438,17 @@ def body_bore_cyl(z_bottom: float, z_height: float) -> cq.Workplane:
 
 
 def _flavor_pill_flat_x_minus(z_bottom: float, z_height: float) -> cq.Workplane:
-    """Flavor pill cutout at flavor_tube_x with the X- side flattened.
+    """Flavor pill cutout at flavor_tube_x with the X- side flattened —
+    same as the standard slot2D pill (pill_length_y × pill_width_x,
+    Y-oriented), but with square corners at (flavor_pill_x_minus_edge,
+    ±pill_length_y/2) instead of rounded transitions to the Y caps.
+    Removes thin shell features on the X- side of the cutout that print
+    poorly; the Y+/Y- caps and the X+ side stay rounded.
 
-    Same as the original slot2D pill (pill_length_y × pill_width_x, Y-oriented),
-    but the X- side has square corners at (flavor_pill_x_minus_edge,
-    ±pill_length_y/2) instead of the rounded transitions to the Y+/Y-
-    semicircular caps. Removes thin shell features on the X- side of the
-    cutout that print poorly. The Y+/Y- caps and the X+ side stay rounded.
-
-    The flat -X edge sits at flavor_pill_x_minus_edge, which is pulled
-    past the natural slot2D edge when needed so the corners reach the
-    body bore in zone 1. See the constant's definition for the rule.
-
-    Construction: union of the original slot2D and a rectangle that
-    covers everything from flavor_pill_x_minus_edge up to flavor_tube_x
-    on the X- side, so the flat edge ends up at flavor_pill_x_minus_edge
-    regardless of whether the slot2D edge is closer or farther.
+    Built as union of the standard slot2D and a rectangle that extends
+    from flavor_pill_x_minus_edge to flavor_tube_x on the X- side, so
+    the flat edge ends up at flavor_pill_x_minus_edge regardless of
+    whether the slot2D edge is closer or farther.
     """
     pill = (
         cq.Workplane("XY")
