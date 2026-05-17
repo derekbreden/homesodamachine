@@ -78,8 +78,9 @@ slot_z_padding = 0.5
 # defines pin and hole, so the friction fit is tuned by trial.
 dowel_radius = 1.0
 dowel_length = 2.5
-dowel_x_offset = (bore_radius + outer_radius) / 2
-dowel_z_positions = (2.0, sleeve_length - 2.0)
+dowel_x_offset = (bore_radius + outer_radius) / 2  # mid-wall
+dowel_z_inset_from_ends = 2.0
+dowel_z_positions = (dowel_z_inset_from_ends, sleeve_length - dowel_z_inset_from_ends)
 dowel_bearing_y_sign = -1
 
 eps = 0.01
@@ -128,21 +129,22 @@ def cut_foil_grooves(sleeve):
 
 def cut_wire_exit_slots_pos_y(sleeve):
     """Radial slots through the +x side of the +y half, one per foil
-    groove. Slot y range is (-eps, slot_width_y) so the cutter crosses
+    groove. The slot's y range starts at -eps so the cutter crosses
     y=0 by eps — when the +y half is split off, the slot opens cleanly
     through the cut face with no paper-thin lid at y=0."""
     slot_y_range = (-eps, slot_width_y)
     slot_x_range = (-eps, outer_radius + eps)
-    slot_y_center = sum(slot_y_range) / 2
-    slot_x_center = sum(slot_x_range) / 2
+    slot_width_x = slot_x_range[1] - slot_x_range[0]
+    slot_height_y = slot_y_range[1] - slot_y_range[0]
+    slot_height_z = groove_width_z + 2 * slot_z_padding
+    slot_center_xy = (sum(slot_x_range) / 2, sum(slot_y_range) / 2)
     for z_center in groove_centers_z:
-        slot_height_z = groove_width_z + 2 * slot_z_padding
         slot_z_min = z_center - slot_height_z / 2
         slot = (
             cq.Workplane("XY")
             .workplane(offset=slot_z_min)
-            .moveTo(slot_x_center, slot_y_center)
-            .rect(slot_x_range[1] - slot_x_range[0], slot_y_range[1] - slot_y_range[0])
+            .moveTo(*slot_center_xy)
+            .rect(slot_width_x, slot_height_y)
             .extrude(slot_height_z)
         )
         sleeve = sleeve.cut(slot)
