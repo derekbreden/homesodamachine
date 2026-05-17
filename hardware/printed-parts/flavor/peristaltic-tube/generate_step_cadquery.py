@@ -1,66 +1,45 @@
-# Vase-mode orientation: Z = tube axis, prints standing up (spiral rises along Z).
+"""Peristaltic tube — the flexible PETG hollow cylinder that runs
+through the Kamoer KPP pump head. Prints vase-mode standing on its
+−Z end face; the spiral seam rises along the tube axis (Z)."""
 
 import sys
 from pathlib import Path
+
 import cadquery as cq
 
-sys.path.insert(
-    0,
-    str(next(p for p in Path(__file__).resolve().parents if p.name == "hardware")),
-)
+_here = Path(__file__).resolve().parent
+sys.path.insert(0, str(next(p for p in _here.parents if p.name == "hardware")))
+
 from _cadq_export import export_step
 
 
-# ═══════════════════════════════════════════════════════
-# PHYSICAL DIMENSIONS
-# ═══════════════════════════════════════════════════════
+# Bore diameter matches the Kamoer KPP small-bore pump head.
+inner_diameter = 3.2
+wall_thickness = 1.6
+outer_diameter = inner_diameter + 2 * wall_thickness
+tube_length = 150.0
 
-INNER_DIAMETER_MM = 3.2      # Kamoer KPP small standard bore
-OUTER_DIAMETER_MM = 6.4      # 1.6 mm wall thickness
-LENGTH_MM         = 150.0
-
-
-# ═══════════════════════════════════════════════════════
-# DERIVED GEOMETRY
-# ═══════════════════════════════════════════════════════
-
-INNER_RADIUS = INNER_DIAMETER_MM / 2
-OUTER_RADIUS = OUTER_DIAMETER_MM / 2
-
-
-# ═══════════════════════════════════════════════════════
-# GEOMETRY
-# ═══════════════════════════════════════════════════════
 
 def build_tube():
-    """Plain hollow cylinder, tube axis along Z."""
+    """Hollow cylinder, axis along Z."""
     outer = (
         cq.Workplane("XY")
-        .circle(OUTER_RADIUS)
-        .extrude(LENGTH_MM)
+        .circle(outer_diameter / 2)
+        .extrude(tube_length)
     )
     inner = (
         cq.Workplane("XY")
-        .circle(INNER_RADIUS)
-        .extrude(LENGTH_MM)
+        .circle(inner_diameter / 2)
+        .extrude(tube_length)
     )
     return outer.cut(inner)
 
 
-# ═══════════════════════════════════════════════════════
-# BUILD AND EXPORT
-# ═══════════════════════════════════════════════════════
+def main():
+    tube = build_tube()
+    export_step(tube, str(_here / "peristaltic-tube.step"))
+    print("-> peristaltic-tube.step")
 
-tube = build_tube()
 
-solids = tube.solids().vals()
-print(f"Tube: {len(solids)} solid(s)")
-for i, s in enumerate(solids):
-    bb = s.BoundingBox()
-    print(f"  Solid {i}: X[{bb.xmin:.2f},{bb.xmax:.2f}] "
-          f"Y[{bb.ymin:.2f},{bb.ymax:.2f}] Z[{bb.zmin:.2f},{bb.zmax:.2f}]")
-
-out_dir = Path(__file__).resolve().parent
-out_path = out_dir / "peristaltic-tube.step"
-export_step(tube, str(out_path))
-print(f"\nExported: {out_path}")
+if __name__ == "__main__":
+    main()
