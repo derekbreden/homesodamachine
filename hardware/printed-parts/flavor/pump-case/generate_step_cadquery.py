@@ -355,6 +355,13 @@ skirt_y_steps = [
 skirt_bottom_offset = sum(skirt_y_steps)
 skirt_bottom_y = -skirt_bottom_offset
 
+# Y level of the cap-side stepped split — narrow half (-Z) meets the cap
+# step_height higher into the skirt than the wide half (+Z).
+narrow_split_offset = skirt_bottom_offset - step_height
+
+# World-coord Y of the case's +Z outer face (perpendicular to Z).
+pos_z_face_offset = center_z + footprint_half_extent
+
 
 def _skirt_profile_set(wall_offset):
     """Five skirt cross-section profiles, top-of-skirt to bottom-of-skirt.
@@ -561,16 +568,14 @@ def build_lower_extension():
 
 def cut_arch_notches(combined):
     """Semicircular notches on the +Z face for wire routing."""
-    z_face_outer = center_z + footprint_half_extent
     arch_hole_xs = [
         corner_r + arch_radius - 4,
         footprint_x - corner_r - arch_radius + 4,
     ]
-
     for ax in arch_hole_xs:
         arch_cutter = (
             cq.Workplane("XY")
-            .workplane(offset=z_face_outer + overcut)
+            .workplane(offset=pos_z_face_offset + overcut)
             .center(ax, skirt_bottom_y)
             .circle(arch_radius)
             .extrude(-(skirt_wall + 3 + overcut))
@@ -587,7 +592,6 @@ def split_into_base_and_cap(combined):
       Narrow half (-Z): step_height higher into the skirt
     The boundary follows the seam diagonal.
     """
-    step_offset = skirt_bottom_offset - step_height
     lower_end_offset = skirt_bottom_offset + lower_height + lower_cap_thickness + overcut
 
     full_slab = (
@@ -599,9 +603,9 @@ def split_into_base_and_cap(combined):
     step_z = skirt_transition_z_end_plus + step_z_clearance
     narrow_box = [(-50, -50), (50, -50), (50, step_z + overcut), (-50, step_z + overcut)]
     narrow_step = (
-        case_workplane(step_offset)
+        case_workplane(narrow_split_offset)
         .polyline(narrow_box).close()
-        .extrude(skirt_bottom_offset - step_offset)
+        .extrude(skirt_bottom_offset - narrow_split_offset)
     )
 
     step_cutter = full_slab.union(narrow_step)
@@ -613,15 +617,13 @@ def split_into_base_and_cap(combined):
 
 def add_snap_fits(base, cap):
     """Snap-fit ramps on four interior walls where base meets cap."""
-    step_offset = skirt_bottom_offset - step_height
-
-    snap_plus_z_inner = center_z + footprint_half_extent - wall_thickness
+    snap_plus_z_inner = pos_z_face_offset - wall_thickness
     snap_minus_z_inner = center_z - footprint_half_extent + wall_thickness
     snap_plus_x_narrow_inner = center_x + footprint_half_extent - wall_thickness
     snap_minus_x_narrow_inner = center_x - footprint_half_extent + wall_thickness
 
     wide_split_y = -skirt_bottom_offset
-    narrow_split_y = -step_offset
+    narrow_split_y = -narrow_split_offset
 
     yz_zone_start = center_x - snap_zone_width / 2
     yz_zone_end = center_x + snap_zone_width / 2
@@ -674,12 +676,11 @@ def add_snap_fits(base, cap):
 
 def add_pogo_pocket(base):
     """Stepped pill pocket on the +Z face with an outward pill ridge for pogo mating."""
-    z_face_outer = center_z + footprint_half_extent
     pogo_y = skirt_bottom_y + pogo_y_offset
 
     ridge = (
         cq.Workplane("XY")
-        .workplane(offset=z_face_outer)
+        .workplane(offset=pos_z_face_offset)
         .center(center_x, pogo_y)
         .slot2D(pogo_ridge_length, pogo_ridge_width)
         .extrude(pogo_ridge_depth)
@@ -688,14 +689,14 @@ def add_pogo_pocket(base):
 
     outer_step = (
         cq.Workplane("XY")
-        .workplane(offset=z_face_outer + pogo_ridge_depth + overcut)
+        .workplane(offset=pos_z_face_offset + pogo_ridge_depth + overcut)
         .center(center_x, pogo_y)
         .slot2D(pogo_outer_length, pogo_outer_width)
         .extrude(-(pogo_outer_depth + overcut))
     )
     inner_step = (
         cq.Workplane("XY")
-        .workplane(offset=z_face_outer + overcut)
+        .workplane(offset=pos_z_face_offset + overcut)
         .center(center_x, pogo_y)
         .slot2D(pogo_inner_length, pogo_inner_width)
         .extrude(-(wall_thickness + 2 * overcut))
