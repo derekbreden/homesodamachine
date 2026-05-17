@@ -37,8 +37,8 @@ gasket_center = (3.175, 0.0)
 
 # Top face flush with the mounting plate's bottom face; bottom face
 # sits on the countertop surface plane.
-plate_bottom_z = -4.0
-gasket_z_range = (plate_bottom_z - gasket_thickness, plate_bottom_z)
+plate_z_bottom = -4.0
+gasket_z_range = (plate_z_bottom - gasket_thickness, plate_z_bottom)
 
 
 # Hole geometry — mirrored exactly from the mounting plate.
