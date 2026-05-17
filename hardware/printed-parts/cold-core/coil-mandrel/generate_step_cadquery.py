@@ -120,10 +120,6 @@ mandrel_r_range = (mandrel_inner_radius, mandrel_radius)
 # ═══════════════════════════════════════════════════════
 
 # Plug positions in foam-shell coords (Y is the cylinder axis).
-# From hardware/printed-parts/cold-core/_foam_shell_geometry.py
-# cut_slit_and_build_plug_for_copper_inlet:
-#   inlet  (which=0): origin (-30, 46.0,  20)
-#   outlet (which=1): origin ( 30, 166.4, 20)
 plug_inlet_x, plug_inlet_y, plug_inlet_z = -30.0, 46.0, 20.0
 plug_outlet_x, plug_outlet_y, plug_outlet_z = 30.0, 166.4, 20.0
 
