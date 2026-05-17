@@ -645,16 +645,72 @@ def build_insert_pockets() -> cq.Workplane:
     return pockets
 
 
-def build_zone2_outer() -> cq.Workplane:
-    """Outer geometry for zone 2.
+def _rect_cove_cyl(
+    center_x: float, center_y: float,
+    rect_x_width: float, rect_y_width: float,
+    z_bottom: float, z_top: float,
+    clip_cyl: cq.Workplane,
+) -> cq.Workplane:
+    """Rect column with cove-filleted ±Y faces, clipped to a cylinder.
 
-    Construction mirrors the body's `build_transition_cove`:
-      - Rectangle column from Z=zone2_outer_bot to zone2_z_top.
-      - Filler block (R wide × R tall, full X extent) on each Y face.
-      - Cove cutter (cylinder along X axis, R = cove_r) scoops a
-        concave arc from each filler.
-      - Cylinder clip rounds the rectangle corners to follow the
-        shell outer cylinder profile.
+    Construction (mirrors the body's `build_transition_cove`):
+      - Rectangle column from z_bottom to z_top, centered at (center_x,
+        center_y), with the given X/Y widths.
+      - Filler block (cove_r wide × cove_r tall, full X extent) on each
+        Y face at the bottom of the column.
+      - Cove cutter (cylinder along X axis, R = cove_r) scoops a concave
+        arc from each filler.
+      - The supplied clip cylinder rounds the rect corners (and, in the
+        bore case, the rect X faces) to follow the cylinder profile.
+    """
+    z_height = z_top - z_bottom
+    rect_y_half = rect_y_width / 2.0
+    ext_x = rect_x_width / 2.0 + 2.0  # generous half-extent in X for filler/cutter
+
+    rect = (
+        cq.Workplane("XY")
+        .workplane(offset=z_bottom)
+        .moveTo(center_x, center_y)
+        .rect(rect_x_width, rect_y_width)
+        .extrude(z_height)
+    )
+
+    def filler(y_sign: int) -> cq.Workplane:
+        flat_y = center_y + y_sign * rect_y_half
+        blk_cy = flat_y + y_sign * (cove_r / 2.0)
+        return (
+            cq.Workplane("XY")
+            .workplane(offset=z_bottom)
+            .moveTo(center_x, blk_cy)
+            .rect(2.0 * ext_x, cove_r)
+            .extrude(cove_r)
+        )
+
+    def cove_cutter(y_sign: int) -> cq.Workplane:
+        flat_y = center_y + y_sign * rect_y_half
+        cove_cy = flat_y + y_sign * cove_r
+        cove_cz = z_bottom + cove_r
+        return (
+            cq.Workplane("YZ")
+            .workplane(offset=center_x - ext_x)
+            .moveTo(cove_cy, cove_cz)
+            .circle(cove_r)
+            .extrude(2.0 * ext_x)
+        )
+
+    return (
+        rect
+        .union(filler(+1))
+        .union(filler(-1))
+        .cut(cove_cutter(+1))
+        .cut(cove_cutter(-1))
+        .intersect(clip_cyl)
+    )
+
+
+def build_zone2_outer() -> cq.Workplane:
+    """Outer geometry for zone 2 — rect column with cove-filleted ±Y
+    faces, corners clipped to the shell's outer cylinder.
 
     Zone 2 OUTER starts shell_outer_lip above the body's cylinder top
     (i.e., at Z = zone2_outer_bot = 16, not at the body's transition Z
@@ -662,68 +718,21 @@ def build_zone2_outer() -> cq.Workplane:
     cylinder top face. The bore is unaffected — see build_zone2_inner_cut.
     """
     z_height = zone2_z_top - zone2_outer_bot
-
-    rect = (
-        cq.Workplane("XY")
-        .workplane(offset=zone2_outer_bot)
-        .moveTo(shell_center_x, shell_center_y)
-        .rect(shell_rect_x_width, shell_rect_y_width)
-        .extrude(z_height)
+    return _rect_cove_cyl(
+        shell_center_x, shell_center_y,
+        shell_rect_x_width, shell_rect_y_width,
+        zone2_outer_bot, zone2_z_top,
+        shell_outer_cyl(zone2_outer_bot, z_height),
     )
-
-    R = cove_r
-    ext_x = shell_rect_x_half + 2.0  # generous half-extent in X for filler/cutter
-
-    def filler(y_sign: int) -> cq.Workplane:
-        flat_y_world = shell_center_y + y_sign * shell_rect_y_half
-        blk_cy_world = flat_y_world + y_sign * (R / 2.0)
-        return (
-            cq.Workplane("XY")
-            .workplane(offset=zone2_outer_bot)
-            .moveTo(shell_center_x, blk_cy_world)
-            .rect(2.0 * ext_x, R)
-            .extrude(R)
-        )
-
-    def cove_cutter(y_sign: int) -> cq.Workplane:
-        flat_y_world = shell_center_y + y_sign * shell_rect_y_half
-        cove_cy_world = flat_y_world + y_sign * R
-        cove_cz_world = zone2_outer_bot + R
-        return (
-            cq.Workplane("YZ")
-            .workplane(offset=shell_center_x - ext_x)
-            .moveTo(cove_cy_world, cove_cz_world)
-            .circle(R)
-            .extrude(2.0 * ext_x)
-        )
-
-    outer = (
-        rect
-        .union(filler(+1))
-        .union(filler(-1))
-        .cut(cove_cutter(+1))
-        .cut(cove_cutter(-1))
-    )
-
-    # Clip to the shell's outer cylinder profile so rect corners follow
-    # the cylinder rather than sticking out as sharp points.
-    return outer.intersect(shell_outer_cyl(zone2_outer_bot, z_height))
 
 
 def build_zone2_inner_cut() -> cq.Workplane:
     """Inner cut for zone 2 — mirrors the body's cross-section with
-    0.5 mm dimensional clearance for slip-fit assembly.
+    bore_clearance per side.
 
-    The bore is built with the SAME construction as the body's outer:
-      - Rect column 32 × 17.5 mm from Z=13 to Z=39
-      - Filler block (R wide × R tall, full X extent) on each Y face
-        at Z=13 to Z=18
-      - Cove cutter (cylinder along X, R=5 mm) scoops the concave arc
-        from each filler
-      - Cylinder clip (R=16 mm) trims the rect corners and X faces
-        into the body's rect∩cylinder profile
-
-    This matters in two places:
+    The bore is built with the SAME construction as the body's outer
+    (rect column + cove-filleted ±Y faces + cylinder clip). This matters
+    in two places:
       1. Above the cove (Z=18 → 39), the body's rect column is itself
          intersected with body_r=15.75 — so its X faces and corners
          are curved arcs, not flat. The bore must follow that.
@@ -735,57 +744,16 @@ def build_zone2_inner_cut() -> cq.Workplane:
 
     Plus the flavor-tube pill all the way through.
     """
-    R_bore = cove_r
-    ext_x_bore = body_bore_rect_long / 2.0 + 2.0  # generous half-extent in X
-    bore_zone2_height = zone2_z_top - zone2_bore_bottom  # 25.75
-
-    # Bore rect column — starts at zone2_bore_bottom (lifted by clearance)
-    rect_col = (
-        cq.Workplane("XY")
-        .workplane(offset=zone2_bore_bottom)
-        .moveTo(body_bore_x, body_bore_y)
-        .rect(body_bore_rect_long, body_bore_rect_short)
-        .extrude(bore_zone2_height)
+    bore_zone2_height = zone2_z_top - zone2_bore_bottom
+    bore = _rect_cove_cyl(
+        body_bore_x, body_bore_y,
+        body_bore_rect_long, body_bore_rect_short,
+        zone2_bore_bottom, zone2_z_top,
+        body_bore_cyl(zone2_bore_bottom, bore_zone2_height),
     )
-
-    def filler(y_sign: int) -> cq.Workplane:
-        flat_y_world = body_bore_y + y_sign * (body_bore_rect_short / 2.0)
-        blk_cy_world = flat_y_world + y_sign * (R_bore / 2.0)
-        return (
-            cq.Workplane("XY")
-            .workplane(offset=zone2_bore_bottom)
-            .moveTo(body_bore_x, blk_cy_world)
-            .rect(2.0 * ext_x_bore, R_bore)
-            .extrude(R_bore)
-        )
-
-    def cove_cutter(y_sign: int) -> cq.Workplane:
-        flat_y_world = body_bore_y + y_sign * (body_bore_rect_short / 2.0)
-        cove_cy_world = flat_y_world + y_sign * R_bore
-        cove_cz_world = zone2_bore_bottom + R_bore
-        return (
-            cq.Workplane("YZ")
-            .workplane(offset=body_bore_x - ext_x_bore)
-            .moveTo(cove_cy_world, cove_cz_world)
-            .circle(R_bore)
-            .extrude(2.0 * ext_x_bore)
-        )
-
-    bore = (
-        rect_col
-        .union(filler(+1))
-        .union(filler(-1))
-        .cut(cove_cutter(+1))
-        .cut(cove_cutter(-1))
-    )
-
-    # Cylinder clip — match the body's rect∩cylinder profile
-    bore = bore.intersect(body_bore_cyl(zone2_bore_bottom, bore_zone2_height))
-
     # Flavor-tube pill (full Z range — pill has no body-equivalent
-    # transition, so it just runs from zone2_z_bottom continuously)
+    # transition, so it just runs from zone2_z_bottom continuously).
     pill = _flavor_pill_flat_x_minus(zone2_z_bottom, zone2_height)
-
     return bore.union(pill)
 
 
