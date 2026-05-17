@@ -963,28 +963,17 @@ def _gooseneck_path_at_origin() -> cq.Workplane:
     )
 
 
-def _zone6_outer_sketch() -> cq.Sketch:
-    """Zone 5's outer cross-section centered on the water tube.
+def _tube_shell_outer_sketch() -> cq.Sketch:
+    """Tube-shell outer cross-section as a Sketch, centered on the water
+    tube. Used by the gooseneck sweep (Sketch is needed for sweep).
 
     Single connected region: water slot + flavor pill (offset +X) +
     fill rectangle between them. The mode='a' flag unions each shape
     into the running sketch so the sweep sees one face.
 
-    Both the water side and the flavor side are Y-oriented slots
-    (rather than circle + pill). They share the same outer Y total
-    `2 * max(natural water_r_outer, natural pill_y_half)`, so the
-    cross-section's Y+ and Y- outer apexes meet at the same Y across
-    the X range. Each side's X width stays at natural — that is, the
-    walls on the extreme X- (around the water bore) and extreme X+
-    (around the flavor pill) are both zone5_wall. The "stretch" is
-    only in Y (where the smaller side picks up extra wall thickness
-    on its Y apex) — the X side walls don't thicken.
-
-    When water dominates the natural Y (small flavor tubes), the
-    water "slot" degenerates to a circle (slot_straight = 0) and the
-    flavor pill stretches in Y. When flavor dominates (current 1/4
-    tubes), the flavor "pill" stays a pill and the water slot picks
-    up a straight section in the middle.
+    The water and flavor sides are both Y-oriented slots (not circle +
+    pill); see this module's tube_shell_y_outer / tube_shell_water_r_outer
+    constants for the underlying vocabulary.
 
     NOTE: cq.Sketch.slot(w, h) takes w as the *straight section* length
     (between the rounded ends), not the overall length — opposite of
@@ -1007,11 +996,10 @@ def _zone6_outer_sketch() -> cq.Sketch:
     )
 
 
-def _zone6_inner_sketch() -> cq.Sketch:
-    """Zone 5's inner-cut cross-section centered on the water tube.
-
-    See _zone6_outer_sketch's note about cq.Sketch.slot conventions.
-    """
+def _tube_shell_inner_sketch() -> cq.Sketch:
+    """Tube-shell inner cross-section as a Sketch, for the gooseneck
+    sweep. See _tube_shell_outer_sketch's note about cq.Sketch.slot
+    conventions."""
     pill_straight = pill_length_y - pill_width_x  # 3.175
     return (
         cq.Sketch()
@@ -1023,18 +1011,17 @@ def _zone6_inner_sketch() -> cq.Sketch:
 
 
 def build_zone6_outer() -> cq.Workplane:
-    """Sweep the outer cross-section along the gooseneck path, then
-    place at (water_tube_x, 0, zone5_z_top). Sits on top of the tube
-    shell vertical extrusion below.
-    """
-    profile = cq.Workplane("XY").placeSketch(_zone6_outer_sketch())
+    """Sweep the tube-shell outer cross-section along the gooseneck path,
+    then place at (water_tube_x, 0, zone5_z_top). Sits on top of zone 5's
+    vertical extrusion of the same cross-section."""
+    profile = cq.Workplane("XY").placeSketch(_tube_shell_outer_sketch())
     swept = profile.sweep(_gooseneck_path_at_origin(), transition="right")
     return swept.translate((water_tube_x, 0, zone5_z_top))
 
 
 def build_zone6_inner_cut() -> cq.Workplane:
-    """Inner cut for zone 6 — same path, inner cross-section."""
-    profile = cq.Workplane("XY").placeSketch(_zone6_inner_sketch())
+    """Inner cut for zone 6 — same path, inner tube-shell cross-section."""
+    profile = cq.Workplane("XY").placeSketch(_tube_shell_inner_sketch())
     swept = profile.sweep(_gooseneck_path_at_origin(), transition="right")
     return swept.translate((water_tube_x, 0, zone5_z_top))
 
