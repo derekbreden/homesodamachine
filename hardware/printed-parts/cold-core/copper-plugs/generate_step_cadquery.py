@@ -82,6 +82,7 @@ from _cadq_export import export_step
 from _cold_core_interface import (
     xz_plane_y_up,
     xy_plane_z_up,
+    WorldWorkplane,
     wall_and_floor_thickness,
     hole_shift_from_edge,
     below_tank_elbows_height,
@@ -90,43 +91,63 @@ from _cold_core_interface import (
     outer_shell_z_length,
 )
 
+
+def make_box(x_range, y_range, z_range):
+    """Axis-aligned box from world-coordinate ranges in each axis."""
+    x_min, x_max = min(x_range), max(x_range)
+    y_min, y_max = min(y_range), max(y_range)
+    z_min, z_max = min(z_range), max(z_range)
+    return (
+        WorldWorkplane(xz_plane_y_up)
+        .workplane(offset=y_min)
+        .moveTo(((x_min + x_max) / 2, (z_min + z_max) / 2))
+        .rect(x_max - x_min, z_max - z_min)
+        .extrude(y_max - y_min)
+        .unwrap()
+    )
+
 # Slot width in X equals the port's ⌀6.5 (matches the punch in
 # cut_slot_for_copper_and_water_inlet).
 slot_width_x = 6.5
 slot_half_width_x = slot_width_x / 2
+slot_x_range = (-slot_half_width_x, slot_half_width_x)
 
 # Tube clearance diameter at each pass-through (all three pass-throughs
 # share the same ⌀6.5 slot punch from cut_slot_for_copper_and_water_inlet).
 tube_clearance_diameter = 6.5
 tube_clearance_radius = tube_clearance_diameter / 2
 
-# Z range of the +Z outer_shell wall. The web of each plug fills this
-# Z range exactly (2 mm thick at 2 mm wall), and the two flanges sit
-# 1 mm above and 1 mm below it.
+# Web fills the +Z outer_shell wall's Z range exactly (2 mm thick at
+# 2 mm wall); the two flanges sit 1 mm above and 1 mm below it.
 outer_wall_outer_z = outer_shell_z_length / 2
 outer_wall_inner_z = outer_wall_outer_z - wall_and_floor_thickness
-wall_z_center = (outer_wall_inner_z + outer_wall_outer_z) / 2
+wall_z_range = (outer_wall_inner_z, outer_wall_outer_z)
 
 # Flange dimensions.
-#   rail_x_extension: how far each flange extends in X past the slot
-#                     on each side (so total plug X span = slot_width_x
-#                     + 2 × rail_x_extension).
-#   rail_z_thickness: Z thickness of each flange (1 mm above the wall
-#                     for the top flange, 1 mm below for the bottom).
+#   flange_x_overhang_per_side: how far each flange extends in X past
+#                               the slot on each side (so total plug X
+#                               span = slot_width_x + 2 × overhang).
+#   flange_z_thickness:         Z thickness of each flange (1 mm above
+#                               the wall for the top flange, 1 mm below
+#                               for the bottom).
 # Together these form a binder-clip cross-section that grips the wall
 # edge: the 2 mm gap between the two flanges (at the wall's Z range,
 # outside the web's X range) is exactly where the wall slides in.
-rail_x_extension = 1.0
-rail_z_thickness = 1.0
-
-# Full plug Z envelope, including the two flanges.
-plug_z_outer = outer_wall_outer_z + rail_z_thickness
-plug_z_inner = outer_wall_inner_z - rail_z_thickness
+flange_x_overhang_per_side = 1.0
+flange_z_thickness = 1.0
 
 # Full plug X envelope. Flanges run the full plug X width; the web
 # is narrower, sitting only in the slot's X range.
-plug_half_x_outer = slot_half_width_x + rail_x_extension
-plug_full_x = 2 * plug_half_x_outer
+plug_half_x_outer = slot_half_width_x + flange_x_overhang_per_side
+plug_x_range = (-plug_half_x_outer, plug_half_x_outer)
+
+# Full plug Z envelope, including the two flanges.
+plug_z_outer = outer_wall_outer_z + flange_z_thickness
+plug_z_inner = outer_wall_inner_z - flange_z_thickness
+plug_z_range = (plug_z_inner, plug_z_outer)
+
+top_flange_z_range = (outer_wall_outer_z, plug_z_outer)
+bottom_flange_z_range = (plug_z_inner, outer_wall_inner_z)
 
 # Pass-through Y positions (centers).
 y_lowest_copper = hole_shift_from_edge + wall_and_floor_thickness + below_tank_elbows_height
@@ -187,64 +208,13 @@ web_arch_buffer = math.sqrt(
 )
 
 
-# Full plug Z thickness — bottom flange + web + top flange, all stacked
-# face-to-face with no Z gap inside |x| ≤ slot_half_width_x.
-plug_z_thickness = plug_z_outer - plug_z_inner
-
-
-def _build_web(y_bottom, y_height):
-    """The 2 mm-tall web of the I-beam: fills the slot's X range and
-    the wall's Z range. Same as the pre-refactor plate body."""
-    return (
-        cq.Workplane(xz_plane_y_up)
-        .workplane(origin=(0, 0, wall_z_center))
-        .rect(slot_width_x, wall_and_floor_thickness)
-        .extrude(y_height)
-        .translate((0, y_bottom, 0))
-    )
-
-
-def _build_flange(z_side, y_bottom, y_height):
-    """One of the two I-beam flanges. Both run the full plug X width
-    and are rail_z_thickness mm tall in Z.
-
-      • z_side = "top":    z = outer_wall_outer_z .. outer_wall_outer_z
-                             + rail_z_thickness. Sits directly on the
-                             +Z outer face of the wall; shares a
-                             plug_full_x × y_height contact patch with
-                             the web at z = outer_wall_outer_z.
-      • z_side = "bottom": z = outer_wall_inner_z − rail_z_thickness
-                             .. outer_wall_inner_z. Sits directly on
-                             the −Z inner face of the wall; shares a
-                             plug_full_x × y_height contact patch with
-                             the web at z = outer_wall_inner_z.
-
-    The 1 mm of flange that overhangs the web in X on each side
-    (x = ±slot_half .. ±plug_half_outer) leaves a 2 mm Z air gap
-    between the top and bottom flanges where the wall slides in —
-    that's the binder-clip mechanism."""
-    if z_side == "top":
-        flange_z_center = outer_wall_outer_z + rail_z_thickness / 2
-    elif z_side == "bottom":
-        flange_z_center = outer_wall_inner_z - rail_z_thickness / 2
-    else:
-        raise ValueError(f"z_side must be 'top' or 'bottom', got {z_side!r}")
-    return (
-        cq.Workplane(xz_plane_y_up)
-        .workplane(origin=(0, 0, flange_z_center))
-        .rect(plug_full_x, rail_z_thickness)
-        .extrude(y_height)
-        .translate((0, y_bottom, 0))
-    )
-
-
 def build_plug(name, y_bottom, y_top):
     """Single solid plug with the I-beam cross-section described in
     the module docstring, extending y_bottom..y_top in Y. Half-
     circle cutouts (diameter = tube_clearance_diameter) at the ends
     that sit against a tube; the cutouts span the full Z envelope so
     they pass through both flanges and the web."""
-    y_height = y_top - y_bottom
+    plug_y_range = (y_bottom, y_top)
 
     arches = plug_arch_ends[name]
 
@@ -270,13 +240,15 @@ def build_plug(name, y_bottom, y_top):
     # because they're on the print bed.  The binder-clip grip on
     # the wall's −Z face is intact at every arched end; the +Z
     # grip is intact everywhere outside the arched-end Y bands.
-    web_y_bottom = y_bottom + (web_arch_buffer if arches["bottom"] else 0)
-    web_y_top = y_top - (web_arch_buffer if arches["top"] else 0)
-    web_y_height = web_y_top - web_y_bottom
+    web_y_range = (
+        y_bottom + (web_arch_buffer if arches["bottom"] else 0),
+        y_top - (web_arch_buffer if arches["top"] else 0),
+    )
 
-    plug = _build_web(web_y_bottom, web_y_height)
-    plug = plug.union(_build_flange("top", web_y_bottom, web_y_height))
-    plug = plug.union(_build_flange("bottom", y_bottom, y_height))
+    web = make_box(slot_x_range, web_y_range, wall_z_range)
+    top_flange = make_box(plug_x_range, web_y_range, top_flange_z_range)
+    bottom_flange = make_box(plug_x_range, plug_y_range, bottom_flange_z_range)
+    plug = web.union(top_flange).union(bottom_flange)
 
     # Half-circle cutouts. The arch is a cylinder (radius =
     # tube_clearance_radius, axis along Z so it pierces the slab face-
@@ -287,20 +259,19 @@ def build_plug(name, y_bottom, y_top):
     # plug Z envelope (z_inner .. z_outer including both flanges) so
     # the cut goes through both flanges and the web — without this,
     # the flanges would block tubes from seating.
-    def _arch_cylinder(at_y):
-        # Workplane at z = wall_z_center, extruded ±plug_z_thickness
-        # so it covers the full envelope from z_inner to z_outer.
+    def arch_cutter(at_y):
         return (
             cq.Workplane(xy_plane_z_up)
-            .workplane(origin=(0, at_y, wall_z_center), offset=wall_z_center)
+            .workplane(offset=plug_z_inner)
+            .moveTo(0, at_y)
             .circle(tube_clearance_radius)
-            .extrude(plug_z_thickness, both=True)
+            .extrude(plug_z_outer - plug_z_inner)
         )
 
     if arches["bottom"]:
-        plug = plug.cut(_arch_cylinder(y_bottom))
+        plug = plug.cut(arch_cutter(y_bottom))
     if arches["top"]:
-        plug = plug.cut(_arch_cylinder(y_top))
+        plug = plug.cut(arch_cutter(y_top))
 
     return plug
 
@@ -323,21 +294,22 @@ def _analytical_volume(name, y_bottom, y_top):
     Arch cutout per arched end: a Z-axis cylinder of radius
     tube_clearance_radius centered at (x=0, y=at_y).  The cut volume
     splits across the three Z bands:
-      • Bottom flange (full Y range): half-disc × rail_z_thickness
+      • Bottom flange (full Y range): half-disc × flange_z_thickness
       • Web AND top flange (Y range only past the buffer):
         (half-disc − buffer cap) × Z-thickness-of-that-band,
         where the buffer cap is the area of the half-disc from
         y=at_y to y=at_y+web_arch_buffer.
     """
     y_height = y_top - y_bottom
+    plug_full_x = plug_x_range[1] - plug_x_range[0]
 
     arches = plug_arch_ends[name]
     n_arches = sum(1 for v in arches.values() if v)
 
     web_y_height = y_height - n_arches * web_arch_buffer
     vol_web = slot_width_x * wall_and_floor_thickness * web_y_height
-    vol_top_flange = plug_full_x * rail_z_thickness * web_y_height
-    vol_bot_flange = plug_full_x * rail_z_thickness * y_height
+    vol_top_flange = plug_full_x * flange_z_thickness * web_y_height
+    vol_bot_flange = plug_full_x * flange_z_thickness * y_height
 
     r = tube_clearance_radius
     b = web_arch_buffer
@@ -348,8 +320,8 @@ def _analytical_volume(name, y_bottom, y_top):
     buffer_cap_area = b * math.sqrt(r ** 2 - b ** 2) + r ** 2 * math.asin(b / r)
     inset_in_arch_area = half_disc_area - buffer_cap_area
     vol_arch_per_end = (
-        rail_z_thickness * half_disc_area  # bottom flange (full Y)
-        + rail_z_thickness * inset_in_arch_area  # top flange (inset Y)
+        flange_z_thickness * half_disc_area  # bottom flange (full Y)
+        + flange_z_thickness * inset_in_arch_area  # top flange (inset Y)
         + wall_and_floor_thickness * inset_in_arch_area  # web (inset Y)
     )
     vol_arch_total = n_arches * vol_arch_per_end
