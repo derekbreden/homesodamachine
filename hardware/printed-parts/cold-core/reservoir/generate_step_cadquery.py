@@ -1228,16 +1228,12 @@ def build_reservoir_gasket(side=1):
     gasket = _fillet_pair_at_z(gasket, side * outer_corner_x, y_mid_gasket, outer_z_max, outer_corner_fillet_radius)
     gasket = _fillet_pair_at_z(gasket, side * outer_far_x_abs, y_mid_gasket, outer_z_max, outer_corner_fillet_radius)
 
-    # Pads at every insert position — unioned BEFORE the holes are
-    # cut so each hole sits at the center of a full ø8 disk.
+    # At each insert position: ø8 pad unioned BEFORE the hole is cut
+    # so each hole sits at the center of a full pad disk.
     for (px, pz) in insert_positions_for_side_plus_1:
         px_signed = px * side
         pad = _y_cylinder(px_signed, 0.0, pz, 2 * gasket_pad_radius, gasket_thickness)
         gasket = gasket.union(pad)
-
-    # Screw clearance holes.
-    for (px, pz) in insert_positions_for_side_plus_1:
-        px_signed = px * side
         hole = _y_cylinder(px_signed, -0.1, pz, cap_clearance_hole_diameter, gasket_thickness + 0.2)
         gasket = gasket.cut(hole)
 
