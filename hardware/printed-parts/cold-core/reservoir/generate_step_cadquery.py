@@ -652,13 +652,17 @@ def build_reservoir_body(side=1):
     inner_corner_x = math.sqrt(inner_centerward_radius**2 - inner_z_max**2)
     y_mid_body = (outer_floor_bottom_y + outer_top_y) / 2
 
-    # Outer fillets: curve × ±Z (acute "pointy tab") and +X × ±Z (90°
-    # corner). Bosses 1/2 sit at the +X × ±Z fillet centers (boss disk
-    # inscribes the fillet arc, same trick as bosses 4/5 — see
-    # body_boss_cut_info above), so boss material stays inside the
-    # rounded wall and the 45° overhang cut still applies normally.
-    body = _fillet_pair_at_z(body, side * outer_corner_x, y_mid_body, outer_z_max, outer_corner_fillet_radius)
-    body = _fillet_pair_at_z(body, side * outer_far_x_abs, y_mid_body, outer_z_max, outer_corner_fillet_radius)
+    def _apply_outer_fillets(solid):
+        """Round both outer corner pairs (curve × ±Z acute tabs, +X ×
+        ±Z 90° corners). Bosses 1/2 sit at the +X × ±Z fillet centers
+        (boss disk inscribes the fillet arc, same trick as bosses 4/5 —
+        see body_boss_cut_info), so boss material stays inside the
+        rounded wall and the 45° overhang cut still applies normally."""
+        solid = _fillet_pair_at_z(solid, side * outer_corner_x, y_mid_body, outer_z_max, outer_corner_fillet_radius)
+        solid = _fillet_pair_at_z(solid, side * outer_far_x_abs, y_mid_body, outer_z_max, outer_corner_fillet_radius)
+        return solid
+
+    body = _apply_outer_fillets(body)
 
     # Separately-filleted outer envelope, used below to clip the wedge
     # so the wedge's sharp [-shape corner at (inner_corner_x, ±inner_z_max)
@@ -666,9 +670,7 @@ def build_reservoir_body(side=1):
     # wedge restores the pre-fillet outer corner geometry in the wedge's
     # y range, leaving a sharp tab visible from the centerward face in a
     # narrow Y range matching the wedge's extent.)
-    outer_envelope_filleted = _build_envelope(side, outer_floor_bottom_y, outer_height)
-    outer_envelope_filleted = _fillet_pair_at_z(outer_envelope_filleted, side * outer_corner_x, y_mid_body, outer_z_max, outer_corner_fillet_radius)
-    outer_envelope_filleted = _fillet_pair_at_z(outer_envelope_filleted, side * outer_far_x_abs, y_mid_body, outer_z_max, outer_corner_fillet_radius)
+    outer_envelope_filleted = _apply_outer_fillets(_build_envelope(side, outer_floor_bottom_y, outer_height))
 
     # Inner fillets: curve × ±Z (sharp crevice in syrup volume) and
     # +X × ±Z (analogous interior corner, exposed in syrup above
