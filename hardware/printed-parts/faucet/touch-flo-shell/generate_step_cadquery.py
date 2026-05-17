@@ -710,18 +710,12 @@ def build_zone3_fill_outer() -> cq.Workplane:
 
 
 def build_zone3_fill_inner_cut() -> cq.Workplane:
-    """Tube cutouts through the plateau fill: water tube + straight flavor pill.
-
-    Flavor cut is a straight pill at flavor_tube_x (matching zones 1+2). The
-    bend that previously lived here is no longer needed — with the new
-    base/tube-shell split, the LLDPE flavor tubes are routed through the
-    tube shell first (post-bend at flavor_tube_post_bend_x) and then dropped
-    into the base; they flex through the socket area on the way down.
-    """
+    """Tube cutouts through the plateau fill: water tube + straight flavor
+    pill at flavor_tube_x. The bend lives in the tube shell above (the
+    LLDPE flavor tubes flex through the socket area on the way down)."""
     z_height = shell_arch_peak_z - zone3_z_bottom
     water_hole = water_tube_cyl(zone3_z_bottom, z_height)
     flavor_pill = _flavor_pill_flat_x_minus(zone3_z_bottom, z_height)
-
     return water_hole.union(flavor_pill)
 
 
@@ -767,16 +761,9 @@ def build_zone4_outer() -> cq.Workplane:
 
 def build_zone4_inner_cut() -> cq.Workplane:
     """Tube cavity: water-tube cyl + straight flavor pill at flavor_tube_x.
-
-    Previously this was a 3D loft from a wider rounded-rect at the bottom
-    to a pill at flavor_tube_post_bend_x at the top, transitioning the
-    flavor tube position. With the new base/tube-shell split, the bend
-    is handled in the tube shell + the socket area above, so the base
-    just needs straight pill clearance at flavor_tube_x.
-    """
+    Straight cuts only — the flavor bend lives in the tube shell above."""
     water_inner = water_tube_cyl(zone4_z_bottom, zone4_height)
     flavor_pill = _flavor_pill_flat_x_minus(zone4_z_bottom, zone4_height)
-
     return water_inner.union(flavor_pill)
 
 
