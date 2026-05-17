@@ -815,9 +815,7 @@ def build_reservoir_body(side=1):
         )
         body = body.cut(pocket)
 
-    # ─────────────────────────────────────────────────────
-    # Thick sloped floor + bulkhead pocket
-    # ─────────────────────────────────────────────────────
+    # Thick sloped floor + bulkhead pocket.
     # Floor inner surface is piecewise across z, with the split at the
     # PANEL's −Z face (= where the wet nut seats and the actual
     # wet/dry boundary lives). Both slopes share the same rate
@@ -1134,9 +1132,7 @@ def build_reservoir_body(side=1):
     # passes through the panel hole and its dry collet projects into
     # the open dry section; the tube push-in is unobstructed.
 
-    # ─────────────────────────────────────────────────────
-    # Level-sensing rod body anchor (standing boss + blind bore)
-    # ─────────────────────────────────────────────────────
+    # Level-sensing rod body anchor (standing boss + blind bore).
     # A standing cylindrical PETG boss rising from the wet slope at
     # (x = ±rod_position_x, z = rod_position_z), with a blind
     # cylindrical bore cut into the boss from above. A separately-
@@ -1301,9 +1297,7 @@ def build_reservoir_cap(side=1):
         )
         cap = cap.cut(counterbore)
 
-    # ─────────────────────────────────────────────────────
-    # Vent feature
-    # ─────────────────────────────────────────────────────
+    # Vent feature.
     # Cap-local y, top→bottom (with cap_base_thickness=4, cap_wall_height=5,
     # cap_total_height=9; base plate spans y=5..9, perimeter wall y=0..5):
     #   y=9 .. 6.5  filter pocket (ø13.2, holds filter + retaining ring)
@@ -1386,9 +1380,7 @@ def build_reservoir_cap(side=1):
         )
         cap = cap.cut(slot_cut)
 
-    # ─────────────────────────────────────────────────────
-    # Level-sensing rod register boss
-    # ─────────────────────────────────────────────────────
+    # Level-sensing rod register boss.
     # Hollow boss hanging DOWN from the cap's underside into the body
     # cavity. The rod top slides into the boss's bore from below as
     # the cap is lowered onto the body. The gasket is a perimeter ring
