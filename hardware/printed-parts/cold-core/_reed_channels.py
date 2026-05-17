@@ -112,10 +112,11 @@ def build_reed_channels(side):
         .moveTo(bag_x, -(reed_z_center - reed_z_half_w - W))
         .lineTo(bag_x + s * (cable_channel_x_depth + W), -(reed_z_center - reed_z_half_w - W))
         .lineTo(bag_x + s * (cable_channel_x_depth + W), -(cable_z_max + W - R))
-        .radiusArc(
-            (bag_x + s * (cable_channel_x_depth + W - R), -(cable_z_max + W)),
-            s * R,
-        )
+        # .radiusArc(
+        #     (bag_x + s * (cable_channel_x_depth + W - R), -(cable_z_max + W)),
+        #     s * R,
+        # )
+        .lineTo(bag_x + s * (cable_channel_x_depth + W), -(cable_z_max + W))
         .lineTo(bag_x, -(cable_z_max + W))
         .close()
         .extrude(2 * (cable_y_half_h + W))
@@ -127,11 +128,12 @@ def build_reed_channels(side):
         .workplane(offset=cable_y_center - cable_y_half_h)
         .moveTo(bag_x, -(reed_z_center - reed_z_half_w))
         .lineTo(bag_x + s * cable_channel_x_depth, -(reed_z_center - reed_z_half_w))
-        .lineTo(bag_x + s * cable_channel_x_depth, -(cable_z_max - R))
-        .radiusArc(
-            (bag_x, -cavity_arc_z_at_inner_x),
-            s * R,
-        )
+        .lineTo(bag_x + s * cable_channel_x_depth, -(cable_z_max))
+        .lineTo(bag_x, -(cable_z_max))
+        # .radiusArc(
+        #     (bag_x, -cavity_arc_z_at_inner_x),
+        #     s * R,
+        # )
         .close()
         .extrude(2 * cable_y_half_h)
     )
@@ -145,7 +147,7 @@ def build_reed_channels(side):
     # the resulting step at z = cable_z_max − R in a later iteration).
     slope_z_min_env = reed_z_center - reed_z_half_w - W
     slope_z_min_cav = reed_z_center - reed_z_half_w
-    slope_z_max     = cable_z_max - R
+    slope_z_max     = cable_z_max + W
     env_wedge_y_low  = cable_y_center + cable_y_half_h + W
     env_wedge_y_high = env_wedge_y_low + cable_channel_x_depth
     cav_wedge_y_low  = cable_y_center + cable_y_half_h
@@ -166,7 +168,7 @@ def build_reed_channels(side):
         .lineTo(bag_x + s * cable_channel_x_depth, cav_wedge_y_low)
         .lineTo(bag_x, cav_wedge_y_high)
         .close()
-        .extrude(slope_z_max - slope_z_min_cav)
+        .extrude(slope_z_max - slope_z_min_cav - W)
     )
     horiz_envelope = horiz_envelope.union(env_wedge)
     horiz_cavity = horiz_cavity.union(cav_wedge)
@@ -193,8 +195,36 @@ def build_reed_channels(side):
         .extrude(y_max_env - y_min_env)
     )
 
+    # more missing wall on +Z face XY plane, around the fillet of the reservoir pocket
+    missing_wall = (
+        cq.Workplane(xy_plane_z_up)
+        .workplane(offset=z_outer)
+        .moveTo(bag_x, y_min_env)
+        .lineTo(bag_x, cav_wedge_y_high + W)
+        .lineTo(
+            bag_x - s * (W + bag_pocket_corner_inner_radius),
+            cav_wedge_y_high + W + W + bag_pocket_corner_inner_radius,
+        )
+        .lineTo(bag_x - s * (W + bag_pocket_corner_inner_radius), y_min_env)
+        .close()
+        .extrude(-1 * (W + bag_pocket_corner_inner_radius))
+    )
+
+    # last cylinder cut for missing wall, to match inner side of reservoir pocket
+    cylinder_cut_for_missing_wall = (
+        cq.Workplane(xz_plane_y_up)
+        .workplane(offset=cav_wedge_y_high + W)
+        .moveTo(
+            bag_x - s * (W + bag_pocket_corner_inner_radius),
+            -z_outer + bag_pocket_corner_inner_radius + W + W
+        )
+        .circle(W + bag_pocket_corner_inner_radius)
+        .extrude(W + bag_pocket_corner_inner_radius,)
+    )
+    missing_wall = missing_wall.cut(cylinder_cut_for_missing_wall)
+
     return (
-        vert_envelope.union(horiz_envelope).union(corner_wedge)
+        vert_envelope.union(horiz_envelope).union(missing_wall)#.union(corner_wedge)
         .cut(vert_cavity).cut(horiz_cavity)
     )
 
@@ -247,16 +277,16 @@ def cut_reed_channel_openings(foam_shell):
         # section only (z ≤ cable_z_max − R).
         slope_y_low      = cable_y_center + cable_y_half_h
         slope_y_at_outer = slope_y_low + cable_channel_x_depth
-        slope_y_at_inner = slope_y_at_outer + W
+        slope_y_at_inner = slope_y_at_outer + W + bag_pocket_corner_inner_radius
         slope_z_min      = reed_z_center - reed_z_half_w
-        slope_z_max      = cable_z_max - bag_pocket_corner_inner_radius
+        slope_z_max      = cable_z_max
         slope_wall_cut = (
             cq.Workplane(xy_plane_z_up)
             .workplane(offset=slope_z_min)
-            .moveTo(wall_x_inner, slope_y_low)
+            .moveTo(wall_x_inner - s * bag_pocket_corner_inner_radius, slope_y_low)
             .lineTo(wall_x_outer, slope_y_low)
             .lineTo(wall_x_outer, slope_y_at_outer)
-            .lineTo(wall_x_inner, slope_y_at_inner)
+            .lineTo(wall_x_inner - s * bag_pocket_corner_inner_radius, slope_y_at_inner)
             .close()
             .extrude(slope_z_max - slope_z_min)
         )
