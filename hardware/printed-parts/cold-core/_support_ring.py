@@ -12,14 +12,22 @@ from _cold_core_interface import (
 )
 
 
+ring_radial_width = 9.0
+slot_count = 4
+slot_angular_width = 30.0
+# Radial overrun on each side so the slot cuts past the ring faces and
+# doesn't leave a thin shell at r_inner / r_outer from numerical noise.
+slot_radial_margin = 1.0
+
+
 def build_tank_support_ring():
-    """Built as a full revolve of a rectangular (R, y) profile around
+    """Built as a full revolve of a rectangular (r, y) profile around
     the Y axis; four 30°-wide angular slots at the diagonals are cut
     as 30° revolves of the same profile (with a radial margin), so
     every slot boundary stays on the same cylinder as the ring faces
     — no chord-vs-arc slivers."""
     r_outer = pocket_centerward_arc_outer_radius - wall_and_floor_thickness
-    r_inner = r_outer - 9
+    r_inner = r_outer - ring_radial_width
     y_bottom = wall_and_floor_thickness
     y_top = y_bottom + tank_support_ring_height
 
@@ -33,8 +41,6 @@ def build_tank_support_ring():
     )
     ring = ring_profile.revolve()
 
-    slot_radial_margin = 1.0
-    slot_angular_width = 30
     def build_slot():
         return (
             cq.Workplane("XY")
@@ -45,8 +51,9 @@ def build_tank_support_ring():
             .close()
             .revolve(slot_angular_width)
         )
-    for i in range(4):
-        slot_center_angle = 45 + 90 * i
+    slot_spacing_angle = 360 / slot_count
+    for i in range(slot_count):
+        slot_center_angle = slot_spacing_angle / 2 + slot_spacing_angle * i
         slot_start_angle = slot_center_angle - slot_angular_width / 2
         slot = build_slot().rotate((0, 0, 0), (0, 1, 0), slot_start_angle)
         ring = ring.cut(slot)
