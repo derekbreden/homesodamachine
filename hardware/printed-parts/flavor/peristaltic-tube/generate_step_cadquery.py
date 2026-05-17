@@ -13,27 +13,24 @@ sys.path.insert(0, str(next(p for p in _here.parents if p.name == "hardware")))
 from _cadq_export import export_step
 
 
-# Bore diameter matches the Kamoer KPP small-bore pump head; wall
-# thickness is the vase-mode print thickness for PETG at 0.4 mm nozzle.
+# Bore diameter matches the Kamoer KPP small-bore pump head; outer
+# diameter is the bore plus a wall on each side.
 inner_diameter = 3.2
 wall_thickness = 1.6
 outer_diameter = inner_diameter + 2 * wall_thickness
 tube_length = 150.0
 
-inner_radius = inner_diameter / 2
-outer_radius = outer_diameter / 2
-
 
 def build_tube():
-    """Hollow cylinder along Z, +Z end open."""
+    """Hollow cylinder, axis along Z."""
     outer = (
         cq.Workplane("XY")
-        .circle(outer_radius)
+        .circle(outer_diameter / 2)
         .extrude(tube_length)
     )
     inner = (
         cq.Workplane("XY")
-        .circle(inner_radius)
+        .circle(inner_diameter / 2)
         .extrude(tube_length)
     )
     return outer.cut(inner)
