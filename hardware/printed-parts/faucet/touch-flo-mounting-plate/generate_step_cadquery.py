@@ -65,29 +65,29 @@ from _cadq_export import export_step
 # Plate — Ø 54.35 leaves a 5 mm radial gap to the shell base (Ø 44.35).
 # Thickness was 5 mm; trimmed 1 mm to free shank thread engagement for
 # the under-counter nut once the 2 mm TPU gasket is in the stack.
-plate_diameter = 54.35
+plate_radius = 54.35 / 2
 plate_thickness = 4.0
+# Top face flush with the deck plane (Z=0); plate hangs below.
+plate_z_range = (-plate_thickness, 0.0)
 # Plate center: midpoint of the assembly footprint with 1/4" flavor
 # tubes; matches SHELL_CENTER_X for concentric stack-up.
-plate_center_x = 3.175
-plate_center_y = 0.0
-plate_z_top = 0.0
-plate_z_bottom = plate_z_top - plate_thickness
+plate_center = (3.175, 0.0)
 
 
 # Shank — clearance for the 11 mm threaded shank. 12.6 mm matches the
 # factory mounting plate (~14.5% diametric clearance).
-shank_hole_diameter = 12.6
-shank_hole_x = 0.0
-shank_hole_y = 0.0
+shank_hole_radius = 12.6 / 2
+shank_hole_center = (0.0, 0.0)
+
 
 # Flavor-tube pill slot. The two 1/4" (6.35 mm) LLDPE tubes are tangent
-# in Y at centers ± 3.175.
+# in Y at centers ±flavor_tube_y_offset; per-tube circles would overlap
+# by ~0.5 mm, so we model the combined opening as a single Y-oriented
+# pill (rounded-rectangle).
 flavor_tube_od = 6.35
 flavor_tube_hole_diameter = flavor_tube_od + 0.5
-flavor_tube_x = 18.925
 flavor_tube_y_offset = 3.175
-
+pill_slot_center = (18.925, 0.0)
 pill_slot_length_y = 2 * flavor_tube_y_offset + flavor_tube_hole_diameter
 pill_slot_width_x = flavor_tube_hole_diameter
 
@@ -108,25 +108,27 @@ pill_slot_width_x = flavor_tube_hole_diameter
 # Tight by intent — close fit aids screw alignment. If FDM print
 # comes in undersize for this hole, drill out with a #29 (3.9 mm)
 # bit before trying to install screws.
-screw_hole_diameter = 3.9
+screw_clearance_radius = 3.9 / 2
 
 # Clearance for the Ø 5.5 head (0.1 mm/side). 1.25 mm deep =
 # 1.0 mm head height + 0.25 mm clearance, so the head sits 0.25 mm
 # below the bottom face. Plate material remaining above the
 # counterbore (Z = -2.75 to 0): 2.75 mm.
-screw_counterbore_diameter = 5.7
+screw_counterbore_radius = 5.7 / 2
 screw_counterbore_depth = 1.25
 
-# Position: θ = ±45° about the body center (0, 0), r = 20 mm.
-# At this point all four wall margins hold ≥ 2 mm:
-#   - to body bore (Ø 31.5 cyl @ origin):  2.25 mm
-#   - to shell outer (Ø 44.35 cyl @ +X 3.175): 2.28 mm
-#   - to pill slot (Y top edge at +6.6):     5.54 mm
-#   - between the two screws (Y separation): 24.28 mm
+# Screw positions: θ = ±45° about the body center (0, 0), r = 20 mm —
+# the shell's "rear shoulder" wall material. At this point all four
+# wall margins hold ≥ 2 mm:
+#   - to body bore (Ø 31.5 cyl @ origin):       2.25 mm
+#   - to shell outer (Ø 44.35 cyl @ +X 3.175):  2.28 mm
+#   - to pill slot (Y top edge at +6.6):        5.54 mm
+#   - between the two screws (Y separation):    24.28 mm
 screw_r_from_body = 20.0
 screw_theta_deg = 45.0
 screw_x = screw_r_from_body * math.cos(math.radians(screw_theta_deg))
 screw_y_offset = screw_r_from_body * math.sin(math.radians(screw_theta_deg))
+screw_centers = [(screw_x, +screw_y_offset), (screw_x, -screw_y_offset)]
 
 
 # Fillet on the top outer edge — softens the visible ring around the
@@ -150,12 +152,13 @@ def build_mounting_plate() -> cq.Workplane:
 
     All cuts pass through the full 4 mm thickness.
     """
+    z_min, z_max = plate_z_range
     plate = (
         cq.Workplane("XY")
-        .workplane(offset=plate_z_bottom)
-        .moveTo(plate_center_x, plate_center_y)
-        .circle(plate_diameter / 2.0)
-        .extrude(plate_thickness)
+        .workplane(offset=z_min)
+        .moveTo(*plate_center)
+        .circle(plate_radius)
+        .extrude(z_max - z_min)
     )
 
     # Fillet the single top edge (the outer circle) before any holes
@@ -164,42 +167,39 @@ def build_mounting_plate() -> cq.Workplane:
 
     shank_hole = (
         cq.Workplane("XY")
-        .workplane(offset=plate_z_bottom)
-        .moveTo(shank_hole_x, shank_hole_y)
-        .circle(shank_hole_diameter / 2.0)
-        .extrude(plate_thickness)
+        .workplane(offset=z_min)
+        .moveTo(*shank_hole_center)
+        .circle(shank_hole_radius)
+        .extrude(z_max - z_min)
     )
     plate = plate.cut(shank_hole)
 
     pill_slot = (
         cq.Workplane("XY")
-        .workplane(offset=plate_z_bottom)
-        .moveTo(flavor_tube_x, 0)
+        .workplane(offset=z_min)
+        .moveTo(*pill_slot_center)
         .slot2D(pill_slot_length_y, pill_slot_width_x, angle=90)
-        .extrude(plate_thickness)
+        .extrude(z_max - z_min)
     )
     plate = plate.cut(pill_slot)
 
     # Two screw clearance holes (through) + counterbores (bottom face),
     # mirrored across Y=0.
-    for y_sign in (+1, -1):
-        sx = screw_x
-        sy = y_sign * screw_y_offset
-
+    for screw_center in screw_centers:
         clear = (
             cq.Workplane("XY")
-            .workplane(offset=plate_z_bottom)
-            .moveTo(sx, sy)
-            .circle(screw_hole_diameter / 2.0)
-            .extrude(plate_thickness)
+            .workplane(offset=z_min)
+            .moveTo(*screw_center)
+            .circle(screw_clearance_radius)
+            .extrude(z_max - z_min)
         )
         plate = plate.cut(clear)
 
         cbore = (
             cq.Workplane("XY")
-            .workplane(offset=plate_z_bottom)
-            .moveTo(sx, sy)
-            .circle(screw_counterbore_diameter / 2.0)
+            .workplane(offset=z_min)
+            .moveTo(*screw_center)
+            .circle(screw_counterbore_radius)
             .extrude(screw_counterbore_depth)
         )
         plate = plate.cut(cbore)
@@ -214,17 +214,16 @@ if __name__ == "__main__":
     export_step(plate, str(out))
 
     print("Touch-Flo mounting plate")
-    print(f"  Disc:           Ø{plate_diameter} mm × {plate_thickness} mm thick")
-    print(f"  Center:         X = {plate_center_x}, Y = {plate_center_y}")
-    print(f"  Z range:        {plate_z_bottom} → {plate_z_top}")
-    print(f"  Shank hole:     Ø{shank_hole_diameter} mm at "
-          f"({shank_hole_x}, {shank_hole_y})")
+    print(f"  Disc:           Ø{2 * plate_radius} mm × {plate_thickness} mm thick")
+    print(f"  Center:         {plate_center}")
+    print(f"  Z range:        {plate_z_range[0]} → {plate_z_range[1]}")
+    print(f"  Shank hole:     Ø{2 * shank_hole_radius} mm at {shank_hole_center}")
     print(f"  Flavor pill:    {pill_slot_length_y} × {pill_slot_width_x} mm "
-          f"at ({flavor_tube_x}, 0), Y-oriented")
-    print(f"  Screw clear:    Ø{screw_hole_diameter} mm at "
+          f"at {pill_slot_center}, Y-oriented")
+    print(f"  Screw clear:    Ø{2 * screw_clearance_radius} mm at "
           f"({screw_x:.3f}, ±{screw_y_offset:.3f}) "
           f"[θ=±{screw_theta_deg}°, r={screw_r_from_body} from body]")
-    print(f"  Screw cbore:    Ø{screw_counterbore_diameter} × "
+    print(f"  Screw cbore:    Ø{2 * screw_counterbore_radius} × "
           f"{screw_counterbore_depth} mm deep, bottom face")
     print(f"  Top outer R:    {top_outer_fillet_r} mm fillet")
     print(f"-> {out.name}")
