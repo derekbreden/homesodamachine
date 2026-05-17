@@ -19,7 +19,10 @@ import sys
 
 import cadquery as cq
 
-sys.path.insert(0, str(Path(__file__).resolve().parent.parent / "cadlib"))
+sys.path.insert(
+    0,
+    str(next(p for p in Path(__file__).resolve().parents if p.name == "printed-parts") / "cadlib"),
+)
 from snap import apply_ramp_out_first, apply_ramp_in_first
 
 sys.path.insert(
