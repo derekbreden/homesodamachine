@@ -205,7 +205,7 @@ bag_pocket_corner_inner_radius = 6.5
 
 reservoir_clearance = 0.5
 reservoir_floor_thickness = 4.0
-bulkhead_pocket_diameter = 23.0
+bulkhead_nut_cavity_diameter = 23.0
 
 # Y of the bulkhead NUT cavity center — anchored to the floor's low point.
 # Computed so the nut cavity's lowest reach (washer counterbore at
@@ -217,7 +217,7 @@ reservoir_bulkhead_nut_y = (
     bag_pocket_floor_top_y
     + reservoir_clearance
     + reservoir_floor_thickness
-    + bulkhead_pocket_diameter / 2
+    + bulkhead_nut_cavity_diameter / 2
 )
 
 # 2026-05-16 print test: the bulkhead body itself needs to sit 1 mm
@@ -298,7 +298,7 @@ def make_box(x_range, y_range, z_range):
     )
 
 
-def build_a_hole_punch(
+def build_hole_punch(
     *,
     origin=(0, 0, 0),
     hole_punch_radius,
@@ -327,7 +327,7 @@ def build_a_hole_punch(
     )
 
 
-def build_a_slot_punch(
+def build_slot_punch(
     origin=(0, 0, 0),
     slot_length=1.0,
     slot_diameter=6.5,
@@ -346,7 +346,7 @@ def build_a_slot_punch(
     )
 
 
-def build_a_y_axis_hole_punch(
+def build_y_axis_hole_punch(
     *,
     origin=(0, 0, 0),
     hole_punch_radius,
@@ -354,7 +354,7 @@ def build_a_y_axis_hole_punch(
 ):
     """Y-axis ⌀ × height cylindrical cut, centered at `origin`'s X/Z and
     starting at `origin`'s Y, extruded in +Y. Same shape as
-    `build_a_hole_punch` but aimed along +Y instead of +Z."""
+    `build_hole_punch` but aimed along +Y instead of +Z."""
     x, y, z = origin
     return (
         cq.Workplane(xz_plane_y_up)
