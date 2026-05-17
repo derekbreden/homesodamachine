@@ -29,7 +29,7 @@ cable_y_center = wall_and_floor_thickness + cable_y_half_h
 cable_channel_x_depth = 5.0
 
 # Vertical reed channel position in Z, matching the reservoir's
-# STRUT_POSITION_Z so reeds sit opposite the float-on-strut across
+# ROD_POSITION_Z so reeds sit opposite the float-on-rod across
 # the bag-pocket wall.
 reed_z_center = -45.0
 reed_z_half_w = 4.0
@@ -38,8 +38,8 @@ reed_z_half_w = 4.0
 # bag-pocket inner face.
 cable_z_max = 70.5
 
-# X depth of the vertical reed channel cavity.
-reed_x_depth = 6.0
+# Outer radius of the bag-pocket +Z corner fillet.
+outer_corner_R = wall_and_floor_thickness + bag_pocket_corner_inner_radius
 
 
 def make_box(x_a, x_b, y_min, y_max, z_a, z_b):
@@ -75,83 +75,67 @@ def build_reed_channels(side):
     `side` = ±1 mirrors x across the y-z plane."""
     s = side
     W = wall_and_floor_thickness
+    reed_x_depth = 6.0
 
     bag_x = s * bag_pocket_outermost_x  # outer face of bag-pocket far ±X wall
+    z_outer = bag_pocket_width / 2
 
-    # Vertical reed channel envelope + cavity
+    # Axis along Y through the center of the bag-pocket +Z corner fillet.
+    fillet_axis_x = bag_x - s * outer_corner_R
+    fillet_axis_z = z_outer - W - outer_corner_R
+
+    env_y_low = cable_y_center - cable_y_half_h - W
+    cav_y_low = cable_y_center - cable_y_half_h
+    env_wedge_y_low = cable_y_center + cable_y_half_h + W
+    cav_wedge_y_low = cable_y_center + cable_y_half_h
+    env_wedge_y_high = env_wedge_y_low + cable_channel_x_depth
+
     vert_envelope = make_box(
         bag_x, bag_x + s * (reed_x_depth + W),
-        cable_y_center - cable_y_half_h - W, foam_shell_outer_height,
+        env_y_low, foam_shell_outer_height,
         reed_z_center - reed_z_half_w - W, reed_z_center + reed_z_half_w + W,
     )
     vert_cavity = make_box(
         bag_x, bag_x + s * reed_x_depth,
-        cable_y_center - cable_y_half_h, foam_shell_outer_height,
+        cav_y_low, foam_shell_outer_height,
         reed_z_center - reed_z_half_w, reed_z_center + reed_z_half_w,
     )
 
     # Horizontal cable channel envelope + cavity. The (+X, +Z) corner
     # is square; missing_wall (below) extends the channel-outer face
     # material around the bag-pocket inner corner fillet.
-    horiz_envelope = (
-        cq.Workplane(xz_plane_y_up)
-        .workplane(offset=cable_y_center - cable_y_half_h - W)
-        .moveTo(bag_x, -(reed_z_center - reed_z_half_w - W))
-        .lineTo(bag_x + s * (cable_channel_x_depth + W), -(reed_z_center - reed_z_half_w - W))
-        .lineTo(bag_x + s * (cable_channel_x_depth + W), -(cable_z_max + W))
-        .lineTo(bag_x, -(cable_z_max + W))
-        .close()
-        .extrude(2 * (cable_y_half_h + W))
+    horiz_envelope = make_box(
+        bag_x, bag_x + s * (cable_channel_x_depth + W),
+        env_y_low, env_wedge_y_low,
+        reed_z_center - reed_z_half_w - W, cable_z_max + W,
+    )
+    horiz_cavity = make_box(
+        bag_x, bag_x + s * cable_channel_x_depth,
+        cav_y_low, cav_wedge_y_low,
+        reed_z_center - reed_z_half_w, cable_z_max,
     )
 
-    horiz_cavity = (
-        cq.Workplane(xz_plane_y_up)
-        .workplane(offset=cable_y_center - cable_y_half_h)
-        .moveTo(bag_x, -(reed_z_center - reed_z_half_w))
-        .lineTo(bag_x + s * cable_channel_x_depth, -(reed_z_center - reed_z_half_w))
-        .lineTo(bag_x + s * cable_channel_x_depth, -(cable_z_max))
-        .lineTo(bag_x, -(cable_z_max))
-        .close()
-        .extrude(2 * cable_y_half_h)
-    )
-
-    # Sloped ceiling on the horizontal cable channel. Triangular wedge
-    # added to both envelope and cavity, rising 1:1 (45°) over
-    # cable_channel_x_depth from the channel-outer face to the
-    # bag-pocket-wall side. Self-supporting in Y-up print; no internal
-    # support material needed.
-    slope_z_min_env = reed_z_center - reed_z_half_w - W
-    slope_z_min_cav = reed_z_center - reed_z_half_w
-    slope_z_max_env = cable_z_max + W
-    slope_z_max_cav = cable_z_max
-    env_wedge_y_low  = cable_y_center + cable_y_half_h + W
-    env_wedge_y_high = env_wedge_y_low + cable_channel_x_depth
-    cav_wedge_y_low  = cable_y_center + cable_y_half_h
-    cav_wedge_y_high = cav_wedge_y_low + cable_channel_x_depth
-    env_wedge = (
-        cq.Workplane(xy_plane_z_up)
-        .workplane(offset=slope_z_min_env)
-        .moveTo(bag_x, env_wedge_y_low)
-        .lineTo(bag_x + s * cable_channel_x_depth, env_wedge_y_low)
-        .lineTo(bag_x, env_wedge_y_high)
-        .close()
-        .extrude(slope_z_max_env - slope_z_min_env)
-    )
-    cav_wedge = (
-        cq.Workplane(xy_plane_z_up)
-        .workplane(offset=slope_z_min_cav)
-        .moveTo(bag_x, cav_wedge_y_low)
-        .lineTo(bag_x + s * cable_channel_x_depth, cav_wedge_y_low)
-        .lineTo(bag_x, cav_wedge_y_high)
-        .close()
-        .extrude(slope_z_max_cav - slope_z_min_cav)
-    )
-    horiz_envelope = horiz_envelope.union(env_wedge)
-    horiz_cavity = horiz_cavity.union(cav_wedge)
-
-    z_outer = bag_pocket_width / 2
-    y_min_env = cable_y_center - cable_y_half_h - W
-    outer_corner_R = W + bag_pocket_corner_inner_radius
+    # Sloped ceiling on the horizontal cable channel — 45° rise from
+    # channel-outer face to bag-pocket-wall side, self-supporting in
+    # Y-up print so no bridging / support material is needed.
+    def slope_wedge(y_low, z_min, z_max):
+        return (
+            cq.Workplane(xy_plane_z_up)
+            .workplane(offset=z_min)
+            .moveTo(bag_x, y_low)
+            .lineTo(bag_x + s * cable_channel_x_depth, y_low)
+            .lineTo(bag_x, y_low + cable_channel_x_depth)
+            .close()
+            .extrude(z_max - z_min)
+        )
+    horiz_envelope = horiz_envelope.union(slope_wedge(
+        env_wedge_y_low,
+        reed_z_center - reed_z_half_w - W, cable_z_max + W,
+    ))
+    horiz_cavity = horiz_cavity.union(slope_wedge(
+        cav_wedge_y_low,
+        reed_z_center - reed_z_half_w, cable_z_max,
+    ))
 
     # Wraps the channel-outer face around the bag-pocket +Z corner
     # fillet so the channel meets the bag-pocket wall continuously
@@ -160,23 +144,17 @@ def build_reed_channels(side):
     missing_wall = (
         cq.Workplane(xy_plane_z_up)
         .workplane(offset=z_outer)
-        .moveTo(bag_x, y_min_env)
-        .lineTo(bag_x, cav_wedge_y_high + W)
-        .lineTo(
-            bag_x - s * outer_corner_R,
-            cav_wedge_y_high + W + outer_corner_R,
-        )
-        .lineTo(bag_x - s * outer_corner_R, y_min_env)
+        .moveTo(bag_x, env_y_low)
+        .lineTo(bag_x, env_wedge_y_high)
+        .lineTo(fillet_axis_x, env_wedge_y_high + outer_corner_R)
+        .lineTo(fillet_axis_x, env_y_low)
         .close()
         .extrude(-outer_corner_R)
     )
     cylinder_cut_for_missing_wall = (
         cq.Workplane(xz_plane_y_up)
-        .workplane(offset=cav_wedge_y_high + W)
-        .moveTo(
-            bag_x - s * outer_corner_R,
-            -z_outer + W + outer_corner_R,
-        )
+        .workplane(offset=env_wedge_y_high)
+        .moveTo(fillet_axis_x, -fillet_axis_z)
         .circle(outer_corner_R)
         .extrude(outer_corner_R)
     )
@@ -204,12 +182,9 @@ def cut_reed_channel_openings(foam_shell):
     W = wall_and_floor_thickness
 
     for s in (+1, -1):
-        # Bag-pocket far ±X wall: 2 mm-thick band at x ∈ [outer−W, outer]
-        # in the straight section. corner_x_inner reaches one inner-
-        # radius further inboard, to the +Z corner arc's terminus.
         wall_x_outer   = s * bag_pocket_outermost_x
-        wall_x_inner   = s * (bag_pocket_outermost_x - W)
-        corner_x_inner = s * (bag_pocket_outermost_x - W - bag_pocket_corner_inner_radius)
+        wall_x_inner   = wall_x_outer - s * W
+        corner_x_inner = wall_x_outer - s * outer_corner_R
 
         # Vertical opening: through the wall in the reed channel's
         # footprint (full height).
@@ -233,21 +208,19 @@ def cut_reed_channel_openings(foam_shell):
         # Slope wall cut: extends the cavity ceiling's 45° slope
         # through the bag-pocket wall and around the +Z corner fillet,
         # removing the trapezoidal slice of wall material under it.
-        outer_corner_R   = W + bag_pocket_corner_inner_radius
-        slope_y_low      = cable_y_center + cable_y_half_h
-        slope_y_at_outer = slope_y_low + cable_channel_x_depth
-        slope_y_at_inner = slope_y_at_outer + outer_corner_R
-        slope_z_min      = reed_z_center - reed_z_half_w
-        slope_z_max      = cable_z_max
+        slope_y_low       = cable_y_center + cable_y_half_h
+        slope_y_at_wall   = slope_y_low + cable_channel_x_depth
+        slope_y_at_corner = slope_y_at_wall + outer_corner_R
+        slope_z_min       = reed_z_center - reed_z_half_w
         slope_wall_cut = (
             cq.Workplane(xy_plane_z_up)
             .workplane(offset=slope_z_min)
             .moveTo(corner_x_inner, slope_y_low)
             .lineTo(wall_x_outer, slope_y_low)
-            .lineTo(wall_x_outer, slope_y_at_outer)
-            .lineTo(corner_x_inner, slope_y_at_inner)
+            .lineTo(wall_x_outer, slope_y_at_wall)
+            .lineTo(corner_x_inner, slope_y_at_corner)
             .close()
-            .extrude(slope_z_max - slope_z_min)
+            .extrude(cable_z_max - slope_z_min)
         )
         foam_shell = foam_shell.cut(slope_wall_cut)
 
