@@ -83,12 +83,12 @@ from _cadq_export import export_step
 # ═══════════════════════════════════════════════════════
 
 TUBE_OD_IN = 0.250
-TUBE_RAD   = (TUBE_OD_IN / 2) * 25.4   # 3.175 mm
+TUBE_RAD = (TUBE_OD_IN / 2) * 25.4  # 3.175 mm
 
-TANK_OD_MM = 127.0                     # 5" carbonator tank OD
-TANK_R     = TANK_OD_MM / 2            # 63.5 mm
+TANK_OD_MM = 127.0  # 5" carbonator tank OD
+TANK_R = TANK_OD_MM / 2  # 63.5 mm
 
-# As-wound stretch needed to slip the coil onto the tank.  See the
+# As-wound stretch needed to slip the coil onto the tank. See the
 # docstring: this is TANK_R − coil_inner_R_after_winding, NOT the
 # copper centerline displacement.
 NET_UNDERSIZE_MM = 3.0
@@ -98,15 +98,15 @@ NET_UNDERSIZE_MM = 3.0
 # GROOVE GEOMETRY (shallow, same-R cradle)
 # ═══════════════════════════════════════════════════════
 
-GROOVE_DEPTH_MM    = 1.0
-GROOVE_PROFILE_R   = TUBE_RAD                                   # 3.175 mm
-GROOVE_OFFSET      = GROOVE_PROFILE_R - GROOVE_DEPTH_MM         # 2.175 mm
+GROOVE_DEPTH_MM = 1.0
+GROOVE_PROFILE_R = TUBE_RAD  # 3.175 mm
+GROOVE_OFFSET = GROOVE_PROFILE_R - GROOVE_DEPTH_MM  # 2.175 mm
 
 # Coil inner R after winding = mandrel_R − GROOVE_DEPTH_MM (copper
-# bottom rests at the groove bottom).  Solve for mandrel_R such that
+# bottom rests at the groove bottom). Solve for mandrel_R such that
 # coil_inner_R = TANK_R − NET_UNDERSIZE_MM:
-MANDREL_R  = TANK_R - NET_UNDERSIZE_MM + GROOVE_DEPTH_MM        # 61.5 mm
-MANDREL_OD = 2 * MANDREL_R                                       # 123.0 mm
+MANDREL_R = TANK_R - NET_UNDERSIZE_MM + GROOVE_DEPTH_MM  # 61.5 mm
+MANDREL_OD = 2 * MANDREL_R  # 123.0 mm
 
 WALL_MM = 5.0
 
@@ -120,12 +120,12 @@ WALL_MM = 5.0
 # cut_slit_and_build_plug_for_copper_inlet:
 #   inlet  (which=0): origin (-30, 46.0,  20)
 #   outlet (which=1): origin ( 30, 166.4, 20)
-PLUG_INLET_X,  PLUG_INLET_Y,  PLUG_INLET_Z  = -30.0,  46.0, 20.0
-PLUG_OUTLET_X, PLUG_OUTLET_Y, PLUG_OUTLET_Z =  30.0, 166.4, 20.0
+PLUG_INLET_X, PLUG_INLET_Y, PLUG_INLET_Z = -30.0, 46.0, 20.0
+PLUG_OUTLET_X, PLUG_OUTLET_Y, PLUG_OUTLET_Z = 30.0, 166.4, 20.0
 
-WIND_LEN_MM = PLUG_OUTLET_Y - PLUG_INLET_Y                       # 120.4 mm
+WIND_LEN_MM = PLUG_OUTLET_Y - PLUG_INLET_Y  # 120.4 mm
 
-PLUG_INLET_AZ_DEG  = math.degrees(math.atan2(PLUG_INLET_Z,  PLUG_INLET_X))   # 146.31°
+PLUG_INLET_AZ_DEG = math.degrees(math.atan2(PLUG_INLET_Z, PLUG_INLET_X))  # 146.31°
 PLUG_OUTLET_AZ_DEG = math.degrees(math.atan2(PLUG_OUTLET_Z, PLUG_OUTLET_X))  # 33.69°
 
 # CCW azimuthal delta from inlet to outlet (right-hand helix climbs CCW).
@@ -134,9 +134,9 @@ PLUG_DELTA_CCW = (PLUG_OUTLET_AZ_DEG - PLUG_INLET_AZ_DEG) % 360  # 247.38°
 # Total wraps = N full + fractional wrap that spans the azimuthal delta.
 # N=9 picked as the smallest "first-attempt" wrap count below the user's
 # 12-wrap cap; pitch falls out from alignment.
-N_FULL_WRAPS    = 9
-NUM_WRAPS_TOTAL = N_FULL_WRAPS + PLUG_DELTA_CCW / 360            # 9.687
-PITCH           = WIND_LEN_MM / NUM_WRAPS_TOTAL                  # 12.43 mm
+N_FULL_WRAPS = 9
+NUM_WRAPS_TOTAL = N_FULL_WRAPS + PLUG_DELTA_CCW / 360  # 9.687
+PITCH = WIND_LEN_MM / NUM_WRAPS_TOTAL  # 12.43 mm
 
 
 # ═══════════════════════════════════════════════════════
@@ -144,8 +144,8 @@ PITCH           = WIND_LEN_MM / NUM_WRAPS_TOTAL                  # 12.43 mm
 # ═══════════════════════════════════════════════════════
 
 HANDLE_LEN_IN = 0.75
-HANDLE_LEN    = HANDLE_LEN_IN * 25.4                             # 19.05 mm
-TOTAL_LEN     = HANDLE_LEN + WIND_LEN_MM + HANDLE_LEN            # 158.5 mm
+HANDLE_LEN = HANDLE_LEN_IN * 25.4  # 19.05 mm
+TOTAL_LEN = HANDLE_LEN + WIND_LEN_MM + HANDLE_LEN  # 158.5 mm
 
 
 # ═══════════════════════════════════════════════════════
