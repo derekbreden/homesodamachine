@@ -95,11 +95,9 @@ out_name = "touch-flo-under-counter-plate"
 
 
 def add_pill_slot_y_axis(msp, center, length, width):
-    """Y-oriented pill (rounded rectangle / stadium): two vertical
-    lines connected by semicircular caps top and bottom.
-
-    `length` = total Y extent. `width` = X extent. Both ends rounded
-    with radius = width / 2.
+    """Pill / stadium with its long axis on Y: two vertical sides
+    joined by semicircular caps at top and bottom, end-cap radius =
+    width / 2.
 
     Drawn as 2 lines + 2 arcs — same approach as the carbonator
     racetrack end-cap DXFs in this repo. SendCutSend imports the
@@ -107,20 +105,17 @@ def add_pill_slot_y_axis(msp, center, length, width):
     """
     cx, cy = center
     half_length = length / 2.0
-    half_width = width / 2.0
+    cap_radius = width / 2.0
 
-    top_cap_center = (cx, cy + half_length - half_width)
-    bottom_cap_center = (cx, cy - half_length + half_width)
+    top_cap_center = (cx, cy + half_length - cap_radius)
+    bottom_cap_center = (cx, cy - half_length + cap_radius)
 
-    # Two straight sides at x = cx ± half_width, joining the cap centers.
-    msp.add_line((cx - half_width, top_cap_center[1]),
-                 (cx - half_width, bottom_cap_center[1]))
-    msp.add_line((cx + half_width, top_cap_center[1]),
-                 (cx + half_width, bottom_cap_center[1]))
+    for side in (-1, +1):
+        side_x = cx + side * cap_radius
+        msp.add_line((side_x, top_cap_center[1]), (side_x, bottom_cap_center[1]))
 
-    # Top cap: CCW around the top, 0°→180°. Bottom cap: 180°→360°.
-    msp.add_arc(top_cap_center, half_width, start_angle=0, end_angle=180)
-    msp.add_arc(bottom_cap_center, half_width, start_angle=180, end_angle=360)
+    msp.add_arc(top_cap_center, cap_radius, start_angle=0, end_angle=180)
+    msp.add_arc(bottom_cap_center, cap_radius, start_angle=180, end_angle=360)
 
 
 def make_dxf():
