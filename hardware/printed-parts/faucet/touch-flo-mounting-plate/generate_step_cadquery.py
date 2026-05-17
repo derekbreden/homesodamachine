@@ -139,41 +139,35 @@ screw_centers = [(screw_x, +screw_y_offset), (screw_x, -screw_y_offset)]
 top_outer_fillet_r = 2.0
 
 
-def build_mounting_plate() -> cq.Workplane:
-    """Build the disc with shank hole, flavor-tube pill slot, and
-    top-outer-edge fillet.
-
-    Order of operations:
-      1. Solid disc.
-      2. Fillet the top outer edge — applied BEFORE the holes so the
-         outer circle is the only top-face edge at that moment, no
-         selector trickery needed.
-      3. Cut the shank and pill holes (these stay sharp-edged).
-
-    All cuts pass through the full 4 mm thickness.
-    """
-    z_min, z_max = plate_z_range
-    plate = (
+def vertical_cylinder(center, radius, z_range):
+    """Z-axis cylinder: 2D center, radius, and Z extent."""
+    z_min, z_max = z_range
+    return (
         cq.Workplane("XY")
         .workplane(offset=z_min)
-        .moveTo(*plate_center)
-        .circle(plate_radius)
+        .moveTo(*center)
+        .circle(radius)
         .extrude(z_max - z_min)
     )
 
-    # Fillet the single top edge (the outer circle) before any holes
-    # introduce additional top-face edges.
+
+def build_mounting_plate() -> cq.Workplane:
+    """Build the disc with shank hole, flavor-tube pill slot, screw
+    clearances + counterbores, and top-outer-edge fillet.
+
+    The top-outer fillet is applied BEFORE any holes are cut, so the
+    outer circle is the only top-face edge at that moment and no
+    selector trickery is needed. Through-cuts use the full plate Z
+    range; the screw-head counterbore is a partial-depth cut from
+    the bottom face."""
+    counterbore_z_range = (plate_z_range[0], plate_z_range[0] + screw_counterbore_depth)
+
+    plate = vertical_cylinder(plate_center, plate_radius, plate_z_range)
     plate = plate.faces(">Z").edges().fillet(top_outer_fillet_r)
 
-    shank_hole = (
-        cq.Workplane("XY")
-        .workplane(offset=z_min)
-        .moveTo(*shank_hole_center)
-        .circle(shank_hole_radius)
-        .extrude(z_max - z_min)
-    )
-    plate = plate.cut(shank_hole)
+    plate = plate.cut(vertical_cylinder(shank_hole_center, shank_hole_radius, plate_z_range))
 
+    z_min, z_max = plate_z_range
     pill_slot = (
         cq.Workplane("XY")
         .workplane(offset=z_min)
@@ -183,26 +177,9 @@ def build_mounting_plate() -> cq.Workplane:
     )
     plate = plate.cut(pill_slot)
 
-    # Two screw clearance holes (through) + counterbores (bottom face),
-    # mirrored across Y=0.
     for screw_center in screw_centers:
-        clear = (
-            cq.Workplane("XY")
-            .workplane(offset=z_min)
-            .moveTo(*screw_center)
-            .circle(screw_clearance_radius)
-            .extrude(z_max - z_min)
-        )
-        plate = plate.cut(clear)
-
-        cbore = (
-            cq.Workplane("XY")
-            .workplane(offset=z_min)
-            .moveTo(*screw_center)
-            .circle(screw_counterbore_radius)
-            .extrude(screw_counterbore_depth)
-        )
-        plate = plate.cut(cbore)
+        plate = plate.cut(vertical_cylinder(screw_center, screw_clearance_radius, plate_z_range))
+        plate = plate.cut(vertical_cylinder(screw_center, screw_counterbore_radius, counterbore_z_range))
 
     return plate
 
