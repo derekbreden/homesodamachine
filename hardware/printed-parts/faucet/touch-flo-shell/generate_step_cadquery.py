@@ -47,9 +47,9 @@ body_bore_y = 0.0
 # Flavor-tube pill — sized for 1/4" OD LLDPE flavor tubes (6.35 mm OD),
 # tangent to the body's +X face (X=15.75) and tangent to each other at Y=0.
 # (Mounting plate not yet updated to match — coming in a later pass.)
-flavor_tube_x = 18.925  # = BODY_R + tube_R = 15.75 + 3.175
-flavor_tube_hole_dia = 6.85  # = 6.35 OD + 0.5 mm clearance
-flavor_tube_y_offset = 3.175  # = tube_R, tubes touch at Y=0
+flavor_tube_x = 18.925  # body_r + tube_r = 15.75 + 3.175
+flavor_tube_hole_dia = 6.85  # 6.35 OD + 0.5 mm clearance
+flavor_tube_y_offset = 3.175  # = tube_r, tubes touch at Y=0
 pill_length_y = 2 * flavor_tube_y_offset + flavor_tube_hole_dia  # 13.2
 pill_width_x = flavor_tube_hole_dia  # 6.85
 
@@ -1024,25 +1024,18 @@ def build_lever_clearance() -> cq.Workplane:
     )
 
 
-# TUBE SHELL VERTICAL — wraps inside the lid
-#
-# Tube wraps that span the lid's Z range (zone5_z_bottom = zone4_z_top up
-# to zone5_z_top). The wraps' outer cross-section is dominated by the
-# lid block in the union, so it's not visible from outside — the wraps
-# only carry the bore through the lid (water cyl + flavor pill at upper
-# X). Above zone5_z_top the gooseneck (zone 6) emerges with the tube
-# wraps becoming visible as the spout.
-#
-# No socket / no tongue / no split / no dowels — the shell is one piece.
-# Earlier revisions split this into a base and two tube halves with a
-# press-fit tongue+socket and dowel pins; that infrastructure has been
-# removed in favor of single-piece printing.
+# Tube-shell vertical section — wraps inside the lid. Spans the lid's
+# Z range (zone5_z_bottom = zone4_z_top up to zone5_z_top). The outer
+# cross-section is dominated by the lid block in the union, so it's not
+# visible from outside; the wraps only carry the bore through the lid.
+# Above zone5_z_top the gooseneck (zone 6) emerges with the tube wraps
+# becoming visible as the spout.
 
 
 def _tube_shell_outer_section(z_bottom: float, z_height: float) -> cq.Workplane:
     """Tube wrap outer (water Y-slot + flavor pill + fill rect, all
     zone5_wall on the X sides) extruded vertically over the given Z
-    range. See _zone6_outer_sketch for the cross-section's docstring."""
+    range. See _tube_shell_outer_sketch for the cross-section."""
     water_x_width = 2.0 * tube_shell_water_r_outer
     water_outer = (
         cq.Workplane("XY")
