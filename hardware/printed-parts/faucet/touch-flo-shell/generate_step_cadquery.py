@@ -286,23 +286,34 @@ gn_mid_straight_len = 115.0
 gn_tip_straight_len = 25.0
 
 
-# SPLIT — angled-spout ↔ upper-bend slip-fit joint
+# SPLITS — the shell prints in THREE pieces, mating at two 20 mm slip-fit
+# joints along the gooseneck:
 #
-# The shell prints in two pieces, mating at the end of the mid-straight
-# (= start of bend 2) via a 20 mm slip-fit joint. Geometry:
+#   SPLIT A: angled-spout ↔ upper-bend (end of mid-straight / start of bend 2).
+#     - Female SOCKET on the angled-spout (bottom): 2 mm outer wall over
+#       the top 20 mm of the spout; original bores absorbed into the
+#       socket cavity.
+#     - Male PLUG on the upper-bend (middle, bottom end): 20 mm of the
+#       spout cross-section offset 2 mm INWARD; original bores carried
+#       through so the tubes pass continuously across the joint.
+#     - MATING FACES: planes perpendicular to the angled-spout's
+#       centerline tangent. Junction plane at the end of the mid-straight;
+#       overlap plane 20 mm back along the same tangent.
 #
-#   - SOCKET (on the angled-spout, bottom piece): 2 mm uniform outer
-#     wall over the top 20 mm of the spout. The original water + flavor
-#     bores in this zone are absorbed into one open socket cavity.
-#   - PLUG (on the upper-bend, top piece): 20 mm extension of the
-#     spout's cross-section offset 2 mm INWARD on the outer surface, so
-#     its OD matches the socket ID. Carries the original water + flavor
-#     bores through so the tubes pass continuously across the joint.
-#   - FIT: exactly coincident — male OD ≡ female ID in CAD. Slip
-#     clearance comes from print tolerance.
-#   - MATING FACES: planes perpendicular to the angled-spout's
-#     centerline tangent. Junction plane at the end of the mid-straight;
-#     overlap plane 20 mm back along the same tangent.
+#   SPLIT B: upper-bend ↔ dispense-tip (end of bend 2 / start of tip).
+#     - Same joint pattern: female SOCKET on the upper-bend (middle, top
+#       end); male PLUG on the dispense-tip (top).
+#     - The upper-bend is a 110° arc at R=gn_bend2_r, so the 20 mm
+#       overlap is measured along the ARC — both pieces in this zone
+#       follow the curve. The female cavity and the male plug are both
+#       swept along the last `split_overlap_len / gn_bend2_r` rad
+#       (≈ 28.65°) of bend 2.
+#     - MATING FACES: cross-section perpendicular to the bend's tangent
+#       at each end of the sub-arc. The junction-end face is also
+#       perpendicular to the tip's tangent (they coincide there).
+#
+#   FIT (both joints): exactly coincident — male OD ≡ female ID in CAD.
+#   Slip clearance comes from print tolerance.
 
 split_overlap_len = 20.0
 split_socket_wall = 2.0
@@ -311,10 +322,10 @@ split_socket_wall = 2.0
 # CCW by gn_bend1_sweep_rad. Points UP the spout (toward bend 2).
 _mid_tan_xz = (-math.sin(gn_bend1_sweep_rad), math.cos(gn_bend1_sweep_rad))
 
-# Cutting-plane normal in world (Y=0; centerline lives in the X-Z plane).
+# Cutting-plane normal for SPLIT A in world (Y=0; centerline is in X-Z).
 split_normal = (_mid_tan_xz[0], 0.0, _mid_tan_xz[1])
 
-# End of mid-straight (= junction) in world coords. Closed-form
+# End of mid-straight (= SPLIT A junction) in world coords. Closed-form
 # continuation of _gooseneck_path_at_origin's math: bend-1-end +
 # gn_mid_straight_len along the mid-straight tangent.
 _bend1_end_xz = (
@@ -324,9 +335,76 @@ _bend1_end_xz = (
 split_junction_x = water_tube_x + _bend1_end_xz[0] + gn_mid_straight_len * _mid_tan_xz[0]
 split_junction_z = zone5_z_top + _bend1_end_xz[1] + gn_mid_straight_len * _mid_tan_xz[1]
 
-# Bottom of the 20 mm overlap zone (= top of the un-modified angled-spout).
+# Bottom of SPLIT A's 20 mm overlap zone (= top of the un-modified angled-spout).
 split_overlap_x = split_junction_x - split_overlap_len * _mid_tan_xz[0]
 split_overlap_z = split_junction_z - split_overlap_len * _mid_tan_xz[1]
+
+
+# SPLIT B geometry — bend↔tip joint. Cuts here aren't simple halfspaces
+# because the overlap follows bend 2's curve; we cut with sub-sweep
+# SOLIDS (swept along just the affected segment) instead.
+#
+# All `_path_*` constants below are in path-local 2D coords (XZ, Y=0,
+# origin at world (water_tube_x, 0, zone5_z_top)), forming a closed-form
+# re-derivation of `_gooseneck_path_at_origin`'s waypoint math so the
+# sub-sweep paths align exactly with the full sweep through the joint.
+
+# Bend-2 sub-arc covering the last split_overlap_len mm of bend 2.
+split_b_overlap_angle_rad = split_overlap_len / gn_bend2_r  # ≈ 28.65° (0.5 rad)
+
+# Cumulative path rotations (from the path origin's +Z tangent, CCW in XZ).
+_path_total_rot = gn_bend1_sweep_rad + gn_bend2_sweep_rad  # rotation at end of bend 2
+_path_overlap_start_rot = _path_total_rot - split_b_overlap_angle_rad
+_path_overlap_mid_rot = _path_total_rot - split_b_overlap_angle_rad / 2.0
+
+# Tangent unit-vectors in path-local XZ (= world XZ direction; Y=0).
+# Tangent at rotation r = rotate((0, 1), r) = (-sin r, cos r).
+_tan_after_bend1 = (-math.sin(gn_bend1_sweep_rad), math.cos(gn_bend1_sweep_rad))
+_tan_after_bend2 = (-math.sin(_path_total_rot), math.cos(_path_total_rot))
+_tan_at_overlap_start = (
+    -math.sin(_path_overlap_start_rot), math.cos(_path_overlap_start_rot),
+)
+
+# Path-local waypoints, working forward from the path origin.
+_path_z_lift = gn_bend1_start_z - zone5_z_top
+_path_p2 = (  # end of bend 1 / start of mid-straight
+    -gn_bend1_r + gn_bend1_r * math.cos(gn_bend1_sweep_rad),
+    _path_z_lift + gn_bend1_r * math.sin(gn_bend1_sweep_rad),
+)
+_path_p3 = (  # end of mid-straight / start of bend 2 (= SPLIT A junction)
+    _path_p2[0] + gn_mid_straight_len * _tan_after_bend1[0],
+    _path_p2[1] + gn_mid_straight_len * _tan_after_bend1[1],
+)
+# Bend-2 center: from p3 step gn_bend2_r perpendicular-left-of-tangent
+# (CCW perp of tan1 = (-tan1_z, tan1_x) = (-cos θ1, -sin θ1)).
+_path_center_bend2 = (
+    _path_p3[0] - gn_bend2_r * math.cos(gn_bend1_sweep_rad),
+    _path_p3[1] - gn_bend2_r * math.sin(gn_bend1_sweep_rad),
+)
+# Position on bend 2's arc at cumulative rotation r:
+#   center + gn_bend2_r * (cos r, sin r).
+_path_p4 = (  # end of bend 2 / start of tip (= SPLIT B junction)
+    _path_center_bend2[0] + gn_bend2_r * math.cos(_path_total_rot),
+    _path_center_bend2[1] + gn_bend2_r * math.sin(_path_total_rot),
+)
+_path_overlap_start = (  # bend-2 point split_overlap_len arc-length before p4
+    _path_center_bend2[0] + gn_bend2_r * math.cos(_path_overlap_start_rot),
+    _path_center_bend2[1] + gn_bend2_r * math.sin(_path_overlap_start_rot),
+)
+_path_overlap_mid = (  # midpoint of the bend-2 overlap sub-arc (for threePointArc)
+    _path_center_bend2[0] + gn_bend2_r * math.cos(_path_overlap_mid_rot),
+    _path_center_bend2[1] + gn_bend2_r * math.sin(_path_overlap_mid_rot),
+)
+_path_p5 = (  # end of tip
+    _path_p4[0] + gn_tip_straight_len * _tan_after_bend2[0],
+    _path_p4[1] + gn_tip_straight_len * _tan_after_bend2[1],
+)
+
+# World coords for SPLIT B mating-plane geometry — parity with SPLIT A.
+split_b_junction_x = water_tube_x + _path_p4[0]
+split_b_junction_z = zone5_z_top + _path_p4[1]
+split_b_overlap_x = water_tube_x + _path_overlap_start[0]
+split_b_overlap_z = zone5_z_top + _path_overlap_start[1]
 
 
 # ZONE 3 OUTER ARCH — full-height curve from wing bottom to zone 4
@@ -1063,6 +1141,96 @@ def _split_overlap_slab() -> cq.Workplane:
     return above_overlap.intersect(below_junction)
 
 
+# SPLIT B — sub-segment sweeps for the bend↔tip joint.
+#
+# Unlike SPLIT A, this joint can't use halfspace cuts: the junction
+# plane (perpendicular to the tip's tangent) tilts so steeply through
+# the model that an "above junction" halfspace clips a sliver of the
+# mid-straight's lower end (mid-straight start is ≈+1.7 mm into the
+# +tan2 halfspace despite being on the back side of the path). We
+# isolate the affected regions with CUTTING SOLIDS instead — fresh
+# sweeps along the dispense-tip path and the last-20-mm bend-2 sub-arc.
+
+def _sweep_segment_in_path_local(
+    start_xz: tuple,
+    tangent_xz: tuple,
+    path_workplane: cq.Workplane,
+    sketch: cq.Sketch,
+) -> cq.Workplane:
+    """Sweep `sketch` along `path_workplane`, with the profile placed
+    perpendicular to `tangent_xz` at `start_xz`. Inputs are in
+    path-local 2D coords on the XZ plane (Y=0). Result is translated
+    by (water_tube_x, 0, zone5_z_top) to land in world.
+
+    The profile workplane's local-X axis is set to the 90° CW rotation
+    of the tangent in XZ — i.e. `(tangent_xz[1], 0, -tangent_xz[0])`.
+    This matches the rigid-frame orientation that
+    `_sweep_along_gooseneck` produces at any point along the gooseneck
+    (local-Y stays = world Y; local-X rotates around Y with the path).
+    Consequence: a sub-sweep starting partway along the gooseneck path
+    aligns cross-section-for-cross-section with the full sweep there,
+    so cutting one from the other leaves no residue at the seam.
+    """
+    normal = (tangent_xz[0], 0.0, tangent_xz[1])
+    xdir = (tangent_xz[1], 0.0, -tangent_xz[0])
+    plane = cq.Plane(
+        origin=cq.Vector(start_xz[0], 0.0, start_xz[1]),
+        xDir=cq.Vector(*xdir),
+        normal=cq.Vector(*normal),
+    )
+    profile = cq.Workplane(plane).placeSketch(sketch)
+    swept = profile.sweep(path_workplane, transition="right")
+    return swept.translate((water_tube_x, 0, zone5_z_top))
+
+
+def _tip_subpath() -> cq.Workplane:
+    """The dispense-tip's 25 mm straight path in path-local XZ coords.
+    Start = _path_p4 (end of bend 2 / SPLIT B junction);
+    end   = _path_p5 (= start + gn_tip_straight_len along tan2)."""
+    return (
+        cq.Workplane("XZ")
+        .moveTo(*_path_p4)
+        .lineTo(*_path_p5)
+    )
+
+
+def _bend_overlap_subarc() -> cq.Workplane:
+    """The last `split_overlap_len` mm of bend 2 as a sub-arc in
+    path-local XZ. Start = _path_overlap_start; mid = _path_overlap_mid
+    (sub-arc midpoint, for threePointArc); end = _path_p4 (junction)."""
+    return (
+        cq.Workplane("XZ")
+        .moveTo(*_path_overlap_start)
+        .threePointArc(_path_overlap_mid, _path_p4)
+    )
+
+
+def _build_tip_section(sketch: cq.Sketch) -> cq.Workplane:
+    """Sweep `sketch` along just the dispense-tip path. Use for:
+      - tip outer (with _tube_shell_outer_sketch) — the visible spout
+        portion of the top piece, and the cutter that removes the tip
+        from the middle piece;
+      - tip inner (with _tube_shell_inner_sketch) — the bores cut
+        through the tip section so the tubes can pass."""
+    return _sweep_segment_in_path_local(
+        _path_p4, _tan_after_bend2, _tip_subpath(), sketch,
+    )
+
+
+def _build_bend_overlap(sketch: cq.Sketch) -> cq.Workplane:
+    """Sweep `sketch` along just the last `split_overlap_len` mm of
+    bend 2 (the SPLIT B overlap zone). Use for:
+      - bend-overlap shrunk outer (with _tube_shell_outer_shrunk_sketch)
+        — both the female socket cavity cutter (cut from middle piece)
+        and the male plug outer (added to top piece);
+      - bend-overlap inner (with _tube_shell_inner_sketch) — the bores
+        cut through the male plug."""
+    return _sweep_segment_in_path_local(
+        _path_overlap_start, _tan_at_overlap_start,
+        _bend_overlap_subarc(), sketch,
+    )
+
+
 def build_lever_clearance() -> cq.Workplane:
     """Single triangular ramp wedge cut into the top of the rect column.
 
@@ -1144,10 +1312,12 @@ def _tube_shell_inner_section(z_bottom: float, z_height: float) -> cq.Workplane:
 def build_shell() -> cq.Workplane:
     """Touch-Flo shell — full reference solid (un-split).
 
-    For printing, this solid is split into two pieces at the angled-
-    spout ↔ upper-bend junction; see build_shell_bottom /
-    build_shell_top. This single-solid form is kept for assembly
-    visualization and as the source the split operates on.
+    For printing, this solid is split into THREE pieces along the
+    gooseneck at two 20 mm slip-fit joints — see build_shell_bottom
+    (angled-spout), build_shell_middle (upper-bend), and
+    build_shell_top (dispense-tip). This single-solid form is kept for
+    assembly visualization and as the source the bottom / middle
+    splits operate on.
 
     All zones unioned into one solid:
       - Zones 1–4: body wraps + lever clearance
@@ -1185,10 +1355,11 @@ def build_shell() -> cq.Workplane:
 def build_shell_bottom(full_shell: cq.Workplane | None = None) -> cq.Workplane:
     """Angled-spout piece — bottom half of the split, with the female socket.
 
-    Everything below the junction plane, with the top 20 mm of the
-    spout hollowed out down to a 2 mm uniform wall (the female socket)
-    that receives build_shell_top's male plug. The original water +
-    flavor bores in the overlap zone are absorbed into the socket cavity.
+    Everything below the SPLIT A junction plane, with the top 20 mm of
+    the spout hollowed out down to a 2 mm uniform wall (the female
+    socket) that receives build_shell_middle's male plug. The original
+    water + flavor bores in the overlap zone are absorbed into the
+    socket cavity.
     """
     full = build_shell() if full_shell is None else full_shell
     below_junction = _split_plane_halfspace(
@@ -1200,41 +1371,92 @@ def build_shell_bottom(full_shell: cq.Workplane | None = None) -> cq.Workplane:
     return full.intersect(below_junction).cut(socket_cavity)
 
 
-def build_shell_top(full_shell: cq.Workplane | None = None) -> cq.Workplane:
-    """Upper-bend piece — top half of the split, with the male plug.
+def build_shell_middle(full_shell: cq.Workplane | None = None) -> cq.Workplane:
+    """Upper-bend piece — middle of the split, with the male plug for
+    SPLIT A (bottom end) and the female socket for SPLIT B (top end).
 
-    Everything above the junction plane, plus a 20 mm male plug
-    extending DOWN the angled-spout (below the junction plane). The
-    plug is the spout's outer cross-section offset 2 mm inward (so its
-    OD matches build_shell_bottom's socket ID), with the original water +
-    flavor bores carried through so the tubes pass continuously across
-    the joint.
+    Built in two stages:
+      1. SPLIT A (spout↔bend): keep everything ABOVE the SPLIT A
+         junction plane, then add the angled-spout-direction male plug
+         (same construction as the previous two-piece build_shell_top).
+      2. SPLIT B (bend↔tip): cut out the dispense-tip section, then cut
+         out a shrunk-cross-section sweep along the last 20 mm of
+         bend 2 — leaving a 2 mm female socket wall over the curved
+         overlap zone. Original bores in that zone are absorbed into
+         the socket cavity.
     """
     full = build_shell() if full_shell is None else full_shell
-    above_junction = _split_plane_halfspace(
+
+    # SPLIT A — keep upper-bend + tip side; add the male plug going down
+    # into the angled-spout's socket.
+    above_junction_a = _split_plane_halfspace(
         (split_junction_x, 0.0, split_junction_z), split_normal, sign=+1,
     )
-    overlap_slab = _split_overlap_slab()
-    plug_outer = _build_zone6_outer_shrunk(split_socket_wall).intersect(overlap_slab)
-    plug_bores = build_zone6_inner_cut().intersect(overlap_slab)
-    plug = plug_outer.cut(plug_bores)
-    return full.intersect(above_junction).union(plug)
+    overlap_slab_a = _split_overlap_slab()
+    plug_outer_a = _build_zone6_outer_shrunk(split_socket_wall).intersect(overlap_slab_a)
+    plug_bores_a = build_zone6_inner_cut().intersect(overlap_slab_a)
+    plug_a = plug_outer_a.cut(plug_bores_a)
+    bend_plus_tip = full.intersect(above_junction_a).union(plug_a)
+
+    # SPLIT B — strip the dispense tip off the top, then hollow out the
+    # last 20 mm of bend 2 down to a 2 mm shell (the female socket).
+    tip_section = _build_tip_section(_tube_shell_outer_sketch())
+    bend_socket_cavity = _build_bend_overlap(
+        _tube_shell_outer_shrunk_sketch(split_socket_wall)
+    )
+    return bend_plus_tip.cut(tip_section).cut(bend_socket_cavity)
+
+
+def build_shell_top(full_shell: cq.Workplane | None = None) -> cq.Workplane:
+    """Dispense-tip piece — top of the split, with the male plug for
+    SPLIT B (bend↔tip joint).
+
+    Constructed entirely from fresh sub-sweeps (not extracted from the
+    full shell), so the plug follows bend 2's curve back through the
+    last 20 mm of arc:
+      - Tip section = outer sweep along the 25 mm tip path, minus the
+        original water + flavor bores.
+      - Male plug = SHRUNK-outer sweep along the last 20 mm of bend 2
+        (so its curved OD ≡ middle piece's curved socket ID), minus the
+        original bores so the tubes pass through unbroken.
+    The two solids union at the SPLIT B junction plane.
+
+    `full_shell` accepted for signature parity with the other two
+    builders but unused.
+    """
+    _ = full_shell  # unused — top piece doesn't derive from the full shell
+
+    tip_outer = _build_tip_section(_tube_shell_outer_sketch())
+    tip_inner = _build_tip_section(_tube_shell_inner_sketch())
+    tip = tip_outer.cut(tip_inner)
+
+    plug_outer = _build_bend_overlap(
+        _tube_shell_outer_shrunk_sketch(split_socket_wall)
+    )
+    plug_inner = _build_bend_overlap(_tube_shell_inner_sketch())
+    plug = plug_outer.cut(plug_inner)
+
+    return tip.union(plug)
 
 
 def main():
     out_dir = Path(__file__).resolve().parent
     full = build_shell()
     bottom = build_shell_bottom(full)
+    middle = build_shell_middle(full)
     top = build_shell_top(full)
 
     full_out = out_dir / "touch-flo-shell.step"
     bottom_out = out_dir / "touch-flo-shell-bottom.step"
+    middle_out = out_dir / "touch-flo-shell-middle.step"
     top_out = out_dir / "touch-flo-shell-top.step"
     export_step(full, str(full_out))
     export_step(bottom, str(bottom_out))
+    export_step(middle, str(middle_out))
     export_step(top, str(top_out))
     print(f"-> {full_out.name}")
     print(f"-> {bottom_out.name}")
+    print(f"-> {middle_out.name}")
     print(f"-> {top_out.name}")
 
 
