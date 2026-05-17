@@ -282,21 +282,24 @@ def build_a_hole_punch(
     hole_punch_radius=3.25,
     hole_punch_height=40,
 ):
-    # Default height (40 mm) is intentionally larger than every call
-    # site's exact wall-reach distance.  Don't reduce it to the
-    # per-hole exact reach — looks like an obvious refactor, but the
-    # co2_inlet's hole is tangent to the support ring's inner curved
-    # cylinder (r = 61.5).  At the hole's outer radius |x| = 3.25 the
-    # ring extends to z ≈ -61.41, so an exact-reach height of 9 mm
-    # (ending at z = -61.5) leaves a ~1.86 mm³ sliver of ring material
-    # in the tube's actual path.  The 40 mm overshoot reliably clears
-    # that.  (Flat-wall holes — water_outlet, reservoir bulkheads —
-    # do tolerate exact-reach face coincidence, but mixing exact-reach
-    # for some and overshoot for others adds nothing here; the 40 mm
-    # extrude just cuts air past the wall in those cases.)
+    """Z-axis ⌀ × height cylindrical cut, centered at `origin`'s X/Y and
+    starting at `origin`'s Z, extruded in +Z.
+
+    Default height (40 mm) is intentionally larger than every call site's
+    exact wall-reach distance. Don't reduce it to the per-hole exact reach
+    — looks like an obvious refactor, but the co2_inlet's hole is tangent
+    to the support ring's inner curved cylinder (r = 61.5). At the hole's
+    outer radius |x| = 3.25 the ring extends to z ≈ -61.41, so an
+    exact-reach height of 9 mm (ending at z = -61.5) leaves a ~1.86 mm³
+    sliver of ring material in the tube's actual path. The 40 mm overshoot
+    reliably clears that. (Flat-wall holes — water_outlet, reservoir
+    bulkheads — do tolerate exact-reach face coincidence, but mixing
+    exact-reach for some and overshoot for others adds nothing here; the
+    40 mm extrude just cuts air past the wall in those cases.)"""
+    x, y, z = origin
     return (
         cq.Workplane(xy_plane_z_up)
-        .workplane(origin=origin, offset=origin[2])
+        .workplane(origin=(x, y, 0), offset=z)
         .circle(hole_punch_radius)
         .extrude(hole_punch_height)
     )
@@ -309,11 +312,13 @@ def build_a_slot_punch(
     slot_punch_height=40,
 ):
     """Y-elongated, Z-extruded rounded slot (circle-rect-circle), centered
-    at `origin`. Long axis runs along world Y. The rounded ends each
-    contribute slot_diameter/2 of additional Y reach beyond `slot_length`."""
+    at `origin`'s X/Y and starting at `origin`'s Z. Long axis runs along
+    world Y. The rounded ends each contribute slot_diameter/2 of additional
+    Y reach beyond `slot_length`."""
+    x, y, z = origin
     return (
         cq.Workplane(xy_plane_z_up)
-        .workplane(origin=origin, offset=origin[2])
+        .workplane(origin=(x, y, 0), offset=z)
         .slot2D(slot_length, slot_diameter, angle=90)
         .extrude(slot_punch_height)
     )
@@ -327,9 +332,10 @@ def build_a_y_axis_hole_punch(
     """Y-axis ⌀ × height cylindrical cut, centered at `origin`'s X/Z and
     starting at `origin`'s Y, extruded in +Y. Mirror of
     `build_a_hole_punch` along the Y axis instead of Z."""
+    x, y, z = origin
     return (
         cq.Workplane(xz_plane_y_up)
-        .workplane(origin=origin, offset=origin[1])
+        .workplane(origin=(x, 0, z), offset=y)
         .circle(hole_punch_radius)
         .extrude(hole_punch_height)
     )
