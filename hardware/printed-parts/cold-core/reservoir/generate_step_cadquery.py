@@ -231,42 +231,27 @@ body_boss_height = 10.0        # BODY-side anchor boss height; taller than the c
 body_boss_floor = 2.0          # thickness of the printed-solid PETG floor INSIDE the body boss between the blind bore's bottom and the slope surface — the rod tip bottoms out on this
 
 
-# Outlet bulkhead pocket + sloped floor.
-# Single outlet port: a John Guest PP1208E 1/4" black push-to-
-# connect bulkhead union (Amazon B00JYFU8MM, NSF 51 + NSF 61, FDA-
-# compliant) recessed ENTIRELY inside the reservoir's floor. Only
-# the 1/4" OD tube travels through the foam channel — the bulkhead
-# itself stays on the syrup side. The body geometry (catalog):
-# ≈ ø22.9 mm flange/collet OD, ≈ 34.5 mm overall length, ⌀6.35 mm
-# tube push-to-connect at each end.
+# Outlet bulkhead pocket + sloped floor. A John Guest PP1208E 1/4"
+# push-to-connect bulkhead union (Amazon B00JYFU8MM, NSF 51 + NSF 61)
+# is recessed entirely inside the reservoir's floor: the floor locally
+# thickens into a chunky "boss" in the +X × +Z quadrant, with the
+# bulkhead lying horizontally inside along the +Z axis. The wet-collet
+# port opens out the boss's −Z face into the syrup volume; on the +Z
+# side a ⌀6.5 channel carries the 1/4" tube out through the reservoir's
+# +Z outer wall, aligning with the foam-shell pass-through at
+# (±port_position_x, port_position_y).
 #
-# Geometry: the floor locally thickens into a chunky "boss" in the
-# +X × +Z quadrant. The bulkhead lies horizontally inside this boss
-# with its axis along +Z. The wet-collet tube port (⌀6.5 mm) opens
-# out the boss's −Z face into the syrup volume; on the +Z side a
-# ⌀6.5 mm cylindrical channel carries the 1/4" tube the rest of the
-# way out through the reservoir's +Z outer wall, aligning with the
-# foam-shell pass-through at (±port_position_x, port_position_y) — see
-# `_foam_shell_geometry.py` `cut_circular_port_holes`. Both sides
-# import `reservoir_bulkhead_port_x` and `reservoir_bulkhead_port_y`
-# from `_foam_shell_geometry.py`, so the flange chamber's curved
-# bottom sits exactly on top of the 4 mm outer floor (4 mm of PETG
-# below the chamber as a fluid barrier) and the pocket is centered
-# in X between the cavity's inner +X face and the concave arc's peak
-# (the tank-facing arc's deepest reach at z = 0).
-#
-# Both reservoirs (side=+1 and side=−1) put the bulkhead on the +Z
-# side; only x mirrors.
+# Body geometry (catalog): ≈ ø22.9 flange/collet OD, ≈ 34.5 overall
+# length, ⌀6.35 push-to-connect at each end. Both reservoirs put the
+# bulkhead on the +Z side; only x mirrors.
 #
 # Installation: the dry side of the pocket is wide-open below a 4 mm
-# ceiling slab (see "Wide-open dry section" in build_reservoir_body),
-# so the bulkhead body passes through the panel hole from below and
-# the locknut + dry collet + 1/4" tube push-in are unobstructed. No
-# print-pause-and-insert or split-boss assembly needed.
-#
-port_position_x = _shell_reservoir_bulkhead_port_x  # derived in _foam_shell_geometry.py as the midpoint between the body's inner +X face and the inner concave-arc peak (at z=0) — i.e. centered between the two interior X walls of the cavity. The matching foam-shell pass-through hole reads the same constant, so the two cannot drift apart on future wall-thickness changes.
-port_position_y = _shell_reservoir_bulkhead_port_y  # Y of the BULKHEAD BODY AXIS. Sits 1 mm ABOVE the nut cavity center (nut_position_y) per the bulkhead_axis_lift_above_nut in _cold_core_interface.py. Used for: bulkhead body chamber (release ring + collet body), wet exit tube, panel hole, wet/dry TPU seal counterbores, foam-shell pass-through hole, dry slab anchor, wet/dry slope anchor, rod body boss (via slope_low_y). NOT used for the nut cavity — see nut_position_y below.
-nut_position_y = _shell_reservoir_bulkhead_nut_y    # Y of the NUT CAVITY center. Anchored to the floor's low point so the washer counterbore (the deepest part of the cavity) sits on top of the 4 mm reservoir floor, preserving the full fluid barrier. Sits 1 mm BELOW port_position_y per the 2026-05-16 print test — the bulkhead axis lifts up 1 mm above the nut, while the nut stays at the floor.
+# ceiling slab, so the bulkhead body passes through the panel hole
+# from below and the locknut + dry collet + tube push-in are
+# unobstructed. No print-pause-and-insert or split-boss assembly needed.
+port_position_x = _shell_reservoir_bulkhead_port_x  # midpoint between cavity's inner +X face and the concave arc's peak; matching foam-shell pass-through reads the same constant
+port_position_y = _shell_reservoir_bulkhead_port_y  # Y of the BULKHEAD BODY AXIS. Sits 1 mm above nut_position_y. Used for body chamber, wet exit tube, panel hole, seal counterbores, foam-shell pass-through, dry slab anchor, wet/dry slope anchor. NOT used for the nut cavity.
+nut_position_y = _shell_reservoir_bulkhead_nut_y    # Y of the NUT CAVITY center. Anchored to the floor's low point so the washer counterbore sits on top of the 4 mm reservoir floor, preserving the full fluid barrier. 1 mm below port_position_y per the 2026-05-16 print test.
 port_tube_diameter = 6.5                # 1/4" OD tube clearance
 
 # The pocket is asymmetric across the panel. Wet side (z < panel):
