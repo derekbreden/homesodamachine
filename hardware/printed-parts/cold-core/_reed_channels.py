@@ -142,10 +142,15 @@ def build_reed_channels(side):
     )
     missing_wall = missing_wall.cut(inner_fillet_cut)
 
-    return (
-        reed_envelope.union(cable_envelope).union(missing_wall)
-        .cut(reed_cavity).cut(cable_cavity)
-    )
+    # A channel = envelope (wall material) with cavity carved out. The
+    # two channels' envelopes overlap at the corner where they meet,
+    # so cavities must be cut from the combined envelope; cutting each
+    # cavity from only its own envelope would leave the other channel's
+    # wall material inside the cavity.
+    total_envelope = reed_envelope.union(cable_envelope).union(missing_wall)
+    total_cavity   = reed_cavity.union(cable_cavity)
+    channels       = total_envelope.cut(total_cavity)
+    return channels
 
 
 def cut_reed_channel_openings(foam_shell):
