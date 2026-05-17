@@ -67,12 +67,29 @@ reservoir_clearance = 0.5
 reservoir_floor_thickness = 4.0
 bulkhead_pocket_diameter = 23.0
 
-reservoir_bulkhead_port_y = (
+# Y of the bulkhead NUT cavity center — anchored to the floor's low point.
+# Computed so the nut cavity's lowest reach (washer counterbore at
+# ⌀22.3) sits right at the reservoir floor's wet surface, leaving the
+# full reservoir_floor_thickness (4 mm) of PETG below it as the fluid
+# barrier. The nut (washer + hex piece) is the deepest feature in this
+# area and the floor MUST stay 4 mm at this low point.
+reservoir_bulkhead_nut_y = (
     bag_pocket_floor_top_y
     + reservoir_clearance
     + reservoir_floor_thickness
     + bulkhead_pocket_diameter / 2
 )
+
+# 2026-05-16 print test: the bulkhead body itself needs to sit 1 mm
+# above the nut. Achieved by lifting the bulkhead axis 1 mm above the
+# nut cavity center; the bulkhead's threading section then engages the
+# nut at a 1 mm offset, well within the ⌀17 panel hole's clearance
+# around the ⌀~13 threaded section. The nut cavity stays at
+# reservoir_bulkhead_nut_y (the floor low point); everything anchored
+# to the bulkhead axis (chamber, panel hole, TPU seals, foam-shell
+# pass-through, wet/dry slopes, dry slab, rod body boss) lifts with it.
+bulkhead_axis_lift_above_nut = 1.0
+reservoir_bulkhead_port_y = reservoir_bulkhead_nut_y + bulkhead_axis_lift_above_nut
 reservoir_bulkhead_port_x = (bag_pocket_far_inner_x + pocket_centerward_arc_outer_radius) / 2
 
 # Outer footprint shared by the outer shell, the foam cap, and the
