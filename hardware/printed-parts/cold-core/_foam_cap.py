@@ -25,6 +25,31 @@ from _cold_core_interface import (
 lid_cut_through_depth = wall_and_floor_thickness * 3
 
 
+def boss_pads_extrude(height):
+    """Square pads at every attachment position, extruded +Y by height.
+    Used both as cap/gasket boss footprints and as the boss-shaped
+    gasket compression pads."""
+    return (
+        WorldWorkplane(xz_plane_y_up)
+        .workplane(offset=0)
+        .pushPoints(foam_cap_attachment_xz_positions)
+        .rect(screw_boss_size, screw_boss_size)
+        .extrude(height)
+    )
+
+
+def boss_clearances_extrude(height):
+    """Screw-clearance cylinders at every attachment position, extruded
+    +Y by height. Used as the cut tool through cap, lid, and gasket."""
+    return (
+        WorldWorkplane(xz_plane_y_up)
+        .workplane(offset=0)
+        .pushPoints(foam_cap_attachment_xz_positions)
+        .circle(screw_clearance_radius)
+        .extrude(height)
+    )
+
+
 def build_foam_cap():
     cap = (
         WorldWorkplane(xz_plane_y_up)
@@ -34,23 +59,10 @@ def build_foam_cap():
         .faces(">Y")
         .shell(-wall_and_floor_thickness)
     )
-    bosses = (
-        WorldWorkplane(xz_plane_y_up)
-        .workplane(offset=0)
-        .pushPoints(foam_cap_attachment_xz_positions)
-        .rect(screw_boss_size, screw_boss_size)
-        .extrude(foam_cap_height)
-    )
-    # Screw clearance holes through the full boss height — the screws
-    # pass from the cap floor (top in service) all the way to the cap's
-    # mating edge (bottom in service).
-    clearances = (
-        WorldWorkplane(xz_plane_y_up)
-        .workplane(offset=0)
-        .pushPoints(foam_cap_attachment_xz_positions)
-        .circle(screw_clearance_radius)
-        .extrude(foam_cap_height)
-    )
+    bosses = boss_pads_extrude(foam_cap_height)
+    # Screw clearances run the full boss height: the screws pass from
+    # the cap floor (top in service) all the way to the mating edge.
+    clearances = boss_clearances_extrude(foam_cap_height)
     return cap.union(bosses).cut(clearances).unwrap()
 
 
@@ -82,16 +94,8 @@ def build_foam_cap_lid():
     pour_hole = cut_hole(pour_xz, foam_cap_lid_pour_radius)
     vent_hole_plus_z = cut_hole(vent_plus_z_xz, foam_cap_lid_vent_radius)
     vent_hole_minus_z = cut_hole(vent_minus_z_xz, foam_cap_lid_vent_radius)
-    lid = lid.cut(pour_hole).cut(vent_hole_plus_z).cut(vent_hole_minus_z)
-
-    clearances = (
-        WorldWorkplane(xz_plane_y_up)
-        .workplane(offset=0)
-        .pushPoints(foam_cap_attachment_xz_positions)
-        .circle(screw_clearance_radius)
-        .extrude(lid_cut_through_depth)
-    )
-    return lid.cut(clearances).unwrap()
+    clearances = boss_clearances_extrude(lid_cut_through_depth)
+    return lid.cut(pour_hole).cut(vent_hole_plus_z).cut(vent_hole_minus_z).cut(clearances).unwrap()
 
 
 def build_foam_cap_gasket():
@@ -116,19 +120,6 @@ def build_foam_cap_gasket():
         .extrude(gasket_thickness)
     )
     gasket = outer.cut(inner)
-
-    pads = (
-        WorldWorkplane(xz_plane_y_up)
-        .workplane(offset=0)
-        .pushPoints(foam_cap_attachment_xz_positions)
-        .rect(screw_boss_size, screw_boss_size)
-        .extrude(gasket_thickness)
-    )
-    holes = (
-        WorldWorkplane(xz_plane_y_up)
-        .workplane(offset=0)
-        .pushPoints(foam_cap_attachment_xz_positions)
-        .circle(screw_clearance_radius)
-        .extrude(gasket_thickness)
-    )
+    pads = boss_pads_extrude(gasket_thickness)
+    holes = boss_clearances_extrude(gasket_thickness)
     return gasket.union(pads).cut(holes).unwrap()
