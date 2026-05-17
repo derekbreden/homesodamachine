@@ -567,13 +567,14 @@ def cut_arch_notches(combined):
         corner_r + arch_radius - 4,
         footprint_x - corner_r - arch_radius + 4,
     ]
+    arch_cut_depth = skirt_wall + wall_thickness
     for ax in arch_hole_xs:
         arch_cutter = (
             cq.Workplane("XY")
             .workplane(offset=pos_z_face_offset + overcut)
             .center(ax, skirt_bottom_y)
             .circle(arch_radius)
-            .extrude(-(skirt_wall + 3 + overcut))
+            .extrude(-(arch_cut_depth + overcut))
         )
         combined = combined.cut(arch_cutter)
     return combined
