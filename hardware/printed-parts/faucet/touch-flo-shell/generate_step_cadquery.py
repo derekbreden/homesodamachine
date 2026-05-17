@@ -757,36 +757,36 @@ def build_zone2_inner_cut() -> cq.Workplane:
     return bore.union(pill)
 
 
-def build_zone3_outer() -> cq.Workplane:
-    """Two arch wings at ±Y wrapping the body's arch ridges."""
+def _arch_extrude(y_bottom: float, y_height: float) -> cq.Workplane:
+    """The outer arch profile in XZ — flat bottom at zone3_z_bottom, flat
+    top at zone4_z_top from +X back to fill_x_min, then the new_arch arc
+    down-left to rect_x_min — extruded across [y_bottom, y_bottom + y_height].
+
+    Shared by the zone-3 wings (extruded across each wing's Y thickness)
+    and the zone-3 plateau fill (extruded across the central Y range).
+    """
     rect_x_min = shell_center_x - shell_rect_x_half
     rect_x_max = shell_center_x + shell_rect_x_half
-
-    def wing(y_bottom: float, y_height: float) -> cq.Workplane:
-        # Profile (in XZ plane), traversed CCW:
-        #   bottom-left (rect_x_min, zone3_z_bottom)
-        #   → bottom-right (rect_x_max, zone3_z_bottom)
-        #   → up to zone4_z_top at +X
-        #   → left along top to fill_x_min at zone4_z_top
-        #   → arch down-left back to start (rect_x_min, zone3_z_bottom)
-        return (
-            cq.Workplane("XZ")
-            .workplane(offset=y_bottom)
-            .moveTo(rect_x_min, zone3_z_bottom)
-            .lineTo(rect_x_max, zone3_z_bottom)
-            .lineTo(rect_x_max, zone4_z_top)
-            .lineTo(fill_x_min, zone4_z_top)
-            .threePointArc((new_arch_mid_x, new_arch_mid_z),
-                           (rect_x_min, zone3_z_bottom))
-            .close()
-            .extrude(y_height)
-        )
-
-    wing_thickness = wing_outer_y - wing_inner_y
-    wings = wing(+wing_inner_y, +wing_thickness).union(
-        wing(-wing_outer_y, +wing_thickness)
+    return (
+        cq.Workplane("XZ")
+        .workplane(offset=y_bottom)
+        .moveTo(rect_x_min, zone3_z_bottom)
+        .lineTo(rect_x_max, zone3_z_bottom)
+        .lineTo(rect_x_max, zone4_z_top)
+        .lineTo(fill_x_min, zone4_z_top)
+        .threePointArc((new_arch_mid_x, new_arch_mid_z),
+                       (rect_x_min, zone3_z_bottom))
+        .close()
+        .extrude(y_height)
     )
 
+
+def build_zone3_outer() -> cq.Workplane:
+    """Two arch wings at ±Y wrapping the body's arch ridges."""
+    wing_thickness = wing_outer_y - wing_inner_y
+    wings = _arch_extrude(+wing_inner_y, +wing_thickness).union(
+        _arch_extrude(-wing_outer_y, +wing_thickness)
+    )
     return wings.intersect(shell_outer_cyl(zone3_z_bottom, zone4_z_top - zone3_z_bottom))
 
 
@@ -819,32 +819,18 @@ def build_zone3_fill_outer() -> cq.Workplane:
     extruded across the plateau Y range. The body bore column is cut
     away (see body_bore_cyl for why).
     """
-    rect_x_min = shell_center_x - shell_rect_x_half
     rect_x_max = shell_center_x + shell_rect_x_half
     fill_y_thickness = 2.0 * wing_inner_y  # 13.5
+    z_height = zone4_z_top - zone3_z_bottom
 
-    arch_solid = (
-        cq.Workplane("XZ")
-        .workplane(offset=-wing_inner_y)
-        .moveTo(rect_x_min, zone3_z_bottom)
-        .lineTo(rect_x_max, zone3_z_bottom)
-        .lineTo(rect_x_max, zone4_z_top)
-        .lineTo(fill_x_min, zone4_z_top)
-        .threePointArc((new_arch_mid_x, new_arch_mid_z),
-                       (rect_x_min, zone3_z_bottom))
-        .close()
-        .extrude(fill_y_thickness)
-    )
-
+    arch_solid = _arch_extrude(-wing_inner_y, fill_y_thickness)
     keep_x_box = (
         cq.Workplane("XY")
         .workplane(offset=zone3_z_bottom)
         .moveTo((fill_x_min + rect_x_max) / 2.0, 0)
         .rect(rect_x_max - fill_x_min, fill_y_thickness)
-        .extrude(zone4_z_top - zone3_z_bottom)
+        .extrude(z_height)
     )
-
-    z_height = zone4_z_top - zone3_z_bottom
     return (
         arch_solid
         .intersect(keep_x_box)
