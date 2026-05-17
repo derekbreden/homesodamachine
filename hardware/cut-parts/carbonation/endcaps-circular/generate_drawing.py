@@ -171,62 +171,50 @@ def draw_linear_dimension(
 
 def draw_leader(
     c: canvas.Canvas,
-    xtarget,
-    ytarget,
-    xtext: float,
-    ytext: float,
+    targets,
+    text_anchor,
     text_lines,
 ) -> None:
-    """Leader line(s) from one or more (xtarget,ytarget) points to a text block.
+    """Multileader: one or more arrow tips at `targets` share a common
+    shoulder at `text_anchor`, and `text_lines` are stacked above it.
 
-    If xtarget/ytarget are sequences (same length), draws a multileader:
-    both lines share a common shoulder near the text and branch to each
-    target, arrowheads at each target.
+    `targets` is a list of (x, y) points (or a single (x, y) tuple).
+    `text_anchor` is the (x, y) where the shoulder meets the text.
     """
     c.setLineWidth(thin_line_width)
     c.setDash()
     c.setStrokeColorRGB(0, 0, 0)
     c.setFillColorRGB(0, 0, 0)
 
-    # Normalize targets to list form
-    if hasattr(xtarget, "__iter__"):
-        xs = list(xtarget)
-        ys = list(ytarget)
-    else:
-        xs = [xtarget]
-        ys = [ytarget]
+    # Normalize to a list of points.
+    if isinstance(targets, tuple) and len(targets) == 2 and not isinstance(targets[0], (tuple, list)):
+        targets = [targets]
+    text_x, text_y = text_anchor
 
-    # Short horizontal shoulder at the text end (shared by all leaders)
-    shoulder = 0.35
-    # Determine shoulder direction based on where targets sit vs. text
-    avg_xt = sum(xs) / len(xs)
-    if xtext > avg_xt:
-        knee_x = xtext - shoulder
-    else:
-        knee_x = xtext + shoulder
-    knee_y = ytext
+    # Short horizontal shoulder shared by all leaders, on whichever side
+    # of the text anchor the targets sit.
+    shoulder_length = 0.35
+    target_avg_x = sum(x for x, _ in targets) / len(targets)
+    knee_x = text_x - shoulder_length if text_x > target_avg_x else text_x + shoulder_length
+    knee_y = text_y
 
-    # Horizontal shoulder from text to knee (single shared shoulder)
-    c.line(knee_x * inch, knee_y * inch, xtext * inch, ytext * inch)
+    # Shoulder from text anchor to shared knee.
+    c.line(knee_x * inch, knee_y * inch, text_x * inch, text_y * inch)
 
-    # One slanted leader per target, each with its own arrowhead.
-    # All leaders originate at the shared knee.
-    for xt, yt in zip(xs, ys):
-        c.line(xt * inch, yt * inch, knee_x * inch, knee_y * inch)
-        dx = xt - knee_x
-        dy = yt - knee_y
-        _arrow(c, xt, yt, dx, dy, size=0.10)
+    # One slanted leader per target, all originating at the shared knee.
+    for tx, ty in targets:
+        c.line(tx * inch, ty * inch, knee_x * inch, knee_y * inch)
+        _arrow(c, tx, ty, tx - knee_x, ty - knee_y, size=0.10)
 
-    # Text block — left-aligned, stacked lines above the shoulder
+    # Text block: left-aligned, first line just above the shoulder,
+    # subsequent lines stacked below.
     c.setFont("Helvetica", 9)
     if isinstance(text_lines, str):
         text_lines = [text_lines]
-    # Start text just past the shoulder end-point so it doesn't collide
-    anchor_x = (xtext + 0.05) * inch
-    # Place first line just above the shoulder, subsequent lines below
-    line_h = 0.14
+    anchor_x = (text_x + 0.05) * inch
+    line_height = 0.14
     for i, line in enumerate(text_lines):
-        c.drawString(anchor_x, (ytext + 0.04 - i * line_h) * inch, line)
+        c.drawString(anchor_x, (text_y + 0.04 - i * line_height) * inch, line)
 
 
 def draw_notes(c: canvas.Canvas) -> None:
@@ -384,29 +372,25 @@ def draw_main_view(c: canvas.Canvas) -> None:
     _arrow(c, right_cx, dim_y_750, -1, 0)
     c.drawCentredString(((right_cx + view_center_x) / 2) * inch, (dim_y_750 + 0.05) * inch, ".750")
 
-    # ── Tap callout leader ──────────────────────────────────────────
-    # Two leaders share a common shoulder at the text. Each arrow tip
-    # lands on the upper-right quadrant (~45°) of its hole. Targets are
-    # well above the 1.500/.750 dim stack visually but the leaders
-    # still approach from the upper-right, clear of the dim text.
-    # Left hole: tip on 12 o'clock (top) so the leader drops almost
-    # vertically past the .750/1.500 dim stack without running along
-    # the dim labels. Right hole: tip on upper-right quadrant (~45°).
-    hx_targets = [
-        view_center_x + hole_positions[0][0],
-        view_center_x + hole_positions[1][0] + hole_radius * 0.707,
+    # Tap callout. Two leaders share a common shoulder at the text and
+    # approach the two holes from the upper-right, clear of the dim
+    # stack. Left hole: arrow tip at 12 o'clock so the leader drops
+    # almost vertically past the .750/1.500 dim labels. Right hole:
+    # arrow tip on the upper-right quadrant (~45°).
+    sin45 = 0.707
+    left_hole_x, left_hole_y = hole_positions[0]
+    right_hole_x, right_hole_y = hole_positions[1]
+    tap_callout_targets = [
+        (view_center_x + left_hole_x, view_center_y + left_hole_y + hole_radius),
+        (view_center_x + right_hole_x + hole_radius * sin45,
+         view_center_y + right_hole_y + hole_radius * sin45),
     ]
-    hy_targets = [
-        view_center_y + hole_positions[0][1] + hole_radius,
-        view_center_y + hole_positions[1][1] + hole_radius * 0.707,
-    ]
-    # Text anchor: upper-right of view (above/right of right hole)
-    text_x = view_center_x + 1.60
-    text_y = view_center_y + 1.75
+    # Text anchor: upper-right of the view, above and right of the right hole.
+    tap_callout_text_anchor = (view_center_x + 1.60, view_center_y + 1.75)
     draw_leader(
         c,
-        hx_targets, hy_targets,
-        text_x, text_y,
+        tap_callout_targets,
+        tap_callout_text_anchor,
         [
             "2X \u00d8.438 THRU",
             "    1/4-18 NPT THRU",
