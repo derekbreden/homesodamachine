@@ -314,6 +314,25 @@ zone5_height = zone5_z_top - zone5_z_bottom  # 10
 # (no dowel features needing thicker wall).
 zone5_wall = wall_thickness_min  # 3.0
 
+# Tube-shell cross-section vocabulary — shared by zone 5's vertical
+# extrusion and zone 6's sweep along the gooseneck path.
+#
+# Water and flavor share the same outer Y half-width — the larger of
+# (water bore + wall) and (flavor pill + wall) — so the cross-section's
+# Y+ and Y- outer apexes meet at the same Y across the X range. Each
+# side's X width stays at natural — the walls on the extreme -X
+# (around the water bore) and extreme +X (around the flavor pill) are
+# both zone5_wall. The "stretch" is only in Y (the smaller side picks
+# up extra wall thickness on its Y apex); the X side walls don't thicken.
+tube_shell_water_r_outer = water_hole_diameter / 2.0 + zone5_wall   # 9.0125
+tube_shell_pill_y_half_outer = pill_length_y / 2.0 + zone5_wall
+tube_shell_y_half_outer = max(tube_shell_water_r_outer, tube_shell_pill_y_half_outer)
+tube_shell_y_outer = 2.0 * tube_shell_y_half_outer
+# +X offset from the water tube to the flavor pill — used both as the
+# fill-rect span between the two bores and as the parallel-arc offset in
+# the gooseneck sweep.
+flavor_offset_x_from_water = flavor_tube_post_bend_x - water_tube_x
+
 
 # ZONE 6 — gooseneck wrapper around the bent dispense tubes
 #
@@ -351,7 +370,6 @@ gn_bend1_start_z = (
 )  # ≈ 79.24
 gn_mid_straight_len = 115.0
 gn_tip_straight_len = 25.0
-zone6_wall = zone5_wall  # 3.0
 
 
 # ZONE 3 OUTER ARCH — full-height curve from wing bottom to zone 4
@@ -426,10 +444,9 @@ lever_ridge_x = (
 )  # ≈ 0.55
 
 # Zone 5's X extents at Y=0, used to derive zone 4.5's matched-margin
-# front X. Mirrors the cross-section in build_zone5_outer.
-_z5_water_r_outer = water_hole_diameter / 2.0 + zone5_wall  # 9.0125
+# front X. Mirrors the tube-shell cross-section.
 _z5_flavor_x_half = (pill_width_x + 2.0 * zone5_wall) / 2.0  # 7.425
-_z5_x_min = water_tube_x - _z5_water_r_outer  # -0.1375
+_z5_x_min = water_tube_x - tube_shell_water_r_outer  # -0.1375
 _z5_x_max = flavor_tube_post_bend_x + _z5_flavor_x_half  # 23.575
 
 zone45_back_x = shell_center_x + shell_outer_r  # 25.35
@@ -1063,25 +1080,18 @@ def _zone6_outer_sketch() -> cq.Sketch:
     Workplane.slot2D's convention. Total length along the long axis is
     w + h, so w_straight = total - h.
     """
-    flavor_offset_x = flavor_tube_post_bend_x - water_tube_x
-    natural_water_r = water_hole_diameter / 2.0 + zone6_wall
-    natural_pill_y_half = pill_length_y / 2.0 + zone6_wall
-    y_half = max(natural_water_r, natural_pill_y_half)
-    y_total = 2.0 * y_half
-
-    water_x_width = 2.0 * natural_water_r
-    water_slot_straight = y_total - water_x_width
-
-    pill_short_total = pill_width_x + 2.0 * zone6_wall
-    pill_straight = y_total - pill_short_total
+    water_x_width = 2.0 * tube_shell_water_r_outer
+    water_slot_straight = tube_shell_y_outer - water_x_width
+    pill_short_total = pill_width_x + 2.0 * zone5_wall
+    pill_straight = tube_shell_y_outer - pill_short_total
     return (
         cq.Sketch()
         .slot(water_slot_straight, water_x_width, angle=90)
-        .push([(flavor_offset_x, 0)])
+        .push([(flavor_offset_x_from_water, 0)])
         .slot(pill_straight, pill_short_total, angle=90, mode="a")
         .reset()
-        .push([(flavor_offset_x / 2.0, 0)])
-        .rect(flavor_offset_x, y_total, mode="a")
+        .push([(flavor_offset_x_from_water / 2.0, 0)])
+        .rect(flavor_offset_x_from_water, tube_shell_y_outer, mode="a")
         .clean()
     )
 
@@ -1091,12 +1101,11 @@ def _zone6_inner_sketch() -> cq.Sketch:
 
     See _zone6_outer_sketch's note about cq.Sketch.slot conventions.
     """
-    flavor_offset_x = flavor_tube_post_bend_x - water_tube_x
     pill_straight = pill_length_y - pill_width_x  # 3.175
     return (
         cq.Sketch()
         .circle(water_hole_diameter / 2.0)
-        .push([(flavor_offset_x, 0)])
+        .push([(flavor_offset_x_from_water, 0)])
         .slot(pill_straight, pill_width_x, angle=90, mode="a")
         .clean()
     )
@@ -1166,41 +1175,27 @@ def build_lever_clearance() -> cq.Workplane:
 def _tube_shell_outer_section(z_bottom: float, z_height: float) -> cq.Workplane:
     """Tube wrap outer (water Y-slot + flavor pill + fill rect, all
     zone5_wall on the X sides) extruded vertically over the given Z
-    range.
-
-    Water and flavor sides share the same outer Y half-width — the
-    larger of (water bore + wall) and (flavor pill + wall) — so the
-    cross-section's Y+ and Y- outer apexes meet at the same Y across
-    the X range. The water side is a Y-oriented slot rather than a
-    circle, so the wall on the extreme -X face stays at zone5_wall
-    (= 3 mm) — only the Y apex thickens. See _zone6_outer_sketch's
-    docstring for details.
-    """
-    natural_water_r = water_hole_diameter / 2.0 + zone5_wall
-    natural_pill_y_half = pill_length_y / 2.0 + zone5_wall
-    y_half = max(natural_water_r, natural_pill_y_half)
-    y_total = 2.0 * y_half
-    water_x_width = 2.0 * natural_water_r
+    range. See _zone6_outer_sketch for the cross-section's docstring."""
+    water_x_width = 2.0 * tube_shell_water_r_outer
     water_outer = (
         cq.Workplane("XY")
         .workplane(offset=z_bottom)
         .moveTo(water_tube_x, 0)
-        .slot2D(y_total, water_x_width, angle=90)
+        .slot2D(tube_shell_y_outer, water_x_width, angle=90)
         .extrude(z_height)
     )
     flavor_outer = (
         cq.Workplane("XY")
         .workplane(offset=z_bottom)
         .moveTo(flavor_tube_post_bend_x, 0)
-        .slot2D(y_total,
-                pill_width_x + 2.0 * zone5_wall, angle=90)
+        .slot2D(tube_shell_y_outer, pill_width_x + 2.0 * zone5_wall, angle=90)
         .extrude(z_height)
     )
     fill_rect = (
         cq.Workplane("XY")
         .workplane(offset=z_bottom)
         .moveTo((water_tube_x + flavor_tube_post_bend_x) / 2.0, 0)
-        .rect(flavor_tube_post_bend_x - water_tube_x, y_total)
+        .rect(flavor_offset_x_from_water, tube_shell_y_outer)
         .extrude(z_height)
     )
     return water_outer.union(flavor_outer).union(fill_rect)
