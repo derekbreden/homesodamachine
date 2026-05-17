@@ -6,6 +6,7 @@ side face."""
 import cadquery as cq
 
 from _cold_core_interface import (
+    xy_plane_z_up,
     wall_and_floor_thickness,
     pocket_centerward_arc_outer_radius,
     tank_support_ring_height,
@@ -27,7 +28,7 @@ def revolve_rect(r_range, y_range, angle=360):
     r_min, r_max = min(r_range), max(r_range)
     y_min, y_max = min(y_range), max(y_range)
     return (
-        cq.Workplane("XY")
+        cq.Workplane(xy_plane_z_up)
         .moveTo(r_min, y_min)
         .lineTo(r_max, y_min)
         .lineTo(r_max, y_max)
