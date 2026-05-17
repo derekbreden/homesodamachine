@@ -35,12 +35,14 @@ _STEP_TIMESTAMP_RE = re.compile(rb"'\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}'")
 _STEP_CANONICAL_TIMESTAMP = b"'1970-01-01T00:00:00'"
 
 
-def _canonicalize_step(path):
-    with open(path, "rb") as f:
+def _canonicalize_step(step_path):
+    """Overwrite the FILE_NAME timestamp in a STEP file with a fixed value
+    so identical source produces identical bytes across runs."""
+    with open(step_path, "rb") as f:
         data = f.read()
     new_data = _STEP_TIMESTAMP_RE.sub(_STEP_CANONICAL_TIMESTAMP, data, count=1)
     if new_data != data:
-        with open(path, "wb") as f:
+        with open(step_path, "wb") as f:
             f.write(new_data)
 
 
