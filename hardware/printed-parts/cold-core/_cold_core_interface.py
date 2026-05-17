@@ -330,8 +330,8 @@ def build_a_y_axis_hole_punch(
     hole_punch_height=40,
 ):
     """Y-axis ⌀ × height cylindrical cut, centered at `origin`'s X/Z and
-    starting at `origin`'s Y, extruded in +Y. Mirror of
-    `build_a_hole_punch` along the Y axis instead of Z."""
+    starting at `origin`'s Y, extruded in +Y. Same shape as
+    `build_a_hole_punch` but aimed along +Y instead of +Z."""
     x, y, z = origin
     return (
         cq.Workplane(xz_plane_y_up)
