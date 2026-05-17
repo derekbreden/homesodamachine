@@ -8,6 +8,7 @@ import cadquery as cq
 
 from _cold_core_interface import (
     xz_plane_y_up,
+    flip_z,
     wall_and_floor_thickness,
     pocket_centerward_arc_outer_radius,
     foam_shell_outer_height,
@@ -66,65 +67,64 @@ def build_reservoir_pocket_walls():
     def transition_apex(z_sign, r):
         """Apex of the transition arc at z_sign·Z, on the line from its
         center toward the cold-core axis."""
-        return (transition_center_x - r, -(z_sign * transition_center_z))
+        return (transition_center_x - r, z_sign * transition_center_z)
 
-    # Centerward-wall joints, workplane-local. Workplane convention:
-    # local Y = −world Z (so world +Z corresponds to local −y).
-    middle_tank_handoff_plus_z = (middle_tank_x, -arc_z)
-    middle_tank_handoff_minus_z = (middle_tank_x, +arc_z)
-    middle_cavity_handoff_plus_z = (middle_cavity_x, -arc_z)
-    middle_cavity_handoff_minus_z = (middle_cavity_x, +arc_z)
+    # Centerward-wall joints, world coords.
+    middle_tank_handoff_plus_z = (middle_tank_x, arc_z)
+    middle_tank_handoff_minus_z = (middle_tank_x, -arc_z)
+    middle_cavity_handoff_plus_z = (middle_cavity_x, arc_z)
+    middle_cavity_handoff_minus_z = (middle_cavity_x, -arc_z)
 
     # Cavity-side transition terminus sits at middle_cavity_x because
     # the transition's cavity-face circle passes through both middle-
     # arc handoffs by construction.
-    transition_tank_terminus_plus_z = (transition_tank_terminus_x, -z_outer)
-    transition_tank_terminus_minus_z = (transition_tank_terminus_x, +z_outer)
-    transition_cavity_terminus_plus_z = (middle_cavity_x, -z_inner)
-    transition_cavity_terminus_minus_z = (middle_cavity_x, +z_inner)
+    transition_tank_terminus_plus_z = (transition_tank_terminus_x, z_outer)
+    transition_tank_terminus_minus_z = (transition_tank_terminus_x, -z_outer)
+    transition_cavity_terminus_plus_z = (middle_cavity_x, z_inner)
+    transition_cavity_terminus_minus_z = (middle_cavity_x, -z_inner)
 
     # +X far wall: outer face at far_x_outer, cavity face at far_x_inner,
     # both spanning ±(z_inner - corner_inner_r) where corner arcs begin.
-    far_wall_outer_plus_z = (far_x_outer, -(z_inner - corner_inner_r))
-    far_wall_outer_minus_z = (far_x_outer, +(z_inner - corner_inner_r))
-    far_wall_cavity_plus_z = (far_x_inner, -(z_inner - corner_inner_r))
-    far_wall_cavity_minus_z = (far_x_inner, +(z_inner - corner_inner_r))
+    far_wall_outer_plus_z = (far_x_outer, z_inner - corner_inner_r)
+    far_wall_outer_minus_z = (far_x_outer, -(z_inner - corner_inner_r))
+    far_wall_cavity_plus_z = (far_x_inner, z_inner - corner_inner_r)
+    far_wall_cavity_minus_z = (far_x_inner, -(z_inner - corner_inner_r))
 
     # ±Z wall corner-arc termini. Outer- and cavity-side arcs share an
     # axis at (far_x_inner - corner_inner_r, ±(z_inner - corner_inner_r))
     # — outer at corner_outer_r, cavity at corner_inner_r — so both
     # terminate at the same X.
-    side_wall_outer_plus_z = (far_x_inner - corner_inner_r, -z_outer)
-    side_wall_outer_minus_z = (far_x_inner - corner_inner_r, +z_outer)
-    side_wall_cavity_plus_z = (far_x_inner - corner_inner_r, -z_inner)
-    side_wall_cavity_minus_z = (far_x_inner - corner_inner_r, +z_inner)
+    side_wall_outer_plus_z = (far_x_inner - corner_inner_r, z_outer)
+    side_wall_outer_minus_z = (far_x_inner - corner_inner_r, -z_outer)
+    side_wall_cavity_plus_z = (far_x_inner - corner_inner_r, z_inner)
+    side_wall_cavity_minus_z = (far_x_inner - corner_inner_r, -z_inner)
 
     outer_perimeter = (
         cq.Workplane(xz_plane_y_up)
-        .moveTo(*far_wall_outer_plus_z)
-        .lineTo(*far_wall_outer_minus_z)
-        .radiusArc(side_wall_outer_minus_z, -corner_outer_r)
-        .lineTo(*transition_tank_terminus_minus_z)
-        .threePointArc(transition_apex(-1, transition_tank_r), middle_tank_handoff_minus_z)
-        .threePointArc((arc_tank_r, 0), middle_tank_handoff_plus_z)
-        .threePointArc(transition_apex(+1, transition_tank_r), transition_tank_terminus_plus_z)
-        .lineTo(*side_wall_outer_plus_z)
-        .radiusArc(far_wall_outer_plus_z, -corner_outer_r)
+        .moveTo(*flip_z(far_wall_outer_plus_z))
+        .lineTo(*flip_z(far_wall_outer_minus_z))
+        .radiusArc(flip_z(side_wall_outer_minus_z), -corner_outer_r)
+        .lineTo(*flip_z(transition_tank_terminus_minus_z))
+        .threePointArc(flip_z(transition_apex(-1, transition_tank_r)), flip_z(middle_tank_handoff_minus_z))
+        .threePointArc(flip_z((arc_tank_r, 0)), flip_z(middle_tank_handoff_plus_z))
+        .threePointArc(flip_z(transition_apex(+1, transition_tank_r)), flip_z(transition_tank_terminus_plus_z))
+        .lineTo(*flip_z(side_wall_outer_plus_z))
+        .radiusArc(flip_z(far_wall_outer_plus_z), -corner_outer_r)
         .close()
         .extrude(height)
     )
 
     cavity_perimeter = (
         cq.Workplane(xz_plane_y_up)
-        .moveTo(*transition_cavity_terminus_plus_z)
-        .lineTo(*side_wall_cavity_plus_z)
-        .radiusArc(far_wall_cavity_plus_z, -corner_inner_r)
-        .lineTo(*far_wall_cavity_minus_z)
-        .radiusArc(side_wall_cavity_minus_z, -corner_inner_r)
-        .lineTo(*transition_cavity_terminus_minus_z)
-        .threePointArc(transition_apex(-1, transition_cavity_r), middle_cavity_handoff_minus_z)
-        .threePointArc((arc_cavity_r, 0), middle_cavity_handoff_plus_z)
-        .threePointArc(transition_apex(+1, transition_cavity_r), transition_cavity_terminus_plus_z)
+        .moveTo(*flip_z(transition_cavity_terminus_plus_z))
+        .lineTo(*flip_z(side_wall_cavity_plus_z))
+        .radiusArc(flip_z(far_wall_cavity_plus_z), -corner_inner_r)
+        .lineTo(*flip_z(far_wall_cavity_minus_z))
+        .radiusArc(flip_z(side_wall_cavity_minus_z), -corner_inner_r)
+        .lineTo(*flip_z(transition_cavity_terminus_minus_z))
+        .threePointArc(flip_z(transition_apex(-1, transition_cavity_r)), flip_z(middle_cavity_handoff_minus_z))
+        .threePointArc(flip_z((arc_cavity_r, 0)), flip_z(middle_cavity_handoff_plus_z))
+        .threePointArc(flip_z(transition_apex(+1, transition_cavity_r)), flip_z(transition_cavity_terminus_plus_z))
         .close()
         .extrude(height)
     )
