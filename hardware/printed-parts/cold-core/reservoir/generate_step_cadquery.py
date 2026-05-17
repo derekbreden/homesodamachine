@@ -1137,12 +1137,12 @@ def build_reservoir_cap(side=1):
     #   y=2 .. 1    closed brim (ø10) — same OD as the cylinder, no overhang
     vent_x_signed = vent_position_x * side
 
-    boss_bottom_y = cap_total_height - _vent_boss_depth                # 4
+    boss_bottom_y = cap_total_height - _vent_boss_depth  # 4
     cylinder_walls_bottom_y = boss_bottom_y - (
         vent_cylinder_length - vent_brim_thickness
-    )                                                                   # 2
-    brim_bottom_y = cylinder_walls_bottom_y - vent_brim_thickness       # 1
-    pocket_bottom_y = cap_total_height - vent_pocket_depth              # 6.5
+    )  # 2
+    brim_bottom_y = cylinder_walls_bottom_y - vent_brim_thickness  # 1
+    pocket_bottom_y = cap_total_height - vent_pocket_depth  # 6.5
 
     # Solid pieces: boss extension, cylinder body (cut hollow later),
     # brim. All unioned with the cap so the air-column cut below
