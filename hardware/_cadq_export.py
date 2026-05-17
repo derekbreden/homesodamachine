@@ -56,8 +56,10 @@ def _current_umask():
 
 def _make_sibling_tempfile(target):
     """Create an empty temp file next to `target`, sharing its suffix so
-    canonicalization can dispatch on it. Same directory keeps the final
-    rename on one filesystem (so os.replace is atomic)."""
+    write_fn's format dispatch (cq.exporters.export keys on the
+    extension) picks the same format as the eventual target. Same
+    directory keeps the final rename on one filesystem so os.replace is
+    atomic."""
     fd, tmp_path = tempfile.mkstemp(
         prefix=f".{target.name}.",
         suffix=target.suffix,
