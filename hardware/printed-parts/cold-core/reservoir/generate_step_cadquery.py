@@ -29,7 +29,7 @@ from _cold_core_interface import (
     pocket_centerward_arc_outer_radius,
     reservoir_clearance,
     reservoir_floor_thickness,
-    bulkhead_pocket_diameter,
+    bulkhead_nut_cavity_diameter,
     reservoir_bulkhead_port_x as port_position_x,
     reservoir_bulkhead_port_y as port_position_y,
     reservoir_bulkhead_nut_y as nut_position_y,
@@ -284,7 +284,7 @@ port_tube_diameter = 6.5  # 1/4" OD tube clearance
 # union proportions (catalog total length 34.5 mm; threading section
 # 3–5 mm panel range). Adjust if a caliper measurement of the part
 # in hand disagrees.
-# bulkhead_pocket_diameter: 23.0 — ø22.9 flange + 0.1 clearance.
+# bulkhead_nut_cavity_diameter: 23.0 — ø22.9 flange + 0.1 clearance.
 # Imported from _cold_core_interface because that module derives
 # reservoir_bulkhead_port_y from this diameter.
 bulkhead_panel_hole_diameter = 17.0  # JG catalog spec for the 1/4" body family (0.67")
@@ -400,7 +400,7 @@ dry_ceiling_clearance = 20.0
 # The slope tilts the slab top upward as z increases, so the
 # bulkhead dry-flange clearance is positive everywhere in z ≥
 # bulkhead_panel_z_max.
-floor_baseline_y = port_position_y + bulkhead_pocket_diameter / 2 + dry_ceiling_clearance + bulkhead_dry_slab_thickness
+floor_baseline_y = port_position_y + bulkhead_nut_cavity_diameter / 2 + dry_ceiling_clearance + bulkhead_dry_slab_thickness
 
 # On the wet side (z < bulkhead_wet_end_z), the slope's lowest line is
 # anchored at the bulkhead INLET MIDPOINT (port_position_y = y of the
