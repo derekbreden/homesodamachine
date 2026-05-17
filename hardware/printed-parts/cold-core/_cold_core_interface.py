@@ -9,9 +9,10 @@ xz_plane_y_up = cq.Plane(origin=(0, 0, 0), xDir=(1, 0, 0), normal=(0, 1, 0))
 xy_plane_z_up = cq.Plane(origin=(0, 0, 0), xDir=(1, 0, 0), normal=(0, 0, 1))
 
 
-def xz_plane_y_up_local(world_xz_positions):
+def flip_z(world_xz):
     """World (x, z) → xz_plane_y_up local (x, y); local Y = −world Z."""
-    return [(x, -z) for (x, z) in world_xz_positions]
+    x, z = world_xz
+    return (x, -z)
 
 
 # All structural walls and floors are 2 mm PETG.
