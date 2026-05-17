@@ -71,23 +71,15 @@ flavor_pill_x_minus_edge = min(
 
 # SHELL OUTER (derived from wall-thickness target)
 #
-# Wall thickness is set at the body bore's farthest edge from the
-# shell center. The body bore is offset by shell_center_x mm from
-# shell center, so its farthest perimeter point (in -X) sits at
-# distance shell_center_x + body_bore_radius from the shell center.
-#
-# With shell_center_x chosen to balance walls on both sides (body
-# bore -X edge vs. flavor pill +X edge), the two extremes are
-# equidistant from the shell center: 19.175 mm. wall_thickness_min
-# applies cleanly to both.
-# Target at body bore's -X edge AND at the flavor pill's +X edge
-# (both at 19.175 mm from shell center, by construction).
+# The wall-thickness target applies at the body bore's farthest edge
+# from the shell center. With shell_center_x chosen to balance walls on
+# both sides (body bore -X edge vs. flavor pill +X edge), the two
+# extremes are equidistant from the shell center (19.175 mm), so the
+# target applies cleanly to both.
 wall_thickness_min = 3.0
-
 _body_bore_farthest_from_shell_center = (
     (shell_center_x - body_bore_x) + body_bore_diameter / 2.0
 )  # = 19.175 mm
-
 shell_outer_r = _body_bore_farthest_from_shell_center + wall_thickness_min
 shell_outer_diameter = 2.0 * shell_outer_r  # = 44.35 mm
 
@@ -103,7 +95,7 @@ body_rect_long = 31.5  # X
 body_rect_short = 17.0  # Y
 
 # Body bore in zone 2 — match body rect with clearance per side
-body_bore_rect_long = body_rect_long  + 2.0 * bore_clearance  # 32.0
+body_bore_rect_long = body_rect_long + 2.0 * bore_clearance  # 32.0
 body_bore_rect_short = body_rect_short + 2.0 * bore_clearance  # 17.5
 
 # Cove transition fillet (matches the body's transition_fillet_r)
@@ -111,18 +103,14 @@ cove_r = 6.0
 
 # Bore Z transitions lift by bore_clearance above the body's Z
 # transitions so face-to-face Z interfaces get the same per-side
-# clearance as X/Y. The body's cylinder top face sits at Z=zone1_z_top
-# (=13); the shell's bore step (where the bore narrows from cyl to
-# rect+filler+cove) sits bore_clearance higher.
+# clearance as X/Y.
 zone2_bore_bottom = zone1_z_top + bore_clearance  # 13.25
 cove_top_z = zone2_bore_bottom + cove_r  # 18.25 (bore cove top)
 
-# Outer surface lifts by WALL + bore_clearance above the body's cyl
-# top, so that 3 mm of solid shell wall sits above the bore step
-# (i.e., 3.25 mm above the body's cyl top face, with the extra
-# 0.25 mm being the bore's Z clearance). Without the lift, the outer
-# cove tangents the body's cyl ledge at Z=13 from above and there
-# would be no vertical wall material over the body's top face.
+# Outer surface lifts by wall_thickness_min + bore_clearance above the
+# body's cylinder top, so 3 mm of solid shell wall sits above the bore
+# step. Without the lift, the outer cove would tangent the body's cyl
+# ledge at Z=13 from above with no vertical wall material over it.
 shell_outer_lip = wall_thickness_min + bore_clearance  # 3.25
 zone1_outer_top = zone1_z_top + shell_outer_lip  # 16.25
 zone2_outer_bot = zone1_outer_top  # 16.25
