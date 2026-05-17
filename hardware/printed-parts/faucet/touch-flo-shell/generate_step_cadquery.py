@@ -1031,10 +1031,7 @@ def build_shell() -> cq.Workplane:
                 lid; outer is dominated by the lid in the union)
       - Zone 6: gooseneck (the visible spout above the lid)
 
-    Earlier revisions split this into a base shell + two tube halves
-    with a press-fit tongue+socket and dowel pins; that's gone now in
-    favor of single-piece printing. Gooseneck overhangs will need
-    slicer-generated supports.
+    Gooseneck overhangs will need slicer-generated supports.
     """
     outer = (
         build_zone1_outer()
