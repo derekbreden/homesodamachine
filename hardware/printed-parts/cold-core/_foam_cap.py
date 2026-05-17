@@ -2,11 +2,10 @@
 twice), lid (sits atop a cap during foam pour), and gasket (TPU 90A
 perimeter ring between cap mating edge and outer-shell mating face)."""
 
-import cadquery as cq
-
 from _cold_core_interface import (
     xz_plane_y_up,
     flip_z,
+    WorldWorkplane,
     wall_and_floor_thickness,
     outer_shell_x_length,
     outer_shell_z_length,
@@ -24,7 +23,8 @@ from _cold_core_interface import (
 
 def build_foam_cap():
     cap = (
-        cq.Workplane(xz_plane_y_up)
+        WorldWorkplane(xz_plane_y_up)
+        .workplane(offset=0)
         .rect(outer_shell_x_length, outer_shell_z_length)
         .extrude(foam_cap_height)
         .faces(">Y")
@@ -32,7 +32,8 @@ def build_foam_cap():
     )
     boss_points = [flip_z(p) for p in foam_cap_attachment_xz_positions]
     bosses = (
-        cq.Workplane(xz_plane_y_up)
+        WorldWorkplane(xz_plane_y_up)
+        .workplane(offset=0)
         .pushPoints(boss_points)
         .rect(screw_boss_size, screw_boss_size)
         .extrude(foam_cap_height)
@@ -41,7 +42,8 @@ def build_foam_cap():
     # pass from the cap floor (top in service) all the way to the cap's
     # mating edge (bottom in service).
     clearances = (
-        cq.Workplane(xz_plane_y_up)
+        WorldWorkplane(xz_plane_y_up)
+        .workplane(offset=0)
         .pushPoints(boss_points)
         .circle(screw_clearance_radius)
         .extrude(foam_cap_height)
@@ -49,12 +51,13 @@ def build_foam_cap():
     cap = cap.union(bosses).cut(clearances)
     # Consolidate the multi-cut Compound into a single Solid for clean
     # STEP export.
-    return cap.union(cap)
+    return cap.union(cap).unwrap()
 
 
 def build_foam_cap_lid():
     lid = (
-        cq.Workplane(xz_plane_y_up)
+        WorldWorkplane(xz_plane_y_up)
+        .workplane(offset=0)
         .rect(outer_shell_x_length, outer_shell_z_length)
         .extrude(wall_and_floor_thickness)
     )
@@ -64,20 +67,23 @@ def build_foam_cap_lid():
     vent_z = outer_shell_z_length / 2 - foam_cap_lid_hole_inset
 
     pour_hole = (
-        cq.Workplane(xz_plane_y_up)
-        .workplane(origin=(pour_x, 0, 0))
+        WorldWorkplane(xz_plane_y_up)
+        .workplane(offset=0)
+        .moveTo((pour_x, 0))
         .circle(foam_cap_lid_pour_radius)
         .extrude(wall_and_floor_thickness * 3)
     )
     vent_hole_a = (
-        cq.Workplane(xz_plane_y_up)
-        .workplane(origin=(vent_x, 0, vent_z))
+        WorldWorkplane(xz_plane_y_up)
+        .workplane(offset=0)
+        .moveTo((vent_x, vent_z))
         .circle(foam_cap_lid_vent_radius)
         .extrude(wall_and_floor_thickness * 3)
     )
     vent_hole_b = (
-        cq.Workplane(xz_plane_y_up)
-        .workplane(origin=(vent_x, 0, -vent_z))
+        WorldWorkplane(xz_plane_y_up)
+        .workplane(offset=0)
+        .moveTo((vent_x, -vent_z))
         .circle(foam_cap_lid_vent_radius)
         .extrude(wall_and_floor_thickness * 3)
     )
@@ -86,12 +92,13 @@ def build_foam_cap_lid():
 
     boss_points = [flip_z(p) for p in foam_cap_attachment_xz_positions]
     clearances = (
-        cq.Workplane(xz_plane_y_up)
+        WorldWorkplane(xz_plane_y_up)
+        .workplane(offset=0)
         .pushPoints(boss_points)
         .circle(screw_clearance_radius)
         .extrude(wall_and_floor_thickness * 3)
     )
-    return lid.cut(clearances)
+    return lid.cut(clearances).unwrap()
 
 
 def build_foam_cap_gasket():
@@ -101,12 +108,14 @@ def build_foam_cap_gasket():
     uniformly (a uniform ring would leave them asymmetrically supported
     and seal poorly at the corners). Printed twice."""
     outer = (
-        cq.Workplane(xz_plane_y_up)
+        WorldWorkplane(xz_plane_y_up)
+        .workplane(offset=0)
         .rect(outer_shell_x_length, outer_shell_z_length)
         .extrude(gasket_thickness)
     )
     inner = (
-        cq.Workplane(xz_plane_y_up)
+        WorldWorkplane(xz_plane_y_up)
+        .workplane(offset=0)
         .rect(
             outer_shell_x_length - 2 * gasket_strip_width,
             outer_shell_z_length - 2 * gasket_strip_width,
@@ -117,15 +126,17 @@ def build_foam_cap_gasket():
 
     boss_points = [flip_z(p) for p in foam_cap_attachment_xz_positions]
     pads = (
-        cq.Workplane(xz_plane_y_up)
+        WorldWorkplane(xz_plane_y_up)
+        .workplane(offset=0)
         .pushPoints(boss_points)
         .rect(screw_boss_size, screw_boss_size)
         .extrude(gasket_thickness)
     )
     holes = (
-        cq.Workplane(xz_plane_y_up)
+        WorldWorkplane(xz_plane_y_up)
+        .workplane(offset=0)
         .pushPoints(boss_points)
         .circle(screw_clearance_radius)
         .extrude(gasket_thickness)
     )
-    return gasket.union(pads).cut(holes)
+    return gasket.union(pads).cut(holes).unwrap()
