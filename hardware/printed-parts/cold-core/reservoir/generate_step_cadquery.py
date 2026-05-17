@@ -514,9 +514,9 @@ _cyl_extra_below_bottom = 5.0                                          # extra c
 # (the larger of the two boss radii sets the inset).
 #
 # Outer envelope (body and cap share this footprint):
-_outer_far_x_abs = bag_pocket_far_inner_x - reservoir_clearance        # 121
-_outer_z_max = bag_pocket_z_inner_max - reservoir_clearance            # 70
-_outer_centerward_radius = pocket_centerward_arc_outer_radius + reservoir_clearance  # 73
+outer_far_x_abs = bag_pocket_far_inner_x - reservoir_clearance        # 121
+outer_z_max = bag_pocket_z_inner_max - reservoir_clearance            # 70
+outer_centerward_radius = pocket_centerward_arc_outer_radius + reservoir_clearance  # 73
 
 # Inset equals the larger boss radius so the boss outer edge just
 # reaches the outer face at every position (no boss protrusion past
@@ -525,14 +525,14 @@ _outer_centerward_radius = pocket_centerward_arc_outer_radius + reservoir_cleara
 _screw_setback = max(body_boss_radius, cap_boss_radius)                # 6
 
 # Positions 1/2 — inset 6 mm from outer +X face × outer ±Z face.
-_corner_xz_x = _outer_far_x_abs - _screw_setback                       # 98
-_corner_xz_z = _outer_z_max - _screw_setback                           # 64
+_corner_xz_x = outer_far_x_abs - _screw_setback                       # 98
+_corner_xz_z = outer_z_max - _screw_setback                           # 64
 
 # Position 3 — inset 6 mm from outer +X face, z = 0.
-_far_mid_x = _outer_far_x_abs - _screw_setback                         # 98
+_far_mid_x = outer_far_x_abs - _screw_setback                         # 98
 
 # Position 6 — 6 mm outward from outer curve (radially), z = 0.
-_curve_apex_x = _outer_centerward_radius + _screw_setback              # 78
+_curve_apex_x = outer_centerward_radius + _screw_setback              # 78
 
 # Positions 4/5 — corner of outer curve × outer ±Z face. The corner
 # is filleted at outer_corner_fillet_radius (= 6 mm). The fillet
@@ -543,8 +543,8 @@ _curve_apex_x = _outer_centerward_radius + _screw_setback              # 78
 # the post-fillet wall material — no cavity bump, no chamfer needed
 # (the body-boss loop below skips the chamfer for these two positions
 # explicitly, for code-reading clarity).
-_corner_curve_z = _outer_z_max - outer_corner_fillet_radius             # 64
-_corner_curve_r = _outer_centerward_radius + outer_corner_fillet_radius  # 78
+_corner_curve_z = outer_z_max - outer_corner_fillet_radius             # 64
+_corner_curve_r = outer_centerward_radius + outer_corner_fillet_radius  # 78
 _corner_curve_x = math.sqrt(_corner_curve_r**2 - _corner_curve_z**2)    # ~44.55
 
 # Insert positions for the side=+1 reservoir; sign flips for −1.
@@ -568,9 +568,9 @@ insert_positions_for_side_plus_1 = [
 #
 # Values stored for side=+1; the x component is multiplied by `side`
 # in the body-boss loop to mirror across x=0 for side=−1.
-_far_wall_inner_x = _outer_far_x_abs - reservoir_wall_thickness        # 100
-_plus_z_wall_inner_z = _outer_z_max - reservoir_wall_thickness         # 66
-_curve_inner_x_at_z0 = _outer_centerward_radius + reservoir_wall_thickness  # 76
+_far_wall_inner_x = outer_far_x_abs - reservoir_wall_thickness        # 100
+_plus_z_wall_inner_z = outer_z_max - reservoir_wall_thickness         # 66
+_curve_inner_x_at_z0 = outer_centerward_radius + reservoir_wall_thickness  # 76
 _inv_sqrt2 = 1.0 / math.sqrt(2.0)
 
 # Bosses 4 / 5 need their cut direction pointed at the inner-wall
@@ -670,11 +670,8 @@ def build_reservoir_body(side=1):
     # y = 212.9 (0.5 mm clear of the bag-pocket wall top).  The
     # body alone is 201.9 − 2.5 = 199.4 mm tall.
     cap_stack_above_body = gasket_thickness + cap_wall_height + cap_base_thickness
-    outer_far_x_abs = bag_pocket_far_inner_x - reservoir_clearance
-    outer_z_max = bag_pocket_z_inner_max - reservoir_clearance
     outer_floor_bottom_y = bag_pocket_floor_top_y + reservoir_clearance
     outer_top_y = bag_pocket_walls_top_y - reservoir_clearance - cap_stack_above_body
-    outer_centerward_radius = pocket_centerward_arc_outer_radius + reservoir_clearance
     outer_height = outer_top_y - outer_floor_bottom_y
 
     # Inner cavity dimensions. No ceiling — cavity extends all the way
@@ -1302,9 +1299,6 @@ def build_reservoir_cap(side=1):
     matching cross-section for the gasket compression at each screw.
     """
     # Same outer footprint as the reservoir body.
-    outer_far_x_abs = bag_pocket_far_inner_x - reservoir_clearance
-    outer_z_max = bag_pocket_z_inner_max - reservoir_clearance
-    outer_centerward_radius = pocket_centerward_arc_outer_radius + reservoir_clearance
 
     # Perimeter wall inner footprint (offset inward by cap_wall_width).
     inner_far_x_abs = outer_far_x_abs - cap_wall_width
@@ -1555,10 +1549,6 @@ def build_reservoir_gasket(side=1):
 
     side=+1 builds the +X gasket; side=−1 builds the −X (mirror).
     """
-    outer_far_x_abs = bag_pocket_far_inner_x - reservoir_clearance
-    outer_z_max = bag_pocket_z_inner_max - reservoir_clearance
-    outer_centerward_radius = pocket_centerward_arc_outer_radius + reservoir_clearance
-
     inner_far_x_abs = outer_far_x_abs - gasket_strip_width
     inner_z_max = outer_z_max - gasket_strip_width
     inner_centerward_radius = outer_centerward_radius + gasket_strip_width
