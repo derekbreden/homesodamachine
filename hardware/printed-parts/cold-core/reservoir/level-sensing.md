@@ -49,15 +49,12 @@ Cutting the channel into the wall (rather than mounting the column on the wall's
 
 ## GPIO budget
 
-4 reeds × 2 reservoirs = **8 input GPIOs needed** for the flavor reservoir level sensing.
+4 reeds × 2 reservoirs = **8 input GPIOs needed** for the flavor reservoir level sensing. Allocation:
 
-The current ESP32 plan ([`../../../wiring/esp32-pinout.mmd`](../../../wiring/esp32-pinout.mmd)) routes 12 solenoids through one MCP23017 (16 channels, 4 currently spare). 8 reed inputs exceed those 4 spare bits by 4, so we need 4 more bits somewhere. Three viable options:
+- **Reservoir A's 4 reeds** → existing MCP23017 0x20 PB[4:7] (the chip's spare bits after 12 valves). No firmware change beyond reading 4 new bits.
+- **Reservoir B's 4 reeds** → new MCP23017 at I²C address 0x21, PA[0:3]. 12 spare bits on the new chip for future expansion. Same I²C driver as 0x20.
 
-- **Second MCP23017** at I²C address 0x21. Uses 4 of its 16 channels for Reservoir B reeds; 12 spare for headroom. Simplest from a firmware standpoint (same I²C driver as 0x20). ~$13/build.
-- **ESP32 direct GPIO** for 4 reeds: GPIO 2 and 12 (bootstrap-sensitive but usable with `INPUT_PULLUP`), GPIO 36 and 39 (input-only, need external 10 kΩ pull-ups). Saves the chip but adds 2 external resistors + slightly more firmware paths.
-- **74HC165 shift register**. SPI-ish 8-bit input expansion. Cheaper than MCP if scaling, overkill at this count.
-
-The split is: Reservoir A's 4 reeds → MCP 0x20 PB[4:7] (the existing chip's spare bits, no firmware change). Reservoir B's 4 reeds → one of the three options above. Decision deferred.
+ESP32 direct GPIO was considered for the 4 Reservoir B bits (GPIO 2, 12 with `INPUT_PULLUP` + GPIO 36, 39 with external 10 kΩ pull-ups) but rejected: it consumes the last input-capable pins on the ESP32, leaves zero headroom for anything future, and the savings vs the $13 MCP23017 are negligible. A 74HC165 shift register was also considered and rejected for the same headroom reason.
 
 ## Parts (per build)
 
@@ -84,6 +81,4 @@ The internal SS rod is a separately-supplied part captured at both ends by print
 
 ## Open items
 
-- **Foam-shell channel CAD.** Implemented in `_foam_shell_geometry.py` `build_reed_channels()`, `cut_reed_channel_openings()`, and `cut_reed_cable_holes()`. Vertical reed channel at z=−45, 6 mm × 8 mm cavity, full height (cavity y = 2..213.4), top open. Horizontal cable channel sitting on the foam shell floor (cavity y = 2..10 at the channel-outer face, sloping up to y = 2..15 at the bag-pocket-wall side; cable Y = 6), running in +Z to z = 70.5 (the +Z bag-pocket wall's inner face), 5 mm × 8 mm cavity at the channel-outer face. The cavity ceiling in the straight section (z ≤ 64) is sloped 45° from the channel-outer face at (x=±128.5, y=10) all the way through the bag-pocket wall to its inner face at (x=±121.5, y=17), cutting the bag-pocket wall material under the slope. The slope is printable without bridging. The +Z corner arc area (z = 64..70.5) currently keeps a flat ceiling at y=10 — there's a 5 mm step in the cavity ceiling at z = 64 to be addressed in a later iteration. The bag-pocket far ±X wall is cut in the channel footprint (vertical reed-column band + horizontal cable band, extending through the +Z corner arc material) so the channels are open to the bag-pocket interior. Coaxial ⌀6.5 cable hole in +Z direction at (x = ±(reservoir_bulkhead_port_x + 8), y = cable_y_center = 6, z = 62.5), piercing the +Z bag-pocket wall AND the +Z outer shell wall — exits parallel to and ±8 mm offset from the bulkhead pass-through, 12 mm below it (matching the channel's cable level). Cable's path: reed column → vertical channel → horizontal channel → wall opening into bag-pocket interior → traverse −X through dry-side empty space at constant y=6 → +Z cable hole → outside cold core. Refine the channel cross-section (currently 6mm vertical × 8mm horizontal cavity widths) once the cable's actual OD is characterized.
-- **Cable selection.** Multi-conductor cable on order ([B0CSD5QZ21](https://www.amazon.com/dp/B0CSD5QZ21)). Once it arrives: measure jacket OD, verify individual-conductor strip-ability for the reed-end terminations, decide whether 12-conductor is the spec or if a smaller conductor count is sufficient (we only need 5 conductors per cable: 4 reed signals + 1 common return).
-- **GPIO allocation for Reservoir B's 4 reeds.** Pick one of second MCP23017 / ESP32 direct GPIO / 74HC165.
+- **Cable characterization + channel cross-section refinement.** Multi-conductor cable on order ([B0CSD5QZ21](https://www.amazon.com/dp/B0CSD5QZ21)). Once it arrives: measure jacket OD, verify individual-conductor strip-ability for the reed-end terminations, decide whether 12-conductor is the spec or if a smaller conductor count is sufficient (we only need 5 conductors per cable: 4 reed signals + 1 common return), and refine the foam-shell channel cross-section (currently 6 mm reed-channel depth × 5 mm cable-channel depth, 8 mm wide along z / y) to fit the actual cable OD.
