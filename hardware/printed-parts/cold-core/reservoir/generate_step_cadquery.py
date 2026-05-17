@@ -924,9 +924,10 @@ def build_reservoir_body(side=1):
         )
         body = body.cut(nut_ceiling_box)
 
+    # Panel hole ⌀17 through the body.
     body = body.cut(_z_pocket_cut(
         bulkhead_panel_z_min, bulkhead_panel_z_max, bulkhead_panel_hole_diameter,
-    ))                                       # panel hole ⌀17
+    ))
 
     # TPU seal counterbores — one on each panel face. A flat printed
     # TPU washer seats in each counterbore; the mating face (nut
@@ -939,12 +940,12 @@ def build_reservoir_body(side=1):
         bulkhead_panel_z_min,
         bulkhead_panel_z_min + bulkhead_seal_counterbore_depth,
         bulkhead_seal_counterbore_diameter,
-    ))                                       # wet-side seal counterbore
+    ))  # wet-side seal counterbore
     body = body.cut(_z_pocket_cut(
         bulkhead_panel_z_max - bulkhead_seal_counterbore_depth,
         bulkhead_panel_z_max,
         bulkhead_seal_counterbore_diameter,
-    ))                                       # dry-side seal counterbore
+    ))  # dry-side seal counterbore
     # Wide-open dry section: instead of cutting a ⌀23 dry chamber + a
     # dry-floor box (the symmetric counterpart to the wet ceiling), the
     # dry section keeps ONLY a PETG ceiling slab spanning the entire
