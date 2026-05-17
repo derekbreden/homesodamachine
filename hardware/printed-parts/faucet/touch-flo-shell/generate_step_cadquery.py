@@ -557,14 +557,7 @@ def build_zone1_inner_cut() -> cq.Workplane:
     Body bore and pill overlap by 0.4625 mm in X at the body/pill
     seam, so the result is a single connected hole.
     """
-    body_bore_height = zone2_bore_bottom - zone1_z_bottom
-    body_bore = (
-        cq.Workplane("XY")
-        .workplane(offset=zone1_z_bottom)
-        .moveTo(body_bore_x, body_bore_y)
-        .circle(body_bore_diameter / 2.0)
-        .extrude(body_bore_height)
-    )
+    body_bore = body_bore_cyl(zone1_z_bottom, zone2_bore_bottom - zone1_z_bottom)
     pill = _flavor_pill_flat_x_minus(zone1_z_bottom, zone1_height)
     return body_bore.union(pill)
 
@@ -572,29 +565,23 @@ def build_zone1_inner_cut() -> cq.Workplane:
 def build_insert_pockets() -> cq.Workplane:
     """Two heat-set insert pockets in the shell's bottom face.
 
-    Each pocket is a Ø insert_pocket_diameter cylinder extruded UP
-    from Z=0 by insert_pocket_depth, positioned at world
-    (insert_x, ±insert_y_offset) — the rear-shoulder zones at θ=±45°,
-    r=20 from the body center. Lives entirely within zone 1 outer
-    (which extends to Z = zone1_outer_top = 16.25), with ~11 mm of
-    solid material above the pocket ceiling.
+    Each pocket is a Ø insert_pocket_diameter cylinder extruded UP from
+    Z=0 by insert_pocket_depth, positioned at (insert_x, ±insert_y_offset)
+    — the rear-shoulder zones at θ=±45°, r=20 from the body center.
+    Lives entirely within zone 1 outer (which extends to Z =
+    zone1_outer_top = 16.25), with ~11 mm of solid material above the
+    pocket ceiling.
 
     Returned as a single union for the caller to subtract from the
     shell solid.
     """
-    pockets = None
-    for y_sign in (+1, -1):
-        sx = insert_x
-        sy = y_sign * insert_y_offset
-        pocket = (
-            cq.Workplane("XY")
-            .workplane(offset=zone1_z_bottom)
-            .moveTo(sx, sy)
-            .circle(insert_pocket_diameter / 2.0)
-            .extrude(insert_pocket_depth)
-        )
-        pockets = pocket if pockets is None else pockets.union(pocket)
-    return pockets
+    return (
+        cq.Workplane("XY")
+        .workplane(offset=zone1_z_bottom)
+        .pushPoints([(insert_x, +insert_y_offset), (insert_x, -insert_y_offset)])
+        .circle(insert_pocket_diameter / 2.0)
+        .extrude(insert_pocket_depth)
+    )
 
 
 def _rect_cove_cyl(
