@@ -17,14 +17,15 @@ from _cold_core_interface import (
     build_a_slot_punch,
 )
 
-# Y at which every port that exits through the bag-pocket front (+Y)
-# face sits — water outlet, CO2 inlet, and the shared copper/water
-# inlet slot's bottom anchor. hole_shift_from_edge from the +Y outer
-# face, plus the wall thickness it passes through.
+# Y at which the through-foam ports sit — water outlet and CO2 inlet
+# bore both pass through the foam shell at this Y. hole_shift_from_edge
+# from the +Y outer face, plus the wall thickness they pass through.
 front_face_port_y = hole_shift_from_edge + wall_and_floor_thickness
 
-# Z of the water outlet and the copper/water inlet slot — both pass
-# through the bag-pocket +Z wall, 20 mm inboard of its outer face.
+# Z at which the water outlet and the copper/water inlet slot start
+# their +Z extrusion — 20 mm inboard of the bag-pocket +Z wall outer
+# face. Each cut tool extrudes far enough past the outer-shell +Z
+# wall to clear it.
 plus_z_wall_plug_port_z = pocket_centerward_arc_outer_radius - 20
 
 # Z-axis ⌀6.5 × 40 mm cylindrical cuts through the foam shell, each
@@ -51,23 +52,25 @@ def cut_co2_inlet(foam_shell):
     can't enter along the bore axis. The cut clears a passage from
     just outside the support ring (at z = −70.5) inward; the foam-
     shell floor below y = 2 stays intact."""
-    co2_inlet_z_start = -(pocket_centerward_arc_outer_radius - wall_and_floor_thickness)
-    co2_inlet_y_center = front_face_port_y
+    # Z at which the doorway starts cutting — the pocket-side face of
+    # the bag-pocket −Z wall. Bore and slot extrude in +Z from here.
+    doorway_z = -(pocket_centerward_arc_outer_radius - wall_and_floor_thickness)
     bore_radius = 8.0
+    bore_y = front_face_port_y
     round_bore = build_a_hole_punch(
-        origin=(0, co2_inlet_y_center, co2_inlet_z_start),
+        origin=(0, bore_y, doorway_z),
         hole_punch_radius=bore_radius,
     )
-    slot_width = 2 * bore_radius
-    slot_y_top = co2_inlet_y_center
+    # Slot below the bore: same X-width as the bore (diameter), running
+    # from the foam-shell floor's top face up to the bore center.
     slot_y_bottom = wall_and_floor_thickness
+    slot_y_top = bore_y
     slot_y_center = (slot_y_top + slot_y_bottom) / 2.0
-    slot_extrude_z = 40
     slot_punch = (
         cq.Workplane(xy_plane_z_up)
-        .workplane(origin=(0, slot_y_center, co2_inlet_z_start), offset=co2_inlet_z_start)
-        .rect(slot_width, slot_y_top - slot_y_bottom)
-        .extrude(slot_extrude_z)
+        .workplane(origin=(0, slot_y_center, doorway_z), offset=doorway_z)
+        .rect(2 * bore_radius, slot_y_top - slot_y_bottom)
+        .extrude(40)
     )
     return foam_shell.cut(round_bore).cut(slot_punch)
 
@@ -76,18 +79,15 @@ def cut_slot_for_copper_and_water_inlet(foam_shell):
     """Y-elongated slot through the outer-shell +Z wall, shared by the
     two copper-line plugs and the water-inlet plug — plugs are slid
     down in from above. slot_y_top is pushed slot_diameter/2 past the
-    wall's top edge so the rounded top tapers ABOVE the wall — the
-    straight portion reaches the wall's top exactly, no sliver left."""
+    foam-shell top edge so the rounded top tapers ABOVE the wall — the
+    straight portion reaches the top exactly, no sliver left."""
     slot_diameter = 6.5
     slot_y_bottom = 42.0
     slot_y_top = foam_shell_outer_height + slot_diameter / 2
-    slot_length = slot_y_top - slot_y_bottom
     slot_y_center = (slot_y_top + slot_y_bottom) / 2.0
-    slot_z_offset = plus_z_wall_plug_port_z
-    slot_x_offset = 0
     slot_punch = build_a_slot_punch(
-        origin=(slot_x_offset, slot_y_center, slot_z_offset),
-        slot_length=slot_length,
+        origin=(0, slot_y_center, plus_z_wall_plug_port_z),
+        slot_length=slot_y_top - slot_y_bottom,
         slot_diameter=slot_diameter,
     )
     return foam_shell.cut(slot_punch)
