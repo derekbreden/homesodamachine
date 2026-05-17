@@ -13,8 +13,7 @@ sys.path.insert(0, str(next(p for p in _here.parents if p.name == "hardware")))
 from _cadq_export import export_step
 
 
-# Bore diameter matches the Kamoer KPP small-bore pump head; outer
-# diameter is the bore plus a wall on each side.
+# Bore diameter matches the Kamoer KPP small-bore pump head.
 inner_diameter = 3.2
 wall_thickness = 1.6
 outer_diameter = inner_diameter + 2 * wall_thickness
