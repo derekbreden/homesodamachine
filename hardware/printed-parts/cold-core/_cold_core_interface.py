@@ -256,10 +256,10 @@ foam_cap_lid_hole_inset = 30.0
 # 6 attachment points per face × 2 faces = 12 inserts / 12 screws.
 # Gasket compresses between each cap's mating edge and the outer shell
 # (foam-cap-gasket.step). See bom.md for hardware SKUs.
-screw_clearance_radius = 1.95   # ⌀3.9 clearance for M3 SHCS shank
-insert_pocket_radius   = 2.0    # ⌀4.0 for ruthex M3 short heat-set
-insert_pocket_depth    = 8.0    # 4 mm insert engagement + 4 mm relief
-screw_boss_size        = 8.0    # 8 × 8 mm square pillar at each attachment
+screw_clearance_radius = 1.95  # ⌀3.9 clearance for M3 SHCS shank
+insert_pocket_radius = 2.0  # ⌀4.0 for ruthex M3 short heat-set
+insert_pocket_depth = 8.0  # 4 mm insert engagement + 4 mm relief
+screw_boss_size = 8.0  # 8 × 8 mm square pillar at each attachment
 
 # Mid-long-side bosses offset in X to clear the copper/water-outlet
 # slot at x=0; opposite signs at ±Z preserve 180° rotational symmetry
@@ -273,7 +273,7 @@ foam_cap_attachment_xz_positions = (
         z_sign * (outer_shell_z_length / 2 - screw_boss_size / 2))
        for z_sign in (1, -1)]
 )
-gasket_thickness   = 2.0
+gasket_thickness = 2.0
 gasket_strip_width = 5.0
 
 
