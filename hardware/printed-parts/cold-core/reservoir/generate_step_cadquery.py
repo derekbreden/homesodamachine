@@ -618,18 +618,24 @@ body_boss_cut_info_for_side_plus_1 = {
 }
 
 
-def _build_outer_envelope(side, outer_far_x_abs, outer_z_max, outer_centerward_radius, floor_y, height):
+def _build_envelope(side, floor_y, height, wall_offset=0.0):
     """`[`-shape solid: rectangle on three sides + concave cylindrical
     cutout on the centerward side. Used for both reservoir-body and
-    cap footprints."""
+    cap footprints. `wall_offset` shrinks the footprint inward by that
+    amount on every face (negative growth on the concave radius);
+    wall_offset=0 is the outer envelope, wall_offset=wall_thickness
+    is the inner cavity."""
+    far_x_abs = outer_far_x_abs - wall_offset
+    z_max = outer_z_max - wall_offset
+    centerward_radius = outer_centerward_radius + wall_offset
     rect = (
-        _wp_at(side * outer_far_x_abs / 2, floor_y, 0)
-        .rect(outer_far_x_abs, 2 * outer_z_max)
+        _wp_at(side * far_x_abs / 2, floor_y, 0)
+        .rect(far_x_abs, 2 * z_max)
         .extrude(height)
     )
     cyl = (
         _wp_at(0, floor_y, 0)
-        .circle(outer_centerward_radius)
+        .circle(centerward_radius)
         .extrude(height)
     )
     return rect.cut(cyl)
@@ -697,14 +703,8 @@ def build_reservoir_body(side=1):
     inner_centerward_radius = outer_centerward_radius + W
     inner_height = inner_top_y - inner_floor_top_y
 
-    outer_envelope = _build_outer_envelope(
-        side, outer_far_x_abs, outer_z_max, outer_centerward_radius,
-        outer_floor_bottom_y, outer_height,
-    )
-    inner_cavity = _build_outer_envelope(
-        side, inner_far_x_abs, inner_z_max, inner_centerward_radius,
-        inner_floor_top_y, inner_height,
-    )
+    outer_envelope = _build_envelope(side, outer_floor_bottom_y, outer_height)
+    inner_cavity = _build_envelope(side, inner_floor_top_y, inner_height, wall_offset=W)
 
     body = outer_envelope.cut(inner_cavity)
 
@@ -737,10 +737,7 @@ def build_reservoir_body(side=1):
     # wedge restores the pre-fillet outer corner geometry in the wedge's
     # y range, leaving a sharp tab visible from the centerward face in a
     # narrow Y range matching the wedge's extent.)
-    outer_envelope_filleted = _build_outer_envelope(
-        side, outer_far_x_abs, outer_z_max, outer_centerward_radius,
-        outer_floor_bottom_y, outer_height,
-    )
+    outer_envelope_filleted = _build_envelope(side, outer_floor_bottom_y, outer_height)
     outer_envelope_filleted = _fillet_pair_at_z(outer_envelope_filleted, side * outer_corner_x, y_mid_body, outer_z_max, outer_corner_fillet_radius)
     outer_envelope_filleted = _fillet_pair_at_z(outer_envelope_filleted, side * outer_far_x_abs, y_mid_body, outer_z_max, outer_corner_fillet_radius)
 
@@ -870,9 +867,9 @@ def build_reservoir_body(side=1):
     )
 
     wedge_top_y_safe = floor_baseline_y + floor_slope_rise + 2.0
-    wedge_extrusion = _build_outer_envelope(
-        side, inner_far_x_abs, inner_z_max, inner_centerward_radius,
-        inner_floor_top_y, wedge_top_y_safe - inner_floor_top_y,
+    wedge_extrusion = _build_envelope(
+        side, inner_floor_top_y, wedge_top_y_safe - inner_floor_top_y,
+        wall_offset=W,
     )
     wedge_slope = wedge_extrusion.intersect(slope_region).cut(above_slope)
     wedge_dry = wedge_extrusion.intersect(dry_region).cut(above_dry_slope)
@@ -1257,32 +1254,16 @@ def build_reservoir_cap(side=1):
     wall, providing additional PETG around the clearance hole and a
     matching cross-section for the gasket compression at each screw.
     """
-    # Same outer footprint as the reservoir body.
-
-    # Perimeter wall inner footprint (offset inward by cap_wall_width).
-    inner_far_x_abs = outer_far_x_abs - cap_wall_width
-    inner_z_max = outer_z_max - cap_wall_width
-    inner_centerward_radius = outer_centerward_radius + cap_wall_width
-
     # Perimeter wall (outer − inner footprint, 5 mm tall) at the BOTTOM
     # of the cap, y = [0, 5]. The "lip" that hangs down around the gasket.
-    perimeter_outer = _build_outer_envelope(
-        side, outer_far_x_abs, outer_z_max, outer_centerward_radius,
-        0.0, cap_wall_height,
-    )
-    perimeter_inner = _build_outer_envelope(
-        side, inner_far_x_abs, inner_z_max, inner_centerward_radius,
-        0.0, cap_wall_height,
-    )
+    perimeter_outer = _build_envelope(side, 0.0, cap_wall_height)
+    perimeter_inner = _build_envelope(side, 0.0, cap_wall_height, wall_offset=cap_wall_width)
     perimeter_wall = perimeter_outer.cut(perimeter_inner)
 
     # Base plate (full footprint, 3 mm thick) at the TOP of the cap,
     # y = [5, 8]. The flat surface the user sees from above; hosts the
     # counterbores for the screw heads.
-    base = _build_outer_envelope(
-        side, outer_far_x_abs, outer_z_max, outer_centerward_radius,
-        cap_wall_height, cap_base_thickness,
-    )
+    base = _build_envelope(side, cap_wall_height, cap_base_thickness)
 
     cap = base.union(perimeter_wall)
 
@@ -1493,18 +1474,8 @@ def build_reservoir_gasket(side=1):
 
     side=+1 builds the +X gasket; side=−1 builds the −X (mirror).
     """
-    inner_far_x_abs = outer_far_x_abs - gasket_strip_width
-    inner_z_max = outer_z_max - gasket_strip_width
-    inner_centerward_radius = outer_centerward_radius + gasket_strip_width
-
-    outer = _build_outer_envelope(
-        side, outer_far_x_abs, outer_z_max, outer_centerward_radius,
-        0.0, gasket_thickness,
-    )
-    inner = _build_outer_envelope(
-        side, inner_far_x_abs, inner_z_max, inner_centerward_radius,
-        0.0, gasket_thickness,
-    )
+    outer = _build_envelope(side, 0.0, gasket_thickness)
+    inner = _build_envelope(side, 0.0, gasket_thickness, wall_offset=gasket_strip_width)
     gasket = outer.cut(inner)
 
     # Outer fillets at the curve × ±Z and +X × ±Z corners (match the
