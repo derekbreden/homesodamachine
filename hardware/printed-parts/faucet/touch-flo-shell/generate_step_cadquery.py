@@ -352,15 +352,15 @@ back_arch_mid_z = back_arch_center_z + back_arch_r * math.sin(_back_arch_a_mid) 
 # edges curve inward at large |Y| via mirrored cylinder clips of
 # radius shell_outer_r.
 
-# Zone 5's X extents at Y=0, used to derive zone 4.5's matched-margin
-# front X. Mirrors the tube-shell cross-section.
-_z5_flavor_x_half = (pill_width_x + 2.0 * zone5_wall) / 2.0  # 7.425
+# Zone 5's tube-shell X extents at Y=0 — used to derive zone 4.5's
+# matched-margin front X.
 _z5_x_min = water_tube_x - tube_shell_water_r_outer  # -0.1375
-_z5_x_max = flavor_tube_post_bend_x + _z5_flavor_x_half  # 23.575
+_z5_x_max = flavor_tube_post_bend_x + (pill_width_x + 2.0 * zone5_wall) / 2.0  # 23.575
 
+# Zone 4.5 X extents — front edge matched-margin from zone 5's X extents
+# so zone 5 sits visually centered above zone 4.5.
 zone45_back_x = shell_center_x + shell_outer_r  # 25.35
-_zone45_x_margin = zone45_back_x - _z5_x_max  # 1.775
-zone45_front_x = _z5_x_min - _zone45_x_margin  # ≈ -1.9125
+zone45_front_x = _z5_x_min - (zone45_back_x - _z5_x_max)  # ≈ -1.9125
 
 # 3 mm tall on the back side (where the lid sits flat on zone 4 top);
 # taller on the front side because the lid bottom follows the back-arch
