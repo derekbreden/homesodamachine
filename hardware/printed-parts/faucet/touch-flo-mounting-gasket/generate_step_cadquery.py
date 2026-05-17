@@ -62,44 +62,37 @@ sys.path.insert(
 from _cadq_export import export_step
 
 
-# ═══════════════════════════════════════════════════════
-# GASKET DIMENSIONS
-# ═══════════════════════════════════════════════════════
+# Disc — Ø matches the mounting plate; 2.0 mm thick gives ~0.4 mm of
+# 20%-squish travel for TPU 90A on a 0.4 mm nozzle.
+gasket_diameter = 54.35
+gasket_thickness = 2.0
+gasket_center = (3.175, 0.0)
 
-GASKET_DIAMETER  = 54.35   # mm — matches mounting plate OD
-GASKET_THICKNESS = 2.0     # mm — TPU 90A; ~20% compression headroom
-GASKET_CENTER_X  = 3.175   # mm — matches mounting plate center
-GASKET_CENTER_Y  = 0.0
-
-# Stacks immediately under the mounting plate (whose bottom face is
-# at world Z = -4.0). Top of gasket meets bottom of plate; bottom of
+# Stacks immediately under the mounting plate (whose bottom face is at
+# world Z = -4.0). Top of gasket meets bottom of plate; bottom of
 # gasket sits on the countertop surface.
-GASKET_Z_TOP     = -4.0
-GASKET_Z_BOTTOM  = GASKET_Z_TOP - GASKET_THICKNESS  # -6.0
+gasket_z_top = -4.0
+gasket_z_range = (gasket_z_top - gasket_thickness, gasket_z_top)
 
 
-# ═══════════════════════════════════════════════════════
-# HOLE GEOMETRY (mirrored exactly from mounting plate)
-# ═══════════════════════════════════════════════════════
+# Hole geometry — mirrored exactly from the mounting plate. Same size
+# leak-proofs the gasket-to-plate joint: smaller deforms under shank/
+# tube pressure, larger leaks.
+shank_hole_diameter = 12.6
+shank_hole_center = (0.0, 0.0)
 
-SHANK_HOLE_DIAMETER = 12.6
-SHANK_HOLE_X        = 0.0
-SHANK_HOLE_Y        = 0.0
+flavor_tube_hole_diameter = 6.85  # 6.35 OD + 0.5 mm clearance
+flavor_tube_center = (18.925, 0.0)
 
-FLAVOR_TUBE_OD       = 6.35
-FLAVOR_TUBE_HOLE_DIA = 6.85                    # 6.35 OD + 0.5 mm clearance
-FLAVOR_TUBE_X        = 18.925
-FLAVOR_TUBE_Y_OFFSET = 3.175
-
-PILL_SLOT_LENGTH_Y = 2 * FLAVOR_TUBE_Y_OFFSET + FLAVOR_TUBE_HOLE_DIA  # 13.2
-PILL_SLOT_WIDTH_X  = FLAVOR_TUBE_HOLE_DIA                              # 6.85
+# Pill slot covers both 1/4" flavor tubes (centers ±3.175 in Y) as one
+# rounded-rectangle, matching the mounting plate. Length is end-to-end
+# (Y); width is the per-tube hole diameter (X).
+flavor_tube_y_offset = 3.175
+pill_slot_length_y = 2 * flavor_tube_y_offset + flavor_tube_hole_diameter  # 13.2
+pill_slot_width_x = flavor_tube_hole_diameter                              # 6.85
 
 
-# ═══════════════════════════════════════════════════════
-# GEOMETRY BUILDERS
-# ═══════════════════════════════════════════════════════
-
-def build_mounting_gasket() -> cq.Workplane:
+def build_mounting_gasket():
     """Build the TPU disc with shank hole and flavor-tube pill slot.
 
     No fillets — TPU at 2 mm with sharp edges compresses cleanly, and
@@ -110,36 +103,32 @@ def build_mounting_gasket() -> cq.Workplane:
     """
     gasket = (
         cq.Workplane("XY")
-        .workplane(offset=GASKET_Z_BOTTOM)
-        .moveTo(GASKET_CENTER_X, GASKET_CENTER_Y)
-        .circle(GASKET_DIAMETER / 2.0)
-        .extrude(GASKET_THICKNESS)
+        .workplane(offset=gasket_z_range[0])
+        .moveTo(*gasket_center)
+        .circle(gasket_diameter / 2.0)
+        .extrude(gasket_thickness)
     )
 
     shank_hole = (
         cq.Workplane("XY")
-        .workplane(offset=GASKET_Z_BOTTOM)
-        .moveTo(SHANK_HOLE_X, SHANK_HOLE_Y)
-        .circle(SHANK_HOLE_DIAMETER / 2.0)
-        .extrude(GASKET_THICKNESS)
+        .workplane(offset=gasket_z_range[0])
+        .moveTo(*shank_hole_center)
+        .circle(shank_hole_diameter / 2.0)
+        .extrude(gasket_thickness)
     )
     gasket = gasket.cut(shank_hole)
 
     pill_slot = (
         cq.Workplane("XY")
-        .workplane(offset=GASKET_Z_BOTTOM)
-        .moveTo(FLAVOR_TUBE_X, 0)
-        .slot2D(PILL_SLOT_LENGTH_Y, PILL_SLOT_WIDTH_X, angle=90)
-        .extrude(GASKET_THICKNESS)
+        .workplane(offset=gasket_z_range[0])
+        .moveTo(*flavor_tube_center)
+        .slot2D(pill_slot_length_y, pill_slot_width_x, angle=90)
+        .extrude(gasket_thickness)
     )
     gasket = gasket.cut(pill_slot)
 
     return gasket
 
-
-# ═══════════════════════════════════════════════════════
-# BUILD AND EXPORT
-# ═══════════════════════════════════════════════════════
 
 if __name__ == "__main__":
     gasket = build_mounting_gasket()
@@ -149,11 +138,10 @@ if __name__ == "__main__":
 
     print("Touch-Flo mounting gasket")
     print(f"  Material:       Bambu TPU 90A (black)")
-    print(f"  Disc:           Ø{GASKET_DIAMETER} mm × {GASKET_THICKNESS} mm thick")
-    print(f"  Center:         X = {GASKET_CENTER_X}, Y = {GASKET_CENTER_Y}")
-    print(f"  Z range:        {GASKET_Z_BOTTOM} → {GASKET_Z_TOP}")
-    print(f"  Shank hole:     Ø{SHANK_HOLE_DIAMETER} mm at "
-          f"({SHANK_HOLE_X}, {SHANK_HOLE_Y})")
-    print(f"  Flavor pill:    {PILL_SLOT_LENGTH_Y} × {PILL_SLOT_WIDTH_X} mm "
-          f"at ({FLAVOR_TUBE_X}, 0), Y-oriented")
+    print(f"  Disc:           Ø{gasket_diameter} mm × {gasket_thickness} mm thick")
+    print(f"  Center:         {gasket_center}")
+    print(f"  Z range:        {gasket_z_range[0]} → {gasket_z_range[1]}")
+    print(f"  Shank hole:     Ø{shank_hole_diameter} mm at {shank_hole_center}")
+    print(f"  Flavor pill:    {pill_slot_length_y} × {pill_slot_width_x} mm "
+          f"at {flavor_tube_center}, Y-oriented")
     print(f"-> {out.name}")
