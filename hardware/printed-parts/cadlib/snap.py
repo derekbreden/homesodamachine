@@ -25,13 +25,13 @@ import cadquery as cq
 wall_thickness = 3.0
 # Outward growth added to the ramp_out_first outer face so the cut channel
 # has room without piercing the original wall.
-outer_growth_default = 2.0
+ramp_out_outer_growth = 2.0
 notch_wall_width = 2.0
 bump_height = 2.0
 
 # Inner-face to (grown) outer-face span the snap features inhabit on the
 # ramp_out_first side.
-channel_width = wall_thickness + outer_growth_default
+channel_width = wall_thickness + ramp_out_outer_growth
 
 overcut = 0.1
 
@@ -82,11 +82,11 @@ def apply_ramp_out_first(
     ramp_top_2 = notch_top + ramp_height
     bump_top = ramp_top_2 + bump_height
     tip_height = bump_top + ramp_height
-    growth_ramp_start = zigzag_start - outer_growth_default
+    growth_ramp_start = zigzag_start - ramp_out_outer_growth
 
     bump_face = coordinate_inner_wall + sign * (channel_width - bump_reach)
     notch_face = coordinate_inner_wall + sign * (channel_width - notch_wall_width + overcut)
-    grown_outer = outer_wall + sign * outer_growth_default
+    grown_outer = outer_wall + sign * ramp_out_outer_growth
     inner_overcut = coordinate_inner_wall - sign * overcut
     outer_overcut = outer_wall - sign * overcut
 
