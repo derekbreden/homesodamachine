@@ -90,26 +90,22 @@ from _cold_core_interface import (
     outer_shell_z_length,
 )
 
-# ───────────────────────────────────────────────────────
-# Slot + plug geometry constants
-# ───────────────────────────────────────────────────────
-
 # Slot width in X equals the port's ⌀6.5 (matches the punch in
 # cut_slot_for_copper_and_water_inlet).
 slot_width_x = 6.5
-slot_half_width_x = slot_width_x / 2.0
+slot_half_width_x = slot_width_x / 2
 
 # Tube clearance diameter at each pass-through (all three pass-throughs
 # share the same ⌀6.5 slot punch from cut_slot_for_copper_and_water_inlet).
 tube_clearance_diameter = 6.5
-tube_clearance_radius   = tube_clearance_diameter / 2.0
+tube_clearance_radius = tube_clearance_diameter / 2
 
 # Z range of the +Z outer_shell wall. The web of each plug fills this
 # Z range exactly (2 mm thick at 2 mm wall), and the two flanges sit
 # 1 mm above and 1 mm below it.
-outer_wall_outer_z = outer_shell_z_length / 2.0
+outer_wall_outer_z = outer_shell_z_length / 2
 outer_wall_inner_z = outer_wall_outer_z - wall_and_floor_thickness
-wall_z_center      = (outer_wall_inner_z + outer_wall_outer_z) / 2.0
+wall_z_center = (outer_wall_inner_z + outer_wall_outer_z) / 2
 
 # Flange dimensions.
 #   rail_x_extension: how far each flange extends in X past the slot
@@ -124,18 +120,18 @@ rail_x_extension = 1.0
 rail_z_thickness = 1.0
 
 # Full plug Z envelope, including the two flanges.
-plug_z_outer  = outer_wall_outer_z + rail_z_thickness     # 91.5 at 2 mm wall
-plug_z_inner  = outer_wall_inner_z - rail_z_thickness     # 87.5 at 2 mm wall
+plug_z_outer = outer_wall_outer_z + rail_z_thickness
+plug_z_inner = outer_wall_inner_z - rail_z_thickness
 
 # Full plug X envelope. Flanges run the full plug X width; the web
 # is narrower, sitting only in the slot's X range.
-plug_half_x_outer = slot_half_width_x + rail_x_extension  # 4.25
-plug_full_x       = 2 * plug_half_x_outer                 # 8.5
+plug_half_x_outer = slot_half_width_x + rail_x_extension
+plug_full_x = 2 * plug_half_x_outer
 
 # Pass-through Y positions (centers).
-y_lowest_copper  = hole_shift_from_edge + wall_and_floor_thickness + below_tank_elbows_height
+y_lowest_copper = hole_shift_from_edge + wall_and_floor_thickness + below_tank_elbows_height
 y_highest_copper = foam_shell_outer_height - hole_shift_from_edge - wall_and_floor_thickness - above_tank_elbows_height
-y_water_inlet    = foam_shell_outer_height - hole_shift_from_edge
+y_water_inlet = foam_shell_outer_height - hole_shift_from_edge
 
 # Plug end faces meet AT the tube pass-through centers. The arch
 # cutout at each tube-facing end (radius = tube_clearance_radius)
@@ -150,18 +146,18 @@ y_water_inlet    = foam_shell_outer_height - hole_shift_from_edge
 # foam_shell_outer_height); the upper plug has no top arch since
 # nothing sits above it.
 plug_y_ranges = {
-    "lower":  (y_lowest_copper,  y_highest_copper),
+    "lower": (y_lowest_copper, y_highest_copper),
     "middle": (y_highest_copper, y_water_inlet),
-    "upper":  (y_water_inlet,    foam_shell_outer_height),
+    "upper": (y_water_inlet, foam_shell_outer_height),
 }
 
 # Which plug ends get a half-circle arch cutout (sits against a tube).
 # True = arch cutout, False = flat end. UPPER's top is flat (top of
 # the stack); every other end-against-a-tube arches around its tube.
 plug_arch_ends = {
-    "lower":  {"bottom": True,  "top": True},
-    "middle": {"bottom": True,  "top": True},
-    "upper":  {"bottom": True,  "top": False},
+    "lower": {"bottom": True, "top": True},
+    "middle": {"bottom": True, "top": True},
+    "upper": {"bottom": True, "top": False},
 }
 
 # Razor-edge mitigation for the web at each arched plug end.
@@ -188,17 +184,11 @@ min_printable_thickness = 1.0
 web_arch_buffer = math.sqrt(
     tube_clearance_radius ** 2
     - (slot_half_width_x - min_printable_thickness) ** 2
-)  # ≈ 2.345 mm with tube_clearance_radius = slot_half_width_x = 3.25,
-   # min_printable_thickness = 1.0
+)
 
 
-# ───────────────────────────────────────────────────────
-# Plug builder
-# ───────────────────────────────────────────────────────
-
-# Full plug Z thickness (4 mm at 2 mm wall) — bottom flange + web +
-# top flange, all stacked face-to-face with no Z gap inside |x| ≤
-# slot_half_width_x.
+# Full plug Z thickness — bottom flange + web + top flange, all stacked
+# face-to-face with no Z gap inside |x| ≤ slot_half_width_x.
 plug_z_thickness = plug_z_outer - plug_z_inner
 
 
@@ -216,27 +206,27 @@ def _build_web(y_bottom, y_height):
 
 def _build_flange(z_side, y_bottom, y_height):
     """One of the two I-beam flanges. Both run the full plug X width
-    (plug_full_x = 8.5 mm) and are rail_z_thickness mm tall in Z.
+    and are rail_z_thickness mm tall in Z.
 
       • z_side = "top":    z = outer_wall_outer_z .. outer_wall_outer_z
-                             + rail_z_thickness (91.5 at 2 mm wall).
-                           Sits directly on the +Z outer face of the
-                           wall; shares a 6.5 × y_height contact patch
-                           with the web at z = outer_wall_outer_z.
+                             + rail_z_thickness. Sits directly on the
+                             +Z outer face of the wall; shares a
+                             plug_full_x × y_height contact patch with
+                             the web at z = outer_wall_outer_z.
       • z_side = "bottom": z = outer_wall_inner_z − rail_z_thickness
-                             .. outer_wall_inner_z (87.5..88.5).
-                           Sits directly on the −Z inner face of the
-                           wall; shares a 6.5 × y_height contact patch
-                           with the web at z = outer_wall_inner_z.
+                             .. outer_wall_inner_z. Sits directly on
+                             the −Z inner face of the wall; shares a
+                             plug_full_x × y_height contact patch with
+                             the web at z = outer_wall_inner_z.
 
     The 1 mm of flange that overhangs the web in X on each side
     (x = ±slot_half .. ±plug_half_outer) leaves a 2 mm Z air gap
     between the top and bottom flanges where the wall slides in —
     that's the binder-clip mechanism."""
     if z_side == "top":
-        flange_z_center = outer_wall_outer_z + rail_z_thickness / 2.0   # 91.0
+        flange_z_center = outer_wall_outer_z + rail_z_thickness / 2
     elif z_side == "bottom":
-        flange_z_center = outer_wall_inner_z - rail_z_thickness / 2.0   # 88.0
+        flange_z_center = outer_wall_inner_z - rail_z_thickness / 2
     else:
         raise ValueError(f"z_side must be 'top' or 'bottom', got {z_side!r}")
     return (
@@ -281,12 +271,12 @@ def build_plug(name, y_bottom, y_top):
     # the wall's −Z face is intact at every arched end; the +Z
     # grip is intact everywhere outside the arched-end Y bands.
     web_y_bottom = y_bottom + (web_arch_buffer if arches["bottom"] else 0)
-    web_y_top    = y_top    - (web_arch_buffer if arches["top"]    else 0)
+    web_y_top = y_top - (web_arch_buffer if arches["top"] else 0)
     web_y_height = web_y_top - web_y_bottom
 
     plug = _build_web(web_y_bottom, web_y_height)
-    plug = plug.union(_build_flange("top",    web_y_bottom, web_y_height))
-    plug = plug.union(_build_flange("bottom", y_bottom,     y_height))
+    plug = plug.union(_build_flange("top", web_y_bottom, web_y_height))
+    plug = plug.union(_build_flange("bottom", y_bottom, y_height))
 
     # Half-circle cutouts. The arch is a cylinder (radius =
     # tube_clearance_radius, axis along Z so it pierces the slab face-
@@ -344,23 +334,23 @@ def _analytical_volume(name, y_bottom, y_top):
     arches = plug_arch_ends[name]
     n_arches = sum(1 for v in arches.values() if v)
 
-    web_y_height   = y_height - n_arches * web_arch_buffer
-    vol_web        = slot_width_x * wall_and_floor_thickness * web_y_height
-    vol_top_flange = plug_full_x  * rail_z_thickness         * web_y_height
-    vol_bot_flange = plug_full_x  * rail_z_thickness         * y_height
+    web_y_height = y_height - n_arches * web_arch_buffer
+    vol_web = slot_width_x * wall_and_floor_thickness * web_y_height
+    vol_top_flange = plug_full_x * rail_z_thickness * web_y_height
+    vol_bot_flange = plug_full_x * rail_z_thickness * y_height
 
     r = tube_clearance_radius
     b = web_arch_buffer
-    half_disc_area  = 0.5 * math.pi * r ** 2
+    half_disc_area = 0.5 * math.pi * r ** 2
     # Area of the half-disc from y=0 to y=b (the "buffer cap" near
     # the diameter — where the web AND top flange are both absent
     # in the new design).
     buffer_cap_area = b * math.sqrt(r ** 2 - b ** 2) + r ** 2 * math.asin(b / r)
     inset_in_arch_area = half_disc_area - buffer_cap_area
     vol_arch_per_end = (
-        rail_z_thickness          * half_disc_area      # bottom flange (full Y)
-        + rail_z_thickness        * inset_in_arch_area  # top flange (inset Y)
-        + wall_and_floor_thickness * inset_in_arch_area # web (inset Y)
+        rail_z_thickness * half_disc_area  # bottom flange (full Y)
+        + rail_z_thickness * inset_in_arch_area  # top flange (inset Y)
+        + wall_and_floor_thickness * inset_in_arch_area  # web (inset Y)
     )
     vol_arch_total = n_arches * vol_arch_per_end
 
