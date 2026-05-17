@@ -67,9 +67,10 @@ groove_width_z = 3.0
 groove_centers_z = (6.0, 11.0)
 
 # Radial through-wall wire exits, one per groove, on the +x side of
-# the +y half only. The slot extends in y from -eps to slot_width_y
-# so the cutter crosses the cut plane by eps — when +y is split off,
-# the slot opens cleanly through y=0 with no paper-thin lid.
+# the +y half only. Sized in y for the wire to bend from
+# circumferential (in the groove) to radial (out of the slot)
+# without stressing the solder joint; padded in z so the wire's
+# entry/exit edges don't sit at the groove's z corner.
 slot_width_y = 2.0
 slot_z_padding = 0.5
 
