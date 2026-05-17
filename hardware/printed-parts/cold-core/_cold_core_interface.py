@@ -173,6 +173,12 @@ foam_shell_outer_height = (
 )
 
 tank_support_ring_height = 30.0
+support_ring_radial_width = 9.0
+
+# ⌀6.5 — the project-wide standard for small through-shell features
+# (water outlet, reservoir bulkheads, reed cable holes, CO2 tube
+# clearance). Used as the explicit radius arg for the punch builders.
+port_hole_radius = 3.25
 
 # Bag pocket. Width tracks pocket_centerward_arc_outer_radius so the
 # pocket's ±Z outboard faces are tangent to the cylinder the centerward
@@ -278,8 +284,9 @@ gasket_strip_width = 5.0
 
 
 def build_a_hole_punch(
+    *,
     origin=(0, 0, 0),
-    hole_punch_radius=3.25,
+    hole_punch_radius,
     hole_punch_height=40,
 ):
     """Z-axis ⌀ × height cylindrical cut, centered at `origin`'s X/Y and
@@ -325,8 +332,9 @@ def build_a_slot_punch(
 
 
 def build_a_y_axis_hole_punch(
+    *,
     origin=(0, 0, 0),
-    hole_punch_radius=3.25,
+    hole_punch_radius,
     hole_punch_height=40,
 ):
     """Y-axis ⌀ × height cylindrical cut, centered at `origin`'s X/Z and

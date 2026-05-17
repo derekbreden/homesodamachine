@@ -10,10 +10,10 @@ from _cold_core_interface import (
     wall_and_floor_thickness,
     pocket_centerward_arc_outer_radius,
     tank_support_ring_height,
+    support_ring_radial_width,
 )
 
 
-ring_radial_width = 9.0
 slot_count = 4
 slot_angular_width = 30.0
 # Radial overrun on each side so the slot cuts past the ring faces and
@@ -46,7 +46,7 @@ def build_tank_support_ring():
     stays on the same cylinder as the ring faces — no chord-vs-arc
     slivers."""
     r_outer = pocket_centerward_arc_outer_radius - wall_and_floor_thickness
-    r_inner = r_outer - ring_radial_width
+    r_inner = r_outer - support_ring_radial_width
     y_bottom = wall_and_floor_thickness
     y_top = y_bottom + tank_support_ring_height
 
