@@ -1,6 +1,16 @@
+"""Reservoir — open-top `[`-shaped PETG cup that sits in each bag
+pocket of the foam shell, closed by a separately-printed cap clamped
+through a TPU gasket. Mirrored ±X. Houses the bulkhead union, the
+level-sensing rod, and the cap-mounted vent.
+
+Same coordinate convention as ../foam-shell/: +Y vertical, +X is
+the bag-pocket axis (two cavities sit on opposite sides), +Z is
+perpendicular to it."""
+
 import math
 import sys
 from pathlib import Path
+
 import cadquery as cq
 
 _here = Path(__file__).resolve().parent
@@ -9,13 +19,14 @@ sys.path.insert(
     str(next(p for p in _here.parents if p.name == "hardware")),
 )
 sys.path.insert(0, str(_here.parent))
+
 from _cadq_export import export_step
 from _cold_core_interface import (
-    bag_pocket_far_inner_x as _shell_bag_pocket_far_inner_x,
-    bag_pocket_z_inner_max as _shell_bag_pocket_z_inner_max,
-    bag_pocket_floor_top_y as _shell_bag_pocket_floor_top_y,
-    bag_pocket_walls_top_y as _shell_bag_pocket_walls_top_y,
-    pocket_centerward_arc_outer_radius as _shell_pocket_centerward_arc_outer_radius,
+    bag_pocket_far_inner_x,
+    bag_pocket_z_inner_max,
+    bag_pocket_floor_top_y,
+    bag_pocket_walls_top_y,
+    pocket_centerward_arc_outer_radius,
     reservoir_clearance as _shell_reservoir_clearance,
     reservoir_floor_thickness as _shell_reservoir_floor_thickness,
     bulkhead_pocket_diameter as _shell_bulkhead_pocket_diameter,
@@ -24,18 +35,7 @@ from _cold_core_interface import (
     reservoir_bulkhead_nut_y as _shell_reservoir_bulkhead_nut_y,
 )
 
-# ═══════════════════════════════════════════════════════
-# CONSTANTS
-# ═══════════════════════════════════════════════════════
 
-
-# -------------------------------------------------------
-# General
-# -------------------------------------------------------
-#
-# Same coordinate convention as ../foam-shell/: +Y vertical, +X is
-# the bag-pocket axis (two cavities sit on opposite sides), +Z is
-# perpendicular to it.
 xz_plane_y_up = cq.Plane(origin=(0, 0, 0), xDir=(1, 0, 0), normal=(0, 1, 0))
 
 
@@ -48,42 +48,6 @@ def _wp_at(x, y, z):
     return cq.Workplane(
         cq.Plane(origin=(x, y, z), xDir=(1, 0, 0), normal=(0, 1, 0))
     )
-#
-# -------------------------------------------------------
-
-
-# -------------------------------------------------------
-# Cavity envelope (mirrors as-built foam-shell inner-face values)
-# -------------------------------------------------------
-#
-# These constants describe the bag-pocket cavity into which this
-# reservoir fits. They are imported from ../_cold_core_interface.py so
-# the reservoir cannot drift out of sync with wall_and_floor_thickness
-# or any other shell input. Previously the values were hardcoded as a
-# "stable interface," which silently fell out of date when the shell
-# walls were bumped from 1 mm to 2 mm — the reservoir's centerward
-# face then overlapped the pocket's centerward arc cavity face by
-# 0.5 mm. Re-importing whenever the generator runs makes that class
-# of bug impossible.
-#
-# Bag-pocket inner faces (the surfaces the reservoir must clear),
-# at the current wall_and_floor_thickness = 2 mm:
-#   - Far (away from cold-core axis): x = ±105.5 mm (sign flips with reservoir side)
-#   - +Z / −Z side: z = ±70.5 mm
-#   - Floor top: y = 2.0 mm
-#   - Top of bag-pocket walls: y = 213.4 mm
-#   - Centerward (toward cold-core axis): cylindrical surface of
-#     radius 72.5 mm centered on the cold-core axis — this is the
-#     pocket centerward wall's cavity-side face, which the reservoir's
-#     centerward face follows.
-#
-bag_pocket_far_inner_x = _shell_bag_pocket_far_inner_x
-bag_pocket_z_inner_max = _shell_bag_pocket_z_inner_max
-bag_pocket_floor_top_y = _shell_bag_pocket_floor_top_y
-bag_pocket_walls_top_y = _shell_bag_pocket_walls_top_y
-pocket_centerward_arc_outer_radius = _shell_pocket_centerward_arc_outer_radius
-#
-# -------------------------------------------------------
 
 
 # -------------------------------------------------------
