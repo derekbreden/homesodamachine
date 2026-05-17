@@ -6,48 +6,60 @@ side face."""
 import cadquery as cq
 
 from _cold_core_interface import (
+    xy_plane_z_up,
     wall_and_floor_thickness,
     pocket_centerward_arc_outer_radius,
     tank_support_ring_height,
 )
 
 
+ring_radial_width = 9.0
+slot_count = 4
+slot_angular_width = 30.0
+# Radial overrun on each side so the slot cuts past the ring faces and
+# doesn't leave a thin shell at r_inner / r_outer from numerical noise.
+slot_radial_margin = 1.0
+
+
+def revolve_rect(r_range, y_range, angle=360):
+    """Revolve a rectangular (r, y) profile around the Y axis by `angle`
+    degrees. The profile lives on the XY plane with its first coordinate
+    interpreted as radius; revolve's default axis is +Y, sweeping from
+    the +X axis."""
+    r_min, r_max = min(r_range), max(r_range)
+    y_min, y_max = min(y_range), max(y_range)
+    return (
+        cq.Workplane(xy_plane_z_up)
+        .moveTo(r_min, y_min)
+        .lineTo(r_max, y_min)
+        .lineTo(r_max, y_max)
+        .lineTo(r_min, y_max)
+        .close()
+        .revolve(angle)
+    )
+
+
 def build_tank_support_ring():
-    """Built as a full revolve of a rectangular (R, y) profile around
-    the Y axis; four 30°-wide angular slots at the diagonals are cut
-    as 30° revolves of the same profile (with a radial margin), so
-    every slot boundary stays on the same cylinder as the ring faces
-    — no chord-vs-arc slivers."""
-    R_outer = pocket_centerward_arc_outer_radius - wall_and_floor_thickness
-    R_inner = R_outer - 9
+    """Built as a full revolve of a rectangular (r, y) profile around
+    the Y axis; equal-spaced angular slots are cut as partial revolves
+    of the same profile (with a radial margin), so every slot boundary
+    stays on the same cylinder as the ring faces — no chord-vs-arc
+    slivers."""
+    r_outer = pocket_centerward_arc_outer_radius - wall_and_floor_thickness
+    r_inner = r_outer - ring_radial_width
     y_bottom = wall_and_floor_thickness
     y_top = y_bottom + tank_support_ring_height
 
-    ring_profile = (
-        cq.Workplane("XY")
-        .moveTo(R_inner, y_bottom)
-        .lineTo(R_outer, y_bottom)
-        .lineTo(R_outer, y_top)
-        .lineTo(R_inner, y_top)
-        .close()
-    )
-    ring = ring_profile.revolve()
+    ring_r_range = (r_inner, r_outer)
+    ring_y_range = (y_bottom, y_top)
+    slot_r_range = (r_inner - slot_radial_margin, r_outer + slot_radial_margin)
 
-    slot_radial_margin = 1.0
-    slot_angular_width = 30
-    def build_slot():
-        return (
-            cq.Workplane("XY")
-            .moveTo(R_inner - slot_radial_margin, y_bottom)
-            .lineTo(R_outer + slot_radial_margin, y_bottom)
-            .lineTo(R_outer + slot_radial_margin, y_top)
-            .lineTo(R_inner - slot_radial_margin, y_top)
-            .close()
-            .revolve(slot_angular_width)
-        )
-    for i in range(4):
-        slot_center_angle = 45 + 90 * i
+    ring = revolve_rect(ring_r_range, ring_y_range)
+    slot_spacing_angle = 360 / slot_count
+    slot_template = revolve_rect(slot_r_range, ring_y_range, slot_angular_width)
+    for i in range(slot_count):
+        slot_center_angle = slot_spacing_angle * (i + 0.5)
         slot_start_angle = slot_center_angle - slot_angular_width / 2
-        slot = build_slot().rotate((0, 0, 0), (0, 1, 0), slot_start_angle)
+        slot = slot_template.rotate((0, 0, 0), (0, 1, 0), slot_start_angle)
         ring = ring.cut(slot)
     return ring
