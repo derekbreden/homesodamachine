@@ -1,11 +1,10 @@
 """Outer rectangular cup (floor + four perimeter walls) with the
 6 corner/mid-side bosses and their heat-set insert pockets."""
 
-import cadquery as cq
-
 from _cold_core_interface import (
     xz_plane_y_up,
     flip_z,
+    WorldWorkplane,
     wall_and_floor_thickness,
     foam_shell_outer_height,
     outer_shell_x_length,
@@ -19,7 +18,8 @@ from _cold_core_interface import (
 
 def build_outer_shell():
     shell = (
-        cq.Workplane(xz_plane_y_up)
+        WorldWorkplane(xz_plane_y_up)
+        .workplane(offset=0)
         .rect(outer_shell_x_length, outer_shell_z_length)
         .extrude(foam_shell_outer_height)
         .faces(">Y")
@@ -27,7 +27,8 @@ def build_outer_shell():
     )
     boss_points = [flip_z(p) for p in foam_cap_attachment_xz_positions]
     bosses = (
-        cq.Workplane(xz_plane_y_up)
+        WorldWorkplane(xz_plane_y_up)
+        .workplane(offset=0)
         .pushPoints(boss_points)
         .rect(screw_boss_size, screw_boss_size)
         .extrude(foam_shell_outer_height)
@@ -36,16 +37,17 @@ def build_outer_shell():
     # screw threads down) and UP from the bottom (bottom-cap screw
     # threads up).
     top_pockets = (
-        cq.Workplane(xz_plane_y_up)
+        WorldWorkplane(xz_plane_y_up)
         .workplane(offset=foam_shell_outer_height - insert_pocket_depth)
         .pushPoints(boss_points)
         .circle(insert_pocket_radius)
         .extrude(insert_pocket_depth)
     )
     bottom_pockets = (
-        cq.Workplane(xz_plane_y_up)
+        WorldWorkplane(xz_plane_y_up)
+        .workplane(offset=0)
         .pushPoints(boss_points)
         .circle(insert_pocket_radius)
         .extrude(insert_pocket_depth)
     )
-    return shell.union(bosses).cut(top_pockets).cut(bottom_pockets)
+    return shell.union(bosses).cut(top_pockets).cut(bottom_pockets).unwrap()
