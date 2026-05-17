@@ -129,54 +129,28 @@ zone2_outer_bot = zone1_outer_top  # 16.25
 cove_top_outer_z = zone2_outer_bot + cove_r  # 21.25 (outer cove top)
 
 
-# LEVER SWING CLEARANCE
+# LEVER SWING CLEARANCE — a chamfer wedge cut into the top -X corner of
+# the rect column, where the pressed lever's taper passes through.
 #
-# A single triangular ramp wedge cut into the top -X corner of the
-# rect column, where the pressed lever's taper passes through. The
-# wedge is a flat-plane chamfer extruded over the lever's Y span;
-# the visible cut on the wall is the wedge clipped against two
-# curved boundaries:
+# Two anchor points define the wedge (slope falls out of them):
+#   1. -X end: outer rect face at Z = zone2_z_top − lever_ramp_depth.
+#   2. +X end: the bore-cylinder tangent at the cut's Y half-span, so
+#      the wedge terminates exactly where the wall ends at the lever's
+#      Y-edge (any further +X is inside the bore — no wall to cut).
 #
-#   1. The shell's outer surface — rect face at Y=0, curving inward
-#      to the outer cylinder at higher |Y| (corner clip).
-#   2. The body bore — cylinder R=BODY_BORE_R around (0, 0), so the
-#      wall's inner edge is at X = -sqrt(R² - Y²) for any given Y.
-#
-# Anchors (geometry-defined, not free parameters):
-#   - Top of cut:    Z = zone2_z_top (top face of rect column).
-#   - -X end depth:  lever_ramp_depth below Z_TOP at X = lever_ramp_x_min
-#                    (the rect outer face — depth applies along the
-#                    flat-rect part at Y near 0).
-#   - +X end:        the bore-cylinder tangent at the cut's Y_HALF,
-#                    so the wedge terminates exactly where the wall
-#                    ends at the lever's Y-edge (any further +X is
-#                    inside the bore — no wall to cut).
-#
-# A small tangent_overshoot pushes the +X end a hair past the exact
-# tangent. At exactly the tangent the wedge edge is coincident with
-# the bore cylinder, which the CAD kernel can render as a microscopic
-# zero-thickness triangular sliver of uncut wall (visible only at
-# extreme zoom). The overshoot puts the wedge's +X end just inside
-# the bore (empty space), giving a clean termination.
-#
-# The slope angle is therefore DERIVED, not specified. With
-# DEPTH=1.0 and X_MIN=-19, X_START≈-14.508, the slope works out to
-# about 12.5° from horizontal — but the angle is incidental; what
-# matters is the two anchor points.
+# tangent_overshoot pushes the +X end a hair past the exact tangent.
+# Exactly at the tangent, the CAD kernel can render the coincident edge
+# as a microscopic zero-thickness sliver of uncut wall; the overshoot
+# puts the wedge's +X end just inside the bore, giving a clean termination.
 
 lever_y_half = 6.5  # lever physical Y span
 lever_clearance_y_half = lever_y_half + bore_clearance  # 6.75
-
 lever_ramp_depth = 1.0  # cut depth at outer rect face
 tangent_overshoot = 0.002  # mm past bore tangent
-
-# X_MIN: outer rect face on -X side
-lever_ramp_x_min = shell_center_x - shell_outer_r  # = -19.0
-
-# X_START: bore-cylinder tangent at cut's Y_HALF, plus overshoot
+lever_ramp_x_min = shell_center_x - shell_outer_r  # -19, outer rect face on -X side
 _bore_x_at_lever_y = -math.sqrt(
     (body_bore_diameter / 2.0) ** 2 - lever_clearance_y_half ** 2
-)  # ≈ -14.5061
+)  # ≈ -14.5061 — bore-cylinder tangent at the cut's Y half-span
 lever_ramp_x_start = _bore_x_at_lever_y - tangent_overshoot  # ≈ -14.5081
 
 # Shell rectangle. X width matches the cylinder OD so the X faces flow
