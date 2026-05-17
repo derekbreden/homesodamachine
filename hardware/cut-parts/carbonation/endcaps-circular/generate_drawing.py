@@ -341,36 +341,46 @@ def draw_main_view(c: canvas.Canvas) -> None:
         direction="horizontal",
     )
 
-    # Hole center-to-center (1.500) — placed above the holes, horizontal
-    left_cx = view_center_x + hole_positions[0][0]
-    right_cx = view_center_x + hole_positions[1][0]
-    dim_y_above = view_center_y + 0.45
+    # Hole center-to-center (1.500), placed above the holes, horizontal.
+    left_hole_cx = view_center_x + hole_positions[0][0]
+    right_hole_cx = view_center_x + hole_positions[1][0]
+    hole_spacing_dim_y = view_center_y + 0.45
     c.setLineWidth(thin_line_width)
     c.setDash()
-    # Extension lines from hole centers up to dim line
-    c.line(left_cx * inch, view_center_y * inch, left_cx * inch, (dim_y_above + 0.08) * inch)
-    c.line(right_cx * inch, view_center_y * inch, right_cx * inch, (dim_y_above + 0.08) * inch)
-    c.line(left_cx * inch, dim_y_above * inch, right_cx * inch, dim_y_above * inch)
-    _arrow(c, left_cx, dim_y_above, 1, 0)
-    _arrow(c, right_cx, dim_y_above, -1, 0)
+    # Extension lines from hole centers up to dim line.
+    c.line(left_hole_cx * inch, view_center_y * inch,
+           left_hole_cx * inch, (hole_spacing_dim_y + 0.08) * inch)
+    c.line(right_hole_cx * inch, view_center_y * inch,
+           right_hole_cx * inch, (hole_spacing_dim_y + 0.08) * inch)
+    c.line(left_hole_cx * inch, hole_spacing_dim_y * inch,
+           right_hole_cx * inch, hole_spacing_dim_y * inch)
+    _arrow(c, left_hole_cx, hole_spacing_dim_y, 1, 0)
+    _arrow(c, right_hole_cx, hole_spacing_dim_y, -1, 0)
     c.setFont("Helvetica", 8)
-    c.drawCentredString(view_center_x * inch, (dim_y_above + 0.05) * inch, "1.500")
+    c.drawCentredString(view_center_x * inch,
+                        (hole_spacing_dim_y + 0.05) * inch, "1.500")
 
-    # Hole position from center — two .750 dims above the 1.500 dim
-    dim_y_750 = view_center_y + 0.90
-    # left .750: from center to left hole
-    c.line(view_center_x * inch, view_center_y * inch, view_center_x * inch, (dim_y_750 + 0.08) * inch)
-    c.line(left_cx * inch, view_center_y * inch, left_cx * inch, (dim_y_750 + 0.08) * inch)
-    c.line(left_cx * inch, dim_y_750 * inch, view_center_x * inch, dim_y_750 * inch)
-    _arrow(c, left_cx, dim_y_750, 1, 0)
-    _arrow(c, view_center_x, dim_y_750, -1, 0)
-    c.drawCentredString(((left_cx + view_center_x) / 2) * inch, (dim_y_750 + 0.05) * inch, ".750")
-    # right .750: from center to right hole
-    c.line(right_cx * inch, view_center_y * inch, right_cx * inch, (dim_y_750 + 0.08) * inch)
-    c.line(right_cx * inch, dim_y_750 * inch, view_center_x * inch, dim_y_750 * inch)
-    _arrow(c, view_center_x, dim_y_750, 1, 0)
-    _arrow(c, right_cx, dim_y_750, -1, 0)
-    c.drawCentredString(((right_cx + view_center_x) / 2) * inch, (dim_y_750 + 0.05) * inch, ".750")
+    # Hole position from disc center (two .750 dims, one each side,
+    # sharing the disc-center extension line).
+    half_spacing_dim_y = view_center_y + 0.90
+    c.line(view_center_x * inch, view_center_y * inch,
+           view_center_x * inch, (half_spacing_dim_y + 0.08) * inch)
+    c.line(left_hole_cx * inch, view_center_y * inch,
+           left_hole_cx * inch, (half_spacing_dim_y + 0.08) * inch)
+    c.line(left_hole_cx * inch, half_spacing_dim_y * inch,
+           view_center_x * inch, half_spacing_dim_y * inch)
+    _arrow(c, left_hole_cx, half_spacing_dim_y, 1, 0)
+    _arrow(c, view_center_x, half_spacing_dim_y, -1, 0)
+    c.drawCentredString(((left_hole_cx + view_center_x) / 2) * inch,
+                        (half_spacing_dim_y + 0.05) * inch, ".750")
+    c.line(right_hole_cx * inch, view_center_y * inch,
+           right_hole_cx * inch, (half_spacing_dim_y + 0.08) * inch)
+    c.line(right_hole_cx * inch, half_spacing_dim_y * inch,
+           view_center_x * inch, half_spacing_dim_y * inch)
+    _arrow(c, view_center_x, half_spacing_dim_y, 1, 0)
+    _arrow(c, right_hole_cx, half_spacing_dim_y, -1, 0)
+    c.drawCentredString(((right_hole_cx + view_center_x) / 2) * inch,
+                        (half_spacing_dim_y + 0.05) * inch, ".750")
 
     # Tap callout. Two leaders share a common shoulder at the text and
     # approach the two holes from the upper-right, clear of the dim
