@@ -1,14 +1,9 @@
-"""
-Touch-Flo shell — printed shroud that wraps around the harvested faucet
-body, the flavor tubes, and the lever swing volume. Sits on top of the
-touch-flo-mounting-plate.
+"""Touch-Flo shell — printed shroud that wraps around the harvested
+faucet body, the flavor tubes, and the lever swing volume. Sits on top
+of the touch-flo-mounting-plate.
 
-Grown bottom-up, one zone at a time. Currently covers zones 1, 2,
-and 3 — through the body's arch peaks at Z=46 (shell goes ~3 mm
-above). See the per-section comments for what each zone does and why.
-
-Regenerate:  tools/cad-venv/bin/python generate_step_cadquery.py
-"""
+Grown bottom-up, one zone at a time. See the per-zone comments for what
+each zone does and why."""
 
 import math
 import sys
@@ -22,8 +17,6 @@ sys.path.insert(
 )
 from _cadq_export import export_step
 
-
-# SHELL CENTER (lateral)
 
 # Shifted +X so the +X edge of the shell extends past the wider 1/4"
 # flavor cutout with a real wall. Was 1.5875 (matching the mounting
@@ -185,11 +178,6 @@ _bore_x_at_lever_y = -math.sqrt(
     (body_bore_diameter / 2.0) ** 2 - lever_clearance_y_half ** 2
 )  # ≈ -14.5061
 lever_ramp_x_start = _bore_x_at_lever_y - tangent_overshoot  # ≈ -14.5081
-
-# Derived slope (informational; not used as input to geometry)
-lever_ramp_angle_deg = math.degrees(
-    math.atan(lever_ramp_depth / (lever_ramp_x_start - lever_ramp_x_min))
-)
 
 # Shell rectangle. X width matches the cylinder OD so the X faces flow
 # straight up from the cylinder. Y half is body-bore-Y plus the wall.
@@ -1134,21 +1122,21 @@ def build_lever_clearance() -> cq.Workplane:
         to X=lever_ramp_x_start
       - vertical edge at X=lever_ramp_x_min, dropping lever_ramp_depth
         below Z=39
-      - sloped (ramp) edge at lever_ramp_angle_deg, from the bottom of
-        the vertical edge back up to the +X start point at Z=39
+      - sloped (ramp) edge from the bottom of the vertical edge back up
+        to the +X start point at Z=39 (slope is whatever falls out of
+        the two anchor points — ~12.5°, not a parameter)
 
     Extruded ±lever_clearance_y_half in Y. Single piece.
     """
     z_top = zone2_z_top
     z_bot = z_top - lever_ramp_depth
     y_half = lever_clearance_y_half
-
     return (
         cq.Workplane("XZ")
         .workplane(offset=-y_half)
         .polyline([
-            (lever_ramp_x_min,   z_bot),
-            (lever_ramp_x_min,   z_top),
+            (lever_ramp_x_min, z_bot),
+            (lever_ramp_x_min, z_top),
             (lever_ramp_x_start, z_top),
         ]).close()
         .extrude(2.0 * y_half)
