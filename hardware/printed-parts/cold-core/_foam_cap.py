@@ -4,7 +4,6 @@ perimeter ring between cap mating edge and outer-shell mating face)."""
 
 from _cold_core_interface import (
     xz_plane_y_up,
-    flip_z,
     WorldWorkplane,
     wall_and_floor_thickness,
     outer_shell_x_length,
@@ -30,7 +29,7 @@ def build_foam_cap():
         .faces(">Y")
         .shell(-wall_and_floor_thickness)
     )
-    boss_points = [flip_z(p) for p in foam_cap_attachment_xz_positions]
+    boss_points = foam_cap_attachment_xz_positions
     bosses = (
         WorldWorkplane(xz_plane_y_up)
         .workplane(offset=0)
@@ -90,7 +89,7 @@ def build_foam_cap_lid():
 
     lid = lid.cut(pour_hole).cut(vent_hole_a).cut(vent_hole_b)
 
-    boss_points = [flip_z(p) for p in foam_cap_attachment_xz_positions]
+    boss_points = foam_cap_attachment_xz_positions
     clearances = (
         WorldWorkplane(xz_plane_y_up)
         .workplane(offset=0)
@@ -124,7 +123,7 @@ def build_foam_cap_gasket():
     )
     gasket = outer.cut(inner)
 
-    boss_points = [flip_z(p) for p in foam_cap_attachment_xz_positions]
+    boss_points = foam_cap_attachment_xz_positions
     pads = (
         WorldWorkplane(xz_plane_y_up)
         .workplane(offset=0)
