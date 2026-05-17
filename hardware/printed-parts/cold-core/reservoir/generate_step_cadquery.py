@@ -294,7 +294,7 @@ vent_position_z = 32.5
 # other — just extended to 10 reeds per reservoir for finer
 # granularity.
 #
-# Why SS rod + printed pockets instead of a printed PETG strut:
+# Why SS rod + printed bosses instead of a printed PETG strut:
 #   - Print reliability. The previous design unioned a 4 mm × ~200
 #     mm PETG cylinder into the body; the top ~50 % consistently
 #     came out mangled (long thin un-supported axial features are
@@ -307,30 +307,36 @@ vent_position_z = 32.5
 #     also doesn't shed plasticizer into the syrup over a decade.
 #
 # Architecture:
-#   - The body has a closed-bottom BLIND CYLINDRICAL POCKET cut
-#     into the wet-side wedge (build_reservoir_body), opening
-#     upward through the wet slope. The rod's bottom end drops
-#     into this socket with ~0.5 mm radial clearance for slip-fit
-#     assembly. The pocket is ~10 mm deep (≈3× rod diameter — the
-#     standard rule of thumb for solid axial location of a round
-#     pin in a printed socket), bored down into solid wedge PETG.
+#   - The body has a STANDING CYLINDRICAL BOSS (build_reservoir_body)
+#     rising from the wet slope at (x = ±ROD_POSITION_X,
+#     z = ROD_POSITION_Z). The boss is a solid PETG cylinder unioned
+#     onto the body's wet-slope surface — the slope itself stays
+#     continuous and unbroken; no hole is cut through it. A blind
+#     cylindrical bore is then cut DOWN into the boss from above,
+#     stopping BODY_BOSS_FLOOR mm short of the boss base so a
+#     printed-solid floor remains inside the boss. The rod's bottom
+#     end drops into this bore with ~0.5 mm radial clearance for
+#     slip-fit assembly and bottoms out on the printed floor inside
+#     the boss. Rod engagement is BODY_BOSS_HEIGHT − BODY_BOSS_FLOOR
+#     ≈ 8 mm of solid axial location, plus the OD shoulder of the
+#     boss preventing radial drift at the rod's bottom end.
 #   - The rod's top is captured by a slip-fit REGISTER BOSS
 #     hanging down from the cap's underside — a hollow boss
 #     unioned to the cap body, extending below the cap's base
 #     plate, with a downward-opening blind ø3.7 hole around the
 #     ø3.175 rod top (~0.5 mm radial clearance). See
 #     build_reservoir_cap for the boss + pocket geometry.
-#   - During assembly the rod is dropped into the body socket
-#     first; then the cap is lowered onto the body and the rod's
-#     top slides into the cap register as the cap seats on the
-#     gasket. The rod is mechanically captured at BOTH ends — that
-#     two-point capture is what makes a 1/8" × 305 mm rod
-#     structurally stiff enough to take float-loading without
-#     leaning. (A single-ended press-fit in only the body, or only
-#     the cap, would let the free tip walk and the float would
-#     bind.) The carbonator's rod is welded to its bottom plate;
-#     we don't have a plate to weld to, so a wedge-embedded
-#     printed socket is the printed-equivalent capture.
+#   - During assembly the rod is dropped into the body boss first;
+#     then the cap is lowered onto the body and the rod's top
+#     slides into the cap register as the cap seats on the gasket.
+#     The rod is mechanically captured at BOTH ends — that two-
+#     point capture is what makes a 1/8" × 305 mm rod structurally
+#     stiff enough to take float-loading without leaning. (A
+#     single-ended press-fit in only the body, or only the cap,
+#     would let the free tip walk and the float would bind.) The
+#     carbonator's rod is welded to its bottom plate; we don't
+#     have a plate to weld to, so a printed standing boss with a
+#     blind bore is the printed-equivalent capture.
 #
 # Position: at (x = ±ROD_POSITION_X, z = ROD_POSITION_Z) in the
 # reservoir coordinate frame — x sign follows `side`; z stays
@@ -359,10 +365,11 @@ vent_position_z = 32.5
 ROD_POSITION_X = 88.0          # |x| of the rod centerline; mirrors with `side`
 ROD_POSITION_Z = -45.0         # z of the rod centerline (does NOT mirror with side); opposite the bulkhead's +Z half, in the wider part of the cavity
 ROD_DIAMETER = 3.175           # 1/8" 316 SS round rod OD; supplied as Tandefio B0CY4DWJFQ (already in bom.md for the carbonator's identical job — no new SKU)
-ROD_BORE = ROD_DIAMETER + 0.5  # 3.675 mm — printed bore diameter for both body socket and cap register; ~0.5 mm radial clearance for slip-fit assembly accounting for PETG shrink + FDM hole undersize
-BODY_SOCKET_DEPTH = 10.0       # mm; closed-bottom blind pocket cut DOWN into the wet-side wedge from the slope surface. ≈3× ROD_DIAMETER, the standard rule of thumb for solid axial location of a round pin in a printed socket. At z=-45 the wet slope crests near y≈22.8 and the wedge extends down to inner_floor_top_y (~6.5), leaving plenty of wedge material around the pocket walls and below the closed bottom.
-ROD_BOSS_OD = ROD_BORE + 4.0   # 7.675 mm — cap-side register-boss outer diameter (2 mm radial wall around the bore, comfortably above the 1.5–2 mm minimum for PETG to print solidly around a small bore)
-ROD_BOSS_HEIGHT = 4.0          # mm; cap-side boss extends DOWN from cap-local y=0 (cap underside) to y=-ROD_BOSS_HEIGHT. Boss bottom is 2 mm below the rod top at cap-local y=-2, giving 2 mm of axial rod-boss engagement.
+ROD_BORE = ROD_DIAMETER + 0.5  # 3.675 mm — printed bore diameter shared by body boss and cap register; ~0.5 mm radial clearance for slip-fit assembly accounting for PETG shrink + FDM hole undersize
+ROD_BOSS_OD = ROD_BORE + 4.0   # 7.675 mm — boss outer diameter (2 mm radial wall around the bore, comfortably above the 1.5–2 mm minimum for PETG to print solidly around a small bore); shared by body-side anchor boss and cap-side register boss
+ROD_BOSS_HEIGHT = 4.0          # mm; CAP-side boss extends DOWN from cap-local y=0 (cap underside) to y=-ROD_BOSS_HEIGHT. Boss bottom is 2 mm below the rod top at cap-local y=-2, giving 2 mm of axial rod-boss engagement.
+BODY_BOSS_HEIGHT = 10.0        # mm; BODY-side anchor boss rises from the wet slope at (x = ±ROD_POSITION_X, z = ROD_POSITION_Z). Boss top sits at slope_y + BODY_BOSS_HEIGHT. Taller than the cap boss because this end ANCHORS the rod (vs the cap-side which only REGISTERS the top against tip walk); ≈3× ROD_DIAMETER, the standard rule of thumb for solid axial location of a round pin in a printed boss.
+BODY_BOSS_FLOOR = 2.0          # mm; thickness of the printed-solid PETG floor INSIDE the body boss, between the blind bore's bottom and the wet-slope surface beneath the boss base. The bore is cut down to bore_bottom = slope_y + BODY_BOSS_FLOOR, leaving 2 mm of solid PETG for the rod tip to bottom out on. The wet slope below the boss footprint remains completely intact — there is no hole through the slope.
 #
 # -------------------------------------------------------
 
@@ -1291,51 +1298,63 @@ def build_reservoir_body(side=1):
     # the open dry section; the tube push-in is unobstructed.
 
     # ─────────────────────────────────────────────────────
-    # Level-sensing rod body socket (closed-bottom blind pocket)
+    # Level-sensing rod body anchor (standing boss + blind bore)
     # ─────────────────────────────────────────────────────
-    # Closed-bottom blind cylindrical pocket cut DOWN into the wet-
-    # side wedge from above. A separately-supplied 1/8" × 12" 316
-    # SS round rod (ROD_DIAMETER = 3.175) drops bottom-first into
-    # this socket during assembly; the rod's top is then captured
-    # by a register boss in the cap underside (cut in
-    # build_reservoir_cap). See the "Level-sensing rod" section at
-    # the top of this file for the full architecture rationale.
+    # A standing cylindrical PETG boss rising from the wet slope at
+    # (x = ±ROD_POSITION_X, z = ROD_POSITION_Z), with a blind
+    # cylindrical bore cut into the boss from above. A separately-
+    # supplied 1/8" × 12" 316 SS round rod (ROD_DIAMETER = 3.175)
+    # drops bottom-first into the bore during assembly; the rod's
+    # top is then captured by a register boss in the cap underside
+    # (built in build_reservoir_cap). See the "Level-sensing rod"
+    # section at the top of this file for the full architecture
+    # rationale.
     #
-    # The pocket BOTTOM sits well below the wet-slope surface, in
-    # solid wedge PETG. At z=ROD_POSITION_Z (-45) the wet slope
-    # crests near y≈22.8, and the wedge extends down to
-    # inner_floor_top_y (~6.5) with no other features in between,
-    # so a BODY_SOCKET_DEPTH (10) mm pocket sits comfortably inside
-    # the wedge with ≥6 mm of PETG below the closed bottom.
+    # The wet slope stays continuous and unbroken — the boss is
+    # added ON TOP of the slope as new material, and the bore stops
+    # BODY_BOSS_FLOOR (2) mm short of the boss base so the printed
+    # PETG floor inside the boss is what the rod tip bottoms out
+    # on. No hole is cut through the wet slope, so syrup doesn't
+    # see any opening into the wedge interior.
     #
-    # Implementation: cut a single cylinder of diameter ROD_BORE
-    # from outer_top_y straight down to the desired pocket bottom.
-    # Above the wedge there's no material to remove (the cavity is
-    # already open from inner_floor_top_y up to outer_top_y at this
-    # x,z), so the cut only takes material out of the wedge — what
-    # remains in the wedge IS the pocket: walls on all sides, a
-    # closed bottom at the cut's lower end, and an opening through
-    # the wet slope at the wedge top. Cap removal exposes the
-    # opening from above for rod insertion.
+    # Implementation:
+    #   1. Compute slope_y at (z = ROD_POSITION_Z) from the same
+    #      slope plane the body uses, so the boss base always sits
+    #      flush on the slope even if slope_rate or slope anchor
+    #      change later.
+    #   2. UNION a solid cylinder of diameter ROD_BOSS_OD, base at
+    #      slope_y, height BODY_BOSS_HEIGHT — this is the boss.
+    #   3. CUT a cylinder of diameter ROD_BORE, base at
+    #      slope_y + BODY_BOSS_FLOOR, height (BODY_BOSS_HEIGHT
+    #      − BODY_BOSS_FLOOR + 0.1) — the +0.1 ensures CADQuery
+    #      cleanly breaks through the boss top face. This carves
+    #      the blind bore.
     #
     # Added LAST in build_reservoir_body, after every existing
     # feature (wedge, bulkhead pocket, slab cut, fillets), so the
-    # new cylinder geometry cannot perturb any earlier edge/face
+    # new boss geometry cannot perturb any earlier edge/face
     # selector.
     rod_x_signed = ROD_POSITION_X * side
-    # Pocket bottom: 10 mm below the wet slope surface at (x,z) =
-    # (±88, -45). Slope y ≈ 22.8 at z=-45, so socket bottom sits
-    # near y ≈ 12.8 — still ~6 mm above inner_floor_top_y. Compute
-    # from the slope plane directly so the offset stays correct if
-    # slope_rate or slope anchor ever change.
+    # Slope y at (z = ROD_POSITION_Z = -45): ≈ 22.8 with current
+    # slope parameters. Boss base sits at this y, boss top at
+    # slope_y + 10 ≈ 32.8.
     rod_slope_y_at_z = slope_low_y + slope_rate * (bulkhead_panel_z_min - ROD_POSITION_Z)
-    socket_bottom_y = rod_slope_y_at_z - BODY_SOCKET_DEPTH
-    socket_cut = (
-        _wp_at(rod_x_signed, socket_bottom_y, ROD_POSITION_Z)
-        .circle(ROD_BORE / 2.0)
-        .extrude(outer_top_y - socket_bottom_y)
+    body_boss_cylinder = (
+        _wp_at(rod_x_signed, rod_slope_y_at_z, ROD_POSITION_Z)
+        .circle(ROD_BOSS_OD / 2.0)
+        .extrude(BODY_BOSS_HEIGHT)
     )
-    body = body.cut(socket_cut)
+    body = body.union(body_boss_cylinder)
+    # Blind bore: base BODY_BOSS_FLOOR (2) mm above the slope,
+    # extruded up through the top of the boss with a small
+    # overshoot so the cut cleanly opens at the boss top face.
+    bore_bottom_y = rod_slope_y_at_z + BODY_BOSS_FLOOR
+    rod_bore_cut = (
+        _wp_at(rod_x_signed, bore_bottom_y, ROD_POSITION_Z)
+        .circle(ROD_BORE / 2.0)
+        .extrude(BODY_BOSS_HEIGHT - BODY_BOSS_FLOOR + 0.1)
+    )
+    body = body.cut(rod_bore_cut)
 
     return body
 
