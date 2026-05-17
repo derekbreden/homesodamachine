@@ -19,7 +19,7 @@ W = wall_and_floor_thickness
 
 # X depth of the cable channel cavity (also the rise of the 45°
 # printability slope on the cavity ceiling — 1:1 slope).
-cable_channel_x_depth = 5.0
+cable_x_depth = 5.0
 
 # Reed channel position in Z, matching the reservoir's ROD_POSITION_Z
 # so reeds sit opposite the float-on-rod across the bag-pocket wall.
@@ -53,9 +53,9 @@ cable_cavity_z_range   = (reed_cavity_z_range[0],        cable_z_max)
 cable_envelope_z_range = (reed_envelope_z_range[0],      cable_z_max + W)
 
 # Apex Y of the 45° slope wedge on the cable channel ceiling: rises
-# +cable_channel_x_depth in Y from the top of the cavity/envelope.
-cable_cavity_wedge_apex_y   = cable_cavity_y_range[1]   + cable_channel_x_depth
-cable_envelope_wedge_apex_y = cable_envelope_y_range[1] + cable_channel_x_depth
+# +cable_x_depth in Y from the top of the cavity/envelope.
+cable_cavity_wedge_apex_y   = cable_cavity_y_range[1]   + cable_x_depth
+cable_envelope_wedge_apex_y = cable_envelope_y_range[1] + cable_x_depth
 
 
 def make_box(x_range, y_range, z_range):
@@ -95,8 +95,8 @@ def build_reed_channels(side):
     reed_envelope = make_box(reed_envelope_x_range, reed_envelope_y_range, reed_envelope_z_range)
     reed_cavity   = make_box(reed_cavity_x_range,   reed_cavity_y_range,   reed_cavity_z_range)
 
-    cable_envelope_x_range = (bag_x, bag_x + s * (cable_channel_x_depth + W))
-    cable_cavity_x_range   = (bag_x, bag_x + s *  cable_channel_x_depth)
+    cable_envelope_x_range = (bag_x, bag_x + s * (cable_x_depth + W))
+    cable_cavity_x_range   = (bag_x, bag_x + s *  cable_x_depth)
 
     cable_envelope = make_box(cable_envelope_x_range, cable_envelope_y_range, cable_envelope_z_range)
     cable_cavity   = make_box(cable_cavity_x_range,   cable_cavity_y_range,   cable_cavity_z_range)
@@ -106,8 +106,8 @@ def build_reed_channels(side):
     def slope_wedge(y_low, z_range):
         z_min, z_max  = z_range
         base_at_wall  = (bag_x,                             y_low)
-        base_at_outer = (bag_x + s * cable_channel_x_depth, y_low)
-        apex_at_wall  = (bag_x,                             y_low + cable_channel_x_depth)
+        base_at_outer = (bag_x + s * cable_x_depth, y_low)
+        apex_at_wall  = (bag_x,                             y_low + cable_x_depth)
         return (
             cq.Workplane(xy_plane_z_up)
             .workplane(offset=z_min)
