@@ -305,29 +305,28 @@ def draw_main_view(c: canvas.Canvas) -> None:
     c.setDash()
     c.circle(view_center_x * inch, view_center_y * inch, disc_radius * inch, stroke=1, fill=0)
 
-    # Disc centerlines — 0.25" overshoot past the OD
-    over = 0.30
+    # Disc centerlines extend past the OD by `centerline_overshoot`.
+    centerline_overshoot = 0.30
     draw_centerline(
         c,
-        view_center_x - disc_radius - over, view_center_y,
-        view_center_x + disc_radius + over, view_center_y,
+        view_center_x - disc_radius - centerline_overshoot, view_center_y,
+        view_center_x + disc_radius + centerline_overshoot, view_center_y,
     )
     draw_centerline(
         c,
-        view_center_x, view_center_y - disc_radius - over,
-        view_center_x, view_center_y + disc_radius + over,
+        view_center_x, view_center_y - disc_radius - centerline_overshoot,
+        view_center_x, view_center_y + disc_radius + centerline_overshoot,
     )
 
-    # Disc center mark
     draw_centermark(c, view_center_x, view_center_y, size=0.18)
 
-    # Holes
-    for hx, hy in hole_positions:
-        cx = view_center_x + hx
-        cy = view_center_y + hy
+    # Holes (drawn at view-coordinate positions = disc center + offset).
+    for hole_dx, hole_dy in hole_positions:
+        hole_cx = view_center_x + hole_dx
+        hole_cy = view_center_y + hole_dy
         c.setLineWidth(part_line_width)
-        c.circle(cx * inch, cy * inch, hole_radius * inch, stroke=1, fill=0)
-        draw_centermark(c, cx, cy, size=hole_diameter * 0.85)
+        c.circle(hole_cx * inch, hole_cy * inch, hole_radius * inch, stroke=1, fill=0)
+        draw_centermark(c, hole_cx, hole_cy, size=hole_diameter * 0.85)
 
     # ── Dimensions ──────────────────────────────────────────────────
 
@@ -388,12 +387,12 @@ def draw_main_view(c: canvas.Canvas) -> None:
     # almost vertically past the .750/1.500 dim labels. Right hole:
     # arrow tip on the upper-right quadrant (~45°).
     sin45 = 0.707
-    left_hole_x, left_hole_y = hole_positions[0]
-    right_hole_x, right_hole_y = hole_positions[1]
+    left_dx, left_dy = hole_positions[0]
+    right_dx, right_dy = hole_positions[1]
     tap_callout_targets = [
-        (view_center_x + left_hole_x, view_center_y + left_hole_y + hole_radius),
-        (view_center_x + right_hole_x + hole_radius * sin45,
-         view_center_y + right_hole_y + hole_radius * sin45),
+        (view_center_x + left_dx, view_center_y + left_dy + hole_radius),
+        (view_center_x + right_dx + hole_radius * sin45,
+         view_center_y + right_dy + hole_radius * sin45),
     ]
     # Text anchor: upper-right of the view, above and right of the right hole.
     tap_callout_text_anchor = (view_center_x + 1.60, view_center_y + 1.75)
