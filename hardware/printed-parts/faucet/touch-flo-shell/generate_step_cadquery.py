@@ -23,9 +23,7 @@ sys.path.insert(
 from _cadq_export import export_step
 
 
-# ═══════════════════════════════════════════════════════
 # SHELL CENTER (lateral)
-# ═══════════════════════════════════════════════════════
 
 SHELL_CENTER_X = 3.175     # shifted +X so the +X edge of the shell
                             # extends past the wider 1/4" flavor cutout
@@ -36,9 +34,7 @@ SHELL_CENTER_X = 3.175     # shifted +X so the +X edge of the shell
 SHELL_CENTER_Y = 0.0
 
 
-# ═══════════════════════════════════════════════════════
 # ZONE 1 — first 13 mm; body is a full Ø 31.5 mm cylinder here
-# ═══════════════════════════════════════════════════════
 
 ZONE1_Z_BOTTOM = 0.0
 ZONE1_Z_TOP    = 13.0
@@ -81,9 +77,7 @@ FLAVOR_PILL_X_MINUS_EDGE = min(
 )                                                                    # ≈ 14.575
 
 
-# ═══════════════════════════════════════════════════════
 # SHELL OUTER (derived from wall-thickness target)
-# ═══════════════════════════════════════════════════════
 #
 # Wall thickness is set at the body bore's farthest edge from the
 # shell center. The body bore is offset by SHELL_CENTER_X mm from
@@ -106,9 +100,7 @@ SHELL_OUTER_R        = _BODY_BORE_FARTHEST_FROM_SHELL_CENTER + WALL_THICKNESS_MI
 SHELL_OUTER_DIAMETER = 2.0 * SHELL_OUTER_R   # = 44.35 mm
 
 
-# ═══════════════════════════════════════════════════════
 # ZONE 2 — cylinder → rectangle transition + rect column
-# ═══════════════════════════════════════════════════════
 
 ZONE2_Z_BOTTOM = ZONE1_Z_TOP                       # 13.0
 ZONE2_Z_TOP    = 39.0                              # body plateau
@@ -145,9 +137,7 @@ ZONE2_OUTER_BOT   = ZONE1_OUTER_TOP                              # 16.25
 COVE_TOP_OUTER_Z  = ZONE2_OUTER_BOT + COVE_R                     # 21.25 (outer cove top)
 
 
-# ═══════════════════════════════════════════════════════
 # LEVER SWING CLEARANCE
-# ═══════════════════════════════════════════════════════
 #
 # A single triangular ramp wedge cut into the top -X corner of the
 # rect column, where the pressed lever's taper passes through. The
@@ -209,9 +199,7 @@ SHELL_RECT_X_WIDTH = 2.0 * SHELL_RECT_X_HALF
 SHELL_RECT_Y_WIDTH = 2.0 * SHELL_RECT_Y_HALF
 
 
-# ═══════════════════════════════════════════════════════
 # ZONE 3 — Arch wraps (two wings at ±Y)
-# ═══════════════════════════════════════════════════════
 #
 # Body arches: 1.5 mm wide ridges at Y = ±7.75, full X width
 # (±15.75), profile in ZX = 2 mm rectangular foot from Z=39→41 plus
@@ -311,9 +299,7 @@ ZONE4_HEIGHT   = ZONE4_Z_TOP - ZONE4_Z_BOTTOM                       # 10.75
 ZONE4_WALL     = WALL_THICKNESS_MIN                                 # 3.0
 
 
-# ═══════════════════════════════════════════════════════
 # ZONE 5 — tube wrapper above the lever
-# ═══════════════════════════════════════════════════════
 #
 # Above zone 4 (which ends at Z=ZONE4_Z_TOP=57.5 — high enough to clear
 # the lever's swing envelope), the shell wraps just the tubes with a
@@ -337,9 +323,7 @@ ZONE5_WALL     = WALL_THICKNESS_MIN                                 # 3.0 — un
                                                                      # wall).
 
 
-# ═══════════════════════════════════════════════════════
 # ZONE 6 — gooseneck wrapper around the bent dispense tubes
-# ═══════════════════════════════════════════════════════
 #
 # Pure continuation of zone 5's cross-section along the same bent
 # path the dispense tubes follow above the lever-swing envelope.
@@ -378,9 +362,7 @@ GN_TIP_STRAIGHT_LEN = 25.0
 ZONE6_WALL          = ZONE5_WALL                                     # 3.0
 
 
-# ═══════════════════════════════════════════════════════
 # ZONE 3 OUTER ARCH — full-height curve from wing bottom to zone 4
-# ═══════════════════════════════════════════════════════
 #
 # The wing/fill arch is a single circular arc that spans the wing's
 # full Z range (ZONE3_Z_BOTTOM at the low-X end up to ZONE4_Z_TOP at
@@ -410,9 +392,7 @@ NEW_ARCH_MID_X   = _NEW_ARCH_HIGH_X + _NEW_ARCH_R * math.cos(_NEW_ARCH_A_MID)   
 NEW_ARCH_MID_Z   = _NEW_ARCH_C_Z + _NEW_ARCH_R * math.sin(_NEW_ARCH_A_MID)      # ≈ 50.75
 
 
-# ═══════════════════════════════════════════════════════
 # ZONE 4.5 — block above the lever, up to the gooseneck bend start
-# ═══════════════════════════════════════════════════════
 #
 # A tall block capping the lever swing volume from above and reaching
 # up to the gooseneck bend start (Z=GN_BEND1_START_Z ≈ 78.78). The -X
@@ -492,9 +472,7 @@ ZONE45_BOT_MID_X = FILL_X_MIN + _NEW_ARCH_R * math.cos(_a_mid45)
 ZONE45_BOT_MID_Z = _NEW_ARCH_C_Z + _NEW_ARCH_R * math.sin(_a_mid45)
 
 
-# ═══════════════════════════════════════════════════════
 # HEAT-SET INSERT POCKETS — mounting-plate retention
-# ═══════════════════════════════════════════════════════
 
 # Two M3 brass heat-set inserts press into the bottom face of the
 # shell. Mounting plate sits below the shell with M3 × 8 mm 316 SS
@@ -528,9 +506,7 @@ INSERT_X               = INSERT_R_FROM_BODY * math.cos(math.radians(INSERT_THETA
 INSERT_Y_OFFSET        = INSERT_R_FROM_BODY * math.sin(math.radians(INSERT_THETA_DEG))   # ≈ 14.142
 
 
-# ═══════════════════════════════════════════════════════
 # GEOMETRY BUILDERS
-# ═══════════════════════════════════════════════════════
 
 def _flavor_pill_flat_x_minus(z_bottom: float, z_height: float) -> cq.Workplane:
     """Flavor pill cutout at FLAVOR_TUBE_X with the X- side flattened.
@@ -1274,9 +1250,7 @@ def build_lever_clearance() -> cq.Workplane:
     )
 
 
-# ═══════════════════════════════════════════════════════
 # TUBE SHELL VERTICAL — wraps inside the lid
-# ═══════════════════════════════════════════════════════
 #
 # Tube wraps that span the lid's Z range (ZONE5_Z_BOTTOM = ZONE4_Z_TOP up
 # to ZONE5_Z_TOP). The wraps' outer cross-section is dominated by the
@@ -1392,9 +1366,7 @@ def build_shell() -> cq.Workplane:
     return outer.cut(inner)
 
 
-# ═══════════════════════════════════════════════════════
 # BUILD AND EXPORT
-# ═══════════════════════════════════════════════════════
 
 if __name__ == "__main__":
     shell = build_shell()
