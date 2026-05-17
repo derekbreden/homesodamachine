@@ -153,8 +153,8 @@ retaining_ring_inner_diameter = 9.0   # leaves most of the membrane exposed for 
 
 # Filter pocket (cylindrical recess in the cap top) holds the
 # filter + ring stack with 0.2 mm of slip-fit clearance.
-vent_pocket_diameter = filter_diameter + 0.2                            # 13.2
-vent_pocket_depth = filter_thickness + retaining_ring_thickness         # 2.5
+vent_pocket_diameter = filter_diameter + 0.2  # 13.2
+vent_pocket_depth = filter_thickness + retaining_ring_thickness  # 2.5
 
 # Below the pocket, the cap material is locally thicker than the
 # standard base plate so the small vent hole has enough material
@@ -165,7 +165,7 @@ vent_hole_diameter = 5.0
 vent_below_pocket_material = 2.5  # cap material thickness between pocket bottom and boss bottom
 vent_boss_wall_around_pocket = 2.0
 vent_boss_outer_diameter = vent_pocket_diameter + 2 * vent_boss_wall_around_pocket  # 17.2
-_vent_boss_depth = vent_pocket_depth + vent_below_pocket_material       # 5.0
+_vent_boss_depth = vent_pocket_depth + vent_below_pocket_material  # 5.0
 _vent_boss_extension_below_base_plate = _vent_boss_depth - cap_base_thickness  # 1.0
 
 # Cylinder shell hangs below the boss into the reservoir, with the
@@ -175,11 +175,11 @@ _vent_boss_extension_below_base_plate = _vent_boss_depth - cap_base_thickness  #
 # cylinder rather than overhanging it — the brim becomes the closed
 # bottom of a single ø10 cylinder, and the cylinder→brim transition
 # has no overhang to print during top-down FDM of the cap.
-vent_cylinder_inner_diameter = vent_hole_diameter                       # 5
+vent_cylinder_inner_diameter = vent_hole_diameter  # 5
 vent_cylinder_wall_thickness = 2.5
 vent_cylinder_outer_diameter = vent_cylinder_inner_diameter + 2 * vent_cylinder_wall_thickness  # 10
 vent_brim_thickness = 1.0
-vent_brim_diameter = vent_cylinder_outer_diameter                       # 10 — matches cylinder outer
+vent_brim_diameter = vent_cylinder_outer_diameter  # matches cylinder outer (10)
 
 # Side slots cut through the cylinder walls — four rectangular
 # windows at 0°/90°/180°/270°. Slot height equals the cylinder wall
@@ -190,7 +190,7 @@ vent_slot_count = 4
 vent_slot_width = 3.0
 vent_slot_height = 2.0
 
-vent_cylinder_length = vent_slot_height + vent_brim_thickness           # 3
+vent_cylinder_length = vent_slot_height + vent_brim_thickness  # 3
 
 # Vent position on the cap, in the side=+1 frame. Centered between
 # the z=0 and z=+65 rows of screw bosses (so the ø17 vent boss and
@@ -228,14 +228,14 @@ vent_position_z = 32.5
 # half), in the wider part of the cavity (~38 mm wide at z=-45 vs
 # ~24 mm at z=0) where the donor donut float has generous clearance,
 # clear of all screw bosses and the vent boss.
-rod_position_x = 100.0         # |x| of the rod centerline; mirrors with `side`
-rod_position_z = -45.0         # z of the rod centerline; does NOT mirror with side
-rod_diameter = 3.175           # 1/8" 316 SS round rod OD; supplied as Tandefio B0CY4DWJFQ
+rod_position_x = 100.0  # |x| of the rod centerline; mirrors with `side`
+rod_position_z = -45.0  # z of the rod centerline; does NOT mirror with side
+rod_diameter = 3.175  # 1/8" 316 SS round rod OD; supplied as Tandefio B0CY4DWJFQ
 rod_bore = rod_diameter + 0.5  # 3.675 mm — printed bore shared by body boss and cap register; ~0.5 mm radial slip-fit clearance accounting for PETG shrink + FDM hole undersize
-rod_boss_od = rod_bore + 4.0   # 7.675 mm — 2 mm radial wall around the bore; shared by body-side anchor boss and cap-side register boss
-rod_boss_height = 4.0          # CAP-side boss height; boss bottom 2 mm below the rod top, 2 mm of axial rod-boss engagement
-body_boss_height = 10.0        # BODY-side anchor boss height; taller than the cap boss because this end ANCHORS the rod (≈3× rod_diameter, standard rule of thumb for solid axial location)
-body_boss_floor = 2.0          # thickness of the printed-solid PETG floor INSIDE the body boss between the blind bore's bottom and the slope surface — the rod tip bottoms out on this
+rod_boss_od = rod_bore + 4.0  # 7.675 mm — 2 mm radial wall around the bore; shared by body-side anchor boss and cap-side register boss
+rod_boss_height = 4.0  # CAP-side boss height; boss bottom 2 mm below the rod top, 2 mm of axial rod-boss engagement
+body_boss_height = 10.0  # BODY-side anchor boss height; taller than the cap boss because this end ANCHORS the rod (≈3× rod_diameter, standard rule of thumb for solid axial location)
+body_boss_floor = 2.0  # thickness of the printed-solid PETG floor INSIDE the body boss between the blind bore's bottom and the slope surface — the rod tip bottoms out on this
 
 
 # Outlet bulkhead pocket + sloped floor. A John Guest PP1208E 1/4"
@@ -267,7 +267,7 @@ body_boss_floor = 2.0          # thickness of the printed-solid PETG floor INSID
 #   low point so the washer counterbore sits on top of the 4 mm
 #   reservoir floor, preserving the full fluid barrier. 1 mm below
 #   port_position_y per the 2026-05-16 print test.
-port_tube_diameter = 6.5                # 1/4" OD tube clearance
+port_tube_diameter = 6.5  # 1/4" OD tube clearance
 
 # The pocket is asymmetric across the panel. Wet side (z < panel):
 # a STEPPED cavity conforming to the bulkhead body's release-ring →
@@ -287,7 +287,7 @@ port_tube_diameter = 6.5                # 1/4" OD tube clearance
 # bulkhead_pocket_diameter: 23.0 — ø22.9 flange + 0.1 clearance.
 # Imported from _cold_core_interface because that module derives
 # reservoir_bulkhead_port_y from this diameter.
-bulkhead_panel_hole_diameter = 17.0     # JG catalog spec for the 1/4" body family (0.67")
+bulkhead_panel_hole_diameter = 17.0  # JG catalog spec for the 1/4" body family (0.67")
 
 # The bulkhead body's wet side is *stepped* along its axis (flange,
 # collet body, release ring — narrower toward the port). The chamber
@@ -302,9 +302,9 @@ bulkhead_panel_hole_diameter = 17.0     # JG catalog spec for the 1/4" body fami
 # levels, and the raw images. Refine after a caliper pass on the
 # PI1208S we already own; the workflow is documented in
 # `tools/measure-from-drawings/README.md`.
-bulkhead_wet_chamber_length = 22.2      # wet nut + collet body + release ring — adjusted from 24 to free 1.8 mm for the panel's growth in −Z direction (see panel_thickness below). The reduction comes entirely from the collet body section.
-bulkhead_wet_antechamber_length = 2.0   # gap on the bulkhead's wet face — must exist or syrup can't reach the port
-bulkhead_panel_thickness = 6.8          # was 5 mm. Grown by 1.8 mm to fit 1.4 mm-deep TPU seal counterbores on BOTH faces while preserving the 4 mm minimum wall thickness in the panel core (between the two counterbores). Growth is in the −Z direction: panel's +Z face stays at z=panel_z_max, panel's −Z face moves to z=panel_z_max − 6.8.
+bulkhead_wet_chamber_length = 22.2  # wet nut + collet body + release ring — adjusted from 24 to free 1.8 mm for the panel's growth in −Z direction (see panel_thickness below). The reduction comes entirely from the collet body section.
+bulkhead_wet_antechamber_length = 2.0  # gap on the bulkhead's wet face — must exist or syrup can't reach the port
+bulkhead_panel_thickness = 6.8  # was 5 mm. Grown by 1.8 mm to fit 1.4 mm-deep TPU seal counterbores on BOTH faces while preserving the 4 mm minimum wall thickness in the panel core (between the two counterbores). Growth is in the −Z direction: panel's +Z face stays at z=panel_z_max, panel's −Z face moves to z=panel_z_max − 6.8.
 
 # Wet-side nut. The actual hardware sitting at z=panel_z_min on the
 # wet side is the *nut*, not an integral flange — the bulkhead is
@@ -317,13 +317,13 @@ bulkhead_panel_thickness = 6.8          # was 5 mm. Grown by 1.8 mm to fit 1.4 m
 # but the print pocket can safely treat it as a regular hex of the
 # given flat-to-flat dimension — the pocket overshoots by ~1 mm of
 # air at each corner, which doesn't affect the grip on the 6 flats.
-bulkhead_nut_hex_flat_to_flat = 19.8     # the 6 flats that grip the pocket for anti-rotation
+bulkhead_nut_hex_flat_to_flat = 19.8  # the 6 flats that grip the pocket for anti-rotation
 bulkhead_nut_hex_corner_to_corner = bulkhead_nut_hex_flat_to_flat / math.cos(math.radians(30))  # 22.86 mm, ~1 mm past the actual clipped corners
 bulkhead_nut_washer_diameter = 22.1
-bulkhead_nut_hex_depth = 4.1             # axial depth of the hex portion
-bulkhead_nut_washer_depth = 1.6          # axial depth of the washer portion
+bulkhead_nut_hex_depth = 4.1  # axial depth of the hex portion
+bulkhead_nut_washer_depth = 1.6  # axial depth of the washer portion
 bulkhead_nut_total_depth = bulkhead_nut_hex_depth + bulkhead_nut_washer_depth  # 5.7
-bulkhead_nut_clearance = 0.1             # per-side clearance for press-fit (both hex flats and washer ⌀)
+bulkhead_nut_clearance = 0.1  # per-side clearance for press-fit (both hex flats and washer ⌀)
 
 # TPU 90A face seals at the bulkhead/panel joint. One on each side of
 # the panel: a flat printed washer that sits in a shallow counterbore
@@ -336,32 +336,32 @@ bulkhead_nut_clearance = 0.1             # per-side clearance for press-fit (bot
 # ensures the mating faces still seat directly on PETG outside the
 # counterbore — the elastomer carries only the seal load, not the
 # clamping force.
-bulkhead_seal_id = 17.5                  # 0.25 mm/side clearance around the panel hole (⌀17)
-bulkhead_seal_od = 20.3                  # 0.1 mm/side clearance in the counterbore
-bulkhead_seal_thickness = 2.0            # matches the reservoir gasket convention
+bulkhead_seal_id = 17.5  # 0.25 mm/side clearance around the panel hole (⌀17)
+bulkhead_seal_od = 20.3  # 0.1 mm/side clearance in the counterbore
+bulkhead_seal_thickness = 2.0  # matches the reservoir gasket convention
 bulkhead_seal_counterbore_diameter = 20.5
-bulkhead_seal_counterbore_depth = 1.4    # 30% compression of the 2 mm seal when the mating face seats flush
+bulkhead_seal_counterbore_depth = 1.4  # 30% compression of the 2 mm seal when the mating face seats flush
 
 # Wet-side section lengths (estimates — refine with drawing measurements):
-bulkhead_flange_length = bulkhead_nut_total_depth              # 5.7 — the wet-side pocket against the panel holds the *nut* (a stepped washer+hex piece), not an integral flange. Name kept for now as the geometric region label.
-bulkhead_collet_body_length = 13.5                             # middle of the wet section — extended ~7.5 mm beyond the CI1208W's 6 mm so the bulkhead's smooth body has room to rest comfortably when fully screwed forward into the nut. Reduced from 15.3 → 13.5 to absorb the 1.8 mm panel growth (5 → 6.8 mm) needed to fit TPU seal counterbores on both panel faces. Panel's +Z face stays at z=panel_z_max=59; everything else cascades.
+bulkhead_flange_length = bulkhead_nut_total_depth  # 5.7 — the wet-side pocket against the panel holds the *nut* (a stepped washer+hex piece), not an integral flange. Name kept for now as the geometric region label.
+bulkhead_collet_body_length = 13.5  # middle of the wet section — extended ~7.5 mm beyond the CI1208W's 6 mm so the bulkhead's smooth body has room to rest comfortably when fully screwed forward into the nut. Reduced from 15.3 → 13.5 to absorb the 1.8 mm panel growth (5 → 6.8 mm) needed to fit TPU seal counterbores on both panel faces. Panel's +Z face stays at z=panel_z_max=59; everything else cascades.
 bulkhead_release_ring_length = (
     bulkhead_wet_chamber_length - bulkhead_flange_length - bulkhead_collet_body_length
-)                                                              # 3 — the visible end with the push-to-release ring
+)  # 3 — the visible end with the push-to-release ring
 #
 # Wet-side chamber diameters per section (body OD + clearance).  The
 # nut pocket diameter is set by the bulkhead_nut_* constants above
 # (stepped hex + washer), so it isn't repeated here.
-bulkhead_collet_chamber_diameter = 19.0                        # est. body OD ø17–18 + ~0.5 mm/side
-bulkhead_release_chamber_diameter = 11.0                       # caliper-measured release ring ø9.57 + ~0.7 mm/side
+bulkhead_collet_chamber_diameter = 19.0  # est. body OD ø17–18 + ~0.5 mm/side
+bulkhead_release_chamber_diameter = 11.0  # caliper-measured release ring ø9.57 + ~0.7 mm/side
 
-bulkhead_wet_end_z = 30.0                # z of bulkhead body's wet face (the port) — stays fixed; everything downstream of it slides 12 mm in +Z by way of the longer collet section
-bulkhead_wet_chamber_z_min = bulkhead_wet_end_z - bulkhead_wet_antechamber_length  # 28 (tip-channel −Z edge, stays put)
-bulkhead_release_z_start = bulkhead_wet_end_z                   # 30 — release-ring section starts at the body's wet face (stays)
-bulkhead_collet_z_start = bulkhead_release_z_start + bulkhead_release_ring_length  # 33 (release-ring → collet boundary, stays)
-bulkhead_flange_z_start = bulkhead_collet_z_start + bulkhead_collet_body_length    # 46.5 — start of the nut pocket (named flange because the geometry was originally laid out for an integral flange here; it actually houses the nut)
-bulkhead_panel_z_min = bulkhead_flange_z_start + bulkhead_flange_length             # 52.2 (panel's −Z face; was 54 before the panel grew 1.8 mm in −Z to fit the seal counterbores)
-bulkhead_panel_z_max = bulkhead_panel_z_min + bulkhead_panel_thickness              # 59 (panel's +Z face; stays put — panel grows in −Z direction only)
+bulkhead_wet_end_z = 30.0  # z of bulkhead body's wet face (the port) — stays fixed; everything downstream of it slides 12 mm in +Z by way of the longer collet section
+bulkhead_wet_chamber_z_min = bulkhead_wet_end_z - bulkhead_wet_antechamber_length  # 28 (tip-channel −Z edge)
+bulkhead_release_z_start = bulkhead_wet_end_z  # 30 — release-ring section starts at the body's wet face
+bulkhead_collet_z_start = bulkhead_release_z_start + bulkhead_release_ring_length  # 33 (release-ring → collet boundary)
+bulkhead_flange_z_start = bulkhead_collet_z_start + bulkhead_collet_body_length  # 46.5 — start of the nut pocket (named flange because the geometry was originally laid out for an integral flange here; it actually houses the nut)
+bulkhead_panel_z_min = bulkhead_flange_z_start + bulkhead_flange_length  # 52.2 (panel's −Z face; was 54 before the panel grew 1.8 mm in −Z to fit the seal counterbores)
+bulkhead_panel_z_max = bulkhead_panel_z_min + bulkhead_panel_thickness  # 59 (panel's +Z face)
 
 # The floor thickens uniformly across the cavity to a baseline whose
 # inner-top y sits just above the bulkhead pocket, so the bulkhead body
@@ -432,8 +432,8 @@ insert_pocket_depth = 7.0
 # cavity from the pocket interior):
 #   Body insert pocket ø4 + 4 mm PETG → body boss ø12 (radius 6)
 #   Cap clearance hole ø3.5 + 4 mm PETG → cap boss ø11.5 (radius 5.75)
-body_boss_radius = insert_pocket_radius + 4.0                          # 6
-cap_boss_radius = cap_clearance_hole_diameter / 2.0 + 4.0              # 5.75
+body_boss_radius = insert_pocket_radius + 4.0  # 6
+cap_boss_radius = cap_clearance_hole_diameter / 2.0 + 4.0  # 5.75
 
 # Body boss vertical layout (extruding downward from the wall top):
 #   top 7 mm:  pocket (ø4 hole for heat-set insert + screw shaft)
@@ -453,33 +453,33 @@ cap_boss_radius = cap_clearance_hole_diameter / 2.0 + 4.0              # 5.75
 # fillet wall material and don't get a cut — the body-boss loop
 # skips them. The outer fillet radius (6 mm) equals body_boss_radius
 # so the corner-boss disks inscribe the fillet arc exactly.
-boss_height = 13.0                                                     # 7 mm pocket + 6 mm of solid+cut
-_cyl_extra_below_bottom = 5.0                                          # extra cylinder length to be sliced off by the cut
+boss_height = 13.0  # 7 mm pocket + 6 mm of solid+cut
+_cyl_extra_below_bottom = 5.0  # extra cylinder length to be sliced off by the cut
 
 # Insert / screw positions, derived from the wall geometry so the body
 # and cap bosses at each position fit fully inside the outer envelope
 # (the larger of the two boss radii sets the inset).
 #
 # Outer envelope (body and cap share this footprint):
-outer_far_x_abs = bag_pocket_far_inner_x - reservoir_clearance        # 121
-outer_z_max = bag_pocket_z_inner_max - reservoir_clearance            # 70
+outer_far_x_abs = bag_pocket_far_inner_x - reservoir_clearance  # 121
+outer_z_max = bag_pocket_z_inner_max - reservoir_clearance  # 70
 outer_centerward_radius = pocket_centerward_arc_outer_radius + reservoir_clearance  # 73
 
 # Inset equals the larger boss radius so the boss outer edge just
 # reaches the outer face at every position (no boss protrusion past
 # the body / cap outer envelope, no overhang into the bag pocket
 # clearance).
-_screw_setback = max(body_boss_radius, cap_boss_radius)                # 6
+_screw_setback = max(body_boss_radius, cap_boss_radius)  # 6
 
 # Positions 1/2 — inset 6 mm from outer +X face × outer ±Z face.
-_corner_xz_x = outer_far_x_abs - _screw_setback                       # 98
-_corner_xz_z = outer_z_max - _screw_setback                           # 64
+_corner_xz_x = outer_far_x_abs - _screw_setback  # 98
+_corner_xz_z = outer_z_max - _screw_setback  # 64
 
 # Position 3 — inset 6 mm from outer +X face, z = 0.
-_far_mid_x = outer_far_x_abs - _screw_setback                         # 98
+_far_mid_x = outer_far_x_abs - _screw_setback  # 98
 
 # Position 6 — 6 mm outward from outer curve (radially), z = 0.
-_curve_apex_x = outer_centerward_radius + _screw_setback              # 78
+_curve_apex_x = outer_centerward_radius + _screw_setback  # 78
 
 # Positions 4/5 — corner of outer curve × outer ±Z face. The corner
 # is filleted at outer_corner_fillet_radius (= 6 mm). The fillet
@@ -490,18 +490,18 @@ _curve_apex_x = outer_centerward_radius + _screw_setback              # 78
 # the post-fillet wall material — no cavity bump, no chamfer needed
 # (the body-boss loop below skips the chamfer for these two positions
 # explicitly, for code-reading clarity).
-_corner_curve_z = outer_z_max - outer_corner_fillet_radius             # 64
+_corner_curve_z = outer_z_max - outer_corner_fillet_radius  # 64
 _corner_curve_r = outer_centerward_radius + outer_corner_fillet_radius  # 78
-_corner_curve_x = math.sqrt(_corner_curve_r**2 - _corner_curve_z**2)    # ~44.55
+_corner_curve_x = math.sqrt(_corner_curve_r**2 - _corner_curve_z**2)  # ~44.55
 
 # Insert positions for the side=+1 reservoir; sign flips for −1.
 insert_positions_for_side_plus_1 = [
-    (_corner_xz_x, _corner_xz_z),         # 1: +X × +Z outer corner
-    (_corner_xz_x, -_corner_xz_z),        # 2: +X × −Z outer corner
-    (_far_mid_x, 0.0),                    # 3: +X face midpoint
-    (_corner_curve_x, _corner_curve_z),   # 4: curve × +Z outer corner (at outer fillet center)
+    (_corner_xz_x, _corner_xz_z),  # 1: +X × +Z outer corner
+    (_corner_xz_x, -_corner_xz_z),  # 2: +X × −Z outer corner
+    (_far_mid_x, 0.0),  # 3: +X face midpoint
+    (_corner_curve_x, _corner_curve_z),  # 4: curve × +Z outer corner (at outer fillet center)
     (_corner_curve_x, -_corner_curve_z),  # 5: curve × −Z outer corner (at outer fillet center)
-    (_curve_apex_x, 0.0),                 # 6: curve apex
+    (_curve_apex_x, 0.0),  # 6: curve apex
 ]
 
 # For each body boss that needs the 45° flat cut at its bottom (i.e.,
@@ -515,8 +515,8 @@ insert_positions_for_side_plus_1 = [
 #
 # Values stored for side=+1; the x component is multiplied by `side`
 # in the body-boss loop to mirror across x=0 for side=−1.
-_far_wall_inner_x = outer_far_x_abs - reservoir_wall_thickness        # 100
-_plus_z_wall_inner_z = outer_z_max - reservoir_wall_thickness         # 66
+_far_wall_inner_x = outer_far_x_abs - reservoir_wall_thickness  # 100
+_plus_z_wall_inner_z = outer_z_max - reservoir_wall_thickness  # 66
 _curve_inner_x_at_z0 = outer_centerward_radius + reservoir_wall_thickness  # 76
 _inv_sqrt2 = 1.0 / math.sqrt(2.0)
 
@@ -534,11 +534,11 @@ _inv_sqrt2 = 1.0 / math.sqrt(2.0)
 # the cut depth at boss center matches boss 6 (the curve apex) and
 # stays well clear of the pocket.
 _inner_corner_curve_x = math.sqrt(_curve_inner_x_at_z0**2 - _plus_z_wall_inner_z**2)  # ≈ 37.68
-_corner_curve_to_inner_corner_dx = _inner_corner_curve_x - _corner_curve_x        # ≈ −6.91
-_corner_curve_to_inner_corner_dz = _plus_z_wall_inner_z - _corner_curve_z         # ≈ 2
+_corner_curve_to_inner_corner_dx = _inner_corner_curve_x - _corner_curve_x  # ≈ −6.91
+_corner_curve_to_inner_corner_dz = _plus_z_wall_inner_z - _corner_curve_z  # ≈ 2
 _corner_curve_to_inner_corner_dist = math.sqrt(
     _corner_curve_to_inner_corner_dx**2 + _corner_curve_to_inner_corner_dz**2
-)                                                                                  # ≈ 7.19
+)  # ≈ 7.19
 _corner_curve_wall_dir_x = _corner_curve_to_inner_corner_dx / _corner_curve_to_inner_corner_dist  # ≈ −0.961
 _corner_curve_wall_dir_z = _corner_curve_to_inner_corner_dz / _corner_curve_to_inner_corner_dist  # ≈ +0.278
 _corner_curve_pivot_distance = 2.0
@@ -547,21 +547,21 @@ _corner_curve_virtual_pivot_z = _corner_curve_z + _corner_curve_pivot_distance *
 
 body_boss_cut_info_for_side_plus_1 = {
     # (boss_x, boss_z) → (pivot_x, pivot_z, wall_dir_x, wall_dir_z)
-    #   wall_dir is a UNIT vector in XZ pointing from the boss center toward the wall pivot
+    # wall_dir is a UNIT vector in XZ pointing from the boss center toward the wall pivot.
     (_corner_xz_x, _corner_xz_z):
-        (_far_wall_inner_x, _plus_z_wall_inner_z, _inv_sqrt2, _inv_sqrt2),    # 1
+        (_far_wall_inner_x, _plus_z_wall_inner_z, _inv_sqrt2, _inv_sqrt2),  # 1
     (_corner_xz_x, -_corner_xz_z):
         (_far_wall_inner_x, -_plus_z_wall_inner_z, _inv_sqrt2, -_inv_sqrt2),  # 2
     (_far_mid_x, 0.0):
-        (_far_wall_inner_x, 0.0, 1.0, 0.0),                                   # 3
+        (_far_wall_inner_x, 0.0, 1.0, 0.0),  # 3
     (_corner_curve_x, _corner_curve_z):
         (_corner_curve_virtual_pivot_x, _corner_curve_virtual_pivot_z,
-         _corner_curve_wall_dir_x, _corner_curve_wall_dir_z),                 # 4
+         _corner_curve_wall_dir_x, _corner_curve_wall_dir_z),  # 4
     (_corner_curve_x, -_corner_curve_z):
         (_corner_curve_virtual_pivot_x, -_corner_curve_virtual_pivot_z,
-         _corner_curve_wall_dir_x, -_corner_curve_wall_dir_z),                # 5
+         _corner_curve_wall_dir_x, -_corner_curve_wall_dir_z),  # 5
     (_curve_apex_x, 0.0):
-        (_curve_inner_x_at_z0, 0.0, -1.0, 0.0),                               # 6
+        (_curve_inner_x_at_z0, 0.0, -1.0, 0.0),  # 6
 }
 
 
@@ -879,8 +879,8 @@ def build_reservoir_body(side=1):
     # Anchored in Y to nut_position_y (the floor's low point) so the
     # washer counterbore sits on top of the 4 mm reservoir floor,
     # preserving the full PETG fluid barrier below.
-    nut_hex_z_min    = bulkhead_flange_z_start
-    nut_hex_z_max    = nut_hex_z_min + bulkhead_nut_hex_depth
+    nut_hex_z_min = bulkhead_flange_z_start
+    nut_hex_z_max = nut_hex_z_min + bulkhead_nut_hex_depth
     nut_washer_z_max = bulkhead_panel_z_min
 
     # Flat-top hex (one flat at workplane +Y, one at workplane −Y),
