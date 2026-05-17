@@ -35,11 +35,10 @@ gasket_diameter = 54.35
 gasket_thickness = 2.0
 gasket_center = (3.175, 0.0)
 
-# Stacks immediately under the mounting plate (whose bottom face is at
-# world Z = -4.0). Top of gasket meets bottom of plate; bottom of
-# gasket sits on the countertop surface.
-gasket_z_top = -4.0
-gasket_z_range = (gasket_z_top - gasket_thickness, gasket_z_top)
+# Top face flush with the mounting plate's bottom face; bottom face
+# sits on the countertop surface plane.
+plate_bottom_z = -4.0
+gasket_z_range = (plate_bottom_z - gasket_thickness, plate_bottom_z)
 
 
 # Hole geometry — mirrored exactly from the mounting plate.
@@ -49,12 +48,12 @@ shank_hole_center = (0.0, 0.0)
 flavor_tube_hole_diameter = 6.85  # 6.35 OD + 0.5 mm clearance
 flavor_tube_center = (18.925, 0.0)
 
-# Pill slot covers both 1/4" flavor tubes (centers ±3.175 in Y) as one
-# rounded-rectangle, matching the mounting plate. Length is end-to-end
-# (Y); width is the per-tube hole diameter (X).
+# Pill slot covers both 1/4" flavor tubes (centers ±flavor_tube_y_offset
+# in Y) as one rounded-rectangle, matching the mounting plate. Length is
+# end-to-end (Y); width is the per-tube hole diameter (X).
 flavor_tube_y_offset = 3.175
 pill_slot_length_y = 2 * flavor_tube_y_offset + flavor_tube_hole_diameter  # 13.2
-pill_slot_width_x = flavor_tube_hole_diameter                              # 6.85
+pill_slot_width_x = flavor_tube_hole_diameter  # 6.85
 
 
 def gasket_workplane(center):
@@ -68,12 +67,9 @@ def gasket_workplane(center):
 
 
 def build_mounting_gasket():
-    """Build the TPU disc with shank hole and flavor-tube pill slot.
-
-    No fillets — TPU at 2 mm with sharp edges compresses cleanly, and
-    sharp edges grip the plate above and the countertop below better
-    than rounded ones. All cuts pass through the full 2 mm thickness.
-    """
+    """Disc with shank hole and flavor-tube pill slot. No fillets — TPU
+    at 2 mm with sharp edges compresses cleanly, and sharp edges grip
+    the plate above and the countertop below better than rounded ones."""
     gasket = (
         gasket_workplane(gasket_center)
         .circle(gasket_diameter / 2.0)
@@ -92,18 +88,12 @@ def build_mounting_gasket():
     return gasket.cut(shank_hole).cut(pill_slot)
 
 
-if __name__ == "__main__":
+def main():
     gasket = build_mounting_gasket()
-
     out = Path(__file__).resolve().parent / "touch-flo-mounting-gasket.step"
     export_step(gasket, str(out))
-
-    print("Touch-Flo mounting gasket")
-    print(f"  Material:       Bambu TPU 90A (black)")
-    print(f"  Disc:           Ø{gasket_diameter} mm × {gasket_thickness} mm thick")
-    print(f"  Center:         {gasket_center}")
-    print(f"  Z range:        {gasket_z_range[0]} → {gasket_z_range[1]}")
-    print(f"  Shank hole:     Ø{shank_hole_diameter} mm at {shank_hole_center}")
-    print(f"  Flavor pill:    {pill_slot_length_y} × {pill_slot_width_x} mm "
-          f"at {flavor_tube_center}, Y-oriented")
     print(f"-> {out.name}")
+
+
+if __name__ == "__main__":
+    main()
