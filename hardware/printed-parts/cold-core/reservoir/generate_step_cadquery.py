@@ -545,12 +545,24 @@ bulkhead_panel_z_max = bulkhead_panel_z_min + bulkhead_panel_thickness          
 # floor rises by the slab's thickness above the chamber top.
 bulkhead_dry_slab_thickness = 4.0
 #
-# floor_baseline_y is anchored so the slab's bottom face at z =
-# bulkhead_panel_z_min sits exactly on the chamber's curved top
-# (y=port_position_y + bulkhead_pocket_diameter / 2). The slope tilts
-# the slab bottom upward as z increases, so the bulkhead dry-flange
-# clearance is positive everywhere in z ≥ bulkhead_panel_z_max.
-floor_baseline_y = port_position_y + bulkhead_pocket_diameter / 2 + bulkhead_dry_slab_thickness  # 33.5 = chamber_top (29.5) + slab_thickness (4); the slab top sits this high at z = bulkhead_panel_z_min and the slope rises with z
+# 2026-05-16 print + assembly test: the dry-side slab sat directly
+# on the chamber top, leaving no vertical clearance above the
+# bulkhead's integral flange for a wrench to grip and rotate the
+# body during install. Raise the slab BOTTOM by this much above the
+# chamber top to open up wrench room. The slab still maintains its
+# 4 mm thickness as the fluid barrier above; the new space between
+# chamber top and slab bottom is just the air gap where a wrench /
+# fingers / collet-release ring fits.
+dry_ceiling_clearance = 20.0
+#
+# floor_baseline_y = top face of the dry-side slab at z =
+# bulkhead_panel_z_min. Stack from the chamber's curved top:
+#   chamber_top + dry_ceiling_clearance + slab_thickness
+# = (port_position_y + 11.5) + 20 + 4 = port_position_y + 35.5
+# The slope tilts the slab top upward as z increases, so the
+# bulkhead dry-flange clearance is positive everywhere in z ≥
+# bulkhead_panel_z_max.
+floor_baseline_y = port_position_y + bulkhead_pocket_diameter / 2 + dry_ceiling_clearance + bulkhead_dry_slab_thickness
 #
 # On the wet side (z < bulkhead_wet_end_z), the slope's lowest line is
 # anchored at the bulkhead INLET MIDPOINT (port_position_y = y of the
