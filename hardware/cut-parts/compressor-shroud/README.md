@@ -74,7 +74,7 @@ Alternatives considered and rejected:
 
 | # | Hole | Purpose |
 |---|---|---|
-| 1 | Ø ~12 mm grommet hole, one side wall | AC cable pass-through (3-conductor: switched H + N + chassis G, 18 AWG bundle) from Teyleten relay #1 on the electronics shelf to the compressor terminal block. Rubber grommet (Heyco SB-625-8 class) protects the cable from the cut edge. |
+| 1 | 1/2" panel hole, one side wall | AC cable pass-through (3-conductor: switched H + N + chassis G, 18 AWG SJOOW bundle) from Teyleten relay #1 on the electronics shelf to the compressor terminal block. Heyco SB-500-6 snap bushing (B01LPBST9G) protects the cable from the cut edge — the bushing's 5.6–6.4 mm cable-OD range matches 18 AWG SJOOW (~6.4 mm OD), and the 1/2" hole removes 36% less sheet metal from the fire enclosure than a 5/8" hole would. |
 | 2 | 2× M3 mounting tab through-holes at base flange | Anchor to the compressor's existing M5 mounting feet using M5→M3 step-down adapter washers. (No floor pan in this design — see [`../../future.md`](../../future.md) "Other metal candidates considered, decided against".) |
 | 3 | Ø ~6 mm chassis ground stud hole | PEM stud or threaded insert for the chassis bonding wire (run AC-6 in [`../../wiring/ac-wiring-schedule.md`](../../wiring/ac-wiring-schedule.md)) — bonds the shroud to building earth. |
 
