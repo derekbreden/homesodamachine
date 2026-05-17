@@ -126,7 +126,7 @@ Dishing dies (PA6-CF) for end-cap forming are vessel-fabrication tools, not ship
 | [Kamoer KPHM400-SW3B25 12V peristaltic pump](https://www.amazon.com/dp/B09MS6C91D) | paid price per Feb 2026 Amazon 114-1015191 + 112-0545074 (Kamoer Fluid Tech Shanghai); current listing matches at $32.55 | 2 | $32.55 | $65.10 |
 | [Magnetic pogo pin connector, 2-pin (2 pair)](https://www.amazon.com/dp/B0CSX6ZQ1H) | tool-free pump cartridge electrical connection, one pair per pump | 1 pk | $10.71 | $10.71 |
 | [Beduan 12V 1/4" solenoid valve (NC)](https://www.amazon.com/dp/B07NWCQJK9) | V-A/B/C/D/E/F/G/H/I/J/KA/KB per fluid-topology-manifold.mmd; lower-bound delivered single-unit cost (range $9.64–$19.28 across user's mixed orders) | 12 | $9.64 | $115.68 |
-| [John Guest PP1208E 1/4" OD black polypropylene push-to-connect bulkhead union (10-pk)](https://www.amazon.com/dp/B00JYFU8MM) | reservoir-cap outlet port (syrup-side 1/4" QC bulkhead recessed in the printed reservoir floor boss per [printed-parts/cold-core/reservoir/generate_step_cadquery.py](printed-parts/cold-core/reservoir/generate_step_cadquery.py) lines 251–310); 2 per build (1 per reservoir × 2); Amazon 112-6407862 May 11: $23.11 + $1.68 tax = $24.79 ÷ 10 = $2.479/ea | 2 (of 10 pk) | $2.48 | $4.96 |
+| [John Guest PP1208E 1/4" OD black polypropylene push-to-connect bulkhead union (10-pk)](https://www.amazon.com/dp/B00JYFU8MM) | two uses, same SKU: (a) **reservoir-cap outlet port** — syrup-side 1/4" QC bulkhead recessed in the printed reservoir floor boss per [printed-parts/cold-core/reservoir/generate_step_cadquery.py](printed-parts/cold-core/reservoir/generate_step_cadquery.py) lines 251–310; 1 per reservoir × 2 = 2/build; (b) **rear-panel umbilical port** — 3 bulkheads on the enclosure back panel accepting the 3-tube under-cabinet-faucet umbilical (1 carbonated water + 2 flavors), one bulkhead marked with a blue accent ring to match the blue-color-coded carbonated-water tube per [printed-parts/enclosure/back-panel/README.md](printed-parts/enclosure/back-panel/README.md); 3/build. Total **5/build**; the in-hand 10-pk now covers 2 builds of stock (was 5 builds at the prior 2/build). Amazon 112-6407862 May 11: $23.11 + $1.68 tax = $24.79 ÷ 10 = $2.479/ea | 5 (of 10 pk) | $2.48 | $12.40 |
 | [Silicone tubing 1/8" ID × 1/4" OD](https://www.amazon.com/dp/B0BM4KQ6RT) | pump-head tube only (line runs are 1/4" LLDPE); stretch-fit over the Kamoer KPHM400 BPT barb per [`off-the-shelf-parts/kamoer-kphm400/extracted-results/geometry-description.md`](off-the-shelf-parts/kamoer-kphm400/extracted-results/geometry-description.md):34; $13.93 delivered, amortized 1 roll/build pending real per-unit measurement | 1 | $13.93 | $13.93 |
 | [Supply Depot BIB connector, 3/8" red (2-pk)](https://www.amazon.com/dp/B0DMFK9B6P) | rear-panel commercial-syrup input | 1 pk | $19.99 | $19.99 |
 | [MAACFLOW SS 1/4" NPT M × 3/8" hose barb (4-pk)](https://www.amazon.com/dp/B0DMP77B6S) | | 1 pk | $12.97 | $12.97 |
@@ -240,13 +240,13 @@ The T18 heat-set tip kit ([B0CS662NVK](https://www.amazon.com/dp/B0CS662NVK)) an
 | 5. Refrigeration | $175.84 |
 | 6. Cold core insulation | $52.38 |
 | 7. Printed parts (PETG) | $103.94 |
-| 8. Flavor subsystem | $299.14 |
+| 8. Flavor subsystem | $306.58 |
 | 9. Dispensing | $57.32 |
 | 10. UI | $43.16 |
 | 11. Wiring | $31.97 |
 | 12. Level sensing | $69.78 |
 | 13. Mechanical attach hardware + reservoir-cap vent filter | $17.55 |
-| **Total** | **$1,488.98** |
+| **Total** | **$1,496.42** |
 
 ## External / user-supplied (not shipped)
 
