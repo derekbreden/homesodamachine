@@ -588,16 +588,21 @@ def _build_envelope(side, floor_y, height, wall_offset=0.0):
     return rect.cut(cyl)
 
 
+def _fillet_edge_at(solid, point, radius):
+    """Fillet the edge nearest the given world point with the given radius."""
+    return (
+        solid
+        .edges(cq.NearestToPointSelector(point))
+        .fillet(radius)
+    )
+
+
 def _fillet_pair_at_z(solid, x_signed, y_mid, z_range, radius):
     """Fillet the two vertical edges nearest (x_signed, y_mid, ±z_range)
     with the given radius. Used to round both +Z and −Z corners on a
     shared outer profile."""
     for sharp_z in (z_range, -z_range):
-        solid = (
-            solid
-            .edges(cq.NearestToPointSelector((x_signed, y_mid, sharp_z)))
-            .fillet(radius)
-        )
+        solid = _fillet_edge_at(solid, (x_signed, y_mid, sharp_z), radius)
     return solid
 
 
@@ -995,12 +1000,10 @@ def build_reservoir_body(side=1):
         + slope_rate * (bulkhead_panel_z_max - bulkhead_panel_z_min)
     )
     new_corner_y_mid = (outer_floor_bottom_y + slab_bottom_at_panel_face) / 2
-    body = (
-        body
-        .edges(cq.NearestToPointSelector(
-            (side * new_corner_x_abs, new_corner_y_mid, bulkhead_panel_z_max),
-        ))
-        .fillet(outer_corner_fillet_radius)
+    body = _fillet_edge_at(
+        body,
+        (side * new_corner_x_abs, new_corner_y_mid, bulkhead_panel_z_max),
+        outer_corner_fillet_radius,
     )
 
     # Inner counterpart of the fillet above: round the analogous edge
@@ -1016,12 +1019,10 @@ def build_reservoir_body(side=1):
         inner_centerward_radius**2 - bulkhead_panel_z_min**2
     )
     inner_panel_corner_y_mid = (slope_low_y + floor_baseline_y) / 2
-    body = (
-        body
-        .edges(cq.NearestToPointSelector(
-            (side * inner_panel_corner_x_abs, inner_panel_corner_y_mid, bulkhead_panel_z_min),
-        ))
-        .fillet(inner_corner_fillet_radius)
+    body = _fillet_edge_at(
+        body,
+        (side * inner_panel_corner_x_abs, inner_panel_corner_y_mid, bulkhead_panel_z_min),
+        inner_corner_fillet_radius,
     )
 
     # No well needed: with the wet ceiling open, syrup drains directly
