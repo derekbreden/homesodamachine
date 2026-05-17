@@ -22,7 +22,7 @@ _here = Path(__file__).resolve().parent
 sys.path.insert(0, str(next(p for p in _here.parents if p.name == "printed-parts") / "cadlib"))
 sys.path.insert(0, str(next(p for p in _here.parents if p.name == "hardware")))
 
-from snap import apply_ramp_out_first, apply_ramp_in_first
+from snap import Frame, apply_ramp_out_first, apply_ramp_in_first
 from _cadq_export import export_step
 
 
@@ -630,47 +630,38 @@ def add_snap_fits(base, cap):
     wide_split_y = -skirt_bottom_offset
     narrow_split_y = -narrow_split_offset
 
-    yz_zone_start = center_x - snap_zone_width / 2
-    yz_zone_end = center_x + snap_zone_width / 2
+    yz_zone_range = (center_x - snap_zone_width / 2, center_x + snap_zone_width / 2)
     xy_narrow_zone_start = center_z - skirt_narrow_half_extent + corner_r + 0.5
-    xy_narrow_zone_end = xy_narrow_zone_start + snap_zone_width
+    xy_narrow_zone_range = (xy_narrow_zone_start, xy_narrow_zone_start + snap_zone_width)
 
     snap_faces = [
-        (snap_plus_z_inner, +1, wide_split_y, "YZ",
-         yz_zone_start, yz_zone_end, snap_wall_height),
-        (snap_minus_z_inner, -1, narrow_split_y, "YZ",
-         yz_zone_start, yz_zone_end, snap_wall_height),
-        (snap_plus_x_narrow_inner, +1, narrow_split_y, "XY",
-         xy_narrow_zone_start, xy_narrow_zone_end, snap_wall_height),
-        (snap_minus_x_narrow_inner, -1, narrow_split_y, "XY",
-         xy_narrow_zone_start, xy_narrow_zone_end, snap_wall_height),
+        (snap_plus_z_inner, +1, wide_split_y, "YZ", yz_zone_range),
+        (snap_minus_z_inner, -1, narrow_split_y, "YZ", yz_zone_range),
+        (snap_plus_x_narrow_inner, +1, narrow_split_y, "XY", xy_narrow_zone_range),
+        (snap_minus_x_narrow_inner, -1, narrow_split_y, "XY", xy_narrow_zone_range),
     ]
 
-    for inner_face, sign, split_y, plane, zone_start, zone_end, wall_height in snap_faces:
+    for inner_face, sign, split_y, plane, zone_range in snap_faces:
+        base_frame = Frame(extrusion_plane=plane, outward_sign=sign,
+                           up_axis="Y", up_sign=-1)
+        cap_frame = Frame(extrusion_plane=plane, outward_sign=sign,
+                          up_axis="Y", up_sign=+1)
         base = apply_ramp_out_first(
-            solid=base,
-            coordinate_inner_wall=inner_face,
-            coordinate_zone_start=zone_start,
-            coordinate_zone_end=zone_end,
-            coordinate_lowest_possible_snap_base_in_wall=split_y + wall_height,
-            coordinate_top_of_wall=split_y,
-            orientation_outward_sign=sign,
-            orientation_plane=plane,
-            orientation_height_sign=-1,
-            orientation_height_axis="Y",
+            base,
+            frame=base_frame,
+            inner_wall_at=inner_face,
+            wall_top_at=split_y,
+            wall_height=snap_wall_height,
+            zone_range=zone_range,
             deflection_distance=snap_deflection,
         )
         cap = apply_ramp_in_first(
-            solid=cap,
-            coordinate_inner_wall=inner_face,
-            coordinate_zone_start=zone_start,
-            coordinate_zone_end=zone_end,
-            coordinate_lowest_possible_snap_base_in_wall=split_y - wall_height,
-            coordinate_top_of_wall=split_y,
-            orientation_outward_sign=sign,
-            orientation_plane=plane,
-            orientation_height_sign=+1,
-            orientation_height_axis="Y",
+            cap,
+            frame=cap_frame,
+            inner_wall_at=inner_face,
+            wall_top_at=split_y,
+            wall_height=snap_wall_height,
+            zone_range=zone_range,
             deflection_distance=snap_deflection,
         )
 
