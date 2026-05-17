@@ -2,7 +2,7 @@
 Coil winding mandrel — single first-attempt mandrel.
 
 Hollow PETG-printed mandrel for hand-winding 1/4" OD copper around the
-5" round 316L pressure vessel.  5 mm solid PETG wall (no infill) with
+5" round 316L pressure vessel. 5 mm solid PETG wall (no infill) with
 a shallow helical guide groove sized so the copper nests cleanly into
 the cradle but only 1 mm deep — easy to lift off after winding.
 
@@ -13,17 +13,18 @@ copper inlet/outlet plugs so the user's exit bends are purely radial
 What "X mm undersize" means here
 --------------------------------
 "X mm undersize" = the stretch needed to slip the as-wound coil onto
-the tank.  After winding, the copper bottom sits at radius
-(mandrel_R − groove_depth) = the coil's inner radius.  For the coil to
-clamp the tank, we want this inner radius to be X mm SMALLER than the
-tank radius (so the coil has to stretch X mm radially to fit on).
+the tank. After winding, the copper bottom sits at radius
+(mandrel_radius − groove_depth) = the coil's inner radius. For the
+coil to clamp the tank, we want this inner radius to be X mm SMALLER
+than the tank radius (so the coil has to stretch X mm radially to fit
+on).
 
-  coil_inner_R_after_winding = mandrel_R − groove_depth
-  X = TANK_R − coil_inner_R_after_winding
-  → mandrel_R = TANK_R − X + groove_depth
+  coil_inner_radius_after_winding = mandrel_radius − groove_depth
+  X = tank_radius − coil_inner_radius_after_winding
+  → mandrel_radius = tank_radius − X + groove_depth
 
 For the 5" tank (R = 63.5 mm), 3 mm as-wound undersize, 1 mm groove:
-  mandrel_R = 63.5 − 3 + 1 = 61.5 → OD = 123 mm (mandrel surface)
+  mandrel_radius = 63.5 − 3 + 1 = 61.5 → OD = 123 mm (mandrel surface)
   groove bottom diameter = 121 mm
 
 This is the as-WOUND stretch; observed springback (1–3 mm radial)
@@ -34,22 +35,23 @@ too tight when test-fit on the tank.
 
 (A previous version mis-defined undersize as the COPPER CENTERLINE
 displacement from the tank surface, which gave the wrong sign on the
-groove offset and produced an OD that was ~6 mm too small.  See git
+groove offset and produced an OD that was ~6 mm too small. See git
 log around that commit.)
 
 Geometry chain
 --------------
 - 3 mm as-wound undersize → mandrel OD 123 mm.
-- Shallow groove: profile R = TUBE_RAD (3.175 mm, matches copper) but
-  the helix path is offset 2.175 mm outward of the cylinder surface,
-  so the cut depth is only 1 mm.  Copper still nests perfectly into
-  the cradle (same R), but only 1 mm engaged — easy to lift off.
+- Shallow groove: profile radius = tube_radius (3.175 mm, matches
+  copper) but the helix path is offset 2.175 mm outward of the
+  cylinder surface, so the cut depth is only 1 mm. Copper still
+  nests perfectly into the cradle (same R), but only 1 mm engaged
+  — easy to lift off.
 - Wind length 120.4 mm = Y span between inlet plug (Y=46) and outlet
   plug (Y=166.4) in the foam-shell — coil ends exit through the
   plugs with purely radial (no vertical) bends.
 - 9.687 wraps total = 9 full wraps + 247.4° fractional, where 247.4°
   is the CCW azimuthal delta from inlet plug at azimuth 146.31° to
-  outlet plug at azimuth 33.69°.  Right-hand helix.  Pitch = 120.4 /
+  outlet plug at azimuth 33.69°. Right-hand helix. Pitch = 120.4 /
   9.687 = 12.43 mm = 0.489" — close to but not exactly the round-number
   0.5" pitch, driven by alignment to the foam-shell plug positions
   rather than by aesthetic roundness.
@@ -61,7 +63,7 @@ margin but stable feel matters for a hand-handled tool.
 OCCT BOP fix retained
 ---------------------
 isFrenet=False (parallel transport) — verified reliable across all R
-values; isFrenet=True is flaky for helix-on-cylinder cuts.  See git
+values; isFrenet=True is flaky for helix-on-cylinder cuts. See git
 log for the diagnostic sweep.
 """
 
@@ -82,33 +84,35 @@ from _cadq_export import export_step
 # COPPER, TANK, AND TARGET COMPENSATION
 # ═══════════════════════════════════════════════════════
 
-TUBE_OD_IN = 0.250
-TUBE_RAD   = (TUBE_OD_IN / 2) * 25.4   # 3.175 mm
+tube_od_in = 0.250
+tube_radius = (tube_od_in / 2) * 25.4  # 3.175 mm
 
-TANK_OD_MM = 127.0                     # 5" carbonator tank OD
-TANK_R     = TANK_OD_MM / 2            # 63.5 mm
+tank_od = 127.0  # 5" carbonator tank OD
+tank_radius = tank_od / 2  # 63.5 mm
 
-# As-wound stretch needed to slip the coil onto the tank.  See the
-# docstring: this is TANK_R − coil_inner_R_after_winding, NOT the
-# copper centerline displacement.
-NET_UNDERSIZE_MM = 3.0
+# As-wound stretch needed to slip the coil onto the tank. See the
+# docstring: this is tank_radius − coil_inner_radius_after_winding, NOT
+# the copper centerline displacement.
+net_undersize = 3.0
 
 
 # ═══════════════════════════════════════════════════════
 # GROOVE GEOMETRY (shallow, same-R cradle)
 # ═══════════════════════════════════════════════════════
 
-GROOVE_DEPTH_MM    = 1.0
-GROOVE_PROFILE_R   = TUBE_RAD                                   # 3.175 mm
-GROOVE_OFFSET      = GROOVE_PROFILE_R - GROOVE_DEPTH_MM         # 2.175 mm
+groove_depth = 1.0
+groove_profile_radius = tube_radius  # 3.175 mm
+groove_offset = groove_profile_radius - groove_depth  # 2.175 mm
 
-# Coil inner R after winding = mandrel_R − GROOVE_DEPTH_MM (copper
-# bottom rests at the groove bottom).  Solve for mandrel_R such that
-# coil_inner_R = TANK_R − NET_UNDERSIZE_MM:
-MANDREL_R  = TANK_R - NET_UNDERSIZE_MM + GROOVE_DEPTH_MM        # 61.5 mm
-MANDREL_OD = 2 * MANDREL_R                                       # 123.0 mm
+# Coil inner radius after winding = mandrel_radius − groove_depth
+# (copper bottom rests at the groove bottom). Solve for mandrel_radius
+# such that coil_inner_radius = tank_radius − net_undersize:
+mandrel_radius = tank_radius - net_undersize + groove_depth  # 61.5 mm
+mandrel_od = 2 * mandrel_radius  # 123.0 mm
 
-WALL_MM = 5.0
+wall = 5.0
+mandrel_inner_radius = mandrel_radius - wall
+mandrel_r_range = (mandrel_inner_radius, mandrel_radius)
 
 
 # ═══════════════════════════════════════════════════════
@@ -120,99 +124,103 @@ WALL_MM = 5.0
 # cut_slit_and_build_plug_for_copper_inlet:
 #   inlet  (which=0): origin (-30, 46.0,  20)
 #   outlet (which=1): origin ( 30, 166.4, 20)
-PLUG_INLET_X,  PLUG_INLET_Y,  PLUG_INLET_Z  = -30.0,  46.0, 20.0
-PLUG_OUTLET_X, PLUG_OUTLET_Y, PLUG_OUTLET_Z =  30.0, 166.4, 20.0
+plug_inlet_x, plug_inlet_y, plug_inlet_z = -30.0, 46.0, 20.0
+plug_outlet_x, plug_outlet_y, plug_outlet_z = 30.0, 166.4, 20.0
 
-WIND_LEN_MM = PLUG_OUTLET_Y - PLUG_INLET_Y                       # 120.4 mm
+wind_length = plug_outlet_y - plug_inlet_y  # 120.4 mm
 
-PLUG_INLET_AZ_DEG  = math.degrees(math.atan2(PLUG_INLET_Z,  PLUG_INLET_X))   # 146.31°
-PLUG_OUTLET_AZ_DEG = math.degrees(math.atan2(PLUG_OUTLET_Z, PLUG_OUTLET_X))  # 33.69°
+plug_inlet_azimuth = math.degrees(math.atan2(plug_inlet_z, plug_inlet_x))  # 146.31°
+plug_outlet_azimuth = math.degrees(math.atan2(plug_outlet_z, plug_outlet_x))  # 33.69°
 
 # CCW azimuthal delta from inlet to outlet (right-hand helix climbs CCW).
-PLUG_DELTA_CCW = (PLUG_OUTLET_AZ_DEG - PLUG_INLET_AZ_DEG) % 360  # 247.38°
+plug_ccw_delta = (plug_outlet_azimuth - plug_inlet_azimuth) % 360  # 247.38°
 
 # Total wraps = N full + fractional wrap that spans the azimuthal delta.
 # N=9 picked as the smallest "first-attempt" wrap count below the user's
 # 12-wrap cap; pitch falls out from alignment.
-N_FULL_WRAPS    = 9
-NUM_WRAPS_TOTAL = N_FULL_WRAPS + PLUG_DELTA_CCW / 360            # 9.687
-PITCH           = WIND_LEN_MM / NUM_WRAPS_TOTAL                  # 12.43 mm
+full_wraps = 9
+total_wraps = full_wraps + plug_ccw_delta / 360  # 9.687
+pitch = wind_length / total_wraps  # 12.43 mm
 
 
 # ═══════════════════════════════════════════════════════
 # MANDREL LENGTH ZONES
 # ═══════════════════════════════════════════════════════
 
-HANDLE_LEN_IN = 0.75
-HANDLE_LEN    = HANDLE_LEN_IN * 25.4                             # 19.05 mm
-TOTAL_LEN     = HANDLE_LEN + WIND_LEN_MM + HANDLE_LEN            # 158.5 mm
+# Mandrel runs along +Z: lower handle, wind zone, upper handle.
+handle_length_in = 0.75
+handle_length = handle_length_in * 25.4  # 19.05 mm
+total_length = handle_length + wind_length + handle_length  # 158.5 mm
+
+mandrel_z_range = (0, total_length)
+lower_handle_z_range = (mandrel_z_range[0], handle_length)
+wind_z_range = (lower_handle_z_range[1], lower_handle_z_range[1] + wind_length)
+upper_handle_z_range = (wind_z_range[1], mandrel_z_range[1])
 
 
 # ═══════════════════════════════════════════════════════
 # BUILD AND EXPORT
 # ═══════════════════════════════════════════════════════
 
-def hollow_ring(outer_r, inner_r, z_bot, z_top):
+def hollow_ring(r_range, z_range):
+    r_min, r_max = min(r_range), max(r_range)
+    z_min, z_max = min(z_range), max(z_range)
     return (
         cq.Workplane("XY")
-        .transformed(offset=(0, 0, z_bot))
-        .circle(outer_r).circle(inner_r)
-        .extrude(z_top - z_bot)
+        .transformed(offset=(0, 0, z_min))
+        .circle(r_max).circle(r_min)
+        .extrude(z_max - z_min)
     )
 
 
 def build_mandrel():
-    outer_r = MANDREL_R
-    inner_r = outer_r - WALL_MM
+    body = hollow_ring(mandrel_r_range, mandrel_z_range)
 
-    body = hollow_ring(outer_r, inner_r, 0, TOTAL_LEN)
-
-    # Helical groove.  Path is offset OUTWARD by GROOVE_OFFSET so the
-    # profile circle (R = TUBE_RAD around the path) cuts only
-    # GROOVE_DEPTH_MM into the cylinder.
-    path_radius = outer_r + GROOVE_OFFSET
+    # Helical groove. Path is offset OUTWARD by groove_offset so the
+    # profile circle (radius = tube_radius around the path) cuts only
+    # groove_depth into the cylinder.
+    helix_path_radius = mandrel_radius + groove_offset
     helix = cq.Wire.makeHelix(
-        pitch=PITCH, height=WIND_LEN_MM, radius=path_radius
-    ).translate((0, 0, HANDLE_LEN))
+        pitch=pitch, height=wind_length, radius=helix_path_radius
+    ).translate((0, 0, wind_z_range[0]))
 
-    sp = helix.startPoint().toTuple()
-    profile_plane = cq.Plane(origin=sp, xDir=(0, 0, 1), normal=(0, 1, 0))
-    profile = cq.Workplane(profile_plane).circle(GROOVE_PROFILE_R)
+    helix_start = helix.startPoint().toTuple()
+    profile_plane = cq.Plane(origin=helix_start, xDir=(0, 0, 1), normal=(0, 1, 0))
+    profile = cq.Workplane(profile_plane).circle(groove_profile_radius)
 
     swept_groove = profile.sweep(cq.Workplane(obj=helix), isFrenet=False)
     cut_body = body.cut(swept_groove, clean=False)
 
-    # Restore clean handle zones — the swept tube bleeds ±GROOVE_PROFILE_R
+    # Restore clean handle zones — the swept tube bleeds ±groove_profile_radius
     # past the wind-zone boundaries at each end.
-    lower_handle = hollow_ring(outer_r, inner_r, 0, HANDLE_LEN)
-    upper_handle = hollow_ring(outer_r, inner_r,
-                               HANDLE_LEN + WIND_LEN_MM, TOTAL_LEN)
+    lower_handle = hollow_ring(mandrel_r_range, lower_handle_z_range)
+    upper_handle = hollow_ring(mandrel_r_range, upper_handle_z_range)
     return (cut_body
             .union(lower_handle, clean=False)
             .union(upper_handle, clean=False))
 
 
-groove_bottom_d = MANDREL_OD - 2 * GROOVE_DEPTH_MM
+groove_bottom_od = mandrel_od - 2 * groove_depth
 
-print(f"Tank OD:               {TANK_OD_MM:.1f} mm (R = {TANK_R:.2f})")
-print(f"As-wound undersize:    {NET_UNDERSIZE_MM:.1f} mm radial stretch")
-print(f"Mandrel surface OD:    {MANDREL_OD:.2f} mm (R = {MANDREL_R:.3f})")
-print(f"Groove bottom OD:      {groove_bottom_d:.2f} mm "
-      f"(= TANK_OD − 2·undersize = {TANK_OD_MM - 2 * NET_UNDERSIZE_MM:.1f})")
-print(f"Wall thickness:        {WALL_MM:.1f} mm  "
-      f"(groove backing: {WALL_MM - GROOVE_DEPTH_MM:.1f} mm)")
-print(f"Groove:                profile R={GROOVE_PROFILE_R} mm, "
-      f"offset {GROOVE_OFFSET:.3f} mm, depth {GROOVE_DEPTH_MM:.1f} mm")
-print(f"Wind length:           {WIND_LEN_MM:.1f} mm  "
-      f"(foam-shell plug Y span: {PLUG_INLET_Y} → {PLUG_OUTLET_Y})")
-print(f"Inlet plug azimuth:    {PLUG_INLET_AZ_DEG:.2f}°")
-print(f"Outlet plug azimuth:   {PLUG_OUTLET_AZ_DEG:.2f}°")
-print(f"CCW alignment delta:   {PLUG_DELTA_CCW:.2f}°")
-print(f"Wraps:                 {NUM_WRAPS_TOTAL:.4f}  ({N_FULL_WRAPS} full + "
-      f"{PLUG_DELTA_CCW:.2f}° fractional)")
-print(f"Pitch:                 {PITCH:.3f} mm  ({PITCH/25.4:.4f}\")")
-print(f"Total mandrel Z:       {TOTAL_LEN:.1f} mm  (handle {HANDLE_LEN:.2f} + "
-      f"wind {WIND_LEN_MM:.1f} + handle {HANDLE_LEN:.2f})")
+print(f"Tank OD:               {tank_od:.1f} mm (R = {tank_radius:.2f})")
+print(f"As-wound undersize:    {net_undersize:.1f} mm radial stretch")
+print(f"Mandrel surface OD:    {mandrel_od:.2f} mm (R = {mandrel_radius:.3f})")
+print(f"Groove bottom OD:      {groove_bottom_od:.2f} mm "
+      f"(= tank_od − 2·undersize = {tank_od - 2 * net_undersize:.1f})")
+print(f"Wall thickness:        {wall:.1f} mm  "
+      f"(groove backing: {wall - groove_depth:.1f} mm)")
+print(f"Groove:                profile R={groove_profile_radius} mm, "
+      f"offset {groove_offset:.3f} mm, depth {groove_depth:.1f} mm")
+print(f"Wind length:           {wind_length:.1f} mm  "
+      f"(foam-shell plug Y span: {plug_inlet_y} → {plug_outlet_y})")
+print(f"Inlet plug azimuth:    {plug_inlet_azimuth:.2f}°")
+print(f"Outlet plug azimuth:   {plug_outlet_azimuth:.2f}°")
+print(f"CCW alignment delta:   {plug_ccw_delta:.2f}°")
+print(f"Wraps:                 {total_wraps:.4f}  ({full_wraps} full + "
+      f"{plug_ccw_delta:.2f}° fractional)")
+print(f"Pitch:                 {pitch:.3f} mm  ({pitch / 25.4:.4f}\")")
+print(f"Total mandrel Z:       {total_length:.1f} mm  (handle {handle_length:.2f} + "
+      f"wind {wind_length:.1f} + handle {handle_length:.2f})")
 
 mandrel = build_mandrel()
 solids = mandrel.solids().vals()
