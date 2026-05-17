@@ -122,3 +122,10 @@ For each critical noun, verify every use carries exactly one meaning.
 - Keep reading the file until nothing bothers you. Cosmetic concerns count;
   if a name still reads off, fix it. The bar is "happy to have someone else
   review it in detail with no outstanding items from your perspective."
+
+---
+
+*For reference, this file's transformation runs from `7b691bc` (correct
+geometry, full of artifacts) to `9635172` (current state) — eight commits,
+geometry preserved at every step. `git diff 7b691bc..9635172 -- hardware/printed-parts/cold-core/_reed_channels.py`
+shows the full arc.*
