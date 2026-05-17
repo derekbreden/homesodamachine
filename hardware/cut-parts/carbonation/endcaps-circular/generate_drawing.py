@@ -233,7 +233,7 @@ def draw_title_block(c: canvas.Canvas) -> None:
 
     rows = [
         ("PART",      "CARBONATOR END CAP, CIRCULAR, 2-HOLE NPT"),
-        ("MATERIAL",  "304 STAINLESS STEEL"),
+        ("MATERIAL",  "316 STAINLESS STEEL"),
         ("THICKNESS", f"{disc_thickness:.3f} IN (1/4)"),
         ("SCALE",     "1:1"),
         ("UNITS",     "INCHES"),
