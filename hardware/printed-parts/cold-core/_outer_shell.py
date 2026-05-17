@@ -3,7 +3,6 @@
 
 from _cold_core_interface import (
     xz_plane_y_up,
-    flip_z,
     WorldWorkplane,
     wall_and_floor_thickness,
     foam_shell_outer_height,
@@ -25,7 +24,7 @@ def build_outer_shell():
         .faces(">Y")
         .shell(-wall_and_floor_thickness)
     )
-    boss_points = [flip_z(p) for p in foam_cap_attachment_xz_positions]
+    boss_points = foam_cap_attachment_xz_positions
     bosses = (
         WorldWorkplane(xz_plane_y_up)
         .workplane(offset=0)
