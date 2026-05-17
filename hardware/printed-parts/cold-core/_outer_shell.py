@@ -31,21 +31,18 @@ def build_outer_shell():
         .rect(screw_boss_size, screw_boss_size)
         .extrude(foam_shell_outer_height)
     )
-    # Heat-set insert pockets — drilled DOWN from the top (top-cap
-    # screw threads down) and UP from the bottom (bottom-cap screw
-    # threads up).
-    top_pockets = (
-        WorldWorkplane(xz_plane_y_up)
-        .workplane(offset=foam_shell_outer_height - insert_pocket_depth)
-        .pushPoints(foam_cap_attachment_xz_positions)
-        .circle(insert_pocket_radius)
-        .extrude(insert_pocket_depth)
-    )
-    bottom_pockets = (
-        WorldWorkplane(xz_plane_y_up)
-        .workplane(offset=0)
-        .pushPoints(foam_cap_attachment_xz_positions)
-        .circle(insert_pocket_radius)
-        .extrude(insert_pocket_depth)
-    )
+
+    # Heat-set insert pockets on both faces — each cap's M3 SHCS threads
+    # into an insert pressed from its own face, so every boss carries a
+    # pocket at y=0 and another at y=foam_shell_outer_height.
+    def insert_pockets_at(y_floor):
+        return (
+            WorldWorkplane(xz_plane_y_up)
+            .workplane(offset=y_floor)
+            .pushPoints(foam_cap_attachment_xz_positions)
+            .circle(insert_pocket_radius)
+            .extrude(insert_pocket_depth)
+        )
+    bottom_pockets = insert_pockets_at(0)
+    top_pockets = insert_pockets_at(foam_shell_outer_height - insert_pocket_depth)
     return shell.union(bosses).cut(top_pockets).cut(bottom_pockets).unwrap()
