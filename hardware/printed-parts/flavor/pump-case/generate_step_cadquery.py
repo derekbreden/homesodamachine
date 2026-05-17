@@ -1,5 +1,4 @@
-"""
-Pump case: two-piece snap-fit enclosure for a peristaltic pump.
+"""Pump case — two-piece snap-fit enclosure for a peristaltic pump.
 
 The case is built as one combined solid, then split with a stepped cut
 into a base and a cap.
@@ -13,125 +12,112 @@ The two parts mate at a stepped split surface and lock together with
 snap-fit ramps on four interior walls.
 """
 
-from pathlib import Path
 import math
 import sys
+from pathlib import Path
 
 import cadquery as cq
 
-sys.path.insert(
-    0,
-    str(next(p for p in Path(__file__).resolve().parents if p.name == "printed-parts") / "cadlib"),
-)
-from snap import apply_ramp_out_first, apply_ramp_in_first
+_here = Path(__file__).resolve().parent
+sys.path.insert(0, str(next(p for p in _here.parents if p.name == "printed-parts") / "cadlib"))
+sys.path.insert(0, str(next(p for p in _here.parents if p.name == "hardware")))
 
-sys.path.insert(
-    0,
-    str(next(p for p in Path(__file__).resolve().parents if p.name == "hardware")),
-)
+from snap import apply_ramp_out_first, apply_ramp_in_first
 from _cadq_export import export_step
 
 
-# ═══════════════════════════════════════════════════════
-# PHYSICAL DIMENSIONS
-# ═══════════════════════════════════════════════════════
+# Physical dimensions
+footprint_x = 70.0
+footprint_z = 70.0
+corner_r = 6.0
+wall_thickness = 3.0
 
-FOOTPRINT_X = 70.0
-FOOTPRINT_Z = 70.0
-CORNER_R = 6.0
-WALL_THICKNESS = 3.0
+center_x = footprint_x / 2
+center_z = footprint_z / 2
 
-CENTER_X = FOOTPRINT_X / 2
-CENTER_Z = FOOTPRINT_Z / 2
+base_thickness = 3.0
+ramp_from_skirt_to_octagon_height = 18.0
 
-BASE_THICKNESS = 3.0
-RAMP_FROM_SKIRT_TO_OCTAGON_HEIGHT = 18.0
+# Skirt
+skirt_upper_height = 21.0
+skirt_wall = wall_thickness
+skirt_wide_flare_per_side = 3.0
+skirt_narrow_taper_per_side = 4.0
+skirt_wide_straight_height = 4.5
 
-# ── Skirt ──
-SKIRT_UPPER_HEIGHT = 21.0
-SKIRT_WALL = WALL_THICKNESS
-SKIRT_WIDE_FLARE_PER_SIDE = 3.0
-SKIRT_NARROW_TAPER_PER_SIDE = 4.0
-SKIRT_WIDE_STRAIGHT_HEIGHT = 4.5
+# Pump bore
+bore_square_side = 43.0
+ledge_depth = 1.5
+ledge_shelf_span = 26.03
 
-# ── Pump bore ──
-BORE_SQUARE_SIDE = 43.0
-LEDGE_DEPTH = 1.5
-LEDGE_SHELF_SPAN = 26.03
+bore_half_diag = bore_square_side * math.sqrt(2) / 2
+bore_half_span = 53.0 / 2
 
-BORE_HALF_DIAG = BORE_SQUARE_SIDE * math.sqrt(2) / 2
-BORE_HALF_SPAN = 53.0 / 2
+vertex_far = bore_half_span
+vertex_near = bore_half_diag - bore_half_span
 
-VERTEX_FAR = BORE_HALF_SPAN
-VERTEX_NEAR = BORE_HALF_DIAG - BORE_HALF_SPAN
-
-# ── M3 mounting holes ──
-HOLE_R = 3.3 / 2.0
-HOLE_POSITIONS = [
-    (CENTER_X - 25.0, CENTER_Z + 25.0),
-    (CENTER_X + 25.0, CENTER_Z + 25.0),
-    (CENTER_X + 25.0, CENTER_Z - 25.0),
-    (CENTER_X - 25.0, CENTER_Z - 25.0),
+# M3 mounting holes
+hole_r = 3.3 / 2.0
+hole_positions = [
+    (center_x - 25.0, center_z + 25.0),
+    (center_x + 25.0, center_z + 25.0),
+    (center_x + 25.0, center_z - 25.0),
+    (center_x - 25.0, center_z - 25.0),
 ]
 
-# ── Tower ──
-TOWER_HEIGHT = 60.0
-PLATFORM_THICKNESS = 3.0
-CAP_THICKNESS = 3.0
-CYLINDER_ID = 37.0
-CYLINDER_OD = CYLINDER_ID + 2 * WALL_THICKNESS
-CYLINDER_R_OUTER = CYLINDER_OD / 2
-CYLINDER_R_INNER = CYLINDER_ID / 2
+# Tower
+tower_height = 60.0
+platform_thickness = 3.0
+cap_thickness = 3.0
+cylinder_id = 37.0
+cylinder_od = cylinder_id + 2 * wall_thickness
+cylinder_r_outer = cylinder_od / 2
+cylinder_r_inner = cylinder_id / 2
 
-# ── Lower extension ──
-LOWER_HEIGHT = 23.0
-LOWER_CAP_THICKNESS = 3.0
-LOWER_FOOTPRINT_STRAIGHT = SKIRT_WIDE_STRAIGHT_HEIGHT
+# Lower extension
+lower_height = 23.0
+lower_cap_thickness = 3.0
+lower_footprint_straight = skirt_wide_straight_height
 
-# ── Stepped split ──
-STEP_HEIGHT = 19.0
-STEP_Z_CLEARANCE = 6.0
+# Stepped split
+step_height = 19.0
+step_z_clearance = 6.0
 
-# ── Snap fits ──
-SNAP_ZONE_WIDTH = 20.0
-SNAP_WALL_HEIGHT = 9.0
-SNAP_DEFLECTION = 1.5
+# Snap fits
+snap_zone_width = 20.0
+snap_wall_height = 9.0
+snap_deflection = 1.5
 
-# ── Arch notches ──
-ARCH_RADIUS = 4.5
+# Arch notches
+arch_radius = 4.5
 
-# ── Pogo connector ──
-POGO_OUTER_LENGTH = 12.7
-POGO_OUTER_WIDTH = 4.2
-POGO_OUTER_DEPTH = 1.0
-POGO_INNER_LENGTH = 14.7
-POGO_INNER_WIDTH = 4.2
-POGO_Y_OFFSET = 13.5          # offset above SKIRT_BOTTOM_Y (was implicit 10)
-POGO_RIDGE_LENGTH = 24.5
-POGO_RIDGE_WIDTH = 10.0
-POGO_RIDGE_DEPTH = 0.7         # thin outer wall so pogo pins protrude further
+# Pogo connector
+pogo_outer_length = 12.7
+pogo_outer_width = 4.2
+pogo_outer_depth = 1.0
+pogo_inner_length = 14.7
+pogo_inner_width = 4.2
+pogo_y_offset = 13.5
+pogo_ridge_length = 24.5
+pogo_ridge_width = 10.0
+pogo_ridge_depth = 0.7  # thin outer wall so pogo pins protrude further
 
-# ── Shared constants ──
-OVERCUT = 0.1
-ARC_SEGMENTS = 8
-
-
-# ═══════════════════════════════════════════════════════
-# DERIVED GEOMETRY
-# ═══════════════════════════════════════════════════════
-
-OCTAGON_WALL_OUTER_EXTENT = VERTEX_FAR + WALL_THICKNESS
-
-TOWER_BASE_Y = -(BASE_THICKNESS + RAMP_FROM_SKIRT_TO_OCTAGON_HEIGHT)
-RAMP_FROM_OCTAGON_TO_CYLINDER_HEIGHT = OCTAGON_WALL_OUTER_EXTENT - CYLINDER_R_OUTER
-OCTAGON_TO_CYLINDER_SCALE = CYLINDER_R_OUTER / OCTAGON_WALL_OUTER_EXTENT
-
-FOOTPRINT_HALF_EXTENT = FOOTPRINT_X / 2
+# Shared constants
+overcut = 0.1
+arc_segments = 8
 
 
-# ═══════════════════════════════════════════════════════
-# POLYGON GENERATORS
-# ═══════════════════════════════════════════════════════
+# Derived geometry
+octagon_wall_outer_extent = vertex_far + wall_thickness
+
+tower_base_y = -(base_thickness + ramp_from_skirt_to_octagon_height)
+ramp_from_octagon_to_cylinder_height = octagon_wall_outer_extent - cylinder_r_outer
+octagon_to_cylinder_scale = cylinder_r_outer / octagon_wall_outer_extent
+
+footprint_half_extent = footprint_x / 2
+
+
+# Polygon generators
 
 class Turtle:
     """Logo-style turtle that accumulates (x, z) polygon points."""
@@ -156,12 +142,12 @@ class Turtle:
 
 def bore_octagon_profile():
     """Pump bore octagon with ledge indentations, centered at origin."""
-    vf = VERTEX_FAR
-    vn = VERTEX_NEAR
+    vf = vertex_far
+    vn = vertex_near
 
     vertices = [
-        ( vn,  vf), ( vf,  vn), ( vf, -vn), ( vn, -vf),
-        (-vn, -vf), (-vf, -vn), (-vf,  vn), (-vn,  vf),
+        (vn, vf), (vf, vn), (vf, -vn), (vn, -vf),
+        (-vn, -vf), (-vf, -vn), (-vf, vn), (-vn, vf),
     ]
     long_edge_indices = {0, 2, 4, 6}
 
@@ -185,20 +171,20 @@ def bore_octagon_profile():
             normal_x, normal_z = -normal_x, -normal_z
         inward_is_left = (normal_x * (-unit_z) + normal_z * unit_x) > 0
 
-        ledge_ramp_length = LEDGE_DEPTH * math.sqrt(2)
-        entry_length = (edge_length - LEDGE_SHELF_SPAN) / 2
-        shelf_length = LEDGE_SHELF_SPAN - 2 * LEDGE_DEPTH
+        ledge_ramp_length = ledge_depth * math.sqrt(2)
+        entry_length = (edge_length - ledge_shelf_span) / 2
+        shelf_length = ledge_shelf_span - 2 * ledge_depth
 
         t = Turtle(start_x, start_z, edge_heading)
         t.forward(entry_length)
         if inward_is_left:
-            t.left(45);  t.forward(ledge_ramp_length); t.right(45)
+            t.left(45); t.forward(ledge_ramp_length); t.right(45)
             t.forward(shelf_length)
             t.right(45); t.forward(ledge_ramp_length); t.left(45)
         else:
             t.right(45); t.forward(ledge_ramp_length); t.left(45)
             t.forward(shelf_length)
-            t.left(45);  t.forward(ledge_ramp_length); t.right(45)
+            t.left(45); t.forward(ledge_ramp_length); t.right(45)
         t.forward(entry_length)
 
         pts.extend(t.points[:-1])
@@ -240,15 +226,15 @@ def offset_polygon(pts, distance):
     return result
 
 
-def rounded_rect_profile(width, height, radius, n=ARC_SEGMENTS):
+def rounded_rect_profile(width, height, radius, n=arc_segments):
     """Polygon points for a rounded rectangle centered at origin."""
     hw, hh = width / 2, height / 2
     pts = []
     corners = [
-        ( hw - radius,  hh - radius,   0,  90),
-        (-hw + radius,  hh - radius,  90, 180),
+        (hw - radius, hh - radius, 0, 90),
+        (-hw + radius, hh - radius, 90, 180),
         (-hw + radius, -hh + radius, 180, 270),
-        ( hw - radius, -hh + radius, 270, 360),
+        (hw - radius, -hh + radius, 270, 360),
     ]
     for cx, cz, start_deg, end_deg in corners:
         for i in range(n + 1):
@@ -261,10 +247,10 @@ def split_skirt_profile(wide_half_extent, wide_radius,
                         narrow_half_extent, narrow_radius,
                         transition_z_plus=None, transition_z_minus=None,
                         wide_half_extent_z=None, narrow_half_extent_z=None,
-                        n=ARC_SEGMENTS):
+                        n=arc_segments):
     """Asymmetric profile: wider on +Z, narrower on -Z, with diagonal transitions.
 
-    The +Z half and -Z half can flare/taper independently.  Transition Z
+    The +Z half and -Z half can flare/taper independently. Transition Z
     values keep the seam wall in a fixed vertical plane as the two halves
     change size at different rates.
     """
@@ -289,11 +275,11 @@ def split_skirt_profile(wide_half_extent, wide_radius,
     for i in range(n + 1):
         a = math.radians(90 * i / n)
         pts.append((wide_corner_center_x + wide_radius * math.cos(a),
-                     wide_corner_center_z + wide_radius * math.sin(a)))
+                    wide_corner_center_z + wide_radius * math.sin(a)))
     for i in range(n + 1):
         a = math.radians(90 + 90 * i / n)
         pts.append((-wide_corner_center_x + wide_radius * math.cos(a),
-                     wide_corner_center_z + wide_radius * math.sin(a)))
+                    wide_corner_center_z + wide_radius * math.sin(a)))
 
     pts.append((-wide_half_extent, transition_z_plus))
     pts.append((-narrow_half_extent, transition_z_minus))
@@ -301,11 +287,11 @@ def split_skirt_profile(wide_half_extent, wide_radius,
     for i in range(n + 1):
         a = math.radians(180 + 90 * i / n)
         pts.append((-narrow_corner_center_x + narrow_radius * math.cos(a),
-                     -narrow_corner_center_z + narrow_radius * math.sin(a)))
+                    -narrow_corner_center_z + narrow_radius * math.sin(a)))
     for i in range(n + 1):
         a = math.radians(270 + 90 * i / n)
         pts.append((narrow_corner_center_x + narrow_radius * math.cos(a),
-                     -narrow_corner_center_z + narrow_radius * math.sin(a)))
+                    -narrow_corner_center_z + narrow_radius * math.sin(a)))
 
     pts.append((narrow_half_extent, transition_z_minus))
     pts.append((wide_half_extent, transition_z_plus))
@@ -313,57 +299,52 @@ def split_skirt_profile(wide_half_extent, wide_radius,
     return pts
 
 
-# ═══════════════════════════════════════════════════════
-# BORE PROFILES (shared by bore construction and tower)
-# ═══════════════════════════════════════════════════════
-
-BORE_PROFILE = bore_octagon_profile()
-BORE_WALL_PROFILE = offset_polygon(BORE_PROFILE, WALL_THICKNESS)
-BORE_WALL_PROFILE_AT_CYLINDER = [
-    (x * OCTAGON_TO_CYLINDER_SCALE, z * OCTAGON_TO_CYLINDER_SCALE)
-    for x, z in BORE_WALL_PROFILE
+# Bore profiles (shared by bore construction and tower)
+bore_profile = bore_octagon_profile()
+bore_wall_profile = offset_polygon(bore_profile, wall_thickness)
+bore_wall_profile_at_cylinder = [
+    (x * octagon_to_cylinder_scale, z * octagon_to_cylinder_scale)
+    for x, z in bore_wall_profile
 ]
 
 
-# ═══════════════════════════════════════════════════════
-# SKIRT PROFILES (shared by skirt, lower extension, split, and snap fits)
-# ═══════════════════════════════════════════════════════
+# Skirt profiles (shared by skirt, lower extension, split, and snap fits)
 
 def compute_skirt_profiles():
     """Compute the outer and inner profiles at each Y-level of the skirt.
 
     The skirt splits asymmetrically: +Z half flares outward (70→76),
-    -Z half tapers inward (70→62).  Both are at 45 degrees.  The
-    transition wall stays in a fixed vertical plane by tracking each
-    endpoint's Z independently.
+    -Z half tapers inward (70→62). Both are at 45 degrees. The transition
+    wall stays in a fixed vertical plane by tracking each endpoint's Z
+    independently.
 
     Returns (outer_profiles, inner_profiles, y_steps).
     """
-    base_half_extent = FOOTPRINT_HALF_EXTENT
-    base_radius = CORNER_R
-    wall = SKIRT_WALL
+    base_half_extent = footprint_half_extent
+    base_radius = corner_r
+    wall = skirt_wall
 
-    wide_half_extent = base_half_extent + SKIRT_WIDE_FLARE_PER_SIDE
-    narrow_half_extent = base_half_extent - SKIRT_NARROW_TAPER_PER_SIDE
+    wide_half_extent = base_half_extent + skirt_wide_flare_per_side
+    narrow_half_extent = base_half_extent - skirt_narrow_taper_per_side
 
     # At the moment the wide flare completes (3mm), the narrow side
     # has only tapered by 3 of its 4mm
-    mid_narrow_half_extent = base_half_extent - SKIRT_WIDE_FLARE_PER_SIDE
+    mid_narrow_half_extent = base_half_extent - skirt_wide_flare_per_side
 
     # Narrow straight section is shorter so both halves land together
     narrow_straight_height = (
-        SKIRT_WIDE_STRAIGHT_HEIGHT
-        - (SKIRT_NARROW_TAPER_PER_SIDE - SKIRT_WIDE_FLARE_PER_SIDE)
+        skirt_wide_straight_height
+        - (skirt_narrow_taper_per_side - skirt_wide_flare_per_side)
     )
 
     # Transition Z coordinates keep the seam wall in the vertical plane
     # X + Z = -base_half_extent at every Y level
-    tz_symmetric_plus  =  0.01
+    tz_symmetric_plus = 0.01
     tz_symmetric_minus = -0.01
-    tz_mid_plus  =  SKIRT_WIDE_FLARE_PER_SIDE
-    tz_mid_minus = -SKIRT_WIDE_FLARE_PER_SIDE
-    tz_end_plus  =  SKIRT_WIDE_FLARE_PER_SIDE
-    tz_end_minus = -SKIRT_NARROW_TAPER_PER_SIDE
+    tz_mid_plus = skirt_wide_flare_per_side
+    tz_mid_minus = -skirt_wide_flare_per_side
+    tz_end_plus = skirt_wide_flare_per_side
+    tz_end_minus = -skirt_narrow_taper_per_side
 
     outer_profiles = [
         split_skirt_profile(base_half_extent, base_radius,
@@ -391,7 +372,7 @@ def compute_skirt_profiles():
 
     # Inner profiles: wall thickness inward from each half-extent and radius.
     # The seam diagonal is at 45 deg, so a wall-thickness X-offset only gives
-    # wall/sqrt(2) perpendicular thickness.  Shift inner transition Z values
+    # wall/sqrt(2) perpendicular thickness. Shift inner transition Z values
     # so the inner seam plane is a full wall-thickness perpendicular from outer.
     inner_base_half_extent = base_half_extent - wall
     inner_base_radius = base_radius - wall
@@ -403,11 +384,11 @@ def compute_skirt_profiles():
     inner_mid_narrow_radius = base_radius - wall
 
     seam_z_shift = wall * (math.sqrt(2) - 1)
-    itz_symmetric_plus  = tz_symmetric_plus
+    itz_symmetric_plus = tz_symmetric_plus
     itz_symmetric_minus = tz_symmetric_minus
-    itz_mid_plus  = tz_mid_plus  + seam_z_shift
+    itz_mid_plus = tz_mid_plus + seam_z_shift
     itz_mid_minus = tz_mid_minus + seam_z_shift
-    itz_end_plus  = tz_end_plus  + seam_z_shift
+    itz_end_plus = tz_end_plus + seam_z_shift
     itz_end_minus = tz_end_minus + seam_z_shift
 
     inner_profiles = [
@@ -435,42 +416,40 @@ def compute_skirt_profiles():
     ]
 
     y_steps = [
-        SKIRT_UPPER_HEIGHT,
-        SKIRT_WIDE_FLARE_PER_SIDE,
-        SKIRT_NARROW_TAPER_PER_SIDE - SKIRT_WIDE_FLARE_PER_SIDE,
+        skirt_upper_height,
+        skirt_wide_flare_per_side,
+        skirt_narrow_taper_per_side - skirt_wide_flare_per_side,
         narrow_straight_height,
     ]
 
     return outer_profiles, inner_profiles, y_steps, narrow_half_extent, tz_end_plus
 
 
-SKIRT_OUTER_PROFILES, SKIRT_INNER_PROFILES, SKIRT_Y_STEPS, \
-    SKIRT_NARROW_HALF_EXTENT, SKIRT_TRANSITION_Z_END_PLUS = compute_skirt_profiles()
+(skirt_outer_profiles, skirt_inner_profiles, skirt_y_steps,
+ skirt_narrow_half_extent, skirt_transition_z_end_plus) = compute_skirt_profiles()
 
-SKIRT_BOTTOM_OFFSET = sum(SKIRT_Y_STEPS)
-SKIRT_BOTTOM_Y = -SKIRT_BOTTOM_OFFSET
+skirt_bottom_offset = sum(skirt_y_steps)
+skirt_bottom_y = -skirt_bottom_offset
 
 
-# ═══════════════════════════════════════════════════════
-# FEATURE FUNCTIONS — BASE PLATE AND BORE
-# ═══════════════════════════════════════════════════════
+# Feature functions — base plate and bore
 
 def build_base_plate_with_ramp():
     """Ramped platform from the 70x70 footprint down to the octagon bore."""
-    footprint = rounded_rect_profile(FOOTPRINT_X, FOOTPRINT_Z, CORNER_R)
+    footprint = rounded_rect_profile(footprint_x, footprint_z, corner_r)
     footprint_at_ramp_bottom = rounded_rect_profile(
-        FOOTPRINT_X - 2 * RAMP_FROM_SKIRT_TO_OCTAGON_HEIGHT,
-        FOOTPRINT_Z - 2 * RAMP_FROM_SKIRT_TO_OCTAGON_HEIGHT,
-        CORNER_R)
+        footprint_x - 2 * ramp_from_skirt_to_octagon_height,
+        footprint_z - 2 * ramp_from_skirt_to_octagon_height,
+        corner_r)
 
     return (
         cq.Workplane("XZ")
         .workplane(offset=0)
-        .center(CENTER_X, CENTER_Z)
+        .center(center_x, center_z)
         .polyline(footprint).close()
-        .workplane(offset=-BASE_THICKNESS)
+        .workplane(offset=-base_thickness)
         .polyline(footprint).close()
-        .workplane(offset=-RAMP_FROM_SKIRT_TO_OCTAGON_HEIGHT)
+        .workplane(offset=-ramp_from_skirt_to_octagon_height)
         .polyline(footprint_at_ramp_bottom).close()
         .loft(ruled=True)
     )
@@ -478,13 +457,13 @@ def build_base_plate_with_ramp():
 
 def add_bore_wall_and_cut_bore(solid):
     """Add octagon bore wall, then cut the bore cavity."""
-    bore_depth = BASE_THICKNESS + RAMP_FROM_SKIRT_TO_OCTAGON_HEIGHT
+    bore_depth = base_thickness + ramp_from_skirt_to_octagon_height
 
     bore_wall = (
         cq.Workplane("XZ")
         .workplane(offset=0)
-        .center(CENTER_X, CENTER_Z)
-        .polyline(BORE_WALL_PROFILE).close()
+        .center(center_x, center_z)
+        .polyline(bore_wall_profile).close()
         .extrude(-bore_depth)
     )
     solid = solid.union(bore_wall)
@@ -492,129 +471,123 @@ def add_bore_wall_and_cut_bore(solid):
     bore_cavity = (
         cq.Workplane("XZ")
         .workplane(offset=0)
-        .center(CENTER_X, CENTER_Z)
-        .polyline(BORE_PROFILE).close()
-        .extrude(-(bore_depth + OVERCUT))
+        .center(center_x, center_z)
+        .polyline(bore_profile).close()
+        .extrude(-(bore_depth + overcut))
     )
     return solid.cut(bore_cavity)
 
 
 def cut_mounting_holes(solid):
     """M3 mounting holes through the base plate and bore wall."""
-    bore_depth = BASE_THICKNESS + RAMP_FROM_SKIRT_TO_OCTAGON_HEIGHT
+    bore_depth = base_thickness + ramp_from_skirt_to_octagon_height
 
-    for hx, hz in HOLE_POSITIONS:
+    for hx, hz in hole_positions:
         hole = (
             cq.Workplane("XZ")
             .workplane(offset=0)
             .center(hx, hz)
-            .circle(HOLE_R)
-            .extrude(-(bore_depth + OVERCUT))
+            .circle(hole_r)
+            .extrude(-(bore_depth + overcut))
         )
         solid = solid.cut(hole)
     return solid
 
 
-# ═══════════════════════════════════════════════════════
-# FEATURE FUNCTIONS — SKIRT
-# ═══════════════════════════════════════════════════════
+# Feature functions — skirt
 
 def build_skirt():
     """Asymmetric flared skirt: wide on +Z, narrow on -Z."""
-    skirt_outer = cq.Workplane("XZ").workplane(offset=0).center(CENTER_X, CENTER_Z)
-    skirt_outer = skirt_outer.polyline(SKIRT_OUTER_PROFILES[0]).close()
-    for step, profile in zip(SKIRT_Y_STEPS, SKIRT_OUTER_PROFILES[1:]):
+    skirt_outer = cq.Workplane("XZ").workplane(offset=0).center(center_x, center_z)
+    skirt_outer = skirt_outer.polyline(skirt_outer_profiles[0]).close()
+    for step, profile in zip(skirt_y_steps, skirt_outer_profiles[1:]):
         skirt_outer = skirt_outer.workplane(offset=step).polyline(profile).close()
     skirt_outer = skirt_outer.loft(ruled=True)
 
-    skirt_cavity = cq.Workplane("XZ").workplane(offset=0).center(CENTER_X, CENTER_Z)
-    skirt_cavity = skirt_cavity.polyline(SKIRT_INNER_PROFILES[0]).close()
-    for i, (step, profile) in enumerate(zip(SKIRT_Y_STEPS, SKIRT_INNER_PROFILES[1:])):
-        extra = OVERCUT if i == len(SKIRT_Y_STEPS) - 1 else 0
+    skirt_cavity = cq.Workplane("XZ").workplane(offset=0).center(center_x, center_z)
+    skirt_cavity = skirt_cavity.polyline(skirt_inner_profiles[0]).close()
+    for i, (step, profile) in enumerate(zip(skirt_y_steps, skirt_inner_profiles[1:])):
+        extra = overcut if i == len(skirt_y_steps) - 1 else 0
         skirt_cavity = skirt_cavity.workplane(offset=step + extra).polyline(profile).close()
     skirt_cavity = skirt_cavity.loft(ruled=True)
 
     return skirt_outer.cut(skirt_cavity)
 
 
-# ═══════════════════════════════════════════════════════
-# FEATURE FUNCTIONS — TOWER
-# ═══════════════════════════════════════════════════════
+# Feature functions — tower
 
 def build_tower():
     """Octagon platform, octagon-to-cylinder ramp, and cylindrical tower."""
     tower_platform = (
         cq.Workplane("XZ")
-        .workplane(offset=TOWER_BASE_Y)
-        .center(CENTER_X, CENTER_Z)
-        .polyline(BORE_WALL_PROFILE).close()
-        .extrude(-PLATFORM_THICKNESS)
+        .workplane(offset=tower_base_y)
+        .center(center_x, center_z)
+        .polyline(bore_wall_profile).close()
+        .extrude(-platform_thickness)
     )
 
     tower_ramp = (
         cq.Workplane("XZ")
-        .workplane(offset=TOWER_BASE_Y - PLATFORM_THICKNESS)
-        .center(CENTER_X, CENTER_Z)
-        .polyline(BORE_WALL_PROFILE).close()
-        .workplane(offset=-RAMP_FROM_OCTAGON_TO_CYLINDER_HEIGHT)
-        .polyline(BORE_WALL_PROFILE_AT_CYLINDER).close()
+        .workplane(offset=tower_base_y - platform_thickness)
+        .center(center_x, center_z)
+        .polyline(bore_wall_profile).close()
+        .workplane(offset=-ramp_from_octagon_to_cylinder_height)
+        .polyline(bore_wall_profile_at_cylinder).close()
         .loft(ruled=True)
     )
 
     tower_cylinder = (
         cq.Workplane("XZ")
-        .workplane(offset=TOWER_BASE_Y)
-        .center(CENTER_X, CENTER_Z)
-        .circle(CYLINDER_R_OUTER)
-        .extrude(-TOWER_HEIGHT)
+        .workplane(offset=tower_base_y)
+        .center(center_x, center_z)
+        .circle(cylinder_r_outer)
+        .extrude(-tower_height)
     )
 
     tower = tower_platform.union(tower_ramp).union(tower_cylinder)
 
-    tower_bore_depth = TOWER_HEIGHT - CAP_THICKNESS
+    tower_bore_depth = tower_height - cap_thickness
     tower_bore = (
         cq.Workplane("XZ")
-        .workplane(offset=TOWER_BASE_Y + OVERCUT)
-        .center(CENTER_X, CENTER_Z)
-        .circle(CYLINDER_R_INNER)
-        .extrude(-(tower_bore_depth + OVERCUT))
+        .workplane(offset=tower_base_y + overcut)
+        .center(center_x, center_z)
+        .circle(cylinder_r_inner)
+        .extrude(-(tower_bore_depth + overcut))
     )
     return tower.cut(tower_bore)
 
 
-# ═══════════════════════════════════════════════════════
-# FEATURE FUNCTIONS — LOWER EXTENSION
-# ═══════════════════════════════════════════════════════
+# Feature functions — lower extension
 
 def build_lower_extension():
     """Lower portion extending from skirt bottom: taper to uniform, then cap."""
-    lower_ramp_height = (FOOTPRINT_HALF_EXTENT + SKIRT_WIDE_FLARE_PER_SIDE
-                         - SKIRT_NARROW_HALF_EXTENT)
-    lower_uniform_straight = (LOWER_HEIGHT - lower_ramp_height
-                              - LOWER_FOOTPRINT_STRAIGHT)
+    lower_ramp_height = (footprint_half_extent + skirt_wide_flare_per_side
+                         - skirt_narrow_half_extent)
+    lower_uniform_straight = (lower_height - lower_ramp_height
+                              - lower_footprint_straight)
 
-    inner_narrow_half_extent = SKIRT_NARROW_HALF_EXTENT - SKIRT_WALL
-    inner_narrow_radius = CORNER_R - SKIRT_WALL
-    inner_base_half_extent = FOOTPRINT_HALF_EXTENT - SKIRT_WALL
+    inner_narrow_half_extent = skirt_narrow_half_extent - skirt_wall
+    inner_narrow_radius = corner_r - skirt_wall
+    inner_base_half_extent = footprint_half_extent - skirt_wall
 
     lower_outer_profiles = [
-        SKIRT_OUTER_PROFILES[-1],
-        SKIRT_OUTER_PROFILES[-1],
-        split_skirt_profile(SKIRT_NARROW_HALF_EXTENT, CORNER_R,
-                            SKIRT_NARROW_HALF_EXTENT, CORNER_R,
+        skirt_outer_profiles[-1],
+        skirt_outer_profiles[-1],
+        split_skirt_profile(skirt_narrow_half_extent, corner_r,
+                            skirt_narrow_half_extent, corner_r,
                             0.01, -0.01,
-                            wide_half_extent_z=FOOTPRINT_HALF_EXTENT,
-                            narrow_half_extent_z=FOOTPRINT_HALF_EXTENT),
-        split_skirt_profile(SKIRT_NARROW_HALF_EXTENT, CORNER_R,
-                            SKIRT_NARROW_HALF_EXTENT, CORNER_R,
+                            wide_half_extent_z=footprint_half_extent,
+                            narrow_half_extent_z=footprint_half_extent),
+        split_skirt_profile(skirt_narrow_half_extent, corner_r,
+                            skirt_narrow_half_extent, corner_r,
                             0.01, -0.01,
-                            wide_half_extent_z=FOOTPRINT_HALF_EXTENT,
-                            narrow_half_extent_z=FOOTPRINT_HALF_EXTENT),
+                            wide_half_extent_z=footprint_half_extent,
+                            narrow_half_extent_z=footprint_half_extent),
     ]
 
     lower_inner_profiles = [
-        SKIRT_INNER_PROFILES[-1],
-        SKIRT_INNER_PROFILES[-1],
+        skirt_inner_profiles[-1],
+        skirt_inner_profiles[-1],
         split_skirt_profile(inner_narrow_half_extent, inner_narrow_radius,
                             inner_narrow_half_extent, inner_narrow_radius,
                             0.01, -0.01,
@@ -627,13 +600,13 @@ def build_lower_extension():
                             narrow_half_extent_z=inner_base_half_extent),
     ]
 
-    lower_y_steps = [LOWER_FOOTPRINT_STRAIGHT, lower_ramp_height,
+    lower_y_steps = [lower_footprint_straight, lower_ramp_height,
                      lower_uniform_straight]
 
     lower_outer = (
         cq.Workplane("XZ")
-        .workplane(offset=SKIRT_BOTTOM_OFFSET)
-        .center(CENTER_X, CENTER_Z)
+        .workplane(offset=skirt_bottom_offset)
+        .center(center_x, center_z)
     )
     lower_outer = lower_outer.polyline(lower_outer_profiles[0]).close()
     for step, prof in zip(lower_y_steps, lower_outer_profiles[1:]):
@@ -642,47 +615,45 @@ def build_lower_extension():
 
     lower_inner = (
         cq.Workplane("XZ")
-        .workplane(offset=SKIRT_BOTTOM_OFFSET)
-        .center(CENTER_X, CENTER_Z)
+        .workplane(offset=skirt_bottom_offset)
+        .center(center_x, center_z)
     )
     lower_inner = lower_inner.polyline(lower_inner_profiles[0]).close()
     for i, (step, prof) in enumerate(zip(lower_y_steps, lower_inner_profiles[1:])):
-        extra = OVERCUT if i == len(lower_y_steps) - 1 else 0
+        extra = overcut if i == len(lower_y_steps) - 1 else 0
         lower_inner = lower_inner.workplane(offset=step + extra).polyline(prof).close()
     lower_inner = lower_inner.loft(ruled=True)
 
     lower_shell = lower_outer.cut(lower_inner)
 
-    lower_cap_offset = SKIRT_BOTTOM_OFFSET + LOWER_HEIGHT
+    lower_cap_offset = skirt_bottom_offset + lower_height
     lower_cap = (
         cq.Workplane("XZ")
         .workplane(offset=lower_cap_offset)
-        .center(CENTER_X, CENTER_Z)
+        .center(center_x, center_z)
         .polyline(lower_outer_profiles[-1]).close()
-        .extrude(LOWER_CAP_THICKNESS)
+        .extrude(lower_cap_thickness)
     )
     return lower_shell.union(lower_cap)
 
 
-# ═══════════════════════════════════════════════════════
-# FEATURE FUNCTIONS — ARCH NOTCHES, SPLIT, SNAPS
-# ═══════════════════════════════════════════════════════
+# Feature functions — arch notches, split, snaps
 
 def cut_arch_notches(combined):
     """Semicircular notches on the +Z face for wire routing."""
-    z_face_outer = CENTER_Z + FOOTPRINT_HALF_EXTENT
+    z_face_outer = center_z + footprint_half_extent
     arch_hole_xs = [
-        CORNER_R + ARCH_RADIUS - 4,
-        FOOTPRINT_X - CORNER_R - ARCH_RADIUS + 4,
+        corner_r + arch_radius - 4,
+        footprint_x - corner_r - arch_radius + 4,
     ]
 
     for ax in arch_hole_xs:
         arch_cutter = (
             cq.Workplane("XY")
-            .workplane(offset=z_face_outer + OVERCUT)
-            .center(ax, SKIRT_BOTTOM_Y)
-            .circle(ARCH_RADIUS)
-            .extrude(-(SKIRT_WALL + 3 + OVERCUT))
+            .workplane(offset=z_face_outer + overcut)
+            .center(ax, skirt_bottom_y)
+            .circle(arch_radius)
+            .extrude(-(skirt_wall + 3 + overcut))
         )
         combined = combined.cut(arch_cutter)
     return combined
@@ -693,28 +664,28 @@ def split_into_base_and_cap(combined):
 
     The two parts meet at two different Y levels:
       Wide half (+Z):   at skirt_bottom_offset (original mating surface)
-      Narrow half (-Z): STEP_HEIGHT higher into the skirt
+      Narrow half (-Z): step_height higher into the skirt
     The boundary follows the seam diagonal.
     """
-    step_offset = SKIRT_BOTTOM_OFFSET - STEP_HEIGHT
-    lower_end_offset = SKIRT_BOTTOM_OFFSET + LOWER_HEIGHT + LOWER_CAP_THICKNESS + OVERCUT
+    step_offset = skirt_bottom_offset - step_height
+    lower_end_offset = skirt_bottom_offset + lower_height + lower_cap_thickness + overcut
 
     full_slab = (
         cq.Workplane("XZ")
-        .workplane(offset=SKIRT_BOTTOM_OFFSET)
-        .center(CENTER_X, CENTER_Z)
+        .workplane(offset=skirt_bottom_offset)
+        .center(center_x, center_z)
         .rect(100, 100)
-        .extrude(lower_end_offset - SKIRT_BOTTOM_OFFSET)
+        .extrude(lower_end_offset - skirt_bottom_offset)
     )
 
-    step_z = SKIRT_TRANSITION_Z_END_PLUS + STEP_Z_CLEARANCE
-    narrow_box = [(-50, -50), (50, -50), (50, step_z + OVERCUT), (-50, step_z + OVERCUT)]
+    step_z = skirt_transition_z_end_plus + step_z_clearance
+    narrow_box = [(-50, -50), (50, -50), (50, step_z + overcut), (-50, step_z + overcut)]
     narrow_step = (
         cq.Workplane("XZ")
         .workplane(offset=step_offset)
-        .center(CENTER_X, CENTER_Z)
+        .center(center_x, center_z)
         .polyline(narrow_box).close()
-        .extrude(SKIRT_BOTTOM_OFFSET - step_offset)
+        .extrude(skirt_bottom_offset - step_offset)
     )
 
     step_cutter = full_slab.union(narrow_step)
@@ -726,30 +697,30 @@ def split_into_base_and_cap(combined):
 
 def add_snap_fits(base, cap):
     """Snap-fit ramps on four interior walls where base meets cap."""
-    step_offset = SKIRT_BOTTOM_OFFSET - STEP_HEIGHT
+    step_offset = skirt_bottom_offset - step_height
 
-    snap_plus_z_inner = CENTER_Z + FOOTPRINT_HALF_EXTENT - WALL_THICKNESS
-    snap_minus_z_inner = CENTER_Z - FOOTPRINT_HALF_EXTENT + WALL_THICKNESS
-    snap_plus_x_narrow_inner = CENTER_X + FOOTPRINT_HALF_EXTENT - WALL_THICKNESS
-    snap_minus_x_narrow_inner = CENTER_X - FOOTPRINT_HALF_EXTENT + WALL_THICKNESS
+    snap_plus_z_inner = center_z + footprint_half_extent - wall_thickness
+    snap_minus_z_inner = center_z - footprint_half_extent + wall_thickness
+    snap_plus_x_narrow_inner = center_x + footprint_half_extent - wall_thickness
+    snap_minus_x_narrow_inner = center_x - footprint_half_extent + wall_thickness
 
-    wide_split_y = -SKIRT_BOTTOM_OFFSET
+    wide_split_y = -skirt_bottom_offset
     narrow_split_y = -step_offset
 
-    yz_zone_start = CENTER_X - SNAP_ZONE_WIDTH / 2
-    yz_zone_end = CENTER_X + SNAP_ZONE_WIDTH / 2
-    xy_narrow_zone_start = CENTER_Z - SKIRT_NARROW_HALF_EXTENT + CORNER_R + 0.5
-    xy_narrow_zone_end = xy_narrow_zone_start + SNAP_ZONE_WIDTH
+    yz_zone_start = center_x - snap_zone_width / 2
+    yz_zone_end = center_x + snap_zone_width / 2
+    xy_narrow_zone_start = center_z - skirt_narrow_half_extent + corner_r + 0.5
+    xy_narrow_zone_end = xy_narrow_zone_start + snap_zone_width
 
     snap_faces = [
-        (snap_plus_z_inner,         +1, wide_split_y,    "YZ",
-         yz_zone_start, yz_zone_end, SNAP_WALL_HEIGHT),
-        (snap_minus_z_inner,        -1, narrow_split_y,  "YZ",
-         yz_zone_start, yz_zone_end, SNAP_WALL_HEIGHT),
-        (snap_plus_x_narrow_inner,  +1, narrow_split_y,  "XY",
-         xy_narrow_zone_start, xy_narrow_zone_end, SNAP_WALL_HEIGHT),
-        (snap_minus_x_narrow_inner, -1, narrow_split_y,  "XY",
-         xy_narrow_zone_start, xy_narrow_zone_end, SNAP_WALL_HEIGHT),
+        (snap_plus_z_inner, +1, wide_split_y, "YZ",
+         yz_zone_start, yz_zone_end, snap_wall_height),
+        (snap_minus_z_inner, -1, narrow_split_y, "YZ",
+         yz_zone_start, yz_zone_end, snap_wall_height),
+        (snap_plus_x_narrow_inner, +1, narrow_split_y, "XY",
+         xy_narrow_zone_start, xy_narrow_zone_end, snap_wall_height),
+        (snap_minus_x_narrow_inner, -1, narrow_split_y, "XY",
+         xy_narrow_zone_start, xy_narrow_zone_end, snap_wall_height),
     ]
 
     for inner_face, sign, split_y, plane, zone_start, zone_end, wall_height in snap_faces:
@@ -764,7 +735,7 @@ def add_snap_fits(base, cap):
             orientation_plane=plane,
             orientation_height_sign=-1,
             orientation_height_axis="Y",
-            deflection_distance=SNAP_DEFLECTION,
+            deflection_distance=snap_deflection,
         )
         cap = apply_ramp_in_first(
             solid=cap,
@@ -777,50 +748,46 @@ def add_snap_fits(base, cap):
             orientation_plane=plane,
             orientation_height_sign=+1,
             orientation_height_axis="Y",
-            deflection_distance=SNAP_DEFLECTION,
+            deflection_distance=snap_deflection,
         )
 
     return base, cap
 
 
-# ═══════════════════════════════════════════════════════
-# FEATURE FUNCTIONS — POGO CONNECTOR POCKET
-# ═══════════════════════════════════════════════════════
+# Feature functions — pogo connector pocket
 
 def add_pogo_pocket(base):
     """Stepped pill pocket on the +Z face with an outward pill ridge for pogo mating."""
-    z_face_outer = CENTER_Z + FOOTPRINT_HALF_EXTENT
-    pogo_y = SKIRT_BOTTOM_Y + POGO_Y_OFFSET
+    z_face_outer = center_z + footprint_half_extent
+    pogo_y = skirt_bottom_y + pogo_y_offset
 
     ridge = (
         cq.Workplane("XY")
         .workplane(offset=z_face_outer)
-        .center(CENTER_X, pogo_y)
-        .slot2D(POGO_RIDGE_LENGTH, POGO_RIDGE_WIDTH)
-        .extrude(POGO_RIDGE_DEPTH)
+        .center(center_x, pogo_y)
+        .slot2D(pogo_ridge_length, pogo_ridge_width)
+        .extrude(pogo_ridge_depth)
     )
     base = base.union(ridge)
 
     outer_step = (
         cq.Workplane("XY")
-        .workplane(offset=z_face_outer + POGO_RIDGE_DEPTH + OVERCUT)
-        .center(CENTER_X, pogo_y)
-        .slot2D(POGO_OUTER_LENGTH, POGO_OUTER_WIDTH)
-        .extrude(-(POGO_OUTER_DEPTH + OVERCUT))
+        .workplane(offset=z_face_outer + pogo_ridge_depth + overcut)
+        .center(center_x, pogo_y)
+        .slot2D(pogo_outer_length, pogo_outer_width)
+        .extrude(-(pogo_outer_depth + overcut))
     )
     inner_step = (
         cq.Workplane("XY")
-        .workplane(offset=z_face_outer + OVERCUT)
-        .center(CENTER_X, pogo_y)
-        .slot2D(POGO_INNER_LENGTH, POGO_INNER_WIDTH)
-        .extrude(-(WALL_THICKNESS + 2 * OVERCUT))
+        .workplane(offset=z_face_outer + overcut)
+        .center(center_x, pogo_y)
+        .slot2D(pogo_inner_length, pogo_inner_width)
+        .extrude(-(wall_thickness + 2 * overcut))
     )
     return base.cut(outer_step).cut(inner_step)
 
 
-# ═══════════════════════════════════════════════════════
-# ASSEMBLY
-# ═══════════════════════════════════════════════════════
+# Assembly
 
 def build_pump_case():
     solid = build_base_plate_with_ramp()
@@ -836,22 +803,13 @@ def build_pump_case():
     return base, cap
 
 
-# ═══════════════════════════════════════════════════════
-# BUILD AND EXPORT
-# ═══════════════════════════════════════════════════════
+def main():
+    base, cap = build_pump_case()
+    export_step(base, str(_here / "pump-case-base-cadquery.step"))
+    export_step(cap, str(_here / "pump-case-cap-cadquery.step"))
+    print("-> pump-case-base-cadquery.step")
+    print("-> pump-case-cap-cadquery.step")
 
-base, cap = build_pump_case()
 
-for name, part in [("Base", base), ("Cap", cap)]:
-    solids = part.solids().vals()
-    print(f"{name}: {len(solids)} solid(s)")
-    for i, s in enumerate(solids):
-        bb = s.BoundingBox()
-        print(f"  Solid {i}: X[{bb.xmin:.1f},{bb.xmax:.1f}] "
-              f"Y[{bb.ymin:.1f},{bb.ymax:.1f}] Z[{bb.zmin:.1f},{bb.zmax:.1f}]")
-
-OUTPUT_DIR = Path(__file__).resolve().parent
-export_step(base, str(OUTPUT_DIR / "pump-case-base-cadquery.step"))
-print("Exported → pump-case-base-cadquery.step")
-export_step(cap, str(OUTPUT_DIR / "pump-case-cap-cadquery.step"))
-print("Exported → pump-case-cap-cadquery.step")
+if __name__ == "__main__":
+    main()
