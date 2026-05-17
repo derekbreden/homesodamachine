@@ -6,7 +6,7 @@ import cadquery as cq
 from _cold_core_interface import (
     xz_plane_y_up,
     xy_plane_z_up,
-    flip_z,
+    WorldWorkplane,
     wall_and_floor_thickness,
     foam_shell_outer_height,
     bag_pocket_width,
@@ -65,11 +65,12 @@ def make_box(x_range, y_range, z_range):
     y_min, y_max = min(y_range), max(y_range)
     z_min, z_max = min(z_range), max(z_range)
     return (
-        cq.Workplane(xz_plane_y_up)
+        WorldWorkplane(xz_plane_y_up)
         .workplane(offset=y_min)
-        .moveTo(*flip_z(((x_min + x_max) / 2, (z_min + z_max) / 2)))
+        .moveTo(((x_min + x_max) / 2, (z_min + z_max) / 2))
         .rect(x_max - x_min, z_max - z_min)
         .extrude(y_max - y_min)
+        .unwrap()
     )
 
 
@@ -135,13 +136,13 @@ def build_reed_channels(side):
         .extrude(-outer_corner_r)
     )
     inner_fillet_cut = (
-        cq.Workplane(xz_plane_y_up)
+        WorldWorkplane(xz_plane_y_up)
         .workplane(offset=cable_envelope_wedge_apex_y)
-        .moveTo(*flip_z((fillet_axis_x, fillet_axis_z)))
+        .moveTo((fillet_axis_x, fillet_axis_z))
         .circle(outer_corner_r)
         .extrude(outer_corner_r)
     )
-    missing_wall = missing_wall.cut(inner_fillet_cut)
+    missing_wall = missing_wall.cut(inner_fillet_cut.unwrap())
 
     # A channel = envelope (wall material) with cavity carved out. The
     # two channels' envelopes overlap at the corner where they meet,
