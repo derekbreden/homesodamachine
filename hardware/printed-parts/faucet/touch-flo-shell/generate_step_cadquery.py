@@ -322,8 +322,8 @@ gn_bend1_r = 30.0  # water tube — bend 1
 gn_bend2_r = 40.0  # water tube — bend 2
 gn_bend1_sweep_rad = math.radians(30.0)
 gn_bend2_sweep_rad = math.radians(110.0)
-lever_top_z = zone2_z_top + 13.0  # 52
-gn_bend1_mid_z = lever_top_z + 35.0  # 87
+# 35 mm above the lever rest top (at zone2_z_top + 13 = 52).
+gn_bend1_mid_z = zone2_z_top + 48.0  # 87
 gn_bend1_start_z = (
     gn_bend1_mid_z
     - gn_bend1_r * math.sin(gn_bend1_sweep_rad / 2.0)
@@ -368,39 +368,15 @@ back_arch_mid_z = back_arch_center_z + back_arch_r * math.sin(_back_arch_a_mid) 
 # edge sits at zone45_front_x — chosen so the front margin (zone 4.5
 # front X to zone 5's water-circle -X edge) matches the back margin
 # (zone 4.5 back X to zone 5's flavor-pill +X edge), giving zone 5
-# visually centered when looking down the X axis. This pulls the
-# front past the lever's "ridge" line lever_ridge_x (the X where the
-# pressed lever's tilted top crosses the rest lever's flat top at
-# Z=lever_rest_top_z), but the lid's bottom on the arch curve still
-# clears the lever's swing envelope by ~0.9 mm there.
+# visually centered when looking down the X axis. The front edge sits
+# past the pressed-lever's ridge line, but the lid's bottom on the arch
+# curve still clears the lever's swing envelope by ~0.9 mm there.
 #
 # Bottom face = arch curve from (zone45_front_x, arch_z) up to
 # (fill_x_min, zone4_z_top), then flat at zone4_z_top out to the +X
 # cylinder back. Top face = flat at zone45_z_top. Both -X and +X
 # edges curve inward at large |Y| via mirrored cylinder clips of
 # radius shell_outer_r.
-#
-# Lever swing geometry mirrors the assembly's build_lever — pivot
-# parallel to Y at (lever_pivot_x, *, lever_pivot_z), pressed-down
-# rotates by lever_pressed_angle about that axis.
-
-lever_pivot_x = 1.5
-lever_pivot_z = zone2_z_top + 7.0  # 46 — = PLATEAU_Z+1+6
-lever_pressed_angle = math.radians(18.0)
-lever_rest_top_z = zone2_z_top + 13.0  # 52 — = PLATEAU_Z+1+12
-_lever_dz_pivot = lever_rest_top_z - lever_pivot_z  # 6
-
-# Closed form for where pressed top crosses Z=lever_rest_top_z:
-# Z'(X0) = Z_pivot + (X0-X_pivot)·sin θ + dz_pivot·cos θ = Z_rest
-#   ⇒  (X0-X_pivot) = dz_pivot·(1-cos θ)/sin θ
-# X'(X0) = X_pivot + (X0-X_pivot)·cos θ - dz_pivot·sin θ
-#   ⇒  X' = X_pivot - dz_pivot·(1-cos θ)/sin θ = X_pivot - dz_pivot·tan(θ/2)
-# Informational — the visible "ridge" of the lever swing envelope.
-# Not directly used in the build (zone45_front_x overrides it).
-lever_ridge_x = (
-    lever_pivot_x
-    - _lever_dz_pivot * math.tan(lever_pressed_angle / 2.0)
-)  # ≈ 0.55
 
 # Zone 5's X extents at Y=0, used to derive zone 4.5's matched-margin
 # front X. Mirrors the tube-shell cross-section.
