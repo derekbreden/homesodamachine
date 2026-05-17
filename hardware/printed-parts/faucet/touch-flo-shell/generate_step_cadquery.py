@@ -1351,57 +1351,11 @@ def build_shell() -> cq.Workplane:
     return outer.cut(inner)
 
 
-# BUILD AND EXPORT
+def main():
+    out = Path(__file__).resolve().parent / "touch-flo-shell.step"
+    export_step(build_shell(), str(out))
+    print(f"-> {out.name}")
+
 
 if __name__ == "__main__":
-    shell = build_shell()
-    out = Path(__file__).resolve().parent / "touch-flo-shell.step"
-    export_step(shell, str(out))
-
-    print("Touch-Flo shell — single piece")
-    print(f"  Center:          X = {shell_center_x}, Y = {shell_center_y}")
-    print(f"  Wall target:     {wall_thickness_min} mm "
-          f"(thins to ~2.68 mm at pill +X cap shoulder)")
-    print()
-    print(f"  Per-side clearance:  {bore_clearance} mm "
-          f"(applied uniformly: X, Y, radial, AND face-to-face Z)")
-    print()
-    print(f"  Outer cylinder:  Ø{shell_outer_diameter:.3f} mm, "
-          f"Z = {zone1_z_bottom} → {zone1_outer_top}")
-    print(f"                   (lifted {shell_outer_lip} mm = WALL+GAP "
-          f"above body cyl top at Z={zone1_z_top})")
-    print(f"  Outer rect+cove: {shell_rect_x_width:.3f} × {shell_rect_y_width} mm, "
-          f"Z = {zone2_outer_bot} → {zone2_z_top}")
-    print(f"                   (corners clipped to Ø{shell_outer_diameter:.3f} cylinder)")
-    print(f"    Cove:          R = {cove_r} mm on Y faces, Z = {zone2_outer_bot} → {cove_top_outer_z}")
-    print()
-    print(f"  Bore cylinder:   Ø{body_bore_diameter} mm at "
-          f"({body_bore_x}, {body_bore_y}), Z = {zone1_z_bottom} → {zone2_bore_bottom}")
-    print(f"                   (lifted {bore_clearance} mm above body cyl top "
-          f"so the bore step gets the same Z gap as the X/Y gaps)")
-    print(f"  Bore rect+cove:  {body_bore_rect_long} × {body_bore_rect_short} mm rect "
-          f"∩ Ø{body_bore_diameter} cyl, Z = {zone2_bore_bottom} → {zone2_z_top}")
-    print(f"                   with R = {cove_r} mm cove on Y faces, "
-          f"Z = {zone2_bore_bottom} → {cove_top_z}")
-    print(f"                   (mirrors body's filler+cove construction)")
-    print()
-    print(f"  Flavor pill:     {pill_length_y} × {pill_width_x} mm "
-          f"at ({flavor_tube_x}, 0), Y-oriented, full Z = 0 → {zone2_z_top}")
-    print()
-    print(f"  Lever clearance: chamfer ramp on top -X corner, "
-          f"Y = ±{lever_clearance_y_half}, top at Z={zone2_z_top}")
-    print(f"                   -X end:  X={lever_ramp_x_min} (outer rect face), "
-          f"depth {lever_ramp_depth} mm")
-    print(f"                   +X end:  X={lever_ramp_x_start:.4f} "
-          f"(bore tangent at Y_HALF = {_bore_x_at_lever_y:.4f} "
-          f"− {tangent_overshoot} overshoot)")
-    print(f"                   slope:   {lever_ramp_angle_deg:.2f}° (derived)")
-    print()
-    print(f"  Tube shell:      {zone5_wall:.0f} mm wall throughout (no socket, no split)")
-    print(f"  Gooseneck:       starts at Z = {zone5_z_top}, then bend 1 / mid / bend 2 / tip")
-    print()
-    print(f"  Insert pockets:  Ø{insert_pocket_diameter} × {insert_pocket_depth} mm deep at "
-          f"({insert_x:.3f}, ±{insert_y_offset:.3f}) "
-          f"[θ=±{insert_theta_deg}°, r={insert_r_from_body} from body]")
-    print(f"                   for ruthex M3 short heat-set inserts (B09ZHSGHXD)")
-    print(f"-> {out.name}")
+    main()
