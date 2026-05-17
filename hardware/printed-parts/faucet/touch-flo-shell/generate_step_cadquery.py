@@ -231,7 +231,7 @@ zone4_height = zone4_z_top - zone4_z_bottom  # 10.75
 zone5_z_bottom = zone4_z_top  # 57.5
 zone5_z_top = zone4_z_top + 10.0  # 67.5
 zone5_height = zone5_z_top - zone5_z_bottom  # 10
-zone5_wall = wall_thickness_min  # 3.0 — uniform around the tube wraps
+zone5_wall = wall_thickness_min + 1
 
 # Tube-shell cross-section vocabulary — shared by zone 5's vertical
 # extrusion and zone 6's sweep along the gooseneck path.
