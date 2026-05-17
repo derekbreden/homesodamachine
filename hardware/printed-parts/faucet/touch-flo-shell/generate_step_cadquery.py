@@ -181,8 +181,9 @@ tangent_overshoot = 0.002  # mm past bore tangent
 lever_ramp_x_min = shell_center_x - shell_outer_r  # = -19.0
 
 # X_START: bore-cylinder tangent at cut's Y_HALF, plus overshoot
-_bore_r = body_bore_diameter / 2.0  # = 16.0
-_bore_x_at_lever_y = -math.sqrt(_bore_r**2 - lever_clearance_y_half**2)  # ≈ -14.5061
+_bore_x_at_lever_y = -math.sqrt(
+    (body_bore_diameter / 2.0) ** 2 - lever_clearance_y_half ** 2
+)  # ≈ -14.5061
 lever_ramp_x_start = _bore_x_at_lever_y - tangent_overshoot  # ≈ -14.5081
 
 # Derived slope (informational; not used as input to geometry)
@@ -214,7 +215,6 @@ zone3_z_bottom = zone2_z_top  # 39
 
 arch_base_z = 41.0  # body foot top
 arch_peak_z = 46.0  # body arc peak
-arch_x_half = body_rect_long / 2.0  # 15.75 — body arch X extent
 body_arch_inner_y = 7.0  # body arch face nearest plateau
 body_arch_outer_y = 8.5  # body arch face nearest shell exterior
 
@@ -260,7 +260,6 @@ water_hole_diameter = water_tube_od + 2.0 * bore_clearance  # 10.025
 # 1/4" LLDPE flavor tube — used to derive POST_BEND_X so the flavor
 # tube butts up against the water tube at the dispense point.
 flavor_tube_od = 0.25 * 25.4  # 6.35 — 1/4" LLDPE
-flavor_tube_pre_bend_x = flavor_tube_x  # 18.925
 # Butt the flavor tube against the water tube at the dispense point.
 # In 3D, each flavor tube sits at Y=±flavor_tube_y_offset (so they
 # also touch each other), so X-tangency is Pythagorean:
@@ -293,7 +292,6 @@ zone4_z_bottom = shell_arch_foot_top_z  # 44.25
 # bumped to 57.5 mm for ~3.5 mm clearance above 54.024.
 zone4_z_top = 57.5
 zone4_height = zone4_z_top - zone4_z_bottom  # 10.75
-zone4_wall = wall_thickness_min  # 3.0
 
 
 # ZONE 5 — tube wrapper above the lever
