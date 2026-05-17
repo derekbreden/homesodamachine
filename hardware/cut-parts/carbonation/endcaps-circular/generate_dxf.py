@@ -49,42 +49,48 @@ from pathlib import Path
 
 import ezdxf
 
-# ── Dimensions (inches) ──
+# Dimensions in inches; DXF $INSUNITS = 1 (inches).
 
-DISC_DIA = 4.860
-DISC_R = DISC_DIA / 2
+disc_diameter = 4.860
+disc_radius = disc_diameter / 2
+disc_thickness = 0.250
 
-HOLE_DIA = 0.438          # 7/16" tap drill for 1/4"-18 NPT
-HOLE_R = HOLE_DIA / 2
+# 7/16" tap drill for 1/4"-18 NPT.
+hole_diameter = 0.438
+hole_radius = hole_diameter / 2
 
-HOLE_POSITIONS = [
+# Center-to-center 1.500" along one axis — matches the CNC dome-cap
+# variants preserved at git tag archive-plan-b so plumbing layout is
+# identical across cap styles.
+hole_positions = [
     (-0.750, 0.0),
     (+0.750, 0.0),
 ]
 
-OUT_DIR = Path(__file__).resolve().parent
+out_dir = Path(__file__).resolve().parent
+out_name = "endcap-circular-2hole"
 
 
-def make_disc(name: str) -> None:
+def make_disc() -> Path:
     doc = ezdxf.new(dxfversion="R2010")
     doc.header["$INSUNITS"] = 1  # inches
     msp = doc.modelspace()
 
-    msp.add_circle((0, 0), DISC_R)
-    for cx, cy in HOLE_POSITIONS:
-        msp.add_circle((cx, cy), HOLE_R)
+    msp.add_circle((0, 0), disc_radius)
+    for hole_center in hole_positions:
+        msp.add_circle(hole_center, hole_radius)
 
-    path = OUT_DIR / f"{name}.dxf"
+    path = out_dir / f"{out_name}.dxf"
     doc.saveas(str(path))
-    print(f"Exported: {path}  ({len(HOLE_POSITIONS)} holes)")
+    return path
 
 
-# Single disc design; both end caps of a vessel are identical.
-make_disc("endcap-circular-2hole")
-
-print(f"\nDisc diameter:   {DISC_DIA}\"  (fits 5.000\" OD x 0.065\" wall tube, ID 4.870\")")
-print(f"Disc thickness:  0.250\"")
-print(f"Hole diameter:   {HOLE_DIA}\"  (7/16\" tap drill for 1/4\"-18 NPT)")
-print(f"Hole spacing:    1.500\" center-to-center along one axis")
-print(f"Material:        316 SS, laser-cut")
-print(f"Per vessel:      2 identical discs, each tapped 2x 1/4\"-18 NPT")
+if __name__ == "__main__":
+    path = make_disc()
+    print(f"Exported: {path}  ({len(hole_positions)} holes)")
+    print(f"  Disc diameter:   {disc_diameter}\"  (fits 5.000\" OD x 0.065\" wall tube, ID 4.870\")")
+    print(f"  Disc thickness:  {disc_thickness}\"")
+    print(f"  Hole diameter:   {hole_diameter}\"  (7/16\" tap drill for 1/4\"-18 NPT)")
+    print(f"  Hole spacing:    1.500\" center-to-center along one axis")
+    print(f"  Material:        316 SS, laser-cut")
+    print(f"  Per vessel:      2 identical discs, each tapped 2x 1/4\"-18 NPT")
