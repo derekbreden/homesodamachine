@@ -2,7 +2,7 @@
 Coil winding mandrel — single first-attempt mandrel.
 
 Hollow PETG-printed mandrel for hand-winding 1/4" OD copper around the
-5" round 316L pressure vessel.  5 mm solid PETG wall (no infill) with
+5" round 316L pressure vessel. 5 mm solid PETG wall (no infill) with
 a shallow helical guide groove sized so the copper nests cleanly into
 the cradle but only 1 mm deep — easy to lift off after winding.
 
@@ -152,9 +152,10 @@ handle_length_in = 0.75
 handle_length = handle_length_in * 25.4  # 19.05 mm
 total_length = handle_length + wind_length + handle_length  # 158.5 mm
 
-lower_handle_z_range = (0, handle_length)
-wind_z_range = (handle_length, handle_length + wind_length)
-upper_handle_z_range = (handle_length + wind_length, total_length)
+mandrel_z_range = (0, total_length)
+lower_handle_z_range = (mandrel_z_range[0], handle_length)
+wind_z_range = (lower_handle_z_range[1], lower_handle_z_range[1] + wind_length)
+upper_handle_z_range = (wind_z_range[1], mandrel_z_range[1])
 
 
 # ═══════════════════════════════════════════════════════
@@ -173,8 +174,7 @@ def hollow_ring(r_range, z_range):
 
 
 def build_mandrel():
-    full_z_range = (lower_handle_z_range[0], upper_handle_z_range[1])
-    body = hollow_ring(mandrel_r_range, full_z_range)
+    body = hollow_ring(mandrel_r_range, mandrel_z_range)
 
     # Helical groove. Path is offset OUTWARD by groove_offset so the
     # profile circle (radius = tube_radius around the path) cuts only
