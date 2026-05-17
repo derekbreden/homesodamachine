@@ -36,16 +36,6 @@ channel_width = wall_thickness + outer_growth_default
 overcut = 0.1
 
 
-def _height_is_first_axis(orientation_plane, orientation_height_axis):
-    """True when the height axis is the first coordinate of the workplane."""
-    return orientation_plane[0] == orientation_height_axis
-
-
-def _pt(face, height, height_first):
-    """Return (face, height) or (height, face) depending on axis order."""
-    return (height, face) if height_first else (face, height)
-
-
 def _polyline_in_zone(orientation_plane, zone_start, zone_width, points, overshoot=0.0):
     """Extrude a closed polyline across [zone_start - overshoot, zone_start + zone_width + overshoot]."""
     return (
@@ -76,7 +66,7 @@ def apply_ramp_out_first(
     """
     sign = orientation_outward_sign
     height_dir = orientation_height_sign
-    height_first = _height_is_first_axis(orientation_plane, orientation_height_axis)
+    height_first = orientation_plane[0] == orientation_height_axis
     base = coordinate_lowest_possible_snap_base_in_wall
     outer_wall = coordinate_inner_wall + sign * wall_thickness
     zone_width = abs(coordinate_zone_end - coordinate_zone_start)
@@ -101,7 +91,8 @@ def apply_ramp_out_first(
     outer_overcut = outer_wall - sign * overcut
 
     def pt(face, height):
-        return _pt(face, base + height_dir * height, height_first)
+        h = base + height_dir * height
+        return (h, face) if height_first else (face, h)
 
     # 1. Growth ramp on outer face — trapezoid from growth start to tip
     growth = [
@@ -114,10 +105,10 @@ def apply_ramp_out_first(
 
     # 2. Extend wall beyond wall top to tip height
     extension = [
-        _pt(inner_overcut, coordinate_top_of_wall, height_first),
+        pt(inner_overcut, available_wall_height),
         pt(inner_overcut, tip_height),
         pt(outer_overcut, tip_height),
-        _pt(outer_overcut, coordinate_top_of_wall, height_first),
+        pt(outer_overcut, available_wall_height),
     ]
     solid = solid.union(_polyline_in_zone(orientation_plane, coordinate_zone_start, zone_width, extension))
 
@@ -158,7 +149,7 @@ def apply_ramp_in_first(
     """
     sign = orientation_outward_sign
     height_dir = orientation_height_sign
-    height_first = _height_is_first_axis(orientation_plane, orientation_height_axis)
+    height_first = orientation_plane[0] == orientation_height_axis
     base = coordinate_lowest_possible_snap_base_in_wall
     outer_wall = coordinate_inner_wall + sign * wall_thickness
     zone_width = abs(coordinate_zone_end - coordinate_zone_start)
@@ -185,7 +176,8 @@ def apply_ramp_in_first(
     outer_overcut_past_growth = outer_wall + sign * (outer_growth + overcut)
 
     def pt(face, height):
-        return _pt(face, base + height_dir * height, height_first)
+        h = base + height_dir * height
+        return (h, face) if height_first else (face, h)
 
     # If bumps extend past wall, add growth ramp on outer face (45° trapezoid)
     if outer_growth > 0:
@@ -199,11 +191,11 @@ def apply_ramp_in_first(
 
     # 1. Extend wall beyond wall top to tip height
     extension = [
-        _pt(inner_overcut, coordinate_top_of_wall, height_first),
+        pt(inner_overcut, available_wall_height),
         pt(inner_overcut, tip_height),
         pt(notch_face, tip_height),
         pt(bump_face, bump_top),
-        _pt(bump_face, coordinate_top_of_wall, height_first),
+        pt(bump_face, available_wall_height),
     ]
     solid = solid.union(_polyline_in_zone(orientation_plane, coordinate_zone_start, zone_width, extension))
 
