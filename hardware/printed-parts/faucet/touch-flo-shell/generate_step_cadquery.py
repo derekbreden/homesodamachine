@@ -208,24 +208,20 @@ wing_outer_y = shell_rect_y_half  # 11.75
 #     Corner radius = pill_width_x/2 so the rounding matches the
 #     existing pill's end radius.
 water_tube_x = 8.875
-# 3/8" LLDPE — sealed in body's 9.75 mm port via a TPU O-ring (0.225 mm
-# radial gap).
+# 3/8" LLDPE — sealed in the body's 9.75 mm port via a TPU O-ring
+# (0.225 mm radial gap). The 3/8" OD here is the 3-tube dispense spout's
+# center tube INSIDE the faucet head — NOT the supply line. The
+# harvested Westbrass R2031-NL-62 valve body IS the 1/4"→3/8" adapter;
+# the 3/8" tube only exists above this port, internal to the head.
 water_tube_od = 0.375 * 25.4  # 9.525
-# NOTE: the 3/8" OD here is the 3-tube dispense spout's center tube
-# *inside* the faucet head — NOT the supply line. The harvested
-# Westbrass R2031-NL-62 valve body itself IS the 1/4"→3/8" adapter:
-# its bottom threaded metal rod accepts 1/4" OD LLDPE supply tubing
-# from the foam-shell exit (vessel→here is 1/4" OD throughout); the
-# 3/8" OD tube only exists above this port, internal to the head.
 water_hole_diameter = water_tube_od + 2.0 * bore_clearance  # 10.025
 
-# 1/4" LLDPE flavor tube — used to derive POST_BEND_X so the flavor
-# tube butts up against the water tube at the dispense point.
-flavor_tube_od = 0.25 * 25.4  # 6.35 — 1/4" LLDPE
-# Butt the flavor tube against the water tube at the dispense point.
-# In 3D, each flavor tube sits at Y=±flavor_tube_y_offset (so they
-# also touch each other), so X-tangency is Pythagorean:
-#   (X_FINAL - water_tube_x)² + Y_OFFSET² = (R_water + R_flavor)²
+# 1/4" LLDPE flavor tube. The flavor tube butts up against the water
+# tube at the dispense point. Each flavor tube sits at
+# Y=±flavor_tube_y_offset (so they also touch each other), so the
+# X-tangency at the dispense point is Pythagorean:
+#   (post_bend_x − water_tube_x)² + y_offset² = (r_water + r_flavor)²
+flavor_tube_od = 0.25 * 25.4  # 6.35
 flavor_tube_post_bend_x = water_tube_x + math.sqrt(
     (water_tube_od / 2.0 + flavor_tube_od / 2.0) ** 2
     - flavor_tube_y_offset ** 2
@@ -234,24 +230,16 @@ flavor_tube_post_bend_x = water_tube_x + math.sqrt(
 fill_x_min = 10.46  # back third of water tube
 
 
-# ZONE 4 — tube wrapper above the arch
-#
-# A 3 mm-thick shell wrapping just the tube cutouts (water tube + flavor
-# pill), starting at the base of the arch (Z=44.25) and extending up to
-# zone4_z_top. Built as two pieces unioned:
-#   - Water tube wrapper: constant-OD tube cylinder around water_tube_x.
-#   - Flavor wrapper: straight pill at flavor_tube_x (flat-X- variant via
-#     _flavor_pill_flat_x_minus). The earlier loft-from-rounded-rect-to-pill
-#     transitioning toward flavor_tube_post_bend_x was removed when the
-#     base/tube-shell split made the bend handled outside the base shell.
+# ZONE 4 — rect column continuation above the arch (water tube +
+# flavor pill cutouts), from the arch foot up to zone4_z_top.
 zone4_z_bottom = shell_arch_foot_top_z  # 44.25
 # Zone 4 top must clear the lever's pressed-down envelope. The lever's
-# head corner at original (X=9, Z=52) rotates -18° around pivot
-# (1.5, 46) to (6.78, 54.024). That point sits inside zone 5's water-
-# circle outer outline (centered at X=8.875, R=9.0125), so zone 5's
-# bottom — and therefore zone 4's top — must be above it. The first
-# PETG test print showed ~1 mm clearance was too tight in practice;
-# bumped to 57.5 mm for ~3.5 mm clearance above 54.024.
+# head corner at rest (X=9, Z=52) rotates -18° around pivot (1.5, 46)
+# to (6.78, 54.024). That point sits inside zone 5's water-circle outer
+# outline (centered at X=8.875, R=9.0125), so zone 5's bottom — and
+# therefore zone 4's top — must be above it. The first PETG test print
+# showed ~1 mm clearance was too tight; bumped to 57.5 mm for ~3.5 mm
+# clearance above 54.024.
 zone4_z_top = 57.5
 zone4_height = zone4_z_top - zone4_z_bottom  # 10.75
 
