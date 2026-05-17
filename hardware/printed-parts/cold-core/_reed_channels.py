@@ -14,6 +14,7 @@ from _cold_core_interface import (
     bag_pocket_corner_inner_radius,
     reservoir_bulkhead_port_x,
     reservoir_bulkhead_port_z,
+    port_hole_radius,
     build_a_hole_punch,
 )
 
@@ -211,5 +212,5 @@ def cut_reed_cable_holes(foam_shell):
             cable_y_center,
             reservoir_bulkhead_port_z,
         )
-        foam_shell = foam_shell.cut(build_a_hole_punch(origin=hole_origin))
+        foam_shell = foam_shell.cut(build_a_hole_punch(origin=hole_origin, hole_punch_radius=port_hole_radius))
     return foam_shell

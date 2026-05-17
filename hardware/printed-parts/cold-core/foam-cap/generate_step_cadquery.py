@@ -21,6 +21,7 @@ from _foam_cap import (
 from _cold_core_interface import (
     build_a_y_axis_hole_punch,
     pocket_centerward_arc_outer_radius,
+    support_ring_radial_width,
     wall_and_floor_thickness,
     foam_cap_height,
     xz_plane_y_up,
@@ -34,7 +35,6 @@ lid_y_height = wall_and_floor_thickness
 # CO2 elbow vertical leg sits in the foam zone between the centerward
 # wall band and the support-ring wall band — midway between their
 # midlines so it's clear of both walls and surrounded by foam.
-support_ring_radial_width = 9.0
 centerward_wall_outer_r = pocket_centerward_arc_outer_radius
 centerward_wall_inner_r = centerward_wall_outer_r - wall_and_floor_thickness
 support_ring_outer_r = centerward_wall_inner_r
