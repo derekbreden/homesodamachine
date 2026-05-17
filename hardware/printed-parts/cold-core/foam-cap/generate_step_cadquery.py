@@ -8,8 +8,6 @@ import math
 import sys
 from pathlib import Path
 
-import cadquery as cq
-
 _here = Path(__file__).resolve().parent
 sys.path.insert(0, str(next(p for p in _here.parents if p.name == "hardware")))
 sys.path.insert(0, str(_here.parent))
@@ -27,6 +25,7 @@ from _cold_core_interface import (
     foam_cap_height,
     foam_cap_interior_height,
     xz_plane_y_up,
+    WorldWorkplane,
 )
 
 
@@ -111,19 +110,16 @@ def add_co2_boss(cap):
     floor's cavity side. The boss is a 2 mm-wall hollow tube spanning
     the full interior cavity height, sealing the through-hole off from
     the foam pour while keeping the bore clear so CO2 line can pass."""
-    # Single-workplane annular extrude: two concentric circles on the
-    # same workplane create an annulus by CadQuery's even-odd fill
-    # rule. Workplane sits at y = co2_boss_y_bottom (offset along the
-    # +Y normal of xz_plane_y_up); circles are centered at the local
-    # in-plane location of the CO2 axis (local Y = world −Z, so the z
-    # coordinate is negated).
+    # Two concentric circles on the same workplane extrude as an
+    # annulus via CadQuery's even-odd fill rule.
     boss = (
-        cq.Workplane(xz_plane_y_up)
+        WorldWorkplane(xz_plane_y_up)
         .workplane(offset=co2_boss_y_bottom)
-        .moveTo(0, -co2_inlet_z)
+        .moveTo((0, co2_inlet_z))
         .circle(co2_boss_outer_radius)
         .circle(co2_boss_inner_radius)
         .extrude(co2_boss_y_top - co2_boss_y_bottom)
+        .unwrap()
     )
     return cap.union(boss)
 
