@@ -82,6 +82,9 @@ import sys
 import tempfile
 from pathlib import Path
 
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+import overlays as overlays_mod  # noqa: E402
+
 
 def escape_drawtext(text: str) -> str:
     """Escape characters that have meaning in ffmpeg drawtext text= field.
@@ -476,6 +479,12 @@ def main():
     ap.add_argument("--captions", default=None,
                     help="Path to an ASS subtitle file to burn into the final "
                          "video. Generate with make-subtitles.py.")
+    ap.add_argument("--overlays", default=None,
+                    help="Path to an overlay sidecar JSON (motion-graphics "
+                         "layer: text callouts, HUD, lower thirds, stamps, "
+                         "pip, magnifier). See overlays.py for the schema. "
+                         "When set, captions are burned in the same final "
+                         "pass as the overlays.")
     args = ap.parse_args()
 
     raw = json.loads(Path(args.cut_list).read_text())
@@ -547,20 +556,40 @@ def main():
             first_src = cuts[0].get("source", args.source)
             _, _, target_fps = probe_video_meta(first_src)
 
+        # When overlays are requested, concat goes to an intermediate file
+        # and a final pass applies overlays + captions together. Otherwise
+        # captions get burned in during the concat pass directly (one fewer
+        # encode for the common case of no overlays).
+        if args.overlays:
+            concat_target = str(d / "concat.mp4")
+            concat_captions = None  # deferred to overlay pass
+        else:
+            concat_target = args.output
+            concat_captions = args.captions
+
         if args.fade > 0:
             print(f"Concat with {args.fade:.2f}s cross-dissolves "
-                  f"({len(segment_paths)} segments) → {args.output}",
+                  f"({len(segment_paths)} segments) → {concat_target}",
                   file=sys.stderr)
-            concat_with_fade(segment_paths, args.output, args.fade,
+            concat_with_fade(segment_paths, concat_target, args.fade,
                              preset=args.preset, crf=args.crf,
-                             captions=args.captions,
+                             captions=concat_captions,
                              target_size=target_size,
                              target_fps=target_fps)
         else:
             print(f"Hard-cut concat ({len(segment_paths)} segments) "
-                  f"→ {args.output}", file=sys.stderr)
-            concat_hard(segment_paths, args.output, captions=args.captions,
+                  f"→ {concat_target}", file=sys.stderr)
+            concat_hard(segment_paths, concat_target, captions=concat_captions,
                         preset=args.preset, crf=args.crf)
+
+        if args.overlays:
+            print(f"Applying overlays from {args.overlays} → {args.output}",
+                  file=sys.stderr)
+            overlays_mod.render(
+                concat_target, args.overlays, args.output,
+                captions=args.captions,
+                preset=args.preset, crf=args.crf,
+            )
 
     total = sum(c["end"] - c["start"] for c in cuts)
     if args.title:
