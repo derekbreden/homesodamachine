@@ -289,6 +289,13 @@ export function resizeRenderer() {
   // and again here; without this, mouse coords normalize against stale
   // dimensions after a resize and rotation feels off-axis.
   controls.handleResize();
+  // TrackballControls' _getMouseOnCircle divides BOTH x and y by screen.width
+  // (intentional upstream; see "screen.width intentional" comment in three.js).
+  // That ties a full rotation to canvas width, so mobile portrait feels much
+  // faster than desktop landscape on the same finger travel. Overriding width
+  // to equal height after handleResize() makes rotation feel height-driven
+  // and keeps pan symmetric across axes as a side effect.
+  controls.screen.width = controls.screen.height;
 }
 
 let animating = false;
