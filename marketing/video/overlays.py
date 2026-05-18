@@ -36,10 +36,11 @@ Each entry has:
   "t":     [start_sec, end_sec] in OUTPUT timeline
   "fade":  optional seconds for ease in/out; default 0.25 (use 0 for hard cut)
 
-POSITION VOCABULARY (used by text / stamp / lower_third / hud / pip)
-  "top-left" | "top-right" | "bottom-left" | "bottom-right"
-  "center"   | "top-center" | "bottom-center"
-  [x, y]     — absolute pixel coordinates in OUTPUT video space
+POSITION VOCABULARY (used by text / stamp / lower_third / hud / pip / param)
+  "top-left"  | "top-right"  | "bottom-left" | "bottom-right"
+  "center"    | "top-center" | "bottom-center"
+  "left-mid"  | "right-mid"  (param only — vertically centered on the side)
+  [x, y]      — absolute pixel coordinates in OUTPUT video space
 
 OVERLAY TYPES — implemented
 
@@ -107,6 +108,21 @@ arrow
   color:          default "yellow"
   thickness:      int px, default 6
   arrowhead_size: int px (length of triangle), default 30
+
+param
+  Anchored panel-style parameter callout. Pillow-rendered with rounded
+  corners, drop shadow, accent stripe, and a label / value / optional
+  note hierarchy. Use for parameter readouts during explainer footage
+  (welder settings, dimensions, recipe values) — the polished
+  alternative to a plain `text` overlay.
+  label:        str — small uppercase line above the value, e.g. "POWER"
+  value:        str — large bold focal text, e.g. "85%"
+  note:         str — optional dim italic context line, e.g.
+                       "factory default: 75%"
+  position:     "left-mid" (default) | "right-mid" | "top-left" |
+                "top-right" | "bottom-left" | "bottom-right" | [x,y]
+  accent_color: hex color for the left stripe, default "#ff7a2d"
+                (a warm orange that complements warm/spark footage)
 
 OVERLAY TYPES — schema reserved, not yet implemented
 
@@ -629,6 +645,228 @@ def emit_arrow_overlay(entry: dict, arrow_label: str,
     )
 
 
+# ---------- param panel (Pillow-rendered PNG, overlayed like arrow) ----------
+
+# Font index map for Avenir Next.ttc. Each .ttc index resolves to a different
+# (family, style) variant; these were verified empirically on macOS Sequoia.
+# If Avenir Next isn't present we fall back to Helvetica.ttc (which has its
+# own indices, so the fallback is best-effort, not perfectly weight-matched).
+_AVENIR_NEXT = "/System/Library/Fonts/Avenir Next.ttc"
+_HELVETICA = "/System/Library/Fonts/Helvetica.ttc"
+_PARAM_FONT_PROFILE = {
+    # weight name -> (path, index)
+    "medium":    (_AVENIR_NEXT, 5),   # for the small uppercase label
+    "demi_bold": (_AVENIR_NEXT, 2),   # for the large value
+    "italic":    (_AVENIR_NEXT, 4),   # for the optional note
+}
+_PARAM_FONT_FALLBACK = {
+    "medium":    (_HELVETICA, 0),
+    "demi_bold": (_HELVETICA, 1),
+    "italic":    (_HELVETICA, 2),
+}
+
+
+def _load_param_font(weight: str, size: int):
+    """Load a param-panel font at the given weight + size, with fallback."""
+    from PIL import ImageFont
+    profile = (_PARAM_FONT_PROFILE
+               if Path(_AVENIR_NEXT).exists()
+               else _PARAM_FONT_FALLBACK)
+    path, index = profile[weight]
+    return ImageFont.truetype(path, size, index=index)
+
+
+def render_param_png(entry: dict, video_w: int, video_h: int,
+                     out_path: Path) -> None:
+    """Render a parameter-callout panel as a transparent full-frame PNG.
+
+    Panel layout (left-to-right):
+      [ACCENT STRIPE]  [PADDING]  [LABEL]            <- small dim caps
+                                  [VALUE]            <- large bold focal
+                                  [NOTE (optional)]  <- small dim italic
+
+    Drawing at full output frame size lets the overlay sit at x=0:y=0 and
+    keeps positioning math (relative to the panel anchor) inside this
+    function. The panel auto-sizes to fit the longest text + padding;
+    its on-frame position is determined by the entry's `position` field.
+
+    A subtle drop shadow gives the panel separation from the footage
+    without the cinema-style heaviness of a hard outline.
+    """
+    from PIL import Image, ImageDraw, ImageFilter
+
+    label = str(entry["label"]).upper()
+    value = str(entry["value"])
+    note = str(entry.get("note") or "")
+    accent = entry.get("accent_color", "#ff7a2d")
+    position = entry.get("position", "left-mid")
+
+    # Type system.
+    label_font = _load_param_font("medium", 28)
+    value_font = _load_param_font("demi_bold", 88)
+    note_font = _load_param_font("italic", 26) if note else None
+
+    # Measure text. getbbox returns (x0, y0, x1, y1) of the rendered ink
+    # box; we use width = x1 - x0 (ignoring left-side bearing) and height
+    # as the ascent+descent for that font size.
+    def w(text, font):
+        x0, _, x1, _ = font.getbbox(text)
+        return x1 - x0
+    label_w_px = w(label, label_font)
+    value_w_px = w(value, value_font)
+    note_w_px = w(note, note_font) if note_font else 0
+    content_w = max(label_w_px, value_w_px, note_w_px)
+
+    # Use the font's own metrics for line heights so descenders / ascenders
+    # don't get clipped. Pillow's getmetrics() returns (ascent, descent).
+    label_lh = sum(label_font.getmetrics())
+    value_lh = sum(value_font.getmetrics())
+    note_lh = sum(note_font.getmetrics()) if note_font else 0
+
+    stripe_w = 8
+    pad_left_inside = 36     # space between stripe and text column
+    pad_other = 32           # top / right / bottom interior padding
+    gap_label_value = 16
+    gap_value_note = 16
+    radius = 10
+
+    panel_w = stripe_w + pad_left_inside + int(content_w) + pad_other
+    panel_h = (pad_other
+               + label_lh
+               + gap_label_value + value_lh
+               + ((gap_value_note + note_lh) if note_font else 0)
+               + pad_other)
+
+    # Compute panel top-left position on the output frame.
+    margin = 60   # safe-area margin from frame edges for side anchors
+    pos_map = {
+        "left-mid":      (margin, (video_h - panel_h) // 2),
+        "right-mid":     (video_w - panel_w - margin, (video_h - panel_h) // 2),
+        "top-left":      (margin, margin),
+        "top-right":     (video_w - panel_w - margin, margin),
+        "bottom-left":   (margin, video_h - panel_h - margin),
+        "bottom-right":  (video_w - panel_w - margin, video_h - panel_h - margin),
+        "center":        ((video_w - panel_w) // 2, (video_h - panel_h) // 2),
+        "top-center":    ((video_w - panel_w) // 2, margin),
+        "bottom-center": ((video_w - panel_w) // 2, video_h - panel_h - margin),
+    }
+    if isinstance(position, (list, tuple)):
+        panel_x, panel_y = int(position[0]), int(position[1])
+    elif position in pos_map:
+        panel_x, panel_y = pos_map[position]
+    else:
+        raise ValueError(f"Unknown param position {position!r}")
+
+    # Build the canvas (RGBA, transparent everywhere except where we draw).
+    img = Image.new("RGBA", (video_w, video_h), (0, 0, 0, 0))
+
+    # Drop shadow: draw a slightly-larger dark rounded rect into its own
+    # layer, blur it, paste underneath the panel. Offset down a few px.
+    shadow_extend = 10
+    shadow_offset_y = 6
+    shadow_pad = 20  # extra pad on the shadow layer so the blur isn't clipped
+    sh_w = panel_w + 2 * shadow_extend + 2 * shadow_pad
+    sh_h = panel_h + 2 * shadow_extend + 2 * shadow_pad
+    sh = Image.new("RGBA", (sh_w, sh_h), (0, 0, 0, 0))
+    sh_draw = ImageDraw.Draw(sh)
+    sh_draw.rounded_rectangle(
+        (shadow_pad - shadow_extend, shadow_pad - shadow_extend,
+         shadow_pad + panel_w + shadow_extend,
+         shadow_pad + panel_h + shadow_extend),
+        radius=radius + shadow_extend,
+        fill=(0, 0, 0, 130),
+    )
+    sh = sh.filter(ImageFilter.GaussianBlur(radius=14))
+    img.alpha_composite(
+        sh,
+        (panel_x - shadow_pad, panel_y - shadow_pad + shadow_offset_y),
+    )
+
+    draw = ImageDraw.Draw(img)
+
+    # Panel background: dark with slight transparency so the underlying
+    # image grades through faintly. 92% opacity is enough to ensure text
+    # contrast over any background.
+    draw.rounded_rectangle(
+        (panel_x, panel_y, panel_x + panel_w - 1, panel_y + panel_h - 1),
+        radius=radius,
+        fill=(12, 12, 12, 235),
+    )
+
+    # Accent stripe: full-height rectangle on the left edge. We draw a
+    # rounded-rect that exceeds the stripe width and then clip the right
+    # side back with a sharp-corner rect of the panel-bg color — gives a
+    # left-rounded / right-square stripe that hugs the panel corner.
+    stripe_rgba = _hex_to_rgba(accent, alpha=255)
+    draw.rounded_rectangle(
+        (panel_x, panel_y, panel_x + stripe_w + radius, panel_y + panel_h - 1),
+        radius=radius,
+        fill=stripe_rgba,
+    )
+    draw.rectangle(
+        (panel_x + stripe_w, panel_y,
+         panel_x + stripe_w + radius, panel_y + panel_h - 1),
+        fill=(12, 12, 12, 235),
+    )
+
+    # Text column.
+    text_x = panel_x + stripe_w + pad_left_inside
+    cur_y = panel_y + pad_other
+    draw.text((text_x, cur_y), label, font=label_font,
+              fill=(160, 160, 160, 255))
+    cur_y += label_lh + gap_label_value
+    draw.text((text_x, cur_y), value, font=value_font,
+              fill=(255, 255, 255, 255))
+    if note_font:
+        cur_y += value_lh + gap_value_note
+        draw.text((text_x, cur_y), note, font=note_font,
+                  fill=(160, 160, 160, 255))
+
+    img.save(out_path)
+
+
+def _hex_to_rgba(hex_color: str, alpha: int = 255) -> tuple[int, int, int, int]:
+    """Parse '#RRGGBB' or '#RGB' into an RGBA tuple."""
+    s = hex_color.lstrip("#")
+    if len(s) == 3:
+        s = "".join(c * 2 for c in s)
+    if len(s) != 6:
+        raise ValueError(f"Bad hex color {hex_color!r}")
+    return (int(s[0:2], 16), int(s[2:4], 16), int(s[4:6], 16), alpha)
+
+
+def emit_param_branch(entry: dict, png_path: Path, input_idx: int,
+                      out_label: str) -> tuple[str, list[str]]:
+    """Build a filter_complex branch for one param-panel overlay.
+
+    Same shape as emit_arrow_branch (the PNG is already at full-frame
+    size with the panel placed at the right pixels, so the overlay sits
+    at x=0:y=0). Fade timings are in MAIN-video time.
+    """
+    fade = entry.get("fade", DEFAULT_FADE)
+    s, e = entry["t"]
+
+    parts = [f"[{input_idx}:v]null"]
+    if fade > 0:
+        parts[0] += (f",fade=t=in:st={s:.3f}:d={fade}:alpha=1,"
+                     f"fade=t=out:st={max(0, e - fade):.3f}:d={fade}:alpha=1")
+    parts[0] += f"[{out_label}]"
+    extra_input = ["-loop", "1", "-i", str(png_path)]
+    return parts[0], extra_input
+
+
+def emit_param_overlay(entry: dict, param_label: str,
+                       in_label: str, out_label: str) -> str:
+    """Composite the pre-rendered full-frame param PNG onto the main video."""
+    t = entry["t"]
+    return (
+        f"[{in_label}][{param_label}]"
+        f"overlay=x=0:y=0:format=auto:"
+        f"enable='{enable_expr(t)}'"
+        f"[{out_label}]"
+    )
+
+
 # ---------- top-level renderer ----------
 
 DRAWLIKE_TYPES = {"text", "stamp", "lower_third", "hud", "box"}
@@ -742,6 +980,26 @@ def build_filter_graph(sidecar: dict, sidecar_dir: Path,
             out = f"v{next_stage}"
             next_stage += 1
             statements.append(emit_arrow_overlay(entry, arrow_label, cur, out))
+            cur = out
+        elif t == "param":
+            if video_w is None or video_h is None or arrow_tmp_dir is None:
+                raise RuntimeError(
+                    "param overlays require video_w / video_h / "
+                    "arrow_tmp_dir (shared PNG temp dir); call render() "
+                    "or pass them explicitly."
+                )
+            flush_drawlike()
+            png_path = arrow_tmp_dir / f"param_{next_input_idx}.png"
+            render_param_png(entry, video_w, video_h, png_path)
+            param_label = f"param{next_input_idx}"
+            branch_stmt, ffmpeg_in = emit_param_branch(
+                entry, png_path, next_input_idx, param_label)
+            statements.append(branch_stmt)
+            extra_inputs.extend(ffmpeg_in)
+            next_input_idx += 1
+            out = f"v{next_stage}"
+            next_stage += 1
+            statements.append(emit_param_overlay(entry, param_label, cur, out))
             cur = out
         else:
             raise ValueError(f"Unknown overlay type {t!r}")
