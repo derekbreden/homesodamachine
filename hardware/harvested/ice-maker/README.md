@@ -60,9 +60,9 @@ Finned-tube forced-convection condenser with its own fan shroud (fan not yet sep
 
 A fat copper cylinder sits between the condenser outlet and the capillary tube inlet. It holds a molecular-sieve desiccant charge that traps residual moisture and debris — moisture in an R600a system freezes at the capillary tube orifice and causes intermittent loss of cooling, so the drier is load-bearing for reliability, not optional.
 
-**Disposition: keep in service (path-B).** The factory drier is preserved through the loop-open period under continuous argon flow per [`../../assembly/refrigerant-loop.md`](../../assembly/refrigerant-loop.md) step 3. The drier, its brazed-on capillary tube, the cap-tube helix at the evap end, and the bonded suction-line heat-exchanger pair all stay together as one preserved upstream subassembly. Replacement driers (Supco SUD8358 + Supco D111) are kept on the shelf as spares for any future loop-open service that requires replacement, but are not consumed in the production build.
+**Disposition: keep in service.** The factory drier is preserved through the loop-open period under continuous argon flow per [`../../assembly/refrigerant-loop.md`](../../assembly/refrigerant-loop.md) step 3. The drier, its brazed-on capillary tube, the cap-tube helix at the evap end, and the bonded suction-line heat-exchanger pair all stay together as one preserved upstream subassembly. Replacement driers (Supco SUD8358 + Supco D111) are kept on the shelf as spares for any future loop-open service that requires replacement, but are not consumed in the production build.
 
-Path-B rationale: a commodity replacement drier's cap-tube outlet doesn't match the donor's 0.030" hair-bore capillary, so installing one would require a second 0.030"-to-larger-sweat pinch-swage in addition to the one already required at the new evap coil's inlet. That mismatched-tube surgery is rework risk for no functional gain when the factory drier's desiccant can simply be preserved instead.
+Rationale: a commodity replacement drier's cap-tube outlet doesn't match the donor's 0.030" hair-bore capillary, so installing one would require a second 0.030"-to-larger-sweat pinch-swage in addition to the one already required at the new evap coil's inlet. That mismatched-tube surgery is rework risk for no functional gain when the factory drier's desiccant can simply be preserved instead.
 
 Label on this unit's drier:
 
@@ -71,7 +71,7 @@ Label on this unit's drier:
 - `20251107 A-1` — manufacturing date code, 2025-11-07, line/shift A-1.
 - Small stylized logo at left (manufacturer mark, not identified).
 
-**Desiccant preservation rule:** Once the refrigerant loop is opened (unbrazing for re-piping), the drier's desiccant absorbs atmospheric moisture and is rendered spent — *unless* it is kept in a continuous dry inert-gas blanket from the moment of cut until vacuum begins. The conservative default is to replace the drier; this build instead preserves the factory drier via continuous low-pressure argon flow through the loop during the entire loop-open period (see [`../../assembly/refrigerant-loop.md`](../../assembly/refrigerant-loop.md) step 3). The argon flow also doubles as the braze-safety hydrocarbon sweep, so the two requirements satisfy each other via one rig. Reusing a *saturated* drier — the failure mode this rule originally warned against — produces short service life and eventual capillary icing; reusing a continuously-blanketed drier does not.
+**Desiccant preservation rule:** Once the refrigerant loop is opened (unbrazing for re-piping), the drier's desiccant absorbs atmospheric moisture unless it is kept in a continuous dry inert-gas blanket from the moment of cut until vacuum begins. Continuous low-pressure argon flow through the loop during the entire loop-open period (see [`../../assembly/refrigerant-loop.md`](../../assembly/refrigerant-loop.md) step 3) provides that blanket. The same argon flow doubles as the braze-safety hydrocarbon sweep, so the two requirements satisfy each other via one rig. A saturated drier produces short service life and eventual capillary icing.
 
 ### Capillary tube + suction-line heat exchanger
 
