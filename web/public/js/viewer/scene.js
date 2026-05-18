@@ -298,6 +298,8 @@ export function stopAnimate() {
 
 // Default isometric framing for STEP groups. DXF has its own framing in
 // dxf.js (resetDxfCamera) because flat plates need aspect-aware sizing.
+// camera.up is restored to Y-up so a prior Top/Bottom ViewCube snap (which
+// rotates up onto Z) doesn't carry over and leave the reset view rolled.
 export function resetCamera(group) {
   const box = new THREE.Box3().setFromObject(group);
   const center = box.getCenter(new THREE.Vector3());
@@ -308,6 +310,7 @@ export function resetCamera(group) {
   // Isometric angles
   const el = Math.atan(1 / Math.sqrt(2)); // ~35.26 deg
   const az = Math.PI / 4;
+  camera.up.set(0, 1, 0);
   camera.position.set(
     center.x + dist * Math.cos(el) * Math.cos(az),
     center.y + dist * Math.sin(el),
