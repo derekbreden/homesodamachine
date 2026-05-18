@@ -18,7 +18,7 @@ R-600a (isobutane) is flammable, LFL ~1.8 % in air. EPA Section 608 carves natur
 
 **Hazard A — Vent the factory charge before applying any flame.** Heating a pressurized R-600a circuit with a torch is the textbook flash-fire scenario. The charge must be vented and the loop allowed to decompress to atmospheric before any cut, braze, or torch step.
 
-**Hazard B — Residual hydrocarbon at the braze.** After venting, residual R-600a remains dissolved in the compressor oil and pooled in low points of the tubing. When a torch is applied to copper near an oil-soaked compressor pocket, the flame front pulls residual hydrocarbon into itself. Mitigation, load-bearing for this procedure: flow low-pressure argon (a few psi, *flowing*, not static) through the open loop during and through each braze, sweeping residual fuel out ahead of the heat. The existing welder-side argon cylinder is the source.
+**Hazard B — Residual hydrocarbon at the braze.** After venting, residual R-600a remains dissolved in the compressor oil and pooled in low points of the tubing. When a torch is applied to copper near an oil-soaked compressor pocket, the flame front pulls residual hydrocarbon into itself. Mitigation, load-bearing for this procedure: flow low-pressure argon (a few psi, *flowing*, not static) through the open loop during the entire loop-open period, sweeping residual fuel out ahead of the heat. The existing welder-side argon cylinder is the source. Under path-B factory-drier reuse (see step 3), the same continuous argon flow also serves as the dry inert blanket that preserves the factory drier's desiccant from atmospheric moisture during the loop-open period — one continuous flow regimen satisfies both requirements.
 
 The in-service hazard — a refrigerant leak post-build into a sealed compartment that contains an ignition source — is owned elsewhere: the compressor shroud isolates the highest-temperature surface in the system, and the AC switching relay is deliberately placed *outside* the shroud so its switching arc isn't co-located with the protected zone. See [`../cut-parts/compressor-shroud/README.md`](../cut-parts/compressor-shroud/README.md). The shroud also carries a hardware-only backstop: a BOJACK SF76E SEFUSE thermal fuse (77 °C, in series with the AC primary feeding the compressor) plus an ACEIRMC MQ-6 LPG/iso-butane sensor inside the shroud — both ON-ORDER per [`../purchases.md`](../purchases.md) §6. Thermal fuse + gas sensor backstop the soft (firmware) cutoffs so a controller failure can't keep the compressor energized through a thermal or leak event.
 
@@ -29,14 +29,14 @@ Per-unit BOM lives in [`../bom.md`](../bom.md) §5 (refrigeration); 3M 425 foil 
 | Item | Source / spec | Notes |
 |---|---|---|
 | Donor ice maker | Generic B0F42MT8JX or Frigidaire EFIC117-SS B07PCZKG94 | Both verified topology |
-| Replacement filter-drier | Supco SUD8358 UV-dye filter-drier, 1/4" sweat × cap-tube outlet | XH-9 hydrocarbon-compatible desiccant + integrated Schrader; the cap-tube outlet accepts the factory capillary tube directly. The Supco D111 in purchases.md is the wrong-part legacy, retained as spare |
+| Drier (spare / contingency only) | Supco SUD8358 + Supco D111 | Path-B preserves the factory drier (see step 3 + harvested README "Filter-drier"); SUD8358 and D111 kept on the shelf as spares for any future loop-open service that requires replacement. Not consumed in the production procedure. |
 | R-600a refrigerant | Enviro-Safe B0CGG1WH1N (3-pack + brass charging gauge) | ~40 g per system, mass-metered; one 3-can pack covers ~12 recharges |
 | GOORY 1/4" OD × 0.031" wall ACR copper tubing | B0DKSW5VL9 | ~24 ft per vessel for coil + tie-ins (1/2 of 50 ft roll per build) |
 | 3M 425 aluminum foil tape | B07BTW7C2N | Coil-to-vessel thermal interface; applied as continuous skin under the coil; one 180 ft roll covers ~12 builds (bom.md §6, not §5 — categorized as a cold-core insulation part) |
-| Supco BPV31 bullet-piercing valve | B00DM8J3MI | Taps compressor process tube to vent factory R-600a; single-use per build, left clamped on the cut stub |
+| Supco BPV31 bullet-piercing valve | B00DM8J3MI | Single permanent service-access point for the life of the appliance — taps the compressor process tube to vent factory R-600a (step 2), feeds argon during the entire loop-open period (step 3 onward), and serves as the manifold connection for vacuum (step 9) + recharge (step 10). Clamped permanently. |
 | BCuP-5 silver brazing alloy, 15 % Ag, 1/16" × 1 troy oz | B0DQ3ZMHK7 | Phosphorus-bearing self-fluxing filler for copper-to-copper joints; ~10 g per build, ~3 builds per rod |
 | 3M Scotch-Brite Maroon hand pads | B07CGPCTHT | Abrasive prep on 1/4" ACR copper OD + fitting sockets before flux + braze; ~2 of 20 pads per build |
-| Argon | Welder cylinder + Uniweld RHP400 brazing-purge regulator | Purge flow during every braze; no new cylinder needed |
+| Argon | Welder cylinder + Uniweld RHP400 brazing-purge regulator | Continuous low-pressure flow through the loop during the entire loop-open period (step 3 through step 9); no new cylinder needed |
 | BOJACK SF76E 77 °C SEFUSE thermal fuse + ACEIRMC MQ-6 LPG sensor module | B07Y61YTTK + B0978JSCZ8 | Hardware-only fire-safety backstops installed inside the compressor shroud (see Safety section above) |
 
 Tooling — all committed in [`../purchases.md`](../purchases.md) §6 (refrigeration) and §1 (argon side), ACQUIRED unless noted:
@@ -69,16 +69,18 @@ Install a piercing valve (saddle clamp + valve core) onto the compressor process
 
 Confirm fully vented before proceeding: gauge reads atmospheric, no further hiss, no propane-like smell at the valve.
 
-### 3. Cut the loop
+### 3. Cut the loop + start continuous argon flow
 
-With the loop fully vented, cut the refrigerant tubing at two points:
+Path-B preserves the factory drier in service (see [`../harvested/ice-maker/README.md`](../harvested/ice-maker/README.md) "Filter-drier" for rationale: the cap-tube outlet on any commodity replacement drier doesn't match the donor's hair-bore capillary, and the surgery to bridge that mismatch is rework risk for no functional gain). Only the factory finger-plate evaporator comes out — the drier, its brazed-on capillary tube, the cap-tube helix at the evap end, and the bonded suction-line heat-exchanger pair all stay in service as one preserved upstream subassembly.
 
-- **Suction side**, between the evaporator outlet and the compressor inlet
-- **Capillary-tube side**, between the filter-drier outlet and the evaporator inlet
+**Before cutting anything, start continuous argon flow into the loop:** hook the argon-purge rig (Uniweld RHP400 + flared 1/4" ACR stub + Joywayus flare nut + HVAC charging hose) to the BPV31 flare port on the compressor process tube, open the BPV31, and start low-pressure argon (a few PSI). This flow continues without interruption from the first cut in this step until vacuum begins in step 9. The continuous flow does two jobs simultaneously: (a) the per-braze hydrocarbon sweep from Hazard B (originally scoped to flow only during braze events) and (b) the dry inert blanket that preserves the factory drier's desiccant during the loop-open period. Combining them into one continuous flow regimen is cleaner than running two separate flow protocols.
 
-The factory evaporator (cold plate) and filter-drier come out as a discarded subassembly — the capillary tube stays brazed to the drier outlet at one end and is discarded with the drier.
+With argon flowing through the loop, cut the refrigerant tubing at two points:
 
-The bonded capillary-tube + suction-line heat-exchanger pair (where they run alongside each other for most of the suction line's length) stays intact on the compressor side. The cut is downstream of that pair, at the evaporator end. Per [`../harvested/ice-maker/README.md`](../harvested/ice-maker/README.md) "Capillary tube + suction-line heat exchanger": keep the bonded pair together, don't separate them.
+- **Suction side**, between the evaporator outlet and the compressor inlet — close to the evaporator. Argon exits here as one of the loop's open ends.
+- **Capillary-tube side**, at the evaporator-inlet end of the cap tube (just upstream of the factory evap) — leaving the entire factory drier + cap tube + cap-tube helix intact, with cap tube length unchanged from factory. Argon exits here as the other open end.
+
+The factory evaporator (cold plate) comes out alone. The bonded capillary-tube + suction-line heat-exchanger pair (where they run alongside each other for most of the suction line's length) stays intact on the compressor side. Per [`../harvested/ice-maker/README.md`](../harvested/ice-maker/README.md) "Capillary tube + suction-line heat exchanger": keep the bonded pair together, don't separate them.
 
 ### 4. Wind the evaporator coil around the vessel
 
@@ -90,43 +92,43 @@ Wind around the printed [coil-mandrel](../printed-parts/cold-core/coil-mandrel/g
 
 [`../handwork.md`](../handwork.md) "Bend copper around the pressure vessel" is the summary-level dev-phase entry for this step.
 
-### 5. Braze in the new filter-drier
+### 5. ~~Braze in the new filter-drier~~ — Resolved by path-B drier reuse
 
-Braze the new Supco SUD8358 filter-drier into the cut between the condenser outlet and (in step 7) the capillary tube that feeds the new evaporator coil. The SUD8358 has an integrated Schrader port that becomes the post-build vacuum + recharge access point. The factory drier was discarded in step 3 because the desiccant is spent once the loop is open — reusing a saturated drier gives a short service life and eventual capillary icing. (The earlier Supco D111 buy — kept as a spare per [`../purchases.md`](../purchases.md) §6 — is the wrong-part legacy.)
+Factory drier stays in service per step 3 above. No new drier brazes in this step. The Supco SUD8358 and Supco D111 in [`../purchases.md`](../purchases.md) §6 are kept as shelf spares for any future loop-open service event that requires replacement, but are not consumed in the production procedure.
 
-**Argon purge during every braze:** flow low-pressure argon (a few psi) through the open loop using the Uniweld RHP400 regulator on the existing argon cylinder, with a flared 1/4" ACR stub + Joywayus flare nut + HVAC charging hose as the rig. Argon enters at the compressor process tube and exits at the cut being brazed; flow continues through joint cool-down. The purge sweeps residual hydrocarbon from the compressor oil out ahead of the torch. This is the load-bearing safety step for every braze in steps 5–7.
+The argon-flow requirement that previously lived here (a per-braze sweep starting fresh at each joint) is now upstream — see step 3's continuous-flow setup. Steps 6 and 7 brazes operate under that same continuous flow without any new rig setup; the flow only stops at step 9 just before vacuum.
 
 ### 6. Tie in the suction line
 
-Join the new evaporator coil's outlet end (top of the wound coil — refrigerant exits as low-pressure gas heading to the compressor) to the factory suction line using the HVAC 1/4" OD ACR-grade slip coupling, sweat × sweat. Both lines are 1/4" OD, so the coupling is a direct sweat join. Braze with argon purge as in step 5.
+Join the new evaporator coil's outlet end (top of the wound coil — refrigerant exits as low-pressure gas heading to the compressor) to the factory suction line using the HVAC 1/4" OD ACR-grade slip coupling, sweat × sweat. Both lines are 1/4" OD, so the coupling is a direct sweat join. Braze under the continuous argon flow established in step 3.
 
 ### 7. Tie in the capillary tube via pinch-swage
 
-Join the new evaporator coil's inlet end (bottom of the wound coil) to the capillary-tube end coming from the new drier. The OD mismatch (1/4" ACR coil vs 0.031" cap tube) is handled by **pinch-swaging the coil inlet down onto the cap tube using the Knipex 86 01 180 Pliers Wrench** — progressive 60° rotation collapse technique, no reducer fitting required. Once swaged, braze the joint with argon purge as in step 5.
+Join the new evaporator coil's inlet end (bottom of the wound coil) to the capillary-tube end coming from the factory drier (the cap-tube helix that was cut to length at the evap-inlet end in step 3). The OD mismatch (1/4" ACR coil vs 0.031" cap tube) is handled by **pinch-swaging the coil inlet down onto the cap tube using the Knipex 86 01 180 Pliers Wrench** — progressive 60° rotation collapse technique, no reducer fitting required. Once swaged, braze the joint under the continuous argon flow established in step 3.
 
 If total cap-tube length changes substantially relative to the donor's factory length (e.g., the new coil is significantly longer or shorter than the donor evaporator), a refrigeration tech should recalculate cap length for the new load rather than guessing — per [`../harvested/ice-maker/README.md`](../harvested/ice-maker/README.md) "Capillary tube + suction-line heat exchanger".
 
 ### 8. ~~Hot-gas bypass solenoid disposition~~
 
-Resolved by dropping the solenoid entirely during donor teardown — once the factory evaporator is cut out (step 3) and replaced by the coil wound around the carbonator vessel (step 4), the bypass path has no purpose in the production refrigerant loop. The solenoid, its bypass line, and the tee come off with the discarded evaporator subassembly. Documented obliquely here only because there's no dedicated donor-teardown doc yet (see "Open items").
+Resolved by dropping the solenoid entirely during donor teardown — once the factory evaporator is cut out (step 3) and replaced by the coil wound around the carbonator vessel (step 4), the bypass path has no purpose in the production refrigerant loop. The solenoid, its bypass line, and the tee come off with the discarded finger-plate evaporator (the factory drier is preserved separately per step 3). Documented obliquely here only because there's no dedicated donor-teardown doc yet (see "Open items").
 
 ### 9. Pull vacuum
 
-Connect the gauge manifold to the new drier's Schrader port. Pull vacuum to 500 microns or below. Hold for ≥15 minutes. Valve off the pump and verify vacuum holds (no rise) for another 15 minutes. A rise during isolation indicates either residual moisture (run pump longer) or a leak (find and fix).
+All brazes complete. Stop the argon flow at the RHP400 regulator and close the BPV31. Disconnect the argon hose from the BPV31 flare port; connect the gauge manifold's 1/4" SAE flare in its place. Reopen the BPV31. Pull vacuum to 500 microns or below. Hold for ≥15 minutes. Valve off the pump and verify vacuum holds (no rise) for another 15 minutes. A rise during isolation indicates either residual moisture (run pump longer) or a leak (find and fix).
 
 ### 10. Mass-metered recharge
 
-Place the vacuum-tight loop on a mass scale. Tare. Connect the Enviro-Safe R-600a can to the gauge manifold and to the Schrader. Open the can valve; refrigerant enters the loop under its own vapor pressure. Watch the scale; close the can valve and the manifold when mass reaches target. Target is *not* simply the factory charge mass from step 1 — the new evaporator coil has greater internal volume than the discarded factory finger-plate, so the recharge runs higher than factory. First-unit calibration starts from factory mass (15 g for Unit A / 23 g for Unit B, per step 1) plus a small overage and iterates against frost-pattern and suction-line superheat on first run-up — see Open items §2.
+Place the vacuum-tight loop on a mass scale. Tare. Connect the Enviro-Safe R-600a can to the gauge manifold and the manifold to the BPV31 flare port. Open the can valve; refrigerant enters the loop under its own vapor pressure. Watch the scale; close the can valve and the manifold when mass reaches target. Target is *not* simply the factory charge mass from step 1 — the new evaporator coil has greater internal volume than the discarded factory finger-plate, so the recharge runs higher than factory. First-unit calibration starts from factory mass (15 g for Unit A / 23 g for Unit B, per step 1) plus a small overage and iterates against frost-pattern and suction-line superheat on first run-up — see Open items §2.
 
-Disconnect the manifold; cap the Schrader.
+Disconnect the manifold; close the BPV31 and cap its flare port. The BPV31 stays clamped on the compressor process tube as the single permanent service-access point for the life of the appliance.
 
 ### 11. Initial run-up + leak check
 
 Energize the compressor briefly. (Firmware enforces a 3-minute minimum off-time per [`../harvested/ice-maker/README.md`](../harvested/ice-maker/README.md) "Powering and control"; the first run-up starts that timer with no prior on-state.) Verify the compressor draws expected running current (~1 A) and the suction line drops cold within a minute or two.
 
-Apply electronic leak detector or soap solution at all braze joints + the Schrader + any threaded connection. No bubbles, no detector hits.
+Apply electronic leak detector or soap solution at all braze joints + the BPV31 saddle clamp + the BPV31 flare port cap + any threaded connection. No bubbles, no detector hits.
 
-A leak at any joint requires the loop be re-vented (per step 2 procedure), the joint re-cut, re-brazed with argon purge, re-vacuumed (step 9), re-charged (step 10). Field-repair-in-place with the charge still in is not the path.
+A leak at any joint requires the loop be re-vented through the BPV31 (open the valve, vent to atmosphere as in step 2), the joint re-cut, the continuous argon flow from step 3 restored, the joint re-brazed, the loop re-vacuumed (step 9), and re-charged (step 10). Field-repair-in-place with the charge still in is not the path.
 
 ## Output condition
 
@@ -137,8 +139,8 @@ A finished refrigerant loop:
 - Charged to within ±1 g of target mass
 - No detectable leaks at any joint
 - Compressor runs and pulls the suction line cold on first run-up
-- Hot-gas bypass solenoid, line, and tee discarded with the factory evaporator subassembly
-- Filter-drier carries a fresh, sealed Schrader
+- Hot-gas bypass solenoid, line, and tee discarded with the factory finger-plate evaporator
+- Factory drier preserved in service; the BPV31 flare port (closed and capped, BPV31 clamped on the compressor process tube) is the single permanent service-access point
 
 The wrapped vessel + plumbed compressor + condenser assembly is the input to [`cold-core.md`](cold-core.md) for the foam-pour install.
 
