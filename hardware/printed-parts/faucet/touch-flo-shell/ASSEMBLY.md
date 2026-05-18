@@ -81,30 +81,36 @@ shank are exposed. R2031-NL-12 (oil-rubbed bronze, B01N5LVNQA) is the
 same mechanism with a different finish. Pick whichever is cheaper /
 Prime-available at order time.
 
-**Under-counter plate — SendCutSend 0.060" 304 SS, split into two halves.**
-File `touch_flo_under_counter_plate.dxf`, ships as **two semicircular
-halves** of a Ø 54.35 mm disc that the installer clips around the
-umbilical from below at countertop install. Same hole pattern as the
-printed mounting plate / TPU gasket above the counter (Ø 12.6 mm shank
-hole + 13.2 × 6.85 mm pill slot distributed across the two halves).
+**Under-counter plate — SendCutSend 0.060" 304 SS, two identical
+D-shaped halves.** File `touch_flo_under_counter_plate.dxf` (generated
+by `generate_dxf.py` in the same directory). The plate is split along
+the horizontal line through the shank hole and pill slot, producing
+two semicircular halves that mate along their straight edges. Each
+half is a Ø 27.175 mm semicircle with a half-shank-hole indent and a
+half-pill-slot indent on its mating edge.
 
 The split design exists because the faucet + umbilical leave the
 faucet-and-umbilical build chain as one permanently-attached
 sub-assembly — the LLDPE tubes are clamped to the Westbrass body and
 never separated again. A solid under-counter plate would force the
 installer to thread already-attached tubes through the pill slot from
-below; the split eliminates that step.
+below; the split lets the installer clip one half against the
+umbilical from each side, with the two halves meeting around the
+shank + tube bundle.
 
-Sits between the countertop underside and the under-counter shank nut.
-Distributes the nut's clamping force over a wide area so the nut
-doesn't dish or crush the countertop bottom — the printed mounting
-plate alone is too soft / too small for that clamping load. Installed
-during countertop install, not during the shell + plate + body
-sub-assembly procedure below.
+The two halves are not interlocked. The factory shank nut + washer
+clamps both halves up against the countertop underside; the clamping
+force is what holds the halves in position. Anti-rotation during nut
+tightening uses the same silicone-bumper plan as the prior one-piece
+version (four small bumpers per half = eight total) to lock each
+half's top face against the countertop underside via friction.
 
-**DXF generator update pending.** The current `generate_dxf.py` outputs
-a solid Ø 54.35 mm disc — see [`../../../assembly/faucet-and-umbilical.md`](../../../assembly/faucet-and-umbilical.md)
-"Open items" for the split-DXF rework that needs to happen before unit 1.
+Stack-up: between the countertop underside and the under-counter
+shank nut. Distributes the nut's clamping force over a wide area so
+the nut doesn't dish or crush the countertop bottom — the printed
+mounting plate above the counter is too soft / too small for that
+clamping load. Installed during countertop install, not during the
+shell + plate + body sub-assembly procedure below.
 
 ## Tools
 
