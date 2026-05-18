@@ -23,6 +23,8 @@ import {
   saveCameraState,
   applyCameraState,
   resetCamera,
+  camera,
+  controls,
 } from "./scene.js";
 import { loadStepFile } from "./step.js";
 import { loadDxfFile, resetDxfCamera } from "./dxf.js";
@@ -33,6 +35,15 @@ import { makeRulerToggle } from "./rulers.js";
 // saved view doesn't restore on the next open. The post-reset camera
 // position will then be re-saved naturally by the controls "change"
 // listener in scene.js, giving the file a clean default to come back to.
+//
+// Transitions over 400ms so the user sees the camera fly back rather than
+// teleport — the intermediate frames make it clear *where* the default is
+// relative to where they were. We run the per-format reset to compute the
+// destination, snapshot pose, restore the start pose, then lerp position +
+// up + target. resetAnimToken cancels an in-flight animation if the user
+// clicks again before it finishes.
+let resetAnimToken = 0;
+
 function makeResetViewButton() {
   const btn = document.createElement("button");
   btn.type = "button";
@@ -43,12 +54,43 @@ function makeResetViewButton() {
     if (!state.mountedDetail || !state.currentGroup) return;
     const { type, file } = state.mountedDetail;
     try { localStorage.removeItem(`step-camera:${file}`); } catch {}
+
+    const startPos = camera.position.clone();
+    const startUp = camera.up.clone();
+    const startTarget = controls.target.clone();
+
     if (type === "dxf") {
       const meta = state.dxfMeta.get(file) || {};
       resetDxfCamera(state.currentGroup, typeof meta.thickness_mm === "number");
     } else {
       resetCamera(state.currentGroup);
     }
+
+    const destPos = camera.position.clone();
+    const destUp = camera.up.clone();
+    const destTarget = controls.target.clone();
+
+    camera.position.copy(startPos);
+    camera.up.copy(startUp);
+    controls.target.copy(startTarget);
+    camera.lookAt(controls.target);
+    controls.update();
+
+    const token = ++resetAnimToken;
+    const duration = 400;
+    const startTime = performance.now();
+    function step() {
+      if (token !== resetAnimToken || !state.mountedDetail || state.mountedDetail.file !== file) return;
+      const t = Math.min((performance.now() - startTime) / duration, 1);
+      const ease = t * (2 - t); // ease-out quad — matches the ViewCube snap
+      camera.position.lerpVectors(startPos, destPos, ease);
+      camera.up.lerpVectors(startUp, destUp, ease).normalize();
+      controls.target.lerpVectors(startTarget, destTarget, ease);
+      camera.lookAt(controls.target);
+      controls.update();
+      if (t < 1) requestAnimationFrame(step);
+    }
+    requestAnimationFrame(step);
   });
   return btn;
 }
