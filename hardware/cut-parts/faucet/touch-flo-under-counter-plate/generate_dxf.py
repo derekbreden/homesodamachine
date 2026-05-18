@@ -53,9 +53,12 @@ different Y points on the rim.
 
 GEOMETRY
 ========
-- Disc Ø 54.35 mm, centered at (0, 9.4625) — the Y midpoint between
-  the shank and pill terminals. Symmetric layout: shank rim margin
-  ~11 mm, pill rim margin ~13 mm.
+- Disc Ø 54.35 mm, centered at (0, 0) — at the shank. The shank sits
+  at the disc's geometric center; the pill at (0, 18.925) sits near
+  the upper rim. Shank rim margin ~21 mm; pill rim margin ~4.6 mm at
+  its closest corner to the rim (the top-left corner of the pill
+  rectangle at (-3.175, 22.35)) — tight but well within 0.060" 304
+  SS structural capacity under nut clamping load.
 - Shank terminal: Ø 12.6 mm semicircular pocket on the mating side of
   the channel, at (0, 0).
 - Shank channel: 12.6 mm tall (Y from -6.3 to +6.3), extending from
@@ -149,11 +152,12 @@ import ezdxf
 
 # Dimensions in mm. DXF $INSUNITS = 4 (millimeters).
 
-# Disc — centered between the two terminals on the Y axis.
+# Disc — centered on the shank at (0, 0). The shank is at the disc's
+# geometric center; the pill is offset upward to (0, 18.925).
 disc_diameter = 54.35
 disc_radius = disc_diameter / 2.0
 disc_cx = 0.0
-disc_cy = 18.925 / 2.0   # 9.4625 — midpoint of shank (Y=0) and pill (Y=18.925)
+disc_cy = 0.0
 
 # Shank terminal (at the disc-center side of the layout).
 shank_cx = 0.0
