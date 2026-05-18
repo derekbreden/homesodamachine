@@ -92,7 +92,11 @@ pill center, 18.925 mm away along +X. Each pocket has its own
 open-edge channel extending from the pocket to the disc rim in the
 −Y direction (channel widths: 12.6 mm for the shank, 6.85 mm for the
 pill). The two channels exit the rim at different X positions and
-do not merge.
+do not merge. The four corners where the channel walls meet the
+rim are rounded with R 1.5 mm fillets — these would otherwise be
+sharp acute tips (handling hazard, laser-dross-prone, no help with
+alignment); the fillets dull them and give the cylinders a small
+lead-in funnel at each channel mouth.
 
 The keyhole design exists because the faucet + umbilical leave the
 faucet-and-umbilical build chain as one permanently-attached
