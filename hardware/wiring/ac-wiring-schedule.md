@@ -33,7 +33,8 @@ Per-run gauges, terminations, and approximate lengths. Lengths assume the enclos
 | AC-4 | Teyleten relay #1 contact output ("normally open") | Compressor terminal block (inside shroud) | H_switched | 18 | ~400 mm | Crimp fork to relay; female disconnect to compressor terminal | Switched hot. Routes through the shroud's grommeted AC pass-through. Length includes service slack. |
 | AC-5 | AC distribution block (N) | Compressor terminal block (inside shroud) | N | 18 | ~400 mm | Crimp ferrule at distribution block; female disconnect to compressor terminal | Routes through the same grommet as AC-4. |
 | AC-6 | Earth bus on chassis ground point | Compressor body / shroud ground lug | G | 16 | ~400 mm | Ring terminal both ends | Bonds the metal shroud and the compressor body to chassis ground. Routes through the same grommet as AC-4 / AC-5. |
-| AC-7 | AC distribution block (H) or compressor terminal | Condenser fan motor | H_switched + N | 18 | ~300 mm | Female disconnects | Condenser fan switches with the compressor (same Teyleten relay). Tap point is electrically equivalent — convention is to tap at the compressor terminal block alongside the compressor leads, so a single switched-H wire leaves the shroud rather than two. |
+
+The condenser fan does **not** appear in the AC table: the harvested fan is a 12 V DC brushless axial motor (the donor ice maker's own PCB regulated mains to 12 V to drive it; on harvest we keep the fan and discard the PCB). It rides on the 12 V bus instead — see run DC-9 below.
 
 ### Low-voltage logic (3.3 V control side of the relays)
 
@@ -55,6 +56,7 @@ Per-run gauges, terminations, and approximate lengths. Lengths assume the enclos
 | DC-6 | 12 V distribution block | ULN2803A #1 + #2 COM pin (each) | + | 18 | ~150 mm | Pin header on ULN modules | Solenoid coil supply; ULN sinks to GND. |
 | DC-7 | ULN2803A outputs (12 channels used) | 12× Beduan solenoid coils on the manifold | + (per valve, GND shared at COM) | 22 | ~300 mm to manifold, then ~150 mm fan-out per valve | Female disconnects per valve | Group as a 24-conductor ribbon or wiring loom from the electronics shelf to the manifold; fan-out at the manifold to per-valve wires. |
 | DC-8 | 12 V distribution block | 5 V regulator input | + + GND | 22 | ~50 mm | Pin header / screw terminal | 5 V rail feeds MCUs. |
+| DC-9 | 12 V distribution block (+) and ULN2803A #2 channel 5 output (−) | Condenser fan motor (12 V DC brushless axial, ~0.35 A) | + + ULN-sink return | 22 | ~400 mm (electronics shelf → side wall fan) | Female disconnects at the fan; pin header / screw terminal at ULN module | Low-side switching, same pattern as the solenoid coils (DC-7) — fan + side ties to the 12 V bus; ULN channel 5 sinks the − side to GND when commanded. Driven by MCP23017 0x21 PA4. Flyback path provided by the ULN2803A's integrated diode to COM (already wired to 12 V via DC-6). |
 
 ### Sensors and signal (low-voltage, low-current)
 
