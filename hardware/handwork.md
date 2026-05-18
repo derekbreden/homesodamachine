@@ -24,7 +24,7 @@ See [assembly/refrigerant-loop.md](assembly/refrigerant-loop.md) step 4 for the 
 
 ## Tap NPT in 316L end caps
 
-Hand-tap 1/4"-18 NPT directly into the 1/4"-thick laser-cut 316L end-cap plates from SendCutSend (`endcap-circular-2hole.dxf`). 2 ports per plate × 2 plates per vessel × 10 vessels of stock = 40 holes. Tap Magic EP-Xtra cutting fluid; Drill America HSS pipe tap; Brown & Sharpe spring-loaded tap guide on the WEN drill press; Drill America DWT adjustable tap wrench for the hand drive. The committed plan for the first hole is [tapping-plan-2026-05-03.md](tapping-plan-2026-05-03.md); the remaining 39 follow once that one proves the fixture and the feel.
+Hand-tap 1/4"-18 NPT directly into the 1/4"-thick laser-cut 316L end-cap plates from SendCutSend (`endcap-circular-2hole.dxf`). 2 ports per plate × 2 plates per vessel × 10 vessels of stock = 40 holes. Tap Magic EP-Xtra cutting fluid; LingGan M35 cobalt 1/4-18 NPT pipe tap (HSS-E, wears slower on stainless than plain HSS); Brown & Sharpe spring-loaded tap guide on the WEN drill press; Drill America DWT adjustable tap wrench for the hand drive. The committed plan for the first hole is [tapping-plan-2026-05-03.md](tapping-plan-2026-05-03.md); the remaining 39 follow once that one proves the fixture and the feel.
 
 See [assembly/pressure-vessel.md](assembly/pressure-vessel.md) step 1 for the production-procedure framing.
 
