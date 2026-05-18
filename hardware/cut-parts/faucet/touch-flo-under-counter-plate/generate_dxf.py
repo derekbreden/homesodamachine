@@ -5,73 +5,43 @@ nut/washer that clamps the entire faucet stack from below.
 
 KEYHOLE DESIGN — ONE PIECE WITH TWO OPEN-EDGE SLOTS
 ====================================================
-The plate is a single rigid disc with two narrow open-edge slots cut
-into it. Each slot is a terminal pocket (sized to receive its cylinder
-snugly) plus a straight channel of the same cross-section extending to
-the rim. The customer slides the plate laterally onto the dangling
-umbilical from below the countertop, both cylinders entering through
-their channel mouths at the rim and seating in their terminal pockets.
-Single piece, single slide motion, no two-half alignment, no flex
-required.
+The plate is a single rigid disc with the same Ø 54.35 mm outline,
+same disc center, and the same shank-hole and pill-slot positions as
+the upper printed mounting plate and the TPU gasket above the
+countertop. The under-counter plate adds two narrow open-edge
+channels — one from each cylinder pocket to the rim — so the customer
+can slide the plate laterally onto the dangling umbilical from below
+the countertop. Both cylinders enter through their channel mouths at
+the rim and seat in their terminal pockets. Single piece, single slide
+motion, no two-half alignment, no flex required, no closed pill slot
+to thread tubes through at install.
 
-WHY KEYHOLE OVER SPLIT-HALVES
-=============================
-The faucet + umbilical leaves
-`/Users/derekbredensteiner/Developer/homesodamachine/hardware/assembly/faucet-and-umbilical.md`
-as one permanently-attached sub-assembly — the LLDPE tubes are clamped
-to the Westbrass body's compression ports at the bench and never
-separated again. A solid one-piece disc would force the customer to
-thread already-attached tubes through the pill slot from below. The
-split-halves design (one earlier iteration) avoids that but requires
-the customer to hold two pieces in alignment against the countertop
-underside while also threading the nut — three hands or contortion.
-The keyhole design avoids both: the customer slides one piece on, the
-cylinders sit in the channels (so the plate cannot drift back out of
-alignment under gravity), the customer threads the nut one-handed.
+HOLE POSITIONS MATCH THE TPU GASKET EXACTLY
+============================================
+The mounting plate, TPU gasket, and under-counter plate all sit on the
+same shank with the same flavor tubes passing through the same pill
+slot. Their hole patterns are identical: disc center at (3.175, 0),
+shank hole at (0, 0), pill slot at (18.925, 0) with long axis along Y
+(13.2 mm long, 6.85 mm wide). The under-counter plate adds channels
+without changing the hole positions, so it stacks naturally below
+the gasket and the mounting plate without rotation or coordinate
+translation.
 
-The cylinders in their narrow channels also provide built-in
-anti-rotation: any attempt at rotation under nut clamping load presses
-the cylinders against the channel walls. No silicone bumpers needed.
+CHANNEL DIRECTION
+=================
+Both channels extend in −Y from their cylinder pockets to the rim:
+- Shank channel: from the shank's bottom semicircle (the lower half
+  of the shank circle, Y < 0) downward to the rim. Width 12.6 mm in
+  X (X from -6.3 to +6.3, matching the shank diameter).
+- Pill channel: from the pill's bottom rectangle edge (Y = -3.175,
+  replacing the bottom cap of the pill stadium) downward to the rim.
+  Width 6.85 mm in X (X from 15.5 to 22.35, matching the pill's
+  short axis).
 
-INTERNAL COORDINATE LAYOUT
-==========================
-For the two horizontal channels to exit the rim at different points
-(and not merge), the shank hole and pill slot must be at different Y
-positions in plate coordinates. The body's geometry fixes the
-*magnitude* of the shank-to-pill distance (18.925 mm) and the
-perpendicular orientation of the pill's long axis to that distance,
-but lets the plate's coordinate frame be chosen freely. The mounting
-plate and gasket above the countertop describe these features along
-their own X axis (shank at (0, 0), pill at (18.925, 0)). The
-under-counter plate's DXF describes them along its own Y axis (shank
-at (0, 0), pill at (0, 18.925)) — the same physical features in a
-90°-rotated coordinate system. The customer doesn't see coordinate
-frames; they just orient the plate to fit the cylinders, same as they
-would with any plate. The choice of axis is purely a DXF-description
-convenience that makes the two channels naturally extend in +X to two
-different Y points on the rim.
-
-GEOMETRY
-========
-- Disc Ø 54.35 mm, centered at (0, 0) — at the shank. The shank sits
-  at the disc's geometric center; the pill at (0, 18.925) sits near
-  the upper rim. Shank rim margin ~21 mm; pill rim margin ~4.6 mm at
-  its closest corner to the rim (the top-left corner of the pill
-  rectangle at (-3.175, 22.35)) — tight but well within 0.060" 304
-  SS structural capacity under nut clamping load.
-- Shank terminal: Ø 12.6 mm semicircular pocket on the mating side of
-  the channel, at (0, 0).
-- Shank channel: 12.6 mm tall (Y from -6.3 to +6.3), extending from
-  the shank pocket rightward to the right rim. Channel mouth on the
-  rim spans Y = -6.3 (rim X = 22.14) to Y = +6.3 (rim X = 26.99).
-- Pill terminal: stadium 13.2 mm long × 6.85 mm wide, long axis along
-  X (the channel direction), centered at (0, 18.925). The pill's
-  *right* cap is replaced by the channel; the *left* cap remains as
-  the boundary at the pill's leftmost extent.
-- Pill channel: 6.85 mm tall (Y from 15.5 to 22.35), extending from
-  the pill's right rectangle edge (X = +3.175) rightward to the
-  right rim. Channel mouth on the rim spans Y = 15.5 (rim X = 26.49)
-  to Y = 22.35 (rim X = 23.92).
+Because the shank is at X = 0 and the pill is at X = 18.925, the two
+channels are at different X ranges (X = [-6.3, +6.3] vs X = [15.5,
+22.35]) and do not overlap. They exit the rim at different points on
+the lower arc of the disc.
 
 INSTALL SEQUENCE
 ================
@@ -80,13 +50,24 @@ INSTALL SEQUENCE
    factory bench) compresses against the countertop top surface.
 2. From below: hold the plate horizontally against the countertop
    underside, oriented with the channel mouths facing the umbilical.
-3. Slide the plate laterally past the cylinders. Both cylinders enter
-   through their channel mouths at the rim and travel along the
-   channels into their terminal pockets — the shank into its
-   Ø 12.6 pocket at (0, 0), the two tubes into the pill at (0, 18.925).
+3. Slide the plate laterally past the cylinders. Both the shank and
+   the tube bundle enter through their channel mouths at the rim and
+   travel along the channels into their terminal pockets — the shank
+   into its Ø 12.6 pocket at (0, 0), the two tubes into the pill at
+   (18.925, 0).
 4. Slide a washer onto the shank from below, against the plate.
 5. Thread the factory shank nut onto the shank and tighten. The
    nut + washer clamp the plate flat against the countertop underside.
+
+ANTI-ROTATION
+=============
+Built in. With the cylinders seated in their narrow channels at two
+different X positions (one at X = 0, one at X = 18.925), any rotation
+of the plate around the shank would force the pill to swing through
+an arc — but the pill is held by the tube bundle in its channel,
+which resists that arc. The two cylinders at different X provide a
+moment arm that resists rotation. No silicone bumpers needed (unlike
+the prior solid-disc design that this iteration supersedes).
 
 PURPOSE (unchanged from prior iterations)
 ==========================================
@@ -94,8 +75,7 @@ PURPOSE (unchanged from prior iterations)
   area so the nut doesn't dish or crush the countertop bottom.
 - Provides a flat reference surface for the nut to bear against.
 - Hole pattern matches the upper mounting plate and TPU gasket
-  (rotated 90° in the description, but the same physical features) —
-  shank passes through, two flavor tubes pass through.
+  exactly — shank passes through, two flavor tubes pass through.
 
 STACK-UP (top → bottom, world-Z range in faucet-assembly coords):
 - Mounting plate (PETG-CF), Z = [-4, 0]
@@ -130,8 +110,7 @@ THICKNESS / MATERIAL (specified at order time, not in the DXF)
 - Recommended: 0.060" (1.524 mm) 304 stainless. SendCutSend stocks
   this exact gauge in 304; runs cheaper than 316 and is plenty for an
   under-counter location not in food contact.
-- Order quantity: 1 per appliance (this is a single-piece design;
-  unlike the split-halves it superseded, no qty 2 needed).
+- Order quantity: 1 per appliance.
 
 UNITS
 =====
@@ -151,46 +130,41 @@ from pathlib import Path
 import ezdxf
 
 # Dimensions in mm. DXF $INSUNITS = 4 (millimeters).
+# Hole positions match the TPU gasket and the upper mounting plate
+# exactly. The disc is also unchanged in size and center.
 
-# Disc — centered on the shank at (0, 0). The shank is at the disc's
-# geometric center; the pill is offset upward to (0, 18.925).
 disc_diameter = 54.35
 disc_radius = disc_diameter / 2.0
-disc_cx = 0.0
+disc_cx = 3.175
 disc_cy = 0.0
 
-# Shank terminal (at the disc-center side of the layout).
 shank_cx = 0.0
 shank_cy = 0.0
 shank_diameter = 12.6
 shank_radius = shank_diameter / 2.0
 
-# Pill terminal — long axis along X (the channel direction).
-pill_cx = 0.0
-pill_cy = 18.925
-pill_long_x = 13.2       # along channel direction
-pill_short_y = 6.85      # perpendicular to channel
-pill_half_long = pill_long_x / 2.0       # 6.6
-pill_half_short = pill_short_y / 2.0     # 3.425
-pill_cap_radius = pill_half_short        # 3.425 — cap is a semicircle of the short width
-pill_left_cap_x = pill_cx - (pill_half_long - pill_cap_radius)    # -3.175
-pill_right_cap_x = pill_cx + (pill_half_long - pill_cap_radius)   # +3.175
-pill_top_y = pill_cy + pill_half_short    # 22.35
-pill_bot_y = pill_cy - pill_half_short    # 15.5
+# Pill is Y-oriented (matching the gasket): long axis along Y, short
+# axis along X.
+pill_cx = 18.925
+pill_cy = 0.0
+pill_long_y = 13.2
+pill_short_x = 6.85
+pill_half_long = pill_long_y / 2.0       # 6.6
+pill_half_short = pill_short_x / 2.0     # 3.425
+pill_cap_radius = pill_half_short        # 3.425
+pill_top_cap_cy = pill_cy + (pill_half_long - pill_cap_radius)   # +3.175
+pill_bot_cap_cy = pill_cy - (pill_half_long - pill_cap_radius)   # -3.175
+pill_left_x = pill_cx - pill_half_short     # 15.5
+pill_right_x = pill_cx + pill_half_short    # 22.35
 
 
-def rim_x_at(y):
-    """Positive X on the disc rim at the given Y."""
-    return math.sqrt(disc_radius ** 2 - (y - disc_cy) ** 2)
-
-
-def angle_at(point):
-    """Polar angle in degrees around the disc center for a point on the rim."""
-    return math.degrees(math.atan2(point[1] - disc_cy, point[0] - disc_cx))
+def rim_y_lower(x):
+    """Lower Y on the disc rim at the given X (the bottom of the disc)."""
+    return disc_cy - math.sqrt(disc_radius ** 2 - (x - disc_cx) ** 2)
 
 
 def ccw_arc(msp, center, radius, start_pt, end_pt):
-    """Emit an arc on the disc rim going CCW from start_pt to end_pt."""
+    """Emit a CCW arc on the disc rim from start_pt to end_pt."""
     start_angle = math.degrees(math.atan2(start_pt[1] - center[1], start_pt[0] - center[0]))
     end_angle = math.degrees(math.atan2(end_pt[1] - center[1], end_pt[0] - center[0]))
     if end_angle <= start_angle:
@@ -204,58 +178,75 @@ def make_dxf():
     msp = doc.modelspace()
 
     # Key points on the plate boundary (going CCW from the top of the disc):
-    top_of_disc = (disc_cx, disc_cy + disc_radius)                  # (0, 36.6375)
+    top_of_disc = (disc_cx, disc_cy + disc_radius)                     # (3.175, +27.175)
 
-    shank_bot_mouth = (rim_x_at(shank_cy - shank_radius),
-                       shank_cy - shank_radius)                     # (~22.14, -6.3)
-    shank_bot_pocket = (shank_cx, shank_cy - shank_radius)          # (0, -6.3)
-    shank_top_pocket = (shank_cx, shank_cy + shank_radius)          # (0, +6.3)
-    shank_top_mouth = (rim_x_at(shank_cy + shank_radius),
-                       shank_cy + shank_radius)                     # (~26.99, +6.3)
+    # Shank channel — extends in -Y from the shank's bottom semicircle
+    # to the rim, width 12.6 mm in X.
+    shank_left_wall_x = shank_cx - shank_radius                        # -6.3
+    shank_right_wall_x = shank_cx + shank_radius                       # +6.3
+    shank_left_wall_top = (shank_left_wall_x, shank_cy)                # (-6.3, 0)
+    shank_right_wall_top = (shank_right_wall_x, shank_cy)              # (+6.3, 0)
+    shank_left_wall_rim = (shank_left_wall_x,
+                           rim_y_lower(shank_left_wall_x))             # (-6.3, ~-25.47)
+    shank_right_wall_rim = (shank_right_wall_x,
+                            rim_y_lower(shank_right_wall_x))           # (+6.3, ~-27.00)
 
-    pill_bot_mouth = (rim_x_at(pill_bot_y), pill_bot_y)             # (~26.49, 15.5)
-    pill_rect_bot_left = (pill_left_cap_x, pill_bot_y)              # (-3.175, 15.5)
-    pill_rect_top_left = (pill_left_cap_x, pill_top_y)              # (-3.175, 22.35)
-    pill_top_mouth = (rim_x_at(pill_top_y), pill_top_y)             # (~23.92, 22.35)
+    # Pill channel — extends in -Y from the pill rectangle's bottom
+    # edge (Y = pill_bot_cap_cy = -3.175, replacing the bottom cap) to
+    # the rim, width 6.85 mm in X.
+    pill_left_wall_top = (pill_left_x, pill_bot_cap_cy)                # (15.5, -3.175)
+    pill_right_wall_top = (pill_right_x, pill_bot_cap_cy)              # (22.35, -3.175)
+    pill_left_wall_rim = (pill_left_x, rim_y_lower(pill_left_x))       # (15.5, ~-24.22)
+    pill_right_wall_rim = (pill_right_x, rim_y_lower(pill_right_x))    # (22.35, ~-19.25)
+
+    pill_rect_top_left = (pill_left_x, pill_top_cap_cy)                # (15.5, +3.175)
+    pill_rect_top_right = (pill_right_x, pill_top_cap_cy)              # (22.35, +3.175)
 
     disc_center = (disc_cx, disc_cy)
 
-    # 1. Long rim arc CCW from top of disc to the shank channel's bottom mouth.
-    #    Spans the entire left side and bottom of the disc.
-    ccw_arc(msp, disc_center, disc_radius, top_of_disc, shank_bot_mouth)
+    # 1. Long rim arc CCW from top of disc to the shank channel's left
+    #    wall meeting point (going around the left side and bottom-left
+    #    of the disc).
+    ccw_arc(msp, disc_center, disc_radius, top_of_disc, shank_left_wall_rim)
 
-    # 2. Shank channel bottom wall.
-    msp.add_line(shank_bot_mouth, shank_bot_pocket)
+    # 2. Shank channel left wall, going UP from the rim to the shank
+    #    pocket's left side.
+    msp.add_line(shank_left_wall_rim, shank_left_wall_top)
 
-    # 3. Shank's left semicircle — the pocket that captures the shank.
-    #    CCW from 90° to 270° around the shank center passes through 180°
-    #    (the leftmost point), giving the LEFT half of the shank circle.
-    msp.add_arc((shank_cx, shank_cy), shank_radius, start_angle=90.0, end_angle=270.0)
+    # 3. Shank's upper semicircle — the pocket that captures the shank.
+    #    CCW from 0° to 180° around the shank center passes through 90°
+    #    (the top), giving the UPPER half of the shank circle.
+    msp.add_arc((shank_cx, shank_cy), shank_radius,
+                start_angle=0.0, end_angle=180.0)
 
-    # 4. Shank channel top wall.
-    msp.add_line(shank_top_pocket, shank_top_mouth)
+    # 4. Shank channel right wall, going DOWN from the shank pocket's
+    #    right side to the rim.
+    msp.add_line(shank_right_wall_top, shank_right_wall_rim)
 
-    # 5. Short rim arc CCW from the shank channel top mouth to the pill
-    #    channel bottom mouth.
-    ccw_arc(msp, disc_center, disc_radius, shank_top_mouth, pill_bot_mouth)
+    # 5. Short rim arc CCW from the shank channel's right wall meeting
+    #    point to the pill channel's left wall meeting point.
+    ccw_arc(msp, disc_center, disc_radius, shank_right_wall_rim, pill_left_wall_rim)
 
-    # 6. Pill channel bottom wall + pill rectangle bottom edge, one
-    #    continuous line at Y = pill_bot_y.
-    msp.add_line(pill_bot_mouth, pill_rect_bot_left)
+    # 6. Pill channel left wall + pill rectangle left edge, one
+    #    continuous line at X = pill_left_x, going UP from the rim to
+    #    the top of the pill rectangle.
+    msp.add_line(pill_left_wall_rim, pill_rect_top_left)
 
-    # 7. Pill's left cap — the pocket that captures the leftmost tube.
-    #    CCW from 90° to 270° around the left-cap center gives the LEFT
-    #    half of the cap (the pill's leftmost boundary).
-    msp.add_arc((pill_left_cap_x, pill_cy), pill_cap_radius,
-                start_angle=90.0, end_angle=270.0)
+    # 7. Pill's top cap — the cap that captures the top of the pill.
+    #    CCW from 180° to 0° around the top cap center passes through
+    #    90° (the top), but we want CCW from 0° to 180° through 90° to
+    #    get the upper half (above the cap center).
+    msp.add_arc((pill_cx, pill_top_cap_cy), pill_cap_radius,
+                start_angle=0.0, end_angle=180.0)
 
-    # 8. Pill rectangle top edge + pill channel top wall, one continuous
-    #    line at Y = pill_top_y.
-    msp.add_line(pill_rect_top_left, pill_top_mouth)
+    # 8. Pill rectangle right edge + pill channel right wall, one
+    #    continuous line at X = pill_right_x, going DOWN from the top
+    #    of the rectangle to the rim.
+    msp.add_line(pill_rect_top_right, pill_right_wall_rim)
 
-    # 9. Short rim arc CCW from the pill channel top mouth back to the
-    #    top of the disc.
-    ccw_arc(msp, disc_center, disc_radius, pill_top_mouth, top_of_disc)
+    # 9. Short rim arc CCW from the pill channel's right wall meeting
+    #    point back to the top of the disc.
+    ccw_arc(msp, disc_center, disc_radius, pill_right_wall_rim, top_of_disc)
 
     out_dir = Path(__file__).resolve().parent
     out_name = "touch-flo-under-counter-plate"
@@ -266,12 +257,13 @@ def make_dxf():
 
 if __name__ == "__main__":
     out = make_dxf()
-    print("Touch-Flo under-counter plate — keyhole design (one piece, two open-edge slots)")
+    print("Touch-Flo under-counter plate — keyhole (gasket-matched hole positions)")
     print(f"  Outline:        Ø {disc_diameter} mm disc, centered at ({disc_cx}, {disc_cy})")
     print(f"  Shank pocket:   Ø {shank_diameter} mm at ({shank_cx}, {shank_cy})")
-    print(f"  Shank channel:  {shank_diameter} mm tall, +X to the rim")
-    print(f"  Pill pocket:    {pill_long_x} × {pill_short_y} mm stadium at ({pill_cx}, {pill_cy})")
-    print(f"  Pill channel:   {pill_short_y} mm tall, +X to the rim")
+    print(f"  Shank channel:  {shank_diameter} mm wide in X, -Y to the rim")
+    print(f"  Pill pocket:    {pill_long_y} × {pill_short_x} mm Y-oriented stadium "
+          f"at ({pill_cx}, {pill_cy})")
+    print(f"  Pill channel:   {pill_short_x} mm wide in X, -Y to the rim")
     print(f"  Units in DXF:   mm (DXF $INSUNITS = 4)")
     print(f"  Material spec:  0.060\" (1.524 mm) 304 stainless, laser-cut, qty 1 per appliance")
     print(f"-> {out.name}")
