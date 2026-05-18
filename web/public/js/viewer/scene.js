@@ -1,12 +1,19 @@
-// Three.js scene singletons: renderer, camera, OrbitControls, lighting,
+// Three.js scene singletons: renderer, camera, TrackballControls, lighting,
 // the ViewCube gizmo, the animate loop, and per-file camera persistence.
 //
 // renderer/scene/camera/controls/gizmo* are created ONCE at module load
 // and reused across opens. The two canvases (renderer.domElement and
 // gizmoCanvas) live in #cad-canvas-host when no detail is open, and get
 // appendChild'd into the modal wrapper inside cad-detail.js. This keeps
-// OrbitControls listeners (bound to renderer.domElement) alive across
+// controls listeners (bound to renderer.domElement) alive across
 // open/close cycles and avoids reparsing GL state.
+//
+// TrackballControls (not OrbitControls) so rotation has no up-vector
+// clamp — you can keep dragging through the poles like Fusion 360
+// instead of hitting a wall at "straight overhead". camera.up is a
+// free variable the trackball maintains as you rotate; the ViewCube
+// snap and resetCamera still set it explicitly to land on a known
+// orientation.
 //
 // This module does NOT know about modals — cad-detail.js owns wrapper
 // creation and the canvas reparenting. Here we only own the scene
@@ -14,7 +21,7 @@
 // localStorage save/apply).
 
 import * as THREE from "three";
-import { OrbitControls } from "three/addons/controls/OrbitControls.js";
+import { TrackballControls } from "three/addons/controls/TrackballControls.js";
 import { state } from "./state.js";
 
 // --- Detail view: Three.js setup ---
@@ -29,9 +36,15 @@ canvasHost.appendChild(renderer.domElement);
 
 export const scene = new THREE.Scene();
 export const camera = new THREE.PerspectiveCamera(45, 1, 0.01, 10000);
-export const controls = new OrbitControls(camera, renderer.domElement);
-controls.enableDamping = true;
-controls.dampingFactor = 0.12;
+export const controls = new TrackballControls(camera, renderer.domElement);
+// TrackballControls rotateSpeed=1 is sluggish vs. OrbitControls' feel;
+// 3.0 gives roughly the same drag-to-rotation ratio. panSpeed default
+// of 0.3 is also slower than expected — bump to match. Damping stays
+// enabled (staticMoving=false) at a comparable factor.
+controls.rotateSpeed = 3.0;
+controls.panSpeed = 0.8;
+controls.staticMoving = false;
+controls.dynamicDampingFactor = 0.12;
 
 scene.add(new THREE.AmbientLight(0xffffff, 0.5));
 const dirLight = new THREE.DirectionalLight(0xffffff, 0.8);
@@ -272,6 +285,10 @@ export function resizeRenderer() {
   renderer.domElement.style.height = h + "px";
   camera.aspect = w / h;
   camera.updateProjectionMatrix();
+  // TrackballControls samples canvas screen geometry once in its constructor
+  // and again here; without this, mouse coords normalize against stale
+  // dimensions after a resize and rotation feels off-axis.
+  controls.handleResize();
 }
 
 let animating = false;
