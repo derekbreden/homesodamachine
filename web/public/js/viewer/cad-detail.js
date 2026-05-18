@@ -22,10 +22,36 @@ import {
   stopAnimate,
   saveCameraState,
   applyCameraState,
+  resetCamera,
 } from "./scene.js";
 import { loadStepFile } from "./step.js";
-import { loadDxfFile } from "./dxf.js";
+import { loadDxfFile, resetDxfCamera } from "./dxf.js";
 import { makeRulerToggle } from "./rulers.js";
+
+// Reset-view button: re-frames the current part with the format's default
+// isometric framing and clears the per-file saved camera, so a wonky
+// saved view doesn't restore on the next open. The post-reset camera
+// position will then be re-saved naturally by the controls "change"
+// listener in scene.js, giving the file a clean default to come back to.
+function makeResetViewButton() {
+  const btn = document.createElement("button");
+  btn.type = "button";
+  btn.className = "reset-view";
+  btn.textContent = "Reset view";
+  btn.title = "Reset to default isometric framing";
+  btn.addEventListener("click", () => {
+    if (!state.mountedDetail || !state.currentGroup) return;
+    const { type, file } = state.mountedDetail;
+    try { localStorage.removeItem(`step-camera:${file}`); } catch {}
+    if (type === "dxf") {
+      const meta = state.dxfMeta.get(file) || {};
+      resetDxfCamera(state.currentGroup, typeof meta.thickness_mm === "number");
+    } else {
+      resetCamera(state.currentGroup);
+    }
+  });
+  return btn;
+}
 
 function shortName(file, ext = ".step") {
   const parts = file.split("/");
@@ -62,6 +88,7 @@ export function openCadDetail(type, file, pushHistory = true) {
   loadingEl.textContent = "Loading...";
   wrapper.appendChild(loadingEl);
   wrapper.appendChild(makeRulerToggle());
+  wrapper.appendChild(makeResetViewButton());
 
   state.currentCadWrapper = wrapper;
 
