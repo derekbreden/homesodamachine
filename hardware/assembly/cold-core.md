@@ -24,7 +24,7 @@ The **3M 425 aluminum foil tape** is *already applied to the vessel OD* at this 
 | Foam-shell (printed PETG) | [`../printed-parts/cold-core/foam-shell/`](../printed-parts/cold-core/foam-shell/) | Print, Bambu H2C, 0.8 mm nozzle |
 | Foam cap × 2 + foam cap lid × 2 (printed PETG) | Same | Print |
 | Copper plug × 3 (printed PETG) | Same | Print |
-| Flavor reservoir × 2 (printed) | [`../printed-parts/cold-core/reservoir/`](../printed-parts/cold-core/reservoir/) | Print, Comfy Materials FDA-compliant food-grade PETG-Carbon B0BTLNK74C — ACQUIRED |
+| Flavor reservoir × 2 (printed) | [`../printed-parts/cold-core/reservoir/`](../printed-parts/cold-core/reservoir/) | Print, SunTop food-contact-compliant PETG (FDA 21 CFR 177.1630), 1.75 mm × 1 kg, Clear/Transparent B0FP34MJ94 — ON-ORDER |
 | TPU 90A gasket × 2 (printed) | [`../printed-parts/cold-core/foam-shell/`](../printed-parts/cold-core/foam-shell/) | Print |
 | M3 × 25 mm SHCS, 12.9 alloy, black oxide × 12 (body cap screws) | BNUOK B0DJQGF665 | ON-ORDER |
 | M3 × 12 mm SHCS, 12.9 alloy, black oxide × 12 (reservoir-cap screws — upstream of cold-core assembly per "Open items") | BNUOK B0DJQGVK8S | ON-ORDER |
@@ -107,4 +107,4 @@ Procedure-level gaps not resolved by parts already committed in [`../purchases.m
 1. **Foam data-sheet spec (mix proportions, pot life, cure time, pour temperature window).** Vendor is committed (Fiberglass Supply Depot B08R7TX8QJ, ON-ORDER — Amazon order 112-5359790-0932202, May 15, 2026, arriving Sat May 16); the data sheet still needs to be read and the numbers locked into this doc once the kit is in hand.
 2. **Trim method after foam cure.** What gets flush-cut, with what — knife, oscillating tool, both depending on location.
 3. **Reservoir-internal assembly procedure (upstream of this doc).** The reservoir arrives in this procedure already assembled — cap installed, six M3×12 SHCS into ruthex inserts clamping a TPU gasket, PTFE vent membrane installed. That reservoir-internal sequence is not captured in any production-procedure doc.
-4. **Reservoir final-qualification status.** The Comfy Materials PETG-Carbon filament is ACQUIRED but the reservoir is still under qualification. Production sign-off pending water + syrup-dwell pass.
+4. **Reservoir final-qualification status.** The SunTop food-contact-compliant PETG filament (B0FP34MJ94) is ON-ORDER; reservoir final qualification is still pending water + syrup-dwell pass.
