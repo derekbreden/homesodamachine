@@ -14,16 +14,17 @@ R-600a is carved out of the EPA Section 608 venting prohibition as a natural ref
 
 ---
 
-## Unit A — Generic countertop, 8 cubes / 6 min
+## Unit A — Antarctic Star HZB-12/Q
 
 - ASIN: **B0F42MT8JX**
+- Brand / Model: Antarctic Star / HZB-12/Q
 - Price: $63.80
-- Rated output: 26 lb/day
+- Rated output: 26 lb/day (8 cubes per 6-minute cycle)
 - First teardown: 2026-04-17
 
 ### Refrigerant
 
-**R600a (isobutane).** Flammable. Charge is small (well under the 150 g UL 60335-2-89 limit for small appliances; factory label will list the exact mass). Brazing anywhere in the sealed loop requires the charge to be vented first — do not heat a pressurized R600a circuit.
+**R600a (isobutane), 15 g** factory charge per the Antarctic Star HZB-12/Q technical-parameters table in the product manual (UK reseller hosts the 220-240 V / 50 Hz variant manual at `adexa.co.uk`; the US Amazon variant we bought is 110-120 V / 60 Hz — same HZB-12/Q model number, same evap + condenser + refrigerant charge across voltage variants, only the compressor electrical spec changes). Well under the 150 g UL 60335-2-89 limit for small appliances. Brazing anywhere in the sealed loop requires the charge to be vented first — do not heat a pressurized R600a circuit.
 
 ### Refrigerant circuit topology (verified by disassembly)
 
@@ -130,7 +131,6 @@ For ESP32 control:
 
 ### Open items
 
-- Factory refrigerant charge mass (read from the nameplate once fully exposed)
 - Compressor rated cooling capacity in W — confirm against expected load of holding ~1.5 L of carbonated water at 2 °C against cabinet-ambient
 - Physical dimensions of compressor + condenser pair, for enclosure layout
 - Decide whether to save photos to `hardware/harvested/ice-maker/unit-a-b0f42mt8jx/raw-images/` alongside this doc
