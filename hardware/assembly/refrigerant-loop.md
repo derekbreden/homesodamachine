@@ -6,11 +6,13 @@ Design intent and component rationale live in [`../future.md`](../future.md) "Re
 
 ## Scope
 
-In: donor ice maker (verified topology in [`../harvested/ice-maker/README.md`](../harvested/ice-maker/README.md)), one hydro-tested + passivated carbonator vessel (per [`pressure-vessel.md`](pressure-vessel.md)), replacement filter-drier, R-600a refrigerant, argon from the welder cylinder.
+This is a single-session integration procedure: bring a finished cold core and a donor ice maker together at one workspace, open the donor's refrigerant loop, braze the cold core's coil stubs into the donor's loop, vacuum, charge, run up. Half a day of work end-to-end. All multi-day prep work (coil winding, foam pour) happens upstream in [`cold-core.md`](cold-core.md) before this session begins.
 
-Out: a closed and brazed refrigerant loop, vacuum-tight, charged within ±1 g of target mass, with the new evaporator coil bonded around the carbonator vessel. The compressor runs on its first run-up and the suction line drops cold.
+In: donor ice maker (verified topology in [`../harvested/ice-maker/README.md`](../harvested/ice-maker/README.md)); a finished cold core (output of [`cold-core.md`](cold-core.md) — wound evaporator coil bonded around the vessel, coil inlet/outlet stubs ~2 ft each protruding through the foam-shell's copper-plug exits, foam pour fully cured); R-600a refrigerant; argon from the welder cylinder.
 
-Not in scope: cold-core foam pour ([`cold-core.md`](cold-core.md)), electronics-shelf control wiring, AC distribution, compressor shroud install (its own spec at [`../cut-parts/compressor-shroud/README.md`](../cut-parts/compressor-shroud/README.md)).
+Out: a closed and brazed refrigerant loop, vacuum-tight, charged within ±1 g of target mass, with the cold core's evaporator coil now brazed into the donor's refrigeration cycle. The compressor runs on its first run-up and the suction line drops cold.
+
+Not in scope: cold-core assembly — coil winding, foam pour — all in [`cold-core.md`](cold-core.md); electronics-shelf control wiring, AC distribution, compressor shroud install (its own spec at [`../cut-parts/compressor-shroud/README.md`](../cut-parts/compressor-shroud/README.md)).
 
 ## Safety
 
@@ -24,19 +26,18 @@ The in-service hazard — a refrigerant leak post-build into a sealed compartmen
 
 ## Inputs per appliance
 
-Per-unit BOM lives in [`../bom.md`](../bom.md) §5 (refrigeration); 3M 425 foil tape is categorized in §6 (cold-core insulation) because it's a thermal-interface part, even though it gets applied during step 4 below. The table below is the procedure-level summary; bom.md is the source of truth for per-unit allocation and cost. Status (ACQUIRED / ON-ORDER) for every item lives in [`../purchases.md`](../purchases.md) §6.
+Per-unit BOM lives in [`../bom.md`](../bom.md) §5 (refrigeration). The table below is the procedure-level summary; bom.md is the source of truth for per-unit allocation and cost. Status (ACQUIRED / ON-ORDER) for every item lives in [`../purchases.md`](../purchases.md) §6.
 
 | Item | Source / spec | Notes |
 |---|---|---|
 | Donor ice maker | Generic B0F42MT8JX or Frigidaire EFIC117-SS B07PCZKG94 | Both verified topology |
+| Finished cold core | Output of [`cold-core.md`](cold-core.md) | Wound coil bonded to vessel, foam-poured, coil stubs protruding ~2 ft through foam-shell copper-plug exits |
 | Drier (spare / contingency only) | Supco SUD8358 + Supco D111 | The factory drier stays in service (see step 3 + harvested README "Filter-drier"); SUD8358 and D111 kept on the shelf as spares for any future loop-open service that requires replacement. Not consumed in the production procedure. |
 | R-600a refrigerant | Enviro-Safe B0CGG1WH1N (3-pack + brass charging gauge) | ~40 g per system, mass-metered; one 3-can pack covers ~12 recharges |
-| GOORY 1/4" OD × 0.031" wall ACR copper tubing | B0DKSW5VL9 | ~24 ft per vessel for coil + tie-ins (1/2 of 50 ft roll per build) |
-| 3M 425 aluminum foil tape | B07BTW7C2N | Coil-to-vessel thermal interface; applied as continuous skin under the coil; one 180 ft roll covers ~12 builds (bom.md §6, not §5 — categorized as a cold-core insulation part) |
-| Supco BPV31 bullet-piercing valve | B00DM8J3MI | Single permanent service-access point for the life of the appliance — taps the compressor process tube to vent factory R-600a (step 2), feeds argon during the entire loop-open period (step 3 onward), and serves as the manifold connection for vacuum (step 7) + recharge (step 8). Clamped permanently. |
+| Supco BPV31 bullet-piercing valve | B00DM8J3MI | Single permanent service-access point for the life of the appliance — taps the compressor process tube to vent factory R-600a (step 2), feeds argon during the entire loop-open period (step 3 onward), and serves as the manifold connection for vacuum (step 6) + recharge (step 7). Clamped permanently. |
 | BCuP-5 silver brazing alloy, 15 % Ag, 1/16" × 1 troy oz | B0DQ3ZMHK7 | Phosphorus-bearing self-fluxing filler for copper-to-copper joints; ~10 g per build, ~3 builds per rod |
 | 3M Scotch-Brite Maroon hand pads | B07CGPCTHT | Abrasive prep on 1/4" ACR copper OD + fitting sockets before flux + braze; ~2 of 20 pads per build |
-| Argon | Welder cylinder + Uniweld RHP400 brazing-purge regulator | Continuous low-pressure flow through the loop during the entire loop-open period (step 3 through step 7); no new cylinder needed |
+| Argon | Welder cylinder + Uniweld RHP400 brazing-purge regulator | Continuous low-pressure flow through the loop during the entire loop-open period (step 3 through step 6); no new cylinder needed |
 | BOJACK SF76E 77 °C SEFUSE thermal fuse + ACEIRMC MQ-6 LPG sensor module | B07Y61YTTK + B0978JSCZ8 | Hardware-only fire-safety backstops installed inside the compressor shroud (see Safety section above) |
 
 Tooling — all committed in [`../purchases.md`](../purchases.md) §6 (refrigeration) and §1 (argon side), ACQUIRED unless noted:
@@ -73,7 +74,7 @@ Confirm fully vented before proceeding: gauge reads atmospheric, no further hiss
 
 The factory drier stays in service (see [`../harvested/ice-maker/README.md`](../harvested/ice-maker/README.md) "Filter-drier" for rationale: the cap-tube outlet on any commodity replacement drier doesn't match the donor's hair-bore capillary, and the surgery to bridge that mismatch is rework risk for no functional gain). The drier, its brazed-on capillary tube, the cap-tube helix at the evap end, and the bonded suction-line heat-exchanger pair all stay together as one preserved upstream subassembly.
 
-**Before cutting anything, start continuous argon flow into the loop:** hook the argon-purge rig (Uniweld RHP400 + flared 1/4" ACR stub + Joywayus flare nut + HVAC charging hose) to the BPV31 flare port on the compressor process tube, open the BPV31, and start low-pressure argon (a few PSI). This flow continues without interruption from the first cut in this step until vacuum begins in step 7. The flow does two jobs simultaneously: (a) the per-braze hydrocarbon sweep from Hazard B, and (b) the dry inert blanket that preserves the factory drier's desiccant during the loop-open period. One continuous regimen satisfies both.
+**Before cutting anything, start continuous argon flow into the loop:** hook the argon-purge rig (Uniweld RHP400 + flared 1/4" ACR stub + Joywayus flare nut + HVAC charging hose) to the BPV31 flare port on the compressor process tube, open the BPV31, and start low-pressure argon (a few PSI). This flow continues without interruption from the first cut in this step until vacuum begins in step 6. The flow does two jobs simultaneously: (a) the per-braze hydrocarbon sweep from Hazard B, and (b) the dry inert blanket that preserves the factory drier's desiccant during the loop-open period. One continuous regimen satisfies both.
 
 With argon flowing through the loop, cut the refrigerant tubing at two points:
 
@@ -82,49 +83,39 @@ With argon flowing through the loop, cut the refrigerant tubing at two points:
 
 The factory finger-plate evaporator (cold plate) and the hot-gas bypass solenoid + bypass line + tee come out — the bypass path has no purpose in the production refrigerant loop (the loop wants steady cold, not harvest cycles). The bonded capillary-tube + suction-line heat-exchanger pair (where they run alongside each other for most of the suction line's length) stays intact on the compressor side. Per [`../harvested/ice-maker/README.md`](../harvested/ice-maker/README.md) "Capillary tube + suction-line heat exchanger": keep the bonded pair together, don't separate them.
 
-### 4. Wind the evaporator coil around the vessel
+### 4. Tie in the suction line
 
-A hydro-tested + passivated carbonator vessel (per [`pressure-vessel.md`](pressure-vessel.md)) is the substrate. Wind the GOORY 1/4" OD × 0.031" wall ACR copper tubing as a single-layer helical coil at ~1/8" pitch around the vessel OD — ~22 ft of wrap per vessel + ~2 ft each end for the compressor + suction tie-ins. The 0.031" wall was specifically chosen to resist kinking at the bend radius around the 5" OD vessel; thinner wall kinks, this wall holds.
+Position the cold core's coil-outlet stub (top of the wound coil — refrigerant exits as low-pressure gas heading to the compressor) next to the factory suction line cut. Join the two with the HVAC 1/4" OD ACR-grade slip coupling, sweat × sweat. Both lines are 1/4" OD, so the coupling is a direct sweat join. Braze under the continuous argon flow established in step 3.
 
-Bond the coil to the vessel OD with 3M 425 aluminum foil tape applied as a continuous skin between vessel and coil. The tape spans the tank-to-coil thermal interface.
+### 5. Tie in the capillary tube via pinch-swage
 
-Wind around the printed [coil-mandrel](../printed-parts/cold-core/coil-mandrel/generate_step_cadquery.py) — hollow PETG cylinder with a shallow 1 mm helical guide groove, mandrel OD 123 mm vs. tank OD 127 mm so the as-wound coil inner radius is 3 mm under the tank radius and tightens onto the vessel after slip-off. Wind length 120.4 mm and 9.687 wraps (pitch 12.43 mm) are set to align the coil's inlet/outlet ends with the foam-shell copper plugs at Y=46 and Y=166.4, so the exit bends are purely radial with no vertical jog. Pull the wound coil off the mandrel and slip it onto the foil-taped vessel; coil springback (1–3 mm radial) leaves a net interference fit.
-
-[`../handwork.md`](../handwork.md) "Bend copper around the pressure vessel" is the summary-level dev-phase entry for this step.
-
-### 5. Tie in the suction line
-
-Join the new evaporator coil's outlet end (top of the wound coil — refrigerant exits as low-pressure gas heading to the compressor) to the factory suction line using the HVAC 1/4" OD ACR-grade slip coupling, sweat × sweat. Both lines are 1/4" OD, so the coupling is a direct sweat join. Braze under the continuous argon flow established in step 3.
-
-### 6. Tie in the capillary tube via pinch-swage
-
-Join the new evaporator coil's inlet end (bottom of the wound coil) to the capillary-tube end coming from the factory drier (the cap-tube helix that was cut to length at the evap-inlet end in step 3). The OD mismatch (1/4" ACR coil vs 0.031" cap tube) is handled by **pinch-swaging the coil inlet down onto the cap tube using the Knipex 86 01 180 Pliers Wrench** — progressive 60° rotation collapse technique, no reducer fitting required. Once swaged, braze the joint under the continuous argon flow established in step 3.
+Position the cold core's coil-inlet stub (bottom of the wound coil) next to the capillary-tube end coming from the factory drier (cut to length at the evap-inlet end in step 3). The OD mismatch (1/4" ACR coil vs 0.031" cap tube) is handled by **pinch-swaging the coil-inlet stub down onto the cap tube using the Knipex 86 01 180 Pliers Wrench** — progressive 60° rotation collapse technique, no reducer fitting required. Once swaged, braze the joint under the continuous argon flow established in step 3.
 
 If total cap-tube length changes substantially relative to the donor's factory length (e.g., the new coil is significantly longer or shorter than the donor evaporator), a refrigeration tech should recalculate cap length for the new load rather than guessing — per [`../harvested/ice-maker/README.md`](../harvested/ice-maker/README.md) "Capillary tube + suction-line heat exchanger".
 
-### 7. Pull vacuum
+### 6. Pull vacuum
 
 All brazes complete. Stop the argon flow at the RHP400 regulator and close the BPV31. Disconnect the argon hose from the BPV31 flare port; connect the gauge manifold's 1/4" SAE flare in its place. Reopen the BPV31. Pull vacuum to 500 microns or below. Hold for ≥15 minutes. Valve off the pump and verify vacuum holds (no rise) for another 15 minutes. A rise during isolation indicates either residual moisture (run pump longer) or a leak (find and fix).
 
-### 8. Mass-metered recharge
+### 7. Mass-metered recharge
 
 Place the vacuum-tight loop on a mass scale. Tare. Connect the Enviro-Safe R-600a can to the gauge manifold and the manifold to the BPV31 flare port. Open the can valve; refrigerant enters the loop under its own vapor pressure. Watch the scale; close the can valve and the manifold when mass reaches target. Target is *not* simply the factory charge mass from step 1 — the new evaporator coil has greater internal volume than the discarded factory finger-plate, so the recharge runs higher than factory. First-unit calibration starts from factory mass (15 g for Unit A / 23 g for Unit B, per step 1) plus a small overage and iterates against frost-pattern and suction-line superheat on first run-up — see Open items §1.
 
 Disconnect the manifold; close the BPV31 and cap its flare port. The BPV31 stays clamped on the compressor process tube as the single permanent service-access point for the life of the appliance.
 
-### 9. Initial run-up + leak check
+### 8. Initial run-up + leak check
 
 Energize the compressor briefly. (Firmware enforces a 3-minute minimum off-time per [`../harvested/ice-maker/README.md`](../harvested/ice-maker/README.md) "Powering and control"; the first run-up starts that timer with no prior on-state.) Verify the compressor draws expected running current (~1 A) and the suction line drops cold within a minute or two.
 
 Apply electronic leak detector or soap solution at all braze joints + the BPV31 saddle clamp + the BPV31 flare port cap + any threaded connection. No bubbles, no detector hits.
 
-A leak at any joint requires the loop be re-vented through the BPV31 (open the valve, vent to atmosphere as in step 2), the joint re-cut, the continuous argon flow from step 3 restored, the joint re-brazed, the loop re-vacuumed (step 7), and re-charged (step 8). Field-repair-in-place with the charge still in is not the path.
+A leak at any joint requires the loop be re-vented through the BPV31 (open the valve, vent to atmosphere as in step 2), the joint re-cut, the continuous argon flow from step 3 restored, the joint re-brazed, the loop re-vacuumed (step 6), and re-charged (step 7). Field-repair-in-place with the charge still in is not the path.
 
 ## Output condition
 
-A finished refrigerant loop:
+A finished integrated refrigerant loop:
 
-- Vessel wrapped in coil, coil bonded to vessel with 3M 425 foil tape
+- Cold core's coil stubs brazed into the donor's loop (suction-line tie-in + cap-tube pinch-swage tie-in)
 - Vacuum-tight (≤500 microns, no rise over 15 min isolated)
 - Charged to within ±1 g of target mass
 - No detectable leaks at any joint
@@ -132,7 +123,7 @@ A finished refrigerant loop:
 - Hot-gas bypass solenoid, line, and tee discarded with the factory finger-plate evaporator
 - Factory drier preserved in service; the BPV31 flare port (closed and capped, BPV31 clamped on the compressor process tube) is the single permanent service-access point
 
-The wrapped vessel + plumbed compressor + condenser assembly is the input to [`cold-core.md`](cold-core.md) for the foam-pour install.
+The integrated assembly — cold core + plumbed compressor + condenser — is now ready for enclosure install and final wiring.
 
 ## Open items
 

@@ -1,26 +1,27 @@
 # Cold Core Assembly
 
-The production procedure for assembling the cold core — the back-of-enclosure subsystem that contains the carbonator vessel (already wrapped in its evaporator coil per [`refrigerant-loop.md`](refrigerant-loop.md)), two flavor reservoirs, and the surrounding pour-in-place polyurethane foam, all held together inside a 3D-printed PETG shell stack.
+The production procedure for assembling the cold core — the back-of-enclosure subsystem that contains the carbonator vessel, its wound evaporator coil, two flavor reservoirs, and the surrounding pour-in-place polyurethane foam, all held together inside a 3D-printed PETG shell stack. The coil is wound around the vessel as the first step of this procedure; the coil's inlet/outlet stubs come out of the foam-shell's copper-plug exits and hang free, awaiting refrigerant-loop integration ([`refrigerant-loop.md`](refrigerant-loop.md)) on a later day.
 
-The bulk of the foam-pour geometry, shell architecture, copper-plug binder-clip cross-section, and TPU-gasket seam analysis lives in [`../printed-parts/cold-core/foam-shell/README.md`](../printed-parts/cold-core/foam-shell/README.md) — that doc is detailed, current, and source-of-truth for the part design. This document is the production-procedure framing: where the cold core sits relative to upstream (vessel + refrigerant loop) and downstream (final enclosure integration), and what the build-cadence steps are at the appliance level.
+The bulk of the foam-pour geometry, shell architecture, copper-plug binder-clip cross-section, and TPU-gasket seam analysis lives in [`../printed-parts/cold-core/foam-shell/README.md`](../printed-parts/cold-core/foam-shell/README.md) — that doc is detailed, current, and source-of-truth for the part design. This document is the production-procedure framing: where the cold core sits relative to upstream (vessel) and downstream (refrigerant-loop integration, final enclosure integration), and what the build-cadence steps are at the appliance level.
 
 ## Scope
 
-In: one carbonator vessel already wrapped in its bonded evaporator coil and plumbed into the refrigerant loop (output of [`refrigerant-loop.md`](refrigerant-loop.md)); the printed PETG shell stack (foam-shell, foam-cap × 2, foam-cap-lid × 2, copper-plug × 3, reservoir × 2); TPU 90A gaskets × 2; pour-in-place 2 lb closed-cell polyurethane foam (two-part 1:1); M3 × 25 SHCS × 12 and ruthex M3 inserts × 12.
+In: one hydro-tested + passivated carbonator vessel (output of [`pressure-vessel.md`](pressure-vessel.md)); GOORY 1/4" OD × 0.031" wall ACR copper tubing for the evaporator coil; 3M 425 aluminum foil tape; the printed coil-winding mandrel; the printed PETG shell stack (foam-shell, foam-cap × 2, foam-cap-lid × 2, copper-plug × 3, reservoir × 2); TPU 90A gaskets × 2; pour-in-place 2 lb closed-cell polyurethane foam (two-part 1:1); M3 × 25 SHCS × 12 and ruthex M3 inserts × 12.
 
-Out: a fully foam-poured cold core, capped + gasketed top and bottom, with every penetration routed through the shell wall. Ready for installation into the enclosure.
+Out: a fully foam-poured cold core, capped + gasketed top and bottom, with the wound evaporator coil bonded around the vessel and its inlet/outlet stubs (~2 ft each) protruding through the foam-shell's copper-plug exits. Ready for installation into the enclosure and subsequent refrigerant-loop integration ([`refrigerant-loop.md`](refrigerant-loop.md)).
 
-Not in scope: enclosure-side assembly (electronics shelf, compressor + condenser + fan placement, AC wiring), faucet install, final integration.
+Not in scope: refrigerant-loop integration — the brazing of the coil stubs onto the donor unit's cap tube and suction line, vacuum, charge, and run-up — happens in [`refrigerant-loop.md`](refrigerant-loop.md), as a single-session procedure on a later day after this assembly is complete. Also not in scope: enclosure-side assembly (electronics shelf, compressor + condenser + fan placement, AC wiring), faucet install, final integration.
 
 ## Inputs per appliance
 
-Per-unit BOM lives in [`../bom.md`](../bom.md) §6 (cold-core insulation, pour-in-place foam + 3M 425 foil tape + foam-pour consumables) + §13 (mechanical attach hardware + reservoir-cap vent filter) + §7 (the printed parts themselves, on $/kg-PETG basis). Status (ACQUIRED / ON-ORDER / LIKELY-TO-BUY) for every item lives in [`../purchases.md`](../purchases.md) §6 + §11. The table below is the procedure-level summary; bom.md is the source of truth for per-unit allocation and cost.
-
-The **3M 425 aluminum foil tape** is *already applied to the vessel OD* at this point per [`refrigerant-loop.md`](refrigerant-loop.md) step 4. It's listed in bom.md §6 because it's a cold-core thermal-interface part, but it's installed during refrigerant-loop assembly. Not a fresh input to the procedure below.
+Per-unit BOM lives in [`../bom.md`](../bom.md) §5 (refrigeration — GOORY copper tubing for the coil) + §6 (cold-core insulation, 3M 425 foil tape + pour-in-place foam + foam-pour consumables) + §13 (mechanical attach hardware + reservoir-cap vent filter) + §7 (the printed parts themselves, on $/kg-PETG basis). Status (ACQUIRED / ON-ORDER / LIKELY-TO-BUY) for every item lives in [`../purchases.md`](../purchases.md) §6 + §11. The table below is the procedure-level summary; bom.md is the source of truth for per-unit allocation and cost.
 
 | Item | Source | Status (per purchases.md) |
 |---|---|---|
-| Vessel + bonded coil + refrigerant loop | Output of [`refrigerant-loop.md`](refrigerant-loop.md) | Charged, leak-checked |
+| Carbonator vessel | Output of [`pressure-vessel.md`](pressure-vessel.md) | Hydro-tested + passivated |
+| GOORY 1/4" OD × 0.031" wall ACR copper tubing | B0DKSW5VL9 | ~24 ft per vessel for coil wrap + tie-in stubs (1/2 of 50 ft roll per build) — ACQUIRED |
+| 3M 425 aluminum foil tape | B07BTW7C2N | Coil-to-vessel thermal interface; applied as continuous skin under the coil; one 180 ft roll covers ~12 builds — ACQUIRED |
+| Coil-winding mandrel (printed PETG) | [`../printed-parts/cold-core/coil-mandrel/`](../printed-parts/cold-core/coil-mandrel/) | Print, reusable across builds |
 | Foam-shell (printed PETG) | [`../printed-parts/cold-core/foam-shell/`](../printed-parts/cold-core/foam-shell/) | Print, Bambu H2C, 0.8 mm nozzle |
 | Foam cap × 2 + foam cap lid × 2 (printed PETG) | Same | Print |
 | Copper plug × 3 (printed PETG) | Same | Print |
@@ -35,25 +36,35 @@ The **3M 425 aluminum foil tape** is *already applied to the vessel OD* at this 
 
 ## Procedure
 
-The foam pour happens in **three independent operations**: top cap, bottom cap, body. None chain across each other.
+The coil winding happens first (step 1). The three foam pours — top cap, bottom cap, body — are independent operations that don't chain across each other (top + bottom pour in parallel as step 2, body pours as step 5). Final cap-on assembly is step 6.
 
-### 1. Cap foam pour (top and bottom, in parallel, before body assembly)
+### 1. Wind the evaporator coil around the vessel
+
+Wind GOORY 1/4" OD × 0.031" wall ACR copper tubing as a single-layer helical coil at ~1/8" pitch around the vessel OD — ~22 ft of wrap per vessel + ~2 ft each end for the refrigerant-loop tie-in stubs. The tie-in stubs get brazed to the donor unit's cap tube and suction line during refrigerant-loop integration ([`refrigerant-loop.md`](refrigerant-loop.md)) on a later day; they exit the finished cold core through the foam-shell's copper-plug holes and hang free until then. The 0.031" wall was specifically chosen to resist kinking at the bend radius around the 5" OD vessel; thinner wall kinks, this wall holds.
+
+Bond the coil to the vessel OD with 3M 425 aluminum foil tape applied as a continuous skin between vessel and coil. The tape spans the tank-to-coil thermal interface.
+
+Wind around the printed [coil-mandrel](../printed-parts/cold-core/coil-mandrel/generate_step_cadquery.py) — hollow PETG cylinder with a shallow 1 mm helical guide groove, mandrel OD 123 mm vs. tank OD 127 mm so the as-wound coil inner radius is 3 mm under the tank radius and tightens onto the vessel after slip-off. Wind length 120.4 mm and 9.687 wraps (pitch 12.43 mm) are set to align the coil's inlet/outlet ends with the foam-shell copper plugs at Y=46 and Y=166.4, so the exit bends are purely radial with no vertical jog. Pull the wound coil off the mandrel and slip it onto the foil-taped vessel; coil springback (1–3 mm radial) leaves a net interference fit.
+
+[`../handwork.md`](../handwork.md) "Bend copper around the pressure vessel" is the summary-level dev-phase entry for this step.
+
+### 2. Cap foam pour (top and bottom, in parallel, before body assembly)
 
 Each cap is a 16 mm-tall foam-filled cup. With the cap inverted and the foam-cap-lid sealing its open face from above, liquid foam enters through the lid's Ø10 mm pour hole; air escapes through two Ø6 mm vents. Foam expands to fill, cures to a self-contained puck. Trim flush after cure.
 
 Both caps are identical and not body-dependent — pour them in parallel. Geometry detail at [`../printed-parts/cold-core/foam-shell/README.md`](../printed-parts/cold-core/foam-shell/README.md) "foam_cap and foam_cap_lid".
 
-### 2. Press ruthex inserts into the outer shell
+### 3. Press ruthex inserts into the outer shell
 
 Six ruthex M3 short heat-set inserts pressed into the top face of the outer_shell, six into the bottom face. Each insert seats in a Ø4.0 mm × 4 mm-deep printed pocket; another 4 mm of relief below the insert clears the M3 × 25 screw tip. Standard heat-set procedure: soldering iron tip on the insert, press straight down until flush.
 
 Geometry detail at [`../printed-parts/cold-core/foam-shell/README.md`](../printed-parts/cold-core/foam-shell/README.md) "Cap-to-outer-shell joinery".
 
-### 3. Body-side install (everything goes in before the body pour)
+### 4. Body-side install (everything goes in before the body pour)
 
 With the outer shell open-top-up on the bench, install every internal component:
 
-- **Pressure vessel + coil** (already wrapped and plumbed per [`refrigerant-loop.md`](refrigerant-loop.md)) lowered into the cylindrical center cavity, seated on the printed-in `tank_support_ring`
+- **Pressure vessel + coil** (already wrapped per step 1; coil stubs not yet plumbed — they exit the foam-shell's copper-plug holes and hang free for now, awaiting refrigerant-loop integration after this assembly completes) lowered into the cylindrical center cavity, seated on the printed-in `tank_support_ring`
 - **Reservoirs** seated into the two ±X bag pockets
 - **Penetrations routed through the outer shell walls:**
   - CO2 inlet → enters from above through the foam-cap-top boss + foam-cap-lid-top Ø6.5 hole at (x=0, z=−68.75); inside the cavity, a John Guest PP0308E 1/4" PTC 90° elbow seats in the Ø16 doorway in the −Z support arch, and the line continues to the vessel's bottom-plate TAISHER NPT elbow via a PP010822E 1/4" PTC × 1/4" NPT M adapter
@@ -65,21 +76,21 @@ With the outer shell open-top-up on the bench, install every internal component:
 
 Per the foam-shell README "build decision": all fitting-size transitions (3/8" → 1/4", larger fittings) happen on the *warm side* of the shell, so every penetration through the shell wall is the same 1/4" OD tubing. Keep that boundary.
 
-### 4. Body foam pour
+### 5. Body foam pour
 
 Mix the two-part PU foam 1:1. Pour the liquid directly into the body's open +Y top — all at once, no cap on, no down-channels. Foam falls into the body and reaches every cavity in parallel: outer foam gap, bag pockets, corner pockets at ±Z, and the tank cavity inside the cylinder. The geometry choices that make this single top-down pour work are documented in [`../printed-parts/cold-core/foam-shell/README.md`](../printed-parts/cold-core/foam-shell/README.md) "Assembly and foam pour".
 
 Foam expansion may push small amounts of material out through the 0.5 mm clearance bands around tubes in the +Z slot and the tight-fit tube exits at other penetrations. Expected; trim flush after cure.
 
-### 5. Final assembly
+### 6. Final assembly
 
 After all three pours (top cap, bottom cap, body) have fully cured:
 
 - TPU gasket onto the body's top edge — perimeter ring with 8 × 8 mm pads at each of the six screw positions
-- Top cap (foam-filled, trimmed from step 1) seated over the gasket, six M3 × 25 SHCS through the cap's screw positions and into the top-face inserts
+- Top cap (foam-filled, trimmed from step 2) seated over the gasket, six M3 × 25 SHCS through the cap's screw positions and into the top-face inserts
 - Bottom cap onto the body's underside, six M3 × 25 SHCS — no gasket on the bottom (the body floor handles the air seal there)
 
-The cold core is now sealed and ready for enclosure integration.
+The cold core is now sealed; coil inlet/outlet stubs protrude from the foam-shell's copper-plug exits, ready for [`refrigerant-loop.md`](refrigerant-loop.md) integration and enclosure install.
 
 ## Warm-side check valves (PTFE-on-metal rationale)
 
@@ -93,7 +104,7 @@ Both the water-inlet and CO2-inlet lines carry an inline 1/4" NPT SS check valve
 A finished cold core:
 
 - All three foam pours cured, flush-trimmed at visible surfaces and tube exits
-- Vessel + coil + refrigerant loop installed, seated in the cylinder cavity, surrounded by foam
+- Vessel + bonded coil installed, seated in the cylinder cavity, surrounded by foam; coil inlet/outlet stubs (~2 ft each) protruding through the foam-shell's copper-plug exits, unconnected — awaiting refrigerant-loop integration
 - Both reservoirs seated in their bag pockets
 - All seven penetrations routed through their designated holes / slot
 - Top + bottom caps installed with M3 × 25 SHCS into the heat-set inserts
