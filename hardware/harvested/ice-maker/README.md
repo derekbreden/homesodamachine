@@ -44,9 +44,11 @@ This matches standard R600a small-appliance practice. Verified by tracing the tu
 
 ### Compressor
 
-- Manufacturer: NingBo Anuodan Machinery Co., Ltd
-- Model: **HD48Y11**
-- Hermetic reciprocating, 1-phase, thermally protected, UL / CSM listed
+- Manufacturer: NingBo Anuodan Machinery Co., Ltd (sticker brand: HuaJun)
+- Model: **HD48Y11A** (the "A" is a sub-variant suffix on the sticker)
+- 110-120 V ~ 60 Hz, 1 PH
+- Hermetic reciprocating, thermally protected, UL / CSM listed
+- Body cast-stamp: **48.5-2** (mid-housing). **Not** a charge mass — see Open items below for the per-unit factory mass status. Most likely a compressor displacement or capacity-index code with sub-variant suffix; not decoded.
 - Larger than intuition suggests for a $64 appliance — this is normal. R600a hermetic cans have a floor size set by the motor, piston, and oil sump regardless of rated capacity. Freezing cubes in six minutes demands real wattage; this is likely in the 90–120 W cooling-capacity range, which is plenty for holding a carbonator at service temperature.
 
 ### Condenser
@@ -142,4 +144,18 @@ For ESP32 control:
 - Rated output: 26 lb/day
 - Teardown: pending
 
-To be filled in after teardown.
+### Refrigerant (from manufacturer manual, pre-teardown)
+
+**R600a, 23 g (0.81 oz)** factory charge per the EFIC189-family user manual hosted on Amazon's CDN — the EFIC117-SS is listed as one of the model variants the manual covers ("Refrigerant/Refrigerant amount: R600a / 23g. Foaming agent: C5H10"). The same nameplate text — "R600a 0.81oz/23g" — appears verbatim in multiple independent secondhand-listing posts quoting the back-panel rating label. The label is the authoritative source once the housing is opened.
+
+This baseline is what `assembly/refrigerant-loop.md` step 1 reads. The recharge target for this build is *not* the factory mass — the new evaporator coil has greater internal volume than the discarded factory finger-plate, so the recharge runs higher than factory by some amount to be empirically validated.
+
+### Compressor (from inspection, pre-teardown)
+
+- Manufacturer: Zhejiang Bingfeng Compressor Co., Ltd
+- Model: **BLC48AD**
+- 115 V ~ 60 Hz, 1 PH, LRA 5.7 A
+- Hermetic reciprocating, thermally protected, UL / CSM listed
+- Body cast-stamp: **45** (mid-housing). **Not** a charge mass — factory charge is 23 g per the manual above. Most likely a compressor displacement or capacity-index code; not decoded.
+
+Further teardown details — condenser, drier label, cap-tube routing, hot-gas bypass disposition — to be filled in after physical teardown.
