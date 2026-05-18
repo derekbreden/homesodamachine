@@ -9,12 +9,15 @@ flowchart LR
   %%   0x20  outputs (valves) on Port A + Port B[0:3];
   %%         inputs (4 reservoir reed switches) on Port B[4:7]
   %%   0x21  inputs (4 reservoir reed switches) on Port A[0:3];
-  %%         12 spare bits.
+  %%         1 output (condenser fan) on PA4 via ULN2803A #2 ch 5;
+  %%         11 spare bits.
   %%
   %% Reservoir level sensing: 4 reeds per reservoir × 2 reservoirs
   %% = 8 inputs. Reservoir A's 4 reeds land on the existing 0x20's 4
   %% spare bits (PB[4:7]). Reservoir B's 4 reeds land on a new chip at
-  %% 0x21 (PA[0:3]); the remaining 12 bits of 0x21 are spare.
+  %% 0x21 (PA[0:3]); PA4 drives the condenser fan via ULN2803A #2
+  %% channel 5 (the fan is a 12 V DC brushless axial — see
+  %% `power.mmd`); the remaining 11 bits of 0x21 are spare.
   %%
   %% Conditional: 0x21 could be replaced by ESP32 direct GPIO (GPIO 2,
   %% 12 + GPIO 36, 39 with external 10 kΩ pull-ups) or a 74HC165 shift
@@ -64,16 +67,16 @@ flowchart LR
     end
   end
 
-  subgraph Expander1["MCP23017 0x21 — 16 GPIO  (4 INPUTS, 12 SPARE)"]
+  subgraph Expander1["MCP23017 0x21 — 16 GPIO  (4 INPUTS, 1 OUTPUT, 11 SPARE)"]
     direction TB
 
-    subgraph PortA1["Port A  (GPA0–7) — Reservoir B reeds 1-4 + 4 spare"]
+    subgraph PortA1["Port A  (GPA0–7) — Reservoir B reeds 1-4 + Cond fan + 3 spare"]
       direction TB
       A1_GPA0["GPA0 ← Rsvr B reed 1 / EMPTY"]
       A1_GPA1["GPA1 ← Rsvr B reed 2"]
       A1_GPA2["GPA2 ← Rsvr B reed 3"]
       A1_GPA3["GPA3 ← Rsvr B reed 4 / FULL"]
-      A1_GPA4["GPA4  spare"]
+      A1_GPA4["GPA4 → Cond fan"]
       A1_GPA5["GPA5  spare"]
       A1_GPA6["GPA6  spare"]
       A1_GPA7["GPA7  spare"]
@@ -107,13 +110,14 @@ flowchart LR
       U1_8["8 → V-H"]
     end
 
-    subgraph U2["U2 — Channels 1-4 used"]
+    subgraph U2["U2 — Channels 1-5 used"]
       direction TB
       U2_1["1 → V-I"]
       U2_2["2 → V-J"]
       U2_3["3 → V-K-A"]
       U2_4["4 → V-K-B"]
-      U2_free["5-8  free"]
+      U2_5["5 → Cond fan"]
+      U2_free["6-8  free"]
     end
   end
 
@@ -211,8 +215,10 @@ flowchart LR
   U2_3 ==> VKA
   U2_4 ==> VKB
 
+  %% ── 0x21 PA4 → U2 ch5 (condenser fan low-side switch) ──
+  A1_GPA4 --> U2_5
+
   %% Spare pins dimmed
-  style A1_GPA4 fill:#333,stroke:#555,color:#777
   style A1_GPA5 fill:#333,stroke:#555,color:#777
   style A1_GPA6 fill:#333,stroke:#555,color:#777
   style A1_GPA7 fill:#333,stroke:#555,color:#777
