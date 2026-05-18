@@ -37,12 +37,12 @@ canvasHost.appendChild(renderer.domElement);
 export const scene = new THREE.Scene();
 export const camera = new THREE.PerspectiveCamera(45, 1, 0.01, 10000);
 export const controls = new TrackballControls(camera, renderer.domElement);
-// TrackballControls rotateSpeed=1 is sluggish vs. OrbitControls' feel;
-// 3.0 gives roughly the same drag-to-rotation ratio. panSpeed default
-// of 0.3 is also slower than expected — bump to match. Damping stays
-// enabled (staticMoving=false) at a comparable factor.
-controls.rotateSpeed = 3.0;
-controls.panSpeed = 0.8;
+// TrackballControls rotateSpeed=1 is sluggish vs. OrbitControls' feel,
+// but 3.0 went too sensitive — 1.5 lands in the middle and allows fine
+// precision. panSpeed scaled proportionally. Damping stays enabled
+// (staticMoving=false) at a comparable factor.
+controls.rotateSpeed = 1.5;
+controls.panSpeed = 0.4;
 controls.staticMoving = false;
 controls.dynamicDampingFactor = 0.12;
 
