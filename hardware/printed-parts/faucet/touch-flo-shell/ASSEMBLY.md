@@ -20,26 +20,34 @@ Upstream:
 
 Downstream (at the faucet-and-umbilical bench, see [`../../../assembly/faucet-and-umbilical.md`](../../../assembly/faucet-and-umbilical.md)):
 
-4. Route the three LLDPE umbilical tubes up through the pill slot and
-   clamp them to the Westbrass body's compression ports. Tubes are
-   permanently attached at this step — never separated again. The
-   sub-assembly + umbilical leaves the bench as one unit.
+4. Slide the TPU `touch-flo-mounting-gasket` up the shank from below
+   the printed mounting plate, snug against the plate's bottom face.
+   The gasket sits permanently between the plate's underside and where
+   the countertop top surface will be at the customer's install. The
+   customer never touches the gasket.
+5. Route the three LLDPE umbilical tubes up through the pill slot
+   (passing through both the printed mounting plate and the TPU
+   gasket) and clamp them to the Westbrass body's compression ports.
+   Tubes are permanently attached at this step — never separated
+   again. The sub-assembly + umbilical leaves the bench as one unit.
 
 Downstream (at the customer's countertop install, supported by the
 installer instruction sheet that ships in the bag):
 
-5. Drop the faucet+umbilical assembly into the 1-3/8" countertop hole
-   from above. The three tubes + Cat6 hang down through the hole.
-6. From below: clip the two halves of the split under-counter plate
+6. Drop the faucet+umbilical assembly into the 1-3/8" countertop hole
+   from above. The TPU gasket (already on the shank, between the
+   mounting plate and the countertop) compresses against the countertop
+   top surface as the assembly seats. The three tubes + Cat6 hang down
+   through the hole.
+7. From below: clip the two halves of the split under-counter plate
    around the dangling umbilical, then slide them up the shank against
    the countertop underside. The split design lets the plate be
    installed around an already-attached umbilical without threading
    tubes through any pill slot.
-7. From below: flex the TPU `touch-flo-mounting-gasket` up the shank
-   past the umbilical, against the under-counter plate.
-8. Tighten the factory shank nut from below; the nut bears on a washer
-   above the gasket, clamping the stack: countertop → gasket → split
-   plate halves → washer → nut.
+8. From below: slip the washer onto the shank, then thread and tighten
+   the factory shank nut. The nut + washer clamp the under-counter
+   plate halves up against the countertop; the entire stack compresses
+   along the shank from the body above to the nut below.
 
 This document covers step 3a — joining the printed parts to the body
 into a single rigid sub-assembly.
