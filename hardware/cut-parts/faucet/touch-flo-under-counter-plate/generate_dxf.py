@@ -104,11 +104,11 @@ GEOMETRY (matches the one-piece version exactly except for the split)
 
 DXF LAYOUT
 ==========
-Two identical half-plates emitted side-by-side in the DXF, separated by
-a small Y-gap. Both halves are drawn as "upper halves" (split line on
-the bottom, disc curving up); the customer flips one of them 180° at
-install. SendCutSend's nesting docs explicitly allow this for pure flat
-multi-piece parts.
+One half-plate per DXF, drawn as an "upper half" (split line on the
+bottom, disc curving up). Order quantity = 2 from SendCutSend; the
+customer flips one of the two identical pieces 180° at install and
+mates them around the umbilical. No reason to emit two copies in the
+DXF — they're the same part.
 
 THICKNESS / MATERIAL (specified at order time, not in the DXF)
 ==============================================================
@@ -148,13 +148,6 @@ shank_hole_center_natural = (0.0, 0.0)
 pill_slot_length_y = 13.2
 pill_slot_width_x = 6.85
 pill_slot_center_natural = (18.925, 0.0)
-
-# Layout spacing between the two half-plates in the DXF (Y direction).
-# SendCutSend requires non-touching contours; a 5 mm gap is plenty and
-# keeps the parts visually close so the mating relationship is clear
-# at a glance.
-inter_half_gap = 5.0
-
 
 def add_upper_half(msp, y_off):
     """Draw one upper-half plate, with its split line along Y = y_off.
@@ -217,15 +210,9 @@ def make_dxf():
     doc.header["$INSUNITS"] = 4  # 4 = millimeters
     msp = doc.modelspace()
 
-    # First half at natural position (split line at Y = 0).
+    # One half-plate. The customer orders quantity 2 from SendCutSend
+    # and flips one of the two identical pieces 180° at install.
     add_upper_half(msp, y_off=0.0)
-
-    # Second half offset above the first by (plate_radius + gap) so the
-    # second half's split line sits inter_half_gap mm above the first
-    # half's top (Y = plate_radius), keeping the contours non-touching
-    # but visually close to show the mating relationship at a glance.
-    second_y_offset = plate_radius + inter_half_gap
-    add_upper_half(msp, y_off=second_y_offset)
 
     out_dir = Path(__file__).resolve().parent
     out_name = "touch-flo-under-counter-plate"
@@ -236,14 +223,11 @@ def make_dxf():
 
 if __name__ == "__main__":
     out = make_dxf()
-    print("Touch-Flo under-counter plate — SPLIT design (two identical halves)")
-    print(f"  Outline:        Two D-shaped halves of Ø {plate_diameter} mm disc")
-    print(f"  Shank hole:     Ø {shank_hole_diameter} mm at natural origin "
-          f"(split between halves at Y = 0)")
-    print(f"  Pill slot:      {pill_slot_length_y} × {pill_slot_width_x} mm "
-          f"at {pill_slot_center_natural} (split between halves at Y = 0)")
-    print(f"  Inter-half gap: {inter_half_gap} mm in DXF (non-touching contours)")
+    print("Touch-Flo under-counter plate — split design (one half per DXF, order qty 2)")
+    print(f"  Outline:        One D-shaped half of Ø {plate_diameter} mm disc")
+    print(f"  Shank hole:     Ø {shank_hole_diameter} mm half-indent on the mating edge")
+    print(f"  Pill slot:      {pill_slot_length_y} × {pill_slot_width_x} mm half-indent on the mating edge")
     print(f"  Units in DXF:   mm (DXF $INSUNITS = 4)")
     print(f"  Material spec:  0.060\" (1.524 mm) 304 stainless, laser-cut, "
-          f"qty 2 halves per appliance")
+          f"order qty 2 per appliance")
     print(f"-> {out.name}")
