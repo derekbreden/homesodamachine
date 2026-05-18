@@ -318,7 +318,9 @@ from the bullet-list format above:
 - Body is short prose (1–2 sentences) plus an embedded thumbnail-
   image-as-link to the YouTube video. No bullet list, no before/after.
 - Reuse the YouTube thumbnail PNG as the post image. Drop a copy in
-  `public/post-images/YYYY-MM-DD-<slug>-thumbnail.png`. The marketing
+  `web/public/post-images/YYYY-MM-DD-<slug>-thumbnail.png` — the Next.js
+  app's public dir lives under `web/`, and serves it at the URL root, so
+  the post body's image link is `/post-images/...`. The marketing
   pipeline already produces a 1280×720 PNG in `marketing/thumbnail/` —
   copy it over rather than regenerating.
 - The full publishing pipeline that produces the video upstream of this
