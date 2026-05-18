@@ -421,6 +421,48 @@ Settings unchanged from attempt 7 (selected — full list in the attempt-7 snaps
 - Part brim (already on for attempt 7, unchanged here): `brim_type` auto_brim, `brim_width` 5 mm, `brim_object_gap` 0.1 mm, `elefant_foot_compensation` 0.15 mm
 - Other: `enable_pressure_advance` 0, `enable_prime_tower` 1, `enable_wrapping_detection` 0
 
+### `touch-flo-shell-3-pieces.3mf` — pre-print snapshot (3-piece geometry split)
+
+Slicer snapshot for the next PET-CF print, post-shell-split. Geometry is the three sub-pieces of the shell committed in `f42e631` ("split at angled-spout ↔ upper-bend with 20 mm slip-fit joint") and `2cf96fa` ("split at upper-bend ↔ dispense-tip with curved 20 mm slip-fit"): `touch-flo-shell-bottom.step`, `touch-flo-shell-middle.step`, `touch-flo-shell-top.step`. The previously-integrated `touch-flo-shell.step` whole-piece geometry that attempts 7–9 used is superseded for this print. Mounting plate is not on this plate.
+
+No attempt has been run with this slice yet — settings captured here from the saved-but-uncommitted 3mf so future deltas have a baseline.
+
+Filament profiles: stock `Bambu PET-CF @BBL H2C`, `Generic PETG @BBL H2C`, `Bambu PETG Translucent @BBL H2C`, `Bambu PETG Basic @BBL H2C`, `Bambu ABS @BBL H2C 0.6 nozzle` ×2 (6 slot project; only slot 0 active in slice)
+Active in slice: PET-CF (left, slot 0)
+Support filament: PET-CF (slot 0 — same material as model)
+Support interface filament: PET-CF (slot 0 — same material as model)
+Printer profile: `Bambu Lab H2C 0.6 nozzle` (`printer_variant`: 0.6); 0.6 mm DUROZZLE TC L-side hotend (unchanged from attempts 7–9)
+Print profile: `0.30mm Standard @BBL H2C 0.6 nozzle` (changed from attempt 9's `0.18mm Balanced Quality`)
+
+Plate composition (per `Metadata/plate_1.json` + `Metadata/model_settings.config`):
+- 3 objects, all `extruder=1` (left), `filament_maps` all = 1, all on PET-CF slot 0
+- Bed: textured plate
+- Object `<part>` matrices all identity (rotation is baked into the source STEP geometry from CadQuery, not applied as a slicer transform)
+
+Per-object on-bed footprint (`area` field in `plate_1.json`) — this is what encodes Derek's orientation choices for supports-on-ugly / pristine-up. **The orientations in this 3mf are the deliberate physical arrangement Derek wants to use, with each part rotated to expose its OK-to-be-ugly faces downward (where supports will land) and its pristine surfaces upward / outward:**
+- `touch-flo-shell-bottom.step`: XY bbox 124.22, 189.03 → 168.57, 233.37 mm (44.35 × 44.35 mm); footprint area **630.5 mm²**. Largest bed contact patch; sits on its widest face.
+- `touch-flo-shell-middle.step`: XY bbox 89.33, 120.62 → 165.41, 175.62 mm (76.08 × 55.00 mm); footprint area **9.26 mm²**. Tiny contact patch despite a 76 × 55 mm bbox — the piece is standing nearly end-on, with the rest of its body cantilevered out within that bbox. This is what drives the support-strategy changes below (tree supports, `support_on_build_plate_only` 0, lower threshold angle).
+- `touch-flo-shell-top.step`: XY bbox 107.93, 86.62 → 131.64, 107.82 mm (23.71 × 21.20 mm); footprint area **290.0 mm²**. Medium contact patch; sits on a near-flat face.
+
+Settings deltas vs `touch-flo-shell-2-pieces.3mf` (attempt 9):
+- Print profile: `0.18mm Balanced Quality @BBL H2C 0.6 nozzle` → `0.30mm Standard @BBL H2C 0.6 nozzle`
+- `layer_height`: 0.18 → **0.30 mm** (matches the new profile; thicker layers, faster print, weaker inter-layer bond)
+- `wall_loops`: 50 → **100** (doubled; effectively all-walls for any thickness ≤ 62 mm at line_width 0.62)
+- `top_shell_layers`: 3 → 4
+- `support_type`: (default — tree(auto) was inherited but not explicit) → **explicit `tree(auto)`**
+- `support_threshold_angle`: 45 → **30** (more aggressive — surfaces ≥ 30° qualify for supports; this puts supports on more faces, intended for the under-side / ugly-OK faces given the chosen orientations)
+- `support_top_z_distance`: 0.3 → **0.2 mm** (tighter support-to-model gap; cleaner top surface where supports release, harder breakaway)
+- `support_on_build_plate_only`: 1 → **0** (supports may grow from the model surface as well as the bed — required by the middle piece's end-on orientation, where the cantilevered overhangs are far from the bed)
+- Filament slot project layout expanded: attempt 9's `PET-CF, PLA, PET-CF, ABS, ABS, PETG, PETG, PETG` → `PET-CF, PETG, PETG, PETG, ABS, ABS` (slot 0 active is unchanged)
+
+Settings unchanged from attempt 9:
+- PET-CF: `nozzle_temperature` 270 °C, `nozzle_temperature_initial_layer` 270 °C, `filament_flow_ratio` 1.0, `filament_retraction_length` nil (uses printer default), `filament_max_volumetric_speed` 5 mm³/s, `chamber_temperatures` 50 °C, `fan_max_speed` 30 % / `fan_min_speed` 10 % / `overhang_fan_speed` 40 %, `close_fan_the_first_x_layers` 3
+- Process: `nozzle_diameter` 0.6 mm, `initial_layer_print_height` 0.3 mm, `line_width` 0.62 mm, `bottom_shell_layers` 3, `sparse_infill_density` 15 %, `sparse_infill_pattern` grid
+- Speeds: `outer_wall_speed` 200, `inner_wall_speed` 300, `sparse_infill_speed` 350, `internal_solid_infill_speed` 250, `top_surface_speed` 200, `support_speed` 150, `support_interface_speed` 80, `initial_layer_speed` 50, `initial_layer_infill_speed` 105 (all mm/s); jerk 9
+- Supports: `enable_support` 1, `support_filament` 0 (PET-CF), `support_interface_filament` 0 (PET-CF), `support_angle` 0, `support_critical_regions_only` 0, `support_style` default, `support_base_pattern` default, `support_interface_pattern` auto, `support_interface_top_layers` 2, `support_object_xy_distance` 0.35, `support_object_first_layer_gap` 0.2, `tree_support_branch_distance` 5, `tree_support_branch_diameter` 2, `tree_support_branch_angle` 45, `raft_first_layer_expansion` 20 mm (kept — support-tower brim)
+- Part brim (already on for attempts 7 + 9, unchanged here): `brim_type` auto_brim, `brim_width` 5 mm, `brim_object_gap` 0.1 mm, `elefant_foot_compensation` 0.15 mm
+- Other: `enable_pressure_advance` 0, `enable_prime_tower` 1, `enable_wrapping_detection` 0, `wrapping_detection_layers` 20
+
 ## Evidence that `enable_wrapping_detection` might be probe detection in the UI
 
 - Wiki language for the feature: "the nozzle is detected to be wrapped by filament" — "wrapping" describes what clumping is physically ([Bambu Wiki: Nozzle Clumping Detection by Probing](https://wiki.bambulab.com/en/software/bambu-studio/nozzle-clumping-detection-by-probing))
