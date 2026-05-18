@@ -18,7 +18,7 @@
 // re-sync. Label sprites use the default depth test so they hide behind
 // model geometry like the axis lines do.
 //
-// Defaults to on; persisted per-browser in localStorage under "step-rulers".
+// Defaults to off; persisted per-browser in localStorage under "step-rulers".
 // The toggle button is created by makeRulerToggle() and appended into the
 // cad-wrapper by cad-detail.js.
 
@@ -296,4 +296,4 @@ scene.add(rulerGroup);
 controls.addEventListener("change", updateRulers);
 
 const stored = (() => { try { return localStorage.getItem(LS_KEY); } catch { return null; } })();
-setRulersEnabled(stored === null ? true : stored === "1");
+setRulersEnabled(stored === null ? false : stored === "1");
