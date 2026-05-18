@@ -54,7 +54,7 @@ This matches standard R600a small-appliance practice. Verified by tracing the tu
 
 ### Condenser
 
-Finned-tube forced-convection condenser with its own fan shroud (fan not yet separated in photos). Standard wire-and-plate construction. Reuse as-is — mount against one side wall of the appliance enclosure with the fan's native flow axis crossing the enclosure side-to-side (intake grille on one side face, exhaust grille on the opposite side face). The point of this orientation is that the donor fan + shroud are doing exactly the job they were designed for — no airflow redirection, no shared intake/exhaust face — per the enclosure layout in `future.md`.
+Finned-tube forced-convection condenser with its own fan shroud (fan not yet separated in photos). Plate-fin construction: thin, easily-bent aluminum fins on a copper refrigerant tube — same family as a window-AC coil, miniaturized. (Earlier drafts called this "wire-and-plate" — that's the construction with actual round steel wires welded perpendicular to the tube, which is not what this is. Aluminum identified by color; a fridge magnet would confirm non-ferrous if ever in doubt.) Reuse as-is — mount against one side wall of the appliance enclosure with the fan's native flow axis crossing the enclosure side-to-side (intake grille on one side face, exhaust grille on the opposite side face). The point of this orientation is that the donor fan + shroud are doing exactly the job they were designed for — no airflow redirection, no shared intake/exhaust face — per the enclosure layout in `future.md`.
 
 ### Filter-drier
 
