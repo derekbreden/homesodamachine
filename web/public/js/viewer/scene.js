@@ -42,7 +42,7 @@ export const controls = new TrackballControls(camera, renderer.domElement);
 // precision. panSpeed scaled proportionally. Damping stays enabled
 // (staticMoving=false) at a comparable factor.
 controls.rotateSpeed = 1.5;
-controls.panSpeed = 0.4;
+controls.panSpeed = 0.2;
 controls.staticMoving = false;
 controls.dynamicDampingFactor = 0.12;
 
