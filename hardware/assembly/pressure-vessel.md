@@ -33,7 +33,7 @@ Per-unit BOM lives in [`../bom.md`](../bom.md) §2 (carbonator vessel) + §12 (l
 | Viva Doria food-grade citric acid | B0C5NQM8S1 | Made up to ~4 % solution, ~1 qt per vessel (~1/20 of 2 lb bag) |
 | Tap Magic EP-Xtra cutting fluid | B00DHMHSGM | ~$0.50 of fluid per vessel for NPT tapping |
 
-Tooling (per-vessel-amortized only — single-asset tools live in [`../purchases.md`](../purchases.md), not here): XLaserlab X1 Pro laser welder, WEN 4208T drill press, Drill America 1/4"-18 NPT pipe tap + tap wrench, Brown & Sharpe spring tap guide, argon at the welder, hydro test rig (see step 6).
+Tooling (per-vessel-amortized only — single-asset tools live in [`../purchases.md`](../purchases.md), not here): XLaserlab X1 Pro laser welder, WEN 4208T drill press, LingGan M35 cobalt 1/4-18 NPT pipe tap + Drill America DWT adjustable tap wrench, Brown & Sharpe spring tap guide, argon at the welder, hydro test rig (see step 6).
 
 ## CO2 supply (sets working pressure)
 
