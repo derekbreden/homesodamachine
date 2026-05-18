@@ -446,12 +446,15 @@ def emit_pip_branch(entry: dict, sidecar_dir: Path, input_idx: int,
         pad_w, pad_h = w + 2 * border_w, h + 2 * border_w
         parts[0] += f",pad={pad_w}:{pad_h}:{border_w}:{border_w}:color={border}"
     if fade > 0:
-        # The image stream's local timeline starts at 0 (loop input). Fade
-        # in at start, fade out at (dur - fade). The overlay's enable=
-        # gates when it's actually composited, so fade values that fall
-        # outside the enable window are simply discarded.
-        parts[0] += (f",fade=t=in:st=0:d={fade},"
-                     f"fade=t=out:st={max(0, dur - fade):.3f}:d={fade}")
+        # Fade timings are expressed in MAIN-video time. The looped PNG
+        # input's local PTS happens to align with main-t since both start
+        # at 0, so st=s lines the fade-in up with the overlay's enable
+        # window opening. Using input-local 0 would complete the fade-in
+        # before the window opened, and the one-shot fade-out would lock
+        # alpha at 0 long before the window closed — pip invisible mid-
+        # clip for any t[0] != 0.
+        parts[0] += (f",fade=t=in:st={s:.3f}:d={fade},"
+                     f"fade=t=out:st={max(0, e - fade):.3f}:d={fade}")
     parts[0] += f"[{out_label}]"
     branch = parts[0]
     extra_input = ["-loop", "1", "-i", str(src)]
