@@ -18,12 +18,28 @@ Upstream:
    Keep the lever, the body, and the factory shank nut. Discard the
    factory mounting plate.
 
-Downstream:
+Downstream (at the faucet-and-umbilical bench, see [`../../../assembly/faucet-and-umbilical.md`](../../../assembly/faucet-and-umbilical.md)):
 
-4. Route the two flavor tubes up through the pill slot.
-5. Slide the TPU `touch-flo-mounting-gasket` over the shank from below.
-6. Drop the assembly into the 1-3/8" countertop hole; tighten the
-   factory shank nut against the gasket.
+4. Route the three LLDPE umbilical tubes up through the pill slot and
+   clamp them to the Westbrass body's compression ports. Tubes are
+   permanently attached at this step — never separated again. The
+   sub-assembly + umbilical leaves the bench as one unit.
+
+Downstream (at the customer's countertop install, supported by the
+installer instruction sheet that ships in the bag):
+
+5. Drop the faucet+umbilical assembly into the 1-3/8" countertop hole
+   from above. The three tubes + Cat6 hang down through the hole.
+6. From below: clip the two halves of the split under-counter plate
+   around the dangling umbilical, then slide them up the shank against
+   the countertop underside. The split design lets the plate be
+   installed around an already-attached umbilical without threading
+   tubes through any pill slot.
+7. From below: flex the TPU `touch-flo-mounting-gasket` up the shank
+   past the umbilical, against the under-counter plate.
+8. Tighten the factory shank nut from below; the nut bears on a washer
+   above the gasket, clamping the stack: countertop → gasket → split
+   plate halves → washer → nut.
 
 This document covers step 3a — joining the printed parts to the body
 into a single rigid sub-assembly.
@@ -57,16 +73,30 @@ shank are exposed. R2031-NL-12 (oil-rubbed bronze, B01N5LVNQA) is the
 same mechanism with a different finish. Pick whichever is cheaper /
 Prime-available at order time.
 
-**Under-counter plate — SendCutSend 0.060" 316 SS.** File
-`touch_flo_under_counter_plate.dxf`, Ø 54.35 mm disc with 1× Ø 12.6 mm
-shank hole + 1× 13.2 × 6.85 mm pill slot (same hole pattern as the
-printed mounting plate / TPU gasket above the counter). Sits between
-the countertop underside and the under-counter shank nut. Distributes
-the nut's clamping force over a wide area so the nut doesn't dish or
-crush the countertop bottom — the printed mounting plate alone is too
-soft / too small for that clamping load. Installed during countertop
-install (step 6 in "Where this fits in the build"), not during the
-shell + plate + body sub-assembly procedure below.
+**Under-counter plate — SendCutSend 0.060" 304 SS, split into two halves.**
+File `touch_flo_under_counter_plate.dxf`, ships as **two semicircular
+halves** of a Ø 54.35 mm disc that the installer clips around the
+umbilical from below at countertop install. Same hole pattern as the
+printed mounting plate / TPU gasket above the counter (Ø 12.6 mm shank
+hole + 13.2 × 6.85 mm pill slot distributed across the two halves).
+
+The split design exists because the faucet + umbilical leave the
+faucet-and-umbilical build chain as one permanently-attached
+sub-assembly — the LLDPE tubes are clamped to the Westbrass body and
+never separated again. A solid under-counter plate would force the
+installer to thread already-attached tubes through the pill slot from
+below; the split eliminates that step.
+
+Sits between the countertop underside and the under-counter shank nut.
+Distributes the nut's clamping force over a wide area so the nut
+doesn't dish or crush the countertop bottom — the printed mounting
+plate alone is too soft / too small for that clamping load. Installed
+during countertop install, not during the shell + plate + body
+sub-assembly procedure below.
+
+**DXF generator update pending.** The current `generate_dxf.py` outputs
+a solid Ø 54.35 mm disc — see [`../../../assembly/faucet-and-umbilical.md`](../../../assembly/faucet-and-umbilical.md)
+"Open items" for the split-DXF rework that needs to happen before unit 1.
 
 ## Tools
 
