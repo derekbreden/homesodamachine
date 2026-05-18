@@ -99,9 +99,17 @@ magnifier
   border:      optional color, default "white"
   border_w:    int px, default 4
 
+arrow
+  Straight line + filled triangle arrowhead. Rendered to a transparent
+  PNG via Pillow and composited like a pip. OUTPUT pixels.
+  from:           [x, y] tail
+  to:             [x, y] head
+  color:          default "yellow"
+  thickness:      int px, default 6
+  arrowhead_size: int px (length of triangle), default 30
+
 OVERLAY TYPES — schema reserved, not yet implemented
 
-  arrow     — needs Pillow for clean arrowhead. Defer.
   kenburns  — pan/zoom on a still-photo segment. Defer.
   diagram   — composited generated image; same shape as pip. Use pip
               with a pre-generated PNG until a diagram generator lands.
@@ -115,14 +123,18 @@ NOTES
   re-encode over cut.py's concat output; iteration is still cheap.
 - Overlays are layered in declared order; later entries draw on top.
 
-Pure stdlib + ffmpeg. No Pillow / numpy required for the implemented types.
+Stdlib + ffmpeg for everything except `arrow`, which uses Pillow to
+pre-render the arrow shape as a transparent PNG.
 """
 
 import argparse
 import json
+import math
 import shlex
+import shutil
 import subprocess
 import sys
+import tempfile
 from pathlib import Path
 from typing import Any
 
@@ -519,17 +531,133 @@ def emit_magnifier(entry: dict, in_label: str, out_label: str,
     return [split_stmt, crop_parts[0], overlay_stmt]
 
 
+# ---------- arrow (Pillow-rendered PNG, overlayed like pip) ----------
+
+def render_arrow_png(entry: dict, video_w: int, video_h: int,
+                     out_path: Path) -> None:
+    """Render a single arrow as a transparent PNG sized to the full output
+    frame, with the arrow placed at the entry's absolute coordinates.
+    Drawing at full-frame size keeps the overlay's x/y trivially at 0,0
+    and avoids subpixel positioning headaches.
+    """
+    # Imported lazily so the module still imports for users who only use
+    # the non-arrow overlay types and haven't installed Pillow.
+    from PIL import Image, ImageDraw
+
+    x0, y0 = entry["from"]
+    x1, y1 = entry["to"]
+    color = entry.get("color", "yellow")
+    thickness = int(entry.get("thickness", 6))
+    head_len = int(entry.get("arrowhead_size", 30))
+    head_w = max(2, int(round(head_len * 0.6)))
+
+    img = Image.new("RGBA", (video_w, video_h), (0, 0, 0, 0))
+    draw = ImageDraw.Draw(img)
+
+    # Unit vector from from->to.
+    dx, dy = x1 - x0, y1 - y0
+    length = math.hypot(dx, dy)
+    if length < 1e-3:
+        # Degenerate arrow; render nothing rather than crashing.
+        img.save(out_path)
+        return
+    ux, uy = dx / length, dy / length
+    # Perpendicular (right-hand normal).
+    px, py = -uy, ux
+
+    # Shorten the shaft so it ends at the back of the arrowhead instead
+    # of poking through the tip. Without this the line shows on top of
+    # the triangle and gives a fuzzy double-tip.
+    shaft_end_x = x1 - ux * head_len
+    shaft_end_y = y1 - uy * head_len
+    draw.line(
+        [(x0, y0), (shaft_end_x, shaft_end_y)],
+        fill=color, width=thickness,
+    )
+
+    # Triangle: tip at (x1,y1), base centered at shaft_end with width head_w.
+    base_cx, base_cy = shaft_end_x, shaft_end_y
+    left = (base_cx + px * (head_w / 2), base_cy + py * (head_w / 2))
+    right = (base_cx - px * (head_w / 2), base_cy - py * (head_w / 2))
+    draw.polygon([(x1, y1), left, right], fill=color)
+
+    img.save(out_path)
+
+
+def emit_arrow_branch(entry: dict, png_path: Path, input_idx: int,
+                      out_label: str) -> tuple[str, list[str]]:
+    """Build a filter_complex branch for one arrow overlay.
+
+    Same shape as emit_pip_branch: consumes `[<input_idx>:v]` (a looped
+    image input), applies fade in/out, and emits `[<out_label>]`.
+
+    Fade timings are expressed in MAIN-video time (the looped PNG input's
+    local PTS happens to align with main-t since both start at 0). This
+    matters: if we used input-local 0 for fade-in start, the fade-in
+    would complete before the overlay's enable window opened, and the
+    one-shot fade-out would lock alpha at 0 long before the window
+    closed — leaving the arrow invisible inside its window.
+    """
+    fade = entry.get("fade", DEFAULT_FADE)
+    s, e = entry["t"]
+
+    parts = [f"[{input_idx}:v]null"]
+    if fade > 0:
+        parts[0] += (f",fade=t=in:st={s:.3f}:d={fade}:alpha=1,"
+                     f"fade=t=out:st={max(0, e - fade):.3f}:d={fade}:alpha=1")
+    parts[0] += f"[{out_label}]"
+    extra_input = ["-loop", "1", "-i", str(png_path)]
+    return parts[0], extra_input
+
+
+def emit_arrow_overlay(entry: dict, arrow_label: str,
+                       in_label: str, out_label: str) -> str:
+    """Composite the pre-rendered full-frame arrow PNG onto the main video.
+
+    Since the PNG is drawn at output-frame resolution with the arrow
+    placed at the right absolute pixels, the overlay position is just 0,0.
+    """
+    t = entry["t"]
+    return (
+        f"[{in_label}][{arrow_label}]"
+        f"overlay=x=0:y=0:format=auto:"
+        f"enable='{enable_expr(t)}'"
+        f"[{out_label}]"
+    )
+
+
 # ---------- top-level renderer ----------
 
 DRAWLIKE_TYPES = {"text", "stamp", "lower_third", "hud", "box"}
 
 
+def probe_video_dims(path: str) -> tuple[int, int]:
+    """Return (width, height) of the first video stream via ffprobe."""
+    out = subprocess.check_output([
+        "ffprobe", "-v", "error",
+        "-select_streams", "v:0",
+        "-show_entries", "stream=width,height",
+        "-of", "csv=p=0:s=x",
+        path,
+    ], text=True).strip()
+    w, h = out.split("x")
+    return int(w), int(h)
+
+
 def build_filter_graph(sidecar: dict, sidecar_dir: Path,
-                       captions: str | None = None) -> tuple[str, list[str]]:
+                       captions: str | None = None,
+                       video_w: int | None = None,
+                       video_h: int | None = None,
+                       arrow_tmp_dir: Path | None = None,
+                       ) -> tuple[str, list[str]]:
     """Build a complete filter_complex string + the extra ffmpeg input args.
 
     The graph's main video input is assumed to be `[0:v]`. The graph's
     final video stream is labelled `[vout]`.
+
+    `video_w` / `video_h` are only required if the sidecar contains any
+    arrow overlays (which need a full-frame PNG canvas). `arrow_tmp_dir`
+    is the directory in which pre-rendered arrow PNGs will be written.
 
     Returns (filter_complex, extra_inputs_flat).
     """
@@ -593,6 +721,25 @@ def build_filter_graph(sidecar: dict, sidecar_dir: Path,
             next_stage += 1
             statements.extend(emit_magnifier(entry, cur, out, tmp))
             cur = out
+        elif t == "arrow":
+            if video_w is None or video_h is None or arrow_tmp_dir is None:
+                raise RuntimeError(
+                    "arrow overlays require video_w / video_h / "
+                    "arrow_tmp_dir; call render() or pass them explicitly."
+                )
+            flush_drawlike()
+            png_path = arrow_tmp_dir / f"arrow_{next_input_idx}.png"
+            render_arrow_png(entry, video_w, video_h, png_path)
+            arrow_label = f"arrow{next_input_idx}"
+            branch_stmt, ffmpeg_in = emit_arrow_branch(
+                entry, png_path, next_input_idx, arrow_label)
+            statements.append(branch_stmt)
+            extra_inputs.extend(ffmpeg_in)
+            next_input_idx += 1
+            out = f"v{next_stage}"
+            next_stage += 1
+            statements.append(emit_arrow_overlay(entry, arrow_label, cur, out))
+            cur = out
         else:
             raise ValueError(f"Unknown overlay type {t!r}")
 
@@ -629,26 +776,37 @@ def render(input_video: str, sidecar_path: str, output_video: str,
     sidecar = json.loads(sidecar_path_p.read_text())
     sidecar_dir = sidecar_path_p.parent
 
-    filter_complex, extra_inputs = build_filter_graph(
-        sidecar, sidecar_dir, captions=captions)
+    # Probe output-video dims for any arrow overlays (which need a
+    # full-frame PNG canvas). Cheap enough to always do.
+    video_w, video_h = probe_video_dims(input_video)
 
-    cmd = ["ffmpeg", "-y", "-i", input_video]
-    cmd += extra_inputs
-    cmd += [
-        "-filter_complex", filter_complex,
-        "-map", "[vout]", "-map", "0:a",
-        "-c:v", "libx264", "-preset", preset, "-crf", str(crf),
-        "-pix_fmt", "yuv420p",
-        "-c:a", "copy",
-        "-shortest",  # extra image inputs are looped; bound to main video
-        "-loglevel", "error",
-        output_video,
-    ]
+    arrow_tmp_dir = Path(tempfile.mkdtemp(prefix="overlays-arrow-"))
+    try:
+        filter_complex, extra_inputs = build_filter_graph(
+            sidecar, sidecar_dir, captions=captions,
+            video_w=video_w, video_h=video_h,
+            arrow_tmp_dir=arrow_tmp_dir,
+        )
 
-    if dry_run:
-        print(" ".join(shlex.quote(c) for c in cmd))
-        return
-    subprocess.run(cmd, check=True)
+        cmd = ["ffmpeg", "-y", "-i", input_video]
+        cmd += extra_inputs
+        cmd += [
+            "-filter_complex", filter_complex,
+            "-map", "[vout]", "-map", "0:a",
+            "-c:v", "libx264", "-preset", preset, "-crf", str(crf),
+            "-pix_fmt", "yuv420p",
+            "-c:a", "copy",
+            "-shortest",  # extra image inputs are looped; bound to main video
+            "-loglevel", "error",
+            output_video,
+        ]
+
+        if dry_run:
+            print(" ".join(shlex.quote(c) for c in cmd))
+            return
+        subprocess.run(cmd, check=True)
+    finally:
+        shutil.rmtree(arrow_tmp_dir, ignore_errors=True)
 
 
 def main():
