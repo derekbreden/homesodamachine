@@ -99,9 +99,11 @@ All brazes complete. Stop the argon flow at the RHP400 regulator and close the B
 
 ### 7. Mass-metered recharge
 
-Place the vacuum-tight loop on a mass scale. Tare. Connect the Enviro-Safe R-600a can to the gauge manifold and the manifold to the BPV31 flare port. Open the can valve; refrigerant enters the loop under its own vapor pressure. Watch the scale; close the can valve and the manifold when mass reaches target. Target is *not* simply the factory charge mass from step 1 — the new evaporator coil has greater internal volume than the discarded factory finger-plate, so the recharge runs higher than factory. First-unit calibration starts from factory mass (15 g for Unit A / 23 g for Unit B, per step 1) plus a small overage and iterates against frost-pattern and suction-line superheat on first run-up — see Open items §1.
+Place the Enviro-Safe R-600a can on the Smart Weigh Pro digital scale (2000 g / 0.1 g resolution). Tare. Connect the can to the gauge manifold (1/4" SAE flare) and the manifold to the BPV31 flare port. Open the can valve; refrigerant flows out of the can into the vacuum under its own vapor pressure, and the scale readout drops as the can loses mass. Close the can valve when the displayed mass has dropped by the target charge — Δmass of the can equals mass added to the loop.
 
-Disconnect the manifold; close the BPV31 and cap its flare port. The BPV31 stays clamped on the compressor process tube as the single permanent service-access point for the life of the appliance.
+Target charge is *not* simply the factory charge mass from step 1 — the new evaporator coil has greater internal volume than the discarded factory finger-plate, so the recharge runs higher than factory. First-unit calibration starts from factory mass (15 g for Unit A / 23 g for Unit B, per step 1) plus a small overage and iterates against frost-pattern and suction-line superheat on first run-up — see Open items §1.
+
+Close the manifold valve; close the BPV31; disconnect the manifold; cap the BPV31 flare port. The BPV31 stays clamped on the compressor process tube as the single permanent service-access point for the life of the appliance.
 
 ### 8. Initial run-up + leak check
 
