@@ -85,13 +85,14 @@ Prime-available at order time.
 **Under-counter plate — SendCutSend 0.060" 304 SS, keyhole design
 (order qty 1).** File `touch_flo_under_counter_plate.dxf` (generated
 by `generate_dxf.py` in the same directory) is a single-piece
-Ø 54.35 mm disc with two open-edge channels cut into it: a Ø 12.6 mm
-shank pocket with a 12.6-mm-tall channel extending to the rim, and
-a 13.2 × 6.85 mm pill pocket (long axis along the channel direction)
-with a 6.85-mm-tall channel extending to the rim. The two channels
-exit the rim at different Y points (the shank pocket sits at the
-disc's vertical center; the pill pocket sits at the top of the disc
-in the DXF's coordinate frame) and do not merge.
+Ø 54.35 mm disc with hole positions that match the TPU mounting
+gasket exactly — Ø 12.6 mm shank pocket at the gasket's shank center
+and a 13.2 × 6.85 mm pill pocket (long axis along Y) at the gasket's
+pill center, 18.925 mm away along +X. Each pocket has its own
+open-edge channel extending from the pocket to the disc rim in the
+−Y direction (channel widths: 12.6 mm for the shank, 6.85 mm for the
+pill). The two channels exit the rim at different X positions and
+do not merge.
 
 The keyhole design exists because the faucet + umbilical leave the
 faucet-and-umbilical build chain as one permanently-attached
