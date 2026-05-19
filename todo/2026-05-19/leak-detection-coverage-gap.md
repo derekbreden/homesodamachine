@@ -12,7 +12,7 @@ That reasoning is half right. The shroud's *job* is to contain a flame event aro
 
 But that placement assumes the leak originates inside the shroud, or that gas migrates uphill against its density gradient to get there. Neither is the dominant in-service case.
 
-**R-600a is ~2× denser than air** (isobutane MW 58 vs air MW 29; gas density ~2.5 kg/m³ vs 1.2 kg/m³ at room conditions). A slow leak from any joint released into still cabinet air sinks, not rises. It pools at the lowest point of the under-sink cabinet.
+**R-600a is ~2× denser than air** (isobutane MW 58 vs air MW 29; gas density ~2.5 kg/m³ vs 1.2 kg/m³ at room conditions). A slow leak from any joint released into still air sinks, not rises. It pools at the lowest point of the enclosure interior, and (over time, through whatever gaps exist in the enclosure floor and walls) further down into the kitchen cabinet itself.
 
 The actual high-probability leak sites are not in the shroud:
 
@@ -22,11 +22,13 @@ The actual high-probability leak sites are not in the shroud:
 - **BPV31 flare-port cap** — same. Mechanical seal at every service event over the appliance's 10-year design life.
 - **Compressor process tube itself** — flexes with mounting-foot vibration over 10 years; the original factory pinch-shut closure does not get re-brazed after the BPV31 is installed.
 
-Three of those five sites — the suction-line coupling, the cap-tube pinch-swage, and the bulk of the evap coil itself — sit at the **back** of the enclosure, against the cold core, several inches above the cabinet floor but multiple feet away from the compressor shroud. The two BPV31-related sites sit on top of the compressor body, *outside* the shroud (the BPV31 hangs off the process tube where the tube exits the compressor can, not from inside the shroud's protected zone).
+Three of those five sites — the suction-line coupling, the cap-tube pinch-swage, and the bulk of the evap coil itself — sit at the **back** of the enclosure, against the cold core, on the order of a hand's-width away from the compressor shroud (everything lives inside one ~400–500 mm-wide appliance, so distances are inches, not feet). The two BPV31-related sites sit on top of the compressor body, *outside* the shroud (the BPV31 hangs off the process tube where the tube exits the compressor can, not from inside the shroud's protected zone).
 
-The leak from any of those settles to the cabinet floor and pools there. The MQ-6 inside the shroud sees nothing until either (a) the released volume is large enough to fill the cabinet up past the shroud's open bottom edge, or (b) the leak originates inside the shroud (process tube weep at the can, terminal-seal failure on the hermetic — both real but lower-probability than the brazed joints).
+The leak from any of those settles to the bottom of the enclosure interior and pools there. The shroud is open-bottom and sits on the same enclosure floor, so pooled gas can enter the shroud from below — but only after the pool depth reaches whatever standoff exists between the shroud's bottom edge and the floor, and then only as fast as it diffuses up to the MQ-6's mounting height inside the shroud (the sensor isn't flush with the bottom edge; it sits at middle-height where the trimmer + LED + connector all need access). A floor-level sensor catches the same leak at a lower pool depth, which is earlier in real time on a slow leak.
 
-This is a **coverage gap**, not a sensor-selection gap. The MQ-6 is a fine choice. There is one of it, in the wrong place for the dominant failure mode.
+There's a corner case where the in-shroud sensor wins: a leak that originates *inside* the shroud — process tube weep at the can, terminal-seal failure on the hermetic. Those are real but lower-probability than the brazed joints, and the gas would still settle within the shroud volume before escaping out the open bottom, so a sensor at the bottom of the shroud (not at middle-height) would still catch them faster than the current placement.
+
+This is a **coverage gap** (and arguably also a sensor-height gap *within* the shroud), not a sensor-selection gap. The MQ-6 is a fine choice. There is one of it, at the wrong height inside a small box, instead of at the bottom of the enclosure where a dense gas would actually pool.
 
 ## Three options for fixing the coverage gap
 
