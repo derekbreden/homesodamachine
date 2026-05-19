@@ -16,6 +16,8 @@
 
 The closest the repo comes to this topic is one phrase — "filtered tap water" — in [`hardware/future.md`](../../hardware/future.md) Port 2, and one external-supplied line item in [`hardware/bom.md`](../../hardware/bom.md): *"Water filter — user's choice of inline filter upstream of the appliance."* That's the entire spec. No filter SKU, no recommended micron rating, no inlet TDS / chloride / hardness / pH / temperature / pressure spec, no failure mode if the customer ignores it. The Ring 1 buyer doesn't know what they're supposed to install upstream of the appliance, and the founder doesn't have a paragraph to give them when they ask.
 
+**Plans in this area are not firm — treat the filter question as an open question.** The current bench prototype does have an inline water filter ([README.md:132](../../README.md), [README.md:386](../../README.md), [docs/plumbing.md:66](../../docs/plumbing.md) — Waterdrop 15UC-UF, $62.99, sitting upstream of the Lillium carbonator). The integrated-build documentation in `hardware/` reads as if filtration is assumed but does not commit to a filter SKU or a location inside the appliance, and the BOM marks the filter "user's choice, not shipped." Whether the integrated appliance carries forward an internal filter, requires the customer to supply one, or specs a different filter than the prototype Waterdrop is **undecided**. The recommendations below are written against that open question, not against a settled architecture.
+
 ## Why this matters more than it looks
 
 ### 1. The 316L vessel longevity claim hinges on chloride control
