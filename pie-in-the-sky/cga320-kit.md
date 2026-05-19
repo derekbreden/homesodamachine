@@ -9,7 +9,7 @@ A kit that pairs a 5 lb CGA-320 CO2 cylinder (customer-supplied or service-suppl
 ## What's in the kit
 
 - **CGA-320 single-stage regulator.** Output adjustable in the 30–60 PSI range; gauge for tank pressure. Same connector standard the customer's 5 lb tank uses. This is the largest single line item in the kit and the reason the kit price moved from "$50 BOM-only" thinking to a realistic $150 retail.
-- **2-liter PET pressure-rated bottle.** Carbonation-rated, refillable, dishwasher-safe lower body. Same form factor as SodaStream's bottles, neck thread sized for our push-button head rather than SodaStream's proprietary screw fit.
+- **2 L PET pressure-rated bottle.** Carbonation-rated, refillable, dishwasher-safe lower body. **Standard US 2 L soda-bottle neck thread** — the same finish as a Coca-Cola, Pepsi, or generic store-brand 2 L bottle from any grocery store. The customer gets a nice branded bottle in the kit, but the head fits just about any 2 L bottle they have at home or buy at the store. This is intentional: drop the proprietary lock-in, embrace the commodity. Other CGA-320 carbonation kits on the market already do this; we are following an established norm, not introducing a new one.
 - **Push-button carbonation head.** Threads onto the bottle, hose-connects to the regulator output, presses to inject CO2 into the bottle. Vent button (or built-in cracking valve) for releasing headspace before unthreading.
 - **Hose.** ~4 ft of food-grade tubing between regulator output and head.
 - **Instruction card.** Chill the water before carbonating. Two-second bursts work better than one long burst — sparging is more efficient at higher headspace pressure that bleeds down between presses. After carbonation, vent the headspace before unthreading the head. To keep a refrigerated bottle from going flat overnight, squeeze the bottle to expel air before re-capping (the air-removal trick).
@@ -52,14 +52,14 @@ What the customer gets vs a SodaStream:
 
 - **17× the CO2 per cylinder swap.** A 5 lb tank lasts months. A SodaStream 60 L cartridge lasts weeks.
 - **Lower per-liter cost.** ~$25 fill on a 5 lb tank works out to a few cents per liter of carbonated water. SodaStream's per-liter economics are ~10× worse.
-- **No proprietary lock-in.** CGA-320 is the industry standard. Any welding supplier fills it. Drop the kit, keep the tank, hook it up to anything else later — kegerator, planted aquarium, the appliance.
+- **No proprietary lock-in, anywhere in the kit.** CGA-320 is the industry-standard cylinder fitting — any welding supplier fills it. The bottle thread is the industry-standard US 2 L soda-bottle thread — any 2 L bottle from a grocery store fits the head. Drop the kit, keep the tank and head, hook either up to anything else later — kegerator, planted aquarium, the next 2 L bottle from recycling, the appliance.
 
 Net: the kit is a meaningfully better deal than a SodaStream for someone doing 2 L/day or more, and a worse deal for someone doing one glass a week. The marketing copy should say exactly that.
 
 ## What's worth doing next on this
 
 1. **Source the regulator.** A reliable $60 CGA-320 single-stage regulator from a homebrew supplier is the load-bearing part of the kit. Worth a quick survey of brewhardware.com, MoreBeer, Adventures in Homebrewing, Williams Brewing for what's available at this price point and ships to a residential address in Prime-ish timeframes.
-2. **Confirm bottle form factor.** A 2 L PET bottle rated for carbonation, with a neck thread that the kit's head can be designed to. Either a generic homebrew bottle exists at this size, or we print a thread adapter, or we commission a custom mold (probably not at this scale).
+2. **Confirm the standard 2 L bottle thread spec.** The US grocery-store thread used on Coca-Cola, Pepsi, and store-brand 2 L PET bottles — believed to be PCO 1810 (older 28 mm carbonated-soft-drink finish), worth confirming against current production. The head is designed to that spec specifically so the customer can use bottles they already have. Worth checking that competitor CGA-320 carbonation kits also target this same spec (they appear to), to confirm consistency in the commodity.
 3. **Prototype the head.** A push-button head with built-in cracking valve is well-established hardware in the homebrew world (Carbonator Cap and similar). The kit version may just be a re-labelled commodity head with our hose attached and our instruction card in the box.
 4. **Write the editorial page** for "how to make a SodaStream less bad," which is the natural traffic source for the kit. The page recommends the kit at the bottom and links to the appliance rungs for the upgrade path.
 
