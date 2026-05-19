@@ -190,13 +190,35 @@ So the swap-pool economics actually look like:
 
 Round-trip in the ~$60–80 range plus the cylinder + fill cost, not $120–140. Materially better than the original C6 figure.
 
-### The interim outbound path (before a DOT-SP)
+### The carrier picture — UPS Ground and FedEx Ground handle this routinely
 
-Before doing the permit work, the cheaper outbound model is **drop-shipping the filled cylinder from a partner gas supplier** that's already a hazmat shipper. Their truck, their hazmat account, their shipping papers, their UN-rated packaging — paid as a per-cylinder service fee on top of the cylinder + fill cost. They run hazmat shipments daily; the marginal one is cheap to them. This sidesteps Derek owning the hazmat shipper apparatus (Chemtrec retainer, 49 CFR 172.700 employee training, packaging design, recordkeeping) at Ring 1 / Ring 2 scale.
+To be unambiguous: **the carrier infrastructure for residential hazmat delivery already exists, is mature, and is used at consumer scale every day.** No delivery network needs to be built.
+
+- **UPS Ground:** accepts Class 2.2 compressed gases in the lower 48. No "residential restriction" — the package routes and delivers to a residential address like any other UPS Ground parcel. Geographic exclusions: no Alaska, no Hawaii, no Puerto Rico, plus a handful of specific island communities (Catalina, Bass Islands, San Juan Islands, etc.) per [UPS's hazmat service definition](https://www.ups.com/us/en/support/shipping-special-care-regulated-items/hazardous-materials-guide/hazardous-material-service-definition).
+- **FedEx Ground:** same. Class 2.1 and 2.2 accepted, lower 48 only, no AK/HI. See the [FedEx Ground Hazmat Service Guide](https://www.fedex.com/content/dam/fedex/us-united-states/services/HazMat-FXG-shipping-guide.pdf).
+- **USPS:** prohibits compressed gas as a general rule — *except* under specific DOT Special Permits. SodaStream uses USPS as their primary carrier under DOT-SP 20796 ([their support page confirms it](https://support-us.sodastream.com/hc/en-us/articles/14243394657179-How-do-I-return-my-empty-cylinders)). Without a permit, USPS is off the table; with one, USPS becomes the cheapest channel.
+
+All carrier "restrictions" cited earlier are **shipper-side, not destination-side.** The carriers refuse hazmat at *origin* if you try to drop it at a UPS Store, FedEx Office, FedEx drop box, or any other consumer-facing pickup point. Once the shipper-side compliance is in place, the carrier picks up, routes through their normal hazmat-compliant ground network, and drops it on the doorstep of any lower-48 residential address.
+
+**Concrete proof points that this works at consumer scale:** SodaStream and Drinkmate ship millions of consumer-direct CO2 cylinders per year to residential addresses across the lower 48 — almost all via USPS (under DOT-SP) and UPS Ground (for orders of 3+ cylinders). Specialty-gas suppliers ship hazmat to grad students at home every day. The infrastructure is real, mature, and routinely used by small operations.
+
+**Shipper-side compliance — what you actually have to do:**
+
+1. Open a UPS or FedEx shipper account with the hazmat addendum (one-time phone call + paperwork)
+2. Get yourself or one employee 49 CFR 172.700 trained (one-day online course, ~$200, recertify every 3 years)
+3. Sign up for Chemtrec or equivalent 24-hour emergency response contact (~$1k/year for the small-shipper tier, or pay per shipment)
+4. Buy UN-rated overpacks for your cylinders (off-the-shelf — cylinder manufacturers and packaging vendors sell them; not custom)
+5. Schedule a daily pickup at your fulfillment address (no drop-off at counters)
+
+That's the whole apparatus. The ~$45/shipment hazmat surcharge is what UPS/FedEx charges on top of normal ground freight, once those five things are in place. That's the marginal cost of using the network you didn't build.
+
+### The interim outbound path (before standing up your own hazmat shipper account)
+
+Even cheaper than running your own hazmat shipper account: **drop-shipping the filled cylinder from a partner gas supplier** that's already a hazmat shipper. Their truck, their hazmat account, their shipping papers, their UN-rated packaging — paid as a per-cylinder service fee on top of the cylinder + fill cost. They run hazmat shipments daily; the marginal one is cheap to them. This sidesteps standing up the shipper apparatus at the 5-step list above for Ring 1 / Ring 2 scale.
 
 Who actually does this is the open question. Welding-supply branches (Airgas, Praxair) deliver to commercial addresses with fleet accounts but typically don't drop-ship single residential parcels. A focused phone call to a regional Airgas branch + one or two homebrew-supply distributors (MoreBeer, LD Carlson, KegWorks, BrewHardware) would settle whether any of them will accept a "drop-ship one filled 5 lb cylinder to my customer's address, here's their info, bill me" arrangement.
 
-If none will, the third option is using a parcel-hazmat fulfillment house (Labelmaster, ShipHazmat, etc.) — they specialize in exactly this, but pricing typically only makes sense above a few hundred shipments a year.
+If none will, the third option is using a parcel-hazmat fulfillment house (Labelmaster, ShipHazmat, etc.) — they specialize in exactly this, but pricing typically only makes sense above a few hundred shipments a year. Above that point, standing up your own hazmat shipper account via the 5-step list is cheaper than paying a fulfillment house's per-shipment fee.
 
 ### Strategic implication: the DOT-SP is a real moat for Ring 3+
 
@@ -286,3 +308,8 @@ This belongs in a separate document — probably `business/co2-exchange-service.
 - [ICC Compliance Center — case study on shipping CO2 cartridges for a consumer product](https://www.thecompliancecenter.com/case-study-shipping-carbon-dioxide-cartridges-for-a-consumer-product/) — outlines the special-permit + custom-packaging-kit pattern
 - [UPS Hazardous Materials Guide](https://www.ups.com/us/en/support/shipping-special-care-regulated-items/hazardous-materials-guide) — UPS-side requirements for shipping under 49 CFR
 - [Catalina Cylinders — Transporting/Shipping CO2 Cylinders](https://www.catalinacylinders.com/ufaq/transporting-shipping-of-co2-cylinders/) — cylinder-manufacturer plain-language read
+- [UPS Hazardous Materials Service Definition](https://www.ups.com/us/en/support/shipping-special-care-regulated-items/hazardous-materials-guide/hazardous-material-service-definition) — confirms residential-destination is allowed; lists the lower-48-only geographic exclusions
+- [UPS Dangerous Goods Ground Accepted Table (PDF)](https://www.ups.com/assets/resources/media/UPS_TDG_Ground_Accepted_Table.pdf) — Class 2.2 (UN1013 carbon dioxide) on the accepted-via-Ground list
+- [FedEx Dangerous Goods & Hazardous Materials Service Guide](https://www.fedex.com/en-us/service-guide/dangerous-goods-hazardous-materials.html) — FedEx Ground hazmat acceptance overview
+- [FedEx Ground Hazardous Materials Shipping Guide (PDF)](https://www.fedex.com/content/dam/fedex/us-united-states/services/HazMat-FXG-shipping-guide.pdf) — origin-side restrictions (no counter dropoff), Class 2.2 acceptance, AK/HI exclusions
+- [SodaStream — How do I return my empty cylinders?](https://support-us.sodastream.com/hc/en-us/articles/14243394657179-How-do-I-return-my-empty-cylinders) — direct evidence that consumer-direct residential hazmat shipping works at scale, via USPS (under DOT-SP) and UPS Ground
