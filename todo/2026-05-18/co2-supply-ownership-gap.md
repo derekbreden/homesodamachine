@@ -114,7 +114,9 @@ This dovetails into the broader "telemetry from in-home units" question that the
 
 ### C6 — Consider the cylinder-swap loaner pool as a Ring 2 product
 
-For Ring 2+, when there are 20+ units in 20+ households, a hub-and-spoke swap-cylinder pool starts to make sense: a customer's app says "low CO2," they click "send a refill," a pre-filled cylinder arrives in 2–3 days, they ship the empty back in the same box. UPS hazmat fees for shipping a CO2 cylinder are ~$40–60 each direction (commercial rate, exemption certificates, etc. — this is the part that needs real legal review, not bar-napkin estimation). Total customer cost ~$120–140 per swap vs. ~$45 self-serve, but the customer never drives anywhere. This is the "ongoing hassle" answer in [target-market.md:269](../../marketing/target-market.md) — and the one place where the Founder Edition story ("we built this whole thing for you, including the supply chain") can extend past day 1.
+For Ring 2+, when there are 20+ units in 20+ households, a hub-and-spoke swap-cylinder pool starts to make sense: a customer's app says "low CO2," they click "send a refill," a pre-filled cylinder arrives in 2–3 days, they ship the empty back in the same box. This is the "ongoing hassle" answer in [target-market.md:269](../../marketing/target-market.md) — and the one place where the Founder Edition story ("we built this whole thing for you, including the supply chain") can extend past day 1.
+
+**The shipping picture is asymmetric — see the addendum below.** Return leg is plain UPS Ground under 49 CFR 173.29 (valve open, <29 psig, ships as non-hazmat); only the outbound filled leg is regulated hazmat. That changes the unit economics significantly from a naive "round-trip hazmat" assumption.
 
 Out of scope for unit #1. Worth naming so it doesn't get lost.
 
@@ -147,3 +149,75 @@ Don't try to land all of these at once. Order matters:
 ## Suggested next concrete step
 
 Write `docs/co2-supply.md` (C1) and a 2–3 sentence decision note on C2. Both are doc-only, both unblock messaging work that the rest of the launch sequence depends on. Everything below those two depends on the decisions captured there.
+
+---
+
+## Addendum (added later same day) — the hazmat-shipping picture, in detail
+
+Derek's read of the original recommendation prompted a closer look at consumer CO2 shipping. The picture is sharper than the original recommendation captured, and it changes the C2 / C6 economics meaningfully.
+
+### Why no one ships filled 5 lb CGA-320 cylinders to homes
+
+Derek asked: "Is there any such outfit? I'd be thrilled to pay $400 for a shipped 5 lb bottle — no one offers it that I can tell." Correct — functionally no one offers this, and the reason is structural, not regulatory-impossible.
+
+**The DOT Special Permit (DOT-SP) regime is the mechanism that makes consumer-mail cylinder shipping practical.** SodaStream's 60 L cylinder ships to consumers under [DOT-SP 20796](https://www.phmsa.dot.gov/hazmat/documents/offer/SP20796.pdf/offerserver/SP20796); their 130 L ships under DOT-SP 15634. These permits waive the shipper-certification signature and authorize alternative hazard communication (no Class 2 diamond), enabling the entire "exchange your empty by mail" UX. Drinkmate uses the same permit family ([CO2 Exchange instructions](https://idrinkproducts.com/pages/co2-exchange-shipping-instructions)).
+
+**No DOT-SP exists for a 5 lb CGA-320 / DOT-3AL form factor.** The permits are issued per-applicant, per-form-factor; SodaStream's permit is scoped to their 60 L cylinder and doesn't extend up. No welding-supply distributor has applied for one at the 5 lb size because consumer-parcel isn't their business model — their business is fleet-truck routes to bars, restaurants, and beverage accounts.
+
+Three converging reasons no one's in the middle:
+
+1. **Permit-application work is non-trivial** (rough order-of-magnitude $20–50k + 6–12 months with a hazmat consultancy — to be confirmed; numbers from the [ICC Compliance Center case study](https://www.thecompliancecenter.com/case-study-shipping-carbon-dioxide-cartridges-for-a-consumer-product/) and conversational estimates, not a real quote). SodaStream did it because cylinder exchange *is* their business.
+2. **The fully-regulated path works but kills small-volume unit economics.** Per-shipment hazmat surcharge (~$45 ground per UPS's [hazmat guide](https://www.ups.com/us/en/support/shipping-special-care-regulated-items/hazardous-materials-guide)) + UN-rated overpack + trained hazmat employee + Chemtrec retainer + shipping papers. Real, doable, expensive at low volume.
+3. **The market is bifurcated.** Small cylinders → permit-enabled consumer mail (SodaStream, Drinkmate). Large cylinders → fleet-truck routes (Airgas, Praxair, NuCO2). The 5 lb form factor is too big for the consumer-mail permits, too small for fleet-truck economics. No one's there because no one's there.
+
+### Correction to the return-leg story — it's not symmetric
+
+The original C6 text said round-trip hazmat shipping ran ~$120–140 per swap. **That's wrong on the return leg.** Per [49 CFR 173.29](https://www.ecfr.gov/current/title-49/subtitle-B/chapter-I/subchapter-C/part-173/subpart-B/section-173.29), an empty Division 2.2 non-flammable gas cylinder (CO2 qualifies) is **exempt from the Hazardous Materials Regulations entirely** when:
+
+- residue is a Division 2.2 gas, not ammonia, no subsidiary hazards
+- gauge pressure **< 29.0 psig at 20°C (68°F)** — this is the load-bearing number
+- not a hazardous substance / waste / marine pollutant
+- loaded by shipper, unloaded by shipper or consignee
+
+The industry shorthand is "valve open = empty." Open the valve, equalize to atmospheric in seconds, ships as standard parcel — no label, no shipping paper, no surcharge, no Chemtrec. UPS Ground or USPS. This is exactly how SodaStream and Drinkmate empties come back. Verification by the consumer is trivial — turn the valve until it stops, no hiss. Tamper-evident tape across the valve in the open position is the optional belt-and-suspenders.
+
+So the swap-pool economics actually look like:
+
+| Leg | Status | Cost (rough) |
+|---|---|---|
+| Outbound filled cylinder → customer | Hazmat. Needs DOT-SP OR per-shipment fully-regulated hazmat treatment | ~$45 surcharge + freight + apparatus, OR permit amortization |
+| Customer empty → swap depot | **Non-hazmat under 173.29.** Plain UPS Ground or USPS | Normal parcel rate, ~$15–20 |
+
+Round-trip in the ~$60–80 range plus the cylinder + fill cost, not $120–140. Materially better than the original C6 figure.
+
+### The interim outbound path (before a DOT-SP)
+
+Before doing the permit work, the cheaper outbound model is **drop-shipping the filled cylinder from a partner gas supplier** that's already a hazmat shipper. Their truck, their hazmat account, their shipping papers, their UN-rated packaging — paid as a per-cylinder service fee on top of the cylinder + fill cost. They run hazmat shipments daily; the marginal one is cheap to them. This sidesteps Derek owning the hazmat shipper apparatus (Chemtrec retainer, 49 CFR 172.700 employee training, packaging design, recordkeeping) at Ring 1 / Ring 2 scale.
+
+Who actually does this is the open question. Welding-supply branches (Airgas, Praxair) deliver to commercial addresses with fleet accounts but typically don't drop-ship single residential parcels. A focused phone call to a regional Airgas branch + one or two homebrew-supply distributors (MoreBeer, LD Carlson, KegWorks, BrewHardware) would settle whether any of them will accept a "drop-ship one filled 5 lb cylinder to my customer's address, here's their info, bill me" arrangement.
+
+If none will, the third option is using a parcel-hazmat fulfillment house (Labelmaster, ShipHazmat, etc.) — they specialize in exactly this, but pricing typically only makes sense above a few hundred shipments a year.
+
+### Strategic implication: the DOT-SP is a real moat for Ring 3+
+
+Applying for a homesodamachine-specific DOT Special Permit at the 5 lb CGA-320 form factor is a genuine competitive moat. SodaStream's permit is the asset that lets them ship cylinders; it's also what no competitor can use. A homesodamachine permit at the 5 lb size would let the swap-cylinder service exist on terms no welding supplier wants to build, and it would not be available to any future home-soda competitor.
+
+This is not Ring 1. It is potentially the defining product feature of the eventual business at Ring 3+ if the rings model in [target-market.md:170](../../marketing/target-market.md) plays out, because it directly closes the one ownership-experience rough edge target-market.md names. Worth a phone call with a hazmat consultancy (Labelmaster, [ICC Compliance Center](https://www.thecompliancecenter.com/case-study-shipping-carbon-dioxide-cartridges-for-a-consumer-product/), J. J. Keller) sometime in the next 1–2 years to scope cost and timeline accurately rather than relying on the rough-order-of-magnitude estimate above.
+
+### Net effect on the recommendations above
+
+- **C2 (Founder Edition includes a filled cylinder)** is more practical than I implied. The shipped-from-a-partner path likely exists for an extra ~$45–60 over the cylinder + fill cost, putting the all-in around $215–230 on a $7,500 unit. The legal work is partner-side, not homesodamachine-side. Decision is still real but the cost-per-unit shouldn't be the blocker.
+- **C6 (cylinder-swap loaner pool)** is meaningfully cheaper than first written. Return-leg is standard parcel under 173.29. Outbound-leg via partner is the only hazmat piece. Worth revisiting before Ring 2 with an actual cost from a partner gas supplier, not the rough estimate.
+- **New work item: scope a DOT-SP application** as a Ring 3+ strategic option. Phone call with a hazmat consultancy to get a real cost + timeline. Not urgent; should not be forgotten.
+
+### Source list for the hazmat picture
+
+- [49 CFR 173.29 — Empty packagings (eCFR)](https://www.ecfr.gov/current/title-49/subtitle-B/chapter-I/subchapter-C/part-173/subpart-B/section-173.29) — the rule that makes return-leg ship as non-hazmat
+- [49 CFR Part 173 Subpart G — Gases (eCFR)](https://www.ecfr.gov/current/title-49/subtitle-B/chapter-I/subchapter-C/part-173/subpart-G) — the rules for the filled outbound leg
+- [Daniels Training — Shipment of Empty Division 2.2 Compressed Gas Cylinders](https://danielstraining.com/shipment-of-empty-division-2-2-compressed-gas-cylinders/) — plain-language read of the 29 psig threshold
+- [DOT-SP 20796 (SodaStream 60 L permit, sixth revision, PHMSA)](https://www.phmsa.dot.gov/hazmat/documents/offer/SP20796.pdf/offerserver/SP20796) — the canonical reference for what a permit looks like
+- [SodaStream CO2 Cylinder Support](https://sodastream.com/pages/sodastream-co2-cylinder-support) — how a permit holder explains the program to customers
+- [Drinkmate CO2 Exchange Shipping Instructions](https://idrinkproducts.com/pages/co2-exchange-shipping-instructions) — confirms the return-leg-only-non-hazmat workflow as standard industry practice
+- [ICC Compliance Center — case study on shipping CO2 cartridges for a consumer product](https://www.thecompliancecenter.com/case-study-shipping-carbon-dioxide-cartridges-for-a-consumer-product/) — outlines the special-permit + custom-packaging-kit pattern
+- [UPS Hazardous Materials Guide](https://www.ups.com/us/en/support/shipping-special-care-regulated-items/hazardous-materials-guide) — UPS-side requirements for shipping under 49 CFR
+- [Catalina Cylinders — Transporting/Shipping CO2 Cylinders](https://www.catalinacylinders.com/ufaq/transporting-shipping-of-co2-cylinders/) — cylinder-manufacturer plain-language read
