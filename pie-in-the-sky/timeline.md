@@ -10,8 +10,8 @@ A line of thinking about releasing the curator catalog ([`curator-brand.md`](cur
 
 Going from earliest release to latest:
 
-- **Free editorial** — a SodaStream-advice page, the local CO2 directory in [`local-co2.md`](local-co2.md). Ships first because the cost is days, not months, and the SEO surface seeds traffic for every later rung. ~$0 spend.
-- **CGA-320 adapter kit** — [`cga320-kit.md`](cga320-kit.md). ~$110 BOM, ~$150 retail. Standard US 2 L soda-bottle thread + CGA-320 regulator + push-button head. First transactional rung. Time-to-ship is weeks.
+- **Free editorial** — a SodaStream-advice page, the local CO2 directory in [`local-co2.md`](local-co2.md). Ships first because the cost is minimal and the SEO surface seeds traffic for every later rung. ~$0 spend.
+- **CGA-320 adapter kit** — [`cga320-kit.md`](cga320-kit.md). ~$110 BOM, ~$150 retail. Standard US 2 L soda-bottle thread + CGA-320 regulator + push-button head. First transactional rung.
 - **CO2 delivery service** — [`co2-service.md`](co2-service.md) at $500 for new bottle, $250 for refill. Hazmat shipping through UPS or FedEx.
 - **HSM 1** — the Lite Edition. ~$500 BOM, $1,500 retail. Flavor injection only, customer supplies the carbonator (Lillium-class) or pairs with one we resell.
 - **HSM 2** — the Kitchen Edition without drain. ~$1,500 BOM, $3,500 retail. Integrated carbonator and refrigeration, faucet at the back of the sink, no plumbed drain.
@@ -38,29 +38,29 @@ Today's marketing problem: how do we convince anyone that a $7,500 machine from 
 
 HSM 1's BOM is mostly parts that ship in HSM 2 and HSM 3 as well — electronics shelf, peristaltic pumps, valve manifold, hopper, faucet, display, firmware. Volume on HSM 1 drops per-unit costs on every shared part. The "easy SKU subsidizes the harder SKUs through shared BOM" pattern is the historical norm for appliance brands at this scale. The current single-SKU plan does not have this lever.
 
-The CGA-320 kit doesn't share BOM with the appliance line — it is a regulator + bottle + head, not electronics + pumps. So the kit doesn't pull appliance unit-cost down. What it drives down instead is *brand discovery cost*: shared traffic, shared SEO, shared email list, shared trust capital. The economics of brand investment work the same way shared-BOM economics do — fixed cost amortized across more units.
+The CGA-320 kit doesn't share BOM with the appliance line — it is a regulator + bottle + head, not electronics + pumps. So the kit doesn't pull appliance unit-cost down. What it drives down instead is *brand discovery cost*: shared traffic, shared SEO, shared trust capital. The economics of brand investment work the same way shared-BOM economics do — fixed cost amortized across more units.
 
 ## Risk profile inverts
 
-Current plan: spend the project budget and many months betting that the hard engineering (custom 316L vessel, refrigerant teardown and recharge, hydrocarbon safety architecture) lands at the right time, then validate go-to-market against the finished machine.
+Current plan: spend the project budget betting that the hard engineering (custom 316L vessel, refrigerant teardown and recharge, hydrocarbon safety architecture) lands at the right time, then validate go-to-market against the finished machine.
 
-HSM-1-first plan: ship something within weeks, validate everything that isn't engineering — does the video convert, does the install story work, does the syrup supply chain hold up, does the iOS app feel right, do real kitchens cooperate with the install pattern, does the brand mean anything yet, what's the real failure rate of a peristaltic pump after a year in a customer's home. Then invest the HSM 2 carbonator and refrigeration R&D against a validated market.
+HSM-1-first plan: ship something, validate everything that isn't engineering — does the video convert, does the install story work, does the syrup supply chain hold up, does the iOS app feel right, do real kitchens cooperate with the install pattern, does the brand mean anything yet, what's the real failure rate of a peristaltic pump in a customer's home. Then invest the HSM 2 carbonator and refrigeration R&D against a validated market.
 
-The CGA-320 kit pulls validation earlier still — it ships in weeks at a $150 transaction, which is enough to test the brand voice, the editorial funnel, and the customer-support workflow without any of the syrup or install variables. The CO2 service has its own gating decision before launch (laid out in [`co2-service.md`](co2-service.md)) but ships well before HSM 1 in any timeline where the answer is yes. By the time HSM 1 ships, the brand has already learned which of the curator voice cues resonate and which fall flat.
+The CGA-320 kit pulls validation earlier still — it ships at a $150 transaction, which is enough to test the brand voice, the editorial funnel, and the customer-support workflow without any of the syrup or install variables. The CO2 service has its own gating decision before launch (laid out in [`co2-service.md`](co2-service.md)) but ships before HSM 1 in any timeline where the answer is yes. By the time HSM 1 ships, the brand has already learned which of the curator voice cues resonate and which fall flat.
 
 The carbonator engineering doesn't get cancelled in this framing. It gets *funded* by HSM 1 revenue and *aimed* by HSM 1 learnings — with the lower rungs funding and aiming HSM 1 in the same way.
 
 ## The founder's learning curve changes shape
 
-Today the founder is learning pressure-vessel fabrication and refrigerant brazing — skills about making the thing. With HSM 1 shipping first the founder also learns: customer support, returns processing, install troubleshooting, real-world six-month reliability data, support-ticket volume, syrup-supply hiccups, kitchen-install edge cases. Those are skills HSM 2 depends on and currently has no data behind. By HSM 2 ship date the founder is genuinely a product company rather than a person who has built one prototype.
+Today the founder is learning pressure-vessel fabrication and refrigerant brazing — skills about making the thing. With HSM 1 shipping first the founder also learns: customer support, returns processing, install troubleshooting, real-world reliability data, support-ticket volume, syrup-supply hiccups, kitchen-install edge cases. Those are skills HSM 2 depends on and currently has no data behind. By HSM 2 ship date the founder is genuinely a product company rather than a person who has built one prototype.
 
-With the CGA-320 kit and CO2 services as earlier releases, the customer-support and order-fulfillment skills land even earlier — at $150 transactions long before any $1,500 ones. Returns processing, a working customer-email workflow, a Stripe-and-fulfillment habit, a "how do I respond to a confused customer" voice — all in place months before HSM 1 is ready to take a deposit.
+With the CGA-320 kit and CO2 services as earlier releases, the customer-support and order-fulfillment skills land even earlier — at $150 transactions long before any $1,500 ones. Returns processing, a working customer-email workflow, a Stripe-and-fulfillment habit, a "how do I respond to a confused customer" voice — all in place before HSM 1 is ready to take a deposit.
 
 ## A retention and upgrade path materializes
 
-HSM 1 customer pours soda happily for a year and builds the household habit around it. HSM 2 announcement: everything you love, colder, fizzier, no Lillium on the counter. They already trust the brand. They have already written a check. They have already converted their household. They are the warmest possible HSM 2 lead in the world. The current single-SKU plan has no equivalent installed base when it tries to sell its second product.
+HSM 1 customer pours soda happily and builds the household habit around it. HSM 2 announcement: everything you love, colder, fizzier, no Lillium on the counter. They already trust the brand. They have already written a check. They have already converted their household. They are the warmest possible HSM 2 lead in the world. The current single-SKU plan has no equivalent installed base when it tries to sell its second product.
 
-The path now extends downward too. CGA-320 kit customer pours soda happily for six months, gets tired of carbonating one bottle at a time, upgrades to Lite. Lite customer pours soda happily for a year, gets tired of pre-chilling water, upgrades to HSM 2. The catalog gives the customer a stepping stone at every level of frustration with their current setup. Same brand, same trust, same UI grammar — different machinery.
+The path now extends downward too. CGA-320 kit customer pours soda happily, gets tired of carbonating one bottle at a time, upgrades to Lite. Lite customer pours soda happily, gets tired of pre-chilling water, upgrades to HSM 2. The catalog gives the customer a stepping stone at every level of frustration with their current setup. Same brand, same trust, same UI grammar — different machinery.
 
 ## The flavor module decision becomes data-driven
 
