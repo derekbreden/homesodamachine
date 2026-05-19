@@ -15,7 +15,7 @@ Someone who would buy the Kitchen Edition but for living-partner / kitchen-prior
 - Cold core, carbonator vessel, refrigeration loop, foam shells, flavor reservoirs, valve manifold, peristaltic pumps, electronics shelf — all unchanged.
 - Side-to-side condenser airflow (per the airflow correction in `hardware/future.md` 2026-05-13). Intake on one side face, exhaust on the opposite — no thermal duty on the front face, which is the precondition that makes Shop Edition possible at all.
 - Regulatory posture identical. R-600a, UL 60335-2-89 compliance, SNAP markings. The flame symbol and "flammable refrigerant" labels become user-visible on a countertop unit — worth designing into the rear nameplate as deliberate visual elements rather than letting them look like stickers.
-- Same CO2 inlet, same water inlet, same C14 power inlet on the rear panel. Customer plumbs water + CO2 once, plugs in, done.
+- Same water inlet, same C14 power inlet on the rear panel. CO2 inlet placement is an open question for Shop Edition — Kitchen Edition moved the CO2 inlet to the front face with the cylinder beside the appliance in the under-sink cabinet, but Shop Edition's countertop context may warrant a different placement; resolved when Shop Edition itself is designed. Customer plumbs water + CO2 once, plugs in, done.
 
 ## What's different
 

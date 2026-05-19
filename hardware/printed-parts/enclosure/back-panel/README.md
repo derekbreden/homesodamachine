@@ -1,6 +1,6 @@
 # Rear panel
 
-3D-printed rear face of the under-counter enclosure. Carries every external connection on the appliance: AC inlet, tap-water inlet, CO2 line inlet, bag-in-box (BiB) syrup inlet, the moisture-sensor drip-pan vent that observes the §3 backflow preventer, and (new) the umbilical port that accepts the three tubes coming down from the under-cabinet faucet through the countertop. Printed in **Bambu PET-CF**, matching the rest of the enclosure exterior — see §"Panel material" below.
+3D-printed rear face of the under-counter enclosure. Carries every external connection on the appliance except the CO2 inlet (which lives on the front panel — see [`../../../future.md`](../../../future.md) §"Enclosure layout"): AC inlet, tap-water inlet, bag-in-box (BiB) syrup inlet, the moisture-sensor drip-pan vent that observes the §3 backflow preventer, and (new) the umbilical port that accepts the three tubes coming down from the under-cabinet faucet through the countertop. Printed in **Bambu PET-CF**, matching the rest of the enclosure exterior — see §"Panel material" below.
 
 The panel itself has no fluid-pressure duty. It is a connection-management plate: hole patterns sized for off-the-shelf bulkheads and panel-mount receptacles, with printed bezels, recesses, and labels where the user-facing fit-and-feel benefits.
 
@@ -10,7 +10,6 @@ The panel itself has no fluid-pressure duty. It is a connection-management plate
 |---|---|---|---|---|
 | 1 | AC inlet | IEC 60320 C14 panel-mount receptacle ([MXR B07DCXKNXQ](https://www.amazon.com/dp/B07DCXKNXQ)) | rectangular cutout per C14 spec | Recessed 3–5 mm into the panel face with a printed shroud around the perimeter so the C13 cord housing nests flush. Cord housing is the strain relief — no separate grommet on this panel. (The Heyco SB-500-6 in `bom.md §11` is the cord grommet on the compressor shroud, a different sheet-metal part.) Recess detail in §"AC inlet recess" below. |
 | 2 | Water inlet | brewhardware FFL38BARB38 3/8" FFL swivel × 3/8" SS hose barb → JoyTube 3/8" ID food-grade silicone hose downstream to the SeaFlo pump | mounting follows the FFL38BARB38's panel-thread profile (TBD as the panel reaches CAD) | Suction side of the SeaFlo pump. Full upstream path (tap → ASSE 1022 backflow → FFL38BARB38 → silicone hose → pump): `../../../future.md` line 33 / `bom.md §3`. The customer-supplied 3/8" supply line lands at this fitting. |
-| 3 | CO2 line inlet | DERPIPE 5/16"-tube × 1/4" NPT push-to-connect through-panel | ø follows DERPIPE bulkhead spec | Customer feed comes from their CGA-320 primary regulator. Downstream of this panel, the line passes a GASHER 1/4" NPT SS check valve and the Interstate Pneumatics WR1110 fixed-90 PSI secondary regulator before reaching the cold core. Detail: `../../../future.md` §"Carbonation subsystem" + `bom.md §4`. |
 | 4 | BiB syrup adapter | Supply Depot 3/8" red BiB connector ([B0DMFK9B6P](https://www.amazon.com/dp/B0DMFK9B6P)) — one connector on the panel feeding both flavors via the §8 PP010822E + PP2308E Y-divider tree downstream | TBD (follows Supply Depot connector spec) | Secondary input path for users who source commercial syrup. The primary path is the top-face hopper — see `../../../future.md` §"Flavor subsystem". `bom.md §8`. |
 | 5 | Backflow-vent observation | Moisture sensor in the internal drip pan under the Multiplex 19-0897's atmospheric vent | n/a — drip pan + sensor mount inboard of the panel, no panel hole | The vent does not exit through the rear panel. It terminates inside the cabinet over a printed drip pan; the ESP32-monitored moisture sensor in the pan is the telltale. Detail: `../../../future.md` §"Backflow vent monitoring". |
 | 6 | Umbilical port (NEW) | 3× John Guest PP1208E 1/4" OD black PP push-to-connect bulkhead unions ([B00JYFU8MM](https://www.amazon.com/dp/B00JYFU8MM)) | 3× ø17.0 mm panel holes (same hole the §8 reservoir-cap PP1208E uses; see `printed-parts/cold-core/reservoir/generate_step_cadquery.py` lines 251–310 for the pocket / panel-hole geometry that ports here) | Accepts the 3-tube umbilical bundle that runs from the under-cabinet Westbrass faucet down through the countertop to the rear of the appliance: 1× carbonated water + 2× flavor. User pushes each tube into its matching bulkhead — no tools. Same JG black-PP / NSF 51 + NSF 61 / 150 psi @ 70 °F bulkhead family already used inside the cold core, so the SKU is shared and the bulk 10-pack already in stock covers both uses. `bom.md §8`. |
@@ -26,18 +25,7 @@ User rule at install: **blue tube into the blue-ringed bulkhead**. Black-into-ei
 
 Mechanism for the blue ring is TBD — candidates include multi-material printing of the panel itself, a separately printed TPU collar that snaps over the bulkhead's exterior flange, or a paint touch on the printed bezel surrounding the bulkhead. The selection is downstream of the panel-material decision and the multi-material capability of the printer running the panel.
 
-### CO2 inlet — red color-coding
-
-The CO2 inlet at the rear panel (connection §3, DERPIPE 5/16"-tube × 1/4" NPT push-to-connect bulkhead — `bom.md §4`) is a separate connection from the umbilical port and uses a different identification color. CO2 lines are **red** by industry-standard convention across beverage, brewing, and draft-equipment practice. Stock is already supplied red by the existing BOM SKUs:
-
-- **5/16" ID beer CO2 line** (`B0D1RB3TF6`, `bom.md §4`) — standard red beer-line PVC, runs from the customer's CGA-320 regulator to the rear panel.
-- **Imaictuu 5/16" ID red PVC** (Feb 13, 2026 Amazon order, currently a ledger gap — not yet in `purchases.md`) — backup / second-source for the same line.
-
-The rear-panel CO2 bulkhead gets a **red accent ring** at its panel opening — same identification-ring approach as the carbonated water blue ring, but red and at a different bulkhead. The ring mechanism (multi-material, snap-on TPU collar, or paint touch) follows the same decision tree as the blue ring above; both colors share whatever solution is chosen.
-
-The internal 1/4" LLDPE between the rear-panel CO2 PTC and the vessel-side TAISHER elbow is currently **black** (standard FWS stock). It could be replaced with a red 1/4" LLDPE for service-technician visibility, but end users never see internal lines — flagged here as a future enhancement, not a TBD requiring action.
-
-Net identification scheme on the rear panel: **blue = carbonated water**, **red = CO2**, **black / plain = flavor lines**. Three colors, easy mental model.
+Net identification scheme on the rear panel: **blue = carbonated water**, **black / plain = flavor lines**. (The CO2 inlet lives on the front panel; red color-coding for CO2 lines is direction of travel and moves to the front-panel doc when that doc lands.)
 
 ## Umbilical bundle construction
 
@@ -64,7 +52,6 @@ Locking C13 cords (Tripp Lite P-Lock series and similar) were considered and rej
 - `../../../future.md` — broader enclosure context, original AC-inlet recess rationale, backflow-vent monitoring, layout.
 - `../../../bom.md §8` — PP1208E line (qty 5/build: 2 reservoir + 3 rear-panel).
 - `../../../bom.md §3` — water-inlet path (Multiplex 19-0897 backflow, FFL38BARB38, JoyTube).
-- `../../../bom.md §4` — CO2 path (WR1110, GASHER check, DERPIPE bulkhead).
 - `../../../bom.md §11` and `../../../wiring/ac-wiring-schedule.md` — AC runs C14 inward.
 - `../nameplate/README.md` — sister rear-face artifact (separately printed plaque).
 

@@ -24,7 +24,7 @@ Per-unit BOM lives in [`../bom.md`](../bom.md) §14 (install kit) + §1 (line co
 | CARGEN nitrile foam pipe-insulation segments | B0D2XFK337 ([`../bom.md`](../bom.md) §9) | Loose 1-ft segments in the install kit so the installer can extend the foamed cold-dispense run to actual cabinet length. Quantity per appliance TBD pending the umbilical's cabinet-routing-length spec (see [`faucet-and-umbilical.md`](faucet-and-umbilical.md) Open items). |
 | Monoprice NEMA 5-15P → IEC C13 line cord, 18 AWG, 6 ft, UL-listed | B08VS8D4WC, 1 of 6 pk per appliance | [`../bom.md`](../bom.md) §1. Standard US wall outlet to C14 inlet. |
 | Customer documentation packet | Printed in-house | (a) Printed quick-start install guide; (b) Printed safety + UL/regulatory inserts per [`../../business/regulatory.md`](../../business/regulatory.md) (flame symbol marking, flammable-refrigerant marking, R-600a charge mass note, 120 V 60 Hz only warning); (c) Founder Edition welcome letter, personally signed. |
-| Rear-panel inlet caps | TBD per Open items | Three caps for transit — one over the water inlet barb, one over the CO2 inlet PTC, one over the BiB adapter. Keeps debris out of the wetted path and signals to the installer "remove these before connecting." |
+| Transit inlet caps | TBD per Open items | Three caps for transit — one over the water inlet barb (rear panel), one over the CO2 inlet PTC (front panel), one over the BiB adapter (rear panel). Keeps debris out of the wetted path and signals to the installer "remove these before connecting." |
 | Appliance carton + molded foam end-caps | TBD per Open items | Outer carton sized for the appliance + install kit + faucet-and-umbilical bag, with foam end-caps cradling the enclosure to absorb drop loads at corners. |
 | Archival pen (signature application) | TBD per Open items | Pigment-ink, fade-resistant, kitchen-wipe-resistant. Used if the signature is applied handwritten rather than laser-engraved (decision pending per [`../printed-parts/enclosure/nameplate/README.md`](../printed-parts/enclosure/nameplate/README.md) "Signature fidelity"). |
 | Outer shipping label + tracking | Carrier's label format | Generated at carrier-handoff step 9. |
@@ -76,12 +76,12 @@ Mount the signed plaque to the rear panel per the mounting interface defined in 
 
 ### 4. Cap rear-panel inlets for transit
 
-Cap the three rear-panel fluid inlets — water inlet, CO2 inlet PTC, BiB adapter — with the transit caps. The caps do two jobs: keep dust and packing-foam fragments out of the wetted path during transit and warehouse handling, and signal to the installer at unboxing "remove these before connecting."
+Cap the three fluid inlets — water inlet (rear panel), CO2 inlet PTC (front panel), BiB adapter (rear panel) — with the transit caps. The caps do two jobs: keep dust and packing-foam fragments out of the wetted path during transit and warehouse handling, and signal to the installer at unboxing "remove these before connecting."
 
 Inlet-by-inlet:
 
 - **Water inlet** — caps the upstream-of-backflow-preventer thread that the customer's filtered tap supply lands on. Once installed at the customer site, the cap comes off and the installer threads the supply line on; the cap never goes back on.
-- **CO2 inlet PTC** — caps the 5/16" DERPIPE push-to-connect on the rear panel that the customer's CO2 regulator line plugs into. Cap is a press-on rubber plug sized to the 5/16" PTC's outer collar.
+- **CO2 inlet PTC** — caps the 5/16" DERPIPE push-to-connect on the front panel that the customer's CO2 regulator line plugs into. Cap is a press-on rubber plug sized to the 5/16" PTC's outer collar.
 - **BiB adapter** — caps the BiB quick-connect. Customers who don't use a BiB syrup supply (the working default — the BiB path is present but not prominently marketed per [`../future.md`](../future.md) "Flavor subsystem") leave this cap in place permanently.
 
 The umbilical-port PP1208E bulkhead cluster on the rear panel is *not* capped — those bulkheads land on the customer-supplied umbilical tubes from the bagged faucet sub-assembly, and a cap there would be removed and discarded by the installer in any case. The PP1208E's grab-ring collet keeps debris out of the bulkhead's bore well enough for the transit-only window.
@@ -148,7 +148,7 @@ A finished, ship-ready unit is:
 - Cosmetically wiped and visually inspected on every exposed surface, no known cosmetic defects
 - Confirmed fluid-drained dry: no water in the carbonator or any line, no flavor in either reservoir, system at atmospheric pressure
 - Rear-panel nameplate applied with this unit's serial + QR + this unit's hand-applied (or laser-engraved) signature
-- Rear-panel water + CO2 + BiB inlets capped for transit
+- Water (rear panel) + CO2 (front panel) + BiB (rear panel) inlets capped for transit
 - Carton sealed with appliance + bagged faucet-and-umbilical sub-assembly + install kit + customer documentation packet
 - Shipping weight + dimensions recorded against the order in the per-serial run log
 - Outer shipping label affixed to the carton's top face; carrier tracking number assigned
