@@ -48,8 +48,8 @@ Two of these run *across* the map rather than at one rung — the local pickup g
 
 A single-SKU brand has no answer for the customer who isn't ready to spend $5,500. A curator brand has three answers — advice, the kit, and the CO2 services — before the customer ever sees an appliance price. Three benefits compound:
 
-- **Trust seeded early.** A SodaStream owner who landed on the site for "how do I make my SodaStream less bad" reads an honest answer. They didn't pay anything. Years later, when their kitchen renovation moves the conversation toward an integrated appliance, they remember which site treated them as a person rather than a lead.
-- **Discovery surface for the rest of the menu.** The free SodaStream advice and the free local-CO2 pickup guide are SEO-friendly, shareable content about real problems. Most of the people who search "CO2 refill near me" are not buying a $7,500 appliance today. Many of them will, eventually. We are not going to be the answer if we don't show up here.
+- **Trust seeded early.** A SodaStream owner who landed on the site for "how do I make my SodaStream less bad" reads an honest answer. They didn't pay anything. When their kitchen renovation moves the conversation toward an integrated appliance, they remember which site treated them as a person rather than a lead.
+- **Discovery surface for the rest of the menu.** The free SodaStream advice and the free local-CO2 pickup guide are SEO-friendly, shareable content about real problems. Most of the people who search "CO2 refill near me" are not buying a $7,500 appliance today. Many of them will. We are not going to be the answer if we don't show up here.
 - **A first transaction at $150.** The CGA-320 adapter kit lowers the first-purchase price by 50× from the appliance. Some buyers will only ever buy the kit. Some will upgrade. Both outcomes are good. Single-SKU plans give us neither.
 
 ## Why the top of the ladder matters
@@ -68,7 +68,7 @@ The appliance does not stop being the halo product under this framing. It is the
 
 Nothing on the catalog side commits real money. The Kitchen Edition ships first regardless, because it is the credibility anchor and because the engineering is already deep. In parallel, very cheaply:
 
-1. The local-CO2 pickup guide. A markdown doc for Lincoln NE that lists the three closest food-grade fill points and what to ask for. The smallest possible version of the editorial product. Built in an afternoon, posted under a URL that is shareable.
+1. The local-CO2 pickup guide. A markdown doc for Lincoln NE that lists the three closest food-grade fill points and what to ask for. The smallest possible version of the editorial product. Posted under a URL that is shareable.
 2. A SodaStream-advice editorial page. Air-removal trick, chill-the-water-first, the 5-lb-tank-and-adapter upgrade. Maybe a video. Same cost-to-build as the local CO2 guide.
 3. A landing-page sketch — even a hand-drawn one — of the homepage with all the rungs on it. The point is to see whether the curator framing reads cleanly to a visitor, before any of the lower-rung products are built.
 
