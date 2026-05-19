@@ -8,7 +8,7 @@ A free, public, curated directory of food-grade-CO2 fill points in the US, organ
 
 A web tool: `homesodamachine.com/refill?zip=NNNNN` returns the customer's three closest food-grade-CGA-320 fill points, with hours, current pricing if known, parking notes, and what to ask for at the counter. Plus a per-location confidence flag — Airgas branches are reliable across the country; a local paintball shop may or may not fill food-grade, and we say so.
 
-Underneath the tool: a markdown directory in the repo, one file per metro (or one per state, as it scales), maintained by us at launch and ideally crowdsourced from customers later. Each entry carries the same fields:
+Underneath the tool: a markdown directory in the repo, one file per metro (or one per state, as it scales), maintained by us via agent-assisted research and verification at metro-level cadence. Each entry carries the same fields:
 
 - Business name, address, phone
 - Hours
@@ -79,4 +79,4 @@ Recurring cost is per-metro: roughly a half-day to add a new metro at launch, th
 
 1. **Write the Lincoln + Omaha directory entries today.** This is the smallest version of the product and it costs nothing to ship. ~4 hours.
 2. **Stand up the URL.** Even a static `homesodamachine.com/refill` page that lists the two metros and falls back to national chains is enough to start. The zip-lookup tool can come later.
-3. **Defer crowdsourcing.** The editorial has to be honest at launch. Crowdsourcing entries from customers is the right answer at scale, but only after the first 50–100 entries are written by us and the format is stable enough that contributions follow a pattern. Out of scope for the first year.
+3. **Plan the agent-assisted expansion path.** Agent resources make metro-level research and verification cheap enough to do at a fine pass — Airgas branches, paintball stores, homebrew shops, food-grade availability, hours, prices. The per-metro template: pick the next metro, run a thorough research pass, then a verification pass (phone calls where needed), then publish. Out of scope before the first metro is live.
