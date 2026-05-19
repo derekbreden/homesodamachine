@@ -1,8 +1,12 @@
-# Soda Flavor Injector
+# Home Soda Machine
 
 ## What This Is
 
-A home soda machine — a kitchen appliance that dispenses flavored carbonated water from a faucet. In the prototype, refrigerated carbonated water is provided by an external carbonator (Lillium, Brio). When flow is detected, peristaltic pumps inject flavoring through a parallel line. Two flavors, each primed and valve-locked for instant dispensing. The mixing happens in the user's glass, not before. With the product now under development, the carbonator chiller is integrated, see `hardware/future.md` for details.
+A home soda machine — a kitchen appliance that dispenses flavored carbonated water from a faucet. In the prototype, refrigerated carbonated water is provided by an external carbonator (Lillium, Brio). When flow is detected, peristaltic pumps inject flavoring through a parallel line. Two flavors, each primed and valve-locked for instant dispensing. The mixing happens in the user's glass, not before.
+
+With the product now under development, the carbonator chiller is integrated.
+
+See `hardware/future.md` for details.
 
 ## Why This Exists
 
@@ -11,6 +15,8 @@ Pepsi and Coke will not sell bag-in-box syrup to home consumers without a busine
 Dispensed through chilled carbonated water, the result is indistinguishable from the canned product, with equal or better carbonation and temperature. This is not a compromise or substitute. It is the same product, colder and fizzier than a can, on tap.
 
 There is no machine on the market that gives a home user this experience — turn the handle, soda comes out. The alternatives are hauling cans from the store every week, or home carbonation products that carbonate warm water into bottles that go flat within hours. Despite enormous initial sales, very few people stick with home carbonation because warm water cannot hold carbonation — it is flat before it reaches your glass.
+
+See `marketing/target-market.md` for details.
 
 ## CadQuery
 
@@ -23,7 +29,3 @@ Flash with `./tools/flash.sh <env>` (envs: `esp32dev`, `rp2040_display`, `esp32s
 ## Amazon Prime
 
 You have access to my Chrome which is signed in to my amazon through your MCP. I only care about Amazon Prime listings. Non-Prime listings are non-existent as far as I am concerned. Do not read them. Do not mention them. They do not exist.
-
-## On lessons learned
-
-The lessons we learn are not encoded literally as prescriptions in your memory, or this file. The lessons learn are encoded by example in the changes you make. If you find yourself wanting to write a memory file, please consider how we might better encode that lesson in the work you are doing right now, by example. The repo itself is our principles embodied. Principles are not this document, nor anything else in memory, nor could they ever be.
