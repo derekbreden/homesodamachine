@@ -301,17 +301,42 @@ Earlier draft of this todo handwaved "~$1,400 fixed up-front" for standing up a 
 |---|---|---|
 | PHMSA Hazmat Registration (annual) | $275 (small biz) | [PHMSA 2025-2026 brochure](https://www.phmsa.dot.gov/sites/phmsa.dot.gov/files/2025-04/Hazmat-Registration-Brochure-2025-2026.pdf); proposed rule raises to $400 |
 | Chemtrec subscription | $1,000–1,500/yr | [Hazmat Line breakdown](https://www.hazmatline.com/pages/chemtrec-cost) |
-| Insurance (GL + product liability + cargo, hazmat endorsement) | ~$3,000–10,000/yr | **Estimate; needs a broker quote — biggest single uncertainty** |
+| Insurance — incremental hazmat endorsement on existing appliance product-liability policy | ~$500–2,000/yr | Estimate; see "insurance is not a legal requirement" subsection below — confirm with broker |
 | Training renewals (amortized) | ~$16/yr | $49 ÷ 3 years |
 | Compliance recordkeeping labor or software | ~$500–2,000/yr | Estimate |
-| **Phase 1 annual recurring (low)** | **~$4,800/yr** | |
-| **Phase 1 annual recurring (high)** | **~$14,000/yr** | |
+| **Phase 1 annual recurring (low)** | **~$2,300/yr** | |
+| **Phase 1 annual recurring (high)** | **~$6,000/yr** | |
 
-**Realistic first-year all-in: ~$10,000–30,000.** Insurance is the largest single line and the one with the most quote uncertainty.
+**Realistic first-year all-in: ~$8,000–22,000.**
 
-The bare-minimum-to-start configuration (10 cylinder fleet, hand-handled fills, lowest-tier Chemtrec, basic insurance) is closer to $5–7k startup + $5k/year recurring. The high-end configuration assumes a real ops footprint (200 cylinder fleet to handle subscription growth, higher insurance coverage, recordkeeping software).
+The bare-minimum-to-start configuration (10 cylinder fleet, hand-handled fills, lowest-tier Chemtrec, hazmat endorsement on existing appliance policy) is closer to $5–7k startup + $2.5k/year recurring. The high-end configuration assumes a real ops footprint (200 cylinder fleet to handle subscription growth, higher insurance coverage, recordkeeping software).
 
-**Largest remaining unknown:** the insurance number. The hazmat-trucking insurance figure ($15–45k/yr) commonly cited online is for fleet operators with trucks on the road — wrong product for a parcel-shipping operation. The right product is general liability + product liability + cargo coverage with a hazmat / dangerous goods endorsement, which is structurally closer to e-commerce business insurance (~$800–1,000/yr baseline per [MoneyGeek](https://www.moneygeek.com/insurance/business/retail/ecommerce/cost/)) than to trucking. Real number requires a phone call to specialty brokers like Roanoke, Falvey, or Hiscox's dangerous-goods desk — that single call is the cheapest next research step before this section can claim a tight range.
+### Insurance is not a legal requirement — here's why you'd buy it anyway
+
+Earlier drafts of this addendum quoted a $3–10k/yr standalone insurance figure based on speculative reasoning about a "hazmat shipper insurance" product. Research found that to be wrong on two counts: there is no legal requirement for the insurance, and the right product is meaningfully cheaper than the standalone framing suggested.
+
+**No federal law requires a hazmat shipper / offeror to carry insurance.** FMCSA's $1M/$5M minimums apply to motor carriers (operators of commercial trucks), not parcel shippers. PHMSA's Hazmat Registration requires a fee but no insurance. No state law that surfaced in research imposes a hazmat-shipper insurance minimum on Class 2.2 (non-flammable gas).
+
+**Neither UPS nor FedEx require it in their hazmat shipper agreements either.** I verified this against the actual contract texts:
+
+- **UPS Dangerous Goods Agreement (Form 2008)** — full 2-page contract reviewed in entirety. Zero mentions of insurance, indemnification, additional insured status, certificate of insurance, or minimum financial responsibility. The shipper's obligations are limited to: comply with 49 CFR + IATA DGR, classify/package/mark/label correctly, train employees per 49 CFR, ship to approved destinations. That's the whole list. Source: [UPS hazmat_contract.pdf](https://www.ups.com/assets/resources/media/hazmat_contract.pdf).
+- **FedEx Ground Hazmat Shipping Guide (99 pages)** — grepped the entire official document for "insur", "indemn", "liabil". Zero hits in the shipper-requirements context. The qualification process is: review and agree to form OP-910 + provide proof of 49 CFR 172.704 training. Nothing else. Source: [FedEx Ground HazMat Shipping Guide PDF](https://www.fedex.com/content/dam/fedex/us-united-states/services/HazMat-FXG-shipping-guide.pdf).
+
+Two caveats stand:
+
+1. The OP-910 form text isn't publicly posted (distributed by FedEx account executives). The form itself *might* impose terms not in the public guide. Worth asking the FedEx account exec directly when making the call.
+2. The UPS Tariff that the Form 2008 references is a larger document; its hazmat sections might add insurance language not in Form 2008. The publicly searchable parts don't appear to, but UPS's Hazmat Support Center (1-800-554-9964) can confirm.
+
+The "you need hazmat insurance" claim that pervades search results traces consistently to three sources, none of which are the carrier or the regulator: **(1) 3PL fulfillment providers** require it of their customers because they're holding your inventory and want protection (not applicable if you don't use a 3PL); **(2) hazmat-trucking insurance brokers** are selling commercial-vehicle policies to fleet operators (wrong product for a parcel shipper); **(3) compliance-vendor marketing pages** bundle insurance into "complete hazmat compliance solutions" they're selling. None of those are mandates from the agencies or carriers that actually matter.
+
+**Why you'd buy it anyway — risk management, not compliance:** the actual reason to carry insurance is catastrophic-tail liability protection. The probability of a claim is low; the severity if one happens is potentially business-ending. Two scenarios drive the math:
+
+- **Cylinder valve failure in transit.** A defective valve fails; a cylinder vents violently and becomes a projectile inside a UPS facility or in a customer's hallway. Industry-wide this happens a few times a year across consumer CO2 shipping. If your cylinder is the one that hits a UPS handler or a customer's child, you are personally on the hook for medical, legal, and settlement costs that easily reach six or seven figures. LLC liability shields don't reliably survive the "selling pressurized goods uninsured" optics.
+- **Customer handling injury.** Customer drops a 12 lb cylinder on their foot, over-tightens a regulator, or asphyxiates in a small room with the valve open. Most of these are not your fault, but defending the claim still costs $30–100k of legal fees before "not your fault" is established. Product liability insurance pays for the defense, not just the settlement.
+
+**Cost reality is much better than first written, because the homesodamachine business already carries appliance product liability.** The appliance ships AC mains, pressurized water, R-600a refrigerant, and CO2 plumbing into customer kitchens — it already needs and presumably already has product-liability coverage. Adding a hazmat / dangerous-goods endorsement to the existing policy is the right product structure, and brokers typically price endorsements at **a few hundred to ~$2,000/yr incremental**, not a few thousand standalone. The right next call is to whoever underwrites the appliance side and ask for a Class 2.2 endorsement quote — not to a specialty hazmat broker quoting a fresh standalone policy.
+
+**Bottom line:** insurance isn't required, but the catastrophic-tail risk is real enough that the ~$500–2,000/yr cost is worth it. Frame the call to the broker as "Class 2.2 endorsement on my existing product-liability policy," not as "hazmat shipper insurance." That framing gets the right product at the right price.
 
 ### Net effect on the recommendations above
 
@@ -403,3 +428,5 @@ This belongs in a separate document — probably `business/co2-exchange-service.
 - [Air Sea Containers — Wholesale Corrugated Hazmat Boxes](https://airseacontainers.com/blog/wholesale-corrugated-hazmat-and-dangerous-goods-boxes/) — UN 4G/4GV overpack bulk pricing
 - [Gas Cylinder Source — Recertified 5 lb Aluminum CO2 Cylinder](https://gascylindersource.com/shop/co2-carbon-dioxide-cylinders/5-lb-aluminum-co2-cylinder-recertified/) — cylinder fleet cost reference
 - [MoneyGeek — Ecommerce Business Insurance Cost](https://www.moneygeek.com/insurance/business/retail/ecommerce/cost/) — general-liability baseline for e-commerce parcel ops
+- [UPS Dangerous Goods Agreement (Form 2008) PDF](https://www.ups.com/assets/resources/media/hazmat_contract.pdf) — full 2-page shipper contract text; verified to contain zero insurance requirements
+- [FedEx Ground Hazardous Materials Shipping Guide (full 99-page PDF)](https://www.fedex.com/content/dam/fedex/us-united-states/services/HazMat-FXG-shipping-guide.pdf) — entire document grepped for insurance/liability/indemnification; zero hits in shipper-requirements context
