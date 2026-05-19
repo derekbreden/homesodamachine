@@ -77,7 +77,7 @@ At a Founder Edition target around $1,500 the margin structure mirrors the main 
 
 ## What it would take to ship the Lite Edition
 
-The Lite Edition is approximately the prototype that already exists on the founder's counter, with a consumer-grade printed cabinet around it and a tightened-up firmware build. The hard subsystems of the main appliance (carbonator vessel fabrication, hydro-test, refrigerant-loop teardown and recharge, foam-pour cold-core assembly, hydrocarbon-refrigerant safety architecture) are absent. The remaining work is enclosure design, the faucet-inlet stub that accepts a Lillium output line, install documentation that explains the Lillium pairing, a reseller relationship with Lillium for the bundle path, and ten units' worth of assembly time.
+The Lite Edition is approximately the prototype that already exists on the founder's counter, with a consumer-grade printed cabinet around it and a tightened-up firmware build. The hard subsystems of the main appliance (carbonator vessel fabrication, hydro-test, refrigerant-loop teardown and recharge, foam-pour cold-core assembly, hydrocarbon-refrigerant safety architecture) are absent. The remaining work is enclosure design, the faucet-inlet stub that accepts a Lillium output line, install documentation that explains the Lillium pairing, and ten units' worth of assembly time.
 
 Time-to-first-unit at solo build cadence is short — weeks rather than the months the main appliance requires.
 
