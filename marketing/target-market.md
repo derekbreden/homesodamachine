@@ -269,9 +269,9 @@ By the time Standard opens, the brand carries more of the weight. At Founder Edi
 4. **What's the ongoing hassle?** Syrup every few weeks (Amazon). CO2 every few months (currently a trip to a gas supplier — a known rough edge). Cleaning automated from the app. Net: less hassle than the weekly store run.
 5. **Is $7,500 a price I can pay?** (Or, later, $5,500 at Standard.) They're comparing against other major household purchases — appliances, kitchen renovations, home theater — not against cans. The Founder Edition story reframes the number: they are buying one of 50 hand-built units from the person who designed it, not a commodity appliance. The decade math (~$6,570 in cans over 10 years) supports the decision but does not drive it; at $7,500 the machine is slightly more than a decade of the cans it replaces, and the argument lives on format change, not payback.
 
-### The CO2 pain point needs honesty.
+### CO2 sits right at the appliance.
 
-CO2 refills currently require a trip to a welding gas supplier during business hours. We message this honestly: "CO2 lasts months. When it runs out, a local gas supplier refills it." In the medium term, we explore delivery options, partnerships, or alternative sources. This is the one piece of the ownership experience that doesn't yet meet the standard of the rest of the product.
+The CO2 cylinder lives beside the appliance in the under-sink cabinet on a short tether to a front-panel inlet — the customer can see the connection and reach the cylinder valve without crawling. CO2 refills mean a trip to a local welding gas supplier or a delivered swap (per [`../pie-in-the-sky/co2-service.md`](../pie-in-the-sky/co2-service.md)); we message this honestly: "CO2 lasts months. When it runs out, a local supplier refills it, or we deliver."
 
 ---
 
