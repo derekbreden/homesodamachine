@@ -1,8 +1,8 @@
 # Front panel
 
-3D-printed front face of the under-counter enclosure. Carries the CO2 inlet (the customer's hose lands here) and the visual cylinder cradle that organizes where the customer places their CO2 bottle inside the cabinet. Also hosts the pump-cartridge access door — its geometry and operation live with the cartridge itself at [`../../flavor/pump-case/`](../../flavor/pump-case/), not here. Printed in **Bambu PET-CF**, matching the rest of the enclosure exterior; material rationale per the back-panel doc's "Panel material" section.
+3D-printed front face of the under-counter enclosure. Carries the CO2 inlet (the customer's hose lands here) and hosts the pump-cartridge access door — the door's geometry and operation live with the cartridge itself at [`../../flavor/pump-case/`](../../flavor/pump-case/), not here. Printed in **Bambu PET-CF**, matching the rest of the enclosure exterior; material rationale per the back-panel doc's "Panel material" section.
 
-The panel has no fluid-pressure duty. It is a connection-management plate with one fluid bulkhead and one mechanical aperture, plus the cradle affordance that makes "cylinder goes here" obvious without instructions.
+The panel has no fluid-pressure duty. It is a connection-management plate with one fluid bulkhead and one mechanical aperture (the pump-cartridge door). The bottle-placement affordance that lands the CO2 cylinder in the right spot is **not** owned by this front face — see "Cylinder placement — out of scope here" below.
 
 ## Connections inventory
 
@@ -10,15 +10,13 @@ The panel has no fluid-pressure duty. It is a connection-management plate with o
 |---|---|---|---|
 | 1 | CO2 line inlet | DERPIPE 5/16"-tube × 1/4" NPT push-to-connect | Customer's CGA-320 primary regulator hose (~12" short tether per [`../../../bom.md`](../../../bom.md) §4) lands here. Downstream of this panel: GASHER 1/4" NPT SS check valve + WR1110 fixed-90 PSI secondary regulator before the cold core. Red accent ring at panel opening per §"CO2 inlet — red color-coding" below. |
 
-## Cylinder placement
+## Cylinder placement — out of scope here
 
-The CO2 cylinder sits beside the appliance on the cabinet floor — not inside the appliance, not strapped to the panel. The panel's job is to make "cylinder goes here" obvious without the customer reading the install guide:
+The CO2 cylinder sits **beside** the appliance on the cabinet floor, in the working air gap between one side of the appliance and the cabinet sidewall — **not** in front of the front face. Putting the cylinder in front would block the cabinet door from opening and put a ~9 lb pressurized aluminum bottle in the customer's shins every time they reach in. That's not the layout.
 
-- A cylinder-shaped recess (shallow vertical notch) sculpted into the floor-side of the front face beside the inlet stub
-- A retention strap or printed cradle holding the cylinder upright against vibration, one-handed to release at refill time
-- Inlet stub positioned so the cylinder's CGA-320 outlet aligns naturally when the cylinder sits in the recess, keeping the tether short and out of the way
+The bottle-shaped visual affordance that lands the cylinder in the right place (a curve matched to the cylinder body OD, no restraint, just "feels right when you set it down") belongs to whichever exterior surface the cylinder neighbors in the side gap — almost certainly one of the side faces, possibly with a contribution from the floor edge. That surface is **not** this front face, and its design document does not yet exist. See Open items below.
 
-The intent is fit-and-feel: the customer reads "cylinder goes here" before they read any instructions. Geometric specifics (recess depth, inlet height, strap mechanism) are panel-CAD decisions and are flagged in Open items below.
+The front-panel scope, as it relates to the cylinder, reduces to a single decision: **position the DERPIPE inlet stub at a height matched to the customer's primary regulator outlet height**, so the short red tether takes the obvious path from the cylinder (sitting in the side gap, regulator on top) around the front-side corner to the inlet on the front face. Inlet height is a panel-CAD decision and lives here. Cylinder geometry does not.
 
 ## CO2 inlet — red color-coding
 
@@ -49,10 +47,12 @@ The 1/4" LLDPE run from the front-panel stack to the cold-core CO2 input is long
 
 ## Open items
 
-- **Cradle / strap / inlet-height geometry.** Panel-CAD decision. Sized against a 5 lb aluminum CGA-320 cylinder (~12" tall × ~5" OD) sitting beside the appliance on the cabinet floor; coexisting with the pump-cartridge access door already on this face.
+- **Inlet-stub height on the panel.** The DERPIPE bulkhead height must match the customer's regulator-outlet height with the cylinder seated in its side-gap placement, so the short red tether takes the obvious path. Decision is downstream of the regulator stack measurement and the enclosure-exterior cylinder-placement decision (which side gap).
 - **Red accent ring mechanism.** Multi-material print, snap-on TPU collar, or paint touch — shares the decision pattern with the back-panel blue ring; both should land on the same approach.
-- **WR1110 mounting bracket geometry.** Printed bracket against the front-panel inner face capturing the regulator body.
+- **WR1110 mounting bracket geometry.** Printed bracket against the front-panel inner face capturing the regulator body, downstream of the DERPIPE bulkhead position.
+- **Pump-cartridge door cutout coordination.** Cutout rectangle matched to the [`pump-case/`](../../flavor/pump-case/) generator's outboard footprint.
 - **Double-shutoff QD on the inlet.** A flush-face / double-shutoff quick-disconnect at this inlet would close the "hose isn't seated when the cylinder valve opens" failure mode — no gas vents when the hose isn't connected to the panel. Separate fork working that detail; lands here when committed.
+- **Bottle-placement affordance (out of scope for this doc; flagged here for the cross-reference).** Lives on the as-yet-unwritten enclosure-exterior surface document. The front-panel inlet height depends on the cylinder side-gap decision made there.
 
 ## Status
 
