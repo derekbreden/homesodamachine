@@ -166,7 +166,7 @@ Derek asked: "Is there any such outfit? I'd be thrilled to pay $400 for a shippe
 
 Three converging reasons no one's in the middle:
 
-1. **Permit-application work is non-trivial** (rough order-of-magnitude $20–50k + 6–12 months with a hazmat consultancy — to be confirmed; numbers from the [ICC Compliance Center case study](https://www.thecompliancecenter.com/case-study-shipping-carbon-dioxide-cartridges-for-a-consumer-product/) and conversational estimates, not a real quote). SodaStream did it because cylinder exchange *is* their business.
+1. **Permit-application work is non-trivial** ($40–145k consultant + packaging design + accredited-lab testing, 12–24 months calendar — see startup-cost subsection below). SodaStream did it because cylinder exchange at millions-of-shipments scale *is* their business; nobody else has the volume to justify it.
 2. **The fully-regulated path works but kills small-volume unit economics.** Per-shipment hazmat surcharge (~$45 ground per UPS's [hazmat guide](https://www.ups.com/us/en/support/shipping-special-care-regulated-items/hazardous-materials-guide)) + UN-rated overpack + trained hazmat employee + Chemtrec retainer + shipping papers. Real, doable, expensive at low volume.
 3. **The market is bifurcated.** Small cylinders → permit-enabled consumer mail (SodaStream, Drinkmate). Large cylinders → fleet-truck routes (Airgas, Praxair, NuCO2). The 5 lb form factor is too big for the consumer-mail permits, too small for fleet-truck economics. No one's there because no one's there.
 
@@ -185,7 +185,7 @@ So the swap-pool economics actually look like:
 
 | Leg | Status | Cost (rough) |
 |---|---|---|
-| Outbound filled cylinder → customer | Hazmat. Needs DOT-SP OR per-shipment fully-regulated hazmat treatment | ~$45 surcharge + freight + apparatus, OR permit amortization |
+| Outbound filled cylinder → customer | Regulated hazmat. Per-shipment fully-regulated handling. | ~$45 carrier surcharge + freight + the shipper apparatus described below |
 | Customer empty → swap depot | **Non-hazmat under 173.29.** Plain UPS Ground or USPS | Normal parcel rate, ~$15–20 |
 
 Return leg is materially cheaper than the original C6 figure implied (plain parcel rate, not a hazmat round-trip). Outbound is still hazmat, and the per-swap economics work out to ~$109–139 of direct cost depending on whether Derek uses a hazmat 3PL or stands up his own shipper account — see the corrected economics table further down.
@@ -224,7 +224,6 @@ What actually exists, honestly sorted:
 
 **Option C — Don't ship; drive locally.** Tests the willingness-to-pay but not the parcel-shipping product. Fine for a pre-validation hand-test with five neighbors; not informative about the actual standalone-service hypothesis.
 
-**Option D (years out) — Get the DOT-SP.** Enables USPS at much lower cost and reduces carrier surcharges. Real moat, but the up-front work doesn't pay back at validation scale.
 
 ### Per-swap unit economics, corrected — Option B is cheaper at low volume, not Option A
 
@@ -273,17 +272,51 @@ There's no "easy interim" path. The realistic options are:
 
 Recommended sequencing: Option C first to validate demand. Then Option B as the scale-up path through Ring 2. Option A only enters the picture if the standalone service hits real volume.
 
-### Strategic implication: the DOT-SP is a real moat for Ring 3+
+### Why we're not pursuing a DOT Special Permit
 
-Applying for a homesodamachine-specific DOT Special Permit at the 5 lb CGA-320 form factor is a genuine competitive moat. SodaStream's permit is the asset that lets them ship cylinders; it's also what no competitor can use. A homesodamachine permit at the 5 lb size would let the swap-cylinder service exist on terms no welding supplier wants to build, and it would not be available to any future home-soda competitor.
+A DOT Special Permit would let us ship cheaper (and use USPS as SodaStream does), but the math does not pay back at this project's scale. The permit costs $40–145k all-in and 12–24 months calendar to obtain (consultant + packaging design + accredited-lab testing — no PHMSA filing fee but real preparation cost); the per-shipment savings (~$45 carrier surcharge eliminated) only amortize meaningfully above roughly 1,000 shipments per year sustained for many years. The rings-model plan in [target-market.md:170](../../marketing/target-market.md) tops out around 20–30 units per year of the appliance product, and even a successful standalone exchange service in the same craft-practice mold would not generate the shipment volume to justify the permit work.
 
-This is not Ring 1. It is potentially the defining product feature of the eventual business at Ring 3+ if the rings model in [target-market.md:170](../../marketing/target-market.md) plays out, because it directly closes the one ownership-experience rough edge target-market.md names. Worth a phone call with a hazmat consultancy (Labelmaster, [ICC Compliance Center](https://www.thecompliancecenter.com/case-study-shipping-carbon-dioxide-cartridges-for-a-consumer-product/), J. J. Keller) sometime in the next 1–2 years to scope cost and timeline accurately rather than relying on the rough-order-of-magnitude estimate above.
+**Option B (own hazmat shipper account, per-shipment surcharge, no permit) is the destination, not a stepping stone.** The rest of this addendum assumes that.
+
+### Startup-cost reality check on Option B
+
+Earlier draft of this todo handwaved "~$1,400 fixed up-front" for standing up a hazmat shipper account. Doing the research with actual sources lands at meaningfully more — driven mainly by insurance (which the earlier draft omitted entirely) and the cylinder fleet itself.
+
+**One-time startup costs:**
+
+| Item | Cost | Source / note |
+|---|---|---|
+| Hazmat training (1 person, 3-yr cert) | $49 | Online vendor pricing; [49 CFR 172.704](https://www.ecfr.gov/current/title-49/subtitle-B/chapter-I/subchapter-C/part-172/subpart-H/section-172.704) |
+| UN 4G overpack starter inventory (100 units) | ~$1,000 | $9.50/ea at 600 unit bulk per [Air Sea Containers](https://airseacontainers.com/blog/wholesale-corrugated-hazmat-and-dangerous-goods-boxes/) |
+| Cylinder fleet — 50 recertified @ $60 | ~$3,000 | [Gas Cylinder Source recertified](https://gascylindersource.com/shop/co2-carbon-dioxide-cylinders/5-lb-aluminum-co2-cylinder-recertified/) |
+| Initial fills on cylinder fleet (50 × $25) | ~$1,250 | Airgas customer-pickup rate range |
+| Legal review of shipper compliance program | ~$500–2,000 | Estimate |
+| Carrier hazmat-addendum paperwork | $0 | Just paperwork |
+| **Phase 1 startup (low estimate, 50 cylinder fleet)** | **~$5,800** | |
+| **Phase 1 startup (high estimate, 200 cylinder fleet)** | **~$15,250** | |
+
+**Annual recurring costs:**
+
+| Item | Cost | Source / note |
+|---|---|---|
+| PHMSA Hazmat Registration (annual) | $275 (small biz) | [PHMSA 2025-2026 brochure](https://www.phmsa.dot.gov/sites/phmsa.dot.gov/files/2025-04/Hazmat-Registration-Brochure-2025-2026.pdf); proposed rule raises to $400 |
+| Chemtrec subscription | $1,000–1,500/yr | [Hazmat Line breakdown](https://www.hazmatline.com/pages/chemtrec-cost) |
+| Insurance (GL + product liability + cargo, hazmat endorsement) | ~$3,000–10,000/yr | **Estimate; needs a broker quote — biggest single uncertainty** |
+| Training renewals (amortized) | ~$16/yr | $49 ÷ 3 years |
+| Compliance recordkeeping labor or software | ~$500–2,000/yr | Estimate |
+| **Phase 1 annual recurring (low)** | **~$4,800/yr** | |
+| **Phase 1 annual recurring (high)** | **~$14,000/yr** | |
+
+**Realistic first-year all-in: ~$10,000–30,000.** Insurance is the largest single line and the one with the most quote uncertainty.
+
+The bare-minimum-to-start configuration (10 cylinder fleet, hand-handled fills, lowest-tier Chemtrec, basic insurance) is closer to $5–7k startup + $5k/year recurring. The high-end configuration assumes a real ops footprint (200 cylinder fleet to handle subscription growth, higher insurance coverage, recordkeeping software).
+
+**Largest remaining unknown:** the insurance number. The hazmat-trucking insurance figure ($15–45k/yr) commonly cited online is for fleet operators with trucks on the road — wrong product for a parcel-shipping operation. The right product is general liability + product liability + cargo coverage with a hazmat / dangerous goods endorsement, which is structurally closer to e-commerce business insurance (~$800–1,000/yr baseline per [MoneyGeek](https://www.moneygeek.com/insurance/business/retail/ecommerce/cost/)) than to trucking. Real number requires a phone call to specialty brokers like Roanoke, Falvey, or Hiscox's dangerous-goods desk — that single call is the cheapest next research step before this section can claim a tight range.
 
 ### Net effect on the recommendations above
 
-- **C2 (Founder Edition includes a filled cylinder)** is still a real decision but the cost is higher than first implied because no turnkey partner-drop-ship exists. The Founder Edition unit ships LTL anyway (heavy appliance), so adding a filled cylinder to the same pallet — sourced from a welding-supply distributor on the same LTL leg — sidesteps the parcel-hazmat problem entirely. That keeps the all-in CO2 cylinder cost near the $169 retail figure. The harder version is shipping a replacement cylinder to a customer post-install, which lands in the C6 picture (~$109–139 direct cost per shipment).
-- **C6 (cylinder-swap loaner pool)** has a cheaper return leg than first written (plain parcel under 173.29) but the outbound leg is harder than first written — no turnkey partner-drop-ship service exists for filled 5 lb CGA-320 cylinders. Realistic outbound is either Option A (hazmat 3PL fulfillment, ~$30/shipment 3PL fee on top of the carrier surcharge) or Option B (Derek stands up his own hazmat shipper account, ~$1k/year fixed + per-shipment surcharge). Per-swap direct cost lands at ~$109–139 depending on path. Worth revisiting before Ring 2 with an actual 3PL quote.
-- **New work item: scope a DOT-SP application** as a Ring 3+ strategic option. Phone call with a hazmat consultancy to get a real cost + timeline. Not urgent; should not be forgotten.
+- **C2 (Founder Edition includes a filled cylinder)** is still a real decision but the cost is higher than first implied because no turnkey partner-drop-ship exists. The Founder Edition unit ships LTL anyway (heavy appliance), so adding a filled cylinder to the same pallet — sourced from a welding-supply distributor on the same LTL leg — sidesteps the parcel-hazmat problem entirely. That keeps the all-in CO2 cylinder cost near the $169 retail figure. The harder version is shipping a replacement cylinder to a customer post-install, which lands in the C6 picture (~$109 direct cost per shipment under Option B).
+- **C6 (cylinder-swap loaner pool)** has a cheaper return leg than first written (plain parcel under 173.29) but the outbound leg is harder than first written — no turnkey partner-drop-ship service exists for filled 5 lb CGA-320 cylinders. Derek stands up his own hazmat shipper account (Option B; cheaper than a 3PL at any volume below ~200 shipments/year, see the unit-economics subsection above). Per-swap direct cost lands at ~$109 + Derek's labor.
 
 ### The standalone CO2 exchange service — a business on its own
 
@@ -307,7 +340,7 @@ The $200 markup over self-serve is the price of "never drive to a welding suppli
 | Payment processing (~3%) | ~$8 | ~$15 |
 | **Direct margin** | **~$126/swap** | **~$289/swap** |
 
-Pre-overhead. Doesn't include the ops org, the customer-service call, the fulfillment labor per shipment, the cylinder-fleet financing cost (each cylinder in rotation is ~$95 of working capital tied up), the hydro-test cadence (every 5 years on a 3AL aluminum), or the DOT-SP application amortization. But the gross margins are real and the structure works.
+Pre-overhead. Doesn't include the ops org, the customer-service call, the fulfillment labor per shipment, the cylinder-fleet financing cost (each cylinder in rotation is ~$95 of working capital tied up), or the hydro-test cadence (every 5 years on a 3AL aluminum). But the gross margins are real and the structure works.
 
 ### Why this is a real business independent of the appliance
 
@@ -327,8 +360,6 @@ Each segment has the same problem: welding suppliers are commercial-feeling, bus
 
 [target-market.md:272–274](../../marketing/target-market.md) flags CO2 refill as the **one** ownership-experience gap in the appliance product. A standalone service solves it for every appliance customer automatically — bundled as included-for-N-years with the Founder Edition, included-with-subscription at Standard, available to non-customers at retail price. **The appliance becomes the only home-soda product on the market that solves its own CO2 problem at the system level.** That is a genuinely defensible product claim, not a marketing one.
 
-It also reframes the DOT-SP application from "Ring-3 nice-to-have for the appliance moat" to "first major capex of the service business." The same permit, amortized over the much larger service TAM, becomes much cheaper per shipment. The legal/regulatory work pays for itself out of service revenue, not appliance margin.
-
 ### Sequencing this honestly
 
 This is a separate business with separate operational profile (fulfillment, customer service, fleet management, supplier ops) from the appliance build. It should not be conflated with appliance work or pulled into the Founder Edition build path.
@@ -336,7 +367,7 @@ This is a separate business with separate operational profile (fulfillment, cust
 Suggested order:
 
 1. **Validate willingness-to-pay locally before building any shipping infrastructure.** There is no turnkey "drop-ship partner" for filled 5 lb cylinders — see the "outbound options" subsection in the addendum below. The two real shipping paths (hazmat 3PL onboarding or standing up Derek's own hazmat shipper account) both have real setup cost that should not be committed pre-validation. Instead, drive cylinders to 5–10 local customers who pay $250 in cash, with a Stripe Payment Link and a one-page landing site. Test the demand signal before testing the shipping product. ~$1–2k experiment, runs alongside appliance work.
-2. **If validated, build a real ops backbone.** Cylinder fleet inventory, fulfillment hub (Derek's garage at first; 3PL later), DOT-SP application kickoff, supplier contracts for bulk CO2 fill at wholesale cost.
+2. **If validated, build the Phase 1 hazmat shipper apparatus.** Cylinder fleet inventory, fulfillment hub (Derek's garage at first), supplier contracts for bulk CO2 fill at wholesale cost, PHMSA Hazmat Registration, Chemtrec subscription, hazmat training, insurance, UN-rated overpack inventory. See startup-cost subsection below for the actual line items.
 3. **Service launch.** Web product, subscription tier, the full pricing model. Independent of any appliance Ring schedule.
 4. **Appliance integration.** Founder Edition includes N free swaps; Standard ships with a subscription credit. Out of scope until both products are real on their own.
 
@@ -366,3 +397,9 @@ This belongs in a separate document — probably `business/co2-exchange-service.
 - [FedEx Dangerous Goods & Hazardous Materials Service Guide](https://www.fedex.com/en-us/service-guide/dangerous-goods-hazardous-materials.html) — FedEx Ground hazmat acceptance overview
 - [FedEx Ground Hazardous Materials Shipping Guide (PDF)](https://www.fedex.com/content/dam/fedex/us-united-states/services/HazMat-FXG-shipping-guide.pdf) — origin-side restrictions (no counter dropoff), Class 2.2 acceptance, AK/HI exclusions
 - [SodaStream — How do I return my empty cylinders?](https://support-us.sodastream.com/hc/en-us/articles/14243394657179-How-do-I-return-my-empty-cylinders) — direct evidence that consumer-direct residential hazmat shipping works at scale, via USPS (under DOT-SP) and UPS Ground
+- [PHMSA 2025-2026 Hazmat Registration Brochure (PDF)](https://www.phmsa.dot.gov/sites/phmsa.dot.gov/files/2025-04/Hazmat-Registration-Brochure-2025-2026.pdf) — annual registration fee schedule ($275 small biz)
+- [PHMSA Fee Adjustment Proposed Rule (Federal Register, May 2024)](https://www.federalregister.gov/documents/2024/05/24/2024-11391/hazardous-materials-adjusting-registration-and-fee-assessment-program) — proposed fee increase to $400/yr small biz
+- [Hazmat Line — CHEMTREC Cost Breakdown](https://www.hazmatline.com/pages/chemtrec-cost) — Chemtrec base + add-on pricing
+- [Air Sea Containers — Wholesale Corrugated Hazmat Boxes](https://airseacontainers.com/blog/wholesale-corrugated-hazmat-and-dangerous-goods-boxes/) — UN 4G/4GV overpack bulk pricing
+- [Gas Cylinder Source — Recertified 5 lb Aluminum CO2 Cylinder](https://gascylindersource.com/shop/co2-carbon-dioxide-cylinders/5-lb-aluminum-co2-cylinder-recertified/) — cylinder fleet cost reference
+- [MoneyGeek — Ecommerce Business Insurance Cost](https://www.moneygeek.com/insurance/business/retail/ecommerce/cost/) — general-liability baseline for e-commerce parcel ops
