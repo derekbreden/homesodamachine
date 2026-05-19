@@ -76,7 +76,7 @@ Front dispense + drain + proximity + arm switch is the *halo* version — visual
 - `marketing/target-market.md`'s "rings of trust" model and "the founder's face is the product at Founder Edition scale" arguments compose naturally with HSM 1. Ring 1 is exactly the customer base that an HSM 1 launch reaches first. The earlier rungs (editorial, kit, CO2 services) reach a wider audience than Ring 1 by design.
 - `hardware/future.md` describes the integrated under-counter machine in present tense as "the appliance." Under this framing that document is the engineering spec for HSM 2 specifically.
 - `pie-in-the-sky/shop-edition.md` is the engineering sketch for HSM 3.
-- `pie-in-the-sky/lite.md` is the engineering sketch for HSM 1. Its framing will eventually want to reflect that we resell the Lillium alongside the Lite Edition rather than just pairing with a customer-supplied unit; that update is downstream of this doc.
+- `pie-in-the-sky/lite.md` is the engineering sketch for HSM 1.
 - `pie-in-the-sky/flavor-module.md` is the engineering sketch for an add-on that slots into the numbered release schedule at whatever point customer demand justifies.
 - `pie-in-the-sky/cga320-kit.md` is the engineering sketch for the entry kit.
 - `pie-in-the-sky/co2-service.md` is the business sketch for the paid CO2 delivery tier.
