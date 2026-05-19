@@ -55,8 +55,8 @@ def cut_co2_inlet(foam_shell):
     # Z at which the doorway starts cutting — the pocket-side face of
     # the bag-pocket −Z wall. Bore and slot extrude in +Z from here.
     doorway_z = -(pocket_centerward_arc_outer_radius - wall_and_floor_thickness)
-    bore_radius = 8.0
-    bore_y = front_face_port_y
+    bore_radius = 9.0
+    bore_y = front_face_port_y - 1.0
     round_bore = build_hole_punch(
         origin=(0, bore_y, doorway_z),
         hole_punch_radius=bore_radius,
