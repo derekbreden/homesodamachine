@@ -23,3 +23,7 @@ Flash with `./tools/flash.sh <env>` (envs: `esp32dev`, `rp2040_display`, `esp32s
 ## Amazon Prime
 
 You have access to my Chrome which is signed in to my amazon through your MCP. I only care about Amazon Prime listings. Non-Prime listings are non-existent as far as I am concerned. Do not read them. Do not mention them. They do not exist.
+
+## On lessons learned
+
+The lessons we learn are not encoded literally as prescriptions in your memory, or this file. The lessons learn are encoded by example in the changes you make. If you find yourself wanting to write a memory file, please consider how we might better encode that lesson in the work you are doing right now, by example. The repo itself is our principles embodied. Principles are not this document, nor anything else in memory, nor could they ever be.
