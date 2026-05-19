@@ -210,6 +210,44 @@ Derek said:
 Observed in the attempt-9 settings:
 - `support_top_z_distance`: 0.3 mm with `layer_height`: 0.18 mm = 1.67 layers (not a clean multiple of layer height; the slicer rounds the z-gap to alternating 1- and 2-layer offsets across the interface footprint).
 
+## PET-CF print attempt 10 (3-piece shell, settings per `touch-flo-shell-3-pieces.3mf` pre-print snapshot)
+
+Hardware: same as attempts 7–9 (0.6 mm DUROZZLE TC L-side hotend).
+
+Geometry: 3-piece split shell — `touch-flo-shell-bottom.step`, `touch-flo-shell-middle.step`, `touch-flo-shell-top.step` — per commits `f42e631` (SPLIT A: angled-spout ↔ upper-bend, 20 mm slip-fit joint) and `2cf96fa` (SPLIT B: upper-bend ↔ dispense-tip, curved 20 mm slip-fit). Both joints cut at zero CAD clearance (male OD ≡ female ID).
+
+Print produced parts; Derek then did a test fit of the three pieces (2026-05-19).
+
+Derek said:
+- "Just did a test fit with the last print of the new 3 part faucet with 0 clearance."
+- "It very nearly worked for the straight male into straight female section, like just 2 mm short of being able to push it all the way in." — this is SPLIT A (angled-spout ↔ upper-bend; mating planes perpendicular to the mid-straight tangent).
+- "It did not work as well for the curved male into curved female. Although I did get it started, it got impossible to push further about 7 mm in (with 13 mm still remaining)." — this is SPLIT B (upper-bend ↔ dispense-tip; overlap follows bend 2's arc).
+
+Geometry response in commit `fb4ffd4` ("faucet/touch-flo-shell: loosen 3-piece joints after 2026-05-19 test fit"):
+- SPLIT A: female unchanged (2.0 mm wall, 20 mm deep). Male wall 2.0 → 1.5 mm (shrink 2.0 → 2.5, giving ~0.5 mm radial clearance to the female ID). Male depth 20 → 19 mm.
+- SPLIT B: female wall 2.0 → 1.5 mm and male wall 2.0 → 1.5 mm. With `zone5_wall = 4`, this is socket shrink 1.5 and plug shrink 2.5 — so plug OD sits 1.0 mm radial inside cavity ID (1.0 mm radial clearance). Female depth unchanged at 20 mm; male depth 20 → 18 mm.
+
+## PET-CF print attempt 11 (loosened joints + scarf seams, drop support-tower brim)
+
+Hardware: same (0.6 mm DUROZZLE TC L-side hotend).
+
+Geometry: 3-piece split shell with loosened joints per `fb4ffd4` (see attempt 10 notes above). All three STEPs regenerated; `touch-flo-shell-bottom.step` byte-identical (female-A unchanged), `middle.step` and `top.step` updated.
+
+Settings deltas observed in `touch-flo-shell-3-pieces.3mf` vs the pre-print snapshot already documented for that filename (attempt-10 baseline):
+- `raft_first_layer_expansion`: 20 → **-1 mm** (support-tower brim turned OFF — the "Initial layer expansion" UI knob is back to disabled). Attempt-9 had introduced this 20 mm support-tower brim as the tip-over fix; with the 3-piece geometry the support towers no longer need to grow as tall, so the brim is no longer warranted here.
+- PET-CF `filament_scarf_seam_type` (slot 0): `none` → **`external`** (scarf seams enabled on external walls for PET-CF). First time scarf seams have appeared in any saved slice for this part.
+- Filament-slot project layout: 7 slots → 6 slots (`filament_nozzle_map` / `filament_volume_map` arrays shortened; slot 0 PET-CF active is unchanged).
+- Per-object positions on the plate are re-arranged (objects re-imported after the regenerated STEPs landed); first-layer time dropped 329 s → 177 s, consistent with removing the 20 mm support-tower brim. Per-object footprint areas are essentially unchanged (bottom 630.5 mm², middle 9.28 mm² — was 9.26, top 290.0 mm²); the middle piece's bbox dims changed (76.08 × 55.00 → 54.68 × 36.98 mm) — same end-on orientation, rotated about Z.
+
+Settings unchanged from the attempt-10 baseline (selected — full list in that snapshot above):
+- Print profile: `0.30mm Standard @BBL H2C 0.6 nozzle`
+- PET-CF: `nozzle_temperature` 270 °C, `filament_flow_ratio` 1.0, `filament_retraction_length` nil, `filament_max_volumetric_speed` 5 mm³/s, `chamber_temperatures` 50 °C, `fan_max_speed` 30 % / `fan_min_speed` 10 % / `overhang_fan_speed` 40 %, `close_fan_the_first_x_layers` 3
+- Process: `nozzle_diameter` 0.6 mm, `layer_height` 0.30 mm, `initial_layer_print_height` 0.3 mm, `line_width` 0.62 mm, `wall_loops` 100, `top_shell_layers` 4, `bottom_shell_layers` 3, `sparse_infill_density` 15 %, `sparse_infill_pattern` grid
+- Speeds: `outer_wall_speed` 200, `inner_wall_speed` 300, `sparse_infill_speed` 350, `internal_solid_infill_speed` 250, `top_surface_speed` 200, `support_speed` 150, `support_interface_speed` 80, `initial_layer_speed` 50, `initial_layer_infill_speed` 105 (all mm/s); jerk 9
+- Supports: `enable_support` 1, `support_type` tree(auto), `support_filament` 0 (PET-CF), `support_interface_filament` 0 (PET-CF), `support_threshold_angle` 30, `support_top_z_distance` 0.2, `support_on_build_plate_only` 0, `support_object_xy_distance` 0.35, `support_object_first_layer_gap` 0.2, `tree_support_branch_distance` 5, `tree_support_branch_diameter` 2, `tree_support_branch_angle` 45, `support_interface_top_layers` 2
+- Part brim: `brim_type` auto_brim, `brim_width` 5 mm, `brim_object_gap` 0.1 mm, `elefant_foot_compensation` 0.15 mm
+- Other: `enable_pressure_advance` 0, `enable_prime_tower` 1, `enable_wrapping_detection` 0, `wrapping_detection_layers` 20
+
 ## Hardware / setup observations across all PET-CF attempts
 
 Derek said:
@@ -421,11 +459,11 @@ Settings unchanged from attempt 7 (selected — full list in the attempt-7 snaps
 - Part brim (already on for attempt 7, unchanged here): `brim_type` auto_brim, `brim_width` 5 mm, `brim_object_gap` 0.1 mm, `elefant_foot_compensation` 0.15 mm
 - Other: `enable_pressure_advance` 0, `enable_prime_tower` 1, `enable_wrapping_detection` 0
 
-### `touch-flo-shell-3-pieces.3mf` — pre-print snapshot (3-piece geometry split)
+### `touch-flo-shell-3-pieces.3mf` — attempt 10 baseline (was: pre-print snapshot, 3-piece geometry split)
 
-Slicer snapshot for the next PET-CF print, post-shell-split. Geometry is the three sub-pieces of the shell committed in `f42e631` ("split at angled-spout ↔ upper-bend with 20 mm slip-fit joint") and `2cf96fa` ("split at upper-bend ↔ dispense-tip with curved 20 mm slip-fit"): `touch-flo-shell-bottom.step`, `touch-flo-shell-middle.step`, `touch-flo-shell-top.step`. The previously-integrated `touch-flo-shell.step` whole-piece geometry that attempts 7–9 used is superseded for this print. Mounting plate is not on this plate.
+This section was originally captured as a pre-print snapshot before any 3-piece print had been run; the print on this slice is now attempt 10 (above). The current committed `touch-flo-shell-3-pieces.3mf` is the attempt-11 re-slice — its deltas vs this baseline are documented in the attempt-11 section. The attempt-10 file content is preserved in git history.
 
-No attempt has been run with this slice yet — settings captured here from the saved-but-uncommitted 3mf so future deltas have a baseline.
+Geometry: the three sub-pieces of the shell committed in `f42e631` ("split at angled-spout ↔ upper-bend with 20 mm slip-fit joint") and `2cf96fa` ("split at upper-bend ↔ dispense-tip with curved 20 mm slip-fit"): `touch-flo-shell-bottom.step`, `touch-flo-shell-middle.step`, `touch-flo-shell-top.step`. The previously-integrated `touch-flo-shell.step` whole-piece geometry that attempts 7–9 used is superseded for this print. Mounting plate is not on this plate.
 
 Filament profiles: stock `Bambu PET-CF @BBL H2C`, `Generic PETG @BBL H2C`, `Bambu PETG Translucent @BBL H2C`, `Bambu PETG Basic @BBL H2C`, `Bambu ABS @BBL H2C 0.6 nozzle` ×2 (6 slot project; only slot 0 active in slice)
 Active in slice: PET-CF (left, slot 0)
