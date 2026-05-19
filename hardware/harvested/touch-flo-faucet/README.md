@@ -28,11 +28,8 @@ The already-owned Westbrass A2031-NL-62 ($32.18) and D203-NL-62 ($52.99) in `har
 **Discarded:**
 - Mounting plate
 
-## Three-tube spout — fabrication plan
+## Three-tube dispense head
 
-Target end-state: three visible powder coated stainless tubes emerging from the faucet body, bent to dispense over a glass at the sink. Center tube carries carbonated water from the harvested valve. Smaller 1/8 tubes carry flavor from the peristaltic pumps.
+The dispense head is the printed PET-CF gooseneck of the touch-flo-shell, carrying three LLDPE tubes (1× carbonated water + 2× flavor) routed through its internal dispense channel and exiting at the printed tip. The wet path is LLDPE end to end; no metal tubing is involved in the dispense head, and the dispensed liquid never touches shell material — see [`../../printed-parts/faucet/touch-flo-shell/`](../../printed-parts/faucet/touch-flo-shell/) for the part and [`../../printed-parts/faucet/touch-flo-shell/MATERIAL.md`](../../printed-parts/faucet/touch-flo-shell/MATERIAL.md) for the no-food-contact boundary. Tube routing and the single Siptenk stiffener at the Westbrass upstream port are in [`../../assembly/faucet-and-umbilical.md`](../../assembly/faucet-and-umbilical.md) step 2.
 
-- **Center tube:** 3/8" OD 316 SS
-- **Rear tubes:** 1/8" OD 316 SS
-
-The asymmetric diameter (3/8" center + 2× 1/8") is the intentional design language — carbonated water is the main event, flavor is the accent.
+(An earlier design specified three visible powder-coated stainless tubes — 3/8" OD 316 SS center + 2× 1/8" OD 316 SS flanking — emerging from the body with Pysrych reducing compression unions, Eoiips PE liners, and Beduan decorative ferrules. Superseded by the printed gooseneck; those parts are no longer in the BOM.)
