@@ -226,13 +226,13 @@ What actually exists, honestly sorted:
 
 **Option D (years out) — Get the DOT-SP.** Enables USPS at much lower cost and reduces carrier surcharges. Real moat, but the up-front work doesn't pay back at validation scale.
 
-### Per-swap unit economics, corrected
+### Per-swap unit economics, corrected — Option B is cheaper at low volume, not Option A
 
-The earlier table omitted the 3PL pick-pack-hazmat-handling fee under Option A. Honest version:
+Honest per-shipment direct cost:
 
 | Line | Exchange ($250), Option A (3PL) | Exchange ($250), Option B (own shipper) |
 |---|---|---|
-| Cylinder fill, amortized over pallet | ~$20 | ~$20 |
+| Cylinder fill, amortized | ~$20 | ~$20 |
 | 3PL pick-pack + hazmat handling | ~$30 | $0 (Derek's labor) |
 | UPS Ground hazmat surcharge | ~$45 | ~$45 |
 | Freight | ~$18 | ~$18 |
@@ -240,20 +240,38 @@ The earlier table omitted the 3PL pick-pack-hazmat-handling fee under Option A. 
 | Box / packaging amortized | ~$3 | ~$3 |
 | Payment processing | ~$8 | ~$8 |
 | **Direct cost per exchange** | **~$139** | **~$109 + Derek's labor** |
-| Direct margin at $250 retail | ~$111 | ~$141 minus labor |
 
-Plus fixed costs that don't show on a per-swap line:
+Plus annual fixed costs (which matter a lot at low volume):
 
-- Option A: 3PL monthly storage fee (variable, but small for a pallet of cylinders)
-- Option B: Chemtrec retainer (~$1k/year), one-time hazmat training (~$200/3yr), UN-rated overpack inventory
+| Fixed cost | Option A (3PL) | Option B (own shipper) |
+|---|---|---|
+| 3PL storage rent (pallet position) | ~$2,400–4,800/yr | $0 |
+| LTL inbound freight (pallet of filled cylinders) | ~$200/pallet | $0 (just-in-time fills) |
+| Working capital on stocked pallet (~50 × $20) | ~$1,000 tied up | $0 |
+| Chemtrec retainer | $0 (3PL covers) | ~$1,000/yr |
+| Hazmat training amortized | $0 (3PL covers) | ~$67/yr |
+| UN-rated overpack stock | $0 (3PL covers) | ~$300 one-time |
 
-At low volume (10–50 shipments/year), Option A's per-shipment 3PL fee makes more sense than amortizing the Option B fixed costs over very few shipments. Crossover is somewhere in the 50–200 shipments/year range, depending on what the 3PL charges and how much of Derek's time Option B consumes.
+**At 30 shipments/year, the total cost picture is roughly:**
+
+- **Option A: ~$6,770–9,170/yr** (30 × $139 + 3PL storage + LTL + capital cost)
+- **Option B: ~$4,637/yr + Derek's labor** (30 × $109 + $1,367 fixed)
+
+Option B is ~$2k–4k cheaper at this volume, even before accounting for the working-capital cost of Option A's stocked pallet. **The 3PL model doesn't make sense at low volume** — its per-shipment fee never goes away and stacks on top of storage rent, while Option B's fixed costs amortize fine across even ~10 shipments/year.
+
+The crossover where Option A starts paying off is around **200+ shipments/year**, when Derek's per-shipment labor (call it half an hour × his fully-loaded hourly rate = ~$30+) starts dominating the savings. Below that, doing it himself is cheaper on every dimension.
+
+An earlier draft of this section had the crossover backwards. Corrected here. The general lesson: speculative unit economics need actual math before they go into a recommendation.
 
 ### Implication for the standalone-service validation phase
 
-There's no "easy interim" path. The 10–20 shipment validation phase requires either onboarding with a hazmat 3PL (Option A — real contracting work, but no permanent compliance burden on Derek) or Derek personally becoming a hazmat shipper (Option B — moderate one-time cost, compounding compliance discipline). Both are real steps forward, not turnkey arrangements.
+There's no "easy interim" path. The realistic options are:
 
-This shifts the recommended sequencing: **don't validate by shipping at all.** Instead, validate willingness-to-pay first with a much smaller-scale local hand-test (Option C — drive cylinders to five neighbors who pay $250), and only commit to Option A or B once the demand signal is real enough to justify the contracting or compliance load.
+- **Option C (validate by driving locally).** No shipping infrastructure. ~$2k experiment. Tests willingness-to-pay only.
+- **Option B (Derek as hazmat shipper).** ~$1,400 fixed up-front, then ~$109 + labor per shipment. Best fit for 10–200 shipments/year.
+- **Option A (hazmat 3PL).** Only makes sense above ~200 shipments/year.
+
+Recommended sequencing: Option C first to validate demand. Then Option B as the scale-up path through Ring 2. Option A only enters the picture if the standalone service hits real volume.
 
 ### Strategic implication: the DOT-SP is a real moat for Ring 3+
 
