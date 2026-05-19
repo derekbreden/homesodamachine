@@ -52,15 +52,15 @@ The carbonator engineering doesn't get cancelled in this framing. It gets *funde
 
 ## The founder's learning curve changes shape
 
-Today the founder is learning pressure-vessel fabrication and refrigerant brazing — skills about making the thing. With HSM 1 shipping first the founder also learns: customer support, returns processing, install troubleshooting, real-world reliability data, support-ticket volume, syrup-supply hiccups, kitchen-install edge cases. Those are skills HSM 2 depends on and currently has no data behind. By HSM 2 ship date the founder is genuinely a product company rather than a person who has built one prototype.
+Today the founder is learning pressure-vessel fabrication and refrigerant brazing — skills about making the thing. With HSM 1 shipping first the founder also learns: customer support, returns processing, install troubleshooting, real-world six-month reliability data, support-ticket volume, syrup-supply hiccups, kitchen-install edge cases. Those are skills HSM 2 depends on and currently has no data behind. By HSM 2 ship date the founder is genuinely a product company rather than a person who has built one prototype.
 
 With the CGA-320 kit and CO2 services as earlier releases, the customer-support and order-fulfillment skills land even earlier — at $150 transactions long before any $1,500 ones. Returns processing, a working customer-email workflow, a Stripe-and-fulfillment habit, a "how do I respond to a confused customer" voice — all in place before HSM 1 is ready to take a deposit.
 
 ## A retention and upgrade path materializes
 
-HSM 1 customer pours soda happily and builds the household habit around it. HSM 2 announcement: everything you love, colder, fizzier, no Lillium on the counter. They already trust the brand. They have already written a check. They have already converted their household. They are the warmest possible HSM 2 lead in the world. The current single-SKU plan has no equivalent installed base when it tries to sell its second product.
+HSM 1 customer pours soda happily for a year and builds the household habit around it. HSM 2 announcement: everything you love, colder, fizzier, no Lillium on the counter. They already trust the brand. They have already written a check. They have already converted their household. They are the warmest possible HSM 2 lead in the world. The current single-SKU plan has no equivalent installed base when it tries to sell its second product.
 
-The path now extends downward too. CGA-320 kit customer pours soda happily, gets tired of carbonating one bottle at a time, upgrades to Lite. Lite customer pours soda happily, gets tired of pre-chilling water, upgrades to HSM 2. The catalog gives the customer a stepping stone at every level of frustration with their current setup. Same brand, same trust, same UI grammar — different machinery.
+The path now extends downward too. CGA-320 kit customer pours soda happily for six months, gets tired of carbonating one bottle at a time, upgrades to Lite. Lite customer pours soda happily for a year, gets tired of pre-chilling water, upgrades to HSM 2. The catalog gives the customer a stepping stone at every level of frustration with their current setup. Same brand, same trust, same UI grammar — different machinery.
 
 ## The flavor module decision becomes data-driven
 
