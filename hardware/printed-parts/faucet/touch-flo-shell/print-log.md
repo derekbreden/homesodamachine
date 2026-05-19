@@ -248,6 +248,22 @@ Settings unchanged from the attempt-10 baseline (selected — full list in that 
 - Part brim: `brim_type` auto_brim, `brim_width` 5 mm, `brim_object_gap` 0.1 mm, `elefant_foot_compensation` 0.15 mm
 - Other: `enable_pressure_advance` 0, `enable_prime_tower` 1, `enable_wrapping_detection` 0, `wrapping_detection_layers` 20
 
+## PET-CF print attempt 12 (tightened joint walls)
+
+Hardware: same (0.6 mm DUROZZLE TC L-side hotend).
+
+Geometry: 3-piece split shell with tightened joint walls per commit `67b4205` ("faucet/touch-flo-shell: tighten 3-piece joint walls after attempt 11"). Overlap depths unchanged from attempts 10–11; only the wall thicknesses changed.
+
+Derek said about attempt 11 (loosened joints):
+- "Your changes were successful in a way, it definitely made a difference, but far too much of one, lol."
+
+Geometry response in `67b4205`:
+- SPLIT A: female wall unchanged at 2.0 mm. Male plug wall 1.5 → 1.9 mm. Resulting radial clearance: ~0.1 mm (was ~0.5 mm at attempt 11).
+- SPLIT B: female socket wall 1.5 → 1.9 mm. Male plug wall 1.5 → 1.9 mm. Resulting radial clearance: ~0.2 mm (was ~1.0 mm at attempt 11).
+- Depths untouched from attempts 10–11: A male 19 / female 20 mm; B male 18 / female 20 mm.
+
+Settings deltas vs attempt 11: **none**. Same `touch-flo-shell-3-pieces.3mf` slice config — only the embedded STEP geometry changed (objects re-imported after the `67b4205` regeneration). Per-object positions on the plate shifted by ≤ 0.3 mm in X/Y; middle-piece footprint area 9.277 → 9.277 mm² (identical to 3 decimals); first-layer time 177.4 s → 178.3 s.
+
 ## Hardware / setup observations across all PET-CF attempts
 
 Derek said:
