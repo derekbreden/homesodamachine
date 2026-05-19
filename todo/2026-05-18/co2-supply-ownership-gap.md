@@ -210,6 +210,71 @@ This is not Ring 1. It is potentially the defining product feature of the eventu
 - **C6 (cylinder-swap loaner pool)** is meaningfully cheaper than first written. Return-leg is standard parcel under 173.29. Outbound-leg via partner is the only hazmat piece. Worth revisiting before Ring 2 with an actual cost from a partner gas supplier, not the rough estimate.
 - **New work item: scope a DOT-SP application** as a Ring 3+ strategic option. Phone call with a hazmat consultancy to get a real cost + timeline. Not urgent; should not be forgotten.
 
+### The standalone CO2 exchange service — a business on its own
+
+Derek's reframe after reading the hazmat picture: the supply-chain work to solve the home-soda CO2 gap is *also* the work to launch a standalone consumer CO2 exchange service, available to anyone with a 5 lb CGA-320 cylinder — not just homesodamachine customers. The pricing he sketched:
+
+- **$50** — the existing alternative: drive to your local welding supplier during business hours, swap an empty for a full one.
+- **$250 exchange tier** — you have an empty, we ship a full to your door, you ship the empty back in the same box (valve open, ships as non-hazmat parcel under 173.29).
+- **$500 non-exchange tier** — you don't have an empty to send back; you keep the cylinder. The customer-acquisition product for anyone whose first interaction is "I need CO2 but I don't have a tank yet."
+
+The $200 markup over self-serve is the price of "never drive to a welding supplier again." For a 3-can/day household with 60-day cylinder life, that's ~$1,200/year of service — comparable to a high-tier streaming bundle, framed against the recovered weekend mornings.
+
+**Quick unit-economics sanity check** (all numbers rough, single-cylinder costs; volume changes most of these):
+
+| Line | Exchange ($250) | Non-exchange ($500) |
+|---|---|---|
+| Cylinder COGS | $0 (fleet cycles) | ~$95 at quantity |
+| Fill (food-grade) | ~$33 | ~$33 |
+| Outbound hazmat parcel + freight | ~$65 | ~$65 |
+| Return label (173.29, plain parcel) | ~$15 | — |
+| Box + foam insert (reusable, amortized) | ~$3 | ~$3 |
+| Payment processing (~3%) | ~$8 | ~$15 |
+| **Direct margin** | **~$126/swap** | **~$289/swap** |
+
+Pre-overhead. Doesn't include the ops org, the customer-service call, the fulfillment labor per shipment, the cylinder-fleet financing cost (each cylinder in rotation is ~$95 of working capital tied up), the hydro-test cadence (every 5 years on a 3AL aluminum), or the DOT-SP application amortization. But the gross margins are real and the structure works.
+
+### Why this is a real business independent of the appliance
+
+**TAM is much larger than home-soda machine buyers.** The 5 lb CGA-320 cylinder is the standard size across:
+
+- Homebrew kegerators (millions of cylinders in service in the US)
+- Paintball / airsoft (5–20 lb cylinders)
+- Aquarium planted-tank CO2 injection (hobbyist niche but cylinder-density customers)
+- Draft beer at home / kegerator culture
+- MIG welders (CO2 or Ar/CO2 mix, different valve but same form factor in many cases)
+- Mushroom cultivation, calibration-gas users, craft-soda hobbyists
+- Small B2B: brewery taprooms, restaurants below the NuCO2 commercial threshold, coffee shops with cold brew on nitro
+
+Each segment has the same problem: welding suppliers are commercial-feeling, business-hours-only, located in industrial parks, require a counter interaction. The convenience tax of ~$200 over self-serve is paid by everyone with an opinion about their time.
+
+### Why this is the strategic moat the appliance product needs
+
+[target-market.md:272–274](../../marketing/target-market.md) flags CO2 refill as the **one** ownership-experience gap in the appliance product. A standalone service solves it for every appliance customer automatically — bundled as included-for-N-years with the Founder Edition, included-with-subscription at Standard, available to non-customers at retail price. **The appliance becomes the only home-soda product on the market that solves its own CO2 problem at the system level.** That is a genuinely defensible product claim, not a marketing one.
+
+It also reframes the DOT-SP application from "Ring-3 nice-to-have for the appliance moat" to "first major capex of the service business." The same permit, amortized over the much larger service TAM, becomes much cheaper per shipment. The legal/regulatory work pays for itself out of service revenue, not appliance margin.
+
+### Sequencing this honestly
+
+This is a separate business with separate operational profile (fulfillment, customer service, fleet management, supplier ops) from the appliance build. It should not be conflated with appliance work or pulled into the Founder Edition build path.
+
+Suggested order:
+
+1. **Validate by hand at very small scale (10–20 shipments, no permit).** Use the C6 interim model — drop-ship via a partner gas supplier that's already a hazmat shipper. Manually-handled orders, Stripe Payment Links, a one-page landing site. The goal is to find out whether real people will pay $250 once, not to build infrastructure. ~$5–10k experiment, runs alongside appliance work, validates the willingness-to-pay hypothesis before any larger commitment.
+2. **If validated, build a real ops backbone.** Cylinder fleet inventory, fulfillment hub (Derek's garage at first; 3PL later), DOT-SP application kickoff, supplier contracts for bulk CO2 fill at wholesale cost.
+3. **Service launch.** Web product, subscription tier, the full pricing model. Independent of any appliance Ring schedule.
+4. **Appliance integration.** Founder Edition includes N free swaps; Standard ships with a subscription credit. Out of scope until both products are real on their own.
+
+This belongs in a separate document — probably `business/co2-exchange-service.md` — once Derek decides to take it past the validation stage. For now, captured here as the follow-on insight from the hazmat-shipping research.
+
+### Open questions worth their own thinking later
+
+- **Brand and positioning.** A standalone service needs a name that works for a paintball owner and a kegerator owner and a homesodamachine customer. "CO2Direct," "TankSwap," something more imaginative. Not a homesodamachine sub-brand.
+- **Fill operations: in-house or partner?** Buying a fill station (~$15–25k) + bulk-CO2 contract is a real capex decision but unlocks much better unit economics at scale. Partnering keeps capex zero but caps margin.
+- **Cylinder ownership and DOT compliance.** A fleet of ~1,000 cylinders is ~$95k of working capital. Each cylinder needs visual inspection at every fill and hydro-test every 5 years (~$15 per test). Real operations.
+- **Geography and shipping hub strategy.** One hub in Lincoln NE works for the validation phase. National coverage eventually wants 2–3 regional hubs to keep ground-shipping zones reasonable.
+- **B2B vs B2C.** Brewery taprooms and craft soda makers are higher LTV, lower CAC, lower margin per swap. Worth a separate analysis once B2C validates.
+
 ### Source list for the hazmat picture
 
 - [49 CFR 173.29 — Empty packagings (eCFR)](https://www.ecfr.gov/current/title-49/subtitle-B/chapter-I/subchapter-C/part-173/subpart-B/section-173.29) — the rule that makes return-leg ship as non-hazmat
