@@ -116,7 +116,7 @@ This dovetails into the broader "telemetry from in-home units" question that the
 
 For Ring 2+, when there are 20+ units in 20+ households, a hub-and-spoke swap-cylinder pool starts to make sense: a customer's app says "low CO2," they click "send a refill," a pre-filled cylinder arrives in 2–3 days, they ship the empty back in the same box. This is the "ongoing hassle" answer in [target-market.md:269](../../marketing/target-market.md) — and the one place where the Founder Edition story ("we built this whole thing for you, including the supply chain") can extend past day 1.
 
-**The shipping picture is asymmetric — see the addendum below.** Return leg is plain UPS Ground under 49 CFR 173.29 (valve open, <29 psig, ships as non-hazmat); only the outbound filled leg is regulated hazmat. That changes the unit economics significantly from a naive "round-trip hazmat" assumption.
+**The shipping picture is asymmetric, and the outbound path is harder than first written — see the addendum below.** Return leg is plain UPS Ground under 49 CFR 173.29 (valve open, <29 psig, ships as non-hazmat). Outbound is genuinely regulated hazmat with no turnkey partner-drop-ship workaround — Derek either onboards with a hazmat 3PL or stands up his own hazmat shipper account. Per-swap direct cost works out to ~$109–139 depending on path, not the ~$60–80 a naive "non-hazmat return + cheap drop-ship outbound" calculation would suggest.
 
 Out of scope for unit #1. Worth naming so it doesn't get lost.
 
@@ -188,7 +188,7 @@ So the swap-pool economics actually look like:
 | Outbound filled cylinder → customer | Hazmat. Needs DOT-SP OR per-shipment fully-regulated hazmat treatment | ~$45 surcharge + freight + apparatus, OR permit amortization |
 | Customer empty → swap depot | **Non-hazmat under 173.29.** Plain UPS Ground or USPS | Normal parcel rate, ~$15–20 |
 
-Round-trip in the ~$60–80 range plus the cylinder + fill cost, not $120–140. Materially better than the original C6 figure.
+Return leg is materially cheaper than the original C6 figure implied (plain parcel rate, not a hazmat round-trip). Outbound is still hazmat, and the per-swap economics work out to ~$109–139 of direct cost depending on whether Derek uses a hazmat 3PL or stands up his own shipper account — see the corrected economics table further down.
 
 ### The carrier picture — UPS Ground and FedEx Ground handle this routinely
 
@@ -212,13 +212,48 @@ All carrier "restrictions" cited earlier are **shipper-side, not destination-sid
 
 That's the whole apparatus. The ~$45/shipment hazmat surcharge is what UPS/FedEx charges on top of normal ground freight, once those five things are in place. That's the marginal cost of using the network you didn't build.
 
-### The interim outbound path (before standing up your own hazmat shipper account)
+### The outbound options — none of them are "turnkey partner drop-ship"
 
-Even cheaper than running your own hazmat shipper account: **drop-shipping the filled cylinder from a partner gas supplier** that's already a hazmat shipper. Their truck, their hazmat account, their shipping papers, their UN-rated packaging — paid as a per-cylinder service fee on top of the cylinder + fill cost. They run hazmat shipments daily; the marginal one is cheap to them. This sidesteps standing up the shipper apparatus at the 5-step list above for Ring 1 / Ring 2 scale.
+An earlier draft of this section claimed a "partner gas supplier drop-ship" path existed as the cheap interim — call up a welding supplier, ask them to ship one filled cylinder to your customer's address, pay a fee. **That path does not appear to exist as a turnkey service.** Welding-supply distributors run fleet-truck routes to commercial accounts; they do not maintain a parcel-fulfillment side for single residential drop-ships. Searches turn up no white-label "filled CO2 cylinder drop-ship to your customer" service for the 5 lb CGA-320 form factor. The pattern I assumed exists, doesn't.
 
-Who actually does this is the open question. Welding-supply branches (Airgas, Praxair) deliver to commercial addresses with fleet accounts but typically don't drop-ship single residential parcels. A focused phone call to a regional Airgas branch + one or two homebrew-supply distributors (MoreBeer, LD Carlson, KegWorks, BrewHardware) would settle whether any of them will accept a "drop-ship one filled 5 lb cylinder to my customer's address, here's their info, bill me" arrangement.
+What actually exists, honestly sorted:
 
-If none will, the third option is using a parcel-hazmat fulfillment house (Labelmaster, ShipHazmat, etc.) — they specialize in exactly this, but pricing typically only makes sense above a few hundred shipments a year. Above that point, standing up your own hazmat shipper account via the 5-step list is cheaper than paying a fulfillment house's per-shipment fee.
+**Option A — Hazmat 3PL fulfillment.** Real, available, but not a "partner" in the colloquial sense. Companies like [Shiphype](https://shiphype.com/hazmat-fulfillment/), [ShipDudes](https://shipdudes.com/blog/dangerous-goods-fulfillment-hazmat-shipping-rules-and-3pl-requirements), and the [hazmat-3PL providers indexed at fulfill.com](https://www.fulfill.com/3pl/specialty/hazmat) will store and ship Class 2.2 inventory under their own hazmat account. The model is: you stock their warehouse with filled cylinders, they pick-pack-ship per customer order. You still have to source the filled cylinders yourself — typically by ordering a pallet from a welding-supply distributor delivered LTL freight to the 3PL's commercial dock. Welding suppliers do LTL-to-commercial as their normal business; they just don't do the residential parcel leg. The 3PL bridges that gap, for a per-shipment fee.
+
+**Option B — Stand up your own hazmat shipper account from shipment #1.** The 5-step apparatus listed in the carrier-picture subsection above. Derek (or a designated person) becomes the hazmat shipper of record. Realistic from validation onward — the fixed costs are bounded (~$1k/year Chemtrec, ~$200 one-time training, addendum paperwork). Variable costs are the per-shipment hazmat surcharge (~$45) and freight (~$15–20). Carries the liability and compliance burden of being a hazmat shipper on record.
+
+**Option C — Don't ship; drive locally.** Tests the willingness-to-pay but not the parcel-shipping product. Fine for a pre-validation hand-test with five neighbors; not informative about the actual standalone-service hypothesis.
+
+**Option D (years out) — Get the DOT-SP.** Enables USPS at much lower cost and reduces carrier surcharges. Real moat, but the up-front work doesn't pay back at validation scale.
+
+### Per-swap unit economics, corrected
+
+The earlier table omitted the 3PL pick-pack-hazmat-handling fee under Option A. Honest version:
+
+| Line | Exchange ($250), Option A (3PL) | Exchange ($250), Option B (own shipper) |
+|---|---|---|
+| Cylinder fill, amortized over pallet | ~$20 | ~$20 |
+| 3PL pick-pack + hazmat handling | ~$30 | $0 (Derek's labor) |
+| UPS Ground hazmat surcharge | ~$45 | ~$45 |
+| Freight | ~$18 | ~$18 |
+| Return label (173.29 plain parcel) | ~$15 | ~$15 |
+| Box / packaging amortized | ~$3 | ~$3 |
+| Payment processing | ~$8 | ~$8 |
+| **Direct cost per exchange** | **~$139** | **~$109 + Derek's labor** |
+| Direct margin at $250 retail | ~$111 | ~$141 minus labor |
+
+Plus fixed costs that don't show on a per-swap line:
+
+- Option A: 3PL monthly storage fee (variable, but small for a pallet of cylinders)
+- Option B: Chemtrec retainer (~$1k/year), one-time hazmat training (~$200/3yr), UN-rated overpack inventory
+
+At low volume (10–50 shipments/year), Option A's per-shipment 3PL fee makes more sense than amortizing the Option B fixed costs over very few shipments. Crossover is somewhere in the 50–200 shipments/year range, depending on what the 3PL charges and how much of Derek's time Option B consumes.
+
+### Implication for the standalone-service validation phase
+
+There's no "easy interim" path. The 10–20 shipment validation phase requires either onboarding with a hazmat 3PL (Option A — real contracting work, but no permanent compliance burden on Derek) or Derek personally becoming a hazmat shipper (Option B — moderate one-time cost, compounding compliance discipline). Both are real steps forward, not turnkey arrangements.
+
+This shifts the recommended sequencing: **don't validate by shipping at all.** Instead, validate willingness-to-pay first with a much smaller-scale local hand-test (Option C — drive cylinders to five neighbors who pay $250), and only commit to Option A or B once the demand signal is real enough to justify the contracting or compliance load.
 
 ### Strategic implication: the DOT-SP is a real moat for Ring 3+
 
@@ -228,8 +263,8 @@ This is not Ring 1. It is potentially the defining product feature of the eventu
 
 ### Net effect on the recommendations above
 
-- **C2 (Founder Edition includes a filled cylinder)** is more practical than I implied. The shipped-from-a-partner path likely exists for an extra ~$45–60 over the cylinder + fill cost, putting the all-in around $215–230 on a $7,500 unit. The legal work is partner-side, not homesodamachine-side. Decision is still real but the cost-per-unit shouldn't be the blocker.
-- **C6 (cylinder-swap loaner pool)** is meaningfully cheaper than first written. Return-leg is standard parcel under 173.29. Outbound-leg via partner is the only hazmat piece. Worth revisiting before Ring 2 with an actual cost from a partner gas supplier, not the rough estimate.
+- **C2 (Founder Edition includes a filled cylinder)** is still a real decision but the cost is higher than first implied because no turnkey partner-drop-ship exists. The Founder Edition unit ships LTL anyway (heavy appliance), so adding a filled cylinder to the same pallet — sourced from a welding-supply distributor on the same LTL leg — sidesteps the parcel-hazmat problem entirely. That keeps the all-in CO2 cylinder cost near the $169 retail figure. The harder version is shipping a replacement cylinder to a customer post-install, which lands in the C6 picture (~$109–139 direct cost per shipment).
+- **C6 (cylinder-swap loaner pool)** has a cheaper return leg than first written (plain parcel under 173.29) but the outbound leg is harder than first written — no turnkey partner-drop-ship service exists for filled 5 lb CGA-320 cylinders. Realistic outbound is either Option A (hazmat 3PL fulfillment, ~$30/shipment 3PL fee on top of the carrier surcharge) or Option B (Derek stands up his own hazmat shipper account, ~$1k/year fixed + per-shipment surcharge). Per-swap direct cost lands at ~$109–139 depending on path. Worth revisiting before Ring 2 with an actual 3PL quote.
 - **New work item: scope a DOT-SP application** as a Ring 3+ strategic option. Phone call with a hazmat consultancy to get a real cost + timeline. Not urgent; should not be forgotten.
 
 ### The standalone CO2 exchange service — a business on its own
@@ -282,7 +317,7 @@ This is a separate business with separate operational profile (fulfillment, cust
 
 Suggested order:
 
-1. **Validate by hand at very small scale (10–20 shipments, no permit).** Use the C6 interim model — drop-ship via a partner gas supplier that's already a hazmat shipper. Manually-handled orders, Stripe Payment Links, a one-page landing site. The goal is to find out whether real people will pay $250 once, not to build infrastructure. ~$5–10k experiment, runs alongside appliance work, validates the willingness-to-pay hypothesis before any larger commitment.
+1. **Validate willingness-to-pay locally before building any shipping infrastructure.** There is no turnkey "drop-ship partner" for filled 5 lb cylinders — see the "outbound options" subsection in the addendum below. The two real shipping paths (hazmat 3PL onboarding or standing up Derek's own hazmat shipper account) both have real setup cost that should not be committed pre-validation. Instead, drive cylinders to 5–10 local customers who pay $250 in cash, with a Stripe Payment Link and a one-page landing site. Test the demand signal before testing the shipping product. ~$1–2k experiment, runs alongside appliance work.
 2. **If validated, build a real ops backbone.** Cylinder fleet inventory, fulfillment hub (Derek's garage at first; 3PL later), DOT-SP application kickoff, supplier contracts for bulk CO2 fill at wholesale cost.
 3. **Service launch.** Web product, subscription tier, the full pricing model. Independent of any appliance Ring schedule.
 4. **Appliance integration.** Founder Edition includes N free swaps; Standard ships with a subscription credit. Out of scope until both products are real on their own.
