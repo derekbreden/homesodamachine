@@ -20,7 +20,7 @@ Underneath the tool: a markdown directory in the repo, one file per metro (or on
 
 ## Why this exists
 
-Three friction points in the current CO2 ownership story (per [`../marketing/target-market.md`](../marketing/target-market.md) 272–274 and [`../todo/2026-05-18/co2-supply-ownership-gap.md`](../todo/2026-05-18/co2-supply-ownership-gap.md) Part 1):
+Three friction points the curator brand can answer:
 
 - **"CO2 refill near me" returns garbage.** Welding suppliers, paintball stores, and homebrew shops in random order, with no info on which fills food-grade. The customer Googles, picks the closest, drives over, and finds out they only carry industrial.
 - **Food-grade vs. industrial-grade vocabulary is opaque.** Many welding suppliers carry both. Counter staff sometimes don't know which the customer wants. We can hand the customer the right phrasing.
@@ -39,7 +39,7 @@ Three reasons it earns its keep at zero direct revenue:
 
 - **SEO surface.** "CO2 refill near me" is a high-volume search with no good answer today. Owning that result for free is worth more than monetizing it.
 - **Trust seed.** The customer who reads honest advice that didn't sell them anything is the customer most receptive to the rest of the catalog later. Same logic as the SodaStream-advice editorial page — the curator brand earns the right to recommend its own products by recommending other things first.
-- **Upgrade path to [`co2-service.md`](co2-service.md).** The guide ends with: "or, if `drive somewhere during business hours` is the part you hate, we deliver for $250 per swap. Click here." A free tool that funnels into a paid service is a real conversion mechanism.
+- **Upgrade path to [`co2-service.md`](co2-service.md).** The guide ends with: "or, if `drive somewhere during business hours` is the part you hate, we deliver for $250 per refill. Click here." A free tool that funnels into a paid service is a real conversion mechanism.
 
 ## How it relates to [`co2-service.md`](co2-service.md)
 
@@ -47,7 +47,7 @@ The two are siblings on the menu — the lowest-budget option and the convenienc
 
 | Dimension | Local pickup guide | CO2 delivery service |
 |---|---|---|
-| Customer cost | $0 for the guide; ~$25–50 per fill at the supplier | $250 per exchange swap |
+| Customer cost | $0 for the guide; ~$25–50 per fill at the supplier | $250 per refill (or $500 for a new bottle) |
 | Customer effort | Drive there, lift cylinder, counter interaction, business hours | None — UPS arrives |
 | Brand revenue | $0 (drives traffic) | ~$141 gross margin per swap |
 | Friction owned by | The customer | Us |

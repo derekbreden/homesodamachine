@@ -12,12 +12,11 @@ Going from earliest release to latest:
 
 - **Free editorial** — a SodaStream-advice page, the local CO2 directory in [`local-co2.md`](local-co2.md). Ships first because the cost is days, not months, and the SEO surface seeds traffic for every later rung. ~$0 spend.
 - **CGA-320 adapter kit** — [`cga320-kit.md`](cga320-kit.md). ~$110 BOM, ~$150 retail. Standard US 2 L soda-bottle thread + CGA-320 regulator + push-button head. First transactional rung. Time-to-ship is weeks.
-- **CO2 delivery service, local validation** — [`co2-service.md`](co2-service.md) at $250 hand-delivered locally. No PHMSA/Chemtrec/UN-overpack apparatus needed until volume justifies it. Runs alongside the kit; validates willingness-to-pay before any hazmat-shipping infrastructure gets stood up.
+- **CO2 delivery service** — [`co2-service.md`](co2-service.md) at $500 for new bottle, $250 for refill. Hazmat shipping through UPS or FedEx.
 - **HSM 1** — the Lite Edition. ~$500 BOM, $1,500 retail. Flavor injection only, customer supplies the carbonator (Lillium-class) or pairs with one we resell.
 - **HSM 2** — the Kitchen Edition without drain. ~$1,500 BOM, $3,500 retail. Integrated carbonator and refrigeration, faucet at the back of the sink, no plumbed drain.
 - **HSM 3** — front dispense + drain. ~$2,000 BOM, $5,000 retail. Countertop-capable with proximity arm gesture and a plumbed drain for unattended clean cycles.
 - **Flavor module** — slots in between HSM 2 and HSM 3, or after HSM 3, depending on what customer demand says by then.
-- **CO2 delivery service, shipped** — the Option B shipper apparatus (~$5,300 one-time) gets stood up if the local-validation demand signal justifies it. Could light up at any point in the timeline above once the apparatus pays back.
 
 ## The numbering does real work, not cosmetic work
 
@@ -47,7 +46,7 @@ Current plan: spend the project budget and many months betting that the hard eng
 
 HSM-1-first plan: ship something within weeks, validate everything that isn't engineering — does the video convert, does the install story work, does the syrup supply chain hold up, does the iOS app feel right, do real kitchens cooperate with the install pattern, does the brand mean anything yet, what's the real failure rate of a peristaltic pump after a year in a customer's home. Then invest the HSM 2 carbonator and refrigeration R&D against a validated market.
 
-The CGA-320 kit and CO2 services pull validation earlier still. The kit ships in weeks at a $150 transaction, which is enough to test the brand voice, the editorial funnel, and the customer-support workflow without any of the syrup or install variables. The CO2 service hand-delivered locally tests willingness-to-pay on a recurring purchase without testing the parcel-shipping product. By the time HSM 1 ships, the brand has already learned which of the curator voice cues resonate and which fall flat.
+The CGA-320 kit pulls validation earlier still — it ships in weeks at a $150 transaction, which is enough to test the brand voice, the editorial funnel, and the customer-support workflow without any of the syrup or install variables. The CO2 service has its own gating decision before launch (laid out in [`co2-service.md`](co2-service.md)) but ships well before HSM 1 in any timeline where the answer is yes. By the time HSM 1 ships, the brand has already learned which of the curator voice cues resonate and which fall flat.
 
 The carbonator engineering doesn't get cancelled in this framing. It gets *funded* by HSM 1 revenue and *aimed* by HSM 1 learnings — with the lower rungs funding and aiming HSM 1 in the same way.
 

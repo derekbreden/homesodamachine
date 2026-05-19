@@ -1,32 +1,41 @@
-# CO2 Delivery Service — consumer CO2 exchange, built on 49 CFR 173.29
+# CO2 Delivery Service — hooking into mature consumer hazmat shipping
 
 *Pie-in-the-sky, not roadmap. Captured 2026-05-18.*
 
 *BOM figures in this doc are first-pass estimates intended to size the idea, not specifications.*
 
-A standalone service that delivers filled 5 lb CGA-320 cylinders to residential addresses and ships the empties back as standard non-hazmat parcel. Pitched not as an appliance accessory but as one rung on the curator-brand menu in [`curator-brand.md`](curator-brand.md) — available to any household with a CGA-320 cylinder, including paintball, kegerator, homebrew, aquarium, MIG-welder, and home-soda customers. The operational and regulatory backbone — carriers, contracts, federal rules, cost breakdowns — is captured in detail in [`../todo/2026-05-18/co2-supply-ownership-gap.md`](../todo/2026-05-18/co2-supply-ownership-gap.md) Parts 2 and 3; this doc is the product-and-business sketch that lives in the catalog.
+A consumer service that delivers filled 5 lb CGA-320 cylinders to residential addresses through UPS Ground or FedEx Ground hazmat parcel, with empties shipping back as plain non-hazmat parcel under [49 CFR 173.29](https://www.ecfr.gov/current/title-49/subtitle-B/chapter-I/subchapter-C/part-173/subpart-B/section-173.29). One rung on the curator-brand menu in [`curator-brand.md`](curator-brand.md), available to any household with a CGA-320 cylinder — paintball, kegerator, homebrew, aquarium, MIG-welder, and home-soda customers. Operational and regulatory backbone — carriers, contracts, federal rules, cost breakdowns — captured in detail in [`../todo/2026-05-18/co2-supply-ownership-gap.md`](../todo/2026-05-18/co2-supply-ownership-gap.md) Part 2.
 
-## What the service is
+## The infrastructure already exists
 
-A consumer subscription (or per-swap) offering: the customer's cylinder gets low, an app or web prompt says "ready for a swap," a fresh full cylinder arrives by UPS Ground or FedEx Ground, the customer attaches a return label to the same box with the empty inside, drops it back at any retail UPS/FedEx counter. No drive to a welding-supply branch. No business hours. No counter interaction.
+To be unambiguous: **the carrier infrastructure for residential hazmat delivery already exists, is mature, and is used at consumer scale every day.** SodaStream and Drinkmate ship millions of consumer-direct CO2 cylinders per year to residential addresses across the lower 48 — almost all via USPS (under DOT-SP) and UPS Ground (for orders of 3+). Specialty-gas suppliers ship hazmat to grad students at home every day. We do not need to build a delivery network. We hook into one.
 
-The legal mechanism that makes the return leg cheap is [49 CFR 173.29 "valve open = empty"](https://www.ecfr.gov/current/title-49/subtitle-B/chapter-I/subchapter-C/part-173/subpart-B/section-173.29) — an empty Division 2.2 cylinder at <29 psig ships as plain parcel, no hazmat handling. The outbound leg is regulated hazmat parcel; the return is not. Whole story in the gap todo's Part 2.
+- **UPS Ground** accepts Class 2.2 compressed gases in the lower 48. UN1013 (carbon dioxide) is on the accepted-via-Ground list. Routes and delivers to residential addresses like any other parcel.
+- **FedEx Ground** is the same. Class 2.1 and 2.2 accepted, lower 48 only.
+- All carrier "restrictions" are shipper-side, not destination-side. Once shipper-side compliance is in place — accept the contract, train one person, label the box correctly — the carrier picks up at the fulfillment address and drops on any lower-48 residential doorstep.
 
-## Pricing tiers
+The market gap that makes this an opportunity is structural rather than infrastructural: 60 L SodaStream / Drinkmate cylinders ship to homes under existing DOT-SPs; 5 lb-and-up cylinders ship by fleet truck to commercial accounts; the 5 lb consumer cylinder is in the gap. No DOT-SP holder bothered with the 5 lb form factor because their existing business didn't require it. We don't need a DOT-SP either — we use the per-shipment hazmat surcharge route through UPS / FedEx Ground.
 
-| Tier | Customer pays | Customer has |
+## The 49 CFR 173.29 return-leg trick
+
+Per [49 CFR 173.29 "empty packagings"](https://www.ecfr.gov/current/title-49/subtitle-B/chapter-I/subchapter-C/part-173/subpart-B/section-173.29), an empty Division 2.2 non-flammable gas cylinder at <29 psig ships as standard parcel — no hazmat handling, no surcharge, no shipping paper. Open the valve, equalize to atmospheric in seconds, return as plain UPS / FedEx Ground or USPS. Industry shorthand: "valve open = empty."
+
+The round trip is asymmetric. Outbound = regulated hazmat parcel with a ~$45 carrier surcharge. Return = plain parcel. Per-swap cost is dominated by the outbound leg. The customer verifies "valve open" trivially — turn until it stops, listen for absence of hiss — and the empty box becomes the return container for the next full cylinder.
+
+## Pricing
+
+| Tier | Customer pays | What they get |
 |---|---:|---|
-| Self-serve baseline (we don't sell this, but it's what we compete with) | ~$50 per refill | Their own cylinder, willingness to drive |
-| Exchange | $250 per swap | An empty to send back |
-| Non-exchange | $500 | Nothing — first-time customer; they keep the cylinder |
+| Refill | $250 | Send back an empty, get a full |
+| New bottle | $500 | First-time customer; cylinder included; no return required |
 
-The $200 markup over self-serve buys "never drive to a welding supplier again." A 3-can/day household burns through a 5 lb cylinder in roughly 50–100 days (per the consumption math in [`../todo/2026-05-18/co2-supply-ownership-gap.md`](../todo/2026-05-18/co2-supply-ownership-gap.md) C5), which prices the service at ~$1,000–1,800 per year — comparable to a streaming-and-services bundle, framed against the recovered weekend mornings.
+Refill is the steady-state subscription. New bottle is the customer-acquisition product — anyone whose first interaction is "I want CO2 at home and I don't have a tank yet" gets an immediate full cylinder and sits on the refill tier forever after.
 
-The non-exchange $500 tier is the customer-acquisition product: anyone whose first interaction is "I want CO2 at home and I don't have a tank yet" gets an immediate full cylinder. After the first cylinder is empty, they are on the $250 exchange tier forever.
+A 3-can/day household burns through a 5 lb cylinder in roughly 50–100 days, which prices the service at ~$1,000–1,800 per year — comparable to a streaming-and-services bundle, framed against the recovered weekend mornings.
 
 ## Rough unit economics
 
-Per-swap direct cost at the exchange tier, no overhead allocation:
+Per-swap direct cost at the refill tier, no overhead allocation:
 
 | Line | Approx |
 |---|---:|
@@ -36,11 +45,36 @@ Per-swap direct cost at the exchange tier, no overhead allocation:
 | Return label (173.29 plain parcel) | ~$15 |
 | Box + foam insert, amortized | ~$3 |
 | Payment processing | ~$8 |
-| **Direct cost per exchange** | **~$109** |
+| **Direct cost per refill** | **~$109** |
 
-Gross margin at $250 retail: ~$141/swap. The non-exchange tier ($500 minus ~$95 cylinder COGS at quantity, minus the same ~$109 logistics) sits around $296 gross.
+Gross margin at $250 refill: **~$141**. New bottle ($500 minus ~$95 cylinder COGS at quantity, minus the same ~$109 logistics) sits around ~$296 gross.
 
-Excluded from the table: hazmat shipper apparatus amortization, customer-service labor, cylinder-fleet financing (each cylinder in rotation is ~$95 of working capital), hydro-test cadence (every 5 years on 3AL aluminum). All real, all manageable at the scale the curator brand operates at.
+Excluded from the table: hazmat shipper apparatus amortization, customer-service labor, cylinder-fleet financing (~$95 of working capital per cylinder in rotation), hydro-test cadence (every 5 years on 3AL aluminum). And — load-bearing for the section below — insurance.
+
+## The shipper apparatus
+
+The five-step UPS / FedEx onboarding to ship hazmat parcel:
+
+- Open a hazmat shipper account (no fee; addendum to an existing parcel account)
+- 49 CFR 172.704 training for one person (~$49 online, valid 3 years)
+- Chemtrec subscription (~$1,000/yr) for 24-hour emergency contact
+- UN 4G / 4GV overpack inventory (~$1,000 for an initial 100)
+- PHMSA Hazmat Registration (~$275/yr small business)
+
+Plus a starter cylinder fleet (~$3,000 for 50 recertified 5 lb aluminums) and initial fills (~$1,250). Reference startup is **~$5,300 one-time** + **~$1,300/yr recurring** + **~$109/shipment variable**. No DOT Special Permit. The math on a permit is $40–145k all-in and 12–24 months; amortizes only above ~1,000 shipments/year sustained over years — out of reach for this brand's scale.
+
+The apparatus itself is small and well-defined. Standing it up isn't the gating question. The gating question is the next section.
+
+## The real decision: insurance, or the uninsured risk
+
+Neither UPS nor FedEx requires hazmat shippers to carry insurance. Federal law (PHMSA, 49 CFR) does not require it either. The full carrier contracts and the full FedEx Hazmat Shipping Guide were reviewed line by line in [`../todo/2026-05-18/co2-supply-ownership-gap.md`](../todo/2026-05-18/co2-supply-ownership-gap.md) Part 2 — zero mention of insurance, indemnification, or minimum financial responsibility in either. The "you need hazmat insurance" claim that pervades search results traces to 3PL fulfillment providers (requiring it of their customers), hazmat-trucking insurance brokers (selling a different product), and compliance-vendor marketing — none of which are the carrier or the regulator.
+
+So the decision is binary, and it is the real decision this service has to make:
+
+- **Ship uninsured.** ~$5,300 one-time apparatus + ~$1,300/yr recurring + ~$109/shipment variable. Real catastrophic-tail risk: cylinder valve failure in a UPS facility or in a customer's hallway, customer drops a 12 lb cylinder on their foot and sues, customer asphyxiates in a small room with the valve open. Industry-wide, each of these happens a few times a year across consumer CO2 shipping. If our cylinder is the one, defense costs alone reach $30–100k before any settlement; settlements at six or seven figures are not unusual. Bankrupts a small operation.
+- **Pay for insurance.** Right framing for the broker call is "Class 2.2 endorsement on a product-liability policy" — not "hazmat shipper insurance." The latter framing gets quoted hazmat-trucking products at $15–45k/yr that don't apply to a parcel shipper. The correct quote — Class 2.2 endorsement on an underlying product-liability policy — is ~$500–2,000/yr incremental on top of an ~$1,000/yr general-liability baseline. Total all-in is a few thousand a year if the broker quotes the right product, far higher if they don't. The math also goes hard: at low volume, the recurring apparatus + insurance eats nearly all of the gross margin per swap, and the business runs at break-even or slight loss until volume reaches the few-hundred-swaps-per-year band. That could be years. It could be forever.
+
+Both options are seriously on the table. The right question isn't "do we need a hazmat business?" — the apparatus is small and well-defined. The right question is "do we accept the catastrophic-tail risk uninsured, or pay a few thousand a year to remove it and run at slight loss until volume catches up?"
 
 ## Who the customer is, beyond home soda
 
@@ -50,43 +84,23 @@ The 5 lb CGA-320 cylinder is the standard form factor across:
 - Paintball / airsoft 5–20 lb cylinders
 - Planted-aquarium CO2 injection
 - Home draft beer culture
-- MIG welders (with adapter — CO2 or Ar/CO2 mix)
+- MIG welders (with adapter — CO2 or Ar / CO2 mix)
 - Mushroom cultivation, calibration-gas users, craft-soda hobbyists
 - Small B2B: brewery taprooms, restaurants under the NuCO2 commercial threshold, coffee shops with nitro cold brew
 
 Each segment has the same problem — welding suppliers feel commercial, run business hours, sit in industrial parks, require a counter interaction. The convenience tax is paid by anyone with an opinion about their time.
 
-## What it would take to ship
-
-The five-step shipper apparatus is documented in detail in the gap todo. In short:
-
-- Open a UPS or FedEx hazmat shipper account (no fee; addendum to an existing parcel account)
-- 49 CFR 172.704 training for one person (~$49, valid 3 years)
-- Chemtrec subscription (~$1,000/yr) for 24-hour emergency contact
-- UN 4G/4GV overpack inventory (~$1,000 for an initial 100)
-- PHMSA Hazmat Registration (~$275/yr small business)
-
-Plus the cylinder fleet (~$3,000 for 50 recertified 5 lb aluminums) and initial fills (~$1,250). Reference startup cost is ~$5,300 one-time + ~$1,300/yr recurring + ~$109/shipment variable. No insurance is legally required and neither carrier mandates it; the broker conversation worth having later is "Class 2.2 endorsement on the appliance product-liability policy," not "hazmat shipper insurance."
-
-We explicitly do not pursue a DOT Special Permit. The math is in the gap todo: $40–145k all-in, 12–24 months calendar, amortizes only above ~1,000 shipments/year sustained over years. Out of reach for this brand's scale.
-
 ## How this strengthens the curator brand
 
-The service is not a moat for the appliance. It is one of the rungs on the curator menu, and most of the rungs benefit from it:
+The service is not a moat for the appliance. It is one of the rungs on the curator menu, and most of the rungs lean on it:
 
-- The CGA-320 adapter kit customer ([`cga320-kit.md`](cga320-kit.md)) has a 5 lb tank to refill. They are the highest-volume CO2 customer in the catalog by user count.
-- The Kitchen / Shop Edition customer has a 5 lb tank to refill. Bundling N free swaps into Founder Edition pricing (per [`../todo/2026-05-18/co2-supply-ownership-gap.md`](../todo/2026-05-18/co2-supply-ownership-gap.md) C2 and C6) is the natural appliance-side integration.
+- The CGA-320 adapter kit customer ([`cga320-kit.md`](cga320-kit.md)) has a 5 lb tank to refill — they are the highest-volume CO2 customer in the catalog by user count.
+- The Kitchen / Shop Edition customer has a 5 lb tank to refill. Bundling N free refills into Founder Edition pricing is the natural appliance-side integration.
 - The SodaStream owner who took our editorial advice and bought a 5 lb tank with an adapter is a perfect cross-sell.
 - A customer who never buys our appliance is still a happy CO2-service customer. That alone makes this a real business rather than an attached feature.
 
-The free [`local-co2.md`](local-co2.md) directory is the sibling rung — the lower-budget, higher-friction answer to the same underlying problem. The pickup guide drives traffic; the delivery service converts that traffic into revenue when the customer decides driving to the supplier is no longer worth the time.
-
 ## What's worth doing next on this
 
-The pre-revenue stance from the gap todo applies here unchanged: nothing in this doc commits money before there is a paying customer.
-
-1. **Local hand-delivery validation.** Five to ten local customers, $250 in cash via a Stripe Payment Link, Derek drives the cylinder. No PHMSA Registration, no Chemtrec, no UN overpacks, no shipper account — none of it is needed for local hand-delivery. ~$1–2k experiment that runs alongside the appliance work, tests willingness-to-pay without testing the shipping product.
-2. **Decision point.** If demand validates locally, decide whether to stand up the Option B shipper apparatus. The ~$5,300 one-time cost is the bar. The real question: does Derek want to be a hazmat shipper of record, and is the demand signal strong enough to justify the spend.
-3. **Branding.** A standalone service needs a name that works for a paintball owner, a kegerator owner, and a homesodamachine customer. Not necessarily a homesodamachine sub-brand — could stand alone, with curator-brand integration as the route into it. Worth a separate thinking exercise.
-
-Anything past step 2 — fill stations, regional hubs, full subscription product, appliance bundling — is downstream of validation and out of scope for this doc.
+1. **Resolve the insurance binary.** The decision in the section above is the gating question. Either commit to the uninsured risk profile, or get a real broker quote for a Class 2.2 endorsement on a product-liability policy (which itself needs to exist — the appliance business currently carries none). Until this is decided, nothing else here matters.
+2. **Stand up the apparatus.** Once the insurance decision is made, the five-step onboarding is mechanical. ~$5,300 one-time and a few weeks of paperwork.
+3. **Branding.** A standalone service needs a name that works for a paintball owner, a kegerator owner, and a homesodamachine customer. Not necessarily a homesodamachine sub-brand — could stand alone, with curator-brand integration as the route into it.
