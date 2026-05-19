@@ -25,7 +25,7 @@ User rule at install: **blue tube into the blue-ringed bulkhead**. Black-into-ei
 
 Mechanism for the blue ring is TBD — candidates include multi-material printing of the panel itself, a separately printed TPU collar that snaps over the bulkhead's exterior flange, or a paint touch on the printed bezel surrounding the bulkhead. The selection is downstream of the panel-material decision and the multi-material capability of the printer running the panel.
 
-Net identification scheme on the rear panel: **blue = carbonated water**, **black / plain = flavor lines**. (The CO2 inlet lives on the front panel; red color-coding for CO2 lines is direction of travel and moves to the front-panel doc when that doc lands.)
+Net identification scheme on the rear panel: **blue = carbonated water**, **black / plain = flavor lines**. (The CO2 inlet lives on the front panel — see [`../front-panel/README.md`](../front-panel/README.md); red color-coding for CO2 lines is documented there.)
 
 ## Umbilical bundle construction
 

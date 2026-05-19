@@ -24,7 +24,7 @@ Per-unit BOM lives in [`../bom.md`](../bom.md) §7 (printed enclosure parts), §
 | Compressor shroud | [`../cut-parts/compressor-shroud/README.md`](../cut-parts/compressor-shroud/README.md) | SendCutSend 0.059" G90 galvanized steel, 5-sided open-bottom box (or U-channel + back wall pending the open item) |
 | C14 panel-mount inlet | MXR B07DCXKNXQ ([`../printed-parts/enclosure/back-panel/README.md`](../printed-parts/enclosure/back-panel/README.md) §1) | Recessed 3–5 mm into panel face with the printed shroud |
 | Water-inlet bulkhead | brewhardware FFL38BARB38 ([back-panel §2](../printed-parts/enclosure/back-panel/README.md)) | 3/8" FFL swivel × 3/8" SS hose barb |
-| CO2-inlet bulkhead | DERPIPE 5/16"-tube × 1/4" NPT push-to-connect | Front-panel mount — see `../future.md` §"Enclosure layout"; front-panel printed-parts doc not yet written |
+| CO2-inlet bulkhead | DERPIPE 5/16"-tube × 1/4" NPT push-to-connect ([front-panel §1](../printed-parts/enclosure/front-panel/README.md)) | Red accent ring at panel opening; mounts on the front panel, not the back panel |
 | BiB adapter | Supply Depot B0DMFK9B6P ([back-panel §4](../printed-parts/enclosure/back-panel/README.md)) | 3/8" red BiB connector, single panel-side connector feeding both flavors downstream |
 | Umbilical PP1208E bulkheads × 3 | John Guest B00JYFU8MM ([back-panel §6](../printed-parts/enclosure/back-panel/README.md)) | Triangular cluster; blue accent ring on the carbonated-water bulkhead at the top vertex |
 | Drip pan + moisture sensor | TBD — see Open items | Backflow-vent observation per [`../future.md`](../future.md) "Backflow vent monitoring"; sensor wires to SIG-9 in [`../wiring/ac-wiring-schedule.md`](../wiring/ac-wiring-schedule.md), terminated at the shelf during [`wiring.md`](wiring.md) |
@@ -49,7 +49,7 @@ Pre-install all bulkheads on the back panel on the bench, ahead of mounting it t
 
 - **C14 inlet** seats into the rectangular cutout from the outside face, retained by its panel-mount screws per the MXR spec, drawn flush against the printed shroud's recess so the C13 cord housing will nest into the 3–5 mm recess on insertion. Inlet solder-tab pins face into the cabinet.
 - **Water-inlet bulkhead** (FFL38BARB38): swivel-nut side outside (customer's 3/8" line lands here), barb side inside.
-- **CO2-inlet bulkhead** — *not* pre-installed on the back panel; lives on the front panel per [`../future.md`](../future.md) §"Enclosure layout". Front-panel pre-install step TBD when the front-panel doc lands.
+- **CO2-inlet bulkhead** — *not* pre-installed on the back panel; lives on the front panel per [`../printed-parts/enclosure/front-panel/README.md`](../printed-parts/enclosure/front-panel/README.md). Front-panel pre-install step is a separate procedure (not yet broken out in this doc).
 - **BiB adapter** (Supply Depot 3/8" red): connector side outside, downstream barb inside.
 - **Umbilical PP1208E bulkheads × 3** in the triangular cluster: the blue-accent-ring bulkhead at the top vertex (carbonated water), the other two at the bottom corners (flavor A + flavor B). All three retained against the panel via their flange + nut sandwich on the EPDM O-ring per [`../printed-parts/enclosure/back-panel/README.md`](../printed-parts/enclosure/back-panel/README.md) "Open items" — mechanical capture only, no panel-side gasket.
 
@@ -121,7 +121,7 @@ A complete mechanical chassis ready for [`internal-plumbing.md`](internal-plumbi
 - Cold core seated at the rear on its support ring, no tension on the refrigerant lines
 - Compressor bolted to the enclosure floor, sheet-metal shroud installed and anchored to the M5 compressor feet, Heyco-bushed 1/2" AC pass-through facing the electronics shelf
 - Condenser + fan mounted on the chosen side wall, airflow axis crossing the enclosure side-to-side, intake grille on one side face and exhaust grille on the opposite side face
-- Back panel mounted with all back-panel bulkheads pre-installed: C14 inlet (recessed with printed shroud), FFL38BARB38 water inlet, Supply Depot BiB connector, three PP1208E umbilical bulkheads in triangular cluster (blue ring at top vertex). CO2 inlet lives on the front panel — separate install step, TBD when the front-panel doc lands.
+- Back panel mounted with all back-panel bulkheads pre-installed: C14 inlet (recessed with printed shroud), FFL38BARB38 water inlet, Supply Depot BiB connector, three PP1208E umbilical bulkheads in triangular cluster (blue ring at top vertex). CO2 inlet lives on the front panel — see [`../printed-parts/enclosure/front-panel/README.md`](../printed-parts/enclosure/front-panel/README.md); separate install step (not yet broken out in this doc).
 - Drip pan + moisture sensor installed under the backflow-vent termination point, sensor leads routed toward the electronics shelf (not yet terminated)
 - Hopper installed at the top-front, outlet stub hanging free
 - Electronics shelf mechanically seated at the top-back behind the C14 inlet, unpowered, AC pigtails hanging free
