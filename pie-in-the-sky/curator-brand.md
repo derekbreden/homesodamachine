@@ -60,7 +60,7 @@ The appliance does not stop being the halo product under this framing. It is the
 
 - [`../marketing/target-market.md`](../marketing/target-market.md) describes the appliance buyer specifically. Under this framing it is the target-market doc for the upper end of the ladder, not the whole brand. A companion doc for the lower-end buyer profiles is implied by this reframe and out of scope here.
 - [`../hardware/future.md`](../hardware/future.md) is the engineering spec for the Kitchen Edition rung.
-- [`lite.md`](lite.md), [`shop-edition.md`](shop-edition.md), [`flavor-module.md`](flavor-module.md) are engineering sketches for three of the rungs. The Lite Edition's framing will eventually want to reflect that we resell the Lillium alongside it rather than just pairing with a customer-supplied unit; that update is downstream of this doc.
+- [`lite.md`](lite.md), [`shop-edition.md`](shop-edition.md), [`flavor-module.md`](flavor-module.md) are engineering sketches for three of the rungs.
 - [`co2-service.md`](co2-service.md), [`cga320-kit.md`](cga320-kit.md), [`local-co2.md`](local-co2.md) are sketches for three more rungs (the lower end and the services).
 - [`hsm-1-2-3.md`](hsm-1-2-3.md) is the older, smaller framing — three sequential SKUs of one product line. The curator framing supersedes it. Once this doc is in shape and the existing rung docs have caught up, `hsm-1-2-3.md` can be retired.
 

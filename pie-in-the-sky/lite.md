@@ -1,19 +1,19 @@
-# Lite Edition — flavor companion to a customer-supplied carbonator
+# Lite Edition — flavor companion to a Lillium-class carbonator
 
 *Pie-in-the-sky, not roadmap. Captured 2026-05-14.*
 
 *BOM figures in this doc are first-pass estimates intended to size the idea, not specifications.*
 
-A small companion appliance that pairs with a customer-supplied under-sink carbonator (Lillium, Brio, or equivalent) to add flavor injection through a real faucet. The Lite Edition does not refrigerate. It does not carbonate. It does not store water. It is a flavor-injection module — two reservoirs, two peristaltic pumps, a manifold, a faucet, the dispense controls, and a small enclosure to wrap them — and the customer's existing or newly-purchased carbonator is the source of cold carbonated water.
+A small companion appliance that pairs with a Lillium-class under-sink carbonator (Lillium, Brio, or equivalent) to add flavor injection through a real faucet. The Lite Edition does not refrigerate. It does not carbonate. It does not store water. It is a flavor-injection module — two reservoirs, two peristaltic pumps, a manifold, a faucet, the dispense controls, and a small enclosure to wrap them — and the paired carbonator is the source of cold carbonated water.
 
 ## What the customer buys
 
-Two appliances, sourced separately:
+Two appliances. We offer both — the Lillium as a reseller (it stays a Lillium product, with Lillium quality, warranty, and service relationship intact), the Lite Edition as our own product:
 
-1. A Lillium (or Brio, or equivalent) — an under-sink carbonator the customer plumbs to their cold water line and pressurizes from a CO2 tank. These run roughly $1,000 retail and produce ~4 °C carbonated water at up to ~70 PSI. The customer buys this themselves from the original manufacturer; the Lite Edition does not include it.
-2. The Lite Edition — flavor companion, sourced from us. Price target around $1,500.
+1. A Lillium (or Brio, or equivalent) — an under-sink carbonator that plumbs to the customer's cold water line and pressurizes from a CO2 tank. These run roughly $1,000 retail and produce ~4 °C carbonated water at up to ~70 PSI. Customers who already own a compatible unit skip this line item.
+2. The Lite Edition — our own product, our manufacture. ~$1,500.
 
-The customer's total spend across both appliances is approximately $2,500.
+Bundle total: ~$2,500. Lite alone: ~$1,500. The bundle is the easier path for a new customer — one purchase, one shipment, one install consult covering both appliances. Lite-alone serves the customer who already has a working carbonator and just wants the flavor companion.
 
 ## What the Lite Edition is
 
@@ -73,11 +73,11 @@ For a customer who wants faucet soda and does not have an option to install the 
 | Mechanical attach hardware + reservoir caps + membranes | $10 |
 | **Total** | **~$575** |
 
-At a Founder Edition target around $1,500 the margin structure mirrors the main appliance's at lower absolute numbers.
+At a Founder Edition target around $1,500 the margin structure mirrors the main appliance's at lower absolute numbers. The bundled Lillium passes through at near-zero margin to us — we're not in the business of making money on someone else's appliance, we're in the business of removing a sourcing step for the customer.
 
 ## What it would take to ship the Lite Edition
 
-The Lite Edition is approximately the prototype that already exists on the founder's counter, with a consumer-grade printed cabinet around it and a tightened-up firmware build. The hard subsystems of the main appliance (carbonator vessel fabrication, hydro-test, refrigerant-loop teardown and recharge, foam-pour cold-core assembly, hydrocarbon-refrigerant safety architecture) are absent. The remaining work is enclosure design, the faucet-inlet stub that accepts a customer's Lillium output line, install documentation that explains the Lillium pairing, and ten units' worth of assembly time.
+The Lite Edition is approximately the prototype that already exists on the founder's counter, with a consumer-grade printed cabinet around it and a tightened-up firmware build. The hard subsystems of the main appliance (carbonator vessel fabrication, hydro-test, refrigerant-loop teardown and recharge, foam-pour cold-core assembly, hydrocarbon-refrigerant safety architecture) are absent. The remaining work is enclosure design, the faucet-inlet stub that accepts a Lillium output line, install documentation that explains the Lillium pairing, a reseller relationship with Lillium for the bundle path, and ten units' worth of assembly time.
 
 Time-to-first-unit at solo build cadence is short — weeks rather than the months the main appliance requires.
 
