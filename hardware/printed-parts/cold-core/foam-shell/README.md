@@ -365,9 +365,11 @@ Every internal component is installed first:
 - Four copper plugs slid down into the slot from above (through
   the 10 mm open extension past the wall top) to seal between the
   pass-throughs.
-- PRV shroud (`../prv-shroud/`) slipped over the SV-125 valve,
-  seated on the TAISHER elbow's smooth ⌀18.8 cylinder, and hot-
-  glued at the elbow joint for foam-pour-tightness.
+- PRV shroud subassembly (`../prv-shroud/`) — already built and
+  cured ahead of time, threaded into Port 4 at vessel install — is
+  here as part of the vessel by the time the body pour happens.
+  Press-fit a length of 1/4" OD LLDPE into the shroud's cap hole and
+  route it through the +Z slot to the appliance interior.
 - Reservoir LLDPE lines routed through holes #1 and #2 in the
   reservoir-pocket far ±X walls.
 - Water outlet through hole #4 in the outer_shell +Z wall.

@@ -57,34 +57,56 @@ pull-ring with the valve hand-tight in the elbow. After full PTFE
 torque the stack shortens by a turn or two; the 2 mm cap thickness
 gives a few mm of clearance above the pull-ring at full torque.
 
-## Install procedure
+## Subassembly procedure
 
-Performed during cold-core assembly, before the body foam pour.
-Documented in [`../foam-shell/README.md`](../foam-shell/README.md)
-"Body pour" and [`../../../assembly/pressure-vessel.md`](../../../assembly/pressure-vessel.md)
-step 8.
+This is a **self-contained subassembly** with no prerequisites
+beyond the three parts (TAISHER elbow + SV-125 + printed shroud)
+and a tube of 100% RTV silicone caulk. It is built **independently
+of the vessel and of any other assembly step**, on the bench, and
+can sit ready to use indefinitely after the caulk cures. There is
+no urgency to its construction relative to vessel fabrication or
+cold-core assembly — the subassembly can be built ahead of time and
+shelved.
 
-1. Install the TAISHER M×F 90° street elbow on Port 4 + the SV-125
-   on the elbow's lateral F outlet (pressure-vessel.md step 8).
-2. Slip the shroud over the SV-125 from the pull-ring end, sliding
+The LLDPE vent tube and the foam-shell pass-through are **not** part
+of this subassembly — the LLDPE is press-fit into the shroud's cap
+hole during cold-core build, after the subassembly is threaded into
+Port 4 and the vessel is lowered into the foam shell.
+
+1. Thread the SV-125 into the TAISHER M×F 90° street elbow's
+   lateral F outlet with Millrose PTFE tape on the threads. Snug
+   hand-tight + a turn or two with a wrench on the SV-125's hex.
+2. **Pull-test the SV-125.** With the elbow held in the bench vise
+   on its M-end shank (no pressure source), pull the SV-125's
+   stainless-steel pull-ring straight up against the spring with
+   light force. The disc should lift cleanly off the seat and snap
+   back when released. A free, snappy pull-ring confirms the disc
+   and spring move without binding. This is the **last opportunity
+   for manual access to the pull-ring** — the shroud in step 3
+   encloses it permanently. If the pull-ring binds or doesn't
+   return cleanly, replace the SV-125 before proceeding.
+3. Slip the shroud over the SV-125 from the pull-ring end, sliding
    it down past the cap-side opening, past the hex, past the
    discharge side port, until the open end of the shroud seats on
    the smooth ⌀18.8 mm cylindrical section of the elbow.
-3. Run a bead of sealant (see Open items below) around the joint
-   between the shroud's open end and the elbow's smooth cylinder.
-   The seal needs to be **foam-tight, not airtight or pressure-
-   tight** — only enough to keep the rising body foam from
-   intruding through the joint. Cured foam takes over as the
-   structural seal once it sets. The shroud-on assembly step and
-   the foam pour can be days apart; the sealant does not have to
-   be fast-cure.
-4. Press-fit a length of 1/4" OD LLDPE tubing into the shroud's
-   ⌀6.35 vent hole. Route the LLDPE out through the +Z shared slot
-   in the outer shell (PRV vent pass-through, see foam-shell
-   [Penetrations](../foam-shell/README.md#penetrations)), and leave
-   the LLDPE's far end open inside the appliance interior.
-5. Proceed with the body foam pour. Foam fills the surrounding zone
-   but cannot enter the shroud cavity — the seat at the elbow holds.
+4. Run a bead of **100% RTV silicone caulk** (e.g., GE Silicone II)
+   around the joint between the shroud's open end and the elbow's
+   smooth cylinder. Smooth the bead with a wet fingertip to form a
+   small fillet. The seal needs to be **foam-tight, not airtight or
+   pressure-tight** — only enough to keep the rising body foam from
+   intruding through the joint during the ~5 min foam rise. Cured
+   foam takes over as the structural seal once it sets.
+5. Let the caulk cure at least 20–30 min for skin-over before
+   handling, ≥24 h for full cure before the subassembly is
+   installed on a vessel.
+
+After cure, the subassembly is ready. It threads into Port 4 of a
+finished vessel at [`../../../assembly/pressure-vessel.md`](../../../assembly/pressure-vessel.md)
+step 8, replacing the elbow + PRV install on that port.
+
+The LLDPE press-fit and routing through the foam-shell slot happen
+later, at [`../../../assembly/cold-core.md`](../../../assembly/cold-core.md)
+step 4.
 
 ## What this part is not
 
@@ -106,20 +128,14 @@ step 8.
 
 ## Open items
 
-1. **Sealant choice at the shroud-to-elbow joint.** The bead's only
-   job is to keep rising body foam out of the cavity for the ~5
-   minutes it takes the foam to skin over. Once the foam is set, it
-   takes over as the structural seal. The bead can cure as slowly
-   as it wants — the shroud-on assembly step and the foam pour can
-   be days apart. Candidate sealants under consideration: 100% RTV
-   silicone caulk (skins in 20–30 min, fully cures overnight, bonds
-   well to both PETG and brass), 5-minute two-part epoxy (rigid, very
-   reliable bond, slightly fiddlier), or hot-melt EVA (fastest but
-   weakest bond to brass and softens slightly under foam exotherm).
-   A small-scale dry run — pour a few mL of mixed foam into a clear
-   container with a shroud-on-elbow stub inside, watch for joint
-   intrusion through the cure — is the right way to pick before
-   committing to unit 001.
+1. **Dry-run verification of the silicone caulk seal at the shroud-
+   to-elbow joint before unit 001.** Build one subassembly per the
+   procedure above, drop it into a clear plastic cup, pour a small
+   batch of 2-lb PU foam around it, and slice the cup open after
+   cure to confirm no foam intrusion into the cavity. Half an hour
+   of bench work; definitive answer. The sealant choice (100% RTV
+   silicone) is settled — this dry run validates the bead
+   application technique, not the sealant material.
 
 ## Regression baseline
 

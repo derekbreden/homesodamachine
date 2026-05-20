@@ -98,19 +98,19 @@ All four ports get a TAISHER 316L SS elbow. MNPT into the plate's FNPT, Millrose
 
 - **Ports 2 + 3 (food-contact: water inlet on top, carbonated-water outlet on bottom):** the elbow is the first fitting. Downstream (water-side GASHER check valve + MAACFLOW adapter for Port 2, VALVENTO compression adapter for Port 3) installs during cold-core integration per [`cold-core.md`](cold-core.md) — connects to the elbow's lateral FNPT.
 
-- **Port 4 (top-plate PRV):** elbow MNPT into Port 4 FNPT. The Control Devices SV-125 MNPT threads into the elbow's lateral FNPT, PTFE tape on the threads. PRV body extends horizontally, fitting within the cylindrical shell's headroom rather than protruding vertically. Per [`../future.md`](../future.md) "Port 4": the PRV must have an unobstructed path to the vessel interior at all times — no tee, no shared line — which the dedicated-elbow-on-dedicated-port architecture satisfies. **Downstream of the vessel-fabrication boundary, the cold-core assembly slips the printed [`prv-shroud`](../printed-parts/cold-core/prv-shroud/) over the PRV before the body foam pour to keep the side discharge port and the open bonnet windows in air rather than in cured foam — see that part's README for the install procedure.**
+- **Port 4 (top-plate PRV):** Thread the M-end of the **pre-built [`prv-shroud`](../printed-parts/cold-core/prv-shroud/) subassembly** into Port 4 FNPT, PTFE tape on the threads. The subassembly = TAISHER M×F elbow + SV-125 + printed shroud + cured silicone caulk seal at the shroud-elbow joint, built independently per the prv-shroud README's "Subassembly procedure" before this step (no prerequisites; the subassembly can be built whenever and sits ready). PRV body extends horizontally inside the shroud, fitting within the cylindrical foam-shell's headroom rather than protruding vertically. Per [`../future.md`](../future.md) "Port 4": the PRV must have an unobstructed path to the vessel interior at all times — no tee, no shared line — which the dedicated-elbow-on-dedicated-port architecture satisfies. The shroud preserves the air cavity around the SV-125's discharge side port and bonnet windows during the body foam pour ([`cold-core.md`](cold-core.md) step 5), so the valve remains a functional relief device after the cold-core is cast.
 
 - **Port 1 (bottom-plate CO2 inlet + internal sparge):** the LTWFITTING B017N4TTMA hose-barb × MNPT adapter handles the internal sparge — barb facing inward, food-grade silicone tube stub connecting it to the FERRODAY B091C5Y6L9 0.5 µm sintered SS sparge stone hanging in the water column. The SS 90° elbow handles the external CO2 line connection from the in-appliance WR1110 secondary regulator (see [`../future.md`](../future.md) "CO2 supply"). **The relative install order of LTWFITTING vs elbow on Port 1 is an open item** — see Open items below.
 
 Once the four elbow stacks are in, the vessel is the input to [`refrigerant-loop.md`](refrigerant-loop.md) step 4 (coil wind).
 
-### 9. Bench pull-test the PRV (last manual-access opportunity)
+### 9. (Optional) Functional pop test against vessel pressure
 
-After the SV-125 is threaded into the Port 4 elbow, manually verify the relief mechanism is free before the vessel hands off. With the vessel depressurized, pull the SV-125's stainless-steel pull-ring straight up against the spring with light force; the disc should lift cleanly off the seat and snap back when released. A free, snappy pull-ring confirms the disc and spring move without binding.
+The mandatory PRV mechanism-free check is the **pull-test inside the prv-shroud subassembly procedure** ([`../printed-parts/cold-core/prv-shroud/README.md`](../printed-parts/cold-core/prv-shroud/README.md) "Subassembly procedure" step 2), performed during subassembly build before the shroud is glued on. By the time the subassembly threads into Port 4 at step 8, the pull-ring is permanently enclosed in the shroud and no further manual access is available.
 
-This is the **last opportunity for any manual access to the PRV** — once the cold-core build ([`cold-core.md`](cold-core.md) step 4) installs the printed [`../printed-parts/cold-core/prv-shroud/`](../printed-parts/cold-core/prv-shroud/) over the valve and the body foam pour cures, the pull-ring is permanently enclosed. If the pull-ring binds, hangs up, or doesn't return cleanly, replace the SV-125 before handoff to [`refrigerant-loop.md`](refrigerant-loop.md).
+This optional step adds a **functional pop test against pressure** — confirming the SV-125's setpoint is in spec, not just that the mechanism moves freely. Re-use the BEAMNOVA hydro rig from step 6, with the subassembly threaded into Port 4 and the other three ports plugged. Ramp pressure on one of the plugged ports until the PRV cracks — audible pop, gas vented through the shroud's LLDPE port (or out the open cap hole if LLDPE isn't installed yet). Crack pressure should fall within ±3 % of 125 PSI (i.e., 121–129 PSI). The SV-125's silicon O-ring reseats cleanly within ±10 % of setpoint per the manufacturer's spec, so a single bench pop does not degrade the seat for service.
 
-Optional functional pop test against pressure: re-use the BEAMNOVA hydro rig from step 6, with the SV-125 in place and three of the four ports plugged. Ramp pressure on the fourth port until the PRV cracks — audible pop confirms the setpoint within the spec'd ±3 % of 125 PSI (i.e., 121–129 PSI). The SV-125's silicon O-ring reseats cleanly within ±10 % of setpoint per the manufacturer's spec, so a single bench pop does not degrade the seat for service. Optional because the pull-ring test confirms the load-bearing mechanism-free property; the functional pop only adds confidence that the spring + seat were factory-set within spec.
+Optional because the pull-ring test in the subassembly procedure confirms the load-bearing mechanism-free property, and the manufacturer's ASME UV mark implies factory setpoint verification; the functional pop only adds confidence that the spring + seat were factory-set within spec on this particular unit.
 
 ## Output condition
 
@@ -121,7 +121,7 @@ A finished vessel is:
 - Citric-acid passivated, rinsed dry
 - Sparge stone + silicone tube installed via bottom CO2 port
 - Float rod welded into bottom plate; magnetic donut captive
-- PRV pull-ring tested free and snappy (step 9)
+- PRV pull-ring tested free and snappy during prv-shroud subassembly build (per that part's README, step 2)
 - Externally clean — no scale, no flux, no oxide bloom
 
 ## Open items
