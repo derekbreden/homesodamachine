@@ -15,6 +15,7 @@ The appliance has two functional electrical zones, both on the AC inlet side. Th
 | Zone | Location | Contents |
 |---|---|---|
 | Electronics shelf | Top-back of enclosure, immediately behind C14 inlet | C14 inlet, AC distribution block, Mean Well IRM-90-12ST PSU, Teyleten relay #1 (compressor switch), Teyleten relay #2 (diaphragm pump switch), ESP32-DevKitC-32E, MCP23017, 2× ULN2803A modules, L298N pump driver, 5 V + 3.3 V regulators, ground bus |
+| Front-face GFCI | Inside front face, mounted face-flush behind a small cutout in the printed front panel | Legrand Radiant 1597BKCCD12 GFCI (UL 943 Class A, 6 mA, self-test), inline between the C14 inlet load and the AC distribution block (see [`../../business/regulatory.md`](../../business/regulatory.md) "UL 943 — ground-fault protection") |
 | Compressor zone | Middle-bottom of enclosure | Hermetic compressor + clip-on PTC start relay/overload module, condenser fan, **fire-rated shroud over the compressor terminal block** (see [`../cut-parts/compressor-shroud/`](../cut-parts/compressor-shroud/)) |
 
 The Teyleten relay #1 sits with the rest of the electronics, **outside** the compressor shroud. Switched AC enters the shroud as the only mains-side penetration. Rationale: avoid placing an arcing contact inside the protected hydrocarbon-refrigerant compartment, and minimize the wire count through the shroud wall (3 wires — switched H + N + G — vs. 5 if the relay were inside). See [`../future.md`](../future.md) "Compressor compartment shroud".
@@ -27,7 +28,8 @@ Per-run gauges, terminations, and approximate lengths. Lengths assume the enclos
 
 | # | From | To | Conductors | AWG | Approx. length | Termination | Notes |
 |---|---|---|---|---|---|---|---|
-| AC-1 | C14 inlet (rear panel) | AC distribution block on electronics shelf | H + N + G | 16 | ~50 mm (pigtail) | Crimp ferrules into Wago 221 lever block (or screw terminal block) | Inlet ships with solder-tab pins; pigtail with 16 AWG appliance wire and crimp ferrules to the distribution block. |
+| AC-1a | C14 inlet (rear panel) | Legrand Radiant 1597BKCCD12 GFCI **LINE** terminals (mounted on front face per [`../future.md`](../future.md) "User-facing elements, by location") | H + N + G | 16 | ~600 mm (rear → front, routed along enclosure interior) | Crimp ferrules at C14 pigtail; backstab or screw at LINE terminals | Inlet ships with solder-tab pins; 16 AWG appliance wire crosses the enclosure depth to the GFCI on the front face. Earth conductor passes through the device (LINE earth → LOAD earth) without being sensed — only H and N feed the CT. See [`../../business/regulatory.md`](../../business/regulatory.md) "UL 943 — ground-fault protection". |
+| AC-1b | Legrand Radiant 1597BKCCD12 GFCI **LOAD** terminals | AC distribution block on electronics shelf | H + N + G | 16 | ~600 mm (front → rear/top, routed back to electronics shelf) | Backstab or screw at LOAD terminals; crimp ferrules into Wago 221 lever block | Switched mains downstream of the GFCI feeds the distribution block; all downstream loads (PSU, compressor, etc.) are now protected. |
 | AC-2 | AC distribution block (H, N) | Mean Well IRM-90-12ST PSU primary terminals | H + N + G | 18 | ~100 mm | Crimp ring or fork terminal at PSU; ferrule at distribution block | PSU primary draws 0.67 A at 80 W full load; 18 AWG ample. Ground bonds PSU chassis. |
 | AC-3 | AC distribution block (H) | Teyleten relay #1 contact input | H | 18 | ~50 mm | Crimp fork to relay screw terminal | Unswitched hot leg into the relay's "common" terminal. |
 | AC-4 | Teyleten relay #1 contact output ("normally open") | Compressor terminal block (inside shroud) | H_switched | 18 | ~400 mm | Crimp fork to relay; female disconnect to compressor terminal | Switched hot. Routes through the shroud's grommeted AC pass-through. Length includes service slack. |
@@ -93,7 +95,7 @@ Per-build parts in [`../bom.md`](../bom.md) §11.
 
 Single-point chassis ground at the electronics shelf, bonded back through the C14 inlet's earth pin to the building's protective earth.
 
-- **C14 ground pin** → ground bus on electronics shelf (run AC-1 carries the green conductor).
+- **C14 ground pin** → ground bus on electronics shelf (runs AC-1a + AC-1b carry the green conductor through the GFCI's pass-through earth terminals; earth is not sensed by the device).
 - **Ground bus** distributes to: PSU chassis (via AC-2 ground), compressor body / shroud (via AC-6), and any other exposed metal (faucet via the SS under-counter plate, the SS pressure vessel inside the cold core, etc.) via short bonding wires. The appliance has no metal floor pan, back panel, or front-panel insert — see [`../future.md`](../future.md) "Other metal candidates considered, decided against" — so chassis grounding is via these discrete bonding wires rather than via a metal chassis backbone.
 - All ground conductors are 16 AWG green-insulated. Ring terminals at the bus, ring or fork terminals at the load.
 - The chassis bond gives the appliance Class I status: if a fault energizes any exposed metal part, fault current returns to the building ground through the C14 cord and trips the upstream breaker before the user touches anything.
