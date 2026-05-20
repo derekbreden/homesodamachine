@@ -2,6 +2,10 @@
 
 *Recommendation for follow-up — written 2026-05-19, hourly-todo-filler agent.*
 
+**DECISION (2026-05-20):** Placement → **Option A**. Single MQ-6 module relocated from inside the compressor shroud to low on the rear interior enclosure wall, mesh facing horizontally inward into the cabinet volume — positioned where dense R-600a pools at the cabinet floor from any of the dominant brazed-joint leak sites. The bare sensor's orientation is unconstrained per the Winsen MQ-6 datasheet (the previous claim in this doc that "the sensor isn't flush with the bottom edge … because the trimmer + LED + connector all need access" overstates the constraint — that's a property of the breakout-module PCB form factor, not the sensor; trimmer is bench-set once during commissioning). Propagated into `hardware/assembly/refrigerant-loop.md` (Safety paragraph + inputs table), `hardware/assembly/acceptance-and-burn-in.md` (step 11 watch-items), `hardware/bom.md` (§5 line description), `hardware/assembly/firmware-and-commissioning.md` (sensor-health check + warm-up architecture note), `hardware/future.md` (compressor-shroud paragraph), and the active-design entry in `hardware/purchases.md` line 210. (Historical journal entries in `purchases.md` from 2026-05-11 left intact as the original purchase intent at the time.) The other four open decisions in this doc — alarm threshold + persistence + sensor-failure behavior, customer-facing alarm UX + iOS critical-alert entitlement, SF76E service-swap procedure, periodic verification plan — remain open and are still action items.
+
+---
+
 This is a safety-architecture gap, not a build-blocker. The unit-1 build path doesn't need it resolved before first run-up. But it does need to be resolved before any unit lives in a customer's kitchen, and it touches several existing docs that currently assume the architecture is settled when it isn't.
 
 ## What I think is wrong
