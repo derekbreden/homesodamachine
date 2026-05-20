@@ -303,7 +303,7 @@ above to seal the gaps between (and above) the four pass-throughs:
 | `copper-plug-lower` | 50.75 → 162.65 | both ends |
 | `copper-plug-middle` | 170.15 → 194.65 | both ends |
 | `copper-plug-upper` | 202.15 → 202.65 | both ends |
-| `copper-plug-top` | 206.15 → 211.40 | bottom end only (top flat) |
+| `copper-plug-top` | 210.15 → 211.40 | bottom end only (top flat) |
 
 Each plug has a **binder-clip cross-section** that grips the wall
 edge instead of floating loosely in the slot. Viewed end-on, it's an
@@ -321,15 +321,15 @@ diagram.
 
 Each plug end that abuts a tube has a **⌀6.5 mm half-circle arch
 cutout** centered at x = 0, so the plug seats around the tube
-without crushing it. `lower` arches at both Y ends, `middle` arches
-at both Y ends, `upper` arches at the bottom Y end only (its top is
+without crushing it. `lower`, `middle`, and `upper` all arch at
+both Y ends; `top` arches at the bottom Y end only (its top is
 flush with the wall top and stays flat).
 
-After the three plugs are installed, the slot still has ~3.75 mm of
+After the four plugs are installed, the slot still has ~4.25 mm of
 total unfilled length within the wall along Y: 1.75 mm at the
-bottom of the slot, 2 mm at the top, plus six 0.5 mm clearance bands
-(one above and one below each of the three tubes). All of that gets
-filled by the body foam pour.
+bottom of the slot, 2 mm at the top, plus eight 0.5 mm clearance
+bands (one above and one below each of the four tubes). All of
+that gets filled by the body foam pour.
 
 ## Assembly and foam pour
 
@@ -357,11 +357,17 @@ Every internal component is installed first:
   bonded with 3M 425 aluminum foil tape.
 - Reservoirs installed into the two reservoir pockets.
 - Copper evaporator inlet (low), copper evaporator outlet (high),
-  and water inlet routed through the shared +Z slot at their three
-  Y heights.
-- Three copper plugs slid down into the slot from above (through
+  water inlet, and PRV vent LLDPE (from the prv-shroud cap) routed
+  through the shared +Z slot at their four Y heights. The water
+  inlet and PRV vent both come from above the tank and take slight
+  bends in their LLDPE runs to land in vertical alignment in the
+  slot.
+- Four copper plugs slid down into the slot from above (through
   the 10 mm open extension past the wall top) to seal between the
   pass-throughs.
+- PRV shroud (`../prv-shroud/`) slipped over the SV-125 valve,
+  seated on the TAISHER elbow's smooth ⌀18.8 cylinder, and hot-
+  glued at the elbow joint for foam-pour-tightness.
 - Reservoir LLDPE lines routed through holes #1 and #2 in the
   reservoir-pocket far ±X walls.
 - Water outlet through hole #4 in the outer_shell +Z wall.
