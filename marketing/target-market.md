@@ -259,6 +259,8 @@ Between discovery ("wait, that's real?") and purchase ($7,500 from a company the
 
 At Founder Edition scale, the answer to "is this a real product?" is not a brand — it's Derek. His face, his kitchen, his story. "I built this because I was tired of hauling cans. Here's my kitchen. Here's me pouring a glass. Here's what's under the counter." The first 50 buyers are buying from a person they've come to trust, not from a company — and at $7,500 with a numbered plaque and a personal install call, that is explicitly what's for sale. The founder isn't a stopgap while the brand gets built; he *is* the product for the first 50. That means "marketing" at this stage is not brand identity work — it's building a video presence. A person showing a real product in a real kitchen, consistently.
 
+The unboxing experience is a deliberate extension of that trust story. The brief at [`unboxing-and-quickstart.md`](unboxing-and-quickstart.md) defines what the customer sees in what order from the moment the carton arrives — the design choices there (single flat quick-start sheet, three-color wayfinding, hard separation between install steps and everything else) are derived from this trust-gap argument, not from generic D2C unboxing convention.
+
 By the time Standard opens, the brand carries more of the weight. At Founder Edition, the face does.
 
 ### The purchase decision, once they trust the person

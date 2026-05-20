@@ -7,6 +7,8 @@
 - [co2-supply-ownership-gap.md](co2-supply-ownership-gap.md) — post-delivery consumable supply (CO2)
 - [firmware-manifold-gap.md](firmware-manifold-gap.md) — pre-delivery firmware/hardware build readiness
 
+**Related (added 2026-05-20):** the scope of `/u/NNN` widened materially after this gap was written. [`marketing/unboxing-and-quickstart.md`](../../marketing/unboxing-and-quickstart.md) commits the printed quick-start sheet to **install steps only** — everything else the customer might need (warranty, RMA, troubleshooting, BOM, support contact, ongoing care, owner's-manual content) now lives at `/u/NNN`. The portal is no longer a "QR has no destination" gap; it is the canonical home for every non-install piece of customer information. Re-scope the recommendation accordingly when this todo is actioned.
+
 This todo is distinct from both: it is the **customer-facing software service** that the physical plaque commits us to, with no implementation and no specification today.
 
 ## TL;DR

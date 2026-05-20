@@ -2,7 +2,9 @@
 
 The production procedure for the final stage of the appliance chain — the bench between a unit that passed [`acceptance-and-burn-in.md`](acceptance-and-burn-in.md) and a tracked carton sitting on a carrier's truck. Cosmetic inspection, identity-marking with the per-unit signed nameplate, fluid-drain confirmation for transit, install-kit pack-out, customer documentation, outer label, and carrier handoff. This document is the repeatable last-touch procedure; everything downstream is the customer's countertop install, supported by the printed install guide in the box.
 
-Design intent for the Founder Edition shipping experience lives in [`../future.md`](../future.md) "Rear-panel nameplate" and [`../../marketing/target-market.md`](../../marketing/target-market.md) "Founder Edition". The dev-phase task list for the very first unit ships lives in [`../handwork.md`](../handwork.md); this doc is the per-unit repeatable bench across the 50-unit Founder Edition run.
+Design intent for the Founder Edition shipping experience lives in [`../../marketing/unboxing-and-quickstart.md`](../../marketing/unboxing-and-quickstart.md) (customer-facing unboxing + quick-start brief — the source of truth for what the customer sees in what order; packing order in this doc is downstream of that brief), [`../future.md`](../future.md) "Rear-panel nameplate", and [`../../marketing/target-market.md`](../../marketing/target-market.md) "Founder Edition". The dev-phase task list for the very first unit ships lives in [`../handwork.md`](../handwork.md); this doc is the per-unit repeatable bench across the 50-unit Founder Edition run.
+
+**Note (2026-05-20):** The packing order in §6–7 below predates the unboxing-and-quickstart brief and is now likely wrong. The brief commits to the quick-start sheet being the **first thing the customer sees** when they pull off the carton's top — flat across the entire interior, unfolded, before the appliance or the install-kit box. The current procedure has the quick-start guide buried inside the install-kit box. Re-derive §6–7 from the brief before unit 002 ships.
 
 ## Scope
 
