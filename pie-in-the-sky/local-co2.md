@@ -29,7 +29,7 @@ Three friction points the curator brand can answer:
 ## Who it's for
 
 - The CGA-320 adapter kit customer ([`cga320-kit.md`](cga320-kit.md)) who refills their own tank and would rather not pay for delivery.
-- The Kitchen / Shop Edition customer's first cylinder refill (after the included one runs out — see [`../todo/2026-05-18/co2-supply-ownership-gap.md`](../todo/2026-05-18/co2-supply-ownership-gap.md) C2 for the included-cylinder decision).
+- The Kitchen / Shop Edition customer's first cylinder refill.
 - Anyone with a CGA-320 cylinder who Googles "CO2 refill near me" and lands on us — paintball, kegerator, homebrew, aquarium. Most will never buy anything from us. Some will eventually buy the appliance.
 - People who haven't bought anything from anyone yet and are doing research. The guide is plausibly their first impression of the brand.
 
