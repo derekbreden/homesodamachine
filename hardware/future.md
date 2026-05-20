@@ -104,7 +104,7 @@ Placing the cold core at the back shortens the chilled dispense run to a minimum
 
 **Compressor compartment shroud**
 
-A non-combustible sheet-metal shroud encloses the compressor's terminal block + clip-on PTC relay/overload module — the only ignition-risk parts of the AC system in the R-600a refrigerant compartment. Hardware backstops to the firmware cutoff (SF76E thermal fuse + MQ-6 hydrocarbon sensor) live inside the shroud. Full spec, what's inside vs outside, material rationale, and dimensions at [`cut-parts/compressor-shroud/README.md`](cut-parts/compressor-shroud/README.md); safety procedure at [`assembly/refrigerant-loop.md`](assembly/refrigerant-loop.md) "Safety".
+A non-combustible sheet-metal shroud encloses the compressor's terminal block + clip-on PTC relay/overload module — the only ignition-risk parts of the AC system in the R-600a refrigerant compartment. Hardware backstops to the firmware cutoff: the SF76E thermal fuse lives inside the shroud (in series with the AC primary feeding the compressor); the MQ-6 hydrocarbon sensor is mounted low on the rear interior enclosure wall, where dense R-600a pools at the cabinet floor from any of the dominant brazed-joint leak sites. Full spec, what's inside vs outside, material rationale, and dimensions at [`cut-parts/compressor-shroud/README.md`](cut-parts/compressor-shroud/README.md); safety procedure at [`assembly/refrigerant-loop.md`](assembly/refrigerant-loop.md) "Safety".
 
 **Other metal candidates considered (decided against)**
 
