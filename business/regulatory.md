@@ -40,6 +40,14 @@ D2C sale does not require this listing. The design follows the standard anyway b
 
 The standard's fire-enclosure requirement around the ignition sources in the refrigerant compartment is implemented via a sheet-metal shroud over the compressor's terminal block + clip-on PTC start relay/overload module. Spec at `hardware/cut-parts/compressor-shroud/README.md`. The Teyleten relay that switches the compressor's AC is deliberately placed *outside* the shroud so its switching arc — a small but real ignition source — is not co-located with the protected zone; only switched AC enters the shroud through a single grommeted pass-through. The condenser fan motor is also outside the shroud (low ignition risk + needs to move air).
 
+## UL 943 — ground-fault protection
+
+Class A GFCI, 6 mA trip threshold, 120 V personnel protection. The 2015 revision of the standard mandates automatic self-test (periodic internal verification with lockout on test failure) for all manufacture from that point forward.
+
+D2C sale does not require this listing. The design follows the standard anyway because a Class I plumbed appliance — four bonded chassis surfaces (pressure vessel, compressor body, compressor shroud, faucet plate) returning fault current through the C14 cord per `hardware/wiring/ac-wiring-schedule.md` — carries the same shock-protection obligation regardless of certification path. The standard codifies what ground-fault protection in a household appliance actually requires.
+
+Implementation: a self-test-compliant ground-fault interrupter module (NCS37010-class sense IC, zero-sequence sense CT, latching relay) on the AC side of the appliance, downstream of the C14 inlet and upstream of the AC distribution block. TEST and RESET pushbuttons and a status indicator mount on the front face of the enclosure, near the existing user-facing elements (pump cartridge access, hopper above, CO2 inlet). The line cord from the C14 inlet is a generic NEMA 5-15P → C13 — protection is in the appliance, not in the cord, so the C14 inlet's value as a standard swappable connection is preserved. Any C13 cord works; the customer cannot defeat the protection by replacing the cord with a generic one from a drawer. A pre-2015 sense IC like the RV4145A would meet the trip requirement but not the post-2015 self-test mandate and is not designed in.
+
 ## CPSC general safety duty
 
 Federal Consumer Product Safety Commission applies to any consumer product sold in the US. Product must not be unreasonably dangerous. No listing or certification required — this is a general duty of care, independently honored by the project's design practice.
