@@ -104,6 +104,14 @@ All four ports get a TAISHER 316L SS elbow. MNPT into the plate's FNPT, Millrose
 
 Once the four elbow stacks are in, the vessel is the input to [`refrigerant-loop.md`](refrigerant-loop.md) step 4 (coil wind).
 
+### 9. Bench pull-test the PRV (last manual-access opportunity)
+
+After the SV-125 is threaded into the Port 4 elbow, manually verify the relief mechanism is free before the vessel hands off. With the vessel depressurized, pull the SV-125's stainless-steel pull-ring straight up against the spring with light force; the disc should lift cleanly off the seat and snap back when released. A free, snappy pull-ring confirms the disc and spring move without binding.
+
+This is the **last opportunity for any manual access to the PRV** — once the cold-core build ([`cold-core.md`](cold-core.md) step 4) installs the printed [`../printed-parts/cold-core/prv-shroud/`](../printed-parts/cold-core/prv-shroud/) over the valve and the body foam pour cures, the pull-ring is permanently enclosed. If the pull-ring binds, hangs up, or doesn't return cleanly, replace the SV-125 before handoff to [`refrigerant-loop.md`](refrigerant-loop.md).
+
+Optional functional pop test against pressure: re-use the BEAMNOVA hydro rig from step 6, with the SV-125 in place and three of the four ports plugged. Ramp pressure on the fourth port until the PRV cracks — audible pop confirms the setpoint within the spec'd ±3 % of 125 PSI (i.e., 121–129 PSI). The SV-125's silicon O-ring reseats cleanly within ±10 % of setpoint per the manufacturer's spec, so a single bench pop does not degrade the seat for service. Optional because the pull-ring test confirms the load-bearing mechanism-free property; the functional pop only adds confidence that the spring + seat were factory-set within spec.
+
 ## Output condition
 
 A finished vessel is:
@@ -113,6 +121,7 @@ A finished vessel is:
 - Citric-acid passivated, rinsed dry
 - Sparge stone + silicone tube installed via bottom CO2 port
 - Float rod welded into bottom plate; magnetic donut captive
+- PRV pull-ring tested free and snappy (step 9)
 - Externally clean — no scale, no flux, no oxide bloom
 
 ## Open items

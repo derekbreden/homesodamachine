@@ -70,11 +70,14 @@ step 8.
    it down past the cap-side opening, past the hex, past the
    discharge side port, until the open end of the shroud seats on
    the smooth ⌀18.8 mm cylindrical section of the elbow.
-3. Run a bead of hot glue (or equivalent fast-cure adhesive) around
-   the joint between the shroud's open end and the elbow's smooth
-   cylinder. The seal needs to be foam-tight for the ~30-60 minute
-   foam rise, not airtight indefinitely — cured foam takes over as
-   the structural seal.
+3. Run a bead of sealant (see Open items below) around the joint
+   between the shroud's open end and the elbow's smooth cylinder.
+   The seal needs to be **foam-tight, not airtight or pressure-
+   tight** — only enough to keep the rising body foam from
+   intruding through the joint. Cured foam takes over as the
+   structural seal once it sets. The shroud-on assembly step and
+   the foam pour can be days apart; the sealant does not have to
+   be fast-cure.
 4. Press-fit a length of 1/4" OD LLDPE tubing into the shroud's
    ⌀6.35 vent hole. Route the LLDPE out through the +Z shared slot
    in the outer shell (PRV vent pass-through, see foam-shell
@@ -100,6 +103,23 @@ step 8.
   foam shell. The PRV is a once-installed component in this design;
   if it ever needs replacement, the cold-core foam pour is the
   serviceable boundary.
+
+## Open items
+
+1. **Sealant choice at the shroud-to-elbow joint.** The bead's only
+   job is to keep rising body foam out of the cavity for the ~5
+   minutes it takes the foam to skin over. Once the foam is set, it
+   takes over as the structural seal. The bead can cure as slowly
+   as it wants — the shroud-on assembly step and the foam pour can
+   be days apart. Candidate sealants under consideration: 100% RTV
+   silicone caulk (skins in 20–30 min, fully cures overnight, bonds
+   well to both PETG and brass), 5-minute two-part epoxy (rigid, very
+   reliable bond, slightly fiddlier), or hot-melt EVA (fastest but
+   weakest bond to brass and softens slightly under foam exotherm).
+   A small-scale dry run — pour a few mL of mixed foam into a clear
+   container with a shroud-on-elbow stub inside, watch for joint
+   intrusion through the cure — is the right way to pick before
+   committing to unit 001.
 
 ## Regression baseline
 
