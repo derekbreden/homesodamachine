@@ -1,6 +1,6 @@
-"""Copper-line plugs — three small PETG pieces that slide down into
+"""Copper-line plugs — four small PETG pieces that slide down into
 the shared ⌀6.5 port in the outer_shell +Z wall and seal the gaps
-between (and above) the three pass-throughs that share that port.
+between (and above) the four pass-throughs that share that port.
 
 Pass-throughs that pierce the +Z outer wall through the shared port,
 ordered low → high in Y:
@@ -17,13 +17,25 @@ ordered low → high in Y:
   • water inlet                                   at y = foam_shell_outer_height
                                                    − hole_shift_from_edge
                                                    = 198.4 mm
+  • PRV vent (1/4" LLDPE from prv-shroud cap)     at y = water_inlet_y
+                                                   + prv_vent_offset_above_water
+                                                   = 206.4 mm
 
-Three plugs in the stack:
+The PRV vent line is unpressurized in normal operation — it carries
+relief-event discharge from the prv-shroud cavity (see
+`../prv-shroud/`) out to the appliance interior. Despite carrying
+gas rather than water, it shares the same slot + same 1/4" OD tube
++ same ⌀6.5 slot punch as the other three pass-throughs, so it
+participates in the same plug architecture.
+
+Four plugs in the stack:
   • copper-plug-lower:  fills the Y span between the lowest-copper
                         and highest-copper pass-throughs.
   • copper-plug-middle: fills the Y span between the highest-copper
                         and water-inlet pass-throughs.
-  • copper-plug-upper:  fills the Y span above the water inlet, up
+  • copper-plug-upper:  fills the Y span between the water-inlet
+                        and PRV-vent pass-throughs.
+  • copper-plug-top:    fills the Y span above the PRV vent, up
                         to (just below) the +Y top face of the
                         outer_shell.
 
@@ -64,7 +76,9 @@ top_flange_outer), so the flanges don't block tubes from seating.
                  (under highest copper).
   • MIDDLE plug: arch on BOTTOM (over highest copper), arch on TOP
                  (under water inlet).
-  • UPPER plug:  arch on BOTTOM (over water inlet), TOP stays FLAT
+  • UPPER plug:  arch on BOTTOM (over water inlet), arch on TOP
+                 (under PRV vent).
+  • TOP plug:    arch on BOTTOM (over PRV vent), TOP stays FLAT
                  (it's the top end of the stack).
 """
 
@@ -139,6 +153,15 @@ lowest_copper_y = hole_shift_from_edge + wall_and_floor_thickness + below_tank_e
 highest_copper_y = foam_shell_outer_height - hole_shift_from_edge - wall_and_floor_thickness - above_tank_elbows_height
 water_inlet_y = foam_shell_outer_height - hole_shift_from_edge
 
+# PRV vent sits above the water inlet by enough to give both adjacent
+# plugs reasonable Y extent (~8 mm each: 198.4 → 206.4 → 213.4). The
+# LLDPE coming off the prv-shroud cap takes a slight bend to land at
+# this Y in the slot, same as the water-inlet tube does for its own
+# elbow exit. Above_tank_elbows_height (= 30 mm) gives ~15 mm of room
+# between the water inlet and the shell top — split here as 8 + 7.
+prv_vent_offset_above_water = 8.0
+prv_vent_y = water_inlet_y + prv_vent_offset_above_water
+
 # Plug end faces meet AT the tube pass-through centers. The arch
 # cutout at each tube-facing end (radius = tube_clearance_radius)
 # accommodates exactly HALF of the adjacent tube: each tube sits with
@@ -154,16 +177,18 @@ water_inlet_y = foam_shell_outer_height - hole_shift_from_edge
 plug_y_ranges = {
     "lower": (lowest_copper_y, highest_copper_y),
     "middle": (highest_copper_y, water_inlet_y),
-    "upper": (water_inlet_y, foam_shell_outer_height),
+    "upper": (water_inlet_y, prv_vent_y),
+    "top": (prv_vent_y, foam_shell_outer_height),
 }
 
 # Which plug ends get a half-circle arch cutout (sits against a tube).
-# True = arch cutout, False = flat end. UPPER's top is flat (top of
+# True = arch cutout, False = flat end. TOP's top is flat (top of
 # the stack); every other end-against-a-tube arches around its tube.
 plug_arch_ends = {
     "lower": {"bottom": True, "top": True},
     "middle": {"bottom": True, "top": True},
-    "upper": {"bottom": True, "top": False},
+    "upper": {"bottom": True, "top": True},
+    "top": {"bottom": True, "top": False},
 }
 
 # Razor-edge mitigation for the web at each arched plug end. The

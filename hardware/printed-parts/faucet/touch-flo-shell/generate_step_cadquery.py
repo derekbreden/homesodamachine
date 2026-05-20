@@ -330,11 +330,11 @@ gn_tip_straight_len = 25.0
 split_a_socket_overlap_len = 20.0
 split_a_plug_overlap_len = 19.0
 split_a_socket_wall = 2.0
-split_a_plug_wall = 1.9
+split_a_plug_wall = 1.95
 
 split_b_socket_overlap_len = 20.0
 split_b_plug_overlap_len = 18.0
-split_b_socket_wall = 1.9
+split_b_socket_wall = 2.0
 split_b_plug_wall = 1.9
 
 split_a_socket_shrink = split_a_socket_wall
