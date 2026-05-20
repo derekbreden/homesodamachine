@@ -303,11 +303,17 @@ Geometry response in `76c2407`:
 
 Only `touch-flo-shell-top.step` regenerated; `bottom.step` and `middle.step` byte-identical to attempt 13.
 
-Settings deltas vs attempt 13: **not yet captured** — no new `.3mf` saved at this commit. Will be added once Derek re-imports the regenerated `touch-flo-shell-top.step` and saves a new slice.
+Settings deltas observed in `touch-flo-shell-3-pieces.3mf` vs attempt 13:
+- PET-CF (slot 0) `filament_scarf_gap`: 10% → **0%** (back to system default; no longer in `different_settings_to_system`).
+- PET-CF (slot 0) `filament_scarf_length`: 10 → **20** (now an explicit override; appears in `different_settings_to_system`).
+- PET-CF `filament_scarf_seam_type` unchanged at `external`; `filament_scarf_height` unchanged at 10%.
+- Per-object plate positions shifted ≤ 0.02 mm in X/Z after re-import of the regenerated `touch-flo-shell-top.step` (object IDs renumbered, source_offsets recomputed) — no slice impact. Per-object footprint areas unchanged (bottom 630.5 mm², middle 9.27 mm², top 290.0 mm²); first-layer time 178.37 s → 178.15 s.
+
+Settings unchanged from attempt 13: everything else — print profile `0.30mm Standard @BBL H2C 0.6 nozzle`, PET-CF temps / fans / flow, process settings, all support settings, brim settings.
 
 ### Scarf-seam settings — recording posture
 
-Per Derek 2026-05-20: scarf-seam slicer fields (`filament_scarf_seam_type`, `filament_scarf_gap`, any other `filament_scarf_*` fields) are recorded but not interpreted in this log. Derek iterates these directly. When a new `.3mf` is saved, observed scarf-field values will be listed flatly alongside other settings deltas with no hypothesis or recommendation attached.
+Per Derek 2026-05-20: scarf-seam slicer fields (`filament_scarf_seam_type`, `filament_scarf_gap`, `filament_scarf_length`, `filament_scarf_height`, and any other `filament_scarf_*` fields) are **recorded but not interpreted** in this log. Derek iterates these directly. Observed values are listed flatly alongside other settings deltas with no hypothesis or recommendation attached.
 
 ## Hardware / setup observations across all PET-CF attempts
 
