@@ -439,50 +439,49 @@ This drives several dimension choices:
 
 ## Print settings
 
-Current slicer save: [`foam-shell.3mf`](foam-shell.3mf) (Bambu
-Studio 02.06.01.55). Plate contains four objects sliced together:
-`foam-shell` + `copper-plug-lower` + `copper-plug-middle` +
-`copper-plug-upper`. The `foam-cap` and `foam-cap-lid` are printed
-on a separate plate.
+**Print with stock Bambu Studio defaults** — no slicer overrides, no
+custom G-code, no chamber fan settings. The 2 mm wall thickness is
+what makes the part printable on this H2C; no other compensation is
+needed. No `.3mf` is committed because there's nothing in the slicer
+profile that differs from stock.
 
-### Chamber exhaust fan
+Plate contents (when slicing): `foam-shell` + `copper-plug-lower` +
+`copper-plug-middle` + `copper-plug-upper` together; `foam-cap` and
+`foam-cap-lid` on a separate plate.
 
-PETG on the H2C heat-soaks during long prints, which causes outer-wall
-warping. The fix is to vent the chamber with the chamber exhaust fan
-(`M106 P2 S153` — `P2` selects the chamber exhaust, `P0` is part-
-cooling, `P1` is aux; `S153` is ~60 % of 255).
+### Chamber exhaust fan (not used — history)
 
-Background: a previous H2C running this part on PETG produced
-warp-free prints (first 2 mm walls, then 1 mm walls) once
-`M106 P2 S153` was added unconditionally to the filament Start
-G-code (commit `24605cb`). That earlier printer's nozzle size is
-not recorded in the repo. That setup was retired and the work
-moved to a **brand-new H2C** — the 0.8 mm nozzle transferred over
-physically, but plate, chamber, gaskets, and everything else are
-clean-slate.
+Earlier 1 mm-wall iterations of this part warped at the corners, and
+the chamber exhaust fan (`M106 P2 S153` — `P2` is the chamber
+exhaust, `P0` is part-cooling, `P1` is aux) was investigated as the
+fix. A prior H2C with 1 mm walls had produced warp-free prints with
+that line added unconditionally to filament Start G-code (commit
+`24605cb`); when work moved to a brand-new H2C — same 0.8 nozzle,
+clean-slate plate/chamber/gaskets — five attempts at 1 mm walls
+with varying fan triggers all failed at the corners (see Attempts
+table).
 
-On the new H2C, the same unconditional setup pulled too much heat
-too early and the first layer curled off the bed. Delaying the fan
-to layer 16 (in Layer Change G-code) let the print get past the
-first-layer-adhesion phase but the corners still lifted within one
-or two layers of the fan turning on. No fan-off attempt has been
-run to completion yet.
+**Resolution:** bumped `wall_and_floor_thickness` from 1 mm to 2 mm
+(commit `8a9ffc0`, 2026-05-12) and dropped the fan override
+entirely. Stock Bambu defaults at 2 mm walls have printed this part
+warp-free four times running. The fan was a red herring on this
+printer — the part just needed more wall to resist corner lift.
 
-Conditional placement: the M106 line **must** live in **Printer
-Settings → Machine G-code → Layer Change G-code** (appended to the
-existing layer-progress lines), not in filament Start G-code.
-`layer_change_gcode` is re-emitted each layer with `layer_num`
-rebound; filament Start G-code is evaluated once at `t=0` where
-`layer_num` is 0, so the conditional would never fire from there.
-
-Current `foam-shell.3mf` Layer Change G-code carries:
+If a future iteration regresses to corner warping, the conditional
+that *would* have fired correctly is documented below; it belongs
+in **Printer Settings → Machine G-code → Layer Change G-code**
+(appended to existing layer-progress lines), not in filament Start
+G-code, because `layer_change_gcode` is re-emitted each layer with
+`layer_num` rebound while filament Start G-code evaluates once at
+`t=0` with `layer_num` bound to 0:
 
 ```gcode
 {if layer_num == 29}M106 P2 S77{endif}
 ```
 
-`layer_num` is 0-indexed, so this targets the 30th layer (~12 mm up
-at 0.4 mm layer height) at ~30 % fan speed (S77 / 255).
+This was attempt 5's setting (fan on at layer 30, ~30 % speed) and
+still failed at 1 mm walls. Reach for it only after exhausting
+geometric remedies.
 
 ### Printer / profile
 
@@ -505,8 +504,8 @@ at 0.4 mm layer height) at ~30 % fan speed (S77 / 255).
 - **Material:** Bambu PETG Basic @BBL H2C
 - **Nozzle temp:** 250 °C (initial layer 245 °C)
 - **Bed:** Textured PEI Plate at 70 °C
-- **Chamber:** passive (`chamber_temperatures: 0`); chamber exhaust
-  fan delayed via conditional, see above
+- **Chamber:** passive (`chamber_temperatures: 0`); no chamber exhaust
+  fan override — see history above
 - **Flow ratio:** 0.97
 - **Max volumetric speed:** 21 mm³/s (28 on the second nozzle slot)
 - **Part-cooling fan:** max 40 %, min 20 %, overhang 90 % at ≥ 10 %
@@ -515,13 +514,18 @@ at 0.4 mm layer height) at ~30 % fan speed (S77 / 255).
 
 ### Attempts (0.8 nozzle / 0.40 mm layer)
 
-| # | Date | Outcome | Change for next attempt |
-|---|------|---------|-------------------------|
-| 1 | 2026-05-11 | Nozzle clumping at layer 1 | Called a fluke (no slicer change); restarted |
-| 2 | 2026-05-11 | First-layer curling off the bed; not noticed in time | Suspect chamber exhaust fan pulling heat before brim grip. Moved `M106 P2 S153` from unconditional to `{if layer_num == 15}M106 P2 S153{endif}` inside filament Start G-code |
-| 3 | 2026-05-11 | Cancelled mid-print after realizing the conditional in filament Start G-code wouldn't fire (`layer_num == 0` at slice time → empty expansion → fan off the whole print) | Move the conditional from filament Start G-code into printer-level Layer Change G-code, where `layer_num` is rebound per layer |
-| 4 | 2026-05-11 | Conditional fired correctly at layer 16, but corners lifted within ~1 layer of fan turn-on | Suspected the chamber fan itself, on this brand-new H2C, is the failure cause regardless of trigger layer. Two candidate next attempts discussed: skip the chamber fan entirely (single-variable test) or reduce both fan speed and trigger layer (layer 30 / 30 %) |
-| 5 | 2026-05-11 | In progress — Layer Change G-code now reads `{if layer_num == 29}M106 P2 S77{endif}` (~30 % fan at the 30th layer, ~12 mm up). Both axes moved in the safer direction: trigger layer 16 → 30, fan speed 60 % → 30 % | — |
+Attempts 1–5 ran at 1 mm walls and varied the chamber fan trigger;
+all failed at the corners. Attempt 6 onward ran at 2 mm walls with
+the fan override removed and have all succeeded.
+
+| # | Date | Walls | Outcome | Change for next attempt |
+|---|------|-------|---------|-------------------------|
+| 1 | 2026-05-11 | 1 mm | Nozzle clumping at layer 1 | Called a fluke (no slicer change); restarted |
+| 2 | 2026-05-11 | 1 mm | First-layer curling off the bed; not noticed in time | Suspect chamber exhaust fan pulling heat before brim grip. Moved `M106 P2 S153` from unconditional to `{if layer_num == 15}M106 P2 S153{endif}` inside filament Start G-code |
+| 3 | 2026-05-11 | 1 mm | Cancelled mid-print after realizing the conditional in filament Start G-code wouldn't fire (`layer_num == 0` at slice time → empty expansion → fan off the whole print) | Move the conditional from filament Start G-code into printer-level Layer Change G-code, where `layer_num` is rebound per layer |
+| 4 | 2026-05-11 | 1 mm | Conditional fired correctly at layer 16, but corners lifted within ~1 layer of fan turn-on | Suspected the chamber fan itself, on this brand-new H2C, is the failure cause regardless of trigger layer. Two candidate next attempts discussed: skip the chamber fan entirely (single-variable test) or reduce both fan speed and trigger layer (layer 30 / 30 %) |
+| 5 | 2026-05-11 | 1 mm | Failed — corners lifted again at fan-on around layer 30, same pattern as attempt 4 just delayed. Confirmed fan-tuning was not going to close the gap | Bump `wall_and_floor_thickness` 1 mm → 2 mm (commit `8a9ffc0`, 2026-05-12); drop the fan override entirely; return to stock Bambu defaults |
+| 6+ | 2026-05-12 onward | 2 mm | ~4 successful prints in a row through other CAD iterations of the shell. No corner lift, no warping, stock Bambu PETG Basic defaults, no Layer Change G-code customization | — |
 
 ## Regression baseline
 
