@@ -1,6 +1,6 @@
 # *"Bushing" Doesn't Mean Bushing* — production plan
 
-Companion plan for the X1 Pro wire-stick explainer. Substantive technical content already lives in [`../../hardware/welding-progress-2026-05-09.md`](../../hardware/welding-progress-2026-05-09.md) — this file captures production division of labor only.
+Companion plan for the X1 Pro wire-stick explainer. **Open: reconsider scope against [`dont-let-go.md`](dont-let-go.md) (2026-05-19) — the Chinese trigger-handling technique addresses wire-stick more durably than the Bushing delay parameter, in both mid-bead and end-of-bead scenarios. Possible paths: fold the translation table into Don't Let Go as a B-roll beat, keep this as a follow-up niche piece for X1 Pro owners, or drop entirely.**
 
 - **Working title:** *"Bushing" Doesn't Mean Bushing — Fixing X1 Pro Wire Stick*
 - **Target length:** ~3 minutes
@@ -24,7 +24,7 @@ After the agent delivers the finalized script (below). Standard post-record narr
 
 - Pull the three source clips from Photos via [`export-from-photos.sh`](export-from-photos.sh).
 - Pull the wire-stuck-to-plate cold-open clip from the *Stuck Less That Time* working dir or re-export from Photos.
-- Download the X1 Pro Operator's Manual PDF from the source URL in [`../../hardware/welding-progress-2026-05-09.md`](../../hardware/welding-progress-2026-05-09.md), screenshot Figure 17 (the wire-feeding parameters page), crop to the three definitions.
+- Download the X1 Pro Operator's Manual PDF (52-page English version: <https://cdn.shopify.com/s/files/1/0564/7581/1898/files/xlaserlab_X1_Pro_laser_welder_user_Manual_compressed.pdf?v=1760577559>), screenshot Figure 17 (the wire-feeding parameters page), crop to the three definitions.
 - Build an annotated translation-table PNG, 1920×1080, sans-serif, dark background:
   - Three rows: 回抽 / 补丝 / 补丝延迟.
   - Three columns: Chinese term, English (as printed in manual), Actual meaning.
@@ -92,7 +92,7 @@ Each block names the visual it sits over. Narration in blockquotes is what the u
 
 Captured for a later pass — fold in selectively when revisiting. Don't pollute the core above.
 
-1. **Honest caveats half-beat.** A ~15-second insert between Shot 3 and the Close, naming the bound: *"This delay is for 0.065-inch 304L stainless. Thicker plate holds heat longer — push the delay up. Thinner sheet, the default 400 ms is probably right. Your number will be different than mine."* The "Open questions" list in [`../../hardware/welding-progress-2026-05-09.md`](../../hardware/welding-progress-2026-05-09.md) (1200–1500 ms might suffice, wire-feed-stop timing untested, Pulse mode untested) is the source. Prevents misuse, earns durable credibility.
+1. **Honest caveats half-beat.** A ~15-second insert between Shot 3 and the Close, naming the bound: *"This delay is for 0.065-inch 304L stainless. Thicker plate holds heat longer — push the delay up. Thinner sheet, the default 400 ms is probably right. Your number will be different than mine."* Source values for the caveats: 1200–1500 ms might suffice, wire-feed-stop timing untested, Pulse mode untested. Prevents misuse, earns durable credibility.
 2. **Pinyin in the script as pronunciation guidance.** Pull the pinyin from the welding-progress translation table (*huí chōu*, *bǔ sī*, *bǔ sī yán chí*) into the inline script. The video's whole differentiator is "I went to the Chinese source" — pronouncing the terms badly weakens that signal. The user doesn't need perfect tones, just deliberate ones.
 3. **Thumbnail follows the existing channel convention.** Use [`../thumbnail/make.sh`](../thumbnail/make.sh) with white-on-black-outline text at the top of the frame, matching *First Weld* / *First Tap* / *Stuck Less*. Avoid one-off styling for visual consistency on the channel grid.
 4. **Capture frame rate for slow-mo.** GoPro baseline per [`equipment.md`](equipment.md) is 30 fps. For slow-mo on shots 1 and 2, bump to 60 or 120 fps before the session — easy to miss at capture time and forces a reshoot if forgotten.
