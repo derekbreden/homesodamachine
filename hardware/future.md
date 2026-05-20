@@ -130,6 +130,8 @@ The Multiplex 19-0897's atmospheric vent terminates inside the kitchen cabinet o
 
 *Enclosure front face:* CO2 inlet stub for the short tether from the customer's CO2 cylinder. The cylinder itself sits beside the appliance on the cabinet floor — in the side air-gap, not in front of the front face. The labeled inlet on the front-panel face says "hose connects here" without instructions; the matching bottle-shaped placement affordance ("cylinder goes here") lives on the side-face exterior surface the cylinder neighbors, not on the front panel. Geometric specifics deferred to the as-yet-unwritten enclosure-exterior surface document.
 
+*Enclosure front face:* TEST and RESET pushbuttons plus a status LED for the ground-fault interrupter module on the AC side. The module self-tests automatically; the buttons are present for UL 943 compliance and for the rare case where the customer needs to manually reset after a fault. Protection architecture in [`../business/regulatory.md`](../business/regulatory.md) "UL 943 — ground-fault protection".
+
 *Enclosure side faces:* condenser intake grille on one side, condenser exhaust grille on the opposite side — straight-through airflow path with the harvested ice-maker fan inline between them.
 
 **Power**
@@ -138,7 +140,7 @@ The appliance is cord-and-plug 120 VAC through the rear C14 inlet. The harvested
 
 **Rear-panel AC inlet**
 
-The AC inlet is an IEC 60320 C14 panel-mount receptacle (MXR B07DCXKNXQ) accepting a standard NEMA 5-15P → C13 line cord, recessed 3–5 mm into the rear panel with a printed shroud so the cord housing nests flush — fit-and-feel improvement only, no electrical change. Inlet placement on the panel, the recess geometry, the cross-tested C13/C14 mate matrix, and the rejected locking-cord / hardwired-cord alternatives are captured alongside the rest of the panel-mount inventory in [`printed-parts/enclosure/back-panel/README.md`](printed-parts/enclosure/back-panel/README.md).
+The AC inlet is an IEC 60320 C14 panel-mount receptacle (MXR B07DCXKNXQ) accepting a standard NEMA 5-15P → C13 line cord, recessed 3–5 mm into the rear panel with a printed shroud so the cord housing nests flush — fit-and-feel improvement only, no electrical change. The line cord itself is intentionally a commodity C13 (any cord works — international, replacement, scavenged); ground-fault protection is implemented inside the appliance downstream of this inlet rather than in the cord, so swapping the cord cannot defeat it (see [`../business/regulatory.md`](../business/regulatory.md) "UL 943 — ground-fault protection"). Inlet placement on the panel, the recess geometry, the cross-tested C13/C14 mate matrix, and the rejected locking-cord / hardwired-cord alternatives are captured alongside the rest of the panel-mount inventory in [`printed-parts/enclosure/back-panel/README.md`](printed-parts/enclosure/back-panel/README.md).
 
 **Rear-panel nameplate**
 
