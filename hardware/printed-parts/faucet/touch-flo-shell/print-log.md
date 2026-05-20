@@ -264,6 +264,28 @@ Geometry response in `67b4205`:
 
 Settings deltas vs attempt 11: **none**. Same `touch-flo-shell-3-pieces.3mf` slice config — only the embedded STEP geometry changed (objects re-imported after the `67b4205` regeneration). Per-object positions on the plate shifted by ≤ 0.3 mm in X/Y; middle-piece footprint area 9.277 → 9.277 mm² (identical to 3 decimals); first-layer time 177.4 s → 178.3 s.
 
+## PET-CF print attempt 13 (joint-wall nudge + PET-CF scarf gap 10%)
+
+Hardware: same (0.6 mm DUROZZLE TC L-side hotend).
+
+Geometry: 3-piece split shell with joint walls nudged per commit `d60d78d` ("faucet/touch-flo-shell: nudge joint walls after attempt 12 grip test"). Same overlap depths as attempts 10–12.
+
+Derek said about attempt 12 (after pull-test by feel — "lbs of force" are relative, not measured):
+- "Both splits allow for complete insertion, and both splits 'hold'."
+- "SPLIT A is holding firm, takes a bit more than 10 lbs of force to pull out, though I would like to see if we can get that to 20."
+- "SPLIT B is holding, but not firm, takes maybe 5 lbs of force to pull out."
+
+Geometry response in `d60d78d`:
+- SPLIT A: female unchanged at 2.0 mm. Male plug wall 1.9 → 1.95 mm. Radial clearance 0.1 → **0.05 mm**.
+- SPLIT B: female socket wall 1.9 → 2.0 mm; male plug wall unchanged at 1.9. Radial clearance 0.2 → **0.1 mm** — matches the clearance SPLIT A had at attempt 12 (the one that held at ~10 lbf).
+
+Settings deltas observed in `touch-flo-shell-3-pieces.3mf` vs attempt 12:
+- PET-CF (slot 0, active) `filament_scarf_gap`: 0% → **10%**. The scarf-seam gap is what controls the overlap thinning where the scarf laps into the prior seam end; 10% widens that taper. Scarf seams themselves have been on for PET-CF external walls since attempt 11.
+- Filament-slot project layout reordered: slot 1 Generic PETG ↔ slot 2 PETG Basic swap (the active slot 0 PET-CF is unchanged, so no slice impact). Reflected across all per-slot arrays (`nozzle_temperature`, `filament_settings_id`, etc.).
+- First-layer time essentially unchanged: 178.29 s → 178.37 s.
+
+Settings unchanged from attempt 12: everything else — print profile `0.30mm Standard @BBL H2C 0.6 nozzle`, PET-CF temps / fans / flow, process settings, all support settings, brim settings.
+
 ## Hardware / setup observations across all PET-CF attempts
 
 Derek said:
