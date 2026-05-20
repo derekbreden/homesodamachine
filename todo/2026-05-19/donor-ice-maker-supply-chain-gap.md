@@ -154,4 +154,3 @@ None of these recommendations changes the appliance. All of them harden the *pat
 - [`hardware/bom.md`](../../hardware/bom.md) §5 — per-unit BOM allocation
 - [`marketing/target-market.md`](../../marketing/target-market.md) lines 174-180 — ring-1 friend pricing, which is where a BOM cost bump bites hardest
 - Today's sibling [`concentrate-supply-resilience-gap.md`](concentrate-supply-resilience-gap.md) — same risk pattern on the syrup side, useful as a structural reference for how to write up the BiB-equivalent secondary-source plan
-- Today's sibling [`fielded-unit-firmware-update-gap.md`](fielded-unit-firmware-update-gap.md) — adjacent failure-handling concern (what happens when a field unit needs intervention), motivates the per-unit build record above
