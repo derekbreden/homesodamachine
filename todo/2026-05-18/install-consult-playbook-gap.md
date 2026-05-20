@@ -7,6 +7,8 @@
 - [co2-supply-ownership-gap.md](co2-supply-ownership-gap.md) — post-delivery CO2 consumable supply
 - [per-unit-portal-gap.md](per-unit-portal-gap.md) — `/u/NNN` customer-facing software service
 
+**Related (added 2026-05-20):** before drafting the call script, read [`marketing/unboxing-and-quickstart.md`](../../marketing/unboxing-and-quickstart.md). The brief commits the customer to having a single flat quick-start sheet open in front of them during install. The Zoom script can refer to the sheet's nine numbered steps + line drawings rather than re-explaining each one verbally — that changes the call's structure, pacing, and whether it can land in one session or needs the two-session restructure described in [`todo/2026-05-20/first-pour-commissioning-gap.md`](../2026-05-20/first-pour-commissioning-gap.md) (the 60-90 min thermal pulldown is now also Step 8 on the printed sheet).
+
 This todo is distinct from both: those cover the consumable side and the software-portal side of post-delivery ownership. This one is about the **founder-touch service** itself — the explicit Founder Edition deliverable that runs once per unit, between carrier handoff and "the first soda comes out the faucet."
 
 ## TL;DR

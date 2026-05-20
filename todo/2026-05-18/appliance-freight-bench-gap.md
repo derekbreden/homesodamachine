@@ -5,6 +5,8 @@
 **Audience:** future agents, Derek
 **Distinct from siblings 2026-05-18:** the [CO2 sibling](co2-supply-ownership-gap.md) covers Class 2.2 cylinder hazmat for ongoing customer CO2 supply; the [install-consult sibling](install-consult-playbook-gap.md) covers the Zoom-call moment at the customer's kitchen; the [warranty sibling](warranty-and-rma-gap.md) covers post-delivery failure. **This doc is about the freight leg itself — the carrier handoff at step 9 of [`finish-pack-ship.md`](../../hardware/assembly/finish-pack-ship.md), and Open Items 1, 3, and 6 of that procedure.**
 
+**Related (added 2026-05-20):** carton geometry, foam end-cap design, and "what does the customer see when they open the box" are now driven by [`marketing/unboxing-and-quickstart.md`](../../marketing/unboxing-and-quickstart.md). Any carton-class / carrier-class decisions in this gap need to be compatible with the brief's commitments: single unambiguous TOP face, single-pull opening, flat quick-start sheet covering the entire interior on first open, no styrofoam visible, three-color accent system on the carton exterior. Re-read the brief before choosing a carton spec.
+
 ---
 
 ## TL;DR
