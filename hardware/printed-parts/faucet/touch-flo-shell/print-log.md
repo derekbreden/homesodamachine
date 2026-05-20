@@ -286,6 +286,29 @@ Settings deltas observed in `touch-flo-shell-3-pieces.3mf` vs attempt 12:
 
 Settings unchanged from attempt 12: everything else — print profile `0.30mm Standard @BBL H2C 0.6 nozzle`, PET-CF temps / fans / flow, process settings, all support settings, brim settings.
 
+## PET-CF print attempt 14 (SPLIT B plug wall matched to SPLIT A)
+
+Hardware: same (0.6 mm DUROZZLE TC L-side hotend).
+
+Geometry: 3-piece split shell with SPLIT B plug wall matched to SPLIT A's per commit `76c2407` ("faucet/touch-flo-shell: match SPLIT B plug wall to SPLIT A (1.9 -> 1.95)"). Same overlap depths as attempts 10–13.
+
+Derek said about attempt 13 (after pull test):
+- "Pull test on SPLIT A is perfect."
+- "SPLIT B is still a little loose."
+
+Geometry response in `76c2407`:
+- SPLIT A: unchanged. Female socket wall 2.0 mm, male plug wall 1.95 mm. Radial clearance ~0.05 mm.
+- SPLIT B: female socket wall unchanged at 2.0 mm. Male plug wall 1.9 → **1.95 mm**. Radial clearance 0.1 → **0.05 mm** — matches SPLIT A.
+- Depths untouched from attempts 10–13: A male 19 / female 20 mm; B male 18 / female 20 mm.
+
+Only `touch-flo-shell-top.step` regenerated; `bottom.step` and `middle.step` byte-identical to attempt 13.
+
+Settings deltas vs attempt 13: **not yet captured** — no new `.3mf` saved at this commit. Will be added once Derek re-imports the regenerated `touch-flo-shell-top.step` and saves a new slice.
+
+### Scarf-seam settings — recording posture
+
+Per Derek 2026-05-20: scarf-seam slicer fields (`filament_scarf_seam_type`, `filament_scarf_gap`, any other `filament_scarf_*` fields) are recorded but not interpreted in this log. Derek iterates these directly. When a new `.3mf` is saved, observed scarf-field values will be listed flatly alongside other settings deltas with no hypothesis or recommendation attached.
+
 ## Hardware / setup observations across all PET-CF attempts
 
 Derek said:
