@@ -233,9 +233,9 @@ rotational symmetry so the caps can be flipped end-for-end.
 
 ## Penetrations
 
-Seven pass-throughs total, all carrying **1/4" OD tubing (6.35 mm)** through
+Eight pass-throughs total, all carrying **1/4" OD tubing (6.35 mm)** through
 holes sized at ⌀6.5 mm for a tight tube fit. Four pass-throughs each get
-their own dedicated round hole; the remaining three share a single
+their own dedicated round hole; the remaining four share a single
 Y-elongated slot at the +Z outer wall.
 
 | # | Pass-through | Opening | Carries |
@@ -247,6 +247,7 @@ Y-elongated slot at the +Z outer wall.
 | 5 | Copper evaporator inlet (low) | shared +Z slot | 1/4" OD ACR copper to compressor |
 | 6 | Copper evaporator outlet (high) | shared +Z slot | 1/4" OD ACR copper to compressor |
 | 7 | Water inlet | shared +Z slot | 1/4" OD line from the diaphragm pump |
+| 8 | PRV vent | shared +Z slot | 1/4" OD LLDPE from the prv-shroud cap into the appliance interior (unpressurized; carries relief-event discharge only — see [`../prv-shroud/`](../prv-shroud/)) |
 
 **Build decision:** for the water inlet and CO2 inlet, the supply-side
 tubing reduces to 1/4" OD *before* reaching the shell wall — i.e., the
@@ -258,15 +259,15 @@ of the transition fittings being a few cm further from the tank.
 
 ### Shared +Z slot and copper plug stack
 
-The +Z outer_shell wall carries three pass-throughs along a single
+The +Z outer_shell wall carries four pass-throughs along a single
 **Y-elongated slot** at x = 0: the two copper evaporator lines (low
-and high) and the water inlet. The slot is ⌀6.5 mm wide in X
-(rounded ends along Y), runs from y = 42 up to
+and high), the water inlet, and the PRV vent. The slot is ⌀6.5 mm
+wide in X (rounded ends along Y), runs from y = 42 up to
 y = `foam_shell_outer_height + 10` (10 mm of open extension past
 the wall top), and is cut by `cut_slot_for_copper_and_water_inlet`
 in `_port_cuts.py`. The 10 mm top extension means no sliver
-of wall material remains above the slot — the three copper plugs
-can slide down into the slot from above during assembly. With the
+of wall material remains above the slot — the four plugs can
+slide down into the slot from above during assembly. With the
 centerward wall extending only to z = ±72.5 (where it meets the
 ±Z walls via the transition arcs), the slot at x = 0, z = 52.5
 pierces only this one outer +Z wall.
@@ -279,10 +280,12 @@ floor** — i.e. from the interior cavity's lower bound, not from y = 0):
 | Lowest copper (evaporator inlet) | 45.0 |
 | Highest copper (evaporator outlet) | 164.4 |
 | Water inlet | 196.4 |
+| PRV vent | 204.4 |
 
 (Absolute Y in the CadQuery model is +`wall_and_floor_thickness`
-above these — i.e. 47.0 / 166.4 / 198.4 at the current 2 mm wall
-— since the floor occupies y = 0 to y = `wall_and_floor_thickness`.)
+above these — i.e. 47.0 / 166.4 / 198.4 / 206.4 at the current
+2 mm wall — since the floor occupies y = 0 to
+y = `wall_and_floor_thickness`.)
 
 (The highest copper drifted by −1 mm relative to the floor top when
 `wall_and_floor_thickness` was bumped from 1 mm to 2 mm in commit
@@ -292,14 +295,15 @@ has a `−wall_and_floor_thickness` term that the `+wall_thickness_compensation`
 inside `foam_shell_outer_height` only half-cancels once you reframe
 against the floor top. The drift was accepted.)
 
-Three printed PETG **copper plugs** slide down into the slot from
-above to seal the gaps between (and above) the three pass-throughs:
+Four printed PETG **copper plugs** slide down into the slot from
+above to seal the gaps between (and above) the four pass-throughs:
 
 | Plug | Y span (mm) | Y end arches |
 |---|---|---|
 | `copper-plug-lower` | 50.75 → 162.65 | both ends |
 | `copper-plug-middle` | 170.15 → 194.65 | both ends |
-| `copper-plug-upper` | 202.15 → 211.40 | bottom end only (top flat) |
+| `copper-plug-upper` | 202.15 → 202.65 | both ends |
+| `copper-plug-top` | 206.15 → 211.40 | bottom end only (top flat) |
 
 Each plug has a **binder-clip cross-section** that grips the wall
 edge instead of floating loosely in the slot. Viewed end-on, it's an
