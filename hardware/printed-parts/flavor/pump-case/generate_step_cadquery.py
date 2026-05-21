@@ -4,7 +4,7 @@ The case is built as one combined solid, then split with a stepped cut
 into a base and a cap.
 
 Base: base plate with octagon-to-footprint ramp, octagon pump bore,
-      M3 mounting holes, a cylindrical tower below, and a pogo connector pocket.
+      a cylindrical tower below, and a pogo connector pocket.
 Cap:  asymmetric flared skirt (wide on +Z, narrow on -Z) with a lower
       extension that tapers to uniform width.
 
@@ -56,15 +56,6 @@ bore_half_span = 53.0 / 2
 
 vertex_far = bore_half_span
 vertex_near = bore_half_diag - bore_half_span
-
-# M3 mounting holes
-hole_r = 3.3 / 2.0
-hole_positions = [
-    (center_x - 25.0, center_z + 25.0),
-    (center_x + 25.0, center_z + 25.0),
-    (center_x + 25.0, center_z - 25.0),
-    (center_x - 25.0, center_z - 25.0),
-]
 
 # Tower
 tower_height = 60.0
@@ -510,20 +501,6 @@ def cut_bore_cavity(solid):
     return solid.cut(bore_cavity)
 
 
-def cut_mounting_holes(solid):
-    """M3 mounting holes through the base plate and bore wall."""
-    for hx, hz in hole_positions:
-        hole = (
-            WorldWorkplane(xz_plane_y_up)
-            .workplane(offset=0)
-            .center(hx, hz)
-            .circle(hole_r)
-            .extrude(bore_depth + overcut)
-        )
-        solid = solid.cut(hole)
-    return solid
-
-
 def loft_profile_stack(start_world_y, y_steps, profiles, overcut_last_step=False):
     """Loft a stack of profiles at successive world-Y levels.
 
@@ -757,7 +734,6 @@ def build_pump_case():
     solid = build_base_plate_with_ramp()
     solid = solid.union(build_skirt())
     solid = add_bore_wall(solid)
-    solid = cut_mounting_holes(solid)
     solid = solid.union(build_tower())
     solid = cut_bore_cavity(solid)
     combined = solid.union(build_lower_extension())
