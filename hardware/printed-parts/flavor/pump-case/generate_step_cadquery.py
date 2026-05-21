@@ -68,12 +68,12 @@ hole_positions = [
 
 # Tower
 tower_height = 60.0
-platform_thickness = 3.0
 cap_thickness = 3.0
 cylinder_id = 37.0
-cylinder_od = cylinder_id + 2 * wall_thickness
-cylinder_r_outer = cylinder_od / 2
 cylinder_r_inner = cylinder_id / 2
+# cylinder_r_outer is set in the derived-geometry section below — its
+# value matches the octagonal bore wall's outer extent so the bore-to-
+# tower joint needs no ramp.
 
 # Lower extension
 lower_height = 23.0
@@ -122,9 +122,11 @@ arc_segments = 8
 # uses the following horizontal levels:
 #
 #   y = +81      tower cylinder's far face (its bottom in install orientation)
-#   y = +32      ramp end — top of cylinder
-#   y = +24      tower platform's lower face — top of octagon-to-cylinder ramp
-#   y = +21      bore's lower face — top of tower platform
+#   y = +21      bore wall's far face (octagonal bore cavity ends here)
+#   y =  +8      tower cylinder's near face — cylinder top tangent to
+#                the base-plate ramp at the cardinals; overlaps the bore
+#                wall in y∈[+8,+21] (containing it strictly inside the
+#                larger radius — no tangent meeting at the cardinals)
 #   y =  +3      base plate's lower face
 #   y =   0      base plate's bore-opening face — origin
 #   y =  -9.5    narrow-half cap-side step (the stepped split)
@@ -136,9 +138,26 @@ octagon_wall_outer_extent = vertex_far + wall_thickness
 
 bore_depth = base_thickness + ramp_from_skirt_to_octagon_height
 bore_bottom_y = bore_depth                                        # +21
-tower_platform_bottom_y = bore_bottom_y + platform_thickness      # +24
-ramp_from_octagon_to_cylinder_height = octagon_wall_outer_extent - cylinder_r_outer
-octagon_to_cylinder_scale = cylinder_r_outer / octagon_wall_outer_extent
+
+# The tower's outer radius sits 0.5 mm beyond the bore wall's outer
+# extent at the cardinals (octagon_wall_outer_extent = 29.5, cylinder
+# = 30.0).  The cylinder strictly contains the bore wall instead of
+# meeting it tangentially at the cardinals — no knife-edge joint
+# anywhere, just an inward step of 0.5 mm at the cardinals and ~5 mm
+# at the diagonals as the layer transitions from cylinder up into the
+# bore-wall section.
+cylinder_r_outer = octagon_wall_outer_extent + 0.5
+
+# The cylinder's top face sits at Y=+8, the Y level at which the
+# base-plate ramp's cardinal half-extent equals cylinder_r_outer (the
+# ramp at Y=+8 is at 38 - 8 = 30.0).  The cylinder's top edge is
+# therefore exactly tangent to the ramp at the cardinals — no bumps
+# protruding past the ramp at the cylinder's top face.  Below this Y
+# the cylinder overlaps the bore-wall region down to bore_bottom_y;
+# in that overlap the cylinder is the outer surface (the bore wall is
+# fully contained inside it).
+cylinder_top_y = 8
+cylinder_bottom_y = bore_bottom_y + tower_height                  # +81
 
 footprint_half_extent = footprint_x / 2
 
@@ -348,10 +367,6 @@ def split_skirt_profile(wide_half_extent, wide_radius,
 # Bore profiles (shared by bore construction and tower)
 bore_profile = bore_octagon_profile()
 bore_wall_profile = offset_polygon(bore_profile, wall_thickness)
-bore_wall_profile_at_cylinder = [
-    (x * octagon_to_cylinder_scale, z * octagon_to_cylinder_scale)
-    for x, z in bore_wall_profile
-]
 
 
 # Skirt profiles (shared by skirt, lower extension, split, and snap fits).
@@ -469,19 +484,30 @@ def build_base_plate_with_ramp():
     )
 
 
-def add_bore_wall_and_cut_bore(solid):
-    """Add octagon bore wall, then cut the bore cavity."""
+def add_bore_wall(solid):
+    """Add the octagonal bore wall around the pump-flange seat. The bore
+    cavity (the hollow interior with ledges) is NOT cut here — see
+    cut_bore_cavity, which runs after the tower cylinder is unioned so
+    the cavity also pierces the cylinder's overlap with the bore region."""
     bore_wall = (
         case_workplane(0)
         .polyline(bore_wall_profile).close()
         .extrude(bore_depth)
     )
+    return solid.union(bore_wall)
+
+
+def cut_bore_cavity(solid):
+    """Cut the octagonal pump-flange seat (with ledges) through the bore
+    wall and any tower cylinder material that overlaps the bore-wall
+    region.  Must run after build_tower has been unioned in, otherwise
+    the cylinder fills the cavity back in."""
     bore_cavity = (
         case_workplane(0)
         .polyline(bore_profile).close()
         .extrude(bore_depth + overcut)
     )
-    return solid.union(bore_wall).cut(bore_cavity)
+    return solid.cut(bore_cavity)
 
 
 def cut_mounting_holes(solid):
@@ -523,28 +549,18 @@ def build_skirt():
 
 
 def build_tower():
-    """Octagon platform, octagon-to-cylinder ramp, and cylindrical tower."""
-    tower_platform = (
-        case_workplane(bore_bottom_y)
-        .polyline(bore_wall_profile).close()
-        .extrude(platform_thickness)
-    )
-
-    tower_ramp = (
-        case_workplane(tower_platform_bottom_y)
-        .polyline(bore_wall_profile).close()
-        .workplane(offset=ramp_from_octagon_to_cylinder_height)
-        .polyline(bore_wall_profile_at_cylinder).close()
-        .loft(ruled=True)
-    )
-
+    """Cylindrical tower extending downward from cylinder_top_y. The
+    outer radius (cylinder_r_outer) circumscribes the octagonal bore
+    wall, so there's no octagon-to-cylinder transition — the tower is
+    a single uniform-radius cylinder.  The cylinder starts above the
+    bore wall's far face, overlapping it on the outside; the bore
+    cavity inside stays at its original Y range (it's the pump body's
+    clearance, separate from the tower's outer shape)."""
     tower_cylinder = (
-        case_workplane(bore_bottom_y)
+        case_workplane(cylinder_top_y)
         .circle(cylinder_r_outer)
-        .extrude(tower_height)
+        .extrude(cylinder_bottom_y - cylinder_top_y)
     )
-
-    tower = tower_platform.union(tower_ramp).union(tower_cylinder)
 
     tower_bore_depth = tower_height - cap_thickness
     tower_bore = (
@@ -552,7 +568,7 @@ def build_tower():
         .circle(cylinder_r_inner)
         .extrude(tower_bore_depth + overcut)
     )
-    return tower.cut(tower_bore)
+    return tower_cylinder.cut(tower_bore)
 
 
 def _lower_profile_set(wall_offset):
@@ -740,9 +756,10 @@ def add_pogo_pocket(base):
 def build_pump_case():
     solid = build_base_plate_with_ramp()
     solid = solid.union(build_skirt())
-    solid = add_bore_wall_and_cut_bore(solid)
+    solid = add_bore_wall(solid)
     solid = cut_mounting_holes(solid)
     solid = solid.union(build_tower())
+    solid = cut_bore_cavity(solid)
     combined = solid.union(build_lower_extension())
     combined = cut_arch_notches(combined)
     base, cap = split_into_base_and_cap(combined)
