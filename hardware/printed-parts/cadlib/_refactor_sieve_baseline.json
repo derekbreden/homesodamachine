@@ -1,0 +1,55 @@
+{
+  "cold_core_hashes": {
+    "hardware/printed-parts/cold-core/copper-plugs/copper-plug-lower.step": "e96fc74ab9be10fdc6bfba3787923a3b99655e9a5d9c949738d4a65505995c09",
+    "hardware/printed-parts/cold-core/copper-plugs/copper-plug-middle.step": "4a525943bcb403a2ac4d2639241b78939f258245f308de2a21cf5b977b0817c0",
+    "hardware/printed-parts/cold-core/copper-plugs/copper-plug-top.step": "711f7c4c0c5d5c752b3f3beb5390a9beaaf2995bb6bb9d1e5eeace5247027651",
+    "hardware/printed-parts/cold-core/copper-plugs/copper-plug-upper.step": "8ac6052d9b414a2f070e6c4e6c2461c49d996ff21ef3e0e3d4ca99affdc764cb",
+    "hardware/printed-parts/cold-core/foam-cap/foam-cap-bottom.step": "167e8ee5b9c10e7c7f7fa05cd0bf8fbca120f942326cc2c1b87befc01f78bd1c",
+    "hardware/printed-parts/cold-core/foam-cap/foam-cap-gasket.step": "b17a222e0e890f0546dc5bd5aadbb503ea94d03a10f2b0ff9dad827d14990fb7",
+    "hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-bottom.step": "2e93b89dc5a4bd95123e4d15b782bb7bcdce0d2c3c2b22a16ad46749e918187b",
+    "hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-top.step": "8d3aa1114290ac797bc2d1126cac698234159c0028ad7f81e83f0088050562e6",
+    "hardware/printed-parts/cold-core/foam-cap/foam-cap-top.step": "e2af8a646d8f1ecab8a6a1c9094f1a76d2c83fee77e331ae0dc63c4971609397",
+    "hardware/printed-parts/cold-core/foam-shell/foam-shell.step": "8ad9b58b540599b036e19dd9b90b50a2466c75fcb160a431f4b4a2d5fbdfb9ae",
+    "hardware/printed-parts/cold-core/reservoir/reservoir-bulkhead-seal.step": "14555559966667e30579273955678c8280ee62eed3013d47c775e46841da9b51",
+    "hardware/printed-parts/cold-core/reservoir/reservoir-cap-left.step": "8d1f5196845e65b0f0254c1fa4f73fe9ba29e1adee9ae5f542cb586788dcc34c",
+    "hardware/printed-parts/cold-core/reservoir/reservoir-cap-right.step": "690550ffaab0f275f9bd1e446065a29bada740e6dc917b44bc0da15b969aaf56",
+    "hardware/printed-parts/cold-core/reservoir/reservoir-gasket.step": "19aa87c7a539469115720db82d5743ba1fb0041a3d6d509c8776129835d3ecd0",
+    "hardware/printed-parts/cold-core/reservoir/reservoir-left.step": "49d92d72dc8158e373b520acf93f526222895856cdde1a0eb6f2d5330eb2d854",
+    "hardware/printed-parts/cold-core/reservoir/reservoir-retaining-ring.step": "2f138314c2b80c64b1946c8c3af591ecbbdd64e5925b437f9e9cbb444f456080",
+    "hardware/printed-parts/cold-core/reservoir/reservoir-right.step": "af23a08afd518c9d67fb66e656f33f148f3208c1aa55baddac005d18ff57923a"
+  },
+  "pump_case": {
+    "base": {
+      "bbox": {
+        "xmax": 73.0,
+        "xmin": -3.0,
+        "ymax": 81.0,
+        "ymin": -33.0,
+        "zmax": 72.0,
+        "zmin": -2.0
+      },
+      "com": {
+        "x": 35.0,
+        "y": 19.9684,
+        "z": 37.1043
+      },
+      "volume_mm3": 79960.4474
+    },
+    "cap": {
+      "bbox": {
+        "xmax": 73.0,
+        "xmin": -3.0,
+        "ymax": -6.25,
+        "ymin": -54.5,
+        "zmax": 70.25,
+        "zmin": -0.25
+      },
+      "com": {
+        "x": 35.0,
+        "y": -39.3114,
+        "z": 30.5301
+      },
+      "volume_mm3": 39013.1238
+    }
+  }
+}

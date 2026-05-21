@@ -1,147 +1,30 @@
 """Shared interface for the cold-core's geometry modules — workplane
 conventions, hole-punch helpers, and the dimensional constants that
 every sibling part (foam shell, foam cap stack, reservoir, copper
-plugs, coil mandrel) needs to stay in sync against."""
+plugs, coil mandrel) needs to stay in sync against.
+
+World-coordinate workplane infrastructure (xz_plane_y_up,
+xy_plane_z_up, WorldWorkplane, WorldProfile) lives in the shared
+`cadlib/world_workplane.py` so the pump-case and other parts can use
+the same convention; this module re-exports it for cold-core
+consumers."""
+
+import sys
+from pathlib import Path
 
 import cadquery as cq
 
-xz_plane_y_up = cq.Plane(origin=(0, 0, 0), xDir=(1, 0, 0), normal=(0, 1, 0))
-xy_plane_z_up = cq.Plane(origin=(0, 0, 0), xDir=(1, 0, 0), normal=(0, 0, 1))
+sys.path.insert(
+    0,
+    str(Path(__file__).resolve().parent.parent / "cadlib"),
+)
 
-
-def flip_z(world_xz):
-    """World (x, z) → (x, -z) for xz_plane_y_up workplane calls. Its 2D
-    point args (moveTo, lineTo, polyline, radiusArc, threePointArc, ...)
-    interpret their second component as -world Z."""
-    x, z = world_xz
-    return (x, -z)
-
-
-# Frame registry: maps each plane to its (point_transform, radius_transform).
-_world_frames = []
-
-
-def _register_frame(plane, point=lambda p: p, radius=lambda r: r):
-    """Associate a coordinate transform pair with a workplane.
-
-    point: maps an (a, b) tuple to the (x, y) tuple cadquery expects
-        for this plane's local coordinates.
-    radius: maps a signed .radiusArc radius under the same transform.
-        Must negate when `point` flips one axis (chirality inversion).
-    """
-    _world_frames.append((plane, dict(point=point, radius=radius)))
-
-
-def _lookup_frame(plane):
-    for p, frame in _world_frames:
-        if p is plane:
-            return frame
-    return dict(point=lambda p: p, radius=lambda r: r)
-
-
-class WorldProfile:
-    """A profile recipe: records a sequence of moveTo/lineTo/radiusArc/
-    threePointArc operations in world coordinates. Doesn't touch any
-    workplane. Applied via WorldWorkplane.profile(prof)."""
-
-    def __init__(self):
-        self._ops = []
-
-    def moveTo(self, p):
-        self._ops.append(('moveTo', p))
-        return self
-
-    def lineTo(self, p):
-        self._ops.append(('lineTo', p))
-        return self
-
-    def radiusArc(self, p, r):
-        self._ops.append(('radiusArc', p, r))
-        return self
-
-    def threePointArc(self, m, e):
-        self._ops.append(('threePointArc', m, e))
-        return self
-
-
-class WorldWorkplane:
-    """A cq.Workplane wrapper that accepts (x, y) tuples directly (not
-    unpacked scalars) and applies the plane's registered frame transform
-    to points and radii. Other Workplane methods (.workplane, .extrude,
-    .cut, .union, .polyline, .circle, .faces, .shell, .close, etc.) pass
-    through unchanged via __getattr__ delegation, re-wrapping any
-    Workplane returned so the frame persists through the chain."""
-
-    def __init__(self, plane_or_wp, point=None, radius=None):
-        if isinstance(plane_or_wp, cq.Workplane):
-            self._wp = plane_or_wp
-            plane = plane_or_wp.plane
-        else:
-            self._wp = cq.Workplane(plane_or_wp)
-            plane = plane_or_wp
-        frame = _lookup_frame(plane)
-        self._point = point if point is not None else frame['point']
-        self._radius = radius if radius is not None else frame['radius']
-
-    def _wrap(self, wp):
-        return WorldWorkplane(wp, point=self._point, radius=self._radius)
-
-    def unwrap(self):
-        """Return the underlying cq.Workplane for handing off to APIs
-        that type-check on Workplane (cq.exporters.export, .cut/.union
-        operand checks, etc.)."""
-        return self._wp
-
-    def moveTo(self, p):
-        return self._wrap(self._wp.moveTo(*self._point(p)))
-
-    def lineTo(self, p):
-        return self._wrap(self._wp.lineTo(*self._point(p)))
-
-    def radiusArc(self, p, r):
-        return self._wrap(self._wp.radiusArc(self._point(p), self._radius(r)))
-
-    def threePointArc(self, m, e):
-        return self._wrap(self._wp.threePointArc(self._point(m), self._point(e)))
-
-    def pushPoints(self, points):
-        return self._wrap(self._wp.pushPoints([self._point(p) for p in points]))
-
-    def polyline(self, points):
-        return self._wrap(self._wp.polyline([self._point(p) for p in points]))
-
-    def profile(self, prof):
-        """Play back a WorldProfile's recorded ops on this workplane,
-        applying the frame transforms."""
-        wp = self._wp
-        for op in prof._ops:
-            kind = op[0]
-            if kind == 'moveTo':
-                wp = wp.moveTo(*self._point(op[1]))
-            elif kind == 'lineTo':
-                wp = wp.lineTo(*self._point(op[1]))
-            elif kind == 'radiusArc':
-                wp = wp.radiusArc(self._point(op[1]), self._radius(op[2]))
-            elif kind == 'threePointArc':
-                wp = wp.threePointArc(self._point(op[1]), self._point(op[2]))
-        return self._wrap(wp)
-
-    def __getattr__(self, name):
-        attr = getattr(self._wp, name)
-        if not callable(attr):
-            return attr
-        def wrapper(*args, **kwargs):
-            args = tuple(a._wp if isinstance(a, WorldWorkplane) else a for a in args)
-            kwargs = {k: (v._wp if isinstance(v, WorldWorkplane) else v) for k, v in kwargs.items()}
-            result = attr(*args, **kwargs)
-            return self._wrap(result) if isinstance(result, cq.Workplane) else result
-        return wrapper
-
-
-# Register the xz_plane_y_up frame: world (x, z) → local (x, -z); radius
-# sign negates to keep arc chirality consistent.
-_register_frame(xz_plane_y_up, point=flip_z, radius=lambda r: -r)
-# xy_plane_z_up uses the identity default — no registration needed.
+from world_workplane import (  # noqa: E402  -- path inserted above
+    xz_plane_y_up,
+    xy_plane_z_up,
+    WorldWorkplane,
+    WorldProfile,
+)
 
 
 # All structural walls and floors are 2 mm PETG.

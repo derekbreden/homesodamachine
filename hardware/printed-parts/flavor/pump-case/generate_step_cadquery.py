@@ -23,6 +23,7 @@ sys.path.insert(0, str(next(p for p in _here.parents if p.name == "printed-parts
 sys.path.insert(0, str(next(p for p in _here.parents if p.name == "hardware")))
 
 from snap import Frame, apply_ramp_out_first, apply_ramp_in_first
+from world_workplane import WorldWorkplane, xz_plane_y_up, xy_plane_z_up
 from _cadq_export import export_step
 
 
@@ -110,24 +111,56 @@ overcut = 0.1
 arc_segments = 8
 
 
-# Derived geometry
+# Coordinate convention
+# ---------------------
+# Every `_y` and `_z` in this file is a signed world coordinate.
+# Distances/heights/thicknesses are unsigned magnitudes.
+#
+# Origin is at the center of the case footprint, on the bore-opening
+# face of the base plate.  +Y points toward the tower (away from the
+# cap); -Y points toward the skirt top (toward the cap).  Construction
+# uses the following horizontal levels:
+#
+#   y = +81      tower cylinder's far face (its bottom in install orientation)
+#   y = +32      ramp end — top of cylinder
+#   y = +24      tower platform's lower face — top of octagon-to-cylinder ramp
+#   y = +21      bore's lower face — top of tower platform
+#   y =  +3      base plate's lower face
+#   y =   0      base plate's bore-opening face — origin
+#   y =  -9.5    narrow-half cap-side step (the stepped split)
+#   y = -28.5    skirt's wide-half mating edge with the cap
+#   y = -51.5    cap lower extension's far face
+#   y = -54.5    cap lower extension's closing-wall outer face
+
 octagon_wall_outer_extent = vertex_far + wall_thickness
 
 bore_depth = base_thickness + ramp_from_skirt_to_octagon_height
-tower_base_y = -bore_depth
+bore_bottom_y = bore_depth                                        # +21
+tower_platform_bottom_y = bore_bottom_y + platform_thickness      # +24
 ramp_from_octagon_to_cylinder_height = octagon_wall_outer_extent - cylinder_r_outer
 octagon_to_cylinder_scale = cylinder_r_outer / octagon_wall_outer_extent
 
 footprint_half_extent = footprint_x / 2
 
 
-def case_workplane(y_offset):
-    """XZ workplane at world Y = y_offset, centered on the case (X = center_x, Z = center_z).
+def case_workplane(world_y):
+    """XZ-aligned workplane at world Y = world_y, with the in-plane
+    origin shifted to (world X = center_x, world Z = center_z).
 
-    +Y in the workplane's local frame maps to +Y in world coords; subsequent
-    .extrude(h) extrudes along world +Y with positive h.
+    Built on xz_plane_y_up so subsequent .workplane(offset=dy) shifts
+    by dy along world +Y, .extrude(h) extrudes h along world +Y, and
+    polyline/center args accept world (x, z) tuples (the wrapper
+    handles the local-Y chirality flip).
+
+    Because of the centering, polyline points passed downstream are
+    interpreted as case-centered (x, z) — i.e., (0, 0) is the case's
+    central axis, not a corner.  Pre-built profiles like the bore
+    octagon and the rounded-rect footprints are already centered at
+    origin and need no further shifting.
     """
-    return cq.Workplane("XZ").workplane(offset=y_offset).center(center_x, center_z)
+    return (WorldWorkplane(xz_plane_y_up)
+            .workplane(offset=world_y)
+            .center(center_x, center_z))
 
 
 # Polygon generators
@@ -351,21 +384,23 @@ skirt_transition_z_mid = (skirt_wide_flare_per_side, -skirt_wide_flare_per_side)
 skirt_transition_z_end = (skirt_wide_flare_per_side, -skirt_narrow_taper_per_side)
 skirt_transition_z_end_plus = skirt_transition_z_end[0]
 
+# Signed world-Y deltas between the five skirt cross-section levels.
+# Each entry is negative because the skirt grows from y=0 (base plate)
+# toward more negative Y (away from the bore, toward the cap).
 skirt_y_steps = [
-    skirt_upper_height,
-    skirt_wide_flare_per_side,
-    skirt_narrow_taper_per_side - skirt_wide_flare_per_side,
-    skirt_narrow_straight_height,
+    -skirt_upper_height,
+    -skirt_wide_flare_per_side,
+    -(skirt_narrow_taper_per_side - skirt_wide_flare_per_side),
+    -skirt_narrow_straight_height,
 ]
-skirt_bottom_offset = sum(skirt_y_steps)
-skirt_bottom_y = -skirt_bottom_offset
+skirt_bottom_y = sum(skirt_y_steps)                # -28.5; case's wide-half mating edge with the cap
 
 # Y level of the cap-side stepped split — narrow half (-Z) meets the cap
 # step_height higher into the skirt than the wide half (+Z).
-narrow_split_offset = skirt_bottom_offset - step_height
+narrow_split_y = skirt_bottom_y + step_height      # -9.5
 
-# World-coord Y of the case's +Z outer face (perpendicular to Z).
-pos_z_face_offset = center_z + footprint_half_extent
+# World Z of the case's +Z outer face.
+pos_z_face_z = center_z + footprint_half_extent
 
 
 def _skirt_profile_set(wall_offset):
@@ -415,7 +450,8 @@ skirt_inner_profiles = _skirt_profile_set(skirt_wall)
 
 
 def build_base_plate_with_ramp():
-    """Ramped platform from the 70x70 footprint down to the octagon bore."""
+    """Base plate (y=0..+3) plus the 45° ramp (y=+3..+21) shrinking from
+    the 70x70 footprint to a 34x34 footprint that meets the octagon bore wall."""
     footprint = rounded_rect_profile(footprint_x, footprint_z, corner_r)
     footprint_at_ramp_bottom = rounded_rect_profile(
         footprint_x - 2 * ramp_from_skirt_to_octagon_height,
@@ -425,9 +461,9 @@ def build_base_plate_with_ramp():
     return (
         case_workplane(0)
         .polyline(footprint).close()
-        .workplane(offset=-base_thickness)
+        .workplane(offset=base_thickness)
         .polyline(footprint).close()
-        .workplane(offset=-ramp_from_skirt_to_octagon_height)
+        .workplane(offset=ramp_from_skirt_to_octagon_height)
         .polyline(footprint_at_ramp_bottom).close()
         .loft(ruled=True)
     )
@@ -438,12 +474,12 @@ def add_bore_wall_and_cut_bore(solid):
     bore_wall = (
         case_workplane(0)
         .polyline(bore_wall_profile).close()
-        .extrude(-bore_depth)
+        .extrude(bore_depth)
     )
     bore_cavity = (
         case_workplane(0)
         .polyline(bore_profile).close()
-        .extrude(-(bore_depth + overcut))
+        .extrude(bore_depth + overcut)
     )
     return solid.union(bore_wall).cut(bore_cavity)
 
@@ -452,27 +488,29 @@ def cut_mounting_holes(solid):
     """M3 mounting holes through the base plate and bore wall."""
     for hx, hz in hole_positions:
         hole = (
-            cq.Workplane("XZ")
+            WorldWorkplane(xz_plane_y_up)
             .workplane(offset=0)
             .center(hx, hz)
             .circle(hole_r)
-            .extrude(-(bore_depth + overcut))
+            .extrude(bore_depth + overcut)
         )
         solid = solid.cut(hole)
     return solid
 
 
-def loft_profile_stack(start_y_offset, y_steps, profiles, overcut_last_step=False):
-    """Loft a stack of profiles, each on its own offset workplane.
+def loft_profile_stack(start_world_y, y_steps, profiles, overcut_last_step=False):
+    """Loft a stack of profiles at successive world-Y levels.
 
-    Profiles are placed on workplanes at cumulative offsets: the first at
-    start_y_offset, each subsequent at the previous + the next y_step. If
-    overcut_last_step, the final step is extended by overcut to ensure a
-    cut profile pierces cleanly through a sibling solid boundary.
+    start_world_y: world Y of the first profile.
+    y_steps: signed world-Y deltas between consecutive profiles.
+    overcut_last_step: extend the last delta by overcut in the same
+        direction as the loft's travel, so a cut profile pierces cleanly
+        through a sibling solid boundary.
     """
-    wp = case_workplane(start_y_offset).polyline(profiles[0]).close()
+    wp = case_workplane(start_world_y).polyline(profiles[0]).close()
     for i, (step, profile) in enumerate(zip(y_steps, profiles[1:])):
-        extra = overcut if (overcut_last_step and i == len(y_steps) - 1) else 0
+        is_last = i == len(y_steps) - 1
+        extra = math.copysign(overcut, step) if (overcut_last_step and is_last) else 0
         wp = wp.workplane(offset=step + extra).polyline(profile).close()
     return wp.loft(ruled=True)
 
@@ -487,32 +525,32 @@ def build_skirt():
 def build_tower():
     """Octagon platform, octagon-to-cylinder ramp, and cylindrical tower."""
     tower_platform = (
-        case_workplane(tower_base_y)
+        case_workplane(bore_bottom_y)
         .polyline(bore_wall_profile).close()
-        .extrude(-platform_thickness)
+        .extrude(platform_thickness)
     )
 
     tower_ramp = (
-        case_workplane(tower_base_y - platform_thickness)
+        case_workplane(tower_platform_bottom_y)
         .polyline(bore_wall_profile).close()
-        .workplane(offset=-ramp_from_octagon_to_cylinder_height)
+        .workplane(offset=ramp_from_octagon_to_cylinder_height)
         .polyline(bore_wall_profile_at_cylinder).close()
         .loft(ruled=True)
     )
 
     tower_cylinder = (
-        case_workplane(tower_base_y)
+        case_workplane(bore_bottom_y)
         .circle(cylinder_r_outer)
-        .extrude(-tower_height)
+        .extrude(tower_height)
     )
 
     tower = tower_platform.union(tower_ramp).union(tower_cylinder)
 
     tower_bore_depth = tower_height - cap_thickness
     tower_bore = (
-        case_workplane(tower_base_y + overcut)
+        case_workplane(bore_bottom_y - overcut)
         .circle(cylinder_r_inner)
-        .extrude(-(tower_bore_depth + overcut))
+        .extrude(tower_bore_depth + overcut)
     )
     return tower.cut(tower_bore)
 
@@ -541,22 +579,24 @@ def build_lower_extension():
                          - skirt_narrow_half_extent)
     lower_uniform_straight = (lower_height - lower_ramp_height
                               - lower_footprint_straight)
-    lower_y_steps = [lower_footprint_straight, lower_ramp_height,
-                     lower_uniform_straight]
+    # Lower extension continues away from the base plate in the same -Y
+    # direction the skirt was growing in.
+    lower_y_steps = [-lower_footprint_straight, -lower_ramp_height,
+                     -lower_uniform_straight]
 
     lower_outer_profiles = _lower_profile_set(0)
     lower_inner_profiles = _lower_profile_set(skirt_wall)
 
-    lower_outer = loft_profile_stack(skirt_bottom_offset, lower_y_steps, lower_outer_profiles)
-    lower_inner = loft_profile_stack(skirt_bottom_offset, lower_y_steps, lower_inner_profiles,
+    lower_outer = loft_profile_stack(skirt_bottom_y, lower_y_steps, lower_outer_profiles)
+    lower_inner = loft_profile_stack(skirt_bottom_y, lower_y_steps, lower_inner_profiles,
                                      overcut_last_step=True)
     lower_shell = lower_outer.cut(lower_inner)
 
-    lower_cap_offset = skirt_bottom_offset + lower_height
+    lower_cap_top_y = skirt_bottom_y - lower_height
     lower_cap = (
-        case_workplane(lower_cap_offset)
+        case_workplane(lower_cap_top_y)
         .polyline(lower_outer_profiles[-1]).close()
-        .extrude(lower_cap_thickness)
+        .extrude(-lower_cap_thickness)
     )
     return lower_shell.union(lower_cap)
 
@@ -570,8 +610,8 @@ def cut_arch_notches(combined):
     arch_cut_depth = skirt_wall + wall_thickness
     for ax in arch_hole_xs:
         arch_cutter = (
-            cq.Workplane("XY")
-            .workplane(offset=pos_z_face_offset + overcut)
+            cq.Workplane(xy_plane_z_up)
+            .workplane(offset=pos_z_face_z + overcut)
             .center(ax, skirt_bottom_y)
             .circle(arch_radius)
             .extrude(-(arch_cut_depth + overcut))
@@ -584,20 +624,20 @@ def split_into_base_and_cap(combined):
     """Stepped split creating base (with tower) and cap (with lower extension).
 
     The two parts meet at two different Y levels:
-      Wide half (+Z):   at skirt_bottom_offset (original mating surface)
+      Wide half (+Z):   at skirt_bottom_y (original mating surface)
       Narrow half (-Z): step_height higher into the skirt
     The boundary follows the seam diagonal.
     """
-    lower_end_offset = skirt_bottom_offset + lower_height + lower_cap_thickness + overcut
+    lower_end_y = skirt_bottom_y - lower_height - lower_cap_thickness - overcut
 
     # Oversized rectangular cutter: the 70x70 case lives inside the 100x100
     # span so the cut always pierces through to free air.
     cutter_extent = 50.0
 
     full_slab = (
-        case_workplane(skirt_bottom_offset)
+        case_workplane(skirt_bottom_y)
         .rect(2 * cutter_extent, 2 * cutter_extent)
-        .extrude(lower_end_offset - skirt_bottom_offset)
+        .extrude(lower_end_y - skirt_bottom_y)
     )
 
     step_z = skirt_transition_z_end_plus + step_z_clearance
@@ -608,9 +648,9 @@ def split_into_base_and_cap(combined):
         (-cutter_extent, step_z + overcut),
     ]
     narrow_step = (
-        case_workplane(narrow_split_offset)
+        case_workplane(narrow_split_y)
         .polyline(narrow_box).close()
-        .extrude(skirt_bottom_offset - narrow_split_offset)
+        .extrude(skirt_bottom_y - narrow_split_y)
     )
 
     step_cutter = full_slab.union(narrow_step)
@@ -622,20 +662,17 @@ def split_into_base_and_cap(combined):
 
 def add_snap_fits(base, cap):
     """Snap-fit ramps on four interior walls where base meets cap."""
-    snap_plus_z_inner = pos_z_face_offset - wall_thickness
+    snap_plus_z_inner = pos_z_face_z - wall_thickness
     snap_minus_z_inner = center_z - footprint_half_extent + wall_thickness
     snap_plus_x_narrow_inner = center_x + footprint_half_extent - wall_thickness
     snap_minus_x_narrow_inner = center_x - footprint_half_extent + wall_thickness
-
-    wide_split_y = -skirt_bottom_offset
-    narrow_split_y = -narrow_split_offset
 
     yz_zone_range = (center_x - snap_zone_width / 2, center_x + snap_zone_width / 2)
     xy_narrow_zone_start = center_z - skirt_narrow_half_extent + corner_r + 0.5
     xy_narrow_zone_range = (xy_narrow_zone_start, xy_narrow_zone_start + snap_zone_width)
 
     snap_faces = [
-        (snap_plus_z_inner, +1, wide_split_y, "YZ", yz_zone_range),
+        (snap_plus_z_inner, +1, skirt_bottom_y, "YZ", yz_zone_range),
         (snap_minus_z_inner, -1, narrow_split_y, "YZ", yz_zone_range),
         (snap_plus_x_narrow_inner, +1, narrow_split_y, "XY", xy_narrow_zone_range),
         (snap_minus_x_narrow_inner, -1, narrow_split_y, "XY", xy_narrow_zone_range),
@@ -673,8 +710,8 @@ def add_pogo_pocket(base):
     pogo_y = skirt_bottom_y + pogo_y_offset
 
     ridge = (
-        cq.Workplane("XY")
-        .workplane(offset=pos_z_face_offset)
+        cq.Workplane(xy_plane_z_up)
+        .workplane(offset=pos_z_face_z)
         .center(center_x, pogo_y)
         .slot2D(pogo_ridge_length, pogo_ridge_width)
         .extrude(pogo_ridge_depth)
@@ -682,15 +719,15 @@ def add_pogo_pocket(base):
     base = base.union(ridge)
 
     outer_step = (
-        cq.Workplane("XY")
-        .workplane(offset=pos_z_face_offset + pogo_ridge_depth + overcut)
+        cq.Workplane(xy_plane_z_up)
+        .workplane(offset=pos_z_face_z + pogo_ridge_depth + overcut)
         .center(center_x, pogo_y)
         .slot2D(pogo_outer_length, pogo_outer_width)
         .extrude(-(pogo_outer_depth + overcut))
     )
     inner_step = (
-        cq.Workplane("XY")
-        .workplane(offset=pos_z_face_offset + overcut)
+        cq.Workplane(xy_plane_z_up)
+        .workplane(offset=pos_z_face_z + overcut)
         .center(center_x, pogo_y)
         .slot2D(pogo_inner_length, pogo_inner_width)
         .extrude(-(wall_thickness + 2 * overcut))
@@ -716,8 +753,8 @@ def build_pump_case():
 
 def main():
     base, cap = build_pump_case()
-    export_step(base, str(_here / "pump-case-base-cadquery.step"))
-    export_step(cap, str(_here / "pump-case-cap-cadquery.step"))
+    export_step(base.unwrap(), str(_here / "pump-case-base-cadquery.step"))
+    export_step(cap.unwrap(), str(_here / "pump-case-cap-cadquery.step"))
     print("-> pump-case-base-cadquery.step")
     print("-> pump-case-cap-cadquery.step")
 
