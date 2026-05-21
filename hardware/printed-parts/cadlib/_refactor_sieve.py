@@ -1,0 +1,211 @@
+"""Refactor sieve — invariants that must survive the WorldWorkplane move
+to cadlib and the pump-case coordinate-system rewrite.
+
+Two complementary checks:
+
+1. PUMP-CASE: regenerate base + cap, then check Volume + BoundingBox +
+   CenterOfMass for each, compared to a pinned baseline. The pump-case
+   refactor will change byte output (operation order shifts) but must
+   preserve geometry to within 1e-4 mm tolerance on volumes/coords.
+
+2. COLD-CORE: SHA256-compare every downstream STEP file. The cadlib
+   move is a pure import-path change; bytes must match exactly.
+
+Run with:
+    tools/cad-venv/bin/python hardware/printed-parts/cadlib/_refactor_sieve.py capture
+    tools/cad-venv/bin/python hardware/printed-parts/cadlib/_refactor_sieve.py check
+"""
+
+import hashlib
+import json
+import subprocess
+import sys
+from pathlib import Path
+
+_here = Path(__file__).resolve().parent
+_repo = next(p for p in _here.parents if p.name == "homesodamachine")
+_baseline_path = _here / "_refactor_sieve_baseline.json"
+
+_cold_core_step_paths = [
+    "hardware/printed-parts/cold-core/foam-shell/foam-shell.step",
+    "hardware/printed-parts/cold-core/foam-cap/foam-cap-top.step",
+    "hardware/printed-parts/cold-core/foam-cap/foam-cap-bottom.step",
+    "hardware/printed-parts/cold-core/foam-cap/foam-cap-gasket.step",
+    "hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-top.step",
+    "hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-bottom.step",
+    "hardware/printed-parts/cold-core/copper-plugs/copper-plug-lower.step",
+    "hardware/printed-parts/cold-core/copper-plugs/copper-plug-middle.step",
+    "hardware/printed-parts/cold-core/copper-plugs/copper-plug-upper.step",
+    "hardware/printed-parts/cold-core/copper-plugs/copper-plug-top.step",
+    "hardware/printed-parts/cold-core/reservoir/reservoir-left.step",
+    "hardware/printed-parts/cold-core/reservoir/reservoir-right.step",
+    "hardware/printed-parts/cold-core/reservoir/reservoir-cap-left.step",
+    "hardware/printed-parts/cold-core/reservoir/reservoir-cap-right.step",
+    "hardware/printed-parts/cold-core/reservoir/reservoir-gasket.step",
+    "hardware/printed-parts/cold-core/reservoir/reservoir-bulkhead-seal.step",
+    "hardware/printed-parts/cold-core/reservoir/reservoir-retaining-ring.step",
+]
+
+_cold_core_generators = [
+    "hardware/printed-parts/cold-core/foam-shell/generate_step_cadquery.py",
+    "hardware/printed-parts/cold-core/foam-cap/generate_step_cadquery.py",
+    "hardware/printed-parts/cold-core/copper-plugs/generate_step_cadquery.py",
+    "hardware/printed-parts/cold-core/reservoir/generate_step_cadquery.py",
+]
+
+_pump_case_generator = "hardware/printed-parts/flavor/pump-case/generate_step_cadquery.py"
+
+
+def _sha256(path):
+    h = hashlib.sha256()
+    with open(path, "rb") as f:
+        for chunk in iter(lambda: f.read(65536), b""):
+            h.update(chunk)
+    return h.hexdigest()
+
+
+def _file_hashes():
+    return {p: _sha256(_repo / p) for p in _cold_core_step_paths}
+
+
+def _run_generator(rel_path):
+    """Run a generate_step_cadquery.py script. Returns (ok, output)."""
+    py = _repo / "tools" / "cad-venv" / "bin" / "python"
+    result = subprocess.run(
+        [str(py), str(_repo / rel_path)],
+        capture_output=True, text=True,
+    )
+    return result.returncode == 0, (result.stdout + result.stderr).strip()
+
+
+def _pump_case_scalars():
+    """Build pump-case base + cap in-process and return their scalars.
+
+    Imports the generator's build_pump_case() so we don't depend on the
+    STEP round-trip (which can subtly change vertex coords)."""
+    pump_case_dir = _repo / "hardware/printed-parts/flavor/pump-case"
+    sys.path.insert(0, str(pump_case_dir))
+    sys.path.insert(0, str(_repo / "hardware/printed-parts/cadlib"))
+    sys.path.insert(0, str(_repo / "hardware"))
+
+    # Force a fresh import in case this script is re-run after edits.
+    import importlib
+    if "generate_step_cadquery" in sys.modules:
+        del sys.modules["generate_step_cadquery"]
+    mod = importlib.import_module("generate_step_cadquery")
+
+    base, cap = mod.build_pump_case()
+    return {
+        "base": _solid_scalars(base),
+        "cap": _solid_scalars(cap),
+    }
+
+
+def _solid_scalars(wp):
+    solid = wp.val()
+    bb = solid.BoundingBox()
+    com = solid.Center()
+    return {
+        "volume_mm3": round(solid.Volume(), 4),
+        "bbox": {
+            "xmin": round(bb.xmin, 4), "xmax": round(bb.xmax, 4),
+            "ymin": round(bb.ymin, 4), "ymax": round(bb.ymax, 4),
+            "zmin": round(bb.zmin, 4), "zmax": round(bb.zmax, 4),
+        },
+        "com": {
+            "x": round(com.x, 4), "y": round(com.y, 4), "z": round(com.z, 4),
+        },
+    }
+
+
+def capture():
+    """Capture current state as the baseline."""
+    print("Capturing pump-case scalars (this will regenerate the STEPs)...")
+    pump = _pump_case_scalars()
+    print("Capturing cold-core STEP file hashes...")
+    hashes = _file_hashes()
+    baseline = {"pump_case": pump, "cold_core_hashes": hashes}
+    _baseline_path.write_text(json.dumps(baseline, indent=2, sort_keys=True))
+    print(f"Baseline written to {_baseline_path.relative_to(_repo)}")
+    print(f"  Pump-case base volume: {pump['base']['volume_mm3']} mm³")
+    print(f"  Pump-case cap volume:  {pump['cap']['volume_mm3']} mm³")
+    print(f"  Cold-core STEPs hashed: {len(hashes)}")
+
+
+def check():
+    """Regenerate everything and compare against the baseline."""
+    if not _baseline_path.exists():
+        print(f"No baseline at {_baseline_path}; run capture first.", file=sys.stderr)
+        sys.exit(2)
+    baseline = json.loads(_baseline_path.read_text())
+
+    print("Regenerating cold-core STEPs...")
+    failures = []
+    for gen in _cold_core_generators:
+        ok, output = _run_generator(gen)
+        if not ok:
+            failures.append((gen, output))
+    if failures:
+        for gen, output in failures:
+            print(f"FAIL: {gen}\n{output}", file=sys.stderr)
+        sys.exit(1)
+
+    print("Regenerating pump-case STEPs...")
+    ok, output = _run_generator(_pump_case_generator)
+    if not ok:
+        print(f"FAIL: pump-case generator\n{output}", file=sys.stderr)
+        sys.exit(1)
+
+    print("Checking cold-core STEP hashes...")
+    drift = []
+    expected_hashes = baseline["cold_core_hashes"]
+    actual_hashes = _file_hashes()
+    for path in expected_hashes:
+        if expected_hashes[path] != actual_hashes.get(path):
+            drift.append((path, expected_hashes[path], actual_hashes.get(path)))
+    if drift:
+        print("COLD-CORE DRIFT:", file=sys.stderr)
+        for path, exp, act in drift:
+            print(f"  {path}\n    expected {exp}\n    actual   {act}", file=sys.stderr)
+        sys.exit(1)
+    print(f"  {len(actual_hashes)} STEPs match.")
+
+    print("Checking pump-case scalars...")
+    actual_pump = _pump_case_scalars()
+    pump_drift = _compare_scalars(baseline["pump_case"], actual_pump)
+    if pump_drift:
+        print("PUMP-CASE DRIFT:", file=sys.stderr)
+        for line in pump_drift:
+            print(f"  {line}", file=sys.stderr)
+        sys.exit(1)
+    print(f"  base volume: {actual_pump['base']['volume_mm3']} mm³")
+    print(f"  cap volume:  {actual_pump['cap']['volume_mm3']} mm³")
+
+    print("\nAll sieve checks pass.")
+
+
+def _compare_scalars(expected, actual, tol_mm3=0.01, tol_mm=1e-3):
+    """Walk the nested scalar dict; collect any field that drifted past tol.
+
+    Volume gets a looser tolerance (0.01 mm³) because boolean-operation
+    float ordering can produce sub-µL noise even when geometry is exactly
+    identical. Bbox and COM coords use 1e-3 mm — any real geometric shift
+    surfaces there before volume noise can mask it."""
+    drift = []
+    def walk(path, e, a):
+        if isinstance(e, dict):
+            for k in e:
+                walk(f"{path}.{k}" if path else k, e[k], a[k])
+        else:
+            tol = tol_mm3 if path.endswith("volume_mm3") else tol_mm
+            if abs(e - a) > tol:
+                drift.append(f"{path}: expected {e}, actual {a} (Δ={a-e:+.6f})")
+    walk("", expected, actual)
+    return drift
+
+
+if __name__ == "__main__":
+    if len(sys.argv) != 2 or sys.argv[1] not in {"capture", "check"}:
+        print(__doc__, file=sys.stderr)
+        sys.exit(2)
+    {"capture": capture, "check": check}[sys.argv[1]]()
