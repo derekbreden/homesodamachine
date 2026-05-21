@@ -78,7 +78,7 @@ step_z_clearance = 6.0
 # Snap fits
 snap_zone_width = 20.0
 snap_wall_height = 9.0
-snap_deflection = 1.5
+snap_deflection = 1.0
 
 # Arch notches
 arch_radius = 4.5
