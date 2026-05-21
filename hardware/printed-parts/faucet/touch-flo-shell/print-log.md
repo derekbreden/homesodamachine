@@ -315,6 +315,17 @@ Settings unchanged from attempt 13: everything else — print profile `0.30mm St
 
 Per Derek 2026-05-20: scarf-seam slicer fields (`filament_scarf_seam_type`, `filament_scarf_gap`, `filament_scarf_length`, `filament_scarf_height`, and any other `filament_scarf_*` fields) are **recorded but not interpreted** in this log. Derek iterates these directly. Observed values are listed flatly alongside other settings deltas with no hypothesis or recommendation attached.
 
+## End of attempt 14 (print finished, 2026-05-21)
+
+Derek said:
+- "Pretty good. Or good enough at least for now."
+
+Joint-clearance iteration arc closes (for now) with both slip-fit joints at matched geometry:
+- SPLIT A: female socket wall 2.0 mm, male plug wall 1.95 mm → ~0.05 mm radial clearance.
+- SPLIT B: female socket wall 2.0 mm, male plug wall 1.95 mm → ~0.05 mm radial clearance.
+
+Both joints converged on the same numbers SPLIT A had reached at attempt 13 (its perfect-pull-test configuration). Scarf-seam iteration is ongoing and remains in the recording-only posture above.
+
 ## Hardware / setup observations across all PET-CF attempts
 
 Derek said:
