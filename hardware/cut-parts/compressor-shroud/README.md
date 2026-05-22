@@ -4,7 +4,7 @@ Sheet-metal shroud over the compressor terminal block area, providing a non-comb
 
 ## Why this part exists
 
-The appliance uses R-600a (isobutane), a flammable hydrocarbon refrigerant. The shroud exists for one reason: making the appliance genuinely safe in the kitchens of friends, family, and customers (the first 30+ units go to people the founder knows directly — see `marketing/target-market.md` "rings of trust"). UL 60335-2-89 (hydrocarbon appliance safety) is the engineering standard that codifies what safe handling of this refrigerant class actually requires, and the design follows it because the standard is right about safety — not as a compliance posture (per [`../../../business/regulatory.md`](../../../business/regulatory.md), no third-party listing is being pursued).
+The appliance uses R-600a (isobutane), a flammable hydrocarbon refrigerant. The shroud exists for one reason: making the appliance genuinely safe in the kitchens of friends, family, and customers (the first 30+ units go to people the founder knows directly — see `marketing/target-market.md` "rings of trust"). UL 60335-2-89 (hydrocarbon appliance safety) is the engineering standard that codifies what safe handling of this refrigerant class actually requires, and the design follows it because the standard is right about safety (regulatory posture in [`../../../business/regulatory.md`](../../../business/regulatory.md)).
 
 The standard requires a fire-rated enclosure around the ignition sources in the refrigerant compartment. The compressor's hermetic can already encloses the motor windings and oil sump. The remaining ignition-risk surfaces — exposed outside the can — are:
 
@@ -31,7 +31,7 @@ The condenser fan motor sits on the side wall of the enclosure (on the side-to-s
 
 ## Shape concept
 
-A **5-sided open-bottom box** that drops over the compressor from above. Top panel + 4 side walls. Open bottom because the compressor sits on its M5 mounting feet on the printed enclosure floor (no separate metal floor pan — see [`../../future.md`](../../future.md) "Other metal candidates considered, decided against"), and the refrigerant tubes need to exit downward / sideways anyway.
+A **5-sided open-bottom box** that drops over the compressor from above. Top panel + 4 side walls. Open bottom because the compressor sits on its M5 mounting feet on the printed enclosure floor, and the refrigerant tubes need to exit downward / sideways anyway.
 
 Construction approach: a single SendCutSend part, bent on 4 sides. Alternative is a 2-piece U-channel + back-wall design with 2-3 bends and screw assembly — TBD when the first build's compressor measurements are in hand.
 
@@ -65,17 +65,12 @@ Rationale:
 - **0.059" thickness** is the SendCutSend offering closest to typical OEM appliance-shroud gauge (16-gauge nominal). Thinner (0.030″/.036″/.048″) would work mechanically but is more prone to vibration noise and feels light. Thicker (0.074″) adds cost and weight with no benefit at this duty.
 - **Cost:** ~$5–10/part at qty 5–10 from SendCutSend. Trivially small line item.
 
-Alternatives considered and rejected:
-
-- **5052 H32 aluminum** — lighter, available in same thickness range, but the conductive thermal mass of galvanized steel is helpful (absorbs heat from the PTC) and aluminum costs more. No structural reason to pick it here.
-- **304 stainless steel** — overkill on corrosion resistance for an internal hidden part. ~3× the cost of galvanized for no benefit a kitchen-cabinet interior cares about.
-
 ## Penetrations
 
 | # | Hole | Purpose |
 |---|---|---|
 | 1 | 1/2" panel hole, one side wall | AC cable pass-through (3-conductor: switched H + N + chassis G, 18 AWG SJOOW bundle) from Teyleten relay #1 on the electronics shelf to the compressor terminal block. Heyco SB-500-6 snap bushing (B01LPBST9G) protects the cable from the cut edge — the bushing's 5.6–6.4 mm cable-OD range matches 18 AWG SJOOW (~6.4 mm OD), and the 1/2" hole removes 36% less sheet metal from the fire enclosure than a 5/8" hole would. |
-| 2 | 2× M3 mounting tab through-holes at base flange | Anchor to the compressor's existing M5 mounting feet using M5→M3 step-down adapter washers. (No floor pan in this design — see [`../../future.md`](../../future.md) "Other metal candidates considered, decided against".) |
+| 2 | 2× M3 mounting tab through-holes at base flange | Anchor to the compressor's existing M5 mounting feet using M5→M3 step-down adapter washers. |
 | 3 | Ø ~6 mm chassis ground stud hole | PEM stud or threaded insert for the chassis bonding wire (run AC-6 in [`../../wiring/ac-wiring-schedule.md`](../../wiring/ac-wiring-schedule.md)) — bonds the shroud to building earth. |
 
 No top-side ventilation holes by design — the goal is to *contain* a flame event in this compartment, not vent it. The compressor's heat dissipation is through its body OD (the foot-mounting shell), which is open to the appliance interior and not affected by this shroud.
@@ -135,5 +130,3 @@ Run with `tools/cad-venv/bin/python generate_dxf.py` per the project's CadQuery 
 2. **Decide one-piece 5-sided box vs. two-piece U-channel + back-wall.** Driven by the 3" max box-flange height constraint and by build / install ergonomics.
 3. **Decide the AC pass-through grommet location.** Best path is the side facing the electronics shelf (back-side of shroud, since the shelf is at top-back) — minimizes wire run length.
 4. **Write `generate_dxf.py`** once items 1–3 are settled.
-
-The floor pan question (earlier item 4) was resolved against a floor pan; the shroud's mounting tabs go directly to the compressor's M5 mounting feet. See [`../../future.md`](../../future.md) "Other metal candidates considered, decided against".

@@ -26,7 +26,7 @@ The execution order is chassis-ground bonding first, then AC, then the DC trunk,
 
 ### 1. Chassis-ground bonds (single-point ground at the electronics shelf)
 
-Before any current-carrying conductor lands, establish the single-point chassis ground. The appliance has no metal chassis backbone — see [`../future.md`](../future.md) "Other metal candidates considered, decided against" — so chassis grounding is via discrete green wires from the four exposed metal parts back to a central ground bus on the electronics shelf. Per [`../wiring/ac-wiring-schedule.md`](../wiring/ac-wiring-schedule.md) "Grounding strategy" all bonds are 16 AWG green-insulated, ring terminal at the bus end, ring or fork at the target end.
+Before any current-carrying conductor lands, establish the single-point chassis ground. The appliance has no metal chassis backbone, so chassis grounding is via discrete green wires from the four exposed metal parts back to a central ground bus on the electronics shelf. Per [`../wiring/ac-wiring-schedule.md`](../wiring/ac-wiring-schedule.md) "Grounding strategy" all bonds are 16 AWG green-insulated, ring terminal at the bus end, ring or fork at the target end.
 
 Bond, from each target to the ground bus on the electronics shelf:
 
