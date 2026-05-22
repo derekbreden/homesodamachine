@@ -326,6 +326,48 @@ Joint-clearance iteration arc closes (for now) with both slip-fit joints at matc
 
 Both joints converged on the same numbers SPLIT A had reached at attempt 13 (its perfect-pull-test configuration). Scarf-seam iteration is ongoing and remains in the recording-only posture above.
 
+## PET-CF print attempt 15 (third tube-bore bump + SPLIT B plug 1.92 mm)
+
+Hardware: same (0.6 mm DUROZZLE TC L-side hotend).
+
+Geometry: 3-piece split shell with tube bores widened a third time and SPLIT B plug nudged in between 1.9 and 1.95, per commit `2db9814` ("faucet/touch-flo-shell: tube bores +0.10 mm again + SPLIT B plug 1.95 → 1.92").
+
+Derek said about attempt 14 (after further fit-up testing in handling):
+- "SPLIT B is still slightly loose."
+- Tube fitment from prior runs: tubes still difficult to insert at the previous bore size.
+
+Geometry response in `2db9814`:
+- Flavor tube bores: `flavor_tube_hole_dia` 6.95 → **7.05 mm** (both flavor tubes; 6.35 OD + 0.7 mm clearance). Pill cross-section grows correspondingly; `pill_length_y` and `pill_width_x` each +0.10 mm.
+- Water tube bore: `water_hole_diameter` 10.125 → **10.225 mm** (9.525 OD + 0.7 mm clearance).
+- `shell_outer_r`: 22.225 → 22.275 mm — driven up by 0.05 mm (radius) by the pill +X edge growth, maintaining `wall_thickness_min = 3.0 mm` on the pill side. All zone 1–4 outer dimensions shifted accordingly. Zone 5+ tube-shell outer profile also grows 0.05 mm/side on each tube-driven dimension.
+- SPLIT A: unchanged (female 2.0 mm, male 1.95 mm, ~0.05 mm clearance).
+- SPLIT B: female socket wall unchanged at 2.0 mm. Male plug wall 1.95 → **1.92 mm**. Radial clearance ~0.05 → **~0.08 mm**.
+- Depths untouched: A male 19 / female 20 mm; B male 18 / female 20 mm.
+
+All four shell STEPs regenerated (bottom + middle + top + full); bottom/middle/top all change from tube bore growth, top additionally from SPLIT B plug.
+
+Settings deltas observed in `touch-flo-shell-3-pieces.3mf` vs attempt 14:
+
+Scarf-seam (PET-CF slot 0):
+- `filament_scarf_seam_type`: `external` → **`none`** (scarf seams disabled entirely for PET-CF this attempt).
+- `filament_scarf_length`: 20 → **10** (back to system default).
+- `filament_scarf_gap`: 0% unchanged.
+- `filament_scarf_height`: 10% unchanged.
+
+Process settings:
+- `support_on_build_plate_only`: 0 → **1** (supports now generate only where they touch the build plate, not on top of the part).
+- `enable_support`: 1 (unchanged).
+- `wall_loops`: 100 (unchanged).
+
+Plate composition:
+- Added a 4th object to the plate: `touch-flo-mounting-plate.step` (area 2054.51 mm²). The three shell pieces remain on the same plate. First-layer time 178.15 s → 322.77 s, roughly +1.8× as expected from the added disc.
+- Per-object plate positions also shifted by the geometry growth (object IDs renumbered after re-import of the regenerated shell STEPs); shell footprint areas grew slightly per the bore + outer-radius changes (bottom 630.48 → 641.84 mm², middle 9.274 → 9.283 mm², top 289.99 → 292.36 mm²).
+
+Filament-slot bookkeeping:
+- Old 3mf had 6 filament slots configured (PET-CF + 3 × PETG + 2 × ABS); new has 4 (PET-CF + 2 × PETG + 1 × ABS). Slot 0 (active PET-CF) unchanged in identity. No per-slot value changes on PET-CF beyond the scarf fields above.
+
+Settings unchanged from attempt 14: print profile `0.30mm Standard @BBL H2C 0.6 nozzle`, PET-CF temps / fans / flow, all other process settings, brim settings.
+
 ## Hardware / setup observations across all PET-CF attempts
 
 Derek said:
