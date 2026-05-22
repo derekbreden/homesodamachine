@@ -12,9 +12,8 @@ relieve.
 
 The SV-125 (per [`assembly/pressure-vessel.md`](../../../assembly/pressure-vessel.md)
 step 8) is installed via a TAISHER 316L 90° street elbow on Port 4
-with the valve body extending laterally — fitting the PRV inside
-the ~30 mm above-tank elbow envelope rather than protruding
-vertically. The body foam pour ([`../foam-shell/`](../foam-shell/))
+with the valve body extending laterally inside the ~30 mm above-tank
+elbow envelope. The body foam pour ([`../foam-shell/`](../foam-shell/))
 fills the surrounding foam zone with closed-cell polyurethane,
 which would otherwise encase the PRV.
 
