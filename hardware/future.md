@@ -124,7 +124,7 @@ The appliance is cord-and-plug 120 VAC through the rear C14 inlet. The harvested
 
 **Rear-panel AC inlet**
 
-The AC inlet is an IEC 60320 C14 panel-mount receptacle (MXR B07DCXKNXQ) accepting a standard NEMA 5-15P → C13 line cord, recessed 3–5 mm into the rear panel with a printed shroud so the cord housing nests flush. Inlet placement on the panel, the recess geometry, the cross-tested C13/C14 mate matrix, and cord-type selection are captured alongside the rest of the panel-mount inventory in [`printed-parts/enclosure/back-panel/README.md`](printed-parts/enclosure/back-panel/README.md).
+The AC inlet is an IEC 60320 C14 panel-mount receptacle (MXR B07DCXKNXQ) accepting a standard NEMA 5-15P → C13 line cord, recessed 3–5 mm into the rear panel with a printed shroud so the cord housing nests flush. Inlet placement on the panel and the recess geometry are captured alongside the rest of the panel-mount inventory in [`printed-parts/enclosure/back-panel/README.md`](printed-parts/enclosure/back-panel/README.md).
 
 **Rear-panel nameplate**
 
