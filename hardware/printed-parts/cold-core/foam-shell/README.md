@@ -13,8 +13,8 @@ The CadQuery script uses an explicit XZ plane with +Y normal
 
 - **Y** is vertical. The floor sits at y=0; everything stacks upward from
   there.
-- **X** is the bag axis. Two bag pockets sit on opposite sides along X.
-- **Z** is perpendicular to the bag axis.
+- **X** is the reservoir axis. Two reservoir pockets sit on opposite sides along X.
+- **Z** is perpendicular to the reservoir axis.
 
 ## Physical inputs
 
@@ -24,12 +24,14 @@ The CadQuery script uses an explicit XZ plane with +Y normal
   1/4" NPT, four ports total — two top plate (water inlet, PRV), two
   bottom plate (CO2 inlet, water outlet). Vessel assembled height = tube
   length = **152.4 mm**. Outer radius = **63.5 mm**.
-- **Bag** — Platypus-style soft-walled bladder, 1 L max but used at
-  ≤ 750 mL. Single port at the cap end with a 90° turn. Filled envelope,
-  posed cap-down: **125 mm wide (along Z) × 35 mm deep (along X, radially
-  outward) × 225 mm tall**. Two bags per cold core. (Production now uses
-  a rigid PETG reservoir matching this envelope; "bag pocket" is still
-  the geometric name in the code.)
+- **Reservoir** — printed rigid PETG flavor reservoir, one per flavor,
+  two per cold core. Cap on top with a single ⌀6.5 bulkhead pass-through;
+  bottom is a wet-slope floor with a printed boss for the internal SS
+  float rod. Pocket envelope: **125 mm wide (along Z) × 46 mm deep
+  (along X, radially outward) × 225 mm tall**, sized to hold ≥ 1 L
+  usable per reservoir. Reservoir geometry and internal features live
+  at [`../reservoir/`](../reservoir/). The CadQuery source retains
+  `bag_pocket_*` as the geometric variable name.
 - **Evaporator coil** — 1/4" OD × 0.187" ID × 0.031" wall ACR copper,
   hand-wound helically around the vessel exterior, bonded with 3M 425
   aluminum foil tape. ~6.35 mm radial occupancy plus tolerance — budgeted
@@ -447,40 +449,6 @@ Plate contents (when slicing): `foam-shell` + `copper-plug-lower` +
 `copper-plug-middle` + `copper-plug-upper` together; `foam-cap` and
 `foam-cap-lid` on a separate plate.
 
-### Chamber exhaust fan (not used — history)
-
-Earlier 1 mm-wall iterations of this part warped at the corners, and
-the chamber exhaust fan (`M106 P2 S153` — `P2` is the chamber
-exhaust, `P0` is part-cooling, `P1` is aux) was investigated as the
-fix. A prior H2C with 1 mm walls had produced warp-free prints with
-that line added unconditionally to filament Start G-code (commit
-`24605cb`); when work moved to a brand-new H2C — same 0.8 nozzle,
-clean-slate plate/chamber/gaskets — five attempts at 1 mm walls
-with varying fan triggers all failed at the corners (see Attempts
-table).
-
-**Resolution:** bumped `wall_and_floor_thickness` from 1 mm to 2 mm
-(commit `8a9ffc0`, 2026-05-12) and dropped the fan override
-entirely. Stock Bambu defaults at 2 mm walls have printed this part
-warp-free four times running. The fan was a red herring on this
-printer — the part just needed more wall to resist corner lift.
-
-If a future iteration regresses to corner warping, the conditional
-that *would* have fired correctly is documented below; it belongs
-in **Printer Settings → Machine G-code → Layer Change G-code**
-(appended to existing layer-progress lines), not in filament Start
-G-code, because `layer_change_gcode` is re-emitted each layer with
-`layer_num` rebound while filament Start G-code evaluates once at
-`t=0` with `layer_num` bound to 0:
-
-```gcode
-{if layer_num == 29}M106 P2 S77{endif}
-```
-
-This was attempt 5's setting (fan on at layer 30, ~30 % speed) and
-still failed at 1 mm walls. Reach for it only after exhausting
-geometric remedies.
-
 ### Printer / profile
 
 - **Printer:** Bambu Lab H2C, **0.8 mm nozzle**
@@ -510,21 +478,6 @@ geometric remedies.
   overhang, closed first 3 layers
 - **Auxiliary fan (P1):** on
 
-### Attempts (0.8 nozzle / 0.40 mm layer)
-
-Attempts 1–5 ran at 1 mm walls and varied the chamber fan trigger;
-all failed at the corners. Attempt 6 onward ran at 2 mm walls with
-the fan override removed and have all succeeded.
-
-| # | Date | Walls | Outcome | Change for next attempt |
-|---|------|-------|---------|-------------------------|
-| 1 | 2026-05-11 | 1 mm | Nozzle clumping at layer 1 | Called a fluke (no slicer change); restarted |
-| 2 | 2026-05-11 | 1 mm | First-layer curling off the bed; not noticed in time | Suspect chamber exhaust fan pulling heat before brim grip. Moved `M106 P2 S153` from unconditional to `{if layer_num == 15}M106 P2 S153{endif}` inside filament Start G-code |
-| 3 | 2026-05-11 | 1 mm | Cancelled mid-print after realizing the conditional in filament Start G-code wouldn't fire (`layer_num == 0` at slice time → empty expansion → fan off the whole print) | Move the conditional from filament Start G-code into printer-level Layer Change G-code, where `layer_num` is rebound per layer |
-| 4 | 2026-05-11 | 1 mm | Conditional fired correctly at layer 16, but corners lifted within ~1 layer of fan turn-on | Suspected the chamber fan itself, on this brand-new H2C, is the failure cause regardless of trigger layer. Two candidate next attempts discussed: skip the chamber fan entirely (single-variable test) or reduce both fan speed and trigger layer (layer 30 / 30 %) |
-| 5 | 2026-05-11 | 1 mm | Failed — corners lifted again at fan-on around layer 30, same pattern as attempt 4 just delayed. Confirmed fan-tuning was not going to close the gap | Bump `wall_and_floor_thickness` 1 mm → 2 mm (commit `8a9ffc0`, 2026-05-12); drop the fan override entirely; return to stock Bambu defaults |
-| 6+ | 2026-05-12 onward | 2 mm | ~4 successful prints in a row through other CAD iterations of the shell. No corner lift, no warping, stock Bambu PETG Basic defaults, no Layer Change G-code customization | — |
-
 ## Regression baseline
 
 Source-level refactors of `_foam_shell.build_full_shell()`
@@ -540,32 +493,6 @@ shift that needs a deliberate explanation:
 | bbox y   | [0.000, 213.400] mm |
 | bbox z   | [−90.500, +90.500] mm |
 | centroid | (0.000005, 90.742949, −0.616723) mm |
-
-Captured at commit `ff24ef7` after a comment-removal pass on
-`_foam_shell_geometry.py` (geometry preserved at vol Δ = 0 across
-that pass).
-
-Volume at commit 68b8d3f (the bug — slot extended to y=0, cutting
-through the floor at y=0..2 in x∈[−8,8], z∈[−70.5,−30.5]) was
-981102.086096 mm³. Restoring that floor strip adds +1280.07 mm³ of
-PETG back: 288 mm³ from the arch's own y=0..2 floor at x∈[−8,8],
-plus the bag-pocket bridging-wall and outer-shell floor material
-the slot was wrongly clearing in the same y=0..2 strip over the
-full +Z extrusion. The centroid shifts slightly in Y and Z because
-the recovered material is concentrated near y=1 and z=−50.5.
-
-Geometry-change history immediately prior: `bag_pocket_depth` was
-bumped from 37 mm to 46 mm (+9 mm interior X depth per reservoir,
-+18 mm total outer-shell X width), sizing each reservoir's cavity
-to hold ≥ 1 L of usable fluid (1003.75 mL per reservoir at this
-geometry, 2.01 L total between the two reservoirs).  Volume at the
-start of that bump was 948199.817081 mm³ (bag_pocket_depth = 37 mm,
-bbox x = ±125.5 mm); the +36957.6 mm³ delta to 985157.417081 mm³
-was the new +X strip on each of the two bag pockets (~85.4 cm²
-cross-section × 195.4 mm extrusion × 2 sides = ~33.4 mL × 2 ≈
-66.7 mL of foam-shell material added).  Future refactors that
-introduce a deliberate geometry change should update this section
-in the same commit.
 
 Quick reproduction:
 
