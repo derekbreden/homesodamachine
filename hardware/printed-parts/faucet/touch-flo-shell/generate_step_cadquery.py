@@ -537,8 +537,8 @@ zone45_bot_mid_z = back_arch_center_z + back_arch_r * math.sin(_a_mid45)
 # HEAT-SET INSERT POCKETS — mounting-plate retention. Two M3 brass
 # heat-set inserts (ruthex M3 short, Amazon B09ZHSGHXD — Ø 4.6 knurl OD,
 # Ø 3.9 body, 4 mm length) press into the bottom face of the shell. The
-# mounting plate threads to them with M3 × 8 mm SS socket cap screws
-# (McMaster 91223A413) coming up from below.
+# mounting plate threads to them with M3 × 6 mm SS socket cap screws
+# (McMaster 91223A412) coming up from below.
 #
 # Pocket location: θ = ±45° about the body center, r = 20 mm — the
 # shell's "rear shoulder" wall material (between body bore and shell
@@ -547,7 +547,7 @@ zone45_bot_mid_z = back_arch_center_z + back_arch_r * math.sin(_a_mid45)
 # ~11 mm of solid material above the pocket ceiling.
 
 insert_pocket_diameter = 4.0  # recommended install hole for ruthex M3 short
-insert_pocket_depth = 7.0  # 4 mm insert + ≥1 mm intentional press-in recess so the M3×8 screw doesn't bottom out against the insert's closed far end; up to ~3 mm of recess possible
+insert_pocket_depth = 7.0  # 4 mm insert + up to ~3 mm of forgiveness for install depth. With the M3×6 screws (91223A412), engagement is 3 mm at a flush insert; insert can be flush to ~3 mm recessed without the screw bottoming or losing critical engagement. (Pocket was originally deepened to 7 mm when the screws were M3×8 91223A413 — the 8 mm length bottomed out against the insert's closed top before the head reached the counterbore, holding it 1 mm proud. Switching to 6 mm screws fixed that; the 7 mm pocket depth is now just forgiveness, not a critical fix.)
 insert_r_from_body = 20.0  # mm from body center to insert center
 insert_theta_deg = 45.0  # angle from +X about body center
 insert_x = insert_r_from_body * math.cos(math.radians(insert_theta_deg))  # ≈ 14.142
