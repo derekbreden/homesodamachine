@@ -40,7 +40,7 @@ The coil winding happens first (step 1). The three foam pours — top cap, botto
 
 ### 1. Wind the evaporator coil around the vessel
 
-Wind GOORY 1/4" OD × 0.031" wall ACR copper tubing as a single-layer helical coil at ~1/8" pitch around the vessel OD — ~22 ft of wrap per vessel + ~2 ft each end for the refrigerant-loop tie-in stubs. The tie-in stubs get brazed to the donor unit's cap tube and suction line during refrigerant-loop integration ([`refrigerant-loop.md`](refrigerant-loop.md)) on a later day; they exit the finished cold core through the foam-shell's copper-plug holes and hang free until then. The 0.031" wall was specifically chosen to resist kinking at the bend radius around the 5" OD vessel; thinner wall kinks, this wall holds.
+Wind GOORY 1/4" OD × 0.031" wall ACR copper tubing as a single-layer helical coil at ~1/8" pitch around the vessel OD — ~22 ft of wrap per vessel + ~2 ft each end for the refrigerant-loop tie-in stubs. The tie-in stubs get brazed to the donor unit's cap tube and suction line during refrigerant-loop integration ([`refrigerant-loop.md`](refrigerant-loop.md)) on a later day; they exit the finished cold core through the foam-shell's copper-plug holes and hang free until then. The 0.031" wall resists kinking at the bend radius around the 5" OD vessel.
 
 Bond the coil to the vessel OD with 3M 425 aluminum foil tape applied as a continuous skin between vessel and coil. The tape spans the tank-to-coil thermal interface.
 

@@ -43,11 +43,7 @@ The 3-tube umbilical from the faucet down to the rear panel is bundled into a si
 
 ## AC inlet recess
 
-The C14 receptacle is recessed 3–5 mm into the panel face with a printed shroud around the inlet perimeter. On insertion, the C13 cord housing nests into the recess and ends flush with the panel surface, visually masking the IEC-mandated gap between cord and inlet bezel.
-
-This is purely a fit-and-feel improvement; no electrical or mechanical change to the connector. The visible gap between cord housing and inlet face is by design under IEC 60320, which specifies only the male-blade insertion region — not face-to-face mating distance. The C13/C14 cross-test pair (uxcell inlet B07PXSLBF4 + Tripp Lite cord B0000511C0, ordered Apr 24, 2026) confirmed all four parts in the MXR × Monoprice / MXR × TrippLite / uxcell × Monoprice / uxcell × TrippLite matrix mate to spec — the gap is the standard, not the parts. For a hand-built Founder Edition appliance the printed shroud is the cheapest path to a "fully seated" user-facing appearance.
-
-Locking C13 cords (Tripp Lite P-Lock series and similar) were considered and rejected: the design concern is fit/feel feedback at insertion, not mechanical retention, and friction-only retention is sufficient for an under-counter install. A hardwired-cord alternative (KitchenAid / Vitamix pattern, no detachable connector at all) is held under separate consideration and would obviate the bezel-recess solution if pursued.
+The C14 receptacle is recessed 3–5 mm into the panel face with a printed shroud around the inlet perimeter. On insertion, the C13 cord housing nests into the recess and ends flush with the panel surface, visually masking the gap between cord and inlet bezel. The gap is intentional under IEC 60320, which specifies the male-blade insertion region only, not face-to-face mating distance.
 
 ## References
 
