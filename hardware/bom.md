@@ -202,7 +202,7 @@ The same reed-and-float pattern is used in three places: the carbonator vessel (
 
 | Part | Notes | Qty | Unit $ | Line $ |
 |---|---|---:|---:|---:|
-| [Waveshare MCP23017 I2C GPIO expander, second instance](https://www.amazon.com/dp/B07P2H1NZG) | same SKU as the existing expander in §1, second instance at I²C address 0x21 for Reservoir B's 4 reeds on PA[0:3] (12 spare bits remain). See [`printed-parts/cold-core/reservoir/level-sensing.md`](printed-parts/cold-core/reservoir/level-sensing.md) "GPIO budget" for why ESP32-direct-GPIO and 74HC165 alternatives were rejected | 1 | $12.99 | $12.99 |
+| [Waveshare MCP23017 I2C GPIO expander, second instance](https://www.amazon.com/dp/B07P2H1NZG) | same SKU as the existing expander in §1, second instance at I²C address 0x21 for Reservoir B's 4 reeds on PA[0:3] (12 spare bits remain). See [`printed-parts/cold-core/reservoir/level-sensing.md`](printed-parts/cold-core/reservoir/level-sensing.md) "GPIO budget" | 1 | $12.99 | $12.99 |
 
 ## 13. Mechanical attach hardware (heat-set inserts + screws + gasket) + reservoir-cap vent filter
 

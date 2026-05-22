@@ -32,7 +32,7 @@ The dispense head is the printed touch-flo-shell's gooseneck channel — no sepa
 | KRAUS air switch, matte black | B096319GMV ([`../bom.md`](../bom.md) §10) | Above-counter flavor-select button; signal pair via Cat6 per [`../wiring/ac-wiring-schedule.md`](../wiring/ac-wiring-schedule.md) SIG-5 |
 | Cat6 cable | TBD spec | Single shared run from above-counter fixture stack to the electronics shelf, carrying both SIG-5 (KRAUS air-switch contacts) and SIG-6 (RP2040 power + UART). Cuts the countertop pass-through count from two to one |
 
-Tooling (per-build-amortized only; single-asset tools live in [`../purchases.md`](../purchases.md), not here): Mudder PEX/PE tube cutter (also in the installer's install kit, [`../bom.md`](../bom.md) §14 — same cutter SKU lives in both places); small adjustable wrench for the Pysrych compression nuts; the Hakko FX-888D station from the upstream sub-assembly step is not used at this bench.
+Tooling (per-build-amortized only; single-asset tools live in [`../purchases.md`](../purchases.md), not here): Mudder PEX/PE tube cutter (also in the installer's install kit, [`../bom.md`](../bom.md) §14 — same cutter SKU lives in both places); the Hakko FX-888D station from the upstream sub-assembly step is not used at this bench.
 
 ## Procedure
 
