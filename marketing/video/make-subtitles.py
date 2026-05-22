@@ -210,6 +210,12 @@ def main():
         if (i > 0 or has_title) and args.fade > 0:
             output_t -= args.fade
 
+        # Freeze cuts are silent still-frame segments — no captions to emit,
+        # but they consume output time like any other cut. Advance and skip.
+        if cut.get("type") == "freeze":
+            output_t += cut["duration"]
+            continue
+
         transcript_path, sync_offset = resolve_source_meta(cut, sources_top)
         cut_v_start = cut["start"]
         cut_v_end = cut["end"]
