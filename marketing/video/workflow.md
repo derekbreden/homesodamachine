@@ -1,6 +1,6 @@
 # Video Workflow
 
-Living procedure for the capture-to-publish loop. Updates in place when a step changes; if a step changes meaningfully (CapCut → iMovie → Mac edit pipeline), update here. Snapshots in [`snapshots/`](snapshots/) preserve the historical state at moments worth freezing.
+Living procedure for the capture-to-publish loop. These steps are the minimum to ship at all — see [`principles.md`](principles.md#the-pipeline-is-the-floor) for the frame they sit inside. Updates in place when a step changes; if a step changes meaningfully (CapCut → iMovie → Mac edit pipeline), update here. Snapshots in [`snapshots/`](snapshots/) preserve the historical state at moments worth freezing.
 
 ## The Mac edit pipeline
 
