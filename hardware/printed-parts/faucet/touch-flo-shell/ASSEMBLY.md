@@ -61,7 +61,7 @@ into a single rigid sub-assembly.
 |  1  | `touch-flo-mounting-plate` (printed)                 | [`../touch-flo-mounting-plate/`](../touch-flo-mounting-plate/)                      |
 |  1  | Touch-Flo valve body + factory shank nut (harvested) | [`../../harvested/touch-flo-faucet/`](../../harvested/touch-flo-faucet/)            |
 |  2  | ruthex M3 short heat-set inserts (Ø 4.6 knurl OD, Ø 4.0 hole, 4 mm length) | Amazon Prime [B09ZHSGHXD](https://www.amazon.com/dp/B09ZHSGHXD) |
-|  2  | 316 SS M3 × 8 mm ultra-low-profile socket cap screws (head Ø 5.5 × 1.0 mm, 2 mm hex) — ULH (not standard SHCS) so the head sits flush under the countertop; the plate's Ø 5.7 × 1.25 mm counterbore drops the Ø 5.5 × 1.0 head 0.25 mm sub-flush, which standard SHCS heads (~3 mm tall) cannot achieve at this plate thickness. | McMaster [91223A413](https://www.mcmaster.com/91223A413/) |
+|  2  | 316 SS M3 × 6 mm ultra-low-profile socket cap screws (head Ø 5.5 × 1.0 mm, 2 mm hex) — ULH (not standard SHCS) so the head sits flush under the countertop; the plate's Ø 6.2 × 1.25 mm counterbore drops the Ø 5.5 × 1.0 head 0.25 mm sub-flush, which standard SHCS heads (~3 mm tall) cannot achieve at this plate thickness. 6 mm length (not 8) so the shaft clears the ruthex insert's closed top — 8 mm was tried in attempt 1 (91223A413, May 10) and bottomed out, holding the head 1 mm proud. | McMaster [91223A412](https://www.mcmaster.com/91223A412/) |
 
 The two flavor tubes that pass through the pill slot are NOT installed
 at this step — they're routed in the downstream "tube routing" step,
@@ -139,23 +139,35 @@ The two retention features:
 
 - **Shell, bottom face:** two pockets at world (14.14, ±14.14) — i.e.
   on the rear shoulder wall material at θ ≈ ±45°. Each pocket is
-  Ø 4.0 × 5 mm deep (sized for the 4 mm insert plus 1 mm relief at the
-  top so the insert seats flush, not proud).
+  Ø 4.0 × 7 mm deep (sized for the 4 mm insert plus up to 3 mm of
+  install-depth forgiveness — see Pocket-depth history below).
 - **Plate, both faces:** two clearance holes Ø 3.9 mm at the same XY,
-  with Ø 5.7 × 1.25 mm counterbores cut into the plate's bottom face
+  with Ø 6.2 × 1.25 mm counterbores cut into the plate's bottom face
   for the screw heads. The Ø 5.5 × 1.0 mm head of the
-  91223A413 lands fully recessed below the plate's bottom face.
+  91223A412 lands fully recessed below the plate's bottom face
+  (0.35 mm/side head clearance in the counterbore).
 
 Stack-up at the screw axis, top to bottom:
 
 ```
       shell wall (PET-CF)
-      └── M3 heat-set insert, top flush with shell bottom face
-           └── M3 × 8 mm ULH thread engagement: ~3 mm into insert
+      └── M3 heat-set insert, top flush to ~3 mm recessed in shell
+           └── M3 × 6 mm ULH thread engagement: ~3 mm into insert
                 └── plate clearance Ø 3.9, 4 mm thick
-                     └── plate counterbore Ø 5.7 × 1.25 mm
+                     └── plate counterbore Ø 6.2 × 1.25 mm
                           └── screw head Ø 5.5 × 1.0 (0.25 mm sub-flush)
 ```
+
+**Pocket-depth history:** the pocket was 5 mm in the original design
+(insert + 1 mm relief). The screws were then M3 × 8 mm (91223A413).
+Empirically the 8 mm shaft bottomed out against the ruthex insert's
+closed top face (the insert is internally threaded for only 4 mm,
+not through), preventing the head from reaching the counterbore.
+Pocket was deepened to 7 mm to allow pressing the insert in deeper
+(intentional recess) so the screw shaft would clear the closed top.
+That problem was then fully resolved by switching to M3 × 6 mm
+(91223A412) on 2026-05-22, but the 7 mm pocket was kept — it's now
+just install-depth forgiveness, not a critical fix.
 
 The body-to-plate joint is independent of this screw joint: the
 factory shank nut clamps the body's 31.5 mm OD bottom face down onto
@@ -177,7 +189,7 @@ shell is anchored to the plate that's already clamped to the body.
    printed undersized — re-slice with a +0.05 mm horizontal expansion
    compensation, don't ream. (Reaming PET-CF leaves loose fibers that
    foul the heat-set cone.)
-3. **Plate clearance hole gauge.** An M3 × 8 ULH should drop through
+3. **Plate clearance hole gauge.** An M3 × 6 ULH should drop through
    the plate hole by gravity, with the head landing inside the
    counterbore and seating against the shoulder. If the screw shank
    binds, drill out to 3.9 mm with a sharp #29 bit. If the head sits
@@ -278,7 +290,7 @@ Common failure modes:
    (both at world (18.925, 0), Y-oriented). They should overlay
    exactly. If they don't, the shell is rotated 180° about the
    shell-center vertical axis — lift it off, rotate, and re-seat.
-4. Insert one M3 × 8 mm ULH screw from below through one of the
+4. Insert one M3 × 6 mm ULH screw from below through one of the
    plate's counterbored holes. Thread it up into the corresponding
    heat-set insert in the shell by finger only at first, confirming
    that the screw catches without cross-threading. Repeat for the
@@ -327,7 +339,7 @@ Reverse order:
    shank hole.
 
 The heat-set inserts stay in the shell. They survive an unbounded
-number of insertion / removal cycles at the M3 × 8 ULH screw — they
+number of insertion / removal cycles at the M3 × 6 ULH screw — they
 fail only if over-torqued during install.
 
 ## Troubleshooting
@@ -335,8 +347,8 @@ fail only if over-torqued during install.
 | Symptom                                       | Likely cause                                                 | Fix                                                                                    |
 | --------------------------------------------- | ------------------------------------------------------------ | -------------------------------------------------------------------------------------- |
 | Screw won't pass through plate hole           | Plate clearance hole printed undersized                      | Drill out to 3.9 mm with a #29 bit. Re-slice with horizontal expansion compensation if recurring. |
-| Screw head sits proud of plate bottom face    | Counterbore printed shallow, or wrong screw (head > 1.0 mm)  | Verify part revision; verify screw is 91223A413 (head 1.0 mm), not a standard SHCS (head 3.0 mm). |
-| Screw bottoms out before head seats           | Wrong screw length — likely M3 × 10 instead of M3 × 8        | Verify screw is M3 × 8. M3 × 10 would bottom out in the 4 mm insert at this stack-up. |
+| Screw head sits proud of plate bottom face    | Counterbore printed shallow, or wrong screw (head > 1.0 mm)  | Verify part revision; verify screw is 91223A412 (head 1.0 mm), not a standard SHCS (head 3.0 mm). |
+| Screw bottoms out before head seats           | Wrong screw length — likely M3 × 8 (the old 91223A413 part) instead of M3 × 6 | Verify screw is M3 × 6 (91223A412). M3 × 8 bottoms out against the ruthex insert's closed top before the head reaches the counterbore, holding the head ~1 mm proud — this was the original spec and the issue that drove the switch to M3 × 6 on 2026-05-22. |
 | Insert tilted in shell pocket after press     | Off-axis entry, off-axis press, or both                      | Re-heat the insert and press straight down. If unrecoverable, extract while hot with the iron tip and re-press a fresh insert (or re-print shell if the pocket itself is degraded). |
 | Insert spins in pocket under screw torque     | Pocket walls melted past the knurl during install (over-hot, over-pressed) | Apply a drop of CA glue around the insert top and let cure. If recurring at multiple inserts, drop the iron temp 10 °C. |
 | Plate-to-shell joint won't close (visible gap) | Body fouling the shell bore (most likely lever orientation), or support material left in the shell bore | Disassemble; verify the body slides all the way to the bore cove with no resistance; re-orient lever to -X if needed. |

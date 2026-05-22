@@ -37,8 +37,8 @@ HOLES
    through, with Ø 5.7 × 1.25 mm counterbore on the BOTTOM face for
    the screw head. Located at θ = ±45° about the body center, r = 20
    from body center (world (14.142, ±14.142)) — the shell's "rear
-   shoulder" wall material. Hosts M3 × 8 mm 316 SS ultra-low-profile
-   socket cap screws (McMaster 91223A413) that thread into M3 brass
+   shoulder" wall material. Hosts M3 × 6 mm 316 SS ultra-low-profile
+   socket cap screws (McMaster 91223A412) that thread into M3 brass
    heat-set inserts (ruthex short, Amazon B09ZHSGHXD) pressed into
    the shell above. Head Ø 5.5 × 1.0 tall sits 0.25 mm below the
    plate's bottom face; Ø 3.8 unthreaded shoulder under the head
@@ -98,9 +98,11 @@ pill_slot_width_x = flavor_tube_hole_diameter
 # in the shell's "rear shoulder" wall material between the body bore
 # and the shell outer cylinder, well clear of the pill slot.
 #
-# Screw — McMaster 91223A413: 316 SS ultra-low-profile socket head,
-#   M3 × 0.5 × 8 mm, head Ø 5.5 × 1.0 mm tall, 2 mm hex socket,
-#   Ø 3.8 unthreaded shoulder under the head.
+# Screw — McMaster 91223A412: 316 SS ultra-low-profile socket head,
+#   M3 × 0.5 × 6 mm, head Ø 5.5 × 1.0 mm tall, 2 mm hex socket,
+#   Ø 3.8 unthreaded shoulder under the head. (Replaced 91223A413
+#   M3 × 8 mm on 2026-05-22; 8 mm bottomed out against the insert's
+#   closed top, holding the head 1 mm proud.)
 # Insert — ruthex M3 short (Amazon B09ZHSGHXD): Ø 4.6 knurl OD /
 #   Ø 3.9 body / 4 mm length, recommended install hole Ø 4.0.
 
