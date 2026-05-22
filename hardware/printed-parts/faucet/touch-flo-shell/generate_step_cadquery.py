@@ -48,7 +48,7 @@ body_bore_y = 0.0
 # tangent to the body's +X face (X=15.75) and tangent to each other at Y=0.
 # (Mounting plate not yet updated to match — coming in a later pass.)
 flavor_tube_x = 18.925  # body_r + tube_r = 15.75 + 3.175
-flavor_tube_hole_dia = 6.85  # 6.35 OD + 0.5 mm clearance
+flavor_tube_hole_dia = 6.95  # 6.35 OD + 0.6 mm clearance
 flavor_tube_y_offset = 3.175  # = tube_r, tubes touch at Y=0
 pill_length_y = 2 * flavor_tube_y_offset + flavor_tube_hole_dia  # 13.2
 pill_width_x = flavor_tube_hole_dia  # 6.85
@@ -71,16 +71,22 @@ flavor_pill_x_minus_edge = min(
 
 # SHELL OUTER (derived from wall-thickness target)
 #
-# The wall-thickness target applies at the body bore's farthest edge
-# from the shell center. With shell_center_x chosen to balance walls on
-# both sides (body bore -X edge vs. flavor pill +X edge), the two
-# extremes are equidistant from the shell center (19.175 mm), so the
-# target applies cleanly to both.
+# The wall-thickness target applies at whichever extreme is farthest
+# from the shell center: the body bore's -X edge or the flavor pill's
+# +X edge. shell_center_x was originally chosen so both sit at 19.175
+# mm (equidistant), but if flavor_tube_hole_dia grows the pill edge
+# moves out and becomes the binding constraint.
 wall_thickness_min = 3.0
 _body_bore_farthest_from_shell_center = (
     (shell_center_x - body_bore_x) + body_bore_diameter / 2.0
 )  # = 19.175 mm
-shell_outer_r = _body_bore_farthest_from_shell_center + wall_thickness_min
+_pill_farthest_from_shell_center = (
+    flavor_tube_x + pill_width_x / 2.0 - shell_center_x
+)  # = 19.225 mm at flavor_tube_hole_dia = 6.95
+shell_outer_r = (
+    max(_body_bore_farthest_from_shell_center, _pill_farthest_from_shell_center)
+    + wall_thickness_min
+)
 
 
 # ZONE 2 — cylinder → rectangle transition + rect column
@@ -192,7 +198,7 @@ water_tube_x = 8.875
 # harvested Westbrass R2031-NL-62 valve body IS the 1/4"→3/8" adapter;
 # the 3/8" tube only exists above this port, internal to the head.
 water_tube_od = 0.375 * 25.4  # 9.525
-water_hole_diameter = water_tube_od + 2.0 * bore_clearance  # 10.025
+water_hole_diameter = water_tube_od + 2.0 * bore_clearance + 0.10  # 10.125
 
 # 1/4" LLDPE flavor tube. The flavor tube butts up against the water
 # tube at the dispense point. Each flavor tube sits at
