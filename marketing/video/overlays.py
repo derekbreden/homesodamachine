@@ -33,10 +33,13 @@ Top-level:
 
 Each entry has:
   "type":  one of: text | stamp | lower_third | hud | box | pip | magnifier
+                   | arrow | param | title
   "t":     [start_sec, end_sec] in OUTPUT timeline
   "fade":  optional seconds for ease in/out; default 0.25 (use 0 for hard cut)
+           — title defaults to 0.6 for a presented-not-flashed feel.
 
-POSITION VOCABULARY (used by text / stamp / lower_third / hud / pip / param)
+POSITION VOCABULARY (used by text / stamp / lower_third / hud / pip / param
+                              / title)
   "top-left"  | "top-right"  | "bottom-left" | "bottom-right"
   "center"    | "top-center" | "bottom-center"
   "left-mid"  | "right-mid"  (param only — vertically centered on the side)
@@ -123,6 +126,25 @@ param
                 "top-right" | "bottom-left" | "bottom-right" | [x,y]
   accent_color: hex color for the left stripe, default "#ff7a2d"
                 (a warm orange that complements warm/spark footage)
+
+title
+  Hero title overlay that sits on top of the opening (or closing) action
+  shot, replacing the hard-cut black-slate convention. Same design family
+  as `param` (rounded corners, drop shadow, left accent stripe, dark
+  panel) but tuned for hero proportions: wider auto-sized panel with a
+  generous minimum, larger demi-bold text, optional dim italic subtitle,
+  heavier shadow and stripe so it reads as THE title rather than another
+  callout. Anchored bottom-center by default to clear the central action
+  and stay above the YouTube duration-pill safe zone.
+  text:          str — large title line, e.g. "DON'T LET GO"
+  subtitle:      str — optional dim italic line below the title
+  position:      "bottom-center" (default) | "top-center" | "center" |
+                 "bottom-left" | "bottom-right" | [x,y]
+  text_size:     int, default 100
+  subtitle_size: int, default 38
+  accent_color:  hex color for the left stripe, default "#ff7a2d"
+  fade:          float, default 0.6 (slightly slower than other overlays
+                 so the title feels presented, not flashed)
 
 OVERLAY TYPES — schema reserved, not yet implemented
 
@@ -867,6 +889,205 @@ def emit_param_overlay(entry: dict, param_label: str,
     )
 
 
+# ---------- title (Pillow-rendered hero title-over-action) ----------
+
+# The title type's role: replace the old "hard cut to a black slate" intro
+# convention. Modern doc/build channels keep the action visible behind the
+# title; the title is a polished overlay, not a separate beat. Sits in the
+# same design family as `param` (rounded corners, accent stripe, drop shadow,
+# dark panel) but with hero proportions — wider panel, larger type, slightly
+# heavier panel + stripe + shadow than `param` so it reads as THE title
+# rather than another callout. Anchored bottom-center by default to clear
+# the central action without competing with the YouTube duration pill
+# (which lives bottom-right on most surfaces).
+
+_TITLE_FONT_PROFILE = {
+    "demi_bold": (_AVENIR_NEXT, 2),   # the large title text
+    "italic":    (_AVENIR_NEXT, 4),   # the optional subtitle
+}
+_TITLE_FONT_FALLBACK = {
+    "demi_bold": (_HELVETICA, 1),
+    "italic":    (_HELVETICA, 2),
+}
+
+
+def _load_title_font(weight: str, size: int):
+    """Load a title font at the given weight + size, with fallback."""
+    from PIL import ImageFont
+    profile = (_TITLE_FONT_PROFILE
+               if Path(_AVENIR_NEXT).exists()
+               else _TITLE_FONT_FALLBACK)
+    path, index = profile[weight]
+    return ImageFont.truetype(path, size, index=index)
+
+
+def render_title_png(entry: dict, video_w: int, video_h: int,
+                     out_path: Path) -> None:
+    """Render a hero title panel as a transparent full-frame PNG.
+
+    Layout (left-to-right):
+      [ACCENT STRIPE]  [PADDING]  [TITLE]               <- large demi-bold
+                                  [SUBTITLE (optional)] <- smaller italic dim
+
+    Panel auto-sizes to the longest text + generous padding, with a minimum
+    width so short titles still feel hero-sized. The panel is centered
+    horizontally and anchored to the bottom-center by default (lifts above
+    the YouTube duration-pill safe zone).
+    """
+    from PIL import Image, ImageDraw, ImageFilter
+
+    text = str(entry["text"])
+    subtitle = str(entry.get("subtitle") or "")
+    accent = entry.get("accent_color", "#ff7a2d")
+    position = entry.get("position", "bottom-center")
+    text_size = int(entry.get("text_size", 100))
+    subtitle_size = int(entry.get("subtitle_size", 38))
+
+    text_font = _load_title_font("demi_bold", text_size)
+    subtitle_font = _load_title_font("italic", subtitle_size) if subtitle else None
+
+    def w(text, font):
+        x0, _, x1, _ = font.getbbox(text)
+        return x1 - x0
+    text_w_px = w(text, text_font)
+    subtitle_w_px = w(subtitle, subtitle_font) if subtitle_font else 0
+    content_w = max(text_w_px, subtitle_w_px)
+
+    text_lh = sum(text_font.getmetrics())
+    subtitle_lh = sum(subtitle_font.getmetrics()) if subtitle_font else 0
+
+    stripe_w = 12
+    pad_left_inside = 48     # space between stripe and text column
+    pad_other = 56           # top / right / bottom interior padding
+    gap_text_subtitle = 16
+    radius = 12
+
+    # Min/max widths: short titles still look hero, long titles still fit
+    # inside the safe area. The minimum gives a confident presence; the
+    # maximum keeps 120 px of clear space on each side of the frame.
+    min_panel_w = 800
+    max_panel_w = video_w - 240
+    desired_w = stripe_w + pad_left_inside + int(content_w) + pad_other
+    panel_w = max(min_panel_w, min(max_panel_w, desired_w))
+
+    panel_h = (pad_other
+               + text_lh
+               + ((gap_text_subtitle + subtitle_lh) if subtitle_font else 0)
+               + pad_other)
+
+    # Position anchors. Bottom-center default — lifts the panel above the
+    # YouTube duration pill zone (bottom-right corner on most surfaces).
+    bottom_margin = 140
+    side_margin = 120
+    pos_map = {
+        "bottom-center": ((video_w - panel_w) // 2,
+                          video_h - panel_h - bottom_margin),
+        "top-center":    ((video_w - panel_w) // 2, bottom_margin),
+        "center":        ((video_w - panel_w) // 2, (video_h - panel_h) // 2),
+        "bottom-left":   (side_margin, video_h - panel_h - bottom_margin),
+        "bottom-right":  (video_w - panel_w - side_margin,
+                          video_h - panel_h - bottom_margin),
+    }
+    if isinstance(position, (list, tuple)):
+        panel_x, panel_y = int(position[0]), int(position[1])
+    elif position in pos_map:
+        panel_x, panel_y = pos_map[position]
+    else:
+        raise ValueError(f"Unknown title position {position!r}")
+
+    img = Image.new("RGBA", (video_w, video_h), (0, 0, 0, 0))
+
+    # Drop shadow — heavier than param's so the title reads as the hero
+    # element. 16 px blur, 8 px y-offset.
+    shadow_extend = 12
+    shadow_offset_y = 8
+    shadow_pad = 24
+    sh_w = panel_w + 2 * shadow_extend + 2 * shadow_pad
+    sh_h = panel_h + 2 * shadow_extend + 2 * shadow_pad
+    sh = Image.new("RGBA", (sh_w, sh_h), (0, 0, 0, 0))
+    sh_draw = ImageDraw.Draw(sh)
+    sh_draw.rounded_rectangle(
+        (shadow_pad - shadow_extend, shadow_pad - shadow_extend,
+         shadow_pad + panel_w + shadow_extend,
+         shadow_pad + panel_h + shadow_extend),
+        radius=radius + shadow_extend,
+        fill=(0, 0, 0, 150),
+    )
+    sh = sh.filter(ImageFilter.GaussianBlur(radius=16))
+    img.alpha_composite(
+        sh,
+        (panel_x - shadow_pad, panel_y - shadow_pad + shadow_offset_y),
+    )
+
+    draw = ImageDraw.Draw(img)
+
+    # Panel background — dark, slightly more solid than param (235→240) so
+    # the title's typography sits clearly above any background scene.
+    draw.rounded_rectangle(
+        (panel_x, panel_y, panel_x + panel_w - 1, panel_y + panel_h - 1),
+        radius=radius,
+        fill=(10, 10, 10, 240),
+    )
+
+    # Accent stripe — same hugging-the-rounded-corner pattern as param,
+    # 12 px wide (heavier than param's 8).
+    stripe_rgba = _hex_to_rgba(accent, alpha=255)
+    draw.rounded_rectangle(
+        (panel_x, panel_y, panel_x + stripe_w + radius, panel_y + panel_h - 1),
+        radius=radius,
+        fill=stripe_rgba,
+    )
+    draw.rectangle(
+        (panel_x + stripe_w, panel_y,
+         panel_x + stripe_w + radius, panel_y + panel_h - 1),
+        fill=(10, 10, 10, 240),
+    )
+
+    # Text column.
+    text_x = panel_x + stripe_w + pad_left_inside
+    cur_y = panel_y + pad_other
+    draw.text((text_x, cur_y), text, font=text_font,
+              fill=(255, 255, 255, 255))
+    if subtitle_font:
+        cur_y += text_lh + gap_text_subtitle
+        draw.text((text_x, cur_y), subtitle, font=subtitle_font,
+                  fill=(170, 170, 170, 255))
+
+    img.save(out_path)
+
+
+def emit_title_branch(entry: dict, png_path: Path, input_idx: int,
+                      out_label: str) -> tuple[str, list[str]]:
+    """Build a filter_complex branch for one title overlay.
+
+    Same shape as emit_param_branch (PNG drawn at full-frame size, overlay
+    sits at x=0:y=0). Default fade is slightly slower than other overlays
+    so the title feels presented rather than flashed.
+    """
+    fade = entry.get("fade", 0.6)
+    s, e = entry["t"]
+
+    parts = [f"[{input_idx}:v]null"]
+    if fade > 0:
+        parts[0] += (f",fade=t=in:st={s:.3f}:d={fade}:alpha=1,"
+                     f"fade=t=out:st={max(0, e - fade):.3f}:d={fade}:alpha=1")
+    parts[0] += f"[{out_label}]"
+    extra_input = ["-loop", "1", "-i", str(png_path)]
+    return parts[0], extra_input
+
+
+def emit_title_overlay(entry: dict, title_label: str,
+                       in_label: str, out_label: str) -> str:
+    """Composite the pre-rendered full-frame title PNG onto the main video."""
+    t = entry["t"]
+    return (
+        f"[{in_label}][{title_label}]"
+        f"overlay=x=0:y=0:format=auto:"
+        f"enable='{enable_expr(t)}'"
+        f"[{out_label}]"
+    )
+
+
 # ---------- top-level renderer ----------
 
 DRAWLIKE_TYPES = {"text", "stamp", "lower_third", "hud", "box"}
@@ -1000,6 +1221,26 @@ def build_filter_graph(sidecar: dict, sidecar_dir: Path,
             out = f"v{next_stage}"
             next_stage += 1
             statements.append(emit_param_overlay(entry, param_label, cur, out))
+            cur = out
+        elif t == "title":
+            if video_w is None or video_h is None or arrow_tmp_dir is None:
+                raise RuntimeError(
+                    "title overlays require video_w / video_h / "
+                    "arrow_tmp_dir (shared PNG temp dir); call render() "
+                    "or pass them explicitly."
+                )
+            flush_drawlike()
+            png_path = arrow_tmp_dir / f"title_{next_input_idx}.png"
+            render_title_png(entry, video_w, video_h, png_path)
+            title_label = f"title{next_input_idx}"
+            branch_stmt, ffmpeg_in = emit_title_branch(
+                entry, png_path, next_input_idx, title_label)
+            statements.append(branch_stmt)
+            extra_inputs.extend(ffmpeg_in)
+            next_input_idx += 1
+            out = f"v{next_stage}"
+            next_stage += 1
+            statements.append(emit_title_overlay(entry, title_label, cur, out))
             cur = out
         else:
             raise ValueError(f"Unknown overlay type {t!r}")
