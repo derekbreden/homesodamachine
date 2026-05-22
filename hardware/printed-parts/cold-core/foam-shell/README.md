@@ -395,9 +395,7 @@ parallel:
 The longest required slot traverse for the foam is the ~0.5 mm
 radial gap between the coil and the centerward wall's tank-side
 face at the ±X azimuths — ~110 mm of arc to reach around the back
-of the coil from the ±Z entry. Shorter than the old top-down
-~200 mm vertical traverse the diagonal pour-channels were originally
-added to help with.
+of the coil from the ±Z entry.
 
 Foam expansion may push a small amount of material out through the
 0.5 mm clearance bands around tubes in the +Z slot and through the
