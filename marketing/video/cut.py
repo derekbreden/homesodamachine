@@ -29,12 +29,31 @@ medium --crf 18 for the final lock.
 
 CUT LIST FORMATS
 
-Two JSON shapes are accepted, distinguished by the top-level type:
+Two top-level JSON shapes are accepted (legacy list / dict-with-sources),
+and within either, each cut entry takes one of two shapes:
+
+  Range (default — when "type" is omitted or "range"):
+    {"source": "X.mp4", "start": 12.5, "end": 38.0, "label": "..."}
+    Extracts the [start, end] interval of source.
+
+  Freeze (when "type" is "freeze"):
+    {"type": "freeze", "source": "X.mp4", "at": 145.3, "duration": 2.0,
+     "label": "trigger held"}
+    Extracts a single frame from source at time `at`, then renders an
+    N-second still segment (silent audio) that holds that frame. The
+    freeze participates in the xfade chain like any other cut — cross-
+    dissolves in and out cleanly. Annotate freeze segments by authoring
+    the existing overlay types (arrow, text, box, stamp) in the
+    overlays.json sidecar against the OUTPUT-timeline range
+    corresponding to the freeze window; overlays.py needs no changes.
+
+Top-level shapes:
 
   Legacy (list):
     [
       {"start": 12.5, "end": 38.0, "label": "..."},
-      {"source": "synced/part2.mp4", "start": 5, "end": 24}
+      {"source": "synced/part2.mp4", "start": 5, "end": 24},
+      {"type": "freeze", "source": "synced/part2.mp4", "at": 30, "duration": 1.5}
     ]
     Each cut may include "source" (overrides CLI source arg) and any
     of the optional per-cut overlay fields below.
@@ -160,6 +179,81 @@ def extract_segment(source: str, start: float, end: float, output: Path,
         str(output),
     ]
     subprocess.run(cmd, check=True)
+
+
+def extract_freeze_segment(source: str, at: float, duration: float,
+                           output: Path,
+                           preset: str = "medium", crf: int = 18,
+                           overlays: list[str] | None = None) -> None:
+    """Render an N-second still-frame segment from `source` at time `at`.
+
+    Pulls a single frame from the source at timestamp `at` (PNG to a
+    temp file), then loops it for `duration` seconds against a silent
+    stereo audio source. The output is encoded to match the
+    resolution + frame rate + pixel format of the source so it slots
+    into the xfade chain without scaling or rate conversion.
+
+    xfade is strict about input timebase: a freeze rendered at 30 fps
+    against 29.97 source content breaks the chain with "current rate
+    of 1/0 is invalid" (the same failure mode noted in
+    `concat_with_fade`). We probe the source's r_frame_rate and
+    re-pin it on the looped output.
+
+    Single-frame PNG round-trip vs. trim-and-freeze with `tpad`: PNG
+    is simpler and lets us avoid seeking twice through a large
+    source. The encode is cheap since libx264 collapses identical
+    frames trivially.
+
+    `overlays` follows the same convention as extract_segment — a
+    list of drawtext filter strings chained after the freeze. The
+    typical annotation path is overlay sidecar (arrow/text/box/stamp
+    in overlays.json) authored against the OUTPUT timeline, not
+    here; this hook exists for section/tool consistency with
+    extract_segment.
+    """
+    width, height, fps_str = probe_video_meta(source)
+    with tempfile.TemporaryDirectory() as tmp:
+        frame_path = Path(tmp) / "frame.png"
+        # Grab the single frame. -ss before -i is fast (input-seek);
+        # frame accuracy is fine since `at` is authored against the
+        # decoded source. -update 1 + -frames:v 1 writes one image.
+        subprocess.run([
+            "ffmpeg", "-y",
+            "-ss", f"{at:.3f}",
+            "-i", source,
+            "-frames:v", "1", "-update", "1",
+            "-loglevel", "error",
+            str(frame_path),
+        ], check=True)
+
+        # Loop the PNG against silent stereo audio. -shortest clips
+        # both to the audio's `-t` duration. fps filter pins CFR
+        # output at the source's r_frame_rate so xfade sees a clean
+        # rate downstream. scale ensures dimensions match exactly
+        # even if the PNG decoder produced a slightly different size
+        # (it shouldn't, but cheap insurance).
+        vf_chain = [
+            f"fps={fps_str}",
+            f"scale={width}:{height}",
+            "format=yuv420p",
+        ]
+        if overlays:
+            vf_chain.extend(overlays)
+        cmd = [
+            "ffmpeg", "-y",
+            "-loop", "1", "-i", str(frame_path),
+            "-f", "lavfi",
+            "-i", f"anullsrc=channel_layout=stereo:sample_rate=48000",
+            "-t", f"{duration:.3f}",
+            "-vf", ",".join(vf_chain),
+            "-c:v", "libx264", "-preset", preset, "-crf", str(crf),
+            "-pix_fmt", "yuv420p",
+            "-c:a", "aac", "-b:a", "192k", "-ar", "48000", "-ac", "2",
+            "-shortest",
+            "-loglevel", "error",
+            str(output),
+        ]
+        subprocess.run(cmd, check=True)
 
 
 def generate_title_clip(text: str, output: Path, duration: float = 2.0,
@@ -522,6 +616,7 @@ def main():
             label_descr = cut.get("label", "")
             section = cut.get("section")
             tool = cut.get("tool")
+            cut_type = cut.get("type", "range")
             extras = []
             if section:
                 extras.append(f"section={section!r}")
@@ -536,13 +631,24 @@ def main():
             if tool:
                 overlays.append(tool_drawtext(tool))
 
-            print(f"  segment {i}/{len(cuts)}: "
-                  f"{cut['start']:.2f}–{cut['end']:.2f}s{label_str}{extras_str}",
-                  file=sys.stderr)
             cut_source = cut.get("source", args.source)
-            extract_segment(cut_source, cut["start"], cut["end"], seg_out,
-                            preset=args.preset, crf=args.crf,
-                            overlays=overlays or None)
+            if cut_type == "freeze":
+                print(f"  segment {i}/{len(cuts)}: freeze "
+                      f"@ {cut['at']:.2f}s for {cut['duration']:.2f}s"
+                      f"{label_str}{extras_str}",
+                      file=sys.stderr)
+                extract_freeze_segment(cut_source, cut["at"], cut["duration"],
+                                       seg_out,
+                                       preset=args.preset, crf=args.crf,
+                                       overlays=overlays or None)
+            else:
+                print(f"  segment {i}/{len(cuts)}: "
+                      f"{cut['start']:.2f}–{cut['end']:.2f}s"
+                      f"{label_str}{extras_str}",
+                      file=sys.stderr)
+                extract_segment(cut_source, cut["start"], cut["end"], seg_out,
+                                preset=args.preset, crf=args.crf,
+                                overlays=overlays or None)
             segment_paths.append(seg_out)
 
         # All segments share the same resolution (title was rendered
@@ -591,7 +697,12 @@ def main():
                 preset=args.preset, crf=args.crf,
             )
 
-    total = sum(c["end"] - c["start"] for c in cuts)
+    # Sum runtime across mixed range/freeze entries: range cuts have
+    # [start, end], freeze cuts have a fixed duration.
+    total = sum(
+        c["duration"] if c.get("type") == "freeze" else c["end"] - c["start"]
+        for c in cuts
+    )
     if args.title:
         total += args.title_duration
     if args.fade > 0:
