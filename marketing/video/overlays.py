@@ -152,6 +152,41 @@ OVERLAY TYPES — schema reserved, not yet implemented
   diagram   — composited generated image; same shape as pip. Use pip
               with a pre-generated PNG until a diagram generator lands.
 
+SOUNDS
+
+Top-level sidecar key `sounds` is an optional array of sound-effect cues
+that are mixed on top of the main video's audio in the same ffmpeg pass
+as the overlays. Times are authored against the OUTPUT timeline (same
+convention as visual overlays). Each entry:
+
+  {
+    "file":     "sfx/stamp-thud.wav",   # path relative to sidecar dir
+    "t":        4.5,                    # start time (sec), output timeline
+    "volume":   0.8,                    # gain multiplier; default 1.0
+    "fade_in":  0.005,                  # optional fade-in (sec); default 0
+    "fade_out": 0.05                    # optional fade-out (sec); default 0
+  }
+
+SFX library lives at `marketing/video/sfx/`. The synthesis script
+`marketing/video/sfx/synthesize.sh` (re)generates the placeholder cues
+deterministically; each WAV is 48000 Hz stereo, normalized to ~-3 dBFS
+peak so the per-cue `volume` knob is meaningful (1.0 ≈ matches main bed,
+0.5 ≈ background, 1.5 ≈ punctuation).
+
+Notes on mixing:
+- The main video audio is preserved at unit gain (no automatic
+  normalization), so an empty `sounds` array is bit-equivalent (modulo
+  the AAC re-encode) to the no-sounds path.
+- amix's default `normalize=1` divides every input by sum-of-weights,
+  which kills the bed. We pass `normalize=0` and let each cue's own
+  `volume` parameter do the levelling.
+- `adelay` aligns each cue to its `t` in the output timeline; cues that
+  extend past the end of the main audio are clipped by `amix
+  duration=first`.
+
+When `sounds` is present the audio chain is re-encoded (AAC). When
+absent, audio is stream-copied as before.
+
 NOTES
 
 - All time-gated filters use `enable='between(t,start,end)'`.
@@ -1088,6 +1123,94 @@ def emit_title_overlay(entry: dict, title_label: str,
     )
 
 
+# ---------- sound mixing ----------
+
+def emit_sound_branches(sounds: list[dict], sidecar_dir: Path,
+                        start_input_idx: int,
+                        ) -> tuple[list[str], list[str], str | None, int]:
+    """Build filter-complex branches that mix `sounds` onto the main audio.
+
+    Each sound becomes one extra ffmpeg input. Its branch applies
+    adelay (time placement), volume (gain), and optional afade in/out,
+    then all branches plus the main audio `[0:a]` are summed by amix
+    with `normalize=0` so the main bed stays at unit gain.
+
+    Returns (statements, extra_inputs, final_audio_label, next_input_idx).
+    `final_audio_label` is None if `sounds` is empty (caller should
+    fall through to `-map 0:a -c:a copy`); otherwise it's `[aout]` and
+    the caller maps that and re-encodes audio.
+    """
+    if not sounds:
+        return [], [], None, start_input_idx
+
+    statements: list[str] = []
+    extra_inputs: list[str] = []
+    branch_labels: list[str] = []
+    next_input_idx = start_input_idx
+
+    for i, sound in enumerate(sounds):
+        src = (sidecar_dir / sound["file"]).resolve()
+        if not src.exists():
+            raise FileNotFoundError(f"sound file not found: {src}")
+        t = float(sound["t"])
+        volume = float(sound.get("volume", 1.0))
+        fade_in = float(sound.get("fade_in", 0.0))
+        fade_out = float(sound.get("fade_out", 0.0))
+
+        # Probe the cue's duration so we can place the fade-out from the
+        # END of the cue. Without this we'd lock alpha at 0 before the
+        # cue finished, or worse, cut into the body of a short cue.
+        cue_dur = _probe_audio_duration(str(src))
+
+        # adelay needs per-channel delays separated by '|'. We default
+        # to stereo (the SFX library is 48000 Hz stereo by design); for
+        # mono cues the second value is harmlessly ignored.
+        delay_ms = int(round(t * 1000))
+        label = f"s{i+1}"
+        branch_labels.append(label)
+
+        parts = [f"[{next_input_idx}:a]"
+                 f"adelay={delay_ms}|{delay_ms}:all=1,"
+                 f"volume={volume}"]
+        # Fades are applied BEFORE the delay would have been simplest,
+        # but adelay shifts the timeline so the fade-out timestamps must
+        # be expressed AFTER the delay. We chain volume -> fades on the
+        # delayed stream: fade-in starts at t, fade-out ends at t+dur.
+        if fade_in > 0:
+            parts[0] += f",afade=t=in:st={t:.3f}:d={fade_in:.3f}"
+        if fade_out > 0:
+            fout_start = max(t, t + cue_dur - fade_out)
+            parts[0] += f",afade=t=out:st={fout_start:.3f}:d={fade_out:.3f}"
+        parts[0] += f"[{label}]"
+
+        statements.append(parts[0])
+        extra_inputs.extend(["-i", str(src)])
+        next_input_idx += 1
+
+    # Mix main audio + every cue branch. normalize=0 disables amix's
+    # divide-by-N gain reduction (the bed survives at unit gain);
+    # duration=first clips any cue that extends past the main audio
+    # so the output's audio duration tracks the main video.
+    inputs = "[0:a]" + "".join(f"[{lbl}]" for lbl in branch_labels)
+    n = 1 + len(branch_labels)
+    statements.append(
+        f"{inputs}amix=inputs={n}:duration=first:normalize=0[aout]"
+    )
+
+    return statements, extra_inputs, "[aout]", next_input_idx
+
+
+def _probe_audio_duration(path: str) -> float:
+    """Return the duration in seconds of an audio file via ffprobe."""
+    out = subprocess.check_output([
+        "ffprobe", "-v", "error",
+        "-show_entries", "format=duration",
+        "-of", "csv=p=0",
+        path,
+    ], text=True).strip()
+    return float(out)
+
+
 # ---------- top-level renderer ----------
 
 DRAWLIKE_TYPES = {"text", "stamp", "lower_third", "hud", "box"}
@@ -1111,7 +1234,7 @@ def build_filter_graph(sidecar: dict, sidecar_dir: Path,
                        video_w: int | None = None,
                        video_h: int | None = None,
                        arrow_tmp_dir: Path | None = None,
-                       ) -> tuple[str, list[str]]:
+                       ) -> tuple[str, list[str], str | None]:
     """Build a complete filter_complex string + the extra ffmpeg input args.
 
     The graph's main video input is assumed to be `[0:v]`. The graph's
@@ -1121,7 +1244,9 @@ def build_filter_graph(sidecar: dict, sidecar_dir: Path,
     arrow overlays (which need a full-frame PNG canvas). `arrow_tmp_dir`
     is the directory in which pre-rendered arrow PNGs will be written.
 
-    Returns (filter_complex, extra_inputs_flat).
+    Returns (filter_complex, extra_inputs_flat, final_audio_label).
+    `final_audio_label` is `[aout]` when the sidecar declares any
+    `sounds`, otherwise None (caller stream-copies `0:a`).
     """
     font = sidecar.get("default_font", DEFAULT_FONT)
     overlays = sidecar.get("overlays", [])
@@ -1262,7 +1387,17 @@ def build_filter_graph(sidecar: dict, sidecar_dir: Path,
         out = "vout"
         statements.append(f"[{cur}]null[{out}]")
 
-    return ";".join(statements), extra_inputs
+    # Audio: sound-effect mixing. Pure audio chain — independent of the
+    # video chain above, just shares the filter_complex.
+    sound_stmts, sound_inputs, audio_label, next_input_idx = (
+        emit_sound_branches(
+            sidecar.get("sounds", []), sidecar_dir, next_input_idx,
+        )
+    )
+    statements.extend(sound_stmts)
+    extra_inputs.extend(sound_inputs)
+
+    return ";".join(statements), extra_inputs, audio_label
 
 
 def render(input_video: str, sidecar_path: str, output_video: str,
@@ -1284,7 +1419,7 @@ def render(input_video: str, sidecar_path: str, output_video: str,
 
     arrow_tmp_dir = Path(tempfile.mkdtemp(prefix="overlays-arrow-"))
     try:
-        filter_complex, extra_inputs = build_filter_graph(
+        filter_complex, extra_inputs, audio_label = build_filter_graph(
             sidecar, sidecar_dir, captions=captions,
             video_w=video_w, video_h=video_h,
             arrow_tmp_dir=arrow_tmp_dir,
@@ -1292,12 +1427,17 @@ def render(input_video: str, sidecar_path: str, output_video: str,
 
         cmd = ["ffmpeg", "-y", "-i", input_video]
         cmd += extra_inputs
+        cmd += ["-filter_complex", filter_complex, "-map", "[vout]"]
+        if audio_label:
+            # Sounds were mixed; map the filter output and re-encode AAC.
+            cmd += ["-map", audio_label,
+                    "-c:a", "aac", "-b:a", "192k"]
+        else:
+            # No sounds; stream-copy the main audio as before.
+            cmd += ["-map", "0:a", "-c:a", "copy"]
         cmd += [
-            "-filter_complex", filter_complex,
-            "-map", "[vout]", "-map", "0:a",
             "-c:v", "libx264", "-preset", preset, "-crf", str(crf),
             "-pix_fmt", "yuv420p",
-            "-c:a", "copy",
             "-shortest",  # extra image inputs are looped; bound to main video
             "-loglevel", "error",
             output_video,
