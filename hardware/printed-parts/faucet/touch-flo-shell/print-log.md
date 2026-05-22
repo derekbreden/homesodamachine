@@ -333,15 +333,15 @@ Hardware: same (0.6 mm DUROZZLE TC L-side hotend).
 Geometry: 3-piece split shell with tube bores widened a third time and SPLIT B plug nudged in between 1.9 and 1.95, per commit `2db9814` ("faucet/touch-flo-shell: tube bores +0.10 mm again + SPLIT B plug 1.95 → 1.92").
 
 Derek said about attempt 14 (after further fit-up testing in handling):
-- "SPLIT B is still slightly loose."
-- Tube fitment from prior runs: tubes still difficult to insert at the previous bore size.
+- The 1.95 mm SPLIT B plug felt **too tight** in further handling — wanted something between 1.9 (the attempt-13 size that had been "still a little loose") and 1.95 (the attempt-14 size that turned out too tight on re-handling).
+- Tube fitment from prior runs: tubes still difficult to insert at the previous bore size; another +0.10 mm Ø bump requested.
 
 Geometry response in `2db9814`:
 - Flavor tube bores: `flavor_tube_hole_dia` 6.95 → **7.05 mm** (both flavor tubes; 6.35 OD + 0.7 mm clearance). Pill cross-section grows correspondingly; `pill_length_y` and `pill_width_x` each +0.10 mm.
 - Water tube bore: `water_hole_diameter` 10.125 → **10.225 mm** (9.525 OD + 0.7 mm clearance).
 - `shell_outer_r`: 22.225 → 22.275 mm — driven up by 0.05 mm (radius) by the pill +X edge growth, maintaining `wall_thickness_min = 3.0 mm` on the pill side. All zone 1–4 outer dimensions shifted accordingly. Zone 5+ tube-shell outer profile also grows 0.05 mm/side on each tube-driven dimension.
 - SPLIT A: unchanged (female 2.0 mm, male 1.95 mm, ~0.05 mm clearance).
-- SPLIT B: female socket wall unchanged at 2.0 mm. Male plug wall 1.95 → **1.92 mm**. Radial clearance ~0.05 → **~0.08 mm**.
+- SPLIT B: female socket wall unchanged at 2.0 mm. Male plug wall 1.95 → **1.92 mm** — thinner plug wall means a larger `plug_shrink` (`zone5_wall − plug_wall`), so the plug's outer surface recedes inward by 0.03 mm. Radial clearance ~0.05 → **~0.08 mm** (looser, halfway between attempt 13's 0.10 mm and attempt 14's 0.05 mm).
 - Depths untouched: A male 19 / female 20 mm; B male 18 / female 20 mm.
 
 All four shell STEPs regenerated (bottom + middle + top + full); bottom/middle/top all change from tube bore growth, top additionally from SPLIT B plug.
