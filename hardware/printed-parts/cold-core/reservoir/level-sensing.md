@@ -1,6 +1,6 @@
 # Flavor Reservoir Level Sensing
 
-Reed-and-float level sensing for each flavor reservoir, following the same architecture as the carbonator vessel ([future.md](../../../future.md) "Level sensing" section) but with **4 reed switches per reservoir** instead of 2, for ~13-serving-step granularity over the usable fill range.
+Reed-and-float level sensing for each flavor reservoir, following the same architecture as the carbonator vessel ([future.md](../../../future.md) "Level sensing" section), with **4 reed switches per reservoir** for ~13-serving-step granularity over the usable fill range.
 
 ## Why this approach
 
@@ -45,7 +45,7 @@ The reed column sits IN the foam-shell channel, so the reed sensors land roughly
 | ~6 mm (column centered in the channel — current spec) | ~70–100 gauss | ~60–100 gauss — adequate margin |
 | ~7.5 mm (column on the wall's outer face, no channel) | ~40–60 gauss | ~60–100 gauss — marginal |
 
-Cutting the channel into the wall (rather than mounting the column on the wall's outer face) gets us into the adequate-margin range without a neodymium upgrade. Same magnet as the carbonator. One SKU saved.
+Cutting the channel into the wall puts the reed column at the ~6 mm magnet-to-reed distance — adequate-margin range with the same ferrite donut the carbonator uses.
 
 ## GPIO budget
 
@@ -54,8 +54,6 @@ Cutting the channel into the wall (rather than mounting the column on the wall's
 - **Reservoir A's 4 reeds** → existing MCP23017 0x20 PB[4:7] (the chip's spare bits after 12 valves). No firmware change beyond reading 4 new bits.
 - **Reservoir B's 4 reeds** → new MCP23017 at I²C address 0x21, PA[0:3]. 12 spare bits on the new chip for future expansion. Same I²C driver as 0x20.
 
-ESP32 direct GPIO was considered for the 4 Reservoir B bits (GPIO 2, 12 with `INPUT_PULLUP` + GPIO 36, 39 with external 10 kΩ pull-ups) but rejected: it consumes the last input-capable pins on the ESP32, leaves zero headroom for anything future, and the savings vs the $13 MCP23017 are negligible. A 74HC165 shift register was also considered and rejected for the same headroom reason.
-
 ## Parts (per build)
 
 Per-build additions for the flavor-reservoir level sensing are tracked in [`../../../bom.md`](../../../bom.md) §12 "Level sensing":
@@ -63,7 +61,7 @@ Per-build additions for the flavor-reservoir level sensing are tracked in [`../.
 - **8 Gebildet reed switches** (B0CW9418F6) for the flavor reservoirs — same SKU as the carbonator's 2 reeds; 2 × 6-pack covers all 10 reeds per build (2 carbonator + 8 flavor) with 2 spares.
 - **2 DEVMO MINI floats** (B07T18PGJ4) — one per flavor reservoir. Donor donut + its ferrite magnet kept; switch body / cable discarded. With the reed column inside the foam-shell channel (~6 mm magnet-to-reed path), no neodymium upgrade needed. The carbonator's existing 1 unit becomes 3 units per build (1 carbonator + 2 reservoirs).
 - **2 multi-conductor cables** for the harnesses (≥ 5 conductors each: 4 reed signals + 1 common return per reservoir). Research candidate under evaluation at the time of writing: KWANGIL 22 AWG 12-conductor UL2464 ([B0CSD5QZ21](https://www.amazon.com/dp/B0CSD5QZ21)) — characterize once it arrives.
-- **(Conditional) 1 second MCP23017** GPIO expander (B07P2H1NZG) — same SKU as the existing expander, at I²C address 0x21. Only needed if the ESP32-direct-GPIO and 74HC165 alternatives are rejected.
+- **1 second MCP23017** GPIO expander (B07P2H1NZG) — same SKU as the existing expander, at I²C address 0x21.
 
 ## Calibration
 

@@ -50,7 +50,7 @@ Downstream of the front-panel inlet stack: GASHER check → WR1110 secondary reg
 
 The WR1110 mounts on a printed bracket against the front-panel inner face so transport vibration doesn't stress the NPT stub. Bracket geometry is TBD with the panel CAD.
 
-The 1/4" LLDPE run from the front-panel stack to the cold-core CO2 input is longer than the prior back-panel-CO2 version — front-to-back across or around the manifold instead of landing directly behind the cold core. Tube routing follows the existing pre-printed channels in the enclosure shell.
+The 1/4" LLDPE run from the front-panel stack to the cold-core CO2 input routes front-to-back across or around the manifold. Tube routing follows the existing pre-printed channels in the enclosure shell.
 
 ## References
 
