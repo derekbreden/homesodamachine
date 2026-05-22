@@ -1,4 +1,4 @@
-"""Pump case — two-piece snap-fit enclosure for a peristaltic pump.
+"""Pump case — two-piece enclosure for a peristaltic pump.
 
 The case is built as one combined solid, then split with a stepped cut
 into a base and a cap.
@@ -8,8 +8,7 @@ Base: base plate with octagon-to-footprint ramp, octagon pump bore,
 Cap:  asymmetric flared skirt (wide on +Z, narrow on -Z) with a lower
       extension that tapers to uniform width.
 
-The two parts mate at a stepped split surface and lock together with
-snap-fit ramps on four interior walls.
+The two parts mate at a stepped split surface.
 """
 
 import math
@@ -22,7 +21,6 @@ _here = Path(__file__).resolve().parent
 sys.path.insert(0, str(next(p for p in _here.parents if p.name == "printed-parts") / "cadlib"))
 sys.path.insert(0, str(next(p for p in _here.parents if p.name == "hardware")))
 
-from snap import Frame, apply_ramp_out_first, apply_ramp_in_first
 from world_workplane import WorldWorkplane, xz_plane_y_up, xy_plane_z_up
 from _cadq_export import export_step
 
@@ -74,11 +72,6 @@ lower_footprint_straight = skirt_wide_straight_height
 # Stepped split
 step_height = 19.0
 step_z_clearance = 6.0
-
-# Snap fits
-snap_zone_width = 20.0
-snap_wall_height = 9.0
-snap_deflection = 1.0
 
 # Arch notches
 arch_radius = 4.5
@@ -360,7 +353,7 @@ bore_profile = bore_octagon_profile()
 bore_wall_profile = offset_polygon(bore_profile, wall_thickness)
 
 
-# Skirt profiles (shared by skirt, lower extension, split, and snap fits).
+# Skirt profiles (shared by skirt, lower extension, and the split).
 #
 # The skirt splits asymmetrically: +Z half flares outward (70→76), -Z half
 # tapers inward (70→62). Both flares are at 45 degrees. The transition wall
@@ -653,51 +646,6 @@ def split_into_base_and_cap(combined):
     return base, cap
 
 
-def add_snap_fits(base, cap):
-    """Snap-fit ramps on four interior walls where base meets cap."""
-    snap_plus_z_inner = pos_z_face_z - wall_thickness
-    snap_minus_z_inner = center_z - footprint_half_extent + wall_thickness
-    snap_plus_x_narrow_inner = center_x + footprint_half_extent - wall_thickness
-    snap_minus_x_narrow_inner = center_x - footprint_half_extent + wall_thickness
-
-    yz_zone_range = (center_x - snap_zone_width / 2, center_x + snap_zone_width / 2)
-    xy_narrow_zone_start = center_z - skirt_narrow_half_extent + corner_r + 0.5
-    xy_narrow_zone_range = (xy_narrow_zone_start, xy_narrow_zone_start + snap_zone_width)
-
-    snap_faces = [
-        (snap_plus_z_inner, +1, skirt_bottom_y, "YZ", yz_zone_range),
-        (snap_minus_z_inner, -1, narrow_split_y, "YZ", yz_zone_range),
-        (snap_plus_x_narrow_inner, +1, narrow_split_y, "XY", xy_narrow_zone_range),
-        (snap_minus_x_narrow_inner, -1, narrow_split_y, "XY", xy_narrow_zone_range),
-    ]
-
-    for inner_face, sign, split_y, plane, zone_range in snap_faces:
-        base_frame = Frame(extrusion_plane=plane, outward_sign=sign,
-                           up_axis="Y", up_sign=-1)
-        cap_frame = Frame(extrusion_plane=plane, outward_sign=sign,
-                          up_axis="Y", up_sign=+1)
-        base = apply_ramp_out_first(
-            base,
-            frame=base_frame,
-            inner_wall_at=inner_face,
-            wall_top_at=split_y,
-            wall_height=snap_wall_height,
-            zone_range=zone_range,
-            deflection_distance=snap_deflection,
-        )
-        cap = apply_ramp_in_first(
-            cap,
-            frame=cap_frame,
-            inner_wall_at=inner_face,
-            wall_top_at=split_y,
-            wall_height=snap_wall_height,
-            zone_range=zone_range,
-            deflection_distance=snap_deflection,
-        )
-
-    return base, cap
-
-
 def add_pogo_pocket(base):
     """Stepped pill pocket on the +Z face with an outward pill ridge for pogo mating."""
     pogo_y = skirt_bottom_y + pogo_y_offset
@@ -739,7 +687,6 @@ def build_pump_case():
     combined = solid.union(build_lower_extension())
     combined = cut_arch_notches(combined)
     base, cap = split_into_base_and_cap(combined)
-    base, cap = add_snap_fits(base, cap)
     base = add_pogo_pocket(base)
     return base, cap
 
