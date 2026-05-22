@@ -7,7 +7,7 @@ Consolidates the regulatory conclusions already reached across prior conversatio
 | Channel | UL / ETL listing | Notes |
 |---|---|---|
 | Direct-to-consumer (homesodamachine.com) | Not required | Listing is a retailer/insurer requirement, not federal law. |
-| Big-box retail (Amazon, Walmart, Home Depot, etc.) | Required | Use RIGID DV1910E listed-module fallback. See `hardware/future.md`. |
+| Big-box retail (Amazon, Walmart, Home Depot, etc.) | Required | Use RIGID DV1910E listed-module fallback. |
 
 ## EPA Section 608 — refrigerant handling
 
