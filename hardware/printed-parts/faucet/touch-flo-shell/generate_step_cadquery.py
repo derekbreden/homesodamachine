@@ -547,7 +547,7 @@ zone45_bot_mid_z = back_arch_center_z + back_arch_r * math.sin(_a_mid45)
 # ~11 mm of solid material above the pocket ceiling.
 
 insert_pocket_diameter = 4.0  # recommended install hole for ruthex M3 short
-insert_pocket_depth = 5.5  # 4 mm insert engagement + 1.5 mm relief
+insert_pocket_depth = 7.0  # 4 mm insert + ≥1 mm intentional press-in recess so the M3×8 screw doesn't bottom out against the insert's closed far end; up to ~3 mm of recess possible
 insert_r_from_body = 20.0  # mm from body center to insert center
 insert_theta_deg = 45.0  # angle from +X about body center
 insert_x = insert_r_from_body * math.cos(math.radians(insert_theta_deg))  # ≈ 14.142

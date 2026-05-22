@@ -110,11 +110,13 @@ pill_slot_width_x = flavor_tube_hole_diameter
 # bit before trying to install screws.
 screw_clearance_radius = 3.9 / 2
 
-# Clearance for the Ø 5.5 head (0.1 mm/side). 1.25 mm deep =
+# Clearance for the Ø 5.5 head (0.35 mm/side). 1.25 mm deep =
 # 1.0 mm head height + 0.25 mm clearance, so the head sits 0.25 mm
 # below the bottom face. Plate material remaining above the
-# counterbore (Z = -2.75 to 0): 2.75 mm.
-screw_counterbore_radius = 5.7 / 2
+# counterbore (Z = -2.75 to 0): 2.75 mm. Counterbore widened from
+# 5.7 → 6.2 mm so the head drops in easier (the 0.1 mm/side fit
+# was tight enough to catch print artifacts at the rim).
+screw_counterbore_radius = 6.2 / 2
 screw_counterbore_depth = 1.25
 
 # Screw positions: θ = ±45° about the body center (0, 0), r = 20 mm —
