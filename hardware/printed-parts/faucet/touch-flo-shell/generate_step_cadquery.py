@@ -48,7 +48,7 @@ body_bore_y = 0.0
 # tangent to the body's +X face (X=15.75) and tangent to each other at Y=0.
 # (Mounting plate not yet updated to match — coming in a later pass.)
 flavor_tube_x = 18.925  # body_r + tube_r = 15.75 + 3.175
-flavor_tube_hole_dia = 6.95  # 6.35 OD + 0.6 mm clearance
+flavor_tube_hole_dia = 7.05  # 6.35 OD + 0.7 mm clearance
 flavor_tube_y_offset = 3.175  # = tube_r, tubes touch at Y=0
 pill_length_y = 2 * flavor_tube_y_offset + flavor_tube_hole_dia  # 13.2
 pill_width_x = flavor_tube_hole_dia  # 6.85
@@ -82,7 +82,7 @@ _body_bore_farthest_from_shell_center = (
 )  # = 19.175 mm
 _pill_farthest_from_shell_center = (
     flavor_tube_x + pill_width_x / 2.0 - shell_center_x
-)  # = 19.225 mm at flavor_tube_hole_dia = 6.95
+)  # = 19.275 mm at flavor_tube_hole_dia = 7.05
 shell_outer_r = (
     max(_body_bore_farthest_from_shell_center, _pill_farthest_from_shell_center)
     + wall_thickness_min
@@ -198,7 +198,7 @@ water_tube_x = 8.875
 # harvested Westbrass R2031-NL-62 valve body IS the 1/4"→3/8" adapter;
 # the 3/8" tube only exists above this port, internal to the head.
 water_tube_od = 0.375 * 25.4  # 9.525
-water_hole_diameter = water_tube_od + 2.0 * bore_clearance + 0.10  # 10.125
+water_hole_diameter = water_tube_od + 2.0 * bore_clearance + 0.20  # 10.225
 
 # 1/4" LLDPE flavor tube. The flavor tube butts up against the water
 # tube at the dispense point. Each flavor tube sits at
@@ -341,7 +341,7 @@ split_a_plug_wall = 1.95
 split_b_socket_overlap_len = 20.0
 split_b_plug_overlap_len = 18.0
 split_b_socket_wall = 2.0
-split_b_plug_wall = 1.95
+split_b_plug_wall = 1.92
 
 split_a_socket_shrink = split_a_socket_wall
 split_a_plug_shrink = zone5_wall - split_a_plug_wall
