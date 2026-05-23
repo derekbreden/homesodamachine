@@ -56,7 +56,7 @@ Then the scope expanded from "working prototype" toward "product someone could a
 - A clean cycle system — solenoid valves that fill the flavor bladders with tap water, flush them through the dispense line, then air-purge. Three cycles, fully automated from the app or the S3 display.
 - A statistics system backed by a DS3231 RTC, tracking per-flavor usage in hourly buckets that survive power loss.
 
-The firmware runs across three microcontrollers (ESP32, RP2040, ESP32-S3) communicating over UART using TinyProto HDLC. The ESP32 is the single source of truth for configuration and images, pushing them to the display boards at boot and on change. The entire firmware system is described in detail in [firmware/README.md](firmware/README.md); the prototype build (parts, wiring, photos, cost) is in [prototype.md](prototype.md).
+The firmware runs across three microcontrollers (ESP32, RP2040, ESP32-S3) communicating over UART using TinyProto HDLC. The ESP32 is the single source of truth for configuration and images, pushing them to the display boards at boot and on change. The entire firmware system is described in detail in [firmware/README.md](firmware/README.md).
 
 ## 3D printing and the AI design wall
 
