@@ -57,9 +57,10 @@ The appliance ships with the water filter included. **Placement (internal vs. ex
 | [MAACFLOW SS 1/4" NPT M × 3/8" hose barb (4-pk)](https://www.amazon.com/dp/B0DMP77B6S) | adapts pump 3/8" hose-barb output to 1/4" NPT plumbing for the check valve and top-plate port; 1 of 4 per unit (also used in §8) | 1 (of 4 pk) | $3.24 | $3.24 |
 | [GASHER 1/4" NPT SS one-way check valve (2-pk, $15.00)](https://www.amazon.com/dp/B0FV2D2FFX) | water-side check between SeaFlo pump and top-plate water-inlet port; PTFE-on-metal rationale in [`assembly/cold-core.md`](assembly/cold-core.md) "Warm-side check valves"; 1 of 2 valves per unit (the other valve is the CO2-side check in §4) | 1 (of 2) | $7.50 | $7.50 |
 | [John Guest PP010822E 1/4" OD × 1/4" NPT male connector, black polypropylene (10-pk)](https://www.freshwatersystems.com/products/john-guest-male-connector-nptf-black-polypropylene-1-4-x-1-4-nptf) | 1/4" NPT M × 1/4" PTC adapter pair (warm-side + cold-side of the +Z slot transition on the water-inlet path); 2 per build; FWS WEBFWS100675224 May 15: $11.00 + $5.23 ship + $1.18 tax = $17.41 ÷ 10 = $1.741/ea | 2 (of 10 pk) | $1.74 | $3.48 |
+| [GAGIRA 316L SS reducing coupling, 3/8" NPT F × 1/4" NPT F (5-pk, incl. Teflon tape)](https://www.amazon.com/dp/B0G2XJGZMQ) | **Upstream adapter chain — closes the 1/4 JG QC → ASSE 1022 inlet gap.** Threads onto the PP010822E's 1/4" NPT M side (above) on the small end and onto the ASSE 1022's 3/8" MPT inlet (below) on the large end. **316L SS** — food-service gold standard, no lead concerns, matches the TAISHER 316L SS vessel-port elbows (§4) and the 316L pressure-vessel walls themselves (§2); strictly stricter than lead-free brass would have been. Includes Teflon tape (bonus — Millrose PTFE tape is the production tape per `assembly/internal-plumbing.md`). Amazon 114-6677442 May 22: 5 @ $16.99 + $1.23 tax = $18.22 ÷ 5 = $3.644/ea | 1 (of 5 pk) | $3.64 | $3.64 |
 | [Lifevant 1/4" OD water tubing 32.8 ft + quick-connects](https://www.amazon.com/dp/B0DKCZ5W66) | water-inlet tubing (filter → pump → vessel) ~8–10 ft + ~5 of 12 quick-connects per unit; ~1/3 of pack. Generic Amazon PE listing with no third-party food cert (vendor doesn't list one) — short-term use without certification | 1 (~1/3 pk) | $3.33 | $3.33 |
 | [John Guest 1/4" OD × 1/8" NPT push-fit](https://www.amazon.com/dp/B07V6XKZG9) | | 1 | $5.00 | $5.00 |
-| [John Guest PI1208S acetal bulkhead union, 1/4" QC × 1/4" QC](https://www.amazon.com/dp/B0C1F3QR7N) | **Rear-panel customer-facing water inlet.** The customer plugs the install-kit 1/4" LLDPE into this bulkhead — push-to-connect, no tools. 1/4" QC on both sides (interior side feeds into the in-cabinet run to the ASSE 1022's 3/8" MPT inlet via the adapter chain in `purchases.md` LIKELY-TO-BUY). NSF cert upgrade path: PP1208E food-cert family already in BOM §8 for the umbilical cluster is the obvious swap when the panel goes to CAD. | 1 | $11.49 | $11.49 |
+| [John Guest PI1208S acetal bulkhead union, 1/4" QC × 1/4" QC](https://www.amazon.com/dp/B0C1F3QR7N) | **Rear-panel customer-facing water inlet.** The customer plugs the install-kit 1/4" LLDPE into this bulkhead — push-to-connect, no tools. 1/4" QC on both sides (interior side feeds into the in-cabinet run → Waterdrop filter → PP010822E → GAGIRA 316L SS coupling → ASSE 1022 3/8" MPT inlet). NSF cert upgrade path: PP1208E food-cert family already in BOM §8 for the umbilical cluster is the obvious swap when the panel goes to CAD. | 1 | $11.49 | $11.49 |
 | [HAOCHEN brass angle-stop add-a-tee, 3/8" × 3/8" × 1/4"](https://www.amazon.com/dp/B0DLKHHGL6) | **Install-kit tee, scenario B (older home).** Threads between the customer's existing 3/8" angle stop and its current compression supply line, exposing a 1/4" compression outlet for the appliance. Wrench install. Already ACQUIRED on the prototype per `purchases.md §3` and `inventory.md`. | 1 | $11.99 | $11.99 |
 | [John Guest Speedfit PP0208WP 1/4" × 1/4" × 1/4" union tee, push-to-connect](https://www.amazon.com/dp/B005S4NYI8) | **Install-kit tee, scenario A (modern home).** Drops inline into an existing 1/4" LLDPE under-sink line (push-to-connect, no tools) — the configuration shipped in any kitchen new since the late 2010s or any kitchen with a PEX manifold + ice-maker / RO / drinking-water stub-out. Same JG NSF-cert PP family as the §3 PP010822E, §4 PP0308E, §8 PP1208E, and §8 PP2308E already in the BOM. Prime Tomorrow, $7.31/each × 1/build (LIKELY-TO-BUY pending order — see [`purchases.md`](purchases.md)). | 1 | $7.31 | $7.31 |
 
@@ -243,7 +244,7 @@ Per-appliance tools that ship in the install kit so the field installer can cut 
 |---|---:|
 | 1. Controllers + electronics | $166.43 |
 | 2. Carbonator vessel (plan A, 316L) | $240.69 |
-| 3. Water inlet | $220.46 |
+| 3. Water inlet | $224.10 |
 | 4. CO2 subsystem | $92.61 |
 | 5. Refrigeration | $196.70 |
 | 6. Cold core insulation | $52.38 |
@@ -255,7 +256,7 @@ Per-appliance tools that ship in the install kit so the field installer can cut 
 | 12. Level sensing | $69.78 |
 | 13. Mechanical attach hardware + reservoir-cap vent filter | $17.55 |
 | 14. Install kit | $4.29 |
-| **Total** | **$1,575.82** |
+| **Total** | **$1,579.46** |
 
 ## External / user-supplied (not shipped)
 
