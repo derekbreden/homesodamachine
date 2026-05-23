@@ -215,11 +215,10 @@ The same reed-and-float pattern is used in three places: the carbonator vessel (
 
 ## 13. Mechanical attach hardware (heat-set inserts + screws + gasket) + reservoir-cap vent filter
 
-Heat-set + screw retention appears in three places:
+Heat-set + screw retention appears in two places (the touch-flo plate joint previously used heat-set + screws too but switched to a screw-free integral-boss press fit on 2026-05-22 — see [`printed-parts/faucet/touch-flo-shell/ASSEMBLY.md`](printed-parts/faucet/touch-flo-shell/ASSEMBLY.md)):
 
-1. **Touch-flo plate** clamped to the `touch-flo-shell` via 2 ruthex inserts + 2 McMaster ULH screws — assembly + screw rationale in [`printed-parts/faucet/touch-flo-shell/ASSEMBLY.md`](printed-parts/faucet/touch-flo-shell/ASSEMBLY.md).
-2. **Foam-bag-shell caps** clamped to the `outer_shell` via 12 ruthex inserts + 12 BNUOK M3×25 SHCS, TPU 90A gasket compressing per cap — procedure in [`assembly/cold-core.md`](assembly/cold-core.md).
-3. **Reservoir cap** clamped to each reservoir body via 6 ruthex inserts + 6 BNUOK M3×12 SHCS per cap, TPU gasket — geometry + screw spec in [`printed-parts/cold-core/reservoir/generate_step_cadquery.py`](printed-parts/cold-core/reservoir/generate_step_cadquery.py).
+1. **Foam-bag-shell caps** clamped to the `outer_shell` via 12 ruthex inserts + 12 BNUOK M3×25 SHCS, TPU 90A gasket compressing per cap — procedure in [`assembly/cold-core.md`](assembly/cold-core.md).
+2. **Reservoir cap** clamped to each reservoir body via 6 ruthex inserts + 6 BNUOK M3×12 SHCS per cap, TPU gasket — geometry + screw spec in [`printed-parts/cold-core/reservoir/generate_step_cadquery.py`](printed-parts/cold-core/reservoir/generate_step_cadquery.py).
 
 Each reservoir cap also carries a ø13 mm hydrophobic PTFE membrane vent filter — see [`printed-parts/cold-core/reservoir/vent.md`](printed-parts/cold-core/reservoir/vent.md) for the splash-baffle architecture; 1 filter per cap × 2 caps per build = 2 per build.
 
@@ -227,8 +226,7 @@ The T18 heat-set tip kit ([B0CS662NVK](https://www.amazon.com/dp/B0CS662NVK)) an
 
 | Part | Notes | Qty | Unit $ | Line $ |
 |---|---|---:|---:|---:|
-| [ruthex M3 Threaded Inserts Short, 100 pc, RX-M3Sx4.0 brass heat-set](https://www.amazon.com/dp/B0D39W228K) | M3 × 4 mm L × 4.2 mm OD knurled brass; 26 per build (2 touch-flo + 12 foam-bag-shell + 12 reservoir caps); Amazon 112-4234665 May 10: $9.99 + $0.72 tax = $10.71 ÷ 100 = $0.1071/ea | 26 (of 100 pk) | $0.11 | $2.78 |
-| [McMaster-Carr 91223A412 — 316 SS Ultra-Low-Profile Socket Head Screw, M3 × 0.50 mm × 6 mm long](https://www.mcmaster.com/91223A412/) | touch-flo plate clamp screws; 2 per build; supersedes M3 × 8 mm 91223A413 (8 mm bottomed out against the insert's closed top, holding the head 1 mm proud); McMaster 7833043 May 22: 8 @ $4.54 = $36.32 + $11.88 ship + $3.49 tax = $51.69 ÷ 8 = $6.46/ea | 2 (of 8) | $6.46 | $12.92 |
+| [ruthex M3 Threaded Inserts Short, 100 pc, RX-M3Sx4.0 brass heat-set](https://www.amazon.com/dp/B0D39W228K) | M3 × 4 mm L × 4.2 mm OD knurled brass; 24 per build (12 foam-bag-shell + 12 reservoir caps; touch-flo dropped from this list on 2026-05-22 when that joint switched to integral-boss press fit); Amazon 112-4234665 May 10: $9.99 + $0.72 tax = $10.71 ÷ 100 = $0.1071/ea | 24 (of 100 pk) | $0.11 | $2.57 |
 | [BNUOK M3 × 25 mm DIN 912 socket head cap, 12.9 alloy steel, black oxide, 60 pc](https://www.amazon.com/dp/B0DJQGF665) | foam-bag-shell cap clamp screws (6 top + 6 bottom); Amazon 112-2495614 May 10: $7.99 + $0.58 tax = $8.57 ÷ 60 = $0.1428/ea | 12 (of 60 pk) | $0.14 | $1.71 |
 | [BNUOK M3 × 12 mm DIN 912 socket head cap, 12.9 alloy steel, black oxide, 120 pc](https://www.amazon.com/dp/B0DJQGVK8S) | reservoir-cap clamp screws (6 per cap × 2 caps); Amazon 112-0144900 May 10: $7.99 + $0.58 tax = $8.57 ÷ 120 = $0.0714/ea | 12 (of 120 pk) | $0.07 | $0.86 |
 | [LVDALAB PTFE Membrane Filter, ø13 mm × 0.45 µm, 100 pc, non-sterile](https://www.amazon.com/dp/B0D41KT345) | hydrophobic PTFE membrane in the reservoir-cap vent pocket; architecture + sizing in [`printed-parts/cold-core/reservoir/vent.md`](printed-parts/cold-core/reservoir/vent.md); 2 per build (1 per cap × 2 caps); Amazon 112-4393734 May 11: $12.99 − $0.65 promo + $0.89 tax = $13.23 ÷ 100 = $0.1323/ea | 2 (of 100 pk) | $0.13 | $0.26 |

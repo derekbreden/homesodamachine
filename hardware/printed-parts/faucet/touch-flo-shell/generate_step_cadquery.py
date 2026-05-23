@@ -534,24 +534,37 @@ zone45_bot_mid_x = fill_x_min + back_arch_r * math.cos(_a_mid45)
 zone45_bot_mid_z = back_arch_center_z + back_arch_r * math.sin(_a_mid45)
 
 
-# HEAT-SET INSERT POCKETS — mounting-plate retention. Two M3 brass
-# heat-set inserts (ruthex M3 short, Amazon B09ZHSGHXD — Ø 4.6 knurl OD,
-# Ø 3.9 body, 4 mm length) press into the bottom face of the shell. The
-# mounting plate threads to them with M3 × 6 mm SS socket cap screws
-# (McMaster 91223A412) coming up from below.
+# PRESS-FIT DOWEL POCKETS — mounting-plate retention. Two cylindrical
+# pockets in the bottom face of the shell accept matching Ø 4.0 × 5 mm
+# dowel bosses extruded up from the mounting plate's top face. Friction
+# from the press fit holds the plate to the shell during sub-assembly
+# handling; the structural clamping is done by the harvested faucet
+# body's shank nut below the under-counter plate.
+#
+# Replaced the earlier screw + heat-set insert retention (last seen in
+# commit 4677b88, M3 × 6 mm ULH SHCS McMaster 91223A412 + ruthex M3
+# short Amazon B09ZHSGHXD). The screws were expensive ($4-6 each,
+# McMaster-only), fiddly (2 mm hex strips easily), and the heat-set
+# install added two soldering-iron steps per shell that the press-fit
+# eliminates.
+#
+# Pocket dimensions: Ø 4.05 (0.05 mm diametric clearance over the 4.0
+# boss in CAD — FDM tolerances close that gap into a real press fit),
+# 6 mm deep (5 mm boss + 1 mm clearance above the boss tip for FDM
+# bottom-layer flatness variance).
 #
 # Pocket location: θ = ±45° about the body center, r = 20 mm — the
 # shell's "rear shoulder" wall material (between body bore and shell
 # outer cylinder, well clear of the pill slot). All four wall margins
 # hold ≥ 2 mm; pockets live entirely in zone 1 outer (Z < 16.25), with
-# ~11 mm of solid material above the pocket ceiling.
+# ~7 mm of solid material above the pocket ceiling.
 
-insert_pocket_diameter = 4.0  # recommended install hole for ruthex M3 short
-insert_pocket_depth = 7.0  # 4 mm insert + up to ~3 mm of forgiveness for install depth. With the M3×6 screws (91223A412), engagement is 3 mm at a flush insert; insert can be flush to ~3 mm recessed without the screw bottoming or losing critical engagement. (Pocket was originally deepened to 7 mm when the screws were M3×8 91223A413 — the 8 mm length bottomed out against the insert's closed top before the head reached the counterbore, holding it 1 mm proud. Switching to 6 mm screws fixed that; the 7 mm pocket depth is now just forgiveness, not a critical fix.)
-insert_r_from_body = 20.0  # mm from body center to insert center
-insert_theta_deg = 45.0  # angle from +X about body center
-insert_x = insert_r_from_body * math.cos(math.radians(insert_theta_deg))  # ≈ 14.142
-insert_y_offset = insert_r_from_body * math.sin(math.radians(insert_theta_deg))  # ≈ 14.142
+dowel_pocket_diameter = 4.05  # 0.05 mm diametric clearance over the Ø 4.0 plate boss; FDM tolerances close it into a press fit
+dowel_pocket_depth = 6.0      # 5 mm boss + 1 mm clearance above tip
+dowel_r_from_body = 20.0      # mm from body center to dowel center
+dowel_theta_deg = 45.0        # angle from +X about body center
+dowel_x = dowel_r_from_body * math.cos(math.radians(dowel_theta_deg))  # ≈ 14.142
+dowel_y_offset = dowel_r_from_body * math.sin(math.radians(dowel_theta_deg))  # ≈ 14.142
 
 
 # GEOMETRY BUILDERS
@@ -669,15 +682,15 @@ def build_zone1_inner_cut() -> cq.Workplane:
     return body_bore.union(pill)
 
 
-def build_insert_pockets() -> cq.Workplane:
-    """Two heat-set insert pockets in the shell's bottom face.
+def build_dowel_pockets() -> cq.Workplane:
+    """Two press-fit dowel pockets in the shell's bottom face.
 
-    Each pocket is a Ø insert_pocket_diameter cylinder extruded UP from
-    Z=0 by insert_pocket_depth, positioned at (insert_x, ±insert_y_offset)
+    Each pocket is a Ø dowel_pocket_diameter cylinder extruded UP from
+    Z=0 by dowel_pocket_depth, positioned at (dowel_x, ±dowel_y_offset)
     — the rear-shoulder zones at θ=±45°, r=20 from the body center.
     Lives entirely within zone 1 outer (which extends to Z =
-    zone1_outer_top = 16.25), with ~11 mm of solid material above the
-    pocket ceiling.
+    zone1_outer_top = 16.25), with ~7 mm of solid material above the
+    pocket ceiling at the current 6 mm depth.
 
     Returned as a single union for the caller to subtract from the
     shell solid.
@@ -685,9 +698,9 @@ def build_insert_pockets() -> cq.Workplane:
     return (
         cq.Workplane("XY")
         .workplane(offset=zone1_z_bottom)
-        .pushPoints([(insert_x, +insert_y_offset), (insert_x, -insert_y_offset)])
-        .circle(insert_pocket_diameter / 2.0)
-        .extrude(insert_pocket_depth)
+        .pushPoints([(dowel_x, +dowel_y_offset), (dowel_x, -dowel_y_offset)])
+        .circle(dowel_pocket_diameter / 2.0)
+        .extrude(dowel_pocket_depth)
     )
 
 
@@ -1403,7 +1416,7 @@ def build_shell() -> cq.Workplane:
         .union(_tube_shell_inner_section(zone5_z_bottom, zone5_height))
         .union(build_zone6_inner_cut())
         .union(build_lever_clearance())
-        .union(build_insert_pockets())
+        .union(build_dowel_pockets())
     )
     return outer.cut(inner)
 

@@ -58,10 +58,10 @@ into a single rigid sub-assembly.
 | Qty | Item                                                 | Reference                                                                          |
 | --- | ---------------------------------------------------- | ---------------------------------------------------------------------------------- |
 |  1  | `touch-flo-shell` (printed, PET-CF)                  | [`generate_step_cadquery.py`](generate_step_cadquery.py)                            |
-|  1  | `touch-flo-mounting-plate` (printed)                 | [`../touch-flo-mounting-plate/`](../touch-flo-mounting-plate/)                      |
+|  1  | `touch-flo-mounting-plate` (printed) — carries two Ø 4.0 × 5 mm press-fit dowel bosses on its top face | [`../touch-flo-mounting-plate/`](../touch-flo-mounting-plate/) |
 |  1  | Touch-Flo valve body + factory shank nut (harvested) | [`../../harvested/touch-flo-faucet/`](../../harvested/touch-flo-faucet/)            |
-|  2  | ruthex M3 short heat-set inserts (Ø 4.6 knurl OD, Ø 4.0 hole, 4 mm length) | Amazon Prime [B09ZHSGHXD](https://www.amazon.com/dp/B09ZHSGHXD) |
-|  2  | 316 SS M3 × 6 mm ultra-low-profile socket cap screws (head Ø 5.5 × 1.0 mm, 2 mm hex) — ULH (not standard SHCS) so the head sits flush under the countertop; the plate's Ø 6.2 × 1.25 mm counterbore drops the Ø 5.5 × 1.0 head 0.25 mm sub-flush, which standard SHCS heads (~3 mm tall) cannot achieve at this plate thickness. 6 mm length (not 8) so the shaft clears the ruthex insert's closed top — 8 mm was tried in attempt 1 (91223A413, May 10) and bottomed out, holding the head 1 mm proud. | McMaster [91223A412](https://www.mcmaster.com/91223A412/) |
+
+No fasteners. No heat-set inserts. The plate is retained to the shell by the two integral dowel bosses press-fitting into matching Ø 4.05 × 6 mm pockets in the shell's bottom face. (Superseded the earlier 2× ruthex M3 short heat-set + 2× M3 × 6 mm ULH SHCS retention on 2026-05-22 — that joinery was retention-only too, but added two soldering-iron steps and required McMaster-only $4-6/each ULH screws with a 2 mm hex that stripped easily.)
 
 The two flavor tubes that pass through the pill slot are NOT installed
 at this step — they're routed in the downstream "tube routing" step,
@@ -128,134 +128,76 @@ shell + plate + body sub-assembly procedure below.
 
 | Item                                          | Reference                                                                  |
 | --------------------------------------------- | -------------------------------------------------------------------------- |
-| Hakko FX-888D soldering station               | Amazon [B0D4DJW54S](https://www.amazon.com/dp/B0D4DJW54S)                  |
-| Hakko T18-mount heat-set tip kit, M3 tip used | Amazon [B0CS662NVK](https://www.amazon.com/dp/B0CS662NVK)                  |
-| 2 mm hex driver / Allen key                   | Bambu printer toolkit                                                      |
-| 3.9 mm drill bit / #29 drill (optional)       | Only if the printed plate's clearance hole prints undersized — see Pre-flight |
+| Flat work surface + clean rag                 | For setting the plate boss-up and pressing the shell down by hand          |
+| Rubber mallet (optional)                      | If the press fit needs a gentle tap to fully seat — finger pressure first  |
+
+No soldering iron, no heat-set tooling, no hex driver — this sub-assembly is screw-free.
 
 ## Geometry summary
 
-The two retention features:
+The two retention features (mirrored across Y=0, at θ = ±45° about
+the body center, r = 20 mm from body center — world (14.14, ±14.14)):
 
-- **Shell, bottom face:** two pockets at world (14.14, ±14.14) — i.e.
-  on the rear shoulder wall material at θ ≈ ±45°. Each pocket is
-  Ø 4.0 × 7 mm deep (sized for the 4 mm insert plus up to 3 mm of
-  install-depth forgiveness — see Pocket-depth history below).
-- **Plate, both faces:** two clearance holes Ø 3.9 mm at the same XY,
-  with Ø 6.2 × 1.25 mm counterbores cut into the plate's bottom face
-  for the screw heads. The Ø 5.5 × 1.0 mm head of the
-  91223A412 lands fully recessed below the plate's bottom face
-  (0.35 mm/side head clearance in the counterbore).
+- **Plate, top face:** Ø 4.0 mm × 5 mm tall solid cylindrical bosses
+  extruded UP, with a 0.5 mm × 45° chamfer at the tip for
+  self-alignment.
+- **Shell, bottom face:** matching Ø 4.05 × 6 mm deep cylindrical
+  pockets. The 0.05 mm diametric CAD clearance is overrun by FDM
+  tolerances (boss prints slightly oversize, pocket prints slightly
+  undersize) to produce a real press fit when assembled. The extra
+  1 mm of pocket depth above the boss tip accommodates FDM
+  bottom-layer flatness variance in the pocket floor.
 
-Stack-up at the screw axis, top to bottom:
+Stack-up at one dowel axis, top to bottom:
 
 ```
       shell wall (PET-CF)
-      └── M3 heat-set insert, top flush to ~3 mm recessed in shell
-           └── M3 × 6 mm ULH thread engagement: ~3 mm into insert
-                └── plate clearance Ø 3.9, 4 mm thick
-                     └── plate counterbore Ø 6.2 × 1.25 mm
-                          └── screw head Ø 5.5 × 1.0 (0.25 mm sub-flush)
+      └── ~1 mm empty pocket above boss tip (FDM floor variance)
+           └── Ø 4 mm × 5 mm dowel boss in pocket (press fit)
+                └── plate top face (boss base)
+                     └── 4 mm plate (no holes at this XY)
+                          └── plate bottom face (smooth)
 ```
 
-**Pocket-depth history:** the pocket was 5 mm in the original design
-(insert + 1 mm relief). The screws were then M3 × 8 mm (91223A413).
-Empirically the 8 mm shaft bottomed out against the ruthex insert's
-closed top face (the insert is internally threaded for only 4 mm,
-not through), preventing the head from reaching the counterbore.
-Pocket was deepened to 7 mm to allow pressing the insert in deeper
-(intentional recess) so the screw shaft would clear the closed top.
-That problem was then fully resolved by switching to M3 × 6 mm
-(91223A412) on 2026-05-22, but the 7 mm pocket was kept — it's now
-just install-depth forgiveness, not a critical fix.
+**Joinery history.** v1 used 2× ruthex M3 short heat-set inserts in
+the shell + 2× ULH M3 × 6 mm SHCS (McMaster 91223A412) coming up
+from below through plate counterbores. That worked, but: (a) the
+$4-6/each McMaster-only screws were hard to source and the 2 mm hex
+stripped easily; (b) the heat-set step added soldering-iron time to
+every shell; (c) the joint was always retention-only — no
+structural load — so a press fit does the same job with zero
+fasteners. Switched on 2026-05-22 (commit pending).
 
-The body-to-plate joint is independent of this screw joint: the
+The body-to-plate joint is independent of the dowel joint: the
 factory shank nut clamps the body's 31.5 mm OD bottom face down onto
 the plate's top face through the plate's Ø 12.6 shank hole. The
-screws-through-plate-into-shell joint is what then captures the body
-inside the shell's body bore — the body has nowhere to go because the
-shell is anchored to the plate that's already clamped to the body.
+dowel-into-pocket joint is what then captures the body inside the
+shell's body bore — the body has nowhere to go because the shell is
+anchored to the plate that's already clamped to the body.
 
 ## Pre-flight check
 
 1. **Support material removal.** Confirm the shell's body bore, the
-   shell's two insert pockets, and the plate's clearance holes,
-   counterbores, shank hole, and pill slot are all clear of supports
-   and stringing. The two M3 pockets in the shell are small features
-   on the bottom face — easy to miss.
-2. **Insert pocket gauge.** A ruthex insert should be a slip fit
-   (drops in by gravity to roughly its first knurl) into the cold
-   shell pocket, NOT a press fit. If it won't enter, the pocket
-   printed undersized — re-slice with a +0.05 mm horizontal expansion
-   compensation, don't ream. (Reaming PET-CF leaves loose fibers that
-   foul the heat-set cone.)
-3. **Plate clearance hole gauge.** An M3 × 6 ULH should drop through
-   the plate hole by gravity, with the head landing inside the
-   counterbore and seating against the shoulder. If the screw shank
-   binds, drill out to 3.9 mm with a sharp #29 bit. If the head sits
-   proud of the plate's bottom face, the counterbore printed shallow
-   — verify the part is the current revision.
-4. **Body fit.** Dry-fit the harvested body into the shell's bore from
+   shell's two dowel pockets, and the plate's shank hole and pill
+   slot are all clear of supports and stringing. The two Ø 4 mm
+   dowel pockets in the shell are small features on the bottom face
+   — easy to miss.
+2. **Dowel press-fit gauge.** Hold the plate boss-up and try to
+   press the shell down onto one boss by hand. It should require
+   real finger force — somewhere between "easy slip-fit" (too
+   loose, won't retain) and "stuck mid-insertion" (too tight, risk
+   cracking the pocket on full assembly). If it slips on with no
+   resistance, the press fit is dead and the parts need a re-print
+   with adjusted boss/pocket dimensions (probably bump boss to
+   Ø 4.05 or pocket to Ø 4.0). If it won't start, the pocket is
+   probably blocked by stringing — re-check.
+3. **Body fit.** Dry-fit the harvested body into the shell's bore from
    the bottom (shell oriented bottom-up). The body should slide all
    the way to the bore cove (Z = 18.25 in part coordinates) without
    binding. The lever swings in the shell's -X clearance ramp; verify
    the lever clears at the resting position.
 
-## Step 1 — Heat-set inserts into the shell
-
-Set the Hakko FX-888D to **230 °C** with the M3 heat-set tip
-installed. PET-CF and PETG both heat-set in the 220–240 °C window;
-230 °C is the middle of the band and works for either material.
-
-Orient the shell bottom-face up on a flat work surface. The two insert
-pockets are on the rear shoulder of the shell, at world (14.14,
-±14.14), visible as Ø 4.0 mm holes flanking the body bore on the +X
-side.
-
-For each pocket:
-
-1. Place a ruthex insert flange-down into the pocket so it slip-fits
-   into the lead-in. Confirm by eye that it's sitting square — the
-   insert's top face should be parallel to the shell bottom face, not
-   tilted.
-2. Bring the heated tip down vertically into the insert's threaded
-   bore. Let the tip pre-heat the insert for ~1 second before
-   pressing.
-3. Press straight down with **light, steady force**. The insert melts
-   the surrounding plastic and sinks under its own weight plus a few
-   newtons of finger pressure. Do NOT push hard — speed of descent is
-   set by heat transfer, not pressure.
-4. Stop when the insert's top face is **flush with or 0.1–0.2 mm
-   below** the shell's bottom face. The 1 mm relief above the 4 mm
-   insert in the 5 mm pocket is exactly this travel margin — once the
-   insert hits the relief, it's fully seated.
-5. Withdraw the tip vertically. Hold the shell still for 5–10 seconds
-   so the insert sets without rotating or tilting as the surrounding
-   plastic re-solidifies.
-
-Common failure modes:
-
-- **Insert tilted in pocket.** Caused by entering the pocket
-  off-axis or pressing with the iron at an angle. Re-heat the tilted
-  insert and press straight down to correct, or back the insert out
-  with the tip while hot, let the pocket solidify, and re-press.
-- **Halo of melted plastic around the insert top.** Tip too hot,
-  contact time too long, or both. Drop to 220 °C and shorten the
-  pre-heat dwell. A small halo is cosmetic and harmless; a deep
-  crater means the insert is sitting in soft plastic with reduced
-  pull-out strength — extract and re-set with a fresh pocket if
-  available, or de-rate the joint expectations.
-- **Insert pressed below flush by more than ~0.3 mm.** The plate's
-  clearance hole is 3.9 mm and the insert's hole is 3.0 mm; an over-
-  recessed insert means the screw threads into open space before
-  catching. If the insert sank too far, accept it and use an M3 × 10
-  screw at this joint instead — but verify head-to-counterbore
-  clearance on the plate (10 mm − 4 mm plate − 0.25 mm sub-flush
-  margin = 5.75 mm into the insert, well past the 4 mm insert
-  length, will bottom out unless there's clearance below the insert
-  in the shell). Default response: re-print the shell.
-
-## Step 2 — Body into mounting plate
+## Step 1 — Body into mounting plate
 
 1. Slot the Touch-Flo body's Ø 11 mm threaded shank up through the
    plate's Ø 12.6 shank hole. The body's 31.5 mm OD landing face
@@ -275,45 +217,43 @@ Common failure modes:
    orient the lever toward -X (the lever-clearance ramp side of the
    shell).
 
-## Step 3 — Shell over body, screws up from below
+## Step 2 — Shell over body, dowels into pockets
 
 1. Hold the plate + body sub-assembly with the body pointing up. Drop
    the shell down over the body so the body enters the shell's bore
    from the bottom. The shell's -X lever clearance ramp must align
-   with the lever (which you already pointed toward -X in Step 2).
-2. Push the shell down until its bottom face seats flat against the
-   plate's top face. The body's 31.5 mm landing is now sandwiched
-   between the plate (below) and the shell's body bore floor at
-   Z = 18.25 — but in practice the shell sits on the plate, not on
-   the body, so the joint geometry is plate-to-shell-bottom-face flat.
-3. Verify the shell's pill slot aligns with the plate's pill slot
+   with the lever (which you already pointed toward -X in Step 1).
+2. As the shell descends, the two Ø 4 mm dowel bosses on the plate
+   should enter the matching pockets on the shell's bottom face. The
+   0.5 mm × 45° chamfers on the boss tips self-align the engagement;
+   the bosses don't need pre-aligned by eye if the shell's pill slot
+   is roughly aligned to the plate's pill slot at the start.
+3. Push the shell down with **steady hand pressure** until its bottom
+   face seats flat against the plate's top face. The press fit
+   resists insertion — that's the friction that will hold the joint.
+   If finger force isn't enough to fully seat, tap the shell's top
+   with a rubber mallet (not a steel hammer — risks cracking PET-CF).
+4. Verify the shell's pill slot aligns with the plate's pill slot
    (both at world (18.925, 0), Y-oriented). They should overlay
    exactly. If they don't, the shell is rotated 180° about the
-   shell-center vertical axis — lift it off, rotate, and re-seat.
-4. Insert one M3 × 6 mm ULH screw from below through one of the
-   plate's counterbored holes. Thread it up into the corresponding
-   heat-set insert in the shell by finger only at first, confirming
-   that the screw catches without cross-threading. Repeat for the
-   second screw.
-5. Snug both screws with the 2 mm hex driver in an alternating
-   pattern (a few turns on one, a few on the other) until both are
-   firm. **Snug only — no torque spec.** This is a retention joint,
-   not a structural one; the body clamp through the shank nut is
-   what carries the dispense reaction loads. Over-torquing risks
-   stripping the heat-set insert out of the PET-CF.
+   shell-center vertical axis — pull it straight up off the bosses
+   (also requires real force, that's intended), rotate, and re-seat.
 
 ## Verification
 
-After both screws are snug:
+After the shell is fully seated:
 
 - **Plate seats flat against shell.** No visible gap at the joint
   line anywhere around the perimeter. A gap on one side means the
-  body is fouling the bore — most likely the lever orientation was
-  off, or the body wasn't pushed all the way up against the bore
-  floor before the shell came down.
-- **Screw heads fully recessed.** Run a fingertip across the plate's
-  bottom face — both heads should sit ≥ 0.2 mm below the surface.
-  Required for the gasket to seat flat at the next step.
+  body is fouling the bore (most likely lever orientation off, or
+  body not pushed all the way up before the shell came down) OR the
+  dowel pockets didn't fully receive the bosses on one side
+  (re-seat with a mallet tap on that side).
+- **Sub-assembly survives gentle lift test.** Lift the assembled
+  sub-assembly by the shell only — the plate should not separate
+  under its own weight + the body's. If it does, the press fit is
+  inadequate and the parts need redesign (boss/pocket interference
+  adjustment).
 - **Body has no rotational play.** Try to rotate the body relative to
   the shell + plate by grabbing the lever and twisting. Should be
   rigid, set by the rectangular zone-2 profile inside the rectangular
@@ -330,26 +270,29 @@ After both screws are snug:
 
 Reverse order:
 
-1. Back both M3 ULH screws out with the 2 mm hex. Set them aside.
-2. Lift the shell straight up off the body. The body and plate stay
-   together at this point because the factory shank nut is still
-   clamped.
-3. To separate body from plate: loosen and remove the factory shank
-   nut from below the plate; the body lifts up and out of the plate's
-   shank hole.
+1. Loosen and remove the factory shank nut from below the plate.
+2. Pull the shell straight up off the body + plate. The press fit
+   on the dowels resists separation; pull hard enough to overcome
+   the friction without rocking the shell side-to-side (rocking
+   risks snapping a dowel boss off the plate).
+3. The body lifts up and out of the plate's shank hole.
 
-The heat-set inserts stay in the shell. They survive an unbounded
-number of insertion / removal cycles at the M3 × 6 ULH screw — they
-fail only if over-torqued during install.
+The dowel bosses survive multiple insertion / removal cycles, but
+each cycle slightly loosens the press fit as the pocket walls take
+small plastic deformation. After ~5 reassembly cycles, the joint
+will likely no longer self-retain — at that point, re-print the
+plate (or shell, whichever feels looser when re-mated). Both parts
+are fast to re-print and don't carry any irreplaceable harvested
+components.
 
 ## Troubleshooting
 
 | Symptom                                       | Likely cause                                                 | Fix                                                                                    |
 | --------------------------------------------- | ------------------------------------------------------------ | -------------------------------------------------------------------------------------- |
-| Screw won't pass through plate hole           | Plate clearance hole printed undersized                      | Drill out to 3.9 mm with a #29 bit. Re-slice with horizontal expansion compensation if recurring. |
-| Screw head sits proud of plate bottom face    | Counterbore printed shallow, or wrong screw (head > 1.0 mm)  | Verify part revision; verify screw is 91223A412 (head 1.0 mm), not a standard SHCS (head 3.0 mm). |
-| Screw bottoms out before head seats           | Wrong screw length — likely M3 × 8 (the old 91223A413 part) instead of M3 × 6 | Verify screw is M3 × 6 (91223A412). M3 × 8 bottoms out against the ruthex insert's closed top before the head reaches the counterbore, holding the head ~1 mm proud — this was the original spec and the issue that drove the switch to M3 × 6 on 2026-05-22. |
-| Insert tilted in shell pocket after press     | Off-axis entry, off-axis press, or both                      | Re-heat the insert and press straight down. If unrecoverable, extract while hot with the iron tip and re-press a fresh insert (or re-print shell if the pocket itself is degraded). |
-| Insert spins in pocket under screw torque     | Pocket walls melted past the knurl during install (over-hot, over-pressed) | Apply a drop of CA glue around the insert top and let cure. If recurring at multiple inserts, drop the iron temp 10 °C. |
+| Shell drops onto plate with no resistance     | Dowel boss undersize, pocket oversize, or both — FDM tolerance smaller than expected on this filament / printer | Re-print the plate with `dowel_pin_radius` bumped 0.025–0.05 mm, or re-print the shell with `dowel_pocket_diameter` reduced by similar. Iterate. |
+| Shell won't start onto the bosses             | Pocket blocked by stringing / support remnant, or boss prints far oversize | First clean the pocket with a fingernail or pick. If still stuck, dry-fit one boss-pocket pair alone to gauge; if the boss really is oversize, sand the boss tip lightly with 400-grit until it starts. |
+| Shell starts but won't fully seat             | Press fit too tight at the boss base, or boss top hits pocket floor | Verify boss height (5 mm) is less than pocket depth (6 mm). If geometry is correct, the interference is too high — sand the boss OD lightly. |
+| Sub-assembly separates under handling weight  | Press fit too loose for the press / printer / filament combo | See "Shell drops onto plate with no resistance" — same fix path. |
 | Plate-to-shell joint won't close (visible gap) | Body fouling the shell bore (most likely lever orientation), or support material left in the shell bore | Disassemble; verify the body slides all the way to the bore cove with no resistance; re-orient lever to -X if needed. |
 | Lever binds against shell                     | Lever orientation off, or shell -X ramp printed with a support stub remaining | Disassemble; clear the ramp; re-orient body so lever points to -X. |
+| Dowel boss snapped off plate during disassembly | Rocked the shell side-to-side instead of pulling straight up | Re-print the plate; pull straight up next time. Single snapped boss + remaining boss usually means the sub-assembly held fine in service — failure was disassembly technique, not design. |
