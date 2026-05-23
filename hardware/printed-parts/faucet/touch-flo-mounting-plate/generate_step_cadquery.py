@@ -33,16 +33,21 @@ HOLES
    (rounded-rectangle) slot for cleaner printability:
      - Length (Y, end-to-end): 13.2 mm
      - Width (X):              6.85 mm
-3. Screw clearance holes (×2, mirrored across Y=0) — Ø 3.9 mm
-   through, with Ø 5.7 × 1.25 mm counterbore on the BOTTOM face for
-   the screw head. Located at θ = ±45° about the body center, r = 20
-   from body center (world (14.142, ±14.142)) — the shell's "rear
-   shoulder" wall material. Hosts M3 × 6 mm 316 SS ultra-low-profile
-   socket cap screws (McMaster 91223A412) that thread into M3 brass
-   heat-set inserts (ruthex short, Amazon B09ZHSGHXD) pressed into
-   the shell above. Head Ø 5.5 × 1.0 tall sits 0.25 mm below the
-   plate's bottom face; Ø 3.8 unthreaded shoulder under the head
-   passes through the Ø 3.9 clearance with 0.05 mm/side fit.
+3. Press-fit dowel pin bosses (×2, mirrored across Y=0) — Ø 4.0 mm
+   solid cylindrical bosses extruded UP 5 mm from the plate's TOP
+   face, with a 0.5 mm × 45° chamfer at the tip. Located at
+   θ = ±45° about the body center, r = 20 from body center (world
+   (14.142, ±14.142)) — same XY as the matching Ø 4.05 × 6 mm
+   press-fit pockets in the shell's bottom face. The 0.05 mm
+   diametric CAD clearance is overrun by FDM tolerances (boss prints
+   slightly oversize, pocket prints slightly undersize) to produce
+   a real press fit when assembled. No screws, no heat-set inserts
+   on this joint — the plate slides up onto the shell, the bosses
+   self-align into the pockets, and friction holds the sub-assembly
+   together. The harvested faucet body's shank nut (below the
+   under-counter plate) carries all the structural load; the
+   press-fit dowels only need to keep the plate stuck to the shell
+   during sub-assembly handling.
 
 REGENERATE
 ==========
@@ -92,47 +97,45 @@ pill_slot_length_y = 2 * flavor_tube_y_offset + flavor_tube_hole_diameter
 pill_slot_width_x = flavor_tube_hole_diameter
 
 
-# Two M3 socket-cap screws come up from below the plate, pass through
-# clearance + counterbore, and thread into M3 brass heat-set inserts
-# pressed into the touch-flo-shell above. Mirrored across Y=0; placed
-# in the shell's "rear shoulder" wall material between the body bore
-# and the shell outer cylinder, well clear of the pill slot.
+# Press-fit dowel bosses — two solid cylindrical pins extruded UP
+# from the plate's top face into matching pockets on the shell's
+# bottom face. Mirrored across Y=0; placed in the shell's "rear
+# shoulder" wall material between the body bore and the shell outer
+# cylinder, well clear of the pill slot.
 #
-# Screw — McMaster 91223A412: 316 SS ultra-low-profile socket head,
-#   M3 × 0.5 × 6 mm, head Ø 5.5 × 1.0 mm tall, 2 mm hex socket,
-#   Ø 3.8 unthreaded shoulder under the head. (Replaced 91223A413
-#   M3 × 8 mm on 2026-05-22; 8 mm bottomed out against the insert's
-#   closed top, holding the head 1 mm proud.)
-# Insert — ruthex M3 short (Amazon B09ZHSGHXD): Ø 4.6 knurl OD /
-#   Ø 3.9 body / 4 mm length, recommended install hole Ø 4.0.
+# Replaces the earlier screw + heat-set insert retention (last seen
+# in commit 4677b88, M3 × 6 mm ULH SHCS McMaster 91223A412 +
+# ruthex M3 short Amazon B09ZHSGHXD). The screws were expensive
+# ($4-6 each, McMaster-only), fiddly (Ø 5.5 × 1.0 head, 2 mm hex
+# strips easily under the torque needed to seat in PET-CF), and
+# always retention-only — the structural clamping came from the
+# shank nut below the under-counter plate. Press-fit dowels do the
+# same retention with zero fasteners and zero hardware cost.
+#
+# Boss / pocket spec — boss Ø 4.0 × 5 mm tall + 0.5 mm × 45° tip
+# chamfer; matching shell pocket Ø 4.05 × 6 mm deep. 0.05 mm
+# diametric CAD clearance is overrun by FDM tolerances (positive
+# features print oversize, negative features print undersize) to
+# create a real press fit when assembled. 1 mm of empty pocket
+# above the boss tip accommodates FDM bottom-layer flatness
+# variance in the shell pocket.
 
-# Clearance for the Ø 3.8 shoulder under the head (0.05 mm/side).
-# Tight by intent — close fit aids screw alignment. If FDM print
-# comes in undersize for this hole, drill out with a #29 (3.9 mm)
-# bit before trying to install screws.
-screw_clearance_radius = 3.9 / 2
+dowel_pin_radius = 4.0 / 2       # Ø 4.0 mm bosses (matches Ø 4.05 shell pocket nominal — FDM tolerance closes the gap)
+dowel_pin_height = 5.0           # 5 mm tall above plate top face
+dowel_pin_tip_chamfer = 0.5      # 0.5 mm × 45° chamfer at the boss tip for self-alignment
 
-# Clearance for the Ø 5.5 head (0.35 mm/side). 1.25 mm deep =
-# 1.0 mm head height + 0.25 mm clearance, so the head sits 0.25 mm
-# below the bottom face. Plate material remaining above the
-# counterbore (Z = -2.75 to 0): 2.75 mm. Counterbore widened from
-# 5.7 → 6.2 mm so the head drops in easier (the 0.1 mm/side fit
-# was tight enough to catch print artifacts at the rim).
-screw_counterbore_radius = 6.2 / 2
-screw_counterbore_depth = 1.25
-
-# Screw positions: θ = ±45° about the body center (0, 0), r = 20 mm —
+# Dowel positions: θ = ±45° about the body center (0, 0), r = 20 mm —
 # the shell's "rear shoulder" wall material. At this point all four
-# wall margins hold ≥ 2 mm:
+# wall margins to other shell features hold ≥ 2 mm:
 #   - to body bore (Ø 31.5 cyl @ origin):       2.25 mm
 #   - to shell outer (Ø 44.35 cyl @ +X 3.175):  2.28 mm
 #   - to pill slot (Y top edge at +6.6):        5.54 mm
-#   - between the two screws (Y separation):    24.28 mm
-screw_r_from_body = 20.0
-screw_theta_deg = 45.0
-screw_x = screw_r_from_body * math.cos(math.radians(screw_theta_deg))
-screw_y_offset = screw_r_from_body * math.sin(math.radians(screw_theta_deg))
-screw_centers = [(screw_x, +screw_y_offset), (screw_x, -screw_y_offset)]
+#   - between the two bosses (Y separation):    24.28 mm
+dowel_r_from_body = 20.0
+dowel_theta_deg = 45.0
+dowel_x = dowel_r_from_body * math.cos(math.radians(dowel_theta_deg))
+dowel_y_offset = dowel_r_from_body * math.sin(math.radians(dowel_theta_deg))
+dowel_centers = [(dowel_x, +dowel_y_offset), (dowel_x, -dowel_y_offset)]
 
 
 # Fillet on the top outer edge — softens the visible ring around the
@@ -168,25 +171,29 @@ def vertical_y_slot(center, length_y, width_x, z_range):
 
 
 def build_mounting_plate() -> cq.Workplane:
-    """Build the disc with shank hole, flavor-tube pill slot, screw
-    clearances + counterbores, and top-outer-edge fillet.
+    """Build the disc with shank hole, flavor-tube pill slot, dowel-pin
+    bosses, and top-outer-edge fillet.
 
     The top-outer fillet is applied BEFORE any holes are cut, so the
     outer circle is the only top-face edge at that moment and no
     selector trickery is needed. Through-cuts use the full plate Z
-    range; the screw-head counterbore is a partial-depth cut from
-    the bottom face."""
-    counterbore_z_range = (plate_z_range[0], plate_z_range[0] + screw_counterbore_depth)
-
+    range; the dowel bosses are extruded UP from the plate top, with
+    a 45° chamfer on the top edge for self-alignment into the
+    matching shell pocket."""
     plate = vertical_cylinder(plate_center, plate_radius, plate_z_range)
     plate = plate.faces(">Z").edges().fillet(top_outer_fillet_r)
 
     plate = plate.cut(vertical_cylinder(shank_hole_center, shank_hole_radius, plate_z_range))
     plate = plate.cut(vertical_y_slot(pill_slot_center, pill_slot_length_y, pill_slot_width_x, plate_z_range))
 
-    for screw_center in screw_centers:
-        plate = plate.cut(vertical_cylinder(screw_center, screw_clearance_radius, plate_z_range))
-        plate = plate.cut(vertical_cylinder(screw_center, screw_counterbore_radius, counterbore_z_range))
+    boss_z_range = (plate_z_range[1], plate_z_range[1] + dowel_pin_height)
+    for dowel_center in dowel_centers:
+        boss = vertical_cylinder(dowel_center, dowel_pin_radius, boss_z_range)
+        # Chamfer the top edge of this boss (lead-in for self-alignment
+        # into the shell pocket). Select the boss's top edge by
+        # picking the topmost edge — at this Z it's the only one.
+        boss = boss.faces(">Z").edges().chamfer(dowel_pin_tip_chamfer)
+        plate = plate.union(boss)
 
     return plate
 
@@ -204,10 +211,9 @@ if __name__ == "__main__":
     print(f"  Shank hole:     Ø{2 * shank_hole_radius} mm at {shank_hole_center}")
     print(f"  Flavor pill:    {pill_slot_length_y} × {pill_slot_width_x} mm "
           f"at {pill_slot_center}, Y-oriented")
-    print(f"  Screw clear:    Ø{2 * screw_clearance_radius} mm at "
-          f"({screw_x:.3f}, ±{screw_y_offset:.3f}) "
-          f"[θ=±{screw_theta_deg}°, r={screw_r_from_body} from body]")
-    print(f"  Screw cbore:    Ø{2 * screw_counterbore_radius} × "
-          f"{screw_counterbore_depth} mm deep, bottom face")
+    print(f"  Dowel bosses:   Ø{2 * dowel_pin_radius} × {dowel_pin_height} mm tall "
+          f"(top {dowel_pin_tip_chamfer} mm × 45° chamfer) at "
+          f"({dowel_x:.3f}, ±{dowel_y_offset:.3f}) "
+          f"[θ=±{dowel_theta_deg}°, r={dowel_r_from_body} from body]")
     print(f"  Top outer R:    {top_outer_fillet_r} mm fillet")
     print(f"-> {out.name}")
