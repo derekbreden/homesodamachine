@@ -1,8 +1,8 @@
 # WorldWorkplane and WorldProfile
 
-Defined in `_cold_core_interface.py`. Let cold-core geometry code be
-written in **world coordinates**, with profiles named as separable
-nouns. Read `_reed_channels.md` first for the surrounding methodology.
+Defined in `world_workplane.py`. Lets generator code be written in
+**world coordinates**, with profiles named as separable nouns. Read
+`../cold-core/_reed_channels.md` first for the surrounding methodology.
 
 ## WorldWorkplane
 
@@ -105,5 +105,5 @@ commit `08b8d09` after consumers hit the gap.
 - **Polyline-with-arcs that wants a named profile**: build a
   `WorldProfile`, pass it to `.profile(prof)`.
 - **Pure polyline (no arcs)**: use the canonical
-  `.polyline([list of points])` — see `_reed_channels.md`'s
+  `.polyline([list of points])` — see `../cold-core/_reed_channels.md`'s
   `missing_wall_profile` example.
