@@ -10,10 +10,12 @@ The product under development is an integrated under-counter appliance — custo
 
 ## What's where
 
-| Directory | Contents |
+| Path | Contents |
 |---|---|
-| [`hardware/`](hardware/) | CAD scripts, BOM, purchases, assembly procedures, the integrated build |
-| [`firmware/`](firmware/) | ESP32 + RP2040 + ESP32-S3 firmware — see [`firmware/README.md`](firmware/README.md) |
+| [`prototype.md`](prototype.md) | The prototype in Derek's kitchen — photos, mechanics, parts list, ~$1,981 cost breakdown |
+| [`how-this-got-built.md`](how-this-got-built.md) | Origin story (failed SodaStream → working appliance, April 2026 snapshot) |
+| [`hardware/`](hardware/) | The integrated appliance under development — CAD scripts, [`bom.md`](hardware/bom.md), [`purchases.md`](hardware/purchases.md), [`assembly/`](hardware/assembly/) procedures, printed parts, wiring schedules |
+| [`firmware/`](firmware/) | ESP32 + RP2040 + ESP32-S3 firmware (prototype + shared base for appliance) — see [`firmware/README.md`](firmware/README.md) |
 | [`web/`](web/) | homesodamachine.com — Node server, blog, CAD viewer — see [`web/README.md`](web/README.md) |
 | [`ios/`](ios/) | iOS companion app (BLE bridge, settings, usage stats) |
 | [`android/`](android/) | Android companion app |

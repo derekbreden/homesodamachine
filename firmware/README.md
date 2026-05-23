@@ -47,6 +47,8 @@ This is further scaled by a per-flavor **ratio** parameter (configurable at runt
 
 ## Pin Assignments
 
+The assignments below are for the **prototype hardware** under Derek's sink — no compressor relay, no condenser fan, no MQ-6 hydrocarbon sensor, no reed-switch level sensing, no moisture sensor, no PRV monitor, none of the appliance-only inputs and outputs. Appliance pin assignments evolve with the integrated build and are tracked in [`../hardware/assembly/firmware-and-commissioning.md`](../hardware/assembly/firmware-and-commissioning.md).
+
 ### ESP32
 
 **L298N Board A (Flavor 1):**
