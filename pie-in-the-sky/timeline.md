@@ -66,7 +66,7 @@ The path now extends downward too. CGA-320 kit customer pours soda happily for s
 
 By HSM 2 release there is an installed base of HSM 1 customers. The founder knows which two flavors they actually use, whether they have asked for four, whether a second faucet in the kitchen is a thing real customers want or just an idea. The flavor module gets built when (and if) that data says build it. It also launches into a customer base that already wants it.
 
-## HSM 3 stops carrying weight it should not carry
+## HSM 3 stops carrying weight that isn't HSM 3's to carry
 
 Front dispense + drain + proximity + arm switch is the *halo* version — visually striking, made-for-short-form-video, conversation-starting. Inside a single-SKU plan that variant competes with the Kitchen Edition for "which is the wow product." Under sequential numbering HSM 3 does not have to be the price floor or the brand introduction — the kit, the CO2 services, and HSM 1 carry those. HSM 3 gets to be unapologetically premium and demonstration-friendly, launching into a customer base that already knows the brand.
 

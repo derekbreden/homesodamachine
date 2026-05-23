@@ -53,7 +53,7 @@ This is the minimum bar for the can problem to be physically felt. At 2/day, a h
 
 Roughly 49% of Americans drink soda regularly (Gallup). Diet/zero-sugar is ~30% of CSD volume. Daily drinkers at 2+/day are a subset of that — perhaps 7-8 million U.S. households.
 
-Soda consumption is an extremely common behavior. It is the prerequisite for this product to be relevant, but it is not the interesting thing about the buyer. Enough of the population meets this bar that it should not be our focus in defining the market.
+Soda consumption is an extremely common behavior. It is the prerequisite for this product to be relevant, but it is not the interesting thing about the buyer. Enough of the population meets this bar that it isn't our focus in defining the market.
 
 ### Income: a gradient, not a line
 
@@ -233,7 +233,7 @@ We are not running ads. We are not in retail. We are finding 10 people — one a
 
 ### Discovery is the entire problem.
 
-The product sells itself once someone knows it exists and believes it works. Every hour we spend should go toward manufacturing the "wait, that's *real*?" moment.
+The product sells itself once someone knows it exists and believes it works. Every hour we spend will go toward manufacturing the "wait, that's *real*?" moment.
 
 ### Video is the discovery mechanism.
 
