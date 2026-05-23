@@ -62,7 +62,7 @@ The appliance ships with the water filter included. **Placement (internal vs. ex
 | [John Guest 1/4" OD × 1/8" NPT push-fit](https://www.amazon.com/dp/B07V6XKZG9) | | 1 | $5.00 | $5.00 |
 | [John Guest PI1208S acetal bulkhead union, 1/4" QC × 1/4" QC](https://www.amazon.com/dp/B0C1F3QR7N) | **Rear-panel customer-facing water inlet.** The customer plugs the install-kit 1/4" LLDPE into this bulkhead — push-to-connect, no tools. 1/4" QC on both sides (interior side feeds into the in-cabinet run → Waterdrop filter → PP010822E → GAGIRA 316L SS coupling → ASSE 1022 3/8" MPT inlet). NSF cert upgrade path: PP1208E food-cert family already in BOM §8 for the umbilical cluster is the obvious swap when the panel goes to CAD. | 1 | $11.49 | $11.49 |
 | [HAOCHEN brass angle-stop add-a-tee, 3/8" × 3/8" × 1/4"](https://www.amazon.com/dp/B0DLKHHGL6) | **Install-kit tee, scenario B (older home).** Threads between the customer's existing 3/8" angle stop and its current compression supply line, exposing a 1/4" compression outlet for the appliance. Wrench install. Already ACQUIRED on the prototype per `purchases.md §3` and `inventory.md`. | 1 | $11.99 | $11.99 |
-| [John Guest PP0208E 1/4" × 1/4" × 1/4" union tee, black polypropylene](https://www.freshwatersystems.com/products/john-guest-union-tee-black-polypropylene-1-4) | **Install-kit tee, scenario A (modern home).** Drops inline into an existing 1/4" LLDPE under-sink line (push-to-connect, no tools) — the configuration shipped in any kitchen new since the late 2010s or any kitchen with a PEX manifold + ice-maker / RO / drinking-water stub-out. **Black PP, NSF 51 + 61, FDA-compliant materials** — same JG black-PP food-cert family as the §3 PP010822E, §4 PP0308E, §8 PP1208E, and §8 PP2308E already in the BOM (consistent color + cert across every JG fitting we ship). FWS-sourced (the white PP0208WP on Amazon is Prime but breaks color consistency; black is queued on the next FWS reorder per [`purchases.md`](purchases.md) LIKELY-TO-BUY alongside the neoFlo Blue LLDPE and the CPC LC-series CO2 quick-disconnects). $2.38–$2.74/each (FWS bulk pricing) × 1/build; final per-unit cost lands at order time. | 1 | $2.74 | $2.74 |
+| [John Guest PP0208E 1/4" × 1/4" × 1/4" union tee, black polypropylene](https://www.freshwatersystems.com/products/john-guest-union-tee-black-polypropylene-1-4) | **Install-kit tee, scenario A (modern home).** Drops inline into an existing 1/4" LLDPE under-sink line (push-to-connect, no tools) — the configuration shipped in any kitchen new since the late 2010s or any kitchen with a PEX manifold + ice-maker / RO / drinking-water stub-out. **Black PP, NSF 51 + 61, FDA-compliant materials** — same JG black-PP food-cert family as the §3 PP010822E, §4 PP0308E, §8 PP1208E, and §8 PP2308E already in the BOM (consistent color + cert across every JG fitting we ship). FWS-sourced (the white PP0208WP on Amazon is Prime but breaks color consistency; black is queued on the next FWS reorder per [`purchases.md`](purchases.md) LIKELY-TO-BUY alongside the neoFlo Blue LLDPE and the CPC LC-series CO2 quick-disconnects). FWS in stock at $2.38/each at qty 1, $2.13/each at qty 10. Per-build allocation uses the single-unit price; bulk savings apply once the FWS order pools enough units. | 1 | $2.38 | $2.38 |
 
 ## 4. CO2 subsystem
 
@@ -244,7 +244,7 @@ Per-appliance tools that ship in the install kit so the field installer can cut 
 |---|---:|
 | 1. Controllers + electronics | $166.43 |
 | 2. Carbonator vessel (plan A, 316L) | $240.69 |
-| 3. Water inlet | $219.53 |
+| 3. Water inlet | $219.17 |
 | 4. CO2 subsystem | $92.61 |
 | 5. Refrigeration | $196.70 |
 | 6. Cold core insulation | $52.38 |
@@ -256,7 +256,7 @@ Per-appliance tools that ship in the install kit so the field installer can cut 
 | 12. Level sensing | $69.78 |
 | 13. Mechanical attach hardware + reservoir-cap vent filter | $17.55 |
 | 14. Install kit | $4.29 |
-| **Total** | **$1,574.89** |
+| **Total** | **$1,574.53** |
 
 ## External / user-supplied (not shipped)
 
