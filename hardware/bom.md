@@ -59,7 +59,8 @@ The appliance ships with the water filter included. **Placement (internal vs. ex
 | [John Guest PP010822E 1/4" OD × 1/4" NPT male connector, black polypropylene (10-pk)](https://www.freshwatersystems.com/products/john-guest-male-connector-nptf-black-polypropylene-1-4-x-1-4-nptf) | 1/4" NPT M × 1/4" PTC adapter pair (warm-side + cold-side of the +Z slot transition on the water-inlet path); 2 per build; FWS WEBFWS100675224 May 15: $11.00 + $5.23 ship + $1.18 tax = $17.41 ÷ 10 = $1.741/ea | 2 (of 10 pk) | $1.74 | $3.48 |
 | [Lifevant 1/4" OD water tubing 32.8 ft + quick-connects](https://www.amazon.com/dp/B0DKCZ5W66) | water-inlet tubing (filter → pump → vessel) ~8–10 ft + ~5 of 12 quick-connects per unit; ~1/3 of pack. Generic Amazon PE listing with no third-party food cert (vendor doesn't list one) — short-term use without certification | 1 (~1/3 pk) | $3.33 | $3.33 |
 | [John Guest 1/4" OD × 1/8" NPT push-fit](https://www.amazon.com/dp/B07V6XKZG9) | | 1 | $5.00 | $5.00 |
-| [John Guest PI1208S acetal bulkhead union, 1/4" QC](https://www.amazon.com/dp/B0C1F3QR7N) | | 1 | $11.49 | $11.49 |
+| [John Guest PI1208S acetal bulkhead union, 1/4" QC × 1/4" QC](https://www.amazon.com/dp/B0C1F3QR7N) | **Rear-panel customer-facing water inlet.** The customer plugs the install-kit 1/4" LLDPE into this bulkhead — push-to-connect, no tools. 1/4" QC on both sides (interior side feeds into the in-cabinet run to the ASSE 1022's 3/8" MPT inlet via the adapter chain in `purchases.md` LIKELY-TO-BUY). NSF cert upgrade path: PP1208E food-cert family already in BOM §8 for the umbilical cluster is the obvious swap when the panel goes to CAD. | 1 | $11.49 | $11.49 |
+| [HAOCHEN brass angle-stop add-a-tee, 3/8" × 3/8" × 1/4"](https://www.amazon.com/dp/B0DLKHHGL6) | **Install-kit tee.** Threads between the customer's existing 3/8" angle stop and its current supply line, exposing a 1/4" compression outlet for the appliance. 1/4" LLDPE from this tee runs to the rear-panel JG QC bulkhead above (through the Waterdrop filter). Customer doesn't have to source any plumbing themselves — angle stop is the only prerequisite. Already ACQUIRED on the prototype per `purchases.md §3` and `inventory.md`. | 1 | $11.99 | $11.99 |
 
 ## 4. CO2 subsystem
 
@@ -241,7 +242,7 @@ Per-appliance tools that ship in the install kit so the field installer can cut 
 |---|---:|
 | 1. Controllers + electronics | $166.43 |
 | 2. Carbonator vessel (plan A, 316L) | $240.69 |
-| 3. Water inlet | $201.16 |
+| 3. Water inlet | $213.15 |
 | 4. CO2 subsystem | $92.61 |
 | 5. Refrigeration | $196.70 |
 | 6. Cold core insulation | $52.38 |
@@ -253,7 +254,7 @@ Per-appliance tools that ship in the install kit so the field installer can cut 
 | 12. Level sensing | $69.78 |
 | 13. Mechanical attach hardware + reservoir-cap vent filter | $17.55 |
 | 14. Install kit | $4.29 |
-| **Total** | **$1,556.52** |
+| **Total** | **$1,568.51** |
 
 ## External / user-supplied (not shipped)
 
