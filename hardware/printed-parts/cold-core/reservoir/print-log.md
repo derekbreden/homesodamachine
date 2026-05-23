@@ -8,7 +8,7 @@ Geometry: left flavor reservoir + cap, two parts on one plate — `reservoir-lef
 
 Hardware: 0.8 mm high-flow nozzle, H2C, textured plate.
 
-Filament: SunTop food-contact-compliant PETG, 1.75 mm × 1 kg, Clear/Transparent — [B0FP34MJ94](https://www.amazon.com/dp/B0FP34MJ94), delivered May 18, 2026 per [purchases.md §13](../../purchases.md). Raw materials comply with FDA 21 CFR 177.1630. Manufacturer-stated print band: nozzle 220–240 °C, bed 60–80 °C (Amazon listing copy). Loaded in the slice's active filament slot using the stock `Generic PETG @BBL H2C` profile (no separate SunTop profile created; settings overridden per-slot).
+Filament: SunTop food-contact-compliant PETG, 1.75 mm × 1 kg, Clear/Transparent — [B0FP34MJ94](https://www.amazon.com/dp/B0FP34MJ94), delivered May 18, 2026 per [purchases.md §13](../../../purchases.md). Raw materials comply with FDA 21 CFR 177.1630. Manufacturer-stated print band: nozzle 220–240 °C, bed 60–80 °C (Amazon listing copy). Loaded in the slice's active filament slot using the stock `Generic PETG @BBL H2C` profile (no separate SunTop profile created; settings overridden per-slot).
 
 Drying (SUNLU S4 dryer chamber RH, the dryer's hygrometer reading — not filament moisture by weight):
 - Out of vacuum bag: 35 % RH

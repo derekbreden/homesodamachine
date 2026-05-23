@@ -32,14 +32,14 @@ The six principles are generic. The product-specific work is figuring out which 
 
 End-to-end, the customer's install is roughly:
 
-1. Cut the faucet hole in the countertop (or use an existing hole — see [`2026-05-19/countertop-faucet-penetration-gap.md`](../todo/2026-05-19/countertop-faucet-penetration-gap.md)). Mount the faucet through the hole, clamp from below.
+1. Cut the faucet hole in the countertop (or use an existing hole). Mount the faucet through the hole, clamp from below.
 2. Slide the appliance into the under-sink cabinet. Route the 3-tube umbilical from the faucet down through the countertop into the appliance's rear-panel umbilical-port cluster. Push each tube into its bulkhead (one of the three carries a blue accent ring — the carbonated-water line).
 3. Connect the rear-panel water inlet to the customer's tap-water supply using whichever install-kit tee matches the under-sink plumbing — a 1/4" JG QC tee that drops inline if the line is already 1/4" LLDPE (modern construction / PEX manifold homes — push-to-connect, no tools), or a 3/8" angle-stop add-a-tee for older homes with a braided compression supply line (wrench install). Either way, 1/4" LLDPE runs from the chosen tee up to the rear panel and pushes into the bulkhead.
 4. Place the CO2 cylinder in the side gap beside the appliance, secure it, and connect the regulator's tether to the front-panel CO2 inlet.
 5. Plug the appliance into a wall outlet via the supplied line cord.
 6. Power on. Open the CO2 cylinder valve. Open the water-supply valve.
 7. Pour SodaStream concentrate into the hopper, one bottle per flavor, following the appliance's prompts on the config display.
-8. Wait approximately 60-90 minutes for cold pulldown ([`../todo/2026-05-20/first-pour-commissioning-gap.md`](../todo/2026-05-20/first-pour-commissioning-gap.md)).
+8. Wait approximately 60-90 minutes for cold pulldown.
 9. Pull the lever. Drink soda.
 
 The sheet is exactly nine steps. Each step is one line drawing.
@@ -58,17 +58,17 @@ Everything else on the appliance is monochrome — the printed enclosure in what
 
 Step 8 above — "wait approximately 60-90 minutes" — is the moment that breaks the "everything you do is on the sheet" principle, because there is nothing to do during the pulldown. This is the highest-stakes step on the sheet, because it is the only one where the customer is waiting and might decide the appliance is broken.
 
-The sheet handles this by making the wait a step rather than a footnote. Step 8 has its own drawing: the appliance on its shelf, the config display showing a progress indicator, a glass of water-with-ice on the counter beside it. Caption: "Your appliance is chilling. The display will show progress. Approximately 60-90 minutes. Pour yourself something else." The drawing legitimizes the wait. The wait is part of the install, not an interruption to it. (See [`../todo/2026-05-20/first-pour-commissioning-gap.md`](../todo/2026-05-20/first-pour-commissioning-gap.md) for why the timeline is what it is and what the firmware needs to do during it.)
+The sheet handles this by making the wait a step rather than a footnote. Step 8 has its own drawing: the appliance on its shelf, the config display showing a progress indicator, a glass of water-with-ice on the counter beside it. Caption: "Your appliance is chilling. The display will show progress. Approximately 60-90 minutes. Pour yourself something else." The drawing legitimizes the wait. The wait is part of the install, not an interruption to it.
 
 ### What is *not* on the sheet
 
 Explicitly excluded from the quick-start sheet, and given their own homes elsewhere in the box:
 
-- **Safety / regulatory inserts** (R-600a flame symbol per ISO 7010 W021, flammable-refrigerant marking, 120V 60Hz only warning, CO2 cylinder restraint per [`../todo/2026-05-19/co2-cylinder-restraint-gap.md`](../todo/2026-05-19/co2-cylinder-restraint-gap.md)). These are a separate printed insert with the regulatory text. They live in the install kit box, below the quick-start sheet, so the customer encounters them in due course but they do not pollute the install flow.
+- **Safety / regulatory inserts** (R-600a flame symbol per ISO 7010 W021, flammable-refrigerant marking, 120V 60Hz only warning, CO2 cylinder restraint). These are a separate printed insert with the regulatory text. They live in the install kit box, below the quick-start sheet, so the customer encounters them in due course but they do not pollute the install flow.
 - **Founder Edition welcome letter** ([`../hardware/assembly/finish-pack-ship.md`](../hardware/assembly/finish-pack-ship.md) step 6). Hand-signed letterhead, addressed to the customer by name, from Derek. This is its own moment, not part of the install. Lives separately so the customer encounters it as a distinct gesture after install rather than as one more piece of paper in the install flow.
 - **Per-unit nameplate / Founder Edition certificate.** The nameplate is on the appliance ([`../hardware/printed-parts/enclosure/nameplate/README.md`](../hardware/printed-parts/enclosure/nameplate/README.md)). The certificate, if there is one, lives with the welcome letter.
 - **Warranty / RMA / support contact info.** Lives on the per-unit portal at `homesodamachine.com/u/NNN` (the QR code on the rear-panel nameplate). The welcome letter mentions the portal. The quick-start sheet does not.
-- **Detailed troubleshooting.** Lives on the per-unit portal. The quick-start sheet assumes everything works on the first try. If it doesn't, the portal and the Zoom-call support architecture from [`../todo/2026-05-18/install-consult-playbook-gap.md`](../todo/2026-05-18/install-consult-playbook-gap.md) take over.
+- **Detailed troubleshooting.** Lives on the per-unit portal. The quick-start sheet assumes everything works on the first try. If it doesn't, the portal and the Zoom-call support architecture take over.
 - **The bill of materials, the BOM cost, the assembly architecture, the "made in" details, the founder's bio.** All interesting to a subset of buyers, none of them install-relevant. Web only, or in a separately-bound owner's book if we ever do one.
 
 The principle: the quick-start sheet is for the install. Every other artifact has its own place. The boundary is hard.
@@ -116,9 +116,7 @@ When this brief becomes a spec, several existing documents will need to update:
 
 - [`../hardware/assembly/finish-pack-ship.md`](../hardware/assembly/finish-pack-ship.md) — packing order and carton geometry get re-derived from this brief instead of being defined independently. The current "install-kit box" structure changes shape because the quick-start sheet leaves the kit and becomes the top-of-carton object.
 - [`../hardware/printed-parts/enclosure/back-panel/README.md`](../hardware/printed-parts/enclosure/back-panel/README.md) — already commits to a blue accent ring on the carbonated-water bulkhead. This brief promotes that from a single design decision to part of a three-color system that applies across the whole product, the carton, and the printed materials.
-- [`../hardware/printed-parts/enclosure/nameplate/README.md`](../hardware/printed-parts/enclosure/nameplate/README.md) — the QR code's destination (`homesodamachine.com/u/NNN`) inherits the "everything not on the sheet lives here" role and needs to actually exist (the [`../todo/2026-05-18/per-unit-portal-gap.md`](../todo/2026-05-18/per-unit-portal-gap.md) gap is now load-bearing on this brief).
-- [`../todo/2026-05-20/first-pour-commissioning-gap.md`](../todo/2026-05-20/first-pour-commissioning-gap.md) — the pulldown timeline is now also a step on the printed sheet, not just a firmware-display concern. The measurement on unit 001 calibrates the sheet's wording.
-- [`../todo/2026-05-18/install-consult-playbook-gap.md`](../todo/2026-05-18/install-consult-playbook-gap.md) — the Zoom call's script can assume the customer has the quick-start sheet in front of them and refer to its steps by drawing rather than by re-explaining.
+- [`../hardware/printed-parts/enclosure/nameplate/README.md`](../hardware/printed-parts/enclosure/nameplate/README.md) — the QR code's destination (`homesodamachine.com/u/NNN`) inherits the "everything not on the sheet lives here" role and needs to actually exist.
 - [`target-market.md`](target-market.md) — the trust-gap section already names "Derek's face, his kitchen, his story" as the brand at Founder Edition. The unboxing experience is now a deliberate extension of that story rather than a generic D2C unboxing.
 
 ---
