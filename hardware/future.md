@@ -2,7 +2,7 @@ This file describes the appliance. The prototype on the counter has proven the d
 
 The enclosure is built around a **cold core** at the back: a vertical 5" OD × ~6" tall 316L stainless carbonator vessel, a copper evaporator coil wrapped tight around it, and two flavor reservoirs nested between the inner and outer foam shells where they pre-chill passively to 8–15 °C. Forward of the core sits the compressor, with the diaphragm pump, valve manifold, and peristaltic pump cartridges stacked above it. The harvested ice-maker condenser + fan sit on one side wall of the enclosure, oriented so the fan's native airflow direction crosses the enclosure side-to-side: intake grille on one side face, exhaust grille on the opposite side face, straight-through with no redirection. The electronics shelf rides at the top-back behind the rear-panel C14 inlet. The carbonator outlet runs a short insulated path straight up through the countertop to the faucet at the back of the sink. Sections below describe each subsystem in turn, with the cold core read **inside out** and the enclosure read **back to front**.
 
-Companion docs: [`bom.md`](bom.md) (per-unit bill of materials), [`purchases.md`](purchases.md) (every line item with ACQUIRED / ON-ORDER / LIKELY-TO-BUY status), [`handwork.md`](handwork.md) (dev-phase skilled-hand task summary), [`assembly/`](assembly/) (production-procedure docs per subsystem).
+Companion docs: [`bom.md`](bom.md) (per-unit bill of materials), [`purchases.md`](purchases.md) (every line item with ACQUIRED / ON-ORDER / LIKELY-TO-BUY status), [`handwork.md`](handwork.md) (dev-phase skilled-hand task summary), `assembly/` (production-procedure docs per subsystem).
 
 **Carbonation subsystem**
 

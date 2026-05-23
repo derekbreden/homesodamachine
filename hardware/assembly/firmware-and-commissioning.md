@@ -8,7 +8,7 @@ Design intent and runtime behavior live in [`../future.md`](../future.md) "Refri
 
 ## Scope
 
-In: a fully wired chassis fresh out of [`wiring.md`](wiring.md) — AC and DC continuity checks passed, never powered. The flash tooling — three USB cables (one micro-USB for the ESP32-DevKitC, one USB-C for the ESP32-S3, one micro-USB for the RP2040), the `./tools/flash.sh` wrapper (see project root `CLAUDE.md`), and the firmware source tree at [`/firmware/`](../../firmware/) configured per [`/platformio.ini`](../../platformio.ini). A multimeter for runtime DC-rail spot checks. A serial console (`pio device monitor`) for log capture.
+In: a fully wired chassis fresh out of [`wiring.md`](wiring.md) — AC and DC continuity checks passed, never powered. The flash tooling — three USB cables (one micro-USB for the ESP32-DevKitC, one USB-C for the ESP32-S3, one micro-USB for the RP2040), the `./tools/flash.sh` wrapper (see project root `CLAUDE.md`), and the firmware source tree at `/firmware/` configured per [`/platformio.ini`](../../platformio.ini). A multimeter for runtime DC-rail spot checks. A serial console (`pio device monitor`) for log capture.
 
 Out:
 
