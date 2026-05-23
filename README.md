@@ -4,7 +4,7 @@ A kitchen appliance that dispenses real Pepsi-made diet soda — Diet Mountain D
 
 The public face of the project is **[homesodamachine.com](https://homesodamachine.com)** — what this is, the build blog, the 3D viewer, and a single signup form to be notified when units are available. This repository is the working substrate behind that.
 
-The prototype that proves the dispense path is in Derek's kitchen today — a Lilium under-counter carbonator with peristaltic pumps injecting flavor concentrate into the dispensed water. Full build, photos, parts list, ~$1,981 cost breakdown: [`prototype.md`](prototype.md). The origin story (failed SodaStream, the business-license wall, the AI design wall): [`how-this-got-built.md`](how-this-got-built.md).
+The prototype that proves the dispense path is in Derek's kitchen today — a Lilium under-counter carbonator with peristaltic pumps injecting flavor concentrate into the dispensed water. Photos and how it works: [`prototype.md`](prototype.md). The origin story (failed SodaStream, the business-license wall, the AI design wall): [`how-this-got-built.md`](how-this-got-built.md).
 
 The product under development is an integrated under-counter appliance — custom-fabricated 316L stainless carbonator vessel, harvested ice-maker refrigeration loop, foam-insulated cold core, two flavor reservoirs, all behind a single 120 VAC cord and one CO2 line. Architecture: [`hardware/future.md`](hardware/future.md). Founder Edition (units 001-050, $7,500 hand-built) is the launch tier — [`marketing/target-market.md`](marketing/target-market.md) covers who it's for and why.
 
@@ -12,7 +12,7 @@ The product under development is an integrated under-counter appliance — custo
 
 | Path | Contents |
 |---|---|
-| [`prototype.md`](prototype.md) | The prototype in Derek's kitchen — photos, mechanics, parts list, ~$1,981 cost breakdown |
+| [`prototype.md`](prototype.md) | The prototype in Derek's kitchen — photos and how it works |
 | [`how-this-got-built.md`](how-this-got-built.md) | Origin story (failed SodaStream → working appliance, April 2026 snapshot) |
 | [`hardware/`](hardware/) | The integrated appliance under development — CAD scripts, [`bom.md`](hardware/bom.md), [`purchases.md`](hardware/purchases.md), [`assembly/`](hardware/assembly/) procedures, printed parts, wiring schedules |
 | [`firmware/`](firmware/) | ESP32 + RP2040 + ESP32-S3 firmware (prototype + shared base for appliance) — see [`firmware/README.md`](firmware/README.md) |
