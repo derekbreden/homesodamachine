@@ -41,10 +41,13 @@ An earlier racetrack-body alternative (304 SS body half-sheets + dished racetrac
 | [Viva Doria food-grade citric acid, 2 lb bag](https://www.amazon.com/dp/B0C5NQM8S1) | passivation: ~1 qt of 4% solution per tank; 1/20 of $9.99 bag | 1 | $0.50 | $0.50 |
 | [STARTECHWELD ER316L .030 MIG wire, 10-lb spool](https://www.amazon.com/dp/B09BKFBXT9) | filler for the plate-to-tube and float-rod-to-plate laser welds; filler-alloy rationale in [`assembly/pressure-vessel.md`](assembly/pressure-vessel.md); ~12 g of wire per ~32" of weld per vessel × ~378 builds per 10-lb spool; $129.50/378 | 1 (of 378) | $0.34 | $0.34 |
 
-## 3. Water inlet (tap → backflow → pump → top-plate port)
+## 3. Water inlet (tap → filter → backflow → pump → top-plate port)
+
+The appliance ships with the water filter included. **Placement (internal vs. external to the enclosure) is TBD** — internal puts the cartridge behind the rear panel (customer-replaceable on a service interval), external lets the customer mount it inline upstream of the rear-panel inlet (familiar fridge-line install pattern). Either way it is in the box, sized to the customer's 1/4" OD line, and on our side of "the kit includes everything you need."
 
 | Part | Notes | Qty | Unit $ | Line $ |
 |---|---|---:|---:|---:|
+| [Waterdrop 15UC-UF 0.01 µm inline water filter, 1/4" QC both ends](https://www.amazon.com/dp/B085G9TZ4L) | Upstream water filter; 1/4" QC fittings on both ends drop straight into the customer-side 1/4" LLDPE run. Same SKU already in `purchases.md §3` (ACQUIRED). Placement internal-vs-external to the enclosure is TBD per the section header above. | 1 | $62.99 | $62.99 |
 | [Multiplex 19-0897 ASSE 1022 backflow preventer](https://www.midwestbev.com/products/asse-1022-backflow-preventer) | midwestbev MB11053 Apr 24: 4 @ $29.33 = $117.32 + $28.48 ship = $145.80 ÷ 4 = $36.45/ea | 1 | $36.45 | $36.45 |
 | [brewhardware FFL38BARB38 swivel flare adapter, 3/8" FFL × 3/8" OD SS hose barb](https://www.brewhardware.com/product_p/ffl38barb38.htm) | single-piece adapter on the Multiplex 19-0897 MFL outlet; 304 SS wetted barb, chrome-plated brass swivel nut never touches water; brewhardware #156209 May 16: 5 @ $4.99 = $24.95 + $14.47 ship = $39.42 ÷ 5 = $7.88/ea | 1 (of 5 pk) | $7.88 | $7.88 |
 | [JoyTube 3/8" ID × 1/2" OD food-grade silicone tubing, 10 ft](https://www.amazon.com/dp/B089YGDB55) | 3/8" ID food-grade silicone hose, ~12" per build between the brewhardware FFL38BARB38 hose-barb adapter (Multiplex 19-0897 MFL outlet side) and the SeaFlo 22-Series pump's 3/8" hose-barb inlet; covers the entire suction-side hose run with no diameter step-down. JoyTube ACQUIRED per `purchases.md:140`: $11.99 + $0.87 tax = $12.86 ÷ 10 builds = $1.286/build (10 ft × ~12"/build) | 1/10 roll (~12") | $1.29 | $1.29 |
@@ -238,7 +241,7 @@ Per-appliance tools that ship in the install kit so the field installer can cut 
 |---|---:|
 | 1. Controllers + electronics | $166.43 |
 | 2. Carbonator vessel (plan A, 316L) | $240.69 |
-| 3. Water inlet | $138.17 |
+| 3. Water inlet | $201.16 |
 | 4. CO2 subsystem | $92.61 |
 | 5. Refrigeration | $196.70 |
 | 6. Cold core insulation | $52.38 |
@@ -250,10 +253,10 @@ Per-appliance tools that ship in the install kit so the field installer can cut 
 | 12. Level sensing | $69.78 |
 | 13. Mechanical attach hardware + reservoir-cap vent filter | $17.55 |
 | 14. Install kit | $4.29 |
-| **Total** | **$1,493.53** |
+| **Total** | **$1,556.52** |
 
 ## External / user-supplied (not shipped)
 
 - **5 lb CO2 tank** + refills (~$25/refill at welding/homebrew shops)
 - **Flavor concentrate** — SodaStream or BIB syrup
-- **Water filter** — user's choice of inline filter upstream of the appliance
+- **Tap-water source under the cabinet** — an existing 3/8" or 1/2" angle-stop on a cold-water line (the same prerequisite a dishwasher or under-counter water filter has). The kit includes the tee, the 1/4" LLDPE, and the water filter — the customer brings only the existing angle stop.
