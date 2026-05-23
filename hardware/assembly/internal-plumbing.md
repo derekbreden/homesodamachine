@@ -20,7 +20,8 @@ Per-unit BOM lives in [`../bom.md`](../bom.md) §3 (water inlet), §4 (CO2 subsy
 |---|---|---|
 | Waterdrop 15UC-UF 0.01 µm inline water filter, 1/4" QC both ends | B085G9TZ4L | Upstream water filter on the customer-side run; placement internal-vs-external to the enclosure TBD per [`../bom.md`](../bom.md) §3 |
 | John Guest PI1208S acetal bulkhead union, 1/4" QC × 1/4" QC | B0C1F3QR7N | **Customer-facing rear-panel water inlet.** Customer plugs the install-kit 1/4" LLDPE into the outboard side at install time |
-| HAOCHEN brass angle-stop add-a-tee, 3/8" × 3/8" × 1/4" | B0DLKHHGL6 | Install-kit tee; threads between customer's existing 3/8" angle stop and its supply line, exposing a 1/4" compression outlet for the appliance's LLDPE |
+| HAOCHEN brass angle-stop add-a-tee, 3/8" × 3/8" × 1/4" | B0DLKHHGL6 | Install-kit tee, **scenario B (older home)**; threads between customer's existing 3/8" angle stop and its braided compression supply line, exposing a 1/4" compression outlet for the appliance's LLDPE |
+| John Guest Speedfit PP0208WP 1/4" × 1/4" × 1/4" union tee | B005S4NYI8 | Install-kit tee, **scenario A (modern home)**; drops inline into an existing 1/4" LLDPE under-sink line, push-to-connect, no tools |
 | **Upstream adapter chain: 1/4" PTC ↔ 3/8" FNPT** | LIKELY-TO-BUY — see [`../purchases.md`](../purchases.md) | Between the customer-side 1/4" LLDPE (downstream of filter) and the ASSE 1022's 3/8" MPT inlet. SKU pending sourcing pass |
 | Multiplex 19-0897 ASSE 1022 backflow preventer | midwestbev | Tap-water backflow preventer; sits between the upstream adapter chain (3/8" MPT inlet side) and the FFL38BARB38 → silicone → SeaFlo suction (3/8" MFL outlet side) |
 | brewhardware FFL38BARB38 3/8" FFL × 3/8" SS hose-barb adapter | brewhardware #156209 | Multiplex MFL outlet → JoyTube silicone hose, single-piece adapter |

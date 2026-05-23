@@ -34,7 +34,7 @@ End-to-end, the customer's install is roughly:
 
 1. Cut the faucet hole in the countertop (or use an existing hole — see [`2026-05-19/countertop-faucet-penetration-gap.md`](../todo/2026-05-19/countertop-faucet-penetration-gap.md)). Mount the faucet through the hole, clamp from below.
 2. Slide the appliance into the under-sink cabinet. Route the 3-tube umbilical from the faucet down through the countertop into the appliance's rear-panel umbilical-port cluster. Push each tube into its bulkhead (one of the three carries a blue accent ring — the carbonated-water line).
-3. Connect the rear-panel water inlet to the customer's tap-water supply using the install-kit's add-a-tee (threads onto the existing 3/8" angle stop) and 1/4" LLDPE supply line (push-to-connect at the rear panel — no tools).
+3. Connect the rear-panel water inlet to the customer's tap-water supply using whichever install-kit tee matches the under-sink plumbing — a 1/4" JG QC tee that drops inline if the line is already 1/4" LLDPE (modern construction / PEX manifold homes — push-to-connect, no tools), or a 3/8" angle-stop add-a-tee for older homes with a braided compression supply line (wrench install). Either way, 1/4" LLDPE runs from the chosen tee up to the rear panel and pushes into the bulkhead.
 4. Place the CO2 cylinder in the side gap beside the appliance, secure it, and connect the regulator's tether to the front-panel CO2 inlet.
 5. Plug the appliance into a wall outlet via the supplied line cord.
 6. Power on. Open the CO2 cylinder valve. Open the water-supply valve.

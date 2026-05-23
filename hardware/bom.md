@@ -60,7 +60,8 @@ The appliance ships with the water filter included. **Placement (internal vs. ex
 | [Lifevant 1/4" OD water tubing 32.8 ft + quick-connects](https://www.amazon.com/dp/B0DKCZ5W66) | water-inlet tubing (filter → pump → vessel) ~8–10 ft + ~5 of 12 quick-connects per unit; ~1/3 of pack. Generic Amazon PE listing with no third-party food cert (vendor doesn't list one) — short-term use without certification | 1 (~1/3 pk) | $3.33 | $3.33 |
 | [John Guest 1/4" OD × 1/8" NPT push-fit](https://www.amazon.com/dp/B07V6XKZG9) | | 1 | $5.00 | $5.00 |
 | [John Guest PI1208S acetal bulkhead union, 1/4" QC × 1/4" QC](https://www.amazon.com/dp/B0C1F3QR7N) | **Rear-panel customer-facing water inlet.** The customer plugs the install-kit 1/4" LLDPE into this bulkhead — push-to-connect, no tools. 1/4" QC on both sides (interior side feeds into the in-cabinet run to the ASSE 1022's 3/8" MPT inlet via the adapter chain in `purchases.md` LIKELY-TO-BUY). NSF cert upgrade path: PP1208E food-cert family already in BOM §8 for the umbilical cluster is the obvious swap when the panel goes to CAD. | 1 | $11.49 | $11.49 |
-| [HAOCHEN brass angle-stop add-a-tee, 3/8" × 3/8" × 1/4"](https://www.amazon.com/dp/B0DLKHHGL6) | **Install-kit tee.** Threads between the customer's existing 3/8" angle stop and its current supply line, exposing a 1/4" compression outlet for the appliance. 1/4" LLDPE from this tee runs to the rear-panel JG QC bulkhead above (through the Waterdrop filter). Customer doesn't have to source any plumbing themselves — angle stop is the only prerequisite. Already ACQUIRED on the prototype per `purchases.md §3` and `inventory.md`. | 1 | $11.99 | $11.99 |
+| [HAOCHEN brass angle-stop add-a-tee, 3/8" × 3/8" × 1/4"](https://www.amazon.com/dp/B0DLKHHGL6) | **Install-kit tee, scenario B (older home).** Threads between the customer's existing 3/8" angle stop and its current compression supply line, exposing a 1/4" compression outlet for the appliance. Wrench install. Already ACQUIRED on the prototype per `purchases.md §3` and `inventory.md`. | 1 | $11.99 | $11.99 |
+| [John Guest Speedfit PP0208WP 1/4" × 1/4" × 1/4" union tee, push-to-connect](https://www.amazon.com/dp/B005S4NYI8) | **Install-kit tee, scenario A (modern home).** Drops inline into an existing 1/4" LLDPE under-sink line (push-to-connect, no tools) — the configuration shipped in any kitchen new since the late 2010s or any kitchen with a PEX manifold + ice-maker / RO / drinking-water stub-out. Same JG NSF-cert PP family as the §3 PP010822E, §4 PP0308E, §8 PP1208E, and §8 PP2308E already in the BOM. Prime Tomorrow, $7.31/each × 1/build (LIKELY-TO-BUY pending order — see [`purchases.md`](purchases.md)). | 1 | $7.31 | $7.31 |
 
 ## 4. CO2 subsystem
 
@@ -242,7 +243,7 @@ Per-appliance tools that ship in the install kit so the field installer can cut 
 |---|---:|
 | 1. Controllers + electronics | $166.43 |
 | 2. Carbonator vessel (plan A, 316L) | $240.69 |
-| 3. Water inlet | $213.15 |
+| 3. Water inlet | $220.46 |
 | 4. CO2 subsystem | $92.61 |
 | 5. Refrigeration | $196.70 |
 | 6. Cold core insulation | $52.38 |
@@ -254,7 +255,7 @@ Per-appliance tools that ship in the install kit so the field installer can cut 
 | 12. Level sensing | $69.78 |
 | 13. Mechanical attach hardware + reservoir-cap vent filter | $17.55 |
 | 14. Install kit | $4.29 |
-| **Total** | **$1,568.51** |
+| **Total** | **$1,575.82** |
 
 ## External / user-supplied (not shipped)
 
