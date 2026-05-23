@@ -79,6 +79,55 @@ At a Founder Edition target around $1,500 the margin structure mirrors the main 
 
 The Lite Edition is approximately the prototype that already exists on the founder's counter, with a consumer-grade printed cabinet around it and a tightened-up firmware build. The hard subsystems of the main appliance (carbonator vessel fabrication, hydro-test, refrigerant-loop teardown and recharge, foam-pour cold-core assembly, hydrocarbon-refrigerant safety architecture) are absent. The remaining work is enclosure design, the faucet-inlet stub that accepts a Lillium output line, install documentation that explains the Lillium pairing, and ten units' worth of assembly time.
 
+## Minimum set of printed parts
+
+A walk through [`hardware/printed-parts/`](../hardware/printed-parts/) filtered for what the Lite Edition needs — what the existing prototype already uses, plus what would be added for the consumer-grade cabinet. The cold-core stack (foam shells, foam caps, copper plugs, coil mandrel, PRV shroud) is absent because the Lite Edition has no carbonator and no refrigeration.
+
+For the prototype's last-known state before its narrative doc was retired, see git tags `prototype-doc-last-known` and `prototype-bom-last-known`.
+
+### Existing iteration in flight
+
+**Faucet stack** — [`hardware/printed-parts/faucet/`](../hardware/printed-parts/faucet/)
+
+- [`touch-flo-shell/`](../hardware/printed-parts/faucet/touch-flo-shell/) — PET-CF, 3-piece split shell, 0.6 mm DUROZZLE TC nozzle, same-material supports. Joint-clearance arc closed at attempt 14 ("Pretty good. Or good enough at least for now" per [`print-log.md`](../hardware/printed-parts/faucet/touch-flo-shell/print-log.md)); current iteration is on tube-bore clearances and scarf-seam handling, both in recording-only posture. Assembly procedure in [`ASSEMBLY.md`](../hardware/printed-parts/faucet/touch-flo-shell/ASSEMBLY.md).
+- [`touch-flo-mounting-plate/`](../hardware/printed-parts/faucet/touch-flo-mounting-plate/) — paired with shell on the current 3-piece plate.
+- [`touch-flo-mounting-gasket/`](../hardware/printed-parts/faucet/touch-flo-mounting-gasket/) — TPU gasket between mounting plate and countertop.
+- [`touch-flo-tpu-o-ring/`](../hardware/printed-parts/faucet/touch-flo-tpu-o-ring/) — TPU o-ring at the body-to-shell interface.
+
+**Reservoir stack** — [`hardware/printed-parts/cold-core/reservoir/`](../hardware/printed-parts/cold-core/reservoir/) (directory lives under cold-core for historical reasons; the reservoir parts themselves don't depend on the rest of the cold core)
+
+- `reservoir-left.step` + `reservoir-right.step` — bodies. SunTop food-contact-compliant PETG, 0.8 mm high-flow nozzle. First print at this material + geometry combination ran 2026-05-22 per [`print-log.md`](../hardware/printed-parts/cold-core/reservoir/print-log.md).
+- `reservoir-cap-left.step` + `reservoir-cap-right.step` — caps with PTFE membrane vent pockets per [`vent.md`](../hardware/printed-parts/cold-core/reservoir/vent.md).
+- `reservoir-gasket.step` — TPU sandwich between cap and body around the M3 × 12 screw circle.
+- `reservoir-bulkhead-seal.step` — PETG seal at the bottom outlet bulkhead.
+- `reservoir-retaining-ring.step` — TPU ring holding the ø13 mm PTFE membrane filter in the cap.
+
+### Exists, no documented iteration
+
+**Flavor pump stack** — [`hardware/printed-parts/flavor/`](../hardware/printed-parts/flavor/)
+
+- [`pump-case/`](../hardware/printed-parts/flavor/pump-case/) — base + cap STEPs generated. No print-log or README on file.
+- [`peristaltic-tube/`](../hardware/printed-parts/flavor/peristaltic-tube/) — STEP generated. No print-log or README.
+- [`cap-sense-sleeve/`](../hardware/printed-parts/flavor/cap-sense-sleeve/) — +Y and -Y STEPs generated. No print-log or README.
+- [`buckle/`](../hardware/printed-parts/flavor/buckle/) — only `discussion.md` on file; no STEP, no cadquery. Not designed yet.
+
+### Not designed — added scope for the Lite Edition
+
+The existing prototype lives ad-hoc on the counter; the Lite Edition wraps it in a consumer form. Parts that don't exist yet because the prototype does without them:
+
+- **Enclosure shell.** The cold-core enclosure docs ([`back-panel/`](../hardware/printed-parts/enclosure/back-panel/), [`front-panel/`](../hardware/printed-parts/enclosure/front-panel/), [`nameplate/`](../hardware/printed-parts/enclosure/nameplate/)) are sized and oriented for the integrated appliance — side-to-side condenser airflow, rear-panel CO2 / water inlets, compressor compartment, foam-shell back wall. None of that applies. A separate, smaller enclosure design is its own pass: footprint, panel layout, faucet pass-through, hopper opening, pump-cartridge access door, electronics mount, mounting feet, rear inlet for the Lillium carbonated-water hose.
+- **Reservoir mounting outside the foam shell.** Current reservoir bodies are dimensioned to nest in foam-shell pockets. The reservoir itself (body + cap + bulkhead outlet + vent) is self-contained, but the way it's held inside the enclosure is new — either brackets integral to the enclosure shell or separate cradles.
+- **Level-sensing column mount.** Per [`level-sensing.md`](../hardware/printed-parts/cold-core/reservoir/level-sensing.md), the reed column lives in a channel cut into the foam shell — *"The foam shell carries the channel that holds the column — no separate printed reed-holder part."* Without a foam shell, the Lite Edition gets either a new printed reed-holder part attached to the reservoir or the enclosure, or ships without level sensing (the prototype on the counter may already do without).
+- **Hopper.** Cold-core docs reference an enclosure-integrated hopper for top-fill. Lite-side, the hopper is either part of the new enclosure shell or a separate part that mounts to it.
+- **Electronics-shelf housing.** Cold-core has an electronics shelf at the top-back. Lite-side, the electronics take a smaller home — either a discrete printed part or a feature of the new enclosure shell.
+
+### Open questions that surface from this walk
+
+- Does the prototype currently include level sensing? If yes, how is the reed column mounted today? If no, the Lite Edition's level-sensing question collapses to "does it need one at all."
+- Is `flavor/buckle` load-bearing for the prototype, or just an idea captured in `discussion.md`?
+- Are `flavor/pump-case` + `peristaltic-tube` + `cap-sense-sleeve` the same iteration the prototype is using, or is the prototype on earlier / different versions?
+- Is `touch-flo-shell` at attempt 14/15 the version that would ship, or is more iteration expected — the scarf-seam recording-only posture suggests Derek is still tuning.
+
 ## Form factor
 
 Under-counter, in the kitchen cabinet beneath the sink, alongside the customer's Lillium (also a plumbed under-sink appliance). The Lite Edition's enclosure is smaller than the main appliance's because it contains no cold core and no refrigeration; it could fit a corner of the cabinet without disrupting other under-sink contents.
