@@ -159,14 +159,36 @@ Stack-up at one dowel axis, top to bottom:
                           └── plate bottom face (smooth)
 ```
 
+**Plate bottom face must stay flat for the TPU gasket.** The
+mounting plate sits *above* the countertop — its top face mates with
+the shell bottom (this doc's joint), its bottom face mates with the
+TPU `touch-flo-mounting-gasket` that then seals against the
+countertop's top surface. The plate's bottom face is never seen
+from below the counter and is never under-counter; only the body's
+threaded shank and the three umbilical tubes pass through the
+countertop hole. Anything that breaks the flatness of the plate's
+bottom face would dish into the gasket and compromise the
+countertop seal. This is the constraint that drove the press-fit
+choice for the dowels (bosses extend UP from the plate top into the
+shell — the plate's bottom face has *no holes at all* at the dowel
+positions, fully smooth against the gasket).
+
 **Joinery history.** v1 used 2× ruthex M3 short heat-set inserts in
 the shell + 2× ULH M3 × 6 mm SHCS (McMaster 91223A412) coming up
-from below through plate counterbores. That worked, but: (a) the
-$4-6/each McMaster-only screws were hard to source and the 2 mm hex
-stripped easily; (b) the heat-set step added soldering-iron time to
-every shell; (c) the joint was always retention-only — no
-structural load — so a press fit does the same job with zero
-fasteners. Switched on 2026-05-22 (commit pending).
+from below through plate counterbores. The ULH (vs standard SHCS)
+choice was driven by the same gasket-flatness constraint above: a
+standard SHCS head (3 mm tall) protruding from a 1.25 mm counterbore
+would have stuck 1.75 mm proud of the plate's bottom face and
+dished the gasket; the ULH head (1 mm tall) sat 0.25 mm *sub-flush*
+in that same counterbore so the gasket saw a near-flat surface. The
+screw design worked, but: (a) the $4-6/each McMaster-only screws
+were hard to source and the 2 mm hex stripped easily; (b) the
+heat-set step added soldering-iron time to every shell; (c) the
+joint was always retention-only — no structural load — so a press
+fit does the same job with zero fasteners *and* leaves the plate
+bottom face fully smooth (no counterbore dimple, no sub-flush
+head — gasket-better than the screw design ever was). Switched on
+2026-05-22 (commit `e5aa8a1`).
 
 The body-to-plate joint is independent of the dowel joint: the
 factory shank nut clamps the body's 31.5 mm OD bottom face down onto
