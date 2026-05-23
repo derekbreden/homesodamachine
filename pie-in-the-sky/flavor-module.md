@@ -109,8 +109,8 @@ Pre-margin module cost around $560. A Founder Edition module price of **~$2,500*
 
 Nothing immediately — the Kitchen Edition ships first. Light constraints to carry through main-unit design so the module remains buildable without disturbing the main unit later:
 
-1. **Firmware should treat flavor count and faucet count as parameters, not constants.** N=2 flavors, M=1 faucet today; N=4, M=2 with module. Same firmware, same UI grammar.
-2. **One unused UART or I2C bus on the main ESP32 should stay reserved** for the module's control bus. No physical connector today, no wiring, no BOM cost — just leave the bus unspoken-for.
-3. **The main unit's two flavor-pump outlets should remain branchable** without redesign — i.e. the pump-to-faucet plumbing should not become so geometrically committed that adding a T off the pump output is a redesign.
+1. **Firmware treats flavor count and faucet count as parameters, not constants.** N=2 flavors, M=1 faucet today; N=4, M=2 with module. Same firmware, same UI grammar.
+2. **One unused UART or I2C bus on the main ESP32 stays reserved** for the module's control bus. No physical connector today, no wiring, no BOM cost — just leave the bus unspoken-for.
+3. **The main unit's two flavor-pump outlets remain branchable** without redesign — i.e. the pump-to-faucet plumbing doesn't become so geometrically committed that adding a T off the pump output is a redesign.
 
 None of those add cost or complexity to the main unit. They just leave a door unblocked.

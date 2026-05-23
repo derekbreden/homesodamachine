@@ -41,7 +41,7 @@ Both outcomes are good. The kit is honest about what it is — a budget answer w
 
 ## What the customer experience is, honestly
 
-The kit is closer to a SodaStream than to the appliance, and the marketing copy should say so. What the customer gives up vs the appliance:
+The kit is closer to a SodaStream than to the appliance, and the marketing copy says so. What the customer gives up vs the appliance:
 
 - **One bottle at a time.** No always-cold on-demand pour. Carbonate, refrigerate, pour. The kitchen workflow is "make a bottle, leave it in the fridge, refill in 1–2 days."
 - **Pre-chilled water required.** Cold water holds carbonation; warm water doesn't. Customers who skip this step taste the result and stop using the kit.
@@ -54,7 +54,7 @@ What the customer gets vs a SodaStream:
 - **Lower per-liter cost.** ~$25 fill on a 5 lb tank works out to a few cents per liter of carbonated water. SodaStream's per-liter economics are ~10× worse.
 - **No proprietary lock-in, anywhere in the kit.** CGA-320 is the industry-standard cylinder fitting — any welding supplier fills it. The bottle thread is the industry-standard US 2 L soda-bottle thread — any 2 L bottle from a grocery store fits the head. Drop the kit, keep the tank and head, hook either up to anything else later — kegerator, planted aquarium, the next 2 L bottle from recycling, the appliance.
 
-Net: the kit is a meaningfully better deal than a SodaStream for someone with high consumption, and a worse deal for someone with very low consumption. The marketing copy should say exactly that.
+Net: the kit is a meaningfully better deal than a SodaStream for someone with high consumption, and a worse deal for someone with very low consumption. The marketing copy says exactly that.
 
 ## What's worth doing next on this
 
