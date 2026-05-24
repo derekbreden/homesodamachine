@@ -118,6 +118,14 @@ gasket_strip_width = 5.0
 gasket_pad_radius = 6.0  # ø12, matches body boss (insert_pocket_radius + 4); the gasket pad provides full compression contact under each cap boss / body boss face
 
 
+# Cap-local Y ranges. Cap is built around its own y=0 (perimeter wall
+# bottom). To visualize the assembled stack, translate the cap up by
+# (outer_y_range[1] + gasket_thickness).
+cap_perimeter_y_range = (0, cap_wall_height)
+cap_base_y_range = (cap_wall_height, cap_wall_height + cap_base_thickness)
+cap_total_height = cap_base_y_range[1]
+
+
 # Vent feature: a hydrophobic PTFE membrane filter sits in a cylindrical
 # pocket at the top of the cap, held down by a press-fit TPU 90A
 # retaining ring. Air vents through a small hole below the filter into a
@@ -184,6 +192,14 @@ vent_cylinder_length = vent_slot_height + vent_brim_thickness  # 3
 # across x=0 for side=−1.
 vent_position_x = 96.0
 vent_position_z = 32.5
+
+# Vent y stack, in cap-local coordinates (anchored from cap_total_height
+# at the top). Top→bottom: filter pocket / boss extension below the
+# base plate / cylinder shell with the four side slots / closed brim.
+vent_pocket_bottom_y = cap_total_height - vent_pocket_depth                   # 6.5
+vent_boss_bottom_y = cap_total_height - _vent_boss_depth                      # 4
+vent_cylinder_walls_bottom_y = vent_boss_bottom_y - (vent_cylinder_length - vent_brim_thickness)  # 2
+vent_brim_bottom_y = vent_cylinder_walls_bottom_y - vent_brim_thickness       # 1
 
 
 # Level-sensing rod: a vertical 3.175 mm (1/8") × 305 mm (12") 316 SS
@@ -457,14 +473,16 @@ cap_boss_radius = cap_clearance_hole_diameter / 2.0 + 4.0  # 5.75
 #              cylinder gets sliced off at 45° — an FDM-printable
 #              overhang anchored on the wall.
 #
-# Bosses 1/2/3/6 sit 2 mm inside the cavity from the wall's inner
-# face. The 45° cut starts at the wall inner face / corner at
-# y = boss_bottom_y, NOT at the boss center, so the kept material on
-# the wall side reaches all the way down to that y. Bosses 4/5
-# (curve × ±Z corner, at outer-fillet center) sit inside the post-
-# fillet wall material and don't get a cut — the body-boss loop
-# skips them. The outer fillet radius (6 mm) equals body_boss_radius
-# so the corner-boss disks inscribe the fillet arc exactly.
+# Every body boss gets a 45° flat cut at its bottom. Bosses 1/2/3/6
+# sit 2 mm inside the cavity from the wall's inner face; the cut
+# starts at the wall inner face / corner at y = boss_bottom_y, NOT
+# at the boss center, so the kept material on the wall side reaches
+# all the way down to that y. Bosses 4/5 (curve × ±Z corner, at the
+# outer-fillet center) sit inside the post-fillet wall material and
+# use a virtual pivot 2 mm along the wall direction so the cut depth
+# stays within the 7 mm heat-set pocket (see body_boss_cut_info_for_side_plus_1
+# below). The outer fillet radius (6 mm) equals body_boss_radius so
+# the corner-boss disks inscribe the fillet arc exactly.
 boss_height = 13.0  # 7 mm pocket + 6 mm of solid+cut
 _cyl_extra_below_bottom = 5.0  # extra cylinder length to be sliced off by the cut
 
@@ -495,13 +513,6 @@ outer_y_range = (
 )
 inner_y_range = (outer_y_range[0] + reservoir_wall_thickness, outer_y_range[1])
 
-# Cap-local Y ranges. Cap is built around its own y=0 (perimeter wall
-# bottom). Translate the assembled cap up by (outer_y_range[1] +
-# gasket_thickness) to see it sitting on the body.
-cap_perimeter_y_range = (0, cap_wall_height)
-cap_base_y_range = (cap_wall_height, cap_wall_height + cap_base_thickness)
-cap_total_height = cap_base_y_range[1]
-
 # Inset equals the larger boss radius so the boss outer edge just
 # reaches the outer face at every position (no boss protrusion past
 # the body / cap outer envelope, no overhang into the bag pocket
@@ -523,10 +534,10 @@ _curve_apex_x = outer_centerward_radius + _screw_setback  # 78
 # center is the unique point that is 6 mm from BOTH the outer +Z
 # face and the outer curve, measured along the shortest path. The
 # ø12 body boss disk INSCRIBES the fillet arc (radius 6 = body
-# boss radius), so at these positions the boss is a no-op subset of
-# the post-fillet wall material — no cavity bump, no chamfer needed
-# (the body-boss loop below skips the chamfer for these two positions
-# explicitly, for code-reading clarity).
+# boss radius), so at these positions the boss material sits inside
+# the post-fillet wall. The 45° cut still applies (see the cut-info
+# entries for 4/5 below) but uses a virtual pivot rather than the
+# literal corner.
 _corner_curve_z = outer_z_max - outer_corner_fillet_radius  # 64
 _corner_curve_r = outer_centerward_radius + outer_corner_fillet_radius  # 78
 _corner_curve_x = math.sqrt(_corner_curve_r**2 - _corner_curve_z**2)  # ~44.55
@@ -541,14 +552,15 @@ insert_positions_for_side_plus_1 = [
     (_curve_apex_x, 0.0),  # 6: curve apex
 ]
 
-# For each body boss that needs the 45° flat cut at its bottom (i.e.,
-# the four bosses whose disks extend into the cavity, not the two
-# curve-corner bosses which sit inside the post-fillet wall), record
-# the wall pivot point (the (x, z) on the wall's inner face from which
-# the cut plane originates) and the unit direction in XZ from the boss
-# center toward that pivot. The cut plane passes through (pivot_x,
-# boss_bottom_y, pivot_z) and is tilted at 45° from horizontal, rising
-# away from the wall — keep above, cut below.
+# For each body boss, record the wall pivot point (the (x, z) on the
+# wall's inner face from which the cut plane originates) and the unit
+# direction in XZ from the boss center toward that pivot. The cut
+# plane passes through (pivot_x, boss_bottom_y, pivot_z) and is
+# tilted at 45° from horizontal, rising away from the wall — keep
+# above, cut below. Bosses 4/5 (corner-of-curve positions) use a
+# virtual pivot 2 mm along wall_dir from the boss center because the
+# literal inner-wall corner is too far for a sensible cut depth (a
+# 7.19 mm cut depth would eat into the 7 mm heat-set pocket).
 #
 # Values stored for side=+1; the x component is multiplied by `side`
 # in the body-boss loop to mirror across x=0 for side=−1.
@@ -1193,52 +1205,43 @@ def build_reservoir_cap(side=1):
     )
     cap = cap.cut(counterbores)
 
-    # Vent feature.
-    # Cap-local y, top→bottom (with cap_base_thickness=4, cap_wall_height=5,
-    # cap_total_height=9; base plate spans y=5..9, perimeter wall y=0..5):
-    #   y=9 .. 6.5  filter pocket (ø13.2, holds filter + retaining ring)
-    #   y=6.5 .. 5  remaining 1.5 mm of base plate, vent hole ø5 through it
-    #   y=5 .. 4    boss extension below base plate (ø17 outer), vent hole continues
-    #   y=4 .. 2    cylinder shell (ø10 outer, ø5 inner) — wall is entirely slot zone
-    #   y=4 .. 2    four side slots cut through the cylinder walls (full wall height)
-    #   y=2 .. 1    closed brim (ø10) — same OD as the cylinder, no overhang
-    vent_x_signed = vent_position_x * side
-
-    boss_bottom_y = cap_total_height - _vent_boss_depth  # 4
-    cylinder_walls_bottom_y = boss_bottom_y - (
-        vent_cylinder_length - vent_brim_thickness
-    )  # 2
-    brim_bottom_y = cylinder_walls_bottom_y - vent_brim_thickness  # 1
-    pocket_bottom_y = cap_total_height - vent_pocket_depth  # 6.5
+    # Vent feature. Y-stack runs top→bottom from cap_total_height: filter
+    # pocket (ø13.2) at the top of the base plate, then the small vent
+    # hole through the remaining base plate material, then the boss
+    # extension below the base plate, then the cylinder shell (slot
+    # zone), then the closed brim. Y-anchors live at module scope
+    # (vent_pocket_bottom_y, vent_boss_bottom_y, vent_cylinder_walls_bottom_y,
+    # vent_brim_bottom_y).
+    vent_anchor_xz = (vent_position_x * side, vent_position_z)
 
     # Solid pieces: boss extension, cylinder body (cut hollow later),
     # brim. All unioned with the cap so the air-column cut below
     # carves a single continuous channel through them.
     boss_extension = _y_cylinder(
-        (vent_x_signed, vent_position_z),
-        (boss_bottom_y, boss_bottom_y + _vent_boss_extension_below_base_plate),
+        vent_anchor_xz,
+        (vent_boss_bottom_y, vent_boss_bottom_y + _vent_boss_extension_below_base_plate),
         vent_boss_outer_diameter,
     )
     cap = cap.union(boss_extension)
 
     cylinder_solid = _y_cylinder(
-        (vent_x_signed, vent_position_z),
-        (cylinder_walls_bottom_y, cylinder_walls_bottom_y + vent_cylinder_length - vent_brim_thickness),
+        vent_anchor_xz,
+        (vent_cylinder_walls_bottom_y, vent_boss_bottom_y),
         vent_cylinder_outer_diameter,
     )
     cap = cap.union(cylinder_solid)
 
     brim = _y_cylinder(
-        (vent_x_signed, vent_position_z),
-        (brim_bottom_y, brim_bottom_y + vent_brim_thickness),
+        vent_anchor_xz,
+        (vent_brim_bottom_y, vent_cylinder_walls_bottom_y),
         vent_brim_diameter,
     )
     cap = cap.union(brim)
 
     # Cut filter pocket from the cap top face (+0.1 breaks the surface cleanly).
     pocket = _y_cylinder(
-        (vent_x_signed, vent_position_z),
-        (pocket_bottom_y, pocket_bottom_y + vent_pocket_depth + 0.1),
+        vent_anchor_xz,
+        (vent_pocket_bottom_y, cap_total_height + 0.1),
         vent_pocket_diameter,
     )
     cap = cap.cut(pocket)
@@ -1248,8 +1251,8 @@ def build_reservoir_cap(side=1):
     # just unioned in and drills the small vent hole through the boss
     # and the 0.5 mm of base plate below the pocket.
     air_column = _y_cylinder(
-        (vent_x_signed, vent_position_z),
-        (cylinder_walls_bottom_y, pocket_bottom_y),
+        vent_anchor_xz,
+        (vent_cylinder_walls_bottom_y, vent_pocket_bottom_y),
         vent_hole_diameter,
     )
     cap = cap.cut(air_column)
@@ -1258,11 +1261,12 @@ def build_reservoir_cap(side=1):
     # spaced 90° apart. Slot fills the cylinder wall top to bottom:
     # slot bottom = brim top, slot top = boss extension bottom. The
     # boss above and the brim below carry the load across the slot.
-    slot_center_y = cylinder_walls_bottom_y + vent_slot_height / 2.0
+    slot_center_y = vent_cylinder_walls_bottom_y + vent_slot_height / 2.0
+    vent_x_signed, vent_z = vent_anchor_xz
     for i in range(vent_slot_count):
         theta = 2.0 * math.pi * i / vent_slot_count
         slot_x = vent_x_signed + (vent_cylinder_outer_diameter / 2.0) * math.cos(theta)
-        slot_z = vent_position_z + (vent_cylinder_outer_diameter / 2.0) * math.sin(theta)
+        slot_z = vent_z + (vent_cylinder_outer_diameter / 2.0) * math.sin(theta)
         tangent = (-math.sin(theta), 0.0, math.cos(theta))
         radial = (math.cos(theta), 0.0, math.sin(theta))
         slot_cut = (
