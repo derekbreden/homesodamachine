@@ -20,11 +20,13 @@ See `marketing/target-market.md` for details.
 
 ## CadQuery
 
-Run `generate_step_cadquery.py` scripts with the project's CadQuery venv: `tools/cad-venv/bin/python`.
+Run scripts with the project's CadQuery venv: `tools/cad-venv/bin/python`.
+
+See `hardware/printed-parts/cold-core/_reed_channels.py` for patterns to follow.
 
 ## Firmware
 
-Flash with `./tools/flash.sh <env>` (envs: `esp32dev`, `rp2040_display`, `esp32s3_config`).
+Flash with `tools/flash.sh`.
 
 ## Amazon Prime
 
