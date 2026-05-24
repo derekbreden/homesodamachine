@@ -27,7 +27,7 @@ Mechanism for the blue ring is TBD — candidates include multi-material printin
 
 Net identification scheme on the rear panel: **blue = carbonated water**, **black / plain = flavor lines**. (The CO2 inlet lives on the front panel — see [`../front-panel/README.md`](../front-panel/README.md); red color-coding for CO2 lines is documented there.)
 
-Blue on this panel is part of the broader three-color customer-wayfinding system committed in [`../../../../marketing/unboxing-and-quickstart.md`](../../../../marketing/unboxing-and-quickstart.md) "The color discipline" — **blue = carbonated water, red = CO2, third color TBD = install action**. The same blue appears on the matching line drawing in the printed quick-start sheet, so the customer's eye moves from sheet to panel without translation. Any change to the blue ring here (color shade, ring mechanism, placement on the panel) needs to round-trip through the unboxing brief because the printed sheet must match.
+Blue on this panel is part of the three-color customer-wayfinding system committed in [`../../../../marketing/unboxing-and-quickstart.md`](../../../../marketing/unboxing-and-quickstart.md) "Color system" — **blue = carbonated water, red = CO2, white = tap water**. The same blue appears on the matching line drawing in the printed quick-start sheet, so the customer's eye moves from sheet to panel without translation. Any change to the blue ring here (color shade, ring mechanism, placement on the panel) needs to round-trip through the unboxing brief because the printed sheet must match.
 
 ## Umbilical bundle construction
 
