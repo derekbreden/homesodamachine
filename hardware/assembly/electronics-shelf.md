@@ -6,11 +6,11 @@ Topology lives in [`../wiring/power.mmd`](../wiring/power.mmd) (AC + 12 V), [`..
 
 ## Scope
 
-In: all controllers (ESP32-DevKitC-32E, ESP32-S3 1.28" rotary display for config, MCP23017 ×2, ULN2803A ×2, L298N peristaltic-pump driver, Teyleten 3.3 V opto-isolated relays ×2, DS3231 RTC, Mean Well IRM-90-12ST PSU, 5 V regulator + 3.3 V regulator, Wago 221-413 lever blocks ×3 for AC distribution, a printed/screw DC distribution block, solid-copper ground bus, JST XH 4-pin / 6-pin / 9-pin connector kits, CQRobot bonded ribbon, Keszoox 50 cm pre-crimped silicone pigtails, 16 AWG appliance wire + 18 AWG hookup wire + crimp ferrules), and the printed electronics-shelf frame.
+In: all controllers (ESP32-DevKitC-32E, MCP23017 ×2, ULN2803A ×2, L298N peristaltic-pump driver, Teyleten 3.3 V opto-isolated relays ×2, DS3231 RTC, Mean Well IRM-90-12ST PSU, Legrand 1597BKCCD12 GFCI module, 5 V regulator + 3.3 V regulator, Wago 221-413 lever blocks ×3 for AC distribution, a printed/screw DC distribution block, solid-copper ground bus, JST XH 4-pin / 6-pin / 9-pin connector kits, CQRobot bonded ribbon, Keszoox 50 cm pre-crimped silicone pigtails, 16 AWG appliance wire + 18 AWG hookup wire + crimp ferrules), and the printed electronics-shelf frame.
 
 Out: one bench-built electronics shelf with every module mounted, the AC distribution block populated (H/N/G Wagos seated, three loads landed), the DC distribution block populated (12 V trunk in from PSU, branches to relay #2, L298N, ULN2803A pair, 5 V regulator, condenser-fan run), all module-to-module JST harnesses crimped and plugged, the ground bus prepared with a labeled ring-terminal landing per exposed-metal load, and AC + DC pigtails landed and labeled by run-ID — AC-1/2/3 stubs hanging long for the C14 inlet, AC-4/5/6 pigtails landed on relay #1 and the AC distribution block for compressor-side termination at [`wiring.md`](wiring.md), DC-1/4/6/8 trunk and branch stubs ready, and SIG headers ready to take the sensor harnesses. Unpowered.
 
-Not in scope: physical install of the shelf into the enclosure top-back, including chassis-ground-stud landing — that is [`enclosure-mechanical.md`](enclosure-mechanical.md). Landing the AC pigtails into the C14 inlet's solder-tab pins and routing the AC-4/5/6 bundle through the compressor-shroud grommet — that is [`wiring.md`](wiring.md). Flashing firmware to the MCUs and first power-up — that is [`firmware-and-commissioning.md`](firmware-and-commissioning.md). The RP2040 round display does not appear here either; it ships with the under-counter faucet head per [`faucet-and-umbilical.md`](faucet-and-umbilical.md), and lands on the shelf's SIG-6 header during system integration.
+Not in scope: physical install of the shelf into the enclosure top-back, including chassis-ground-stud landing — that is [`enclosure-mechanical.md`](enclosure-mechanical.md). Landing the AC pigtails into the C14 inlet's solder-tab pins and routing the AC-4/5/6 bundle through the compressor-shroud grommet — that is [`wiring.md`](wiring.md). Flashing firmware to the MCUs and first power-up — that is [`firmware-and-commissioning.md`](firmware-and-commissioning.md). The RP2040 round display and the ESP32-S3 config display both live on the front face per [`../printed-parts/enclosure/front-panel/README.md`](../printed-parts/enclosure/front-panel/README.md); their UART trunks (SIG-6 for the RP2040, SIG-7 for the ESP32-S3) land on the shelf-side headers at system integration.
 
 ## Inputs per appliance
 
@@ -20,13 +20,13 @@ Per-unit BOM lives in [`../bom.md`](../bom.md) §1 (controllers + electronics), 
 |---|---|---|
 | ESP32-DevKitC-32E | B09MQJWQN2 | Main MCU; pin map in [`../wiring/esp32-pinout.mmd`](../wiring/esp32-pinout.mmd). Pre-mounted on its ESP32 DIN Rail Breakout (B0BW4SJ5X2). |
 | ESP32 DIN Rail Breakout Board | B0BW4SJ5X2 | Carrier for the ESP32; provides the screw-terminal landing the inter-module JST headers solder back into. |
-| Meshnology ESP32-S3 1.28" Rotary Display | B0G5Q4LXVJ | Config / BLE MCU; receives SIG-7 UART trunk from the ESP32. Sits on the shelf, not in the under-counter faucet head. |
 | MCP23017 I²C GPIO expander ×2 | B07P2H1NZG ×2 | 0x20 (valves on PA + PB[0:3] + Reservoir A reeds on PB[4:7]) and 0x21 (Reservoir B reeds on PA[0:3] + condenser-fan low-side on PA4). Map in [`../wiring/valve-control.mmd`](../wiring/valve-control.mmd). |
 | ULN2803A high-current driver module ×2 | B0F872W528 (2-pc) | Sinks 12 solenoid coils + condenser fan to GND; COM tied to 12 V via DC-6 for flyback. |
 | L298N Dual H-Bridge | B0C5JCF5RS (1 of 4-pack) | Drives both Kamoer peristaltic pumps from MCP23017-adjacent ESP32 GPIO; pump cartridge lands at the manifold via pogo pins, not at the shelf. |
 | Teyleten 3.3 V opto-isolated relay module ×2 | B07XGZSYJV (2 of 5-pack) | Relay #1 switches the compressor 120 VAC hot leg (ESP32 GPIO 14); relay #2 gates 12 V to the SeaFlo diaphragm pump (GPIO 4). Both stay on the shelf, outside the compressor shroud per [`../wiring/power.mmd`](../wiring/power.mmd). |
 | DS3231 RTC | B01N1LZSK3 (1 of 5-pack) | I²C device at 0x68, co-located with the MCP23017s on the shared bus. |
 | Mean Well IRM-90-12ST | B0CNRST18V | 80 W / 12 V / 6.7 A encapsulated PSU; IEC 60335-1 listed. Primary lands on the AC distribution block via AC-2; secondary feeds the DC distribution block via DC-1. |
+| Legrand 1597BKCCD12 GFCI module | B017HAB4BO ([`../bom.md`](../bom.md) §11) | UL 943 Class A 6 mA personnel-protection device. Wired inline between the C14 inlet LOAD and the AC distribution block — protection lives in the appliance, not in the cord. Self-test every 3 seconds + SafeLock end-of-life lockout. Mounted on the shelf; TEST/RESET/LED are not customer-accessible from the front face by design. |
 | 5 V regulator + 3.3 V regulator | per [`../bom.md`](../bom.md) §1 | Regulated logic-level rails; 12 V → 5 V → 3.3 V cascade per [`../wiring/power.mmd`](../wiring/power.mmd) "Regulation". |
 | Wago 221-413 lever-nut connector ×3 | per [`../bom.md`](../bom.md) §11 | AC distribution block — one Wago per conductor (H, N, G), each carrying one in-leg from the C14 pigtail and two out-legs (to PSU primary + to relay #1 contact input, plus ground branches). |
 | DC distribution block | placeholder per [`../bom.md`](../bom.md) §11 | 12 V + and GND rails for the DC-2 / DC-4 / DC-6 / DC-8 / DC-9 fan-out from the PSU secondary. Hardware TBD — see Open items. |
@@ -54,7 +54,7 @@ Module placement geometry on the shelf is set by the shelf STL — see Open item
 
 Per [`../handwork.md`](../handwork.md) "Solder JST connectors". Hakko station, 60/40 leaded, ESD mat. Pin-count assignments per [`../wiring/ac-wiring-schedule.md`](../wiring/ac-wiring-schedule.md) "Inter-module connectors":
 
-- **4-pin** — I²C trunk (ESP32 ↔ MCP23017 ×2 ↔ DS3231 on the shared bus; one header on each carrier), UART trunk to the ESP32-S3 on the shelf, and the SIG-6 UART header that will accept the RP2040's Cat6 pigtail at system integration.
+- **4-pin** — I²C trunk (ESP32 ↔ MCP23017 ×2 ↔ DS3231 on the shared bus; one header on each carrier), and two UART trunk headers on the ESP32 — SIG-6 for the RP2040 and SIG-7 for the ESP32-S3 — both lands at system integration since both displays now live on the front face per [`../printed-parts/enclosure/front-panel/README.md`](../printed-parts/enclosure/front-panel/README.md).
 - **6-pin** — DS3231 RTC carrier (VCC / GND / SDA / SCL / SQW / 32K).
 - **9-pin** — ULN2803A modules × 2 (each gets two 9-pin headers, one per Darlington row of 8 channels + COM/GND) and MCP23017 modules × 2 (each gets two 9-pin headers, one per Port A / Port B row of 8 GPIO + reference).
 
@@ -77,14 +77,15 @@ Land the solid-copper ground bus on its mounting boss. Stage short green 16 AWG 
 
 Place each module on its boss pattern, M3 × 8 SHCS through the module PCB into the heat-set insert. Torque by feel — snug, no PCB flex. Mount sequence top-down by bay:
 
-1. **Mean Well IRM-90-12ST PSU** — largest part on the shelf, gets seated first so its terminal block is accessible for AC-2 landing in step 5.
-2. **Teyleten relay #1** (compressor switch) and **Teyleten relay #2** (diaphragm-pump switch) — close to the PSU so AC-2 + AC-3 and DC-1 + DC-2 are short, clean runs.
-3. **ESP32-DevKitC-32E** (on its DIN-rail breakout) and **ESP32-S3 rotary display** — controllers cluster on the logic side of the shelf, away from the PSU's switching-noise zone.
-4. **MCP23017 × 2** — co-located with the ESP32 for the short I²C trunk.
-5. **DS3231 RTC** — same I²C bus, same neighborhood as the MCP23017s.
-6. **ULN2803A × 2** — adjacent to the MCP23017s on one side, oriented so the 12 V COM pins face the DC distribution block and the channel outputs face the bay where the Keszoox solenoid-fan-out pigtails will route off the shelf.
-7. **L298N pump driver** — separate bay so its inductive load decoupling stays clear of the logic clusters.
-8. **5 V regulator + 3.3 V regulator** — between the PSU and the logic cluster on the 12 V → 5 V → 3.3 V cascade path.
+1. **Legrand 1597BKCCD12 GFCI module** — first in the AC chain (between the C14 inlet LINE and the AC distribution block LOAD). Mount on the AC side of the shelf with LINE and LOAD terminals facing the appropriate pigtail routes.
+2. **Mean Well IRM-90-12ST PSU** — largest part on the shelf, gets seated next so its terminal block is accessible for AC-2 landing in step 5.
+3. **Teyleten relay #1** (compressor switch) and **Teyleten relay #2** (diaphragm-pump switch) — close to the PSU so AC-2 + AC-3 and DC-1 + DC-2 are short, clean runs.
+4. **ESP32-DevKitC-32E** (on its DIN-rail breakout) — controllers cluster on the logic side of the shelf, away from the PSU's switching-noise zone.
+5. **MCP23017 × 2** — co-located with the ESP32 for the short I²C trunk.
+6. **DS3231 RTC** — same I²C bus, same neighborhood as the MCP23017s.
+7. **ULN2803A × 2** — adjacent to the MCP23017s on one side, oriented so the 12 V COM pins face the DC distribution block and the channel outputs face the bay where the Keszoox solenoid-fan-out pigtails will route off the shelf.
+8. **L298N pump driver** — separate bay so its inductive load decoupling stays clear of the logic clusters.
+9. **5 V regulator + 3.3 V regulator** — between the PSU and the logic cluster on the 12 V → 5 V → 3.3 V cascade path.
 
 The MCUs go on the shelf bare — no firmware. Pre-flash happens at [`firmware-and-commissioning.md`](firmware-and-commissioning.md).
 
@@ -117,7 +118,7 @@ Land the branches per [`../wiring/ac-wiring-schedule.md`](../wiring/ac-wiring-sc
 Build the logic-side harnesses module-to-module from the JST kits + bonded ribbon + Keszoox pigtails. Standard build order: I²C trunk first (shortest, exercises the crimper warm-up), UART hops next, then the wider ULN-MCP bus, then the off-shelf fan-out pigtails.
 
 - **I²C trunk** — 4-pin XH bonded ribbon from ESP32 GPIO 21/22 + 3.3 V + GND, daisy-chained through the DS3231, both MCP23017s. Headers seat at each device; pull-ups on the bus are on the MCP23017 breakouts (no external resistors needed on the shelf).
-- **UART hops** — 4-pin XH bonded ribbon ESP32 ↔ ESP32-S3 (GPIO 15 TX / 34 RX + 5 V + GND, per SIG-7). A second 4-pin XH header on the ESP32 (GPIO 32 TX / 35 RX + 5 V + GND, per SIG-6) is plugged but its other end stays open — that's the SIG-6 trunk that lands on the RP2040 round display at system integration via the Cat6 run.
+- **UART hops** — two 4-pin XH headers on the ESP32, both with their shelf-side ends seated and their off-shelf ends left open for system integration. SIG-7 (GPIO 15 TX / 34 RX + 5 V + GND) lands on the ESP32-S3 on the front face. SIG-6 (GPIO 32 TX / 35 RX + 5 V + GND) lands on the RP2040 on the front face, via whatever cord the detach mechanism committed to per [`../printed-parts/enclosure/front-panel/README.md`](../printed-parts/enclosure/front-panel/README.md) "RP2040 detach mechanism".
 - **MCP23017 → ULN2803A** — 9-pin XH ribbons, two per MCP (one per port). Port A of 0x20 trunks straight into ULN #1's 8-channel input row; Port B[0:3] of 0x20 lands on ULN #2 inputs 1-4. Port A[4] of 0x21 lands on ULN #2 input 5 (the condenser-fan channel). The Reservoir A reed inputs on 0x20 PB[4:7] and Reservoir B reed inputs on 0x21 PA[0:3] terminate at JST headers at the edge of the shelf — those plug into the Keszoox pigtails that route to the reservoir-mounted reeds at [`wiring.md`](wiring.md).
 - **ULN2803A → off-shelf solenoids + condenser fan** — 12 × Keszoox 50 cm pre-crimped pigtails crimped into the ULN outputs (8 from ULN #1, 4 from ULN #2 channels 1-4) and one more for the condenser-fan return (ULN #2 channel 5). Each pigtail's far end terminates in a female disconnect for the manifold valves or the fan motor; they leave the shelf as a single bundled run for the valve manifold + a single pigtail for the fan, both labeled.
 - **L298N control** — Dupont female on the ESP32 side (GPIO 33/25/26 for pump A, 19/18/5 for pump B per [`../wiring/esp32-pinout.mmd`](../wiring/esp32-pinout.mmd)) into the L298N's IN1-IN4 + ENA/ENB pin header. OUT-A and OUT-B are not crimped here — those land on the peristaltic-pump cartridge via pogo pins at the manifold during [`wiring.md`](wiring.md).
