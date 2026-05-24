@@ -305,7 +305,7 @@ bulkhead_panel_hole_diameter = 17.0  # JG catalog spec for the 1/4" body family 
 # `tools/measure-from-drawings/README.md`.
 bulkhead_wet_chamber_length = 22.2  # wet nut + collet body + release ring — adjusted from 24 to free 1.8 mm for the panel's growth in −Z direction (see panel_thickness below). The reduction comes entirely from the collet body section.
 bulkhead_wet_antechamber_length = 2.0  # gap on the bulkhead's wet face — must exist or syrup can't reach the port
-bulkhead_panel_thickness = 6.8  # was 5 mm. Grown by 1.8 mm to fit 1.4 mm-deep TPU seal counterbores on BOTH faces while preserving the 4 mm minimum wall thickness in the panel core (between the two counterbores). Growth is in the −Z direction: panel's +Z face stays at z=panel_z_max, panel's −Z face moves to z=panel_z_max − 6.8.
+bulkhead_panel_thickness = 6.8  # was 5 mm. Grown by 1.8 mm to fit 1.4 mm-deep TPU seal counterbores on BOTH faces while preserving the 4 mm minimum wall thickness in the panel core (between the two counterbores). Growth is in the −Z direction: panel's +Z face stays at z=bulkhead_panel_z_range[1], panel's −Z face moves to bulkhead_panel_z_range[1] − bulkhead_panel_thickness.
 
 # Wet-side nut. The actual hardware sitting at z=panel_z_min on the
 # wet side is the *nut*, not an integral flange — the bulkhead is
@@ -355,7 +355,7 @@ bulkhead_seal_counterbore_depth = 1.4  # 30% compression of the 2 mm seal when t
 
 # Wet-side section lengths (estimates — refine with drawing measurements):
 bulkhead_flange_length = bulkhead_nut_total_depth  # 5.7 — the wet-side pocket against the panel holds the *nut* (a stepped washer+hex piece), not an integral flange. Name kept for now as the geometric region label.
-bulkhead_collet_body_length = 13.5  # middle of the wet section — extended ~7.5 mm beyond the CI1208W's 6 mm so the bulkhead's smooth body has room to rest comfortably when fully screwed forward into the nut. Reduced from 15.3 → 13.5 to absorb the 1.8 mm panel growth (5 → 6.8 mm) needed to fit TPU seal counterbores on both panel faces. Panel's +Z face stays at z=panel_z_max=59; everything else cascades.
+bulkhead_collet_body_length = 13.5  # middle of the wet section — extended ~7.5 mm beyond the CI1208W's 6 mm so the bulkhead's smooth body has room to rest comfortably when fully screwed forward into the nut. Reduced from 15.3 → 13.5 to absorb the 1.8 mm panel growth (5 → 6.8 mm) needed to fit TPU seal counterbores on both panel faces. Panel's +Z face stays at bulkhead_panel_z_range[1]=59; everything else cascades.
 bulkhead_release_ring_length = (
     bulkhead_wet_chamber_length - bulkhead_flange_length - bulkhead_collet_body_length
 )  # 3 — the visible end with the push-to-release ring
@@ -430,13 +430,13 @@ dry_ceiling_clearance = 20.0
 # z ≥ bulkhead_panel_z_range[1].
 floor_baseline_y = port_position_y + bulkhead_nut_cavity_diameter / 2 + dry_ceiling_clearance + bulkhead_dry_slab_thickness
 
-# On the wet side (z < bulkhead_wet_end_z), the slope's lowest line is
-# anchored at the bulkhead INLET MIDPOINT (port_position_y = y of the
-# port's center) — about 15.5 mm below the dry-side baseline. That
-# recovers ~90 mL of cavity volume across the slope region; functional
-# drainage is unchanged (syrup at the slope drops straight into the
-# wet chamber's open ceiling), the win is purely volume.
-slope_low_y = port_position_y  # 18 — slope's lowest line at z = bulkhead_wet_end_z
+# On the wet side (z < bulkhead_panel_z_range[0]), the slope's lowest
+# line is anchored at the bulkhead INLET MIDPOINT (port_position_y =
+# y of the port's center) — about 15.5 mm below the dry-side baseline.
+# That recovers ~90 mL of cavity volume across the slope region;
+# functional drainage is unchanged (syrup at the slope drops straight
+# into the wet chamber's open ceiling), the win is purely volume.
+slope_low_y = port_position_y  # 18 — slope's lowest y, at z = bulkhead_panel_z_range[0] (the wet/dry boundary)
 
 floor_slope_rise = 6.0  # mm above floor_baseline_y at the far −Z wall
 
@@ -512,6 +512,12 @@ outer_y_range = (
     bag_pocket_walls_top_y - reservoir_clearance - cap_stack_above_body,
 )
 inner_y_range = (outer_y_range[0] + reservoir_wall_thickness, outer_y_range[1])
+
+# X position where the centerward arc meets ±outer_z_max (the acute
+# "tab" corner that gets filleted on every outer envelope — body,
+# cap, gasket). Same shape applied at the inner cavity edge.
+outer_corner_x = math.sqrt(outer_centerward_radius**2 - outer_z_max**2)
+inner_corner_x = math.sqrt(inner_centerward_radius**2 - inner_z_max**2)
 
 # Inset equals the larger boss radius so the boss outer edge just
 # reaches the outer face at every position (no boss protrusion past
@@ -683,8 +689,6 @@ def build_reservoir_body(side=1):
     # tabs. Interior corners (cavity boundary, ~30° interior angle) are
     # sharp inside the syrup volume. Both get rounded with the same
     # radius for visual consistency.
-    outer_corner_x = math.sqrt(outer_centerward_radius**2 - outer_z_max**2)
-    inner_corner_x = math.sqrt(inner_centerward_radius**2 - inner_z_max**2)
     y_mid_body = (outer_y_range[0] + outer_y_range[1]) / 2
 
     def _apply_outer_fillets(solid):
@@ -708,10 +712,11 @@ def build_reservoir_body(side=1):
     outer_envelope_filleted = _apply_outer_fillets(_build_envelope(side, outer_y_range))
 
     # Inner fillets: curve × ±Z (sharp crevice in syrup volume) and
-    # +X × ±Z (analogous interior corner, exposed in syrup above
-    # dry_slope_y). Same radius as outer for visual consistency. Adds
+    # +X × ±Z (analogous interior corner, exposed in syrup above the
+    # wet wedge top). Same radius as outer for visual consistency. Adds
     # a small amount of material into the cavity tip; volume cost is
-    # small because the affected y range only extends from dry_slope_y up.
+    # small because the affected y range is narrow (the wedge top sits
+    # ~2 mm above floor_baseline_y, well below the cavity ceiling).
     body = _fillet_pair_at_z(body, side * inner_corner_x, y_mid_body, inner_z_max, inner_corner_fillet_radius)
     body = _fillet_pair_at_z(body, side * inner_far_x_abs, y_mid_body, inner_z_max, inner_corner_fillet_radius)
 
@@ -1159,11 +1164,10 @@ def build_reservoir_cap(side=1):
     # for the fillet selector to find, and CadQuery silently produces
     # malformed geometry (a leftover triangular tab where the corner
     # tip should have been rounded off). Filleting first, then
-    # unioning the boss, leaves the fillet correct; the corner
-    # bosses become a no-op there (the perimeter wall already covers
-    # the boss-disk footprint inside the fillet arc), and the bosses
-    # at the other four positions union normally.
-    outer_corner_x = math.sqrt(outer_centerward_radius**2 - outer_z_max**2)
+    # unioning the bosses via .pushPoints, leaves the fillet correct;
+    # at positions 4/5 the boss disk sits inside the post-fillet
+    # perimeter wall material so its union is geometrically a no-op,
+    # and the bosses at the other four positions union normally.
     y_mid_cap = cap_total_height / 2
 
     # Match the body's outer fillets so the cap and body share the same
@@ -1327,7 +1331,6 @@ def build_reservoir_gasket(side=1):
     # Outer fillets at the curve × ±Z and +X × ±Z corners (match the
     # body/cap outer profile so the gasket aligns flush with both above
     # and below it when clamped).
-    outer_corner_x = math.sqrt(outer_centerward_radius**2 - outer_z_max**2)
     y_mid_gasket = gasket_thickness / 2.0
     gasket = _fillet_pair_at_z(gasket, side * outer_corner_x, y_mid_gasket, outer_z_max, outer_corner_fillet_radius)
     gasket = _fillet_pair_at_z(gasket, side * outer_far_x_abs, y_mid_gasket, outer_z_max, outer_corner_fillet_radius)
