@@ -36,7 +36,7 @@ Per-unit BOM lives in [`../bom.md`](../bom.md) §3 (water inlet), §4 (CO2 subsy
 | John Guest PP2308E two-way Y-divider, 1/4" | FWS, 10-pk | 10 Y-junctions per build — Y-A, Y-B, Y-KA, Y-C, Y-D, Y-E, Y-KB, Y-F, Y-G, Y-H per [`../topology/fluid-topology.md`](../topology/fluid-topology.md) |
 | Kamoer KPHM400-SW3B25 12 V peristaltic pump | B09MS6C91D | 2 pumps per build, mounted in the printed pump cartridge |
 | Silicone 1/8" ID × 1/4" OD pump-head tube | B0BM4KQ6RT | Peristaltic pump-head tubing only — stretch-fits over the Kamoer BPT barbs. Line runs are 1/4" LLDPE |
-| Printed pump cartridge | `../printed-parts/flavor/pump-case/` | Holds both Kamoer pumps + pogo-pin electrical interface; tool-free swap via the front-face access door |
+| Printed pump cartridge | `../printed-parts/flavor/pump-case/` | Holds both Kamoer pumps + pogo-pin electrical interface; tool-free swap via the top-of-Zone-C access door per [`../printed-parts/enclosure/README.md`](../printed-parts/enclosure/README.md) |
 | Magnetic pogo-pin connectors, 2-pin (2 pair) | B0CSX6ZQ1H | Pump-cartridge electrical connection — paired with cartridge install |
 | Supply Depot 3/8" red BiB connector | B0DMFK9B6P | Back-panel BiB inlet, single connector feeding both flavor legs through the Y-divider tree |
 | 1/4" OD LLDPE tubing | FWS bulk reel (see [`../bom.md`](../bom.md) §3) | Every line run not otherwise specified. Standard FWS black LLDPE |

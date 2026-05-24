@@ -37,10 +37,10 @@ lifetime, premium hand-built appliance) and
    ambient humidity, periodic splash and steam from the adjacent sink,
    periodic cleaning chemistry (citrus, ammonia, dilute bleach).
 2. **Visible above-counter surface at premium price point.** The
-   faucet is one of only three above-counter user-facing elements
-   (faucet, KRAUS air switch, RP2040 display). Target-market.md is
-   explicit that legitimacy at $7,500 lives on visible surfaces. The
-   shell must read as a serious-engineering object, not a hobby print.
+   faucet is one of two fixed above-counter user-facing elements
+   (faucet, KRAUS air switch). Target-market.md is explicit that
+   legitimacy at $7,500 lives on visible surfaces. The shell must
+   read as a serious-engineering object, not a hobby print.
 3. **Precision body-bore fit.** The Ø 32.0 mm body bore is a slip fit
    to the harvested Westbrass body (Ø 31.5 mm + 0.25 mm clearance per
    side). Drift in that diameter from moisture absorption, creep, or
