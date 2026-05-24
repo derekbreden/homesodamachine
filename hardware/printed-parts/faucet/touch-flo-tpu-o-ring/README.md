@@ -1,10 +1,24 @@
 # Touch-Flo TPU O-ring
 
-Printed-TPU sealing bushing that seals the 3/8" OD LLDPE water tube
-into the harvested Westbrass R2031-NL valve body's top water port.
-Sits *in* the body port, sandwiched between the LLDPE tube's outer
-wall and the body's port bore. Radial compression on both faces
-(inner against the tube, outer against the port wall) is the seal.
+Printed-TPU **thimble** (closed bottom with a centered hole, open top,
+cylindrical wall) that seals the 3/8" OD LLDPE water tube into the
+harvested Westbrass R2031-NL valve body's top water port. Sits *in*
+the body port. Sealing happens on **two interfaces in series**:
+
+1. **Radial seal** — outer cylindrical face of the thimble compresses
+   against the port wall (Ø 10.2 vs Ø 10.0 = 0.1 mm/side squeeze);
+   inner cylindrical face grips the LLDPE OD (Ø 9.45 vs Ø 9.525 =
+   0.0375 mm/side interference).
+2. **Face seal** — the LLDPE tube's square-cut bottom end face
+   bottoms out on the thimble's cap and presses against it.
+   Pressure-energized: water flowing up from the valve chamber pushes
+   the LLDPE end harder onto the cap.
+
+The cap's centered hole (Ø 6.5 mm) is larger than the LLDPE ID
+(1/4" = 6.35 mm) so water flow isn't restricted, but smaller than the
+LLDPE OD (9.525 mm) so the tube physically bottoms out on the cap
+rather than passing through. This also **defines insertion depth** —
+the LLDPE pushes in until it stops; no ambiguity, no axial migration.
 
 ## Where this lives in the wet path
 
@@ -30,12 +44,28 @@ port-to-tube gap directly — this part fills that gap.
 
 | Dimension | Value | Rationale |
 |---|---|---|
-| Inner Ø | **9.45 mm** | LLDPE Ø 9.525 mm with 0.0375 mm radial interference per side — firm grip on the tube, resists pull-out, contributes to the seal at the inner interface |
+| Cylinder ID | **9.45 mm** | LLDPE Ø 9.525 mm with 0.0375 mm radial interference per side — firm grip on the tube, resists pull-out, contributes to the seal at the inner interface |
 | Outer Ø | **10.2 mm** | Body port Ø 10.0 mm with 0.1 mm radial compression per side — firm seal at the port wall, insertion force manageable by hand |
-| Wall | **0.375 mm** | (10.2 − 9.45) / 2. At the edge of FDM minimum wall but printable in TPU with Bambu Studio's Arachne thin-wall handling on a 0.4 mm nozzle |
-| Height (axial) | **8 mm** | Substantial sealing band — equivalent contact area to the two factory rubber o-rings combined |
-| Cross-section | Plain rectangular ring (concentric cylinder shell) | Easiest to print, full-length contact for sealing |
-| Chamfers / ribs | None (v1) | Add if v1 insertion is too hard or sealing is inadequate |
+| Cylinder wall | **0.375 mm** | (10.2 − 9.45) / 2. Below 0.4 nozzle's single-line minimum, but the **cap forms the first layer** when printed cap-down (see "Print orientation"), so the thin wall doesn't have to bootstrap from the bed — Arachne thin-wall handling takes over from layer 2 onward |
+| Cap hole Ø | **6.5 mm** | Larger than LLDPE ID (1/4" = 6.35 mm) so water flow into the LLDPE bore isn't restricted; smaller than LLDPE OD (9.525 mm) so the tube bottoms out on the cap and can't pass through. Defines insertion depth |
+| Cap thickness | **1.5 mm** | Structural under face-seal load (water pressure pushing the LLDPE end onto the cap); also the part's **solid first layer** when printed cap-down |
+| Cylinder length | **13.5 mm** | Sealing band, generous radial seal contact area |
+| Total height | **15 mm** | 1.5 + 13.5. Port depth ≥ 20 mm per 2026-05-24 measurement — comfortable headroom |
+| Chamfers / ribs | None (v1) | Add if v1 insertion is too hard or sealing inadequate |
+
+## Print orientation
+
+**Cap-down on the bed.** First layer becomes the annular cap (Ø 10.2
+solid disk with a Ø 6.5 hole) — maximum bed contact, no
+empty-thin-ring slicer rejection. The thin 0.375 mm cylindrical wall
+extrudes upward from layer 2 onward via Arachne thin-wall, which
+handles sub-nozzle-width perimeters as long as the geometry below is
+already established.
+
+The first attempt at this part (v1, 8 mm open-ended sleeve) hit a
+"empty initial layer" error in Bambu Studio because the 0.375 mm
+thin ring couldn't be filled by the 0.5 mm first-layer line width.
+The thimble v2 dodges this entirely by starting with a solid cap.
 
 ## Material
 
@@ -50,22 +80,23 @@ See [`../../cold-core/foam-shell/README.md`](../../cold-core/foam-shell/README.m
 [`../touch-flo-mounting-gasket/generate_step_cadquery.py`](../touch-flo-mounting-gasket/generate_step_cadquery.py)
 for the existing TPU-90A treatment.
 
-## Why a single 8 mm bushing instead of two discrete rings
+## Why a single continuous thimble instead of two discrete rings
 
 The factory uses two separate rubber o-rings at axial positions ~10 mm
 apart along the metal tube — redundancy plus localized contact
-pressure at the seal points. A single continuous TPU bushing is the
-v1 choice because:
+pressure at the seal points. A single continuous thimble is chosen
+here because:
 
 - **One part to print, one part to install** instead of two.
-- **Continuous full-length sealing band** — the 8 mm of axial contact
+- **Continuous full-length sealing band** — 13.5 mm of axial contact
   area exceeds the combined ~3 mm of contact area the two factory
-  o-rings would provide.
+  o-rings would provide, *plus* the added face seal from the cap is
+  a redundancy mode the factory doesn't have.
 - **No risk of misaligning a second ring** — discrete rings need a
   positioning system (groove, shoulder, or careful axial measurement
   on install).
-- **Easier first iteration.** If v1 leaks somehow that single-bushing
-  geometry can't fix, the fallback is to switch to a two-ring layout
+- **Easier first iteration.** If this design leaks somehow the
+  thimble can't fix, the fallback is to switch to a two-ring layout
   (two short prints, install one at a time).
 
 ## Body port geometry, corrected
@@ -81,18 +112,23 @@ a normal o-ring compression.
 
 ## Assembly
 
-The bushing seats *into the port* first (slide it down into the body's
-top port until its bottom face is at the port floor or 8 mm below the
-plateau, whichever comes first), then the LLDPE tube pushes *down
-through the bushing* from above. The 0.1 mm radial compression at the
-outer face holds the bushing in place against the port wall; the
-0.0375 mm radial interference at the inner face means the LLDPE is a
-firm push-fit through the bushing's ID.
+The thimble seats **cap-down** into the body's port first — drop it in
+with the closed cap pointing toward the valve chamber below. The
+0.1 mm radial compression at the outer face holds it in place against
+the port wall as it's pushed down; total height 15 mm vs the ≥ 20 mm
+port depth means the thimble sits below the plateau face with margin.
 
-For service: pull the LLDPE up and out (the bushing's inner interference
-will resist), then pluck the bushing out of the port with a pick or
-needle-nose. The bushing is consumable; expect to use a fresh one on
-re-assembly.
+Then the LLDPE tube pushes **down through the open top** from above
+until its square-cut bottom end **bottoms out on the cap's top face**.
+That contact is positive — the LLDPE physically can't push further
+because the cap hole (Ø 6.5) is smaller than the LLDPE OD (Ø 9.525).
+Once seated, water flows: valve chamber → cap hole → LLDPE inner bore
+→ up through the gooseneck → dispense tip.
+
+For service: pull the LLDPE up and out (the thimble's inner
+interference will resist), then pluck the thimble out of the port
+with a pick or needle-nose. The thimble is consumable; expect to use
+a fresh one on re-assembly.
 
 ## Regenerate
 
