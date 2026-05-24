@@ -33,40 +33,25 @@ from _cold_core_interface import (
     reservoir_bulkhead_port_x as port_position_x,
     reservoir_bulkhead_port_y as port_position_y,
     reservoir_bulkhead_nut_y as nut_position_y,
+    xz_plane_y_up,
+    xy_plane_z_up,
+    WorldWorkplane,
 )
 
 
-xz_plane_y_up = cq.Plane(origin=(0, 0, 0), xDir=(1, 0, 0), normal=(0, 1, 0))
-
-
-def _wp_at(x, y, z):
-    """A Workplane parallel to the xz plane at world point (x, y, z), normal
-    +Y. Use this instead of ``cq.Workplane(xz_plane_y_up).workplane(origin=(x, y, z))``
-    — the latter silently drops the Y component (which is along the
-    plane's normal, not the in-plane direction), leaving every
-    extrusion stuck at world Y=0."""
-    return cq.Workplane(
-        cq.Plane(origin=(x, y, z), xDir=(1, 0, 0), normal=(0, 1, 0))
-    )
-
-
-def _wp_z_axis_at(x, y, z):
-    """A Workplane parallel to the xy plane at world point (x, y, z), normal
-    +Z. Subsequent .circle(...).extrude(h) extrudes along world +Z."""
-    return cq.Workplane(
-        cq.Plane(origin=(x, y, z), xDir=(1, 0, 0), normal=(0, 0, 1))
-    )
-
-
-def _y_cylinder(x, y_bottom, z, diameter, height):
-    """A solid cylinder with axis along +Y, base at (x, y_bottom, z) and
-    `height` tall in +Y. The Y-axis is the natural extrude direction
-    for almost every cylindrical feature in this file (boss, bore,
-    pocket, cap, vent shell)."""
+def _y_cylinder(anchor_xz, y_range, diameter):
+    """Solid cylinder with axis along world +Y, centered at anchor_xz =
+    (world_x, world_z), spanning y_range = (y_bottom, y_top). The Y-axis
+    is the natural extrude direction for almost every cylindrical
+    feature in this file (boss, bore, pocket, cap, vent shell)."""
+    x, z = anchor_xz
+    y_bottom, y_top = y_range
     return (
-        _wp_at(x, y_bottom, z)
+        WorldWorkplane(xz_plane_y_up)
+        .workplane(offset=y_bottom)
+        .center(x, z)
         .circle(diameter / 2)
-        .extrude(height)
+        .extrude(y_top - y_bottom)
     )
 
 
@@ -620,12 +605,15 @@ def _build_envelope(side, y_range, wall_offset=0.0):
     z_max = outer_z_max - wall_offset
     centerward_radius = outer_centerward_radius + wall_offset
     rect = (
-        _wp_at(side * far_x_abs / 2, floor_y, 0)
+        WorldWorkplane(xz_plane_y_up)
+        .workplane(offset=floor_y)
+        .center(side * far_x_abs / 2, 0)
         .rect(far_x_abs, 2 * z_max)
         .extrude(height)
     )
     cyl = (
-        _wp_at(0, floor_y, 0)
+        WorldWorkplane(xz_plane_y_up)
+        .workplane(offset=floor_y)
         .circle(centerward_radius)
         .extrude(height)
     )
@@ -722,7 +710,7 @@ def build_reservoir_body(side=1):
             cyl_bottom_y = boss_bottom_y
         else:
             cyl_bottom_y = boss_bottom_y - _cyl_extra_below_bottom
-        boss = _y_cylinder(px_signed, cyl_bottom_y, pz, 2 * body_boss_radius, outer_y_range[1] - cyl_bottom_y)
+        boss = _y_cylinder((px_signed, pz), (cyl_bottom_y, outer_y_range[1]), 2 * body_boss_radius)
 
         if cut_info is not None:
             pivot_x, pivot_z, dir_x, dir_z = cut_info
@@ -753,7 +741,11 @@ def build_reservoir_body(side=1):
         body = body.union(boss)
 
         # +0.1 extrude overshoot breaks the top surface cleanly.
-        pocket = _y_cylinder(px_signed, pocket_bottom_y, pz, 2 * insert_pocket_radius, insert_pocket_depth + 0.1)
+        pocket = _y_cylinder(
+            (px_signed, pz),
+            (pocket_bottom_y, pocket_bottom_y + insert_pocket_depth + 0.1),
+            2 * insert_pocket_radius,
+        )
         body = body.cut(pocket)
 
     # Thick sloped floor + bulkhead pocket.
@@ -795,8 +787,18 @@ def build_reservoir_body(side=1):
     above_dry_slope = _above_slope(floor_baseline_y, -slope_rate)
 
     # Split the wedge at the panel's −Z face.
-    slope_region = _wp_z_axis_at(0, 0, bulkhead_panel_z_range[0]).rect(500, 500).extrude(-500)
-    dry_region = _wp_z_axis_at(0, 0, bulkhead_panel_z_range[0]).rect(500, 500).extrude(500)
+    slope_region = (
+        cq.Workplane(xy_plane_z_up)
+        .workplane(offset=bulkhead_panel_z_range[0])
+        .rect(500, 500)
+        .extrude(-500)
+    )
+    dry_region = (
+        cq.Workplane(xy_plane_z_up)
+        .workplane(offset=bulkhead_panel_z_range[0])
+        .rect(500, 500)
+        .extrude(500)
+    )
 
     wedge_top_y_safe = floor_baseline_y + floor_slope_rise + 2.0
     wedge_extrusion = _build_envelope(
@@ -826,7 +828,9 @@ def build_reservoir_body(side=1):
     def _z_pocket_cut(z_range, diameter):
         z_start, z_end = z_range
         return (
-            _wp_z_axis_at(port_x_signed, port_position_y, z_start)
+            cq.Workplane(xy_plane_z_up)
+            .workplane(offset=z_start)
+            .center(port_x_signed, port_position_y)
             .circle(diameter / 2)
             .extrude(z_end - z_start)
         )
@@ -845,11 +849,9 @@ def build_reservoir_body(side=1):
         z_start, z_end = z_range
         body = body.cut(_z_pocket_cut(z_range, diameter))
         ceiling_box = (
-            _wp_at(
-                port_x_signed,
-                port_position_y,
-                (z_start + z_end) / 2.0,
-            )
+            WorldWorkplane(xz_plane_y_up)
+            .workplane(offset=port_position_y)
+            .center(port_x_signed, (z_start + z_end) / 2.0)
             .rect(diameter, z_end - z_start)
             .extrude(ceiling_y_top - port_position_y)
         )
@@ -873,7 +875,9 @@ def build_reservoir_body(side=1):
     # initial tangent (which is world −Z), centered at the chamber's
     # −Z face on the bulkhead axis.
     wet_exit_profile = (
-        _wp_z_axis_at(port_x_signed, port_position_y, bulkhead_wet_z_range[0])
+        cq.Workplane(xy_plane_z_up)
+        .workplane(offset=bulkhead_wet_z_range[0])
+        .center(port_x_signed, port_position_y)
         .circle(bulkhead_release_chamber_diameter / 2)
     )
 
@@ -928,13 +932,17 @@ def build_reservoir_body(side=1):
         for a in (0, 60, 120, 180, 240, 300)
     ]
     nut_hex_part = (
-        _wp_z_axis_at(port_x_signed, nut_position_y, nut_hex_z_range[0])
+        cq.Workplane(xy_plane_z_up)
+        .workplane(offset=nut_hex_z_range[0])
+        .center(port_x_signed, nut_position_y)
         .polyline(hex_vertices_local)
         .close()
         .extrude(nut_hex_z_range[1] - nut_hex_z_range[0])
     )
     nut_washer_part = (
-        _wp_z_axis_at(port_x_signed, nut_position_y, nut_washer_z_range[0])
+        cq.Workplane(xy_plane_z_up)
+        .workplane(offset=nut_washer_z_range[0])
+        .center(port_x_signed, nut_position_y)
         .circle((bulkhead_nut_washer_diameter + 2 * bulkhead_nut_clearance) / 2)
         .extrude(nut_washer_z_range[1] - nut_washer_z_range[0])
     )
@@ -954,7 +962,9 @@ def build_reservoir_body(side=1):
     ):
         z_start, z_end = z_range
         nut_ceiling_box = (
-            _wp_at(port_x_signed, nut_position_y, (z_start + z_end) / 2.0)
+            WorldWorkplane(xz_plane_y_up)
+            .workplane(offset=nut_position_y)
+            .center(port_x_signed, (z_start + z_end) / 2.0)
             .rect(width, z_end - z_start)
             .extrude(ceiling_y_top - nut_position_y)
         )
@@ -1005,7 +1015,12 @@ def build_reservoir_body(side=1):
         normal=(0, 1, -slope_rate),
     )
     below_slab = cq.Workplane(slab_bottom_plane).rect(500, 500).extrude(-500)
-    dry_section_z = _wp_z_axis_at(0, 0, bulkhead_panel_z_range[1]).rect(500, 500).extrude(500)
+    dry_section_z = (
+        cq.Workplane(xy_plane_z_up)
+        .workplane(offset=bulkhead_panel_z_range[1])
+        .rect(500, 500)
+        .extrude(500)
+    )
     body = body.cut(below_slab.intersect(dry_section_z))
 
     # Fillet the new acute vertical edge at curve × panel-face.
@@ -1077,17 +1092,25 @@ def build_reservoir_body(side=1):
     # geometry cannot perturb any earlier edge/face selector.
     rod_x_signed = rod_position_x * side
     rod_slope_y_at_z = slope_low_y + slope_rate * (bulkhead_panel_z_range[0] - rod_position_z)
-    body_boss_cylinder = _y_cylinder(rod_x_signed, rod_slope_y_at_z, rod_position_z, rod_boss_od, body_boss_height)
+    body_boss_cylinder = _y_cylinder(
+        (rod_x_signed, rod_position_z),
+        (rod_slope_y_at_z, rod_slope_y_at_z + body_boss_height),
+        rod_boss_od,
+    )
     body = body.union(body_boss_cylinder)
 
     # Blind bore: base body_boss_floor mm above the slope, extruded up
     # through the top of the boss with a +0.1 overshoot so the cut
     # cleanly opens at the boss top face.
     bore_bottom_y = rod_slope_y_at_z + body_boss_floor
-    rod_bore_cut = _y_cylinder(rod_x_signed, bore_bottom_y, rod_position_z, rod_bore, body_boss_height - body_boss_floor + 0.1)
+    rod_bore_cut = _y_cylinder(
+        (rod_x_signed, rod_position_z),
+        (bore_bottom_y, bore_bottom_y + body_boss_height - body_boss_floor + 0.1),
+        rod_bore,
+    )
     body = body.cut(rod_bore_cut)
 
-    return body
+    return body.unwrap()
 
 
 def build_reservoir_cap(side=1):
@@ -1143,11 +1166,19 @@ def build_reservoir_cap(side=1):
     # the M3 SHCS head flush with the cap's top face.
     for (px, pz) in insert_positions_for_side_plus_1:
         px_signed = px * side
-        boss = _y_cylinder(px_signed, 0.0, pz, 2 * cap_boss_radius, cap_wall_height)
+        boss = _y_cylinder((px_signed, pz), cap_perimeter_y_range, 2 * cap_boss_radius)
         cap = cap.union(boss)
-        clearance = _y_cylinder(px_signed, -0.1, pz, cap_clearance_hole_diameter, cap_total_height + 0.2)
+        clearance = _y_cylinder(
+            (px_signed, pz),
+            (-0.1, cap_total_height + 0.1),
+            cap_clearance_hole_diameter,
+        )
         cap = cap.cut(clearance)
-        counterbore = _y_cylinder(px_signed, cap_total_height - cap_counterbore_depth, pz, cap_counterbore_diameter, cap_counterbore_depth + 0.1)
+        counterbore = _y_cylinder(
+            (px_signed, pz),
+            (cap_total_height - cap_counterbore_depth, cap_total_height + 0.1),
+            cap_counterbore_diameter,
+        )
         cap = cap.cut(counterbore)
 
     # Vent feature.
@@ -1171,24 +1202,44 @@ def build_reservoir_cap(side=1):
     # Solid pieces: boss extension, cylinder body (cut hollow later),
     # brim. All unioned with the cap so the air-column cut below
     # carves a single continuous channel through them.
-    boss_extension = _y_cylinder(vent_x_signed, boss_bottom_y, vent_position_z, vent_boss_outer_diameter, _vent_boss_extension_below_base_plate)
+    boss_extension = _y_cylinder(
+        (vent_x_signed, vent_position_z),
+        (boss_bottom_y, boss_bottom_y + _vent_boss_extension_below_base_plate),
+        vent_boss_outer_diameter,
+    )
     cap = cap.union(boss_extension)
 
-    cylinder_solid = _y_cylinder(vent_x_signed, cylinder_walls_bottom_y, vent_position_z, vent_cylinder_outer_diameter, vent_cylinder_length - vent_brim_thickness)
+    cylinder_solid = _y_cylinder(
+        (vent_x_signed, vent_position_z),
+        (cylinder_walls_bottom_y, cylinder_walls_bottom_y + vent_cylinder_length - vent_brim_thickness),
+        vent_cylinder_outer_diameter,
+    )
     cap = cap.union(cylinder_solid)
 
-    brim = _y_cylinder(vent_x_signed, brim_bottom_y, vent_position_z, vent_brim_diameter, vent_brim_thickness)
+    brim = _y_cylinder(
+        (vent_x_signed, vent_position_z),
+        (brim_bottom_y, brim_bottom_y + vent_brim_thickness),
+        vent_brim_diameter,
+    )
     cap = cap.union(brim)
 
     # Cut filter pocket from the cap top face (+0.1 breaks the surface cleanly).
-    pocket = _y_cylinder(vent_x_signed, pocket_bottom_y, vent_position_z, vent_pocket_diameter, vent_pocket_depth + 0.1)
+    pocket = _y_cylinder(
+        (vent_x_signed, vent_position_z),
+        (pocket_bottom_y, pocket_bottom_y + vent_pocket_depth + 0.1),
+        vent_pocket_diameter,
+    )
     cap = cap.cut(pocket)
 
     # Cut the air column: ø5 from the cylinder bottom (top of brim) up
     # to the pocket bottom. This both hollows out the cylinder body we
     # just unioned in and drills the small vent hole through the boss
     # and the 0.5 mm of base plate below the pocket.
-    air_column = _y_cylinder(vent_x_signed, cylinder_walls_bottom_y, vent_position_z, vent_hole_diameter, pocket_bottom_y - cylinder_walls_bottom_y)
+    air_column = _y_cylinder(
+        (vent_x_signed, vent_position_z),
+        (cylinder_walls_bottom_y, pocket_bottom_y),
+        vent_hole_diameter,
+    )
     cap = cap.cut(air_column)
 
     # Side slots — four rectangular windows through the cylinder wall,
@@ -1224,13 +1275,21 @@ def build_reservoir_cap(side=1):
     # extends from boss bottom up to the base plate's underside (cap
     # closes the bore from above).
     rod_x_signed = rod_position_x * side
-    boss_outer = _y_cylinder(rod_x_signed, -rod_boss_height, rod_position_z, rod_boss_od, rod_boss_height + cap_wall_height)
+    boss_outer = _y_cylinder(
+        (rod_x_signed, rod_position_z),
+        (-rod_boss_height, cap_wall_height),
+        rod_boss_od,
+    )
     cap = cap.union(boss_outer)
 
-    boss_bore = _y_cylinder(rod_x_signed, -rod_boss_height - 0.1, rod_position_z, rod_bore, rod_boss_height + cap_wall_height + 0.1)
+    boss_bore = _y_cylinder(
+        (rod_x_signed, rod_position_z),
+        (-rod_boss_height - 0.1, cap_wall_height),
+        rod_bore,
+    )
     cap = cap.cut(boss_bore)
 
-    return cap
+    return cap.unwrap()
 
 
 def build_reservoir_gasket(side=1):
@@ -1261,12 +1320,16 @@ def build_reservoir_gasket(side=1):
     # so each hole sits at the center of a full pad disk.
     for (px, pz) in insert_positions_for_side_plus_1:
         px_signed = px * side
-        pad = _y_cylinder(px_signed, 0.0, pz, 2 * gasket_pad_radius, gasket_thickness)
+        pad = _y_cylinder((px_signed, pz), gasket_y_range, 2 * gasket_pad_radius)
         gasket = gasket.union(pad)
-        hole = _y_cylinder(px_signed, -0.1, pz, cap_clearance_hole_diameter, gasket_thickness + 0.2)
+        hole = _y_cylinder(
+            (px_signed, pz),
+            (-0.1, gasket_thickness + 0.1),
+            cap_clearance_hole_diameter,
+        )
         gasket = gasket.cut(hole)
 
-    return gasket
+    return gasket.unwrap()
 
 
 def build_reservoir_retaining_ring():
@@ -1281,10 +1344,11 @@ def build_reservoir_retaining_ring():
     Symmetric, so one ring design works on either side; print 2
     per build (one per reservoir cap)."""
     return (
-        cq.Workplane(xz_plane_y_up)
+        WorldWorkplane(xz_plane_y_up)
         .circle(retaining_ring_outer_diameter / 2.0)
         .circle(retaining_ring_inner_diameter / 2.0)
         .extrude(retaining_ring_thickness)
+        .unwrap()
     )
 
 
@@ -1300,10 +1364,11 @@ def build_reservoir_bulkhead_seal():
     side-independent). Print 4 per build (one per panel face × two
     reservoirs)."""
     return (
-        cq.Workplane(xz_plane_y_up)
+        WorldWorkplane(xz_plane_y_up)
         .circle(bulkhead_seal_od / 2.0)
         .circle(bulkhead_seal_id / 2.0)
         .extrude(bulkhead_seal_thickness)
+        .unwrap()
     )
 
 
