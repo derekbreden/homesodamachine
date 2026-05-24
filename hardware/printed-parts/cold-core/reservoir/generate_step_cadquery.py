@@ -310,6 +310,16 @@ bulkhead_nut_washer_depth = 1.6  # axial depth of the washer portion
 bulkhead_nut_total_depth = bulkhead_nut_hex_depth + bulkhead_nut_washer_depth  # 5.7
 bulkhead_nut_clearance = 0.1  # per-side clearance for press-fit (both hex flats and washer ⌀)
 
+# Flat-top hex profile for the nut pocket. Vertices at 0°, 60°, ...
+# 300° from +X put flats at ±Y so the ceiling box opens along a flat
+# edge, matching the round chambers' stadium geometry.
+nut_hex_radius = (bulkhead_nut_hex_corner_to_corner + 2 * bulkhead_nut_clearance) / 2
+nut_hex_profile = [
+    (nut_hex_radius * math.cos(math.radians(a)),
+     nut_hex_radius * math.sin(math.radians(a)))
+    for a in (0, 60, 120, 180, 240, 300)
+]
+
 # TPU 90A face seals at the bulkhead/panel joint. One on each side of
 # the panel: a flat printed washer that sits in a shallow counterbore
 # in the panel face and gets compressed when the mating face (nut
@@ -922,20 +932,11 @@ def build_reservoir_body(side=1):
     )
     nut_washer_z_range = (nut_hex_z_range[1], bulkhead_panel_z_range[0])
 
-    # Flat-top hex (one flat at workplane +Y, one at workplane −Y),
-    # so the stadium-pattern ceiling box opens along a flat edge —
-    # matching the round chambers' geometry. Vertices at angles
-    # 0°, 60°, 120°, 180°, 240°, 300° from +X put flats at ±Y.
-    hex_R = (bulkhead_nut_hex_corner_to_corner + 2 * bulkhead_nut_clearance) / 2
-    hex_vertices_local = [
-        (hex_R * math.cos(math.radians(a)), hex_R * math.sin(math.radians(a)))
-        for a in (0, 60, 120, 180, 240, 300)
-    ]
     nut_hex_part = (
         cq.Workplane(xy_plane_z_up)
         .workplane(offset=nut_hex_z_range[0])
         .center(port_x_signed, nut_position_y)
-        .polyline(hex_vertices_local)
+        .polyline(nut_hex_profile)
         .close()
         .extrude(nut_hex_z_range[1] - nut_hex_z_range[0])
     )
@@ -1163,23 +1164,34 @@ def build_reservoir_cap(side=1):
     # wall inward (matching the body boss footprint so the gasket sees
     # a consistent compression cross-section), ø3.5 clearance hole
     # through the cap for the screw shaft, and ø6 counterbore recessing
-    # the M3 SHCS head flush with the cap's top face.
-    for (px, pz) in insert_positions_for_side_plus_1:
-        px_signed = px * side
-        boss = _y_cylinder((px_signed, pz), cap_perimeter_y_range, 2 * cap_boss_radius)
-        cap = cap.union(boss)
-        clearance = _y_cylinder(
-            (px_signed, pz),
-            (-0.1, cap_total_height + 0.1),
-            cap_clearance_hole_diameter,
-        )
-        cap = cap.cut(clearance)
-        counterbore = _y_cylinder(
-            (px_signed, pz),
-            (cap_total_height - cap_counterbore_depth, cap_total_height + 0.1),
-            cap_counterbore_diameter,
-        )
-        cap = cap.cut(counterbore)
+    # the M3 SHCS head flush with the cap's top face. Built with
+    # .pushPoints over the side-mirrored anchor list — six features
+    # per extrude rather than a per-position loop.
+    insert_anchors = [(px * side, pz) for (px, pz) in insert_positions_for_side_plus_1]
+    bosses = (
+        WorldWorkplane(xz_plane_y_up)
+        .workplane(offset=cap_perimeter_y_range[0])
+        .pushPoints(insert_anchors)
+        .circle(cap_boss_radius)
+        .extrude(cap_perimeter_y_range[1] - cap_perimeter_y_range[0])
+    )
+    cap = cap.union(bosses)
+    clearances = (
+        WorldWorkplane(xz_plane_y_up)
+        .workplane(offset=-0.1)
+        .pushPoints(insert_anchors)
+        .circle(cap_clearance_hole_diameter / 2)
+        .extrude(cap_total_height + 0.2)
+    )
+    cap = cap.cut(clearances)
+    counterbores = (
+        WorldWorkplane(xz_plane_y_up)
+        .workplane(offset=cap_total_height - cap_counterbore_depth)
+        .pushPoints(insert_anchors)
+        .circle(cap_counterbore_diameter / 2)
+        .extrude(cap_counterbore_depth + 0.1)
+    )
+    cap = cap.cut(counterbores)
 
     # Vent feature.
     # Cap-local y, top→bottom (with cap_base_thickness=4, cap_wall_height=5,
@@ -1318,16 +1330,23 @@ def build_reservoir_gasket(side=1):
 
     # At each insert position: ø8 pad unioned BEFORE the hole is cut
     # so each hole sits at the center of a full pad disk.
-    for (px, pz) in insert_positions_for_side_plus_1:
-        px_signed = px * side
-        pad = _y_cylinder((px_signed, pz), gasket_y_range, 2 * gasket_pad_radius)
-        gasket = gasket.union(pad)
-        hole = _y_cylinder(
-            (px_signed, pz),
-            (-0.1, gasket_thickness + 0.1),
-            cap_clearance_hole_diameter,
-        )
-        gasket = gasket.cut(hole)
+    insert_anchors = [(px * side, pz) for (px, pz) in insert_positions_for_side_plus_1]
+    pads = (
+        WorldWorkplane(xz_plane_y_up)
+        .workplane(offset=gasket_y_range[0])
+        .pushPoints(insert_anchors)
+        .circle(gasket_pad_radius)
+        .extrude(gasket_y_range[1] - gasket_y_range[0])
+    )
+    gasket = gasket.union(pads)
+    holes = (
+        WorldWorkplane(xz_plane_y_up)
+        .workplane(offset=-0.1)
+        .pushPoints(insert_anchors)
+        .circle(cap_clearance_hole_diameter / 2)
+        .extrude(gasket_thickness + 0.2)
+    )
+    gasket = gasket.cut(holes)
 
     return gasket.unwrap()
 
