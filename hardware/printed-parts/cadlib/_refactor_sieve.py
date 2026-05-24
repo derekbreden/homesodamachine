@@ -1,15 +1,20 @@
-"""Refactor sieve — invariants that must survive the WorldWorkplane move
-to cadlib and the pump-case coordinate-system rewrite.
+"""Refactor sieve — invariants that must survive ongoing refactors.
 
-Two complementary checks:
+Three complementary checks:
 
-1. PUMP-CASE: regenerate base + cap, then check Volume + BoundingBox +
-   CenterOfMass for each, compared to a pinned baseline. The pump-case
-   refactor will change byte output (operation order shifts) but must
-   preserve geometry to within 1e-4 mm tolerance on volumes/coords.
+1. PUMP-CASE: build base + cap in-process, then check Volume +
+   BoundingBox + CenterOfMass scalars against a pinned baseline. For
+   refactors that change byte output (operation order shifts) but must
+   preserve geometry.
 
-2. COLD-CORE: SHA256-compare every downstream STEP file. The cadlib
-   move is a pure import-path change; bytes must match exactly.
+2. RESERVOIR: build all 7 reservoir parts in-process (body + cap × 2
+   sides, plus gasket, retaining ring, bulkhead seal), then check the
+   same scalars against a pinned baseline. Same scalar-tolerance shape
+   as pump-case — for the vocabulary refactor (range tuples, named
+   anchors, chained CADQuery instead of _wp_at helpers).
+
+3. COLD-CORE: SHA256-compare every downstream STEP file whose generator
+   is NOT undergoing a vocabulary refactor; bytes must match exactly.
 
 Run with:
     tools/cad-venv/bin/python hardware/printed-parts/cadlib/_refactor_sieve.py capture
@@ -37,13 +42,6 @@ _cold_core_step_paths = [
     "hardware/printed-parts/cold-core/copper-plugs/copper-plug-middle.step",
     "hardware/printed-parts/cold-core/copper-plugs/copper-plug-upper.step",
     "hardware/printed-parts/cold-core/copper-plugs/copper-plug-top.step",
-    "hardware/printed-parts/cold-core/reservoir/reservoir-left.step",
-    "hardware/printed-parts/cold-core/reservoir/reservoir-right.step",
-    "hardware/printed-parts/cold-core/reservoir/reservoir-cap-left.step",
-    "hardware/printed-parts/cold-core/reservoir/reservoir-cap-right.step",
-    "hardware/printed-parts/cold-core/reservoir/reservoir-gasket.step",
-    "hardware/printed-parts/cold-core/reservoir/reservoir-bulkhead-seal.step",
-    "hardware/printed-parts/cold-core/reservoir/reservoir-retaining-ring.step",
 ]
 
 _cold_core_generators = [
@@ -101,6 +99,34 @@ def _pump_case_scalars():
     }
 
 
+def _reservoir_scalars():
+    """Build all 7 reservoir parts in-process and return their scalars.
+
+    Imports the generator's build_reservoir_* functions so we don't
+    depend on the STEP round-trip (same approach as pump-case)."""
+    reservoir_dir = _repo / "hardware/printed-parts/cold-core/reservoir"
+    sys.path.insert(0, str(reservoir_dir))
+    sys.path.insert(0, str(_repo / "hardware/printed-parts/cadlib"))
+    sys.path.insert(0, str(_repo / "hardware/printed-parts/cold-core"))
+    sys.path.insert(0, str(_repo / "hardware"))
+
+    # Force a fresh import (pump-case's generate_step_cadquery may be
+    # cached from an earlier call in the same process).
+    import importlib
+    if "generate_step_cadquery" in sys.modules:
+        del sys.modules["generate_step_cadquery"]
+    mod = importlib.import_module("generate_step_cadquery")
+
+    parts = {}
+    for side, label in ((+1, "right"), (-1, "left")):
+        parts[f"body_{label}"] = _solid_scalars(mod.build_reservoir_body(side=side))
+        parts[f"cap_{label}"] = _solid_scalars(mod.build_reservoir_cap(side=side))
+    parts["gasket"] = _solid_scalars(mod.build_reservoir_gasket(side=+1))
+    parts["retaining_ring"] = _solid_scalars(mod.build_reservoir_retaining_ring())
+    parts["bulkhead_seal"] = _solid_scalars(mod.build_reservoir_bulkhead_seal())
+    return parts
+
+
 def _solid_scalars(wp):
     solid = wp.val()
     bb = solid.BoundingBox()
@@ -120,15 +146,22 @@ def _solid_scalars(wp):
 
 def capture():
     """Capture current state as the baseline."""
-    print("Capturing pump-case scalars (this will regenerate the STEPs)...")
+    print("Capturing pump-case scalars...")
     pump = _pump_case_scalars()
+    print("Capturing reservoir scalars...")
+    reservoir = _reservoir_scalars()
     print("Capturing cold-core STEP file hashes...")
     hashes = _file_hashes()
-    baseline = {"pump_case": pump, "cold_core_hashes": hashes}
+    baseline = {
+        "pump_case": pump,
+        "reservoir": reservoir,
+        "cold_core_hashes": hashes,
+    }
     _baseline_path.write_text(json.dumps(baseline, indent=2, sort_keys=True))
     print(f"Baseline written to {_baseline_path.relative_to(_repo)}")
     print(f"  Pump-case base volume: {pump['base']['volume_mm3']} mm³")
     print(f"  Pump-case cap volume:  {pump['cap']['volume_mm3']} mm³")
+    print(f"  Reservoir parts captured: {len(reservoir)}")
     print(f"  Cold-core STEPs hashed: {len(hashes)}")
 
 
@@ -180,6 +213,16 @@ def check():
         sys.exit(1)
     print(f"  base volume: {actual_pump['base']['volume_mm3']} mm³")
     print(f"  cap volume:  {actual_pump['cap']['volume_mm3']} mm³")
+
+    print("Checking reservoir scalars...")
+    actual_reservoir = _reservoir_scalars()
+    reservoir_drift = _compare_scalars(baseline["reservoir"], actual_reservoir)
+    if reservoir_drift:
+        print("RESERVOIR DRIFT:", file=sys.stderr)
+        for line in reservoir_drift:
+            print(f"  {line}", file=sys.stderr)
+        sys.exit(1)
+    print(f"  {len(actual_reservoir)} reservoir parts match.")
 
     print("\nAll sieve checks pass.")
 
