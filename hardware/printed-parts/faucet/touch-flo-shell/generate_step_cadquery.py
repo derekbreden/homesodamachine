@@ -192,11 +192,14 @@ wing_outer_y = shell_rect_y_half  # 11.75
 # wings' arch profile so the shell reads as one continuous swept arch
 # shape across the back.
 water_tube_x = 8.875
-# 3/8" LLDPE — sealed in the body's 9.75 mm port via a TPU O-ring
-# (0.225 mm radial gap). The 3/8" OD here is the 3-tube dispense spout's
-# center tube INSIDE the faucet head — NOT the supply line. The
-# harvested Westbrass R2031-NL-62 valve body IS the 1/4"→3/8" adapter;
-# the 3/8" tube only exists above this port, internal to the head.
+# 3/8" LLDPE — sealed in the body's 10.0 mm port via a printed TPU
+# bushing (see ../touch-flo-tpu-o-ring/). The 3/8" OD here is the
+# 3-tube dispense spout's center tube INSIDE the faucet head — NOT
+# the supply line. The harvested Westbrass R2031-NL-62 valve body IS
+# the 1/4"→3/8" adapter; the 3/8" tube only exists above this port,
+# internal to the head. (Port previously documented as 9.75 mm from
+# the 2026-04-27 caliper pass; re-measured 2026-05-22 as 10.0 mm with
+# the caliper tips landed on the port wall rather than the chamfer.)
 water_tube_od = 0.375 * 25.4  # 9.525
 water_hole_diameter = water_tube_od + 2.0 * bore_clearance + 0.20  # 10.225
 
