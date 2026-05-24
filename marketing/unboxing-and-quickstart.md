@@ -11,7 +11,7 @@ The appliance ships in a carton with its quick-start sheet across the interior u
 
 **Drawing 2: Tee into the water line.**
 - View: under-counter. The customer's angle stop comes out of the wall with its outlet now empty. The customer's existing supply line is shown disconnected, its end dangling beside the angle stop. The tee floats in the gap between them, with the 3/8" tube pre-attached to one of its outlets and extending across the drawing. The free end of the tube sits next to the appliance, which is shown at the edge of the frame with its back-panel water inlet visible.
-- Arrows: rotation arrow on the angle stop showing the shut-off action; white arrow at the appliance water inlet showing where the free end of the tube goes.
+- Arrows: rotation arrow on the angle stop showing the shut-off action; two white stub-arrows pointing inward at the tee's two open outlets, marking where the angle-stop connection and the existing-supply connection attach; white arrow at the appliance water inlet showing where the free end of the tube goes.
 - Caption: "Tee into the water. Run the tube to the device."
 
 **Drawing 3: Open the CO2 valve and the water shutoff.**
@@ -20,9 +20,9 @@ The appliance ships in a carton with its quick-start sheet across the interior u
 - Caption: "Open the CO2. Open the water."
 
 **Drawing 4: Fill the hopper.**
-- View: 3/4 top of the appliance, hopper lid lifted, funnel visible. Two SodaStream concentrate bottles inverted over the funnel.
-- Arrows: two motion arrows, one per bottle (plain line work).
-- Caption: "Empty both flavors into the hopper."
+- View: 3/4 top of the appliance, hopper lid lifted, funnel visible. One SodaStream concentrate bottle inverted over the funnel.
+- Arrows: one motion arrow on the bottle (plain line work).
+- Caption: "Empty a flavor into the hopper."
 
 ## Faucet quick-start sheet — 2 drawings
 
