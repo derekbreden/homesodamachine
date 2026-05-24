@@ -32,8 +32,9 @@ window.__hsm = {
 };
 
 function setupNav() {
-  // The shell already renders the nav with absolute hrefs (/3d, /charts);
-  // this just sets the active class for client-side navigation cases.
+  // The shell already renders the nav with absolute hrefs (/3d, /charts,
+  // /drawings); this just sets the active class for client-side
+  // navigation cases.
   const section = currentSection();
   for (const a of document.querySelectorAll("#site-nav a[data-nav]")) {
     a.classList.toggle("active", a.dataset.nav === section);
@@ -42,15 +43,17 @@ function setupNav() {
   const titleMap = {
     parts: "Parts · Home Soda Machine",
     charts: "Charts · Home Soda Machine",
+    drawings: "Drawings · Home Soda Machine",
   };
   document.title = titleMap[section] || document.title;
 }
 
 export async function fetchFiles() {
-  const [stepResp, mmdResp, dxfResp] = await Promise.all([
+  const [stepResp, mmdResp, dxfResp, drawingResp] = await Promise.all([
     fetch("/api/steps"),
     fetch("/api/mermaid"),
     fetch("/api/dxf"),
+    fetch("/api/drawings"),
   ]);
   state.allFiles = (await stepResp.json()).sort();
   state.mmdFiles = (await mmdResp.json()).sort();
@@ -61,6 +64,7 @@ export async function fetchFiles() {
   state.dxfMeta.clear();
   for (const d of dxfData) state.dxfMeta.set(d.path, d);
   state.dxfFiles = dxfData.map((d) => d.path).sort();
+  state.drawingFiles = (await drawingResp.json()).sort();
   buildGrid();
 }
 

@@ -17,11 +17,12 @@ import {
   closeCadDetail,
 } from "./cad-detail.js";
 import { openMmdDetail, closeMmdDetail } from "./mermaid.js";
+import { openDrawingDetail, closeDrawingDetail } from "./drawings.js";
 
 // Browser/OS back button: navigate to whatever the new hash represents.
 // ContentViewer handles Escape / X / backdrop / swipe-down on its own.
-const HASH_PREFIXES = { "step:": "step", "dxf:": "dxf", "mmd:": "mmd" };
-const OPENERS = { step: openDetail, dxf: openDxfDetail, mmd: openMmdDetail };
+const HASH_PREFIXES = { "step:": "step", "dxf:": "dxf", "mmd:": "mmd", "svg:": "drawing" };
+const OPENERS = { step: openDetail, dxf: openDxfDetail, mmd: openMmdDetail, drawing: openDrawingDetail };
 
 window.addEventListener("popstate", () => {
   const hash = location.hash ? decodeURIComponent(location.hash.slice(1)) : "";
@@ -34,19 +35,21 @@ window.addEventListener("popstate", () => {
       && state.currentDetail.type === want.type && state.currentDetail.file === want.file) {
     return;
   }
-  // Close whatever is currently open (cad and mmd close paths differ
-  // because mmd uses PanZoom and not the Three.js scene).
+  // Close whatever is currently open (cad / mmd / drawing close paths
+  // differ because mmd and drawing use PanZoom while step/dxf use the
+  // Three.js scene).
   if (state.currentDetail) {
     if (state.currentDetail.type === "mmd") closeMmdDetail(false);
+    else if (state.currentDetail.type === "drawing") closeDrawingDetail(false);
     else closeCadDetail(false);
   }
   if (want.type) OPENERS[want.type](want.file, false);
 });
 
 // --- Initial route ---
-// Prefer ?file=<step|dxf|mmd> (notification deep link), fall back to hash.
-// Extension drives which detail surface opens. occtPromise is needed for
-// STEP only — DXF and MMD can open immediately.
+// Prefer ?file=<step|dxf|mmd|svg> (notification deep link), fall back to
+// hash. Extension drives which detail surface opens. occtPromise is needed
+// for STEP only — DXF / MMD / SVG can open immediately.
 export function applyInitialRoute(occtPromise) {
   const initialParams = new URLSearchParams(location.search);
   const initialFile = initialParams.get("file");
@@ -55,6 +58,8 @@ export function applyInitialRoute(occtPromise) {
       setTimeout(() => openMmdDetail(initialFile, true), 100);
     } else if (initialFile.endsWith(".dxf")) {
       setTimeout(() => openDxfDetail(initialFile, true), 100);
+    } else if (initialFile.endsWith(".svg")) {
+      setTimeout(() => openDrawingDetail(initialFile, true), 100);
     } else {
       occtPromise.then(() => setTimeout(() => openDetail(initialFile, true), 100));
     }
@@ -69,6 +74,9 @@ export function applyInitialRoute(occtPromise) {
     } else if (hash.startsWith("mmd:")) {
       const file = hash.slice(4);
       setTimeout(() => openMmdDetail(file, false), 100);
+    } else if (hash.startsWith("svg:")) {
+      const file = hash.slice(4);
+      setTimeout(() => openDrawingDetail(file, false), 100);
     } else {
       // Legacy hash format (just a step file path)
       occtPromise.then(() => setTimeout(() => openDetail(hash, false), 100));

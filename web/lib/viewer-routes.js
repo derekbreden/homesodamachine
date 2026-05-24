@@ -2,7 +2,7 @@ import express from "express";
 import path from "path";
 import fs from "fs";
 
-import { walkFiles } from "./walk.js";
+import { walkFiles, walkFilesUnderDir } from "./walk.js";
 
 function safeFile(rootDir, rel, ext) {
   if (rel.includes("..")) return null;
@@ -34,6 +34,13 @@ export function mountViewerRoutes(app, { hardwareDir }) {
     res.json(walkFiles(hardwareDir, ".mmd"));
   });
 
+  // Line-art drawings: SVGs that live in any directory named `drawings/`
+  // under hardware/. The generator is tools/line-art/line_art.py; the
+  // drawing scripts and outputs colocate with the part they describe.
+  app.get("/api/drawings", (_req, res) => {
+    res.json(walkFilesUnderDir(hardwareDir, ".svg", "drawings"));
+  });
+
   app.get("/api/dxf", (_req, res) => {
     const paths = walkFiles(hardwareDir, ".dxf");
     // Return enriched objects so the client gets the sidecar metadata
@@ -54,6 +61,23 @@ export function mountViewerRoutes(app, { hardwareDir }) {
     if (!abs) return res.status(400).send("Invalid path");
     if (!fs.existsSync(abs)) return res.status(404).send("Not found");
     res.type("text/plain").send(fs.readFileSync(abs, "utf-8"));
+  });
+
+  // Line-art SVG content. The viewer inlines the SVG into the DOM so
+  // PanZoom can wrap it directly (like mermaid does after render). Path
+  // must be inside a `drawings/` directory (we don't expose arbitrary
+  // SVGs that may live elsewhere in the tree).
+  app.get("/api/drawing-content/*", (req, res) => {
+    const rel = req.params[0];
+    const abs = safeFile(hardwareDir, rel, ".svg");
+    if (!abs) return res.status(400).send("Invalid path");
+    // Enforce the drawings/ directory convention so non-line-art SVGs
+    // (logos, hand-drawn diagrams) aren't reachable through this endpoint.
+    if (!rel.split("/").includes("drawings")) {
+      return res.status(400).send("Not a drawing");
+    }
+    if (!fs.existsSync(abs)) return res.status(404).send("Not found");
+    res.type("image/svg+xml").send(fs.readFileSync(abs, "utf-8"));
   });
 
   // sendFile races against the atomic-rename window in

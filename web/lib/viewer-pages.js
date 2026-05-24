@@ -30,6 +30,7 @@ function readFragment(name) {
 const TITLES = {
   parts: "Parts · Home Soda Machine",
   charts: "Charts · Home Soda Machine",
+  drawings: "Drawings · Home Soda Machine",
 };
 
 export function mountViewerPages(app) {
@@ -56,6 +57,7 @@ export function mountViewerPages(app) {
   // Express's default `strict: false` routing makes /3d and /3d/ equivalent.
   app.get("/3d", renderPage("parts"));
   app.get("/charts", renderPage("charts"));
+  app.get("/drawings", renderPage("drawings"));
 
   // Legacy redirects. /dev?file=foo and /dev/?file=foo were the deep-link
   // shape baked into FCM notifications before the rename; preserve the

@@ -254,6 +254,41 @@ watcher.on("change", (absPath) => {
     return;
   }
 
+  // Line-art SVG inside a drawings/ directory changed — broadcast update.
+  // Drawings are produced by their own .py script (run on edit below);
+  // here we just notice the resulting SVG and forward to the viewer.
+  if (absPath.endsWith(".svg") && absPath.split(path.sep).includes("drawings")) {
+    if (debounce.has(absPath)) clearTimeout(debounce.get(absPath));
+    debounce.set(
+      absPath,
+      setTimeout(() => {
+        debounce.delete(absPath);
+        const relFile = path.relative(HARDWARE_DIR, absPath);
+        console.log(`Drawing changed: ${relFile}`);
+        broadcast({ type: "files-changed", files: [relFile] });
+      }, 300),
+    );
+    return;
+  }
+
+  // A .py inside a drawings/ directory changed — run it so the SVG
+  // beside it regenerates. The .svg-changed branch above then catches
+  // the new file and broadcasts. Same pattern as generate_step*.py
+  // below, scoped to the drawings/ convention so a .py edit beside the
+  // generated .svg is a tight live-reload loop.
+  if (absPath.endsWith(".py") && absPath.split(path.sep).includes("drawings")) {
+    if (debounce.has(absPath)) clearTimeout(debounce.get(absPath));
+    debounce.set(
+      absPath,
+      setTimeout(() => {
+        debounce.delete(absPath);
+        console.log(`Drawing script changed: ${path.relative(HARDWARE_DIR, absPath)}`);
+        runScript(absPath);
+      }, 500),
+    );
+    return;
+  }
+
   // Sidecar metadata file changed — broadcast a change for the part it
   // belongs to. `foo.dxf.json` -> broadcast `foo.dxf`; `foo.step.json`
   // -> broadcast `foo.step`. The viewer's hsm:files-changed handler

@@ -20,6 +20,7 @@ import { state } from "./state.js";
 import { loadStepFile, renderThumbnail } from "./step.js";
 import { loadDxfFile, renderDxfThumbnail } from "./dxf.js";
 import { renderMmdThumbnail, refetchOpenMmd } from "./mermaid.js";
+import { renderDrawingThumbnail, refetchOpenDrawing } from "./drawings.js";
 import { fetchFiles } from "./main.js";
 
 function refreshStepCard(file) {
@@ -86,6 +87,18 @@ function refreshMmdCard(file) {
   });
 }
 
+function refreshDrawingCard(file) {
+  state.drawingThumbCache.delete(file);
+  const card = state.gridEl.querySelector(`.card[data-type="drawing"][data-file="${CSS.escape(file)}"]`);
+  if (!card) { fetchFiles(); return; }
+  const thumbEl = card.querySelector(".drawing-thumb");
+  if (thumbEl) thumbEl.innerHTML = `<div class="placeholder">updating...</div>`;
+  renderDrawingThumbnail(file).then((svg) => {
+    if (!thumbEl) return;
+    thumbEl.innerHTML = svg ? svg : `<div class="placeholder">error</div>`;
+  });
+}
+
 function isOpenAs(type, file) {
   return state.currentDetail && state.currentDetail.type === type && state.currentDetail.file === file;
 }
@@ -101,6 +114,9 @@ window.addEventListener("hsm:files-changed", (e) => {
     } else if (file.endsWith(".mmd")) {
       refreshMmdCard(file);
       if (isOpenAs("mmd", file)) refetchOpenMmd(file);
+    } else if (file.endsWith(".svg")) {
+      refreshDrawingCard(file);
+      if (isOpenAs("drawing", file)) refetchOpenDrawing(file);
     }
   }
 });

@@ -59,6 +59,7 @@ const routes = [
   { path: "/",         expect: 200, ct: "text/html" },
   { path: "/3d",       expect: 200, ct: "text/html" },
   { path: "/charts",   expect: 200, ct: "text/html" },
+  { path: "/drawings", expect: 200, ct: "text/html" },
   { path: "/blog",     expect: 200, ct: "text/html" },
   { path: "/settings", expect: 200, ct: "text/html" },
 
@@ -74,6 +75,7 @@ const routes = [
   { path: "/api/steps",           expect: 200, ct: "application/json" },
   { path: "/api/dxf",             expect: 200, ct: "application/json" },
   { path: "/api/mermaid",         expect: 200, ct: "application/json" },
+  { path: "/api/drawings",        expect: 200, ct: "application/json" },
   { path: "/api/firebase-config", expect: 200, ct: "application/json" },
 
   // Service worker variants — same body, three URLs (root, /3d, legacy /dev)
@@ -184,6 +186,37 @@ test("GET /api/mermaid-content/* returns text when a .mmd exists", async (t) => 
   const res = await fetch(`${baseUrl}/api/mermaid-content/${rel}`);
   assert.equal(res.status, 200);
   assert.match(res.headers.get("content-type") || "", /^text\/plain/);
+});
+
+// Line-art SVG passthrough. Walk hardware/ for a .svg inside any
+// drawings/ directory; skip if none exist (a stripped checkout). The
+// content-type is image/svg+xml so the browser inlines it correctly when
+// the modal injects it via DOMParser.
+async function firstDrawingPath(rootDir) {
+  if (!fs.existsSync(rootDir)) return null;
+  const stack = [{ dir: rootDir, inDrawings: false }];
+  while (stack.length) {
+    const { dir, inDrawings } = stack.pop();
+    let entries;
+    try { entries = fs.readdirSync(dir, { withFileTypes: true }); } catch { continue; }
+    for (const entry of entries) {
+      const full = path.join(dir, entry.name);
+      const childInDrawings = inDrawings || entry.name === "drawings";
+      if (entry.isDirectory()) stack.push({ dir: full, inDrawings: childInDrawings });
+      else if (inDrawings && entry.name.endsWith(".svg")) {
+        return path.relative(rootDir, full).split(path.sep).join("/");
+      }
+    }
+  }
+  return null;
+}
+
+test("GET /api/drawing-content/* returns SVG when a drawing exists", async (t) => {
+  const rel = await firstDrawingPath(path.join(REPO_ROOT, "hardware"));
+  if (!rel) return t.skip("no drawings/ SVGs under hardware/");
+  const res = await fetch(`${baseUrl}/api/drawing-content/${rel}`);
+  assert.equal(res.status, 200);
+  assert.match(res.headers.get("content-type") || "", /^image\/svg\+xml/);
 });
 
 // Phase 4 viewer split (/css/viewer.css, /js/viewer/*.js) is in flight on

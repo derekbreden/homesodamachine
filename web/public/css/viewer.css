@@ -172,3 +172,26 @@
   max-width: 100%;
   max-height: 100%;
 }
+
+/* Line-art drawing thumbnail in card. SVGs from tools/line-art are
+   black-on-transparent; the card uses var(--bg) as background and we
+   recolor strokes to var(--text) so the line work reads against the
+   dark surface. */
+.card .drawing-thumb {
+  width: 100%;
+  aspect-ratio: 1;
+  background: var(--bg);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  padding: 8px;
+}
+.card .drawing-thumb svg {
+  max-width: 100%;
+  max-height: 100%;
+}
+.card .drawing-thumb svg path,
+.card .drawing-thumb svg line {
+  stroke: var(--text);
+}

@@ -18,17 +18,22 @@ export const state = {
   allFiles: [],       // STEP files (paths)
   mmdFiles: [],       // Mermaid files
   dxfFiles: [],       // DXF files
+  drawingFiles: [],   // Line-art SVG files (drawings/ convention)
   currentDetail: null,
   mountedDetail: null,
   currentMmdContent: null,
   currentMmdWrapper: null,    // host div inside the modal (PanZoom container)
   currentMmdPz: null,         // PanZoom handle for currentMmdWrapper
+  currentDrawingContent: null,
+  currentDrawingWrapper: null,// host div inside the modal (PanZoom container)
+  currentDrawingPz: null,     // PanZoom handle for currentDrawingWrapper
   currentCadWrapper: null,    // host div inside the modal (parent of canvases)
   currentCadResizeObserver: null,
   currentGroup: null,         // Three.js group currently in scene
   thumbnailCache: new Map(),  // STEP file -> dataURL
   mmdThumbCache: new Map(),   // Mermaid file -> svgHTML
   dxfThumbCache: new Map(),   // DXF file -> dataURL
+  drawingThumbCache: new Map(),// Drawing file -> svgText (used for both thumbnail and detail)
   stepEtags: new Map(),       // file -> last loaded ETag (for refetch dedupe)
   dxfEtags: new Map(),        // file -> last loaded ETag
   dxfMeta: new Map(),         // DXF file -> {thickness_mm, material} from sidecar (hardware/PARTS.md)

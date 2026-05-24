@@ -24,7 +24,7 @@ import path from "path";
 import fs from "fs";
 import crypto from "crypto";
 import { insertNotification } from "./notifications.js";
-import { walkFiles } from "./walk.js";
+import { walkFiles, walkFilesUnderDir } from "./walk.js";
 
 let pool = null;
 let adminApp = null;
@@ -33,6 +33,7 @@ let schemaReady = null;
 function walkStepFiles(rootDir) { return walkFiles(rootDir, ".step"); }
 function walkMermaidFiles(rootDir) { return walkFiles(rootDir, ".mmd"); }
 function walkDxfFiles(rootDir) { return walkFiles(rootDir, ".dxf"); }
+function walkDrawingFiles(rootDir) { return walkFilesUnderDir(rootDir, ".svg", "drawings"); }
 
 // Match the post filename format documented in posts/README.md
 // (`YYYY-MM-DD-HHMM.md`) so docs/helpers like posts/README.md don't get
@@ -84,6 +85,13 @@ function ensureSchema() {
     `);
     await pool.query(`
       CREATE TABLE IF NOT EXISTS dxf_hashes (
+        file TEXT PRIMARY KEY,
+        sha256 TEXT NOT NULL,
+        updated_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
+      )
+    `);
+    await pool.query(`
+      CREATE TABLE IF NOT EXISTS drawing_hashes (
         file TEXT PRIMARY KEY,
         sha256 TEXT NOT NULL,
         updated_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
@@ -229,7 +237,7 @@ export function mountPushRoutes(app) {
 //
 // Allowed table names are hardcoded — no SQL injection risk despite the
 // template-string interpolation, since callers pick from this whitelist.
-const ALLOWED_HASH_TABLES = new Set(["step_hashes", "mermaid_hashes", "dxf_hashes"]);
+const ALLOWED_HASH_TABLES = new Set(["step_hashes", "mermaid_hashes", "dxf_hashes", "drawing_hashes"]);
 
 async function detectChangedFilesInTable(tableName, walker, hardwareDir) {
   if (!ALLOWED_HASH_TABLES.has(tableName)) {
@@ -287,6 +295,10 @@ export function detectChangedMermaid(hardwareDir) {
 
 export function detectChangedDxf(hardwareDir) {
   return detectChangedFilesInTable("dxf_hashes", walkDxfFiles, hardwareDir);
+}
+
+export function detectChangedDrawings(hardwareDir) {
+  return detectChangedFilesInTable("drawing_hashes", walkDrawingFiles, hardwareDir);
 }
 
 // Hash every post under postsDir, compare to post_hashes, return list of
@@ -501,15 +513,21 @@ export async function notifyPostsChanged({ postsDir, filenames }) {
 // mermaid). Body is the basename only — full paths get long fast and the
 // directory rarely tells the user anything they need at notification-
 // glance time.
+function isDrawingPath(p) {
+  return p.endsWith(".svg") && p.split("/").includes("drawings");
+}
+
 function describeFilesUpdate(files) {
   const stepCount = files.filter((f) => f.endsWith(".step")).length;
   const mermaidCount = files.filter((f) => f.endsWith(".mmd")).length;
   const dxfCount = files.filter((f) => f.endsWith(".dxf")).length;
+  const drawingCount = files.filter(isDrawingPath).length;
   let title;
   if (files.length === 1) {
     if (files[0].endsWith(".step")) title = "Print updated";
     else if (files[0].endsWith(".mmd")) title = "Diagram updated";
     else if (files[0].endsWith(".dxf")) title = "Cut updated";
+    else if (isDrawingPath(files[0])) title = "Drawing updated";
     else title = "File updated";
   } else if (stepCount === files.length) {
     title = `${files.length} Prints updated`;
@@ -517,6 +535,8 @@ function describeFilesUpdate(files) {
     title = `${files.length} Diagrams updated`;
   } else if (dxfCount === files.length) {
     title = `${files.length} Cuts updated`;
+  } else if (drawingCount === files.length) {
+    title = `${files.length} Drawings updated`;
   } else {
     title = `${files.length} Files updated`;
   }
@@ -541,22 +561,27 @@ export async function notifyFilesChanged({ files }) {
 
   const { title, body } = describeFilesUpdate(files);
   // STEP and DXF files both live on /3d (Prints + Cuts sections), mermaid
-  // files on /charts. Pick the deep link based on the first file's
-  // extension so a single-file notification lands the user on the right
-  // page; mixed batches are rare enough that we just send them to /3d
-  // (the "default" parts page).
+  // files on /charts, drawing SVGs on /drawings. Pick the deep link
+  // based on the first file's extension so a single-file notification
+  // lands the user on the right page; mixed batches are rare enough that
+  // we just send them to /3d (the "default" parts page).
   const firstFile = files[0];
-  const basePath = firstFile.endsWith(".mmd") ? "/charts" : "/3d";
+  let basePath;
+  if (firstFile.endsWith(".mmd")) basePath = "/charts";
+  else if (isDrawingPath(firstFile)) basePath = "/drawings";
+  else basePath = "/3d";
   const link = `${basePath}?file=${encodeURIComponent(firstFile)}`;
   // Pick a kind for the notifications-list icon. Pure step / mermaid /
-  // dxf / (mixed → "files"); inferred from the file list rather than
-  // passed separately so callers don't have to think about it.
+  // dxf / drawing / (mixed → "files"); inferred from the file list rather
+  // than passed separately so callers don't have to think about it.
   const stepCount = files.filter((f) => f.endsWith(".step")).length;
   const mermaidCount = files.filter((f) => f.endsWith(".mmd")).length;
   const dxfCount = files.filter((f) => f.endsWith(".dxf")).length;
+  const drawingCount = files.filter(isDrawingPath).length;
   const kind = stepCount === files.length ? "step"
              : mermaidCount === files.length ? "mermaid"
              : dxfCount === files.length ? "dxf"
+             : drawingCount === files.length ? "drawing"
              : "files";
   return fanOutToTokens(
     rows,
