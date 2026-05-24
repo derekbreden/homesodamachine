@@ -13,9 +13,10 @@ tubes + (eventually) other inserts that the shell must accommodate.
 Parts currently modeled:
 1. Valve body (loaded from the reference STEP — never modified here).
 2. Water dispense tube — Ø 9.525 mm (3/8" LLDPE), inserted into the
-   body's 9.75 mm water port and extending up through the gooseneck.
-   The TPU O-ring sealing the 0.225 mm radial gap is not modeled
-   (geometry only; envelope is the bare 9.525 mm OD).
+   body's 10.0 mm water port and extending up through the gooseneck.
+   The printed TPU bushing sealing the 0.475 mm diametric (0.2375 mm
+   radial) gap (see ../../../printed-parts/faucet/touch-flo-tpu-o-ring/)
+   is not modeled here (geometry only; envelope is the bare 9.525 mm OD).
 3. Two flavor dispense tubes — Ø 1/4" (6.35 mm), behind the water
    tube. Each tube starts at X = body_r + tube_r = 18.925 mm (butting
    against the body's +X rectangular face and the other flavor tube),
@@ -72,9 +73,10 @@ shank_length = 50.0  # shank extends from Z=0 down to Z=-shank_length
 
 
 # Water dispense tube — Ø 9.525 mm (3/8" LLDPE) — drops into the body's
-# 9.75 mm water port. The 0.225 mm radial gap is taken up by a TPU
-# O-ring on the real tube (not modeled). Extends a comfortable amount
-# into the port for retention, and runs through the gooseneck.
+# 10.0 mm water port. The 0.475 mm diametric (0.2375 mm radial) gap is
+# taken up by a printed TPU bushing on the real tube (not modeled).
+# Extends a comfortable amount into the port for retention, and runs
+# through the gooseneck.
 water_tube_od = 0.375 * 25.4  # 3/8" LLDPE
 water_tube_r = water_tube_od / 2.0
 water_tube_above_plateau = 40.0

@@ -22,7 +22,7 @@ Regenerate: `tools/cad-venv/bin/python hardware/harvested/touch-flo-faucet/valve
 | 5 | Diameter of the round base section — also equals the **long dimension** of the rectangle in the upper body | **31.50 mm** |
 | 6 | **Short dimension** of the rectangular upper body cross-section (the thinner axis, as seen from above or from the side) | **17 mm** |
 | 7 | Distance from the **body edge to the near wall** of the water port | **2 mm** |
-| 8 | **Water port diameter** | **9.75 mm** |
+| 8 | **Water port diameter** | **10.0 mm** (re-measured 2026-05-22; was 9.75 in 2026-04-27 pass) |
 
 ---
 
@@ -36,10 +36,10 @@ Regenerate: `tools/cad-venv/bin/python hardware/harvested/touch-flo-faucet/valve
 | Height of cylindrical base section | 13.0 mm | 0.512" | Photo 4 | Measured |
 | Base cylinder OD = rectangle long dimension | 31.50 mm | 1.240" | Photo 5 | Measured |
 | Rectangle short dimension | 17.0 mm | 0.669" | Photo 6 | Measured |
-| Water port: gap from port wall to arch inner face (Y) | ~2.125 mm | ~0.084" | Derived: (14.0 − 9.75) / 2 | Derived |
+| Water port: gap from port wall to arch inner face (Y) | ~2.0 mm | ~0.079" | Derived: (14.0 − 10.0) / 2 | Derived |
 | Water port: gap from port wall to short face (X) | 2.0 mm | 0.079" | Photo 7 | Measured |
-| Water port diameter | 9.75 mm | 0.384" | Photo 8 | Measured |
-| Water port center (X) | 8.875 mm | 0.349" | 2 mm from short face (X = ±15.75 mm); derived: 15.75 − 2 − 4.875 | Derived |
+| Water port diameter | 10.0 mm | 0.394" | Re-measured 2026-05-22 (was 9.75 mm on 2026-04-27; caliper tips were on the chamfer, not the port wall) | Measured |
+| Water port center (X) | 8.875 mm | 0.349" | 2 mm from short face (X = ±15.75 mm); derived: 15.75 − 2 − 5.0 | Derived |
 | Water port center (Y) | 0.0 mm | 0" | Centered in 14.0 mm plateau (between arch inner faces) | Exact |
 | Arch width (each) | 1.5 mm | 0.059" | Confirmed | Measured |
 | Plateau width (between arch inner faces) | 14.0 mm | 0.551" | Derived (17 − 2 × 1.5) | Exact |
@@ -87,10 +87,10 @@ The arrangement viewed from above: two rounded humps along the long edges of the
 
 - **Single water port only.** There is no second fluid port.
 - Location: top face of the rectangular body, centered in the plateau between the two arches
-- Port diameter: **9.75 mm**
+- Port diameter: **10.0 mm** (re-measured 2026-05-22)
 - Port center in long axis (X): **8.875 mm** from body center — 2 mm gap from the short face at X = ±15.75 mm; derived as 15.75 − 2 − 4.875 = 8.875 mm
 - Port center in short axis (Y): **0 mm** — centered in the 14.0 mm plateau (between arch inner faces)
-- Gap from port wall to each arch inner face: **(14.0 − 9.75) / 2 = 2.125 mm** ≈ 2 mm (Photo 7)
+- Gap from port wall to each arch inner face: **(14.0 − 10.0) / 2 = 2.0 mm** (Photo 7)
 - Port fitting: brass
 - The port is in the open plateau zone between the two arches; the tube exits straight upward
 
@@ -138,7 +138,7 @@ The body sits on top of the countertop. The **11 mm threaded shank** (Zone 0) pa
 
 **Lever clearance — hard constraint.** The lever attaches to the plunger at body center and swings in the -X half of the body. The shell **must leave the entire -X half of the top face open**, including the plateau strip between the two arches forward (toward -X) of the water port. Concretely, the shell's top closure can extend over (a) the +X end behind the water port and (b) the two side arches at ±Y, but it cannot bridge the plateau anywhere from the water port forward to the -X edge.
 
-**Only one tube** exits the top face — the water supply line to the 9.75 mm port at X = +8.875 mm. The shell needs a managed exit path for this one tube only.
+**Only one tube** exits the top face — the water supply line to the 10.0 mm port at X = +8.875 mm. The shell needs a managed exit path for this one tube only.
 
 **The actuator plunger** needs free vertical travel as the lever operates. Any shell feature near the body center (X = 0, Y = 0) must not restrict the plunger's upward stroke.
 
@@ -156,7 +156,7 @@ The body sits on top of the countertop. The **11 mm threaded shank** (Zone 0) pa
 | 1 | ~~Shoulder/flange OD~~ | Resolved: there's no separate flange — the 31.50 mm body bottom face is the deck-landing shoulder. | — |
 | 2 | ~~Shoulder/flange axial thickness~~ | Resolved: the body itself sits on the deck; no flange exists. | — |
 | 3 | ~~Which body edge the 2 mm port measurement is from~~ | ✅ Resolved: 2 mm from the long side (31.50 mm face); centered on the short axis | — |
-| 4 | ~~Actuator plunger OD~~ | Partially answered: ~6 mm derived from the ~1 mm gap to the 9.75 mm water port. Caliper-confirm when convenient. | Caliper directly on the brass plunger |
+| 4 | ~~Actuator plunger OD~~ | Partially answered: ~6 mm derived from the ~1 mm gap to the 10.0 mm water port. Caliper-confirm when convenient. | Caliper directly on the brass plunger |
 | 5 | ~~Port-to-plunger center-to-center distance~~ | Resolved: port at X = +8.875 mm, plunger at X = 0 → center-to-center = 8.875 mm. | — |
 | 6 | Transition geometry (abrupt step or tapered?) at 13 mm where round becomes rectangular | Affects shell fit at the transition zone | Direct visual + caliper at the transition |
 | 7 | Overall assembled height including any cap or lever hardware that rides above the arc peak | Sets total shell height if shell follows the full profile | Ruler from deck to top of lever at rest |

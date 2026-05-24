@@ -84,7 +84,7 @@ plateau_width_y = rect_short - 2 * arch_block_width_y
 # tube exits straight upward; depth here is approximate, not measured.
 # `port_edge_gap_x` is the 2 mm gap from the +X short face (x =
 # +rect_long_half) to the port wall, derived per geometry.md.
-port_diameter = 9.75
+port_diameter = 10.0  # re-measured 2026-05-22 (was 9.75 on 2026-04-27 — caliper tips were on the chamfer, not the port wall)
 port_radius = port_diameter / 2
 port_edge_gap_x = 2.0
 port_center_x = rect_long_half - port_edge_gap_x - port_radius
