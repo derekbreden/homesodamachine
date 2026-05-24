@@ -355,13 +355,30 @@ bulkhead_release_ring_length = (
 bulkhead_collet_chamber_diameter = 19.0  # est. body OD ø17–18 + ~0.5 mm/side
 bulkhead_release_chamber_diameter = 11.0  # caliper-measured release ring ø9.57 + ~0.7 mm/side
 
-bulkhead_wet_end_z = 30.0  # z of bulkhead body's wet face (the port) — stays fixed; everything downstream of it slides 12 mm in +Z by way of the longer collet section
-bulkhead_wet_chamber_z_min = bulkhead_wet_end_z - bulkhead_wet_antechamber_length  # 28 (tip-channel −Z edge)
-bulkhead_release_z_start = bulkhead_wet_end_z  # 30 — release-ring section starts at the body's wet face
-bulkhead_collet_z_start = bulkhead_release_z_start + bulkhead_release_ring_length  # 33 (release-ring → collet boundary)
-bulkhead_flange_z_start = bulkhead_collet_z_start + bulkhead_collet_body_length  # 46.5 — start of the nut pocket (named flange because the geometry was originally laid out for an integral flange here; it actually houses the nut)
-bulkhead_panel_z_min = bulkhead_flange_z_start + bulkhead_flange_length  # 52.2 (panel's −Z face; was 54 before the panel grew 1.8 mm in −Z to fit the seal counterbores)
-bulkhead_panel_z_max = bulkhead_panel_z_min + bulkhead_panel_thickness  # 59 (panel's +Z face)
+# Bulkhead Z sections, stacked +Z from the wet face (the port) outward
+# through the panel. The body's release-ring → collet → flange profile
+# fits into the matching wet-side step pattern; the panel hole threads
+# through the +Z-most section. bulkhead_wet_end_z is the port anchor —
+# stays fixed at 30; everything downstream slides as section lengths
+# change. The "flange" range is named for the geometric region; it
+# actually houses the nut (the integral flange ends up on the dry side).
+bulkhead_wet_end_z = 30.0
+bulkhead_wet_z_range = (
+    bulkhead_wet_end_z - bulkhead_wet_antechamber_length,
+    bulkhead_wet_end_z + bulkhead_release_ring_length,
+)  # 28..33, ⌀11 — antechamber + release ring, one geometric piece
+bulkhead_collet_z_range = (
+    bulkhead_wet_z_range[1],
+    bulkhead_wet_z_range[1] + bulkhead_collet_body_length,
+)  # 33..46.5, ⌀19 — collet body section
+bulkhead_flange_z_range = (
+    bulkhead_collet_z_range[1],
+    bulkhead_collet_z_range[1] + bulkhead_flange_length,
+)  # 46.5..52.2 — nut pocket
+bulkhead_panel_z_range = (
+    bulkhead_flange_z_range[1],
+    bulkhead_flange_z_range[1] + bulkhead_panel_thickness,
+)  # 52.2..59 — panel (−Z face was 54 before growing 1.8 mm in −Z to fit seal counterbores on both faces)
 
 # The floor thickens uniformly across the cavity to a baseline whose
 # inner-top y sits just above the bulkhead pocket, so the bulkhead body
@@ -393,13 +410,13 @@ bulkhead_dry_slab_thickness = 4.0
 # fingers / collet-release ring fits.
 dry_ceiling_clearance = 20.0
 
-# floor_baseline_y = top face of the dry-side slab at z =
-# bulkhead_panel_z_min. Stack from the chamber's curved top:
+# floor_baseline_y = top face of the dry-side slab at the panel's −Z
+# edge (bulkhead_panel_z_range[0]). Stack from the chamber's curved top:
 #   chamber_top + dry_ceiling_clearance + slab_thickness
 # = (port_position_y + 11.5) + 20 + 4 = port_position_y + 35.5
 # The slope tilts the slab top upward as z increases, so the
-# bulkhead dry-flange clearance is positive everywhere in z ≥
-# bulkhead_panel_z_max.
+# bulkhead dry-flange clearance is positive everywhere in
+# z ≥ bulkhead_panel_z_range[1].
 floor_baseline_y = port_position_y + bulkhead_nut_cavity_diameter / 2 + dry_ceiling_clearance + bulkhead_dry_slab_thickness
 
 # On the wet side (z < bulkhead_wet_end_z), the slope's lowest line is
@@ -738,29 +755,29 @@ def build_reservoir_body(side=1):
     # (floor_slope_rise / wet-slope z-distance), tilted in opposite
     # directions so they meet at the split.
     #
-    #   z < bulkhead_panel_z_min (wet side): floor = wet slope plane,
-    #       drains to slope_low_y at z=bulkhead_panel_z_min, rises
+    #   z < bulkhead_panel_z_range[0] (wet side): floor = wet slope plane,
+    #       drains to slope_low_y at z=bulkhead_panel_z_range[0], rises
     #       floor_slope_rise mm to the far −Z wall.
-    #   z ≥ bulkhead_panel_z_min (dry side): floor = dry slope plane,
-    #       anchored at (z=bulkhead_panel_z_min, y=floor_baseline_y),
+    #   z ≥ bulkhead_panel_z_range[0] (dry side): floor = dry slope plane,
+    #       anchored at (z=bulkhead_panel_z_range[0], y=floor_baseline_y),
     #       rises at the same rate toward +Z. Stays ≥ floor_baseline_y
     #       across the dry chamber's z range so the 2 mm ceiling is
     #       preserved.
     #
-    # The two planes meet at z=bulkhead_panel_z_min with a vertical
+    # The two planes meet at z=bulkhead_panel_z_range[0] with a vertical
     # step from slope_low_y up to floor_baseline_y. The wet chamber's
     # open ceiling already removes material at that z within the
     # chamber's x range; the step only appears outside the chamber's
     # x range, where it's a wall in the cavity right at the wet
     # flange's panel-seat face.
-    slope_z_distance = bulkhead_panel_z_min - (-inner_z_max)
+    slope_z_distance = bulkhead_panel_z_range[0] - (-inner_z_max)
     slope_rate = floor_slope_rise / slope_z_distance
 
     def _above_slope(anchor_y, dz_rate):
         """Half-space above a slope plane anchored at
-        (0, anchor_y, bulkhead_panel_z_min) with dy/dz = dz_rate."""
+        (0, anchor_y, bulkhead_panel_z_range[0]) with dy/dz = dz_rate."""
         plane = cq.Plane(
-            origin=(0, anchor_y, bulkhead_panel_z_min),
+            origin=(0, anchor_y, bulkhead_panel_z_range[0]),
             xDir=(1, 0, 0),
             normal=(0, 1, dz_rate),
         )
@@ -770,8 +787,8 @@ def build_reservoir_body(side=1):
     above_dry_slope = _above_slope(floor_baseline_y, -slope_rate)
 
     # Split the wedge at the panel's −Z face.
-    slope_region = _wp_z_axis_at(0, 0, bulkhead_panel_z_min).rect(500, 500).extrude(-500)
-    dry_region = _wp_z_axis_at(0, 0, bulkhead_panel_z_min).rect(500, 500).extrude(500)
+    slope_region = _wp_z_axis_at(0, 0, bulkhead_panel_z_range[0]).rect(500, 500).extrude(-500)
+    dry_region = _wp_z_axis_at(0, 0, bulkhead_panel_z_range[0]).rect(500, 500).extrude(500)
 
     wedge_top_y_safe = floor_baseline_y + floor_slope_rise + 2.0
     wedge_extrusion = _build_envelope(
@@ -795,10 +812,10 @@ def build_reservoir_body(side=1):
     # release-ring / collet / flange profile), panel hole (⌀17 through
     # the PETG annulus that the threading section clamps), and the
     # dry section (a slab only — see the slab cut below for why).
-    # The annulus between the wet and dry sections at
-    # z=bulkhead_panel_z_min..z=bulkhead_panel_z_max IS the panel —
-    # flange seats on its −Z face, locknut bears on its +Z face.
-    def _z_pocket_cut(z_start, z_end, diameter):
+    # The annulus across bulkhead_panel_z_range IS the panel — flange
+    # seats on its −Z face, locknut bears on its +Z face.
+    def _z_pocket_cut(z_range, diameter):
+        z_start, z_end = z_range
         return (
             _wp_z_axis_at(port_x_signed, port_position_y, z_start)
             .circle(diameter / 2)
@@ -810,14 +827,14 @@ def build_reservoir_body(side=1):
     # box upper-half) "stadiums". The third section (against the panel)
     # is the nut pocket — handled separately below because it's stepped
     # (hex + washer counterbore), not a single cylinder.
-    # (z_start, z_end, diameter)
     wet_sections = [
-        (bulkhead_wet_chamber_z_min, bulkhead_collet_z_start, bulkhead_release_chamber_diameter),  # release ring + antechamber
-        (bulkhead_collet_z_start, bulkhead_flange_z_start, bulkhead_collet_chamber_diameter),  # collet body — bulkhead's smooth main section rests here when fully screwed forward
+        (bulkhead_wet_z_range, bulkhead_release_chamber_diameter),  # antechamber + release ring
+        (bulkhead_collet_z_range, bulkhead_collet_chamber_diameter),  # collet body — bulkhead's smooth main section rests here when fully screwed forward
     ]
     ceiling_y_top = floor_baseline_y + 2.0
-    for z_start, z_end, diameter in wet_sections:
-        body = body.cut(_z_pocket_cut(z_start, z_end, diameter))
+    for z_range, diameter in wet_sections:
+        z_start, z_end = z_range
+        body = body.cut(_z_pocket_cut(z_range, diameter))
         ceiling_box = (
             _wp_at(
                 port_x_signed,
@@ -830,7 +847,7 @@ def build_reservoir_body(side=1):
         body = body.cut(ceiling_box)
 
     # Curved exit from the wet collet chamber. The existing straight
-    # ⌀11 half-cylinder dead-ends at z=bulkhead_wet_chamber_z_min into
+    # ⌀11 half-cylinder dead-ends at z=bulkhead_wet_z_range[0] into
     # solid PETG, leaving the bulkhead's wet face only the radial
     # 0.5 mm-per-side gap around the collet and the stadium ceiling
     # box as flow paths to the cavity. Continue the cylinder past
@@ -847,7 +864,7 @@ def build_reservoir_body(side=1):
     # initial tangent (which is world −Z), centered at the chamber's
     # −Z face on the bulkhead axis.
     wet_exit_profile = (
-        _wp_z_axis_at(port_x_signed, port_position_y, bulkhead_wet_chamber_z_min)
+        _wp_z_axis_at(port_x_signed, port_position_y, bulkhead_wet_z_range[0])
         .circle(bulkhead_release_chamber_diameter / 2)
     )
 
@@ -858,7 +875,7 @@ def build_reservoir_body(side=1):
     # Start at local (0, 0), end at local (R, R). Arc curves through
     # midpoint (R sin45°, R − R cos45°).
     wet_exit_path_plane = cq.Plane(
-        origin=(port_x_signed, port_position_y, bulkhead_wet_chamber_z_min),
+        origin=(port_x_signed, port_position_y, bulkhead_wet_z_range[0]),
         xDir=(0, 0, -1),
         normal=(1, 0, 0),
     )
@@ -886,9 +903,11 @@ def build_reservoir_body(side=1):
     # Anchored in Y to nut_position_y (the floor's low point) so the
     # washer counterbore sits on top of the 4 mm reservoir floor,
     # preserving the full PETG fluid barrier below.
-    nut_hex_z_min = bulkhead_flange_z_start
-    nut_hex_z_max = nut_hex_z_min + bulkhead_nut_hex_depth
-    nut_washer_z_max = bulkhead_panel_z_min
+    nut_hex_z_range = (
+        bulkhead_flange_z_range[0],
+        bulkhead_flange_z_range[0] + bulkhead_nut_hex_depth,
+    )
+    nut_washer_z_range = (nut_hex_z_range[1], bulkhead_panel_z_range[0])
 
     # Flat-top hex (one flat at workplane +Y, one at workplane −Y),
     # so the stadium-pattern ceiling box opens along a flat edge —
@@ -900,15 +919,15 @@ def build_reservoir_body(side=1):
         for a in (0, 60, 120, 180, 240, 300)
     ]
     nut_hex_part = (
-        _wp_z_axis_at(port_x_signed, nut_position_y, nut_hex_z_min)
+        _wp_z_axis_at(port_x_signed, nut_position_y, nut_hex_z_range[0])
         .polyline(hex_vertices_local)
         .close()
-        .extrude(nut_hex_z_max - nut_hex_z_min)
+        .extrude(nut_hex_z_range[1] - nut_hex_z_range[0])
     )
     nut_washer_part = (
-        _wp_z_axis_at(port_x_signed, nut_position_y, nut_hex_z_max)
+        _wp_z_axis_at(port_x_signed, nut_position_y, nut_washer_z_range[0])
         .circle((bulkhead_nut_washer_diameter + 2 * bulkhead_nut_clearance) / 2)
-        .extrude(nut_washer_z_max - nut_hex_z_max)
+        .extrude(nut_washer_z_range[1] - nut_washer_z_range[0])
     )
     nut_cavity = nut_hex_part.union(nut_washer_part)
     body = body.cut(nut_cavity)
@@ -918,12 +937,13 @@ def build_reservoir_body(side=1):
     # dropped in before the cap is installed. Anchored to
     # `nut_position_y` to stay co-centered with the nut cavity (NOT
     # the bulkhead axis, which sits 1 mm above).
-    for (z_start, z_end, width) in (
-        (nut_hex_z_min, nut_hex_z_max,
+    for (z_range, width) in (
+        (nut_hex_z_range,
          bulkhead_nut_hex_corner_to_corner + 2 * bulkhead_nut_clearance),
-        (nut_hex_z_max, nut_washer_z_max,
+        (nut_washer_z_range,
          bulkhead_nut_washer_diameter + 2 * bulkhead_nut_clearance),
     ):
+        z_start, z_end = z_range
         nut_ceiling_box = (
             _wp_at(port_x_signed, nut_position_y, (z_start + z_end) / 2.0)
             .rect(width, z_end - z_start)
@@ -932,9 +952,7 @@ def build_reservoir_body(side=1):
         body = body.cut(nut_ceiling_box)
 
     # Panel hole ⌀17 through the body.
-    body = body.cut(_z_pocket_cut(
-        bulkhead_panel_z_min, bulkhead_panel_z_max, bulkhead_panel_hole_diameter,
-    ))
+    body = body.cut(_z_pocket_cut(bulkhead_panel_z_range, bulkhead_panel_hole_diameter))
 
     # TPU seal counterbores — one on each panel face. A flat printed
     # TPU washer seats in each counterbore; the mating face (nut
@@ -944,27 +962,27 @@ def build_reservoir_body(side=1):
     # was grown from 5 → 6.8 mm to keep ≥4 mm of PETG between the two
     # counterbore bottoms.
     body = body.cut(_z_pocket_cut(
-        bulkhead_panel_z_min,
-        bulkhead_panel_z_min + bulkhead_seal_counterbore_depth,
+        (bulkhead_panel_z_range[0],
+         bulkhead_panel_z_range[0] + bulkhead_seal_counterbore_depth),
         bulkhead_seal_counterbore_diameter,
     ))  # wet-side seal counterbore
     body = body.cut(_z_pocket_cut(
-        bulkhead_panel_z_max - bulkhead_seal_counterbore_depth,
-        bulkhead_panel_z_max,
+        (bulkhead_panel_z_range[1] - bulkhead_seal_counterbore_depth,
+         bulkhead_panel_z_range[1]),
         bulkhead_seal_counterbore_diameter,
     ))  # dry-side seal counterbore
     # Wide-open dry section: instead of cutting a ⌀23 dry chamber + a
     # dry-floor box (the symmetric counterpart to the wet ceiling), the
     # dry section keeps ONLY a PETG ceiling slab spanning the entire
-    # dry footprint (z=bulkhead_panel_z_max..outer_z_max), with the
-    # slab's top face on the same dry slope as the wedge above the
+    # dry footprint (z=bulkhead_panel_z_range[1]..outer_z_max), with
+    # the slab's top face on the same dry slope as the wedge above the
     # panel. Everything below the slab is removed — empty space all the
     # way down to the reservoir's outer floor and out through the side
     # walls in the dry z-range — giving a much larger opening than a
     # ⌀23 cylinder for fiddling with the locknut, collet, and tube
     # push-in from below. The slab is supported on its −Z edge by the
-    # panel material at z=bulkhead_panel_z_max and along its perimeter
-    # by the +X / +Z wall material above slab_top.
+    # panel material at z=bulkhead_panel_z_range[1] and along its
+    # perimeter by the +X / +Z wall material above slab_top.
     #
     # Slab is bulkhead_dry_slab_thickness (4 mm) thick — a fluid
     # barrier (cavity above holds syrup vapor + slosh), so it gets the
@@ -973,12 +991,12 @@ def build_reservoir_body(side=1):
     # range immediately below the slab; the upward growth is baked
     # into floor_baseline_y's offset above the chamber top.
     slab_bottom_plane = cq.Plane(
-        origin=(0, floor_baseline_y - bulkhead_dry_slab_thickness, bulkhead_panel_z_min),
+        origin=(0, floor_baseline_y - bulkhead_dry_slab_thickness, bulkhead_panel_z_range[0]),
         xDir=(1, 0, 0),
         normal=(0, 1, -slope_rate),
     )
     below_slab = cq.Workplane(slab_bottom_plane).rect(500, 500).extrude(-500)
-    dry_section_z = _wp_z_axis_at(0, 0, bulkhead_panel_z_max).rect(500, 500).extrude(500)
+    dry_section_z = _wp_z_axis_at(0, 0, bulkhead_panel_z_range[1]).rect(500, 500).extrude(500)
     body = body.cut(below_slab.intersect(dry_section_z))
 
     # Fillet the new acute vertical edge at curve × panel-face.
@@ -994,36 +1012,36 @@ def build_reservoir_body(side=1):
     # narrow crevice for any leaked syrup to wick into. Same radius as
     # the original ± Z curve corners.
     new_corner_x_abs = math.sqrt(
-        outer_centerward_radius**2 - bulkhead_panel_z_max**2
+        outer_centerward_radius**2 - bulkhead_panel_z_range[1]**2
     )
     slab_bottom_at_panel_face = (
         floor_baseline_y
         - bulkhead_dry_slab_thickness
-        + slope_rate * (bulkhead_panel_z_max - bulkhead_panel_z_min)
+        + slope_rate * (bulkhead_panel_z_range[1] - bulkhead_panel_z_range[0])
     )
     new_corner_y_mid = (outer_floor_bottom_y + slab_bottom_at_panel_face) / 2
     body = _fillet_edge_at(
         body,
-        (side * new_corner_x_abs, new_corner_y_mid, bulkhead_panel_z_max),
+        (side * new_corner_x_abs, new_corner_y_mid, bulkhead_panel_z_range[1]),
         outer_corner_fillet_radius,
     )
 
     # Inner counterpart of the fillet above: round the analogous edge
     # on the cavity side of the panel, where the cavity-facing curve
     # (radius inner_centerward_radius) meets the wet nut seat face
-    # (z = bulkhead_panel_z_min). Same Y orientation, just on the
+    # (z = bulkhead_panel_z_range[0]). Same Y orientation, just on the
     # opposite face of the panel — exposed to syrup instead of dry-side
     # air. This corner sits inside the cavity above the wet wedge top
     # (y = slope_low_y) and below the cavity floor (y = floor_baseline_y);
     # without rounding it would be a narrow inner crevice the syrup
     # could pool against.
     inner_panel_corner_x_abs = math.sqrt(
-        inner_centerward_radius**2 - bulkhead_panel_z_min**2
+        inner_centerward_radius**2 - bulkhead_panel_z_range[0]**2
     )
     inner_panel_corner_y_mid = (slope_low_y + floor_baseline_y) / 2
     body = _fillet_edge_at(
         body,
-        (side * inner_panel_corner_x_abs, inner_panel_corner_y_mid, bulkhead_panel_z_min),
+        (side * inner_panel_corner_x_abs, inner_panel_corner_y_mid, bulkhead_panel_z_range[0]),
         inner_corner_fillet_radius,
     )
 
@@ -1049,7 +1067,7 @@ def build_reservoir_body(side=1):
     # (wedge, bulkhead pocket, slab cut, fillets), so the new boss
     # geometry cannot perturb any earlier edge/face selector.
     rod_x_signed = rod_position_x * side
-    rod_slope_y_at_z = slope_low_y + slope_rate * (bulkhead_panel_z_min - rod_position_z)
+    rod_slope_y_at_z = slope_low_y + slope_rate * (bulkhead_panel_z_range[0] - rod_position_z)
     body_boss_cylinder = _y_cylinder(rod_x_signed, rod_slope_y_at_z, rod_position_z, rod_boss_od, body_boss_height)
     body = body.union(body_boss_cylinder)
 
