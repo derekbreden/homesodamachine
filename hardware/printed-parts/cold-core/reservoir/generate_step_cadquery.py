@@ -477,10 +477,35 @@ _cyl_extra_below_bottom = 5.0  # extra cylinder length to be sliced off by the c
 # and cap bosses at each position fit fully inside the outer envelope
 # (the larger of the two boss radii sets the inset).
 #
-# Outer envelope (body and cap share this footprint):
+# Outer envelope (body and cap share this footprint). Inner extents
+# (cavity side) sit one wall thickness in on the rectangular sides and
+# one wall thickness OUT on the centerward concave arc.
 outer_far_x_abs = bag_pocket_far_inner_x - reservoir_clearance  # 121
 outer_z_max = bag_pocket_z_inner_max - reservoir_clearance  # 70
 outer_centerward_radius = pocket_centerward_arc_outer_radius + reservoir_clearance  # 73
+inner_far_x_abs = outer_far_x_abs - reservoir_wall_thickness  # 117
+inner_z_max = outer_z_max - reservoir_wall_thickness  # 66
+inner_centerward_radius = outer_centerward_radius + reservoir_wall_thickness  # 77
+
+# Body Y ranges. outer_y_range is the body's vertical extent (floor's
+# outer face to wall top). inner_y_range is the cavity's extent (cavity
+# floor sits one wall up; top opens to the cap above the gasket).
+# cap_stack_above_body is how much room the gasket + cap takes above
+# the body's wall top — leaves the cap's top face flush at y=212.9
+# (0.5 mm clear of the bag-pocket wall top); body alone is 199.4 mm tall.
+cap_stack_above_body = gasket_thickness + cap_wall_height + cap_base_thickness
+outer_y_range = (
+    bag_pocket_floor_top_y + reservoir_clearance,
+    bag_pocket_walls_top_y - reservoir_clearance - cap_stack_above_body,
+)
+inner_y_range = (outer_y_range[0] + reservoir_wall_thickness, outer_y_range[1])
+
+# Cap-local Y ranges. Cap is built around its own y=0 (perimeter wall
+# bottom). Translate the assembled cap up by (outer_y_range[1] +
+# gasket_thickness) to see it sitting on the body.
+cap_perimeter_y_range = (0, cap_wall_height)
+cap_base_y_range = (cap_wall_height, cap_wall_height + cap_base_thickness)
+cap_total_height = cap_base_y_range[1]
 
 # Inset equals the larger boss radius so the boss outer edge just
 # reaches the outer face at every position (no boss protrusion past
@@ -582,13 +607,15 @@ body_boss_cut_info_for_side_plus_1 = {
 }
 
 
-def _build_envelope(side, floor_y, height, wall_offset=0.0):
-    """`[`-shape solid: rectangle on three sides + concave cylindrical
-    cutout on the centerward side. Used for both reservoir-body and
-    cap footprints. `wall_offset` shrinks the footprint inward by that
-    amount on every face (negative growth on the concave radius);
-    wall_offset=0 is the outer envelope, wall_offset=wall_thickness
-    is the inner cavity."""
+def _build_envelope(side, y_range, wall_offset=0.0):
+    """`[`-shape solid spanning y_range: rectangle on three sides +
+    concave cylindrical cutout on the centerward side. Used for body,
+    cap, and gasket footprints. `wall_offset` shrinks the footprint
+    inward by that amount on every face (negative growth on the
+    concave radius); wall_offset=0 is the outer envelope,
+    wall_offset=wall_thickness is the inner cavity."""
+    floor_y, top_y = y_range
+    height = top_y - floor_y
     far_x_abs = outer_far_x_abs - wall_offset
     z_max = outer_z_max - wall_offset
     centerward_radius = outer_centerward_radius + wall_offset
@@ -630,27 +657,8 @@ def build_reservoir_body(side=1):
     perimeter (one per insert_positions_for_side_plus_1) host ø4 × 7 mm
     heat-set inserts. side=+1 builds the +X reservoir; side=−1 the −X
     (mirror across x=0)."""
-    # outer_top_y is set so the cap-stack above (gasket + cap rim + cap
-    # base plate) fits below the bag-pocket wall top with reservoir_clearance
-    # to spare. At 2 mm foam-shell wall thickness: 213.4 − 0.5 − (2+5+4)
-    # = 201.9, leaving the cap's top face flush at y = 212.9 (0.5 mm
-    # clear of the bag-pocket wall top); body alone is 199.4 mm tall.
-    cap_stack_above_body = gasket_thickness + cap_wall_height + cap_base_thickness
-    outer_floor_bottom_y = bag_pocket_floor_top_y + reservoir_clearance
-    outer_top_y = bag_pocket_walls_top_y - reservoir_clearance - cap_stack_above_body
-    outer_height = outer_top_y - outer_floor_bottom_y
-
-    # Inner cavity: no ceiling — cavity extends all the way to outer_top_y;
-    # the cap closes the top with a gasket between.
-    W = reservoir_wall_thickness
-    inner_far_x_abs = outer_far_x_abs - W
-    inner_z_max = outer_z_max - W
-    inner_floor_top_y = outer_floor_bottom_y + W
-    inner_centerward_radius = outer_centerward_radius + W
-    inner_height = outer_top_y - inner_floor_top_y
-
-    outer_envelope = _build_envelope(side, outer_floor_bottom_y, outer_height)
-    inner_cavity = _build_envelope(side, inner_floor_top_y, inner_height, wall_offset=W)
+    outer_envelope = _build_envelope(side, outer_y_range)
+    inner_cavity = _build_envelope(side, inner_y_range, wall_offset=reservoir_wall_thickness)
 
     body = outer_envelope.cut(inner_cavity)
 
@@ -667,7 +675,7 @@ def build_reservoir_body(side=1):
     # radius for visual consistency.
     outer_corner_x = math.sqrt(outer_centerward_radius**2 - outer_z_max**2)
     inner_corner_x = math.sqrt(inner_centerward_radius**2 - inner_z_max**2)
-    y_mid_body = (outer_floor_bottom_y + outer_top_y) / 2
+    y_mid_body = (outer_y_range[0] + outer_y_range[1]) / 2
 
     def _apply_outer_fillets(solid):
         """Round both outer corner pairs (curve × ±Z acute tabs, +X ×
@@ -687,7 +695,7 @@ def build_reservoir_body(side=1):
     # wedge restores the pre-fillet outer corner geometry in the wedge's
     # y range, leaving a sharp tab visible from the centerward face in a
     # narrow Y range matching the wedge's extent.)
-    outer_envelope_filleted = _apply_outer_fillets(_build_envelope(side, outer_floor_bottom_y, outer_height))
+    outer_envelope_filleted = _apply_outer_fillets(_build_envelope(side, outer_y_range))
 
     # Inner fillets: curve × ±Z (sharp crevice in syrup volume) and
     # +X × ±Z (analogous interior corner, exposed in syrup above
@@ -699,8 +707,8 @@ def build_reservoir_body(side=1):
 
     # Insert bosses at the top perimeter (unioned AFTER the fillets so
     # the bosses sit on top of the now-rounded corners cleanly).
-    boss_bottom_y = outer_top_y - boss_height
-    pocket_bottom_y = outer_top_y - insert_pocket_depth
+    boss_bottom_y = outer_y_range[1] - boss_height
+    pocket_bottom_y = outer_y_range[1] - insert_pocket_depth
 
     for (px, pz) in insert_positions_for_side_plus_1:
         px_signed = px * side
@@ -714,7 +722,7 @@ def build_reservoir_body(side=1):
             cyl_bottom_y = boss_bottom_y
         else:
             cyl_bottom_y = boss_bottom_y - _cyl_extra_below_bottom
-        boss = _y_cylinder(px_signed, cyl_bottom_y, pz, 2 * body_boss_radius, outer_top_y - cyl_bottom_y)
+        boss = _y_cylinder(px_signed, cyl_bottom_y, pz, 2 * body_boss_radius, outer_y_range[1] - cyl_bottom_y)
 
         if cut_info is not None:
             pivot_x, pivot_z, dir_x, dir_z = cut_info
@@ -792,8 +800,9 @@ def build_reservoir_body(side=1):
 
     wedge_top_y_safe = floor_baseline_y + floor_slope_rise + 2.0
     wedge_extrusion = _build_envelope(
-        side, inner_floor_top_y, wedge_top_y_safe - inner_floor_top_y,
-        wall_offset=W,
+        side,
+        (inner_y_range[0], wedge_top_y_safe),
+        wall_offset=reservoir_wall_thickness,
     )
     wedge_slope = wedge_extrusion.intersect(slope_region).cut(above_slope)
     wedge_dry = wedge_extrusion.intersect(dry_region).cut(above_dry_slope)
@@ -1019,7 +1028,7 @@ def build_reservoir_body(side=1):
         - bulkhead_dry_slab_thickness
         + slope_rate * (bulkhead_panel_z_range[1] - bulkhead_panel_z_range[0])
     )
-    new_corner_y_mid = (outer_floor_bottom_y + slab_bottom_at_panel_face) / 2
+    new_corner_y_mid = (outer_y_range[0] + slab_bottom_at_panel_face) / 2
     body = _fillet_edge_at(
         body,
         (side * new_corner_x_abs, new_corner_y_mid, bulkhead_panel_z_range[1]),
@@ -1083,31 +1092,28 @@ def build_reservoir_body(side=1):
 
 def build_reservoir_cap(side=1):
     """PETG cap that sits on top of the reservoir body through a 2 mm
-    TPU gasket. Built in cap-local coordinates:
-      - y = 0 .. cap_wall_height        : perimeter wall (the downward-hanging rim)
-      - y = cap_wall_height .. cap_total_height : base plate (the flat top, full `[` footprint)
-    The cap's top face hosts six counterbored M3 holes flush with the
-    screw heads, clearance holes continuing through the perimeter wall
-    into the body's insert pockets below. Six cap-side bosses mirror
-    the body bosses inside the perimeter wall, giving the gasket a
-    matching cross-section at each screw position.
+    TPU gasket. Built in cap-local coordinates spanning cap_perimeter_y_range
+    (the downward-hanging rim) and cap_base_y_range (the flat top, full
+    `[` footprint). The cap's top face hosts six counterbored M3 holes
+    flush with the screw heads, clearance holes continuing through the
+    perimeter wall into the body's insert pockets below. Six cap-side
+    bosses mirror the body bosses inside the perimeter wall, giving the
+    gasket a matching cross-section at each screw position.
 
     To visualize the assembled stack, translate the cap up by
-    (reservoir wall top y + gasket thickness) ≈ 214.9 mm."""
-    # Perimeter wall (outer − inner footprint, 5 mm tall) at the BOTTOM
-    # of the cap, y = [0, 5]. The "lip" that hangs down around the gasket.
-    perimeter_outer = _build_envelope(side, 0.0, cap_wall_height)
-    perimeter_inner = _build_envelope(side, 0.0, cap_wall_height, wall_offset=cap_wall_width)
+    (outer_y_range[1] + gasket_thickness) ≈ 214.9 mm."""
+    # Perimeter wall (outer − inner footprint) at the BOTTOM of the cap.
+    # The "lip" that hangs down around the gasket.
+    perimeter_outer = _build_envelope(side, cap_perimeter_y_range)
+    perimeter_inner = _build_envelope(side, cap_perimeter_y_range, wall_offset=cap_wall_width)
     perimeter_wall = perimeter_outer.cut(perimeter_inner)
 
-    # Base plate (full footprint, 3 mm thick) at the TOP of the cap,
-    # y = [5, 8]. The flat surface the user sees from above; hosts the
-    # counterbores for the screw heads.
-    base = _build_envelope(side, cap_wall_height, cap_base_thickness)
+    # Base plate (full footprint) at the TOP of the cap. The flat
+    # surface the user sees from above; hosts the counterbores for
+    # the screw heads.
+    base = _build_envelope(side, cap_base_y_range)
 
     cap = base.union(perimeter_wall)
-
-    cap_total_height = cap_base_thickness + cap_wall_height
 
     # Fillet the two exterior sharp corners (same outer footprint as
     # the body, so same sharp tabs). Done BEFORE the bosses are
@@ -1238,8 +1244,9 @@ def build_reservoir_gasket(side=1):
     TPU (matching the body boss footprint), with an ø3.5 clearance
     hole through its center. side=+1 builds the +X gasket; side=−1
     builds the −X (mirror)."""
-    outer = _build_envelope(side, 0.0, gasket_thickness)
-    inner = _build_envelope(side, 0.0, gasket_thickness, wall_offset=gasket_strip_width)
+    gasket_y_range = (0.0, gasket_thickness)
+    outer = _build_envelope(side, gasket_y_range)
+    inner = _build_envelope(side, gasket_y_range, wall_offset=gasket_strip_width)
     gasket = outer.cut(inner)
 
     # Outer fillets at the curve × ±Z and +X × ±Z corners (match the
