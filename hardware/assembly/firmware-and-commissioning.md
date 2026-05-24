@@ -12,7 +12,7 @@ In: a fully wired chassis fresh out of [`wiring.md`](wiring.md) — AC and DC co
 
 Out:
 
-- All three MCUs (ESP32-DevKitC for main control, ESP32-S3 for the under-cabinet config display, RP2040 for the above-counter round flavor display) flashed with the current firmware on `main`.
+- All three MCUs (ESP32-DevKitC for main control, ESP32-S3 for the front-face fixed config display, RP2040 for the front-face detachable round flavor display) flashed with the current firmware on `main`.
 - First DC power-on under PSU control succeeds with no smoke, no breaker trip, no thermal-fuse open.
 - Sensor health passes: both DS18B20 probes addressed on the 1-wire bus and reporting within ±2 °C of room ambient; all 10 reed switches (2 carbonator + 4 per flavor reservoir × 2 reservoirs) settled to their no-magnet "empty" baseline; the DIGITEN flow meter ticks pulses when its impeller is rotated by hand; the KRAUS air switch reads pressed/unpressed; the MQ-6 hydrocarbon sensor on the rear interior enclosure wall has reached operating temperature and reads its clean-air baseline; the backflow drip-pan moisture sensor reads dry.
 - Both MCP23017 GPIO expanders ACK on the I²C bus at 0x20 and 0x21, with the DS3231 RTC at 0x68 also responsive.
@@ -75,7 +75,7 @@ If the build fails on the `symlink://${PROJECT_DIR}/../PersistentLog` dependency
 
 ### 4. Flash the ESP32-S3 config display
 
-Plug the USB-C cable into the ESP32-S3-DevKitC-1 (the under-cabinet config display, mounted to the cabinet door interior — see [`../wiring/esp32-pinout.mmd`](../wiring/esp32-pinout.mmd) UART subgraph). It enumerates as a native USB-CDC device — the build flag `ARDUINO_USB_CDC_ON_BOOT=1` in `[env:esp32s3_config]` brings the CDC port up immediately on boot.
+Plug the USB-C cable into the ESP32-S3-DevKitC-1 (the front-face fixed config display, mounted in its recess per [`../printed-parts/enclosure/front-panel/README.md`](../printed-parts/enclosure/front-panel/README.md) — see [`../wiring/esp32-pinout.mmd`](../wiring/esp32-pinout.mmd) UART subgraph). It enumerates as a native USB-CDC device — the build flag `ARDUINO_USB_CDC_ON_BOOT=1` in `[env:esp32s3_config]` brings the CDC port up immediately on boot.
 
 ```
 ./tools/flash.sh esp32s3_config

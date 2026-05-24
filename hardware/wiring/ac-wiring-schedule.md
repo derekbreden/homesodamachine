@@ -14,8 +14,7 @@ The appliance has two functional electrical zones, both on the AC inlet side. Th
 
 | Zone | Location | Contents |
 |---|---|---|
-| Electronics shelf | Top-back of enclosure, immediately behind C14 inlet | C14 inlet, AC distribution block, Mean Well IRM-90-12ST PSU, Teyleten relay #1 (compressor switch), Teyleten relay #2 (diaphragm pump switch), ESP32-DevKitC-32E, MCP23017, 2× ULN2803A modules, L298N pump driver, 5 V + 3.3 V regulators, ground bus |
-| Front-face GFCI | Inside front face, mounted face-flush behind a small cutout in the printed front panel | Legrand Radiant 1597BKCCD12 GFCI (UL 943 Class A, 6 mA, self-test), inline between the C14 inlet load and the AC distribution block (see [`../../business/regulatory.md`](../../business/regulatory.md) "UL 943 — ground-fault protection") |
+| Electronics shelf | Top-back of enclosure, immediately behind C14 inlet | C14 inlet, AC distribution block, Legrand Radiant 1597BKCCD12 GFCI (UL 943 Class A, 6 mA, self-test; inline between C14 inlet LOAD and the AC distribution block — see [`../../business/regulatory.md`](../../business/regulatory.md) "UL 943 — ground-fault protection"), Mean Well IRM-90-12ST PSU, Teyleten relay #1 (compressor switch), Teyleten relay #2 (diaphragm pump switch), ESP32-DevKitC-32E, MCP23017, 2× ULN2803A modules, L298N pump driver, 5 V + 3.3 V regulators, ground bus |
 | Compressor zone | Middle-bottom of enclosure | Hermetic compressor + clip-on PTC start relay/overload module, condenser fan, **fire-rated shroud over the compressor terminal block** (see [`../cut-parts/compressor-shroud/`](../cut-parts/compressor-shroud/)) |
 
 The Teyleten relay #1 sits with the rest of the electronics, **outside** the compressor shroud. Switched AC enters the shroud as the only mains-side penetration. Rationale: avoid placing an arcing contact inside the protected hydrocarbon-refrigerant compartment, and minimize the wire count through the shroud wall (3 wires — switched H + N + G — vs. 5 if the relay were inside). See [`../future.md`](../future.md) "Compressor compartment shroud".
@@ -28,8 +27,8 @@ Per-run gauges, terminations, and approximate lengths. Lengths assume the enclos
 
 | # | From | To | Conductors | AWG | Approx. length | Termination | Notes |
 |---|---|---|---|---|---|---|---|
-| AC-1a | C14 inlet (rear panel) | Legrand Radiant 1597BKCCD12 GFCI **LINE** terminals (mounted on front face per [`../future.md`](../future.md) "User-facing elements, by location") | H + N + G | 16 | ~600 mm (rear → front, routed along enclosure interior) | Crimp ferrules at C14 pigtail; backstab or screw at LINE terminals | Inlet ships with solder-tab pins; 16 AWG appliance wire crosses the enclosure depth to the GFCI on the front face. Earth conductor passes through the device (LINE earth → LOAD earth) without being sensed — only H and N feed the CT. See [`../../business/regulatory.md`](../../business/regulatory.md) "UL 943 — ground-fault protection". |
-| AC-1b | Legrand Radiant 1597BKCCD12 GFCI **LOAD** terminals | AC distribution block on electronics shelf | H + N + G | 16 | ~600 mm (front → rear/top, routed back to electronics shelf) | Backstab or screw at LOAD terminals; crimp ferrules into Wago 221 lever block | Switched mains downstream of the GFCI feeds the distribution block; all downstream loads (PSU, compressor, etc.) are now protected. |
+| AC-1a | C14 inlet (rear panel) | Legrand Radiant 1597BKCCD12 GFCI **LINE** terminals (mounted on the electronics shelf) | H + N + G | 16 | ~150 mm (short run on the shelf — C14 inlet sits directly behind the shelf) | Crimp ferrules at C14 pigtail; backstab or screw at LINE terminals | Inlet ships with solder-tab pins; 16 AWG appliance wire makes a short on-shelf run to the GFCI's LINE terminals. Earth conductor passes through the device (LINE earth → LOAD earth) without being sensed — only H and N feed the CT. See [`../../business/regulatory.md`](../../business/regulatory.md) "UL 943 — ground-fault protection". |
+| AC-1b | Legrand Radiant 1597BKCCD12 GFCI **LOAD** terminals | AC distribution block on electronics shelf | H + N + G | 16 | ~150 mm (short on-shelf run — both ends co-located) | Backstab or screw at LOAD terminals; crimp ferrules into Wago 221 lever block | Switched mains downstream of the GFCI feeds the distribution block; all downstream loads (PSU, compressor, etc.) are protected. |
 | AC-2 | AC distribution block (H, N) | Mean Well IRM-90-12ST PSU primary terminals | H + N + G | 18 | ~100 mm | Crimp ring or fork terminal at PSU; ferrule at distribution block | PSU primary draws 0.67 A at 80 W full load; 18 AWG ample. Ground bonds PSU chassis. |
 | AC-3 | AC distribution block (H) | Teyleten relay #1 contact input | H | 18 | ~50 mm | Crimp fork to relay screw terminal | Unswitched hot leg into the relay's "common" terminal. |
 | AC-4 | Teyleten relay #1 contact output ("normally open") | Compressor terminal block (inside shroud) | H_switched | 18 | ~400 mm | Crimp fork to relay; female disconnect to compressor terminal | Switched hot. Routes through the shroud's grommeted AC pass-through. Length includes service slack. |
@@ -69,8 +68,8 @@ The condenser fan does **not** appear in the AC table: the harvested fan is a 12
 | SIG-3 | Reed switch — high (carbonator) | ESP32 GPIO 27 + GND | switch + GND | 24 | ~600 mm | INPUT_PULLUP. |
 | SIG-4 | DIGITEN flow meter | ESP32 GPIO 23 + 5 V + GND | pulse + V + GND | 24 | ~1.0 m (from faucet zone through grommet) | Pulse interrupt. |
 | SIG-5 | KRAUS air switch | ESP32 GPIO 13 + GND | switch + GND | 24 | ~1.0 m | Above-counter, through countertop grommet. |
-| SIG-6 | RP2040 round display | ESP32 GPIO 32 (TX) + GPIO 35 (RX) + 5 V + GND | UART + power | 24 | ~1.5 m | Cat6 run through the countertop per [`../requirements.md`](../requirements.md) §5; uses 4 of 8 conductors. |
-| SIG-7 | ESP32-S3 config display | ESP32 GPIO 15 (TX) + GPIO 34 (RX) + 5 V + GND | UART + power | 24 | ~1.5 m | Same Cat6 run, separate cable. |
+| SIG-6 | RP2040 round display on front face (detachable) | ESP32 GPIO 32 (TX) + GPIO 35 (RX) + 5 V + GND | UART + power | 24 | ~1 m extended (coiled when seated) | Per [`../printed-parts/enclosure/front-panel/README.md`](../printed-parts/enclosure/front-panel/README.md) "RP2040 detach mechanism" — cord pays out behind the panel when the customer detaches the display. Cable type (Cat6 vs coiled stretch vs flat ribbon) TBD with the detach mechanism. |
+| SIG-7 | ESP32-S3 config display on front face (fixed) | ESP32 GPIO 15 (TX) + GPIO 34 (RX) + 5 V + GND | UART + power | 24 | ~300 mm (short shelf → front face run) | No detach; cable type TBD with the S3's mounting on the front panel. |
 | SIG-8 | DS3231 RTC + MCP23017 (I2C) | ESP32 GPIO 21 (SDA) + GPIO 22 (SCL) + 3.3 V + GND | I2C bus | 24 | ~150 mm shared bus on shelf | Both devices co-located on the electronics shelf. |
 | SIG-9 | Backflow vent moisture sensor | ESP32 GPIO (TBD) + GND | switch + GND | 24 | ~600 mm to drip pan inside cabinet | Per [`../future.md`](../future.md) "Backflow vent monitoring"; pin not yet assigned in [`esp32-pinout.mmd`](esp32-pinout.mmd). |
 
@@ -80,7 +79,7 @@ Module-to-module logic connections on the electronics shelf use JST XH 2.54 mm h
 
 | Pin count | Use | Per-unit qty |
 |---|---|---:|
-| 4-pin | I²C and UART hops between modules — ESP32↔MCP23017 (I²C), ESP32↔ESP32-S3 (UART), ESP32↔RP2040 (UART) | ~3 |
+| 4-pin | I²C trunk between shelf modules (ESP32↔MCP23017↔DS3231) + the two UART trunk headers on the ESP32 (SIG-6 to the front-face RP2040, SIG-7 to the front-face ESP32-S3) — the latter two seat at the shelf and land at the front face during system integration | ~4 |
 | 6-pin | DS3231 RTC bus (VCC / GND / SDA / SCL / SQW / 32K), or any 6-conductor module hop | ~1 |
 | 9-pin | ULN2803A module sides (8 channels + COM/GND) and MCP23017 Port A / Port B rows (2 ULNs × 2 sides + 2 MCP ports) | ~6 |
 
