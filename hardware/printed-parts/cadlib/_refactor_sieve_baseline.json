@@ -9,14 +9,7 @@
     "hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-bottom.step": "2e93b89dc5a4bd95123e4d15b782bb7bcdce0d2c3c2b22a16ad46749e918187b",
     "hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-top.step": "8d3aa1114290ac797bc2d1126cac698234159c0028ad7f81e83f0088050562e6",
     "hardware/printed-parts/cold-core/foam-cap/foam-cap-top.step": "e2af8a646d8f1ecab8a6a1c9094f1a76d2c83fee77e331ae0dc63c4971609397",
-    "hardware/printed-parts/cold-core/foam-shell/foam-shell.step": "8ad9b58b540599b036e19dd9b90b50a2466c75fcb160a431f4b4a2d5fbdfb9ae",
-    "hardware/printed-parts/cold-core/reservoir/reservoir-bulkhead-seal.step": "14555559966667e30579273955678c8280ee62eed3013d47c775e46841da9b51",
-    "hardware/printed-parts/cold-core/reservoir/reservoir-cap-left.step": "8d1f5196845e65b0f0254c1fa4f73fe9ba29e1adee9ae5f542cb586788dcc34c",
-    "hardware/printed-parts/cold-core/reservoir/reservoir-cap-right.step": "690550ffaab0f275f9bd1e446065a29bada740e6dc917b44bc0da15b969aaf56",
-    "hardware/printed-parts/cold-core/reservoir/reservoir-gasket.step": "19aa87c7a539469115720db82d5743ba1fb0041a3d6d509c8776129835d3ecd0",
-    "hardware/printed-parts/cold-core/reservoir/reservoir-left.step": "49d92d72dc8158e373b520acf93f526222895856cdde1a0eb6f2d5330eb2d854",
-    "hardware/printed-parts/cold-core/reservoir/reservoir-retaining-ring.step": "2f138314c2b80c64b1946c8c3af591ecbbdd64e5925b437f9e9cbb444f456080",
-    "hardware/printed-parts/cold-core/reservoir/reservoir-right.step": "af23a08afd518c9d67fb66e656f33f148f3208c1aa55baddac005d18ff57923a"
+    "hardware/printed-parts/cold-core/foam-shell/foam-shell.step": "8ad9b58b540599b036e19dd9b90b50a2466c75fcb160a431f4b4a2d5fbdfb9ae"
   },
   "pump_case": {
     "base": {
@@ -50,6 +43,120 @@
         "z": 30.5714
       },
       "volume_mm3": 38441.5312
+    }
+  },
+  "reservoir": {
+    "body_left": {
+      "bbox": {
+        "xmax": -40.3141,
+        "xmin": -121.0,
+        "ymax": 201.9,
+        "ymin": 2.5,
+        "zmax": 70.0,
+        "zmin": -70.0
+      },
+      "com": {
+        "x": -86.4048,
+        "y": 82.5449,
+        "z": -3.6489
+      },
+      "volume_mm3": 483001.389
+    },
+    "body_right": {
+      "bbox": {
+        "xmax": 121.0,
+        "xmin": 40.3141,
+        "ymax": 201.9,
+        "ymin": 2.5,
+        "zmax": 70.0,
+        "zmin": -70.0
+      },
+      "com": {
+        "x": 86.4048,
+        "y": 82.5449,
+        "z": -3.6489
+      },
+      "volume_mm3": 483001.3851
+    },
+    "bulkhead_seal": {
+      "bbox": {
+        "xmax": 10.15,
+        "xmin": -10.15,
+        "ymax": 2.0,
+        "ymin": 0.0,
+        "zmax": 10.15,
+        "zmin": -10.15
+      },
+      "com": {
+        "x": -0.0,
+        "y": 1.0,
+        "z": -0.0
+      },
+      "volume_mm3": 166.2531
+    },
+    "cap_left": {
+      "bbox": {
+        "xmax": -40.3141,
+        "xmin": -121.0,
+        "ymax": 9.0,
+        "ymin": -4.0,
+        "zmax": 70.0,
+        "zmin": -70.0
+      },
+      "com": {
+        "x": -88.8814,
+        "y": 5.6252,
+        "z": -0.3237
+      },
+      "volume_mm3": 47073.4591
+    },
+    "cap_right": {
+      "bbox": {
+        "xmax": 121.0,
+        "xmin": 40.3141,
+        "ymax": 9.0,
+        "ymin": -4.0,
+        "zmax": 70.0,
+        "zmin": -70.0
+      },
+      "com": {
+        "x": 88.8814,
+        "y": 5.6252,
+        "z": -0.3237
+      },
+      "volume_mm3": 47073.4591
+    },
+    "gasket": {
+      "bbox": {
+        "xmax": 121.0,
+        "xmin": 40.3141,
+        "ymax": 2.0,
+        "ymin": 0.0,
+        "zmax": 70.0,
+        "zmin": -70.0
+      },
+      "com": {
+        "x": 86.7772,
+        "y": 1.0,
+        "z": 0.0
+      },
+      "volume_mm3": 4789.6802
+    },
+    "retaining_ring": {
+      "bbox": {
+        "xmax": 6.7,
+        "xmin": -6.7,
+        "ymax": 2.0,
+        "ymin": 0.0,
+        "zmax": 6.7,
+        "zmin": -6.7
+      },
+      "com": {
+        "x": -0.0,
+        "y": 1.0,
+        "z": 0.0
+      },
+      "volume_mm3": 154.8177
     }
   }
 }
