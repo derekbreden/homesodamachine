@@ -307,7 +307,7 @@ bulkhead_wet_chamber_length = 22.2  # wet nut + collet body + release ring — a
 bulkhead_wet_antechamber_length = 2.0  # gap on the bulkhead's wet face — must exist or syrup can't reach the port
 bulkhead_panel_thickness = 6.8  # was 5 mm. Grown by 1.8 mm to fit 1.4 mm-deep TPU seal counterbores on BOTH faces while preserving the 4 mm minimum wall thickness in the panel core (between the two counterbores). Growth is in the −Z direction: panel's +Z face stays at z=bulkhead_panel_z_range[1], panel's −Z face moves to bulkhead_panel_z_range[1] − bulkhead_panel_thickness.
 
-# Wet-side nut. The actual hardware sitting at z=panel_z_min on the
+# Wet-side nut. The actual hardware sitting at z=bulkhead_panel_z_range[0] on the
 # wet side is the *nut*, not an integral flange — the bulkhead is
 # inserted from the dry side and the integral flange ("not-a-nut",
 # fused to the body) ends up on the dry side. The nut is a stepped
