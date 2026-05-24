@@ -31,8 +31,9 @@ Downstream (at the faucet-and-umbilical bench, see [`../../../assembly/faucet-an
    Tubes are permanently attached at this step — never separated
    again. The sub-assembly + umbilical leaves the bench as one unit.
 
-Downstream (at the customer's countertop install, supported by the
-installer instruction sheet that ships in the bag):
+Downstream (at the customer's countertop install, illustrated on the
+printed quick-start sheet in the appliance carton —
+[`../../../../marketing/unboxing-and-quickstart.md`](../../../../marketing/unboxing-and-quickstart.md)):
 
 6. Drop the faucet+umbilical assembly into the 1-3/8" countertop hole
    from above. The TPU gasket (already on the shank, between the
