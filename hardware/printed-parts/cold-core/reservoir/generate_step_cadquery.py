@@ -827,6 +827,11 @@ def build_reservoir_body(side=1):
         .extrude(500)
     )
 
+    # The wedge extrusion has to extend above the highest slope point
+    # so the slope half-spaces cut a clean upper face on the wedge.
+    # The dry slope tops out at floor_baseline_y + floor_slope_rise at
+    # z=outer_z_max; +2 mm of margin keeps the slope cut well inside
+    # the extrusion's Y range.
     wedge_top_y_safe = floor_baseline_y + floor_slope_rise + 2.0
     wedge_extrusion = _build_envelope(
         side,
