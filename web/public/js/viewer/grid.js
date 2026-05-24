@@ -6,6 +6,7 @@
 import { state } from "./state.js";
 import { openDetail, openDxfDetail } from "./cad-detail.js";
 import { openMmdDetail, renderMmdThumbnail } from "./mermaid.js";
+import { openDrawingDetail, renderDrawingThumbnail } from "./drawings.js";
 import { renderThumbnail } from "./step.js";
 import { renderDxfThumbnail } from "./dxf.js";
 
@@ -93,6 +94,7 @@ function renderGroupedCards({ files, ext, type, thumbnailHtml, onClick }) {
 export function currentSection() {
   const tail = location.pathname.replace(/\/$/, "");
   if (tail === "/charts") return "charts";
+  if (tail === "/drawings") return "drawings";
   return "parts";
 }
 
@@ -150,6 +152,24 @@ export function buildGrid() {
       state.gridEl.appendChild(empty);
     } else {
       renderGroupedCards({ files: state.mmdFiles, ext: ".mmd", type: "mmd", thumbnailHtml: mmdThumb, onClick: openMmdDetail });
+    }
+  }
+
+  if (section === "drawings") {
+    // Line-art SVGs live under hardware/<subsystem>/<part>/drawings/. The
+    // category grouping is the same as Prints/Cuts because a drawing's
+    // path mirrors the part's path (printed-parts/<subsystem>/<part>/
+    // drawings/<drawing>.svg). For drawings rooted elsewhere (e.g. a
+    // top-level future hardware/drawings/), categoryAndPartPath falls
+    // back to its top-level-segment bucket.
+    const drawingThumb = (file) => `<div class="drawing-thumb" data-file="${file}"><div class="placeholder">loading...</div></div>`;
+    if (state.drawingFiles.length === 0) {
+      const empty = document.createElement("div");
+      empty.className = "empty-state";
+      empty.textContent = "No drawings yet.";
+      state.gridEl.appendChild(empty);
+    } else {
+      renderGroupedCards({ files: state.drawingFiles, ext: ".svg", type: "drawing", thumbnailHtml: drawingThumb, onClick: openDrawingDetail });
     }
   }
 
@@ -216,5 +236,24 @@ export function buildGrid() {
 
   for (const card of state.gridEl.querySelectorAll('.card[data-type="mmd"]')) {
     mmdObserver.observe(card);
+  }
+
+  // Lazy-load Drawing thumbnails (just the SVG itself, rendered inline)
+  const drawingObserver = new IntersectionObserver((entries) => {
+    for (const entry of entries) {
+      if (!entry.isIntersecting) continue;
+      drawingObserver.unobserve(entry.target);
+      const file = entry.target.dataset.file;
+      renderDrawingThumbnail(file).then((svg) => {
+        const thumbEl = entry.target.querySelector(".drawing-thumb");
+        if (!thumbEl) return;
+        if (!svg) { thumbEl.innerHTML = `<div class="placeholder">error</div>`; return; }
+        thumbEl.innerHTML = svg;
+      });
+    }
+  }, { rootMargin: "200px" });
+
+  for (const card of state.gridEl.querySelectorAll('.card[data-type="drawing"]')) {
+    drawingObserver.observe(card);
   }
 }

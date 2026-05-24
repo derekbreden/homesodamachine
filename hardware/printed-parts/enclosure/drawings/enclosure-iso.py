@@ -8,7 +8,7 @@ GFCI access band, CO2 inlet.
 
 Run from the repo root:
 
-    tools/cad-venv/bin/python tools/line-art/enclosure-iso.py
+    tools/cad-venv/bin/python hardware/printed-parts/enclosure/drawings/enclosure-iso.py
 
 Source for dimensions and the feature inventory:
 hardware/printed-parts/enclosure/README.md
@@ -17,8 +17,11 @@ hardware/printed-parts/enclosure/README.md
 import sys
 from pathlib import Path
 
-# Make line_art importable when running this script directly
-sys.path.insert(0, str(Path(__file__).parent))
+# Make line_art (in tools/line-art/) importable when running this script
+# directly. The drawing lives next to the part it describes; the library
+# is shared and lives under tools/.
+_REPO_ROOT = Path(__file__).resolve().parents[4]
+sys.path.insert(0, str(_REPO_ROOT / "tools" / "line-art"))
 
 from line_art import Scene, Box
 

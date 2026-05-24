@@ -26,3 +26,28 @@ export function walkFiles(rootDir, exts) {
   walk(rootDir, "");
   return out;
 }
+
+// Variant that only returns files inside a directory whose basename is
+// `parentDirName`. Used for line-art drawings: line_art.py writes its
+// SVGs into per-part `drawings/` folders (e.g.
+// hardware/printed-parts/enclosure/drawings/enclosure-iso.svg), and the
+// walker filters out any other .svg files that happen to live elsewhere
+// in the tree (logos, hand-drawn diagrams, etc).
+export function walkFilesUnderDir(rootDir, exts, parentDirName) {
+  const extList = Array.isArray(exts) ? exts : [exts];
+  const out = [];
+  function walk(dir, rel, insideParent) {
+    if (!fs.existsSync(dir)) return;
+    for (const entry of fs.readdirSync(dir, { withFileTypes: true })) {
+      const full = path.join(dir, entry.name);
+      const childInside = insideParent || entry.name === parentDirName;
+      if (entry.isDirectory()) {
+        walk(full, path.join(rel, entry.name), childInside);
+      } else if (insideParent && extList.some((e) => entry.name.endsWith(e))) {
+        out.push(path.join(rel, entry.name));
+      }
+    }
+  }
+  walk(rootDir, "", false);
+  return out;
+}
