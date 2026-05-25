@@ -21,19 +21,38 @@ Run:
 """
 
 import math
+import sys
 from datetime import date
 from pathlib import Path
 
 from reportlab.lib.units import inch
 from reportlab.pdfgen import canvas
 
+_here = Path(__file__).resolve()
+sys.path.insert(
+    0,
+    str(next(p for p in _here.parents if (p / "tools" / "docgen").is_dir()) / "tools"),
+)
+from docgen import substitute_py_comments
+
 # Part geometry in inches — mirrors generate_dxf.py.
+
+# [4.86 in](DISC_D) disc OD — tube ID 4.870 in minus 0.010 in slip-fit.
 disc_diameter = 4.860
+# [2.43 in](DISC_R) disc radius = disc_diameter / 2.
 disc_radius = disc_diameter / 2
+# [0.25 in](DISC_THK) 1/4" 316 SS plate thickness.
 disc_thickness = 0.250
-hole_diameter = 0.438  # 7/16" tap drill for 1/4"-18 NPT
+# [0.438 in](HOLE_D) 7/16" tap drill for 1/4"-18 NPT.
+hole_diameter = 0.438
+# [0.219 in](HOLE_R) hole radius = hole_diameter / 2.
 hole_radius = hole_diameter / 2
-hole_positions = [(-0.750, 0.0), (+0.750, 0.0)]
+# [1.5 in](HOLE_SPACING) center-to-center spacing along X (matches the
+# CNC dome-cap variants preserved at git tag archive-plan-b).
+hole_spacing = 1.500
+# [0.75 in](HOLE_OFFSET) each hole's |X| offset from disc center = hole_spacing / 2.
+hole_offset = hole_spacing / 2
+hole_positions = [(-hole_offset, 0.0), (+hole_offset, 0.0)]
 
 # Sheet layout in inches (ANSI A landscape).
 sheet_width = 11.0
@@ -411,6 +430,33 @@ def main() -> None:
     c.showPage()
     c.save()
     print(f"Exported: {pdf_path}")
+
+    # Short names scoped to this part. Units live inside the value so the
+    # script controls them — change a value in source and every
+    # dynamic-comment marker follows.
+    variables = {
+        "DISC_D": f"{disc_diameter:g} in",
+        "DISC_R": f"{disc_radius:g} in",
+        "DISC_THK": f"{disc_thickness:g} in",
+        "HOLE_D": f"{hole_diameter:g} in",
+        "HOLE_R": f"{hole_radius:g} in",
+        "HOLE_SPACING": f"{hole_spacing:g} in",
+        "HOLE_OFFSET": f"{hole_offset:g} in",
+    }
+    substitute_py_comments(
+        Path(__file__),
+        variables=variables,
+        expected_counts={
+            "DISC_D": 1,
+            "DISC_R": 1,
+            "DISC_THK": 1,
+            "HOLE_D": 1,
+            "HOLE_R": 1,
+            "HOLE_SPACING": 1,
+            "HOLE_OFFSET": 1,
+        },
+    )
+    print("-> generate_drawing.py (self)")
 
 
 if __name__ == "__main__":
