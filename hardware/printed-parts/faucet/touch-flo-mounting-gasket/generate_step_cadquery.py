@@ -22,15 +22,22 @@ from pathlib import Path
 
 import cadquery as cq
 
+_here = Path(__file__).resolve()
 sys.path.insert(
     0,
-    str(next(p for p in Path(__file__).resolve().parents if p.name == "hardware")),
+    str(next(p for p in _here.parents if p.name == "hardware")),
+)
+sys.path.insert(
+    0,
+    str(next(p for p in _here.parents if (p / "tools" / "docgen").is_dir()) / "tools"),
 )
 from _cadq_export import export_step
+from docgen import substitute_py_comments
 
 
 # Disc — Ø matches the mounting plate; 2.0 mm thick gives ~0.4 mm of
 # 20%-squish travel for TPU 90A on a 0.4 mm nozzle.
+# [54.35 mm](GASKET_D) outer disc, [2 mm](GASKET_T) thick.
 gasket_diameter = 54.35
 gasket_thickness = 2.0
 gasket_center = (3.175, 0.0)
@@ -42,18 +49,23 @@ gasket_z_range = (plate_z_bottom - gasket_thickness, plate_z_bottom)
 
 
 # Hole geometry — mirrored exactly from the mounting plate.
+# [12.6 mm](SHANK_HOLE_D) shank pocket — matches the body's threaded shank + clearance.
 shank_hole_diameter = 12.6
 shank_hole_center = (0.0, 0.0)
 
-flavor_tube_hole_diameter = 6.85  # 6.35 OD + 0.5 mm clearance
+# [6.85 mm](FLAVOR_TUBE_HOLE_D) per-tube hole = 6.35 OD + 0.5 mm clearance.
+flavor_tube_hole_diameter = 6.85
+# [18.925 mm](FLAVOR_TUBE_X) pill center +X from the shank — shared with the shell.
 flavor_tube_center = (18.925, 0.0)
 
 # Pill slot covers both 1/4" flavor tubes (centers ±flavor_tube_y_offset
 # in Y) as one rounded-rectangle, matching the mounting plate. Length is
 # end-to-end (Y); width is the per-tube hole diameter (X).
 flavor_tube_y_offset = 3.175
-pill_slot_length_y = 2 * flavor_tube_y_offset + flavor_tube_hole_diameter  # 13.2
-pill_slot_width_x = flavor_tube_hole_diameter  # 6.85
+# [13.2 mm](PILL_L) pill long axis (Y) = 2 × y_offset + hole_dia.
+pill_slot_length_y = 2 * flavor_tube_y_offset + flavor_tube_hole_diameter
+# [6.85 mm](PILL_W) pill short axis (X) = hole_dia.
+pill_slot_width_x = flavor_tube_hole_diameter
 
 
 def gasket_workplane(center):
@@ -93,6 +105,33 @@ def main():
     out = Path(__file__).resolve().parent / "touch-flo-mounting-gasket.step"
     export_step(gasket, str(out))
     print(f"-> {out.name}")
+
+    # Short names scoped to this part. Units live inside the value so
+    # the script controls them — change a unit in source and every
+    # dynamic-comment marker follows.
+    variables = {
+        "GASKET_D": f"{gasket_diameter:g} mm",
+        "GASKET_T": f"{gasket_thickness:g} mm",
+        "SHANK_HOLE_D": f"{shank_hole_diameter:g} mm",
+        "FLAVOR_TUBE_HOLE_D": f"{flavor_tube_hole_diameter:g} mm",
+        "FLAVOR_TUBE_X": f"{flavor_tube_center[0]:g} mm",
+        "PILL_L": f"{pill_slot_length_y:g} mm",
+        "PILL_W": f"{pill_slot_width_x:g} mm",
+    }
+    substitute_py_comments(
+        Path(__file__),
+        variables=variables,
+        expected_counts={
+            "GASKET_D": 1,
+            "GASKET_T": 1,
+            "SHANK_HOLE_D": 1,
+            "FLAVOR_TUBE_HOLE_D": 1,
+            "FLAVOR_TUBE_X": 1,
+            "PILL_L": 1,
+            "PILL_W": 1,
+        },
+    )
+    print("-> generate_step_cadquery.py (self)")
 
 
 if __name__ == "__main__":
