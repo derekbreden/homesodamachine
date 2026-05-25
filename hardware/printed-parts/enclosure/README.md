@@ -12,7 +12,7 @@ Everything else fits into the voids those three create.
 
 ## The 4 zones
 
-- **Zone A (back-bottom):** Foam shell, occupies the volume entirely. ~269 × 181 × 213.4 mm. Penetrations on the +Z front wall and the +Y top only — back, sides, and bottom are clean. Geometry source: [`../cold-core/foam-shell/README.md`](../cold-core/foam-shell/README.md).
+- **Zone A (back-bottom):** Foam shell, occupies the volume entirely. ~[283](FOAM_SHELL_X) × [181](FOAM_SHELL_Z) × [213.4](FOAM_SHELL_Y) mm. Penetrations on the +Z front wall and the +Y top only — back, sides, and bottom are clean. Geometry source: [`../cold-core/foam-shell/README.md`](../cold-core/foam-shell/README.md).
 - **Zone B (back-top):** Electronics shelf + back-panel terminations + GFCI module. The shelf is a flat 2D panel; the zone has significant spare volume even at modest height. The CO2 line traverses through here on its way from the front face to the foam-shell's +Y top entry. Shelf detail: [`../../assembly/electronics-shelf.md`](../../assembly/electronics-shelf.md). Back panel: [`back-panel/README.md`](back-panel/README.md).
 - **Zone C (front-top):** Hopper on one side and pump cartridge on the other. Both accessed from the top — hopper through its lifted lid, pump cartridge through a separate door. Left/right assignment between them is not yet committed.
 - **Zone D (front-bottom):** Compressor + condenser + fan + water-inlet plumbing subsystem. Compressor sits on the floor in its sheet-metal shroud in front of the foam shell. Condenser along one ±X side wall with the fan axis crossing side-to-side. The Multiplex backflow preventer + drip pan + moisture sensor + SeaFlo pump live here as a co-located plumbing cluster. Compressor shroud: [`../../cut-parts/compressor-shroud/README.md`](../../cut-parts/compressor-shroud/README.md).
@@ -20,7 +20,7 @@ Everything else fits into the voids those three create.
 ## What is firm
 
 - Foam shell occupying Zone A entirely, penetrations on +Z front and +Y top only.
-- Appliance width ≈ foam shell width (~269 mm).
+- Appliance width ≈ foam shell width (~[283 mm](APPLIANCE_WIDTH)).
 - Compressor + condenser + fan in Zone D with side-to-side airflow (fan axis between the two ±X side walls).
 - Compressor shroud around the compressor's terminal block + PTC relay/overload (UL 60335-2-89, ~130 × 130 × 100 mm working envelope, only metal part in the enclosure).
 - Electronics shelf in Zone B above the foam shell.
