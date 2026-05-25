@@ -139,15 +139,25 @@ REGENERATE
 (No CadQuery dependency — uses ezdxf directly.)
 """
 
+import sys
 import math
 from pathlib import Path
 
 import ezdxf
 
+_here = Path(__file__).resolve()
+sys.path.insert(
+    0,
+    str(next(p for p in _here.parents if (p / "tools" / "docgen").is_dir()) / "tools"),
+)
+from docgen import substitute_py_comments
+
 # Dimensions in mm. DXF $INSUNITS = 4 (millimeters).
 # Hole positions match the TPU gasket and the upper mounting plate
 # exactly. The disc is also unchanged in size and center.
 
+# [54.35 mm](PLATE_D) disc OD — matches the upper mounting plate and
+# the TPU gasket for a stacked, identically-sized disc footprint.
 disc_diameter = 54.35
 disc_radius = disc_diameter / 2.0
 disc_cx = 3.175
@@ -155,14 +165,20 @@ disc_cy = 0.0
 
 shank_cx = 0.0
 shank_cy = 0.0
+# [12.6 mm](SHANK_HOLE_D) shank pocket — matches the gasket / mounting
+# plate (the threaded shank passes through all three discs).
 shank_diameter = 12.6
 shank_radius = shank_diameter / 2.0
 
 # Pill is Y-oriented (matching the gasket): long axis along Y, short
 # axis along X.
+# [18.925 mm](FLAVOR_TUBE_X) +X offset of pill center from the shank —
+# shared with the shell / gasket / mounting plate for stacked alignment.
 pill_cx = 18.925
 pill_cy = 0.0
+# [13.2 mm](PILL_L) pill long axis (Y) — matches the gasket's pill.
 pill_long_y = 13.2
+# [6.85 mm](PILL_W) pill short axis (X) — matches the gasket's pill.
 pill_short_x = 6.85
 pill_half_long = pill_long_y / 2.0       # 6.6
 pill_half_short = pill_short_x / 2.0     # 3.425
@@ -172,8 +188,9 @@ pill_bot_cap_cy = pill_cy - (pill_half_long - pill_cap_radius)   # -3.175
 pill_left_x = pill_cx - pill_half_short     # 15.5
 pill_right_x = pill_cx + pill_half_short    # 22.35
 
-# Fillet radius at the four channel-mouth corners where a vertical
-# channel wall meets the disc rim. See the module docstring.
+# [1.5 mm](FILLET_R) fillet radius at the four channel-mouth corners
+# where a vertical channel wall meets the disc rim. See the module
+# docstring.
 fillet_radius = 1.5
 
 
@@ -327,3 +344,30 @@ if __name__ == "__main__":
     print(f"  Units in DXF:   mm (DXF $INSUNITS = 4)")
     print(f"  Material spec:  0.060\" (1.524 mm) 304 stainless, laser-cut, qty 1 per appliance")
     print(f"-> {out.name}")
+
+    # Short names scoped to this part. Units live inside the value so
+    # the script controls them — change a unit in source and every
+    # dynamic-comment marker follows. NAMES are shared with the
+    # touch-flo-shell / mounting-gasket / mounting-plate generators so
+    # the same key refers to the same dimension across the stack-up.
+    variables = {
+        "PLATE_D": f"{disc_diameter:g} mm",
+        "SHANK_HOLE_D": f"{shank_diameter:g} mm",
+        "FLAVOR_TUBE_X": f"{pill_cx:g} mm",
+        "PILL_L": f"{pill_long_y:g} mm",
+        "PILL_W": f"{pill_short_x:g} mm",
+        "FILLET_R": f"{fillet_radius:g} mm",
+    }
+    substitute_py_comments(
+        Path(__file__),
+        variables=variables,
+        expected_counts={
+            "PLATE_D": 1,
+            "SHANK_HOLE_D": 1,
+            "FLAVOR_TUBE_X": 1,
+            "PILL_L": 1,
+            "PILL_W": 1,
+            "FILLET_R": 1,
+        },
+    )
+    print(f"-> {Path(__file__).name}")
