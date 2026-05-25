@@ -56,10 +56,10 @@ across the YZ plane. Each pocket is a four-walled enclosure (open at
 +Y; the outer_shell's floor closes the bottom; the foam_cap closes
 the top during foam pour):
 
-- **Far ±X wall** — outboard face at x = ±107.5, cavity face at
-  x = ±105.5.
-- **+Z wall** — outboard face at z = +72.5, cavity face at z = +70.5.
-- **−Z wall** — outboard face at z = −72.5, cavity face at z = −70.5.
+- **Far ±X wall** — outboard face at x = ±[123.5 mm](POCKET_X_OUTER), cavity face at
+  x = ±[121.5 mm](POCKET_X_INNER).
+- **+Z wall** — outboard face at z = +[72.5 mm](ARC_R), cavity face at z = +[70.5 mm](ARC_INNER_R).
+- **−Z wall** — outboard face at z = −[72.5 mm](ARC_R), cavity face at z = −[70.5 mm](ARC_INNER_R).
 - **Centerward wall** — the only curved wall. Its cavity-side face
   rides on a cylinder of radius **[72.5 mm](ARC_R)** (centered on the
   cold-core Y axis); its tank-side face is concentric one wall-thickness
@@ -71,12 +71,12 @@ The centerward wall is one continuous curved wall built from three
 arc segments along its length:
 
 1. A **middle segment** — the cylindrical arc that wraps the tank+coil
-   envelope, running from z = −60 to z = +60 (the handoff Z is
-   `pocket_centerward_arc_transition_z`).
-2. Two **transition segments**, one at each ±Z end — short 8 mm-radius
-   arcs that swing the wall out from the middle arc to the pocket's
-   ±Z wall. Each transition arc is tangent to the middle arc and to
-   the ±Z outboard face; its tank-side face has radius 8 mm and its
+   envelope, running from z = −[60 mm](ARC_TRANSITION_Z) to z = +[60 mm](ARC_TRANSITION_Z).
+2. Two **transition segments**, one at each ±Z end — short
+   [8 mm](TRANSITION_ARC_R)-radius arcs that swing the wall out from
+   the middle arc to the pocket's ±Z wall. Each transition arc is
+   tangent to the middle arc and to the ±Z outboard face; its
+   tank-side face has radius [8 mm](TRANSITION_ARC_R) and its
    cavity-side face is concentric with the same center but a slightly
    smaller radius derived from geometry.
 
@@ -90,9 +90,9 @@ around the corner.
 
 The pocket is **open along its centerward face into the foam zone
 inside the centerward arc envelope** — there's no wall at radius
-R < 70.5. During operation, that interior region holds the tank +
-copper coil, and the foam pour fills the gap between the coil and
-the wall's tank-side face.
+R < [70.5 mm](ARC_INNER_R). During operation, that interior region
+holds the tank + copper coil, and the foam pour fills the gap
+between the coil and the wall's tank-side face.
 
 The four walls of each pocket are traced as a single connected
 outer-perimeter polyline (with the matching cavity-perimeter polyline
@@ -109,9 +109,9 @@ face sits [9 mm](SUPPORT_RING_W) inboard. The top face is a flat
 annular plateau where the tank's outer rim rests, [30 mm](SUPPORT_RING_H)
 tall above the floor.
 
-Inboard of the ring's inner face (R < 61.5) is open volume — so the
-tank's bottom-plate fittings have unobstructed downward space, and
-pour foam fills around them.
+Inboard of the ring's inner face (R < [61.5 mm](SUPPORT_RING_INNER_R))
+is open volume — so the tank's bottom-plate fittings have unobstructed
+downward space, and pour foam fills around them.
 
 Four 30°-wide angular slots are cut through the ring at azimuths
 45°/135°/225°/315°, leaving four 60° support segments aligned with
@@ -137,10 +137,10 @@ twelve inserts total, six per face, for fastening the foam_cap above
 and below.
 
 The outer +Z wall carries the shared copper/water-inlet slot, the
-two ⌀6.5 reservoir-line holes, the two reed-cable holes, and the
-water-outlet hole. See Penetrations. (The CO2 inlet bore is internal
-to the assembly — it cuts down through the support ring at −Z, not
-through any outer wall.)
+two ⌀[6.5 mm](PORT_D) reservoir-line holes, the two reed-cable holes,
+and the water-outlet hole. See Penetrations. (The CO2 inlet bore is
+internal to the assembly — it cuts down through the support ring at
+−Z, not through any outer wall.)
 
 ### foam_cap and foam_cap_lid
 
@@ -224,16 +224,16 @@ clear the shared +Z slot that runs up the centerline and to preserve
 ## Penetrations
 
 Eight pass-throughs total, all carrying **1/4" OD tubing (6.35 mm)** through
-holes sized at ⌀6.5 mm for a tight tube fit. Four pass-throughs each get
-their own dedicated round hole; the remaining four share a single
+holes sized at ⌀[6.5 mm](PORT_D) for a tight tube fit. Four pass-throughs
+each get their own dedicated round hole; the remaining four share a single
 Y-elongated slot at the +Z outer wall.
 
 | # | Pass-through | Opening | Carries |
 |---|---|---|---|
-| 1 | Reservoir line (+X) | own ⌀6.5 hole | 1/4" OD soft tubing — reservoir to peristaltic pump |
-| 2 | Reservoir line (−X) | own ⌀6.5 hole | 1/4" OD soft tubing — reservoir to peristaltic pump |
+| 1 | Reservoir line (+X) | own ⌀[6.5 mm](PORT_D) hole | 1/4" OD soft tubing — reservoir to peristaltic pump |
+| 2 | Reservoir line (−X) | own ⌀[6.5 mm](PORT_D) hole | 1/4" OD soft tubing — reservoir to peristaltic pump |
 | 3 | CO2 inlet | own ⌀16 doorway | 1/4" OD line from the regulator (90° push-to-connect elbow seats in the doorway) |
-| 4 | Water outlet | own ⌀6.5 hole | 1/4" OD line to the dispense faucet |
+| 4 | Water outlet | own ⌀[6.5 mm](PORT_D) hole | 1/4" OD line to the dispense faucet |
 | 5 | Copper evaporator inlet (low) | shared +Z slot | 1/4" OD ACR copper to compressor |
 | 6 | Copper evaporator outlet (high) | shared +Z slot | 1/4" OD ACR copper to compressor |
 | 7 | Water inlet | shared +Z slot | 1/4" OD line from the diaphragm pump |
@@ -251,16 +251,14 @@ of the transition fittings being a few cm further from the tank.
 
 The +Z outer_shell wall carries four pass-throughs along a single
 **Y-elongated slot** at x = 0: the two copper evaporator lines (low
-and high), the water inlet, and the PRV vent. The slot is ⌀6.5 mm
-wide in X (rounded ends along Y), runs from y = 42 up to
-y = `foam_shell_outer_height + 10` (10 mm of open extension past
-the wall top), and is cut by `cut_slot_for_copper_and_water_inlet`
-in `_port_cuts.py`. The 10 mm top extension means no sliver
-of wall material remains above the slot — the four plugs can
-slide down into the slot from above during assembly. With the
-centerward wall extending only to z = ±72.5 (where it meets the
-±Z walls via the transition arcs), the slot at x = 0, z = 52.5
-pierces only this one outer +Z wall.
+and high), the water inlet, and the PRV vent. The slot is
+⌀[6.5 mm](PORT_D) wide in X (rounded ends along Y) and is cut by
+`cut_slot_for_copper_and_water_inlet` in `_port_cuts.py`. The slot's
+top extends past the wall top so no sliver of wall material remains
+above the slot — the four plugs can slide down into the slot from
+above during assembly. With the centerward wall extending only to
+z = ±[72.5 mm](ARC_R) (where it meets the ±Z walls via the
+transition arcs), the slot pierces only this one outer +Z wall.
 
 Pass-through Y heights (centers, measured from the **top of the
 floor** — i.e. from the interior cavity's lower bound, not from y = 0):
@@ -309,11 +307,11 @@ I-beam flange linking web to prongs along a continuous 2D face
 `copper-plugs/generate_step_cadquery.py` for the full cross-section
 diagram.
 
-Each plug end that abuts a tube has a **⌀6.5 mm half-circle arch
-cutout** centered at x = 0, so the plug seats around the tube
-without crushing it. `lower`, `middle`, and `upper` all arch at
-both Y ends; `top` arches at the bottom Y end only (its top is
-flush with the wall top and stays flat).
+Each plug end that abuts a tube has a **⌀[6.5 mm](PORT_D) half-circle
+arch cutout** centered at x = 0, so the plug seats around the tube
+without crushing it. `lower`, `middle`, and `upper` all arch at both
+Y ends; `top` arches at the bottom Y end only (its top is flush with
+the wall top and stays flat).
 
 After the four plugs are installed, the slot still has ~4.25 mm of
 total unfilled length within the wall along Y: 1.75 mm at the
@@ -331,11 +329,11 @@ pour; nothing chains across the three.
 
 ### Top cap and bottom cap (independent, before final assembly)
 
-Each cap is a 16 mm-tall foam-filled cup. Liquid pour-in-place foam
-goes in through the `foam_cap_lid`'s Ø10 mm pour hole, air escapes
-through the lid's two Ø6 mm vents, foam expands to fill the cap's
-interior, cures to a self-contained foam puck. Done before the cap
-is mated to the body.
+Each cap is a [16 mm](CAP_H)-tall foam-filled cup. Liquid pour-in-place
+foam goes in through the `foam_cap_lid`'s Ø[10 mm](POUR_D) pour hole,
+air escapes through the lid's two Ø[6 mm](VENT_D) vents, foam expands
+to fill the cap's interior, cures to a self-contained foam puck.
+Done before the cap is mated to the body.
 
 ### Body pour (after all body-side assembly)
 
