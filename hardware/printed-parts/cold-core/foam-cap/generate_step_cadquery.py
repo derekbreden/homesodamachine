@@ -12,6 +12,7 @@ _here = Path(__file__).resolve().parent
 sys.path.insert(0, str(next(p for p in _here.parents if p.name == "printed-parts") / "cadlib"))
 sys.path.insert(0, str(next(p for p in _here.parents if p.name == "hardware")))
 sys.path.insert(0, str(_here.parent))
+sys.path.insert(0, str(next(p for p in _here.parents if (p / "tools" / "docgen").is_dir()) / "tools"))
 
 from world_workplane import WorldWorkplane, xz_plane_y_up
 from _cadq_export import export_step
@@ -27,30 +28,38 @@ from _cold_core_interface import (
     wall_and_floor_thickness,
     foam_cap_height,
 )
+from docgen import substitute_py_comments
 
 
+# Lid y-thickness — one wall-and-floor thickness, [2 mm](LID_Y_H).
 lid_y_height = wall_and_floor_thickness
 
 
 # CO2 elbow vertical leg sits in the foam zone between the centerward
 # wall band and the support-ring wall band — midway between their
 # midlines so it's clear of both walls and surrounded by foam.
+# [72.5 mm](CW_WALL_OUTER_R) centerward-wall outer cylinder radius.
 centerward_wall_outer_r = pocket_centerward_arc_outer_radius
+# [70.5 mm](CW_WALL_INNER_R) centerward-wall inner face = outer − wall.
 centerward_wall_inner_r = centerward_wall_outer_r - wall_and_floor_thickness
 support_ring_outer_r = centerward_wall_inner_r
+# [61.5 mm](SUPPORT_RING_INNER_R) support-ring inner radius = outer − support-ring width.
 support_ring_inner_r = support_ring_outer_r - support_ring_radial_width
 centerward_wall_mid_z = -(centerward_wall_outer_r + centerward_wall_inner_r) / 2
 support_ring_mid_z = -(support_ring_outer_r + support_ring_inner_r) / 2
+# [-68.75 mm](COTWO_INLET_Z) CO2 inlet Z — midway between the two wall midlines.
 co2_inlet_z = (centerward_wall_mid_z + support_ring_mid_z) / 2
 
 
-# ⌀6.5 tube clearance for the 1/4" OD LLDPE CO2 line — distinct from
-# the foam shell's ⌀16 elbow-body bore below the cap; only the tube
-# itself traverses the cap and lid.
+# [6.5 mm](COTWO_TUBE_D) tube clearance for the 1/4" OD LLDPE CO2 line —
+# distinct from the foam shell's ⌀16 elbow-body bore below the cap; only
+# the tube itself traverses the cap and lid.
 co2_tube_clearance_radius = 3.25
+# [5.25 mm](COTWO_BOSS_OUTER_R) boss outer radius = tube radius + wall.
 co2_boss_outer_radius = co2_tube_clearance_radius + wall_and_floor_thickness
 # Boss spans the full interior cavity height, from the floor's
-# cavity-side face to the cavity opening.
+# cavity-side face (Y = [2 mm](COTWO_BOSS_Y_BOTTOM)) to the cavity opening
+# at Y = [18 mm](COTWO_BOSS_Y_TOP).
 co2_boss_y_bottom = wall_and_floor_thickness
 co2_boss_y_top = foam_cap_height
 
@@ -129,6 +138,37 @@ def main():
     print("-> foam-cap-lid-top.step")
     print("-> foam-cap-lid-bottom.step")
     print("-> foam-cap-gasket.step")
+
+    # Short names scoped to this part. Units live inside the value so the
+    # script controls them — change a unit in source and every dynamic-
+    # comment marker follows.
+    variables = {
+        "LID_Y_H": f"{lid_y_height:g} mm",
+        "CW_WALL_OUTER_R": f"{centerward_wall_outer_r:g} mm",
+        "CW_WALL_INNER_R": f"{centerward_wall_inner_r:g} mm",
+        "SUPPORT_RING_INNER_R": f"{support_ring_inner_r:g} mm",
+        "COTWO_INLET_Z": f"{co2_inlet_z:g} mm",
+        "COTWO_TUBE_D": f"{co2_tube_clearance_radius * 2:g} mm",
+        "COTWO_BOSS_OUTER_R": f"{co2_boss_outer_radius:g} mm",
+        "COTWO_BOSS_Y_BOTTOM": f"{co2_boss_y_bottom:g} mm",
+        "COTWO_BOSS_Y_TOP": f"{co2_boss_y_top:g} mm",
+    }
+    substitute_py_comments(
+        Path(__file__),
+        variables=variables,
+        expected_counts={
+            "LID_Y_H": 1,
+            "CW_WALL_OUTER_R": 1,
+            "CW_WALL_INNER_R": 1,
+            "SUPPORT_RING_INNER_R": 1,
+            "COTWO_INLET_Z": 1,
+            "COTWO_TUBE_D": 1,
+            "COTWO_BOSS_OUTER_R": 1,
+            "COTWO_BOSS_Y_BOTTOM": 1,
+            "COTWO_BOSS_Y_TOP": 1,
+        },
+    )
+    print("-> generate_step_cadquery.py (self)")
 
 
 if __name__ == "__main__":
