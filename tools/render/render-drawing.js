@@ -75,6 +75,51 @@ function recolorSvg(svgText) {
   return svgText.replace(/stroke="black"/g, `stroke="${STROKE}"`);
 }
 
+async function renderOne({ inPath, outPath, historicalRoot }) {
+  const svgPath = resolveSvgPath(inPath, historicalRoot);
+  const svgText = recolorSvg(fs.readFileSync(svgPath, "utf-8"));
+
+  // Pick a sharp density that produces a raster wider than the source's
+  // natural mm dimension but capped at MAX_WIDTH. sharp.metadata() on a
+  // Sharp pipeline returns the *source* metadata (the input SVG's
+  // natural-size raster at the requested density), not the post-resize
+  // result — so to land at MAX_WIDTH we have to bake the resize into the
+  // materialized buffer below, then re-measure that buffer for the
+  // composite. (An earlier version read metadata pre-resize and built a
+  // 10800-px-wide background; the foreground was resized down to 1200,
+  // and the composite quietly stretched the bg to the natural source
+  // dimensions in mm.)
+  const buffer = Buffer.from(svgText, "utf-8");
+
+  const foregroundPng = await sharp(buffer, { density: 192 })
+    .resize({ width: MAX_WIDTH, withoutEnlargement: true })
+    .png()
+    .toBuffer();
+  const fgMeta = await sharp(foregroundPng).metadata();
+  const w = fgMeta.width || MAX_WIDTH;
+  const h = fgMeta.height || MAX_WIDTH;
+  const finalW = w + PADDING * 2;
+  const finalH = h + PADDING * 2;
+
+  // Composite onto a dark background with padding so the result reads
+  // against the site's surface. Without this the SVG renders on a
+  // transparent canvas and the strokes would be invisible against a
+  // dark page (which is where post thumbnails get embedded).
+  await sharp({
+    create: {
+      width: finalW,
+      height: finalH,
+      channels: 3,
+      background: BG,
+    },
+  })
+    .composite([{ input: foregroundPng, top: PADDING, left: PADDING }])
+    .png()
+    .toFile(path.resolve(outPath));
+
+  console.log(`Wrote ${outPath} (${finalW} × ${finalH})`);
+}
+
 async function main() {
   const { positional, at } = parseArgs(process.argv.slice(2));
   if (positional.length < 2) {
@@ -85,50 +130,15 @@ async function main() {
   }
   const [inPath, outPath] = positional;
 
-  await withHistoricalTree(at, async (historicalRoot) => {
-    const svgPath = resolveSvgPath(inPath, historicalRoot);
-    const svgText = recolorSvg(fs.readFileSync(svgPath, "utf-8"));
-
-    // sharp can rasterize SVG directly. Density 192 gives a roughly 2x
-    // upscaled raster of the source's mm dimensions — sharper than the
-    // default 72 dpi and small enough to keep file sizes modest.
-    const buffer = Buffer.from(svgText, "utf-8");
-    let img = sharp(buffer, { density: 192 });
-
-    const meta = await img.metadata();
-    let width = meta.width || MAX_WIDTH;
-    if (width > MAX_WIDTH) {
-      const scale = MAX_WIDTH / width;
-      img = img.resize({ width: MAX_WIDTH });
-      width = MAX_WIDTH;
-      // Don't need to track height; sharp preserves aspect.
-    }
-
-    // Composite onto a dark background with padding so the result reads
-    // against the site's surface. Without this the SVG renders on a
-    // transparent canvas and the strokes would be invisible against a
-    // dark page (which is where post thumbnails get embedded).
-    const baseMeta = await img.clone().metadata();
-    const w = baseMeta.width || width;
-    const h = baseMeta.height || width;
-    const finalW = w + PADDING * 2;
-    const finalH = h + PADDING * 2;
-
-    const bg = sharp({
-      create: {
-        width: finalW,
-        height: finalH,
-        channels: 3,
-        background: BG,
-      },
-    }).png();
-
-    await bg
-      .composite([{ input: await img.png().toBuffer(), top: PADDING, left: PADDING }])
-      .toFile(path.resolve(outPath));
-
-    console.log(`Wrote ${outPath} (${finalW} × ${finalH})`);
-  });
+  if (at) {
+    console.log(`--at ${at}: checking out historical tree...`);
+    await withHistoricalTree(at, async (worktreeDir, sha) => {
+      console.log(`worktree: ${worktreeDir} (sha=${sha.slice(0, 7)})`);
+      await renderOne({ inPath, outPath, historicalRoot: worktreeDir });
+    });
+  } else {
+    await renderOne({ inPath, outPath, historicalRoot: null });
+  }
 }
 
 main().catch((err) => {

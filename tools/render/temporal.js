@@ -237,14 +237,39 @@ export function resolveAtSpecSha(atSpec) {
 //      withHistoricalTree's finally cleans up the worktree.
 export async function withHistoricalServer(atSpec, callback) {
   return withHistoricalTree(atSpec, async (worktreeDir, sha) => {
-    // Symlink HEAD's node_modules into the worktree. We use 'dir' so node
-    // resolves it as a real node_modules tree (no copy, no install).
-    const headNm = path.resolve(REPO_ROOT, "node_modules");
-    const wtNm = path.join(worktreeDir, "node_modules");
+    // Locate the historical server.js. The 2026-05-11 web/ reorganization
+    // moved server.js + node_modules from the repo root into web/, so a
+    // historical worktree may have either layout depending on the commit.
+    // Check the post-reorg location first (current layout) and fall back
+    // to the pre-reorg root.
+    let serverPath = path.join(worktreeDir, "web", "server.js");
+    let wtServerDir = path.join(worktreeDir, "web");
+    if (!fs.existsSync(serverPath)) {
+      serverPath = path.join(worktreeDir, "server.js");
+      wtServerDir = worktreeDir;
+      if (!fs.existsSync(serverPath)) {
+        throw new Error(
+          `withHistoricalServer: no server.js at sha ${sha.slice(0, 7)} ` +
+            `(checked ${path.join(worktreeDir, "web", "server.js")} and ` +
+            `${path.join(worktreeDir, "server.js")}).`,
+        );
+      }
+    }
+
+    // Symlink HEAD's node_modules into the worktree right next to the
+    // historical server.js so the historical code's `import "puppeteer"`
+    // / `import "firebase-admin"` etc. resolve. HEAD's node_modules
+    // lives under web/ (post-reorg, current); we point both pre-reorg
+    // and post-reorg worktree node_modules at that same HEAD tree, on
+    // the assumption that HEAD's deps are ABI-compatible with the
+    // historical server.js (fine for recent history, risky for ancient
+    // SHAs).
+    const headNm = path.resolve(REPO_ROOT, "web", "node_modules");
+    const wtNm = path.join(wtServerDir, "node_modules");
     if (!fs.existsSync(headNm)) {
       throw new Error(
         `withHistoricalServer: HEAD has no node_modules at ${headNm}; ` +
-          `run 'npm install' in the repo root first.`,
+          `run 'npm install' in web/ first.`,
       );
     }
     // If the worktree somehow already has node_modules (shouldn't — `git
@@ -253,16 +278,6 @@ export async function withHistoricalServer(atSpec, callback) {
       fs.symlinkSync(headNm, wtNm, "dir");
     }
 
-    // Dynamic-import server.js from the worktree. Use a file:// URL so the
-    // ESM loader resolves it as an absolute path; the historical server's
-    // own `import "./lib/..."` lines then resolve relative to that file,
-    // so we get the historical lib/ tree.
-    const serverPath = path.join(worktreeDir, "server.js");
-    if (!fs.existsSync(serverPath)) {
-      throw new Error(
-        `withHistoricalServer: ${serverPath} does not exist at sha ${sha.slice(0, 7)}.`,
-      );
-    }
     const serverUrl = pathToFileUrl(serverPath);
     const mod = await import(serverUrl);
     if (typeof mod.start !== "function") {
