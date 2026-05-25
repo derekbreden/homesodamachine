@@ -44,19 +44,19 @@ Wind GOORY 1/4" OD × 0.031" wall ACR copper tubing as a single-layer helical co
 
 Bond the coil to the vessel OD with 3M 425 aluminum foil tape applied as a continuous skin between vessel and coil. The tape spans the tank-to-coil thermal interface.
 
-Wind around the printed [coil-mandrel](../printed-parts/cold-core/coil-mandrel/generate_step_cadquery.py) — hollow PETG cylinder with a shallow 1 mm helical guide groove, mandrel OD 123 mm vs. tank OD 127 mm so the as-wound coil inner radius is 3 mm under the tank radius and tightens onto the vessel after slip-off. Wind length 120.4 mm and 9.687 wraps (pitch 12.43 mm) are set to align the coil's inlet/outlet ends with the foam-shell copper plugs at Y=46 and Y=166.4, so the exit bends are purely radial with no vertical jog. Pull the wound coil off the mandrel and slip it onto the foil-taped vessel; coil springback (1–3 mm radial) leaves a net interference fit.
+Wind around the printed [coil-mandrel](../printed-parts/cold-core/coil-mandrel/generate_step_cadquery.py) — hollow PETG cylinder with a shallow [1 mm](GROOVE_DEPTH) helical guide groove, mandrel OD [123 mm](MANDREL_OD) vs. tank OD [127 mm](TANK_OD) so the as-wound coil inner radius is [3 mm](NET_UNDERSIZE) under the tank radius and tightens onto the vessel after slip-off. Wind length [120.4 mm](WIND_LENGTH) and [9.687](TOTAL_WRAPS) wraps (pitch [12.43 mm](PITCH)) are set to align the coil's inlet/outlet ends with the foam-shell copper plugs at Y=[46](PLUG_INLET_Y) and Y=[166.4](PLUG_OUTLET_Y), so the exit bends are purely radial with no vertical jog. Pull the wound coil off the mandrel and slip it onto the foil-taped vessel; coil springback (1–3 mm radial) leaves a net interference fit.
 
 [`../handwork.md`](../handwork.md) "Bend copper around the pressure vessel" is the summary-level dev-phase entry for this step.
 
 ### 2. Cap foam pour (top and bottom, in parallel, before body assembly)
 
-Each cap is a 16 mm-tall foam-filled cup. With the cap inverted and the foam-cap-lid sealing its open face from above, liquid foam enters through the lid's Ø10 mm pour hole; air escapes through two Ø6 mm vents. Foam expands to fill, cures to a self-contained puck. Trim flush after cure.
+Each cap is a [16 mm](CAP_H)-tall foam-filled cup. With the cap inverted and the foam-cap-lid sealing its open face from above, liquid foam enters through the lid's Ø[10 mm](POUR_D) pour hole; air escapes through two Ø[6 mm](VENT_D) vents. Foam expands to fill, cures to a self-contained puck. Trim flush after cure.
 
 Both caps are identical and not body-dependent — pour them in parallel. Geometry detail at [`../printed-parts/cold-core/foam-shell/README.md`](../printed-parts/cold-core/foam-shell/README.md) "foam_cap and foam_cap_lid".
 
 ### 3. Press ruthex inserts into the outer shell
 
-Six ruthex M3 short heat-set inserts pressed into the top face of the outer_shell, six into the bottom face. Each insert seats in a Ø4.0 mm × 4 mm-deep printed pocket; another 4 mm of relief below the insert clears the M3 × 25 screw tip. Standard heat-set procedure: soldering iron tip on the insert, press straight down until flush.
+Six ruthex M3 short heat-set inserts pressed into the top face of the outer_shell, six into the bottom face. Each insert seats in a Ø[4 mm](INSERT_POCKET_D) × [4 mm](INSERT_HALF_DEPTH)-deep printed pocket; another [4 mm](INSERT_HALF_DEPTH) of relief below the insert clears the M3 × 25 screw tip. Standard heat-set procedure: soldering iron tip on the insert, press straight down until flush.
 
 Geometry detail at [`../printed-parts/cold-core/foam-shell/README.md`](../printed-parts/cold-core/foam-shell/README.md) "Cap-to-outer-shell joinery".
 
@@ -67,9 +67,9 @@ With the outer shell open-top-up on the bench, install every internal component:
 - **Pressure vessel + coil** (already wrapped per step 1; coil stubs not yet plumbed — they exit the foam-shell's copper-plug holes and hang free for now, awaiting refrigerant-loop integration after this assembly completes) lowered into the cylindrical center cavity, seated on the printed-in `tank_support_ring`
 - **Reservoirs** seated into the two ±X bag pockets
 - **Penetrations routed through the outer shell walls:**
-  - CO2 inlet → enters from above through the foam-cap-top boss + foam-cap-lid-top Ø6.5 hole at (x=0, z=−68.75); inside the cavity, a John Guest PP0308E 1/4" PTC 90° elbow seats in the Ø16 doorway in the −Z support arch, and the line continues to the vessel's bottom-plate TAISHER NPT elbow via a PP010822E 1/4" PTC × 1/4" NPT M adapter
-  - Water outlet → dedicated Ø6.5 hole, +Z outer wall
-  - Reservoir lines (+X, −X) → dedicated Ø6.5 holes in the bag_pocket_shell ±X far walls
+  - CO2 inlet → enters from above through the foam-cap-top boss + foam-cap-lid-top Ø[6.5](PORT_D) hole at (x=0, z=[-68.75](COTWO_INLET_Z)); inside the cavity, a John Guest PP0308E 1/4" PTC 90° elbow seats in the Ø16 doorway in the −Z support arch, and the line continues to the vessel's bottom-plate TAISHER NPT elbow via a PP010822E 1/4" PTC × 1/4" NPT M adapter
+  - Water outlet → dedicated Ø[6.5](PORT_D) hole, +Z outer wall
+  - Reservoir lines (+X, −X) → dedicated Ø[6.5](PORT_D) holes in the bag_pocket_shell ±X far walls
   - Refrigerant inlet (low), refrigerant outlet (high), water inlet, PRV vent LLDPE → shared Y-elongated slot at x=0 on the +Z outer wall. The water-inlet line transitions from the warm-side GASHER 1/4" NPT check valve via a first JG PP010822E 1/4" PTC × 1/4" NPT M adapter (warm-side NPT→PTC, same fitting used on the §4 CO2 path) before entering the slot as 1/4" OD LLDPE; downstream of the slot a second cold-side JG PP010822E (PTC → NPT) takes the LLDPE back to NPT before threading into the TAISHER 1/4" NPT 90° vessel-port elbow on Port 2 (top plate). The PRV vent LLDPE is press-fit into the prv-shroud cap (below), routes through the slot at its own Y height (per foam-shell penetration #8), and terminates open inside the appliance interior on the warm side.
 - **PRV vent LLDPE** press-fit into the cap of the pre-built [`../printed-parts/cold-core/prv-shroud/`](../printed-parts/cold-core/prv-shroud/) subassembly that's already on Port 4 (subassembly built independently per its README and threaded into the vessel at [`pressure-vessel.md`](pressure-vessel.md) step 8). The LLDPE routes from the cap, takes a slight bend, and enters the +Z shared slot at its allocated Y height. Far end terminates open inside the appliance interior on the warm side.
 - **Four copper plugs** slid down into the shared +Z slot from above, sealing between and above the four pass-throughs (binder-clip geometry in [`../printed-parts/cold-core/foam-shell/README.md`](../printed-parts/cold-core/foam-shell/README.md) "Shared +Z slot and copper plug stack")
@@ -87,7 +87,7 @@ Foam expansion may push small amounts of material out through the 0.5 mm clearan
 
 After all three pours (top cap, bottom cap, body) have fully cured:
 
-- TPU gasket onto the body's top edge — perimeter ring with 8 × 8 mm pads at each of the six screw positions
+- TPU gasket onto the body's top edge — perimeter ring with [8 × 8 mm](BOSS) pads at each of the six screw positions
 - Top cap (foam-filled, trimmed from step 2) seated over the gasket, six M3 × 25 SHCS through the cap's screw positions and into the top-face inserts
 - Bottom cap onto the body's underside, six M3 × 25 SHCS — no gasket on the bottom (the body floor handles the air seal there)
 
@@ -110,7 +110,7 @@ A finished cold core:
 - All seven penetrations routed through their designated holes / slot
 - Top + bottom caps installed with M3 × 25 SHCS into the heat-set inserts
 - TPU gasket compressed under the top cap (the bottom cap relies on the body floor for its seal)
-- External envelope ~251 × 181 × 213.4 mm, ready to drop into the enclosure rear
+- External envelope ~[283](OUTER_X) × [181](OUTER_Z) × [213.4 mm](OUTER_H), ready to drop into the enclosure rear
 
 ## Open items
 
