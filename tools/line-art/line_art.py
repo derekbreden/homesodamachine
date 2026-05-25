@@ -8,12 +8,17 @@ Coordinate convention (right-handed):
 - +x is to the right (width)
 - +y is to the back (depth)
 - +z is up (height)
-- Viewer is at +x, -y, +z direction, so the front face (y=0), right side
-  (x=W), and top (z=H) are visible.
+- Viewer is at +x, -y, +z (front-right-above), looking at origin. Visible
+  faces: front (y=0), right side (x=W), top (z=H).
 
-Isometric projection to SVG (Y grows downward):
-- X_svg = (x - y) * cos(30°)
-- Y_svg = (x + y) * sin(30°) - z
+Canonical isometric projection to SVG (Y grows downward):
+- X_svg = -(x + y) * cos(30°)
+- Y_svg =  (x - y) * sin(30°) - z
+
+Layout in image: top face at top, front face in the right half, right side
+face in the left half. The shared corner of all three visible faces is
+(W, 0, H), which sits at the center of the image (the corner closest to
+the viewer).
 
 Public API:
 
@@ -52,9 +57,15 @@ SIN30 = math.sin(ISO_ANGLE)
 
 
 def project(x: float, y: float, z: float) -> Tuple[float, float]:
-    """Project a 3D point to 2D SVG coords."""
-    X = (x - y) * COS30
-    Y = (x + y) * SIN30 - z
+    """Project a 3D point to 2D SVG coords.
+
+    Camera at (+x, -y, +z), looking at origin. Canonical isometric layout:
+    top face at top of image, front face (y=0) in the right half, right
+    side face (x=W) in the left half. The closest-to-camera corner
+    (W, 0, H) projects to the center of the image.
+    """
+    X = -(x + y) * COS30
+    Y = (x - y) * SIN30 - z
     return X, Y
 
 
