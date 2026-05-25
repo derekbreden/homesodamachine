@@ -2,9 +2,8 @@
 twice), lid (sits atop a cap during foam pour), and gasket (TPU 90A
 perimeter ring between cap mating edge and outer-shell mating face)."""
 
+from world_workplane import WorldWorkplane, xz_plane_y_up
 from _cold_core_interface import (
-    xz_plane_y_up,
-    WorldWorkplane,
     wall_and_floor_thickness,
     outer_shell_x_length,
     outer_shell_z_length,

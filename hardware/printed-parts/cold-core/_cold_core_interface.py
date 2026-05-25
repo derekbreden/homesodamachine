@@ -3,11 +3,11 @@ conventions, hole-punch helpers, and the dimensional constants that
 every sibling part (foam shell, foam cap stack, reservoir, copper
 plugs, coil mandrel) needs to stay in sync against.
 
-World-coordinate workplane infrastructure (xz_plane_y_up,
-xy_plane_z_up, WorldWorkplane, WorldProfile) lives in the shared
-`cadlib/world_workplane.py` so the pump-case and other parts can use
-the same convention; this module re-exports it for cold-core
-consumers."""
+The world-coordinate workplane infrastructure (xz_plane_y_up,
+xy_plane_z_up, WorldWorkplane, WorldProfile) lives in
+`cadlib/world_workplane.py`. Consumers should import those directly
+from `world_workplane`, not via this module. The imports below are
+only for this module's own internal use."""
 
 import sys
 from pathlib import Path
@@ -23,7 +23,6 @@ from world_workplane import (  # noqa: E402  -- path inserted above
     xz_plane_y_up,
     xy_plane_z_up,
     WorldWorkplane,
-    WorldProfile,
 )
 
 

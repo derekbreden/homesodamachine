@@ -5,10 +5,8 @@ is its mirror across the YZ plane."""
 
 import math
 
+from world_workplane import WorldWorkplane, WorldProfile, xz_plane_y_up
 from _cold_core_interface import (
-    xz_plane_y_up,
-    WorldWorkplane,
-    WorldProfile,
     wall_and_floor_thickness,
     pocket_centerward_arc_outer_radius,
     foam_shell_outer_height,

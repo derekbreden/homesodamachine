@@ -1,9 +1,8 @@
 """Outer rectangular cup (floor + four perimeter walls) with the
 6 corner/mid-side bosses and their heat-set insert pockets."""
 
+from world_workplane import WorldWorkplane, xz_plane_y_up
 from _cold_core_interface import (
-    xz_plane_y_up,
-    WorldWorkplane,
     wall_and_floor_thickness,
     foam_shell_outer_height,
     outer_shell_x_length,

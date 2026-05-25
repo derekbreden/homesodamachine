@@ -89,12 +89,13 @@ from pathlib import Path
 import cadquery as cq
 
 _here = Path(__file__).resolve().parent
+sys.path.insert(0, str(next(p for p in _here.parents if p.name == "printed-parts") / "cadlib"))
 sys.path.insert(0, str(next(p for p in _here.parents if p.name == "hardware")))
 sys.path.insert(0, str(_here.parent))
 
+from world_workplane import xy_plane_z_up
 from _cadq_export import export_step
 from _cold_core_interface import (
-    xy_plane_z_up,
     make_box,
     wall_and_floor_thickness,
     hole_shift_from_edge,

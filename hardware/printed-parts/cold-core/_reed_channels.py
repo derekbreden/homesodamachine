@@ -3,10 +3,8 @@ foam shell on the outer face of each bag-pocket far ±X wall."""
 
 import cadquery as cq
 
+from world_workplane import WorldWorkplane, xz_plane_y_up, xy_plane_z_up
 from _cold_core_interface import (
-    xz_plane_y_up,
-    xy_plane_z_up,
-    WorldWorkplane,
     wall_and_floor_thickness,
     foam_shell_outer_height,
     bag_pocket_width,

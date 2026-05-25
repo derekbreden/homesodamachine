@@ -4,8 +4,8 @@ copper/water inlet slot."""
 
 import cadquery as cq
 
+from world_workplane import xy_plane_z_up
 from _cold_core_interface import (
-    xy_plane_z_up,
     wall_and_floor_thickness,
     hole_shift_from_edge,
     pocket_centerward_arc_outer_radius,

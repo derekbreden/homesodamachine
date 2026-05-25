@@ -9,9 +9,11 @@ import sys
 from pathlib import Path
 
 _here = Path(__file__).resolve().parent
+sys.path.insert(0, str(next(p for p in _here.parents if p.name == "printed-parts") / "cadlib"))
 sys.path.insert(0, str(next(p for p in _here.parents if p.name == "hardware")))
 sys.path.insert(0, str(_here.parent))
 
+from world_workplane import WorldWorkplane, xz_plane_y_up
 from _cadq_export import export_step
 from _foam_cap import (
     build_foam_cap,
@@ -24,8 +26,6 @@ from _cold_core_interface import (
     support_ring_radial_width,
     wall_and_floor_thickness,
     foam_cap_height,
-    xz_plane_y_up,
-    WorldWorkplane,
 )
 
 
