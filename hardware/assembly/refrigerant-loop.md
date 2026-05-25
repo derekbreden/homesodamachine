@@ -10,7 +10,7 @@ This is a single-session integration procedure: bring a finished cold core and a
 
 In: donor ice maker (verified topology in [`../harvested/ice-maker/README.md`](../harvested/ice-maker/README.md)); a finished cold core (output of [`cold-core.md`](cold-core.md) — wound evaporator coil bonded around the vessel, coil inlet/outlet stubs ~2 ft each protruding through the foam-shell's copper-plug exits, foam pour fully cured); R-600a refrigerant; argon from the welder cylinder.
 
-Out: a closed and brazed refrigerant loop, vacuum-tight, charged within ±1 g of target mass, with the cold core's evaporator coil now brazed into the donor's refrigeration cycle. The compressor runs on its first run-up and the suction line drops cold.
+Out: a closed and brazed refrigerant loop, vacuum-tight, charged within [±1 g](RECHARGE_TOL) of target mass, with the cold core's evaporator coil now brazed into the donor's refrigeration cycle. The compressor runs on its first run-up and the suction line drops cold.
 
 Not in scope: cold-core assembly — coil winding, foam pour — all in [`cold-core.md`](cold-core.md); electronics-shelf control wiring, AC distribution, compressor shroud install (its own spec at [`../cut-parts/compressor-shroud/README.md`](../cut-parts/compressor-shroud/README.md)).
 
@@ -22,7 +22,7 @@ R-600a (isobutane) is flammable, LFL ~1.8 % in air. EPA Section 608 carves natur
 
 **Hazard B — Residual hydrocarbon at the braze.** After venting, residual R-600a remains dissolved in the compressor oil and pooled in low points of the tubing. When a torch is applied to copper near an oil-soaked compressor pocket, the flame front pulls residual hydrocarbon into itself. Mitigation, load-bearing for this procedure: flow low-pressure argon (a few psi, *flowing*, not static) through the open loop during the entire loop-open period, sweeping residual fuel out ahead of the heat. The same continuous flow also serves as the dry inert blanket that preserves the factory drier's desiccant during the loop-open period (see step 3) — one regimen satisfies both requirements. The existing welder-side argon cylinder is the source.
 
-The in-service hazard — a refrigerant leak post-build into a sealed compartment that contains an ignition source — is owned elsewhere: the compressor shroud isolates the highest-temperature surface in the system, and the AC switching relay is deliberately placed *outside* the shroud so its switching arc isn't co-located with the protected zone. See [`../cut-parts/compressor-shroud/README.md`](../cut-parts/compressor-shroud/README.md). The shroud also carries a hardware-only backstop: a BOJACK SF76E SEFUSE thermal fuse (77 °C, in series with the AC primary feeding the compressor) plus an ACEIRMC MQ-6 LPG/iso-butane sensor mounted low on the rear interior enclosure wall (mesh facing horizontally inward into the cabinet volume), positioned where dense R-600a pools at the cabinet floor from any of the dominant brazed-joint leak sites (cap-tube pinch-swage at the evap inlet, slip coupling at the evap outlet, BPV31 saddle clamp + flare cap, compressor process tube) — both ON-ORDER per [`../purchases.md`](../purchases.md) §6. Thermal fuse + gas sensor backstop the soft (firmware) cutoffs so a controller failure can't keep the compressor energized through a thermal or leak event.
+The in-service hazard — a refrigerant leak post-build into a sealed compartment that contains an ignition source — is owned elsewhere: the compressor shroud isolates the highest-temperature surface in the system, and the AC switching relay is deliberately placed *outside* the shroud so its switching arc isn't co-located with the protected zone. See [`../cut-parts/compressor-shroud/README.md`](../cut-parts/compressor-shroud/README.md). The shroud also carries a hardware-only backstop: a BOJACK SF76E SEFUSE thermal fuse ([77 °C](SF76E_TEMP), in series with the AC primary feeding the compressor) plus an ACEIRMC MQ-6 LPG/iso-butane sensor mounted low on the rear interior enclosure wall (mesh facing horizontally inward into the cabinet volume), positioned where dense R-600a pools at the cabinet floor from any of the dominant brazed-joint leak sites (cap-tube pinch-swage at the evap inlet, slip coupling at the evap outlet, BPV31 saddle clamp + flare cap, compressor process tube) — both ON-ORDER per [`../purchases.md`](../purchases.md) §6. Thermal fuse + gas sensor backstop the soft (firmware) cutoffs so a controller failure can't keep the compressor energized through a thermal or leak event.
 
 ## Inputs per appliance
 
@@ -33,12 +33,12 @@ Per-unit BOM lives in [`../bom.md`](../bom.md) §5 (refrigeration). The table be
 | Donor ice maker | Generic B0F42MT8JX or Frigidaire EFIC117-SS B07PCZKG94 | Both verified topology |
 | Finished cold core | Output of [`cold-core.md`](cold-core.md) | Wound coil bonded to vessel, foam-poured, coil stubs protruding ~2 ft through foam-shell copper-plug exits |
 | Drier (spare / contingency only) | Supco SUD8358 + Supco D111 | The factory drier stays in service (see step 3 + harvested README "Filter-drier"); SUD8358 and D111 kept on the shelf as spares for any future loop-open service that requires replacement. Not consumed in the production procedure. |
-| R-600a refrigerant | Enviro-Safe B0CGG1WH1N (3-pack + brass charging gauge) | ~40 g per system, mass-metered; one 3-can pack covers ~12 recharges |
+| R-600a refrigerant | Enviro-Safe B0CGG1WH1N (3-pack + brass charging gauge) | [~40 g](SYSTEM_CHARGE) per system, mass-metered; one 3-can pack covers ~12 recharges |
 | Supco BPV31 bullet-piercing valve | B00DM8J3MI | Single permanent service-access point for the life of the appliance — taps the compressor process tube to vent factory R-600a (step 2), feeds argon during the entire loop-open period (step 3 onward), and serves as the manifold connection for vacuum (step 6) + recharge (step 7). Clamped permanently. |
 | BCuP-5 silver brazing alloy, 15 % Ag, 1/16" × 1 troy oz | B0DQ3ZMHK7 | Phosphorus-bearing self-fluxing filler for copper-to-copper joints; ~10 g per build, ~3 builds per rod |
 | 3M Scotch-Brite Maroon hand pads | B07CGPCTHT | Abrasive prep on 1/4" ACR copper OD + fitting sockets before flux + braze; ~2 of 20 pads per build |
 | Argon | Welder cylinder + Uniweld RHP400 brazing-purge regulator | Continuous low-pressure flow through the loop during the entire loop-open period (step 3 through step 6); no new cylinder needed |
-| BOJACK SF76E 77 °C SEFUSE thermal fuse + ACEIRMC MQ-6 LPG sensor module | B07Y61YTTK + B0978JSCZ8 | Hardware-only fire-safety backstops — SF76E inside the compressor shroud (in series with the AC primary feeding the compressor), MQ-6 module low on the rear interior enclosure wall (see Safety section above) |
+| BOJACK SF76E [77 °C](SF76E_TEMP) SEFUSE thermal fuse + ACEIRMC MQ-6 LPG sensor module | B07Y61YTTK + B0978JSCZ8 | Hardware-only fire-safety backstops — SF76E inside the compressor shroud (in series with the AC primary feeding the compressor), MQ-6 module low on the rear interior enclosure wall (see Safety section above) |
 
 Tooling — all committed in [`../purchases.md`](../purchases.md) §6 (refrigeration) and §1 (argon side), ACQUIRED unless noted:
 
@@ -49,7 +49,7 @@ Tooling — all committed in [`../purchases.md`](../purchases.md) §6 (refrigera
 - **Coil-to-cap-tube join:** Knipex 86 01 180 Pliers Wrench (7.25", smooth parallel-jaw) — pinch-swages 1/4" ACR copper inlet down onto 0.031" capillary tube via progressive 60° rotation collapse. No reducer fitting required.
 - **Coil-to-suction-line join:** HVAC 1/4" OD copper slip coupling (ACR-grade, sweat × sweat) joins coil outlet to factory suction line, both 1/4" OD.
 - **Vacuum pump + gauges:** Orion Motor Tech 4 CFM 1/3 HP single-stage vacuum pump (150 µ ultimate) + Orion Motor Tech HVAC A/C manifold gauge set, 1/4" SAE.
-- **Mass scale:** Smart Weigh Pro digital pocket scale, 2000 g × 0.1 g (well under the ±1 g recharge target).
+- **Mass scale:** Smart Weigh Pro digital pocket scale, 2000 g × 0.1 g (well under the [±1 g](RECHARGE_TOL) recharge target).
 - **Brazing heat:** Bernzomatic TS8000 high-intensity torch head + MAP-Pro 3-can kit.
 - **Filler + flux:** BCuP-5 15 % silver brazing alloy + Harris SSWF7 Stay Silv white brazing flux.
 - **Copper prep:** 3M Scotch-Brite Maroon General Purpose Hand Pads (cut into strips for ACR copper OD prior to flux + braze).
@@ -60,13 +60,13 @@ Tooling — all committed in [`../purchases.md`](../purchases.md) §6 (refrigera
 
 ### 1. Verify factory refrigerant + charge mass
 
-Read the donor appliance back-panel rating label — refrigerant type (must be R-600a) and charge mass. The two donors tracked in [`../harvested/ice-maker/README.md`](../harvested/ice-maker/README.md) are both R-600a. Factory charge mass: **15 g** for Unit A (Antarctic Star HZB-12/Q, per manufacturer manual); **23 g** for Unit B (Frigidaire EFIC117-SS, per manufacturer manual). See harvested README per-unit for sources. Compressor body cast-stampings ("48.5-2" on Unit A's HD48Y11A; "45" on Unit B's BLC48AD) are *not* charge masses.
+Read the donor appliance back-panel rating label — refrigerant type (must be R-600a) and charge mass. The two donors tracked in [`../harvested/ice-maker/README.md`](../harvested/ice-maker/README.md) are both R-600a. Factory charge mass: **[15 g](UNIT_A_CHARGE)** for Unit A (Antarctic Star HZB-12/Q, per manufacturer manual); **[23 g](UNIT_B_CHARGE)** for Unit B (Frigidaire EFIC117-SS, per manufacturer manual). See harvested README per-unit for sources. Compressor body cast-stampings ("48.5-2" on Unit A's HD48Y11A; "45" on Unit B's BLC48AD) are *not* charge masses.
 
 If the donor is anything other than R-600a (R-134a, R-410a, any HFC), this procedure does not apply: Section 608 certification is required to vent, and the cold-core architecture changes.
 
 ### 2. Vent factory R-600a
 
-Install a piercing valve (saddle clamp + valve core) onto the compressor process tube — the short copper stub pinched-and-brazed shut at the factory ([`../harvested/ice-maker/README.md`](../harvested/ice-maker/README.md) "Process tube"). Open the valve and vent to atmosphere in a well-ventilated area — outdoors or under a vent hood is preferred — with no ignition sources within 3 m.
+Install a piercing valve (saddle clamp + valve core) onto the compressor process tube — the short copper stub pinched-and-brazed shut at the factory ([`../harvested/ice-maker/README.md`](../harvested/ice-maker/README.md) "Process tube"). Open the valve and vent to atmosphere in a well-ventilated area — outdoors or under a vent hood is preferred — with no ignition sources within [3 m](VENT_CLEARANCE).
 
 Confirm fully vented before proceeding: gauge reads atmospheric, no further hiss, no propane-like smell at the valve.
 
@@ -95,19 +95,19 @@ If total cap-tube length changes substantially relative to the donor's factory l
 
 ### 6. Pull vacuum
 
-All brazes complete. Stop the argon flow at the RHP400 regulator and close the BPV31. Disconnect the argon hose from the BPV31 flare port; connect the gauge manifold's 1/4" SAE flare in its place. Reopen the BPV31. Pull vacuum to 500 microns or below. Hold for ≥15 minutes. Valve off the pump and verify vacuum holds (no rise) for another 15 minutes. A rise during isolation indicates either residual moisture (run pump longer) or a leak (find and fix).
+All brazes complete. Stop the argon flow at the RHP400 regulator and close the BPV31. Disconnect the argon hose from the BPV31 flare port; connect the gauge manifold's 1/4" SAE flare in its place. Reopen the BPV31. Pull vacuum to [500 microns](VACUUM_TARGET) or below. Hold for ≥[15 minutes](VACUUM_HOLD_FULL). Valve off the pump and verify vacuum holds (no rise) for another [15 minutes](VACUUM_HOLD_FULL). A rise during isolation indicates either residual moisture (run pump longer) or a leak (find and fix).
 
 ### 7. Mass-metered recharge
 
 Place the Enviro-Safe R-600a can on the Smart Weigh Pro digital scale (2000 g / 0.1 g resolution). Tare. Connect the can to the gauge manifold (1/4" SAE flare) and the manifold to the BPV31 flare port. Open the can valve; refrigerant flows out of the can into the vacuum under its own vapor pressure, and the scale readout drops as the can loses mass. Close the can valve when the displayed mass has dropped by the target charge — Δmass of the can equals mass added to the loop.
 
-Target charge is *not* simply the factory charge mass from step 1 — the new evaporator coil has greater internal volume than the discarded factory finger-plate, so the recharge runs higher than factory. First-unit calibration starts from factory mass (15 g for Unit A / 23 g for Unit B, per step 1) plus a small overage and iterates against frost-pattern and suction-line superheat on first run-up — see Open items §1.
+Target charge is *not* simply the factory charge mass from step 1 — the new evaporator coil has greater internal volume than the discarded factory finger-plate, so the recharge runs higher than factory. First-unit calibration starts from factory mass ([15 g](UNIT_A_CHARGE) for Unit A / [23 g](UNIT_B_CHARGE) for Unit B, per step 1) plus a small overage and iterates against frost-pattern and suction-line superheat on first run-up — see Open items §1.
 
 Close the manifold valve; close the BPV31; disconnect the manifold; cap the BPV31 flare port. The BPV31 stays clamped on the compressor process tube as the single permanent service-access point for the life of the appliance.
 
 ### 8. Initial run-up + leak check
 
-Energize the compressor briefly. (Firmware enforces a 3-minute minimum off-time per [`../harvested/ice-maker/README.md`](../harvested/ice-maker/README.md) "Powering and control"; the first run-up starts that timer with no prior on-state.) Verify the compressor draws expected running current (~1 A) and the suction line drops cold within a minute or two.
+Energize the compressor briefly. (Firmware enforces a [3-minute](OFF_TIME) minimum off-time per [`../harvested/ice-maker/README.md`](../harvested/ice-maker/README.md) "Powering and control"; the first run-up starts that timer with no prior on-state.) Verify the compressor draws expected running current ([~1 A](RUN_CURRENT)) and the suction line drops cold within a minute or two.
 
 Apply electronic leak detector or soap solution at all braze joints + the BPV31 saddle clamp + the BPV31 flare port cap + any threaded connection. No bubbles, no detector hits.
 
@@ -118,8 +118,8 @@ A leak at any joint requires the loop be re-vented through the BPV31 (open the v
 A finished integrated refrigerant loop:
 
 - Cold core's coil stubs brazed into the donor's loop (suction-line tie-in + cap-tube pinch-swage tie-in)
-- Vacuum-tight (≤500 microns, no rise over 15 min isolated)
-- Charged to within ±1 g of target mass
+- Vacuum-tight (≤[500 microns](VACUUM_TARGET), no rise over [15 min](VACUUM_HOLD) isolated)
+- Charged to within [±1 g](RECHARGE_TOL) of target mass
 - No detectable leaks at any joint
 - Compressor runs and pulls the suction line cold on first run-up
 - Hot-gas bypass solenoid, line, and tee discarded with the factory finger-plate evaporator
@@ -131,6 +131,6 @@ The integrated assembly — cold core + plumbed compressor + condenser — is no
 
 Procedure-level gaps that need answers before unit 1 ships:
 
-1. **Recharge target mass for the new larger evap coil.** Factory charge masses are known (Unit A 15 g, Unit B 23 g per their manufacturer manuals — see harvested README per-unit), but the recharge target for this build is *not* the factory mass because the new evaporator coil has greater internal volume than the discarded factory finger-plate. The volume-corrected target needs empirical validation on first run-up against frost-pattern + suction-line superheat. Bound: factory mass + the evap-volume-times-operating-density correction (order-of-magnitude +5-15 g for the ~80-110 mL volume delta vs. a finger-plate evap at typical R-600a operating density). Iterate in 1-2 g increments rather than committing to a calculated final number.
+1. **Recharge target mass for the new larger evap coil.** Factory charge masses are known (Unit A [15 g](UNIT_A_CHARGE), Unit B [23 g](UNIT_B_CHARGE) per their manufacturer manuals — see harvested README per-unit), but the recharge target for this build is *not* the factory mass because the new evaporator coil has greater internal volume than the discarded factory finger-plate. The volume-corrected target needs empirical validation on first run-up against frost-pattern + suction-line superheat. Bound: factory mass + the evap-volume-times-operating-density correction (order-of-magnitude [+5-15 g](VOL_CORRECTION) for the [~80-110 mL](EVAP_VOL_DELTA) volume delta vs. a finger-plate evap at typical R-600a operating density). Iterate in 1-2 g increments rather than committing to a calculated final number.
 2. **Failure handling beyond "redo the sequence."** Decision tree for hard-to-find leaks, charge loss between vacuum check and run-up.
 3. **No dedicated donor-teardown procedure.** Which steps remove which components, in what order, what gets discarded vs. salvaged — currently scattered across this doc and [`../harvested/ice-maker/README.md`](../harvested/ice-maker/README.md). Worth a standalone teardown doc when production teardown begins for unit 1.
