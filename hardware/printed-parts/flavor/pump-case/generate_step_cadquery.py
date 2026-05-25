@@ -25,6 +25,24 @@ from world_workplane import WorldWorkplane, xz_plane_y_up, xy_plane_z_up
 from _cadq_export import export_step
 
 
+# As-installed outer envelope
+# ---------------------------
+# The bbox of the case as a black-box-to-the-user assembly — accounts for
+# the snaps that hold it together, the two tubes protruding from one face,
+# and the pogo connector between those tubes. This is the envelope that
+# the appliance's pump-cartridge door cutout has to clear, not the bbox of
+# the bare base/cap STEP files.
+#
+# The two 75 × 135 faces are the top and bottom of the cuboid in install
+# orientation; the bottom face is the press-in face (tubes + pogo
+# protrude downward from it). The customer inserts the case downward
+# through the door, and that same downward motion presses the tubes +
+# pogo into their quick-connects on the Zone C floor.
+case_outer_x = 75      # short horizontal axis (two cases sit side-by-side along x)
+case_outer_y = 88      # vertical / insertion direction
+case_outer_z = 135     # long horizontal axis
+
+
 # Physical dimensions
 footprint_x = 70.0
 footprint_z = 70.0
