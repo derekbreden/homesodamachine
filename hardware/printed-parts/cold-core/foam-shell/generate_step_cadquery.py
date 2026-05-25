@@ -35,39 +35,31 @@ def main():
     volume = solid.Volume()
     centroid = solid.Center()
 
+    # Short names scoped to this README. Units live inside the value so the
+    # script controls them — change a unit in source and the markdown follows.
     substitute_md(
         _here / "README.md",
         variables={
-            "FOAM_SHELL_OUTER_HEIGHT": f"{foam_shell_outer_height:g}",
-            "OUTER_SHELL_FOAM_GAP": f"{outer_shell_foam_gap:g}",
-            "OUTER_SHELL_X_LENGTH": f"{outer_shell_x_length:g}",
-            "OUTER_SHELL_Z_LENGTH": f"{outer_shell_z_length:g}",
-            "BBOX_VOLUME": f"{volume:.6f}",
-            "BBOX_X_MIN": f"{bbox.xmin:.3f}",
-            "BBOX_X_MAX": f"{bbox.xmax:.3f}",
-            "BBOX_Y_MIN": f"{bbox.ymin:.3f}",
-            "BBOX_Y_MAX": f"{bbox.ymax:.3f}",
-            "BBOX_Z_MIN": f"{bbox.zmin:.3f}",
-            "BBOX_Z_MAX": f"{bbox.zmax:.3f}",
-            "CENTROID_X": f"{centroid.x:.6f}",
-            "CENTROID_Y": f"{centroid.y:.6f}",
-            "CENTROID_Z": f"{centroid.z:.6f}",
+            "OUTER_H": f"{foam_shell_outer_height:g} mm",
+            "OUTER_X": f"{outer_shell_x_length:g} mm",
+            "OUTER_Z": f"{outer_shell_z_length:g}",  # unit implied from OUTER_X
+            "OUTER_GAP": f"{outer_shell_foam_gap:g} mm",
+            "VOLUME": f"{volume:.3f} mm³",
+            "BBOX_X": f"{bbox.xmin:.3f} to {bbox.xmax:.3f} mm",
+            "BBOX_Y": f"{bbox.ymin:.3f} to {bbox.ymax:.3f} mm",
+            "BBOX_Z": f"{bbox.zmin:.3f} to {bbox.zmax:.3f} mm",
+            "CENTROID": f"({centroid.x:.6f}, {centroid.y:.6f}, {centroid.z:.6f}) mm",
         },
         expected_counts={
-            "FOAM_SHELL_OUTER_HEIGHT": 2,
-            "OUTER_SHELL_FOAM_GAP": 2,
-            "OUTER_SHELL_X_LENGTH": 1,
-            "OUTER_SHELL_Z_LENGTH": 1,
-            "BBOX_VOLUME": 1,
-            "BBOX_X_MIN": 1,
-            "BBOX_X_MAX": 1,
-            "BBOX_Y_MIN": 1,
-            "BBOX_Y_MAX": 1,
-            "BBOX_Z_MIN": 1,
-            "BBOX_Z_MAX": 1,
-            "CENTROID_X": 1,
-            "CENTROID_Y": 1,
-            "CENTROID_Z": 1,
+            "OUTER_H": 2,
+            "OUTER_X": 1,
+            "OUTER_Z": 1,
+            "OUTER_GAP": 2,
+            "VOLUME": 1,
+            "BBOX_X": 1,
+            "BBOX_Y": 1,
+            "BBOX_Z": 1,
+            "CENTROID": 1,
         },
     )
     print("-> README.md")
