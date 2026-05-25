@@ -34,6 +34,23 @@ Normal markdown links (parens contain slashes, dots, colons, lowercase, etc.)
 never match — only our all-caps-and-underscores variable references do. The
 first-character restriction (no leading digit) keeps numeric literals like
 `[0.5](2)` from being interpreted as substitution targets.
+
+Cross-file collision linter
+---------------------------
+
+The per-file substituters cannot detect when the same NAME resolves to
+different values in different files (e.g., `PILL_L` rendered as
+`13.4 mm` in one part's docs and `13.2 mm` in a sibling's). The
+`docgen.lint` submodule walks a directory tree, extracts every
+[value](NAME) marker from .md files and from .py `#` comments, and
+reports any NAME with more than one distinct value across files.
+
+Invoke as:
+
+    tools/cad-venv/bin/python -m docgen.lint              # scan cwd
+    tools/cad-venv/bin/python -m docgen.lint <directory>  # scan a root
+
+Exit code is 0 if no collisions are found, 1 otherwise.
 """
 
 import io
