@@ -13,6 +13,7 @@ from _cold_core_interface import (
     bag_pocket_outermost_x,
     bag_pocket_corner_inner_radius,
     reservoir_bulkhead_port_x,
+    reservoir_bulkhead_port_y,
     reservoir_bulkhead_port_z,
     port_hole_radius,
     make_box,
@@ -186,10 +187,10 @@ def cut_reed_channel_openings(foam_shell):
 
 
 # ±X offset of cable hole from bulkhead hole, away from the cold-core
-# centerline. The two ⌀6.5 holes are also separated by 12 mm in y
-# (cable at cable_y_center, bulkhead at reservoir_bulkhead_port_y), so
-# center-to-center distance is ~14 mm — plenty of PETG between them.
+# centerline. Combined with the y separation below, leaves plenty of
+# PETG between the two ⌀6.5 holes.
 cable_hole_offset_from_bulkhead_hole_x = 8.0
+cable_to_bulkhead_y_separation = abs(cable_y_center - reservoir_bulkhead_port_y)
 
 
 def cut_reed_cable_holes(foam_shell):
