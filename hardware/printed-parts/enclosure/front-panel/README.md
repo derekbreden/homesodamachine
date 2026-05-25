@@ -8,9 +8,9 @@ The intent is that opening the cabinet door and looking at the front of the appl
 
 | # | Feature | Hardware | Notes |
 |---|---|---|---|
-| 1 | ESP32-S3 rotary display | Meshnology ESP32-S3 1.28" Rotary Display (B0G5Q4LXVJ) | **Detachable.** Sits in a recess on the front face; the customer pulls it out and the ~1 m cord behind the panel pays out so they can hold the display or mount it on the cabinet's false-drawer-front above the cabinet door — the obvious empty flat panel just below the counter where a drawer would normally go. Re-seating retracts the cord. Default state shows the selected flavor; the rotary mechanism toggles between flavors; a subtle three-dot affordance reaches advanced settings. Seat, cord, retraction, and connector are all open — see §"S3 detach mechanism" below. |
+| 1 | ESP32-S3 rotary display | Meshnology ESP32-S3 1.28" Rotary Display (B0G5Q4LXVJ) | **Detachable.** Sits in a recess on the front face; the customer pulls it out and the [~1 m](DISPLAY_CORD_L) cord behind the panel pays out so they can hold the display or mount it on the cabinet's false-drawer-front above the cabinet door — the obvious empty flat panel just below the counter where a drawer would normally go. Re-seating retracts the cord. Default state shows the selected flavor; the rotary mechanism toggles between flavors; a subtle three-dot affordance reaches advanced settings. Seat, cord, retraction, and connector are all open — see §"S3 detach mechanism" below. |
 | 2 | Front-dispense spout | TBD | The customer's drill-trigger moment — a visible thing on the front you press, soda comes out (currently-selected flavor, set on the S3). Internal plumbing taps the carbonator outlet + flavor-pump junction before the umbilical, with its own valve and a front-panel nozzle. Lever vs button vs glass-press TBD. |
-| 3 | CO2 line inlet | DERPIPE 5/16"-tube × 1/4" NPT push-to-connect | Customer's CGA-320 primary regulator hose (~12" short tether per [`../../../bom.md`](../../../bom.md) §4) lands here. Downstream: GASHER 1/4" NPT SS check valve + WR1110 fixed-90 PSI secondary regulator before the cold-core CO2 input at the foam-cap top. Red accent ring at the panel opening per §"CO2 inlet — red color-coding" below. Possibly migrated to the furthest-forward edge of a side face — see §"CO2 inlet placement" below. |
+| 3 | CO2 line inlet | DERPIPE 5/16"-tube × 1/4" NPT push-to-connect | Customer's CGA-320 primary regulator hose ([~12"](CGA_TETHER_L) short tether per [`../../../bom.md`](../../../bom.md) §4) lands here. Downstream: GASHER 1/4" NPT SS check valve + WR1110 [fixed-90 PSI](REGULATOR_PRESSURE) secondary regulator before the cold-core CO2 input at the foam-cap top. Red accent ring at the panel opening per §"CO2 inlet — red color-coding" below. Possibly migrated to the furthest-forward edge of a side face — see §"CO2 inlet placement" below. |
 
 ## CO2 inlet placement
 
@@ -18,7 +18,7 @@ The CO2 connection is the most physically dangerous customer-touched joint on th
 
 ## Cylinder placement — out of scope here
 
-The CO2 cylinder sits **beside** the appliance on the cabinet floor, in the working air gap between one side of the appliance and the cabinet sidewall — **not** in front of the front face. Putting the cylinder in front would block the cabinet door from opening and put a ~9 lb pressurized aluminum bottle in the customer's shins every time they reach in.
+The CO2 cylinder sits **beside** the appliance on the cabinet floor, in the working air gap between one side of the appliance and the cabinet sidewall — **not** in front of the front face. Putting the cylinder in front would block the cabinet door from opening and put a [~9 lb](CYLINDER_WEIGHT) pressurized aluminum bottle in the customer's shins every time they reach in.
 
 The bottle-shaped visual affordance that lands the cylinder in the right place (a curve matched to the cylinder body OD, no restraint, just "feels right when you set it down") belongs to whichever exterior surface the cylinder neighbors in the side gap — almost certainly one of the side faces, possibly with a contribution from the floor edge. That surface is **not** this front face, and its design document does not yet exist.
 
@@ -38,12 +38,12 @@ The internal 1/4" LLDPE between the front-panel CO2 PTC and the vessel-side TAIS
 
 ## S3 detach mechanism
 
-The S3 is the only detachable element on the front face. Its recess sits flush with the panel surface when undisturbed; a deliberate pull releases it. The cord (~1 m) is coiled behind the panel inside the cabinet, paying out as the customer pulls the display out and retracting when the display is re-seated.
+The S3 is the only detachable element on the front face. Its recess sits flush with the panel surface when undisturbed; a deliberate pull releases it. The cord ([~1 m](DISPLAY_CORD_L)) is coiled behind the panel inside the cabinet, paying out as the customer pulls the display out and retracting when the display is re-seated.
 
 Open candidates:
 
 - **Seat:** magnetic, click-detent, or friction-only.
-- **Cord:** Cat6 (carries UART + 5 V per the SIG-7 schedule), coiled stretch cable, or a custom flat ribbon.
+- **Cord:** Cat6 (carries UART + [5 V](DISPLAY_SIGNAL_V) per the SIG-7 schedule), coiled stretch cable, or a custom flat ribbon.
 - **Retraction:** spring-loaded retractor, hand-recoil, or no active retraction (cord hangs limp when extended).
 - **Connector at the back of the display:** sized to fit through the recess opening and not obstruct re-seating.
 
