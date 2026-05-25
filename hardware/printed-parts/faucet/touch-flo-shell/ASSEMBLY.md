@@ -237,7 +237,7 @@ piece of masking tape across the joint, not another design
 revision.
 
 The body-to-plate joint is what does all the real work: the factory
-shank nut clamps the body's 31.5 mm OD bottom face down onto the
+shank nut clamps the body's [31.5 mm](BODY_OD) OD bottom face down onto the
 plate's top face through the plate's Ø 12.6 shank hole. The shell
 then sits over the body+plate stack, with the body inside the
 shell's body bore providing lateral and rotational constraint
@@ -253,7 +253,7 @@ side is the entire mechanism that holds the assembly together.
    stringing.
 2. **Body fit.** Dry-fit the harvested body into the shell's bore
    from the bottom (shell oriented bottom-up). The body should
-   slide all the way to the bore cove (Z = 18.25 in part
+   slide all the way to the bore cove (Z = [19.25 mm](BORE_COVE_Z) in part
    coordinates) without binding. The lever swings in the shell's
    -X clearance ramp; verify the lever clears at the resting
    position.
@@ -261,7 +261,7 @@ side is the entire mechanism that holds the assembly together.
 ## Step 1 — Body into mounting plate
 
 1. Slot the Touch-Flo body's Ø 11 mm threaded shank up through the
-   plate's Ø 12.6 shank hole. The body's 31.5 mm OD landing face
+   plate's Ø 12.6 shank hole. The body's [31.5 mm](BODY_OD) OD landing face
    bottoms out on the plate's top face; the shank protrudes ~46 mm
    below the plate's bottom face.
 2. Thread the factory shank nut onto the protruding shank from below,
