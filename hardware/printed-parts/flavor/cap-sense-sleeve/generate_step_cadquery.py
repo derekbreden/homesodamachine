@@ -35,19 +35,27 @@ from pathlib import Path
 
 import cadquery as cq
 
+_here = Path(__file__).resolve()
 sys.path.insert(
     0,
-    str(next(p for p in Path(__file__).resolve().parents if p.name == "hardware")),
+    str(next(p for p in _here.parents if p.name == "hardware")),
+)
+sys.path.insert(
+    0,
+    str(next(p for p in _here.parents if (p / "tools" / "docgen").is_dir()) / "tools"),
 )
 from _cadq_export import export_step
+from docgen import substitute_py_comments
 
 
 # 1/4" OD LLDPE flavor tube; slip-fit bore.
 tube_od = 6.35
 bore_clearance = 0.05
+# [3.225 mm](BORE_R) inner bore radius = (tube_od + 2 × bore_clearance) / 2.
 bore_radius = (tube_od + 2 * bore_clearance) / 2
 
 wall_thickness = 3.0
+# [6.225 mm](OUTER_R) sleeve outer radius = bore_radius + wall_thickness.
 outer_radius = bore_radius + wall_thickness
 
 # Minimum length: 8 mm of grooves (3 + 2 gap + 3) + ~4.5 mm of end
@@ -62,6 +70,7 @@ sleeve_z_range = (0.0, sleeve_length)
 # room. At coarser layer heights the groove resolves marginally;
 # fall back to sticking the foil flush against the un-grooved bore.
 groove_depth = 0.1
+# [3.325 mm](GROOVE_OUTER_R) groove outer radius = bore_radius + groove_depth.
 groove_outer_radius = bore_radius + groove_depth
 groove_width_z = 3.0
 groove_centers_z = (6.0, 11.0)
@@ -79,7 +88,8 @@ slot_z_padding = 0.5
 # defines pin and hole, so the friction fit is tuned by trial.
 dowel_radius = 1.0
 dowel_length = 2.5
-dowel_x_offset = (bore_radius + outer_radius) / 2  # mid-wall
+# [4.725 mm](DOWEL_X) dowel X offset = mid-wall, (bore_radius + outer_radius) / 2.
+dowel_x_offset = (bore_radius + outer_radius) / 2
 dowel_z_inset_from_ends = 2.0
 dowel_z_positions = (dowel_z_inset_from_ends, sleeve_length - dowel_z_inset_from_ends)
 dowel_bearing_y_sign = -1
@@ -206,6 +216,23 @@ def main():
     export_step(neg_y, str(here / "cap-sense-sleeve-neg-y.step"))
     print("-> cap-sense-sleeve-pos-y.step  (+y functional half: grooves, wire slots, dowel HOLES)")
     print("-> cap-sense-sleeve-neg-y.step  (-y structural half: grooves, no slots, dowel PINS)")
+
+    variables = {
+        "BORE_R": f"{bore_radius:g} mm",
+        "OUTER_R": f"{outer_radius:g} mm",
+        "GROOVE_OUTER_R": f"{groove_outer_radius:g} mm",
+        "DOWEL_X": f"{dowel_x_offset:g} mm",
+    }
+    substitute_py_comments(
+        Path(__file__),
+        variables=variables,
+        expected_counts={
+            "BORE_R": 1,
+            "OUTER_R": 1,
+            "GROOVE_OUTER_R": 1,
+            "DOWEL_X": 1,
+        },
+    )
 
 
 if __name__ == "__main__":
