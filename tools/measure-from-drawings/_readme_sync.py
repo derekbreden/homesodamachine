@@ -1,30 +1,6 @@
-"""Variable substitution for measure-from-drawings/README.md.
+"""Doc-sync driver for tools/measure-from-drawings/README.md.
 
-The README cites two standards-based calibration nominals as canonical
-references (§5.2 "Picking the calibration reference" and §6.3
-"Cross-checking"):
-
-- 1/4" tube OD nominal = 6.35 mm (= 0.25 in × 25.4).
-- G 1/2 BSPP thread major nominal = 20.955 mm.
-
-These numbers are load-bearing in the worked examples — a user calibrating
-a pixel measurement against the README's recommended reference will copy
-the number verbatim into their own derivation. If the README drifts (e.g.
-someone "rounds" 20.955 to 20.96), the user's calibration drifts with it.
-So they get tied to constants here.
-
-The rest of the worked examples (e.g. the JG union dimensions: 41.80,
-15.10, 9.31, 9.57, 14.96, 39.13; the PP1208E drawing-derived 20.96; the
-Uncertainties-section 50.0/49.5/9.50) are illustrative numbers drawn from
-`hardware/off-the-shelf-parts/john-guest-union/extracted-results/
-geometry-description.md` or from synthetic examples. They are documented
-only as markdown — there is no Python source-of-truth module to import.
-The README already cross-references the JG doc by path in §9, so a
-reader who wants the canonical values has a one-hop link. They stay raw.
-
-Run as a script to substitute the README:
-
-    tools/cad-venv/bin/python _readme_sync.py
+Run: tools/cad-venv/bin/python tools/measure-from-drawings/_readme_sync.py
 """
 
 import sys

@@ -1,25 +1,6 @@
-"""Procedure-parameter sync for hardware/assembly/refrigerant-loop.md.
+"""Doc-sync driver for hardware/assembly/refrigerant-loop.md.
 
-No geometry generator — this module exists as the source of truth for
-numerics in the refrigerant-loop production procedure (factory charge
-masses, recharge tolerance, vacuum target, hold times, first-run-up
-expectations, leak-detection backstop spec, etc.). The README's
-[value](NAME) markers substitute against these constants so prose
-and numbers stay in sync as the procedure is tuned.
-
-R-600a thermodynamic properties (LFL ~1.8 %), refrigerant class names
-(R-134a, R-410a), and commercial part specs (BCuP-5 15 % Ag, 0.031"
-capillary tube, etc.) are deliberately left raw — they are industry-
-standard data or vendor catalog numbers, not procedure parameters.
-
-Factory charge masses for the two tracked donors are documented at
-their authoritative source in
-hardware/harvested/ice-maker/README.md "Unit A" / "Unit B". The
-values mirrored here are kept synchronized with that doc.
-
-Run as a script to substitute the README:
-
-    tools/cad-venv/bin/python _refrigerant_loop_sync.py
+Run: tools/cad-venv/bin/python hardware/assembly/_refrigerant_loop_sync.py
 """
 
 import sys

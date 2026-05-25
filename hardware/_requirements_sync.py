@@ -1,46 +1,6 @@
-"""Top-level design-requirement constants — source-of-truth values that
-requirements.md (and, in the long run, any part dimensioned by them)
-should consume rather than re-state.
+"""Doc-sync driver for hardware/requirements.md.
 
-Requirements numbers are *first-class design targets*, not consequences
-of part geometry. The appliance's two-flavor architecture and ten-year
-design life are the things every downstream choice has to satisfy;
-they live here so requirements.md prose stays mechanically in sync
-with the named constant whenever the value is revisited.
-
-Scope kept narrow on purpose:
-
-- Only the genuine top-level requirements: the flavor channel count
-  and the design lifetime. Every other number in requirements.md is
-  either a frozen prototype-build count (the §5 table — see the
-  per-line "Qty" cells), an industry-standard / manufacturer-published
-  reference value (the Bambu H2C build envelope and minimum layer
-  height in §6), or a forward-reference handled by other docs
-  (future.md, bom.md). Those are left raw — substituting them here
-  would imply a derivation that doesn't exist.
-
-- Numbers that *look* derived but aren't yet wired through this module
-  (the prototype qty=2 for the two Kamoer pumps and the two Platypus
-  bottles, the "2 peristaltic pumps" sentence in §4) are tagged with
-  FLAVOR_COUNT so the connection is visible in source, even though
-  the §5 prototype table is intentionally treated as a frozen-history
-  parts-list snapshot rather than a live derivation.
-
-Follow-up flagged for a later sweep (do not fix in this pass — only
-this file + requirements.md are in scope):
-
-- `hardware/cut-parts/compressor-shroud/_compressor_shroud_dimensions.py`
-  carries its own `design_life_yr = 10` constant, framed locally as
-  "G90 coating life in humid-kitchen ambient". The value happens to
-  match the appliance design lifetime here, but the two are tracked
-  independently. Promoting `design_life_yr` to a shared constant
-  (e.g. imported from this module) would make the dependency
-  explicit, but that crosses out of this sync's read-only-elsewhere
-  budget and is left for a follow-up.
-
-Run as a script to substitute requirements.md:
-
-    tools/cad-venv/bin/python _requirements_sync.py
+Run: tools/cad-venv/bin/python hardware/_requirements_sync.py
 """
 
 import sys

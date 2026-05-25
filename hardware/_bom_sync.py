@@ -1,28 +1,6 @@
-"""BOM sync — pulls per-build part counts into `bom.md`.
+"""Doc-sync driver for hardware/bom.md.
 
-The BOM is mostly prices, SKUs, and pack-amortization math, which are
-external/volatile and stay raw. What this script handles is the
-per-build part-count side: how many vessel ports, how many reservoir
-caps, how many heat-set inserts, how many reeds. Those numbers are
-design choices — some live in the geometry source (length of
-`foam_cap_attachment_xz_positions`, length of `insert_positions_
-for_side_plus_1`), others are BOM-defined constants pinned here.
-
-Wherever the same count appears in multiple BOM cells (qty column +
-prose explanation), every occurrence gets the same `[value](NAME)`
-marker so they can't drift apart.
-
-What this script DOES NOT touch:
-- Prices, SKUs, ASINs (external / volatile).
-- Industry-standard dimensions ("1/4" NPT", "5" OD") cited as
-  catalog spec text.
-- Line $ totals and pack-amortization math, which depend on per-unit
-  price as well as quantity — if those need to change, the price
-  changed, and the line is being rewritten by hand anyway.
-
-Run:
-
-    tools/cad-venv/bin/python hardware/_bom_sync.py
+Run: tools/cad-venv/bin/python hardware/_bom_sync.py
 """
 
 import sys

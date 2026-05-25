@@ -1,24 +1,6 @@
-"""Pressure-vessel.md value sync — pulls the CAD-driven dimensions cited
-in the procedure prose from `_cold_core_interface.py` (the canonical
-source for the vessel-as-installed envelope in the cold-core stack) and
-substitutes them into pressure-vessel.md.
+"""Doc-sync driver for hardware/assembly/pressure-vessel.md.
 
-Only the two dimensions that the cold-core CAD owns get substituted:
-
-- `tank_height` (the cut-to-length tube spec, also the foam-shell's
-  budgeted inner-cylinder height).
-- `above_tank_elbows_height` / `below_tank_elbows_height` (the vertical
-  envelope reserved for the 1/4" NPT 90° elbow stack above and below
-  the tank — sized by the foam-shell, referenced in the assembly prose).
-
-Every other number in pressure-vessel.md is external (NPT thread specs,
-PSI setpoints, weld recipe parameters, vendor data-sheet numbers) and
-intentionally stays raw — the cold-core CAD doesn't own those, and the
-assembly procedure is the source-of-truth.
-
-Run as a script to substitute:
-
-    tools/cad-venv/bin/python _pressure_vessel_sync.py
+Run: tools/cad-venv/bin/python hardware/assembly/_pressure_vessel_sync.py
 """
 
 import sys

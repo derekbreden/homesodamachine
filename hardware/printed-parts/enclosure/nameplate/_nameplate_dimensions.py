@@ -1,8 +1,7 @@
-"""Nameplate dimensions — design constants for the rear-panel nameplate
-README. No CAD geometry yet (the parametric generator is planned but
-unwritten); this module exists only to source-of-truth the small set of
-design numbers that appear in README.md and substitute them in via
-docgen. See README.md for the design intent."""
+"""Doc-sync driver for hardware/printed-parts/enclosure/nameplate/README.md.
+
+Run: tools/cad-venv/bin/python hardware/printed-parts/enclosure/nameplate/_nameplate_dimensions.py
+"""
 
 import sys
 from pathlib import Path

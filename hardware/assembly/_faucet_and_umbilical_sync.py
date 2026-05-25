@@ -1,34 +1,6 @@
-"""Faucet-and-umbilical.md value sync — pulls CAD-driven dimensions
-cited in the procedure prose from the upstream faucet-side part
-generators and substitutes them into faucet-and-umbilical.md.
+"""Doc-sync driver for hardware/assembly/faucet-and-umbilical.md.
 
-Sources of truth (each READ-ONLY from this side; substituted values
-are pulled, never written back):
-
-- `touch-flo-tpu-o-ring/touch_flo_tpu_o_ring.py` — TPU thimble
-  geometry called out in the BOM "Touch-Flo TPU O-ring" row.
-- `touch-flo-under-counter-plate/touch_flo_under_counter_plate.py` — keyhole plate disc /
-  pocket / channel / fillet dimensions called out in the BOM
-  "under-counter keyhole plate" row. Same hole positions match the
-  TPU mounting gasket and the printed mounting plate exactly (the
-  generators share NAMES so the same key refers to the same dimension
-  across the stack-up).
-
-Everything else in faucet-and-umbilical.md is intentionally raw:
-
-- External standards baked into SKU identity — 1/4" OD LLDPE, 3/8" OD
-  LLDPE, 1-3/8" countertop hole, 0.060" SS sheet gauge, 1-ft CARGEN
-  foam segment length, 1/4" ID × 3/8" wall foam. Each IS the catalog
-  identity of the part; there's nothing upstream to derive them from.
-- Catalog / operating specs not owned by any CAD source — ~90 PSI
-  CO2-saturated water pressure, 8–15 °C reservoir temperature.
-- Procedure-loose dimensions — 8–12" coil loop diameter, ~3" rear-panel
-  un-sleeved length, "hand-snug + 1/4 turn". Substituting these from a
-  fixed numeric constant would misrepresent the intentional looseness.
-
-Run from this directory or via absolute path:
-
-    tools/cad-venv/bin/python hardware/assembly/_faucet_and_umbilical_sync.py
+Run: tools/cad-venv/bin/python hardware/assembly/_faucet_and_umbilical_sync.py
 """
 
 import importlib.util
