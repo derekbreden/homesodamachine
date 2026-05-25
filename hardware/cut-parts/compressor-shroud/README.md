@@ -118,18 +118,18 @@ The DXF route matches the pattern already used in this repo. The STEP route is p
 
 ## Files (planned)
 
-- `generate_dxf.py` — parametric flat-pattern DXF generator (ezdxf), once compressor measurements are in hand
+- `compressor_shroud.py` — parametric flat-pattern DXF generator (ezdxf), once compressor measurements are in hand
 - `compressor-shroud-flat.dxf` — generated flat pattern with bend lines marked
 - `compressor-shroud-drawing.pdf` — annotated drawing showing bend angles + bend lines + grommet location, generated from CadQuery `.section()` projections
 
-Run with `tools/cad-venv/bin/python generate_dxf.py` per the project's CadQuery / ezdxf convention.
+Run with `tools/cad-venv/bin/python compressor_shroud.py` per the project's CadQuery / ezdxf convention.
 
 ## Open items
 
 1. **Measure the donor compressor** — terminal block envelope, PTC module standoff, mounting foot pattern ([M5](FOOT_THREAD) thread spacing + bolt circle), body OD/height. Without this the shroud dimensions are placeholders.
 2. **Decide one-piece 5-sided box vs. two-piece U-channel + back-wall.** Driven by the [3.00"](MAX_BOX_IN) max box-flange height constraint and by build / install ergonomics.
 3. **Decide the AC pass-through grommet location.** Best path is the side facing the electronics shelf (back-side of shroud, since the shelf is at top-back) — minimizes wire run length.
-4. **Write `generate_dxf.py`** once items 1–3 are settled.
+4. **Write `compressor_shroud.py`** once items 1–3 are settled.
 
 ## Sources
 [value](NAME) texts are updated by:

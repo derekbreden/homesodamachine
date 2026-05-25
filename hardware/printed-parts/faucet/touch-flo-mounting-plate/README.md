@@ -70,9 +70,9 @@ landing area the body and shell sit on.
 ## Regenerate
 
 ```
-tools/cad-venv/bin/python generate_step_cadquery.py
+tools/cad-venv/bin/python touch_flo_mounting_plate.py
 ```
 
 ## Sources
 [value](NAME) texts are updated by:
-- `/hardware/printed-parts/faucet/touch-flo-mounting-plate/generate_step_cadquery.py`
+- `/hardware/printed-parts/faucet/touch-flo-mounting-plate/touch_flo_mounting_plate.py`

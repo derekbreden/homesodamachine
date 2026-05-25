@@ -106,7 +106,7 @@ def _caller_repo_path(stack_depth: int = 2) -> str | None:
     `stack_depth` = how far up the call stack to look. Default 2:
     0 is this helper, 1 is substitute_md, 2 is the caller.
 
-    Returns a string like `/hardware/foo/bar/generate_step_cadquery.py`,
+    Returns a string like `/hardware/foo/bar/foo_bar.py`,
     or None if the caller's file is outside the repo or unidentifiable.
     """
     try:

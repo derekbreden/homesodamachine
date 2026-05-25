@@ -368,7 +368,7 @@ def main():
             "RECT_LONG_HALF": 1,
         },
     )
-    print(f"-> generate_step_cadquery.py (self)")
+    print(f"-> valve_body_reference.py (self)")
 
 
 if __name__ == "__main__":

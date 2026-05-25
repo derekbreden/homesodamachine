@@ -43,11 +43,8 @@ sys.path.insert(
     str(next(p for p in _here.parents if (p / "tools" / "docgen").is_dir()) / "tools"),
 )
 
-# Each generator/module is on its own directory; add each to sys.path so
-# the bare-module imports below resolve. The coil-mandrel and foam-cap
-# generators are both named `generate_step_cadquery.py`, so we import
-# them under distinct aliases by adding each directory + reading the
-# module under its file-system parent path.
+# Each generator/module is in its own directory; add each to sys.path
+# so the bare-module imports below resolve.
 _hw = next(p for p in _here.parents if p.name == "hardware")
 sys.path.insert(0, str(_hw / "printed-parts" / "cadlib"))
 sys.path.insert(0, str(_hw / "printed-parts" / "cold-core"))
@@ -65,10 +62,10 @@ from _cold_core_interface import (  # noqa: E402
     screw_boss_size,
 )
 
-# Import the foam-cap and coil-mandrel generators under unique module
-# names by manipulating sys.path one at a time around each import — the
-# two generators share the filename `generate_step_cadquery.py`, so a
-# single sys.path entry would shadow whichever was inserted second.
+# Load the foam-cap and coil-mandrel generators by explicit file path.
+# Each generator's own sys.path manipulation only runs after it loads,
+# so loading via importlib.util keeps the import side-effects local
+# to each module without inserting either part's directory globally.
 import importlib.util  # noqa: E402
 
 
@@ -85,11 +82,11 @@ def _load_module(name: str, file_path: Path):
 
 _foam_cap_gen = _load_module(
     "cold_core_foam_cap_gen",
-    _hw / "printed-parts" / "cold-core" / "foam-cap" / "generate_step_cadquery.py",
+    _hw / "printed-parts" / "cold-core" / "foam-cap" / "foam_cap.py",
 )
 _coil_mandrel_gen = _load_module(
     "cold_core_coil_mandrel_gen",
-    _hw / "printed-parts" / "cold-core" / "coil-mandrel" / "generate_step_cadquery.py",
+    _hw / "printed-parts" / "cold-core" / "coil-mandrel" / "coil_mandrel.py",
 )
 
 from docgen import substitute_md  # noqa: E402

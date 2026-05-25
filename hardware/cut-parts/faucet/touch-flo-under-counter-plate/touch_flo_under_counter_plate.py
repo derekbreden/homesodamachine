@@ -135,7 +135,7 @@ units in the quoting UI; mm is supported alongside inches.
 
 REGENERATE
 ==========
-    tools/cad-venv/bin/python generate_dxf.py
+    tools/cad-venv/bin/python touch_flo_under_counter_plate.py
 
 (No CadQuery dependency — uses ezdxf directly.)
 """

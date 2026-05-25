@@ -14,7 +14,7 @@ proofs the joint: smaller deforms under shank/tube pressure, larger
 leaks. The rigid plate locates the parts; the gasket just seals around
 them.
 
-Regenerate: tools/cad-venv/bin/python generate_step_cadquery.py
+Regenerate: tools/cad-venv/bin/python touch_flo_mounting_gasket.py
 """
 
 import sys
@@ -141,7 +141,7 @@ def main():
             "PILL_W": 1,
         },
     )
-    print("-> generate_step_cadquery.py (self)")
+    print(f"-> {Path(__file__).name} (self)")
 
 
 if __name__ == "__main__":

@@ -303,7 +303,7 @@ the rail edges is where the wall material slides in — that's how
 the plug grips the wall like a binder clip. The wings act as the
 I-beam flange linking web to prongs along a continuous 2D face
 (rather than a 1D corner edge); see the docstring at the top of
-`copper-plugs/generate_step_cadquery.py` for the full cross-section
+`copper-plugs/copper_plugs.py` for the full cross-section
 diagram.
 
 Each plug end that abuts a tube has a **⌀[6.5 mm](PORT_D) half-circle
@@ -491,7 +491,7 @@ print(s.Volume(), (bb.xmin, bb.xmax, bb.ymin, bb.ymax, bb.zmin, bb.zmax), (com.x
 
 ## Reference
 
-- [`../../flavor/pump-case/generate_step_cadquery.py`](../../flavor/pump-case/generate_step_cadquery.py)
+- [`../../flavor/pump-case/pump_case.py`](../../flavor/pump-case/pump_case.py)
   — gold standard for the PETG-enclosure pattern in this repo.
 
 The cadquery venv lives at `tools/cad-venv/bin/python` (cadquery is not
@@ -499,5 +499,5 @@ on system Python).
 
 ## Sources
 [value](NAME) texts are updated by:
-- `/hardware/printed-parts/cold-core/foam-shell/generate_step_cadquery.py`
-- `/hardware/printed-parts/cold-core/reservoir/generate_step_cadquery.py`
+- `/hardware/printed-parts/cold-core/foam-shell/foam_shell.py`
+- `/hardware/printed-parts/cold-core/reservoir/reservoir.py`

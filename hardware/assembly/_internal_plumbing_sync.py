@@ -30,7 +30,7 @@ four kinds, none of which has a project-internal source of truth:
 Strategy (A) is wired for exactly **one** site: the CO2 inlet point on
 the foam-cap top, which the prose cites at `x=0, z=−68.75` with a
 `Ø6.5` tube clearance hole. Both numbers are real upstream constants in
-[`../printed-parts/cold-core/foam-cap/generate_step_cadquery.py`](../printed-parts/cold-core/foam-cap/generate_step_cadquery.py)
+[`../printed-parts/cold-core/foam-cap/foam_cap.py`](../printed-parts/cold-core/foam-cap/foam_cap.py)
 (`co2_inlet_z`, `co2_tube_clearance_radius`) so they sync against
 source rather than being hand-typed.
 
@@ -74,10 +74,10 @@ sys.path.insert(
     ),
 )
 
-# Import the foam-cap generator module (its filename is the standard
-# `generate_step_cadquery.py`; the module name is unique because it's
-# the only one of its name on sys.path after the insertions above).
-import generate_step_cadquery as foam_cap_gen  # noqa: E402
+# Import the foam-cap generator module. After the rename from
+# `generate_step_cadquery.py` to part-named scripts, this is a direct
+# sys.path-based import with no filename-collision workaround needed.
+import foam_cap as foam_cap_gen  # noqa: E402
 
 from docgen import substitute_md  # noqa: E402
 
@@ -88,7 +88,7 @@ def main():
         # coordinates) and the tube-clearance hole diameter that lets
         # the 1/4" OD LLDPE pass through cap + lid. Source-of-truth:
         # `co2_inlet_z` and `2 × co2_tube_clearance_radius` in
-        # foam-cap/generate_step_cadquery.py.
+        # foam-cap/foam_cap.py.
         "COTWO_INLET_Z": f"{foam_cap_gen.co2_inlet_z:g}",
         "COTWO_TUBE_D": f"{2 * foam_cap_gen.co2_tube_clearance_radius:g}",
     }

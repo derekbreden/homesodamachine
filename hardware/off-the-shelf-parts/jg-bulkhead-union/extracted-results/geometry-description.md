@@ -10,7 +10,7 @@ A caliper-verified pass on a physical PI1208S (already on hand, 2 units acquired
 
 ## CAD-Ready Summary
 
-The reservoir-CAD constants below correspond to the constants in `hardware/printed-parts/cold-core/reservoir/generate_step_cadquery.py`. Copy verbatim or use as a starting point for any other consumer:
+The reservoir-CAD constants below correspond to the constants in `hardware/printed-parts/cold-core/reservoir/reservoir.py`. Copy verbatim or use as a starting point for any other consumer:
 
 | Constant | Value (mm) | Confidence | Note |
 |----------|-----------|-----------|------|

@@ -46,7 +46,7 @@ Parts currently modeled:
    and the countertop (Z = [-6, -4]). Hole pattern mirrors the plate.
 
 Regenerate:
-    tools/cad-venv/bin/python generate_step_cadquery.py
+    tools/cad-venv/bin/python faucet_assembly.py
 """
 
 import math
@@ -69,7 +69,7 @@ from docgen import substitute_py_comments
 
 
 # Reference body geometry. Duplicated from
-# `../valve-body-reference/generate_step_cadquery.py` — keep in sync.
+# `../valve-body-reference/valve_body_reference.py` — keep in sync.
 port_center_x = 8.875
 port_center_y = 0.0
 plateau_z = 39.0
@@ -193,7 +193,7 @@ def load_valve_body():
 def load_mounting_plate():
     """Load the printed mounting plate from its printed-parts STEP.
     Read-only here — see
-    `hardware/printed-parts/faucet/touch-flo-mounting-plate/generate_step_cadquery.py`
+    `hardware/printed-parts/faucet/touch-flo-mounting-plate/touch_flo_mounting_plate.py`
     for the source of truth."""
     return cq.importers.importStep(str(mounting_plate_step))
 
@@ -201,7 +201,7 @@ def load_mounting_plate():
 def load_mounting_gasket():
     """Load the printed-TPU mounting gasket from its printed-parts STEP.
     Read-only here — see
-    `hardware/printed-parts/faucet/touch-flo-mounting-gasket/generate_step_cadquery.py`
+    `hardware/printed-parts/faucet/touch-flo-mounting-gasket/touch_flo_mounting_gasket.py`
     for the source of truth."""
     return cq.importers.importStep(str(mounting_gasket_step))
 
@@ -209,7 +209,7 @@ def load_mounting_gasket():
 def load_shell():
     """Load the printed shell from its printed-parts STEP.
     Read-only here — see
-    `hardware/printed-parts/faucet/touch-flo-shell/generate_step_cadquery.py`
+    `hardware/printed-parts/faucet/touch-flo-shell/touch_flo_shell.py`
     for the source of truth."""
     return cq.importers.importStep(str(shell_step))
 
