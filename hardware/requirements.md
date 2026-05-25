@@ -4,7 +4,7 @@
 
 - Refrigerated carbonated water is provided to a faucet by a built-in carbonator (replacing the external Lillium/Brio units used in the prototype)
 - When that flow is detected, we pump flavoring in a parallel line (not the same line as the cold carbonated water)
-- There are 2 separate parallel lines, one for each flavor, and each is primed and valve locked so that it is always primed and can be dispensed instantly
+- There are [2](FLAVOR_COUNT) separate parallel lines, one for each flavor, and each is primed and valve locked so that it is always primed and can be dispensed instantly
 - The mixing occurs in the user's cup/glass, not before
 
 ## 2. Filling
@@ -24,10 +24,10 @@
 
 ## 4. Replacement Philosophy
 
-- There are only 2 peristaltic pumps, one dedicated to each flavor, and the valves allow them to be used for multiple purposes
+- There are only [2](FLAVOR_COUNT) peristaltic pumps, one dedicated to each flavor, and the valves allow them to be used for multiple purposes
 - When the pumps wear out, the user can remove and replace the pump cartridge which contains both pumps
-- We aim to avoid replacing anything other than the peristaltic parts during the product's intended lifetime. The target is 10 years; the practical floor is the internal LLDPE hard tubing, where reaching it requires enough disassembly that the appliance is effectively at end-of-life anyway
-- Internal wetted parts (reservoirs, foam shell, internal plumbing) are not glued or potted, so a service path exists for owners who choose to keep a unit running past that mark. The 10-year owner is the design target; longer-tail use is allowed by the service paths, not optimized for
+- We aim to avoid replacing anything other than the peristaltic parts during the product's intended lifetime. The target is [10](DESIGN_LIFE_YR) years; the practical floor is the internal LLDPE hard tubing, where reaching it requires enough disassembly that the appliance is effectively at end-of-life anyway
+- Internal wetted parts (reservoirs, foam shell, internal plumbing) are not glued or potted, so a service path exists for owners who choose to keep a unit running past that mark. The [10-year](DESIGN_LIFE_LABEL) owner is the design target; longer-tail use is allowed by the service paths, not optimized for
 - The iOS app and BLE bridge are conveniences, not dependencies. All necessary operation — selection, dispense, fill, cleaning, ratio configuration — is reachable from the appliance's physical interfaces (faucet handle, air switch, S3 display)
 
 ## 5. Prototype hardware
