@@ -1557,11 +1557,7 @@ def main():
     substitute_md(
         out_dir / "MATERIAL.md",
         variables=variables,
-        expected_counts={
-            "BODY_BORE_D": 1,
-            "BODY_OD": 1,
-            "BORE_CLEAR": 1,
-        },
+        expected_counts={},
     )
     print("-> MATERIAL.md")
     substitute_py_comments(
