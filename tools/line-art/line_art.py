@@ -15,9 +15,9 @@ Two canonical iso views, selected by Scene(view=...):
   right side (x=W), top (z=H). Layout: front face in the right half of
   the image, right side in the left half, top at the top.
 
-- 'back': viewer at -x, +y, +z. Visible faces: back (y=D), left side
-  (x=0), top (z=H). Layout: back face in the right half of the image,
-  left side in the left half, top at the top.
+- 'back': viewer at +x, +y, +z. Visible faces: back (y=D), right side
+  (x=W), top (z=H). Layout: back face in the LEFT half of the image,
+  right side in the right half, top at the top.
 
 Public API:
 
@@ -57,14 +57,14 @@ def project_front(x: float, y: float, z: float) -> Tuple[float, float]:
 
 
 def project_back(x: float, y: float, z: float) -> Tuple[float, float]:
-    """Projection for the 'back' view (viewer at -x, +y, +z).
+    """Projection for the 'back' view (viewer at +x, +y, +z).
 
-    Back face (y=D) ends up in the right half of the image, left side
-    (x=0) in the left half, top (z=H) at the top. Closest-to-camera corner
-    is (0, D, H), which projects to the image center.
+    Back face (y=D) ends up in the LEFT half of the image, right side
+    (x=W) in the right half, top (z=H) at the top. Closest-to-camera corner
+    is (W, D, H), which projects to the image center.
     """
-    X = (x + y) * COS30
-    Y = (y - x) * SIN30 - z
+    X = (x - y) * COS30
+    Y = (x + y) * SIN30 - z
     return X, Y
 
 
@@ -274,8 +274,9 @@ class Box:
 
         For 'front' (viewer at +x, -y, +z): edges of front (y=0), top (z=H),
         and right side (x=W).
-        For 'back' (viewer at -x, +y, +z): edges of back (y=D), top (z=H),
-        and left side (x=0).
+        For 'back' (viewer at +x, +y, +z): edges of back (y=D), top (z=H),
+        and right side (x=W) — back face appears on the LEFT half of image,
+        right side on the right half.
         """
         W, D, H = self.W, self.D, self.H
         if view == "front":
@@ -298,18 +299,18 @@ class Box:
             return [
                 # Back face
                 ((0, D, 0), (W, D, 0)),         # back bottom (along x)
-                ((W, D, 0), (W, D, H)),         # back right vertical
+                ((W, D, 0), (W, D, H)),         # back right vertical (shared with right side)
                 ((W, D, H), (0, D, H)),         # back top
                 ((0, D, H), (0, D, 0)),         # back left vertical
-                # Left side (bottom and front-vertical; top is shared, back is shared)
-                ((0, 0, 0), (0, D, 0)),         # left bottom (along y)
-                ((0, 0, 0), (0, 0, H)),         # left front vertical
-                # Top face (front and right edges; back is shared with back face,
-                # left is shared with left side)
+                # Right side (bottom and front-vertical; top is shared, back is shared)
+                ((W, 0, 0), (W, D, 0)),         # right side bottom (along y)
+                ((W, 0, 0), (W, 0, H)),         # right side front vertical
+                # Top face (front and left edges; back is shared with back face,
+                # right is shared with right side)
                 ((0, 0, H), (W, 0, H)),         # top front (along x)
-                ((W, 0, H), (W, D, H)),         # top right (along y)
-                # Shared top-left edge (boundary between top and left side)
-                ((0, 0, H), (0, D, H)),
+                ((0, 0, H), (0, D, H)),         # top left (along y)
+                # Shared top-right edge (boundary between top and right side)
+                ((W, 0, H), (W, D, H)),
             ]
         raise ValueError(f"Unknown view: {view!r}. Options: {list(_PROJECTIONS.keys())}")
 
