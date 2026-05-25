@@ -21,7 +21,7 @@ sys.path.insert(0, str(next(p for p in _here.parents if (p / "tools" / "docgen")
 
 from world_workplane import WorldWorkplane, xz_plane_y_up, xy_plane_z_up
 from _cadq_export import export_step
-from docgen import substitute_md
+from docgen import substitute_md, substitute_py_comments
 from _cold_core_interface import (
     bag_pocket_far_inner_x,
     bag_pocket_z_inner_max,
@@ -67,6 +67,7 @@ def _y_cylinder(anchor_xz, y_range, diameter):
 # `reservoir_floor_thickness` on the shell side names the PETG layer
 # the foam-shell cares about (the layer it leaves clearance above);
 # reused locally for every wall in the reservoir body.
+# [4 mm](RESERVOIR_WALL_T) — uniform PETG thickness for floor + every wall.
 reservoir_wall_thickness = reservoir_floor_thickness
 
 
@@ -121,6 +122,7 @@ gasket_pad_radius = 6.0  # ø12, matches body boss (insert_pocket_radius + 4); t
 # (outer_y_range[1] + gasket_thickness).
 cap_perimeter_y_range = (0, cap_wall_height)
 cap_base_y_range = (cap_wall_height, cap_wall_height + cap_base_thickness)
+# [9 mm](CAP_TOTAL_H) — perimeter-wall height + base-plate thickness.
 cap_total_height = cap_base_y_range[1]
 
 
@@ -144,6 +146,7 @@ retaining_ring_inner_diameter = 9.0   # leaves most of the membrane exposed for 
 
 # Filter pocket (cylindrical recess in the cap top) holds the
 # filter + ring stack with 0.2 mm of slip-fit clearance.
+# [13.2 mm](VENT_POCKET_D) — filter ⌀ + 0.1 mm/side clearance.
 vent_pocket_diameter = filter_diameter + 0.2
 vent_pocket_depth = filter_thickness + retaining_ring_thickness
 
@@ -155,6 +158,7 @@ vent_pocket_depth = filter_thickness + retaining_ring_thickness
 vent_hole_diameter = 5.0
 vent_below_pocket_material = 2.5  # cap material thickness between pocket bottom and boss bottom
 vent_boss_wall_around_pocket = 2.0
+# [17.2 mm](VENT_BOSS_OD) — pocket ⌀ + 2 × wall around pocket.
 vent_boss_outer_diameter = vent_pocket_diameter + 2 * vent_boss_wall_around_pocket
 _vent_boss_depth = vent_pocket_depth + vent_below_pocket_material
 _vent_boss_extension_below_base_plate = _vent_boss_depth - cap_base_thickness
@@ -168,6 +172,7 @@ _vent_boss_extension_below_base_plate = _vent_boss_depth - cap_base_thickness
 # has no overhang to print during top-down FDM of the cap.
 vent_cylinder_inner_diameter = vent_hole_diameter
 vent_cylinder_wall_thickness = 2.5
+# [10 mm](VENT_CYL_OD) — cylinder ID + 2 × wall (matches brim ⌀ so brim is flush with cylinder).
 vent_cylinder_outer_diameter = vent_cylinder_inner_diameter + 2 * vent_cylinder_wall_thickness
 vent_brim_thickness = 1.0
 vent_brim_diameter = vent_cylinder_outer_diameter  # matches cylinder outer (10)
@@ -230,7 +235,9 @@ vent_brim_bottom_y = vent_cylinder_walls_bottom_y - vent_brim_thickness
 rod_position_x = 100.0  # |x| of the rod centerline; mirrors with `side`
 rod_position_z = -45.0  # z of the rod centerline; does NOT mirror with side
 rod_diameter = 3.175  # 1/8" 316 SS round rod OD; supplied as Tandefio B0CY4DWJFQ
+# [3.675 mm](ROD_BORE) — rod ⌀ + 0.5 mm clearance; shared by body anchor boss and cap register boss.
 rod_bore = rod_diameter + 0.5  # printed bore shared by body anchor boss and cap register boss; ~0.5 mm radial slip-fit clearance accounting for PETG shrink + FDM hole undersize
+# [7.675 mm](ROD_BOSS_OD) — bore ⌀ + 4 mm (2 mm radial wall); shared by body anchor and cap register bosses.
 rod_boss_od = rod_bore + 4.0  # 2 mm radial wall around the bore; shared by body-side anchor boss and cap-side register boss
 rod_register_boss_height = 4.0  # CAP-side boss height; boss bottom 2 mm below the rod top, 2 mm of axial rod-boss engagement
 rod_anchor_boss_height = 10.0  # BODY-side anchor boss height; taller than the cap boss because this end ANCHORS the rod (≈3× rod_diameter, standard rule of thumb for solid axial location)
@@ -473,7 +480,9 @@ insert_pocket_depth = 7.0
 # cavity from the pocket interior):
 #   Body insert pocket ø4 + 4 mm PETG → body boss ø12 (radius 6)
 #   Cap clearance hole ø3.5 + 4 mm PETG → cap boss ø11.5 (radius 5.75)
+# [6 mm](BODY_BOSS_R) — insert pocket radius + 4 mm PETG annulus.
 body_boss_radius = insert_pocket_radius + 4.0
+# [5.75 mm](CAP_BOSS_R) — half of cap clearance ⌀ + 4 mm PETG annulus.
 cap_boss_radius = cap_clearance_hole_diameter / 2.0 + 4.0
 
 # Body boss vertical layout (extruding downward from the wall top):
@@ -526,6 +535,7 @@ slope_rate = floor_slope_rise / slope_z_distance
 # cap_stack_above_body is how much room the gasket + cap takes above
 # the body's wall top — leaves the cap's top face flush at y=212.9
 # (0.5 mm clear of the bag-pocket wall top); body alone is 199.4 mm tall.
+# [11 mm](CAP_STACK_H) — gasket + cap perimeter wall + cap base plate.
 cap_stack_above_body = gasket_thickness + cap_wall_height + cap_base_thickness
 outer_y_range = (
     bag_pocket_floor_top_y + reservoir_clearance,
@@ -1454,20 +1464,49 @@ def main():
     print(f"-> reservoir-retaining-ring.step")
     print(f"-> reservoir-bulkhead-seal.step")
 
-    # Reservoir body outer envelope, substituted into the foam-shell README's
-    # reservoir-section prose. The foam-shell script owns its own variables on
-    # that README; reservoir.py owns these. Unknown names in either script's
-    # variables dict are left untouched.
+    # Short names scoped to this part. Units live inside the value so
+    # the script controls them — change a unit in source and every
+    # sibling doc + dynamic-comment marker follows. The foam-shell
+    # README also references RESERVOIR_W/D/H here; the foam-shell script
+    # owns its own variables on that same README, and unknown names in
+    # either script's variables dict are left untouched.
     res_w = 2 * outer_z_max
     res_d = outer_far_x_abs - outer_centerward_radius
     res_h = outer_y_range[1] - outer_y_range[0]
+    variables = {
+        # Foam-shell README — reservoir-section envelope.
+        "RESERVOIR_W": f"{res_w:g} mm",
+        "RESERVOIR_D": f"{res_d:g} mm",
+        "RESERVOIR_H": f"{res_h:g} mm",
+        # vent.md headline values.
+        "FILTER_D": f"{filter_diameter:g} mm",
+        "FILTER_T": f"{filter_thickness:g} mm",
+        "VENT_POCKET_D": f"{vent_pocket_diameter:g} mm",
+        "VENT_POCKET_DEPTH": f"{vent_pocket_depth:g} mm",
+        "VENT_BOSS_OD": f"{vent_boss_outer_diameter:g} mm",
+        "VENT_BOSS_WALL": f"{vent_boss_wall_around_pocket:g} mm",
+        "VENT_HOLE_D": f"{vent_hole_diameter:g} mm",
+        "VENT_CYL_OD": f"{vent_cylinder_outer_diameter:g} mm",
+        "VENT_CYL_ID": f"{vent_cylinder_inner_diameter:g} mm",
+        "VENT_SLOT_COUNT": f"{vent_slot_count}",
+        "VENT_SLOT_W": f"{vent_slot_width:g} mm",
+        "VENT_SLOT_H": f"{vent_slot_height:g} mm",
+        # level-sensing.md rod placement + size.
+        "ROD_DIAMETER": f"{rod_diameter:g} mm",
+        "ROD_POSITION_X": f"{rod_position_x:g}",
+        "ROD_POSITION_Z": f"{rod_position_z:g}",
+        # Dynamic-comment markers above derived constants in this .py file.
+        "RESERVOIR_WALL_T": f"{reservoir_wall_thickness:g} mm",
+        "CAP_TOTAL_H": f"{cap_total_height:g} mm",
+        "ROD_BORE": f"{rod_bore:g} mm",
+        "ROD_BOSS_OD": f"{rod_boss_od:g} mm",
+        "BODY_BOSS_R": f"{body_boss_radius:g} mm",
+        "CAP_BOSS_R": f"{cap_boss_radius:g} mm",
+        "CAP_STACK_H": f"{cap_stack_above_body:g} mm",
+    }
     substitute_md(
         here / ".." / "foam-shell" / "README.md",
-        variables={
-            "RESERVOIR_W": f"{res_w:g} mm",
-            "RESERVOIR_D": f"{res_d:g} mm",
-            "RESERVOIR_H": f"{res_h:g} mm",
-        },
+        variables=variables,
         expected_counts={
             "RESERVOIR_W": 1,
             "RESERVOIR_D": 1,
@@ -1475,6 +1514,52 @@ def main():
         },
     )
     print("-> foam-shell/README.md (reservoir section)")
+    substitute_md(
+        here / "vent.md",
+        variables=variables,
+        expected_counts={
+            "FILTER_D": 4,
+            "FILTER_T": 4,
+            "VENT_POCKET_D": 2,
+            "VENT_POCKET_DEPTH": 2,
+            "VENT_BOSS_OD": 1,
+            "VENT_BOSS_WALL": 1,
+            "VENT_HOLE_D": 1,
+            "VENT_CYL_OD": 1,
+            "VENT_CYL_ID": 1,
+            "VENT_SLOT_COUNT": 1,
+            "VENT_SLOT_W": 1,
+            "VENT_SLOT_H": 1,
+        },
+    )
+    print("-> vent.md")
+    substitute_md(
+        here / "level-sensing.md",
+        variables=variables,
+        expected_counts={
+            "ROD_DIAMETER": 2,
+            "ROD_POSITION_X": 1,
+            "ROD_POSITION_Z": 1,
+        },
+    )
+    print("-> level-sensing.md")
+    substitute_py_comments(
+        Path(__file__),
+        variables=variables,
+        expected_counts={
+            "RESERVOIR_WALL_T": 1,
+            "CAP_TOTAL_H": 1,
+            "VENT_POCKET_D": 1,
+            "VENT_BOSS_OD": 1,
+            "VENT_CYL_OD": 1,
+            "ROD_BORE": 1,
+            "ROD_BOSS_OD": 1,
+            "BODY_BOSS_R": 1,
+            "CAP_BOSS_R": 1,
+            "CAP_STACK_H": 1,
+        },
+    )
+    print("-> generate_step_cadquery.py (self)")
 
 
 if __name__ == "__main__":
