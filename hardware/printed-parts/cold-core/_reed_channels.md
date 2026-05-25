@@ -1,8 +1,7 @@
 # _reed_channels.py — naming and structure notes
 
 Companion to `_reed_channels.py`. Captures what we like about how that file
-ended up, and how we got there. Intended as a quality bar + playbook for the
-same level of effort on other Python files in the repo.
+is written. Intended as a quality bar for Python files in this repo.
 
 ## Things we like
 
@@ -57,9 +56,7 @@ same level of effort on other Python files in the repo.
 - No decorative whitespace alignment — no `=` columns, no padded commas,
   no aligned operators. The next rename doesn't silently break neighbors.
 
-## How we accomplished them
-
-**Principles**
+## Principles
 
 - *Comments are diagnostics of confusion.* If a comment narrates what the
   code already says, the code isn't speaking — fix the names, not the
@@ -78,52 +75,14 @@ same level of effort on other Python files in the repo.
   where coupling lives — surface the missing rungs.
 - *Meaningful nouns earn names even at a single use.* Vague nouns don't,
   even with many uses.
+- *Critical nouns carry one meaning.* Each file has its own domain nouns
+  (this file: `envelope`, `cavity`, `reed`, `cable`, `channel`). Structural
+  nouns carry across files — `range`, `depth`, `height`, `axis`, `apex`,
+  `anchor`, `terminus`, `profile` — each naming the same kind of geometric
+  role wherever it appears.
 - *Function signatures shape call-site reading.* When a helper takes six
   scalars that compose into three ranges, change the signature.
-
-**Process**
-
-- Establish a regression sieve before refactoring — four scalars (volume +
-  bbox + COM). Re-verify after every batch. Never adjust geometry to match
-  the baseline.
-- Spawn agents for delimited tasks with explicit principles + sieve gates;
-  hand-edit for surgical follow-ups. Agents tend to over- or under-apply
-  principles unless the brief is concrete; hand-edits are cheaper for
-  small, well-scoped fixes.
-- Read the file end-to-end after each pass. Anything still vague? Anywhere
-  a reader would have to do algebra to see a relationship? Fix it before
-  declaring done.
-
-**Critical-noun consistency passes**
-
-For each critical noun, verify every use carries exactly one meaning.
-
-- *Domain nouns* (this file): `envelope`, `cavity`, `reed`, `cable`,
-  `channel`. Plus `wall`, `fillet`, `bag_pocket`, `corner` to a lesser
-  extent. Other files will have different domain nouns; identify them
-  first by scanning the module-scope and function-name vocabulary.
-- *Structural nouns* (mostly carry across files): `range`, `depth`,
-  `height`, `axis`, `apex`, `anchor`, `terminus`, `profile`. Each should
-  name the same kind of geometric role wherever it appears.
-
-**Hygiene passes**
-
-- Casing: all single-letter abbreviations lowercase.
-- Whitespace: strip any decorative alignment (`=` columns, padded commas,
-  aligned operators inside argument lists). Single space around `=`,
-  single space after `,`.
-- Trailing commas, stray underscores, unused imports — the small things
-  that accumulate.
-
-**Stopping condition**
-
-- Keep reading the file until nothing bothers you. Cosmetic concerns count;
-  if a name still reads off, fix it. The bar is "happy to have someone else
-  review it in detail with no outstanding items from your perspective."
-
----
-
-*For reference, this file's transformation runs from `7b691bc` (correct
-geometry, full of artifacts) to `9635172` (current state) — eight commits,
-geometry preserved at every step. `git diff 7b691bc..9635172 -- hardware/printed-parts/cold-core/_reed_channels.py`
-shows the full arc.*
+- *Keep fixing until nothing bothers you.* If a name reads off, fix it. If
+  a reader would have to do algebra to see a relationship, fix it. Cosmetic
+  concerns count. The bar is "happy to have someone else review it in
+  detail with no outstanding items from your perspective."
