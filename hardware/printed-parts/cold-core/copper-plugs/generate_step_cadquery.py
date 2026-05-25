@@ -3,23 +3,20 @@ the shared ⌀6.5 port in the outer_shell +Z wall and seal the gaps
 between (and above) the four pass-throughs that share that port.
 
 Pass-throughs that pierce the +Z outer wall through the shared port,
-ordered low → high in Y:
+ordered low → high in Y (see the lowest_copper_y / highest_copper_y /
+water_inlet_y / prv_vent_y module constants for the live values):
 
   • lowest copper  (cold-side evaporator inlet)  at y = hole_shift_from_edge
                                                    + wall_and_floor_thickness
                                                    + below_tank_elbows_height
-                                                   = 47.0 mm  (at 2 mm wall)
   • highest copper (warm-side evaporator outlet) at y = foam_shell_outer_height
                                                    − hole_shift_from_edge
                                                    − wall_and_floor_thickness
                                                    − above_tank_elbows_height
-                                                   = 166.4 mm
   • water inlet                                   at y = foam_shell_outer_height
                                                    − hole_shift_from_edge
-                                                   = 198.4 mm
   • PRV vent (1/4" LLDPE from prv-shroud cap)     at y = water_inlet_y
                                                    + prv_vent_offset_above_water
-                                                   = 206.4 mm
 
 The PRV vent line is unpressurized in normal operation — it carries
 relief-event discharge from the prv-shroud cavity (see
