@@ -53,14 +53,20 @@ from pathlib import Path
 
 import cadquery as cq
 
+_here = Path(__file__).resolve().parent
 sys.path.insert(
     0,
-    str(next(p for p in Path(__file__).resolve().parents if p.name == "hardware")),
+    str(next(p for p in _here.parents if p.name == "hardware")),
+)
+sys.path.insert(
+    0,
+    str(next(p for p in _here.parents if (p / "tools" / "docgen").is_dir()) / "tools"),
 )
 from _cadq_export import export_step
+from docgen import substitute_py_comments
 
 
-# Plate — Ø 54.35 leaves a 5 mm radial gap to the shell base (Ø 44.35).
+# Plate — [54.35 mm](PLATE_D) OD leaves a 5 mm radial gap to the shell base (Ø 44.35).
 # Thickness was 5 mm; trimmed 1 mm to free shank thread engagement for
 # the under-counter nut once the 2 mm TPU gasket is in the stack.
 plate_radius = 54.35 / 2
@@ -72,21 +78,28 @@ plate_z_range = (-plate_thickness, 0.0)
 plate_center = (3.175, 0.0)
 
 
-# Shank — clearance for the 11 mm threaded shank. 12.6 mm matches the
-# factory mounting plate (~14.5% diametric clearance).
+# Shank — clearance for the 11 mm threaded shank. [12.6 mm](SHANK_HOLE_D)
+# matches the factory mounting plate (~14.5% diametric clearance).
 shank_hole_radius = 12.6 / 2
 shank_hole_center = (0.0, 0.0)
 
 
-# Flavor-tube pill slot. The two 1/4" (6.35 mm) LLDPE tubes are tangent
-# in Y at centers ±flavor_tube_y_offset; per-tube circles would overlap
-# by ~0.5 mm, so we model the combined opening as a single Y-oriented
-# pill (rounded-rectangle).
+# Flavor-tube pill slot. The two 1/4" ([6.35 mm](FLAVOR_TUBE_OD)) LLDPE
+# tubes are tangent in Y at centers ±flavor_tube_y_offset (separation
+# = [6.35 mm](TUBE_CENTER_Y) center-to-center); per-tube circles would
+# overlap by ~0.5 mm, so we model the combined opening as a single
+# Y-oriented pill (rounded-rectangle).
 flavor_tube_od = 6.35
+# [6.85 mm](FLAVOR_HOLE_D) per-tube hole diameter = OD + 0.5 mm clearance.
 flavor_tube_hole_diameter = flavor_tube_od + 0.5
 flavor_tube_y_offset = 3.175
+# [18.925 mm](PLATE_FLAVOR_X) +X offset of pill slot center from plate's
+# body-bore axis at world origin — matches the shell's flavor_tube_x for
+# the cross-coupled stack-up.
 pill_slot_center = (18.925, 0.0)
+# [13.2 mm](PLATE_PILL_L) pill long axis (Y) = 2 × y_offset + hole_d.
 pill_slot_length_y = 2 * flavor_tube_y_offset + flavor_tube_hole_diameter
+# [6.85 mm](PLATE_PILL_W) pill short axis (X) = hole_d.
 pill_slot_width_x = flavor_tube_hole_diameter
 
 
@@ -155,10 +168,10 @@ def build_mounting_plate() -> cq.Workplane:
     return plate
 
 
-if __name__ == "__main__":
+def main():
     plate = build_mounting_plate()
 
-    out = Path(__file__).resolve().parent / "touch-flo-mounting-plate.step"
+    out = _here / "touch-flo-mounting-plate.step"
     export_step(plate, str(out))
 
     print("Touch-Flo mounting plate")
@@ -170,3 +183,34 @@ if __name__ == "__main__":
           f"at {pill_slot_center}, Y-oriented")
     print(f"  Top outer R:    {top_outer_fillet_r} mm fillet")
     print(f"-> {out.name}")
+
+    variables = {
+        "PLATE_D": f"{2 * plate_radius:g} mm",
+        "SHANK_HOLE_D": f"{2 * shank_hole_radius:g} mm",
+        "FLAVOR_TUBE_OD": f"{flavor_tube_od:g} mm",
+        "TUBE_CENTER_Y": f"{2 * flavor_tube_y_offset:g} mm",
+        "FLAVOR_HOLE_D": f"{flavor_tube_hole_diameter:g} mm",
+        "PLATE_FLAVOR_X": f"{pill_slot_center[0]:g} mm",
+        "PLATE_PILL_L": f"{pill_slot_length_y:g} mm",
+        "PLATE_PILL_W": f"{pill_slot_width_x:g} mm",
+    }
+
+    substitute_py_comments(
+        Path(__file__),
+        variables=variables,
+        expected_counts={
+            "PLATE_D": 1,
+            "SHANK_HOLE_D": 1,
+            "FLAVOR_TUBE_OD": 1,
+            "TUBE_CENTER_Y": 1,
+            "FLAVOR_HOLE_D": 1,
+            "PLATE_FLAVOR_X": 1,
+            "PLATE_PILL_L": 1,
+            "PLATE_PILL_W": 1,
+        },
+    )
+    print(f"-> {Path(__file__).name}")
+
+
+if __name__ == "__main__":
+    main()
