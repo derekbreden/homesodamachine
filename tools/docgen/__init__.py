@@ -1,31 +1,41 @@
 """
-Markdown variable substitution.
+Variable substitution for documentation that lives next to its source.
 
-Syntax in markdown: [value](VARIABLE_NAME)
-- The brackets hold the value — what renders when GitHub formats the link.
+Syntax: [value](VARIABLE_NAME)
+- The brackets hold the value — what renders when the host format displays it.
 - The parens hold the variable name in UPPERCASE_WITH_UNDERSCORES — the
   "href" position. A real markdown link; the broken anchor doesn't matter.
-- The variable name is literally in the markdown for any reader (agent or
-  human) to see. The value is never authoritative; the script source is.
+- The variable name is literally in the source for any reader (agent or
+  human) to see. The value is never authoritative; the script's variable is.
 
-The substitute_md() function:
-- Finds every [value](NAME) where NAME matches [A-Z_]+ in a markdown file.
-- For each NAME in `variables`, rewrites the value to the current source
+Two substituters with the same signature and semantics:
+
+- substitute_md(md_path, ...) — rewrites inside a markdown file.
+- substitute_py_comments(py_path, ...) — rewrites inside `#` line comments
+  of a Python file. The script modifies its own comments — safe because
+  only comment text is touched (never code, never strings/docstrings),
+  the file is only written when content changes, and the rewritten comment
+  text is never read back into any calculation.
+
+Both:
+- Find every [value](NAME) where NAME matches [A-Z_]+ in their scope.
+- For each NAME in `variables`, rewrite the value to the current source
   value (str-cast).
-- For each NAME in `expected_counts`, asserts the actual number of
-  appearances equals the expected count.
-- Leaves [value](NAME) patterns whose NAME isn't in `variables` untouched.
-  This lets multiple scripts contribute substitutions to the same markdown —
+- For each NAME in `expected_counts`, assert the actual count matches.
+- Leave [value](NAME) patterns whose NAME isn't in `variables` untouched.
+  This lets multiple scripts contribute substitutions to the same file —
   each call only manages its own names. The trade-off is that a typo
   `[X](BOGUS_NAME)` won't be caught by any individual call; it just sits
   there. If you need strict catching, the union of every caller's
-  `variables` keys needs to cover every NAME in the markdown.
+  `variables` keys needs to cover every NAME in the file.
 
 Normal markdown links (parens contain slashes, dots, colons, lowercase, etc.)
 never match — only our all-caps-and-underscores variable references do.
 """
 
+import io
 import re
+import tokenize
 from pathlib import Path
 from typing import Any
 
@@ -94,3 +104,95 @@ def substitute_md(
     new_text = _LINK_RE.sub(repl, text)
     if new_text != text:
         md_path.write_text(new_text)
+
+
+def substitute_py_comments(
+    py_path: Path | str,
+    variables: dict[str, Any],
+    expected_counts: dict[str, int],
+) -> None:
+    """Rewrite [value](NAME) → [current_value](NAME) inside Python `#`
+    comments in `py_path` for each NAME in `variables`.
+
+    Operates only on `#` line comments. Code, string literals, docstrings,
+    and every other token in the file are left untouched. Same
+    skip-unknown-names semantics as substitute_md so multiple scripts can
+    contribute substitutions to the same .py file. Idempotent: rerunning
+    with the same variable values produces no write.
+
+    Args:
+        py_path: Path to the Python file (updated in place when any value
+            actually changes).
+        variables: name → current value. Each value is str-cast for
+            insertion (same as substitute_md).
+        expected_counts: name → expected number of [value](NAME)
+            occurrences inside #-comments. Every name here must also
+            appear in `variables`.
+
+    Raises:
+        ValueError: if expected_counts has names with no variable value,
+            or if any expected count doesn't match the actual count.
+    """
+    py_path = Path(py_path)
+
+    missing_vars = sorted(set(expected_counts) - set(variables))
+    if missing_vars:
+        raise ValueError(
+            f"{py_path}: expected_counts has names with no variable value: "
+            f"{missing_vars}"
+        )
+
+    text = py_path.read_text()
+
+    # Find every # comment token. tokenize correctly skips # characters
+    # that appear inside strings, f-strings, etc. — those are STRING tokens,
+    # not COMMENT tokens, and stay invisible to the substitution.
+    comment_tokens = [
+        tok
+        for tok in tokenize.generate_tokens(io.StringIO(text).readline)
+        if tok.type == tokenize.COMMENT
+    ]
+
+    # Count occurrences of every NAME the caller knows about, ignoring
+    # unknowns (let other scripts' substitutions alone).
+    name_counts: dict[str, int] = {}
+    for tok in comment_tokens:
+        for match in _LINK_RE.finditer(tok.string):
+            name = match.group(2)
+            if name in variables:
+                name_counts[name] = name_counts.get(name, 0) + 1
+
+    count_errors: list[str] = []
+    for name, expected in expected_counts.items():
+        actual = name_counts.get(name, 0)
+        if actual != expected:
+            count_errors.append(f"  {name}: expected {expected}, found {actual}")
+    if count_errors:
+        raise ValueError(
+            f"{py_path}: variable reference count mismatch:\n"
+            + "\n".join(count_errors)
+        )
+
+    def repl(match: re.Match) -> str:
+        name = match.group(2)
+        if name in variables:
+            return f"[{variables[name]}]({name})"
+        return match.group(0)  # unknown — leave alone
+
+    # Rewrite each comment in place. Python's # comments always run from
+    # `#` to end-of-line, so at most one comment per line — token positions
+    # from the original text stay valid even after earlier comments are
+    # rewritten (the rewrites only change content within a single line).
+    lines = text.splitlines(keepends=True)
+    for tok in comment_tokens:
+        line_idx = tok.start[0] - 1            # 1-indexed → 0-indexed
+        start_col = tok.start[1]
+        end_col = tok.end[1]
+        line = lines[line_idx]
+        new_comment = _LINK_RE.sub(repl, tok.string)
+        if new_comment != tok.string:
+            lines[line_idx] = line[:start_col] + new_comment + line[end_col:]
+
+    new_text = "".join(lines)
+    if new_text != text:
+        py_path.write_text(new_text)
