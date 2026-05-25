@@ -23,7 +23,7 @@ The CadQuery script uses an explicit XZ plane with +Y normal
   laser-welded internally, recessed flush with the tube ends. Hand-tapped
   1/4" NPT, four ports total — two top plate (water inlet, PRV), two
   bottom plate (CO2 inlet, water outlet). Vessel assembled height = tube
-  length = **152.4 mm**. Outer radius = **63.5 mm**.
+  length = **[152.4 mm](TANK_H)**. Outer radius = **[63.5 mm](TANK_R)**.
 - **Reservoir** — printed rigid PETG flavor reservoir, one per flavor,
   two per cold core. Cap on top with a single ⌀6.5 bulkhead pass-through;
   bottom is a wet-slope floor with a printed boss for the internal SS
@@ -35,19 +35,19 @@ The CadQuery script uses an explicit XZ plane with +Y normal
 - **Evaporator coil** — 1/4" OD × 0.187" ID × 0.031" wall ACR copper,
   hand-wound helically around the vessel exterior, bonded with 3M 425
   aluminum foil tape. ~6.35 mm radial occupancy plus tolerance — budgeted
-  at 7 mm (`copper_coil_buffer_radius`).
+  at [7 mm](COIL_GAP).
 - **Tank-port fittings** — 1/4" NPT 90° elbows on every port, turning the
-  line laterally. ~30 mm vertical envelope per elbow above and below the
-  tank. An additional **John Guest PP0308E 1/4" PTC 90° elbow** seats in
-  the Ø16 CO2 inlet bore at x = 0, z = −70.5, where the cap-top CO2 line
-  transitions 90° into a horizontal run that connects to the vessel-port
-  TAISHER elbow via a PP010822E 1/4" PTC × 1/4" NPT M adapter.
+  line laterally. ~[30 mm](ELBOW_ENV) vertical envelope per elbow above
+  and below the tank. An additional **John Guest PP0308E 1/4" PTC 90° elbow**
+  seats in the Ø16 CO2 inlet bore at x = 0, z = −70.5, where the cap-top
+  CO2 line transitions 90° into a horizontal run that connects to the
+  vessel-port TAISHER elbow via a PP010822E 1/4" PTC × 1/4" NPT M adapter.
 
 ## Shells
 
 The geometry is built up from open-topped sub-shells that union into
-one foam-shell solid. **All structural walls and floors use 2 mm
-thickness** (`wall_and_floor_thickness`).
+one foam-shell solid. **All structural walls and floors use [2 mm](WALL_T)
+thickness.**
 
 ### reservoir_pocket_walls
 
@@ -61,12 +61,11 @@ the top during foam pour):
 - **+Z wall** — outboard face at z = +72.5, cavity face at z = +70.5.
 - **−Z wall** — outboard face at z = −72.5, cavity face at z = −70.5.
 - **Centerward wall** — the only curved wall. Its cavity-side face
-  rides on a cylinder of radius **72.5 mm**
-  (`pocket_centerward_arc_outer_radius`, centered on the cold-core
-  Y axis); its tank-side face is concentric one wall-thickness
-  inboard at R = 70.5. The 7 mm of radial clearance between the
-  tank's outer face (R = 63.5) and the wall's tank-side face fits
-  the 1/4" ACR copper coil + thermal tape + slack.
+  rides on a cylinder of radius **[72.5 mm](ARC_R)** (centered on the
+  cold-core Y axis); its tank-side face is concentric one wall-thickness
+  inboard. The [7 mm](COIL_GAP) of radial clearance between the
+  tank's outer face (R = [63.5 mm](TANK_R)) and the wall's tank-side
+  face fits the 1/4" ACR copper coil + thermal tape + slack.
 
 The centerward wall is one continuous curved wall built from three
 arc segments along its length:
@@ -82,11 +81,12 @@ arc segments along its length:
    smaller radius derived from geometry.
 
 The two **far-side corners** (where the far +X wall meets the ±Z
-walls) are filleted: **6.5 mm inner radius, 8.5 mm outer radius** (so
-the wall thickness stays uniform through the bend). The 6.5 mm inner
-radius matches the rigid PETG reservoir's 6 mm outer fillet plus the
-0.5 mm `reservoir_clearance`, so the reservoir slides into a snugly-
-mated pocket with uniform clearance around the corner.
+walls) are filleted: **[6.5 mm](POCKET_CORNER_R) inner radius**,
+outer radius one wall-thickness larger (so the wall thickness stays
+uniform through the bend). The inner radius matches the rigid PETG
+reservoir's outer fillet plus the [0.5 mm](RES_GAP) clearance, so
+the reservoir slides into a snugly-mated pocket with uniform clearance
+around the corner.
 
 The pocket is **open along its centerward face into the foam zone
 inside the centerward arc envelope** — there's no wall at radius
@@ -104,11 +104,10 @@ its mirror across YZ. Total assembly height = [213.4 mm](OUTER_H).
 
 Annular ring sitting inside the lower portion of the assembly,
 holding the tank up by its outer rim. The ring's outer face is
-coincident with the centerward wall's tank-side face (at R = 70.5
-at the current 2 mm wall thickness); its inner face sits 9 mm
-inboard at R = 61.5. The top face is a flat annular plateau where
-the tank's outer rim rests, 30 mm tall above the floor (y = 2 to
-y = 32).
+coincident with the centerward wall's tank-side face; its inner
+face sits [9 mm](SUPPORT_RING_W) inboard. The top face is a flat
+annular plateau where the tank's outer rim rests, [30 mm](SUPPORT_RING_H)
+tall above the floor.
 
 Inboard of the ring's inner face (R < 61.5) is open volume — so the
 tank's bottom-plate fittings have unobstructed downward space, and
@@ -122,18 +121,18 @@ floor regardless of which cavity it enters from.
 ### outer_shell
 
 Outer rectangular cup framing the whole foam-shell: floor + four
-perimeter walls + six 8 × 8 mm bosses. Total height matches the
-foam-shell outer height of [213.4 mm](OUTER_H).
+perimeter walls + six [8 × 8 mm](BOSS) bosses. Total height matches
+the foam-shell outer height of [213.4 mm](OUTER_H).
 Outer footprint [283 mm](OUTER_X) × [181](OUTER_Z),
 sized to leave [16 mm](OUTER_GAP) of foam-pour zone
 between the outer_shell's inner face and the outermost reservoir-
 pocket walls on each side.
 
 The six bosses are positioned at the four corners + two mid-long-side
-positions (offset in X by ±15 mm with opposite signs at +Z vs −Z, to
-preserve 180° rotational symmetry around the Y axis). Each boss
-carries a heat-set insert pocket at the top (drilled down from the
-top face) and at the bottom (drilled up from the bottom face) —
+positions (offset in X by ±[15 mm](MID_BOSS_OFFSET) with opposite signs
+at +Z vs −Z, to preserve 180° rotational symmetry around the Y axis).
+Each boss carries a heat-set insert pocket at the top (drilled down
+from the top face) and at the bottom (drilled up from the bottom face) —
 twelve inserts total, six per face, for fastening the foam_cap above
 and below.
 
@@ -145,43 +144,37 @@ through any outer wall.)
 
 ### foam_cap and foam_cap_lid
 
-The `foam_cap` is a 16 mm-tall cup matching the outer shell's
-footprint, printed twice — one sits on top of the assembly (flipped,
-open side mating with the outer shell's top edge) and one on the
-bottom (in normal orientation, open side mating with the outer
-shell's bottom edge). The cap interior receives the foam pour
+The `foam_cap` is a [16 mm](CAP_H)-tall cup matching the outer
+shell's footprint, printed twice — one sits on top of the assembly
+(flipped, open side mating with the outer shell's top edge) and one
+on the bottom (in normal orientation, open side mating with the
+outer shell's bottom edge). The cap interior receives the foam pour
 through pour and vent holes in the lid above.
 
-The `foam_cap_lid` is a flat 2 mm plate matching the same outer
-footprint, sitting on top of a cap during its foam pour. It has the
-pour hole (Ø 10 mm) and two vent holes (Ø 6 mm).
+The `foam_cap_lid` is a flat [2 mm](WALL_T) plate matching the same
+outer footprint, sitting on top of a cap during its foam pour. It
+has the pour hole (Ø [10 mm](POUR_D)) and two vent holes
+(Ø [6 mm](VENT_D)).
 
-Both the cap and the lid have **six 8 × 8 mm boss / clearance-hole
+Both the cap and the lid have **six [8 × 8 mm](BOSS) boss / clearance-hole
 positions** — four at the corners (inherited from the earlier dowel-
 pin layout) and two at the mid-points of the long edges (one near
-the +Z wall and one near the −Z wall, offset in X by ±15 mm with
-opposite signs at +Z vs −Z for 180° rotational symmetry). Each
+the +Z wall and one near the −Z wall, offset in X by ±[15 mm](MID_BOSS_OFFSET)
+with opposite signs at +Z vs −Z for 180° rotational symmetry). Each
 position passes a clearance hole for an M3 cap screw all the way
 through the part. See "Cap-to-outer-shell joinery" below.
 
 ### foam_cap_gasket
 
 A TPU 90A gasket, printed twice — one between each cap and its
-mating face on the outer_shell. 251 × 181 mm outer envelope, 2 mm
-thick (flat 2D shape throughout — no 3D features). The shape is a
-**5 mm-wide perimeter ring + an 8 × 8 mm pad at each of the six
-screw positions**, matching the boss footprints on the cap and
-shell above and below. Each screw hole sits at the center of its
-pad with 4 mm of TPU material on all sides, so the screw clamp
-force compresses the full 8 × 8 boss footprint uniformly. A
-uniform-width ring without these pads would leave the corner-boss
-screw holes asymmetrically supported (1 mm of TPU on the cavity-
-facing side, 4 mm on the outer-facing side), compressing unevenly
-and sealing poorly. The 1 mm of the perimeter-ring width that's
-aligned with the cap and shell wall edges is the part that seals
-along the wall sections (away from the bosses); the remaining 4 mm
-extends inward over the cavity opening for print stability and
-material continuity. Replaces the friction-fit pin joinery's
+mating face on the outer_shell. Outer envelope matches the cap's
+footprint; [2 mm](GASKET_T) thick (flat 2D shape throughout — no 3D
+features). The shape is a **[5 mm](GASKET_W)-wide perimeter ring +
+an [8 × 8 mm](BOSS) pad at each of the six screw positions**,
+matching the boss footprints on the cap and shell above and below.
+The pads carry the screw clamp force uniformly across the full
+boss footprint; the perimeter ring seals along the wall sections
+away from the bosses. Replaces the friction-fit pin joinery's
 complete absence of any seal between cap and outer shell.
 
 ## Cap-to-outer-shell joinery
@@ -200,18 +193,16 @@ the top face accepting the top-cap screws threading down from above,
 six on the bottom face accepting the bottom-cap screws threading up
 from below.
 
-Stack-up under each screw head, top cap (mm):
-- Lid (1) + cap floor (1) + cap boss / interior void (14) + cap
-  mating edge (1) + gasket (2) = 19 mm above the outer_shell mating
-  face
-- 4 mm engagement into the insert
-- M3 × 25 mm screw under-head length = 25 mm, with 2 mm slack into
-  the pocket relief below the insert
+Each cap-to-shell joint compresses a stack of lid + cap floor + cap
+boss / interior void + cap mating edge + [2 mm](GASKET_T) gasket
+above the outer_shell mating face. The screw engages a heat-set
+insert in the outer_shell with a small relief below the insert for
+tip clearance. See `_foam_cap.py` and `_cold_core_interface.py` for
+the values that set the screw length.
 
-Insert pocket: Ø 4.0 mm × 8 mm deep (4 mm for the insert + 4 mm
-relief so the M3 × 25 screw tip has clearance and doesn't bottom
-out). Pockets are drilled inward from each face — top face pockets
-go down, bottom face pockets go up.
+Insert pocket: Ø 4.0 mm × [8 mm](INSERT_DEPTH) deep (insert
+engagement + tip-relief). Pockets are drilled inward from each face —
+top face pockets go down, bottom face pockets go up.
 
 Standard SHCS chosen instead of the ultra-low-profile heads used in
 `touch-flo-mounting-plate`: there's no under-counter flush-mount
@@ -223,13 +214,12 @@ appearance; black oxide on alloy steel is adequate corrosion
 protection for this dry foam-filled enclosed interior.
 
 Six attachment positions per cap (vs the earlier four pin corners)
-halve the longest unsupported gasket span between adjacent screws
-from ~251 mm corner-to-corner along the long axis to ~125 mm, which
-matters for a TPU gasket compressed only at discrete points. The
-two mid-long-side screws are offset in X by ±15 mm (opposite signs
-at +Z vs −Z) rather than centered at x = 0, both to clear the
-shared +Z slot that runs up the centerline and to preserve 180°
-rotational symmetry so the caps can be flipped end-for-end.
+halve the longest unsupported gasket span between adjacent screws,
+which matters for a TPU gasket compressed only at discrete points.
+The two mid-long-side screws are offset in X by ±[15 mm](MID_BOSS_OFFSET)
+(opposite signs at +Z vs −Z) rather than centered at x = 0, both to
+clear the shared +Z slot that runs up the centerline and to preserve
+180° rotational symmetry so the caps can be flipped end-for-end.
 
 ## Penetrations
 
