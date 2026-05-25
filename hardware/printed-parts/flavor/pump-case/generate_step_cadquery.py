@@ -143,7 +143,7 @@ arc_segments = 8
 octagon_wall_outer_extent = vertex_far + wall_thickness
 
 bore_depth = base_thickness + ramp_from_skirt_to_octagon_height
-bore_bottom_y = bore_depth                                        # +21
+bore_bottom_y = bore_depth  # [+21 mm](BORE_BOTTOM_Y)
 
 # The tower's outer radius sits 0.5 mm beyond the bore wall's outer
 # extent at the cardinals (octagon_wall_outer_extent = 29.5, cylinder
@@ -163,7 +163,7 @@ cylinder_r_outer = octagon_wall_outer_extent + 0.5
 # in that overlap the cylinder is the outer surface (the bore wall is
 # fully contained inside it).
 cylinder_top_y = 8
-cylinder_bottom_y = bore_bottom_y + tower_height                  # +81
+cylinder_bottom_y = bore_bottom_y + tower_height  # [+81 mm](CYLINDER_BOTTOM_Y)
 
 footprint_half_extent = footprint_x / 2
 
@@ -394,11 +394,11 @@ skirt_y_steps = [
     -(skirt_narrow_taper_per_side - skirt_wide_flare_per_side),
     -skirt_narrow_straight_height,
 ]
-skirt_bottom_y = sum(skirt_y_steps)                # -28.5; case's wide-half mating edge with the cap
+skirt_bottom_y = sum(skirt_y_steps)  # [-28.5 mm](SKIRT_BOTTOM_Y), case's wide-half mating edge with the cap
 
 # Y level of the cap-side stepped split — narrow half (-Z) meets the cap
 # step_height higher into the skirt than the wide half (+Z).
-narrow_split_y = skirt_bottom_y + step_height      # -9.5
+narrow_split_y = skirt_bottom_y + step_height  # [-9.5 mm](NARROW_SPLIT_Y)
 
 # World Z of the case's +Z outer face.
 pos_z_face_z = center_z + footprint_half_extent
@@ -725,11 +725,19 @@ def main():
             "CASE_OUTER_X": f"{case_outer_x:.1f} mm",
             "CASE_OUTER_Y": f"{case_outer_y:.1f} mm",
             "CASE_OUTER_Z": f"{case_outer_z:.1f} mm",
+            "BORE_BOTTOM_Y": f"{bore_bottom_y:+g} mm",
+            "CYLINDER_BOTTOM_Y": f"{cylinder_bottom_y:+g} mm",
+            "SKIRT_BOTTOM_Y": f"{skirt_bottom_y:+g} mm",
+            "NARROW_SPLIT_Y": f"{narrow_split_y:+g} mm",
         },
         expected_counts={
             "CASE_OUTER_X": 1,
             "CASE_OUTER_Y": 1,
             "CASE_OUTER_Z": 1,
+            "BORE_BOTTOM_Y": 1,
+            "CYLINDER_BOTTOM_Y": 1,
+            "SKIRT_BOTTOM_Y": 1,
+            "NARROW_SPLIT_Y": 1,
         },
     )
     print("-> updated comments in generate_step_cadquery.py")
