@@ -51,23 +51,36 @@ from pathlib import Path
 
 import cadquery as cq
 
-_here = Path(__file__).resolve().parent
+_here = Path(__file__).resolve()
 sys.path.insert(
     0,
     str(next(p for p in _here.parents if p.name == "hardware")),
 )
+sys.path.insert(
+    0,
+    str(next(p for p in _here.parents if (p / "tools" / "docgen").is_dir()) / "tools"),
+)
 
 from _cadq_export import export_step
+from docgen import substitute_md, substitute_py_comments
 
 
 # Physical dimensions
-inner_diameter = 19.0       # 0.1 mm radial slip-fit over ⌀18.8 elbow cylinder
-wall_thickness = 2.0
-cap_thickness = 2.0
-cavity_length = 44.0        # elbow seat bottom to PRV pull-ring tip
-vent_hole_diameter = 6.35   # 1/4" LLDPE tubing OD
 
+# [19 mm](INNER_D) — 0.1 mm radial slip-fit over the ⌀18.8 elbow seat cylinder.
+inner_diameter = 19.0
+# [2 mm](WALL_T) — radial wall around the PRV body.
+wall_thickness = 2.0
+# [2 mm](CAP_T) — closed (far) end carrying the vent hole.
+cap_thickness = 2.0
+# [44 mm](CAVITY_L) — elbow seat bottom to PRV pull-ring tip.
+cavity_length = 44.0
+# [6.35 mm](VENT_D) — 1/4" LLDPE tubing OD.
+vent_hole_diameter = 6.35
+
+# [23 mm](OUTER_D) — inner_diameter + 2 × wall_thickness.
 outer_diameter = inner_diameter + 2 * wall_thickness
+# [46 mm](TOTAL_L) — cavity_length + cap_thickness.
 total_length = cavity_length + cap_thickness
 
 # Slop for cut-through operations.
@@ -96,13 +109,15 @@ def build_prv_shroud():
 
 
 def main():
+    out_dir = _here.parent
     shroud = build_prv_shroud()
-    export_step(shroud, str(_here / "prv-shroud.step"))
+    export_step(shroud, str(out_dir / "prv-shroud.step"))
 
     solids = shroud.solids().vals()
     assert len(solids) == 1, f"expected 1 solid, got {len(solids)}"
-    bb = solids[0].BoundingBox()
-    vol = solids[0].Volume()
+    solid = solids[0]
+    bb = solid.BoundingBox()
+    vol = solid.Volume()
     print(
         f"-> prv-shroud.step  "
         f"bbox X[{bb.xmin:6.2f}..{bb.xmax:6.2f}] "
@@ -110,6 +125,56 @@ def main():
         f"Z[{bb.zmin:6.2f}..{bb.zmax:6.2f}]  "
         f"vol {vol:.3f} mm^3"
     )
+
+    # Short names scoped to this part. Units live inside the value so
+    # the script controls them — change a unit in source and every
+    # sibling doc + dynamic-comment marker follows.
+    variables = {
+        "INNER_D": f"{inner_diameter:g} mm",
+        "WALL_T": f"{wall_thickness:g} mm",
+        "CAP_T": f"{cap_thickness:g} mm",
+        "CAVITY_L": f"{cavity_length:g} mm",
+        "VENT_D": f"{vent_hole_diameter:g} mm",
+        "OUTER_D": f"{outer_diameter:g} mm",
+        "TOTAL_L": f"{total_length:g} mm",
+        # Regression baseline (computed from the actual STEP geometry).
+        "VOLUME": f"{vol:.3f} mm³",
+        "BBOX_X": f"{bb.xmin:.3f} to {bb.xmax:.3f} mm",
+        "BBOX_Y": f"{bb.ymin:.3f} to {bb.ymax:.3f} mm",
+        "BBOX_Z": f"{bb.zmin:.3f} to {bb.zmax:.3f} mm",
+    }
+    substitute_md(
+        out_dir / "README.md",
+        variables=variables,
+        expected_counts={
+            "INNER_D": 2,
+            "WALL_T": 1,
+            "CAP_T": 2,
+            "CAVITY_L": 1,
+            "VENT_D": 1,
+            "OUTER_D": 1,
+            "TOTAL_L": 1,
+            "VOLUME": 1,
+            "BBOX_X": 1,
+            "BBOX_Y": 1,
+            "BBOX_Z": 1,
+        },
+    )
+    print("-> README.md")
+    substitute_py_comments(
+        Path(__file__),
+        variables=variables,
+        expected_counts={
+            "INNER_D": 1,
+            "WALL_T": 1,
+            "CAP_T": 1,
+            "CAVITY_L": 1,
+            "VENT_D": 1,
+            "OUTER_D": 1,
+            "TOTAL_L": 1,
+        },
+    )
+    print("-> generate_step_cadquery.py (self)")
 
 
 if __name__ == "__main__":
