@@ -264,7 +264,6 @@ rod_anchor_boss_floor = 2.0  # thickness of the printed-solid PETG floor INSIDE 
 #   low point so the washer counterbore sits on top of the 4 mm
 #   reservoir floor, preserving the full fluid barrier. 1 mm below
 #   reservoir_bulkhead_port_y per the 2026-05-16 print test.
-port_tube_diameter = 6.5  # 1/4" OD tube clearance
 
 # The pocket is asymmetric across the panel. Wet side (z < panel):
 # a STEPPED cavity conforming to the bulkhead body's release-ring →
@@ -444,6 +443,13 @@ wedge_extrusion_y_margin = 2.0
 # floor_baseline_y. Ensures the cuts fully clear the chamber's curved
 # top through the floor baseline with margin to spare.
 bulkhead_ceiling_overshoot_y = 2.0
+
+# Radius of the 90° quarter-arc swept tube continuing the wet-collet
+# chamber's exit (z = bulkhead_wet_z_range[0]) through +Y until the
+# tube's axis turns vertical. Arc punches well clear of the floor
+# material into the open cavity above, giving syrup a designed
+# curved channel from the cavity down into the bulkhead's wet face.
+wet_exit_arc_radius = 30.0
 
 
 # Heat-set insert + screw spec. M3 ruthex-style brass heat-set inserts
@@ -903,14 +909,10 @@ def build_reservoir_body(side=1):
     # solid PETG, leaving the bulkhead's wet face only the radial
     # 0.5 mm-per-side gap around the collet and the stadium ceiling
     # box as flow paths to the cavity. Continue the cylinder past
-    # z=28 with a 90° quarter-arc swept tube of the same ⌀11, joining
-    # tangentially at z=28 (same axis along −Z, no step in cross-
-    # section), curving up through +Y over a 30 mm radius until the
-    # tube's axis is vertical. The arc punches well clear of the
-    # floor material into the open cavity above, giving syrup a
-    # designed curved flow channel from the cavity down into the
-    # bulkhead's wet face.
-    wet_exit_arc_radius = 30.0
+    # there with a 90° quarter-arc swept tube of the same ⌀11,
+    # joining tangentially (same axis along −Z, no step in cross-
+    # section) and curving up through +Y over wet_exit_arc_radius
+    # until the tube's axis is vertical.
 
     # Profile: ⌀11 circle in the plane perpendicular to the path's
     # initial tangent (which is world −Z), centered at the chamber's
