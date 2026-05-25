@@ -10,6 +10,7 @@
 // fetch -> parse to <svg> element -> wrap.
 
 import { state } from "./state.js";
+import { makeResetButton, makeMinimap } from "./pan-zoom-extras.js";
 
 function drawingTransformKey(file) { return `drawing-transform:${file}`; }
 
@@ -73,7 +74,8 @@ function shortName(file, ext = ".svg") {
 
 // Swap the SVG inside the open modal's wrapper without disturbing PanZoom's
 // state — used by the SSE re-render path so the user's pan/zoom is
-// preserved across an upstream regenerate.
+// preserved across an upstream regenerate. Minimap + reset button get
+// rebuilt against the new SVG so natural-bounds-derived state stays current.
 async function reRenderOpenDrawing(svgText) {
   if (!state.currentDrawingWrapper || !state.currentDrawingPz) return;
   let svgEl;
@@ -86,13 +88,21 @@ async function reRenderOpenDrawing(svgText) {
   const prev = state.currentDrawingPz.getTransform();
   const file = state.currentDetail?.file;
   state.currentDrawingPz.destroy();
+  try { state.currentDrawingMinimap?.destroy(); } catch {}
   state.currentDrawingWrapper.innerHTML = "";
   state.currentDrawingWrapper.appendChild(svgEl);
+  const minimap = makeMinimap(svgEl, state.currentDrawingWrapper);
   state.currentDrawingPz = PanZoom.wrap(svgEl, {
     container: state.currentDrawingWrapper,
     initialFit: false,
     onTransformChange: (t) => { if (file) drawingSaveTransform(file, t); },
+    onTransformLive: (t) => minimap.update(t),
   });
+  state.currentDrawingWrapper.appendChild(minimap.el);
+  state.currentDrawingWrapper.appendChild(makeResetButton(state.currentDrawingPz, {
+    transformKey: file ? drawingTransformKey(file) : null,
+  }));
+  state.currentDrawingMinimap = minimap;
   state.currentDrawingPz.setTransform(prev);
 }
 
@@ -133,15 +143,20 @@ export async function openDrawingDetail(file, pushHistory = true) {
   wrapper.style.cssText = "overflow:hidden;position:relative;width:100%;height:100%;";
   wrapper.appendChild(svgEl);
 
+  const minimap = makeMinimap(svgEl, wrapper);
   const pz = PanZoom.wrap(svgEl, {
     container: wrapper,
     initialFit: true,
     onTransformChange: (t) => drawingSaveTransform(file, t),
+    onTransformLive: (t) => minimap.update(t),
   });
+  wrapper.appendChild(minimap.el);
+  wrapper.appendChild(makeResetButton(pz, { transformKey: drawingTransformKey(file) }));
 
   state.currentDrawingContent = svgText;
   state.currentDrawingWrapper = wrapper;
   state.currentDrawingPz = pz;
+  state.currentDrawingMinimap = minimap;
 
   ContentViewer.open({
     content: wrapper,
@@ -150,13 +165,16 @@ export async function openDrawingDetail(file, pushHistory = true) {
       pz.fit();
       const saved = drawingLoadTransform(file);
       if (saved) pz.setTransform(saved);
+      minimap.update();
     },
     onClose: () => {
       try { pz.destroy(); } catch {}
+      try { minimap.destroy(); } catch {}
       state.currentDetail = null;
       state.currentDrawingContent = null;
       state.currentDrawingWrapper = null;
       state.currentDrawingPz = null;
+      state.currentDrawingMinimap = null;
       if (location.hash) history.back();
     },
   });

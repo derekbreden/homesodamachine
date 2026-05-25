@@ -11,7 +11,8 @@
 //     container,           // viewport element (defaults to el.parentElement)
 //     initialFit: true,    // fit-to-container on mount
 //     minScale, maxScale,
-//     onTransformChange,   // ({scale,panX,panY}) — debounced ~250ms
+//     onTransformChange,   // ({scale,panX,panY}) — debounced ~250ms (persistence)
+//     onTransformLive,     // ({scale,panX,panY}) — immediate, every change (minimap)
 //   });
 //   pz.fit(); pz.reset(); pz.setTransform({scale,panX,panY}); pz.getTransform();
 //   pz.destroy();
@@ -49,6 +50,7 @@
     const minScale = opts.minScale != null ? opts.minScale : 0.1;
     const maxScale = opts.maxScale != null ? opts.maxScale : 10;
     const onChange = opts.onTransformChange || null;
+    const onLive = opts.onTransformLive || null;
 
     let scale = 1, panX = 0, panY = 0;
     const active = new Map(); // pointerId -> {x,y}
@@ -110,6 +112,9 @@
     function apply() {
       el.style.transform =
         "translate(" + panX + "px, " + panY + "px) scale(" + scale + ")";
+      if (onLive) {
+        try { onLive({ scale: scale, panX: panX, panY: panY }); } catch (_) {}
+      }
       if (onChange) {
         if (changeTimer) clearTimeout(changeTimer);
         changeTimer = setTimeout(function () {

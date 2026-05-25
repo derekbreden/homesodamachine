@@ -114,7 +114,8 @@
 .cad-wrapper > .ruler-toggle.off {
   opacity: 0.55;
 }
-.cad-wrapper > .reset-view {
+.cad-wrapper > .reset-view,
+.pan-zoom-reset {
   position: absolute;
   bottom: calc(env(safe-area-inset-bottom, 0px) + 16px);
   right: calc(env(safe-area-inset-right, 0px) + 16px);
@@ -129,8 +130,34 @@
   -webkit-appearance: none;
   appearance: none;
 }
-.cad-wrapper > .reset-view:hover {
+.cad-wrapper > .reset-view:hover,
+.pan-zoom-reset:hover {
   background: rgba(58, 58, 90, 0.9);
+}
+
+/* Minimap for 2D PanZoom surfaces (mermaid + drawings). 2D equivalent
+   of the 3D ViewCube gizmo: where inside the full default view the
+   user is currently zoomed. Pointer-events: none — the box is an
+   indicator, not an input surface. */
+.pan-zoom-minimap {
+  position: absolute;
+  top: calc(env(safe-area-inset-top, 0px) + 16px);
+  right: calc(env(safe-area-inset-right, 0px) + 16px);
+  z-index: 10;
+  background: rgba(35, 35, 66, 0.55);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  overflow: hidden;
+  pointer-events: none;
+  -webkit-backdrop-filter: blur(4px);
+  backdrop-filter: blur(4px);
+}
+.pan-zoom-minimap-rect {
+  position: absolute;
+  background: rgba(68, 136, 255, 0.20);
+  border: 1px solid var(--accent);
+  border-radius: 2px;
+  pointer-events: none;
 }
 
 /* Section headers in grid */

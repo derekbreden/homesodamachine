@@ -243,6 +243,61 @@ Use the project's canonical terms. The two most-confused:
   that landed as docs only on 2026-05-02 — don't conflate them in earlier
   posts.
 
+### Visual evidence
+
+A bullet post earns a thumbnail when one of its categories is about
+something the dev/public site can show — a STEP, a DXF, a Mermaid
+chart, or a Drawing. Embed it at the bottom of the post (after the
+bullet list) as a clickable image linking to the viewer's deep-link
+URL for that file.
+
+This is a real expected output of the post — not optional polish. If
+a category headline says "worked on the X" and X lives in one of the
+viewers, the post should show X.
+
+Markdown:
+
+```
+[![<short description>](/post-images/<YYYY-MM-DD>-<slug>.png)](/3d?file=<path>)
+```
+
+The renderer that produces the PNG is matched to the file type:
+
+| File type              | Renderer                          | Viewer deep link        |
+|------------------------|-----------------------------------|-------------------------|
+| `.step` (3D part)      | `tools/render/render-step.js`     | `/3d?file=<path>`       |
+| `.dxf`  (cut sheet)    | `tools/render/render-dxf.js`      | `/3d?file=<path>`       |
+| `.mmd`  (chart)        | `tools/render/render-mermaid.js`  | `/charts?file=<path>`   |
+| `.svg`  (drawing)      | `tools/render/render-drawing.js`  | `/drawings?file=<path>` |
+
+Run from the repo root, output to
+`web/public/post-images/<YYYY-MM-DD>-<slug>.png`. Pass `--at <DATE>`
+(see each renderer's `--help`) when the post is dated in the past — the
+renderer pulls the source as it existed on that day, so the thumbnail
+reflects the state the post is describing, not the state of the file
+today. `<path>` in the table above is the file's path relative to
+`hardware/` (the same path the viewer surfaces in its URL).
+
+Examples of when to embed:
+
+- A category about a new or substantially-changed part → embed the
+  part's STEP thumbnail
+- A category about a new diagram or wiring update → embed the Mermaid
+  thumbnail
+- A category about the front face of the appliance, or any other
+  drawing under `hardware/**/drawings/` → embed the SVG thumbnail
+
+When NOT to embed:
+
+- A category that's procedural or textual only (BOM line, doc rewrite,
+  push-notification wiring) — there's nothing visual to show
+- More than two thumbnails per post — that's a portfolio, not an update
+- Site screenshots / promotional imagery — those live in
+  `web/public/post-images/` too but are a separate category (e.g. the
+  `2026-04-29-site-launch.png` companion to "HomeSodaMachine.com is
+  now a live site"); the auto-rendered file thumbnails coexist with
+  them, they don't replace them
+
 ### Skip rules
 
 If the window is only formatting, dependency bumps, comment-only edits,
@@ -304,6 +359,11 @@ exist yet.
    is 8 words or fewer (this is the rule that drifts most often). Verify
    the post stands alone — no "yesterday," no references to the prior
    day's post.
+
+5. For each category whose substantive change is a STEP, DXF, Mermaid,
+   or Drawing that the viewers surface, render its thumbnail per
+   "Visual evidence" above and embed it. A post that names a viewable
+   file in its bullets but doesn't show it is missing its visual half.
 
 ## Video-launch posts
 
