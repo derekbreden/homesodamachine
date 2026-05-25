@@ -8,10 +8,22 @@
 //
 // Defaults to iPhone 13/14 viewport (390x844) at 2x DPR (so the PNG is 780x1688
 // and stays sharp on retina displays). Sends an iPhone Safari user agent so the
-// site renders its mobile layout. Waits for networkidle0 plus document.fonts.ready
-// so Montserrat is loaded before capture (otherwise initial paint shows the
-// system fallback). Adds a short settle delay so the landing-page glass canvas
-// has time to render its first frame.
+// site renders its mobile layout. Waits for the load event, then bounded-waits
+// for network quiet (catching the timeout instead of failing), then for
+// document.fonts.ready so Montserrat is loaded before capture (otherwise
+// initial paint shows the system fallback). Adds a short settle delay so the
+// landing-page glass canvas and client-side-rendered viewer grids have time
+// to draw their first frame.
+//
+// The bounded network-idle wait (rather than networkidle0 on goto) exists
+// because the dev viewer pages (/3d, /charts, /drawings) open a long-lived
+// /ws WebSocket and the previous server iteration kept an SSE /api/events
+// connection open the same way. Either holds the in-flight connection count
+// above 0 indefinitely, so networkidle0 never resolves and the screenshot
+// times out. The 8-second cap lets one-shot fetches (the importmap-loaded
+// occt-import-js wasm, /api/steps + siblings, GET /api/firebase-config)
+// settle while remaining tolerant of any number of persistent streaming
+// connections.
 //
 // --at <date|sha>
 //   Boot the historical server from a throwaway git worktree at the resolved
@@ -97,16 +109,25 @@ async function capture(url) {
     const page = await browser.newPage();
     await page.setUserAgent(IPHONE_UA);
     await page.setViewport({ width, height, deviceScaleFactor: 2 });
-    await page.goto(url, { waitUntil: "networkidle0", timeout: 60_000 });
+    await page.goto(url, { waitUntil: "load", timeout: 60_000 });
+
+    // Bounded-wait for things to settle. SSE / WebSocket connections on the
+    // dev viewer pages keep traffic alive forever, so we cap the wait at 8s
+    // and proceed regardless — streaming connections don't change the
+    // visible state, only the in-flight count puppeteer is bookkeeping.
+    await page
+      .waitForNetworkIdle({ idleTime: 500, timeout: 8000 })
+      .catch(() => {});
 
     // Wait for Montserrat (and any other webfonts) to actually load. Without
     // this the first paint can use the system fallback and the screenshot
     // looks wrong.
     await page.evaluate(() => document.fonts.ready);
 
-    // Give Canvas2D loops (the landing page's GlassAnimation) a beat to draw
-    // their first frame, otherwise we may capture an empty canvas.
-    await new Promise((resolve) => setTimeout(resolve, 600));
+    // Give Canvas2D loops (the landing page's GlassAnimation) and any
+    // client-side-rendered grids (the viewer pages' card grid) a beat to
+    // draw their first frame, otherwise we may capture empty content.
+    await new Promise((resolve) => setTimeout(resolve, 800));
 
     const rawPng = await page.screenshot({ type: "png", fullPage: false });
     const compressed = await sharp(rawPng)
