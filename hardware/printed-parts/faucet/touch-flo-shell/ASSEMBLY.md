@@ -136,25 +136,33 @@ No soldering iron, no heat-set tooling, no hex driver — this sub-assembly is s
 
 ## Geometry summary
 
-The two retention features (mirrored across Y=0, at θ = ±45° about
+The two alignment features (mirrored across Y=0, at θ = ±45° about
 the body center, r = 20 mm from body center — world (14.14, ±14.14)):
 
-- **Plate, top face:** Ø 4.0 mm × 5 mm tall solid cylindrical bosses
+- **Plate, top face:** Ø 3.9 mm × 5 mm tall solid cylindrical bosses
   extruded UP, with a 0.5 mm × 45° chamfer at the tip for
   self-alignment.
 - **Shell, bottom face:** matching Ø 4.05 × 6 mm deep cylindrical
-  pockets. The 0.05 mm diametric CAD clearance is overrun by FDM
-  tolerances (boss prints slightly oversize, pocket prints slightly
-  undersize) to produce a real press fit when assembled. The extra
-  1 mm of pocket depth above the boss tip accommodates FDM
-  bottom-layer flatness variance in the pocket floor.
+  pockets. The 0.15 mm diametric CAD gap (boss undersize relative
+  to pocket) lets the boss enter with light force; FDM tolerances
+  close some of that. The extra 1 mm of pocket depth above the boss
+  tip accommodates FDM bottom-layer flatness variance in the pocket
+  floor.
+
+**Current intent: alignment placeholder, not retention press fit.**
+See the joinery history below — the original Ø 4.0 boss spec was a
+true press fit that snapped on first insertion. Dowels at Ø 3.9
+exist to keep the plate's pill slot rotationally aligned with the
+shell's pill slot during body-into-shell installation; retention of
+the whole stack comes from the shank nut clamping body → plate →
+TPU gasket → countertop once the under-counter install finishes.
 
 Stack-up at one dowel axis, top to bottom:
 
 ```
       shell wall (PET-CF)
       └── ~1 mm empty pocket above boss tip (FDM floor variance)
-           └── Ø 4 mm × 5 mm dowel boss in pocket (press fit)
+           └── Ø 3.9 mm × 5 mm dowel boss in Ø 4.05 pocket (light fit)
                 └── plate top face (boss base)
                      └── 4 mm plate (no holes at this XY)
                           └── plate bottom face (smooth)
@@ -185,11 +193,26 @@ in that same counterbore so the gasket saw a near-flat surface. The
 screw design worked, but: (a) the $4-6/each McMaster-only screws
 were hard to source and the 2 mm hex stripped easily; (b) the
 heat-set step added soldering-iron time to every shell; (c) the
-joint was always retention-only — no structural load — so a press
-fit does the same job with zero fasteners *and* leaves the plate
-bottom face fully smooth (no counterbore dimple, no sub-flush
-head — gasket-better than the screw design ever was). Switched on
-2026-05-22 (commit `e5aa8a1`).
+joint was always retention-only — no structural load — so an
+integral-boss approach does the same job with zero fasteners *and*
+leaves the plate bottom face fully smooth (no counterbore dimple,
+no sub-flush head — gasket-better than the screw design ever was).
+Switched on 2026-05-22 (commit `e5aa8a1`).
+
+**v2 → v3 (press fit → loose alignment).** v2 spec'd a Ø 4.0 boss
+into the Ø 4.05 pocket (0.05 mm CAD gap), expecting FDM tolerances
+to close that into a real press fit on this printer/filament. On
+the very first insertion attempt, the actual interference was high
+enough that a boss snapped off the plate before the assembly fully
+seated. Boss diameter dropped to Ø 3.9 (0.15 mm CAD gap) the same
+day to test whether the pins remain useful as a low-force
+*alignment placeholder* — the shank nut already clamps the whole
+stack at install time, so all the dowels really need to do is keep
+the plate's pill slot rotationally aligned with the shell's pill
+slot during body-into-shell installation. Whether even Ø 3.9
+survives insertion (and whether the looser fit still aligns
+adequately) is open pending the test print of the plate alone
+against the existing shell.
 
 The body-to-plate joint is independent of the dowel joint: the
 factory shank nut clamps the body's 31.5 mm OD bottom face down onto

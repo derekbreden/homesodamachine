@@ -537,24 +537,29 @@ zone45_bot_mid_x = fill_x_min + back_arch_r * math.cos(_a_mid45)
 zone45_bot_mid_z = back_arch_center_z + back_arch_r * math.sin(_a_mid45)
 
 
-# PRESS-FIT DOWEL POCKETS — mounting-plate retention. Two cylindrical
-# pockets in the bottom face of the shell accept matching Ø 4.0 × 5 mm
-# dowel bosses extruded up from the mounting plate's top face. Friction
-# from the press fit holds the plate to the shell during sub-assembly
-# handling; the structural clamping is done by the harvested faucet
-# body's shank nut below the under-counter plate.
+# DOWEL POCKETS — mounting-plate alignment. Two cylindrical pockets in
+# the bottom face of the shell accept matching Ø 3.9 × 5 mm dowel
+# bosses extruded up from the mounting plate's top face. Currently a
+# low-force alignment placeholder, not a retention press fit (see
+# the rationale block in `touch-flo-mounting-plate/generate_step_cadquery.py`).
+# Structural clamping of the body→plate→gasket→countertop stack is done
+# by the harvested faucet body's shank nut below the under-counter plate.
 #
 # Replaced the earlier screw + heat-set insert retention (last seen in
 # commit 4677b88, M3 × 6 mm ULH SHCS McMaster 91223A412 + ruthex M3
 # short Amazon B09ZHSGHXD). The screws were expensive ($4-6 each,
 # McMaster-only), fiddly (2 mm hex strips easily), and the heat-set
-# install added two soldering-iron steps per shell that the press-fit
-# eliminates.
+# install added two soldering-iron steps per shell that the dowel
+# approach eliminates.
 #
-# Pocket dimensions: Ø 4.05 (0.05 mm diametric clearance over the 4.0
-# boss in CAD — FDM tolerances close that gap into a real press fit),
-# 6 mm deep (5 mm boss + 1 mm clearance above the boss tip for FDM
-# bottom-layer flatness variance).
+# Pocket dimensions: Ø 4.05 × 6 mm deep. With the current Ø 3.9
+# boss this gives a 0.15 mm diametric CAD gap; FDM tolerances close
+# some of that. The shell pocket geometry has not changed since the
+# original Ø 4.0 boss spec — only the plate boss diameter was
+# reduced (from Ø 4.0 to Ø 3.9 on 2026-05-22) after the original
+# spec snapped a boss on first insertion. 6 mm depth = 5 mm boss + 1
+# mm clearance above the boss tip for FDM bottom-layer flatness
+# variance.
 #
 # Pocket location: θ = ±45° about the body center, r = 20 mm — the
 # shell's "rear shoulder" wall material (between body bore and shell
