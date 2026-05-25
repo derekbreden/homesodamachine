@@ -25,13 +25,12 @@ The CadQuery script uses an explicit XZ plane with +Y normal
   bottom plate (CO2 inlet, water outlet). Vessel assembled height = tube
   length = **[152.4 mm](TANK_H)**. Outer radius = **[63.5 mm](TANK_R)**.
 - **Reservoir** — printed rigid PETG flavor reservoir, one per flavor,
-  two per cold core. Cap on top with a single ⌀6.5 bulkhead pass-through;
-  bottom is a wet-slope floor with a printed boss for the internal SS
-  float rod. Pocket envelope: **125 mm wide (along Z) × 46 mm deep
-  (along X, radially outward) × 225 mm tall**, sized to hold ≥ 1 L
-  usable per reservoir. Reservoir geometry and internal features live
-  at [`../reservoir/`](../reservoir/). The CadQuery source retains
-  `bag_pocket_*` as the geometric variable name.
+  two per cold core. Cap on top with a single ⌀[6.5 mm](PORT_D) bulkhead
+  pass-through; bottom is a wet-slope floor with a printed boss for the
+  internal SS float rod. Body envelope: **[140 mm](RES_W) wide (along Z)
+  × [48 mm](RES_D) deep (along X, radially outward) × [199.4 mm](RES_H)
+  tall**, sized to hold ≥ 1 L usable per reservoir. Reservoir geometry
+  and internal features live at [`../reservoir/`](../reservoir/).
 - **Evaporator coil** — 1/4" OD × 0.187" ID × 0.031" wall ACR copper,
   hand-wound helically around the vessel exterior, bonded with 3M 425
   aluminum foil tape. ~6.35 mm radial occupancy plus tolerance — budgeted

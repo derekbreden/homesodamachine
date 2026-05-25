@@ -126,7 +126,7 @@ def main():
             "SUPPORT_RING_H": 1,
             "SUPPORT_RING_W": 1,
             "SUPPORT_RING_INNER_R": 1,
-            "PORT_D": 7,
+            "PORT_D": 8,
             "CAP_H": 2,
             "POUR_D": 2,
             "VENT_D": 2,
