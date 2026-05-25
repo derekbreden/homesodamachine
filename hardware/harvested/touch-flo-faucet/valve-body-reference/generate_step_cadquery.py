@@ -76,7 +76,7 @@ rect_long_half = rect_long / 2
 # [39 mm](PLATEAU_Z) — top of the rect column / plateau between the arches.
 plateau_z = 39.0
 # Measured R = 4–6 mm; 5.0 mm fit was off in test print, trying upper
-# end 6.0.
+# end [6 mm](TRANSITION_FILLET_R).
 transition_fillet_r = 6.0
 
 # Zone 3 — arch features (z = plateau_z → arc_peak_z). Two identical
@@ -109,6 +109,27 @@ port_edge_gap_x = 2.0
 port_center_x = rect_long_half - port_edge_gap_x - port_radius
 port_center_y = 0.0
 port_bore_depth = 20.0
+
+# External reference — countertop spec, drives the under-deck clearance
+# budget against the [11 mm](SHANK_OD) shank.
+# [34.93 mm](COUNTERTOP_HOLE) = 1-3/8" standard countertop hole.
+countertop_hole_diameter = 34.93
+
+# Plunger geometry — derived from the ~[1 mm](PLUNGER_GAP) gap between the
+# port wall and the plunger wall (port wall at x ≈ port_center_x −
+# port_radius = +3.75 mm; plunger wall therefore at x ≈ +2.75 mm and
+# plunger OD ≈ [5.5 mm](PLUNGER_OD_EST), not yet caliper-confirmed).
+plunger_gap_to_port = 1.0
+port_wall_x = port_center_x - port_radius
+plunger_od_estimate = 2 * (port_wall_x - plunger_gap_to_port)
+
+# Derived geometry — for cross-referencing in the markdown so the
+# arithmetic stays internally consistent if a measurement is updated.
+arc_rise = arc_peak_z - arc_base_z                          # [5 mm](ARC_RISE)
+plateau_inset = arc_base_z - plateau_z                      # [2 mm](PLATEAU_INSET)
+rect_upper_height = plateau_z - cylinder_height             # [26 mm](RECT_UPPER_H)
+port_arch_gap_y = (plateau_width_y - port_diameter) / 2.0   # [2 mm](PORT_ARCH_GAP)
+rect_long_half_v = rect_long / 2.0                          # [15.75 mm](RECT_LONG_HALF) — half body OD = short-face x
 
 
 def build_shank():
@@ -264,6 +285,7 @@ def main():
     # the script controls them — change a unit in source and every
     # sibling doc + dynamic-comment marker follows.
     variables = {
+        # Measured / stated dimensions.
         "SHANK_OD": f"{shank_od:g} mm",
         "SHANK_LEN": f"{shank_length:g} mm",
         "BODY_OD": f"{body_od:g} mm",
@@ -277,24 +299,44 @@ def main():
         "PORT_D": f"{port_diameter:g} mm",
         "PORT_X": f"{port_center_x:g} mm",
         "PORT_EDGE_GAP": f"{port_edge_gap_x:g} mm",
+        # Design choices.
+        "TRANSITION_FILLET_R": f"{transition_fillet_r:g} mm",
+        # External references.
+        "COUNTERTOP_HOLE": f"{countertop_hole_diameter:g} mm",
+        "PLUNGER_GAP": f"{plunger_gap_to_port:g} mm",
+        # Derived geometry.
+        "ARC_RISE": f"{arc_rise:g} mm",
+        "PLATEAU_INSET": f"{plateau_inset:g} mm",
+        "RECT_UPPER_H": f"{rect_upper_height:g} mm",
+        "PORT_ARCH_GAP": f"{port_arch_gap_y:g} mm",
+        "RECT_LONG_HALF": f"{rect_long_half_v:g} mm",
+        "PLUNGER_OD_EST": f"{plunger_od_estimate:g} mm",
     }
     substitute_md(
         here / "valve-body-geometry.md",
         variables=variables,
         expected_counts={
-            "SHANK_OD": 2,
-            "SHANK_LEN": 2,
-            "BODY_OD": 3,
-            "CYL_TOP_Z": 3,
-            "RECT_SHORT": 2,
-            "PLATEAU_Z": 4,
-            "ARC_BASE_Z": 2,
-            "ARC_PEAK_Z": 2,
-            "ARCH_WIDTH": 2,
-            "PLATEAU_WIDTH": 2,
-            "PORT_D": 5,
-            "PORT_X": 4,
-            "PORT_EDGE_GAP": 2,
+            "SHANK_OD": 6,
+            "SHANK_LEN": 4,
+            "BODY_OD": 15,
+            "CYL_TOP_Z": 10,
+            "RECT_SHORT": 7,
+            "PLATEAU_Z": 8,
+            "ARC_BASE_Z": 6,
+            "ARC_PEAK_Z": 7,
+            "ARCH_WIDTH": 3,
+            "PLATEAU_WIDTH": 5,
+            "PORT_D": 7,
+            "PORT_X": 5,
+            "PORT_EDGE_GAP": 6,
+            "COUNTERTOP_HOLE": 3,
+            "PLUNGER_GAP": 3,
+            "PLUNGER_OD_EST": 2,
+            "ARC_RISE": 2,
+            "PLATEAU_INSET": 2,
+            "RECT_UPPER_H": 1,
+            "PORT_ARCH_GAP": 2,
+            "RECT_LONG_HALF": 2,
         },
     )
     print(f"-> valve-body-geometry.md")
@@ -302,7 +344,7 @@ def main():
         Path(__file__),
         variables=variables,
         expected_counts={
-            "SHANK_OD": 1,
+            "SHANK_OD": 2,
             "SHANK_LEN": 1,
             "BODY_OD": 1,
             "CYL_TOP_Z": 1,
@@ -315,6 +357,15 @@ def main():
             "PORT_D": 1,
             "PORT_X": 1,
             "PORT_EDGE_GAP": 1,
+            "TRANSITION_FILLET_R": 1,
+            "COUNTERTOP_HOLE": 1,
+            "PLUNGER_GAP": 1,
+            "PLUNGER_OD_EST": 1,
+            "ARC_RISE": 1,
+            "PLATEAU_INSET": 1,
+            "RECT_UPPER_H": 1,
+            "PORT_ARCH_GAP": 1,
+            "RECT_LONG_HALF": 1,
         },
     )
     print(f"-> generate_step_cadquery.py (self)")
