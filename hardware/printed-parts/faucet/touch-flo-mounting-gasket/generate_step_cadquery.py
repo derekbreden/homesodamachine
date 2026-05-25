@@ -31,7 +31,17 @@ sys.path.insert(
     0,
     str(next(p for p in _here.parents if (p / "tools" / "docgen").is_dir()) / "tools"),
 )
+sys.path.insert(0, str(_here.parent.parent))  # for _touch_flo_interface
 from _cadq_export import export_step
+from _touch_flo_interface import (
+    flavor_tube_od,
+    flavor_tube_hole_dia as flavor_tube_hole_diameter,
+    flavor_tube_x,
+    flavor_tube_y_offset,
+    pill_length_y as pill_slot_length_y,
+    pill_width_x as pill_slot_width_x,
+    shank_hole_diameter,
+)
 from docgen import substitute_py_comments
 
 
@@ -48,25 +58,22 @@ plate_z_bottom = -4.0
 gasket_z_range = (plate_z_bottom - gasket_thickness, plate_z_bottom)
 
 
-# Hole geometry — mirrored exactly from the mounting plate.
+# Hole geometry — mirrored exactly from the mounting plate, via
+# _touch_flo_interface (single source of truth for the stack-up).
 # [12.6 mm](SHANK_HOLE_D) shank pocket — matches the body's threaded shank + clearance.
-shank_hole_diameter = 12.6
 shank_hole_center = (0.0, 0.0)
 
-# [6.85 mm](FLAVOR_TUBE_HOLE_D) per-tube hole = [6.35 mm](FLAVOR_TUBE_OD) OD + 0.5 mm clearance.
-flavor_tube_od = 6.35
-flavor_tube_hole_diameter = flavor_tube_od + 0.5
+# [7.05 mm](FLAVOR_TUBE_HOLE_D) per-tube hole = [6.35 mm](FLAVOR_TUBE_OD) OD + 0.7 mm clearance.
+# (Was 6.85 mm at 0.5 mm clearance until 2026-05-25; promoted to match
+# the shell's print-validated attempt-15 value.)
 # [18.925 mm](FLAVOR_TUBE_X) pill center +X from the shank — shared with the shell.
-flavor_tube_center = (18.925, 0.0)
+flavor_tube_center = (flavor_tube_x, 0.0)
 
 # Pill slot covers both 1/4" flavor tubes (centers ±flavor_tube_y_offset
 # in Y) as one rounded-rectangle, matching the mounting plate. Length is
 # end-to-end (Y); width is the per-tube hole diameter (X).
-flavor_tube_y_offset = 3.175
-# [13.2 mm](PILL_L) pill long axis (Y) = 2 × y_offset + hole_dia.
-pill_slot_length_y = 2 * flavor_tube_y_offset + flavor_tube_hole_diameter
-# [6.85 mm](PILL_W) pill short axis (X) = hole_dia.
-pill_slot_width_x = flavor_tube_hole_diameter
+# [13.4 mm](PILL_L) pill long axis (Y) = 2 × y_offset + hole_dia.
+# [7.05 mm](PILL_W) pill short axis (X) = hole_dia.
 
 
 def gasket_workplane(center):
