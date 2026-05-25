@@ -25,6 +25,11 @@ w = wall_and_floor_thickness
 # printability slope on the cavity ceiling — 1:1 slope).
 cable_x_depth = 5.0
 
+# X depth of the reed channel cavity. No slope wedge — the reed channel
+# is open through the top of the foam shell so reeds drop in from above
+# through the cap.
+reed_x_depth = 6.0
+
 # Reed channel position in Z, matching the reservoir's ROD_POSITION_Z
 # so reeds sit opposite the float-on-rod across the bag-pocket wall.
 reed_z_center = -45.0
@@ -68,7 +73,6 @@ def build_reed_channels(side):
 
     `side` = ±1 mirrors x across the y-z plane."""
     s = side
-    reed_x_depth = 6.0
 
     bag_x = s * bag_pocket_outermost_x  # outer face of bag-pocket far ±X wall
     z_outer = bag_pocket_width / 2
@@ -164,15 +168,16 @@ def cut_reed_channel_openings(foam_shell):
         # wall and around the +Z corner fillet, removing the trapezoidal
         # slice of wall material under it.
         z_min, z_max = cable_cavity_z_range
+        slope_wall_profile = [
+            (corner_x_inner, cable_cavity_y_range[1]),
+            (wall_x_outer, cable_cavity_y_range[1]),
+            (wall_x_outer, cable_cavity_wedge_apex_y),
+            (corner_x_inner, cable_cavity_wedge_apex_y + outer_corner_r),
+        ]
         slope_wall_cut = (
             cq.Workplane(xy_plane_z_up)
             .workplane(offset=z_min)
-            .polyline([
-                (corner_x_inner, cable_cavity_y_range[1]),
-                (wall_x_outer, cable_cavity_y_range[1]),
-                (wall_x_outer, cable_cavity_wedge_apex_y),
-                (corner_x_inner, cable_cavity_wedge_apex_y + outer_corner_r),
-            ]).close()
+            .polyline(slope_wall_profile).close()
             .extrude(z_max - z_min)
         )
         foam_shell = foam_shell.cut(slope_wall_cut)
