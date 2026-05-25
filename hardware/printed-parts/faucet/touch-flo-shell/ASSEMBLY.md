@@ -58,11 +58,11 @@ into a single rigid sub-assembly.
 
 | Qty | Item                                                 | Reference                                                                          |
 | --- | ---------------------------------------------------- | ---------------------------------------------------------------------------------- |
-|  1  | `touch-flo-shell` (printed, PET-CF)                  | [`generate_step_cadquery.py`](generate_step_cadquery.py)                            |
-|  1  | `touch-flo-mounting-plate` (printed) — carries two Ø 4.0 × 5 mm press-fit dowel bosses on its top face | [`../touch-flo-mounting-plate/`](../touch-flo-mounting-plate/) |
+|  1  | `touch-flo-shell` (printed, PET-CF) — smooth bottom face, no joinery features | [`generate_step_cadquery.py`](generate_step_cadquery.py)                            |
+|  1  | `touch-flo-mounting-plate` (printed) — smooth top face, no joinery features | [`../touch-flo-mounting-plate/`](../touch-flo-mounting-plate/) |
 |  1  | Touch-Flo valve body + factory shank nut (harvested) | [`../../harvested/touch-flo-faucet/`](../../harvested/touch-flo-faucet/)            |
 
-No fasteners. No heat-set inserts. The plate is retained to the shell by the two integral dowel bosses press-fitting into matching Ø 4.05 × 6 mm pockets in the shell's bottom face. (Superseded the earlier 2× ruthex M3 short heat-set + 2× M3 × 6 mm ULH SHCS retention on 2026-05-22 — that joinery was retention-only too, but added two soldering-iron steps and required McMaster-only $4-6/each ULH screws with a 2 mm hex that stripped easily.)
+No fasteners. No heat-set inserts. No printed retention features at all. The plate is held to the shell by gravity + body friction during sub-assembly handling; once installed in the countertop, the factory shank nut clamps the whole stack (body → plate → TPU gasket → countertop) and that clamp is what carries every load thereafter. See the joinery history in the Geometry summary for what was tried and discarded.
 
 The two flavor tubes that pass through the pill slot are NOT installed
 at this step — they're routed in the downstream "tube routing" step,
@@ -136,36 +136,39 @@ No soldering iron, no heat-set tooling, no hex driver — this sub-assembly is s
 
 ## Geometry summary
 
-The two alignment features (mirrored across Y=0, at θ = ±45° about
-the body center, r = 20 mm from body center — world (14.14, ±14.14)):
+**No joinery features.** The plate is a clean disc with only the
+shank hole + pill slot through it. The shell's bottom face is
+similarly clean. There is no positive retention or alignment
+between the plate and the shell on this sub-assembly.
 
-- **Plate, top face:** Ø 3.9 mm × 5 mm tall solid cylindrical bosses
-  extruded UP, with a 0.5 mm × 45° chamfer at the tip for
-  self-alignment.
-- **Shell, bottom face:** matching Ø 4.05 × 6 mm deep cylindrical
-  pockets. The 0.15 mm diametric CAD gap (boss undersize relative
-  to pocket) lets the boss enter with light force; FDM tolerances
-  close some of that. The extra 1 mm of pocket depth above the boss
-  tip accommodates FDM bottom-layer flatness variance in the pocket
-  floor.
+What holds the parts together:
 
-**Current intent: alignment placeholder, not retention press fit.**
-See the joinery history below — the original Ø 4.0 boss spec was a
-true press fit that snapped on first insertion. Dowels at Ø 3.9
-exist to keep the plate's pill slot rotationally aligned with the
-shell's pill slot during body-into-shell installation; retention of
-the whole stack comes from the shank nut clamping body → plate →
-TPU gasket → countertop once the under-counter install finishes.
+- During sub-assembly handling (between this bench and the
+  faucet-and-umbilical bench): **gravity** holds the shell down on
+  the plate, and the harvested body inside the shell's bore
+  laterally constrains the plate (the body is rigidly attached to
+  the plate via the snug shank nut from Step 1; the body sits in
+  the shell's bore with a 0.25 mm/side slip-fit, so the plate
+  can't slide sideways without dragging the body and shell with
+  it). The shell can be lifted straight off the body+plate freely;
+  handle the sub-assembly without inverting it until the umbilical
+  tubes are routed at the next bench (the tubes through the pill
+  slot will then friction-lock the whole stack).
+- Once installed in the countertop: the **factory shank nut**
+  threaded onto the body's shank from below compresses the entire
+  stack — body landing face down onto plate top, plate bottom down
+  onto TPU gasket, gasket bottom down onto countertop top. That
+  compression is what carries every load for the life of the
+  appliance.
 
-Stack-up at one dowel axis, top to bottom:
+Stack-up at the plate-to-shell interface (rear shoulder region):
 
 ```
-      shell wall (PET-CF)
-      └── ~1 mm empty pocket above boss tip (FDM floor variance)
-           └── Ø 3.9 mm × 5 mm dowel boss in Ø 4.05 pocket (light fit)
-                └── plate top face (boss base)
-                     └── 4 mm plate (no holes at this XY)
-                          └── plate bottom face (smooth)
+      shell wall (PET-CF) — solid material, no pockets
+      └── shell bottom face (smooth)
+           └── plate top face (smooth, in contact with shell bottom by gravity)
+                └── 4 mm plate (solid material, no holes here)
+                     └── plate bottom face (smooth, against TPU gasket)
 ```
 
 **Plate bottom face must stay flat for the TPU gasket.** The
@@ -177,10 +180,12 @@ from below the counter and is never under-counter; only the body's
 threaded shank and the three umbilical tubes pass through the
 countertop hole. Anything that breaks the flatness of the plate's
 bottom face would dish into the gasket and compromise the
-countertop seal. This is the constraint that drove the press-fit
-choice for the dowels (bosses extend UP from the plate top into the
-shell — the plate's bottom face has *no holes at all* at the dowel
-positions, fully smooth against the gasket).
+countertop seal. The current screw-free, dowel-free design satisfies
+this trivially — the plate's bottom face has no holes or features
+at all in the rear-shoulder region, fully smooth against the
+gasket. Any future retention scheme considered for this joint must
+re-read this constraint before adding anything that breaks the
+plate-bottom flatness.
 
 **Joinery history.** v1 used 2× ruthex M3 short heat-set inserts in
 the shell + 2× ULH M3 × 6 mm SHCS (McMaster 91223A412) coming up
@@ -206,42 +211,52 @@ the very first insertion attempt, the actual interference was high
 enough that a boss snapped off the plate before the assembly fully
 seated. Boss diameter dropped to Ø 3.9 (0.15 mm CAD gap) the same
 day to test whether the pins remain useful as a low-force
-*alignment placeholder* — the shank nut already clamps the whole
-stack at install time, so all the dowels really need to do is keep
-the plate's pill slot rotationally aligned with the shell's pill
-slot during body-into-shell installation. Whether even Ø 3.9
-survives insertion (and whether the looser fit still aligns
-adequately) is open pending the test print of the plate alone
-against the existing shell.
+alignment placeholder.
 
-The body-to-plate joint is independent of the dowel joint: the
-factory shank nut clamps the body's 31.5 mm OD bottom face down onto
-the plate's top face through the plate's Ø 12.6 shank hole. The
-dowel-into-pocket joint is what then captures the body inside the
-shell's body bore — the body has nowhere to go because the shell is
-anchored to the plate that's already clamped to the body.
+**v3 → v4 (dowels abandoned entirely).** Same-day test print of
+the Ø 3.9 plate against the existing shell: bosses still snapped
+under any insertion force. Root cause is **layer-line orientation**
+— vertically-extruded bosses on an FDM-printed plate have layer
+lines running perpendicular to the boss axis, so the boss-to-plate
+junction is a single layer-line interface loaded in shear during
+insertion. No diameter that works as either a press fit OR an
+alignment placeholder will hold up against insertion force in this
+print orientation. Options that *might* have rescued the dowel
+approach (printing the plate on its side so layer lines run along
+the boss axis; adding a fillet at the boss base; using metal dowel
+pins press-fit into smaller printed pockets) were not pursued —
+they each introduce new complexity (print-orientation constraints,
+support material, extra hardware) for a feature that's *only* doing
+sub-assembly retention, which the shank-nut clamp at install time
+makes unnecessary anyway. Dowels removed from both plate and shell
+on 2026-05-22 (commit pending). Plate-to-shell joint is now
+gravity-only during sub-assembly handling; the shank nut takes over
+at install. If sub-assembly handling proves to need *some* form of
+retention (e.g. for transport), the practical answer is likely a
+piece of masking tape across the joint, not another design
+revision.
+
+The body-to-plate joint is what does all the real work: the factory
+shank nut clamps the body's 31.5 mm OD bottom face down onto the
+plate's top face through the plate's Ø 12.6 shank hole. The shell
+then sits over the body+plate stack, with the body inside the
+shell's body bore providing lateral and rotational constraint
+(rectangular zone-2 cross-section + lever orientation). The shell
+isn't anchored to the plate at all — at install time, the
+shank-nut clamp on the body+plate side plus gravity on the shell
+side is the entire mechanism that holds the assembly together.
 
 ## Pre-flight check
 
-1. **Support material removal.** Confirm the shell's body bore, the
-   shell's two dowel pockets, and the plate's shank hole and pill
-   slot are all clear of supports and stringing. The two Ø 4 mm
-   dowel pockets in the shell are small features on the bottom face
-   — easy to miss.
-2. **Dowel press-fit gauge.** Hold the plate boss-up and try to
-   press the shell down onto one boss by hand. It should require
-   real finger force — somewhere between "easy slip-fit" (too
-   loose, won't retain) and "stuck mid-insertion" (too tight, risk
-   cracking the pocket on full assembly). If it slips on with no
-   resistance, the press fit is dead and the parts need a re-print
-   with adjusted boss/pocket dimensions (probably bump boss to
-   Ø 4.05 or pocket to Ø 4.0). If it won't start, the pocket is
-   probably blocked by stringing — re-check.
-3. **Body fit.** Dry-fit the harvested body into the shell's bore from
-   the bottom (shell oriented bottom-up). The body should slide all
-   the way to the bore cove (Z = 18.25 in part coordinates) without
-   binding. The lever swings in the shell's -X clearance ramp; verify
-   the lever clears at the resting position.
+1. **Support material removal.** Confirm the shell's body bore and
+   the plate's shank hole + pill slot are all clear of supports and
+   stringing.
+2. **Body fit.** Dry-fit the harvested body into the shell's bore
+   from the bottom (shell oriented bottom-up). The body should
+   slide all the way to the bore cove (Z = 18.25 in part
+   coordinates) without binding. The lever swings in the shell's
+   -X clearance ramp; verify the lever clears at the resting
+   position.
 
 ## Step 1 — Body into mounting plate
 
@@ -263,43 +278,40 @@ anchored to the plate that's already clamped to the body.
    orient the lever toward -X (the lever-clearance ramp side of the
    shell).
 
-## Step 2 — Shell over body, dowels into pockets
+## Step 2 — Shell over body
 
 1. Hold the plate + body sub-assembly with the body pointing up. Drop
    the shell down over the body so the body enters the shell's bore
    from the bottom. The shell's -X lever clearance ramp must align
    with the lever (which you already pointed toward -X in Step 1).
-2. As the shell descends, the two Ø 4 mm dowel bosses on the plate
-   should enter the matching pockets on the shell's bottom face. The
-   0.5 mm × 45° chamfers on the boss tips self-align the engagement;
-   the bosses don't need pre-aligned by eye if the shell's pill slot
-   is roughly aligned to the plate's pill slot at the start.
-3. Push the shell down with **steady hand pressure** until its bottom
-   face seats flat against the plate's top face. The press fit
-   resists insertion — that's the friction that will hold the joint.
-   If finger force isn't enough to fully seat, tap the shell's top
-   with a rubber mallet (not a steel hammer — risks cracking PET-CF).
-4. Verify the shell's pill slot aligns with the plate's pill slot
+2. Push the shell down until its bottom face seats flat against the
+   plate's top face. There is nothing to press into — the shell just
+   slides down over the body and rests on the plate by gravity.
+3. Verify the shell's pill slot aligns with the plate's pill slot
    (both at world (18.925, 0), Y-oriented). They should overlay
    exactly. If they don't, the shell is rotated 180° about the
-   shell-center vertical axis — pull it straight up off the bosses
-   (also requires real force, that's intended), rotate, and re-seat.
+   shell-center vertical axis — lift it straight up off the plate
+   (no resistance, since there's no joinery), rotate, and re-seat.
+
+The sub-assembly is now visually complete but the shell is held to
+the plate **only by gravity**. The plate is rigidly attached to the
+body (via the shank nut from Step 1), and the body is laterally
+held in the shell by the body bore's slip fit — so the shell can't
+slide sideways without dragging the plate with it — but the shell
+*can* be lifted straight up off the body+plate freely. Handle the
+sub-assembly upright (shell up, plate down) until it reaches the
+faucet-and-umbilical bench, where the three LLDPE tubes routed
+through the pill slot will friction-lock the stack.
 
 ## Verification
 
-After the shell is fully seated:
+After the shell is seated:
 
 - **Plate seats flat against shell.** No visible gap at the joint
-  line anywhere around the perimeter. A gap on one side means the
-  body is fouling the bore (most likely lever orientation off, or
-  body not pushed all the way up before the shell came down) OR the
-  dowel pockets didn't fully receive the bosses on one side
-  (re-seat with a mallet tap on that side).
-- **Sub-assembly survives gentle lift test.** Lift the assembled
-  sub-assembly by the shell only — the plate should not separate
-  under its own weight + the body's. If it does, the press fit is
-  inadequate and the parts need redesign (boss/pocket interference
-  adjustment).
+  line anywhere around the perimeter. A gap means the body is
+  fouling the bore — most likely the lever orientation was off, or
+  the body wasn't pushed all the way up against the bore floor
+  before the shell came down.
 - **Body has no rotational play.** Try to rotate the body relative to
   the shell + plate by grabbing the lever and twisting. Should be
   rigid, set by the rectangular zone-2 profile inside the rectangular
@@ -317,28 +329,17 @@ After the shell is fully seated:
 Reverse order:
 
 1. Loosen and remove the factory shank nut from below the plate.
-2. Pull the shell straight up off the body + plate. The press fit
-   on the dowels resists separation; pull hard enough to overcome
-   the friction without rocking the shell side-to-side (rocking
-   risks snapping a dowel boss off the plate).
+2. Lift the shell straight up off the body + plate. No resistance
+   — the shell sits free on the plate.
 3. The body lifts up and out of the plate's shank hole.
 
-The dowel bosses survive multiple insertion / removal cycles, but
-each cycle slightly loosens the press fit as the pocket walls take
-small plastic deformation. After ~5 reassembly cycles, the joint
-will likely no longer self-retain — at that point, re-print the
-plate (or shell, whichever feels looser when re-mated). Both parts
-are fast to re-print and don't carry any irreplaceable harvested
-components.
+The shell and plate can be re-mated any number of times without
+wear — there's nothing to wear.
 
 ## Troubleshooting
 
 | Symptom                                       | Likely cause                                                 | Fix                                                                                    |
 | --------------------------------------------- | ------------------------------------------------------------ | -------------------------------------------------------------------------------------- |
-| Shell drops onto plate with no resistance     | Dowel boss undersize, pocket oversize, or both — FDM tolerance smaller than expected on this filament / printer | Re-print the plate with `dowel_pin_radius` bumped 0.025–0.05 mm, or re-print the shell with `dowel_pocket_diameter` reduced by similar. Iterate. |
-| Shell won't start onto the bosses             | Pocket blocked by stringing / support remnant, or boss prints far oversize | First clean the pocket with a fingernail or pick. If still stuck, dry-fit one boss-pocket pair alone to gauge; if the boss really is oversize, sand the boss tip lightly with 400-grit until it starts. |
-| Shell starts but won't fully seat             | Press fit too tight at the boss base, or boss top hits pocket floor | Verify boss height (5 mm) is less than pocket depth (6 mm). If geometry is correct, the interference is too high — sand the boss OD lightly. |
-| Sub-assembly separates under handling weight  | Press fit too loose for the press / printer / filament combo | See "Shell drops onto plate with no resistance" — same fix path. |
 | Plate-to-shell joint won't close (visible gap) | Body fouling the shell bore (most likely lever orientation), or support material left in the shell bore | Disassemble; verify the body slides all the way to the bore cove with no resistance; re-orient lever to -X if needed. |
 | Lever binds against shell                     | Lever orientation off, or shell -X ramp printed with a support stub remaining | Disassemble; clear the ramp; re-orient body so lever points to -X. |
-| Dowel boss snapped off plate during disassembly | Rocked the shell side-to-side instead of pulling straight up | Re-print the plate; pull straight up next time. Single snapped boss + remaining boss usually means the sub-assembly held fine in service — failure was disassembly technique, not design. |
+| Shell falls off plate during handling         | Sub-assembly was inverted or jolted before umbilical routing locked the stack | Re-seat; handle upright (shell up) until the umbilical tubes are routed at the next bench. A piece of masking tape across the joint is fine as a transport aid. No design fix needed — the shell is intentionally held by gravity only at this stage. |
