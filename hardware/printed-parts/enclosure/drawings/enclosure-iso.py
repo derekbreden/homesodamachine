@@ -39,12 +39,16 @@ def main() -> None:
     # Face-local (a, b): a is x in 3D (0..W), b is z in 3D (0..H).
     appliance.front.add_circle(at=(135, 140), d=32, label="ESP32-S3")
 
-    # Top face: GFCI access band — small cutout exposing the TEST/RESET band
-    # of the Legrand 1597 on the electronics shelf below. Tucked into the
-    # back-right corner near the back-panel power connection, not centered.
-    # Face-local (a, b): a is x in 3D (0..W), b is y in 3D (0..D).
-    # 8 × 30 mm oriented with the long axis along y (depth).
-    appliance.top.add_rectangle(at=(250, 260), w=8, h=30, label="GFCI access band")
+    # Top face: GFCI access band — cutout exposing the TEST/RESET band of the
+    # Legrand 1597 duplex on the electronics shelf below. The band itself is
+    # 27 mm wide × 18 mm tall in the outlet's intrinsic frame, centered on
+    # the 42 × 67 mm outlet body. Tucked into the back-right corner with the
+    # outlet's tall axis (67) running along the appliance's WIDTH and its
+    # wide axis (42) along the DEPTH, so the underlying body sits flush
+    # against the back and right edges (5 mm clearance for the mounting
+    # yoke). In this rotation the band on the top face is 18 along a (width)
+    # × 27 along b (depth) — a tall-narrow band, not a wide-flat one.
+    appliance.top.add_rectangle(at=(230.5, 254), w=18, h=27, label="GFCI access band")
 
     output_path = Path(__file__).parent / "enclosure-iso.svg"
     scene.render(str(output_path))
