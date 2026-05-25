@@ -31,7 +31,7 @@ top surface via the TPU mounting gasket below it.
    the factory mounting plate's clearance for the [11 mm](SHANK_OD)
    threaded shank (~[14.5%](SHANK_CLEARANCE_PCT) diametric clearance).
 2. **Flavor-tube pill slot** — at world
-   ([18.925 mm](PLATE_FLAVOR_X), 0), oriented along Y. Per-tube Ø
+   ([18.93 mm](PLATE_FLAVOR_X), 0), oriented along Y. Per-tube Ø
    would be [7.05 mm](FLAVOR_HOLE_D) (= [6.35 mm](FLAVOR_TUBE_OD) OD
    + [0.7 mm](FLAVOR_HOLE_CLEARANCE) clearance applied to the 1/4"
    flavor tubes), but the two tubes are only

@@ -86,8 +86,8 @@ def main():
         # the 1/4" OD LLDPE pass through cap + lid. Source-of-truth:
         # `co2_inlet_z` and `2 × co2_tube_clearance_radius` in
         # foam-cap/foam_cap.py.
-        "COTWO_INLET_Z": f"{foam_cap_gen.co2_inlet_z:g}",
-        "COTWO_TUBE_D": f"{2 * foam_cap_gen.co2_tube_clearance_radius:g}",
+        "COTWO_INLET_Z": f"{foam_cap_gen.co2_inlet_z:.4g}",
+        "COTWO_TUBE_D": f"{2 * foam_cap_gen.co2_tube_clearance_radius:.4g}",
     }
 
     substitute_md(

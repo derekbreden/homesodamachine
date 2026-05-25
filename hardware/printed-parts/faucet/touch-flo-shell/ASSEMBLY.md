@@ -89,7 +89,7 @@ by ``endcap_circular_dxf.py` (different part)` in the same directory) is a singl
 Ø 54.35 mm disc with hole positions that match the TPU mounting
 gasket exactly — Ø 12.6 mm shank pocket at the gasket's shank center
 and a [13.4 mm](PILL_L) × [7.05 mm](PILL_W) pill pocket (long axis along Y) at the gasket's
-pill center, [18.925 mm](FLAVOR_TUBE_X) away along +X. Each pocket has its own
+pill center, [18.93 mm](FLAVOR_TUBE_X) away along +X. Each pocket has its own
 open-edge channel extending from the pocket to the disc rim in the
 −Y direction (channel widths: 12.6 mm for the shank, [7.05 mm](PILL_W) for the
 pill). The two channels exit the rim at different X positions and
@@ -288,7 +288,7 @@ side is the entire mechanism that holds the assembly together.
    plate's top face. There is nothing to press into — the shell just
    slides down over the body and rests on the plate by gravity.
 3. Verify the shell's pill slot aligns with the plate's pill slot
-   (both at world ([18.925 mm](FLAVOR_TUBE_X), 0), Y-oriented). They should overlay
+   (both at world ([18.93 mm](FLAVOR_TUBE_X), 0), Y-oriented). They should overlay
    exactly. If they don't, the shell is rotated 180° about the
    shell-center vertical axis — lift it straight up off the plate
    (no resistance, since there's no joinery), rotate, and re-seat.

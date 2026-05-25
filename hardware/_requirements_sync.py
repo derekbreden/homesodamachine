@@ -77,9 +77,9 @@ design_life_yr = 10             # Unmaintained appliance design life,
 
 def main():
     variables = {
-        "FLAVOR_COUNT": f"{flavor_count:g}",
-        "DESIGN_LIFE_YR": f"{design_life_yr:g}",
-        "DESIGN_LIFE_LABEL": f"{design_life_yr:g}-year",
+        "FLAVOR_COUNT": f"{flavor_count:.4g}",
+        "DESIGN_LIFE_YR": f"{design_life_yr:.4g}",
+        "DESIGN_LIFE_LABEL": f"{design_life_yr:.4g}-year",
     }
 
     substitute_md(

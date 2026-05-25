@@ -53,13 +53,13 @@ def main():
     variables = {
         # AC inlet recess range — same "3–5 mm" rendering as back-panel.
         "AC_RECESS_DEPTH": (
-            f"{ac_inlet_recess_depth_min:g}–{ac_inlet_recess_depth_max:g} mm"
+            f"{ac_inlet_recess_depth_min:.4g}–{ac_inlet_recess_depth_max:.4g} mm"
         ),
         # Terminal-block min clearance inside the shroud.
-        "TB_CLEARANCE": f"{terminal_block_clearance_mm:g} mm",
+        "TB_CLEARANCE": f"{terminal_block_clearance_mm:.4g} mm",
         # G90 sheet thickness — rendered with inch units to match the
         # SendCutSend catalog spelling in the compressor-shroud README.
-        "WALL_IN": f'{wall_thickness_in:g}"',
+        "WALL_IN": f'{wall_thickness_in:.4g}"',
         # Heyco SB-500-6 sidewall panel hole; reads better as the inch
         # fraction (1/2") than the decimal (0.5"), matching shroud usage.
         "PANEL_HOLE": panel_hole_label,
@@ -68,8 +68,8 @@ def main():
         # here on the next run. Same "g" formatting as the enclosure
         # README's FOAM_SHELL_X / FOAM_SHELL_Z (no units inside each
         # variable so the prose's "× 181 mm" reads naturally).
-        "FOAM_SHELL_X": f"{outer_shell_x_length:g}",
-        "FOAM_SHELL_Z": f"{outer_shell_z_length:g} mm",
+        "FOAM_SHELL_X": f"{outer_shell_x_length:.4g}",
+        "FOAM_SHELL_Z": f"{outer_shell_z_length:.4g} mm",
     }
 
     substitute_md(

@@ -151,7 +151,7 @@ plug_ccw_delta = (plug_outlet_azimuth - plug_inlet_azimuth) % 360
 # 12-wrap cap; pitch falls out from alignment.
 full_wraps = 9
 total_wraps = full_wraps + plug_ccw_delta / 360
-# [12.4288 mm](PITCH) — helix pitch = wind_length / total_wraps (≈ 0.489").
+# [12.43 mm](PITCH) — helix pitch = wind_length / total_wraps (≈ 0.489").
 pitch = wind_length / total_wraps
 
 
@@ -257,18 +257,18 @@ def main():
     print(f"\nExported: {out_path}")
 
     variables = {
-        "TUBE_R": f"{tube_radius:g} mm",
-        "TANK_R": f"{tank_radius:g} mm",
-        "GROOVE_OFFSET": f"{groove_offset:g} mm",
-        "MANDREL_R": f"{mandrel_radius:g} mm",
-        "MANDREL_OD": f"{mandrel_od:g} mm",
-        "MANDREL_INNER_R": f"{mandrel_inner_radius:g} mm",
-        "WIND_LENGTH": f"{wind_length:g} mm",
-        "PITCH": f"{pitch:g} mm",
-        "HANDLE_LENGTH": f"{handle_length:g} mm",
-        "TOTAL_LENGTH": f"{total_length:g} mm",
-        "GROOVE_BOTTOM_OD": f"{groove_bottom_od:g} mm",
-        "FULL_WRAPS": f"{full_wraps:g}",  # bare count, no unit
+        "TUBE_R": f"{tube_radius:.4g} mm",
+        "TANK_R": f"{tank_radius:.4g} mm",
+        "GROOVE_OFFSET": f"{groove_offset:.4g} mm",
+        "MANDREL_R": f"{mandrel_radius:.4g} mm",
+        "MANDREL_OD": f"{mandrel_od:.4g} mm",
+        "MANDREL_INNER_R": f"{mandrel_inner_radius:.4g} mm",
+        "WIND_LENGTH": f"{wind_length:.4g} mm",
+        "PITCH": f"{pitch:.4g} mm",
+        "HANDLE_LENGTH": f"{handle_length:.4g} mm",
+        "TOTAL_LENGTH": f"{total_length:.4g} mm",
+        "GROOVE_BOTTOM_OD": f"{groove_bottom_od:.4g} mm",
+        "FULL_WRAPS": f"{full_wraps:.4g}",  # bare count, no unit
     }
     substitute_py_comments(
         Path(__file__),

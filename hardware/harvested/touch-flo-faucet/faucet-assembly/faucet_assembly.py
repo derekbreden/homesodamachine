@@ -103,7 +103,7 @@ water_tube_z_top = plateau_z + water_tube_above_plateau
 # [6.35 mm](FLAVOR_TUBE_OD) — 1/4" LLDPE in millimeters.
 flavor_tube_od = 1.0 / 4.0 * 25.4
 flavor_tube_r = flavor_tube_od / 2.0
-# [18.925 mm](FLAVOR_TUBE_X_LOWER) — tangent to body +X (body_r + flavor_tube_r).
+# [18.93 mm](FLAVOR_TUBE_X_LOWER) — tangent to body +X (body_r + flavor_tube_r).
 flavor_tube_x_lower = body_r + flavor_tube_r
 flavor_tube_y_offset = flavor_tube_r  # ± — tangent to other tube at Y=0
 flavor_tube_z_bottom = -shank_length
@@ -497,16 +497,16 @@ def main():
     substitute_py_comments(
         Path(__file__),
         variables={
-            "WATER_TUBE_OD": f"{water_tube_od:g} mm",
-            "WATER_TUBE_Z_BOTTOM": f"{water_tube_z_bottom:g} mm",
-            "WATER_TUBE_Z_TOP": f"{water_tube_z_top:g} mm",
-            "FLAVOR_TUBE_OD": f"{flavor_tube_od:g} mm",
-            "FLAVOR_TUBE_X_LOWER": f"{flavor_tube_x_lower:g} mm",
+            "WATER_TUBE_OD": f"{water_tube_od:.4g} mm",
+            "WATER_TUBE_Z_BOTTOM": f"{water_tube_z_bottom:.4g} mm",
+            "WATER_TUBE_Z_TOP": f"{water_tube_z_top:.4g} mm",
+            "FLAVOR_TUBE_OD": f"{flavor_tube_od:.4g} mm",
+            "FLAVOR_TUBE_X_LOWER": f"{flavor_tube_x_lower:.4g} mm",
             "FLAVOR_TUBE_X_UPPER": f"{flavor_tube_x_upper:.4f} mm",
             "FLAVOR_BEND_THETA": f"{flavor_bend_theta_rad:.4f} rad",
-            "PRE_BEND_Z": f"{pre_bend_z:g} mm",
-            "LEVER_TOP_Z": f"{lever_top_z:g} mm",
-            "GN_BEND_MID_Z": f"{gn_bend1_mid_z:g} mm",
+            "PRE_BEND_Z": f"{pre_bend_z:.4g} mm",
+            "LEVER_TOP_Z": f"{lever_top_z:.4g} mm",
+            "GN_BEND_MID_Z": f"{gn_bend1_mid_z:.4g} mm",
             "GN_BEND_START_Z": f"{gn_bend1_start_z:.2f} mm",
             "GN_FLAVOR_BEND_ONE_R": f"{gn_flavor_bend1_r:.4f} mm",
             "GN_FLAVOR_BEND_TWO_R": f"{gn_flavor_bend2_r:.4f} mm",

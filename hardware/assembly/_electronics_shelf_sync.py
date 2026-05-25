@@ -103,31 +103,31 @@ ds18b20_pullup_kohm = 4.7               # 4.7 kΩ pull-up
 def main():
     variables = {
         # ESP32 GPIO pins.
-        "RELAY_COMPRESSOR_GPIO": f"GPIO {relay_compressor_gpio:g}",
-        "RELAY_DIAPHRAGM_GPIO": f"GPIO {relay_diaphragm_gpio:g}",
+        "RELAY_COMPRESSOR_GPIO": f"GPIO {relay_compressor_gpio:.4g}",
+        "RELAY_DIAPHRAGM_GPIO": f"GPIO {relay_diaphragm_gpio:.4g}",
         # PSU specs.
-        "PSU_POWER": f"{psu_power_w:g} W",
-        "PSU_VOLTAGE": f"{psu_voltage_v:g} V",
-        "PSU_CURRENT": f"{psu_current_a:g} A",
-        "PSU_MASS": f"~{psu_mass_g:g} g",
+        "PSU_POWER": f"{psu_power_w:.4g} W",
+        "PSU_VOLTAGE": f"{psu_voltage_v:.4g} V",
+        "PSU_CURRENT": f"{psu_current_a:.4g} A",
+        "PSU_MASS": f"~{psu_mass_g:.4g} g",
         # GFCI specs.
-        "GFCI_TRIP": f"{gfci_trip_threshold_ma:g} mA",
-        "GFCI_SELF_TEST": f"{gfci_self_test_interval_s:g} seconds",
+        "GFCI_TRIP": f"{gfci_trip_threshold_ma:.4g} mA",
+        "GFCI_SELF_TEST": f"{gfci_self_test_interval_s:.4g} seconds",
         # AC pigtail lengths.
-        "PIGTAIL_SHORT": f"~{pigtail_short_mm:g} mm",
-        "PIGTAIL_MEDIUM": f"~{pigtail_medium_mm:g} mm",
-        "PIGTAIL_SLACK": f"~{pigtail_slack_mm:g} mm",
-        "PIGTAIL_COMPRESSOR": f"~{pigtail_compressor_mm:g} mm",
+        "PIGTAIL_SHORT": f"~{pigtail_short_mm:.4g} mm",
+        "PIGTAIL_MEDIUM": f"~{pigtail_medium_mm:.4g} mm",
+        "PIGTAIL_SLACK": f"~{pigtail_slack_mm:.4g} mm",
+        "PIGTAIL_COMPRESSOR": f"~{pigtail_compressor_mm:.4g} mm",
         # Wire-stock pigtail.
-        "KESZOOX_LENGTH": f"{keszoox_length_cm:g} cm",
+        "KESZOOX_LENGTH": f"{keszoox_length_cm:.4g} cm",
         # Wago count.
-        "WAGO_COUNT": f"{wago_count:g}",
+        "WAGO_COUNT": f"{wago_count:.4g}",
         # JST harness counts.
-        "JST_4PIN_COUNT": f"~{jst_4pin_count:g}",
-        "JST_6PIN_COUNT": f"~{jst_6pin_count:g}",
-        "JST_9PIN_COUNT": f"~{jst_9pin_count:g}",
+        "JST_4PIN_COUNT": f"~{jst_4pin_count:.4g}",
+        "JST_6PIN_COUNT": f"~{jst_6pin_count:.4g}",
+        "JST_9PIN_COUNT": f"~{jst_9pin_count:.4g}",
         # DS18B20 pull-up.
-        "DS18B20_PULLUP": f"{ds18b20_pullup_kohm:g} kΩ",
+        "DS18B20_PULLUP": f"{ds18b20_pullup_kohm:.4g} kΩ",
     }
 
     substitute_md(

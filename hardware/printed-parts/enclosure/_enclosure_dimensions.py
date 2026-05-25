@@ -32,10 +32,10 @@ def main():
     # foam shell's X length. Pulled live from _cold_core_interface so
     # any change to the foam shell shows up in the enclosure prose.
     variables = {
-        "FOAM_SHELL_X": f"{outer_shell_x_length:g}",
-        "FOAM_SHELL_Z": f"{outer_shell_z_length:g}",
-        "FOAM_SHELL_Y": f"{foam_shell_outer_height:g}",
-        "APPLIANCE_WIDTH": f"{outer_shell_x_length:g} mm",
+        "FOAM_SHELL_X": f"{outer_shell_x_length:.4g}",
+        "FOAM_SHELL_Z": f"{outer_shell_z_length:.4g}",
+        "FOAM_SHELL_Y": f"{foam_shell_outer_height:.4g}",
+        "APPLIANCE_WIDTH": f"{outer_shell_x_length:.4g} mm",
     }
 
     substitute_md(

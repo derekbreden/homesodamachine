@@ -729,7 +729,7 @@ def main():
             "CYLINDER_BOTTOM_Y": f"{cylinder_bottom_y:+g} mm",
             "BORE_BOTTOM_Y": f"{bore_bottom_y:+g} mm",
             "CYLINDER_TOP_Y": f"{cylinder_top_y:+g} mm",
-            "BASE_PLATE_FAR_Y": f"+{base_thickness:g} mm",
+            "BASE_PLATE_FAR_Y": f"+{base_thickness:.4g} mm",
             "NARROW_SPLIT_Y": f"{narrow_split_y:+g} mm",
             "SKIRT_BOTTOM_Y": f"{skirt_bottom_y:+g} mm",
             "LOWER_CAP_TOP_Y": f"{lower_cap_top_y:+g} mm",

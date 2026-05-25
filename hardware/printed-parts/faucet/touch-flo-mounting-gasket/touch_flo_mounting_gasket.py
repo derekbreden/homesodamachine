@@ -66,7 +66,7 @@ shank_hole_center = (0.0, 0.0)
 # [7.05 mm](FLAVOR_TUBE_HOLE_D) per-tube hole = [6.35 mm](FLAVOR_TUBE_OD) OD + 0.7 mm clearance.
 # (Was 6.85 mm at 0.5 mm clearance until 2026-05-25; promoted to match
 # the shell's print-validated attempt-15 value.)
-# [18.925 mm](FLAVOR_TUBE_X) pill center +X from the shank — shared with the shell.
+# [18.93 mm](FLAVOR_TUBE_X) pill center +X from the shank — shared with the shell.
 flavor_tube_center = (flavor_tube_x, 0.0)
 
 # Pill slot covers both 1/4" flavor tubes (centers ±flavor_tube_y_offset
@@ -118,14 +118,14 @@ def main():
     # the script controls them — change a unit in source and every
     # dynamic-comment marker follows.
     variables = {
-        "GASKET_D": f"{gasket_diameter:g} mm",
-        "GASKET_T": f"{gasket_thickness:g} mm",
-        "SHANK_HOLE_D": f"{shank_hole_diameter:g} mm",
-        "FLAVOR_TUBE_OD": f"{flavor_tube_od:g} mm",
-        "FLAVOR_TUBE_HOLE_D": f"{flavor_tube_hole_diameter:g} mm",
-        "FLAVOR_TUBE_X": f"{flavor_tube_center[0]:g} mm",
-        "PILL_L": f"{pill_slot_length_y:g} mm",
-        "PILL_W": f"{pill_slot_width_x:g} mm",
+        "GASKET_D": f"{gasket_diameter:.4g} mm",
+        "GASKET_T": f"{gasket_thickness:.4g} mm",
+        "SHANK_HOLE_D": f"{shank_hole_diameter:.4g} mm",
+        "FLAVOR_TUBE_OD": f"{flavor_tube_od:.4g} mm",
+        "FLAVOR_TUBE_HOLE_D": f"{flavor_tube_hole_diameter:.4g} mm",
+        "FLAVOR_TUBE_X": f"{flavor_tube_center[0]:.4g} mm",
+        "PILL_L": f"{pill_slot_length_y:.4g} mm",
+        "PILL_W": f"{pill_slot_width_x:.4g} mm",
     }
     substitute_py_comments(
         Path(__file__),

@@ -96,44 +96,44 @@ winding_r_high_ohm = 30
 def main():
     variables = {
         # Wire gauges (imported from the AC schedule's source-of-truth driver).
-        "AWG_AC_MAIN": f"{_sched_awg_mains:g} AWG",
-        "AWG_AC_BRANCH": f"{_sched_awg_ac_branch:g} AWG",
-        "AWG_DC_BRANCH": f"{_sched_awg_sig:g} AWG",
-        "AWG_SIGNAL": f"{_sched_awg_lv:g} AWG",
+        "AWG_AC_MAIN": f"{_sched_awg_mains:.4g} AWG",
+        "AWG_AC_BRANCH": f"{_sched_awg_ac_branch:.4g} AWG",
+        "AWG_DC_BRANCH": f"{_sched_awg_sig:.4g} AWG",
+        "AWG_SIGNAL": f"{_sched_awg_lv:.4g} AWG",
         "AWG_TRIPLE": (
-            f"{_sched_awg_mains:g}/{_sched_awg_ac_branch:g}/"
-            f"{_sched_awg_sig:g} AWG"
+            f"{_sched_awg_mains:.4g}/{_sched_awg_ac_branch:.4g}/"
+            f"{_sched_awg_sig:.4g} AWG"
         ),
         # Voltages (imported).
-        "AC_LINE_V": f"{_sched_line_voltage_v:g} VAC",
-        "DC_BUS_V": f"{_sched_v_rail_dc:g} V",
-        "LOGIC_V": f"{_sched_v_rail_logic:g} V",
-        "MCU_V": f"{_sched_v_rail_io:g} V",
+        "AC_LINE_V": f"{_sched_line_voltage_v:.4g} VAC",
+        "DC_BUS_V": f"{_sched_v_rail_dc:.4g} V",
+        "LOGIC_V": f"{_sched_v_rail_logic:.4g} V",
+        "MCU_V": f"{_sched_v_rail_io:.4g} V",
         # Schedule-restated run lengths.
-        "SHROUD_LEAD_LEN": f"~{_sched_len_compressor_mm:g} mm",
-        "SHROUD_FAN_OUT": f"~{_sched_len_short_mm:g} mm",
-        "AC1_LEN": f"~{_sched_len_short_mm:g} mm",
-        "AC2_LEN": f"~{_sched_len_short_2_mm:g} mm",
-        "LV_SHORT_LEN": f"~{_sched_len_mid_mm:g} mm",
-        "SIG_COLD_CORE_LEN": f"~{_sched_len_cold_core_mm:g} mm",
-        "SIG_UMBILICAL_LEN": f"~{_sched_len_umbilical_m:g} m",
-        "SIG_DISPLAY_LEN": f"~{_sched_len_umbilical_m:g} m",
-        "DC9_LEN": f"~{_sched_len_compressor_mm:g} mm",
+        "SHROUD_LEAD_LEN": f"~{_sched_len_compressor_mm:.4g} mm",
+        "SHROUD_FAN_OUT": f"~{_sched_len_short_mm:.4g} mm",
+        "AC1_LEN": f"~{_sched_len_short_mm:.4g} mm",
+        "AC2_LEN": f"~{_sched_len_short_2_mm:.4g} mm",
+        "LV_SHORT_LEN": f"~{_sched_len_mid_mm:.4g} mm",
+        "SIG_COLD_CORE_LEN": f"~{_sched_len_cold_core_mm:.4g} mm",
+        "SIG_UMBILICAL_LEN": f"~{_sched_len_umbilical_m:.4g} m",
+        "SIG_DISPLAY_LEN": f"~{_sched_len_umbilical_m:.4g} m",
+        "DC9_LEN": f"~{_sched_len_compressor_mm:.4g} mm",
         # Connector pitch (imported).
-        "JST_PITCH": f"{_sched_jst_pitch_mm:g} mm",
+        "JST_PITCH": f"{_sched_jst_pitch_mm:.4g} mm",
         # Electrical-component values.
-        "PULLUP_R": f"{_sched_ds18b20_pullup_kohm:g} kΩ",
+        "PULLUP_R": f"{_sched_ds18b20_pullup_kohm:.4g} kΩ",
         # Procedure-only (local).
-        "CABINET_SLACK": f"{cabinet_slack_mm:g} mm",
-        "KESZOOX_LEN": f"{keszoox_pigtail_len_cm:g} cm",
-        "WINDING_R_LOW": f"{winding_r_low_ohm:g}",
-        "WINDING_R_HIGH": f"{winding_r_high_ohm:g} Ω",
+        "CABINET_SLACK": f"{cabinet_slack_mm:.4g} mm",
+        "KESZOOX_LEN": f"{keszoox_pigtail_len_cm:.4g} cm",
+        "WINDING_R_LOW": f"{winding_r_low_ohm:.4g}",
+        "WINDING_R_HIGH": f"{winding_r_high_ohm:.4g} Ω",
         # Shroud-side imports (live-tied to upstream).
-        "SHROUD_SJOOW_AWG": f"{_shroud_ac_cable_awg:g} AWG",
-        "BUSHING_LOW": f"{_shroud_bushing_low_mm:g}",
-        "BUSHING_HIGH": f"{_shroud_bushing_high_mm:g} mm",
-        "GND_STUD_HOLE": f"{_shroud_gnd_hole_mm:g} mm",
-        "COMP_CLASS_W": f"{_shroud_compressor_class_w:g} W-class",
+        "SHROUD_SJOOW_AWG": f"{_shroud_ac_cable_awg:.4g} AWG",
+        "BUSHING_LOW": f"{_shroud_bushing_low_mm:.4g}",
+        "BUSHING_HIGH": f"{_shroud_bushing_high_mm:.4g} mm",
+        "GND_STUD_HOLE": f"{_shroud_gnd_hole_mm:.4g} mm",
+        "COMP_CLASS_W": f"{_shroud_compressor_class_w:.4g} W-class",
     }
 
     substitute_md(

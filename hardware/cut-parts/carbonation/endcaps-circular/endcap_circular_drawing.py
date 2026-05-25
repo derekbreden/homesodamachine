@@ -435,13 +435,13 @@ def main() -> None:
     # script controls them — change a value in source and every
     # dynamic-comment marker follows.
     variables = {
-        "DISC_D": f"{disc_diameter:g} in",
-        "DISC_R": f"{disc_radius:g} in",
-        "DISC_THK": f"{disc_thickness:g} in",
-        "HOLE_D": f"{hole_diameter:g} in",
-        "HOLE_R": f"{hole_radius:g} in",
-        "HOLE_SPACING": f"{hole_spacing:g} in",
-        "HOLE_OFFSET": f"{hole_offset:g} in",
+        "DISC_D": f"{disc_diameter:.4g} in",
+        "DISC_R": f"{disc_radius:.4g} in",
+        "DISC_THK": f"{disc_thickness:.4g} in",
+        "HOLE_D": f"{hole_diameter:.4g} in",
+        "HOLE_R": f"{hole_radius:.4g} in",
+        "HOLE_SPACING": f"{hole_spacing:.4g} in",
+        "HOLE_OFFSET": f"{hole_offset:.4g} in",
     }
     substitute_py_comments(
         Path(__file__),
