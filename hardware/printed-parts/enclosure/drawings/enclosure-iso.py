@@ -41,22 +41,22 @@ APPLIANCE_H = 280.0
 
 
 # ---------------------------------------------------------------------------
-# Pump-cartridge access door
-# Two pump cases insert side-by-side along their case_outer_x axis, with
-# case_outer_z (the case's height in the CAD frame) becoming the depth of
-# the door cutout when the cases lay on their side for top-down insertion.
-# The clearance numbers already include buffer over the bare contents
-# footprint — they don't need more.
+# Pump-cartridge access door — portrait orientation
+# Two pump cases insert side-by-side along the appliance's depth axis;
+# each case lays on its side so case_outer_z (its CAD-frame height)
+# becomes the door's width and 2 × case_outer_x (two cases sharing the
+# "75 mm" edge) becomes the door's depth. Clearance: 10 mm in the
+# single-case-depth direction, 15 mm in the side-by-side direction.
 # ---------------------------------------------------------------------------
 
-PUMP_WIDTH_CLEARANCE = 15.0
-PUMP_DEPTH_CLEARANCE = 10.0
+PUMP_SIDE_BY_SIDE_CLEARANCE = 15.0
+PUMP_CASE_DEPTH_CLEARANCE = 10.0
 
-# [165.0 mm](PUMP_DOOR_W) — two cases side-by-side + width clearance.
-pump_door_w = 2 * case_outer_x + PUMP_WIDTH_CLEARANCE
+# [145.5 mm](PUMP_DOOR_W) — single-case depth + clearance, along the appliance width.
+pump_door_w = case_outer_z + PUMP_CASE_DEPTH_CLEARANCE
 
-# [145.5 mm](PUMP_DOOR_D) — case CAD-frame height + depth clearance.
-pump_door_d = case_outer_z + PUMP_DEPTH_CLEARANCE
+# [165.0 mm](PUMP_DOOR_D) — two cases side-by-side + clearance, along the appliance depth.
+pump_door_d = 2 * case_outer_x + PUMP_SIDE_BY_SIDE_CLEARANCE
 
 
 # ---------------------------------------------------------------------------
@@ -67,10 +67,10 @@ FRONT_MARGIN = 10.0
 SIDE_MARGIN = 10.0
 DOOR_GAP = 10.0
 
-# [84.0 mm](HOPPER_DOOR_W) — APPLIANCE_W − SIDE_MARGIN − pump_door_w − DOOR_GAP.
+# [103.5 mm](HOPPER_DOOR_W) — APPLIANCE_W − SIDE_MARGIN − pump_door_w − DOOR_GAP.
 hopper_door_w = APPLIANCE_W - SIDE_MARGIN - pump_door_w - DOOR_GAP
 
-# [145.5 mm](HOPPER_DOOR_D) — matches pump door depth for visual alignment.
+# [165.0 mm](HOPPER_DOOR_D) — matches pump door depth for visual alignment.
 hopper_door_d = pump_door_d
 
 
@@ -89,8 +89,8 @@ def main() -> None:
     # along b (depth).
     appliance.top.add_rectangle(at=(230.5, 254), w=18, h=27, label="GFCI access band")
 
-    # Top face: pump-cartridge access door (left), [165.0 mm](PUMP_DOOR_W) ×
-    # [145.5 mm](PUMP_DOOR_D), pushed to the front of the top face.
+    # Top face: pump-cartridge access door (left), [145.5 mm](PUMP_DOOR_W) ×
+    # [165.0 mm](PUMP_DOOR_D), pushed to the front of the top face.
     pump_door_a = SIDE_MARGIN + pump_door_w / 2
     pump_door_b = FRONT_MARGIN + pump_door_d / 2
     appliance.top.add_rectangle(
@@ -99,8 +99,8 @@ def main() -> None:
         label="pump cartridge access door",
     )
 
-    # Top face: hopper lid (right), [84.0 mm](HOPPER_DOOR_W) ×
-    # [145.5 mm](HOPPER_DOOR_D), flush against the right edge.
+    # Top face: hopper lid (right), [103.5 mm](HOPPER_DOOR_W) ×
+    # [165.0 mm](HOPPER_DOOR_D), flush against the right edge.
     hopper_door_a = APPLIANCE_W - hopper_door_w / 2
     hopper_door_b = FRONT_MARGIN + hopper_door_d / 2
     appliance.top.add_rectangle(
