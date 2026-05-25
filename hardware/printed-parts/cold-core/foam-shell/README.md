@@ -27,8 +27,8 @@ The CadQuery script uses an explicit XZ plane with +Y normal
 - **Reservoir** — printed rigid PETG flavor reservoir, one per flavor,
   two per cold core. Cap on top with a single ⌀[6.5 mm](PORT_D) bulkhead
   pass-through; bottom is a wet-slope floor with a printed boss for the
-  internal SS float rod. Body envelope: **[140 mm](RES_W) wide (along Z)
-  × [48 mm](RES_D) deep (along X, radially outward) × [199.4 mm](RES_H)
+  internal SS float rod. Body envelope: **[140 mm](RESERVOIR_W) wide (along Z)
+  × [48 mm](RESERVOIR_D) deep (along X, radially outward) × [199.4 mm](RESERVOIR_H)
   tall**, sized to hold ≥ 1 L usable per reservoir. Reservoir geometry
   and internal features live at [`../reservoir/`](../reservoir/).
 - **Evaporator coil** — 1/4" OD × 0.187" ID × 0.031" wall ACR copper,
@@ -83,7 +83,7 @@ The two **far-side corners** (where the far +X wall meets the ±Z
 walls) are filleted: **[6.5 mm](POCKET_CORNER_R) inner radius**,
 outer radius one wall-thickness larger (so the wall thickness stays
 uniform through the bend). The inner radius matches the rigid PETG
-reservoir's outer fillet plus the [0.5 mm](RES_GAP) clearance, so
+reservoir's outer fillet plus the [0.5 mm](RESERVOIR_GAP) clearance, so
 the reservoir slides into a snugly-mated pocket with uniform clearance
 around the corner.
 

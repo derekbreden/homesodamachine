@@ -1464,14 +1464,14 @@ def main():
     substitute_md(
         here / ".." / "foam-shell" / "README.md",
         variables={
-            "RES_W": f"{res_w:g} mm",
-            "RES_D": f"{res_d:g} mm",
-            "RES_H": f"{res_h:g} mm",
+            "RESERVOIR_W": f"{res_w:g} mm",
+            "RESERVOIR_D": f"{res_d:g} mm",
+            "RESERVOIR_H": f"{res_h:g} mm",
         },
         expected_counts={
-            "RES_W": 1,
-            "RES_D": 1,
-            "RES_H": 1,
+            "RESERVOIR_W": 1,
+            "RESERVOIR_D": 1,
+            "RESERVOIR_H": 1,
         },
     )
     print("-> foam-shell/README.md (reservoir section)")
