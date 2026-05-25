@@ -47,6 +47,9 @@ function parseSvgString(svgText) {
   adopted.style.display = "block";
   adopted.style.maxWidth = "none";
   adopted.style.maxHeight = "none";
+  // Tag the SVG so viewer.css can recolor strokes for the dark modal
+  // surface (same treatment the thumbnails get via .card .drawing-thumb).
+  adopted.classList.add("drawing-svg");
   return adopted;
 }
 
