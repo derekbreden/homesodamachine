@@ -3,12 +3,22 @@ constants and hole-punch helpers that every sibling part (foam shell,
 foam cap stack, reservoir, copper plugs, coil mandrel) needs to stay
 in sync against."""
 
+import sys
+from pathlib import Path
+
+_here = Path(__file__).resolve().parent
+# Sibling generator scripts set these sys.path entries before importing
+# us, so they're redundant in the normal case — but running this file
+# directly (for the substitute_py_comments pass below) needs them too.
+# sys.path.insert is idempotent.
+sys.path.insert(0, str(next(p for p in _here.parents if p.name == "printed-parts") / "cadlib"))
+
 import cadquery as cq
 
 from world_workplane import xz_plane_y_up, xy_plane_z_up, WorldWorkplane
 
 
-# All structural walls and floors are 2 mm PETG.
+# All structural walls and floors are [2 mm](WALL_AND_FLOOR_THICKNESS) PETG.
 wall_and_floor_thickness = 2.0
 hole_shift_from_edge = 15.0
 
@@ -18,7 +28,7 @@ hole_shift_from_edge = 15.0
 # rides on a cylinder of this radius (centered on the cold-core axis).
 # The wall's tank-side face sits one wall-thickness inboard at radius
 # (pocket_centerward_arc_outer_radius − wall_and_floor_thickness), giving
-# 7 mm of radial clearance between the tank and the wall — room for the
+# [7 mm](COIL_RADIAL_CLEARANCE) of radial clearance between the tank and the wall — room for the
 # 1/4" ACR copper coil + thermal tape + slack.
 tank_outer_radius = 63.5
 coil_radial_clearance = 7.0
@@ -26,8 +36,8 @@ pocket_centerward_arc_outer_radius = (
     tank_outer_radius + coil_radial_clearance + wall_and_floor_thickness
 )
 
-# Foam-shell outer height. Tank height + 30 mm above for top-side elbow
-# fittings + 30 mm below for bottom-side elbow fittings + 1 mm
+# Foam-shell outer height. Tank height + [30 mm](ABOVE_TANK_ELBOWS_HEIGHT) above for top-side elbow
+# fittings + [30 mm](BELOW_TANK_ELBOWS_HEIGHT) below for bottom-side elbow fittings + 1 mm
 # wall-thickness compensation.
 tank_height = 152.4
 below_tank_elbows_height = 30.0
@@ -39,7 +49,7 @@ foam_shell_outer_height = (
 tank_support_ring_height = 30.0
 support_ring_radial_width = 9.0
 
-# ⌀6.5 — the project-wide standard for small through-shell features
+# ⌀[6.5](PORT_HOLE_DIAMETER) — the project-wide standard for small through-shell features
 # (water outlet, reservoir bulkheads, reed cable holes, CO2 tube
 # clearance). Used as the explicit radius arg for the punch builders.
 port_hole_radius = 3.25
@@ -74,9 +84,9 @@ bulkhead_nut_cavity_diameter = 23.0
 # Y of the bulkhead NUT cavity center — anchored to the floor's low point.
 # Computed so the nut cavity's lowest reach (washer counterbore at
 # ⌀22.3) sits right at the reservoir floor's wet surface, leaving the
-# full reservoir_floor_thickness (4 mm) of PETG below it as the fluid
+# full reservoir_floor_thickness ([4 mm](RESERVOIR_FLOOR_THICKNESS)) of PETG below it as the fluid
 # barrier. The nut (washer + hex piece) is the deepest feature in this
-# area and the floor MUST stay 4 mm at this low point.
+# area and the floor MUST stay [4 mm](RESERVOIR_FLOOR_THICKNESS) at this low point.
 reservoir_bulkhead_nut_y = (
     bag_pocket_floor_top_y
     + reservoir_clearance
@@ -84,10 +94,10 @@ reservoir_bulkhead_nut_y = (
     + bulkhead_nut_cavity_diameter / 2
 )
 
-# 2026-05-16 print test: the bulkhead body itself needs to sit 1 mm
-# above the nut. Achieved by lifting the bulkhead axis 1 mm above the
+# 2026-05-16 print test: the bulkhead body itself needs to sit [1 mm](BULKHEAD_AXIS_LIFT_ABOVE_NUT)
+# above the nut. Achieved by lifting the bulkhead axis [1 mm](BULKHEAD_AXIS_LIFT_ABOVE_NUT) above the
 # nut cavity center; the bulkhead's threading section then engages the
-# nut at a 1 mm offset, well within the ⌀17 panel hole's clearance
+# nut at a [1 mm](BULKHEAD_AXIS_LIFT_ABOVE_NUT) offset, well within the ⌀17 panel hole's clearance
 # around the ⌀~13 threaded section. The nut cavity stays at
 # reservoir_bulkhead_nut_y (the floor low point); everything anchored
 # to the bulkhead axis (chamber, panel hole, TPU seals, foam-shell
@@ -126,10 +136,10 @@ foam_cap_lid_hole_inset = 30.0
 # 6 attachment points per face × 2 faces = 12 inserts / 12 screws.
 # Gasket compresses between each cap's mating edge and the outer shell
 # (foam-cap-gasket.step). See bom.md for hardware SKUs.
-screw_clearance_radius = 1.95  # ⌀3.9 clearance for M3 SHCS shank
-insert_pocket_radius = 2.0  # ⌀4.0 for ruthex M3 short heat-set
+screw_clearance_radius = 1.95  # ⌀[3.9](SCREW_CLEARANCE_DIAMETER) clearance for M3 SHCS shank
+insert_pocket_radius = 2.0  # ⌀[4](INSERT_POCKET_DIAMETER) for ruthex M3 short heat-set
 insert_pocket_depth = 8.0  # 4 mm insert engagement + 4 mm relief
-screw_boss_size = 8.0  # 8 × 8 mm square pillar at each attachment
+screw_boss_size = 8.0  # [8 × 8 mm](SCREW_BOSS_SIZE) square pillar at each attachment
 
 # Mid-long-side bosses offset in X to clear the copper/water-outlet
 # slot at x=0; opposite signs at ±Z preserve 180° rotational symmetry
@@ -226,3 +236,41 @@ def build_y_axis_hole_punch(
         .circle(hole_punch_radius)
         .extrude(hole_punch_height)
     )
+
+
+if __name__ == "__main__":
+    sys.path.insert(
+        0,
+        str(next(p for p in _here.parents if (p / "tools" / "docgen").is_dir()) / "tools"),
+    )
+    from docgen import substitute_py_comments
+
+    variables = {
+        "WALL_AND_FLOOR_THICKNESS": f"{wall_and_floor_thickness:g} mm",
+        "COIL_RADIAL_CLEARANCE": f"{coil_radial_clearance:g} mm",
+        "ABOVE_TANK_ELBOWS_HEIGHT": f"{above_tank_elbows_height:g} mm",
+        "BELOW_TANK_ELBOWS_HEIGHT": f"{below_tank_elbows_height:g} mm",
+        "PORT_HOLE_DIAMETER": f"{port_hole_radius * 2:g}",
+        "RESERVOIR_FLOOR_THICKNESS": f"{reservoir_floor_thickness:g} mm",
+        "BULKHEAD_AXIS_LIFT_ABOVE_NUT": f"{bulkhead_axis_lift_above_nut:g} mm",
+        "SCREW_CLEARANCE_DIAMETER": f"{screw_clearance_radius * 2:g}",
+        "INSERT_POCKET_DIAMETER": f"{insert_pocket_radius * 2:g}",
+        "SCREW_BOSS_SIZE": f"{screw_boss_size:g} × {screw_boss_size:g} mm",
+    }
+    substitute_py_comments(
+        Path(__file__),
+        variables=variables,
+        expected_counts={
+            "WALL_AND_FLOOR_THICKNESS": 1,
+            "COIL_RADIAL_CLEARANCE": 1,
+            "ABOVE_TANK_ELBOWS_HEIGHT": 1,
+            "BELOW_TANK_ELBOWS_HEIGHT": 1,
+            "PORT_HOLE_DIAMETER": 1,
+            "RESERVOIR_FLOOR_THICKNESS": 2,
+            "BULKHEAD_AXIS_LIFT_ABOVE_NUT": 3,
+            "SCREW_CLEARANCE_DIAMETER": 1,
+            "INSERT_POCKET_DIAMETER": 1,
+            "SCREW_BOSS_SIZE": 1,
+        },
+    )
+    print("-> _cold_core_interface.py (self)")
