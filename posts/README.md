@@ -248,39 +248,44 @@ Use the project's canonical terms. The two most-confused:
 A bullet post earns a thumbnail when one of its categories is about
 something viewable — a STEP, a DXF, a Mermaid chart, a Drawing, or a
 page of the site itself. Embed it at the bottom of the post (after
-the bullet list) as a clickable image linking to where the reader
-can see the thing live.
+the bullet list) as a **bare image** — no anchor wrapper. The blog
+client (`web/public/blog.js`) already wires bare `<img>` inside
+`.post-body` into a tap-to-zoom modal (the same `ContentViewer` +
+`PanZoom` modal used on the dev viewer surfaces). Wrapping the image
+in a link would skip that lightbox AND point the reader at the
+current state of the file, which has often drifted (renamed, moved,
+deleted) since the post was written. The captured PNG is the
+historical truth; the modal shows that PNG; nothing in the post
+should send the reader to a live file that may no longer match.
 
 This is a real expected output of the post — not optional polish. If
 a category headline says "worked on the X" and X is something a
-reader can open in a viewer or visit on the site, the post should
-show X.
+reader can see, the post should show X.
 
 Markdown:
 
 ```
-[![<short description>](/post-images/<YYYY-MM-DD>-<slug>.png)](<link>)
+![<short description>](/post-images/<YYYY-MM-DD>-<slug>.png)
 ```
 
 The renderer that produces the PNG is matched to the viewable thing:
 
-| Viewable thing       | Renderer                          | Embedded link                                 |
-|----------------------|-----------------------------------|-----------------------------------------------|
-| `.step` (3D part)    | `tools/render/render-step.js`     | `/3d?file=<path>`                             |
-| `.dxf`  (cut sheet)  | `tools/render/render-dxf.js`      | `/3d?file=<path>`                             |
-| `.mmd`  (chart)      | `tools/render/render-mermaid.js`  | `/charts?file=<path>`                         |
-| `.svg`  (drawing)    | `tools/render/render-drawing.js`  | `/drawings?file=<path>`                       |
-| site page            | `tools/render/screenshot-site.js` | the page's path on the site (`/`, `/blog`, …) |
+| Viewable thing       | Renderer                          |
+|----------------------|-----------------------------------|
+| `.step` (3D part)    | `tools/render/render-step.js`     |
+| `.dxf`  (cut sheet)  | `tools/render/render-dxf.js`      |
+| `.mmd`  (chart)      | `tools/render/render-mermaid.js`  |
+| `.svg`  (drawing)    | `tools/render/render-drawing.js`  |
+| site page            | `tools/render/screenshot-site.js` |
 
 Run from the repo root, output to
 `web/public/post-images/<YYYY-MM-DD>-<slug>.png`. Pass `--at <DATE>`
 (every renderer in `tools/render/` supports it) when the post is
 dated in the past — the renderer pulls the source as it existed on
 that day, so the thumbnail reflects the state the post is describing,
-not the state of today. For the file renderers, `<path>` in the table
-is the file's path relative to `hardware/` (the same path the viewer
-surfaces in its URL). For the site renderer, the first arg is the
-page's path on the site and the link is the same path.
+not the state of today. For the file renderers, the input path is
+the file's path relative to `hardware/`. For the site renderer, the
+input is the page's path on the site (`/`, `/blog`, `/3d`, …).
 
 Canonical example — a STEP category with its thumbnail embedded:
 
@@ -289,23 +294,27 @@ Canonical example — a STEP category with its thumbnail embedded:
   - Before today we had not got to the lever yet
   - After today, we got past the lever and started on the tubes
 
-[![faucet — lever roughed in and tubes started](/post-images/2026-04-29-faucet.png)](/3d?file=printed-parts/faucet/touch-flo-shell/touch-flo-shell.step)
+![faucet — lever roughed in and tubes started](/post-images/2026-04-29-faucet.png)
 ```
 
-The thumbnail closes the post — one PNG, one link, one viewable thing
-named by a bullet above it. A reader can tap it to land directly in
-the viewer on that file.
+The thumbnail closes the post — one PNG, one viewable thing named by
+a bullet above it. Tapping the PNG opens the captured image in the
+lightbox; no navigation off the post, no risk of landing on a file
+that's drifted.
 
 Other types of viewable thing, same pattern:
 
-- A category about a new or revised diagram → embed the Mermaid
-  thumbnail, link to `/charts?file=<path>`
+- A category about a new or revised diagram → embed the Mermaid PNG
 - A category about a drawing under `hardware/**/drawings/` (e.g. the
-  enclosure isometric) → embed the SVG thumbnail, link to
-  `/drawings?file=<path>`
+  enclosure isometric) → embed the SVG PNG
 - A category about the site itself (a new page, a feature on a page,
-  a launch) → embed a screenshot of the relevant page, link to that
-  page's path. `2026-04-29-2238.md` is an existing example.
+  a launch) → embed a screenshot of the relevant page.
+  `2026-04-29-2238.md` is an existing example.
+
+The link-wrapped `[![](png)](url)` form stays valid for the case
+where the post genuinely points at an external destination — a
+YouTube video on a video-launch post is the canonical case. See
+"Video-launch posts" below.
 
 When NOT to embed:
 
