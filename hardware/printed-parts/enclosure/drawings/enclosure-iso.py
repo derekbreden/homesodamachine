@@ -2,73 +2,133 @@
 Isometric line-art view of the home-soda-machine enclosure.
 
 Canonical iso layout: top of enclosure at top of image, front face (y=0) at
-lower-right, right side face (x=W) at lower-left. This is a minimal first
-drawing while we verify the basics — one circle on the front (ESP32-S3),
-one small rectangle on the top (GFCI access band). Right side blank.
+lower-right, right side face (x=W) at lower-left.
 
 Run from the repo root:
 
     tools/cad-venv/bin/python hardware/printed-parts/enclosure/drawings/enclosure-iso.py
 
-Source for dimensions and the feature inventory:
+Source for the feature inventory:
 hardware/printed-parts/enclosure/README.md
 """
 
 import sys
 from pathlib import Path
 
-# Make line_art (in tools/line-art/) importable when running this script
-# directly. The drawing lives next to the part it describes; the library
-# is shared and lives under tools/.
-_REPO_ROOT = Path(__file__).resolve().parents[4]
+# tools/line-art/ for the drawing library; tools/ for docgen;
+# hardware/printed-parts/flavor/pump-case/ for the pump-case constants
+# (case_outer_x, case_outer_z) we derive the pump-door size from.
+_HERE = Path(__file__).resolve().parent
+_REPO_ROOT = _HERE.parents[3]
 sys.path.insert(0, str(_REPO_ROOT / "tools" / "line-art"))
+sys.path.insert(0, str(_REPO_ROOT / "tools"))
+sys.path.insert(0, str(_REPO_ROOT / "hardware" / "printed-parts" / "flavor" / "pump-case"))
 
 from line_art import Scene, Box
+from docgen import substitute_py_comments
+from generate_step_cadquery import case_outer_x, case_outer_z
+
+
+# ---------------------------------------------------------------------------
+# Enclosure outer dimensions
+# Working values per the enclosure README; replace with derived values when
+# we wire foam-shell + Zone B/D heights.
+# ---------------------------------------------------------------------------
+
+APPLIANCE_W = 269.0
+APPLIANCE_D = 280.0
+APPLIANCE_H = 280.0
+
+
+# ---------------------------------------------------------------------------
+# Pump-cartridge access door
+# Two pump cases insert side-by-side along their case_outer_x axis, with
+# case_outer_z (the case's height in the CAD frame) becoming the depth of
+# the door cutout when the cases lay on their side for top-down insertion.
+# The clearance numbers already include buffer over the bare contents
+# footprint — they don't need more.
+# ---------------------------------------------------------------------------
+
+PUMP_WIDTH_CLEARANCE = 15.0
+PUMP_DEPTH_CLEARANCE = 10.0
+
+# [165.0 mm](PUMP_DOOR_W) — two cases side-by-side + width clearance.
+pump_door_w = 2 * case_outer_x + PUMP_WIDTH_CLEARANCE
+
+# [145.5 mm](PUMP_DOOR_D) — case CAD-frame height + depth clearance.
+pump_door_d = case_outer_z + PUMP_DEPTH_CLEARANCE
+
+
+# ---------------------------------------------------------------------------
+# Hopper lid + top-face layout
+# ---------------------------------------------------------------------------
+
+FRONT_MARGIN = 10.0
+SIDE_MARGIN = 10.0
+DOOR_GAP = 10.0
+
+# [84.0 mm](HOPPER_DOOR_W) — APPLIANCE_W − SIDE_MARGIN − pump_door_w − DOOR_GAP.
+hopper_door_w = APPLIANCE_W - SIDE_MARGIN - pump_door_w - DOOR_GAP
+
+# [145.5 mm](HOPPER_DOOR_D) — matches pump door depth for visual alignment.
+hopper_door_d = pump_door_d
 
 
 def main() -> None:
     scene = Scene()
+    appliance = scene.add(Box(W=APPLIANCE_W, D=APPLIANCE_D, H=APPLIANCE_H))
 
-    # Enclosure outer dimensions (working values per the enclosure README):
-    #   Width ≈ foam shell width                       (~269 mm)
-    #   Depth  = foam shell depth + compressor zone    (~280 mm)
-    #   Height = foam shell height + electronics shelf (~280 mm)
-    appliance = scene.add(Box(W=269, D=280, H=280))
-
-    # Front face: just the ESP32-S3 rotary display for now (~32 mm OD).
-    # Face-local (a, b): a is x in 3D (0..W), b is z in 3D (0..H).
+    # Front face: ESP32-S3 rotary display (~32 mm OD).
     appliance.front.add_circle(at=(135, 140), d=32, label="ESP32-S3")
 
-    # Top face: GFCI access band — cutout exposing the TEST/RESET band of the
-    # Legrand 1597 duplex on the electronics shelf below. The band itself is
-    # 27 mm wide × 18 mm tall in the outlet's intrinsic frame, centered on
-    # the 42 × 67 mm outlet body. Tucked into the back-right corner with the
-    # outlet's tall axis (67) running along the appliance's WIDTH and its
-    # wide axis (42) along the DEPTH, so the underlying body sits flush
-    # against the back and right edges (5 mm clearance for the mounting
-    # yoke). In this rotation the band on the top face is 18 along a (width)
-    # × 27 along b (depth) — a tall-narrow band, not a wide-flat one.
+    # Top face: GFCI access band — 27 × 18 mm exposed band centered on the
+    # 42 × 67 mm Legrand 1597 body underneath. Tucked into the back-right
+    # corner with the body's tall axis along the appliance width. The body
+    # sits flush against the back and right edges (5 mm clearance for the
+    # mounting yoke); the band on the top face is 18 along a (width) × 27
+    # along b (depth).
     appliance.top.add_rectangle(at=(230.5, 254), w=18, h=27, label="GFCI access band")
 
-    # Top face: pump-cartridge access door (left) and hopper lid (right),
-    # both top-accessed per Zone C. Both pushed to the front; the empty
-    # rear portion of the top face is where the GFCI band lives.
-    #
-    # Pump door — 165 × 145 mm. Two pump cases inserted side-by-side via
-    # their 75 × 135 mm insertion faces (CASE_OUTER_X = 75 + 75 = 150 wide,
-    # CASE_OUTER_Z = 135 deep, per the pump-case generator). 165 = 150 + 15
-    # width clearance, 145 = 135 + 10 depth clearance.
-    appliance.top.add_rectangle(at=(92.5, 82.5), w=165, h=145, label="pump cartridge access door")
+    # Top face: pump-cartridge access door (left), [165.0 mm](PUMP_DOOR_W) ×
+    # [145.5 mm](PUMP_DOOR_D), pushed to the front of the top face.
+    pump_door_a = SIDE_MARGIN + pump_door_w / 2
+    pump_door_b = FRONT_MARGIN + pump_door_d / 2
+    appliance.top.add_rectangle(
+        at=(pump_door_a, pump_door_b),
+        w=pump_door_w, h=pump_door_d,
+        label="pump cartridge access door",
+    )
 
-    # Hopper lid — 84 × 145 mm. Matched depth with the pump door for visual
-    # alignment; width = whatever's left to the right (10 mm gap to pump,
-    # flush to the right edge of the top face). Comfortable for a
-    # SodaStream-bottle pour.
-    appliance.top.add_rectangle(at=(227, 82.5), w=84, h=145, label="hopper lid")
+    # Top face: hopper lid (right), [84.0 mm](HOPPER_DOOR_W) ×
+    # [145.5 mm](HOPPER_DOOR_D), flush against the right edge.
+    hopper_door_a = APPLIANCE_W - hopper_door_w / 2
+    hopper_door_b = FRONT_MARGIN + hopper_door_d / 2
+    appliance.top.add_rectangle(
+        at=(hopper_door_a, hopper_door_b),
+        w=hopper_door_w, h=hopper_door_d,
+        label="hopper lid",
+    )
 
-    output_path = Path(__file__).parent / "enclosure-iso.svg"
+    output_path = _HERE / "enclosure-iso.svg"
     scene.render(str(output_path))
     print(f"Wrote {output_path}")
+
+    substitute_py_comments(
+        Path(__file__),
+        variables={
+            "PUMP_DOOR_W": f"{pump_door_w:.1f} mm",
+            "PUMP_DOOR_D": f"{pump_door_d:.1f} mm",
+            "HOPPER_DOOR_W": f"{hopper_door_w:.1f} mm",
+            "HOPPER_DOOR_D": f"{hopper_door_d:.1f} mm",
+        },
+        expected_counts={
+            "PUMP_DOOR_W": 2,
+            "PUMP_DOOR_D": 2,
+            "HOPPER_DOOR_W": 2,
+            "HOPPER_DOOR_D": 2,
+        },
+    )
+    print(f"-> updated comments in {Path(__file__).name}")
 
 
 if __name__ == "__main__":
