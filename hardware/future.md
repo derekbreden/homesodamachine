@@ -76,7 +76,7 @@ The flavor reservoirs passively pre-chill to roughly 8-15°C by sitting in the t
 
 **Flavor subsystem**
 
-Two peristaltic pumps (food-grade silicone tube inside the pump head; 1/4" LLDPE hard tubing for the line runs in and out), mounted in the replaceable pump cartridge assembly. The cartridge uses John Guest quick-connects and a palm-squeeze release plate for tool-free swap. The pumps pull flavor from the internal printed hard reservoirs around the cold core and inject it at the dispense nozzle alongside the carbonated water.
+Two peristaltic pumps (1/4" OD LLDPE through the pump head, zip-tied to the BPT barbs; same tubing for the line runs in and out), mounted in the replaceable pump cartridge assembly. The cartridge uses John Guest quick-connects and a palm-squeeze release plate for tool-free swap. The pumps pull flavor from the internal printed hard reservoirs around the cold core and inject it at the dispense nozzle alongside the carbonated water.
 
 Pump direction is forward-only. Filling, dispensing, and clean-cycle operations are selected by the valve manifold. The canonical valve-state truth table is `topology/fluid-topology.md`: hopper/BiB/tap-water inputs are routed to the pump inlet through source-selection valves, and the pump outlet is routed either back to the selected bag or out to the nozzle.
 

@@ -43,7 +43,6 @@ The prototype below already accomplishes the dispense path. The integrated-appli
 | [Beduan 12V Solenoid Valve](https://www.amazon.com/dp/B07NWCQJK9) | 10 |
 | [DIGITEN Flow Sensor](https://www.amazon.com/dp/B07QQW4C7R) | 1 |
 | [Platypus 2L Collapsible Bottle](https://www.amazon.com/dp/B000J2KEGY) | 2 |
-| [Silicone Tubing (6m)](https://www.amazon.com/dp/B0BM4KQ6RT) | 1 |
 
 - The S3 is the sole display and the primary interaction surface. Default state shows the currently selected flavor; the rotary mechanism toggles between flavors; a subtle three-dot affordance reaches advanced settings.
 - The S3 is mounted into the front of the final device such that it can be "snapped out" and placed elsewhere — with a retracting ~1 m cat6 cable connecting it to the device still — but flush with the front of the device otherwise. Typical detached placement is the cabinet's false-drawer-front exterior above the cabinet door (the obvious empty flat panel just below the counter where a drawer would normally go).
