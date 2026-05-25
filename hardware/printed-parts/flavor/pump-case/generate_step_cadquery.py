@@ -111,26 +111,17 @@ pogo_ridge_depth = 0.7  # thin outer wall so pogo pins protrude further
 snap_protrusion_per_side = 2.5    # snaps / door-slot clearance on the install-short faces
 tube_protrusion_length   = 11.3   # silicone tubes off the press-in face (script +Z)
 
+# [75.0 mm](CASE_OUTER_X) install short horizontal — two cases sit side-by-side along this axis
 case_outer_x = footprint_x + 2 * snap_protrusion_per_side
-    # = [70.0](FOOTPRINT_X) + 2 × [2.5](SNAP_PROTRUSION_PER_SIDE)
-    # = [75.0 mm](CASE_OUTER_X), install short horizontal
-    # (two cases sit side-by-side along this axis)
 
+# [88.0 mm](CASE_OUTER_Y) install vertical — insertion direction
 case_outer_y = (footprint_z + 2 * skirt_wide_flare_per_side
                 + pogo_ridge_depth + tube_protrusion_length)
-    # = [70.0](FOOTPRINT_Z) + 2 × [3.0](SKIRT_WIDE_FLARE_PER_SIDE)
-    #   + [0.7](POGO_RIDGE_DEPTH) + [11.3](TUBE_PROTRUSION_LENGTH)
-    # = [88.0 mm](CASE_OUTER_Y), install vertical (insertion direction)
 
+# [135.5 mm](CASE_OUTER_Z) install long horizontal — script's full Y extent
 case_outer_z = (base_thickness + ramp_from_skirt_to_octagon_height + tower_height
                 + skirt_upper_height + skirt_wide_flare_per_side
                 + skirt_wide_straight_height + lower_height + lower_cap_thickness)
-    # = [3.0](BASE_THICKNESS) + [18.0](RAMP_FROM_SKIRT_TO_OCTAGON_HEIGHT)
-    #   + [60.0](TOWER_HEIGHT) + [21.0](SKIRT_UPPER_HEIGHT)
-    #   + [3.0](SKIRT_WIDE_FLARE_PER_SIDE) + [4.5](SKIRT_WIDE_STRAIGHT_HEIGHT)
-    #   + [23.0](LOWER_HEIGHT) + [3.0](LOWER_CAP_THICKNESS)
-    # = [135.5 mm](CASE_OUTER_Z), install long horizontal
-    # (script's full Y extent — tower at one end, cap lower extension at the other)
 
 
 # Slop added to cut depths so they pierce cleanly through sibling solid
