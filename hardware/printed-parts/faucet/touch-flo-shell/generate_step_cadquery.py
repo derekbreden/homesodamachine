@@ -20,7 +20,16 @@ sys.path.insert(
     0,
     str(next(p for p in _here.parents if (p / "tools" / "docgen").is_dir()) / "tools"),
 )
+sys.path.insert(0, str(_here.parent.parent))  # for _touch_flo_interface
 from _cadq_export import export_step
+from _touch_flo_interface import (
+    flavor_tube_od,
+    flavor_tube_y_offset,
+    flavor_tube_hole_dia,
+    pill_length_y,
+    pill_width_x,
+    flavor_tube_x,
+)
 from docgen import substitute_md, substitute_py_comments
 
 
@@ -52,14 +61,12 @@ body_bore_y = 0.0
 
 # Flavor-tube pill — sized for 1/4" OD LLDPE flavor tubes (6.35 mm OD),
 # tangent to the body's +X face (X=15.75) and tangent to each other at Y=0.
-# (Mounting plate not yet updated to match — coming in a later pass.)
-flavor_tube_x = 18.925  # body_r + tube_r = 15.75 + 3.175
-flavor_tube_hole_dia = 7.05  # 6.35 OD + 0.7 mm clearance
-flavor_tube_y_offset = 3.175  # = tube_r, tubes touch at Y=0
+# Geometry imported from _touch_flo_interface (single source of truth
+# across shell / mounting plate / gasket / under-counter plate):
+#   flavor_tube_od, flavor_tube_y_offset, flavor_tube_hole_dia,
+#   pill_length_y, pill_width_x, flavor_tube_x.
 # [13.4 mm](PILL_L) pill long axis (Y) = 2 × y_offset + hole_dia.
-pill_length_y = 2 * flavor_tube_y_offset + flavor_tube_hole_dia
 # [7.05 mm](PILL_W) pill short axis (X) = hole_dia.
-pill_width_x = flavor_tube_hole_dia
 
 # [14.5296 mm](FLAVOR_PILL_X_MINUS) — flat -X edge of the flavor pill
 # cutout in zones 1-4 (the base shell). Pulled in (more -X) past the
@@ -218,7 +225,8 @@ water_hole_diameter = water_tube_od + 2.0 * bore_clearance + 0.20
 # Y=±flavor_tube_y_offset (so they also touch each other), so the
 # X-tangency at the dispense point is Pythagorean:
 #   (post_bend_x − water_tube_x)² + y_offset² = (r_water + r_flavor)²
-flavor_tube_od = 0.25 * 25.4  # 6.35
+# flavor_tube_od imported from _touch_flo_interface (= 6.35 mm =
+# 0.25 × 25.4).
 flavor_tube_post_bend_x = water_tube_x + math.sqrt(
     (water_tube_od / 2.0 + flavor_tube_od / 2.0) ** 2
     - flavor_tube_y_offset ** 2

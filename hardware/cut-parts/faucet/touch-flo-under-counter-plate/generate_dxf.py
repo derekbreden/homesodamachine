@@ -22,7 +22,8 @@ The mounting plate, TPU gasket, and under-counter plate all sit on the
 same shank with the same flavor tubes passing through the same pill
 slot. Their hole patterns are identical: disc center at (3.175, 0),
 shank hole at (0, 0), pill slot at (18.925, 0) with long axis along Y
-(13.2 mm long, 6.85 mm wide). The under-counter plate adds channels
+(13.4 mm long, 7.05 mm wide; per _touch_flo_interface — was 13.2 × 6.85
+prior to the 2026-05-25 clearance unification). The under-counter plate adds channels
 without changing the hole positions, so it stacks naturally below
 the gasket and the mounting plate without rotation or coordinate
 translation.
@@ -35,12 +36,12 @@ Both channels extend in −Y from their cylinder pockets to the rim:
   X (X from -6.3 to +6.3, matching the shank diameter).
 - Pill channel: from the pill's bottom rectangle edge (Y = -3.175,
   replacing the bottom cap of the pill stadium) downward to the rim.
-  Width 6.85 mm in X (X from 15.5 to 22.35, matching the pill's
+  Width 7.05 mm in X (X from 15.4 to 22.45, matching the pill's
   short axis).
 
 Because the shank is at X = 0 and the pill is at X = 18.925, the two
-channels are at different X ranges (X = [-6.3, +6.3] vs X = [15.5,
-22.35]) and do not overlap. They exit the rim at different points on
+channels are at different X ranges (X = [-6.3, +6.3] vs X = [15.4,
+22.45]) and do not overlap. They exit the rim at different points on
 the lower arc of the disc.
 
 CHANNEL-MOUTH FILLETS
@@ -150,7 +151,23 @@ sys.path.insert(
     0,
     str(next(p for p in _here.parents if (p / "tools" / "docgen").is_dir()) / "tools"),
 )
+# _touch_flo_interface lives over in hardware/printed-parts/faucet/ — it
+# defines the canonical pill / shank geometry shared by the upper
+# mounting plate, the TPU gasket, the touch-flo shell, and this
+# under-counter plate. Walk up to `hardware/`, then sideways into
+# printed-parts/faucet/ so the import resolves.
+sys.path.insert(
+    0,
+    str(next(p for p in _here.parents if p.name == "hardware")
+        / "printed-parts" / "faucet"),
+)
 from docgen import substitute_py_comments
+from _touch_flo_interface import (
+    flavor_tube_x,
+    pill_length_y,
+    pill_width_x,
+    shank_hole_diameter,
+)
 
 # Dimensions in mm. DXF $INSUNITS = 4 (millimeters).
 # Hole positions match the TPU gasket and the upper mounting plate
@@ -166,27 +183,31 @@ disc_cy = 0.0
 shank_cx = 0.0
 shank_cy = 0.0
 # [12.6 mm](SHANK_HOLE_D) shank pocket — matches the gasket / mounting
-# plate (the threaded shank passes through all three discs).
-shank_diameter = 12.6
+# plate (the threaded shank passes through all three discs). Imported
+# from _touch_flo_interface.
+shank_diameter = shank_hole_diameter
 shank_radius = shank_diameter / 2.0
 
 # Pill is Y-oriented (matching the gasket): long axis along Y, short
-# axis along X.
+# axis along X. Geometry imported from _touch_flo_interface (single
+# source of truth across the stack-up — was 13.2 × 6.85 mm here until
+# 2026-05-25, when the gasket / mounting plate / this plate were all
+# bumped up to the shell's print-validated 13.4 × 7.05 mm).
 # [18.925 mm](FLAVOR_TUBE_X) +X offset of pill center from the shank —
 # shared with the shell / gasket / mounting plate for stacked alignment.
-pill_cx = 18.925
+pill_cx = flavor_tube_x
 pill_cy = 0.0
-# [13.2 mm](PILL_L) pill long axis (Y) — matches the gasket's pill.
-pill_long_y = 13.2
-# [6.85 mm](PILL_W) pill short axis (X) — matches the gasket's pill.
-pill_short_x = 6.85
-pill_half_long = pill_long_y / 2.0       # 6.6
-pill_half_short = pill_short_x / 2.0     # 3.425
-pill_cap_radius = pill_half_short        # 3.425
+# [13.4 mm](PILL_L) pill long axis (Y) — matches the gasket's pill.
+pill_long_y = pill_length_y
+# [7.05 mm](PILL_W) pill short axis (X) — matches the gasket's pill.
+pill_short_x = pill_width_x
+pill_half_long = pill_long_y / 2.0       # 6.7
+pill_half_short = pill_short_x / 2.0     # 3.525
+pill_cap_radius = pill_half_short        # 3.525
 pill_top_cap_cy = pill_cy + (pill_half_long - pill_cap_radius)   # +3.175
 pill_bot_cap_cy = pill_cy - (pill_half_long - pill_cap_radius)   # -3.175
-pill_left_x = pill_cx - pill_half_short     # 15.5
-pill_right_x = pill_cx + pill_half_short    # 22.35
+pill_left_x = pill_cx - pill_half_short     # 15.4
+pill_right_x = pill_cx + pill_half_short    # 22.45
 
 # [1.5 mm](FILLET_R) fillet radius at the four channel-mouth corners
 # where a vertical channel wall meets the disc rim. See the module
@@ -254,12 +275,12 @@ def make_dxf():
     shank_right_wall_top = (shank_right_wall_x, shank_cy)              # (+6.3, 0)
     # Pill channel — extends in -Y from the pill rectangle's bottom
     # edge (Y = pill_bot_cap_cy = -3.175, replacing the bottom cap) to
-    # the rim, width 6.85 mm in X.
-    pill_left_wall_top = (pill_left_x, pill_bot_cap_cy)                # (15.5, -3.175)
-    pill_right_wall_top = (pill_right_x, pill_bot_cap_cy)              # (22.35, -3.175)
+    # the rim, width 7.05 mm in X.
+    pill_left_wall_top = (pill_left_x, pill_bot_cap_cy)                # (15.4, -3.175)
+    pill_right_wall_top = (pill_right_x, pill_bot_cap_cy)              # (22.45, -3.175)
 
-    pill_rect_top_left = (pill_left_x, pill_top_cap_cy)                # (15.5, +3.175)
-    pill_rect_top_right = (pill_right_x, pill_top_cap_cy)              # (22.35, +3.175)
+    pill_rect_top_left = (pill_left_x, pill_top_cap_cy)                # (15.4, +3.175)
+    pill_rect_top_right = (pill_right_x, pill_top_cap_cy)              # (22.45, +3.175)
 
     disc_center = (disc_cx, disc_cy)
 

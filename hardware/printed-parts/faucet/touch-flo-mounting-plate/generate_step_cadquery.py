@@ -18,7 +18,18 @@ sys.path.insert(
     0,
     str(next(p for p in _here.parents if (p / "tools" / "docgen").is_dir()) / "tools"),
 )
+sys.path.insert(0, str(_here.parent))  # for _touch_flo_interface
 from _cadq_export import export_step
+from _touch_flo_interface import (
+    flavor_tube_od,
+    flavor_tube_hole_clearance as flavor_hole_clearance,
+    flavor_tube_hole_dia as flavor_tube_hole_diameter,
+    flavor_tube_x,
+    flavor_tube_y_offset,
+    pill_length_y as pill_slot_length_y,
+    pill_width_x as pill_slot_width_x,
+    shank_hole_diameter,
+)
 from docgen import substitute_md, substitute_py_comments
 
 
@@ -51,31 +62,33 @@ shell_outer_diameter = 2 * shell_outer_radius
 # Shank — clearance for the [11 mm](SHANK_OD) threaded shank.
 # [12.6 mm](SHANK_HOLE_D) matches the factory mounting plate
 # (~[14.5%](SHANK_CLEARANCE_PCT) diametric clearance).
+# shank_hole_diameter imported from _touch_flo_interface (single source
+# of truth — same Ø12.6 used by the gasket and under-counter plate).
 shank_diameter_nominal = 11.0
-shank_hole_radius = 12.6 / 2
+shank_hole_radius = shank_hole_diameter / 2
 shank_hole_center = (0.0, 0.0)
-shank_clearance_pct = (2 * shank_hole_radius - shank_diameter_nominal) / shank_diameter_nominal
+shank_clearance_pct = (shank_hole_diameter - shank_diameter_nominal) / shank_diameter_nominal
 
 
 # Flavor-tube pill slot. The two 1/4" ([6.35 mm](FLAVOR_TUBE_OD)) LLDPE
 # tubes are tangent in Y at centers ±flavor_tube_y_offset (separation
 # = [6.35 mm](TUBE_CENTER_Y) center-to-center); per-tube circles would
-# overlap by ~[0.5 mm](TUBE_OVERLAP), so we model the combined opening
+# overlap by ~[0.7 mm](TUBE_OVERLAP), so we model the combined opening
 # as a single Y-oriented pill (rounded-rectangle).
-flavor_tube_od = 6.35
-flavor_hole_clearance = 0.5
-# [6.85 mm](FLAVOR_HOLE_D) per-tube hole diameter = OD + [0.5 mm](FLAVOR_HOLE_CLEARANCE) clearance.
-flavor_tube_hole_diameter = flavor_tube_od + flavor_hole_clearance
-flavor_tube_y_offset = 3.175
+#
+# flavor_tube_od / flavor_hole_clearance / flavor_tube_hole_diameter /
+# flavor_tube_y_offset / pill_slot_length_y / pill_slot_width_x all
+# imported from _touch_flo_interface (single source of truth for the
+# stack-up — was 0.5 mm clearance here until 2026-05-25; promoted to the
+# shell's print-validated 0.7 mm).
+# [7.05 mm](FLAVOR_HOLE_D) per-tube hole diameter = OD + [0.7 mm](FLAVOR_HOLE_CLEARANCE) clearance.
 tube_overlap = flavor_tube_hole_diameter - 2 * flavor_tube_y_offset
 # [18.925 mm](PLATE_FLAVOR_X) +X offset of pill slot center from plate's
 # body-bore axis at world origin — matches the shell's flavor_tube_x for
 # the cross-coupled stack-up.
-pill_slot_center = (18.925, 0.0)
-# [13.2 mm](PLATE_PILL_L) pill long axis (Y) = 2 × y_offset + hole_d.
-pill_slot_length_y = 2 * flavor_tube_y_offset + flavor_tube_hole_diameter
-# [6.85 mm](PLATE_PILL_W) pill short axis (X) = hole_d.
-pill_slot_width_x = flavor_tube_hole_diameter
+pill_slot_center = (flavor_tube_x, 0.0)
+# [13.4 mm](PLATE_PILL_L) pill long axis (Y) = 2 × y_offset + hole_d.
+# [7.05 mm](PLATE_PILL_W) pill short axis (X) = hole_d.
 
 
 # No plate-to-shell retention or alignment features on this plate.
