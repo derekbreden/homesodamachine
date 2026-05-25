@@ -1,14 +1,7 @@
-"""Top-level enclosure dimensions — the named constants that the
-enclosure README's prose refers to. No CAD geometry at this level
-(the enclosure-as-a-whole is an architectural orientation rather than
-a single printed part); this module is the source-of-truth for the
-dimensional numbers cited in README.md.
+"""Doc-sync driver for hardware/printed-parts/enclosure/README.md.
 
-The foam shell envelope numbers are pulled live from
-`_cold_core_interface.py` — the canonical CAD source — so any shift
-in the foam shell's outer dimensions propagates here on the next run.
-
-Run this module directly to substitute the values into README.md."""
+Run: tools/cad-venv/bin/python hardware/printed-parts/enclosure/_enclosure_dimensions.py
+"""
 
 import sys
 from pathlib import Path

@@ -1,30 +1,6 @@
-"""Electronics-shelf assembly source-of-truth constants.
+"""Doc-sync driver for hardware/assembly/electronics-shelf.md.
 
-The `electronics-shelf.md` assembly procedure has no CadQuery generator
-of its own (the shelf STL itself is still TBD — see the README's "Open
-items" §1). This module is the dimension / spec source that the README's
-[value](NAME) markers substitute against, keeping prose-side numbers
-in sync with named constants the same way every part-level
-_dimensions.py / _sync.py does.
-
-Coverage is **selective**: only multi-cite, drift-risk numbers are
-managed here. Single-cite electrical specs (e.g. 80 W, 6.7 A, 6 mA,
-~200 g) get NAMEs anyway because they trace back to off-the-shelf
-datasheets and any future double-citing should not silently drift.
-
-Most numbers in this file's prose are still raw — Amazon SKU
-identifiers ("B0CNRST18V"), I²C address bytes ("0x20"), wire AWG values
-("16 AWG"), and Mermaid-diagram-rooted GPIO assignments. Those are
-either part-spec / part-procurement strings (BOM source-of-truth, not
-adjustable here), JST kit pin counts, or values that have their
-canonical source in `../wiring/esp32-pinout.mmd` (a Mermaid diagram —
-not Python-importable). Sweep agents that revisit this file should
-treat raw numbers as intentional unless they re-cite within the file
-in a way that introduces new drift risk.
-
-Run as a script to substitute the README:
-
-    tools/cad-venv/bin/python _electronics_shelf_sync.py
+Run: tools/cad-venv/bin/python hardware/assembly/_electronics_shelf_sync.py
 """
 
 import sys

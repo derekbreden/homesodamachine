@@ -1,18 +1,6 @@
-"""AC wiring schedule — source-of-truth constants for the appliance's
-mains + 12 V + low-voltage wiring spec.
+"""Doc-sync driver for hardware/wiring/ac-wiring-schedule.md.
 
-No CAD geometry here; this module exists as the dimension source that
-the schedule's [value](NAME) markers substitute against, so the prose
-numbers (voltages, breaker/GFCI ratings, AWG choices, conductor
-counts, expected run lengths) stay in lockstep with a single named
-constant. The schedule lives at the appliance level (every run
-references it) rather than at any single part, so its sync script
-lives alongside it under `hardware/wiring/` rather than next to a
-part.
-
-Run as a script to substitute the schedule:
-
-    tools/cad-venv/bin/python _ac_wiring_schedule_sync.py
+Run: tools/cad-venv/bin/python hardware/wiring/_ac_wiring_schedule_sync.py
 """
 
 import sys

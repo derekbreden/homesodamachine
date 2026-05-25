@@ -1,34 +1,6 @@
-"""Firmware-and-commissioning sync — source-of-truth constants for the
-load-bearing numbers in `firmware-and-commissioning.md`.
+"""Doc-sync driver for hardware/assembly/firmware-and-commissioning.md.
 
-The doc mixes three families of numbers that can't all come from a single
-upstream module:
-
-  1. **Pin assignments** — authoritative source is
-     `../wiring/esp32-pinout.mmd` (a Mermaid diagram, not a Python module).
-     Firmware `firmware/src/main.cpp` is a divergent prototype topology
-     (Board B/C eliminated, GPIO 13/27 reassigned, etc.) and is **not**
-     the source-of-truth — the wiring schema is. Pin constants live here,
-     each tagged with the wiring-schema GPIO comment so a reviewer can
-     cross-check against the .mmd by eye.
-
-  2. **I²C addresses** — same situation. Authoritative in the wiring
-     schema (and in firmware once the integrated build lands); mirrored
-     here.
-
-  3. **Commissioning thresholds + setpoints** — voltage-rail tolerances,
-     factory-default temperature setpoints, sensor counts. These are
-     commissioning-spec values: the doc commits them to the bench
-     procedure regardless of where the firmware happens to bake them.
-
-No generator script yet (no CadQuery geometry — this is a procedure doc).
-This module exists purely as the constant pool the README's
-[value](NAME) markers substitute against, so prose and numbers stay in
-sync once any of these constants change.
-
-Run as a script to substitute the markdown:
-
-    tools/cad-venv/bin/python _firmware_and_commissioning_sync.py
+Run: tools/cad-venv/bin/python hardware/assembly/_firmware_and_commissioning_sync.py
 """
 
 import sys

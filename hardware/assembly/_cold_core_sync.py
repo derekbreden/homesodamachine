@@ -1,36 +1,6 @@
 """Doc-sync driver for hardware/assembly/cold-core.md.
 
-The cold-core production procedure cites dimensional content with three
-distinct provenances; the sync driver handles each per the project's
-three-strategy menu:
-
-**Strategy A — multi-import from upstream generators.** Most numbers in
-the procedure prose are owned by the cold-core CAD: foam-shell outer
-envelope (foam_shell_outer_height, outer_shell_x_length,
-outer_shell_z_length) and joinery (screw_boss_size) live in
-`_cold_core_interface.py`; the foam-cap stack (foam_cap_interior_height,
-foam_cap_lid_pour_radius, foam_cap_lid_vent_radius, insert_pocket_radius,
-insert_pocket_depth, port_hole_radius) also flows through the interface;
-the in-cavity CO2 inlet Z (co2_inlet_z) lives in the foam-cap generator;
-and the coil-winding-mandrel-driven numbers (tube wind length, total
-wraps, pitch, mandrel OD, tank OD, undersize, groove depth, plug Y span)
-live in the coil-mandrel generator. All imported READ-ONLY.
-
-**Strategy C — leave raw.** External standards baked into SKU names
-(GOORY 1/4" OD × 0.031" wall ACR copper, 3M 425, M3 × 25 SHCS,
-1/4" PTC, 1/4" NPT, 5/16" tube, FDA 21 CFR 177.1630, etc.), catalog
-specs (~22 ft wrap per vessel, ~2 ft tie-in stubs, BOM quantities,
-Amazon SKUs), and procedure-loose values (1/8" pitch target, 1–3 mm
-springback band, six-screw counts, status tags) are intentionally not
-substituted — they ARE the parts or are independent procedure
-parameters.
-
-**Strategy B — cross-reference.** Not used here. The cited numbers
-flow from upstream constants, not from prose in other READMEs.
-
-Run as a script:
-
-    tools/cad-venv/bin/python hardware/assembly/_cold_core_sync.py
+Run: tools/cad-venv/bin/python hardware/assembly/_cold_core_sync.py
 """
 
 import sys

@@ -1,22 +1,6 @@
-"""Acceptance + burn-in procedure parameters — source-of-truth constants
-for the numbers cited in `acceptance-and-burn-in.md`.
+"""Doc-sync driver for hardware/assembly/acceptance-and-burn-in.md.
 
-No CAD geometry here; this is a procedure spec, not a part. The
-constants below are factory-acceptance test parameters (setpoints to
-verify, bench-rig tooling specs, pass/fail thresholds, burn-in
-duration and cadence) — each one is a deliberate choice in the
-acceptance procedure, and the markdown's [value](NAME) markers
-substitute against them so prose and numbers stay in sync as the
-procedure is tuned across early units.
-
-One number is pulled live from upstream — the WR1110 secondary
-regulator setpoint (90 PSI) — from the front-panel dimensions module
-where the customer-facing inlet stack documents the same value. Every
-other number is local to this procedure.
-
-Run as a script to substitute the markdown:
-
-    tools/cad-venv/bin/python _acceptance_and_burn_in_sync.py
+Run: tools/cad-venv/bin/python hardware/assembly/_acceptance_and_burn_in_sync.py
 """
 
 import sys

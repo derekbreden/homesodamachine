@@ -1,21 +1,6 @@
-"""Finish, pack, ship — procedure-level constants for the per-unit
-ship-bench README. No CAD geometry; this is the production-procedure
-counterpart to the part-level dimension modules elsewhere in this tree.
+"""Doc-sync driver for hardware/assembly/finish-pack-ship.md.
 
-Most numbers are working-assumption estimates that calibrate against
-the first-unit measurement (see Open item 7 in finish-pack-ship.md);
-they live here so the prose stays in sync once the first carton
-measures and constants here are updated.
-
-`founder_edition_count` is the one number with an upstream source —
-the canonical nameplate dimension module already owns it because the
-plaque needs the count baked into the per-unit serial range. Imported
-read-only so a future shift (e.g., the Founder Edition run extends
-past 50) propagates through both prose surfaces from one edit.
-
-Run as a script to substitute the README:
-
-    tools/cad-venv/bin/python _finish_pack_ship_sync.py
+Run: tools/cad-venv/bin/python hardware/assembly/_finish_pack_ship_sync.py
 """
 
 import sys

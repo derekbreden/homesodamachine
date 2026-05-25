@@ -1,26 +1,6 @@
-"""Wiring-procedure constants — source-of-truth for the per-run electrical
-values in `wiring.md`.
+"""Doc-sync driver for hardware/assembly/wiring.md.
 
-No generator script (the procedure is prose, not geometry); this module exists
-solely as the dimension source against which `wiring.md`'s [value](NAME)
-markers substitute. Most of the values here are *imports* from the AC wiring
-schedule's own sync driver (`../wiring/_ac_wiring_schedule_sync.py`) — the
-schedule owns the source-of-truth gauges, voltages, and per-run lengths; the
-procedure restates a handful for narrative flow and stays in lockstep by
-importing the same constants.
-
-The remaining values are procedure-only (cabinet-side slack, Keszoox pigtail
-length, the compressor-shroud cable-OD references, the chassis-ground stud
-hole, the compressor class) — those import from the compressor-shroud's
-dimension source upstream.
-
-A few procedure-only narrative numbers (the donor compressor winding
-resistance range ~10–30 Ω, the 50 cm Keszoox pigtail length, the 200 mm
-cabinet-side slack) have no upstream source and are defined locally below.
-
-Run as a script to substitute the markdown:
-
-    tools/cad-venv/bin/python _wiring_sync.py
+Run: tools/cad-venv/bin/python hardware/assembly/_wiring_sync.py
 """
 
 import sys

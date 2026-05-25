@@ -1,18 +1,6 @@
-"""Sync the named dimensional values in `enclosure-mechanical.md` against
-the canonical source modules that already own them.
+"""Doc-sync driver for hardware/assembly/enclosure-mechanical.md.
 
-This assembly doc is a production-cadence wrapper around several part-level
-README sources of truth: the back-panel (AC inlet recess), the front-panel
-(currently no shared scalars cited here), the nameplate (currently none
-cited here), the compressor shroud (terminal-block clearance, sheet
-thickness, Heyco bushing panel-hole size), and the foam shell (outer
-bottom-cap footprint pulled live through `_cold_core_interface`). Each
-NAME below points back to whichever upstream dimensions module defines it;
-this script is the only place the assembly doc's prose is kept in sync.
-
-Run as a script to substitute the README:
-
-    tools/cad-venv/bin/python _enclosure_mechanical_sync.py
+Run: tools/cad-venv/bin/python hardware/assembly/_enclosure_mechanical_sync.py
 """
 
 import sys

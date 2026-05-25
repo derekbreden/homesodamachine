@@ -1,9 +1,7 @@
-"""Rear-panel dimensions — the named constants that the README's prose
-refers to. No CAD geometry yet (this part is still design-in-progress);
-this module is the source-of-truth for the dimensional numbers cited in
-README.md until the panel reaches a CAD generator.
+"""Doc-sync driver for hardware/printed-parts/enclosure/back-panel/README.md.
 
-Run this module directly to substitute the values into README.md."""
+Run: tools/cad-venv/bin/python hardware/printed-parts/enclosure/back-panel/_back_panel_dimensions.py
+"""
 
 import sys
 from pathlib import Path
