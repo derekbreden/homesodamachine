@@ -85,10 +85,10 @@ from _cadq_export import export_step
 # ═══════════════════════════════════════════════════════
 
 tube_od_in = 0.250
-tube_radius = (tube_od_in / 2) * 25.4  # 3.175 mm
+tube_radius = (tube_od_in / 2) * 25.4
 
 tank_od = 127.0  # 5" carbonator tank OD
-tank_radius = tank_od / 2  # 63.5 mm
+tank_radius = tank_od / 2
 
 # As-wound stretch needed to slip the coil onto the tank. See the
 # docstring: this is tank_radius − coil_inner_radius_after_winding, NOT
@@ -101,14 +101,14 @@ net_undersize = 3.0
 # ═══════════════════════════════════════════════════════
 
 groove_depth = 1.0
-groove_profile_radius = tube_radius  # 3.175 mm
-groove_offset = groove_profile_radius - groove_depth  # 2.175 mm
+groove_profile_radius = tube_radius
+groove_offset = groove_profile_radius - groove_depth
 
 # Coil inner radius after winding = mandrel_radius − groove_depth
 # (copper bottom rests at the groove bottom). Solve for mandrel_radius
 # such that coil_inner_radius = tank_radius − net_undersize:
-mandrel_radius = tank_radius - net_undersize + groove_depth  # 61.5 mm
-mandrel_od = 2 * mandrel_radius  # 123.0 mm
+mandrel_radius = tank_radius - net_undersize + groove_depth
+mandrel_od = 2 * mandrel_radius
 
 wall = 5.0
 mandrel_inner_radius = mandrel_radius - wall
@@ -123,20 +123,20 @@ mandrel_r_range = (mandrel_inner_radius, mandrel_radius)
 plug_inlet_x, plug_inlet_y, plug_inlet_z = -30.0, 46.0, 20.0
 plug_outlet_x, plug_outlet_y, plug_outlet_z = 30.0, 166.4, 20.0
 
-wind_length = plug_outlet_y - plug_inlet_y  # 120.4 mm
+wind_length = plug_outlet_y - plug_inlet_y
 
-plug_inlet_azimuth = math.degrees(math.atan2(plug_inlet_z, plug_inlet_x))  # 146.31°
-plug_outlet_azimuth = math.degrees(math.atan2(plug_outlet_z, plug_outlet_x))  # 33.69°
+plug_inlet_azimuth = math.degrees(math.atan2(plug_inlet_z, plug_inlet_x))
+plug_outlet_azimuth = math.degrees(math.atan2(plug_outlet_z, plug_outlet_x))
 
 # CCW azimuthal delta from inlet to outlet (right-hand helix climbs CCW).
-plug_ccw_delta = (plug_outlet_azimuth - plug_inlet_azimuth) % 360  # 247.38°
+plug_ccw_delta = (plug_outlet_azimuth - plug_inlet_azimuth) % 360
 
 # Total wraps = N full + fractional wrap that spans the azimuthal delta.
 # N=9 picked as the smallest "first-attempt" wrap count below the user's
 # 12-wrap cap; pitch falls out from alignment.
 full_wraps = 9
-total_wraps = full_wraps + plug_ccw_delta / 360  # 9.687
-pitch = wind_length / total_wraps  # 12.43 mm
+total_wraps = full_wraps + plug_ccw_delta / 360
+pitch = wind_length / total_wraps
 
 
 # ═══════════════════════════════════════════════════════
@@ -145,8 +145,8 @@ pitch = wind_length / total_wraps  # 12.43 mm
 
 # Mandrel runs along +Z: lower handle, wind zone, upper handle.
 handle_length_in = 0.75
-handle_length = handle_length_in * 25.4  # 19.05 mm
-total_length = handle_length + wind_length + handle_length  # 158.5 mm
+handle_length = handle_length_in * 25.4
+total_length = handle_length + wind_length + handle_length
 
 mandrel_z_range = (0, total_length)
 lower_handle_z_range = (mandrel_z_range[0], handle_length)
