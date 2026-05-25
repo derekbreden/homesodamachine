@@ -282,17 +282,30 @@ is the file's path relative to `hardware/` (the same path the viewer
 surfaces in its URL). For the site renderer, the first arg is the
 page's path on the site and the link is the same path.
 
-Examples of when to embed:
+Canonical example — a STEP category with its thumbnail embedded:
 
-- A category about a new or substantially-changed part → embed the
-  part's STEP thumbnail
-- A category about a new diagram or wiring update → embed the Mermaid
-  thumbnail
-- A category about the front face of the appliance, or any other
-  drawing under `hardware/**/drawings/` → embed the SVG thumbnail
-- A category about the site itself (a new page, a redesign, a feature
-  on a page) → embed a screenshot of the relevant page. The site-launch
-  post `2026-04-29-2238.md` is the canonical example.
+```
+- Worked on the STEP file (3D drawing) for printing the faucet
+  - Before today we had not got to the lever yet
+  - After today, we got past the lever and started on the tubes
+
+[![faucet — lever roughed in and tubes started](/post-images/2026-04-29-faucet.png)](/3d?file=printed-parts/faucet/touch-flo-shell/touch-flo-shell.step)
+```
+
+The thumbnail closes the post — one PNG, one link, one viewable thing
+named by a bullet above it. A reader can tap it to land directly in
+the viewer on that file.
+
+Other types of viewable thing, same pattern:
+
+- A category about a new or revised diagram → embed the Mermaid
+  thumbnail, link to `/charts?file=<path>`
+- A category about a drawing under `hardware/**/drawings/` (e.g. the
+  enclosure isometric) → embed the SVG thumbnail, link to
+  `/drawings?file=<path>`
+- A category about the site itself (a new page, a feature on a page,
+  a launch) → embed a screenshot of the relevant page, link to that
+  page's path. `2026-04-29-2238.md` is an existing example.
 
 When NOT to embed:
 
