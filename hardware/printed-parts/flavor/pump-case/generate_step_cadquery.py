@@ -20,9 +20,11 @@ import cadquery as cq
 _here = Path(__file__).resolve().parent
 sys.path.insert(0, str(next(p for p in _here.parents if p.name == "printed-parts") / "cadlib"))
 sys.path.insert(0, str(next(p for p in _here.parents if p.name == "hardware")))
+sys.path.insert(0, str(next(p for p in _here.parents if (p / "tools" / "docgen").is_dir()) / "tools"))
 
 from world_workplane import WorldWorkplane, xz_plane_y_up, xy_plane_z_up
 from _cadq_export import export_step
+from docgen import substitute_py_comments
 
 
 # Physical dimensions
@@ -57,7 +59,7 @@ vertex_near = bore_half_diag - bore_half_span
 
 # Tower
 tower_height = 60.0
-cap_thickness = 3.0
+tower_cap_thickness = 3.0
 cylinder_id = 37.0
 cylinder_r_inner = cylinder_id / 2
 # cylinder_r_outer is set in the derived-geometry section below — its
@@ -164,26 +166,6 @@ cylinder_top_y = 8
 cylinder_bottom_y = bore_bottom_y + tower_height                  # +81
 
 footprint_half_extent = footprint_x / 2
-
-
-def case_workplane(world_y):
-    """XZ-aligned workplane at world Y = world_y, with the in-plane
-    origin shifted to (world X = center_x, world Z = center_z).
-
-    Built on xz_plane_y_up so subsequent .workplane(offset=dy) shifts
-    by dy along world +Y, .extrude(h) extrudes h along world +Y, and
-    polyline/center args accept world (x, z) tuples (the wrapper
-    handles the local-Y chirality flip).
-
-    Because of the centering, polyline points passed downstream are
-    interpreted as case-centered (x, z) — i.e., (0, 0) is the case's
-    central axis, not a corner.  Pre-built profiles like the bore
-    octagon and the rounded-rect footprints are already centered at
-    origin and need no further shifting.
-    """
-    return (WorldWorkplane(xz_plane_y_up)
-            .workplane(offset=world_y)
-            .center(center_x, center_z))
 
 
 # Polygon generators
@@ -478,7 +460,9 @@ def build_base_plate_with_ramp():
         corner_r)
 
     return (
-        case_workplane(0)
+        WorldWorkplane(xz_plane_y_up)
+        .workplane(offset=0)
+        .center(center_x, center_z)
         .polyline(footprint).close()
         .workplane(offset=base_thickness)
         .polyline(footprint).close()
@@ -494,7 +478,9 @@ def add_bore_wall(solid):
     cut_bore_cavity, which runs after the tower cylinder is unioned so
     the cavity also pierces the cylinder's overlap with the bore region."""
     bore_wall = (
-        case_workplane(0)
+        WorldWorkplane(xz_plane_y_up)
+        .workplane(offset=0)
+        .center(center_x, center_z)
         .polyline(bore_wall_profile).close()
         .extrude(bore_depth)
     )
@@ -507,7 +493,9 @@ def cut_bore_cavity(solid):
     region.  Must run after build_tower has been unioned in, otherwise
     the cylinder fills the cavity back in."""
     bore_cavity = (
-        case_workplane(0)
+        WorldWorkplane(xz_plane_y_up)
+        .workplane(offset=0)
+        .center(center_x, center_z)
         .polyline(bore_profile).close()
         .extrude(bore_depth + overcut)
     )
@@ -523,7 +511,10 @@ def loft_profile_stack(start_world_y, y_steps, profiles, overcut_last_step=False
         direction as the loft's travel, so a cut profile pierces cleanly
         through a sibling solid boundary.
     """
-    wp = case_workplane(start_world_y).polyline(profiles[0]).close()
+    wp = (WorldWorkplane(xz_plane_y_up)
+          .workplane(offset=start_world_y)
+          .center(center_x, center_z)
+          .polyline(profiles[0]).close())
     for i, (step, profile) in enumerate(zip(y_steps, profiles[1:])):
         is_last = i == len(y_steps) - 1
         extra = math.copysign(overcut, step) if (overcut_last_step and is_last) else 0
@@ -547,14 +538,18 @@ def build_tower():
     cavity inside stays at its original Y range (it's the pump body's
     clearance, separate from the tower's outer shape)."""
     tower_cylinder = (
-        case_workplane(cylinder_top_y)
+        WorldWorkplane(xz_plane_y_up)
+        .workplane(offset=cylinder_top_y)
+        .center(center_x, center_z)
         .circle(cylinder_r_outer)
         .extrude(cylinder_bottom_y - cylinder_top_y)
     )
 
-    tower_bore_depth = tower_height - cap_thickness
+    tower_bore_depth = tower_height - tower_cap_thickness
     tower_bore = (
-        case_workplane(bore_bottom_y - overcut)
+        WorldWorkplane(xz_plane_y_up)
+        .workplane(offset=bore_bottom_y - overcut)
+        .center(center_x, center_z)
         .circle(cylinder_r_inner)
         .extrude(tower_bore_depth + overcut)
     )
@@ -600,7 +595,9 @@ def build_lower_extension():
 
     lower_cap_top_y = skirt_bottom_y - lower_height
     lower_cap = (
-        case_workplane(lower_cap_top_y)
+        WorldWorkplane(xz_plane_y_up)
+        .workplane(offset=lower_cap_top_y)
+        .center(center_x, center_z)
         .polyline(lower_outer_profiles[-1]).close()
         .extrude(-lower_cap_thickness)
     )
@@ -641,7 +638,9 @@ def split_into_base_and_cap(combined):
     cutter_extent = 50.0
 
     full_slab = (
-        case_workplane(skirt_bottom_y)
+        WorldWorkplane(xz_plane_y_up)
+        .workplane(offset=skirt_bottom_y)
+        .center(center_x, center_z)
         .rect(2 * cutter_extent, 2 * cutter_extent)
         .extrude(lower_end_y - skirt_bottom_y)
     )
@@ -654,7 +653,9 @@ def split_into_base_and_cap(combined):
         (-cutter_extent, step_z + overcut),
     ]
     narrow_step = (
-        case_workplane(narrow_split_y)
+        WorldWorkplane(xz_plane_y_up)
+        .workplane(offset=narrow_split_y)
+        .center(center_x, center_z)
         .polyline(narrow_box).close()
         .extrude(skirt_bottom_y - narrow_split_y)
     )
@@ -717,6 +718,21 @@ def main():
     export_step(cap.unwrap(), str(_here / "pump-case-cap-cadquery.step"))
     print("-> pump-case-base-cadquery.step")
     print("-> pump-case-cap-cadquery.step")
+
+    substitute_py_comments(
+        _here / "generate_step_cadquery.py",
+        variables={
+            "CASE_OUTER_X": f"{case_outer_x:.1f} mm",
+            "CASE_OUTER_Y": f"{case_outer_y:.1f} mm",
+            "CASE_OUTER_Z": f"{case_outer_z:.1f} mm",
+        },
+        expected_counts={
+            "CASE_OUTER_X": 1,
+            "CASE_OUTER_Y": 1,
+            "CASE_OUTER_Z": 1,
+        },
+    )
+    print("-> updated comments in generate_step_cadquery.py")
 
 
 if __name__ == "__main__":
