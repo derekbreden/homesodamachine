@@ -29,9 +29,9 @@ from _cold_core_interface import (
     reservoir_clearance,
     reservoir_floor_thickness,
     bulkhead_nut_cavity_diameter,
-    reservoir_bulkhead_port_x as port_position_x,
-    reservoir_bulkhead_port_y as port_position_y,
-    reservoir_bulkhead_nut_y as nut_position_y,
+    reservoir_bulkhead_port_x,
+    reservoir_bulkhead_port_y,
+    reservoir_bulkhead_nut_y,
 )
 
 
@@ -243,7 +243,7 @@ rod_anchor_boss_floor = 2.0  # thickness of the printed-solid PETG floor INSIDE 
 # port opens out the boss's −Z face into the syrup volume; on the +Z
 # side a ⌀6.5 channel carries the 1/4" tube out through the reservoir's
 # +Z outer wall, aligning with the foam-shell pass-through at
-# (±port_position_x, port_position_y).
+# (±reservoir_bulkhead_port_x, reservoir_bulkhead_port_y).
 #
 # Body geometry (catalog): ≈ ø22.9 flange/collet OD, ≈ 34.5 overall
 # length, ⌀6.35 push-to-connect at each end. Both reservoirs put the
@@ -254,16 +254,16 @@ rod_anchor_boss_floor = 2.0  # thickness of the printed-solid PETG floor INSIDE 
 # from below and the locknut + dry collet + tube push-in are
 # unobstructed. No print-pause-and-insert or split-boss assembly needed.
 #
-# port_position_x: midpoint between cavity's inner +X face and the
+# reservoir_bulkhead_port_x: midpoint between cavity's inner +X face and the
 #   concave arc's peak (imported from _cold_core_interface).
-# port_position_y: Y of the BULKHEAD BODY AXIS. Sits 1 mm above
-#   nut_position_y. Used for body chamber, wet exit tube, panel hole,
+# reservoir_bulkhead_port_y: Y of the BULKHEAD BODY AXIS. Sits 1 mm above
+#   reservoir_bulkhead_nut_y. Used for body chamber, wet exit tube, panel hole,
 #   seal counterbores, foam-shell pass-through, dry slab anchor,
 #   wet/dry slope anchor. NOT used for the nut cavity.
-# nut_position_y: Y of the NUT CAVITY center. Anchored to the floor's
+# reservoir_bulkhead_nut_y: Y of the NUT CAVITY center. Anchored to the floor's
 #   low point so the washer counterbore sits on top of the 4 mm
 #   reservoir floor, preserving the full fluid barrier. 1 mm below
-#   port_position_y per the 2026-05-16 print test.
+#   reservoir_bulkhead_port_y per the 2026-05-16 print test.
 port_tube_diameter = 6.5  # 1/4" OD tube clearance
 
 # The pocket is asymmetric across the panel. Wet side (z < panel):
@@ -394,7 +394,7 @@ bulkhead_panel_z_range = (
 # floor_baseline_y, and rises by floor_slope_rise to the far −Z wall.
 # Outer floor stays flat at y=1 for FDM printability.
 #
-# Syrup drains: cavity → wet ceiling opening (above y=port_position_y)
+# Syrup drains: cavity → wet ceiling opening (above y=reservoir_bulkhead_port_y)
 # → wet chamber (around the bulkhead's wet collet body) → port at
 # body's −Z face. The bulkhead inlet is the lowest point the pump can
 # drain to.
@@ -402,7 +402,7 @@ bulkhead_panel_z_range = (
 # Dry-section ceiling slab: the only PETG above the dry chamber, a
 # fluid barrier above the cavity (4 mm minimum, same as the body walls
 # and cap base plate). The slab's bottom is constrained from below by
-# the bulkhead's dry-side flange (⌀22.9 OD, top at y=port_position_y +
+# the bulkhead's dry-side flange (⌀22.9 OD, top at y=reservoir_bulkhead_port_y +
 # 11.45 = 28.45), so the slab can only grow upward — i.e. the cavity
 # floor rises by the slab's thickness above the chamber top.
 bulkhead_dry_slab_thickness = 4.0
@@ -420,21 +420,30 @@ dry_ceiling_clearance = 20.0
 # floor_baseline_y = top face of the dry-side slab at the panel's −Z
 # edge (bulkhead_panel_z_range[0]). Stack from the chamber's curved top:
 #   chamber_top + dry_ceiling_clearance + slab_thickness
-# = (port_position_y + 11.5) + 20 + 4 = port_position_y + 35.5
+# = (reservoir_bulkhead_port_y + 11.5) + 20 + 4 = reservoir_bulkhead_port_y + 35.5
 # The slope tilts the slab top upward as z increases, so the
 # bulkhead dry-flange clearance is positive everywhere in
 # z ≥ bulkhead_panel_z_range[1].
-floor_baseline_y = port_position_y + bulkhead_nut_cavity_diameter / 2 + dry_ceiling_clearance + bulkhead_dry_slab_thickness
+floor_baseline_y = reservoir_bulkhead_port_y + bulkhead_nut_cavity_diameter / 2 + dry_ceiling_clearance + bulkhead_dry_slab_thickness
 
 # On the wet side (z < bulkhead_panel_z_range[0]), the slope's lowest
-# line is anchored at the bulkhead INLET MIDPOINT (port_position_y =
+# line is anchored at the bulkhead INLET MIDPOINT (reservoir_bulkhead_port_y =
 # y of the port's center) — about 15.5 mm below the dry-side baseline.
 # That recovers ~90 mL of cavity volume across the slope region;
 # functional drainage is unchanged (syrup at the slope drops straight
 # into the wet chamber's open ceiling), the win is purely volume.
-slope_low_y = port_position_y  # slope's lowest y, at z = bulkhead_panel_z_range[0] (the wet/dry boundary)
+slope_low_y = reservoir_bulkhead_port_y  # slope's lowest y, at z = bulkhead_panel_z_range[0] (the wet/dry boundary)
 
 floor_slope_rise = 6.0  # mm above floor_baseline_y at the far −Z wall
+
+# Margin keeping the wedge extrusion's top above the slope-cut planes
+# so the slope half-spaces cut a clean upper face on the wedge.
+wedge_extrusion_y_margin = 2.0
+
+# How far the bulkhead chamber's ceiling cuts extend above
+# floor_baseline_y. Ensures the cuts fully clear the chamber's curved
+# top through the floor baseline with margin to spare.
+bulkhead_ceiling_overshoot_y = 2.0
 
 
 # Heat-set insert + screw spec. M3 ruthex-style brass heat-set inserts
@@ -832,7 +841,7 @@ def build_reservoir_body(side=1):
     # The dry slope tops out at floor_baseline_y + floor_slope_rise at
     # z=outer_z_max; +2 mm of margin keeps the slope cut well inside
     # the extrusion's Y range.
-    wedge_top_y_safe = floor_baseline_y + floor_slope_rise + 2.0
+    wedge_top_y_safe = floor_baseline_y + floor_slope_rise + wedge_extrusion_y_margin
     wedge_extrusion = _build_envelope(
         side,
         (inner_y_range[0], wedge_top_y_safe),
@@ -848,7 +857,7 @@ def build_reservoir_body(side=1):
     wedge = wedge.intersect(outer_envelope_filleted)
     body = body.union(wedge)
 
-    port_x_signed = port_position_x * side
+    port_x_signed = reservoir_bulkhead_port_x * side
 
     # Bulkhead pocket — horizontal cavity along +Z. Three logical
     # sections: stepped wet chamber (conforming to the bulkhead body's
@@ -862,7 +871,7 @@ def build_reservoir_body(side=1):
         return (
             cq.Workplane(xy_plane_z_up)
             .workplane(offset=z_start)
-            .center(port_x_signed, port_position_y)
+            .center(port_x_signed, reservoir_bulkhead_port_y)
             .circle(diameter / 2)
             .extrude(z_end - z_start)
         )
@@ -876,16 +885,16 @@ def build_reservoir_body(side=1):
         (bulkhead_wet_z_range, bulkhead_release_chamber_diameter),  # antechamber + release ring
         (bulkhead_collet_z_range, bulkhead_collet_chamber_diameter),  # collet body — bulkhead's smooth main section rests here when fully screwed forward
     ]
-    ceiling_y_top = floor_baseline_y + 2.0
+    ceiling_y_top = floor_baseline_y + bulkhead_ceiling_overshoot_y
     for z_range, diameter in wet_sections:
         z_start, z_end = z_range
         body = body.cut(_z_pocket_cut(z_range, diameter))
         ceiling_box = (
             WorldWorkplane(xz_plane_y_up)
-            .workplane(offset=port_position_y)
+            .workplane(offset=reservoir_bulkhead_port_y)
             .center(port_x_signed, (z_start + z_end) / 2.0)
             .rect(diameter, z_end - z_start)
-            .extrude(ceiling_y_top - port_position_y)
+            .extrude(ceiling_y_top - reservoir_bulkhead_port_y)
         )
         body = body.cut(ceiling_box)
 
@@ -909,7 +918,7 @@ def build_reservoir_body(side=1):
     wet_exit_profile = (
         cq.Workplane(xy_plane_z_up)
         .workplane(offset=bulkhead_wet_z_range[0])
-        .center(port_x_signed, port_position_y)
+        .center(port_x_signed, reservoir_bulkhead_port_y)
         .circle(bulkhead_release_chamber_diameter / 2)
     )
 
@@ -920,18 +929,18 @@ def build_reservoir_body(side=1):
     # Start at local (0, 0), end at local (R, R). Arc curves through
     # midpoint (R sin45°, R − R cos45°).
     wet_exit_path_plane = cq.Plane(
-        origin=(port_x_signed, port_position_y, bulkhead_wet_z_range[0]),
+        origin=(port_x_signed, reservoir_bulkhead_port_y, bulkhead_wet_z_range[0]),
         xDir=(0, 0, -1),
         normal=(1, 0, 0),
     )
-    _R = wet_exit_arc_radius
-    _arc_mid = (_R * math.sin(math.radians(45)),
-                _R * (1 - math.cos(math.radians(45))))
-    _arc_end = (_R, _R)
+    r = wet_exit_arc_radius
+    arc_mid = (r * math.sin(math.radians(45)),
+               r * (1 - math.cos(math.radians(45))))
+    arc_end = (r, r)
     wet_exit_path = (
         cq.Workplane(wet_exit_path_plane)
         .moveTo(0, 0)
-        .threePointArc(_arc_mid, _arc_end)
+        .threePointArc(arc_mid, arc_end)
     )
 
     wet_exit_tube = wet_exit_profile.sweep(wet_exit_path)
@@ -945,7 +954,7 @@ def build_reservoir_body(side=1):
     # the nut in from above (ceiling boxes open the cavity), gravity
     # seats it, hex flats prevent rotation. Then thread the bulkhead
     # in from the dry side; thread engagement locks the nut axially.
-    # Anchored in Y to nut_position_y (the floor's low point) so the
+    # Anchored in Y to reservoir_bulkhead_nut_y (the floor's low point) so the
     # washer counterbore sits on top of the 4 mm reservoir floor,
     # preserving the full PETG fluid barrier below.
     nut_hex_z_range = (
@@ -957,7 +966,7 @@ def build_reservoir_body(side=1):
     nut_hex_part = (
         cq.Workplane(xy_plane_z_up)
         .workplane(offset=nut_hex_z_range[0])
-        .center(port_x_signed, nut_position_y)
+        .center(port_x_signed, reservoir_bulkhead_nut_y)
         .polyline(nut_hex_profile)
         .close()
         .extrude(nut_hex_z_range[1] - nut_hex_z_range[0])
@@ -965,7 +974,7 @@ def build_reservoir_body(side=1):
     nut_washer_part = (
         cq.Workplane(xy_plane_z_up)
         .workplane(offset=nut_washer_z_range[0])
-        .center(port_x_signed, nut_position_y)
+        .center(port_x_signed, reservoir_bulkhead_nut_y)
         .circle((bulkhead_nut_washer_diameter + 2 * bulkhead_nut_clearance) / 2)
         .extrude(nut_washer_z_range[1] - nut_washer_z_range[0])
     )
@@ -975,7 +984,7 @@ def build_reservoir_body(side=1):
     # Ceiling boxes — one per nut section (hex + washer) — that open
     # the nut cavity upward to the wet volume so the nut can be
     # dropped in before the cap is installed. Anchored to
-    # `nut_position_y` to stay co-centered with the nut cavity (NOT
+    # `reservoir_bulkhead_nut_y` to stay co-centered with the nut cavity (NOT
     # the bulkhead axis, which sits 1 mm above).
     for (z_range, width) in (
         (nut_hex_z_range,
@@ -986,10 +995,10 @@ def build_reservoir_body(side=1):
         z_start, z_end = z_range
         nut_ceiling_box = (
             WorldWorkplane(xz_plane_y_up)
-            .workplane(offset=nut_position_y)
+            .workplane(offset=reservoir_bulkhead_nut_y)
             .center(port_x_signed, (z_start + z_end) / 2.0)
             .rect(width, z_end - z_start)
-            .extrude(ceiling_y_top - nut_position_y)
+            .extrude(ceiling_y_top - reservoir_bulkhead_nut_y)
         )
         body = body.cut(nut_ceiling_box)
 
