@@ -18,14 +18,14 @@ Per-unit BOM lives in [`../bom.md`](../bom.md) §2 (carbonator vessel) + §12 (l
 
 | Item | Source | Notes |
 |---|---|---|
-| 5" OD × 0.065" wall × 152.4 mm 316L SS welded tube | OnlineMetals #12498 | MTRs required. Mo content of 316L (absent from 304) provides pitting + crevice-corrosion resistance in the chloride + carbonic-acid environment of long-life carbonated water service. |
+| 5" OD × 0.065" wall × [152.4 mm](TANK_H) 316L SS welded tube | OnlineMetals #12498 | MTRs required. Mo content of 316L (absent from 304) provides pitting + crevice-corrosion resistance in the chloride + carbonic-acid environment of long-life carbonated water service. |
 | 1/4"-thick 316L SS circular end plate, 2-hole pattern | SendCutSend [`endcap-circular-2hole.dxf`](../cut-parts/carbonation/endcaps-circular/endcap-circular-2hole.dxf) | 2 per vessel |
 | 1/8" 316L SS rod, ~6" cut from 12" stock | Tandefio B0CY4DWJFQ | Internal float rod (bom.md §12) |
 | Magnetic donut float | Harvested from DEVMO MINI float switch B07T18PGJ4 | Slides on rod, captive after top weld (bom.md §12) |
 | 0.5 µm sintered 316 SS sparge stone (1/4" barb input) | FERRODAY B091C5Y6L9 | Internal CO2 sparge |
 | Food-grade silicone tube stub, ~3" of 1/4" ID | Metaland B08L1ST6ST (cut from §5 stock) | Connects bottom-plate barb to sparge stone |
 | 1/4" hose-barb × 1/4" MNPT 316 SS adapter | LTWFITTING B017N4TTMA | CO2 inlet barb, installed at sparge step |
-| **TAISHER 316L SS 1/4" NPT 90° street elbow, M×F** | B0CZ38MYL1 (2-pk) | **4 per vessel — all four ports (all-SS standardization).** 316L on every port: matches the 316 end-cap plate parent metal so there's no galvanic mismatch on the wetted side, and standardizing one SS elbow SKU across water + gas ports avoids splitting the assembly into SS-water + brass-gas variants. Turns the line laterally within the ~30 mm vertical envelope around the tank — see [`../printed-parts/cold-core/foam-shell/README.md`](../printed-parts/cold-core/foam-shell/README.md) "Tank-port fittings". SS-on-SS thread joints rely on the Millrose PTFE anti-seize tape (above) at every port. |
+| **TAISHER 316L SS 1/4" NPT 90° street elbow, M×F** | B0CZ38MYL1 (2-pk) | **4 per vessel — all four ports (all-SS standardization).** 316L on every port: matches the 316 end-cap plate parent metal so there's no galvanic mismatch on the wetted side, and standardizing one SS elbow SKU across water + gas ports avoids splitting the assembly into SS-water + brass-gas variants. Turns the line laterally within the ~[30 mm](ELBOW_ENV) vertical envelope around the tank — see [`../printed-parts/cold-core/foam-shell/README.md`](../printed-parts/cold-core/foam-shell/README.md) "Tank-port fittings". SS-on-SS thread joints rely on the Millrose PTFE anti-seize tape (above) at every port. |
 | **Control Devices SV-125 safety valve, 1/4" NPT, 125 PSI** | B01G2F6EMY (size SV-125) | **Port 4 dedicated PRV — installed after passivation per step 8 below, via the SS 90° elbow to orient the body laterally.** 125 PSI set pressure gives 1.39× margin over the 90 PSI working pressure. 49 SCFM relief capacity. |
 | Millrose PTFE thread-seal tape | B07C9ZV4PG | Anti-seize for 4 NPT ports (test plugs during hydro + final fittings after passivation) |
 | ER316L .030 filler wire | STARTECHWELD B09BKFBXT9 | Matches 316L parent metal — Mo content across the weld zone keeps the weld as corrosion-resistant as the surrounding 316L plate + tube. |
@@ -94,7 +94,7 @@ Done after hydro because failures get re-welded (re-introducing oxide that the p
 
 ### 8. Install elbows, sparge stone, PRV
 
-After passivation, the vessel receives its permanent port fittings. Per [`../printed-parts/cold-core/foam-shell/README.md`](../printed-parts/cold-core/foam-shell/README.md) "Tank-port fittings", every port gets a 1/4" NPT 90° elbow as the first downstream fitting, turning the line laterally so the rest of the stack fits within the ~30 mm vertical envelope above and below the tank.
+After passivation, the vessel receives its permanent port fittings. Per [`../printed-parts/cold-core/foam-shell/README.md`](../printed-parts/cold-core/foam-shell/README.md) "Tank-port fittings", every port gets a 1/4" NPT 90° elbow as the first downstream fitting, turning the line laterally so the rest of the stack fits within the ~[30 mm](ELBOW_ENV) vertical envelope above and below the tank.
 
 All four ports get a TAISHER 316L SS elbow. MNPT into the plate's FNPT, Millrose PTFE anti-seize tape on every joint. Downstream stack varies by port:
 
