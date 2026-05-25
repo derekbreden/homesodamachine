@@ -478,19 +478,19 @@ Plate contents (when slicing): `foam-shell` + `copper-plug-lower` +
 
 ## Regression baseline
 
-Source-level refactors of `_foam_shell.build_full_shell()`
-should preserve the geometry of `foam-shell.step` exactly.  These four
-scalars are the canonical regression sieve — any change to them
-(beyond OCCT numerical noise at the ~1e-6 mm³ level) is a geometry
-shift that needs a deliberate explanation:
+Source-level refactors of `_foam_shell.build_full_shell()` should
+preserve the geometry of `foam-shell.step` exactly. These scalars
+are the canonical regression sieve — any change to them (beyond
+OCCT numerical noise at the ~1e-6 mm³ level) is a geometry shift
+that needs a deliberate explanation:
 
 | metric | value |
 |---|---|
-| volume   | **996325.726298 mm³** |
-| bbox x   | [−134.500, +134.500] mm |
-| bbox y   | [0.000, 213.400] mm |
-| bbox z   | [−90.500, +90.500] mm |
-| centroid | (0.000005, 90.742949, −0.616723) mm |
+| volume | [1024713.425433](BBOX_VOLUME) mm³ |
+| bbox x | [-141.500](BBOX_X_MIN) to [141.500](BBOX_X_MAX) mm |
+| bbox y | [0.000](BBOX_Y_MIN) to [213.400](BBOX_Y_MAX) mm |
+| bbox z | [-90.500](BBOX_Z_MIN) to [90.500](BBOX_Z_MAX) mm |
+| centroid | ([0.000005](CENTROID_X), [90.718775](CENTROID_Y), [-0.576537](CENTROID_Z)) mm |
 
 Quick reproduction:
 
