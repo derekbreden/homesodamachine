@@ -50,6 +50,14 @@ def main() -> None:
     # × 27 along b (depth) — a tall-narrow band, not a wide-flat one.
     appliance.top.add_rectangle(at=(230.5, 254), w=18, h=27, label="GFCI access band")
 
+    # Top face: hopper door + pump-cartridge access door, identical at 76 × 70
+    # mm (the pump cap's footprint sets the floor; the hopper opening needs
+    # less for a SodaStream-bottle pour). Side-by-side in the front portion of
+    # Zone C with a 15 mm gap and ~51 mm margin to the left/right edges of the
+    # top face. Left/right assignment between hopper and pump not committed.
+    appliance.top.add_rectangle(at=(89, 45), w=76, h=70, label="door (hopper or pump cartridge)")
+    appliance.top.add_rectangle(at=(180, 45), w=76, h=70, label="door (hopper or pump cartridge)")
+
     output_path = Path(__file__).parent / "enclosure-iso.svg"
     scene.render(str(output_path))
     print(f"Wrote {output_path}")
