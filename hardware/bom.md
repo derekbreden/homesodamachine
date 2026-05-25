@@ -262,3 +262,7 @@ Per-appliance tools that ship in the install kit so the field installer can cut 
 - **5 lb CO2 tank** + refills (~$25/refill at welding/homebrew shops)
 - **Flavor concentrate** — SodaStream or BIB syrup
 - **Tap-water source under the cabinet** — an existing 3/8" or 1/2" angle-stop on a cold-water line (the same prerequisite a dishwasher or under-counter water filter has). The kit includes the tee, the 1/4" LLDPE, and the water filter — the customer brings only the existing angle stop.
+
+## Sources
+[value](NAME) texts are updated by:
+- `/hardware/_bom_sync.py`

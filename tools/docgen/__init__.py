@@ -35,6 +35,17 @@ never match — only our all-caps-and-underscores variable references do. The
 first-character restriction (no leading digit) keeps numeric literals like
 `[0.5](2)` from being interpreted as substitution targets.
 
+Sources section
+---------------
+
+substitute_md also maintains a `## Sources` block at the end of every
+markdown file it touches, listing the repo-relative path(s) of the
+script(s) that own its [value](NAME) markers. The caller's path is
+auto-detected via the call stack — no extra argument needed. Multiple
+callers per file accumulate as separate bullets (deduped, sorted).
+A caller's bullet stays in place even if the script later stops
+calling substitute_md on the file; pruning is manual.
+
 Cross-file collision linter
 ---------------------------
 
@@ -53,6 +64,7 @@ Invoke as:
 Exit code is 0 if no collisions are found, 1 otherwise.
 """
 
+import inspect
 import io
 import re
 import tokenize
@@ -64,6 +76,84 @@ from typing import Any
 # (digits allowed after the first character, but not as the first character).
 # Captures: 1 = value (bracket text), 2 = variable name (paren content).
 _LINK_RE = re.compile(r"\[([^\]]*)\]\(([A-Z_][A-Z0-9_]*)\)")
+
+
+# Sources section — appended/updated by substitute_md at the end of every
+# .md it touches, so a reader can see which Python file(s) keep this
+# markdown's [value](NAME) markers honest.
+_SOURCES_HEADER = "## Sources"
+_SOURCES_PREAMBLE = "[value](NAME) texts are updated by:"
+# Matches an existing Sources section: header line, preamble line, then one
+# or more `- `…`` bullets. Caller normalizes text to end with \n first.
+_SOURCES_SECTION_RE = re.compile(
+    re.escape(_SOURCES_HEADER) + r"\n"
+    + re.escape(_SOURCES_PREAMBLE) + r"\n"
+    + r"((?:- `[^`\n]+`\n)+)"
+)
+
+
+def _find_repo_root(path: Path) -> Path | None:
+    """Walk up from `path` looking for a `.git` directory."""
+    for p in [path, *path.parents]:
+        if (p / ".git").exists():
+            return p
+    return None
+
+
+def _caller_repo_path(stack_depth: int = 2) -> str | None:
+    """Repo-root-relative path of the script that called substitute_md.
+
+    `stack_depth` = how far up the call stack to look. Default 2:
+    0 is this helper, 1 is substitute_md, 2 is the caller.
+
+    Returns a string like `/hardware/foo/bar/generate_step_cadquery.py`,
+    or None if the caller's file is outside the repo or unidentifiable.
+    """
+    try:
+        caller_file = Path(inspect.stack()[stack_depth].filename).resolve()
+    except (IndexError, OSError):
+        return None
+    repo = _find_repo_root(caller_file)
+    if repo is None:
+        return None
+    try:
+        rel = caller_file.relative_to(repo)
+    except ValueError:
+        return None
+    return f"/{rel.as_posix()}"
+
+
+def _render_sources_section(bullets: list[str]) -> str:
+    """Build the Sources section text. Each bullet line ends with \\n."""
+    bullet_lines = "\n".join(f"- `{b}`" for b in bullets)
+    return f"{_SOURCES_HEADER}\n{_SOURCES_PREAMBLE}\n{bullet_lines}\n"
+
+
+def _update_sources_section(text: str, caller_path: str) -> str:
+    """Ensure the Sources section in `text` lists `caller_path`. If the
+    section exists, add `caller_path` to its bullet list (deduped, sorted)
+    leaving any other callers' bullets alone. If absent, append the
+    section after the existing content with a blank-line separator."""
+    # Normalize trailing newline so the regex can match the last bullet.
+    if text and not text.endswith("\n"):
+        text = text + "\n"
+
+    match = _SOURCES_SECTION_RE.search(text)
+    if match:
+        paths: set[str] = set()
+        for line in match.group(1).split("\n"):
+            line = line.strip()
+            if line.startswith("- `") and line.endswith("`"):
+                paths.add(line[3:-1])
+        paths.add(caller_path)
+        new_section = _render_sources_section(sorted(paths))
+        return text[:match.start()] + new_section + text[match.end():]
+
+    new_section = _render_sources_section([caller_path])
+    # Empty/whitespace-only file: section becomes the whole file.
+    if not text.strip():
+        return new_section
+    return text.rstrip() + "\n\n" + new_section
 
 
 def substitute_md(
@@ -123,6 +213,14 @@ def substitute_md(
         return match.group(0)  # unknown — leave alone
 
     new_text = _LINK_RE.sub(repl, text)
+
+    # Maintain the Sources section at end of file. Auto-detects the
+    # caller's repo path via the call stack; silently skips if the
+    # caller isn't inside a .git checkout.
+    caller_path = _caller_repo_path()
+    if caller_path:
+        new_text = _update_sources_section(new_text, caller_path)
+
     if new_text != text:
         md_path.write_text(new_text)
 

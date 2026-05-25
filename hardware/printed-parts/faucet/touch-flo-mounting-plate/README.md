@@ -32,15 +32,15 @@ top surface via the TPU mounting gasket below it.
    threaded shank (~[14.5%](SHANK_CLEARANCE_PCT) diametric clearance).
 2. **Flavor-tube pill slot** — at world
    ([18.925 mm](PLATE_FLAVOR_X), 0), oriented along Y. Per-tube Ø
-   would be [6.85 mm](FLAVOR_HOLE_D) (= [6.35 mm](FLAVOR_TUBE_OD) OD
-   + [0.5 mm](FLAVOR_HOLE_CLEARANCE) clearance applied to the 1/4"
+   would be [7.05 mm](FLAVOR_HOLE_D) (= [6.35 mm](FLAVOR_TUBE_OD) OD
+   + [0.7 mm](FLAVOR_HOLE_CLEARANCE) clearance applied to the 1/4"
    flavor tubes), but the two tubes are only
    [6.35 mm](TUBE_CENTER_Y) apart center-to-center, so the per-tube
-   circles overlap by ~[0.5 mm](TUBE_OVERLAP). We model the combined
+   circles overlap by ~[0.7 mm](TUBE_OVERLAP). We model the combined
    opening as a single pill (rounded-rectangle) slot for cleaner
    printability:
-   - Length (Y, end-to-end): [13.2 mm](PLATE_PILL_L)
-   - Width (X): [6.85 mm](PLATE_PILL_W)
+   - Length (Y, end-to-end): [13.4 mm](PLATE_PILL_L)
+   - Width (X): [7.05 mm](PLATE_PILL_W)
 
 No plate-to-shell retention or alignment features. The plate is a
 clean disc with only the shank hole + pill slot through it; the
@@ -72,3 +72,7 @@ landing area the body and shell sit on.
 ```
 tools/cad-venv/bin/python generate_step_cadquery.py
 ```
+
+## Sources
+[value](NAME) texts are updated by:
+- `/hardware/printed-parts/faucet/touch-flo-mounting-plate/generate_step_cadquery.py`

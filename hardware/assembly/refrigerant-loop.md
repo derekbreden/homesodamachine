@@ -134,3 +134,7 @@ Procedure-level gaps that need answers before unit 1 ships:
 1. **Recharge target mass for the new larger evap coil.** Factory charge masses are known (Unit A [15 g](UNIT_A_CHARGE), Unit B [23 g](UNIT_B_CHARGE) per their manufacturer manuals — see harvested README per-unit), but the recharge target for this build is *not* the factory mass because the new evaporator coil has greater internal volume than the discarded factory finger-plate. The volume-corrected target needs empirical validation on first run-up against frost-pattern + suction-line superheat. Bound: factory mass + the evap-volume-times-operating-density correction (order-of-magnitude [+5-15 g](VOL_CORRECTION) for the [~80-110 mL](EVAP_VOL_DELTA) volume delta vs. a finger-plate evap at typical R-600a operating density). Iterate in 1-2 g increments rather than committing to a calculated final number.
 2. **Failure handling beyond "redo the sequence."** Decision tree for hard-to-find leaks, charge loss between vacuum check and run-up.
 3. **No dedicated donor-teardown procedure.** Which steps remove which components, in what order, what gets discarded vs. salvaged — currently scattered across this doc and [`../harvested/ice-maker/README.md`](../harvested/ice-maker/README.md). Worth a standalone teardown doc when production teardown begins for unit 1.
+
+## Sources
+[value](NAME) texts are updated by:
+- `/hardware/assembly/_refrigerant_loop_sync.py`

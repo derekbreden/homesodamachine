@@ -132,3 +132,7 @@ Procedure-level gaps that need answers before unit 1 ships:
 3. **Strain relief for bundles crossing the cold-core boundary.** The shelf-to-cold-core bundle enters the foam-shell at a printed pass-through; the bundle wants a defined strain-relief approach (a printed cable clamp on the foam-shell? a glue blob? a P-clip mounted to the back of the electronics shelf?) rather than relying on zip-tie friction alone. Pick a method and roll it into the foam-shell or the electronics-shelf printed parts.
 4. **SIG-9 pin assignment.** Per [`../wiring/esp32-pinout.mmd`](../wiring/esp32-pinout.mmd) the backflow-vent moisture sensor's ESP32 GPIO is not yet committed. Either land the assignment in the pinout diagram before unit 1 wiring, or carry SIG-9 as a flying lead on a known spare GPIO and re-land it during commissioning.
 5. **AC distribution-block hardware.** Open per [`../wiring/ac-wiring-schedule.md`](../wiring/ac-wiring-schedule.md) "What's not yet decided": Wago 221 vs. screw terminal block vs. PCB-mounted block. Same question applies to the [12 V](DC_BUS_V) distribution block. This procedure assumes Wago 221 because it is the fastest hand-build; pick the production form before unit 1.
+
+## Sources
+[value](NAME) texts are updated by:
+- `/hardware/assembly/_wiring_sync.py`

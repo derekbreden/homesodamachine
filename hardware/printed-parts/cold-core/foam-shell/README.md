@@ -496,3 +496,8 @@ print(s.Volume(), (bb.xmin, bb.xmax, bb.ymin, bb.ymax, bb.zmin, bb.zmax), (com.x
 
 The cadquery venv lives at `tools/cad-venv/bin/python` (cadquery is not
 on system Python).
+
+## Sources
+[value](NAME) texts are updated by:
+- `/hardware/printed-parts/cold-core/foam-shell/generate_step_cadquery.py`
+- `/hardware/printed-parts/cold-core/reservoir/generate_step_cadquery.py`

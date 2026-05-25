@@ -169,3 +169,7 @@ Procedure-level gaps that need answers before unit 1 ships:
 6. **Carton + foam end-cap + transit-cap source.** No SKU committed yet for the outer carton, the molded foam end-caps, or the three rear-panel transit caps. Working assumption is a custom-cut carton + custom-poured foam from a local packaging house; the per-unit cost lands in [`../bom.md`](../bom.md) once the source is committed.
 7. **Shipping weight — precise number.** The [15](CARTON_W_LOW)–[20 kg](CARTON_W_HIGH) working envelope is an estimate; the first-unit measurement at step 8 calibrates the run, and the cost model for the carrier-selection decision (Open item 1) depends on the precise number landing.
 8. **Signature path — handwritten vs laser-engrave.** Per [`../printed-parts/enclosure/nameplate/README.md`](../printed-parts/enclosure/nameplate/README.md) "Signature fidelity", the decision between handwritten archival pen and laser-engraved vector is deferred until the first plaque prints. Step 3 of this procedure runs whichever path lands; the bench's tooling list and the per-unit time both shift with the answer.
+
+## Sources
+[value](NAME) texts are updated by:
+- `/hardware/assembly/_finish_pack_ship_sync.py`

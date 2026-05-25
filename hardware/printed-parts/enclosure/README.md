@@ -56,3 +56,7 @@ The front face is large surface area for three intentional features. The intent 
 - [`back-panel/`](back-panel/) — rear face of the enclosure.
 - [`front-panel/`](front-panel/) — front face of the enclosure.
 - [`nameplate/`](nameplate/) — separately-printed serialized plaque mounted on the rear face.
+
+## Sources
+[value](NAME) texts are updated by:
+- `/hardware/printed-parts/enclosure/_enclosure_dimensions.py`

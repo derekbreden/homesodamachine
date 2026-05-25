@@ -58,3 +58,7 @@ The prototype below already accomplishes the dispense path. The integrated-appli
 - Layer sizes can be as low as 0.1 mm
 - Supported materials (standard): PLA, PETG, TPU, PVA, BVOH, ABS, ASA, PC, PA, PET, PPS, PPA
 - Supported materials (carbon/glass fiber reinforced): PLA, PETG, PA, PET, PC, ABS, ASA, PPS
+
+## Sources
+[value](NAME) texts are updated by:
+- `/hardware/_requirements_sync.py`
