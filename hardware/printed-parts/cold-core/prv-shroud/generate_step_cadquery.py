@@ -67,8 +67,8 @@ cap_thickness = 2.0
 cavity_length = 44.0        # elbow seat bottom to PRV pull-ring tip
 vent_hole_diameter = 6.35   # 1/4" LLDPE tubing OD
 
-outer_diameter = inner_diameter + 2 * wall_thickness   # 23 mm
-total_length = cavity_length + cap_thickness           # 46 mm
+outer_diameter = inner_diameter + 2 * wall_thickness
+total_length = cavity_length + cap_thickness
 
 # Slop for cut-through operations.
 overcut = 0.1
