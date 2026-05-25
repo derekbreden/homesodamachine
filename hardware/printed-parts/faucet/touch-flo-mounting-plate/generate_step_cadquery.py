@@ -33,21 +33,24 @@ HOLES
    (rounded-rectangle) slot for cleaner printability:
      - Length (Y, end-to-end): 13.2 mm
      - Width (X):              6.85 mm
-3. Press-fit dowel pin bosses (×2, mirrored across Y=0) — Ø 4.0 mm
-   solid cylindrical bosses extruded UP 5 mm from the plate's TOP
-   face, with a 0.5 mm × 45° chamfer at the tip. Located at
-   θ = ±45° about the body center, r = 20 from body center (world
+3. Dowel-pin bosses (×2, mirrored across Y=0) — Ø 3.9 mm solid
+   cylindrical bosses extruded UP 5 mm from the plate's TOP face,
+   with a 0.5 mm × 45° chamfer at the tip. Located at θ = ±45°
+   about the body center, r = 20 from body center (world
    (14.142, ±14.142)) — same XY as the matching Ø 4.05 × 6 mm
-   press-fit pockets in the shell's bottom face. The 0.05 mm
-   diametric CAD clearance is overrun by FDM tolerances (boss prints
-   slightly oversize, pocket prints slightly undersize) to produce
-   a real press fit when assembled. No screws, no heat-set inserts
-   on this joint — the plate slides up onto the shell, the bosses
-   self-align into the pockets, and friction holds the sub-assembly
-   together. The harvested faucet body's shank nut (below the
-   under-counter plate) carries all the structural load; the
-   press-fit dowels only need to keep the plate stuck to the shell
-   during sub-assembly handling.
+   pockets in the shell's bottom face. Currently 0.15 mm diametric
+   CAD gap (boss Ø 3.9 vs pocket Ø 4.05); FDM tolerances will
+   close some of that. The originally-targeted Ø 4.0 boss
+   (0.05 mm CAD gap) snapped a boss off on the first insertion
+   attempt because the actual interference after FDM tolerances was
+   too high — bosses on this print of the plate are being
+   re-tried at Ø 3.9 as a low-force *placeholder/alignment* fit
+   rather than a retention press fit. Retention falls to the
+   harvested faucet body's shank nut, which compresses the whole
+   stack (body → plate → TPU gasket → countertop) once the
+   under-counter install finishes. The dowels' only remaining job
+   is to keep the plate's pill slot aligned with the shell's pill
+   slot during body-into-shell installation.
 
 REGENERATE
 ==========
@@ -112,15 +115,25 @@ pill_slot_width_x = flavor_tube_hole_diameter
 # shank nut below the under-counter plate. Press-fit dowels do the
 # same retention with zero fasteners and zero hardware cost.
 #
-# Boss / pocket spec — boss Ø 4.0 × 5 mm tall + 0.5 mm × 45° tip
-# chamfer; matching shell pocket Ø 4.05 × 6 mm deep. 0.05 mm
-# diametric CAD clearance is overrun by FDM tolerances (positive
-# features print oversize, negative features print undersize) to
-# create a real press fit when assembled. 1 mm of empty pocket
-# above the boss tip accommodates FDM bottom-layer flatness
-# variance in the shell pocket.
+# Boss / pocket spec — boss Ø 3.9 × 5 mm tall + 0.5 mm × 45° tip
+# chamfer; matching shell pocket unchanged at Ø 4.05 × 6 mm deep.
+# 0.15 mm diametric CAD gap (boss undersize relative to pocket); FDM
+# tolerances close some of that but the intent here is a low-force
+# alignment placeholder, not a retention press fit.
+#
+# Originally Ø 4.0 boss / Ø 4.05 pocket (0.05 mm CAD gap, expected to
+# close to a real press fit). First print snapped a boss off during
+# the very first insertion attempt — actual FDM interference was too
+# high (boss prints oversize, pocket prints undersize, the 0.05 mm
+# CAD gap closed to an interference much higher than intended).
+# Dropped the boss diameter to Ø 3.9 to test whether the pins are
+# still useful as alignment placeholders with light insertion force,
+# accepting that retention now comes entirely from the shank nut
+# clamping the body→plate→gasket→countertop stack (the dowels'
+# remaining job is to hold the plate's pill slot rotationally aligned
+# with the shell's pill slot during body-into-shell installation).
 
-dowel_pin_radius = 4.0 / 2       # Ø 4.0 mm bosses (matches Ø 4.05 shell pocket nominal — FDM tolerance closes the gap)
+dowel_pin_radius = 3.9 / 2       # Ø 3.9 mm bosses (was Ø 4.0; reduced after first-print boss snap-off, now an alignment placeholder against the unchanged Ø 4.05 shell pocket)
 dowel_pin_height = 5.0           # 5 mm tall above plate top face
 dowel_pin_tip_chamfer = 0.5      # 0.5 mm × 45° chamfer at the boss tip for self-alignment
 
