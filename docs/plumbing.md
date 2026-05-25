@@ -47,7 +47,7 @@ Platypus bag
       → 1/4" OD hard tubing (push-connect into dispensing solenoid)
         → [dispensing solenoid valve, Beduan 12V NC, 1/4" push-connect]
           → 1/4" OD hard tubing
-            → [peristaltic pump, Kamoer 400ml/min 12V] (silicone segment through pump head)
+            → [peristaltic pump, Kamoer 400ml/min 12V] (1/4" OD LLDPE through pump head, zip-tied)
               → 1/4" OD hard tubing → faucet gooseneck
                 → 1/8" ID black silicone (cosmetic run, zip-tied to faucet)
                   → dispensing point
