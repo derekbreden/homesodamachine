@@ -21,6 +21,10 @@ w = wall_and_floor_thickness
 # transition arcs that swing the wall out to the pocket's ±Z walls.
 pocket_centerward_arc_transition_z = 60.0
 
+# Transition arc: the short curve between the middle (tank-wrapping)
+# arc and the pocket's ±Z wall. Tank-side face radius.
+transition_tank_r = 8.0
+
 
 def build_reservoir_pocket_walls():
     """Two reservoir pockets, mirrored across YZ. Built per side as an
@@ -49,9 +53,8 @@ def build_reservoir_pocket_walls():
 
     # Transition arc: center between the two endpoint circles, on the
     # bisector of the chord between middle-arc handoff and ±Z wall.
-    # Tank-side face has radius transition_tank_r; cavity-side face is
-    # the concentric circle through the cavity-side handoff.
-    transition_tank_r = 8.0
+    # Cavity-side face is the concentric circle through the cavity-side
+    # handoff; tank-side face uses the module-level transition_tank_r.
     chord_half_z = (z_inner - arc_z) / 2.0
     transition_center_z = (z_inner + arc_z) / 2.0
     transition_center_x = middle_tank_x + math.sqrt(transition_tank_r**2 - chord_half_z**2)
