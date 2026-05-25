@@ -24,9 +24,11 @@ export const state = {
   currentMmdContent: null,
   currentMmdWrapper: null,    // host div inside the modal (PanZoom container)
   currentMmdPz: null,         // PanZoom handle for currentMmdWrapper
+  currentMmdMinimap: null,    // Minimap handle (pan-zoom-extras.makeMinimap)
   currentDrawingContent: null,
   currentDrawingWrapper: null,// host div inside the modal (PanZoom container)
   currentDrawingPz: null,     // PanZoom handle for currentDrawingWrapper
+  currentDrawingMinimap: null,// Minimap handle
   currentCadWrapper: null,    // host div inside the modal (parent of canvases)
   currentCadResizeObserver: null,
   currentGroup: null,         // Three.js group currently in scene

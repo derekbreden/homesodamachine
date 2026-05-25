@@ -6,6 +6,7 @@
 
 import mermaid from "https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.esm.min.mjs";
 import { state } from "./state.js";
+import { makeResetButton, makeMinimap } from "./pan-zoom-extras.js";
 
 mermaid.initialize({
   startOnLoad: false,
@@ -82,16 +83,26 @@ async function reRenderOpenMmd(content) {
   }
   // Clear the wrapper but keep PanZoom listeners (they're on the wrapper, not
   // the SVG). Re-wrap the new SVG against the same wrapper, then restore the
-  // previous transform so the swap is invisible.
+  // previous transform so the swap is invisible. Minimap and reset button get
+  // rebuilt against the new SVG (its natural bounds may have changed).
   const prev = state.currentMmdPz.getTransform();
+  const file = state.currentDetail?.file;
   state.currentMmdPz.destroy();
+  try { state.currentMmdMinimap?.destroy(); } catch {}
   state.currentMmdWrapper.innerHTML = "";
   state.currentMmdWrapper.appendChild(svgEl);
+  const minimap = makeMinimap(svgEl, state.currentMmdWrapper);
   state.currentMmdPz = PanZoom.wrap(svgEl, {
     container: state.currentMmdWrapper,
     initialFit: false,
-    onTransformChange: (t) => mmdSaveTransform(file, t),
+    onTransformChange: (t) => { if (file) mmdSaveTransform(file, t); },
+    onTransformLive: (t) => minimap.update(t),
   });
+  state.currentMmdWrapper.appendChild(minimap.el);
+  state.currentMmdWrapper.appendChild(makeResetButton(state.currentMmdPz, {
+    transformKey: file ? mmdTransformKey(file) : null,
+  }));
+  state.currentMmdMinimap = minimap;
   state.currentMmdPz.setTransform(prev);
 }
 
@@ -158,16 +169,21 @@ export async function openMmdDetail(file, pushHistory = true) {
   wrapper.style.cssText = "overflow:hidden;position:relative;width:100%;height:100%;";
   wrapper.appendChild(svgEl);
 
+  const minimap = makeMinimap(svgEl, wrapper);
   const pz = PanZoom.wrap(svgEl, {
     container: wrapper,
     initialFit: true,
     onTransformChange: (t) => mmdSaveTransform(file, t),
+    onTransformLive: (t) => minimap.update(t),
   });
+  wrapper.appendChild(minimap.el);
+  wrapper.appendChild(makeResetButton(pz, { transformKey: mmdTransformKey(file) }));
 
   state.currentDetail = { type: "mmd", file };
   state.currentMmdContent = content;
   state.currentMmdWrapper = wrapper;
   state.currentMmdPz = pz;
+  state.currentMmdMinimap = minimap;
 
   ContentViewer.open({
     content: wrapper,
@@ -179,13 +195,16 @@ export async function openMmdDetail(file, pushHistory = true) {
       pz.fit();
       const saved = mmdLoadTransform(file);
       if (saved) pz.setTransform(saved);
+      minimap.update();
     },
     onClose: () => {
       try { pz.destroy(); } catch {}
+      try { minimap.destroy(); } catch {}
       state.currentDetail = null;
       state.currentMmdContent = null;
       state.currentMmdWrapper = null;
       state.currentMmdPz = null;
+      state.currentMmdMinimap = null;
       if (location.hash) history.back();
     },
   });
