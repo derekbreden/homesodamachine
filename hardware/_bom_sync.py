@@ -38,6 +38,7 @@ sys.path.insert(
 )
 
 from _cold_core_interface import foam_cap_attachment_xz_positions
+from _reed_channels import reeds_per_reservoir
 from docgen import substitute_md
 from generate_step_cadquery import insert_positions_for_side_plus_1
 
@@ -54,11 +55,11 @@ vessel_ports_per_vessel = 4
 # on every reservoir-side count (caps, cap screws, vent filters, etc.).
 reservoirs_per_build = 2
 
-# Level sensing: carbonator gets 2 reeds (threshold-only), each flavor
-# reservoir gets 4 reeds (5-state fuel gauge). See
-# `printed-parts/cold-core/reservoir/level-sensing.md`.
+# Level sensing: carbonator gets 2 reeds (threshold-only); per-reservoir
+# count is the single source of truth in `_reed_channels.py` (imported
+# above), since both this BOM and the reservoir generator's level-sensing
+# prose need it. See `printed-parts/cold-core/reservoir/level-sensing.md`.
 reeds_per_carbonator = 2
-reeds_per_reservoir = 4
 
 # Flavor subsystem: 12-valve manifold (V-A/B/C/D/E/F/G/H/I/J/KA/KB)
 # per `topology/fluid-topology-manifold.mmd`; 10 Y-dividers

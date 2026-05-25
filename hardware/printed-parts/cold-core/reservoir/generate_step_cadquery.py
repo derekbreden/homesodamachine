@@ -35,6 +35,7 @@ from _cold_core_interface import (
     reservoir_bulkhead_port_y,
     reservoir_bulkhead_nut_y,
 )
+from _reed_channels import reeds_per_reservoir
 
 
 def _y_cylinder(anchor_xz, y_range, diameter):
@@ -207,7 +208,7 @@ vent_brim_bottom_y = vent_cylinder_walls_bottom_y - vent_brim_thickness
 
 # Level-sensing rod: a vertical 3.175 mm (1/8") × 305 mm (12") 316 SS
 # round rod, body-anchored and cap-registered. A small magnetic float
-# slides up and down the rod as the syrup level changes; four reed
+# slides up and down the rod as the syrup level changes; [4](REEDS_PER_RES) reed
 # switches mounted outside the reservoir pocket's far +X wall (foam-
 # encapsulated during the foam pour) detect the float's position. Same
 # rod SKU as the carbonator's existing reed+float level sensing — see
@@ -1491,10 +1492,11 @@ def main():
         "VENT_SLOT_COUNT": f"{vent_slot_count}",
         "VENT_SLOT_W": f"{vent_slot_width:g} mm",
         "VENT_SLOT_H": f"{vent_slot_height:g} mm",
-        # level-sensing.md rod placement + size.
+        # level-sensing.md rod placement + size + reed count.
         "ROD_DIAMETER": f"{rod_diameter:g} mm",
         "ROD_POSITION_X": f"{rod_position_x:g}",
         "ROD_POSITION_Z": f"{rod_position_z:g}",
+        "REEDS_PER_RES": f"{reeds_per_reservoir:g}",
         # Dynamic-comment markers above derived constants in this .py file.
         "RESERVOIR_WALL_T": f"{reservoir_wall_thickness:g} mm",
         "CAP_TOTAL_H": f"{cap_total_height:g} mm",
@@ -1540,6 +1542,7 @@ def main():
             "ROD_DIAMETER": 2,
             "ROD_POSITION_X": 1,
             "ROD_POSITION_Z": 1,
+            "REEDS_PER_RES": 10,
         },
     )
     print("-> level-sensing.md")
@@ -1557,6 +1560,7 @@ def main():
             "BODY_BOSS_R": 1,
             "CAP_BOSS_R": 1,
             "CAP_STACK_H": 1,
+            "REEDS_PER_RES": 1,
         },
     )
     print("-> generate_step_cadquery.py (self)")
