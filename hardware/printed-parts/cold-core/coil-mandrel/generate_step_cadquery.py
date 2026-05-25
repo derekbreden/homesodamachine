@@ -73,11 +73,17 @@ from pathlib import Path
 
 import cadquery as cq
 
+_here = Path(__file__).resolve()
 sys.path.insert(
     0,
-    str(next(p for p in Path(__file__).resolve().parents if p.name == "hardware")),
+    str(next(p for p in _here.parents if p.name == "hardware")),
+)
+sys.path.insert(
+    0,
+    str(next(p for p in _here.parents if (p / "tools" / "docgen").is_dir()) / "tools"),
 )
 from _cadq_export import export_step
+from docgen import substitute_py_comments
 
 
 # ═══════════════════════════════════════════════════════
@@ -85,9 +91,11 @@ from _cadq_export import export_step
 # ═══════════════════════════════════════════════════════
 
 tube_od_in = 0.250
+# [3.175 mm](TUBE_R) — 1/4" copper tube radius (in → mm).
 tube_radius = (tube_od_in / 2) * 25.4
 
 tank_od = 127.0  # 5" carbonator tank OD
+# [63.5 mm](TANK_R) — tank radius from OD.
 tank_radius = tank_od / 2
 
 # As-wound stretch needed to slip the coil onto the tank. See the
@@ -102,15 +110,21 @@ net_undersize = 3.0
 
 groove_depth = 1.0
 groove_profile_radius = tube_radius
+# [2.175 mm](GROOVE_OFFSET) — helix path is offset OUTWARD this much so the
+# tube_radius profile cuts only groove_depth into the cylinder.
 groove_offset = groove_profile_radius - groove_depth
 
 # Coil inner radius after winding = mandrel_radius − groove_depth
 # (copper bottom rests at the groove bottom). Solve for mandrel_radius
 # such that coil_inner_radius = tank_radius − net_undersize:
+# [61.5 mm](MANDREL_R) — chosen so post-wind coil inner radius is
+# net_undersize mm smaller than tank_radius.
 mandrel_radius = tank_radius - net_undersize + groove_depth
+# [123 mm](MANDREL_OD) — mandrel outer surface diameter.
 mandrel_od = 2 * mandrel_radius
 
 wall = 5.0
+# [56.5 mm](MANDREL_INNER_R) — hollow ring inner radius (mandrel_radius − wall).
 mandrel_inner_radius = mandrel_radius - wall
 mandrel_r_range = (mandrel_inner_radius, mandrel_radius)
 
@@ -123,6 +137,7 @@ mandrel_r_range = (mandrel_inner_radius, mandrel_radius)
 plug_inlet_x, plug_inlet_y, plug_inlet_z = -30.0, 46.0, 20.0
 plug_outlet_x, plug_outlet_y, plug_outlet_z = 30.0, 166.4, 20.0
 
+# [120.4 mm](WIND_LENGTH) — Y span between foam-shell inlet and outlet plugs.
 wind_length = plug_outlet_y - plug_inlet_y
 
 plug_inlet_azimuth = math.degrees(math.atan2(plug_inlet_z, plug_inlet_x))
@@ -136,6 +151,7 @@ plug_ccw_delta = (plug_outlet_azimuth - plug_inlet_azimuth) % 360
 # 12-wrap cap; pitch falls out from alignment.
 full_wraps = 9
 total_wraps = full_wraps + plug_ccw_delta / 360
+# [12.4288 mm](PITCH) — helix pitch = wind_length / total_wraps (≈ 0.489").
 pitch = wind_length / total_wraps
 
 
@@ -145,7 +161,9 @@ pitch = wind_length / total_wraps
 
 # Mandrel runs along +Z: lower handle, wind zone, upper handle.
 handle_length_in = 0.75
+# [19.05 mm](HANDLE_LENGTH) — 0.75" handle on each end (in → mm).
 handle_length = handle_length_in * 25.4
+# [158.5 mm](TOTAL_LENGTH) — handle + wind + handle along the mandrel Z axis.
 total_length = handle_length + wind_length + handle_length
 
 mandrel_z_range = (0, total_length)
@@ -196,40 +214,80 @@ def build_mandrel():
             .union(upper_handle, clean=False))
 
 
+# [121 mm](GROOVE_BOTTOM_OD) — diameter at the bottom of the helical groove
+# (mandrel_od minus 2 × groove_depth).
 groove_bottom_od = mandrel_od - 2 * groove_depth
 
-print(f"Tank OD:               {tank_od:.1f} mm (R = {tank_radius:.2f})")
-print(f"As-wound undersize:    {net_undersize:.1f} mm radial stretch")
-print(f"Mandrel surface OD:    {mandrel_od:.2f} mm (R = {mandrel_radius:.3f})")
-print(f"Groove bottom OD:      {groove_bottom_od:.2f} mm "
-      f"(= tank_od − 2·undersize = {tank_od - 2 * net_undersize:.1f})")
-print(f"Wall thickness:        {wall:.1f} mm  "
-      f"(groove backing: {wall - groove_depth:.1f} mm)")
-print(f"Groove:                profile R={groove_profile_radius} mm, "
-      f"offset {groove_offset:.3f} mm, depth {groove_depth:.1f} mm")
-print(f"Wind length:           {wind_length:.1f} mm  "
-      f"(foam-shell plug Y span: {plug_inlet_y} → {plug_outlet_y})")
-print(f"Inlet plug azimuth:    {plug_inlet_azimuth:.2f}°")
-print(f"Outlet plug azimuth:   {plug_outlet_azimuth:.2f}°")
-print(f"CCW alignment delta:   {plug_ccw_delta:.2f}°")
-print(f"Wraps:                 {total_wraps:.4f}  ({full_wraps} full + "
-      f"{plug_ccw_delta:.2f}° fractional)")
-print(f"Pitch:                 {pitch:.3f} mm  ({pitch / 25.4:.4f}\")")
-print(f"Total mandrel Z:       {total_length:.1f} mm  (handle {handle_length:.2f} + "
-      f"wind {wind_length:.1f} + handle {handle_length:.2f})")
 
-mandrel = build_mandrel()
-solids = mandrel.solids().vals()
-print(f"\nResult: {len(solids)} solid(s)")
-for i, s in enumerate(solids):
-    bb = s.BoundingBox()
-    print(
-        f"  Solid {i}: X[{bb.xmin:.1f},{bb.xmax:.1f}] "
-        f"Y[{bb.ymin:.1f},{bb.ymax:.1f}] Z[{bb.zmin:.1f},{bb.zmax:.1f}], "
-        f"V={s.Volume():.0f} mm^3, valid={s.isValid()}, "
-        f"faces={len(s.Faces())}"
+def main():
+    print(f"Tank OD:               {tank_od:.1f} mm (R = {tank_radius:.2f})")
+    print(f"As-wound undersize:    {net_undersize:.1f} mm radial stretch")
+    print(f"Mandrel surface OD:    {mandrel_od:.2f} mm (R = {mandrel_radius:.3f})")
+    print(f"Groove bottom OD:      {groove_bottom_od:.2f} mm "
+          f"(= tank_od − 2·undersize = {tank_od - 2 * net_undersize:.1f})")
+    print(f"Wall thickness:        {wall:.1f} mm  "
+          f"(groove backing: {wall - groove_depth:.1f} mm)")
+    print(f"Groove:                profile R={groove_profile_radius} mm, "
+          f"offset {groove_offset:.3f} mm, depth {groove_depth:.1f} mm")
+    print(f"Wind length:           {wind_length:.1f} mm  "
+          f"(foam-shell plug Y span: {plug_inlet_y} → {plug_outlet_y})")
+    print(f"Inlet plug azimuth:    {plug_inlet_azimuth:.2f}°")
+    print(f"Outlet plug azimuth:   {plug_outlet_azimuth:.2f}°")
+    print(f"CCW alignment delta:   {plug_ccw_delta:.2f}°")
+    print(f"Wraps:                 {total_wraps:.4f}  ({full_wraps} full + "
+          f"{plug_ccw_delta:.2f}° fractional)")
+    print(f"Pitch:                 {pitch:.3f} mm  ({pitch / 25.4:.4f}\")")
+    print(f"Total mandrel Z:       {total_length:.1f} mm  (handle {handle_length:.2f} + "
+          f"wind {wind_length:.1f} + handle {handle_length:.2f})")
+
+    mandrel = build_mandrel()
+    solids = mandrel.solids().vals()
+    print(f"\nResult: {len(solids)} solid(s)")
+    for i, s in enumerate(solids):
+        bb = s.BoundingBox()
+        print(
+            f"  Solid {i}: X[{bb.xmin:.1f},{bb.xmax:.1f}] "
+            f"Y[{bb.ymin:.1f},{bb.ymax:.1f}] Z[{bb.zmin:.1f},{bb.zmax:.1f}], "
+            f"V={s.Volume():.0f} mm^3, valid={s.isValid()}, "
+            f"faces={len(s.Faces())}"
+        )
+
+    out_path = Path(__file__).resolve().parent / "coil-mandrel.step"
+    export_step(mandrel, str(out_path))
+    print(f"\nExported: {out_path}")
+
+    variables = {
+        "TUBE_R": f"{tube_radius:g} mm",
+        "TANK_R": f"{tank_radius:g} mm",
+        "GROOVE_OFFSET": f"{groove_offset:g} mm",
+        "MANDREL_R": f"{mandrel_radius:g} mm",
+        "MANDREL_OD": f"{mandrel_od:g} mm",
+        "MANDREL_INNER_R": f"{mandrel_inner_radius:g} mm",
+        "WIND_LENGTH": f"{wind_length:g} mm",
+        "PITCH": f"{pitch:g} mm",
+        "HANDLE_LENGTH": f"{handle_length:g} mm",
+        "TOTAL_LENGTH": f"{total_length:g} mm",
+        "GROOVE_BOTTOM_OD": f"{groove_bottom_od:g} mm",
+    }
+    substitute_py_comments(
+        Path(__file__),
+        variables=variables,
+        expected_counts={
+            "TUBE_R": 1,
+            "TANK_R": 1,
+            "GROOVE_OFFSET": 1,
+            "MANDREL_R": 1,
+            "MANDREL_OD": 1,
+            "MANDREL_INNER_R": 1,
+            "WIND_LENGTH": 1,
+            "PITCH": 1,
+            "HANDLE_LENGTH": 1,
+            "TOTAL_LENGTH": 1,
+            "GROOVE_BOTTOM_OD": 1,
+        },
     )
+    print(f"-> {Path(__file__).name}")
 
-out_path = Path(__file__).resolve().parent / "coil-mandrel.step"
-export_step(mandrel, str(out_path))
-print(f"\nExported: {out_path}")
+
+if __name__ == "__main__":
+    main()
