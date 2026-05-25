@@ -147,7 +147,7 @@ plug_outlet_azimuth = math.degrees(math.atan2(plug_outlet_z, plug_outlet_x))
 plug_ccw_delta = (plug_outlet_azimuth - plug_inlet_azimuth) % 360
 
 # Total wraps = N full + fractional wrap that spans the azimuthal delta.
-# N=9 picked as the smallest "first-attempt" wrap count below the user's
+# N=[9](FULL_WRAPS) picked as the smallest "first-attempt" wrap count below the user's
 # 12-wrap cap; pitch falls out from alignment.
 full_wraps = 9
 total_wraps = full_wraps + plug_ccw_delta / 360
@@ -268,6 +268,7 @@ def main():
         "HANDLE_LENGTH": f"{handle_length:g} mm",
         "TOTAL_LENGTH": f"{total_length:g} mm",
         "GROOVE_BOTTOM_OD": f"{groove_bottom_od:g} mm",
+        "FULL_WRAPS": f"{full_wraps:g}",  # bare count, no unit
     }
     substitute_py_comments(
         Path(__file__),
@@ -284,6 +285,7 @@ def main():
             "HANDLE_LENGTH": 1,
             "TOTAL_LENGTH": 1,
             "GROOVE_BOTTOM_OD": 1,
+            "FULL_WRAPS": 1,
         },
     )
     print(f"-> {Path(__file__).name}")
