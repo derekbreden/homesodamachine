@@ -14,8 +14,12 @@ The substitute_md() function:
   value (str-cast).
 - For each NAME in `expected_counts`, asserts the actual number of
   appearances equals the expected count.
-- Errors if any [value](NAME) in the markdown has a NAME that isn't in
-  `variables`.
+- Leaves [value](NAME) patterns whose NAME isn't in `variables` untouched.
+  This lets multiple scripts contribute substitutions to the same markdown —
+  each call only manages its own names. The trade-off is that a typo
+  `[X](BOGUS_NAME)` won't be caught by any individual call; it just sits
+  there. If you need strict catching, the union of every caller's
+  `variables` keys needs to cover every NAME in the markdown.
 
 Normal markdown links (parens contain slashes, dots, colons, lowercase, etc.)
 never match — only our all-caps-and-underscores variable references do.
@@ -61,23 +65,18 @@ def substitute_md(
 
     text = md_path.read_text()
 
-    found_names: list[str] = []
-    unknown_names: list[str] = []
+    # Count occurrences of every NAME the caller knows about. Names that
+    # appear in the markdown but aren't in `variables` are left alone —
+    # they belong to some other script that contributes to this markdown.
+    name_counts: dict[str, int] = {}
     for match in _LINK_RE.finditer(text):
         name = match.group(2)
-        found_names.append(name)
-        if name not in variables:
-            unknown_names.append(name)
-
-    if unknown_names:
-        raise ValueError(
-            f"{md_path}: markdown references unknown variable(s): "
-            f"{sorted(set(unknown_names))}"
-        )
+        if name in variables:
+            name_counts[name] = name_counts.get(name, 0) + 1
 
     count_errors: list[str] = []
     for name, expected in expected_counts.items():
-        actual = found_names.count(name)
+        actual = name_counts.get(name, 0)
         if actual != expected:
             count_errors.append(f"  {name}: expected {expected}, found {actual}")
     if count_errors:
@@ -88,7 +87,9 @@ def substitute_md(
 
     def repl(match: re.Match) -> str:
         name = match.group(2)
-        return f"[{variables[name]}]({name})"
+        if name in variables:
+            return f"[{variables[name]}]({name})"
+        return match.group(0)  # unknown — leave alone
 
     new_text = _LINK_RE.sub(repl, text)
     if new_text != text:

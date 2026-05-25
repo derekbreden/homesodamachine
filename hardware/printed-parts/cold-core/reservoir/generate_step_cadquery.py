@@ -17,9 +17,11 @@ _here = Path(__file__).resolve().parent
 sys.path.insert(0, str(next(p for p in _here.parents if p.name == "printed-parts") / "cadlib"))
 sys.path.insert(0, str(next(p for p in _here.parents if p.name == "hardware")))
 sys.path.insert(0, str(_here.parent))
+sys.path.insert(0, str(next(p for p in _here.parents if (p / "tools" / "docgen").is_dir()) / "tools"))
 
 from world_workplane import WorldWorkplane, xz_plane_y_up, xy_plane_z_up
 from _cadq_export import export_step
+from docgen import substitute_md
 from _cold_core_interface import (
     bag_pocket_far_inner_x,
     bag_pocket_z_inner_max,
@@ -1451,6 +1453,28 @@ def main():
     print(f"-> reservoir-gasket.step")
     print(f"-> reservoir-retaining-ring.step")
     print(f"-> reservoir-bulkhead-seal.step")
+
+    # Reservoir body outer envelope, substituted into the foam-shell README's
+    # reservoir-section prose. The foam-shell script owns its own variables on
+    # that README; reservoir.py owns these. Unknown names in either script's
+    # variables dict are left untouched.
+    res_w = 2 * outer_z_max
+    res_d = outer_far_x_abs - outer_centerward_radius
+    res_h = outer_y_range[1] - outer_y_range[0]
+    substitute_md(
+        here / ".." / "foam-shell" / "README.md",
+        variables={
+            "RES_W": f"{res_w:g} mm",
+            "RES_D": f"{res_d:g} mm",
+            "RES_H": f"{res_h:g} mm",
+        },
+        expected_counts={
+            "RES_W": 1,
+            "RES_D": 1,
+            "RES_H": 1,
+        },
+    )
+    print("-> foam-shell/README.md (reservoir section)")
 
 
 if __name__ == "__main__":
