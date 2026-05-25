@@ -35,6 +35,7 @@ wall_thickness = 3.0
 
 center_x = footprint_x / 2
 center_z = footprint_z / 2
+footprint_half_extent = footprint_x / 2
 
 base_thickness = 3.0
 ramp_from_skirt_to_octagon_height = 18.0
@@ -142,27 +143,23 @@ octagon_wall_outer_extent = vertex_far + wall_thickness
 bore_depth = base_thickness + ramp_from_skirt_to_octagon_height
 bore_bottom_y = bore_depth  # [+21 mm](BORE_BOTTOM_Y)
 
-# The tower's outer radius sits 0.5 mm beyond the bore wall's outer
-# extent at the cardinals (octagon_wall_outer_extent = 29.5, cylinder
-# = 30.0).  The cylinder strictly contains the bore wall instead of
-# meeting it tangentially at the cardinals — no knife-edge joint
-# anywhere, just an inward step of 0.5 mm at the cardinals and ~5 mm
-# at the diagonals as the layer transitions from cylinder up into the
-# bore-wall section.
-cylinder_r_outer = octagon_wall_outer_extent + 0.5
+# Inward step from the cylinder to the octagonal bore wall at the
+# cardinals.  Small but non-zero so the bore-to-tower joint is a
+# clean step instead of a knife-edge tangent.  The diagonal step at
+# the same Y is ~5 mm — a consequence of the octagon's geometry, not
+# a separate design choice.
+cylinder_cardinal_step = 0.5
+cylinder_r_outer = octagon_wall_outer_extent + cylinder_cardinal_step
 
-# The cylinder's top face sits at Y=+8, the Y level at which the
-# base-plate ramp's cardinal half-extent equals cylinder_r_outer (the
-# ramp at Y=+8 is at 38 - 8 = 30.0).  The cylinder's top edge is
-# therefore exactly tangent to the ramp at the cardinals — no bumps
-# protruding past the ramp at the cylinder's top face.  Below this Y
-# the cylinder overlaps the bore-wall region down to bore_bottom_y;
-# in that overlap the cylinder is the outer surface (the bore wall is
-# fully contained inside it).
-cylinder_top_y = 8  # [+8 mm](CYLINDER_TOP_Y)
+# Cylinder's top Y, set by the design constraint that the cylinder's
+# top edge be tangent to the base-plate ramp at the cardinals — no
+# bumps protruding past the ramp.  Solves
+# `ramp_half_extent(y) = cylinder_r_outer` where the ramp's cardinal
+# half-extent shrinks linearly from `footprint_half_extent +
+# base_thickness` at y=0 down toward bore_bottom_y.  Below this Y the
+# cylinder strictly contains the bore wall down to bore_bottom_y.
+cylinder_top_y = footprint_half_extent + base_thickness - cylinder_r_outer  # [+8 mm](CYLINDER_TOP_Y)
 cylinder_bottom_y = bore_bottom_y + tower_height  # [+81 mm](CYLINDER_BOTTOM_Y)
-
-footprint_half_extent = footprint_x / 2
 
 
 # Polygon generators
