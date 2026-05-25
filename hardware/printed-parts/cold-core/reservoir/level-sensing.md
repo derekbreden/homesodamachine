@@ -1,6 +1,6 @@
 # Flavor Reservoir Level Sensing
 
-Reed-and-float level sensing for each flavor reservoir, following the same architecture as the carbonator vessel ([future.md](../../../future.md) "Level sensing" section), with **4 reed switches per reservoir** for ~13-serving-step granularity over the usable fill range.
+Reed-and-float level sensing for each flavor reservoir, following the same architecture as the carbonator vessel ([future.md](../../../future.md) "Level sensing" section), with **[4](REEDS_PER_RES) reed switches per reservoir** for ~13-serving-step granularity over the usable fill range.
 
 ## Why this approach
 
@@ -15,7 +15,7 @@ Density-independent, mechanically overfill-safe, zero electrical penetrations of
 
 **Outside the reservoir:**
 
-- A pre-soldered **column of 4 reed switches** wired to a multi-conductor cable. Each reed has both leads hand-soldered to a corresponding pair of conductors (one signal + the shared common return). The cable runs the length of the column past all four reeds. The whole assembly is rigid enough to slide into the foam-shell channel as a single pre-assembled piece — no per-reed mounting feature needed inside the cold core.
+- A pre-soldered **column of [4](REEDS_PER_RES) reed switches** wired to a multi-conductor cable. Each reed has both leads hand-soldered to a corresponding pair of conductors (one signal + the shared common return). The cable runs the length of the column past all [4](REEDS_PER_RES) reeds. The whole assembly is rigid enough to slide into the foam-shell channel as a single pre-assembled piece — no per-reed mounting feature needed inside the cold core.
 - The **foam shell carries the channel that holds the column** — no separate printed reed-holder part. The channel is a **3-walled box that extrudes OUTWARD** from the reservoir pocket's far ±X wall into the outer foam zone. The original wall is the channel's back / inner face; two new ±z side walls extend outward; a new outer face closes the box on the foam-zone side. The channel has two segments:
   - A **vertical segment** at the reed positions, centered on z=−45, sized to slip-fit the reed-and-wire column. Full height — top open at the wall top so the column can be dropped in from above before the cap is installed.
   - A **horizontal segment** sitting on the foam shell floor (cavity y range = `[wall_and_floor_thickness, wall_and_floor_thickness + 8]` = [2, 10]). Sitting on the floor makes the segment printable — the foam shell floor IS the channel's bottom wall, no unsupported envelope floor mid-air. Runs from the vertical channel in +Z direction along the pocket far ±X wall to a **dedicated ⌀6.5 coaxial cable hole** through both the pocket far ±X wall and the outer ±X shell wall, at `(y = cable_y_center = 6, z = bag_pocket_width/2 − 10)` — same z as the existing bulkhead tube pass-through, on the ±X side a few mm offset from it, but 12 mm lower in y to match the channel's cable level. The cable runs at y = 6 from the channel exit straight through the pocket interior to the cable hole — no bend.
@@ -31,7 +31,7 @@ Useful Y range for the float on the rod: ~40 mm above the floor (above the wet s
 | **4** | **~45** | **~13** |
 | 5 | ~35 | ~10 |
 
-4 reeds at ~45 mm pitch is the working spec. The customer-facing display is a 5-state fuel gauge (0, 1, 2, 3, 4 reeds triggered) corresponding to roughly empty / quarter / half / three-quarter / full, with each step ≈ 13 servings.
+[4](REEDS_PER_RES) reeds at ~45 mm pitch is the working spec. The customer-facing display is a 5-state fuel gauge (0, 1, 2, 3, [4](REEDS_PER_RES) reeds triggered) corresponding to roughly empty / quarter / half / three-quarter / full, with each step ≈ 13 servings.
 
 ## Magnet–reed signal-path geometry
 
@@ -49,10 +49,10 @@ Cutting the channel into the wall puts the reed column at the ~6 mm magnet-to-re
 
 ## GPIO budget
 
-4 reeds × 2 reservoirs = **8 input GPIOs needed** for the flavor reservoir level sensing. Allocation:
+[4](REEDS_PER_RES) reeds × 2 reservoirs = **8 input GPIOs needed** for the flavor reservoir level sensing. Allocation:
 
-- **Reservoir A's 4 reeds** → existing MCP23017 0x20 PB[4:7] (the chip's spare bits after 12 valves). No firmware change beyond reading 4 new bits.
-- **Reservoir B's 4 reeds** → new MCP23017 at I²C address 0x21, PA[0:3]. 12 spare bits on the new chip for future expansion. Same I²C driver as 0x20.
+- **Reservoir A's [4](REEDS_PER_RES) reeds** → existing MCP23017 0x20 PB[4:7] (the chip's spare bits after 12 valves). No firmware change beyond reading [4](REEDS_PER_RES) new bits.
+- **Reservoir B's [4](REEDS_PER_RES) reeds** → new MCP23017 at I²C address 0x21, PA[0:3]. 12 spare bits on the new chip for future expansion. Same I²C driver as 0x20.
 
 ## Parts (per build)
 
@@ -65,7 +65,7 @@ Per-build additions for the flavor-reservoir level sensing are tracked in [`../.
 
 ## Calibration
 
-Each reed's position along the column is fixed by how the cable is laid out and where each reed is soldered in. The column's vertical position in the foam-shell channel is set by the channel's bottom shelf. 4 reeds span the float's useful Y range with one reed per ~25% of usable volume.
+Each reed's position along the column is fixed by how the cable is laid out and where each reed is soldered in. The column's vertical position in the foam-shell channel is set by the channel's bottom shelf. [4](REEDS_PER_RES) reeds span the float's useful Y range with one reed per ~25% of usable volume.
 
 The firmware reads the reed states as a 5-level encoding (0/4 through 4/4 triggered) and reports "servings remaining" in ~13-serving steps.
 

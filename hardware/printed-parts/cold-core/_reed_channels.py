@@ -20,6 +20,14 @@ from _cold_core_interface import (
 
 w = wall_and_floor_thickness
 
+# Number of reed switches per reservoir (level-sensing fuel gauge —
+# see `reservoir/level-sensing.md`). The channel cavity is one
+# continuous Y slot regardless of count, so this number doesn't drive
+# the channel geometry built below — it lives here as the single
+# source of truth for the design count that bom and reservoir both
+# need.
+reeds_per_reservoir = 4
+
 # X depth of the cable channel cavity (also the rise of the 45°
 # printability slope on the cavity ceiling — 1:1 slope).
 cable_x_depth = 5.0
