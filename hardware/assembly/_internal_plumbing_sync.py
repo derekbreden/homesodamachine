@@ -74,9 +74,6 @@ sys.path.insert(
     ),
 )
 
-# Import the foam-cap generator module. After the rename from
-# `generate_step_cadquery.py` to part-named scripts, this is a direct
-# sys.path-based import with no filename-collision workaround needed.
 import foam_cap as foam_cap_gen  # noqa: E402
 
 from docgen import substitute_md  # noqa: E402
