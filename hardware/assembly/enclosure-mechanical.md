@@ -139,3 +139,7 @@ Procedure-level gaps that need answers before unit 1 ships:
 4. **Drip pan + moisture sensor part selection.** Neither part is in [`../bom.md`](../bom.md) yet. The pan is presumed to be a small printed PET-CF tray sized for the Multiplex vent terminal location; the moisture sensor is presumed to be a generic ESP32-compatible resistive or capacitive board. Specifics need to land before [`wiring.md`](wiring.md) can finalize the SIG-9 pin assignment and cable length.
 5. **Build-fixture cradle.** A printed bench fixture that holds the enclosure shell upright (or tilted) during compressor mounting, cold-core lowering, and back-panel installation. Not yet specified; depends on the shell's external dimensions and on whether the build proceeds on its side or upright.
 6. **Cold-core support-ring detail at the enclosure floor.** Whether this is an integral feature of the enclosure-shell floor print, a separate printed ring that drops in, or a set of cleats — pending enclosure-shell CAD.
+
+## Sources
+[value](NAME) texts are updated by:
+- `/hardware/assembly/_enclosure_mechanical_sync.py`

@@ -111,3 +111,7 @@ Procedure-level gaps that need answers before unit 1 ships:
 3. **Cable sleeve selection.** Braided polyester vs spiral wrap, per [`../printed-parts/enclosure/back-panel/README.md`](../printed-parts/enclosure/back-panel/README.md). The cleaner one for the customer-visible sleeve segment between countertop and rear-panel cluster is whichever installs with the bundle and Cat6 already inside; spiral wrap allows post-bundle install (wrapping around an assembled bundle), braided requires pre-thread.
 4. **Blue LLDPE small-spool sourcing.** A small spool of 1/4" OD blue LLDPE is in flight per the back-panel README. SKU + supplier not yet in `bom.md` or `purchases.md`.
 5. **Umbilical cable strain relief through the countertop.** The 1-3/8" countertop hole that takes the faucet shank is sized for the shank + gasket + plate stack; the umbilical signal cable piggybacks through the same hole alongside the tubes. Whether the cable needs a separate grommet, a printed strain-relief collar, or just rides loose through the gasket's pill-slot region is undefined.
+
+## Sources
+[value](NAME) texts are updated by:
+- `/hardware/assembly/_faucet_and_umbilical_sync.py`

@@ -164,3 +164,7 @@ Procedure-level gaps that need answers before unit 1 ships:
 4. **Test-syrup supply for acceptance.** [`../bom.md`](../bom.md) treats SodaStream concentrate as user-supplied at install. Acceptance consumes [~11 %](CONC_PCT) of one bottle per unit ([~50 mL](CONC_ML) across the test sequence) regardless. Open: do two bottles ship with the unit (factory-supplied for acceptance, then continued in service by the customer), or does the factory keep a bench stock and the customer buys their own bottles from day one?
 5. **Ratio acceptance threshold.** The [1:20](RATIO) ratio is documented as the design target. The [±5 %](RATIO_TOL_SIGNED) volume band and the [~10 %](CHANNEL_TOL) channel-to-channel agreement band in this doc are starting points; the production-final ratio tolerance (especially the cross-channel agreement) needs a committed number that ties back to the perceived-taste impact of small ratio drifts on the SodaStream concentrate formulation.
 6. **Refractometer use — required or optional?** Currently listed as optional bench tooling. If the volume measurement on its own is not a sufficient ratio proxy (especially in light of item 5), the refractometer becomes required and a specific °Brix target per flavor needs to be locked.
+
+## Sources
+[value](NAME) texts are updated by:
+- `/hardware/assembly/_acceptance_and_burn_in_sync.py`

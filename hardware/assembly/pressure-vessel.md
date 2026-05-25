@@ -135,3 +135,7 @@ Procedure-level gaps that need answers before unit 1 ships:
 3. **Post-hydro visual inspection.** What gets inspected, with what aid (loupe? dye penetrant?), against what criteria.
 4. **X1 Pro weld recipe end-to-end validation.** The recipe in §3 is what we run on unit 1's vessel — same 60 % / 12 mm/s / 8-tack pattern / Don't-Let-Go trigger handling — but it hasn't been run end-to-end on 316L production stock yet. The 304L practice fixtures were where the recipe was developed; first 316L production weld is unit 1.
 5. **Port 1 elbow + LTWFITTING install sequence.** [`../future.md`](../future.md) "Port 1" describes the LTWFITTING with barb facing inward and MNPT side threaded into the plate. Two assembly orders are geometrically defensible: (a) LTWFITTING first, SS elbow's FNPT threading onto LTWFITTING's externally-protruding MNPT remainder; (b) SS elbow first into Port 1 FNPT, LTWFITTING's MNPT then threading into the elbow's lateral FNPT with the barb on the elbow's lateral side. Path (a) gives a vertical elbow stack on Port 1's exterior; path (b) keeps everything at the elbow's lateral plane. Pick after the elbows are in hand and the LTWFITTING's thread length vs plate thickness can be measured against a fitting.
+
+## Sources
+[value](NAME) texts are updated by:
+- `/hardware/assembly/_pressure_vessel_sync.py`

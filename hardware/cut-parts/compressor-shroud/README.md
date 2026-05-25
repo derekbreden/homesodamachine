@@ -130,3 +130,7 @@ Run with `tools/cad-venv/bin/python generate_dxf.py` per the project's CadQuery 
 2. **Decide one-piece 5-sided box vs. two-piece U-channel + back-wall.** Driven by the [3.00"](MAX_BOX_IN) max box-flange height constraint and by build / install ergonomics.
 3. **Decide the AC pass-through grommet location.** Best path is the side facing the electronics shelf (back-side of shroud, since the shelf is at top-back) — minimizes wire run length.
 4. **Write `generate_dxf.py`** once items 1–3 are settled.
+
+## Sources
+[value](NAME) texts are updated by:
+- `/hardware/cut-parts/compressor-shroud/_compressor_shroud_dimensions.py`

@@ -80,3 +80,7 @@ The internal SS rod is a separately-supplied part captured at both ends by print
 ## Open items
 
 - **Cable characterization + channel cross-section refinement.** Multi-conductor cable on order ([B0CSD5QZ21](https://www.amazon.com/dp/B0CSD5QZ21)). Once it arrives: measure jacket OD, verify individual-conductor strip-ability for the reed-end terminations, decide whether 12-conductor is the spec or if a smaller conductor count is sufficient (we only need 5 conductors per cable: 4 reed signals + 1 common return), and refine the foam-shell channel cross-section (currently 6 mm reed-channel depth × 5 mm cable-channel depth, 8 mm wide along z / y) to fit the actual cable OD.
+
+## Sources
+[value](NAME) texts are updated by:
+- `/hardware/printed-parts/cold-core/reservoir/generate_step_cadquery.py`

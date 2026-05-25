@@ -135,3 +135,7 @@ a fresh one on re-assembly.
 ```
 tools/cad-venv/bin/python generate_step_cadquery.py
 ```
+
+## Sources
+[value](NAME) texts are updated by:
+- `/hardware/printed-parts/faucet/touch-flo-tpu-o-ring/generate_step_cadquery.py`

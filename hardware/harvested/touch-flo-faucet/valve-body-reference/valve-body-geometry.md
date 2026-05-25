@@ -160,3 +160,7 @@ The body sits on top of the countertop. The **[11 mm](SHANK_OD) threaded shank**
 | 5 | ~~Port-to-plunger center-to-center distance~~ | Resolved: port at X = +[8.75 mm](PORT_X), plunger at X = 0 → center-to-center = [8.75 mm](PORT_X). | — |
 | 6 | Transition geometry (abrupt step or tapered?) at [13 mm](CYL_TOP_Z) where round becomes rectangular | Affects shell fit at the transition zone | Direct visual + caliper at the transition |
 | 7 | Overall assembled height including any cap or lever hardware that rides above the arc peak | Sets total shell height if shell follows the full profile | Ruler from deck to top of lever at rest |
+
+## Sources
+[value](NAME) texts are updated by:
+- `/hardware/harvested/touch-flo-faucet/valve-body-reference/generate_step_cadquery.py`

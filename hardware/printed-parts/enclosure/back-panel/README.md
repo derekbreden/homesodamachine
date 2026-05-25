@@ -78,3 +78,7 @@ This closes the prior "PETG vs PETG-CF" TBD on this panel and on the enclosure e
 ## Status
 
 Design-in-progress. No CAD generator yet. This README is the source-of-truth for the panel's connection inventory until the geometry reaches `generate_step_cadquery.py`; see `../nameplate/README.md` for the equivalent state on the sister rear-face artifact.
+
+## Sources
+[value](NAME) texts are updated by:
+- `/hardware/printed-parts/enclosure/back-panel/_back_panel_dimensions.py`

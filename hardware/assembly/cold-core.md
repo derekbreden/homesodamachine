@@ -120,3 +120,7 @@ Procedure-level gaps not resolved by parts already committed in [`../purchases.m
 2. **Trim method after foam cure.** What gets flush-cut, with what — knife, oscillating tool, both depending on location.
 3. **Reservoir-internal assembly procedure (upstream of this doc).** The reservoir arrives in this procedure already assembled — cap installed, six M3×12 SHCS into ruthex inserts clamping a TPU gasket, PTFE vent membrane installed. That reservoir-internal sequence is not captured in any production-procedure doc.
 4. **Reservoir final-qualification status.** The SunTop food-contact-compliant PETG filament (B0FP34MJ94) is ON-ORDER; reservoir final qualification is still pending water + syrup-dwell pass.
+
+## Sources
+[value](NAME) texts are updated by:
+- `/hardware/assembly/_cold_core_sync.py`

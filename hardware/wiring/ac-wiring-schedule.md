@@ -107,3 +107,7 @@ Single-point chassis ground at the electronics shelf, bonded back through the C1
 ## Revision
 
 Initial draft. Lengths are estimates based on the [`../future.md`](../future.md) layout; measure and update once the first build's enclosure is in hand.
+
+## Sources
+[value](NAME) texts are updated by:
+- `/hardware/wiring/_ac_wiring_schedule_sync.py`

@@ -149,3 +149,7 @@ geometry shift and should land with a measured rationale.
 | bbox Y | [-46.000 to 0.000 mm](BBOX_Y) |
 | bbox Z | [-11.500 to 11.500 mm](BBOX_Z) |
 | volume | [6548.090 mm³](VOLUME) |
+
+## Sources
+[value](NAME) texts are updated by:
+- `/hardware/printed-parts/cold-core/prv-shroud/generate_step_cadquery.py`

@@ -109,3 +109,7 @@ published Bambu X1C profiles. The faucet shell is the easiest part in
 the build to substitute for a print-print comparison, since none of
 the application's binding requirements distinguish between Bambu and
 Polymaker at this material class.
+
+## Sources
+[value](NAME) texts are updated by:
+- `/hardware/printed-parts/faucet/touch-flo-shell/generate_step_cadquery.py`

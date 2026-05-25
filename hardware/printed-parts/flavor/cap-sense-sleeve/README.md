@@ -91,3 +91,7 @@ fallback is to stick the foil flush against the un-grooved bore.
 ```
 tools/cad-venv/bin/python generate_step_cadquery.py
 ```
+
+## Sources
+[value](NAME) texts are updated by:
+- `/hardware/printed-parts/flavor/cap-sense-sleeve/generate_step_cadquery.py`

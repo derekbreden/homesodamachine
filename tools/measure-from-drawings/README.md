@@ -402,3 +402,7 @@ When in doubt, the JG union doc is the gold standard for what "CAD-ready" means 
 7. **Write `extracted-results/geometry-description.md`** following the template in §7. Put the CAD-ready summary at the top. Use HIGH/MEDIUM/LOW confidence consistently. List uncertainties.
 
 The output is ready to drive a CAD-generating agent the moment step 7 is committed. Refinement against the physical part happens later, when it arrives, and updates the same document in place.
+
+## Sources
+[value](NAME) texts are updated by:
+- `/tools/measure-from-drawings/_readme_sync.py`

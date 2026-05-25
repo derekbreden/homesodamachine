@@ -163,3 +163,7 @@ Procedure-level gaps that need answers before unit 1 ships:
 2. **PCB / breakout mounting hardware.** M3 standoff heights for each module (the ESP32 DIN-rail breakout, the MCP23017 carriers, the Teyleten relay modules, the ULN2803A carriers, the L298N) are not yet in [`../bom.md`](../bom.md) §13. Working assumption: M3 × 4 ruthex inserts in the printed shelf, M3 × 8 mm SHCS direct into the boss for low-profile modules, with brass or nylon standoffs (3 mm or 5 mm) inserted between the boss and the PCB on any module whose underside has exposed solder joints. Commit a standoff SKU + per-module count once the shelf CAD lands.
 3. **DC distribution block hardware.** The AC side commits to Wago 221-413 lever blocks (3 per build, [`../bom.md`](../bom.md) §11), but the 12 V distribution block is a placeholder — a screw-terminal block, a Wago 221-415 5-conductor variant, or a small PCB-mounted distribution bar are all defensible. Pick after the shelf CAD lands and the bay it occupies is sized.
 4. **Shelf frame material thickness.** PET-CF is the working-assumption material consistent with the rest of the enclosure. The shelf carries no AC-arc-flash duty (the relay #1 arc happens inside its enclosed Teyleten module), so a structural panel thickness of 3-4 mm at 30-40 % infill is plausible — confirm once the heaviest module (the Mean Well IRM-90-12ST PSU at [~200 g](PSU_MASS)) is staged against the candidate frame.
+
+## Sources
+[value](NAME) texts are updated by:
+- `/hardware/assembly/_electronics_shelf_sync.py`

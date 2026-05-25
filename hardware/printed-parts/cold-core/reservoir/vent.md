@@ -42,3 +42,7 @@ Tracked in [`../../../bom.md`](../../../bom.md) §13:
 ## Service
 
 If a membrane ever clogs (well past the design lifetime in practice), the cap comes off via the same 6 M3 × 12 SHCS that hold it to the reservoir body; the retaining ring lifts out; the filter swaps. The 100-pack is a lifetime supply at 2/build.
+
+## Sources
+[value](NAME) texts are updated by:
+- `/hardware/printed-parts/cold-core/reservoir/generate_step_cadquery.py`
