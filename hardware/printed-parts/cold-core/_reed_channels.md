@@ -86,8 +86,6 @@ same level of effort on other Python files in the repo.
 - Establish a regression sieve before refactoring — four scalars (volume +
   bbox + COM). Re-verify after every batch. Never adjust geometry to match
   the baseline.
-- Don't reach into other files to verify or fix. Flag cross-file concerns
-  in the report; don't cross scope.
 - Spawn agents for delimited tasks with explicit principles + sieve gates;
   hand-edit for surgical follow-ups. Agents tend to over- or under-apply
   principles unless the brief is concrete; hand-edits are cheaper for
