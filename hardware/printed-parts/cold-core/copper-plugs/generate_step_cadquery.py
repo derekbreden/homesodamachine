@@ -110,21 +110,21 @@ from _cold_core_interface import (
     outer_shell_z_length,
 )
 
-# Slot width in X equals the port's ⌀6.5 (matches the punch in
+# Slot width in X equals the port's ⌀[6.5 mm](SLOT_W) (matches the punch in
 # cut_slot_for_copper_and_water_inlet).
 slot_width_x = 6.5
 slot_half_width_x = slot_width_x / 2
 slot_x_range = (-slot_half_width_x, slot_half_width_x)
 
 # Tube clearance radius at each pass-through. All three pass-throughs
-# share the same ⌀6.5 slot punch from cut_slot_for_copper_and_water_inlet,
+# share the same ⌀[6.5 mm](SLOT_W) slot punch from cut_slot_for_copper_and_water_inlet,
 # so the tube clearance circle is tangent to the slot's X edges at the
 # pass-through Y.
-# [3.25 mm](TUBE_CLEAR_R) — = slot_half_width_x (slot punch is ⌀6.5).
+# [3.25 mm](TUBE_CLEAR_R) — = slot_half_width_x (slot punch is ⌀[6.5 mm](SLOT_W)).
 tube_clearance_radius = slot_half_width_x
 
-# Web fills the +Z outer_shell wall's Z range exactly (2 mm thick at
-# 2 mm wall); the two flanges sit 1 mm above and 1 mm below it.
+# Web fills the +Z outer_shell wall's Z range exactly ([2 mm](WALL_T) thick at
+# [2 mm](WALL_T) wall); the two flanges sit [1 mm](FLANGE_T) above and [1 mm](FLANGE_T) below it.
 # [90.5 mm](WALL_OUTER_Z) — outer face of the +Z outer_shell wall = outer_shell_z_length / 2.
 outer_wall_outer_z = outer_shell_z_length / 2
 # [88.5 mm](WALL_INNER_Z) — inner face = outer face − wall_and_floor_thickness.
@@ -135,11 +135,11 @@ wall_z_range = (outer_wall_inner_z, outer_wall_outer_z)
 #   flange_x_overhang_per_side: how far each flange extends in X past
 #                               the slot on each side (so total plug X
 #                               span = slot_width_x + 2 × overhang).
-#   flange_z_thickness:         Z thickness of each flange (1 mm above
-#                               the wall for the top flange, 1 mm below
+#   flange_z_thickness:         Z thickness of each flange ([1 mm](FLANGE_T) above
+#                               the wall for the top flange, [1 mm](FLANGE_T) below
 #                               for the bottom).
 # Together these form a binder-clip cross-section that grips the wall
-# edge: the 2 mm gap between the two flanges (at the wall's Z range,
+# edge: the [2 mm](WALL_T) gap between the two flanges (at the wall's Z range,
 # outside the web's X range) is exactly where the wall slides in.
 flange_x_overhang_per_side = 1.0
 flange_z_thickness = 1.0
@@ -168,14 +168,18 @@ highest_copper_y = foam_shell_outer_height - hole_shift_from_edge - wall_and_flo
 water_inlet_y = foam_shell_outer_height - hole_shift_from_edge
 
 # PRV vent sits above the water inlet by enough to give both adjacent
-# plugs reasonable Y extent (~8 mm each: 198.4 → 206.4 → 213.4). The
+# plugs reasonable Y extent (~[8 mm](PRV_OFFSET) each: [198.4 mm](WATER_INLET_Y) → [206.4 mm](PRV_VENT_Y) → [213.4 mm](SHELL_TOP_Y)). The
 # LLDPE coming off the prv-shroud cap takes a slight bend to land at
 # this Y in the slot, same as the water-inlet tube does for its own
-# elbow exit. Above_tank_elbows_height (= 30 mm) gives ~15 mm of room
-# between the water inlet and the shell top — split here as 8 + 7.
+# elbow exit. Above_tank_elbows_height (= [30 mm](TANK_ELBOW_H)) gives ~[15 mm](TOP_ROOM) of room
+# between the water inlet and the shell top — split here as [8 mm](PRV_OFFSET) + [7 mm](TOP_PLUG_H).
 prv_vent_offset_above_water = 8.0
 # [206.4 mm](PRV_VENT_Y) — PRV relief line, prv_vent_offset_above_water above the water inlet.
 prv_vent_y = water_inlet_y + prv_vent_offset_above_water
+# [7 mm](TOP_PLUG_H) — Y extent of the top plug = shell top − PRV vent Y.
+top_plug_height = foam_shell_outer_height - prv_vent_y
+# [15 mm](TOP_ROOM) — room between the water inlet and the shell top = PRV offset + top plug height.
+top_room_above_water = prv_vent_offset_above_water + top_plug_height
 
 # Plug end faces meet AT the tube pass-through centers. The arch
 # cutout at each tube-facing end (radius = tube_clearance_radius)
@@ -232,6 +236,9 @@ web_arch_buffer = math.sqrt(
     tube_clearance_radius ** 2
     - (slot_half_width_x - min_printable_thickness) ** 2
 )
+
+# Volume cross-check tolerance for the analytical-vs-OCCT comparison.
+volume_check_tolerance = 0.01
 
 
 def build_plug(name, y_bottom, y_top):
@@ -346,7 +353,7 @@ def main():
     # web + 2 flanges into a single contiguous body — no floating
     # flanges); bounding box must match the I-beam X and Z envelope;
     # analytical volume (closed-form from the three boxes minus arch
-    # cutouts) must match the OCCT-computed volume to within 0.01 mm^3.
+    # cutouts) must match the OCCT-computed volume to within [0.01 mm³](VOL_TOL).
     for name, (y_bottom, y_top) in plug_y_ranges.items():
         plug = build_plug(name, y_bottom, y_top)
         out = _here / f"copper-plug-{name}.step"
@@ -376,15 +383,22 @@ def main():
             f"plug {name}: Z bbox {bb.zmin:.4f}..{bb.zmax:.4f} expected "
             f"{plug_z_range[0]:.4f}..{plug_z_range[1]:.4f}"
         )
-        assert abs(vol_diff) < 0.01, (
+        assert abs(vol_diff) < volume_check_tolerance, (
             f"plug {name}: OCCT volume {vol:.4f} differs from analytical "
-            f"{vol_analytical:.4f} by {vol_diff:+.4f} mm^3 (> 0.01 tolerance)"
+            f"{vol_analytical:.4f} by {vol_diff:+.4f} mm^3 "
+            f"(> {volume_check_tolerance} tolerance)"
         )
 
     # Short names scoped to this part. Units live inside the value so
     # the script controls them — change a unit in source and every
     # dynamic-comment marker follows.
     variables = {
+        # Local design choices.
+        "SLOT_W": f"{slot_width_x:g} mm",
+        "FLANGE_T": f"{flange_z_thickness:g} mm",
+        "PRV_OFFSET": f"{prv_vent_offset_above_water:g} mm",
+        "VOL_TOL": f"{volume_check_tolerance:g} mm³",
+        # Derived dimensions.
         "TUBE_CLEAR_R": f"{tube_clearance_radius:g} mm",
         "WALL_OUTER_Z": f"{outer_wall_outer_z:g} mm",
         "WALL_INNER_Z": f"{outer_wall_inner_z:g} mm",
@@ -394,12 +408,22 @@ def main():
         "HIGHEST_COPPER_Y": f"{highest_copper_y:g} mm",
         "WATER_INLET_Y": f"{water_inlet_y:g} mm",
         "PRV_VENT_Y": f"{prv_vent_y:g} mm",
+        "TOP_PLUG_H": f"{top_plug_height:g} mm",
+        "TOP_ROOM": f"{top_room_above_water:g} mm",
         "WEB_BUFFER": f"{web_arch_buffer:g} mm",
+        # External references (read-only constants from _cold_core_interface).
+        "WALL_T": f"{wall_and_floor_thickness:g} mm",
+        "TANK_ELBOW_H": f"{above_tank_elbows_height:g} mm",
+        "SHELL_TOP_Y": f"{foam_shell_outer_height:g} mm",
     }
     substitute_py_comments(
         Path(__file__),
         variables=variables,
         expected_counts={
+            "SLOT_W": 3,
+            "FLANGE_T": 4,
+            "PRV_OFFSET": 2,
+            "VOL_TOL": 1,
             "TUBE_CLEAR_R": 1,
             "WALL_OUTER_Z": 1,
             "WALL_INNER_Z": 1,
@@ -407,9 +431,14 @@ def main():
             "PLUG_Z_OUTER": 1,
             "LOWEST_COPPER_Y": 1,
             "HIGHEST_COPPER_Y": 1,
-            "WATER_INLET_Y": 1,
-            "PRV_VENT_Y": 1,
+            "WATER_INLET_Y": 2,
+            "PRV_VENT_Y": 2,
+            "TOP_PLUG_H": 2,
+            "TOP_ROOM": 2,
             "WEB_BUFFER": 1,
+            "WALL_T": 3,
+            "TANK_ELBOW_H": 1,
+            "SHELL_TOP_Y": 1,
         },
     )
     print("-> generate_step_cadquery.py (self)")
