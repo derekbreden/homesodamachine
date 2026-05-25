@@ -127,18 +127,15 @@ arc_segments = 8
 # cap); -Y points toward the skirt top (toward the cap).  Construction
 # uses the following horizontal levels:
 #
-#   y = +81      tower cylinder's far face (its bottom in install orientation)
-#   y = +21      bore wall's far face (octagonal bore cavity ends here)
-#   y =  +8      tower cylinder's near face — cylinder top tangent to
-#                the base-plate ramp at the cardinals; overlaps the bore
-#                wall in y∈[+8,+21] (containing it strictly inside the
-#                larger radius — no tangent meeting at the cardinals)
-#   y =  +3      base plate's lower face
-#   y =   0      base plate's bore-opening face — origin
-#   y =  -9.5    narrow-half cap-side step (the stepped split)
-#   y = -28.5    skirt's wide-half mating edge with the cap
-#   y = -51.5    cap lower extension's far face
-#   y = -54.5    cap lower extension's closing-wall outer face
+#   y = [+81 mm](CYLINDER_BOTTOM_Y) — tower cylinder's far face
+#   y = [+21 mm](BORE_BOTTOM_Y) — bore wall's far face (octagonal bore cavity ends here)
+#   y = [+8 mm](CYLINDER_TOP_Y) — tower cylinder's near face
+#   y = [+3 mm](BASE_PLATE_FAR_Y) — base plate's far face
+#   y = 0 — base plate's bore-opening face — origin
+#   y = [-9.5 mm](NARROW_SPLIT_Y) — narrow-half cap-side step (the stepped split)
+#   y = [-28.5 mm](SKIRT_BOTTOM_Y) — skirt's wide-half mating edge with the cap
+#   y = [-51.5 mm](LOWER_CAP_TOP_Y) — lower cap's interior face (cavity ends here)
+#   y = [-54.5 mm](LOWER_CAP_BOTTOM_Y) — lower cap's exterior face (case's far end)
 
 octagon_wall_outer_extent = vertex_far + wall_thickness
 
@@ -162,7 +159,7 @@ cylinder_r_outer = octagon_wall_outer_extent + 0.5
 # the cylinder overlaps the bore-wall region down to bore_bottom_y;
 # in that overlap the cylinder is the outer surface (the bore wall is
 # fully contained inside it).
-cylinder_top_y = 8
+cylinder_top_y = 8  # [+8 mm](CYLINDER_TOP_Y)
 cylinder_bottom_y = bore_bottom_y + tower_height  # [+81 mm](CYLINDER_BOTTOM_Y)
 
 footprint_half_extent = footprint_x / 2
@@ -400,6 +397,13 @@ skirt_bottom_y = sum(skirt_y_steps)  # [-28.5 mm](SKIRT_BOTTOM_Y), case's wide-h
 # step_height higher into the skirt than the wide half (+Z).
 narrow_split_y = skirt_bottom_y + step_height  # [-9.5 mm](NARROW_SPLIT_Y)
 
+# Lower cap Y anchors. The lower extension is a hollow shell from
+# skirt_bottom_y to lower_cap_top_y; the closing wall (the "lower cap")
+# fills lower_cap_top_y..lower_cap_bottom_y. lower_cap_bottom_y is the
+# case's outermost face on the -Y end.
+lower_cap_top_y = skirt_bottom_y - lower_height  # [-51.5 mm](LOWER_CAP_TOP_Y)
+lower_cap_bottom_y = lower_cap_top_y - lower_cap_thickness  # [-54.5 mm](LOWER_CAP_BOTTOM_Y)
+
 # World Z of the case's +Z outer face.
 pos_z_face_z = center_z + footprint_half_extent
 
@@ -593,7 +597,6 @@ def build_lower_extension():
                                      overcut_last_step=True)
     lower_shell = lower_outer.cut(lower_inner)
 
-    lower_cap_top_y = skirt_bottom_y - lower_height
     lower_cap = (
         WorldWorkplane(xz_plane_y_up)
         .workplane(offset=lower_cap_top_y)
@@ -631,7 +634,7 @@ def split_into_base_and_cap(combined):
       Narrow half (-Z): step_height higher into the skirt
     The boundary follows the seam diagonal.
     """
-    lower_end_y = skirt_bottom_y - lower_height - lower_cap_thickness - overcut
+    lower_end_y = lower_cap_bottom_y - overcut
 
     # Oversized rectangular cutter: the 70x70 case lives inside the 100x100
     # span so the cut always pierces through to free air.
@@ -725,19 +728,27 @@ def main():
             "CASE_OUTER_X": f"{case_outer_x:.1f} mm",
             "CASE_OUTER_Y": f"{case_outer_y:.1f} mm",
             "CASE_OUTER_Z": f"{case_outer_z:.1f} mm",
-            "BORE_BOTTOM_Y": f"{bore_bottom_y:+g} mm",
             "CYLINDER_BOTTOM_Y": f"{cylinder_bottom_y:+g} mm",
-            "SKIRT_BOTTOM_Y": f"{skirt_bottom_y:+g} mm",
+            "BORE_BOTTOM_Y": f"{bore_bottom_y:+g} mm",
+            "CYLINDER_TOP_Y": f"{cylinder_top_y:+g} mm",
+            "BASE_PLATE_FAR_Y": f"+{base_thickness:g} mm",
             "NARROW_SPLIT_Y": f"{narrow_split_y:+g} mm",
+            "SKIRT_BOTTOM_Y": f"{skirt_bottom_y:+g} mm",
+            "LOWER_CAP_TOP_Y": f"{lower_cap_top_y:+g} mm",
+            "LOWER_CAP_BOTTOM_Y": f"{lower_cap_bottom_y:+g} mm",
         },
         expected_counts={
             "CASE_OUTER_X": 1,
             "CASE_OUTER_Y": 1,
             "CASE_OUTER_Z": 1,
-            "BORE_BOTTOM_Y": 1,
-            "CYLINDER_BOTTOM_Y": 1,
-            "SKIRT_BOTTOM_Y": 1,
-            "NARROW_SPLIT_Y": 1,
+            "CYLINDER_BOTTOM_Y": 2,
+            "BORE_BOTTOM_Y": 2,
+            "CYLINDER_TOP_Y": 2,
+            "BASE_PLATE_FAR_Y": 1,
+            "NARROW_SPLIT_Y": 2,
+            "SKIRT_BOTTOM_Y": 2,
+            "LOWER_CAP_TOP_Y": 2,
+            "LOWER_CAP_BOTTOM_Y": 2,
         },
     )
     print("-> updated comments in generate_step_cadquery.py")
