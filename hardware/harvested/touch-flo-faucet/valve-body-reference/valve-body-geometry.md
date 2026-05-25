@@ -15,14 +15,14 @@ Regenerate: `tools/cad-venv/bin/python hardware/harvested/touch-flo-faucet/valve
 
 | Photo | What is measured | Caliper reading |
 |-------|-----------------|-----------------|
-| 1 | Overall body height — base to peak of the rounded arc at the very top | **46 mm** |
-| 2 | Body height — base to **bottom** of the arc feature (where the arc begins curving upward) | **41 mm** |
-| 3 | Body height — base to the **plateau** that sits between the two arc features (the plateau is inset slightly below the arc bases) | **39 mm** |
-| 4 | Height at which the body cross-section transitions from **round** (cylindrical base) to **rectangular** (upper body) | **13 mm** |
-| 5 | Diameter of the round base section — also equals the **long dimension** of the rectangle in the upper body | **31.50 mm** |
-| 6 | **Short dimension** of the rectangular upper body cross-section (the thinner axis, as seen from above or from the side) | **17 mm** |
-| 7 | Distance from the **body edge to the near wall** of the water port | **2 mm** |
-| 8 | **Water port diameter** | **10.0 mm** (re-measured 2026-05-22; was 9.75 in 2026-04-27 pass) |
+| 1 | Overall body height — base to peak of the rounded arc at the very top | **[46 mm](ARC_PEAK_Z)** |
+| 2 | Body height — base to **bottom** of the arc feature (where the arc begins curving upward) | **[41 mm](ARC_BASE_Z)** |
+| 3 | Body height — base to the **plateau** that sits between the two arc features (the plateau is inset slightly below the arc bases) | **[39 mm](PLATEAU_Z)** |
+| 4 | Height at which the body cross-section transitions from **round** (cylindrical base) to **rectangular** (upper body) | **[13 mm](CYL_TOP_Z)** |
+| 5 | Diameter of the round base section — also equals the **long dimension** of the rectangle in the upper body | **[31.5 mm](BODY_OD)** |
+| 6 | **Short dimension** of the rectangular upper body cross-section (the thinner axis, as seen from above or from the side) | **[17 mm](RECT_SHORT)** |
+| 7 | Distance from the **body edge to the near wall** of the water port | **[2 mm](PORT_EDGE_GAP)** |
+| 8 | **Water port diameter** | **[10 mm](PORT_D)** (re-measured 2026-05-22; was 9.75 in 2026-04-27 pass) |
 
 ---
 
@@ -30,25 +30,25 @@ Regenerate: `tools/cad-venv/bin/python hardware/harvested/touch-flo-faucet/valve
 
 | Feature | Value (mm) | Value (in) | Source | Confidence |
 |---------|-----------|-----------|--------|------------|
-| Overall body height (base to arc peak) | 46.0 mm | 1.811" | Photo 1 | Measured |
-| Height to arc base (where arcs begin) | 41.0 mm | 1.614" | Photo 2 | Measured |
-| Height to plateau (between arc features) | 39.0 mm | 1.535" | Photo 3 | Measured |
-| Height of cylindrical base section | 13.0 mm | 0.512" | Photo 4 | Measured |
-| Base cylinder OD = rectangle long dimension | 31.50 mm | 1.240" | Photo 5 | Measured |
-| Rectangle short dimension | 17.0 mm | 0.669" | Photo 6 | Measured |
+| Overall body height (base to arc peak) | [46 mm](ARC_PEAK_Z) | 1.811" | Photo 1 | Measured |
+| Height to arc base (where arcs begin) | [41 mm](ARC_BASE_Z) | 1.614" | Photo 2 | Measured |
+| Height to plateau (between arc features) | [39 mm](PLATEAU_Z) | 1.535" | Photo 3 | Measured |
+| Height of cylindrical base section | [13 mm](CYL_TOP_Z) | 0.512" | Photo 4 | Measured |
+| Base cylinder OD = rectangle long dimension | [31.5 mm](BODY_OD) | 1.240" | Photo 5 | Measured |
+| Rectangle short dimension | [17 mm](RECT_SHORT) | 0.669" | Photo 6 | Measured |
 | Water port: gap from port wall to arch inner face (Y) | ~2.0 mm | ~0.079" | Derived: (14.0 − 10.0) / 2 | Derived |
-| Water port: gap from port wall to short face (X) | 2.0 mm | 0.079" | Photo 7 | Measured |
-| Water port diameter | 10.0 mm | 0.394" | Re-measured 2026-05-22 (was 9.75 mm on 2026-04-27; caliper tips were on the chamfer, not the port wall) | Measured |
-| Water port center (X) | 8.875 mm | 0.349" | 2 mm from short face (X = ±15.75 mm); derived: 15.75 − 2 − 5.0 | Derived |
+| Water port: gap from port wall to short face (X) | [2 mm](PORT_EDGE_GAP) | 0.079" | Photo 7 | Measured |
+| Water port diameter | [10 mm](PORT_D) | 0.394" | Re-measured 2026-05-22 (was 9.75 mm on 2026-04-27; caliper tips were on the chamfer, not the port wall) | Measured |
+| Water port center (X) | [8.75 mm](PORT_X) | 0.345" | 2 mm from short face (X = ±15.75 mm); derived: 15.75 − 2 − 5.0 | Derived |
 | Water port center (Y) | 0.0 mm | 0" | Centered in 14.0 mm plateau (between arch inner faces) | Exact |
-| Arch width (each) | 1.5 mm | 0.059" | Confirmed | Measured |
-| Plateau width (between arch inner faces) | 14.0 mm | 0.551" | Derived (17 − 2 × 1.5) | Exact |
+| Arch width (each) | [1.5 mm](ARCH_WIDTH) | 0.059" | Confirmed | Measured |
+| Plateau width (between arch inner faces) | [14 mm](PLATEAU_WIDTH) | 0.551" | Derived (17 − 2 × 1.5) | Exact |
 | Arc height (arc base to arc peak) | 5.0 mm | 0.197" | Derived (46 − 41) | Exact |
 | Plateau below arc base | 2.0 mm | 0.079" | Derived (41 − 39) | Exact |
 | Rectangular upper body height | 26.0 mm | 1.024" | Derived (39 − 13) | Exact |
 | Countertop hole (external constraint) | 34.93 mm | 1.375" | Spec | Exact |
-| Shank diameter (below deck) | 11.0 mm | 0.433" | User | Stated |
-| Shank length (below deck) | 50.0 mm | 1.969" | User | Stated |
+| Shank diameter (below deck) | [11 mm](SHANK_OD) | 0.433" | User | Stated |
+| Shank length (below deck) | [50 mm](SHANK_LEN) | 1.969" | User | Stated |
 | Shank center | (X=0, Y=0) | — | User | Stated |
 
 ---
@@ -60,12 +60,12 @@ Regenerate: `tools/cad-venv/bin/python hardware/harvested/touch-flo-faucet/valve
 The reference solid has three distinct axial zones:
 
 **Zone 0 — Threaded shank (Z = -50 → 0, below deck)**  
-Plain cylinder, **11 mm OD**, **50 mm long**, centered on the body axis at (X=0, Y=0). This is the through-deck portion that passes through the 1-3/8" countertop hole; a locknut clamps it from below. Thread profile is not modeled in the reference solid (irrelevant for envelope work).
+Plain cylinder, **[11 mm](SHANK_OD) OD**, **[50 mm](SHANK_LEN) long**, centered on the body axis at (X=0, Y=0). This is the through-deck portion that passes through the 1-3/8" countertop hole; a locknut clamps it from below. Thread profile is not modeled in the reference solid (irrelevant for envelope work).
 
-**Zone 1 — Cylindrical base (Z = 0 → 13 mm, above deck)**  
-Circular cross-section, **31.50 mm OD**, **13 mm tall**. The bottom face (Z=0) is the deck-resting surface — the body sits on top of the countertop with the shank passing through.
+**Zone 1 — Cylindrical base (Z = 0 → [13 mm](CYL_TOP_Z), above deck)**  
+Circular cross-section, **[31.5 mm](BODY_OD) OD**, **13 mm tall**. The bottom face (Z=0) is the deck-resting surface — the body sits on top of the countertop with the shank passing through.
 
-**Zone 2 — Rectangular upper body (Z = 13 → 39 mm)**  
+**Zone 2 — Rectangular upper body (Z = 13 → [39 mm](PLATEAU_Z))**  
 Above 13 mm, the body transitions to a rectangular cross-section and stays rectangular
 all the way to the top arc features. Cross-section: **31.50 mm × 17 mm**.
 
@@ -77,9 +77,9 @@ all the way to the top arc features. Cross-section: **31.50 mm × 17 mm**.
 
 The top of the rectangular body has three features across its face:
 
-**Plateau** — at **39 mm** height. A flat area (or shallow saddle) that sits between the two arc features. It is 2 mm below where the arcs begin (41 mm), making it slightly inset.
+**Plateau** — at **[39 mm](PLATEAU_Z)** height. A flat area (or shallow saddle) that sits between the two arc features. It is 2 mm below where the arcs begin (41 mm), making it slightly inset.
 
-**Two side arches — identical** — two raised arch ridges run along the long-axis edges of the top face, one at +Y and one at -Y. They are flanking ridges, NOT roof features over any specific top-face component. Each arch is 1.5 mm wide in Y and spans the full X length of the body. They begin curving upward at **41 mm** and peak at **46 mm** at X = 0, giving each arch a rise of **~5 mm**.
+**Two side arches — identical** — two raised arch ridges run along the long-axis edges of the top face, one at +Y and one at -Y. They are flanking ridges, NOT roof features over any specific top-face component. Each arch is [1.5 mm](ARCH_WIDTH) wide in Y and spans the full X length of the body. They begin curving upward at **41 mm** and peak at **46 mm** at X = 0, giving each arch a rise of **~5 mm**.
 
 The arrangement viewed from above: two rounded humps along the long edges of the rectangular top face, separated by the plateau between them. The brass plunger and the water port both sit IN the plateau (see §3.3 and §3.4), not under the arches.
 
@@ -87,9 +87,9 @@ The arrangement viewed from above: two rounded humps along the long edges of the
 
 - **Single water port only.** There is no second fluid port.
 - Location: top face of the rectangular body, centered in the plateau between the two arches
-- Port diameter: **10.0 mm** (re-measured 2026-05-22)
-- Port center in long axis (X): **8.875 mm** from body center — 2 mm gap from the short face at X = ±15.75 mm; derived as 15.75 − 2 − 4.875 = 8.875 mm
-- Port center in short axis (Y): **0 mm** — centered in the 14.0 mm plateau (between arch inner faces)
+- Port diameter: **[10 mm](PORT_D)** (re-measured 2026-05-22)
+- Port center in long axis (X): **[8.75 mm](PORT_X)** from body center — 2 mm gap from the short face at X = ±15.75 mm; derived as 15.75 − 2 − 5.0 = 8.75 mm
+- Port center in short axis (Y): **0 mm** — centered in the [14 mm](PLATEAU_WIDTH) plateau (between arch inner faces)
 - Gap from port wall to each arch inner face: **(14.0 − 10.0) / 2 = 2.0 mm** (Photo 7)
 - Port fitting: brass
 - The port is in the open plateau zone between the two arches; the tube exits straight upward
@@ -138,7 +138,7 @@ The body sits on top of the countertop. The **11 mm threaded shank** (Zone 0) pa
 
 **Lever clearance — hard constraint.** The lever attaches to the plunger at body center and swings in the -X half of the body. The shell **must leave the entire -X half of the top face open**, including the plateau strip between the two arches forward (toward -X) of the water port. Concretely, the shell's top closure can extend over (a) the +X end behind the water port and (b) the two side arches at ±Y, but it cannot bridge the plateau anywhere from the water port forward to the -X edge.
 
-**Only one tube** exits the top face — the water supply line to the 10.0 mm port at X = +8.875 mm. The shell needs a managed exit path for this one tube only.
+**Only one tube** exits the top face — the water supply line to the [10 mm](PORT_D) port at X = +[8.75 mm](PORT_X). The shell needs a managed exit path for this one tube only.
 
 **The actuator plunger** needs free vertical travel as the lever operates. Any shell feature near the body center (X = 0, Y = 0) must not restrict the plunger's upward stroke.
 
@@ -156,7 +156,7 @@ The body sits on top of the countertop. The **11 mm threaded shank** (Zone 0) pa
 | 1 | ~~Shoulder/flange OD~~ | Resolved: there's no separate flange — the 31.50 mm body bottom face is the deck-landing shoulder. | — |
 | 2 | ~~Shoulder/flange axial thickness~~ | Resolved: the body itself sits on the deck; no flange exists. | — |
 | 3 | ~~Which body edge the 2 mm port measurement is from~~ | ✅ Resolved: 2 mm from the long side (31.50 mm face); centered on the short axis | — |
-| 4 | ~~Actuator plunger OD~~ | Partially answered: ~6 mm derived from the ~1 mm gap to the 10.0 mm water port. Caliper-confirm when convenient. | Caliper directly on the brass plunger |
-| 5 | ~~Port-to-plunger center-to-center distance~~ | Resolved: port at X = +8.875 mm, plunger at X = 0 → center-to-center = 8.875 mm. | — |
+| 4 | ~~Actuator plunger OD~~ | Partially answered: ~6 mm derived from the ~1 mm gap to the [10 mm](PORT_D) water port. Caliper-confirm when convenient. | Caliper directly on the brass plunger |
+| 5 | ~~Port-to-plunger center-to-center distance~~ | Resolved: port at X = +[8.75 mm](PORT_X), plunger at X = 0 → center-to-center = 8.75 mm. | — |
 | 6 | Transition geometry (abrupt step or tapered?) at 13 mm where round becomes rectangular | Affects shell fit at the transition zone | Direct visual + caliper at the transition |
 | 7 | Overall assembled height including any cap or lever hardware that rides above the arc peak | Sets total shell height if shell follows the full profile | Ruler from deck to top of lever at rest |

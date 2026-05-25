@@ -19,7 +19,7 @@ Coordinate convention:
 
 Top-face features (all at z = plateau_z = 39 mm):
   - Brass actuator plunger at body center (x=0, y=0)
-  - Water port at x = +8.875 mm, offset toward +X (rear)
+  - Water port at x = +8.75 mm, offset toward +X (rear)
   - ~1 mm gap between port wall and plunger wall
   - Lever attaches to the plunger and swings in the -X half
 
@@ -33,25 +33,35 @@ import sys
 import cadquery as cq
 from pathlib import Path
 
+_here = Path(__file__).resolve()
 sys.path.insert(
     0,
-    str(next(p for p in Path(__file__).resolve().parents if p.name == "hardware")),
+    str(next(p for p in _here.parents if p.name == "hardware")),
+)
+sys.path.insert(
+    0,
+    str(next(p for p in _here.parents if (p / "tools" / "docgen").is_dir()) / "tools"),
 )
 from _cadq_export import export_step
+from docgen import substitute_md, substitute_py_comments
 
 
 # Zone 0 — threaded shank. Through-deck portion clamped from below by
 # a locknut; thread profile is not modeled (irrelevant for envelope
 # work).
+# [11 mm](SHANK_OD) shank OD — passes through 1-3/8" countertop hole.
 shank_od = 11.0
+# [50 mm](SHANK_LEN) shank length below the deck.
 shank_length = 50.0
 shank_r = shank_od / 2
 
 # Zone 1 — cylindrical base (z = 0 → cylinder_height). Plain cylinder
 # whose diameter equals the long dimension of the rectangular column
 # above it.
+# [31.5 mm](BODY_OD) body OD — also = long dim of the rectangular column above.
 body_od = 31.50
 body_r = body_od / 2
+# [13 mm](CYL_TOP_Z) — cylinder ends / rect column begins here.
 cylinder_height = 13.0
 
 # Zone 2 — rectangular column (z = cylinder_height → plateau_z). Long
@@ -59,9 +69,11 @@ cylinder_height = 13.0
 # axis. The cylinder→rectangle transition on the two Y-facing short
 # faces has a concave rounded curve, modeled by `build_transition_cove`.
 rect_long = body_od
+# [17 mm](RECT_SHORT) — short (Y) dim of the rect column.
 rect_short = 17.0
 rect_short_half = rect_short / 2
 rect_long_half = rect_long / 2
+# [39 mm](PLATEAU_Z) — top of the rect column / plateau between the arches.
 plateau_z = 39.0
 # Measured R = 4–6 mm; 5.0 mm fit was off in test print, trying upper
 # end 6.0.
@@ -74,19 +86,26 @@ transition_fillet_r = 6.0
 # `arc_peak_z` at x = 0, atop a rectangular foot from `plateau_z` to
 # `arc_base_z`. The plateau between them is `plateau_width_y` wide;
 # the plunger and water port both live in this plateau.
+# [41 mm](ARC_BASE_Z) — arches start curving upward.
 arc_base_z = 41.0
+# [46 mm](ARC_PEAK_Z) — arch peak at X=0.
 arc_peak_z = 46.0
+# [1.5 mm](ARCH_WIDTH) — Y thickness of each arch ridge.
 arch_block_width_y = 1.5
 arch_y_offset = rect_short_half - arch_block_width_y / 2
+# [14 mm](PLATEAU_WIDTH) plateau Y width = rect_short − 2 × arch_block_width_y.
 plateau_width_y = rect_short - 2 * arch_block_width_y
 
 # Water port. Single port through the top face at plateau level. The
 # tube exits straight upward; depth here is approximate, not measured.
-# `port_edge_gap_x` is the 2 mm gap from the +X short face (x =
+# `port_edge_gap_x` is the [2 mm](PORT_EDGE_GAP) gap from the +X short face (x =
 # +rect_long_half) to the port wall, derived per geometry.md.
-port_diameter = 10.0  # re-measured 2026-05-22 (was 9.75 on 2026-04-27 — caliper tips were on the chamfer, not the port wall)
+# [10 mm](PORT_D) — re-measured 2026-05-22 (was 9.75 on 2026-04-27 — caliper
+# tips were on the chamfer, not the port wall).
+port_diameter = 10.0
 port_radius = port_diameter / 2
 port_edge_gap_x = 2.0
+# [8.75 mm](PORT_X) port center X = rect_long_half − port_edge_gap_x − port_radius.
 port_center_x = rect_long_half - port_edge_gap_x - port_radius
 port_center_y = 0.0
 port_bore_depth = 20.0
@@ -240,6 +259,65 @@ def main():
     out = here / "touch-flo-valve-body-reference.step"
     export_step(body, str(out))
     print(f"-> {out.name}")
+
+    # Short names scoped to this part. Units live inside the value so
+    # the script controls them — change a unit in source and every
+    # sibling doc + dynamic-comment marker follows.
+    variables = {
+        "SHANK_OD": f"{shank_od:g} mm",
+        "SHANK_LEN": f"{shank_length:g} mm",
+        "BODY_OD": f"{body_od:g} mm",
+        "CYL_TOP_Z": f"{cylinder_height:g} mm",
+        "RECT_SHORT": f"{rect_short:g} mm",
+        "PLATEAU_Z": f"{plateau_z:g} mm",
+        "ARC_BASE_Z": f"{arc_base_z:g} mm",
+        "ARC_PEAK_Z": f"{arc_peak_z:g} mm",
+        "ARCH_WIDTH": f"{arch_block_width_y:g} mm",
+        "PLATEAU_WIDTH": f"{plateau_width_y:g} mm",
+        "PORT_D": f"{port_diameter:g} mm",
+        "PORT_X": f"{port_center_x:g} mm",
+        "PORT_EDGE_GAP": f"{port_edge_gap_x:g} mm",
+    }
+    substitute_md(
+        here / "valve-body-geometry.md",
+        variables=variables,
+        expected_counts={
+            "SHANK_OD": 2,
+            "SHANK_LEN": 2,
+            "BODY_OD": 3,
+            "CYL_TOP_Z": 3,
+            "RECT_SHORT": 2,
+            "PLATEAU_Z": 4,
+            "ARC_BASE_Z": 2,
+            "ARC_PEAK_Z": 2,
+            "ARCH_WIDTH": 2,
+            "PLATEAU_WIDTH": 2,
+            "PORT_D": 5,
+            "PORT_X": 4,
+            "PORT_EDGE_GAP": 2,
+        },
+    )
+    print(f"-> valve-body-geometry.md")
+    substitute_py_comments(
+        Path(__file__),
+        variables=variables,
+        expected_counts={
+            "SHANK_OD": 1,
+            "SHANK_LEN": 1,
+            "BODY_OD": 1,
+            "CYL_TOP_Z": 1,
+            "RECT_SHORT": 1,
+            "PLATEAU_Z": 1,
+            "ARC_BASE_Z": 1,
+            "ARC_PEAK_Z": 1,
+            "ARCH_WIDTH": 1,
+            "PLATEAU_WIDTH": 1,
+            "PORT_D": 1,
+            "PORT_X": 1,
+            "PORT_EDGE_GAP": 1,
+        },
+    )
+    print(f"-> generate_step_cadquery.py (self)")
 
 
 if __name__ == "__main__":
