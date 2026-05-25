@@ -39,10 +39,12 @@ def main() -> None:
     # Face-local (a, b): a is x in 3D (0..W), b is z in 3D (0..H).
     appliance.front.add_circle(at=(135, 140), d=32, label="ESP32-S3")
 
-    # Top face: GFCI access band (~30 × 8 mm). The GFCI module itself lives
-    # on the electronics shelf; only the band is customer-visible.
+    # Top face: GFCI access band — small cutout exposing the TEST/RESET band
+    # of the Legrand 1597 on the electronics shelf below. Tucked into the
+    # back-right corner near the back-panel power connection, not centered.
     # Face-local (a, b): a is x in 3D (0..W), b is y in 3D (0..D).
-    appliance.top.add_rectangle(at=(135, 140), w=30, h=8, label="GFCI access band")
+    # 8 × 30 mm oriented with the long axis along y (depth).
+    appliance.top.add_rectangle(at=(250, 260), w=8, h=30, label="GFCI access band")
 
     output_path = Path(__file__).parent / "enclosure-iso.svg"
     scene.render(str(output_path))
