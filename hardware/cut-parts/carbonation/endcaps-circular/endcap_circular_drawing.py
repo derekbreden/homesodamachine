@@ -13,11 +13,11 @@ This script produces `endcap-circular-2hole-drawing.pdf` — an ANSI A
 landscape sheet with a 1:1 plan view of the disc, dimensions, a tap
 callout (1/4-18 NPT THRU), general notes, and a title block.
 
-Geometry mirrors `generate_dxf.py` in this folder — single source of truth
+Geometry mirrors `endcap_circular_dxf.py` in this folder — single source of truth
 for the cut geometry is still the DXF; this PDF only annotates.
 
 Run:
-    tools/cad-venv/bin/python hardware/cut-parts/carbonation/endcaps-circular/generate_drawing.py
+    tools/cad-venv/bin/python hardware/cut-parts/carbonation/endcaps-circular/endcap_circular_drawing.py
 """
 
 import math
@@ -35,7 +35,7 @@ sys.path.insert(
 )
 from docgen import substitute_py_comments
 
-# Part geometry in inches — mirrors generate_dxf.py.
+# Part geometry in inches — mirrors endcap_circular_dxf.py.
 
 # [4.86 in](DISC_D) disc OD — tube ID 4.870 in minus 0.010 in slip-fit.
 disc_diameter = 4.860
@@ -456,7 +456,7 @@ def main() -> None:
             "HOLE_OFFSET": 1,
         },
     )
-    print("-> generate_drawing.py (self)")
+    print(f"-> {Path(__file__).name} (self)")
 
 
 if __name__ == "__main__":

@@ -140,7 +140,7 @@ step 4.
 
 Geometry is parametric on five scalars (inner_diameter,
 wall_thickness, cap_thickness, cavity_length, vent_hole_diameter)
-in `generate_step_cadquery.py`. Any change to those is a deliberate
+in `prv_shroud.py`. Any change to those is a deliberate
 geometry shift and should land with a measured rationale.
 
 | metric | value |
@@ -152,4 +152,4 @@ geometry shift and should land with a measured rationale.
 
 ## Sources
 [value](NAME) texts are updated by:
-- `/hardware/printed-parts/cold-core/prv-shroud/generate_step_cadquery.py`
+- `/hardware/printed-parts/cold-core/prv-shroud/prv_shroud.py`

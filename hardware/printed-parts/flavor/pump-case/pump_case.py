@@ -721,7 +721,7 @@ def main():
     print("-> pump-case-cap-cadquery.step")
 
     substitute_py_comments(
-        _here / "generate_step_cadquery.py",
+        _here / "pump_case.py",
         variables={
             "CASE_OUTER_X": f"{case_outer_x:.1f} mm",
             "CASE_OUTER_Y": f"{case_outer_y:.1f} mm",
@@ -749,7 +749,7 @@ def main():
             "LOWER_CAP_BOTTOM_Y": 2,
         },
     )
-    print("-> updated comments in generate_step_cadquery.py")
+    print("-> updated comments in pump_case.py")
 
 
 if __name__ == "__main__":

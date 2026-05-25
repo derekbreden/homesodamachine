@@ -63,7 +63,7 @@ function findAllPythonFiles() {
 // imports a module that imports the changed module is still a dependent,
 // even though it never names the changed module itself — e.g.
 // `_reed_channels.py` is only imported by `_foam_shell.py`, which is what
-// `foam-shell/generate_step_cadquery.py` actually imports. Without the
+// `foam-shell/foam_shell.py` actually imports. Without the
 // transitive walk, leaf-module edits silently produce no rebuild.
 function findGeneratorsTransitivelyImporting(moduleName) {
   const allPyFiles = findAllPythonFiles();

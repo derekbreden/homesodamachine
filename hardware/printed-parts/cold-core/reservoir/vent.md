@@ -6,7 +6,7 @@ Hydrophobic PTFE membrane filter inside the printed reservoir cap, plus a slotte
 
 A ø[13 mm](FILTER_D) × [0.5 mm](FILTER_T) hydrophobic PTFE membrane filter (LVDALAB B0D41KT345) sits in a ø[13.2 mm](VENT_POCKET_D) × [2.5 mm](VENT_POCKET_DEPTH) cylindrical pocket at the top of the cap. A press-fit TPU 90A retaining ring holds the filter down. Below the pocket, a slotted splash-baffle cylinder hangs into the cap interior — any syrup that splashes up against the cap ceiling has to take a 90°-turn through one of the cylinder's side slots before it could reach the membrane.
 
-Geometry constants in [`generate_step_cadquery.py`](generate_step_cadquery.py) lines 192–270 (`vent_pocket_*`, `vent_cylinder_*`, `vent_slot_*`, `vent_brim_*`). Headline values:
+Geometry constants in `reservoir.py` in this directory lines 192–270 (`vent_pocket_*`, `vent_cylinder_*`, `vent_slot_*`, `vent_brim_*`). Headline values:
 
 - Filter: ø[13 mm](FILTER_D) × [0.5 mm](FILTER_T), hydrophobic PTFE on PET backing
 - Pocket: ø[13.2 mm](VENT_POCKET_D) × [2.5 mm](VENT_POCKET_DEPTH) (filter thickness + retaining ring thickness)
@@ -45,4 +45,4 @@ If a membrane ever clogs (well past the design lifetime in practice), the cap co
 
 ## Sources
 [value](NAME) texts are updated by:
-- `/hardware/printed-parts/cold-core/reservoir/generate_step_cadquery.py`
+- `/hardware/printed-parts/cold-core/reservoir/reservoir.py`

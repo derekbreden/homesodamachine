@@ -21,7 +21,7 @@ sys.path.insert(0, str(_REPO_ROOT / "tools"))
 sys.path.insert(0, str(_REPO_ROOT / "hardware" / "printed-parts" / "flavor" / "pump-case"))
 
 from docgen import substitute_py_comments
-from generate_step_cadquery import case_outer_x, case_outer_z
+from pump_case import case_outer_x, case_outer_z
 
 
 # ---------------------------------------------------------------------------

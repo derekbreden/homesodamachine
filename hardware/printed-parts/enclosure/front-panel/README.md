@@ -76,7 +76,7 @@ The WR1110 mounts on a printed bracket somewhere along the CO2 path between the 
 
 ## Status
 
-Design-in-progress. No CAD generator yet. This README is the source-of-truth for the panel's front face contents and design intent until the geometry reaches `generate_step_cadquery.py`.
+Design-in-progress. No CAD generator yet. This README is the source-of-truth for the panel's front face contents and design intent until the geometry reaches a CAD generator.
 
 ## Sources
 [value](NAME) texts are updated by:

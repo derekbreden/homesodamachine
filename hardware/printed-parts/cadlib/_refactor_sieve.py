@@ -45,13 +45,13 @@ _cold_core_step_paths = [
 ]
 
 _cold_core_generators = [
-    "hardware/printed-parts/cold-core/foam-shell/generate_step_cadquery.py",
-    "hardware/printed-parts/cold-core/foam-cap/generate_step_cadquery.py",
-    "hardware/printed-parts/cold-core/copper-plugs/generate_step_cadquery.py",
-    "hardware/printed-parts/cold-core/reservoir/generate_step_cadquery.py",
+    "hardware/printed-parts/cold-core/foam-shell/foam_shell.py",
+    "hardware/printed-parts/cold-core/foam-cap/foam_cap.py",
+    "hardware/printed-parts/cold-core/copper-plugs/copper_plugs.py",
+    "hardware/printed-parts/cold-core/reservoir/reservoir.py",
 ]
 
-_pump_case_generator = "hardware/printed-parts/flavor/pump-case/generate_step_cadquery.py"
+_pump_case_generator = "hardware/printed-parts/flavor/pump-case/pump_case.py"
 
 
 def _sha256(path):
@@ -67,7 +67,7 @@ def _file_hashes():
 
 
 def _run_generator(rel_path):
-    """Run a generate_step_cadquery.py script. Returns (ok, output)."""
+    """Run a part's generator script. Returns (ok, output)."""
     py = _repo / "tools" / "cad-venv" / "bin" / "python"
     result = subprocess.run(
         [str(py), str(_repo / rel_path)],
@@ -88,9 +88,9 @@ def _pump_case_scalars():
 
     # Force a fresh import in case this script is re-run after edits.
     import importlib
-    if "generate_step_cadquery" in sys.modules:
-        del sys.modules["generate_step_cadquery"]
-    mod = importlib.import_module("generate_step_cadquery")
+    if "pump_case" in sys.modules:
+        del sys.modules["pump_case"]
+    mod = importlib.import_module("pump_case")
 
     base, cap = mod.build_pump_case()
     return {
@@ -110,12 +110,11 @@ def _reservoir_scalars():
     sys.path.insert(0, str(_repo / "hardware/printed-parts/cold-core"))
     sys.path.insert(0, str(_repo / "hardware"))
 
-    # Force a fresh import (pump-case's generate_step_cadquery may be
-    # cached from an earlier call in the same process).
+    # Force a fresh import (in case a prior call cached an older copy).
     import importlib
-    if "generate_step_cadquery" in sys.modules:
-        del sys.modules["generate_step_cadquery"]
-    mod = importlib.import_module("generate_step_cadquery")
+    if "reservoir" in sys.modules:
+        del sys.modules["reservoir"]
+    mod = importlib.import_module("reservoir")
 
     parts = {}
     for side, label in ((+1, "right"), (-1, "left")):

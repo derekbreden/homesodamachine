@@ -77,7 +77,7 @@ squeeze, firm enough to resist cold-flow over years.
 
 See [`../../cold-core/foam-shell/README.md`](../../cold-core/foam-shell/README.md)
 ("foam_cap_gasket" section) and
-[`../touch-flo-mounting-gasket/generate_step_cadquery.py`](../touch-flo-mounting-gasket/generate_step_cadquery.py)
+[`../touch-flo-mounting-gasket/touch_flo_mounting_gasket.py`](../touch-flo-mounting-gasket/touch_flo_mounting_gasket.py)
 for the existing TPU-90A treatment.
 
 ## Why a single continuous thimble instead of two discrete rings
@@ -133,9 +133,9 @@ a fresh one on re-assembly.
 ## Regenerate
 
 ```
-tools/cad-venv/bin/python generate_step_cadquery.py
+tools/cad-venv/bin/python touch_flo_tpu_o_ring.py
 ```
 
 ## Sources
 [value](NAME) texts are updated by:
-- `/hardware/printed-parts/faucet/touch-flo-tpu-o-ring/generate_step_cadquery.py`
+- `/hardware/printed-parts/faucet/touch-flo-tpu-o-ring/touch_flo_tpu_o_ring.py`

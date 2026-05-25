@@ -66,7 +66,7 @@ Interfaces with the rear panel of the enclosure — specifics TBD once the enclo
 
 ## Files (planned)
 
-- `generate_step_cadquery.py` — parametric generator (not yet written)
+- `nameplate.py` — parametric generator (not yet written)
 - `nameplate-NNN.step` — per-unit outputs, generated on demand
 - `qrcodes/NNN.png` — per-unit QR code PNGs, generated alongside
 

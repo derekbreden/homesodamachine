@@ -438,7 +438,7 @@ def main():
             "SHELL_TOP_Y": 1,
         },
     )
-    print("-> generate_step_cadquery.py (self)")
+    print(f"-> {Path(__file__).name} (self)")
 
 
 if __name__ == "__main__":

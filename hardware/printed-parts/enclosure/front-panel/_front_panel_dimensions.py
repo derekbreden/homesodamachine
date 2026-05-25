@@ -1,7 +1,7 @@
 """Front-panel dimensions — the named constants that the README's prose
 refers to. No CAD geometry yet (this part is still design-in-progress);
 this module is the source-of-truth for the dimensional numbers cited in
-README.md until the panel reaches a `generate_step_cadquery.py`.
+README.md until the panel reaches a CAD generator.
 
 Run this module directly to substitute the values into README.md."""
 

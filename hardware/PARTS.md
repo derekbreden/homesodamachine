@@ -48,8 +48,8 @@ Fields:
 - **`notes`** (string, optional) — anything else worth knowing: stock
   size, supplier, why the spec was chosen, tap-engagement counts.
 
-Pull values from the generator script's docstring (`generate_dxf.py`,
-`generate_step_cadquery.py`) when one exists. Otherwise, use the spec you
+Pull values from the generator script's docstring (the part-specific generator script,
+) when one exists. Otherwise, use the spec you
 ordered or printed against.
 
 ## When to update

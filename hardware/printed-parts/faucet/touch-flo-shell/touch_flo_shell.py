@@ -1576,7 +1576,7 @@ def main():
             "WATER_HOLE_D": 1,
         },
     )
-    print("-> generate_step_cadquery.py (self)")
+    print(f"-> {Path(__file__).name} (self)")
 
 
 if __name__ == "__main__":

@@ -5,9 +5,9 @@ generators and substitutes them into faucet-and-umbilical.md.
 Sources of truth (each READ-ONLY from this side; substituted values
 are pulled, never written back):
 
-- `touch-flo-tpu-o-ring/generate_step_cadquery.py` — TPU thimble
+- `touch-flo-tpu-o-ring/touch_flo_tpu_o_ring.py` — TPU thimble
   geometry called out in the BOM "Touch-Flo TPU O-ring" row.
-- `touch-flo-under-counter-plate/generate_dxf.py` — keyhole plate disc /
+- `touch-flo-under-counter-plate/touch_flo_under_counter_plate.py` — keyhole plate disc /
   pocket / channel / fillet dimensions called out in the BOM
   "under-counter keyhole plate" row. Same hole positions match the
   TPU mounting gasket and the printed mounting plate exactly (the
@@ -48,11 +48,11 @@ from docgen import substitute_md  # noqa: E402
 def _load_module(name: str, path: Path):
     """Load a module from an explicit file path, isolated from sys.modules.
 
-    The upstream faucet-side generators all share the filename
-    `generate_step_cadquery.py` (and `generate_dxf.py`), so adding any
-    one to sys.path collides with the others. importlib.util gives us
-    each module under a unique name without disturbing module imports
-    that any of them does internally.
+    Each generator script lives in its own directory and has unique
+    sys.path requirements (the generators themselves do sys.path.insert
+    on their parent directories). Loading via importlib.util keeps each
+    module under a stable name here without disturbing whatever module
+    imports any of them does internally.
     """
     spec = importlib.util.spec_from_file_location(name, path)
     if spec is None or spec.loader is None:
@@ -71,7 +71,7 @@ def main():
         / "printed-parts"
         / "faucet"
         / "touch-flo-tpu-o-ring"
-        / "generate_step_cadquery.py",
+        / "touch_flo_tpu_o_ring.py",
     )
     plate = _load_module(
         "_under_counter_plate_gen",
@@ -79,12 +79,12 @@ def main():
         / "cut-parts"
         / "faucet"
         / "touch-flo-under-counter-plate"
-        / "generate_dxf.py",
+        / "touch_flo_under_counter_plate.py",
     )
 
     variables = {
         # TPU thimble (touch-flo-tpu-o-ring) — BOM row line 26.
-        # Source-of-truth: `touch-flo-tpu-o-ring/generate_step_cadquery.py`.
+        # Source-of-truth: `touch-flo-tpu-o-ring/touch_flo_tpu_o_ring.py`.
         "CAP_HOLE_D": f"{tpu.cap_hole_diameter:g} mm",  # 6.5
         "BODY_PORT_D": f"{tpu.body_port_diameter:g} mm",  # 10
         "OUTER_D": f"{tpu.outer_diameter:g} mm",  # 10.2
@@ -99,7 +99,7 @@ def main():
         # Under-counter keyhole plate (touch-flo-under-counter-plate) —
         # BOM row line 27. Hole positions are shared with the gasket /
         # mounting plate (same NAMES, same dimensions across the stack-up).
-        # Source-of-truth: `touch-flo-under-counter-plate/generate_dxf.py`.
+        # Source-of-truth: `touch-flo-under-counter-plate/touch_flo_under_counter_plate.py`.
         "PLATE_D": f"{plate.disc_diameter:g} mm",  # 54.35
         "SHANK_HOLE_D": f"{plate.shank_diameter:g} mm",  # 12.6
         "PILL_L": f"{plate.pill_long_y:g} mm",  # 13.2

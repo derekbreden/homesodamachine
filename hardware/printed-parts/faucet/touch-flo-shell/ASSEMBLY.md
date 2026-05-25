@@ -58,7 +58,7 @@ into a single rigid sub-assembly.
 
 | Qty | Item                                                 | Reference                                                                          |
 | --- | ---------------------------------------------------- | ---------------------------------------------------------------------------------- |
-|  1  | `touch-flo-shell` (printed, PET-CF) — smooth bottom face, no joinery features | [`generate_step_cadquery.py`](generate_step_cadquery.py)                            |
+|  1  | `touch-flo-shell` (printed, PET-CF) — smooth bottom face, no joinery features | `touch_flo_shell.py` in this directory                            |
 |  1  | `touch-flo-mounting-plate` (printed) — smooth top face, no joinery features | [`../touch-flo-mounting-plate/`](../touch-flo-mounting-plate/) |
 |  1  | Touch-Flo valve body + factory shank nut (harvested) | [`../../harvested/touch-flo-faucet/`](../../harvested/touch-flo-faucet/)            |
 
@@ -85,7 +85,7 @@ Prime-available at order time.
 
 **Under-counter plate — SendCutSend 0.060" 304 SS, keyhole design
 (order qty 1).** File `touch_flo_under_counter_plate.dxf` (generated
-by `generate_dxf.py` in the same directory) is a single-piece
+by ``endcap_circular_dxf.py` (different part)` in the same directory) is a single-piece
 Ø 54.35 mm disc with hole positions that match the TPU mounting
 gasket exactly — Ø 12.6 mm shank pocket at the gasket's shank center
 and a [13.4 mm](PILL_L) × [7.05 mm](PILL_W) pill pocket (long axis along Y) at the gasket's
@@ -346,4 +346,4 @@ wear — there's nothing to wear.
 
 ## Sources
 [value](NAME) texts are updated by:
-- `/hardware/printed-parts/faucet/touch-flo-shell/generate_step_cadquery.py`
+- `/hardware/printed-parts/faucet/touch-flo-shell/touch_flo_shell.py`

@@ -10,7 +10,7 @@ Touch-Flo valve body, the carbonated-water tube, and the two flavor
 tubes. The harvested body is what carries the dispense pressure and the
 factory shank-nut clamp into the countertop; the shell is a precision
 shroud over that body, not a pressure vessel. See [`ASSEMBLY.md`](ASSEMBLY.md)
-for the joint geometry and [`generate_step_cadquery.py`](generate_step_cadquery.py)
+for the joint geometry and `touch_flo_shell.py` in this directory
 for the per-zone construction.
 
 Service loads on the shell are limited to:
@@ -112,4 +112,4 @@ Polymaker at this material class.
 
 ## Sources
 [value](NAME) texts are updated by:
-- `/hardware/printed-parts/faucet/touch-flo-shell/generate_step_cadquery.py`
+- `/hardware/printed-parts/faucet/touch-flo-shell/touch_flo_shell.py`

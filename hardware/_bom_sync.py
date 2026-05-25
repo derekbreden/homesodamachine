@@ -40,7 +40,7 @@ sys.path.insert(
 from _cold_core_interface import foam_cap_attachment_xz_positions
 from _reed_channels import reeds_per_reservoir
 from docgen import substitute_md
-from generate_step_cadquery import insert_positions_for_side_plus_1
+from reservoir import insert_positions_for_side_plus_1
 
 
 # ─── BOM-defined design choices (pinned here) ─────────────────────────

@@ -1,7 +1,7 @@
 """Rear-panel dimensions — the named constants that the README's prose
 refers to. No CAD geometry yet (this part is still design-in-progress);
 this module is the source-of-truth for the dimensional numbers cited in
-README.md until the panel reaches a `generate_step_cadquery.py`.
+README.md until the panel reaches a CAD generator.
 
 Run this module directly to substitute the values into README.md."""
 
@@ -26,7 +26,7 @@ ac_inlet_recess_depth_max = 5.0
 # panel-hole spec. JG catalog spec for the 1/4" body family (0.67").
 # Mirrors the value used by the reservoir cap on the cold-core
 # (bulkhead_panel_hole_diameter in cold-core/reservoir/
-# generate_step_cadquery.py) — same bulkhead family, same panel hole.
+# reservoir.py) — same bulkhead family, same panel hole.
 # Not imported from the cold-core because that value lives inside the
 # reservoir generator's local scope, not in _cold_core_interface.py.
 bulkhead_panel_hole_diameter = 17.0

@@ -7,7 +7,7 @@ running the script directly while the dev server's watcher rebuilds the same
 script — both produce complete files, last writer wins, and no consumer ever
 observes a half-written .step.
 
-Usage from any generate_step_cadquery.py:
+Usage from any generator script:
 
     import sys
     from pathlib import Path
