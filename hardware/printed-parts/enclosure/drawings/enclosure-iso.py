@@ -50,20 +50,13 @@ def main() -> None:
     # × 27 along b (depth) — a tall-narrow band, not a wide-flat one.
     appliance.top.add_rectangle(at=(230.5, 254), w=18, h=27, label="GFCI access band")
 
-    # Top face: pump-cartridge access door for both pump cases.
-    # Each pump case: 88 × 75 × 135 mm; tubes on the 75 × 135 face → inserted
-    # vertically, that face mates downward into the enclosure. Minimum opening
-    # per pump: 75 × 135 mm. Two pumps side by side: 150 mm (2 × 75) across ×
-    # 135 mm depth. With margin: 145 mm wide (a) × 165 mm deep (b).
-    # Positioned right of center with 5 mm clearance from the right edge (W=269).
-    # NOTE: two identical 145 mm-wide doors would need 300+ mm total width —
-    # they cannot both fit on a 269 mm top face. Hopper door is a separate size.
-    appliance.top.add_rectangle(at=(192, 91), w=145, h=165, label="pump cartridge door (×2)")
-
-    # Top face: hopper access door — PLACEHOLDER width 100 mm.
-    # SodaStream bottle OD ≈ 88 mm; 100 mm gives ~6 mm clearance each side.
-    # Exact size TBD. Centered left of the pump door with a 12 mm gap between.
-    appliance.top.add_rectangle(at=(57, 91), w=100, h=165, label="hopper door (TBD)")
+    # Top face: hopper door + pump-cartridge access door, identical at 76 × 70
+    # mm (the pump cap's footprint sets the floor; the hopper opening needs
+    # less for a SodaStream-bottle pour). Side-by-side in the front portion of
+    # Zone C with a 15 mm gap and ~51 mm margin to the left/right edges of the
+    # top face. Left/right assignment between hopper and pump not committed.
+    appliance.top.add_rectangle(at=(89, 45), w=76, h=70, label="door (hopper or pump cartridge)")
+    appliance.top.add_rectangle(at=(180, 45), w=76, h=70, label="door (hopper or pump cartridge)")
 
     output_path = Path(__file__).parent / "enclosure-iso.svg"
     scene.render(str(output_path))
