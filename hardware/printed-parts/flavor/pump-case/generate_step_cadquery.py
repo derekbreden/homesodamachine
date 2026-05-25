@@ -109,6 +109,11 @@ case_outer_z = (base_thickness + ramp_from_skirt_to_octagon_height + tower_heigh
                 + skirt_upper_height + skirt_wide_flare_per_side
                 + skirt_wide_straight_height + lower_height + lower_cap_thickness)
 
+# Half-extent of the stepped-split cutter slab.  Must exceed the case's
+# X and Z footprint half-extents so the cut pierces through to free air
+# on every side; picks the larger envelope dimension and pads it.
+cutter_half_extent = max(case_outer_x, case_outer_y) / 2 + 5.0
+
 
 # Slop added to cut depths so they pierce cleanly through sibling solid
 # boundaries (the resulting STEP is unaffected — the excess lives in the
@@ -633,24 +638,20 @@ def split_into_base_and_cap(combined):
     """
     lower_end_y = lower_cap_bottom_y - overcut
 
-    # Oversized rectangular cutter: the 70x70 case lives inside the 100x100
-    # span so the cut always pierces through to free air.
-    cutter_extent = 50.0
-
     full_slab = (
         WorldWorkplane(xz_plane_y_up)
         .workplane(offset=skirt_bottom_y)
         .center(center_x, center_z)
-        .rect(2 * cutter_extent, 2 * cutter_extent)
+        .rect(2 * cutter_half_extent, 2 * cutter_half_extent)
         .extrude(lower_end_y - skirt_bottom_y)
     )
 
     step_z = skirt_transition_z_end_plus + step_z_clearance
     narrow_box = [
-        (-cutter_extent, -cutter_extent),
-        (cutter_extent, -cutter_extent),
-        (cutter_extent, step_z + overcut),
-        (-cutter_extent, step_z + overcut),
+        (-cutter_half_extent, -cutter_half_extent),
+        (cutter_half_extent, -cutter_half_extent),
+        (cutter_half_extent, step_z + overcut),
+        (-cutter_half_extent, step_z + overcut),
     ]
     narrow_step = (
         WorldWorkplane(xz_plane_y_up)
