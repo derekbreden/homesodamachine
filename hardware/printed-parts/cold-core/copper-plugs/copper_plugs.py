@@ -37,33 +37,30 @@ Four plugs in the stack:
                         outer_shell.
 
 Cross-section (looking along −Y; X horizontal, Z vertical) — a
-true I-beam: a thin 2 mm-tall web fills the slot's X range at the
-wall's Z range, sandwiched between two 1 mm-tall full-X-width
-flanges that sit immediately above and below the wall:
+true I-beam: a thin web fills the slot's X range at the wall's Z
+range, sandwiched between two full-plug-X-width flanges that sit
+immediately above and below the wall:
 
-    ████████████████████      ← top flange (full plug X, 1 mm Z;
-                                  z = wall_outer .. wall_outer + 1)
-         ██████████            ← web (slot X, 2 mm Z;
-                                  z = wall_inner .. wall_outer)
-    ████████████████████      ← bottom flange (full plug X, 1 mm Z;
-                                  z = wall_inner − 1 .. wall_inner)
-    ←──── 8.5 mm plug X ────→
-         ←─6.5 mm slot─→
+    ████████████████████      ← top flange (above wall_outer)
+         ██████████            ← web (in the wall's Z range, slot's X range)
+    ████████████████████      ← bottom flange (below wall_inner)
+    ←──── plug X ────→
+         ←─ slot ─→
 
-The flanges grip the +Z wall edge like a binder clip: the 2 mm Z
-air gap between the top and bottom flanges (at x = ±slot_half ..
-±plug_half_outer, i.e. the 1 mm of flange overhang past the web on
-each side) is exactly where the wall sits when the plug is dropped
-into the slot.
+The flanges grip the +Z wall edge like a binder clip: the air gap
+between the two flanges (at x = ±slot_half_width_x ..
+±plug_half_x_outer, the flange overhang past the web on each side)
+is exactly where the wall sits when the plug is dropped into the
+slot.
 
 Built as three boxes (web + top flange + bottom flange) unioned
-into a single solid. The web's top face shares a 2D 6.5 × y_height
-contact patch with the top flange's bottom face at z = wall_outer
-(and similarly with the bottom flange at z = wall_inner), so OCCT
-merges all three into one contiguous body.
+into a single solid. The web's top face shares a 2D contact patch
+with the top flange's bottom face at z = wall_outer (and similarly
+with the bottom flange at z = wall_inner), so OCCT merges all three
+into one contiguous body.
 
-Plug ends that abut a tube have a half-circle cutout (diameter =
-tube clearance, ⌀6.5) centered on x=0 in the end face and arched
+Plug ends that abut a tube have a half-circle cutout (radius =
+tube_clearance_radius) centered on x=0 in the end face and arched
 into the plug body, so the plug seats gently around the tube
 running through the slot below/above it. The arch is Z-tall enough
 to span the full plug Z envelope (z = bottom_flange_inner ..
@@ -81,6 +78,7 @@ top_flange_outer), so the flanges don't block tubes from seating.
 
 import math
 import sys
+from collections import namedtuple
 from pathlib import Path
 
 import cadquery as cq
@@ -190,21 +188,18 @@ top_room_above_water = prv_vent_offset_above_water + top_plug_height
 # The upper plug's top face is flush with the wall top (y =
 # foam_shell_outer_height); the upper plug has no top arch since
 # nothing sits above it.
-plug_y_ranges = {
-    "lower": (lowest_copper_y, highest_copper_y),
-    "middle": (highest_copper_y, water_inlet_y),
-    "upper": (water_inlet_y, prv_vent_y),
-    "top": (prv_vent_y, foam_shell_outer_height),
-}
+#
+# Each PlugSpec records both the Y span the plug fills AND whether each
+# Y end has an arch cutout (sitting against a tube) or a flat end (top
+# of the stack).  Unified so adding a new plug forces specifying both
+# attributes — no risk of one dict gaining a key the other forgets.
+PlugSpec = namedtuple("PlugSpec", ["y_range", "arch_bottom", "arch_top"])
 
-# Which plug ends get a half-circle arch cutout (sits against a tube).
-# True = arch cutout, False = flat end. TOP's top is flat (top of
-# the stack); every other end-against-a-tube arches around its tube.
-plug_arch_ends = {
-    "lower": {"bottom": True, "top": True},
-    "middle": {"bottom": True, "top": True},
-    "upper": {"bottom": True, "top": True},
-    "top": {"bottom": True, "top": False},
+plug_specs = {
+    "lower": PlugSpec((lowest_copper_y, highest_copper_y), arch_bottom=True, arch_top=True),
+    "middle": PlugSpec((highest_copper_y, water_inlet_y), arch_bottom=True, arch_top=True),
+    "upper": PlugSpec((water_inlet_y, prv_vent_y), arch_bottom=True, arch_top=True),
+    "top": PlugSpec((prv_vent_y, foam_shell_outer_height), arch_bottom=True, arch_top=False),
 }
 
 # Razor-edge mitigation for the web at each arched plug end. The
@@ -228,7 +223,7 @@ plug_arch_ends = {
 # x = ±slot_half_width_x .. ±plug_half_x_outer were already at the
 # print-resolution limit at the arch tangent and don't get thinner.
 min_printable_thickness = 1.0
-# [2.34521 mm](WEB_BUFFER) — Y inset from arched plug end where the web outer-X sliver reaches min_printable_thickness.
+# [2.35 mm](WEB_BUFFER) — Y inset from arched plug end where the web outer-X sliver reaches min_printable_thickness.
 web_arch_buffer = math.sqrt(
     tube_clearance_radius ** 2
     - (slot_half_width_x - min_printable_thickness) ** 2
@@ -238,14 +233,13 @@ web_arch_buffer = math.sqrt(
 volume_check_tolerance = 0.01
 
 
-def build_plug(name, y_bottom, y_top):
+def build_plug(spec):
     """Single solid plug with the I-beam cross-section described in
-    the module docstring, extending y_bottom..y_top in Y. Half-
-    circle cutouts (radius = tube_clearance_radius) at the ends that
-    sit against a tube; the cutouts span the full Z envelope so they
-    pass through both flanges and the web."""
-    plug_y_range = (y_bottom, y_top)
-    arches = plug_arch_ends[name]
+    the module docstring, extending spec.y_range in Y. Half-circle
+    cutouts (radius = tube_clearance_radius) at the ends marked
+    arch_bottom / arch_top; the cutouts span the full Z envelope so
+    they pass through both flanges and the web."""
+    y_bottom, y_top = spec.y_range
 
     # Web and top flange share the same Y range, inset from each arched
     # plug end by `web_arch_buffer`. Two reasons combine:
@@ -259,13 +253,13 @@ def build_plug(name, y_bottom, y_top):
     # at each arched end. Bottom flange keeps its full Y range — those
     # tabs print fine because they're on the print bed.
     web_y_range = (
-        y_bottom + (web_arch_buffer if arches["bottom"] else 0),
-        y_top - (web_arch_buffer if arches["top"] else 0),
+        y_bottom + (web_arch_buffer if spec.arch_bottom else 0),
+        y_top - (web_arch_buffer if spec.arch_top else 0),
     )
 
     web = make_box(slot_x_range, web_y_range, wall_z_range)
     top_flange = make_box(plug_x_range, web_y_range, top_flange_z_range)
-    bottom_flange = make_box(plug_x_range, plug_y_range, bottom_flange_z_range)
+    bottom_flange = make_box(plug_x_range, spec.y_range, bottom_flange_z_range)
     plug = web.union(top_flange).union(bottom_flange)
 
     # Arch cutter: cylinder centered on the plug's end Y face, spanning
@@ -282,15 +276,15 @@ def build_plug(name, y_bottom, y_top):
             .extrude(z_max - z_min)
         )
 
-    if arches["bottom"]:
+    if spec.arch_bottom:
         plug = plug.cut(arch_cutter(y_bottom))
-    if arches["top"]:
+    if spec.arch_top:
         plug = plug.cut(arch_cutter(y_top))
 
     return plug
 
 
-def _analytical_volume(name, y_bottom, y_top):
+def _analytical_volume(spec):
     """Closed-form volume of the plug from its three boxes minus the
     arch cutouts. Used as a cross-check on the OCCT boolean result —
     if they don't agree to within 0.01 mm^3, the union dropped or
@@ -314,13 +308,13 @@ def _analytical_volume(name, y_bottom, y_top):
         where the buffer cap is the area of the half-disc from
         y=at_y to y=at_y+web_arch_buffer.
     """
+    y_bottom, y_top = spec.y_range
     y_height = y_top - y_bottom
     plug_full_x = plug_x_range[1] - plug_x_range[0]
     slot_full_x = slot_x_range[1] - slot_x_range[0]
     web_z_thickness = wall_z_range[1] - wall_z_range[0]
 
-    arches = plug_arch_ends[name]
-    n_arches = sum(1 for v in arches.values() if v)
+    n_arches = sum([spec.arch_bottom, spec.arch_top])
 
     web_y_height = y_height - n_arches * web_arch_buffer
     vol_web = slot_full_x * web_z_thickness * web_y_height
@@ -351,8 +345,8 @@ def main():
     # flanges); bounding box must match the I-beam X and Z envelope;
     # analytical volume (closed-form from the three boxes minus arch
     # cutouts) must match the OCCT-computed volume to within [0.01 mm³](VOL_TOL).
-    for name, (y_bottom, y_top) in plug_y_ranges.items():
-        plug = build_plug(name, y_bottom, y_top)
+    for name, spec in plug_specs.items():
+        plug = build_plug(spec)
         out = _here / f"copper-plug-{name}.step"
         export_step(plug, str(out))
 
@@ -360,8 +354,9 @@ def main():
         assert len(solids) == 1, f"plug {name}: expected 1 solid, got {len(solids)}"
         bb = solids[0].BoundingBox()
         vol = solids[0].Volume()
-        vol_analytical = _analytical_volume(name, y_bottom, y_top)
+        vol_analytical = _analytical_volume(spec)
         vol_diff = vol - vol_analytical
+        y_bottom, y_top = spec.y_range
         print(
             f"-> copper-plug-{name}.step  "
             f"y {y_bottom:.2f} -> {y_top:.2f} (h {y_top - y_bottom:.2f} mm)  "
@@ -407,7 +402,7 @@ def main():
         "PRV_VENT_Y": f"{prv_vent_y:g} mm",
         "TOP_PLUG_H": f"{top_plug_height:g} mm",
         "TOP_ROOM": f"{top_room_above_water:g} mm",
-        "WEB_BUFFER": f"{web_arch_buffer:g} mm",
+        "WEB_BUFFER": f"{web_arch_buffer:.2f} mm",
         # External references (read-only constants from _cold_core_interface).
         "WALL_T": f"{wall_and_floor_thickness:g} mm",
         "TANK_ELBOW_H": f"{above_tank_elbows_height:g} mm",
