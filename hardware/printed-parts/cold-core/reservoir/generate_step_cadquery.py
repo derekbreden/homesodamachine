@@ -207,7 +207,7 @@ vent_brim_bottom_y = vent_cylinder_walls_bottom_y - vent_brim_thickness
 
 # Level-sensing rod: a vertical 3.175 mm (1/8") × 305 mm (12") 316 SS
 # round rod, body-anchored and cap-registered. A small magnetic float
-# slides up and down the rod as the syrup level changes; ten reed
+# slides up and down the rod as the syrup level changes; four reed
 # switches mounted outside the reservoir pocket's far +X wall (foam-
 # encapsulated during the foam pour) detect the float's position. Same
 # rod SKU as the carbonator's existing reed+float level sensing — see
