@@ -88,10 +88,10 @@ Prime-available at order time.
 by `generate_dxf.py` in the same directory) is a single-piece
 Ø 54.35 mm disc with hole positions that match the TPU mounting
 gasket exactly — Ø 12.6 mm shank pocket at the gasket's shank center
-and a 13.2 × 6.85 mm pill pocket (long axis along Y) at the gasket's
-pill center, 18.925 mm away along +X. Each pocket has its own
+and a [13.4 mm](PILL_L) × [7.05 mm](PILL_W) pill pocket (long axis along Y) at the gasket's
+pill center, [18.925 mm](FLAVOR_TUBE_X) away along +X. Each pocket has its own
 open-edge channel extending from the pocket to the disc rim in the
-−Y direction (channel widths: 12.6 mm for the shank, 6.85 mm for the
+−Y direction (channel widths: 12.6 mm for the shank, [7.05 mm](PILL_W) for the
 pill). The two channels exit the rim at different X positions and
 do not merge. The four corners where the channel walls meet the
 rim are rounded with R 1.5 mm fillets — these would otherwise be
@@ -148,7 +148,7 @@ What holds the parts together:
   the plate, and the harvested body inside the shell's bore
   laterally constrains the plate (the body is rigidly attached to
   the plate via the snug shank nut from Step 1; the body sits in
-  the shell's bore with a 0.25 mm/side slip-fit, so the plate
+  the shell's bore with a [0.25 mm](BORE_CLEAR)/side slip-fit, so the plate
   can't slide sideways without dragging the body and shell with
   it). The shell can be lifted straight off the body+plate freely;
   handle the sub-assembly without inverting it until the umbilical
@@ -272,7 +272,7 @@ side is the entire mechanism that holds the assembly together.
    body-to-plate clamp; the gasket and under-counter nut at the deck
    install step take over the long-term clamping load.
 4. Confirm the body is rotationally locked — the rectangular zone-2
-   profile (31.5 × 17 mm) above 13 mm cannot rotate inside the
+   profile ([31.5 mm](BODY_RECT_LONG) × [17 mm](BODY_RECT_SHORT)) above [13 mm](BODY_CYL_TOP_Z) cannot rotate inside the
    shell's bore that's about to come down on it. The body's
    rotational orientation is set by which way the lever points;
    orient the lever toward -X (the lever-clearance ramp side of the
@@ -288,7 +288,7 @@ side is the entire mechanism that holds the assembly together.
    plate's top face. There is nothing to press into — the shell just
    slides down over the body and rests on the plate by gravity.
 3. Verify the shell's pill slot aligns with the plate's pill slot
-   (both at world (18.925, 0), Y-oriented). They should overlay
+   (both at world ([18.925 mm](FLAVOR_TUBE_X), 0), Y-oriented). They should overlay
    exactly. If they don't, the shell is rotated 180° about the
    shell-center vertical axis — lift it straight up off the plate
    (no resistance, since there's no joinery), rotate, and re-seat.
