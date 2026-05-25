@@ -1504,12 +1504,25 @@ def main():
     # Short names scoped to this part. Units live inside the value so
     # the script controls them — change a unit in source and every
     # sibling doc + dynamic-comment marker follows.
+    #
+    # BODY_OD is the harvested Westbrass body's cylinder OD (= the X
+    # width of the rect column above the cove — see body_rect_long).
+    # Kept as its own name because semantically it's the body OD as
+    # seen by the bore/landing-face fit, even though it happens to
+    # share its numeric value with the rect long axis.
+    #
+    # BORE_COVE_Z is the Z position where the shell's body bore stops
+    # being shaped by the rect→cyl transition cove and becomes a plain
+    # rect∩cyl column — i.e. how far up the body slides into the bore
+    # before bottoming out on the cove.
     variables = {
         "BORE_CLEAR": f"{bore_clearance:g} mm",
         "BODY_BORE_D": f"{body_bore_diameter:g} mm",
+        "BODY_OD": f"{body_rect_long:g} mm",
         "BODY_RECT_LONG": f"{body_rect_long:g} mm",
         "BODY_RECT_SHORT": f"{body_rect_short:g} mm",
         "BODY_CYL_TOP_Z": f"{zone1_z_top:g} mm",
+        "BORE_COVE_Z": f"{zone2_bore_bottom + cove_r:g} mm",
         "PILL_L": f"{pill_length_y:g} mm",
         "PILL_W": f"{pill_width_x:g} mm",
         "FLAVOR_TUBE_X": f"{flavor_tube_x:g} mm",
@@ -1525,16 +1538,22 @@ def main():
             "PILL_L": 1,
             "PILL_W": 2,
             "FLAVOR_TUBE_X": 2,
+            "BODY_OD": 2,
             "BODY_RECT_LONG": 1,
             "BODY_RECT_SHORT": 1,
             "BODY_CYL_TOP_Z": 1,
+            "BORE_COVE_Z": 1,
         },
     )
     print("-> ASSEMBLY.md")
     substitute_md(
         out_dir / "MATERIAL.md",
         variables=variables,
-        expected_counts={"BODY_BORE_D": 1},
+        expected_counts={
+            "BODY_BORE_D": 1,
+            "BODY_OD": 1,
+            "BORE_CLEAR": 1,
+        },
     )
     print("-> MATERIAL.md")
     substitute_py_comments(
