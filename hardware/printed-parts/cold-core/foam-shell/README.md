@@ -98,8 +98,7 @@ The four walls of each pocket are traced as a single connected
 outer-perimeter polyline (with the matching cavity-perimeter polyline
 cut out of it), so the four walls union into one solid by
 construction. The +X pocket is traced explicitly; the −X pocket is
-its mirror across YZ. Total assembly height = 213.4 mm
-(`foam_shell_outer_height`).
+its mirror across YZ. Total assembly height = [213.4](FOAM_SHELL_OUTER_HEIGHT) mm.
 
 ### tank_support_ring
 
@@ -124,10 +123,9 @@ floor regardless of which cavity it enters from.
 
 Outer rectangular cup framing the whole foam-shell: floor + four
 perimeter walls + six 8 × 8 mm bosses. Total height matches the
-foam-shell outer height (213.4 mm = `foam_shell_outer_height`).
-Outer footprint
-(`outer_shell_x_length` × `outer_shell_z_length` = 283 × 181 mm)
-sized to leave `outer_shell_foam_gap` (= 16 mm) of foam-pour zone
+foam-shell outer height of [213.4](FOAM_SHELL_OUTER_HEIGHT) mm.
+Outer footprint [283](OUTER_SHELL_X_LENGTH) × [181](OUTER_SHELL_Z_LENGTH) mm,
+sized to leave [16](OUTER_SHELL_FOAM_GAP) mm of foam-pour zone
 between the outer_shell's inner face and the outermost reservoir-
 pocket walls on each side.
 
@@ -433,9 +431,9 @@ This drives several dimension choices:
   connected outer-perimeter polyline (with one cavity-perimeter
   polyline cut from it), so the four walls union into one solid by
   construction rather than by OCCT face-merging.
-- The **outer_shell**'s inner face sits `outer_shell_foam_gap`
-  (= 16 mm) outboard of the outermost reservoir-pocket walls — a
-  deliberate gap, not a coincidence: this is the outer foam-pour zone.
+- The **outer_shell**'s inner face sits [16](OUTER_SHELL_FOAM_GAP) mm
+  outboard of the outermost reservoir-pocket walls — a deliberate
+  gap, not a coincidence: this is the outer foam-pour zone.
 
 ## Print settings
 
