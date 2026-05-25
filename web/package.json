@@ -8,8 +8,7 @@
   "scripts": {
     "start": "node server.js",
     "dev": "node dev-server/server.js",
-    "test": "node --test 'tests/**/*.test.js'",
-    "postinstall": "node scripts/postinstall.js"
+    "test": "node --test 'tests/**/*.test.js'"
   },
   "dependencies": {
     "express": "^4.21.0",
@@ -20,8 +19,6 @@
     "ws": "^8.18.0"
   },
   "devDependencies": {
-    "chokidar": "^4.0.0",
-    "puppeteer": "^24.42.0",
-    "sharp": "^0.34.5"
+    "chokidar": "^4.0.0"
   }
 }
