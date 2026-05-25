@@ -8,13 +8,13 @@ Design intent and runtime behavior live in [`../future.md`](../future.md) "Refri
 
 ## Scope
 
-In: a fully wired chassis fresh out of [`wiring.md`](wiring.md) — AC and DC continuity checks passed, never powered. The flash tooling — three USB cables (one micro-USB for the ESP32-DevKitC, one USB-C for the ESP32-S3, one micro-USB for the RP2040), the `./tools/flash.sh` wrapper (see project root `CLAUDE.md`), and the firmware source tree at `/firmware/` configured per [`/platformio.ini`](../../platformio.ini). A multimeter for runtime DC-rail spot checks. A serial console (`pio device monitor`) for log capture.
+In: a fully wired chassis fresh out of [`wiring.md`](wiring.md) — AC and DC continuity checks passed, never powered. The flash tooling — two USB cables (one micro-USB for the ESP32-DevKitC, one USB-C for the ESP32-S3), the `./tools/flash.sh` wrapper (see project root `CLAUDE.md`), and the firmware source tree at `/firmware/` configured per [`/platformio.ini`](../../platformio.ini). A multimeter for runtime DC-rail spot checks. A serial console (`pio device monitor`) for log capture.
 
 Out:
 
-- All three MCUs (ESP32-DevKitC for main control, ESP32-S3 for the front-face fixed config display, RP2040 for the front-face detachable round flavor display) flashed with the current firmware on `main`.
+- Both MCUs (ESP32-DevKitC for main control, ESP32-S3 for the front-face detachable rotary display — sole interaction surface) flashed with the current firmware on `main`.
 - First DC power-on under PSU control succeeds with no smoke, no breaker trip, no thermal-fuse open.
-- Sensor health passes: both DS18B20 probes addressed on the 1-wire bus and reporting within ±2 °C of room ambient; all 10 reed switches (2 carbonator + 4 per flavor reservoir × 2 reservoirs) settled to their no-magnet "empty" baseline; the DIGITEN flow meter ticks pulses when its impeller is rotated by hand; the KRAUS air switch reads pressed/unpressed; the MQ-6 hydrocarbon sensor on the rear interior enclosure wall has reached operating temperature and reads its clean-air baseline; the backflow drip-pan moisture sensor reads dry.
+- Sensor health passes: both DS18B20 probes addressed on the 1-wire bus and reporting within ±2 °C of room ambient; all 10 reed switches (2 carbonator + 4 per flavor reservoir × 2 reservoirs) settled to their no-magnet "empty" baseline; the DIGITEN flow meter ticks pulses when its impeller is rotated by hand; the MQ-6 hydrocarbon sensor on the rear interior enclosure wall has reached operating temperature and reads its clean-air baseline; the backflow drip-pan moisture sensor reads dry.
 - Both MCP23017 GPIO expanders ACK on the I²C bus at 0x20 and 0x21, with the DS3231 RTC at 0x68 also responsive.
 - Valve self-test pass: each of the 12 Beduan solenoids clicks once with audible / visual confirmation, and both Kamoer peristaltic pumps spin briefly under L298N Board A drive.
 - Relay #1 verified switching the compressor's AC leg under a deliberate firmware override: the suction-line DS18B20 reads a few degrees lower within a couple of minutes of the override starting (running dry, no water in the carbonator), confirming the relay is making AND that DS18B20 #2 is on the correct probe.
@@ -28,9 +28,9 @@ Not in scope: any acceptance test that requires water or CO2 (that's [`acceptanc
 | Item | Source / spec | Notes |
 |---|---|---|
 | Wired chassis | Output of [`wiring.md`](wiring.md) | Never powered. AC + DC continuity checks passed. Compressor shroud closed and grounded. |
-| Firmware source tree | [`../../firmware/`](../../firmware/) on the build host, current `main` | PlatformIO project; envs `esp32dev`, `rp2040_display`, `esp32s3_config` (see [`/platformio.ini`](../../platformio.ini)). |
+| Firmware source tree | [`../../firmware/`](../../firmware/) on the build host, current `main` | PlatformIO project; envs `esp32dev`, `esp32s3_config` (see [`/platformio.ini`](../../platformio.ini)). |
 | Flash wrapper | [`/tools/flash.sh`](../../tools/flash.sh) | Pauses the serial logger during upload; pre-flights the sibling `PersistentLog` dependency. Invocation: `./tools/flash.sh <env>`. |
-| USB cables | 1× micro-USB (ESP32-DevKitC), 1× USB-C (ESP32-S3), 1× micro-USB (RP2040) | Build-bench stock; not per-unit consumable. |
+| USB cables | 1× micro-USB (ESP32-DevKitC), 1× USB-C (ESP32-S3) | Build-bench stock; not per-unit consumable. |
 | Multimeter | Build-bench stock | DC-rail spot checks at 12 V, 5 V, 3.3 V test pads. |
 | Serial monitor | `pio device monitor -e esp32dev` (115200 baud) | Captures the ESP32 boot log + structured commissioning output for the per-serial archive. |
 | Commissioning-log template | TBD — see Open items | Per-unit serial + sensor readings + I²C ACK list + valve confirmation + suction-line ΔT during the relay #1 verification. |
@@ -75,7 +75,7 @@ If the build fails on the `symlink://${PROJECT_DIR}/../PersistentLog` dependency
 
 ### 4. Flash the ESP32-S3 config display
 
-Plug the USB-C cable into the ESP32-S3-DevKitC-1 (the front-face fixed config display, mounted in its recess per [`../printed-parts/enclosure/front-panel/README.md`](../printed-parts/enclosure/front-panel/README.md) — see [`../wiring/esp32-pinout.mmd`](../wiring/esp32-pinout.mmd) UART subgraph). It enumerates as a native USB-CDC device — the build flag `ARDUINO_USB_CDC_ON_BOOT=1` in `[env:esp32s3_config]` brings the CDC port up immediately on boot.
+Plug the USB-C cable into the ESP32-S3-DevKitC-1 (the front-face detachable rotary display — the sole interaction surface, mounted in its recess per [`../printed-parts/enclosure/front-panel/README.md`](../printed-parts/enclosure/front-panel/README.md) — see [`../wiring/esp32-pinout.mmd`](../wiring/esp32-pinout.mmd) UART subgraph). It enumerates as a native USB-CDC device — the build flag `ARDUINO_USB_CDC_ON_BOOT=1` in `[env:esp32s3_config]` brings the CDC port up immediately on boot.
 
 ```
 ./tools/flash.sh esp32s3_config
@@ -83,21 +83,15 @@ Plug the USB-C cable into the ESP32-S3-DevKitC-1 (the front-face fixed config di
 
 Confirm the LVGL splash renders on the GC9A01 display panel after reset. The S3 also pulls in `PersistentLog` and `NimBLE-Arduino` per `[env:esp32s3_config]` — same sibling-repo pre-flight applies.
 
-### 5. Flash the RP2040 round display
+### 5. (Reserved)
 
-**Important:** the RP2040's USB does not enumerate while its UART is connected to the ESP32 (the UART line steals the USB pins on the round-display module variant used here). The flash wrapper warns about this on the `rp2040_display` env. Disconnect the UART line at the JST XH connector on the electronics shelf before plugging the micro-USB into the RP2040, then reconnect after the flash completes.
+Previously this step flashed the RP2040 round display. The RP2040 has been removed from the design; the ESP32-S3 (step 4) is the sole display. Step numbering is preserved so cross-references from other docs do not need to re-index — continue at step 6.
 
-```
-./tools/flash.sh rp2040_display
-```
-
-The RP2040 enters BOOTSEL automatically through the Earle Philhower core's USB reset. Expected outcome: the round display shows the default flavor logo (flavor 1) within ~2 seconds of reset.
-
-Reconnect the UART JST and re-verify by toggling the KRAUS air switch by hand: the active flavor logo should change on each press once the ESP32 begins broadcasting flavor-select frames over Serial2.
+After step 4, verify the S3 by rotating its rotary encoder by hand: the flavor logo on its display should change on each detent once the ESP32 begins broadcasting flavor-select frames over Serial1.
 
 ### 6. Sensor health walkthrough
 
-With all three MCUs running their default firmware, open the serial monitor on the ESP32:
+With both MCUs running their default firmware, open the serial monitor on the ESP32:
 
 ```
 pio device monitor -e esp32dev
@@ -110,7 +104,6 @@ The default firmware periodically prints a sensor-health frame. Step through eac
 - **Carbonator reeds** (GPIO 17 low, GPIO 27 high) — both INPUT_PULLUP, both reading high (no magnet present, no float installed yet). Bring a small bench magnet near each reed in turn and confirm it pulls low.
 - **Reservoir reeds** — all 8 (Reservoir A on MCP23017 0x20 PB[4:7], Reservoir B on 0x21 PA[0:3]) reading their no-magnet baseline. Architecture and calibration in [`../printed-parts/cold-core/reservoir/level-sensing.md`](../printed-parts/cold-core/reservoir/level-sensing.md). Same bench-magnet check per reed.
 - **DIGITEN flow meter** (GPIO 23) — manually rotate the impeller with a clean implement; expect a pulse count increment per rotation in the serial output.
-- **KRAUS air switch** (GPIO 13) — press and release by hand; expect the firmware's edge-detected count to increment on each press.
 - **MQ-6 hydrocarbon sensor** — needs ~60 s warm-up to reach operating temperature. After warm-up, expect a clean-air baseline reading on its analog input (verify the bench air is free of solvents or LPG nearby — wave clean air across the sensor or move the chassis briefly to a clean-air environment if needed). Architecture: the MQ-6 sits low on the rear interior enclosure wall, mesh facing horizontally inward (the bare sensor's orientation is unconstrained per the Winsen datasheet; this position catches dense R-600a as it pools at the cabinet floor from any of the dominant brazed-joint leak sites) — the hardware-only backstop to the firmware-controlled cutoffs ([`refrigerant-loop.md`](refrigerant-loop.md) "Safety").
 - **Backflow drip-pan moisture sensor** — reads dry (high impedance). Confirm by briefly bridging the sensor pads with a damp probe and watching the firmware reading swing.
 
@@ -166,11 +159,11 @@ Where this log lives — local file under `/commissioning/<serial>/`, uploaded t
 
 A commissioned unit is:
 
-- All three MCUs flashed with current `main` firmware; build IDs captured in the per-serial log
+- Both MCUs flashed with current `main` firmware; build IDs captured in the per-serial log
 - First DC power-on passed clean: 12 V / 5 V / 3.3 V rails in tolerance, no smoke, no trip, no thermal fuse open
 - Both MCP23017s ACK'd at 0x20 + 0x21, DS3231 ACK'd at 0x68, both DS18B20 probes addressed on the 1-wire bus
 - All 10 reed switches verified at no-magnet baseline and verified pull-low under a bench magnet
-- DIGITEN flow meter pulses on hand rotation; KRAUS air switch debounces on hand press
+- DIGITEN flow meter pulses on hand rotation; S3 rotary encoder advances the flavor display on each detent
 - MQ-6 warmed to operating temperature and reads clean-air baseline; drip-pan moisture sensor reads dry
 - All 12 solenoid valves clicked individually under firmware self-test; both peristaltic pumps spun dry under L298N drive; condenser fan spun briefly
 - Relay #1 verified switching the compressor's AC leg under firmware override; suction-line probe drops a few degrees within a couple of minutes; relay de-energizes cleanly and the 3-minute guard re-arms

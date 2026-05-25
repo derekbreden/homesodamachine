@@ -37,7 +37,6 @@ The prototype below already accomplishes the dispense path. The integrated-appli
 | Part | Qty |
 |------|----:|
 | [ESP32-DevKitC-32E](https://www.amazon.com/dp/B09MQJWQN2) | 1 |
-| [Waveshare RP2040 Round LCD (0.99")](https://www.amazon.com/dp/B0CTSPYND2) | 1 |
 | [Meshnology ESP32-S3 1.28" Round Rotary Display](https://www.amazon.com/dp/B0G5Q4LXVJ) | 1 |
 | [L298N Motor Driver (4-pack)](https://www.amazon.com/dp/B0C5JCF5RS) | 1 |
 | [Kamoer Peristaltic Pump](https://www.amazon.com/dp/B09MS6C91D) | 2 |
@@ -45,14 +44,11 @@ The prototype below already accomplishes the dispense path. The integrated-appli
 | [DIGITEN Flow Sensor](https://www.amazon.com/dp/B07QQW4C7R) | 1 |
 | [Platypus 2L Collapsible Bottle](https://www.amazon.com/dp/B000J2KEGY) | 2 |
 | [Silicone Tubing (6m)](https://www.amazon.com/dp/B0BM4KQ6RT) | 1 |
-| [KRAUS Air Switch](https://www.amazon.com/dp/B096319GMV) | 1 |
 
-- The RP2040 is smaller display which looks nice mounted flush with paneling in front of the sink.
-- The S3 is a larger display, which has a knob and allows easy changing of flavoring ratios or other settings.
-- It is expected that both displays will be mounted into the front of the final device, such that they can be "snapped out" and placed elsewhere, with a retracting 1m or 2m cat6 cable connecting them to the device still, but that that they are flush with the front of the device otherwise.
-- The ESP32 will maintain all functionality even if both displays are disconnected entirely.
-- Clean and prime each have an internal momentary button wired to the ESP32, so they remain reachable when both displays and the iOS app are unavailable.
-- The KRAUS Air Switch is also expected to be mounted and detachable and flush in the exact same fashion as the displays. However, if it is disconnected, the user will be stuck on whatever flavor was last selected.
+- The S3 is the sole display and the primary interaction surface. Default state shows the currently selected flavor; the rotary mechanism toggles between flavors; a subtle three-dot affordance reaches advanced settings.
+- The S3 is mounted into the front of the final device such that it can be "snapped out" and placed elsewhere — with a retracting ~1 m cat6 cable connecting it to the device still — but flush with the front of the device otherwise. Typical detached placement is the cabinet's false-drawer-front exterior above the cabinet door (the obvious empty flat panel just below the counter where a drawer would normally go).
+- The ESP32 maintains all functionality even if the S3 is disconnected entirely.
+- Clean and prime each have an internal momentary button wired to the ESP32, so they remain reachable when the S3 and the iOS app are unavailable.
 
 ## 6. Printed parts
 

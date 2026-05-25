@@ -87,8 +87,7 @@ flowchart TD
 
   subgraph MCUs["Controllers"]
     ESP32["ESP32-DevKitC-32E\n(main)"]
-    RP2040["RP2040-LCD-0.99&#34;\n(display)"]
-    S3["ESP32-S3\n(config/BLE)"]
+    S3["ESP32-S3\n(rotary display + BLE,\n sole interaction surface)"]
   end
 
   subgraph I2C_Devices["I2C Devices"]

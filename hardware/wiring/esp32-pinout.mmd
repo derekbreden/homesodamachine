@@ -19,13 +19,14 @@ flowchart LR
   %% Freed GPIOs still available:
   %%   GPIO 2   - free (bootstrap-sensitive)
   %%   GPIO 12  - free (bootstrap-sensitive)
+  %%   GPIO 13  - free (formerly the KRAUS flavor switch — removed; flavor toggle now via S3 rotary)
+  %%   GPIO 32  - free (formerly RP2040 TX — RP2040 removed; S3 is the sole display)
+  %%   GPIO 35  - free (formerly RP2040 RX — RP2040 removed)
 
   subgraph ESP["ESP32-DevKitC-32E"]
     direction TB
 
     subgraph UART_Pins["UART"]
-      P32["GPIO 32  TX → RP2040"]
-      P35["GPIO 35  RX ← RP2040"]
       P15["GPIO 15  TX → ESP32-S3"]
       P34["GPIO 34  RX ← ESP32-S3"]
     end
@@ -45,7 +46,6 @@ flowchart LR
     end
 
     subgraph Input_Pins["Inputs"]
-      P13["GPIO 13  Flavor Switch"]
       P23["GPIO 23  Flow Meter"]
     end
 
@@ -62,8 +62,7 @@ flowchart LR
   end
 
   %% ── Destinations ──
-  RP["RP2040\n(display)"]
-  S3["ESP32-S3\n(config/BLE)"]
+  S3["ESP32-S3\n(rotary display + BLE,\n sole interaction surface;\n flavor toggle via rotary,\n advanced via 3-dot affordance)"]
 
   I2C_DEVICES["I2C Devices:\n  DS3231 RTC  0x68\n  MCP23017    0x20  (valves + 4 reservoir reed inputs)\n  MCP23017    0x21  (4 reservoir reed inputs, 12 spare)"]
 
@@ -73,7 +72,6 @@ flowchart LR
   PUMP2["Kamoer Pump B"]
 
   FLOW["DIGITEN\nFlow Meter"]
-  SW["KRAUS\nAir Switch"]
 
   VALVE_CHAIN["MCP23017 0x20 (outputs + 4 inputs)\nMCP23017 0x21 (4 inputs)\n  ↓\n2× ULN2803A → 12 solenoid valves\n  ↑\n8 reservoir reed switches\n(see valve-control)"]
 
@@ -88,7 +86,6 @@ flowchart LR
   REED_HIGH["Reed switch — high level\n  (carbonator full)"]
 
   %% ── Connections ──
-  P32 & P35 <-->|"Serial2\n115200 baud"| RP
   P15 & P34 <-->|"Serial1\n115200 baud"| S3
   P21 & P22 <-->|"I2C"| I2C_DEVICES
 
@@ -98,7 +95,6 @@ flowchart LR
   DRV ==>|"Channel B"| PUMP2
 
   FLOW -->|"pulse interrupt"| P23
-  SW -->|"INPUT_PULLUP"| P13
 
   P14 -->|"3.3V drive"| RELAY
   RELAY ==>|"switched 120VAC"| COMP_AC
@@ -113,14 +109,15 @@ flowchart LR
   I2C_DEVICES -->|"MCP23017"| VALVE_CHAIN
 
   %% Signals: UART, I2C, GPIO control, semantic-reference (white).
-  %% 0-5 UART+I2C, 6-11 GPIO -> L298 inputs, 16 = P14 relay #1 drive,
-  %% 18 = P4 relay #2 drive, 23 = logical I2C-device -> subsystem ref.
-  linkStyle 0,1,2,3,4,5,6,7,8,9,10,11,16,18,23 stroke:#ccc,stroke-width:2px
-  %% Sensor / button feedback to MCU (blue).
-  %% 14 = flow meter, 15 = air switch, 20 = DS18B20 1-wire,
-  %% 21 = reed low, 22 = reed high.
-  linkStyle 14,15,20,21,22 stroke:#09f,stroke-width:2px
+  %% 0-1 UART (S3), 2-3 I2C, 4-9 GPIO -> L298 inputs,
+  %% 13 = P14 relay #1 drive, 15 = P4 relay #2 drive,
+  %% 20 = logical I2C-device -> subsystem ref.
+  linkStyle 0,1,2,3,4,5,6,7,8,9,13,15,20 stroke:#ccc,stroke-width:2px
+  %% Sensor feedback to MCU (blue).
+  %% 12 = flow meter, 17 = DS18B20 1-wire,
+  %% 18 = reed low, 19 = reed high.
+  linkStyle 12,17,18,19 stroke:#09f,stroke-width:2px
   %% Power: motor/pump outputs and switched 120 VAC (red, thick).
-  %% 12-13 = L298 motor channels, 17 = relay #1 -> compressor AC,
-  %% 19 = relay #2 -> diaphragm pump 12 V.
-  linkStyle 12,13,17,19 stroke:#c44,stroke-width:3px
+  %% 10-11 = L298 motor channels, 14 = relay #1 -> compressor AC,
+  %% 16 = relay #2 -> diaphragm pump 12 V.
+  linkStyle 10,11,14,16 stroke:#c44,stroke-width:3px
