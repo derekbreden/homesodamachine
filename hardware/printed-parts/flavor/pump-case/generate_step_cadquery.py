@@ -25,24 +25,6 @@ from world_workplane import WorldWorkplane, xz_plane_y_up, xy_plane_z_up
 from _cadq_export import export_step
 
 
-# As-installed outer envelope
-# ---------------------------
-# The bbox of the case as a black-box-to-the-user assembly — accounts for
-# the snaps that hold it together, the two tubes protruding from one face,
-# and the pogo connector between those tubes. This is the envelope that
-# the appliance's pump-cartridge door cutout has to clear, not the bbox of
-# the bare base/cap STEP files.
-#
-# The two 75 × 135 faces are the top and bottom of the cuboid in install
-# orientation; the bottom face is the press-in face (tubes + pogo
-# protrude downward from it). The customer inserts the case downward
-# through the door, and that same downward motion presses the tubes +
-# pogo into their quick-connects on the Zone C floor.
-case_outer_x = 75      # short horizontal axis (two cases sit side-by-side along x)
-case_outer_y = 88      # vertical / insertion direction
-case_outer_z = 135     # long horizontal axis
-
-
 # Physical dimensions
 footprint_x = 70.0
 footprint_z = 70.0
@@ -104,6 +86,52 @@ pogo_y_offset = 13.5
 pogo_ridge_length = 24.5
 pogo_ridge_width = 10.0
 pogo_ridge_depth = 0.7  # thin outer wall so pogo pins protrude further
+
+
+# As-installed outer envelope
+# ---------------------------
+# The bbox of the case as a black-box-to-the-user assembly — the envelope
+# the appliance's pump-cartridge door cutout has to clear, not the bbox
+# of the bare base/cap STEP files. Accounts for the snaps that hold the
+# case together, the tubes protruding from the press-in face, and the
+# pogo connector between those tubes.
+#
+# The case rotates 90° between script orientation (tower along +Y) and
+# install orientation (tower lies horizontal, becomes the long axis).
+# The press-in face is the script's +Z face (where the pogo ridge
+# already lives); tubes protrude in the script's +Z direction, which
+# becomes install-vertical (the customer's insertion direction).
+#
+# Axis remap:  script Y → install long horizontal (case_outer_z)
+#              script X → install short horizontal (case_outer_x)
+#              script Z → install vertical / insertion (case_outer_y)
+
+# Physical additions not captured in the modeled geometry above. Order
+# of magnitude only; refine with measurements once they're settled.
+snap_protrusion_per_side = 2.5    # snaps / door-slot clearance on the install-short faces
+tube_protrusion_length   = 11.3   # silicone tubes off the press-in face (script +Z)
+
+case_outer_x = footprint_x + 2 * snap_protrusion_per_side
+    # = [70.0](FOOTPRINT_X) + 2 × [2.5](SNAP_PROTRUSION_PER_SIDE)
+    # = [75.0 mm](CASE_OUTER_X), install short horizontal
+    # (two cases sit side-by-side along this axis)
+
+case_outer_y = (footprint_z + 2 * skirt_wide_flare_per_side
+                + pogo_ridge_depth + tube_protrusion_length)
+    # = [70.0](FOOTPRINT_Z) + 2 × [3.0](SKIRT_WIDE_FLARE_PER_SIDE)
+    #   + [0.7](POGO_RIDGE_DEPTH) + [11.3](TUBE_PROTRUSION_LENGTH)
+    # = [88.0 mm](CASE_OUTER_Y), install vertical (insertion direction)
+
+case_outer_z = (base_thickness + ramp_from_skirt_to_octagon_height + tower_height
+                + skirt_upper_height + skirt_wide_flare_per_side
+                + skirt_wide_straight_height + lower_height + lower_cap_thickness)
+    # = [3.0](BASE_THICKNESS) + [18.0](RAMP_FROM_SKIRT_TO_OCTAGON_HEIGHT)
+    #   + [60.0](TOWER_HEIGHT) + [21.0](SKIRT_UPPER_HEIGHT)
+    #   + [3.0](SKIRT_WIDE_FLARE_PER_SIDE) + [4.5](SKIRT_WIDE_STRAIGHT_HEIGHT)
+    #   + [23.0](LOWER_HEIGHT) + [3.0](LOWER_CAP_THICKNESS)
+    # = [135.5 mm](CASE_OUTER_Z), install long horizontal
+    # (script's full Y extent — tower at one end, cap lower extension at the other)
+
 
 # Slop added to cut depths so they pierce cleanly through sibling solid
 # boundaries (the resulting STEP is unaffected — the excess lives in the
