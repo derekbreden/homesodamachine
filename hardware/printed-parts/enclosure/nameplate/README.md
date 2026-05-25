@@ -8,17 +8,17 @@ Three distinct jobs overlap onto the same artifact:
 
 1. **Safety communication.** The plaque states input voltage, frequency, and power rating, and carries a prominent "120V 60Hz only — not for 240V" warning to offset the "250V 10A" spec stamp molded into the C14 chassis inlet mounted below it (standard C14 component rating vs. actual appliance rating — see commit `45e22ef` discussion). This matters whether or not we ever carry a listing: it tells the user, and any electrician they consult during install, what the appliance actually wants.
 
-2. **Founder Edition identity.** Per `marketing/target-market.md`, units 001–050 are hand-built, numbered, and signed by the founder. This plaque is where the number and signature live. The plaque is the physical proof that a specific person built this specific machine — the Founder Edition story made tangible.
+2. **Founder Edition identity.** Per `marketing/target-market.md`, units 001–[050](FOUNDER_EDITION_LAST) are hand-built, numbered, and signed by the founder. This plaque is where the number and signature live. The plaque is the physical proof that a specific person built this specific machine — the Founder Edition story made tangible.
 
-3. **Per-unit QR code + serialization.** Links the physical machine to a unique persistent URL, `homesodamachine.com/u/NNN` where NNN is the unit number, zero-padded (`001`, `002`, ..., `050`). The serial number printed on the plaque ties this specific unit to a support/warranty record we can look up by QR scan. What that URL resolves to is a future customer-portal decision — the QR is the binding, and the destination can evolve without changing the physical plaque.
+3. **Per-unit QR code + serialization.** Links the physical machine to a unique persistent URL, `homesodamachine.com/u/NNN` where NNN is the unit number, zero-padded (`001`, `002`, ..., `[050](FOUNDER_EDITION_LAST)`). The serial number printed on the plaque ties this specific unit to a support/warranty record we can look up by QR scan. What that URL resolves to is a future customer-portal decision — the QR is the binding, and the destination can evolve without changing the physical plaque.
 
    **Note (2026-05-20):** The unboxing-and-quickstart brief at [`../../../../marketing/unboxing-and-quickstart.md`](../../../../marketing/unboxing-and-quickstart.md) makes this portal load-bearing in a new way. The brief commits to keeping the printed quick-start sheet to install steps only, with **everything else** (warranty, RMA, troubleshooting, BOM, support contact, ongoing care, owner's manual content) living at `/u/NNN`. The portal is no longer optional infrastructure — it is the home for every piece of information the customer needs that is not on the install sheet.
 
-Standard Edition (units 051+) is out of scope for this revision. Revisit if/when Founder Edition sells through.
+Standard Edition (units [051](FOUNDER_EDITION_NEXT)+) is out of scope for this revision. Revisit if/when Founder Edition sells through.
 
 ## What this is *not*
 
-The Founder Edition is not UL-listed or ETL-listed, and pursuing listing is not planned at this stage — $15k–40k+ per model of initial testing plus annual fees is not economic for a 50-unit run at $7,500/unit, listing is not legally required for a cord-and-plug D2C household appliance, and a hand-built run can't really demonstrate the production-consistency audit a listing requires.
+The Founder Edition is not UL-listed or ETL-listed, and pursuing listing is not planned at this stage — $15k–40k+ per model of initial testing plus annual fees is not economic for a [50](FOUNDER_EDITION_COUNT)-unit run at $7,500/unit, listing is not legally required for a cord-and-plug D2C household appliance, and a hand-built run can't really demonstrate the production-consistency audit a listing requires.
 
 The plaque's content *happens* to resemble what a UL-listed product would carry because voltage/serial/power markings are just good product hygiene. But the framing is safety + traceability + identity, not regulatory compliance, and the plaque does not display a UL or ETL mark. If listing ever becomes worth pursuing later (retail channel, commercial expansion, insurance pressure), the plaque data is already in the right shape and the design revises to add the mark.
 
@@ -28,7 +28,7 @@ Content spec, not visual design. Final layout, typography, and dimensions TBD.
 
 ```
 HOME SODA MACHINE
-Founder Edition — No. 027 of 050
+Founder Edition — No. 027 of [050](FOUNDER_EDITION_LAST)
 
 Signed: [handwritten signature]
 
@@ -45,8 +45,8 @@ Input: 120V AC  60Hz  5A  600W
 
 The nameplate has finer text and tighter features than anything else on the appliance. Printing it as part of the enclosure would force the entire enclosure to use nameplate-grade print settings, which is the wrong trade. Even if the plaque eventually bonds to the enclosure, it is a separate print operation with its own settings.
 
-- **Nozzle:** 0.2 mm (vs. 0.4 mm for bulk enclosure parts)
-- **Layer height:** 0.08–0.12 mm
+- **Nozzle:** [0.2 mm](NAMEPLATE_NOZZLE_D) (vs. [0.4 mm](BULK_NOZZLE_D) for bulk enclosure parts)
+- **Layer height:** [0.08](LAYER_H_MIN)–[0.12 mm](LAYER_H_MAX)
 - **Contrast strategy:** two-color inlay — dark body with light recessed text and QR, or the inverse. Filament change at the text-surface layer. No paint; survives kitchen wipe-down.
 - **Signature fidelity:** likely beyond FDM capability at the quality level this plaque deserves. Current direction: **laser-engrave the signature** onto the printed plaque after printing, preserving a pen-traced vector. Decision deferred until the first plaque prints and we see how the text + QR portions land. Text and QR render acceptably with FDM two-color inlay; the signature is the one element that probably doesn't.
 
@@ -54,11 +54,11 @@ The nameplate has finer text and tighter features than anything else on the appl
 
 The CadQuery script (to be written) will take these parameters:
 
-- `unit_number` — integer, 1 through 50
+- `unit_number` — integer, 1 through [50](FOUNDER_EDITION_COUNT)
 - `qr_png_path` — QR code PNG generated by `qrcode` Python package from `https://homesodamachine.com/u/{unit_number:03d}`
 - `signature_svg_path` — placeholder flat-text rendering until the laser-engrave workflow is decided
 
-and emit a unit-specific STEP file. Generating all 50 plaques up front is trivial; storage is negligible.
+and emit a unit-specific STEP file. Generating all [50](FOUNDER_EDITION_COUNT) plaques up front is trivial; storage is negligible.
 
 ## Mounting
 
