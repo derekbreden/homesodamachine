@@ -98,7 +98,7 @@ The four walls of each pocket are traced as a single connected
 outer-perimeter polyline (with the matching cavity-perimeter polyline
 cut out of it), so the four walls union into one solid by
 construction. The +X pocket is traced explicitly; the −X pocket is
-its mirror across YZ. Total assembly height = [213.4](FOAM_SHELL_OUTER_HEIGHT) mm.
+its mirror across YZ. Total assembly height = [213.4 mm](OUTER_H).
 
 ### tank_support_ring
 
@@ -123,9 +123,9 @@ floor regardless of which cavity it enters from.
 
 Outer rectangular cup framing the whole foam-shell: floor + four
 perimeter walls + six 8 × 8 mm bosses. Total height matches the
-foam-shell outer height of [213.4](FOAM_SHELL_OUTER_HEIGHT) mm.
-Outer footprint [283](OUTER_SHELL_X_LENGTH) × [181](OUTER_SHELL_Z_LENGTH) mm,
-sized to leave [16](OUTER_SHELL_FOAM_GAP) mm of foam-pour zone
+foam-shell outer height of [213.4 mm](OUTER_H).
+Outer footprint [283 mm](OUTER_X) × [181](OUTER_Z),
+sized to leave [16 mm](OUTER_GAP) of foam-pour zone
 between the outer_shell's inner face and the outermost reservoir-
 pocket walls on each side.
 
@@ -431,7 +431,7 @@ This drives several dimension choices:
   connected outer-perimeter polyline (with one cavity-perimeter
   polyline cut from it), so the four walls union into one solid by
   construction rather than by OCCT face-merging.
-- The **outer_shell**'s inner face sits [16](OUTER_SHELL_FOAM_GAP) mm
+- The **outer_shell**'s inner face sits [16 mm](OUTER_GAP)
   outboard of the outermost reservoir-pocket walls — a deliberate
   gap, not a coincidence: this is the outer foam-pour zone.
 
@@ -486,11 +486,11 @@ that needs a deliberate explanation:
 
 | metric | value |
 |---|---|
-| volume | [1024713.425433](BBOX_VOLUME) mm³ |
-| bbox x | [-141.500](BBOX_X_MIN) to [141.500](BBOX_X_MAX) mm |
-| bbox y | [0.000](BBOX_Y_MIN) to [213.400](BBOX_Y_MAX) mm |
-| bbox z | [-90.500](BBOX_Z_MIN) to [90.500](BBOX_Z_MAX) mm |
-| centroid | ([0.000005](CENTROID_X), [90.718775](CENTROID_Y), [-0.576537](CENTROID_Z)) mm |
+| volume | [1024713.425 mm³](VOLUME) |
+| bbox x | [-141.500 to 141.500 mm](BBOX_X) |
+| bbox y | [0.000 to 213.400 mm](BBOX_Y) |
+| bbox z | [-90.500 to 90.500 mm](BBOX_Z) |
+| centroid | [(0.000005, 90.718775, -0.576537) mm](CENTROID) |
 
 Quick reproduction:
 
