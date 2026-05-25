@@ -14,12 +14,11 @@ from pathlib import Path
 import cadquery as cq
 
 _here = Path(__file__).resolve().parent
-sys.path.insert(
-    0,
-    str(next(p for p in _here.parents if p.name == "hardware")),
-)
+sys.path.insert(0, str(next(p for p in _here.parents if p.name == "printed-parts") / "cadlib"))
+sys.path.insert(0, str(next(p for p in _here.parents if p.name == "hardware")))
 sys.path.insert(0, str(_here.parent))
 
+from world_workplane import WorldWorkplane, xz_plane_y_up, xy_plane_z_up
 from _cadq_export import export_step
 from _cold_core_interface import (
     bag_pocket_far_inner_x,
@@ -33,9 +32,6 @@ from _cold_core_interface import (
     reservoir_bulkhead_port_x as port_position_x,
     reservoir_bulkhead_port_y as port_position_y,
     reservoir_bulkhead_nut_y as nut_position_y,
-    xz_plane_y_up,
-    xy_plane_z_up,
-    WorldWorkplane,
 )
 
 
