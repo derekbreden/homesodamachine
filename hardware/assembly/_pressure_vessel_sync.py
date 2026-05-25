@@ -58,10 +58,10 @@ def main():
 
     variables = {
         # 152.4 mm — tube cut length, also the tank-as-assembled height.
-        "TANK_H": f"{tank_height:g} mm",
+        "TANK_H": f"{tank_height:.4g} mm",
         # 30 mm — the vertical envelope reserved for the 1/4" NPT 90°
         # elbow stack above and below the tank (foam-shell budget).
-        "ELBOW_ENV": f"{above_tank_elbows_height:g} mm",
+        "ELBOW_ENV": f"{above_tank_elbows_height:.4g} mm",
     }
 
     substitute_md(

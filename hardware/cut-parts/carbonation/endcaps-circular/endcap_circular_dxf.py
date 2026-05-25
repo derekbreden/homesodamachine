@@ -104,7 +104,7 @@ def main() -> None:
     print(f"  Disc diameter:   {disc_diameter}\"  (fits 5.000\" OD x 0.065\" wall tube, ID 4.870\")")
     print(f"  Disc thickness:  {disc_thickness}\"")
     print(f"  Hole diameter:   {hole_diameter}\"  (7/16\" tap drill for 1/4\"-18 NPT)")
-    print(f"  Hole spacing:    {hole_spacing:g}\" center-to-center along one axis")
+    print(f"  Hole spacing:    {hole_spacing:.4g}\" center-to-center along one axis")
     print(f"  Material:        316 SS, laser-cut")
     print(f"  Per vessel:      2 identical discs, each tapped 2x 1/4\"-18 NPT")
 
@@ -112,12 +112,12 @@ def main() -> None:
     # the script controls them — change a unit in source and every
     # dynamic-comment marker follows.
     variables = {
-        "DISC_D": f"{disc_diameter:g} in",
-        "DISC_R": f"{disc_radius:g} in",
-        "DISC_THK": f"{disc_thickness:g} in",
-        "HOLE_D": f"{hole_diameter:g} in",
-        "HOLE_R": f"{hole_radius:g} in",
-        "HOLE_SPACING": f"{hole_spacing:g} in",
+        "DISC_D": f"{disc_diameter:.4g} in",
+        "DISC_R": f"{disc_radius:.4g} in",
+        "DISC_THK": f"{disc_thickness:.4g} in",
+        "HOLE_D": f"{hole_diameter:.4g} in",
+        "HOLE_R": f"{hole_radius:.4g} in",
+        "HOLE_SPACING": f"{hole_spacing:.4g} in",
     }
     substitute_py_comments(
         Path(__file__),

@@ -133,28 +133,28 @@ def main():
         "REEDS_CARB": f"{reeds_carbonator:d}",
         "REEDS_TOTAL": f"{reeds_total:d}",
         # Voltage-rail tolerances (nominal V written without trailing .0).
-        "RAIL_12V": f"{rail_12v_nominal:g} V",
-        "RAIL_12V_TOL": f"± {rail_12v_tol:g} V",
-        "RAIL_5V": f"{rail_5v_nominal:g} V",
-        "RAIL_5V_TOL": f"± {rail_5v_tol:g} V",
-        "RAIL_33V": f"{rail_33v_nominal:g} V",
-        "RAIL_33V_TOL": f"± {rail_33v_tol:g} V",
+        "RAIL_12V": f"{rail_12v_nominal:.4g} V",
+        "RAIL_12V_TOL": f"± {rail_12v_tol:.4g} V",
+        "RAIL_5V": f"{rail_5v_nominal:.4g} V",
+        "RAIL_5V_TOL": f"± {rail_5v_tol:.4g} V",
+        "RAIL_33V": f"{rail_33v_nominal:.4g} V",
+        "RAIL_33V_TOL": f"± {rail_33v_tol:.4g} V",
         # DS18B20 / onewire.
-        "ONEWIRE_PULLUP": f"{onewire_pullup_kohm:g} kΩ",
-        "AMBIENT_TOL": f"±{ambient_tol_c:g} °C",
+        "ONEWIRE_PULLUP": f"{onewire_pullup_kohm:.4g} kΩ",
+        "AMBIENT_TOL": f"±{ambient_tol_c:.4g} °C",
         # Setpoints (factory defaults on `main`).
-        "TANK_TARGET": f"{tank_target_c:g} °C",
-        "HYSTERESIS": f"±{hysteresis_c:g} °C",
-        "COMP_ON_TEMP": f"{comp_on_temp_c:g} °C",
-        "COMP_OFF_TEMP": f"{comp_off_temp_c:g} °C",
-        "FREEZE_CUTOFF": f"−{abs(freeze_cutoff_c):g} °C",
+        "TANK_TARGET": f"{tank_target_c:.4g} °C",
+        "HYSTERESIS": f"±{hysteresis_c:.4g} °C",
+        "COMP_ON_TEMP": f"{comp_on_temp_c:.4g} °C",
+        "COMP_OFF_TEMP": f"{comp_off_temp_c:.4g} °C",
+        "FREEZE_CUTOFF": f"−{abs(freeze_cutoff_c):.4g} °C",
         # Three textual surface forms for the same setpoint, used in
         # different sentences: long ("3-minute"), short hyphenated
         # ("3-min"), and bare ("3 min"). Three NAMEs keeps each rendering
         # locally readable without breaking the [value](NAME) markup.
-        "MIN_OFF_TIME": f"{min_off_time_min:g}-minute",
-        "MIN_OFF_TIME_HYPHEN": f"{min_off_time_min:g}-min",
-        "MIN_OFF_TIME_BARE": f"{min_off_time_min:g} min",
+        "MIN_OFF_TIME": f"{min_off_time_min:.4g}-minute",
+        "MIN_OFF_TIME_HYPHEN": f"{min_off_time_min:.4g}-min",
+        "MIN_OFF_TIME_BARE": f"{min_off_time_min:.4g} min",
     }
 
     substitute_md(

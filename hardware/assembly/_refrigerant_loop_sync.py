@@ -86,28 +86,28 @@ sf76e_open_temp_c = 77                  # BOJACK SF76E SEFUSE open temp
 def main():
     variables = {
         # Factory charge masses.
-        "UNIT_A_CHARGE": f"{unit_a_factory_charge_g:g} g",
-        "UNIT_B_CHARGE": f"{unit_b_factory_charge_g:g} g",
+        "UNIT_A_CHARGE": f"{unit_a_factory_charge_g:.4g} g",
+        "UNIT_B_CHARGE": f"{unit_b_factory_charge_g:.4g} g",
         # Recharge target + metering tolerance.
-        "SYSTEM_CHARGE": f"~{system_charge_approx_g:g} g",
-        "RECHARGE_TOL": f"±{recharge_tolerance_g:g} g",
+        "SYSTEM_CHARGE": f"~{system_charge_approx_g:.4g} g",
+        "RECHARGE_TOL": f"±{recharge_tolerance_g:.4g} g",
         "VOL_CORRECTION": (
-            f"+{volume_correction_low_g:g}-{volume_correction_high_g:g} g"
+            f"+{volume_correction_low_g:.4g}-{volume_correction_high_g:.4g} g"
         ),
         "EVAP_VOL_DELTA": (
-            f"~{evap_volume_delta_low_ml:g}-{evap_volume_delta_high_ml:g} mL"
+            f"~{evap_volume_delta_low_ml:.4g}-{evap_volume_delta_high_ml:.4g} mL"
         ),
         # Vacuum spec.
-        "VACUUM_TARGET": f"{vacuum_target_microns:g} microns",
-        "VACUUM_HOLD": f"{vacuum_hold_minutes:g} min",
-        "VACUUM_HOLD_FULL": f"{vacuum_hold_minutes:g} minutes",
+        "VACUUM_TARGET": f"{vacuum_target_microns:.4g} microns",
+        "VACUUM_HOLD": f"{vacuum_hold_minutes:.4g} min",
+        "VACUUM_HOLD_FULL": f"{vacuum_hold_minutes:.4g} minutes",
         # First run-up.
-        "RUN_CURRENT": f"~{compressor_running_current_a:g} A",
-        "OFF_TIME": f"{compressor_off_time_min:g}-minute",
+        "RUN_CURRENT": f"~{compressor_running_current_a:.4g} A",
+        "OFF_TIME": f"{compressor_off_time_min:.4g}-minute",
         # Safety distance.
-        "VENT_CLEARANCE": f"{vent_ignition_clearance_m:g} m",
+        "VENT_CLEARANCE": f"{vent_ignition_clearance_m:.4g} m",
         # SF76E thermal fuse.
-        "SF76E_TEMP": f"{sf76e_open_temp_c:g} °C",
+        "SF76E_TEMP": f"{sf76e_open_temp_c:.4g} °C",
     }
 
     substitute_md(

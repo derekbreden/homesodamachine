@@ -68,7 +68,7 @@ body_bore_y = 0.0
 # [13.4 mm](PILL_L) pill long axis (Y) = 2 × y_offset + hole_dia.
 # [7.05 mm](PILL_W) pill short axis (X) = hole_dia.
 
-# [14.5296 mm](FLAVOR_PILL_X_MINUS) — flat -X edge of the flavor pill
+# [14.53 mm](FLAVOR_PILL_X_MINUS) — flat -X edge of the flavor pill
 # cutout in zones 1-4 (the base shell). Pulled in (more -X) past the
 # natural pill -X edge so the cutout's corners (at Y=±pill_length_y/2)
 # land on the body bore's cyl curve in zone 1. With 1/4" flavor tubes
@@ -98,7 +98,7 @@ _body_bore_farthest_from_shell_center = (
 _pill_farthest_from_shell_center = (
     flavor_tube_x + pill_width_x / 2.0 - shell_center_x
 )  # = 19.275 mm at flavor_tube_hole_dia = 7.05
-# [22.275 mm](SHELL_OUTER_R) outer-cylinder radius = binding extreme + wall_thickness_min.
+# [22.27 mm](SHELL_OUTER_R) outer-cylinder radius = binding extreme + wall_thickness_min.
 shell_outer_r = (
     max(_body_bore_farthest_from_shell_center, _pill_farthest_from_shell_center)
     + wall_thickness_min
@@ -217,7 +217,7 @@ water_tube_x = 8.875
 # the 2026-04-27 caliper pass; re-measured 2026-05-22 as 10.0 mm with
 # the caliper tips landed on the port wall rather than the chamfer.)
 water_tube_od = 0.375 * 25.4  # 9.525
-# [10.225 mm](WATER_HOLE_D) water bore = OD + 2 × clearance per side + 0.20 mm slack.
+# [10.22 mm](WATER_HOLE_D) water bore = OD + 2 × clearance per side + 0.20 mm slack.
 water_hole_diameter = water_tube_od + 2.0 * bore_clearance + 0.20
 
 # 1/4" LLDPE flavor tube. The flavor tube butts up against the water
@@ -1524,19 +1524,19 @@ def main():
     # rect∩cyl column — i.e. how far up the body slides into the bore
     # before bottoming out on the cove.
     variables = {
-        "BORE_CLEAR": f"{bore_clearance:g} mm",
-        "BODY_BORE_D": f"{body_bore_diameter:g} mm",
-        "BODY_OD": f"{body_rect_long:g} mm",
-        "BODY_RECT_LONG": f"{body_rect_long:g} mm",
-        "BODY_RECT_SHORT": f"{body_rect_short:g} mm",
-        "BODY_CYL_TOP_Z": f"{zone1_z_top:g} mm",
-        "BORE_COVE_Z": f"{zone2_bore_bottom + cove_r:g} mm",
-        "PILL_L": f"{pill_length_y:g} mm",
-        "PILL_W": f"{pill_width_x:g} mm",
-        "FLAVOR_TUBE_X": f"{flavor_tube_x:g} mm",
-        "FLAVOR_PILL_X_MINUS": f"{flavor_pill_x_minus_edge:g} mm",
-        "SHELL_OUTER_R": f"{shell_outer_r:g} mm",
-        "WATER_HOLE_D": f"{water_hole_diameter:g} mm",
+        "BORE_CLEAR": f"{bore_clearance:.4g} mm",
+        "BODY_BORE_D": f"{body_bore_diameter:.4g} mm",
+        "BODY_OD": f"{body_rect_long:.4g} mm",
+        "BODY_RECT_LONG": f"{body_rect_long:.4g} mm",
+        "BODY_RECT_SHORT": f"{body_rect_short:.4g} mm",
+        "BODY_CYL_TOP_Z": f"{zone1_z_top:.4g} mm",
+        "BORE_COVE_Z": f"{zone2_bore_bottom + cove_r:.4g} mm",
+        "PILL_L": f"{pill_length_y:.4g} mm",
+        "PILL_W": f"{pill_width_x:.4g} mm",
+        "FLAVOR_TUBE_X": f"{flavor_tube_x:.4g} mm",
+        "FLAVOR_PILL_X_MINUS": f"{flavor_pill_x_minus_edge:.4g} mm",
+        "SHELL_OUTER_R": f"{shell_outer_r:.4g} mm",
+        "WATER_HOLE_D": f"{water_hole_diameter:.4g} mm",
     }
     substitute_md(
         out_dir / "ASSEMBLY.md",

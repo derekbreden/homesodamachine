@@ -54,12 +54,12 @@ def main():
     # name is purely an identifier in the markdown link's href position).
     variables = {
         # Display detach mechanism.
-        "DISPLAY_CORD_L": f"~{display_detach_cord_length_m:g} m",
-        "DISPLAY_SIGNAL_V": f"{display_detach_signal_voltage:g} V",
+        "DISPLAY_CORD_L": f"~{display_detach_cord_length_m:.4g} m",
+        "DISPLAY_SIGNAL_V": f"{display_detach_signal_voltage:.4g} V",
         # CO2 inlet stack — design-rationale numbers.
-        "CGA_TETHER_L": f'~{cga_short_tether_length_inches:g}"',
-        "REGULATOR_PRESSURE": f"fixed-{secondary_regulator_pressure_psi:g} PSI",
-        "CYLINDER_WEIGHT": f"~{co_cylinder_filled_weight_lb:g} lb",
+        "CGA_TETHER_L": f'~{cga_short_tether_length_inches:.4g}"',
+        "REGULATOR_PRESSURE": f"fixed-{secondary_regulator_pressure_psi:.4g} PSI",
+        "CYLINDER_WEIGHT": f"~{co_cylinder_filled_weight_lb:.4g} lb",
     }
 
     substitute_md(

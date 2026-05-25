@@ -36,10 +36,10 @@ def main():
         "FOUNDER_EDITION_COUNT": f"{founder_edition_count}",
         "FOUNDER_EDITION_LAST": f"{founder_edition_count:03d}",
         "FOUNDER_EDITION_NEXT": f"{founder_edition_count + 1:03d}",
-        "NAMEPLATE_NOZZLE_D": f"{nameplate_nozzle_diameter:g} mm",
-        "BULK_NOZZLE_D": f"{bulk_enclosure_nozzle_diameter:g} mm",
-        "LAYER_H_MIN": f"{layer_height_min:g}",
-        "LAYER_H_MAX": f"{layer_height_max:g} mm",
+        "NAMEPLATE_NOZZLE_D": f"{nameplate_nozzle_diameter:.4g} mm",
+        "BULK_NOZZLE_D": f"{bulk_enclosure_nozzle_diameter:.4g} mm",
+        "LAYER_H_MIN": f"{layer_height_min:.4g}",
+        "LAYER_H_MAX": f"{layer_height_max:.4g} mm",
     }
 
     substitute_md(

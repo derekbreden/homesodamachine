@@ -85,26 +85,26 @@ def main():
     variables = {
         # TPU thimble (touch-flo-tpu-o-ring) — BOM row line 26.
         # Source-of-truth: `touch-flo-tpu-o-ring/touch_flo_tpu_o_ring.py`.
-        "CAP_HOLE_D": f"{tpu.cap_hole_diameter:g} mm",  # 6.5
-        "BODY_PORT_D": f"{tpu.body_port_diameter:g} mm",  # 10
-        "OUTER_D": f"{tpu.outer_diameter:g} mm",  # 10.2
-        "BODY_SQUEEZE": f"{tpu.body_squeeze:g} mm",  # 0.1
-        "INNER_D": f"{tpu.inner_diameter:g} mm",  # 9.45
-        "LLDPE_INTERFERENCE": f"{tpu.lldpe_interference:g} mm",  # 0.0375
-        "TOTAL_H": f"{tpu.total_height:g} mm",  # 15
-        "CAP_T": f"{tpu.cap_thickness:g} mm",  # 1.5
-        "CYL_L": f"{tpu.cylinder_length:g} mm",  # 13.5
-        "LLDPE_ID": f"{tpu.lldpe_id:g} mm",  # 6.35
-        "LLDPE_OD": f"{tpu.lldpe_od:g} mm",  # 9.525
+        "CAP_HOLE_D": f"{tpu.cap_hole_diameter:.4g} mm",  # 6.5
+        "BODY_PORT_D": f"{tpu.body_port_diameter:.4g} mm",  # 10
+        "OUTER_D": f"{tpu.outer_diameter:.4g} mm",  # 10.2
+        "BODY_SQUEEZE": f"{tpu.body_squeeze:.4g} mm",  # 0.1
+        "INNER_D": f"{tpu.inner_diameter:.4g} mm",  # 9.45
+        "LLDPE_INTERFERENCE": f"{tpu.lldpe_interference:.4g} mm",  # 0.0375
+        "TOTAL_H": f"{tpu.total_height:.4g} mm",  # 15
+        "CAP_T": f"{tpu.cap_thickness:.4g} mm",  # 1.5
+        "CYL_L": f"{tpu.cylinder_length:.4g} mm",  # 13.5
+        "LLDPE_ID": f"{tpu.lldpe_id:.4g} mm",  # 6.35
+        "LLDPE_OD": f"{tpu.lldpe_od:.4g} mm",  # 9.525
         # Under-counter keyhole plate (touch-flo-under-counter-plate) —
         # BOM row line 27. Hole positions are shared with the gasket /
         # mounting plate (same NAMES, same dimensions across the stack-up).
         # Source-of-truth: `touch-flo-under-counter-plate/touch_flo_under_counter_plate.py`.
-        "PLATE_D": f"{plate.disc_diameter:g} mm",  # 54.35
-        "SHANK_HOLE_D": f"{plate.shank_diameter:g} mm",  # 12.6
-        "PILL_L": f"{plate.pill_long_y:g} mm",  # 13.2
-        "PILL_W": f"{plate.pill_short_x:g} mm",  # 6.85
-        "FILLET_R": f"{plate.fillet_radius:g} mm",  # 1.5
+        "PLATE_D": f"{plate.disc_diameter:.4g} mm",  # 54.35
+        "SHANK_HOLE_D": f"{plate.shank_diameter:.4g} mm",  # 12.6
+        "PILL_L": f"{plate.pill_long_y:.4g} mm",  # 13.2
+        "PILL_W": f"{plate.pill_short_x:.4g} mm",  # 6.85
+        "FILLET_R": f"{plate.fillet_radius:.4g} mm",  # 1.5
     }
 
     substitute_md(

@@ -83,7 +83,7 @@ shank_clearance_pct = (shank_hole_diameter - shank_diameter_nominal) / shank_dia
 # shell's print-validated 0.7 mm).
 # [7.05 mm](FLAVOR_HOLE_D) per-tube hole diameter = OD + [0.7 mm](FLAVOR_HOLE_CLEARANCE) clearance.
 tube_overlap = flavor_tube_hole_diameter - 2 * flavor_tube_y_offset
-# [18.925 mm](PLATE_FLAVOR_X) +X offset of pill slot center from plate's
+# [18.93 mm](PLATE_FLAVOR_X) +X offset of pill slot center from plate's
 # body-bore axis at world origin — matches the shell's flavor_tube_x for
 # the cross-coupled stack-up.
 pill_slot_center = (flavor_tube_x, 0.0)
@@ -175,32 +175,32 @@ def main():
 
     variables = {
         # Disc
-        "PLATE_D": f"{2 * plate_radius:g} mm",
-        "PLATE_T": f"{plate_thickness:g} mm",
-        "PLATE_X": f"{plate_center[0]:g} mm",
-        "PLATE_Z_BOTTOM": f"{plate_z_range[0]:g}",
-        "PREV_PLATE_T": f"{previous_plate_thickness:g} mm",
-        "PLATE_TRIM": f"{plate_trim:g} mm",
+        "PLATE_D": f"{2 * plate_radius:.4g} mm",
+        "PLATE_T": f"{plate_thickness:.4g} mm",
+        "PLATE_X": f"{plate_center[0]:.4g} mm",
+        "PLATE_Z_BOTTOM": f"{plate_z_range[0]:.4g}",
+        "PREV_PLATE_T": f"{previous_plate_thickness:.4g} mm",
+        "PLATE_TRIM": f"{plate_trim:.4g} mm",
         # Shell + cross-coupling
-        "PLATE_TO_SHELL_GAP": f"{plate_to_shell_gap:g} mm",
-        "SHELL_OUTER_D": f"{shell_outer_diameter:g} mm",
-        "GASKET_T": f"{gasket_thickness:g} mm",
+        "PLATE_TO_SHELL_GAP": f"{plate_to_shell_gap:.4g} mm",
+        "SHELL_OUTER_D": f"{shell_outer_diameter:.4g} mm",
+        "GASKET_T": f"{gasket_thickness:.4g} mm",
         # Shank
-        "SHANK_HOLE_D": f"{2 * shank_hole_radius:g} mm",
-        "SHANK_OD": f"{shank_diameter_nominal:g} mm",
+        "SHANK_HOLE_D": f"{2 * shank_hole_radius:.4g} mm",
+        "SHANK_OD": f"{shank_diameter_nominal:.4g} mm",
         "SHANK_CLEARANCE_PCT": f"{shank_clearance_pct * 100:.1f}%",
         # Flavor tubes / pill slot
-        "FLAVOR_TUBE_OD": f"{flavor_tube_od:g} mm",
-        "TUBE_CENTER_Y": f"{2 * flavor_tube_y_offset:g} mm",
-        "FLAVOR_HOLE_D": f"{flavor_tube_hole_diameter:g} mm",
-        "FLAVOR_HOLE_CLEARANCE": f"{flavor_hole_clearance:g} mm",
-        "TUBE_OVERLAP": f"{tube_overlap:g} mm",
-        "PLATE_FLAVOR_X": f"{pill_slot_center[0]:g} mm",
-        "PLATE_PILL_L": f"{pill_slot_length_y:g} mm",
-        "PLATE_PILL_W": f"{pill_slot_width_x:g} mm",
+        "FLAVOR_TUBE_OD": f"{flavor_tube_od:.4g} mm",
+        "TUBE_CENTER_Y": f"{2 * flavor_tube_y_offset:.4g} mm",
+        "FLAVOR_HOLE_D": f"{flavor_tube_hole_diameter:.4g} mm",
+        "FLAVOR_HOLE_CLEARANCE": f"{flavor_hole_clearance:.4g} mm",
+        "TUBE_OVERLAP": f"{tube_overlap:.4g} mm",
+        "PLATE_FLAVOR_X": f"{pill_slot_center[0]:.4g} mm",
+        "PLATE_PILL_L": f"{pill_slot_length_y:.4g} mm",
+        "PLATE_PILL_W": f"{pill_slot_width_x:.4g} mm",
         # Top-outer fillet
-        "TOP_FILLET_R": f"{top_outer_fillet_r:g} mm",
-        "FILLET_RATIO": f"{fillet_ratio * 100:g}%",
+        "TOP_FILLET_R": f"{top_outer_fillet_r:.4g} mm",
+        "FILLET_RATIO": f"{fillet_ratio * 100:.4g}%",
     }
 
     substitute_md(

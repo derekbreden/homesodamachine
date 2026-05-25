@@ -36,12 +36,12 @@ def main():
     variables = {
         # AC inlet recess range — rendered as the same "3–5 mm" string
         # in both places it appears, so a single variable suffices.
-        "AC_RECESS_DEPTH": f"{ac_inlet_recess_depth_min:g}–{ac_inlet_recess_depth_max:g} mm",
+        "AC_RECESS_DEPTH": f"{ac_inlet_recess_depth_min:.4g}–{ac_inlet_recess_depth_max:.4g} mm",
         # Bulkhead panel-hole diameter. Two rendering forms: "17.0 mm"
         # in the connections-inventory table (matches the precision the
         # JG catalog quotes) and "17" in the open-items prose.
         "PANEL_HOLE_D": f"{bulkhead_panel_hole_diameter:.1f} mm",
-        "PANEL_HOLE_D_SHORT": f"{bulkhead_panel_hole_diameter:g}",
+        "PANEL_HOLE_D_SHORT": f"{bulkhead_panel_hole_diameter:.4g}",
     }
 
     substitute_md(

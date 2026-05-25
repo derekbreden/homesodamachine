@@ -90,27 +90,27 @@ splash_check_tilt_deg = 15             # gentle tilt for splash audibility at st
 def main():
     variables = {
         # Identity / Founder Edition.
-        "FOUNDER_EDITION_COUNT": f"{founder_edition_count:g}",
+        "FOUNDER_EDITION_COUNT": f"{founder_edition_count:.4g}",
         "FOUNDER_EDITION_PRICE": f"${founder_edition_price_usd:,}",
         # Drained-fluid masses.
-        "WATER_DRAINED": f"~{water_drained_kg:g} kg",
-        "FLAVOR_DRAINED": f"~{flavor_drained_kg:g} kg",
+        "WATER_DRAINED": f"~{water_drained_kg:.4g} kg",
+        "FLAVOR_DRAINED": f"~{flavor_drained_kg:.4g} kg",
         # Carton + appliance weights.
-        "APPLIANCE_W_LOW": f"{appliance_weight_low_kg:g}",
-        "APPLIANCE_W_HIGH": f"{appliance_weight_high_kg:g} kg",
-        "CARTON_W_LOW": f"{carton_gross_weight_low_kg:g}",
-        "CARTON_W_HIGH": f"{carton_gross_weight_high_kg:g} kg",
-        "SLOSH_CARTON_W": f"{carton_gross_weight_high_kg:g} kg",
+        "APPLIANCE_W_LOW": f"{appliance_weight_low_kg:.4g}",
+        "APPLIANCE_W_HIGH": f"{appliance_weight_high_kg:.4g} kg",
+        "CARTON_W_LOW": f"{carton_gross_weight_low_kg:.4g}",
+        "CARTON_W_HIGH": f"{carton_gross_weight_high_kg:.4g} kg",
+        "SLOSH_CARTON_W": f"{carton_gross_weight_high_kg:.4g} kg",
         # Carton dimensions.
-        "CARTON_L": f"{carton_length_cm:g}",
-        "CARTON_W_DIM": f"{carton_width_cm:g}",
-        "CARTON_H_DIM": f"{carton_height_cm:g} cm",
+        "CARTON_L": f"{carton_length_cm:.4g}",
+        "CARTON_W_DIM": f"{carton_width_cm:.4g}",
+        "CARTON_H_DIM": f"{carton_height_cm:.4g} cm",
         # Scale + tilt.
-        "SCALE_PRECISION": f"{scale_precision_kg:g} kg",
-        "TILT_ANGLE": f"~{splash_check_tilt_deg:g}°",
+        "SCALE_PRECISION": f"{scale_precision_kg:.4g} kg",
+        "TILT_ANGLE": f"~{splash_check_tilt_deg:.4g}°",
         # Carrier threshold.
-        "CARRIER_LIMIT_LB": f"{carrier_ground_limit_lb:g} lb",
-        "CARRIER_LIMIT_KG": f"~{carrier_ground_limit_kg:g} kg",
+        "CARRIER_LIMIT_LB": f"{carrier_ground_limit_lb:.4g} lb",
+        "CARRIER_LIMIT_KG": f"~{carrier_ground_limit_kg:.4g} kg",
     }
 
     substitute_md(

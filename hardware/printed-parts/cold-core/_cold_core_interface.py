@@ -246,16 +246,16 @@ if __name__ == "__main__":
     from docgen import substitute_py_comments
 
     variables = {
-        "WALL_AND_FLOOR_THICKNESS": f"{wall_and_floor_thickness:g} mm",
-        "COIL_RADIAL_CLEARANCE": f"{coil_radial_clearance:g} mm",
-        "ABOVE_TANK_ELBOWS_HEIGHT": f"{above_tank_elbows_height:g} mm",
-        "BELOW_TANK_ELBOWS_HEIGHT": f"{below_tank_elbows_height:g} mm",
-        "PORT_HOLE_DIAMETER": f"{port_hole_radius * 2:g}",
-        "RESERVOIR_FLOOR_THICKNESS": f"{reservoir_floor_thickness:g} mm",
-        "BULKHEAD_AXIS_LIFT_ABOVE_NUT": f"{bulkhead_axis_lift_above_nut:g} mm",
-        "SCREW_CLEARANCE_DIAMETER": f"{screw_clearance_radius * 2:g}",
-        "INSERT_POCKET_DIAMETER": f"{insert_pocket_radius * 2:g}",
-        "SCREW_BOSS_SIZE": f"{screw_boss_size:g} × {screw_boss_size:g} mm",
+        "WALL_AND_FLOOR_THICKNESS": f"{wall_and_floor_thickness:.4g} mm",
+        "COIL_RADIAL_CLEARANCE": f"{coil_radial_clearance:.4g} mm",
+        "ABOVE_TANK_ELBOWS_HEIGHT": f"{above_tank_elbows_height:.4g} mm",
+        "BELOW_TANK_ELBOWS_HEIGHT": f"{below_tank_elbows_height:.4g} mm",
+        "PORT_HOLE_DIAMETER": f"{port_hole_radius * 2:.4g}",
+        "RESERVOIR_FLOOR_THICKNESS": f"{reservoir_floor_thickness:.4g} mm",
+        "BULKHEAD_AXIS_LIFT_ABOVE_NUT": f"{bulkhead_axis_lift_above_nut:.4g} mm",
+        "SCREW_CLEARANCE_DIAMETER": f"{screw_clearance_radius * 2:.4g}",
+        "INSERT_POCKET_DIAMETER": f"{insert_pocket_radius * 2:.4g}",
+        "SCREW_BOSS_SIZE": f"{screw_boss_size:.4g} × {screw_boss_size:.4g} mm",
     }
     substitute_py_comments(
         Path(__file__),

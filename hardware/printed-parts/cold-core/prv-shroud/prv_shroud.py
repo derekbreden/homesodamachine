@@ -130,13 +130,13 @@ def main():
     # the script controls them — change a unit in source and every
     # sibling doc + dynamic-comment marker follows.
     variables = {
-        "INNER_D": f"{inner_diameter:g} mm",
-        "WALL_T": f"{wall_thickness:g} mm",
-        "CAP_T": f"{cap_thickness:g} mm",
-        "CAVITY_L": f"{cavity_length:g} mm",
-        "VENT_D": f"{vent_hole_diameter:g} mm",
-        "OUTER_D": f"{outer_diameter:g} mm",
-        "TOTAL_L": f"{total_length:g} mm",
+        "INNER_D": f"{inner_diameter:.4g} mm",
+        "WALL_T": f"{wall_thickness:.4g} mm",
+        "CAP_T": f"{cap_thickness:.4g} mm",
+        "CAVITY_L": f"{cavity_length:.4g} mm",
+        "VENT_D": f"{vent_hole_diameter:.4g} mm",
+        "OUTER_D": f"{outer_diameter:.4g} mm",
+        "TOTAL_L": f"{total_length:.4g} mm",
         # Regression baseline (computed from the actual STEP geometry).
         "VOLUME": f"{vol:.3f} mm³",
         "BBOX_X": f"{bb.xmin:.3f} to {bb.xmax:.3f} mm",

@@ -143,15 +143,15 @@ def main():
     # script controls them — change a unit in source and every dynamic-
     # comment marker follows.
     variables = {
-        "LID_Y_H": f"{lid_y_height:g} mm",
-        "CW_WALL_OUTER_R": f"{centerward_wall_outer_r:g} mm",
-        "CW_WALL_INNER_R": f"{centerward_wall_inner_r:g} mm",
-        "SUPPORT_RING_INNER_R": f"{support_ring_inner_r:g} mm",
-        "COTWO_INLET_Z": f"{co2_inlet_z:g} mm",
-        "COTWO_TUBE_D": f"{co2_tube_clearance_radius * 2:g} mm",
-        "COTWO_BOSS_OUTER_R": f"{co2_boss_outer_radius:g} mm",
-        "COTWO_BOSS_Y_BOTTOM": f"{co2_boss_y_bottom:g} mm",
-        "COTWO_BOSS_Y_TOP": f"{co2_boss_y_top:g} mm",
+        "LID_Y_H": f"{lid_y_height:.4g} mm",
+        "CW_WALL_OUTER_R": f"{centerward_wall_outer_r:.4g} mm",
+        "CW_WALL_INNER_R": f"{centerward_wall_inner_r:.4g} mm",
+        "SUPPORT_RING_INNER_R": f"{support_ring_inner_r:.4g} mm",
+        "COTWO_INLET_Z": f"{co2_inlet_z:.4g} mm",
+        "COTWO_TUBE_D": f"{co2_tube_clearance_radius * 2:.4g} mm",
+        "COTWO_BOSS_OUTER_R": f"{co2_boss_outer_radius:.4g} mm",
+        "COTWO_BOSS_Y_BOTTOM": f"{co2_boss_y_bottom:.4g} mm",
+        "COTWO_BOSS_Y_TOP": f"{co2_boss_y_top:.4g} mm",
     }
     substitute_py_comments(
         Path(__file__),

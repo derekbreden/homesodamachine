@@ -193,7 +193,7 @@ shank_radius = shank_diameter / 2.0
 # source of truth across the stack-up — was 13.2 × 6.85 mm here until
 # 2026-05-25, when the gasket / mounting plate / this plate were all
 # bumped up to the shell's print-validated 13.4 × 7.05 mm).
-# [18.925 mm](FLAVOR_TUBE_X) +X offset of pill center from the shank —
+# [18.93 mm](FLAVOR_TUBE_X) +X offset of pill center from the shank —
 # shared with the shell / gasket / mounting plate for stacked alignment.
 pill_cx = flavor_tube_x
 pill_cy = 0.0
@@ -372,12 +372,12 @@ if __name__ == "__main__":
     # touch-flo-shell / mounting-gasket / mounting-plate generators so
     # the same key refers to the same dimension across the stack-up.
     variables = {
-        "PLATE_D": f"{disc_diameter:g} mm",
-        "SHANK_HOLE_D": f"{shank_diameter:g} mm",
-        "FLAVOR_TUBE_X": f"{pill_cx:g} mm",
-        "PILL_L": f"{pill_long_y:g} mm",
-        "PILL_W": f"{pill_short_x:g} mm",
-        "FILLET_R": f"{fillet_radius:g} mm",
+        "PLATE_D": f"{disc_diameter:.4g} mm",
+        "SHANK_HOLE_D": f"{shank_diameter:.4g} mm",
+        "FLAVOR_TUBE_X": f"{pill_cx:.4g} mm",
+        "PILL_L": f"{pill_long_y:.4g} mm",
+        "PILL_W": f"{pill_short_x:.4g} mm",
+        "FILLET_R": f"{fillet_radius:.4g} mm",
     }
     substitute_py_comments(
         Path(__file__),

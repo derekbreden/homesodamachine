@@ -117,30 +117,30 @@ vent_filters_per_build = vent_filters_per_reservoir_cap * reservoirs_per_build
 def main():
     variables = {
         # Carbonator vessel.
-        "END_CAPS": f"{end_cap_plates_per_vessel:g}",
-        "VESSEL_PORTS": f"{vessel_ports_per_vessel:g}",
+        "END_CAPS": f"{end_cap_plates_per_vessel:.4g}",
+        "VESSEL_PORTS": f"{vessel_ports_per_vessel:.4g}",
         # Reservoirs.
-        "RESERVOIRS": f"{reservoirs_per_build:g}",
-        "RESERVOIR_CAP_COUNT": f"{reservoirs_per_build:g}",
+        "RESERVOIRS": f"{reservoirs_per_build:.4g}",
+        "RESERVOIR_CAP_COUNT": f"{reservoirs_per_build:.4g}",
         # Reeds.
-        "REEDS_PER_RES": f"{reeds_per_reservoir:g}",
-        "CARB_REEDS": f"{reeds_per_carbonator:g}",
-        "RES_REEDS_TOTAL": f"{reservoir_reeds_total:g}",
-        "REEDS_TOTAL": f"{total_reeds_per_build:g}",
+        "REEDS_PER_RES": f"{reeds_per_reservoir:.4g}",
+        "CARB_REEDS": f"{reeds_per_carbonator:.4g}",
+        "RES_REEDS_TOTAL": f"{reservoir_reeds_total:.4g}",
+        "REEDS_TOTAL": f"{total_reeds_per_build:.4g}",
         # Flavor subsystem.
-        "SOLENOIDS": f"{solenoid_count:g}",
-        "Y_DIVIDERS": f"{y_divider_count:g}",
-        "PP1208E_PANEL": f"{panel_umbilical_bulkheads:g}",
-        "PP1208E_TOTAL": f"{pp1208e_per_build:g}",
+        "SOLENOIDS": f"{solenoid_count:.4g}",
+        "Y_DIVIDERS": f"{y_divider_count:.4g}",
+        "PP1208E_PANEL": f"{panel_umbilical_bulkheads:.4g}",
+        "PP1208E_TOTAL": f"{pp1208e_per_build:.4g}",
         # Heat-set insert + screw hardware.
-        "FOAM_INSERTS": f"{foam_cap_inserts_per_build:g}",
-        "FOAM_SCREWS": f"{foam_cap_screws_per_build:g}",
-        "RES_INSERTS_PER_CAP": f"{inserts_per_reservoir_cap:g}",
-        "RES_INSERTS": f"{reservoir_cap_inserts_per_build:g}",
-        "RES_SCREWS": f"{reservoir_cap_screws_per_build:g}",
-        "TOTAL_M3_INSERTS": f"{total_m3_inserts_per_build:g}",
+        "FOAM_INSERTS": f"{foam_cap_inserts_per_build:.4g}",
+        "FOAM_SCREWS": f"{foam_cap_screws_per_build:.4g}",
+        "RES_INSERTS_PER_CAP": f"{inserts_per_reservoir_cap:.4g}",
+        "RES_INSERTS": f"{reservoir_cap_inserts_per_build:.4g}",
+        "RES_SCREWS": f"{reservoir_cap_screws_per_build:.4g}",
+        "TOTAL_M3_INSERTS": f"{total_m3_inserts_per_build:.4g}",
         # Vent filters.
-        "VENT_FILTERS": f"{vent_filters_per_build:g}",
+        "VENT_FILTERS": f"{vent_filters_per_build:.4g}",
     }
 
     substitute_md(

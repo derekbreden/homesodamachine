@@ -44,7 +44,7 @@ def main():
     print("-> peristaltic-tube.step")
 
     variables = {
-        "OUTER_D": f"{outer_diameter:g} mm",
+        "OUTER_D": f"{outer_diameter:.4g} mm",
     }
     substitute_py_comments(
         __file__,

@@ -119,71 +119,71 @@ duty_cycle_high_pct = 70                # upper-bound of acceptable duty-cycle b
 def main():
     variables = {
         # Firmware setpoints — § "Scope" In: row.
-        "WALL_SETPOINT": f"{carbonator_wall_setpoint_c:g} °C",
-        "WALL_BAND": f"± {carbonator_wall_band_c:g} °C",
-        "FREEZE_CUTOUT": f"−{abs(evap_coil_freeze_cutout_c):g} °C",
-        "MIN_OFF": f"{compressor_min_off_min:g} min",
+        "WALL_SETPOINT": f"{carbonator_wall_setpoint_c:.4g} °C",
+        "WALL_BAND": f"± {carbonator_wall_band_c:.4g} °C",
+        "FREEZE_CUTOUT": f"−{abs(evap_coil_freeze_cutout_c):.4g} °C",
+        "MIN_OFF": f"{compressor_min_off_min:.4g} min",
 
         # Bench water rig.
-        "WATER_PRESS_RANGE": f"{bench_water_press_min_psi:g}–{bench_water_press_max_psi:g} PSI",
-        "WATER_TEMP_MAX": f"~{bench_water_temp_max_c:g} °C",
-        "TAP_WATER_TEMP": f"~{bench_water_temp_max_c:g} °C",
+        "WATER_PRESS_RANGE": f"{bench_water_press_min_psi:.4g}–{bench_water_press_max_psi:.4g} PSI",
+        "WATER_TEMP_MAX": f"~{bench_water_temp_max_c:.4g} °C",
+        "TAP_WATER_TEMP": f"~{bench_water_temp_max_c:.4g} °C",
 
         # Bench CO2 rig.
-        "CO2_CYL_SMALL": f"{co2_cyl_small_lb:g} lb",
-        "CO2_CYL_LARGE": f"{co2_cyl_large_lb:g} lb",
-        "CO2_PRIMARY_RANGE": f"{co2_primary_min_psi:g}–{co2_primary_max_psi:g} PSI",
+        "CO2_CYL_SMALL": f"{co2_cyl_small_lb:.4g} lb",
+        "CO2_CYL_LARGE": f"{co2_cyl_large_lb:.4g} lb",
+        "CO2_PRIMARY_RANGE": f"{co2_primary_min_psi:.4g}–{co2_primary_max_psi:.4g} PSI",
         # Centerline form ("90 PSI"). Each occurrence in the markdown
         # is in some sentence that doesn't fold neatly with the range
         # form, so the centerline gets its own variable. Sourced from
         # the front-panel WR1110 setpoint upstream — same number, same
         # ground truth.
-        "CO2_CENTERLINE": f"{co2_centerline_psi:g} PSI",
+        "CO2_CENTERLINE": f"{co2_centerline_psi:.4g} PSI",
 
         # Bench measurement tooling.
-        "GLASS_OZ": f"{glass_capacity_oz:g} oz",
-        "CYL_MIN": f"{graduated_cyl_min_ml:g} mL",
-        "THERMO_RANGE": f"{thermo_range_low_c:g}–{thermo_range_high_c:g} °C",
-        "THERMO_ACC": f"±{thermo_accuracy_c:g} °C",
-        "BRIX_RANGE": f"{refractometer_range_brix_low:g}–{refractometer_range_brix_high:g} °Brix",
+        "GLASS_OZ": f"{glass_capacity_oz:.4g} oz",
+        "CYL_MIN": f"{graduated_cyl_min_ml:.4g} mL",
+        "THERMO_RANGE": f"{thermo_range_low_c:.4g}–{thermo_range_high_c:.4g} °C",
+        "THERMO_ACC": f"±{thermo_accuracy_c:.4g} °C",
+        "BRIX_RANGE": f"{refractometer_range_brix_low:.4g}–{refractometer_range_brix_high:.4g} °Brix",
 
         # Test-syrup consumption per unit.
-        "CONC_ML": f"~{concentrate_consumed_ml_per_unit:g} mL",
-        "CONC_PCT": f"~{concentrate_consumed_pct:g} %",
+        "CONC_ML": f"~{concentrate_consumed_ml_per_unit:.4g} mL",
+        "CONC_PCT": f"~{concentrate_consumed_pct:.4g} %",
         "BOTTLE_L": f"{sodastream_bottle_ml / 1000:.2f} L",
 
         # Step 4 leak hold.
-        "PRV_HOLD": f"{prv_hold_min:g}-minute",
+        "PRV_HOLD": f"{prv_hold_min:.4g}-minute",
 
         # Step 5 first carbonated dispense.
-        "WALL_DISP_GATE": f"{wall_disp_gate_c:g} °C",
-        "DISP_TEMP_MAX": f"~{dispense_temp_max_c:g} °C",
-        "DISP_TEMP_FAIL": f"{dispense_temp_max_c:g} °C",
-        "FOAM_HOLD": f"{foam_head_hold_sec:g} seconds",
+        "WALL_DISP_GATE": f"{wall_disp_gate_c:.4g} °C",
+        "DISP_TEMP_MAX": f"~{dispense_temp_max_c:.4g} °C",
+        "DISP_TEMP_FAIL": f"{dispense_temp_max_c:.4g} °C",
+        "FOAM_HOLD": f"{foam_head_hold_sec:.4g} seconds",
 
         # Step 6/7 metered ratio test.
-        "RATIO": f"{syrup_ratio_syrup:g}:{syrup_ratio_water:g}",
-        "METERED_WATER": f"~{metered_water_ml:g} mL",
-        "METERED_FLAVOR": f"~{metered_flavor_ml:g} mL",
-        "METERED_TOTAL": f"~{metered_total_ml:g} mL",
-        "RATIO_TOL": f"~{ratio_volume_tol_pct:g} %",
-        "RATIO_TOL_SIGNED": f"±{ratio_volume_tol_pct:g} %",
-        "METERED_RANGE": f"~{metered_total_low_ml:g}–{metered_total_high_ml:g} mL",
-        "CHANNEL_TOL": f"~{channel_to_channel_tol_pct:g} %",
-        "CHANNEL_TOL_FAIL": f"{channel_to_channel_tol_pct:g} %",
+        "RATIO": f"{syrup_ratio_syrup:.4g}:{syrup_ratio_water:.4g}",
+        "METERED_WATER": f"~{metered_water_ml:.4g} mL",
+        "METERED_FLAVOR": f"~{metered_flavor_ml:.4g} mL",
+        "METERED_TOTAL": f"~{metered_total_ml:.4g} mL",
+        "RATIO_TOL": f"~{ratio_volume_tol_pct:.4g} %",
+        "RATIO_TOL_SIGNED": f"±{ratio_volume_tol_pct:.4g} %",
+        "METERED_RANGE": f"~{metered_total_low_ml:.4g}–{metered_total_high_ml:.4g} mL",
+        "CHANNEL_TOL": f"~{channel_to_channel_tol_pct:.4g} %",
+        "CHANNEL_TOL_FAIL": f"{channel_to_channel_tol_pct:.4g} %",
 
         # Step 11 burn-in.
-        "RESERVOIR_FILL_PCT": f"~{reservoir_burnin_fill_pct:g} %",
-        "BURN_IN_DISP": f"~{burn_in_dispense_oz:g} oz",
-        "DISP_INTERVAL": f"{burn_in_interval_min:g} minutes",
-        "BURN_IN_HOURS": f"{burn_in_hours:g} hours",
-        "BURN_IN_HOURS_DASH": f"{burn_in_hours:g}-hour",
-        "BURN_IN_MIN_DISP": f"{burn_in_min_dispenses:g} metered dispenses",
-        "BURN_IN_MIN_DISP_SHORT": f"{burn_in_min_dispenses:g} dispenses",
-        "BURN_IN_TARGET": f"{burn_in_hours:g}-hour / {burn_in_min_dispenses:g}-dispense",
-        "DUTY_HIGH": f"~{duty_cycle_high_pct:g} %",
-        "DUTY_LOW": f"~{duty_cycle_low_pct:g} %",
-        "DUTY_BAND": f"{duty_cycle_low_pct:g}–{duty_cycle_high_pct:g} %",
+        "RESERVOIR_FILL_PCT": f"~{reservoir_burnin_fill_pct:.4g} %",
+        "BURN_IN_DISP": f"~{burn_in_dispense_oz:.4g} oz",
+        "DISP_INTERVAL": f"{burn_in_interval_min:.4g} minutes",
+        "BURN_IN_HOURS": f"{burn_in_hours:.4g} hours",
+        "BURN_IN_HOURS_DASH": f"{burn_in_hours:.4g}-hour",
+        "BURN_IN_MIN_DISP": f"{burn_in_min_dispenses:.4g} metered dispenses",
+        "BURN_IN_MIN_DISP_SHORT": f"{burn_in_min_dispenses:.4g} dispenses",
+        "BURN_IN_TARGET": f"{burn_in_hours:.4g}-hour / {burn_in_min_dispenses:.4g}-dispense",
+        "DUTY_HIGH": f"~{duty_cycle_high_pct:.4g} %",
+        "DUTY_LOW": f"~{duty_cycle_low_pct:.4g} %",
+        "DUTY_BAND": f"{duty_cycle_low_pct:.4g}–{duty_cycle_high_pct:.4g} %",
     }
 
     substitute_md(
