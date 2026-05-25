@@ -35,8 +35,8 @@ from _cadq_export import export_step
 from docgen import substitute_py_comments
 
 
-# Disc — Ø matches the mounting plate; 2.0 mm thick gives ~0.4 mm of
-# 20%-squish travel for TPU 90A on a 0.4 mm nozzle.
+# Disc — Ø matches the mounting plate; [2 mm](GASKET_T) thick gives ~0.4 mm
+# of 20%-squish travel for TPU 90A on a 0.4 mm nozzle.
 # [54.35 mm](GASKET_D) outer disc, [2 mm](GASKET_T) thick.
 gasket_diameter = 54.35
 gasket_thickness = 2.0
@@ -53,8 +53,9 @@ gasket_z_range = (plate_z_bottom - gasket_thickness, plate_z_bottom)
 shank_hole_diameter = 12.6
 shank_hole_center = (0.0, 0.0)
 
-# [6.85 mm](FLAVOR_TUBE_HOLE_D) per-tube hole = 6.35 OD + 0.5 mm clearance.
-flavor_tube_hole_diameter = 6.85
+# [6.85 mm](FLAVOR_TUBE_HOLE_D) per-tube hole = [6.35 mm](FLAVOR_TUBE_OD) OD + 0.5 mm clearance.
+flavor_tube_od = 6.35
+flavor_tube_hole_diameter = flavor_tube_od + 0.5
 # [18.925 mm](FLAVOR_TUBE_X) pill center +X from the shank — shared with the shell.
 flavor_tube_center = (18.925, 0.0)
 
@@ -113,6 +114,7 @@ def main():
         "GASKET_D": f"{gasket_diameter:g} mm",
         "GASKET_T": f"{gasket_thickness:g} mm",
         "SHANK_HOLE_D": f"{shank_hole_diameter:g} mm",
+        "FLAVOR_TUBE_OD": f"{flavor_tube_od:g} mm",
         "FLAVOR_TUBE_HOLE_D": f"{flavor_tube_hole_diameter:g} mm",
         "FLAVOR_TUBE_X": f"{flavor_tube_center[0]:g} mm",
         "PILL_L": f"{pill_slot_length_y:g} mm",
@@ -123,8 +125,9 @@ def main():
         variables=variables,
         expected_counts={
             "GASKET_D": 1,
-            "GASKET_T": 1,
+            "GASKET_T": 2,
             "SHANK_HOLE_D": 1,
+            "FLAVOR_TUBE_OD": 1,
             "FLAVOR_TUBE_HOLE_D": 1,
             "FLAVOR_TUBE_X": 1,
             "PILL_L": 1,
