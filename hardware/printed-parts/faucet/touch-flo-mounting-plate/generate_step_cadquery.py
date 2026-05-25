@@ -1,53 +1,9 @@
-"""
-Touch-Flo mounting plate — printed disc that supports the harvested
-Touch-Flo faucet body, the two flavor tubes that pass alongside it,
-and (eventually) the shell that wraps around the assembly.
+"""Touch-Flo mounting plate — printed PETG disc that supports the
+harvested Touch-Flo faucet body, the two flavor tubes that pass
+alongside it, and (eventually) the shell that wraps around the
+assembly. See README.md for geometry, hole positions, joinery
+history, and the rationale for the current dimensions."""
 
-GEOMETRY
-========
-- Ø 54.35 mm, 4 mm thick disc — sized so the plate's edge sits 5 mm
-  out from the shell base's outer cylinder (Ø 44.35 = SHELL_OUTER_R
-  × 2). 5 mm matches the standard wall / margin elsewhere in the
-  shell. Factory plate was Ø 44.5; this is bigger.
-- Plate spans Z = [-4, 0] in world coords; top face flush with the
-  deck plane (= body bottom in the faucet-assembly).
-- Plate center at world (3.175, 0) — the midpoint of the assembly's
-  lateral footprint at Z = 0 with 1/4" flavor tubes:
-    -X edge: body cylindrical base at X = -15.75
-    +X edge: outer wall of the +X flavor tube at X = +22.10
-    midpoint: +3.175
-  This puts the body at world (0, 0) shifted -3.175 mm in X relative
-  to the plate center, by design. Plate center matches the shell's
-  SHELL_CENTER_X for concentric stack-up.
-
-HOLES
-=====
-1. Shank hole — Ø 12.6 mm at world (0, 0). Matches the factory
-   mounting plate's clearance for the 11 mm threaded shank
-   (~14.5% diametric clearance).
-2. Flavor-tube pill slot — at world (18.925, 0), oriented along Y.
-   Per-tube Ø would be 6.85 mm (= 6.35 OD + 0.5 mm clearance applied
-   to the 1/4" flavor tubes), but the two tubes are only 6.35 mm
-   apart center-to-center, so the per-tube circles overlap by
-   ~0.5 mm. We model the combined opening as a single pill
-   (rounded-rectangle) slot for cleaner printability:
-     - Length (Y, end-to-end): 13.2 mm
-     - Width (X):              6.85 mm
-No plate-to-shell retention or alignment features. The plate is a
-clean disc with only the shank hole + pill slot through it; the
-shell's bottom face is similarly clean. Earlier revisions tried
-screws+heat-set retention and then printed-boss press-fit
-alignment; both were abandoned (see the joinery history in
-ASSEMBLY.md). The plate is held to the shell by gravity during
-sub-assembly handling and by the shank-nut clamp (body → plate →
-TPU gasket → countertop) once the under-counter install finishes.
-
-REGENERATE
-==========
-    tools/cad-venv/bin/python generate_step_cadquery.py
-"""
-
-import math
 import sys
 from pathlib import Path
 
@@ -63,36 +19,55 @@ sys.path.insert(
     str(next(p for p in _here.parents if (p / "tools" / "docgen").is_dir()) / "tools"),
 )
 from _cadq_export import export_step
-from docgen import substitute_py_comments
+from docgen import substitute_md, substitute_py_comments
 
 
-# Plate — [54.35 mm](PLATE_D) OD leaves a 5 mm radial gap to the shell base (Ø 44.35).
-# Thickness was 5 mm; trimmed 1 mm to free shank thread engagement for
-# the under-counter nut once the 2 mm TPU gasket is in the stack.
+# Plate — [54.35 mm](PLATE_D) OD leaves a [5 mm](PLATE_TO_SHELL_GAP)
+# radial gap to the shell base (Ø [44.35 mm](SHELL_OUTER_D)).
 plate_radius = 54.35 / 2
+# Plate thickness — was [5 mm](PREV_PLATE_T); trimmed [1 mm](PLATE_TRIM)
+# to [4 mm](PLATE_T) to free shank thread engagement for the
+# under-counter nut once the [2 mm](GASKET_T) TPU gasket is in the stack.
 plate_thickness = 4.0
+previous_plate_thickness = 5.0
+plate_trim = previous_plate_thickness - plate_thickness
+gasket_thickness = 2.0
 # Top face flush with the deck plane (Z=0); plate hangs below.
 plate_z_range = (-plate_thickness, 0.0)
 # Plate center: midpoint of the assembly footprint with 1/4" flavor
 # tubes; matches SHELL_CENTER_X for concentric stack-up.
+# [3.175 mm](PLATE_X) X offset, Z = 0.
 plate_center = (3.175, 0.0)
 
 
-# Shank — clearance for the 11 mm threaded shank. [12.6 mm](SHANK_HOLE_D)
-# matches the factory mounting plate (~14.5% diametric clearance).
+# Shell base outer diameter — the printed touch-flo-shell sits on top
+# of this plate, concentric with it. The plate is [5 mm](PLATE_TO_SHELL_GAP)
+# wider in radius so its edge is visible past the shell base.
+plate_to_shell_gap = 5.0
+shell_outer_radius = plate_radius - plate_to_shell_gap
+shell_outer_diameter = 2 * shell_outer_radius
+
+
+# Shank — clearance for the [11 mm](SHANK_OD) threaded shank.
+# [12.6 mm](SHANK_HOLE_D) matches the factory mounting plate
+# (~[14.5%](SHANK_CLEARANCE_PCT) diametric clearance).
+shank_diameter_nominal = 11.0
 shank_hole_radius = 12.6 / 2
 shank_hole_center = (0.0, 0.0)
+shank_clearance_pct = (2 * shank_hole_radius - shank_diameter_nominal) / shank_diameter_nominal
 
 
 # Flavor-tube pill slot. The two 1/4" ([6.35 mm](FLAVOR_TUBE_OD)) LLDPE
 # tubes are tangent in Y at centers ±flavor_tube_y_offset (separation
 # = [6.35 mm](TUBE_CENTER_Y) center-to-center); per-tube circles would
-# overlap by ~0.5 mm, so we model the combined opening as a single
-# Y-oriented pill (rounded-rectangle).
+# overlap by ~[0.5 mm](TUBE_OVERLAP), so we model the combined opening
+# as a single Y-oriented pill (rounded-rectangle).
 flavor_tube_od = 6.35
-# [6.85 mm](FLAVOR_HOLE_D) per-tube hole diameter = OD + 0.5 mm clearance.
-flavor_tube_hole_diameter = flavor_tube_od + 0.5
+flavor_hole_clearance = 0.5
+# [6.85 mm](FLAVOR_HOLE_D) per-tube hole diameter = OD + [0.5 mm](FLAVOR_HOLE_CLEARANCE) clearance.
+flavor_tube_hole_diameter = flavor_tube_od + flavor_hole_clearance
 flavor_tube_y_offset = 3.175
+tube_overlap = flavor_tube_hole_diameter - 2 * flavor_tube_y_offset
 # [18.925 mm](PLATE_FLAVOR_X) +X offset of pill slot center from plate's
 # body-bore axis at world origin — matches the shell's flavor_tube_x for
 # the cross-coupled stack-up.
@@ -119,11 +94,12 @@ pill_slot_width_x = flavor_tube_hole_diameter
 
 
 # Fillet on the top outer edge — softens the visible ring around the
-# body once the plate is installed. 2 mm on a 4 mm plate (50% of
-# thickness — half-bullnose, half-flat side) reads as an intentional
-# finished edge without eating the flat landing area the body and
-# shell sit on.
+# body once the plate is installed. [2 mm](TOP_FILLET_R) on a
+# [4 mm](PLATE_T) plate ([50%](FILLET_RATIO) of thickness —
+# half-bullnose, half-flat side) reads as an intentional finished edge
+# without eating the flat landing area the body and shell sit on.
 top_outer_fillet_r = 2.0
+fillet_ratio = top_outer_fillet_r / plate_thickness
 
 
 def vertical_cylinder(center, radius, z_range):
@@ -185,28 +161,90 @@ def main():
     print(f"-> {out.name}")
 
     variables = {
+        # Disc
         "PLATE_D": f"{2 * plate_radius:g} mm",
+        "PLATE_T": f"{plate_thickness:g} mm",
+        "PLATE_X": f"{plate_center[0]:g} mm",
+        "PLATE_Z_BOTTOM": f"{plate_z_range[0]:g}",
+        "PREV_PLATE_T": f"{previous_plate_thickness:g} mm",
+        "PLATE_TRIM": f"{plate_trim:g} mm",
+        # Shell + cross-coupling
+        "PLATE_TO_SHELL_GAP": f"{plate_to_shell_gap:g} mm",
+        "SHELL_OUTER_D": f"{shell_outer_diameter:g} mm",
+        "GASKET_T": f"{gasket_thickness:g} mm",
+        # Shank
         "SHANK_HOLE_D": f"{2 * shank_hole_radius:g} mm",
+        "SHANK_OD": f"{shank_diameter_nominal:g} mm",
+        "SHANK_CLEARANCE_PCT": f"{shank_clearance_pct * 100:.1f}%",
+        # Flavor tubes / pill slot
         "FLAVOR_TUBE_OD": f"{flavor_tube_od:g} mm",
         "TUBE_CENTER_Y": f"{2 * flavor_tube_y_offset:g} mm",
         "FLAVOR_HOLE_D": f"{flavor_tube_hole_diameter:g} mm",
+        "FLAVOR_HOLE_CLEARANCE": f"{flavor_hole_clearance:g} mm",
+        "TUBE_OVERLAP": f"{tube_overlap:g} mm",
         "PLATE_FLAVOR_X": f"{pill_slot_center[0]:g} mm",
         "PLATE_PILL_L": f"{pill_slot_length_y:g} mm",
         "PLATE_PILL_W": f"{pill_slot_width_x:g} mm",
+        # Top-outer fillet
+        "TOP_FILLET_R": f"{top_outer_fillet_r:g} mm",
+        "FILLET_RATIO": f"{fillet_ratio * 100:g}%",
     }
+
+    substitute_md(
+        _here / "README.md",
+        variables=variables,
+        expected_counts={
+            "PLATE_D": 1,
+            "PLATE_T": 3,
+            "PLATE_X": 3,
+            "PLATE_Z_BOTTOM": 1,
+            "PREV_PLATE_T": 1,
+            "PLATE_TRIM": 1,
+            "PLATE_TO_SHELL_GAP": 2,
+            "SHELL_OUTER_D": 1,
+            "GASKET_T": 1,
+            "SHANK_HOLE_D": 1,
+            "SHANK_OD": 1,
+            "SHANK_CLEARANCE_PCT": 1,
+            "FLAVOR_TUBE_OD": 1,
+            "TUBE_CENTER_Y": 1,
+            "FLAVOR_HOLE_D": 1,
+            "FLAVOR_HOLE_CLEARANCE": 1,
+            "TUBE_OVERLAP": 1,
+            "PLATE_FLAVOR_X": 1,
+            "PLATE_PILL_L": 1,
+            "PLATE_PILL_W": 1,
+            "TOP_FILLET_R": 2,
+            "FILLET_RATIO": 1,
+        },
+    )
+    print("-> README.md")
 
     substitute_py_comments(
         Path(__file__),
         variables=variables,
         expected_counts={
             "PLATE_D": 1,
+            "PLATE_T": 2,
+            "PLATE_X": 1,
+            "PREV_PLATE_T": 1,
+            "PLATE_TRIM": 1,
+            "PLATE_TO_SHELL_GAP": 2,
+            "SHELL_OUTER_D": 1,
+            "GASKET_T": 1,
             "SHANK_HOLE_D": 1,
+            "SHANK_OD": 1,
+            "SHANK_CLEARANCE_PCT": 1,
             "FLAVOR_TUBE_OD": 1,
             "TUBE_CENTER_Y": 1,
             "FLAVOR_HOLE_D": 1,
+            "FLAVOR_HOLE_CLEARANCE": 1,
+            "TUBE_OVERLAP": 1,
             "PLATE_FLAVOR_X": 1,
             "PLATE_PILL_L": 1,
             "PLATE_PILL_W": 1,
+            "TOP_FILLET_R": 1,
+            "FILLET_RATIO": 1,
         },
     )
     print(f"-> {Path(__file__).name}")
