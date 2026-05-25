@@ -91,10 +91,15 @@ import cadquery as cq
 _here = Path(__file__).resolve().parent
 sys.path.insert(0, str(next(p for p in _here.parents if p.name == "printed-parts") / "cadlib"))
 sys.path.insert(0, str(next(p for p in _here.parents if p.name == "hardware")))
+sys.path.insert(
+    0,
+    str(next(p for p in _here.parents if (p / "tools" / "docgen").is_dir()) / "tools"),
+)
 sys.path.insert(0, str(_here.parent))
 
 from world_workplane import xy_plane_z_up
 from _cadq_export import export_step
+from docgen import substitute_py_comments
 from _cold_core_interface import (
     make_box,
     wall_and_floor_thickness,
@@ -115,11 +120,14 @@ slot_x_range = (-slot_half_width_x, slot_half_width_x)
 # share the same ⌀6.5 slot punch from cut_slot_for_copper_and_water_inlet,
 # so the tube clearance circle is tangent to the slot's X edges at the
 # pass-through Y.
+# [3.25 mm](TUBE_CLEAR_R) — = slot_half_width_x (slot punch is ⌀6.5).
 tube_clearance_radius = slot_half_width_x
 
 # Web fills the +Z outer_shell wall's Z range exactly (2 mm thick at
 # 2 mm wall); the two flanges sit 1 mm above and 1 mm below it.
+# [90.5 mm](WALL_OUTER_Z) — outer face of the +Z outer_shell wall = outer_shell_z_length / 2.
 outer_wall_outer_z = outer_shell_z_length / 2
+# [88.5 mm](WALL_INNER_Z) — inner face = outer face − wall_and_floor_thickness.
 outer_wall_inner_z = outer_wall_outer_z - wall_and_floor_thickness
 wall_z_range = (outer_wall_inner_z, outer_wall_outer_z)
 
@@ -142,7 +150,9 @@ plug_half_x_outer = slot_half_width_x + flange_x_overhang_per_side
 plug_x_range = (-plug_half_x_outer, plug_half_x_outer)
 
 # Full plug Z envelope, including the two flanges.
+# [87.5 mm](PLUG_Z_INNER) — bottom flange's inward face = wall inner − flange Z.
 plug_z_inner = outer_wall_inner_z - flange_z_thickness
+# [91.5 mm](PLUG_Z_OUTER) — top flange's outward face = wall outer + flange Z.
 plug_z_outer = outer_wall_outer_z + flange_z_thickness
 plug_z_range = (plug_z_inner, plug_z_outer)
 
@@ -150,8 +160,11 @@ top_flange_z_range = (outer_wall_outer_z, plug_z_outer)
 bottom_flange_z_range = (plug_z_inner, outer_wall_inner_z)
 
 # Pass-through Y positions (centers).
+# [47 mm](LOWEST_COPPER_Y) — cold-side evaporator inlet, measured up from Y=0.
 lowest_copper_y = hole_shift_from_edge + wall_and_floor_thickness + below_tank_elbows_height
+# [166.4 mm](HIGHEST_COPPER_Y) — warm-side evaporator outlet, measured down from the shell top.
 highest_copper_y = foam_shell_outer_height - hole_shift_from_edge - wall_and_floor_thickness - above_tank_elbows_height
+# [198.4 mm](WATER_INLET_Y) — water inlet line, hole_shift_from_edge below the shell top.
 water_inlet_y = foam_shell_outer_height - hole_shift_from_edge
 
 # PRV vent sits above the water inlet by enough to give both adjacent
@@ -161,6 +174,7 @@ water_inlet_y = foam_shell_outer_height - hole_shift_from_edge
 # elbow exit. Above_tank_elbows_height (= 30 mm) gives ~15 mm of room
 # between the water inlet and the shell top — split here as 8 + 7.
 prv_vent_offset_above_water = 8.0
+# [206.4 mm](PRV_VENT_Y) — PRV relief line, prv_vent_offset_above_water above the water inlet.
 prv_vent_y = water_inlet_y + prv_vent_offset_above_water
 
 # Plug end faces meet AT the tube pass-through centers. The arch
@@ -213,6 +227,7 @@ plug_arch_ends = {
 # x = ±slot_half_width_x .. ±plug_half_x_outer were already at the
 # print-resolution limit at the arch tangent and don't get thinner.
 min_printable_thickness = 1.0
+# [2.34521 mm](WEB_BUFFER) — Y inset from arched plug end where the web outer-X sliver reaches min_printable_thickness.
 web_arch_buffer = math.sqrt(
     tube_clearance_radius ** 2
     - (slot_half_width_x - min_printable_thickness) ** 2
@@ -365,6 +380,39 @@ def main():
             f"plug {name}: OCCT volume {vol:.4f} differs from analytical "
             f"{vol_analytical:.4f} by {vol_diff:+.4f} mm^3 (> 0.01 tolerance)"
         )
+
+    # Short names scoped to this part. Units live inside the value so
+    # the script controls them — change a unit in source and every
+    # dynamic-comment marker follows.
+    variables = {
+        "TUBE_CLEAR_R": f"{tube_clearance_radius:g} mm",
+        "WALL_OUTER_Z": f"{outer_wall_outer_z:g} mm",
+        "WALL_INNER_Z": f"{outer_wall_inner_z:g} mm",
+        "PLUG_Z_INNER": f"{plug_z_inner:g} mm",
+        "PLUG_Z_OUTER": f"{plug_z_outer:g} mm",
+        "LOWEST_COPPER_Y": f"{lowest_copper_y:g} mm",
+        "HIGHEST_COPPER_Y": f"{highest_copper_y:g} mm",
+        "WATER_INLET_Y": f"{water_inlet_y:g} mm",
+        "PRV_VENT_Y": f"{prv_vent_y:g} mm",
+        "WEB_BUFFER": f"{web_arch_buffer:g} mm",
+    }
+    substitute_py_comments(
+        Path(__file__),
+        variables=variables,
+        expected_counts={
+            "TUBE_CLEAR_R": 1,
+            "WALL_OUTER_Z": 1,
+            "WALL_INNER_Z": 1,
+            "PLUG_Z_INNER": 1,
+            "PLUG_Z_OUTER": 1,
+            "LOWEST_COPPER_Y": 1,
+            "HIGHEST_COPPER_Y": 1,
+            "WATER_INLET_Y": 1,
+            "PRV_VENT_Y": 1,
+            "WEB_BUFFER": 1,
+        },
+    )
+    print("-> generate_step_cadquery.py (self)")
 
 
 if __name__ == "__main__":
