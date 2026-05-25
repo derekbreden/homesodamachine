@@ -246,37 +246,41 @@ Use the project's canonical terms. The two most-confused:
 ### Visual evidence
 
 A bullet post earns a thumbnail when one of its categories is about
-something the dev/public site can show — a STEP, a DXF, a Mermaid
-chart, or a Drawing. Embed it at the bottom of the post (after the
-bullet list) as a clickable image linking to the viewer's deep-link
-URL for that file.
+something viewable — a STEP, a DXF, a Mermaid chart, a Drawing, or a
+page of the site itself. Embed it at the bottom of the post (after
+the bullet list) as a clickable image linking to where the reader
+can see the thing live.
 
 This is a real expected output of the post — not optional polish. If
-a category headline says "worked on the X" and X lives in one of the
-viewers, the post should show X.
+a category headline says "worked on the X" and X is something a
+reader can open in a viewer or visit on the site, the post should
+show X.
 
 Markdown:
 
 ```
-[![<short description>](/post-images/<YYYY-MM-DD>-<slug>.png)](/3d?file=<path>)
+[![<short description>](/post-images/<YYYY-MM-DD>-<slug>.png)](<link>)
 ```
 
-The renderer that produces the PNG is matched to the file type:
+The renderer that produces the PNG is matched to the viewable thing:
 
-| File type              | Renderer                          | Viewer deep link        |
-|------------------------|-----------------------------------|-------------------------|
-| `.step` (3D part)      | `tools/render/render-step.js`     | `/3d?file=<path>`       |
-| `.dxf`  (cut sheet)    | `tools/render/render-dxf.js`      | `/3d?file=<path>`       |
-| `.mmd`  (chart)        | `tools/render/render-mermaid.js`  | `/charts?file=<path>`   |
-| `.svg`  (drawing)      | `tools/render/render-drawing.js`  | `/drawings?file=<path>` |
+| Viewable thing       | Renderer                          | Embedded link                                 |
+|----------------------|-----------------------------------|-----------------------------------------------|
+| `.step` (3D part)    | `tools/render/render-step.js`     | `/3d?file=<path>`                             |
+| `.dxf`  (cut sheet)  | `tools/render/render-dxf.js`      | `/3d?file=<path>`                             |
+| `.mmd`  (chart)      | `tools/render/render-mermaid.js`  | `/charts?file=<path>`                         |
+| `.svg`  (drawing)    | `tools/render/render-drawing.js`  | `/drawings?file=<path>`                       |
+| site page            | `tools/render/screenshot-site.js` | the page's path on the site (`/`, `/blog`, …) |
 
 Run from the repo root, output to
 `web/public/post-images/<YYYY-MM-DD>-<slug>.png`. Pass `--at <DATE>`
-(see each renderer's `--help`) when the post is dated in the past — the
-renderer pulls the source as it existed on that day, so the thumbnail
-reflects the state the post is describing, not the state of the file
-today. `<path>` in the table above is the file's path relative to
-`hardware/` (the same path the viewer surfaces in its URL).
+(every renderer in `tools/render/` supports it) when the post is
+dated in the past — the renderer pulls the source as it existed on
+that day, so the thumbnail reflects the state the post is describing,
+not the state of today. For the file renderers, `<path>` in the table
+is the file's path relative to `hardware/` (the same path the viewer
+surfaces in its URL). For the site renderer, the first arg is the
+page's path on the site and the link is the same path.
 
 Examples of when to embed:
 
@@ -286,17 +290,15 @@ Examples of when to embed:
   thumbnail
 - A category about the front face of the appliance, or any other
   drawing under `hardware/**/drawings/` → embed the SVG thumbnail
+- A category about the site itself (a new page, a redesign, a feature
+  on a page) → embed a screenshot of the relevant page. The site-launch
+  post `2026-04-29-2238.md` is the canonical example.
 
 When NOT to embed:
 
 - A category that's procedural or textual only (BOM line, doc rewrite,
   push-notification wiring) — there's nothing visual to show
 - More than two thumbnails per post — that's a portfolio, not an update
-- Site screenshots / promotional imagery — those live in
-  `web/public/post-images/` too but are a separate category (e.g. the
-  `2026-04-29-site-launch.png` companion to "HomeSodaMachine.com is
-  now a live site"); the auto-rendered file thumbnails coexist with
-  them, they don't replace them
 
 ### Skip rules
 
