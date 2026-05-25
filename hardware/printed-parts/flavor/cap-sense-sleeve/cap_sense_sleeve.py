@@ -1,7 +1,5 @@
 """Cap-sense sleeve — printed clamshell that wraps a 1/4" OD LLDPE
-flavor tube and seats two copper-foil ring electrodes against the
-tube wall. See README.md for the sensing principle, clamshell split
-rationale, and print orientation."""
+flavor tube and seats two copper-foil ring electrodes. See README.md."""
 
 import sys
 from pathlib import Path
@@ -21,54 +19,40 @@ from _cadq_export import export_step
 from docgen import substitute_md, substitute_py_comments
 
 
-# Tube and bore.
-tube_od = 6.35              # 1/4" OD LLDPE flavor tube — [6.35 mm](TUBE_OD)
-bore_clearance = 0.05       # radial slip-fit clearance per side
-# [3.225 mm](BORE_R) inner bore radius = (tube_od + 2 × bore_clearance) / 2.
+tube_od = 6.35              # [6.35 mm](TUBE_OD)
+bore_clearance = 0.05
+# [3.225 mm](BORE_R)
 bore_radius = (tube_od + 2 * bore_clearance) / 2
 
-wall_thickness = 3.0        # [3 mm](WALL_T) wall — solid clamshell shell around the bore
-# [6.225 mm](OUTER_R) sleeve outer radius = bore_radius + wall_thickness.
+wall_thickness = 3.0        # [3 mm](WALL_T)
+# [6.225 mm](OUTER_R)
 outer_radius = bore_radius + wall_thickness
 
-# Sleeve axial length budget:
-#   2 × [3 mm](GROOVE_W) grooves + [2 mm](GROOVE_GAP) gap = [8 mm](GROOVES_TOTAL_Z) of groove zone,
-#   plus ~[4.5 mm](END_ZONE_Z) end zone per side ([1 mm](RIM_MARGIN) rim margin +
-#   [2 mm](DOWEL_D) dowel diameter + [1.5 mm](DOWEL_TO_GROOVE) dowel-to-groove clearance).
-# [17 mm](SLEEVE_L) hits this with no extra.
+# [17 mm](SLEEVE_L)
 sleeve_length = 17.0
 sleeve_z_range = (0.0, sleeve_length)
 
 # Two foil-ring grooves on the inner bore, centers [5 mm](GROOVE_PITCH)
-# apart axially. Groove depth = one layer at [0.1 mm](LAYER_H) layer
-# height — foil tape (~[0.05 mm](FOIL_T) thick) sits in the groove
-# with ~[0.05 mm](FOIL_ADHESIVE_ROOM) of adhesive room. At coarser
-# layer heights the groove resolves marginally; fall back to sticking
-# the foil flush against the un-grooved bore.
+# apart axially. Groove depth = [0.1 mm](LAYER_H) (one layer).
 groove_depth = 0.1
-# [3.325 mm](GROOVE_OUTER_R) groove outer radius = bore_radius + groove_depth.
+# [3.325 mm](GROOVE_OUTER_R)
 groove_outer_radius = bore_radius + groove_depth
-groove_width_z = 3.0
+groove_width_z = 3.0        # [3 mm](GROOVE_W)
 groove_centers_z = (6.0, 11.0)
 
 # Radial through-wall wire exits, one per groove, on the +x side of
-# the +y half only. Sized in y ([2 mm](SLOT_W_Y)) for the wire to
-# bend from circumferential (in the groove) to radial (out of the
-# slot) without stressing the solder joint; padded in z by
-# [0.5 mm](SLOT_Z_PAD) per side so the wire's entry/exit edges don't
-# sit at the groove's z corner.
+# the +y half only. [2 mm](SLOT_W_Y) wide in y, padded in z by
+# [0.5 mm](SLOT_Z_PAD) per side.
 slot_width_y = 2.0
 slot_z_padding = 0.5
 
-# Dowel pins at the y=0 cut plane: -y half carries integrated dowels
-# that protrude into matching holes on +y. Same cylinder geometry
-# defines pin and hole — [1 mm](DOWEL_R) radius, [2.5 mm](DOWEL_L)
-# length protruding past the cut plane — so the friction fit is tuned
-# by trial. Each half ends carry a dowel inset [2 mm](DOWEL_Z_INSET)
-# from the rim.
+# Dowel pins at the y=0 cut plane: -y half carries pins, +y half
+# carries matching holes. [1 mm](DOWEL_R) radius, [2.5 mm](DOWEL_L)
+# protrusion past the cut plane. Inset [2 mm](DOWEL_Z_INSET) from
+# each rim.
 dowel_radius = 1.0
 dowel_length = 2.5
-# [4.725 mm](DOWEL_X) dowel X offset = mid-wall, (bore_radius + outer_radius) / 2.
+# [4.725 mm](DOWEL_X) — mid-wall, (bore_radius + outer_radius) / 2.
 dowel_x_offset = (bore_radius + outer_radius) / 2
 dowel_z_inset_from_ends = 2.0
 dowel_z_positions = (dowel_z_inset_from_ends, sleeve_length - dowel_z_inset_from_ends)
@@ -194,47 +178,27 @@ def main():
     here = Path(__file__).resolve().parent
     export_step(pos_y, str(here / "cap-sense-sleeve-pos-y.step"))
     export_step(neg_y, str(here / "cap-sense-sleeve-neg-y.step"))
-    print("-> cap-sense-sleeve-pos-y.step  (+y functional half: grooves, wire slots, dowel HOLES)")
-    print("-> cap-sense-sleeve-neg-y.step  (-y structural half: grooves, no slots, dowel PINS)")
+    print("-> cap-sense-sleeve-pos-y.step")
+    print("-> cap-sense-sleeve-neg-y.step")
 
-    # Derived auxiliary values referenced by the comments and README.
-    # End-zone breakdown per side: rim margin + dowel diameter + dowel-to-groove clearance.
-    grooves_total_z = 2 * groove_width_z + (groove_centers_z[1] - groove_centers_z[0] - groove_width_z)
-    end_zone_z = (sleeve_length - grooves_total_z) / 2
-    rim_margin = dowel_z_inset_from_ends - dowel_radius
-    dowel_to_groove = (groove_centers_z[0] - groove_width_z / 2) - (dowel_z_inset_from_ends + dowel_radius)
     groove_pitch = groove_centers_z[1] - groove_centers_z[0]
-    groove_gap = groove_pitch - groove_width_z
 
     variables = {
-        # Tube and bore.
-        "TUBE_OD": f"{tube_od:g} mm",
-        "BORE_R": f"{bore_radius:g} mm",
-        "WALL_T": f"{wall_thickness:g} mm",
-        "OUTER_R": f"{outer_radius:g} mm",
-        # Sleeve length and end-zone budget.
-        "SLEEVE_L": f"{sleeve_length:g} mm",
-        "GROOVES_TOTAL_Z": f"{grooves_total_z:g} mm",
-        "END_ZONE_Z": f"{end_zone_z:g} mm",
-        "RIM_MARGIN": f"{rim_margin:g} mm",
-        "DOWEL_TO_GROOVE": f"{dowel_to_groove:g} mm",
-        # Grooves and foil.
-        "GROOVE_W": f"{groove_width_z:g} mm",
-        "GROOVE_GAP": f"{groove_gap:g} mm",
-        "GROOVE_PITCH": f"{groove_pitch:g} mm",
-        "LAYER_H": f"{groove_depth:g} mm",
-        "FOIL_T": "0.05 mm",
-        "FOIL_ADHESIVE_ROOM": "0.05 mm",
-        "GROOVE_OUTER_R": f"{groove_outer_radius:g} mm",
-        # Wire exit slots.
-        "SLOT_W_Y": f"{slot_width_y:g} mm",
-        "SLOT_Z_PAD": f"{slot_z_padding:g} mm",
-        # Dowels.
-        "DOWEL_R": f"{dowel_radius:g} mm",
-        "DOWEL_D": f"{2 * dowel_radius:g} mm",
-        "DOWEL_L": f"{dowel_length:g} mm",
-        "DOWEL_X": f"{dowel_x_offset:g} mm",
-        "DOWEL_Z_INSET": f"{dowel_z_inset_from_ends:g} mm",
+        "TUBE_OD": f"{tube_od:.4g} mm",
+        "BORE_R": f"{bore_radius:.4g} mm",
+        "WALL_T": f"{wall_thickness:.4g} mm",
+        "OUTER_R": f"{outer_radius:.4g} mm",
+        "SLEEVE_L": f"{sleeve_length:.4g} mm",
+        "GROOVE_W": f"{groove_width_z:.4g} mm",
+        "GROOVE_PITCH": f"{groove_pitch:.4g} mm",
+        "LAYER_H": f"{groove_depth:.4g} mm",
+        "GROOVE_OUTER_R": f"{groove_outer_radius:.4g} mm",
+        "SLOT_W_Y": f"{slot_width_y:.4g} mm",
+        "SLOT_Z_PAD": f"{slot_z_padding:.4g} mm",
+        "DOWEL_R": f"{dowel_radius:.4g} mm",
+        "DOWEL_L": f"{dowel_length:.4g} mm",
+        "DOWEL_X": f"{dowel_x_offset:.4g} mm",
+        "DOWEL_Z_INSET": f"{dowel_z_inset_from_ends:.4g} mm",
     }
 
     substitute_py_comments(
@@ -246,21 +210,13 @@ def main():
             "WALL_T": 1,
             "OUTER_R": 1,
             "SLEEVE_L": 1,
-            "GROOVES_TOTAL_Z": 1,
-            "END_ZONE_Z": 1,
-            "RIM_MARGIN": 1,
-            "DOWEL_TO_GROOVE": 1,
             "GROOVE_W": 1,
-            "GROOVE_GAP": 1,
             "GROOVE_PITCH": 1,
             "LAYER_H": 1,
-            "FOIL_T": 1,
-            "FOIL_ADHESIVE_ROOM": 1,
             "GROOVE_OUTER_R": 1,
             "SLOT_W_Y": 1,
             "SLOT_Z_PAD": 1,
             "DOWEL_R": 1,
-            "DOWEL_D": 1,
             "DOWEL_L": 1,
             "DOWEL_X": 1,
             "DOWEL_Z_INSET": 1,
@@ -276,18 +232,10 @@ def main():
             "BORE_R": 1,
             "WALL_T": 1,
             "OUTER_R": 1,
-            "SLEEVE_L": 2,
-            "GROOVES_TOTAL_Z": 2,
-            "END_ZONE_Z": 3,
-            "RIM_MARGIN": 1,
-            "DOWEL_TO_GROOVE": 1,
-            "DOWEL_D": 1,
-            "GROOVE_W": 3,
-            "GROOVE_GAP": 2,
+            "SLEEVE_L": 1,
+            "GROOVE_W": 2,
             "GROOVE_PITCH": 1,
             "LAYER_H": 1,
-            "FOIL_T": 1,
-            "FOIL_ADHESIVE_ROOM": 1,
             "GROOVE_OUTER_R": 1,
             "SLOT_W_Y": 1,
             "SLOT_Z_PAD": 1,
