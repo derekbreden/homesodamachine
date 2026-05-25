@@ -537,42 +537,18 @@ zone45_bot_mid_x = fill_x_min + back_arch_r * math.cos(_a_mid45)
 zone45_bot_mid_z = back_arch_center_z + back_arch_r * math.sin(_a_mid45)
 
 
-# DOWEL POCKETS — mounting-plate alignment. Two cylindrical pockets in
-# the bottom face of the shell accept matching Ø 3.9 × 5 mm dowel
-# bosses extruded up from the mounting plate's top face. Currently a
-# low-force alignment placeholder, not a retention press fit (see
-# the rationale block in `touch-flo-mounting-plate/generate_step_cadquery.py`).
-# Structural clamping of the body→plate→gasket→countertop stack is done
-# by the harvested faucet body's shank nut below the under-counter plate.
-#
-# Replaced the earlier screw + heat-set insert retention (last seen in
-# commit 4677b88, M3 × 6 mm ULH SHCS McMaster 91223A412 + ruthex M3
-# short Amazon B09ZHSGHXD). The screws were expensive ($4-6 each,
-# McMaster-only), fiddly (2 mm hex strips easily), and the heat-set
-# install added two soldering-iron steps per shell that the dowel
-# approach eliminates.
-#
-# Pocket dimensions: Ø 4.05 × 6 mm deep. With the current Ø 3.9
-# boss this gives a 0.15 mm diametric CAD gap; FDM tolerances close
-# some of that. The shell pocket geometry has not changed since the
-# original Ø 4.0 boss spec — only the plate boss diameter was
-# reduced (from Ø 4.0 to Ø 3.9 on 2026-05-22) after the original
-# spec snapped a boss on first insertion. 6 mm depth = 5 mm boss + 1
-# mm clearance above the boss tip for FDM bottom-layer flatness
-# variance.
-#
-# Pocket location: θ = ±45° about the body center, r = 20 mm — the
-# shell's "rear shoulder" wall material (between body bore and shell
-# outer cylinder, well clear of the pill slot). All four wall margins
-# hold ≥ 2 mm; pockets live entirely in zone 1 outer (Z < 16.25), with
-# ~7 mm of solid material above the pocket ceiling.
-
-dowel_pocket_diameter = 4.05  # 0.05 mm diametric clearance over the Ø 4.0 plate boss; FDM tolerances close it into a press fit
-dowel_pocket_depth = 6.0      # 5 mm boss + 1 mm clearance above tip
-dowel_r_from_body = 20.0      # mm from body center to dowel center
-dowel_theta_deg = 45.0        # angle from +X about body center
-dowel_x = dowel_r_from_body * math.cos(math.radians(dowel_theta_deg))  # ≈ 14.142
-dowel_y_offset = dowel_r_from_body * math.sin(math.radians(dowel_theta_deg))  # ≈ 14.142
+# No plate-to-shell retention or alignment features on this shell.
+# Earlier revisions tried screw+heat-set insert pockets (commit
+# 4677b88), then press-fit dowel pockets (e5aa8a1), then loose dowel
+# pockets (e4568dba). The plate-side bosses snapped at their base in
+# every variant — vertically-extruded bosses are weak in shear at
+# the layer-line interface where they join the plate's top face.
+# Gave up on the dowel approach entirely on 2026-05-22 and removed
+# all associated geometry from both the plate and this shell.
+# Retention is now gravity-only during sub-assembly handling;
+# shank-nut clamping (body → plate → TPU gasket → countertop) takes
+# over once the under-counter install finishes. See ASSEMBLY.md for
+# the full joinery history.
 
 
 # GEOMETRY BUILDERS
@@ -688,28 +664,6 @@ def build_zone1_inner_cut() -> cq.Workplane:
     body_bore = body_bore_cyl(zone1_z_bottom, zone2_bore_bottom - zone1_z_bottom)
     pill = _flavor_pill_flat_x_minus(zone1_z_bottom, zone1_height)
     return body_bore.union(pill)
-
-
-def build_dowel_pockets() -> cq.Workplane:
-    """Two press-fit dowel pockets in the shell's bottom face.
-
-    Each pocket is a Ø dowel_pocket_diameter cylinder extruded UP from
-    Z=0 by dowel_pocket_depth, positioned at (dowel_x, ±dowel_y_offset)
-    — the rear-shoulder zones at θ=±45°, r=20 from the body center.
-    Lives entirely within zone 1 outer (which extends to Z =
-    zone1_outer_top = 16.25), with ~7 mm of solid material above the
-    pocket ceiling at the current 6 mm depth.
-
-    Returned as a single union for the caller to subtract from the
-    shell solid.
-    """
-    return (
-        cq.Workplane("XY")
-        .workplane(offset=zone1_z_bottom)
-        .pushPoints([(dowel_x, +dowel_y_offset), (dowel_x, -dowel_y_offset)])
-        .circle(dowel_pocket_diameter / 2.0)
-        .extrude(dowel_pocket_depth)
-    )
 
 
 def _rect_cove_cyl(
@@ -1424,7 +1378,6 @@ def build_shell() -> cq.Workplane:
         .union(_tube_shell_inner_section(zone5_z_bottom, zone5_height))
         .union(build_zone6_inner_cut())
         .union(build_lever_clearance())
-        .union(build_dowel_pockets())
     )
     return outer.cut(inner)
 

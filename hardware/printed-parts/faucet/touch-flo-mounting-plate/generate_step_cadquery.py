@@ -33,24 +33,14 @@ HOLES
    (rounded-rectangle) slot for cleaner printability:
      - Length (Y, end-to-end): 13.2 mm
      - Width (X):              6.85 mm
-3. Dowel-pin bosses (×2, mirrored across Y=0) — Ø 3.9 mm solid
-   cylindrical bosses extruded UP 5 mm from the plate's TOP face,
-   with a 0.5 mm × 45° chamfer at the tip. Located at θ = ±45°
-   about the body center, r = 20 from body center (world
-   (14.142, ±14.142)) — same XY as the matching Ø 4.05 × 6 mm
-   pockets in the shell's bottom face. Currently 0.15 mm diametric
-   CAD gap (boss Ø 3.9 vs pocket Ø 4.05); FDM tolerances will
-   close some of that. The originally-targeted Ø 4.0 boss
-   (0.05 mm CAD gap) snapped a boss off on the first insertion
-   attempt because the actual interference after FDM tolerances was
-   too high — bosses on this print of the plate are being
-   re-tried at Ø 3.9 as a low-force *placeholder/alignment* fit
-   rather than a retention press fit. Retention falls to the
-   harvested faucet body's shank nut, which compresses the whole
-   stack (body → plate → TPU gasket → countertop) once the
-   under-counter install finishes. The dowels' only remaining job
-   is to keep the plate's pill slot aligned with the shell's pill
-   slot during body-into-shell installation.
+No plate-to-shell retention or alignment features. The plate is a
+clean disc with only the shank hole + pill slot through it; the
+shell's bottom face is similarly clean. Earlier revisions tried
+screws+heat-set retention and then printed-boss press-fit
+alignment; both were abandoned (see the joinery history in
+ASSEMBLY.md). The plate is held to the shell by gravity during
+sub-assembly handling and by the shank-nut clamp (body → plate →
+TPU gasket → countertop) once the under-counter install finishes.
 
 REGENERATE
 ==========
@@ -100,55 +90,19 @@ pill_slot_length_y = 2 * flavor_tube_y_offset + flavor_tube_hole_diameter
 pill_slot_width_x = flavor_tube_hole_diameter
 
 
-# Press-fit dowel bosses — two solid cylindrical pins extruded UP
-# from the plate's top face into matching pockets on the shell's
-# bottom face. Mirrored across Y=0; placed in the shell's "rear
-# shoulder" wall material between the body bore and the shell outer
-# cylinder, well clear of the pill slot.
-#
-# Replaces the earlier screw + heat-set insert retention (last seen
-# in commit 4677b88, M3 × 6 mm ULH SHCS McMaster 91223A412 +
-# ruthex M3 short Amazon B09ZHSGHXD). The screws were expensive
-# ($4-6 each, McMaster-only), fiddly (Ø 5.5 × 1.0 head, 2 mm hex
-# strips easily under the torque needed to seat in PET-CF), and
-# always retention-only — the structural clamping came from the
-# shank nut below the under-counter plate. Press-fit dowels do the
-# same retention with zero fasteners and zero hardware cost.
-#
-# Boss / pocket spec — boss Ø 3.9 × 5 mm tall + 0.5 mm × 45° tip
-# chamfer; matching shell pocket unchanged at Ø 4.05 × 6 mm deep.
-# 0.15 mm diametric CAD gap (boss undersize relative to pocket); FDM
-# tolerances close some of that but the intent here is a low-force
-# alignment placeholder, not a retention press fit.
-#
-# Originally Ø 4.0 boss / Ø 4.05 pocket (0.05 mm CAD gap, expected to
-# close to a real press fit). First print snapped a boss off during
-# the very first insertion attempt — actual FDM interference was too
-# high (boss prints oversize, pocket prints undersize, the 0.05 mm
-# CAD gap closed to an interference much higher than intended).
-# Dropped the boss diameter to Ø 3.9 to test whether the pins are
-# still useful as alignment placeholders with light insertion force,
-# accepting that retention now comes entirely from the shank nut
-# clamping the body→plate→gasket→countertop stack (the dowels'
-# remaining job is to hold the plate's pill slot rotationally aligned
-# with the shell's pill slot during body-into-shell installation).
-
-dowel_pin_radius = 3.9 / 2       # Ø 3.9 mm bosses (was Ø 4.0; reduced after first-print boss snap-off, now an alignment placeholder against the unchanged Ø 4.05 shell pocket)
-dowel_pin_height = 5.0           # 5 mm tall above plate top face
-dowel_pin_tip_chamfer = 0.5      # 0.5 mm × 45° chamfer at the boss tip for self-alignment
-
-# Dowel positions: θ = ±45° about the body center (0, 0), r = 20 mm —
-# the shell's "rear shoulder" wall material. At this point all four
-# wall margins to other shell features hold ≥ 2 mm:
-#   - to body bore (Ø 31.5 cyl @ origin):       2.25 mm
-#   - to shell outer (Ø 44.35 cyl @ +X 3.175):  2.28 mm
-#   - to pill slot (Y top edge at +6.6):        5.54 mm
-#   - between the two bosses (Y separation):    24.28 mm
-dowel_r_from_body = 20.0
-dowel_theta_deg = 45.0
-dowel_x = dowel_r_from_body * math.cos(math.radians(dowel_theta_deg))
-dowel_y_offset = dowel_r_from_body * math.sin(math.radians(dowel_theta_deg))
-dowel_centers = [(dowel_x, +dowel_y_offset), (dowel_x, -dowel_y_offset)]
+# No plate-to-shell retention or alignment features on this plate.
+# Earlier revisions tried screws+heat-set inserts (4677b88), then
+# integral-boss press-fit dowels (e5aa8a1), then loose dowels as an
+# alignment placeholder (e4568dba). The press-fit bosses snapped at
+# the layer-line interface where they joined the plate top face
+# (vertically-extruded bosses are weak in shear at their base in FDM
+# prints — any sideways force during insertion separates the layers).
+# Loose dowels still snapped under any insertion force. Gave up on
+# the dowel approach entirely on 2026-05-22. Retention is now
+# gravity-only during sub-assembly handling; shank-nut clamping
+# (body → plate → TPU gasket → countertop) takes over once the
+# under-counter install finishes. See ASSEMBLY.md for the full
+# joinery history.
 
 
 # Fillet on the top outer edge — softens the visible ring around the
@@ -184,29 +138,19 @@ def vertical_y_slot(center, length_y, width_x, z_range):
 
 
 def build_mounting_plate() -> cq.Workplane:
-    """Build the disc with shank hole, flavor-tube pill slot, dowel-pin
-    bosses, and top-outer-edge fillet.
+    """Build the disc with shank hole, flavor-tube pill slot, and
+    top-outer-edge fillet. No bosses, no holes for retention — see
+    the comment block above for the joinery-history reasoning.
 
     The top-outer fillet is applied BEFORE any holes are cut, so the
     outer circle is the only top-face edge at that moment and no
     selector trickery is needed. Through-cuts use the full plate Z
-    range; the dowel bosses are extruded UP from the plate top, with
-    a 45° chamfer on the top edge for self-alignment into the
-    matching shell pocket."""
+    range."""
     plate = vertical_cylinder(plate_center, plate_radius, plate_z_range)
     plate = plate.faces(">Z").edges().fillet(top_outer_fillet_r)
 
     plate = plate.cut(vertical_cylinder(shank_hole_center, shank_hole_radius, plate_z_range))
     plate = plate.cut(vertical_y_slot(pill_slot_center, pill_slot_length_y, pill_slot_width_x, plate_z_range))
-
-    boss_z_range = (plate_z_range[1], plate_z_range[1] + dowel_pin_height)
-    for dowel_center in dowel_centers:
-        boss = vertical_cylinder(dowel_center, dowel_pin_radius, boss_z_range)
-        # Chamfer the top edge of this boss (lead-in for self-alignment
-        # into the shell pocket). Select the boss's top edge by
-        # picking the topmost edge — at this Z it's the only one.
-        boss = boss.faces(">Z").edges().chamfer(dowel_pin_tip_chamfer)
-        plate = plate.union(boss)
 
     return plate
 
@@ -224,9 +168,5 @@ if __name__ == "__main__":
     print(f"  Shank hole:     Ø{2 * shank_hole_radius} mm at {shank_hole_center}")
     print(f"  Flavor pill:    {pill_slot_length_y} × {pill_slot_width_x} mm "
           f"at {pill_slot_center}, Y-oriented")
-    print(f"  Dowel bosses:   Ø{2 * dowel_pin_radius} × {dowel_pin_height} mm tall "
-          f"(top {dowel_pin_tip_chamfer} mm × 45° chamfer) at "
-          f"({dowel_x:.3f}, ±{dowel_y_offset:.3f}) "
-          f"[θ=±{dowel_theta_deg}°, r={dowel_r_from_body} from body]")
     print(f"  Top outer R:    {top_outer_fillet_r} mm fillet")
     print(f"-> {out.name}")
