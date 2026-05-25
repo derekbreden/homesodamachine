@@ -187,64 +187,11 @@ gasket. Any future retention scheme considered for this joint must
 re-read this constraint before adding anything that breaks the
 plate-bottom flatness.
 
-**Joinery history.** v1 used 2× ruthex M3 short heat-set inserts in
-the shell + 2× ULH M3 × 6 mm SHCS (McMaster 91223A412) coming up
-from below through plate counterbores. The ULH (vs standard SHCS)
-choice was driven by the same gasket-flatness constraint above: a
-standard SHCS head (3 mm tall) protruding from a 1.25 mm counterbore
-would have stuck 1.75 mm proud of the plate's bottom face and
-dished the gasket; the ULH head (1 mm tall) sat 0.25 mm *sub-flush*
-in that same counterbore so the gasket saw a near-flat surface. The
-screw design worked, but: (a) the $4-6/each McMaster-only screws
-were hard to source and the 2 mm hex stripped easily; (b) the
-heat-set step added soldering-iron time to every shell; (c) the
-joint was always retention-only — no structural load — so an
-integral-boss approach does the same job with zero fasteners *and*
-leaves the plate bottom face fully smooth (no counterbore dimple,
-no sub-flush head — gasket-better than the screw design ever was).
-Switched on 2026-05-22 (commit `e5aa8a1`).
-
-**v2 → v3 (press fit → loose alignment).** v2 spec'd a Ø 4.0 boss
-into the Ø 4.05 pocket (0.05 mm CAD gap), expecting FDM tolerances
-to close that into a real press fit on this printer/filament. On
-the very first insertion attempt, the actual interference was high
-enough that a boss snapped off the plate before the assembly fully
-seated. Boss diameter dropped to Ø 3.9 (0.15 mm CAD gap) the same
-day to test whether the pins remain useful as a low-force
-alignment placeholder.
-
-**v3 → v4 (dowels abandoned entirely).** Same-day test print of
-the Ø 3.9 plate against the existing shell: bosses still snapped
-under any insertion force. Root cause is **layer-line orientation**
-— vertically-extruded bosses on an FDM-printed plate have layer
-lines running perpendicular to the boss axis, so the boss-to-plate
-junction is a single layer-line interface loaded in shear during
-insertion. No diameter that works as either a press fit OR an
-alignment placeholder will hold up against insertion force in this
-print orientation. Options that *might* have rescued the dowel
-approach (printing the plate on its side so layer lines run along
-the boss axis; adding a fillet at the boss base; using metal dowel
-pins press-fit into smaller printed pockets) were not pursued —
-they each introduce new complexity (print-orientation constraints,
-support material, extra hardware) for a feature that's *only* doing
-sub-assembly retention, which the shank-nut clamp at install time
-makes unnecessary anyway. Dowels removed from both plate and shell
-on 2026-05-22 (commit pending). Plate-to-shell joint is now
-gravity-only during sub-assembly handling; the shank nut takes over
-at install. If sub-assembly handling proves to need *some* form of
-retention (e.g. for transport), the practical answer is likely a
-piece of masking tape across the joint, not another design
-revision.
-
-The body-to-plate joint is what does all the real work: the factory
-shank nut clamps the body's [31.5 mm](BODY_OD) OD bottom face down onto the
-plate's top face through the plate's Ø 12.6 shank hole. The shell
-then sits over the body+plate stack, with the body inside the
-shell's body bore providing lateral and rotational constraint
-(rectangular zone-2 cross-section + lever orientation). The shell
-isn't anchored to the plate at all — at install time, the
-shank-nut clamp on the body+plate side plus gravity on the shell
-side is the entire mechanism that holds the assembly together.
+The factory shank nut clamps the body's [31.5 mm](BODY_OD) OD bottom
+face onto the plate's top face through the plate's Ø 12.6 shank hole.
+The shell sits over the body+plate stack; the body inside the shell's
+bore provides lateral and rotational constraint (rectangular zone-2
+cross-section + lever orientation).
 
 ## Pre-flight check
 
