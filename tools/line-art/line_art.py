@@ -8,43 +8,31 @@ Coordinate convention (right-handed):
 - +x is to the right (width)
 - +y is to the back (depth)
 - +z is up (height)
-- Viewer is at +x, -y, +z (front-right-above), looking at origin. Visible
-  faces: front (y=0), right side (x=W), top (z=H).
 
-Canonical isometric projection to SVG (Y grows downward):
-- X_svg = -(x + y) * cos(30°)
-- Y_svg =  (x - y) * sin(30°) - z
+Two canonical iso views, selected by Scene(view=...):
 
-Layout in image: top face at top, front face in the right half, right side
-face in the left half. The shared corner of all three visible faces is
-(W, 0, H), which sits at the center of the image (the corner closest to
-the viewer).
+- 'front' (default): viewer at +x, -y, +z. Visible faces: front (y=0),
+  right side (x=W), top (z=H). Layout: front face in the right half of
+  the image, right side in the left half, top at the top.
+
+- 'back': viewer at -x, +y, +z. Visible faces: back (y=D), left side
+  (x=0), top (z=H). Layout: back face in the right half of the image,
+  left side in the left half, top at the top.
 
 Public API:
 
-    Scene() — collects boxes, renders to SVG
+    Scene(view='front'|'back') — collects boxes, renders to SVG
     Box(W, D, H) — an axis-aligned rectangular box with named faces
     box.front / .back / .top / .bottom / .left_side / .right_side — faces
     face.add_circle(at=(a, b), d=...) — circle in face-local 2D coords
     face.add_rectangle(at=(a, b), w=..., h=...) — rectangle, centered at `at`
 
 Face-local 2D coords (a, b) mean horizontal-from-left and vertical-from-bottom
-as you look directly at the face. So on `box.front`, (a, b) = (x, z) in 3D.
-On `box.top`, (a, b) = (x, y). On `box.right_side`, (a, b) = (y, z).
-
-Usage:
-
-    from line_art import Scene, Box
-
-    scene = Scene()
-    box = scene.add(Box(W=269, D=280, H=280))
-    box.front.add_circle(at=(80, 220), d=25)
-    box.front.add_rectangle(at=(135, 150), w=30, h=8)
-    scene.render('output.svg')
+as you look directly at the face.
 """
 
 import math
-from typing import List, Tuple
+from typing import Callable, List, Tuple
 
 
 # ---------------------------------------------------------------------------
@@ -56,17 +44,40 @@ COS30 = math.cos(ISO_ANGLE)
 SIN30 = math.sin(ISO_ANGLE)
 
 
-def project(x: float, y: float, z: float) -> Tuple[float, float]:
-    """Project a 3D point to 2D SVG coords.
+def project_front(x: float, y: float, z: float) -> Tuple[float, float]:
+    """Projection for the 'front' view (viewer at +x, -y, +z).
 
-    Camera at (+x, -y, +z), looking at origin. Canonical isometric layout:
-    top face at top of image, front face (y=0) in the right half, right
-    side face (x=W) in the left half. The closest-to-camera corner
-    (W, 0, H) projects to the center of the image.
+    Front face (y=0) ends up in the right half of the image, right side
+    (x=W) in the left half, top (z=H) at the top. Closest-to-camera corner
+    is (W, 0, H), which projects to the image center.
     """
     X = -(x + y) * COS30
     Y = (x - y) * SIN30 - z
     return X, Y
+
+
+def project_back(x: float, y: float, z: float) -> Tuple[float, float]:
+    """Projection for the 'back' view (viewer at -x, +y, +z).
+
+    Back face (y=D) ends up in the right half of the image, left side
+    (x=0) in the left half, top (z=H) at the top. Closest-to-camera corner
+    is (0, D, H), which projects to the image center.
+    """
+    X = (x + y) * COS30
+    Y = (y - x) * SIN30 - z
+    return X, Y
+
+
+_PROJECTIONS = {
+    "front": project_front,
+    "back": project_back,
+}
+
+
+def project(x: float, y: float, z: float) -> Tuple[float, float]:
+    """Default projection — kept for backward compatibility. Equivalent to
+    project_front(x, y, z)."""
+    return project_front(x, y, z)
 
 
 # ---------------------------------------------------------------------------
@@ -179,7 +190,7 @@ class _FaceCircle:
         self.d = d
         self.label = label
 
-    def svg(self) -> str:
+    def svg(self, proj: Callable) -> str:
         r = self.d / 2
         cx_3d = self.face._local_to_3d(self.at)
         u_3d, v_3d = self.face._basis_3d()
@@ -193,7 +204,7 @@ class _FaceCircle:
                 cx_3d[1] + r * (c * u_3d[1] + s * v_3d[1]),
                 cx_3d[2] + r * (c * u_3d[2] + s * v_3d[2]),
             )
-            points.append(project(*p_3d))
+            points.append(proj(*p_3d))
         return _svg_polygon(points)
 
 
@@ -215,7 +226,7 @@ class _FaceRectangle:
         self.h = h
         self.label = label
 
-    def svg(self) -> str:
+    def svg(self, proj: Callable) -> str:
         cx, cy = self.at
         corners_2d = [
             (cx - self.w / 2, cy - self.h / 2),
@@ -224,7 +235,7 @@ class _FaceRectangle:
             (cx - self.w / 2, cy + self.h / 2),
         ]
         corners_3d = [self.face._local_to_3d(p) for p in corners_2d]
-        return _svg_polygon([project(*p) for p in corners_3d])
+        return _svg_polygon([proj(*p) for p in corners_3d])
 
 
 # ---------------------------------------------------------------------------
@@ -258,32 +269,49 @@ class Box:
             self.left_side,
         ]
 
-    def visible_edges(self):
-        """The 9 unique edges visible from the isometric viewer (+x, -y, +z).
+    def visible_edges(self, view: str = "front"):
+        """The 9 unique edges visible from the given isometric view.
 
-        Front face contributes 4. The top face's back edge and left edge are
-        new (its front edge is shared with the top of the front face, its
-        right edge is shared with the top of the right side). The right side
-        contributes its bottom and back-vertical edges as new. The right-edge
-        of the top is the shared boundary between top and right side and is
-        drawn once.
+        For 'front' (viewer at +x, -y, +z): edges of front (y=0), top (z=H),
+        and right side (x=W).
+        For 'back' (viewer at -x, +y, +z): edges of back (y=D), top (z=H),
+        and left side (x=0).
         """
         W, D, H = self.W, self.D, self.H
-        return [
-            # Front face
-            ((0, 0, 0), (W, 0, 0)),         # front bottom
-            ((W, 0, 0), (W, 0, H)),         # front right vertical
-            ((W, 0, H), (0, 0, H)),         # front top
-            ((0, 0, H), (0, 0, 0)),         # front left vertical
-            # Top face (back and left edges; front and right are shared)
-            ((W, D, H), (0, D, H)),         # back top
-            ((0, 0, H), (0, D, H)),         # top left (along y)
-            # Right side (bottom and back-vertical; top is shared, front is shared)
-            ((W, 0, 0), (W, D, 0)),         # right side bottom (along y)
-            ((W, D, 0), (W, D, H)),         # back right vertical
-            # Shared top-right edge (boundary between top and right side)
-            ((W, 0, H), (W, D, H)),
-        ]
+        if view == "front":
+            return [
+                # Front face
+                ((0, 0, 0), (W, 0, 0)),         # front bottom
+                ((W, 0, 0), (W, 0, H)),         # front right vertical
+                ((W, 0, H), (0, 0, H)),         # front top
+                ((0, 0, H), (0, 0, 0)),         # front left vertical
+                # Top face (back and left edges; front and right are shared)
+                ((W, D, H), (0, D, H)),         # back top
+                ((0, 0, H), (0, D, H)),         # top left (along y)
+                # Right side (bottom and back-vertical; top is shared, front is shared)
+                ((W, 0, 0), (W, D, 0)),         # right side bottom (along y)
+                ((W, D, 0), (W, D, H)),         # back right vertical
+                # Shared top-right edge (boundary between top and right side)
+                ((W, 0, H), (W, D, H)),
+            ]
+        if view == "back":
+            return [
+                # Back face
+                ((0, D, 0), (W, D, 0)),         # back bottom (along x)
+                ((W, D, 0), (W, D, H)),         # back right vertical
+                ((W, D, H), (0, D, H)),         # back top
+                ((0, D, H), (0, D, 0)),         # back left vertical
+                # Left side (bottom and front-vertical; top is shared, back is shared)
+                ((0, 0, 0), (0, D, 0)),         # left bottom (along y)
+                ((0, 0, 0), (0, 0, H)),         # left front vertical
+                # Top face (front and right edges; back is shared with back face,
+                # left is shared with left side)
+                ((0, 0, H), (W, 0, H)),         # top front (along x)
+                ((W, 0, H), (W, D, H)),         # top right (along y)
+                # Shared top-left edge (boundary between top and left side)
+                ((0, 0, H), (0, D, H)),
+            ]
+        raise ValueError(f"Unknown view: {view!r}. Options: {list(_PROJECTIONS.keys())}")
 
 
 # ---------------------------------------------------------------------------
@@ -294,7 +322,12 @@ class Box:
 class Scene:
     """Top-level container. Holds boxes, renders to SVG."""
 
-    def __init__(self, padding: float = 30):
+    def __init__(self, view: str = "front", padding: float = 30):
+        if view not in _PROJECTIONS:
+            raise ValueError(
+                f"Unknown view: {view!r}. Options: {list(_PROJECTIONS.keys())}"
+            )
+        self.view = view
         self.items: List[Box] = []
         self.padding = padding
 
@@ -303,27 +336,28 @@ class Scene:
         return item
 
     def render(self, path: str) -> None:
+        proj = _PROJECTIONS[self.view]
         elements: List[str] = []
 
         # Box outlines first (so feature shapes sit on top of them)
         for item in self.items:
-            for edge in item.visible_edges():
-                p1 = project(*edge[0])
-                p2 = project(*edge[1])
+            for edge in item.visible_edges(self.view):
+                p1 = proj(*edge[0])
+                p2 = proj(*edge[1])
                 elements.append(_svg_line(p1, p2))
 
         # Feature shapes
         for item in self.items:
             for face in item.all_faces():
                 for feature in face.features:
-                    elements.append(feature.svg())
+                    elements.append(feature.svg(proj))
 
         # Compute viewbox from projected edge endpoints
         pts: List[Tuple[float, float]] = []
         for item in self.items:
-            for edge in item.visible_edges():
-                pts.append(project(*edge[0]))
-                pts.append(project(*edge[1]))
+            for edge in item.visible_edges(self.view):
+                pts.append(proj(*edge[0]))
+                pts.append(proj(*edge[1]))
         xs = [p[0] for p in pts]
         ys = [p[1] for p in pts]
         x_min = min(xs) - self.padding

@@ -1,12 +1,14 @@
 """
-Isometric line-art view of the home-soda-machine enclosure.
+Isometric line-art view of the home-soda-machine enclosure — FRONT.
 
 Canonical iso layout: top of enclosure at top of image, front face (y=0) at
 lower-right, right side face (x=W) at lower-left.
 
+Companion drawing: enclosure-iso-back.py (back face + left side + top).
+
 Run from the repo root:
 
-    tools/cad-venv/bin/python hardware/printed-parts/enclosure/drawings/enclosure-iso.py
+    tools/cad-venv/bin/python hardware/printed-parts/enclosure/drawings/enclosure-iso-front.py
 
 Source for the feature inventory:
 hardware/printed-parts/enclosure/README.md
@@ -112,7 +114,7 @@ def main() -> None:
         label="hopper lid",
     )
 
-    output_path = _HERE / "enclosure-iso.svg"
+    output_path = _HERE / "enclosure-iso-front.svg"
     scene.render(str(output_path))
     print(f"Wrote {output_path}")
 
