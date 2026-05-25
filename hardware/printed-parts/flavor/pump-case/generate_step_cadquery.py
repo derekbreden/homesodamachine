@@ -88,37 +88,20 @@ pogo_ridge_width = 10.0
 pogo_ridge_depth = 0.7  # thin outer wall so pogo pins protrude further
 
 
-# As-installed outer envelope
-# ---------------------------
-# The bbox of the case as a black-box-to-the-user assembly — the envelope
-# the appliance's pump-cartridge door cutout has to clear, not the bbox
-# of the bare base/cap STEP files. Accounts for the snaps that hold the
-# case together, the tubes protruding from the press-in face, and the
-# pogo connector between those tubes.
-#
-# The case rotates 90° between script orientation (tower along +Y) and
-# install orientation (tower lies horizontal, becomes the long axis).
-# The press-in face is the script's +Z face (where the pogo ridge
-# already lives); tubes protrude in the script's +Z direction, which
-# becomes install-vertical (the customer's insertion direction).
-#
-# Axis remap:  script Y → install long horizontal (case_outer_z)
-#              script X → install short horizontal (case_outer_x)
-#              script Z → install vertical / insertion (case_outer_y)
+# Outer envelope of the assembled case — accounts for snaps, tubes, and
+# the pogo that aren't captured in the bare base/cap STEP bboxes above.
 
-# Physical additions not captured in the modeled geometry above. Order
-# of magnitude only; refine with measurements once they're settled.
-snap_protrusion_per_side = 2.5    # snaps / door-slot clearance on the install-short faces
-tube_protrusion_length   = 11.3   # silicone tubes off the press-in face (script +Z)
+snap_protrusion_per_side = 2.5    # snap protrusion past the footprint per side
+tube_protrusion_length   = 11.3   # how far the silicone tubes extend past the case body
 
-# [75.0 mm](CASE_OUTER_X) install short horizontal — two cases sit side-by-side along this axis
+# [75.0 mm](CASE_OUTER_X) is the full width of the assembled case
 case_outer_x = footprint_x + 2 * snap_protrusion_per_side
 
-# [88.0 mm](CASE_OUTER_Y) install vertical — insertion direction
+# [88.0 mm](CASE_OUTER_Y) is the full depth of the assembled case, with the protruding tubes included
 case_outer_y = (footprint_z + 2 * skirt_wide_flare_per_side
                 + pogo_ridge_depth + tube_protrusion_length)
 
-# [135.5 mm](CASE_OUTER_Z) install long horizontal — script's full Y extent
+# [135.5 mm](CASE_OUTER_Z) is the full height of the assembled case
 case_outer_z = (base_thickness + ramp_from_skirt_to_octagon_height + tower_height
                 + skirt_upper_height + skirt_wide_flare_per_side
                 + skirt_wide_straight_height + lower_height + lower_cap_thickness)
