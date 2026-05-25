@@ -67,8 +67,10 @@ FRONT_MARGIN = 10.0
 SIDE_MARGIN = 10.0
 DOOR_GAP = 10.0
 
-# [103.5 mm](HOPPER_DOOR_W) — APPLIANCE_W − SIDE_MARGIN − pump_door_w − DOOR_GAP.
-hopper_door_w = APPLIANCE_W - SIDE_MARGIN - pump_door_w - DOOR_GAP
+# [93.5 mm](HOPPER_DOOR_W) — APPLIANCE_W − 2 × SIDE_MARGIN − pump_door_w − DOOR_GAP
+# (the second SIDE_MARGIN leaves a matching gap on the right side of the
+# hopper to mirror the left-side gap of the pump door).
+hopper_door_w = APPLIANCE_W - 2 * SIDE_MARGIN - pump_door_w - DOOR_GAP
 
 # [165.0 mm](HOPPER_DOOR_D) — matches pump door depth for visual alignment.
 hopper_door_d = pump_door_d
@@ -99,9 +101,10 @@ def main() -> None:
         label="pump cartridge access door",
     )
 
-    # Top face: hopper lid (right), [103.5 mm](HOPPER_DOOR_W) ×
-    # [165.0 mm](HOPPER_DOOR_D), flush against the right edge.
-    hopper_door_a = APPLIANCE_W - hopper_door_w / 2
+    # Top face: hopper lid (right), [93.5 mm](HOPPER_DOOR_W) ×
+    # [165.0 mm](HOPPER_DOOR_D), with a SIDE_MARGIN to the right edge that
+    # mirrors the left-side gap of the pump door.
+    hopper_door_a = APPLIANCE_W - SIDE_MARGIN - hopper_door_w / 2
     hopper_door_b = FRONT_MARGIN + hopper_door_d / 2
     appliance.top.add_rectangle(
         at=(hopper_door_a, hopper_door_b),
