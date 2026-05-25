@@ -39,10 +39,9 @@ Everything else fits into the voids those three create.
 
 ## What is on the front face
 
-- RP2040 (round display) — detachable, with a ~1 m cord that pays out behind the panel as the customer pulls the display out, so they can hold the display or place it nearby.
-- ESP32-S3 (config / BLE display).
-- CO2 inlet — possibly migrated to the furthest-forward edge of a side face. Disconnection-under-pressure cable-whip and asphyxiation risk make this the most physically dangerous connection.
+- ESP32-S3 rotary display — detachable, with a ~1 m cord that pays out behind the panel as the customer pulls the display out. Default state shows the selected flavor; the rotary mechanism toggles between flavors; a subtle three-dot affordance reaches advanced settings. Typical detached placement is the cabinet's false-drawer-front exterior above the cabinet door (the empty flat panel just below the counter where a drawer would normally go) — anywhere the cord reaches works.
 - Front-dispense spout (the drill-trigger moment).
+- CO2 inlet — possibly migrated to the furthest-forward edge of a side face. Disconnection-under-pressure cable-whip and asphyxiation risk make this the most physically dangerous connection.
 
 Explicitly NOT on the front face:
 
@@ -50,7 +49,7 @@ Explicitly NOT on the front face:
 - Pump cartridge (anywhere there's room when we're done — could end up front, could end up elsewhere, but not committed to the front face).
 - Anything else that doesn't need customer attention right now.
 
-The front face is large surface area for ~3–4 intentional features. The intent is that opening the cabinet door and looking at the front of the appliance shows you only the things you'd actually need to look at — everything else lives elsewhere because you don't need to think about it right now.
+The front face is large surface area for three intentional features. The intent is that opening the cabinet door and looking at the front of the appliance shows you only the things you'd actually need to look at — everything else lives elsewhere because you don't need to think about it right now.
 
 ## Sub-folders
 

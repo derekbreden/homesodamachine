@@ -6,15 +6,15 @@ This bench runs in parallel with the main appliance chain. Its inputs are upstre
 
 ## Scope
 
-In: one shell + plate + Touch-Flo body sub-assembly (output of [`../printed-parts/faucet/touch-flo-shell/ASSEMBLY.md`](../printed-parts/faucet/touch-flo-shell/ASSEMBLY.md)) — the printed PET-CF gooseneck on the shell *is* the dispense head; the TPU mounting gasket — slid onto the shank during this bench, sits permanently between the printed mounting plate's underside and where the countertop top surface will be at install; one SendCutSend 0.060" SS under-counter keyhole plate (ships loose in the install bag — slides onto the umbilical at install through its open-edge channels); 3× 1/4" OD LLDPE tubes cut to length (1× blue carbonated-water + 2× black flavor); one Siptenk 1/4" OD brass tube stiffener for the carbonated-water tube end that lands in the Westbrass body's upstream compression port; CARGEN nitrile foam pipe-insulation segments; cable sleeve; the KRAUS air switch; one signal cable carrying SIG-4 (DIGITEN flow meter) and SIG-5 (KRAUS air-switch contacts) through a single countertop pass.
+In: one shell + plate + Touch-Flo body sub-assembly (output of [`../printed-parts/faucet/touch-flo-shell/ASSEMBLY.md`](../printed-parts/faucet/touch-flo-shell/ASSEMBLY.md)) — the printed PET-CF gooseneck on the shell *is* the dispense head; the TPU mounting gasket — slid onto the shank during this bench, sits permanently between the printed mounting plate's underside and where the countertop top surface will be at install; one SendCutSend 0.060" SS under-counter keyhole plate (ships loose in the install bag — slides onto the umbilical at install through its open-edge channels); 3× 1/4" OD LLDPE tubes cut to length (1× blue carbonated-water + 2× black flavor); one Siptenk 1/4" OD brass tube stiffener for the carbonated-water tube end that lands in the Westbrass body's upstream compression port; CARGEN nitrile foam pipe-insulation segments; cable sleeve; one signal cable carrying SIG-4 (DIGITEN flow meter) through the countertop.
 
-Out: a complete above-counter fixture stack permanently attached to its umbilical — Westbrass body clamped into the touch-flo-shell with the carbonated-water LLDPE tube push-connected at the body's upstream compression port; two flavor LLDPE tubes routed through the shell's pill slot up into the printed gooseneck's dispense channel and terminating at the printed tip; KRAUS air switch tail emerging from the body; three sleeved tubes terminated bare and push-to-connect-ready at the rear-panel end; foam insulation only on the cold (carbonated-water) tube; signal cable + tube bundle co-sleeved through the countertop. Bagged together with the install kit (one SS under-counter keyhole plate, factory shank nut + washer, Mudder tube cutter — the TPU gasket is already on the shank from this bench and is not in the install kit), drop-shipped inside the appliance carton.
+Out: a complete above-counter fixture stack permanently attached to its umbilical — Westbrass body clamped into the touch-flo-shell with the carbonated-water LLDPE tube push-connected at the body's upstream compression port; two flavor LLDPE tubes routed through the shell's pill slot up into the printed gooseneck's dispense channel and terminating at the printed tip; three sleeved tubes terminated bare and push-to-connect-ready at the rear-panel end; foam insulation only on the cold (carbonated-water) tube; signal cable + tube bundle co-sleeved through the countertop. Bagged together with the install kit (one SS under-counter keyhole plate, factory shank nut + washer, Mudder tube cutter — the TPU gasket is already on the shank from this bench and is not in the install kit), drop-shipped inside the appliance carton.
 
 Not in scope: countertop drilling itself; the customer-side install steps — drop-through from above, slide the keyhole under-counter plate laterally onto the dangling umbilical from below, washer + nut tighten, push-into-PP1208E at the rear panel — covered on the printed quick-start sheet that ships with the appliance (design intent: [`../../marketing/unboxing-and-quickstart.md`](../../marketing/unboxing-and-quickstart.md)). Cat6 termination at the electronics shelf — that's `wiring.md`.
 
 ## Inputs per appliance
 
-Per-unit BOM lives in [`../bom.md`](../bom.md) §9 (Dispensing — faucet body, under-counter plate, foam insulation), §8 (Flavor subsystem — Siptenk stiffener for the carbonated-water tube end at the Westbrass upstream port), and §10 (UI — KRAUS air switch). The table below is the procedure-level summary; bom.md is the source of truth for per-unit allocation and cost.
+Per-unit BOM lives in [`../bom.md`](../bom.md) §9 (Dispensing — faucet body, under-counter plate, foam insulation) and §8 (Flavor subsystem — Siptenk stiffener for the carbonated-water tube end at the Westbrass upstream port). The table below is the procedure-level summary; bom.md is the source of truth for per-unit allocation and cost.
 
 The dispense head is the printed touch-flo-shell's gooseneck channel — no separate metal-tube dispense head exists. The three LLDPE tubes are the wet path end to end; the carbonated-water tube push-connects into the Westbrass body's upstream compression port (with a Siptenk stiffener so the LLDPE doesn't crush under the brass ferrule), and the two flavor LLDPE tubes route through the shell's pill slot up into the printed gooseneck's dispense channel and exit at the printed tip.
 
@@ -29,8 +29,7 @@ The dispense head is the printed touch-flo-shell's gooseneck channel — no sepa
 | 1/4" OD LLDPE, black (flavor lines) × 2 | FWS bulk spool ([`../bom.md`](../bom.md) §3) | Cut to length once each; bare black, matches the two unmarked PP1208E bulkheads on the rear panel |
 | CARGEN nitrile foam pipe insulation, 1/4" ID × 3/8" wall, 1-ft segments | B0D2XFK337 ([`../bom.md`](../bom.md) §9) | **Cold tube only.** Foam ships as 1-ft segments and is installed segment-at-a-time; no field foam-cutting. Segment count per umbilical TBD pending cabinet-routing-length spec |
 | Cable sleeve (braided polyester or spiral wrap) | TBD per [`../printed-parts/enclosure/back-panel/README.md`](../printed-parts/enclosure/back-panel/README.md) "Umbilical bundle construction" | Single sleeve over all three tubes + Cat6 from just above the under-counter plate down to ~3" above the rear-panel bulkheads |
-| KRAUS air switch, matte black | B096319GMV ([`../bom.md`](../bom.md) §10) | Above-counter flavor-select button; signal pair per [`../wiring/ac-wiring-schedule.md`](../wiring/ac-wiring-schedule.md) SIG-5 |
-| Umbilical signal cable | TBD spec | Single shared run from above-counter fixture stack to the electronics shelf, carrying SIG-4 (DIGITEN flow meter) and SIG-5 (KRAUS air-switch contacts). |
+| Umbilical signal cable | TBD spec | Single run from above-counter fixture stack to the electronics shelf, carrying SIG-4 (DIGITEN flow meter pulse + 5 V + GND). |
 
 Tooling (per-build-amortized only; single-asset tools live in [`../purchases.md`](../purchases.md), not here): Mudder PEX/PE tube cutter (also in the installer's install kit, [`../bom.md`](../bom.md) §14 — same cutter SKU lives in both places); the Hakko FX-888D station from the upstream sub-assembly step is not used at this bench.
 
@@ -67,20 +66,15 @@ Segment count for the standard build is **TBD pending cabinet-routing-length spe
 
 Bundle the three LLDPE tubes (one foamed blue + two bare black) into the natural triangular dense-pack arrangement — same pattern the rear-panel PP1208E cluster is laid out for, so the bundle's three tubes already align with the three bulkheads when the installer presents the bundle to the panel. The blue (foamed) tube sits at the top vertex of the triangle for orientation matching with the blue-ringed bulkhead at the top of the panel cluster.
 
-Run the umbilical signal cable alongside the three-tube triangle, sitting in the void between the three triangle-packed tubes and the sleeve's inner wall. It carries above-counter signals through one countertop pass:
-
-- **SIG-4 (DIGITEN flow meter)** — 3 conductors, pulse + 5 V + GND, per [`../wiring/ac-wiring-schedule.md`](../wiring/ac-wiring-schedule.md).
-- **SIG-5 (KRAUS air switch contacts)** — 2 conductors, switch + GND, per the same schedule.
-
-Five conductors total. Cable family selection (Cat6 oversize or thinner) is open — see Open items.
+Run the umbilical signal cable alongside the three-tube triangle, sitting in the void between the three triangle-packed tubes and the sleeve's inner wall. It carries the SIG-4 DIGITEN flow-meter signal (3 conductors: pulse + 5 V + GND) through the countertop, per [`../wiring/ac-wiring-schedule.md`](../wiring/ac-wiring-schedule.md). Cable family selection (Cat6 oversize or thinner) is open — see Open items.
 
 Slide the chosen sleeve (braided polyester or spiral wrap, TBD per the back-panel README) over the full length of the bundle. Sleeve runs from just above the under-counter plate (top end, where the bundle emerges out the bottom of the faucet body's pill slot) to ~3" above the rear-panel end (bottom end, where the installer trims to fit). Leaving the last 3" un-sleeved at the rear-panel end is so the installer can flex the three tubes apart by a few inches for the three-bulkhead push-connect — a hard-sleeved bundle would force the bulkheads to be perfectly tangent to the bundle's sleeved diameter.
 
-### 6. Route the KRAUS air switch
+### 6. (Reserved)
 
-Route the KRAUS air switch through the shell's pill slot alongside the two flavor tubes. The KRAUS lives entirely above the countertop in the user's normal sightline — it's the flavor-select button — and its signal pair terminates in the umbilical signal cable (SIG-5).
+Previously this step routed the KRAUS air switch through the shell's pill slot. Flavor selection now happens on the front-face ESP32-S3 rotary display; the KRAUS air switch is no longer in the design. Step numbering is preserved so cross-references from other docs do not need to re-index — continue at step 7.
 
-The above-counter fixture stack is now complete: shell, plate, body, three umbilical tubes, foam on the cold one, sleeve, and the KRAUS air switch wired to the umbilical signal cable.
+The above-counter fixture stack is now complete after step 5: shell, plate, body, three umbilical tubes, foam on the cold one, sleeve, and the SIG-4 signal cable inside the sleeve.
 
 ### 7. Bag the sub-assembly with installer kit
 
@@ -100,8 +94,8 @@ Bag, seal, label with build number and the part identifier `FAUCET-UMBILICAL-SUB
 
 A bagged sub-assembly that is:
 
-- One above-counter fixture stack with the three umbilical tubes installed and the KRAUS air switch routed
-- The umbilical is **permanently attached** to the faucet body — three LLDPE tubes (1× blue carbonated-water + 2× black flavor) connected at the body's compression ports, routed up through the upper mounting plate's pill slot, inside a single sleeve with foam insulation on the cold tube only, signal cable alongside the three tubes inside the same sleeve
+- One above-counter fixture stack with the three umbilical tubes installed
+- The umbilical is **permanently attached** to the faucet body — three LLDPE tubes (1× blue carbonated-water + 2× black flavor) connected at the body's compression ports, routed up through the upper mounting plate's pill slot, inside a single sleeve with foam insulation on the cold tube only, signal cable (SIG-4 flow meter) alongside the three tubes inside the same sleeve
 - Three tubes terminated bare and square-cut at the rear-panel end, ready for push-into-PP1208E at install
 - Signal cable unterminated at the above-counter end (gets cut to length at the customer's countertop position during install); rear-panel end terminated at the electronics shelf during `wiring.md` at appliance final assembly (the bagged sub-assembly is brought to the wiring bench, signal conductors broken out, terminated, and the bag re-closed for shipping)
 - TPU mounting gasket already in place on the shank between the printed mounting plate's underside and where the countertop top surface will be (installed at this bench, not in the install kit; customer never touches it)
@@ -112,7 +106,7 @@ A bagged sub-assembly that is:
 
 Procedure-level gaps that need answers before unit 1 ships:
 
-1. **Umbilical signal cable family + pinout for SIG-4 + SIG-5.** [`../wiring/ac-wiring-schedule.md`](../wiring/ac-wiring-schedule.md) defines the runs at the schedule level (SIG-4 = flow meter, SIG-5 = air-switch contacts) but does not pin cable family or specific conductor assignments. With the display runs (SIG-6 / SIG-7) no longer riding the umbilical, Cat6 is oversized — pick a thinner cable family or accept the spare capacity.
+1. **Umbilical signal cable family for SIG-4.** [`../wiring/ac-wiring-schedule.md`](../wiring/ac-wiring-schedule.md) defines SIG-4 (DIGITEN flow meter, 3 conductors) at the schedule level but does not pin a cable family. With the display runs (SIG-6 / SIG-7) and the KRAUS switch (SIG-5) all gone, the umbilical carries only this one signal — Cat6 is dramatically oversized; a 3-conductor cable or thin shielded twisted pair is the right scope.
 2. **Umbilical design length.** Cabinet-routing length depends on countertop thickness, faucet-to-back-of-cabinet horizontal offset, and rear-panel position inside the enclosure. Three numbers are unresolved and the umbilical length sums them all. Once spec'd, this also fixes the CARGEN foam segment count for step 4.
 3. **Cable sleeve selection.** Braided polyester vs spiral wrap, per [`../printed-parts/enclosure/back-panel/README.md`](../printed-parts/enclosure/back-panel/README.md). The cleaner one for the customer-visible sleeve segment between countertop and rear-panel cluster is whichever installs with the bundle and Cat6 already inside; spiral wrap allows post-bundle install (wrapping around an assembled bundle), braided requires pre-thread.
 4. **Blue LLDPE small-spool sourcing.** A small spool of 1/4" OD blue LLDPE is in flight per the back-panel README. SKU + supplier not yet in `bom.md` or `purchases.md`.

@@ -12,8 +12,7 @@ First-pass draft. **Pricing convention: delivered cost** (product + shipping + t
 |---|---|---:|---:|---:|
 | [ESP32-DevKitC-32E](https://www.amazon.com/dp/B09MQJWQN2) | | 1 | $11.00 | $11.00 |
 | [ESP32 DIN Rail Breakout Board](https://www.amazon.com/dp/B0BW4SJ5X2) | | 1 | $25.99 | $25.99 |
-| [Waveshare RP2040 Round LCD 0.99"](https://www.amazon.com/dp/B0CTSPYND2) | | 1 | $23.99 | $23.99 |
-| [Meshnology ESP32-S3 1.28" Rotary Display](https://www.amazon.com/dp/B0G5Q4LXVJ) | | 1 | $47.76 | $47.76 |
+| [Meshnology ESP32-S3 1.28" Rotary Display](https://www.amazon.com/dp/B0G5Q4LXVJ) | Sole display + interaction surface (detachable, ~1 m cord). Default state shows selected flavor; rotary toggles flavors; subtle three-dot affordance reaches advanced settings. | 1 | $47.76 | $47.76 |
 | [L298N Dual H-Bridge (4-pack)](https://www.amazon.com/dp/B0C5JCF5RS) | 1 driver per unit drives both peristaltic pumps (dual H-bridge); 1 of 4 per unit ($10.71/4) | 1 (of 4 pk) | $2.68 | $2.68 |
 | [Waveshare MCP23017 I2C GPIO expander](https://www.amazon.com/dp/B07P2H1NZG) | expands ESP32 I2C into 16 GPIO for solenoid bank | 1 | $12.99 | $12.99 |
 | [HiLetgo DS3231 high-precision RTC (5-pk)](https://www.amazon.com/dp/B01N1LZSK3) | I2C RTC at 0x68, referenced in `wiring/esp32-pinout.mmd` and `wiring/valve-control.mmd`; 1 of 5 per unit ($16.08/5) | 1 (of 5 pk) | $3.22 | $3.22 |
@@ -158,7 +157,6 @@ Dishing dies (PA6-CF) for end-cap forming are vessel-fabrication tools, not ship
 
 | Part | Notes | Qty | Unit $ | Line $ |
 |---|---|---:|---:|---:|
-| [KRAUS garbage-disposal air-switch, matte black](https://www.amazon.com/dp/B096319GMV) | | 1 | $39.95 | $39.95 |
 | [DIYables Passive Piezo Buzzer Module, 5 V (2-pack)](https://www.amazon.com/dp/B0DYDN31PV) | audible-alarm output driven by ESP32 GPIO; 1 of 2 per unit ($6.42/2) | 1 (of 2 pk) | $3.21 | $3.21 |
 
 ## 11. Wiring + fasteners

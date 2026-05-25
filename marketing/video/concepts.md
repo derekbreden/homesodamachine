@@ -103,9 +103,9 @@ One vector design that works as: the S3 screensaver (animated, looping), the iOS
 - **Trust signal:** Strong. "This person cares about polish across every surface" = "this is a real product."
 - **Where it lives:** `ios/SodaMachine/SodaMachine/Views/GlassAnimationView.swift`, `src_config/` (screensaver frames), app icon assets
 
-### 8. Three Microcontrollers, One System (2-3 minutes)
+### 8. Two Microcontrollers, One System (2-3 minutes)
 
-Lay out the three boards on a table. Explain what each one does and why they're separate. ESP32: brain, pump control, flow sensing, image storage, config authority. RP2040: tiny round display showing the active flavor's real logo. ESP32-S3: rotary touchscreen for settings, BLE bridge to iOS. Show them communicating over UART with HDLC. Show what happens when you flip the flavor switch — the round display changes, the S3 updates, the pump reconfigures — all in under a second.
+Lay out the two boards on a table. Explain what each one does and why they're separate. ESP32: brain, pump control, flow sensing, image storage, config authority. ESP32-S3: rotary touchscreen — the sole display and interaction surface; default state shows the selected flavor, rotary toggles flavors, a three-dot affordance reaches advanced settings, also serves as BLE bridge to iOS. Show them communicating over UART with HDLC. Show what happens when you rotate the S3 encoder — the flavor display changes, the pump reconfigures — all in under a second.
 
 - **Audience:** Embedded systems people, electronics hobbyists, anyone who appreciates hardware architecture.
 - **Shareability:** Moderate-high. Multi-MCU architectures are inherently interesting to the right crowd.

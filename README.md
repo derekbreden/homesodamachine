@@ -14,7 +14,7 @@ The product under development is an integrated under-counter appliance — custo
 |---|---|
 | [`biography/`](biography/) | Project biography by chapter — `2026-04-05.md` (founding), `2026-05-23.md` (vision into work) |
 | [`hardware/`](hardware/) | The integrated appliance under development — CAD scripts, [`bom.md`](hardware/bom.md), [`purchases.md`](hardware/purchases.md), [`assembly/`](hardware/assembly/) procedures, printed parts, wiring schedules |
-| [`firmware/`](firmware/) | ESP32 + RP2040 + ESP32-S3 firmware (prototype + shared base for appliance) — see [`firmware/README.md`](firmware/README.md) |
+| [`firmware/`](firmware/) | ESP32 + ESP32-S3 firmware for the appliance under development. The current code base still includes a third MCU (RP2040) from the prototype era — see [`firmware/README.md`](firmware/README.md) for the in-flight state. |
 | [`web/`](web/) | homesodamachine.com — Node server, blog, CAD viewer — see [`web/README.md`](web/README.md) |
 | [`ios/`](ios/) | iOS companion app (BLE bridge, settings, usage stats) |
 | [`android/`](android/) | Android companion app |

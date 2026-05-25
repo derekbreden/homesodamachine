@@ -10,7 +10,7 @@ Order isn't strict — pressure-testing waits on tap + weld being complete on th
 
 Solder male JST-XH 2.54 mm headers to the carrier boards so the field-crimped female housings (loose terminals + bonded ribbons + Keszoox pre-crimped pigtails) can plug in. Three pin counts per [bom.md §11](bom.md):
 
-- **4-pin** (B0B2RB524Y) — I2C trunk between shelf modules (ESP32 ↔ MCP23017) plus the two UART trunk headers on the ESP32 (SIG-6 to the front-face RP2040, SIG-7 to the front-face ESP32-S3), ~4 connectors per unit.
+- **4-pin** (B0B2RB524Y) — I2C trunk between shelf modules (ESP32 ↔ MCP23017) plus the UART trunk header on the ESP32 (SIG-7 to the front-face ESP32-S3 rotary display), ~3 connectors per unit.
 - **6-pin** (B0B2R8Q1JL) — DS3231 RTC (VCC/GND/SDA/SCL/SQW/32K), ~1 connector per unit.
 - **9-pin** (B0B2R73RQB) — ULN2803A module sides (8 channels + COM/GND) and MCP23017 Port A/B rows, ~6 connectors per unit.
 

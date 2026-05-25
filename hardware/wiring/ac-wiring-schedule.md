@@ -67,9 +67,7 @@ The condenser fan does **not** appear in the AC table: the harvested fan is a 12
 | SIG-2 | Reed switch — low (carbonator) | ESP32 GPIO 17 + GND | switch + GND | 24 | ~600 mm | INPUT_PULLUP. |
 | SIG-3 | Reed switch — high (carbonator) | ESP32 GPIO 27 + GND | switch + GND | 24 | ~600 mm | INPUT_PULLUP. |
 | SIG-4 | DIGITEN flow meter | ESP32 GPIO 23 + 5 V + GND | pulse + V + GND | 24 | ~1.0 m (from faucet zone through grommet) | Pulse interrupt. |
-| SIG-5 | KRAUS air switch | ESP32 GPIO 13 + GND | switch + GND | 24 | ~1.0 m | Above-counter, through countertop grommet. |
-| SIG-6 | RP2040 round display on front face (detachable) | ESP32 GPIO 32 (TX) + GPIO 35 (RX) + 5 V + GND | UART + power | 24 | ~1 m extended (coiled when seated) | Per [`../printed-parts/enclosure/front-panel/README.md`](../printed-parts/enclosure/front-panel/README.md) "RP2040 detach mechanism" — cord pays out behind the panel when the customer detaches the display. Cable type (Cat6 vs coiled stretch vs flat ribbon) TBD with the detach mechanism. |
-| SIG-7 | ESP32-S3 config display on front face (fixed) | ESP32 GPIO 15 (TX) + GPIO 34 (RX) + 5 V + GND | UART + power | 24 | ~300 mm (short shelf → front face run) | No detach; cable type TBD with the S3's mounting on the front panel. |
+| SIG-7 | ESP32-S3 rotary display on front face (detachable) | ESP32 GPIO 15 (TX) + GPIO 34 (RX) + 5 V + GND | UART + power | 24 | ~1 m extended (coiled when seated) | Per [`../printed-parts/enclosure/front-panel/README.md`](../printed-parts/enclosure/front-panel/README.md) "S3 detach mechanism" — cord pays out behind the panel when the customer detaches the display. Cable type (Cat6 vs coiled stretch vs flat ribbon) TBD with the detach mechanism. |
 | SIG-8 | DS3231 RTC + MCP23017 (I2C) | ESP32 GPIO 21 (SDA) + GPIO 22 (SCL) + 3.3 V + GND | I2C bus | 24 | ~150 mm shared bus on shelf | Both devices co-located on the electronics shelf. |
 | SIG-9 | Backflow vent moisture sensor | ESP32 GPIO (TBD) + GND | switch + GND | 24 | ~600 mm to drip pan inside cabinet | Per [`../future.md`](../future.md) "Backflow vent monitoring"; pin not yet assigned in [`esp32-pinout.mmd`](esp32-pinout.mmd). |
 
@@ -79,7 +77,7 @@ Module-to-module logic connections on the electronics shelf use JST XH 2.54 mm h
 
 | Pin count | Use | Per-unit qty |
 |---|---|---:|
-| 4-pin | I²C trunk between shelf modules (ESP32↔MCP23017↔DS3231) + the two UART trunk headers on the ESP32 (SIG-6 to the front-face RP2040, SIG-7 to the front-face ESP32-S3) — the latter two seat at the shelf and land at the front face during system integration | ~4 |
+| 4-pin | I²C trunk between shelf modules (ESP32↔MCP23017↔DS3231) + the UART trunk header on the ESP32 (SIG-7 to the front-face S3) — the latter seats at the shelf and lands at the front face during system integration | ~3 |
 | 6-pin | DS3231 RTC bus (VCC / GND / SDA / SCL / SQW / 32K), or any 6-conductor module hop | ~1 |
 | 9-pin | ULN2803A module sides (8 channels + COM/GND) and MCP23017 Port A / Port B rows (2 ULNs × 2 sides + 2 MCP ports) | ~6 |
 

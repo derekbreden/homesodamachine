@@ -43,7 +43,7 @@ Connect the test-rig water source to the rear-panel FFL38BARB38 inlet, hand-tigh
 
 ### 2. Power on + interlock check
 
-Plug the C14 inlet into a bench outlet via the supplied NEMA 5-15P → C13 cord. Firmware boots; the RP2040 round display lights up showing the active flavor's logo. The ESP32-S3 config display reports sensor health on first read: both DS18B20 probes reporting within ±0.5 °C of bench ambient, MQ-6 in normal range, backflow drip pan dry, all reed switches in their expected state for an empty system (carbonator-empty, flavor-reservoirs-full from the hopper pre-prime, faucet closed).
+Plug the C14 inlet into a bench outlet via the supplied NEMA 5-15P → C13 cord. Firmware boots; the ESP32-S3 rotary display lights up showing the selected flavor and reports sensor health on first read: both DS18B20 probes reporting within ±0.5 °C of bench ambient, MQ-6 in normal range, backflow drip pan dry, all reed switches in their expected state for an empty system (carbonator-empty, flavor-reservoirs-full from the hopper pre-prime, faucet closed).
 
 Firmware should NOT dispense, should NOT energize the compressor, and should NOT energize the SeaFlo refill pump until the operator enters bench-acceptance mode and water-fill is explicitly commanded. The on-boot state is idle, sensors live, actuators dark.
 
