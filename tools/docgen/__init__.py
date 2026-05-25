@@ -3,8 +3,9 @@ Variable substitution for documentation that lives next to its source.
 
 Syntax: [value](VARIABLE_NAME)
 - The brackets hold the value — what renders when the host format displays it.
-- The parens hold the variable name in UPPERCASE_WITH_UNDERSCORES — the
-  "href" position. A real markdown link; the broken anchor doesn't matter.
+- The parens hold the variable name in UPPERCASE_WITH_UNDERSCORES (digits
+  allowed after the first character — e.g. ZONE1_Z_TOP, CO2_INLET, BEND2_R) —
+  the "href" position. A real markdown link; the broken anchor doesn't matter.
 - The variable name is literally in the source for any reader (agent or
   human) to see. The value is never authoritative; the script's variable is.
 
@@ -18,7 +19,7 @@ Two substituters with the same signature and semantics:
   text is never read back into any calculation.
 
 Both:
-- Find every [value](NAME) where NAME matches [A-Z_]+ in their scope.
+- Find every [value](NAME) where NAME matches [A-Z_][A-Z0-9_]* in their scope.
 - For each NAME in `variables`, rewrite the value to the current source
   value (str-cast).
 - For each NAME in `expected_counts`, assert the actual count matches.
@@ -30,7 +31,9 @@ Both:
   `variables` keys needs to cover every NAME in the file.
 
 Normal markdown links (parens contain slashes, dots, colons, lowercase, etc.)
-never match — only our all-caps-and-underscores variable references do.
+never match — only our all-caps-and-underscores variable references do. The
+first-character restriction (no leading digit) keeps numeric literals like
+`[0.5](2)` from being interpreted as substitution targets.
 """
 
 import io
@@ -40,9 +43,10 @@ from pathlib import Path
 from typing import Any
 
 
-# Matches a markdown link whose href is all-caps-and-underscores.
+# Matches a markdown link whose href is an all-caps-and-underscores NAME
+# (digits allowed after the first character, but not as the first character).
 # Captures: 1 = value (bracket text), 2 = variable name (paren content).
-_LINK_RE = re.compile(r"\[([^\]]*)\]\(([A-Z_]+)\)")
+_LINK_RE = re.compile(r"\[([^\]]*)\]\(([A-Z_][A-Z0-9_]*)\)")
 
 
 def substitute_md(
