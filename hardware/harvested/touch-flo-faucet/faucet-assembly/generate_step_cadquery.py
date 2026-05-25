@@ -55,11 +55,17 @@ from pathlib import Path
 
 import cadquery as cq
 
+_here = Path(__file__).resolve()
 sys.path.insert(
     0,
-    str(next(p for p in Path(__file__).resolve().parents if p.name == "hardware")),
+    str(next(p for p in _here.parents if p.name == "hardware")),
+)
+sys.path.insert(
+    0,
+    str(next(p for p in _here.parents if (p / "tools" / "docgen").is_dir()) / "tools"),
 )
 from _cadq_export import export_assembly
+from docgen import substitute_py_comments
 
 
 # Reference body geometry. Duplicated from
@@ -77,11 +83,14 @@ shank_length = 50.0  # shank extends from Z=0 down to Z=-shank_length
 # taken up by a printed TPU bushing on the real tube (not modeled).
 # Extends a comfortable amount into the port for retention, and runs
 # through the gooseneck.
-water_tube_od = 0.375 * 25.4  # 3/8" LLDPE
+# [9.525 mm](WATER_TUBE_OD) — 3/8" LLDPE in millimeters.
+water_tube_od = 0.375 * 25.4
 water_tube_r = water_tube_od / 2.0
 water_tube_above_plateau = 40.0
 water_tube_into_port = 15.0
+# [24 mm](WATER_TUBE_Z_BOTTOM) — plateau_z minus water_tube_into_port.
 water_tube_z_bottom = plateau_z - water_tube_into_port
+# [79 mm](WATER_TUBE_Z_TOP) — plateau_z plus water_tube_above_plateau.
 water_tube_z_top = plateau_z + water_tube_above_plateau
 
 
@@ -91,9 +100,11 @@ water_tube_z_top = plateau_z + water_tube_above_plateau
 #   - the other flavor tube (so both touch at Y = 0)
 # Mirror across the X-Z plane: one at +Y, one at -Y. Z span runs from
 # the bottom of the shank up to the top of the water tube.
-flavor_tube_od = 1.0 / 4.0 * 25.4  # 1/4"
+# [6.35 mm](FLAVOR_TUBE_OD) — 1/4" LLDPE in millimeters.
+flavor_tube_od = 1.0 / 4.0 * 25.4
 flavor_tube_r = flavor_tube_od / 2.0
-flavor_tube_x_lower = body_r + flavor_tube_r  # tangent to body +X
+# [18.925 mm](FLAVOR_TUBE_X_LOWER) — tangent to body +X (body_r + flavor_tube_r).
+flavor_tube_x_lower = body_r + flavor_tube_r
 flavor_tube_y_offset = flavor_tube_r  # ± — tangent to other tube at Y=0
 flavor_tube_z_bottom = -shank_length
 flavor_tube_z_top = water_tube_z_top
@@ -101,6 +112,7 @@ flavor_tube_z_top = water_tube_z_top
 # Upper X is set by tangency to the water tube at the same Y:
 #   (x_upper - port_center_x)² + y_offset² = (water_tube_r + flavor_tube_r)²
 # with Y constant through both bends.
+# [16.1498 mm](FLAVOR_TUBE_X_UPPER) — Pythagorean tangency to water tube.
 flavor_tube_x_upper = port_center_x + math.sqrt(
     (water_tube_r + flavor_tube_r) ** 2 - flavor_tube_y_offset ** 2
 )
@@ -112,11 +124,13 @@ flavor_tube_x_upper = port_center_x + math.sqrt(
 # same R and θ.
 flavor_bend_radius = 8.0
 _flavor_x_offset = flavor_tube_x_lower - flavor_tube_x_upper
+# [0.5978 rad](FLAVOR_BEND_THETA) — per-bend angle absorbing the S-bend X offset.
 flavor_bend_theta_rad = math.acos(1.0 - _flavor_x_offset / (2.0 * flavor_bend_radius))
 
 # How far above the plateau the first bend starts. Kept short to mimic
 # the user's "shortly after that, as shortly as is reasonable."
 pre_bend_rise = 3.0
+# [42 mm](PRE_BEND_Z) — plateau_z plus pre_bend_rise; S-bend starts here.
 pre_bend_z = plateau_z + pre_bend_rise
 
 
@@ -130,12 +144,15 @@ pre_bend_z = plateau_z + pre_bend_rise
 # The tip's exit angle below horizontal = (bend1_sweep + bend2_sweep) - 90°.
 # Bend-1 midpoint is anchored at Z = lever_top_z + 35, so the start of
 # bend 1 sits gn_bend1_r·sin(bend1_sweep/2) below that.
+# [52 mm](LEVER_TOP_Z) — plateau_z plus 13 mm lever-top offset.
 lever_top_z = plateau_z + 13.0
 gn_bend1_r = 30.0
 gn_bend2_r = 40.0
 gn_bend1_sweep_rad = math.radians(30.0)
 gn_bend2_sweep_rad = math.radians(110.0)
+# [87 mm](GN_BEND_MID_Z) — bend-1 midpoint anchored 35 mm above lever_top_z.
 gn_bend1_mid_z = lever_top_z + 35.0
+# [79.24 mm](GN_BEND_START_Z) — bend-1 midpoint minus R·sin(sweep/2).
 gn_bend1_start_z = gn_bend1_mid_z - gn_bend1_r * math.sin(gn_bend1_sweep_rad / 2.0)
 gn_mid_straight_len = 115.0
 gn_tip_straight_len = 25.0
@@ -149,7 +166,9 @@ gn_tip_straight_len = 25.0
 # perpendicular component of the centerline separation shrinks below
 # water_r + flavor_r).
 _gn_flavor_offset_x = flavor_tube_x_upper - port_center_x
+# [37.2748 mm](GN_FLAVOR_BEND_ONE_R) — gn_bend1_r + flavor parallel offset.
 gn_flavor_bend1_r = gn_bend1_r + _gn_flavor_offset_x
+# [47.2748 mm](GN_FLAVOR_BEND_TWO_R) — gn_bend2_r + flavor parallel offset.
 gn_flavor_bend2_r = gn_bend2_r + _gn_flavor_offset_x
 
 
@@ -474,6 +493,40 @@ def main():
     print(f"  Shell (zones 1-6):     loaded from printed-parts/")
     print(f"                         {shell_step.name}")
     print(f"-> {out.name}")
+
+    substitute_py_comments(
+        Path(__file__),
+        variables={
+            "WATER_TUBE_OD": f"{water_tube_od:g} mm",
+            "WATER_TUBE_Z_BOTTOM": f"{water_tube_z_bottom:g} mm",
+            "WATER_TUBE_Z_TOP": f"{water_tube_z_top:g} mm",
+            "FLAVOR_TUBE_OD": f"{flavor_tube_od:g} mm",
+            "FLAVOR_TUBE_X_LOWER": f"{flavor_tube_x_lower:g} mm",
+            "FLAVOR_TUBE_X_UPPER": f"{flavor_tube_x_upper:.4f} mm",
+            "FLAVOR_BEND_THETA": f"{flavor_bend_theta_rad:.4f} rad",
+            "PRE_BEND_Z": f"{pre_bend_z:g} mm",
+            "LEVER_TOP_Z": f"{lever_top_z:g} mm",
+            "GN_BEND_MID_Z": f"{gn_bend1_mid_z:g} mm",
+            "GN_BEND_START_Z": f"{gn_bend1_start_z:.2f} mm",
+            "GN_FLAVOR_BEND_ONE_R": f"{gn_flavor_bend1_r:.4f} mm",
+            "GN_FLAVOR_BEND_TWO_R": f"{gn_flavor_bend2_r:.4f} mm",
+        },
+        expected_counts={
+            "WATER_TUBE_OD": 1,
+            "WATER_TUBE_Z_BOTTOM": 1,
+            "WATER_TUBE_Z_TOP": 1,
+            "FLAVOR_TUBE_OD": 1,
+            "FLAVOR_TUBE_X_LOWER": 1,
+            "FLAVOR_TUBE_X_UPPER": 1,
+            "FLAVOR_BEND_THETA": 1,
+            "PRE_BEND_Z": 1,
+            "LEVER_TOP_Z": 1,
+            "GN_BEND_MID_Z": 1,
+            "GN_BEND_START_Z": 1,
+            "GN_FLAVOR_BEND_ONE_R": 1,
+            "GN_FLAVOR_BEND_TWO_R": 1,
+        },
+    )
 
 
 if __name__ == "__main__":
