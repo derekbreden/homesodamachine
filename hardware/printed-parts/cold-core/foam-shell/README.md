@@ -57,10 +57,10 @@ the top during foam pour):
 
 - **Far ±X wall** — outboard face at x = ±[123.5 mm](POCKET_X_OUTER), cavity face at
   x = ±[121.5 mm](POCKET_X_INNER).
-- **+Z wall** — outboard face at z = +[72.5 mm](ARC_R), cavity face at z = +[70.5 mm](ARC_INNER_R).
-- **−Z wall** — outboard face at z = −[72.5 mm](ARC_R), cavity face at z = −[70.5 mm](ARC_INNER_R).
+- **+Z wall** — outboard face at z = +[72.5 mm](POCKET_ARC_R), cavity face at z = +[70.5 mm](POCKET_ARC_INNER_R).
+- **−Z wall** — outboard face at z = −[72.5 mm](POCKET_ARC_R), cavity face at z = −[70.5 mm](POCKET_ARC_INNER_R).
 - **Centerward wall** — the only curved wall. Its cavity-side face
-  rides on a cylinder of radius **[72.5 mm](ARC_R)** (centered on the
+  rides on a cylinder of radius **[72.5 mm](POCKET_ARC_R)** (centered on the
   cold-core Y axis); its tank-side face is concentric one wall-thickness
   inboard. The [7 mm](COIL_GAP) of radial clearance between the
   tank's outer face (R = [63.5 mm](TANK_R)) and the wall's tank-side
@@ -70,7 +70,7 @@ The centerward wall is one continuous curved wall built from three
 arc segments along its length:
 
 1. A **middle segment** — the cylindrical arc that wraps the tank+coil
-   envelope, running from z = −[60 mm](ARC_TRANSITION_Z) to z = +[60 mm](ARC_TRANSITION_Z).
+   envelope, running from z = −[60 mm](POCKET_ARC_TRANSITION_Z) to z = +[60 mm](POCKET_ARC_TRANSITION_Z).
 2. Two **transition segments**, one at each ±Z end — short
    [8 mm](TRANSITION_ARC_R)-radius arcs that swing the wall out from
    the middle arc to the pocket's ±Z wall. Each transition arc is
@@ -89,7 +89,7 @@ around the corner.
 
 The pocket is **open along its centerward face into the foam zone
 inside the centerward arc envelope** — there's no wall at radius
-R < [70.5 mm](ARC_INNER_R). During operation, that interior region
+R < [70.5 mm](POCKET_ARC_INNER_R). During operation, that interior region
 holds the tank + copper coil, and the foam pour fills the gap
 between the coil and the wall's tank-side face.
 
@@ -256,7 +256,7 @@ and high), the water inlet, and the PRV vent. The slot is
 top extends past the wall top so no sliver of wall material remains
 above the slot — the four plugs can slide down into the slot from
 above during assembly. With the centerward wall extending only to
-z = ±[72.5 mm](ARC_R) (where it meets the ±Z walls via the
+z = ±[72.5 mm](POCKET_ARC_R) (where it meets the ±Z walls via the
 transition arcs), the slot pierces only this one outer +Z wall.
 
 Pass-through Y heights (centers, measured from the **top of the
