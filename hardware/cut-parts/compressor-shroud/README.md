@@ -9,18 +9,18 @@ The appliance uses R-600a (isobutane), a flammable hydrocarbon refrigerant. The 
 The standard requires a fire-rated enclosure around the ignition sources in the refrigerant compartment. The compressor's hermetic can already encloses the motor windings and oil sump. The remaining ignition-risk surfaces — exposed outside the can — are:
 
 - The **terminal block** on top of the compressor (where the AC leads attach to the motor pins)
-- The clip-on **PTC start relay + overload protector** module that bolts directly to those terminals (operates at ~140–150 °C in normal use, far hotter than anything else in the system)
+- The clip-on **PTC start relay + overload protector** module that bolts directly to those terminals (operates at ~[140](PTC_TEMP_LOW)–[150 °C](PTC_TEMP) in normal use, far hotter than anything else in the system)
 
 These two items are intrinsically co-located and cannot move; they must be enclosed where they sit. The Teyleten relay #1 that switches the compressor's AC is **not** inside the shroud — it's an arc source that does NOT have to be in the protected zone, so it lives on the electronics shelf instead. See [`../../wiring/power.mmd`](../../wiring/power.mmd) for the placement rationale.
 
-The condenser fan motor sits on the side wall of the enclosure (on the side-to-side intake → condenser → exhaust airflow path, away from the cold core), is a low-ignition-risk **12 V DC brushless axial fan** — the donor ice maker's own control PCB regulated mains to 12 V to drive it, so the fan was never on AC in the donor either; we keep the fan and discard the PCB, driving the fan directly from our own 12 V bus — and would be defeated by being inside the shroud (it needs to move air across the condenser). It is **not** enclosed.
+The condenser fan motor sits on the side wall of the enclosure (on the side-to-side intake → condenser → exhaust airflow path, away from the cold core), is a low-ignition-risk **[12 V](FAN_V) DC brushless axial fan** — the donor ice maker's own control PCB regulated mains to [12 V](FAN_V) to drive it, so the fan was never on AC in the donor either; we keep the fan and discard the PCB, driving the fan directly from our own [12 V](FAN_V) bus — and would be defeated by being inside the shroud (it needs to move air across the condenser). It is **not** enclosed.
 
 ## What's inside vs outside the shroud
 
 **Inside:**
 - Compressor body
 - Compressor terminal block + clip-on PTC start relay/overload module
-- The wire stub from the terminals to the AC pass-through grommet (a few cm of 18 AWG)
+- The wire stub from the terminals to the AC pass-through grommet (a few cm of [18 AWG](AC_AWG))
 - Refrigerant line stubs (suction, discharge, process tube) where they exit the compressor body — these pass through the shroud floor / bottom edge as needed; the shroud is open-bottom so the stubs aren't penetrations, just clearance
 
 **Outside:**
@@ -31,7 +31,7 @@ The condenser fan motor sits on the side wall of the enclosure (on the side-to-s
 
 ## Shape concept
 
-A **5-sided open-bottom box** that drops over the compressor from above. Top panel + 4 side walls. Open bottom because the compressor sits on its M5 mounting feet on the printed enclosure floor, and the refrigerant tubes need to exit downward / sideways anyway.
+A **5-sided open-bottom box** that drops over the compressor from above. Top panel + 4 side walls. Open bottom because the compressor sits on its [M5](FOOT_THREAD) mounting feet on the printed enclosure floor, and the refrigerant tubes need to exit downward / sideways anyway.
 
 Construction approach: a single SendCutSend part, bent on 4 sides. Alternative is a 2-piece U-channel + back-wall design with 2-3 bends and screw assembly — TBD when the first build's compressor measurements are in hand.
 
@@ -41,65 +41,65 @@ Construction approach: a single SendCutSend part, bent on 4 sides. Alternative i
 
 Working assumptions (revise after measurement):
 
-- Compressor body: ~95 mm OD × ~110 mm tall (rough estimate for a 100 W-class hermetic)
-- Terminal block + PTC module envelope: ~50 mm wide × ~40 mm tall × ~30 mm radial standoff above the terminal pins
-- Internal clearance to terminal block: ≥10 mm on all sides for service access and to keep the PTC's ~150 °C surface off the metal wall
+- Compressor body: ~[95 mm](COMP_OD) OD × ~[110 mm](COMP_H) tall (rough estimate for a [100 W](COMP_CLASS_W)-class hermetic)
+- Terminal block + PTC module envelope: ~[50 mm](TB_W) wide × ~[40 mm](TB_H) tall × ~[30 mm](TB_STANDOFF) radial standoff above the terminal pins
+- Internal clearance to terminal block: ≥[10 mm](TB_CLEARANCE) on all sides for service access and to keep the PTC's ~[150 °C](PTC_TEMP) surface off the metal wall
 
 Working envelope:
 
-- Outer dimensions: ~130 mm (X, depth into appliance) × ~130 mm (Y, width across appliance) × ~100 mm (Z, vertical height above floor)
-- Wall thickness: 0.059" (1.50 mm) — see "Material" below
-- Internal headroom over compressor: ≥20 mm
-- Side wall flange height: 90–100 mm (well within SendCutSend's "max 4-sided box flange height with hardware = 3″" ≈ 76 mm — *if we use a 4-sided box, this will need to be split into a U-channel + separate back wall, or shortened*)
+- Outer dimensions: ~[130 mm](OUTER_X) (X, depth into appliance) × ~[130 mm](OUTER_Y) (Y, width across appliance) × ~[100 mm](OUTER_Z) (Z, vertical height above floor)
+- Wall thickness: [0.059"](WALL_IN) ([1.5 mm](WALL_MM)) — see "Material" below
+- Internal headroom over compressor: ≥[20 mm](HEADROOM)
+- Side wall flange height: [90](FLANGE_LOW)–[100 mm](FLANGE_HIGH) (well within SendCutSend's "max 4-sided box flange height with hardware = [3.00"](MAX_BOX_IN)" ≈ [76 mm](MAX_BOX_MM) — *if we use a 4-sided box, this will need to be split into a U-channel + separate back wall, or shortened*)
 
-The flange-height constraint (3″ for 4-sided box bends) is the design driver for whether this is one part or two. Decide after measurement.
+The flange-height constraint ([3.00"](MAX_BOX_IN) for 4-sided box bends) is the design driver for whether this is one part or two. Decide after measurement.
 
 ## Material
 
-**0.059" G90 hot-dipped galvanized steel.**
+**[0.059"](WALL_IN) G90 hot-dipped galvanized steel.**
 
 Rationale:
 
 - **Non-combustible.** Trivially satisfies UL 60335-2-89's fire-enclosure requirement around the terminal block. No flame-rating documentation to source, no testing to commission.
-- **Appliance-standard.** G90 is the universal sheet metal in countertop ice makers, dishwashers, microwaves, fridge bodies. The galvanized coating handles humid-kitchen ambient over the 10-year design life without a separate finish.
-- **0.059" thickness** is the SendCutSend offering closest to typical OEM appliance-shroud gauge (16-gauge nominal). Thinner (0.030″/.036″/.048″) would work mechanically but is more prone to vibration noise and feels light. Thicker (0.074″) adds cost and weight with no benefit at this duty.
-- **Cost:** ~$5–10/part at qty 5–10 from SendCutSend. Trivially small line item.
+- **Appliance-standard.** G90 is the universal sheet metal in countertop ice makers, dishwashers, microwaves, fridge bodies. The galvanized coating handles humid-kitchen ambient over the [10-year](DESIGN_LIFE) design life without a separate finish.
+- **[0.059"](WALL_IN) thickness** is the SendCutSend offering closest to typical OEM appliance-shroud gauge (16-gauge nominal). Thinner ([0.03″](ALT_THK_LOW)/[0.036″](ALT_THK_MID)/[0.048″](ALT_THK_HIGH)) would work mechanically but is more prone to vibration noise and feels light. Thicker ([0.074"](ALT_THK_THICKER)) adds cost and weight with no benefit at this duty.
+- **Cost:** ~[$5](COST_LOW)–[$10](COST_HIGH)/part at qty [5](QTY_LOW)–[10](QTY_HIGH) from SendCutSend. Trivially small line item.
 
 ## Penetrations
 
 | # | Hole | Purpose |
 |---|---|---|
-| 1 | 1/2" panel hole, one side wall | AC cable pass-through (3-conductor: switched H + N + chassis G, 18 AWG SJOOW bundle) from Teyleten relay #1 on the electronics shelf to the compressor terminal block. Heyco SB-500-6 snap bushing (B01LPBST9G) protects the cable from the cut edge — the bushing's 5.6–6.4 mm cable-OD range matches 18 AWG SJOOW (~6.4 mm OD), and the 1/2" hole removes 36% less sheet metal from the fire enclosure than a 5/8" hole would. |
-| 2 | 2× M3 mounting tab through-holes at base flange | Anchor to the compressor's existing M5 mounting feet using M5→M3 step-down adapter washers. |
-| 3 | Ø ~6 mm chassis ground stud hole | PEM stud or threaded insert for the chassis bonding wire (run AC-6 in [`../../wiring/ac-wiring-schedule.md`](../../wiring/ac-wiring-schedule.md)) — bonds the shroud to building earth. |
+| 1 | [1/2"](PANEL_HOLE) panel hole, one side wall | AC cable pass-through (3-conductor: switched H + N + chassis G, [18 AWG](AC_AWG) SJOOW bundle) from Teyleten relay #1 on the electronics shelf to the compressor terminal block. Heyco SB-500-6 snap bushing (B01LPBST9G) protects the cable from the cut edge — the bushing's [5.6](BUSHING_LOW)–[6.4 mm](BUSHING_HIGH) cable-OD range matches [18 AWG](AC_AWG) SJOOW (~[6.4 mm](AC_OD) OD), and the [1/2"](PANEL_HOLE) hole removes [36%](AREA_SAVING) less sheet metal from the fire enclosure than a [5/8"](ALT_PANEL_HOLE) hole would. |
+| 2 | 2× [M3](TAB_THREAD) mounting tab through-holes at base flange | Anchor to the compressor's existing [M5](FOOT_THREAD) mounting feet using [M5](FOOT_THREAD)→[M3](TAB_THREAD) step-down adapter washers. |
+| 3 | Ø ~[6 mm](GND_HOLE) chassis ground stud hole | PEM stud or threaded insert for the chassis bonding wire (run AC-6 in [`../../wiring/ac-wiring-schedule.md`](../../wiring/ac-wiring-schedule.md)) — bonds the shroud to building earth. |
 
 No top-side ventilation holes by design — the goal is to *contain* a flame event in this compartment, not vent it. The compressor's heat dissipation is through its body OD (the foot-mounting shell), which is open to the appliance interior and not affected by this shroud.
 
 ## SendCutSend specs (working envelope)
 
-For 0.059" G90 galvanized steel, from the SendCutSend material catalog (sendcutsend.com/materials/g90-steel/, .059" tab):
+For [0.059"](WALL_IN) G90 galvanized steel, from the SendCutSend material catalog (sendcutsend.com/materials/g90-steel/, .059" tab):
 
 **Laser cutting:**
-- Cut tolerance: ±0.005"
-- Min hole diameter: 0.022" (0.56 mm) — much smaller than anything we need
-- Min hole-to-edge: 0.020" (0.51 mm)
-- Min part size: 0.25" × 0.375"
+- Cut tolerance: [±0.005"](CUT_TOL)
+- Min hole diameter: [0.022"](MIN_HOLE_IN) ([0.56 mm](MIN_HOLE_MM)) — much smaller than anything we need
+- Min hole-to-edge: [0.02"](MIN_HE_IN) ([0.51 mm](MIN_HE_MM))
+- Min part size: [0.25" × 0.375"](MIN_PART)
 
 **Bending:**
-- Min bend part size: 0.375" × 1.5"
-- Max bend length: 44"
-- Min flange length (after bend, 90°): 0.311" (7.9 mm)
-- Effective bend radius @ 90°: 0.063" (1.6 mm)
-- Bend deduction @ 90°: 0.112"
-- K factor: 0.36
-- Bend angle tolerance: ±1° (bend length ≤24")
-- **Max 4-sided box flange height with hardware: 3.00" (76 mm)** — design driver if we go 5-sided box
+- Min bend part size: [0.375" × 1.5"](MIN_BEND_PART)
+- Max bend length: [44"](MAX_BEND_LEN)
+- Min flange length (after bend, [90°](BEND_ANGLE)): [0.311"](MIN_FLANGE_IN) ([7.9 mm](MIN_FLANGE_MM))
+- Effective bend radius @ [90°](BEND_ANGLE): [0.063"](BEND_R_IN) ([1.6 mm](BEND_R_MM))
+- Bend deduction @ [90°](BEND_ANGLE): [0.112"](BEND_DED)
+- K factor: [0.36](K_FACTOR)
+- Bend angle tolerance: [±1°](BEND_TOL) (bend length ≤[24"](BEND_TOL_LEN))
+- **Max 4-sided box flange height with hardware: [3.00"](MAX_BOX_IN) ([76 mm](MAX_BOX_MM))** — design driver if we go 5-sided box
 
-**Hole-to-bend distance** (rule of thumb, not from SendCutSend's published table): keep holes ≥1.5×T + R from the bend line = 1.5 × 0.059 + 0.063 ≈ 0.15" (3.8 mm). Closer than this risks deformation around the hole during bending. The grommet hole and chassis-ground stud hole both want to sit well inboard of any bend lines anyway.
+**Hole-to-bend distance** (rule of thumb, not from SendCutSend's published table): keep holes ≥1.5×T + R from the bend line = 1.5 × 0.059 + 0.063 ≈ [0.15"](HTB_IN) ([3.8 mm](HTB_MM)). Closer than this risks deformation around the hole during bending. The grommet hole and chassis-ground stud hole both want to sit well inboard of any bend lines anyway.
 
-**Hardware insertion** (PEM nuts, studs, standoffs): SendCutSend offers this on parts ≥1" × 1.5" — the shroud easily clears that. The chassis-ground stud will be a press-in PEM stud inserted by SendCutSend.
+**Hardware insertion** (PEM nuts, studs, standoffs): SendCutSend offers this on parts ≥[1" × 1.5"](HW_MIN) — the shroud easily clears that. The chassis-ground stud will be a press-in PEM stud inserted by SendCutSend.
 
-**Tapping**: M3 × 0.5 supported on this thickness. If the mounting tabs are tapped instead of clearance-holed, M3 hardware is the path.
+**Tapping**: [M3 × 0.5](TAP_THREAD) supported on this thickness. If the mounting tabs are tapped instead of clearance-holed, [M3](TAB_THREAD) hardware is the path.
 
 ## File workflow
 
@@ -111,7 +111,7 @@ The repo's existing cut-parts (`endcaps-circular`, `touch-flo-under-counter-plat
 
 Either approach works. Once the python generator is written, decide which file SendCutSend gets at order time:
 
-- **DXF route**: Python generates the flat-pattern DXF using the SendCutSend bend deduction (0.112" for this material at 90°). Bend lines drawn on a separate layer or with a distinct line type. At checkout, specify each bend line's angle.
+- **DXF route**: Python generates the flat-pattern DXF using the SendCutSend bend deduction ([0.112"](BEND_DED) for this material at [90°](BEND_ANGLE)). Bend lines drawn on a separate layer or with a distinct line type. At checkout, specify each bend line's angle.
 - **STEP route**: CadQuery-generated 3D model with bends modeled. SendCutSend computes the flat pattern automatically. Higher upfront CAD effort, simpler ordering.
 
 The DXF route matches the pattern already used in this repo. The STEP route is preferable if and when the geometry becomes complex enough that a flat-pattern DXF gets error-prone.
@@ -126,7 +126,7 @@ Run with `tools/cad-venv/bin/python generate_dxf.py` per the project's CadQuery 
 
 ## Open items
 
-1. **Measure the donor compressor** — terminal block envelope, PTC module standoff, mounting foot pattern (M5 thread spacing + bolt circle), body OD/height. Without this the shroud dimensions are placeholders.
-2. **Decide one-piece 5-sided box vs. two-piece U-channel + back-wall.** Driven by the 3" max box-flange height constraint and by build / install ergonomics.
+1. **Measure the donor compressor** — terminal block envelope, PTC module standoff, mounting foot pattern ([M5](FOOT_THREAD) thread spacing + bolt circle), body OD/height. Without this the shroud dimensions are placeholders.
+2. **Decide one-piece 5-sided box vs. two-piece U-channel + back-wall.** Driven by the [3.00"](MAX_BOX_IN) max box-flange height constraint and by build / install ergonomics.
 3. **Decide the AC pass-through grommet location.** Best path is the side facing the electronics shelf (back-side of shroud, since the shelf is at top-back) — minimizes wire run length.
 4. **Write `generate_dxf.py`** once items 1–3 are settled.
