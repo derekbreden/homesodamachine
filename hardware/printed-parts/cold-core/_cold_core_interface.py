@@ -1,29 +1,11 @@
-"""Shared interface for the cold-core's geometry modules — workplane
-conventions, hole-punch helpers, and the dimensional constants that
-every sibling part (foam shell, foam cap stack, reservoir, copper
-plugs, coil mandrel) needs to stay in sync against.
-
-The world-coordinate workplane infrastructure (xz_plane_y_up,
-xy_plane_z_up, WorldWorkplane, WorldProfile) lives in
-`cadlib/world_workplane.py`. Consumers should import those directly
-from `world_workplane`, not via this module. The imports below are
-only for this module's own internal use."""
-
-import sys
-from pathlib import Path
+"""Shared interface for the cold-core's geometry modules — dimensional
+constants and hole-punch helpers that every sibling part (foam shell,
+foam cap stack, reservoir, copper plugs, coil mandrel) needs to stay
+in sync against."""
 
 import cadquery as cq
 
-sys.path.insert(
-    0,
-    str(Path(__file__).resolve().parent.parent / "cadlib"),
-)
-
-from world_workplane import (  # noqa: E402  -- path inserted above
-    xz_plane_y_up,
-    xy_plane_z_up,
-    WorldWorkplane,
-)
+from world_workplane import xz_plane_y_up, xy_plane_z_up, WorldWorkplane
 
 
 # All structural walls and floors are 2 mm PETG.
