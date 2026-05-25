@@ -45,26 +45,39 @@ SendCutSend compensates for kerf automatically — draw nominal dims.
 Units: inches.  DXF $INSUNITS = 1 (inches).
 """
 
+import sys
 from pathlib import Path
 
 import ezdxf
 
+_here = Path(__file__).resolve()
+sys.path.insert(
+    0,
+    str(next(p for p in _here.parents if (p / "tools" / "docgen").is_dir()) / "tools"),
+)
+from docgen import substitute_py_comments
+
 # Dimensions in inches; DXF $INSUNITS = 1 (inches).
 
+# [4.86 in](DISC_D) — tube ID 4.870" − 0.010" slip-fit.
 disc_diameter = 4.860
+# [2.43 in](DISC_R) — disc_diameter / 2.
 disc_radius = disc_diameter / 2
+# [0.25 in](DISC_THK) — 1/4" 316 SS, SendCutSend laser-cut.
 disc_thickness = 0.250
 
-# 7/16" tap drill for 1/4"-18 NPT.
+# [0.438 in](HOLE_D) — 7/16" tap drill for 1/4"-18 NPT.
 hole_diameter = 0.438
+# [0.219 in](HOLE_R) — hole_diameter / 2.
 hole_radius = hole_diameter / 2
 
-# Center-to-center 1.500" along one axis — matches the CNC dome-cap
-# variants preserved at git tag archive-plan-b so plumbing layout is
-# identical across cap styles.
+# [1.5 in](HOLE_SPACING) center-to-center along one axis — matches the
+# CNC dome-cap variants preserved at git tag archive-plan-b so plumbing
+# layout is identical across cap styles.
+hole_spacing = 1.500
 hole_positions = [
-    (-0.750, 0.0),
-    (+0.750, 0.0),
+    (-hole_spacing / 2, 0.0),
+    (+hole_spacing / 2, 0.0),
 ]
 
 out_dir = Path(__file__).resolve().parent
@@ -85,12 +98,40 @@ def make_disc() -> Path:
     return path
 
 
-if __name__ == "__main__":
+def main() -> None:
     path = make_disc()
     print(f"Exported: {path}  ({len(hole_positions)} holes)")
     print(f"  Disc diameter:   {disc_diameter}\"  (fits 5.000\" OD x 0.065\" wall tube, ID 4.870\")")
     print(f"  Disc thickness:  {disc_thickness}\"")
     print(f"  Hole diameter:   {hole_diameter}\"  (7/16\" tap drill for 1/4\"-18 NPT)")
-    print(f"  Hole spacing:    1.500\" center-to-center along one axis")
+    print(f"  Hole spacing:    {hole_spacing:g}\" center-to-center along one axis")
     print(f"  Material:        316 SS, laser-cut")
     print(f"  Per vessel:      2 identical discs, each tapped 2x 1/4\"-18 NPT")
+
+    # Short names scoped to this part. Units live inside the value so
+    # the script controls them — change a unit in source and every
+    # dynamic-comment marker follows.
+    variables = {
+        "DISC_D": f"{disc_diameter:g} in",
+        "DISC_R": f"{disc_radius:g} in",
+        "DISC_THK": f"{disc_thickness:g} in",
+        "HOLE_D": f"{hole_diameter:g} in",
+        "HOLE_R": f"{hole_radius:g} in",
+        "HOLE_SPACING": f"{hole_spacing:g} in",
+    }
+    substitute_py_comments(
+        Path(__file__),
+        variables=variables,
+        expected_counts={
+            "DISC_D": 1,
+            "DISC_R": 1,
+            "DISC_THK": 1,
+            "HOLE_D": 1,
+            "HOLE_R": 1,
+            "HOLE_SPACING": 1,
+        },
+    )
+
+
+if __name__ == "__main__":
+    main()
