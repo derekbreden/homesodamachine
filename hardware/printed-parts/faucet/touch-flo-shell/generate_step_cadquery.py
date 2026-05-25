@@ -11,11 +11,17 @@ from pathlib import Path
 
 import cadquery as cq
 
+_here = Path(__file__).resolve()
 sys.path.insert(
     0,
-    str(next(p for p in Path(__file__).resolve().parents if p.name == "hardware")),
+    str(next(p for p in _here.parents if p.name == "hardware")),
+)
+sys.path.insert(
+    0,
+    str(next(p for p in _here.parents if (p / "tools" / "docgen").is_dir()) / "tools"),
 )
 from _cadq_export import export_step
+from docgen import substitute_md, substitute_py_comments
 
 
 # Shifted +X so the +X edge of the shell extends past the wider 1/4"
@@ -39,8 +45,8 @@ zone1_height = zone1_z_top - zone1_z_bottom  # 13 mm
 # above the body's Z transitions.
 bore_clearance = 0.25  # mm per side
 
-# Body bore (cylinder) — body OD 31.5 mm + 2 × clearance per side
-body_bore_diameter = 31.5 + 2.0 * bore_clearance  # 32.0
+# Body bore (cylinder) — [32 mm](BODY_BORE_D), body OD 31.5 mm + 2 × clearance per side.
+body_bore_diameter = 31.5 + 2.0 * bore_clearance
 body_bore_x = 0.0
 body_bore_y = 0.0
 
@@ -50,23 +56,25 @@ body_bore_y = 0.0
 flavor_tube_x = 18.925  # body_r + tube_r = 15.75 + 3.175
 flavor_tube_hole_dia = 7.05  # 6.35 OD + 0.7 mm clearance
 flavor_tube_y_offset = 3.175  # = tube_r, tubes touch at Y=0
-pill_length_y = 2 * flavor_tube_y_offset + flavor_tube_hole_dia  # 13.2
-pill_width_x = flavor_tube_hole_dia  # 6.85
+# [13.4 mm](PILL_L) pill long axis (Y) = 2 × y_offset + hole_dia.
+pill_length_y = 2 * flavor_tube_y_offset + flavor_tube_hole_dia
+# [7.05 mm](PILL_W) pill short axis (X) = hole_dia.
+pill_width_x = flavor_tube_hole_dia
 
-# Flat -X edge of the flavor pill cutout in zones 1-4 (the base shell).
-# Pulled in (more -X) past the natural pill -X edge so the cutout's
-# corners (at Y=±pill_length_y/2) land on the body bore's cyl curve
-# in zone 1. With 1/4" flavor tubes the natural pill -X (= 15.5) is
-# OUTSIDE the cyl bore at the corner Y=±6.6 (bore +X there is 14.57)
-# — leaving a thin sliver of shell material between cutout and bore.
-# Computing -X as `min(natural pill edge, bore +X at corner Y)` makes
-# the flat side reach the bore wherever the natural pill would not.
-# With smaller (1/8") tubes the natural pill is inside the bore at
-# its corners, so this min picks the natural value and nothing changes.
+# [14.5296 mm](FLAVOR_PILL_X_MINUS) — flat -X edge of the flavor pill
+# cutout in zones 1-4 (the base shell). Pulled in (more -X) past the
+# natural pill -X edge so the cutout's corners (at Y=±pill_length_y/2)
+# land on the body bore's cyl curve in zone 1. With 1/4" flavor tubes
+# the natural pill -X is OUTSIDE the cyl bore at the corner Y — leaving
+# a thin sliver of shell material between cutout and bore. Computing -X
+# as `min(natural pill edge, bore +X at corner Y)` makes the flat side
+# reach the bore wherever the natural pill would not. With smaller (1/8")
+# tubes the natural pill is inside the bore at its corners, so this min
+# picks the natural value and nothing changes.
 flavor_pill_x_minus_edge = min(
     flavor_tube_x - pill_width_x / 2.0,
     math.sqrt((body_bore_diameter / 2.0) ** 2 - (pill_length_y / 2.0) ** 2),
-)  # ≈ 14.575
+)
 
 
 # SHELL OUTER (derived from wall-thickness target)
@@ -83,6 +91,7 @@ _body_bore_farthest_from_shell_center = (
 _pill_farthest_from_shell_center = (
     flavor_tube_x + pill_width_x / 2.0 - shell_center_x
 )  # = 19.275 mm at flavor_tube_hole_dia = 7.05
+# [22.275 mm](SHELL_OUTER_R) outer-cylinder radius = binding extreme + wall_thickness_min.
 shell_outer_r = (
     max(_body_bore_farthest_from_shell_center, _pill_farthest_from_shell_center)
     + wall_thickness_min
@@ -201,7 +210,8 @@ water_tube_x = 8.875
 # the 2026-04-27 caliper pass; re-measured 2026-05-22 as 10.0 mm with
 # the caliper tips landed on the port wall rather than the chamfer.)
 water_tube_od = 0.375 * 25.4  # 9.525
-water_hole_diameter = water_tube_od + 2.0 * bore_clearance + 0.20  # 10.225
+# [10.225 mm](WATER_HOLE_D) water bore = OD + 2 × clearance per side + 0.20 mm slack.
+water_hole_diameter = water_tube_od + 2.0 * bore_clearance + 0.20
 
 # 1/4" LLDPE flavor tube. The flavor tube butts up against the water
 # tube at the dispense point. Each flavor tube sits at
@@ -1490,6 +1500,56 @@ def main():
     print(f"-> {bottom_out.name}")
     print(f"-> {middle_out.name}")
     print(f"-> {top_out.name}")
+
+    # Short names scoped to this part. Units live inside the value so
+    # the script controls them — change a unit in source and every
+    # sibling doc + dynamic-comment marker follows.
+    variables = {
+        "BORE_CLEAR": f"{bore_clearance:g} mm",
+        "BODY_BORE_D": f"{body_bore_diameter:g} mm",
+        "BODY_RECT_LONG": f"{body_rect_long:g} mm",
+        "BODY_RECT_SHORT": f"{body_rect_short:g} mm",
+        "BODY_CYL_TOP_Z": f"{zone1_z_top:g} mm",
+        "PILL_L": f"{pill_length_y:g} mm",
+        "PILL_W": f"{pill_width_x:g} mm",
+        "FLAVOR_TUBE_X": f"{flavor_tube_x:g} mm",
+        "FLAVOR_PILL_X_MINUS": f"{flavor_pill_x_minus_edge:g} mm",
+        "SHELL_OUTER_R": f"{shell_outer_r:g} mm",
+        "WATER_HOLE_D": f"{water_hole_diameter:g} mm",
+    }
+    substitute_md(
+        out_dir / "ASSEMBLY.md",
+        variables=variables,
+        expected_counts={
+            "BORE_CLEAR": 1,
+            "PILL_L": 1,
+            "PILL_W": 2,
+            "FLAVOR_TUBE_X": 2,
+            "BODY_RECT_LONG": 1,
+            "BODY_RECT_SHORT": 1,
+            "BODY_CYL_TOP_Z": 1,
+        },
+    )
+    print("-> ASSEMBLY.md")
+    substitute_md(
+        out_dir / "MATERIAL.md",
+        variables=variables,
+        expected_counts={"BODY_BORE_D": 1},
+    )
+    print("-> MATERIAL.md")
+    substitute_py_comments(
+        Path(__file__),
+        variables=variables,
+        expected_counts={
+            "BODY_BORE_D": 1,
+            "PILL_L": 1,
+            "PILL_W": 1,
+            "FLAVOR_PILL_X_MINUS": 1,
+            "SHELL_OUTER_R": 1,
+            "WATER_HOLE_D": 1,
+        },
+    )
+    print("-> generate_step_cadquery.py (self)")
 
 
 if __name__ == "__main__":
