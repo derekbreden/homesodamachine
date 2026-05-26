@@ -32,6 +32,7 @@ Run:
     tools/cad-venv/bin/python hardware/quickstart/appliance_quickstart.py
 """
 
+import re
 import subprocess
 import textwrap
 from pathlib import Path
@@ -71,31 +72,75 @@ def cell_rect(col, row):
     return x, y, cw, ch
 
 
-def placeholder(x, y, w, h, view_text, caption):
-    """A drawing cell with an outlined drawing area + caption.
+def _read_svg_for_embed(svg_path):
+    """Extract (viewBox, inner_xml) from a source SVG for embedding.
 
-    The drawing area shows the brief's view description as wrapped text,
-    so the placeholder hints at what the real drawing will look like
-    when it's slotted in.
+    The line-art SVGs in this repo come from two generators with slightly
+    different output shapes:
+    - tools/line-art/line_art.py writes an explicit viewBox.
+    - The CadQuery HLR generator writes width/height in absolute units
+      with no viewBox; the inner content is pre-transformed to fit that
+      canvas, so a `0 0 W H` viewBox captures it correctly.
+
+    For embedding we wrap the source's inner XML in a nested <svg>
+    element with the caller-chosen position/size and a viewBox derived
+    from whichever metadata the source carries.
     """
-    # Drawing area takes the top ~78% of the cell, caption gets the rest.
-    draw_h = h * 0.78
-    cap_h = h - draw_h
-    draw_y = y
-    cap_y = y + draw_h + 2
+    text = Path(svg_path).read_text()
+    vb = re.search(r'<svg[^>]*\bviewBox\s*=\s*"([^"]+)"', text)
+    w = re.search(r'<svg[^>]*\bwidth\s*=\s*"([0-9.]+)', text)
+    h = re.search(r'<svg[^>]*\bheight\s*=\s*"([0-9.]+)', text)
 
-    # Wrap the view text to fit the cell width, in mm-ish character units.
-    # Use a rough char-width of 2.0 mm at the placeholder text size to
-    # pick a wrap column. Whatever it lands at is fine — the placeholder
-    # is hint text, not the final art.
+    if vb:
+        viewbox = vb.group(1)
+    elif w and h:
+        viewbox = f"0 0 {float(w.group(1))} {float(h.group(1))}"
+    else:
+        raise ValueError(f"{svg_path}: cannot derive viewBox")
+
+    # Slice the inner content out of the root <svg>...</svg> wrapper.
+    open_tag_end = text.find(">", text.find("<svg")) + 1
+    close_tag = text.rfind("</svg>")
+    inner = text[open_tag_end:close_tag].strip()
+    return viewbox, inner
+
+
+def _embed_svg(x, y, w, h, source_path):
+    """Render a nested <svg> that scale-fits the source SVG into the
+    rectangle (x, y, w, h) on the host page, preserving aspect ratio."""
+    viewbox, inner = _read_svg_for_embed(source_path)
+    return (
+        f'<svg x="{x:.2f}" y="{y:.2f}" width="{w:.2f}" height="{h:.2f}" '
+        f'viewBox="{viewbox}" preserveAspectRatio="xMidYMid meet">\n'
+        f'{inner}\n'
+        f'</svg>'
+    )
+
+
+def _caption_text(x, y, w, h, caption):
+    """Bold centered caption underneath the drawing area."""
+    return (
+        f'<text x="{x + w / 2:.2f}" y="{y + h * 0.7:.2f}" '
+        f'font-family="Helvetica, Arial, sans-serif" font-size="6.5" '
+        f'font-weight="600" fill="{COLOR_PLAIN}" '
+        f'text-anchor="middle">{caption}</text>'
+    )
+
+
+def _placeholder_body(x, y, w, h, view_text):
+    """Dashed-outline drawing area showing the brief's view description.
+
+    Used when there's no real line art to embed for a given cell yet.
+    Reads as "this is what's coming," not as final art.
+    """
     inner_pad = 6.0
     wrap_cols = max(20, int((w - 2 * inner_pad) / 2.0))
     wrapped = textwrap.wrap(view_text, width=wrap_cols)
     line_h = 4.2
 
     text_lines = []
-    text_y = draw_y + inner_pad + line_h
-    for line in wrapped[:8]:  # cap at 8 lines so it doesn't overflow
+    text_y = y + inner_pad + line_h
+    for line in wrapped[:8]:
         text_lines.append(
             f'<text x="{x + inner_pad:.2f}" y="{text_y:.2f}" '
             f'font-family="Helvetica, Arial, sans-serif" font-size="3.6" '
@@ -104,31 +149,51 @@ def placeholder(x, y, w, h, view_text, caption):
         text_y += line_h
 
     return (
-        # Drawing area outline
-        f'<rect x="{x:.2f}" y="{draw_y:.2f}" width="{w:.2f}" height="{draw_h:.2f}" '
+        f'<rect x="{x:.2f}" y="{y:.2f}" width="{w:.2f}" height="{h:.2f}" '
         f'fill="{COLOR_PLACEHOLDER_FILL}" stroke="{COLOR_PLACEHOLDER_STROKE}" '
         f'stroke-width="0.4" stroke-dasharray="2,2" rx="2" />\n'
-        # Tag the placeholder
-        f'<text x="{x + w - inner_pad:.2f}" y="{draw_y + inner_pad + 3:.2f}" '
+        f'<text x="{x + w - inner_pad:.2f}" y="{y + inner_pad + 3:.2f}" '
         f'font-family="Helvetica, Arial, sans-serif" font-size="3.2" '
         f'fill="{COLOR_PLACEHOLDER_TEXT}" text-anchor="end" '
         f'font-style="italic">placeholder</text>\n'
-        # View description as wrapped text
-        + "\n".join(text_lines) + "\n"
-        # Caption underneath, centered horizontally in the cell
-        + f'<text x="{x + w / 2:.2f}" y="{cap_y + cap_h * 0.7:.2f}" '
-        f'font-family="Helvetica, Arial, sans-serif" font-size="6.5" '
-        f'font-weight="600" fill="{COLOR_PLAIN}" '
-        f'text-anchor="middle">{caption}</text>'
+        + "\n".join(text_lines)
     )
+
+
+def cell(x, y, w, h, view_text, caption, embed_path=None):
+    """Render one drawing cell — drawing area on top, caption below.
+
+    If embed_path is given, the drawing area shows that SVG scale-fit
+    into the cell. Otherwise the drawing area shows a dashed-outline
+    placeholder with the brief's view description inside.
+    """
+    draw_h = h * 0.78
+    cap_y = y + draw_h + 2
+    cap_h = h - draw_h
+
+    if embed_path:
+        body = _embed_svg(x, y, w, draw_h, embed_path)
+    else:
+        body = _placeholder_body(x, y, w, draw_h, view_text)
+    return body + "\n" + _caption_text(x, cap_y, w, cap_h, caption)
 
 
 def main():
     here = Path(__file__).resolve().parent
+    repo_root = here.parent.parent
     out_dir = here / "drawings" / "prints-and-guides"
     out_dir.mkdir(parents=True, exist_ok=True)
     svg_path = out_dir / "appliance.svg"
     pdf_path = out_dir / "appliance.pdf"
+
+    # Existing line-art sources that exist today, used where they fit
+    # the brief's specified view. None of them carry the supply-side
+    # subjects (CO2 cylinder + regulator + hose, under-counter
+    # plumbing, concentrate bottle), so drawings 2 and 3 stay as
+    # placeholders and drawings 1 and 4 show only the appliance side
+    # of their scene.
+    enclosure_front = repo_root / "hardware" / "printed-parts" / "enclosure" / "drawings" / "line-art" / "enclosure-iso-front.svg"
+    enclosure_back = repo_root / "hardware" / "printed-parts" / "enclosure" / "drawings" / "line-art" / "enclosure-iso-back.svg"
 
     # The four drawings, sourced from
     # marketing/unboxing-and-quickstart.md.
@@ -141,6 +206,7 @@ def main():
                 "Single red arrow at the front-panel CO2 inlet."
             ),
             "caption": "Connect the CO2.",
+            "embed": enclosure_front,
         },
         {
             "view": (
@@ -155,6 +221,7 @@ def main():
                 "appliance water inlet."
             ),
             "caption": "Tee into the water. Run the tube to the device.",
+            "embed": None,
         },
         {
             "view": (
@@ -165,6 +232,7 @@ def main():
                 "rotation arrow at the angle stop handle."
             ),
             "caption": "Open the CO2. Open the water.",
+            "embed": None,
         },
         {
             "view": (
@@ -174,6 +242,7 @@ def main():
                 "the bottle."
             ),
             "caption": "Empty a flavor into the hopper.",
+            "embed": enclosure_back,
         },
     ]
 
@@ -188,7 +257,9 @@ def main():
     body_parts = []
     for (col, row), drawing in zip(cells, drawings):
         x, y, w, h = cell_rect(col, row)
-        body_parts.append(placeholder(x, y, w, h, drawing["view"], drawing["caption"]))
+        body_parts.append(
+            cell(x, y, w, h, drawing["view"], drawing["caption"], drawing["embed"])
+        )
 
     body = "\n".join(body_parts)
 
