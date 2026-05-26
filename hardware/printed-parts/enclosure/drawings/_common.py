@@ -69,6 +69,18 @@ hopper_door_w = APPLIANCE_W - 2 * SIDE_MARGIN - pump_door_w - DOOR_GAP
 hopper_door_d = pump_door_d
 
 
+# Top-face positions (face-local a, b) for the two doors. a-axis matches
+# the appliance's width direction; b-axis matches its depth. Pump door
+# sits in the left-front corner with SIDE_MARGIN from the left edge and
+# FRONT_MARGIN from the front; hopper lid mirrors it against the right
+# edge.
+pump_door_a = SIDE_MARGIN + pump_door_w / 2
+pump_door_b = FRONT_MARGIN + pump_door_d / 2
+
+hopper_door_a = APPLIANCE_W - SIDE_MARGIN - hopper_door_w / 2
+hopper_door_b = FRONT_MARGIN + hopper_door_d / 2
+
+
 def add_top_face_features(appliance) -> None:
     """Add the GFCI access band, pump cartridge access door, and hopper lid
     to the top face of an appliance Box. Shared between the front-view and
@@ -88,19 +100,12 @@ def add_top_face_features(appliance) -> None:
         label="GFCI access band",
     )
 
-    # Pump-cartridge access door (left).
-    pump_door_a = SIDE_MARGIN + pump_door_w / 2
-    pump_door_b = FRONT_MARGIN + pump_door_d / 2
     appliance.top.add_rectangle(
         at=(pump_door_a, pump_door_b),
         w=pump_door_w, h=pump_door_d,
         label="pump cartridge access door",
     )
 
-    # Hopper lid (right), with a SIDE_MARGIN to the right edge mirroring
-    # the left-side gap of the pump door.
-    hopper_door_a = APPLIANCE_W - SIDE_MARGIN - hopper_door_w / 2
-    hopper_door_b = FRONT_MARGIN + hopper_door_d / 2
     appliance.top.add_rectangle(
         at=(hopper_door_a, hopper_door_b),
         w=hopper_door_w, h=hopper_door_d,
