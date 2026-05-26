@@ -38,22 +38,6 @@ CHANNEL-MOUTH FILLETS
 Each of the four wall-meets-rim corners is rounded with a tangent
 arc of the fillet radius.
 
-INSTALL SEQUENCE
-================
-1. Drop the faucet+umbilical assembly into the 1-3/8" countertop
-   hole from above. The TPU mounting gasket (already on the shank
-   from the factory bench) compresses against the countertop top
-   surface.
-2. From below: hold the plate horizontally against the countertop
-   underside, oriented with the channel mouths facing the umbilical.
-3. Slide the plate laterally past the cylinders. The shank and the
-   tube bundle enter through their channel mouths at the rim and
-   travel along the channels into their terminal pockets.
-4. Slide a washer onto the shank from below, against the plate.
-5. Thread the factory shank nut onto the shank and tighten. The
-   nut and washer clamp the plate flat against the countertop
-   underside.
-
 STACK-UP (top → bottom, world-Z range in faucet-assembly coords):
 - Mounting plate (PETG-CF), Z = [-4, 0]
 - TPU gasket (90A black),    Z = [-6, -4]
@@ -73,8 +57,6 @@ Drawing is in mm with $INSUNITS = 4.
 REGENERATE
 ==========
     tools/cad-venv/bin/python touch_flo_under_counter_plate.py
-
-(No CadQuery dependency — uses ezdxf directly.)
 """
 
 import sys
