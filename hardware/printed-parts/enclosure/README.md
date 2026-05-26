@@ -43,13 +43,7 @@ Everything else fits into the voids those three create.
 - Front-dispense spout (the drill-trigger moment).
 - CO2 inlet — possibly migrated to the furthest-forward edge of a side face. Disconnection-under-pressure cable-whip and asphyxiation risk make this the most physically dangerous connection.
 
-Explicitly NOT on the front face:
-
-- GFCI module (electronics shelf).
-- Pump cartridge (anywhere there's room when we're done — could end up front, could end up elsewhere, but not committed to the front face).
-- Anything else that doesn't need customer attention right now.
-
-The front face is large surface area for three intentional features. The intent is that opening the cabinet door and looking at the front of the appliance shows you only the things you'd actually need to look at — everything else lives elsewhere because you don't need to think about it right now.
+The GFCI module sits on the electronics shelf. The pump cartridge location is not yet committed.
 
 ## Sub-folders
 

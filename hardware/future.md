@@ -33,11 +33,11 @@ ASSE 1022 (not 1024) is the correct standard for this application. 1022 is speci
 
 **Level sensing — external reed + internal magnetic float on welded SS rod.** A 1/8" 316L SS rod (Tandefio B0CY4DWJFQ, cut from 12" stock to ~6") is laser-welded vertically to the inside face of the bottom plate, with its top end captured by a small register on the inside face of the top plate. A magnetic donut float (harvested from a DEVMO MINI float switch B07T18PGJ4) slides freely along the rod with the water level. External reed switches (Gebildet B0CW9418F6) are mounted on the outside of the 0.065" 316L SS tube wall (316L is austenitic and non-magnetic — the magnetic field passes through the wall). Two reeds — one at the low-level refill threshold, one at the high-level full threshold. Zero electrical penetrations of the pressure vessel; nothing wetted is anything other than 316/316L SS or food-grade silicone.
 
-Refill is triggered when the faucet is closed and the low-level reed reads empty — never during an active dispense. This is a hard firmware interlock, not a soft preference: introducing 18 °C tap water during a pour raises the dispensed water temperature rapidly (2 °C → ~6 °C after one 12 oz pour under perfect-mix). The tank functions as a thermal reservoir, not a real-time buffer: dispense until the low-level threshold, close the faucet, then the pump refills and the evaporator pulls the new water down to service temperature before the next pour is allowed.
+Refill is triggered when the faucet is closed and the low-level reed reads empty. This is a hard firmware interlock: dispense until the low-level threshold, close the faucet, then the pump refills and the evaporator pulls the new water down to service temperature before the next pour is allowed. Introducing 18 °C tap water during a pour raises the dispensed water temperature rapidly (2 °C → ~6 °C after one 12 oz pour under perfect-mix).
 
-Carbonated water at ~2 °C and pH ~3.5–4 naturally suppresses biofilm and scale formation in the vessel — no scheduled clean cycle is required for the carbonator (the clean cycle in `flavor-subsystem` is for the flavor lines, not the carbonator).
+The carbonator has no scheduled clean cycle (the clean cycle in `flavor-subsystem` is for the flavor lines).
 
-Dispensing is a faucet lever. The carbonated water is already cold, carbonated, and under CO2 pressure — opening the valve sends it directly to the nozzle.
+Dispensing is a faucet lever.
 
 **Refrigeration subsystem**
 
@@ -52,7 +52,7 @@ Evaporator coil: GOORY 1/4" OD x 0.187" ID, C12200 ACR (ASTM B280), thick-wall (
 
 Compressor cycling is controlled by firmware, not a mechanical thermostat. Two DS18B20 waterproof 1-wire temperature probes on a shared bus: one clamped to the carbonator tank wall reads water-side temperature for cycle control (target ~2 °C, hysteresis ~2 °C — compressor off at 2 °C, on at 4 °C); a second bonded to the evaporator suction line reads coil temperature for freeze protection (hard cutout at −8 °C to prevent the water in the tank from freezing against the coil). The ESP32 reads both probes and drives the Teyleten relay module on GPIO 14 to switch the compressor's AC hot leg. A minimum off-time enforced in firmware (~3 min) prevents short-cycling and protects the compressor's start capacitor.
 
-Factory charge is R-600a (isobutane) — R-600a is carved out of the EPA Section 608 venting prohibition as a natural refrigerant, so the loop is vented to atmosphere through a piercing valve rather than recovered into a machine. No 608 certification is legally required. Teardown sequence: vent factory charge through a BPV31 piercing valve clamped on the compressor process tube, cut out only the factory finger-plate evaporator (the factory drier + capillary tube + suction-line heat-exchanger pair are preserved in service under continuous argon flow), pull vacuum and recharge through the same BPV31 flare port (which becomes the appliance's single permanent service-access point), recharge from a 6 oz Enviro-Safe pure R-600a can (target ~20-35 g per system depending on donor, metered by mass — factory is 15 g for Unit A's Antarctic Star HZB-12/Q and 23 g for Unit B's Frigidaire EFIC117-SS per their manuals; new larger evap coil pushes the target above factory; calibrated empirically per [`assembly/refrigerant-loop.md`](assembly/refrigerant-loop.md) step 7 + open items §1). Total component cost per unit: ~$100-110.
+Factory charge is R-600a (isobutane) — carved out of the EPA Section 608 venting prohibition as a natural refrigerant, so the loop is vented to atmosphere through a piercing valve. Teardown sequence: vent factory charge through a BPV31 piercing valve clamped on the compressor process tube, cut out the factory finger-plate evaporator (the factory drier + capillary tube + suction-line heat-exchanger pair are preserved in service under continuous argon flow), pull vacuum and recharge through the same BPV31 flare port (the appliance's permanent service-access point), recharge from a 6 oz Enviro-Safe pure R-600a can (target ~20-35 g per system depending on donor, metered by mass — factory is 15 g for Unit A's Antarctic Star HZB-12/Q and 23 g for Unit B's Frigidaire EFIC117-SS per their manuals; calibrated empirically per [`assembly/refrigerant-loop.md`](assembly/refrigerant-loop.md) step 7 + open items §1). Total component cost per unit: ~$100-110.
 
 
 **Cold core assembly (inside out)**
@@ -61,7 +61,7 @@ Production procedure: [`assembly/cold-core.md`](assembly/cold-core.md).
 
 Layer 1: Custom-fabricated 316L SS carbonator vessel, vertical orientation, 5" OD × ~6" tall round tube + 1/4" end plates.
 
-Layer 2: Copper evaporator coil wrapped tight around the tank, bonded to the tank OD with 3M 425 aluminum foil tape (thermally conductive).
+Layer 2: Copper evaporator coil wrapped tight around the tank, bonded to the tank OD with 3M 425 aluminum foil tape.
 
 Layer 3: 3D-printed inner shell with ~1/4" gap, filled with two-part closed-cell pour-in-place polyurethane foam (2 lb density, ~R-6/in). Two components mix 1:1, poured through a fill port at the top of the shell, and rise to fill the cavity. Vent holes in the shell allow excess foam to escape during cure; trimmed flush after hardening.
 
@@ -71,7 +71,7 @@ Layer 5: 3D-printed outer shell with ~1/2" to 3/4" gap, filled with the same pou
 
 Total cold core dimensions: TBD after spray foam and shell layers are added around the 5" OD × ~6" tall vessel core.
 
-The flavor reservoirs passively pre-chill to roughly 8-15°C by sitting in the thermal gradient between the near-freezing inner core and ambient air. The inner foam layer prevents the reservoirs from freezing against the evaporator.
+The flavor reservoirs passively pre-chill to roughly 8-15°C by sitting in the thermal gradient between the near-freezing inner core and ambient air. The inner foam layer holds the reservoirs at that gradient rather than at evaporator temperature.
 
 **Flavor subsystem**
 
