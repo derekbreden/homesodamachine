@@ -293,7 +293,7 @@ rod_anchor_boss_floor = 2.0  # thickness of the printed-solid PETG floor INSIDE 
 # bulkhead_nut_cavity_diameter: 23.0 — ø22.9 flange + 0.1 clearance.
 # Imported from _cold_core_interface because that module derives
 # reservoir_bulkhead_port_y from this diameter.
-bulkhead_panel_hole_diameter = 17.0  # JG catalog spec for the 1/4" body family (0.67")
+bulkhead_panel_hole_diameter = 17.5  # was 17.0 (JG catalog spec for the 1/4" body family, 0.67"); bumped +0.5 mm Ø (+0.25 mm/side clearance) after the 2026-05-25 attempt-2 print, where Derek "failed to get the bulkhead on this time" — the catalog-spec hole was repeatedly too tight to insert the actual JG bulkhead body through.
 
 # The bulkhead body's wet side is *stepped* along its axis (flange,
 # collet body, release ring — narrower toward the port). The chamber
@@ -326,7 +326,7 @@ bulkhead_panel_thickness = 6.8  # was 5 mm. Grown by 1.8 mm to fit 1.4 mm-deep T
 bulkhead_nut_hex_flat_to_flat = 19.8  # the 6 flats that grip the pocket for anti-rotation
 bulkhead_nut_hex_corner_to_corner = bulkhead_nut_hex_flat_to_flat / math.cos(math.radians(30))  # ~1 mm past the actual clipped corners
 bulkhead_nut_washer_diameter = 22.1
-bulkhead_nut_hex_depth = 4.1  # axial depth of the hex portion
+bulkhead_nut_hex_depth = 4.6  # was 4.1 (axial depth of the hex portion, near-zero margin over the actual nut height); bumped +0.5 mm after the 2026-05-25 attempt-2 print, where the nut would not seat fully into the pocket. NOTE: the release-ring chamber absorbs this growth because bulkhead_release_ring_length is derived from bulkhead_wet_chamber_length − bulkhead_flange_length − bulkhead_collet_body_length; release-ring chamber length 3.0 → 2.5 mm.
 bulkhead_nut_washer_depth = 1.6  # axial depth of the washer portion
 bulkhead_nut_total_depth = bulkhead_nut_hex_depth + bulkhead_nut_washer_depth
 bulkhead_nut_clearance = 0.1  # per-side clearance for press-fit (both hex flats and washer ⌀)
