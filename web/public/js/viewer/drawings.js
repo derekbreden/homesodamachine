@@ -53,6 +53,20 @@ function parseSvgString(svgText) {
   return adopted;
 }
 
+// CadQuery's SVG exporter emits `width`/`height` attributes but no
+// `viewBox`. Without a viewBox the SVG's internal coordinate system
+// doesn't scale to fit a smaller rendered size — `max-width: 100%` on
+// the thumbnail just clips the top-left corner of the original-size
+// canvas. Inject a viewBox derived from the width/height so the
+// content scales with the container.
+function ensureViewBox(svgText) {
+  if (/<svg\b[^>]*\sviewBox\s*=/i.test(svgText)) return svgText;
+  const w = /<svg\b[^>]*\swidth\s*=\s*"([^"]+)"/i.exec(svgText)?.[1];
+  const h = /<svg\b[^>]*\sheight\s*=\s*"([^"]+)"/i.exec(svgText)?.[1];
+  if (!w || !h) return svgText;
+  return svgText.replace(/<svg\b/, `<svg viewBox="0 0 ${w} ${h}"`);
+}
+
 // --- Thumbnail ---
 // The thumbnail is the SVG itself, scaled by the .drawing-thumb container.
 // SVG is already a vector — no separate rasterization step, no separate
@@ -63,7 +77,7 @@ export async function renderDrawingThumbnail(file) {
   try {
     const resp = await fetch(`/api/drawing-content/${file}`);
     if (!resp.ok) return null;
-    const svgText = await resp.text();
+    const svgText = ensureViewBox(await resp.text());
     state.drawingThumbCache.set(file, svgText);
     return svgText;
   } catch { return null; }

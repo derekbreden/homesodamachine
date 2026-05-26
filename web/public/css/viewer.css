@@ -233,3 +233,13 @@
 .drawing-svg line {
   stroke: var(--text);
 }
+
+/* Engineering drawings: visible edges get full stroke weight (the
+   outer <g> sets stroke-width: 1.5), but the dashed hidden-line group
+   gets reduced weight so the dots don't compete with the solid lines
+   for attention. Applies to both the card thumbnail and the zoomed
+   modal view. */
+.card .drawing-thumb svg g[stroke-dasharray],
+.drawing-svg g[stroke-dasharray] {
+  stroke-width: 0.5;
+}
