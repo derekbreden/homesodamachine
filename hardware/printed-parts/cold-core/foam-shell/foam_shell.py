@@ -1,9 +1,6 @@
 """Foam shell — the PETG enclosure for the cold core's pressure
 vessel + copper evaporator coil + flavor reservoir pockets. See
-README.md for the design intent and the layer-by-layer geometry.
-(Previously named foam-bag-shell when the reservoirs were flexible
-bags; renamed to foam-shell when the design moved to printed PETG
-reservoirs.)"""
+README.md."""
 
 import sys
 from pathlib import Path
@@ -133,7 +130,7 @@ def main():
             "GASKET_T": 2,
             "GASKET_W": 1,
             "BOSS": 3,
-            "MID_BOSS_OFFSET": 3,
+            "MID_BOSS_OFFSET": 2,
             "INSERT_DEPTH": 1,
             "VOLUME": 1,
             "BBOX_X": 1,

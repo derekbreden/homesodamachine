@@ -156,12 +156,12 @@ has the pour hole (Ø [10 mm](POUR_D)) and two vent holes
 (Ø [6 mm](VENT_D)).
 
 Both the cap and the lid have **six [8 × 8 mm](BOSS) boss / clearance-hole
-positions** — four at the corners (inherited from the earlier dowel-
-pin layout) and two at the mid-points of the long edges (one near
-the +Z wall and one near the −Z wall, offset in X by ±[15 mm](MID_BOSS_OFFSET)
-with opposite signs at +Z vs −Z for 180° rotational symmetry). Each
-position passes a clearance hole for an M3 cap screw all the way
-through the part. See "Cap-to-outer-shell joinery" below.
+positions** — four at the corners and two at the mid-points of the long
+edges (one near the +Z wall and one near the −Z wall, offset in X by
+±[15 mm](MID_BOSS_OFFSET) with opposite signs at +Z vs −Z for 180°
+rotational symmetry). Each position passes a clearance hole for an M3
+cap screw all the way through the part. See "Cap-to-outer-shell
+joinery" below.
 
 ### foam_cap_gasket
 
@@ -171,10 +171,8 @@ footprint; [2 mm](GASKET_T) thick (flat 2D shape throughout — no 3D
 features). The shape is a **[5 mm](GASKET_W)-wide perimeter ring +
 an [8 × 8 mm](BOSS) pad at each of the six screw positions**,
 matching the boss footprints on the cap and shell above and below.
-The pads carry the screw clamp force uniformly across the full
-boss footprint; the perimeter ring seals along the wall sections
-away from the bosses. Replaces the friction-fit pin joinery's
-complete absence of any seal between cap and outer shell.
+The pads carry the screw clamp force across the full boss footprint;
+the perimeter ring seals along the wall sections away from the bosses.
 
 ## Cap-to-outer-shell joinery
 
@@ -203,23 +201,6 @@ Insert pocket: Ø 4.0 mm × [8 mm](INSERT_DEPTH) deep (insert
 engagement + tip-relief). Pockets are drilled inward from each face —
 top face pockets go down, bottom face pockets go up.
 
-Standard SHCS chosen instead of the ultra-low-profile heads used in
-`touch-flo-mounting-plate`: there's no under-counter flush-mount
-constraint here (the heads protrude on the appliance top and bottom
-faces; under-counter install hides both), and the standard DIN 912
-SHCS is roughly an order of magnitude cheaper Prime-shippable than
-McMaster ULH. Black finish is preferred over bright stainless for
-appearance; black oxide on alloy steel is adequate corrosion
-protection for this dry foam-filled enclosed interior.
-
-Six attachment positions per cap (vs the earlier four pin corners)
-halve the longest unsupported gasket span between adjacent screws,
-which matters for a TPU gasket compressed only at discrete points.
-The two mid-long-side screws are offset in X by ±[15 mm](MID_BOSS_OFFSET)
-(opposite signs at +Z vs −Z) rather than centered at x = 0, both to
-clear the shared +Z slot that runs up the centerline and to preserve
-180° rotational symmetry so the caps can be flipped end-for-end.
-
 ## Penetrations
 
 Eight pass-throughs total, all carrying **1/4" OD tubing (6.35 mm)** through
@@ -238,13 +219,11 @@ Y-elongated slot at the +Z outer wall.
 | 7 | Water inlet | shared +Z slot | 1/4" OD line from the diaphragm pump |
 | 8 | PRV vent | shared +Z slot | 1/4" OD LLDPE from the prv-shroud cap into the appliance interior (unpressurized; carries relief-event discharge only — see [`../prv-shroud/`](../prv-shroud/)) |
 
-**Build decision:** for the water inlet and CO2 inlet, the supply-side
-tubing reduces to 1/4" OD *before* reaching the shell wall — i.e., the
-transition fittings (3/8" barb-to-NPT adapter, 5/16" push-to-connect,
-1/4" NPT check valves, etc.) all live on the warm side of the shell.
-Inside the shell, every penetration is the same 1/4" OD. This keeps
-holes small, uniform, and simple to seal during foam pour, at the cost
-of the transition fittings being a few cm further from the tank.
+For the water inlet and CO2 inlet, the supply-side tubing reduces to
+1/4" OD before reaching the shell wall — transition fittings (3/8"
+barb-to-NPT adapter, 5/16" push-to-connect, 1/4" NPT check valves, etc.)
+live on the warm side of the shell. Inside the shell, every penetration
+is 1/4" OD.
 
 ### Shared +Z slot and copper plug stack
 
@@ -273,14 +252,6 @@ floor** — i.e. from the interior cavity's lower bound, not from y = 0):
 above these — i.e. 47.0 / 166.4 / 198.4 / 206.4 at the current
 2 mm wall — since the floor occupies y = 0 to
 y = `wall_and_floor_thickness`.)
-
-(The highest copper drifted by −1 mm relative to the floor top when
-`wall_and_floor_thickness` was bumped from 1 mm to 2 mm in commit
-`8a9ffc0`; the formula
-`foam_shell_outer_height − hole_shift_from_edge − wall_and_floor_thickness − above_tank_elbows_height`
-has a `−wall_and_floor_thickness` term that the `+wall_thickness_compensation`
-inside `foam_shell_outer_height` only half-cancels once you reframe
-against the floor top. The drift was accepted.)
 
 Four printed PETG **copper plugs** slide down into the slot from
 above to seal the gaps between (and above) the four pass-throughs:
@@ -312,11 +283,10 @@ without crushing it. `lower`, `middle`, and `upper` all arch at both
 Y ends; `top` arches at the bottom Y end only (its top is flush with
 the wall top and stays flat).
 
-After the four plugs are installed, the slot still has ~4.25 mm of
-total unfilled length within the wall along Y: 1.75 mm at the
-bottom of the slot, 2 mm at the top, plus eight 0.5 mm clearance
-bands (one above and one below each of the four tubes). All of
-that gets filled by the body foam pour.
+After the four plugs are installed, the slot's remaining unfilled
+length within the wall along Y (a strip at the bottom of the slot,
+a strip at the top, and narrow clearance bands above and below each
+of the four tubes) gets filled by the body foam pour.
 
 ## Assembly and foam pour
 
@@ -385,9 +355,8 @@ face at the ±X azimuths — ~110 mm of arc to reach around the back
 of the coil from the ±Z entry.
 
 Foam expansion may push a small amount of material out through the
-0.5 mm clearance bands around tubes in the +Z slot and through the
-tight-fit tube exits at the other penetrations. This is expected;
-trim flush after cure.
+clearance bands around tubes in the +Z slot and through the tight-fit
+tube exits at the other penetrations. Trim flush after cure.
 
 ### Final assembly (after all three foam pours have cured)
 
@@ -419,16 +388,12 @@ This drives several dimension choices:
   polyline cut from it), so the four walls union into one solid by
   construction rather than by OCCT face-merging.
 - The **outer_shell**'s inner face sits [16 mm](OUTER_GAP)
-  outboard of the outermost reservoir-pocket walls — a deliberate
-  gap, not a coincidence: this is the outer foam-pour zone.
+  outboard of the outermost reservoir-pocket walls — the outer
+  foam-pour zone.
 
 ## Print settings
 
-**Print with stock Bambu Studio defaults** — no slicer overrides, no
-custom G-code, no chamber fan settings. The 2 mm wall thickness is
-what makes the part printable on this H2C; no other compensation is
-needed. No `.3mf` is committed because there's nothing in the slicer
-profile that differs from stock.
+**Print with stock Bambu Studio defaults.**
 
 Plate contents (when slicing): `foam-shell` + `copper-plug-lower` +
 `copper-plug-middle` + `copper-plug-upper` together; `foam-cap` and
@@ -455,8 +420,7 @@ Plate contents (when slicing): `foam-shell` + `copper-plug-lower` +
 - **Material:** Bambu PETG Basic @BBL H2C
 - **Nozzle temp:** 250 °C (initial layer 245 °C)
 - **Bed:** Textured PEI Plate at 70 °C
-- **Chamber:** passive (`chamber_temperatures: 0`); no chamber exhaust
-  fan override — see history above
+- **Chamber:** passive (`chamber_temperatures: 0`)
 - **Flow ratio:** 0.97
 - **Max volumetric speed:** 21 mm³/s (28 on the second nozzle slot)
 - **Part-cooling fan:** max 40 %, min 20 %, overhang 90 % at ≥ 10 %
