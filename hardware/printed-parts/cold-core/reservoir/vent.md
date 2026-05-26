@@ -15,21 +15,19 @@ Geometry constants in `reservoir.py` in this directory lines 192–270 (`vent_po
 - Splash-baffle cylinder: ø[10 mm](VENT_CYL_OD) OD × ø[5 mm](VENT_CYL_ID) ID, ~3 mm long, hanging below the cap ceiling
 - Splash-baffle slots: [4](VENT_SLOT_COUNT) slots, [3 mm](VENT_SLOT_W) wide × [2 mm](VENT_SLOT_H) tall, cut into the cylinder wall
 
-## Why a vent at all
+## Function
 
-The reservoir is non-pressurized. As syrup drains out the bottom outlet (PP1208E bulkhead) the air space above the liquid grows; without a vent, atmospheric pressure could not equalize and the outlet flow would stall. Conversely, as the hopper-fill cycle refills the reservoir from above, displaced air has to leave somewhere.
+The reservoir is non-pressurized; the vent equalizes the air space
+above the liquid as syrup drains out the bottom outlet (PP1208E
+bulkhead) and as the hopper-fill cycle refills it from above.
 
-## Why a hydrophobic membrane (not a simple hole)
+The hydrophobic PTFE membrane passes air freely and blocks aqueous
+syrup at the membrane surface. The splash-baffle cylinder forces any
+upward splash to take a 90° lateral turn before reaching the
+membrane — splash lands on the closed top of the baffle's inner
+cavity or on the cylinder wall and runs back down.
 
-The reservoir holds dilute sucralose-syrup that splashes when the hopper pours into it and when the pump cycles draw liquid through the bottom outlet. A bare vent hole would let splashed syrup wick out of the cap and dry on the appliance interior; over the 10-year unmaintained design lifetime, the cumulative residue would be a service problem. The hydrophobic PTFE membrane passes air freely but blocks aqueous syrup at the membrane surface.
-
-## Why a splash baffle below the membrane
-
-Even with a hydrophobic membrane, repeated direct splashes onto the membrane surface would gradually clog its pores with sucralose residue from the evaporating splash. The splash-baffle cylinder forces any upward splash to take a 90° lateral turn before it can reach the membrane — the splash either lands on the closed top of the baffle's inner cavity or on the cylinder wall, and runs back down rather than reaching the filter.
-
-## Why ø[13 mm](FILTER_D) × [0.5 mm](FILTER_T)
-
-Standard lab-filter disc size. ø[13 mm](FILTER_D) is small enough to fit in the cap's available footprint between the screw-boss positions; large enough for adequate air passage at the slow venting rate the reservoir actually experiences. [0.5 mm](FILTER_T) thickness is the off-the-shelf laminated-PTFE-on-PET-support spec; cheaper than custom and held in the 100-pack at $0.13/filter delivered.
+The ø[13 mm](FILTER_D) × [0.5 mm](FILTER_T) filter is a standard lab-filter disc; laminated PTFE on PET support, held in 100-packs at $0.13/filter delivered.
 
 ## Per-build parts
 
