@@ -293,7 +293,7 @@ rod_anchor_boss_floor = 2.0  # thickness of the printed-solid PETG floor INSIDE 
 # bulkhead_nut_cavity_diameter: 23.0 — ø22.9 flange + 0.1 clearance.
 # Imported from _cold_core_interface because that module derives
 # reservoir_bulkhead_port_y from this diameter.
-bulkhead_panel_hole_diameter = 17.5  # was 17.0 (JG catalog spec for the 1/4" body family, 0.67"); bumped +0.5 mm Ø (+0.25 mm/side clearance) after the 2026-05-25 attempt-2 print, where Derek "failed to get the bulkhead on this time" — the catalog-spec hole was repeatedly too tight to insert the actual JG bulkhead body through.
+bulkhead_panel_hole_diameter = 17.5  # 0.5 mm Ø over the JG catalog spec (0.67" / ⌀17.0) so the printed hole reliably accepts the JG body through print tolerance + slight body OD variation. Catalog-spec sizing is too tight in practice.
 
 # The bulkhead body's wet side is *stepped* along its axis (flange,
 # collet body, release ring — narrower toward the port). The chamber
@@ -326,7 +326,7 @@ bulkhead_panel_thickness = 6.8  # was 5 mm. Grown by 1.8 mm to fit 1.4 mm-deep T
 bulkhead_nut_hex_flat_to_flat = 19.8  # the 6 flats that grip the pocket for anti-rotation
 bulkhead_nut_hex_corner_to_corner = bulkhead_nut_hex_flat_to_flat / math.cos(math.radians(30))  # ~1 mm past the actual clipped corners
 bulkhead_nut_washer_diameter = 22.1
-bulkhead_nut_hex_depth = 4.6  # was 4.1 (axial depth of the hex portion, near-zero margin over the actual nut height); bumped +0.5 mm after the 2026-05-25 attempt-2 print, where the nut would not seat fully into the pocket. NOTE: the release-ring chamber absorbs this growth because bulkhead_release_ring_length is derived from bulkhead_wet_chamber_length − bulkhead_flange_length − bulkhead_collet_body_length; release-ring chamber length 3.0 → 2.5 mm.
+bulkhead_nut_hex_depth = 4.6  # axial depth of the hex portion. Sized ~0.5 mm over the nominal nut hex height so the nut seats fully despite print-tolerance variation. NOTE: bulkhead_release_ring_length is derived from bulkhead_wet_chamber_length − bulkhead_flange_length − bulkhead_collet_body_length, so growth here shrinks the release-ring chamber proportionally.
 bulkhead_nut_washer_depth = 1.6  # axial depth of the washer portion
 bulkhead_nut_total_depth = bulkhead_nut_hex_depth + bulkhead_nut_washer_depth
 bulkhead_nut_clearance = 0.1  # per-side clearance for press-fit (both hex flats and washer ⌀)
@@ -352,7 +352,7 @@ nut_hex_profile = [
 # ensures the mating faces still seat directly on PETG outside the
 # counterbore — the elastomer carries only the seal load, not the
 # clamping force.
-bulkhead_seal_id = 17.5  # flush with the panel hole ([17.5 mm](BULKHEAD_PANEL_HOLE_D)) after the 2026-05-25 panel-hole bump from ⌀17. Was originally 0.25 mm/side clearance around the prior ⌀17 panel hole. Still works because this is an axial face seal between the panel face and the mating face (nut washer / integral flange); the radial relationship to the panel hole edge does not carry seal load.
+bulkhead_seal_id = 16.5  # intentionally 1 mm Ø under the panel hole ([17.5 mm](BULKHEAD_PANEL_HOLE_D)): the seal's inner edge overhangs the panel hole by 0.5 mm/side and the bulkhead body passes THROUGH the seal, not around it. If the JG body OD at the seal location is ≤16.5 mm the seal clears it; if larger, the seal stretches over the body and adds a radial bore-seal effect on top of the axial face seal. Pairs with seal_od 20.3 (kept) to give 1.9 mm radial material — wider than the natural clearance-driven minimum, on purpose, for handling robustness + radial-seal capability.
 bulkhead_seal_od = 20.3  # 0.1 mm/side clearance in the counterbore
 bulkhead_seal_thickness = 2.0  # matches the reservoir gasket convention
 bulkhead_seal_counterbore_diameter = 20.5
