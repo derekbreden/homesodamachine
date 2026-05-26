@@ -1,6 +1,6 @@
 # Purchases
 
-Capital expenditure ledger for the soda-flavor-injector project. Scope: **2026 calendar year only** (Jan 1 → Apr 30, 2026 YTD). The project began in early 2026; nothing material predates it, and any pre-2026 spend that might otherwise be tempting to include is deliberately out of scope. Compiled from Amazon order history, direct-from-vendor receipts (Bambu Lab, XLaserlab, Namecheap), and capitalized contract labor (Anthropic / Claude API + subscription for AI-assisted engineering — CAD, firmware, electrical design, documentation, procurement research). Every item is either already in-hand (**ACQUIRED**), placed but not yet arrived (**ON-ORDER**), or identified as a planned purchase (**LIKELY-TO-BUY**). Non-project items (lawn/grass seed, dog products, personal groceries, shoes, etc.) are excluded.
+Capital expenditure ledger for the soda-flavor-injector project. Scope: **2026 calendar year only** (Jan 1 → Apr 30, 2026 YTD). Compiled from Amazon order history, direct-from-vendor receipts (Bambu Lab, XLaserlab, Namecheap), and capitalized contract labor (Anthropic / Claude API + subscription for AI-assisted engineering — CAD, firmware, electrical design, documentation, procurement research). Every item is either already in-hand (**ACQUIRED**), placed but not yet arrived (**ON-ORDER**), or identified as a planned purchase (**LIKELY-TO-BUY**).
 
 This is the **purchase ledger** — every buy event, kept for tax records and complete sourcing history. It is not a per-unit bill of materials. Views over this ledger live in sibling files:
 
@@ -10,7 +10,7 @@ This is the **purchase ledger** — every buy event, kept for tax records and co
 
 Each row below is a purchase event; the same SKU may appear as multiple rows if reordered. Capitalized contract labor (Anthropic / Claude API) is recorded here in §18 as cash outlays.
 
-Price figures on bundled rows reflect the shipment total, not the per-item unit price. Owner / founder time is **not** tracked here — that's sweat equity, un-booked by design. Only cash outlays (including contracted labor via Anthropic) are on this ledger.
+Price figures on bundled rows reflect the shipment total, not the per-item unit price. Only cash outlays (including contracted labor via Anthropic) are on this ledger.
 
 ---
 

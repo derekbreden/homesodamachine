@@ -6,11 +6,9 @@ Two countertop ice makers were purchased for harvesting refrigeration components
 
 Custom SS carbonator + new evaporator coil. The factory finger-plate evaporator is discarded; a custom copper coil is wound around the fabricated 316L SS carbonator (vertical 5" OD × 0.065" wall 316 welded round tube with 1/4"-thick 316 circular end plates, per [`hardware/future.md`](../../future.md)). The refrigerant loop is opened (cut into the suction and cap-tube sides of the factory evaporator), the factory charge is vented, the drier is replaced, the system is evacuated, and it is recharged.
 
-The hot-gas bypass solenoid is deleted — we want steady cold, not harvest cycles.
+The hot-gas bypass solenoid is deleted.
 
-R-600a is carved out of the EPA Section 608 venting prohibition as a natural refrigerant, so no 608 certification is legally required. Standard (non-hydrocarbon-rated) HVAC vacuum pump and manifold are fine — we vent to atmosphere rather than recover, so recovery-equipment hydrocarbon compatibility is moot.
-
-(An alternative architecture was briefly considered: keep the factory finger-plate evaporator wired in-circuit and surround it with an FDM-printed pressure vessel — PA6-CF structural shell lined with TPU as the pressure boundary, with the cold fingers becoming the vessel's internal geometry. Sealed loop, no vent or recharge. Not in active development; the custom-coil path is what's being built. Full pre-removal description preserved at the `archive-plan-b-2` git tag — `git show archive-plan-b-2:hardware/harvested/ice-maker/README.md` for the side-by-side discussion.)
+R-600a is carved out of the EPA Section 608 venting prohibition as a natural refrigerant, so no 608 certification is legally required. Standard (non-hydrocarbon-rated) HVAC vacuum pump and manifold work — refrigerant is vented to atmosphere rather than recovered.
 
 ---
 
@@ -50,19 +48,17 @@ This matches standard R600a small-appliance practice. Verified by tracing the tu
 - 110-120 V ~ 60 Hz, 1 PH
 - Hermetic reciprocating, thermally protected, UL / CSM listed
 - Body cast-stamp: **48.5-2** (mid-housing). **Not** a charge mass — see Open items below for the per-unit factory mass status. Most likely a compressor displacement or capacity-index code with sub-variant suffix; not decoded.
-- Larger than intuition suggests for a $64 appliance — this is normal. R600a hermetic cans have a floor size set by the motor, piston, and oil sump regardless of rated capacity. Freezing cubes in six minutes demands real wattage; this is likely in the 90–120 W cooling-capacity range, which is plenty for holding a carbonator at service temperature.
+- Cooling capacity ~90–120 W range (estimated from cube-formation throughput).
 
 ### Condenser
 
-Finned-tube forced-convection condenser with its own fan shroud (fan not yet separated in photos). Plate-fin construction: thin, easily-bent aluminum fins on a copper refrigerant tube — same family as a window-AC coil, miniaturized. (Earlier drafts called this "wire-and-plate" — that's the construction with actual round steel wires welded perpendicular to the tube, which is not what this is. Aluminum identified by color; a fridge magnet would confirm non-ferrous if ever in doubt.) Reuse as-is — mount against one side wall of the appliance enclosure with the fan's native flow axis crossing the enclosure side-to-side (intake grille on one side face, exhaust grille on the opposite side face). The point of this orientation is that the donor fan + shroud are doing exactly the job they were designed for — no airflow redirection, no shared intake/exhaust face — per the enclosure layout in `future.md`.
+Finned-tube forced-convection condenser with its own fan shroud (fan not yet separated in photos). Plate-fin construction: thin aluminum fins on a copper refrigerant tube. Reuse as-is — mount against one side wall of the appliance enclosure with the fan's native flow axis crossing the enclosure side-to-side (intake grille on one side face, exhaust grille on the opposite side face) per the enclosure layout in `future.md`.
 
 ### Filter-drier
 
-A fat copper cylinder sits between the condenser outlet and the capillary tube inlet. It holds a molecular-sieve desiccant charge that traps residual moisture and debris — moisture in an R600a system freezes at the capillary tube orifice and causes intermittent loss of cooling, so the drier is load-bearing for reliability, not optional.
+A fat copper cylinder sits between the condenser outlet and the capillary tube inlet. It holds a molecular-sieve desiccant charge that traps residual moisture and debris.
 
-**Disposition: keep in service.** The factory drier is preserved through the loop-open period under continuous argon flow per [`../../assembly/refrigerant-loop.md`](../../assembly/refrigerant-loop.md) step 3. The drier, its brazed-on capillary tube, the cap-tube helix at the evap end, and the bonded suction-line heat-exchanger pair all stay together as one preserved upstream subassembly. Replacement driers (Supco SUD8358 + Supco D111) are kept on the shelf as spares for any future loop-open service that requires replacement, but are not consumed in the production build.
-
-Rationale: a commodity replacement drier's cap-tube outlet doesn't match the donor's 0.030" hair-bore capillary, so installing one would require a second 0.030"-to-larger-sweat pinch-swage in addition to the one already required at the new evap coil's inlet. That mismatched-tube surgery is rework risk for no functional gain when the factory drier's desiccant can simply be preserved instead.
+**Disposition: keep in service.** The factory drier is preserved through the loop-open period under continuous argon flow per [`../../assembly/refrigerant-loop.md`](../../assembly/refrigerant-loop.md) step 3. The drier, its brazed-on capillary tube, the cap-tube helix at the evap end, and the bonded suction-line heat-exchanger pair stay together as one preserved upstream subassembly. Replacement driers (Supco SUD8358 + Supco D111) are kept on the shelf as spares.
 
 Label on this unit's drier:
 
@@ -75,7 +71,7 @@ Label on this unit's drier:
 
 ### Capillary tube + suction-line heat exchanger
 
-Downstream of the filter-drier, the metering device is a hair-bore **capillary tube** (not a TXV — cheaper, no moving parts, fine for fixed-load systems like ours). ID is roughly 0.03″ (well under 1 mm) — visibly thinner than you'd think anything could flow through, and that is the entire point. This single tube drops pressure from condenser side (~100 PSI) to evaporator side (~5–10 PSI for R600a) across its length. Mass flow for a 100 W-class system is a fraction of a gram per second, so the tiny bore passes the full charge just fine.
+Downstream of the filter-drier, the metering device is a hair-bore **capillary tube**, ID ~0.03″ (well under 1 mm). It drops pressure from condenser side (~100 PSI) to evaporator side (~5–10 PSI for R600a) across its length. Mass flow for a 100 W-class system is a fraction of a gram per second.
 
 Physical path through this unit, start to finish:
 
@@ -84,21 +80,19 @@ Physical path through this unit, start to finish:
 3. **Coils up in a short helix** right before the evaporator inlet — packaging, to fit the required length into a small area and manage any final pressure trim.
 4. **Enters the evaporator.**
 
-Keep the bonded cap-tube-plus-suction-line pair intact when re-piping — separating them hurts efficiency for zero benefit. The helical coil at the evaporator end is also worth preserving as-is; if total cap length changes (e.g., the evaporator is relocated when we swap the cold plate for our carbonator coil), a refrigeration tech recalculates cap length for the new load, rather than guessing.
+Keep the bonded cap-tube-plus-suction-line pair intact when re-piping. The helical coil at the evaporator end is preserved as-is; if total cap length changes (e.g., the evaporator is relocated when swapping the cold plate for the carbonator coil), a refrigeration tech recalculates cap length for the new load.
 
 ### Process tube (the "dead-end" copper stub)
 
-A short (~2″) copper tube closed with a pinched-and-brazed tip **sticks straight out of the compressor body** and connects to nothing else — it is genuinely a dead end. This is the factory charging port. The process is: evacuate the system through this tube, inject the refrigerant charge, then crimp and braze the tip shut. It has no flow during operation. This is where recovery and recharge will tap in during reassembly — either by cutting the crimped tip and brazing on a piercing saddle / access port, or by installing a bolt-on Schrader saddle over the tube.
-
-Do not confuse with the capillary tube. Process tube = fat short stub on the compressor, pinched shut, goes nowhere. Capillary tube = long hair-thin line threading through the main loop between filter-drier and evaporator.
+A short (~2″) copper tube closed with a pinched-and-brazed tip sticks out of the compressor body and connects to nothing else. This is the factory charging port: evacuate through this tube, inject the refrigerant charge, then crimp and braze the tip shut. Recovery and recharge taps in here during reassembly — either by cutting the crimped tip and brazing on a piercing saddle / access port, or by installing a bolt-on Schrader saddle over the tube.
 
 ### Hot-gas bypass solenoid (DISCARD for our use)
 
 A small AC solenoid valve is teed into the refrigerant circuit:
 
 - Label: **SOLENOID VALVE — AC 110V 50/60Hz 4/4.5 W — TIANHAQ 25.10.17**
-- Function in ice maker: during the harvest cycle, this valve opens and routes hot compressor discharge gas directly into the evaporator (bypassing the condenser and capillary tube), warming the cold fingers so formed cubes release and drop. Without it, an ice maker has no way to get cubes off the evaporator.
-- Function in our build: **none.** We want continuous steady cold around the carbonator, not a harvest cycle. Remove the valve entirely when re-piping, or (if it's more convenient to leave physically in place) never energize it and verify the bypass path is sealed.
+- Function in ice maker: during the harvest cycle, this valve opens and routes hot compressor discharge gas directly into the evaporator (bypassing the condenser and capillary tube), warming the cold fingers so formed cubes release and drop.
+- Remove the valve entirely when re-piping, or leave physically in place and never energize it.
 
 ### Evaporator cold plate
 
@@ -112,12 +106,12 @@ For bench testing, plug into standard 120 VAC through an **inline fuse** (5 A fa
 
 Safety:
 - **R600a is flammable.** Do not energize after physical damage, near open flame, or if a butane smell is present near the compressor. The factory loop is sealed from the factory, so there's no leak risk during teardown *inspection* — leak risk only appears once the loop is opened for re-piping.
-- **Minimum off-time of 3 minutes** between power-off and power-on is a hard rule. The high-side pressure has to bleed through the capillary tube and equalize with the low side before restart, or the motor stalls against head pressure until the overload trips. Repeated hot-restart is a textbook way to burn out a hermetic compressor.
+- **Minimum off-time of 3 minutes** between power-off and power-on is a hard rule. The high-side pressure has to bleed through the capillary tube and equalize with the low side before restart, or the motor stalls against head pressure until the overload trips.
 
 For ESP32 control:
 - **Reserved GPIO: pin 14** on the main ESP32-DevKitC-32E. Not a strap pin, not input-only, not reserved for flash/PSRAM. See `hardware/wiring/esp32-pinout.mmd` for the full pin map.
-- **Switching element: Teyleten 3.3 V opto-isolated relay module** (10 A @ 250 VAC, ASIN B07XGZSYJV). ESP32 GPIO drives the input pin directly — 3.3 V coil side, opto-coupled, mechanical contact on the AC hot leg. ~$2.60/unit at 5-pack pricing. Audibly clicks, finite cycle life, but at this duty (minutes-per-cycle, 3-minute minimum off-time enforced in firmware) a 100,000-cycle relay lasts decades. The same relay model is used a second time per appliance to gate 12 V to the SeaFlo diaphragm pump (see `hardware/wiring/power.mmd` and `hardware/bom.md` §5).
-- **Firmware must enforce the 3-minute minimum-off-time** as a guard — the relay will switch every loop iteration if told to, and that will destroy the compressor within days. Wrap the ON/OFF call behind a "can I switch right now?" check against the last-transition timestamp. A hysteresis band around the temperature setpoint (e.g., ±1 °C) is needed for the same reason — you want long cycles, not rapid thrash.
+- **Switching element: Teyleten 3.3 V opto-isolated relay module** (10 A @ 250 VAC, ASIN B07XGZSYJV). ESP32 GPIO drives the input pin directly — 3.3 V coil side, opto-coupled, mechanical contact on the AC hot leg. ~$2.60/unit at 5-pack pricing. The same relay model gates 12 V to the SeaFlo diaphragm pump (see `hardware/wiring/power.mmd` and `hardware/bom.md` §5).
+- **Firmware enforces the 3-minute minimum-off-time** as a guard. Wrap the ON/OFF call behind a "can I switch right now?" check against the last-transition timestamp. A hysteresis band around the temperature setpoint (e.g., ±1 °C) keeps cycles long.
 
 ### Summary — keep vs discard for this unit
 

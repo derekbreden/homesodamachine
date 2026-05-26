@@ -352,7 +352,7 @@ nut_hex_profile = [
 # ensures the mating faces still seat directly on PETG outside the
 # counterbore — the elastomer carries only the seal load, not the
 # clamping force.
-bulkhead_seal_id = 17.5  # flush with the panel hole (⌀17.5) after the 2026-05-25 panel-hole bump from ⌀17 to ⌀17.5. Was originally 0.25 mm/side clearance around the prior ⌀17 panel hole. Still works because this is an axial face seal between the panel face and the mating face (nut washer / integral flange); the radial relationship to the panel hole edge does not carry seal load.
+bulkhead_seal_id = 17.5  # flush with the panel hole ([17.5 mm](BULKHEAD_PANEL_HOLE_D)) after the 2026-05-25 panel-hole bump from ⌀17. Was originally 0.25 mm/side clearance around the prior ⌀17 panel hole. Still works because this is an axial face seal between the panel face and the mating face (nut washer / integral flange); the radial relationship to the panel hole edge does not carry seal load.
 bulkhead_seal_od = 20.3  # 0.1 mm/side clearance in the counterbore
 bulkhead_seal_thickness = 2.0  # matches the reservoir gasket convention
 bulkhead_seal_counterbore_diameter = 20.5

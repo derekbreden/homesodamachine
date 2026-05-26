@@ -45,7 +45,7 @@ def main():
         _here / "README.md",
         variables=variables,
         expected_counts={
-            "FOUNDER_EDITION_COUNT": 3,
+            "FOUNDER_EDITION_COUNT": 2,
             "FOUNDER_EDITION_LAST": 3,
             "FOUNDER_EDITION_NEXT": 1,
             "NAMEPLATE_NOZZLE_D": 1,
