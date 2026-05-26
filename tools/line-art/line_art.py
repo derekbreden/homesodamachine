@@ -27,6 +27,9 @@ Public API:
     face.add_circle(at=(a, b), d=...) — circle in face-local 2D coords
     face.add_rectangle(at=(a, b), w=..., h=...) — rectangle, centered at `at`
     face.add_knob(at=(a, b), d=..., protrusion=...) — cylinder protruding outward
+        (optional axis_3d= for a tilted axis, e.g. an angled dispense tip)
+    face.add_rectangular_protrusion(at=(a, b), w=..., h=..., protrusion=...)
+        — rectangular box protruding outward from the face
 
 Face-local 2D coords (a, b) mean horizontal-from-left and vertical-from-bottom
 as you look directly at the face.
@@ -210,16 +213,50 @@ class Face:
         at: Tuple[float, float],
         d: float,
         protrusion: float,
+        axis_3d: Tuple[float, float, float] = None,
         label: str = None,
     ):
-        """Add a cylindrical knob protruding outward from this face along
-        the face's outward normal. `at` is the center in face-local coords;
-        `d` is the diameter; `protrusion` is how far the knob sticks out
-        from the face. Renders as the projected ellipse of the protruding
-        front face + two silhouette tangent lines connecting the face plane
-        to the front face."""
+        """Add a cylindrical knob protruding outward from this face. `at`
+        is the center on the face plane in face-local coords; `d` is the
+        cylinder's diameter (cross-section perpendicular to its axis);
+        `protrusion` is the axial length.
+
+        `axis_3d` is the cylinder's axis direction in the parent box's 3D
+        coords. Defaults to the face's outward normal (perpendicular knob).
+        Pass a tilted vector for an angled spout: the cylinder's lateral
+        surface intersects the face plane in an ellipse, and the line art
+        draws that ellipse's visible arc where the cylinder meets the host
+        face."""
         self.features.append(
-            _FaceKnob(face=self, at=at, d=d, protrusion=protrusion, label=label)
+            _FaceKnob(
+                face=self, at=at, d=d, protrusion=protrusion,
+                axis_3d=axis_3d, label=label,
+            )
+        )
+
+    def add_rectangular_protrusion(
+        self,
+        at: Tuple[float, float],
+        w: float,
+        h: float,
+        protrusion: float,
+        label: str = None,
+    ):
+        """Add a rectangular box protruding outward from this face along
+        the face's outward normal. `at` is the center in face-local coords;
+        `w` is width along the face's a-axis; `h` is height along the
+        b-axis; `protrusion` is how far the box sticks out from the face.
+
+        Visibility currently assumes the +a and +b side faces of the
+        protrusion are toward the camera (i.e., the protrusion is on the
+        front face in the 'front' iso view, or any face whose face-local
+        +a and +b axes both have a positive component toward the camera).
+        Other face/view combos would need extra logic to pick the right
+        hidden edges."""
+        self.features.append(
+            _FaceRectangularProtrusion(
+                face=self, at=at, w=w, h=h, protrusion=protrusion, label=label,
+            )
         )
 
 
@@ -294,6 +331,13 @@ class _FaceKnob:
        cylinder meets the host face. The near-side half of the back rim
        sits behind the cylinder body in projection and is not drawn,
        keeping the line art visible-outlines-only.
+
+    The axis can be either the face's outward normal (a perpendicular
+    knob — back rim is a circle in the face plane) or a tilted vector
+    (an angled spout — back rim is the cylinder's elliptical intersection
+    with the face plane). Same algorithm handles both: the back rim is
+    sampled by the t(θ) formula that walks each lateral surface line
+    from the front rim down the axis until it hits the face plane.
     """
 
     def __init__(
@@ -302,20 +346,59 @@ class _FaceKnob:
         at: Tuple[float, float],
         d: float,
         protrusion: float,
+        axis_3d: Tuple[float, float, float] = None,
         label: str = None,
     ):
         self.face = face
         self.at = at
         self.d = d
         self.protrusion = protrusion
+        self.axis_3d = axis_3d
         self.label = label
 
     def svg(self, proj: Callable) -> str:
         r = self.d / 2
-        p = self.protrusion
-        cx_3d = self.face._local_to_3d(self.at)
-        u_3d, v_3d = self.face._basis_3d()
+        L = self.protrusion
+        face_center_3d = self.face._local_to_3d(self.at)
         n_3d = self.face._outward_normal_3d()
+
+        # Cylinder axis — default to face's outward normal.
+        if self.axis_3d is None:
+            axis = n_3d
+        else:
+            axis = self.axis_3d
+        axis_mag = math.sqrt(axis[0] ** 2 + axis[1] ** 2 + axis[2] ** 2)
+        axis = (axis[0] / axis_mag, axis[1] / axis_mag, axis[2] / axis_mag)
+
+        # Perpendicular basis (u, v) to the cylinder axis. Pick a helper
+        # direction not parallel to axis, then cross-product. Result is
+        # u ⊥ axis and v = axis × u ⊥ both.
+        helper = (1, 0, 0) if abs(axis[0]) < 0.9 else (0, 1, 0)
+        u_x = axis[1] * helper[2] - axis[2] * helper[1]
+        u_y = axis[2] * helper[0] - axis[0] * helper[2]
+        u_z = axis[0] * helper[1] - axis[1] * helper[0]
+        u_mag = math.sqrt(u_x * u_x + u_y * u_y + u_z * u_z)
+        u = (u_x / u_mag, u_y / u_mag, u_z / u_mag)
+        v = (
+            axis[1] * u[2] - axis[2] * u[1],
+            axis[2] * u[0] - axis[0] * u[2],
+            axis[0] * u[1] - axis[1] * u[0],
+        )
+
+        # Dot products against the face's outward normal. The back rim's
+        # axial position t(θ) = -r·(cos θ·(u·n) + sin θ·(v·n)) / (axis·n)
+        # — where the lateral surface line at angle θ crosses the face
+        # plane. When axis = n, axis·n = 1 and u·n = v·n = 0, so t = 0
+        # and the back rim is a circle in the face plane.
+        u_dot_n = u[0] * n_3d[0] + u[1] * n_3d[1] + u[2] * n_3d[2]
+        v_dot_n = v[0] * n_3d[0] + v[1] * n_3d[1] + v[2] * n_3d[2]
+        axis_dot_n = axis[0] * n_3d[0] + axis[1] * n_3d[1] + axis[2] * n_3d[2]
+
+        front_center_3d = (
+            face_center_3d[0] + L * axis[0],
+            face_center_3d[1] + L * axis[1],
+            face_center_3d[2] + L * axis[2],
+        )
 
         # Sample back-rim and front-rim points around the cylinder.
         n_samples = 64
@@ -324,29 +407,29 @@ class _FaceKnob:
         for i in range(n_samples):
             theta = 2 * math.pi * i / n_samples
             c, s = math.cos(theta), math.sin(theta)
-            back_3d_pt = (
-                cx_3d[0] + r * (c * u_3d[0] + s * v_3d[0]),
-                cx_3d[1] + r * (c * u_3d[1] + s * v_3d[1]),
-                cx_3d[2] + r * (c * u_3d[2] + s * v_3d[2]),
+            # Front rim — circle of radius r perpendicular to axis.
+            front_pt_3d = (
+                front_center_3d[0] + r * (c * u[0] + s * v[0]),
+                front_center_3d[1] + r * (c * u[1] + s * v[1]),
+                front_center_3d[2] + r * (c * u[2] + s * v[2]),
             )
-            front_3d_pt = (
-                back_3d_pt[0] + p * n_3d[0],
-                back_3d_pt[1] + p * n_3d[1],
-                back_3d_pt[2] + p * n_3d[2],
+            # Back rim — intersection of lateral surface line at angle θ
+            # with the face plane.
+            t_back = -r * (c * u_dot_n + s * v_dot_n) / axis_dot_n
+            back_pt_3d = (
+                face_center_3d[0] + r * (c * u[0] + s * v[0]) + t_back * axis[0],
+                face_center_3d[1] + r * (c * u[1] + s * v[1]) + t_back * axis[1],
+                face_center_3d[2] + r * (c * u[2] + s * v[2]) + t_back * axis[2],
             )
-            back_2d.append(proj(*back_3d_pt))
-            front_2d.append(proj(*front_3d_pt))
+            back_2d.append(proj(*back_pt_3d))
+            front_2d.append(proj(*front_pt_3d))
 
-        # Projected cylinder-axis direction (face-normal direction in
-        # projection). Silhouette tangent points are the back-rim samples
-        # whose offset from the back center has the most extreme component
-        # perpendicular to this projected axis.
-        back_center_2d = proj(*cx_3d)
-        front_center_2d = proj(
-            cx_3d[0] + p * n_3d[0],
-            cx_3d[1] + p * n_3d[1],
-            cx_3d[2] + p * n_3d[2],
-        )
+        # Projected cylinder-axis direction (back center → front center).
+        # Silhouette tangent points are the back-rim samples whose offset
+        # from the back center has the most extreme component perpendicular
+        # to this projected axis.
+        back_center_2d = proj(*face_center_3d)
+        front_center_2d = proj(*front_center_3d)
         axis_dx = front_center_2d[0] - back_center_2d[0]
         axis_dy = front_center_2d[1] - back_center_2d[1]
         perp_dx = -axis_dy
@@ -386,6 +469,81 @@ class _FaceKnob:
             _svg_polyline(back_arc_2d),
         ]
         return "\n".join(parts)
+
+
+class _FaceRectangularProtrusion:
+    """A rectangular box protruding outward from a face. Drawn as the
+    box's 9 visible edges in iso projection: the 4 edges of the front
+    (protruded) rectangle, plus the 2 visible back-rectangle edges (top
+    and right, where the protrusion meets the host face), plus the 3
+    side connector edges from back rim to front rim (top-left, top-right,
+    bottom-right corners).
+
+    See Face.add_rectangular_protrusion for the visibility assumption
+    (+a and +b sides of the protrusion are toward the camera)."""
+
+    def __init__(
+        self,
+        face: Face,
+        at: Tuple[float, float],
+        w: float,
+        h: float,
+        protrusion: float,
+        label: str = None,
+    ):
+        self.face = face
+        self.at = at
+        self.w = w
+        self.h = h
+        self.protrusion = protrusion
+        self.label = label
+
+    def svg(self, proj: Callable) -> str:
+        u_3d, v_3d = self.face._basis_3d()
+        n_3d = self.face._outward_normal_3d()
+        face_center_3d = self.face._local_to_3d(self.at)
+
+        def corner(da: int, db: int, dp: int) -> Tuple[float, float, float]:
+            return (
+                face_center_3d[0]
+                + da * (self.w / 2) * u_3d[0]
+                + db * (self.h / 2) * v_3d[0]
+                + dp * self.protrusion * n_3d[0],
+                face_center_3d[1]
+                + da * (self.w / 2) * u_3d[1]
+                + db * (self.h / 2) * v_3d[1]
+                + dp * self.protrusion * n_3d[1],
+                face_center_3d[2]
+                + da * (self.w / 2) * u_3d[2]
+                + db * (self.h / 2) * v_3d[2]
+                + dp * self.protrusion * n_3d[2],
+            )
+
+        # Back rectangle corners (dp=0) and front rectangle corners (dp=1).
+        # Naming: B = back rect, F = front rect; L=-a, R=+a; B=-b, T=+b.
+        BBL = proj(*corner(-1, -1, 0))
+        BBR = proj(*corner(+1, -1, 0))
+        BTR = proj(*corner(+1, +1, 0))
+        BTL = proj(*corner(-1, +1, 0))
+        FBL = proj(*corner(-1, -1, 1))
+        FBR = proj(*corner(+1, -1, 1))
+        FTR = proj(*corner(+1, +1, 1))
+        FTL = proj(*corner(-1, +1, 1))
+
+        # 9 visible edges (assuming +a and +b side faces are visible):
+        # the hidden corner is BBL (back-bottom-left) and the 3 hidden
+        # edges all touch it (BBL-BBR, BBL-BTL, BBL-FBL); the other 9
+        # are the ones we draw.
+        edges = [
+            # Front rectangle outline.
+            (FTL, FTR), (FTR, FBR), (FBR, FBL), (FBL, FTL),
+            # Visible back rectangle edges (top and right of back rect).
+            (BTL, BTR), (BTR, BBR),
+            # Side connectors from back rim to front rim, at the 3
+            # visible back corners (top-left, top-right, bottom-right).
+            (BTL, FTL), (BTR, FTR), (BBR, FBR),
+        ]
+        return "\n".join(_svg_line(p1, p2) for p1, p2 in edges)
 
 
 # ---------------------------------------------------------------------------
