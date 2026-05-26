@@ -46,10 +46,9 @@ from docgen import substitute_md  # noqa: E402
 def main():
     variables = {
         # Foam-cap CO2 inlet coordinate (Z, in cold-core foam-shell
-        # coordinates) and the tube-clearance hole diameter that lets
-        # the 1/4" OD LLDPE pass through cap + lid. Source-of-truth:
-        # `co2_inlet_z` and `2 × co2_tube_clearance_radius` in
-        # foam-cap/foam_cap.py.
+        # coordinates) and the tube-clearance hole diameter for 1/4" OD
+        # LLDPE through cap + lid. Source: `co2_inlet_z` and
+        # `2 × co2_tube_clearance_radius` in foam-cap/foam_cap.py.
         "COTWO_INLET_Z": f"{foam_cap_gen.co2_inlet_z:.4g}",
         "COTWO_TUBE_D": f"{2 * foam_cap_gen.co2_tube_clearance_radius:.4g}",
     }

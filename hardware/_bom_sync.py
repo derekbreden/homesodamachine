@@ -21,26 +21,21 @@ from docgen import substitute_md
 from reservoir import insert_positions_for_side_plus_1
 
 
-# ─── BOM-defined design choices (pinned here) ─────────────────────────
-
 # Pressure vessel geometry: two laser-welded SS endcap plates per
-# vessel (one vessel per appliance), four 1/4" NPT ports tapped into
-# the plates (water in, water out, CO2 in, PRV).
+# vessel, four 1/4" NPT ports tapped into the plates (water in, water
+# out, CO2 in, PRV).
 end_cap_plates_per_vessel = 2
 vessel_ports_per_vessel = 4
 
-# Reservoirs: two flavor reservoirs per appliance. Sets the multiplier
-# on every reservoir-side count (caps, cap screws, vent filters, etc.).
+# Flavor reservoirs per appliance.
 reservoirs_per_build = 2
 
-# Level sensing: carbonator gets 2 reeds (threshold-only); per-reservoir
-# count is the single source of truth in `_reed_channels.py` (imported
-# above), since both this BOM and the reservoir generator's level-sensing
-# prose need it. See `printed-parts/cold-core/reservoir/level-sensing.md`.
+# Carbonator reeds (threshold-only). Per-reservoir count lives in
+# `_reed_channels.py`.
 reeds_per_carbonator = 2
 
-# Flavor subsystem: 12-valve manifold (V-A/B/C/D/E/F/G/H/I/J/KA/KB)
-# per `topology/fluid-topology-manifold.mmd`; 10 Y-dividers
+# 12-valve manifold (V-A/B/C/D/E/F/G/H/I/J/KA/KB) per
+# `topology/fluid-topology-manifold.mmd`; 10 Y-dividers
 # (Y-A/B/C/D/E/F/G/H/KA/KB) in the matching manifold.
 solenoid_count = 12
 y_divider_count = 10
@@ -50,11 +45,10 @@ y_divider_count = 10
 # for the reservoir-cap outlet ports (1 per reservoir).
 panel_umbilical_bulkheads = 3
 
-# Per-cap insert / screw counts (foam-shell + reservoir).
+# Per-cap insert counts.
 # Foam-shell: `foam_cap_attachment_xz_positions` is the list of (x, z)
 # pairs for ONE face (4 corners + 2 mid-long-side = 6 per face); the
-# foam shell has two such faces (top cap + bottom cap), so total
-# inserts = len × 2.
+# foam shell has two such faces (top cap + bottom cap).
 # Reservoir: `insert_positions_for_side_plus_1` is the list of (x, z)
 # pairs for one reservoir cap (6 per cap).
 inserts_per_foam_cap = len(foam_cap_attachment_xz_positions)
@@ -65,7 +59,7 @@ inserts_per_reservoir_cap = len(insert_positions_for_side_plus_1)
 vent_filters_per_reservoir_cap = 1
 
 
-# ─── Derived totals (kept here so the BOM never re-does the arithmetic) ──
+# ─── Derived totals ────────────────────────────────────────────────────
 
 # Reeds.
 reservoir_reeds_total = reeds_per_reservoir * reservoirs_per_build

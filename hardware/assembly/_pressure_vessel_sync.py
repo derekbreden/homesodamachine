@@ -29,20 +29,18 @@ from docgen import substitute_md
 
 
 def main():
-    # The two elbow envelopes are equal by design (the foam-shell budgets
-    # the same 30 mm above and below the tank). Assert that here so the
-    # single ELBOW_ENV substitution stays valid; if they ever diverge,
-    # this script needs two separate variables.
+    # The two elbow envelopes are equal by design; ELBOW_ENV is a single
+    # substitution. If they diverge, split into ABOVE / BELOW variables.
     assert above_tank_elbows_height == below_tank_elbows_height, (
         f"above ({above_tank_elbows_height}) != below ({below_tank_elbows_height}); "
         "split ELBOW_ENV into ABOVE / BELOW variables."
     )
 
     variables = {
-        # 152.4 mm — tube cut length, also the tank-as-assembled height.
+        # Tube cut length / tank-as-assembled height.
         "TANK_H": f"{tank_height:.4g} mm",
-        # 30 mm — the vertical envelope reserved for the 1/4" NPT 90°
-        # elbow stack above and below the tank (foam-shell budget).
+        # Vertical envelope for the 1/4" NPT 90° elbow stack above and
+        # below the tank (foam-shell budget).
         "ELBOW_ENV": f"{above_tank_elbows_height:.4g} mm",
     }
 

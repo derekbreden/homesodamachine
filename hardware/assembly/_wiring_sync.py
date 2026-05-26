@@ -14,8 +14,8 @@ sys.path.insert(
 )
 from docgen import substitute_md
 
-# Import from the AC schedule's sync driver — the schedule is the source of
-# truth for every per-run gauge, voltage, and length the procedure references.
+# Import from the AC schedule's sync driver — the schedule is the source
+# for every per-run gauge, voltage, and length the procedure references.
 sys.path.insert(
     0,
     str(_here.parents[0] / "wiring"),
@@ -40,7 +40,7 @@ from _ac_wiring_schedule_sync import (  # noqa: E402
 )
 
 # Import shroud-side values (cable OD, bushing range, ground-stud hole,
-# compressor class) so the prose stays tied to the shroud's dimension source.
+# compressor class).
 sys.path.insert(
     0,
     str(_here.parents[0] / "cut-parts" / "compressor-shroud"),
@@ -54,28 +54,22 @@ from _compressor_shroud_dimensions import (  # noqa: E402
 )
 
 
-# ─── Procedure-only constants (no upstream source) ──────────────────────
-# Values that belong to the *procedure* — they're how-to-build numbers, not
-# part-spec or schedule numbers. Defined locally because there's no upstream
-# script that owns them.
+# ─── Procedure-only constants ───────────────────────────────────────────
 
-cabinet_slack_mm = 200       # umbilical-end ground-bond slack at the cabinet
-                             # side ("plus 200 mm of cabinet-side slack")
+cabinet_slack_mm = 200       # umbilical-end ground-bond slack at cabinet side
 
-keszoox_pigtail_len_cm = 50  # Keszoox B0F8HMQRRN pre-crimped pigtail
-                             # length, from BOM §11 inter-module connectors
+keszoox_pigtail_len_cm = 50  # Keszoox B0F8HMQRRN pre-crimped pigtail length
+                             # (from BOM §11 inter-module connectors)
 
 # Donor-compressor nameplate winding-resistance reference range for the
-# dielectric / continuity check. Generic ~10–30 Ω band for a 100 W-class
-# hermetic; the actual donor measures within that band per
-# ../harvested/ice-maker/ "Powering and control".
+# dielectric / continuity check.
 winding_r_low_ohm = 10
 winding_r_high_ohm = 30
 
 
 def main():
     variables = {
-        # Wire gauges (imported from the AC schedule's source-of-truth driver).
+        # Wire gauges.
         "AWG_AC_MAIN": f"{_sched_awg_mains:.4g} AWG",
         "AWG_AC_BRANCH": f"{_sched_awg_ac_branch:.4g} AWG",
         "AWG_DC_BRANCH": f"{_sched_awg_sig:.4g} AWG",
@@ -84,12 +78,12 @@ def main():
             f"{_sched_awg_mains:.4g}/{_sched_awg_ac_branch:.4g}/"
             f"{_sched_awg_sig:.4g} AWG"
         ),
-        # Voltages (imported).
+        # Voltages.
         "AC_LINE_V": f"{_sched_line_voltage_v:.4g} VAC",
         "DC_BUS_V": f"{_sched_v_rail_dc:.4g} V",
         "LOGIC_V": f"{_sched_v_rail_logic:.4g} V",
         "MCU_V": f"{_sched_v_rail_io:.4g} V",
-        # Schedule-restated run lengths.
+        # Run lengths.
         "SHROUD_LEAD_LEN": f"~{_sched_len_compressor_mm:.4g} mm",
         "SHROUD_FAN_OUT": f"~{_sched_len_short_mm:.4g} mm",
         "AC1_LEN": f"~{_sched_len_short_mm:.4g} mm",
@@ -99,7 +93,7 @@ def main():
         "SIG_UMBILICAL_LEN": f"~{_sched_len_umbilical_m:.4g} m",
         "SIG_DISPLAY_LEN": f"~{_sched_len_umbilical_m:.4g} m",
         "DC9_LEN": f"~{_sched_len_compressor_mm:.4g} mm",
-        # Connector pitch (imported).
+        # Connector pitch.
         "JST_PITCH": f"{_sched_jst_pitch_mm:.4g} mm",
         # Electrical-component values.
         "PULLUP_R": f"{_sched_ds18b20_pullup_kohm:.4g} kΩ",
@@ -108,7 +102,7 @@ def main():
         "KESZOOX_LEN": f"{keszoox_pigtail_len_cm:.4g} cm",
         "WINDING_R_LOW": f"{winding_r_low_ohm:.4g}",
         "WINDING_R_HIGH": f"{winding_r_high_ohm:.4g} Ω",
-        # Shroud-side imports (live-tied to upstream).
+        # Shroud-side imports.
         "SHROUD_SJOOW_AWG": f"{_shroud_ac_cable_awg:.4g} AWG",
         "BUSHING_LOW": f"{_shroud_bushing_low_mm:.4g}",
         "BUSHING_HIGH": f"{_shroud_bushing_high_mm:.4g} mm",

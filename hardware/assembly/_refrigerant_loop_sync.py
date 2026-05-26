@@ -15,17 +15,13 @@ sys.path.insert(
 from docgen import substitute_md
 
 
-# ─── Factory charge masses (per harvested/ice-maker/README.md) ────────
-# Mirrored from authoritative source in harvested README, where each
-# value is sourced to the donor's manufacturer manual.
+# ─── Factory charge masses ────────────────────────────────────────────
+# Source: harvested/ice-maker/README.md.
 
 unit_a_factory_charge_g = 15            # Antarctic Star HZB-12/Q manual
 unit_b_factory_charge_g = 23            # Frigidaire EFIC117-SS manual
 
 # ─── Recharge target + metering tolerance ────────────────────────────
-# The recharge target for this build is *not* the factory mass because
-# the new evaporator coil has greater internal volume than the
-# discarded factory finger-plate; see Open items §1 in the README.
 
 system_charge_approx_g = 40             # rough per-system R-600a usage
 recharge_tolerance_g = 1                # ±, mass-meter precision target
@@ -35,31 +31,21 @@ evap_volume_delta_low_ml = 80           # vs factory finger-plate
 evap_volume_delta_high_ml = 110         # vs factory finger-plate
 
 # ─── Vacuum spec ──────────────────────────────────────────────────────
-# Pulled down with Orion Motor Tech 4 CFM single-stage pump (150 µ
-# ultimate) — vacuum target sits comfortably above the pump's ultimate.
+# Orion Motor Tech 4 CFM single-stage pump (150 µ ultimate).
 
 vacuum_target_microns = 500             # ≤, pre-charge vacuum target
 vacuum_hold_minutes = 15                # min hold + isolation hold each
 
 # ─── First run-up expectations ────────────────────────────────────────
-# Compressor electrical signature on first energize. 1 A running
-# current is the donor compressor's expected steady-state draw; the
-# 3-minute minimum off-time is the firmware-enforced hermetic-restart
-# guard documented in harvested/ice-maker/README.md "Powering and control".
 
 compressor_running_current_a = 1        # ~, first run-up steady state
 compressor_off_time_min = 3             # firmware-enforced minimum
 
 # ─── Safety distances ────────────────────────────────────────────────
-# Per-vent clearance during factory-charge release at the BPV31.
 
 vent_ignition_clearance_m = 3           # min distance to any ignition source
 
 # ─── Hardware backstop spec (SF76E thermal fuse) ──────────────────────
-# Single-shot SEFUSE in series with the AC primary feeding the
-# compressor, inside the compressor shroud. Hardware backstop to the
-# firmware overtemp cutoff. Full backstop architecture lives in the
-# compressor-shroud README; only the fuse temperature appears here.
 
 sf76e_open_temp_c = 77                  # BOJACK SF76E SEFUSE open temp
 

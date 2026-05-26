@@ -14,39 +14,23 @@ sys.path.insert(
 from docgen import substitute_md
 
 
-# ─── ESP32 GPIO pin assignments (relays — cited multiple times) ───────
-# Canonical source: ../wiring/esp32-pinout.mmd. Mirrored here because
-# the .mmd is a Mermaid diagram, not a Python module that can be
-# imported. Only the two relay-drive GPIOs are mirrored — they're the
-# pins this assembly procedure actually wires through. Pump-bridge and
-# I²C pins are cited inside Dupont-build sentences with one occurrence
-# each and stay raw.
+# ─── ESP32 GPIO pin assignments ────────────────────────────────────────
+# Source: ../wiring/esp32-pinout.mmd.
 relay_compressor_gpio = 14              # ESP32 GPIO -> Teyleten relay #1 (compressor AC)
 relay_diaphragm_gpio = 4                # ESP32 GPIO -> Teyleten relay #2 (diaphragm pump 12 V)
 
 # ─── PSU spec (Mean Well IRM-90-12ST) ──────────────────────────────────
-# Source: Mean Well IRM-90-12ST datasheet. Cited in the inputs-table
-# row, in the Open-items §4 frame-thickness discussion, and (PSU mass)
-# implicitly drives the frame-thickness rationale.
-psu_power_w = 80                        # 80 W rated output
-psu_voltage_v = 12                      # 12 V regulated rail
-psu_current_a = 6.7                     # 6.7 A max
-psu_mass_g = 200                        # ~200 g (heaviest module on the shelf)
+psu_power_w = 80                        # rated output
+psu_voltage_v = 12                      # regulated rail
+psu_current_a = 6.7                     # max
+psu_mass_g = 200
 
 # ─── GFCI spec (Legrand 1597BKCCD12) ───────────────────────────────────
-# Source: Legrand datasheet + UL 943. Cited in the GFCI inputs-table
-# row.
-gfci_trip_threshold_ma = 6              # UL 943 Class A 6 mA trip
-gfci_self_test_interval_s = 3           # 3-second self-test cycle
+gfci_trip_threshold_ma = 6              # UL 943 Class A trip
+gfci_self_test_interval_s = 3           # self-test cycle
 
-# ─── AC pigtail lengths (procedure estimates) ──────────────────────────
-# Source-of-truth: ../wiring/ac-wiring-schedule.md "AC mains" table.
-# Mirrored here because the wiring schedule is a markdown table, not a
-# Python module. These lengths are "estimates based on the future.md
-# layout; revise once the prototype enclosure is mocked up and lengths
-# are measured" (wiring-schedule prose). Multi-cite within this file:
-# AC-1 inlet stub (~50 mm load-side + ~150 mm inlet-side slack),
-# AC-2 (~100 mm), AC-3 (~50 mm), AC-4/5/6 (~400 mm each), DC-1 (~100 mm).
+# ─── AC pigtail lengths ────────────────────────────────────────────────
+# Source: ../wiring/ac-wiring-schedule.md "AC mains" table.
 pigtail_short_mm = 50                   # AC-1, AC-3 load-side
 pigtail_medium_mm = 100                 # AC-2, DC-1
 pigtail_slack_mm = 150                  # AC-1 inlet-side slack
@@ -54,26 +38,21 @@ pigtail_compressor_mm = 400             # AC-4/5/6 compressor-side runs
 
 # ─── Wire-stock format (Keszoox pigtail length) ────────────────────────
 # Source: Keszoox B0F8HMQRRN packaging spec (50 cm × 22 AWG × 20 wires).
-# Cited in the inputs-table row and in step 7's ULN-fan-out callout.
-keszoox_length_cm = 50                  # 50 cm pre-crimped silicone pigtail
+keszoox_length_cm = 50
 
 # ─── Wago 221-413 lever-block count ────────────────────────────────────
-# Source: ../bom.md §11 (one per AC conductor — H, N, G). Cited in the
-# scope summary, inputs-table row, step-3 procedure, and step-5 procedure.
-wago_count = 3                          # 3 lever-nut connectors (H + N + G)
+# Source: ../bom.md §11 (one per AC conductor — H, N, G).
+wago_count = 3
 
-# ─── JST inter-module harness counts (per-unit estimates) ──────────────
-# Source-of-truth: ../wiring/ac-wiring-schedule.md "Inter-module
-# connectors" table. Mirrored here because that schedule is markdown.
-# Cited in the inputs-table row and procedurally in step 2.
-jst_4pin_count = 3                      # ~3× 4-pin (I²C + UART hops)
-jst_6pin_count = 1                      # ~1× 6-pin (DS3231 bus)
-jst_9pin_count = 6                      # ~6× 9-pin (ULN sides + MCP ports)
+# ─── JST inter-module harness counts ───────────────────────────────────
+# Source: ../wiring/ac-wiring-schedule.md "Inter-module connectors" table.
+jst_4pin_count = 3                      # 4-pin (I²C + UART hops)
+jst_6pin_count = 1                      # 6-pin (DS3231 bus)
+jst_9pin_count = 6                      # 9-pin (ULN sides + MCP ports)
 
 # ─── DS18B20 1-wire bus pull-up ────────────────────────────────────────
-# Source: DS18B20 datasheet (Maxim/ADI) — 4.7 kΩ recommended pull-up
-# between data and 3.3 V. Cited in step 8's SIG-1 callout.
-ds18b20_pullup_kohm = 4.7               # 4.7 kΩ pull-up
+# Source: DS18B20 datasheet (Maxim/ADI).
+ds18b20_pullup_kohm = 4.7
 
 
 def main():
