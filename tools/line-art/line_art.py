@@ -107,6 +107,18 @@ def _svg_polygon(points: List[Tuple[float, float]]) -> str:
     )
 
 
+def _svg_polyline(points: List[Tuple[float, float]]) -> str:
+    """Open polyline (path without Z). Used for arcs that are not closed."""
+    if not points:
+        return ""
+    d = "M " + " L ".join(f"{p[0]:.3f},{p[1]:.3f}" for p in points)
+    return (
+        f'  <path d="{d}" stroke="{DEFAULT_STROKE}" '
+        f'stroke-width="{DEFAULT_STROKE_WIDTH}" '
+        f'fill="none" stroke-linecap="round" stroke-linejoin="round" />'
+    )
+
+
 # ---------------------------------------------------------------------------
 # Face — one face of a Box, with its own 2D local coord system
 # ---------------------------------------------------------------------------
@@ -274,10 +286,15 @@ class _FaceRectangle:
 
 
 class _FaceKnob:
-    """A cylindrical knob protruding outward from a face. Renders as the
-    projected ellipse of the protruded front face + two silhouette tangent
-    lines connecting the face plane to the front face. The back circle (on
-    the face plane itself) is occluded by the cylinder body and not drawn."""
+    """A cylindrical knob protruding outward from a face. Renders as:
+
+    1. The projected ellipse of the protruded front face (closed polygon).
+    2. Two silhouette tangent lines from the back rim to the front rim.
+    3. The visible (far-side) half of the back rim — the arc where the
+       cylinder meets the host face. The near-side half of the back rim
+       sits behind the cylinder body in projection and is not drawn,
+       keeping the line art visible-outlines-only.
+    """
 
     def __init__(
         self,
@@ -340,13 +357,33 @@ class _FaceKnob:
             dy = back_2d[i][1] - back_center_2d[1]
             return dx * perp_dx + dy * perp_dy
 
+        def axis_score(i: int) -> float:
+            dx = back_2d[i][0] - back_center_2d[0]
+            dy = back_2d[i][1] - back_center_2d[1]
+            return dx * axis_dx + dy * axis_dy
+
         i_max = max(range(n_samples), key=perp_score)
         i_min = min(range(n_samples), key=perp_score)
+
+        # Visible back-rim arc — walk from i_max to i_min through the half
+        # of the rim with axis_score < 0 (the far side, away from the
+        # protrusion direction in projection). The near-side half sits
+        # behind the cylinder body and is not drawn.
+        forward = (i_max + 1) % n_samples
+        direction = 1 if axis_score(forward) <= 0 else -1
+        arc_indices: List[int] = [i_max]
+        i = (i_max + direction) % n_samples
+        while i != i_min:
+            arc_indices.append(i)
+            i = (i + direction) % n_samples
+        arc_indices.append(i_min)
+        back_arc_2d = [back_2d[i] for i in arc_indices]
 
         parts = [
             _svg_polygon(front_2d),
             _svg_line(back_2d[i_max], front_2d[i_max]),
             _svg_line(back_2d[i_min], front_2d[i_min]),
+            _svg_polyline(back_arc_2d),
         ]
         return "\n".join(parts)
 
