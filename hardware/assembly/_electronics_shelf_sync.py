@@ -31,9 +31,10 @@ gfci_self_test_interval_s = 3           # self-test cycle
 
 # ─── AC pigtail lengths ────────────────────────────────────────────────
 # Source: ../wiring/ac-wiring-schedule.md "AC mains" table.
-pigtail_short_mm = 50                   # AC-1, AC-3 load-side
+pigtail_short_mm = 50                   # AC-3 load-side
 pigtail_medium_mm = 100                 # AC-2, DC-1
-pigtail_slack_mm = 150                  # AC-1 inlet-side slack
+pigtail_gfci_mm = 150                   # AC-1a (C14 → GFCI LINE), AC-1b (GFCI LOAD → Wago)
+pigtail_slack_mm = 150                  # AC-1a inlet-side slack
 pigtail_compressor_mm = 400             # AC-4/5/6 compressor-side runs
 
 # ─── Wire-stock format (Keszoox pigtail length) ────────────────────────
@@ -71,6 +72,7 @@ def main():
         # AC pigtail lengths.
         "PIGTAIL_SHORT": f"~{pigtail_short_mm:.4g} mm",
         "PIGTAIL_MEDIUM": f"~{pigtail_medium_mm:.4g} mm",
+        "PIGTAIL_GFCI": f"~{pigtail_gfci_mm:.4g} mm",
         "PIGTAIL_SLACK": f"~{pigtail_slack_mm:.4g} mm",
         "PIGTAIL_COMPRESSOR": f"~{pigtail_compressor_mm:.4g} mm",
         # Wire-stock pigtail.
@@ -97,8 +99,9 @@ def main():
             "PSU_MASS": 1,
             "GFCI_TRIP": 1,
             "GFCI_SELF_TEST": 1,
-            "PIGTAIL_SHORT": 2,
+            "PIGTAIL_SHORT": 1,
             "PIGTAIL_MEDIUM": 2,
+            "PIGTAIL_GFCI": 2,
             "PIGTAIL_SLACK": 1,
             "PIGTAIL_COMPRESSOR": 3,
             "KESZOOX_LENGTH": 2,

@@ -1,8 +1,8 @@
 # Front panel
 
-3D-printed front face of the under-counter enclosure. Carries the ESP32-S3 detachable rotary display, the front-dispense spout, and the CO2 line inlet. Printed in **Bambu PET-CF**, matching the rest of the enclosure exterior; material rationale per the back-panel doc's "Panel material" section.
+3D-printed front face of the under-counter enclosure. Carries the ESP32-S3 detachable rotary display, the front-dispense spout, and the CO2 line inlet. Printed in **Bambu PET-CF**, matching the rest of the enclosure exterior.
 
-The intent is that opening the cabinet door and looking at the front of the appliance shows the customer only the things they need to attend to: the display they interact with (rotate to toggle flavor, three-dot affordance for advanced settings), the dispense spout they can press, and the CO2 connection. Pump cartridge access lives on the top of Zone C through a separate door; the GFCI lives on the electronics shelf; the rest of the appliance's machinery is not on this face. See [`../README.md`](../README.md) "What is on the front face" for the architectural framing.
+Opening the cabinet door and looking at the front of the appliance shows the customer the display (rotate to toggle flavor, three-dot affordance for advanced settings), the dispense spout, and the CO2 connection. Pump cartridge access lives on the top of Zone C through a separate door; the GFCI lives on the electronics shelf. See [`../README.md`](../README.md) "What is on the front face" for the architectural framing.
 
 ## Front face features
 
@@ -14,19 +14,17 @@ The intent is that opening the cabinet door and looking at the front of the appl
 
 ## CO2 inlet placement
 
-The CO2 connection is the most physically dangerous customer-touched joint on the appliance — disconnection under pressure can whip a high-pressure hose, and the CO2 release itself is an asphyxiation hazard inside an enclosed cabinet. The current commitment is for the inlet to land on the front face. A possible migration to the furthest-forward edge of a side face is on the table: same forward visibility for the customer when they open the cabinet door, but the cylinder valve and hose path are no longer pointed directly at where the customer's hands are when they reach in.
+The inlet lands on the front face. A possible migration to the furthest-forward edge of a side face is open — see Open items.
 
-## Cylinder placement — out of scope here
+## Cylinder placement
 
-The CO2 cylinder sits **beside** the appliance on the cabinet floor, in the working air gap between one side of the appliance and the cabinet sidewall — **not** in front of the front face. Putting the cylinder in front would block the cabinet door from opening and put a [~9 lb](CYLINDER_WEIGHT) pressurized aluminum bottle in the customer's shins every time they reach in.
+The CO2 cylinder sits **beside** the appliance on the cabinet floor, in the working air gap between one side of the appliance and the cabinet sidewall. The bottle-shaped visual affordance that lands the cylinder in place belongs to the side-face surface the cylinder neighbors; that surface's design document does not yet exist.
 
-The bottle-shaped visual affordance that lands the cylinder in the right place (a curve matched to the cylinder body OD, no restraint, just "feels right when you set it down") belongs to whichever exterior surface the cylinder neighbors in the side gap — almost certainly one of the side faces, possibly with a contribution from the floor edge. That surface is **not** this front face, and its design document does not yet exist.
-
-The front-panel scope, as it relates to the cylinder, reduces to: **position the DERPIPE inlet stub at a height matched to the customer's primary regulator outlet height**, so the short red tether takes the obvious path from the cylinder around the front-side corner to the inlet on the front face.
+Front-panel scope as it relates to the cylinder: **position the DERPIPE inlet stub at a height matched to the customer's primary regulator outlet height**, so the short red tether takes the obvious path from the cylinder around the front-side corner to the inlet.
 
 ## CO2 inlet — red color-coding
 
-The CO2 inlet is **red** by industry-standard convention across beverage, brewing, and draft-equipment practice. Stock is already supplied red by the existing BOM SKUs:
+The CO2 inlet is **red**. Stock is supplied red by the existing BOM SKUs:
 
 - **5/16" ID beer CO2 line** ([`../../../bom.md`](../../../bom.md) §4, `B0D1RB3TF6`) — standard red beer-line PVC, runs from the customer's CGA-320 regulator to this panel.
 
