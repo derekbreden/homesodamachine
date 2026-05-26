@@ -3,32 +3,22 @@
 3D-printed PETG cup that surrounds the Control Devices SV-125
 pressure-relief valve on Port 4 of the carbonator pressure vessel
 during the cold-core body foam pour. The shroud preserves the air
-cavity the open-port pop-off PRV needs to function — without it,
-cured polyurethane foam fills the spring chamber and blocks both the
-discharge side port and the bonnet windows, and the valve can't
-relieve.
-
-## Why this part exists
+cavity the open-port pop-off PRV needs to function.
 
 The SV-125 (per [`assembly/pressure-vessel.md`](../../../assembly/pressure-vessel.md)
 step 8) is installed via a TAISHER 316L 90° street elbow on Port 4
 with the valve body extending laterally inside the ~30 mm above-tank
 elbow envelope. The body foam pour ([`../foam-shell/`](../foam-shell/))
-fills the surrounding foam zone with closed-cell polyurethane,
-which would otherwise encase the PRV.
+fills the surrounding foam zone with closed-cell polyurethane.
 
 The SV-125 is an open-port pop-off design: the discharge gas exits
 **radially through a single side port** in the smooth body cylinder
 between the NPT threads and the hex, and the spring chamber above
 the hex is open to atmosphere through **two large bonnet windows**.
-Both features require ambient-pressure air around them — foam
-encasement defeats both, and the valve becomes a non-functioning
-plug rather than a safety device.
+Both features require ambient-pressure air around them.
 
-This shroud is the minimum-mass air pocket that keeps those
-features in air. It is **not** a pressure-rated part — the line
-downstream of the PRV seat is unpressurized in normal operation,
-only briefly elevated during a relief event.
+The line downstream of the PRV seat is unpressurized in normal
+operation, only briefly elevated during a relief event.
 
 ## Geometry
 
@@ -107,23 +97,15 @@ The LLDPE press-fit and routing through the foam-shell slot happen
 later, at [`../../../assembly/cold-core.md`](../../../assembly/cold-core.md)
 step 4.
 
-## What this part is not
-
-- **Not a pressure boundary.** The shroud is downstream of the PRV
-  seat. In normal operation it sees atmospheric pressure. During a
-  relief event it sees the brief discharge pressure peak (a few PSI
-  at most through the 1/4" LLDPE flow restriction), not vessel
-  pressure.
-- **Not a sealed cavity.** The shroud + LLDPE keep the **spring
-  chamber bonnet windows** in air, so the SV-125's setpoint
-  accuracy is preserved — the spring sees ~atmospheric reference
-  via the LLDPE-to-appliance-interior path, which is gas-exchanged
-  with the cabinet via the condenser-fan path.
-- **Not a permanent service interface.** Once foam is poured around
-  the shroud, the SV-125 cannot be unscrewed without destroying the
-  foam shell. The PRV is a once-installed component in this design;
-  if it ever needs replacement, the cold-core foam pour is the
-  serviceable boundary.
+The shroud + LLDPE keep the **spring chamber bonnet windows** in
+air; the spring sees ~atmospheric reference via the
+LLDPE-to-appliance-interior path, gas-exchanged with the cabinet
+via the condenser-fan path. During a relief event the shroud sees
+the brief discharge pressure peak (a few PSI at most through the
+1/4" LLDPE flow restriction), not vessel pressure. Once foam is
+poured around the shroud, the SV-125 cannot be unscrewed without
+destroying the foam shell — if it ever needs replacement, the
+cold-core foam pour is the serviceable boundary.
 
 ## Open items
 
@@ -131,10 +113,7 @@ step 4.
    to-elbow joint before unit 001.** Build one subassembly per the
    procedure above, drop it into a clear plastic cup, pour a small
    batch of 2-lb PU foam around it, and slice the cup open after
-   cure to confirm no foam intrusion into the cavity. Half an hour
-   of bench work; definitive answer. The sealant choice (100% RTV
-   silicone) is settled — this dry run validates the bead
-   application technique, not the sealant material.
+   cure to confirm no foam intrusion into the cavity.
 
 ## Regression baseline
 
