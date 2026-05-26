@@ -34,8 +34,12 @@ def main() -> None:
     scene = Scene(view="front")
     appliance = scene.add(Box(W=common.APPLIANCE_W, D=common.APPLIANCE_D, H=common.APPLIANCE_H))
 
-    # Front face: ESP32-S3 rotary display (~32 mm OD).
-    appliance.front.add_circle(at=(135, 140), d=32, label="ESP32-S3")
+    # Front face: ESP32-S3 rotary display (~32 mm OD), protruding 19 mm
+    # so its sides can be gripped to turn it. Placed high on the front
+    # face — in front of the Zone C funnel/hopper, which leaves only a
+    # small amount of interior depth at that height; the knob's depth
+    # lives outside the enclosure where the gripping happens.
+    appliance.front.add_knob(at=(135, 235), d=32, protrusion=19, label="ESP32-S3")
 
     # Top face: shared features (GFCI band, pump door, hopper lid).
     common.add_top_face_features(appliance)
