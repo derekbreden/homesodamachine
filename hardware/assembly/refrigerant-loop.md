@@ -1,6 +1,6 @@
 # Refrigerant Loop
 
-The production procedure for converting a donor countertop ice maker into the appliance's refrigeration loop — from vent of the factory R-600a charge, through coil wind around the carbonator vessel, to final mass-metered recharge. The most safety-critical procedure in the build: the loop is open to a flammable hydrocarbon for several steps, and the argon purge during brazing is load-bearing.
+The production procedure for converting a donor countertop ice maker into the appliance's refrigeration loop — from vent of the factory R-600a charge, through coil wind around the carbonator vessel, to final mass-metered recharge. The loop is open to a flammable hydrocarbon for several steps; the argon purge during brazing is load-bearing.
 
 Design intent and component rationale live in [`../future.md`](../future.md) "Refrigeration subsystem". Donor-component teardown notes (compressor, condenser, capillary tube, drier, hot-gas bypass) live in [`../harvested/ice-maker/README.md`](../harvested/ice-maker/README.md). Assembly-time argon-purge safety is documented at [`../../business/regulatory.md`](../../business/regulatory.md) "Assembly-time safety — argon purge during brazing". This document is the repeatable production procedure that ties them together.
 
@@ -16,11 +16,11 @@ Not in scope: cold-core assembly — coil winding, foam pour — all in [`cold-c
 
 ## Safety
 
-R-600a (isobutane) is flammable, LFL ~1.8 % in air. EPA Section 608 carves natural refrigerants out of the venting prohibition, so no technician certification is legally required ([`../../business/regulatory.md`](../../business/regulatory.md)). The gas doesn't care about the regulatory carveout. Two distinct hazards apply to this procedure:
+R-600a (isobutane) is flammable, LFL ~1.8 % in air. EPA Section 608 carves natural refrigerants out of the venting prohibition, so no technician certification is legally required ([`../../business/regulatory.md`](../../business/regulatory.md)). Two hazards apply to this procedure:
 
-**Hazard A — Vent the factory charge before applying any flame.** Heating a pressurized R-600a circuit with a torch is the textbook flash-fire scenario. The charge must be vented and the loop allowed to decompress to atmospheric before any cut, braze, or torch step.
+**Hazard A — Vent the factory charge before applying any flame.** The charge must be vented and the loop allowed to decompress to atmospheric before any cut, braze, or torch step.
 
-**Hazard B — Residual hydrocarbon at the braze.** After venting, residual R-600a remains dissolved in the compressor oil and pooled in low points of the tubing. When a torch is applied to copper near an oil-soaked compressor pocket, the flame front pulls residual hydrocarbon into itself. Mitigation, load-bearing for this procedure: flow low-pressure argon (a few psi, *flowing*, not static) through the open loop during the entire loop-open period, sweeping residual fuel out ahead of the heat. The same continuous flow also serves as the dry inert blanket that preserves the factory drier's desiccant during the loop-open period (see step 3) — one regimen satisfies both requirements. The existing welder-side argon cylinder is the source.
+**Hazard B — Residual hydrocarbon at the braze.** After venting, residual R-600a remains dissolved in the compressor oil and pooled in low points of the tubing. Mitigation: flow low-pressure argon (a few psi, *flowing*, not static) through the open loop during the entire loop-open period, sweeping residual fuel out ahead of the heat. The same continuous flow serves as the dry inert blanket that preserves the factory drier's desiccant during the loop-open period (see step 3). The existing welder-side argon cylinder is the source.
 
 The in-service hazard — a refrigerant leak post-build into a sealed compartment that contains an ignition source — is owned elsewhere: the compressor shroud isolates the highest-temperature surface in the system, and the AC switching relay is deliberately placed *outside* the shroud so its switching arc isn't co-located with the protected zone. See [`../cut-parts/compressor-shroud/README.md`](../cut-parts/compressor-shroud/README.md). The shroud also carries a hardware-only backstop: a BOJACK SF76E SEFUSE thermal fuse ([77 °C](SF76E_TEMP), in series with the AC primary feeding the compressor) plus an ACEIRMC MQ-6 LPG/iso-butane sensor mounted low on the rear interior enclosure wall (mesh facing horizontally inward into the cabinet volume), positioned where dense R-600a pools at the cabinet floor from any of the dominant brazed-joint leak sites (cap-tube pinch-swage at the evap inlet, slip coupling at the evap outlet, BPV31 saddle clamp + flare cap, compressor process tube) — both ON-ORDER per [`../purchases.md`](../purchases.md) §6. Thermal fuse + gas sensor backstop the soft (firmware) cutoffs so a controller failure can't keep the compressor energized through a thermal or leak event.
 
@@ -72,7 +72,7 @@ Confirm fully vented before proceeding: gauge reads atmospheric, no further hiss
 
 ### 3. Cut the loop and start continuous argon flow
 
-The factory drier stays in service (see [`../harvested/ice-maker/README.md`](../harvested/ice-maker/README.md) "Filter-drier" for rationale: the cap-tube outlet on any commodity replacement drier doesn't match the donor's hair-bore capillary, and the surgery to bridge that mismatch is rework risk for no functional gain). The drier, its brazed-on capillary tube, the cap-tube helix at the evap end, and the bonded suction-line heat-exchanger pair all stay together as one preserved upstream subassembly.
+The factory drier stays in service. The drier, its brazed-on capillary tube, the cap-tube helix at the evap end, and the bonded suction-line heat-exchanger pair stay together as one preserved upstream subassembly.
 
 **Before cutting anything, start continuous argon flow into the loop:** hook the argon-purge rig (Uniweld RHP400 + flared 1/4" ACR stub + Joywayus flare nut + HVAC charging hose) to the BPV31 flare port on the compressor process tube, open the BPV31, and start low-pressure argon (a few PSI). This flow continues without interruption from the first cut in this step until vacuum begins in step 6. The flow does two jobs simultaneously: (a) the per-braze hydrocarbon sweep from Hazard B, and (b) the dry inert blanket that preserves the factory drier's desiccant during the loop-open period. One continuous regimen satisfies both.
 
@@ -81,7 +81,7 @@ With argon flowing through the loop, cut the refrigerant tubing at two points:
 - **Suction side**, between the evaporator outlet and the compressor inlet — close to the evaporator. Argon exits here as one of the loop's open ends.
 - **Capillary-tube side**, at the evaporator-inlet end of the cap tube (just upstream of the factory evap) — leaving the entire factory drier + cap tube + cap-tube helix intact, with cap tube length unchanged from factory. Argon exits here as the other open end.
 
-The factory finger-plate evaporator (cold plate) and the hot-gas bypass solenoid + bypass line + tee come out — the bypass path has no purpose in the production refrigerant loop (the loop wants steady cold, not harvest cycles). The bonded capillary-tube + suction-line heat-exchanger pair (where they run alongside each other for most of the suction line's length) stays intact on the compressor side. Per [`../harvested/ice-maker/README.md`](../harvested/ice-maker/README.md) "Capillary tube + suction-line heat exchanger": keep the bonded pair together, don't separate them.
+The factory finger-plate evaporator (cold plate) and the hot-gas bypass solenoid + bypass line + tee come out. The bonded capillary-tube + suction-line heat-exchanger pair (where they run alongside each other for most of the suction line's length) stays intact on the compressor side.
 
 ### 4. Tie in the suction line
 
@@ -91,7 +91,7 @@ Position the cold core's coil-outlet stub (top of the wound coil — refrigerant
 
 Position the cold core's coil-inlet stub (bottom of the wound coil) next to the capillary-tube end coming from the factory drier (cut to length at the evap-inlet end in step 3). The OD mismatch (1/4" ACR coil vs 0.031" cap tube) is handled by **pinch-swaging the coil-inlet stub down onto the cap tube using the Knipex 86 01 180 Pliers Wrench** — progressive 60° rotation collapse technique, no reducer fitting required. Once swaged, braze the joint under the continuous argon flow established in step 3.
 
-If total cap-tube length changes substantially relative to the donor's factory length (e.g., the new coil is significantly longer or shorter than the donor evaporator), a refrigeration tech should recalculate cap length for the new load rather than guessing — per [`../harvested/ice-maker/README.md`](../harvested/ice-maker/README.md) "Capillary tube + suction-line heat exchanger".
+If total cap-tube length changes substantially relative to the donor's factory length (e.g., the new coil is significantly longer or shorter than the donor evaporator), a refrigeration tech recalculates cap length for the new load.
 
 ### 6. Pull vacuum
 

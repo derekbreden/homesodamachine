@@ -73,7 +73,7 @@ With the outer shell open-top-up on the bench, install every internal component:
 - **Four copper plugs** slid down into the shared +Z slot from above, sealing between and above the four pass-throughs (binder-clip geometry in [`../printed-parts/cold-core/foam-shell/README.md`](../printed-parts/cold-core/foam-shell/README.md) "Shared +Z slot and copper plug stack")
 - **In-cavity PP0308E elbow** angled in through the −Z support-arch doorway from above before the vessel drops into the cavity.
 
-All fitting-size transitions (3/8" → 1/4", larger fittings) happen on the warm side of the shell; every penetration through the shell wall is 1/4" OD tubing. See [`../printed-parts/cold-core/foam-shell/README.md`](../printed-parts/cold-core/foam-shell/README.md) "build decision".
+All fitting-size transitions (3/8" → 1/4", larger fittings) happen on the warm side of the shell; every penetration through the shell wall is 1/4" OD tubing.
 
 ### 5. Body foam pour
 

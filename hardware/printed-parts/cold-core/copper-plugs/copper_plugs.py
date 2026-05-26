@@ -20,10 +20,9 @@ water_inlet_y / prv_vent_y module constants for the live values):
 
 The PRV vent line is unpressurized in normal operation — it carries
 relief-event discharge from the prv-shroud cavity (see
-`../prv-shroud/`) out to the appliance interior. Despite carrying
-gas rather than water, it shares the same slot + same 1/4" OD tube
-+ same ⌀6.5 slot punch as the other three pass-throughs, so it
-participates in the same plug architecture.
+`../prv-shroud/`) out to the appliance interior. It shares the same
+slot + same 1/4" OD tube + same ⌀6.5 slot punch as the other three
+pass-throughs.
 
 Four plugs in the stack:
   • copper-plug-lower:  fills the Y span between the lowest-copper
@@ -47,11 +46,9 @@ immediately above and below the wall:
     ←──── plug X ────→
          ←─ slot ─→
 
-The flanges grip the +Z wall edge like a binder clip: the air gap
-between the two flanges (at x = ±slot_half_width_x ..
-±plug_half_x_outer, the flange overhang past the web on each side)
-is exactly where the wall sits when the plug is dropped into the
-slot.
+The wall sits in the air gap between the two flanges (at
+x = ±slot_half_width_x .. ±plug_half_x_outer, the flange overhang
+past the web on each side) when the plug is dropped into the slot.
 
 Built as three boxes (web + top flange + bottom flange) unioned
 into a single solid. The web's top face shares a 2D contact patch

@@ -2,7 +2,7 @@
 
 The production procedure for the carbonator pressure vessel — the 316L stainless body that holds carbonated water at the **90 PSI working pressure** specified in [`../future.md`](../future.md) "Carbonation subsystem". This document is the repeatable procedure for taking commodity tube + cut plates to a hydro-tested, passivated vessel ready for the [refrigeration loop](refrigerant-loop.md) downstream.
 
-Design intent and material rationale live in [`../future.md`](../future.md). The dev-phase task summary lives in [`../handwork.md`](../handwork.md) (companion to this doc, not a substitute — it is the upcoming-tasks list for one builder, not the repeatable production procedure). Snapshots of single-event execution (the first tap, the first weld recipe) live in their own dated files and are referenced by step below.
+Design intent and material rationale live in [`../future.md`](../future.md). The dev-phase task summary lives in [`../handwork.md`](../handwork.md). Snapshots of single-event execution (the first tap, the first weld recipe) live in their own dated files and are referenced by step below.
 
 ## Scope
 
@@ -18,17 +18,17 @@ Per-unit BOM lives in [`../bom.md`](../bom.md) §2 (carbonator vessel) + §12 (l
 
 | Item | Source | Notes |
 |---|---|---|
-| 5" OD × 0.065" wall × [152.4 mm](TANK_H) 316L SS welded tube | OnlineMetals #12498 | MTRs required. Mo content of 316L (absent from 304) provides pitting + crevice-corrosion resistance in the chloride + carbonic-acid environment of long-life carbonated water service. |
+| 5" OD × 0.065" wall × [152.4 mm](TANK_H) 316L SS welded tube | OnlineMetals #12498 | MTRs required. |
 | 1/4"-thick 316L SS circular end plate, 2-hole pattern | SendCutSend [`endcap-circular-2hole.dxf`](../cut-parts/carbonation/endcaps-circular/endcap-circular-2hole.dxf) | 2 per vessel |
 | 1/8" 316L SS rod, ~6" cut from 12" stock | Tandefio B0CY4DWJFQ | Internal float rod (bom.md §12) |
 | Magnetic donut float | Harvested from DEVMO MINI float switch B07T18PGJ4 | Slides on rod, captive after top weld (bom.md §12) |
 | 0.5 µm sintered 316 SS sparge stone (1/4" barb input) | FERRODAY B091C5Y6L9 | Internal CO2 sparge |
 | Food-grade silicone tube stub, ~3" of 1/4" ID | Metaland B08L1ST6ST (cut from §5 stock) | Connects bottom-plate barb to sparge stone |
 | 1/4" hose-barb × 1/4" MNPT 316 SS adapter | LTWFITTING B017N4TTMA | CO2 inlet barb, installed at sparge step |
-| **TAISHER 316L SS 1/4" NPT 90° street elbow, M×F** | B0CZ38MYL1 (2-pk) | **4 per vessel — all four ports (all-SS standardization).** 316L on every port: matches the 316 end-cap plate parent metal so there's no galvanic mismatch on the wetted side, and standardizing one SS elbow SKU across water + gas ports avoids splitting the assembly into SS-water + brass-gas variants. Turns the line laterally within the ~[30 mm](ELBOW_ENV) vertical envelope around the tank — see [`../printed-parts/cold-core/foam-shell/README.md`](../printed-parts/cold-core/foam-shell/README.md) "Tank-port fittings". SS-on-SS thread joints rely on the Millrose PTFE anti-seize tape (above) at every port. |
+| **TAISHER 316L SS 1/4" NPT 90° street elbow, M×F** | B0CZ38MYL1 (2-pk) | **4 per vessel — all four ports.** Turns the line laterally within the ~[30 mm](ELBOW_ENV) vertical envelope around the tank — see [`../printed-parts/cold-core/foam-shell/README.md`](../printed-parts/cold-core/foam-shell/README.md) "Tank-port fittings". SS-on-SS thread joints rely on the Millrose PTFE anti-seize tape (above) at every port. |
 | **Control Devices SV-125 safety valve, 1/4" NPT, 125 PSI** | B01G2F6EMY (size SV-125) | **Port 4 dedicated PRV — installed after passivation per step 8 below, via the SS 90° elbow to orient the body laterally.** 125 PSI set pressure gives 1.39× margin over the 90 PSI working pressure. 49 SCFM relief capacity. |
 | Millrose PTFE thread-seal tape | B07C9ZV4PG | Anti-seize for 4 NPT ports (test plugs during hydro + final fittings after passivation) |
-| ER316L .030 filler wire | STARTECHWELD B09BKFBXT9 | Matches 316L parent metal — Mo content across the weld zone keeps the weld as corrosion-resistant as the surrounding 316L plate + tube. |
+| ER316L .030 filler wire | STARTECHWELD B09BKFBXT9 | Matches 316L parent metal. |
 | Cambro 6 QT polycarbonate square container | B001BZEQ44 | One-time-use passivation soak tub per vessel |
 | Viva Doria food-grade citric acid | B0C5NQM8S1 | Made up to ~4 % solution, ~1 qt per vessel (~1/20 of 2 lb bag) |
 | Tap Magic EP-Xtra cutting fluid | B00DHMHSGM | ~$0.50 of fluid per vessel for NPT tapping |
@@ -78,7 +78,7 @@ Hold pressure: **180 PSI for 30 minutes** (~2× the 90 PSI working pressure). Be
 - **Pump-to-vessel adapter:** KOOTANS 1/2" NPT male × 1/4" NPT male brass reducing hex nipple (4-pack). 1/2" end seals against the BEAMNOVA swivel gasket; 1/4" end takes PTFE tape and threads into the vessel port.
 - **In-vessel soak gauge:** SENCTRL 0–200 PSI glycerin-filled, 2.5" dial, 1/4" NPT lower mount, SS case. Leaves on a vessel port across hour-scale leak soaks for fine-resolution drift. At 180 PSI test the gauge sits at 90 % of scale — above the 60-75 % textbook sweet spot, but still within working range.
 - **Port plugs:** ChillWaves brass 1/4" NPT outer-hex pipe plugs (12-pack), rated 1200 PSI — way over the test pressure. Three plugs hold the three unused vessel ports during the test.
-- **Post-hydro pneumatic-leak rig (separate step, post-validation):** Milton 727 industrial M-STYLE® 1/4" MNPT air plug 10-pack — threads into a vessel port and mates with a standard air-compressor coupler for a follow-on pneumatic leak check on vessels that already passed hydro. This is the *post*-validation rig; hydro is the primary new-fab sign-off because pneumatic stores ~200× the failure energy at the same pressure.
+- **Post-hydro pneumatic-leak rig (separate step, post-validation):** Milton 727 industrial M-STYLE® 1/4" MNPT air plug 10-pack — threads into a vessel port and mates with a standard air-compressor coupler for a follow-on pneumatic leak check on vessels that already passed hydro.
 
 **Pass criteria — open.** Working position is "no visible drop on the SENCTRL gauge, no visible weep at welds or threads." Whether to commit to a specific PSI-drop tolerance over the hold is undefined.
 

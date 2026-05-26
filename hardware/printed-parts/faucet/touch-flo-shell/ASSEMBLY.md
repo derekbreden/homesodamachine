@@ -62,7 +62,7 @@ into a single rigid sub-assembly.
 |  1  | `touch-flo-mounting-plate` (printed) — smooth top face, no joinery features | [`../touch-flo-mounting-plate/`](../touch-flo-mounting-plate/) |
 |  1  | Touch-Flo valve body + factory shank nut (harvested) | [`../../harvested/touch-flo-faucet/`](../../harvested/touch-flo-faucet/)            |
 
-No fasteners. No heat-set inserts. No printed retention features at all. The plate is held to the shell by gravity + body friction during sub-assembly handling; once installed in the countertop, the factory shank nut clamps the whole stack (body → plate → TPU gasket → countertop) and that clamp is what carries every load thereafter. See the joinery history in the Geometry summary for what was tried and discarded.
+No fasteners or printed retention features. The plate is held to the shell by gravity + body friction during sub-assembly handling; once installed in the countertop, the factory shank nut clamps the whole stack (body → plate → TPU gasket → countertop) and that clamp carries every load thereafter.
 
 The two flavor tubes that pass through the pill slot are NOT installed
 at this step — they're routed in the downstream "tube routing" step,
@@ -99,24 +99,19 @@ sharp acute tips (handling hazard, laser-dross-prone, no help with
 alignment); the fillets dull them and give the cylinders a small
 lead-in funnel at each channel mouth.
 
-The keyhole design exists because the faucet + umbilical leave the
-faucet-and-umbilical build chain as one permanently-attached
-sub-assembly — the LLDPE tubes are clamped to the Westbrass body and
-never separated again. A solid one-piece disc would force the
-installer to thread already-attached tubes through the pill slot
-from below. The keyhole's open-edge channels let the installer slide
-the plate laterally past the dangling cylinders; both the shank and
-the tube bundle enter through their channel mouths at the rim and
-seat in their terminal pockets. Once seated, the cylinders sitting
-in the narrow channels keep the plate from drifting back out of
-alignment under gravity, letting the installer thread the shank nut
+The faucet + umbilical leaves the faucet-and-umbilical build chain
+as one permanently-attached sub-assembly — the LLDPE tubes are
+clamped to the Westbrass body. At install, the keyhole's open-edge
+channels let the installer slide the plate laterally past the
+dangling cylinders; both the shank and the tube bundle enter through
+their channel mouths at the rim and seat in their terminal pockets.
+Once seated, the cylinders in the narrow channels keep the plate in
+alignment under gravity while the installer threads the shank nut
 one-handed.
 
 Anti-rotation during nut tightening is provided by the cylinders
-themselves: any rotational drift of the plate immediately presses the
-shank and tube bundle against the channel walls. No silicone bumpers
-needed (unlike the prior one-piece-with-closed-pill-slot design that
-this iteration supersedes).
+themselves: any rotational drift of the plate presses the shank and
+tube bundle against the channel walls.
 
 Stack-up: between the countertop underside and the under-counter
 shank nut. Distributes the nut's clamping force over a wide area so
@@ -175,17 +170,9 @@ Stack-up at the plate-to-shell interface (rear shoulder region):
 mounting plate sits *above* the countertop — its top face mates with
 the shell bottom (this doc's joint), its bottom face mates with the
 TPU `touch-flo-mounting-gasket` that then seals against the
-countertop's top surface. The plate's bottom face is never seen
-from below the counter and is never under-counter; only the body's
-threaded shank and the three umbilical tubes pass through the
-countertop hole. Anything that breaks the flatness of the plate's
-bottom face would dish into the gasket and compromise the
-countertop seal. The current screw-free, dowel-free design satisfies
-this trivially — the plate's bottom face has no holes or features
-at all in the rear-shoulder region, fully smooth against the
-gasket. Any future retention scheme considered for this joint must
-re-read this constraint before adding anything that breaks the
-plate-bottom flatness.
+countertop's top surface. The plate's bottom face must stay flat
+against the gasket; the current screw-free, dowel-free design keeps
+the rear-shoulder region of the plate bottom fully smooth.
 
 The factory shank nut clamps the body's [31.5 mm](BODY_OD) OD bottom
 face onto the plate's top face through the plate's Ø 12.6 shank hole.
