@@ -136,15 +136,16 @@
 }
 
 /* Minimap for 2D PanZoom surfaces (mermaid + drawings). 2D equivalent
-   of the 3D ViewCube gizmo: where inside the full default view the
-   user is currently zoomed. Pointer-events: none — the box is an
-   indicator, not an input surface. Sits below the ContentViewer's
-   .cv-close button (top: 8px, height: 36px → bottom: 44px) with an
-   8px gap so the close X doesn't appear to apply to the minimap. */
+   of the 3D ViewCube gizmo: outer box is the wrapper at the default
+   (fit) view, inner box is what portion of that view is currently
+   visible after pan/zoom. Pointer-events: none — the box is an
+   indicator, not an input surface. Sits 8px to the left of the
+   ContentViewer's .cv-close button (top: 8px right: 8px, 36×36) so
+   the close X doesn't appear to apply to the minimap. */
 .pan-zoom-minimap {
   position: absolute;
-  top: calc(env(safe-area-inset-top, 0px) + 52px);
-  right: calc(env(safe-area-inset-right, 0px) + 16px);
+  top: 8px;
+  right: 52px; /* 8 (close X right) + 36 (close X width) + 8 (gap) */
   z-index: 10;
   background: rgba(35, 35, 66, 0.55);
   border: 1px solid var(--border);
