@@ -53,11 +53,13 @@ Color discipline: [16 AWG](AWG_AC_MAIN) silicone, black for hot, white for neutr
 
 ### 3. Static dielectric / continuity check on the AC side
 
-After step 2 and before any DC conductor lands, cold-check the AC wiring with the C14 inlet **disconnected from line**, multimeter only.
+After step 2 and before any DC conductor lands, cold-check the AC wiring with the C14 inlet **disconnected from line**, multimeter only. The Legrand GFCI's internal relay is open in the unpowered / un-RESET state, so H and N continuity is verified separately on each side of the device: **AC-1a** (C14 inlet → GFCI LINE terminals) and **AC-1b** (GFCI LOAD terminals → AC distribution block → downstream loads). End-to-end through-GFCI continuity on H and N is exercised at first power-on per [`firmware-and-commissioning.md`](firmware-and-commissioning.md) step 2, when the GFCI's self-test closes the relay. Earth is a pass-through on the GFCI (not switched, not sensed by the CT), so the earth checks below run end-to-end as written.
 
-- **Continuity (ohms-low):** C14 earth pin to every metal-part chassis-ground target from step 1. C14 hot pin to AC distribution block H pole. C14 neutral pin to AC distribution block N pole. AC distribution block H pole to Teyleten relay #1 common. With relay #1 manually held closed (jumper across the input opto), distribution-block H to compressor terminal-block hot spade.
-- **Open (ohms-high):** Hot to neutral across the AC primary loop, both with relay #1 open and with relay #1 closed (with the compressor's motor windings in circuit, this last reads the winding resistance; confirm ~[10](WINDING_R_LOW)–[30 Ω](WINDING_R_HIGH) for a [100 W-class](COMP_CLASS_W) hermetic, matching the donor compressor's nameplate).
-- **Open (ohms-high):** Every AC current-carrying conductor (H, N, switched H) to every chassis-ground target. No leakage path.
+- **Continuity (ohms-low) — earth, end-to-end:** C14 earth pin to every metal-part chassis-ground target from step 1.
+- **Continuity (ohms-low) — H/N, AC-1a side (C14 → GFCI LINE):** C14 hot pin to the GFCI's LINE H terminal. C14 neutral pin to the GFCI's LINE N terminal.
+- **Continuity (ohms-low) — H/N, AC-1b side and downstream of the GFCI:** GFCI LOAD H terminal to AC distribution block H pole. GFCI LOAD N terminal to AC distribution block N pole. AC distribution block H pole to Teyleten relay #1 common. With relay #1 manually held closed (jumper across the input opto), distribution-block H to compressor terminal-block hot spade.
+- **Open (ohms-high) — H to N downstream of the GFCI:** GFCI LOAD H to GFCI LOAD N, both with relay #1 open and with relay #1 closed (with the compressor's motor windings in circuit, this last reads the winding resistance; confirm ~[10](WINDING_R_LOW)–[30 Ω](WINDING_R_HIGH) for a [100 W-class](COMP_CLASS_W) hermetic, matching the donor compressor's nameplate). The same check from C14 hot to C14 neutral reads open regardless of relay #1's state — that is the GFCI's open relay, an expected pre-power-on condition, not a wiring fault.
+- **Open (ohms-high) — leakage:** Every AC current-carrying conductor to every chassis-ground target, checked on both sides of the GFCI. Upstream of the device: C14 hot pin to chassis-ground, C14 neutral pin to chassis-ground. Downstream: GFCI LOAD H, GFCI LOAD N, relay #1 NO terminal, compressor terminal-block hot spade — each to chassis-ground. No leakage path on either side.
 
 If any check fails, find and fix it before step 4.
 

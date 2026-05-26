@@ -49,6 +49,8 @@ This is a *re-look*, not a re-test — the AC and DC continuity sign-offs from `
 
 Power the C14 inlet through a bench PSU-controlled outlet, not direct wall power. The Teyleten relay #1 must remain de-energized for this step — the firmware boots into "all off" by default, but the PSU-controlled outlet is the hardware backstop.
 
+**GFCI self-test gate.** When mains reaches the C14 inlet, the Legrand 1597BKCCD12 GFCI on the shelf runs its ~3-second self-test before closing its internal relay; only then does AC propagate to the PSU. Watch the device's front-face status LED. Solid green within ~3 seconds = self-test passed, relay closed, AC flowing downstream — proceed with the rail-by-rail bring-up below. Flashing red = SafeLock end-of-life lockout; the device must be replaced (see [`../bom.md`](../bom.md) §5) before the unit can power up. LED stays dark = the device never received line voltage; check AC-1a wiring back to the C14 inlet. LED green but no DC rails in the next sub-step = the relay is in the user-tripped state; press TEST then RESET on the device and re-apply C14 power. The relay closing here is what makes the C14 → through-GFCI → AC distribution block continuity end-to-end-verifiable (deferred from [`wiring.md`](wiring.md) step 3); the rails coming up in this step is the functional confirmation.
+
 Bring up in this order, verifying each rail with the multimeter before the next:
 
 1. PSU output enabled — verify **[12 V](RAIL_12V)** at the distribution-block test point (PSU is the Mean Well IRM-90-12ST, see [`../wiring/ac-wiring-schedule.md`](../wiring/ac-wiring-schedule.md) run DC-1). Expected ~[12 V](RAIL_12V) [± 0.2 V](RAIL_12V_TOL) at no load.
