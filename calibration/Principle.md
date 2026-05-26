@@ -85,3 +85,11 @@ All of these are the author going outside what is.
 **Why agents fail to learn this from absence:** the going-beyond is invisible to them as a category. To the agent, justifying a design IS writing a design doc; predicting effort IS answering a planning question; extracting a rule IS being helpful; saving a memory IS preserving context. The "extra" isn't perceived as extra — it's perceived as the work itself. So the agent reads the bare example through the impulse the example is trying to suppress, and registers nothing.
 
 **Why the rule strains and the hook works:** the rule "describe only what is" itself goes beyond what is — it's prescriptive, future-oriented, addressed to a not-yet-present reader. It cannot demonstrate itself; it can only state itself. The hook makes no claim and tells no story; it intercepts the impulse at the moment of expression and forces the agent to look at what they were about to write. The rule and the hook are both compromises with the failure of teaching-by-absence; the hook compromises less because it doesn't have to go beyond what is to do its work.
+
+---
+
+## Editor's note
+
+This doc is a distillation of two conversations — `You.md` and `Framing.md` — where the calibration happened live. It is the compromise of last resort it describes: a stated rule for the case where the example alone has been tested and failed. The teaching is in the source conversations, not here.
+
+If you arrived here from a hook because you were about to write a justification, defense, decision narrative, or comment on code: read `You.md` and `Framing.md` in full before you remove what you wrote. Don't mistake this doc for the lesson. It is the orientation. The lesson is in the rooms it summarizes.
