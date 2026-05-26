@@ -7,25 +7,25 @@ geometry (foam shell, pump cases, condenser, etc.) is NOT modeled here —
 this is the "skin" of the enclosure plus its external-facing features,
 modeled to whatever depth lets it project to a recognizable line drawing.
 
-Coordinate convention (matches the cold-core / pump-case / faucet shell
-modules in the repo):
-- +X is the appliance's width axis (right).
-- +Y is the appliance's depth axis (front to back). y=0 is the FRONT
-  face, y=D is the BACK face.
-- +Z is the appliance's height axis (up). z=0 is the bottom, z=H is the
-  top.
+Coordinate convention — matches the repo's +Y-up convention used by the
+cold-core, pump-case, and faucet shell modules:
+- +X is the appliance's width axis. x=0 is the LEFT side, x=W is the RIGHT.
+- +Y is the appliance's height axis. y=0 is the BOTTOM, y=H is the TOP.
+- +Z is the appliance's depth axis. z=0 is the FRONT face, z=D is the BACK.
 - The box origin is at the front-bottom-left corner.
 
 Drawing-only conventions:
 - Cutouts that read as door/lid/panel outlines (top-face doors, back-face
-  C14 inlet) are shallow recesses — SURFACE_CUT_DEPTH deep — so they
-  show up as nested rectangles in the iso projection (the seam between
-  panel and frame).
-- Cutouts that are real through-holes (none currently) would cut from
-  the outside surface all the way through.
+  C14 inlet) are very shallow recesses — SURFACE_CUT_DEPTH deep — so they
+  show up as a single visible line at the SVG stroke width rather than as
+  noticeably nested rectangles.
 - Protrusions that read as physical objects sticking out (S3 knob,
   dispense tip, push button, nameplate) are added via union as solids
   outside the box.
+- The dispense tip is an angled cylinder whose axis is NOT aligned with
+  the front face normal; the cylinder extends BACK into the wall by
+  r·tan(angle from face normal) so the cylinder's lateral surface meets
+  the wall plane as a clean ellipse instead of leaving a sliver.
 
 substitute_py_comments rewrites the [value](NAME) links in this file's
 comments on every run via refresh_comments(), which the drawing scripts
@@ -56,12 +56,12 @@ from _enclosure_dimensions import APPLIANCE_W, APPLIANCE_D
 # ---------------------------------------------------------------------------
 
 W = APPLIANCE_W
-D = APPLIANCE_D
-H = 280.0  # working value; not yet derived from internal stack-ups
+H = 280.0           # height (along +Y); working value, not yet derived
+D = APPLIANCE_D     # depth (along +Z)
 
 
 # ---------------------------------------------------------------------------
-# Top-face doors and lids
+# Top-face doors and lids (a runs along +X width, b runs along +Z depth)
 # ---------------------------------------------------------------------------
 
 PUMP_SIDE_BY_SIDE_CLEARANCE = 15.0
@@ -89,11 +89,7 @@ hopper_door_a = W - SIDE_MARGIN - hopper_door_w / 2
 hopper_door_b = FRONT_MARGIN + hopper_door_d / 2
 
 # GFCI access band — 27 × 18 mm exposed band centered on the 42 × 67
-# Legrand 1597 body, tucked into the back-right corner with the body's
-# tall axis along the appliance width. Body center sits 38.5 mm from the
-# right edge (5 mm yoke clearance + 67/2) and 26 mm from the back edge
-# (5 + 42/2); the band is centered on the body. On the top face the
-# band is 18 along a (width) × 27 along b (depth).
+# Legrand 1597 body, tucked into the back-right corner.
 GFCI_W = 18.0
 GFCI_H = 27.0
 GFCI_A = W - 38.5
@@ -101,13 +97,7 @@ GFCI_B = D - 26.0
 
 
 # ---------------------------------------------------------------------------
-# Front-face features (centerline a = hopper_door_a):
-#   S3 rotary display at b = 235.
-#   Dispense tip at b = 200, axis tilted 40° from straight down to match
-#   the mounted faucet (gn_bend1_sweep_rad + gn_bend2_sweep_rad = 140° in
-#   touch-flo-shell, so the tip ends at 180° - 140° = 40° from vertical).
-#   Push button at b = 170, sized to catch a glass rim raised under the
-#   tip; wide enough that a finger can also press it.
+# Front-face features (a runs along +X width, b runs along +Y height)
 # ---------------------------------------------------------------------------
 
 S3_AT = (hopper_door_a, 235.0)
@@ -118,8 +108,17 @@ TIP_AT = (hopper_door_a, 200.0)
 TIP_D = 20.0
 TIP_LENGTH = 25.0
 TIP_ANGLE_FROM_VERTICAL_DEG = 40.0
+# Tip points "down" (-Y) and "forward" (-Z), at 40° from vertical:
+#   sin(40°) of the unit length goes into -Z (forward),
+#   cos(40°) into -Y (down).
 _tip_theta = math.radians(TIP_ANGLE_FROM_VERTICAL_DEG)
-TIP_AXIS = (0.0, -math.sin(_tip_theta), -math.cos(_tip_theta))
+TIP_AXIS = (0.0, -math.cos(_tip_theta), -math.sin(_tip_theta))
+# r·tan(angle from face normal) — extension along the axis BACK into the
+# wall so the cylinder's lateral surface meets the front face cleanly
+# as a full ellipse instead of leaving a sliver gap. The axis is 50°
+# from the front face normal (-Z), so tan(50°) ≈ 1.192.
+_tip_angle_from_face_normal = math.radians(90 - TIP_ANGLE_FROM_VERTICAL_DEG)
+TIP_BACK_EXTENSION = (TIP_D / 2) * math.tan(_tip_angle_from_face_normal)
 
 BUTTON_AT = (hopper_door_a, 170.0)
 BUTTON_W = 80.0
@@ -128,13 +127,8 @@ BUTTON_PROTRUSION = 10.0
 
 
 # ---------------------------------------------------------------------------
-# Back-face features:
-#   Umbilical: three Ø17 mm John Guest PP1208E bulkheads in a tangent
-#   equilateral triangle, high on the back panel where the umbilical
-#   drops down through the countertop.
-#   C14 AC inlet: IEC 60320 panel-mount receptacle cutout ~28 × 20 mm.
-#   Nameplate: separately-printed serialized plaque 60 × 40 mm, raised
-#   from the back surface.
+# Back-face features (a runs along -X width as seen from outside, b runs
+# along +Y height)
 # ---------------------------------------------------------------------------
 
 UMBILICAL_BULKHEAD_D = 17.0
@@ -159,39 +153,37 @@ NAMEPLATE_THICKNESS = 1.5
 
 
 # ---------------------------------------------------------------------------
-# Drawing-only knobs: shallow cut depths so doors / lids / inlets read as
-# nested rectangles (panel seam) instead of through-holes.
+# Drawing-only knob: cut depth shallow enough that the nested-rectangle
+# offset is below the SVG stroke width and reads as a single line.
 # ---------------------------------------------------------------------------
 
-SURFACE_CUT_DEPTH = 3.0
+SURFACE_CUT_DEPTH = 0.5
 
 
 # ---------------------------------------------------------------------------
 # Geometry builders
 # ---------------------------------------------------------------------------
-
-# Per-face geometry uses the repo's WorldWorkplane abstraction (see
-# `hardware/printed-parts/cadlib/world_workplane.py`) on the two shared
-# world-coord planes:
 #
-#   xz_plane_y_up — XZ plane with +Y normal. Used for front- and
-#       back-face features. Workplane offset 0 puts it on the front
-#       face; offset D puts it on the back face. moveTo accepts
-#       (world_x, world_z) tuples directly; the registered flip_z
-#       transform handles the plane's Y-axis chirality inversion.
-#       extrude(+) goes +Y (into the box from the front, out of the
-#       box from the back); extrude(-) goes -Y (out of the box from
-#       the front, into the box from the back).
+# Uses the repo's WorldWorkplane abstraction (hardware/printed-parts/
+# cadlib/world_workplane.py) on the two shared world-coord planes:
 #
-#   xy_plane_z_up — XY plane with +Z normal. Used for top-face cuts.
-#       Workplane offset H puts it on the top face. moveTo accepts
-#       (world_x, world_y) tuples. extrude(-) goes -Z (into the box).
+#   xz_plane_y_up  — XZ plane with +Y normal. Used for top-face cuts
+#       (offset H puts the workplane on the top face). moveTo accepts
+#       (world_x, world_z) tuples; flip_z handles the Y-axis chirality
+#       inversion. extrude(-depth) goes -Y, into the box.
+#
+#   xy_plane_z_up  — XY plane with +Z normal. Used for front- and back-
+#       face features. Offset 0 puts the workplane on the front face;
+#       offset D puts it on the back face. moveTo accepts (world_x,
+#       world_y) tuples directly. extrude(+) goes +Z (into the box from
+#       the front, out of the box from the back); extrude(-) goes -Z
+#       (out of the box from the front, into the box from the back).
 
 
 def _cut_top_rectangle(solid, a, b, w, h):
-    """Cut a shallow rectangle from the top face (z=H) for door/lid outlines."""
+    """Cut a shallow rectangle from the top face (y=H) for door/lid outlines."""
     cutter = (
-        WorldWorkplane(xy_plane_z_up).workplane(offset=H)
+        WorldWorkplane(xz_plane_y_up).workplane(offset=H)
         .moveTo((a, b))
         .rect(w, h)
         .extrude(-SURFACE_CUT_DEPTH)
@@ -200,11 +192,11 @@ def _cut_top_rectangle(solid, a, b, w, h):
 
 
 def _cut_back_rectangle(solid, a, b, w, h):
-    """Cut a shallow rectangle from the back face (y=D). Face-local a runs
+    """Cut a shallow rectangle from the back face (z=D). Face-local a runs
     along -world X (mirrored as you look at the back from outside), so
-    world X = W - a."""
+    world X = W - a; face-local b runs along +Y (height)."""
     cutter = (
-        WorldWorkplane(xz_plane_y_up).workplane(offset=D)
+        WorldWorkplane(xy_plane_z_up).workplane(offset=D)
         .moveTo((W - a, b))
         .rect(w, h)
         .extrude(-SURFACE_CUT_DEPTH)
@@ -215,7 +207,7 @@ def _cut_back_rectangle(solid, a, b, w, h):
 def _cut_back_circle(solid, a, b, d):
     """Cut a shallow circle from the back face for umbilical bulkhead outlines."""
     cutter = (
-        WorldWorkplane(xz_plane_y_up).workplane(offset=D)
+        WorldWorkplane(xy_plane_z_up).workplane(offset=D)
         .moveTo((W - a, b))
         .circle(d / 2)
         .extrude(-SURFACE_CUT_DEPTH)
@@ -226,29 +218,34 @@ def _cut_back_circle(solid, a, b, d):
 def _add_front_knob(solid, a, b, d, protrusion):
     """Add a perpendicular cylindrical knob protruding from the front face."""
     knob = (
-        WorldWorkplane(xz_plane_y_up).workplane(offset=0)
+        WorldWorkplane(xy_plane_z_up).workplane(offset=0)
         .moveTo((a, b))
         .circle(d / 2)
-        .extrude(-protrusion)  # negative for outward (-Y) from the front face
+        .extrude(-protrusion)  # negative for outward (-Z) from the front face
     )
     return solid.union(knob.unwrap())
 
 
-def _add_front_angled_knob(solid, a, b, d, length, axis_3d):
+def _add_front_angled_knob(solid, a, b, d, length, axis_3d, back_extension):
     """Add a cylindrical knob with an arbitrary axis from the front face.
-    The axis isn't aligned with the face normal, so this builds the
-    cylinder explicitly via makeCylinder rather than going through a
-    workplane."""
-    origin = cq.Vector(a, 0.0, b)
-    direction = cq.Vector(*axis_3d)
-    cyl = cq.Solid.makeCylinder(d / 2, length, pnt=origin, dir=direction)
+
+    The cylinder's start point is offset BACKWARD along its axis by
+    `back_extension` so its lateral surface enters the front face wall as
+    a clean ellipse before exiting at the tip; without this the cylinder
+    leaves a sliver gap where its axis-perpendicular base disc doesn't
+    quite reach the wall plane. Total length built = length + back_extension."""
+    axis_v = cq.Vector(*axis_3d)
+    face_center = cq.Vector(a, b, 0.0)
+    start = face_center - axis_v * back_extension
+    total_length = length + back_extension
+    cyl = cq.Solid.makeCylinder(d / 2, total_length, pnt=start, dir=axis_v)
     return solid.union(cq.Workplane().add(cyl))
 
 
 def _add_front_button(solid, a, b, w, h, protrusion):
     """Add a rectangular protrusion from the front face."""
     button = (
-        WorldWorkplane(xz_plane_y_up).workplane(offset=0)
+        WorldWorkplane(xy_plane_z_up).workplane(offset=0)
         .moveTo((a, b))
         .rect(w, h)
         .extrude(-protrusion)
@@ -257,19 +254,19 @@ def _add_front_button(solid, a, b, w, h, protrusion):
 
 
 def _add_back_nameplate(solid, a, b, w, h, thickness):
-    """Add a raised rectangular plaque to the back face (y=D)."""
+    """Add a raised rectangular plaque to the back face (z=D)."""
     plate = (
-        WorldWorkplane(xz_plane_y_up).workplane(offset=D)
+        WorldWorkplane(xy_plane_z_up).workplane(offset=D)
         .moveTo((W - a, b))
         .rect(w, h)
-        .extrude(thickness)  # positive for outward (+Y) from the back face
+        .extrude(thickness)  # positive for outward (+Z) from the back face
     )
     return solid.union(plate.unwrap())
 
 
 def build_appliance() -> cq.Workplane:
     """Build the full appliance model as a CadQuery Workplane."""
-    appliance = cq.Workplane("XY").box(W, D, H, centered=False)
+    appliance = cq.Workplane("XY").box(W, H, D, centered=False)
 
     # Top face: GFCI band + pump door + hopper lid
     appliance = _cut_top_rectangle(appliance, GFCI_A, GFCI_B, GFCI_W, GFCI_H)
@@ -278,7 +275,9 @@ def build_appliance() -> cq.Workplane:
 
     # Front face: S3 knob + dispense tip + push button
     appliance = _add_front_knob(appliance, *S3_AT, S3_D, S3_PROTRUSION)
-    appliance = _add_front_angled_knob(appliance, *TIP_AT, TIP_D, TIP_LENGTH, TIP_AXIS)
+    appliance = _add_front_angled_knob(
+        appliance, *TIP_AT, TIP_D, TIP_LENGTH, TIP_AXIS, TIP_BACK_EXTENSION,
+    )
     appliance = _add_front_button(appliance, *BUTTON_AT, BUTTON_W, BUTTON_H, BUTTON_PROTRUSION)
 
     # Back face: umbilical (3 holes) + C14 inlet + nameplate
@@ -304,6 +303,26 @@ def build_appliance() -> cq.Workplane:
     appliance = _add_back_nameplate(appliance, *NAMEPLATE_AT, NAMEPLATE_W, NAMEPLATE_H, NAMEPLATE_THICKNESS)
 
     return appliance
+
+
+# ---------------------------------------------------------------------------
+# SVG post-processing — add round line caps / joins so edges meet cleanly
+# at intersections. CadQuery's exporter writes default-stroke paths, which
+# render as long thin rectangles with butt ends; at every corner the
+# butted rectangles leave a sub-pixel gap or overlap that reads as a
+# scratchy outline.
+# ---------------------------------------------------------------------------
+
+def smooth_stroke(svg_path: Path) -> None:
+    """Rewrite the SVG so its outer <g> carries stroke-linecap=round and
+    stroke-linejoin=round, so the path endpoints render as smoothly-meeting
+    lines instead of butted rectangles."""
+    text = svg_path.read_text()
+    # Add the two attributes to the parent <g> with the solid-lines stroke.
+    needle = 'stroke="rgb(0,0,0)" fill="none"'
+    replacement = 'stroke="rgb(0,0,0)" fill="none" stroke-linecap="round" stroke-linejoin="round"'
+    if needle in text and replacement not in text:
+        svg_path.write_text(text.replace(needle, replacement, 1))
 
 
 def refresh_comments() -> None:
