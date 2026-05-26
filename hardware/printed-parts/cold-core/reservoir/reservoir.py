@@ -300,17 +300,15 @@ bulkhead_panel_hole_diameter = 17.5  # 0.5 mm Ø over the JG catalog spec (0.67"
 # steps in matching sections so the syrup volume conforms to the body
 # and the residual film below the port is small.
 #
-# Section lengths and diameters below are the first-pass values from a
-# pixel-measured side view of the CI1208W (same body, white acetal),
-# calibrated against the catalog 34.5 mm total length. See
+# Section lengths and diameters below come from a pixel-measured side
+# view of the JG CI1208W (same body family, white acetal), calibrated
+# against the catalog 34.5 mm total length. The full measurement
+# table, confidence levels, and raw images live at
 # `hardware/off-the-shelf-parts/jg-bulkhead-union/extracted-results/
-# geometry-description.md` for the full measurement table, confidence
-# levels, and the raw images. Refine after a caliper pass on the
-# PI1208S we already own; the workflow is documented in
-# `tools/measure-from-drawings/README.md`.
-bulkhead_wet_chamber_length = 22.2  # wet nut + collet body + release ring — adjusted from 24 to free 1.8 mm for the panel's growth in −Z direction (see panel_thickness below). The reduction comes entirely from the collet body section.
+# geometry-description.md`.
+bulkhead_wet_chamber_length = 22.2  # sum of the three wet-side sections: flange (= nut total depth) + collet body + release ring.
 bulkhead_wet_antechamber_length = 2.0  # gap on the bulkhead's wet face — must exist or syrup can't reach the port
-bulkhead_panel_thickness = 6.8  # was 5 mm. Grown by 1.8 mm to fit 1.4 mm-deep TPU seal counterbores on BOTH faces while preserving the 4 mm minimum wall thickness in the panel core (between the two counterbores). Growth is in the −Z direction: panel's +Z face stays at z=bulkhead_panel_z_range[1], panel's −Z face moves to bulkhead_panel_z_range[1] − bulkhead_panel_thickness.
+bulkhead_panel_thickness = 6.8  # 1.4 mm-deep TPU seal counterbore on each face + 4 mm minimum PETG between the two counterbore floors = 1.4 + 4.0 + 1.4 = 6.8 mm. Panel's +Z face is anchored at bulkhead_panel_z_range[1]; the panel extends in the −Z direction from there.
 
 # Wet-side nut. The actual hardware sitting at z=bulkhead_panel_z_range[0] on the
 # wet side is the *nut*, not an integral flange — the bulkhead is
@@ -358,9 +356,9 @@ bulkhead_seal_thickness = 2.0  # matches the reservoir gasket convention
 bulkhead_seal_counterbore_diameter = 20.5
 bulkhead_seal_counterbore_depth = 1.4  # 30% compression of the 2 mm seal when the mating face seats flush
 
-# Wet-side section lengths (estimates — refine with drawing measurements):
-bulkhead_flange_length = bulkhead_nut_total_depth  # the wet-side pocket against the panel holds the *nut* (a stepped washer+hex piece), not an integral flange. Name kept for now as the geometric region label.
-bulkhead_collet_body_length = 13.5  # middle of the wet section — extended ~7.5 mm beyond the CI1208W's 6 mm so the bulkhead's smooth body has room to rest comfortably when fully screwed forward into the nut. Reduced from 15.3 → 13.5 to absorb the 1.8 mm panel growth (5 → 6.8 mm) needed to fit TPU seal counterbores on both panel faces. Panel's +Z face stays at bulkhead_panel_z_range[1]=59; everything else cascades.
+# Wet-side section lengths.
+bulkhead_flange_length = bulkhead_nut_total_depth  # the wet-side pocket against the panel holds the *nut* (a stepped washer+hex piece), not an integral flange. The variable name labels the geometric region.
+bulkhead_collet_body_length = 13.5  # middle of the wet section. Sized longer than the JG body's smooth collet section so the body has room to translate as it threads through the nut. Changes to this value shift bulkhead_release_ring_length, which absorbs the remainder of bulkhead_wet_chamber_length.
 bulkhead_release_ring_length = (
     bulkhead_wet_chamber_length - bulkhead_flange_length - bulkhead_collet_body_length
 )  # the visible end with the push-to-release ring
@@ -1025,8 +1023,7 @@ def build_reservoir_body(side=1):
     # washer on the wet side, integral flange on the dry side) presses
     # on the exposed 0.6 mm of TPU until flush against the panel rim
     # outside the counterbore, giving 30% compression. Panel thickness
-    # was grown from 5 → 6.8 mm to keep ≥4 mm of PETG between the two
-    # counterbore bottoms.
+    # leaves ≥4 mm of PETG between the two counterbore floors.
     body = body.cut(_z_pocket_cut(
         (bulkhead_panel_z_range[0],
          bulkhead_panel_z_range[0] + bulkhead_seal_counterbore_depth),
@@ -1074,14 +1071,14 @@ def build_reservoir_body(side=1):
     # The slab cut exposed the panel's +Z face for y < slab_bottom_y,
     # creating a new vertical edge where this face meets the centerward
     # curve. In XZ projection the corner is acute (~49° interior angle
-    # — sharper than a right angle, narrower than the original peaks at
-    # curve × ±Z which were already filleted). Same reasons to fillet
+    # — sharper than a right angle, narrower than the curve × ±Z peaks
+    # filleted earlier in this builder). The same reasons to fillet
     # apply: (a) it would print as a knife-edge tab on the FDM bed,
     # (b) it's a sharp protrusion sticking down into the dry section
     # right where the part is handled during install, (c) the inside
     # face of the protrusion (panel +Z face × curve face) makes a
     # narrow crevice for any leaked syrup to wick into. Same radius as
-    # the original ± Z curve corners.
+    # the curve × ±Z corners.
     new_corner_x_abs = math.sqrt(
         outer_centerward_radius**2 - bulkhead_panel_z_range[1]**2
     )
