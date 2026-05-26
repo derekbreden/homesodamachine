@@ -62,10 +62,13 @@ BUTTON_PROTRUSION = 10.0
 #   Tip's back rim center at 200 — leaves the elliptical back rim
 #     clear of the S3 above and exits the cylinder at b ≈ 181 mm above
 #     the counter, leaving room for a tall glass underneath.
-#   Push button at 170 — just below the tip's back rim, at roughly the
-#     glass rim's height when the glass is raised to the dispense level.
+#   Push button at 130 — well under the tip in both 3D and (because iso
+#     projection compresses vertical separation) in image. The glass
+#     body's side presses the button when the glass is raised under
+#     the spout; on glasses tall enough that the rim lands here too,
+#     the rim can press it directly.
 TIP_AT = (None, 200.0)  # a filled in from common.hopper_door_a in main()
-BUTTON_AT = (None, 170.0)
+BUTTON_AT = (None, 130.0)
 
 
 def main() -> None:

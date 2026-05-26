@@ -84,6 +84,20 @@ def project(x: float, y: float, z: float) -> Tuple[float, float]:
     return project_front(x, y, z)
 
 
+def _infer_view_direction(proj: Callable) -> Tuple[float, float, float]:
+    """Object-to-camera unit vector inferred from the projection function.
+
+    Both iso projections look from +x and +z; they differ only in the y-axis
+    sign of the camera position. Project (0, 1, 0) and check the y-component
+    of the projected vector against the projected origin to pick which
+    side of the y-axis the camera is on."""
+    p0 = proj(0, 0, 0)
+    py = proj(0, 1, 0)
+    inv_sqrt3 = 1.0 / math.sqrt(3.0)
+    sign_y = -1.0 if py[1] - p0[1] < 0 else 1.0
+    return (inv_sqrt3, sign_y * inv_sqrt3, inv_sqrt3)
+
+
 # ---------------------------------------------------------------------------
 # SVG element emitters
 # ---------------------------------------------------------------------------
@@ -246,13 +260,8 @@ class Face:
         the face's outward normal. `at` is the center in face-local coords;
         `w` is width along the face's a-axis; `h` is height along the
         b-axis; `protrusion` is how far the box sticks out from the face.
-
-        Visibility currently assumes the +a and +b side faces of the
-        protrusion are toward the camera (i.e., the protrusion is on the
-        front face in the 'front' iso view, or any face whose face-local
-        +a and +b axes both have a positive component toward the camera).
-        Other face/view combos would need extra logic to pick the right
-        hidden edges."""
+        Visible side faces are determined from the view direction so the
+        same primitive works on any face for any iso view."""
         self.features.append(
             _FaceRectangularProtrusion(
                 face=self, at=at, w=w, h=h, protrusion=protrusion, label=label,
@@ -440,20 +449,24 @@ class _FaceKnob:
             dy = back_2d[i][1] - back_center_2d[1]
             return dx * perp_dx + dy * perp_dy
 
-        def axis_score(i: int) -> float:
-            dx = back_2d[i][0] - back_center_2d[0]
-            dy = back_2d[i][1] - back_center_2d[1]
-            return dx * axis_dx + dy * axis_dy
-
         i_max = max(range(n_samples), key=perp_score)
         i_min = min(range(n_samples), key=perp_score)
 
         # Visible back-rim arc — walk from i_max to i_min through the half
-        # of the rim with axis_score < 0 (the far side, away from the
-        # protrusion direction in projection). The near-side half sits
-        # behind the cylinder body and is not drawn.
+        # of the rim that's front-facing (surface normal toward camera).
+        # At angle θ the lateral surface normal is cos θ · u + sin θ · v,
+        # so it's front-facing iff that dot view_dir > 0. The dot
+        # product with view_dir can be precomputed against u and v.
+        v_cam = _infer_view_direction(proj)
+        u_dot_cam = u[0] * v_cam[0] + u[1] * v_cam[1] + u[2] * v_cam[2]
+        v_dot_cam = v[0] * v_cam[0] + v[1] * v_cam[1] + v[2] * v_cam[2]
+
+        def visibility_score(i: int) -> float:
+            theta = 2 * math.pi * i / n_samples
+            return math.cos(theta) * u_dot_cam + math.sin(theta) * v_dot_cam
+
         forward = (i_max + 1) % n_samples
-        direction = 1 if axis_score(forward) <= 0 else -1
+        direction = 1 if visibility_score(forward) > 0 else -1
         arc_indices: List[int] = [i_max]
         i = (i_max + direction) % n_samples
         while i != i_min:
@@ -474,13 +487,14 @@ class _FaceKnob:
 class _FaceRectangularProtrusion:
     """A rectangular box protruding outward from a face. Drawn as the
     box's 9 visible edges in iso projection: the 4 edges of the front
-    (protruded) rectangle, plus the 2 visible back-rectangle edges (top
-    and right, where the protrusion meets the host face), plus the 3
-    side connector edges from back rim to front rim (top-left, top-right,
-    bottom-right corners).
+    (protruded) rectangle, plus the 2 visible back-rectangle edges where
+    the protrusion meets the host face, plus the 3 side connector edges
+    from back rim to front rim at the 3 visible back corners.
 
-    See Face.add_rectangular_protrusion for the visibility assumption
-    (+a and +b sides of the protrusion are toward the camera)."""
+    Visible side faces are determined per-view by which face-local
+    direction (+a or -a, +b or -b) has a positive component toward the
+    camera. The hidden corner of the back rectangle is the one at the
+    OPPOSITE (a, b) signs of the visible sides."""
 
     def __init__(
         self,
@@ -519,29 +533,32 @@ class _FaceRectangularProtrusion:
                 + dp * self.protrusion * n_3d[2],
             )
 
-        # Back rectangle corners (dp=0) and front rectangle corners (dp=1).
-        # Naming: B = back rect, F = front rect; L=-a, R=+a; B=-b, T=+b.
-        BBL = proj(*corner(-1, -1, 0))
-        BBR = proj(*corner(+1, -1, 0))
-        BTR = proj(*corner(+1, +1, 0))
-        BTL = proj(*corner(-1, +1, 0))
-        FBL = proj(*corner(-1, -1, 1))
-        FBR = proj(*corner(+1, -1, 1))
-        FTR = proj(*corner(+1, +1, 1))
-        FTL = proj(*corner(-1, +1, 1))
+        # Determine which 2 side faces are visible (toward camera).
+        v_cam = _infer_view_direction(proj)
+        u_dot_cam = u_3d[0] * v_cam[0] + u_3d[1] * v_cam[1] + u_3d[2] * v_cam[2]
+        v_dot_cam = v_3d[0] * v_cam[0] + v_3d[1] * v_cam[1] + v_3d[2] * v_cam[2]
+        da_vis = 1 if u_dot_cam > 0 else -1
+        db_vis = 1 if v_dot_cam > 0 else -1
 
-        # 9 visible edges (assuming +a and +b side faces are visible):
-        # the hidden corner is BBL (back-bottom-left) and the 3 hidden
-        # edges all touch it (BBL-BBR, BBL-BTL, BBL-FBL); the other 9
-        # are the ones we draw.
+        # Visible back corners (3 of 4): all (da, db) signs except the
+        # hidden corner at (-da_vis, -db_vis). Visible side corners pair
+        # them with the matching front-rect corners.
+        bt_vis = proj(*corner(-da_vis, +db_vis, 0))   # back, side-along-a edge
+        bv_vis = proj(*corner(+da_vis, +db_vis, 0))   # back, visible corner
+        br_vis = proj(*corner(+da_vis, -db_vis, 0))   # back, side-along-b edge
+        ft_vis = proj(*corner(-da_vis, +db_vis, 1))
+        fv_vis = proj(*corner(+da_vis, +db_vis, 1))
+        fr_vis = proj(*corner(+da_vis, -db_vis, 1))
+        fh = proj(*corner(-da_vis, -db_vis, 1))       # front, "hidden-side" corner
+
         edges = [
-            # Front rectangle outline.
-            (FTL, FTR), (FTR, FBR), (FBR, FBL), (FBL, FTL),
-            # Visible back rectangle edges (top and right of back rect).
-            (BTL, BTR), (BTR, BBR),
-            # Side connectors from back rim to front rim, at the 3
-            # visible back corners (top-left, top-right, bottom-right).
-            (BTL, FTL), (BTR, FTR), (BBR, FBR),
+            # Front rectangle outline (all 4 edges visible).
+            (ft_vis, fv_vis), (fv_vis, fr_vis), (fr_vis, fh), (fh, ft_vis),
+            # 2 visible back rectangle edges meeting at the visible
+            # back corner (bv_vis).
+            (bt_vis, bv_vis), (bv_vis, br_vis),
+            # 3 side connector edges at the visible back corners.
+            (bt_vis, ft_vis), (bv_vis, fv_vis), (br_vis, fr_vis),
         ]
         return "\n".join(_svg_line(p1, p2) for p1, p2 in edges)
 
