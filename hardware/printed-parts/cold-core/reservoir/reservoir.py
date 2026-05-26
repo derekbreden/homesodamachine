@@ -107,7 +107,7 @@ cap_counterbore_depth = cap_base_thickness
 cap_clearance_hole_diameter = 3.5
 
 
-# TPU 90A flat gasket between the body wall top and the cap base plate
+# TPU 85A flat gasket between the body wall top and the cap base plate
 # bottom, compressed by the six M3 × 12 screws. 5 mm-wide perimeter ring
 # (covers the 4 mm body wall plus 1 mm extending inward over the cavity
 # opening, since a 4 mm TPU strip alone warps during print); ø12 circular
@@ -1339,7 +1339,7 @@ def build_reservoir_cap(side=1):
 
 
 def build_reservoir_gasket(side=1):
-    """Flat TPU 90A gasket between the reservoir body wall top and the
+    """Flat TPU 85A gasket between the reservoir body wall top and the
     cap base plate bottom. Same `[`-shape outer footprint as the body
     and cap (with outer-corner fillets). The perimeter ring is
     gasket_strip_width inward of the outer edge — covers the 4 mm body
@@ -1405,7 +1405,7 @@ def build_reservoir_retaining_ring():
 
 
 def build_reservoir_bulkhead_seal():
-    """Flat TPU 90A washer that seals between the bulkhead's clamping
+    """Flat TPU 85A washer that seals between the bulkhead's clamping
     face and the reservoir body's panel face. Sits in a 1.4 mm-deep
     counterbore in the panel; the exposed 0.6 mm compresses to 0 (30%
     compression) when the mating face (nut washer on the wet side or
