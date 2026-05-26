@@ -26,6 +26,7 @@ Public API:
     box.front / .back / .top / .bottom / .left_side / .right_side — faces
     face.add_circle(at=(a, b), d=...) — circle in face-local 2D coords
     face.add_rectangle(at=(a, b), w=..., h=...) — rectangle, centered at `at`
+    face.add_knob(at=(a, b), d=..., protrusion=...) — cylinder protruding outward
 
 Face-local 2D coords (a, b) mean horizontal-from-left and vertical-from-bottom
 as you look directly at the face.
@@ -162,6 +163,23 @@ class Face:
             return ((0, -1, 0), (0, 0, 1))
         raise ValueError(f"Unknown face: {self.name}")
 
+    def _outward_normal_3d(self) -> Tuple[float, float, float]:
+        """Unit vector pointing outward from the face, in the parent box's
+        3D coord system."""
+        if self.name == "front":
+            return (0, -1, 0)
+        if self.name == "back":
+            return (0, 1, 0)
+        if self.name == "top":
+            return (0, 0, 1)
+        if self.name == "bottom":
+            return (0, 0, -1)
+        if self.name == "right_side":
+            return (1, 0, 0)
+        if self.name == "left_side":
+            return (-1, 0, 0)
+        raise ValueError(f"Unknown face: {self.name}")
+
     def add_circle(self, at: Tuple[float, float], d: float, label: str = None):
         """Add a circle on this face. `at` is the center in face-local coords;
         `d` is the diameter in mm. The circle is rendered as the projected
@@ -174,6 +192,23 @@ class Face:
         """Add a rectangle centered at `at` in face-local coords, with width
         `w` (along the face's a-axis) and height `h` (along the b-axis)."""
         self.features.append(_FaceRectangle(face=self, at=at, w=w, h=h, label=label))
+
+    def add_knob(
+        self,
+        at: Tuple[float, float],
+        d: float,
+        protrusion: float,
+        label: str = None,
+    ):
+        """Add a cylindrical knob protruding outward from this face along
+        the face's outward normal. `at` is the center in face-local coords;
+        `d` is the diameter; `protrusion` is how far the knob sticks out
+        from the face. Renders as the projected ellipse of the protruding
+        front face + two silhouette tangent lines connecting the face plane
+        to the front face."""
+        self.features.append(
+            _FaceKnob(face=self, at=at, d=d, protrusion=protrusion, label=label)
+        )
 
 
 # ---------------------------------------------------------------------------
@@ -236,6 +271,84 @@ class _FaceRectangle:
         ]
         corners_3d = [self.face._local_to_3d(p) for p in corners_2d]
         return _svg_polygon([proj(*p) for p in corners_3d])
+
+
+class _FaceKnob:
+    """A cylindrical knob protruding outward from a face. Renders as the
+    projected ellipse of the protruded front face + two silhouette tangent
+    lines connecting the face plane to the front face. The back circle (on
+    the face plane itself) is occluded by the cylinder body and not drawn."""
+
+    def __init__(
+        self,
+        face: Face,
+        at: Tuple[float, float],
+        d: float,
+        protrusion: float,
+        label: str = None,
+    ):
+        self.face = face
+        self.at = at
+        self.d = d
+        self.protrusion = protrusion
+        self.label = label
+
+    def svg(self, proj: Callable) -> str:
+        r = self.d / 2
+        p = self.protrusion
+        cx_3d = self.face._local_to_3d(self.at)
+        u_3d, v_3d = self.face._basis_3d()
+        n_3d = self.face._outward_normal_3d()
+
+        # Sample back-rim and front-rim points around the cylinder.
+        n_samples = 64
+        back_2d: List[Tuple[float, float]] = []
+        front_2d: List[Tuple[float, float]] = []
+        for i in range(n_samples):
+            theta = 2 * math.pi * i / n_samples
+            c, s = math.cos(theta), math.sin(theta)
+            back_3d_pt = (
+                cx_3d[0] + r * (c * u_3d[0] + s * v_3d[0]),
+                cx_3d[1] + r * (c * u_3d[1] + s * v_3d[1]),
+                cx_3d[2] + r * (c * u_3d[2] + s * v_3d[2]),
+            )
+            front_3d_pt = (
+                back_3d_pt[0] + p * n_3d[0],
+                back_3d_pt[1] + p * n_3d[1],
+                back_3d_pt[2] + p * n_3d[2],
+            )
+            back_2d.append(proj(*back_3d_pt))
+            front_2d.append(proj(*front_3d_pt))
+
+        # Projected cylinder-axis direction (face-normal direction in
+        # projection). Silhouette tangent points are the back-rim samples
+        # whose offset from the back center has the most extreme component
+        # perpendicular to this projected axis.
+        back_center_2d = proj(*cx_3d)
+        front_center_2d = proj(
+            cx_3d[0] + p * n_3d[0],
+            cx_3d[1] + p * n_3d[1],
+            cx_3d[2] + p * n_3d[2],
+        )
+        axis_dx = front_center_2d[0] - back_center_2d[0]
+        axis_dy = front_center_2d[1] - back_center_2d[1]
+        perp_dx = -axis_dy
+        perp_dy = axis_dx
+
+        def perp_score(i: int) -> float:
+            dx = back_2d[i][0] - back_center_2d[0]
+            dy = back_2d[i][1] - back_center_2d[1]
+            return dx * perp_dx + dy * perp_dy
+
+        i_max = max(range(n_samples), key=perp_score)
+        i_min = min(range(n_samples), key=perp_score)
+
+        parts = [
+            _svg_polygon(front_2d),
+            _svg_line(back_2d[i_max], front_2d[i_max]),
+            _svg_line(back_2d[i_min], front_2d[i_min]),
+        ]
+        return "\n".join(parts)
 
 
 # ---------------------------------------------------------------------------
