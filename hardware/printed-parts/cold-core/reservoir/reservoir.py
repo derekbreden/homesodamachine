@@ -880,7 +880,7 @@ def build_reservoir_body(side=1):
 
     # Bulkhead pocket — horizontal cavity along +Z. Three logical
     # sections: stepped wet chamber (conforming to the bulkhead body's
-    # release-ring / collet / flange profile), panel hole (⌀17.5 through
+    # release-ring / collet / flange profile), panel hole ([17.5 mm](BULKHEAD_PANEL_HOLE_D) through
     # the PETG annulus that the threading section clamps), and the
     # dry section (a slab only — see the slab cut below for why).
     # The annulus across bulkhead_panel_z_range IS the panel — flange
@@ -1017,7 +1017,7 @@ def build_reservoir_body(side=1):
         )
         body = body.cut(nut_ceiling_box)
 
-    # Panel hole ⌀17.5 through the body.
+    # Panel hole [17.5 mm](BULKHEAD_PANEL_HOLE_D) through the body.
     body = body.cut(_z_pocket_cut(bulkhead_panel_z_range, bulkhead_panel_hole_diameter))
 
     # TPU seal counterbores — one on each panel face. A flat printed
@@ -1505,6 +1505,7 @@ def main():
         "BODY_BOSS_R": f"{body_boss_radius:.4g} mm",
         "CAP_BOSS_R": f"{cap_boss_radius:.4g} mm",
         "CAP_STACK_H": f"{cap_stack_above_body:.4g} mm",
+        "BULKHEAD_PANEL_HOLE_D": f"{bulkhead_panel_hole_diameter:.4g} mm",
     }
     substitute_md(
         here / ".." / "foam-shell" / "README.md",
@@ -1561,6 +1562,7 @@ def main():
             "CAP_BOSS_R": 1,
             "CAP_STACK_H": 1,
             "REEDS_PER_RES": 1,
+            "BULKHEAD_PANEL_HOLE_D": 3,
         },
     )
     print(f"-> {Path(__file__).name} (self)")
