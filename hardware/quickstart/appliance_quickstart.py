@@ -263,11 +263,25 @@ def main():
 
     body = "\n".join(body_parts)
 
+    # The site's viewer.css recolors every path/line stroke to var(--text)
+    # (white) under .drawing-svg / .card .drawing-thumb — the assumption
+    # being that drawings sit on a dark surface. This sheet has its OWN
+    # white page background, so that recolor turns the embedded line-art
+    # into white-on-white. The class + <style> block below scope-restore
+    # stroke inheritance with !important so the embedded paths show
+    # their original presentation-attribute colors (black for visible,
+    # gray for hidden) regardless of the page CSS.
     svg = (
         '<?xml version="1.0" encoding="UTF-8"?>\n'
         f'<svg xmlns="http://www.w3.org/2000/svg" '
         f'viewBox="0 0 {PAGE_W_MM} {PAGE_H_MM}" '
-        f'width="{PAGE_W_MM}mm" height="{PAGE_H_MM}mm">\n'
+        f'width="{PAGE_W_MM}mm" height="{PAGE_H_MM}mm" '
+        f'class="quickstart-sheet">\n'
+        '  <style>\n'
+        '    .quickstart-sheet path, .quickstart-sheet line {\n'
+        '      stroke: inherit !important;\n'
+        '    }\n'
+        '  </style>\n'
         # Page background
         f'  <rect width="100%" height="100%" fill="white" />\n'
         # Page outer frame — very thin, gives a visible page boundary
