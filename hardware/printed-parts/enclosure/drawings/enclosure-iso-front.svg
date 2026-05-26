@@ -17,15 +17,15 @@
   <line x1="-197.077" y1="-77.575" x2="-186.846" y2="-57.589" stroke="black" stroke-width="1.5" fill="none" stroke-linecap="round" />
   <line x1="-182.675" y1="-103.175" x2="-165.073" y2="-68.790" stroke="black" stroke-width="1.5" fill="none" stroke-linecap="round" />
   <path d="M -197.077,-77.575 L -197.514,-78.632 L -197.877,-79.802 L -198.163,-81.074 L -198.370,-82.436 L -198.495,-83.874 L -198.536,-85.375 L -198.495,-86.924 L -198.370,-88.506 L -198.163,-90.106 L -197.877,-91.709 L -197.514,-93.299 L -197.077,-94.861 L -196.571,-96.379 L -196.000,-97.840 L -195.370,-99.229 L -194.687,-100.533 L -193.958,-101.738 L -193.190,-102.835 L -192.390,-103.811 L -191.566,-104.658 L -190.725,-105.367 L -189.876,-105.932 L -189.027,-106.347 L -188.187,-106.609 L -187.362,-106.714 L -186.562,-106.661 L -185.794,-106.452 L -185.065,-106.088 L -184.382,-105.573 L -183.752,-104.911 L -183.182,-104.109 L -182.675,-103.175" stroke="black" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round" />
-  <line x1="-146.575" y1="-45.375" x2="-215.857" y2="-5.375" stroke="black" stroke-width="1.5" fill="none" stroke-linecap="round" />
-  <line x1="-215.857" y1="-5.375" x2="-215.857" y2="14.625" stroke="black" stroke-width="1.5" fill="none" stroke-linecap="round" />
-  <line x1="-215.857" y1="14.625" x2="-146.575" y2="-25.375" stroke="black" stroke-width="1.5" fill="none" stroke-linecap="round" />
-  <line x1="-146.575" y1="-25.375" x2="-146.575" y2="-45.375" stroke="black" stroke-width="1.5" fill="none" stroke-linecap="round" />
-  <line x1="-155.235" y1="-50.375" x2="-224.517" y2="-10.375" stroke="black" stroke-width="1.5" fill="none" stroke-linecap="round" />
-  <line x1="-224.517" y1="-10.375" x2="-224.517" y2="9.625" stroke="black" stroke-width="1.5" fill="none" stroke-linecap="round" />
-  <line x1="-155.235" y1="-50.375" x2="-146.575" y2="-45.375" stroke="black" stroke-width="1.5" fill="none" stroke-linecap="round" />
-  <line x1="-224.517" y1="-10.375" x2="-215.857" y2="-5.375" stroke="black" stroke-width="1.5" fill="none" stroke-linecap="round" />
-  <line x1="-224.517" y1="9.625" x2="-215.857" y2="14.625" stroke="black" stroke-width="1.5" fill="none" stroke-linecap="round" />
+  <line x1="-146.575" y1="-85.375" x2="-215.857" y2="-45.375" stroke="black" stroke-width="1.5" fill="none" stroke-linecap="round" />
+  <line x1="-215.857" y1="-45.375" x2="-215.857" y2="-25.375" stroke="black" stroke-width="1.5" fill="none" stroke-linecap="round" />
+  <line x1="-215.857" y1="-25.375" x2="-146.575" y2="-65.375" stroke="black" stroke-width="1.5" fill="none" stroke-linecap="round" />
+  <line x1="-146.575" y1="-65.375" x2="-146.575" y2="-85.375" stroke="black" stroke-width="1.5" fill="none" stroke-linecap="round" />
+  <line x1="-155.235" y1="-90.375" x2="-224.517" y2="-50.375" stroke="black" stroke-width="1.5" fill="none" stroke-linecap="round" />
+  <line x1="-224.517" y1="-50.375" x2="-224.517" y2="-30.375" stroke="black" stroke-width="1.5" fill="none" stroke-linecap="round" />
+  <line x1="-155.235" y1="-90.375" x2="-146.575" y2="-85.375" stroke="black" stroke-width="1.5" fill="none" stroke-linecap="round" />
+  <line x1="-224.517" y1="-50.375" x2="-215.857" y2="-45.375" stroke="black" stroke-width="1.5" fill="none" stroke-linecap="round" />
+  <line x1="-224.517" y1="-30.375" x2="-215.857" y2="-25.375" stroke="black" stroke-width="1.5" fill="none" stroke-linecap="round" />
   <path d="M -456.395,-308.000 L -471.984,-299.000 L -495.367,-312.500 L -479.778,-321.500 Z" stroke="black" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round" />
   <path d="M -17.321,-280.000 L -143.327,-207.250 L -286.221,-289.750 L -160.215,-362.500 Z" stroke="black" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round" />
   <path d="M -151.987,-202.250 L -245.085,-148.500 L -387.979,-231.000 L -294.882,-284.750 Z" stroke="black" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round" />
