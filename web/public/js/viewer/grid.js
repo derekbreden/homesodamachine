@@ -156,17 +156,52 @@ export function buildGrid() {
   }
 
   if (section === "drawings") {
-    // Two top-level sections: Line art (visible outlines only — the
-    // marketing/communication view) and Engineering drawings (CadQuery
-    // HLR — visible solid + hidden dashed). Files are bucketed by the
-    // sub-category directory they live in: <part>/drawings/line-art/*.svg
-    // vs <part>/drawings/engineering-drawings/*.svg. Within each section
-    // the existing subsystem grouping (Cold Core, Faucet, Enclosure, ...)
-    // applies via categoryAndPartPath. The section headers always render
-    // so the structure is explicit even when a section is empty.
+    // Three top-level sections, in order:
+    //   Prints & Guides — customer-facing print artifacts (quick-start
+    //     sheets and similar). Files live in
+    //     `<root>/drawings/prints-and-guides/*.svg` and render as single
+    //     cards; no per-part subsystem grouping, since these aren't
+    //     per-part technical drawings. The SVG is the on-site display
+    //     artifact; a sibling .pdf carries the print version.
+    //   Line art — visible outlines only, the marketing/communication
+    //     view of individual parts.
+    //   Engineering drawings — CadQuery HLR, visible solid + hidden
+    //     dashed.
+    // Line-art and engineering files are bucketed by sub-category
+    // directory: <part>/drawings/line-art/*.svg vs
+    // <part>/drawings/engineering-drawings/*.svg. Within each section
+    // the subsystem grouping (Cold Core, Faucet, Enclosure, ...) applies
+    // via categoryAndPartPath. The section headers always render so the
+    // structure is explicit even when a section is empty.
     const drawingThumb = (file) => `<div class="drawing-thumb" data-file="${file}"><div class="placeholder">loading...</div></div>`;
+    const printsFiles = state.drawingFiles.filter((f) => f.split("/").includes("prints-and-guides"));
     const lineArtFiles = state.drawingFiles.filter((f) => f.split("/").includes("line-art"));
     const engineeringFiles = state.drawingFiles.filter((f) => f.split("/").includes("engineering-drawings"));
+
+    // Prints & Guides — render first. Cards are flat (no subsystem
+    // sub-grouping); the label is just the filename minus extension.
+    const printsHeader = document.createElement("div");
+    printsHeader.className = "section-header";
+    printsHeader.textContent = "Prints & Guides";
+    state.gridEl.appendChild(printsHeader);
+    if (printsFiles.length === 0) {
+      const empty = document.createElement("div");
+      empty.className = "empty-state";
+      empty.textContent = "No prints yet.";
+      state.gridEl.appendChild(empty);
+    } else {
+      for (const file of printsFiles) {
+        const parts = file.split("/");
+        const name = parts[parts.length - 1].replace(".svg", "");
+        const card = document.createElement("div");
+        card.className = "card";
+        card.dataset.file = file;
+        card.dataset.type = "drawing";
+        card.innerHTML = `${drawingThumb(file)}<div class="label">${name}</div>`;
+        card.addEventListener("click", () => openDrawingDetail(file));
+        state.gridEl.appendChild(card);
+      }
+    }
 
     const lineArtHeader = document.createElement("div");
     lineArtHeader.className = "section-header";
