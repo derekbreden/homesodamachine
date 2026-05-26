@@ -272,10 +272,9 @@ the wings at +Z (above the wall outer face) and −Z (below the wall
 inner face). The 2 mm air gap between the top and bottom prongs at
 the rail edges is where the wall material slides in — that's how
 the plug grips the wall like a binder clip. The wings act as the
-I-beam flange linking web to prongs along a continuous 2D face
-(rather than a 1D corner edge); see the docstring at the top of
-`copper-plugs/copper_plugs.py` for the full cross-section
-diagram.
+I-beam flange linking web to prongs along a continuous 2D face. See
+the docstring at the top of `copper-plugs/copper_plugs.py` for the
+full cross-section diagram.
 
 Each plug end that abuts a tube has a **⌀[6.5 mm](PORT_D) half-circle
 arch cutout** centered at x = 0, so the plug seats around the tube
@@ -368,10 +367,8 @@ insert spec under "Cap-to-outer-shell joinery" above.
 ## Coincident-wall principle
 
 Wherever two structural surfaces touch in the assembly, their walls
-are positioned so they **overlap exactly in 3D space** — same outer
-face, same inner face — rather than sitting side-by-side. After
-union, that boundary is one wall's worth of material (2 mm), not
-two (4 mm).
+**overlap exactly in 3D space** — same outer face, same inner face.
+After union, that boundary is one wall's worth of material (2 mm).
 
 This drives several dimension choices:
 
@@ -386,7 +383,7 @@ This drives several dimension choices:
 - Each **reservoir pocket's four walls** are traced as a single
   connected outer-perimeter polyline (with one cavity-perimeter
   polyline cut from it), so the four walls union into one solid by
-  construction rather than by OCCT face-merging.
+  construction.
 - The **outer_shell**'s inner face sits [16 mm](OUTER_GAP)
   outboard of the outermost reservoir-pocket walls — the outer
   foam-pour zone.
