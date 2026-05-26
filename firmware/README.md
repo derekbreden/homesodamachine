@@ -1,7 +1,5 @@
 # Firmware
 
-> **Architecture change in flight (2026-05-24).** The product under development has cut the RP2040 entirely; the ESP32-S3 is now the sole display and interaction surface (default screen shows the selected flavor, its existing rotary toggles flavors, a three-dot affordance reaches advanced settings — see [`../hardware/printed-parts/enclosure/front-panel/README.md`](../hardware/printed-parts/enclosure/front-panel/README.md)). The KRAUS air switch is also removed (flavor select now via the S3 rotary). The firmware code below still includes the prototype-era RP2040 environment and KRAUS GPIO 13 input — those will catch up to the new product direction in a future pass. Pin assignments and inter-board communication below describe the prototype's current state.
-
 The Home Soda Machine prototype runs on three microcontrollers — ESP32 (main controller), RP2040 (display), ESP32-S3 (config touchscreen + BLE bridge). The product under development reuses the ESP32 + ESP32-S3 portion of this base; the integrated-build hardware bring-up procedure lives in [`../hardware/assembly/firmware-and-commissioning.md`](../hardware/assembly/firmware-and-commissioning.md).
 
 ## Architecture

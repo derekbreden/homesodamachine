@@ -2,22 +2,17 @@
 
 The dispense point of this appliance is a custom three-tube spout (1× carbonated water + 2× flavor) with a factory-grade self-closing spring-piston lever valve harvested from a Touch-Flo–class cold water dispenser faucet. Mixing occurs in the user's glass, not before — see `hardware/requirements.md`. This directory captures the harvest donor, the class of mechanism being harvested, and the fabrication plan for the spout.
 
-## Why harvest
+## Mechanism
 
-The self-closing spring-return poppet valve on a Touch-Flo faucet is the only off-the-shelf subassembly found that gives consumer-appliance-grade lever action with a clean return-to-closed, in a form factor that mounts through a deck. It is a spring-piston poppet against a silicone seat — not a ceramic disc cartridge. Target patent class: Crystal Mountain US8857669B2.
-
-Building this mechanism from scratch is possible but displaces attention from the rest of the machine. Modifying a three-way faucet (removing the two unwanted knobs) leaves visible plugged bosses. Harvesting the Touch-Flo lever assembly and re-clothing it with our own three-tube spout avoids both problems.
+The Touch-Flo faucet's self-closing spring-return poppet valve gives consumer-appliance-grade lever action with a clean return-to-closed in a deck-mount form factor. Spring-piston poppet against a silicone seat. Target patent class: Crystal Mountain US8857669B2.
 
 ## Harvest donor (primary)
 
-**Westbrass R2031-NL Touch-Flo cold water dispenser faucet** — either R2031-NL-62 (matte black, ASIN `B07KH285GJ`, ~$31.28) or R2031-NL-12 (oil-rubbed bronze, ASIN `B01N5LVNQA`, ~$19.53). Same R2031-NL family with identical mechanism and the same black plastic handle; the finish is fully covered by the touch-flo-shell so it doesn't matter visually — pick whichever is cheaper / Prime-available at acquisition time.
+**Westbrass R2031-NL Touch-Flo cold water dispenser faucet** — either R2031-NL-62 (matte black, ASIN `B07KH285GJ`, ~$31.28) or R2031-NL-12 (oil-rubbed bronze, ASIN `B01N5LVNQA`, ~$19.53). Same R2031-NL family with identical mechanism and the same black plastic handle; the finish is covered by the touch-flo-shell. Any Touch-Flo–class faucet with a spring-piston poppet cartridge and a 1/4" compression inlet is substitutable.
 
-- Picked as the cheapest Prime-available Touch-Flo for the prototype round — we want a repeatable pattern, not a specific brand. Any Touch-Flo–class faucet with a spring-piston poppet cartridge and a 1/4" compression inlet is substitutable.
 - Deck-mount, single-lever, self-closing.
-- Inlet: 1/4" compression — matches the project's existing 1/4" compression plumbing; no adapter needed.
-- Internal: spring-return poppet against silicone seat (not a ceramic disc cartridge).
-
-The already-owned Westbrass A2031-NL-62 ($32.18) and D203-NL-62 ($52.99) in `hardware/purchases.md` are not the harvest donors — the R2031-NL-12 pattern was chosen after they were purchased, specifically to avoid brand lock-in.
+- Inlet: 1/4" compression — matches the project's existing 1/4" compression plumbing.
+- Internal: spring-return poppet against silicone seat.
 
 ## What gets kept, what gets discarded
 
