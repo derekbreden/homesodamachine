@@ -2,19 +2,14 @@
 
 The faucet assembly (`hardware/harvested/touch-flo-faucet/faucet-assembly/
 faucet_assembly.py`) builds a `cq.Assembly` of valve body + water/flavor
-tubes + lever + mounting plate + mounting gasket + shell. cq.exporters.export
-does not accept cq.Assembly directly in this CadQuery install, so we load
-the pre-built STEP file produced by that script (which writes a multi-solid
-STEP) and return it as a `cq.Workplane` ready for SVG export.
+tubes + lever + mounting plate + mounting gasket + shell, all in the
+repo's +Y-up world frame (see that module's docstring for the
+coordinate convention).
 
-Coordinate frame — native faucet (Z-up) convention:
-    +Z is the vertical axis through the valve body (up).
-    +X points toward the dispense tip after the gooseneck bends (forward).
-    +Y is the symmetric axis (the two flavor tubes mirror across XZ).
-
-This is opposite the +Y-up convention used by the cold-core / enclosure;
-the faucet is drawn in its native frame so picking projectionDir is
-intuitive (e.g. (0,0,-1) looks straight down +Z onto the gooseneck).
+`cq.exporters.export` does not accept `cq.Assembly` directly in this
+CadQuery install, so we load the pre-built STEP file produced by that
+script (which writes a multi-solid STEP) and return it as a
+`cq.Workplane` ready for SVG export.
 """
 
 from pathlib import Path
