@@ -41,10 +41,12 @@ import cadquery as cq
 _HERE = Path(__file__).resolve().parent
 _REPO_ROOT = _HERE.parents[3]
 sys.path.insert(0, str(_REPO_ROOT / "tools"))
+sys.path.insert(0, str(_REPO_ROOT / "hardware" / "printed-parts" / "cadlib"))
 sys.path.insert(0, str(_REPO_ROOT / "hardware" / "printed-parts" / "flavor" / "pump-case"))
 sys.path.insert(0, str(_HERE.parent))
 
 from docgen import substitute_py_comments
+from world_workplane import WorldWorkplane, xz_plane_y_up, xy_plane_z_up
 from pump_case import case_outer_x, case_outer_z
 from _enclosure_dimensions import APPLIANCE_W, APPLIANCE_D
 
@@ -168,75 +170,75 @@ SURFACE_CUT_DEPTH = 3.0
 # Geometry builders
 # ---------------------------------------------------------------------------
 
-# Per-face plane definitions. Using `.faces(...)` selection on the
-# appliance is unreliable here — after one front-face protrusion is
-# added, `<Y` selects the protrusion's outer face instead of the
-# enclosure's, so subsequent moveTo coords shift to a different plane.
-# Constructing each feature on a fresh `cq.Workplane(cq.Plane(...))`
-# avoids that and keeps the face-local (a, b) convention stable.
-
-def _front_plane() -> cq.Plane:
-    """Front face (y=0). a-axis = +world X, b-axis = +world Z, normal = -Y."""
-    return cq.Plane(origin=(0, 0, 0), xDir=(1, 0, 0), normal=(0, -1, 0))
-
-
-def _back_plane() -> cq.Plane:
-    """Back face (y=D). a-axis = -world X (mirrored as you look at the
-    back face from outside), b-axis = +world Z, normal = +Y."""
-    return cq.Plane(origin=(W, D, 0), xDir=(-1, 0, 0), normal=(0, 1, 0))
-
-
-def _top_plane() -> cq.Plane:
-    """Top face (z=H). a-axis = +world X, b-axis = +world Y, normal = +Z."""
-    return cq.Plane(origin=(0, 0, H), xDir=(1, 0, 0), normal=(0, 0, 1))
+# Per-face geometry uses the repo's WorldWorkplane abstraction (see
+# `hardware/printed-parts/cadlib/world_workplane.py`) on the two shared
+# world-coord planes:
+#
+#   xz_plane_y_up — XZ plane with +Y normal. Used for front- and
+#       back-face features. Workplane offset 0 puts it on the front
+#       face; offset D puts it on the back face. moveTo accepts
+#       (world_x, world_z) tuples directly; the registered flip_z
+#       transform handles the plane's Y-axis chirality inversion.
+#       extrude(+) goes +Y (into the box from the front, out of the
+#       box from the back); extrude(-) goes -Y (out of the box from
+#       the front, into the box from the back).
+#
+#   xy_plane_z_up — XY plane with +Z normal. Used for top-face cuts.
+#       Workplane offset H puts it on the top face. moveTo accepts
+#       (world_x, world_y) tuples. extrude(-) goes -Z (into the box).
 
 
 def _cut_top_rectangle(solid, a, b, w, h):
     """Cut a shallow rectangle from the top face (z=H) for door/lid outlines."""
     cutter = (
-        cq.Workplane(_top_plane())
-        .moveTo(a, b)
-        .rect(w, h)
-        .extrude(-SURFACE_CUT_DEPTH)  # extrude in -normal = -Z = into the box
-    )
-    return solid.cut(cutter)
-
-
-def _cut_back_rectangle(solid, a, b, w, h):
-    """Cut a shallow rectangle from the back face (y=D)."""
-    cutter = (
-        cq.Workplane(_back_plane())
-        .moveTo(a, b)
+        WorldWorkplane(xy_plane_z_up).workplane(offset=H)
+        .moveTo((a, b))
         .rect(w, h)
         .extrude(-SURFACE_CUT_DEPTH)
     )
-    return solid.cut(cutter)
+    return solid.cut(cutter.unwrap())
+
+
+def _cut_back_rectangle(solid, a, b, w, h):
+    """Cut a shallow rectangle from the back face (y=D). Face-local a runs
+    along -world X (mirrored as you look at the back from outside), so
+    world X = W - a."""
+    cutter = (
+        WorldWorkplane(xz_plane_y_up).workplane(offset=D)
+        .moveTo((W - a, b))
+        .rect(w, h)
+        .extrude(-SURFACE_CUT_DEPTH)
+    )
+    return solid.cut(cutter.unwrap())
 
 
 def _cut_back_circle(solid, a, b, d):
     """Cut a shallow circle from the back face for umbilical bulkhead outlines."""
     cutter = (
-        cq.Workplane(_back_plane())
-        .moveTo(a, b)
+        WorldWorkplane(xz_plane_y_up).workplane(offset=D)
+        .moveTo((W - a, b))
         .circle(d / 2)
         .extrude(-SURFACE_CUT_DEPTH)
     )
-    return solid.cut(cutter)
+    return solid.cut(cutter.unwrap())
 
 
 def _add_front_knob(solid, a, b, d, protrusion):
     """Add a perpendicular cylindrical knob protruding from the front face."""
     knob = (
-        cq.Workplane(_front_plane())
-        .moveTo(a, b)
+        WorldWorkplane(xz_plane_y_up).workplane(offset=0)
+        .moveTo((a, b))
         .circle(d / 2)
-        .extrude(protrusion)
+        .extrude(-protrusion)  # negative for outward (-Y) from the front face
     )
-    return solid.union(knob)
+    return solid.union(knob.unwrap())
 
 
 def _add_front_angled_knob(solid, a, b, d, length, axis_3d):
-    """Add a cylindrical knob with an arbitrary axis from the front face."""
+    """Add a cylindrical knob with an arbitrary axis from the front face.
+    The axis isn't aligned with the face normal, so this builds the
+    cylinder explicitly via makeCylinder rather than going through a
+    workplane."""
     origin = cq.Vector(a, 0.0, b)
     direction = cq.Vector(*axis_3d)
     cyl = cq.Solid.makeCylinder(d / 2, length, pnt=origin, dir=direction)
@@ -246,23 +248,23 @@ def _add_front_angled_knob(solid, a, b, d, length, axis_3d):
 def _add_front_button(solid, a, b, w, h, protrusion):
     """Add a rectangular protrusion from the front face."""
     button = (
-        cq.Workplane(_front_plane())
-        .moveTo(a, b)
+        WorldWorkplane(xz_plane_y_up).workplane(offset=0)
+        .moveTo((a, b))
         .rect(w, h)
-        .extrude(protrusion)
+        .extrude(-protrusion)
     )
-    return solid.union(button)
+    return solid.union(button.unwrap())
 
 
 def _add_back_nameplate(solid, a, b, w, h, thickness):
     """Add a raised rectangular plaque to the back face (y=D)."""
     plate = (
-        cq.Workplane(_back_plane())
-        .moveTo(a, b)
+        WorldWorkplane(xz_plane_y_up).workplane(offset=D)
+        .moveTo((W - a, b))
         .rect(w, h)
-        .extrude(thickness)
+        .extrude(thickness)  # positive for outward (+Y) from the back face
     )
-    return solid.union(plate)
+    return solid.union(plate.unwrap())
 
 
 def build_appliance() -> cq.Workplane:
