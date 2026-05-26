@@ -32,6 +32,7 @@ Run:
     tools/cad-venv/bin/python hardware/quickstart/appliance_quickstart.py
 """
 
+import math
 import re
 import subprocess
 import textwrap
@@ -53,6 +54,75 @@ COLOR_PLAIN = "#1a1a1a"        # plain motion arrows, captions, page text
 COLOR_PLACEHOLDER_STROKE = "#bdbdbd"
 COLOR_PLACEHOLDER_FILL = "#fafafa"
 COLOR_PLACEHOLDER_TEXT = "#888888"
+
+ARROW_COLORS = {
+    "blue": COLOR_CARBONATED,
+    "red": COLOR_CO2,
+    "gray": COLOR_TAP,
+    "dark": COLOR_PLAIN,
+}
+
+
+def _arrow_defs():
+    """SVG <defs> with one arrowhead marker per color. Each <line> /
+    <path> arrow references its marker via marker-end=url(#arrow-<color>).
+    """
+    markers = []
+    for name, color in ARROW_COLORS.items():
+        markers.append(
+            f'<marker id="arrow-{name}" viewBox="0 0 10 10" refX="9" refY="5" '
+            f'markerWidth="5" markerHeight="5" orient="auto-start-reverse">'
+            f'<path d="M 0 0 L 10 5 L 0 10 Z" fill="{color}" />'
+            f'</marker>'
+        )
+    return "  <defs>\n    " + "\n    ".join(markers) + "\n  </defs>"
+
+
+def _straight_arrow(x1, y1, x2, y2, color="dark", sw=1.2):
+    """A line with an arrowhead at (x2, y2)."""
+    c = ARROW_COLORS[color]
+    # Wrap in <g stroke=...> so the line's stroke comes through inheritance
+    # — beats the .quickstart-sheet path/line stroke: inherit !important
+    # override (which would otherwise strand the arrow at unset/black).
+    return (
+        f'<g stroke="{c}">'
+        f'<line x1="{x1:.2f}" y1="{y1:.2f}" x2="{x2:.2f}" y2="{y2:.2f}" '
+        f'stroke-width="{sw}" stroke-linecap="round" '
+        f'marker-end="url(#arrow-{color})" />'
+        f'</g>'
+    )
+
+
+def _rotation_arrow(cx, cy, r, start_deg, sweep_deg, color="dark", sw=1.2):
+    """Curved arrow indicating rotation, from start_deg through sweep_deg.
+
+    Angles are in SVG screen coords (y down): 0° = right, 90° = down,
+    180° = left, 270° = up. Positive sweep_deg goes CW on screen
+    (math-positive direction in y-down).
+    """
+    a1 = math.radians(start_deg)
+    a2 = math.radians(start_deg + sweep_deg)
+    x1, y1 = cx + r * math.cos(a1), cy + r * math.sin(a1)
+    x2, y2 = cx + r * math.cos(a2), cy + r * math.sin(a2)
+    large_arc = 1 if abs(sweep_deg) > 180 else 0
+    sweep_flag = 1 if sweep_deg > 0 else 0
+    c = ARROW_COLORS[color]
+    return (
+        f'<g stroke="{c}" fill="none">'
+        f'<path d="M {x1:.2f} {y1:.2f} A {r} {r} 0 {large_arc} {sweep_flag} {x2:.2f} {y2:.2f}" '
+        f'stroke-width="{sw}" stroke-linecap="round" '
+        f'marker-end="url(#arrow-{color})" />'
+        f'</g>'
+    )
+
+
+def _stub_arrow(target_x, target_y, dx, dy, color="dark", sw=1.2, length=5):
+    """Short arrow whose tip lands at (target_x, target_y), pointing in
+    direction (dx, dy). Used for the two inward stub-arrows on the tee."""
+    mag = math.sqrt(dx * dx + dy * dy)
+    ux, uy = dx / mag, dy / mag
+    x1, y1 = target_x - length * ux, target_y - length * uy
+    return _straight_arrow(x1, y1, target_x, target_y, color, sw)
 
 
 def cell_rect(col, row):
@@ -160,12 +230,16 @@ def _placeholder_body(x, y, w, h, view_text):
     )
 
 
-def cell(x, y, w, h, view_text, caption, embed_path=None):
+def cell(x, y, w, h, view_text, caption, embed_path=None, arrows_fn=None):
     """Render one drawing cell — drawing area on top, caption below.
 
     If embed_path is given, the drawing area shows that SVG scale-fit
     into the cell. Otherwise the drawing area shows a dashed-outline
-    placeholder with the brief's view description inside.
+    placeholder with the brief's view description inside. If arrows_fn
+    is given, it's called with (x, y, w, draw_h) and the returned SVG
+    is overlaid on top of the cell body — used to put the brief's
+    motion / rotation / stub arrows on the page even before their
+    precise targets exist in the line-art.
     """
     draw_h = h * 0.78
     cap_y = y + draw_h + 2
@@ -175,7 +249,67 @@ def cell(x, y, w, h, view_text, caption, embed_path=None):
         body = _embed_svg(x, y, w, draw_h, embed_path)
     else:
         body = _placeholder_body(x, y, w, draw_h, view_text)
-    return body + "\n" + _caption_text(x, cap_y, w, cap_h, caption)
+    arrows = arrows_fn(x, y, w, draw_h) if arrows_fn else ""
+    return body + "\n" + arrows + "\n" + _caption_text(x, cap_y, w, cap_h, caption)
+
+
+# ── Per-cell arrow specs ────────────────────────────────────────────
+#
+# Each function takes the cell's drawing-area bounds (x, y, w, draw_h)
+# and returns SVG for the arrows. Positions are approximate stand-ins
+# for the brief's specified arrow targets — the real targets (CO2
+# inlet, water inlet, hopper opening, cylinder valves) aren't yet in
+# the line-art, so these point at sensible spots that demonstrate the
+# color system and arrow vocabulary.
+
+
+def _arrows_connect_co2(x, y, w, draw_h):
+    """Drawing 1: single red arrow pointing at the front-panel CO2 inlet.
+    Points diagonally down-into-the-frame toward where the appliance's
+    front face shows up in the iso line-art."""
+    return _straight_arrow(
+        x + 0.80 * w, y + 0.30 * draw_h,
+        x + 0.60 * w, y + 0.55 * draw_h,
+        color="red",
+    )
+
+
+def _arrows_tee_into_water(x, y, w, draw_h):
+    """Drawing 2: gray rotation arrow on the angle stop + two stub
+    arrows pointing inward at the tee's outlets + gray straight arrow
+    at the appliance water inlet. Laid out in a horizontal strip in
+    the lower half of the placeholder so the view-description text
+    above stays legible."""
+    y_strip = y + 0.65 * draw_h
+    target_x = x + 0.48 * w
+    return (
+        _rotation_arrow(x + 0.14 * w, y_strip, 5, 30, 240, color="gray")
+        + _stub_arrow(target_x - 2, y_strip, +1, 0, color="gray")
+        + _stub_arrow(target_x + 2, y_strip, -1, 0, color="gray")
+        + _straight_arrow(
+            x + 0.74 * w, y_strip,
+            x + 0.92 * w, y_strip,
+            color="gray",
+        )
+    )
+
+
+def _arrows_open_valves(x, y, w, draw_h):
+    """Drawing 3: red rotation arrow on the CO2 cylinder valve + gray
+    rotation arrow on the angle-stop handle, paired side-by-side."""
+    y_strip = y + 0.65 * draw_h
+    return (
+        _rotation_arrow(x + 0.30 * w, y_strip, 7, 30, 240, color="red")
+        + _rotation_arrow(x + 0.70 * w, y_strip, 7, 30, 240, color="gray")
+    )
+
+
+def _arrows_fill_hopper(x, y, w, draw_h):
+    """Drawing 4: plain motion arrow on the inverted bottle, pointing
+    down. Placed above the appliance line-art at the cell's horizontal
+    center."""
+    cx = x + 0.50 * w
+    return _straight_arrow(cx, y + 0.05 * draw_h, cx, y + 0.22 * draw_h, color="dark")
 
 
 def main():
@@ -207,6 +341,7 @@ def main():
             ),
             "caption": "Connect the CO2.",
             "embed": enclosure_front,
+            "arrows": _arrows_connect_co2,
         },
         {
             "view": (
@@ -222,6 +357,7 @@ def main():
             ),
             "caption": "Tee into the water. Run the tube to the device.",
             "embed": None,
+            "arrows": _arrows_tee_into_water,
         },
         {
             "view": (
@@ -233,6 +369,7 @@ def main():
             ),
             "caption": "Open the CO2. Open the water.",
             "embed": None,
+            "arrows": _arrows_open_valves,
         },
         {
             "view": (
@@ -243,6 +380,7 @@ def main():
             ),
             "caption": "Empty a flavor into the hopper.",
             "embed": enclosure_back,
+            "arrows": _arrows_fill_hopper,
         },
     ]
 
@@ -258,7 +396,12 @@ def main():
     for (col, row), drawing in zip(cells, drawings):
         x, y, w, h = cell_rect(col, row)
         body_parts.append(
-            cell(x, y, w, h, drawing["view"], drawing["caption"], drawing["embed"])
+            cell(
+                x, y, w, h,
+                drawing["view"], drawing["caption"],
+                embed_path=drawing["embed"],
+                arrows_fn=drawing["arrows"],
+            )
         )
 
     body = "\n".join(body_parts)
@@ -282,6 +425,7 @@ def main():
         '      stroke: inherit !important;\n'
         '    }\n'
         '  </style>\n'
+        + _arrow_defs() + "\n"
         # Page background
         f'  <rect width="100%" height="100%" fill="white" />\n'
         # Page outer frame — very thin, gives a visible page boundary
