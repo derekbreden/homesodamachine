@@ -156,20 +156,42 @@ export function buildGrid() {
   }
 
   if (section === "drawings") {
-    // Line-art SVGs live under hardware/<subsystem>/<part>/drawings/. The
-    // category grouping is the same as Prints/Cuts because a drawing's
-    // path mirrors the part's path (printed-parts/<subsystem>/<part>/
-    // drawings/<drawing>.svg). For drawings rooted elsewhere (e.g. a
-    // top-level future hardware/drawings/), categoryAndPartPath falls
-    // back to its top-level-segment bucket.
+    // Two top-level sections: Line art (visible outlines only — the
+    // marketing/communication view) and Engineering drawings (CadQuery
+    // HLR — visible solid + hidden dashed). Files are bucketed by the
+    // sub-category directory they live in: <part>/drawings/line-art/*.svg
+    // vs <part>/drawings/engineering-drawings/*.svg. Within each section
+    // the existing subsystem grouping (Cold Core, Faucet, Enclosure, ...)
+    // applies via categoryAndPartPath. The section headers always render
+    // so the structure is explicit even when a section is empty.
     const drawingThumb = (file) => `<div class="drawing-thumb" data-file="${file}"><div class="placeholder">loading...</div></div>`;
-    if (state.drawingFiles.length === 0) {
+    const lineArtFiles = state.drawingFiles.filter((f) => f.split("/").includes("line-art"));
+    const engineeringFiles = state.drawingFiles.filter((f) => f.split("/").includes("engineering-drawings"));
+
+    const lineArtHeader = document.createElement("div");
+    lineArtHeader.className = "section-header";
+    lineArtHeader.textContent = "Line art";
+    state.gridEl.appendChild(lineArtHeader);
+    if (lineArtFiles.length === 0) {
       const empty = document.createElement("div");
       empty.className = "empty-state";
-      empty.textContent = "No drawings yet.";
+      empty.textContent = "No line art yet.";
       state.gridEl.appendChild(empty);
     } else {
-      renderGroupedCards({ files: state.drawingFiles, ext: ".svg", type: "drawing", thumbnailHtml: drawingThumb, onClick: openDrawingDetail });
+      renderGroupedCards({ files: lineArtFiles, ext: ".svg", type: "drawing", thumbnailHtml: drawingThumb, onClick: openDrawingDetail });
+    }
+
+    const engineeringHeader = document.createElement("div");
+    engineeringHeader.className = "section-header";
+    engineeringHeader.textContent = "Engineering drawings";
+    state.gridEl.appendChild(engineeringHeader);
+    if (engineeringFiles.length === 0) {
+      const empty = document.createElement("div");
+      empty.className = "empty-state";
+      empty.textContent = "No engineering drawings yet.";
+      state.gridEl.appendChild(empty);
+    } else {
+      renderGroupedCards({ files: engineeringFiles, ext: ".svg", type: "drawing", thumbnailHtml: drawingThumb, onClick: openDrawingDetail });
     }
   }
 
