@@ -9,14 +9,17 @@
 //   subsequent open restarts from fit-to-container.
 //
 // makeMinimap(svgEl, container) — a top-right minimap showing where
-//   inside the natural SVG bounds the user is currently zoomed. The
-//   minimap itself is just the bounding rectangle (preserving the source's
-//   aspect ratio) with a viewport rectangle drawn over it; we don't clone
-//   the SVG content because the goal is the "where" indicator, not a
-//   miniature preview. The caller drives updates by calling
-//   minimap.update(transform) inside pz.onTransformLive; the minimap
-//   caches the most recent transform so its own ResizeObserver can
-//   re-render on container resize without needing a pz reference.
+//   inside the *default (fit) view* the user is currently zoomed. Both
+//   boxes are screen-shaped: the outer box matches the container's
+//   aspect (the wrapper IS the screen), the inner box represents the
+//   sub-rectangle of the default view that the current pan/zoom is
+//   showing. At fit, inner == outer. At 2× fit centered, inner is
+//   the middle quarter. We don't clone the SVG content because the
+//   goal is the "where" indicator, not a miniature preview. The
+//   caller drives updates by calling minimap.update(transform) inside
+//   pz.onTransformLive; the minimap caches the most recent transform
+//   so its own ResizeObserver can re-render on container resize
+//   without needing a pz reference.
 //
 // Both return DOM elements + (for the minimap) a refresh handle the
 // caller can hold onto for window-resize updates.
@@ -50,30 +53,16 @@ export function makeResetButton(pz, opts = {}) {
 export function makeMinimap(svgEl, container) {
   const nat = naturalSize(svgEl);
   // If we can't measure the source, return a no-op shell — the caller
-  // still gets a valid element to insert; it just won't update.
+  // still gets a valid element to insert; it just won't update. (We
+  // still need nat to compute the fit scale and centered fit-pan.)
   if (!nat.w || !nat.h) {
     const empty = document.createElement("div");
     empty.className = "pan-zoom-minimap";
     return { el: empty, update: () => {}, destroy: () => {} };
   }
 
-  // Size the minimap so its longest side is MINIMAP_MAX and aspect
-  // matches the source. Wide drawings get a wide rectangle; tall ones
-  // get a tall one. Either way the math below stays clean.
-  const aspect = nat.w / nat.h;
-  let mW, mH;
-  if (aspect >= 1) {
-    mW = MINIMAP_MAX;
-    mH = Math.round(MINIMAP_MAX / aspect);
-  } else {
-    mH = MINIMAP_MAX;
-    mW = Math.round(MINIMAP_MAX * aspect);
-  }
-
   const wrap = document.createElement("div");
   wrap.className = "pan-zoom-minimap";
-  wrap.style.width = mW + "px";
-  wrap.style.height = mH + "px";
 
   const rect = document.createElement("div");
   rect.className = "pan-zoom-minimap-rect";
@@ -88,36 +77,69 @@ export function makeMinimap(svgEl, container) {
     if (transform && transform.scale) lastTransform = transform;
     const cb = container.getBoundingClientRect();
     if (!cb.width || !cb.height) return;
+    const W = cb.width, H = cb.height;
+
+    // Outer box matches the container's aspect ratio (both views — fit
+    // and current — live inside the same wrapper, so the box that
+    // represents either of them is wrapper-shaped). Longest side
+    // capped at MINIMAP_MAX. Computed here so device rotation /
+    // container resize updates the outer box, not just the inner one.
+    const aspect = W / H;
+    let mW, mH;
+    if (aspect >= 1) {
+      mW = MINIMAP_MAX;
+      mH = Math.round(MINIMAP_MAX / aspect);
+    } else {
+      mH = MINIMAP_MAX;
+      mW = Math.round(MINIMAP_MAX * aspect);
+    }
+    wrap.style.width  = mW + "px";
+    wrap.style.height = mH + "px";
+
     const t = lastTransform;
     if (!t.scale) return;
 
-    // Map from natural SVG coords to minimap pixel coords.
-    // (Aspect was preserved when sizing the minimap, so a single scale
-    // factor handles both axes.)
-    const m = mW / nat.w; // == mH / nat.h within rounding
+    // Default (fit) view parameters. Match PanZoom's fit logic:
+    // scale to min(W/natW, H/natH), then center the resulting box.
+    const fs = Math.min(W / nat.w, H / nat.h);
+    if (!fs) return;
+    const fsPanX = (W - fs * nat.w) / 2;
+    const fsPanY = (H - fs * nat.h) / 2;
 
-    // Visible region in natural coords. The main view shows
-    //   natural_x in [-panX/scale, (cb.w - panX)/scale]
-    //   natural_y in [-panY/scale, (cb.h - panY)/scale]
-    const visX = -t.panX / t.scale;
-    const visY = -t.panY / t.scale;
-    const visW = cb.width / t.scale;
-    const visH = cb.height / t.scale;
+    // Current viewport, expressed in *default-view* (= wrapper-at-fit)
+    // coordinates. An SVG point sx maps to default-view x = sx*fs + fsPanX.
+    // The current viewport spans SVG x in [-panX/scale, (W-panX)/scale],
+    // so in default-view coords it spans
+    //   [-panX*fs/scale + fsPanX, (W-panX)*fs/scale + fsPanX]
+    // Width fs/scale * W — at fit (scale==fs) the inner box fills the
+    // outer, at 2× fit it's half, etc.
+    const dvX = -t.panX * fs / t.scale + fsPanX;
+    const dvY = -t.panY * fs / t.scale + fsPanY;
+    const dvW = W * fs / t.scale;
+    const dvH = H * fs / t.scale;
 
-    // Clamp to the natural bounds — pan/zoom can place the viewport
-    // beyond the content edges and we don't want the rect to float
-    // outside the minimap box.
-    const x0 = Math.max(0, visX);
-    const y0 = Math.max(0, visY);
-    const x1 = Math.min(nat.w, visX + visW);
-    const y1 = Math.min(nat.h, visY + visH);
-    const w = Math.max(0, x1 - x0);
-    const h = Math.max(0, y1 - y0);
+    // Scale into minimap pixel coords. Aspect of the outer box matches
+    // the wrapper, so a single scale factor handles both axes.
+    const m = mW / W; // == mH / H within rounding
 
-    rect.style.left   = (x0 * m) + "px";
-    rect.style.top    = (y0 * m) + "px";
-    rect.style.width  = (w * m) + "px";
-    rect.style.height = (h * m) + "px";
+    // Clamp to outer-box bounds — pan/zoom can drift the viewport
+    // outside the default-view rectangle (e.g. into the letterbox
+    // margins when the SVG aspect doesn't match the wrapper), and we
+    // don't want the indicator to float past the minimap edges.
+    const x0 = Math.max(0, dvX * m);
+    const y0 = Math.max(0, dvY * m);
+    const x1 = Math.min(mW, (dvX + dvW) * m);
+    const y1 = Math.min(mH, (dvY + dvH) * m);
+
+    // -2 on width/height so the inner element's external size (content +
+    // its own 1px border) lands at the outer's content edge instead of
+    // 1px past it. Without this, at fit the inner's right + bottom
+    // borders get clipped by the outer's overflow:hidden and only the
+    // outer's border shows on those sides.
+    rect.style.left   = x0 + "px";
+    rect.style.top    = y0 + "px";
+    rect.style.width  = Math.max(0, x1 - x0 - 2) + "px";
+    rect.style.height = Math.max(0, y1 - y0 - 2) + "px";
   }
 
   // Initial draw — fit() will fire onTransformLive once the container
