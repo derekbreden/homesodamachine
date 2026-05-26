@@ -39,11 +39,11 @@ from pathlib import Path
 import cadquery as cq
 
 _HERE = Path(__file__).resolve().parent
-_REPO_ROOT = _HERE.parents[3]
+_REPO_ROOT = _HERE.parents[4]
 sys.path.insert(0, str(_REPO_ROOT / "tools"))
 sys.path.insert(0, str(_REPO_ROOT / "hardware" / "printed-parts" / "cadlib"))
 sys.path.insert(0, str(_REPO_ROOT / "hardware" / "printed-parts" / "flavor" / "pump-case"))
-sys.path.insert(0, str(_HERE.parent))
+sys.path.insert(0, str(_HERE.parents[1]))
 
 from docgen import substitute_py_comments
 from world_workplane import WorldWorkplane, xz_plane_y_up, xy_plane_z_up

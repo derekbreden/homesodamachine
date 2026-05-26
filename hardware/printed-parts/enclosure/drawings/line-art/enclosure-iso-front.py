@@ -13,7 +13,7 @@ only the projection direction differs.
 
 Run from the repo root:
 
-    tools/cad-venv/bin/python hardware/printed-parts/enclosure/drawings/enclosure-iso-front.py
+    tools/cad-venv/bin/python hardware/printed-parts/enclosure/drawings/line-art/enclosure-iso-front.py
 """
 
 import sys
