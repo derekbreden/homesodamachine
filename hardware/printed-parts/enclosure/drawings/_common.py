@@ -1,11 +1,12 @@
 """
 Shared constants and helpers for the enclosure isometric drawings.
 
-The enclosure outer dimensions live here, the pump-door + hopper-lid
-dimensions are derived from the pump-case CAD constants (case_outer_x and
-case_outer_z), and `add_top_face_features` adds the GFCI band + pump door
-+ hopper lid to a Box — which both the front-view and back-view drawings
-call, since both views show the top face.
+Enclosure outer width + depth come from `_enclosure_dimensions` (which
+derives them from foam-shell + condenser dimensions); pump-door +
+hopper-lid dimensions come from the pump-case CAD constants; and
+`add_top_face_features` adds the GFCI band + pump door + hopper lid
+to a Box — which both the front-view and back-view drawings call, since
+both views show the top face.
 
 substitute_py_comments rewrites the [value](NAME) links in this file's
 comments on every run via refresh_comments(), which the drawing scripts
@@ -19,19 +20,19 @@ _HERE = Path(__file__).resolve().parent
 _REPO_ROOT = _HERE.parents[3]
 sys.path.insert(0, str(_REPO_ROOT / "tools"))
 sys.path.insert(0, str(_REPO_ROOT / "hardware" / "printed-parts" / "flavor" / "pump-case"))
+sys.path.insert(0, str(_HERE.parent))
 
 from docgen import substitute_py_comments
 from pump_case import case_outer_x, case_outer_z
+from _enclosure_dimensions import APPLIANCE_W, APPLIANCE_D
 
 
 # ---------------------------------------------------------------------------
-# Enclosure outer dimensions
-# Working values per the enclosure README; replace with derived values when
-# we wire foam-shell + Zone B/D heights.
+# Enclosure outer height
+# Working value; not yet derived. Width + depth come from
+# _enclosure_dimensions above.
 # ---------------------------------------------------------------------------
 
-APPLIANCE_W = 269.0
-APPLIANCE_D = 280.0
 APPLIANCE_H = 280.0
 
 
@@ -61,7 +62,7 @@ FRONT_MARGIN = 10.0
 SIDE_MARGIN = 10.0
 DOOR_GAP = 10.0
 
-# [93.5 mm](HOPPER_DOOR_W) — APPLIANCE_W − 2 × SIDE_MARGIN − pump_door_w − DOOR_GAP.
+# [107.5 mm](HOPPER_DOOR_W) — APPLIANCE_W − 2 × SIDE_MARGIN − pump_door_w − DOOR_GAP.
 hopper_door_w = APPLIANCE_W - 2 * SIDE_MARGIN - pump_door_w - DOOR_GAP
 
 # [165.0 mm](HOPPER_DOOR_D) — matches pump door depth.
@@ -75,11 +76,17 @@ def add_top_face_features(appliance) -> None:
 
     # GFCI access band — 27 × 18 mm exposed band centered on the 42 × 67
     # mm Legrand 1597 body underneath. Tucked into the back-right corner
-    # with the body's tall axis along the appliance width. Body sits flush
-    # against the back and right edges (5 mm clearance for the mounting
-    # yoke); on the top face the band is 18 along a (width) × 27 along b
-    # (depth) — a tall-narrow band, not a wide-flat one.
-    appliance.top.add_rectangle(at=(230.5, 254), w=18, h=27, label="GFCI access band")
+    # with the body's tall axis (67 mm) along the appliance width. Body
+    # sits flush against the back and right edges with 5 mm yoke clearance,
+    # so the body center is 38.5 mm from the right edge (5 + 67/2) and
+    # 26 mm from the back edge (5 + 42/2). On the top face the band is
+    # 18 along a (width) × 27 along b (depth) — a tall-narrow band, not
+    # a wide-flat one.
+    appliance.top.add_rectangle(
+        at=(APPLIANCE_W - 38.5, APPLIANCE_D - 26),
+        w=18, h=27,
+        label="GFCI access band",
+    )
 
     # Pump-cartridge access door (left).
     pump_door_a = SIDE_MARGIN + pump_door_w / 2
