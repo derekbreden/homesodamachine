@@ -20,34 +20,24 @@ from _front_panel_dimensions import secondary_regulator_pressure_psi
 from docgen import substitute_md
 
 
-# ─── Firmware setpoints loaded at commissioning (verified here) ────────
-# These are the setpoint values firmware should have loaded out of
-# `firmware-and-commissioning.md`. Acceptance verifies the unit
-# behaves to these setpoints; the values themselves come from the
-# refrigeration-loop design (`refrigerant-loop.md`).
+# ─── Firmware setpoints loaded at commissioning ────────────────────────
 carbonator_wall_setpoint_c = 2          # carbonator wall service temperature
 carbonator_wall_band_c = 2              # hysteresis band ± around setpoint
 evap_coil_freeze_cutout_c = -8          # evap-coil DS18B20 freeze-protect trip
 compressor_min_off_min = 3              # compressor minimum off-time before re-energize
 
 # ─── Bench test rig — water source ─────────────────────────────────────
-# Building-cold-water-tap envelope; the appliance sees this in lieu of
-# the customer's under-sink supply.
 bench_water_press_min_psi = 40          # bench water tap pressure, low end
 bench_water_press_max_psi = 80          # bench water tap pressure, high end
 bench_water_temp_max_c = 20             # bench water temperature, upper bound
 
 # ─── Bench test rig — CO2 source ───────────────────────────────────────
-# Customer-side cylinder envelope. Either size is acceptable; the
-# WR1110 holds appliance-side regardless.
 co2_cyl_small_lb = 5                    # small bench cylinder
 co2_cyl_large_lb = 10                   # large bench cylinder
 co2_primary_min_psi = 70                # primary regulator setpoint, low end
 co2_primary_max_psi = 100               # primary regulator setpoint, high end
 
-# Centerline: matches the in-appliance WR1110 secondary regulator
-# setpoint, pulled live from front-panel dimensions so the centerline
-# stays in lock-step with the regulator selection upstream.
+# Centerline: matches the in-appliance WR1110 secondary regulator setpoint.
 co2_centerline_psi = secondary_regulator_pressure_psi
 
 # ─── Bench test rig — measurement tooling ──────────────────────────────
@@ -65,17 +55,13 @@ concentrate_consumed_ml_per_unit = 50   # total concentrate dispensed across acc
 sodastream_bottle_ml = 440              # SodaStream concentrate bottle size (0.44 L)
 concentrate_consumed_pct = round(
     concentrate_consumed_ml_per_unit / sodastream_bottle_ml * 100
-)                                       # derived — fraction of one bottle consumed
+)                                       # fraction of one bottle consumed
 
 # ─── Step 4 — CO2 leak-tight hold ──────────────────────────────────────
 prv_hold_min = 2                        # PRV leak-tight observation window
 
 # ─── Step 5 — first carbonated-water dispense ──────────────────────────
-# Wall-temperature gate (operator waits until wall is at-or-below this
-# before pouring) is setpoint + full hysteresis band; the compressor's
-# cut-off event itself is at setpoint, but the gate runs slightly
-# looser so the operator isn't blocked by 0.1 °C overshoot.
-wall_disp_gate_c = carbonator_wall_setpoint_c + carbonator_wall_band_c  # derived
+wall_disp_gate_c = carbonator_wall_setpoint_c + carbonator_wall_band_c
 dispense_temp_max_c = 6                 # max dispensed-water temperature at the glass
 foam_head_hold_sec = 10                 # minimum foam-head persistence before break
 
@@ -83,8 +69,8 @@ foam_head_hold_sec = 10                 # minimum foam-head persistence before b
 syrup_ratio_water = 20                  # ratio water:syrup numerator (water side)
 syrup_ratio_syrup = 1                   # ratio water:syrup denominator (syrup side)
 metered_water_ml = 250                  # metered carbonated-water dispense target
-metered_flavor_ml = metered_water_ml / syrup_ratio_water  # = 12.5 — derived from ratio
-metered_total_ml = metered_water_ml + metered_flavor_ml   # = 262.5 — derived
+metered_flavor_ml = metered_water_ml / syrup_ratio_water  # = 12.5
+metered_total_ml = metered_water_ml + metered_flavor_ml   # = 262.5
 ratio_volume_tol_pct = 5                # ±% on total metered volume
 metered_total_low_ml = round(metered_total_ml * (1 - ratio_volume_tol_pct / 100))   # = 250
 metered_total_high_ml = round(metered_total_ml * (1 + ratio_volume_tol_pct / 100))  # = 276
@@ -117,11 +103,6 @@ def main():
         "CO2_CYL_SMALL": f"{co2_cyl_small_lb:.4g} lb",
         "CO2_CYL_LARGE": f"{co2_cyl_large_lb:.4g} lb",
         "CO2_PRIMARY_RANGE": f"{co2_primary_min_psi:.4g}–{co2_primary_max_psi:.4g} PSI",
-        # Centerline form ("90 PSI"). Each occurrence in the markdown
-        # is in some sentence that doesn't fold neatly with the range
-        # form, so the centerline gets its own variable. Sourced from
-        # the front-panel WR1110 setpoint upstream — same number, same
-        # ground truth.
         "CO2_CENTERLINE": f"{co2_centerline_psi:.4g} PSI",
 
         # Bench measurement tooling.

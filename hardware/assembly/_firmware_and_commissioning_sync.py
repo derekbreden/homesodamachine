@@ -14,13 +14,8 @@ sys.path.insert(
 from docgen import substitute_md
 
 
-# ─── ESP32 pin assignments (mirror of ../wiring/esp32-pinout.mmd) ─────
-# Source: hardware/wiring/esp32-pinout.mmd. Mirrored here as named
-# constants so the commissioning doc's [GPIO N](NAME) references are
-# substituted from one place. Firmware src/main.cpp is the *prototype*
-# topology (L298N Board B/C, GPIO 13/27 air-switch, etc.) and is NOT
-# the source-of-truth — the .mmd schema is. Update both together if
-# a pin moves.
+# ─── ESP32 pin assignments ────────────────────────────────────────────
+# Source: hardware/wiring/esp32-pinout.mmd.
 
 gpio_relay1 = 14            # Teyleten relay #1 (compressor AC)
 gpio_onewire = 16           # DS18B20 1-wire bus (tank-wall + suction-line)
@@ -29,31 +24,24 @@ gpio_reed_high = 27         # Carbonator reed high (full threshold)
 gpio_flow = 23              # DIGITEN flow meter pulse input
 gpio_relay2 = 4             # Teyleten relay #2 (diaphragm pump 12 V refill)
 
-# ─── I²C device addresses (mirror of ../wiring/esp32-pinout.mmd) ──────
+# ─── I²C device addresses ─────────────────────────────────────────────
 # 7-bit addresses on the shared SDA/SCL bus (GPIO 21/22).
 
 mcp_valves_addr = 0x20      # MCP23017: 12 valves on PA[0:7]+PB[0:3], Rsvr A reeds on PB[4:7]
 mcp_reservoirs_addr = 0x21  # MCP23017: Rsvr B reeds on PA[0:3], condenser-fan driver bit PA4
 rtc_addr = 0x68             # DS3231 RTC
 
-# ─── Sensor inventory (cross-checked against valve-control.mmd + cold-core) ──
-# Counts that the commissioning doc rolls up — keep in sync with
-# valve-control.mmd (12 solenoids) and the reservoir/level-sensing
-# architecture (4 reeds per reservoir, 2 reservoirs, 2 carbonator-level
-# reeds = 10 total).
+# ─── Sensor inventory ─────────────────────────────────────────────────
 
 valve_count = 12            # Beduan solenoids on MCP23017 0x20 → ULN2803A U1/U2
-reservoir_count = 2         # Two flavor reservoirs (A + B)
-reeds_per_reservoir = 4     # Four float-rod reeds per reservoir
+reservoir_count = 2         # Flavor reservoirs (A + B)
+reeds_per_reservoir = 4     # Float-rod reeds per reservoir
 reeds_carbonator = 2        # Carbonator low + high reeds
 reeds_total = (
     reservoir_count * reeds_per_reservoir + reeds_carbonator
-)                           # = 10 — quoted as "all 10 reed switches"
+)                           # = 10
 
 # ─── Voltage-rail commissioning thresholds (bench multimeter check) ──
-# Step 2 first-power-on rail check. Tolerances are bench-acceptance
-# values, not regulator-spec values — comfortably inside each
-# regulator's actual ±N% so a healthy build always passes.
 
 rail_12v_nominal = 12.0     # V — Mean Well IRM-90-12ST output
 rail_12v_tol = 0.2          # V — ±, no-load expected window
@@ -63,16 +51,11 @@ rail_33v_nominal = 3.3      # V — 3.3 V LDO feeds I²C pull-ups + MCP logic
 rail_33v_tol = 0.05         # V — ±, bench-acceptance window
 
 # ─── DS18B20 + onewire ────────────────────────────────────────────────
-onewire_pullup_kohm = 4.7   # 1-wire data-line pull-up (standard Maxim app-note value)
+onewire_pullup_kohm = 4.7   # 1-wire data-line pull-up
 ds18b20_count = 2           # Tank-wall + suction-line probes on the bus
-ambient_tol_c = 2           # ±, "within ±2 °C of room ambient" sensor-health check
+ambient_tol_c = 2           # ±, room-ambient sensor-health check
 
 # ─── Firmware factory-default setpoints (refrigeration control) ───────
-# These are the production-firmware factory defaults shipped on `main`.
-# The doc commits step 9 to verifying these specific values come back
-# from the serial setpoint query. If firmware moves any of these, this
-# constants block moves with it — they're a cross-doc pact, not an
-# accidental coincidence.
 
 tank_target_c = 2           # Tank-wall DS18B20 target
 hysteresis_c = 2            # ±, around the tank target
@@ -80,10 +63,6 @@ comp_on_temp_c = tank_target_c + hysteresis_c   # = 4 — compressor turns on
 comp_off_temp_c = tank_target_c                  # = 2 — compressor turns off
 freeze_cutoff_c = -8        # Suction-line freeze-protect cutoff
 min_off_time_min = 3        # Compressor start-capacitor minimum off-time
-
-# ─── Serial / tool constants (informational) ──────────────────────────
-# Left external — `pio device monitor` baud is an external default the
-# doc names. Not a substitution target.
 
 
 def main():
@@ -120,10 +99,7 @@ def main():
         "COMP_ON_TEMP": f"{comp_on_temp_c:.4g} °C",
         "COMP_OFF_TEMP": f"{comp_off_temp_c:.4g} °C",
         "FREEZE_CUTOFF": f"−{abs(freeze_cutoff_c):.4g} °C",
-        # Three textual surface forms for the same setpoint, used in
-        # different sentences: long ("3-minute"), short hyphenated
-        # ("3-min"), and bare ("3 min"). Three NAMEs keeps each rendering
-        # locally readable without breaking the [value](NAME) markup.
+        # Three surface forms: "3-minute", "3-min", "3 min".
         "MIN_OFF_TIME": f"{min_off_time_min:.4g}-minute",
         "MIN_OFF_TIME_HYPHEN": f"{min_off_time_min:.4g}-min",
         "MIN_OFF_TIME_BARE": f"{min_off_time_min:.4g} min",

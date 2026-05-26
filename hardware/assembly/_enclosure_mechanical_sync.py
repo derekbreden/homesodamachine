@@ -13,8 +13,6 @@ sys.path.insert(
     str(next(p for p in _here.parents if (p / "tools" / "docgen").is_dir()) / "tools"),
 )
 
-# Each dimension module lives in its own directory; add each directory to
-# sys.path so the bare-module imports below resolve.
 _hw = next(p for p in _here.parents if p.name == "hardware")
 sys.path.insert(0, str(_hw / "printed-parts" / "enclosure" / "back-panel"))
 sys.path.insert(0, str(_hw / "cut-parts" / "compressor-shroud"))
@@ -39,23 +37,17 @@ from docgen import substitute_md  # noqa: E402
 
 def main():
     variables = {
-        # AC inlet recess range — same "3–5 mm" rendering as back-panel.
+        # AC inlet recess range.
         "AC_RECESS_DEPTH": (
             f"{ac_inlet_recess_depth_min:.4g}–{ac_inlet_recess_depth_max:.4g} mm"
         ),
         # Terminal-block min clearance inside the shroud.
         "TB_CLEARANCE": f"{terminal_block_clearance_mm:.4g} mm",
-        # G90 sheet thickness — rendered with inch units to match the
-        # SendCutSend catalog spelling in the compressor-shroud README.
+        # G90 sheet thickness.
         "WALL_IN": f'{wall_thickness_in:.4g}"',
-        # Heyco SB-500-6 sidewall panel hole; reads better as the inch
-        # fraction (1/2") than the decimal (0.5"), matching shroud usage.
+        # Heyco SB-500-6 sidewall panel hole.
         "PANEL_HOLE": panel_hole_label,
-        # Foam-shell outer bottom-cap footprint — pulled live from the
-        # cold-core interface so any shift in the foam shell propagates
-        # here on the next run. Same "g" formatting as the enclosure
-        # README's FOAM_SHELL_X / FOAM_SHELL_Z (no units inside each
-        # variable so the prose's "× 181 mm" reads naturally).
+        # Foam-shell outer bottom-cap footprint.
         "FOAM_SHELL_X": f"{outer_shell_x_length:.4g}",
         "FOAM_SHELL_Z": f"{outer_shell_z_length:.4g} mm",
     }

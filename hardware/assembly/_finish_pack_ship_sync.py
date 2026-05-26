@@ -19,11 +19,7 @@ from _nameplate_dimensions import founder_edition_count  # type: ignore[import-n
 
 
 # ─── Founder Edition pricing ──────────────────────────────────────────
-# Source: marketing/target-market.md "Founder Edition — units 001-050,
-# $7,500". Procedure-level prose cites the price three times — at the
-# unboxing-care line, the carrier-declared-value line, and the
-# handoff-email line. The number is a marketing-tier commitment, not a
-# physical measurement; defined here so the three sites stay locked.
+# Source: marketing/target-market.md.
 
 founder_edition_price_usd = 7500
 
@@ -32,23 +28,18 @@ founder_edition_price_usd = 7500
 # topology/fluid-topology.md "Air Purge In/Out". Carbonator nominal fill
 # ~1.5 L; two 1 L flavor reservoirs hold ~0.5 L each of remaining
 # concentrate at the typical mid-run state when a unit comes off the
-# burn-in bench. Refine after first-unit weigh-out.
+# burn-in bench.
 
 water_drained_kg = 1.5
 flavor_drained_kg = 1.0
 
-# ─── Carton + shipping envelope (working assumptions) ─────────────────
-# Source: rough estimate for the appliance + install kit + faucet-and-
-# umbilical bag in a single carton; calibrated by the first-unit
-# measurement per Open item 7. The two-number range (low–high) is
-# preserved as a paired pair (e.g., 15–20 kg) — both ends move together
-# when the working assumption shifts.
+# ─── Carton + shipping envelope ───────────────────────────────────────
 
-appliance_weight_low_kg = 10           # appliance alone, dry, off the burn-in bench
-appliance_weight_high_kg = 15          # appliance alone, dry, upper-bound estimate
+appliance_weight_low_kg = 10           # appliance alone, dry
+appliance_weight_high_kg = 15          # appliance alone, dry, upper-bound
 
 carton_gross_weight_low_kg = 15        # appliance + install kit + faucet bag + packaging
-carton_gross_weight_high_kg = 20       # same, upper-bound estimate
+carton_gross_weight_high_kg = 20       # same, upper-bound
 
 carton_length_cm = 60                  # external L along the longest carton dim
 carton_width_cm = 50                   # external W
@@ -57,17 +48,12 @@ carton_height_cm = 50                  # external H
 scale_precision_kg = 0.1               # tape-and-platform measurement resolution
 
 # ─── Carrier ground-shipping thresholds ───────────────────────────────
-# Source: UPS Ground / FedEx Ground residential package limits
-# (industry standard; both carriers cap residential ground at 70 lb).
-# Above this, the package routes LTL freight (Open item 1). Listed here
-# so the threshold-vs-expected-envelope comparison in step 8 lives in
-# one place.
+# Source: UPS Ground / FedEx Ground residential package limits.
 
 carrier_ground_limit_lb = 70
 carrier_ground_limit_kg = 32           # = 70 lb rounded to whole kg (70 lb = 31.75 kg)
 
 # ─── Procedure-level details ──────────────────────────────────────────
-# Source: bench-procedure parameters; revise as the procedure firms up.
 
 splash_check_tilt_deg = 15             # gentle tilt for splash audibility at step 2
 
