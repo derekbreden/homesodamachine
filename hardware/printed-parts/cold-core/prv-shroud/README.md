@@ -48,19 +48,14 @@ gives a few mm of clearance above the pull-ring at full torque.
 
 ## Subassembly procedure
 
-This is a **self-contained subassembly** with no prerequisites
-beyond the three parts (TAISHER elbow + SV-125 + printed shroud)
-and a tube of 100% RTV silicone caulk. It is built **independently
-of the vessel and of any other assembly step**, on the bench, and
-can sit ready to use indefinitely after the caulk cures. There is
-no urgency to its construction relative to vessel fabrication or
-cold-core assembly — the subassembly can be built ahead of time and
-shelved.
+This is a **self-contained subassembly** of three parts (TAISHER
+elbow + SV-125 + printed shroud) plus a tube of 100% RTV silicone
+caulk. Built on the bench; shelves indefinitely after the caulk cures.
 
-The LLDPE vent tube and the foam-shell pass-through are **not** part
-of this subassembly — the LLDPE is press-fit into the shroud's cap
-hole during cold-core build, after the subassembly is threaded into
-Port 4 and the vessel is lowered into the foam shell.
+The LLDPE vent tube and the foam-shell pass-through are not part of
+this subassembly — the LLDPE is press-fit into the shroud's cap hole
+during cold-core build, after the subassembly is threaded into Port 4
+and the vessel is lowered into the foam shell.
 
 1. Thread the SV-125 into the TAISHER M×F 90° street elbow's
    lateral F outlet with Millrose PTFE tape on the threads. Snug

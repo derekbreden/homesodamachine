@@ -1,23 +1,21 @@
 """
-Coil winding mandrel — single first-attempt mandrel.
+Coil winding mandrel.
 
 Hollow PETG-printed mandrel for hand-winding 1/4" OD copper around the
 5" round 316L pressure vessel. 5 mm solid PETG wall (no infill) with
 a shallow helical guide groove sized so the copper nests cleanly into
-the cradle but only 1 mm deep — easy to lift off after winding.
+the cradle but only 1 mm deep.
 
-Sized to align the coil's start and end with the foam-shell's
-copper inlet/outlet plugs so the user's exit bends are purely radial
-(no vertical jog).
+The coil's start and end align with the foam-shell's copper
+inlet/outlet plugs; exit bends are purely radial (no vertical jog).
 
-What "X mm undersize" means here
---------------------------------
+Undersize sizing
+----------------
 "X mm undersize" = the stretch needed to slip the as-wound coil onto
 the tank. After winding, the copper bottom sits at radius
 (mandrel_radius − groove_depth) = the coil's inner radius. For the
-coil to clamp the tank, we want this inner radius to be X mm SMALLER
-than the tank radius (so the coil has to stretch X mm radially to fit
-on).
+coil to clamp the tank, the inner radius is X mm SMALLER than the
+tank radius (so the coil stretches X mm radially to fit on).
 
   coil_inner_radius_after_winding = mandrel_radius − groove_depth
   X = tank_radius − coil_inner_radius_after_winding
@@ -29,42 +27,25 @@ For the 5" tank (R = 63.5 mm), 3 mm as-wound undersize, 1 mm groove:
 
 This is the as-WOUND stretch; observed springback (1–3 mm radial)
 relaxes the coil, so the post-release stretch is (X − Δ_spring) mm.
-3 mm is on the loose end — picked deliberately by the user as a
-first-attempt value after the previous 4 mm-as-wound version felt
-too tight when test-fit on the tank.
-
-(A previous version mis-defined undersize as the COPPER CENTERLINE
-displacement from the tank surface, which gave the wrong sign on the
-groove offset and produced an OD that was ~6 mm too small. See git
-log around that commit.)
 
 Geometry chain
 --------------
 - 3 mm as-wound undersize → mandrel OD 123 mm.
 - Shallow groove: profile radius = tube_radius (3.175 mm, matches
   copper) but the helix path is offset 2.175 mm outward of the
-  cylinder surface, so the cut depth is only 1 mm. Copper still
-  nests perfectly into the cradle (same R), but only 1 mm engaged
-  — easy to lift off.
+  cylinder surface, so the cut depth is 1 mm.
 - Wind length 120.4 mm = Y span between inlet plug (Y=46) and outlet
-  plug (Y=166.4) in the foam-shell — coil ends exit through the
-  plugs with purely radial (no vertical) bends.
+  plug (Y=166.4) in the foam-shell.
 - 9.687 wraps total = 9 full wraps + 247.4° fractional, where 247.4°
   is the CCW azimuthal delta from inlet plug at azimuth 146.31° to
   outlet plug at azimuth 33.69°. Right-hand helix. Pitch = 120.4 /
-  9.687 = 12.43 mm = 0.489" — close to but not exactly the round-number
-  0.5" pitch, driven by alignment to the foam-shell plug positions
-  rather than by aesthetic roundness.
+  9.687 = 12.43 mm = 0.489".
 
-Wall thickness (5 mm) bumped from 4 mm because the 4 mm test print
-was just slightly more flexible than wanted — well within mechanical
-margin but stable feel matters for a hand-handled tool.
+Wall thickness: 5 mm.
 
-OCCT BOP fix retained
----------------------
-isFrenet=False (parallel transport) — verified reliable across all R
-values; isFrenet=True is flaky for helix-on-cylinder cuts. See git
-log for the diagnostic sweep.
+OCCT BOP setting
+----------------
+isFrenet=False (parallel transport).
 """
 
 import math

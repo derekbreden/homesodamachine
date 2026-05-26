@@ -95,8 +95,7 @@ Latent gaps (no consumer hits these today, but worth knowing):
 
 Fix shape when any of these bite: add a named override that calls
 `self._point` / `self._radius` on the relevant args. Same pattern as
-`pushPoints` and `polyline`, which were added retroactively in
-commit `08b8d09` after consumers hit the gap.
+`pushPoints` and `polyline`.
 
 ## When to use which
 
