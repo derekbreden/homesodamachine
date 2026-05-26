@@ -339,21 +339,21 @@ nut_hex_profile = [
     for a in (0, 60, 120, 180, 240, 300)
 ]
 
-# TPU 90A face seals at the bulkhead/panel joint. One on each side of
+# TPU 85A face seals at the bulkhead/panel joint. One on each side of
 # the panel: a flat printed washer that sits in a shallow counterbore
 # in the panel face and gets compressed when the mating face (nut
 # washer on the wet side, integral flange on the dry side) seats flush
 # against the panel rim outside the counterbore. Compression ratio is
 # (seal_thickness − counterbore_depth) / seal_thickness = 30%, which
-# is standard for face-seal elastomers. Sizing the counterbore smaller
-# than both mating-face ODs (nut washer ⌀22.1, integral flange ⌀22.9)
-# ensures the mating faces still seat directly on PETG outside the
-# counterbore — the elastomer carries only the seal load, not the
-# clamping force.
-bulkhead_seal_id = 16.5  # intentionally 1 mm Ø under the panel hole ([17.5 mm](BULKHEAD_PANEL_HOLE_D)): the seal's inner edge overhangs the panel hole by 0.5 mm/side and the bulkhead body passes THROUGH the seal, not around it. If the JG body OD at the seal location is ≤16.5 mm the seal clears it; if larger, the seal stretches over the body and adds a radial bore-seal effect on top of the axial face seal. Pairs with seal_od 20.3 (kept) to give 1.9 mm radial material — wider than the natural clearance-driven minimum, on purpose, for handling robustness + radial-seal capability.
-bulkhead_seal_od = 20.3  # 0.1 mm/side clearance in the counterbore
+# is standard for face-seal elastomers. The counterbore Ø is sized
+# smaller than both mating-face ODs (nut washer ⌀22.1, integral flange
+# ⌀23) so the mating faces seat directly on PETG outside the
+# counterbore — PETG carries the clamping force, the elastomer
+# carries only the seal-compression load.
+bulkhead_seal_id = 16.5  # under the panel hole ([17.5 mm](BULKHEAD_PANEL_HOLE_D)): the seal's inner edge overhangs the panel hole by 0.5 mm/side and the bulkhead body passes through the seal, not around it. If the JG body OD at the seal location is ≤16.5 mm the seal clears it; if larger, the seal stretches over the body and adds a radial bore-seal effect on top of the axial face seal.
+bulkhead_seal_od = 21.3  # 0.1 mm/side clearance in the counterbore
 bulkhead_seal_thickness = 2.0  # matches the reservoir gasket convention
-bulkhead_seal_counterbore_diameter = 20.5
+bulkhead_seal_counterbore_diameter = 21.5  # 0.3 mm/side PETG seating ring under the wet-side nut washer ⌀22.1 (tighter constraint); 0.75 mm/side under the dry-side flange ⌀23
 bulkhead_seal_counterbore_depth = 1.4  # 30% compression of the 2 mm seal when the mating face seats flush
 
 # Wet-side section lengths.
