@@ -489,19 +489,19 @@ $SKPOLY
   9
 $TDCREATE
  40
-2461186.6687384257
+2440587.5
   9
 $TDUCREATE
  40
-2458532.153996898
+2440587.5
   9
 $TDUPDATE
  40
-2461186.6687384257
+2440587.5
   9
 $TDUUPDATE
  40
-2458532.1544311
+2440587.5
   9
 $TDINDWG
  40
@@ -929,11 +929,11 @@ $PSTYLEMODE
   9
 $FINGERPRINTGUID
   2
-{B7235B98-1292-429F-B50C-EFA72C953E94}
+{00000000-0000-0000-0000-000000000000}
   9
 $VERSIONGUID
   2
-{8C0B50C1-5D81-4FBD-8C59-A1E7881C77EB}
+{00000000-0000-0000-0000-000000000000}
   9
 $EXTNAMES
 290
@@ -1115,6 +1115,22 @@ CLASSES
   0
 CLASS
   1
+ACDBDETAILVIEWSTYLE
+  2
+AcDbDetailViewStyle
+  3
+ObjectDBX Classes
+ 90
+1025
+ 91
+0
+280
+0
+281
+0
+  0
+CLASS
+  1
 ACDBDICTIONARYWDFLT
   2
 AcDbDictionaryWithDefault
@@ -1131,157 +1147,13 @@ ObjectDBX Classes
   0
 CLASS
   1
-SUN
+ACDBPLACEHOLDER
   2
-AcDbSun
-  3
-SCENEOE
- 90
-1153
- 91
-0
-280
-0
-281
-0
-  0
-CLASS
-  1
-VISUALSTYLE
-  2
-AcDbVisualStyle
-  3
-ObjectDBX Classes
- 90
-4095
- 91
-0
-280
-0
-281
-0
-  0
-CLASS
-  1
-MATERIAL
-  2
-AcDbMaterial
-  3
-ObjectDBX Classes
- 90
-1153
- 91
-0
-280
-0
-281
-0
-  0
-CLASS
-  1
-SCALE
-  2
-AcDbScale
-  3
-ObjectDBX Classes
- 90
-1153
- 91
-0
-280
-0
-281
-0
-  0
-CLASS
-  1
-TABLESTYLE
-  2
-AcDbTableStyle
-  3
-ObjectDBX Classes
- 90
-4095
- 91
-0
-280
-0
-281
-0
-  0
-CLASS
-  1
-MLEADERSTYLE
-  2
-AcDbMLeaderStyle
-  3
-ACDB_MLEADERSTYLE_CLASS
- 90
-4095
- 91
-0
-280
-0
-281
-0
-  0
-CLASS
-  1
-DICTIONARYVAR
-  2
-AcDbDictionaryVar
+AcDbPlaceHolder
   3
 ObjectDBX Classes
  90
 0
- 91
-0
-280
-0
-281
-0
-  0
-CLASS
-  1
-CELLSTYLEMAP
-  2
-AcDbCellStyleMap
-  3
-ObjectDBX Classes
- 90
-1152
- 91
-0
-280
-0
-281
-0
-  0
-CLASS
-  1
-MENTALRAYRENDERSETTINGS
-  2
-AcDbMentalRayRenderSettings
-  3
-SCENEOE
- 90
-1024
- 91
-0
-280
-0
-281
-0
-  0
-CLASS
-  1
-ACDBDETAILVIEWSTYLE
-  2
-AcDbDetailViewStyle
-  3
-ObjectDBX Classes
- 90
-1025
  91
 0
 280
@@ -1307,11 +1179,27 @@ ObjectDBX Classes
   0
 CLASS
   1
-RASTERVARIABLES
+CELLSTYLEMAP
   2
-AcDbRasterVariables
+AcDbCellStyleMap
   3
-ISM
+ObjectDBX Classes
+ 90
+1152
+ 91
+0
+280
+0
+281
+0
+  0
+CLASS
+  1
+DICTIONARYVAR
+  2
+AcDbDictionaryVar
+  3
+ObjectDBX Classes
  90
 0
  91
@@ -1339,13 +1227,125 @@ ObjectDBX Classes
   0
 CLASS
   1
-ACDBPLACEHOLDER
+MATERIAL
   2
-AcDbPlaceHolder
+AcDbMaterial
   3
 ObjectDBX Classes
  90
+1153
+ 91
 0
+280
+0
+281
+0
+  0
+CLASS
+  1
+MENTALRAYRENDERSETTINGS
+  2
+AcDbMentalRayRenderSettings
+  3
+SCENEOE
+ 90
+1024
+ 91
+0
+280
+0
+281
+0
+  0
+CLASS
+  1
+MLEADERSTYLE
+  2
+AcDbMLeaderStyle
+  3
+ACDB_MLEADERSTYLE_CLASS
+ 90
+4095
+ 91
+0
+280
+0
+281
+0
+  0
+CLASS
+  1
+RASTERVARIABLES
+  2
+AcDbRasterVariables
+  3
+ISM
+ 90
+0
+ 91
+0
+280
+0
+281
+0
+  0
+CLASS
+  1
+SCALE
+  2
+AcDbScale
+  3
+ObjectDBX Classes
+ 90
+1153
+ 91
+0
+280
+0
+281
+0
+  0
+CLASS
+  1
+SUN
+  2
+AcDbSun
+  3
+SCENEOE
+ 90
+1153
+ 91
+0
+280
+0
+281
+0
+  0
+CLASS
+  1
+TABLESTYLE
+  2
+AcDbTableStyle
+  3
+ObjectDBX Classes
+ 90
+4095
+ 91
+0
+280
+0
+281
+0
+  0
+CLASS
+  1
+VISUALSTYLE
+  2
+AcDbVisualStyle
+  3
+ObjectDBX Classes
+ 90
+4095
  91
 0
 280
@@ -3085,7 +3085,7 @@ DictionaryVariables
 280
 0
   1
-1.4.3 @ 2026-05-25T21:02:59.433408+00:00
+1.4.3 @ 1970-01-01T00:00:00.000000+00:00
   0
 DICTIONARYVAR
   5
@@ -3097,7 +3097,7 @@ DictionaryVariables
 280
 0
   1
-1.4.3 @ 2026-05-25T21:02:59.434532+00:00
+1.4.3 @ 1970-01-01T00:00:00.000000+00:00
   0
 ENDSEC
   0
