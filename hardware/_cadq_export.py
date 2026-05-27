@@ -1,4 +1,4 @@
-"""Atomic STEP / Assembly / DXF export helpers.
+"""Atomic STEP / Assembly / DXF / PDF export helpers.
 
 Concurrent runs targeting the same output file do not corrupt it: each call
 writes to a unique temp file alongside the target and then renames atomically
@@ -18,10 +18,12 @@ Usage from any generator script:
     from _cadq_export import export_step          # for cq workplanes / solids
     from _cadq_export import export_assembly        # for cq.Assembly objects
     from _cadq_export import export_dxf            # for ezdxf Drawing objects
+    from _cadq_export import export_pdf            # for ReportLab build callbacks
 
     export_step(model, str(out_path))
     export_assembly(assy, str(out_path))
     export_dxf(doc, str(out_path))
+    export_pdf(lambda p: build_pdf_at(p), str(out_path))
 """
 
 import filecmp
@@ -91,6 +93,31 @@ _DXF_CLASSES_SECTION_OPEN_RE = re.compile(rb"  0\nSECTION\n  2\nCLASSES\n")
 _DXF_CLASSES_SECTION_CLOSE_RE = re.compile(rb"  0\nENDSEC\n")
 _DXF_CLASS_BLOCK_RE = re.compile(rb"  0\nCLASS\n")
 _DXF_CLASS_NAME_RE = re.compile(rb"  1\n([^\n]+)\n")
+
+# PDF non-determinism from ReportLab's Canvas.save():
+#
+#   1. Wall-clock save times in /CreationDate and /ModDate metadata
+#      entries, formatted as PDF dates: D:YYYYMMDDHHMMSSOHH'MM'.
+#   2. A pair of random-on-every-save hex strings in the trailer /ID
+#      array (the first ID is meant to be permanent, the second to
+#      change on each save; ReportLab regenerates both).
+#
+# The compressed content stream is reproducible across close-in-time
+# runs given identical source, so no stream canonicalization is needed.
+_PDF_DATE_RE = re.compile(
+    rb"\(D:\d{14}(?:Z|[-+]\d{2}'\d{2}')\)"
+)
+_PDF_CANONICAL_DATE = rb"(D:19700101000000+00'00')"
+
+_PDF_ID_RE = re.compile(
+    rb"(/ID\s*\[)<[0-9a-fA-F]+><[0-9a-fA-F]+>(\])"
+)
+_PDF_CANONICAL_ID = (
+    rb"\g<1>"
+    rb"<00000000000000000000000000000000>"
+    rb"<00000000000000000000000000000000>"
+    rb"\g<2>"
+)
 
 
 def _canonicalize_step_entity_ids(text):
@@ -284,6 +311,19 @@ def _canonicalize_dxf(dxf_path):
             f.write(new_data)
 
 
+def _canonicalize_pdf(pdf_path):
+    """Normalize ReportLab PDF output for byte-stable hashing across
+    runs: pin /CreationDate and /ModDate to the epoch, zero out both
+    halves of the trailer /ID array. No-op on already-canonical files."""
+    with open(pdf_path, "rb") as f:
+        data = f.read()
+    new_data = _PDF_DATE_RE.sub(_PDF_CANONICAL_DATE, data)
+    new_data = _PDF_ID_RE.sub(_PDF_CANONICAL_ID, new_data)
+    if new_data != data:
+        with open(pdf_path, "wb") as f:
+            f.write(new_data)
+
+
 def _current_umask():
     """Read the process umask without changing it (os.umask only offers
     a swap; the only way to read is set-then-restore)."""
@@ -333,6 +373,8 @@ def _atomic_write(target_path, write_fn):
             _canonicalize_step(tmp_path)
         elif target.suffix == ".dxf":
             _canonicalize_dxf(tmp_path)
+        elif target.suffix == ".pdf":
+            _canonicalize_pdf(tmp_path)
         # Skip the rename when content matches — keeps target.mtime stable
         # and leaves git status clean across no-op regenerations.
         if _matches_existing_target(tmp_path, target):
@@ -358,3 +400,12 @@ def export_assembly(assembly, target_path):
 def export_dxf(doc, target_path):
     """ezdxf Drawing.saveas with atomic write and canonical output."""
     _atomic_write(target_path, lambda p: doc.saveas(p))
+
+
+def export_pdf(build, target_path):
+    """Atomic-write PDF with canonical output. `build(out_path)` is the
+    caller's drawing function — it constructs a ReportLab Canvas at
+    `out_path`, draws on it, and calls `.save()` itself. The wrapper
+    supplies a temp path, canonicalizes the result, and renames into
+    place only when the bytes change."""
+    _atomic_write(target_path, build)

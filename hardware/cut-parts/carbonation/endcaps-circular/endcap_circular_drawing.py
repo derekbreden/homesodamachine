@@ -33,7 +33,12 @@ sys.path.insert(
     0,
     str(next(p for p in _here.parents if (p / "tools" / "docgen").is_dir()) / "tools"),
 )
+sys.path.insert(
+    0,
+    str(next(p for p in _here.parents if p.name == "hardware")),
+)
 from docgen import substitute_py_comments
+from _cadq_export import export_pdf
 
 # Part geometry in inches — mirrors endcap_circular_dxf.py.
 
@@ -404,8 +409,8 @@ def draw_main_view(c: canvas.Canvas) -> None:
 
 # ── Driver ───────────────────────────────────────────────────────────
 
-def main() -> None:
-    c = canvas.Canvas(str(pdf_path), pagesize=(sheet_width * inch, sheet_height * inch))
+def _build_pdf(out_path) -> None:
+    c = canvas.Canvas(str(out_path), pagesize=(sheet_width * inch, sheet_height * inch))
     c.setTitle("Carbonator End Cap — Circular, 2-Hole NPT")
     c.setAuthor("derekbreden@gmail.com")
     c.setSubject("Engineering drawing — Xometry NPT tapping callout")
@@ -429,6 +434,10 @@ def main() -> None:
 
     c.showPage()
     c.save()
+
+
+def main() -> None:
+    export_pdf(_build_pdf, str(pdf_path))
     print(f"Exported: {pdf_path}")
 
     # Short names scoped to this part. Units live inside the value so the
