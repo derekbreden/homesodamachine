@@ -440,6 +440,30 @@ For the missing strands: textbook **wet filament** symptom — water flash-vapor
 
 If supports still fail after all three, thickening support pillars becomes the next lever. But the bet is interlayer bonding is the actual root cause and the three changes above close it out.
 
+## PET-CF print attempt 17 (Polymaker, dried + nozzle 280 + fan off)
+
+Hardware: same (0.6 mm DUROZZLE TC L-side hotend). Filament: same Polymaker Fiberon PET-CF17 spool as attempt 16, dried on the SUNLU E2 at 100 °C for the duration of Polymaker's published spec between attempts.
+
+Geometry: unchanged from attempt 16 (no joinery features; commit `a297a044`).
+
+Settings deltas observed in `touch-flo-pet-cf.3mf` vs attempt 16:
+
+PET-CF slot 0 (active) — all three planned changes in place:
+- `nozzle_temperature` (main layer): 270 → **280 °C**
+- `nozzle_temperature_initial_layer`: 270 → **280 °C**
+- `fan_max_speed`: 30 → **0 %**
+- `fan_min_speed`: 10 → **0 %**
+- `overhang_fan_speed`: 40 → **0 %**
+- `different_settings_to_system` (slot 1 in array) now tracks the four filament-side overrides.
+
+Settings unchanged on slot 0: bed 100 °C, chamber 50 °C, close-fan-first-3-layers, fan_cooling_layer_time 5, slow_down_for_layer_cooling enabled, scarf seam still none, all process settings.
+
+Other filament slots (bookkeeping noise, none active for this print):
+- Slot 1 (PETG) profile reverted from "Generic PETG" → "Bambu PETG Basic" — old fan/temp defaults restored.
+- Slot 2 (ABS) profile changed from "Bambu ABS @BBL H2C 0.6 nozzle" → "Bambu ABS @BBL H2C **0.8 nozzle**" — **mismatched against the active 0.6 nozzle**; needs fixing before slot 2 is ever used for a print, but doesn't affect this PET-CF run.
+
+Filament drying: confirmed run on the E2 between attempts even though the storage box reads 10 % RH (Derek's verification baseline). Both this spool and a sibling Polymaker spool dried at 100 °C for Polymaker's full published cycle.
+
 ## Hardware / setup observations across all PET-CF attempts
 
 Derek said:
