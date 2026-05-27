@@ -285,7 +285,7 @@ def _arrows_connect_co2(x, y, w, draw_h):
     far end of the coupling body's cup — projects to cell-frac
     (0.456, 0.531)."""
     return _straight_arrow(
-        x + 0.30 * w, y + 0.18 * draw_h,
+        x + 0.36 * w, y + 0.32 * draw_h,
         x + 0.436 * w, y + 0.500 * draw_h,
         color="red",
     )
