@@ -129,9 +129,12 @@ def _rotation_arrow(cx, cy, r, start_deg, sweep_deg, color="dark", sw=1.2):
     )
 
 
-def _stub_arrow(target_x, target_y, dx, dy, color="dark", sw=1.2, length=5):
+def _stub_arrow(target_x, target_y, dx, dy, color="dark", sw=1.2, length=12):
     """Short arrow whose tip lands at (target_x, target_y), pointing in
-    direction (dx, dy). Used for the two inward stub-arrows on the tee."""
+    direction (dx, dy). `length` is the line length from start to
+    arrowhead — the arrowhead's back-edge sits 5.4 user units inside
+    that length, so visible line behind the arrowhead is `length - 5.4`.
+    """
     mag = math.sqrt(dx * dx + dy * dy)
     ux, uy = dx / mag, dy / mag
     x1, y1 = target_x - length * ux, target_y - length * uy
@@ -298,8 +301,8 @@ def _arrows_tee_into_water(x, y, w, draw_h):
     target_x = x + 0.48 * w
     return (
         _rotation_arrow(x + 0.14 * w, y_strip, 5, 30, 240, color="gray")
-        + _stub_arrow(target_x - 2, y_strip, +1, 0, color="gray")
-        + _stub_arrow(target_x + 2, y_strip, -1, 0, color="gray")
+        + _stub_arrow(target_x - 15, y_strip, +1, 0, color="gray")
+        + _stub_arrow(target_x + 15, y_strip, -1, 0, color="gray")
         + _straight_arrow(
             x + 0.74 * w, y_strip,
             x + 0.92 * w, y_strip,
