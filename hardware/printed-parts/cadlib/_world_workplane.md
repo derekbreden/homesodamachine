@@ -132,14 +132,26 @@ the frame. Any cadquery method that takes coordinates and isn't
 explicitly overridden will silently bypass the frame on a flipped
 plane.
 
+Currently overridden in `world_workplane.py`: `moveTo`, `lineTo`,
+`radiusArc`, `threePointArc`, `pushPoints`, `polyline`, `center`,
+`profile`. These all run the frame transform; on a flipped plane
+they negate the second tuple component (and negate radii where
+relevant).
+
 Latent gaps (no consumer hits these today, but worth knowing):
 
 - `.sketch().arc(...)`, `.tangentArcPoint(...)`, `.hLineTo(...)`,
   `.vLineTo(...)`, `.mirrorY()`, `.mirrorX()` — chirality-sensitive
-- `.center(x, y)`, `.transformed(offset=(x, y, z))` — affect
-  subsequent point interpretation
+- `.transformed(offset=(x, y, z))` — affects subsequent point
+  interpretation
 - `.slot2D(angle=...)` — angles aren't transformed (the `radius`
   lambda only handles signed scalars for `radiusArc`)
+- `.placeSketch(sketch)` — points inside a pre-built `cq.Sketch`
+  are not transformed when the sketch is placed onto a flipped
+  plane. Authors who need a world-coord sketch on a flipped plane
+  must either (a) write the sketch points in the plane's local
+  frame, or (b) build the equivalent polyline + arcs inline via
+  `WorldWorkplane` methods that ARE overridden.
 
 Fix shape when any of these bite: add a named override that calls
 `self._point` / `self._radius` on the relevant args. Same pattern as
