@@ -74,12 +74,11 @@ sys.path.insert(
 # defines the pill / shank geometry imported here. Walk up to
 # `hardware/`, then sideways into printed-parts/faucet/ so the import
 # resolves.
-sys.path.insert(
-    0,
-    str(next(p for p in _here.parents if p.name == "hardware")
-        / "printed-parts" / "faucet"),
-)
+_hardware_dir = next(p for p in _here.parents if p.name == "hardware")
+sys.path.insert(0, str(_hardware_dir / "printed-parts" / "faucet"))
+sys.path.insert(0, str(_hardware_dir))
 from docgen import substitute_py_comments
+from _cadq_export import export_dxf
 from _touch_flo_interface import (
     flavor_tube_x,
     pill_length_y,
@@ -262,7 +261,7 @@ def make_dxf():
     out_dir = Path(__file__).resolve().parent
     out_name = "touch-flo-under-counter-plate"
     out = out_dir / f"{out_name}.dxf"
-    doc.saveas(str(out))
+    export_dxf(doc, str(out))
     return out
 
 
