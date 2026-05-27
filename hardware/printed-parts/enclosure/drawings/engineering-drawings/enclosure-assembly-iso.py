@@ -6,10 +6,10 @@ engineering-drawing aesthetic. No showHidden override, no smooth-stroke
 postprocessor; the dashed hidden lines reveal the cold core's outline
 through the enclosure walls.
 
-projectionDir (1, 1, -1) places the camera at +x, +y, -z — front face,
-right side, and top visible. This is the same convention as the
-existing line-art `enclosure-iso-front.py`, so the two drawings line up
-side-by-side for comparison.
+projectionDir (1, -1, 1) places the camera at +x, -y, +z — front face,
+right side, and top visible. This is the +Z-up equivalent of the
+line-art `enclosure-iso-front.py`'s historical (1, 1, -1) — slot 2/3
+swap under the Y↔Z convention rebase.
 
 Run from the repo root:
     tools/cad-venv/bin/python hardware/printed-parts/enclosure/drawings/engineering-drawings/enclosure-assembly-iso.py
@@ -33,7 +33,7 @@ def main() -> None:
         assembly,
         str(output_path),
         opt={
-            "projectionDir": (1, 1, -1),  # camera at +x, +y, -z
+            "projectionDir": (1, -1, 1),  # camera at +x, -y, +z
             "width": None,                  # auto-fit projected width
             "height": 800,
             "marginLeft": 30,
