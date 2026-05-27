@@ -1,0 +1,23 @@
+/* /scene viewer: full-bleed canvas on a white background, no chrome.
+ * Different surface from /3d (which has nav, modals, gizmo) because /scene
+ * exists to produce headless-rendered drawing frames, not for interactive
+ * part inspection. */
+
+html, body {
+  margin: 0;
+  padding: 0;
+  background: #ffffff;
+  overflow: hidden;
+}
+
+#scene-host {
+  position: fixed;
+  inset: 0;
+  background: #ffffff;
+}
+
+#scene-host canvas {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
