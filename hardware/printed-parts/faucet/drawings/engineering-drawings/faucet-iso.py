@@ -4,14 +4,12 @@ CadQuery HLR (hidden-line removal) with hidden edges DASHED — the
 engineering-drawing aesthetic, as opposed to the line-art renders in
 `../line-art/`.
 
-The loaded assembly is already in the repo's +Y-up frame (the
-faucet_assembly.py export does the rebase, and the gooseneck dispense
-direction ends up on +Z so the natural-iso camera reads as the user's
-view). projectionDir (1, 1, 1) places the camera at +x, +y, +z —
-elevated, offset to one side, and on the gooseneck-dispense side of
-the appliance: the user's view standing in front of the sink. The
-body draws vertical; the gooseneck arches up and toward the viewer
-with the lever pointing toward the viewer.
+The loaded assembly is in the repo's +Z-up frame. projectionDir
+(1, 1, 1) places the camera at +x, +y, +z — elevated, offset to one
+side, and on the gooseneck-dispense side of the appliance: the
+user's view standing in front of the sink. The body axis runs +Z;
+the gooseneck dispenses in +Y (toward the viewer); the lever points
+toward the viewer.
 
 Run from the repo root:
     tools/cad-venv/bin/python hardware/printed-parts/faucet/drawings/engineering-drawings/faucet-iso.py

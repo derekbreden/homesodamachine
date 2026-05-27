@@ -2,15 +2,15 @@
 
 The faucet assembly (`hardware/harvested/touch-flo-faucet/faucet-assembly/
 faucet_assembly.py`) builds a `cq.Assembly` of valve body + water/flavor
-tubes + lever + mounting plate + mounting gasket + shell, rebased into
-the repo's +Y-up frame at export time. cq.exporters.export does not
-accept cq.Assembly directly in this CadQuery install, so we load the
-pre-built STEP file (which writes a multi-solid STEP) and return it as
-a `cq.Workplane` ready for SVG export.
+tubes + lever + mounting plate + mounting gasket + shell directly in
+the repo's +Z-up frame. cq.exporters.export does not accept cq.Assembly
+directly in this CadQuery install, so we load the pre-built STEP file
+(which writes a multi-solid STEP) and return it as a `cq.Workplane`
+ready for SVG export.
 
-Coordinate frame — +Y-up:
-    +Y is the vertical axis through the valve body (height).
-    +Z is the gooseneck dispense direction (toward the user, so the
+Coordinate frame — +Z-up:
+    +Z is the vertical axis through the valve body (height).
+    +Y is the gooseneck dispense direction (toward the user, so the
         natural-iso camera at +x, +y, +z reads as the user's view).
     +X is the lateral axis (the two flavor tubes mirror across the YZ plane).
 """
