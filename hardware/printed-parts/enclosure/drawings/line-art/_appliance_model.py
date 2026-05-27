@@ -139,12 +139,12 @@ BUTTON_PROTRUSION = 10.0
 # The part itself is modeled at canonical origin in
 # `hardware/harvested/co2-coupling-body/co2_coupling_body.py`
 # (standalone STEP available in the parts viewer's Reference section).
-# Here we just position it on the right side face: vertically aligned
-# with the S3 knob's centerline on the front face; horizontally
-# (along depth) centered on the funnel-door depth. The CO2 cylinder
-# sits in the side air-gap beside the appliance, so the inlet is on
-# the side that faces it.
-CO2_PORT_AT = (hopper_door_b, S3_AT[1])     # (face-a = world Z, face-b = world Y)
+# Wall anchor on the right side face: vertically aligned with the S3
+# knob's centerline on the front face; horizontally (along depth)
+# centered on the funnel-door depth. The CO2 cylinder sits in the
+# side air-gap beside the appliance, so the inlet is on the side
+# that faces it.
+CO2_PORT_WALL_AT = (hopper_door_b, S3_AT[1])     # (face-a = world Z, face-b = world Y)
 
 
 # ---------------------------------------------------------------------------
@@ -366,7 +366,7 @@ def build_appliance() -> cq.Workplane:
     appliance = _add_back_nameplate(appliance, *NAMEPLATE_AT, NAMEPLATE_W, NAMEPLATE_H, NAMEPLATE_THICKNESS)
 
     # Right side face: CO2 inlet (CPC LC-family coupling body)
-    appliance = _add_co2_port(appliance, *CO2_PORT_AT)
+    appliance = _add_co2_port(appliance, *CO2_PORT_WALL_AT)
 
     return cq.Workplane().add(appliance.val().Solids()[0])
 
