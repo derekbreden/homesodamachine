@@ -449,61 +449,70 @@ def add_co2_red_ring(
     appliance: cq.Workplane,
     ring: cq.Workplane,
 ) -> None:
-    """Inject the red ring's HLR-visible edges into the SVG.
+    """Inject the red ring as a filled SVG region into the line-art SVG.
 
-    HLR runs with the appliance (with the ring-shaped pocket cut into
-    the wall and the coupler protruding from it) and the ring solid
-    added together; OCC computes mutual occlusion in 3D.
-    VCompound(ring) returns the edges of the ring that survive
-    occlusion. Drawn on top of the appliance's coincident pocket
-    boundary, so red wins.
+    The ring's annulus and the body cup's silhouette are computed
+    analytically from the 3D geometry projected to inner SVG coords.
+    The annulus is drawn as `<path fill="red">` clipped by a
+    `<clipPath>` of the cup silhouette (excluded), so the cup occludes
+    the part of the ring behind it. The line-art edges from HLR draw
+    on top, so the cup outline visibly cuts across the red.
     """
-    from OCP.HLRBRep import HLRBRep_Algo, HLRBRep_HLRToShape
-    from OCP.HLRAlgo import HLRAlgo_Projector
-    from OCP.gp import gp_Ax2, gp_Pnt, gp_Dir
-    from OCP.BRepLib import BRepLib
-    from cadquery.occ_impl.shapes import Shape, TOLERANCE
-    from cadquery.occ_impl.exporters.svg import makeSVGedge
+    import _color_marking as cm
 
     text = svg_path.read_text()
     sentinel = "<!-- co2 port ring -->"
     if sentinel in text:
         return
 
-    ring_shape = ring.val().wrapped
-
-    hlr = HLRBRep_Algo()
-    hlr.Add(appliance.val().wrapped)
-    hlr.Add(ring_shape)
-
-    projector = HLRAlgo_Projector(gp_Ax2(gp_Pnt(), gp_Dir(*projection_dir)))
-    hlr.Projector(projector)
-    hlr.Update()
-    hlr.Hide()
-
-    to_shape = HLRBRep_HLRToShape(hlr)
-
-    paths = []
-    for compound_fn in (to_shape.VCompound, to_shape.OutLineVCompound):
-        compound = compound_fn(ring_shape)
-        if compound.IsNull():
-            continue
-        BRepLib.BuildCurves3d_s(compound, TOLERANCE)
-        for edge in Shape(compound).Edges():
-            paths.append(makeSVGedge(edge))
-
-    if not paths:
+    # Projection_dir tuple varies with the iso script's chosen rotation +
+    # camera orientation; what matters is whether the result is the front
+    # or back iso layout. Both currently-supported settings map to the
+    # empirically-derived front/back projections.
+    iso = {
+        (1, 1, -1): "front",
+        (1, 1, 1): "front",
+        (1, -1, 1): "back",
+        (1, -1, -1): "back",
+    }.get(tuple(projection_dir))
+    if iso is None:
         return
 
-    lines = [sentinel]
-    lines.append(
-        '       <g stroke="red" stroke-width="4.5" fill="none" '
-        'stroke-linecap="round" stroke-linejoin="round">'
+    # Ring center in CAD world coords (model's native +Y-up frame).
+    world_z, world_y = CO2_PORT_WALL_AT
+    ring_center = (W, world_y, world_z)
+
+    # Cup geometry from co2_coupling_body.
+    cup_length = co2_coupling_body.body_length
+    cup_radius = co2_coupling_body.body_d / 2
+
+    ring_d = cm.ring_annulus_path_d(
+        iso, ring_center, CO2_PORT_RING_OUTER_R, CO2_PORT_RING_INNER_R
     )
-    for p in paths:
-        lines.append(f'         <path d="{p}" />')
-    lines.append('       </g>')
-    inject = '\n'.join(lines)
+    cup_d = cm.cup_silhouette_path_d(iso, ring_center, cup_length, cup_radius)
+
+    # Big rectangle in inner coords used with even-odd fill rule to
+    # produce "everything OUTSIDE the cup silhouette" as the clip
+    # region. Bounds are way larger than the line art.
+    big_rect = "M-1000,-1000 L1000,-1000 L1000,1000 L-1000,1000 Z"
+    clip_d = big_rect + " " + cup_d
+
+    # Big rectangle in inner coords used with evenodd to make the
+    # clip region = "everything OUTSIDE the cup silhouette". Bounds
+    # are huge so they comfortably wrap the line art.
+    big_rect = "M-1000,-1000 L1000,-1000 L1000,1000 L-1000,1000 Z"
+    clip_d = big_rect + " " + cup_d
+
+    inject = (
+        f"{sentinel}\n"
+        f'       <defs>\n'
+        f'         <clipPath id="co2-cup-occluder" clipPathUnits="userSpaceOnUse">\n'
+        f'           <path d="{clip_d}" fill-rule="evenodd" />\n'
+        f'         </clipPath>\n'
+        f'       </defs>\n'
+        f'       <path d="{ring_d}" fill="red" fill-rule="evenodd" '
+        f'stroke="none" clip-path="url(#co2-cup-occluder)" />'
+    )
 
     marker = "<!-- hidden lines -->"
     svg_path.write_text(text.replace(marker, inject + "\n       " + marker, 1))
