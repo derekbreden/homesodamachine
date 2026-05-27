@@ -39,11 +39,11 @@ from _touch_flo_interface import (
     flavor_tube_hole_dia as flavor_tube_hole_diameter,
     flavor_tube_depth,
     pill_length_x,
-    pill_width_z,
+    pill_width_y,
     shank_hole_diameter,
 )
 from docgen import substitute_py_comments
-from world_workplane import WorldWorkplane, xz_plane_y_up
+from world_workplane import WorldWorkplane, xy_plane_z_up
 
 
 # Disc — Ø matches the mounting plate; [2 mm](GASKET_T) thick gives ~0.4 mm
@@ -52,14 +52,14 @@ from world_workplane import WorldWorkplane, xz_plane_y_up
 gasket_diameter = 54.35
 gasket_thickness = 2.0
 # Disc center is offset slightly toward the back of the appliance
-# (-Z in the repo's +Y-up frame). World (x, z) tuple — no lateral
-# offset, [3.175 mm](GASKET_Z) toward the back.
+# (-Y in the repo's +Z-up frame). World (x, y) tuple — no lateral
+# offset, [3.175 mm](GASKET_Y) toward the back.
 gasket_center = (0.0, -3.175)
 
 # Top face flush with the mounting plate's bottom face; bottom face
-# sits on the countertop surface plane. +Y is height.
-plate_y_bottom = -4.0
-gasket_y_range = (plate_y_bottom - gasket_thickness, plate_y_bottom)
+# sits on the countertop surface plane. +Z is height.
+plate_z_bottom = -4.0
+gasket_z_range = (plate_z_bottom - gasket_thickness, plate_z_bottom)
 
 
 # Hole geometry — mirrored exactly from the mounting plate, via
@@ -71,25 +71,25 @@ shank_hole_center = (0.0, 0.0)
 # [7.05 mm](FLAVOR_TUBE_HOLE_D) per-tube hole = [6.35 mm](FLAVOR_TUBE_OD) OD + 0.7 mm clearance.
 # (Was 6.85 mm at 0.5 mm clearance until 2026-05-25; promoted to match
 # the shell's print-validated attempt-15 value.)
-# [18.93 mm](FLAVOR_TUBE_Z) pill center -Z from the shank (toward the back
+# [18.93 mm](FLAVOR_TUBE_Y) pill center -Y from the shank (toward the back
 # of the appliance, opposite the gooseneck dispense side) — shared with
 # the shell.
 flavor_tube_center = (0.0, -flavor_tube_depth)
 
 # Pill slot covers both 1/4" flavor tubes (centers at ±flavor_tube_x_offset
 # in world X) as one rounded-rectangle, matching the mounting plate.
-# Long axis runs LATERAL (world X); short axis runs DEPTH (world Z).
+# Long axis runs LATERAL (world X); short axis runs DEPTH (world Y).
 # [13.4 mm](PILL_L) pill long axis (lateral, world X).
-# [7.05 mm](PILL_W) pill short axis (depth, world Z).
+# [7.05 mm](PILL_W) pill short axis (depth, world Y).
 
 
 def gasket_workplane(center):
-    """Gasket bottom-face workplane with the pen at world (x, z) tuple
-    `center`. Caller draws the 2D footprint on the world XZ plane and
-    extrudes through `gasket_thickness` in +Y."""
+    """Gasket bottom-face workplane with the pen at world (x, y) tuple
+    `center`. Caller draws the 2D footprint on the world XY plane and
+    extrudes through `gasket_thickness` in +Z."""
     return (
-        WorldWorkplane(xz_plane_y_up)
-        .workplane(offset=gasket_y_range[0])
+        WorldWorkplane(xy_plane_z_up)
+        .workplane(offset=gasket_z_range[0])
         .moveTo(center)
     )
 
@@ -111,7 +111,7 @@ def build_mounting_gasket():
     # slot2D angle=0 — long axis along the workplane X = world X (lateral).
     pill_slot = (
         gasket_workplane(flavor_tube_center)
-        .slot2D(pill_length_x, pill_width_z, angle=0)
+        .slot2D(pill_length_x, pill_width_y, angle=0)
         .extrude(gasket_thickness)
     )
     return gasket.cut(shank_hole).cut(pill_slot).unwrap()
@@ -129,13 +129,13 @@ def main():
     variables = {
         "GASKET_D": f"{gasket_diameter:.4g} mm",
         "GASKET_T": f"{gasket_thickness:.4g} mm",
-        "GASKET_Z": f"{-gasket_center[1]:.4g} mm",
+        "GASKET_Y": f"{-gasket_center[1]:.4g} mm",
         "SHANK_HOLE_D": f"{shank_hole_diameter:.4g} mm",
         "FLAVOR_TUBE_OD": f"{flavor_tube_od:.4g} mm",
         "FLAVOR_TUBE_HOLE_D": f"{flavor_tube_hole_diameter:.4g} mm",
-        "FLAVOR_TUBE_Z": f"{-flavor_tube_center[1]:.4g} mm",
+        "FLAVOR_TUBE_Y": f"{-flavor_tube_center[1]:.4g} mm",
         "PILL_L": f"{pill_length_x:.4g} mm",
-        "PILL_W": f"{pill_width_z:.4g} mm",
+        "PILL_W": f"{pill_width_y:.4g} mm",
     }
     substitute_py_comments(
         Path(__file__),
@@ -143,11 +143,11 @@ def main():
         expected_counts={
             "GASKET_D": 1,
             "GASKET_T": 2,
-            "GASKET_Z": 1,
+            "GASKET_Y": 1,
             "SHANK_HOLE_D": 1,
             "FLAVOR_TUBE_OD": 1,
             "FLAVOR_TUBE_HOLE_D": 1,
-            "FLAVOR_TUBE_Z": 1,
+            "FLAVOR_TUBE_Y": 1,
             "PILL_L": 1,
             "PILL_W": 1,
         },
