@@ -224,10 +224,13 @@ def load_mounting_gasket():
 
 
 def load_shell():
-    """Build the printed shell in its Z-up authoring frame.
+    """Build the printed shell. The shell script's public build_shell
+    now returns +Y-up — rotate back via _from_y_up so it aligns with
+    this assembly's still-Z-up internal authoring. The bridge stays
+    until the assembly's tubes / lever are rebased too.
     Source of truth: see
     `hardware/printed-parts/faucet/touch-flo-shell/touch_flo_shell.py`."""
-    return touch_flo_shell.build_shell()
+    return _from_y_up(touch_flo_shell.build_shell())
 
 
 def _arc_from_tangent(start, tangent, radius, theta_rad, ccw):
