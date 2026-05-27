@@ -395,60 +395,83 @@ def smooth_stroke(svg_path: Path) -> None:
 # Colored markings on the enclosure
 # ---------------------------------------------------------------------------
 # Some line-art features are colored markings on the enclosure surface
-# (printed, painted, or applied as decals). They sit on the wall plane and
-# render BEHIND the black geometry strokes — the 3D-geometry outlines that
-# cross them visually interrupt the marking.
+# (printed, painted, or applied as decals). They are 3D features added to
+# HLR alongside the appliance shape so the renderer computes their
+# visibility against the rest of the geometry.
 # ---------------------------------------------------------------------------
 
 
-def _project_to_inner(world_xyz, projection_dir):
-    """Project a 3D world point to the SVG's inner coord system (the
-    coords used inside the outer <g transform=...>)."""
-    x, y, z = world_xyz
-    if projection_dir == (1, 1, -1):  # iso-front
-        return -(x + z) / math.sqrt(2), (-x + 2 * y + z) / math.sqrt(6)
-    if projection_dir == (1, 1, 1):  # iso-back
-        return (x - z) / math.sqrt(2), (-x + 2 * y - z) / math.sqrt(6)
-    raise ValueError(f"Unsupported projection direction: {projection_dir}")
+# Red ring on the right side face around the CO2 port. Centerline radius
+# 12.25 mm; band stroke 4.5 mm (≈ 3× the line-art stroke of 1.5 mm). Inner
+# edge sits at 10.0 mm — outside both the body cup OD/2 (9.55) and the hex
+# inradius (9.525). Outer edge sits at 14.5 mm.
+CO2_PORT_RING_RADIUS = 12.25
+CO2_PORT_RING_STROKE = 4.5
 
 
-# Red ring on the right side face around the CO2 port. Radius 10.5 mm sits
-# between the hex inradius (9.525 mm = hex_flats/2) and circumradius
-# (11.0 mm = hex_points/2); the hex's six corners sit outside the ring and
-# the hex sides cross the ring near each corner.
-CO2_PORT_RING_RADIUS = 10.5
+def add_co2_red_ring(
+    svg_path: Path,
+    projection_dir,
+    appliance: cq.Workplane,
+) -> None:
+    """Render the red ring as a 3D circle on the wall plane and inject
+    its HLR-visible portions into the SVG.
 
-
-def _co2_red_ring_element(projection_dir):
-    """SVG <ellipse> for the red ring around the CO2 port, in inner coords.
-
-    The ring is a circle on the wall plane (YZ at x=W). Under the iso
-    projections it lands as an ellipse with semi-axes r and r/√3; major
-    axis at 120° (iso-front) or 60° (iso-back) CCW from +inner_x.
+    The ring is a TopoDS_Edge in the YZ plane at x=W. HLR runs with the
+    appliance shape as occluder; the body cup hides the parts of the
+    ring behind it from the camera's view.
     """
-    world_z, world_y = CO2_PORT_WALL_AT
-    cx, cy = _project_to_inner((W, world_y, world_z), projection_dir)
-    r = CO2_PORT_RING_RADIUS
-    angle = {(1, 1, -1): 120, (1, 1, 1): 60}[projection_dir]
-    return (
-        f'<ellipse cx="{cx:.4f}" cy="{cy:.4f}" '
-        f'rx="{r:.4f}" ry="{r / math.sqrt(3):.4f}" '
-        f'transform="rotate({angle}, {cx:.4f}, {cy:.4f})" '
-        f'stroke="red" fill="none" />'
-    )
+    from OCP.HLRBRep import HLRBRep_Algo, HLRBRep_HLRToShape
+    from OCP.HLRAlgo import HLRAlgo_Projector
+    from OCP.gp import gp_Ax2, gp_Pnt, gp_Dir, gp_Circ
+    from OCP.BRepBuilderAPI import BRepBuilderAPI_MakeEdge
+    from OCP.BRepLib import BRepLib
+    from cadquery.occ_impl.shapes import Shape, TOLERANCE
+    from cadquery.occ_impl.exporters.svg import makeSVGedge
 
-
-def add_co2_red_ring(svg_path: Path, projection_dir) -> None:
-    """Inject the red CO2-port ring into the SVG, just before the
-    hidden-lines marker so it draws beneath the line art."""
     text = svg_path.read_text()
-    sentinel = "<!-- red CO2 port ring -->"
+    sentinel = "<!-- co2 port ring -->"
     if sentinel in text:
         return
-    ellipse = _co2_red_ring_element(projection_dir)
+
+    world_z, world_y = CO2_PORT_WALL_AT
+    ring_axis = gp_Ax2(gp_Pnt(W, world_y, world_z), gp_Dir(1, 0, 0))
+    ring_circle = gp_Circ(ring_axis, CO2_PORT_RING_RADIUS)
+    ring_edge = BRepBuilderAPI_MakeEdge(ring_circle).Edge()
+
+    hlr = HLRBRep_Algo()
+    hlr.Add(appliance.val().wrapped)
+    hlr.Add(ring_edge)
+
+    projector = HLRAlgo_Projector(gp_Ax2(gp_Pnt(), gp_Dir(*projection_dir)))
+    hlr.Projector(projector)
+    hlr.Update()
+    hlr.Hide()
+
+    to_shape = HLRBRep_HLRToShape(hlr)
+    visible_compound = to_shape.VCompound(ring_edge)
+
+    paths = []
+    if not visible_compound.IsNull():
+        BRepLib.BuildCurves3d_s(visible_compound, TOLERANCE)
+        for edge in Shape(visible_compound).Edges():
+            paths.append(makeSVGedge(edge))
+
+    if not paths:
+        return
+
+    lines = [sentinel]
+    lines.append(
+        f'       <g stroke="red" stroke-width="{CO2_PORT_RING_STROKE}" fill="none" '
+        'stroke-linecap="round" stroke-linejoin="round">'
+    )
+    for p in paths:
+        lines.append(f'         <path d="{p}" />')
+    lines.append('       </g>')
+    inject = '\n'.join(lines)
+
     marker = "<!-- hidden lines -->"
-    inject = f"{sentinel}\n       {ellipse}\n       {marker}"
-    svg_path.write_text(text.replace(marker, inject, 1))
+    svg_path.write_text(text.replace(marker, inject + "\n       " + marker, 1))
 
 
 def refresh_comments() -> None:
