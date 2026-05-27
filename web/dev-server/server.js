@@ -32,15 +32,27 @@ const { broadcast, hardwareDir: HARDWARE_DIR } = await start({ dev: true });
 
 // --- Script discovery ---
 
-// A "generator" script is any .py that writes a CAD artifact via the
-// _cadq_export helpers. Detection is content-based (not name-based)
-// because each generator is named after its part — e.g. `co2_coupling_body.py`,
-// `foam_shell.py` — so there's no shared filename pattern to match against.
-// Private modules (`_foo.py`) are excluded by convention; `_cadq_export.py`
-// itself defines the helpers and is the obvious case.
-const GENERATOR_RE = /\bexport_(?:step|assembly|dxf)\s*\(/;
+// A "runnable" script is any non-`_`-prefixed .py with an
+// `if __name__ == "__main__":` block — i.e. anything written to be
+// executed directly. That covers:
+//   - CAD generators (call `export_step` / `_assembly` / `_dxf`)
+//   - Drawing scripts (in `drawings/` dirs, emit SVG/DXF via
+//     `cq.exporters` / ezdxf directly)
+//   - Standalone artifact builders that don't fit either bucket
+//     (e.g. `quickstart/appliance_quickstart.py`, which writes SVG +
+//     PDF for the print-and-fold quickstart sheet via cairosvg /
+//     rsvg-convert).
+//
+// Content detection (rather than name or directory) avoids the
+// recurring "I added a new script and it doesn't live-reload"
+// surprise: any new file with `__main__` gets picked up automatically.
+// The `_` prefix convention separates shared modules (imported, not
+// run) — e.g. `_appliance_model.py`, `_cadq_export.py` — from
+// scripts; those modules drive the transitive-import cascade instead
+// of running directly.
+const MAIN_RE = /^if\s+__name__\s*==\s*["']__main__["']\s*:/m;
 
-function isGeneratorScript(pyFilePath) {
+function isRunnableScript(pyFilePath) {
   const base = path.basename(pyFilePath);
   if (!base.endsWith(".py")) return false;
   if (base.startsWith("_")) return false;
@@ -50,25 +62,7 @@ function isGeneratorScript(pyFilePath) {
   } catch {
     return false;
   }
-  return GENERATOR_RE.test(source);
-}
-
-// A "drawing" script is a .py inside a drawings/ directory that isn't a
-// private module. Drawings emit SVGs via cq.exporters / ezdxf directly
-// rather than through _cadq_export, so the generator content check misses
-// them — but they're still runnable artifacts that need to rebuild when an
-// upstream dimension changes. The `_*.py` files in drawings/ are shared
-// models (e.g. `_appliance_model.py`, `_faucet_model.py`); they're imported
-// by the drawing scripts and aren't themselves executable.
-function isDrawingScript(pyFilePath) {
-  const base = path.basename(pyFilePath);
-  if (!base.endsWith(".py")) return false;
-  if (base.startsWith("_")) return false;
-  return pyFilePath.split(path.sep).includes("drawings");
-}
-
-function isRunnableScript(pyFilePath) {
-  return isGeneratorScript(pyFilePath) || isDrawingScript(pyFilePath);
+  return MAIN_RE.test(source);
 }
 
 function findGenerateScripts() {
@@ -78,7 +72,7 @@ function findGenerateScripts() {
       if (entry.name === "__pycache__") continue;
       const full = path.join(dir, entry.name);
       if (entry.isDirectory()) walk(full);
-      else if (entry.name.endsWith(".py") && isGeneratorScript(full)) {
+      else if (entry.name.endsWith(".py") && isRunnableScript(full)) {
         scripts.push(full);
       }
     }
