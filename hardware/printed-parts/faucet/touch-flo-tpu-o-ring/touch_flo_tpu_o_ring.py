@@ -9,9 +9,11 @@ import cadquery as cq
 _here = Path(__file__).resolve().parent
 sys.path.insert(0, str(next(p for p in _here.parents if p.name == "hardware")))
 sys.path.insert(0, str(next(p for p in _here.parents if (p / "tools" / "docgen").is_dir()) / "tools"))
+sys.path.insert(0, str(next(p for p in _here.parents if p.name == "printed-parts") / "cadlib"))
 
 from _cadq_export import export_step
 from docgen import substitute_md, substitute_py_comments
+from world_workplane import xz_plane_y_up
 
 
 inner_diameter = 9.45
@@ -36,21 +38,23 @@ lldpe_interference = (lldpe_od - inner_diameter) / 2.0
 
 def build_o_ring() -> cq.Workplane:
     """Build the TPU thimble: closed bottom with a centered hole, open
-    top, cylindrical wall. Z=0 is the bottom; cap spans Z=0 to
-    cap_thickness; sleeve spans Z=cap_thickness to total_height."""
+    top, cylindrical wall. Authored natively in the repo's +Y-up frame:
+    Y=0 is the bottom (the face that mates against the valve body's
+    port floor); cap spans Y=0 to cap_thickness; sleeve spans
+    Y=cap_thickness to total_height. The thimble's axis is +Y."""
     body = (
-        cq.Workplane("XY")
+        cq.Workplane(xz_plane_y_up)
         .circle(outer_diameter / 2.0)
         .extrude(total_height)
     )
     cap_hole = (
-        cq.Workplane("XY")
+        cq.Workplane(xz_plane_y_up)
         .circle(cap_hole_diameter / 2.0)
         .extrude(total_height)
     )
     body = body.cut(cap_hole)
     sleeve_bore = (
-        cq.Workplane("XY")
+        cq.Workplane(xz_plane_y_up)
         .workplane(offset=cap_thickness)
         .circle(inner_diameter / 2.0)
         .extrude(cylinder_length)
@@ -61,14 +65,7 @@ def build_o_ring() -> cq.Workplane:
 
 def main():
     o_ring = build_o_ring()
-    # Z-up authoring -> +Y-up output (matches the rest of the repo). See
-    # touch_flo_mounting_plate.main for the rationale.
-    export_step(
-        o_ring
-        .rotate((0, 0, 0), (0, 0, 1), 90)
-        .rotate((0, 0, 0), (1, 0, 0), -90),
-        str(_here / "touch-flo-tpu-o-ring.step"),
-    )
+    export_step(o_ring, str(_here / "touch-flo-tpu-o-ring.step"))
     print("-> touch-flo-tpu-o-ring.step")
 
     variables = {
