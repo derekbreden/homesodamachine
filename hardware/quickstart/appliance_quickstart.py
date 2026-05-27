@@ -33,10 +33,19 @@ Run:
 """
 
 import math
+import os
 import re
 import subprocess
+import sys
 import textwrap
 from pathlib import Path
+
+_here = Path(__file__).resolve()
+sys.path.insert(
+    0,
+    str(next(p for p in _here.parents if p.name == "hardware")),
+)
+from _cadq_export import export_pdf
 
 
 # Page — 11×17 landscape, in mm
@@ -456,13 +465,24 @@ def main():
     svg_path.write_text(svg)
 
     # PDF — rsvg-convert preserves the SVG's mm dimensions, producing
-    # a real 11×17 landscape page that prints to scale.
-    try:
+    # a real 11×17 landscape page that prints to scale. SOURCE_DATE_EPOCH
+    # makes Cairo's embedded /CreationDate, /ModDate, and /ID array
+    # reproducible (Cairo honors the reproducible-builds standard); the
+    # metadata lives inside compressed object streams, so regex-level
+    # canonicalization in _canonicalize_pdf can't reach it the way it
+    # does for ReportLab output.
+    def _build_pdf(out_path):
+        env = os.environ.copy()
+        env.setdefault("SOURCE_DATE_EPOCH", "0")
         subprocess.run(
-            ["rsvg-convert", "-f", "pdf", "-o", str(pdf_path), str(svg_path)],
+            ["rsvg-convert", "-f", "pdf", "-o", str(out_path), str(svg_path)],
             check=True,
             capture_output=True,
+            env=env,
         )
+
+    try:
+        export_pdf(_build_pdf, str(pdf_path))
     except FileNotFoundError:
         print("rsvg-convert not found on PATH; skipping PDF generation.")
     except subprocess.CalledProcessError as e:

@@ -94,16 +94,22 @@ _DXF_CLASSES_SECTION_CLOSE_RE = re.compile(rb"  0\nENDSEC\n")
 _DXF_CLASS_BLOCK_RE = re.compile(rb"  0\nCLASS\n")
 _DXF_CLASS_NAME_RE = re.compile(rb"  1\n([^\n]+)\n")
 
-# PDF non-determinism from ReportLab's Canvas.save():
+# PDF non-determinism. Two producers in this repo, two shapes:
 #
-#   1. Wall-clock save times in /CreationDate and /ModDate metadata
-#      entries, formatted as PDF dates: D:YYYYMMDDHHMMSSOHH'MM'.
-#   2. A pair of random-on-every-save hex strings in the trailer /ID
-#      array (the first ID is meant to be permanent, the second to
-#      change on each save; ReportLab regenerates both).
+#   ReportLab (Canvas.save) writes /CreationDate, /ModDate, and the
+#   trailer /ID array as plain (uncompressed) bytes near end-of-file.
+#   The regex patterns below catch all three.
 #
-# The compressed content stream is reproducible across close-in-time
-# runs given identical source, so no stream canonicalization is needed.
+#   Cairo (rsvg-convert, weasyprint, etc.) writes the same fields but
+#   bundles them inside compressed object streams that the file-level
+#   regex can't reach. Cairo honors SOURCE_DATE_EPOCH instead — set it
+#   at the producer (see hardware/quickstart/appliance_quickstart.py),
+#   and _canonicalize_pdf becomes a harmless no-op on Cairo output.
+#
+# Entries:
+#   /CreationDate and /ModDate — PDF dates: D:YYYYMMDDHHMMSSOHH'MM'.
+#   /ID array in the trailer — two hex strings; ReportLab regenerates
+#       both on every save (the first is meant to be permanent).
 _PDF_DATE_RE = re.compile(
     rb"\(D:\d{14}(?:Z|[-+]\d{2}'\d{2}')\)"
 )
