@@ -172,46 +172,54 @@ gn_flavor_bend1_r = gn_bend1_r + _gn_flavor_offset_x
 gn_flavor_bend2_r = gn_bend2_r + _gn_flavor_offset_x
 
 
-# Reference STEP files — body, mounting plate, mounting gasket, shell.
+# Resolve sibling part directories and the harvested-body reference STEP.
 _assembly_dir = Path(__file__).resolve().parent
 _harvested_dir = _assembly_dir.parent
 _repo_hardware_dir = _harvested_dir.parent.parent
 _faucet_printed_dir = _repo_hardware_dir / "printed-parts" / "faucet"
 
 ref_body_step = _harvested_dir / "valve-body-reference" / "touch-flo-valve-body-reference.step"
-mounting_plate_step = _faucet_printed_dir / "touch-flo-mounting-plate" / "touch-flo-mounting-plate.step"
-mounting_gasket_step = _faucet_printed_dir / "touch-flo-mounting-gasket" / "touch-flo-mounting-gasket.step"
-shell_step = _faucet_printed_dir / "touch-flo-shell" / "touch-flo-shell.step"
+
+# Each printed part is built in the upstream Z-up frame (matching the
+# harvested Westbrass valve body), shipped as a +Y-up STEP at the
+# part script's export boundary, and consumed back HERE in its native
+# Z-up build_*() to compose into the Z-up assembly. The single rebase
+# to +Y-up happens once, in build_assembly()'s _to_y_up wrapper around
+# every child.
+sys.path.insert(0, str(_faucet_printed_dir / "touch-flo-mounting-plate"))
+sys.path.insert(0, str(_faucet_printed_dir / "touch-flo-mounting-gasket"))
+sys.path.insert(0, str(_faucet_printed_dir / "touch-flo-shell"))
+import touch_flo_mounting_plate
+import touch_flo_mounting_gasket
+import touch_flo_shell
 
 
 def load_valve_body():
     """Load the harvested valve body from the reference STEP file.
-    Read-only — this file never modifies the body geometry."""
+    The harvested STEP is in upstream Z-up — matching our authoring
+    frame, so it loads without rotation."""
     return cq.importers.importStep(str(ref_body_step))
 
 
 def load_mounting_plate():
-    """Load the printed mounting plate from its printed-parts STEP.
-    Read-only here — see
-    `hardware/printed-parts/faucet/touch-flo-mounting-plate/touch_flo_mounting_plate.py`
-    for the source of truth."""
-    return cq.importers.importStep(str(mounting_plate_step))
+    """Build the printed mounting plate in its Z-up authoring frame.
+    Source of truth: see
+    `hardware/printed-parts/faucet/touch-flo-mounting-plate/touch_flo_mounting_plate.py`."""
+    return touch_flo_mounting_plate.build_mounting_plate()
 
 
 def load_mounting_gasket():
-    """Load the printed-TPU mounting gasket from its printed-parts STEP.
-    Read-only here — see
-    `hardware/printed-parts/faucet/touch-flo-mounting-gasket/touch_flo_mounting_gasket.py`
-    for the source of truth."""
-    return cq.importers.importStep(str(mounting_gasket_step))
+    """Build the printed-TPU mounting gasket in its Z-up authoring frame.
+    Source of truth: see
+    `hardware/printed-parts/faucet/touch-flo-mounting-gasket/touch_flo_mounting_gasket.py`."""
+    return touch_flo_mounting_gasket.build_mounting_gasket()
 
 
 def load_shell():
-    """Load the printed shell from its printed-parts STEP.
-    Read-only here — see
-    `hardware/printed-parts/faucet/touch-flo-shell/touch_flo_shell.py`
-    for the source of truth."""
-    return cq.importers.importStep(str(shell_step))
+    """Build the printed shell in its Z-up authoring frame.
+    Source of truth: see
+    `hardware/printed-parts/faucet/touch-flo-shell/touch_flo_shell.py`."""
+    return touch_flo_shell.build_shell()
 
 
 def _arc_from_tangent(start, tangent, radius, theta_rad, ccw):
@@ -518,12 +526,9 @@ def main():
           f"@ {bend1_deg:.0f}° from vertical")
     print(f"                         {gn_tip_straight_len} mm tip "
           f"({tip_below_horiz:.0f}° below horizontal)")
-    print(f"  Mounting plate:        loaded from printed-parts/")
-    print(f"                         {mounting_plate_step.name}")
-    print(f"  Mounting gasket:       loaded from printed-parts/")
-    print(f"                         {mounting_gasket_step.name}")
-    print(f"  Shell (zones 1-6):     loaded from printed-parts/")
-    print(f"                         {shell_step.name}")
+    print(f"  Mounting plate:        touch_flo_mounting_plate.build_mounting_plate()")
+    print(f"  Mounting gasket:       touch_flo_mounting_gasket.build_mounting_gasket()")
+    print(f"  Shell (zones 1-6):     touch_flo_shell.build_shell()")
     print(f"-> {out.name}")
 
     substitute_py_comments(
