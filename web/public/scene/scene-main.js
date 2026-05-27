@@ -108,18 +108,16 @@ function applyLineArtMaterials(root) {
   for (const node of meshes) {
     const origColor = node.material.color.clone();
     if (isMonochrome(origColor)) {
-      // Invisible-but-occluding surface: writes depth, skips color. Three.js'
-      // default depthFunc=LessEqualDepth lets the EdgesGeometry overlay
-      // win the depth test at the same depth as the surface — no polygon
-      // offset needed. AVOID polygon offset here: it would push the
-      // body's surface depth BEHIND nearby colored parts (like the red
-      // ring on the wall just behind the CO2 coupling), breaking the
-      // occlusion that's the whole point of running this through a
-      // z-buffer renderer.
-      node.material = new THREE.MeshBasicMaterial({
-        colorWrite: false,
-        depthWrite: true,
-      });
+      // White surface on a white background — paints white pixels that
+      // are visually invisible against the page bg but DO write depth
+      // (and DO write color, matching the bg). All edges in the scene
+      // are rendered AFTER all surfaces (via renderOrder=1 on the
+      // Line2 below), and depthFunc defaults to LessEqualDepth, so an
+      // edge at the same depth as the surface it outlines wins the
+      // depth test by being drawn later. No polygonOffset needed, and
+      // the body's surface depth lands at its true position — which is
+      // exactly what occludes the red ring behind it.
+      node.material = new THREE.MeshBasicMaterial({ color: 0xffffff });
 
       // Feature-edge overlay: Line2 (triangle-strip lines) for honored
       // line width. EdgesGeometry gives a non-indexed array of vertex
@@ -141,6 +139,9 @@ function applyLineArtMaterials(root) {
       const lines = new Line2(geo, mat);
       lines.computeLineDistances();
       lines.userData.lineArtOverlay = true;
+      // Draw edges AFTER all surfaces so any edge at the same depth as
+      // its (white) surface wins the depthFunc=LessEqualDepth test.
+      lines.renderOrder = 1;
       node.add(lines);
     } else {
       // Colored part — flat color, no shading, no edge overlay. Surface
