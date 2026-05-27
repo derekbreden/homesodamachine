@@ -418,8 +418,36 @@ def build_lever():
     return lever_rest_final.union(lever_pressed)
 
 
+# Every part in the faucet — the harvested valve body, the natively
+# authored tubes / lever, and the printed-part STEPs (mounting plate /
+# gasket / shell) — is in the upstream Z-up frame (+Z body-up, -X
+# gooseneck dispense direction). The rest of the repo (cold-core,
+# enclosure) uses +Y-up. We rebase to +Y-up at the assembly's export
+# boundary so all downstream consumers (drawings, the SVG iso view,
+# the appliance composite) see the faucet in the repo's convention.
+#
+# Cyclic axis permutation (a -120° turn about (1, 1, 1)): old (X, Y, Z)
+# becomes new (Y, Z, X):
+#   +Z body-up        -> +Y  (height — matches repo +Y-up)
+#   -X gooseneck tip  -> -Z  (toward the front / toward the user)
+#   +Y lateral        -> +X  (width)
+#
+# Authoring math (tubes, lever, all coordinate constants above) stays
+# in Z-up — the rotation lives ONLY here, where it crosses the export
+# boundary. This is deliberate: rewriting the internal coordinate names
+# is what broke the lever in the previous rebase attempt.
+_Y_UP_ROTATION_AXIS = (1, 1, 1)
+_Y_UP_ROTATION_DEG = -120
+
+
+def _to_y_up(shape):
+    """Rotate a Z-up authored shape into the +Y-up output frame."""
+    return shape.rotate((0, 0, 0), _Y_UP_ROTATION_AXIS, _Y_UP_ROTATION_DEG)
+
+
 def build_assembly():
-    """Combine the reference body and our new parts into one assembly."""
+    """Combine the reference body and our new parts into one assembly,
+    rebased into the repo's +Y-up frame."""
     body = load_valve_body()
     water_tube = build_water_dispense_tube()
     flavor_tube_pos_y = build_flavor_tube(+1)
@@ -436,14 +464,14 @@ def build_assembly():
                                             # read apart
 
     assy = cq.Assembly(name="touch-flo-faucet-assembly")
-    assy.add(body, name="valve_body", color=cq.Color("black"))
-    assy.add(water_tube, name="water_dispense_tube", color=silver)
-    assy.add(flavor_tube_pos_y, name="flavor_tube_pos_y", color=silver)
-    assy.add(flavor_tube_neg_y, name="flavor_tube_neg_y", color=silver)
-    assy.add(lever, name="lever", color=silver)
-    assy.add(mounting_plate, name="mounting_plate", color=petg_tan)
-    assy.add(mounting_gasket, name="mounting_gasket", color=tpu_black)
-    assy.add(shell, name="shell", color=petg_tan)
+    assy.add(_to_y_up(body), name="valve_body", color=cq.Color("black"))
+    assy.add(_to_y_up(water_tube), name="water_dispense_tube", color=silver)
+    assy.add(_to_y_up(flavor_tube_pos_y), name="flavor_tube_pos_y", color=silver)
+    assy.add(_to_y_up(flavor_tube_neg_y), name="flavor_tube_neg_y", color=silver)
+    assy.add(_to_y_up(lever), name="lever", color=silver)
+    assy.add(_to_y_up(mounting_plate), name="mounting_plate", color=petg_tan)
+    assy.add(_to_y_up(mounting_gasket), name="mounting_gasket", color=tpu_black)
+    assy.add(_to_y_up(shell), name="shell", color=petg_tan)
     return assy
 
 
