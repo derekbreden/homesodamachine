@@ -14,7 +14,7 @@ npm run dev        # dev wrapper: chokidar + Python runner + SSE hot reload (por
 npm test           # smoke tests: route mount + Puppeteer viewer (no DB needed)
 ```
 
-`npm start` boots `server.js` directly — what Render runs in production. `npm run dev` adds the file watcher that re-runs `generate_step_cadquery.py` scripts when a CAD source changes and pushes file-change events over SSE so an open `/3d` page hot-reloads its thumbnails. Set `DATABASE_URL` to enable the notification inbox + FCM push paths; both no-op without a DB so dev works fine without one.
+`npm start` boots `server.js` directly — what Render runs in production. `npm run dev` adds the file watcher that re-runs CadQuery generator scripts when a CAD source changes and pushes file-change events over SSE so an open `/3d` page hot-reloads its thumbnails. A "generator" is any part-named `.py` under `hardware/` that calls `export_step` / `export_assembly` / `export_dxf` from `_cadq_export`; the watcher detects them by content, not filename. Set `DATABASE_URL` to enable the notification inbox + FCM push paths; both no-op without a DB so dev works fine without one.
 
 ## Page request lifecycle
 
@@ -123,9 +123,9 @@ Three event sources land in the page (SSE, FCM, focus/visibility). All three con
 
 There is **one server core** ([`server.js`](server.js)). The dev wrapper ([`dev-server/server.js`](dev-server/server.js)) imports `start({ dev: true })` and *adds*:
 
-- chokidar watcher on the repo's `hardware/` to re-run `generate_step_cadquery.py` and broadcast `files-changed` over SSE.
+- chokidar watcher on the repo's `hardware/` to re-run CadQuery generator scripts and broadcast `files-changed` over SSE.
 - `findScriptsImportingStep` heuristic to also rebuild dependent scripts when a STEP they import changes.
-- A Python runner that picks up new `generate_step_*.py` files automatically.
+- A Python runner that picks up any new part-named generator script (detected by `export_step` / `export_assembly` / `export_dxf` calls) automatically.
 
 `dev: true` only changes two things in `server.js` itself: the SSE `commit` signal becomes `"dev"` (not the deploy SHA), and the boot-time push diff is skipped. Routes are identical.
 
