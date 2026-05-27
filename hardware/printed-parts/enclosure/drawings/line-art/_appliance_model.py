@@ -370,10 +370,6 @@ def build_appliance() -> cq.Workplane:
     # Right side face: CO2 inlet (CPC LC-family coupling body)
     appliance = _add_co2_port(appliance, *CO2_PORT_WALL_AT)
 
-    # Right side face: annular pocket around the CO2 port, filled at
-    # render time by build_red_ring().
-    appliance = appliance.cut(_co2_red_ring_workplane())
-
     return cq.Workplane().add(appliance.val().Solids()[0])
 
 
@@ -395,127 +391,6 @@ def smooth_stroke(svg_path: Path) -> None:
     replacement = 'stroke="rgb(0,0,0)" fill="none" stroke-linecap="round" stroke-linejoin="round"'
     if needle in text and replacement not in text:
         svg_path.write_text(text.replace(needle, replacement, 1))
-
-
-# ---------------------------------------------------------------------------
-# Colored markings on the enclosure
-# ---------------------------------------------------------------------------
-# Colored markings are modeled as separate solids that fill pockets cut into
-# the wall (the multi-color-print pattern: same filament base, distinct
-# regions). The wall's pocket and the marking solid are real 3D geometry —
-# HLR sees the marking, sees the appliance (with the cup protruding from
-# the wall), and computes occlusion from the 3D facts.
-# ---------------------------------------------------------------------------
-
-
-# Red ring on the right side face around the CO2 port. Inner edge sits
-# outside the hex circumradius (hex_points/2 = 11.0 mm) so the ring's
-# pocket doesn't eat the hex outline.
-CO2_PORT_RING_OUTER_R = 16.5
-CO2_PORT_RING_INNER_R = 12.0
-CO2_PORT_RING_DEPTH = 1.5  # pocket depth into the wall
-
-
-def _co2_red_ring_workplane() -> cq.Workplane:
-    """Return the ring as a thin extruded annulus on the right side wall.
-
-    The annulus sits in a pocket cut into the wall at the CO2 port: it
-    extends from x = W (wall surface) to x = W - CO2_PORT_RING_DEPTH
-    (pocket bottom), spanning the annulus between CO2_PORT_RING_INNER_R
-    and CO2_PORT_RING_OUTER_R in the wall plane.
-    """
-    world_y, world_z = CO2_PORT_WALL_AT
-    return (
-        cq.Workplane(cq.Plane(
-            origin=(W, world_y, world_z),
-            xDir=(0, 1, 0),
-            normal=(1, 0, 0),
-        ))
-        .circle(CO2_PORT_RING_OUTER_R)
-        .circle(CO2_PORT_RING_INNER_R)
-        .extrude(-CO2_PORT_RING_DEPTH)
-    )
-
-
-def build_red_ring() -> cq.Workplane:
-    """The red ring as a standalone solid (the part that fills the
-    wall pocket)."""
-    return _co2_red_ring_workplane()
-
-
-def add_co2_red_ring(
-    svg_path: Path,
-    projection_dir,
-    appliance: cq.Workplane,
-    ring: cq.Workplane,
-) -> None:
-    """Inject the red ring as a filled SVG region into the line-art SVG.
-
-    The ring's annulus and the body cup's silhouette are computed
-    analytically from the 3D geometry projected to inner SVG coords.
-    The annulus is drawn as `<path fill="red">` clipped by a
-    `<clipPath>` of the cup silhouette (excluded), so the cup occludes
-    the part of the ring behind it. The line-art edges from HLR draw
-    on top, so the cup outline visibly cuts across the red.
-    """
-    import _color_marking as cm
-
-    text = svg_path.read_text()
-    sentinel = "<!-- co2 port ring -->"
-    if sentinel in text:
-        return
-
-    # Projection_dir tuple varies with the iso script's chosen rotation +
-    # camera orientation; what matters is whether the result is the front
-    # or back iso layout. Both currently-supported settings map to the
-    # empirically-derived front/back projections.
-    iso = {
-        (1, 1, -1): "front",
-        (1, 1, 1): "front",
-        (1, -1, 1): "back",
-        (1, -1, -1): "back",
-    }.get(tuple(projection_dir))
-    if iso is None:
-        return
-
-    # Ring center in CAD world coords (model's native +Y-up frame).
-    world_z, world_y = CO2_PORT_WALL_AT
-    ring_center = (W, world_y, world_z)
-
-    # Cup geometry from co2_coupling_body.
-    cup_length = co2_coupling_body.body_length
-    cup_radius = co2_coupling_body.body_d / 2
-
-    ring_d = cm.ring_annulus_path_d(
-        iso, ring_center, CO2_PORT_RING_OUTER_R, CO2_PORT_RING_INNER_R
-    )
-    cup_d = cm.cup_silhouette_path_d(iso, ring_center, cup_length, cup_radius)
-
-    # Big rectangle in inner coords used with even-odd fill rule to
-    # produce "everything OUTSIDE the cup silhouette" as the clip
-    # region. Bounds are way larger than the line art.
-    big_rect = "M-1000,-1000 L1000,-1000 L1000,1000 L-1000,1000 Z"
-    clip_d = big_rect + " " + cup_d
-
-    # Big rectangle in inner coords used with evenodd to make the
-    # clip region = "everything OUTSIDE the cup silhouette". Bounds
-    # are huge so they comfortably wrap the line art.
-    big_rect = "M-1000,-1000 L1000,-1000 L1000,1000 L-1000,1000 Z"
-    clip_d = big_rect + " " + cup_d
-
-    inject = (
-        f"{sentinel}\n"
-        f'       <defs>\n'
-        f'         <clipPath id="co2-cup-occluder" clipPathUnits="userSpaceOnUse">\n'
-        f'           <path d="{clip_d}" fill-rule="evenodd" />\n'
-        f'         </clipPath>\n'
-        f'       </defs>\n'
-        f'       <path d="{ring_d}" fill="red" fill-rule="evenodd" '
-        f'stroke="none" clip-path="url(#co2-cup-occluder)" />'
-    )
-
-    marker = "<!-- hidden lines -->"
-    svg_path.write_text(text.replace(marker, inject + "\n       " + marker, 1))
 
 
 def refresh_comments() -> None:
