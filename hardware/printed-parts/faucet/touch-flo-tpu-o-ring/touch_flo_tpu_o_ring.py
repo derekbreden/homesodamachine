@@ -13,7 +13,7 @@ sys.path.insert(0, str(next(p for p in _here.parents if p.name == "printed-parts
 
 from _cadq_export import export_step
 from docgen import substitute_md, substitute_py_comments
-from world_workplane import xz_plane_y_up
+from world_workplane import xy_plane_z_up
 
 
 inner_diameter = 9.45
@@ -38,23 +38,23 @@ lldpe_interference = (lldpe_od - inner_diameter) / 2.0
 
 def build_o_ring() -> cq.Workplane:
     """Build the TPU thimble: closed bottom with a centered hole, open
-    top, cylindrical wall. Authored natively in the repo's +Y-up frame:
-    Y=0 is the bottom (the face that mates against the valve body's
-    port floor); cap spans Y=0 to cap_thickness; sleeve spans
-    Y=cap_thickness to total_height. The thimble's axis is +Y."""
+    top, cylindrical wall. Authored natively in the repo's +Z-up frame:
+    Z=0 is the bottom (the face that mates against the valve body's
+    port floor); cap spans Z=0 to cap_thickness; sleeve spans
+    Z=cap_thickness to total_height. The thimble's axis is +Z."""
     body = (
-        cq.Workplane(xz_plane_y_up)
+        cq.Workplane(xy_plane_z_up)
         .circle(outer_diameter / 2.0)
         .extrude(total_height)
     )
     cap_hole = (
-        cq.Workplane(xz_plane_y_up)
+        cq.Workplane(xy_plane_z_up)
         .circle(cap_hole_diameter / 2.0)
         .extrude(total_height)
     )
     body = body.cut(cap_hole)
     sleeve_bore = (
-        cq.Workplane(xz_plane_y_up)
+        cq.Workplane(xy_plane_z_up)
         .workplane(offset=cap_thickness)
         .circle(inner_diameter / 2.0)
         .extrude(cylinder_length)
