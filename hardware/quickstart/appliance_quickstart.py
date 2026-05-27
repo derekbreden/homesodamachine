@@ -271,7 +271,7 @@ def _arrows_connect_co2(x, y, w, draw_h):
     gap from the port outline. Tail at (0.30, 0.18)."""
     return _straight_arrow(
         x + 0.30 * w, y + 0.18 * draw_h,
-        x + 0.443 * w, y + 0.500 * draw_h,
+        x + 0.436 * w, y + 0.500 * draw_h,
         color="red",
     )
 
