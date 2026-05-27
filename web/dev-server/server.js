@@ -31,13 +31,38 @@ const PYTHON_BIN = path.join(PROJECT_ROOT, "tools", "cad-venv", "bin", "python")
 const { broadcast, hardwareDir: HARDWARE_DIR } = await start({ dev: true });
 
 // --- Script discovery ---
+
+// A "generator" script is any .py that writes a CAD artifact via the
+// _cadq_export helpers. Detection is content-based (not name-based)
+// because each generator is named after its part — e.g. `co2_coupling_body.py`,
+// `foam_shell.py` — so there's no shared filename pattern to match against.
+// Private modules (`_foo.py`) are excluded by convention; `_cadq_export.py`
+// itself defines the helpers and is the obvious case.
+const GENERATOR_RE = /\bexport_(?:step|assembly|dxf)\s*\(/;
+
+function isGeneratorScript(pyFilePath) {
+  const base = path.basename(pyFilePath);
+  if (!base.endsWith(".py")) return false;
+  if (base.startsWith("_")) return false;
+  let source;
+  try {
+    source = fs.readFileSync(pyFilePath, "utf-8");
+  } catch {
+    return false;
+  }
+  return GENERATOR_RE.test(source);
+}
+
 function findGenerateScripts() {
   const scripts = [];
   function walk(dir) {
     for (const entry of fs.readdirSync(dir, { withFileTypes: true })) {
+      if (entry.name === "__pycache__") continue;
       const full = path.join(dir, entry.name);
       if (entry.isDirectory()) walk(full);
-      else if (/generate_step.*\.py$/.test(entry.name)) scripts.push(full);
+      else if (entry.name.endsWith(".py") && isGeneratorScript(full)) {
+        scripts.push(full);
+      }
     }
   }
   walk(HARDWARE_DIR);
@@ -58,13 +83,13 @@ function findAllPythonFiles() {
   return files;
 }
 
-// Walk the import graph backwards from a shared module to every
-// generate_step*.py that transitively depends on it. A generator that
-// imports a module that imports the changed module is still a dependent,
-// even though it never names the changed module itself — e.g.
-// `_reed_channels.py` is only imported by `_foam_shell.py`, which is what
-// `foam-shell/foam_shell.py` actually imports. Without the
-// transitive walk, leaf-module edits silently produce no rebuild.
+// Walk the import graph backwards from a shared module to every generator
+// that transitively depends on it. A generator that imports a module that
+// imports the changed module is still a dependent, even though it never
+// names the changed module itself — e.g. `_reed_channels.py` is only
+// imported by `_foam_shell.py`, which is what `foam-shell/foam_shell.py`
+// actually imports. Without the transitive walk, leaf-module edits
+// silently produce no rebuild.
 function findGeneratorsTransitivelyImporting(moduleName) {
   const allPyFiles = findAllPythonFiles();
   const visited = new Set();
@@ -85,7 +110,7 @@ function findGeneratorsTransitivelyImporting(moduleName) {
         continue;
       }
       if (!importRe.test(source)) continue;
-      if (/^generate_step.*\.py$/.test(path.basename(pyFile))) {
+      if (isGeneratorScript(pyFile)) {
         dependents.add(pyFile);
       } else {
         queue.push(path.basename(pyFile, ".py"));
@@ -309,8 +334,9 @@ watcher.on("change", (absPath) => {
     return;
   }
 
-  // generate_step*.py changed — re-run that script.
-  if (/generate_step.*\.py$/.test(absPath)) {
+  // A generator script (part-named .py that calls export_step / _assembly
+  // / _dxf) changed — re-run that script directly.
+  if (absPath.endsWith(".py") && isGeneratorScript(absPath)) {
     if (debounce.has(absPath)) clearTimeout(debounce.get(absPath));
     debounce.set(
       absPath,
