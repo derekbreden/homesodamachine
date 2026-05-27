@@ -1,12 +1,45 @@
 # WorldWorkplane and WorldProfile
 
 Defined in `world_workplane.py`. Lets generator code be written in
-**world coordinates**, with profiles named as separable nouns. Read
-`../cold-core/_reed_channels.md` first for the surrounding methodology.
+**world coordinates** on any face of an axis-aligned box, with the
+same code shape regardless of which face. Two adjacent blocks of
+geometry — one on the top face, one on the back face — read
+identically: same constructor pattern, same chained methods,
+positive numbers meaning positive in the world direction the user
+expects. Read `../cold-core/_reed_channels.md` first for the
+surrounding methodology.
+
+## Box-face planes
+
+Six module-level singletons, one per face of an axis-aligned box.
+Identity is meaningful — `WorldWorkplane` looks up its frame
+transform by `is` comparison, so do not construct your own copies;
+import these.
+
+| plane              | normal | xDir | extrude(+h) goes |
+|--------------------|--------|------|------------------|
+| `xy_plane_z_up`    | +Z     | +X   | +Z (out of top face)        |
+| `xy_plane_z_down`  | -Z     | +X   | -Z (out of bottom face)     |
+| `xz_plane_y_up`    | +Y     | +X   | +Y (out of back face)       |
+| `xz_plane_y_down`  | -Y     | +X   | -Y (out of front face)      |
+| `yz_plane_x_up`    | +X     | +Y   | +X (out of right face)      |
+| `yz_plane_x_down`  | -X     | +Y   | -X (out of left face)       |
+
+For each, `.workplane(offset=h)` shifts the sketch plane along the
+normal by `h` (positive `h` = positive normal direction); `.extrude(h)`
+sweeps the sketch along the normal by `h`. Positive numbers mean
+positive in the world direction the face's name implies.
+
+Three of the six (`xy_plane_z_down`, `xz_plane_y_up`,
+`yz_plane_x_down`) have local-y that points in the negative world
+direction the user thinks of as "up" looking at the face. Sketching
+chirality (CCW vs CW arcs) and 2D coordinate semantics need a flip
+on those. `WorldWorkplane`'s registered frame transforms make the API
+hide it — the user writes world coordinates and CCW means CCW.
 
 ## WorldWorkplane
 
-Drop-in `cq.Workplane` wrapper. Accepts `(x, y)` tuples directly
+Drop-in `cq.Workplane` wrapper. Accepts `(a, b)` tuples directly
 (no `*` unpacking) for `.moveTo`, `.lineTo`, `.radiusArc`,
 `.threePointArc`, `.pushPoints`, `.polyline`. Applies the plane's
 registered frame transform to those points, and negates radii when
@@ -14,6 +47,13 @@ the frame inverts chirality. Everything else (`.workplane`, `.extrude`,
 `.cut`, `.union`, `.circle`, `.faces`, `.shell`, `.close`, ...) passes
 through to the underlying `cq.Workplane`, with returned Workplanes
 re-wrapped so the frame persists through the chain.
+
+For non-chirality-flipped planes (`xy_plane_z_up`, `xz_plane_y_down`,
+`yz_plane_x_up`) the wrapper's transforms are identity, so wrapping
+is optional — `cq.Workplane(plane)` and `WorldWorkplane(plane)` are
+equivalent. Use the wrapper anyway when you want the tuple calling
+convention or when style consistency across two adjacent blocks of
+code matters.
 
 ```python
 outer_perimeter = (
@@ -59,12 +99,20 @@ outer_perimeter = (
 transform pair with a plane. Lookup is by identity (`is`).
 
 Currently registered:
-- `xz_plane_y_up` → `point=flip_z`, `radius=lambda r: -r`
-  (world (x, z) → local (x, -z); arc chirality inverts, so radius negates)
-- `xy_plane_z_up` → identity (no registration needed)
+- `xy_plane_z_down` → `point=flip_y`, `radius=lambda r: -r`
+  (world (x, y) → local (x, -y))
+- `xz_plane_y_up`   → `point=flip_z`, `radius=lambda r: -r`
+  (world (x, z) → local (x, -z))
+- `yz_plane_x_down` → `point=flip_z`, `radius=lambda r: -r`
+  (world (y, z) → local (y, -z))
 
-To add a new workplane with a non-identity frame: define the plane,
-then call `_register_frame(plane, point=..., radius=...)`.
+The other three planes (`xy_plane_z_up`, `xz_plane_y_down`,
+`yz_plane_x_up`) default to identity via `_lookup_frame` — no
+registration needed.
+
+To add a new workplane (e.g., tilted face, oblique cut) with a
+non-identity frame: define the plane, then call
+`_register_frame(plane, point=..., radius=...)`.
 
 ## .unwrap()
 
