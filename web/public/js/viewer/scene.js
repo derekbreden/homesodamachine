@@ -74,14 +74,15 @@ const gizmoScene = new THREE.Scene();
 const gizmoCam = new THREE.PerspectiveCamera(45, 1, 0.1, 100);
 const gizmoRaycaster = new THREE.Raycaster();
 
-// Face definitions: label, normal (camera direction to see that face), material index
+// Face definitions: label, normal (camera direction to see that face), material index.
+// Repo convention is +Z-up CAD: +Z height, -Y front (user side), +X right.
 const cubeFaces = [
   { label: "Right",  normal: new THREE.Vector3( 1, 0, 0), index: 0 },
   { label: "Left",   normal: new THREE.Vector3(-1, 0, 0), index: 1 },
-  { label: "Top",    normal: new THREE.Vector3( 0, 1, 0), index: 2 },
-  { label: "Bottom", normal: new THREE.Vector3( 0,-1, 0), index: 3 },
-  { label: "Front",  normal: new THREE.Vector3( 0, 0, 1), index: 4 },
-  { label: "Back",   normal: new THREE.Vector3( 0, 0,-1), index: 5 },
+  { label: "Top",    normal: new THREE.Vector3( 0, 0, 1), index: 2 },
+  { label: "Bottom", normal: new THREE.Vector3( 0, 0,-1), index: 3 },
+  { label: "Front",  normal: new THREE.Vector3( 0,-1, 0), index: 4 },
+  { label: "Back",   normal: new THREE.Vector3( 0, 1, 0), index: 5 },
 ];
 
 function makeFaceTexture(label, isHovered) {
@@ -225,10 +226,12 @@ function snapCameraToFace(normal) {
   const dist = camera.position.distanceTo(target);
   const dest = target.clone().add(normal.clone().multiplyScalar(dist));
 
-  // Up vector: use Y-up unless looking along Y axis, then use Z-up
-  const up = Math.abs(normal.y) > 0.9
-    ? new THREE.Vector3(0, 0, normal.y > 0 ? -1 : 1)
-    : new THREE.Vector3(0, 1, 0);
+  // Up vector: use Z-up unless looking along Z axis (Top / Bottom view),
+  // then fall back to Y-up so the camera doesn't collapse onto its own
+  // up vector (which would produce an undefined "right" direction).
+  const up = Math.abs(normal.z) > 0.9
+    ? new THREE.Vector3(0, normal.z > 0 ? -1 : 1, 0)
+    : new THREE.Vector3(0, 0, 1);
 
   const startPos = camera.position.clone();
   const startUp = camera.up.clone();
@@ -318,8 +321,9 @@ export function stopAnimate() {
 
 // Default isometric framing for STEP groups. DXF has its own framing in
 // dxf.js (resetDxfCamera) because flat plates need aspect-aware sizing.
-// camera.up is restored to Y-up so a prior Top/Bottom ViewCube snap (which
-// rotates up onto Z) doesn't carry over and leave the reset view rolled.
+// camera.up is restored to +Z-up so a prior Top/Bottom ViewCube snap
+// (which temporarily lays up onto ±Y) doesn't carry over and leave the
+// reset view rolled.
 export function resetCamera(group) {
   const box = new THREE.Box3().setFromObject(group);
   const center = box.getCenter(new THREE.Vector3());
@@ -327,14 +331,18 @@ export function resetCamera(group) {
   const maxDim = Math.max(size.x, size.y, size.z);
   const dist = maxDim * 2.5;
 
-  // Isometric angles
+  // Isometric angles. +Z-up CAD-standard front-iso: camera at +X, -Y, +Z
+  // — the user's "front-right-above" view. Elevation lifts the camera by
+  // sin(35.26°) along +Z; the horizontal projection lays it at az = -45°
+  // so the X contribution is positive (right) and the Y contribution is
+  // negative (front, user's side of the appliance).
   const el = Math.atan(1 / Math.sqrt(2)); // ~35.26 deg
-  const az = Math.PI / 4;
-  camera.up.set(0, 1, 0);
+  const az = -Math.PI / 4;
+  camera.up.set(0, 0, 1);
   camera.position.set(
     center.x + dist * Math.cos(el) * Math.cos(az),
-    center.y + dist * Math.sin(el),
-    center.z + dist * Math.cos(el) * Math.sin(az)
+    center.y + dist * Math.cos(el) * Math.sin(az),
+    center.z + dist * Math.sin(el)
   );
   camera.lookAt(center);
   controls.target.copy(center);
