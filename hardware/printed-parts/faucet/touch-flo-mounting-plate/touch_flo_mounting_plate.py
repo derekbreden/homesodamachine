@@ -98,8 +98,22 @@ def build_mounting_plate() -> cq.Workplane:
 def main():
     plate = build_mounting_plate()
 
+    # Authoring frame is the upstream Z-up (matches the harvested
+    # Westbrass valve body the plate seats against). Rotate to the
+    # repo's +Y-up frame at the STEP export boundary so downstream
+    # consumers — drawings, the assembly's HLR projector — read it
+    # in the same convention as the cold-core / enclosure.
+    # Map: old (X, Y, Z) -> new (-Y, Z, -X)
+    #   +Z body-up        -> +Y (height)
+    #   -X gooseneck side -> +Z (toward the user)
+    #   +Y lateral        -> -X
     out = _here / "touch-flo-mounting-plate.step"
-    export_step(plate, str(out))
+    export_step(
+        plate
+        .rotate((0, 0, 0), (0, 0, 1), 90)
+        .rotate((0, 0, 0), (1, 0, 0), -90),
+        str(out),
+    )
 
     print(f"-> {out.name}")
 
