@@ -36,8 +36,8 @@ APPLIANCE_D = outer_shell_y_length + CONDENSER_DEPTH
 def main():
     variables = {
         "FOAM_SHELL_X": f"{outer_shell_x_length:.4g}",
-        "FOAM_SHELL_Z": f"{outer_shell_y_length:.4g}",
-        "FOAM_SHELL_Y": f"{foam_shell_outer_height:.4g}",
+        "FOAM_SHELL_Y": f"{outer_shell_y_length:.4g}",
+        "FOAM_SHELL_Z": f"{foam_shell_outer_height:.4g}",
         "APPLIANCE_WIDTH": f"{APPLIANCE_W:.4g} mm",
         "APPLIANCE_DEPTH": f"{APPLIANCE_D:.4g} mm",
     }
@@ -47,8 +47,8 @@ def main():
         variables=variables,
         expected_counts={
             "FOAM_SHELL_X": 1,
-            "FOAM_SHELL_Z": 1,
             "FOAM_SHELL_Y": 1,
+            "FOAM_SHELL_Z": 1,
             "APPLIANCE_WIDTH": 1,
             "APPLIANCE_DEPTH": 1,
         },
