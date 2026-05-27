@@ -2,14 +2,25 @@
 //
 // Loads a glTF (built from CadQuery) and renders it as line art with
 // proper z-buffer occlusion. Parts whose assembly color is white (or
-// near-grayscale) render as INVISIBLE surfaces with black feature
-// edges on top — the surfaces contribute to the depth buffer so edges
-// behind them get hidden, but no white fill is drawn. Parts whose
-// color is saturated (e.g. the red CO2-port ring) render their
-// surfaces directly in that color, without an edge overlay.
+// near-grayscale) render as white surfaces (invisible on the white
+// page background but writing depth) with black feature edges on top
+// AND black silhouette outlines from a Sobel-on-normals post-process.
+// Parts whose color is saturated (e.g. the red CO2-port ring) render
+// their surfaces in that color.
 //
-// Camera: orthographic, posed at iso-front (+x +y -z) or iso-back
-// (+x +y +z) directions and framed to the model's bounding sphere.
+// Two complementary edge sources:
+//   - Line2 overlay from EdgesGeometry — captures CREASE edges (where
+//     adjacent face normals jump by > EDGE_ANGLE_THRESHOLD_DEG). Fast,
+//     crisp, line-width controlled exactly.
+//   - Sobel on a per-frame normal pass — captures SILHOUETTES (where a
+//     smoothly tessellated surface curves away from the camera, e.g.
+//     a cylinder side). EdgesGeometry can't find these because adjacent
+//     tessellation triangles on a smooth surface have nearly-equal
+//     normals; the silhouette only exists in screen space.
+//
+// Camera: orthographic, posed at iso-front (+x +y +z in three.js, which
+// is the right-front-top corner after OCCT's Z-up → Y-up glTF rotation
+// brings our +Z height to three.js +Y) or iso-back (+x +y -z).
 //
 // The headless render tool (tools/render/render-scene.js) drives this
 // via window.__hsm_scene.
@@ -19,6 +30,9 @@ import { GLTFLoader } from "three/addons/loaders/GLTFLoader.js";
 import { Line2 } from "three/addons/lines/Line2.js";
 import { LineSegmentsGeometry } from "three/addons/lines/LineSegmentsGeometry.js";
 import { LineMaterial } from "three/addons/lines/LineMaterial.js";
+import { EffectComposer } from "three/addons/postprocessing/EffectComposer.js";
+import { RenderPass } from "three/addons/postprocessing/RenderPass.js";
+import { ShaderPass } from "three/addons/postprocessing/ShaderPass.js";
 
 const host = document.getElementById("scene-host");
 
@@ -34,25 +48,103 @@ renderer.setPixelRatio(window.devicePixelRatio);
 renderer.setClearColor(0xffffff);
 host.appendChild(renderer.domElement);
 
-// Line width in CSS pixels — matches the SVG line-art's stroke-width of
-// 1.5 closely enough. Line2 (vs. LineSegments) is used because GL_LINES
-// only ever draws 1-pixel lines on most platforms regardless of
-// linewidth; Line2 renders lines as camera-facing triangle strips, so
-// width is honoured.
+// Line width in CSS pixels for the Line2 feature-edge overlay. Matches
+// the SVG line-art's stroke-width of 1.5 closely enough. Line2 (vs.
+// LineSegments) is used because GL_LINES only ever draws 1-pixel lines
+// on most platforms regardless of linewidth; Line2 renders lines as
+// camera-facing triangle strips so width is honoured.
 const LINE_WIDTH_PX = 1.5;
 
 // EdgesGeometry threshold (degrees). Edges are drawn where adjacent
 // face normals differ by at least this angle. 15° captures sharp
-// feature edges while not over-decorating smooth tessellated cylinders
-// with sliver edges between adjacent triangles.
+// feature edges while not over-decorating smoothly-tessellated cylinders
+// with sliver edges between adjacent triangles. Silhouettes that
+// EdgesGeometry misses are filled in by the Sobel post-process below.
 const EDGE_ANGLE_THRESHOLD_DEG = 15;
+
+// ---------------------------------------------------------------------------
+// Silhouette pass — Sobel on normals
+// ---------------------------------------------------------------------------
+// The normal pass renders the scene with overrideMaterial = MeshNormalMaterial
+// to a separate render target. The Sobel composite shader then samples that
+// normal buffer at the current pixel + its 4 neighbours; a large gradient
+// in the (encoded) normal between adjacent pixels means either:
+//   - A silhouette (object normal vs background's clear-color vec3) — the
+//     thing we're trying to capture.
+//   - A crease (object normal A vs object normal B) — Line2 already covers
+//     these but Sobel reinforces them, which is fine.
+// Output: black where gradient > threshold, otherwise the main scene color.
+
+const normalsRT = new THREE.WebGLRenderTarget(1, 1, {
+  format: THREE.RGBAFormat,
+  type: THREE.UnsignedByteType,
+});
+
+const normalsMaterial = new THREE.MeshNormalMaterial({ side: THREE.DoubleSide });
+
+// Sobel gradient threshold (sum of |nR-nL| + |nU-nD| of encoded normal
+// vectors). 0.15 picks up silhouettes of curved surfaces (where the
+// normal smoothly rotates away from the camera so the gradient grows
+// gradually toward the edge) without flooding the image with edges on
+// every smoothly-tessellated surface interior.
+const SOBEL_THRESHOLD = 0.3;
+
+const sobelShader = {
+  uniforms: {
+    tDiffuse: { value: null },
+    tNormals: { value: normalsRT.texture },
+    resolution: { value: new THREE.Vector2(1, 1) },
+    threshold: { value: SOBEL_THRESHOLD },
+  },
+  vertexShader: `
+    varying vec2 vUv;
+    void main() {
+      vUv = uv;
+      gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0);
+    }
+  `,
+  fragmentShader: `
+    precision highp float;
+    uniform sampler2D tDiffuse;
+    uniform sampler2D tNormals;
+    uniform vec2 resolution;
+    uniform float threshold;
+    varying vec2 vUv;
+
+    void main() {
+      vec2 px = 1.0 / resolution;
+      vec3 nL = texture2D(tNormals, vUv - vec2(px.x, 0.0)).rgb;
+      vec3 nR = texture2D(tNormals, vUv + vec2(px.x, 0.0)).rgb;
+      vec3 nU = texture2D(tNormals, vUv + vec2(0.0, px.y)).rgb;
+      vec3 nD = texture2D(tNormals, vUv - vec2(0.0, px.y)).rgb;
+      float gx = length(nR - nL);
+      float gy = length(nU - nD);
+      float g = gx + gy;
+
+      vec3 color = texture2D(tDiffuse, vUv).rgb;
+      // Hard step at threshold — smoothstep produces a fuzzy edge halo
+      // at this resolution.
+      float edge = step(threshold, g);
+      gl_FragColor = vec4(mix(color, vec3(0.0), edge), 1.0);
+    }
+  `,
+};
+
+const composer = new EffectComposer(renderer);
+composer.addPass(new RenderPass(scene, camera));
+const sobelPass = new ShaderPass(sobelShader);
+composer.addPass(sobelPass);
 
 function resize() {
   const w = host.clientWidth;
   const h = host.clientHeight;
+  const dpr = renderer.getPixelRatio();
   renderer.setSize(w, h, false);
-  // Keep camera ortho frustum centered; the actual extents are set by
-  // poseIso() once we know the model bounds.
+  composer.setSize(w, h);
+  normalsRT.setSize(Math.max(1, Math.floor(w * dpr)), Math.max(1, Math.floor(h * dpr)));
+  // ShaderPass clones uniforms in its constructor — write to the pass's
+  // *live* uniforms object, not the original shader spec.
+  sobelPass.uniforms.resolution.value.set(w * dpr, h * dpr);
   refreshOrthoExtents();
   for (const m of _lineMaterials) m.resolution.set(w, h);
 }
@@ -91,8 +183,9 @@ function refreshOrthoExtents() {
 }
 
 function isMonochrome(color) {
-  // r ≈ g ≈ b ⇒ default white/gray → render as line art (invisible fill,
-  // black feature edges). Saturated colors → render as colored fill.
+  // r ≈ g ≈ b ⇒ default white/gray → render as line art (white-on-white
+  // fill, black feature edges + Sobel silhouettes). Saturated colors →
+  // render as colored fill.
   const max = Math.max(color.r, color.g, color.b);
   const min = Math.min(color.r, color.g, color.b);
   return max - min < 0.05;
@@ -109,19 +202,14 @@ function applyLineArtMaterials(root) {
     const origColor = node.material.color.clone();
     if (isMonochrome(origColor)) {
       // White surface on a white background — paints white pixels that
-      // are visually invisible against the page bg but DO write depth
-      // (and DO write color, matching the bg). All edges in the scene
-      // are rendered AFTER all surfaces (via renderOrder=1 on the
-      // Line2 below), and depthFunc defaults to LessEqualDepth, so an
-      // edge at the same depth as the surface it outlines wins the
-      // depth test by being drawn later. No polygonOffset needed, and
-      // the body's surface depth lands at its true position — which is
-      // exactly what occludes the red ring behind it.
+      // are invisible against the page bg but DO write depth (and DO
+      // write color, matching the bg). All edges in the scene are drawn
+      // AFTER all surfaces (via renderOrder=1 on the Line2 below), and
+      // depthFunc defaults to LessEqualDepth, so an edge at the same
+      // depth as the surface it outlines wins by being drawn later.
       node.material = new THREE.MeshBasicMaterial({ color: 0xffffff });
 
-      // Feature-edge overlay: Line2 (triangle-strip lines) for honored
-      // line width. EdgesGeometry gives a non-indexed array of vertex
-      // pairs; LineSegmentsGeometry wants flat [x1,y1,z1,x2,y2,z2,...].
+      // Feature-edge overlay: Line2 for honored line width.
       const edges = new THREE.EdgesGeometry(
         node.geometry, EDGE_ANGLE_THRESHOLD_DEG,
       );
@@ -139,14 +227,12 @@ function applyLineArtMaterials(root) {
       const lines = new Line2(geo, mat);
       lines.computeLineDistances();
       lines.userData.lineArtOverlay = true;
-      // Draw edges AFTER all surfaces so any edge at the same depth as
-      // its (white) surface wins the depthFunc=LessEqualDepth test.
       lines.renderOrder = 1;
       node.add(lines);
     } else {
-      // Colored part — flat color, no shading, no edge overlay. Surface
-      // is rendered normally so it can be occluded by other meshes via
-      // z-buffer (and itself occlude monochrome edges behind it).
+      // Colored part — flat color, no shading, no edge overlay. Sobel
+      // still draws the part's silhouette in black on top via the
+      // normal-buffer post-process below.
       node.material = new THREE.MeshBasicMaterial({ color: origColor });
     }
   }
@@ -199,9 +285,7 @@ function poseIso(dir) {
   camera.updateMatrixWorld(true);
 
   // Tight-fit ortho extents by projecting all 8 bbox corners into camera
-  // space and using their actual screen-aligned extents. A bounding-sphere
-  // fit (used previously) over-pads because a box's projection is much
-  // smaller than its enclosing sphere.
+  // space and using their actual screen-aligned extents.
   const corners = [
     new THREE.Vector3(box.min.x, box.min.y, box.min.z),
     new THREE.Vector3(box.min.x, box.min.y, box.max.z),
@@ -227,6 +311,41 @@ function poseIso(dir) {
   refreshOrthoExtents();
 }
 
+function render() {
+  // 1) Render normals pass to off-screen target. The Line2 overlays are
+  //    excluded so they don't contribute spurious crease-like gradients
+  //    in the normal buffer — Sobel runs over the surface normals only.
+  const restoreVisibility = [];
+  scene.traverse((n) => {
+    if (n.userData?.lineArtOverlay && n.visible) {
+      restoreVisibility.push(n);
+      n.visible = false;
+    }
+  });
+  scene.overrideMaterial = normalsMaterial;
+  renderer.setRenderTarget(normalsRT);
+  renderer.setClearColor(0xffffff, 1);
+  renderer.clear(true, true, true);
+  renderer.render(scene, camera);
+  scene.overrideMaterial = null;
+  for (const n of restoreVisibility) n.visible = true;
+
+  // 2) Main composite: RenderPass draws the scene normally, then the
+  //    Sobel ShaderPass paints black at high-gradient pixels of the
+  //    normals buffer (silhouettes + creases).
+  //
+  // ShaderPass clones the input shader.uniforms object via
+  // UniformsUtils.clone in its constructor, so we have to set tNormals
+  // on the *pass's* uniforms (sobelPass.uniforms), not on the original
+  // shader spec. The texture reference is the same object across frames,
+  // so this is a one-time wire-up, but doing it here avoids a separate
+  // initialization site that's easy to drift from the pass creation.
+  sobelPass.uniforms.tNormals.value = normalsRT.texture;
+  renderer.setRenderTarget(null);
+  renderer.setClearColor(0xffffff, 1);
+  composer.render();
+}
+
 window.__hsm_scene = {
   THREE, scene, camera, renderer,
   loadScene,
@@ -236,7 +355,7 @@ window.__hsm_scene = {
     if (!d) throw new Error(`unknown view: ${viewName}`);
     poseIso(d);
   },
-  render: () => renderer.render(scene, camera),
+  render,
   ready: false,
 };
 
