@@ -3,8 +3,8 @@ Isometric line-art view of the home-soda-machine enclosure — BACK.
 
 CadQuery-based: the appliance geometry is built in _appliance_model and
 exported via cq.exporters with HLR (hidden-line removal). In the repo's
-+Y-up convention, projectionDir (1, 1, 1) places the camera at +x, +y,
-+z — back face, right side, and top visible.
++Z-up convention, projectionDir (1, 1, 1) places the camera at +x, +y,
++z — back face (+Y), right side (+X), and top (+Z) all visible.
 
 Companion drawing: enclosure-iso-front.py. The geometry is the same;
 only the projection direction differs.
