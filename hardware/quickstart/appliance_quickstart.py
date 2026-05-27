@@ -264,12 +264,16 @@ def cell(x, y, w, h, view_text, caption, embed_path=None, arrows_fn=None):
 
 
 def _arrows_connect_co2(x, y, w, draw_h):
-    """Drawing 1: single red arrow pointing at the front-panel CO2 inlet.
-    Points diagonally down-into-the-frame toward where the appliance's
-    front face shows up in the iso line-art."""
+    """Drawing 1: single red arrow pointing at the CO2 inlet on the
+    appliance's right side face. The line-art preserves aspect ratio
+    inside the cell, so the appliance occupies the cell's middle band
+    horizontally (~33%–67% of cell width) with empty space on either
+    side. The right side face shows up in the LEFT half of the
+    appliance silhouette; the arrow comes from upper-left empty space
+    and lands on the small port-circle on that face."""
     return _straight_arrow(
-        x + 0.80 * w, y + 0.30 * draw_h,
-        x + 0.60 * w, y + 0.55 * draw_h,
+        x + 0.30 * w, y + 0.20 * draw_h,
+        x + 0.45 * w, y + 0.50 * draw_h,
         color="red",
     )
 
