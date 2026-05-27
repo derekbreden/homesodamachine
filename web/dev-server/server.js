@@ -165,10 +165,8 @@ const running = new Map(); // pyFilePath -> AbortController
 
 async function runScript(pyFilePath) {
   console.log(`  ↪ running: ${path.relative(HARDWARE_DIR, pyFilePath)}`);
-  if (running.has(pyFilePath)) {
-    running.get(pyFilePath).abort();
-    running.delete(pyFilePath);
-  }
+  const prev = running.get(pyFilePath);
+  if (prev) prev.abort();
   const ac = new AbortController();
   running.set(pyFilePath, ac);
 
@@ -180,17 +178,30 @@ async function runScript(pyFilePath) {
     console.log(`  ↪ spawning: ${PYTHON_BIN} ${path.relative(PROJECT_ROOT, pyFilePath)}`);
     const code = await new Promise((resolve, reject) => {
       console.log(`  ↪ cwd: ${path.relative(PROJECT_ROOT, scriptDir)}`);
+      // SIGKILL (not the spawn default SIGTERM): CadQuery sits inside
+      // long-running OCCT calls that ignore SIGTERM for seconds at a
+      // time. Under rapid saves that piles pythons up behind one
+      // unresponsive root, the OS starts thrashing, and the watcher
+      // looks "stuck." SIGKILL drops the aborted process immediately;
+      // the atomic-write helper in _cadq_export.py already handles a
+      // half-written tempfile being orphaned.
+      //
+      // stderr is inherited so python tracebacks land in the
+      // dev-server log. Without it, "Process exited with code 1" is
+      // the only signal the watcher gives — the actual OCC error,
+      // syntax error, etc. is invisible and looks identical to a
+      // watcher bug. stdout is still suppressed: generators print
+      // diagnostic dimensions on every run and those are noise once
+      // the script is working.
       const proc = spawn(PYTHON_BIN, [pyFilePath], {
         cwd: scriptDir,
-        stdio: ["ignore", "ignore", "ignore"],
+        stdio: ["ignore", "ignore", "inherit"],
         signal: ac.signal,
+        killSignal: "SIGKILL",
       });
       console.log(`  ↪ PID: ${proc.pid}`);
       proc.on("close", resolve);
       proc.on("error", reject);
-      proc.on("message", (msg) => {
-        console.log(`  [${path.basename(pyFilePath)}] ${msg}`);
-      });
       proc.on("exit", (code) => {
         if (code !== 0) {
           reject(new Error(`Process exited with code ${code}`));
@@ -221,7 +232,12 @@ async function runScript(pyFilePath) {
     // Script failed — leave any prior committed STEP in place.
     console.log(`  ↪ failed: ${e.message}`);
   } finally {
-    running.delete(pyFilePath);
+    // Only clear our own slot. If a newer call overwrote `running[pyFilePath]`
+    // with its own AC, this finally must not delete that newer entry — the
+    // next save would then see `running.has(file) === false`, skip the abort
+    // step, and let two pythons race to write the same .step (older one wins
+    // if it finishes last → "save 2 silently shows save 1's geometry").
+    if (running.get(pyFilePath) === ac) running.delete(pyFilePath);
   }
 
   if (producedSteps.length === 0) return;
@@ -241,7 +257,27 @@ async function runScript(pyFilePath) {
 }
 
 // --- File watcher ---
-const watcher = chokidar.watch(HARDWARE_DIR, { ignoreInitial: true });
+//
+// Polling is deliberate. chokidar 4 dropped fsevents and now uses Node's
+// `fs.watch(..., { recursive: true })` on macOS, which is kqueue-backed.
+// Under load — multiple atomic editor saves, generator scripts writing
+// .step files, Python regenerating .pyc files inside __pycache__/ —
+// recursive kqueue silently drops events and sometimes stops reporting
+// for the watched root entirely. The symptom is a dev server that
+// reloads a few times then "stops working until restart." Polling at
+// 200 ms costs a few percent of one core (we're watching ~150 files)
+// and gives us a deterministic event loop instead.
+//
+// `__pycache__` is ignored both to cut down on the event volume (every
+// generator run rewrites a .pyc) and because we never act on .pyc
+// changes anyway.
+const watcher = chokidar.watch(HARDWARE_DIR, {
+  ignoreInitial: true,
+  ignored: (p) => p.split(path.sep).includes("__pycache__"),
+  usePolling: true,
+  interval: 200,
+  binaryInterval: 400,
+});
 const debounce = new Map();
 
 watcher.on("change", (absPath) => {
