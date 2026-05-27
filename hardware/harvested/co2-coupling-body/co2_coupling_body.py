@@ -72,27 +72,28 @@ thread_length = 12.7                    # 0.50" thread engagement
 # three collet jaws around this bore that grip the stem; collet
 # geometry isn't drawn in iso line-art and isn't modeled.
 mouth_d = 13.0                          # coupling bore inner diameter
-mouth_depth = 5.0                       # recess depth into the body cup
+mouth_depth = 9.0                       # recess depth into the body cup
+                                        # (deep enough to read as a hole
+                                        # in iso, not a shallow dimple)
 
-# Thumb-latch pad — the visible top of the metal strap the customer
-# presses to release the latch. The strap is one continuous piece
-# wrapping from this pad, over the front rim of the body cup, down
-# the front face, and back into the body; only the pad on top and
-# a small front-emerging tab below it are visible from outside.
-# Sized from photos of LC10004 / LCD10004; not on the datasheet's
-# dimension drawing.
-latch_l = 8.0                           # along the body axis (Z) — pad length
-latch_w = 11.0                          # tangential (X) — nearly full body width
-latch_h = 2.0                           # protrusion above body cylinder (Y) — low-profile
-# Pad is biased toward the +Z front, not centered: front edge sits
-# 2 mm behind the body cup's front face.
-latch_front_inset = 2.0
-
-# Front release tab — the small bottom-front emerging end of the
-# latch strap, visible at the -Y side of the body cup's front face.
-front_tab_l = 2.5                       # protrusion forward of the front face (+Z)
-front_tab_w = 4.0                       # tangential (X)
-front_tab_h = 2.0                       # radial extent (Y)
+# Latch — single piece of thin sheet metal bent into two visible
+# pieces: a thumb pad on the +Y top of the body cup, and a "front
+# plate" strap running down the +Z front face. The thumb pad and
+# front plate share a 90° bend at the body cup's top-front edge.
+# Pressing the pad slides the whole strap forward / down, releasing
+# the latch mechanism inside the body. Sized from photos of the
+# LC10004 / LCD10004.
+latch_thickness = 0.8                   # sheet-metal thickness (Y above pad,
+                                        # Z out from front plate)
+# Pad — pill / slot shape sitting on top of the body cup, biased
+# toward the +Z front. Cantilevers ~2 mm past the front face so it
+# joins cleanly to the front plate at the bent corner.
+latch_l = 8.0                           # along body axis (Z) — pad full length incl. rounded ends
+latch_w = 5.0                           # tangential (X) — pill width = rounded-end diameter
+latch_cantilever = 2.0                  # how far the pad sticks past the body cup's front face
+# Front plate — rectangular strap on the front face, sharing the
+# pad's tangential width.
+front_plate_drop = 12.0                 # how far down the front face it extends (Y)
 
 
 def build_co2_coupling_body():
@@ -134,37 +135,55 @@ def build_co2_coupling_body():
         .extrude(-thread_length)
     )
 
-    # Thumb-latch pad on +Y top of the body cup. Low-profile box,
-    # roughly the full body width, biased toward the +Z front face.
-    latch_front_z = front_face_z - latch_front_inset
+    # Latch — pill-shaped thumb pad on top + rectangular front plate
+    # on the front face, modeled as two thin solids that overlap at
+    # the top-front corner so union merges them into a single bent-
+    # sheet shape.
+
+    # Thumb pad: pill (slot) on a workplane whose local +x is the body
+    # axis (world +Z) and normal is body radial (world +Y). slot2D's
+    # length runs along local +x; diameter is the rounded-end width.
+    latch_front_z = front_face_z + latch_cantilever
     latch_back_z = latch_front_z - latch_l
-    latch_corner = cq.Vector(
+    latch_z_mid = (latch_front_z + latch_back_z) / 2
+    pad_plane = cq.Plane(
+        origin=(0, body_d / 2, latch_z_mid),
+        xDir=(0, 0, 1),
+        normal=(0, 1, 0),
+    )
+    pad = (
+        cq.Workplane(pad_plane)
+        .slot2D(length=latch_l, diameter=latch_w, angle=0)
+        .extrude(latch_thickness)
+    )
+
+    # Front plate: thin rectangle on the +Z front face of the body
+    # cup, sharing the pad's tangential width. Top edge runs up to
+    # (body_d/2 + latch_thickness) so it overlaps with the pad in the
+    # corner region — the union then reads as one continuous L-shape.
+    plate_top_y = body_d / 2 + latch_thickness
+    plate_bottom_y = body_d / 2 - front_plate_drop
+    plate_corner = cq.Vector(
         -latch_w / 2,
-        body_d / 2,
-        latch_back_z,
+        plate_bottom_y,
+        front_face_z,
     )
-    latch_pad = cq.Solid.makeBox(latch_w, latch_h, latch_l, pnt=latch_corner)
-
-    # Front release tab — the bottom-front emerging end of the latch
-    # strap. Sits at -Y on the body cup, sticks slightly forward of
-    # the +Z front face.
-    front_tab_corner = cq.Vector(
-        -front_tab_w / 2,
-        -body_d / 2,
-        front_face_z - 1.0,           # bridges the body cup wall slightly
-    )
-    front_tab = cq.Solid.makeBox(
-        front_tab_w, front_tab_h, front_tab_l + 1.0,
-        pnt=front_tab_corner,
+    front_plate = cq.Solid.makeBox(
+        latch_w,
+        plate_top_y - plate_bottom_y,
+        latch_thickness,
+        pnt=plate_corner,
     )
 
-    return (
-        hex_part
-        .union(body)
-        .union(thread)
-        .union(cq.Workplane().add(latch_pad))
-        .union(cq.Workplane().add(front_tab))
-    )
+    # Union order matters here: with the pad unioned BEFORE the front
+    # plate, OCCT's boolean ends up dropping everything but the corner
+    # overlap region. Unioning the pad last avoids it. (Cause unclear;
+    # likely an OCCT quirk with the slot solid plus the L-overlap.)
+    result = hex_part.union(body)
+    result = result.union(thread)
+    result = result.union(front_plate)
+    result = result.union(pad)
+    return result
 
 
 def main():
