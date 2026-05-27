@@ -41,17 +41,16 @@ RING_THICKNESS = 0.3
 def _build_co2_red_ring() -> cq.Workplane:
     """Annular plate on the right side wall (x=W) around the CO2 port.
 
-    Inner / outer radius come from the ring stroke definition in
-    _appliance_model: centerline at CO2_PORT_RING_RADIUS, stroke
-    CO2_PORT_RING_STROKE wide.
+    Inner / outer radius come from the ring annulus definition in
+    _appliance_model: CO2_PORT_RING_INNER_R and CO2_PORT_RING_OUTER_R.
     """
-    inner_r = model.CO2_PORT_RING_RADIUS - model.CO2_PORT_RING_STROKE / 2
-    outer_r = model.CO2_PORT_RING_RADIUS + model.CO2_PORT_RING_STROKE / 2
-    world_z, world_y = model.CO2_PORT_WALL_AT
+    inner_r = model.CO2_PORT_RING_INNER_R
+    outer_r = model.CO2_PORT_RING_OUTER_R
+    world_y, world_z = model.CO2_PORT_WALL_AT
     return (
         cq.Workplane(cq.Plane(
             origin=(model.W, world_y, world_z),
-            xDir=(0, 0, 1),
+            xDir=(0, 1, 0),
             normal=(1, 0, 0),
         ))
         .circle(outer_r)
