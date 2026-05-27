@@ -42,8 +42,19 @@ sys.path.insert(
     0,
     str(next(p for p in _here.parents if (p / "tools" / "docgen").is_dir()) / "tools"),
 )
+sys.path.insert(
+    0,
+    str(next(p for p in _here.parents if p.name == "hardware") / "printed-parts" / "cadlib"),
+)
 from _cadq_export import export_step
 from docgen import substitute_md, substitute_py_comments
+from world_workplane import (
+    WorldWorkplane,
+    xy_plane_z_up,
+    xy_plane_z_down,
+    xz_plane_y_up,
+    yz_plane_x_up,
+)
 
 
 # Zone 0 — threaded shank. Through-deck portion clamped from below by
@@ -134,18 +145,22 @@ rect_long_half_v = rect_long / 2.0                          # [15.75 mm](RECT_LO
 
 def build_shank():
     """Zone 0: 11 mm cylinder centered on the body axis, extending
-    -shank_length below the deck."""
+    `shank_length` below the deck (down in -Z from the deck plane
+    at z = 0). Drawn on the bottom-face plane so `extrude(shank_length)`
+    reads as "extend the shank shank_length into the -Z direction"
+    without a sign on the extrude argument."""
     return (
-        cq.Workplane("XY")
+        WorldWorkplane(xy_plane_z_down)
         .circle(shank_r)
-        .extrude(-shank_length)
+        .extrude(shank_length)
+        .unwrap()
     )
 
 
 def build_cylinder_base():
     """Zone 1: solid cylinder, z = 0 → cylinder_height."""
     return (
-        cq.Workplane("XY")
+        cq.Workplane(xy_plane_z_up)
         .circle(body_r)
         .extrude(cylinder_height)
     )
@@ -154,7 +169,7 @@ def build_cylinder_base():
 def build_rectangular_column():
     """Zone 2: solid rect column, z = cylinder_height → plateau_z."""
     return (
-        cq.Workplane("XY")
+        cq.Workplane(xy_plane_z_up)
         .workplane(offset=cylinder_height)
         .rect(rect_long, rect_short)
         .extrude(plateau_z - cylinder_height)
@@ -163,19 +178,21 @@ def build_rectangular_column():
 
 def build_arch(center_y):
     """One arch rail of `arch_block_width_y` thickness in Y, centered
-    at `center_y`. The ZX profile (visible looking along Y) is a
-    rectangular foot from `plateau_z` to `arc_base_z` spanning the
-    full X width, then an arc from `arc_base_z` at x = ±rect_long_half
-    rising to `arc_peak_z` at x = 0 and back down symmetrically."""
+    at world y = `center_y`. The XZ profile (visible looking along
+    +Y at the back of the rail) is a rectangular foot from
+    `plateau_z` to `arc_base_z` spanning the full X width, then an
+    arc from `arc_base_z` at x = ±rect_long_half rising to
+    `arc_peak_z` at x = 0 and back down symmetrically."""
     return (
-        cq.Workplane("XZ")
+        WorldWorkplane(xz_plane_y_up)
         .workplane(offset=center_y - arch_block_width_y / 2)
-        .moveTo(-rect_long_half, plateau_z)
-        .lineTo(rect_long_half, plateau_z)
-        .lineTo(rect_long_half, arc_base_z)
+        .moveTo((-rect_long_half, plateau_z))
+        .lineTo(( rect_long_half, plateau_z))
+        .lineTo(( rect_long_half, arc_base_z))
         .threePointArc((0, arc_peak_z), (-rect_long_half, arc_base_z))
         .close()
         .extrude(arch_block_width_y)
+        .unwrap()
     )
 
 
@@ -205,14 +222,14 @@ def build_transition_cove(center_y_sign):
     x_overshoot_half = body_r + 2
 
     filler = (
-        cq.Workplane("XY")
+        cq.Workplane(xy_plane_z_up)
         .workplane(offset=cylinder_height)
         .center(*filler_center)
         .rect(2 * x_overshoot_half, r)
         .extrude(r)
     )
     cove_cutter = (
-        cq.Workplane("YZ")
+        cq.Workplane(yz_plane_x_up)
         .workplane(offset=-x_overshoot_half)
         .center(*cove_arc_center)
         .circle(r)
@@ -224,9 +241,13 @@ def build_transition_cove(center_y_sign):
 def cut_water_port_bore(body):
     """Bore the water port downward from the plateau. The port sits
     in the plateau zone (no arch above it at y = 0), so the bore
-    starts at plateau_z and cuts in -Z."""
+    starts at z = plateau_z and cuts port_bore_depth into the body
+    (along -Z). Sketched on the top-face plane at the plateau, then
+    extruded back DOWN — negative extrude says "into the body,
+    against the +Z normal", which is the natural read for a cut
+    tool sketched on a face you're cutting into."""
     bore = (
-        cq.Workplane("XY")
+        cq.Workplane(xy_plane_z_up)
         .workplane(offset=plateau_z)
         .center(port_center_x, port_center_y)
         .circle(port_radius)
