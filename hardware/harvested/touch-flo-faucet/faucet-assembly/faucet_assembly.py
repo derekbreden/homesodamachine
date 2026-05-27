@@ -202,10 +202,13 @@ def load_valve_body():
 
 
 def load_mounting_plate():
-    """Build the printed mounting plate in its Z-up authoring frame.
+    """Build the printed mounting plate. The plate script is already
+    rebased to native +Y-up — rotate it back via _from_y_up so it
+    aligns with this assembly's still-Z-up internal authoring. The
+    bridge stays until the assembly's tubes / lever are rebased too.
     Source of truth: see
     `hardware/printed-parts/faucet/touch-flo-mounting-plate/touch_flo_mounting_plate.py`."""
-    return touch_flo_mounting_plate.build_mounting_plate()
+    return _from_y_up(touch_flo_mounting_plate.build_mounting_plate())
 
 
 def load_mounting_gasket():
