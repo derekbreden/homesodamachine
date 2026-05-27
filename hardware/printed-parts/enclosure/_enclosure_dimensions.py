@@ -16,7 +16,7 @@ sys.path.insert(0, str(next(p for p in _here.parents if (p / "tools" / "docgen")
 from _cold_core_interface import (
     foam_shell_outer_height,
     outer_shell_x_length,
-    outer_shell_z_length,
+    outer_shell_y_length,
 )
 from docgen import substitute_md
 
@@ -30,13 +30,13 @@ APPLIANCE_W = outer_shell_x_length
 # is the deepest item in Zone D and drives the appliance depth, so
 # appliance depth = foam-shell depth + condenser depth.
 CONDENSER_DEPTH = 150.0
-APPLIANCE_D = outer_shell_z_length + CONDENSER_DEPTH
+APPLIANCE_D = outer_shell_y_length + CONDENSER_DEPTH
 
 
 def main():
     variables = {
         "FOAM_SHELL_X": f"{outer_shell_x_length:.4g}",
-        "FOAM_SHELL_Z": f"{outer_shell_z_length:.4g}",
+        "FOAM_SHELL_Z": f"{outer_shell_y_length:.4g}",
         "FOAM_SHELL_Y": f"{foam_shell_outer_height:.4g}",
         "APPLIANCE_WIDTH": f"{APPLIANCE_W:.4g} mm",
         "APPLIANCE_DEPTH": f"{APPLIANCE_D:.4g} mm",
