@@ -209,10 +209,15 @@ def load_mounting_plate():
 
 
 def load_mounting_gasket():
-    """Build the printed-TPU mounting gasket in its Z-up authoring frame.
+    """Build the printed-TPU mounting gasket. The gasket script is
+    already rebased to native +Y-up, so we rotate it back into this
+    assembly's internal Z-up frame here; _to_y_up at export then puts
+    the assembled output back in +Y-up. The two rotations cancel for
+    this child, but keep the assembly's internal authoring frame
+    consistent during the incremental rebase.
     Source of truth: see
     `hardware/printed-parts/faucet/touch-flo-mounting-gasket/touch_flo_mounting_gasket.py`."""
-    return touch_flo_mounting_gasket.build_mounting_gasket()
+    return _from_y_up(touch_flo_mounting_gasket.build_mounting_gasket())
 
 
 def load_shell():
@@ -454,6 +459,20 @@ def _to_y_up(shape):
         shape
         .rotate((0, 0, 0), (0, 0, 1), 90)    # spin 90° about old +Z (body axis)
         .rotate((0, 0, 0), (1, 0, 0), -90)   # tip 90° about old +X
+    )
+
+
+def _from_y_up(shape):
+    """Inverse of _to_y_up. Bridge for parts that are already rebased to
+    native +Y-up while the assembly's internal authoring (tubes, lever)
+    is still Z-up — rotate back to Z-up so positions align, and the
+    assembly's _to_y_up at export rotates everything to +Y-up together.
+    The two rotations cancel for these children; this stays in place
+    only until the assembly's internal authoring is rebased too."""
+    return (
+        shape
+        .rotate((0, 0, 0), (1, 0, 0), 90)    # undo the tip
+        .rotate((0, 0, 0), (0, 0, 1), -90)   # undo the spin
     )
 
 
