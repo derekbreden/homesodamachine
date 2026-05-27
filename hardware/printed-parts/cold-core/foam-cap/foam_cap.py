@@ -14,7 +14,7 @@ sys.path.insert(0, str(next(p for p in _here.parents if p.name == "hardware")))
 sys.path.insert(0, str(_here.parent))
 sys.path.insert(0, str(next(p for p in _here.parents if (p / "tools" / "docgen").is_dir()) / "tools"))
 
-from world_workplane import WorldWorkplane, xz_plane_y_up
+from world_workplane import WorldWorkplane, xy_plane_z_up
 from _cadq_export import export_step
 from _foam_cap import (
     build_foam_cap,
@@ -22,7 +22,7 @@ from _foam_cap import (
     build_foam_cap_gasket,
 )
 from _cold_core_interface import (
-    build_y_axis_hole_punch,
+    build_z_axis_hole_punch,
     pocket_centerward_arc_outer_radius,
     support_ring_radial_width,
     wall_and_floor_thickness,
@@ -31,8 +31,8 @@ from _cold_core_interface import (
 from docgen import substitute_py_comments
 
 
-# Lid y-thickness — one wall-and-floor thickness, [2 mm](LID_Y_H).
-lid_y_height = wall_and_floor_thickness
+# Lid z-thickness — one wall-and-floor thickness, [2 mm](LID_Z_H).
+lid_z_height = wall_and_floor_thickness
 
 
 # CO2 elbow vertical leg sits in the foam zone between the centerward
@@ -45,10 +45,10 @@ centerward_wall_inner_r = centerward_wall_outer_r - wall_and_floor_thickness
 support_ring_outer_r = centerward_wall_inner_r
 # [61.5 mm](SUPPORT_RING_INNER_R) support-ring inner radius = outer − support-ring width.
 support_ring_inner_r = support_ring_outer_r - support_ring_radial_width
-centerward_wall_mid_z = -(centerward_wall_outer_r + centerward_wall_inner_r) / 2
-support_ring_mid_z = -(support_ring_outer_r + support_ring_inner_r) / 2
-# [-68.75 mm](COTWO_INLET_Z) CO2 inlet Z — midway between the two wall midlines.
-co2_inlet_z = (centerward_wall_mid_z + support_ring_mid_z) / 2
+centerward_wall_mid_y = -(centerward_wall_outer_r + centerward_wall_inner_r) / 2
+support_ring_mid_y = -(support_ring_outer_r + support_ring_inner_r) / 2
+# [-68.75 mm](COTWO_INLET_Y) CO2 inlet Y — midway between the two wall midlines.
+co2_inlet_y = (centerward_wall_mid_y + support_ring_mid_y) / 2
 
 
 # [6.5 mm](COTWO_TUBE_D) tube clearance for the 1/4" OD LLDPE CO2 line —
@@ -58,17 +58,17 @@ co2_tube_clearance_radius = 3.25
 # [5.25 mm](COTWO_BOSS_OUTER_R) boss outer radius = tube radius + wall.
 co2_boss_outer_radius = co2_tube_clearance_radius + wall_and_floor_thickness
 # Boss spans the full interior cavity height, from the floor's
-# cavity-side face (Y = [2 mm](COTWO_BOSS_Y_BOTTOM)) to the cavity opening
-# at Y = [18 mm](COTWO_BOSS_Y_TOP).
-co2_boss_y_bottom = wall_and_floor_thickness
-co2_boss_y_top = foam_cap_height
+# cavity-side face (Z = [2 mm](COTWO_BOSS_Z_BOTTOM)) to the cavity opening
+# at Z = [18 mm](COTWO_BOSS_Z_TOP).
+co2_boss_z_bottom = wall_and_floor_thickness
+co2_boss_z_top = foam_cap_height
 
 
 def cut_co2_inlet(cap):
-    """Y-axis tube-clearance cut through the top cap floor."""
+    """Z-axis tube-clearance cut through the top cap floor."""
     return cap.cut(
-        build_y_axis_hole_punch(
-            origin=(0, 0, co2_inlet_z),
+        build_z_axis_hole_punch(
+            origin=(0, co2_inlet_y, 0),
             hole_punch_radius=co2_tube_clearance_radius,
             hole_punch_height=foam_cap_height,
         )
@@ -76,13 +76,13 @@ def cut_co2_inlet(cap):
 
 
 def cut_co2_inlet_lid(lid):
-    """Y-axis tube-clearance cut through the lid, continuing the CO2
+    """Z-axis tube-clearance cut through the lid, continuing the CO2
     path from outside through to the top cap."""
     return lid.cut(
-        build_y_axis_hole_punch(
-            origin=(0, 0, co2_inlet_z),
+        build_z_axis_hole_punch(
+            origin=(0, co2_inlet_y, 0),
             hole_punch_radius=co2_tube_clearance_radius,
-            hole_punch_height=lid_y_height,
+            hole_punch_height=lid_z_height,
         )
     )
 
@@ -95,12 +95,12 @@ def add_co2_boss(cap):
     # Two concentric circles on the same workplane extrude as an
     # annulus via CadQuery's even-odd fill rule.
     boss = (
-        WorldWorkplane(xz_plane_y_up)
-        .workplane(offset=co2_boss_y_bottom)
-        .moveTo((0, co2_inlet_z))
+        WorldWorkplane(xy_plane_z_up)
+        .workplane(offset=co2_boss_z_bottom)
+        .moveTo((0, co2_inlet_y))
         .circle(co2_boss_outer_radius)
         .circle(co2_tube_clearance_radius)
-        .extrude(co2_boss_y_top - co2_boss_y_bottom)
+        .extrude(co2_boss_z_top - co2_boss_z_bottom)
         .unwrap()
     )
     return cap.union(boss)
@@ -117,9 +117,9 @@ def main():
     cap_boss_annular_volume = (
         math.pi
         * (co2_boss_outer_radius ** 2 - co2_tube_clearance_radius ** 2)
-        * (co2_boss_y_top - co2_boss_y_bottom)
+        * (co2_boss_z_top - co2_boss_z_bottom)
     )
-    lid_hole_volume = math.pi * co2_tube_clearance_radius ** 2 * lid_y_height
+    lid_hole_volume = math.pi * co2_tube_clearance_radius ** 2 * lid_z_height
     cap_diff = cap_top.val().Volume() - cap_bottom.val().Volume()
     lid_diff = lid_bottom.val().Volume() - lid_top.val().Volume()
     assert math.isclose(cap_diff, cap_boss_annular_volume - cap_floor_hole_volume, rel_tol=1e-6), \
@@ -143,29 +143,29 @@ def main():
     # script controls them — change a unit in source and every dynamic-
     # comment marker follows.
     variables = {
-        "LID_Y_H": f"{lid_y_height:.4g} mm",
+        "LID_Z_H": f"{lid_z_height:.4g} mm",
         "CW_WALL_OUTER_R": f"{centerward_wall_outer_r:.4g} mm",
         "CW_WALL_INNER_R": f"{centerward_wall_inner_r:.4g} mm",
         "SUPPORT_RING_INNER_R": f"{support_ring_inner_r:.4g} mm",
-        "COTWO_INLET_Z": f"{co2_inlet_z:.4g} mm",
+        "COTWO_INLET_Y": f"{co2_inlet_y:.4g} mm",
         "COTWO_TUBE_D": f"{co2_tube_clearance_radius * 2:.4g} mm",
         "COTWO_BOSS_OUTER_R": f"{co2_boss_outer_radius:.4g} mm",
-        "COTWO_BOSS_Y_BOTTOM": f"{co2_boss_y_bottom:.4g} mm",
-        "COTWO_BOSS_Y_TOP": f"{co2_boss_y_top:.4g} mm",
+        "COTWO_BOSS_Z_BOTTOM": f"{co2_boss_z_bottom:.4g} mm",
+        "COTWO_BOSS_Z_TOP": f"{co2_boss_z_top:.4g} mm",
     }
     substitute_py_comments(
         Path(__file__),
         variables=variables,
         expected_counts={
-            "LID_Y_H": 1,
+            "LID_Z_H": 1,
             "CW_WALL_OUTER_R": 1,
             "CW_WALL_INNER_R": 1,
             "SUPPORT_RING_INNER_R": 1,
-            "COTWO_INLET_Z": 1,
+            "COTWO_INLET_Y": 1,
             "COTWO_TUBE_D": 1,
             "COTWO_BOSS_OUTER_R": 1,
-            "COTWO_BOSS_Y_BOTTOM": 1,
-            "COTWO_BOSS_Y_TOP": 1,
+            "COTWO_BOSS_Z_BOTTOM": 1,
+            "COTWO_BOSS_Z_TOP": 1,
         },
     )
     print(f"-> {Path(__file__).name} (self)")

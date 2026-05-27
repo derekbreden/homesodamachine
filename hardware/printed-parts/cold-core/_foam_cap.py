@@ -2,16 +2,16 @@
 twice), lid (sits atop a cap during foam pour), and gasket (TPU 90A
 perimeter ring between cap mating edge and outer-shell mating face)."""
 
-from world_workplane import WorldWorkplane, xz_plane_y_up
+from world_workplane import WorldWorkplane, xy_plane_z_up
 from _cold_core_interface import (
     wall_and_floor_thickness,
     outer_shell_x_length,
-    outer_shell_z_length,
+    outer_shell_y_length,
     foam_cap_height,
     foam_cap_lid_pour_radius,
     foam_cap_lid_vent_radius,
     foam_cap_lid_hole_inset,
-    foam_cap_attachment_xz_positions,
+    foam_cap_attachment_xy_positions,
     screw_clearance_radius,
     screw_boss_size,
     gasket_thickness,
@@ -25,13 +25,13 @@ lid_cut_through_depth = wall_and_floor_thickness * 3
 
 
 def attachment_pads_extrude(height):
-    """Square pads at every attachment position, extruded +Y by height.
+    """Square pads at every attachment position, extruded +Z by height.
     Used as cap-boss footprints and as boss-shaped gasket compression
     pads."""
     return (
-        WorldWorkplane(xz_plane_y_up)
+        WorldWorkplane(xy_plane_z_up)
         .workplane(offset=0)
-        .pushPoints(foam_cap_attachment_xz_positions)
+        .pushPoints(foam_cap_attachment_xy_positions)
         .rect(screw_boss_size, screw_boss_size)
         .extrude(height)
     )
@@ -39,11 +39,11 @@ def attachment_pads_extrude(height):
 
 def attachment_clearances_extrude(height):
     """Screw-clearance cylinders at every attachment position, extruded
-    +Y by height. Used as the cut tool through cap, lid, and gasket."""
+    +Z by height. Used as the cut tool through cap, lid, and gasket."""
     return (
-        WorldWorkplane(xz_plane_y_up)
+        WorldWorkplane(xy_plane_z_up)
         .workplane(offset=0)
-        .pushPoints(foam_cap_attachment_xz_positions)
+        .pushPoints(foam_cap_attachment_xy_positions)
         .circle(screw_clearance_radius)
         .extrude(height)
     )
@@ -51,11 +51,11 @@ def attachment_clearances_extrude(height):
 
 def build_foam_cap():
     cap = (
-        WorldWorkplane(xz_plane_y_up)
+        WorldWorkplane(xy_plane_z_up)
         .workplane(offset=0)
-        .rect(outer_shell_x_length, outer_shell_z_length)
+        .rect(outer_shell_x_length, outer_shell_y_length)
         .extrude(foam_cap_height)
-        .faces(">Y")
+        .faces(">Z")
         .shell(-wall_and_floor_thickness)
     )
     bosses = attachment_pads_extrude(foam_cap_height)
@@ -67,34 +67,34 @@ def build_foam_cap():
 
 def build_foam_cap_lid():
     lid = (
-        WorldWorkplane(xz_plane_y_up)
+        WorldWorkplane(xy_plane_z_up)
         .workplane(offset=0)
-        .rect(outer_shell_x_length, outer_shell_z_length)
+        .rect(outer_shell_x_length, outer_shell_y_length)
         .extrude(wall_and_floor_thickness)
     )
 
     # 2D anchor points on the lid plane. Pour hole on the +X half at
-    # z=0; vent holes mirrored across z at the −X corners.
+    # y=0; vent holes mirrored across y at the −X corners.
     inset_x = outer_shell_x_length / 2 - foam_cap_lid_hole_inset
-    inset_z = outer_shell_z_length / 2 - foam_cap_lid_hole_inset
-    pour_xz = (inset_x, 0)
-    vent_plus_z_xz = (-inset_x, inset_z)
-    vent_minus_z_xz = (-inset_x, -inset_z)
+    inset_y = outer_shell_y_length / 2 - foam_cap_lid_hole_inset
+    pour_xy = (inset_x, 0)
+    vent_plus_y_xy = (-inset_x, inset_y)
+    vent_minus_y_xy = (-inset_x, -inset_y)
 
-    def cut_hole(anchor_xz, radius):
+    def cut_hole(anchor_xy, radius):
         return (
-            WorldWorkplane(xz_plane_y_up)
+            WorldWorkplane(xy_plane_z_up)
             .workplane(offset=0)
-            .moveTo(anchor_xz)
+            .moveTo(anchor_xy)
             .circle(radius)
             .extrude(lid_cut_through_depth)
         )
 
-    pour_hole = cut_hole(pour_xz, foam_cap_lid_pour_radius)
-    vent_hole_plus_z = cut_hole(vent_plus_z_xz, foam_cap_lid_vent_radius)
-    vent_hole_minus_z = cut_hole(vent_minus_z_xz, foam_cap_lid_vent_radius)
+    pour_hole = cut_hole(pour_xy, foam_cap_lid_pour_radius)
+    vent_hole_plus_y = cut_hole(vent_plus_y_xy, foam_cap_lid_vent_radius)
+    vent_hole_minus_y = cut_hole(vent_minus_y_xy, foam_cap_lid_vent_radius)
     clearances = attachment_clearances_extrude(lid_cut_through_depth)
-    return lid.cut(pour_hole).cut(vent_hole_plus_z).cut(vent_hole_minus_z).cut(clearances).unwrap()
+    return lid.cut(pour_hole).cut(vent_hole_plus_y).cut(vent_hole_minus_y).cut(clearances).unwrap()
 
 
 def build_foam_cap_gasket():
@@ -104,17 +104,17 @@ def build_foam_cap_gasket():
     uniformly (a uniform ring would leave them asymmetrically supported
     and seal poorly at the corners). Printed twice."""
     outer = (
-        WorldWorkplane(xz_plane_y_up)
+        WorldWorkplane(xy_plane_z_up)
         .workplane(offset=0)
-        .rect(outer_shell_x_length, outer_shell_z_length)
+        .rect(outer_shell_x_length, outer_shell_y_length)
         .extrude(gasket_thickness)
     )
     inner = (
-        WorldWorkplane(xz_plane_y_up)
+        WorldWorkplane(xy_plane_z_up)
         .workplane(offset=0)
         .rect(
             outer_shell_x_length - 2 * gasket_strip_width,
-            outer_shell_z_length - 2 * gasket_strip_width,
+            outer_shell_y_length - 2 * gasket_strip_width,
         )
         .extrude(gasket_thickness)
     )

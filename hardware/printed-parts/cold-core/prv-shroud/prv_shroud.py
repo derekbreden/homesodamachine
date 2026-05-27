@@ -18,15 +18,15 @@ takes over as the structural seal.
 
 A ⌀6.35 mm hole in the closed (far) end of the shroud accepts a
 length of 1/4" OD LLDPE tubing — the unpressurized vent line. The
-LLDPE routes through the foam shell's shared +Z slot (alongside the
+LLDPE routes through the foam shell's shared +Y slot (alongside the
 water inlet) into the appliance interior, where it terminates open.
 
 Geometry
 --------
 
-    Y = 46 mm  ┌──────────────────────┐  ← cap outside surface
+    Z = 46 mm  ┌──────────────────────┐  ← cap outside surface
                │ ░░░░ 2 mm cap ░░░░░░ │  ← centered ⌀6.35 hole
-    Y = 44 mm  ├──────────────────────┤  ← cap inside surface
+    Z = 44 mm  ├──────────────────────┤  ← cap inside surface
                │                      │
                │   (cavity around     │
                │    PRV body, hex,    │  ← 19 mm ID
@@ -34,15 +34,15 @@ Geometry
                │    bonnet windows,   │
                │    pull-ring)        │
                │                      │
-    Y = 0      └ open ────────────────┘  ← seats on elbow ⌀18.8 mm cyl
+    Z = 0      └ open ────────────────┘  ← seats on elbow ⌀18.8 mm cyl
 
 The 44 mm cavity length matches the in-hand stack measurement from
 the bottom of the elbow's smooth cylinder to the very tip of the
 PRV pull-ring with the valve hand-tight in the elbow's lateral
 F outlet.
 
-Coordinate convention: cylinder axis along Y, open end at Y=0, cap
-top at Y=46. Installed orientation is horizontal — the shroud's Y
+Coordinate convention: cylinder axis along Z, open end at Z=0, cap
+top at Z=46. Installed orientation is horizontal — the shroud's Z
 axis aligns with the lateral run of the TAISHER elbow off Port 4.
 """
 
@@ -90,17 +90,17 @@ overcut = 0.1
 def build_prv_shroud():
     """One-piece cylindrical cup with a centered vent hole in the cap."""
     outer = (
-        cq.Workplane("XZ")
+        cq.Workplane("XY")
         .circle(outer_diameter / 2)
         .extrude(total_length)
     )
     cavity = (
-        cq.Workplane("XZ")
+        cq.Workplane("XY")
         .circle(inner_diameter / 2)
         .extrude(cavity_length + overcut)
     )
     vent_hole = (
-        cq.Workplane("XZ")
+        cq.Workplane("XY")
         .workplane(offset=cavity_length - overcut)
         .circle(vent_hole_diameter / 2)
         .extrude(cap_thickness + 2 * overcut)
