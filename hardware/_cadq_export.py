@@ -57,10 +57,7 @@ _STEP_ENDSEC_MARKER = "\nENDSEC;\n"
 # STEP graph (depth of upstream chain is small).
 _STEP_REV_HASH_ITERATIONS = 20
 
-# DXF non-determinism comes from four ezdxf-internal sources, none of
-# which the STEP path handles. DXF has no equivalent of OCCT's entity-ID
-# renumbering problem because DXF cross-refs use class names, not auto-
-# assigned numeric IDs — so the fix is regex-level, no graph walk.
+# DXF non-determinism comes from four ezdxf-internal sources:
 #
 #   1. Wall-clock save times in four header variables, stored as Julian
 #      dates: $TDCREATE, $TDUCREATE, $TDUPDATE, $TDUUPDATE.
@@ -84,8 +81,6 @@ _DXF_HEADER_GUID_RE = re.compile(
 )
 _DXF_CANONICAL_GUID = rb"\g<1>{00000000-0000-0000-0000-000000000000}\n"
 
-# ezdxf signature: preserve the version (so a real upgrade still shows
-# in the diff) but pin the timestamp.
 _DXF_EZDXF_SIGNATURE_RE = re.compile(
     rb"(\d+\.\d+\.\d+) @ "
     rb"\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}(?:\.\d+)?(?:[+-]\d{2}:\d{2})?"
