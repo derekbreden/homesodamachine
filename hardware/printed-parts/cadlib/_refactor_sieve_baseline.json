@@ -1,15 +1,15 @@
 {
   "cold_core_hashes": {
-    "hardware/printed-parts/cold-core/copper-plugs/copper-plug-lower.step": "e96fc74ab9be10fdc6bfba3787923a3b99655e9a5d9c949738d4a65505995c09",
-    "hardware/printed-parts/cold-core/copper-plugs/copper-plug-middle.step": "4a525943bcb403a2ac4d2639241b78939f258245f308de2a21cf5b977b0817c0",
-    "hardware/printed-parts/cold-core/copper-plugs/copper-plug-top.step": "711f7c4c0c5d5c752b3f3beb5390a9beaaf2995bb6bb9d1e5eeace5247027651",
-    "hardware/printed-parts/cold-core/copper-plugs/copper-plug-upper.step": "8ac6052d9b414a2f070e6c4e6c2461c49d996ff21ef3e0e3d4ca99affdc764cb",
-    "hardware/printed-parts/cold-core/foam-cap/foam-cap-bottom.step": "167e8ee5b9c10e7c7f7fa05cd0bf8fbca120f942326cc2c1b87befc01f78bd1c",
-    "hardware/printed-parts/cold-core/foam-cap/foam-cap-gasket.step": "b17a222e0e890f0546dc5bd5aadbb503ea94d03a10f2b0ff9dad827d14990fb7",
-    "hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-bottom.step": "2e93b89dc5a4bd95123e4d15b782bb7bcdce0d2c3c2b22a16ad46749e918187b",
-    "hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-top.step": "8d3aa1114290ac797bc2d1126cac698234159c0028ad7f81e83f0088050562e6",
-    "hardware/printed-parts/cold-core/foam-cap/foam-cap-top.step": "e2af8a646d8f1ecab8a6a1c9094f1a76d2c83fee77e331ae0dc63c4971609397",
-    "hardware/printed-parts/cold-core/foam-shell/foam-shell.step": "8ad9b58b540599b036e19dd9b90b50a2466c75fcb160a431f4b4a2d5fbdfb9ae"
+    "hardware/printed-parts/cold-core/copper-plugs/copper-plug-lower.step": "91a6d094b903fd284e798719b78e328e713ecac1cdfdff9a89c792ae0bcb739c",
+    "hardware/printed-parts/cold-core/copper-plugs/copper-plug-middle.step": "db70d10a809740090eb625417a7ad9edaa4eda428afcf52bfc9491f5090dc6d9",
+    "hardware/printed-parts/cold-core/copper-plugs/copper-plug-top.step": "7d7512e9da81fe88c3b4420016a0d514b9643a1b5964c5a200caee3e87253d7b",
+    "hardware/printed-parts/cold-core/copper-plugs/copper-plug-upper.step": "0b7b80479875242b55ac3b721d0463d38f04c93dd89e40dc988271b6edb79188",
+    "hardware/printed-parts/cold-core/foam-cap/foam-cap-bottom.step": "21918132e86b6b10642f70033c2cdb151a2e9f8dd72849e5f80403c7f40ca7a6",
+    "hardware/printed-parts/cold-core/foam-cap/foam-cap-gasket.step": "84d12c73465603eb69187c247906a81dc35c1ef7844d55e3596afba591378878",
+    "hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-bottom.step": "5d26a374539e226349f6fd57bc0f785fb5c075f3a1786f8acadba334a30507c7",
+    "hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-top.step": "cd3a0dc0bae03c835e53e3a37f6c8fe9fcd6e01f083d1adaafd3f202e18a8b0e",
+    "hardware/printed-parts/cold-core/foam-cap/foam-cap-top.step": "40c32c92dc630e6188e79405c9c554dd2f3cbf2d279ca8f4fdf4290eb7f1f177",
+    "hardware/printed-parts/cold-core/foam-shell/foam-shell.step": "5342b966e55efadc64326c6264e7f73b8164a72893dc1c20a4479f90b7159074"
   },
   "pump_case": {
     "base": {
@@ -56,11 +56,11 @@
         "zmin": -70.0
       },
       "com": {
-        "x": -86.4048,
-        "y": 82.5449,
-        "z": -3.6489
+        "x": -86.3999,
+        "y": 82.5754,
+        "z": -3.6736
       },
-      "volume_mm3": 483001.389
+      "volume_mm3": 482776.127
     },
     "body_right": {
       "bbox": {
@@ -72,27 +72,27 @@
         "zmin": -70.0
       },
       "com": {
-        "x": 86.4048,
-        "y": 82.5449,
-        "z": -3.6489
+        "x": 86.3999,
+        "y": 82.5754,
+        "z": -3.6736
       },
-      "volume_mm3": 483001.3851
+      "volume_mm3": 482776.1231
     },
     "bulkhead_seal": {
       "bbox": {
-        "xmax": 10.15,
-        "xmin": -10.15,
+        "xmax": 10.65,
+        "xmin": -10.65,
         "ymax": 2.0,
         "ymin": 0.0,
-        "zmax": 10.15,
-        "zmin": -10.15
+        "zmax": 10.65,
+        "zmin": -10.65
       },
       "com": {
         "x": -0.0,
         "y": 1.0,
         "z": -0.0
       },
-      "volume_mm3": 166.2531
+      "volume_mm3": 285.0053
     },
     "cap_left": {
       "bbox": {
@@ -157,6 +157,72 @@
         "z": 0.0
       },
       "volume_mm3": 154.8177
+    }
+  },
+  "shell": {
+    "bottom": {
+      "bbox": {
+        "xmax": 22.275,
+        "xmin": -22.275,
+        "ymax": 201.2283,
+        "ymin": -0.0,
+        "zmax": 60.5359,
+        "zmin": -25.45
+      },
+      "com": {
+        "x": 0.0,
+        "y": 84.8209,
+        "z": 4.3582
+      },
+      "volume_mm3": 69290.4089
+    },
+    "full": {
+      "bbox": {
+        "xmax": 22.275,
+        "xmin": -22.275,
+        "ymax": 228.6282,
+        "ymin": -0.0,
+        "zmax": 145.3341,
+        "zmin": -25.45
+      },
+      "com": {
+        "x": 0.0,
+        "y": 124.6099,
+        "z": 32.7385
+      },
+      "volume_mm3": 103645.4196
+    },
+    "middle": {
+      "bbox": {
+        "xmax": 10.7,
+        "xmin": -10.7,
+        "ymax": 228.6282,
+        "ymin": 173.8426,
+        "zmax": 129.2644,
+        "zmin": 32.1026
+      },
+      "com": {
+        "x": -0.0,
+        "y": 208.6213,
+        "z": 75.5581
+      },
+      "volume_mm3": 23602.3479
+    },
+    "top": {
+      "bbox": {
+        "xmax": 10.7,
+        "xmin": -10.7,
+        "ymax": 221.9088,
+        "ymin": 174.5313,
+        "zmax": 145.3341,
+        "zmin": 100.8083
+      },
+      "com": {
+        "x": -0.0,
+        "y": 196.2705,
+        "z": 123.9416
+      },
+      "volume_mm3": 10118.3218
     }
   }
 }

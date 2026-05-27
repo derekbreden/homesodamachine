@@ -1,6 +1,6 @@
 """Refactor sieve — invariants that must survive ongoing refactors.
 
-Three complementary checks:
+Four complementary checks:
 
 1. PUMP-CASE: build base + cap in-process, then check Volume +
    BoundingBox + CenterOfMass scalars against a pinned baseline. For
@@ -13,7 +13,13 @@ Three complementary checks:
    as pump-case — for the vocabulary refactor (range tuples, named
    anchors, chained CADQuery instead of _wp_at helpers).
 
-3. COLD-CORE: SHA256-compare every downstream STEP file whose generator
+3. SHELL: build all 4 touch-flo-shell pieces in-process (full + bottom +
+   middle + top), then check Volume + BoundingBox + CenterOfMass scalars
+   against a pinned baseline. Same scalar-tolerance shape as reservoir —
+   for the +Y-up native-authoring rebase (drops the internal Z-up frame
+   + boundary rotation wrappers).
+
+4. COLD-CORE: SHA256-compare every downstream STEP file whose generator
    is NOT undergoing a vocabulary refactor; bytes must match exactly.
 
 Run with:
@@ -52,6 +58,8 @@ _cold_core_generators = [
 ]
 
 _pump_case_generator = "hardware/printed-parts/flavor/pump-case/pump_case.py"
+
+_shell_generator = "hardware/printed-parts/faucet/touch-flo-shell/touch_flo_shell.py"
 
 
 def _sha256(path):
@@ -126,6 +134,35 @@ def _reservoir_scalars():
     return parts
 
 
+def _shell_scalars():
+    """Build all 4 touch-flo-shell pieces in-process and return scalars.
+
+    Imports the generator's build_shell* functions so we don't depend on
+    the STEP round-trip (same approach as pump-case + reservoir). The
+    bottom and middle splits accept an optional pre-built full shell to
+    avoid rebuilding it three times; we pass the same `full` solid into
+    both so the four scalars line up with what main() exports."""
+    shell_dir = _repo / "hardware/printed-parts/faucet/touch-flo-shell"
+    sys.path.insert(0, str(shell_dir))
+    sys.path.insert(0, str(_repo / "hardware/printed-parts/faucet"))
+    sys.path.insert(0, str(_repo / "hardware/printed-parts/cadlib"))
+    sys.path.insert(0, str(_repo / "hardware"))
+
+    # Force a fresh import (in case a prior call cached an older copy).
+    import importlib
+    if "touch_flo_shell" in sys.modules:
+        del sys.modules["touch_flo_shell"]
+    mod = importlib.import_module("touch_flo_shell")
+
+    full = mod.build_shell()
+    return {
+        "full":   _solid_scalars(full),
+        "bottom": _solid_scalars(mod.build_shell_bottom(full)),
+        "middle": _solid_scalars(mod.build_shell_middle(full)),
+        "top":    _solid_scalars(mod.build_shell_top(full)),
+    }
+
+
 def _solid_scalars(wp):
     solid = wp.val()
     bb = solid.BoundingBox()
@@ -149,11 +186,14 @@ def capture():
     pump = _pump_case_scalars()
     print("Capturing reservoir scalars...")
     reservoir = _reservoir_scalars()
+    print("Capturing shell scalars...")
+    shell = _shell_scalars()
     print("Capturing cold-core STEP file hashes...")
     hashes = _file_hashes()
     baseline = {
         "pump_case": pump,
         "reservoir": reservoir,
+        "shell": shell,
         "cold_core_hashes": hashes,
     }
     _baseline_path.write_text(json.dumps(baseline, indent=2, sort_keys=True))
@@ -161,6 +201,7 @@ def capture():
     print(f"  Pump-case base volume: {pump['base']['volume_mm3']} mm³")
     print(f"  Pump-case cap volume:  {pump['cap']['volume_mm3']} mm³")
     print(f"  Reservoir parts captured: {len(reservoir)}")
+    print(f"  Shell pieces captured:    {len(shell)}")
     print(f"  Cold-core STEPs hashed: {len(hashes)}")
 
 
@@ -186,6 +227,12 @@ def check():
     ok, output = _run_generator(_pump_case_generator)
     if not ok:
         print(f"FAIL: pump-case generator\n{output}", file=sys.stderr)
+        sys.exit(1)
+
+    print("Regenerating shell STEPs...")
+    ok, output = _run_generator(_shell_generator)
+    if not ok:
+        print(f"FAIL: shell generator\n{output}", file=sys.stderr)
         sys.exit(1)
 
     print("Checking cold-core STEP hashes...")
@@ -222,6 +269,16 @@ def check():
             print(f"  {line}", file=sys.stderr)
         sys.exit(1)
     print(f"  {len(actual_reservoir)} reservoir parts match.")
+
+    print("Checking shell scalars...")
+    actual_shell = _shell_scalars()
+    shell_drift = _compare_scalars(baseline["shell"], actual_shell)
+    if shell_drift:
+        print("SHELL DRIFT:", file=sys.stderr)
+        for line in shell_drift:
+            print(f"  {line}", file=sys.stderr)
+        sys.exit(1)
+    print(f"  {len(actual_shell)} shell pieces match.")
 
     print("\nAll sieve checks pass.")
 

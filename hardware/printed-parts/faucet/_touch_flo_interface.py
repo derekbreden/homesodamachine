@@ -49,12 +49,3 @@ flavor_tube_depth = 15.75 + flavor_tube_x_offset  # 18.925
 # all four parts in the column (shell uses it for the shank pocket
 # alongside its `body_bore_diameter` for the body OD).
 shank_hole_diameter = 12.6
-
-
-# Transitional aliases — touch-flo-shell and faucet-assembly still
-# author their internal geometry in the upstream Z-up frame and consume
-# these names; delete once both are rebased to native +Y-up authoring.
-flavor_tube_y_offset = flavor_tube_x_offset
-pill_length_y = pill_length_x
-pill_width_x = pill_width_z
-flavor_tube_x = flavor_tube_depth

@@ -88,8 +88,8 @@ Prime-available at order time.
 by ``endcap_circular_dxf.py` (different part)` in the same directory) is a single-piece
 Ø 54.35 mm disc with hole positions that match the TPU mounting
 gasket exactly — Ø 12.6 mm shank pocket at the gasket's shank center
-and a [13.4 mm](PILL_L) × [7.05 mm](PILL_W) pill pocket (long axis along Y) at the gasket's
-pill center, [18.93 mm](FLAVOR_TUBE_X) away along +X. Each pocket has its own
+and a [13.4 mm](PILL_L) × [7.05 mm](PILL_W) pill pocket (long axis along X) at the gasket's
+pill center, [18.93 mm](FLAVOR_TUBE_Z) away along -Z. Each pocket has its own
 open-edge channel extending from the pocket to the disc rim in the
 −Y direction (channel widths: 12.6 mm for the shank, [7.05 mm](PILL_W) for the
 pill). The two channels exit the rim at different X positions and
@@ -187,9 +187,9 @@ cross-section + lever orientation).
    stringing.
 2. **Body fit.** Dry-fit the harvested body into the shell's bore
    from the bottom (shell oriented bottom-up). The body should
-   slide all the way to the bore cove (Z = [19.25 mm](BORE_COVE_Z) in part
+   slide all the way to the bore cove (Y = [19.25 mm](BORE_COVE_Y) in part
    coordinates) without binding. The lever swings in the shell's
-   -X clearance ramp; verify the lever clears at the resting
+   +Z clearance ramp; verify the lever clears at the resting
    position.
 
 ## Step 1 — Body into mounting plate
@@ -206,23 +206,23 @@ cross-section + lever orientation).
    body-to-plate clamp; the gasket and under-counter nut at the deck
    install step take over the long-term clamping load.
 4. Confirm the body is rotationally locked — the rectangular zone-2
-   profile ([31.5 mm](BODY_RECT_LONG) × [17 mm](BODY_RECT_SHORT)) above [13 mm](BODY_CYL_TOP_Z) cannot rotate inside the
+   profile ([31.5 mm](BODY_RECT_LONG) × [17 mm](BODY_RECT_SHORT)) above [13 mm](BODY_CYL_TOP_Y) cannot rotate inside the
    shell's bore that's about to come down on it. The body's
    rotational orientation is set by which way the lever points;
-   orient the lever toward -X (the lever-clearance ramp side of the
+   orient the lever toward +Z (the lever-clearance ramp side of the
    shell).
 
 ## Step 2 — Shell over body
 
 1. Hold the plate + body sub-assembly with the body pointing up. Drop
    the shell down over the body so the body enters the shell's bore
-   from the bottom. The shell's -X lever clearance ramp must align
-   with the lever (which you already pointed toward -X in Step 1).
+   from the bottom. The shell's +Z lever clearance ramp must align
+   with the lever (which you already pointed toward +Z in Step 1).
 2. Push the shell down until its bottom face seats flat against the
    plate's top face. There is nothing to press into — the shell just
    slides down over the body and rests on the plate by gravity.
 3. Verify the shell's pill slot aligns with the plate's pill slot
-   (both at world ([18.93 mm](FLAVOR_TUBE_X), 0), Y-oriented). They should overlay
+   (both at world (0, -[18.93 mm](FLAVOR_TUBE_Z)), X-oriented). They should overlay
    exactly. If they don't, the shell is rotated 180° about the
    shell-center vertical axis — lift it straight up off the plate
    (no resistance, since there's no joinery), rotate, and re-seat.
@@ -250,12 +250,12 @@ After the shell is seated:
   the shell + plate by grabbing the lever and twisting. Should be
   rigid, set by the rectangular zone-2 profile inside the rectangular
   bore.
-- **Lever swings freely.** Press the lever toward the -X ramp; it
+- **Lever swings freely.** Press the lever toward the +Z ramp; it
   should pivot through its full ~18° travel without contacting the
   shell. Release; it should spring back to rest under the factory
   return spring.
 - **Pill slot is clear.** Sight down through the pill slot from above
-  to below — the shell slot, the body's open -X side, and the plate
+  to below — the shell slot, the body's open +Z side, and the plate
   slot should form a continuous opening for the two flavor tubes.
 
 ## Disassembly (for service)
@@ -274,8 +274,8 @@ wear — there's nothing to wear.
 
 | Symptom                                       | Likely cause                                                 | Fix                                                                                    |
 | --------------------------------------------- | ------------------------------------------------------------ | -------------------------------------------------------------------------------------- |
-| Plate-to-shell joint won't close (visible gap) | Body fouling the shell bore (most likely lever orientation), or support material left in the shell bore | Disassemble; verify the body slides all the way to the bore cove with no resistance; re-orient lever to -X if needed. |
-| Lever binds against shell                     | Lever orientation off, or shell -X ramp printed with a support stub remaining | Disassemble; clear the ramp; re-orient body so lever points to -X. |
+| Plate-to-shell joint won't close (visible gap) | Body fouling the shell bore (most likely lever orientation), or support material left in the shell bore | Disassemble; verify the body slides all the way to the bore cove with no resistance; re-orient lever to +Z if needed. |
+| Lever binds against shell                     | Lever orientation off, or shell +Z ramp printed with a support stub remaining | Disassemble; clear the ramp; re-orient body so lever points to +Z. |
 | Shell falls off plate during handling         | Sub-assembly was inverted or jolted before umbilical routing locked the stack | Re-seat; handle upright (shell up) until the umbilical tubes are routed at the next bench. A piece of masking tape across the joint is fine as a transport aid. No design fix needed — the shell is intentionally held by gravity only at this stage. |
 
 ## Sources
