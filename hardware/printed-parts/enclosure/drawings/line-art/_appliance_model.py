@@ -326,9 +326,6 @@ def build_appliance() -> cq.Workplane:
     )
     appliance = _add_front_button(appliance, *BUTTON_AT, BUTTON_W, BUTTON_H, BUTTON_PROTRUSION)
 
-    # Right side face: CO2 inlet (CPC LC-family coupling body)
-    appliance = _add_co2_port(appliance, *CO2_PORT_AT)
-
     # Back face: umbilical (3 holes) + C14 inlet + nameplate
     appliance = _cut_back_circle(
         appliance,
@@ -351,7 +348,10 @@ def build_appliance() -> cq.Workplane:
     appliance = _cut_back_rectangle(appliance, *C14_AT, C14_W, C14_H)
     appliance = _add_back_nameplate(appliance, *NAMEPLATE_AT, NAMEPLATE_W, NAMEPLATE_H, NAMEPLATE_THICKNESS)
 
-    return appliance
+    # Right side face: CO2 inlet (CPC LC-family coupling body)
+    appliance = _add_co2_port(appliance, *CO2_PORT_AT)
+
+    return cq.Workplane().add(appliance.val().Solids()[0])
 
 
 # ---------------------------------------------------------------------------
