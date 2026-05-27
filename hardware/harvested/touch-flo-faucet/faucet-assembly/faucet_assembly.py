@@ -421,28 +421,32 @@ def build_lever():
 # Every part in the faucet — the harvested valve body, the natively
 # authored tubes / lever, and the printed-part STEPs (mounting plate /
 # gasket / shell) — is in the upstream Z-up frame (+Z body-up, -X
-# gooseneck dispense direction). The rest of the repo (cold-core,
-# enclosure) uses +Y-up. We rebase to +Y-up at the assembly's export
-# boundary so all downstream consumers (drawings, the SVG iso view,
-# the appliance composite) see the faucet in the repo's convention.
+# gooseneck dispense direction). The rest of the repo uses +Y-up. We
+# rebase to +Y-up at the assembly's export boundary so all downstream
+# consumers (drawings, the SVG iso view, the appliance composite) see
+# the faucet in the repo's convention.
 #
-# Cyclic axis permutation (a -120° turn about (1, 1, 1)): old (X, Y, Z)
-# becomes new (Y, Z, X):
+# Two clean 90° turns: spin about old +Z (the body axis), then tip
+# about old +X. Composed they map old (X, Y, Z) -> new (-Y, Z, -X):
 #   +Z body-up        -> +Y  (height — matches repo +Y-up)
-#   -X gooseneck tip  -> -Z  (toward the front / toward the user)
-#   +Y lateral        -> +X  (width)
+#   -X gooseneck tip  -> +Z  (toward the front / toward the user, so a
+#                             natural-iso camera at +X, +Y, +Z reads as
+#                             the user's view of the faucet)
+#   +Y lateral        -> -X  (width — symmetric, sign cosmetic)
 #
 # Authoring math (tubes, lever, all coordinate constants above) stays
 # in Z-up — the rotation lives ONLY here, where it crosses the export
 # boundary. This is deliberate: rewriting the internal coordinate names
 # is what broke the lever in the previous rebase attempt.
-_Y_UP_ROTATION_AXIS = (1, 1, 1)
-_Y_UP_ROTATION_DEG = -120
 
 
 def _to_y_up(shape):
     """Rotate a Z-up authored shape into the +Y-up output frame."""
-    return shape.rotate((0, 0, 0), _Y_UP_ROTATION_AXIS, _Y_UP_ROTATION_DEG)
+    return (
+        shape
+        .rotate((0, 0, 0), (0, 0, 1), 90)    # spin 90° about old +Z (body axis)
+        .rotate((0, 0, 0), (1, 0, 0), -90)   # tip 90° about old +X
+    )
 
 
 def build_assembly():

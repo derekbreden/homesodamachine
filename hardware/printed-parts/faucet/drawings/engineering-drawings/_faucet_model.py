@@ -8,9 +8,10 @@ accept cq.Assembly directly in this CadQuery install, so we load the
 pre-built STEP file (which writes a multi-solid STEP) and return it as
 a `cq.Workplane` ready for SVG export.
 
-Coordinate frame — repo +Y-up convention (same as cold-core / enclosure):
+Coordinate frame — +Y-up:
     +Y is the vertical axis through the valve body (height).
-    -Z is the gooseneck dispense direction (toward the front / user).
+    +Z is the gooseneck dispense direction (toward the user, so the
+        natural-iso camera at +x, +y, +z reads as the user's view).
     +X is the lateral axis (the two flavor tubes mirror across the YZ plane).
 """
 

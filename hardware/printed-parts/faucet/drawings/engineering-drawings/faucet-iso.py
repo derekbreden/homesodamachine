@@ -5,12 +5,13 @@ engineering-drawing aesthetic, as opposed to the line-art renders in
 `../line-art/`.
 
 The loaded assembly is already in the repo's +Y-up frame (the
-faucet_assembly.py export does the rebase). projectionDir (1, 1, -1)
-places the camera at +x, +y, -z — the user's view standing in front
-of the sink: above, slightly to one side, and on the front (gooseneck-
-dispense) side of the appliance. The body draws vertical; the gooseneck
-arches up and toward the viewer with the lever pointing toward the
-viewer.
+faucet_assembly.py export does the rebase, and the gooseneck dispense
+direction ends up on +Z so the natural-iso camera reads as the user's
+view). projectionDir (1, 1, 1) places the camera at +x, +y, +z —
+elevated, offset to one side, and on the gooseneck-dispense side of
+the appliance: the user's view standing in front of the sink. The
+body draws vertical; the gooseneck arches up and toward the viewer
+with the lever pointing toward the viewer.
 
 Run from the repo root:
     tools/cad-venv/bin/python hardware/printed-parts/faucet/drawings/engineering-drawings/faucet-iso.py
@@ -34,7 +35,7 @@ def main() -> None:
         faucet,
         str(output_path),
         opt={
-            "projectionDir": (1, 1, -1),  # camera at +x, +y, -z (user iso)
+            "projectionDir": (1, 1, 1),  # camera at +x, +y, +z (user iso)
             "width": None,                  # auto-fit to projected width
             "height": 800,
             "marginLeft": 30,
