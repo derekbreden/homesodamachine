@@ -1358,25 +1358,13 @@ def _tube_shell_inner_section(z_bottom: float, z_height: float) -> cq.Workplane:
     return water_tube_cyl(z_bottom, z_height).union(flavor_inner)
 
 
-def build_shell() -> cq.Workplane:
-    """Touch-Flo shell — full reference solid (un-split).
-
-    For printing, this solid is split into THREE pieces along the
-    gooseneck at two 20 mm slip-fit joints — see build_shell_bottom
-    (angled-spout), build_shell_middle (upper-bend), and
-    build_shell_top (dispense-tip). This single-solid form is kept for
-    assembly visualization and as the source the bottom / middle
-    splits operate on.
-
-    All zones unioned into one solid:
-      - Zones 1–4: body wraps + lever clearance
-      - Zone 4.5: lid above the lever
-      - Zone 5: tube wraps inside the lid (provides the bore through the
-                lid; outer is dominated by the lid in the union)
-      - Zone 6: gooseneck (the visible spout above the lid)
-
-    Gooseneck overhangs will need slicer-generated supports.
-    """
+def _build_shell_zup() -> cq.Workplane:
+    """Internal: full reference solid in the upstream Z-up authoring
+    frame. The shell's 1500 lines of zone / sweep / split math (and
+    the constants imported from _touch_flo_interface) are all Z-up;
+    the public `build_shell` etc. wrap this with `_to_y_up` so the
+    module's output matches the repo's +Y-up convention without
+    touching the math."""
     outer = (
         build_zone1_outer()
         .union(build_zone2_outer())
@@ -1400,43 +1388,70 @@ def build_shell() -> cq.Workplane:
     return outer.cut(inner)
 
 
-def build_shell_bottom(full_shell: cq.Workplane | None = None) -> cq.Workplane:
-    """Angled-spout piece — bottom half of the split, with the female socket.
+def build_shell() -> cq.Workplane:
+    """Touch-Flo shell — full reference solid (un-split), in the
+    repo's +Y-up frame.
+
+    For printing, this solid is split into THREE pieces along the
+    gooseneck at two 20 mm slip-fit joints — see build_shell_bottom
+    (angled-spout), build_shell_middle (upper-bend), and
+    build_shell_top (dispense-tip). This single-solid form is kept for
+    assembly visualization and as the source the bottom / middle
+    splits operate on.
+
+    All zones unioned into one solid:
+      - Zones 1–4: body wraps + lever clearance
+      - Zone 4.5: lid above the lever
+      - Zone 5: tube wraps inside the lid (provides the bore through the
+                lid; outer is dominated by the lid in the union)
+      - Zone 6: gooseneck (the visible spout above the lid)
+
+    Gooseneck overhangs will need slicer-generated supports.
+    """
+    return _to_y_up(_build_shell_zup())
+
+
+def _build_shell_bottom_zup(full_shell_zup: cq.Workplane) -> cq.Workplane:
+    """Internal: bottom split in the Z-up authoring frame.
 
     Everything below the SPLIT A junction plane, with the top 20 mm of
     the spout hollowed out down to a 2 mm uniform wall (the female
-    socket) that receives build_shell_middle's male plug. The original
+    socket) that receives the middle piece's male plug. The original
     water + flavor bores in the overlap zone are absorbed into the
     socket cavity.
     """
-    full = build_shell() if full_shell is None else full_shell
     below_junction = _split_plane_halfspace(
         (split_junction_x, 0.0, split_junction_z), split_normal, sign=-1,
     )
     socket_cavity = _build_zone6_outer_shrunk(split_a_socket_shrink).intersect(
         _split_overlap_slab(split_a_socket_overlap_x, split_a_socket_overlap_z)
     )
-    return full.intersect(below_junction).cut(socket_cavity)
+    return full_shell_zup.intersect(below_junction).cut(socket_cavity)
 
 
-def build_shell_middle(full_shell: cq.Workplane | None = None) -> cq.Workplane:
-    """Upper-bend piece — middle of the split, with the male plug for
-    SPLIT A (bottom end) and the female socket for SPLIT B (top end).
+def build_shell_bottom(full_shell: cq.Workplane | None = None) -> cq.Workplane:
+    """Angled-spout piece — bottom half of the split, with the female
+    socket. In the repo's +Y-up frame.
+
+    `full_shell` (also +Y-up if provided) is rotated back to the
+    internal Z-up frame for the split math, then the result is
+    rebased to +Y-up for return."""
+    full_zup = _from_y_up(full_shell) if full_shell is not None else _build_shell_zup()
+    return _to_y_up(_build_shell_bottom_zup(full_zup))
+
+
+def _build_shell_middle_zup(full_shell_zup: cq.Workplane) -> cq.Workplane:
+    """Internal: middle split in the Z-up authoring frame.
 
     Built in two stages:
       1. SPLIT A (spout↔bend): keep everything ABOVE the SPLIT A
-         junction plane, then add the angled-spout-direction male plug
-         (same construction as the previous two-piece build_shell_top).
+         junction plane, then add the angled-spout-direction male plug.
       2. SPLIT B (bend↔tip): cut out the dispense-tip section, then cut
          out a shrunk-cross-section sweep along the last 20 mm of
          bend 2 — leaving a 2 mm female socket wall over the curved
          overlap zone. Original bores in that zone are absorbed into
          the socket cavity.
     """
-    full = build_shell() if full_shell is None else full_shell
-
-    # SPLIT A — keep upper-bend + tip side; add the male plug going down
-    # into the angled-spout's socket.
     above_junction_a = _split_plane_halfspace(
         (split_junction_x, 0.0, split_junction_z), split_normal, sign=+1,
     )
@@ -1446,10 +1461,8 @@ def build_shell_middle(full_shell: cq.Workplane | None = None) -> cq.Workplane:
     plug_outer_a = _build_zone6_outer_shrunk(split_a_plug_shrink).intersect(overlap_slab_a)
     plug_bores_a = build_zone6_inner_cut().intersect(overlap_slab_a)
     plug_a = plug_outer_a.cut(plug_bores_a)
-    bend_plus_tip = full.intersect(above_junction_a).union(plug_a)
+    bend_plus_tip = full_shell_zup.intersect(above_junction_a).union(plug_a)
 
-    # SPLIT B — strip the dispense tip off the top, then hollow out the
-    # socket overlap region of bend 2 down to the socket-wall thickness.
     tip_section = _build_tip_section(_tube_shell_outer_sketch())
     bend_socket_cavity = _build_bend_overlap(
         _tube_shell_outer_shrunk_sketch(split_b_socket_shrink), side="socket",
@@ -1457,9 +1470,16 @@ def build_shell_middle(full_shell: cq.Workplane | None = None) -> cq.Workplane:
     return bend_plus_tip.cut(tip_section).cut(bend_socket_cavity)
 
 
-def build_shell_top(full_shell: cq.Workplane | None = None) -> cq.Workplane:
-    """Dispense-tip piece — top of the split, with the male plug for
-    SPLIT B (bend↔tip joint).
+def build_shell_middle(full_shell: cq.Workplane | None = None) -> cq.Workplane:
+    """Upper-bend piece — middle of the split, with the male plug for
+    SPLIT A (bottom end) and the female socket for SPLIT B (top end).
+    In the repo's +Y-up frame."""
+    full_zup = _from_y_up(full_shell) if full_shell is not None else _build_shell_zup()
+    return _to_y_up(_build_shell_middle_zup(full_zup))
+
+
+def _build_shell_top_zup() -> cq.Workplane:
+    """Internal: dispense-tip piece in the Z-up authoring frame.
 
     Constructed entirely from fresh sub-sweeps (not extracted from the
     full shell), so the plug follows bend 2's curve back through the
@@ -1469,13 +1489,7 @@ def build_shell_top(full_shell: cq.Workplane | None = None) -> cq.Workplane:
       - Male plug = SHRUNK-outer sweep along the last 20 mm of bend 2
         (so its curved OD ≡ middle piece's curved socket ID), minus the
         original bores so the tubes pass through unbroken.
-    The two solids union at the SPLIT B junction plane.
-
-    `full_shell` accepted for signature parity with the other two
-    builders but unused.
-    """
-    _ = full_shell  # unused — top piece doesn't derive from the full shell
-
+    The two solids union at the SPLIT B junction plane."""
     tip_outer = _build_tip_section(_tube_shell_outer_sketch())
     tip_inner = _build_tip_section(_tube_shell_inner_sketch())
     tip = tip_outer.cut(tip_inner)
@@ -1489,11 +1503,21 @@ def build_shell_top(full_shell: cq.Workplane | None = None) -> cq.Workplane:
     return tip.union(plug)
 
 
+def build_shell_top(full_shell: cq.Workplane | None = None) -> cq.Workplane:
+    """Dispense-tip piece — top of the split, with the male plug for
+    SPLIT B (bend↔tip joint). In the repo's +Y-up frame.
+
+    `full_shell` accepted for signature parity with the other two
+    builders but unused — the top piece is constructed from fresh
+    sub-sweeps."""
+    _ = full_shell  # unused — top piece doesn't derive from the full shell
+    return _to_y_up(_build_shell_top_zup())
+
+
 def _to_y_up(shape):
-    """Rotate the Z-up authored shell into the repo's +Y-up frame for
-    export. See touch_flo_mounting_plate.main for the full rationale —
-    same rotation as faucet_assembly's _to_y_up, applied at this part's
-    STEP export boundary."""
+    """Rotate a Z-up authored shape into the repo's +Y-up frame.
+    Same axis-permutation as faucet_assembly's _to_y_up: old (X, Y, Z)
+    -> new (-Y, Z, -X). Used at the boundary of every public build_*."""
     return (
         shape
         .rotate((0, 0, 0), (0, 0, 1), 90)
@@ -1501,21 +1525,35 @@ def _to_y_up(shape):
     )
 
 
+def _from_y_up(shape):
+    """Inverse of _to_y_up — rotate a +Y-up shape back into the Z-up
+    authoring frame. Used when a public build_* receives a +Y-up
+    full_shell argument and needs to do its split math in Z-up."""
+    return (
+        shape
+        .rotate((0, 0, 0), (1, 0, 0), 90)
+        .rotate((0, 0, 0), (0, 0, 1), -90)
+    )
+
+
 def main():
     out_dir = Path(__file__).resolve().parent
-    full = build_shell()
-    bottom = build_shell_bottom(full)
-    middle = build_shell_middle(full)
-    top = build_shell_top(full)
+    # Build the Z-up form once and pass it to each split internally,
+    # then rebase to +Y-up at export time.
+    full_zup = _build_shell_zup()
+    full = _to_y_up(full_zup)
+    bottom = _to_y_up(_build_shell_bottom_zup(full_zup))
+    middle = _to_y_up(_build_shell_middle_zup(full_zup))
+    top = _to_y_up(_build_shell_top_zup())
 
     full_out = out_dir / "touch-flo-shell.step"
     bottom_out = out_dir / "touch-flo-shell-bottom.step"
     middle_out = out_dir / "touch-flo-shell-middle.step"
     top_out = out_dir / "touch-flo-shell-top.step"
-    export_step(_to_y_up(full), str(full_out))
-    export_step(_to_y_up(bottom), str(bottom_out))
-    export_step(_to_y_up(middle), str(middle_out))
-    export_step(_to_y_up(top), str(top_out))
+    export_step(full, str(full_out))
+    export_step(bottom, str(bottom_out))
+    export_step(middle, str(middle_out))
+    export_step(top, str(top_out))
     print(f"-> {full_out.name}")
     print(f"-> {bottom_out.name}")
     print(f"-> {middle_out.name}")
