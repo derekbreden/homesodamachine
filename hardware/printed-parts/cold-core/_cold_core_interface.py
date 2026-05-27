@@ -15,7 +15,7 @@ sys.path.insert(0, str(next(p for p in _here.parents if p.name == "printed-parts
 
 import cadquery as cq
 
-from world_workplane import xz_plane_y_up, xy_plane_z_up, WorldWorkplane
+from world_workplane import xy_plane_z_up, xz_plane_y_up, xz_plane_y_down, WorldWorkplane
 
 
 # All structural walls and floors are [2 mm](WALL_AND_FLOOR_THICKNESS) PETG.
@@ -55,7 +55,7 @@ support_ring_radial_width = 9.0
 port_hole_radius = 3.25
 
 # Bag pocket. Width tracks pocket_centerward_arc_outer_radius so the
-# pocket's ±Z outboard faces are tangent to the cylinder the centerward
+# pocket's ±Y outboard faces are tangent to the cylinder the centerward
 # arc rides on. Depth sized so each reservoir's usable window (Reed 1
 # low warning → Reed 4 full, 135 mm of float travel) holds 2 × Soda-
 # Stream 0.44 L bottles per refill cycle = 0.88 L usable. Total
@@ -68,11 +68,11 @@ bag_pocket_depth = 49 + 2 * wall_and_floor_thickness
 bag_pocket_far_inner_x = (
     pocket_centerward_arc_outer_radius + bag_pocket_depth - 2 * wall_and_floor_thickness
 )
-bag_pocket_z_inner_max = bag_pocket_width / 2 - wall_and_floor_thickness
-bag_pocket_floor_top_y = wall_and_floor_thickness
-bag_pocket_walls_top_y = foam_shell_outer_height
+bag_pocket_y_inner_max = bag_pocket_width / 2 - wall_and_floor_thickness
+bag_pocket_floor_top_z = wall_and_floor_thickness
+bag_pocket_walls_top_z = foam_shell_outer_height
 
-# Matches the reservoir's outer +X × ±Z fillet (R=6) with reservoir_clearance
+# Matches the reservoir's outer +X × ±Y fillet (R=6) with reservoir_clearance
 # on top, so the reservoir's outer arc slides into a snugly-mated arc on
 # the pocket's inner corner with uniform clearance.
 bag_pocket_corner_inner_radius = 6.5
@@ -81,14 +81,14 @@ reservoir_clearance = 0.5
 reservoir_floor_thickness = 4.0
 bulkhead_nut_cavity_diameter = 23.0
 
-# Y of the bulkhead NUT cavity center — anchored to the floor's low point.
+# Z of the bulkhead NUT cavity center — anchored to the floor's low point.
 # Computed so the nut cavity's lowest reach (washer counterbore at
 # ⌀22.3) sits right at the reservoir floor's wet surface, leaving the
 # full reservoir_floor_thickness ([4 mm](RESERVOIR_FLOOR_THICKNESS)) of PETG below it as the fluid
 # barrier. The nut (washer + hex piece) is the deepest feature in this
 # area and the floor MUST stay [4 mm](RESERVOIR_FLOOR_THICKNESS) at this low point.
-reservoir_bulkhead_nut_y = (
-    bag_pocket_floor_top_y
+reservoir_bulkhead_nut_z = (
+    bag_pocket_floor_top_z
     + reservoir_clearance
     + reservoir_floor_thickness
     + bulkhead_nut_cavity_diameter / 2
@@ -99,16 +99,16 @@ reservoir_bulkhead_nut_y = (
 # nut cavity center; the bulkhead's threading section then engages the
 # nut at a [1 mm](BULKHEAD_AXIS_LIFT_ABOVE_NUT) offset, well within the ⌀17 panel hole's clearance
 # around the ⌀~13 threaded section. The nut cavity stays at
-# reservoir_bulkhead_nut_y (the floor low point); everything anchored
+# reservoir_bulkhead_nut_z (the floor low point); everything anchored
 # to the bulkhead axis (chamber, panel hole, TPU seals, foam-shell
 # pass-through, wet/dry slopes, dry slab, rod body boss) lifts with it.
 bulkhead_axis_lift_above_nut = 1.0
-reservoir_bulkhead_port_y = reservoir_bulkhead_nut_y + bulkhead_axis_lift_above_nut
+reservoir_bulkhead_port_z = reservoir_bulkhead_nut_z + bulkhead_axis_lift_above_nut
 reservoir_bulkhead_port_x = (bag_pocket_far_inner_x + pocket_centerward_arc_outer_radius) / 2
-# Z of the bulkhead pass-through (and the cable hole that shares its z so
+# Y of the bulkhead pass-through (and the cable hole that shares its y so
 # the reed cable runs straight from channel to outside). 10 mm inboard
-# of the bag-pocket +Z wall outer face.
-reservoir_bulkhead_port_z = bag_pocket_width / 2 - 10
+# of the bag-pocket +Y wall outer face.
+reservoir_bulkhead_port_y = bag_pocket_width / 2 - 10
 
 # Outer footprint shared by the outer shell, the foam cap, and the
 # foam cap lid — must be coplanar at the corners so the screw bosses
@@ -120,7 +120,7 @@ bag_pocket_outermost_x = (
 outer_shell_x_length = 2 * (
     bag_pocket_outermost_x + outer_shell_foam_gap + wall_and_floor_thickness
 )
-outer_shell_z_length = 2 * (
+outer_shell_y_length = 2 * (
     pocket_centerward_arc_outer_radius + outer_shell_foam_gap + wall_and_floor_thickness
 )
 
@@ -142,16 +142,16 @@ insert_pocket_depth = 8.0  # 4 mm insert engagement + 4 mm relief
 screw_boss_size = 8.0  # [8 × 8 mm](SCREW_BOSS_SIZE) square pillar at each attachment
 
 # Mid-long-side bosses offset in X to clear the copper/water-outlet
-# slot at x=0; opposite signs at ±Z preserve 180° rotational symmetry
-# around the Y axis (balanced gasket compression).
+# slot at x=0; opposite signs at ±Y preserve 180° rotational symmetry
+# around the Z axis (balanced gasket compression).
 mid_screw_x_offset = 15.0
-foam_cap_attachment_xz_positions = (
+foam_cap_attachment_xy_positions = (
     [(x_sign * (outer_shell_x_length / 2 - screw_boss_size / 2),
-      z_sign * (outer_shell_z_length / 2 - screw_boss_size / 2))
-     for x_sign in (1, -1) for z_sign in (1, -1)]
-    + [(z_sign * mid_screw_x_offset,
-        z_sign * (outer_shell_z_length / 2 - screw_boss_size / 2))
-       for z_sign in (1, -1)]
+      y_sign * (outer_shell_y_length / 2 - screw_boss_size / 2))
+     for x_sign in (1, -1) for y_sign in (1, -1)]
+    + [(y_sign * mid_screw_x_offset,
+        y_sign * (outer_shell_y_length / 2 - screw_boss_size / 2))
+       for y_sign in (1, -1)]
 )
 gasket_thickness = 2.0
 gasket_strip_width = 5.0
@@ -163,11 +163,11 @@ def make_box(x_range, y_range, z_range):
     y_min, y_max = min(y_range), max(y_range)
     z_min, z_max = min(z_range), max(z_range)
     return (
-        WorldWorkplane(xz_plane_y_up)
-        .workplane(offset=y_min)
-        .moveTo(((x_min + x_max) / 2, (z_min + z_max) / 2))
-        .rect(x_max - x_min, z_max - z_min)
-        .extrude(y_max - y_min)
+        WorldWorkplane(xy_plane_z_up)
+        .workplane(offset=z_min)
+        .moveTo(((x_min + x_max) / 2, (y_min + y_max) / 2))
+        .rect(x_max - x_min, y_max - y_min)
+        .extrude(z_max - z_min)
         .unwrap()
     )
 
@@ -178,15 +178,15 @@ def build_hole_punch(
     hole_punch_radius,
     hole_punch_height=40,
 ):
-    """Z-axis ⌀ × height cylindrical cut, centered at `origin`'s X/Y and
-    starting at `origin`'s Z, extruded in +Z.
+    """Y-axis ⌀ × height cylindrical cut, centered at `origin`'s X/Z and
+    starting at `origin`'s Y, extruded in +Y.
 
     Default height (40 mm) is intentionally larger than every call site's
     exact wall-reach distance. Don't reduce it to the per-hole exact reach
     — looks like an obvious refactor, but the co2_inlet's hole is tangent
     to the support ring's inner curved cylinder (r = 61.5). At the hole's
-    outer radius |x| = 3.25 the ring extends to z ≈ -61.41, so an
-    exact-reach height of 9 mm (ending at z = -61.5) leaves a ~1.86 mm³
+    outer radius |x| = 3.25 the ring extends to y ≈ -61.41, so an
+    exact-reach height of 9 mm (ending at y = -61.5) leaves a ~1.86 mm³
     sliver of ring material in the tube's actual path. The 40 mm overshoot
     reliably clears that. (Flat-wall holes — water_outlet, reservoir
     bulkheads — do tolerate exact-reach face coincidence, but mixing
@@ -194,8 +194,8 @@ def build_hole_punch(
     40 mm extrude just cuts air past the wall in those cases.)"""
     x, y, z = origin
     return (
-        cq.Workplane(xy_plane_z_up)
-        .workplane(origin=(x, y, 0), offset=z)
+        cq.Workplane(xz_plane_y_up)
+        .workplane(origin=(x, 0, z), offset=y)
         .circle(hole_punch_radius)
         .extrude(hole_punch_height)
     )
@@ -207,32 +207,32 @@ def build_slot_punch(
     slot_diameter=6.5,
     slot_punch_height=40,
 ):
-    """Y-elongated, Z-extruded rounded slot (circle-rect-circle), centered
-    at `origin`'s X/Y and starting at `origin`'s Z. Long axis runs along
-    world Y. The rounded ends each contribute slot_diameter/2 of additional
-    Y reach beyond `slot_length`."""
+    """Z-elongated, Y-extruded rounded slot (circle-rect-circle), centered
+    at `origin`'s X/Z and starting at `origin`'s Y. Long axis runs along
+    world Z. The rounded ends each contribute slot_diameter/2 of additional
+    Z reach beyond `slot_length`."""
     x, y, z = origin
     return (
-        cq.Workplane(xy_plane_z_up)
-        .workplane(origin=(x, y, 0), offset=z)
+        cq.Workplane(xz_plane_y_up)
+        .workplane(origin=(x, 0, z), offset=y)
         .slot2D(slot_length, slot_diameter, angle=90)
         .extrude(slot_punch_height)
     )
 
 
-def build_y_axis_hole_punch(
+def build_z_axis_hole_punch(
     *,
     origin=(0, 0, 0),
     hole_punch_radius,
     hole_punch_height=40,
 ):
-    """Y-axis ⌀ × height cylindrical cut, centered at `origin`'s X/Z and
-    starting at `origin`'s Y, extruded in +Y. Same shape as
-    `build_hole_punch` but aimed along +Y instead of +Z."""
+    """Z-axis ⌀ × height cylindrical cut, centered at `origin`'s X/Y and
+    starting at `origin`'s Z, extruded in +Z. Same shape as
+    `build_hole_punch` but aimed along +Z instead of +Y."""
     x, y, z = origin
     return (
-        cq.Workplane(xz_plane_y_up)
-        .workplane(origin=(x, 0, z), offset=y)
+        cq.Workplane(xy_plane_z_up)
+        .workplane(origin=(x, y, 0), offset=z)
         .circle(hole_punch_radius)
         .extrude(hole_punch_height)
     )
