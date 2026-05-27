@@ -34,18 +34,12 @@ sys.path.insert(
 sys.path.insert(0, str(_here.parent.parent))  # for _touch_flo_interface
 sys.path.insert(0, str(next(p for p in _here.parents if p.name == "printed-parts") / "cadlib"))
 from _cadq_export import export_step
-# _touch_flo_interface's variable suffixes are the upstream Z-up names
-# (this part is authored in +Y-up here, but the shared interface hasn't
-# been renamed yet). flavor_tube_x is the magnitude of the depth offset
-# from the body axis; pill_length_y is the pill's LATERAL extent (which
-# is +X in the +Y-up frame); pill_width_x is the pill's DEPTH extent
-# (along world Z).
 from _touch_flo_interface import (
     flavor_tube_od,
     flavor_tube_hole_dia as flavor_tube_hole_diameter,
-    flavor_tube_x as flavor_tube_depth_offset,
-    pill_length_y as pill_lateral_extent,
-    pill_width_x as pill_depth_extent,
+    flavor_tube_depth,
+    pill_length_x,
+    pill_width_z,
     shank_hole_diameter,
 )
 from docgen import substitute_py_comments
@@ -80,7 +74,7 @@ shank_hole_center = (0.0, 0.0)
 # [18.93 mm](FLAVOR_TUBE_Z) pill center -Z from the shank (toward the back
 # of the appliance, opposite the gooseneck dispense side) — shared with
 # the shell.
-flavor_tube_center = (0.0, -flavor_tube_depth_offset)
+flavor_tube_center = (0.0, -flavor_tube_depth)
 
 # Pill slot covers both 1/4" flavor tubes (centers at ±flavor_tube_x_offset
 # in world X) as one rounded-rectangle, matching the mounting plate.
@@ -117,7 +111,7 @@ def build_mounting_gasket():
     # slot2D angle=0 — long axis along the workplane X = world X (lateral).
     pill_slot = (
         gasket_workplane(flavor_tube_center)
-        .slot2D(pill_lateral_extent, pill_depth_extent, angle=0)
+        .slot2D(pill_length_x, pill_width_z, angle=0)
         .extrude(gasket_thickness)
     )
     return gasket.cut(shank_hole).cut(pill_slot).unwrap()
@@ -140,8 +134,8 @@ def main():
         "FLAVOR_TUBE_OD": f"{flavor_tube_od:.4g} mm",
         "FLAVOR_TUBE_HOLE_D": f"{flavor_tube_hole_diameter:.4g} mm",
         "FLAVOR_TUBE_Z": f"{-flavor_tube_center[1]:.4g} mm",
-        "PILL_L": f"{pill_lateral_extent:.4g} mm",
-        "PILL_W": f"{pill_depth_extent:.4g} mm",
+        "PILL_L": f"{pill_length_x:.4g} mm",
+        "PILL_W": f"{pill_width_z:.4g} mm",
     }
     substitute_py_comments(
         Path(__file__),
