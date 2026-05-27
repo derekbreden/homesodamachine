@@ -66,13 +66,15 @@ ARROW_COLORS = {
 def _arrow_defs():
     """SVG <defs> with one arrowhead marker per color. Each <line> /
     <path> arrow references its marker via marker-end=url(#arrow-<color>).
+    The marker's tip extends well past refX so the line's round endcap
+    sits under the triangle fill and the visible tip reads sharp.
     """
     markers = []
     for name, color in ARROW_COLORS.items():
         markers.append(
-            f'<marker id="arrow-{name}" viewBox="0 0 10 10" refX="9" refY="5" '
-            f'markerWidth="5" markerHeight="5" orient="auto-start-reverse">'
-            f'<path d="M 0 0 L 10 5 L 0 10 Z" fill="{color}" />'
+            f'<marker id="arrow-{name}" viewBox="0 0 12 10" refX="9" refY="5" '
+            f'markerWidth="6" markerHeight="5" orient="auto-start-reverse">'
+            f'<path d="M 0 0 L 12 5 L 0 10 Z" fill="{color}" />'
             f'</marker>'
         )
     return "  <defs>\n    " + "\n    ".join(markers) + "\n  </defs>"
