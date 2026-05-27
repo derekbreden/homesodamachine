@@ -1,33 +1,33 @@
 {
   "byte_hashed_steps": {
-    "hardware/harvested/co2-coupling-body/co2-coupling-body.step": "4e85c70bad4042df6da41cd7357f6db37c7e0ae39286cff1de6749c8be47374f",
-    "hardware/harvested/touch-flo-faucet/faucet-assembly/touch-flo-faucet-assembly.step": "569ddf7865dac93e653969397c252e66acec9b15b669631a5baad409dafe642c",
+    "hardware/harvested/co2-coupling-body/co2-coupling-body.step": "6c647a645ee4f99ca3c84a39f85e36ef3d249d387c071229e58e8937f5020313",
+    "hardware/harvested/touch-flo-faucet/faucet-assembly/touch-flo-faucet-assembly.step": "00fe18c1fc247641c8f5a3bd53b283d25bfb60d2b86b7a108c0ecd2c52ce16a3",
     "hardware/harvested/touch-flo-faucet/valve-body-reference/touch-flo-valve-body-reference.step": "eb30a12d36b67d746c3c89935cb00ec59592fbb7a92d9c720c2cd63becb5c797",
-    "hardware/printed-parts/cold-core/copper-plugs/copper-plug-lower.step": "91a6d094b903fd284e798719b78e328e713ecac1cdfdff9a89c792ae0bcb739c",
-    "hardware/printed-parts/cold-core/copper-plugs/copper-plug-middle.step": "db70d10a809740090eb625417a7ad9edaa4eda428afcf52bfc9491f5090dc6d9",
-    "hardware/printed-parts/cold-core/copper-plugs/copper-plug-top.step": "7d7512e9da81fe88c3b4420016a0d514b9643a1b5964c5a200caee3e87253d7b",
-    "hardware/printed-parts/cold-core/copper-plugs/copper-plug-upper.step": "0b7b80479875242b55ac3b721d0463d38f04c93dd89e40dc988271b6edb79188",
-    "hardware/printed-parts/cold-core/foam-cap/foam-cap-bottom.step": "21918132e86b6b10642f70033c2cdb151a2e9f8dd72849e5f80403c7f40ca7a6",
-    "hardware/printed-parts/cold-core/foam-cap/foam-cap-gasket.step": "84d12c73465603eb69187c247906a81dc35c1ef7844d55e3596afba591378878",
-    "hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-bottom.step": "5d26a374539e226349f6fd57bc0f785fb5c075f3a1786f8acadba334a30507c7",
-    "hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-top.step": "cd3a0dc0bae03c835e53e3a37f6c8fe9fcd6e01f083d1adaafd3f202e18a8b0e",
-    "hardware/printed-parts/cold-core/foam-cap/foam-cap-top.step": "40c32c92dc630e6188e79405c9c554dd2f3cbf2d279ca8f4fdf4290eb7f1f177",
-    "hardware/printed-parts/cold-core/foam-shell/foam-shell.step": "5342b966e55efadc64326c6264e7f73b8164a72893dc1c20a4479f90b7159074"
+    "hardware/printed-parts/cold-core/copper-plugs/copper-plug-lower.step": "3b0ccca5f42aeb6d82f87bd93d1639374beb221a2b36f5bebf646a03e8ddaf5c",
+    "hardware/printed-parts/cold-core/copper-plugs/copper-plug-middle.step": "4a2c4d590f2dcbcf0abea8e5b36fa1697ceef3c20c3a837c8c262c6b86804d04",
+    "hardware/printed-parts/cold-core/copper-plugs/copper-plug-top.step": "2668a6ac9a65e2dc5385b426803929c9e8ea072fa269f85a64523946a3048fa3",
+    "hardware/printed-parts/cold-core/copper-plugs/copper-plug-upper.step": "db38e8f7b4fea4f6abebbe6874467c0168aff1e8d3690498cff280b49311357f",
+    "hardware/printed-parts/cold-core/foam-cap/foam-cap-bottom.step": "f3de5af20cb17835d10028b383030d4fcf5ce5e7f37cae87b7665a667ab1e745",
+    "hardware/printed-parts/cold-core/foam-cap/foam-cap-gasket.step": "9a645dc8834aa8e899931d3ed06fb4c9fd95602231f136846a8b37cf3735845c",
+    "hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-bottom.step": "3b7b2bdccc06fd8ff1ad4934c892de629ea0ea13469c37e8fde3d9ab2c5b8685",
+    "hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-top.step": "e16f212b5bd4f362f9dac33732ed7c523bc33e10a72acd733f43610937835979",
+    "hardware/printed-parts/cold-core/foam-cap/foam-cap-top.step": "51e49c07a88e2aeb3d69c2df31710a076ebc78766e3ea43aab6f90fe70c11123",
+    "hardware/printed-parts/cold-core/foam-shell/foam-shell.step": "d17610f0583d99407c482c4a6cea0a4dcaf8f128c1bd30f46f90eeebe279c69b"
   },
   "faucet_assembly": {
     "flavor_tube_neg": {
       "bbox": {
         "xmax": 0.0,
         "xmin": -6.35,
-        "ymax": 224.2782,
-        "ymin": -50.0,
-        "zmax": 142.0018,
-        "zmin": -22.1
+        "ymax": 142.0018,
+        "ymin": -22.1,
+        "zmax": 224.2782,
+        "zmin": -50.0
       },
       "com": {
         "x": -3.175,
-        "y": 118.1997,
-        "z": 27.0103
+        "y": 27.0103,
+        "z": 118.1997
       },
       "volume_mm3": 12036.6263
     },
@@ -35,15 +35,15 @@
       "bbox": {
         "xmax": 6.35,
         "xmin": -0.0,
-        "ymax": 224.2782,
-        "ymin": -50.0,
-        "zmax": 142.0018,
-        "zmin": -22.1
+        "ymax": 142.0018,
+        "ymin": -22.1,
+        "zmax": 224.2782,
+        "zmin": -50.0
       },
       "com": {
         "x": 3.175,
-        "y": 118.1997,
-        "z": 27.0103
+        "y": 27.0103,
+        "z": 118.1997
       },
       "volume_mm3": 12036.6263
     },
@@ -51,15 +51,15 @@
       "bbox": {
         "xmax": 6.5,
         "xmin": -6.5,
-        "ymax": 54.024,
-        "ymin": 35.4109,
-        "zmax": 42.0,
-        "zmin": -10.487
+        "ymax": 42.0,
+        "ymin": -10.487,
+        "zmax": 54.024,
+        "zmin": 35.4109
       },
       "com": {
-        "x": -0.0,
-        "y": 45.4053,
-        "z": 16.2131
+        "x": 0.0,
+        "y": 16.2131,
+        "z": 45.4053
       },
       "volume_mm3": 6674.8968
     },
@@ -67,15 +67,15 @@
       "bbox": {
         "xmax": 4.7625,
         "xmin": -4.7625,
-        "ymax": 218.5909,
-        "ymin": 24.0,
-        "zmax": 137.645,
-        "zmin": -13.6375
+        "ymax": 137.645,
+        "ymin": -13.6375,
+        "zmax": 218.5909,
+        "zmin": 24.0
       },
       "com": {
-        "x": 0.0,
-        "y": 144.2267,
-        "z": 40.8685
+        "x": -0.0,
+        "y": 40.8685,
+        "z": 144.2267
       },
       "volume_mm3": 20502.9753
     }
@@ -85,15 +85,15 @@
       "bbox": {
         "xmax": 27.175,
         "xmin": -27.175,
-        "ymax": -4.0,
-        "ymin": -6.0,
-        "zmax": 24.0,
-        "zmin": -30.35
+        "ymax": 24.0,
+        "ymin": -30.35,
+        "zmax": -4.0,
+        "zmin": -6.0
       },
       "com": {
         "x": -0.0,
-        "y": -5.0,
-        "z": -2.7374
+        "y": -2.7374,
+        "z": -5.0
       },
       "volume_mm3": 4223.0235
     },
@@ -101,15 +101,15 @@
       "bbox": {
         "xmax": 27.175,
         "xmin": -27.175,
-        "ymax": 0.0,
-        "ymin": -4.0,
-        "zmax": 24.0,
-        "zmin": -30.35
+        "ymax": 24.0,
+        "ymin": -30.35,
+        "zmax": 0.0,
+        "zmin": -4.0
       },
       "com": {
         "x": -0.0,
-        "y": -2.0269,
-        "z": -2.7298
+        "y": -2.7298,
+        "z": -2.0269
       },
       "volume_mm3": 8301.8872
     },
@@ -135,31 +135,31 @@
       "bbox": {
         "xmax": 73.0,
         "xmin": -3.0,
-        "ymax": 81.0,
-        "ymin": -28.5,
-        "zmax": 70.7,
-        "zmin": -0.0
+        "ymax": 70.7,
+        "ymin": -0.0,
+        "zmax": 81.0,
+        "zmin": -28.5
       },
       "com": {
         "x": 35.0,
-        "y": 35.7908,
-        "z": 36.0836
+        "y": 36.0836,
+        "z": 35.7908
       },
-      "volume_mm3": 161720.9108
+      "volume_mm3": 161720.9204
     },
     "cap": {
       "bbox": {
         "xmax": 73.0,
         "xmin": -3.0,
-        "ymax": -9.5,
-        "ymin": -54.5,
-        "zmax": 70.0,
-        "zmin": -0.0
+        "ymax": 70.0,
+        "ymin": -0.0,
+        "zmax": -9.5,
+        "zmin": -54.5
       },
       "com": {
         "x": 35.0,
-        "y": -39.7301,
-        "z": 30.5714
+        "y": 30.5714,
+        "z": -39.7301
       },
       "volume_mm3": 38441.5312
     }
@@ -169,47 +169,47 @@
       "bbox": {
         "xmax": -40.3141,
         "xmin": -121.0,
-        "ymax": 201.9,
-        "ymin": 2.5,
-        "zmax": 70.0,
-        "zmin": -70.0
+        "ymax": 70.0,
+        "ymin": -70.0,
+        "zmax": 201.9,
+        "zmin": 2.5
       },
       "com": {
         "x": -86.3999,
-        "y": 82.5754,
-        "z": -3.6736
+        "y": -3.6736,
+        "z": 82.5754
       },
-      "volume_mm3": 482776.127
+      "volume_mm3": 482776.1269
     },
     "body_right": {
       "bbox": {
         "xmax": 121.0,
         "xmin": 40.3141,
-        "ymax": 201.9,
-        "ymin": 2.5,
-        "zmax": 70.0,
-        "zmin": -70.0
+        "ymax": 70.0,
+        "ymin": -70.0,
+        "zmax": 201.9,
+        "zmin": 2.5
       },
       "com": {
         "x": 86.3999,
-        "y": 82.5754,
-        "z": -3.6736
+        "y": -3.6736,
+        "z": 82.5754
       },
-      "volume_mm3": 482776.1231
+      "volume_mm3": 482776.123
     },
     "bulkhead_seal": {
       "bbox": {
         "xmax": 10.65,
         "xmin": -10.65,
-        "ymax": 2.0,
-        "ymin": 0.0,
-        "zmax": 10.65,
-        "zmin": -10.65
+        "ymax": 10.65,
+        "ymin": -10.65,
+        "zmax": 2.0,
+        "zmin": 0.0
       },
       "com": {
         "x": -0.0,
-        "y": 1.0,
-        "z": -0.0
+        "y": 0.0,
+        "z": 1.0
       },
       "volume_mm3": 285.0053
     },
@@ -217,15 +217,15 @@
       "bbox": {
         "xmax": -40.3141,
         "xmin": -121.0,
-        "ymax": 9.0,
-        "ymin": -4.0,
-        "zmax": 70.0,
-        "zmin": -70.0
+        "ymax": 70.0,
+        "ymin": -70.0,
+        "zmax": 9.0,
+        "zmin": -4.0
       },
       "com": {
         "x": -88.8814,
-        "y": 5.6252,
-        "z": -0.3237
+        "y": -0.3237,
+        "z": 5.6252
       },
       "volume_mm3": 47073.4591
     },
@@ -233,15 +233,15 @@
       "bbox": {
         "xmax": 121.0,
         "xmin": 40.3141,
-        "ymax": 9.0,
-        "ymin": -4.0,
-        "zmax": 70.0,
-        "zmin": -70.0
+        "ymax": 70.0,
+        "ymin": -70.0,
+        "zmax": 9.0,
+        "zmin": -4.0
       },
       "com": {
         "x": 88.8814,
-        "y": 5.6252,
-        "z": -0.3237
+        "y": -0.3237,
+        "z": 5.6252
       },
       "volume_mm3": 47073.4591
     },
@@ -249,15 +249,15 @@
       "bbox": {
         "xmax": 121.0,
         "xmin": 40.3141,
-        "ymax": 2.0,
-        "ymin": 0.0,
-        "zmax": 70.0,
-        "zmin": -70.0
+        "ymax": 70.0,
+        "ymin": -70.0,
+        "zmax": 2.0,
+        "zmin": 0.0
       },
       "com": {
         "x": 86.7772,
-        "y": 1.0,
-        "z": 0.0
+        "y": -0.0,
+        "z": 1.0
       },
       "volume_mm3": 4789.6802
     },
@@ -265,15 +265,15 @@
       "bbox": {
         "xmax": 6.7,
         "xmin": -6.7,
-        "ymax": 2.0,
-        "ymin": 0.0,
-        "zmax": 6.7,
-        "zmin": -6.7
+        "ymax": 6.7,
+        "ymin": -6.7,
+        "zmax": 2.0,
+        "zmin": 0.0
       },
       "com": {
         "x": -0.0,
-        "y": 1.0,
-        "z": 0.0
+        "y": 0.0,
+        "z": 1.0
       },
       "volume_mm3": 154.8177
     }
@@ -283,63 +283,63 @@
       "bbox": {
         "xmax": 22.275,
         "xmin": -22.275,
-        "ymax": 201.2283,
-        "ymin": -0.0,
-        "zmax": 60.5359,
-        "zmin": -25.45
+        "ymax": 60.5359,
+        "ymin": -25.45,
+        "zmax": 201.2283,
+        "zmin": -0.0
       },
       "com": {
-        "x": -0.0,
-        "y": 84.8209,
-        "z": 4.3582
+        "x": 0.0,
+        "y": 4.3582,
+        "z": 84.8209
       },
-      "volume_mm3": 69290.4082
+      "volume_mm3": 69290.4056
     },
     "full": {
       "bbox": {
         "xmax": 22.275,
         "xmin": -22.275,
-        "ymax": 228.6282,
-        "ymin": -0.0,
-        "zmax": 145.3341,
-        "zmin": -25.45
+        "ymax": 145.3341,
+        "ymin": -25.45,
+        "zmax": 228.6282,
+        "zmin": -0.0
       },
       "com": {
-        "x": -0.0,
-        "y": 124.6099,
-        "z": 32.7385
+        "x": 0.0,
+        "y": 32.7385,
+        "z": 124.6099
       },
-      "volume_mm3": 103645.4196
+      "volume_mm3": 103645.4151
     },
     "middle": {
       "bbox": {
         "xmax": 10.7,
         "xmin": -10.7,
-        "ymax": 228.6282,
-        "ymin": 173.8426,
-        "zmax": 129.2644,
-        "zmin": 32.1026
+        "ymax": 129.2644,
+        "ymin": 32.1026,
+        "zmax": 228.6282,
+        "zmin": 173.8426
       },
       "com": {
-        "x": 0.0,
-        "y": 208.6213,
-        "z": 75.5581
+        "x": -0.0,
+        "y": 75.5581,
+        "z": 208.6213
       },
-      "volume_mm3": 23602.3484
+      "volume_mm3": 23602.349
     },
     "top": {
       "bbox": {
         "xmax": 10.7,
         "xmin": -10.7,
-        "ymax": 221.9088,
-        "ymin": 174.5313,
-        "zmax": 145.3341,
-        "zmin": 100.8083
+        "ymax": 145.3341,
+        "ymin": 100.8083,
+        "zmax": 221.9088,
+        "zmin": 174.5313
       },
       "com": {
         "x": 0.0,
-        "y": 196.2705,
-        "z": 123.9416
+        "y": 123.9416,
+        "z": 196.2705
       },
       "volume_mm3": 10118.3218
     }
