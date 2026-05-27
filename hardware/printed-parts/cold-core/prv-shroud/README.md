@@ -120,8 +120,8 @@ geometry shift and should land with a measured rationale.
 | metric | value |
 |---|---|
 | bbox X | [-11.500 to 11.500 mm](BBOX_X) |
-| bbox Y | [-46.000 to 0.000 mm](BBOX_Y) |
-| bbox Z | [-11.500 to 11.500 mm](BBOX_Z) |
+| bbox Z | [0.000 to 46.000 mm](BBOX_Z) |
+| bbox Y | [-11.500 to 11.500 mm](BBOX_Y) |
 | volume | [6548.090 mm³](VOLUME) |
 
 ## Sources

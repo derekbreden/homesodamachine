@@ -6,7 +6,7 @@ side face."""
 import cadquery as cq
 
 from _cold_core_interface import (
-    xy_plane_z_up,
+    xz_plane_y_down,
     wall_and_floor_thickness,
     pocket_centerward_arc_outer_radius,
     tank_support_ring_height,
@@ -21,45 +21,45 @@ slot_angular_width = 30.0
 slot_radial_margin = 1.0
 
 
-def revolve_rect(r_range, y_range, angle=360):
-    """Revolve a rectangular (r, y) profile around the Y axis by `angle`
-    degrees. The profile lives on the XY plane with its first coordinate
-    interpreted as radius; revolve's default axis is +Y, sweeping from
+def revolve_rect(r_range, z_range, angle=360):
+    """Revolve a rectangular (r, z) profile around the Z axis by `angle`
+    degrees. The profile lives on the XZ plane with its first coordinate
+    interpreted as radius; revolve's default axis is +Z, sweeping from
     the +X axis."""
     r_min, r_max = min(r_range), max(r_range)
-    y_min, y_max = min(y_range), max(y_range)
+    z_min, z_max = min(z_range), max(z_range)
     return (
-        cq.Workplane(xy_plane_z_up)
-        .moveTo(r_min, y_min)
-        .lineTo(r_max, y_min)
-        .lineTo(r_max, y_max)
-        .lineTo(r_min, y_max)
+        cq.Workplane(xz_plane_y_down)
+        .moveTo(r_min, z_min)
+        .lineTo(r_max, z_min)
+        .lineTo(r_max, z_max)
+        .lineTo(r_min, z_max)
         .close()
         .revolve(angle)
     )
 
 
 def build_tank_support_ring():
-    """Built as a full revolve of a rectangular (r, y) profile around
-    the Y axis; equal-spaced angular slots are cut as partial revolves
+    """Built as a full revolve of a rectangular (r, z) profile around
+    the Z axis; equal-spaced angular slots are cut as partial revolves
     of the same profile (with a radial margin), so every slot boundary
     stays on the same cylinder as the ring faces — no chord-vs-arc
     slivers."""
     r_outer = pocket_centerward_arc_outer_radius - wall_and_floor_thickness
     r_inner = r_outer - support_ring_radial_width
-    y_bottom = wall_and_floor_thickness
-    y_top = y_bottom + tank_support_ring_height
+    z_bottom = wall_and_floor_thickness
+    z_top = z_bottom + tank_support_ring_height
 
     ring_r_range = (r_inner, r_outer)
-    ring_y_range = (y_bottom, y_top)
+    ring_z_range = (z_bottom, z_top)
     slot_r_range = (r_inner - slot_radial_margin, r_outer + slot_radial_margin)
 
-    ring = revolve_rect(ring_r_range, ring_y_range)
+    ring = revolve_rect(ring_r_range, ring_z_range)
     slot_spacing_angle = 360 / slot_count
-    slot_template = revolve_rect(slot_r_range, ring_y_range, slot_angular_width)
+    slot_template = revolve_rect(slot_r_range, ring_z_range, slot_angular_width)
     for i in range(slot_count):
         slot_center_angle = slot_spacing_angle * (i + 0.5)
         slot_start_angle = slot_center_angle - slot_angular_width / 2
-        slot = slot_template.rotate((0, 0, 0), (0, 1, 0), slot_start_angle)
+        slot = slot_template.rotate((0, 0, 0), (0, 0, 1), slot_start_angle)
         ring = ring.cut(slot)
     return ring

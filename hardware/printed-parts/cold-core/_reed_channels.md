@@ -15,7 +15,7 @@ is written. Intended as a quality bar for Python files in this repo.
   rather than paired scalars (`cable_y_low`, `cable_y_high`). Two-tuples
   describing one extent of space, not two halves of an implicit one.
 - Derivations are visible — envelope ranges derive from cavity ranges, cable
-  Z range derives from reed Z range:
+  Y range derives from reed Y range:
   ```python
   reed_cavity_z_range = (reed_z_center - reed_z_half_w, reed_z_center + reed_z_half_w)
   reed_envelope_z_range = (reed_cavity_z_range[0] - w, reed_cavity_z_range[1] + w)
@@ -23,7 +23,7 @@ is written. Intended as a quality bar for Python files in this repo.
   cable_envelope_z_range = (reed_envelope_z_range[0], cable_z_max + w)
   ```
 - Named 2D anchor points for shared geometric joints
-  (`wedge_apex_at_wall`, `corner_arc_terminus`, `fillet_axis_x/z`) — coupling
+  (`wedge_apex_at_wall`, `corner_arc_terminus`, `fillet_axis_x/y`) — coupling
   between solids is visible at every reference site.
 - Named profile shapes — `missing_wall_profile` is a named list of vertices;
   `slope_wedge` helper uses named anchor tuples internally.
@@ -43,15 +43,15 @@ is written. Intended as a quality bar for Python files in this repo.
 - `make_box(x_range, y_range, z_range)` takes 3 ranges, not 6 scalars —
   call sites read as named slices of space, not floods of numbers.
 - `slope_wedge(cable_envelope_y_range[1], cable_envelope_z_range)` reads as
-  a noun phrase: "the slope wedge at the envelope's Y top, over the
-  envelope's Z range."
+  a noun phrase: "the slope wedge at the envelope's Z top, over the
+  envelope's Y range."
 - The return composition tells the story: total_envelope → cut by
   total_cavity → channels.
 
 **Hygiene**
 
-- Comments only carry design rationale the code can't say (why cable Y is
-  shared with the cable hole; why envelope bottom is y=0).
+- Comments only carry design rationale the code can't say (why cable Z is
+  shared with the cable hole; why envelope bottom is z=0).
 - Lowercase for all single-letter abbreviations (`w`, `s`, `_w`, `_r`).
 - No decorative whitespace alignment — no `=` columns, no padded commas,
   no aligned operators. The next rename doesn't silently break neighbors.

@@ -29,7 +29,7 @@ from _cold_core_interface import (
     mid_screw_x_offset,
     outer_shell_foam_gap,
     outer_shell_x_length,
-    outer_shell_z_length,
+    outer_shell_y_length,
     pocket_centerward_arc_outer_radius,
     port_hole_radius,
     reservoir_clearance,
@@ -41,7 +41,7 @@ from _cold_core_interface import (
     wall_and_floor_thickness,
 )
 from _reservoir_pocket_walls import (
-    pocket_centerward_arc_transition_z,
+    pocket_centerward_arc_transition_y,
     transition_tank_r,
 )
 from docgen import substitute_md
@@ -65,7 +65,7 @@ def main():
             # Outer shell footprint + height (substituted into the design prose).
             "OUTER_H": f"{foam_shell_outer_height:.4g} mm",
             "OUTER_X": f"{outer_shell_x_length:.4g} mm",
-            "OUTER_Z": f"{outer_shell_z_length:.4g}",  # unit implied from OUTER_X
+            "OUTER_Y": f"{outer_shell_y_length:.4g}",  # unit implied from OUTER_X
             "OUTER_GAP": f"{outer_shell_foam_gap:.4g} mm",
             # Tank, coil, pocket, ring.
             "WALL_T": f"{wall_and_floor_thickness:.4g} mm",
@@ -73,7 +73,7 @@ def main():
             "TANK_R": f"{tank_outer_radius:.4g} mm",
             "POCKET_ARC_R": f"{pocket_centerward_arc_outer_radius:.4g} mm",
             "POCKET_ARC_INNER_R": f"{pocket_centerward_arc_outer_radius - wall_and_floor_thickness:.4g} mm",
-            "POCKET_ARC_TRANSITION_Z": f"{pocket_centerward_arc_transition_z:.4g} mm",
+            "POCKET_ARC_TRANSITION_Y": f"{pocket_centerward_arc_transition_y:.4g} mm",
             "TRANSITION_ARC_R": f"{transition_tank_r:.4g} mm",
             "COIL_GAP": f"{coil_radial_clearance:.4g} mm",
             "ELBOW_ENV": f"{above_tank_elbows_height:.4g} mm",
@@ -105,14 +105,14 @@ def main():
         expected_counts={
             "OUTER_H": 2,
             "OUTER_X": 1,
-            "OUTER_Z": 1,
+            "OUTER_Y": 1,
             "OUTER_GAP": 2,
             "WALL_T": 2,
             "TANK_H": 1,
             "TANK_R": 2,
             "POCKET_ARC_R": 4,
             "POCKET_ARC_INNER_R": 3,
-            "POCKET_ARC_TRANSITION_Z": 2,
+            "POCKET_ARC_TRANSITION_Y": 2,
             "TRANSITION_ARC_R": 2,
             "COIL_GAP": 2,
             "ELBOW_ENV": 1,

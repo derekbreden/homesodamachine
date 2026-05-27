@@ -8,13 +8,13 @@ cavities around the wetted/cold parts for thermal insulation.
 
 ## Coordinate convention
 
-The CadQuery script uses an explicit XZ plane with +Y normal
-(`xz_plane_y_up`), so geometry grows upward in +Y.
+The CadQuery script uses an explicit XY plane with +Z normal
+(`xy_plane_z_up`), so geometry grows upward in +Z.
 
-- **Y** is vertical. The floor sits at y=0; everything stacks upward from
+- **Z** is vertical. The floor sits at z=0; everything stacks upward from
   there.
 - **X** is the reservoir axis. Two reservoir pockets sit on opposite sides along X.
-- **Z** is perpendicular to the reservoir axis.
+- **Y** is perpendicular to the reservoir axis.
 
 ## Physical inputs
 
@@ -27,7 +27,7 @@ The CadQuery script uses an explicit XZ plane with +Y normal
 - **Reservoir** — printed rigid PETG flavor reservoir, one per flavor,
   two per cold core. Cap on top with a single ⌀[6.5 mm](PORT_D) bulkhead
   pass-through; bottom is a wet-slope floor with a printed boss for the
-  internal SS float rod. Body envelope: **[140 mm](RESERVOIR_W) wide (along Z)
+  internal SS float rod. Body envelope: **[140 mm](RESERVOIR_W) wide (along Y)
   × [48 mm](RESERVOIR_D) deep (along X, radially outward) × [199.4 mm](RESERVOIR_H)
   tall**, sized to hold ≥ 1 L usable per reservoir. Reservoir geometry
   and internal features live at [`../reservoir/`](../reservoir/).
@@ -38,7 +38,7 @@ The CadQuery script uses an explicit XZ plane with +Y normal
 - **Tank-port fittings** — 1/4" NPT 90° elbows on every port, turning the
   line laterally. ~[30 mm](ELBOW_ENV) vertical envelope per elbow above
   and below the tank. An additional **John Guest PP0308E 1/4" PTC 90° elbow**
-  seats in the Ø16 CO2 inlet bore at x = 0, z = −70.5, where the cap-top
+  seats in the Ø16 CO2 inlet bore at x = 0, y = −70.5, where the cap-top
   CO2 line transitions 90° into a horizontal run that connects to the
   vessel-port TAISHER elbow via a PP010822E 1/4" PTC × 1/4" NPT M adapter.
 
@@ -52,16 +52,16 @@ thickness.**
 
 Two reservoir pockets, one on each ±X side of the cold-core, mirrored
 across the YZ plane. Each pocket is a four-walled enclosure (open at
-+Y; the outer_shell's floor closes the bottom; the foam_cap closes
++Z; the outer_shell's floor closes the bottom; the foam_cap closes
 the top during foam pour):
 
 - **Far ±X wall** — outboard face at x = ±[123.5 mm](POCKET_X_OUTER), cavity face at
   x = ±[121.5 mm](POCKET_X_INNER).
-- **+Z wall** — outboard face at z = +[72.5 mm](POCKET_ARC_R), cavity face at z = +[70.5 mm](POCKET_ARC_INNER_R).
-- **−Z wall** — outboard face at z = −[72.5 mm](POCKET_ARC_R), cavity face at z = −[70.5 mm](POCKET_ARC_INNER_R).
+- **+Y wall** — outboard face at y = +[72.5 mm](POCKET_ARC_R), cavity face at y = +[70.5 mm](POCKET_ARC_INNER_R).
+- **−Y wall** — outboard face at y = −[72.5 mm](POCKET_ARC_R), cavity face at y = −[70.5 mm](POCKET_ARC_INNER_R).
 - **Centerward wall** — the only curved wall. Its cavity-side face
   rides on a cylinder of radius **[72.5 mm](POCKET_ARC_R)** (centered on the
-  cold-core Y axis); its tank-side face is concentric one wall-thickness
+  cold-core Z axis); its tank-side face is concentric one wall-thickness
   inboard. The [7 mm](COIL_GAP) of radial clearance between the
   tank's outer face (R = [63.5 mm](TANK_R)) and the wall's tank-side
   face fits the 1/4" ACR copper coil + thermal tape + slack.
@@ -70,16 +70,16 @@ The centerward wall is one continuous curved wall built from three
 arc segments along its length:
 
 1. A **middle segment** — the cylindrical arc that wraps the tank+coil
-   envelope, running from z = −[60 mm](POCKET_ARC_TRANSITION_Z) to z = +[60 mm](POCKET_ARC_TRANSITION_Z).
-2. Two **transition segments**, one at each ±Z end — short
+   envelope, running from y = −[60 mm](POCKET_ARC_TRANSITION_Y) to y = +[60 mm](POCKET_ARC_TRANSITION_Y).
+2. Two **transition segments**, one at each ±Y end — short
    [8 mm](TRANSITION_ARC_R)-radius arcs that swing the wall out from
-   the middle arc to the pocket's ±Z wall. Each transition arc is
-   tangent to the middle arc and to the ±Z outboard face; its
+   the middle arc to the pocket's ±Y wall. Each transition arc is
+   tangent to the middle arc and to the ±Y outboard face; its
    tank-side face has radius [8 mm](TRANSITION_ARC_R) and its
    cavity-side face is concentric with the same center but a slightly
    smaller radius derived from geometry.
 
-The two **far-side corners** (where the far +X wall meets the ±Z
+The two **far-side corners** (where the far +X wall meets the ±Y
 walls) are filleted: **[6.5 mm](POCKET_CORNER_R) inner radius**,
 outer radius one wall-thickness larger (so the wall thickness stays
 uniform through the bend). The inner radius matches the rigid PETG
@@ -122,24 +122,24 @@ floor regardless of which cavity it enters from.
 Outer rectangular cup framing the whole foam-shell: floor + four
 perimeter walls + six [8 × 8 mm](BOSS) bosses. Total height matches
 the foam-shell outer height of [213.4 mm](OUTER_H).
-Outer footprint [283 mm](OUTER_X) × [181](OUTER_Z),
+Outer footprint [283 mm](OUTER_X) × [181](OUTER_Y),
 sized to leave [16 mm](OUTER_GAP) of foam-pour zone
 between the outer_shell's inner face and the outermost reservoir-
 pocket walls on each side.
 
 The six bosses are positioned at the four corners + two mid-long-side
 positions (offset in X by ±[15 mm](MID_BOSS_OFFSET) with opposite signs
-at +Z vs −Z, to preserve 180° rotational symmetry around the Y axis).
+at +Y vs −Y, to preserve 180° rotational symmetry around the Z axis).
 Each boss carries a heat-set insert pocket at the top (drilled down
 from the top face) and at the bottom (drilled up from the bottom face) —
 twelve inserts total, six per face, for fastening the foam_cap above
 and below.
 
-The outer +Z wall carries the shared copper/water-inlet slot, the
+The outer +Y wall carries the shared copper/water-inlet slot, the
 two ⌀[6.5 mm](PORT_D) reservoir-line holes, the two reed-cable holes,
 and the water-outlet hole. See Penetrations. (The CO2 inlet bore is
 internal to the assembly — it cuts down through the support ring at
-−Z, not through any outer wall.)
+−Y, not through any outer wall.)
 
 ### foam_cap and foam_cap_lid
 
@@ -157,8 +157,8 @@ has the pour hole (Ø [10 mm](POUR_D)) and two vent holes
 
 Both the cap and the lid have **six [8 × 8 mm](BOSS) boss / clearance-hole
 positions** — four at the corners and two at the mid-points of the long
-edges (one near the +Z wall and one near the −Z wall, offset in X by
-±[15 mm](MID_BOSS_OFFSET) with opposite signs at +Z vs −Z for 180°
+edges (one near the +Y wall and one near the −Y wall, offset in X by
+±[15 mm](MID_BOSS_OFFSET) with opposite signs at +Y vs −Y for 180°
 rotational symmetry). Each position passes a clearance hole for an M3
 cap screw all the way through the part. See "Cap-to-outer-shell
 joinery" below.
@@ -206,7 +206,7 @@ top face pockets go down, bottom face pockets go up.
 Eight pass-throughs total, all carrying **1/4" OD tubing (6.35 mm)** through
 holes sized at ⌀[6.5 mm](PORT_D) for a tight tube fit. Four pass-throughs
 each get their own dedicated round hole; the remaining four share a single
-Y-elongated slot at the +Z outer wall.
+Z-elongated slot at the +Y outer wall.
 
 | # | Pass-through | Opening | Carries |
 |---|---|---|---|
@@ -214,10 +214,10 @@ Y-elongated slot at the +Z outer wall.
 | 2 | Reservoir line (−X) | own ⌀[6.5 mm](PORT_D) hole | 1/4" OD soft tubing — reservoir to peristaltic pump |
 | 3 | CO2 inlet | own ⌀16 doorway | 1/4" OD line from the regulator (90° push-to-connect elbow seats in the doorway) |
 | 4 | Water outlet | own ⌀[6.5 mm](PORT_D) hole | 1/4" OD line to the dispense faucet |
-| 5 | Copper evaporator inlet (low) | shared +Z slot | 1/4" OD ACR copper to compressor |
-| 6 | Copper evaporator outlet (high) | shared +Z slot | 1/4" OD ACR copper to compressor |
-| 7 | Water inlet | shared +Z slot | 1/4" OD line from the diaphragm pump |
-| 8 | PRV vent | shared +Z slot | 1/4" OD LLDPE from the prv-shroud cap into the appliance interior (unpressurized; carries relief-event discharge only — see [`../prv-shroud/`](../prv-shroud/)) |
+| 5 | Copper evaporator inlet (low) | shared +Y slot | 1/4" OD ACR copper to compressor |
+| 6 | Copper evaporator outlet (high) | shared +Y slot | 1/4" OD ACR copper to compressor |
+| 7 | Water inlet | shared +Y slot | 1/4" OD line from the diaphragm pump |
+| 8 | PRV vent | shared +Y slot | 1/4" OD LLDPE from the prv-shroud cap into the appliance interior (unpressurized; carries relief-event discharge only — see [`../prv-shroud/`](../prv-shroud/)) |
 
 For the water inlet and CO2 inlet, the supply-side tubing reduces to
 1/4" OD before reaching the shell wall — transition fittings (3/8"
@@ -225,38 +225,38 @@ barb-to-NPT adapter, 5/16" push-to-connect, 1/4" NPT check valves, etc.)
 live on the warm side of the shell. Inside the shell, every penetration
 is 1/4" OD.
 
-### Shared +Z slot and copper plug stack
+### Shared +Y slot and copper plug stack
 
-The +Z outer_shell wall carries four pass-throughs along a single
-**Y-elongated slot** at x = 0: the two copper evaporator lines (low
+The +Y outer_shell wall carries four pass-throughs along a single
+**Z-elongated slot** at x = 0: the two copper evaporator lines (low
 and high), the water inlet, and the PRV vent. The slot is
-⌀[6.5 mm](PORT_D) wide in X (rounded ends along Y) and is cut by
+⌀[6.5 mm](PORT_D) wide in X (rounded ends along Z) and is cut by
 `cut_slot_for_copper_and_water_inlet` in `_port_cuts.py`. The slot's
 top extends past the wall top so no sliver of wall material remains
 above the slot — the four plugs can slide down into the slot from
 above during assembly. With the centerward wall extending only to
-z = ±[72.5 mm](POCKET_ARC_R) (where it meets the ±Z walls via the
-transition arcs), the slot pierces only this one outer +Z wall.
+y = ±[72.5 mm](POCKET_ARC_R) (where it meets the ±Y walls via the
+transition arcs), the slot pierces only this one outer +Y wall.
 
-Pass-through Y heights (centers, measured from the **top of the
-floor** — i.e. from the interior cavity's lower bound, not from y = 0):
+Pass-through Z heights (centers, measured from the **top of the
+floor** — i.e. from the interior cavity's lower bound, not from z = 0):
 
-| Pass-through | Y center above floor (mm) |
+| Pass-through | Z center above floor (mm) |
 |---|---|
 | Lowest copper (evaporator inlet) | 45.0 |
 | Highest copper (evaporator outlet) | 164.4 |
 | Water inlet | 196.4 |
 | PRV vent | 204.4 |
 
-(Absolute Y in the CadQuery model is +`wall_and_floor_thickness`
+(Absolute Z in the CadQuery model is +`wall_and_floor_thickness`
 above these — i.e. 47.0 / 166.4 / 198.4 / 206.4 at the current
-2 mm wall — since the floor occupies y = 0 to
-y = `wall_and_floor_thickness`.)
+2 mm wall — since the floor occupies z = 0 to
+z = `wall_and_floor_thickness`.)
 
 Four printed PETG **copper plugs** slide down into the slot from
 above to seal the gaps between (and above) the four pass-throughs:
 
-| Plug | Y span (mm) | Y end arches |
+| Plug | Z span (mm) | Z end arches |
 |---|---|---|
 | `copper-plug-lower` | 50.75 → 162.65 | both ends |
 | `copper-plug-middle` | 170.15 → 194.65 | both ends |
@@ -265,10 +265,10 @@ above to seal the gaps between (and above) the four pass-throughs:
 
 Each plug has a **binder-clip cross-section** that grips the wall
 edge instead of floating loosely in the slot. Viewed end-on, it's an
-I-beam: a 6.5 mm × 2 mm plate-body web fits the slot's wall Z range
+I-beam: a 6.5 mm × 2 mm plate-body web fits the slot's wall Y range
 exactly, 4 mm-tall "wings" at the outer X edges of the slot span the
-full plug Z envelope, and 1 mm × 1 mm rail prongs branch out past
-the wings at +Z (above the wall outer face) and −Z (below the wall
+full plug Y envelope, and 1 mm × 1 mm rail prongs branch out past
+the wings at +Y (above the wall outer face) and −Y (below the wall
 inner face). The 2 mm air gap between the top and bottom prongs at
 the rail edges is where the wall material slides in — that's how
 the plug grips the wall like a binder clip. The wings act as the
@@ -279,11 +279,11 @@ full cross-section diagram.
 Each plug end that abuts a tube has a **⌀[6.5 mm](PORT_D) half-circle
 arch cutout** centered at x = 0, so the plug seats around the tube
 without crushing it. `lower`, `middle`, and `upper` all arch at both
-Y ends; `top` arches at the bottom Y end only (its top is flush with
+Z ends; `top` arches at the bottom Z end only (its top is flush with
 the wall top and stays flat).
 
 After the four plugs are installed, the slot's remaining unfilled
-length within the wall along Y (a strip at the bottom of the slot,
+length within the wall along Z (a strip at the bottom of the slot,
 a strip at the top, and narrow clearance bands above and below each
 of the four tubes) gets filled by the body foam pour.
 
@@ -314,7 +314,7 @@ Every internal component is installed first:
 - Reservoirs installed into the two reservoir pockets.
 - Copper evaporator inlet (low), copper evaporator outlet (high),
   water inlet, and PRV vent LLDPE (from the prv-shroud cap) routed
-  through the shared +Z slot at their four Y heights. The water
+  through the shared +Y slot at their four Z heights. The water
   inlet and PRV vent both come from above the tank and take slight
   bends in their LLDPE runs to land in vertical alignment in the
   slot.
@@ -325,36 +325,36 @@ Every internal component is installed first:
   cured ahead of time, threaded into Port 4 at vessel install — is
   here as part of the vessel by the time the body pour happens.
   Press-fit a length of 1/4" OD LLDPE into the shroud's cap hole and
-  route it through the +Z slot to the appliance interior.
+  route it through the +Y slot to the appliance interior.
 - Reservoir LLDPE lines routed through holes #1 and #2 in the
   reservoir-pocket far ±X walls.
-- Water outlet through hole #4 in the outer_shell +Z wall.
+- Water outlet through hole #4 in the outer_shell +Y wall.
 - CO2 inlet enters from above through the foam-cap-top boss +
-  foam-cap-lid-top hole at (x=0, z=−68.75); the line drops to
-  y=17 inside the cavity and bends 90° at a PP0308E push-to-connect
-  elbow seated in the Ø16 CO2 inlet bore at x = 0, z = −70.5.
+  foam-cap-lid-top hole at (x=0, y=−68.75); the line drops to
+  z=17 inside the cavity and bends 90° at a PP0308E push-to-connect
+  elbow seated in the Ø16 CO2 inlet bore at x = 0, y = −70.5.
 
 With everything in place, liquid foam is poured **directly into the
-body's open +Y top** all at once — no cap on, no down-channels.
+body's open +Z top** all at once — no cap on, no down-channels.
 Foam falls into the body and reaches the two air volumes in
 parallel:
 
-- the **two reservoir-pocket cavities** (each open at +Y, fully
+- the **two reservoir-pocket cavities** (each open at +Z, fully
   enclosed below and on its four sides);
 - the **surrounding foam zone** — a single connected volume wrapping
   around the pockets between the outer_shell and the pockets'
   outboard walls. This zone reaches the centerward space around the
   tank+coil through the gap at x ∈ [−39.7, +39.7] where the pockets'
-  ±Z walls end (z = ±72.5) and the centerward walls' transition arcs
+  ±Y walls end (y = ±72.5) and the centerward walls' transition arcs
   swing in to join them.
 
 The longest required slot traverse for the foam is the ~0.5 mm
 radial gap between the coil and the centerward wall's tank-side
 face at the ±X azimuths — ~110 mm of arc to reach around the back
-of the coil from the ±Z entry.
+of the coil from the ±Y entry.
 
 Foam expansion may push a small amount of material out through the
-clearance bands around tubes in the +Z slot and through the tight-fit
+clearance bands around tubes in the +Y slot and through the tight-fit
 tube exits at the other penetrations. Trim flush after cure.
 
 ### Final assembly (after all three foam pours have cured)
@@ -372,9 +372,9 @@ After union, that boundary is one wall's worth of material (2 mm).
 
 This drives several dimension choices:
 
-- Each **reservoir pocket's ±Z outboard face** sits at
-  z = ±`pocket_centerward_arc_outer_radius` (= ±72.5), tangent to the
-  cylinder the centerward arc rides on. The ±Z walls meet the
+- Each **reservoir pocket's ±Y outboard face** sits at
+  y = ±`pocket_centerward_arc_outer_radius` (= ±72.5), tangent to the
+  cylinder the centerward arc rides on. The ±Y walls meet the
   centerward wall's transition arcs along that tangent.
 - The **tank_support_ring**'s outer face sits at
   `pocket_centerward_arc_outer_radius − wall_and_floor_thickness`
@@ -434,11 +434,11 @@ that needs a deliberate explanation:
 
 | metric | value |
 |---|---|
-| volume | [1024713.425 mm³](VOLUME) |
+| volume | [1024714.122 mm³](VOLUME) |
 | bbox x | [-141.500 to 141.500 mm](BBOX_X) |
-| bbox y | [0.000 to 213.400 mm](BBOX_Y) |
-| bbox z | [-90.500 to 90.500 mm](BBOX_Z) |
-| centroid | [(0.000005, 90.718775, -0.576537) mm](CENTROID) |
+| bbox z | [0.000 to 213.400 mm](BBOX_Z) |
+| bbox y | [-90.500 to 90.500 mm](BBOX_Y) |
+| centroid | [(0.000005, -0.576498, 90.718736) mm](CENTROID) |
 
 Quick reproduction:
 
@@ -447,7 +447,7 @@ import cadquery as cq
 s = cq.importers.importStep("foam-shell.step").val()
 bb = s.BoundingBox()
 com = s.Center()
-print(s.Volume(), (bb.xmin, bb.xmax, bb.ymin, bb.ymax, bb.zmin, bb.zmax), (com.x, com.y, com.z))
+print(s.Volume(), (bb.xmin, bb.xmax, bb.ymin, bb.ymax, bb.zmin, bb.zmax), (com.x, com.z, com.y))
 ```
 
 ## Reference
