@@ -2,13 +2,16 @@
 
 CadQuery HLR (hidden-line removal) with hidden edges DASHED — the
 engineering-drawing aesthetic, as opposed to the line-art renders in
-`../line-art/`. The faucet is drawn in its native Z-up frame.
+`../line-art/`.
 
-projectionDir (-1, -1, 1) places the camera at -x, -y, +z — the user's
-view standing in front of a sink, looking at the faucet from above and
-slightly to one side. The gooseneck (which sweeps toward -X) arches
-upward and toward the viewer; the lever (which extends in -X from its
-pivot) sticks out toward the viewer.
+The faucet's native frame is Z-up (body axis along +Z, gooseneck
+dispense direction along -X). For the SVG export we re-orient the
+loaded assembly into a frame where +Y is body-up: this is what
+OCCT's HLR projector treats as image-up under the iso projectionDir
+below, so the body draws vertical in the rendered image. The
+projection then has the gooseneck arching up and toward the viewer
+with the lever pointing toward the viewer — the user's view standing
+at the sink.
 
 Run from the repo root:
     tools/cad-venv/bin/python hardware/printed-parts/faucet/drawings/engineering-drawings/faucet-iso.py
@@ -26,19 +29,22 @@ import _faucet_model as model
 
 
 def main() -> None:
-    raw = model.build_faucet()
-    faucet = cq.Workplane().add((
-        raw
-        .val()
-        .rotate((0, 0, 0), (0, 0, 1), 90)
-        .rotate((0, 0, 0), (1, 0, 0), -90)
-    ))
+    # Re-orient native (Z-up) -> drawing-frame (Y-up). Composed, the
+    # two rotations map original (X, Y, Z) -> (-Y, Z, -X):
+    #   +Z body-up          ->  +Y  (image-up under projectionDir below)
+    #   -X gooseneck tip    ->  +Z  (toward the viewer)
+    #   +Y lateral          ->  -X
+    faucet = (
+        model.build_faucet()
+        .rotate((0, 0, 0), (0, 0, 1), 90)    # spin 90° about body axis
+        .rotate((0, 0, 0), (1, 0, 0), -90)   # tip 90° onto its side
+    )
     output_path = _HERE / "faucet-iso.svg"
     cq.exporters.export(
         faucet,
         str(output_path),
         opt={
-            "projectionDir": (-1, 1, 1),
+            "projectionDir": (-1, 1, 1),  # camera at -x, +y, +z (user iso)
             "width": None,                  # auto-fit to projected width
             "height": 800,
             "marginLeft": 30,
