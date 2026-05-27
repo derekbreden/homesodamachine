@@ -108,15 +108,17 @@ function applyLineArtMaterials(root) {
   for (const node of meshes) {
     const origColor = node.material.color.clone();
     if (isMonochrome(origColor)) {
-      // Invisible-but-occluding surface: writes depth, skips color. Edges
-      // sit slightly above the surface via polygonOffset so they don't
-      // z-fight with the (otherwise coincident) surface they outline.
+      // Invisible-but-occluding surface: writes depth, skips color. Three.js'
+      // default depthFunc=LessEqualDepth lets the EdgesGeometry overlay
+      // win the depth test at the same depth as the surface — no polygon
+      // offset needed. AVOID polygon offset here: it would push the
+      // body's surface depth BEHIND nearby colored parts (like the red
+      // ring on the wall just behind the CO2 coupling), breaking the
+      // occlusion that's the whole point of running this through a
+      // z-buffer renderer.
       node.material = new THREE.MeshBasicMaterial({
         colorWrite: false,
         depthWrite: true,
-        polygonOffset: true,
-        polygonOffsetFactor: 1,
-        polygonOffsetUnits: 1,
       });
 
       // Feature-edge overlay: Line2 (triangle-strip lines) for honored
@@ -157,14 +159,10 @@ async function loadScene(glbUrl) {
   }
   const loader = new GLTFLoader();
   const gltf = await loader.loadAsync(glbUrl);
-  // CadQuery's glTF exporter (via OCCT) bakes a -90°X rotation into the
-  // vertex positions to convert from its assumed Z-up source to glTF's
-  // Y-up convention. Our project's CadQuery model already uses Y-up,
-  // so the bake sends our +Y (height) to -Z and our +Z (depth) to +Y.
-  // The root node's transform is identity (the rotation is in the
-  // vertices, not the matrix), so apply a counter-rotation of +90°
-  // around X on the loaded root to recover our world coords.
-  gltf.scene.rotation.set(Math.PI / 2, 0, 0);
+  // CadQuery's glTF export (via OCCT) bakes a Z-up → Y-up rotation into
+  // the vertex positions. Our model is Z-up (+Z is height, +Y is depth),
+  // so the rotation is correct as-is: after load the model sits Y-up in
+  // three.js with the original +Z height now pointing along three.js +Y.
   gltf.scene.updateMatrixWorld(true);
   gltf.scene.userData.loaded = true;
   applyLineArtMaterials(gltf.scene);
@@ -172,9 +170,18 @@ async function loadScene(glbUrl) {
   return gltf.scene;
 }
 
+// Camera direction (from scene center toward the camera) for each named
+// view. Source convention (CadQuery): +X width, +Y depth, +Z height.
+// After OCCT's Z-up→Y-up glTF rotation, in three.js the model sits with
+// three.js +X = cad +X, three.js +Y = cad +Z (height), three.js -Z = cad
+// +Y (depth into the back of the model).
+//
+// iso-front: camera at +X (right) + Y (top) + Z (front side, looking
+// toward back) → (1, 1, 1)
+// iso-back:  camera at +X + Y - Z (behind the back face) → (1, 1, -1)
 const VIEW_DIRECTIONS = {
-  "iso-front": [1, 1, -1],
-  "iso-back":  [1, 1,  1],
+  "iso-front": [1, 1,  1],
+  "iso-back":  [1, 1, -1],
 };
 
 function poseIso(dir) {
