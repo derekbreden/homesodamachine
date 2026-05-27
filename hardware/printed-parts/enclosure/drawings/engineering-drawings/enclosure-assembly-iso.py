@@ -32,7 +32,7 @@ def main() -> None:
     assembly = model.build_enclosure_assembly()
     # Rotate the Z-up assembly into a drawing frame where the body
     # height axis lands on +Y (see docstring).
-    assembly_drawing = assembly.rotate((0, 0, 0), (1, 0, 0), 90)
+    assembly_drawing = assembly.rotate((0, 0, 0), (1, 0, 0), -90)
     output_path = _HERE / "enclosure-assembly-iso.svg"
     cq.exporters.export(
         assembly_drawing,

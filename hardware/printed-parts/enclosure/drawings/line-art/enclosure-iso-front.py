@@ -10,8 +10,8 @@ what OCCT's HLR projector reads as image-up for an iso projectionDir
 leans diagonally in the SVG. The rotation is local to this export
 step; the model anywhere else stays +Z-up.
 
-In the rotated drawing frame, projectionDir (1, 1, -1) places the
-camera at +x, +y, -z — front face, right side, and top all visible,
+In the rotated drawing frame, projectionDir (1, 1, 1) places the
+camera at +x, +y, +z — front face, right side, and top all visible,
 with the top face at the top of the image and the front + right
 faces in the lower half (standard engineering iso layout).
 
@@ -41,14 +41,14 @@ def main() -> None:
     # height axis lands on +Y (see docstring). Both pieces get the same
     # rotation so the ring's iso position tracks the appliance's CO2
     # port location.
-    appliance_drawing = appliance.rotate((0, 0, 0), (1, 0, 0), 90)
-    ring_drawing = ring.rotate((0, 0, 0), (1, 0, 0), 90)
+    appliance_drawing = appliance.rotate((0, 0, 0), (1, 0, 0), -90)
+    ring_drawing = ring.rotate((0, 0, 0), (1, 0, 0), -90)
     output_path = _HERE / "enclosure-iso-front.svg"
     cq.exporters.export(
         appliance_drawing,
         str(output_path),
         opt={
-            "projectionDir": (1, 1, -1),  # camera at +x, +y, -z (rotated drawing frame)
+            "projectionDir": (1, 1, 1),  # camera at +x, +y, +z (rotated drawing frame)
             "showHidden": False,           # visible outlines only
             "width": None,                  # auto-fit to projected geometry width
             "height": 800,
@@ -59,7 +59,7 @@ def main() -> None:
         },
     )
     model.smooth_stroke(output_path)
-    model.add_co2_red_ring(output_path, (1, 1, -1), appliance_drawing, ring_drawing)
+    model.add_co2_red_ring(output_path, (1, 1, 1), appliance_drawing, ring_drawing)
     print(f"Wrote {output_path}")
 
     # Keep _appliance_model.py's [value](NAME) comments in sync.

@@ -37,7 +37,7 @@ def main() -> None:
     # Rotate the Z-up model into a drawing frame where the body axis
     # lands on +Y, so OCCT's HLR projector treats world height as
     # image-up (see docstring).
-    cold_core_drawing = cold_core.rotate((0, 0, 0), (1, 0, 0), 90)
+    cold_core_drawing = cold_core.rotate((0, 0, 0), (1, 0, 0), -90)
     output_path = _HERE / "cold-core-iso.svg"
     cq.exporters.export(
         cold_core_drawing,
