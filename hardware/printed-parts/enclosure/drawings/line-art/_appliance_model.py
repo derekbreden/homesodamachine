@@ -368,6 +368,10 @@ def build_appliance() -> cq.Workplane:
     # Right side face: CO2 inlet (CPC LC-family coupling body)
     appliance = _add_co2_port(appliance, *CO2_PORT_WALL_AT)
 
+    # Right side face: annular pocket around the CO2 port, filled at
+    # render time by build_red_ring().
+    appliance = appliance.cut(_co2_red_ring_workplane())
+
     return cq.Workplane().add(appliance.val().Solids()[0])
 
 
@@ -394,37 +398,65 @@ def smooth_stroke(svg_path: Path) -> None:
 # ---------------------------------------------------------------------------
 # Colored markings on the enclosure
 # ---------------------------------------------------------------------------
-# Some line-art features are colored markings on the enclosure surface
-# (printed, painted, or applied as decals). They are 3D features added to
-# HLR alongside the appliance shape so the renderer computes their
-# visibility against the rest of the geometry.
+# Colored markings are modeled as separate solids that fill pockets cut into
+# the wall (the multi-color-print pattern: same filament base, distinct
+# regions). The wall's pocket and the marking solid are real 3D geometry —
+# HLR sees the marking, sees the appliance (with the cup protruding from
+# the wall), and computes occlusion from the 3D facts.
 # ---------------------------------------------------------------------------
 
 
-# Red ring on the right side face around the CO2 port. Centerline radius
-# 12.25 mm; band stroke 4.5 mm (≈ 3× the line-art stroke of 1.5 mm). Inner
-# edge sits at 10.0 mm — outside both the body cup OD/2 (9.55) and the hex
-# inradius (9.525). Outer edge sits at 14.5 mm.
-CO2_PORT_RING_RADIUS = 12.25
-CO2_PORT_RING_STROKE = 4.5
+# Red ring on the right side face around the CO2 port.
+CO2_PORT_RING_OUTER_R = 14.5
+CO2_PORT_RING_INNER_R = 10.0
+CO2_PORT_RING_DEPTH = 1.5  # pocket depth into the wall
+
+
+def _co2_red_ring_workplane() -> cq.Workplane:
+    """Return the ring as a thin extruded annulus on the right side wall.
+
+    The annulus sits in a pocket cut into the wall at the CO2 port: it
+    extends from x = W (wall surface) to x = W - CO2_PORT_RING_DEPTH
+    (pocket bottom), spanning the annulus between CO2_PORT_RING_INNER_R
+    and CO2_PORT_RING_OUTER_R in the wall plane.
+    """
+    world_z, world_y = CO2_PORT_WALL_AT
+    return (
+        cq.Workplane(cq.Plane(
+            origin=(W, world_y, world_z),
+            xDir=(0, 0, 1),
+            normal=(1, 0, 0),
+        ))
+        .circle(CO2_PORT_RING_OUTER_R)
+        .circle(CO2_PORT_RING_INNER_R)
+        .extrude(-CO2_PORT_RING_DEPTH)
+    )
+
+
+def build_red_ring() -> cq.Workplane:
+    """The red ring as a standalone solid (the part that fills the
+    wall pocket)."""
+    return _co2_red_ring_workplane()
 
 
 def add_co2_red_ring(
     svg_path: Path,
     projection_dir,
     appliance: cq.Workplane,
+    ring: cq.Workplane,
 ) -> None:
-    """Render the red ring as a 3D circle on the wall plane and inject
-    its HLR-visible portions into the SVG.
+    """Inject the red ring's HLR-visible edges into the SVG.
 
-    The ring is a TopoDS_Edge in the YZ plane at x=W. HLR runs with the
-    appliance shape as occluder; the body cup hides the parts of the
-    ring behind it from the camera's view.
+    HLR runs with the appliance (with the ring-shaped pocket cut into
+    the wall and the coupler protruding from it) and the ring solid
+    added together; OCC computes mutual occlusion in 3D.
+    VCompound(ring) returns the edges of the ring that survive
+    occlusion. Drawn on top of the appliance's coincident pocket
+    boundary, so red wins.
     """
     from OCP.HLRBRep import HLRBRep_Algo, HLRBRep_HLRToShape
     from OCP.HLRAlgo import HLRAlgo_Projector
-    from OCP.gp import gp_Ax2, gp_Pnt, gp_Dir, gp_Circ
-    from OCP.BRepBuilderAPI import BRepBuilderAPI_MakeEdge
+    from OCP.gp import gp_Ax2, gp_Pnt, gp_Dir
     from OCP.BRepLib import BRepLib
     from cadquery.occ_impl.shapes import Shape, TOLERANCE
     from cadquery.occ_impl.exporters.svg import makeSVGedge
@@ -434,14 +466,11 @@ def add_co2_red_ring(
     if sentinel in text:
         return
 
-    world_z, world_y = CO2_PORT_WALL_AT
-    ring_axis = gp_Ax2(gp_Pnt(W, world_y, world_z), gp_Dir(1, 0, 0))
-    ring_circle = gp_Circ(ring_axis, CO2_PORT_RING_RADIUS)
-    ring_edge = BRepBuilderAPI_MakeEdge(ring_circle).Edge()
+    ring_shape = ring.val().wrapped
 
     hlr = HLRBRep_Algo()
     hlr.Add(appliance.val().wrapped)
-    hlr.Add(ring_edge)
+    hlr.Add(ring_shape)
 
     projector = HLRAlgo_Projector(gp_Ax2(gp_Pnt(), gp_Dir(*projection_dir)))
     hlr.Projector(projector)
@@ -449,12 +478,14 @@ def add_co2_red_ring(
     hlr.Hide()
 
     to_shape = HLRBRep_HLRToShape(hlr)
-    visible_compound = to_shape.VCompound(ring_edge)
 
     paths = []
-    if not visible_compound.IsNull():
-        BRepLib.BuildCurves3d_s(visible_compound, TOLERANCE)
-        for edge in Shape(visible_compound).Edges():
+    for compound_fn in (to_shape.VCompound, to_shape.OutLineVCompound):
+        compound = compound_fn(ring_shape)
+        if compound.IsNull():
+            continue
+        BRepLib.BuildCurves3d_s(compound, TOLERANCE)
+        for edge in Shape(compound).Edges():
             paths.append(makeSVGedge(edge))
 
     if not paths:
@@ -462,7 +493,7 @@ def add_co2_red_ring(
 
     lines = [sentinel]
     lines.append(
-        f'       <g stroke="red" stroke-width="{CO2_PORT_RING_STROKE}" fill="none" '
+        '       <g stroke="red" stroke-width="4.5" fill="none" '
         'stroke-linecap="round" stroke-linejoin="round">'
     )
     for p in paths:
