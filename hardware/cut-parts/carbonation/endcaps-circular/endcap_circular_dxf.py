@@ -55,7 +55,12 @@ sys.path.insert(
     0,
     str(next(p for p in _here.parents if (p / "tools" / "docgen").is_dir()) / "tools"),
 )
+sys.path.insert(
+    0,
+    str(next(p for p in _here.parents if p.name == "hardware")),
+)
 from docgen import substitute_py_comments
+from _cadq_export import export_dxf
 
 # Dimensions in inches; DXF $INSUNITS = 1 (inches).
 
@@ -94,7 +99,7 @@ def make_disc() -> Path:
         msp.add_circle(hole_center, hole_radius)
 
     path = out_dir / f"{out_name}.dxf"
-    doc.saveas(str(path))
+    export_dxf(doc, str(path))
     return path
 
 
