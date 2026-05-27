@@ -440,15 +440,23 @@ For the missing strands: textbook **wet filament** symptom — water flash-vapor
 
 If supports still fail after all three, thickening support pillars becomes the next lever. But the bet is interlayer bonding is the actual root cause and the three changes above close it out.
 
-## PET-CF print attempt 17 (Polymaker, dried + nozzle 280 + fan off)
+## PET-CF print attempt 17 (Polymaker dried + nozzle 280 + fan off + **0.8 mm nozzle swap, 0.4 mm layer**)
 
-Hardware: same (0.6 mm DUROZZLE TC L-side hotend). Filament: same Polymaker Fiberon PET-CF17 spool as attempt 16, dried on the SUNLU E2 at 100 °C for the duration of Polymaker's published spec between attempts.
+**Hardware swap:** L-side hotend changed from 0.6 mm DUROZZLE TC to **0.8 mm high-flow tungsten** between attempts 16 and 17. Filament: same Polymaker Fiberon PET-CF17 spool as attempt 16, dried on the SUNLU E2 at 100 °C for the duration of Polymaker's published spec between attempts.
 
 Geometry: unchanged from attempt 16 (no joinery features; commit `a297a044`).
 
 Settings deltas observed in `touch-flo-pet-cf.3mf` vs attempt 16:
 
-PET-CF slot 0 (active) — all three planned changes in place:
+**Process + printer profile flipped to 0.8-nozzle variants** (the big change):
+- `printer_settings_id`: "Bambu Lab H2C **0.6** nozzle" → "Bambu Lab H2C **0.8** nozzle"
+- `print_settings_id`: "**0.30**mm Standard @BBL H2C **0.6** nozzle" → "**0.40**mm Standard @BBL H2C **0.8** nozzle"
+- `nozzle_diameter`: 0.6 → 0.8
+- `layer_height`: 0.30 → **0.40 mm**
+- `initial_layer_print_height`: 0.30 → **0.40 mm**
+- All line widths (`line_width`, `inner_wall_line_width`, `outer_wall_line_width`, `top_surface_line_width`, `sparse_infill_line_width`): 0.62 → **0.82 mm**
+
+PET-CF slot 0 (active) — three planned filament-side changes from the attempt-16 outcome:
 - `nozzle_temperature` (main layer): 270 → **280 °C**
 - `nozzle_temperature_initial_layer`: 270 → **280 °C**
 - `fan_max_speed`: 30 → **0 %**
@@ -456,13 +464,24 @@ PET-CF slot 0 (active) — all three planned changes in place:
 - `overhang_fan_speed`: 40 → **0 %**
 - `different_settings_to_system` (slot 1 in array) now tracks the four filament-side overrides.
 
-Settings unchanged on slot 0: bed 100 °C, chamber 50 °C, close-fan-first-3-layers, fan_cooling_layer_time 5, slow_down_for_layer_cooling enabled, scarf seam still none, all process settings.
+Other filament slots (bookkeeping; not active for this print):
+- Slot 1 (PETG) profile reverted from "Generic PETG @BBL H2C" → "Bambu PETG Basic @BBL H2C".
+- Slot 2 (ABS) profile changed from "Bambu ABS @BBL H2C 0.6 nozzle" → "Bambu ABS @BBL H2C **0.8 nozzle**" — correct for the new hotend (not a mismatch).
 
-Other filament slots (bookkeeping noise, none active for this print):
-- Slot 1 (PETG) profile reverted from "Generic PETG" → "Bambu PETG Basic" — old fan/temp defaults restored.
-- Slot 2 (ABS) profile changed from "Bambu ABS @BBL H2C 0.6 nozzle" → "Bambu ABS @BBL H2C **0.8 nozzle**" — **mismatched against the active 0.6 nozzle**; needs fixing before slot 2 is ever used for a print, but doesn't affect this PET-CF run.
+Plate composition unchanged (same 4 objects, same face counts).
+
+Settings unchanged on slot 0: bed 100 °C, chamber 50 °C, close-fan-first-3-layers, fan_cooling_layer_time 5, slow_down_for_layer_cooling enabled, scarf seam still none, support strategy unchanged.
 
 Filament drying: confirmed run on the E2 between attempts even though the storage box reads 10 % RH (Derek's verification baseline). Both this spool and a sibling Polymaker spool dried at 100 °C for Polymaker's full published cycle.
+
+**Implications of the 0.8-nozzle / 0.4-mm-layer profile change for prior geometry tuning** — every dimensional iteration on this part (joint walls, joint clearances, tube bores, min wall thickness regions) was tuned at 0.62 line width / 0.30 mm layer. At 0.82 line width:
+
+- SPLIT A male wall 1.95 mm = 2.4 lines, snaps to 2 walls (vs 3 walls at 0.62 line width). Same wall count, but each wall now lays down ~30 % more material per pass, so the effective male-plug OD shifts. The joint clearance numbers tested at attempts 13–15 don't transfer directly.
+- SPLIT B male wall 1.92 mm = 2.3 lines, also snaps to 2 walls.
+- 3 mm `wall_thickness_min` region: 3.7 lines (4 walls) at 0.82 vs 4.8 lines (5 walls) at 0.62 — one fewer wall, still well above failure threshold.
+- Layer height 0.30 → 0.40 changes the Z-axis quantization of fine vertical features (joint overlap edges, scarf seams, etc.). Anything that was tuned to within ~0.05 mm in Z previously now has 0.4 mm slice steps.
+
+This is essentially a fresh process-profile calibration of the part, not just an attempt-16-plus-filament-tweaks. If joint fit, tube fit, or wall integrity behave differently from attempts 14–16, the 0.8-nozzle / 0.4-mm-layer swap is the dominant cause to investigate before iterating filament or geometry again.
 
 ## Hardware / setup observations across all PET-CF attempts
 
