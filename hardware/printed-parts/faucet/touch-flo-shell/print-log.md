@@ -412,6 +412,34 @@ Process / plate composition:
 
 Settings unchanged from attempt 15: print profile `0.30mm Standard @BBL H2C 0.6 nozzle`, all PET-CF temps / fans / flow, all process settings (support strategy, brim, wall loops, scarf), printer settings.
 
+## End of attempt 16 (print finished, 2026-05-26) — first Polymaker Fiberon PET-CF17 print
+
+**Filament swap mid-stream.** Ran out of Bambu PET-CF on the active spool; switched the AMS slot 0 to **Polymaker Fiberon PET-CF17** ([B0G2CC2YP8](https://www.amazon.com/dp/B0G2CC2YP8), purchased 2026-05-17). Slot 0's filament *profile* in the slicer was kept as **Bambu PET-CF @BBL H2C** — no settings changed for the swap. The reasoning (after some back-and-forth) was that printer-side settings (chamber 50 °C, bed 100 °C, fan 30 %) are calibrated for the H2C + textured PEI plate and should transfer between brands of the same material class (both are PET base with chopped CF), whereas Polymaker's published spec (room-temp chamber, bed 70-80, fan OFF) is conservative defaults for an LCD-of-printers audience.
+
+**Result: mixed.**
+
+Two distinct failure modes observed by Derek:
+
+1. **Support shear failure on one piece.** A tall thin support couldn't hold a larger piece joining it at a higher layer; the support "wobbled apart" — the column collapsed laterally rather than failing in compression. Bambu auto-generated supports at the same settings worked on prior Bambu PET-CF prints; same supports failed on Polymaker.
+
+2. **Patchy missing-fiber strands across the outer surface.** Tiny 1-2 mm patches scattered randomly across outer walls, looking like discrete under-extrusion gaps. Not sustained under-extrusion (would have shown as thin walls); intermittent and random.
+
+**Diagnosis.**
+
+For the support shear: **interlayer adhesion** is the root cause, not support geometry. The column was strong vertically but the layer-to-layer bond gave way under shear when the nozzle dragged near it during the joining piece's perimeter. Bambu PET-CF at 270 °C nozzle + 30 % fan tolerates that shear; Polymaker at the same settings doesn't. The filament-side levers are nozzle temp (deeper interpenetration with hotter melt) and cooling fan (less cooling = more dwell time at bond temp).
+
+For the missing strands: textbook **wet filament** symptom — water flash-vaporizes in the hot end, brief steam interruptions in melt flow create discrete under-extrusion gaps. BUT the moisture prior is weakened by the actual filament handling: Derek reports the spool went from sealed bag to AMS within minutes, and the Polymaker storage box the AMS feeds from reads **10 % RH**. PET-CF can still pick up moisture in handling, so drying is being run as the "first thing to rule out" test rather than a confident root-cause fix. Both spools (this one + a sibling) are now in the SUNLU E2 at **100 °C for the duration of Polymaker's published drying spec** (E2 reads 10 % RH at the moment, but the dry cycle runs anyway as a controlled baseline). If patches recur after drying, candidates shift to CF agglomeration at the nozzle, tip carbonization, or extruder feed inconsistency — but moisture is the cheap-to-rule-out prior.
+
+**Walkback on the "Bambu defaults will be fine" reasoning.** The printer-side parts of that argument (chamber 50, bed 100) probably still hold — they're not what's failing. The filament-side parts (nozzle 270, fan 30 %) were the wrong inheritance — Polymaker's "fan OFF" recommendation in particular turns out to have a real reason for this exact failure mode, even on an H2C. Polymaker spec'd the conservative values because their PET-CF formulation bonds weaker under active cooling than Bambu's does. The two should be respected per filament brand.
+
+**Planned changes for attempt 17 (in priority order):**
+
+1. **Dry the filament** (in progress on the E2 — done by next print).
+2. **Nozzle temp 270 → 280 °C** on slot 0 (both initial layer and main). Within Polymaker's 270-300 range; targets interlayer bonding directly.
+3. **Cooling fan: max 30 → 0 % (or 10 %)** on slot 0. Same goal — let the layer cool more slowly so the bond develops fully.
+
+If supports still fail after all three, thickening support pillars becomes the next lever. But the bet is interlayer bonding is the actual root cause and the three changes above close it out.
+
 ## Hardware / setup observations across all PET-CF attempts
 
 Derek said:
