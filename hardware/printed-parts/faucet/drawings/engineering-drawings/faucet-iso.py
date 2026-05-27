@@ -4,14 +4,13 @@ CadQuery HLR (hidden-line removal) with hidden edges DASHED — the
 engineering-drawing aesthetic, as opposed to the line-art renders in
 `../line-art/`.
 
-The faucet's native frame is Z-up (body axis along +Z, gooseneck
-dispense direction along -X). For the SVG export we re-orient the
-loaded assembly into a frame where +Y is body-up: this is what
-OCCT's HLR projector treats as image-up under the iso projectionDir
-below, so the body draws vertical in the rendered image. The
-projection then has the gooseneck arching up and toward the viewer
-with the lever pointing toward the viewer — the user's view standing
-at the sink.
+The loaded assembly is already in the repo's +Y-up frame (the
+faucet_assembly.py export does the rebase). projectionDir (1, 1, -1)
+places the camera at +x, +y, -z — the user's view standing in front
+of the sink: above, slightly to one side, and on the front (gooseneck-
+dispense) side of the appliance. The body draws vertical; the gooseneck
+arches up and toward the viewer with the lever pointing toward the
+viewer.
 
 Run from the repo root:
     tools/cad-venv/bin/python hardware/printed-parts/faucet/drawings/engineering-drawings/faucet-iso.py
@@ -29,22 +28,13 @@ import _faucet_model as model
 
 
 def main() -> None:
-    # Re-orient native (Z-up) -> drawing-frame (Y-up). Composed, the
-    # two rotations map original (X, Y, Z) -> (-Y, Z, -X):
-    #   +Z body-up          ->  +Y  (image-up under projectionDir below)
-    #   -X gooseneck tip    ->  +Z  (toward the viewer)
-    #   +Y lateral          ->  -X
-    faucet = (
-        model.build_faucet()
-        .rotate((0, 0, 0), (0, 0, 1), 90)    # spin 90° about body axis
-        .rotate((0, 0, 0), (1, 0, 0), -90)   # tip 90° onto its side
-    )
+    faucet = model.build_faucet()
     output_path = _HERE / "faucet-iso.svg"
     cq.exporters.export(
         faucet,
         str(output_path),
         opt={
-            "projectionDir": (-1, 1, 1),  # camera at -x, +y, +z (user iso)
+            "projectionDir": (1, 1, -1),  # camera at +x, +y, -z (user iso)
             "width": None,                  # auto-fit to projected width
             "height": 800,
             "marginLeft": 30,
