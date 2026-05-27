@@ -53,6 +53,24 @@ function isGeneratorScript(pyFilePath) {
   return GENERATOR_RE.test(source);
 }
 
+// A "drawing" script is a .py inside a drawings/ directory that isn't a
+// private module. Drawings emit SVGs via cq.exporters / ezdxf directly
+// rather than through _cadq_export, so the generator content check misses
+// them — but they're still runnable artifacts that need to rebuild when an
+// upstream dimension changes. The `_*.py` files in drawings/ are shared
+// models (e.g. `_appliance_model.py`, `_faucet_model.py`); they're imported
+// by the drawing scripts and aren't themselves executable.
+function isDrawingScript(pyFilePath) {
+  const base = path.basename(pyFilePath);
+  if (!base.endsWith(".py")) return false;
+  if (base.startsWith("_")) return false;
+  return pyFilePath.split(path.sep).includes("drawings");
+}
+
+function isRunnableScript(pyFilePath) {
+  return isGeneratorScript(pyFilePath) || isDrawingScript(pyFilePath);
+}
+
 function findGenerateScripts() {
   const scripts = [];
   function walk(dir) {
@@ -83,14 +101,16 @@ function findAllPythonFiles() {
   return files;
 }
 
-// Walk the import graph backwards from a shared module to every generator
-// that transitively depends on it. A generator that imports a module that
-// imports the changed module is still a dependent, even though it never
-// names the changed module itself — e.g. `_reed_channels.py` is only
-// imported by `_foam_shell.py`, which is what `foam-shell/foam_shell.py`
-// actually imports. Without the transitive walk, leaf-module edits
-// silently produce no rebuild.
-function findGeneratorsTransitivelyImporting(moduleName) {
+// Walk the import graph backwards from a module to every runnable script
+// (generator or drawing) that transitively depends on it. A runnable that
+// imports a module that imports the changed module is still a dependent,
+// even though it never names the changed module itself — e.g.
+// `_reed_channels.py` is only imported by `_foam_shell.py`, which is what
+// `foam-shell/foam_shell.py` actually imports; and `co2_coupling_body.py`
+// is only imported by `_appliance_model.py`, which is what the
+// `enclosure-iso-*.py` drawings import. Without the transitive walk, edits
+// to a leaf module silently produce no rebuild for the consuming drawing.
+function findRunnableScriptsTransitivelyImporting(moduleName) {
   const allPyFiles = findAllPythonFiles();
   const visited = new Set();
   const dependents = new Set();
@@ -110,7 +130,7 @@ function findGeneratorsTransitivelyImporting(moduleName) {
         continue;
       }
       if (!importRe.test(source)) continue;
-      if (isGeneratorScript(pyFile)) {
+      if (isRunnableScript(pyFile)) {
         dependents.add(pyFile);
       } else {
         queue.push(path.basename(pyFile, ".py"));
@@ -296,24 +316,6 @@ watcher.on("change", (absPath) => {
     return;
   }
 
-  // A .py inside a drawings/ directory changed — run it so the SVG
-  // beside it regenerates. The .svg-changed branch above then catches
-  // the new file and broadcasts. Same pattern as generate_step*.py
-  // below, scoped to the drawings/ convention so a .py edit beside the
-  // generated .svg is a tight live-reload loop.
-  if (absPath.endsWith(".py") && absPath.split(path.sep).includes("drawings")) {
-    if (debounce.has(absPath)) clearTimeout(debounce.get(absPath));
-    debounce.set(
-      absPath,
-      setTimeout(() => {
-        debounce.delete(absPath);
-        console.log(`Drawing script changed: ${path.relative(HARDWARE_DIR, absPath)}`);
-        runScript(absPath);
-      }, 500),
-    );
-    return;
-  }
-
   // Sidecar metadata file changed — broadcast a change for the part it
   // belongs to. `foo.dxf.json` -> broadcast `foo.dxf`; `foo.step.json`
   // -> broadcast `foo.step`. The viewer's hsm:files-changed handler
@@ -334,31 +336,15 @@ watcher.on("change", (absPath) => {
     return;
   }
 
-  // A generator script (part-named .py that calls export_step / _assembly
-  // / _dxf) changed — re-run that script directly.
-  if (absPath.endsWith(".py") && isGeneratorScript(absPath)) {
-    if (debounce.has(absPath)) clearTimeout(debounce.get(absPath));
-    debounce.set(
-      absPath,
-      setTimeout(() => {
-        debounce.delete(absPath);
-        console.log(`Changed: ${path.relative(HARDWARE_DIR, absPath)}`);
-        runScript(absPath);
-      }, 500),
-    );
-    return;
-  }
-
-  // Shared private module (e.g. `_foam_shell.py`, `_reed_channels.py`)
-  // changed — find every generator that transitively imports it and
-  // re-run those. The cadlib handler above is a coarser version of the
-  // same idea: anything in /cadlib/ rebuilds every generator. This
-  // handler is the targeted version for shared modules that sit
-  // alongside a small set of related generators. The walk has to be
-  // transitive because some shared modules (like `_reed_channels.py` or
-  // `_cold_core_interface.py`) are only imported by other shared modules,
-  // never by a generator directly — a direct-only check would silently
-  // skip rebuilds for those edits.
+  // Any .py change. The runnable set is:
+  //   1. The file itself, if it's a runnable script (generator or drawing).
+  //   2. Every other runnable script that transitively imports the file's
+  //      module — covers shared `_foo.py` modules anywhere under hardware/,
+  //      plus the cross-tree case where a generator like
+  //      `co2_coupling_body.py` is consumed by a drawing's `_appliance_model`
+  //      and needs to cascade all the way to the `enclosure-iso-*` SVGs.
+  // The cadlib handler at the top of this listener is the shotgun version
+  // of step 2: anything in `/cadlib/` rebuilds every generator, no walk.
   if (absPath.endsWith(".py")) {
     const moduleName = path.basename(absPath, ".py");
     if (debounce.has(absPath)) clearTimeout(debounce.get(absPath));
@@ -366,11 +352,15 @@ watcher.on("change", (absPath) => {
       absPath,
       setTimeout(async () => {
         debounce.delete(absPath);
-        const dependents = findGeneratorsTransitivelyImporting(moduleName);
-        if (dependents.length === 0) return;
-        console.log(`Shared module changed: ${path.relative(HARDWARE_DIR, absPath)}`);
-        for (const dep of dependents) {
-          console.log(`  Rebuilding ${path.relative(HARDWARE_DIR, dep)}`);
+        const toRun = [];
+        if (isRunnableScript(absPath)) toRun.push(absPath);
+        for (const dep of findRunnableScriptsTransitivelyImporting(moduleName)) {
+          if (dep !== absPath) toRun.push(dep);
+        }
+        if (toRun.length === 0) return;
+        console.log(`Changed: ${path.relative(HARDWARE_DIR, absPath)}`);
+        for (const dep of toRun) {
+          console.log(`  Running ${path.relative(HARDWARE_DIR, dep)}`);
           try {
             await runScript(dep);
           } catch (e) {
