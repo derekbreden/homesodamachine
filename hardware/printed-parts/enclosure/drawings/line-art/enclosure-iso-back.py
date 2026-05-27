@@ -2,9 +2,13 @@
 Isometric line-art view of the home-soda-machine enclosure — BACK.
 
 CadQuery-based: the appliance geometry is built in _appliance_model and
-exported via cq.exporters with HLR (hidden-line removal). In the repo's
-+Z-up convention, projectionDir (1, 1, 1) places the camera at +x, +y,
-+z — back face (+Y), right side (+X), and top (+Z) all visible.
+exported via cq.exporters with HLR (hidden-line removal). The model is
++Z-up natively; for the SVG export we rotate +90° about +X so the
+body's height axis lands on +Y at projection time (see
+enclosure-iso-front.py docstring for the OCCT-HLR rationale).
+
+In the rotated drawing frame, projectionDir (1, -1, 1) places the
+camera at +x, -y, +z — back face, right side, and top all visible.
 
 Companion drawing: enclosure-iso-front.py. The geometry is the same;
 only the projection direction differs.
@@ -28,12 +32,16 @@ import _appliance_model as model
 def main() -> None:
     appliance = model.build_appliance()
     ring = model.build_red_ring()
+    # Rotate the Z-up model + ring into a drawing frame where the body
+    # height axis lands on +Y (see docstring).
+    appliance_drawing = appliance.rotate((0, 0, 0), (1, 0, 0), 90)
+    ring_drawing = ring.rotate((0, 0, 0), (1, 0, 0), 90)
     output_path = _HERE / "enclosure-iso-back.svg"
     cq.exporters.export(
-        appliance,
+        appliance_drawing,
         str(output_path),
         opt={
-            "projectionDir": (1, 1, 1),  # camera at +x, +y, +z
+            "projectionDir": (1, -1, 1),  # camera at +x, -y, +z (rotated drawing frame)
             "showHidden": False,          # visible outlines only
             "width": None,                 # auto-fit to projected geometry width
             "height": 800,
@@ -44,7 +52,7 @@ def main() -> None:
         },
     )
     model.smooth_stroke(output_path)
-    model.add_co2_red_ring(output_path, (1, 1, 1), appliance, ring)
+    model.add_co2_red_ring(output_path, (1, -1, 1), appliance_drawing, ring_drawing)
     print(f"Wrote {output_path}")
 
     # Keep _appliance_model.py's [value](NAME) comments in sync.

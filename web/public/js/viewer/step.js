@@ -123,12 +123,16 @@ export async function renderThumbnail(file) {
     const size = box.getSize(new THREE.Vector3());
     const maxDim = Math.max(size.x, size.y, size.z);
     const dist = maxDim * 2.5;
+    // +Z-up CAD-standard front-iso — matches resetCamera in scene.js so
+    // the thumbnail shows the same orientation as the detail view's
+    // default. Camera at +X, -Y, +Z (front-right-above).
     const el = Math.atan(1 / Math.sqrt(2));
-    const az = Math.PI / 4;
+    const az = -Math.PI / 4;
+    thumbCam.up.set(0, 0, 1);
     thumbCam.position.set(
       center.x + dist * Math.cos(el) * Math.cos(az),
-      center.y + dist * Math.sin(el),
-      center.z + dist * Math.cos(el) * Math.sin(az)
+      center.y + dist * Math.cos(el) * Math.sin(az),
+      center.z + dist * Math.sin(el)
     );
     thumbCam.lookAt(center);
 
