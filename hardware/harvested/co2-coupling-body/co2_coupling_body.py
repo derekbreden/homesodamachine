@@ -32,8 +32,8 @@ Geometry zones from -Z to +Z:
       body cup with the coupling mouth on its +Z face.
   Latch: one piece of thin sheet metal, bent 90° at the body cup's
       top-front edge into (a) a pill-shaped thumb pad on the +Y top
-      of the body cup, and (b) a front plate strap running down the
-      +Z front face.
+      of the body cup, and (b) a flat disk on the +Z front face,
+      with a hole through it sized to the coupling mouth.
 
 External dimensions match the CPC LC Series datasheet (in mm):
   Body OD: 19.1 (Ø 0.75")
@@ -79,12 +79,11 @@ mouth_depth = 9.0                       # recess depth into the body cup
                                         # in iso, not a shallow dimple)
 
 # Latch — single piece of thin sheet metal bent into two visible
-# pieces: a thumb pad on the +Y top of the body cup, and a "front
-# plate" strap running down the +Z front face. The pad and front
-# plate share a 90° bend at the body cup's top-front edge. Pressing
-# the pad slides the whole strap forward, releasing the latch
-# mechanism inside the body. Sized from photos of the LC10004 /
-# LCD10004.
+# pieces: a thumb pad on the +Y top of the body cup, and a flat disk
+# covering the body cup's +Z front face. The two pieces share a 90°
+# bend at the body cup's top-front edge. Pressing the pad slides the
+# whole assembly forward, releasing the latch mechanism inside the
+# body. Sized from photos of the LC10004 / LCD10004.
 latch_thickness = 0.8                   # sheet-metal thickness (radial out
                                         # under the pad; axial out from the
                                         # front plate)
@@ -97,9 +96,8 @@ pad_length = 14.0                       # tangential (X) — full pill length in
 pad_diameter = 9.62                     # axial (Z) — pill width = rounded-end diameter
 latch_cantilever = 0.0                  # how far the pad sticks past the body cup's front face
 
-# Front plate — rectangular strap on the +Z front face.
-front_plate_width = 8.0                 # tangential (X)
-front_plate_drop = 17.0                 # how far down the front face it extends (Y, from body_d/2)
+# Front plate — flat disk (very thin cylinder) covering the body cup's
+# +Z front face, with a hole through it sized to the coupling mouth.
 
 
 def build_co2_coupling_body():
@@ -141,9 +139,10 @@ def build_co2_coupling_body():
         .extrude(-thread_length)
     )
 
-    # Latch — pill-shaped thumb pad on top + rectangular front plate
-    # on the front face, modeled as two thin solids that share a face
-    # at the bent corner.
+    # Latch — pill-shaped thumb pad on top + flat disk front plate on
+    # the front face, modeled as two thin solids. The disk and the
+    # body cup share an annular face at Z = front_face_z; the pad
+    # meets the disk's top edge at the bent corner.
 
     # Thumb pad: pill (slot) on a workplane whose local +X is the
     # tangential direction (world +X) — the pill's long axis. Normal
@@ -161,20 +160,14 @@ def build_co2_coupling_body():
         .extrude(latch_thickness)
     )
 
-    # Front plate: thin rectangle on the +Z front face. Top edge runs
-    # up to (body_d/2 + latch_thickness) so its top face is flush with
-    # the pad's top, reading as one continuous bent sheet at the corner.
-    plate_top_y = body_d / 2 + latch_thickness
-    plate_bottom_y = body_d / 2 - front_plate_drop
-    front_plate = cq.Solid.makeBox(
-        front_plate_width,
-        plate_top_y - plate_bottom_y,
-        latch_thickness,
-        pnt=cq.Vector(
-            -front_plate_width / 2,
-            plate_bottom_y,
-            front_face_z,
-        ),
+    # Front plate: flat disk covering the +Z front face. The inner
+    # circle creates the hole at the coupling mouth.
+    front_plate = (
+        cq.Workplane("XY")
+        .workplane(offset=front_face_z)
+        .circle(body_d / 2)
+        .circle(mouth_d / 2)
+        .extrude(latch_thickness)
     )
 
     # Union order matters: with the pad unioned BEFORE the front
