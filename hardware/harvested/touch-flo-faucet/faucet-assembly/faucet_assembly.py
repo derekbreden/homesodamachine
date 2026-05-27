@@ -180,12 +180,11 @@ _faucet_printed_dir = _repo_hardware_dir / "printed-parts" / "faucet"
 
 ref_body_step = _harvested_dir / "valve-body-reference" / "touch-flo-valve-body-reference.step"
 
-# Each printed part is built in the upstream Z-up frame (matching the
-# harvested Westbrass valve body), shipped as a +Y-up STEP at the
-# part script's export boundary, and consumed back HERE in its native
-# Z-up build_*() to compose into the Z-up assembly. The single rebase
-# to +Y-up happens once, in build_assembly()'s _to_y_up wrapper around
-# every child.
+# Each printed part's public build_*() function already returns +Y-up
+# (mounting plate / gasket: rebased to native +Y-up authoring; shell:
+# Z-up internally, wrapped at its build_* boundary). Import them
+# directly — every child loaded here is already in this assembly's
+# +Y-up output frame.
 sys.path.insert(0, str(_faucet_printed_dir / "touch-flo-mounting-plate"))
 sys.path.insert(0, str(_faucet_printed_dir / "touch-flo-mounting-gasket"))
 sys.path.insert(0, str(_faucet_printed_dir / "touch-flo-shell"))
@@ -195,42 +194,31 @@ import touch_flo_shell
 
 
 def load_valve_body():
-    """Load the harvested valve body from the reference STEP file.
-    The harvested STEP is in upstream Z-up — matching our authoring
-    frame, so it loads without rotation."""
-    return cq.importers.importStep(str(ref_body_step))
+    """Load the harvested valve body. The upstream STEP is in Z-up;
+    rebase to +Y-up on load so it lines up with every other child in
+    this assembly."""
+    return _to_y_up(cq.importers.importStep(str(ref_body_step)))
 
 
 def load_mounting_plate():
-    """Build the printed mounting plate. The plate script is already
-    rebased to native +Y-up — rotate it back via _from_y_up so it
-    aligns with this assembly's still-Z-up internal authoring. The
-    bridge stays until the assembly's tubes / lever are rebased too.
+    """Build the printed mounting plate in the repo's +Y-up frame.
     Source of truth: see
     `hardware/printed-parts/faucet/touch-flo-mounting-plate/touch_flo_mounting_plate.py`."""
-    return _from_y_up(touch_flo_mounting_plate.build_mounting_plate())
+    return touch_flo_mounting_plate.build_mounting_plate()
 
 
 def load_mounting_gasket():
-    """Build the printed-TPU mounting gasket. The gasket script is
-    already rebased to native +Y-up, so we rotate it back into this
-    assembly's internal Z-up frame here; _to_y_up at export then puts
-    the assembled output back in +Y-up. The two rotations cancel for
-    this child, but keep the assembly's internal authoring frame
-    consistent during the incremental rebase.
+    """Build the printed-TPU mounting gasket in the repo's +Y-up frame.
     Source of truth: see
     `hardware/printed-parts/faucet/touch-flo-mounting-gasket/touch_flo_mounting_gasket.py`."""
-    return _from_y_up(touch_flo_mounting_gasket.build_mounting_gasket())
+    return touch_flo_mounting_gasket.build_mounting_gasket()
 
 
 def load_shell():
-    """Build the printed shell. The shell script's public build_shell
-    now returns +Y-up — rotate back via _from_y_up so it aligns with
-    this assembly's still-Z-up internal authoring. The bridge stays
-    until the assembly's tubes / lever are rebased too.
+    """Build the printed shell in the repo's +Y-up frame.
     Source of truth: see
     `hardware/printed-parts/faucet/touch-flo-shell/touch_flo_shell.py`."""
-    return _from_y_up(touch_flo_shell.build_shell())
+    return touch_flo_shell.build_shell()
 
 
 def _arc_from_tangent(start, tangent, radius, theta_rad, ccw):
@@ -286,7 +274,10 @@ def _gooseneck_segments(start, tangent, bend1_r, bend2_r):
 def build_water_dispense_tube():
     """Bent water tube — vertical from inside the body's port up to
     the gooseneck, then bend 1, mid straight, bend 2, tip straight.
-    Profile is Ø water_tube_od swept along the centerline path."""
+    Profile is Ø water_tube_od swept along the centerline path. The
+    sweep math is in the upstream Z-up frame (matches the harvested
+    valve body's authoring frame); _to_y_up at return rebases to the
+    repo's +Y-up convention."""
     # Tube-local (X-Z) frame: bottom at (0, 0), Z=0 == water_tube_z_bottom.
     p_bottom = (0.0, 0.0)
     p_gn_start = (0.0, gn_bend1_start_z - water_tube_z_bottom)
@@ -306,7 +297,8 @@ def build_water_dispense_tube():
     )
     profile = cq.Workplane("XY").circle(water_tube_r)
     tube = profile.sweep(path, transition="round")
-    return tube.translate((port_center_x, port_center_y, water_tube_z_bottom))
+    tube_zup = tube.translate((port_center_x, port_center_y, water_tube_z_bottom))
+    return _to_y_up(tube_zup)
 
 
 def _build_flavor_tube_at_origin():
@@ -362,16 +354,16 @@ def _build_flavor_tube_at_origin():
 
 
 def build_flavor_tube(y_sign):
-    """One Ø 1/4" flavor tube placed at its world position.
-
-    Built at the origin, then translated to (flavor_tube_x_lower,
-    y_sign · flavor_tube_y_offset, flavor_tube_z_bottom)."""
+    """One Ø 1/4" flavor tube placed at its world position. Built at
+    the origin in the Z-up authoring frame, translated to its assembly
+    position, then rebased to +Y-up at return."""
     tube = _build_flavor_tube_at_origin()
-    return tube.translate((
+    tube_zup = tube.translate((
         flavor_tube_x_lower,
         y_sign * flavor_tube_y_offset,
         flavor_tube_z_bottom,
     ))
+    return _to_y_up(tube_zup)
 
 
 # Lever pivot — axis parallel to Y at (X=lever_pivot_x, Z=lever_pivot_z).
@@ -433,34 +425,32 @@ def build_lever():
     lever_pressed = lever_rest.rotate(pivot_a, pivot_b, -lever_press_angle_deg).cut(cut_cylinder)
     lever_rest_final = lever_pressed.rotate(pivot_a, pivot_b, lever_press_angle_deg)
 
-    # Union of both extremes — the swing-clearance envelope.
-    return lever_rest_final.union(lever_pressed)
+    # Union of both extremes — the swing-clearance envelope, still in
+    # the Z-up authoring frame. Rebase to +Y-up at return.
+    return _to_y_up(lever_rest_final.union(lever_pressed))
 
 
-# Every part in the faucet — the harvested valve body, the natively
-# authored tubes / lever, and the printed-part STEPs (mounting plate /
-# gasket / shell) — is in the upstream Z-up frame (+Z body-up, -X
-# gooseneck dispense direction). The rest of the repo uses +Y-up. We
-# rebase to +Y-up at the assembly's export boundary so all downstream
-# consumers (drawings, the SVG iso view, the appliance composite) see
-# the faucet in the repo's convention.
+# All this assembly's natively-authored builders (water tube, flavor
+# tubes, lever) keep their internal coordinate math in the upstream
+# Z-up frame (+Z body-up, -X gooseneck) — that's the frame the
+# harvested Westbrass valve body was authored in, and rewriting that
+# math is what broke the lever in the previous rebase attempt. Each
+# builder applies `_to_y_up` at its return so the public output is in
+# the repo's +Y-up convention; the printed-part build_*() functions
+# (mounting plate, gasket, shell) already return +Y-up; the harvested
+# valve body STEP is rebased on load. So every child of the assembly
+# below is in +Y-up — no per-child rotation needed at assembly time,
+# no export-time rebase.
 #
-# Two clean 90° turns: spin about old +Z (the body axis), then tip
-# about old +X. Composed they map old (X, Y, Z) -> new (-Y, Z, -X):
-#   +Z body-up        -> +Y  (height — matches repo +Y-up)
-#   -X gooseneck tip  -> +Z  (toward the front / toward the user, so a
-#                             natural-iso camera at +X, +Y, +Z reads as
-#                             the user's view of the faucet)
-#   +Y lateral        -> -X  (width — symmetric, sign cosmetic)
-#
-# Authoring math (tubes, lever, all coordinate constants above) stays
-# in Z-up — the rotation lives ONLY here, where it crosses the export
-# boundary. This is deliberate: rewriting the internal coordinate names
-# is what broke the lever in the previous rebase attempt.
+# `_to_y_up` is the two-90°-turn rotation that maps Z-up authored
+# geometry (old (X, Y, Z)) to +Y-up output (new (-Y, Z, -X)):
+#   +Z body-up       -> +Y  (height)
+#   -X gooseneck tip -> +Z  (toward the front / toward the user)
+#   +Y lateral       -> -X  (width — symmetric, sign cosmetic)
 
 
 def _to_y_up(shape):
-    """Rotate a Z-up authored shape into the +Y-up output frame."""
+    """Rotate a Z-up authored shape into the repo's +Y-up frame."""
     return (
         shape
         .rotate((0, 0, 0), (0, 0, 1), 90)    # spin 90° about old +Z (body axis)
@@ -468,23 +458,9 @@ def _to_y_up(shape):
     )
 
 
-def _from_y_up(shape):
-    """Inverse of _to_y_up. Bridge for parts that are already rebased to
-    native +Y-up while the assembly's internal authoring (tubes, lever)
-    is still Z-up — rotate back to Z-up so positions align, and the
-    assembly's _to_y_up at export rotates everything to +Y-up together.
-    The two rotations cancel for these children; this stays in place
-    only until the assembly's internal authoring is rebased too."""
-    return (
-        shape
-        .rotate((0, 0, 0), (1, 0, 0), 90)    # undo the tip
-        .rotate((0, 0, 0), (0, 0, 1), -90)   # undo the spin
-    )
-
-
 def build_assembly():
     """Combine the reference body and our new parts into one assembly,
-    rebased into the repo's +Y-up frame."""
+    in the repo's +Y-up frame."""
     body = load_valve_body()
     water_tube = build_water_dispense_tube()
     flavor_tube_pos_y = build_flavor_tube(+1)
@@ -501,14 +477,14 @@ def build_assembly():
                                             # read apart
 
     assy = cq.Assembly(name="touch-flo-faucet-assembly")
-    assy.add(_to_y_up(body), name="valve_body", color=cq.Color("black"))
-    assy.add(_to_y_up(water_tube), name="water_dispense_tube", color=silver)
-    assy.add(_to_y_up(flavor_tube_pos_y), name="flavor_tube_pos_y", color=silver)
-    assy.add(_to_y_up(flavor_tube_neg_y), name="flavor_tube_neg_y", color=silver)
-    assy.add(_to_y_up(lever), name="lever", color=silver)
-    assy.add(_to_y_up(mounting_plate), name="mounting_plate", color=petg_tan)
-    assy.add(_to_y_up(mounting_gasket), name="mounting_gasket", color=tpu_black)
-    assy.add(_to_y_up(shell), name="shell", color=petg_tan)
+    assy.add(body, name="valve_body", color=cq.Color("black"))
+    assy.add(water_tube, name="water_dispense_tube", color=silver)
+    assy.add(flavor_tube_pos_y, name="flavor_tube_pos_y", color=silver)
+    assy.add(flavor_tube_neg_y, name="flavor_tube_neg_y", color=silver)
+    assy.add(lever, name="lever", color=silver)
+    assy.add(mounting_plate, name="mounting_plate", color=petg_tan)
+    assy.add(mounting_gasket, name="mounting_gasket", color=tpu_black)
+    assy.add(shell, name="shell", color=petg_tan)
     return assy
 
 
