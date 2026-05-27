@@ -10,6 +10,7 @@ import { mountBlogRoutes } from "./lib/blog.js";
 import { mountLandingRoutes } from "./lib/landing.js";
 import { mountViewerPages } from "./lib/viewer-pages.js";
 import { mountSettingsRoutes } from "./lib/settings.js";
+import { mountSceneRoutes } from "./lib/scene-routes.js";
 import { mountEvents } from "./lib/events.js";
 import {
   initPush,
@@ -257,6 +258,7 @@ export async function start({ dev = false, port, hardwareDir } = {}) {
   mountLandingRoutes(app);
   mountViewerPages(app);
   mountSettingsRoutes(app);
+  mountSceneRoutes(app, { repoRoot: REPO_ROOT });
   attachSubscribe(app, pool);
   app.use(express.static(LANDING_PUBLIC));
 
