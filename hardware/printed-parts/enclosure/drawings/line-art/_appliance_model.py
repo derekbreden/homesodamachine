@@ -408,9 +408,11 @@ def smooth_stroke(svg_path: Path) -> None:
 # ---------------------------------------------------------------------------
 
 
-# Red ring on the right side face around the CO2 port.
-CO2_PORT_RING_OUTER_R = 14.5
-CO2_PORT_RING_INNER_R = 10.0
+# Red ring on the right side face around the CO2 port. Inner edge sits
+# outside the hex circumradius (hex_points/2 = 11.0 mm) so the ring's
+# pocket doesn't eat the hex outline.
+CO2_PORT_RING_OUTER_R = 16.5
+CO2_PORT_RING_INNER_R = 12.0
 CO2_PORT_RING_DEPTH = 1.5  # pocket depth into the wall
 
 
