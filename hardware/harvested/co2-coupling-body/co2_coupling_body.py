@@ -30,8 +30,10 @@ Geometry zones from -Z to +Z:
   Z = 0 to Z = hex_length: 3/4" hex section for wrench.
   Z = hex_length to Z = hex_length + body_length: chrome-plated brass
       body cup with the coupling mouth on its +Z face.
-  On +Y top of the body cup: thumb-latch bump (rectangular stand-in
-      for the actual curved CPC latch).
+  Latch: one piece of thin sheet metal, bent 90° at the body cup's
+      top-front edge into (a) a pill-shaped thumb pad on the +Y top
+      of the body cup, and (b) a front plate strap running down the
+      +Z front face.
 
 External dimensions match the CPC LC Series datasheet (in mm):
   Body OD: 19.1 (Ø 0.75")
@@ -78,22 +80,26 @@ mouth_depth = 9.0                       # recess depth into the body cup
 
 # Latch — single piece of thin sheet metal bent into two visible
 # pieces: a thumb pad on the +Y top of the body cup, and a "front
-# plate" strap running down the +Z front face. The thumb pad and
-# front plate share a 90° bend at the body cup's top-front edge.
-# Pressing the pad slides the whole strap forward / down, releasing
-# the latch mechanism inside the body. Sized from photos of the
-# LC10004 / LCD10004.
-latch_thickness = 0.8                   # sheet-metal thickness (Y above pad,
-                                        # Z out from front plate)
-# Pad — pill / slot shape sitting on top of the body cup, biased
-# toward the +Z front. Cantilevers ~2 mm past the front face so it
-# joins cleanly to the front plate at the bent corner.
-latch_l = 8.0                           # along body axis (Z) — pad full length incl. rounded ends
-latch_w = 5.0                           # tangential (X) — pill width = rounded-end diameter
-latch_cantilever = 2.0                  # how far the pad sticks past the body cup's front face
-# Front plate — rectangular strap on the front face, sharing the
-# pad's tangential width.
-front_plate_drop = 12.0                 # how far down the front face it extends (Y)
+# plate" strap running down the +Z front face. The pad and front
+# plate share a 90° bend at the body cup's top-front edge. Pressing
+# the pad slides the whole strap forward, releasing the latch
+# mechanism inside the body. Sized from photos of the LC10004 /
+# LCD10004.
+latch_thickness = 0.8                   # sheet-metal thickness (radial out
+                                        # under the pad; axial out from the
+                                        # front plate)
+
+# Pad — pill / slot shape on the +Y top of the body cup. The pill's
+# long axis runs tangentially (across the body), not along the
+# coupling axis. The pad is biased toward the +Z front so it joins
+# the front plate at the bent corner.
+pad_length = 14.0                       # tangential (X) — full pill length incl. rounded ends
+pad_diameter = 9.62                     # axial (Z) — pill width = rounded-end diameter
+latch_cantilever = 0.0                  # how far the pad sticks past the body cup's front face
+
+# Front plate — rectangular strap on the +Z front face.
+front_plate_width = 8.0                 # tangential (X)
+front_plate_drop = 17.0                 # how far down the front face it extends (Y, from body_d/2)
 
 
 def build_co2_coupling_body():
@@ -136,49 +142,44 @@ def build_co2_coupling_body():
     )
 
     # Latch — pill-shaped thumb pad on top + rectangular front plate
-    # on the front face, modeled as two thin solids that overlap at
-    # the top-front corner so union merges them into a single bent-
-    # sheet shape.
+    # on the front face, modeled as two thin solids that share a face
+    # at the bent corner.
 
-    # Thumb pad: pill (slot) on a workplane whose local +x is the body
-    # axis (world +Z) and normal is body radial (world +Y). slot2D's
-    # length runs along local +x; diameter is the rounded-end width.
-    latch_front_z = front_face_z + latch_cantilever
-    latch_back_z = latch_front_z - latch_l
-    latch_z_mid = (latch_front_z + latch_back_z) / 2
+    # Thumb pad: pill (slot) on a workplane whose local +X is the
+    # tangential direction (world +X) — the pill's long axis. Normal
+    # is body radial (world +Y) — the extrude direction.
+    pad_front_z = front_face_z + latch_cantilever
+    pad_center_z = pad_front_z - pad_diameter / 2
     pad_plane = cq.Plane(
-        origin=(0, body_d / 2, latch_z_mid),
-        xDir=(0, 0, 1),
+        origin=(0, body_d / 2, pad_center_z),
+        xDir=(1, 0, 0),
         normal=(0, 1, 0),
     )
     pad = (
         cq.Workplane(pad_plane)
-        .slot2D(length=latch_l, diameter=latch_w, angle=0)
+        .slot2D(length=pad_length, diameter=pad_diameter)
         .extrude(latch_thickness)
     )
 
-    # Front plate: thin rectangle on the +Z front face of the body
-    # cup, sharing the pad's tangential width. Top edge runs up to
-    # (body_d/2 + latch_thickness) so it overlaps with the pad in the
-    # corner region — the union then reads as one continuous L-shape.
+    # Front plate: thin rectangle on the +Z front face. Top edge runs
+    # up to (body_d/2 + latch_thickness) so its top face is flush with
+    # the pad's top, reading as one continuous bent sheet at the corner.
     plate_top_y = body_d / 2 + latch_thickness
     plate_bottom_y = body_d / 2 - front_plate_drop
-    plate_corner = cq.Vector(
-        -latch_w / 2,
-        plate_bottom_y,
-        front_face_z,
-    )
     front_plate = cq.Solid.makeBox(
-        latch_w,
+        front_plate_width,
         plate_top_y - plate_bottom_y,
         latch_thickness,
-        pnt=plate_corner,
+        pnt=cq.Vector(
+            -front_plate_width / 2,
+            plate_bottom_y,
+            front_face_z,
+        ),
     )
 
-    # Union order matters here: with the pad unioned BEFORE the front
+    # Union order matters: with the pad unioned BEFORE the front
     # plate, OCCT's boolean ends up dropping everything but the corner
-    # overlap region. Unioning the pad last avoids it. (Cause unclear;
-    # likely an OCCT quirk with the slot solid plus the L-overlap.)
+    # overlap region. Unioning the pad last avoids it.
     result = hex_part.union(body)
     result = result.union(thread)
     result = result.union(front_plate)
