@@ -264,15 +264,14 @@ def cell(x, y, w, h, view_text, caption, embed_path=None, arrows_fn=None):
 
 
 def _arrows_connect_co2(x, y, w, draw_h):
-    """Drawing 1: single red arrow aimed at the center of the CO2 inlet
-    on the right side face. Port center projects to cell-frac
-    (0.465, 0.519); tail at (0.30, 0.18); tip placed 5 mm before the
-    port center along the tail→center line so the arrow's geometric
-    extension passes through center while the rendered tip leaves a
-    visible gap to the port outline."""
+    """Drawing 1: single red arrow aimed at the CO2 inlet on the right
+    side face. Port center projects to cell-frac (0.465, 0.519); port
+    outline spans roughly (0.460–0.471, 0.499–0.541). Tip sits at
+    cell-frac (0.443, 0.500) — above-left of the port with a visible
+    gap from the port outline. Tail at (0.30, 0.18)."""
     return _straight_arrow(
         x + 0.30 * w, y + 0.18 * draw_h,
-        x + 0.445 * w, y + 0.478 * draw_h,
+        x + 0.443 * w, y + 0.500 * draw_h,
         color="red",
     )
 
