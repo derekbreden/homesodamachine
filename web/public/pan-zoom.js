@@ -96,12 +96,24 @@
       return { minX: bx.min, maxX: bx.max, minY: by.min, maxY: by.max };
     }
 
+    // Scale bounds for the current layout. Floor is the fit scale (no
+    // pinching below "fully visible"). Ceiling grows with fit too, so an
+    // SVG drawn in large natural units (a quickstart sheet in mm, fit
+    // scale ~2x) zooms to the same perceived depth as a part SVG drawn
+    // in small CAD units (fit scale ~1x). maxScale is interpreted as a
+    // multiplier above the fit scale, with an absolute floor of maxScale
+    // itself so tiny content still allows zooming up to its native size.
+    function scaleBounds() {
+      const fs = fitScale();
+      if (fs <= 0) return { lo: minScale, hi: maxScale };
+      return { lo: Math.max(minScale, fs), hi: Math.max(maxScale, fs * maxScale) };
+    }
+
     // The single state-mutating path. Every gesture / API call funnels
     // through this so the clamping rules stay consistent.
     function commit(s, px, py) {
-      const fs = fitScale();
-      const lo = fs > 0 ? Math.max(minScale, fs) : minScale;
-      s = clamp(s, lo, maxScale);
+      const sb = scaleBounds();
+      s = clamp(s, sb.lo, sb.hi);
       const b = panBounds(s);
       px = clamp(px, b.minX, b.maxX);
       py = clamp(py, b.minY, b.maxY);
@@ -175,7 +187,11 @@
         const dist = Math.hypot(p2.x - p1.x, p2.y - p1.y) || 1;
         const midX = (p1.x + p2.x) / 2;
         const midY = (p1.y + p2.y) / 2;
-        const ns = pinchStart.scale * (dist / pinchStart.dist);
+        // Pre-clamp the target scale so the anchor pan is computed against
+        // the actual final scale. Without this, pinching past the cap
+        // drives pan past the bounds every frame and the view drifts.
+        const sb = scaleBounds();
+        const ns = clamp(pinchStart.scale * (dist / pinchStart.dist), sb.lo, sb.hi);
         const dx = (pinchStart.midX - pinchStart.panX) / pinchStart.scale;
         const dy = (pinchStart.midY - pinchStart.panY) / pinchStart.scale;
         commit(ns, midX - dx * ns, midY - dy * ns);
@@ -206,7 +222,13 @@
       // Bigger deltas need a stronger response, so scale the factor by deltaY.
       const intensity = e.ctrlKey ? 0.01 : 0.0015;
       const factor = Math.exp(-e.deltaY * intensity);
-      const ns = scale * factor;
+      // Pre-clamp scale to its allowed range BEFORE computing the anchor
+      // pan. Otherwise commit clamps scale to the cap but the pan term
+      // keeps using the unclamped target, so each tick over the cap
+      // drives pan further past the bounds — visible as the view
+      // whipping to a corner the moment max zoom is reached.
+      const sb = scaleBounds();
+      const ns = clamp(scale * factor, sb.lo, sb.hi);
       commit(ns, mx - dx * ns, my - dy * ns);
     }
 
