@@ -104,10 +104,24 @@ latch_cantilever = 0.0                  # how far the pad sticks past the body c
 # whole assembly down so the holes align.
 latch_y_offset = 1.0                    # +Y rise of pad + disk vs body axis
 
+# Connector tab — rectangular protrusion from the disk's top edge that
+# carries up and meets the pad at the bent corner. The disk's outline
+# is a circle, which can only touch the pad at a tangent point; the
+# tab gives the front plate a flat top edge to share with the pad. Same
+# sheet metal thickness as disk and pad.
+connector_width = 8.0                   # tangential (X)
+bend_radius = latch_thickness            # fillet on the outer + inner edges
+                                        # of the 90° bend between tab and pad
 
-def build_co2_coupling_body():
+
+def build_co2_coupling_body(fillet_bend=True):
     """Build the coupling body at canonical origin (mounting plane at
-    z=0, axis along +Z). Returns a cq.Workplane wrapping the solid."""
+    z=0, axis along +Z). Returns a cq.Workplane wrapping the solid.
+
+    fillet_bend: round the bend between the connector tab and the pad.
+        Correct for the standalone reference model. Off by default for
+        callers that union the part into a larger assembly — the
+        filleted topology breaks subsequent OCCT boolean operations."""
     # Hex section, z=0 to z=hex_length. CadQuery's polygon places a
     # vertex at the +X axis; rotate by 30° around the axis so the
     # flats land top/bottom — matches how the part installs with a
@@ -144,16 +158,19 @@ def build_co2_coupling_body():
         .extrude(-thread_length)
     )
 
-    # Latch — pill-shaped thumb pad on top + flat disk front plate on
-    # the front face, modeled as two thin solids. The disk and the
-    # body cup share an annular face at Z = front_face_z; the pad
-    # meets the disk's top edge at the bent corner.
+    # Latch — flat disk front plate on the +Z front face, connector
+    # tab rising from the disk's top edge, and pill-shaped thumb pad
+    # on top. Disk + tab + pad together represent one bent sheet
+    # metal piece. The disk shares an annular face with the body cup
+    # at Z = front_face_z; the tab pokes into the disk and shares a
+    # face with the pad at Z = front_face_z.
 
     # Thumb pad: pill (slot) on a workplane whose local +X is the
     # tangential direction (world +X) — the pill's long axis. Normal
     # is body radial (world +Y) — the extrude direction.
     pad_front_z = front_face_z + latch_cantilever
     pad_center_z = pad_front_z - pad_diameter / 2
+    pad_top_y = body_d / 2 + latch_y_offset + latch_thickness
     pad_plane = cq.Plane(
         origin=(0, body_d / 2 + latch_y_offset, pad_center_z),
         xDir=(1, 0, 0),
@@ -177,13 +194,55 @@ def build_co2_coupling_body():
         .extrude(latch_thickness)
     )
 
+    # Connector tab: rectangular box that rises from inside the disk
+    # up to the pad's top face. Its bottom is deep enough into the
+    # disk that the tab's full width is enclosed by the disk's outer
+    # circle at every Y level inside the disk, so the union with the
+    # disk is a clean volume overlap. Its top face matches the pad's
+    # top face in Y, and its back face matches the pad's front face
+    # in Z (shared 2D face → clean union with the pad).
+    tab_bottom_y = 0.0
+    connector_tab = cq.Solid.makeBox(
+        connector_width,
+        pad_top_y - tab_bottom_y,
+        latch_thickness,
+        pnt=cq.Vector(
+            -connector_width / 2,
+            tab_bottom_y,
+            front_face_z,
+        ),
+    )
+
     # Union order matters: with the pad unioned BEFORE the front
     # plate, OCCT's boolean ends up dropping everything but the corner
     # overlap region. Unioning the pad last avoids it.
     result = hex_part.union(body)
     result = result.union(thread)
     result = result.union(front_plate)
+    result = result.union(connector_tab)
     result = result.union(pad)
+
+    if fillet_bend:
+        # The bend has two edges (in X): the OUTER corner at
+        # (Y=pad_top_y, Z=front_face_z + latch_thickness) and the
+        # INNER corner at (Y=pad_top_y - latch_thickness,
+        # Z=front_face_z). Filleting both with bend_radius turns the
+        # sharp 90° corner into a real sheet-metal bend with constant
+        # material thickness.
+        outer_corner_y = pad_top_y
+        outer_corner_z = front_face_z + latch_thickness
+        inner_corner_y = pad_top_y - latch_thickness
+        inner_corner_z = front_face_z
+        result = (
+            result
+            .edges(cq.NearestToPointSelector((0, outer_corner_y, outer_corner_z)))
+            .fillet(bend_radius)
+        )
+        result = (
+            result
+            .edges(cq.NearestToPointSelector((0, inner_corner_y, inner_corner_z)))
+            .fillet(bend_radius * 0.5)
+        )
     return result
 
 
