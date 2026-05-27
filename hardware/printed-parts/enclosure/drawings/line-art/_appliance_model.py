@@ -290,24 +290,41 @@ def _add_co2_port(solid, world_z, world_y):
     at the RIGHT side face (x=W). The part is built at canonical
     origin by `co2_coupling_body.build_co2_coupling_body()` with its
     axis along +Z; here we rotate it so its axis aligns with world +X
-    (outward from the right side wall) and translate it so the HEX's
-    BACK FACE sits flush at the wall plane (x = W). The hex sticks
-    out one hex_length, then the body cup; the NPT thread is on the
-    inside of the wall and doesn't show in iso projection."""
-    # fillet_bend=False: the filleted topology breaks subsequent
-    # appliance booleans (back-face nameplate union fails with
-    # `Bnd_Box is void`). The bend reads as a sharp corner here; the
-    # standalone STEP keeps the fillet.
-    part = co2_coupling_body.build_co2_coupling_body(fillet_bend=False).val()
+    (outward from the right side wall) and translate it so the hex's
+    +Z FRONT FACE sits flush at the wall plane (the hex itself is
+    hidden inside the wall; the body cup sticks out by body_length).
+
+    Then cut a SURFACE_CUT_DEPTH-deep hex recess on the wall so the
+    hex outline reads as a flush hexagonal collar in the line-art —
+    visible as an outline at the wall plane without 3D depth."""
+    part = co2_coupling_body.build_co2_coupling_body().val()
     # Rotate +90° around world +Y so the part's +Z axis becomes world
     # +X. (Right-hand rule: rotating from +Z toward +X is positive
     # around +Y.)
     part = part.rotate(cq.Vector(0, 0, 0), cq.Vector(0, 1, 0), 90)
-    # Translate so the hex's back face (canonical x=0) lands at the
-    # wall plane — the hex outline reads as a flush hexagonal collar
-    # sitting on the wall, with the body cup protruding past it.
-    part = part.translate(cq.Vector(W, world_y, world_z))
-    return solid.union(cq.Workplane().add(part))
+    # Translate so the hex's +Z front face (canonical x = hex_length)
+    # lands at the wall plane: hex body sits in x ∈ [W − hex_length, W]
+    # (inside the wall), body cup in x ∈ [W, W + body_length] (outside).
+    part = part.translate(cq.Vector(
+        W - co2_coupling_body.hex_length,
+        world_y,
+        world_z,
+    ))
+    solid = solid.union(cq.Workplane().add(part))
+
+    # Shallow hex outline at the wall plane. Drawn in the right-face
+    # workplane (local +X = world +Z depth, local +Y = world +Y; normal
+    # = world +X outward) and extruded -X into the wall.
+    hex_outline_cutter = (
+        cq.Workplane(cq.Plane(
+            origin=(W, world_y, world_z),
+            xDir=(0, 0, 1),
+            normal=(1, 0, 0),
+        ))
+        .polygon(6, co2_coupling_body.hex_points)
+        .extrude(-SURFACE_CUT_DEPTH)
+    )
+    return solid.cut(hex_outline_cutter)
 
 
 def build_appliance() -> cq.Workplane:
