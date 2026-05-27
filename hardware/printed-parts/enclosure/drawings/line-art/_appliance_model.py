@@ -127,6 +127,23 @@ BUTTON_PROTRUSION = 10.0
 
 
 # ---------------------------------------------------------------------------
+# Right-side-face features
+# ---------------------------------------------------------------------------
+#
+# Face-local coords are (z, y) — `a` runs along +Z (depth, front to back)
+# as you look at the right side from outside, `b` runs along +Y (height).
+
+# CO2 inlet — small cylindrical port through the right side wall. Position:
+# vertically aligned with the S3 knob's centerline on the front face;
+# horizontally (along depth) centered on the funnel-door depth. The CO2
+# cylinder sits in the side air-gap beside the appliance, so the inlet is
+# on the side that faces it.
+CO2_PORT_AT = (hopper_door_b, S3_AT[1])     # (face-a = world Z, face-b = world Y)
+CO2_PORT_D = 15.0
+CO2_PORT_PROTRUSION = 8.0
+
+
+# ---------------------------------------------------------------------------
 # Back-face features (a runs along -X width as seen from outside, b runs
 # along +Y height)
 # ---------------------------------------------------------------------------
@@ -264,6 +281,18 @@ def _add_back_nameplate(solid, a, b, w, h, thickness):
     return solid.union(plate.unwrap())
 
 
+def _add_side_knob(solid, world_z, world_y, d, protrusion):
+    """Add a perpendicular cylindrical knob on the RIGHT side face (x=W),
+    protruding outward in +X. Inputs are world (z, y) for the cylinder's
+    center on the face plane — z is the depth coordinate (front=0, back=D),
+    y is the height. Built directly via cq.Solid.makeCylinder because the
+    cadlib only exposes XZ and XY world workplanes; YZ is one-off here."""
+    pnt = cq.Vector(W, world_y, world_z)
+    direction = cq.Vector(1, 0, 0)
+    knob = cq.Solid.makeCylinder(d / 2, protrusion, pnt=pnt, dir=direction)
+    return solid.union(cq.Workplane().add(knob))
+
+
 def build_appliance() -> cq.Workplane:
     """Build the full appliance model as a CadQuery Workplane."""
     appliance = cq.Workplane("XY").box(W, H, D, centered=False)
@@ -279,6 +308,9 @@ def build_appliance() -> cq.Workplane:
         appliance, *TIP_AT, TIP_D, TIP_LENGTH, TIP_AXIS, TIP_BACK_EXTENSION,
     )
     appliance = _add_front_button(appliance, *BUTTON_AT, BUTTON_W, BUTTON_H, BUTTON_PROTRUSION)
+
+    # Right side face: CO2 inlet
+    appliance = _add_side_knob(appliance, *CO2_PORT_AT, CO2_PORT_D, CO2_PORT_PROTRUSION)
 
     # Back face: umbilical (3 holes) + C14 inlet + nameplate
     appliance = _cut_back_circle(
