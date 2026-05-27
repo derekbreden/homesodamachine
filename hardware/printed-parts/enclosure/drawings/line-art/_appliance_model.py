@@ -290,16 +290,25 @@ def _add_co2_port(solid, world_z, world_y):
     at the RIGHT side face (x=W). The part is built at canonical
     origin by `co2_coupling_body.build_co2_coupling_body()` with its
     axis along +Z; here we rotate it so its axis aligns with world +X
-    (outward from the right side wall) and translate it so the back
-    of the hex sits at the wall plane (x = W)."""
+    (outward from the right side wall) and translate it so the
+    BODY CUP'S BACK FACE sits at the wall plane (x = W). The hex
+    and the NPT thread end up fully recessed inside the wall — only
+    the body cup, the thumb-latch pad, the front tab, and the hex
+    outline at the wall plane show in the rendered line-art."""
     part = co2_coupling_body.build_co2_coupling_body().val()
     # Rotate +90° around world +Y so the part's +Z axis becomes world
     # +X. (Right-hand rule: rotating from +Z toward +X is positive
     # around +Y.)
     part = part.rotate(cq.Vector(0, 0, 0), cq.Vector(0, 1, 0), 90)
-    # Translate so the mounting plane (part origin) lands at the
-    # specified position on the right side face.
-    part = part.translate(cq.Vector(W, world_y, world_z))
+    # Translate so the BACK of the body cup (front of the hex) lands
+    # at the wall plane. After rotation, the hex's +Z front face is
+    # at canonical x = co2_coupling_body.hex_length, so subtracting
+    # that from world W puts the body cup's back at the wall.
+    part = part.translate(cq.Vector(
+        W - co2_coupling_body.hex_length,
+        world_y,
+        world_z,
+    ))
     return solid.union(cq.Workplane().add(part))
 
 
