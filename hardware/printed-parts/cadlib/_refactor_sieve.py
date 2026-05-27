@@ -1,6 +1,6 @@
 """Refactor sieve — invariants that must survive ongoing refactors.
 
-Four complementary checks:
+Six complementary checks:
 
 1. PUMP-CASE: build base + cap in-process, then check Volume +
    BoundingBox + CenterOfMass scalars against a pinned baseline. For
@@ -19,8 +19,23 @@ Four complementary checks:
    for the +Y-up native-authoring rebase (drops the internal Z-up frame
    + boundary rotation wrappers).
 
-4. COLD-CORE: SHA256-compare every downstream STEP file whose generator
-   is NOT undergoing a vocabulary refactor; bytes must match exactly.
+4. FAUCET-PARTS: build the three small printed faucet parts in-process
+   (mounting plate, mounting gasket, TPU o-ring), then check the same
+   scalars against a pinned baseline.
+
+5. FAUCET-ASSEMBLY: build the water dispense tube, both flavor tubes
+   (+1/-1), and the lever blob in-process from the harvested faucet
+   assembly script, then check the same scalars against a pinned
+   baseline.
+
+6. BYTE-HASHED STEPS: SHA256-compare every downstream STEP file whose
+   generator is NOT undergoing a vocabulary refactor; bytes must match
+   exactly. Spans cold-core parts, the harvested valve body and CO2
+   coupling reference STEPs, and the harvested faucet assembly STEP.
+
+Module also exposes _solid_invariants(wp) + _compare_invariants(...) at
+top level — volume + sorted bbox spans + sorted |COM| coords, compared
+with the same volume/scalar tolerances as _compare_scalars.
 
 Run with:
     tools/cad-venv/bin/python hardware/printed-parts/cadlib/_refactor_sieve.py capture
@@ -37,7 +52,7 @@ _here = Path(__file__).resolve().parent
 _repo = next(p for p in _here.parents if p.name == "homesodamachine")
 _baseline_path = _here / "_refactor_sieve_baseline.json"
 
-_cold_core_step_paths = [
+_byte_hashed_step_paths = [
     "hardware/printed-parts/cold-core/foam-shell/foam-shell.step",
     "hardware/printed-parts/cold-core/foam-cap/foam-cap-top.step",
     "hardware/printed-parts/cold-core/foam-cap/foam-cap-bottom.step",
@@ -48,6 +63,9 @@ _cold_core_step_paths = [
     "hardware/printed-parts/cold-core/copper-plugs/copper-plug-middle.step",
     "hardware/printed-parts/cold-core/copper-plugs/copper-plug-upper.step",
     "hardware/printed-parts/cold-core/copper-plugs/copper-plug-top.step",
+    "hardware/harvested/touch-flo-faucet/valve-body-reference/touch-flo-valve-body-reference.step",
+    "hardware/harvested/co2-coupling-body/co2-coupling-body.step",
+    "hardware/harvested/touch-flo-faucet/faucet-assembly/touch-flo-faucet-assembly.step",
 ]
 
 _cold_core_generators = [
@@ -61,6 +79,8 @@ _pump_case_generator = "hardware/printed-parts/flavor/pump-case/pump_case.py"
 
 _shell_generator = "hardware/printed-parts/faucet/touch-flo-shell/touch_flo_shell.py"
 
+_faucet_assembly_generator = "hardware/harvested/touch-flo-faucet/faucet-assembly/faucet_assembly.py"
+
 
 def _sha256(path):
     h = hashlib.sha256()
@@ -71,7 +91,7 @@ def _sha256(path):
 
 
 def _file_hashes():
-    return {p: _sha256(_repo / p) for p in _cold_core_step_paths}
+    return {p: _sha256(_repo / p) for p in _byte_hashed_step_paths}
 
 
 def _run_generator(rel_path):
@@ -163,6 +183,70 @@ def _shell_scalars():
     }
 
 
+def _faucet_parts_scalars():
+    """Build the three small printed faucet parts in-process and return
+    their scalars.
+
+    Imports each generator's build_*() function so we don't depend on
+    the STEP round-trip (same approach as pump-case + reservoir + shell)."""
+    plate_dir = _repo / "hardware/printed-parts/faucet/touch-flo-mounting-plate"
+    gasket_dir = _repo / "hardware/printed-parts/faucet/touch-flo-mounting-gasket"
+    o_ring_dir = _repo / "hardware/printed-parts/faucet/touch-flo-tpu-o-ring"
+    sys.path.insert(0, str(plate_dir))
+    sys.path.insert(0, str(gasket_dir))
+    sys.path.insert(0, str(o_ring_dir))
+    sys.path.insert(0, str(_repo / "hardware/printed-parts/faucet"))
+    sys.path.insert(0, str(_repo / "hardware/printed-parts/cadlib"))
+    sys.path.insert(0, str(_repo / "hardware"))
+
+    # Force fresh imports (in case a prior call cached older copies).
+    import importlib
+    for mod_name in ("touch_flo_mounting_plate",
+                     "touch_flo_mounting_gasket",
+                     "touch_flo_tpu_o_ring"):
+        if mod_name in sys.modules:
+            del sys.modules[mod_name]
+    plate_mod = importlib.import_module("touch_flo_mounting_plate")
+    gasket_mod = importlib.import_module("touch_flo_mounting_gasket")
+    o_ring_mod = importlib.import_module("touch_flo_tpu_o_ring")
+
+    return {
+        "mounting_plate":  _solid_scalars(plate_mod.build_mounting_plate()),
+        "mounting_gasket": _solid_scalars(gasket_mod.build_mounting_gasket()),
+        "tpu_o_ring":      _solid_scalars(o_ring_mod.build_o_ring()),
+    }
+
+
+def _faucet_assembly_scalars():
+    """Build the harvested faucet-assembly's tubes + lever in-process
+    and return their scalars.
+
+    Imports faucet_assembly and calls build_water_dispense_tube,
+    build_flavor_tube(±1), and build_lever directly — bypassing the
+    STEP round-trip (same approach as pump-case + reservoir + shell)."""
+    assembly_dir = _repo / "hardware/harvested/touch-flo-faucet/faucet-assembly"
+    sys.path.insert(0, str(assembly_dir))
+    sys.path.insert(0, str(_repo / "hardware/printed-parts/faucet/touch-flo-mounting-plate"))
+    sys.path.insert(0, str(_repo / "hardware/printed-parts/faucet/touch-flo-mounting-gasket"))
+    sys.path.insert(0, str(_repo / "hardware/printed-parts/faucet/touch-flo-shell"))
+    sys.path.insert(0, str(_repo / "hardware/printed-parts/faucet"))
+    sys.path.insert(0, str(_repo / "hardware/printed-parts/cadlib"))
+    sys.path.insert(0, str(_repo / "hardware"))
+
+    # Force a fresh import (in case a prior call cached an older copy).
+    import importlib
+    if "faucet_assembly" in sys.modules:
+        del sys.modules["faucet_assembly"]
+    mod = importlib.import_module("faucet_assembly")
+
+    return {
+        "water_tube":      _solid_scalars(mod.build_water_dispense_tube()),
+        "flavor_tube_pos": _solid_scalars(mod.build_flavor_tube(+1)),
+        "flavor_tube_neg": _solid_scalars(mod.build_flavor_tube(-1)),
+        "lever":           _solid_scalars(mod.build_lever()),
+    }
+
+
 def _solid_scalars(wp):
     solid = wp.val()
     bb = solid.BoundingBox()
@@ -180,6 +264,51 @@ def _solid_scalars(wp):
     }
 
 
+def _solid_invariants(wp):
+    """Rotation- and reflection-invariant scalars for a single solid.
+
+    Returns volume + sorted bbox spans + sorted |COM| coords:
+      - volume_mm3:        unchanged from _solid_scalars.
+      - bbox_spans_sorted: [xmax-xmin, ymax-ymin, zmax-zmin] sorted
+                           ascending — invariant under axis permutation.
+      - com_abs_sorted:    [|com.x|, |com.y|, |com.z|] sorted ascending
+                           — invariant under axis permutation AND
+                           per-axis sign flip.
+    """
+    solid = wp.val()
+    bb = solid.BoundingBox()
+    com = solid.Center()
+    spans = [bb.xmax - bb.xmin, bb.ymax - bb.ymin, bb.zmax - bb.zmin]
+    com_abs = [abs(com.x), abs(com.y), abs(com.z)]
+    return {
+        "volume_mm3": round(solid.Volume(), 4),
+        "bbox_spans_sorted": [round(v, 4) for v in sorted(spans)],
+        "com_abs_sorted":    [round(v, 4) for v in sorted(com_abs)],
+    }
+
+
+def _compare_invariants(expected, actual, tol_mm3=0.01, tol_mm=1e-3):
+    """Walk the invariant dict (or dict-of-invariant-dicts); collect any
+    field that drifted past tol. Same return shape as _compare_scalars.
+
+    Volume gets tol_mm3; list entries in bbox_spans_sorted / com_abs_sorted
+    get tol_mm."""
+    drift = []
+    def walk(path, e, a):
+        if isinstance(e, dict):
+            for k in e:
+                walk(f"{path}.{k}" if path else k, e[k], a[k])
+        elif isinstance(e, list):
+            for i, (ev, av) in enumerate(zip(e, a)):
+                walk(f"{path}[{i}]", ev, av)
+        else:
+            tol = tol_mm3 if path.endswith("volume_mm3") else tol_mm
+            if abs(e - a) > tol:
+                drift.append(f"{path}: expected {e}, actual {a} (Δ={a-e:+.6f})")
+    walk("", expected, actual)
+    return drift
+
+
 def capture():
     """Capture current state as the baseline."""
     print("Capturing pump-case scalars...")
@@ -188,21 +317,29 @@ def capture():
     reservoir = _reservoir_scalars()
     print("Capturing shell scalars...")
     shell = _shell_scalars()
-    print("Capturing cold-core STEP file hashes...")
+    print("Capturing faucet-parts scalars...")
+    faucet_parts = _faucet_parts_scalars()
+    print("Capturing faucet-assembly scalars...")
+    faucet_assembly = _faucet_assembly_scalars()
+    print("Capturing byte-hashed STEP file hashes...")
     hashes = _file_hashes()
     baseline = {
         "pump_case": pump,
         "reservoir": reservoir,
         "shell": shell,
-        "cold_core_hashes": hashes,
+        "faucet_parts": faucet_parts,
+        "faucet_assembly": faucet_assembly,
+        "byte_hashed_steps": hashes,
     }
     _baseline_path.write_text(json.dumps(baseline, indent=2, sort_keys=True))
     print(f"Baseline written to {_baseline_path.relative_to(_repo)}")
     print(f"  Pump-case base volume: {pump['base']['volume_mm3']} mm³")
     print(f"  Pump-case cap volume:  {pump['cap']['volume_mm3']} mm³")
-    print(f"  Reservoir parts captured: {len(reservoir)}")
-    print(f"  Shell pieces captured:    {len(shell)}")
-    print(f"  Cold-core STEPs hashed: {len(hashes)}")
+    print(f"  Reservoir parts captured:       {len(reservoir)}")
+    print(f"  Shell pieces captured:          {len(shell)}")
+    print(f"  Faucet-parts solids captured:   {len(faucet_parts)}")
+    print(f"  Faucet-assembly solids captured:{len(faucet_assembly)}")
+    print(f"  Byte-hashed STEPs hashed: {len(hashes)}")
 
 
 def check():
@@ -235,15 +372,21 @@ def check():
         print(f"FAIL: shell generator\n{output}", file=sys.stderr)
         sys.exit(1)
 
-    print("Checking cold-core STEP hashes...")
+    print("Regenerating faucet-assembly STEP...")
+    ok, output = _run_generator(_faucet_assembly_generator)
+    if not ok:
+        print(f"FAIL: faucet-assembly generator\n{output}", file=sys.stderr)
+        sys.exit(1)
+
+    print("Checking byte-hashed STEP hashes...")
     drift = []
-    expected_hashes = baseline["cold_core_hashes"]
+    expected_hashes = baseline["byte_hashed_steps"]
     actual_hashes = _file_hashes()
     for path in expected_hashes:
         if expected_hashes[path] != actual_hashes.get(path):
             drift.append((path, expected_hashes[path], actual_hashes.get(path)))
     if drift:
-        print("COLD-CORE DRIFT:", file=sys.stderr)
+        print("BYTE-HASHED STEP DRIFT:", file=sys.stderr)
         for path, exp, act in drift:
             print(f"  {path}\n    expected {exp}\n    actual   {act}", file=sys.stderr)
         sys.exit(1)
@@ -279,6 +422,26 @@ def check():
             print(f"  {line}", file=sys.stderr)
         sys.exit(1)
     print(f"  {len(actual_shell)} shell pieces match.")
+
+    print("Checking faucet-parts scalars...")
+    actual_faucet_parts = _faucet_parts_scalars()
+    faucet_parts_drift = _compare_scalars(baseline["faucet_parts"], actual_faucet_parts)
+    if faucet_parts_drift:
+        print("FAUCET-PARTS DRIFT:", file=sys.stderr)
+        for line in faucet_parts_drift:
+            print(f"  {line}", file=sys.stderr)
+        sys.exit(1)
+    print(f"  {len(actual_faucet_parts)} faucet parts match.")
+
+    print("Checking faucet-assembly scalars...")
+    actual_faucet_assembly = _faucet_assembly_scalars()
+    faucet_assembly_drift = _compare_scalars(baseline["faucet_assembly"], actual_faucet_assembly)
+    if faucet_assembly_drift:
+        print("FAUCET-ASSEMBLY DRIFT:", file=sys.stderr)
+        for line in faucet_assembly_drift:
+            print(f"  {line}", file=sys.stderr)
+        sys.exit(1)
+    print(f"  {len(actual_faucet_assembly)} faucet-assembly solids match.")
 
     print("\nAll sieve checks pass.")
 
