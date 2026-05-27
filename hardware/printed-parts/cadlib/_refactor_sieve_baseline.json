@@ -1,5 +1,8 @@
 {
-  "cold_core_hashes": {
+  "byte_hashed_steps": {
+    "hardware/harvested/co2-coupling-body/co2-coupling-body.step": "4e85c70bad4042df6da41cd7357f6db37c7e0ae39286cff1de6749c8be47374f",
+    "hardware/harvested/touch-flo-faucet/faucet-assembly/touch-flo-faucet-assembly.step": "569ddf7865dac93e653969397c252e66acec9b15b669631a5baad409dafe642c",
+    "hardware/harvested/touch-flo-faucet/valve-body-reference/touch-flo-valve-body-reference.step": "eb30a12d36b67d746c3c89935cb00ec59592fbb7a92d9c720c2cd63becb5c797",
     "hardware/printed-parts/cold-core/copper-plugs/copper-plug-lower.step": "91a6d094b903fd284e798719b78e328e713ecac1cdfdff9a89c792ae0bcb739c",
     "hardware/printed-parts/cold-core/copper-plugs/copper-plug-middle.step": "db70d10a809740090eb625417a7ad9edaa4eda428afcf52bfc9491f5090dc6d9",
     "hardware/printed-parts/cold-core/copper-plugs/copper-plug-top.step": "7d7512e9da81fe88c3b4420016a0d514b9643a1b5964c5a200caee3e87253d7b",
@@ -10,6 +13,122 @@
     "hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-top.step": "cd3a0dc0bae03c835e53e3a37f6c8fe9fcd6e01f083d1adaafd3f202e18a8b0e",
     "hardware/printed-parts/cold-core/foam-cap/foam-cap-top.step": "40c32c92dc630e6188e79405c9c554dd2f3cbf2d279ca8f4fdf4290eb7f1f177",
     "hardware/printed-parts/cold-core/foam-shell/foam-shell.step": "5342b966e55efadc64326c6264e7f73b8164a72893dc1c20a4479f90b7159074"
+  },
+  "faucet_assembly": {
+    "flavor_tube_neg": {
+      "bbox": {
+        "xmax": 0.0,
+        "xmin": -6.35,
+        "ymax": 224.2782,
+        "ymin": -50.0,
+        "zmax": 142.0018,
+        "zmin": -22.1
+      },
+      "com": {
+        "x": -3.175,
+        "y": 118.1997,
+        "z": 27.0103
+      },
+      "volume_mm3": 12036.6263
+    },
+    "flavor_tube_pos": {
+      "bbox": {
+        "xmax": 6.35,
+        "xmin": -0.0,
+        "ymax": 224.2782,
+        "ymin": -50.0,
+        "zmax": 142.0018,
+        "zmin": -22.1
+      },
+      "com": {
+        "x": 3.175,
+        "y": 118.1997,
+        "z": 27.0103
+      },
+      "volume_mm3": 12036.6263
+    },
+    "lever": {
+      "bbox": {
+        "xmax": 6.5,
+        "xmin": -6.5,
+        "ymax": 54.024,
+        "ymin": 35.4109,
+        "zmax": 42.0,
+        "zmin": -10.487
+      },
+      "com": {
+        "x": -0.0,
+        "y": 45.4053,
+        "z": 16.2131
+      },
+      "volume_mm3": 6674.8968
+    },
+    "water_tube": {
+      "bbox": {
+        "xmax": 4.7625,
+        "xmin": -4.7625,
+        "ymax": 218.5909,
+        "ymin": 24.0,
+        "zmax": 137.645,
+        "zmin": -13.6375
+      },
+      "com": {
+        "x": 0.0,
+        "y": 144.2267,
+        "z": 40.8685
+      },
+      "volume_mm3": 20502.9753
+    }
+  },
+  "faucet_parts": {
+    "mounting_gasket": {
+      "bbox": {
+        "xmax": 27.175,
+        "xmin": -27.175,
+        "ymax": -4.0,
+        "ymin": -6.0,
+        "zmax": 24.0,
+        "zmin": -30.35
+      },
+      "com": {
+        "x": -0.0,
+        "y": -5.0,
+        "z": -2.7374
+      },
+      "volume_mm3": 4223.0235
+    },
+    "mounting_plate": {
+      "bbox": {
+        "xmax": 27.175,
+        "xmin": -27.175,
+        "ymax": 0.0,
+        "ymin": -4.0,
+        "zmax": 24.0,
+        "zmin": -30.35
+      },
+      "com": {
+        "x": -0.0,
+        "y": -2.0269,
+        "z": -2.7298
+      },
+      "volume_mm3": 8301.8872
+    },
+    "tpu_o_ring": {
+      "bbox": {
+        "xmax": 5.1,
+        "xmin": -5.1,
+        "ymax": 5.1,
+        "ymin": -5.1,
+        "zmax": 15.0,
+        "zmin": 0.0
+      },
+      "com": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 5.8665
+      },
+      "volume_mm3": 229.0545
+    }
   },
   "pump_case": {
     "base": {
@@ -170,11 +289,11 @@
         "zmin": -25.45
       },
       "com": {
-        "x": 0.0,
+        "x": -0.0,
         "y": 84.8209,
         "z": 4.3582
       },
-      "volume_mm3": 69290.4089
+      "volume_mm3": 69290.4082
     },
     "full": {
       "bbox": {
@@ -186,7 +305,7 @@
         "zmin": -25.45
       },
       "com": {
-        "x": 0.0,
+        "x": -0.0,
         "y": 124.6099,
         "z": 32.7385
       },
@@ -202,11 +321,11 @@
         "zmin": 32.1026
       },
       "com": {
-        "x": -0.0,
+        "x": 0.0,
         "y": 208.6213,
         "z": 75.5581
       },
-      "volume_mm3": 23602.3479
+      "volume_mm3": 23602.3484
     },
     "top": {
       "bbox": {
@@ -218,7 +337,7 @@
         "zmin": 100.8083
       },
       "com": {
-        "x": -0.0,
+        "x": 0.0,
         "y": 196.2705,
         "z": 123.9416
       },
