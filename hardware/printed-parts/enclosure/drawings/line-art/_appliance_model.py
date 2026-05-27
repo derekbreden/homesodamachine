@@ -391,6 +391,66 @@ def smooth_stroke(svg_path: Path) -> None:
         svg_path.write_text(text.replace(needle, replacement, 1))
 
 
+# ---------------------------------------------------------------------------
+# Colored markings on the enclosure
+# ---------------------------------------------------------------------------
+# Some line-art features are colored markings on the enclosure surface
+# (printed, painted, or applied as decals). They sit on the wall plane and
+# render BEHIND the black geometry strokes — the 3D-geometry outlines that
+# cross them visually interrupt the marking.
+# ---------------------------------------------------------------------------
+
+
+def _project_to_inner(world_xyz, projection_dir):
+    """Project a 3D world point to the SVG's inner coord system (the
+    coords used inside the outer <g transform=...>)."""
+    x, y, z = world_xyz
+    if projection_dir == (1, 1, -1):  # iso-front
+        return -(x + z) / math.sqrt(2), (-x + 2 * y + z) / math.sqrt(6)
+    if projection_dir == (1, 1, 1):  # iso-back
+        return (x - z) / math.sqrt(2), (-x + 2 * y - z) / math.sqrt(6)
+    raise ValueError(f"Unsupported projection direction: {projection_dir}")
+
+
+# Red ring on the right side face around the CO2 port. Radius 10.5 mm sits
+# between the hex inradius (9.525 mm = hex_flats/2) and circumradius
+# (11.0 mm = hex_points/2); the hex's six corners sit outside the ring and
+# the hex sides cross the ring near each corner.
+CO2_PORT_RING_RADIUS = 10.5
+
+
+def _co2_red_ring_element(projection_dir):
+    """SVG <ellipse> for the red ring around the CO2 port, in inner coords.
+
+    The ring is a circle on the wall plane (YZ at x=W). Under the iso
+    projections it lands as an ellipse with semi-axes r and r/√3; major
+    axis at 120° (iso-front) or 60° (iso-back) CCW from +inner_x.
+    """
+    world_z, world_y = CO2_PORT_WALL_AT
+    cx, cy = _project_to_inner((W, world_y, world_z), projection_dir)
+    r = CO2_PORT_RING_RADIUS
+    angle = {(1, 1, -1): 120, (1, 1, 1): 60}[projection_dir]
+    return (
+        f'<ellipse cx="{cx:.4f}" cy="{cy:.4f}" '
+        f'rx="{r:.4f}" ry="{r / math.sqrt(3):.4f}" '
+        f'transform="rotate({angle}, {cx:.4f}, {cy:.4f})" '
+        f'stroke="red" fill="none" />'
+    )
+
+
+def add_co2_red_ring(svg_path: Path, projection_dir) -> None:
+    """Inject the red CO2-port ring into the SVG, just before the
+    hidden-lines marker so it draws beneath the line art."""
+    text = svg_path.read_text()
+    sentinel = "<!-- red CO2 port ring -->"
+    if sentinel in text:
+        return
+    ellipse = _co2_red_ring_element(projection_dir)
+    marker = "<!-- hidden lines -->"
+    inject = f"{sentinel}\n       {ellipse}\n       {marker}"
+    svg_path.write_text(text.replace(marker, inject, 1))
+
+
 def refresh_comments() -> None:
     """Refresh the [value](NAME) markdown links in this file's comments."""
     substitute_py_comments(

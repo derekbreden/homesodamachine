@@ -7,6 +7,8 @@
 
 >
     <g transform="scale(1.5439713881256827, -1.5439713881256827)   translate(453.5939755271041,-383.17963868186587)" stroke-width="1.5"  fill="none">
+       <!-- red CO2 port ring -->
+       <ellipse cx="-265.5186" cy="114.1054" rx="10.5000" ry="6.0622" transform="rotate(120, -265.5186, 114.1054)" stroke="red" fill="none" />
        <!-- hidden lines -->
        <g  stroke="rgb(160,160,160)" fill="none" stroke-dasharray="1.5,1.5" >
 

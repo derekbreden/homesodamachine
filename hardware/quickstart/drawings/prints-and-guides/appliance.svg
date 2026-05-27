@@ -19,6 +19,8 @@
   <rect x="0.5" y="0.5" width="430.8" height="278.4" fill="none" stroke="#e5e5e5" stroke-width="0.3" />
 <svg x="14.00" y="14.00" width="197.90" height="94.93" viewBox="0 0 730.3361200400299 800.0" preserveAspectRatio="xMidYMid meet">
 <g transform="scale(1.5439713881256827, -1.5439713881256827)   translate(453.5939755271041,-383.17963868186587)" stroke-width="1.5"  fill="none">
+       <!-- red CO2 port ring -->
+       <ellipse cx="-265.5186" cy="114.1054" rx="10.5000" ry="6.0622" transform="rotate(120, -265.5186, 114.1054)" stroke="red" fill="none" />
        <!-- hidden lines -->
        <g  stroke="rgb(160,160,160)" fill="none" stroke-dasharray="1.5,1.5" >
 
@@ -144,7 +146,7 @@
        </g>
     </g>
 </svg>
-<g stroke="#d63a3a"><line x1="73.37" y1="31.09" x2="100.28" y2="61.46" stroke-width="1.2" stroke-linecap="round" marker-end="url(#arrow-red)" /></g>
+<g stroke="#d63a3a"><line x1="85.24" y1="44.38" x2="100.28" y2="61.46" stroke-width="1.2" stroke-linecap="round" marker-end="url(#arrow-red)" /></g>
 <text x="112.95" y="129.67" font-family="Helvetica, Arial, sans-serif" font-size="6.5" font-weight="600" fill="#1a1a1a" text-anchor="middle">Connect the CO2.</text>
 <rect x="219.90" y="14.00" width="197.90" height="94.93" fill="#fafafa" stroke="#bdbdbd" stroke-width="0.4" stroke-dasharray="2,2" rx="2" />
 <text x="411.80" y="23.00" font-family="Helvetica, Arial, sans-serif" font-size="3.2" fill="#888888" text-anchor="end" font-style="italic">placeholder</text>
@@ -165,6 +167,8 @@
 <text x="112.95" y="259.37" font-family="Helvetica, Arial, sans-serif" font-size="6.5" font-weight="600" fill="#1a1a1a" text-anchor="middle">Open the CO2. Open the water.</text>
 <svg x="219.90" y="143.70" width="197.90" height="94.93" viewBox="0 0 730.3361200400299 800.0" preserveAspectRatio="xMidYMid meet">
 <g transform="scale(1.5439713881256827, -1.5439713881256827)   translate(253.4827564513111,-248.04945453832718)" stroke-width="1.5"  fill="none">
+       <!-- red CO2 port ring -->
+       <ellipse cx="134.7038" cy="38.5795" rx="10.5000" ry="6.0622" transform="rotate(60, 134.7038, 38.5795)" stroke="red" fill="none" />
        <!-- hidden lines -->
        <g  stroke="rgb(160,160,160)" fill="none" stroke-dasharray="1.5,1.5" >
 
