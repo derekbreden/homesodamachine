@@ -45,7 +45,7 @@ def main() -> None:
         },
     )
     model.smooth_stroke(output_path)
-    model.add_co2_red_ring(output_path, (1, 1, -1))
+    model.add_co2_red_ring(output_path, (1, 1, -1), appliance)
     print(f"Wrote {output_path}")
 
     # Keep _appliance_model.py's [value](NAME) comments in sync.
