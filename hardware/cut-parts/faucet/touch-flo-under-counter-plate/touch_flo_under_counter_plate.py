@@ -80,9 +80,9 @@ sys.path.insert(0, str(_hardware_dir))
 from docgen import substitute_py_comments
 from _cadq_export import export_dxf
 from _touch_flo_interface import (
-    flavor_tube_x,
-    pill_length_y,
-    pill_width_x,
+    flavor_tube_depth,
+    pill_length_x,
+    pill_width_z,
     shank_hole_diameter,
 )
 
@@ -107,14 +107,20 @@ shank_radius = shank_diameter / 2.0
 
 # Pill is Y-oriented (matching the gasket): long axis along Y, short
 # axis along X. Geometry imported from _touch_flo_interface.
-# [18.93 mm](FLAVOR_TUBE_X) +X offset of pill center from the shank —
-# shared with the shell / gasket / mounting plate.
-pill_cx = flavor_tube_x
+# DXF axes are the plate's own laser-cut frame: this DXF X is the
+# depth-magnitude offset from the shank in world coords (the pill sits
+# at world -Z relative to the body axis); this DXF Y is the lateral
+# (world X) axis. Channels open in DXF -Y (lateral).
+# [18.93 mm](FLAVOR_TUBE_X) DXF +X offset of pill center from the shank
+# (= depth magnitude shared with the shell / gasket / mounting plate).
+pill_cx = flavor_tube_depth
 pill_cy = 0.0
-# [13.4 mm](PILL_L) pill long axis (Y) — matches the gasket's pill.
-pill_long_y = pill_length_y
-# [7.05 mm](PILL_W) pill short axis (X) — matches the gasket's pill.
-pill_short_x = pill_width_x
+# [13.4 mm](PILL_L) pill long axis in DXF Y (= world-lateral X) —
+# matches the gasket's pill.
+pill_long_y = pill_length_x
+# [7.05 mm](PILL_W) pill short axis in DXF X (= world-depth Z) —
+# matches the gasket's pill.
+pill_short_x = pill_width_z
 pill_half_long = pill_long_y / 2.0       # 6.7
 pill_half_short = pill_short_x / 2.0     # 3.525
 pill_cap_radius = pill_half_short        # 3.525

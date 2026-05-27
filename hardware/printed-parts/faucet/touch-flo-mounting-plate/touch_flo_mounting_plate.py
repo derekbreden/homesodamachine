@@ -19,12 +19,10 @@ sys.path.insert(
 sys.path.insert(0, str(_here.parent))  # for _touch_flo_interface
 sys.path.insert(0, str(next(p for p in _here.parents if p.name == "printed-parts") / "cadlib"))
 from _cadq_export import export_step
-# _touch_flo_interface still uses upstream Z-up suffixes; aliased to
-# neutral names here. See the gasket script's import for the rationale.
 from _touch_flo_interface import (
-    flavor_tube_x as flavor_tube_depth_offset,
-    pill_length_y as pill_lateral_extent,
-    pill_width_x as pill_depth_extent,
+    flavor_tube_depth,
+    pill_length_x,
+    pill_width_z,
     shank_hole_diameter,
 )
 from docgen import substitute_md, substitute_py_comments
@@ -54,7 +52,7 @@ shank_hole_center = (0.0, 0.0)
 # (rounded-rectangle) opening.
 # [18.93 mm](PLATE_FLAVOR_Z) -Z offset of pill slot center from world origin
 # (toward the back of the appliance).
-pill_slot_center = (0.0, -flavor_tube_depth_offset)
+pill_slot_center = (0.0, -flavor_tube_depth)
 # [13.4 mm](PLATE_PILL_L) pill long axis — lateral, along world X.
 # [7.05 mm](PLATE_PILL_W) pill short axis — depth, along world Z.
 
@@ -98,7 +96,7 @@ def build_mounting_plate() -> cq.Workplane:
     plate = plate.faces(">Y").edges().fillet(top_outer_fillet_r)
 
     plate = plate.cut(vertical_cylinder(shank_hole_center, shank_hole_radius, plate_y_range))
-    plate = plate.cut(vertical_x_slot(pill_slot_center, pill_lateral_extent, pill_depth_extent, plate_y_range))
+    plate = plate.cut(vertical_x_slot(pill_slot_center, pill_length_x, pill_width_z, plate_y_range))
 
     return plate
 
@@ -118,12 +116,12 @@ def main():
         "PLATE_Y_BOTTOM": f"{plate_y_range[0]:.4g}",
         "SHANK_HOLE_D": f"{2 * shank_hole_radius:.4g} mm",
         "SHANK_OD": f"{shank_diameter_nominal:.4g} mm",
-        # Lateral tube-center separation = pill_long - hole_dia.
-        # (pill_lateral_extent = 2·y_offset + hole_dia, pill_depth_extent = hole_dia.)
-        "TUBE_CENTER_X": f"{pill_lateral_extent - pill_depth_extent:.4g} mm",
+        # Lateral tube-center separation = pill_length_x - pill_width_z.
+        # (pill_length_x = 2·x_offset + hole_dia, pill_width_z = hole_dia.)
+        "TUBE_CENTER_X": f"{pill_length_x - pill_width_z:.4g} mm",
         "PLATE_FLAVOR_Z": f"{-pill_slot_center[1]:.4g} mm",
-        "PLATE_PILL_L": f"{pill_lateral_extent:.4g} mm",
-        "PLATE_PILL_W": f"{pill_depth_extent:.4g} mm",
+        "PLATE_PILL_L": f"{pill_length_x:.4g} mm",
+        "PLATE_PILL_W": f"{pill_width_z:.4g} mm",
         "TOP_FILLET_R": f"{top_outer_fillet_r:.4g} mm",
     }
 
