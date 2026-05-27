@@ -1,45 +1,78 @@
 """World-coordinate CadQuery interface.
 
 CadQuery's `cq.Workplane` reads coordinates in the workplane's *local*
-frame, which doesn't always align with world coordinates — most
-inconveniently, `cq.Workplane("XZ")` has a -Y normal, so `extrude(h)`
-with positive `h` moves in world -Y. Combined with the chirality
-inversion CadQuery introduces on flipped planes (radii flip sign),
-mixing "world thinking" with cq's raw API quietly produces sign-flipped
-geometry.
+frame. For half the named planes the local frame happens to match
+world coordinates; for the other half it doesn't — e.g.
+`cq.Workplane("XZ")` has a -Y normal, so `extrude(h)` with positive
+`h` moves in world -Y, AND its local y-direction is +Z which differs
+from the local-y of some other plane orientations. Combined with the
+chirality inversion CadQuery introduces on flipped planes (radii
+flip sign on `radiusArc`), mixing "world thinking" with cq's raw API
+quietly produces sign-flipped geometry.
 
-This module pins two world-coord-friendly planes and a thin wrapper
-that lets call sites write coordinates as `(world_x, world_y)` tuples
-without thinking about local frames.
+This module pins explicit single-axis-aligned workplanes for each of
+the six box faces and a thin wrapper that lets call sites write
+coordinates as `(world_a, world_b)` tuples — with positive numbers
+meaning positive on the world axes — regardless of which face the
+sketch lives on. Two blocks of code authoring on different faces
+read the same way: same constructor shape, same method chain, same
+positive-direction semantics for `.workplane(offset=...)`,
+`.extrude(...)`, `.moveTo(...)`, `.circle/.rect/.slot2D`.
 
-Planes:
-  xz_plane_y_up  — XZ plane with +Y normal. The convention for parts
-                   whose "up" axis is +Y (most of the cold-core, the
-                   pump-case).
-  xy_plane_z_up  — XY plane with +Z normal. The convention for
-                   features punched along +Z (port holes, slot cuts).
+Box-face planes
+---------------
+Six module-level singletons, one per face of an axis-aligned box.
+Identity is meaningful — `WorldWorkplane` looks up its frame
+transform by `is` comparison, so do not construct your own copies;
+import these.
 
-Both planes are module-level singletons. Identity is meaningful —
-`WorldWorkplane` looks up its frame transform by `is` comparison, so
-do not construct your own copies; import these.
+  xy_plane_z_up    — XY plane, +Z normal.  Top face.
+  xy_plane_z_down  — XY plane, -Z normal.  Bottom face.
+  xz_plane_y_up    — XZ plane, +Y normal.  Back face.
+  xz_plane_y_down  — XZ plane, -Y normal.  Front face.
+  yz_plane_x_up    — YZ plane, +X normal.  Right face.
+  yz_plane_x_down  — YZ plane, -X normal.  Left face.
 
-WorldWorkplane:
-  A cq.Workplane wrapper. Accepts (x, y) world-coord tuples directly
-  (no `*` unpacking) for `.moveTo`, `.lineTo`, `.radiusArc`,
-  `.threePointArc`, `.pushPoints`, `.polyline`. Applies the plane's
-  registered frame transform to those points and negates radii when
-  the frame inverts chirality. Other Workplane methods (`.workplane`,
-  `.extrude`, `.cut`, `.union`, `.circle`, `.faces`, `.shell`,
-  `.close`, ...) pass through via `__getattr__` delegation, with
-  returned Workplanes re-wrapped so the frame persists.
+For each, sketching on the plane and extruding with a positive
+distance moves into the box (or out from the named face, depending
+on which side of the face the box is on — the plane is just an
+orientation, you choose by `.workplane(offset=...)` and the sign of
+`.extrude(h)`).
 
-WorldProfile:
-  A recipe-recorder for polyline-with-arcs profiles. Records the same
-  methods WorldWorkplane has (`moveTo`, `lineTo`, `radiusArc`,
-  `threePointArc`). Doesn't touch any workplane. Played back via
-  `WorldWorkplane.profile(prof)`. Gives polyline-with-arcs the same
-  "profile as a named noun" treatment that `.polyline([list of
-  points])` already gives pure polylines.
+Three of the six have a chirality inversion baked into the cross
+product between their normal and xDir: `xy_plane_z_down`,
+`xz_plane_y_up`, and `yz_plane_x_down`. On those planes, the local
+y-direction points in the negative world direction of what the user
+naturally thinks of as "up" looking at the face. `WorldWorkplane`'s
+registered frame transforms (`flip_y` / `flip_z`) make the API hide
+this — the user writes world coordinates and CCW means CCW.
+
+WorldWorkplane
+--------------
+A cq.Workplane wrapper. Accepts (a, b) world-coord tuples directly
+(no `*` unpacking) for `.moveTo`, `.lineTo`, `.radiusArc`,
+`.threePointArc`, `.pushPoints`, `.polyline`. Applies the plane's
+registered frame transform to those points and negates radii when
+the frame inverts chirality. Other Workplane methods (`.workplane`,
+`.extrude`, `.cut`, `.union`, `.circle`, `.faces`, `.shell`,
+`.close`, ...) pass through via `__getattr__` delegation, with
+returned Workplanes re-wrapped so the frame persists.
+
+For non-chirality-flipped planes (xy_plane_z_up, xz_plane_y_down,
+yz_plane_x_up) the wrapper's transforms are identity, so wrapping is
+optional — `cq.Workplane(plane)` and `WorldWorkplane(plane)` are
+equivalent. Use the wrapper anyway when you want the (a, b) tuple
+calling convention or when style consistency across two adjacent
+blocks of code matters.
+
+WorldProfile
+------------
+A recipe-recorder for polyline-with-arcs profiles. Records the same
+methods WorldWorkplane has (`moveTo`, `lineTo`, `radiusArc`,
+`threePointArc`). Doesn't touch any workplane. Played back via
+`WorldWorkplane.profile(prof)`. Gives polyline-with-arcs the same
+"profile as a named noun" treatment that `.polyline([list of
+points])` already gives pure polylines.
 
 Current limitations
 -------------------
@@ -65,16 +98,30 @@ Fix shape when any of these bite: add a named override that calls
 import cadquery as cq
 
 
-xz_plane_y_up = cq.Plane(origin=(0, 0, 0), xDir=(1, 0, 0), normal=(0, 1, 0))
-xy_plane_z_up = cq.Plane(origin=(0, 0, 0), xDir=(1, 0, 0), normal=(0, 0, 1))
+# Box-face planes. xDir is the natural "right" direction for a viewer
+# looking AT the face from outside the box; normal is the face's
+# outward direction.
+xy_plane_z_up    = cq.Plane(origin=(0, 0, 0), xDir=(1, 0, 0), normal=(0, 0,  1))
+xy_plane_z_down  = cq.Plane(origin=(0, 0, 0), xDir=(1, 0, 0), normal=(0, 0, -1))
+xz_plane_y_up    = cq.Plane(origin=(0, 0, 0), xDir=(1, 0, 0), normal=(0,  1, 0))
+xz_plane_y_down  = cq.Plane(origin=(0, 0, 0), xDir=(1, 0, 0), normal=(0, -1, 0))
+yz_plane_x_up    = cq.Plane(origin=(0, 0, 0), xDir=(0, 1, 0), normal=( 1, 0, 0))
+yz_plane_x_down  = cq.Plane(origin=(0, 0, 0), xDir=(0, 1, 0), normal=(-1, 0, 0))
 
 
-def flip_z(world_xz):
-    """World (x, z) → (x, -z) for xz_plane_y_up workplane calls. Its 2D
-    point args (moveTo, lineTo, polyline, radiusArc, threePointArc, ...)
-    interpret their second component as -world Z."""
-    x, z = world_xz
-    return (x, -z)
+def flip_y(world_xy):
+    """World (x, y) → (x, -y). For planes whose local y-direction is the
+    negative world Y axis (xy_plane_z_down)."""
+    x, y = world_xy
+    return (x, -y)
+
+
+def flip_z(world_ab):
+    """World (a, z) → (a, -z). For planes whose local y-direction is the
+    negative world Z axis (xz_plane_y_up, yz_plane_x_down). The first
+    component is whichever world axis the plane's xDir lies on."""
+    a, z = world_ab
+    return (a, -z)
 
 
 _world_frames = []
@@ -203,4 +250,10 @@ class WorldWorkplane:
         return wrapper
 
 
-_register_frame(xz_plane_y_up, point=flip_z, radius=lambda r: -r)
+# Three of the six box-face planes have local y opposite the world
+# axis the user thinks of as "up" looking at that face. Register the
+# corresponding flip transforms; the other three default to identity
+# via `_lookup_frame`.
+_register_frame(xy_plane_z_down, point=flip_y, radius=lambda r: -r)
+_register_frame(xz_plane_y_up,   point=flip_z, radius=lambda r: -r)
+_register_frame(yz_plane_x_down, point=flip_z, radius=lambda r: -r)
