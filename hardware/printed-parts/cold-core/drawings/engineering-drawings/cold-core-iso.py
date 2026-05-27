@@ -1,9 +1,11 @@
 """Isometric engineering drawing of the cold core.
 
-projectionDir (1, 1, -1) places the camera at +x, +y, -z — front
-face (the +Z outer wall, the one carrying the copper / water /
-PRV slot), top face, and +X side face all visible. Mirrors the
-front-iso convention used in the existing line-art drawings.
+projectionDir (1, -1, 1) places the camera at +x, -y, +z — the
+viewer's front-iso angle for the repo's +Z-up frame. Top face
+(+Z), front face (-Y, the user's side of the appliance), and
+right face (+X) are all visible. The back face (+Y, the outer
+wall carrying the copper / water / PRV slot) reads through dashed
+hidden lines.
 
 CadQuery's HLR default: visible edges as solid strokes, hidden
 edges as dashed strokes — engineering-drawing aesthetic. No
@@ -32,7 +34,7 @@ def main() -> None:
         cold_core,
         str(output_path),
         opt={
-            "projectionDir": (1, 1, -1),  # camera at +x, +y, -z
+            "projectionDir": (1, -1, 1),  # camera at +x, -y, +z
             "width": None,
             "height": 800,
             "marginLeft": 30,
