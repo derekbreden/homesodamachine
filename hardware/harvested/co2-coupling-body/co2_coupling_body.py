@@ -98,6 +98,11 @@ latch_cantilever = 0.0                  # how far the pad sticks past the body c
 
 # Front plate — flat disk (very thin cylinder) covering the body cup's
 # +Z front face, with a hole through it sized to the coupling mouth.
+# The pad + disk together are offset in +Y from the body axis: in the
+# CPC release mechanism's rest position the disk's hole sits above the
+# actual coupling mouth, half-covering it. Pressing the pad slides the
+# whole assembly down so the holes align.
+latch_y_offset = 1.0                    # +Y rise of pad + disk vs body axis
 
 
 def build_co2_coupling_body():
@@ -150,7 +155,7 @@ def build_co2_coupling_body():
     pad_front_z = front_face_z + latch_cantilever
     pad_center_z = pad_front_z - pad_diameter / 2
     pad_plane = cq.Plane(
-        origin=(0, body_d / 2, pad_center_z),
+        origin=(0, body_d / 2 + latch_y_offset, pad_center_z),
         xDir=(1, 0, 0),
         normal=(0, 1, 0),
     )
@@ -161,10 +166,12 @@ def build_co2_coupling_body():
     )
 
     # Front plate: flat disk covering the +Z front face. The inner
-    # circle creates the hole at the coupling mouth.
+    # circle creates the hole at the coupling mouth. Disk + hole are
+    # both shifted +Y so the hole sits above the body's coupling mouth.
     front_plate = (
         cq.Workplane("XY")
         .workplane(offset=front_face_z)
+        .center(0, latch_y_offset)
         .circle(body_d / 2)
         .circle(mouth_d / 2)
         .extrude(latch_thickness)
