@@ -1489,6 +1489,18 @@ def build_shell_top(full_shell: cq.Workplane | None = None) -> cq.Workplane:
     return tip.union(plug)
 
 
+def _to_y_up(shape):
+    """Rotate the Z-up authored shell into the repo's +Y-up frame for
+    export. See touch_flo_mounting_plate.main for the full rationale —
+    same rotation as faucet_assembly's _to_y_up, applied at this part's
+    STEP export boundary."""
+    return (
+        shape
+        .rotate((0, 0, 0), (0, 0, 1), 90)
+        .rotate((0, 0, 0), (1, 0, 0), -90)
+    )
+
+
 def main():
     out_dir = Path(__file__).resolve().parent
     full = build_shell()
@@ -1500,10 +1512,10 @@ def main():
     bottom_out = out_dir / "touch-flo-shell-bottom.step"
     middle_out = out_dir / "touch-flo-shell-middle.step"
     top_out = out_dir / "touch-flo-shell-top.step"
-    export_step(full, str(full_out))
-    export_step(bottom, str(bottom_out))
-    export_step(middle, str(middle_out))
-    export_step(top, str(top_out))
+    export_step(_to_y_up(full), str(full_out))
+    export_step(_to_y_up(bottom), str(bottom_out))
+    export_step(_to_y_up(middle), str(middle_out))
+    export_step(_to_y_up(top), str(top_out))
     print(f"-> {full_out.name}")
     print(f"-> {bottom_out.name}")
     print(f"-> {middle_out.name}")

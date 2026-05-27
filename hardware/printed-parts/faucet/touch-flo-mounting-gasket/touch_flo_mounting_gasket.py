@@ -110,8 +110,16 @@ def build_mounting_gasket():
 
 def main():
     gasket = build_mounting_gasket()
+    # Z-up authoring -> +Y-up output. See touch_flo_mounting_plate.main
+    # for the rationale; the rotation is the assembly's _to_y_up applied
+    # at the part's export boundary instead.
     out = Path(__file__).resolve().parent / "touch-flo-mounting-gasket.step"
-    export_step(gasket, str(out))
+    export_step(
+        gasket
+        .rotate((0, 0, 0), (0, 0, 1), 90)
+        .rotate((0, 0, 0), (1, 0, 0), -90),
+        str(out),
+    )
     print(f"-> {out.name}")
 
     # Short names scoped to this part. Units live inside the value so

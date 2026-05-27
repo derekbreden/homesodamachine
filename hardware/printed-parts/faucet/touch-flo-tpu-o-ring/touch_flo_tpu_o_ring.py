@@ -61,7 +61,14 @@ def build_o_ring() -> cq.Workplane:
 
 def main():
     o_ring = build_o_ring()
-    export_step(o_ring, str(_here / "touch-flo-tpu-o-ring.step"))
+    # Z-up authoring -> +Y-up output (matches the rest of the repo). See
+    # touch_flo_mounting_plate.main for the rationale.
+    export_step(
+        o_ring
+        .rotate((0, 0, 0), (0, 0, 1), 90)
+        .rotate((0, 0, 0), (1, 0, 0), -90),
+        str(_here / "touch-flo-tpu-o-ring.step"),
+    )
     print("-> touch-flo-tpu-o-ring.step")
 
     variables = {
