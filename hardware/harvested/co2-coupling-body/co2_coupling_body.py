@@ -67,12 +67,32 @@ hex_points = hex_flats * 2 / math.sqrt(3)   # point-to-point (CadQuery polygon t
 thread_d = 13.7                         # 1/4" NPT major Ø (~0.540")
 thread_length = 12.7                    # 0.50" thread engagement
 
-# Thumb-latch bump — rectangular stand-in for the actual curved CPC
-# latch. Positioned on the body cup's +Y top, centered along the
-# body's length.
-latch_l = 9.0                           # along the body axis (Z)
-latch_w = 5.5                           # tangential to body (X)
-latch_h = 3.3                           # protrusion above body cylinder (Y)
+# Coupling mouth — circular recess at the +Z front face of the body
+# cup where the male stem plugs in. Inside the real part there are
+# three collet jaws around this bore that grip the stem; collet
+# geometry isn't drawn in iso line-art and isn't modeled.
+mouth_d = 13.0                          # coupling bore inner diameter
+mouth_depth = 5.0                       # recess depth into the body cup
+
+# Thumb-latch pad — the visible top of the metal strap the customer
+# presses to release the latch. The strap is one continuous piece
+# wrapping from this pad, over the front rim of the body cup, down
+# the front face, and back into the body; only the pad on top and
+# a small front-emerging tab below it are visible from outside.
+# Sized from photos of LC10004 / LCD10004; not on the datasheet's
+# dimension drawing.
+latch_l = 8.0                           # along the body axis (Z) — pad length
+latch_w = 11.0                          # tangential (X) — nearly full body width
+latch_h = 2.0                           # protrusion above body cylinder (Y) — low-profile
+# Pad is biased toward the +Z front, not centered: front edge sits
+# 2 mm behind the body cup's front face.
+latch_front_inset = 2.0
+
+# Front release tab — the small bottom-front emerging end of the
+# latch strap, visible at the -Y side of the body cup's front face.
+front_tab_l = 2.5                       # protrusion forward of the front face (+Z)
+front_tab_w = 4.0                       # tangential (X)
+front_tab_h = 2.0                       # radial extent (Y)
 
 
 def build_co2_coupling_body():
@@ -97,6 +117,16 @@ def build_co2_coupling_body():
         .extrude(body_length)
     )
 
+    # Coupling mouth — recess at the +Z front face of the body cup.
+    front_face_z = hex_length + body_length
+    mouth = (
+        cq.Workplane("XY")
+        .workplane(offset=front_face_z)
+        .circle(mouth_d / 2)
+        .extrude(-mouth_depth)
+    )
+    body = body.cut(mouth)
+
     # NPT thread shank, below the hex.
     thread = (
         cq.Workplane("XY")
@@ -104,23 +134,36 @@ def build_co2_coupling_body():
         .extrude(-thread_length)
     )
 
-    # Thumb-latch on +Y top of the body cup. Box sized latch_w × latch_h
-    # × latch_l, with its bottom (-Y) face resting on y=body_d/2 (top
-    # of body cylinder), centered in X around 0 (axis-aligned) and
-    # centered in Z around the body midpoint.
-    latch_z_mid = hex_length + body_length / 2
+    # Thumb-latch pad on +Y top of the body cup. Low-profile box,
+    # roughly the full body width, biased toward the +Z front face.
+    latch_front_z = front_face_z - latch_front_inset
+    latch_back_z = latch_front_z - latch_l
     latch_corner = cq.Vector(
         -latch_w / 2,
         body_d / 2,
-        latch_z_mid - latch_l / 2,
+        latch_back_z,
     )
-    latch = cq.Solid.makeBox(latch_w, latch_h, latch_l, pnt=latch_corner)
+    latch_pad = cq.Solid.makeBox(latch_w, latch_h, latch_l, pnt=latch_corner)
+
+    # Front release tab — the bottom-front emerging end of the latch
+    # strap. Sits at -Y on the body cup, sticks slightly forward of
+    # the +Z front face.
+    front_tab_corner = cq.Vector(
+        -front_tab_w / 2,
+        -body_d / 2,
+        front_face_z - 1.0,           # bridges the body cup wall slightly
+    )
+    front_tab = cq.Solid.makeBox(
+        front_tab_w, front_tab_h, front_tab_l + 1.0,
+        pnt=front_tab_corner,
+    )
 
     return (
         hex_part
         .union(body)
         .union(thread)
-        .union(cq.Workplane().add(latch))
+        .union(cq.Workplane().add(latch_pad))
+        .union(cq.Workplane().add(front_tab))
     )
 
 
