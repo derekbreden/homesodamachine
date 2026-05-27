@@ -3,10 +3,11 @@ Isometric line-art view of the home-soda-machine enclosure — FRONT.
 
 CadQuery-based: the appliance geometry is built in _appliance_model and
 exported via cq.exporters with HLR (hidden-line removal). In the repo's
-+Y-up convention (height along +Y, depth along +Z), projectionDir
-(1, 1, -1) places the camera at +x, +y, -z — front face, right side,
-and top visible, with the top face at the top of the image and the
-front + right faces in the lower half (standard engineering iso layout).
++Z-up convention (height along +Z, depth along +Y), projectionDir
+(1, -1, 1) places the camera at +x, -y, +z — front face (-Y), right
+side (+X), and top (+Z) all visible, with the top face at the top of
+the image and the front + right faces in the lower half (standard
+engineering iso layout for Z-up).
 
 Companion drawing: enclosure-iso-back.py. The geometry is the same;
 only the projection direction differs.
@@ -35,7 +36,7 @@ def main() -> None:
         appliance,
         str(output_path),
         opt={
-            "projectionDir": (1, 1, -1),  # camera at +x, +y, -z
+            "projectionDir": (1, -1, 1),  # camera at +x, -y, +z
             "showHidden": False,           # visible outlines only
             "width": None,                  # auto-fit to projected geometry width
             "height": 800,
@@ -46,7 +47,7 @@ def main() -> None:
         },
     )
     model.smooth_stroke(output_path)
-    model.add_co2_red_ring(output_path, (1, 1, -1), appliance, ring)
+    model.add_co2_red_ring(output_path, (1, -1, 1), appliance, ring)
     print(f"Wrote {output_path}")
 
     # Keep _appliance_model.py's [value](NAME) comments in sync.
