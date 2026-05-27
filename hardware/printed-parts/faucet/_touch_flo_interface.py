@@ -4,9 +4,9 @@ every part in the faucet column (shell, mounting plate, mounting gasket,
 under-counter plate) must agree on so the column stacks concentrically
 and the flavor tubes drop through together.
 
-Coordinates are in the repo's +Y-up frame: +Y is height, +X is lateral
-(width), +Z is depth — the gooseneck dispenses toward +Z (the user's
-side), so the flavor-tube pill sits at world -Z, behind the body axis."""
+Coordinates are in the repo's +Z-up frame: +Z is height, +X is lateral
+(width), +Y is depth — the gooseneck dispenses toward +Y (the user's
+side), so the flavor-tube pill sits at world -Y, behind the body axis."""
 
 
 # 1/4" LLDPE flavor tube — physical fact, set by the vinyl tube the
@@ -33,11 +33,11 @@ flavor_tube_hole_dia = flavor_tube_od + flavor_tube_hole_clearance  # 7.05
 # pill formed by sliding a circle of `flavor_tube_hole_dia` from
 # X = −x_offset to X = +x_offset.
 pill_length_x = 2.0 * flavor_tube_x_offset + flavor_tube_hole_dia  # 13.4
-pill_width_z = flavor_tube_hole_dia                                # 7.05
+pill_width_y = flavor_tube_hole_dia                                # 7.05
 
 # Depth magnitude of the flavor-tube pill center from the body / shank
-# axis at world origin. The pill sits at world Z = −flavor_tube_depth
-# (BEHIND the body, opposite the +Z gooseneck-dispense direction), tangent
+# axis at world origin. The pill sits at world Y = −flavor_tube_depth
+# (BEHIND the body, opposite the +Y gooseneck-dispense direction), tangent
 # to the body's back face. Derived from the Westbrass valve body's outer
 # cylinder radius (15.75) plus the flavor-tube radius — the pill is
 # tangent to the body's back face, so the flavor tubes butt up against
