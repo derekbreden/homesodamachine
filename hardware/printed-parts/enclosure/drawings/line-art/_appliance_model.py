@@ -133,14 +133,34 @@ BUTTON_PROTRUSION = 10.0
 # Face-local coords are (z, y) — `a` runs along +Z (depth, front to back)
 # as you look at the right side from outside, `b` runs along +Y (height).
 
-# CO2 inlet — small cylindrical port through the right side wall. Position:
+# CO2 inlet — CPC LCD10004 / LCD15004 family valved coupling body
+# (chrome-plated brass, 1/4" NPT). Position on the side face:
 # vertically aligned with the S3 knob's centerline on the front face;
-# horizontally (along depth) centered on the funnel-door depth. The CO2
-# cylinder sits in the side air-gap beside the appliance, so the inlet is
-# on the side that faces it.
+# horizontally (along depth) centered on the funnel-door depth. The
+# CO2 cylinder sits in the side air-gap beside the appliance, so the
+# inlet is on the side that faces it.
+#
+# External dimensions from CPC LC Series datasheet. Internal valve
+# mechanism (thumb latch spring, acetal valve, Buna-N seals) doesn't
+# show up in iso line-art and isn't modeled.
 CO2_PORT_AT = (hopper_door_b, S3_AT[1])     # (face-a = world Z, face-b = world Y)
-CO2_PORT_D = 15.0
-CO2_PORT_PROTRUSION = 8.0
+
+# Body cup — the cylindrical front portion the customer sees, with the
+# coupling mouth on its outer face.
+CO2_BODY_D = 19.1               # Ø 0.75" body OD
+CO2_BODY_LENGTH = 16.5          # cup length from outer face of hex
+
+# Hex section sits behind the body cup, at the wall plane. May read as
+# flush or sticking out depending on the actual install — iterate from
+# the rendered drawing rather than guessing here.
+CO2_HEX_FLATS = 19.05           # 3/4" hex, flat-to-flat
+CO2_HEX_LENGTH = 5.0            # how thick the hex section is along the body axis
+CO2_HEX_POINTS = CO2_HEX_FLATS * 2 / math.sqrt(3)   # corner-to-corner
+
+# Thumb latch — the "CPC" lever bump visible on top of the body cup.
+CO2_LATCH_L = 9.0               # along the body axis (X)
+CO2_LATCH_W = 5.5               # tangential to body (Z)
+CO2_LATCH_H = 3.3               # protrusion above body cylinder surface
 
 
 # ---------------------------------------------------------------------------
@@ -281,16 +301,57 @@ def _add_back_nameplate(solid, a, b, w, h, thickness):
     return solid.union(plate.unwrap())
 
 
-def _add_side_knob(solid, world_z, world_y, d, protrusion):
-    """Add a perpendicular cylindrical knob on the RIGHT side face (x=W),
-    protruding outward in +X. Inputs are world (z, y) for the cylinder's
-    center on the face plane — z is the depth coordinate (front=0, back=D),
-    y is the height. Built directly via cq.Solid.makeCylinder because the
-    cadlib only exposes XZ and XY world workplanes; YZ is one-off here."""
-    pnt = cq.Vector(W, world_y, world_z)
-    direction = cq.Vector(1, 0, 0)
-    knob = cq.Solid.makeCylinder(d / 2, protrusion, pnt=pnt, dir=direction)
-    return solid.union(cq.Workplane().add(knob))
+def _add_co2_port(solid, world_z, world_y):
+    """Add the CPC LC-family CO2 inlet coupling body protruding in +X
+    from the RIGHT side face (x=W) at world (z, y). Three external
+    pieces: a hex section at the wall plane, a cylindrical body cup
+    sticking out from the hex, and a thumb-latch bump on top of the
+    cup. The 1/4" NPT thread that screws into the appliance's
+    receptacle sits inside the wall and isn't modeled.
+
+    Built directly via cq Solid / inline Plane workplane because the
+    cadlib's world workplanes only cover XZ and XY today; the YZ-normal
+    plane this needs is one-off."""
+    # Wall plane workplane — normal +X, local +x along world +Y, so
+    # extrude(L) adds L mm outward from the wall. Rotated by 30° around
+    # its normal so the hex's flats land at top/bottom (matching how
+    # the part installs with a wrench from above).
+    wall_origin = cq.Vector(W, world_y, world_z)
+    wall_plane = cq.Plane(origin=wall_origin, xDir=(0, 1, 0), normal=(1, 0, 0))
+    wall_plane = wall_plane.rotated((0, 0, 30))
+
+    # Hex prism, starting at the wall and extending outward.
+    hex_part = (
+        cq.Workplane(wall_plane)
+        .polygon(6, CO2_HEX_POINTS)
+        .extrude(CO2_HEX_LENGTH)
+    )
+    solid = solid.union(hex_part)
+
+    # Body cup — cylinder mounted on the outer face of the hex,
+    # extending further in +X.
+    body_pnt = cq.Vector(W + CO2_HEX_LENGTH, world_y, world_z)
+    body = cq.Solid.makeCylinder(
+        CO2_BODY_D / 2,
+        CO2_BODY_LENGTH,
+        pnt=body_pnt,
+        dir=cq.Vector(1, 0, 0),
+    )
+    solid = solid.union(cq.Workplane().add(body))
+
+    # Thumb-latch bump on top of the body cup, centered along the
+    # body's length. "Top" in world coords is +Y; the bump's width is
+    # along Z (tangent to the cylinder).
+    latch_x = W + CO2_HEX_LENGTH + (CO2_BODY_LENGTH - CO2_LATCH_L) / 2
+    latch_y = world_y + CO2_BODY_D / 2
+    latch_z = world_z - CO2_LATCH_W / 2
+    latch = cq.Solid.makeBox(
+        CO2_LATCH_L, CO2_LATCH_H, CO2_LATCH_W,
+        pnt=cq.Vector(latch_x, latch_y, latch_z),
+    )
+    solid = solid.union(cq.Workplane().add(latch))
+
+    return solid
 
 
 def build_appliance() -> cq.Workplane:
@@ -309,8 +370,8 @@ def build_appliance() -> cq.Workplane:
     )
     appliance = _add_front_button(appliance, *BUTTON_AT, BUTTON_W, BUTTON_H, BUTTON_PROTRUSION)
 
-    # Right side face: CO2 inlet
-    appliance = _add_side_knob(appliance, *CO2_PORT_AT, CO2_PORT_D, CO2_PORT_PROTRUSION)
+    # Right side face: CO2 inlet (CPC LC-family coupling body)
+    appliance = _add_co2_port(appliance, *CO2_PORT_AT)
 
     # Back face: umbilical (3 holes) + C14 inlet + nameplate
     appliance = _cut_back_circle(
