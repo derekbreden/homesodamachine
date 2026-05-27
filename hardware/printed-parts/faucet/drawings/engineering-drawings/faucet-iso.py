@@ -26,13 +26,19 @@ import _faucet_model as model
 
 
 def main() -> None:
-    faucet = model.build_faucet()
+    raw = model.build_faucet()
+    faucet = cq.Workplane().add((
+        raw
+        .val()
+        .rotate((0, 0, 0), (0, 0, 1), 90)
+        .rotate((0, 0, 0), (1, 0, 0), -90)
+    ))
     output_path = _HERE / "faucet-iso.svg"
     cq.exporters.export(
         faucet,
         str(output_path),
         opt={
-            "projectionDir": (-1, -1, 1),  # camera at -x, -y, +z (user view)
+            "projectionDir": (-1, 1, 1),
             "width": None,                  # auto-fit to projected width
             "height": 800,
             "marginLeft": 30,
