@@ -29,6 +29,7 @@ import _appliance_model as model
 
 def main() -> None:
     appliance = model.build_appliance()
+    ring = model.build_red_ring()
     output_path = _HERE / "enclosure-iso-front.svg"
     cq.exporters.export(
         appliance,
@@ -45,7 +46,7 @@ def main() -> None:
         },
     )
     model.smooth_stroke(output_path)
-    model.add_co2_red_ring(output_path, (1, 1, -1), appliance)
+    model.add_co2_red_ring(output_path, (1, 1, -1), appliance, ring)
     print(f"Wrote {output_path}")
 
     # Keep _appliance_model.py's [value](NAME) comments in sync.
