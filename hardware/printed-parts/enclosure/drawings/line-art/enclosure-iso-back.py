@@ -30,15 +30,12 @@ import _appliance_model as model
 
 
 def main() -> None:
-    appliance = model.build_appliance()
-    ring = model.build_red_ring()
-    # Rotate the Z-up model + ring into a drawing frame where the body
-    # height axis lands on +Y (see docstring).
-    appliance_drawing = appliance.rotate((0, 0, 0), (1, 0, 0), -90)
-    ring_drawing = ring.rotate((0, 0, 0), (1, 0, 0), -90)
+    # Rotate the Z-up model into a drawing frame where the body height
+    # axis lands on +Y at projection time (see docstring).
+    appliance = model.build_appliance().rotate((0, 0, 0), (1, 0, 0), -90)
     output_path = _HERE / "enclosure-iso-back.svg"
     cq.exporters.export(
-        appliance_drawing,
+        appliance,
         str(output_path),
         opt={
             "projectionDir": (1, 1, -1),  # camera at +x, +y, -z (rotated drawing frame)
@@ -52,7 +49,6 @@ def main() -> None:
         },
     )
     model.smooth_stroke(output_path)
-    model.add_co2_red_ring(output_path, (1, 1, -1), appliance_drawing, ring_drawing)
     print(f"Wrote {output_path}")
 
     # Keep _appliance_model.py's [value](NAME) comments in sync.
