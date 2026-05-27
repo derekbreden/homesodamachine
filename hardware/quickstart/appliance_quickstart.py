@@ -64,15 +64,26 @@ ARROW_COLORS = {
 
 
 def _arrow_defs():
-    """SVG <defs> with one arrowhead marker per color. Each <line> /
-    <path> arrow references its marker via marker-end=url(#arrow-<color>).
-    The marker's tip extends well past refX so the line's round endcap
-    sits under the triangle fill and the visible tip reads sharp.
+    """SVG <defs> — arrowhead markers, two variants per color.
+
+    Triangle viewBox `0 0 12 10`, tip at (12, 5), back edge from
+    (0, 0) to (0, 10).
+
+    `arrow-<color>`: refX=9. Marker overlaps the path near the
+    endpoint; the tip extends 3 viewBox units past the endpoint.
+    `arrow-<color>-back`: refX=0. Marker sits past the path
+    endpoint; the back-edge is at the endpoint.
     """
     markers = []
     for name, color in ARROW_COLORS.items():
         markers.append(
             f'<marker id="arrow-{name}" viewBox="0 0 12 10" refX="9" refY="5" '
+            f'markerWidth="6" markerHeight="5" orient="auto-start-reverse">'
+            f'<path d="M 0 0 L 12 5 L 0 10 Z" fill="{color}" />'
+            f'</marker>'
+        )
+        markers.append(
+            f'<marker id="arrow-{name}-back" viewBox="0 0 12 10" refX="0" refY="5" '
             f'markerWidth="6" markerHeight="5" orient="auto-start-reverse">'
             f'<path d="M 0 0 L 12 5 L 0 10 Z" fill="{color}" />'
             f'</marker>'
@@ -113,7 +124,7 @@ def _rotation_arrow(cx, cy, r, start_deg, sweep_deg, color="dark", sw=1.2):
         f'<g stroke="{c}" fill="none">'
         f'<path d="M {x1:.2f} {y1:.2f} A {r} {r} 0 {large_arc} {sweep_flag} {x2:.2f} {y2:.2f}" '
         f'stroke-width="{sw}" stroke-linecap="round" '
-        f'marker-end="url(#arrow-{color})" />'
+        f'marker-end="url(#arrow-{color}-back)" />'
         f'</g>'
     )
 
