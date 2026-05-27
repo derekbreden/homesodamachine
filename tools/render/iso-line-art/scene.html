@@ -1,0 +1,159 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>iso line art smoke test</title>
+  <style>
+    html, body { margin: 0; height: 100%; background: white; }
+    #viewport { display: block; width: 100vw; height: 100vh; }
+  </style>
+  <script type="importmap">
+  {
+    "imports": {
+      "three": "https://cdn.jsdelivr.net/npm/three@0.170.0/build/three.module.min.js",
+      "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.170.0/examples/jsm/"
+    }
+  }
+  </script>
+</head>
+<body>
+  <canvas id="viewport"></canvas>
+  <script type="module">
+    import * as THREE from "three";
+    import { GLTFLoader } from "three/addons/loaders/GLTFLoader.js";
+
+    const canvas = document.getElementById("viewport");
+    const renderer = new THREE.WebGLRenderer({ canvas, antialias: true });
+    renderer.setPixelRatio(window.devicePixelRatio);
+    renderer.setSize(window.innerWidth, window.innerHeight, false);
+    renderer.setClearColor(0xffffff, 1);
+
+    const scene = new THREE.Scene();
+
+    // Orthographic camera in iso pose. Frustum is set after we know the
+    // scene bounds.
+    const camera = new THREE.OrthographicCamera(-1, 1, 1, -1, 0.1, 10000);
+
+    // Iso direction in glTF coords (Y-up). CadQuery's GLB export rotates
+    // the CAD frame (Z-up, with depth along +Y) by -90° about +X, so
+    // CAD +Z (height) → glTF +Y, CAD +Y (depth, front to back) → glTF
+    // -Z (so the front of the appliance ends up around glTF +Z).
+    //
+    // For iso-front (right + front + top) the camera sits at +X, +Y, +Z
+    // looking at the origin.
+    const isoDir = new THREE.Vector3(1, 1, 1).normalize();
+
+    // Line material — black, slightly thicker than 1 pixel for the
+    // line-art look.
+    const edgeMaterial = new THREE.LineBasicMaterial({
+      color: 0x000000,
+      linewidth: 1.5, // ignored on most platforms but harmless
+    });
+
+    function poseCamera(box) {
+      const center = box.getCenter(new THREE.Vector3());
+      const size = box.getSize(new THREE.Vector3());
+      const radius = Math.max(size.x, size.y, size.z) * 0.5;
+
+      // Iso pose: camera offset from center along isoDir by enough to
+      // clear the bounds. Distance scales with radius so we're not
+      // clipped by near/far.
+      const distance = radius * 6;
+      camera.position.copy(center).add(isoDir.clone().multiplyScalar(distance));
+      camera.up.set(0, 1, 0);
+      camera.lookAt(center);
+
+      // Orthographic frustum sized to fit the bounding box with a little
+      // padding.
+      const aspect = window.innerWidth / window.innerHeight;
+      const halfSize = radius * 1.2;
+      camera.left = -halfSize * aspect;
+      camera.right = halfSize * aspect;
+      camera.top = halfSize;
+      camera.bottom = -halfSize;
+      camera.near = 0.01;
+      camera.far = distance * 4;
+      camera.updateProjectionMatrix();
+    }
+
+    // Inverted-hull silhouette material. Front-face culled + slight
+    // outward push along the vertex normal. The back faces of the
+    // pushed-out shell are visible exactly at the silhouette, giving
+    // the cylinder bodies a clean outline that EdgesGeometry can't
+    // produce on smooth surfaces.
+    const silhouetteMaterial = new THREE.ShaderMaterial({
+      side: THREE.BackSide,
+      uniforms: {
+        outline: { value: 0.4 }, // mm to push along the normal
+      },
+      vertexShader: `
+        uniform float outline;
+        void main() {
+          vec3 pushed = position + normal * outline;
+          gl_Position = projectionMatrix * modelViewMatrix * vec4(pushed, 1.0);
+        }
+      `,
+      fragmentShader: `
+        void main() {
+          gl_FragColor = vec4(0.0, 0.0, 0.0, 1.0);
+        }
+      `,
+    });
+
+    function processMesh(mesh) {
+      // Replace whatever material came in with a flat colored material —
+      // we want the line-art look, not shaded surfaces. Pull color from
+      // the existing material if it has one; else fall back to white.
+      const srcColor = mesh.material && mesh.material.color
+        ? mesh.material.color.clone()
+        : new THREE.Color(1, 1, 1);
+      mesh.material = new THREE.MeshBasicMaterial({
+        color: srcColor,
+        polygonOffset: true,
+        polygonOffsetFactor: 1,
+        polygonOffsetUnits: 1,
+      });
+
+      // EdgesGeometry emits the mesh's sharp edges (between faces with
+      // normals differing by more than the threshold angle). Renders as
+      // LineSegments — black outlines on the colored surface, occluded
+      // by other meshes via the z-buffer.
+      const edges = new THREE.EdgesGeometry(mesh.geometry, 20);
+      const edgeMesh = new THREE.LineSegments(edges, edgeMaterial);
+      mesh.add(edgeMesh);
+
+      // Inverted-hull silhouette so smooth surfaces (cylinders, fillets)
+      // also get an outline. The shell mesh shares the original
+      // geometry — vertex shader pushes positions outward along the
+      // normal, back-side culling shows only the rim.
+      const shell = new THREE.Mesh(mesh.geometry, silhouetteMaterial);
+      mesh.add(shell);
+    }
+
+    const loader = new GLTFLoader();
+    loader.load("appliance.glb", (gltf) => {
+      const root = gltf.scene;
+      scene.add(root);
+
+      // Collect meshes first — processMesh adds children, which would
+      // recurse forever inside traverse if we processed in-flight.
+      const meshes = [];
+      root.traverse((obj) => { if (obj.isMesh) meshes.push(obj); });
+      meshes.forEach(processMesh);
+
+      const box = new THREE.Box3().setFromObject(root);
+      poseCamera(box);
+      renderer.render(scene, camera);
+    });
+
+    window.addEventListener("resize", () => {
+      renderer.setSize(window.innerWidth, window.innerHeight, false);
+      const box = new THREE.Box3().setFromObject(scene);
+      if (!box.isEmpty()) {
+        poseCamera(box);
+        renderer.render(scene, camera);
+      }
+    });
+  </script>
+</body>
+</html>
