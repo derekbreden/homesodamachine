@@ -266,11 +266,10 @@ def cell(x, y, w, h, view_text, caption, embed_path=None, arrows_fn=None):
 
 
 def _arrows_connect_co2(x, y, w, draw_h):
-    """Drawing 1: single red arrow aimed at the CO2 inlet on the right
-    side face. Port center projects to cell-frac (0.465, 0.519); port
-    outline spans roughly (0.460–0.471, 0.499–0.541). Tip sits at
-    cell-frac (0.443, 0.500) — above-left of the port with a visible
-    gap from the port outline. Tail at (0.30, 0.18)."""
+    """Drawing 1: single red arrow pointing at the CO2 inlet's mouth on
+    the right side face. The mouth — the visible entry plane at the
+    far end of the coupling body's cup — projects to cell-frac
+    (0.456, 0.531)."""
     return _straight_arrow(
         x + 0.30 * w, y + 0.18 * draw_h,
         x + 0.436 * w, y + 0.500 * draw_h,
