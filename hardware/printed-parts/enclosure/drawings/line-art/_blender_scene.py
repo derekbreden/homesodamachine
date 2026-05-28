@@ -11,8 +11,7 @@ coupler's projected silhouette) into the resulting SVG.
 Args (see _blender_render.py for the producer):
     appliance_stl: str
     disc_params: {center: [x,y,z], axis: [x,y,z], radius: float}
-    coupler_params: {base, axis, hex_length, hex_circumradius,
-                     body_length, body_radius}
+    coupler_stl: str — projected + hulled for the disc's occluding clip
     out_svg: str
     view: "front" | "back"
     image_height, stroke_width, margin
@@ -246,21 +245,15 @@ _disc_axis = mathutils.Vector(_disc_params["axis"])
 _disc_pts = _circle_in_plane(_disc_center, _disc_axis, float(_disc_params["radius"]), 96)
 _disc_d = _loop_svg_d(_disc_pts)
 
-_coupler = args["coupler_params"]
-_base = mathutils.Vector(_coupler["base"])
-_axis = mathutils.Vector(_coupler["axis"]).normalized()
-_hex_back = _base
-_hex_front = _base + _axis * float(_coupler["hex_length"])
-_cup_back = _hex_front
-_cup_front = _hex_front + _axis * float(_coupler["body_length"])
-
-_pts_3d = []
-for center in (_hex_back, _hex_front):
-    _pts_3d += _circle_in_plane(center, _axis, float(_coupler["hex_circumradius"]), 6)
-for center in (_cup_back, _cup_front):
-    _pts_3d += _circle_in_plane(center, _axis, float(_coupler["body_radius"]), 48)
-_pts_2d = [_project_to_svg(p) for p in _pts_3d]
-_coupler_hull = _convex_hull_2d(_pts_2d)
+# Project every coupler mesh vertex and hull them, so the thumb latch
+# and any other protrusion are inside the occluding silhouette.
+bpy.ops.wm.stl_import(filepath=args["coupler_stl"])
+_coupler_obj = bpy.context.selected_objects[0]
+_coupler_pts_2d = [
+    _project_to_svg(_coupler_obj.matrix_world @ v.co)
+    for v in _coupler_obj.data.vertices
+]
+_coupler_hull = _convex_hull_2d(_coupler_pts_2d)
 _coupler_silhouette_d = "M" + " L".join(f"{x:.3f},{y:.3f}" for x, y in _coupler_hull) + " Z"
 
 _clip_id = f"co2-coupler-clip-{view}"

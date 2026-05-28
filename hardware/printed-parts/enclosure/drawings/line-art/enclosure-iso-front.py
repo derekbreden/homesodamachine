@@ -34,9 +34,9 @@ import _blender_render as blender
 def main() -> None:
     appliance = model.build_appliance()
     disc_params = model.red_disc_render_params()
-    coupler_params = model.coupler_render_params()
+    coupler = model.build_coupler()
     output_path = _HERE / "enclosure-iso-front.svg"
-    blender.render_iso(appliance, disc_params, coupler_params, view="front", out_svg=output_path)
+    blender.render_iso(appliance, disc_params, coupler, view="front", out_svg=output_path)
     print(f"Wrote {output_path}")
 
     # Keep _appliance_model.py's [value](NAME) comments in sync.

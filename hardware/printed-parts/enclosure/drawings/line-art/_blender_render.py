@@ -110,7 +110,7 @@ def _postprocess_svg(svg_path: Path) -> None:
 def render_iso(
     appliance: cq.Workplane,
     disc_params: dict,
-    coupler_params: dict,
+    coupler: cq.Workplane,
     view: str,
     out_svg: Path,
     *,
@@ -118,8 +118,9 @@ def render_iso(
     stroke_width: float = 1.5,
     margin: float = 20.0,
 ) -> None:
-    """Render the iso view of `appliance` + a red disc at `disc_params`
-    clipped by the coupler silhouette from `coupler_params`."""
+    """Render the iso view of `appliance` + a red disc at `disc_params`,
+    clipped by the projected silhouette of `coupler` (its full mesh, so
+    the thumb latch occludes too)."""
     if view not in ("front", "back"):
         raise ValueError(f"unknown view: {view}")
     out_svg = Path(out_svg)
@@ -128,12 +129,14 @@ def render_iso(
     with tempfile.TemporaryDirectory(prefix="enclosure-iso-") as tmpdir:
         tmp = Path(tmpdir)
         appliance_stl = tmp / "appliance.stl"
+        coupler_stl = tmp / "coupler.stl"
         _export_stl(appliance, appliance_stl)
+        _export_stl(coupler, coupler_stl)
 
         args = {
             "appliance_stl": str(appliance_stl),
             "disc_params": disc_params,
-            "coupler_params": coupler_params,
+            "coupler_stl": str(coupler_stl),
             "out_svg": str(out_svg),
             "view": view,
             "image_height": image_height,

@@ -286,16 +286,27 @@ def _add_back_nameplate(solid, a, b, w, h, thickness):
     return solid.union(plate.unwrap())
 
 
-def _add_co2_port(solid, world_y, world_z):
-    """Add the CPC LC-family CO2 inlet coupling body to the appliance
-    at the RIGHT side face (x=W). The part is rotated so its coupling
-    axis lands on world +X and translated so its hex back face sits at
-    the wall plane — hex body in x ∈ [W, W + hex_length], cup in
-    x ∈ [W + hex_length, W + hex_length + body_length]."""
+def _positioned_coupler() -> cq.Workplane:
+    """The CPC LC-family CO2 coupling body placed at the RIGHT side face
+    (x=W): coupling axis on world +X, hex back face at the wall plane —
+    hex body in x ∈ [W, W + hex_length], cup beyond it, thumb latch
+    rising in +Z."""
+    world_y, world_z = CO2_PORT_WALL_AT
     part = co2_coupling_body.build_co2_coupling_body().val()
     part = part.rotate(cq.Vector(0, 0, 0), cq.Vector(0, 0, 1), -90)
     part = part.translate(cq.Vector(W, world_y, world_z))
-    return solid.union(cq.Workplane().add(part))
+    return cq.Workplane().add(part)
+
+
+def build_coupler() -> cq.Workplane:
+    """The positioned coupler as a standalone solid — exported as STL so
+    the renderer can clip the marking disc by the coupler's full
+    projected silhouette (hex + cup + thumb latch)."""
+    return _positioned_coupler()
+
+
+def _add_co2_port(solid, world_y, world_z):
+    return solid.union(_positioned_coupler())
 
 
 def build_appliance() -> cq.Workplane:
@@ -383,18 +394,6 @@ def red_disc_render_params() -> dict:
     }
 
 
-def coupler_render_params() -> dict:
-    """Coupler hex + cup geometry (proud of the wall) for the Blender
-    renderer to clip the disc with the coupler's projected silhouette."""
-    world_y, world_z = CO2_PORT_WALL_AT
-    return {
-        "base": [W, world_y, world_z],
-        "axis": [1.0, 0.0, 0.0],
-        "hex_length": co2_coupling_body.hex_length,
-        "hex_circumradius": co2_coupling_body.hex_points / 2,
-        "body_length": co2_coupling_body.body_length,
-        "body_radius": co2_coupling_body.body_d / 2,
-    }
 
 
 def refresh_comments() -> None:
