@@ -6,11 +6,11 @@ Coating: **MAX CLR A/B** — FDA 21 CFR 175.300 compliant epoxy marketed for dir
 
 ## Floor + bulkhead port geometry
 
-The cavity floor is a Y-symmetric V: both ±Y walls slope inward to a flat circular pad at y=0 that hosts the bulkhead port. The bulkhead — JG PP1208E 1/4" PTC, same SKU as the rear-panel umbilical — clamps vertically through the pad. Its integral flange seats on a wet-side TPU face seal in a horizontal counterbore in the cavity floor; the nut threads on from below in the bag-pocket cavity under the floor. The wet-side PTC port faces up into the cavity; the dry collet hangs straight down, where a JG PP0308E 1/4" PTC 90° elbow (same SKU already in the BOM for the CO2 in-cavity bend) turns the line laterally to exit the bag-pocket +Y pass-through.
+The cavity floor is a Y-symmetric V swept across the full cavity X width: from each ±Y wall the floor slopes inward and down to a flat rectangular trough at y=0 that spans the full interior X width and hosts the bulkhead port. The floor is a single Y–Z section — slope down, flat, slope up — extruded straight across X; the only curved floor boundary is the cavity's existing centerward arc. The bulkhead — JG PP1208E 1/4" PTC, same SKU as the rear-panel umbilical — clamps vertically through the trough. Its integral flange seats on a wet-side TPU face seal in a horizontal counterbore in the trough floor; the nut threads on from below in the bag-pocket cavity under the floor. The wet-side PTC port faces up into the cavity; the dry collet hangs straight down, where a JG PP0308E 1/4" PTC 90° elbow (same SKU already in the BOM for the CO2 in-cavity bend) turns the line laterally to exit the bag-pocket +Y pass-through.
 
 The nut sits in a hex pocket below the floor in the bag-pocket cavity, reached from outside the reservoir during install (the bag pocket itself is open to the assembly side at this stage).
 
-Syrup drains by gravity from anywhere in the cavity down the V to the central pad and into the bulkhead port. The lowest drainable line is the bulkhead's wet port axis; residual film below that line stays in the bulkhead body itself.
+Syrup drains by gravity from anywhere in the cavity down the V to the central trough and into the bulkhead port. The lowest drainable line is the bulkhead's wet port axis; residual film below that line stays in the bulkhead body itself.
 
 ## Coating procedure
 
@@ -50,7 +50,8 @@ The TPU face seal between the bulkhead flange and the floor counterbore is below
 
 ## Open items
 
-- [ ] **CAD update**: rewrite the bulkhead pocket + floor wedge in [`reservoir.py`](reservoir.py) for the V-slope-to-center floor + vertical-through-floor bulkhead. Files affected: `reservoir.py` (the `bulkhead_*` constants, `floor_baseline_z`, slope/wedge logic, and the bulkhead pocket section of `build_reservoir_body`) and [`../_cold_core_interface.py`](../_cold_core_interface.py) (`reservoir_bulkhead_port_*`, `reservoir_bulkhead_nut_z`).
+- [ ] **CAD update**: rewrite the bulkhead pocket + floor wedge in [`reservoir.py`](reservoir.py) for the full-width-trough V floor + vertical-through-floor bulkhead. The old extra-thick dry slab existed so the horizontal bulkhead could print support-free; drop it — supports are used here. Files affected: `reservoir.py` (the `bulkhead_*` constants, `floor_baseline_z`, slope/wedge logic, and the bulkhead pocket section of `build_reservoir_body`) and [`../_cold_core_interface.py`](../_cold_core_interface.py) (`reservoir_bulkhead_port_*`, `reservoir_bulkhead_nut_z`).
+- [ ] **90° bulkhead evaluation**: if a 1/4" PTC right-angle bulkhead union exists (black preferred, white acceptable) on Prime or Fresh Water Systems, it can replace the vertical PP1208E + PP0308E elbow with a single part. Sourcing under investigation.
 - [ ] **Blanking cap CAD**: add `build_reservoir_blanking_cap()` to [`reservoir.py`](reservoir.py); export `reservoir-blanking-cap.step`.
 - [ ] **Adhesion bench test**: SunTop PETG scrap with light abrasion + IPA wipe, MAX CLR A/B film, 24 h cure, flex/scratch test. Green-lights the procedure or sends it back.
 - [ ] **Single-reservoir pilot**: print one reservoir under the new geometry, full-assemble, run the rotomold coat once, cut in half on the band saw, inspect film thickness at inner fillets and around the bulkhead annulus. Commit-or-revise decision point before doing the second reservoir.
