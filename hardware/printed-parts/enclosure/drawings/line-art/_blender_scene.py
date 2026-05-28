@@ -144,6 +144,15 @@ v_center = (v_min + v_max) / 2
 cam_obj.location += cam_right * (u_center - u_centroid)
 cam_obj.location += cam_up * (v_center - v_centroid)
 
+# Mirror the view horizontally so the right-side face (carrying the CO2
+# port) reads on the viewer's left. A negative X scale on the camera is a
+# reflection — it can't come from the rotation, which is why it lives
+# here. Freestyle strokes and the disc (projected through this same
+# camera by world_to_camera_view) both land in the mirrored frame, so
+# nothing downstream has to flip anything.
+cam_obj.scale.x = -1.0
+bpy.context.view_layer.update()
+
 
 # ---------------------------------------------------------------------------
 # Render
@@ -284,10 +293,13 @@ _clip_defs = (
     f'</defs>'
 )
 
+# Fill AND outline come from this one path: the red fill plus a black
+# stroke for the disc's outer edge. The coupler's own Freestyle strokes
+# draw the inner boundary where it bites into the disc.
 _disc_path = (
-    f'<path fill-rule="evenodd" stroke="none" fill-opacity="1.0" '
-    f'fill="rgb(255, 0, 0)" clip-path="url(#{_clip_id})" '
-    f'd="{_disc_d}" />'
+    f'<path fill-rule="evenodd" fill-opacity="1.0" fill="rgb(255, 0, 0)" '
+    f'stroke="rgb(0, 0, 0)" stroke-width="{_thickness}" '
+    f'clip-path="url(#{_clip_id})" d="{_disc_d}" />'
 )
 
 import re as _re
@@ -302,18 +314,6 @@ _svg_text = _svg_text.replace(
     '</g>', f'    {_disc_path}\n        </g>', 1,
 )
 
-# Mirror the rendered layer horizontally about the image center, so the iso
-# view reads with the front face's left edge on the viewer's left. The
-# strokes group holds both the strokes and the injected disc, and the disc's
-# clip is userSpaceOnUse in the same pixel space, so one transform flips all
-# three together and keeps them aligned.
-_mirror = f' transform="translate({scene.render.resolution_x},0) scale(-1,1)"'
-_svg_text = _re.sub(
-    r'(<g\b[^>]*\bid="strokes"[^>]*)>',
-    r'\1' + _mirror + '>',
-    _svg_text,
-    count=1,
-)
 out_svg.write_text(_svg_text)
 
 print(f"WROTE {out_svg}")
