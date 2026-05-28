@@ -66,13 +66,18 @@ function resolveSvgPath(input, historicalRoot) {
 
 // Insert a <style> block right after the opening <svg ...> tag so the
 // rasterizer sees white strokes against the dark background. Generator
-// output has stroke="black" inline on every line/path; the CSS rule
+// output has black strokes inline on every line/path; the CSS rule
 // !important would beat them, but sharp's renderer doesn't always honor
 // `!important` — replace the inline attributes directly instead.
 function recolorSvg(svgText) {
-  // Replace stroke="black" with stroke="<STROKE>" everywhere. The
-  // generator only writes "black"; any other color stays untouched.
-  return svgText.replace(/stroke="black"/g, `stroke="${STROKE}"`);
+  // Recolor black strokes to <STROKE> everywhere. The CadQuery HLR
+  // generator writes stroke="black"; the Blender Freestyle pipeline
+  // writes stroke="rgb(0, 0, 0)". Match both (any color stays untouched,
+  // e.g. the red CO2-port disc's fill="rgb(255, 0, 0)").
+  return svgText.replace(
+    /stroke="(?:black|#000(?:000)?|rgb\(\s*0\s*,\s*0\s*,\s*0\s*\))"/gi,
+    `stroke="${STROKE}"`,
+  );
 }
 
 async function renderOne({ inPath, outPath, historicalRoot }) {
