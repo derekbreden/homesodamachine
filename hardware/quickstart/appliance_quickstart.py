@@ -60,6 +60,7 @@ COLOR_CARBONATED = "#1f6feb"   # blue
 COLOR_CO2 = "#d63a3a"          # red
 COLOR_TAP = "#6e6e6e"          # medium gray (substitute for "white")
 COLOR_PLAIN = "#1a1a1a"        # plain motion arrows, captions, page text
+COLOR_STEP_BG = "#eeeeee"      # light-gray panel behind a step
 
 ARROW_COLORS = {
     "blue": COLOR_CARBONATED,
@@ -218,21 +219,27 @@ def _caption_text(x, y, w, h, caption):
     )
 
 
-def cell(x, y, w, h, caption, embed_path=None, arrows_fn=None):
+def cell(x, y, w, h, caption, embed_path=None, arrows_fn=None, background=False):
     """Render one drawing cell: an image band above a caption band.
 
     The cell height splits into an image band (top) and a caption band
     (bottom). The line-art is scale-fit and centered in the image band;
     the caption is centered in the caption band. A cell with no line-art
     shows an empty image band. If arrows_fn is given it's called with
-    the image band (x, y, w, img_h) and overlaid on it.
+    the image band (x, y, w, img_h) and overlaid on it. With background
+    set, a light-gray panel fills the whole cell behind its content.
     """
     img_h = h * 0.78
     cap_h = h - img_h
+    bg = (
+        f'<rect x="{x:.2f}" y="{y:.2f}" width="{w:.2f}" height="{h:.2f}" '
+        f'fill="{COLOR_STEP_BG}" />'
+        if background else ""
+    )
     body = _embed_svg(x, y, w, img_h, embed_path) if embed_path else ""
     arrows = arrows_fn(x, y, w, img_h) if arrows_fn else ""
     caption = _caption_text(x, y + img_h, w, cap_h, caption)
-    return "\n".join(part for part in (body, arrows, caption) if part)
+    return "\n".join(part for part in (bg, body, arrows, caption) if part)
 
 
 # ── Per-cell arrow specs ────────────────────────────────────────────
@@ -312,6 +319,7 @@ def main():
             "caption": "Connect the CO2.",
             "embed": enclosure_front,
             "arrows": _arrows_connect_co2,
+            "background": True,
         },
         {
             "caption": "Tee into the water. Run the tube to the device.",
@@ -327,6 +335,7 @@ def main():
             "caption": "Empty a flavor into the hopper.",
             "embed": enclosure_back,
             "arrows": _arrows_fill_hopper,
+            "background": True,
         },
     ]
 
@@ -347,6 +356,7 @@ def main():
                 drawing["caption"],
                 embed_path=drawing["embed"],
                 arrows_fn=drawing["arrows"],
+                background=drawing.get("background", False),
             )
         )
 
