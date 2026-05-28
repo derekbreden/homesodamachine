@@ -31,6 +31,8 @@ from _cold_core_interface import (
     reservoir_clearance,
     reservoir_floor_thickness,
     reservoir_bulkhead_port_x,
+    reservoir_bulkhead_port_y,
+    make_box,
 )
 from _reed_channels import reeds_per_reservoir
 
@@ -242,17 +244,28 @@ rod_anchor_boss_height = 10.0  # BODY-side anchor boss height; taller than the c
 rod_anchor_boss_floor = 2.0  # thickness of the printed-solid PETG floor INSIDE the body boss between the blind bore's bottom and the slope surface — the rod tip bottoms out on this
 
 
-# Outlet bulkhead port + V floor. A John Guest PP1208E 1/4"
-# push-to-connect bulkhead union (Amazon B00JYFU8MM, NSF 51 + NSF 61)
-# clamps VERTICALLY through the cavity floor's central trough. Its
-# wet-side push-to-connect port faces UP into the syrup volume; its
-# integral flange seats on the wet (cavity-side, top) face of the
-# trough floor through a TPU face seal in a horizontal (Z-down)
-# counterbore; the locknut threads on from BELOW the floor, in the
-# open bag-pocket cavity beneath the reservoir. The dry collet hangs
-# straight down below the floor, where a JG PP0308E 1/4" PTC 90° elbow
-# (not modelled here) turns the line laterally to the bag-pocket +Y
-# pass-through.
+# Outlet bulkhead port + V floor. A PureSec 1/4" RO push-to-connect 90°
+# elbow bulkhead (Amazon B0968K4JRN — white polypropylene, water/RO/
+# beverage-rated, ships WITHOUT a panel o-ring) clamps VERTICALLY through
+# the cavity floor's central trough. Its threaded barrel passes DOWN
+# through the trough floor; its integral flange disc (⌀22) seats on the
+# wet (cavity-side, top) face of the trough floor through a printed TPU
+# face seal in a horizontal (Z-down) counterbore; the hex locknut threads
+# on from BELOW the floor, in the open bag-pocket cavity beneath the
+# reservoir, registered against rotation by a shallow floor-underside hex
+# pocket. The part is an L-body: the wet-side push-to-connect port is on
+# the barrel axis (faces UP into the syrup volume); an integral cast 90°
+# elbow on the dry side turns the line laterally toward the bag-pocket +Y
+# pass-through, so no separate union elbow is needed. The elbow body +
+# its lateral PTC port sit just above/around the flange (low in the
+# cavity); the threads, locknut, and barrel-end PTC hang below the floor.
+#
+# Geometry is best-estimate from the listing + a single cluttered photo;
+# see ../../../off-the-shelf-parts/puresec-90-bulkhead/geometry-description.md
+# for the per-constant mapping + confidence. The ⌀16 mounting hole, the
+# no-o-ring fact, and the integral 90° elbow are HIGH confidence; thread
+# OD/length, flange OD, locknut across-flats, and the elbow envelope/
+# offset are MEDIUM/LOW (flagged inline below).
 #
 # Floor: a Y-symmetric V swept across the full cavity X width. From
 # each ±Y wall the floor slopes inward and DOWN to a flat rectangular
@@ -261,17 +274,15 @@ rod_anchor_boss_floor = 2.0  # thickness of the printed-solid PETG floor INSIDE 
 # slope up) extruded straight across X; the only curved floor boundary
 # is the cavity's existing centerward arc. There is NO circular pad.
 # Syrup drains by gravity from anywhere in the cavity down the V to the
-# trough and into the up-facing port.
-#
-# Bulkhead body geometry (catalog): ≈ ø22.9 flange OD, ≈ 34.5 overall
-# length, ⌀6.35 push-to-connect at each end. Both reservoirs put the
-# port at the same world Y (0); only x mirrors.
+# trough and into the up-facing wet port. The whole V is RAISED (see
+# floor_trough_lift) so the locknut + integral elbow fit in the open
+# bag-pocket space below the trough floor underside.
 #
 # reservoir_bulkhead_port_x: midpoint between cavity's inner +X face and
 #   the concave arc's peak (imported from _cold_core_interface). Reused
-#   AS-IS as the trough/port X center. The port now sits at y=0.
+#   AS-IS as the trough/port X center. The port sits at y=0.
 
-bulkhead_panel_hole_diameter = 17.5  # 0.5 mm Ø over the JG catalog spec (0.67" / ⌀17.0) so the printed hole reliably accepts the JG body through print tolerance + slight body OD variation. Catalog-spec sizing is too tight in practice. Cut straight down (−Z) through the trough floor.
+bulkhead_panel_hole_diameter = 16.5  # PureSec listing ⌀16 mounting hole + 0.5 mm print/clearance allowance so the printed hole reliably accepts the ⌀15 threaded barrel through print tolerance + slight body OD variation. Threads are NOT modelled — this is a plain bore. Cut straight down (−Z) through the trough floor.
 
 # Nut hex pocket on the floor underside. The locknut threads on from
 # below in the open bag-pocket space; this shallow hex recess in the
@@ -281,7 +292,7 @@ bulkhead_panel_hole_diameter = 17.5  # 0.5 mm Ø over the JG catalog spec (0.67"
 # the print pocket can safely treat it as a regular hex of the given
 # flat-to-flat dimension — the pocket overshoots by ~1 mm of air at
 # each corner, which doesn't affect the grip on the 6 flats.
-bulkhead_nut_hex_flat_to_flat = 19.8  # the 6 flats that grip the pocket for anti-rotation
+bulkhead_nut_hex_flat_to_flat = 20.0  # PureSec hex locknut across-flats (MEDIUM — photo ratio to the ⌀15 threaded bore); the 6 flats grip the pocket for anti-rotation
 bulkhead_nut_hex_corner_to_corner = bulkhead_nut_hex_flat_to_flat / math.cos(math.radians(30))  # ~1 mm past the actual clipped corners
 bulkhead_nut_clearance = 0.1  # per-side clearance for the hex flats
 bulkhead_nut_hex_pocket_depth = 1.5  # shallow register only — most of the nut hangs in the open bag-pocket space below the floor, so the pocket needn't recess the full nut height
@@ -295,28 +306,69 @@ nut_hex_profile = [
     for a in (0, 60, 120, 180, 240, 300)
 ]
 
-# TPU 85A wet-side face seal at the bulkhead/floor joint. A flat
-# printed washer sits in a shallow Z-down counterbore in the trough's
-# wet (top) face and is compressed when the integral flange seats flush
-# against the floor rim outside the counterbore. Compression ratio is
+# TPU 85A wet-side face seal at the bulkhead/floor joint. The PureSec
+# ships with NO panel o-ring, so this printed TPU washer is the only
+# fluid seal at the barrel-to-floor joint. A flat printed washer sits in
+# a shallow Z-down counterbore in the trough's wet (top) face and is
+# compressed when the integral flange seats flush against the floor rim
+# outside the counterbore. Compression ratio is
 # (seal_thickness − counterbore_depth) / seal_thickness = 30%, standard
 # for face-seal elastomers. The counterbore Ø is sized smaller than the
-# flange OD (⌀~22.9) so the flange seats directly on PETG outside the
-# counterbore — PETG carries the clamping force, the elastomer carries
-# only the seal-compression load. (Only the wet-side seal is modelled;
-# the dry side seats against the locknut in open space below, no
-# counterbore there.)
-bulkhead_seal_id = 16.5  # under the panel hole ([17.5 mm](BULKHEAD_PANEL_HOLE_D)): the seal's inner edge overhangs the panel hole by 0.5 mm/side and the bulkhead body passes through the seal, not around it. If the JG body OD at the seal location is ≤16.5 mm the seal clears it; if larger, the seal stretches over the body and adds a radial bore-seal effect on top of the axial face seal.
-bulkhead_seal_od = 21.3  # 0.1 mm/side clearance in the counterbore
+# PureSec flange OD (⌀22) so the flange seats directly on PETG outside
+# the counterbore — PETG carries the clamping force, the elastomer
+# carries only the seal-compression load. (Only the wet-side seal is
+# modelled; the dry side seats against the locknut in open space below,
+# no counterbore there.)
+bulkhead_seal_id = 15.5  # washer ID = PureSec threaded barrel OD (⌀15) + ~0.5 mm so the washer slips over the barrel; the barrel passes through the seal, not around it (MEDIUM). Slightly under the ⌀[16.5 mm](BULKHEAD_PANEL_HOLE_D) panel hole, so the seal's inner edge overhangs the hole by 0.5 mm/side.
+bulkhead_seal_od = 21.3  # 0.1 mm/side clearance in the counterbore; stays under the ⌀22 PureSec flange so the flange seats on PETG outside the seal
 bulkhead_seal_thickness = 2.0  # matches the reservoir gasket convention
-bulkhead_seal_counterbore_diameter = 21.5  # 0.3 mm/side PETG seating ring under the JG integral flange ⌀~22.9
+bulkhead_seal_counterbore_diameter = 21.5  # 0.3 mm/side PETG seating ring under the PureSec ⌀22 integral flange disc
 bulkhead_seal_counterbore_depth = 1.4  # 30% compression of the 2 mm seal when the flange seats flush
+
+# PureSec integral 90° elbow + push-to-connect ports (the JG part had no
+# integral elbow). All best-estimate from the listing photo; see
+# ../../../off-the-shelf-parts/puresec-90-bulkhead/geometry-description.md.
+# The dry line turns laterally at the elbow and runs out to the
+# bag-pocket +Y pass-through; modelled here as a clearance KEEP-OUT
+# volume below/around the trough floor, NOT a precise replica of the
+# fitting.
+bulkhead_ptc_tube_diameter = 6.35  # 1/4" tube OD (HIGH — shared JG 1/4" collet family)
+bulkhead_ptc_release_ring_diameter = 9.57  # PTC collet release-ring OD (HIGH — shared JG 1/4" collet family)
+bulkhead_ptc_port_body_diameter = 12.5  # PTC collet barrel OD (MEDIUM — photo column-scan)
+bulkhead_elbow_lateral_offset = 15.0  # barrel axis → lateral-PTC centerline (LOW-MED — photo ratio ≈1× thread OD)
+bulkhead_elbow_envelope_x = 28.0  # lateral extent of the cast 90° body + lateral collet barrel (LOW — photo bounding box). Modelled along ±Y here (toward the pass-through), see orientation note below.
+bulkhead_elbow_envelope_y = 16.0  # transverse extent of the elbow body (LOW)
+bulkhead_elbow_envelope_z = 16.0  # vertical extent of the elbow body (LOW)
+
+# ORIENTATION (FLAG for STEP review — low confidence, derived from one
+# cluttered photo): the PureSec is an L-body with the wet PTC on the
+# barrel axis and the lateral PTC on the elbow leg. The exact pose of
+# the L — which way the elbow turns, and whether its body sits just
+# above/around the flange (inside the cavity) vs purely below the floor
+# — is uncertain. Here the barrel is kept vertical through the trough,
+# and the elbow's lateral PTC port is aimed toward +Y (the existing
+# bag-pocket pass-through at reservoir_bulkhead_port_y), so the modelled
+# elbow keep-out + lateral PTC stub extend in +Y from the barrel axis.
+# The elbow is modelled as a clearance volume only. CONFIRM against the
+# physical part on arrival; this assumption does not change the
+# panel-hole / nut-pocket / seal numbers.
+bulkhead_elbow_lateral_sign = +1  # +Y; the pass-through is on +Y
 
 # V floor section (Y–Z), extruded straight across the full cavity X.
 # The flat trough at y=0 is the cavity's low point and the lowest
 # drainable line; the slopes rise from the trough edges to the ±Y
 # walls. (floor_trough_z, the slope rate, and the wedge extrusion top
 # are derived below, after inner_z_range / inner_y_max are defined.)
+#
+# The whole V is RAISED by floor_trough_lift above the cavity-floor base
+# (inner_z_range[0]) so the PureSec locknut + barrel-end PTC + integral
+# elbow fit in the open bag-pocket space below the trough-floor
+# underside. With the body's outer (dry) floor face resting ~0.5 mm
+# above the bag-pocket floor, an unlifted trough (underside ~at the body
+# bottom) leaves no room for the ~9 mm locknut. The lift puts the trough
+# wet surface high enough that its underside clears the below-floor stack
+# down to the bag-pocket floor. See the floor-lift derivation below.
+floor_trough_lift = 14.0  # mm the trough+V floor is raised above the base cavity floor so the locknut + elbow clear below it (≈14.5 mm open headroom under the trough underside down to the bag-pocket floor); also lands the wet-port axis near the foam-shell +Y pass-through z
 floor_trough_half_width_y = 14.0  # half the flat trough's Y extent; wide enough to host the ⌀21.5 seal counterbore + the flange seat with margin
 floor_slope_rise = 6.0  # mm the floor rises from the trough surface to each ±Y wall
 
@@ -397,12 +449,23 @@ outer_z_range = (
 inner_z_range = (outer_z_range[0] + reservoir_wall_thickness, outer_z_range[1])
 
 # V-floor derived geometry (needs inner_z_range / inner_y_max above).
-# floor_trough_z is the trough's wet (top) surface; with the cavity
-# floor's outer face at outer_z_range[0] this leaves the full
-# reservoir_wall_thickness (4 mm) of PETG below the trough as the fluid
-# barrier. The slope runs from (|y| = floor_trough_half_width_y,
-# z = floor_trough_z) up to (|y| = inner_y_max, z += floor_slope_rise).
-floor_trough_z = inner_z_range[0]  # wet (top) surface of the flat trough = cavity floor low point
+# floor_trough_z is the trough's wet (top) surface. It is RAISED
+# floor_trough_lift above the base cavity floor (inner_z_range[0]) so the
+# PureSec locknut + barrel-end PTC + integral elbow clear in the open
+# bag-pocket space below the trough-floor underside (the underside sits
+# at floor_trough_z − reservoir_wall_thickness; below it, down to the
+# bag-pocket floor, is open). The slope runs from
+# (|y| = floor_trough_half_width_y, z = floor_trough_z) up to
+# (|y| = inner_y_max, z += floor_slope_rise). The fluid-barrier PETG
+# below the trough surface is the full raised thickness (the body's
+# outer floor face is at outer_z_range[0], well below).
+floor_trough_z = inner_z_range[0] + floor_trough_lift  # wet (top) surface of the flat trough = cavity low point, raised so the locknut/elbow fit below
+# Open headroom below the trough-floor underside, down to the bag-pocket
+# floor (the foam-shell pocket the reservoir drops into) — the space the
+# locknut + barrel-end PTC + lower elbow body hang in. (Reported for the
+# STEP review; the locknut is ~9 mm tall and registers only ~1.5 mm in
+# the floor-underside pocket, so the rest of this is for it + the PTC.)
+floor_below_trough_headroom = (floor_trough_z - reservoir_wall_thickness) - bag_pocket_floor_top_z
 floor_slope_y_distance = inner_y_max - floor_trough_half_width_y
 floor_slope_rate = floor_slope_rise / floor_slope_y_distance
 # Floor wedge extrusion top — above the highest slope point so the
@@ -671,11 +734,19 @@ def build_reservoir_body(side=1):
         body = body.cut(pocket)
 
     # V floor — Y-symmetric, swept across the full cavity X width.
-    # The base inner_cavity cut (above) already left a flat cavity floor
-    # at z=floor_trough_z across the whole footprint; that flat band at
-    # |y| ≤ floor_trough_half_width_y IS the trough. Here we UNION two
-    # slope wedges (one per ±Y half) that raise the floor from the
-    # trough edges up to floor_slope_rise at the ±Y walls, giving the V.
+    # The base inner_cavity cut (above) left a flat cavity floor at
+    # z=inner_z_range[0] across the whole footprint. The whole V floor is
+    # RAISED floor_trough_lift above that base so the PureSec locknut +
+    # elbow clear below the trough-floor underside, so first UNION a
+    # TROUGH-FILL prism that raises the entire footprint from the base
+    # cavity floor (inner_z_range[0]) up to the trough wet surface
+    # (floor_trough_z); the flat band at |y| ≤ floor_trough_half_width_y
+    # on top of that fill IS the trough. Then UNION two slope wedges (one
+    # per ±Y half) that raise the floor further, from the trough edges up
+    # to floor_slope_rise at the ±Y walls, giving the V.
+    #
+    # Trough fill: the cavity footprint prism from inner_z_range[0] up to
+    # floor_trough_z, clipped to the post-outer-fillet envelope.
     #
     # Each wedge: the cavity footprint prism from floor_trough_z up to
     # floor_wedge_top_z, intersected with its Y half (beyond the trough
@@ -684,6 +755,13 @@ def build_reservoir_body(side=1):
     # with dz/dy = ±floor_slope_rate. The wedge is clipped to the cavity
     # envelope so its only curved boundary is the centerward arc — no
     # circular pad anywhere.
+    trough_fill = _build_envelope(
+        side,
+        (inner_z_range[0], floor_trough_z),
+        wall_offset=reservoir_wall_thickness,
+    ).intersect(outer_envelope_filleted)
+    body = body.union(trough_fill)
+
     def _above_slope_plane(edge_y, dy_rate):
         """Half-space ABOVE the slope plane anchored at
         (0, edge_y, floor_trough_z) with surface slope dz/dy = dy_rate.
@@ -724,15 +802,19 @@ def build_reservoir_body(side=1):
         body = body.union(wedge)
 
     # Vertical bulkhead port through the trough at (port_x, y=0). The
-    # bulkhead clamps vertically (axis along world −Z): wet PTC port up
-    # into the cavity, integral flange seated on the trough's wet (top)
-    # face through a TPU face seal, locknut from below in the open
-    # bag-pocket space, dry collet hanging straight down. Below the body
-    # floor (z < outer_z_range[0]) is open bag-pocket space, so the
-    # panel hole alone clears the body downward.
+    # PureSec barrel clamps vertically (axis along world −Z): wet PTC port
+    # up into the cavity, integral flange seated on the trough's wet (top)
+    # face through a TPU face seal, hex locknut threaded on from below,
+    # integral 90° elbow turning the dry line laterally toward the +Y
+    # pass-through. The trough floor is RAISED (floor_trough_lift), so the
+    # 4 mm fluid-barrier PETG spans floor_underside_z..floor_trough_z and
+    # below floor_underside_z is the dry-side recess opening into the open
+    # bag-pocket space, where the locknut + barrel-end PTC + lower elbow
+    # body hang.
     port_x_signed = reservoir_bulkhead_port_x * side
+    floor_underside_z = floor_trough_z - reservoir_wall_thickness  # dry face of the trough floor
 
-    # Panel hole — ⌀[17.5 mm](BULKHEAD_PANEL_HOLE_D) cut straight down through the trough floor.
+    # Panel hole — ⌀[16.5 mm](BULKHEAD_PANEL_HOLE_D) cut straight down through the trough floor.
     # Spans from above the trough surface (overshoot to break the wet
     # face cleanly) down well past the floor's outer face into open
     # space below.
@@ -753,13 +835,60 @@ def build_reservoir_body(side=1):
     )
     body = body.cut(seal_counterbore)
 
-    # Nut hex register pocket on the floor underside — a shallow hex
-    # recess opening downward from the floor's outer (dry) face at
-    # outer_z_range[0]. The locknut threads on from below in the open
-    # bag-pocket space; this pocket only keeps it from spinning.
+    # Dry-side clearance recess + integral-elbow keep-out below the
+    # trough floor. The raised V floor (trough fill) would otherwise be
+    # solid from the body's outer floor face (outer_z_range[0]) up to the
+    # trough underside; here we carve the open void the PureSec hangs
+    # into. The void opens DOWNWARD through the body's outer floor face
+    # into the open bag-pocket cavity. It comprises:
+    #   (a) a coaxial barrel/locknut clearance cylinder sized to clear the
+    #       hex locknut across-corners (≈23.1 mm), and
+    #   (b) the integral 90° elbow keep-out: a box extending laterally
+    #       toward the +Y bag-pocket pass-through, plus a lateral PTC stub
+    #       (⌀12.5) reaching out so the dry tube has a clear path.
+    # Modelled as a clearance keep-out, NOT a precise replica of the
+    # fitting (see the bulkhead_elbow_* constants + the orientation flag).
+    recess_top_z = floor_underside_z + 0.1  # break the underside cleanly
+    recess_bottom_z = outer_z_range[0] - 5.0  # through the body floor into open space
+    nut_clearance_diameter = bulkhead_nut_hex_corner_to_corner + 1.0  # clear the hex across-corners + a hair
+    locknut_clearance = _z_cylinder(
+        (port_x_signed, 0.0),
+        (recess_bottom_z, recess_top_z),
+        nut_clearance_diameter,
+    )
+    body = body.cut(locknut_clearance)
+
+    # Elbow keep-out box, BELOW the trough floor only (it stops at
+    # floor_underside_z so the 4 mm fluid-barrier floor stays intact
+    # except where the barrel hole pierces it; the elbow body's portion
+    # that sits above the flange lives in the already-open cavity above
+    # and needs no cut). The cast 90° body + lateral collet barrel bound
+    # ≈28 × 16 × 16; aimed toward +Y, the 28 mm lateral extent runs in +Y
+    # (toward the bag-pocket pass-through), the 16 mm transverse in X. The
+    # box is biased +Y so it brackets the barrel and clears the dry line's
+    # lateral turn toward reservoir_bulkhead_port_y. Opens downward through
+    # the body floor into the open bag-pocket space.
+    elbow_lat = bulkhead_elbow_lateral_sign
+    elbow_y_near = -bulkhead_elbow_envelope_y / 2.0          # a little to the −Y side of the barrel
+    elbow_y_far = elbow_lat * bulkhead_elbow_envelope_x      # ≈28 mm toward the pass-through
+    elbow_box = make_box(
+        (port_x_signed - bulkhead_elbow_envelope_y / 2.0, port_x_signed + bulkhead_elbow_envelope_y / 2.0),
+        (min(elbow_y_near, elbow_y_far), max(elbow_y_near, elbow_y_far)),
+        (recess_bottom_z, floor_underside_z + 0.1),
+    )
+    body = body.cut(elbow_box)
+
+    # Nut hex register pocket recessed UP into the trough-floor underside
+    # — a shallow hex recess from the dry floor face (floor_underside_z)
+    # rising bulkhead_nut_hex_pocket_depth into the floor PETG. The locknut
+    # threads on from below in the open recess and tightens UP against this
+    # face; its top ~bulkhead_nut_hex_pocket_depth of hex engages the recess
+    # for anti-rotation, the rest of the nut hangs free in the recess below.
+    # (This leaves reservoir_wall_thickness − bulkhead_nut_hex_pocket_depth
+    # = 2.5 mm of fluid-barrier PETG above the recess.)
     nut_hex_pocket = (
         WorldWorkplane(xy_plane_z_up)
-        .workplane(offset=outer_z_range[0] - 0.1)
+        .workplane(offset=floor_underside_z - 0.1)
         .center(port_x_signed, 0.0)
         .polyline(nut_hex_profile)
         .close()

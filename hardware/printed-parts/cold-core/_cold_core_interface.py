@@ -79,7 +79,12 @@ bag_pocket_corner_inner_radius = 6.5
 
 reservoir_clearance = 0.5
 reservoir_floor_thickness = 4.0
-bulkhead_nut_cavity_diameter = 23.0
+# Foam-shell clearance cavity for the bulkhead locknut. Sized to clear
+# the PureSec B0968K4JRN hex locknut across-corners (≈23.1 mm = the ⌀20
+# across-flats / cos30°) plus a hair. MEDIUM confidence (across-flats
+# estimated from the listing photo; see
+# ../../off-the-shelf-parts/puresec-90-bulkhead/geometry-description.md).
+bulkhead_nut_cavity_diameter = 23.5
 
 # Z of the bulkhead NUT cavity center — anchored to the floor's low point.
 # Computed so the nut cavity's lowest reach (washer counterbore at
