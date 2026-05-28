@@ -116,6 +116,16 @@ function findRunnableScriptsTransitivelyImporting(moduleName) {
     visited.add(mod);
 
     const importRe = new RegExp(`(?:^|\\s)(?:from|import)\\s+${mod}\\b`, "m");
+    // A module can also be a *subprocess* dependency: a script that runs
+    // `mod.py` through Blender's `--python` flag rather than importing it.
+    // The iso line-art drawings work this way — `_blender_render.py` hands
+    // `_blender_scene.py` to Blender as a `--python` script path, since the
+    // scene script uses `bpy` and can't run in the cad-venv. That edge is
+    // invisible to importRe (the path is a string, never imported), so an
+    // edit to the scene script would otherwise rebuild nothing. Require the
+    // `--python` flag so a bare doc-comment mention of the filename can't
+    // masquerade as a dependency.
+    const scriptRefRe = new RegExp(`["'/]${mod}\\.py\\b`, "m");
     for (const pyFile of allPyFiles) {
       let source;
       try {
@@ -123,7 +133,9 @@ function findRunnableScriptsTransitivelyImporting(moduleName) {
       } catch {
         continue;
       }
-      if (!importRe.test(source)) continue;
+      const importsIt = importRe.test(source);
+      const runsViaBlender = source.includes("--python") && scriptRefRe.test(source);
+      if (!importsIt && !runsViaBlender) continue;
       if (isRunnableScript(pyFile)) {
         dependents.add(pyFile);
       } else {
