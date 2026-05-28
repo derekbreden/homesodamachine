@@ -218,25 +218,14 @@ def _loop_svg_d(world_points):
     return "".join(parts)
 
 
-def _convex_hull_2d(pts):
-    pts = sorted(set(pts))
-    if len(pts) < 3:
-        return pts
+def _ring_to_d(coords):
+    pts = list(coords)
+    return "M" + " L".join(f"{x:.3f},{y:.3f}" for x, y in pts) + " Z"
 
-    def cross(o, a, b):
-        return (a[0] - o[0]) * (b[1] - o[1]) - (a[1] - o[1]) * (b[0] - o[0])
 
-    lower = []
-    for p in pts:
-        while len(lower) >= 2 and cross(lower[-2], lower[-1], p) <= 0:
-            lower.pop()
-        lower.append(p)
-    upper = []
-    for p in reversed(pts):
-        while len(upper) >= 2 and cross(upper[-2], upper[-1], p) <= 0:
-            upper.pop()
-        upper.append(p)
-    return lower[:-1] + upper[:-1]
+def _polygon_to_d(poly):
+    rings = [poly.exterior] + list(poly.interiors)
+    return " ".join(_ring_to_d(r.coords) for r in rings)
 
 
 _disc_params = args["disc_params"]
@@ -245,16 +234,36 @@ _disc_axis = mathutils.Vector(_disc_params["axis"])
 _disc_pts = _circle_in_plane(_disc_center, _disc_axis, float(_disc_params["radius"]), 96)
 _disc_d = _loop_svg_d(_disc_pts)
 
-# Project every coupler mesh vertex and hull them, so the thumb latch
-# and any other protrusion are inside the occluding silhouette.
+# Exact coupler silhouette: project every mesh triangle to 2D and union
+# them. The union follows concavities (e.g. the notch between the thumb
+# latch and the cup), so the clip removes only the red the coupler
+# actually covers.
+try:
+    from shapely.geometry import Polygon as _Polygon
+    from shapely.ops import unary_union as _unary_union
+except ImportError:
+    import subprocess
+    subprocess.run([sys.executable, "-m", "pip", "install", "shapely"], check=True)
+    from shapely.geometry import Polygon as _Polygon
+    from shapely.ops import unary_union as _unary_union
+
 bpy.ops.wm.stl_import(filepath=args["coupler_stl"])
 _coupler_obj = bpy.context.selected_objects[0]
-_coupler_pts_2d = [
-    _project_to_svg(_coupler_obj.matrix_world @ v.co)
-    for v in _coupler_obj.data.vertices
-]
-_coupler_hull = _convex_hull_2d(_coupler_pts_2d)
-_coupler_silhouette_d = "M" + " L".join(f"{x:.3f},{y:.3f}" for x, y in _coupler_hull) + " Z"
+_mw = _coupler_obj.matrix_world
+_verts2d = [_project_to_svg(_mw @ v.co) for v in _coupler_obj.data.vertices]
+_tris = []
+for _face in _coupler_obj.data.polygons:
+    _ring = [_verts2d[i] for i in _face.vertices]
+    if len(_ring) >= 3:
+        _p = _Polygon(_ring)
+        if _p.is_valid and _p.area > 1e-6:
+            _tris.append(_p)
+_footprint = _unary_union(_tris).buffer(0.25).buffer(-0.25)
+
+if _footprint.geom_type == "Polygon":
+    _coupler_silhouette_d = _polygon_to_d(_footprint)
+else:
+    _coupler_silhouette_d = " ".join(_polygon_to_d(p) for p in _footprint.geoms)
 
 _clip_id = f"co2-coupler-clip-{view}"
 _clip_outer = "M-100000,-100000 L100000,-100000 L100000,100000 L-100000,100000 Z"
