@@ -52,15 +52,15 @@ PAGE_W_MM = 431.8   # 17 in
 PAGE_H_MM = 279.4   # 11 in
 
 # Border around the four-cell grid, and gutter between cells
-BORDER_MM = 12.7   # 0.5 in
-GUTTER_MM = 25.4   # 1 in
+BORDER_MM = 19.05   # 0.75 in
+GUTTER_MM = 19.05   # 0.75 in
 
 # Color system
 COLOR_CARBONATED = "#1f6feb"   # blue
 COLOR_CO2 = "#d63a3a"          # red
 COLOR_TAP = "#6e6e6e"          # medium gray (substitute for "white")
 COLOR_PLAIN = "#1a1a1a"        # plain motion arrows, captions, page text
-COLOR_STEP_BG = "#eeeeee"      # light-gray panel behind a step
+COLOR_STEP_BG = "#f5f5f5"      # light-gray panel behind a step
 
 ARROW_COLORS = {
     "blue": COLOR_CARBONATED,
