@@ -52,8 +52,8 @@ PAGE_W_MM = 431.8   # 17 in
 PAGE_H_MM = 279.4   # 11 in
 
 # Border around the four-cell grid, and gutter between cells
-BORDER_MM = 19.05   # 0.75 in
-GUTTER_MM = 19.05   # 0.75 in
+BORDER_MM = 12.7   # 0.5 in
+GUTTER_MM = 12.7   # 0.5 in
 
 # Color system
 COLOR_CARBONATED = "#1f6feb"   # blue
