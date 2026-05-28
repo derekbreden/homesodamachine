@@ -37,7 +37,6 @@ import os
 import re
 import subprocess
 import sys
-import textwrap
 from pathlib import Path
 
 _here = Path(__file__).resolve()
@@ -60,9 +59,6 @@ COLOR_CARBONATED = "#1f6feb"   # blue
 COLOR_CO2 = "#d63a3a"          # red
 COLOR_TAP = "#6e6e6e"          # medium gray (substitute for "white")
 COLOR_PLAIN = "#1a1a1a"        # plain motion arrows, captions, page text
-COLOR_PLACEHOLDER_STROKE = "#bdbdbd"
-COLOR_PLACEHOLDER_FILL = "#fafafa"
-COLOR_PLACEHOLDER_TEXT = "#888888"
 
 ARROW_COLORS = {
     "blue": COLOR_CARBONATED,
@@ -213,79 +209,36 @@ def _embed_svg(x, y, w, h, source_path):
 
 
 def _caption_text(x, y, w, h, caption):
-    """Bold centered caption underneath the drawing area."""
+    """Bold caption centered both ways in the band (x, y, w, h)."""
     return (
-        f'<text x="{x + w / 2:.2f}" y="{y + h * 0.7:.2f}" '
+        f'<text x="{x + w / 2:.2f}" y="{y + h / 2:.2f}" '
         f'font-family="Helvetica, Arial, sans-serif" font-size="6.5" '
         f'font-weight="600" fill="{COLOR_PLAIN}" '
-        f'text-anchor="middle">{caption}</text>'
+        f'text-anchor="middle" dominant-baseline="central">{caption}</text>'
     )
 
 
-def _placeholder_body(x, y, w, h, view_text):
-    """Dashed-outline drawing area showing the brief's view description.
+def cell(x, y, w, h, caption, embed_path=None, arrows_fn=None):
+    """Render one drawing cell: an image band above a caption band.
 
-    Used when there's no real line art to embed for a given cell yet.
-    Reads as "this is what's coming," not as final art.
+    The cell height splits into an image band (top) and a caption band
+    (bottom). The line-art is scale-fit and centered in the image band;
+    the caption is centered in the caption band. A cell with no line-art
+    shows an empty image band. If arrows_fn is given it's called with
+    the image band (x, y, w, img_h) and overlaid on it.
     """
-    inner_pad = 6.0
-    wrap_cols = max(20, int((w - 2 * inner_pad) / 2.0))
-    wrapped = textwrap.wrap(view_text, width=wrap_cols)
-    line_h = 4.2
-
-    text_lines = []
-    text_y = y + inner_pad + line_h
-    for line in wrapped[:8]:
-        text_lines.append(
-            f'<text x="{x + inner_pad:.2f}" y="{text_y:.2f}" '
-            f'font-family="Helvetica, Arial, sans-serif" font-size="3.6" '
-            f'fill="{COLOR_PLACEHOLDER_TEXT}">{line}</text>'
-        )
-        text_y += line_h
-
-    return (
-        f'<rect x="{x:.2f}" y="{y:.2f}" width="{w:.2f}" height="{h:.2f}" '
-        f'fill="{COLOR_PLACEHOLDER_FILL}" stroke="{COLOR_PLACEHOLDER_STROKE}" '
-        f'stroke-width="0.4" stroke-dasharray="2,2" rx="2" />\n'
-        f'<text x="{x + w - inner_pad:.2f}" y="{y + inner_pad + 3:.2f}" '
-        f'font-family="Helvetica, Arial, sans-serif" font-size="3.2" '
-        f'fill="{COLOR_PLACEHOLDER_TEXT}" text-anchor="end" '
-        f'font-style="italic">placeholder</text>\n'
-        + "\n".join(text_lines)
-    )
-
-
-def cell(x, y, w, h, view_text, caption, embed_path=None, arrows_fn=None):
-    """Render one drawing cell — drawing area on top, caption below.
-
-    If embed_path is given, the drawing area shows that SVG scale-fit
-    into the cell. Otherwise the drawing area shows a dashed-outline
-    placeholder with the brief's view description inside. If arrows_fn
-    is given, it's called with (x, y, w, draw_h) and the returned SVG
-    is overlaid on top of the cell body — used to put the brief's
-    motion / rotation / stub arrows on the page even before their
-    precise targets exist in the line-art.
-    """
-    draw_h = h * 0.78
-    cap_y = y + draw_h + 2
-    cap_h = h - draw_h
-
-    if embed_path:
-        body = _embed_svg(x, y, w, draw_h, embed_path)
-    else:
-        body = _placeholder_body(x, y, w, draw_h, view_text)
-    arrows = arrows_fn(x, y, w, draw_h) if arrows_fn else ""
-    return body + "\n" + arrows + "\n" + _caption_text(x, cap_y, w, cap_h, caption)
+    img_h = h * 0.78
+    cap_h = h - img_h
+    body = _embed_svg(x, y, w, img_h, embed_path) if embed_path else ""
+    arrows = arrows_fn(x, y, w, img_h) if arrows_fn else ""
+    caption = _caption_text(x, y + img_h, w, cap_h, caption)
+    return "\n".join(part for part in (body, arrows, caption) if part)
 
 
 # ── Per-cell arrow specs ────────────────────────────────────────────
 #
-# Each function takes the cell's drawing-area bounds (x, y, w, draw_h)
-# and returns SVG for the arrows. Positions are approximate stand-ins
-# for the brief's specified arrow targets — the real targets (CO2
-# inlet, water inlet, hopper opening, cylinder valves) aren't yet in
-# the line-art, so these point at sensible spots that demonstrate the
-# color system and arrow vocabulary.
+# Each function takes the cell's image-band bounds (x, y, w, img_h) and
+# returns SVG for that cell's arrows.
 
 
 def _arrows_connect_co2(x, y, w, draw_h):
@@ -297,36 +250,6 @@ def _arrows_connect_co2(x, y, w, draw_h):
         x + 0.312 * w, y + 0.206 * draw_h,
         x + 0.426 * w, y + 0.476 * draw_h,
         color="red",
-    )
-
-
-def _arrows_tee_into_water(x, y, w, draw_h):
-    """Drawing 2: gray rotation arrow on the angle stop + two stub
-    arrows pointing inward at the tee's outlets + gray straight arrow
-    at the appliance water inlet. Laid out in a horizontal strip in
-    the lower half of the placeholder so the view-description text
-    above stays legible."""
-    y_strip = y + 0.65 * draw_h
-    target_x = x + 0.48 * w
-    return (
-        _rotation_arrow(x + 0.14 * w, y_strip, 5, 30, 240, color="gray")
-        + _stub_arrow(target_x - 15, y_strip, +1, 0, color="gray")
-        + _stub_arrow(target_x + 15, y_strip, -1, 0, color="gray")
-        + _straight_arrow(
-            x + 0.74 * w, y_strip,
-            x + 0.92 * w, y_strip,
-            color="gray",
-        )
-    )
-
-
-def _arrows_open_valves(x, y, w, draw_h):
-    """Drawing 3: red rotation arrow on the CO2 cylinder valve + gray
-    rotation arrow on the angle-stop handle, paired side-by-side."""
-    y_strip = y + 0.65 * draw_h
-    return (
-        _rotation_arrow(x + 0.30 * w, y_strip, 7, 30, 240, color="red")
-        + _rotation_arrow(x + 0.70 * w, y_strip, 7, 30, 240, color="gray")
     )
 
 
@@ -346,12 +269,8 @@ def main():
     svg_path = out_dir / "appliance.svg"
     pdf_path = out_dir / "appliance.pdf"
 
-    # Existing line-art sources that exist today, used where they fit
-    # the brief's specified view. None of them carry the supply-side
-    # subjects (CO2 cylinder + regulator + hose, under-counter
-    # plumbing, concentrate bottle), so drawings 2 and 3 stay as
-    # placeholders and drawings 1 and 4 show only the appliance side
-    # of their scene.
+    # Line-art sources. Drawings 1 and 4 embed the enclosure iso views;
+    # drawings 2 and 3 have no line-art yet and show an empty image band.
     enclosure_front = repo_root / "hardware" / "printed-parts" / "enclosure" / "drawings" / "line-art" / "enclosure-iso-front.svg"
     enclosure_back = repo_root / "hardware" / "printed-parts" / "enclosure" / "drawings" / "line-art" / "enclosure-iso-back.svg"
 
@@ -359,51 +278,21 @@ def main():
     # marketing/unboxing-and-quickstart.md.
     drawings = [
         {
-            "view": (
-                "Front 3/4 view of the appliance. The CO2 cylinder sits "
-                "in the foreground beside the appliance, regulator on "
-                "top, hose extending toward the front-panel CO2 inlet. "
-                "Single red arrow at the front-panel CO2 inlet."
-            ),
             "caption": "Connect the CO2.",
             "embed": enclosure_front,
             "arrows": _arrows_connect_co2,
         },
         {
-            "view": (
-                "Under-counter view. The customer's angle stop comes out "
-                "of the wall with its outlet now empty. The existing "
-                "supply line dangles disconnected beside it. The tee "
-                "floats in the gap, with the 3/8\" tube pre-attached to "
-                "one outlet, extending across the drawing toward the "
-                "appliance's back-panel water inlet. Gray rotation arrow "
-                "on the angle stop. Two gray stub-arrows pointing inward "
-                "at the tee's two open outlets. Gray arrow at the "
-                "appliance water inlet."
-            ),
             "caption": "Tee into the water. Run the tube to the device.",
             "embed": None,
-            "arrows": _arrows_tee_into_water,
+            "arrows": None,
         },
         {
-            "view": (
-                "Two foreground subjects side by side at the same scale: "
-                "the CO2 cylinder with its top valve handle, and the "
-                "angle stop with the tee on it and its shutoff handle. "
-                "Red rotation arrow at the CO2 cylinder valve. Gray "
-                "rotation arrow at the angle stop handle."
-            ),
             "caption": "Open the CO2. Open the water.",
             "embed": None,
-            "arrows": _arrows_open_valves,
+            "arrows": None,
         },
         {
-            "view": (
-                "3/4 top view of the appliance, hopper lid lifted, "
-                "funnel visible. One SodaStream concentrate bottle "
-                "inverted over the funnel. One plain motion arrow on "
-                "the bottle."
-            ),
             "caption": "Empty a flavor into the hopper.",
             "embed": enclosure_back,
             "arrows": _arrows_fill_hopper,
@@ -424,7 +313,7 @@ def main():
         body_parts.append(
             cell(
                 x, y, w, h,
-                drawing["view"], drawing["caption"],
+                drawing["caption"],
                 embed_path=drawing["embed"],
                 arrows_fn=drawing["arrows"],
             )
