@@ -299,10 +299,15 @@ def _positioned_coupler() -> cq.Workplane:
 
 
 def build_coupler() -> cq.Workplane:
-    """The positioned coupler as a standalone solid — exported as STL so
-    the renderer can clip the marking disc by the coupler's full
-    projected silhouette (hex + cup + thumb latch)."""
-    return _positioned_coupler()
+    """The coupler clipped to the part in front of the wall plane (x ≥ W)
+    — hex, cup, and thumb latch. The threaded shank (x < W, embedded in
+    the wall behind the marking disc) is removed so it can't occlude the
+    disc in the projected silhouette."""
+    world_y, world_z = CO2_PORT_WALL_AT
+    front_halfspace = (
+        cq.Workplane().box(1000, 1000, 1000).translate((W + 500, world_y, world_z))
+    )
+    return _positioned_coupler().intersect(front_halfspace)
 
 
 def _add_co2_port(solid, world_y, world_z):
