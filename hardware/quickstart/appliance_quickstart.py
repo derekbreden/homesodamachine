@@ -55,9 +55,11 @@ PAGE_H_MM = 279.4   # 11 in
 BORDER_MM = 12.7   # 0.5 in
 GUTTER_MM = 12.7   # 0.5 in
 
-# Inner padding within each step, and the fixed caption-band height
-PAD_MM = 12.7           # 0.5 in
-CAPTION_BAND_MM = 12.7  # 0.5 in
+# Inner padding within each step, the fixed caption-band height, and
+# the step panel's corner radius
+PAD_MM = 6.35            # 0.25 in
+CAPTION_BAND_MM = 12.7   # 0.5 in
+STEP_RADIUS_MM = 6.35    # 0.25 in
 
 # Color system
 COLOR_CARBONATED = "#1f6feb"   # blue
@@ -235,7 +237,7 @@ def cell(x, y, w, h, caption, embed_path=None, arrows_fn=None, background=False)
     """
     bg = (
         f'<rect x="{x:.2f}" y="{y:.2f}" width="{w:.2f}" height="{h:.2f}" '
-        f'fill="{COLOR_STEP_BG}" />'
+        f'rx="{STEP_RADIUS_MM}" fill="{COLOR_STEP_BG}" />'
         if background else ""
     )
     ix, iy = x + PAD_MM, y + PAD_MM
