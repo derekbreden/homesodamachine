@@ -483,6 +483,44 @@ Filament drying: confirmed run on the E2 between attempts even though the storag
 
 This is essentially a fresh process-profile calibration of the part, not just an attempt-16-plus-filament-tweaks. If joint fit, tube fit, or wall integrity behave differently from attempts 14–16, the 0.8-nozzle / 0.4-mm-layer swap is the dominant cause to investigate before iterating filament or geometry again.
 
+## PET-CF print attempt 18 (back to 0.6 standard nozzle + flow-dynamics calibration for Polymaker)
+
+Slice saved 2026-05-27. **Print outcome not yet recorded** at time of writing — this entry captures the slice state + the diagnostic thread so it's not lost.
+
+**Nozzle reverted to 0.6 mm standard.** The slice is fully back on the 0.6 profile, confirmed both in Bambu Studio's UI (Left Nozzle: Diameter 0.6, Flow Standard) and in the saved `touch-flo-pet-cf.3mf`:
+- `printer_settings_id`: "Bambu Lab H2C 0.6 nozzle"
+- `print_settings_id`: "0.30mm Standard @BBL H2C 0.6 nozzle"
+- `nozzle_diameter`: 0.6 / 0.6; `layer_height`: 0.30; all line widths 0.62
+- `nozzle_volume_type`: Standard
+- slot 0 filament renamed to **"Polymaker PET-CF"** (was "Bambu PET-CF @BBL H2C - Copy")
+- slot 2 ABS back to the 0.6-nozzle profile
+
+**Nozzle-history caveat (uncertain, recorded honestly):** the 16→17→18 nozzle sequence got muddled in conversation. What's *definite* from the saved files: attempt-16 slice was 0.6; attempt-17 slice was 0.8 / 0.40 / 0.82; attempt-18 slice (this one) is 0.6 again. Derek stated the flow-dynamics calibration was run on the 0.6. Whether attempt 17 physically printed on the 0.8 or the slice was just configured for it before reverting is *not* cleanly established — treat the attempt-17 entry's "hardware swapped to 0.8" framing as uncertain. The strands (below) were observed on at least attempt 16 (0.6) regardless.
+
+### The "missing fiber strands" diagnostic thread (unresolved)
+
+Symptom (first seen attempt 16, persisted since): tiny 1–2 mm patches of missing extrusion scattered across outer walls, looking like discrete intermittent under-extrusion. Polymaker-specific — absent across attempts 7–15 on Bambu PET-CF, appeared the moment the filament switched to Polymaker Fiberon PET-CF17 at attempt 16.
+
+Hypotheses considered and where they landed:
+
+1. **Moisture — RULED OUT by Derek's evidence.** Initially over-claimed by the assistant as "almost certainly moisture." Derek dried the spool 10 h on the SUNLU E2 at 100 °C; the E2 read its 10 % RH floor before, during, and after; the storage box also reads 10 % RH. Symptom unchanged after drying. If water were flashing in the melt, drying would have moved the needle — it didn't. Moisture is not the cause.
+
+2. **CF agglomeration at the nozzle — still live, not tested.** Inert chopped CF intermittently bunching near the nozzle exit. Flow-rate-independent; would show as random patches. Demoted below pressure advance once the seam-clustering observation came in, but never ruled out.
+
+3. **Pressure advance / flow dynamics — current leading hypothesis.** Derek's key observation: the strands are "somewhat random, though clustered more within ~10 mm of where the seam might be." Seam clustering points at pressure dynamics: the seam is where each perimeter starts from a dead stop after an un-retract, the worst-case spot for uncompensated pressure lag → starved first few mm of perimeter. The slice ran `enable_pressure_advance: 0` with an inherited dormant `pressure_advance: 0.02` from the Bambu PET-CF profile — i.e. no Polymaker-specific tuning. Same profile carried Bambu PET-CF cleanly through attempts 7–15; the same (wrong-for-Polymaker) pressure behaviour is the most likely filament-specific, seam-clustered cause.
+
+### Flow Dynamics Calibration (run for the first time, 2026-05-27)
+
+Derek ran Bambu's Flow Dynamics Calibration for the Polymaker filament on the **0.6 standard** nozzle. Result: **Factor K = 0.013** (Bambu profile default was 0.02 — so Polymaker wants ~35 % *less* pressure advance than Bambu PET-CF). Auto-named "Left Nozzle_SF_Bambu PET-CF" in the calibration result panel.
+
+**Open / unresolved items the next session (or reader) must check:**
+
+- **Did the calibration actually save?** Derek wondered "maybe it didn't save." This cannot be confirmed from the 3mf — the K value lives on the **printer's** flow-dynamics results table, keyed by filament, NOT in the project file. Verify via the printer's calibration history (Device tab) or the print-send dialog's per-filament flow-dynamics selector.
+- **Name-association risk.** The calibration result was auto-named with "Bambu PET-CF" but the slice's slot-0 filament is now "Polymaker PET-CF." With `enable_pressure_advance: 0`, the slicer injects no PA into the gcode — the run depends entirely on the printer associating the saved K with the filament at send time. If auto-match fails on the name mismatch, the print silently runs with no calibrated K. **At the send dialog, explicitly confirm the 0.013 result is selected for slot 0** rather than trusting auto-match. (Bambu's exact name-matching logic is not known here — hence "verify," not "it's broken.")
+- **The K is nozzle-specific.** 0.013 was measured on the 0.6 standard nozzle. It is only valid for that nozzle. If the hardware ever returns to the 0.8 high-flow, re-run the calibration — a 0.6-measured K is the wrong compensation for a 0.8 melt path.
+
+**The test this slice represents:** if the strands clear on this print *with the 0.013 K confirmed-applied*, the full chain is confirmed — moisture ruled out → not the nozzle → filament-specific pressure dynamics → calibrated. If the strands persist *with K confirmed-applied*, pressure advance is killed as the cause and the investigation returns to CF agglomeration (#2 above) — do NOT chase K lower; that would be fitting a tidy story to noise. The result is only interpretable if the 0.013 K was actually applied — so the send-dialog confirmation above is the precondition for the test meaning anything.
+
 ## Hardware / setup observations across all PET-CF attempts
 
 Derek said:
