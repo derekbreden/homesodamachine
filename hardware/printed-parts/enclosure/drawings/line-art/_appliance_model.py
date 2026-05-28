@@ -355,38 +355,16 @@ def build_appliance() -> cq.Workplane:
     # Right side face: CO2 inlet (CPC LC-family coupling body)
     appliance = _add_co2_port(appliance, *CO2_PORT_WALL_AT)
 
-    # Right side face: circular pocket around the CO2 port for the red
-    # marking disc. The coupler sits in front of this disc, so in the
-    # line-art the visible portion of the disc appears as a ring around
-    # the coupler's silhouette.
-    appliance = appliance.cut(_co2_red_disc_workplane())
-
     return appliance
 
 
 # ---------------------------------------------------------------------------
-# Red marking disc on the right side wall at the CO2 port
+# Red marking disc on the right side wall at the CO2 port. It's a printed
+# marking, not geometry — the renderer projects this circle to a filled,
+# self-outlined SVG path and clips it by the coupler's silhouette.
 # ---------------------------------------------------------------------------
 
 CO2_PORT_DISC_R = 16.5
-CO2_PORT_DISC_DEPTH = 1.5
-
-
-def _co2_red_disc_workplane() -> cq.Workplane:
-    world_y, world_z = CO2_PORT_WALL_AT
-    return (
-        cq.Workplane(cq.Plane(
-            origin=(W, world_y, world_z),
-            xDir=(0, 1, 0),
-            normal=(1, 0, 0),
-        ))
-        .circle(CO2_PORT_DISC_R)
-        .extrude(-CO2_PORT_DISC_DEPTH)
-    )
-
-
-def build_red_disc() -> cq.Workplane:
-    return _co2_red_disc_workplane()
 
 
 def red_disc_render_params() -> dict:
