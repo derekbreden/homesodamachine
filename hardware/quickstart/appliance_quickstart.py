@@ -347,12 +347,12 @@ def main():
             "caption": "Connect the CO2.",
             "embed": enclosure_front,
             "arrows": _arrows_connect_co2,
-            "background": True,
         },
         {
             "caption": "Tee into the water. Run the tube to the device.",
             "embed": None,
             "arrows": _arrows_tee_into_water,
+            "background": True,
         },
         {
             "caption": "Open the CO2. Open the water.",
