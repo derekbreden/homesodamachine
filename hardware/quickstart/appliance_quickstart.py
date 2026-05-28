@@ -51,8 +51,9 @@ from _cadq_export import export_pdf
 PAGE_W_MM = 431.8   # 17 in
 PAGE_H_MM = 279.4   # 11 in
 
-# Margin around the four-cell grid
-MARGIN_MM = 14.0
+# Border around the four-cell grid, and gutter between cells
+BORDER_MM = 12.7   # 0.5 in
+GUTTER_MM = 25.4   # 1 in
 
 # Color system
 COLOR_CARBONATED = "#1f6feb"   # blue
@@ -149,17 +150,16 @@ def _stub_arrow(target_x, target_y, dx, dy, color="dark", sw=1.2, length=12):
 def cell_rect(col, row):
     """Return (x, y, w, h) for the cell at column col (0..1) and row row (0..1).
 
-    Cells fill the page minus MARGIN around the perimeter, with a small
-    inner gutter between cells.
+    Cells fill the page minus the border around the perimeter, with a
+    gutter between cells.
     """
-    gutter = 8.0
     cols, rows = 2, 2
-    avail_w = PAGE_W_MM - 2 * MARGIN_MM - (cols - 1) * gutter
-    avail_h = PAGE_H_MM - 2 * MARGIN_MM - (rows - 1) * gutter
+    avail_w = PAGE_W_MM - 2 * BORDER_MM - (cols - 1) * GUTTER_MM
+    avail_h = PAGE_H_MM - 2 * BORDER_MM - (rows - 1) * GUTTER_MM
     cw = avail_w / cols
     ch = avail_h / rows
-    x = MARGIN_MM + col * (cw + gutter)
-    y = MARGIN_MM + row * (ch + gutter)
+    x = BORDER_MM + col * (cw + GUTTER_MM)
+    y = BORDER_MM + row * (ch + GUTTER_MM)
     return x, y, cw, ch
 
 
@@ -238,7 +238,8 @@ def cell(x, y, w, h, caption, embed_path=None, arrows_fn=None):
 # ── Per-cell arrow specs ────────────────────────────────────────────
 #
 # Each function takes the cell's image-band bounds (x, y, w, img_h) and
-# returns SVG for that cell's arrows.
+# returns SVG for that cell's arrows. Drawings 2 and 3 have no line-art
+# yet, so their arrows sit at approximate stand-in positions.
 
 
 def _arrows_connect_co2(x, y, w, draw_h):
@@ -250,6 +251,35 @@ def _arrows_connect_co2(x, y, w, draw_h):
         x + 0.312 * w, y + 0.206 * draw_h,
         x + 0.426 * w, y + 0.476 * draw_h,
         color="red",
+    )
+
+
+def _arrows_tee_into_water(x, y, w, draw_h):
+    """Drawing 2: gray rotation arrow on the angle stop + two stub
+    arrows pointing inward at the tee's outlets + gray straight arrow
+    at the appliance water inlet, laid out in a horizontal strip across
+    the lower half of the image band."""
+    y_strip = y + 0.65 * draw_h
+    target_x = x + 0.48 * w
+    return (
+        _rotation_arrow(x + 0.14 * w, y_strip, 5, 30, 240, color="gray")
+        + _stub_arrow(target_x - 15, y_strip, +1, 0, color="gray")
+        + _stub_arrow(target_x + 15, y_strip, -1, 0, color="gray")
+        + _straight_arrow(
+            x + 0.74 * w, y_strip,
+            x + 0.92 * w, y_strip,
+            color="gray",
+        )
+    )
+
+
+def _arrows_open_valves(x, y, w, draw_h):
+    """Drawing 3: red rotation arrow on the CO2 cylinder valve + gray
+    rotation arrow on the angle-stop handle, paired side-by-side."""
+    y_strip = y + 0.65 * draw_h
+    return (
+        _rotation_arrow(x + 0.30 * w, y_strip, 7, 30, 240, color="red")
+        + _rotation_arrow(x + 0.70 * w, y_strip, 7, 30, 240, color="gray")
     )
 
 
@@ -270,7 +300,8 @@ def main():
     pdf_path = out_dir / "appliance.pdf"
 
     # Line-art sources. Drawings 1 and 4 embed the enclosure iso views;
-    # drawings 2 and 3 have no line-art yet and show an empty image band.
+    # drawings 2 and 3 have no line-art yet — their image bands carry
+    # only stand-in arrows.
     enclosure_front = repo_root / "hardware" / "printed-parts" / "enclosure" / "drawings" / "line-art" / "enclosure-iso-front.svg"
     enclosure_back = repo_root / "hardware" / "printed-parts" / "enclosure" / "drawings" / "line-art" / "enclosure-iso-back.svg"
 
@@ -285,12 +316,12 @@ def main():
         {
             "caption": "Tee into the water. Run the tube to the device.",
             "embed": None,
-            "arrows": None,
+            "arrows": _arrows_tee_into_water,
         },
         {
             "caption": "Open the CO2. Open the water.",
             "embed": None,
-            "arrows": None,
+            "arrows": _arrows_open_valves,
         },
         {
             "caption": "Empty a flavor into the hopper.",
