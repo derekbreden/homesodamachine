@@ -61,7 +61,7 @@ PAD_MM = 6.35            # 0.25 in
 CAPTION_BAND_MM = 12.7   # 0.5 in
 STEP_RADIUS_MM = 6.35    # 0.25 in
 STEP_NUMBER_SIZE_MM = 40  # very large step numerals
-HAIRLINE_MM = 0.2         # thin #000 stroke: step borders + number outlines
+HAIRLINE_MM = 0.4         # thin #000 stroke: step borders + number outlines
 
 # Color system
 COLOR_CARBONATED = "#1f6feb"   # blue
