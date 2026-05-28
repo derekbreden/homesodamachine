@@ -61,6 +61,7 @@ PAD_MM = 6.35            # 0.25 in
 CAPTION_BAND_MM = 12.7   # 0.5 in
 STEP_RADIUS_MM = 6.35    # 0.25 in
 STEP_NUMBER_SIZE_MM = 40  # very large step numerals
+HAIRLINE_MM = 0.1         # very thin #000 stroke: step borders + number outlines
 
 # Color system
 COLOR_CARBONATED = "#1f6feb"   # blue
@@ -230,7 +231,8 @@ def cell(x, y, w, h, caption, embed_path=None, arrows_fn=None,
          background=False, number=None, number_corner="left"):
     """Render one drawing cell: an image band above a caption band.
 
-    The background panel, when set, fills the whole cell. Content is
+    Every step has a thin #000 rounded border; with background set the
+    panel is filled with COLOR_STEP_BG, otherwise transparent. Content is
     inset by PAD_MM on all sides; within that the caption band is a
     fixed CAPTION_BAND_MM at the bottom and the image band fills the
     height above it. The line-art is scale-fit and centered in the image
@@ -239,10 +241,11 @@ def cell(x, y, w, h, caption, embed_path=None, arrows_fn=None,
     step number sits in the image band's upper number_corner ("left" or
     "right") — white on a panel, COLOR_STEP_BG on a plain step.
     """
-    bg = (
+    panel_fill = COLOR_STEP_BG if background else "none"
+    panel = (
         f'<rect x="{x:.2f}" y="{y:.2f}" width="{w:.2f}" height="{h:.2f}" '
-        f'rx="{STEP_RADIUS_MM}" fill="{COLOR_STEP_BG}" />'
-        if background else ""
+        f'rx="{STEP_RADIUS_MM}" fill="{panel_fill}" '
+        f'stroke="#000000" stroke-width="{HAIRLINE_MM}" />'
     )
     ix, iy = x + PAD_MM, y + PAD_MM
     iw, ih = w - 2 * PAD_MM, h - 2 * PAD_MM
@@ -257,13 +260,14 @@ def cell(x, y, w, h, caption, embed_path=None, arrows_fn=None,
             f'<text x="{nx:.2f}" y="{iy:.2f}" '
             f'font-family="Helvetica, Arial, sans-serif" '
             f'font-size="{STEP_NUMBER_SIZE_MM}" font-weight="700" '
-            f'fill="{num_color}" text-anchor="{anchor}" '
+            f'fill="{num_color}" stroke="#000000" stroke-width="{HAIRLINE_MM}" '
+            f'text-anchor="{anchor}" '
             f'dominant-baseline="hanging">{number}</text>'
         )
     body = _embed_svg(ix, iy, iw, img_h, embed_path) if embed_path else ""
     arrows = arrows_fn(ix, iy, iw, img_h) if arrows_fn else ""
     caption = _caption_text(ix, iy + img_h, iw, cap_h, caption)
-    return "\n".join(part for part in (bg, num, body, arrows, caption) if part)
+    return "\n".join(part for part in (panel, num, body, arrows, caption) if part)
 
 
 # ── Per-cell arrow specs ────────────────────────────────────────────
