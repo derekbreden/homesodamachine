@@ -1,17 +1,17 @@
 """
 Isometric line-art view of the home-soda-machine enclosure — BACK.
 
-CadQuery-based: the appliance geometry is built in _appliance_model and
-exported via cq.exporters with HLR (hidden-line removal). The model is
-+Z-up natively; for the SVG export we rotate +90° about +X so the
-body's height axis lands on +Y at projection time (see
-enclosure-iso-front.py docstring for the OCCT-HLR rationale).
+The appliance and its red ring marking are built as 3D CadQuery solids
+in _appliance_model, exported as STL, and rendered to a vector SVG via
+Blender's Freestyle line renderer (with the Freestyle SVG Exporter
+add-on).
 
-In the rotated drawing frame, projectionDir (1, 1, -1) places the
-camera at +x, +y, -z — back face, right side, and top all visible.
+Iso-back camera: positioned at world (+X, +Y, +Z) and aimed at the
+geometric center with world +Z as up, so the back face (+Y), right
+face (+X), and top face (+Z) are all visible.
 
 Companion drawing: enclosure-iso-front.py. The geometry is the same;
-only the projection direction differs.
+only the view direction differs.
 
 Run from the repo root:
 
@@ -24,31 +24,16 @@ from pathlib import Path
 _HERE = Path(__file__).resolve().parent
 sys.path.insert(0, str(_HERE))
 
-import cadquery as cq
-
 import _appliance_model as model
+import _blender_render as blender
 
 
 def main() -> None:
-    # Rotate the Z-up model into a drawing frame where the body height
-    # axis lands on +Y at projection time (see docstring).
-    appliance = model.build_appliance().rotate((0, 0, 0), (1, 0, 0), -90)
+    appliance = model.build_appliance()
+    disc_params = model.red_disc_render_params()
+    coupler_params = model.coupler_render_params()
     output_path = _HERE / "enclosure-iso-back.svg"
-    cq.exporters.export(
-        appliance,
-        str(output_path),
-        opt={
-            "projectionDir": (1, 1, -1),  # camera at +x, +y, -z (rotated drawing frame)
-            "showHidden": False,          # visible outlines only
-            "width": None,                 # auto-fit to projected geometry width
-            "height": 800,
-            "marginLeft": 30,
-            "marginTop": 30,
-            "strokeWidth": 1.5,
-            "showAxes": False,
-        },
-    )
-    model.smooth_stroke(output_path)
+    blender.render_iso(appliance, disc_params, coupler_params, view="back", out_svg=output_path)
     print(f"Wrote {output_path}")
 
     # Keep _appliance_model.py's [value](NAME) comments in sync.
