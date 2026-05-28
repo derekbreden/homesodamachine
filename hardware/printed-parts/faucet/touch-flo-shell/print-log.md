@@ -483,19 +483,26 @@ Filament drying: confirmed run on the E2 between attempts even though the storag
 
 This is essentially a fresh process-profile calibration of the part, not just an attempt-16-plus-filament-tweaks. If joint fit, tube fit, or wall integrity behave differently from attempts 14–16, the 0.8-nozzle / 0.4-mm-layer swap is the dominant cause to investigate before iterating filament or geometry again.
 
-## PET-CF print attempt 18 (back to 0.6 standard nozzle + flow-dynamics calibration for Polymaker)
+## PET-CF print attempt 18 (first Diamond PCD nozzle + 0.6 standard profile + flow-dynamics calibration for Polymaker)
 
 Slice saved 2026-05-27. **Print outcome not yet recorded** at time of writing — this entry captures the slice state + the diagnostic thread so it's not lost.
 
-**Nozzle reverted to 0.6 mm standard.** The slice is fully back on the 0.6 profile, confirmed both in Bambu Studio's UI (Left Nozzle: Diameter 0.6, Flow Standard) and in the saved `touch-flo-pet-cf.3mf`:
+**Nozzle is the DUROZZLE 0.6 mm Diamond PCD (standard flow) — FIRST PCD print of the campaign.** Derek confirmed 2026-05-27: the "0.6 standard flow off brand" he switched to for this attempt is the **Diamond PCD** ([B0GWDBQW4G](https://www.amazon.com/dp/B0GWDBQW4G), purchased May 8, logged in `purchases.md` §13), NOT the tungsten carbide DUROZZLE (B0GWDDKG47) that carried attempts 7–17. His in-the-moment words: *"I switched back to the 0.6 standard flow off brand not sure if tungsten or that other magic material"* — later resolved to the Diamond PCD ("that other magic material" = polycrystalline diamond). Every prior attempt header reading "DUROZZLE TC" is correct for 7–17; attempt 18 is the first non-TC, the PCD's debut.
+
+Slice profile fully back on 0.6 standard, confirmed in Bambu Studio's UI (Left Nozzle: Diameter 0.6, Flow Standard) and in the saved `touch-flo-pet-cf.3mf`:
 - `printer_settings_id`: "Bambu Lab H2C 0.6 nozzle"
 - `print_settings_id`: "0.30mm Standard @BBL H2C 0.6 nozzle"
 - `nozzle_diameter`: 0.6 / 0.6; `layer_height`: 0.30; all line widths 0.62
-- `nozzle_volume_type`: Standard
+- `nozzle_volume_type`: Standard (Bambu Studio has no PCD-specific nozzle type; "Standard" is the closest profile match for the off-brand PCD)
 - slot 0 filament renamed to **"Polymaker PET-CF"** (was "Bambu PET-CF @BBL H2C - Copy")
 - slot 2 ABS back to the 0.6-nozzle profile
 
-**Nozzle-history caveat (uncertain, recorded honestly):** the 16→17→18 nozzle sequence got muddled in conversation. What's *definite* from the saved files: attempt-16 slice was 0.6; attempt-17 slice was 0.8 / 0.40 / 0.82; attempt-18 slice (this one) is 0.6 again. Derek stated the flow-dynamics calibration was run on the 0.6. Whether attempt 17 physically printed on the 0.8 or the slice was just configured for it before reverting is *not* cleanly established — treat the attempt-17 entry's "hardware swapped to 0.8" framing as uncertain. The strands (below) were observed on at least attempt 16 (0.6) regardless.
+**Two variables moved at once — attempt 18 is a confounded test.** Versus attempt 16 (the last clean comparison: Polymaker, 0.6 TC, no calibration), attempt 18 changes BOTH the nozzle material (TC → Diamond PCD) AND adds the flow-dynamics calibration (K 0.02 → 0.013). So:
+- If the strands clear, we won't cleanly know whether the PCD nozzle or the calibrated K did it.
+- If the strands persist, *both* the PCD swap and the calibrated K failed to fix it — which would push hard toward the remaining hypothesis (CF agglomeration is less likely on a diamond tip, so persisting strands on PCD would actually weaken that one too, and send us looking wider).
+To isolate cleanly later, the lever to vary one-at-a-time would be: PCD + uncalibrated vs PCD + calibrated, or TC + calibrated vs PCD + calibrated. Not done here.
+
+**Nozzle-history caveat (still partially uncertain):** the 16→17→18 sequence: attempt-16 slice was 0.6 (TC); attempt-17 slice was 0.8 / 0.40 / 0.82; attempt-18 slice is 0.6 again, now on the **PCD**. Whether attempt 17 physically printed on the 0.8 TC HF or the slice was just configured for it before reverting is *not* cleanly established. The strands were observed on at least attempt 16 (0.6 TC) regardless.
 
 ### The "missing fiber strands" diagnostic thread (unresolved)
 
@@ -511,7 +518,7 @@ Hypotheses considered and where they landed:
 
 ### Flow Dynamics Calibration (run for the first time, 2026-05-27)
 
-Derek ran Bambu's Flow Dynamics Calibration for the Polymaker filament on the **0.6 standard** nozzle. Result: **Factor K = 0.013** (Bambu profile default was 0.02 — so Polymaker wants ~35 % *less* pressure advance than Bambu PET-CF). Auto-named "Left Nozzle_SF_Bambu PET-CF" in the calibration result panel.
+Derek ran Bambu's Flow Dynamics Calibration for the Polymaker filament on the **0.6 Diamond PCD** nozzle (the one now installed — see above). Result: **Factor K = 0.013** (Bambu profile default was 0.02 — so this filament+nozzle combo wants ~35 % *less* pressure advance than Bambu PET-CF). Auto-named "Left Nozzle_SF_Bambu PET-CF" in the calibration result panel. NB: the K is specific to this PCD nozzle — it bundles both the Polymaker filament's rheology and the PCD tip's melt geometry, and is not transferable to the TC nozzle or any other.
 
 **Open / unresolved items the next session (or reader) must check:**
 
