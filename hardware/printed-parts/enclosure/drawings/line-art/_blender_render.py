@@ -109,8 +109,7 @@ def _postprocess_svg(svg_path: Path) -> None:
 
 def render_iso(
     appliance: cq.Workplane,
-    disc_params: dict,
-    coupler: cq.Workplane,
+    markings: list,
     view: str,
     out_svg: Path,
     *,
@@ -118,9 +117,17 @@ def render_iso(
     stroke_width: float = 3,
     margin: float = 20.0,
 ) -> None:
-    """Render the iso view of `appliance` + a red disc at `disc_params`,
-    clipped by the projected silhouette of `coupler` (its full mesh, so
-    the thumb latch occludes too)."""
+    """Render the iso view of `appliance` plus a set of marking discs.
+
+    Each entry in `markings` is a dict:
+        {"id": str,                       # unique clip id stem
+         "disc": {center, axis, radius},  # the printed marking circle
+         "color": [r, g, b],              # 0-255 fill color
+         "clip": cq.Workplane}            # the part that occludes it
+
+    Each disc is projected, filled in its color, and clipped by the
+    projected silhouette of its `clip` solid, so the part occludes the
+    disc's center and the visible remainder reads as a ring around it."""
     if view not in ("front", "back"):
         raise ValueError(f"unknown view: {view}")
     out_svg = Path(out_svg)
@@ -129,14 +136,22 @@ def render_iso(
     with tempfile.TemporaryDirectory(prefix="enclosure-iso-") as tmpdir:
         tmp = Path(tmpdir)
         appliance_stl = tmp / "appliance.stl"
-        coupler_stl = tmp / "coupler.stl"
         _export_stl(appliance, appliance_stl)
-        _export_stl(coupler, coupler_stl)
+
+        marking_args = []
+        for i, mk in enumerate(markings):
+            clip_stl = tmp / f"clip_{i}.stl"
+            _export_stl(mk["clip"], clip_stl)
+            marking_args.append({
+                "id": mk["id"],
+                "disc": mk["disc"],
+                "color": mk["color"],
+                "clip_stl": str(clip_stl),
+            })
 
         args = {
             "appliance_stl": str(appliance_stl),
-            "disc_params": disc_params,
-            "coupler_stl": str(coupler_stl),
+            "markings": marking_args,
             "out_svg": str(out_svg),
             "view": view,
             "image_height": image_height,

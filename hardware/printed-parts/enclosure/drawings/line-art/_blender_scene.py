@@ -5,13 +5,13 @@ Invoked by `_blender_render.py` via:
     blender --background --python _blender_scene.py -- <args.json>
 
 Imports the appliance STL, renders an iso projection with Freestyle for
-strokes, then injects a red disc fill at the CO2 port (clipped by the
-coupler's projected silhouette) into the resulting SVG.
+strokes, then injects each marking's colored disc fill (clipped by the
+projected silhouette of its occluding part) into the resulting SVG.
 
 Args (see _blender_render.py for the producer):
     appliance_stl: str
-    disc_params: {center: [x,y,z], axis: [x,y,z], radius: float}
-    coupler_stl: str — projected + hulled for the disc's occluding clip
+    markings: list of {id: str, disc: {center, axis, radius},
+        color: [r, g, b], clip_stl: str}
     out_svg: str
     view: "front" | "back"
     image_height, stroke_width, margin
@@ -242,18 +242,8 @@ def _polygon_to_d(poly):
     return " ".join(_ring_to_d(r.coords) for r in rings)
 
 
-_disc_params = args["disc_params"]
-# Disc + coupler arrive in mm; scale them by the same MODEL_SCALE as the
+# Markings arrive in mm; scale them by the same MODEL_SCALE as the
 # appliance so they project through the same camera consistently.
-_disc_center = mathutils.Vector(_disc_params["center"]) * MODEL_SCALE
-_disc_axis = mathutils.Vector(_disc_params["axis"])
-_disc_pts = _circle_in_plane(_disc_center, _disc_axis, float(_disc_params["radius"]) * MODEL_SCALE, 96)
-_disc_d = _loop_svg_d(_disc_pts)
-
-# Exact coupler silhouette: project every mesh triangle to 2D and union
-# them. The union follows concavities (e.g. the notch between the thumb
-# latch and the cup), so the clip removes only the red the coupler
-# actually covers.
 try:
     from shapely.geometry import Polygon as _Polygon
     from shapely.ops import unary_union as _unary_union
@@ -263,44 +253,62 @@ except ImportError:
     from shapely.geometry import Polygon as _Polygon
     from shapely.ops import unary_union as _unary_union
 
-bpy.ops.wm.stl_import(filepath=args["coupler_stl"])
-_coupler_obj = bpy.context.selected_objects[0]
-_coupler_obj.scale = (MODEL_SCALE, MODEL_SCALE, MODEL_SCALE)
-bpy.context.view_layer.update()
-_mw = _coupler_obj.matrix_world
-_verts2d = [_project_to_svg(_mw @ v.co) for v in _coupler_obj.data.vertices]
-_tris = []
-for _face in _coupler_obj.data.polygons:
-    _ring = [_verts2d[i] for i in _face.vertices]
-    if len(_ring) >= 3:
-        _p = _Polygon(_ring)
-        if _p.is_valid and _p.area > 1e-6:
-            _tris.append(_p)
-_footprint = _unary_union(_tris).buffer(0.25).buffer(-0.25)
 
-if _footprint.geom_type == "Polygon":
-    _coupler_silhouette_d = _polygon_to_d(_footprint)
-else:
-    _coupler_silhouette_d = " ".join(_polygon_to_d(p) for p in _footprint.geoms)
+def _clip_silhouette_d(clip_stl):
+    """Exact silhouette of the clip part: project every mesh triangle to
+    2D and union them. The union follows concavities, so the clip
+    removes only the disc area the part actually covers."""
+    bpy.ops.wm.stl_import(filepath=clip_stl)
+    obj = bpy.context.selected_objects[0]
+    obj.scale = (MODEL_SCALE, MODEL_SCALE, MODEL_SCALE)
+    bpy.context.view_layer.update()
+    mw = obj.matrix_world
+    verts2d = [_project_to_svg(mw @ v.co) for v in obj.data.vertices]
+    tris = []
+    for face in obj.data.polygons:
+        ring = [verts2d[i] for i in face.vertices]
+        if len(ring) >= 3:
+            p = _Polygon(ring)
+            if p.is_valid and p.area > 1e-6:
+                tris.append(p)
+    footprint = _unary_union(tris).buffer(0.25).buffer(-0.25)
+    if footprint.geom_type == "Polygon":
+        return _polygon_to_d(footprint)
+    return " ".join(_polygon_to_d(p) for p in footprint.geoms)
 
-_clip_id = f"co2-coupler-clip-{view}"
+
 _clip_outer = "M-100000,-100000 L100000,-100000 L100000,100000 L-100000,100000 Z"
-_clip_defs = (
-    f'<defs>'
-    f'<clipPath id="{_clip_id}" clipPathUnits="userSpaceOnUse">'
-    f'<path clip-rule="evenodd" d="{_clip_outer} {_coupler_silhouette_d}"/>'
-    f'</clipPath>'
-    f'</defs>'
-)
+_all_defs = []
+_all_paths = []
+for _mk in args["markings"]:
+    _disc = _mk["disc"]
+    _disc_center = mathutils.Vector(_disc["center"]) * MODEL_SCALE
+    _disc_axis = mathutils.Vector(_disc["axis"])
+    _disc_pts = _circle_in_plane(
+        _disc_center, _disc_axis, float(_disc["radius"]) * MODEL_SCALE, 96
+    )
+    _disc_d = _loop_svg_d(_disc_pts)
 
-# Fill AND outline come from this one path: the red fill plus a black
-# stroke for the disc's outer edge. The coupler's own Freestyle strokes
-# draw the inner boundary where it bites into the disc.
-_disc_path = (
-    f'<path fill-rule="evenodd" fill-opacity="1.0" fill="rgb(255, 0, 0)" '
-    f'stroke="rgb(0, 0, 0)" stroke-width="{_thickness}" '
-    f'clip-path="url(#{_clip_id})" d="{_disc_d}" />'
-)
+    _sil_d = _clip_silhouette_d(_mk["clip_stl"])
+    _clip_id = f"{_mk['id']}-clip-{view}"
+    _all_defs.append(
+        f'<clipPath id="{_clip_id}" clipPathUnits="userSpaceOnUse">'
+        f'<path clip-rule="evenodd" d="{_clip_outer} {_sil_d}"/>'
+        f'</clipPath>'
+    )
+    # Fill AND outline come from this one path: the colored fill plus a
+    # black stroke for the disc's outer edge. The clip part's own
+    # Freestyle strokes draw the inner boundary where it bites into the
+    # disc.
+    _r, _g, _b = _mk["color"]
+    _all_paths.append(
+        f'<path fill-rule="evenodd" fill-opacity="1.0" fill="rgb({_r}, {_g}, {_b})" '
+        f'stroke="rgb(0, 0, 0)" stroke-width="{_thickness}" '
+        f'clip-path="url(#{_clip_id})" d="{_disc_d}" />'
+    )
+
+_clip_defs = "<defs>" + "".join(_all_defs) + "</defs>"
+_discs_svg = "\n        ".join(_all_paths)
 
 import re as _re
 _svg_text = out_svg.read_text()
@@ -311,7 +319,7 @@ _svg_text = _re.sub(
     count=1,
 )
 _svg_text = _svg_text.replace(
-    '</g>', f'    {_disc_path}\n        </g>', 1,
+    '</g>', f'    {_discs_svg}\n        </g>', 1,
 )
 
 out_svg.write_text(_svg_text)
