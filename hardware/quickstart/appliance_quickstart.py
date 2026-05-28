@@ -17,16 +17,15 @@ Sheet shape: four drawings in a 2×2 grid, each with a caption below.
 White page background so the modal shows "white page on dark modal
 surround," matching what the printed sheet looks like in a hand.
 
-Color system from the brief:
-- blue   = carbonated water
-- red    = CO2
-- gray   = tap water (substituted for "white" — white doesn't render on
-           a white page; gray reads as the neutral / default channel)
+Color system:
+- red  = CO2
+- blue = incoming tap water — the supply that gets teed in and run to
+         the device. Paired against red for a loud two-color install.
+- gray = the faucet / dispense channel, deferred to the advanced faucet
+         quickstart and not shown on this install sheet.
 
-Most of the drawings don't yet exist as real line-art. Where they don't,
-the cell shows an outlined placeholder with the brief's view description
-inside, so the layout's shape is visible and the next drawing pass
-slots straight in.
+Steps 2 and 3 have no line-art yet; those cells show only their arrows
+and caption.
 
 Run:
     tools/cad-venv/bin/python hardware/quickstart/appliance_quickstart.py
@@ -64,14 +63,14 @@ STEP_NUMBER_SIZE_MM = 40  # very large step numerals
 HAIRLINE_MM = 0.4         # thin #000 stroke: step borders + number outlines
 
 # Color system
-COLOR_CARBONATED = "#1f6feb"   # blue
-COLOR_CO2 = "#d63a3a"          # red
-COLOR_TAP = "#6e6e6e"          # medium gray (substitute for "white")
+COLOR_WATER = "#1f6feb"        # blue — incoming tap water
+COLOR_CO2 = "#d63a3a"          # red — CO2
+COLOR_TAP = "#6e6e6e"          # medium gray — faucet / dispense channel
 COLOR_PLAIN = "#1a1a1a"        # plain motion arrows, captions, page text
 COLOR_STEP_BG = "#eeeeee"      # shaded step panel fill
 
 ARROW_COLORS = {
-    "blue": COLOR_CARBONATED,
+    "blue": COLOR_WATER,
     "red": COLOR_CO2,
     "gray": COLOR_TAP,
     "dark": COLOR_PLAIN,
@@ -290,31 +289,31 @@ def _arrows_connect_co2(x, y, w, draw_h):
 
 
 def _arrows_tee_into_water(x, y, w, draw_h):
-    """Drawing 2: gray rotation arrow on the angle stop + two stub
-    arrows pointing inward at the tee's outlets + gray straight arrow
+    """Drawing 2: blue rotation arrow on the angle stop + two blue stub
+    arrows pointing inward at the tee's outlets + blue straight arrow
     at the appliance water inlet, laid out in a horizontal strip across
     the lower half of the image band."""
     y_strip = y + 0.65 * draw_h
     target_x = x + 0.48 * w
     return (
-        _rotation_arrow(x + 0.14 * w, y_strip, 5, 30, 240, color="gray")
-        + _stub_arrow(target_x - 15, y_strip, +1, 0, color="gray")
-        + _stub_arrow(target_x + 15, y_strip, -1, 0, color="gray")
+        _rotation_arrow(x + 0.14 * w, y_strip, 5, 30, 240, color="blue")
+        + _stub_arrow(target_x - 15, y_strip, +1, 0, color="blue")
+        + _stub_arrow(target_x + 15, y_strip, -1, 0, color="blue")
         + _straight_arrow(
             x + 0.74 * w, y_strip,
             x + 0.92 * w, y_strip,
-            color="gray",
+            color="blue",
         )
     )
 
 
 def _arrows_open_valves(x, y, w, draw_h):
-    """Drawing 3: red rotation arrow on the CO2 cylinder valve + gray
-    rotation arrow on the angle-stop handle, paired side-by-side."""
+    """Drawing 3: red rotation arrow on the CO2 cylinder valve + blue
+    rotation arrow on the water angle-stop handle, paired side-by-side."""
     y_strip = y + 0.65 * draw_h
     return (
         _rotation_arrow(x + 0.30 * w, y_strip, 7, 30, 240, color="red")
-        + _rotation_arrow(x + 0.70 * w, y_strip, 7, 30, 240, color="gray")
+        + _rotation_arrow(x + 0.70 * w, y_strip, 7, 30, 240, color="blue")
     )
 
 

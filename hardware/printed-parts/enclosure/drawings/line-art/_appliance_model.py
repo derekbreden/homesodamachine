@@ -44,12 +44,14 @@ sys.path.insert(0, str(_REPO_ROOT / "tools"))
 sys.path.insert(0, str(_REPO_ROOT / "hardware" / "printed-parts" / "cadlib"))
 sys.path.insert(0, str(_REPO_ROOT / "hardware" / "printed-parts" / "flavor" / "pump-case"))
 sys.path.insert(0, str(_REPO_ROOT / "hardware" / "harvested" / "co2-coupling-body"))
+sys.path.insert(0, str(_REPO_ROOT / "hardware" / "harvested" / "jg-bulkhead-union"))
 sys.path.insert(0, str(_HERE.parents[1]))
 
 from docgen import substitute_py_comments
 from world_workplane import WorldWorkplane, xy_plane_z_up, xz_plane_y_up
 from pump_case import case_outer_x, case_outer_y
 import co2_coupling_body
+import jg_bulkhead_union
 from _enclosure_dimensions import APPLIANCE_W, APPLIANCE_D
 
 
@@ -171,6 +173,14 @@ NAMEPLATE_AT = (200.0, 60.0)
 NAMEPLATE_W = 60.0
 NAMEPLATE_H = 40.0
 NAMEPLATE_THICKNESS = 1.5
+
+# Water inlet — John Guest 1/4" bulkhead union (PP1208E / PI1208S /
+# CI1208W family), modeled at canonical origin in
+# `hardware/harvested/jg-bulkhead-union/jg_bulkhead_union.py`. Mounted
+# on the back face, tube axis on world +Y, the near hex flange proud of
+# the wall. Position given in world (x, z).
+WATER_PORT_WALL_AT = (W / 2, 140.0)
+WATER_PORT_DISC_R = 19.0
 
 
 # ---------------------------------------------------------------------------
@@ -314,6 +324,37 @@ def _add_co2_port(solid, world_y, world_z):
     return solid.union(_positioned_coupler())
 
 
+def _positioned_water_fitting() -> cq.Workplane:
+    """The JG bulkhead union placed at the BACK face (y=D): tube axis on
+    world +Y, near hex flange's inner face at the wall plane — flange
+    proud in y ∈ [D, D + flange_length], release ring and tube port
+    beyond it. The threading, locknut, and far flange/ring sit at y < D,
+    embedded in the box."""
+    world_x, world_z = WATER_PORT_WALL_AT
+    part = jg_bulkhead_union.build_jg_bulkhead_union().val()
+    part = part.translate(
+        cq.Vector(world_x, D + jg_bulkhead_union.flange_length, world_z)
+    )
+    return cq.Workplane().add(part)
+
+
+def build_water_fitting() -> cq.Workplane:
+    """The fitting clipped to the part in front of the wall plane (y ≥ D)
+    — the proud hex flange, release ring, and tube port. The threading,
+    locknut, and far flange/ring (y < D, embedded in the wall behind the
+    marking disc) are removed so they can't occlude the disc in the
+    projected silhouette."""
+    world_x, world_z = WATER_PORT_WALL_AT
+    front_halfspace = (
+        cq.Workplane().box(1000, 1000, 1000).translate((world_x, D + 500, world_z))
+    )
+    return _positioned_water_fitting().intersect(front_halfspace)
+
+
+def _add_water_port(solid) -> cq.Workplane:
+    return solid.union(_positioned_water_fitting())
+
+
 def build_appliance() -> cq.Workplane:
     """Build the full appliance model as a CadQuery Workplane."""
     appliance = cq.Workplane("XY").box(W, D, H, centered=False)
@@ -351,6 +392,7 @@ def build_appliance() -> cq.Workplane:
     )
     appliance = _cut_back_rectangle(appliance, *C14_AT, C14_W, C14_H)
     appliance = _add_back_nameplate(appliance, *NAMEPLATE_AT, NAMEPLATE_W, NAMEPLATE_H, NAMEPLATE_THICKNESS)
+    appliance = _add_water_port(appliance)
 
     # Right side face: CO2 inlet (CPC LC-family coupling body)
     appliance = _add_co2_port(appliance, *CO2_PORT_WALL_AT)
@@ -359,22 +401,65 @@ def build_appliance() -> cq.Workplane:
 
 
 # ---------------------------------------------------------------------------
-# Red marking disc on the right side wall at the CO2 port. It's a printed
-# marking, not geometry — the renderer projects this circle to a filled,
-# self-outlined SVG path and clips it by the coupler's silhouette.
+# Printed port markings: a red disc at the CO2 port on the right side
+# wall, a blue disc at the water inlet on the back wall. Each is a
+# printed marking, not geometry — the renderer projects the circle to a
+# filled, self-outlined SVG path and clips it by the projected
+# silhouette of the fitting that occludes its center, so the visible
+# remainder reads as a ring.
 # ---------------------------------------------------------------------------
 
 CO2_PORT_DISC_R = 16.5
 
+CO2_DISC_COLOR = [255, 0, 0]        # red
+WATER_DISC_COLOR = [31, 111, 235]   # blue, matching the quickstart water arrows
+
 
 def red_disc_render_params() -> dict:
-    """Disc center / axis / radius for the Blender renderer."""
+    """CO2 disc center / axis / radius for the Blender renderer."""
     world_y, world_z = CO2_PORT_WALL_AT
     return {
         "center": [W + 0.05, world_y, world_z],
         "axis": [1.0, 0.0, 0.0],
         "radius": CO2_PORT_DISC_R,
     }
+
+
+def blue_disc_render_params() -> dict:
+    """Water disc center / axis / radius for the Blender renderer."""
+    world_x, world_z = WATER_PORT_WALL_AT
+    return {
+        "center": [world_x, D + 0.05, world_z],
+        "axis": [0.0, 1.0, 0.0],
+        "radius": WATER_PORT_DISC_R,
+    }
+
+
+# Iso camera directions (camera sits along these from the scene center).
+_ISO_CAM_DIR = {
+    "front": (1.0, -1.0, 1.0),
+    "back": (1.0, 1.0, 1.0),
+}
+
+
+def markings(view: str) -> list:
+    """The colored port markings visible in `view`: the red CO2 disc on
+    the right face, the blue water disc on the back face. A marking is
+    included only when its disc faces the camera (disc axis · view
+    direction > 0), so a disc on a face turned away isn't painted over
+    the silhouette. Each included marking is paired with the fitting
+    that occludes its center."""
+    cam = _ISO_CAM_DIR[view]
+    specs = [
+        ("co2-disc", red_disc_render_params(), CO2_DISC_COLOR, build_coupler),
+        ("water-disc", blue_disc_render_params(), WATER_DISC_COLOR, build_water_fitting),
+    ]
+    out = []
+    for id_, disc, color, clip_fn in specs:
+        ax = disc["axis"]
+        if ax[0] * cam[0] + ax[1] * cam[1] + ax[2] * cam[2] > 0:
+            out.append({"id": id_, "disc": disc, "color": color, "clip": clip_fn()})
+    return out
 
 
 
