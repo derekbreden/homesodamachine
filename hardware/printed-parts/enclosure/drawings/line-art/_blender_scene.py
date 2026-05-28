@@ -118,12 +118,20 @@ diag = (
 cam_data = bpy.data.cameras.new("Cam")
 cam_data.type = "ORTHO"
 cam_data.ortho_scale = ortho_scale
-cam_data.clip_start = diag * 4.0
-cam_data.clip_end = diag * 16
+# cam_data.panorama_type = "MIRRORBALL"
+# cam_data.clip_start = diag * 1.0
+# cam_data.clip_end = diag * 8
+# cam_data.display_size = 0.01
+# cam_data.lens = 50000
+# cam_data.fisheye_fov = 6.28
+# cam_data.fisheye_lens = 100
+# cam_data.sensor_width = 1000
+# cam_data.sensor_height = 1000
+# cam_data.angle = 3
 cam_obj = bpy.data.objects.new("Cam", cam_data)
 bpy.context.scene.collection.objects.link(cam_obj)
 bpy.context.scene.camera = cam_obj
-cam_obj.location = center3d + cam_dir * (diag * 8)
+cam_obj.location = center3d + cam_dir * (diag * .51)
 
 forward = (center3d - cam_obj.location).normalized()
 world_up = mathutils.Vector((0, 0, 1))
