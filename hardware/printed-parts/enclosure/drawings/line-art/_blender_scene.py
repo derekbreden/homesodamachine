@@ -118,12 +118,12 @@ diag = (
 cam_data = bpy.data.cameras.new("Cam")
 cam_data.type = "ORTHO"
 cam_data.ortho_scale = ortho_scale
-cam_data.clip_start = diag * 0.5
-cam_data.clip_end = diag * 10
+cam_data.clip_start = diag * 4.0
+cam_data.clip_end = diag * 16
 cam_obj = bpy.data.objects.new("Cam", cam_data)
 bpy.context.scene.collection.objects.link(cam_obj)
 bpy.context.scene.camera = cam_obj
-cam_obj.location = center3d + cam_dir * (diag * 3)
+cam_obj.location = center3d + cam_dir * (diag * 8)
 
 forward = (center3d - cam_obj.location).normalized()
 world_up = mathutils.Vector((0, 0, 1))
@@ -156,6 +156,7 @@ out_svg = Path(args["out_svg"])
 tmp_stem = out_svg.parent / (out_svg.stem + "_blender")
 scene.render.filepath = str(tmp_stem)
 
+_thickness = float(args.get("stroke_width", 1.5))
 fss = scene.view_layers[0].freestyle_settings
 ls = fss.linesets[0]
 ls.select_silhouette = True
@@ -165,14 +166,14 @@ ls.select_contour = True
 ls.select_external_contour = True
 ls.select_border = True
 ls.visibility = "VISIBLE"
-ls.linestyle.thickness = float(args.get("stroke_width", 1.5))
+ls.linestyle.thickness = _thickness
 ls.linestyle.use_export_strokes = True
 ls.linestyle.use_export_fills = False
 
 scene.svg_export.use_svg_export = True
 scene.svg_export.mode = "FRAME"
 scene.svg_export.object_fill = False
-scene.svg_export.split_at_invisible = True
+scene.svg_export.split_at_invisible = False
 scene.svg_export.line_join_type = "ROUND"
 
 bpy.ops.render.render(write_still=False)
