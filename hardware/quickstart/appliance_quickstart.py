@@ -60,13 +60,14 @@ GUTTER_MM = 12.7   # 0.5 in
 PAD_MM = 6.35            # 0.25 in
 CAPTION_BAND_MM = 12.7   # 0.5 in
 STEP_RADIUS_MM = 6.35    # 0.25 in
+STEP_NUMBER_SIZE_MM = 40  # very large step numerals
 
 # Color system
 COLOR_CARBONATED = "#1f6feb"   # blue
 COLOR_CO2 = "#d63a3a"          # red
 COLOR_TAP = "#6e6e6e"          # medium gray (substitute for "white")
 COLOR_PLAIN = "#1a1a1a"        # plain motion arrows, captions, page text
-COLOR_STEP_BG = "#f5f5f5"      # light-gray panel behind a step
+COLOR_STEP_BG = "#eeeeee"      # step panel fill, and the step number on plain steps
 
 ARROW_COLORS = {
     "blue": COLOR_CARBONATED,
@@ -225,7 +226,8 @@ def _caption_text(x, y, w, h, caption):
     )
 
 
-def cell(x, y, w, h, caption, embed_path=None, arrows_fn=None, background=False):
+def cell(x, y, w, h, caption, embed_path=None, arrows_fn=None,
+         background=False, number=None, number_corner="left"):
     """Render one drawing cell: an image band above a caption band.
 
     The background panel, when set, fills the whole cell. Content is
@@ -233,7 +235,9 @@ def cell(x, y, w, h, caption, embed_path=None, arrows_fn=None, background=False)
     fixed CAPTION_BAND_MM at the bottom and the image band fills the
     height above it. The line-art is scale-fit and centered in the image
     band; the caption is centered in the caption band; arrows_fn, if
-    given, is called with the image band and overlaid on it.
+    given, is called with the image band and overlaid on it. A large
+    step number sits in the image band's upper number_corner ("left" or
+    "right") — white on a panel, COLOR_STEP_BG on a plain step.
     """
     bg = (
         f'<rect x="{x:.2f}" y="{y:.2f}" width="{w:.2f}" height="{h:.2f}" '
@@ -244,10 +248,22 @@ def cell(x, y, w, h, caption, embed_path=None, arrows_fn=None, background=False)
     iw, ih = w - 2 * PAD_MM, h - 2 * PAD_MM
     cap_h = CAPTION_BAND_MM
     img_h = ih - cap_h
+    num = ""
+    if number is not None:
+        nx = ix + iw if number_corner == "right" else ix
+        anchor = "end" if number_corner == "right" else "start"
+        num_color = "#ffffff" if background else COLOR_STEP_BG
+        num = (
+            f'<text x="{nx:.2f}" y="{iy:.2f}" '
+            f'font-family="Helvetica, Arial, sans-serif" '
+            f'font-size="{STEP_NUMBER_SIZE_MM}" font-weight="700" '
+            f'fill="{num_color}" text-anchor="{anchor}" '
+            f'dominant-baseline="hanging">{number}</text>'
+        )
     body = _embed_svg(ix, iy, iw, img_h, embed_path) if embed_path else ""
     arrows = arrows_fn(ix, iy, iw, img_h) if arrows_fn else ""
     caption = _caption_text(ix, iy + img_h, iw, cap_h, caption)
-    return "\n".join(part for part in (bg, body, arrows, caption) if part)
+    return "\n".join(part for part in (bg, num, body, arrows, caption) if part)
 
 
 # ── Per-cell arrow specs ────────────────────────────────────────────
@@ -356,7 +372,7 @@ def main():
     ]
 
     body_parts = []
-    for (col, row), drawing in zip(cells, drawings):
+    for i, ((col, row), drawing) in enumerate(zip(cells, drawings)):
         x, y, w, h = cell_rect(col, row)
         body_parts.append(
             cell(
@@ -365,6 +381,8 @@ def main():
                 embed_path=drawing["embed"],
                 arrows_fn=drawing["arrows"],
                 background=drawing.get("background", False),
+                number=i + 1,
+                number_corner="right" if col == 1 else "left",
             )
         )
 
