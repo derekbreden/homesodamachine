@@ -301,6 +301,19 @@ _svg_text = _re.sub(
 _svg_text = _svg_text.replace(
     '</g>', f'    {_disc_path}\n        </g>', 1,
 )
+
+# Mirror the rendered layer horizontally about the image center, so the iso
+# view reads with the front face's left edge on the viewer's left. The
+# strokes group holds both the strokes and the injected disc, and the disc's
+# clip is userSpaceOnUse in the same pixel space, so one transform flips all
+# three together and keeps them aligned.
+_mirror = f' transform="translate({scene.render.resolution_x},0) scale(-1,1)"'
+_svg_text = _re.sub(
+    r'(<g\b[^>]*\bid="strokes"[^>]*)>',
+    r'\1' + _mirror + '>',
+    _svg_text,
+    count=1,
+)
 out_svg.write_text(_svg_text)
 
 print(f"WROTE {out_svg}")
