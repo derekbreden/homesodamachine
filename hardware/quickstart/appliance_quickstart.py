@@ -61,14 +61,14 @@ PAD_MM = 6.35            # 0.25 in
 CAPTION_BAND_MM = 12.7   # 0.5 in
 STEP_RADIUS_MM = 6.35    # 0.25 in
 STEP_NUMBER_SIZE_MM = 40  # very large step numerals
-HAIRLINE_MM = 0.1         # very thin #000 stroke: step borders + number outlines
+HAIRLINE_MM = 0.2         # thin #000 stroke: step borders + number outlines
 
 # Color system
 COLOR_CARBONATED = "#1f6feb"   # blue
 COLOR_CO2 = "#d63a3a"          # red
 COLOR_TAP = "#6e6e6e"          # medium gray (substitute for "white")
 COLOR_PLAIN = "#1a1a1a"        # plain motion arrows, captions, page text
-COLOR_STEP_BG = "#eeeeee"      # step panel fill, and the step number on plain steps
+COLOR_STEP_BG = "#eeeeee"      # shaded step panel fill
 
 ARROW_COLORS = {
     "blue": COLOR_CARBONATED,
@@ -239,7 +239,7 @@ def cell(x, y, w, h, caption, embed_path=None, arrows_fn=None,
     band; the caption is centered in the caption band; arrows_fn, if
     given, is called with the image band and overlaid on it. A large
     step number sits in the image band's upper number_corner ("left" or
-    "right") — white on a panel, COLOR_STEP_BG on a plain step.
+    "right") — white on a panel, unfilled on a plain step.
     """
     panel_fill = COLOR_STEP_BG if background else "none"
     panel = (
@@ -255,12 +255,12 @@ def cell(x, y, w, h, caption, embed_path=None, arrows_fn=None,
     if number is not None:
         nx = ix + iw if number_corner == "right" else ix
         anchor = "end" if number_corner == "right" else "start"
-        num_color = "#ffffff" if background else COLOR_STEP_BG
+        num_fill = "#ffffff" if background else "none"
         num = (
             f'<text x="{nx:.2f}" y="{iy:.2f}" '
             f'font-family="Helvetica, Arial, sans-serif" '
             f'font-size="{STEP_NUMBER_SIZE_MM}" font-weight="700" '
-            f'fill="{num_color}" stroke="#000000" stroke-width="{HAIRLINE_MM}" '
+            f'fill="{num_fill}" stroke="#000000" stroke-width="{HAIRLINE_MM}" '
             f'text-anchor="{anchor}" '
             f'dominant-baseline="hanging">{number}</text>'
         )
