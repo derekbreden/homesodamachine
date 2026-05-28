@@ -294,8 +294,8 @@ def _arrows_connect_co2(x, y, w, draw_h):
     stops short of the port hole, leaving a visible gap; the arrow's
     line, extended, meets the port."""
     return _straight_arrow(
-        x + 0.340 * w, y + 0.272 * draw_h,
-        x + 0.416 * w, y + 0.452 * draw_h,
+        x + 0.312 * w, y + 0.206 * draw_h,
+        x + 0.426 * w, y + 0.476 * draw_h,
         color="red",
     )
 
