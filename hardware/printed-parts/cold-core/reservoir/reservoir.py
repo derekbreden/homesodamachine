@@ -800,16 +800,32 @@ def build_reservoir_body(side=1):
     floor_shell = _v_floor_solid(floor_trough_z).cut(_v_floor_solid(floor_underside_z))
     body = body.union(floor_shell)
 
-    # Open the base: remove the floor the outer envelope leaves at the bottom
-    # so the whole volume below the raised shell is free space (the bulkhead
-    # locknut + elbow hang there — absent material, not a modelled keep-out).
-    body = body.cut(
-        _build_envelope(
-            side,
-            (outer_z_range[0] - 5.0, inner_z_range[0]),
-            wall_offset=reservoir_wall_thickness,
+    # Raise the walls + corner fillets to the floor: remove ALL material
+    # below the exterior V surface across the full footprint, so the whole
+    # body underside follows the 4 mm-offset V — walls, fillets, and floor
+    # share one raised V bottom, with open bag-pocket space beneath for the
+    # bulkhead hardware. (The exterior V is flat at floor_underside_z for
+    # |y| ≤ floor_trough_half_width_y, sloping up at floor_slope_rate beyond;
+    # it is a function of y only, swept across X.)
+    z_below = outer_z_range[0] - 50.0
+    below_v = (
+        cq.Workplane(xy_plane_z_up)
+        .workplane(offset=z_below)
+        .rect(800, 2 * floor_trough_half_width_y)
+        .extrude(floor_underside_z - z_below)
+    )  # trough band: below the flat exterior underside
+    for sign in (+1, -1):
+        below_slope = (
+            cq.Workplane(cq.Plane(
+                origin=(0, sign * floor_trough_half_width_y, floor_underside_z),
+                xDir=(1, 0, 0),
+                normal=(0, -sign * floor_slope_rate, 1),
+            ))
+            .rect(2000, 2000)
+            .extrude(-2000)  # below the slope (opposite the +normal "above" side)
         )
-    )
+        below_v = below_v.union(below_slope.intersect(_y_half_beyond_trough(sign)))
+    body = body.cut(below_v)
 
     # Vertical bulkhead port through the trough at (port_x, y=0). The
     # PureSec barrel clamps vertically (axis along world −Z): wet PTC port
