@@ -68,20 +68,24 @@ addon_utils.enable("bl_ext.blender_org.freestyle_svg_exporter")
 bpy.ops.object.select_all(action="SELECT")
 bpy.ops.object.delete()
 
+# Freestyle's visibility raycast loses precision on geometry that's
+# hundreds of units across (the model is in mm), dropping silhouette
+# edges unpredictably with camera distance. Rendering at ~unit scale
+# (mm → m) keeps the raycast stable, so every edge survives regardless
+# of camera distance. All geometry entering the scene — appliance,
+# coupler, disc — is scaled by this same factor.
+MODEL_SCALE = 0.001
+
 bpy.ops.wm.stl_import(filepath=args["appliance_stl"])
 appliance = bpy.context.selected_objects[0]
 appliance.name = "appliance"
+appliance.scale = (MODEL_SCALE, MODEL_SCALE, MODEL_SCALE)
 bpy.context.view_layer.objects.active = appliance
+bpy.ops.object.transform_apply(scale=True)
 bpy.ops.object.mode_set(mode="EDIT")
 bpy.ops.mesh.select_all(action="SELECT")
-# Threshold loose enough to bridge CadQuery tessellation rounding
-# (coords to ~10⁻⁴ mm; 0.01 mm well below smallest real feature).
-bpy.ops.mesh.remove_doubles(threshold=0.01)
+bpy.ops.mesh.remove_doubles(threshold=0.01 * MODEL_SCALE)
 bpy.ops.object.mode_set(mode="OBJECT")
-
-white_mat = bpy.data.materials.new(name="white")
-white_mat.diffuse_color = (1.0, 1.0, 1.0, 1.0)
-appliance.data.materials.append(white_mat)
 
 bbox_corners = [
     appliance.matrix_world @ mathutils.Vector(c) for c in appliance.bound_box
@@ -89,7 +93,7 @@ bbox_corners = [
 
 view = args["view"]
 u_min, v_min, u_max, v_max = projected_bbox(bbox_corners, view)
-margin = float(args.get("margin", 20.0))
+margin = float(args.get("margin", 20.0)) * MODEL_SCALE
 width_world = (u_max - u_min) + 2 * margin
 height_world = (v_max - v_min) + 2 * margin
 ortho_scale = max(width_world, height_world)
@@ -118,20 +122,12 @@ diag = (
 cam_data = bpy.data.cameras.new("Cam")
 cam_data.type = "ORTHO"
 cam_data.ortho_scale = ortho_scale
-# cam_data.panorama_type = "MIRRORBALL"
-# cam_data.clip_start = diag * 1.0
-# cam_data.clip_end = diag * 8
-# cam_data.display_size = 0.01
-# cam_data.lens = 50000
-# cam_data.fisheye_fov = 6.28
-# cam_data.fisheye_lens = 100
-# cam_data.sensor_width = 1000
-# cam_data.sensor_height = 1000
-# cam_data.angle = 3
+cam_data.clip_start = diag * 0.5
+cam_data.clip_end = diag * 10
 cam_obj = bpy.data.objects.new("Cam", cam_data)
 bpy.context.scene.collection.objects.link(cam_obj)
 bpy.context.scene.camera = cam_obj
-cam_obj.location = center3d + cam_dir * (diag * .51)
+cam_obj.location = center3d + cam_dir * (diag * 3.0)
 
 forward = (center3d - cam_obj.location).normalized()
 world_up = mathutils.Vector((0, 0, 1))
@@ -238,9 +234,11 @@ def _polygon_to_d(poly):
 
 
 _disc_params = args["disc_params"]
-_disc_center = mathutils.Vector(_disc_params["center"])
+# Disc + coupler arrive in mm; scale them by the same MODEL_SCALE as the
+# appliance so they project through the same camera consistently.
+_disc_center = mathutils.Vector(_disc_params["center"]) * MODEL_SCALE
 _disc_axis = mathutils.Vector(_disc_params["axis"])
-_disc_pts = _circle_in_plane(_disc_center, _disc_axis, float(_disc_params["radius"]), 96)
+_disc_pts = _circle_in_plane(_disc_center, _disc_axis, float(_disc_params["radius"]) * MODEL_SCALE, 96)
 _disc_d = _loop_svg_d(_disc_pts)
 
 # Exact coupler silhouette: project every mesh triangle to 2D and union
@@ -258,6 +256,8 @@ except ImportError:
 
 bpy.ops.wm.stl_import(filepath=args["coupler_stl"])
 _coupler_obj = bpy.context.selected_objects[0]
+_coupler_obj.scale = (MODEL_SCALE, MODEL_SCALE, MODEL_SCALE)
+bpy.context.view_layer.update()
 _mw = _coupler_obj.matrix_world
 _verts2d = [_project_to_svg(_mw @ v.co) for v in _coupler_obj.data.vertices]
 _tris = []
