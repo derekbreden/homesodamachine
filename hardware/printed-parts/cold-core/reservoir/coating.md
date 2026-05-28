@@ -6,7 +6,7 @@ Coating: **MAX CLR A/B** — FDA 21 CFR 175.300 compliant epoxy marketed for dir
 
 ## Floor + bulkhead port geometry
 
-The cavity floor is a Y-symmetric V swept across the full cavity X width: from each ±Y wall the floor slopes inward and down to a flat rectangular trough at y=0 that spans the full interior X width and hosts the bulkhead port. The floor is a single Y–Z section — slope down, flat, slope up — extruded straight across X; the only curved floor boundary is the cavity's existing centerward arc. The bulkhead — JG PP1208E 1/4" PTC, same SKU as the rear-panel umbilical — clamps vertically through the trough. Its integral flange seats on a wet-side TPU face seal in a horizontal counterbore in the trough floor; the nut threads on from below in the bag-pocket cavity under the floor. The wet-side PTC port faces up into the cavity; the dry collet hangs straight down, where a JG PP0308E 1/4" PTC 90° elbow (same SKU already in the BOM for the CO2 in-cavity bend) turns the line laterally to exit the bag-pocket +Y pass-through.
+The cavity floor is a Y-symmetric V swept across the full cavity X width: from each ±Y wall the floor slopes inward and down to a flat rectangular trough at y=0 that spans the full interior X width and hosts the bulkhead port. The floor is a single Y–Z section — slope down, flat, slope up — extruded straight across X; the only curved floor boundary is the cavity's existing centerward arc. The bulkhead — PureSec 1/4" RO push-to-connect 90° elbow bulkhead ([B0968K4JRN](https://www.amazon.com/dp/B0968K4JRN)), white PP, water/RO-rated — clamps vertically through the trough: its threaded barrel passes down through the trough floor and a locknut threads on from below in the bag-pocket cavity. The wet-side PTC port faces up into the cavity; the integral 90° elbow on the dry side turns the line laterally below the floor toward the bag-pocket +Y pass-through, so no separate union elbow is needed. A TPU face seal in a shallow counterbore on the wet-side trough floor seals the barrel-to-floor joint (the PureSec ships without a panel o-ring, so the printed TPU washer supplies it); the part wants a ⌀16 mm mounting hole.
 
 The nut sits in a hex pocket below the floor in the bag-pocket cavity, reached from outside the reservoir during install (the bag pocket itself is open to the assembly side at this stage).
 
@@ -16,14 +16,14 @@ Syrup drains by gravity from anywhere in the cavity down the V to the central tr
 
 The reservoir ships out of this procedure fully assembled with the cured coating in place.
 
-1. **Pre-assemble**: body + bulkhead + bulkhead TPU face seal + nut from below + dry-side LLDPE tube + PP0308E elbow + tube run out through the bag-pocket pass-through. Everything wet-side except the cap.
+1. **Pre-assemble**: body + bulkhead + bulkhead TPU face seal + locknut from below + the dry-side LLDPE tube pushed into the bulkhead's integral 90° elbow + the tube run out through the bag-pocket pass-through. Everything except the cap.
 2. **Plug the bulkhead's wet-side PTC port** from inside the cavity with a sacrificial 1/4" OD LLDPE cutoff (~150 mm). The wet-side collet teeth grip it; the bulkhead is now closed at both ends.
 3. **Pour ~40 mL of MAX CLR A/B** (mixed 1:1, ~25 min working time at room temp) into the cavity through the open top.
 4. **Bolt the blanking cap** on through a sacrificial TPU gasket. Cavity sealed for rotation.
 5. **Rotomold**: mount in a BBQ rotisserie motor at ~4 rpm. Tip through the perpendicular axis every 2 min for the first 15 min, until rising viscosity stops further redistribution.
 6. **Park** the assembly upright with the most-recently-coated wall horizontal, so initial-cure sag flows across already-coated film instead of draining off uncoated surface.
 7. **Cure** 24 h at room temperature.
-8. **Open** the blanking cap. Push the bulkhead's wet-side release ring, pull the sacrificial tube out. The tube-shaped hole through the cured film at the bulkhead's o-ring location is the syrup path.
+8. **Open** the blanking cap. Push the bulkhead's wet-side release ring, pull the sacrificial tube out. The tube-shaped hole through the cured film at the wet-side port mouth is the syrup path.
 9. **Final assembly**: install the float rod into its body + cap bores, install the PTFE membrane + TPU retaining ring in the production cap's vent pocket, bolt the production cap on through a fresh TPU gasket.
 
 ## Blanking cap
@@ -34,9 +34,9 @@ The blanking cap is a flat-underside PETG print with the production cap's outer 
 
 The bulkhead's wet-side flange face and release-ring outer face sit in the coating's reach. The release-ring outer face takes a coating layer that cracks at the ring's travel boundary the first time the wet-side tube is released — cosmetic, not functional.
 
-The PP/acetal flange face inside the cavity bonds epoxy mechanically, not chemically, and may delaminate over service life. If it does, the exposed flange is the bulkhead's own NSF 51 + NSF 61 PP, itself food-contact.
+The PureSec PP shoulder face inside the cavity bonds epoxy mechanically, not chemically, and may delaminate over service life. If it does, the exposed face is the bulkhead's own water/RO-rated PP, itself food-contact.
 
-The TPU face seal between the bulkhead flange and the floor counterbore is below the coating film. The film spans the flange-edge-to-counterbore-rim joint at the wet-side surface; the seal underneath does the fluid-barrier work.
+The TPU face seal between the bulkhead shoulder and the floor counterbore is below the coating film. The film spans the flange-edge-to-counterbore-rim joint at the wet-side surface; the seal underneath does the fluid-barrier work.
 
 ## Materials
 
@@ -50,8 +50,7 @@ The TPU face seal between the bulkhead flange and the floor counterbore is below
 
 ## Open items
 
-- [ ] **CAD update**: rewrite the bulkhead pocket + floor wedge in [`reservoir.py`](reservoir.py) for the full-width-trough V floor + vertical-through-floor bulkhead. The old extra-thick dry slab existed so the horizontal bulkhead could print support-free; drop it — supports are used here. Files affected: `reservoir.py` (the `bulkhead_*` constants, `floor_baseline_z`, slope/wedge logic, and the bulkhead pocket section of `build_reservoir_body`) and [`../_cold_core_interface.py`](../_cold_core_interface.py) (`reservoir_bulkhead_port_*`, `reservoir_bulkhead_nut_z`).
-- [ ] **90° bulkhead evaluation**: if a 1/4" PTC right-angle bulkhead union exists (black preferred, white acceptable) on Prime or Fresh Water Systems, it can replace the vertical PP1208E + PP0308E elbow with a single part. Sourcing under investigation.
+- [ ] **CAD: adjust the bulkhead port to PureSec B0968K4JRN measurements**. The full-width-trough V floor + vertical-through-floor port is on `main`, but modeled to the JG PP1208E body (⌀17.5 panel hole, JG locknut hex). Adjust to the PureSec: ⌀16 mm mounting hole, its locknut/thread dimensions, an added-TPU-washer seal seat on the wet-side trough floor, and lateral clearance below the floor for the integral 90° elbow body. Best-estimate measurements from the listing/photos/similar RO 90° bulkheads are fine — do not wait for the part to arrive. Files: `reservoir.py` (`bulkhead_*` constants, the bulkhead-port section of `build_reservoir_body`) and [`../_cold_core_interface.py`](../_cold_core_interface.py) (`reservoir_bulkhead_port_*`).
 - [ ] **Blanking cap CAD**: add `build_reservoir_blanking_cap()` to [`reservoir.py`](reservoir.py); export `reservoir-blanking-cap.step`.
 - [ ] **Adhesion bench test**: SunTop PETG scrap with light abrasion + IPA wipe, MAX CLR A/B film, 24 h cure, flex/scratch test. Green-lights the procedure or sends it back.
 - [ ] **Single-reservoir pilot**: print one reservoir under the new geometry, full-assemble, run the rotomold coat once, cut in half on the band saw, inspect film thickness at inner fillets and around the bulkhead annulus. Commit-or-revise decision point before doing the second reservoir.
