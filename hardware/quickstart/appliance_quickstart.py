@@ -289,13 +289,13 @@ def cell(x, y, w, h, view_text, caption, embed_path=None, arrows_fn=None):
 
 
 def _arrows_connect_co2(x, y, w, draw_h):
-    """Drawing 1: single red arrow pointing at the CO2 inlet's mouth on
-    the right side face. The mouth — the visible entry plane at the
-    far end of the coupling body's cup — projects to cell-frac
-    (0.456, 0.531)."""
+    """Drawing 1: single red arrow from the upper-left empty space
+    pointing down-right at the CO2 port on the left side face. The tip
+    stops short of the port hole, leaving a visible gap; the arrow's
+    line, extended, meets the port."""
     return _straight_arrow(
-        x + 0.36 * w, y + 0.32 * draw_h,
-        x + 0.436 * w, y + 0.500 * draw_h,
+        x + 0.340 * w, y + 0.272 * draw_h,
+        x + 0.416 * w, y + 0.452 * draw_h,
         color="red",
     )
 
