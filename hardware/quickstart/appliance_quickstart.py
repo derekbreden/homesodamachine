@@ -358,12 +358,12 @@ def main():
             "caption": "Open the CO2. Open the water.",
             "embed": None,
             "arrows": _arrows_open_valves,
+            "background": True,
         },
         {
             "caption": "Empty a flavor into the hopper.",
             "embed": enclosure_back,
             "arrows": _arrows_fill_hopper,
-            "background": True,
         },
     ]
 
