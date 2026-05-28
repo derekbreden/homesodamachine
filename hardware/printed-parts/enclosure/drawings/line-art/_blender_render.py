@@ -115,7 +115,7 @@ def render_iso(
     out_svg: Path,
     *,
     image_height: int = 800,
-    stroke_width: float = 1.5,
+    stroke_width: float = 3,
     margin: float = 20.0,
 ) -> None:
     """Render the iso view of `appliance` + a red disc at `disc_params`,
