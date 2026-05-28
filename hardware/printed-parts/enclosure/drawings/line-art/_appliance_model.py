@@ -288,45 +288,14 @@ def _add_back_nameplate(solid, a, b, w, h, thickness):
 
 def _add_co2_port(solid, world_y, world_z):
     """Add the CPC LC-family CO2 inlet coupling body to the appliance
-    at the RIGHT side face (x=W). The part is built at canonical
-    origin by `co2_coupling_body.build_co2_coupling_body()` with its
-    coupling axis along +Y; here we rotate it so that axis aligns with
-    world +X (outward from the right side wall) and translate it so the
-    hex's +Y FRONT FACE sits flush at the wall plane (the hex itself is
-    hidden inside the wall; the body cup sticks out by body_length).
-
-    Then cut a SURFACE_CUT_DEPTH-deep hex recess on the wall so the
-    hex outline reads as a flush hexagonal collar in the line-art —
-    visible as an outline at the wall plane without 3D depth."""
+    at the RIGHT side face (x=W). The part is rotated so its coupling
+    axis lands on world +X and translated so its hex back face sits at
+    the wall plane — hex body in x ∈ [W, W + hex_length], cup in
+    x ∈ [W + hex_length, W + hex_length + body_length]."""
     part = co2_coupling_body.build_co2_coupling_body().val()
-    # Rotate -90° around world +Z so the part's +Y axis becomes world
-    # +X. (Right-hand rule: rotating from +X toward +Y is positive
-    # around +Z, so the inverse +Y → +X is negative.)
     part = part.rotate(cq.Vector(0, 0, 0), cq.Vector(0, 0, 1), -90)
-    # Translate so the hex's +Y front face (canonical x = hex_length
-    # after the rotation) lands at the wall plane: hex body sits in
-    # x ∈ [W − hex_length, W] (inside the wall), body cup in
-    # x ∈ [W, W + body_length] (outside).
-    part = part.translate(cq.Vector(
-        W - co2_coupling_body.hex_length,
-        world_y,
-        world_z,
-    ))
-    solid = solid.union(cq.Workplane().add(part))
-
-    # Shallow hex outline at the wall plane. Drawn in the right-face
-    # workplane (local +X = world +Y depth, local +Y = world +Z; normal
-    # = world +X outward) and extruded -X into the wall.
-    hex_outline_cutter = (
-        cq.Workplane(cq.Plane(
-            origin=(W, world_y, world_z),
-            xDir=(0, 1, 0),
-            normal=(1, 0, 0),
-        ))
-        .polygon(6, co2_coupling_body.hex_points)
-        .extrude(-SURFACE_CUT_DEPTH)
-    )
-    return solid.cut(hex_outline_cutter)
+    part = part.translate(cq.Vector(W, world_y, world_z))
+    return solid.union(cq.Workplane().add(part))
 
 
 def build_appliance() -> cq.Workplane:
@@ -370,27 +339,62 @@ def build_appliance() -> cq.Workplane:
     # Right side face: CO2 inlet (CPC LC-family coupling body)
     appliance = _add_co2_port(appliance, *CO2_PORT_WALL_AT)
 
-    return cq.Workplane().add(appliance.val().Solids()[0])
+    # Right side face: circular pocket around the CO2 port for the red
+    # marking disc. The coupler sits in front of this disc, so in the
+    # line-art the visible portion of the disc appears as a ring around
+    # the coupler's silhouette.
+    appliance = appliance.cut(_co2_red_disc_workplane())
+
+    return appliance
 
 
 # ---------------------------------------------------------------------------
-# SVG post-processing — add round line caps / joins so edges meet cleanly
-# at intersections. CadQuery's exporter writes default-stroke paths, which
-# render as long thin rectangles with butt ends; at every corner the
-# butted rectangles leave a sub-pixel gap or overlap that reads as a
-# scratchy outline.
+# Red marking disc on the right side wall at the CO2 port
 # ---------------------------------------------------------------------------
 
-def smooth_stroke(svg_path: Path) -> None:
-    """Rewrite the SVG so its outer <g> carries stroke-linecap=round and
-    stroke-linejoin=round, so the path endpoints render as smoothly-meeting
-    lines instead of butted rectangles."""
-    text = svg_path.read_text()
-    # Add the two attributes to the parent <g> with the solid-lines stroke.
-    needle = 'stroke="rgb(0,0,0)" fill="none"'
-    replacement = 'stroke="rgb(0,0,0)" fill="none" stroke-linecap="round" stroke-linejoin="round"'
-    if needle in text and replacement not in text:
-        svg_path.write_text(text.replace(needle, replacement, 1))
+CO2_PORT_DISC_R = 16.5
+CO2_PORT_DISC_DEPTH = 1.5
+
+
+def _co2_red_disc_workplane() -> cq.Workplane:
+    world_y, world_z = CO2_PORT_WALL_AT
+    return (
+        cq.Workplane(cq.Plane(
+            origin=(W, world_y, world_z),
+            xDir=(0, 1, 0),
+            normal=(1, 0, 0),
+        ))
+        .circle(CO2_PORT_DISC_R)
+        .extrude(-CO2_PORT_DISC_DEPTH)
+    )
+
+
+def build_red_disc() -> cq.Workplane:
+    return _co2_red_disc_workplane()
+
+
+def red_disc_render_params() -> dict:
+    """Disc center / axis / radius for the Blender renderer."""
+    world_y, world_z = CO2_PORT_WALL_AT
+    return {
+        "center": [W + 0.05, world_y, world_z],
+        "axis": [1.0, 0.0, 0.0],
+        "radius": CO2_PORT_DISC_R,
+    }
+
+
+def coupler_render_params() -> dict:
+    """Coupler hex + cup geometry (proud of the wall) for the Blender
+    renderer to clip the disc with the coupler's projected silhouette."""
+    world_y, world_z = CO2_PORT_WALL_AT
+    return {
+        "base": [W, world_y, world_z],
+        "axis": [1.0, 0.0, 0.0],
+        "hex_length": co2_coupling_body.hex_length,
+        "hex_circumradius": co2_coupling_body.hex_points / 2,
+        "body_length": co2_coupling_body.body_length,
+        "body_radius": co2_coupling_body.body_d / 2,
+    }
 
 
 def refresh_comments() -> None:
