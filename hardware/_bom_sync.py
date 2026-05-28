@@ -15,7 +15,7 @@ sys.path.insert(
     str(next(p for p in _here.parents if (p / "tools" / "docgen").is_dir()) / "tools"),
 )
 
-from _cold_core_interface import foam_cap_attachment_xz_positions
+from _cold_core_interface import foam_cap_attachment_xy_positions
 from _reed_channels import reeds_per_reservoir
 from docgen import substitute_md
 from reservoir import insert_positions_for_side_plus_1
@@ -46,12 +46,12 @@ y_divider_count = 10
 panel_umbilical_bulkheads = 3
 
 # Per-cap insert counts.
-# Foam-shell: `foam_cap_attachment_xz_positions` is the list of (x, z)
+# Foam-shell: `foam_cap_attachment_xy_positions` is the list of (x, y)
 # pairs for ONE face (4 corners + 2 mid-long-side = 6 per face); the
 # foam shell has two such faces (top cap + bottom cap).
 # Reservoir: `insert_positions_for_side_plus_1` is the list of (x, z)
 # pairs for one reservoir cap (6 per cap).
-inserts_per_foam_cap = len(foam_cap_attachment_xz_positions)
+inserts_per_foam_cap = len(foam_cap_attachment_xy_positions)
 foam_caps_per_build = 2
 inserts_per_reservoir_cap = len(insert_positions_for_side_plus_1)
 
@@ -65,9 +65,10 @@ vent_filters_per_reservoir_cap = 1
 reservoir_reeds_total = reeds_per_reservoir * reservoirs_per_build
 total_reeds_per_build = reeds_per_carbonator + reservoir_reeds_total
 
-# PP1208E (reservoir-cap outlet + panel-umbilical, same SKU):
-# 1 bulkhead per reservoir cap + the panel-umbilical bulkheads.
-pp1208e_per_build = reservoirs_per_build + panel_umbilical_bulkheads
+# PP1208E (panel-umbilical only). The reservoir-cap outlet uses the
+# PureSec B0968K4JRN single-piece 90° PTC bulkhead, so PP1208E serves
+# only the rear-panel umbilical cluster.
+pp1208e_per_build = panel_umbilical_bulkheads
 
 # Foam-shell hardware (12 inserts + 12 M3 × 25 screws).
 foam_cap_inserts_per_build = inserts_per_foam_cap * foam_caps_per_build
@@ -121,7 +122,7 @@ def main():
         expected_counts={
             "END_CAPS": 1,
             "VESSEL_PORTS": 2,
-            "RESERVOIRS": 3,
+            "RESERVOIRS": 4,
             "RESERVOIR_CAP_COUNT": 1,
             "REEDS_PER_RES": 3,
             "CARB_REEDS": 2,
@@ -130,7 +131,7 @@ def main():
             "SOLENOIDS": 2,
             "Y_DIVIDERS": 2,
             "PP1208E_PANEL": 1,
-            "PP1208E_TOTAL": 2,
+            "PP1208E_TOTAL": 1,
             "FOAM_INSERTS": 2,
             "FOAM_SCREWS": 2,
             "RES_INSERTS_PER_CAP": 2,
