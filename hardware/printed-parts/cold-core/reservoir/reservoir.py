@@ -733,51 +733,39 @@ def build_reservoir_body(side=1):
         )
         body = body.cut(pocket)
 
-    # V floor — Y-symmetric, swept across the full cavity X width.
-    # The base inner_cavity cut (above) left a flat cavity floor at
-    # z=inner_z_range[0] across the whole footprint. The whole V floor is
-    # RAISED floor_trough_lift above that base so the PureSec locknut +
-    # elbow clear below the trough-floor underside, so first UNION a
-    # TROUGH-FILL prism that raises the entire footprint from the base
-    # cavity floor (inner_z_range[0]) up to the trough wet surface
-    # (floor_trough_z); the flat band at |y| ≤ floor_trough_half_width_y
-    # on top of that fill IS the trough. Then UNION two slope wedges (one
-    # per ±Y half) that raise the floor further, from the trough edges up
-    # to floor_slope_rise at the ±Y walls, giving the V.
+    # V floor — a uniform reservoir_wall_thickness (4 mm) shell, Y-symmetric,
+    # swept across the full cavity X width and RAISED floor_trough_lift so the
+    # PureSec locknut + integral 90° elbow hang in OPEN space below it. The
+    # interior (wet) surface is the V: a flat trough at floor_trough_z for
+    # |y| ≤ floor_trough_half_width_y, sloping up at floor_slope_rate to the
+    # ±Y walls. The exterior (dry) surface is the same V shifted down one wall
+    # thickness, so the floor is a constant 4 mm layer between them — exterior
+    # slope parallels interior slope. Below the exterior surface is nothing:
+    # open bag-pocket space. There is NO solid fill block and NO modelled
+    # elbow/locknut keep-out — the only thing piercing the floor is the
+    # bulkhead barrel bore. (Nothing supports the raised floor from below
+    # yet; that is deferred.)
     #
-    # Trough fill: the cavity footprint prism from inner_z_range[0] up to
-    # floor_trough_z, clipped to the post-outer-fillet envelope.
-    #
-    # Each wedge: the cavity footprint prism from floor_trough_z up to
-    # floor_wedge_top_z, intersected with its Y half (beyond the trough
-    # edge), then cut by the half-space ABOVE its slope plane. The slope
-    # plane passes through (0, ±floor_trough_half_width_y, floor_trough_z)
-    # with dz/dy = ±floor_slope_rate. The wedge is clipped to the cavity
-    # envelope so its only curved boundary is the centerward arc — no
-    # circular pad anywhere.
-    trough_fill = _build_envelope(
-        side,
-        (inner_z_range[0], floor_trough_z),
-        wall_offset=reservoir_wall_thickness,
-    ).intersect(outer_envelope_filleted)
-    body = body.union(trough_fill)
-
-    def _above_slope_plane(edge_y, dy_rate):
-        """Half-space ABOVE the slope plane anchored at
-        (0, edge_y, floor_trough_z) with surface slope dz/dy = dy_rate.
-        For a surface of slope s, the upward (above-surface) normal is
-        (0, -s, +1); the half-space is the +normal side, so cutting it
-        away leaves material only below the surface."""
+    # _v_floor_solid(trough_top_z) is the cavity-footprint solid capped by the
+    # V whose flat trough wet surface sits at trough_top_z: a trough-fill prism
+    # (cavity base up to trough_top_z) unioned with the two ±Y slope wedges.
+    # The shell = (solid below the interior V) − (solid below the exterior V,
+    # one wall thickness lower); the subtraction also leaves everything below
+    # the exterior V open.
+    def _above_slope_plane(edge_y, dy_rate, anchor_z):
+        """Half-space ABOVE the slope plane through (0, edge_y, anchor_z),
+        surface slope dz/dy = dy_rate. Cutting it away leaves material only
+        below the slope surface."""
         plane = cq.Plane(
-            origin=(0, edge_y, floor_trough_z),
+            origin=(0, edge_y, anchor_z),
             xDir=(1, 0, 0),
             normal=(0, -dy_rate, 1),
         )
         return cq.Workplane(plane).rect(2000, 2000).extrude(2000)
 
     def _y_half_beyond_trough(sign):
-        """Solid filling the Y half beyond the trough edge on the given
-        side (sign=+1 → y ≥ +half; sign=−1 → y ≤ −half)."""
+        """Solid filling the Y half beyond the trough edge (sign=+1 → y ≥
+        +half; sign=−1 → y ≤ −half)."""
         return (
             cq.Workplane(xz_plane_y_up)
             .workplane(offset=sign * floor_trough_half_width_y)
@@ -785,39 +773,55 @@ def build_reservoir_body(side=1):
             .extrude(sign * 2000)
         )
 
-    floor_wedge_prism = _build_envelope(
-        side,
-        (floor_trough_z, floor_wedge_top_z),
-        wall_offset=reservoir_wall_thickness,
-    )
-    for sign in (+1, -1):
-        wedge = (
-            floor_wedge_prism
-            .intersect(_y_half_beyond_trough(sign))
-            .cut(_above_slope_plane(sign * floor_trough_half_width_y, sign * floor_slope_rate))
+    def _v_floor_solid(trough_top_z):
+        fill = _build_envelope(
+            side,
+            (inner_z_range[0], trough_top_z),
+            wall_offset=reservoir_wall_thickness,
+        ).intersect(outer_envelope_filleted)
+        wedge_prism = _build_envelope(
+            side,
+            (trough_top_z, trough_top_z + floor_slope_rise + 2.0),
+            wall_offset=reservoir_wall_thickness,
         )
-        # Clip to the post-outer-fillet envelope so the wedge's sharp
-        # [-shape corner can't poke past the outer fillet arc.
-        wedge = wedge.intersect(outer_envelope_filleted)
-        body = body.union(wedge)
+        solid = fill
+        for sign in (+1, -1):
+            wedge = (
+                wedge_prism
+                .intersect(_y_half_beyond_trough(sign))
+                .cut(_above_slope_plane(sign * floor_trough_half_width_y,
+                                        sign * floor_slope_rate, trough_top_z))
+                .intersect(outer_envelope_filleted)
+            )
+            solid = solid.union(wedge)
+        return solid
+
+    floor_underside_z = floor_trough_z - reservoir_wall_thickness
+    floor_shell = _v_floor_solid(floor_trough_z).cut(_v_floor_solid(floor_underside_z))
+    body = body.union(floor_shell)
+
+    # Open the base: remove the floor the outer envelope leaves at the bottom
+    # so the whole volume below the raised shell is free space (the bulkhead
+    # locknut + elbow hang there — absent material, not a modelled keep-out).
+    body = body.cut(
+        _build_envelope(
+            side,
+            (outer_z_range[0] - 5.0, inner_z_range[0]),
+            wall_offset=reservoir_wall_thickness,
+        )
+    )
 
     # Vertical bulkhead port through the trough at (port_x, y=0). The
     # PureSec barrel clamps vertically (axis along world −Z): wet PTC port
     # up into the cavity, integral flange seated on the trough's wet (top)
-    # face through a TPU face seal, hex locknut threaded on from below,
-    # integral 90° elbow turning the dry line laterally toward the +Y
-    # pass-through. The trough floor is RAISED (floor_trough_lift), so the
-    # 4 mm fluid-barrier PETG spans floor_underside_z..floor_trough_z and
-    # below floor_underside_z is the dry-side recess opening into the open
-    # bag-pocket space, where the locknut + barrel-end PTC + lower elbow
-    # body hang.
+    # face through a TPU face seal, hex locknut threaded on from below in
+    # the open space under the floor, integral 90° elbow turning the dry
+    # line laterally. Only the barrel bore pierces the 4 mm trough floor.
     port_x_signed = reservoir_bulkhead_port_x * side
-    floor_underside_z = floor_trough_z - reservoir_wall_thickness  # dry face of the trough floor
 
-    # Panel hole — ⌀[16.5 mm](BULKHEAD_PANEL_HOLE_D) cut straight down through the trough floor.
-    # Spans from above the trough surface (overshoot to break the wet
-    # face cleanly) down well past the floor's outer face into open
-    # space below.
+    # Panel hole — ⌀[16.5 mm](BULKHEAD_PANEL_HOLE_D) cut straight down through the trough floor,
+    # from above the trough wet surface down past the floor underside into
+    # the open space below.
     panel_hole = _z_cylinder(
         (port_x_signed, 0.0),
         (outer_z_range[0] - 5.0, floor_trough_z + 0.1),
@@ -835,66 +839,9 @@ def build_reservoir_body(side=1):
     )
     body = body.cut(seal_counterbore)
 
-    # Dry-side clearance recess + integral-elbow keep-out below the
-    # trough floor. The raised V floor (trough fill) would otherwise be
-    # solid from the body's outer floor face (outer_z_range[0]) up to the
-    # trough underside; here we carve the open void the PureSec hangs
-    # into. The void opens DOWNWARD through the body's outer floor face
-    # into the open bag-pocket cavity. It comprises:
-    #   (a) a coaxial barrel/locknut clearance cylinder sized to clear the
-    #       hex locknut across-corners (≈23.1 mm), and
-    #   (b) the integral 90° elbow keep-out: a box extending laterally
-    #       toward the +Y bag-pocket pass-through, plus a lateral PTC stub
-    #       (⌀12.5) reaching out so the dry tube has a clear path.
-    # Modelled as a clearance keep-out, NOT a precise replica of the
-    # fitting (see the bulkhead_elbow_* constants + the orientation flag).
-    recess_top_z = floor_underside_z + 0.1  # break the underside cleanly
-    recess_bottom_z = outer_z_range[0] - 5.0  # through the body floor into open space
-    nut_clearance_diameter = bulkhead_nut_hex_corner_to_corner + 1.0  # clear the hex across-corners + a hair
-    locknut_clearance = _z_cylinder(
-        (port_x_signed, 0.0),
-        (recess_bottom_z, recess_top_z),
-        nut_clearance_diameter,
-    )
-    body = body.cut(locknut_clearance)
-
-    # Elbow keep-out box, BELOW the trough floor only (it stops at
-    # floor_underside_z so the 4 mm fluid-barrier floor stays intact
-    # except where the barrel hole pierces it; the elbow body's portion
-    # that sits above the flange lives in the already-open cavity above
-    # and needs no cut). The cast 90° body + lateral collet barrel bound
-    # ≈28 × 16 × 16; aimed toward +Y, the 28 mm lateral extent runs in +Y
-    # (toward the bag-pocket pass-through), the 16 mm transverse in X. The
-    # box is biased +Y so it brackets the barrel and clears the dry line's
-    # lateral turn toward reservoir_bulkhead_port_y. Opens downward through
-    # the body floor into the open bag-pocket space.
-    elbow_lat = bulkhead_elbow_lateral_sign
-    elbow_y_near = -bulkhead_elbow_envelope_y / 2.0          # a little to the −Y side of the barrel
-    elbow_y_far = elbow_lat * bulkhead_elbow_envelope_x      # ≈28 mm toward the pass-through
-    elbow_box = make_box(
-        (port_x_signed - bulkhead_elbow_envelope_y / 2.0, port_x_signed + bulkhead_elbow_envelope_y / 2.0),
-        (min(elbow_y_near, elbow_y_far), max(elbow_y_near, elbow_y_far)),
-        (recess_bottom_z, floor_underside_z + 0.1),
-    )
-    body = body.cut(elbow_box)
-
-    # Nut hex register pocket recessed UP into the trough-floor underside
-    # — a shallow hex recess from the dry floor face (floor_underside_z)
-    # rising bulkhead_nut_hex_pocket_depth into the floor PETG. The locknut
-    # threads on from below in the open recess and tightens UP against this
-    # face; its top ~bulkhead_nut_hex_pocket_depth of hex engages the recess
-    # for anti-rotation, the rest of the nut hangs free in the recess below.
-    # (This leaves reservoir_wall_thickness − bulkhead_nut_hex_pocket_depth
-    # = 2.5 mm of fluid-barrier PETG above the recess.)
-    nut_hex_pocket = (
-        WorldWorkplane(xy_plane_z_up)
-        .workplane(offset=floor_underside_z - 0.1)
-        .center(port_x_signed, 0.0)
-        .polyline(nut_hex_profile)
-        .close()
-        .extrude(bulkhead_nut_hex_pocket_depth + 0.1)
-    )
-    body = body.cut(nut_hex_pocket)
+    # No keep-out, locknut-clearance, or nut-pocket cuts: the whole volume
+    # below the raised shell is already open space, so the locknut + elbow
+    # hang there freely.
 
     # Level-sensing rod body anchor: a solid cylindrical boss rising
     # from the NEW V floor at (±rod_position_x, rod_position_y), with a
