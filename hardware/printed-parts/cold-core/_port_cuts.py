@@ -12,11 +12,11 @@ from _cold_core_interface import (
     foam_shell_outer_height,
     reservoir_bulkhead_port_x,
     reservoir_bulkhead_port_y,
+    bulkhead_elbow_exit_z,
     port_hole_radius,
     build_hole_punch,
     build_slot_punch,
 )
-from _reed_channels import cable_hole_z
 
 # Z at which the through-foam ports sit — water outlet and CO2 inlet
 # bore both pass through the foam shell at this Z. hole_shift_from_edge
@@ -35,16 +35,15 @@ plus_y_wall_plug_port_y = pocket_centerward_arc_outer_radius - 20
 water_outlet_xyz = (0, plus_y_wall_plug_port_y, front_face_port_z)
 
 # Flavor-line pass-throughs — each reservoir's 1/4" LLDPE outlet line out
-# through the +Y bag-pocket wall and the +Y outer-shell wall. They sit low
-# on the +Y wall at the reed-cable-hole height (cable_hole_z): the bag-
-# pocket bottom is open, so the line drops from the bulkhead elbow and runs
-# out low. Shifted INBOARD of the bulkhead axis, opposite the reed cable
-# hole (which sits cable_hole_offset_from_bulkhead_hole_x outboard), so the
-# two ⌀6.5 holes stay 16 mm apart center-to-center with PETG between them.
+# through the +Y bag-pocket wall and the +Y outer-shell wall. Pinned to
+# bulkhead_elbow_exit_z so the tube runs level out of the elbow's lateral
+# port. Shifted INBOARD of the bulkhead axis, opposite the reed cable hole
+# (outboard), so the two ⌀6.5 holes stay 16 mm apart center-to-center with
+# PETG between them.
 flavor_line_hole_offset_from_bulkhead_x = 8.0
 flavor_line_hole_x = reservoir_bulkhead_port_x - flavor_line_hole_offset_from_bulkhead_x
-flavor_line_plus_x_xyz = (+flavor_line_hole_x, reservoir_bulkhead_port_y, cable_hole_z)
-flavor_line_minus_x_xyz = (-flavor_line_hole_x, reservoir_bulkhead_port_y, cable_hole_z)
+flavor_line_plus_x_xyz = (+flavor_line_hole_x, reservoir_bulkhead_port_y, bulkhead_elbow_exit_z)
+flavor_line_minus_x_xyz = (-flavor_line_hole_x, reservoir_bulkhead_port_y, bulkhead_elbow_exit_z)
 
 
 def cut_circular_port_holes(foam_shell):
