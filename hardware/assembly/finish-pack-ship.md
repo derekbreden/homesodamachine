@@ -35,11 +35,11 @@ Tooling (per-appliance-amortized only — single-asset tools live in [`../purcha
 
 ### 1. Cosmetic wipe-down + final visual inspection
 
-Take the appliance fresh off the [`acceptance-and-burn-in.md`](acceptance-and-burn-in.md) bench. Wipe every exposed surface with the microfiber + isopropyl: rear panel and its inlets, top funnel + funnel rim, pump-cartridge access door + its surround, condenser intake/exhaust grilles, both side faces, the front face, and the bottom. Foam-tip swab the hopper interior to clear any settled dust. Wipe down the dishwasher-safe silicone hopper cover separately and seat it onto the funnel after the unit is dry. The unit has been on the burn-in bench for the acceptance soak — fingerprints, dust drift from shop air, and the residue of fingers from prior assembly steps all land here.
+Take the appliance fresh off the [`acceptance-and-burn-in.md`](acceptance-and-burn-in.md) bench. Wipe every exposed surface with the microfiber + isopropyl: rear panel and its inlets, the Zone C top door + its surround, condenser intake/exhaust grilles, both side faces, the front face, and the bottom. Foam-tip swab the funnel cavity to clear any settled dust. Lift out the dishwasher-safe silicone funnel, wipe it down separately, and seat it back in after the unit is dry. The unit has been on the burn-in bench for the acceptance soak — fingerprints, dust drift from shop air, and the residue of fingers from prior assembly steps all land here.
 
 Inspect every exposed surface against the following pass criteria:
 
-- Every visible printed surface clean of layer-line debris and stringing — particular attention to the front-face pump-cartridge door and the rear-panel cutouts where small printed features land near user sightlines.
+- Every visible printed surface clean of layer-line debris and stringing — particular attention to the Zone C top door and the rear-panel cutouts where small printed features land near user sightlines.
 - No scuffs, scratches, or print-bed adhesion marks that telegraph through the Founder Edition framing.
 - No exposed wiring at any panel cutout; cable-gland grommets seated flush.
 - The compressor shroud (see [`../cut-parts/compressor-shroud/README.md`](../cut-parts/compressor-shroud/README.md)) seated flush with no daylight at its grommeted AC pass-through; the single AC pass-through cleanly bonded at its chassis ground tab.
