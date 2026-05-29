@@ -1,6 +1,6 @@
 # lib/
 
-Server-side modules for the Node web app. Each `.js` here exports a `mountXxxRoutes(app, …)` function that attaches Express handlers; [`server.js`](../server.js) calls them in order at boot. See [`ARCHITECTURE.md`](../ARCHITECTURE.md) for the full picture of how request → server.js → lib → response works, and the dev-vs-prod story.
+Server-side modules for the Node web app. Each `.js` here exports a `mountXxxRoutes(app, …)` function that attaches Express handlers; [`server.js`](/web/server.js) calls them in order at boot. See [`ARCHITECTURE.md`](/web/ARCHITECTURE.md) for the full picture of how request → server.js → lib → response works, and the dev-vs-prod story.
 
 ## The mount-routes contract
 
@@ -33,12 +33,12 @@ That's it. There is no central router config, no decorator metadata, no plugin r
 | Module | Mounts | Notes |
 |---|---|---|
 | [`shell.js`](shell.js) | — | Shared `<head>` + nav + footer. Owns the synchronous pre-paint class flips and the `<script src="/boot.js" defer>` tag that every page loads. |
-| [`landing.js`](landing.js) | `/` | Marketing landing + signup form. Inline JS extracted to [`public/landing.js`](../public/landing.js). |
-| [`blog.js`](blog.js) | `/blog` | Markdown posts from [`posts/`](../posts/), rendered into the index page (individual posts are `#post-<slug>` anchors). Inline JS in [`public/blog.js`](../public/blog.js). |
+| [`landing.js`](landing.js) | `/` | Marketing landing + signup form. Inline JS extracted to [`public/landing.js`](/web/public/landing.js). |
+| [`blog.js`](blog.js) | `/blog` | Markdown posts from [`posts/`](/posts/), rendered into the index page (individual posts are `#post-<slug>` anchors). Inline JS in [`public/blog.js`](/web/public/blog.js). |
 | [`viewer-pages.js`](viewer-pages.js) | `/3d`, `/charts` | Both pages render [`templates/viewer-body.html`](templates/viewer-body.html), which loads `public/js/viewer/main.js`. The decision of "show parts vs charts" is made client-side by `currentSection()`. |
 | [`viewer-routes.js`](viewer-routes.js) | API surface for the viewer | `/api/{steps,dxf,mermaid}` (file lists), `/steps/*`, `/dxfs/*`, `/api/mermaid-content/*` (file passthroughs). Walks `hardware/` via [`walk.js`](walk.js). |
-| [`settings.js`](settings.js) | `/settings` | Per-user toggles. Inline JS in [`public/settings.js`](../public/settings.js). |
-| [`events.js`](events.js) | `/api/events` | SSE channel — one EventSource per page, owned by [`public/boot.js`](../public/boot.js). |
+| [`settings.js`](settings.js) | `/settings` | Per-user toggles. Inline JS in [`public/settings.js`](/web/public/settings.js). |
+| [`events.js`](events.js) | `/api/events` | SSE channel — one EventSource per page, owned by [`public/boot.js`](/web/public/boot.js). |
 | [`notifications.js`](notifications.js) | `/api/notifications/*`, `/notifications` | Per-token inbox CRUD + the page. Routes only mount if `pool` is non-null (i.e. DATABASE_URL is set). |
 | [`push.js`](push.js) | `/api/push/*` | FCM subscriptions + outbound notify. Boot-time hash diff against per-kind tables (`step_hashes`, `dxf_hashes`, `mermaid_hashes`, `post_hashes`). |
 | [`walk.js`](walk.js) | — | `walkFiles(rootDir, exts)` — shared between `viewer-routes.js` and `push.js`. |
@@ -49,5 +49,5 @@ That's it. There is no central router config, no decorator metadata, no plugin r
 
 - **Module-load side effects are minimal.** Imports may register module-level constants (`marked.use(...)` in `blog.js` is the one notable exception), but no module starts a server, opens a connection, or schedules a timer at import time. Wiring happens inside the exported `mountXxxRoutes` so server boot order is deterministic.
 - **DB optionality.** Modules that touch Postgres check `if (!pool) return [...empty...]` at the call boundary, so the dev server (no DATABASE_URL) and the smoke tests both work without a database.
-- **`window.__hsm` is reserved** for the `/3d` viewer's Puppeteer escape hatch (see [`tools/render/render-step.js`](../tools/render/render-step.js)). Don't write to it from server-side modules or `boot.js`.
+- **`window.__hsm` is reserved** for the `/3d` viewer's Puppeteer escape hatch (see [`tools/render/render-step.js`](/tools/render/render-step.js)). Don't write to it from server-side modules or `boot.js`.
 - **Inline JS in lib/ is a smell.** If a page needs more than ~10 lines of client-side code, extract to `public/<page>.js` linked via `<script src="..." defer>`. The exception is the synchronous pre-paint class flips in `shell.js` HEAD_TAGS, which must run during head parse to avoid FOUC.

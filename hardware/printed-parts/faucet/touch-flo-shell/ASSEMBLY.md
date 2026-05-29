@@ -14,11 +14,11 @@ Upstream:
    [`print-log.md`](print-log.md) attempt 7 settings).
 2. Print `touch-flo-mounting-plate` (PETG or PET-CF, same H2C).
 3. Harvest the Touch-Flo valve body from the donor faucet per
-   [`../../harvested/touch-flo-faucet/README.md`](../../harvested/touch-flo-faucet/README.md).
+   [`/hardware/harvested/touch-flo-faucet/README.md`](/hardware/harvested/touch-flo-faucet/README.md).
    Keep the lever, the body, and the factory shank nut. Discard the
    factory mounting plate.
 
-Downstream (at the faucet-and-umbilical bench, see [`../../../assembly/faucet-and-umbilical.md`](../../../assembly/faucet-and-umbilical.md)):
+Downstream (at the faucet-and-umbilical bench, see [`/hardware/assembly/faucet-and-umbilical.md`](/hardware/assembly/faucet-and-umbilical.md)):
 
 4. Slide the TPU `touch-flo-mounting-gasket` up the shank from below
    the printed mounting plate, snug against the plate's bottom face.
@@ -33,7 +33,7 @@ Downstream (at the faucet-and-umbilical bench, see [`../../../assembly/faucet-an
 
 Downstream (at the customer's countertop install, illustrated on the
 printed quick-start sheet in the appliance carton —
-[`../../../../marketing/unboxing-and-quickstart.md`](../../../../marketing/unboxing-and-quickstart.md)):
+[`/marketing/unboxing-and-quickstart.md`](/marketing/unboxing-and-quickstart.md)):
 
 6. Drop the faucet+umbilical assembly into the 1-3/8" countertop hole
    from above. The TPU gasket (already on the shank, between the
@@ -59,8 +59,8 @@ into a single rigid sub-assembly.
 | Qty | Item                                                 | Reference                                                                          |
 | --- | ---------------------------------------------------- | ---------------------------------------------------------------------------------- |
 |  1  | `touch-flo-shell` (printed, PET-CF) — smooth bottom face, no joinery features | `touch_flo_shell.py` in this directory                            |
-|  1  | `touch-flo-mounting-plate` (printed) — smooth top face, no joinery features | [`../touch-flo-mounting-plate/`](../touch-flo-mounting-plate/) |
-|  1  | Touch-Flo valve body + factory shank nut (harvested) | [`../../harvested/touch-flo-faucet/`](../../harvested/touch-flo-faucet/)            |
+|  1  | `touch-flo-mounting-plate` (printed) — smooth top face, no joinery features | [`/hardware/printed-parts/faucet/touch-flo-mounting-plate/`](/hardware/printed-parts/faucet/touch-flo-mounting-plate/) |
+|  1  | Touch-Flo valve body + factory shank nut (harvested) | [`/hardware/harvested/touch-flo-faucet/`](/hardware/harvested/touch-flo-faucet/)            |
 
 No fasteners or printed retention features. The plate is held to the shell by gravity + body friction during sub-assembly handling; once installed in the countertop, the factory shank nut clamps the whole stack (body → plate → TPU gasket → countertop) and that clamp carries every load thereafter.
 
