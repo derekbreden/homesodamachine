@@ -10,12 +10,13 @@ the two flanking pocket walls by filling the two square-corner regions
 beside the pocket corner (the "teardrop"). The diagonal region faces open
 pocket interior and is left clear.
 
-Built for the +X pocket: both far-+X corners (±Y) and the centerward −Y
-corner. The centerward wall is a curved tank-wrapping arc with no fillet to
-nest, so that post is a clip cylinder intersected with the real pocket
-cavity — it fills the corner conforming to both the ±Y wall and the curved
-centerward wall. The −X-pocket mirror, the centerward +Y corner, and the
-45° print cut / sloped top to match the floor are still pending."""
+Eight posts: the four pocket corners of the +X pocket plus the four of the
+−X pocket (built as a mirror of the +X set across YZ). Each pocket has two
+far-+X corners (teardrops) and two centerward corners. The centerward wall
+is a curved tank-wrapping arc with no fillet to nest, so those posts are
+clip cylinders intersected with the real pocket cavity — they fill the
+corner conforming to both the ±Y wall and the curved centerward wall. The
+45° print cut / sloped top to match the floor is still pending."""
 
 import sys
 from pathlib import Path
@@ -86,7 +87,12 @@ def _centerward_teardrop(y_sign):
 
 
 def build_reservoir_supports():
-    """Posts at both far-+X pocket corners (±Y) plus the centerward −Y
-    corner."""
-    support = _corner_teardrop(-1).union(_corner_teardrop(+1))
-    return support.union(_centerward_teardrop(-1))
+    """All eight pocket-corner posts: the four +X-pocket corners plus the
+    four −X-pocket corners (mirror of the +X set across YZ)."""
+    plus_x = (
+        _corner_teardrop(-1)
+        .union(_corner_teardrop(+1))
+        .union(_centerward_teardrop(-1))
+        .union(_centerward_teardrop(+1))
+    )
+    return plus_x.union(plus_x.mirror("YZ"))
