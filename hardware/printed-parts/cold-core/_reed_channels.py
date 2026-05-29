@@ -78,9 +78,10 @@ def cut_reed_channel_openings(foam_shell):
 
 
 # ±X offset of cable hole from bulkhead hole, away from the cold-core
-# centerline — sits outboard of the inboard-shifted flavor-line hole so
-# the two ⌀6.5 holes keep PETG between them.
-cable_hole_offset_from_bulkhead_hole_x = 8.0
+# centerline — nudged inboard so the hole sits clear of both the inboard
+# flavor-line hole and the +X+Y corner support, keeping PETG around all
+# three.
+cable_hole_offset_from_bulkhead_hole_x = 4.0
 
 
 def cut_reed_cable_holes(foam_shell):
