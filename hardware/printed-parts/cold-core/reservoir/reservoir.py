@@ -116,7 +116,7 @@ cap_clearance_hole_diameter = 3.5
 # compressed disk; ø3.5 clearance holes through each pad.
 gasket_thickness = 2.0
 gasket_strip_width = 5.0
-gasket_pad_radius = 6.0  # ø12, matches body boss (insert_pocket_radius + 4); the gasket pad provides full compression contact under each cap boss / body boss face
+gasket_pad_radius = 6.0  # ø12, ≥ the body/cap boss radius so the gasket pad gives full compression contact under each cap boss / body boss face
 
 
 # Cap-local Z ranges. Cap is built around its own z=0 (perimeter wall
@@ -383,16 +383,15 @@ floor_slope_rise = 6.0  # mm the floor rises from the trough surface to each ±Y
 insert_pocket_radius = 2.0
 insert_pocket_depth = 7.0
 
-# Boss radii — each through-hole gets a 4 mm PETG annulus around it, the
-# wall that carries the heat-set insert grip + screw clamp load:
-#   Body insert pocket ø4 + 4 mm PETG → body boss ø12 (radius 6)
-#   Cap clearance hole ø3.5 + 4 mm PETG → cap boss ø11.5 (radius 5.75)
-# The body boss radius (6) sets outer_corner_fillet_radius so the corner
-# bosses inscribe the fillet arc.
-# [6 mm](BODY_BOSS_R) — insert pocket radius + 4 mm PETG annulus.
-body_boss_radius = insert_pocket_radius + 4.0
-# [5.75 mm](CAP_BOSS_R) — half of cap clearance ⌀ + 4 mm PETG annulus.
-cap_boss_radius = cap_clearance_hole_diameter / 2.0 + 4.0
+# Boss radii — each through-hole gets a boss_annulus PETG wall around it,
+# the material that carries the heat-set insert grip + screw clamp load:
+#   Body insert pocket ø4 + boss_annulus → body boss
+#   Cap clearance hole ø3.5 + boss_annulus → cap boss
+boss_annulus = 3.0
+# [5 mm](BODY_BOSS_R) — insert pocket radius + boss_annulus.
+body_boss_radius = insert_pocket_radius + boss_annulus
+# [4.75 mm](CAP_BOSS_R) — half of cap clearance ⌀ + boss_annulus.
+cap_boss_radius = cap_clearance_hole_diameter / 2.0 + boss_annulus
 
 # Body boss vertical layout (extruding downward from the wall top):
 #   top 7 mm:  pocket (ø4 hole for heat-set insert + screw shaft)
@@ -475,11 +474,11 @@ floor_wedge_top_z = floor_trough_z + floor_slope_rise + 2.0
 outer_corner_x = math.sqrt(outer_centerward_radius**2 - outer_y_max**2)
 inner_corner_x = math.sqrt(inner_centerward_radius**2 - inner_y_max**2)
 
-# Inset equals the larger boss radius so the boss outer edge just
-# reaches the outer face at every position (no boss protrusion past
-# the body / cap outer envelope, no overhang into the bag pocket
-# clearance).
-_screw_setback = max(body_boss_radius, cap_boss_radius)
+# Inset equals the outer corner fillet radius so the corner bosses (1/2,
+# 4/5) sit on the fillet centers; with the boss radius ≤ this, every boss
+# stays inside the outer envelope (no protrusion past the outer face, no
+# overhang into the bag pocket clearance).
+_screw_setback = outer_corner_fillet_radius
 
 # Positions 1/2 — inset 6 mm from outer +X face × outer ±Y face.
 _corner_xy_x = outer_far_x_abs - _screw_setback
