@@ -355,16 +355,20 @@ def _arrows_connect_co2(x, y, w, draw_h):
 
 
 def _arrows_tee_into_water(x, y, w, draw_h):
-    """Drawing 2: tee/valve arrows in the top-left — a blue rotation
-    arrow on the angle stop and two blue stub arrows pointing inward at
-    the tee's outlets — with the enclosure back view in the lower-right
-    and a blue arrow pointing at its water inlet."""
-    # Tee / valve arrows, top-left.
-    rotation = _rotation_arrow(x + 0.13 * w, y + 0.20 * draw_h, 5, 30, 240, color="blue")
-    tee_x, tee_y = x + 0.34 * w, y + 0.22 * draw_h
+    """Drawing 2: the left side carries the tee/valve arrows — a blue
+    rotation arrow on the angle stop in its top half, and two blue stub
+    arrows pointing inward at the tee's outlets in its bottom half. The
+    right side carries the enclosure back view with a blue arrow pointing
+    at its water inlet."""
+    # Left-side tee/valve arrows, centered in the left of the cell.
+    left_cx = x + 0.25 * w
+    # Rotation arrow — top half of the left side.
+    rotation = _rotation_arrow(left_cx, y + 0.25 * draw_h, 5, 30, 240, color="blue")
+    # Inward stub arrows — bottom half of the left side.
+    stub_y = y + 0.75 * draw_h
     stubs = (
-        _stub_arrow(tee_x - 15, tee_y, +1, 0, color="blue")
-        + _stub_arrow(tee_x + 15, tee_y, -1, 0, color="blue")
+        _stub_arrow(left_cx - 15, stub_y, +1, 0, color="blue")
+        + _stub_arrow(left_cx + 15, stub_y, -1, 0, color="blue")
     )
     # Enclosure back view at the same scale as the captioned steps (their
     # image band fits the canvas height into draw_h - CAPTION_BAND_MM),
