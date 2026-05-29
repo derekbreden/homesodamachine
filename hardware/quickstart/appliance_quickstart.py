@@ -217,13 +217,25 @@ def _read_svg_for_embed(svg_path):
     return viewbox, inner
 
 
-def _embed_svg(x, y, w, h, source_path):
+def _fit_offset(vb_w, vb_h, x, y, w, h, align):
+    """Scale + offset for fitting a vb_w×vb_h viewBox into (x,y,w,h) under
+    `preserveAspectRatio="<align> meet"`. Returns (scale, off_x, off_y)."""
+    s = min(w / vb_w, h / vb_h)
+    ax, ay = align[:4], align[4:]
+    off_x = x + (0 if ax == "xMin" else (w - vb_w * s) if ax == "xMax" else (w - vb_w * s) / 2)
+    off_y = y + (0 if ay == "YMin" else (h - vb_h * s) if ay == "YMax" else (h - vb_h * s) / 2)
+    return s, off_x, off_y
+
+
+def _embed_svg(x, y, w, h, source_path, align="xMidYMid"):
     """Render a nested <svg> that scale-fits the source SVG into the
-    rectangle (x, y, w, h) on the host page, preserving aspect ratio."""
+    rectangle (x, y, w, h) on the host page, preserving aspect ratio.
+    `align` is the preserveAspectRatio alignment (e.g. "xMaxYMax" to seat
+    the drawing in the rect's bottom-right corner)."""
     viewbox, inner = _read_svg_for_embed(source_path)
     return (
         f'<svg x="{x:.2f}" y="{y:.2f}" width="{w:.2f}" height="{h:.2f}" '
-        f'viewBox="{viewbox}" preserveAspectRatio="xMidYMid meet">\n'
+        f'viewBox="{viewbox}" preserveAspectRatio="{align} meet">\n'
         f'{inner}\n'
         f'</svg>'
     )
@@ -301,9 +313,9 @@ def _arrows_connect_co2(x, y, w, draw_h):
     )
 
 
-def _embedded_fill_point(svg_path, color_fill, x, y, w, h):
+def _embedded_fill_point(svg_path, color_fill, x, y, w, h, align="xMidYMid"):
     """Page-mm location of the centroid of the path filled `color_fill`
-    in `svg_path`, after that SVG is scale-fit (xMidYMid meet) into the
+    in `svg_path`, after that SVG is scale-fit (`<align> meet`) into the
     rect (x, y, w, h). Used to aim an arrow at a marking inside an
     embedded drawing."""
     text = Path(svg_path).read_text()
@@ -315,9 +327,7 @@ def _embedded_fill_point(svg_path, color_fill, x, y, w, h):
     pts = re.findall(r'(-?\d+\.?\d*),(-?\d+\.?\d*)', d)
     cx = sum(float(a) for a, _ in pts) / len(pts)
     cy = sum(float(b) for _, b in pts) / len(pts)
-    s = min(w / vb_w, h / vb_h)
-    ox = x + (w - vb_w * s) / 2
-    oy = y + (h - vb_h * s) / 2
+    s, ox, oy = _fit_offset(vb_w, vb_h, x, y, w, h, align)
     return ox + cx * s, oy + cy * s
 
 
@@ -333,13 +343,12 @@ def _arrows_tee_into_water(x, y, w, draw_h):
         _stub_arrow(tee_x - 15, tee_y, +1, 0, color="blue")
         + _stub_arrow(tee_x + 15, tee_y, -1, 0, color="blue")
     )
-    # Enclosure back view, lower-right.
-    sub_w, sub_h = 0.60 * w, 0.66 * draw_h
-    sub_x, sub_y = x + w - sub_w, y + draw_h - sub_h
-    back = _embed_svg(sub_x, sub_y, sub_w, sub_h, ENCLOSURE_BACK)
+    # Enclosure back view at the same scale as the other steps (fit to
+    # the full image band), seated in the bottom-right corner.
+    back = _embed_svg(x, y, w, draw_h, ENCLOSURE_BACK, align="xMaxYMax")
     # Blue arrow pointing at the water inlet on the back view; the tip
     # stops a short gap short of the port.
-    px, py = _embedded_fill_point(ENCLOSURE_BACK, WATER_DISC_FILL, sub_x, sub_y, sub_w, sub_h)
+    px, py = _embedded_fill_point(ENCLOSURE_BACK, WATER_DISC_FILL, x, y, w, draw_h, align="xMaxYMax")
     rise = (0.18 * w, 0.12 * draw_h)
     span = math.hypot(*rise)
     ux, uy = rise[0] / span, rise[1] / span
