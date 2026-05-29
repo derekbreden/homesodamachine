@@ -80,7 +80,7 @@ The failure mode is a **through-wall void or pinhole**, not strength, so test fo
 
 - **Flexibility** — the foam-shell pocket must fully support the vessel; it does not stand on its own.
 - **Aroma / gas permeability** — flavor migration through the wall over a 10-year flavor reservoir is unquantified.
-- **Cert duty** — even Smooth-SIL 940's food-grade rating is for *molds that contact food* (intermittent), not continuous 10-year acidic immersion. Silicone is chemically inert to dilute acid, so the chemistry is favorable; the regulatory paperwork for *this* duty is the gap.
+- **Cert duty** — a room-temp, pourable, *continuous-food-immersion*-certified silicone is essentially not on the market. Shop-castable food RTVs (incl. Smooth-SIL 940) carry only FDA 21 CFR 177.2600, and several makers disclaim fatty/acidic/continuous contact — which pH-3.5 syrup is (177.2600 itself doesn't split intermittent from continuous; the limit is the maker's disclaimer, not the cert). The genuine immersion certs sit on forms that don't fit: **NSF-61** potable-water on a castable = Dow SILASTIC LSR, but it needs a 200 °C post-cure (not room-temp); **USP Class VI / ISO 10993** continuous-contact = medical RTVs (NuSil, Elkem), room-temp and pourable but medical-not-food, sales-gated, and needing self-run food-extraction validation. Silicone is chemically inert to dilute acid, so the chemistry is favorable; the certified-for-this-duty *castable* product is the gap.
 - **Thin-wall fill** — whether a 2–3 mm wall fills void-free down a 200 mm gap, with venting + degas alone or only under pressure, is the make-or-break process question.
 - **Demold** — releasing a thin flexible wall off the core without tearing, given the concave centerward wall and corner fillets.
 
