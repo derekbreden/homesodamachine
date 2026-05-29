@@ -92,9 +92,8 @@ bulkhead_elbow_exit_z = bulkhead_elbow_bottom_z + 3.0  # lateral-PTC-port Z cent
 reservoir_bulkhead_port_x = (bag_pocket_far_inner_x + pocket_centerward_arc_outer_radius) / 2
 # Y of the bulkhead pass-through (and the cable hole that shares its y so
 # the reed cable runs straight from channel to outside). 10 mm inboard
-# of the bag-pocket -Y wall outer face — the front, where the tubes exit
-# to reach the internal pumps/valves they connect to.
-reservoir_bulkhead_port_y = -(bag_pocket_width / 2 - 10)
+# of the bag-pocket +Y wall outer face.
+reservoir_bulkhead_port_y = bag_pocket_width / 2 - 10
 
 # Outer footprint shared by the outer shell, the foam cap, and the
 # foam cap lid — must be coplanar at the corners so the screw bosses
