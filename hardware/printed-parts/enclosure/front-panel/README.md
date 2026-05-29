@@ -2,7 +2,7 @@
 
 3D-printed front face of the under-counter enclosure. Carries the ESP32-S3 detachable rotary display, the front-dispense spout, and the CO2 line inlet. Printed in **Bambu PET-CF**, matching the rest of the enclosure exterior.
 
-Opening the cabinet door and looking at the front of the appliance shows the customer the display (rotate to toggle flavor, three-dot affordance for advanced settings), the dispense spout, and the CO2 connection. Pump cartridge access is on top in Zone C, beneath the removable funnel under the single top door ([`../../zone-c/README.md`](../../zone-c/README.md)); the GFCI lives on the electronics shelf. See [`../README.md`](../README.md) "What is on the front face" for the architectural framing.
+Opening the cabinet door and looking at the front of the appliance shows the customer the display (rotate to toggle flavor, three-dot affordance for advanced settings), the dispense spout, and the CO2 connection. Pump cartridge access is on top in Zone C, beneath the removable funnel under the single top door ([`/hardware/printed-parts/zone-c/README.md`](/hardware/printed-parts/zone-c/README.md)); the GFCI lives on the electronics shelf. See [`../README.md`](../README.md) "What is on the front face" for the architectural framing.
 
 ## Front face features
 
