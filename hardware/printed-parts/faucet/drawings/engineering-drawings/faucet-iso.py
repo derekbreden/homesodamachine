@@ -5,14 +5,13 @@ engineering-drawing aesthetic, as opposed to the line-art renders in
 `../line-art/`.
 
 The loaded assembly is in the repo's +Z-up frame, with -Y the front
-(the user's side). projectionDir (-1, -1, 1) places the camera at
--x, -y, +z — elevated, offset to one side, on the front
-(gooseneck-dispense) side of the appliance: the user's view standing
-in front of the sink. The body axis runs +Z; the gooseneck dispenses
-in -Y (toward the viewer); the lever points toward the viewer. (This
-is the old +Y-front camera turned 180° about Z along with the
-geometry, so the rendered view is unchanged while the source now
-shares the project's -Y-front convention.)
+(the user's side). projectionDir (1, -1, 1) places the camera at
++x, -y, +z — front-right-above. This matches the 3D STEP viewer's
+default front-iso camera exactly (web/public/js/viewer/scene.js
+resetCamera: elevation atan(1/√2) ≈ 35.26°, azimuth -45°, up +Z),
+so the drawing and the interactive model present the identical view.
+The body axis runs +Z; the gooseneck dispenses in -Y (toward the
+viewer); the lever points toward the viewer.
 
 Run from the repo root:
     tools/cad-venv/bin/python hardware/printed-parts/faucet/drawings/engineering-drawings/faucet-iso.py
@@ -36,7 +35,7 @@ def main() -> None:
         faucet,
         str(output_path),
         opt={
-            "projectionDir": (-1, -1, 1),  # camera at -x, -y, +z (user iso, front = -Y)
+            "projectionDir": (1, -1, 1),  # camera at +x, -y, +z — matches 3D viewer default front-iso
             "width": None,                  # auto-fit to projected width
             "height": 800,
             "marginLeft": 30,
