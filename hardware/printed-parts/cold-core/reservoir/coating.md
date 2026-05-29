@@ -2,7 +2,7 @@
 
 The printed PETG reservoir cavity carries a one-time food-contact epoxy film, applied via sealed-cavity rotomold during build. The film seals FDM layer-line porosity and converts the wetted surface from print roughness to cured-epoxy smoothness.
 
-Coating: **MAX CLR A/B** — FDA 21 CFR 175.300 compliant epoxy marketed for direct food-contact use on 3D-printed plastics.
+Coating: **Craft Resin "Arts & Crafts" crystal-clear epoxy** (1400 cps, 1:1 mix, ~40 min work time, 24 h cure; Amazon [B083SRX7TJ](https://www.amazon.com/dp/B083SRX7TJ) 1 gal / [B07YCVVYFK](https://www.amazon.com/dp/B07YCVVYFK) 34 oz), marketed food-grade when cured. The medium 1400 cps viscosity is the rotomold fit: it flows into the corners and trough as the sealed part is rotated, yet builds a film and gels before it drains off the vertical walls. The lower-viscosity deep-pour grade sheets off the walls; the higher-viscosity table-top grade is too thick to redistribute in rotation (that grade is the brush choice).
 
 ## Floor + bulkhead port geometry
 
@@ -18,7 +18,7 @@ The reservoir ships out of this procedure fully assembled with the cured coating
 
 1. **Pre-assemble**: body + bulkhead + bulkhead TPU face seal + locknut from below + the dry-side LLDPE tube pushed into the bulkhead's integral 90° elbow + the tube run out through the bag-pocket pass-through. Everything except the cap.
 2. **Plug the bulkhead's wet-side PTC port** from inside the cavity with a sacrificial 1/4" OD LLDPE cutoff (~150 mm). The wet-side collet teeth grip it; the bulkhead is now closed at both ends.
-3. **Pour ~40 mL of MAX CLR A/B** (mixed 1:1, ~25 min working time at room temp) into the cavity through the open top.
+3. **Pour ~40 mL of Craft Resin Arts & Crafts epoxy** (mixed 1:1, ~40 min work time at room temp) into the cavity through the open top.
 4. **Bolt the blanking cap** on through a sacrificial TPU gasket. Cavity sealed for rotation.
 5. **Rotomold**: mount in a BBQ rotisserie motor at ~4 rpm. Tip through the perpendicular axis every 2 min for the first 15 min, until rising viscosity stops further redistribution.
 6. **Park** the assembly upright with the most-recently-coated wall horizontal, so initial-cure sag flows across already-coated film instead of draining off uncoated surface.
@@ -42,7 +42,7 @@ The TPU face seal between the bulkhead shoulder and the floor counterbore is bel
 
 | Item | Notes | Per build |
 |---|---|---|
-| MAX CLR A/B epoxy resin kit | FDA 21 CFR 175.300 compliant for direct food-contact use on 3D-printed plastics | ~80 mL (40 mL × 2 reservoirs); a 48 fl oz kit covers ~17 builds |
+| Craft Resin "Arts & Crafts" crystal-clear epoxy (1400 cps) | marketed food-grade when cured; production [B083SRX7TJ](https://www.amazon.com/dp/B083SRX7TJ) 1 gal, bench-test [B07YCVVYFK](https://www.amazon.com/dp/B07YCVVYFK) 34 oz | ~80 mL (40 mL × 2 reservoirs); 34 oz ≈ 12 builds, 1 gal ≈ 47 builds |
 | Sacrificial 1/4" OD LLDPE tube cutoff | from existing JG LLDPE inventory | ~300 mm (~150 mm × 2 reservoirs) |
 | Sacrificial TPU gasket | printed from the same TPU 85A stock as the production gasket | 2 (one per reservoir during coat) |
 | Blanking cap | tooling — PETG print, one reusable across every build | 1 |
@@ -52,9 +52,9 @@ The TPU face seal between the bulkhead shoulder and the floor counterbore is bel
 
 - [ ] **CAD: adjust the bulkhead port to PureSec B0968K4JRN measurements**. The full-width-trough V floor + vertical-through-floor port is on `main`, but modeled to the JG PP1208E body (⌀17.5 panel hole, JG locknut hex). Adjust to the PureSec: ⌀16 mm mounting hole, its locknut/thread dimensions, an added-TPU-washer seal seat on the wet-side trough floor, and lateral clearance below the floor for the integral 90° elbow body. Best-estimate measurements from the listing/photos/similar RO 90° bulkheads are fine — do not wait for the part to arrive. Files: `reservoir.py` (`bulkhead_*` constants, the bulkhead-port section of `build_reservoir_body`) and [`../_cold_core_interface.py`](../_cold_core_interface.py) (`reservoir_bulkhead_port_*`).
 - [ ] **Blanking cap CAD**: add `build_reservoir_blanking_cap()` to [`reservoir.py`](reservoir.py); export `reservoir-blanking-cap.step`.
-- [ ] **Adhesion bench test**: SunTop PETG scrap with light abrasion + IPA wipe, MAX CLR A/B film, 24 h cure, flex/scratch test. Green-lights the procedure or sends it back.
+- [ ] **Adhesion bench test**: SunTop PETG scrap with light abrasion + IPA wipe, Craft Resin epoxy film, 24 h cure, flex/scratch test. Green-lights the procedure or sends it back. (34 oz test kit on hand — arriving 2026-05-29.)
 - [ ] **Single-reservoir pilot**: print one reservoir under the new geometry, full-assemble, run the rotomold coat once, cut in half on the band saw, inspect film thickness at inner fillets and around the bulkhead annulus. Commit-or-revise decision point before doing the second reservoir.
 - [ ] **Cure exotherm check**: confirm thin-film exotherm peak stays well below PETG's ~80 °C Tg before locking in the procedure.
-- [ ] **Source MAX CLR A/B** on Prime; record the purchase event in [`../../../purchases.md`](../../../purchases.md).
+- [x] **Epoxy sourced**: Craft Resin "Arts & Crafts" crystal-clear epoxy, 34 oz bench-test kit ([B07YCVVYFK](https://www.amazon.com/dp/B07YCVVYFK)), bought 2026-05-28; recorded in [`../../../purchases.md`](../../../purchases.md) §5. Production size is the 1 gal ([B083SRX7TJ](https://www.amazon.com/dp/B083SRX7TJ)).
 - [ ] **Rotisserie rig**: select + source the rotisserie motor and a spit-fork or chuck mount sized for the reservoir on Prime.
-- [ ] **BOM**: per-build line for MAX CLR A/B portion + sacrificial gasket in [`../../../bom.md`](../../../bom.md); blanking cap as tooling, not per-build.
+- [ ] **BOM**: sacrificial-gasket per-build line still to add in [`../../../bom.md`](../../../bom.md) (the epoxy coating per-build line is in §8; blanking cap is tooling, not per-build).
