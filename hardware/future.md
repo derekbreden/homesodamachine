@@ -113,7 +113,7 @@ The Multiplex 19-0897's atmospheric vent terminates inside the kitchen cabinet o
 
 *Enclosure side faces:* condenser intake grille on one side, condenser exhaust grille on the opposite side — straight-through airflow path with the harvested ice-maker fan inline between them.
 
-*Electronics shelf, internal:* the Legrand 1597BKCCD12 GFCI lives on the shelf inline between the C14 inlet and the AC distribution block. TEST/RESET/LED are not customer-accessible from the front face by design — the device's 3-second self-test cycle handles ongoing verification. Architecture in [`../business/regulatory.md`](../business/regulatory.md) "UL 943 — ground-fault protection".
+*Electronics shelf, internal:* the Legrand 1597BKCCD12 GFCI lives on the shelf inline between the C14 inlet and the AC distribution block. TEST/RESET/LED are not customer-accessible from the front face by design — the device's 3-second self-test cycle handles ongoing verification. Architecture in [`/business/regulatory.md`](/business/regulatory.md) "UL 943 — ground-fault protection".
 
 **Power**
 

@@ -1,6 +1,6 @@
 # First-weld session plan — Snapshot ~2026-05-01
 
-**This is a point-in-time snapshot, not a living document.** Originally lived as `marketing/video/first-weld.md` — the planning doc for the first weld session, authored before any video shipped. Refactored into `marketing/video/` structure on 2026-05-04: equipment list moved to [`../equipment.md`](../equipment.md), durable principles (POV, voiceover, build-in-public) moved to [`../principles.md`](../principles.md). This snapshot retains the session-specific content. Date is approximate; original file authoring predates the project's tracked snapshot history, dated to match the welding-progress snapshot from the same week.
+**This is a point-in-time snapshot, not a living document.** Originally lived as `marketing/video/first-weld.md` — the planning doc for the first weld session, authored before any video shipped. Refactored into `marketing/video/` structure on 2026-05-04: equipment list moved to [`/marketing/video/equipment.md`](/marketing/video/equipment.md), durable principles (POV, voiceover, build-in-public) moved to [`/marketing/video/principles.md`](/marketing/video/principles.md). This snapshot retains the session-specific content. Date is approximate; original file authoring predates the project's tracked snapshot history, dated to match the welding-progress snapshot from the same week.
 
 ## First Weld Session
 
@@ -26,10 +26,10 @@ That's the script. The footage does the rest.
 
 ## Outcome
 
-The first-weld video shipped on YouTube on 2026-05-04 as *I've Never Welded — First Welds on the Xlaserlab X1 Pro*. The story-arc plan above held — POV cap-mount footage, the "I've never welded" hook from this plan became the actual thumbnail and title. Narration approach diverged slightly: rather than recording in post, narration was captured live during the welding session with the DJI Mic, which produced more in-the-moment content (and revealed the audio-first inversion as a stronger workflow pattern; see [`../workflow.md`](../workflow.md) Open items → Walk). Edited to ~3:28 (out of ~10 minutes raw) on iPhone in iMovie.
+The first-weld video shipped on YouTube on 2026-05-04 as *I've Never Welded — First Welds on the Xlaserlab X1 Pro*. The story-arc plan above held — POV cap-mount footage, the "I've never welded" hook from this plan became the actual thumbnail and title. Narration approach diverged slightly: rather than recording in post, narration was captured live during the welding session with the DJI Mic, which produced more in-the-moment content (and revealed the audio-first inversion as a stronger workflow pattern; see [`/marketing/video/workflow.md`](/marketing/video/workflow.md) Open items → Walk). Edited to ~3:28 (out of ~10 minutes raw) on iPhone in iMovie.
 
 ## What this snapshot is NOT
 
-- Not a current procedure — see [`../workflow.md`](../workflow.md) for the active pipeline.
-- Not equipment reference — see [`../equipment.md`](../equipment.md) for the gear list and HERO13 settings.
-- Not a principles doc — see [`../principles.md`](../principles.md) for the durable POV / voiceover / build-in-public principles originally in this file.
+- Not a current procedure — see [`/marketing/video/workflow.md`](/marketing/video/workflow.md) for the active pipeline.
+- Not equipment reference — see [`/marketing/video/equipment.md`](/marketing/video/equipment.md) for the gear list and HERO13 settings.
+- Not a principles doc — see [`/marketing/video/principles.md`](/marketing/video/principles.md) for the durable POV / voiceover / build-in-public principles originally in this file.

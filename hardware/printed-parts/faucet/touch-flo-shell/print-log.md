@@ -125,7 +125,7 @@ Start-of-print events:
 ## PET-CF print attempt 7 (0.6 mm DUROZZLE TC nozzle + same-material supports)
 
 Hardware change before this print:
-- L-side nozzle swapped to 0.6 mm tungsten carbide DUROZZLE off-brand hotend (Amazon B0GWDDKG47, $37.43 delivered Sat May 9; see [hardware/purchases.md](../../../purchases.md) §13). First L-side 0.6 mm nozzle on hand for the H2C; replaces the 0.4 mm hotends used in attempts 1–6.
+- L-side nozzle swapped to 0.6 mm tungsten carbide DUROZZLE off-brand hotend (Amazon B0GWDDKG47, $37.43 delivered Sat May 9; see [hardware/purchases.md](/hardware/purchases.md) §13). First L-side 0.6 mm nozzle on hand for the H2C; replaces the 0.4 mm hotends used in attempts 1–6.
 
 Derek said:
 - "The most recent PET-CF print worked beautifully."

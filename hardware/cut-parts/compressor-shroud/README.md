@@ -24,7 +24,7 @@ Single SendCutSend part, bent on 4 sides.
 
 ## Dimensions
 
-**Status: TBD.** The donor compressor (HD48Y11 from the generic ice-maker unit, or the equivalent in the Frigidaire EFIC117-SS) needs to be measured before final dimensions are committed. Per [`../../harvested/ice-maker/README.md`](../../harvested/ice-maker/README.md) "Open items": *Physical dimensions of compressor + condenser pair, for enclosure layout* is still pending.
+**Status: TBD.** The donor compressor (HD48Y11 from the generic ice-maker unit, or the equivalent in the Frigidaire EFIC117-SS) needs to be measured before final dimensions are committed. Per [`/hardware/harvested/ice-maker/README.md`](/hardware/harvested/ice-maker/README.md) "Open items": *Physical dimensions of compressor + condenser pair, for enclosure layout* is still pending.
 
 Working assumptions:
 
@@ -53,7 +53,7 @@ Cost: ~[$5](COST_LOW)–[$10](COST_HIGH)/part at qty [5](QTY_LOW)–[10](QTY_HIG
 |---|---|---|
 | 1 | [1/2"](PANEL_HOLE) panel hole, one side wall | AC cable pass-through (3-conductor: switched H + N + chassis G, [18 AWG](AC_AWG) SJOOW bundle) from Teyleten relay #1 on the electronics shelf to the compressor terminal block. Heyco SB-500-6 snap bushing (B01LPBST9G), [5.6](BUSHING_LOW)–[6.4 mm](BUSHING_HIGH) cable-OD range, fits [18 AWG](AC_AWG) SJOOW (~[6.4 mm](AC_OD) OD). |
 | 2 | 2× [M3](TAB_THREAD) mounting tab through-holes at base flange | Anchor to the compressor's [M5](FOOT_THREAD) mounting feet using [M5](FOOT_THREAD)→[M3](TAB_THREAD) step-down adapter washers. |
-| 3 | Ø ~[6 mm](GND_HOLE) chassis ground stud hole | PEM stud for the chassis bonding wire (run AC-6 in [`../../wiring/ac-wiring-schedule.md`](../../wiring/ac-wiring-schedule.md)). |
+| 3 | Ø ~[6 mm](GND_HOLE) chassis ground stud hole | PEM stud for the chassis bonding wire (run AC-6 in [`/hardware/wiring/ac-wiring-schedule.md`](/hardware/wiring/ac-wiring-schedule.md)). |
 
 No ventilation holes.
 

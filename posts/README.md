@@ -409,7 +409,7 @@ from the bullet-list format above:
   copy it over rather than regenerating.
 - The full publishing pipeline that produces the video upstream of this
   post lives in
-  [`../marketing/video/workflow.md`](../marketing/video/workflow.md).
+  [`/marketing/video/workflow.md`](/marketing/video/workflow.md).
   The video-launch post is the last step of that pipeline, regardless
   of whether you initiated work from this directory or from the video
   workflow.

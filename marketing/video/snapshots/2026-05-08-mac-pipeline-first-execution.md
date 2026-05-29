@@ -4,7 +4,7 @@
 
 **Supersedes** [`2026-05-04-first-execution.md`](2026-05-04-first-execution.md), which captured the iPhone + iMovie workflow that shipped *First Weld*. The iMovie path is preserved as a fallback for very short single-angle clips; for everything else, the Mac pipeline wins on sync precision, cross-dissolves, captions, multi-source stitching, and iteration speed.
 
-The narrative below (what shipped, what changed, what bit) is what's frozen here as historical record. The current procedure lives in [`../workflow.md`](../workflow.md).
+The narrative below (what shipped, what changed, what bit) is what's frozen here as historical record. The current procedure lives in [`/marketing/video/workflow.md`](/marketing/video/workflow.md).
 
 ## What shipped
 
@@ -21,14 +21,14 @@ The narrative below (what shipped, what changed, what bit) is what's frozen here
 ## What changed from 2026-05-04
 
 - **iMovie → Mac edit pipeline.** Custom Python + ffmpeg scripts (sync, segment, cut, captions) in `marketing/video/` replaced iMovie. Driven from Claude Code; the Mac mostly idles during long-running steps from the user's perspective.
-- **Sync went from manual to waveform cross-correlation.** [`sync.py`](../sync.py) finds the offset by cross-correlating the lav audio against the GoPro's own audio (clap as the shared transient). Confidence 5+ on both 2026-05-08 recordings. iMovie's by-ear sync is now strictly worse for this use case.
-- **Whisper-driven scene clustering.** [`segment.py`](../segment.py) groups speech into candidate scenes by gap + pad. Eliminates the "where do the cuts go?" guesswork; the visual-analysis pass refines from a defensible starting point.
-- **Cross-dissolves became cheap.** [`cut.py --fade 0.4`](../cut.py) applies a 0.4 s cross-fade at every cut boundary. Took some debugging — chained xfade is famously fragile in ffmpeg — but the gotchas are captured in cut.py's header now (TL;DR: `setpts=PTS-STARTPTS` poisons the rate metadata, and you need `format=yuv420p,fps={rate}` after every xfade).
-- **Burned-in captions.** [`make-subtitles.py`](../make-subtitles.py) generates an ASS subtitle file aligned to the OUTPUT video — handles word-level truncation for cuts that fall mid-segment, filters Whisper hallucinations, and post-processes overlap removal at xfade boundaries. The cut.py `--captions` flag burns them in.
+- **Sync went from manual to waveform cross-correlation.** [`sync.py`](/marketing/video/sync.py) finds the offset by cross-correlating the lav audio against the GoPro's own audio (clap as the shared transient). Confidence 5+ on both 2026-05-08 recordings. iMovie's by-ear sync is now strictly worse for this use case.
+- **Whisper-driven scene clustering.** [`segment.py`](/marketing/video/segment.py) groups speech into candidate scenes by gap + pad. Eliminates the "where do the cuts go?" guesswork; the visual-analysis pass refines from a defensible starting point.
+- **Cross-dissolves became cheap.** [`cut.py --fade 0.4`](/marketing/video/cut.py) applies a 0.4 s cross-fade at every cut boundary. Took some debugging — chained xfade is famously fragile in ffmpeg — but the gotchas are captured in cut.py's header now (TL;DR: `setpts=PTS-STARTPTS` poisons the rate metadata, and you need `format=yuv420p,fps={rate}` after every xfade).
+- **Burned-in captions.** [`make-subtitles.py`](/marketing/video/make-subtitles.py) generates an ASS subtitle file aligned to the OUTPUT video — handles word-level truncation for cuts that fall mid-segment, filters Whisper hallucinations, and post-processes overlap removal at xfade boundaries. The cut.py `--captions` flag burns them in.
 - **Working dir off iCloud.** `~/Desktop/soda-edit/<slug>/` was the first attempt; mid-run, iCloud started evicting multi-GB files and ffmpeg failed with "Operation timed out." Moved to `~/Developer/soda-edit/<slug>/` (non-iCloud on this machine) and the issue went away. Captured as a hard rule in workflow.md step 5.
-- **Photos export bypassed FDA.** Granting Full Disk Access to the terminal would let osxphotos read the SQLite database directly, but is a sweeping permission grant. Instead, [`export-from-photos.sh`](../export-from-photos.sh) uses an `osascript` block that asks Photos.app to do the export — Photos.app already has access to its own library, so no FDA grant on the terminal is needed. Wrap in `with timeout of 1200 seconds` for big GoPro files.
+- **Photos export bypassed FDA.** Granting Full Disk Access to the terminal would let osxphotos read the SQLite database directly, but is a sweeping permission grant. Instead, [`export-from-photos.sh`](/marketing/video/export-from-photos.sh) uses an `osascript` block that asks Photos.app to do the export — Photos.app already has access to its own library, so no FDA grant on the terminal is needed. Wrap in `with timeout of 1200 seconds` for big GoPro files.
 - **Multi-source cut lists.** A single video can be assembled from multiple synced sources without pre-concatenating them. cut.py's "dict-with-sources" cut list format names each source's transcript and sync offset once at the top, then per-cut entries reference the source by path. make-subtitles.py reads the same file.
-- **Title card.** [`cut.py --title "First Tap"`](../cut.py) generates a 2 s near-black card with centered text and prepends it to the xfade chain (so it dissolves into the first content frame, instead of hard-cutting). Resolution and fps are matched to the first content source — title-vs-content fps mismatch breaks xfade.
+- **Title card.** [`cut.py --title "First Tap"`](/marketing/video/cut.py) generates a 2 s near-black card with centered text and prepends it to the xfade chain (so it dissolves into the first content frame, instead of hard-cutting). Resolution and fps are matched to the first content source — title-vs-content fps mismatch breaks xfade.
 - **Section + tool overlays.** Per-cut `"section"` (lower-third banner, 3 s) and `"tool"` (upper-right small label, 3.5 s) fields in the cut list let scenes self-annotate. Used sparingly — four section labels and one tool callout for the whole 6:38 video.
 
 ## What bit (issues encountered, solutions captured)
@@ -43,7 +43,7 @@ The narrative below (what shipped, what changed, what bit) is what's frozen here
 
 ## What this snapshot is NOT
 
-- Not a video-production manual. The live procedure is in [`../workflow.md`](../workflow.md). Detailed gotchas live in each script's header.
+- Not a video-production manual. The live procedure is in [`/marketing/video/workflow.md`](/marketing/video/workflow.md). Detailed gotchas live in each script's header.
 - Not a permanent statement about iMovie. The on-phone workflow still has its place for very short single-angle clips; this snapshot doesn't retire it, just deprioritizes it.
 - Not a publish-cadence commitment. Two videos in, the rate is "when there's a story worth telling," not a schedule.
 - Not a closure of the *Walk* commitment from the 2026-05-04 snapshot. Walk (live narration during shop work) is still untested. The 2026-05-08 video used the conventional model — capture quietly, narrate later — but the lav-mic-failure path also revealed that *post-recorded scripted voiceover* is workable, which weakens the case for live walking narration.

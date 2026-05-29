@@ -6,7 +6,7 @@
 
 ## In flight: the carbonator build
 
-A separate track from the audience-strategy tiers below. These videos document the actual fabrication of the welded stainless steel carbonation tank — a critical component for the integrated chiller (see [`../../hardware/future.md`](../../hardware/future.md)). Not aimed at building a maker/AI/embedded audience the way Tier 2 is; aimed at being the kind of evidence a future buyer needs to trust the founder and the product. This is Tier-1-spirit content shipping while the actual Tier 1 product (the pour video) isn't possible yet — the founder's face/kitchen/story is the brand for the first 50 units per [`../target-market.md`](../target-market.md), and these videos build that.
+A separate track from the audience-strategy tiers below. These videos document the actual fabrication of the welded stainless steel carbonation tank — a critical component for the integrated chiller (see [`/hardware/future.md`](/hardware/future.md)). Not aimed at building a maker/AI/embedded audience the way Tier 2 is; aimed at being the kind of evidence a future buyer needs to trust the founder and the product. This is Tier-1-spirit content shipping while the actual Tier 1 product (the pour video) isn't possible yet — the founder's face/kitchen/story is the brand for the first 50 units per [`/marketing/target-market.md`](/marketing/target-market.md), and these videos build that.
 
 ### Shipped
 
@@ -20,7 +20,7 @@ The first two videos establish the founder as a credible novice doing real work.
 
 ### What this arc is NOT doing
 
-Reaching the buyer profile defined in [`../target-market.md`](../target-market.md). Welders are a small niche with low overlap with diet-soda-drinking solver-personality homeowners. Audience-building for the buyer profile is what the Tier 2 list below is for. The carbonator arc is in service of *trust when they arrive*, not *how they arrive*.
+Reaching the buyer profile defined in [`/marketing/target-market.md`](/marketing/target-market.md). Welders are a small niche with low overlap with diet-soda-drinking solver-personality homeowners. Audience-building for the buyer profile is what the Tier 2 list below is for. The carbonator arc is in service of *trust when they arrive*, not *how they arrive*.
 
 ---
 

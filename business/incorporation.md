@@ -6,13 +6,13 @@ qualified tax preparer. Not advice — see "Scope" at end.
 ## Bottom line
 
 Stay a sole proprietor for now. The record-keeping in
-[`../hardware/purchases.md`](../hardware/purchases.md) is doing 80% of the
+[`/hardware/purchases.md`](/hardware/purchases.md) is doing 80% of the
 real work here regardless of what entity sits on top of it. Form a
 single-member Nebraska LLC *before* the first paid unit ships, not after —
 the driver is asset protection for a company shipping a regulated consumer
 appliance, not tax savings. S-corp / C-corp aren't worth a thought until
 there's real net income to discuss, which is years out on the trajectory in
-[`../marketing/target-market.md`](../marketing/target-market.md). Mechanics
+[`/marketing/target-market.md`](/marketing/target-market.md). Mechanics
 for the LLC when the time comes: Nebraska SOS, ~$100 online filing, $13
 biennial report. A single-member LLC is disregarded for federal tax —
 Schedule C on the personal return, same as today — so formation doesn't
@@ -48,7 +48,7 @@ artifacts live alongside this file in `marketing/`, `hardware/`, and
 
 A meaningful share of the spend — prototype iteration, AI-assisted
 engineering labor (capitalized per
-[`../hardware/purchases.md`](../hardware/purchases.md)), test fixtures,
+[`/hardware/purchases.md`](/hardware/purchases.md)), test fixtures,
 scrapped vessel revisions — looks like **IRC §174 research and
 experimentation.** TCJA changed §174 in 2022 to require 5-year domestic /
 15-year foreign amortization. The One Big Beautiful Bill Act (2025) is
