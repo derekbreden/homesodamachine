@@ -1,6 +1,6 @@
 # Video workflow — Snapshot 2026-05-03
 
-**This is a point-in-time snapshot, not a living document.** Captures the moment the user committed to a specific iPhone-only edit and publish workflow for marketing video, after roughly two months of capture-only mode (GoPro HERO13 Black on cap mount, DJI Mic Mini to iPhone, no edited content shipped). Recipe and rationale recorded here for posterity. Originally lived as `marketing/video/video-workflow-2026-05-03.md`; relocated and trimmed in the 2026-05-04 refactor — durable HERO13 settings extracted to [`../equipment.md`](../equipment.md), durable principles articulated below extracted to [`../principles.md`](../principles.md). The narrative below (commitment plan, provenance, diagnosis) is what's frozen here as historical record.
+**This is a point-in-time snapshot, not a living document.** Captures the moment the user committed to a specific iPhone-only edit and publish workflow for marketing video, after roughly two months of capture-only mode (GoPro HERO13 Black on cap mount, DJI Mic Mini to iPhone, no edited content shipped). Recipe and rationale recorded here for posterity. Originally lived as `marketing/video/video-workflow-2026-05-03.md`; relocated and trimmed in the 2026-05-04 refactor — durable HERO13 settings extracted to [`/marketing/video/equipment.md`](/marketing/video/equipment.md), durable principles articulated below extracted to [`/marketing/video/principles.md`](/marketing/video/principles.md). The narrative below (commitment plan, provenance, diagnosis) is what's frozen here as historical record.
 
 ## TL;DR — the five-step commitment
 
@@ -26,11 +26,11 @@ Meanwhile the iPhone already has half the assets (DJI Mic recordings) and a perf
 
 ## Supporting decisions originally captured here
 
-Four supporting principles articulated alongside the commitment — *narration is optional for most clips*, *drafts are free / posts are expensive*, *capture habit not publishing cadence*, *smallest possible win* — were extracted as durable principles to [`../principles.md`](../principles.md) in the 2026-05-04 refactor. They're not unique to this snapshot; they're the operating rules the workflow sits on.
+Four supporting principles articulated alongside the commitment — *narration is optional for most clips*, *drafts are free / posts are expensive*, *capture habit not publishing cadence*, *smallest possible win* — were extracted as durable principles to [`/marketing/video/principles.md`](/marketing/video/principles.md) in the 2026-05-04 refactor. They're not unique to this snapshot; they're the operating rules the workflow sits on.
 
 ## What this snapshot is NOT
 
 - Not a video-production manual — the five bullets are the commitment, not a tutorial.
-- Not a replacement for [`../principles.md`](../principles.md) — that file covers capture and narration philosophy. This file is specifically about the post-capture workflow that file is silent on.
+- Not a replacement for [`/marketing/video/principles.md`](/marketing/video/principles.md) — that file covers capture and narration philosophy. This file is specifically about the post-capture workflow that file is silent on.
 - Not a permanent statement about tools — CapCut was the iPhone editor pick at the time; if a better tool appeared later, the workflow *shape* (single device, end-to-end on iPhone) is what matters, not the specific app name. (As it happened, CapCut was abandoned for iMovie on first execution — see [`2026-05-04-first-execution.md`](2026-05-04-first-execution.md).)
 - Not a publish-cadence commitment. Publishing was decoupled from this workflow on purpose.

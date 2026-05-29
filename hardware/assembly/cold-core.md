@@ -2,7 +2,7 @@
 
 The production procedure for assembling the cold core — the back-of-enclosure subsystem that contains the carbonator vessel, its wound evaporator coil, two flavor reservoirs, and the surrounding pour-in-place polyurethane foam, all held together inside a 3D-printed PETG shell stack.
 
-Foam-pour geometry, shell architecture, copper-plug binder-clip cross-section, and TPU-gasket seam analysis: [`../printed-parts/cold-core/foam-shell/README.md`](../printed-parts/cold-core/foam-shell/README.md).
+Foam-pour geometry, shell architecture, copper-plug binder-clip cross-section, and TPU-gasket seam analysis: [`/hardware/printed-parts/cold-core/foam-shell/README.md`](/hardware/printed-parts/cold-core/foam-shell/README.md).
 
 ## Scope
 
@@ -14,19 +14,19 @@ Not in scope: refrigerant-loop integration ([`refrigerant-loop.md`](refrigerant-
 
 ## Inputs per appliance
 
-Per-unit BOM lives in [`../bom.md`](../bom.md) §5 (refrigeration — GOORY copper tubing for the coil) + §6 (cold-core insulation, 3M 425 foil tape + pour-in-place foam + foam-pour consumables) + §13 (mechanical attach hardware + reservoir-cap vent filter) + §7 (the printed parts themselves, on $/kg-PETG basis). Status (ACQUIRED / ON-ORDER / LIKELY-TO-BUY) for every item lives in [`../purchases.md`](../purchases.md) §6 + §11.
+Per-unit BOM lives in [`/hardware/bom.md`](/hardware/bom.md) §5 (refrigeration — GOORY copper tubing for the coil) + §6 (cold-core insulation, 3M 425 foil tape + pour-in-place foam + foam-pour consumables) + §13 (mechanical attach hardware + reservoir-cap vent filter) + §7 (the printed parts themselves, on $/kg-PETG basis). Status (ACQUIRED / ON-ORDER / LIKELY-TO-BUY) for every item lives in [`/hardware/purchases.md`](/hardware/purchases.md) §6 + §11.
 
 | Item | Source | Status (per purchases.md) |
 |---|---|---|
 | Carbonator vessel | Output of [`pressure-vessel.md`](pressure-vessel.md) | Hydro-tested + passivated |
 | GOORY 1/4" OD × 0.031" wall ACR copper tubing | B0DKSW5VL9 | ~24 ft per vessel for coil wrap + tie-in stubs (1/2 of 50 ft roll per build) — ACQUIRED |
 | 3M 425 aluminum foil tape | B07BTW7C2N | Coil-to-vessel thermal interface; applied as continuous skin under the coil; one 180 ft roll covers ~12 builds — ACQUIRED |
-| Coil-winding mandrel (printed PETG) | [`../printed-parts/cold-core/coil-mandrel/`](../printed-parts/cold-core/coil-mandrel/) | Print, reusable across builds |
-| Foam-shell (printed PETG) | [`../printed-parts/cold-core/foam-shell/`](../printed-parts/cold-core/foam-shell/) | Print, Bambu H2C, 0.8 mm nozzle |
+| Coil-winding mandrel (printed PETG) | [`/hardware/printed-parts/cold-core/coil-mandrel/`](/hardware/printed-parts/cold-core/coil-mandrel/) | Print, reusable across builds |
+| Foam-shell (printed PETG) | [`/hardware/printed-parts/cold-core/foam-shell/`](/hardware/printed-parts/cold-core/foam-shell/) | Print, Bambu H2C, 0.8 mm nozzle |
 | Foam cap × 2 + foam cap lid × 2 (printed PETG) | Same | Print |
 | Copper plug × 3 (printed PETG) | Same | Print |
-| Flavor reservoir × 2 (printed) | [`../printed-parts/cold-core/reservoir/`](../printed-parts/cold-core/reservoir/) | Print, SunTop food-contact-compliant PETG (FDA 21 CFR 177.1630), 1.75 mm × 1 kg, Clear/Transparent B0FP34MJ94 — ON-ORDER |
-| TPU 90A gasket × 2 (printed) | [`../printed-parts/cold-core/foam-shell/`](../printed-parts/cold-core/foam-shell/) | Print |
+| Flavor reservoir × 2 (printed) | [`/hardware/printed-parts/cold-core/reservoir/`](/hardware/printed-parts/cold-core/reservoir/) | Print, SunTop food-contact-compliant PETG (FDA 21 CFR 177.1630), 1.75 mm × 1 kg, Clear/Transparent B0FP34MJ94 — ON-ORDER |
+| TPU 90A gasket × 2 (printed) | [`/hardware/printed-parts/cold-core/foam-shell/`](/hardware/printed-parts/cold-core/foam-shell/) | Print |
 | M3 × 25 mm SHCS, 12.9 alloy, black oxide × 12 (body cap screws) | BNUOK B0DJQGF665 | ON-ORDER |
 | M3 × 12 mm SHCS, 12.9 alloy, black oxide × 12 (reservoir-cap screws) | BNUOK B0DJQGVK8S | ON-ORDER |
 | ruthex M3 short heat-set inserts × 26 per build (12 outer_shell + 12 reservoir + 2 touch-flo-shell) | ruthex B0D39W228K (100-pc bag = ~3.8 builds) | ON-ORDER |
@@ -42,21 +42,21 @@ Wind GOORY 1/4" OD × 0.031" wall ACR copper tubing as a single-layer helical co
 
 Bond the coil to the vessel OD with 3M 425 aluminum foil tape applied as a continuous skin between vessel and coil.
 
-Wind around the printed [coil-mandrel](../printed-parts/cold-core/coil-mandrel/coil_mandrel.py) — hollow PETG cylinder with a shallow [1 mm](GROOVE_DEPTH) helical guide groove, mandrel OD [123 mm](MANDREL_OD), tank OD [127 mm](TANK_OD), net coil undersize [3 mm](NET_UNDERSIZE). Wind length [120.4 mm](WIND_LENGTH), [9.687](TOTAL_WRAPS) wraps, pitch [12.43 mm](PITCH). Inlet aligns with the foam-shell copper plug at Y=[46](PLUG_INLET_Y); outlet at Y=[166.4](PLUG_OUTLET_Y). Pull the wound coil off the mandrel and slip it onto the foil-taped vessel. Coil springback: 1–3 mm radial.
+Wind around the printed [coil-mandrel](/hardware/printed-parts/cold-core/coil-mandrel/coil_mandrel.py) — hollow PETG cylinder with a shallow [1 mm](GROOVE_DEPTH) helical guide groove, mandrel OD [123 mm](MANDREL_OD), tank OD [127 mm](TANK_OD), net coil undersize [3 mm](NET_UNDERSIZE). Wind length [120.4 mm](WIND_LENGTH), [9.687](TOTAL_WRAPS) wraps, pitch [12.43 mm](PITCH). Inlet aligns with the foam-shell copper plug at Y=[46](PLUG_INLET_Y); outlet at Y=[166.4](PLUG_OUTLET_Y). Pull the wound coil off the mandrel and slip it onto the foil-taped vessel. Coil springback: 1–3 mm radial.
 
-Dev-phase summary: [`../handwork.md`](../handwork.md) "Bend copper around the pressure vessel".
+Dev-phase summary: [`/hardware/handwork.md`](/hardware/handwork.md) "Bend copper around the pressure vessel".
 
 ### 2. Cap foam pour (top and bottom, in parallel)
 
 Each cap is a [16 mm](CAP_H)-tall foam-filled cup. With the cap inverted and the foam-cap-lid sealing its open face from above, liquid foam enters through the lid's Ø[10 mm](POUR_D) pour hole; air escapes through two Ø[6 mm](VENT_D) vents. Foam expands to fill and cures. Trim flush after cure.
 
-Both caps are identical; pour in parallel. Geometry detail at [`../printed-parts/cold-core/foam-shell/README.md`](../printed-parts/cold-core/foam-shell/README.md) "foam_cap and foam_cap_lid".
+Both caps are identical; pour in parallel. Geometry detail at [`/hardware/printed-parts/cold-core/foam-shell/README.md`](/hardware/printed-parts/cold-core/foam-shell/README.md) "foam_cap and foam_cap_lid".
 
 ### 3. Press ruthex inserts into the outer shell
 
 Six ruthex M3 short heat-set inserts pressed into the top face of the outer_shell, six into the bottom face. Each insert seats in a Ø[4 mm](INSERT_POCKET_D) × [4 mm](INSERT_HALF_DEPTH)-deep printed pocket; another [4 mm](INSERT_HALF_DEPTH) of relief below the insert. Soldering iron tip on the insert; press straight down until flush.
 
-Geometry detail at [`../printed-parts/cold-core/foam-shell/README.md`](../printed-parts/cold-core/foam-shell/README.md) "Cap-to-outer-shell joinery".
+Geometry detail at [`/hardware/printed-parts/cold-core/foam-shell/README.md`](/hardware/printed-parts/cold-core/foam-shell/README.md) "Cap-to-outer-shell joinery".
 
 ### 4. Body-side install
 
@@ -69,15 +69,15 @@ With the outer shell open-top-up on the bench, install every internal component:
   - Water outlet → dedicated Ø[6.5](PORT_D) hole, +Z outer wall
   - Reservoir lines (+X, −X) → dedicated Ø[6.5](PORT_D) holes in the bag_pocket_shell ±X far walls
   - Refrigerant inlet (low), refrigerant outlet (high), water inlet, PRV vent LLDPE → shared Y-elongated slot at x=0 on the +Z outer wall. The water-inlet line transitions from the warm-side GASHER 1/4" NPT check valve via a JG PP010822E 1/4" PTC × 1/4" NPT M adapter before entering the slot as 1/4" OD LLDPE; downstream of the slot a second JG PP010822E (PTC → NPT) takes the LLDPE back to NPT before threading into the TAISHER 1/4" NPT 90° vessel-port elbow on Port 2 (top plate). The PRV vent LLDPE press-fits into the prv-shroud cap, routes through the slot at its own Y height (per foam-shell penetration #8), and terminates open inside the appliance interior.
-- **PRV vent LLDPE** press-fits into the cap of the [`../printed-parts/cold-core/prv-shroud/`](../printed-parts/cold-core/prv-shroud/) subassembly on Port 4 (threaded into the vessel at [`pressure-vessel.md`](pressure-vessel.md) step 8). The LLDPE routes from the cap, takes a slight bend, and enters the +Z shared slot at its allocated Y height. Far end terminates open inside the appliance interior.
-- **Four copper plugs** slid down into the shared +Z slot from above, sealing between and above the four pass-throughs (binder-clip geometry in [`../printed-parts/cold-core/foam-shell/README.md`](../printed-parts/cold-core/foam-shell/README.md) "Shared +Z slot and copper plug stack")
+- **PRV vent LLDPE** press-fits into the cap of the [`/hardware/printed-parts/cold-core/prv-shroud/`](/hardware/printed-parts/cold-core/prv-shroud/) subassembly on Port 4 (threaded into the vessel at [`pressure-vessel.md`](pressure-vessel.md) step 8). The LLDPE routes from the cap, takes a slight bend, and enters the +Z shared slot at its allocated Y height. Far end terminates open inside the appliance interior.
+- **Four copper plugs** slid down into the shared +Z slot from above, sealing between and above the four pass-throughs (binder-clip geometry in [`/hardware/printed-parts/cold-core/foam-shell/README.md`](/hardware/printed-parts/cold-core/foam-shell/README.md) "Shared +Z slot and copper plug stack")
 - **In-cavity PP0308E elbow** angled in through the −Z support-arch doorway from above before the vessel drops into the cavity.
 
 All fitting-size transitions (3/8" → 1/4", larger fittings) happen on the warm side of the shell; every penetration through the shell wall is 1/4" OD tubing.
 
 ### 5. Body foam pour
 
-Mix the two-part PU foam 1:1. Pour the liquid directly into the body's open +Y top, all at once. Foam falls into the body and reaches every cavity in parallel: outer foam gap, bag pockets, corner pockets at ±Z, and the tank cavity inside the cylinder. Geometry: [`../printed-parts/cold-core/foam-shell/README.md`](../printed-parts/cold-core/foam-shell/README.md) "Assembly and foam pour".
+Mix the two-part PU foam 1:1. Pour the liquid directly into the body's open +Y top, all at once. Foam falls into the body and reaches every cavity in parallel: outer foam gap, bag pockets, corner pockets at ±Z, and the tank cavity inside the cylinder. Geometry: [`/hardware/printed-parts/cold-core/foam-shell/README.md`](/hardware/printed-parts/cold-core/foam-shell/README.md) "Assembly and foam pour".
 
 Foam expansion may push small amounts of material out through the 0.5 mm clearance bands around tubes in the +Z slot and the tight-fit tube exits at other penetrations. Trim flush after cure.
 

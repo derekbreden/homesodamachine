@@ -5,10 +5,10 @@ pressure-relief valve on Port 4 of the carbonator pressure vessel
 during the cold-core body foam pour. The shroud preserves the air
 cavity the open-port pop-off PRV needs to function.
 
-The SV-125 (per [`assembly/pressure-vessel.md`](../../../assembly/pressure-vessel.md)
+The SV-125 (per [`assembly/pressure-vessel.md`](/hardware/assembly/pressure-vessel.md)
 step 8) is installed via a TAISHER 316L 90° street elbow on Port 4
 with the valve body extending laterally inside the ~30 mm above-tank
-elbow envelope. The body foam pour ([`../foam-shell/`](../foam-shell/))
+elbow envelope. The body foam pour ([`/hardware/printed-parts/cold-core/foam-shell/`](/hardware/printed-parts/cold-core/foam-shell/))
 fills the surrounding foam zone with closed-cell polyurethane.
 
 The SV-125 is an open-port pop-off design: the discharge gas exits
@@ -85,11 +85,11 @@ and the vessel is lowered into the foam shell.
    installed on a vessel.
 
 After cure, the subassembly is ready. It threads into Port 4 of a
-finished vessel at [`../../../assembly/pressure-vessel.md`](../../../assembly/pressure-vessel.md)
+finished vessel at [`/hardware/assembly/pressure-vessel.md`](/hardware/assembly/pressure-vessel.md)
 step 8, replacing the elbow + PRV install on that port.
 
 The LLDPE press-fit and routing through the foam-shell slot happen
-later, at [`../../../assembly/cold-core.md`](../../../assembly/cold-core.md)
+later, at [`/hardware/assembly/cold-core.md`](/hardware/assembly/cold-core.md)
 step 4.
 
 The shroud + LLDPE keep the **spring chamber bonnet windows** in

@@ -2,31 +2,31 @@
 
 The production procedure for converting a donor countertop ice maker into the appliance's refrigeration loop — from vent of the factory R-600a charge, through coil wind around the carbonator vessel, to final mass-metered recharge. The loop is open to a flammable hydrocarbon for several steps; the argon purge during brazing is load-bearing.
 
-Design intent and component rationale live in [`../future.md`](../future.md) "Refrigeration subsystem". Donor-component teardown notes (compressor, condenser, capillary tube, drier, hot-gas bypass) live in [`../harvested/ice-maker/README.md`](../harvested/ice-maker/README.md). Assembly-time argon-purge safety is documented at [`../../business/regulatory.md`](../../business/regulatory.md) "Assembly-time safety — argon purge during brazing". This document is the repeatable production procedure that ties them together.
+Design intent and component rationale live in [`/hardware/future.md`](/hardware/future.md) "Refrigeration subsystem". Donor-component teardown notes (compressor, condenser, capillary tube, drier, hot-gas bypass) live in [`/hardware/harvested/ice-maker/README.md`](/hardware/harvested/ice-maker/README.md). Assembly-time argon-purge safety is documented at [`/business/regulatory.md`](/business/regulatory.md) "Assembly-time safety — argon purge during brazing". This document is the repeatable production procedure that ties them together.
 
 ## Scope
 
 This is a single-session integration procedure: bring a finished cold core and a donor ice maker together at one workspace, open the donor's refrigerant loop, braze the cold core's coil stubs into the donor's loop, vacuum, charge, run up. Half a day of work end-to-end. All multi-day prep work (coil winding, foam pour) happens upstream in [`cold-core.md`](cold-core.md) before this session begins.
 
-In: donor ice maker (verified topology in [`../harvested/ice-maker/README.md`](../harvested/ice-maker/README.md)); a finished cold core (output of [`cold-core.md`](cold-core.md) — wound evaporator coil bonded around the vessel, coil inlet/outlet stubs ~2 ft each protruding through the foam-shell's copper-plug exits, foam pour fully cured); R-600a refrigerant; argon from the welder cylinder.
+In: donor ice maker (verified topology in [`/hardware/harvested/ice-maker/README.md`](/hardware/harvested/ice-maker/README.md)); a finished cold core (output of [`cold-core.md`](cold-core.md) — wound evaporator coil bonded around the vessel, coil inlet/outlet stubs ~2 ft each protruding through the foam-shell's copper-plug exits, foam pour fully cured); R-600a refrigerant; argon from the welder cylinder.
 
 Out: a closed and brazed refrigerant loop, vacuum-tight, charged within [±1 g](RECHARGE_TOL) of target mass, with the cold core's evaporator coil now brazed into the donor's refrigeration cycle. The compressor runs on its first run-up and the suction line drops cold.
 
-Not in scope: cold-core assembly — coil winding, foam pour — all in [`cold-core.md`](cold-core.md); electronics-shelf control wiring, AC distribution, compressor shroud install (its own spec at [`../cut-parts/compressor-shroud/README.md`](../cut-parts/compressor-shroud/README.md)).
+Not in scope: cold-core assembly — coil winding, foam pour — all in [`cold-core.md`](cold-core.md); electronics-shelf control wiring, AC distribution, compressor shroud install (its own spec at [`/hardware/cut-parts/compressor-shroud/README.md`](/hardware/cut-parts/compressor-shroud/README.md)).
 
 ## Safety
 
-R-600a (isobutane) is flammable, LFL ~1.8 % in air. EPA Section 608 carves natural refrigerants out of the venting prohibition, so no technician certification is legally required ([`../../business/regulatory.md`](../../business/regulatory.md)). Two hazards apply to this procedure:
+R-600a (isobutane) is flammable, LFL ~1.8 % in air. EPA Section 608 carves natural refrigerants out of the venting prohibition, so no technician certification is legally required ([`/business/regulatory.md`](/business/regulatory.md)). Two hazards apply to this procedure:
 
 **Hazard A — Vent the factory charge before applying any flame.** The charge must be vented and the loop allowed to decompress to atmospheric before any cut, braze, or torch step.
 
 **Hazard B — Residual hydrocarbon at the braze.** After venting, residual R-600a remains dissolved in the compressor oil and pooled in low points of the tubing. Mitigation: flow low-pressure argon (a few psi, *flowing*, not static) through the open loop during the entire loop-open period, sweeping residual fuel out ahead of the heat. The same continuous flow serves as the dry inert blanket that preserves the factory drier's desiccant during the loop-open period (see step 3). The existing welder-side argon cylinder is the source.
 
-The in-service hazard — a refrigerant leak post-build into a sealed compartment that contains an ignition source — is owned elsewhere: the compressor shroud isolates the highest-temperature surface in the system, and the AC switching relay is deliberately placed *outside* the shroud so its switching arc isn't co-located with the protected zone. See [`../cut-parts/compressor-shroud/README.md`](../cut-parts/compressor-shroud/README.md). The shroud also carries a hardware-only backstop: a BOJACK SF76E SEFUSE thermal fuse ([77 °C](SF76E_TEMP), in series with the AC primary feeding the compressor) plus an ACEIRMC MQ-6 LPG/iso-butane sensor mounted low on the rear interior enclosure wall (mesh facing horizontally inward into the cabinet volume), positioned where dense R-600a pools at the cabinet floor from any of the dominant brazed-joint leak sites (cap-tube pinch-swage at the evap inlet, slip coupling at the evap outlet, BPV31 saddle clamp + flare cap, compressor process tube) — both ON-ORDER per [`../purchases.md`](../purchases.md) §6. Thermal fuse + gas sensor backstop the soft (firmware) cutoffs so a controller failure can't keep the compressor energized through a thermal or leak event.
+The in-service hazard — a refrigerant leak post-build into a sealed compartment that contains an ignition source — is owned elsewhere: the compressor shroud isolates the highest-temperature surface in the system, and the AC switching relay is deliberately placed *outside* the shroud so its switching arc isn't co-located with the protected zone. See [`/hardware/cut-parts/compressor-shroud/README.md`](/hardware/cut-parts/compressor-shroud/README.md). The shroud also carries a hardware-only backstop: a BOJACK SF76E SEFUSE thermal fuse ([77 °C](SF76E_TEMP), in series with the AC primary feeding the compressor) plus an ACEIRMC MQ-6 LPG/iso-butane sensor mounted low on the rear interior enclosure wall (mesh facing horizontally inward into the cabinet volume), positioned where dense R-600a pools at the cabinet floor from any of the dominant brazed-joint leak sites (cap-tube pinch-swage at the evap inlet, slip coupling at the evap outlet, BPV31 saddle clamp + flare cap, compressor process tube) — both ON-ORDER per [`/hardware/purchases.md`](/hardware/purchases.md) §6. Thermal fuse + gas sensor backstop the soft (firmware) cutoffs so a controller failure can't keep the compressor energized through a thermal or leak event.
 
 ## Inputs per appliance
 
-Per-unit BOM lives in [`../bom.md`](../bom.md) §5 (refrigeration). The table below is the procedure-level summary; bom.md is the source of truth for per-unit allocation and cost. Status (ACQUIRED / ON-ORDER) for every item lives in [`../purchases.md`](../purchases.md) §6.
+Per-unit BOM lives in [`/hardware/bom.md`](/hardware/bom.md) §5 (refrigeration). The table below is the procedure-level summary; bom.md is the source of truth for per-unit allocation and cost. Status (ACQUIRED / ON-ORDER) for every item lives in [`/hardware/purchases.md`](/hardware/purchases.md) §6.
 
 | Item | Source / spec | Notes |
 |---|---|---|
@@ -40,7 +40,7 @@ Per-unit BOM lives in [`../bom.md`](../bom.md) §5 (refrigeration). The table be
 | Argon | Welder cylinder + Uniweld RHP400 brazing-purge regulator | Continuous low-pressure flow through the loop during the entire loop-open period (step 3 through step 6); no new cylinder needed |
 | BOJACK SF76E [77 °C](SF76E_TEMP) SEFUSE thermal fuse + ACEIRMC MQ-6 LPG sensor module | B07Y61YTTK + B0978JSCZ8 | Hardware-only fire-safety backstops — SF76E inside the compressor shroud (in series with the AC primary feeding the compressor), MQ-6 module low on the rear interior enclosure wall (see Safety section above) |
 
-Tooling — all committed in [`../purchases.md`](../purchases.md) §6 (refrigeration) and §1 (argon side), ACQUIRED unless noted:
+Tooling — all committed in [`/hardware/purchases.md`](/hardware/purchases.md) §6 (refrigeration) and §1 (argon side), ACQUIRED unless noted:
 
 - **Piercing valve** for venting the factory charge: Supco BPV31 bullet-piercing valve
 - **Cap-tube cutter** at the process-tube junction: Mastercool 70025
@@ -60,13 +60,13 @@ Tooling — all committed in [`../purchases.md`](../purchases.md) §6 (refrigera
 
 ### 1. Verify factory refrigerant + charge mass
 
-Read the donor appliance back-panel rating label — refrigerant type (must be R-600a) and charge mass. The two donors tracked in [`../harvested/ice-maker/README.md`](../harvested/ice-maker/README.md) are both R-600a. Factory charge mass: **[15 g](UNIT_A_CHARGE)** for Unit A (Antarctic Star HZB-12/Q, per manufacturer manual); **[23 g](UNIT_B_CHARGE)** for Unit B (Frigidaire EFIC117-SS, per manufacturer manual). See harvested README per-unit for sources. Compressor body cast-stampings ("48.5-2" on Unit A's HD48Y11A; "45" on Unit B's BLC48AD) are *not* charge masses.
+Read the donor appliance back-panel rating label — refrigerant type (must be R-600a) and charge mass. The two donors tracked in [`/hardware/harvested/ice-maker/README.md`](/hardware/harvested/ice-maker/README.md) are both R-600a. Factory charge mass: **[15 g](UNIT_A_CHARGE)** for Unit A (Antarctic Star HZB-12/Q, per manufacturer manual); **[23 g](UNIT_B_CHARGE)** for Unit B (Frigidaire EFIC117-SS, per manufacturer manual). See harvested README per-unit for sources. Compressor body cast-stampings ("48.5-2" on Unit A's HD48Y11A; "45" on Unit B's BLC48AD) are *not* charge masses.
 
 If the donor is anything other than R-600a (R-134a, R-410a, any HFC), this procedure does not apply: Section 608 certification is required to vent, and the cold-core architecture changes.
 
 ### 2. Vent factory R-600a
 
-Install a piercing valve (saddle clamp + valve core) onto the compressor process tube — the short copper stub pinched-and-brazed shut at the factory ([`../harvested/ice-maker/README.md`](../harvested/ice-maker/README.md) "Process tube"). Open the valve and vent to atmosphere in a well-ventilated area — outdoors or under a vent hood is preferred — with no ignition sources within [3 m](VENT_CLEARANCE).
+Install a piercing valve (saddle clamp + valve core) onto the compressor process tube — the short copper stub pinched-and-brazed shut at the factory ([`/hardware/harvested/ice-maker/README.md`](/hardware/harvested/ice-maker/README.md) "Process tube"). Open the valve and vent to atmosphere in a well-ventilated area — outdoors or under a vent hood is preferred — with no ignition sources within [3 m](VENT_CLEARANCE).
 
 Confirm fully vented before proceeding: gauge reads atmospheric, no further hiss, no propane-like smell at the valve.
 
@@ -107,7 +107,7 @@ Close the manifold valve; close the BPV31; disconnect the manifold; cap the BPV3
 
 ### 8. Initial run-up + leak check
 
-Energize the compressor briefly. (Firmware enforces a [3-minute](OFF_TIME) minimum off-time per [`../harvested/ice-maker/README.md`](../harvested/ice-maker/README.md) "Powering and control"; the first run-up starts that timer with no prior on-state.) Verify the compressor draws expected running current ([~1 A](RUN_CURRENT)) and the suction line drops cold within a minute or two.
+Energize the compressor briefly. (Firmware enforces a [3-minute](OFF_TIME) minimum off-time per [`/hardware/harvested/ice-maker/README.md`](/hardware/harvested/ice-maker/README.md) "Powering and control"; the first run-up starts that timer with no prior on-state.) Verify the compressor draws expected running current ([~1 A](RUN_CURRENT)) and the suction line drops cold within a minute or two.
 
 Apply electronic leak detector or soap solution at all braze joints + the BPV31 saddle clamp + the BPV31 flare port cap + any threaded connection. No bubbles, no detector hits.
 
@@ -133,7 +133,7 @@ Procedure-level gaps that need answers before unit 1 ships:
 
 1. **Recharge target mass for the new larger evap coil.** Factory charge masses are known (Unit A [15 g](UNIT_A_CHARGE), Unit B [23 g](UNIT_B_CHARGE) per their manufacturer manuals — see harvested README per-unit), but the recharge target for this build is *not* the factory mass because the new evaporator coil has greater internal volume than the discarded factory finger-plate. The volume-corrected target needs empirical validation on first run-up against frost-pattern + suction-line superheat. Bound: factory mass + the evap-volume-times-operating-density correction (order-of-magnitude [+5-15 g](VOL_CORRECTION) for the [~80-110 mL](EVAP_VOL_DELTA) volume delta vs. a finger-plate evap at typical R-600a operating density). Iterate in 1-2 g increments rather than committing to a calculated final number.
 2. **Failure handling beyond "redo the sequence."** Decision tree for hard-to-find leaks, charge loss between vacuum check and run-up.
-3. **No dedicated donor-teardown procedure.** Which steps remove which components, in what order, what gets discarded vs. salvaged — currently scattered across this doc and [`../harvested/ice-maker/README.md`](../harvested/ice-maker/README.md). Worth a standalone teardown doc when production teardown begins for unit 1.
+3. **No dedicated donor-teardown procedure.** Which steps remove which components, in what order, what gets discarded vs. salvaged — currently scattered across this doc and [`/hardware/harvested/ice-maker/README.md`](/hardware/harvested/ice-maker/README.md). Worth a standalone teardown doc when production teardown begins for unit 1.
 
 ## Sources
 [value](NAME) texts are updated by:

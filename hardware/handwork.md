@@ -1,6 +1,6 @@
 # Handwork
 
-Skilled-hand tasks on the path to a finished unit. One person, one unit at a time — the Founder Edition cadence ([target-market.md](../marketing/target-market.md)).
+Skilled-hand tasks on the path to a finished unit. One person, one unit at a time — the Founder Edition cadence ([target-market.md](/marketing/target-market.md)).
 
 Companion to [bom.md](bom.md) (per-unit parts) and [purchases.md](purchases.md) (every dollar out, with founder time explicitly excluded — "sweat equity, un-booked by design").
 

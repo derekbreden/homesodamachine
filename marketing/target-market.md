@@ -273,7 +273,7 @@ By the time Standard opens, the brand carries more of the weight. At Founder Edi
 
 ### CO2 sits right at the appliance.
 
-The CO2 cylinder lives beside the appliance in the under-sink cabinet on a short tether to a front-panel inlet — the customer can see the connection and reach the cylinder valve without crawling. CO2 refills mean a trip to a local welding gas supplier or a delivered swap (per [`../pie-in-the-sky/co2-service.md`](../pie-in-the-sky/co2-service.md)); we message this honestly: "CO2 lasts months. When it runs out, a local supplier refills it, or we deliver."
+The CO2 cylinder lives beside the appliance in the under-sink cabinet on a short tether to a front-panel inlet — the customer can see the connection and reach the cylinder valve without crawling. CO2 refills mean a trip to a local welding gas supplier or a delivered swap (per [`/pie-in-the-sky/co2-service.md`](/pie-in-the-sky/co2-service.md)); we message this honestly: "CO2 lasts months. When it runs out, a local supplier refills it, or we deliver."
 
 ---
 

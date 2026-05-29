@@ -14,20 +14,20 @@ The appliance has two functional electrical zones, both on the AC inlet side. Th
 
 | Zone | Location | Contents |
 |---|---|---|
-| Electronics shelf | Top-back of enclosure, immediately behind C14 inlet | C14 inlet, AC distribution block, Legrand Radiant 1597BKCCD12 GFCI (UL 943 Class A, [6 mA](GFCI_TRIP), self-test; inline between C14 inlet LOAD and the AC distribution block — see [`../../business/regulatory.md`](../../business/regulatory.md) "UL 943 — ground-fault protection"), Mean Well IRM-90-12ST PSU, Teyleten relay #1 (compressor switch), Teyleten relay #2 (diaphragm pump switch), ESP32-DevKitC-32E, MCP23017, 2× ULN2803A modules, L298N pump driver, [5 V](V_LOGIC) + [3.3 V](V_IO) regulators, ground bus |
-| Compressor zone | Middle-bottom of enclosure | Hermetic compressor + clip-on PTC start relay/overload module, condenser fan, **fire-rated shroud over the compressor terminal block** (see [`../cut-parts/compressor-shroud/`](../cut-parts/compressor-shroud/)) |
+| Electronics shelf | Top-back of enclosure, immediately behind C14 inlet | C14 inlet, AC distribution block, Legrand Radiant 1597BKCCD12 GFCI (UL 943 Class A, [6 mA](GFCI_TRIP), self-test; inline between C14 inlet LOAD and the AC distribution block — see [`/business/regulatory.md`](/business/regulatory.md) "UL 943 — ground-fault protection"), Mean Well IRM-90-12ST PSU, Teyleten relay #1 (compressor switch), Teyleten relay #2 (diaphragm pump switch), ESP32-DevKitC-32E, MCP23017, 2× ULN2803A modules, L298N pump driver, [5 V](V_LOGIC) + [3.3 V](V_IO) regulators, ground bus |
+| Compressor zone | Middle-bottom of enclosure | Hermetic compressor + clip-on PTC start relay/overload module, condenser fan, **fire-rated shroud over the compressor terminal block** (see [`/hardware/cut-parts/compressor-shroud/`](/hardware/cut-parts/compressor-shroud/)) |
 
-The Teyleten relay #1 sits with the rest of the electronics, **outside** the compressor shroud. Switched AC enters the shroud as the only mains-side penetration. Rationale: avoid placing an arcing contact inside the protected hydrocarbon-refrigerant compartment, and minimize the wire count through the shroud wall ([3](SHROUD_WIRES) wires — switched H + N + G — vs. [5](SHROUD_WIRES_ALT) if the relay were inside). See [`../future.md`](../future.md) "Compressor compartment shroud".
+The Teyleten relay #1 sits with the rest of the electronics, **outside** the compressor shroud. Switched AC enters the shroud as the only mains-side penetration. Rationale: avoid placing an arcing contact inside the protected hydrocarbon-refrigerant compartment, and minimize the wire count through the shroud wall ([3](SHROUD_WIRES) wires — switched H + N + G — vs. [5](SHROUD_WIRES_ALT) if the relay were inside). See [`/hardware/future.md`](/hardware/future.md) "Compressor compartment shroud".
 
 ## Run table
 
-Per-run gauges, terminations, and approximate lengths. Lengths assume the enclosure layout in [`../future.md`](../future.md) "Enclosure layout"; revise once the prototype enclosure is mocked up and lengths are measured.
+Per-run gauges, terminations, and approximate lengths. Lengths assume the enclosure layout in [`/hardware/future.md`](/hardware/future.md) "Enclosure layout"; revise once the prototype enclosure is mocked up and lengths are measured.
 
 ### AC mains ([120 V](V_LINE))
 
 | # | From | To | Conductors | AWG | Approx. length | Termination | Notes |
 |---|---|---|---|---|---|---|---|
-| AC-1a | C14 inlet (rear panel) | Legrand Radiant 1597BKCCD12 GFCI **LINE** terminals (mounted on the electronics shelf) | H + N + G | [16](AWG_MAINS) | [~150 mm](LEN_MID) (short run on the shelf — C14 inlet sits directly behind the shelf) | Crimp ferrules at C14 pigtail; backstab or screw at LINE terminals | Inlet ships with solder-tab pins; [16 AWG](AWG_MAINS_U) appliance wire makes a short on-shelf run to the GFCI's LINE terminals. Earth conductor passes through the device (LINE earth → LOAD earth) without being sensed — only H and N feed the CT. See [`../../business/regulatory.md`](../../business/regulatory.md) "UL 943 — ground-fault protection". |
+| AC-1a | C14 inlet (rear panel) | Legrand Radiant 1597BKCCD12 GFCI **LINE** terminals (mounted on the electronics shelf) | H + N + G | [16](AWG_MAINS) | [~150 mm](LEN_MID) (short run on the shelf — C14 inlet sits directly behind the shelf) | Crimp ferrules at C14 pigtail; backstab or screw at LINE terminals | Inlet ships with solder-tab pins; [16 AWG](AWG_MAINS_U) appliance wire makes a short on-shelf run to the GFCI's LINE terminals. Earth conductor passes through the device (LINE earth → LOAD earth) without being sensed — only H and N feed the CT. See [`/business/regulatory.md`](/business/regulatory.md) "UL 943 — ground-fault protection". |
 | AC-1b | Legrand Radiant 1597BKCCD12 GFCI **LOAD** terminals | AC distribution block on electronics shelf | H + N + G | [16](AWG_MAINS) | [~150 mm](LEN_MID) (short on-shelf run — both ends co-located) | Backstab or screw at LOAD terminals; crimp ferrules into Wago 221 lever block | Switched mains downstream of the GFCI feeds the distribution block; all downstream loads (PSU, compressor, etc.) are protected. |
 | AC-2 | AC distribution block (H, N) | Mean Well IRM-90-12ST PSU primary terminals | H + N + G | [18](AWG_AC_BRANCH) | [~100 mm](LEN_SHORT_2) | Crimp ring or fork terminal at PSU; ferrule at distribution block | PSU primary draws [0.67 A](PSU_PRI_A) at [80 W](PSU_W) full load; [18 AWG](AWG_AC_BRANCH_U) ample. Ground bonds PSU chassis. |
 | AC-3 | AC distribution block (H) | Teyleten relay #1 contact input | H | [18](AWG_AC_BRANCH) | [~50 mm](LEN_SHORT) | Crimp fork to relay screw terminal | Unswitched hot leg into the relay's "common" terminal. |
@@ -67,9 +67,9 @@ The condenser fan does **not** appear in the AC table: the harvested fan is a [1
 | SIG-2 | Reed switch — low (carbonator) | ESP32 GPIO 17 + GND | switch + GND | [24](AWG_LV) | [~600 mm](LEN_COLD_CORE) | INPUT_PULLUP. |
 | SIG-3 | Reed switch — high (carbonator) | ESP32 GPIO 27 + GND | switch + GND | [24](AWG_LV) | [~600 mm](LEN_COLD_CORE) | INPUT_PULLUP. |
 | SIG-4 | DIGITEN flow meter | ESP32 GPIO 23 + [5 V](V_LOGIC) + GND | pulse + V + GND | [24](AWG_LV) | [~1 m](LEN_UMBILICAL) (from faucet zone through grommet) | Pulse interrupt. |
-| SIG-7 | ESP32-S3 rotary display on front face (detachable) | ESP32 GPIO 15 (TX) + GPIO 34 (RX) + [5 V](V_LOGIC) + GND | UART + power | [24](AWG_LV) | [~1 m](LEN_UMBILICAL) extended (coiled when seated) | Per [`../printed-parts/enclosure/front-panel/README.md`](../printed-parts/enclosure/front-panel/README.md) "S3 detach mechanism" — cord pays out behind the panel when the customer detaches the display. Cable type (Cat6 vs coiled stretch vs flat ribbon) TBD with the detach mechanism. |
+| SIG-7 | ESP32-S3 rotary display on front face (detachable) | ESP32 GPIO 15 (TX) + GPIO 34 (RX) + [5 V](V_LOGIC) + GND | UART + power | [24](AWG_LV) | [~1 m](LEN_UMBILICAL) extended (coiled when seated) | Per [`/hardware/printed-parts/enclosure/front-panel/README.md`](/hardware/printed-parts/enclosure/front-panel/README.md) "S3 detach mechanism" — cord pays out behind the panel when the customer detaches the display. Cable type (Cat6 vs coiled stretch vs flat ribbon) TBD with the detach mechanism. |
 | SIG-8 | DS3231 RTC + MCP23017 (I2C) | ESP32 GPIO 21 (SDA) + GPIO 22 (SCL) + [3.3 V](V_IO) + GND | I2C bus | [24](AWG_LV) | [~150 mm](LEN_MID) shared bus on shelf | Both devices co-located on the electronics shelf. |
-| SIG-9 | Backflow vent moisture sensor | ESP32 GPIO (TBD) + GND | switch + GND | [24](AWG_LV) | [~600 mm](LEN_COLD_CORE) to drip pan inside cabinet | Per [`../future.md`](../future.md) "Backflow vent monitoring"; pin not yet assigned in [`esp32-pinout.mmd`](esp32-pinout.mmd). |
+| SIG-9 | Backflow vent moisture sensor | ESP32 GPIO (TBD) + GND | switch + GND | [24](AWG_LV) | [~600 mm](LEN_COLD_CORE) to drip pan inside cabinet | Per [`/hardware/future.md`](/hardware/future.md) "Backflow vent monitoring"; pin not yet assigned in [`esp32-pinout.mmd`](esp32-pinout.mmd). |
 
 ## Inter-module connectors
 
@@ -86,7 +86,7 @@ Two wire-stock formats feed those housings:
 - **Bonded ribbon (CQRobot B0F6C7X5CR, 15 cm × 12-conductor × 8 ribbons)** — short-hop module-to-module connections under ~6". Factory pre-crimped female XH terminals on both ends; pop pins into the housing of choice at build time. Typical per-unit use: ~2 ribbons (e.g., one 9-conductor MCP↔ULN, one 4-conductor I²C / UART trunk).
 - **Pre-crimped silicone pigtails (Keszoox B0F8HMQRRN, 50 cm × [22 AWG](AWG_SIG_U) × 20 wires × 10 colors)** — medium-length runs that span the cabinet. Typical use: ULN→solenoid fan-outs (~[12](SOLENOID_COUNT) valve fan-outs/unit) and sensor pigtails. One 20-wire pack covers a build with spares.
 
-Per-build parts in [`../bom.md`](../bom.md) §11.
+Per-build parts in [`/hardware/bom.md`](/hardware/bom.md) §11.
 
 ## Grounding strategy
 
@@ -99,14 +99,14 @@ Single-point chassis ground at the electronics shelf, bonded back through the C1
 
 ## What's not yet decided
 
-- **Fuse on the AC primary** — a [5 A](PRIMARY_FUSE_A) fast-blow inline fuse between the C14 inlet and the AC distribution block was discussed in [`../harvested/ice-maker/README.md`](../harvested/ice-maker/README.md) for bench testing. Whether it stays in the production unit (fuse holder on the rear panel? fuse on the shelf?) needs a decision.
+- **Fuse on the AC primary** — a [5 A](PRIMARY_FUSE_A) fast-blow inline fuse between the C14 inlet and the AC distribution block was discussed in [`/hardware/harvested/ice-maker/README.md`](/hardware/harvested/ice-maker/README.md) for bench testing. Whether it stays in the production unit (fuse holder on the rear panel? fuse on the shelf?) needs a decision.
 - **Distribution block hardware** — Wago 221 lever blocks vs. screw terminal block vs. PCB-mounted block. Wago is the fastest hand-build option.
 - **Wiring loom organization between the electronics shelf and the valve manifold** — [24](LOOM_CONDUCTORS) conductors want to be a single bundled run (ribbon cable, twisted pairs, or a simple zip-tied loom). TBD when the manifold is mocked up.
 - **Backflow moisture sensor pin assignment** — needs to land in `esp32-pinout.mmd`.
 
 ## Revision
 
-Initial draft. Lengths are estimates based on the [`../future.md`](../future.md) layout; measure and update once the first build's enclosure is in hand.
+Initial draft. Lengths are estimates based on the [`/hardware/future.md`](/hardware/future.md) layout; measure and update once the first build's enclosure is in hand.
 
 ## Sources
 [value](NAME) texts are updated by:

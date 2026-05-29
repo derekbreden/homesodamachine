@@ -4,11 +4,11 @@ The production procedure for first-time firmware flash and DC-side commissioning
 
 Customer-side firmware binding (Wi-Fi credentials, cloud pairing, app association, per-customer ratio tuning) is **not** done here. Firmware ships with factory defaults; the iOS/Android app handles binding at first install. This procedure ends with a unit that boots clean, self-tests clean, and is ready to take water + CO2 in the next station.
 
-Design intent and runtime behavior live in [`../future.md`](../future.md) "Refrigeration subsystem" + "Level sensing". Pin assignments and wiring topology live in [`../wiring/esp32-pinout.mmd`](../wiring/esp32-pinout.mmd) and [`../wiring/valve-control.mmd`](../wiring/valve-control.mmd). The flash wrapper script and PlatformIO environment names live at the repo root.
+Design intent and runtime behavior live in [`/hardware/future.md`](/hardware/future.md) "Refrigeration subsystem" + "Level sensing". Pin assignments and wiring topology live in [`/hardware/wiring/esp32-pinout.mmd`](/hardware/wiring/esp32-pinout.mmd) and [`/hardware/wiring/valve-control.mmd`](/hardware/wiring/valve-control.mmd). The flash wrapper script and PlatformIO environment names live at the repo root.
 
 ## Scope
 
-In: a fully wired chassis fresh out of [`wiring.md`](wiring.md) — AC and DC continuity checks passed, never powered. The flash tooling — two USB cables (one micro-USB for the ESP32-DevKitC, one USB-C for the ESP32-S3), the `./tools/flash.sh` wrapper (see project root `CLAUDE.md`), and the firmware source tree at `/firmware/` configured per [`/platformio.ini`](../../platformio.ini). A multimeter for runtime DC-rail spot checks. A serial console (`pio device monitor`) for log capture.
+In: a fully wired chassis fresh out of [`wiring.md`](wiring.md) — AC and DC continuity checks passed, never powered. The flash tooling — two USB cables (one micro-USB for the ESP32-DevKitC, one USB-C for the ESP32-S3), the `./tools/flash.sh` wrapper (see project root `CLAUDE.md`), and the firmware source tree at `/firmware/` configured per [`/platformio.ini`](/platformio.ini). A multimeter for runtime DC-rail spot checks. A serial console (`pio device monitor`) for log capture.
 
 Out:
 
@@ -28,8 +28,8 @@ Not in scope: any acceptance test that requires water or CO2 (that's [`acceptanc
 | Item | Source / spec | Notes |
 |---|---|---|
 | Wired chassis | Output of [`wiring.md`](wiring.md) | Never powered. AC + DC continuity checks passed. Compressor shroud closed and grounded. |
-| Firmware source tree | [`../../firmware/`](../../firmware/) on the build host, current `main` | PlatformIO project; envs `esp32dev`, `esp32s3_config` (see [`/platformio.ini`](../../platformio.ini)). |
-| Flash wrapper | [`/tools/flash.sh`](../../tools/flash.sh) | Pauses the serial logger during upload; pre-flights the sibling `PersistentLog` dependency. Invocation: `./tools/flash.sh <env>`. |
+| Firmware source tree | [`/firmware/`](/firmware/) on the build host, current `main` | PlatformIO project; envs `esp32dev`, `esp32s3_config` (see [`/platformio.ini`](/platformio.ini)). |
+| Flash wrapper | [`/tools/flash.sh`](/tools/flash.sh) | Pauses the serial logger during upload; pre-flights the sibling `PersistentLog` dependency. Invocation: `./tools/flash.sh <env>`. |
 | USB cables | 1× micro-USB (ESP32-DevKitC), 1× USB-C (ESP32-S3) | Build-bench stock; not per-unit consumable. |
 | Multimeter | Build-bench stock | DC-rail spot checks at [12 V](RAIL_12V), [5 V](RAIL_5V), [3.3 V](RAIL_33V) test pads. |
 | Serial monitor | `pio device monitor -e esp32dev` (115200 baud) | Captures the ESP32 boot log + structured commissioning output for the per-serial archive. |
@@ -49,11 +49,11 @@ This is a *re-look*, not a re-test — the AC and DC continuity sign-offs from `
 
 Power the C14 inlet through a bench PSU-controlled outlet, not direct wall power. The Teyleten relay #1 must remain de-energized for this step — the firmware boots into "all off" by default, but the PSU-controlled outlet is the hardware backstop.
 
-**GFCI self-test gate.** When mains reaches the C14 inlet, the Legrand 1597BKCCD12 GFCI on the shelf runs its ~3-second self-test before closing its internal relay; only then does AC propagate to the PSU. Watch the device's front-face status LED. Solid green within ~3 seconds = self-test passed, relay closed, AC flowing downstream — proceed with the rail-by-rail bring-up below. Flashing red = SafeLock end-of-life lockout; the device must be replaced (see [`../bom.md`](../bom.md) §5) before the unit can power up. LED stays dark = the device never received line voltage; check AC-1a wiring back to the C14 inlet. LED green but no DC rails in the next sub-step = the relay is in the user-tripped state; press TEST then RESET on the device and re-apply C14 power. The relay closing here is what makes the C14 → through-GFCI → AC distribution block continuity end-to-end-verifiable (deferred from [`wiring.md`](wiring.md) step 3); the rails coming up in this step is the functional confirmation.
+**GFCI self-test gate.** When mains reaches the C14 inlet, the Legrand 1597BKCCD12 GFCI on the shelf runs its ~3-second self-test before closing its internal relay; only then does AC propagate to the PSU. Watch the device's front-face status LED. Solid green within ~3 seconds = self-test passed, relay closed, AC flowing downstream — proceed with the rail-by-rail bring-up below. Flashing red = SafeLock end-of-life lockout; the device must be replaced (see [`/hardware/bom.md`](/hardware/bom.md) §5) before the unit can power up. LED stays dark = the device never received line voltage; check AC-1a wiring back to the C14 inlet. LED green but no DC rails in the next sub-step = the relay is in the user-tripped state; press TEST then RESET on the device and re-apply C14 power. The relay closing here is what makes the C14 → through-GFCI → AC distribution block continuity end-to-end-verifiable (deferred from [`wiring.md`](wiring.md) step 3); the rails coming up in this step is the functional confirmation.
 
 Bring up in this order, verifying each rail with the multimeter before the next:
 
-1. PSU output enabled — verify **[12 V](RAIL_12V)** at the distribution-block test point (PSU is the Mean Well IRM-90-12ST, see [`../wiring/ac-wiring-schedule.md`](../wiring/ac-wiring-schedule.md) run DC-1). Expected ~[12 V](RAIL_12V) [± 0.2 V](RAIL_12V_TOL) at no load.
+1. PSU output enabled — verify **[12 V](RAIL_12V)** at the distribution-block test point (PSU is the Mean Well IRM-90-12ST, see [`/hardware/wiring/ac-wiring-schedule.md`](/hardware/wiring/ac-wiring-schedule.md) run DC-1). Expected ~[12 V](RAIL_12V) [± 0.2 V](RAIL_12V_TOL) at no load.
 2. **[5 V](RAIL_5V) regulator output** at the regulator pin header — expected [5 V](RAIL_5V) [± 0.1 V](RAIL_5V_TOL). This feeds the MCUs and the relay-module VCC.
 3. **[3.3 V](RAIL_33V) regulator output** — expected [3.3 V](RAIL_33V) [± 0.05 V](RAIL_33V_TOL). This feeds the I²C-bus pull-ups, the MCP23017 logic side, and the DS18B20 data-line pull-up.
 
@@ -71,13 +71,13 @@ From the repo root:
 ./tools/flash.sh esp32dev
 ```
 
-The wrapper pauses the background serial logger, runs `pio run -e esp32dev -t upload` per [`/platformio.ini`](../../platformio.ini) `[env:esp32dev]`, then resumes the logger. Expected outcome: build succeeds, upload reaches 100 %, ESP32 resets, the serial monitor at 115200 baud shows the firmware boot banner with the `fw_version.h` build ID.
+The wrapper pauses the background serial logger, runs `pio run -e esp32dev -t upload` per [`/platformio.ini`](/platformio.ini) `[env:esp32dev]`, then resumes the logger. Expected outcome: build succeeds, upload reaches 100 %, ESP32 resets, the serial monitor at 115200 baud shows the firmware boot banner with the `fw_version.h` build ID.
 
 If the build fails on the `symlink://${PROJECT_DIR}/../PersistentLog` dependency, fix the sibling-repo placement before continuing — the wrapper pre-flights this and prints the exact remediation path.
 
 ### 4. Flash the ESP32-S3 config display
 
-Plug the USB-C cable into the ESP32-S3-DevKitC-1 (the front-face detachable rotary display — the sole interaction surface, mounted in its recess per [`../printed-parts/enclosure/front-panel/README.md`](../printed-parts/enclosure/front-panel/README.md) — see [`../wiring/esp32-pinout.mmd`](../wiring/esp32-pinout.mmd) UART subgraph). It enumerates as a native USB-CDC device — the build flag `ARDUINO_USB_CDC_ON_BOOT=1` in `[env:esp32s3_config]` brings the CDC port up immediately on boot.
+Plug the USB-C cable into the ESP32-S3-DevKitC-1 (the front-face detachable rotary display — the sole interaction surface, mounted in its recess per [`/hardware/printed-parts/enclosure/front-panel/README.md`](/hardware/printed-parts/enclosure/front-panel/README.md) — see [`/hardware/wiring/esp32-pinout.mmd`](/hardware/wiring/esp32-pinout.mmd) UART subgraph). It enumerates as a native USB-CDC device — the build flag `ARDUINO_USB_CDC_ON_BOOT=1` in `[env:esp32s3_config]` brings the CDC port up immediately on boot.
 
 ```
 ./tools/flash.sh esp32s3_config
@@ -104,7 +104,7 @@ The default firmware periodically prints a sensor-health frame. Step through eac
 - **I²C scan** — expect ACKs at [0x20](MCP_VALVES) (MCP23017 valves + Reservoir A reeds), [0x21](MCP_RESERVOIRS) (Reservoir B reeds + condenser-fan driver bit), [0x68](RTC_ADDR) (DS3231 RTC). Any missing ACK is a wiring or solder defect at that device.
 - **DS18B20 bus** — expect exactly two devices addressed on the 1-wire bus on [GPIO 16](GPIO_ONEWIRE) (tank-wall probe + suction-line probe). Both should report within [±2 °C](AMBIENT_TOL) of room ambient with the compressor de-energized. If only one address enumerates, suspect a parasitic-power miswire or the [4.7 kΩ](ONEWIRE_PULLUP) pull-up.
 - **Carbonator reeds** ([GPIO 17](GPIO_REED_LOW) low, [GPIO 27](GPIO_REED_HIGH) high) — both INPUT_PULLUP, both reading high (no magnet present, no float installed yet). Bring a small bench magnet near each reed in turn and confirm it pulls low.
-- **Reservoir reeds** — all 8 (Reservoir A on MCP23017 [0x20](MCP_VALVES) PB[4:7], Reservoir B on [0x21](MCP_RESERVOIRS) PA[0:3]) reading their no-magnet baseline. Architecture and calibration in [`../printed-parts/cold-core/reservoir/level-sensing.md`](../printed-parts/cold-core/reservoir/level-sensing.md). Same bench-magnet check per reed.
+- **Reservoir reeds** — all 8 (Reservoir A on MCP23017 [0x20](MCP_VALVES) PB[4:7], Reservoir B on [0x21](MCP_RESERVOIRS) PA[0:3]) reading their no-magnet baseline. Architecture and calibration in [`/hardware/printed-parts/cold-core/reservoir/level-sensing.md`](/hardware/printed-parts/cold-core/reservoir/level-sensing.md). Same bench-magnet check per reed.
 - **DIGITEN flow meter** ([GPIO 23](GPIO_FLOW)) — manually rotate the impeller with a clean implement; expect a pulse count increment per rotation in the serial output.
 - **MQ-6 hydrocarbon sensor** — needs ~60 s warm-up to reach operating temperature. After warm-up, expect a clean-air baseline reading on its analog input (verify the bench air is free of solvents or LPG nearby — wave clean air across the sensor or move the chassis briefly to a clean-air environment if needed). Architecture: the MQ-6 sits low on the rear interior enclosure wall, mesh facing horizontally inward (the bare sensor's orientation is unconstrained per the Winsen datasheet; this position catches dense R-600a as it pools at the cabinet floor from any of the dominant brazed-joint leak sites) — the hardware-only backstop to the firmware-controlled cutoffs ([`refrigerant-loop.md`](refrigerant-loop.md) "Safety").
 - **Backflow drip-pan moisture sensor** — reads dry (high impedance). Confirm by briefly bridging the sensor pads with a damp probe and watching the firmware reading swing.
@@ -115,7 +115,7 @@ Record each reading in the per-serial commissioning log. Any out-of-bounds readi
 
 The firmware exposes a self-test command over the serial console that walks each of the [12](VALVE_COUNT) Beduan solenoids individually and then spins each peristaltic pump briefly. Trigger it from the monitor prompt.
 
-- **Solenoid sequence** — the firmware drives each MCP23017 [0x20](MCP_VALVES) output through ULN2803A U1 or U2 in turn (V-A through V-K-B; see [`../wiring/valve-control.mmd`](../wiring/valve-control.mmd)). Each coil energizes for ~250 ms then releases. Expected: [12](VALVE_COUNT) distinct clicks, each accompanied by the orange ULN-channel-on indicator if the module has one. Listen for stuck-on coils (no audible release click).
+- **Solenoid sequence** — the firmware drives each MCP23017 [0x20](MCP_VALVES) output through ULN2803A U1 or U2 in turn (V-A through V-K-B; see [`/hardware/wiring/valve-control.mmd`](/hardware/wiring/valve-control.mmd)). Each coil energizes for ~250 ms then releases. Expected: [12](VALVE_COUNT) distinct clicks, each accompanied by the orange ULN-channel-on indicator if the module has one. Listen for stuck-on coils (no audible release click).
 - **Condenser fan** — driven by MCP23017 [0x21](MCP_RESERVOIRS) PA4 through ULN2803A U2 channel 5. The self-test gives the fan a brief 1-second run. Expected: audible spin-up of the [12 V](RAIL_12V) DC brushless axial mounted to the enclosure side wall, then coast-down.
 - **Peristaltic pumps** — driven by the L298N Board A on the electronics shelf. The self-test spins Pump A forward for ~1 s, then Pump B. Expected: each silicone tube head rotates visibly. No flavor is loaded yet; the head turns dry.
 
@@ -179,7 +179,7 @@ The unit is now the input to [`acceptance-and-burn-in.md`](acceptance-and-burn-i
 Procedure-level gaps that need answers before unit 1 ships:
 
 1. **Where the per-serial commissioning log lives.** Local file under `/commissioning/<serial>/` on the build host, cloud-uploaded for support recall, both, or some other format. Decision pending — working position is local-only until the support-recall workflow is specified.
-2. **Whether the firmware has a dedicated "factory test" mode separate from production mode.** The valve self-test (step 7), the firmware-override compressor cycle (step 8), and the setpoint query (step 9) currently run as ad-hoc serial commands against production firmware. Whether to split these into a separate build target (e.g. `esp32dev_factory`) with a dedicated test menu, gated by a build-time flag, or leave them in production firmware behind a serial command, is undecided. The latter is cheaper but ships factory commands in the customer-facing image; the former needs a second build env in [`/platformio.ini`](../../platformio.ini).
+2. **Whether the firmware has a dedicated "factory test" mode separate from production mode.** The valve self-test (step 7), the firmware-override compressor cycle (step 8), and the setpoint query (step 9) currently run as ad-hoc serial commands against production firmware. Whether to split these into a separate build target (e.g. `esp32dev_factory`) with a dedicated test menu, gated by a build-time flag, or leave them in production firmware behind a serial command, is undecided. The latter is cheaper but ships factory commands in the customer-facing image; the former needs a second build env in [`/platformio.ini`](/platformio.ini).
 3. **Calibration constants that vary per-unit vs. baked into firmware as constants.** The DIGITEN flow meter's pulses-per-mL and each reed switch's pull-in threshold (effective voltage on INPUT_PULLUP at the moment the magnet engages) are in principle per-build values, but in practice may be tight enough across the parts SKUs to ship a single constant. Whether step 6's sensor walkthrough captures these as per-unit numbers for the commissioning log, or whether they're constants in the firmware and step 6 only verifies they're within a wide envelope, is undecided. Resolve once the first ~3 units' commissioning data is in hand.
 
 ## Sources
