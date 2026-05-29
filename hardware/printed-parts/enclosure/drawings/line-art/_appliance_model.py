@@ -65,7 +65,7 @@ D = APPLIANCE_D     # depth (along +Y)
 
 
 # ---------------------------------------------------------------------------
-# Top-face doors and lids (a runs along +X width, b runs along +Y depth)
+# Top-face door (a runs along +X width, b runs along +Y depth)
 # ---------------------------------------------------------------------------
 
 PUMP_SIDE_BY_SIDE_CLEARANCE = 15.0
@@ -87,8 +87,14 @@ hopper_door_w = W - 2 * SIDE_MARGIN - pump_door_w - DOOR_GAP
 # [165.0 mm](HOPPER_DOOR_D) — matches pump door depth.
 hopper_door_d = pump_door_d
 
-pump_door_a = SIDE_MARGIN + pump_door_w / 2
-pump_door_b = FRONT_MARGIN + pump_door_d / 2
+# A single access door, the larger of the two case footprints, centered
+# across the width and anchored to the front.
+TOP_DOOR_W = max(pump_door_w, hopper_door_w)
+TOP_DOOR_D = max(pump_door_d, hopper_door_d)
+TOP_DOOR_A = W / 2
+TOP_DOOR_B = FRONT_MARGIN + TOP_DOOR_D / 2
+
+# Front-panel control column X and the CO2 port's depth anchor.
 hopper_door_a = W - SIDE_MARGIN - hopper_door_w / 2
 hopper_door_b = FRONT_MARGIN + hopper_door_d / 2
 
@@ -357,10 +363,9 @@ def build_appliance() -> cq.Workplane:
     """Build the full appliance model as a CadQuery Workplane."""
     appliance = cq.Workplane("XY").box(W, D, H, centered=False)
 
-    # Top face: GFCI band + pump door + hopper lid
+    # Top face: GFCI band + a single centered access door
     appliance = _cut_top_rectangle(appliance, GFCI_A, GFCI_B, GFCI_W, GFCI_H)
-    appliance = _cut_top_rectangle(appliance, pump_door_a, pump_door_b, pump_door_w, pump_door_d)
-    appliance = _cut_top_rectangle(appliance, hopper_door_a, hopper_door_b, hopper_door_w, hopper_door_d)
+    appliance = _cut_top_rectangle(appliance, TOP_DOOR_A, TOP_DOOR_B, TOP_DOOR_W, TOP_DOOR_D)
 
     # Front face: S3 knob + dispense tip + push button
     appliance = _add_front_knob(appliance, *S3_AT, S3_D, S3_PROTRUSION)
