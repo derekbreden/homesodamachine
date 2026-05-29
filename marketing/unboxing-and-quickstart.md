@@ -20,7 +20,7 @@ The appliance ships in a carton with its quick-start sheet across the interior u
 - Caption: "Open the CO2. Open the water."
 
 **Drawing 4: Fill the hopper.**
-- View: 3/4 top of the appliance, hopper lid lifted, funnel visible. One SodaStream concentrate bottle inverted over the funnel.
+- View: 3/4 top of the appliance, the top door open and the silicone funnel visible. One SodaStream concentrate bottle inverted over the funnel.
 - Arrows: one motion arrow on the bottle (plain line work).
 - Caption: "Empty a flavor into the hopper."
 

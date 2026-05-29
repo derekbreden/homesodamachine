@@ -124,7 +124,7 @@ Rough filament estimates for all printed geometry. Revise once STLs are final an
 | Bladder cradles (2× arch, flavor reservoirs) | 0.5 | $6.50 |
 | Outermost enclosure (under-counter cabinet housing) | 3.5 | $45.47 |
 | Flavor hopper funnel (top-front, SodaStream-pour sized) | 0.4 | $5.20 |
-| Pump cartridge assembly + access door | 0.5 | $6.50 |
+| Pump cartridge assembly + Zone C top door | 0.5 | $6.50 |
 | Miscellaneous (condenser grille, fitting bosses, brackets, faucet gooseneck cover, cable-gland mounts) | 0.6 | $7.79 |
 | **Printed parts total** | **~8.0** | **$103.94** |
 
