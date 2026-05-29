@@ -79,36 +79,16 @@ bag_pocket_corner_inner_radius = 6.5
 
 reservoir_clearance = 0.5
 reservoir_floor_thickness = 4.0
-# Foam-shell clearance cavity for the bulkhead locknut. Sized to clear
-# the PureSec B0968K4JRN hex locknut across-corners (≈23.1 mm = the ⌀20
-# across-flats / cos30°) plus a hair. MEDIUM confidence (across-flats
-# estimated from the listing photo; see
-# ../../off-the-shelf-parts/puresec-90-bulkhead/geometry-description.md).
-bulkhead_nut_cavity_diameter = 23.5
-
-# Z of the bulkhead NUT cavity center — anchored to the floor's low point.
-# Computed so the nut cavity's lowest reach (washer counterbore at
-# ⌀22.3) sits right at the reservoir floor's wet surface, leaving the
-# full reservoir_floor_thickness ([4 mm](RESERVOIR_FLOOR_THICKNESS)) of PETG below it as the fluid
-# barrier. The nut (washer + hex piece) is the deepest feature in this
-# area and the floor MUST stay [4 mm](RESERVOIR_FLOOR_THICKNESS) at this low point.
-reservoir_bulkhead_nut_z = (
-    bag_pocket_floor_top_z
-    + reservoir_clearance
-    + reservoir_floor_thickness
-    + bulkhead_nut_cavity_diameter / 2
-)
-
-# 2026-05-16 print test: the bulkhead body itself needs to sit [1 mm](BULKHEAD_AXIS_LIFT_ABOVE_NUT)
-# above the nut. Achieved by lifting the bulkhead axis [1 mm](BULKHEAD_AXIS_LIFT_ABOVE_NUT) above the
-# nut cavity center; the bulkhead's threading section then engages the
-# nut at a [1 mm](BULKHEAD_AXIS_LIFT_ABOVE_NUT) offset, well within the ⌀17 panel hole's clearance
-# around the ⌀~13 threaded section. The nut cavity stays at
-# reservoir_bulkhead_nut_z (the floor low point); everything anchored
-# to the bulkhead axis (chamber, panel hole, TPU seals, foam-shell
-# pass-through, wet/dry slopes, dry slab, rod body boss) lifts with it.
-bulkhead_axis_lift_above_nut = 1.0
-reservoir_bulkhead_port_z = reservoir_bulkhead_nut_z + bulkhead_axis_lift_above_nut
+# Bulkhead vertical scheme. The reservoir's weight rides on the corner
+# support posts, so the bulkhead elbow hangs as low as it can: its lowest
+# point clears the bag-pocket floor by bulkhead_floor_clearance and never
+# bears load. The flavor-line wall holes and the reed cable holes both pin
+# their Z to bulkhead_elbow_exit_z (the elbow's lateral-port center), so
+# the tube and the cable run level out of the open pocket.
+bulkhead_below_floor_stack = 10.0  # PureSec locknut + elbow body hanging below the trough-floor underside
+bulkhead_floor_clearance = 1.0  # gap from the lowest bulkhead hardware down to the bag-pocket floor — non-load-bearing
+bulkhead_elbow_bottom_z = bag_pocket_floor_top_z + bulkhead_floor_clearance
+bulkhead_elbow_exit_z = bulkhead_elbow_bottom_z + 3.0  # lateral-PTC-port Z center, 3 mm above the elbow bottom
 reservoir_bulkhead_port_x = (bag_pocket_far_inner_x + pocket_centerward_arc_outer_radius) / 2
 # Y of the bulkhead pass-through (and the cable hole that shares its y so
 # the reed cable runs straight from channel to outside). 10 mm inboard
@@ -256,8 +236,6 @@ if __name__ == "__main__":
         "ABOVE_TANK_ELBOWS_HEIGHT": f"{above_tank_elbows_height:.4g} mm",
         "BELOW_TANK_ELBOWS_HEIGHT": f"{below_tank_elbows_height:.4g} mm",
         "PORT_HOLE_DIAMETER": f"{port_hole_radius * 2:.4g}",
-        "RESERVOIR_FLOOR_THICKNESS": f"{reservoir_floor_thickness:.4g} mm",
-        "BULKHEAD_AXIS_LIFT_ABOVE_NUT": f"{bulkhead_axis_lift_above_nut:.4g} mm",
         "SCREW_CLEARANCE_DIAMETER": f"{screw_clearance_radius * 2:.4g}",
         "INSERT_POCKET_DIAMETER": f"{insert_pocket_radius * 2:.4g}",
         "SCREW_BOSS_SIZE": f"{screw_boss_size:.4g} × {screw_boss_size:.4g} mm",
@@ -271,8 +249,6 @@ if __name__ == "__main__":
             "ABOVE_TANK_ELBOWS_HEIGHT": 1,
             "BELOW_TANK_ELBOWS_HEIGHT": 1,
             "PORT_HOLE_DIAMETER": 1,
-            "RESERVOIR_FLOOR_THICKNESS": 2,
-            "BULKHEAD_AXIS_LIFT_ABOVE_NUT": 3,
             "SCREW_CLEARANCE_DIAMETER": 1,
             "INSERT_POCKET_DIAMETER": 1,
             "SCREW_BOSS_SIZE": 1,
