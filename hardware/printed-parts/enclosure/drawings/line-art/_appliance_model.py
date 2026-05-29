@@ -178,8 +178,10 @@ NAMEPLATE_THICKNESS = 1.5
 # 51055K3), loaded in
 # `hardware/harvested/jg-bulkhead-union/jg_bulkhead_union.py`. Mounted on
 # the back face, tube axis on world +Y, the flange seated at the wall.
+# Sits in Zone B (the back-panel terminations band above the foam
+# shell), left of the umbilical cluster and aligned with its row.
 # Position given in world (x, z).
-WATER_PORT_WALL_AT = (W / 2, 140.0)
+WATER_PORT_WALL_AT = (65.0, 230.0)
 WATER_PORT_DISC_R = 17.0
 
 
