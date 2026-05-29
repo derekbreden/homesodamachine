@@ -347,11 +347,11 @@ bulkhead_elbow_envelope_z = 16.0  # vertical extent of the elbow body
 
 # ORIENTATION: the PureSec is an L-body with the wet PTC on the barrel
 # axis and the lateral PTC on the elbow leg. The barrel is vertical
-# through the trough, and the elbow's lateral PTC port is aimed toward -Y
+# through the trough, and the elbow's lateral PTC port is aimed toward +Y
 # (the bag-pocket pass-through at reservoir_bulkhead_port_y), so the
-# modelled elbow keep-out + lateral PTC stub extend in -Y from the barrel
+# modelled elbow keep-out + lateral PTC stub extend in +Y from the barrel
 # axis. The elbow is modelled as a clearance volume only.
-bulkhead_elbow_lateral_sign = -1  # -Y; the pass-through is on -Y (the front)
+bulkhead_elbow_lateral_sign = +1  # +Y; the pass-through is on +Y
 
 # V floor section (Y–Z), extruded straight across the full cavity X.
 # The flat trough at y=0 is the cavity's low point and the lowest

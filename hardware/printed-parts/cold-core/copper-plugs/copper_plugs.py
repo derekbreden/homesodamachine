@@ -279,11 +279,7 @@ def build_plug(spec):
     if spec.arch_top:
         plug = plug.cut(arch_cutter(z_top))
 
-    # Built straddling the outer-shell wall in +Y (see module header).
-    # Mirror across XZ to seat the plug in the -Y (front) wall, matching
-    # the foam-shell's copper/water slot now on -Y. The plug is X-symmetric,
-    # so the mirror is the correct -Y-wall part (volume unchanged).
-    return plug.mirror("XZ")
+    return plug
 
 
 def _analytical_volume(spec):
@@ -373,12 +369,9 @@ def main():
             f"plug {name}: X bbox {bb.xmin:.4f}..{bb.xmax:.4f} expected "
             f"{plug_x_range[0]:.4f}..{plug_x_range[1]:.4f}"
         )
-        # plug_y_range is the +Y build-frame envelope; build_plug mirrors the
-        # part across XZ to seat it in the -Y (front) wall, so the world bbox
-        # is the negated, reordered range.
-        assert abs(bb.ymin + plug_y_range[1]) < 1e-6 and abs(bb.ymax + plug_y_range[0]) < 1e-6, (
+        assert abs(bb.ymin - plug_y_range[0]) < 1e-6 and abs(bb.ymax - plug_y_range[1]) < 1e-6, (
             f"plug {name}: Y bbox {bb.ymin:.4f}..{bb.ymax:.4f} expected "
-            f"{-plug_y_range[1]:.4f}..{-plug_y_range[0]:.4f} (mirrored to the -Y front wall)"
+            f"{plug_y_range[0]:.4f}..{plug_y_range[1]:.4f}"
         )
         assert abs(vol_diff) < volume_check_tolerance, (
             f"plug {name}: OCCT volume {vol:.4f} differs from analytical "
