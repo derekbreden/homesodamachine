@@ -113,6 +113,7 @@ def render_iso(
     view: str,
     out_svg: Path,
     *,
+    anchors: list = (),
     image_height: int = 800,
     stroke_width: float = 3,
     margin: float = 20.0,
@@ -127,7 +128,11 @@ def render_iso(
 
     Each disc is projected, filled in its color, and clipped by the
     projected silhouette of its `clip` solid, so the part occludes the
-    disc's center and the visible remainder reads as a ring around it."""
+    disc's center and the visible remainder reads as a ring around it.
+
+    Each entry in `anchors` is a dict {"id": str, "point": [x, y, z]};
+    the point is projected through the same camera and emitted as an
+    invisible zero-radius <circle id=...> so a consumer can aim at it."""
     if view not in ("front", "back"):
         raise ValueError(f"unknown view: {view}")
     out_svg = Path(out_svg)
@@ -152,6 +157,7 @@ def render_iso(
         args = {
             "appliance_stl": str(appliance_stl),
             "markings": marking_args,
+            "anchors": list(anchors),
             "out_svg": str(out_svg),
             "view": view,
             "image_height": image_height,
