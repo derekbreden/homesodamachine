@@ -46,3 +46,38 @@ Process settings observed:
 - `scarf_joint_seam`, `precise_wall`, `wall_seam_alignment`, `staggered_inner_seams`: not present in the config
 - `outer_wall_speed`: 200, `inner_wall_speed`: 300, `internal_solid_infill_speed`: 250, `sparse_infill_speed`: 350, `top_surface_speed`: 200, `initial_layer_speed`: 50 (all mm/s)
 - `enable_support`: 0; `brim_type`: auto_brim, `brim_width`: 0
+
+## Attempt 1 — printed, holds water (2026-05-29, settings per [`water-test-cup.3mf`](water-test-cup.3mf))
+
+Derek said:
+- "1st print is holding water."
+
+A print was started from this revision of the 3mf. The 3mf as committed here is **saved but not fully sliced** (`slice_info.config` header-only, no G-code member).
+
+Settings deltas observed vs the slice-snapshot section above:
+
+Wall / line:
+- `line_width` (and `outer_wall`, `inner_wall`, `internal_solid_infill`, `top_surface`, `initial_layer`, `sparse_infill`, `skin_infill`, `skeleton_infill`, `support` line widths): 0.62 → **0.60 mm** (3.0 mm wall ÷ 0.60 = 5 lines)
+- `wall_generator`: classic → **arachne**
+- `wall_loops`: 100 → **6**
+- `wall_sequence`: inner wall / outer wall (unchanged)
+
+Floor / top / infill:
+- `sparse_infill_density`, `skin_infill_density`, `skeleton_infill_density`: 15 % → **100 %**
+- `sparse_infill_pattern`: grid → **zig-zag**
+- `top_surface_pattern`: monotonicline → **zig-zag**
+- `bottom_surface_pattern`: monotonic → **zig-zag**
+- `internal_solid_infill_pattern`: zig-zag (unchanged)
+- `infill_wall_overlap`: 15 % (unchanged)
+- `bottom_shell_layers`: 3, `bottom_shell_thickness`: 0 (unchanged; the floor's lower 3 mm is a solid disc, now filled at 100 % infill)
+
+Ironing:
+- `ironing_type`: no ironing → **top**; `ironing_flow` 10 %, `ironing_spacing` 0.15 mm, `ironing_speed` 30 mm/s, `ironing_pattern` zig-zag
+
+Seam:
+- `seam_position`: aligned → **random**
+- `seam_slope_type`: none → **all** (scarf joint on all walls); `seam_slope_conditional` 1, `seam_slope_start_height` 10 %
+- `override_filament_scarf_seam_setting`: 0 → **1**
+- `seam_gap`: 15 % (unchanged)
+
+Unchanged from the slice-snapshot section: `layer_height` 0.18 / `initial_layer_print_height` 0.3; active PETG slot nozzle pair (260 °C, 250 °C), `filament_flow_ratio` (1.02, 0.97), `filament_max_volumetric_speed` (21, 28); fans (`fan_min`/`fan_max` 10/20, aux 0); speeds (outer 200, inner 300, top 200, initial 50 mm/s); textured plate; 1 object on `extruder` 1.
