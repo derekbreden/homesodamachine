@@ -416,12 +416,28 @@ def _arrows_open_valves(x, y, w, draw_h):
     )
 
 
+def _embedded_anchor_point(svg_path, anchor_id, x, y, w, h):
+    """Page-mm location of the <circle id=anchor_id> in `svg_path` after
+    that SVG is scale-fit (xMidYMid meet) into the rect (x, y, w, h) — the
+    same fit `cell()` gives an embedded drawing."""
+    text = Path(svg_path).read_text()
+    tag = re.search(
+        r'<circle\b[^>]*\bid="' + re.escape(anchor_id) + r'"[^>]*>', text
+    ).group(0)
+    cx = float(re.search(r'\bcx="(-?[0-9.]+)"', tag).group(1))
+    cy = float(re.search(r'\bcy="(-?[0-9.]+)"', tag).group(1))
+    cw, ch = _canvas_dims(svg_path)
+    s = min(w / cw, h / ch)
+    return x + (w - cw * s) / 2 + cx * s, y + (h - ch * s) / 2 + cy * s
+
+
 def _arrows_fill_hopper(x, y, w, draw_h):
-    """Drawing 4: plain motion arrow on the inverted bottle, pointing
-    down. Placed above the appliance line-art at the cell's horizontal
-    center."""
-    cx = x + 0.50 * w
-    return _straight_arrow(cx, y + 0.05 * draw_h, cx, y + 0.22 * draw_h, color="dark")
+    """Drawing 4: a plain motion arrow pointing straight down at the
+    center of the hopper door on the embedded front view."""
+    dx, dy = _embedded_anchor_point(
+        ENCLOSURE_FRONT, "hopper-door-center", x, y, w, draw_h
+    )
+    return _straight_arrow(dx, dy - 0.20 * draw_h, dx, dy, color="dark")
 
 
 def main():

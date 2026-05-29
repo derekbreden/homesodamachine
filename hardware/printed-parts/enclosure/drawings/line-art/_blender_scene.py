@@ -315,6 +315,16 @@ for _mk in args["markings"]:
         f'clip-path="url(#{_clip_id})" d="{_disc_d}" />'
     )
 
+# Invisible anchor points (e.g. the hopper-door center): projected through
+# the same camera and emitted as zero-radius circles so a consumer can aim
+# at them.
+for _anchor in args.get("anchors", []):
+    _apx, _apy = _project_to_svg(mathutils.Vector(_anchor["point"]) * MODEL_SCALE)
+    _all_paths.append(
+        f'<circle id="{_anchor["id"]}" cx="{_apx:.3f}" cy="{_apy:.3f}" '
+        f'r="0" fill="none" stroke="none" />'
+    )
+
 _clip_defs = "<defs>" + "".join(_all_defs) + "</defs>"
 _discs_svg = "\n        ".join(_all_paths)
 

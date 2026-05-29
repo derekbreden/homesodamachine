@@ -65,7 +65,7 @@ D = APPLIANCE_D     # depth (along +Y)
 
 
 # ---------------------------------------------------------------------------
-# Top-face door (a runs along +X width, b runs along +Y depth)
+# Top-face hopper door (a runs along +X width, b runs along +Y depth)
 # ---------------------------------------------------------------------------
 
 PUMP_SIDE_BY_SIDE_CLEARANCE = 15.0
@@ -81,22 +81,18 @@ FRONT_MARGIN = 10.0
 SIDE_MARGIN = 10.0
 DOOR_GAP = 10.0
 
+# The hopper door — the larger case footprint — centered across the
+# width and anchored to the front.
 # [155.0 mm](HOPPER_DOOR_W) — APPLIANCE_W − 2 × SIDE_MARGIN − pump_door_w − DOOR_GAP.
 hopper_door_w = W - 2 * SIDE_MARGIN - pump_door_w - DOOR_GAP
-
 # [165.0 mm](HOPPER_DOOR_D) — matches pump door depth.
 hopper_door_d = pump_door_d
-
-# A single access door, the larger of the two case footprints, centered
-# across the width and anchored to the front.
-TOP_DOOR_W = max(pump_door_w, hopper_door_w)
-TOP_DOOR_D = max(pump_door_d, hopper_door_d)
-TOP_DOOR_A = W / 2
-TOP_DOOR_B = FRONT_MARGIN + TOP_DOOR_D / 2
-
-# Front-panel control column X and the CO2 port's depth anchor.
-hopper_door_a = W - SIDE_MARGIN - hopper_door_w / 2
+hopper_door_a = W / 2
 hopper_door_b = FRONT_MARGIN + hopper_door_d / 2
+
+# Front-panel control column X (S3 knob, dispense tip, push button), and
+# the CO2 port's depth anchor on the side face.
+CONTROL_COLUMN_A = W - SIDE_MARGIN - hopper_door_w / 2
 
 # GFCI access band — 27 × 18 mm exposed band centered on the 42 × 67
 # Legrand 1597 body, tucked into the back-right corner.
@@ -110,11 +106,11 @@ GFCI_B = D - 26.0
 # Front-face features (a runs along +X width, b runs along +Z height)
 # ---------------------------------------------------------------------------
 
-S3_AT = (hopper_door_a, 235.0)
+S3_AT = (CONTROL_COLUMN_A, 235.0)
 S3_D = 32.0
 S3_PROTRUSION = 19.0
 
-TIP_AT = (hopper_door_a, 200.0)
+TIP_AT = (CONTROL_COLUMN_A, 200.0)
 TIP_D = 20.0
 TIP_LENGTH = 25.0
 TIP_ANGLE_FROM_VERTICAL_DEG = 40.0
@@ -130,7 +126,7 @@ TIP_AXIS = (0.0, -math.sin(_tip_theta), -math.cos(_tip_theta))
 _tip_angle_from_face_normal = math.radians(90 - TIP_ANGLE_FROM_VERTICAL_DEG)
 TIP_BACK_EXTENSION = (TIP_D / 2) * math.tan(_tip_angle_from_face_normal)
 
-BUTTON_AT = (hopper_door_a, 170.0)
+BUTTON_AT = (CONTROL_COLUMN_A, 170.0)
 BUTTON_W = 80.0
 BUTTON_H = 20.0
 BUTTON_PROTRUSION = 10.0
@@ -363,9 +359,9 @@ def build_appliance() -> cq.Workplane:
     """Build the full appliance model as a CadQuery Workplane."""
     appliance = cq.Workplane("XY").box(W, D, H, centered=False)
 
-    # Top face: GFCI band + a single centered access door
+    # Top face: GFCI band + the centered hopper door
     appliance = _cut_top_rectangle(appliance, GFCI_A, GFCI_B, GFCI_W, GFCI_H)
-    appliance = _cut_top_rectangle(appliance, TOP_DOOR_A, TOP_DOOR_B, TOP_DOOR_W, TOP_DOOR_D)
+    appliance = _cut_top_rectangle(appliance, hopper_door_a, hopper_door_b, hopper_door_w, hopper_door_d)
 
     # Front face: S3 knob + dispense tip + push button
     appliance = _add_front_knob(appliance, *S3_AT, S3_D, S3_PROTRUSION)
