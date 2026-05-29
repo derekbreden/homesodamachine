@@ -132,8 +132,8 @@ function mountFirebaseConfig(app) {
   //     /api/pending-nav to redirect.
   //
   //   • Tap → foregrounded: nothing fires anywhere. iOS treats it as a
-  //     no-op. (TODO: handle this via SSE-driven in-app toast once we
-  //     have an SSE channel.)
+  //     no-op. The in-app toast is driven instead by the page's own
+  //     focus/visibility refetch (boot.js), not by a push on tap.
   //
   //   • Chrome desktop / Android PWA: firebase-messaging-compat's default
   //     notificationclick handler opens fcmOptions.link via openWindow.
@@ -245,8 +245,8 @@ export async function start({ dev = false, port, hardwareDir } = {}) {
   // hits the same routes the public site does, so ContentViewer and
   // other LANDING_PUBLIC assets just work in dev.
   // The dev wrapper (web/dev-server/server.js) is purely additive: it
-  // attaches chokidar + Python + the SSE broadcast for hot reload, and
-  // doesn't change any routes. The only behavioral differences in dev:
+  // attaches chokidar + Python + the WebSocket broadcast for hot reload,
+  // and doesn't change any routes. The only behavioral differences in dev:
   //   - commit signal is "dev" instead of the deploy SHA
   //   - the boot-time push diff is skipped (no real deploy, no FCM)
   mountViewerRoutes(app, { hardwareDir: HARDWARE_DIR });
@@ -258,16 +258,34 @@ export async function start({ dev = false, port, hardwareDir } = {}) {
   mountViewerPages(app);
   mountSettingsRoutes(app);
   attachSubscribe(app, pool);
+
+  // Live build commit, for boot.js's activation check: boot.js records it
+  // on load and re-checks on focus/visibility/pageshow, refreshing the
+  // page when it changed. This is how a backgrounded iOS PWA — whose
+  // WebSocket iOS suspended — finds out a deploy shipped. No DB, never
+  // cached.
+  app.get("/api/version", (_req, res) => {
+    res.set("Cache-Control", "no-store");
+    res.json({ commit });
+  });
+
   app.use(express.static(LANDING_PUBLIC));
 
   // Production-only: deploy-change push. Hash STEP + mermaid + posts in
-  // parallel against per-kind tables, then fire SSE + FCM for what
-  // changed. SSE has two event types (`files-changed` for step/mermaid,
-  // `posts-changed` for blog) since posts carry per-item metadata
-  // (title, link) that doesn't fit the bare-paths shape `files-changed`
-  // uses. Both kinds get piggy-backed onto `recent` so reconnecting
-  // clients (PWA was open during deploy, EventSource killed by shutdown)
-  // catch up via hello. Best-effort — failures don't block the listen.
+  // parallel against per-kind tables, then broadcast over the WebSocket +
+  // fire FCM for what changed. Two broadcast types (`files-changed` for
+  // step/mermaid/dxf/drawings, `posts-changed` for blog) since posts carry
+  // per-item metadata (title, link) that doesn't fit the bare-paths shape
+  // `files-changed` uses. Both kinds get piggy-backed onto `recent` so
+  // reconnecting clients (PWA was open during deploy, socket killed by
+  // shutdown) catch up via the hello handshake. Best-effort — failures
+  // don't block the listen.
+  //
+  // This reaches only clients connected right now; `recent` (set below)
+  // covers a client that reconnects to this container. A client that
+  // comes back after the container is gone catches up via boot.js's
+  // /api/version check instead.
+  //
   // Skipped in dev since no real deploy event happens; chokidar fires
   // files-changed on save and there's no equivalent for posts in dev.
   if (!dev) {
@@ -288,9 +306,9 @@ export async function start({ dev = false, port, hardwareDir } = {}) {
 
         if (changedFiles.length === 0 && changedPosts.length === 0) return;
 
-        // SSE: broadcast each kind to currently-connected clients, AND
-        // store on `recent` so a client reconnecting after the deploy
-        // catches up via hello.
+        // Broadcast each kind to currently-connected clients, AND store
+        // on `recent` so a client reconnecting after the deploy catches
+        // up via hello.
         const ts = Date.now();
         if (changedFiles.length > 0) {
           broadcast({ type: "files-changed", commit, files: changedFiles });

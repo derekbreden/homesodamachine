@@ -18,7 +18,7 @@
 //        - window.focus / pageshow / visibilitychange-to-visible
 //          (covers iOS PWA warm-tap; the only event iOS fires when
 //          the user taps the dock icon to foreground)
-//        - every SSE message from /api/events
+//        - every server push over the WebSocket (see §4)
 //      State drives three things:
 //        a. .has-unread class on .nav-bell (CSS shows the accent dot).
 //        b. The bottom toast: 0 unread → none; 1 → kind-specific
@@ -33,14 +33,24 @@
 //      directly, so the page already shows the target. We mark
 //      that one row seen on load. URL stays as-is.
 //
-//   3. SSE owner.
-//      Single EventSource for the page. Two roles:
-//        - live-update bridge — dispatch hsm:files-changed and
-//          hsm:deploy DOM events for the parts viewer's per-file
-//          refresh logic.
+//   3. WebSocket owner.
+//      Single WebSocket (/ws) for the page. Two roles:
+//        - live-update bridge — dispatch hsm:files-changed,
+//          hsm:posts-changed and hsm:deploy DOM events for the parts
+//          viewer's per-file refresh and the deploy reload logic.
 //        - notifications signal — refetch /api/notifications on
 //          every message so the bell + toast track new pushes in
 //          real time.
+//
+//   4. Deploy/version activation check.
+//      iOS suspends the WebSocket (§3) whenever the PWA isn't frontmost,
+//      so a deploy that ships while it's backgrounded never reaches the
+//      page over the socket. On load we record the live commit from
+//      GET /api/version; on every activation (focus / pageshow /
+//      visibilitychange-to-visible — the events iOS fires for a
+//      foregrounded PWA) we re-check it. A changed commit means a new
+//      build shipped: the viewer refreshes in place (hsm:deploy, soft),
+//      every other page reloads.
 //
 // What's NOT in here: the synchronous pre-paint CSS class flip for
 // dev-mode and notifs-enabled. That has to run during <head> parse
@@ -323,7 +333,19 @@
   var ws = null;
   var seenCommit = null;
   var seenRecentCommit = null;
+  // Last build commit this page knows is live. Seeded from /api/version on
+  // load (and from the WS hello), re-checked on every activation; drives
+  // the deploy reload when it changes.
+  var bootCommit = null;
   var lastActivityAt = 0;
+
+  function dbg() {
+    try {
+      if (!localStorage.getItem("hsmLiveDebug")) return;
+    } catch (e) { return; }
+    try { console.info.apply(console, ["[hsm-live]"].concat([].slice.call(arguments))); } catch (e) {}
+  }
+  function noteCommit(c) { if (c) bootCommit = c; }
   var reconnectDelayMs = 1000;
   var reconnectMaxMs = 8000;
   var reconnectTimer = null;
@@ -341,14 +363,22 @@
     if (msg.type === "hello") {
       if (seenCommit === null) {
         seenCommit = msg.commit;
+        noteCommit(msg.commit);
         if (msg.recent && msg.recent.commit) seenRecentCommit = msg.recent.commit;
+        dbg("hello (first)", msg.commit);
         return;
       }
       // Reconnect: any non-first hello means the connection had
       // dropped; we may have missed broadcasts during the disconnect.
-      // Refetch as if it were a fresh deploy.
+      // Refetch as if it were a fresh deploy. commitChanged distinguishes
+      // a real new deploy (prod SHA changed) from a mere socket blip
+      // (same commit) — only the former hard-reloads non-viewer pages;
+      // the viewer refetches either way to catch missed dev broadcasts.
+      var commitChanged = msg.commit !== seenCommit;
       seenCommit = msg.commit;
-      window.dispatchEvent(new CustomEvent("hsm:deploy", { detail: { commit: msg.commit, reconnect: true } }));
+      noteCommit(msg.commit);
+      dbg("hello (reconnect)", msg.commit, "changed=" + commitChanged);
+      window.dispatchEvent(new CustomEvent("hsm:deploy", { detail: { commit: msg.commit, reconnect: true, commitChanged: commitChanged } }));
       if (msg.recent && msg.recent.commit && msg.recent.commit !== seenRecentCommit) {
         seenRecentCommit = msg.recent.commit;
         if (msg.recent.files) {
@@ -398,13 +428,16 @@
       // starts fast.
       reconnectDelayMs = 1000;
       lastActivityAt = Date.now();
+      dbg("ws open", wsUrl());
     });
     ws.addEventListener("message", onWSMessage);
     ws.addEventListener("error", function () {
       // The close event will follow; nothing extra to do here.
+      dbg("ws error");
     });
     ws.addEventListener("close", function () {
       ws = null;
+      dbg("ws close");
       scheduleReconnect();
     });
   }
@@ -436,10 +469,56 @@
   }
 
   document.addEventListener("visibilitychange", function () {
-    if (document.visibilityState === "visible") ensureWSAlive();
+    if (document.visibilityState === "visible") { ensureWSAlive(); checkVersion(); }
   });
-  window.addEventListener("focus", ensureWSAlive);
-  window.addEventListener("pageshow", ensureWSAlive);
+  window.addEventListener("focus", function () { ensureWSAlive(); checkVersion(); });
+  window.addEventListener("pageshow", function () { ensureWSAlive(); checkVersion(); });
 
+  // ===== 4. Deploy/version activation check (see header §4) =====
+  //
+  // /api/version is cheap and never cached. The first call seeds
+  // bootCommit; later calls (one per activation) compare. A changed
+  // commit means a new build shipped: the viewer claims the refresh via
+  // window.__hsmDeploySoft + hsm:deploy, every other page falls through
+  // to the reload listener below.
+  var versionInFlight = false;
+  function checkVersion() {
+    if (versionInFlight) return;
+    versionInFlight = true;
+    fetch("/api/version", { cache: "no-store" })
+      .then(function (r) { return r.ok ? r.json() : null; })
+      .then(function (d) {
+        versionInFlight = false;
+        var commit = d && d.commit ? d.commit : null;
+        if (!commit) return;
+        if (bootCommit === null) { bootCommit = commit; dbg("version seeded", commit); return; }
+        if (commit === bootCommit) return;
+        dbg("version changed", bootCommit, "->", commit);
+        // Advance first so repeated activations don't re-fire while a soft
+        // viewer refresh is still settling.
+        bootCommit = commit;
+        window.dispatchEvent(new CustomEvent("hsm:deploy", {
+          detail: { commit: commit, reconnect: false, commitChanged: true, source: "version" },
+        }));
+      })
+      .catch(function () { versionInFlight = false; });
+  }
+
+  // Default deploy/posts handler for any page that hasn't claimed the
+  // refresh itself. The viewer sets window.__hsmDeploySoft (it refreshes
+  // in place, preserving camera + open modal); content pages reload.
+  window.addEventListener("hsm:deploy", function (e) {
+    if (window.__hsmDeploySoft) return;
+    if (e.detail && e.detail.commitChanged === false) return; // socket blip, not a deploy
+    dbg("deploy -> reload");
+    window.location.reload();
+  });
+  window.addEventListener("hsm:posts-changed", function () {
+    if (window.__hsmDeploySoft) return;
+    dbg("posts-changed -> reload");
+    window.location.reload();
+  });
+
+  checkVersion();  // seed bootCommit now, independent of the socket
   connectWS();
 })();
