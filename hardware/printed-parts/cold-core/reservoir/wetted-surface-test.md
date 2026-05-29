@@ -1,6 +1,6 @@
 # Reservoir wetted-surface acceptance test
 
-The food-contact acceptance test for the reservoir's wetted surface — the surface the syrup sits against. Per [`../../../../business/regulatory.md`](../../../../business/regulatory.md) this is the *substance* of food contact the project honors directly (rather than pursuing a third-party listing): does the surface, **as actually produced**, leach safely into the syrup and leave its flavor untainted.
+The food-contact acceptance test for the reservoir's wetted surface — the surface the syrup sits against. Per [`/business/regulatory.md`](/business/regulatory.md) this is the *substance* of food contact the project honors directly (rather than pursuing a third-party listing): does the surface, **as actually produced**, leach safely into the syrup and leave its flavor untainted.
 
 It is **method-agnostic.** The frame below is set by the product (cold, acidic syrup), so it applies whatever the wetted surface is made of — printed PETG, cast silicone, thermoformed sheet, a coating. Only the specific-migration analytes change with the material.
 
@@ -17,12 +17,12 @@ Scope: the **custom-made** wetted surface (the reservoir interior). The off-the-
 
 ## Per-method specific-migration analytes (what to screen for)
 
-- **FDM PETG** (the current path): **antimony** (the PET/PETG polycondensation catalyst — migrates into acidic liquids; EU specific limit 0.04 mg/kg), **acetaldehyde** (PET degradation product), **nozzle metal** (brass nozzles leach lead/zinc — print the wetted part with a stainless or hardened-steel nozzle), and any **filament colorant/additive**. The filament's FDA 177.1630 compliance covers the *resin*, not the finished print; the print is what this test qualifies. FDM also needs a **flavor cross-contamination** check the molded methods do not: layer-line porosity can hold flavor A and taint flavor B across a clean cycle — soak in flavor A, run the rinse cycle, soak in water, taste for carryover.
+- **FDM PETG** (the current path): **antimony** (the PET/PETG polycondensation catalyst — migrates into acidic liquids; EU specific limit 0.04 mg/kg), **acetaldehyde** (PET degradation product), **nozzle metal** (the shop's tungsten-carbide / diamond-PCD nozzles are lead-free and far more wear-resistant than brass, so the usual brass-nozzle lead/zinc concern doesn't apply — the only residual is trace cobalt/tungsten from a carbide binder, kept minimal by the low wear rate), and any **filament colorant/additive**. The filament's FDA 177.1630 compliance covers the *resin*, not the finished print; the print is what this test qualifies. FDM also needs a **flavor cross-contamination** check the molded methods do not: layer-line porosity can hold flavor A and taint flavor B across a clean cycle — soak in flavor A, run the rinse cycle, soak in water, taste for carryover.
 - **Cast silicone:** residual **platinum** catalyst (ICP-MS) and **cyclic siloxanes** D4/D5/D6 (GC-MS).
 - **Thermoformed PETG sheet:** same as FDM PETG (antimony, acetaldehyde, colorant), but **no nozzle metal** (extruded sheet, no print nozzle) and far less porosity, so the cross-contamination check is minor.
 
 ## References
 
-- [`../../../../business/regulatory.md`](../../../../business/regulatory.md) — the substance-not-listing posture this test implements.
+- [`/business/regulatory.md`](/business/regulatory.md) — the substance-not-listing posture this test implements.
 - FDA 21 CFR 177.1630 (PET) / 177.2600 (rubber, repeated food use) — the resin/material compliances; this test validates the finished part against the actual liquid.
 - EU 10/2011 — overall-migration limit (10 mg/dm²), food-simulant + time-temperature conventions, and the 0.04 mg/kg antimony specific-migration limit.
