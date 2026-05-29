@@ -14,6 +14,21 @@ All values here are **best-estimate**, derived from the Amazon listing text, the
 - **1/4" tube = ⌀6.35; PTC release ring = ⌀9.57** — inherited from the JG 1/4" collet family (same push-to-connect collet design). HIGH.
 - **White polypropylene, 1/4"×1/4", NSF-class food/water material, ships without o-ring** — listing + review. HIGH.
 
+## Measured (2026-05-29) — part in hand
+
+Caliper measurements of the physical part now supersede the photo estimates below for these dimensions, and resolve the orientation question:
+
+| feature | measured | drove (in `reservoir.py`) |
+|---|---|---|
+| thread OD (max extent of threads) | **15.5 mm** | `bulkhead_seal_id` = 16.0 (barrel + 0.5); panel hole lower bound |
+| flange OD, dry/elbow side | **18.7 mm** | dry-side gasket seat; upper bound on the panel hole |
+| flange OD, wet/nut side | **21.9 mm** | wet-side gasket seat (nut clamping face) |
+| flange-top (elbow side) → elbow bottom | **19.6 mm** | below-floor elbow clearance |
+
+**Orientation RESOLVED — elbow-DOWN.** The part mounts with the threaded barrel pointing UP through the floor: the ⌀18.7 elbow-side flange + the integral 90° elbow hang BELOW the floor in the bag-pocket space, and the hex nut threads on from ABOVE in the cavity. This is the OPPOSITE of the "elbow above the flange" reading the photo-only note below proposed. The reservoir CAD (`reservoir.py`, `_cold_core_interface.py`) has been re-cut to match: ⌀16 panel hole, a TPU face-seal counterbore on BOTH floor faces (one common ⌀17.5 washer — wet washer under the ⌀21.9 nut face, dry washer under the ⌀18.7 flange), and `bulkhead_below_floor_stack` raised to 24.0 so the reservoir's lowest point sits 22.6 mm above the bag-pocket floor (2.0 mm gasket + 19.6 mm elbow + boss/clearance terms).
+
+Still photo-estimated (not yet calipered): flange thickness, nut across-flats/height, thread length + engagement margin, elbow lateral offset + body envelope, and the up/lateral PTC port details. The table and prose below remain as the photo-derived baseline for those.
+
 ## CAD-Ready Constants Table
 
 Maps each PureSec dimension onto the `reservoir.py` constant it should drive (and a couple in `_cold_core_interface.py`). Confidence + source per row.
@@ -73,7 +88,7 @@ Separate loose piece: **hex locknut** — across-flats ≈20, across-corners ≈
 ### How it sits in the reservoir (from `../../printed-parts/cold-core/reservoir/floor-and-bulkhead.md`)
 The **threaded barrel passes vertically down through the flat trough floor**; the **flange disc seats on the wet (top) trough face through the printed TPU washer**; the **hex locknut threads on from below** in the open bag-pocket cavity, registered against rotation by the shallow floor-underside hex pocket. The **integral 90° elbow turns the line laterally (in X, toward the bag-pocket pass-through) below/at the floor** so no separate union elbow is needed. The barrel-end PTC port (the "up"/wet collet) sits on the barrel axis; the elbow's lateral PTC is the dry route.
 
-> **Orientation note for the CAD agent (flag, not a blocker):** this single-elbow body has the wet PTC on the *barrel axis* and the lateral PTC on the *elbow leg*. `floor-and-bulkhead.md` prose reads as if the wet PTC faces straight up and the elbow is purely below the floor — geometrically the elbow + its lateral port live just above/around the flange. Model the part as drawn (barrel through the floor, flange on the wet face, elbow + lateral port immediately above the flange turning in +X) and keep **lateral keep-out clearance for the elbow body both just above the flange (inside the cavity, low in the trough) and below for the locknut**. Confirm the intended up-vs-lateral assignment against the physical part on arrival; it does not change the panel-hole / nut-pocket / seal numbers.
+> **Orientation note — RESOLVED on the physical part (see "Measured" above):** the part mounts **elbow-DOWN**. The threaded barrel points UP through the floor; the ⌀18.7 elbow-side flange + the integral 90° elbow hang BELOW the floor in the bag-pocket space; the hex nut threads on from ABOVE in the cavity. The lateral PTC on the elbow turns the dry line in +Y toward the bag-pocket pass-through, below the floor. This is the OPPOSITE of the photo-only "elbow above the flange" guess that was originally written here. The reservoir CAD now models it as elbow-down with a TPU washer on each floor face.
 
 ## Dimensional Profile — vertical leg, top → bottom
 
@@ -144,7 +159,9 @@ Work in `reservoir.py`, the `Outlet bulkhead port + V floor` block (≈ lines 24
 
 ## Remaining Unknowns / TODO
 
-- [ ] **Confirm on the physical part (5-pack already orderable / "last purchased 2026-05-28"):** thread pitch/designation, exact flange OD + thickness, locknut height + across-flats, elbow lateral offset + body envelope, and the up-vs-lateral PTC assignment. None of these block the panel-hole / nut-pocket / seal cuts, which rest on the HIGH-confidence ⌀16 hole.
-- [ ] **Verify max-panel-thickness margin**: 4 mm floor + 1.4 mm compressed seal ≈ 5.4 mm clamped against ~10 mm of thread minus nut engagement — confirm the nut clamps before bottoming out.
-- [ ] **Elbow-to-pass-through alignment**: the elbow turns laterally in X; confirm `reservoir_bulkhead_port_y`/pass-through geometry receives it (rotate the part about Z in the model if the lateral port must aim at the +Y pass-through instead of +X).
-- [ ] If a dimensioned drawing or a caliper pass surfaces, drop images into `raw-images/` and re-derive the MEDIUM/LOW rows at HIGH confidence.
+- [x] **Thread OD, both flange ODs, elbow standoff, up-vs-lateral orientation** — caliper-measured 2026-05-29 (see "Measured" above). Orientation resolved to elbow-DOWN.
+- [ ] **Verify nut thread engagement (now tighter, and load-bearing for the clamp).** Elbow-down sandwiches the floor between the below flange and the wet-side nut, so the nut clamps a ~5.4 mm seal-boss stack (wet counterbore 1.4 + mid-rim 2.6 + dry counterbore 1.4). With ~10 mm of estimated thread that leaves ~4.6 mm of nut engagement above the trough — **measure the thread length on the part and confirm the nut bites before bottoming out**, since this clamp is the seal force on both gaskets.
+- [ ] **Confirm the dry-side seal land.** The ⌀18.7 elbow flange seats on only ~0.5 mm/side of PETG rim outside the ⌀17.7 counterbore, and the common ⌀17.5 washer is a narrow ~0.75 mm-wide ring. If the dry seal weeps, widen the wet-side washer separately (the wet ⌀21.9 face has 2.1 mm/side of rim to spare) and treat the wet seal as primary.
+- [ ] **Still photo-estimated:** flange thickness, nut across-flats/height, thread pitch/designation, elbow lateral offset + body envelope. None block the panel-hole / seal cuts.
+- [ ] **Elbow-to-pass-through alignment**: confirm `reservoir_bulkhead_port_y`/pass-through geometry receives the elbow's lateral (+Y) port.
+- [ ] If a dimensioned drawing surfaces, drop images into `raw-images/` and re-derive the remaining MEDIUM/LOW rows at HIGH confidence.
