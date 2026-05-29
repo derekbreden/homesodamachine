@@ -8,6 +8,6 @@ Syrup drains by gravity from anywhere in the cavity down the V to the central tr
 
 ## Open items
 
-- [ ] The trough floor and walls are the reservoir's fluid barrier — the print has to hold syrup under working head with no weep. Tracked in [`print-log.md`](print-log.md).
+- [ ] The trough floor and walls are the reservoir's fluid barrier — the print has to hold syrup under working head with no weep. Print guidance in [`watertight-petg.md`](watertight-petg.md); attempts tracked in [`print-log.md`](print-log.md).
 - [ ] Whether the as-printed wetted surface stays clean under the software rinse cycle across repeated fills.
 - [ ] Bulkhead port CAD tuned to the PureSec B0968K4JRN dimensions — ⌀16 mm hole, locknut, wet-side TPU-washer seat, below-floor elbow clearance — in `reservoir.py` / [`../_cold_core_interface.py`](../_cold_core_interface.py).
