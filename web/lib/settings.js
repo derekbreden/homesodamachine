@@ -1,6 +1,6 @@
 // Settings page — reachable via the gear in the top-right of every nav.
 //
-// Two rows, both rendered with the .ios-toggle pill from shell.js:
+// Three rows, all rendered with the .ios-toggle pill from shell.js:
 //   1. Dev mode — always visible. Toggling on adds Parts / Charts to
 //      the public nav (sets html.dev-mode + persists in localStorage).
 //      No async work; the slide is instant.
@@ -10,6 +10,9 @@
 //      a warning modal, requests permission, registers the SW, gets a
 //      token, POSTs files=["*"] so any STEP change pushes; turning off
 //      DELETEs the subscription.
+//   3. Live-reload debug — only visible when dev mode is on. Flips the
+//      on-screen panel boot.js renders (socket health, build commit,
+//      deploy events) via window.__hsmLiveDebug + localStorage.
 
 import { renderHead, renderNav, renderFooter } from "./shell.js";
 
@@ -101,6 +104,14 @@ const BODY = `<div class="wrap">
       <button id="notifs-toggle" class="ios-toggle" type="button" role="switch" aria-checked="false" aria-label="Notifications">
         <span class="ios-toggle-spinner"></span>
       </button>
+    </div>
+
+    <div class="setting-row" id="row-livedebug" hidden>
+      <div>
+        <div class="setting-label">Live-reload debug</div>
+        <div class="setting-help">On-screen panel: socket health, build commit, deploy events.</div>
+      </div>
+      <button id="livedebug-toggle" class="ios-toggle" type="button" role="switch" aria-checked="false" aria-label="Live-reload debug"></button>
     </div>
   </div>
 </div>
