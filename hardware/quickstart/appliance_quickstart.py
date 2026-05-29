@@ -460,7 +460,7 @@ def main():
         },
         {
             "caption": "Empty a flavor into the hopper.",
-            "embed": enclosure_back,
+            "embed": enclosure_front,
             "arrows": _arrows_fill_hopper,
         },
     ]
