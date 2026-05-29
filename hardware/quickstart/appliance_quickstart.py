@@ -257,13 +257,14 @@ def cell(x, y, w, h, caption, embed_path=None, arrows_fn=None,
 
     Every step has a thin #000 rounded border; with background set the
     panel is filled with COLOR_STEP_BG, otherwise transparent. Content is
-    inset by PAD_MM on all sides; within that the caption band is a
-    fixed CAPTION_BAND_MM at the bottom and the image band fills the
-    height above it. The line-art is scale-fit and centered in the image
-    band; the caption is centered in the caption band; arrows_fn, if
-    given, is called with the image band and overlaid on it. A large
-    step number sits in the image band's upper number_corner ("left" or
-    "right") — white on a panel, unfilled on a plain step.
+    inset by PAD_MM on all sides. A captioned step reserves a fixed
+    CAPTION_BAND_MM caption band at the bottom with the image band above
+    it; a caption-less step gives its whole inner height to the image.
+    The line-art is scale-fit and centered in the image band; the
+    caption is centered in the caption band; arrows_fn, if given, is
+    called with the image band and overlaid on it. A large step number
+    sits in the image band's upper number_corner ("left" or "right") —
+    white on a panel, unfilled on a plain step.
     """
     panel_fill = COLOR_STEP_BG if background else "none"
     panel = (
@@ -273,7 +274,9 @@ def cell(x, y, w, h, caption, embed_path=None, arrows_fn=None,
     )
     ix, iy = x + PAD_MM, y + PAD_MM
     iw, ih = w - 2 * PAD_MM, h - 2 * PAD_MM
-    cap_h = CAPTION_BAND_MM
+    # A captioned step reserves the caption band at the bottom; a
+    # caption-less step gives its whole inner height to the image.
+    cap_h = CAPTION_BAND_MM if caption else 0.0
     img_h = ih - cap_h
     num = ""
     if number is not None:
@@ -343,12 +346,15 @@ def _arrows_tee_into_water(x, y, w, draw_h):
         _stub_arrow(tee_x - 15, tee_y, +1, 0, color="blue")
         + _stub_arrow(tee_x + 15, tee_y, -1, 0, color="blue")
     )
-    # Enclosure back view at the same scale as the other steps (fit to
-    # the full image band), seated in the bottom-right corner.
-    back = _embed_svg(x, y, w, draw_h, ENCLOSURE_BACK, align="xMaxYMax")
+    # Enclosure back view at the same scale as the other steps — a box
+    # the height of a captioned step's image band — seated in this cell's
+    # bottom-right corner (the cell has no caption band to clear).
+    box_h = draw_h - CAPTION_BAND_MM
+    box_y = y + (draw_h - box_h)
+    back = _embed_svg(x, box_y, w, box_h, ENCLOSURE_BACK, align="xMaxYMax")
     # Blue arrow pointing at the water inlet on the back view; the tip
     # stops a short gap short of the port.
-    px, py = _embedded_fill_point(ENCLOSURE_BACK, WATER_DISC_FILL, x, y, w, draw_h, align="xMaxYMax")
+    px, py = _embedded_fill_point(ENCLOSURE_BACK, WATER_DISC_FILL, x, box_y, w, box_h, align="xMaxYMax")
     rise = (0.18 * w, 0.12 * draw_h)
     span = math.hypot(*rise)
     ux, uy = rise[0] / span, rise[1] / span
