@@ -249,20 +249,22 @@ rod_anchor_boss_floor = 2.0  # thickness of the printed-solid PETG floor INSIDE 
 # Outlet bulkhead port + V floor. A PureSec 1/4" RO push-to-connect 90°
 # elbow bulkhead (Amazon B0968K4JRN — white polypropylene, water/RO/
 # beverage-rated, ships WITHOUT a panel o-ring) clamps VERTICALLY through
-# the cavity floor's central trough. Its threaded barrel passes DOWN
-# through the trough floor; its integral flange disc (⌀22) seats on the
-# wet (cavity-side, top) face of the trough floor through a printed TPU
-# face seal in a horizontal (Z-down) counterbore; the hex locknut threads
-# on from BELOW the floor, in the open bag-pocket cavity beneath the
-# reservoir, registered against rotation by a shallow floor-underside hex
-# pocket. The part is an L-body: the wet-side push-to-connect port is on
-# the barrel axis (faces UP into the syrup volume); an integral cast 90°
-# elbow on the dry side turns the line laterally toward the bag-pocket +Y
-# pass-through, so no separate union elbow is needed. The elbow body +
-# its lateral PTC port sit just above/around the flange (low in the
-# cavity); the threads, locknut, and barrel-end PTC hang below the floor.
+# the cavity floor's central trough. The part is an L-body and mounts
+# elbow-DOWN: the integral 90° elbow + its ⌀18.7 dry-side flange hang
+# BELOW the trough floor in the open bag-pocket space, the threaded barrel
+# passes UP through the floor, and the hex nut threads on from ABOVE — in
+# the cavity (wet side) — clamping the floor between the below flange and
+# the nut. The elbow turns the dry line laterally toward the bag-pocket +Y
+# pass-through, so no separate union elbow is needed; the barrel-end PTC
+# sits on the barrel axis in the cavity above the nut.
 #
-# Dimensions map to the listing + photo; see
+# The PureSec ships without an o-ring, so a printed TPU face seal sits in
+# a counterbore on EACH floor face (one common washer, both sides): the
+# wet/top washer is clamped by the ⌀21.9 nut-side face, the dry/under
+# washer by the ⌀18.7 elbow-side flange. Each seats on a PETG rim outside
+# its counterbore. Only the barrel bore pierces the trough floor.
+#
+# Dimensions map to the measured part; see
 # ../../../off-the-shelf-parts/puresec-90-bulkhead/geometry-description.md.
 #
 # Floor: a Y-symmetric V swept across the full cavity X width. From
@@ -272,64 +274,51 @@ rod_anchor_boss_floor = 2.0  # thickness of the printed-solid PETG floor INSIDE 
 # slope up) extruded straight across X; the only curved floor boundary
 # is the cavity's existing centerward arc. There is NO circular pad.
 # Syrup drains by gravity from anywhere in the cavity down the V to the
-# trough and into the up-facing wet port. The whole V is RAISED (see
-# floor_trough_lift) so the locknut + integral elbow fit in the open
-# bag-pocket space below the trough floor underside.
+# trough and into the port. The whole V is RAISED (see floor_trough_lift)
+# so the below flange + integral 90° elbow fit in the open bag-pocket space
+# below the trough floor underside.
 #
 # reservoir_bulkhead_port_x: midpoint between cavity's inner +X face and
 #   the concave arc's peak (imported from _cold_core_interface). Reused
 #   AS-IS as the trough/port X center. The port sits at y=0.
 
-bulkhead_panel_hole_diameter = 16.5  # PureSec listing ⌀16 mounting hole + 0.5 mm print/clearance allowance so the printed hole reliably accepts the ⌀15 threaded barrel through print tolerance + slight body OD variation. Threads are NOT modelled — this is a plain bore. Cut straight down (−Z) through the trough floor.
+bulkhead_panel_hole_diameter = 16.0  # measured PureSec thread OD ⌀15.5 (max extent of threads) + 0.5 mm slip; well under the ⌀18.7 dry-side flange so the below flange can't pull up through the hole. Matches the listing's stated ⌀16 mounting hole. Threads are NOT modelled — this is a plain bore. (NOTE: PETG bores print ~0.2–0.4 mm undersize, so the as-printed hole runs ~15.6–15.8 — still clears the ⌀15.5 barrel, snug; bump nominal to ~16.4 if you want ⌀16 as-printed.) Cut straight through the trough floor on the barrel axis.
 
-# Nut hex pocket on the floor underside. The locknut threads on from
-# below in the open bag-pocket space; this shallow hex recess in the
-# dry (underside) floor face registers the nut against rotation while
-# it's tightened. The nut's hex portion is technically a 12-sided shape
-# (the 6 hex corners are clipped well inside the washer's outer ⌀), but
-# the print pocket can safely treat it as a regular hex of the given
-# flat-to-flat dimension — the pocket overshoots by ~1 mm of air at
-# each corner, which doesn't affect the grip on the 6 flats.
-bulkhead_nut_hex_flat_to_flat = 20.0  # PureSec hex locknut across-flats; the 6 flats grip the pocket for anti-rotation
-bulkhead_nut_hex_corner_to_corner = bulkhead_nut_hex_flat_to_flat / math.cos(math.radians(30))  # ~1 mm past the actual clipped corners
-bulkhead_nut_clearance = 0.1  # per-side clearance for the hex flats
-bulkhead_nut_hex_pocket_depth = 1.5  # shallow register only — most of the nut hangs in the open bag-pocket space below the floor, so the pocket needn't recess the full nut height
+# The hex nut sits in the open cavity (wet side), threaded onto the barrel
+# from above and hand-tightened against the wet-side TPU washer. It is not
+# modelled and needs no anti-rotation pocket — there is open cavity space
+# all around it above the trough floor.
 
-# Flat-top hex profile for the nut pocket, sketched in the XY plane
-# (the floor underside). Vertices at 0°, 60°, ... 300° from +X.
-nut_hex_radius = (bulkhead_nut_hex_corner_to_corner + 2 * bulkhead_nut_clearance) / 2
-nut_hex_profile = [
-    (nut_hex_radius * math.cos(math.radians(a)),
-     nut_hex_radius * math.sin(math.radians(a)))
-    for a in (0, 60, 120, 180, 240, 300)
-]
-
-# TPU 85A wet-side face seal at the bulkhead/floor joint. The PureSec
-# ships with NO panel o-ring, so this printed TPU washer is the only
-# fluid seal at the barrel-to-floor joint. A flat printed washer sits in
-# a shallow Z-down counterbore in the trough's wet (top) face and is
-# compressed when the integral flange seats flush against the floor rim
-# outside the counterbore. Compression ratio is
-# (seal_thickness − counterbore_depth) / seal_thickness = 30%, standard
-# for face-seal elastomers. The counterbore Ø is sized smaller than the
-# PureSec flange OD (⌀22) so the flange seats directly on PETG outside
-# the counterbore — PETG carries the clamping force, the elastomer
-# carries only the seal-compression load. (Only the wet-side seal is
-# modelled; the dry side seats against the locknut in open space below,
-# no counterbore there.)
-bulkhead_seal_id = 15.5  # washer ID = PureSec threaded barrel OD (⌀15) + ~0.5 mm so the washer slips over the barrel; the barrel passes through the seal, not around it. Slightly under the ⌀[16.5 mm](BULKHEAD_PANEL_HOLE_D) panel hole, so the seal's inner edge overhangs the hole by 0.5 mm/side.
-bulkhead_seal_od = 21.3  # 0.1 mm/side clearance in the counterbore; stays under the ⌀22 PureSec flange so the flange seats on PETG outside the seal
+# TPU 85A face seals at the bulkhead/floor joint — one on EACH face. The
+# PureSec ships with NO panel o-ring, so these printed TPU washers are the
+# only fluid seal at the barrel-to-floor joint. One common washer sits in a
+# shallow counterbore on each trough-floor face: the wet/top washer is
+# compressed by the ⌀21.9 nut-side face, the dry/under washer by the ⌀18.7
+# elbow-side flange, each seating flush on the PETG rim outside its
+# counterbore. Compression ratio is
+# (seal_thickness − counterbore_depth) / seal_thickness = 30%, standard for
+# face-seal elastomers. The counterbore Ø is sized smaller than the ⌀18.7
+# below flange (the tighter of the two clamping faces) so the SAME washer
+# works on both faces and each clamping face lands on PETG outside the
+# counterbore — PETG carries the clamping force, the elastomer carries only
+# the seal-compression load.
+bulkhead_seal_id = 16.0  # washer ID = measured PureSec barrel OD ⌀15.5 + ~0.5 mm so the washer slips over the barrel; the barrel passes through the seal, not around it. Equals the ⌀[16 mm](BULKHEAD_PANEL_HOLE_D) panel hole — this is a face seal (seals against the clamping face + the floor face), not a radial seal on the barrel.
+bulkhead_seal_od = 17.5  # common both-faces washer OD; seats under the ⌀18.7 dry-side elbow flange (and easily under the wider ⌀21.9 wet-side nut face) with a PETG rim outside the counterbore. NOTE: this is a narrow ~0.75 mm-wide seal ring — split into a wider wet-side washer if the primary (wet) seal wants more land.
 bulkhead_seal_thickness = 2.0  # matches the reservoir gasket convention
-bulkhead_seal_counterbore_diameter = 21.5  # 0.3 mm/side PETG seating ring under the PureSec ⌀22 integral flange disc
-bulkhead_seal_counterbore_depth = 1.4  # 30% compression of the 2 mm seal when the flange seats flush
+bulkhead_seal_counterbore_diameter = 17.7  # 0.1 mm/side clearance around the ⌀17.5 washer; under the ⌀18.7 below flange (≈0.5 mm/side PETG seat rim)
+bulkhead_seal_counterbore_depth = 1.4  # 30% compression of the 2 mm seal when the clamping face seats flush
 
-# The seal counterbore recesses into a raised seat boss, not the trough
-# floor: a full wall-thickness of PETG remains below the counterbore, and
-# the boss runs wider than the counterbore so the flange clamp lands on
-# solid material all around. The boss protrudes below the floor underside
-# into the open bag-pocket space; the locknut clamps against its underside.
-bulkhead_seal_boss_diameter = bulkhead_seal_counterbore_diameter + 2 * 2.5  # ⌀26.5: 2.5 mm seat wall around the counterbore
-bulkhead_seal_seat_thickness = reservoir_wall_thickness  # PETG below the counterbore
+# Each seal counterbore recesses into a raised seat boss, not the bare
+# trough floor. The boss is counterbored from BOTH faces (gasket both
+# sides): bulkhead_seal_seat_thickness is the PETG from the wet-face
+# counterbore down to the boss underside, and the dry-face counterbore cuts
+# up into it from below — leaving a solid PETG mid-rim of
+# (seat_thickness − counterbore_depth) ≈ 2.6 mm that carries the flange+nut
+# clamp without crushing. The boss runs wider than the larger ⌀21.9 wet
+# clamping face so that face lands on solid PETG all around, and it
+# protrudes below the floor underside into the open bag-pocket space.
+bulkhead_seal_boss_diameter = bulkhead_seal_counterbore_diameter + 2 * 3.5  # ⌀24.7: seat wall wide enough for the ⌀21.9 wet-side nut face to land on PETG outside the counterbore
+bulkhead_seal_seat_thickness = 4.0  # PETG from the wet-face counterbore to the boss underside; > counterbore_depth so the dry-face counterbore leaves a ~2.6 mm solid mid-rim
 
 # PureSec integral 90° elbow + push-to-connect ports. See
 # ../../../off-the-shelf-parts/puresec-90-bulkhead/geometry-description.md.
@@ -366,7 +355,7 @@ bulkhead_elbow_lateral_sign = +1  # +Y; the pass-through is on +Y
 # _cold_core_interface). floor underside = bag_pocket_floor_top_z +
 # reservoir_clearance + floor_trough_lift.
 floor_trough_lift = bulkhead_floor_clearance + bulkhead_below_floor_stack - reservoir_clearance
-floor_trough_half_width_y = 14.0  # half the flat trough's Y extent; wide enough to host the ⌀21.5 seal counterbore + the flange seat with margin
+floor_trough_half_width_y = 14.0  # half the flat trough's Y extent; wide enough to host the ⌀24.7 seal-seat boss (≈1.6 mm Y margin each side)
 floor_slope_rise = 6.0  # mm the floor rises from the trough surface to each ±Y wall
 
 
@@ -449,7 +438,7 @@ inner_z_range = (outer_z_range[0] + reservoir_wall_thickness, outer_z_range[1])
 # V-floor derived geometry (needs inner_z_range / inner_y_max above).
 # floor_trough_z is the trough's wet (top) surface. It is RAISED
 # floor_trough_lift above the base cavity floor (inner_z_range[0]) so the
-# PureSec locknut + barrel-end PTC + integral elbow clear in the open
+# PureSec below-side flange + integral 90° elbow clear in the open
 # bag-pocket space below the trough-floor underside (the underside sits
 # at floor_trough_z − reservoir_wall_thickness; below it, down to the
 # bag-pocket floor, is open). The slope runs from
@@ -457,12 +446,12 @@ inner_z_range = (outer_z_range[0] + reservoir_wall_thickness, outer_z_range[1])
 # (|y| = inner_y_max, z += floor_slope_rise). The fluid-barrier PETG
 # below the trough surface is the full raised thickness (the body's
 # outer floor face is at outer_z_range[0], well below).
-floor_trough_z = inner_z_range[0] + floor_trough_lift  # wet (top) surface of the flat trough = cavity low point, raised so the locknut/elbow fit below
+floor_trough_z = inner_z_range[0] + floor_trough_lift  # wet (top) surface of the flat trough = cavity low point, raised so the below flange/elbow fit below
 # Open headroom below the trough-floor underside, down to the bag-pocket
 # floor (the foam-shell pocket the reservoir drops into) — the space the
-# locknut + barrel-end PTC + lower elbow body hang in. (Reported for the
-# STEP review; the locknut is ~9 mm tall and registers only ~1.5 mm in
-# the floor-underside pocket, so the rest of this is for it + the PTC.)
+# seal-boss protrusion + below-side TPU washer + ⌀18.7 flange + 90° elbow
+# body hang in. (Reported for the STEP review; the seal-boss underside is
+# the reservoir's lowest point, sitting ~22.6 mm above the bag-pocket floor.)
 floor_below_trough_headroom = (floor_trough_z - reservoir_wall_thickness) - bag_pocket_floor_top_z
 floor_slope_y_distance = inner_y_max - floor_trough_half_width_y
 floor_slope_rate = floor_slope_rise / floor_slope_y_distance
@@ -733,16 +722,16 @@ def build_reservoir_body(side=1):
 
     # V floor — a uniform reservoir_wall_thickness shell, Y-symmetric,
     # swept across the full cavity X width and RAISED floor_trough_lift so the
-    # PureSec locknut + integral 90° elbow hang in OPEN space below it. The
-    # interior (wet) surface is the V: a flat trough at floor_trough_z for
-    # |y| ≤ floor_trough_half_width_y, sloping up at floor_slope_rate to the
+    # PureSec below-side flange + integral 90° elbow hang in OPEN space below
+    # it. The interior (wet) surface is the V: a flat trough at floor_trough_z
+    # for |y| ≤ floor_trough_half_width_y, sloping up at floor_slope_rate to the
     # ±Y walls. The exterior (dry) surface is the same V shifted down one wall
     # thickness, so the floor is a constant wall-thickness layer between them —
     # exterior slope parallels interior slope. Below the exterior surface is nothing:
     # open bag-pocket space. There is NO solid fill block and NO modelled
-    # elbow/locknut keep-out — the only thing piercing the floor is the
-    # bulkhead barrel bore. (Nothing supports the raised floor from below
-    # yet; that is deferred.)
+    # elbow keep-out — the only thing piercing the floor is the bulkhead
+    # barrel bore. (Nothing supports the raised floor from below yet; that
+    # is deferred.)
     #
     # _v_floor_solid(trough_top_z) is the cavity-footprint solid capped by the
     # V whose flat trough wet surface sits at trough_top_z: a trough-fill prism
@@ -826,17 +815,21 @@ def build_reservoir_body(side=1):
     body = body.cut(below_v)
 
     # Vertical bulkhead port through the trough at (port_x, y=0). The
-    # PureSec barrel clamps vertically (axis along world −Z): wet PTC port
-    # up into the cavity, integral flange seated on the trough's wet (top)
-    # face through a TPU face seal, hex locknut threaded on from below in
-    # the open space under the floor, integral 90° elbow turning the dry
-    # line laterally. Only the barrel bore pierces the trough floor.
+    # PureSec mounts elbow-DOWN (barrel axis along world Z): the threaded
+    # barrel passes UP through the trough floor, the ⌀18.7 elbow-side flange
+    # + integral 90° elbow hang BELOW the floor in the open bag-pocket
+    # space, and the hex nut threads on from ABOVE in the cavity, clamping
+    # the floor between the below flange and the nut through a TPU washer on
+    # each face. The elbow turns the dry line laterally; the barrel-end PTC
+    # sits on the barrel axis in the cavity. Only the barrel bore pierces
+    # the trough floor.
     port_x_signed = reservoir_bulkhead_port_x * side
 
     # Seal seat boss — a pad around the port, flush with the trough wet
-    # surface on top and protruding below the floor underside. Unioned after
-    # the below-V cut so it keeps that protrusion, and before the bore +
-    # counterbore so both cut through it.
+    # surface on top and protruding below the floor underside. It hosts a
+    # face-seal counterbore on BOTH faces (wet top + dry under). Unioned
+    # after the below-V cut so it keeps the protrusion, and before the bore
+    # + counterbores so all three cut through it.
     seal_boss = _z_cylinder(
         (port_x_signed, 0.0),
         (floor_trough_z - bulkhead_seal_counterbore_depth - bulkhead_seal_seat_thickness,
@@ -845,9 +838,9 @@ def build_reservoir_body(side=1):
     )
     body = body.union(seal_boss)
 
-    # Panel hole — ⌀[16.5 mm](BULKHEAD_PANEL_HOLE_D) cut straight down through the trough floor,
-    # from above the trough wet surface down past the floor underside into
-    # the open space below.
+    # Panel hole — ⌀[16 mm](BULKHEAD_PANEL_HOLE_D) cut straight through the
+    # trough floor on the barrel axis, from above the trough wet surface
+    # down past the floor underside into the open space below.
     panel_hole = _z_cylinder(
         (port_x_signed, 0.0),
         (outer_z_range[0] - 5.0, floor_trough_z + 0.1),
@@ -855,19 +848,32 @@ def build_reservoir_body(side=1):
     )
     body = body.cut(panel_hole)
 
-    # Wet-side TPU face-seal counterbore — ⌀21.5 × 1.4 mm deep, cut down
-    # into the trough's wet (top) face. The flange seats on the PETG rim
-    # outside it, compressing the seal 30%.
-    seal_counterbore = _z_cylinder(
+    # Wet-side TPU face-seal counterbore — cut down into the trough's wet
+    # (top) face. The ⌀21.9 nut-side face seats on the PETG rim outside it,
+    # compressing the wet washer 30%.
+    wet_seal_counterbore = _z_cylinder(
         (port_x_signed, 0.0),
         (floor_trough_z - bulkhead_seal_counterbore_depth, floor_trough_z + 0.1),
         bulkhead_seal_counterbore_diameter,
     )
-    body = body.cut(seal_counterbore)
+    body = body.cut(wet_seal_counterbore)
 
-    # No keep-out, locknut-clearance, or nut-pocket cuts: the whole volume
-    # below the raised shell is already open space, so the locknut + elbow
-    # hang there freely.
+    # Dry-side TPU face-seal counterbore — cut UP into the seal-boss
+    # underside. The ⌀18.7 elbow-side flange seats on the PETG rim outside
+    # it, compressing the dry washer 30%. The two counterbores leave a
+    # ~2.6 mm solid PETG mid-rim between them (see bulkhead_seal_seat_thickness).
+    seal_boss_underside_z = (floor_trough_z - bulkhead_seal_counterbore_depth
+                             - bulkhead_seal_seat_thickness)
+    dry_seal_counterbore = _z_cylinder(
+        (port_x_signed, 0.0),
+        (seal_boss_underside_z - 0.1,
+         seal_boss_underside_z + bulkhead_seal_counterbore_depth),
+        bulkhead_seal_counterbore_diameter,
+    )
+    body = body.cut(dry_seal_counterbore)
+
+    # No keep-out cuts below: the whole volume below the raised shell is
+    # already open space, so the elbow + below flange hang there freely.
 
     # Level-sensing rod body anchor: a solid cylindrical boss rising
     # from the NEW V floor at (±rod_position_x, rod_position_y), with a
@@ -1153,14 +1159,14 @@ def build_reservoir_retaining_ring():
 def build_reservoir_bulkhead_seal():
     """Flat TPU 85A washer that seals between the bulkhead's clamping
     face and the reservoir body's panel face. Sits in a 1.4 mm-deep
-    counterbore in the panel; the exposed 0.6 mm compresses to 0 (30%
-    compression) when the mating face (nut washer on the wet side or
-    integral flange on the dry side) seats flush against the panel
-    rim outside the counterbore.
+    counterbore in the seal boss; the exposed 0.6 mm compresses ~30%
+    when the mating face (the ⌀21.9 nut-side face on the wet/top side,
+    the ⌀18.7 integral elbow flange on the dry/under side) seats flush
+    against the PETG rim outside the counterbore.
 
-    Same part on both sides (symmetric, ID/OD/thickness are
-    side-independent). Print 4 per build (one per panel face × two
-    reservoirs)."""
+    Same part on both faces — OD ⌀17.5 is sized under the tighter ⌀18.7
+    flange so one washer fits both. Print 4 per build (one per panel
+    face × two reservoirs)."""
     return (
         WorldWorkplane(xy_plane_z_up)
         .circle(bulkhead_seal_od / 2.0)

@@ -79,13 +79,24 @@ bag_pocket_corner_inner_radius = 6.5
 
 reservoir_clearance = 0.5
 reservoir_floor_thickness = 3.0
-# Bulkhead vertical scheme. The reservoir's weight rides on the corner
-# support posts, so the bulkhead elbow hangs as low as it can: its lowest
-# point clears the bag-pocket floor by bulkhead_floor_clearance and never
-# bears load. The flavor-line wall holes and the reed cable holes both pin
-# their Z to bulkhead_elbow_exit_z (the elbow's lateral-port center), so
-# the tube and the cable run level out of the open pocket.
-bulkhead_below_floor_stack = 10.0  # PureSec locknut + elbow body hanging below the trough-floor underside
+# Bulkhead vertical scheme. The PureSec mounts elbow-DOWN: the integral 90°
+# elbow + its dry-side flange + the below-side TPU washer hang below the
+# trough floor (the nut is on the wet/cavity side, above). The reservoir's
+# weight rides on the corner support posts, so the elbow hangs as low as it
+# can: its lowest point clears the bag-pocket floor by bulkhead_floor_clearance
+# and never bears load. The flavor-line wall holes and the reed cable holes
+# both pin their Z to bulkhead_elbow_exit_z (the elbow's lateral-port
+# center), so the tube and the cable run level out of the open pocket.
+#
+# below_floor_stack = seal-boss protrusion below the floor underside
+# (reservoir.py seat 4.0 + counterbore 1.4 − wall 3.0 = 2.4) + below-side
+# TPU washer (2.0) + measured PureSec flange-top-to-elbow-bottom (19.6) =
+# 24.0. With floor_clearance (1.0) buffering the elbow off the pocket floor,
+# the reservoir's lowest point (seal-boss underside) sits 22.6 mm above the
+# bag-pocket floor — matching the measured part. NOTE: the 2.4 mm boss term
+# is coupled to reservoir.py's bulkhead_seal_seat_thickness / _counterbore_depth
+# and reservoir_wall_thickness — keep in sync if those change.
+bulkhead_below_floor_stack = 24.0  # PureSec 90° elbow + dry-side flange + below-side TPU washer hanging below the trough-floor underside
 bulkhead_floor_clearance = 1.0  # gap from the lowest bulkhead hardware down to the bag-pocket floor — non-load-bearing
 bulkhead_elbow_bottom_z = bag_pocket_floor_top_z + bulkhead_floor_clearance
 bulkhead_elbow_exit_z = bulkhead_elbow_bottom_z + 3.0  # lateral-PTC-port Z center, 3 mm above the elbow bottom
