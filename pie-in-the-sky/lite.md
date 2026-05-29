@@ -63,18 +63,18 @@ For a customer who wants faucet soda and does not have an option to install the 
 
 ## Setup, priming, and refill
 
-No level sensors, no automated prime — the customer runs it by eye. Factory setup procedure:
+Manual and watched at every step — no level sensors, no automated prime. The customer does by hand and eye what the main appliance's sensors and firmware do on their own. Factory setup procedure:
 
-1. Hold PRIME until the bags appear flat and no air pulses at the faucet.
-2. Pour one bottle of concentrate into the hopper. The bag fills.
-3. Pour a second bottle. The bag fills again.
-4. Pour no more.
-5. Hold PRIME until flavoring dispenses at the faucet.
-6. Done.
+1. Hold PRIME. Watch the bags. Keep holding until they appear flat and no air pulses at the faucet.
+2. Pour one bottle of concentrate into the hopper. Watch the bag fill.
+3. Pour a second bottle. Watch the bag fill again.
+4. Stop pouring.
+5. Hold PRIME again until flavoring reaches the faucet.
+6. Done — until a bag runs low.
 
-Refill repeats steps 2–5, the bag topped up before it runs dry. A fully emptied bag repeats step 1 before it pours again.
+Refill: top a bag up before it empties, watching through the enclosure to catch it in time. Let one run dry and air gets back into the line; the next fill starts over at step 1's hold-and-watch purge.
 
-Clean cycle: water from the Lillium routes through the flavor lines via the manifold and out the faucet, user-monitored start to finish.
+Clean cycle: the customer starts it, watches Lillium water run out through the flavor lines, and judges when it's finished. No unattended sequence, no sensor calling it done.
 
 ## BOM sketch
 
