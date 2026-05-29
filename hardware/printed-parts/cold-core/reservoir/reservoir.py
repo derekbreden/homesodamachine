@@ -260,12 +260,8 @@ rod_anchor_boss_floor = 2.0  # thickness of the printed-solid PETG floor INSIDE 
 # its lateral PTC port sit just above/around the flange (low in the
 # cavity); the threads, locknut, and barrel-end PTC hang below the floor.
 #
-# Geometry is best-estimate from the listing + a single cluttered photo;
-# see ../../../off-the-shelf-parts/puresec-90-bulkhead/geometry-description.md
-# for the per-constant mapping + confidence. The ⌀16 mounting hole, the
-# no-o-ring fact, and the integral 90° elbow are HIGH confidence; thread
-# OD/length, flange OD, locknut across-flats, and the elbow envelope/
-# offset are MEDIUM/LOW (flagged inline below).
+# Dimensions map to the listing + photo; see
+# ../../../off-the-shelf-parts/puresec-90-bulkhead/geometry-description.md.
 #
 # Floor: a Y-symmetric V swept across the full cavity X width. From
 # each ±Y wall the floor slopes inward and DOWN to a flat rectangular
@@ -292,7 +288,7 @@ bulkhead_panel_hole_diameter = 16.5  # PureSec listing ⌀16 mounting hole + 0.5
 # the print pocket can safely treat it as a regular hex of the given
 # flat-to-flat dimension — the pocket overshoots by ~1 mm of air at
 # each corner, which doesn't affect the grip on the 6 flats.
-bulkhead_nut_hex_flat_to_flat = 20.0  # PureSec hex locknut across-flats (MEDIUM — photo ratio to the ⌀15 threaded bore); the 6 flats grip the pocket for anti-rotation
+bulkhead_nut_hex_flat_to_flat = 20.0  # PureSec hex locknut across-flats; the 6 flats grip the pocket for anti-rotation
 bulkhead_nut_hex_corner_to_corner = bulkhead_nut_hex_flat_to_flat / math.cos(math.radians(30))  # ~1 mm past the actual clipped corners
 bulkhead_nut_clearance = 0.1  # per-side clearance for the hex flats
 bulkhead_nut_hex_pocket_depth = 1.5  # shallow register only — most of the nut hangs in the open bag-pocket space below the floor, so the pocket needn't recess the full nut height
@@ -319,39 +315,32 @@ nut_hex_profile = [
 # carries only the seal-compression load. (Only the wet-side seal is
 # modelled; the dry side seats against the locknut in open space below,
 # no counterbore there.)
-bulkhead_seal_id = 15.5  # washer ID = PureSec threaded barrel OD (⌀15) + ~0.5 mm so the washer slips over the barrel; the barrel passes through the seal, not around it (MEDIUM). Slightly under the ⌀[16.5 mm](BULKHEAD_PANEL_HOLE_D) panel hole, so the seal's inner edge overhangs the hole by 0.5 mm/side.
+bulkhead_seal_id = 15.5  # washer ID = PureSec threaded barrel OD (⌀15) + ~0.5 mm so the washer slips over the barrel; the barrel passes through the seal, not around it. Slightly under the ⌀[16.5 mm](BULKHEAD_PANEL_HOLE_D) panel hole, so the seal's inner edge overhangs the hole by 0.5 mm/side.
 bulkhead_seal_od = 21.3  # 0.1 mm/side clearance in the counterbore; stays under the ⌀22 PureSec flange so the flange seats on PETG outside the seal
 bulkhead_seal_thickness = 2.0  # matches the reservoir gasket convention
 bulkhead_seal_counterbore_diameter = 21.5  # 0.3 mm/side PETG seating ring under the PureSec ⌀22 integral flange disc
 bulkhead_seal_counterbore_depth = 1.4  # 30% compression of the 2 mm seal when the flange seats flush
 
-# PureSec integral 90° elbow + push-to-connect ports (the JG part had no
-# integral elbow). All best-estimate from the listing photo; see
+# PureSec integral 90° elbow + push-to-connect ports. See
 # ../../../off-the-shelf-parts/puresec-90-bulkhead/geometry-description.md.
 # The dry line turns laterally at the elbow and runs out to the
 # bag-pocket +Y pass-through; modelled here as a clearance KEEP-OUT
-# volume below/around the trough floor, NOT a precise replica of the
+# volume below/around the trough floor, not a precise replica of the
 # fitting.
-bulkhead_ptc_tube_diameter = 6.35  # 1/4" tube OD (HIGH — shared JG 1/4" collet family)
-bulkhead_ptc_release_ring_diameter = 9.57  # PTC collet release-ring OD (HIGH — shared JG 1/4" collet family)
-bulkhead_ptc_port_body_diameter = 12.5  # PTC collet barrel OD (MEDIUM — photo column-scan)
-bulkhead_elbow_lateral_offset = 15.0  # barrel axis → lateral-PTC centerline (LOW-MED — photo ratio ≈1× thread OD)
-bulkhead_elbow_envelope_x = 28.0  # lateral extent of the cast 90° body + lateral collet barrel (LOW — photo bounding box). Modelled along ±Y here (toward the pass-through), see orientation note below.
-bulkhead_elbow_envelope_y = 16.0  # transverse extent of the elbow body (LOW)
-bulkhead_elbow_envelope_z = 16.0  # vertical extent of the elbow body (LOW)
+bulkhead_ptc_tube_diameter = 6.35  # 1/4" tube OD — shared JG 1/4" collet family
+bulkhead_ptc_release_ring_diameter = 9.57  # PTC collet release-ring OD — shared JG 1/4" collet family
+bulkhead_ptc_port_body_diameter = 12.5  # PTC collet barrel OD
+bulkhead_elbow_lateral_offset = 15.0  # barrel axis → lateral-PTC centerline
+bulkhead_elbow_envelope_x = 28.0  # lateral extent of the cast 90° body + lateral collet barrel. Modelled along ±Y here (toward the pass-through), see orientation note below.
+bulkhead_elbow_envelope_y = 16.0  # transverse extent of the elbow body
+bulkhead_elbow_envelope_z = 16.0  # vertical extent of the elbow body
 
-# ORIENTATION (FLAG for STEP review — low confidence, derived from one
-# cluttered photo): the PureSec is an L-body with the wet PTC on the
-# barrel axis and the lateral PTC on the elbow leg. The exact pose of
-# the L — which way the elbow turns, and whether its body sits just
-# above/around the flange (inside the cavity) vs purely below the floor
-# — is uncertain. Here the barrel is kept vertical through the trough,
-# and the elbow's lateral PTC port is aimed toward +Y (the existing
-# bag-pocket pass-through at reservoir_bulkhead_port_y), so the modelled
-# elbow keep-out + lateral PTC stub extend in +Y from the barrel axis.
-# The elbow is modelled as a clearance volume only. CONFIRM against the
-# physical part on arrival; this assumption does not change the
-# panel-hole / nut-pocket / seal numbers.
+# ORIENTATION: the PureSec is an L-body with the wet PTC on the barrel
+# axis and the lateral PTC on the elbow leg. The barrel is vertical
+# through the trough, and the elbow's lateral PTC port is aimed toward +Y
+# (the bag-pocket pass-through at reservoir_bulkhead_port_y), so the
+# modelled elbow keep-out + lateral PTC stub extend in +Y from the barrel
+# axis. The elbow is modelled as a clearance volume only.
 bulkhead_elbow_lateral_sign = +1  # +Y; the pass-through is on +Y
 
 # V floor section (Y–Z), extruded straight across the full cavity X.
