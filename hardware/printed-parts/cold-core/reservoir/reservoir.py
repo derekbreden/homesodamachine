@@ -111,12 +111,12 @@ cap_clearance_hole_diameter = 3.5
 # TPU 85A flat gasket between the body wall top and the cap base plate
 # bottom, compressed by the six M3 × 12 screws. 5 mm-wide perimeter ring
 # (covers the body wall top and extends inward over the cavity opening; a
-# strip this width prints without the warp a wall-width strip shows); ø12
-# circular pads at each insert position give the screw clamp a uniform
-# compressed disk; ø3.5 clearance holes through each pad.
+# strip this width prints without the warp a wall-width strip shows);
+# circular pads at each insert position (gasket_pad_radius, set with the
+# boss radii below) give the screw clamp a uniform compressed disk; ø3.5
+# clearance holes through each pad.
 gasket_thickness = 2.0
 gasket_strip_width = 5.0
-gasket_pad_radius = 6.0  # ø12, ≥ the body/cap boss radius so the gasket pad gives full compression contact under each cap boss / body boss face
 
 
 # Cap-local Z ranges. Cap is built around its own z=0 (perimeter wall
@@ -383,15 +383,17 @@ floor_slope_rise = 6.0  # mm the floor rises from the trough surface to each ±Y
 insert_pocket_radius = 2.0
 insert_pocket_depth = 7.0
 
-# Boss radii — each through-hole gets a boss_annulus PETG wall around it,
-# the material that carries the heat-set insert grip + screw clamp load:
-#   Body insert pocket ø4 + boss_annulus → body boss
-#   Cap clearance hole ø3.5 + boss_annulus → cap boss
+# Boss + gasket-pad radii. The body boss is the ø4 insert pocket + a
+# boss_annulus PETG wall (the material that carries the heat-set insert
+# grip + screw clamp load). The cap boss and the gasket pad share the body
+# boss radius so the screw-clamp stack — body boss / gasket pad / cap boss —
+# is one uniform compressed disk at each insert position.
 boss_annulus = 3.0
 # [5 mm](BODY_BOSS_R) — insert pocket radius + boss_annulus.
 body_boss_radius = insert_pocket_radius + boss_annulus
-# [4.75 mm](CAP_BOSS_R) — half of cap clearance ⌀ + boss_annulus.
-cap_boss_radius = cap_clearance_hole_diameter / 2.0 + boss_annulus
+# [5 mm](CAP_BOSS_R) — matches the body boss.
+cap_boss_radius = body_boss_radius
+gasket_pad_radius = body_boss_radius  # matches the body boss (clamp-stack footprint)
 
 # Body boss vertical layout (extruding downward from the wall top):
 #   top 7 mm:  pocket (ø4 hole for heat-set insert + screw shaft)
