@@ -150,7 +150,7 @@ This is a classic razor-and-blade model. The machine is not the profit center. T
 ### The retention story
 SodaStream had "enormous initial sales" but retention is their Achilles heel. The company invests heavily in CRM (replenishment nudges, seasonal recipes, lifecycle messaging) to combat this. Sweden hit 20% household penetration, but penetration in the US remains far lower. The pattern is consistent: buy, use for weeks, get tired of flat water and flavor-adding hassle, shelve it.
 
-This is the exact cycle described in how-this-got-built.md and it is not a solvable problem within SodaStream's architecture. You cannot keep CO2 in solution in a warm, open bottle. The physics are non-negotiable.
+This is the exact cycle described in the project's origin story and it is not a solvable problem within SodaStream's architecture. You cannot keep CO2 in solution in a warm, open bottle. The physics are non-negotiable.
 
 ---
 
