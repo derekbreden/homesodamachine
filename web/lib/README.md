@@ -1,6 +1,6 @@
 # lib/
 
-Server-side modules for the Node web app. Each `.js` here exports a `mountXxxRoutes(app, …)` function that attaches Express handlers; [`server.js`](/web/server.js) calls them in order at boot. See [`ARCHITECTURE.md`](/web/ARCHITECTURE.md) for the full picture of how request → server.js → lib → response works, and the dev-vs-prod story.
+Server-side modules for the Node web app. Each `.js` here exports a `mountXxxRoutes(app, …)` function that attaches Express handlers; [`server.js`](/web/server.js) calls them in order at boot. See [`web/README.md`](/web/README.md) for the full picture of how request → server.js → lib → response works, and the dev-vs-prod story.
 
 ## The mount-routes contract
 
