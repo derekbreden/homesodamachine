@@ -2,6 +2,8 @@
 
 Format: facts only. Direct quotes from Derek where applicable. Settings observed in committed `.3mf` snapshots. No interpretation, no hypothesis.
 
+Standing, filament-agnostic print guidance lives in [`watertight-petg.md`](watertight-petg.md); this file is the per-attempt record.
+
 Geometry: left flavor reservoir + cap, two parts on one plate — `reservoir-left.step` (body) + `reservoir-cap-left.step` (cap). See [`reservoir-left-body-and-cap.3mf`](reservoir-left-body-and-cap.3mf).
 
 ## PETG print attempt 1 (2026-05-22, settings per [`reservoir-left-body-and-cap.3mf`](reservoir-left-body-and-cap.3mf))
