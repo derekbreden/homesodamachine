@@ -3,16 +3,16 @@
     "hardware/harvested/co2-coupling-body/co2-coupling-body.step": "6c647a645ee4f99ca3c84a39f85e36ef3d249d387c071229e58e8937f5020313",
     "hardware/harvested/touch-flo-faucet/faucet-assembly/touch-flo-faucet-assembly.step": "2ced613109550166896d2f329c4c87eef04453e1fe3f943ab4782c6878b8cfbf",
     "hardware/harvested/touch-flo-faucet/valve-body-reference/touch-flo-valve-body-reference.step": "9a888589a4479351a13177a8885c9748da287e05d215bc5e541c1ae20acfe892",
-    "hardware/printed-parts/cold-core/copper-plugs/copper-plug-lower.step": "afa7ccb846c724e490a43b9afe4172033cf8eb1872423f7534c975fb8e680194",
-    "hardware/printed-parts/cold-core/copper-plugs/copper-plug-middle.step": "6b75573a9707b45ed15abdf1f79e375d57be439b3e3f798ae3e170ba77167249",
-    "hardware/printed-parts/cold-core/copper-plugs/copper-plug-top.step": "ce9f2f32dc81a3668dc6a5757c4353a43740ce50f301b7fbe2d3adb54e4a7f30",
-    "hardware/printed-parts/cold-core/copper-plugs/copper-plug-upper.step": "3c6ab1ed44ff25991ee5da0ed8126b76d751ee1f17d5a645100e2a0d9c8be3aa",
+    "hardware/printed-parts/cold-core/copper-plugs/copper-plug-lower.step": "3b0ccca5f42aeb6d82f87bd93d1639374beb221a2b36f5bebf646a03e8ddaf5c",
+    "hardware/printed-parts/cold-core/copper-plugs/copper-plug-middle.step": "4a2c4d590f2dcbcf0abea8e5b36fa1697ceef3c20c3a837c8c262c6b86804d04",
+    "hardware/printed-parts/cold-core/copper-plugs/copper-plug-top.step": "2668a6ac9a65e2dc5385b426803929c9e8ea072fa269f85a64523946a3048fa3",
+    "hardware/printed-parts/cold-core/copper-plugs/copper-plug-upper.step": "db38e8f7b4fea4f6abebbe6874467c0168aff1e8d3690498cff280b49311357f",
     "hardware/printed-parts/cold-core/foam-cap/foam-cap-bottom.step": "f3de5af20cb17835d10028b383030d4fcf5ce5e7f37cae87b7665a667ab1e745",
     "hardware/printed-parts/cold-core/foam-cap/foam-cap-gasket.step": "9a645dc8834aa8e899931d3ed06fb4c9fd95602231f136846a8b37cf3735845c",
     "hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-bottom.step": "3b7b2bdccc06fd8ff1ad4934c892de629ea0ea13469c37e8fde3d9ab2c5b8685",
     "hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-top.step": "e16f212b5bd4f362f9dac33732ed7c523bc33e10a72acd733f43610937835979",
     "hardware/printed-parts/cold-core/foam-cap/foam-cap-top.step": "51e49c07a88e2aeb3d69c2df31710a076ebc78766e3ea43aab6f90fe70c11123",
-    "hardware/printed-parts/cold-core/foam-shell/foam-shell.step": "805832b7edc35bf4f75707715881f2c72760fb3399c1f9125a84e5dc34316c81"
+    "hardware/printed-parts/cold-core/foam-shell/foam-shell.step": "d17610f0583d99407c482c4a6cea0a4dcaf8f128c1bd30f46f90eeebe279c69b"
   },
   "faucet_assembly": {
     "flavor_tube_neg": {
