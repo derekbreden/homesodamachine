@@ -34,8 +34,12 @@ import _blender_render as blender
 def main() -> None:
     appliance = model.build_appliance()
     markings = model.markings("front")
+    anchors = [{
+        "id": "hopper-door-center",
+        "point": [model.hopper_door_a, model.hopper_door_b, model.H],
+    }]
     output_path = _HERE / "enclosure-iso-front.svg"
-    blender.render_iso(appliance, markings, view="front", out_svg=output_path)
+    blender.render_iso(appliance, markings, view="front", out_svg=output_path, anchors=anchors)
     print(f"Wrote {output_path}")
 
     # Keep _appliance_model.py's [value](NAME) comments in sync.
