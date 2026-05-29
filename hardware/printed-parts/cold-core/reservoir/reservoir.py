@@ -360,15 +360,19 @@ bulkhead_elbow_lateral_sign = +1  # +Y; the pass-through is on +Y
 # walls. (floor_trough_z, the slope rate, and the wedge extrusion top
 # are derived below, after inner_z_range / inner_y_max are defined.)
 #
-# The whole V is RAISED by floor_trough_lift above the cavity-floor base
-# (inner_z_range[0]) so the PureSec locknut + barrel-end PTC + integral
-# elbow fit in the open bag-pocket space below the trough-floor
-# underside. With the body's outer (dry) floor face resting ~0.5 mm
-# above the bag-pocket floor, an unlifted trough (underside ~at the body
-# bottom) leaves no room for the ~9 mm locknut. The lift puts the trough
-# wet surface high enough that its underside clears the below-floor stack
-# down to the bag-pocket floor. See the floor-lift derivation below.
-floor_trough_lift = 14.0  # mm the trough+V floor is raised above the base cavity floor so the locknut + elbow clear below it (≈14.5 mm open headroom under the trough underside down to the bag-pocket floor); also lands the wet-port axis near the foam-shell +Y pass-through z
+# The reservoir's weight rides on the corner support posts — they stand
+# on the bag-pocket floor and reach the floor underside. So the V floor is
+# raised only as far as the bulkhead hardware hanging below it demands: the
+# PureSec locknut + elbow body drop bulkhead_below_floor_stack beneath the
+# trough underside, and that lowest point clears the bag-pocket floor by
+# just bulkhead_floor_clearance — the elbow sits basically on the pocket
+# floor and never bears the reservoir's weight. The lift is derived from
+# that intent, not set by hand. (floor underside = bag_pocket_floor_top_z
+# + reservoir_clearance + floor_trough_lift, so the lift below puts the
+# underside exactly stack+clearance above the pocket floor.)
+bulkhead_below_floor_stack = 10.0  # PureSec locknut + elbow body hanging below the trough-floor underside
+bulkhead_floor_clearance = 1.0  # gap from the lowest bulkhead hardware down to the bag-pocket floor — kept non-load-bearing
+floor_trough_lift = bulkhead_floor_clearance + bulkhead_below_floor_stack - reservoir_clearance
 floor_trough_half_width_y = 14.0  # half the flat trough's Y extent; wide enough to host the ⌀21.5 seal counterbore + the flange seat with margin
 floor_slope_rise = 6.0  # mm the floor rises from the trough surface to each ±Y wall
 
