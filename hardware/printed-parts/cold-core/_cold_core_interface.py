@@ -78,7 +78,7 @@ bag_pocket_walls_top_z = foam_shell_outer_height
 bag_pocket_corner_inner_radius = 6.5
 
 reservoir_clearance = 0.5
-reservoir_floor_thickness = 4.0
+reservoir_floor_thickness = 3.0
 # Bulkhead vertical scheme. The reservoir's weight rides on the corner
 # support posts, so the bulkhead elbow hangs as low as it can: its lowest
 # point clears the bag-pocket floor by bulkhead_floor_clearance and never
