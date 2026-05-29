@@ -70,10 +70,10 @@ The part is an **L (90°) body**, NOT a symmetric in-line union. One leg is the 
 
 Separate loose piece: **hex locknut** — across-flats ≈20, across-corners ≈23, height ≈9, threaded bore ≈15, white PP, rounded hex corners (photo shows the internal threads through a large bore with a ~2–2.5 mm wall).
 
-### How it sits in the reservoir (from `../../printed-parts/cold-core/reservoir/coating.md`)
-The **threaded barrel passes vertically down through the flat trough floor**; the **flange disc seats on the wet (top) trough face through the printed TPU washer**; the **hex locknut threads on from below** in the open bag-pocket cavity, registered against rotation by the shallow floor-underside hex pocket. The **integral 90° elbow turns the line laterally (in X, toward the bag-pocket pass-through) below/at the floor** so no separate union elbow is needed. The barrel-end PTC port (the "up"/wet collet in the coating procedure, which grips the sacrificial tube during the rotomold coat) sits on the barrel axis; the elbow's lateral PTC is the dry route.
+### How it sits in the reservoir (from `../../printed-parts/cold-core/reservoir/floor-and-bulkhead.md`)
+The **threaded barrel passes vertically down through the flat trough floor**; the **flange disc seats on the wet (top) trough face through the printed TPU washer**; the **hex locknut threads on from below** in the open bag-pocket cavity, registered against rotation by the shallow floor-underside hex pocket. The **integral 90° elbow turns the line laterally (in X, toward the bag-pocket pass-through) below/at the floor** so no separate union elbow is needed. The barrel-end PTC port (the "up"/wet collet) sits on the barrel axis; the elbow's lateral PTC is the dry route.
 
-> **Orientation note for the CAD agent (flag, not a blocker):** this single-elbow body has the wet PTC on the *barrel axis* and the lateral PTC on the *elbow leg*. `coating.md` prose reads as if the wet PTC faces straight up and the elbow is purely below the floor — geometrically the elbow + its lateral port live just above/around the flange. Model the part as drawn (barrel through the floor, flange on the wet face, elbow + lateral port immediately above the flange turning in +X) and keep **lateral keep-out clearance for the elbow body both just above the flange (inside the cavity, low in the trough) and below for the locknut**. Confirm the intended up-vs-lateral assignment against the physical part on arrival; it does not change the panel-hole / nut-pocket / seal numbers.
+> **Orientation note for the CAD agent (flag, not a blocker):** this single-elbow body has the wet PTC on the *barrel axis* and the lateral PTC on the *elbow leg*. `floor-and-bulkhead.md` prose reads as if the wet PTC faces straight up and the elbow is purely below the floor — geometrically the elbow + its lateral port live just above/around the flange. Model the part as drawn (barrel through the floor, flange on the wet face, elbow + lateral port immediately above the flange turning in +X) and keep **lateral keep-out clearance for the elbow body both just above the flange (inside the cavity, low in the trough) and below for the locknut**. Confirm the intended up-vs-lateral assignment against the physical part on arrival; it does not change the panel-hole / nut-pocket / seal numbers.
 
 ## Dimensional Profile — vertical leg, top → bottom
 
@@ -94,7 +94,7 @@ Threaded barrel ≈10 mm long. The locknut needs ~4–5 mm of thread engagement,
 
 ## The TPU Face Seal We Supply (printed washer + its counterbore)
 
-The PureSec ships with **no o-ring**, so the printed TPU 85A washer is the only fluid seal at the barrel-to-floor joint (`coating.md` confirms the cured epoxy film spans the flange-edge-to-counterbore-rim joint on top, but the washer underneath does the barrier work).
+The PureSec ships with **no o-ring**, so the printed TPU 85A washer is the only fluid seal at the barrel-to-floor joint.
 
 | Washer / counterbore feature | Value (mm) | drives | Conf |
 |---|---|---|---|
@@ -144,7 +144,7 @@ Work in `reservoir.py`, the `Outlet bulkhead port + V floor` block (≈ lines 24
 
 ## Remaining Unknowns / TODO
 
-- [ ] **Confirm on the physical part (5-pack already orderable / "last purchased 2026-05-28"):** thread pitch/designation, exact flange OD + thickness, locknut height + across-flats, elbow lateral offset + body envelope, and the up-vs-lateral PTC assignment vs `coating.md`. None of these block the panel-hole / nut-pocket / seal cuts, which rest on the HIGH-confidence ⌀16 hole.
+- [ ] **Confirm on the physical part (5-pack already orderable / "last purchased 2026-05-28"):** thread pitch/designation, exact flange OD + thickness, locknut height + across-flats, elbow lateral offset + body envelope, and the up-vs-lateral PTC assignment. None of these block the panel-hole / nut-pocket / seal cuts, which rest on the HIGH-confidence ⌀16 hole.
 - [ ] **Verify max-panel-thickness margin**: 4 mm floor + 1.4 mm compressed seal ≈ 5.4 mm clamped against ~10 mm of thread minus nut engagement — confirm the nut clamps before bottoming out.
 - [ ] **Elbow-to-pass-through alignment**: the elbow turns laterally in X; confirm `reservoir_bulkhead_port_y`/pass-through geometry receives it (rotate the part about Z in the model if the lateral port must aim at the +Y pass-through instead of +X).
 - [ ] If a dimensioned drawing or a caliper pass surfaces, drop images into `raw-images/` and re-derive the MEDIUM/LOW rows at HIGH confidence.
