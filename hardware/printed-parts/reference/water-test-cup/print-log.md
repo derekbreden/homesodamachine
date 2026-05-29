@@ -1,6 +1,6 @@
 # water-test-cup print log
 
-Format: facts only, as observed in the committed [`water-test-cup.3mf`](water-test-cup.3mf) snapshot. No interpretation, no hypothesis. Standing watertight-PETG guidance lives in [`../../cold-core/reservoir/watertight-petg.md`](../../cold-core/reservoir/watertight-petg.md); the coupon's purpose is in [`README.md`](README.md).
+Format: facts only, as observed in the committed [`water-test-cup.3mf`](water-test-cup.3mf) snapshot. No interpretation, no hypothesis. Standing watertight-PETG guidance lives in [`/hardware/printed-parts/cold-core/reservoir/watertight-petg.md`](/hardware/printed-parts/cold-core/reservoir/watertight-petg.md); the coupon's purpose is in [`README.md`](README.md).
 
 Geometry: one object, `water-test-cup.step` — the 4 fl oz open-top cup (⌀56 × 63.25 mm outer, ⌀50 interior, 3 mm wall + floor) from [`water_test_cup.py`](water_test_cup.py).
 
