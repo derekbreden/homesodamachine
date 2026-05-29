@@ -30,7 +30,7 @@ Useful Z range for the float on the rod: ~40 mm above the floor (above the wet s
 
 ## Magnet–reed signal-path geometry
 
-The reed column sits IN the foam-shell channel, so the reed sensors land roughly at the wall's mid-thickness in x. Path from the float's centered magnet (donor donut OD ~8 mm, magnet outer surface at rod + ~4 mm) to the reed sensor crosses the reservoir wall (4 mm) + the cavity-side air gap (~0.5 mm) + roughly half a reed body (~1.5 mm) ≈ **~6 mm**.
+The reed column sits IN the foam-shell channel, so the reed sensors land roughly at the wall's mid-thickness in x. Path from the float's centered magnet (donor donut OD ~8 mm, magnet outer surface at rod + ~4 mm) to the reed sensor crosses the reservoir wall (3 mm) + cavity-side air gaps (~1.5 mm) + roughly half a reed body (~1.5 mm) ≈ **~6 mm** (the rod and the reed column sit at fixed positions, so thinning the wall trades PETG for air over the same span — field is unchanged).
 
 **Honest signal-strength numbers** for the donor ferrite donut (~8 mm OD × 4 mm ID × 2 mm thick, Br ≈ 0.3 T):
 

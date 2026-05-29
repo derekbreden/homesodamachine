@@ -56,20 +56,20 @@ def _z_cylinder(anchor_xy, z_range, diameter):
 
 
 # The body is an OPEN-TOP `[` cup: floor + four walls (far, +Y, −Y,
-# centerward concave-curve) of uniform 4 mm PETG. The top is closed by
-# a separately-printed cap clamped down through a TPU gasket with six
-# M3 screws into heat-set inserts.
+# centerward concave-curve) of uniform wall-thickness PETG. The top is
+# closed by a separately-printed cap clamped down through a TPU gasket with
+# six M3 screws into heat-set inserts.
 #
-# All six surfaces of the assembled stack (floor + 4 walls + cap) are
-# 4 mm thick where the body provides them; the cap adds another base
+# All six surfaces of the assembled stack (floor + 4 walls + cap) are one
+# wall-thickness where the body provides them; the cap adds another base
 # plate + perimeter wall on top. FDM can't reliably bridge a 140 × 90 mm
-# horizontal span at 4 mm thickness with no internal supports — hence
+# horizontal span at that thickness with no internal supports — hence
 # the open-top + separate-cap split.
 #
 # `reservoir_floor_thickness` on the shell side names the PETG layer
 # the foam-shell cares about (the layer it leaves clearance above);
 # reused locally for every wall in the reservoir body.
-# [4 mm](RESERVOIR_WALL_T) — uniform PETG thickness for floor + every wall.
+# [3 mm](RESERVOIR_WALL_T) — uniform PETG thickness for floor + every wall.
 reservoir_wall_thickness = reservoir_floor_thickness
 
 
@@ -91,7 +91,7 @@ inner_corner_fillet_radius = 6.0
 # plate hosts the counterbored screw heads on its flat top face; the
 # perimeter wall provides depth for the screw shaft to pass through to
 # the gasket + body insert below.
-cap_base_thickness = 4.0  # = reservoir_wall_thickness; the cap's flat top is a fluid barrier (only the perimeter is gasket-sealed; the cavity interior reaches the cap base plate directly), so it carries the same 4 mm minimum as the body walls
+cap_base_thickness = 4.0  # the cap's flat top spans the cavity unsupported and hosts the screw counterbores (cap_counterbore_depth tracks it); thickness is set for that, not the body-wall value
 cap_wall_height = 5.0
 cap_wall_width = 6.0
 
@@ -110,10 +110,10 @@ cap_clearance_hole_diameter = 3.5
 
 # TPU 85A flat gasket between the body wall top and the cap base plate
 # bottom, compressed by the six M3 × 12 screws. 5 mm-wide perimeter ring
-# (covers the 4 mm body wall plus 1 mm extending inward over the cavity
-# opening, since a 4 mm TPU strip alone warps during print); ø12 circular
-# pads at each insert position give the screw clamp a uniform compressed
-# disk; ø3.5 clearance holes through each pad.
+# (covers the body wall top and extends inward over the cavity opening; a
+# strip this width prints without the warp a wall-width strip shows); ø12
+# circular pads at each insert position give the screw clamp a uniform
+# compressed disk; ø3.5 clearance holes through each pad.
 gasket_thickness = 2.0
 gasket_strip_width = 5.0
 gasket_pad_radius = 6.0  # ø12, matches body boss (insert_pocket_radius + 4); the gasket pad provides full compression contact under each cap boss / body boss face
@@ -323,6 +323,14 @@ bulkhead_seal_thickness = 2.0  # matches the reservoir gasket convention
 bulkhead_seal_counterbore_diameter = 21.5  # 0.3 mm/side PETG seating ring under the PureSec ⌀22 integral flange disc
 bulkhead_seal_counterbore_depth = 1.4  # 30% compression of the 2 mm seal when the flange seats flush
 
+# The seal counterbore recesses into a raised seat boss, not the trough
+# floor: a full wall-thickness of PETG remains below the counterbore, and
+# the boss runs wider than the counterbore so the flange clamp lands on
+# solid material all around. The boss protrudes below the floor underside
+# into the open bag-pocket space; the locknut clamps against its underside.
+bulkhead_seal_boss_diameter = bulkhead_seal_counterbore_diameter + 2 * 2.5  # ⌀26.5: 2.5 mm seat wall around the counterbore
+bulkhead_seal_seat_thickness = reservoir_wall_thickness  # PETG below the counterbore
+
 # PureSec integral 90° elbow + push-to-connect ports. See
 # ../../../off-the-shelf-parts/puresec-90-bulkhead/geometry-description.md.
 # The dry line turns laterally at the elbow and runs out to the
@@ -375,12 +383,12 @@ floor_slope_rise = 6.0  # mm the floor rises from the trough surface to each ±Y
 insert_pocket_radius = 2.0
 insert_pocket_depth = 7.0
 
-# Boss radii — chosen so each through-hole has a 4 mm PETG annulus
-# around it (matches the body-wall / floor / cap fluid-barrier minimum,
-# since the boss wall around the pocket/clearance hole separates the
-# cavity from the pocket interior):
+# Boss radii — each through-hole gets a 4 mm PETG annulus around it, the
+# wall that carries the heat-set insert grip + screw clamp load:
 #   Body insert pocket ø4 + 4 mm PETG → body boss ø12 (radius 6)
 #   Cap clearance hole ø3.5 + 4 mm PETG → cap boss ø11.5 (radius 5.75)
+# The body boss radius (6) sets outer_corner_fillet_radius so the corner
+# bosses inscribe the fillet arc.
 # [6 mm](BODY_BOSS_R) — insert pocket radius + 4 mm PETG annulus.
 body_boss_radius = insert_pocket_radius + 4.0
 # [5.75 mm](CAP_BOSS_R) — half of cap clearance ⌀ + 4 mm PETG annulus.
@@ -615,7 +623,7 @@ def _fillet_pair_at_y(solid, x_signed, z_mid, y_range, radius):
 
 
 def build_reservoir_body(side=1):
-    """Open-top `[`-shaped PETG body with 4 mm walls + 4 mm floor,
+    """Open-top `[`-shaped PETG body with uniform wall-thickness walls + floor,
     sized to fit one side of the bag-pocket cavity with reservoir_clearance
     mm of slack on every outer face. Six insert bosses at the top
     perimeter (one per insert_positions_for_side_plus_1) host ø4 × 7 mm
@@ -722,14 +730,14 @@ def build_reservoir_body(side=1):
         )
         body = body.cut(pocket)
 
-    # V floor — a uniform reservoir_wall_thickness (4 mm) shell, Y-symmetric,
+    # V floor — a uniform reservoir_wall_thickness shell, Y-symmetric,
     # swept across the full cavity X width and RAISED floor_trough_lift so the
     # PureSec locknut + integral 90° elbow hang in OPEN space below it. The
     # interior (wet) surface is the V: a flat trough at floor_trough_z for
     # |y| ≤ floor_trough_half_width_y, sloping up at floor_slope_rate to the
     # ±Y walls. The exterior (dry) surface is the same V shifted down one wall
-    # thickness, so the floor is a constant 4 mm layer between them — exterior
-    # slope parallels interior slope. Below the exterior surface is nothing:
+    # thickness, so the floor is a constant wall-thickness layer between them —
+    # exterior slope parallels interior slope. Below the exterior surface is nothing:
     # open bag-pocket space. There is NO solid fill block and NO modelled
     # elbow/locknut keep-out — the only thing piercing the floor is the
     # bulkhead barrel bore. (Nothing supports the raised floor from below
@@ -791,7 +799,7 @@ def build_reservoir_body(side=1):
 
     # Raise the walls + corner fillets to the floor: remove ALL material
     # below the exterior V surface across the full footprint, so the whole
-    # body underside follows the 4 mm-offset V — walls, fillets, and floor
+    # body underside follows the wall-thickness-offset V — walls, fillets, and floor
     # share one raised V bottom, with open bag-pocket space beneath for the
     # bulkhead hardware. (The exterior V is flat at floor_underside_z for
     # |y| ≤ floor_trough_half_width_y, sloping up at floor_slope_rate beyond;
@@ -821,8 +829,20 @@ def build_reservoir_body(side=1):
     # up into the cavity, integral flange seated on the trough's wet (top)
     # face through a TPU face seal, hex locknut threaded on from below in
     # the open space under the floor, integral 90° elbow turning the dry
-    # line laterally. Only the barrel bore pierces the 4 mm trough floor.
+    # line laterally. Only the barrel bore pierces the trough floor.
     port_x_signed = reservoir_bulkhead_port_x * side
+
+    # Seal seat boss — a pad around the port, flush with the trough wet
+    # surface on top and protruding below the floor underside. Unioned after
+    # the below-V cut so it keeps that protrusion, and before the bore +
+    # counterbore so both cut through it.
+    seal_boss = _z_cylinder(
+        (port_x_signed, 0.0),
+        (floor_trough_z - bulkhead_seal_counterbore_depth - bulkhead_seal_seat_thickness,
+         floor_trough_z),
+        bulkhead_seal_boss_diameter,
+    )
+    body = body.union(seal_boss)
 
     # Panel hole — ⌀[16.5 mm](BULKHEAD_PANEL_HOLE_D) cut straight down through the trough floor,
     # from above the trough wet surface down past the floor underside into
@@ -1067,8 +1087,8 @@ def build_reservoir_gasket(side=1):
     """Flat TPU 85A gasket between the reservoir body wall top and the
     cap base plate bottom. Same `[`-shape outer footprint as the body
     and cap (with outer-corner fillets). The perimeter ring is
-    gasket_strip_width inward of the outer edge — covers the 4 mm body
-    wall fully plus 1 mm extending inward over the cavity opening.
+    gasket_strip_width inward of the outer edge — covers the body wall
+    top fully plus the remainder extending inward over the cavity opening.
     Each of the six insert positions has an ø8 pad extending inward
     beyond the ring so the screw clamp compresses a uniform disk of
     TPU (matching the body boss footprint), with an ø3.5 clearance
