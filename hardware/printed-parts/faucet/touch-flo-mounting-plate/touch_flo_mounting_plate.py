@@ -36,8 +36,8 @@ plate_thickness = 4.0
 # Top face flush with the deck plane (Z=0); plate hangs below.
 plate_z_range = (-plate_thickness, 0.0)
 # Disc is offset [3.175 mm](PLATE_Y) toward the back of the appliance
-# (-Y in the +Z-up frame). World (x, y) tuple — no lateral offset.
-plate_center = (0.0, -3.175)
+# (+Y in the +Z-up frame). World (x, y) tuple — no lateral offset.
+plate_center = (0.0, +3.175)
 
 
 # [11 mm](SHANK_OD) threaded shank clearance.
@@ -50,9 +50,9 @@ shank_hole_center = (0.0, 0.0)
 # ±flavor_tube_x_offset in the lateral direction (separation
 # [6.35 mm](TUBE_CENTER_X)), combined into one X-oriented pill
 # (rounded-rectangle) opening.
-# [18.93 mm](PLATE_FLAVOR_Y) -Y offset of pill slot center from world origin
+# [18.93 mm](PLATE_FLAVOR_Y) +Y offset of pill slot center from world origin
 # (toward the back of the appliance).
-pill_slot_center = (0.0, -flavor_tube_depth)
+pill_slot_center = (0.0, +flavor_tube_depth)
 # [13.4 mm](PLATE_PILL_L) pill long axis — lateral, along world X.
 # [7.05 mm](PLATE_PILL_W) pill short axis — depth, along world Y.
 
@@ -112,14 +112,14 @@ def main():
     variables = {
         "PLATE_D": f"{2 * plate_radius:.4g} mm",
         "PLATE_T": f"{plate_thickness:.4g} mm",
-        "PLATE_Y": f"{-plate_center[1]:.4g} mm",
+        "PLATE_Y": f"{plate_center[1]:.4g} mm",
         "PLATE_Z_BOTTOM": f"{plate_z_range[0]:.4g}",
         "SHANK_HOLE_D": f"{2 * shank_hole_radius:.4g} mm",
         "SHANK_OD": f"{shank_diameter_nominal:.4g} mm",
         # Lateral tube-center separation = pill_length_x - pill_width_y.
         # (pill_length_x = 2·x_offset + hole_dia, pill_width_y = hole_dia.)
         "TUBE_CENTER_X": f"{pill_length_x - pill_width_y:.4g} mm",
-        "PLATE_FLAVOR_Y": f"{-pill_slot_center[1]:.4g} mm",
+        "PLATE_FLAVOR_Y": f"{pill_slot_center[1]:.4g} mm",
         "PLATE_PILL_L": f"{pill_length_x:.4g} mm",
         "PLATE_PILL_W": f"{pill_width_y:.4g} mm",
         "TOP_FILLET_R": f"{top_outer_fillet_r:.4g} mm",

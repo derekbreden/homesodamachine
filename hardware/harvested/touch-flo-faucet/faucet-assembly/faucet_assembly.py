@@ -12,36 +12,37 @@ tubes + (eventually) other inserts that the shell must accommodate.
 
 Coordinates: the repo's +Z-up frame. +Z is height (the body axis runs
 along +Z), +X is lateral (the two flavor tubes mirror across the
-X = 0 plane), +Y is depth — the gooseneck dispenses toward +Y (the
-user's side), so the water port and flavor-tube pill sit BEHIND the
-body axis at world -Y.
+X = 0 plane), -Y is the front — the gooseneck dispenses toward -Y (the
+user's side) and the lever points toward -Y, so the water port and
+flavor-tube pill sit BEHIND the body axis at world +Y (the back).
 
 Parts currently modeled:
-1. Valve body (loaded from the reference STEP — harvested in upstream
-   Z-up matching the repo frame; loaded without rotation).
+1. Valve body (loaded from the reference STEP — delivered seated in the
+   repo frame: water port toward +Y / back, lever side toward -Y /
+   front; loaded without further rotation).
 2. Water dispense tube — Ø 9.525 mm (3/8" LLDPE), inserted into the
    body's 10.0 mm water port and extending up through the gooseneck.
    The printed TPU bushing sealing the 0.475 mm diametric (0.2375 mm
    radial) gap (see ../../../printed-parts/faucet/touch-flo-tpu-o-ring/)
    is not modeled here (geometry only; envelope is the bare 9.525 mm OD).
 3. Two flavor dispense tubes — Ø 1/4" (6.35 mm), behind the water
-   tube. Each tube starts at depth Y = -18.925 mm (butting against the
+   tube. Each tube starts at depth Y = +18.925 mm (butting against the
    body's back face and the other flavor tube), runs vertical from
    Z = -50, then S-bends just above the plateau to come in tangent
    against the water tube. After the bends the tubes run vertical to
    Z = 79, butted against the water tube. Not inserted into the body.
 4. Lever (build_lever) — swing-clearance blob. Union of the lever in
-   rest position and pressed-down position (-18° around X axis through
-   Y = -1.5, Z = 46), each with vertical water-tube clearance for both
+   rest position and pressed-down position (+18° around X axis through
+   Y = +1.5, Z = 46), each with vertical water-tube clearance for both
    extremes.
 5. Mounting plate (loaded from `../../../printed-parts/faucet/touch-flo-mounting-plate/`).
-   Ø 54.35 × 4 mm disc centered at depth Y = -3.175, spans Z = [-4, 0].
-   Shank hole at (0, 0); flavor-tube pill slot at Y = -18.925. 5 mm
+   Ø 54.35 × 4 mm disc centered at depth Y = +3.175, spans Z = [-4, 0].
+   Shank hole at (0, 0); flavor-tube pill slot at Y = +18.925. 5 mm
    radial gap from the shell base (Ø 44.35) so the plate reads as a
    finished shoulder under the shell.
 6. Shell (loaded from `../../../printed-parts/faucet/touch-flo-shell/`).
    Single-piece shroud covering zones 1–6, centered at depth
-   Y = -3.175. Outer Ø 44.35 mm cylindrical base (zone 1, Z = [0, 13])
+   Y = +3.175. Outer Ø 44.35 mm cylindrical base (zone 1, Z = [0, 13])
    → cove transition into a 41.175 × 23.5 mm rectangular column
    (zone 2, Z = [13, 39]) → arch wings + plateau fill over the body's
    arched top (zone 3, Z = [39, 44.25]) → tube wrapper above the arch
@@ -100,8 +101,8 @@ import touch_flo_shell
 
 # Reference body geometry. Duplicated from
 # `../valve-body-reference/valve_body_reference.py` — keep in sync.
-# The Westbrass body's water port sits at depth Y = -port_center_depth
-# (BEHIND the body axis); +Z is the body's vertical axis.
+# The Westbrass body's water port sits at depth Y = +port_center_depth
+# (BEHIND the body axis, toward the back); +Z is the body's vertical axis.
 port_center_depth = 8.875
 plateau_z = 39.0
 body_od = 31.50  # cylinder OD = rectangle long dim
@@ -135,7 +136,7 @@ water_tube_z_top = plateau_z + water_tube_above_plateau
 # [6.35 mm](FLAVOR_TUBE_OD) — 1/4" LLDPE in millimeters.
 flavor_tube_od = 1.0 / 4.0 * 25.4
 flavor_tube_r = flavor_tube_od / 2.0
-# [18.93 mm](FLAVOR_TUBE_DEPTH_LOWER) — tangent to body -Y face (body_r + flavor_tube_r).
+# [18.93 mm](FLAVOR_TUBE_DEPTH_LOWER) — tangent to body +Y (back) face (body_r + flavor_tube_r).
 flavor_tube_depth_lower = body_r + flavor_tube_r
 flavor_tube_x_offset = flavor_tube_r  # ± — tangent to other tube at X=0
 flavor_tube_z_bottom = -shank_length
@@ -167,7 +168,7 @@ pre_bend_z = plateau_z + pre_bend_rise
 
 
 # Gooseneck — above the lever's swing envelope all three tubes sweep
-# forward (toward +Y, toward the user) with the same shape:
+# forward (toward -Y, toward the user) with the same shape:
 #   1. vertical straight up to bend 1 start
 #   2. bend 1 — sweep gn_bend1_sweep_rad at R = gn_bend1_r (tighter)
 #   3. angled straight of gn_mid_straight_len
@@ -189,9 +190,9 @@ gn_bend1_start_z = gn_bend1_mid_z - gn_bend1_r * math.sin(gn_bend1_sweep_rad / 2
 gn_mid_straight_len = 115.0
 gn_tip_straight_len = 25.0
 
-# Flavor tubes sit at -Y of the water tube (deeper, behind it). The
-# gooseneck bends toward +Y (forward, toward the user), so flavor tubes
-# are on the OUTSIDE of every bend and must trace parallel-offset arcs
+# Flavor tubes sit further +Y than the water tube (deeper, behind it).
+# The gooseneck bends toward -Y (forward, toward the user), so flavor
+# tubes are on the OUTSIDE of every bend and must trace parallel-offset arcs
 # sharing each bend's center of curvature with water — i.e. at the
 # *larger* radius water_r + offset_depth. Otherwise the tubes ride
 # into each other through the bend (the perpendicular component of the
@@ -265,7 +266,7 @@ def _gooseneck_segments(start, tangent, bend1_r, bend2_r):
     → mid straight (gn_mid_straight_len) → bend 2 (R=bend2_r,
     sweep=gn_bend2_sweep_rad) → tip straight (gn_tip_straight_len).
     Both bends turn CCW in the path's 2D frame (the tube_path_plane
-    below maps that to a bend toward +world Y — toward the user).
+    below maps that to a bend toward -world Y — toward the user).
 
     Returns ((arc1_mid, arc1_end), mid_end, (arc2_mid, arc2_end),
     tip_end) — call sites unpack into threePointArc / lineTo calls."""
@@ -284,13 +285,14 @@ def _gooseneck_segments(start, tangent, bend1_r, bend2_r):
 
 # Plane for sketching the tube centerline paths. The path lives in the
 # world Y-Z plane (the tubes have no lateral X motion), with
-#   2D x  =  -world Y   (positive 2D x points BACK)
+#   2D x  =  +world Y   (positive 2D x points BACK)
 #   2D y  =  +world Z   (positive 2D y points UP)
-# Choosing 2D x = -world Y means the existing CCW arc helpers' positive
+# Choosing 2D x = +world Y means the existing CCW arc helpers' positive
 # perp direction (which is `-tangent[1], +tangent[0]`, i.e. "left of
-# tangent") points in -2D x = +world Y, so a CCW arc bends the path in
-# +Y — toward the user / where the gooseneck dispenses.
-tube_path_plane = cq.Plane(origin=(0, 0, 0), xDir=(0, -1, 0), normal=(-1, 0, 0))
+# tangent") points in -2D x = -world Y, so a CCW arc bends the path in
+# -Y — toward the user / where the gooseneck dispenses (the front of
+# the appliance).
+tube_path_plane = cq.Plane(origin=(0, 0, 0), xDir=(0, 1, 0), normal=(1, 0, 0))
 
 
 def build_water_dispense_tube():
@@ -319,7 +321,7 @@ def build_water_dispense_tube():
     # to the path's starting +Z tangent).
     profile = cq.Workplane(xy_plane_z_up).circle(water_tube_r)
     tube = profile.sweep(path, transition="round")
-    return tube.translate((0, -port_center_depth, water_tube_z_bottom))
+    return tube.translate((0, +port_center_depth, water_tube_z_bottom))
 
 
 def _build_flavor_tube_at_origin():
@@ -334,7 +336,7 @@ def _build_flavor_tube_at_origin():
       3. Vertical from S-bend end up to the gooseneck start
          (Z = gn_bend1_start_z, in tube-local coords)
       4. Gooseneck: bend 1 → mid straight → bend 2 → tip, all bending
-         toward +Y (toward the user). Each bend uses its own parallel-
+         toward -Y (toward the user). Each bend uses its own parallel-
          offset radius (gn_flavor_bend1_r / gn_flavor_bend2_r), so the
          flavor tube traces a parallel-offset arc on the outside of
          each gooseneck bend, staying tangent to the water tube.
@@ -378,21 +380,22 @@ def build_flavor_tube(x_sign):
     """One Ø 1/4" flavor tube placed at its world position.
 
     Built at the path origin, then translated to
-    (x_sign · flavor_tube_x_offset, -flavor_tube_depth_lower,
-    flavor_tube_z_bottom). x_sign ∈ {±1} selects which lateral
-    side; the two tubes mirror across the X = 0 plane."""
+    (x_sign · flavor_tube_x_offset, +flavor_tube_depth_lower,
+    flavor_tube_z_bottom) — i.e. to +Y, behind the body axis (the back).
+    x_sign ∈ {±1} selects which lateral side; the two tubes mirror
+    across the X = 0 plane."""
     tube = _build_flavor_tube_at_origin()
     return tube.translate((
         x_sign * flavor_tube_x_offset,
-        -flavor_tube_depth_lower,
+        +flavor_tube_depth_lower,
         flavor_tube_z_bottom,
     ))
 
 
 # Lever pivot — axis parallel to world X at (Y = lever_pivot_y, Z = lever_pivot_z).
-# The lever swings between rest (0°) and pressed (-lever_press_angle_deg)
+# The lever swings between rest (0°) and pressed (+lever_press_angle_deg)
 # around this axis, sweeping the clearance volume the shell must avoid.
-lever_pivot_y = -1.5
+lever_pivot_y = +1.5
 lever_pivot_z = plateau_z + 7.0
 lever_press_angle_deg = 18.0
 
@@ -410,47 +413,48 @@ def build_lever():
 
     Geometry:
       - The lever's body is a 13 (X) × 15 (Y) × 12 (Z) box,
-        centered laterally on X = 0, spanning depth Y = [-9, +6]
-        (so its back end abuts the body and its front face sits at
-        Y = +6, where the user presses), at height Z = [plateau_z+1,
+        centered laterally on X = 0, spanning depth Y = [-6, +9]
+        (so its back end abuts the body at +Y and its front face sits
+        at Y = -6, where the user presses), at height Z = [plateau_z+1,
         plateau_z+13].
       - From the front face it tapers forward as a 13 × shrinking-Z
-        tongue out to Y = +42 — the visible "handle" sticking out.
+        tongue out to Y = -42 — the visible "handle" sticking out
+        toward the user.
       - The pivot axis is parallel to world X (lateral), passing
-        through (X = 0, Y = -1.5, Z = plateau_z + 7), so the lever
+        through (X = 0, Y = +1.5, Z = plateau_z + 7), so the lever
         rotates in the Y-Z plane (no lateral motion).
     """
     # Cylinder cut for the water tube clearance through the lever.
-    # The water tube sits at world Y = -port_center_depth (just back of
-    # the body axis); the cut is 0.125 mm further -Y to give a small
+    # The water tube sits at world Y = +port_center_depth (just back of
+    # the body axis); the cut is 0.125 mm further +Y to give a small
     # clearance margin. Vertical cut along +Z from the lever's bottom
     # face upward; tall enough (50 mm) to cover both lever positions.
     cut_cylinder = (
         WorldWorkplane(xy_plane_z_up)
         .workplane(offset=plateau_z + 1)
-        .moveTo((0, -(port_center_depth + 0.125)))
+        .moveTo((0, +(port_center_depth + 0.125)))
         .circle(water_tube_r + 1)
         .extrude(50)
         .unwrap()
     )
 
-    # Tapered tongue extending forward from the lever's front face.
-    # First rect at the front face (Y = 6): 13 (X) × 8.5 (Z),
-    # anchored at the bottom in Z so the top edge sits at plateau_z+13.
-    # Second rect 36 mm further forward (Y = 42): 13 × 3, anchored at
-    # the bottom in Z so the top edge stays at plateau_z+13 (same as
-    # the first rect's top edge) and the bottom edge rises from
-    # plateau_z+4.5 up to plateau_z+10. Loft connects them — the tongue
-    # narrows in Z as it extends forward.
+    # Tapered tongue extending forward (toward -Y, the user) from the
+    # lever's front face. First rect at the front face (Y = -6):
+    # 13 (X) × 8.5 (Z), anchored at the bottom in Z so the top edge sits
+    # at plateau_z+13. Second rect 36 mm further forward (Y = -42):
+    # 13 × 3, anchored at the bottom in Z so the top edge stays at
+    # plateau_z+13 (same as the first rect's top edge) and the bottom
+    # edge rises from plateau_z+4.5 up to plateau_z+10. Loft connects
+    # them — the tongue narrows in Z as it extends forward.
     #
-    # Plane: xDir=(-1,0,0), normal=(0,1,0) (sketch perpendicular to
-    # world +Y, the depth direction). localY = +Z world (height up).
-    # Sketch local (x, y) maps to world (-x, offset, y) — the lateral
-    # X flip is invisible due to symmetric rect-on-X.
+    # Plane: xDir=(1,0,0), normal=(0,-1,0) (sketch perpendicular to
+    # world -Y, the front depth direction; workplane offset advances
+    # toward -Y). localY = +Z world (height up). Sketch local (x, y)
+    # maps to world (x, -offset, y).
     _taper_plane = cq.Plane(
         origin=(0, 0, 0),
-        xDir=(-1, 0, 0),
-        normal=(0, 1, 0),
+        xDir=(1, 0, 0),
+        normal=(0, -1, 0),
     )
     add_taper = (
         cq.Workplane(_taper_plane)
@@ -468,7 +472,7 @@ def build_lever():
     base_lever = (
         WorldWorkplane(xy_plane_z_up)
         .workplane(offset=plateau_z + 1)
-        .moveTo((0, -1.5))
+        .moveTo((0, +1.5))
         .rect(13, 15)
         .extrude(12)
         .unwrap()
@@ -476,8 +480,9 @@ def build_lever():
     )
 
     # Pivot axis along world X through (X=0, Y=lever_pivot_y, Z=lever_pivot_z).
-    # Axis direction +X (so rotation by -lever_press_angle_deg around the
-    # axis takes +Y toward -Z, dropping the lever's front tongue when pressed).
+    # Axis direction +X (so rotation by +lever_press_angle_deg around the
+    # axis takes -Y toward -Z, dropping the lever's front tongue — which
+    # now points toward -Y, the user — when pressed).
     pivot_a = (0, lever_pivot_y, lever_pivot_z)
     pivot_b = (1, lever_pivot_y, lever_pivot_z)
 
@@ -488,8 +493,8 @@ def build_lever():
     # the same vertical water-tube clearance cut. The cut is vertical
     # in world coords (+Z axis), so it correctly clears the upright
     # water tube even though the lever itself is tilted.
-    lever_pressed = lever_rest.rotate(pivot_a, pivot_b, -lever_press_angle_deg).cut(cut_cylinder)
-    lever_rest_final = lever_pressed.rotate(pivot_a, pivot_b, lever_press_angle_deg)
+    lever_pressed = lever_rest.rotate(pivot_a, pivot_b, +lever_press_angle_deg).cut(cut_cylinder)
+    lever_rest_final = lever_pressed.rotate(pivot_a, pivot_b, -lever_press_angle_deg)
 
     # Union of both extremes — the swing-clearance envelope.
     return lever_rest_final.union(lever_pressed)
@@ -544,7 +549,7 @@ def main():
     print(f"                         Z_bottom = {water_tube_z_bottom:.2f} mm "
           f"({water_tube_into_port} mm into port)")
     print(f"                         vertical → gooseneck")
-    print(f"                         center at X=0, Y={-port_center_depth:.3f} mm")
+    print(f"                         center at X=0, Y={+port_center_depth:.3f} mm")
     print(f"  Flavor tubes (×2):     Ø{flavor_tube_od:.3f} mm")
     print(f"                         Z_bottom = {flavor_tube_z_bottom:.1f} mm")
     print(f"                         lower depth = {flavor_tube_depth_lower:.4f} mm "
