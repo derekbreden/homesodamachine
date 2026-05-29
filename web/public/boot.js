@@ -339,13 +339,85 @@
   var bootCommit = null;
   var lastActivityAt = 0;
 
+  // Debug logging + on-screen panel, driven by the "Live-reload debug"
+  // setting (localStorage hsmLiveDebug, toggled from /settings). dbg()
+  // always keeps a short in-memory tail so flipping the setting on shows
+  // recent history; when on it also mirrors to the console and the panel.
+  // The panel shows live state (socket health, commit, seconds since the
+  // last frame) so it reads true whenever you look — not just the boot
+  // lines that scroll past before an inspector can attach.
+  var liveLog = [];
+  var overlayEl = null;
+  var overlayTick = null;
+
+  function liveDebugOn() {
+    try { return !!localStorage.getItem("hsmLiveDebug"); } catch (e) { return false; }
+  }
   function dbg() {
-    try {
-      if (!localStorage.getItem("hsmLiveDebug")) return;
-    } catch (e) { return; }
-    try { console.info.apply(console, ["[hsm-live]"].concat([].slice.call(arguments))); } catch (e) {}
+    var args = [].slice.call(arguments);
+    liveLog.push(args.join(" "));
+    if (liveLog.length > 40) liveLog.shift();
+    if (!liveDebugOn()) return;
+    try { console.info.apply(console, ["[hsm-live]"].concat(args)); } catch (e) {}
+    renderOverlay();
   }
   function noteCommit(c) { if (c) bootCommit = c; }
+
+  function wsLabel() {
+    if (ws && ws.readyState === 1) return "open";
+    if (ws && ws.readyState === 0) return "connecting";
+    return "closed";
+  }
+  function renderOverlay() {
+    if (!overlayEl) return;
+    var label = wsLabel();
+    var dot = label === "open" ? "#39d353" : (label === "connecting" ? "#d9a800" : "#f85149");
+    var since = lastActivityAt ? Math.round((Date.now() - lastActivityAt) / 1000) + "s" : "—";
+    var commit = bootCommit ? String(bootCommit).slice(0, 7) : "—";
+    overlayEl.firstChild.innerHTML =
+      '<span style="display:inline-block;width:8px;height:8px;border-radius:50%;' +
+      'margin-right:6px;vertical-align:middle;background:' + dot + '"></span>' +
+      "ws:" + label + " · " + commit + " · " + since;
+    overlayEl.lastChild.textContent = liveLog.slice(-8).join("\n");
+  }
+  function ensureOverlay() {
+    if (overlayEl) return;
+    if (!document.body) { document.addEventListener("DOMContentLoaded", ensureOverlay, { once: true }); return; }
+    overlayEl = document.createElement("div");
+    overlayEl.setAttribute("aria-hidden", "true");
+    overlayEl.style.cssText =
+      "position:fixed;left:8px;z-index:2147483646;max-width:72vw;" +
+      "bottom:calc(env(safe-area-inset-bottom,0px) + 8px);" +
+      "font:11px/1.35 ui-monospace,Menlo,monospace;color:#e6edf3;" +
+      "background:rgba(13,17,23,.86);border:1px solid rgba(240,246,252,.18);" +
+      "border-radius:7px;padding:6px 8px;-webkit-backdrop-filter:blur(3px);" +
+      "backdrop-filter:blur(3px);";
+    var head = document.createElement("div");
+    head.style.cssText = "font-weight:600;";
+    var log = document.createElement("pre");
+    log.style.cssText = "margin:4px 0 0;padding:0;font:inherit;color:#9aa4ad;white-space:pre-wrap;max-height:9em;overflow:auto;";
+    overlayEl.appendChild(head);
+    overlayEl.appendChild(log);
+    // Tap the panel to collapse to just the status line.
+    overlayEl.addEventListener("click", function () {
+      log.style.display = log.style.display === "none" ? "" : "none";
+    });
+    document.body.appendChild(overlayEl);
+    if (!overlayTick) overlayTick = setInterval(renderOverlay, 1000);
+    renderOverlay();
+  }
+  function removeOverlay() {
+    if (overlayTick) { clearInterval(overlayTick); overlayTick = null; }
+    if (overlayEl) { overlayEl.remove(); overlayEl = null; }
+  }
+  // /settings (public/settings.js) flips the panel live through this.
+  window.__hsmLiveDebug = {
+    set: function (on) {
+      try { if (on) localStorage.setItem("hsmLiveDebug", "1"); else localStorage.removeItem("hsmLiveDebug"); } catch (e) {}
+      if (on) ensureOverlay(); else removeOverlay();
+    },
+    isOn: liveDebugOn,
+  };
   var reconnectDelayMs = 1000;
   var reconnectMaxMs = 8000;
   var reconnectTimer = null;
@@ -401,8 +473,10 @@
       fetchNotifications();
       return;
     }
-    // type === "ping" and anything else: lastActivityAt already
-    // bumped at the top of this handler.
+    // type === "ping" and anything else: lastActivityAt already bumped at
+    // the top of this handler. Log the 30s heartbeat so the panel's
+    // "seconds since last frame" reads as a visible pulse.
+    if (msg.type === "ping") dbg("ping");
   }
 
   function clearReconnectTimer() {
@@ -521,4 +595,5 @@
 
   checkVersion();  // seed bootCommit now, independent of the socket
   connectWS();
+  if (liveDebugOn()) ensureOverlay();  // show the debug panel if the setting is on
 })();
