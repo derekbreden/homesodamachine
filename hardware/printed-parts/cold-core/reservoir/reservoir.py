@@ -414,7 +414,7 @@ cap_boss_radius = cap_clearance_hole_diameter / 2.0 + 4.0
 # stays within the 7 mm heat-set pocket (see body_boss_cut_info_for_side_plus_1
 # below). The outer fillet radius (6 mm) equals body_boss_radius so
 # the corner-boss disks inscribe the fillet arc exactly.
-boss_height = 13.0  # 7 mm pocket + 6 mm of solid+cut
+boss_height = 15.0  # 7 mm pocket + 8 mm of solid+cut (the +8 keeps a solid floor under the pocket after the 45° cut, including the deeper diagonal cut on the corner bosses)
 _cyl_extra_below_bottom = 5.0  # extra cylinder length to be sliced off by the cut
 
 # Insert / screw positions, derived from the wall geometry so the body
