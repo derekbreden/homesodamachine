@@ -2,6 +2,7 @@
 all the port holes and channel openings."""
 
 from _reservoir_pocket_walls import build_reservoir_pocket_walls
+from _reservoir_supports import build_reservoir_supports
 from _support_ring import build_tank_support_ring
 from _outer_shell import build_outer_shell
 from _port_cuts import (
@@ -19,6 +20,7 @@ from _reed_channels import (
 def build_full_shell():
     foam_shell = (
         build_reservoir_pocket_walls()
+        .union(build_reservoir_supports())
         .union(build_tank_support_ring())
         .union(build_outer_shell())
         .union(build_reed_channels(side=+1))
