@@ -44,6 +44,39 @@ centerward_corner_x = middle_cavity_x
 centerward_corner_y = y_inner
 
 
+def build_plus_x_cavity(height=None):
+    """The +X reservoir pocket's cavity solid (the cut volume), exposed so
+    sibling parts can intersect against the real cavity walls. The −X pocket
+    is its mirror across YZ."""
+    if height is None:
+        height = foam_shell_outer_height
+    far_x_inner = bag_pocket_outermost_x - w
+    corner_inner_r = bag_pocket_corner_inner_radius
+    arc_y = pocket_centerward_arc_transition_y
+
+    def transition_apex(y_sign):
+        return (transition_center_x - transition_cavity_r, y_sign * transition_center_y)
+
+    cavity_profile = (
+        WorldProfile()
+        .moveTo((middle_cavity_x, y_inner))
+        .lineTo((far_x_inner - corner_inner_r, y_inner))
+        .radiusArc((far_x_inner, y_inner - corner_inner_r), corner_inner_r)
+        .lineTo((far_x_inner, -(y_inner - corner_inner_r)))
+        .radiusArc((far_x_inner - corner_inner_r, -y_inner), corner_inner_r)
+        .lineTo((middle_cavity_x, -y_inner))
+        .threePointArc(transition_apex(-1), (middle_cavity_x, -arc_y))
+        .threePointArc((arc_cavity_r, 0), (middle_cavity_x, arc_y))
+        .threePointArc(transition_apex(+1), (middle_cavity_x, y_inner))
+    )
+    return (
+        WorldWorkplane(xy_plane_z_up)
+        .workplane(offset=0)
+        .profile(cavity_profile).close()
+        .extrude(height)
+    )
+
+
 def build_reservoir_pocket_walls():
     """Two reservoir pockets, mirrored across YZ. Built per side as an
     outer-perimeter polyline minus a cavity-perimeter polyline rather
@@ -70,38 +103,19 @@ def build_reservoir_pocket_walls():
         center toward the cold-core axis."""
         return (transition_center_x - r, y_sign * transition_center_y)
 
-    # Centerward-wall joints. Apexes are where each middle-arc reaches
-    # its max +X excursion (at y=0).
+    # Centerward-wall joints for the OUTER (tank-side) profile. Apexes are
+    # where each middle-arc reaches its max +X excursion (at y=0).
     middle_tank_apex = (arc_tank_r, 0)
-    middle_cavity_apex = (arc_cavity_r, 0)
     middle_tank_handoff_plus_y = (middle_tank_x, arc_y)
     middle_tank_handoff_minus_y = (middle_tank_x, -arc_y)
-    middle_cavity_handoff_plus_y = (middle_cavity_x, arc_y)
-    middle_cavity_handoff_minus_y = (middle_cavity_x, -arc_y)
-
-    # Cavity-side transition terminus sits at middle_cavity_x because
-    # the transition's cavity-face circle passes through both middle-
-    # arc handoffs by construction.
     transition_tank_terminus_plus_y = (transition_tank_terminus_x, y_outer)
     transition_tank_terminus_minus_y = (transition_tank_terminus_x, -y_outer)
-    transition_cavity_terminus_plus_y = (middle_cavity_x, y_inner)
-    transition_cavity_terminus_minus_y = (middle_cavity_x, -y_inner)
 
-    # +X far wall: outer face at far_x_outer, cavity face at far_x_inner,
-    # both spanning ±(y_inner - corner_inner_r) where corner arcs begin.
+    # +X far wall outer face + ±Y wall corner-arc termini (outer side).
     far_wall_outer_plus_y = (far_x_outer, y_inner - corner_inner_r)
     far_wall_outer_minus_y = (far_x_outer, -(y_inner - corner_inner_r))
-    far_wall_cavity_plus_y = (far_x_inner, y_inner - corner_inner_r)
-    far_wall_cavity_minus_y = (far_x_inner, -(y_inner - corner_inner_r))
-
-    # ±Y wall corner-arc termini. Outer- and cavity-side arcs share an
-    # axis at (far_x_inner - corner_inner_r, ±(y_inner - corner_inner_r))
-    # — outer at corner_outer_r, cavity at corner_inner_r — so both
-    # terminate at the same X.
     side_wall_outer_plus_y = (far_x_inner - corner_inner_r, y_outer)
     side_wall_outer_minus_y = (far_x_inner - corner_inner_r, -y_outer)
-    side_wall_cavity_plus_y = (far_x_inner - corner_inner_r, y_inner)
-    side_wall_cavity_minus_y = (far_x_inner - corner_inner_r, -y_inner)
 
     outer_profile = (
         WorldProfile()
@@ -122,24 +136,5 @@ def build_reservoir_pocket_walls():
         .extrude(height)
     )
 
-    cavity_profile = (
-        WorldProfile()
-        .moveTo(transition_cavity_terminus_plus_y)
-        .lineTo(side_wall_cavity_plus_y)
-        .radiusArc(far_wall_cavity_plus_y, corner_inner_r)
-        .lineTo(far_wall_cavity_minus_y)
-        .radiusArc(side_wall_cavity_minus_y, corner_inner_r)
-        .lineTo(transition_cavity_terminus_minus_y)
-        .threePointArc(transition_apex(-1, transition_cavity_r), middle_cavity_handoff_minus_y)
-        .threePointArc(middle_cavity_apex, middle_cavity_handoff_plus_y)
-        .threePointArc(transition_apex(+1, transition_cavity_r), transition_cavity_terminus_plus_y)
-    )
-    cavity_perimeter = (
-        WorldWorkplane(xy_plane_z_up)
-        .workplane(offset=0)
-        .profile(cavity_profile).close()
-        .extrude(height)
-    )
-
-    plus_x_pocket = outer_perimeter.cut(cavity_perimeter)
+    plus_x_pocket = outer_perimeter.cut(build_plus_x_cavity(height))
     return plus_x_pocket.union(plus_x_pocket.mirror("YZ")).unwrap()
