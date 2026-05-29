@@ -387,13 +387,14 @@ def _arrows_tee_into_water(x, y, w, draw_h):
     back, (px, py) = _embed_anchored(
         ENCLOSURE_BACK, scale, x + w, y + draw_h, color_fill=WATER_DISC_FILL,
     )
-    # Blue arrow to the water inlet's port hole. Its tail sits on the
-    # same vertical line as the right inward arrow's back, a gap above it
-    # (so the two backs align and don't touch); its tip stops the same
-    # gap short of the hole as the CO2 arrow in step 1.
+    # Blue arrow to the water inlet's port hole. Its tail sits at the
+    # same height as the right inward arrow's back, a gap to its right
+    # (so the two backs align on one horizontal line and don't touch);
+    # its tip stops the same gap short of the hole as the CO2 arrow in
+    # step 1.
     back_x, back_y = left_cx + 15 + stub_len, stub_y
     back_gap = 8.0
-    tail_x, tail_y = back_x, back_y - back_gap
+    tail_x, tail_y = back_x + back_gap, back_y
     span = math.hypot(px - tail_x, py - tail_y)
     ux, uy = (px - tail_x) / span, (py - tail_y) / span
     inlet_arrow = _straight_arrow(
