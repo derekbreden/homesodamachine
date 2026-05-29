@@ -1,20 +1,24 @@
-// SSE-driven live updates. Side-effect import only — registers two
-// listeners on import:
+// WebSocket-driven live updates for the viewer. Side-effect import only —
+// registers the listeners below on import:
 //
 //   hsm:files-changed (detail.files = [...]) — fired by both dev chokidar
-//     saves and prod boot-diff. Same wire format both sides. We refresh
+//     saves and the prod boot-diff. Same wire format both sides. We refresh
 //     the per-file card thumbnail and, if that file is the one currently
 //     open in the modal, refetch the file into the open viewer too.
 //
-//   hsm:deploy — fired when the SSE `hello` commit fingerprint changes,
-//     meaning a fresh server build is up. Files added or removed in the
-//     deploy aren't covered by hsm:files-changed (we only diff content
-//     of files still on disk), so we refetch the list.
+//   hsm:deploy — fired when a new build is detected, via either the WS
+//     `hello` commit changing across a reconnect or boot.js's /api/version
+//     activation check. We can't know which files differ, so on a real
+//     build we refresh everything: drop the thumbnail + etag caches,
+//     refetch the lists (rebuilding the grid re-renders every visible
+//     thumbnail fresh), and reload whatever the modal is showing,
+//     preserving the camera. A same-commit reconnect blip
+//     (commitChanged === false) only re-lists — no cache wipe, no re-mesh.
 //
-// SSE connection itself is owned by HEAD_TAGS (see public/boot.js) —
-// one EventSource per page, used for both the toast (page-global) and
-// per-file refresh (viewer-only). Per-file work is split by extension
-// so the same handler covers .step, .dxf, and .mmd uniformly.
+// We set window.__hsmDeploySoft so boot.js leaves the deploy refresh to
+// us (it reloads other pages outright). The socket itself is owned by
+// boot.js (one WebSocket per page); per-file work is split by extension
+// so the same handler covers .step, .dxf, .mmd, and drawing .svg.
 
 import { state } from "./state.js";
 import { loadStepFile, renderThumbnail } from "./step.js";
@@ -121,7 +125,33 @@ window.addEventListener("hsm:files-changed", (e) => {
   }
 });
 
-// On a fresh deploy, the file list itself may have additions/removals
-// that per-file `hsm:files-changed` events don't cover (we only diff
-// content of files still on disk). Refetch the list to pick those up.
-window.addEventListener("hsm:deploy", () => { fetchFiles(); });
+// Claim the deploy refresh: boot.js reloads pages that don't set this,
+// but the viewer refreshes in place so the open modal + camera survive.
+window.__hsmDeploySoft = true;
+
+function reloadOpenDetail() {
+  const d = state.currentDetail;
+  if (!d) return;
+  if (d.type === "step") loadStepFile(d.file, { preserveCamera: true });
+  else if (d.type === "dxf") loadDxfFile(d.file, { preserveCamera: true });
+  else if (d.type === "mmd") refetchOpenMmd(d.file);
+  else if (d.type === "drawing") refetchOpenDrawing(d.file);
+}
+
+window.addEventListener("hsm:deploy", (e) => {
+  // commitChanged === false means a same-commit reconnect blip (nothing
+  // actually shipped): just re-list to catch any add/remove, cheaply.
+  // Anything else is a real new build — wipe the caches so every
+  // thumbnail and the open modal re-render against the new bytes.
+  const newBuild = !e.detail || e.detail.commitChanged !== false;
+  if (newBuild) {
+    state.thumbnailCache.clear();
+    state.dxfThumbCache.clear();
+    state.mmdThumbCache.clear();
+    state.drawingThumbCache.clear();
+    state.stepEtags.clear();
+    state.dxfEtags.clear();
+  }
+  fetchFiles();
+  if (newBuild) reloadOpenDetail();
+});

@@ -14,7 +14,7 @@ npm run dev        # dev wrapper: chokidar + Python runner + SSE hot reload (por
 npm test           # smoke tests: route mount + Puppeteer viewer (no DB needed)
 ```
 
-`npm start` boots `server.js` directly — what Render runs in production. `npm run dev` adds the file watcher that re-runs CadQuery generator scripts when a CAD source changes and pushes file-change events over SSE so an open `/3d` page hot-reloads its thumbnails. A "generator" is any part-named `.py` under `hardware/` that calls `export_step` / `export_assembly` / `export_dxf` from `_cadq_export`; the watcher detects them by content, not filename. Set `DATABASE_URL` to enable the notification inbox + FCM push paths; both no-op without a DB so dev works fine without one.
+`npm start` boots `server.js` directly — what Render runs in production. `npm run dev` adds the file watcher that re-runs CadQuery generator scripts when a CAD source changes and pushes file-change events over the WebSocket so an open `/3d` page hot-reloads its thumbnails. A "generator" is any part-named `.py` under `hardware/` that calls `export_step` / `export_assembly` / `export_dxf` from `_cadq_export`; the watcher detects them by content, not filename. Set `DATABASE_URL` to enable the notification inbox + FCM push paths; both no-op without a DB so dev works fine without one.
 
 ## Page request lifecycle
 
@@ -37,8 +37,8 @@ res.send(
 
 Browser receives HTML. Inline pre-paint <script> sets dev-mode + notifs-enabled
 classes from localStorage. Then deferred /boot.js runs (SW bridge, notifications
-state, SSE owner). Then any page-specific module (/landing.js, /js/viewer/main.js,
-etc.).
+state, WebSocket owner, /api/version activation check). Then any page-specific
+module (/landing.js, /js/viewer/main.js, etc.).
 ```
 
 The single shared shell is [`lib/shell.js`](lib/shell.js). Every page goes through `renderHead` + `renderNav` + `renderFooter`. The `surface` arg is `"public"` (hides Parts/Charts unless dev-mode is set in localStorage) or `"dev"` (always shows them).
@@ -49,14 +49,14 @@ The single shared shell is [`lib/shell.js`](lib/shell.js). Every page goes throu
 
 | Module | Mounts | Responsibility |
 |---|---|---|
-| [`server.js`](server.js) | — | Entry; orchestrates the pool, push init, route mounts, SSE diff loop on prod boot. |
+| [`server.js`](server.js) | `/api/version` | Entry; orchestrates the pool, push init, route mounts, WebSocket broadcast diff loop on prod boot. Serves the live build commit at `/api/version` for boot.js's activation check. |
 | [`lib/shell.js`](lib/shell.js) | — | `renderHead` / `renderNav` / `renderFooter`. Owns the synchronous pre-paint class flips and the `<script src="/boot.js" defer>` tag. |
 | [`lib/landing.js`](lib/landing.js) | `/` | Marketing landing + email signup form. |
 | [`lib/blog.js`](lib/blog.js) | `/blog` | Markdown posts under [`posts/`](/posts/), rendered into the one index page. Individual posts are `#post-<slug>` anchors. |
 | [`lib/viewer-pages.js`](lib/viewer-pages.js) | `/3d`, `/charts` | The parts/charts viewer pages — both render [`lib/templates/viewer-body.html`](lib/templates/viewer-body.html). |
 | [`lib/viewer-routes.js`](lib/viewer-routes.js) | `/api/{steps,dxf,mermaid}`, `/steps/*`, `/dxfs/*`, `/api/mermaid-content/*` | API for the viewer's file lists and content. |
 | [`lib/settings.js`](lib/settings.js) | `/settings` | Per-user toggles: dev-mode, FCM enable, ratio config. |
-| [`lib/events.js`](lib/events.js) | `/api/events` | SSE channel. One EventSource per page. |
+| [`lib/events.js`](lib/events.js) | `/ws` | WebSocket channel. One socket per page: deploy hello-handshake + ping heartbeat + `files-changed`/`posts-changed` broadcasts. |
 | [`lib/notifications.js`](lib/notifications.js) | `/api/notifications/*`, `/notifications` | Per-token inbox CRUD + the `/notifications` page. |
 | [`lib/push.js`](lib/push.js) | `/api/push/*` | FCM subscriptions + outbound notify; boot-time hash diff against per-kind tables. |
 | [`lib/walk.js`](lib/walk.js) | — | Shared `walkFiles(rootDir, exts)` helper. |
@@ -70,7 +70,7 @@ Served flat via `express.static(public/)`.
 
 | File | Loaded on | Role |
 |---|---|---|
-| [`public/boot.js`](public/boot.js) | every page (`<script defer>`) | SW navigate bridge, notifications state mirror + bell + toast + warm-tap auto-redirect, SSE owner. Module-local state — never touches `window.__hsm`. |
+| [`public/boot.js`](public/boot.js) | every page (`<script defer>`) | SW navigate bridge, notifications state mirror + bell + toast + warm-tap auto-redirect, WebSocket owner, `/api/version` deploy/activation check (reloads the page on a new build unless the viewer claims it via `window.__hsmDeploySoft`). Module-local state — never touches `window.__hsm`. |
 | [`public/landing.js`](public/landing.js) | `/` | Glass-animation mount, signup form submit. |
 | [`public/blog.js`](public/blog.js) | `/blog` | Click-to-open post images via ContentViewer. |
 | [`public/settings.js`](public/settings.js) | `/settings` | Dev-mode + notification toggles. |
@@ -93,7 +93,7 @@ Served flat via `express.static(public/)`.
 | `mermaid.js` | Mermaid renderer (lazy-loaded library), thumbnail renderer, modal detail flow with PanZoom. |
 | `cad-detail.js` | Shared modal flow for STEP+DXF (`openCadDetail`/`closeCadDetail`); the `CAD_KINDS` table maps type → ext/hashPrefix/loader. |
 | `grid.js` | Card grid, subsystem subheaders (`categoryAndPartPath`, `groupFilesByCategory`, `CATEGORY_LABEL_OVERRIDES`), `IntersectionObserver` for thumbnail lazy-load. |
-| `live.js` | SSE-driven refresh — `hsm:files-changed` listener, `refreshXxxCard` per type, in-flight detail reload. |
+| `live.js` | WebSocket-driven refresh — `hsm:files-changed` listener + `refreshXxxCard` per type for per-file updates; `hsm:deploy` listener that wipes caches and refreshes the whole grid + open modal on a new build. Sets `window.__hsmDeploySoft`. |
 | `route.js` | popstate + initial-route translation between URL hash/`?file=` and `currentDetail`. |
 | `main.js` | Entry. Sets up nav active class + title, calls `fetchFiles`, applies the initial route. |
 
@@ -104,20 +104,22 @@ The Puppeteer escape hatch `window.__hsm` is set from `main.js` after all module
 ## Cross-module event flow
 
 ```
-SSE  /api/events  ────► boot.js                ────► CustomEvent("hsm:files-changed", {files})
+WS  /ws  ─────────────► boot.js                ────► CustomEvent("hsm:files-changed", {files})
                           │                          ────► CustomEvent("hsm:posts-changed", {posts})
-                          ▼                          ────► CustomEvent("hsm:deploy")
+                          ▼                          ────► CustomEvent("hsm:deploy", {commitChanged})
                      fetchNotifications()           │
                           │                          │
-                          ▼                          ▼
-                     hsm:notifications-updated     viewer/live.js (per-file refresh)
+focus/visibility/pageshow │                          ▼
+   ├─► fetchNotifications()│                     viewer/live.js  → __hsmDeploySoft set: refresh
+   └─► GET /api/version ───┘                     grid + open modal in place
+        (commit changed? ──► hsm:deploy)         other pages → boot.js reloads on hsm:deploy
 
 FCM  → service worker → notification banner
        (tap → on iOS PWA, page focus → boot.js refetch → maybe redirect; on
         Android/Chrome desktop, SW posts {type:"navigate"} which boot.js handles)
 ```
 
-Three event sources land in the page (SSE, FCM, focus/visibility). All three converge on `fetchNotifications()` which keeps the local state mirror current and dispatches `hsm:notifications-updated` for the toast + bell to react to.
+Three signals drive the page: the WebSocket push, FCM, and activation (focus/visibility/pageshow). Activation does double duty — it refetches notifications AND polls `/api/version`, so a deploy that the socket missed (suspended PWA, lost `recent` race) still reloads the page the next time it's foregrounded. The notification signals all converge on `fetchNotifications()`, which keeps the local state mirror current and dispatches `hsm:notifications-updated` for the toast + bell.
 
 ## Dev vs prod
 
@@ -127,7 +129,7 @@ There is **one server core** ([`server.js`](server.js)). The dev wrapper ([`dev-
 - `findScriptsImportingStep` heuristic to also rebuild dependent scripts when a STEP they import changes.
 - A Python runner that picks up any new part-named generator script (detected by `export_step` / `export_assembly` / `export_dxf` calls) automatically.
 
-`dev: true` only changes two things in `server.js` itself: the SSE `commit` signal becomes `"dev"` (not the deploy SHA), and the boot-time push diff is skipped. Routes are identical.
+`dev: true` only changes two things in `server.js` itself: the `commit` signal — sent in the WebSocket hello and served at `/api/version` — becomes `"dev"` instead of the deploy SHA, and the boot-time push diff is skipped. Routes are identical.
 
 To verify dev/prod parity, the test in `tests/smoke.test.js` boots `start({ dev: false })` against an ephemeral port. If module evaluation or any default route 5xx's, it fails before any UI test runs.
 
