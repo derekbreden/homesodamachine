@@ -1,8 +1,8 @@
 {
   "byte_hashed_steps": {
     "hardware/harvested/co2-coupling-body/co2-coupling-body.step": "6c647a645ee4f99ca3c84a39f85e36ef3d249d387c071229e58e8937f5020313",
-    "hardware/harvested/touch-flo-faucet/faucet-assembly/touch-flo-faucet-assembly.step": "00fe18c1fc247641c8f5a3bd53b283d25bfb60d2b86b7a108c0ecd2c52ce16a3",
-    "hardware/harvested/touch-flo-faucet/valve-body-reference/touch-flo-valve-body-reference.step": "eb30a12d36b67d746c3c89935cb00ec59592fbb7a92d9c720c2cd63becb5c797",
+    "hardware/harvested/touch-flo-faucet/faucet-assembly/touch-flo-faucet-assembly.step": "2ced613109550166896d2f329c4c87eef04453e1fe3f943ab4782c6878b8cfbf",
+    "hardware/harvested/touch-flo-faucet/valve-body-reference/touch-flo-valve-body-reference.step": "9a888589a4479351a13177a8885c9748da287e05d215bc5e541c1ae20acfe892",
     "hardware/printed-parts/cold-core/copper-plugs/copper-plug-lower.step": "3b0ccca5f42aeb6d82f87bd93d1639374beb221a2b36f5bebf646a03e8ddaf5c",
     "hardware/printed-parts/cold-core/copper-plugs/copper-plug-middle.step": "4a2c4d590f2dcbcf0abea8e5b36fa1697ceef3c20c3a837c8c262c6b86804d04",
     "hardware/printed-parts/cold-core/copper-plugs/copper-plug-top.step": "2668a6ac9a65e2dc5385b426803929c9e8ea072fa269f85a64523946a3048fa3",
