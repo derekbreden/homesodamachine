@@ -24,18 +24,18 @@ from _cold_core_interface import (
 front_face_port_z = hole_shift_from_edge + wall_and_floor_thickness
 
 # Y at which the water outlet and the copper/water inlet slot start
-# their +Y extrusion — 20 mm inboard of the bag-pocket +Y wall outer
-# face. Each cut tool extrudes far enough past the outer-shell +Y
-# wall to clear it.
-plus_y_wall_plug_port_y = pocket_centerward_arc_outer_radius - 20
+# their -Y extrusion — 20 mm inboard of the bag-pocket -Y wall outer
+# face (the front, where the tubes exit). Each cut tool extrudes far
+# enough past the outer-shell -Y wall to clear it.
+minus_y_wall_plug_port_y = -(pocket_centerward_arc_outer_radius - 20)
 
 # The three circular port holes are the project's ⌀6.5 standard. The
 # CO2 inlet is separate (`cut_co2_inlet`) because its bore is ⌀16
 # (in-cavity 90° push-to-connect elbow), not ⌀6.5.
-water_outlet_xyz = (0, plus_y_wall_plug_port_y, front_face_port_z)
+water_outlet_xyz = (0, minus_y_wall_plug_port_y, front_face_port_z)
 
 # Flavor-line pass-throughs — each reservoir's 1/4" LLDPE outlet line out
-# through the +Y bag-pocket wall and the +Y outer-shell wall. Pinned to
+# through the -Y bag-pocket wall and the -Y outer-shell wall. Pinned to
 # bulkhead_elbow_exit_z so the tube runs level out of the elbow's lateral
 # port. Shifted INBOARD of the bulkhead axis, opposite the reed cable hole
 # (outboard), so the two ⌀6.5 holes stay 16 mm apart center-to-center with
@@ -47,8 +47,12 @@ flavor_line_minus_x_xyz = (-flavor_line_hole_x, reservoir_bulkhead_port_y, bulkh
 
 
 def cut_circular_port_holes(foam_shell):
+    # Negative height: the anchors sit inboard of the -Y wall, so the
+    # punch extrudes in -Y to bore out through the front (-Y) wall.
     for anchor in (water_outlet_xyz, flavor_line_plus_x_xyz, flavor_line_minus_x_xyz):
-        foam_shell = foam_shell.cut(build_hole_punch(origin=anchor, hole_punch_radius=port_hole_radius))
+        foam_shell = foam_shell.cut(
+            build_hole_punch(origin=anchor, hole_punch_radius=port_hole_radius, hole_punch_height=-40)
+        )
     return foam_shell
 
 
@@ -85,7 +89,7 @@ def cut_co2_inlet(foam_shell):
 
 
 def cut_slot_for_copper_and_water_inlet(foam_shell):
-    """Z-elongated slot through the outer-shell +Y wall, shared by the
+    """Z-elongated slot through the outer-shell -Y wall, shared by the
     two copper-line plugs and the water-inlet plug — plugs are slid
     down in from above. slot_z_top is pushed slot_diameter/2 past the
     foam-shell top edge so the rounded top tapers ABOVE the wall — the
@@ -94,9 +98,11 @@ def cut_slot_for_copper_and_water_inlet(foam_shell):
     slot_z_bottom = 42.0
     slot_z_top = foam_shell_outer_height + slot_diameter / 2
     slot_z_center = (slot_z_top + slot_z_bottom) / 2.0
+    # Negative height: extrude in -Y to cut out through the front (-Y) wall.
     slot_punch = build_slot_punch(
-        origin=(0, plus_y_wall_plug_port_y, slot_z_center),
+        origin=(0, minus_y_wall_plug_port_y, slot_z_center),
         slot_length=slot_z_top - slot_z_bottom,
         slot_diameter=slot_diameter,
+        slot_punch_height=-40,
     )
     return foam_shell.cut(slot_punch)
