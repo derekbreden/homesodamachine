@@ -1,0 +1,28 @@
+# Reservoir wetted-surface acceptance test
+
+The food-contact acceptance test for the reservoir's wetted surface — the surface the syrup sits against. Per [`../../../../business/regulatory.md`](../../../../business/regulatory.md) this is the *substance* of food contact the project honors directly (rather than pursuing a third-party listing): does the surface, **as actually produced**, leach safely into the syrup and leave its flavor untainted.
+
+It is **method-agnostic.** The frame below is set by the product (cold, acidic syrup), so it applies whatever the wetted surface is made of — printed PETG, cast silicone, thermoformed sheet, a coating. Only the specific-migration analytes change with the material.
+
+Scope: the **custom-made** wetted surface (the reservoir interior). The off-the-shelf wetted parts in the fluid path — JG fittings, LLDPE tube, silicone hose — carry their own food/water certifications and are not the subject of this test.
+
+## The shared frame (set by the product, same for any method)
+
+- **Simulant:** the syrup is acidic (pH ~3.5), aqueous, sweetened → test against **3% acetic acid** (the acidic-food simulant). Add **10% ethanol** if a flavor carries alcohol or oil character. Testing a simulant, not real syrup, keeps the syrup's own sugars and flavors out of the measurement.
+- **Condition:** **10 days at 40 °C** — the standard accelerated stand-in for long-term storage at room temperature or below, so it conservatively over-states the 8–15 °C service.
+- **Post-process first:** prepare the coupon the way production would (a post-cure bake for silicone; the production print + any anneal for PETG). Most migratables leave during post-processing — test the finished surface, not the as-made one.
+- **Overall migration:** evaporate the exposed simulant, weigh the non-volatile residue per contact area. Benchmark: EU overall-migration limit **10 mg/dm²** (FDA sets its own per-in² extractives limits in the applicable 21 CFR 177 section). A coupon weighed before/after is a cruder mass-loss read.
+- **Taint (sensory):** because this is a *flavor* reservoir, cold-soak the surface in water (or the syrup) and then taste + smell for off-notes. A surface can pass migration and still ruin the flavor — for this product that is a first-class failure, arguably the likeliest one.
+- **Two rigor levels:** an **in-house screen** (post-processed coupons of known area, 3% acetic acid at 40 °C for 10 days, evaporate-and-weigh + the taste test) for confidence; an **accredited food-contact lab** (overall + specific migration with GC-MS / ICP-MS and a report) for a defensible number.
+
+## Per-method specific-migration analytes (what to screen for)
+
+- **FDM PETG** (the current path): **antimony** (the PET/PETG polycondensation catalyst — migrates into acidic liquids; EU specific limit 0.04 mg/kg), **acetaldehyde** (PET degradation product), **nozzle metal** (brass nozzles leach lead/zinc — print the wetted part with a stainless or hardened-steel nozzle), and any **filament colorant/additive**. The filament's FDA 177.1630 compliance covers the *resin*, not the finished print; the print is what this test qualifies. FDM also needs a **flavor cross-contamination** check the molded methods do not: layer-line porosity can hold flavor A and taint flavor B across a clean cycle — soak in flavor A, run the rinse cycle, soak in water, taste for carryover.
+- **Cast silicone:** residual **platinum** catalyst (ICP-MS) and **cyclic siloxanes** D4/D5/D6 (GC-MS).
+- **Thermoformed PETG sheet:** same as FDM PETG (antimony, acetaldehyde, colorant), but **no nozzle metal** (extruded sheet, no print nozzle) and far less porosity, so the cross-contamination check is minor.
+
+## References
+
+- [`../../../../business/regulatory.md`](../../../../business/regulatory.md) — the substance-not-listing posture this test implements.
+- FDA 21 CFR 177.1630 (PET) / 177.2600 (rubber, repeated food use) — the resin/material compliances; this test validates the finished part against the actual liquid.
+- EU 10/2011 — overall-migration limit (10 mg/dm²), food-simulant + time-temperature conventions, and the 0.04 mg/kg antimony specific-migration limit.

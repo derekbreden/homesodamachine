@@ -8,7 +8,7 @@ Standing, filament-agnostic guidance for printing the reservoir body + cap leak-
 - **Vented, non-pressurized.** A PTFE membrane in the cap equalizes the air space, so the only load on the wall is the hydrostatic head of syrup — a tall but low-pressure column (~210 mm ≈ **~0.3 psi** at the floor).
 - Floor is a Y-symmetric V trough with a vertical bulkhead penetration; a TPU face washer in a wet-side counterbore seals the barrel-to-floor joint, locknut from below.
 - 6 mm fillets at the internal corners.
-- Cold service (8–15 °C). Food contact (mildly acidic concentrate). The wetted surface is the bare print.
+- Cold service (8–15 °C). Food contact (mildly acidic concentrate). The wetted surface is the bare print — its food-contact + taint acceptance is [`wetted-surface-test.md`](wetted-surface-test.md) (leak-tightness, below, is a separate gate).
 
 The consequence of *vented + low head*: **a leak here is a defect, not a strength failure.** The wall trivially survives 0.3 psi. What weeps is a continuous capillary path — between adjacent perimeter beads, up the Z-seam, or through the floor / first layer. Every lever below closes one of those paths. PETG itself is a good choice for this (water-resistant, strong layer adhesion); watertightness is a *process* property, not a material guarantee.
 
