@@ -10,9 +10,12 @@ the two flanking pocket walls by filling the two square-corner regions
 beside the pocket corner (the "teardrop"). The diagonal region faces open
 pocket interior and is left clear.
 
-Built for the +X pocket, both far-+X corners (±Y). The −X-pocket mirror and
-the centerward-side supports are still pending, as is the 45° print cut /
-sloped top to match the floor."""
+Built for the +X pocket: both far-+X corners (±Y) and the centerward −Y
+corner. The centerward wall is a curved tank-wrapping arc with no fillet to
+nest, so that post seats under the reservoir's curve-corner and webs only to
+the flat ±Y wall (its curved side faces the open cavity). The −X-pocket
+mirror, the centerward +Y corner, and the 45° print cut / sloped top to
+match the floor are still pending."""
 
 import sys
 from pathlib import Path
@@ -60,6 +63,30 @@ def _corner_teardrop(y_sign):
     return post
 
 
+def _centerward_teardrop(y_sign):
+    """Post under the reservoir's centerward (curve × y_sign·Y) corner.
+
+    The centerward pocket wall is a curved tank-wrapping arc — there is no
+    filleted corner to nest a cylinder into. So the post is seated under the
+    reservoir's curve-corner boss (where the reservoir actually bears down),
+    tangent to the flat ±Y wall, and webbed to that wall on the +X side —
+    toward the far wall, clear of the curve. The cylinder's curved-wall side
+    faces the open cavity."""
+    # insert_positions index 3 = curve × +Y, index 4 = curve × −Y.
+    cx, cy = _R.insert_positions_for_side_plus_1[3 if y_sign > 0 else 4]
+    floor_underside_z = _R.floor_trough_z - _R.reservoir_wall_thickness
+    top_z = floor_underside_z + _R.floor_slope_rate * (abs(cy) - _R.floor_trough_half_width_y)
+
+    post = _R._z_cylinder((cx, cy), (0.0, top_z), 2 * support_radius).unwrap()
+    # Web to the ±Y wall on the +X side (outer edge at the ±Y inner face).
+    post = post.union(
+        _I.make_box((cx, cx + support_radius), (cy, cy + y_sign * support_radius), (0.0, top_z))
+    )
+    return post
+
+
 def build_reservoir_supports():
-    """Teardrop posts at both far-+X pocket corners (±Y)."""
-    return _corner_teardrop(-1).union(_corner_teardrop(+1))
+    """Posts at both far-+X pocket corners (±Y) plus the centerward −Y
+    corner."""
+    support = _corner_teardrop(-1).union(_corner_teardrop(+1))
+    return support.union(_centerward_teardrop(-1))
