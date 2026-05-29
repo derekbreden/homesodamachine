@@ -85,8 +85,8 @@ cable_hole_offset_from_bulkhead_hole_x = 4.0
 
 
 def cut_reed_cable_holes(foam_shell):
-    """Cable holes — one per reservoir side — through both the +Y
-    bag-pocket wall and the +Y outer shell wall, in +Y direction. The
+    """Cable holes — one per reservoir side — through both the -Y
+    bag-pocket wall and the -Y outer shell wall, in -Y direction. The
     reed cable runs through the open bag-pocket bottom to here. Pinned to
     bulkhead_elbow_exit_z (level with the elbow's lateral port and the
     flavor-line hole), at the same y as its side's bulkhead hole."""
@@ -96,5 +96,8 @@ def cut_reed_cable_holes(foam_shell):
             reservoir_bulkhead_port_y,
             bulkhead_elbow_exit_z,
         )
-        foam_shell = foam_shell.cut(build_hole_punch(origin=hole_origin, hole_punch_radius=port_hole_radius))
+        # Negative height: extrude -Y to bore out through the front (-Y) wall.
+        foam_shell = foam_shell.cut(
+            build_hole_punch(origin=hole_origin, hole_punch_radius=port_hole_radius, hole_punch_height=-40)
+        )
     return foam_shell
