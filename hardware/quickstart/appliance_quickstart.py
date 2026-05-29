@@ -407,11 +407,12 @@ def _arrows_tee_into_water(x, y, w, draw_h):
 
 def _arrows_open_valves(x, y, w, draw_h):
     """Drawing 3: red rotation arrow on the CO2 cylinder valve + blue
-    rotation arrow on the water angle-stop handle, paired side-by-side."""
+    rotation arrow on the water angle-stop handle, paired side-by-side.
+    Both turn counterclockwise (lefty-loosy) to open."""
     y_strip = y + 0.65 * draw_h
     return (
-        _rotation_arrow(x + 0.30 * w, y_strip, 7, 30, 240, color="red")
-        + _rotation_arrow(x + 0.70 * w, y_strip, 7, 30, 240, color="blue")
+        _rotation_arrow(x + 0.30 * w, y_strip, 7, 30, -240, color="red")
+        + _rotation_arrow(x + 0.70 * w, y_strip, 7, 30, -240, color="blue")
     )
 
 
