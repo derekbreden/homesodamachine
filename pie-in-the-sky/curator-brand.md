@@ -8,7 +8,7 @@ A frame for what homesodamachine.com becomes once it grows past being a landing 
 
 ## The thesis
 
-Everyone who hates the cans (per [`../marketing/target-market.md`](../marketing/target-market.md)) wants out of them, but their budgets and tolerances vary enormously. Today's plan answers one slice — the homeowner at $200K+ who can spend $7,500 on a hand-built appliance — and treats every other slice as someone else's problem. The curator framing rejects that: the SodaStream owner who could be happier with a 5 lb tank, the renter who can't drill a faucet, the homebrewer who needs CO2 delivered, the bar/garage owner who wants the appliance on a countertop — these are all the same customer at different points in their life. We are the brand that walks the whole map with them.
+Everyone who hates the cans (per [`/marketing/target-market.md`](/marketing/target-market.md)) wants out of them, but their budgets and tolerances vary enormously. Today's plan answers one slice — the homeowner at $200K+ who can spend $7,500 on a hand-built appliance — and treats every other slice as someone else's problem. The curator framing rejects that: the SodaStream owner who could be happier with a 5 lb tank, the renter who can't drill a faucet, the homebrewer who needs CO2 delivered, the bar/garage owner who wants the appliance on a countertop — these are all the same customer at different points in their life. We are the brand that walks the whole map with them.
 
 ## What makes this brand distinctive
 
@@ -25,7 +25,7 @@ The gap is not a product; it is a curator. The curator is the brand.
 
 We are people who hated the cans, tried every option, and have honest opinions about each one. We will recommend a competitor's product if it is right for the customer in front of us. We will tell a SodaStream owner the air-removal trick even though they didn't buy from us. We will tell a Lillium owner the Lillium is a fine carbonator, and pair it with our flavor injector rather than make them throw it out. We do this because the only way to be a credible guide is to be genuinely indifferent to the SKU the customer ends up with — at this customer, at this moment, with this budget.
 
-The Steve-Martin "He hates these cans" moment from [`../marketing/target-market.md`](../marketing/target-market.md) is the hook for the whole brand, not just the appliance. Recognition is the entry point at every price tier.
+The Steve-Martin "He hates these cans" moment from [`/marketing/target-market.md`](/marketing/target-market.md) is the hook for the whole brand, not just the appliance. Recognition is the entry point at every price tier.
 
 ## The map of offerings
 
@@ -38,7 +38,7 @@ Going from lowest pain tolerance and lowest budget upward. Each is a real shelf 
 | CGA-320 adapter kit (regulator + 2 L bottle + push-button) | ~$150 | Yes | [`cga320-kit.md`](cga320-kit.md) |
 | CO2 delivery service | $250 / $500 per swap | Yes | [`co2-service.md`](co2-service.md) |
 | Lillium + Lite Edition bundle | ~$2,500 | Yes (Lite) + resale (Lillium) | [`lite.md`](lite.md) |
-| Kitchen Edition appliance | $5,500 / $7,500 | Yes | [`../hardware/future.md`](../hardware/future.md) |
+| Kitchen Edition appliance | $5,500 / $7,500 | Yes | [`/hardware/future.md`](/hardware/future.md) |
 | Shop Edition appliance | $5,500 / $7,500 | Yes | [`shop-edition.md`](shop-edition.md) |
 | Flavor Module add-on | $1,800 / $2,500 | Yes | [`flavor-module.md`](flavor-module.md) |
 
@@ -58,8 +58,8 @@ The appliance does not stop being the halo product under this framing. It is the
 
 ## How this relates to the existing docs
 
-- [`../marketing/target-market.md`](../marketing/target-market.md) describes the appliance buyer specifically. Under this framing it is the target-market doc for the upper end of the ladder, not the whole brand. A companion doc for the lower-end buyer profiles is implied by this reframe and out of scope here.
-- [`../hardware/future.md`](../hardware/future.md) is the engineering spec for the Kitchen Edition rung.
+- [`/marketing/target-market.md`](/marketing/target-market.md) describes the appliance buyer specifically. Under this framing it is the target-market doc for the upper end of the ladder, not the whole brand. A companion doc for the lower-end buyer profiles is implied by this reframe and out of scope here.
+- [`/hardware/future.md`](/hardware/future.md) is the engineering spec for the Kitchen Edition rung.
 - [`lite.md`](lite.md), [`shop-edition.md`](shop-edition.md), [`flavor-module.md`](flavor-module.md) are engineering sketches for three of the rungs.
 - [`co2-service.md`](co2-service.md), [`cga320-kit.md`](cga320-kit.md), [`local-co2.md`](local-co2.md) are sketches for three more rungs (the lower end and the services).
 - [`hsm-1-2-3.md`](hsm-1-2-3.md) is the older, smaller framing — three sequential SKUs of one product line. The curator framing supersedes it. Once this doc is in shape and the existing rung docs have caught up, `hsm-1-2-3.md` can be retired.

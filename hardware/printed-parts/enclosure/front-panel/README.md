@@ -2,7 +2,7 @@
 
 3D-printed front face of the under-counter enclosure. Carries the ESP32-S3 detachable rotary display, the front-dispense spout, and the CO2 line inlet. Printed in **Bambu PET-CF**, matching the rest of the enclosure exterior.
 
-Opening the cabinet door and looking at the front of the appliance shows the customer the display (rotate to toggle flavor, three-dot affordance for advanced settings), the dispense spout, and the CO2 connection. Pump cartridge access is on top in Zone C, beneath the removable funnel under the single top door ([`/hardware/printed-parts/zone-c/README.md`](/hardware/printed-parts/zone-c/README.md)); the GFCI lives on the electronics shelf. See [`../README.md`](../README.md) "What is on the front face" for the architectural framing.
+Opening the cabinet door and looking at the front of the appliance shows the customer the display (rotate to toggle flavor, three-dot affordance for advanced settings), the dispense spout, and the CO2 connection. Pump cartridge access is on top in Zone C, beneath the removable funnel under the single top door ([`/hardware/printed-parts/zone-c/README.md`](/hardware/printed-parts/zone-c/README.md)); the GFCI lives on the electronics shelf. See [`/hardware/printed-parts/enclosure/README.md`](/hardware/printed-parts/enclosure/README.md) "What is on the front face" for the architectural framing.
 
 ## Front face features
 
@@ -10,7 +10,7 @@ Opening the cabinet door and looking at the front of the appliance shows the cus
 |---|---|---|---|
 | 1 | ESP32-S3 rotary display | Meshnology ESP32-S3 1.28" Rotary Display (B0G5Q4LXVJ) | **Detachable.** Sits in a recess on the front face; the customer pulls it out and the [~1 m](DISPLAY_CORD_L) cord behind the panel pays out so they can hold the display or mount it on the cabinet's false-drawer-front above the cabinet door — the obvious empty flat panel just below the counter where a drawer would normally go. Re-seating retracts the cord. Default state shows the selected flavor; the rotary mechanism toggles between flavors; a subtle three-dot affordance reaches advanced settings. Seat, cord, retraction, and connector are all open — see §"S3 detach mechanism" below. |
 | 2 | Front-dispense spout | TBD | The customer's drill-trigger moment — a visible thing on the front you press, soda comes out (currently-selected flavor, set on the S3). Internal plumbing taps the carbonator outlet + flavor-pump junction before the umbilical, with its own valve and a front-panel nozzle. Lever vs button vs glass-press TBD. |
-| 3 | CO2 line inlet | DERPIPE 5/16"-tube × 1/4" NPT push-to-connect | Customer's CGA-320 primary regulator hose ([~12"](CGA_TETHER_L) short tether per [`../../../bom.md`](../../../bom.md) §4) lands here. Downstream: GASHER 1/4" NPT SS check valve + WR1110 [fixed-90 PSI](REGULATOR_PRESSURE) secondary regulator before the cold-core CO2 input at the foam-cap top. Red accent ring at the panel opening per §"CO2 inlet — red color-coding" below. Possibly migrated to the furthest-forward edge of a side face — see §"CO2 inlet placement" below. |
+| 3 | CO2 line inlet | DERPIPE 5/16"-tube × 1/4" NPT push-to-connect | Customer's CGA-320 primary regulator hose ([~12"](CGA_TETHER_L) short tether per [`/hardware/bom.md`](/hardware/bom.md) §4) lands here. Downstream: GASHER 1/4" NPT SS check valve + WR1110 [fixed-90 PSI](REGULATOR_PRESSURE) secondary regulator before the cold-core CO2 input at the foam-cap top. Red accent ring at the panel opening per §"CO2 inlet — red color-coding" below. Possibly migrated to the furthest-forward edge of a side face — see §"CO2 inlet placement" below. |
 
 ## CO2 inlet placement
 
@@ -26,11 +26,11 @@ Front-panel scope as it relates to the cylinder: **position the DERPIPE inlet st
 
 The CO2 inlet is **red**. Stock is supplied red by the existing BOM SKUs:
 
-- **5/16" ID beer CO2 line** ([`../../../bom.md`](../../../bom.md) §4, `B0D1RB3TF6`) — standard red beer-line PVC, runs from the customer's CGA-320 regulator to this panel.
+- **5/16" ID beer CO2 line** ([`/hardware/bom.md`](/hardware/bom.md) §4, `B0D1RB3TF6`) — standard red beer-line PVC, runs from the customer's CGA-320 regulator to this panel.
 
 The front-panel CO2 bulkhead gets a **red accent ring** at its panel opening. The ring mechanism (multi-material print, snap-on TPU collar, or paint touch) is the same open question as the blue ring on the back-panel doc; both colors should share whatever solution is committed.
 
-Red on this panel is part of the three-color customer-wayfinding system committed in [`../../../../marketing/unboxing-and-quickstart.md`](../../../../marketing/unboxing-and-quickstart.md) "Color system" — **blue = carbonated water, red = CO2, white = tap water**. The same red appears on the matching line drawing in the printed quick-start sheet, so the customer's eye moves from sheet to panel without translation. Any change to the red accent here (color shade, mechanism, placement) needs to round-trip through the unboxing brief because the printed sheet must match.
+Red on this panel is part of the three-color customer-wayfinding system committed in [`/marketing/unboxing-and-quickstart.md`](/marketing/unboxing-and-quickstart.md) "Color system" — **blue = carbonated water, red = CO2, white = tap water**. The same red appears on the matching line drawing in the printed quick-start sheet, so the customer's eye moves from sheet to panel without translation. Any change to the red accent here (color shade, mechanism, placement) needs to round-trip through the unboxing brief because the printed sheet must match.
 
 The internal 1/4" LLDPE between the front-panel CO2 PTC and the vessel-side TAISHER elbow is **black** (standard FWS stock).
 
@@ -47,19 +47,19 @@ Open candidates:
 
 ## Internal routing — WR1110 placement
 
-Downstream of the front-panel CO2 inlet stack: GASHER check → WR1110 secondary regulator → first PP010822E PTC × NPT M adapter → 1/4" OD LLDPE routed up through the electronics-shelf zone → cold-core CO2 input at the foam-cap top (+Z). Procedure detail in [`../../../assembly/internal-plumbing.md`](../../../assembly/internal-plumbing.md) §1.
+Downstream of the front-panel CO2 inlet stack: GASHER check → WR1110 secondary regulator → first PP010822E PTC × NPT M adapter → 1/4" OD LLDPE routed up through the electronics-shelf zone → cold-core CO2 input at the foam-cap top (+Z). Procedure detail in [`/hardware/assembly/internal-plumbing.md`](/hardware/assembly/internal-plumbing.md) §1.
 
-The WR1110 mounts on a printed bracket somewhere along the CO2 path between the front-panel inlet and the foam-shell top. Exact bracket location is flexible per [`../README.md`](../README.md) "What is flexible".
+The WR1110 mounts on a printed bracket somewhere along the CO2 path between the front-panel inlet and the foam-shell top. Exact bracket location is flexible per [`/hardware/printed-parts/enclosure/README.md`](/hardware/printed-parts/enclosure/README.md) "What is flexible".
 
 ## References
 
-- [`../README.md`](../README.md) — enclosure architecture (4 zones, firm vs flexible, front-face curation).
-- [`../../../future.md`](../../../future.md) — broader enclosure context, cylinder-beside-appliance layout, user-facing elements by location.
-- [`../../../requirements.md`](../../../requirements.md) §5 — S3 role and detachability (the foundational spec for the S3 as the sole interaction surface).
-- [`../../../bom.md`](../../../bom.md) §1 — ESP32-S3 module source.
-- [`../../../bom.md`](../../../bom.md) §4 — CO2 path (DERPIPE bulkhead, GASHER check, WR1110, 5/16" short tether).
-- [`../back-panel/README.md`](../back-panel/README.md) — sister exterior panel; identification-ring pattern, PET-CF material rationale.
-- [`../../../assembly/internal-plumbing.md`](../../../assembly/internal-plumbing.md) §1 — CO2 path install procedure.
+- [`/hardware/printed-parts/enclosure/README.md`](/hardware/printed-parts/enclosure/README.md) — enclosure architecture (4 zones, firm vs flexible, front-face curation).
+- [`/hardware/future.md`](/hardware/future.md) — broader enclosure context, cylinder-beside-appliance layout, user-facing elements by location.
+- [`/hardware/requirements.md`](/hardware/requirements.md) §5 — S3 role and detachability (the foundational spec for the S3 as the sole interaction surface).
+- [`/hardware/bom.md`](/hardware/bom.md) §1 — ESP32-S3 module source.
+- [`/hardware/bom.md`](/hardware/bom.md) §4 — CO2 path (DERPIPE bulkhead, GASHER check, WR1110, 5/16" short tether).
+- [`/hardware/printed-parts/enclosure/back-panel/README.md`](/hardware/printed-parts/enclosure/back-panel/README.md) — sister exterior panel; identification-ring pattern, PET-CF material rationale.
+- [`/hardware/assembly/internal-plumbing.md`](/hardware/assembly/internal-plumbing.md) §1 — CO2 path install procedure.
 
 ## Open items
 

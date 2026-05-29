@@ -1,6 +1,6 @@
 # Rear panel
 
-3D-printed rear face of the under-counter enclosure. Carries every external connection on the appliance except the CO2 inlet (which lives on the front panel — see [`../../../future.md`](../../../future.md) §"Enclosure layout"): AC inlet, tap-water inlet, bag-in-box (BiB) syrup inlet, the moisture-sensor drip-pan vent that observes the §3 backflow preventer, and (new) the umbilical port that accepts the three tubes coming down from the under-cabinet faucet through the countertop. Printed in **Bambu PET-CF**, matching the rest of the enclosure exterior — see §"Panel material" below.
+3D-printed rear face of the under-counter enclosure. Carries every external connection on the appliance except the CO2 inlet (which lives on the front panel — see [`/hardware/future.md`](/hardware/future.md) §"Enclosure layout"): AC inlet, tap-water inlet, bag-in-box (BiB) syrup inlet, the moisture-sensor drip-pan vent that observes the §3 backflow preventer, and (new) the umbilical port that accepts the three tubes coming down from the under-cabinet faucet through the countertop. Printed in **Bambu PET-CF**, matching the rest of the enclosure exterior — see §"Panel material" below.
 
 The panel itself has no fluid-pressure duty. It is a connection-management plate: hole patterns sized for off-the-shelf bulkheads and panel-mount receptacles, with printed bezels, recesses, and labels where the user-facing fit-and-feel benefits.
 
@@ -25,9 +25,9 @@ User rule at install: **blue tube into the blue-ringed bulkhead**. Black-into-ei
 
 Mechanism for the blue ring is TBD — candidates include multi-material printing of the panel itself, a separately printed TPU collar that snaps over the bulkhead's exterior flange, or a paint touch on the printed bezel surrounding the bulkhead. The selection is downstream of the panel-material decision and the multi-material capability of the printer running the panel.
 
-Net identification scheme on the rear panel: **blue = carbonated water**, **black / plain = flavor lines**. (The CO2 inlet lives on the front panel — see [`../front-panel/README.md`](../front-panel/README.md); red color-coding for CO2 lines is documented there.)
+Net identification scheme on the rear panel: **blue = carbonated water**, **black / plain = flavor lines**. (The CO2 inlet lives on the front panel — see [`/hardware/printed-parts/enclosure/front-panel/README.md`](/hardware/printed-parts/enclosure/front-panel/README.md); red color-coding for CO2 lines is documented there.)
 
-Blue on this panel is part of the three-color customer-wayfinding system committed in [`../../../../marketing/unboxing-and-quickstart.md`](../../../../marketing/unboxing-and-quickstart.md) "Color system" — **blue = carbonated water, red = CO2, white = tap water**. The same blue appears on the matching line drawing in the printed quick-start sheet, so the customer's eye moves from sheet to panel without translation. Any change to the blue ring here (color shade, ring mechanism, placement on the panel) needs to round-trip through the unboxing brief because the printed sheet must match.
+Blue on this panel is part of the three-color customer-wayfinding system committed in [`/marketing/unboxing-and-quickstart.md`](/marketing/unboxing-and-quickstart.md) "Color system" — **blue = carbonated water, red = CO2, white = tap water**. The same blue appears on the matching line drawing in the printed quick-start sheet, so the customer's eye moves from sheet to panel without translation. Any change to the blue ring here (color shade, ring mechanism, placement on the panel) needs to round-trip through the unboxing brief because the printed sheet must match.
 
 ## Umbilical bundle construction
 

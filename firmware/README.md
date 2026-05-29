@@ -1,6 +1,6 @@
 # Firmware
 
-The Home Soda Machine prototype runs on three microcontrollers — ESP32 (main controller), RP2040 (display), ESP32-S3 (config touchscreen + BLE bridge). The product under development reuses the ESP32 + ESP32-S3 portion of this base; the integrated-build hardware bring-up procedure lives in [`../hardware/assembly/firmware-and-commissioning.md`](../hardware/assembly/firmware-and-commissioning.md).
+The Home Soda Machine prototype runs on three microcontrollers — ESP32 (main controller), RP2040 (display), ESP32-S3 (config touchscreen + BLE bridge). The product under development reuses the ESP32 + ESP32-S3 portion of this base; the integrated-build hardware bring-up procedure lives in [`/hardware/assembly/firmware-and-commissioning.md`](/hardware/assembly/firmware-and-commissioning.md).
 
 ## Architecture
 
@@ -47,7 +47,7 @@ This is further scaled by a per-flavor **ratio** parameter (configurable at runt
 
 ## Pin Assignments
 
-The assignments below are for the **prototype hardware** under Derek's sink — no compressor relay, no condenser fan, no MQ-6 hydrocarbon sensor, no reed-switch level sensing, no moisture sensor, no PRV monitor, none of the appliance-only inputs and outputs. Appliance pin assignments evolve with the integrated build and are tracked in [`../hardware/assembly/firmware-and-commissioning.md`](../hardware/assembly/firmware-and-commissioning.md).
+The assignments below are for the **prototype hardware** under Derek's sink — no compressor relay, no condenser fan, no MQ-6 hydrocarbon sensor, no reed-switch level sensing, no moisture sensor, no PRV monitor, none of the appliance-only inputs and outputs. Appliance pin assignments evolve with the integrated build and are tracked in [`/hardware/assembly/firmware-and-commissioning.md`](/hardware/assembly/firmware-and-commissioning.md).
 
 ### ESP32
 

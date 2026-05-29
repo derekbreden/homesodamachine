@@ -30,7 +30,7 @@ The CadQuery script uses an explicit XY plane with +Z normal
   internal SS float rod. Body envelope: **[140 mm](RESERVOIR_W) wide (along Y)
   × [48 mm](RESERVOIR_D) deep (along X, radially outward) × [199.4 mm](RESERVOIR_H)
   tall**, sized to hold ≥ 1 L usable per reservoir. Reservoir geometry
-  and internal features live at [`../reservoir/`](../reservoir/).
+  and internal features live at [`/hardware/printed-parts/cold-core/reservoir/`](/hardware/printed-parts/cold-core/reservoir/).
 - **Evaporator coil** — 1/4" OD × 0.187" ID × 0.031" wall ACR copper,
   hand-wound helically around the vessel exterior, bonded with 3M 425
   aluminum foil tape. ~6.35 mm radial occupancy plus tolerance — budgeted
@@ -217,7 +217,7 @@ Z-elongated slot at the +Y outer wall.
 | 5 | Copper evaporator inlet (low) | shared +Y slot | 1/4" OD ACR copper to compressor |
 | 6 | Copper evaporator outlet (high) | shared +Y slot | 1/4" OD ACR copper to compressor |
 | 7 | Water inlet | shared +Y slot | 1/4" OD line from the diaphragm pump |
-| 8 | PRV vent | shared +Y slot | 1/4" OD LLDPE from the prv-shroud cap into the appliance interior (unpressurized; carries relief-event discharge only — see [`../prv-shroud/`](../prv-shroud/)) |
+| 8 | PRV vent | shared +Y slot | 1/4" OD LLDPE from the prv-shroud cap into the appliance interior (unpressurized; carries relief-event discharge only — see [`/hardware/printed-parts/cold-core/prv-shroud/`](/hardware/printed-parts/cold-core/prv-shroud/)) |
 
 For the water inlet and CO2 inlet, the supply-side tubing reduces to
 1/4" OD before reaching the shell wall — transition fittings (3/8"
@@ -289,7 +289,7 @@ of the four tubes) gets filled by the body foam pour.
 
 ## Assembly and foam pour
 
-Production-procedure framing at [`../../../assembly/cold-core.md`](../../../assembly/cold-core.md). The geometry detail below is the source-of-truth for the shells and the pour paths; the assembly doc is the production-cadence wrapper that places this pour in the appliance build sequence.
+Production-procedure framing at [`/hardware/assembly/cold-core.md`](/hardware/assembly/cold-core.md). The geometry detail below is the source-of-truth for the shells and the pour paths; the assembly doc is the production-cadence wrapper that places this pour in the appliance build sequence.
 
 The cold core is foam-filled in **three independent pour operations**:
 the top cap, the bottom cap, and the body. Each is a self-contained
@@ -452,7 +452,7 @@ print(s.Volume(), (bb.xmin, bb.xmax, bb.ymin, bb.ymax, bb.zmin, bb.zmax), (com.x
 
 ## Reference
 
-- [`../../flavor/pump-case/pump_case.py`](../../flavor/pump-case/pump_case.py)
+- [`/hardware/printed-parts/flavor/pump-case/pump_case.py`](/hardware/printed-parts/flavor/pump-case/pump_case.py)
   — gold standard for the PETG-enclosure pattern in this repo.
 
 The cadquery venv lives at `tools/cad-venv/bin/python` (cadquery is not

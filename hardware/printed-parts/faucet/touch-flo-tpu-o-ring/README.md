@@ -25,9 +25,9 @@ the dispense head's wet path:
 
 - **Supply (body's bottom compression port):** 1/4" OD LLDPE comes
   *up* from below with a Siptenk brass stiffener; factory ferrule +
-  nut seal the joint. See [`../../../assembly/faucet-and-umbilical.md`](../../../assembly/faucet-and-umbilical.md) step 2.
+  nut seal the joint. See [`/hardware/assembly/faucet-and-umbilical.md`](/hardware/assembly/faucet-and-umbilical.md) step 2.
 - **Dispense (body's top water port):** 3/8" OD LLDPE descends from
-  the printed [`touch-flo-shell`](../touch-flo-shell/) gooseneck water
+  the printed [`touch-flo-shell`](/hardware/printed-parts/faucet/touch-flo-shell/) gooseneck water
   channel and enters the body's Ø [10 mm](BODY_PORT_D) top port. Water
   flows up out of the valve into the LLDPE; this TPU bushing seals
   around the outside of the tube where it enters the port.

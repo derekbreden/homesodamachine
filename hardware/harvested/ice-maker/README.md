@@ -1,10 +1,10 @@
 # Ice Maker Teardowns
 
-Two countertop ice makers were purchased for harvesting refrigeration components (compressor, condenser + fan, capillary tube, filter-drier). See `hardware/future.md` for how the harvested parts fit into the cold core assembly, and [`../../assembly/refrigerant-loop.md`](../../assembly/refrigerant-loop.md) for the production procedure that uses the components identified below.
+Two countertop ice makers were purchased for harvesting refrigeration components (compressor, condenser + fan, capillary tube, filter-drier). See `hardware/future.md` for how the harvested parts fit into the cold core assembly, and [`/hardware/assembly/refrigerant-loop.md`](/hardware/assembly/refrigerant-loop.md) for the production procedure that uses the components identified below.
 
 ## Cold core architecture
 
-Custom SS carbonator + new evaporator coil. The factory finger-plate evaporator is discarded; a custom copper coil is wound around the fabricated 316L SS carbonator (vertical 5" OD × 0.065" wall 316 welded round tube with 1/4"-thick 316 circular end plates, per [`hardware/future.md`](../../future.md)). The refrigerant loop is opened (cut into the suction and cap-tube sides of the factory evaporator), the factory charge is vented, the drier is replaced, the system is evacuated, and it is recharged.
+Custom SS carbonator + new evaporator coil. The factory finger-plate evaporator is discarded; a custom copper coil is wound around the fabricated 316L SS carbonator (vertical 5" OD × 0.065" wall 316 welded round tube with 1/4"-thick 316 circular end plates, per [`hardware/future.md`](/hardware/future.md)). The refrigerant loop is opened (cut into the suction and cap-tube sides of the factory evaporator), the factory charge is vented, the drier is replaced, the system is evacuated, and it is recharged.
 
 The hot-gas bypass solenoid is deleted.
 
@@ -58,7 +58,7 @@ Finned-tube forced-convection condenser with its own fan shroud (fan not yet sep
 
 A fat copper cylinder sits between the condenser outlet and the capillary tube inlet. It holds a molecular-sieve desiccant charge that traps residual moisture and debris.
 
-**Disposition: keep in service.** The factory drier is preserved through the loop-open period under continuous argon flow per [`../../assembly/refrigerant-loop.md`](../../assembly/refrigerant-loop.md) step 3. The drier, its brazed-on capillary tube, the cap-tube helix at the evap end, and the bonded suction-line heat-exchanger pair stay together as one preserved upstream subassembly. Replacement driers (Supco SUD8358 + Supco D111) are kept on the shelf as spares.
+**Disposition: keep in service.** The factory drier is preserved through the loop-open period under continuous argon flow per [`/hardware/assembly/refrigerant-loop.md`](/hardware/assembly/refrigerant-loop.md) step 3. The drier, its brazed-on capillary tube, the cap-tube helix at the evap end, and the bonded suction-line heat-exchanger pair stay together as one preserved upstream subassembly. Replacement driers (Supco SUD8358 + Supco D111) are kept on the shelf as spares.
 
 Label on this unit's drier:
 
@@ -67,7 +67,7 @@ Label on this unit's drier:
 - `20251107 A-1` — manufacturing date code, 2025-11-07, line/shift A-1.
 - Small stylized logo at left (manufacturer mark, not identified).
 
-**Desiccant preservation rule:** Once the refrigerant loop is opened (unbrazing for re-piping), the drier's desiccant absorbs atmospheric moisture unless it is kept in a continuous dry inert-gas blanket from the moment of cut until vacuum begins. Continuous low-pressure argon flow through the loop during the entire loop-open period (see [`../../assembly/refrigerant-loop.md`](../../assembly/refrigerant-loop.md) step 3) provides that blanket. The same argon flow doubles as the braze-safety hydrocarbon sweep, so the two requirements satisfy each other via one rig. A saturated drier produces short service life and eventual capillary icing.
+**Desiccant preservation rule:** Once the refrigerant loop is opened (unbrazing for re-piping), the drier's desiccant absorbs atmospheric moisture unless it is kept in a continuous dry inert-gas blanket from the moment of cut until vacuum begins. Continuous low-pressure argon flow through the loop during the entire loop-open period (see [`/hardware/assembly/refrigerant-loop.md`](/hardware/assembly/refrigerant-loop.md) step 3) provides that blanket. The same argon flow doubles as the braze-safety hydrocarbon sweep, so the two requirements satisfy each other via one rig. A saturated drier produces short service life and eventual capillary icing.
 
 ### Capillary tube + suction-line heat exchanger
 
