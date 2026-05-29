@@ -434,11 +434,11 @@ that needs a deliberate explanation:
 
 | metric | value |
 |---|---|
-| volume | [1049790.912 mm³](VOLUME) |
+| volume | [1049751.248 mm³](VOLUME) |
 | bbox x | [-141.500 to 141.500 mm](BBOX_X) |
 | bbox z | [0.000 to 213.400 mm](BBOX_Z) |
 | bbox y | [-90.500 to 90.500 mm](BBOX_Y) |
-| centroid | [(0.000005, -0.619692, 88.802543) mm](CENTROID) |
+| centroid | [(0.000005, -0.619715, 88.805333) mm](CENTROID) |
 
 Quick reproduction:
 
