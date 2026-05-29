@@ -217,28 +217,66 @@ def _read_svg_for_embed(svg_path):
     return viewbox, inner
 
 
-def _fit_offset(vb_w, vb_h, x, y, w, h, align):
-    """Scale + offset for fitting a vb_w×vb_h viewBox into (x,y,w,h) under
-    `preserveAspectRatio="<align> meet"`. Returns (scale, off_x, off_y)."""
-    s = min(w / vb_w, h / vb_h)
-    ax, ay = align[:4], align[4:]
-    off_x = x + (0 if ax == "xMin" else (w - vb_w * s) if ax == "xMax" else (w - vb_w * s) / 2)
-    off_y = y + (0 if ay == "YMin" else (h - vb_h * s) if ay == "YMax" else (h - vb_h * s) / 2)
-    return s, off_x, off_y
-
-
-def _embed_svg(x, y, w, h, source_path, align="xMidYMid"):
+def _embed_svg(x, y, w, h, source_path):
     """Render a nested <svg> that scale-fits the source SVG into the
-    rectangle (x, y, w, h) on the host page, preserving aspect ratio.
-    `align` is the preserveAspectRatio alignment (e.g. "xMaxYMax" to seat
-    the drawing in the rect's bottom-right corner)."""
+    rectangle (x, y, w, h) on the host page, preserving aspect ratio and
+    centering it (xMidYMid meet)."""
     viewbox, inner = _read_svg_for_embed(source_path)
     return (
         f'<svg x="{x:.2f}" y="{y:.2f}" width="{w:.2f}" height="{h:.2f}" '
-        f'viewBox="{viewbox}" preserveAspectRatio="{align} meet">\n'
+        f'viewBox="{viewbox}" preserveAspectRatio="xMidYMid meet">\n'
         f'{inner}\n'
         f'</svg>'
     )
+
+
+def _canvas_dims(source_path):
+    """The source SVG's canvas (viewBox) width and height."""
+    viewbox, _ = _read_svg_for_embed(source_path)
+    _, _, cw, ch = viewbox.split()
+    return float(cw), float(ch)
+
+
+def _ink_bbox(text):
+    """Bounding box (min_x, min_y, max_x, max_y) of the drawn line-art in
+    an SVG's text, in canvas coordinates. Coordinate pairs are matched
+    whitespace-tolerantly (stroke paths use "x, y", disc paths "x,y");
+    the clip rectangle's ±100000 sentinel coords are excluded so the box
+    tracks the appliance, not the canvas."""
+    xs, ys = [], []
+    for a, b in re.findall(r'(-?\d+\.?\d*)\s*,\s*(-?\d+\.?\d*)', text):
+        fx, fy = float(a), float(b)
+        if abs(fx) < 5000 and abs(fy) < 5000:
+            xs.append(fx)
+            ys.append(fy)
+    return min(xs), min(ys), max(xs), max(ys)
+
+
+def _embed_anchored(source_path, scale, right, bottom, color_fill=None):
+    """Embed the source SVG's line-art scaled by `scale` with its ink
+    bbox's bottom-right corner placed at page-mm (right, bottom) — so the
+    drawing seats against a corner by its actual content, ignoring the
+    canvas margin around it. Returns (svg_fragment, point) where point is
+    the page-mm centroid of the `color_fill` path, or None."""
+    text = Path(source_path).read_text()
+    _, inner = _read_svg_for_embed(source_path)
+    _, _, max_x, max_y = _ink_bbox(text)
+    tx = right - max_x * scale
+    ty = bottom - max_y * scale
+    fragment = (
+        f'<g transform="translate({tx:.3f},{ty:.3f}) scale({scale:.6f})">\n'
+        f'{inner}\n</g>'
+    )
+    point = None
+    if color_fill:
+        d = re.search(
+            re.escape(f'fill="{color_fill}"') + r'[^>]*\bd="([^"]+)"', text
+        ).group(1)
+        pts = re.findall(r'(-?\d+\.?\d*)\s*,\s*(-?\d+\.?\d*)', d)
+        cx = sum(float(a) for a, _ in pts) / len(pts)
+        cy = sum(float(b) for _, b in pts) / len(pts)
+        point = (tx + cx * scale, ty + cy * scale)
+    return fragment, point
 
 
 def _caption_text(x, y, w, h, caption):
@@ -316,24 +354,6 @@ def _arrows_connect_co2(x, y, w, draw_h):
     )
 
 
-def _embedded_fill_point(svg_path, color_fill, x, y, w, h, align="xMidYMid"):
-    """Page-mm location of the centroid of the path filled `color_fill`
-    in `svg_path`, after that SVG is scale-fit (`<align> meet`) into the
-    rect (x, y, w, h). Used to aim an arrow at a marking inside an
-    embedded drawing."""
-    text = Path(svg_path).read_text()
-    vb_w = float(re.search(r'<svg[^>]*\bwidth="([0-9.]+)', text).group(1))
-    vb_h = float(re.search(r'<svg[^>]*\bheight="([0-9.]+)', text).group(1))
-    d = re.search(
-        re.escape(f'fill="{color_fill}"') + r'[^>]*\bd="([^"]+)"', text
-    ).group(1)
-    pts = re.findall(r'(-?\d+\.?\d*),(-?\d+\.?\d*)', d)
-    cx = sum(float(a) for a, _ in pts) / len(pts)
-    cy = sum(float(b) for _, b in pts) / len(pts)
-    s, ox, oy = _fit_offset(vb_w, vb_h, x, y, w, h, align)
-    return ox + cx * s, oy + cy * s
-
-
 def _arrows_tee_into_water(x, y, w, draw_h):
     """Drawing 2: tee/valve arrows in the top-left — a blue rotation
     arrow on the angle stop and two blue stub arrows pointing inward at
@@ -346,15 +366,17 @@ def _arrows_tee_into_water(x, y, w, draw_h):
         _stub_arrow(tee_x - 15, tee_y, +1, 0, color="blue")
         + _stub_arrow(tee_x + 15, tee_y, -1, 0, color="blue")
     )
-    # Enclosure back view at the same scale as the other steps — a box
-    # the height of a captioned step's image band — seated in this cell's
-    # bottom-right corner (the cell has no caption band to clear).
-    box_h = draw_h - CAPTION_BAND_MM
-    box_y = y + (draw_h - box_h)
-    back = _embed_svg(x, box_y, w, box_h, ENCLOSURE_BACK, align="xMaxYMax")
+    # Enclosure back view at the same scale as the captioned steps (their
+    # image band fits the canvas height into draw_h - CAPTION_BAND_MM),
+    # with its line-art anchored by its own bottom-right corner into the
+    # cell's bottom-right padding corner.
+    canvas_w, canvas_h = _canvas_dims(ENCLOSURE_BACK)
+    scale = min(w / canvas_w, (draw_h - CAPTION_BAND_MM) / canvas_h)
+    back, (px, py) = _embed_anchored(
+        ENCLOSURE_BACK, scale, x + w, y + draw_h, color_fill=WATER_DISC_FILL,
+    )
     # Blue arrow pointing at the water inlet on the back view; the tip
     # stops a short gap short of the port.
-    px, py = _embedded_fill_point(ENCLOSURE_BACK, WATER_DISC_FILL, x, box_y, w, box_h, align="xMaxYMax")
     rise = (0.18 * w, 0.12 * draw_h)
     span = math.hypot(*rise)
     ux, uy = rise[0] / span, rise[1] / span
