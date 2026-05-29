@@ -528,6 +528,14 @@ Derek ran Bambu's Flow Dynamics Calibration for the Polymaker filament on the **
 
 **The test this slice represents:** if the strands clear on this print *with the 0.013 K confirmed-applied*, the full chain is confirmed — moisture ruled out → not the nozzle → filament-specific pressure dynamics → calibrated. If the strands persist *with K confirmed-applied*, pressure advance is killed as the cause and the investigation returns to CF agglomeration (#2 above) — do NOT chase K lower; that would be fitting a tidy story to noise. The result is only interpretable if the 0.013 K was actually applied — so the send-dialog confirmation above is the precondition for the test meaning anything.
 
+### End of attempt 18 — verdict (2026-05-27)
+
+**Strands: much improved, not eliminated.** Derek: *"They do look better. I still see some, but far less noticeable, and perhaps at a tolerable rate here for our purposes."* So the strand problem is now likely at an acceptable level, not fully solved.
+
+**Attribution remains confounded** (as flagged above): attempt 18 moved two variables vs the last clean comparison — TC → Diamond PCD nozzle AND flow-dynamics K 0.02 → 0.013. The improvement can't be cleanly assigned to either. Both plausibly helped (diamond tip = less CF-related disruption; correct K = less seam-start starvation), and the partial-not-total improvement is consistent with either or both. Not worth a dedicated isolation run unless the strands later regress past tolerance — the goal was a printable part, and we're plausibly there.
+
+**New finding — surface gloss (Polymaker vs Bambu).** Derek: the Polymaker PET-CF prints noticeably **glossier** than the **matte** of Bambu PET-CF. This is a filament-formulation property, not settings-tunable — nozzle temp is a weak lever (gloss rises with temp; dropping from 280 toward 270 might take a hair off) but cannot reach Bambu's matte. Since the touch-flo-shell is the visible above-counter faucet exterior, finish is a real application requirement that the "same material class" framing in `MATERIAL.md` (mechanical-envelope-only) didn't capture. Logged as an open Bambu-vs-Polymaker tradeoff in `MATERIAL.md`; decision deferred. Does not affect mechanical fitness — purely cosmetic.
+
 ## Hardware / setup observations across all PET-CF attempts
 
 Derek said:
