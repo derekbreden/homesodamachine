@@ -46,6 +46,19 @@ sys.path.insert(
 from _cadq_export import export_pdf
 
 
+# Enclosure iso line-art sources.
+_LINEART = (
+    _here.parent.parent
+    / "printed-parts" / "enclosure" / "drawings" / "line-art"
+)
+ENCLOSURE_FRONT = _LINEART / "enclosure-iso-front.svg"
+ENCLOSURE_BACK = _LINEART / "enclosure-iso-back.svg"
+
+# Blue water-disc fill emitted by the iso renderer; used to locate the
+# water inlet inside an embedded back view.
+WATER_DISC_FILL = "rgb(31, 111, 235)"
+
+
 # Page — 11×17 landscape, in mm
 PAGE_W_MM = 431.8   # 17 in
 PAGE_H_MM = 279.4   # 11 in
@@ -265,8 +278,8 @@ def cell(x, y, w, h, caption, embed_path=None, arrows_fn=None,
         )
     body = _embed_svg(ix, iy, iw, img_h, embed_path) if embed_path else ""
     arrows = arrows_fn(ix, iy, iw, img_h) if arrows_fn else ""
-    caption = _caption_text(ix, iy + img_h, iw, cap_h, caption)
-    return "\n".join(part for part in (panel, num, body, arrows, caption) if part)
+    caption_svg = _caption_text(ix, iy + img_h, iw, cap_h, caption) if caption else ""
+    return "\n".join(part for part in (panel, num, body, arrows, caption_svg) if part)
 
 
 # ── Per-cell arrow specs ────────────────────────────────────────────
@@ -288,23 +301,53 @@ def _arrows_connect_co2(x, y, w, draw_h):
     )
 
 
+def _embedded_fill_point(svg_path, color_fill, x, y, w, h):
+    """Page-mm location of the centroid of the path filled `color_fill`
+    in `svg_path`, after that SVG is scale-fit (xMidYMid meet) into the
+    rect (x, y, w, h). Used to aim an arrow at a marking inside an
+    embedded drawing."""
+    text = Path(svg_path).read_text()
+    vb_w = float(re.search(r'<svg[^>]*\bwidth="([0-9.]+)', text).group(1))
+    vb_h = float(re.search(r'<svg[^>]*\bheight="([0-9.]+)', text).group(1))
+    d = re.search(
+        re.escape(f'fill="{color_fill}"') + r'[^>]*\bd="([^"]+)"', text
+    ).group(1)
+    pts = re.findall(r'(-?\d+\.?\d*),(-?\d+\.?\d*)', d)
+    cx = sum(float(a) for a, _ in pts) / len(pts)
+    cy = sum(float(b) for _, b in pts) / len(pts)
+    s = min(w / vb_w, h / vb_h)
+    ox = x + (w - vb_w * s) / 2
+    oy = y + (h - vb_h * s) / 2
+    return ox + cx * s, oy + cy * s
+
+
 def _arrows_tee_into_water(x, y, w, draw_h):
-    """Drawing 2: blue rotation arrow on the angle stop + two blue stub
-    arrows pointing inward at the tee's outlets + blue straight arrow
-    at the appliance water inlet, laid out in a horizontal strip across
-    the lower half of the image band."""
-    y_strip = y + 0.65 * draw_h
-    target_x = x + 0.48 * w
-    return (
-        _rotation_arrow(x + 0.14 * w, y_strip, 5, 30, 240, color="blue")
-        + _stub_arrow(target_x - 15, y_strip, +1, 0, color="blue")
-        + _stub_arrow(target_x + 15, y_strip, -1, 0, color="blue")
-        + _straight_arrow(
-            x + 0.74 * w, y_strip,
-            x + 0.92 * w, y_strip,
-            color="blue",
-        )
+    """Drawing 2: tee/valve arrows in the top-left — a blue rotation
+    arrow on the angle stop and two blue stub arrows pointing inward at
+    the tee's outlets — with the enclosure back view in the lower-right
+    and a blue arrow pointing at its water inlet."""
+    # Tee / valve arrows, top-left.
+    rotation = _rotation_arrow(x + 0.13 * w, y + 0.20 * draw_h, 5, 30, 240, color="blue")
+    tee_x, tee_y = x + 0.34 * w, y + 0.22 * draw_h
+    stubs = (
+        _stub_arrow(tee_x - 15, tee_y, +1, 0, color="blue")
+        + _stub_arrow(tee_x + 15, tee_y, -1, 0, color="blue")
     )
+    # Enclosure back view, lower-right.
+    sub_w, sub_h = 0.60 * w, 0.66 * draw_h
+    sub_x, sub_y = x + w - sub_w, y + draw_h - sub_h
+    back = _embed_svg(sub_x, sub_y, sub_w, sub_h, ENCLOSURE_BACK)
+    # Blue arrow pointing at the water inlet on the back view; the tip
+    # stops a short gap short of the port.
+    px, py = _embedded_fill_point(ENCLOSURE_BACK, WATER_DISC_FILL, sub_x, sub_y, sub_w, sub_h)
+    rise = (0.18 * w, 0.12 * draw_h)
+    span = math.hypot(*rise)
+    ux, uy = rise[0] / span, rise[1] / span
+    gap = 3.0
+    inlet_arrow = _straight_arrow(
+        px - rise[0], py - rise[1], px - ux * gap, py - uy * gap, color="blue",
+    )
+    return back + rotation + stubs + inlet_arrow
 
 
 def _arrows_open_valves(x, y, w, draw_h):
@@ -333,11 +376,11 @@ def main():
     svg_path = out_dir / "appliance.svg"
     pdf_path = out_dir / "appliance.pdf"
 
-    # Line-art sources. Drawings 1 and 4 embed the enclosure iso views;
-    # drawings 2 and 3 have no line-art yet — their image bands carry
-    # only stand-in arrows.
-    enclosure_front = repo_root / "hardware" / "printed-parts" / "enclosure" / "drawings" / "line-art" / "enclosure-iso-front.svg"
-    enclosure_back = repo_root / "hardware" / "printed-parts" / "enclosure" / "drawings" / "line-art" / "enclosure-iso-back.svg"
+    # Line-art sources. Drawings 1 and 4 embed the enclosure iso views
+    # full-cell; drawing 2 embeds the back view in its lower-right corner
+    # (see _arrows_tee_into_water); drawing 3 has no line-art yet.
+    enclosure_front = ENCLOSURE_FRONT
+    enclosure_back = ENCLOSURE_BACK
 
     # The four drawings, sourced from
     # marketing/unboxing-and-quickstart.md.
@@ -348,7 +391,7 @@ def main():
             "arrows": _arrows_connect_co2,
         },
         {
-            "caption": "Tee into the water. Run the tube to the device.",
+            "caption": None,
             "embed": None,
             "arrows": _arrows_tee_into_water,
             "background": True,
