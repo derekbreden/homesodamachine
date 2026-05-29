@@ -296,6 +296,14 @@ for _mk in args["markings"]:
         f'<path clip-rule="evenodd" d="{_clip_outer} {_sil_d}"/>'
         f'</clipPath>'
     )
+    # Project the port-hole target (the coupling/tube hole out at the
+    # proud end) so a consumer can aim at the hole rather than the wall
+    # disc; stamp it on the path as data-target in SVG coordinates.
+    _data_target = ""
+    _target = _disc.get("target")
+    if _target is not None:
+        _tpx, _tpy = _project_to_svg(mathutils.Vector(_target) * MODEL_SCALE)
+        _data_target = f' data-target="{_tpx:.3f},{_tpy:.3f}"'
     # Fill AND outline come from this one path: the colored fill plus a
     # black stroke for the disc's outer edge. The clip part's own
     # Freestyle strokes draw the inner boundary where it bites into the
@@ -303,7 +311,7 @@ for _mk in args["markings"]:
     _r, _g, _b = _mk["color"]
     _all_paths.append(
         f'<path fill-rule="evenodd" fill-opacity="1.0" fill="rgb({_r}, {_g}, {_b})" '
-        f'stroke="rgb(0, 0, 0)" stroke-width="{_thickness}" '
+        f'stroke="rgb(0, 0, 0)" stroke-width="{_thickness}"{_data_target} '
         f'clip-path="url(#{_clip_id})" d="{_disc_d}" />'
     )
 

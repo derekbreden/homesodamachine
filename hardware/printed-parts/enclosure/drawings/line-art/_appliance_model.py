@@ -414,22 +414,31 @@ WATER_DISC_COLOR = [31, 111, 235]   # blue, matching the quickstart water arrows
 
 
 def red_disc_render_params() -> dict:
-    """CO2 disc center / axis / radius for the Blender renderer."""
+    """CO2 disc center / axis / radius for the Blender renderer, plus the
+    port-hole `target` — the coupling-mouth center out at the proud end
+    of the coupler — for aiming an arrow at the hole rather than the wall
+    disc."""
     world_y, world_z = CO2_PORT_WALL_AT
+    proud = co2_coupling_body.hex_length + co2_coupling_body.body_length
     return {
         "center": [W + 0.05, world_y, world_z],
         "axis": [1.0, 0.0, 0.0],
         "radius": CO2_PORT_DISC_R,
+        "target": [W + proud, world_y, world_z],
     }
 
 
 def blue_disc_render_params() -> dict:
-    """Water disc center / axis / radius for the Blender renderer."""
+    """Water disc center / axis / radius for the Blender renderer, plus
+    the port-hole `target` — the tube-port center out at the proud end of
+    the fitting — for aiming an arrow at the hole rather than the wall
+    disc."""
     world_x, world_z = WATER_PORT_WALL_AT
     return {
         "center": [world_x, D + 0.05, world_z],
         "axis": [0.0, 1.0, 0.0],
         "radius": WATER_PORT_DISC_R,
+        "target": [world_x, D + jg_bulkhead_union.PROUD_LENGTH, world_z],
     }
 
 

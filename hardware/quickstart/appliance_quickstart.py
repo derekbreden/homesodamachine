@@ -74,6 +74,7 @@ CAPTION_BAND_MM = 12.7   # 0.5 in
 STEP_RADIUS_MM = 6.35    # 0.25 in
 STEP_NUMBER_SIZE_MM = 40  # very large step numerals
 HAIRLINE_MM = 0.4         # thin #000 stroke: step borders + number outlines
+PORT_ARROW_GAP_MM = 5.2   # arrow-tip standoff from a port hole (matches step 1's CO2 arrow)
 
 # Color system
 COLOR_WATER = "#1f6feb"        # blue — incoming tap water
@@ -257,7 +258,8 @@ def _embed_anchored(source_path, scale, right, bottom, color_fill=None):
     bbox's bottom-right corner placed at page-mm (right, bottom) — so the
     drawing seats against a corner by its actual content, ignoring the
     canvas margin around it. Returns (svg_fragment, point) where point is
-    the page-mm centroid of the `color_fill` path, or None."""
+    the page-mm location of the `color_fill` path's data-target (the
+    projected port hole; falls back to its centroid), or None."""
     text = Path(source_path).read_text()
     _, inner = _read_svg_for_embed(source_path)
     _, _, max_x, max_y = _ink_bbox(text)
@@ -269,12 +271,17 @@ def _embed_anchored(source_path, scale, right, bottom, color_fill=None):
     )
     point = None
     if color_fill:
-        d = re.search(
-            re.escape(f'fill="{color_fill}"') + r'[^>]*\bd="([^"]+)"', text
-        ).group(1)
-        pts = re.findall(r'(-?\d+\.?\d*)\s*,\s*(-?\d+\.?\d*)', d)
-        cx = sum(float(a) for a, _ in pts) / len(pts)
-        cy = sum(float(b) for _, b in pts) / len(pts)
+        tag = re.search(
+            r'<path\b[^>]*\bfill="' + re.escape(color_fill) + r'"[^>]*>', text
+        ).group(0)
+        dt = re.search(r'data-target="(-?[0-9.]+)\s*,\s*(-?[0-9.]+)"', tag)
+        if dt:
+            cx, cy = float(dt.group(1)), float(dt.group(2))
+        else:
+            d = re.search(r'\bd="([^"]+)"', tag).group(1)
+            pts = re.findall(r'(-?\d+\.?\d*)\s*,\s*(-?\d+\.?\d*)', d)
+            cx = sum(float(a) for a, _ in pts) / len(pts)
+            cy = sum(float(b) for _, b in pts) / len(pts)
         point = (tx + cx * scale, ty + cy * scale)
     return fragment, point
 
@@ -366,9 +373,10 @@ def _arrows_tee_into_water(x, y, w, draw_h):
     rotation = _rotation_arrow(left_cx, y + 0.25 * draw_h, 5, 30, 240, color="blue")
     # Inward stub arrows — bottom half of the left side.
     stub_y = y + 0.75 * draw_h
+    stub_len = 12.0
     stubs = (
-        _stub_arrow(left_cx - 15, stub_y, +1, 0, color="blue")
-        + _stub_arrow(left_cx + 15, stub_y, -1, 0, color="blue")
+        _stub_arrow(left_cx - 15, stub_y, +1, 0, color="blue", length=stub_len)
+        + _stub_arrow(left_cx + 15, stub_y, -1, 0, color="blue", length=stub_len)
     )
     # Enclosure back view at the same scale as the captioned steps (their
     # image band fits the canvas height into draw_h - CAPTION_BAND_MM),
@@ -379,14 +387,16 @@ def _arrows_tee_into_water(x, y, w, draw_h):
     back, (px, py) = _embed_anchored(
         ENCLOSURE_BACK, scale, x + w, y + draw_h, color_fill=WATER_DISC_FILL,
     )
-    # Blue arrow pointing at the water inlet on the back view; the tip
-    # stops a short gap short of the port.
-    rise = (0.18 * w, 0.12 * draw_h)
-    span = math.hypot(*rise)
-    ux, uy = rise[0] / span, rise[1] / span
-    gap = 3.0
+    # Blue arrow from the back (right end) of the right inward arrow to
+    # the water inlet's port hole, stopping the same gap short of the
+    # hole as the CO2 arrow in step 1.
+    tail_x, tail_y = left_cx + 15 + stub_len, stub_y
+    span = math.hypot(px - tail_x, py - tail_y)
+    ux, uy = (px - tail_x) / span, (py - tail_y) / span
     inlet_arrow = _straight_arrow(
-        px - rise[0], py - rise[1], px - ux * gap, py - uy * gap, color="blue",
+        tail_x, tail_y,
+        px - ux * PORT_ARROW_GAP_MM, py - uy * PORT_ARROW_GAP_MM,
+        color="blue",
     )
     return back + rotation + stubs + inlet_arrow
 
