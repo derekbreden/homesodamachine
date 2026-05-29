@@ -14,7 +14,7 @@ Everything else fits into the voids those three create.
 
 - **Zone A (back-bottom):** Foam shell, occupies the volume entirely. ~[283](FOAM_SHELL_X) × [181](FOAM_SHELL_Y) × [213.4](FOAM_SHELL_Z) mm. Penetrations on the +Y front wall and the +Z top only — back, sides, and bottom are clean. Geometry source: [`../cold-core/foam-shell/README.md`](../cold-core/foam-shell/README.md).
 - **Zone B (back-top):** Electronics shelf + back-panel terminations + GFCI module. The shelf is a flat 2D panel; the zone has significant spare volume even at modest height. The CO2 line traverses through here on its way from the front face to the foam-shell's +Z top entry. Shelf detail: [`../../assembly/electronics-shelf.md`](../../assembly/electronics-shelf.md). Back panel: [`back-panel/README.md`](back-panel/README.md).
-- **Zone C (front-top):** Hopper on one side and pump cartridge on the other. Both accessed from the top — hopper through its lifted lid, pump cartridge through a separate door. Left/right assignment between them is not yet committed.
+- **Zone C (front-top):** The flavor funnel over the pump cartridge under a single centered top door — the removable silicone funnel seats on top, the pump cartridge sits beneath it. Detail: [`../zone-c/README.md`](../zone-c/README.md).
 - **Zone D (front-bottom):** Compressor + condenser + fan + water-inlet plumbing subsystem. Compressor sits on the floor in its sheet-metal shroud in front of the foam shell. Condenser along one ±X side wall with the fan axis crossing side-to-side. The Multiplex backflow preventer + drip pan + moisture sensor + SeaFlo pump live here as a co-located plumbing cluster. Compressor shroud: [`../../cut-parts/compressor-shroud/README.md`](../../cut-parts/compressor-shroud/README.md).
 
 ## What is firm
@@ -26,14 +26,13 @@ Everything else fits into the voids those three create.
 - Compressor shroud around the compressor's terminal block + PTC relay/overload (UL 60335-2-89, ~130 × 130 × 100 mm working envelope, only metal part in the enclosure).
 - Electronics shelf in Zone B above the foam shell.
 - GFCI module on the electronics shelf.
-- Hopper and pump cartridge co-located in Zone C, both top-accessed (hopper via its lifted lid, pump cartridge via a separate door).
+- Flavor funnel over the pump cartridge in Zone C, under a single centered top door — funnel removable for cleaning, pump cartridge reached beneath it.
 - Multiplex backflow preventer + drip pan + moisture sensor as a co-located plumbing cluster on the water-inlet path, with the drip pan sitting directly under the Multiplex's atmospheric vent.
 
 ## What is flexible
 
 - SeaFlo diaphragm pump — anywhere internal.
 - Valve manifold (12 Beduan solenoids) — anywhere internal.
-- Hopper-vs-pumps left/right assignment within Zone C.
 - WR1110 secondary regulator placement — has to be along the front → foam-shell top CO2 path, but the bracket location along that path is open.
 - PRV vent termination location — somewhere warm-side where a relief event won't soak anything important.
 - Service-access volumes for the BPV31 piercing valve and the reservoir-cap path — required negative space rather than objects, but they constrain whatever placements we choose.
@@ -44,7 +43,7 @@ Everything else fits into the voids those three create.
 - Front-dispense spout (the drill-trigger moment).
 - CO2 inlet — possibly migrated to the furthest-forward edge of a side face. Disconnection-under-pressure cable-whip and asphyxiation risk make this the most physically dangerous connection.
 
-The GFCI module sits on the electronics shelf. The pump cartridge location is not yet committed.
+The GFCI module sits on the electronics shelf.
 
 ## Sub-folders
 
