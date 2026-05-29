@@ -23,8 +23,9 @@ mounting plate.
 
 CHANNEL DIRECTION
 =================
-Both channels extend in −Y from their cylinder pockets to the rim:
-- Shank channel: from the shank's bottom semicircle (Y < 0)
+Both channels extend in −Y of the DXF frame from their cylinder
+pockets to the rim (= +Y in world, toward the back of the appliance):
+- Shank channel: from the shank's bottom semicircle (DXF Y < 0)
   downward to the rim, matching the shank diameter in X.
 - Pill channel: from the pill's bottom rectangle edge downward to
   the rim, matching the pill's short axis in X.
@@ -109,7 +110,7 @@ shank_radius = shank_diameter / 2.0
 # axis along X. Geometry imported from _touch_flo_interface.
 # DXF axes are the plate's own laser-cut frame: this DXF X is the
 # depth-magnitude offset from the shank in world coords (the pill sits
-# at world -Y relative to the body axis); this DXF Y is the lateral
+# at world +Y relative to the body axis); this DXF Y is the lateral
 # (world X) axis. Channels open in DXF -Y (lateral).
 # [18.93 mm](FLAVOR_TUBE_X) DXF +X offset of pill center from the shank
 # (= depth magnitude shared with the shell / gasket / mounting plate).

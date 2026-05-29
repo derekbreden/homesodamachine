@@ -10,8 +10,10 @@ ready for SVG export.
 
 Coordinate frame — +Z-up:
     +Z is the vertical axis through the valve body (height).
-    +Y is the gooseneck dispense direction (toward the user, so the
-        natural-iso camera at +x, +y, +z reads as the user's view).
+    -Y is the front (the user's side) — the gooseneck dispenses toward
+        -Y and the lever points toward -Y, so the iso camera at
+        -x, -y, +z reads as the user's view. +Y is the back (water
+        port + flavor-tube pill).
     +X is the lateral axis (the two flavor tubes mirror across the YZ plane).
 """
 

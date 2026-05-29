@@ -9,6 +9,17 @@
 **Reference solid:** `valve-body-reference/valve_body_reference.py`  
 Regenerate: `tools/cad-venv/bin/python hardware/harvested/touch-flo-faucet/valve-body-reference/valve_body_reference.py`
 
+**Coordinate note (measurement frame vs. world frame):** The dimensions
+below are in the body's own **measurement frame** — the long (31.5 mm)
+axis along **X**, the water port toward **+X**, the lever side toward
+**−X**, the short (17 mm) axis along **Y**. The exported reference solid
+is **seated into the repo world frame** by a +90° turn about Z
+(`build_valve_body`): local **+X → world +Y** (back / port), local
+**−X → world −Y** (front / lever), local **Y → world X** (lateral). When
+placing the body in an assembly, reason in the world frame (−Y = front,
+the user's side); the per-face caliper numbers here stay in the
+measurement frame.
+
 ---
 
 ## 1. Per-Photo Inventory

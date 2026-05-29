@@ -5,28 +5,40 @@ designing the 3D-printed shell that wraps around it.
 All measurements come from `valve-body-geometry.md` (sibling file) —
 see it for per-photo measurement notes and open questions.
 
-Coordinate convention:
-  Z = up (height). Z = 0 is the bottom of the body and the countertop
-  reference plane (deck top). The threaded shank extends in -Z below
-  the body through the 1-3/8" deck hole.
+Coordinate convention — delivered (repo world) frame:
+  The reference solid is DELIVERED seated in the repo's +Z-up world
+  frame, matching every other faucet part:
+    +Z = up (height). Z = 0 is the body bottom / countertop deck plane;
+         the threaded shank extends in -Z below the deck.
+    -Y = front — the user's side; the lever swings toward -Y.
+    +Y = back  — the water port sits toward +Y, behind the body axis.
+    +X = lateral; the body is symmetric across the X = 0 plane.
 
-  X = long axis  — 31.50 mm (cylinder diameter = rectangle long dim)
-  Y = short axis — 17.00 mm (rectangle thin dim)
-  +X = rear      — water port side (away from the user)
-  -X = front     — lever side (toward the user)
+  Measurement frame (used by the construction below and the sibling
+  valve-body-geometry.md notes): the Westbrass body was measured in its
+  own frame — the long (31.50 mm) axis along local X, the port toward
+  +localX, the lever side toward -localX, the short (17 mm) axis along
+  local Y. build_valve_body() turns the finished solid +90 deg about Z
+  to seat it in the world frame above:
+    +localX (port / rear)  -> +worldY (back)
+    -localX (lever / front)-> -worldY (front)
+    local Y (short axis)   -> world X (lateral)
+  So the dimensions below read in the measurement frame; the exported
+  STEP is in the world frame. Reason in the world frame (-Y = front)
+  when placing the body; reach for the measurement frame only when
+  cross-checking a per-face caliper number.
 
-  Body is centered at the XY origin.
-
-Top-face features (all at z = plateau_z = 39 mm):
+Top-face features (measurement frame; z = plateau_z = 39 mm):
   - Brass actuator plunger at body center (x=0, y=0)
-  - Water port at x = +8.75 mm, offset toward +X (rear)
+  - Water port at local x = +8.75 mm (seats to world +Y, the back)
   - ~1 mm gap between port wall and plunger wall
-  - Lever attaches to the plunger and swings in the -X half
+  - Lever attaches to the plunger and swings in the -localX half
+    (seats to world -Y, the front)
 
-Shell design implication: the entire -X half of the top face plus the
-plateau strip from the water port forward to -X must remain open. The
-shell can only wrap the cylindrical base, the two Y-flanking arches,
-and the +X end behind the water port.
+Shell design implication: the entire front half of the top face (local
+-X / world -Y) plus the plateau strip from the water port forward must
+remain open for the lever. The shell can only wrap the cylindrical
+base, the two flanking arches, and the back end behind the water port.
 """
 
 import sys
@@ -281,6 +293,13 @@ def build_valve_body():
     # clip so the clip doesn't erase it.
     body = body.union(build_shank())
     body = cut_water_port_bore(body)
+
+    # Seat the harvested body into the repo world frame. Constructed in
+    # the body's measurement frame (long axis along local X, port toward
+    # +localX, lever side toward -localX); a +90 deg turn about Z sends
+    # +localX -> +worldY (back / port) and -localX -> -worldY (front /
+    # lever), matching every other faucet part. See module docstring.
+    body = body.rotate((0, 0, 0), (0, 0, 1), 90)
     return body
 
 

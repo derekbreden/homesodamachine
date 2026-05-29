@@ -52,9 +52,9 @@ from world_workplane import WorldWorkplane, xy_plane_z_up
 gasket_diameter = 54.35
 gasket_thickness = 2.0
 # Disc center is offset slightly toward the back of the appliance
-# (-Y in the repo's +Z-up frame). World (x, y) tuple — no lateral
+# (+Y in the repo's +Z-up frame). World (x, y) tuple — no lateral
 # offset, [3.175 mm](GASKET_Y) toward the back.
-gasket_center = (0.0, -3.175)
+gasket_center = (0.0, +3.175)
 
 # Top face flush with the mounting plate's bottom face; bottom face
 # sits on the countertop surface plane. +Z is height.
@@ -71,10 +71,10 @@ shank_hole_center = (0.0, 0.0)
 # [7.05 mm](FLAVOR_TUBE_HOLE_D) per-tube hole = [6.35 mm](FLAVOR_TUBE_OD) OD + 0.7 mm clearance.
 # (Was 6.85 mm at 0.5 mm clearance until 2026-05-25; promoted to match
 # the shell's print-validated attempt-15 value.)
-# [18.93 mm](FLAVOR_TUBE_Y) pill center -Y from the shank (toward the back
+# [18.93 mm](FLAVOR_TUBE_Y) pill center +Y from the shank (toward the back
 # of the appliance, opposite the gooseneck dispense side) — shared with
 # the shell.
-flavor_tube_center = (0.0, -flavor_tube_depth)
+flavor_tube_center = (0.0, +flavor_tube_depth)
 
 # Pill slot covers both 1/4" flavor tubes (centers at ±flavor_tube_x_offset
 # in world X) as one rounded-rectangle, matching the mounting plate.
@@ -129,11 +129,11 @@ def main():
     variables = {
         "GASKET_D": f"{gasket_diameter:.4g} mm",
         "GASKET_T": f"{gasket_thickness:.4g} mm",
-        "GASKET_Y": f"{-gasket_center[1]:.4g} mm",
+        "GASKET_Y": f"{gasket_center[1]:.4g} mm",
         "SHANK_HOLE_D": f"{shank_hole_diameter:.4g} mm",
         "FLAVOR_TUBE_OD": f"{flavor_tube_od:.4g} mm",
         "FLAVOR_TUBE_HOLE_D": f"{flavor_tube_hole_diameter:.4g} mm",
-        "FLAVOR_TUBE_Y": f"{-flavor_tube_center[1]:.4g} mm",
+        "FLAVOR_TUBE_Y": f"{flavor_tube_center[1]:.4g} mm",
         "PILL_L": f"{pill_length_x:.4g} mm",
         "PILL_W": f"{pill_width_y:.4g} mm",
     }
