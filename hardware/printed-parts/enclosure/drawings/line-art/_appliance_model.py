@@ -174,13 +174,13 @@ NAMEPLATE_W = 60.0
 NAMEPLATE_H = 40.0
 NAMEPLATE_THICKNESS = 1.5
 
-# Water inlet — John Guest 1/4" bulkhead union (PP1208E / PI1208S /
-# CI1208W family), modeled at canonical origin in
-# `hardware/harvested/jg-bulkhead-union/jg_bulkhead_union.py`. Mounted
-# on the back face, tube axis on world +Y, the near hex flange proud of
-# the wall. Position given in world (x, z).
+# Water inlet — 1/4" push-to-connect through-wall union (McMaster
+# 51055K3), loaded in
+# `hardware/harvested/jg-bulkhead-union/jg_bulkhead_union.py`. Mounted on
+# the back face, tube axis on world +Y, the flange seated at the wall.
+# Position given in world (x, z).
 WATER_PORT_WALL_AT = (W / 2, 140.0)
-WATER_PORT_DISC_R = 19.0
+WATER_PORT_DISC_R = 17.0
 
 
 # ---------------------------------------------------------------------------
@@ -325,25 +325,21 @@ def _add_co2_port(solid, world_y, world_z):
 
 
 def _positioned_water_fitting() -> cq.Workplane:
-    """The JG bulkhead union placed at the BACK face (y=D): tube axis on
-    world +Y, near hex flange's inner face at the wall plane — flange
-    proud in y ∈ [D, D + flange_length], release ring and tube port
-    beyond it. The threading, locknut, and far flange/ring sit at y < D,
-    embedded in the box."""
+    """The bulkhead union placed at the BACK face (y=D): tube axis on
+    world +Y, the flange's seating face at the wall plane — flange,
+    collet, and tube port proud in y ≥ D. The threading and far end sit
+    at y < D, embedded in the box."""
     world_x, world_z = WATER_PORT_WALL_AT
     part = jg_bulkhead_union.build_jg_bulkhead_union().val()
-    part = part.translate(
-        cq.Vector(world_x, D + jg_bulkhead_union.flange_length, world_z)
-    )
+    part = part.translate(cq.Vector(world_x, D, world_z))
     return cq.Workplane().add(part)
 
 
 def build_water_fitting() -> cq.Workplane:
     """The fitting clipped to the part in front of the wall plane (y ≥ D)
-    — the proud hex flange, release ring, and tube port. The threading,
-    locknut, and far flange/ring (y < D, embedded in the wall behind the
-    marking disc) are removed so they can't occlude the disc in the
-    projected silhouette."""
+    — the proud flange, collet, and tube port. The threading and far end
+    (y < D, embedded in the wall behind the marking disc) are removed so
+    they can't occlude the disc in the projected silhouette."""
     world_x, world_z = WATER_PORT_WALL_AT
     front_halfspace = (
         cq.Workplane().box(1000, 1000, 1000).translate((world_x, D + 500, world_z))
