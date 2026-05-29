@@ -25,6 +25,24 @@ pocket_centerward_arc_transition_y = 60.0
 # arc and the pocket's ±Y wall. Tank-side face radius.
 transition_tank_r = 8.0
 
+# Centerward-wall arc geometry, at module level so sibling parts (the
+# reservoir corner supports) can seat features against the transition corner
+# where the centerward wall meets a ±Y wall. The +Y side is described; the
+# −Y side mirrors in y.
+arc_cavity_r = pocket_centerward_arc_outer_radius
+arc_tank_r = arc_cavity_r - w
+y_inner = arc_cavity_r - w
+middle_tank_x = math.sqrt(arc_tank_r**2 - pocket_centerward_arc_transition_y**2)
+middle_cavity_x = math.sqrt(arc_cavity_r**2 - pocket_centerward_arc_transition_y**2)
+_chord_half_y = (y_inner - pocket_centerward_arc_transition_y) / 2.0
+transition_center_x = middle_tank_x + math.sqrt(transition_tank_r**2 - _chord_half_y**2)
+transition_center_y = (y_inner + pocket_centerward_arc_transition_y) / 2.0
+transition_cavity_r = math.sqrt((transition_center_x - middle_cavity_x)**2 + _chord_half_y**2)
+# Cavity-side vertex where the centerward wall meets a ±Y wall (+Y; −Y
+# mirrors). The corner the centerward supports nest into.
+centerward_corner_x = middle_cavity_x
+centerward_corner_y = y_inner
+
 
 def build_reservoir_pocket_walls():
     """Two reservoir pockets, mirrored across YZ. Built per side as an
@@ -37,30 +55,12 @@ def build_reservoir_pocket_walls():
     far_x_outer = bag_pocket_outermost_x
     far_x_inner = far_x_outer - w
     y_outer = pocket_centerward_arc_outer_radius
-    y_inner = y_outer - w
     corner_inner_r = bag_pocket_corner_inner_radius
     corner_outer_r = corner_inner_r + w
-
-    # Centerward wall: cavity-side face on the cylinder of radius
-    # arc_cavity_r (farther from cold-core axis), tank-side face on the
-    # concentric cylinder one wall-thickness inboard.
-    arc_cavity_r = pocket_centerward_arc_outer_radius
-    arc_tank_r = arc_cavity_r - w
     arc_y = pocket_centerward_arc_transition_y
 
-    middle_tank_x = math.sqrt(arc_tank_r**2 - arc_y**2)
-    middle_cavity_x = math.sqrt(arc_cavity_r**2 - arc_y**2)
-
-    # Transition arc: center between the two endpoint circles, on the
-    # bisector of the chord between middle-arc handoff and ±Y wall.
-    # Cavity-side face is the concentric circle through the cavity-side
-    # handoff; tank-side face uses the module-level transition_tank_r.
-    chord_half_y = (y_inner - arc_y) / 2.0
-    transition_center_y = (y_inner + arc_y) / 2.0
-    transition_center_x = middle_tank_x + math.sqrt(transition_tank_r**2 - chord_half_y**2)
-    transition_cavity_r = math.sqrt(
-        (transition_center_x - middle_cavity_x)**2 + chord_half_y**2
-    )
+    # Centerward-wall arc geometry (arc_cavity_r, arc_tank_r, middle_*_x,
+    # transition_center_*, transition_cavity_r, y_inner) is module-level.
     transition_tank_terminus_x = transition_center_x - math.sqrt(
         transition_tank_r**2 - (y_outer - transition_center_y)**2
     )
