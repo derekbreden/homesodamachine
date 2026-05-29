@@ -1,10 +1,12 @@
 // Settings-page boot script loaded via <script src="/settings.js" defer>
-// from lib/settings.js. Two rows:
+// from lib/settings.js. Three rows:
 //   1. Dev mode — instant localStorage flip + html.dev-mode class so the
 //      public nav's Prints / Diagrams links appear/disappear right away.
 //   2. Notifications — PWA-only. Lazy-imports Firebase Messaging,
 //      registers the SW, requests permission, and POSTs files=["*"] for
 //      a global subscription. Off DELETEs the subscription.
+//   3. Live-reload debug — dev-mode-only. Flips boot.js's on-screen panel
+//      via window.__hsmLiveDebug (localStorage hsmLiveDebug).
 
 (function () {
   // --- Dev mode (always shown) ---
@@ -24,6 +26,38 @@
     document.documentElement.classList.toggle("dev-mode", next);
     try { localStorage.setItem("devMode", next ? "1" : "0"); } catch {}
     syncDevToggle();
+    syncLiveDebugRow();
+  });
+
+  // --- Live-reload debug (dev-mode only) ---
+  // Toggles boot.js's on-screen panel (socket health, build commit, deploy
+  // events). Hidden unless dev mode is on, since it's a developer
+  // diagnostic. window.__hsmLiveDebug.set flips the panel without a reload;
+  // the localStorage fallback covers the panel appearing on next load if
+  // boot.js hasn't run yet.
+  const liveDebugRow = document.getElementById("row-livedebug");
+  const liveDebugToggle = document.getElementById("livedebug-toggle");
+  function liveDebugIsOn() {
+    try { return !!localStorage.getItem("hsmLiveDebug"); } catch (e) { return false; }
+  }
+  function syncLiveDebugRow() {
+    liveDebugRow.hidden = !document.documentElement.classList.contains("dev-mode");
+    const on = liveDebugIsOn();
+    liveDebugToggle.classList.toggle("on", on);
+    liveDebugToggle.setAttribute("aria-checked", on ? "true" : "false");
+  }
+  syncLiveDebugRow();
+  liveDebugToggle.addEventListener("click", () => {
+    const next = !liveDebugIsOn();
+    if (window.__hsmLiveDebug) {
+      window.__hsmLiveDebug.set(next);
+    } else {
+      try {
+        if (next) localStorage.setItem("hsmLiveDebug", "1");
+        else localStorage.removeItem("hsmLiveDebug");
+      } catch (e) {}
+    }
+    syncLiveDebugRow();
   });
 
   // --- Notifications (PWA-only) ---
