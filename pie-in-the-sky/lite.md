@@ -4,7 +4,7 @@
 
 *BOM figures in this doc are first-pass estimates intended to size the idea, not specifications.*
 
-A small companion appliance that pairs with a Lillium-class under-sink carbonator (Lillium, Brio, or equivalent) to add flavor injection through a real faucet. The Lite Edition does not refrigerate. It does not carbonate. It does not store water. It is a flavor-injection module — two reservoirs, two peristaltic pumps, a manifold, a faucet, the dispense controls, and a small enclosure to wrap them — and the paired carbonator is the source of cold carbonated water.
+A small companion appliance that pairs with a Lillium-class under-sink carbonator (Lillium, Brio, or equivalent) to add flavor injection through a real faucet. The Lite Edition does not refrigerate. It does not carbonate. It does not store water. It is a flavor-injection module — two collapsible flavor bags, two peristaltic pumps, a manifold, a faucet, the dispense controls, and a small enclosure to wrap them — and the paired carbonator is the source of cold carbonated water.
 
 ## What the customer buys
 
@@ -17,22 +17,23 @@ Bundle total: ~$2,500. Lite alone: ~$1,500. The bundle is the easier path for a 
 
 ## What the Lite Edition is
 
-A consumer-grade enclosure wrapping the flavor-injection half of the main appliance, with no refrigeration subsystem and no carbonation subsystem. Specifically:
+A transparent consumer-grade enclosure wrapping the flavor-injection half of the main appliance, with no refrigeration subsystem and no carbonation subsystem. Specifically:
 
-- **Two flavor reservoirs**, 1 L each. Same printed hard reservoir architecture as the main appliance, vented through PTFE membrane caps. Filled through a top hopper. **Not refrigerated.** Reservoirs sit at room temperature.
-- **Two peristaltic pumps** (Kamoer KPHM400), valve-locked between dispenses so each flavor primes once at install and stays primed for instant injection thereafter.
-- **A valve manifold** with the same source-selection / output-routing pattern as the main appliance. Hopper input, reservoir output to faucet, clean-cycle paths.
+- **Two collapsible flavor bags** (Platypus-class, food-grade), ~1 L each, spout-down in a cradle. Liquid funnels to the low port; the bag collapses as it empties, visible through the transparent enclosure. The bag-in-box pattern. Filled through a top hopper routed to the bag's port through the manifold. A swappable consumable. **Not refrigerated** — bags sit at room temperature.
+- **Two peristaltic pumps** (Kamoer KPHM400), valve-locked between dispenses so each flavor holds prime between pours for instant injection.
+- **A valve manifold** with the same source-selection / output-routing pattern as the main appliance. Hopper input, bag output to faucet, clean-cycle paths.
 - **A faucet** — Westbrass Touch-Flo or equivalent through-counter dispense — with the carbonated water line entering its inlet from the customer's Lillium output, and the two flavor lines injecting at the nozzle alongside the carbonated water.
 - **A flavor-select air switch** (KRAUS or equivalent), through-counter.
 - **An RP2040 round display** through-counter, showing the active flavor's logo.
 - **Electronics shelf** — ESP32, MCP23017 expander, ULN2803A drivers, motor driver, 12 V supply. Same parts family as the main appliance.
-- **A small enclosure** sized for under-sink placement. No refrigeration loop means no compressor, no condenser, no fan, no foam shell, no hydrocarbon-refrigerant shroud — the cabinet is meaningfully smaller than the main appliance's.
+- **A transparent PETG enclosure** sized for under-sink placement. No refrigeration loop means no compressor, no condenser, no fan, no foam shell, no hydrocarbon-refrigerant shroud — the cabinet is meaningfully smaller than the main appliance's.
 
 ## What the Lite Edition does not contain
 
 - No carbonator. No pressure vessel. No 90 PSI service. No hydro-test. No sparge stone. No level reeds. No PRV. No WR1110 regulator. No ASSE 1022 backflow preventer in the carbonator path — the customer's Lillium handles its own inlet protection.
 - No refrigeration loop. No harvested ice-maker compressor. No condenser, no fan, no cap-tube, no drier. No R-600a. No UL 60335-2-89 fire-enclosure shroud. No flame-symbol marking. No SNAP-approved end-use considerations.
 - No diaphragm pump. No water-side check valves. No backflow telltale moisture sensor.
+- No reed level sensing on the flavor bags. No PTFE vent membrane. No reservoir caps, gaskets, retaining rings, or bulkhead seals.
 - No insulated dispense path. No cold core. No foam-pour assembly.
 
 Roughly half of `hardware/future.md` simply does not apply.
@@ -60,30 +61,47 @@ The qualitative experience differs in three ways the customer will notice:
 
 For a customer who wants faucet soda and does not have an option to install the main appliance, this is a genuine version of the experience.
 
+## Setup, priming, and refill
+
+No level sensors, no automated prime — the customer runs it by eye. Factory setup procedure:
+
+1. Hold PRIME until the bags appear flat and no air pulses at the faucet.
+2. Pour one bottle of concentrate into the hopper. The bag fills.
+3. Pour a second bottle. The bag fills again.
+4. Pour no more.
+5. Hold PRIME until flavoring dispenses at the faucet.
+6. Done.
+
+Refill repeats steps 2–5, the bag topped up before it runs dry. A fully emptied bag repeats step 1 before it pours again.
+
+Clean cycle: water from the Lillium routes through the flavor lines via the manifold and out the faucet, user-monitored start to finish.
+
 ## BOM sketch
 
 | Section | Rough $ |
 |---|---:|
 | Controllers + electronics | $110 |
-| Flavor subsystem (2 reservoirs, 2 Kamoer pumps, manifold solenoids, hopper, fittings) | $260 |
+| Flavor subsystem (2 collapsible bags, 2 Kamoer pumps, manifold solenoids, hopper, fittings) | $260 |
 | Faucet + under-counter plate | $40 |
 | User interface (air switch + display + buzzer) | $80 |
 | Wiring + fasteners | $25 |
-| Printed mechanical parts (smaller enclosure, hopper, pump cartridge) | $50 |
-| Mechanical attach hardware + reservoir caps + membranes | $10 |
+| Printed mechanical parts (transparent enclosure, hopper, bag cradles, pump cartridge) | $50 |
+| Mechanical attach hardware + bag port fittings | $10 |
 | **Total** | **~$575** |
 
 At a Founder Edition target around $1,500 the margin structure mirrors the main appliance's at lower absolute numbers. The bundled Lillium passes through at near-zero margin to us — we're not in the business of making money on someone else's appliance, we're in the business of removing a sourcing step for the customer.
 
 ## What it would take to ship the Lite Edition
 
-The Lite Edition is approximately the prototype that already exists on the founder's counter, with a consumer-grade printed cabinet around it and a tightened-up firmware build. The hard subsystems of the main appliance (carbonator vessel fabrication, hydro-test, refrigerant-loop teardown and recharge, foam-pour cold-core assembly, hydrocarbon-refrigerant safety architecture) are absent. The remaining work is enclosure design, the faucet-inlet stub that accepts a Lillium output line, install documentation that explains the Lillium pairing, and ten units' worth of assembly time.
+The Lite Edition is approximately the prototype that already exists on the founder's counter, with a transparent printed cabinet around it and a tightened-up firmware build. The hard subsystems of the main appliance (carbonator vessel fabrication, hydro-test, refrigerant-loop teardown and recharge, foam-pour cold-core assembly, hydrocarbon-refrigerant safety architecture) are absent. The remaining work: the transparent enclosure, the faucet-inlet stub that accepts a Lillium output line, the bag cradle and bag-port fitting, install documentation for the Lillium pairing and the priming procedure, and per-unit assembly.
 
 ## Minimum set of printed parts
 
-A walk through [`hardware/printed-parts/`](/hardware/printed-parts/) filtered for what the Lite Edition needs — what the existing prototype already uses, plus what would be added for the consumer-grade cabinet. The cold-core stack (foam shells, foam caps, copper plugs, coil mandrel, PRV shroud) is absent because the Lite Edition has no carbonator and no refrigeration.
+A walk through [`hardware/printed-parts/`](/hardware/printed-parts/) filtered for what the Lite Edition needs — what the existing prototype already uses, plus what would be added for the transparent cabinet. The cold-core stack (foam shells, foam caps, copper plugs, coil mandrel, PRV shroud) is absent because the Lite Edition has no carbonator and no refrigeration.
 
 For the prototype's last-known state before its narrative doc was retired, see git tags `prototype-doc-last-known` and `prototype-bom-last-known`.
+
+Reservoirs are off-the-shelf collapsible bags, not printed (see "What the Lite Edition is"). The Kitchen Edition's printed reservoir stack — `reservoir-*.step`, the PTFE-membrane caps in [`vent.md`](/hardware/printed-parts/cold-core/reservoir/vent.md), the reed column in [`level-sensing.md`](/hardware/printed-parts/cold-core/reservoir/level-sensing.md) — is not part of the Lite. The only printed part on the bag side is the cradle, under "Not designed" below.
 
 ### Existing iteration in flight
 
@@ -93,14 +111,6 @@ For the prototype's last-known state before its narrative doc was retired, see g
 - [`touch-flo-mounting-plate/`](/hardware/printed-parts/faucet/touch-flo-mounting-plate/) — paired with shell on the current 3-piece plate.
 - [`touch-flo-mounting-gasket/`](/hardware/printed-parts/faucet/touch-flo-mounting-gasket/) — TPU gasket between mounting plate and countertop.
 - [`touch-flo-tpu-o-ring/`](/hardware/printed-parts/faucet/touch-flo-tpu-o-ring/) — TPU o-ring at the body-to-shell interface.
-
-**Reservoir stack** — [`hardware/printed-parts/cold-core/reservoir/`](/hardware/printed-parts/cold-core/reservoir/) (directory lives under cold-core for historical reasons; the reservoir parts themselves don't depend on the rest of the cold core)
-
-- `reservoir-left.step` + `reservoir-right.step` — bodies. SunTop food-contact-compliant PETG, 0.8 mm high-flow nozzle. First print at this material + geometry combination ran 2026-05-22 per [`print-log.md`](/hardware/printed-parts/cold-core/reservoir/print-log.md).
-- `reservoir-cap-left.step` + `reservoir-cap-right.step` — caps with PTFE membrane vent pockets per [`vent.md`](/hardware/printed-parts/cold-core/reservoir/vent.md).
-- `reservoir-gasket.step` — TPU sandwich between cap and body around the M3 × 12 screw circle.
-- `reservoir-bulkhead-seal.step` — PETG seal at the bottom outlet bulkhead.
-- `reservoir-retaining-ring.step` — TPU ring holding the ø13 mm PTFE membrane filter in the cap.
 
 ### Exists, no documented iteration
 
@@ -116,14 +126,13 @@ For the prototype's last-known state before its narrative doc was retired, see g
 The existing prototype lives ad-hoc on the counter; the Lite Edition wraps it in a consumer form. Parts that don't exist yet because the prototype does without them:
 
 - **Enclosure shell.** The cold-core enclosure docs ([`back-panel/`](/hardware/printed-parts/enclosure/back-panel/), [`front-panel/`](/hardware/printed-parts/enclosure/front-panel/), [`nameplate/`](/hardware/printed-parts/enclosure/nameplate/)) are sized and oriented for the integrated appliance — side-to-side condenser airflow, rear-panel CO2 / water inlets, compressor compartment, foam-shell back wall. None of that applies. A separate, smaller enclosure design is its own pass: footprint, panel layout, faucet pass-through, hopper opening, pump-cartridge access door, electronics mount, mounting feet, rear inlet for the Lillium carbonated-water hose.
-- **Reservoir mounting outside the foam shell.** Current reservoir bodies are dimensioned to nest in foam-shell pockets. The reservoir itself (body + cap + bulkhead outlet + vent) is self-contained, but the way it's held inside the enclosure is new — either brackets integral to the enclosure shell or separate cradles.
-- **Level-sensing column mount.** Per [`level-sensing.md`](/hardware/printed-parts/cold-core/reservoir/level-sensing.md), the reed column lives in a channel cut into the foam shell — *"The foam shell carries the channel that holds the column — no separate printed reed-holder part."* Without a foam shell, the Lite Edition gets either a new printed reed-holder part attached to the reservoir or the enclosure, or ships without level sensing (the prototype on the counter may already do without).
+- **Bag cradle.** Holds each bag spout-down with the port at the low point. Undesigned: tilt/funnel geometry, how the port exits the low point, how the bag is retained as it deflates.
 - **Hopper.** Cold-core docs reference an enclosure-integrated hopper for top-fill. Lite-side, the hopper is either part of the new enclosure shell or a separate part that mounts to it.
 - **Electronics-shelf housing.** Cold-core has an electronics shelf at the top-back. Lite-side, the electronics take a smaller home — either a discrete printed part or a feature of the new enclosure shell.
 
 ### Open questions that surface from this walk
 
-- Does the prototype currently include level sensing? If yes, how is the reed column mounted today? If no, the Lite Edition's level-sensing question collapses to "does it need one at all."
+- What fitting mates to the Platypus bag's port, and does one low port serve both fill (from the hopper through the manifold) and draw (to the pump), or does the bag need a second port?
 - Is `flavor/buckle` load-bearing for the prototype, or just an idea captured in `discussion.md`?
 - Are `flavor/pump-case` + `peristaltic-tube` + `cap-sense-sleeve` the same iteration the prototype is using, or is the prototype on earlier / different versions?
 - Is `touch-flo-shell` at attempt 14/15 the version that would ship, or is more iteration expected — the scarf-seam recording-only posture suggests Derek is still tuning.
