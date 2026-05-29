@@ -7,6 +7,7 @@ from _cold_core_interface import (
     bag_pocket_outermost_x,
     reservoir_bulkhead_port_x,
     reservoir_bulkhead_port_y,
+    bulkhead_elbow_exit_z,
     port_hole_radius,
     make_box,
     build_hole_punch,
@@ -77,24 +78,22 @@ def cut_reed_channel_openings(foam_shell):
 
 
 # ±X offset of cable hole from bulkhead hole, away from the cold-core
-# centerline. Combined with the z below, leaves plenty of PETG between
-# the two ⌀6.5 holes.
+# centerline — sits outboard of the inboard-shifted flavor-line hole so
+# the two ⌀6.5 holes keep PETG between them.
 cable_hole_offset_from_bulkhead_hole_x = 8.0
-# Cable exit hole Z — low on the +Y wall near the floor. The reed cable
-# runs free through the open bag-pocket bottom to this hole.
-cable_hole_z = w + 4.0
 
 
 def cut_reed_cable_holes(foam_shell):
     """Cable holes — one per reservoir side — through both the +Y
     bag-pocket wall and the +Y outer shell wall, in +Y direction. The
-    reed cable runs through the open bag-pocket bottom to here. Sits at
-    the same y as its side's bulkhead hole."""
+    reed cable runs through the open bag-pocket bottom to here. Pinned to
+    bulkhead_elbow_exit_z (level with the elbow's lateral port and the
+    flavor-line hole), at the same y as its side's bulkhead hole."""
     for s in (+1, -1):
         hole_origin = (
             s * (reservoir_bulkhead_port_x + cable_hole_offset_from_bulkhead_hole_x),
             reservoir_bulkhead_port_y,
-            cable_hole_z,
+            bulkhead_elbow_exit_z,
         )
         foam_shell = foam_shell.cut(build_hole_punch(origin=hole_origin, hole_punch_radius=port_hole_radius))
     return foam_shell
