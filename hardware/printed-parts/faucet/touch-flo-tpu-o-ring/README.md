@@ -6,9 +6,9 @@ harvested Westbrass R2031-NL valve body's top water port. Sits *in*
 the body port. Sealing happens on **two interfaces in series**:
 
 1. **Radial seal** — outer cylindrical face of the thimble compresses
-   against the port wall (Ø [10.2 mm](OUTER_D) vs Ø [10 mm](BODY_PORT_D) = [0.1 mm](BODY_SQUEEZE)/side squeeze);
-   inner cylindrical face grips the LLDPE OD (Ø [9.45 mm](INNER_D) vs Ø [9.525 mm](LLDPE_OD) =
-   [0.0375 mm](LLDPE_INTERFERENCE)/side interference).
+   against the port wall (Ø [10.6 mm](OUTER_D) vs Ø [10 mm](BODY_PORT_D) = [0.3 mm](BODY_SQUEEZE)/side squeeze);
+   inner cylindrical face grips the LLDPE OD (Ø [8.96 mm](INNER_D) vs Ø [9.525 mm](LLDPE_OD) =
+   [0.2825 mm](LLDPE_INTERFERENCE)/side interference).
 2. **Face seal** — the LLDPE tube's square-cut bottom end face
    bottoms out on the thimble's cap and presses against it.
    Pressure-energized: water flowing up from the valve chamber pushes
@@ -36,9 +36,9 @@ the dispense head's wet path:
 
 | Dimension | Value |
 |---|---|
-| Cylinder ID | **[9.45 mm](INNER_D)** |
-| Outer Ø | **[10.2 mm](OUTER_D)** |
-| Cylinder wall | **[0.375 mm](WALL_T)** |
+| Cylinder ID | **[8.96 mm](INNER_D)** |
+| Outer Ø | **[10.6 mm](OUTER_D)** |
+| Cylinder wall | **[0.82 mm](WALL_T)** |
 | Cap hole Ø | **[6.5 mm](CAP_HOLE_D)** |
 | Cap thickness | **[1.5 mm](CAP_T)** |
 | Cylinder length | **[13.5 mm](CYL_L)** |
@@ -46,8 +46,8 @@ the dispense head's wet path:
 
 ## Print orientation
 
-Cap-down on the bed. First layer is the annular cap (Ø [10.2 mm](OUTER_D)
-solid disk with a Ø [6.5 mm](CAP_HOLE_D) hole); the [0.375 mm](WALL_T)
+Cap-down on the bed. First layer is the annular cap (Ø [10.6 mm](OUTER_D)
+solid disk with a Ø [6.5 mm](CAP_HOLE_D) hole); the [0.82 mm](WALL_T)
 cylindrical wall extrudes upward via Arachne thin-wall.
 
 ## Material
@@ -58,7 +58,7 @@ cylindrical wall extrudes upward via Arachne thin-wall.
 
 The thimble seats **cap-down** into the body's port first — drop it in
 with the closed cap pointing toward the valve chamber below. The
-[0.1 mm](BODY_SQUEEZE) radial compression at the outer face engages
+[0.3 mm](BODY_SQUEEZE) radial compression at the outer face engages
 the port wall as it's pushed down. Total height [15 mm](TOTAL_H);
 port depth ≥ [20 mm](PORT_DEPTH_MIN).
 

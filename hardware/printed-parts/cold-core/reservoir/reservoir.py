@@ -309,7 +309,7 @@ bulkhead_seal_counterbore_depth = 1.4  # SHARED; 30% compression of the 2 mm sea
 bulkhead_seal_wet_od = 21.0  # ⌀16.0–21.0 → ~2.5 mm-wide sealing ring; sits under the ⌀21.9 nut face
 bulkhead_seal_wet_counterbore_diameter = 21.2  # 0.1 mm/side around the ⌀21.0 washer; ≈0.35 mm/side PETG rim under the ⌀21.9 nut face
 # DRY (under) washer — clamped by the ⌀18.7 elbow flange. Narrow secondary seal (flange-limited).
-bulkhead_seal_dry_od = 17.5  # ⌀16.0–17.5 → ~0.75 mm-wide ring; the ⌀18.7 flange caps how wide this can go
+bulkhead_seal_dry_od = 18.5  # ⌀16.0–17.5 → ~0.75 mm-wide ring; the ⌀18.7 flange caps how wide this can go
 bulkhead_seal_dry_counterbore_diameter = 17.7  # 0.1 mm/side around the ⌀17.5 washer; ≈0.5 mm/side PETG rim under the ⌀18.7 flange
 
 # Each seal counterbore recesses into a raised seat boss, not the bare
