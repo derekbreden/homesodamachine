@@ -1,0 +1,142 @@
+flowchart LR
+
+  %% =====================================================================
+  %% Lite Edition — Flavor Manifold
+  %% Pie-in-the-sky, not roadmap.
+  %%
+  %% Fork of the integrated manifold (/hardware/topology/fluid-topology-manifold.mmd
+  %% and /hardware/topology/fluid-topology.md). Same valve set; the Lite differs in:
+  %%   - No chill: the bag is a room-temperature reservoir, not a chilled buffer.
+  %%   - V-A is fed from the customer's Lillium water outlet (no house-pressure
+  %%     flow regulator).
+  %%   - BiB (optional) dispenses DIRECT: BiB -> pump -> nozzle, no bag pre-load.
+  %%     Same edges as the integrated build; it is an operations change (open the
+  %%     nozzle gate, not the bag-fill gate). The internal bag is the hopper
+  %%     reservoir only.
+  %%
+  %% Edge color = tube material:
+  %%   green = clear NSF-51 PVC — the runs the user reads through the transparent
+  %%           enclosure while priming/refilling/cleaning by eye
+  %%   grey  = JG push-to-connect on LLDPE — hidden manifold routing
+  %%   blue  = customer push-connect ports — external connections in
+  %% Clear runs join the PTC manifold via a JG stem-barb bridge at each takeoff.
+  %%
+  %% Candidate parts: PVCA-0204 (flavor, 1/8" ID), PVCA-0406 (clean-cycle, 1/4" ID),
+  %% PI250808S stem-barb bridge. Valves stay PTC.
+  %% Open: keep BiB or drop V-K-A/B; pump loops are clear only if the pump is visible.
+  %% =====================================================================
+
+  subgraph Sources["Sources"]
+    Lillium["Lillium (clean water)"]
+    Hopper["Hopper"]
+    BiBA["BiB A (optional)"]
+    BiBB["BiB B (optional)"]
+  end
+
+  subgraph Pumps["Pumps"]
+    PA["Pump A"]
+    PB["Pump B"]
+  end
+
+  subgraph Bags["Bags (room temp)"]
+    BagA[("Bag A")]
+    BagB[("Bag B")]
+  end
+
+  subgraph Nozzles["Nozzles"]
+    NozzleA["Nozzle A"]
+    NozzleB["Nozzle B"]
+  end
+
+  subgraph Manifold["Manifold"]
+    direction LR
+
+    subgraph SourceSelection["Source Selection"]
+      VA["V-A (Lillium clean-water gate)"]
+      VB["V-B"]
+      YA{{"Y-A"}}
+      YB{{"Y-B"}}
+      VC["V-C"]
+      VD["V-D"]
+      VKA["V-K-A"]
+      VKB["V-K-B"]
+      YKA{{"Y-KA"}}
+      YKB{{"Y-KB"}}
+    end
+
+    subgraph MfPumps["Pump Junctions"]
+      YC{{"Y-C"}}
+      YD{{"Y-D"}}
+      YF{{"Y-F"}}
+      YG{{"Y-G"}}
+    end
+
+    subgraph MfNozzles["Nozzle Gates"]
+      VG["V-G"]
+      VJ["V-J"]
+    end
+
+    subgraph MfBags["Bag Circuit"]
+      VE["V-E"]
+      YE{{"Y-E"}}
+      VF["V-F"]
+      VH["V-H"]
+      YH{{"Y-H"}}
+      VI["V-I"]
+    end
+
+    %% manifold-internal edges (PTC, grey) — indices 0-16
+    VA --> YA
+    VB --> YA
+    YA --> YB
+    YB --> VC
+    YB --> VD
+    VC --> YKA
+    VKA --> YKA
+    VD --> YKB
+    VKB --> YKB
+    YKA --> YC
+    YKB --> YF
+    YD --> VG
+    YD --> VF
+    YG --> VJ
+    YG --> VI
+    VE --> YC
+    VH --> YF
+
+    %% bag-circuit legs (clear PVC) — indices 17-20
+    VF --> YE
+    YE --> VE
+    VI --> YH
+    YH --> VH
+  end
+
+  %% customer push-connect ports (blue) — indices 21-24
+  Lillium --> VA
+  Hopper --> VB
+  BiBA --> VKA
+  BiBB --> VKB
+
+  %% pump loops (clear PVC, optional) — indices 25-28
+  YC --> PA
+  PA --> YD
+  YF --> PB
+  PB --> YG
+
+  %% bag runs (clear PVC) — indices 29-30
+  YE <--> BagA
+  YH <--> BagB
+
+  %% nozzle lines (clear PVC) — indices 31-32
+  VG --> NozzleA
+  VJ --> NozzleB
+
+  %% =========================
+  %% Edge styling (tube material)
+  %% =========================
+  %% PTC on LLDPE — hidden manifold routing
+  linkStyle 0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16 stroke:#888,stroke-width:2px
+  %% Clear NSF-51 PVC — visible runs the user reads
+  linkStyle 17,18,19,20,25,26,27,28,29,30,31,32 stroke:#2ca02c,stroke-width:3px
+  %% Customer push-connect ports — external connections in
+  linkStyle 21,22,23,24 stroke:#09f,stroke-width:2px
