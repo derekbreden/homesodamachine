@@ -297,27 +297,31 @@ bulkhead_panel_hole_diameter = 16.0  # measured PureSec thread OD ⌀15.5 (max e
 # elbow-side flange, each seating flush on the PETG rim outside its
 # counterbore. Compression ratio is
 # (seal_thickness − counterbore_depth) / seal_thickness = 30%, standard for
-# face-seal elastomers. The counterbore Ø is sized smaller than the ⌀18.7
-# below flange (the tighter of the two clamping faces) so the SAME washer
-# works on both faces and each clamping face lands on PETG outside the
-# counterbore — PETG carries the clamping force, the elastomer carries only
-# the seal-compression load.
-bulkhead_seal_id = 16.0  # washer ID = measured PureSec barrel OD ⌀15.5 + ~0.5 mm so the washer slips over the barrel; the barrel passes through the seal, not around it. Equals the ⌀[16 mm](BULKHEAD_PANEL_HOLE_D) panel hole — this is a face seal (seals against the clamping face + the floor face), not a radial seal on the barrel.
-bulkhead_seal_od = 17.5  # common both-faces washer OD; seats under the ⌀18.7 dry-side elbow flange (and easily under the wider ⌀21.9 wet-side nut face) with a PETG rim outside the counterbore. NOTE: this is a narrow ~0.75 mm-wide seal ring — split into a wider wet-side washer if the primary (wet) seal wants more land.
-bulkhead_seal_thickness = 2.0  # matches the reservoir gasket convention
-bulkhead_seal_counterbore_diameter = 17.7  # 0.1 mm/side clearance around the ⌀17.5 washer; under the ⌀18.7 below flange (≈0.5 mm/side PETG seat rim)
-bulkhead_seal_counterbore_depth = 1.4  # 30% compression of the 2 mm seal when the clamping face seats flush
+# face-seal elastomers. The two faces clamp DIFFERENT-diameter parts, so the
+# washers are sized per face — two separate printed parts. Each counterbore
+# is sized just under its clamping face so that face lands on PETG outside it
+# — PETG carries the clamping force, the elastomer carries only the
+# seal-compression load.
+bulkhead_seal_id = 16.0  # SHARED washer ID = measured PureSec barrel OD ⌀15.5 + ~0.5 mm so the washer slips over the barrel; the barrel passes through the seal, not around it. Equals the ⌀[16 mm](BULKHEAD_PANEL_HOLE_D) panel hole — a face seal (against the clamping face + the floor face), not a radial seal on the barrel.
+bulkhead_seal_thickness = 2.0  # SHARED; matches the reservoir gasket convention
+bulkhead_seal_counterbore_depth = 1.4  # SHARED; 30% compression of the 2 mm seal when the clamping face seats flush
+# WET (top) washer — clamped by the ⌀21.9 nut-side face. Generous primary seal.
+bulkhead_seal_wet_od = 21.0  # ⌀16.0–21.0 → ~2.5 mm-wide sealing ring; sits under the ⌀21.9 nut face
+bulkhead_seal_wet_counterbore_diameter = 21.2  # 0.1 mm/side around the ⌀21.0 washer; ≈0.35 mm/side PETG rim under the ⌀21.9 nut face
+# DRY (under) washer — clamped by the ⌀18.7 elbow flange. Narrow secondary seal (flange-limited).
+bulkhead_seal_dry_od = 17.5  # ⌀16.0–17.5 → ~0.75 mm-wide ring; the ⌀18.7 flange caps how wide this can go
+bulkhead_seal_dry_counterbore_diameter = 17.7  # 0.1 mm/side around the ⌀17.5 washer; ≈0.5 mm/side PETG rim under the ⌀18.7 flange
 
 # Each seal counterbore recesses into a raised seat boss, not the bare
-# trough floor. The boss is counterbored from BOTH faces (gasket both
-# sides): bulkhead_seal_seat_thickness is the PETG from the wet-face
+# trough floor. The boss is counterbored from BOTH faces (a washer per
+# side): bulkhead_seal_seat_thickness is the PETG from the wet-face
 # counterbore down to the boss underside, and the dry-face counterbore cuts
 # up into it from below — leaving a solid PETG mid-rim of
 # (seat_thickness − counterbore_depth) ≈ 2.6 mm that carries the flange+nut
 # clamp without crushing. The boss runs wider than the larger ⌀21.9 wet
 # clamping face so that face lands on solid PETG all around, and it
 # protrudes below the floor underside into the open bag-pocket space.
-bulkhead_seal_boss_diameter = bulkhead_seal_counterbore_diameter + 2 * 3.5  # ⌀24.7: seat wall wide enough for the ⌀21.9 wet-side nut face to land on PETG outside the counterbore
+bulkhead_seal_boss_diameter = bulkhead_seal_wet_counterbore_diameter + 2 * 1.75  # ⌀24.7: seat wall wide enough for the ⌀21.9 wet-side nut face to land on PETG outside the wet counterbore
 bulkhead_seal_seat_thickness = 4.0  # PETG from the wet-face counterbore to the boss underside; > counterbore_depth so the dry-face counterbore leaves a ~2.6 mm solid mid-rim
 
 # PureSec integral 90° elbow + push-to-connect ports. See
@@ -854,7 +858,7 @@ def build_reservoir_body(side=1):
     wet_seal_counterbore = _z_cylinder(
         (port_x_signed, 0.0),
         (floor_trough_z - bulkhead_seal_counterbore_depth, floor_trough_z + 0.1),
-        bulkhead_seal_counterbore_diameter,
+        bulkhead_seal_wet_counterbore_diameter,
     )
     body = body.cut(wet_seal_counterbore)
 
@@ -868,7 +872,7 @@ def build_reservoir_body(side=1):
         (port_x_signed, 0.0),
         (seal_boss_underside_z - 0.1,
          seal_boss_underside_z + bulkhead_seal_counterbore_depth),
-        bulkhead_seal_counterbore_diameter,
+        bulkhead_seal_dry_counterbore_diameter,
     )
     body = body.cut(dry_seal_counterbore)
 
@@ -1156,20 +1160,20 @@ def build_reservoir_retaining_ring():
     )
 
 
-def build_reservoir_bulkhead_seal():
-    """Flat TPU 85A washer that seals between the bulkhead's clamping
-    face and the reservoir body's panel face. Sits in a 1.4 mm-deep
-    counterbore in the seal boss; the exposed 0.6 mm compresses ~30%
-    when the mating face (the ⌀21.9 nut-side face on the wet/top side,
-    the ⌀18.7 integral elbow flange on the dry/under side) seats flush
-    against the PETG rim outside the counterbore.
+def build_reservoir_bulkhead_seal(od):
+    """Flat TPU 85A washer that seals between a bulkhead clamping face and
+    the reservoir body's panel face. Sits in a 1.4 mm-deep counterbore in the
+    seal boss; the exposed 0.6 mm compresses ~30% when the mating face seats
+    flush against the PETG rim outside the counterbore.
 
-    Same part on both faces — OD ⌀17.5 is sized under the tighter ⌀18.7
-    flange so one washer fits both. Print 4 per build (one per panel
-    face × two reservoirs)."""
+    Two sizes per reservoir, one per clamping face: the WET washer
+    (od=bulkhead_seal_wet_od ⌀21.0) under the ⌀21.9 nut face, and the DRY
+    washer (od=bulkhead_seal_dry_od ⌀17.5) under the ⌀18.7 elbow flange.
+    Shared ID + thickness. Print 2 of each per build (one per face × two
+    reservoirs)."""
     return (
         WorldWorkplane(xy_plane_z_up)
-        .circle(bulkhead_seal_od / 2.0)
+        .circle(od / 2.0)
         .circle(bulkhead_seal_id / 2.0)
         .extrude(bulkhead_seal_thickness)
         .unwrap()
@@ -1206,13 +1210,16 @@ def main():
 
     gasket = build_reservoir_gasket(side=+1)  # y-symmetric: flip to install on −X side
     retaining_ring = build_reservoir_retaining_ring()
-    bulkhead_seal = build_reservoir_bulkhead_seal()
+    bulkhead_seal_wet = build_reservoir_bulkhead_seal(bulkhead_seal_wet_od)
+    bulkhead_seal_dry = build_reservoir_bulkhead_seal(bulkhead_seal_dry_od)
     export_step(gasket, str(here / "reservoir-gasket.step"))
     export_step(retaining_ring, str(here / "reservoir-retaining-ring.step"))
-    export_step(bulkhead_seal, str(here / "reservoir-bulkhead-seal.step"))
+    export_step(bulkhead_seal_wet, str(here / "reservoir-bulkhead-seal-wet.step"))
+    export_step(bulkhead_seal_dry, str(here / "reservoir-bulkhead-seal-dry.step"))
     print(f"-> reservoir-gasket.step")
     print(f"-> reservoir-retaining-ring.step")
-    print(f"-> reservoir-bulkhead-seal.step")
+    print(f"-> reservoir-bulkhead-seal-wet.step")
+    print(f"-> reservoir-bulkhead-seal-dry.step")
 
     # Short names scoped to this part. Units live inside the value so
     # the script controls them — change a unit in source and every
