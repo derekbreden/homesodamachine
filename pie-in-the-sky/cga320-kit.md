@@ -35,7 +35,7 @@ A kit that pairs a 5 lb CGA-320 CO2 cylinder (customer-supplied or service-suppl
 At $150 retail, margin per kit is ~$40 — thin in isolation, but the kit is not the margin engine; it is the entry rung. Two real outcomes from a kit sale:
 
 - A customer who is happy with the kit forever, refilling their tank via [`local-co2.md`](local-co2.md) or [`co2-service.md`](co2-service.md). The kit is the entire product for them; we own their CO2 supply for life.
-- A customer who likes the kit and upgrades to the appliance line. The Lillium + Lite bundle ([`lite.md`](lite.md)) is the natural next step; the Kitchen Edition is the long-term destination.
+- A customer who likes the kit and upgrades to the appliance line. The Lillium + Lite bundle ([`lite/`](lite/README.md)) is the natural next step; the Kitchen Edition is the long-term destination.
 
 Both outcomes are good. The kit is honest about what it is — a budget answer with real tradeoffs — and the customer keeps using the brand for CO2 either way.
 
