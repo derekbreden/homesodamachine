@@ -25,29 +25,56 @@ function readSidecar(rootDir, rel) {
   }
 }
 
-export function mountViewerRoutes(app, { hardwareDir }) {
-  app.get("/api/steps", (_req, res) => {
-    res.json(walkFiles(hardwareDir, ".step"));
+// The viewer serves one of two content roots, chosen per request by the
+// hidden Edition toggle (Settings, dev-mode only). Kitchen (the default) is
+// the hardware/ tree; Lite is pie-in-the-sky/lite/. The client mirrors its
+// localStorage choice into an `hsmEdition` cookie before first paint (see
+// lib/shell.js), so every list endpoint and file stream below resolves
+// against the matching root without any per-fetch plumbing on the client.
+// A ?edition= query param overrides the cookie, which keeps the endpoints
+// curl-testable.
+function cookieEdition(cookieHeader) {
+  if (!cookieHeader) return null;
+  for (const part of cookieHeader.split(";")) {
+    const eq = part.indexOf("=");
+    if (eq === -1) continue;
+    if (part.slice(0, eq).trim() === "hsmEdition") return part.slice(eq + 1).trim();
+  }
+  return null;
+}
+
+function editionRoot(req, { hardwareDir, liteDir }) {
+  const q = typeof req.query.edition === "string" ? req.query.edition : null;
+  const edition = q || cookieEdition(req.headers.cookie) || "kitchen";
+  return edition === "lite" ? liteDir : hardwareDir;
+}
+
+export function mountViewerRoutes(app, { hardwareDir, liteDir }) {
+  const rootFor = (req) => editionRoot(req, { hardwareDir, liteDir });
+
+  app.get("/api/steps", (req, res) => {
+    res.json(walkFiles(rootFor(req), ".step"));
   });
 
-  app.get("/api/mermaid", (_req, res) => {
-    res.json(walkFiles(hardwareDir, ".mmd"));
+  app.get("/api/mermaid", (req, res) => {
+    res.json(walkFiles(rootFor(req), ".mmd"));
   });
 
   // Line-art drawings: SVGs that live in any directory named `drawings/`
-  // under hardware/. The generator is tools/line-art/line_art.py; the
+  // under the active root. The generator is tools/line-art/line_art.py; the
   // drawing scripts and outputs colocate with the part they describe.
-  app.get("/api/drawings", (_req, res) => {
-    res.json(walkFilesUnderDir(hardwareDir, ".svg", "drawings"));
+  app.get("/api/drawings", (req, res) => {
+    res.json(walkFilesUnderDir(rootFor(req), ".svg", "drawings"));
   });
 
-  app.get("/api/dxf", (_req, res) => {
-    const paths = walkFiles(hardwareDir, ".dxf");
+  app.get("/api/dxf", (req, res) => {
+    const rootDir = rootFor(req);
+    const paths = walkFiles(rootDir, ".dxf");
     // Return enriched objects so the client gets the sidecar metadata
     // (thickness_mm, material, etc.) in the same round-trip — the
     // viewer needs thickness to extrude. See hardware/PARTS.md.
     res.json(paths.map((p) => {
-      const meta = readSidecar(hardwareDir, p) || {};
+      const meta = readSidecar(rootDir, p) || {};
       return {
         path: p,
         thickness_mm: typeof meta.thickness_mm === "number" ? meta.thickness_mm : null,
@@ -57,7 +84,7 @@ export function mountViewerRoutes(app, { hardwareDir }) {
   });
 
   app.get("/api/mermaid-content/*", (req, res) => {
-    const abs = safeFile(hardwareDir, req.params[0], ".mmd");
+    const abs = safeFile(rootFor(req), req.params[0], ".mmd");
     if (!abs) return res.status(400).send("Invalid path");
     if (!fs.existsSync(abs)) return res.status(404).send("Not found");
     res.type("text/plain").send(fs.readFileSync(abs, "utf-8"));
@@ -69,7 +96,7 @@ export function mountViewerRoutes(app, { hardwareDir }) {
   // SVGs that may live elsewhere in the tree).
   app.get("/api/drawing-content/*", (req, res) => {
     const rel = req.params[0];
-    const abs = safeFile(hardwareDir, rel, ".svg");
+    const abs = safeFile(rootFor(req), rel, ".svg");
     if (!abs) return res.status(400).send("Invalid path");
     // Enforce the drawings/ directory convention so non-line-art SVGs
     // (logos, hand-drawn diagrams) aren't reachable through this endpoint.
@@ -99,14 +126,14 @@ export function mountViewerRoutes(app, { hardwareDir }) {
   }
 
   app.get("/steps/*", (req, res) => {
-    const abs = safeFile(hardwareDir, req.params[0], ".step");
+    const abs = safeFile(rootFor(req), req.params[0], ".step");
     if (!abs) return res.status(400).send("Invalid path");
     if (!fs.existsSync(abs)) return res.status(404).send("Not found");
     streamFile(res, abs);
   });
 
   app.get("/dxfs/*", (req, res) => {
-    const abs = safeFile(hardwareDir, req.params[0], ".dxf");
+    const abs = safeFile(rootFor(req), req.params[0], ".dxf");
     if (!abs) return res.status(400).send("Invalid path");
     if (!fs.existsSync(abs)) return res.status(404).send("Not found");
     streamFile(res, abs);

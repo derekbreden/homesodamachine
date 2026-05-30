@@ -275,10 +275,13 @@ html.dev-mode .site-nav-public a[data-nav="drawings"] {
 //
 // Synchronous flicker-prevention only: the localStorage class flips for
 // dev-mode and notifs-enabled have to land before first paint, so they
-// stay inline. Everything else (SW navigate bridge, notifications state,
-// SSE owner, toast) lives in public/boot.js loaded with defer — see
-// that file's docstring for the full architecture.
-const HEAD_TAGS = `<script>(function(){try{if(localStorage.getItem("devMode")==="1")document.documentElement.classList.add("dev-mode");if(localStorage.getItem("hsmFcmToken"))document.documentElement.classList.add("notifs-enabled");}catch(e){}})();</script>
+// stay inline. The Edition choice (kitchen/lite) is mirrored here too:
+// localStorage is the source of truth, but the server picks the viewer's
+// content root from the `hsmEdition` cookie, so we write that cookie before
+// the viewer's main.js fires its /api fetches. Everything else (SW navigate
+// bridge, notifications state, SSE owner, toast) lives in public/boot.js
+// loaded with defer — see that file's docstring for the full architecture.
+const HEAD_TAGS = `<script>(function(){try{if(localStorage.getItem("devMode")==="1")document.documentElement.classList.add("dev-mode");if(localStorage.getItem("hsmFcmToken"))document.documentElement.classList.add("notifs-enabled");var ed=localStorage.getItem("hsmEdition")==="lite"?"lite":"kitchen";document.cookie="hsmEdition="+ed+";path=/;max-age=31536000;samesite=lax";if(ed==="lite")document.documentElement.classList.add("lite-mode");}catch(e){}})();</script>
 <script src="/boot.js" defer></script>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">

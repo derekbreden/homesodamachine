@@ -13,6 +13,10 @@
 //   3. Live-reload debug — only visible when dev mode is on. Flips the
 //      on-screen panel boot.js renders (socket health, build commit,
 //      deploy events) via window.__hsmLiveDebug + localStorage.
+//   4. Lite edition — only visible when dev mode is on. Switches the
+//      viewer's content root from hardware/ (kitchen, default) to
+//      pie-in-the-sky/lite/. Stored in localStorage and mirrored to the
+//      hsmEdition cookie (shell.js), which the server reads per request.
 
 import { renderHead, renderNav, renderFooter } from "./shell.js";
 
@@ -112,6 +116,14 @@ const BODY = `<div class="wrap">
         <div class="setting-help">On-screen panel: socket health, build commit, deploy events.</div>
       </div>
       <button id="livedebug-toggle" class="ios-toggle" type="button" role="switch" aria-checked="false" aria-label="Live-reload debug"></button>
+    </div>
+
+    <div class="setting-row" id="row-edition" hidden>
+      <div>
+        <div class="setting-label">Lite edition</div>
+        <div class="setting-help">Show pie-in-the-sky/lite content instead of hardware.</div>
+      </div>
+      <button id="edition-toggle" class="ios-toggle" type="button" role="switch" aria-checked="false" aria-label="Lite edition"></button>
     </div>
   </div>
 </div>
