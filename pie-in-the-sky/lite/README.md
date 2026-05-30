@@ -21,7 +21,7 @@ A transparent consumer-grade enclosure wrapping the flavor-injection half of the
 
 - **Two collapsible flavor bags** (Platypus-class, food-grade), ~1 L each, spout-down in a cradle. Liquid funnels to the low port; the bag collapses as it empties, visible through the transparent enclosure. The bag-in-box pattern. Filled through a top hopper routed to the bag's port through the manifold. A swappable consumable. **Not refrigerated** — bags sit at room temperature.
 - **Two peristaltic pumps** (Kamoer KPHM400), valve-locked between dispenses so each flavor holds prime between pours for instant injection.
-- **A valve manifold** with the same source-selection / output-routing pattern as the main appliance. Hopper input, bag output to faucet, clean-cycle paths.
+- **A valve manifold** with the same source-selection / output-routing pattern as the main appliance. Hopper input, bag output to faucet, clean-cycle paths. Lite divergences — BiB dispenses direct with no chilled pre-load, clean water comes from the Lillium, and the runs the user sees through the enclosure go clear — in [`fluid-topology.md`](fluid-topology.md).
 - **A faucet** — Westbrass Touch-Flo or equivalent through-counter dispense — with the carbonated water line entering its inlet from the customer's Lillium output, and the two flavor lines injecting at the nozzle alongside the carbonated water.
 - **A flavor-select air switch** (KRAUS or equivalent), through-counter.
 - **An RP2040 round display** through-counter, showing the active flavor's logo.
