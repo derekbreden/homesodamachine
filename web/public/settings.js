@@ -7,6 +7,9 @@
 //      a global subscription. Off DELETEs the subscription.
 //   3. Live-reload debug — dev-mode-only. Flips boot.js's on-screen panel
 //      via window.__hsmLiveDebug (localStorage hsmLiveDebug).
+//   4. Lite edition — dev-mode-only. Switches the viewer's content root
+//      between hardware/ (kitchen) and pie-in-the-sky/lite/ via localStorage
+//      hsmEdition + the mirrored hsmEdition cookie the server reads.
 
 (function () {
   // --- Dev mode (always shown) ---
@@ -27,6 +30,7 @@
     try { localStorage.setItem("devMode", next ? "1" : "0"); } catch {}
     syncDevToggle();
     syncLiveDebugRow();
+    syncEditionRow();
   });
 
   // --- Live-reload debug (dev-mode only) ---
@@ -58,6 +62,35 @@
       } catch (e) {}
     }
     syncLiveDebugRow();
+  });
+
+  // --- Lite edition (dev-mode only) ---
+  // Switches the viewer's content root between hardware/ (kitchen, the
+  // default) and pie-in-the-sky/lite/ (lite). localStorage hsmEdition is the
+  // source of truth; the pre-paint head script (shell.js) mirrors it into the
+  // hsmEdition cookie the server reads to pick the root. We also write the
+  // cookie here so the choice is live on the next viewer navigation without
+  // waiting for that script to re-run. Hidden unless dev mode is on, like the
+  // live-debug row.
+  const editionRow = document.getElementById("row-edition");
+  const editionToggle = document.getElementById("edition-toggle");
+  function editionIsLite() {
+    try { return localStorage.getItem("hsmEdition") === "lite"; } catch (e) { return false; }
+  }
+  function syncEditionRow() {
+    editionRow.hidden = !document.documentElement.classList.contains("dev-mode");
+    const lite = editionIsLite();
+    editionToggle.classList.toggle("on", lite);
+    editionToggle.setAttribute("aria-checked", lite ? "true" : "false");
+  }
+  syncEditionRow();
+  editionToggle.addEventListener("click", () => {
+    const lite = !editionIsLite();
+    const value = lite ? "lite" : "kitchen";
+    try { localStorage.setItem("hsmEdition", value); } catch (e) {}
+    try { document.cookie = "hsmEdition=" + value + ";path=/;max-age=31536000;samesite=lax"; } catch (e) {}
+    document.documentElement.classList.toggle("lite-mode", lite);
+    syncEditionRow();
   });
 
   // --- Notifications (PWA-only) ---

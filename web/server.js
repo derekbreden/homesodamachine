@@ -204,12 +204,16 @@ self.addEventListener("activate", (event) => {
   app.get("/favicon.png", (_req, res) => res.sendFile(path.join(PWA_ICONS_DIR, "favicon-64.png")));
 }
 
-export async function start({ dev = false, port, hardwareDir } = {}) {
+export async function start({ dev = false, port, hardwareDir, liteDir } = {}) {
   // hardwareDir lets callers (e.g. the historical-render tools in
   // tools/render/) point the viewer at a git worktree's hardware/ subtree
   // instead of the live tree, so a render captures the source artifact as
   // it existed at a specific past commit.
   const HARDWARE_DIR = hardwareDir || DEFAULT_HARDWARE_DIR;
+  // Lite-edition content root (pie-in-the-sky/lite/), served when the hidden
+  // Edition toggle is set to Lite. Derived from HARDWARE_DIR's parent so a
+  // worktree override above points both roots at the same tree.
+  const LITE_DIR = liteDir || path.join(HARDWARE_DIR, "..", "pie-in-the-sky", "lite");
 
   const app = express();
   app.use(express.json());
@@ -249,7 +253,7 @@ export async function start({ dev = false, port, hardwareDir } = {}) {
   // and doesn't change any routes. The only behavioral differences in dev:
   //   - commit signal is "dev" instead of the deploy SHA
   //   - the boot-time push diff is skipped (no real deploy, no FCM)
-  mountViewerRoutes(app, { hardwareDir: HARDWARE_DIR });
+  mountViewerRoutes(app, { hardwareDir: HARDWARE_DIR, liteDir: LITE_DIR });
   mountBlogRoutes(app, { postsDir: POSTS_DIR });
   mountPushRoutes(app);
   mountNotificationsRoutes(app, pool);
