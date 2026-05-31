@@ -30,8 +30,8 @@ Arrangement (first-pass, photo-matched)
   Z = 30.6 to Z = 56.6 — a T-profile, symmetric in X. Stacked heights
   30.6 + 26 = 56.6 mm reproduce the caliper-measured 56.04 mm from
   mounting surface to the far edge of the coil.
-- The port cylinder runs along Y through the body, centered in X, at the
-  body's mid-height (Z = 15.3). At length 59 it overhangs the 32.25-deep
+- The port cylinder runs along Y through the body, centered in X, 4 mm
+  below the body's mid-height. At length 59 it overhangs the 32.25-deep
   body by ~13.4 mm each side as the two quick-connect collet stubs;
   collet-to-collet measured 56.00 mm.
 
@@ -64,10 +64,10 @@ coil_z = 26.0
 port_diameter = 15.0
 port_length = 59.0
 port_radius = port_diameter / 2.0
-# Mid-height of the white body. The true port-axis height is unmeasured
-# (see geometry-description.md "Remaining Unknowns"); centering it is the
-# first-pass placeholder.
-port_center_z = body_z / 2.0
+# Port axis sits 4 mm below the white body's mid-height. The true height is
+# unmeasured (see geometry-description.md "Remaining Unknowns"); this is a
+# photo-matched estimate.
+port_center_z = body_z / 2.0 - 4.0
 
 
 def build_beduan_solenoid():
