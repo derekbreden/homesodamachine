@@ -120,20 +120,29 @@ floor regardless of which cavity it enters from.
 ### outer_shell
 
 Outer rectangular cup framing the whole foam-shell: floor + four
-perimeter walls + six [8 × 8 mm](BOSS) bosses. Total height matches
-the foam-shell outer height of [213.4 mm](OUTER_H).
+perimeter walls + six ⌀[8 mm](BOSS_D) cylindrical bosses. Total height
+matches the foam-shell outer height of [213.4 mm](OUTER_H).
 Outer footprint [283 mm](OUTER_X) × [181](OUTER_Y),
 sized to leave [16 mm](OUTER_GAP) of foam-pour zone
 between the outer_shell's inner face and the outermost reservoir-
 pocket walls on each side.
 
+The four vertical corners are rounded — the exterior wall is a true
+[12 mm](CORNER_ROUND_R)-radius quarter-arc on the outer face, the inner
+face concentric one wall-thickness inboard — so the warp-prone sharp
+corner is gone and the corner boss is wrapped by a curved wall.
+
 The six bosses are positioned at the four corners + two mid-long-side
 positions (offset in X by ±[15 mm](MID_BOSS_OFFSET) with opposite signs
 at +Y vs −Y, to preserve 180° rotational symmetry around the Z axis).
-Each boss carries a heat-set insert pocket at the top (drilled down
-from the top face) and at the bottom (drilled up from the bottom face) —
-twelve inserts total, six per face, for fastening the foam_cap above
-and below.
+Each corner boss is pulled inward to the corner-arc center and tied to
+both adjoining walls by two short ribs — the cylinder + two-web idiom of
+the reservoir pocket-corner supports, leaving the diagonal interior
+between boss and wall open for foam — so the boss braces into the rounded
+wall rather than floating in the corner. Each boss carries a heat-set
+insert pocket at the top (drilled down from the top face) and at the
+bottom (drilled up from the bottom face) — twelve inserts total, six per
+face, for fastening the foam_cap above and below.
 
 The outer +Y wall carries the shared copper/water-inlet slot, the
 two ⌀[6.5 mm](PORT_D) reservoir-line holes, the two reed-cable holes,
@@ -452,11 +461,11 @@ that needs a deliberate explanation:
 
 | metric | value |
 |---|---|
-| volume | [1059322.211 mm³](VOLUME) |
+| volume | [1106747.781 mm³](VOLUME) |
 | bbox x | [-141.500 to 141.500 mm](BBOX_X) |
 | bbox z | [0.000 to 213.400 mm](BBOX_Z) |
 | bbox y | [-90.500 to 90.500 mm](BBOX_Y) |
-| centroid | [(0.000005, -0.614116, 87.654332) mm](CENTROID) |
+| centroid | [(0.000005, -0.587801, 88.648038) mm](CENTROID) |
 
 Quick reproduction:
 
