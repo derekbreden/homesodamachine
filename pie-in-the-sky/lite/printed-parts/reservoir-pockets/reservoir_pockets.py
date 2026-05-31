@@ -18,16 +18,18 @@ above the floor — for each bag's spout line. Transparent PETG.
 Rod hang channel: one 1/8 in stainless rod runs front-to-back (along Y)
 through both bags' centered top loops, passing through the front wall, the
 divider, and the back wall. Each of those three walls carries a channel cut
-into its face near the top — NOT through the ceiling: a flat entry slot open
-at the +X (back / doorway) edge that the rod slides along, then the channel
-curves down — rounding the corner — into a rounded cradle at center X that
-holds the round rod. A bridge of wall material spans above the channel, so
-the ceiling stays attached. The user threads the rod through both bag loops
-and connects the spouts outside the box, slides the rod in from the +X back
-through the three aligned slots (carrying the bags in with it), and at
-center the rod rolls down into the cradle; the hanging bags' weight seats it
-there and resists sliding back out. To remove, lift the rod up out of the
-cradle and slide it back out the +X side.
+into its face near the top — NOT through the ceiling. The channel is one
+constant width the whole way (the rod diameter plus a little clearance): a
+horizontal run open at the +X (back / doorway) edge that the rod slides
+along, then a curve down — both walls of the bend are rounded arcs — into a
+rounded cradle at center X that holds the round rod. A bridge of wall
+material spans above the channel, so the ceiling stays attached. The user
+threads the rod through both bag loops and connects the spouts outside the
+box, slides the rod in from the +X back through the three aligned channels
+(carrying the bags in with it), and at center the rod rolls down into the
+cradle; the hanging bags' weight seats it there and resists sliding back
+out. To remove, lift the rod up out of the cradle and slide it back out the
++X side.
 
 World frame: Z+ up, Y- front (front face points in -Y), X left(-)/
 right(+). The floor sits on Z=0, centered in X and Y."""
@@ -84,37 +86,35 @@ front_tube_hole_y = sum(front_pocket_y_range) / 2
 back_tube_hole_y = sum(back_pocket_y_range) / 2
 
 # --- Rod hang channel (slide in from the +X back, curve down to a rounded rest) ---
-# A profile cut in the X-Z plane and swept along Y through the front wall, the
-# divider, and the back wall (the empty pockets between them carry no
-# material). In X-Z: a flat entry slot, open at the +X edge, that the rod
-# rides in along; the channel then curves down over a rounded crest and ends
-# in a rounded cradle at center X that holds the round rod. The profile top
-# stays at z_top (below the ceiling), leaving a bridge of wall material above
-# it (z_top .. 287) so the ceiling stays attached.
+# A constant-width channel — rod diameter plus a little clearance, the same
+# width along its whole length — cut as a profile in the X-Z plane and swept
+# along Y through the front wall, the divider, and the back wall (the empty
+# pockets between them carry no material). The channel runs horizontally in
+# from the +X (back / doorway) edge, then curves down through a rounded bend
+# (BOTH walls of the bend are arcs: outer radius bend_radius + channel_hw,
+# inner radius bend_radius - channel_hw) into a rounded cradle at center X
+# that holds the round rod. Its highest point stays at channel_top_z (below
+# the ceiling), leaving a bridge of wall material above it
+# (channel_top_z .. 287) so the ceiling stays attached. Nothing extends past
+# the cradle in -X, so that solid wall is the end stop.
 #
 # A 1/8 in stainless rod carries two full 1 L bags easily: the divider acts as
 # a midspan support, so each ~72 mm span sees ~10 N (~57 MPa bending; 304 SS
-# yields ~215 MPa) and under 0.1 mm sag. Channel features are derived from
+# yields ~215 MPa) and under 0.1 mm sag. The channel is derived from
 # rod_diameter, so a 1/4 in rod is a one-line change. Heights are placeholders
 # pending the real bag loop / hung-bag height; they set how high the bag hangs.
 rod_diameter = 3.175             # 1/8 in stainless rod
 rod_radius = rod_diameter / 2.0
+channel_clearance = 0.3          # gap per side around the rod — entry and cradle alike
+channel_hw = rod_radius + channel_clearance   # channel half-width (constant along its length)
 
-z_top = 283.0                    # profile top; bridge spans z_top .. 287 below the ceiling
-entry_gap = 5.0                  # entry-slot height the rod slides in along
-entry_floor_z = z_top - entry_gap
+channel_top_z = 283.0            # highest point of the channel; bridge spans channel_top_z .. 287
+rod_run_z = channel_top_z - channel_hw        # rod centerline along the horizontal entry run
+rod_rest_z = 272.0               # rod centerline at the cradle (its resting point)
+bend_radius = 6.0                # centerline radius of the curve-down (must exceed channel_hw)
 
-rest_center_z = 272.0            # rod center at its resting point
-cradle_clearance = 0.3
-cradle_radius = rod_radius + cradle_clearance   # rounded rest cradle, just over the rod
-cradle_bottom_z = rest_center_z - cradle_radius
-
-crest_radius = 3.0               # rounds the corner where the channel curves down
-dip_wall_x = cradle_radius       # the dip's right wall, where the curve-down meets the cradle
-
-rod_entry_x_open = 79.0          # entry slot open past the +X face at x=77
-rod_channel_y_range = (-74.0, 74.0)   # spans front wall, divider, and back wall
-
+rod_entry_x_open = 79.0          # entry runs out past the +X face at x=77 (open end, trimmed)
+rod_channel_y_range = (-74.0, 74.0)  # spans front wall, divider, and back wall
 
 def make_box(x_range, y_range, z_range):
     """Axis-aligned box spanning the given world-coordinate ranges."""
@@ -147,33 +147,49 @@ def make_tube_hole(y):
 
 
 def make_rod_channel():
-    """The rod hang channel: a profile cut in the X-Z plane and swept along Y
-    through the front wall, divider, and back wall. A flat entry slot open at
-    the +X edge curves down over a rounded crest into a rounded cradle at
-    center X. The profile top stays at z_top, leaving a bridge to the ceiling
-    so the top stays closed."""
-    # Crest fillet: rounds the inside corner at (dip_wall_x, entry_floor_z)
-    # where the flat entry floor meets the curve down. It is tangent to the
-    # floor at x = dip_wall_x + crest_radius and to the vertical at
-    # z = entry_floor_z - crest_radius; its arc midpoint is at 135 deg on the
-    # fillet circle.
-    crest_cx = dip_wall_x + crest_radius
-    crest_cz = entry_floor_z - crest_radius
-    crest_mid = (
-        crest_cx + crest_radius * math.cos(math.radians(135)),
-        crest_cz + crest_radius * math.sin(math.radians(135)),
-    )
+    """The rod hang channel: a constant-width profile cut in the X-Z plane and
+    swept along Y through the front wall, divider, and back wall. A horizontal
+    entry run, open at the +X edge, curves down through a rounded bend (both
+    walls arcs) into a rounded cradle at center X. The channel is the same
+    width — rod diameter plus clearance — all the way along. Its top stays at
+    channel_top_z, leaving a bridge to the ceiling so the top stays closed."""
+    hw = channel_hw
+    # Centerline of the curve-down: a quarter bend of radius bend_radius from
+    # the horizontal run (at rod_run_z) to a vertical drop at center X, then
+    # straight down into the cradle. Bend center:
+    bend_cx = bend_radius
+    bend_cz = rod_run_z - bend_radius
+
+    def arc_pt(r, deg):
+        return (
+            bend_cx + r * math.cos(math.radians(deg)),
+            bend_cz + r * math.sin(math.radians(deg)),
+        )
+
+    # Walls of the bend are concentric arcs about the bend center: the outer
+    # wall at radius bend_radius + hw, the inner wall at bend_radius - hw, so
+    # the gap between them stays the constant channel width (2*hw).
+    outer_r = bend_radius + hw
+    outer_top = arc_pt(outer_r, 90)     # tangent to the top of the entry run
+    outer_mid = arc_pt(outer_r, 135)
+    outer_left = arc_pt(outer_r, 180)   # tangent to the outer wall of the drop
+    inner_r = bend_radius - hw
+    inner_top = arc_pt(inner_r, 90)     # tangent to the bottom of the entry run
+    inner_mid = arc_pt(inner_r, 135)
+    inner_left = arc_pt(inner_r, 180)   # tangent to the inner wall of the drop
+
     half_depth = (rod_channel_y_range[1] - rod_channel_y_range[0]) / 2.0
     profile = (
         cq.Workplane("XZ")
-        .moveTo(rod_entry_x_open, z_top)
-        .lineTo(rod_entry_x_open, entry_floor_z)             # open +X edge, down
-        .lineTo(crest_cx, entry_floor_z)                     # flat entry floor, in
-        .threePointArc(crest_mid, (dip_wall_x, crest_cz))    # crest: curve down
-        .lineTo(dip_wall_x, rest_center_z)                   # short drop to the cradle
-        .threePointArc((0.0, cradle_bottom_z), (-cradle_radius, rest_center_z))  # rounded cradle
-        .lineTo(-cradle_radius, z_top)                       # left end-stop wall, up
-        .close()                                             # bridge-line top, back to start
+        .moveTo(rod_entry_x_open, rod_run_z + hw)            # entry top-outer, open +X end
+        .lineTo(outer_top[0], rod_run_z + hw)                # top wall of the entry run, in
+        .threePointArc(outer_mid, outer_left)               # outer wall of the bend (rounded)
+        .lineTo(outer_left[0], rod_rest_z)                   # outer wall of the drop, down
+        .threePointArc((0.0, rod_rest_z - hw), (hw, rod_rest_z))  # rounded cradle bottom
+        .lineTo(inner_left[0], bend_cz)                      # inner wall of the drop, up
+        .threePointArc(inner_mid, inner_top)                # inner wall of the bend (rounded)
+        .lineTo(rod_entry_x_open, rod_run_z - hw)            # bottom wall of the entry run, out
+        .close()                                             # entry end cap, past the +X face
     )
     return profile.extrude(half_depth, both=True)
 
