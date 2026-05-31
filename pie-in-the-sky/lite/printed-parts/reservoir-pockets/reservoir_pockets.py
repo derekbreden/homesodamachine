@@ -21,9 +21,10 @@ divider, and the back wall. Each of those three walls carries a channel cut
 into its face near the top — NOT through the ceiling. The channel is one
 constant width the whole way (the rod diameter plus a little clearance): a
 horizontal run open at the +X (back / doorway) edge that the rod slides
-along, then a curve down — both walls of the bend are rounded arcs — into a
-rounded cradle at center X that holds the round rod. A bridge of wall
-material spans above the channel, so the ceiling stays attached. The user
+along, then a curve down — both walls of the bend are rounded arcs, the
+curve as large as the drop to the cradle allows — into a rounded cradle at
+center X that holds the round rod. The channel top sits one wall thickness
+below the box top, so the 2 mm ceiling closes solid over it. The user
 threads the rod through both bag loops and connects the spouts outside the
 box, slides the rod in from the +X back through the three aligned channels
 (carrying the bags in with it), and at center the rod rolls down into the
@@ -97,10 +98,9 @@ back_tube_hole_y = sum(back_pocket_y_range) / 2
 # from the +X (back / doorway) edge, then curves down through a rounded bend
 # (BOTH walls of the bend are arcs: outer radius bend_radius + channel_hw,
 # inner radius bend_radius - channel_hw) into a rounded cradle at center X
-# that holds the round rod. Its highest point stays at channel_top_z (below
-# the ceiling), leaving a bridge of wall material above it
-# (channel_top_z .. 287) so the ceiling stays attached. Nothing extends past
-# the cradle in -X, so that solid wall is the end stop.
+# that holds the round rod. Its highest point is channel_top_z, one wall
+# thickness below the box top, so the 2 mm ceiling closes solid over it.
+# Nothing extends past the cradle in -X, so that solid wall is the end stop.
 #
 # A 1/8 in stainless rod carries two full 1 L bags easily: the divider acts as
 # a midspan support, so each ~72 mm span sees ~10 N (~57 MPa bending; 304 SS
@@ -112,10 +112,19 @@ rod_radius = rod_diameter / 2.0
 channel_clearance = 0.3          # gap per side around the rod — entry and cradle alike
 channel_hw = rod_radius + channel_clearance   # channel half-width (constant along its length)
 
-channel_top_z = 283.0            # highest point of the channel; bridge spans channel_top_z .. 287
+# Raised as high as the closed top allows: the channel top sits one wall
+# thickness below the box top, so the 2 mm ceiling closes over it and the
+# ceiling's top face stays at the box top (outer_z_range[1]). The envelope
+# does not grow in Z.
+channel_top_z = outer_z_range[1] - wall_thickness   # 287
 rod_run_z = channel_top_z - channel_hw        # rod centerline along the horizontal entry run
 rod_rest_z = 272.0               # rod centerline at the cradle (its resting point)
-bend_radius = 6.0                # centerline radius of the curve-down (must exceed channel_hw)
+# Curve-down radius, maximized: a quarter bend descends by exactly its
+# centerline radius, so the largest curve that lands at the cradle has radius =
+# the full run->cradle drop. At this radius there is no straight vertical drop;
+# the bend flows directly into the cradle. (Must exceed channel_hw, which it
+# does by ~11 mm.)
+bend_radius = rod_run_z - rod_rest_z
 
 rod_entry_x_open = 79.0          # entry runs out past the +X face at x=77 (open end, trimmed)
 
@@ -170,10 +179,9 @@ def _channel_profile():
     outward by one wall for the rod-end boss shell. Returns the pending wire."""
     hw = channel_hw
     # Centerline of the curve-down: a quarter bend of radius bend_radius from
-    # the horizontal run (at rod_run_z) to a vertical drop at center X, then
-    # straight down into the cradle. Bend center:
+    # the horizontal run (at rod_run_z) down toward center X. Bend center:
     bend_cx = bend_radius
-    bend_cz = rod_run_z - bend_radius
+    bend_cz = rod_run_z - bend_radius   # == rod_rest_z when the bend is maxed
 
     def arc_pt(r, deg):
         return (
@@ -193,17 +201,26 @@ def _channel_profile():
     inner_mid = arc_pt(inner_r, 135)
     inner_left = arc_pt(inner_r, 180)   # tangent to the inner wall of the drop
 
-    return (
+    # When the bend is maxed it lands exactly at the cradle (bend_cz ==
+    # rod_rest_z): no straight vertical drop, the outer/inner bend arcs flow
+    # directly into the cradle arc. Only add the vertical drop walls when the
+    # bend stops short of the cradle.
+    has_drop = bend_cz - rod_rest_z > 1e-6
+    w = (
         cq.Workplane("XZ")
         .moveTo(rod_entry_x_open, rod_run_z + hw)            # entry top-outer, open +X end
         .lineTo(outer_top[0], rod_run_z + hw)                # top wall of the entry run, in
         .threePointArc(outer_mid, outer_left)               # outer wall of the bend (rounded)
-        .lineTo(outer_left[0], rod_rest_z)                   # outer wall of the drop, down
-        .threePointArc((0.0, rod_rest_z - hw), (hw, rod_rest_z))  # rounded cradle bottom
-        .lineTo(inner_left[0], bend_cz)                      # inner wall of the drop, up
-        .threePointArc(inner_mid, inner_top)                # inner wall of the bend (rounded)
-        .lineTo(rod_entry_x_open, rod_run_z - hw)            # bottom wall of the entry run, out
-        .close()                                             # entry end cap, past the +X face
+    )
+    if has_drop:
+        w = w.lineTo(outer_left[0], rod_rest_z)             # outer wall of the drop, down
+    w = w.threePointArc((0.0, rod_rest_z - hw), (hw, rod_rest_z))  # rounded cradle bottom
+    if has_drop:
+        w = w.lineTo(inner_left[0], bend_cz)                # inner wall of the drop, up
+    return (
+        w.threePointArc(inner_mid, inner_top)               # inner wall of the bend (rounded)
+        .lineTo(rod_entry_x_open, rod_run_z - hw)           # bottom wall of the entry run, out
+        .close()                                            # entry end cap, past the +X face
     )
 
 
