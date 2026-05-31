@@ -314,7 +314,15 @@ bulkhead_seal_wet_od = 21.0  # ⌀[16 mm](BULKHEAD_SEAL_ID)–[21 mm](BULKHEAD_S
 bulkhead_seal_wet_counterbore_diameter = 21.2  # ⌀[21.2 mm](BULKHEAD_SEAL_WET_CB_D): 0.1 mm/side around the washer; the ⌀[21.9 mm](BULKHEAD_WET_NUT_OD) nut face lands on the PETG rim outside it
 # DRY (under) washer + counterbore — clamped by the ⌀[18.7 mm](BULKHEAD_DRY_FLANGE_OD) elbow flange. Narrow secondary seal (flange-limited).
 bulkhead_seal_dry_od = 18.5  # ⌀[16 mm](BULKHEAD_SEAL_ID)–[18.5 mm](BULKHEAD_SEAL_DRY_OD) ring; the ⌀[18.7 mm](BULKHEAD_DRY_FLANGE_OD) flange caps how wide this can go
-bulkhead_seal_dry_counterbore_diameter = 17.7  # ⌀[17.7 mm](BULKHEAD_SEAL_DRY_CB_D) dry-side counterbore. NOTE: should be ≥ the ⌀[18.5 mm](BULKHEAD_SEAL_DRY_OD) washer and < the ⌀[18.7 mm](BULKHEAD_DRY_FLANGE_OD) flange; the 18.5 washer currently exceeds it — dry seal land being reworked for the 0.8 mm nozzle.
+bulkhead_seal_dry_counterbore_diameter = bulkhead_seal_dry_od  # ⌀[18.5 mm](BULKHEAD_SEAL_DRY_CB_D) — set equal to the dry washer OD ⌀[18.5 mm](BULKHEAD_SEAL_DRY_OD): hugs it with no radial clearance (the soft TPU compresses), the smallest counterbore that still seats the washer, which leaves the maximum PETG rim under the ⌀[18.7 mm](BULKHEAD_DRY_FLANGE_OD) flange. Derived from the washer OD so it tracks any printability bump.
+# Enforce the seat rim the line above promises: the counterbore must stay under
+# the dry flange OD, or the flange has no PETG to land on. The dry washer OD is
+# printability-driven (0.8 mm nozzle for 85A), so if it ever reaches the flange
+# this fails loudly — the dry seal then needs rethinking, not a broken seat.
+assert bulkhead_seal_dry_counterbore_diameter < bulkhead_dry_flange_od, (
+    f"dry seal counterbore ({bulkhead_seal_dry_counterbore_diameter}) must stay under "
+    f"the dry flange OD ({bulkhead_dry_flange_od}) to leave a PETG seat rim"
+)
 
 # Each seal counterbore recesses into a raised seat boss, not the bare
 # trough floor. The boss is counterbored from BOTH faces (a washer per
