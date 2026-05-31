@@ -22,7 +22,7 @@ In the file's own frame (long axis = Z):
 | Outlet 2 | −Z (bottom), collet face Z ≈ −19.25 | (0, +7.35) |
 
 So the two outlets point the **same direction**, **14.7 mm apart**, opposite
-the stem. That parallel-outlet shape is why valves feeding a divider can stay
-axis-aligned (no fanning) — see `../../valve-manifold/quad-tray/`.
+the stem. That parallel-outlet shape lets valves feeding a divider stay
+axis-aligned (no fanning).
 
 Accepts 1/4" (6.35 mm) OD tube; the 1/4" bore radius is 3.175 mm.
