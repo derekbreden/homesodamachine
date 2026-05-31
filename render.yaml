@@ -20,20 +20,22 @@ services:
     startCommand: npm start
     healthCheckPath: /
     autoDeploy: true
-    # With rootDir set, Render's default auto-deploy only fires on
-    # commits that touch the rootDir (web/). That misses commits to
-    # hardware/ and posts/ — which the running server reads at request
-    # time, so a new .step file or blog post in those trees doesn't
-    # reach production until SOMETHING in web/ also changes. Listing
-    # them here makes any commit touching one of these paths trigger
-    # an auto-deploy. render.yaml is included so future changes to
-    # this file (which always live at the repo root, outside rootDir)
-    # also trigger a deploy.
+    # rootDir is web/, so Render's default auto-deploy only fires on
+    # commits that touch web/. The server also reads hardware/, posts/,
+    # and pie-in-the-sky/lite/ at request time (CAD parts, blog posts,
+    # and the viewer's Lite-edition content root), so commits to those
+    # trees must trigger a deploy too. buildFilter.paths is an allowlist:
+    # once any path is listed, Render auto-ignores every non-matching
+    # path, so each served tree has to be enumerated here or its commits
+    # are silently skipped (a pie-in-the-sky/lite/ commit was skipped
+    # exactly this way before the entry below was added). render.yaml
+    # always redeploys regardless, and is listed for completeness.
     buildFilter:
       paths:
         - web/**
         - hardware/**
         - posts/**
+        - pie-in-the-sky/lite/**
         - render.yaml
     envVars:
       - key: DATABASE_URL
