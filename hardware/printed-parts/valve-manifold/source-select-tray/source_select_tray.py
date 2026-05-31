@@ -122,8 +122,11 @@ _socket_x = [
 ]
 plate_half_x = max(_socket_x) + socket_radius + margin
 plate_half_y = valve_y_extent + wall_clear + wall_thickness
-cut_half_x = 56.0   # clears both dividers (reach |X| = 39.5) and the tubes
-cut_half_y = 20.0   # clears divider |Y| = 15.45
+# Connector grooves: a fitting collet half-width + clearance, so the divider
+# tubes set down into the floor. Three grooves along X (the divider stem axis
+# at Y = 0, and the outlets at Y = +/-OUTLET_Y) cradle each trident.
+DIV_GROOVE_R = 8.1 + 0.3   # divider body half-thickness (16.2 mm) + clearance
+div_span = _outlet_x   # divider reach in |X| = 39.5
 
 
 def build_source_select_tray():
@@ -132,13 +135,6 @@ def build_source_select_tray():
         .box(2 * plate_half_x, 2 * plate_half_y, top_z - bot_z, centered=(True, True, False))
         .translate((0.0, 0.0, bot_z))
     )
-    gap = (
-        cq.Workplane("XY")
-        .box(2 * cut_half_x, 2 * cut_half_y, (top_z - bot_z) + 2.0, centered=(True, True, False))
-        .translate((0.0, 0.0, bot_z - 1.0))
-    )
-    tray = tray.cut(gap)
-
     for vx, vy, dx, dy in VALVES:
         phi = _aim_phi(vx, vy, dx, dy)
         for sx in (-1.0, 1.0):
@@ -162,6 +158,17 @@ def build_source_select_tray():
             cq.Vector(ux, uy, 0.0),
         )
         tray = tray.cut(cq.Workplane(obj=saddle))
+
+    # Divider grooves: three cylinders along X (stem axis at Y = 0, outlets at
+    # Y = +/-OUTLET_Y) so the two tridents set into the floor.
+    for gy in (0.0, +OUTLET_Y, -OUTLET_Y):
+        groove = cq.Solid.makeCylinder(
+            DIV_GROOVE_R,
+            2.0 * div_span,
+            cq.Vector(-div_span, gy, PORT_Z),
+            cq.Vector(1.0, 0.0, 0.0),
+        )
+        tray = tray.cut(cq.Workplane(obj=groove))
 
     for sy in (+1.0, -1.0):
         wall = (

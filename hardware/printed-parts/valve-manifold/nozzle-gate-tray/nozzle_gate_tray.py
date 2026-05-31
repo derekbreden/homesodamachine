@@ -34,8 +34,6 @@ TEES = {"YD": (0.0, +bc.row_half), "YG": (0.0, -bc.row_half)}
 
 plate_x = (-bc.plate_half_x, bc.TEE_RUN_HALF)   # +X wall ends at the Tee run port
 plate_y_half = bc.plate_half_y
-gap_x = (-bc.cut_half_x, bc.TEE_RUN_HALF)
-gap_y_half = bc.cut_half_y
 stack_pitch = bc.stack_pitch
 
 
@@ -46,7 +44,7 @@ def build_assembly():
 
 
 def build_nozzle_gate_tray():
-    return bc.build_tray(list(VALVES.values()), plate_x, plate_y_half, gap_x, gap_y_half)
+    return bc.build_tray(list(VALVES.values()), bc.tee_grooves(TEES.values()), plate_x, plate_y_half)
 
 
 def main():

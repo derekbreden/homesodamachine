@@ -46,8 +46,6 @@ TEES = {
 _run_out_x = _yc_x + bc.TEE_RUN_HALF               # +X run port of the far Tees
 plate_x = (-bc.plate_half_x, _run_out_x)           # +X wall ends at the far Tee port
 plate_y_half = bc.plate_half_y
-gap_x = (-bc.cut_half_x, _run_out_x)
-gap_y_half = bc.cut_half_y
 stack_pitch = bc.stack_pitch
 
 
@@ -58,7 +56,7 @@ def build_assembly():
 
 
 def build_bib_gate_tray():
-    return bc.build_tray(list(VALVES.values()), plate_x, plate_y_half, gap_x, gap_y_half)
+    return bc.build_tray(list(VALVES.values()), bc.tee_grooves(TEES.values()), plate_x, plate_y_half)
 
 
 def main():
