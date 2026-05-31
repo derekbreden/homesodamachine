@@ -185,13 +185,14 @@ outer footprint, sitting on top of a cap during its foam pour. It
 has the pour hole (Ø [10 mm](POUR_D)) and two vent holes
 (Ø [6 mm](VENT_D)).
 
-Both the cap and the lid have **six [8 × 8 mm](BOSS) boss / clearance-hole
-positions** — four at the corners and two at the mid-points of the long
-edges (one near the +Y wall and one near the −Y wall, offset in X by
-±[15 mm](MID_BOSS_OFFSET) with opposite signs at +Y vs −Y for 180°
-rotational symmetry). Each position passes a clearance hole for an M3
-cap screw all the way through the part. See "Cap-to-outer-shell
-joinery" below.
+Both the cap and the lid carry the **same six ⌀[8 mm](BOSS_D) bosses with
+teardrop corner-fill webs** as the outer shell (built from the one shared
+boss builder, so every mating part's boss cross-section is identical) —
+four at the corners and two at the mid-points of the long edges (one near
+the +Y wall and one near the −Y wall, offset in X by ±[15 mm](MID_BOSS_OFFSET)
+with opposite signs at +Y vs −Y for 180° rotational symmetry). Each position
+passes a clearance hole for an M3 cap screw all the way through the part.
+See "Cap-to-outer-shell joinery" below.
 
 ### foam_cap_gasket
 
@@ -199,10 +200,11 @@ A TPU 90A gasket, printed twice — one between each cap and its
 mating face on the outer_shell. Outer envelope matches the cap's
 footprint; [2 mm](GASKET_T) thick (flat 2D shape throughout — no 3D
 features). The shape is a **[5 mm](GASKET_W)-wide perimeter ring +
-an [8 × 8 mm](BOSS) pad at each of the six screw positions**,
-matching the boss footprints on the cap and shell above and below.
-The pads carry the screw clamp force across the full boss footprint;
-the perimeter ring seals along the wall sections away from the bosses.
+a boss-shaped pad at each of the six screw positions**, the pads using the
+same ⌀[8 mm](BOSS_D) boss + teardrop-web shape as the cap and shell above
+and below. The pads carry the screw clamp force across the full boss
+footprint; the perimeter ring seals along the wall sections away from the
+bosses.
 
 ## Cap-to-outer-shell joinery
 

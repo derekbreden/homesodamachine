@@ -99,7 +99,6 @@ def main():
             "GASKET_T": f"{gasket_thickness:.4g} mm",
             "GASKET_W": f"{gasket_strip_width:.4g} mm",
             # Cap-to-outer-shell joinery.
-            "BOSS": f"{screw_boss_size:.4g} × {screw_boss_size:.4g} mm",
             "MID_BOSS_OFFSET": f"{mid_screw_x_offset:.4g} mm",
             "INSERT_DEPTH": f"{insert_pocket_depth:.4g} mm",
             # Regression baseline (computed from the actual STEP geometry).
@@ -132,7 +131,7 @@ def main():
             "SUPPORT_RING_INNER_R": 1,
             "PORT_D": 8,
             "CORNER_ROUND_R": 1,
-            "BOSS_D": 1,
+            "BOSS_D": 3,
             "GUSSET_T": 1,
             "GUSSET_H": 1,
             "CAP_H": 2,
@@ -140,7 +139,6 @@ def main():
             "VENT_D": 2,
             "GASKET_T": 2,
             "GASKET_W": 1,
-            "BOSS": 2,
             "MID_BOSS_OFFSET": 2,
             "INSERT_DEPTH": 1,
             "VOLUME": 1,
