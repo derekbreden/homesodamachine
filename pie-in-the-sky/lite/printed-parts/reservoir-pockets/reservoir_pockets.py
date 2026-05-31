@@ -130,6 +130,18 @@ bend_radius = rod_run_z - rod_rest_z
 
 rod_entry_x_open = 79.0          # entry runs out past the +X face at x=77 (open end, trimmed)
 
+# Funnel mouth: the entry opening flares wider toward the +X mouth so the rod
+# is easy to start, then ramps back to the secure width partway in. The flare
+# is downward ONLY — the top wall stays at the run top (just under the 2 mm
+# ceiling) the whole way, since flaring upward would breach the ceiling. From
+# the bend out to funnel_ramp_x the bottom is at its normal height; from there
+# it ramps down to funnel_mouth_floor_z at the open +X end, giving a mouth
+# ~3x the secure height. funnel_mouth_drop is the only knob — raise it for a
+# bigger mouth.
+funnel_ramp_x = 40.0             # where the bottom returns to the secure channel
+funnel_mouth_drop = 8.0          # how far the mouth floor drops below the normal bottom
+funnel_mouth_floor_z = (rod_run_z - channel_hw) - funnel_mouth_drop
+
 # The rod ends extend y_stub past each outer (XZ-plane) wall, captured by a
 # boss whose outer surface is the channel cross-section grown by one
 # wall_thickness: a uniform 2 mm shell hugging the channel, open at the +X
@@ -173,12 +185,13 @@ def make_tube_hole(y):
 
 
 def _channel_profile():
-    """The rod hang channel cross-section: a constant-width closed profile in
-    the X-Z plane — a horizontal entry run open at the +X edge, a rounded bend
-    (both walls concentric arcs about the bend center), and a rounded cradle at
-    center X. Width is the rod diameter plus clearance, the same all the way
-    along. Reused two ways: extruded along Y as the channel void, and offset
-    outward by one wall for the rod-end boss shell. Returns the pending wire."""
+    """The rod hang channel cross-section: a closed profile in the X-Z plane —
+    a horizontal entry run open at the +X edge (flared wider at the mouth,
+    downward only, then ramping back to the secure width), a rounded bend (both
+    walls concentric arcs about the bend center), and a rounded cradle at center
+    X. Width is the rod diameter plus clearance over the secure length. Reused
+    two ways: extruded along Y as the channel void, and offset outward by one
+    wall for the rod-end boss shell. Returns the pending wire."""
     hw = channel_hw
     # Centerline of the curve-down: a quarter bend of radius bend_radius from
     # the horizontal run (at rod_run_z) down toward center X. Bend center:
@@ -221,8 +234,9 @@ def _channel_profile():
         w = w.lineTo(inner_left[0], bend_cz)                # inner wall of the drop, up
     return (
         w.threePointArc(inner_mid, inner_top)               # inner wall of the bend (rounded)
-        .lineTo(rod_entry_x_open, rod_run_z - hw)           # bottom wall of the entry run, out
-        .close()                                            # entry end cap, past the +X face
+        .lineTo(funnel_ramp_x, rod_run_z - hw)              # secure bottom wall, out to the ramp
+        .lineTo(rod_entry_x_open, funnel_mouth_floor_z)     # ramp down to the flared mouth floor
+        .close()                                            # taller mouth end cap, past the +X face
     )
 
 
