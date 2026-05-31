@@ -6,15 +6,9 @@ vertically, separated by a divider.
 - Two bag pockets, front-to-back along the depth (Y) axis
 - Each pocket: 150 mm wide (X) × 70 mm deep (Y) × 285 mm tall (Z), sized to
   one 1 L Platypus bag (285 × 150 × 70 mm)
-- Open top (no ceiling) so the bags hang from the rod
 - Each pocket opens through its right (+X) wall as a 70 mm deep (Y) × 285 mm tall (Z) doorway
 - Left (-X) wall: one ⌀6.5 mm (~1/4") tubing exit hole per pocket, centered in depth (Y), low in the wall (bottom 6.5 mm above the floor)
-- Rod hang channel across the top of the front wall, divider, and back wall: a
-  horizontal entry slot open at the +X (back) edge that runs in to center, then
-  drops into a detent. One SS rod threads both bags' centered top loops; the
-  bag-and-rod assembly slides in from the back, drops into the detent, and the
-  bags' weight seats it (closet-rod style)
-- Walls, floor, and divider: 2 mm
+- Walls, floor, ceiling, and divider: 2 mm
 - Outer envelope: 154 mm wide (X) × 146 mm deep (Y) × 289 mm tall (Z)
 - Transparent PETG
 
