@@ -122,13 +122,13 @@ pill_long_y = pill_length_x
 # [7.05 mm](PILL_W) pill short axis in DXF X (= world-depth Y) —
 # matches the gasket's pill.
 pill_short_x = pill_width_y
-pill_half_long = pill_long_y / 2.0       # 6.7
-pill_half_short = pill_short_x / 2.0     # 3.525
-pill_cap_radius = pill_half_short        # 3.525
-pill_top_cap_cy = pill_cy + (pill_half_long - pill_cap_radius)   # +3.175
-pill_bot_cap_cy = pill_cy - (pill_half_long - pill_cap_radius)   # -3.175
-pill_left_x = pill_cx - pill_half_short     # 15.4
-pill_right_x = pill_cx + pill_half_short    # 22.45
+pill_half_long = pill_long_y / 2.0       # [6.7 mm](PILL_HALF_LONG)
+pill_half_short = pill_short_x / 2.0     # [3.525 mm](PILL_HALF_SHORT)
+pill_cap_radius = pill_half_short        # [3.525 mm](PILL_CAP_R)
+pill_top_cap_cy = pill_cy + (pill_half_long - pill_cap_radius)   # [3.175 mm](PILL_TOP_CAP_CY)
+pill_bot_cap_cy = pill_cy - (pill_half_long - pill_cap_radius)   # [-3.175 mm](PILL_BOT_CAP_CY)
+pill_left_x = pill_cx - pill_half_short     # [15.4 mm](PILL_LEFT_X)
+pill_right_x = pill_cx + pill_half_short    # [22.45 mm](PILL_RIGHT_X)
 
 # [1.5 mm](FILLET_R) fillet radius at the four channel-mouth corners
 # where a vertical channel wall meets the disc rim.
@@ -185,22 +185,22 @@ def make_dxf():
     msp = doc.modelspace()
 
     # Key points on the plate boundary (going CCW from the top of the disc):
-    top_of_disc = (disc_cx, disc_cy + disc_radius)                     # (3.175, +27.175)
+    top_of_disc = (disc_cx, disc_cy + disc_radius)                     # ([3.175 mm](DISC_CX), [27.18 mm](TOP_OF_DISC_Y))
 
     # Shank channel — extends in -Y from the shank's bottom semicircle
-    # to the rim, width 12.6 mm in X.
-    shank_left_wall_x = shank_cx - shank_radius                        # -6.3
-    shank_right_wall_x = shank_cx + shank_radius                       # +6.3
-    shank_left_wall_top = (shank_left_wall_x, shank_cy)                # (-6.3, 0)
-    shank_right_wall_top = (shank_right_wall_x, shank_cy)              # (+6.3, 0)
+    # to the rim, width [12.6 mm](SHANK_HOLE_D) in X.
+    shank_left_wall_x = shank_cx - shank_radius                        # [-6.3 mm](SHANK_LEFT_WALL_X)
+    shank_right_wall_x = shank_cx + shank_radius                       # [6.3 mm](SHANK_RIGHT_WALL_X)
+    shank_left_wall_top = (shank_left_wall_x, shank_cy)                # ([-6.3 mm](SHANK_LEFT_WALL_X), 0)
+    shank_right_wall_top = (shank_right_wall_x, shank_cy)              # ([6.3 mm](SHANK_RIGHT_WALL_X), 0)
     # Pill channel — extends in -Y from the pill rectangle's bottom
-    # edge (Y = pill_bot_cap_cy = -3.175) to the rim, width 7.05 mm
-    # in X.
-    pill_left_wall_top = (pill_left_x, pill_bot_cap_cy)                # (15.4, -3.175)
-    pill_right_wall_top = (pill_right_x, pill_bot_cap_cy)              # (22.45, -3.175)
+    # edge (Y = pill_bot_cap_cy = [-3.175 mm](PILL_BOT_CAP_CY)) to the rim,
+    # width [7.05 mm](PILL_W) in X.
+    pill_left_wall_top = (pill_left_x, pill_bot_cap_cy)                # ([15.4 mm](PILL_LEFT_X), [-3.175 mm](PILL_BOT_CAP_CY))
+    pill_right_wall_top = (pill_right_x, pill_bot_cap_cy)              # ([22.45 mm](PILL_RIGHT_X), [-3.175 mm](PILL_BOT_CAP_CY))
 
-    pill_rect_top_left = (pill_left_x, pill_top_cap_cy)                # (15.4, +3.175)
-    pill_rect_top_right = (pill_right_x, pill_top_cap_cy)              # (22.45, +3.175)
+    pill_rect_top_left = (pill_left_x, pill_top_cap_cy)                # ([15.4 mm](PILL_LEFT_X), [3.175 mm](PILL_TOP_CAP_CY))
+    pill_rect_top_right = (pill_right_x, pill_top_cap_cy)              # ([22.45 mm](PILL_RIGHT_X), [3.175 mm](PILL_TOP_CAP_CY))
 
     disc_center = (disc_cx, disc_cy)
 
@@ -287,10 +287,21 @@ if __name__ == "__main__":
 
     variables = {
         "PLATE_D": f"{disc_diameter:.4g} mm",
+        "DISC_CX": f"{disc_cx:.4g} mm",
+        "TOP_OF_DISC_Y": f"{disc_cy + disc_radius:.4g} mm",
         "SHANK_HOLE_D": f"{shank_diameter:.4g} mm",
+        "SHANK_LEFT_WALL_X": f"{shank_cx - shank_radius:.4g} mm",
+        "SHANK_RIGHT_WALL_X": f"{shank_cx + shank_radius:.4g} mm",
         "FLAVOR_TUBE_X": f"{pill_cx:.4g} mm",
         "PILL_L": f"{pill_long_y:.4g} mm",
         "PILL_W": f"{pill_short_x:.4g} mm",
+        "PILL_HALF_LONG": f"{pill_half_long:.4g} mm",
+        "PILL_HALF_SHORT": f"{pill_half_short:.4g} mm",
+        "PILL_CAP_R": f"{pill_cap_radius:.4g} mm",
+        "PILL_TOP_CAP_CY": f"{pill_top_cap_cy:.4g} mm",
+        "PILL_BOT_CAP_CY": f"{pill_bot_cap_cy:.4g} mm",
+        "PILL_LEFT_X": f"{pill_left_x:.4g} mm",
+        "PILL_RIGHT_X": f"{pill_right_x:.4g} mm",
         "FILLET_R": f"{fillet_radius:.4g} mm",
     }
     substitute_py_comments(
@@ -298,10 +309,21 @@ if __name__ == "__main__":
         variables=variables,
         expected_counts={
             "PLATE_D": 1,
-            "SHANK_HOLE_D": 1,
+            "DISC_CX": 1,
+            "TOP_OF_DISC_Y": 1,
+            "SHANK_HOLE_D": 2,
+            "SHANK_LEFT_WALL_X": 2,
+            "SHANK_RIGHT_WALL_X": 2,
             "FLAVOR_TUBE_X": 1,
             "PILL_L": 1,
-            "PILL_W": 1,
+            "PILL_W": 2,
+            "PILL_HALF_LONG": 1,
+            "PILL_HALF_SHORT": 1,
+            "PILL_CAP_R": 1,
+            "PILL_TOP_CAP_CY": 3,
+            "PILL_BOT_CAP_CY": 4,
+            "PILL_LEFT_X": 3,
+            "PILL_RIGHT_X": 3,
             "FILLET_R": 1,
         },
     )
