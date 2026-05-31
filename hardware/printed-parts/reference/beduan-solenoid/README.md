@@ -10,7 +10,7 @@ Built from simple primitives, fused into one solid:
 
 | Primitive | Size (X × Y × Z) | Part |
 |---|---|---|
-| 5 cylinders | ⌀32.25 boss (Z 6→30.6) + 4× ⌀6.8 corners (Z 0→30.6) | white valve body (fluid section) |
+| 5 cyl + box | ⌀32.25 boss (Z 6→30.6) + 4× ⌀6.8 corners (Z 0→30.6) + 32.25×32.25×5 top box (Z 25.6→30.6) | white valve body (fluid section) |
 | Box | 32.25 × 24 × 26 | solenoid coil (electrical section) |
 | Cylinder | ⌀15 × 59, axis ∥ Y | port / tube-flow axis (two QC collets) |
 | 2× box | 6.3 × 15 × 0.8 each | spade terminals (off the coil's +Y face) |
@@ -29,7 +29,8 @@ surface (bottom of the white body) sits at Z = 0.
 - The white body is a central round boss (⌀32.25, Z 6 → 30.6) inscribed in
   the square footprint, plus four corner bosses (⌀6.8) running the full
   Z 0 → 30.6, tucked tangent inside the footprint corners. The bottom 6 mm
-  is just the four posts.
+  is just the four posts. A 5 mm square box (32.25 × 32.25, Z 25.6 → 30.6)
+  caps the top, filling the footprint corners just under the coil.
 - The solenoid coil is centered on top of the body in X and Y, from
   Z = 30.6 to Z = 56.6 — a T-profile, symmetric in X. The coil is
   shallower in Y than the body (24 vs. 32.25), so the body steps out as

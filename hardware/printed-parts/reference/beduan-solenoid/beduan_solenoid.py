@@ -10,8 +10,9 @@ folder's `extracted-results/geometry-description.md`).
 
 Components
 ----------
-1. White valve body  — 5 cylinders: central boss (dia 32.25, Z 6->30.6)
-                       plus 4 corner bosses (dia 6.8, full Z 0->30.6)
+1. White valve body  — central boss (dia 32.25, Z 6->30.6) + 4 corner
+                       bosses (dia 6.8, Z 0->30.6) + square top box
+                       (32.25 x 32.25, Z 25.6->30.6)
 2. Solenoid coil     — box 32.25 (X) x 24   (Y) x 26   (Z)
 3. Port / flow axis  — cylinder dia 15, length 59, axis along Y
 4. Spade terminals   — two blades 6.3 (X) x 15 (Y) x 0.8 (Z), off +Y face
@@ -30,7 +31,9 @@ Arrangement (first-pass, photo-matched)
 - The white body is a central round boss (dia 32.25, inscribed in the
   square footprint) from Z = 6 to Z = 30.6, plus four corner bosses (dia
   6.8) running the full Z = 0 to 30.6, tucked tangent inside the footprint
-  corners. The bottom 6 mm is just the four corner posts.
+  corners. The bottom 6 mm is just the four corner posts. A 5 mm square box
+  (32.25 x 32.25, Z 25.6 -> 30.6) caps the top, filling the footprint
+  corners just under the coil.
 - The solenoid coil is centered on top of the body in both X and Y, from
   Z = 30.6 to Z = 56.6 — a T-profile, symmetric in X. Stacked heights
   30.6 + 26 = 56.6 mm reproduce the caliper-measured 56.04 mm from
@@ -70,6 +73,7 @@ body_y = 32.25
 body_z = 30.6
 body_center_boss_z_start = 6.0
 body_corner_boss_diameter = 6.8
+body_top_box_height = 5.0  # square box capping the top, fills the corners
 
 # --- Solenoid coil (electrical section), centered on top of the body ------
 coil_x = 32.25
@@ -118,6 +122,14 @@ def build_beduan_solenoid():
                 .extrude(body_z)
             )
             body = body.union(boss)
+    # Square top box: fills the footprint corners for the top 5 mm, just
+    # under the coil (Z 25.6 -> 30.6).
+    top_box = (
+        cq.Workplane("XY")
+        .workplane(offset=body_z - body_top_box_height)
+        .box(body_x, body_y, body_top_box_height, centered=(True, True, False))
+    )
+    body = body.union(top_box)
     coil = (
         cq.Workplane("XY")
         .workplane(offset=body_z)
