@@ -32,7 +32,6 @@ from _cold_core_interface import (
     reservoir_floor_thickness,
     reservoir_bulkhead_port_x,
     reservoir_bulkhead_port_y,
-    bulkhead_below_floor_stack,
     bulkhead_floor_clearance,
     make_box,
 )
@@ -322,7 +321,7 @@ bulkhead_seal_dry_counterbore_diameter = 17.7  # 0.1 mm/side around the ⌀17.5 
 # clamping face so that face lands on solid PETG all around, and it
 # protrudes below the floor underside into the open bag-pocket space.
 bulkhead_seal_boss_diameter = bulkhead_seal_wet_counterbore_diameter + 2 * 1.75  # ⌀24.7: seat wall wide enough for the ⌀21.9 wet-side nut face to land on PETG outside the wet counterbore
-bulkhead_seal_seat_thickness = 4.0  # PETG from the wet-face counterbore to the boss underside; > counterbore_depth so the dry-face counterbore leaves a ~2.6 mm solid mid-rim
+bulkhead_seal_seat_thickness = reservoir_wall_thickness + bulkhead_seal_counterbore_depth  # DERIVED, not hand-tuned: the solid PETG mid-rim between the wet + dry counterbores is (seat − counterbore_depth), so setting seat = wall + counterbore_depth makes that mid-rim exactly reservoir_wall_thickness — the enforced minimum floor thickness at the port. Follows the wall if it changes.
 
 # PureSec integral 90° elbow + push-to-connect ports. See
 # ../../../off-the-shelf-parts/puresec-90-bulkhead/geometry-description.md.
@@ -337,6 +336,7 @@ bulkhead_elbow_lateral_offset = 15.0  # barrel axis → lateral-PTC centerline
 bulkhead_elbow_envelope_x = 28.0  # lateral extent of the cast 90° body + lateral collet barrel. Modelled along ±Y here (toward the pass-through), see orientation note below.
 bulkhead_elbow_envelope_y = 16.0  # transverse extent of the elbow body
 bulkhead_elbow_envelope_z = 16.0  # vertical extent of the elbow body
+bulkhead_elbow_flange_to_bottom = 19.6  # MEASURED: dry-side flange top face (seats on the boss underside) → elbow's lowest point. Sets how far the elbow hangs below the floor; drives floor_trough_lift below.
 
 # ORIENTATION: the PureSec is an L-body with the wet PTC on the barrel
 # axis and the lateral PTC on the elbow leg. The barrel is vertical
@@ -352,12 +352,23 @@ bulkhead_elbow_lateral_sign = +1  # +Y; the pass-through is on +Y
 # walls. (floor_trough_z, the slope rate, and the wedge extrusion top
 # are derived below, after inner_z_range / inner_y_max are defined.)
 #
-# The V floor is raised only as far as the bulkhead hardware below it
-# demands — bulkhead_below_floor_stack + bulkhead_floor_clearance above the
-# bag-pocket floor — so the elbow sits basically on the pocket floor while
-# the corner support posts carry the reservoir (scheme in
-# _cold_core_interface). floor underside = bag_pocket_floor_top_z +
-# reservoir_clearance + floor_trough_lift.
+# The V floor is raised only as far as the bulkhead hardware below it demands.
+# That lift is DERIVED (not hand-tuned) from the seal-boss geometry — which is
+# itself wall-derived — plus the measured elbow standoff, so the whole stack
+# keys off reservoir_wall_thickness and stays consistent if the wall thickness
+# or counterbore depth changes:
+#   below the trough-floor underside hang, in order, the seal-boss protrusion
+#   (boss height − wall), the dry-side TPU washer, and the flange-to-elbow
+#   standoff; bulkhead_floor_clearance then buffers the elbow bottom off the
+#   bag-pocket floor. The corner support posts (in _foam_shell via
+#   _reservoir_supports) carry the reservoir and follow this floor height.
+# floor underside = bag_pocket_floor_top_z + reservoir_clearance + floor_trough_lift.
+bulkhead_seal_boss_height = bulkhead_seal_counterbore_depth + bulkhead_seal_seat_thickness  # boss top flush with the trough; underside protrudes (boss_height − wall) below the floor underside
+bulkhead_below_floor_stack = (
+    (bulkhead_seal_boss_height - reservoir_wall_thickness)  # seal-boss protrusion below the floor underside
+    + bulkhead_seal_thickness                                # dry-side TPU washer (conservative full-thickness allowance)
+    + bulkhead_elbow_flange_to_bottom                        # measured flange-top → elbow-bottom standoff
+)
 floor_trough_lift = bulkhead_floor_clearance + bulkhead_below_floor_stack - reservoir_clearance
 floor_trough_half_width_y = 14.0  # half the flat trough's Y extent; wide enough to host the ⌀24.7 seal-seat boss (≈1.6 mm Y margin each side)
 floor_slope_rise = 6.0  # mm the floor rises from the trough surface to each ±Y wall
