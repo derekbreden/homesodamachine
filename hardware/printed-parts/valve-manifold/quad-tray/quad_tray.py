@@ -109,10 +109,10 @@ def build_assembly():
 # --- Tray frame + stacking walls ------------------------------------------
 margin = 3.0
 wall_thickness = 3.0
-wall_clear = 3.0
+wall_clear = 1.0
 wall_top_z = 60.0
 stack_pitch = wall_top_z - bot_z   # 63 mm
-valve_y_extent = 40.6              # valve reach in |Y| after aiming
+valve_y_extent = 40.61             # valve reach in |Y| after aiming
 
 _socket_x = [
     abs(vx + _rot2(sx * corner_pos, sy * corner_pos, _aim_phi(vx, vy, dx, dy))[0])
@@ -121,7 +121,7 @@ _socket_x = [
     for sy in (-1.0, 1.0)
 ]
 plate_half_x = max(_socket_x) + socket_radius + margin
-plate_half_y = valve_y_extent + wall_clear + wall_thickness  # 46.6
+plate_half_y = valve_y_extent + wall_clear + wall_thickness
 cut_half_x = 56.0   # clears both dividers (reach |X| = 39.5) and the tubes
 cut_half_y = 20.0   # clears divider |Y| = 15.45
 

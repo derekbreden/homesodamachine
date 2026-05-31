@@ -18,10 +18,11 @@ above the floor — for each bag's spout line. Transparent PETG.
 Rod hang channel: one 1/8 in stainless rod runs front-to-back (along Y)
 through both bags' centered top loops, passing through the front wall, the
 divider, and the back wall. Each of those three walls carries a channel cut
-into its face near the top — NOT through the ceiling. The channel is one
-constant width the whole way (the rod diameter plus a little clearance): a
-horizontal run open at the +X (back / doorway) edge that the rod slides
-along, then a curve down — both walls of the bend are rounded arcs, the
+into its face near the top — NOT through the ceiling. The channel is the rod diameter plus a little clearance over its secure
+length: a horizontal run open at the +X (back / doorway) edge that the rod
+slides along — flared wider at the mouth (downward only, since the top stays
+at the ceiling) so the rod is easy to start, ramping back to the secure
+width partway in — then a curve down — both walls of the bend are rounded arcs, the
 curve as large as the drop to the cradle allows — into a rounded cradle at
 center X that holds the round rod. The channel top sits one wall thickness
 below the box top, so the 2 mm ceiling closes solid over it. The user
@@ -91,8 +92,9 @@ front_tube_hole_y = sum(front_pocket_y_range) / 2
 back_tube_hole_y = sum(back_pocket_y_range) / 2
 
 # --- Rod hang channel (slide in from the +X back, curve down to a rounded rest) ---
-# A constant-width channel — rod diameter plus a little clearance, the same
-# width along its whole length — cut as a profile in the X-Z plane and swept
+# A channel — rod diameter plus a little clearance over its secure length,
+# flared wider at the +X mouth for easy insertion — cut as a profile in the
+# X-Z plane and swept
 # along Y through the front wall, the divider, and the back wall (the empty
 # pockets between them carry no material). The channel runs horizontally in
 # from the +X (back / doorway) edge, then curves down through a rounded bend
@@ -110,7 +112,7 @@ back_tube_hole_y = sum(back_pocket_y_range) / 2
 rod_diameter = 3.175             # 1/8 in stainless rod
 rod_radius = rod_diameter / 2.0
 channel_clearance = 0.3          # gap per side around the rod — entry and cradle alike
-channel_hw = rod_radius + channel_clearance   # channel half-width (constant along its length)
+channel_hw = rod_radius + channel_clearance   # secure channel half-width (the mouth flares wider)
 
 # Raised as high as the closed top allows: the channel top sits one wall
 # thickness below the box top, so the 2 mm ceiling closes over it and the
