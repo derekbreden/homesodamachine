@@ -4,15 +4,16 @@ used 12x per unit on the fluid-topology manifold (see `hardware/bom.md`).
 
 This is a purchased part, not a printed one — the model is a coarse
 keep-out envelope for rack/manifold layout, not a manufacturing drawing.
-It is built from three primitives positioned to match the caliper-verified
+It is built from four primitives positioned to match the caliper-verified
 photos in `hardware/off-the-shelf-parts/beduan-solenoid/` (see that
 folder's `extracted-results/geometry-description.md`).
 
-Three primitives
-----------------
+Four primitives
+---------------
 1. White valve body  — box 32.25 (X) x 32.25 (Y) x 30.6 (Z)
 2. Solenoid coil     — box 32.25 (X) x 24   (Y) x 26   (Z)
 3. Port / flow axis  — cylinder dia 15, length 59, axis along Y
+4. Spade terminals   — two blades 6.3 (X) x 0.8 (Y) x 15 (Z), on the coil
 
 Coordinate convention (matches the geometry-description doc)
 ------------------------------------------------------------
@@ -34,11 +35,16 @@ Arrangement (first-pass, photo-matched)
   below the body's mid-height. At length 59 it overhangs the 32.25-deep
   body by ~13.4 mm each side as the two quick-connect collet stubs;
   collet-to-collet measured 56.00 mm.
+- Two spade terminals stand on the coil top, protruding +Z from Z = 56.6
+  to Z = 71.6 — thin coplanar blades, side by side 10 mm apart in X and
+  offset to Y = +6 so they sit toward the connector-block edge seen in
+  the photos, rather than dead-center on the coil.
 
 Open assumptions to adjust on the next pass (flagged in the caliper doc
 as unmeasured): port-axis height in Z, coil footprint vs. body footprint,
-spade-connector terminals (not yet modeled), and which face actually
-carries the 2x2 mounting-hole grid.
+spade-terminal placement on the coil top (modeled here, but position and
+the 31.41 mm protrusion are first-pass), and which face actually carries
+the 2x2 mounting-hole grid.
 """
 
 import sys
@@ -69,6 +75,18 @@ port_radius = port_diameter / 2.0
 # photo-matched estimate.
 port_center_z = body_z / 2.0 - 4.0
 
+# --- Spade terminals (two flat blades on the coil top) --------------------
+# Oriented as protruding blades: 6.3 wide (X), 0.8 thick (Y), 15 long (Z),
+# standing up off the coil top. Side by side in X, offset toward +Y so the
+# pair sits near the connector-block edge of the coil rather than centered.
+# Placement is a first-pass estimate (see geometry-description.md).
+spade_width = 6.3
+spade_thickness = 0.8
+spade_length = 15.0
+spade_x_spacing = 10.0  # center-to-center along X
+spade_y_center = 6.0
+coil_top_z = body_z + coil_z  # 56.6
+
 
 def build_beduan_solenoid():
     body = cq.Workplane("XY").box(
@@ -87,7 +105,17 @@ def build_beduan_solenoid():
         cq.Vector(0.0, -port_length / 2.0, port_center_z),
         cq.Vector(0.0, 1.0, 0.0),
     )
-    return body.union(coil).union(cq.Workplane(obj=port))
+    valve = body.union(coil).union(cq.Workplane(obj=port))
+
+    for x_center in (-spade_x_spacing / 2.0, spade_x_spacing / 2.0):
+        spade = (
+            cq.Workplane("XY")
+            .workplane(offset=coil_top_z)
+            .center(x_center, spade_y_center)
+            .box(spade_width, spade_thickness, spade_length, centered=(True, True, False))
+        )
+        valve = valve.union(spade)
+    return valve
 
 
 def main():
