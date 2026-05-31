@@ -355,7 +355,7 @@ export async function start({ dev = false, port, hardwareDir, liteDir } = {}) {
     }
   });
 
-  return { app, server, broadcast, hardwareDir: HARDWARE_DIR };
+  return { app, server, broadcast, hardwareDir: HARDWARE_DIR, liteDir: LITE_DIR };
 }
 
 // If run directly (i.e. by Render as `node server.js`), boot in production mode.
