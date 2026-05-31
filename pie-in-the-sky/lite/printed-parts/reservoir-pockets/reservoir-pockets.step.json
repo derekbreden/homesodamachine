@@ -2,5 +2,5 @@
   "thickness_mm": 2.0,
   "material": "PETG",
   "process": "3D-print",
-  "notes": "transparent PETG; two 150x70x285 mm bag pockets split by a 2 mm divider; outer envelope 154x146x289 mm; solid-walled foundation form"
+  "notes": "transparent PETG; two 150x70x285 mm bag pockets split by a 2 mm divider, each open as a 70x285 mm doorway through its left (-X) wall; outer envelope 154x146x289 mm"
 }
