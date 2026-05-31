@@ -44,6 +44,7 @@ from _reservoir_pocket_walls import (
     pocket_centerward_arc_transition_y,
     transition_tank_r,
 )
+from _corner_gussets import gusset_thickness, gusset_height
 from docgen import substitute_md
 
 
@@ -85,6 +86,9 @@ def main():
             "SUPPORT_RING_W": f"{support_ring_radial_width:.4g} mm",
             "SUPPORT_RING_INNER_R": f"{pocket_centerward_arc_outer_radius - wall_and_floor_thickness - support_ring_radial_width:.4g} mm",
             "PORT_D": f"{port_hole_radius * 2:.4g} mm",
+            # Corner anti-warp gussets.
+            "GUSSET_T": f"{gusset_thickness:.4g} mm",
+            "GUSSET_H": f"{gusset_height:.4g} mm",
             # Foam-cap, foam-cap-lid, foam-cap-gasket.
             "CAP_H": f"{foam_cap_interior_height:.4g} mm",
             "POUR_D": f"{foam_cap_lid_pour_radius * 2:.4g} mm",
@@ -124,6 +128,8 @@ def main():
             "SUPPORT_RING_W": 1,
             "SUPPORT_RING_INNER_R": 1,
             "PORT_D": 8,
+            "GUSSET_T": 1,
+            "GUSSET_H": 1,
             "CAP_H": 2,
             "POUR_D": 2,
             "VENT_D": 2,
