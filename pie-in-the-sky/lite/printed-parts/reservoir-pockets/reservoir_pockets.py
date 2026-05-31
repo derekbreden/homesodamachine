@@ -135,12 +135,12 @@ rod_entry_x_open = 79.0          # entry runs out past the +X face at x=77 (open
 # is downward ONLY — the top wall stays at the run top (just under the 2 mm
 # ceiling) the whole way, since flaring upward would breach the ceiling. From
 # the bend out to funnel_ramp_x the bottom is at its normal height; from there
-# it ramps down to funnel_mouth_floor_z at the open +X end, giving a mouth
-# ~3x the secure height. funnel_mouth_drop is the only knob — raise it for a
-# bigger mouth.
+# it ramps down to funnel_mouth_floor_z at the open +X end. The mouth floor
+# drops clear to the resting depth — the same z as the cradle bottom — so the
+# mouth is its largest there (~4.5x the secure height) and tapers back to the
+# secure slot by funnel_ramp_x.
 funnel_ramp_x = 40.0             # where the bottom returns to the secure channel
-funnel_mouth_drop = 8.0          # how far the mouth floor drops below the normal bottom
-funnel_mouth_floor_z = (rod_run_z - channel_hw) - funnel_mouth_drop
+funnel_mouth_floor_z = rod_rest_z - channel_hw   # mouth floor at the cradle bottom (resting depth)
 
 # The rod ends extend y_stub past each outer (XZ-plane) wall, captured by a
 # boss whose outer surface is the channel cross-section grown by one

@@ -13,9 +13,11 @@ vertically, separated by a divider.
   sits one wall thickness below the box top, so the 2 mm ceiling closes solid
   over it (just as over the pockets). The channel is the rod diameter plus a
   little clearance over its secure length: a horizontal run open at the +X
-  (back) edge — flared wider at the mouth (downward only, the top stays at the
-  ceiling) so the rod is easy to start, ramping back to the secure width over
-  the outer half of the run — that curves down through a rounded bend — both
+  (back) edge — flared wide at the mouth (downward only, the top stays at the
+  ceiling), the mouth floor dropping clear to the resting depth (level with the
+  cradle bottom, ~4.5x the secure height) so the rod is easy to start, then
+  ramping back to the secure width over the outer half of the run — that curves
+  down through a rounded bend — both
   walls of the bend are arcs, the curve as large as the drop to the cradle
   allows (it flows directly into the cradle, no straight vertical drop) — into a
   rounded cradle at center X. One 1/8" stainless rod threads both bags' centered
