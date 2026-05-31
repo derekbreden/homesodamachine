@@ -36,28 +36,32 @@ def _rounded_outer_footprint():
 
 
 def _corner_webs():
-    """Two ribs per corner boss — one running toward the ±X side wall, one
-    toward the ±Y end wall — each as wide as the boss so it blends off it,
-    trimmed to the rounded wall by the footprint mask. This ties the
-    inward-nested boss to both walls it braces while leaving the corner's
-    diagonal interior open for foam (the cylinder + two-web teardrop idiom
-    of the reservoir pocket-corner supports, not a solid-filled corner)."""
-    rib_w = 2 * wall_and_floor_thickness
-    corner_x = outer_shell_x_length / 2
-    corner_y = outer_shell_y_length / 2
+    """The teardrop's two corner-fill squares per corner boss, exactly as
+    the reservoir pocket-corner supports do it: a boss-radius square is
+    tangent to the boss circle in each quadrant; the two squares on the
+    corner side (toward the +/-X far wall and toward the +/-Y end wall) are
+    kept, the diagonal-facing square is left open for foam. Each square
+    spans one boss radius in x and one in y from the boss center, toward the
+    corner. Trimmed to the rounded wall by the footprint mask; the insert
+    pockets are cut later at the full-shell level (cut_insert_pockets)."""
+    r = screw_boss_size / 2
     webs = None
     for cx, cy in foam_cap_attachment_xy_positions[:4]:  # first 4 entries are the corners
-        x_to_wall = make_box(
-            (cx, corner_x if cx > 0 else -corner_x),
-            (cy - rib_w / 2, cy + rib_w / 2),
+        x_sign = 1 if cx > 0 else -1
+        y_sign = 1 if cy > 0 else -1
+        # Square reaching toward the far X wall (corner-ward in X, centered in Y).
+        toward_x_wall = make_box(
+            (cx, cx + x_sign * r),
+            (cy - r, cy + r),
             (0.0, foam_shell_outer_height),
         )
-        y_to_wall = make_box(
-            (cx - rib_w / 2, cx + rib_w / 2),
-            (cy, corner_y if cy > 0 else -corner_y),
+        # Square reaching toward the end Y wall (corner-ward in Y, centered in X).
+        toward_y_wall = make_box(
+            (cx - r, cx + r),
+            (cy, cy + y_sign * r),
             (0.0, foam_shell_outer_height),
         )
-        pair = x_to_wall.union(y_to_wall)
+        pair = toward_x_wall.union(toward_y_wall)
         webs = pair if webs is None else webs.union(pair)
     return webs.intersect(_rounded_outer_footprint().unwrap())
 
@@ -83,10 +87,20 @@ def build_outer_shell():
         .circle(screw_boss_size / 2)
         .extrude(foam_shell_outer_height)
     )
+    # NB: the heat-set insert pockets are NOT cut here — they are cut at the
+    # full-shell level (cut_insert_pockets, applied after every union) so
+    # that nothing unioned later (the corner gussets fuse into these bosses)
+    # can back-fill an insert pocket.
+    return shell.union(bosses).union(_corner_webs()).unwrap()
 
-    # Heat-set insert pockets on both faces — each cap's M3 SHCS threads
-    # into an insert pressed from its own face, so every boss carries a
-    # pocket at z=0 and another at z=foam_shell_outer_height.
+
+def cut_insert_pockets(foam_shell):
+    """Cut the heat-set insert pockets into the corner/mid bosses on both
+    faces — each cap's M3 SHCS threads into an insert pressed from its own
+    face, so every boss carries a pocket at z=0 and another at
+    z=foam_shell_outer_height. Applied at the full-shell level, after all
+    unions, so a later union (e.g. the corner gussets fusing into a boss)
+    can never plug a pocket."""
     def insert_pockets_at(z_floor):
         return (
             WorldWorkplane(xy_plane_z_up)
@@ -95,9 +109,6 @@ def build_outer_shell():
             .circle(insert_pocket_radius)
             .extrude(insert_pocket_depth)
         )
-    bottom_pockets = insert_pockets_at(0)
-    top_pockets = insert_pockets_at(foam_shell_outer_height - insert_pocket_depth)
-    return (
-        shell.union(bosses).union(_corner_webs())
-        .cut(bottom_pockets).cut(top_pockets).unwrap()
-    )
+    bottom_pockets = insert_pockets_at(0).unwrap()
+    top_pockets = insert_pockets_at(foam_shell_outer_height - insert_pocket_depth).unwrap()
+    return foam_shell.cut(bottom_pockets).cut(top_pockets)
