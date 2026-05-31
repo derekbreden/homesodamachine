@@ -45,20 +45,30 @@ def _corner_webs():
     corner. Trimmed to the rounded wall by the footprint mask; the insert
     pockets are cut later at the full-shell level (cut_insert_pockets)."""
     r = screw_boss_size / 2
+    corner_x = outer_shell_x_length / 2
+    corner_y = outer_shell_y_length / 2
+    # The corner-arc center: where the rounded corner's straight side walls
+    # begin. Each square's cross-axis edge runs in to this line so it covers
+    # the full flank down to the straight wall (a plain ±r square stops short
+    # and leaves a notch where arc meets straight, because boss radius < corner
+    # radius — unlike the reservoir teardrop where they're equal).
+    arc_x = corner_x - corner_round_radius
+    arc_y = corner_y - corner_round_radius
     webs = None
     for cx, cy in foam_cap_attachment_xy_positions[:4]:  # first 4 entries are the corners
         x_sign = 1 if cx > 0 else -1
         y_sign = 1 if cy > 0 else -1
-        # Square reaching toward the far X wall (corner-ward in X, centered in Y).
+        # Square toward the far-X wall: one boss radius proud of the boss on
+        # the inboard cross-axis side, swept in to the arc-center line on the
+        # other, and corner-ward to the outer footprint (mask trims it flush).
         toward_x_wall = make_box(
-            (cx, cx + x_sign * r),
-            (cy - r, cy + r),
+            (cx, x_sign * corner_x),
+            (y_sign * arc_y, cy + y_sign * r),
             (0.0, foam_shell_outer_height),
         )
-        # Square reaching toward the end Y wall (corner-ward in Y, centered in X).
         toward_y_wall = make_box(
-            (cx - r, cx + r),
-            (cy, cy + y_sign * r),
+            (x_sign * arc_x, cx + x_sign * r),
+            (cy, y_sign * corner_y),
             (0.0, foam_shell_outer_height),
         )
         pair = toward_x_wall.union(toward_y_wall)
