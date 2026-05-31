@@ -28,7 +28,31 @@ const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const PROJECT_ROOT = path.resolve(__dirname, "../..");
 const PYTHON_BIN = path.join(PROJECT_ROOT, "tools", "cad-venv", "bin", "python");
 
-const { broadcast, hardwareDir: HARDWARE_DIR } = await start({ dev: true });
+const { broadcast, hardwareDir: HARDWARE_DIR, liteDir: LITE_DIR } = await start({ dev: true });
+
+// Content roots the viewer serves, and that we therefore watch, regenerate,
+// and broadcast for. hardware/ is the kitchen edition; pie-in-the-sky/lite/ is
+// the lite edition (served when the viewer's Edition toggle is set). The
+// viewer fetches each file list relative to whichever root the edition
+// selects, so a change must be broadcast with the path relative to the SAME
+// root — the client's files-changed handler matches by exact string.
+const CONTENT_ROOTS = [HARDWARE_DIR, LITE_DIR].filter((d) => d && fs.existsSync(d));
+
+// Path of a watched file relative to the content root that contains it — the
+// form the viewer fetched it under, and therefore the form to broadcast.
+function relForBroadcast(absPath) {
+  for (const root of CONTENT_ROOTS) {
+    const rel = path.relative(root, absPath);
+    if (rel && !rel.startsWith("..") && !path.isAbsolute(rel)) return rel;
+  }
+  return path.relative(HARDWARE_DIR, absPath);
+}
+
+// Repo-root-relative path for logs, so files in either tree read cleanly
+// (`hardware/...` or `pie-in-the-sky/lite/...`) instead of a `../` climb.
+function relForLog(absPath) {
+  return path.relative(PROJECT_ROOT, absPath);
+}
 
 // --- Script discovery ---
 
@@ -77,7 +101,7 @@ function findGenerateScripts() {
       }
     }
   }
-  walk(HARDWARE_DIR);
+  for (const root of CONTENT_ROOTS) walk(root);
   return scripts;
 }
 
@@ -91,7 +115,7 @@ function findAllPythonFiles() {
       else if (entry.name.endsWith(".py")) files.push(full);
     }
   }
-  walk(HARDWARE_DIR);
+  for (const root of CONTENT_ROOTS) walk(root);
   return files;
 }
 
@@ -170,7 +194,7 @@ function findScriptsImportingStep(stepFilename) {
 const running = new Map(); // pyFilePath -> AbortController
 
 async function runScript(pyFilePath) {
-  console.log(`  ↪ running: ${path.relative(HARDWARE_DIR, pyFilePath)}`);
+  console.log(`  ↪ running: ${relForLog(pyFilePath)}`);
   const prev = running.get(pyFilePath);
   if (prev) prev.abort();
   const ac = new AbortController();
@@ -229,7 +253,7 @@ async function runScript(pyFilePath) {
       const full = path.join(scriptDir, entry);
       if (fs.statSync(full).mtimeMs < startTime) continue;
       producedSteps.push(entry);
-      const relFile = path.relative(HARDWARE_DIR, full);
+      const relFile = relForBroadcast(full);
       console.log(`  -> ${relFile}`);
       broadcast({ type: "files-changed", files: [relFile] });
     }
@@ -257,7 +281,7 @@ async function runScript(pyFilePath) {
     }
   }
   for (const depScript of dependents) {
-    console.log(`  ↪ dependent: ${path.relative(HARDWARE_DIR, depScript)}`);
+    console.log(`  ↪ dependent: ${relForLog(depScript)}`);
     await runScript(depScript);
   }
 }
@@ -277,7 +301,7 @@ async function runScript(pyFilePath) {
 // `__pycache__` is ignored both to cut down on the event volume (every
 // generator run rewrites a .pyc) and because we never act on .pyc
 // changes anyway.
-const watcher = chokidar.watch(HARDWARE_DIR, {
+const watcher = chokidar.watch(CONTENT_ROOTS, {
   ignoreInitial: true,
   ignored: (p) => p.split(path.sep).includes("__pycache__"),
   usePolling: true,
@@ -294,9 +318,9 @@ watcher.on("change", (absPath) => {
       "cadlib",
       setTimeout(async () => {
         debounce.delete("cadlib");
-        console.log(`Shared lib changed: ${path.relative(HARDWARE_DIR, absPath)}`);
+        console.log(`Shared lib changed: ${relForLog(absPath)}`);
         for (const f of findGenerateScripts()) {
-          console.log(`  Rebuilding ${path.relative(HARDWARE_DIR, f)}`);
+          console.log(`  Rebuilding ${relForLog(f)}`);
           try {
             await runScript(f);
           } catch (e) {
@@ -317,7 +341,7 @@ watcher.on("change", (absPath) => {
       absPath,
       setTimeout(() => {
         debounce.delete(absPath);
-        const relFile = path.relative(HARDWARE_DIR, absPath);
+        const relFile = relForBroadcast(absPath);
         console.log(`Mermaid changed: ${relFile}`);
         broadcast({ type: "files-changed", files: [relFile] });
       }, 300),
@@ -333,7 +357,7 @@ watcher.on("change", (absPath) => {
       absPath,
       setTimeout(() => {
         debounce.delete(absPath);
-        const relFile = path.relative(HARDWARE_DIR, absPath);
+        const relFile = relForBroadcast(absPath);
         console.log(`DXF changed: ${relFile}`);
         broadcast({ type: "files-changed", files: [relFile] });
       }, 300),
@@ -350,7 +374,7 @@ watcher.on("change", (absPath) => {
       absPath,
       setTimeout(() => {
         debounce.delete(absPath);
-        const relFile = path.relative(HARDWARE_DIR, absPath);
+        const relFile = relForBroadcast(absPath);
         console.log(`Drawing changed: ${relFile}`);
         broadcast({ type: "files-changed", files: [relFile] });
       }, 300),
@@ -370,8 +394,8 @@ watcher.on("change", (absPath) => {
       setTimeout(() => {
         debounce.delete(absPath);
         const baseAbs = absPath.replace(/\.json$/, "");
-        const relFile = path.relative(HARDWARE_DIR, baseAbs);
-        console.log(`Sidecar changed: ${path.relative(HARDWARE_DIR, absPath)} -> refresh ${relFile}`);
+        const relFile = relForBroadcast(baseAbs);
+        console.log(`Sidecar changed: ${relForLog(absPath)} -> refresh ${relFile}`);
         broadcast({ type: "files-changed", files: [relFile] });
       }, 300),
     );
@@ -400,9 +424,9 @@ watcher.on("change", (absPath) => {
           if (dep !== absPath) toRun.push(dep);
         }
         if (toRun.length === 0) return;
-        console.log(`Changed: ${path.relative(HARDWARE_DIR, absPath)}`);
+        console.log(`Changed: ${relForLog(absPath)}`);
         for (const dep of toRun) {
-          console.log(`  Running ${path.relative(HARDWARE_DIR, dep)}`);
+          console.log(`  Running ${relForLog(dep)}`);
           try {
             await runScript(dep);
           } catch (e) {
