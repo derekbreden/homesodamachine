@@ -81,19 +81,21 @@ reservoir_clearance = 0.5
 reservoir_floor_thickness = 3.0
 # Bulkhead vertical scheme. The PureSec mounts elbow-DOWN: the integral 90°
 # elbow + its dry-side flange + the below-side TPU washer hang below the
-# trough floor (the nut is on the wet/cavity side, above). The reservoir's
-# weight rides on the corner support posts, so the elbow hangs as low as it
-# can: its lowest point clears the bag-pocket floor by bulkhead_floor_clearance
-# and never bears load. The flavor-line wall holes and the reed cable holes
-# both pin their Z to bulkhead_elbow_exit_z (the elbow's lateral-port
-# center), so the tube and the cable run level out of the open pocket.
+# reservoir's flat exterior floor bottom (the nut is on the wet/cavity side,
+# above). The reservoir's weight rides on the corner support posts, so the
+# elbow hangs as low as it can: its lowest point clears the bag-pocket floor
+# by bulkhead_floor_clearance and never bears load. The flavor-line wall holes
+# and the reed cable holes both pin their Z to bulkhead_elbow_exit_z (the
+# elbow's lateral-port center), so the tube and the cable run level out of the
+# open pocket.
 #
-# How far the floor is raised to clear that below-floor hardware (the seal
-# boss + dry washer + elbow) is DERIVED in reservoir.py (floor_trough_lift /
-# bulkhead_below_floor_stack) from the seal-boss geometry — itself keyed off
-# reservoir_wall_thickness — plus the measured elbow standoff. There is no
-# hand-tuned stack constant here, so adjusting the wall thickness propagates
-# through the boss, the floor height, and the foam-shell support posts.
+# How far the floor is raised to clear that below-floor hardware (dry washer +
+# elbow; the seal boss sits flush in the flat bottom) is DERIVED in
+# reservoir.py (floor_trough_lift / bulkhead_below_floor_stack) from the
+# seal-boss geometry — itself keyed off reservoir_wall_thickness — plus the
+# measured elbow standoff. There is no hand-tuned stack constant here, so
+# adjusting the wall thickness propagates through the boss, the floor height,
+# and the foam-shell support posts.
 bulkhead_floor_clearance = 1.0  # gap from the lowest bulkhead hardware down to the bag-pocket floor — non-load-bearing
 bulkhead_elbow_bottom_z = bag_pocket_floor_top_z + bulkhead_floor_clearance
 bulkhead_elbow_exit_z = bulkhead_elbow_bottom_z + 3.0  # lateral-PTC-port Z center, 3 mm above the elbow bottom
