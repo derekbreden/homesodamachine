@@ -4,13 +4,14 @@ used 12x per unit on the fluid-topology manifold (see `hardware/bom.md`).
 
 This is a purchased part, not a printed one — the model is a coarse
 keep-out envelope for rack/manifold layout, not a manufacturing drawing.
-It is built from four primitives positioned to match the caliper-verified
+It is built from simple primitives positioned to match the caliper-verified
 photos in `hardware/off-the-shelf-parts/beduan-solenoid/` (see that
 folder's `extracted-results/geometry-description.md`).
 
-Four primitives
----------------
-1. White valve body  — box 32.25 (X) x 32.25 (Y) x 30.6 (Z)
+Components
+----------
+1. White valve body  — 5 cylinders: central boss (dia 32.25, Z 6->30.6)
+                       plus 4 corner bosses (dia 6.8, full Z 0->30.6)
 2. Solenoid coil     — box 32.25 (X) x 24   (Y) x 26   (Z)
 3. Port / flow axis  — cylinder dia 15, length 59, axis along Y
 4. Spade terminals   — two blades 6.3 (X) x 15 (Y) x 0.8 (Z), off +Y face
@@ -26,7 +27,10 @@ surface (bottom of the white body) sits at Z = 0.
 
 Arrangement (first-pass, photo-matched)
 ---------------------------------------
-- The white body sits on the Z = 0 mounting plane and rises to Z = 30.6.
+- The white body is a central round boss (dia 32.25, inscribed in the
+  square footprint) from Z = 6 to Z = 30.6, plus four corner bosses (dia
+  6.8) running the full Z = 0 to 30.6, tucked tangent inside the footprint
+  corners. The bottom 6 mm is just the four corner posts.
 - The solenoid coil is centered on top of the body in both X and Y, from
   Z = 30.6 to Z = 56.6 — a T-profile, symmetric in X. Stacked heights
   30.6 + 26 = 56.6 mm reproduce the caliper-measured 56.04 mm from
@@ -57,9 +61,15 @@ sys.path.insert(0, str(next(p for p in _here.parents if p.name == "hardware")))
 from _cadq_export import export_step
 
 # --- White valve body (fluid section) -------------------------------------
-body_x = 32.25
+# Five cylinders inscribed in a 32.25 mm square footprint: a central boss
+# (dia = the footprint width) raised 6 mm off the mounting surface, plus
+# four full-height corner bosses (the 2x2 mounting pattern) tucked tangent
+# to the footprint corners.
+body_x = 32.25  # square footprint width; also the central-boss diameter
 body_y = 32.25
 body_z = 30.6
+body_center_boss_z_start = 6.0
+body_corner_boss_diameter = 6.8
 
 # --- Solenoid coil (electrical section), centered on top of the body ------
 coil_x = 32.25
@@ -89,9 +99,25 @@ coil_face_y = coil_y / 2.0  # +Y face of the coil, at Y = 12
 
 
 def build_beduan_solenoid():
-    body = cq.Workplane("XY").box(
-        body_x, body_y, body_z, centered=(True, True, False)
+    # White body: a central boss raised off the mounting surface, plus four
+    # full-height corner bosses tucked tangent to the square footprint's
+    # corners (centers inset by their radius so they sit inside it).
+    body = (
+        cq.Workplane("XY")
+        .workplane(offset=body_center_boss_z_start)
+        .circle(body_x / 2.0)
+        .extrude(body_z - body_center_boss_z_start)
     )
+    corner_r = body_corner_boss_diameter / 2.0
+    for sx in (-1.0, 1.0):
+        for sy in (-1.0, 1.0):
+            boss = (
+                cq.Workplane("XY")
+                .center(sx * (body_x / 2.0 - corner_r), sy * (body_y / 2.0 - corner_r))
+                .circle(corner_r)
+                .extrude(body_z)
+            )
+            body = body.union(boss)
     coil = (
         cq.Workplane("XY")
         .workplane(offset=body_z)
