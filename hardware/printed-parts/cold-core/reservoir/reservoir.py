@@ -79,7 +79,7 @@ reservoir_wall_thickness = reservoir_floor_thickness
 # cleanly. At y = ±[67 mm](INNER_Y_MAX) the inner centerward curve meets the
 # inner ±Y walls inside the syrup volume — [28°](INNER_CORNER_ANGLE) interior
 # angle that would trap residual liquid. Same radius on both for visual
-# consistency. 6 mm is chosen to match body_boss_radius so the corner
+# consistency. [6 mm](OUTER_FILLET_R) is chosen to match body_boss_radius so the corner
 # bosses (positions 4/5, centered on the outer fillet) fit fully inside
 # the post-fillet wall material — see body_boss_radius below.
 outer_corner_fillet_radius = 6.0
@@ -95,7 +95,7 @@ cap_base_thickness = 4.0  # the cap's flat top spans the cavity unsupported and 
 cap_wall_height = 5.0
 cap_wall_width = 6.0
 
-# Screw recess geometry. M3 SHCS head OD ~5.5 mm; ø6 counterbore is
+# Screw recess geometry. M3 SHCS head OD ~5.5 mm; ⌀[6 mm](CAP_COUNTERBORE_D) counterbore is
 # the standard fit. Counterbore depth tracks cap_base_thickness so
 # the counterbore recesses the screw head through the full base
 # plate (M3 SHCS head is ~3 mm tall, so the deeper counterbore has
@@ -109,11 +109,11 @@ cap_clearance_hole_diameter = 3.5
 
 
 # TPU 85A flat gasket between the body wall top and the cap base plate
-# bottom, compressed by the six M3 × 12 screws. 5 mm-wide perimeter ring
+# bottom, compressed by the six M3 × 12 screws. [5 mm](GASKET_STRIP_W)-wide perimeter ring
 # (covers the body wall top and extends inward over the cavity opening; a
 # strip this width prints without the warp a wall-width strip shows);
 # circular pads at each insert position (gasket_pad_radius, set with the
-# boss radii below) give the screw clamp a uniform compressed disk; ø3.5
+# boss radii below) give the screw clamp a uniform compressed disk; ⌀[3.5 mm](CAP_CLEARANCE_HOLE_D)
 # clearance holes through each pad.
 gasket_thickness = 2.0
 gasket_strip_width = 5.0
@@ -137,13 +137,13 @@ cap_total_height = cap_base_z_range[1]
 # take a 90°-turn path through a slot before it could reach the membrane
 # above.
 #
-# Filter: LVDALAB ø13 PTFE-on-PET membrane (Amazon B0D41KT345)
-# Retaining ring: 2 mm-thick TPU 90A, press-fit into the cap pocket
+# Filter: LVDALAB ⌀[13 mm](FILTER_D) PTFE-on-PET membrane (Amazon B0D41KT345)
+# Retaining ring: [2 mm](RETAINING_RING_T)-thick TPU 90A, press-fit into the cap pocket
 filter_diameter = 13.0
 filter_thickness = 0.5
 
 retaining_ring_thickness = 2.0
-retaining_ring_outer_diameter = 13.4  # 0.1 mm interference per side vs the ø13.2 pocket, so the TPU 90A ring compresses in for a light press-fit
+retaining_ring_outer_diameter = 13.4  # 0.1 mm interference per side vs the ⌀[13.2 mm](VENT_POCKET_D) pocket, so the TPU 90A ring compresses in for a light press-fit
 retaining_ring_inner_diameter = 9.0   # leaves most of the membrane exposed for airflow
 
 # Filter pocket (cylindrical recess in the cap top) holds the
@@ -168,9 +168,9 @@ _vent_boss_extension_below_base_plate = _vent_boss_depth - cap_base_thickness
 # Cylinder shell hangs below the boss into the reservoir, with the
 # same inside diameter as the vent hole so there's no internal step
 # in the air column. The cylinder outer diameter matches the brim
-# diameter (= a beefy 2.5 mm wall) so the brim is flush with the
+# diameter (= a beefy [2.5 mm](VENT_CYL_WALL_T) wall) so the brim is flush with the
 # cylinder rather than overhanging it — the brim becomes the closed
-# bottom of a single ø10 cylinder, and the cylinder→brim transition
+# bottom of a single ⌀[10 mm](VENT_CYL_OD) cylinder, and the cylinder→brim transition
 # has no overhang to print during top-down FDM of the cap.
 vent_cylinder_inner_diameter = vent_hole_diameter
 vent_cylinder_wall_thickness = 2.5
@@ -207,7 +207,7 @@ vent_cylinder_walls_bottom_z = vent_boss_bottom_z - (vent_cylinder_length - vent
 vent_brim_bottom_z = vent_cylinder_walls_bottom_z - vent_brim_thickness
 
 
-# Level-sensing rod: a vertical 3.175 mm (1/8") × 305 mm (12") 316 SS
+# Level-sensing rod: a vertical [3.175 mm](ROD_DIAMETER) (1/8") × 305 mm (12") 316 SS
 # round rod, body-anchored and cap-registered. A small magnetic float
 # slides up and down the rod as the syrup level changes; [4](REEDS_PER_RES) reed
 # switches mounted outside the reservoir pocket's far +X wall (foam-
@@ -391,7 +391,7 @@ floor_slope_rise = 6.0  # mm the floor rises from the trough surface to each ±Y
 
 # Heat-set insert + screw spec. M3 ruthex-style brass heat-set inserts
 # (same as foam-shell cap-stack joinery). Insert OD 4 mm × length 4 mm;
-# pocket is 4 mm bore × 7 mm deep (4 mm insert + 3 mm relief). Screws:
+# pocket is 4 mm bore × [7 mm](INSERT_POCKET_DEPTH) deep (4 mm insert + 3 mm relief). Screws:
 # BNUOK M3 × 12 mm DIN 912 SHCS, black oxide 12.9 alloy (Amazon
 # B0DJQGVK8S), same brand/finish as the M3 × 25 used on the foam-shell
 # cap stack but the right length for the reservoir's thinner cap-stack
@@ -415,7 +415,7 @@ cap_boss_radius = body_boss_radius
 gasket_pad_radius = body_boss_radius  # matches the body boss (clamp-stack footprint)
 
 # Body boss vertical layout (extruding downward from the wall top):
-#   top 7 mm:  pocket (ø4 hole for heat-set insert + screw shaft)
+#   top [7 mm](INSERT_POCKET_DEPTH):  pocket (ø4 hole for heat-set insert + screw shaft)
 #   below:     solid ø12 cylinder. Built extra-long (extending below
 #              the intended boss-bottom z) and then cut with a flat
 #              45° plane through the wall at that boss-bottom z, so
@@ -511,19 +511,19 @@ inner_corner_x = math.sqrt(inner_centerward_radius**2 - inner_y_max**2)
 # overhang into the bag pocket clearance).
 _screw_setback = outer_corner_fillet_radius
 
-# Positions 1/2 — inset 6 mm from outer +X face × outer ±Y face.
+# Positions 1/2 — inset [6 mm](OUTER_FILLET_R) from outer +X face × outer ±Y face.
 _corner_xy_x = outer_far_x_abs - _screw_setback
 _corner_xy_y = outer_y_max - _screw_setback
 
-# Position 3 — inset 6 mm from outer +X face, y = 0.
+# Position 3 — inset [6 mm](OUTER_FILLET_R) from outer +X face, y = 0.
 _far_mid_x = outer_far_x_abs - _screw_setback
 
-# Position 6 — 6 mm outward from outer curve (radially), y = 0.
+# Position 6 — [6 mm](OUTER_FILLET_R) outward from outer curve (radially), y = 0.
 _curve_apex_x = outer_centerward_radius + _screw_setback
 
 # Positions 4/5 — corner of outer curve × outer ±Y face. The corner
-# is filleted at outer_corner_fillet_radius (= 6 mm). The fillet
-# center is the unique point that is 6 mm from BOTH the outer +Y
+# is filleted at outer_corner_fillet_radius (= [6 mm](OUTER_FILLET_R)). The fillet
+# center is the unique point that is [6 mm](OUTER_FILLET_R) from BOTH the outer +Y
 # face and the outer curve, measured along the shortest path. The
 # ø12 body boss disk INSCRIBES the fillet arc (radius 6 = body
 # boss radius), so at these positions the boss material sits inside
@@ -1313,6 +1313,13 @@ def main():
         "INNER_Y_MAX": f"{inner_y_max:.4g} mm",
         "OUTER_TAB_ANGLE": f"{outer_tab_interior_angle:.0f}°",
         "INNER_CORNER_ANGLE": f"{inner_corner_interior_angle:.0f}°",
+        "CAP_COUNTERBORE_D": f"{cap_counterbore_diameter:.4g} mm",
+        "CAP_CLEARANCE_HOLE_D": f"{cap_clearance_hole_diameter:.4g} mm",
+        "GASKET_STRIP_W": f"{gasket_strip_width:.4g} mm",
+        "RETAINING_RING_T": f"{retaining_ring_thickness:.4g} mm",
+        "VENT_CYL_WALL_T": f"{vent_cylinder_wall_thickness:.4g} mm",
+        "INSERT_POCKET_DEPTH": f"{insert_pocket_depth:.4g} mm",
+        "OUTER_FILLET_R": f"{outer_corner_fillet_radius:.4g} mm",
     }
     substitute_md(
         here / ".." / "foam-shell" / "README.md",
@@ -1360,10 +1367,19 @@ def main():
         expected_counts={
             "RESERVOIR_WALL_T": 3,
             "CAP_TOTAL_H": 1,
-            "VENT_POCKET_D": 1,
+            "VENT_POCKET_D": 2,
             "VENT_BOSS_OD": 1,
-            "VENT_CYL_OD": 1,
+            "VENT_CYL_OD": 2,
             "ROD_BORE": 1,
+            "ROD_DIAMETER": 1,
+            "FILTER_D": 1,
+            "CAP_COUNTERBORE_D": 1,
+            "CAP_CLEARANCE_HOLE_D": 1,
+            "GASKET_STRIP_W": 1,
+            "RETAINING_RING_T": 1,
+            "VENT_CYL_WALL_T": 1,
+            "INSERT_POCKET_DEPTH": 2,
+            "OUTER_FILLET_R": 6,
             "ROD_BOSS_OD": 1,
             "BODY_BOSS_R": 1,
             "CAP_BOSS_R": 1,
