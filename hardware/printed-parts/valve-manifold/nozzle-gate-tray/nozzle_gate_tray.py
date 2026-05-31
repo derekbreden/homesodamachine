@@ -32,9 +32,9 @@ import bag_circuit_tray as bc
 VALVES = {"VG": (-bc.Vx, +bc.row_half), "VJ": (-bc.Vx, -bc.row_half)}
 TEES = {"YD": (0.0, +bc.row_half), "YG": (0.0, -bc.row_half)}
 
-plate_x = (-bc.plate_half_x, bc.cut_half_x)   # trimmed on +X — no valves there
+plate_x = (-bc.plate_half_x, bc.TEE_RUN_HALF)   # +X wall ends at the Tee run port
 plate_y_half = bc.plate_half_y
-gap_x = (-bc.cut_half_x, bc.cut_half_x)
+gap_x = (-bc.cut_half_x, bc.TEE_RUN_HALF)
 gap_y_half = bc.cut_half_y
 stack_pitch = bc.stack_pitch
 

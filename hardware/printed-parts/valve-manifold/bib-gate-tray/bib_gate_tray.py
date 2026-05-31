@@ -44,9 +44,9 @@ TEES = {
 }
 
 _run_out_x = _yc_x + bc.TEE_RUN_HALF               # +X run port of the far Tees
-plate_x = (-bc.plate_half_x, _run_out_x + 4.0)     # +X reaches past Y-C / Y-F
+plate_x = (-bc.plate_half_x, _run_out_x)           # +X wall ends at the far Tee port
 plate_y_half = bc.plate_half_y
-gap_x = (-bc.cut_half_x, _run_out_x + 4.0)
+gap_x = (-bc.cut_half_x, _run_out_x)
 gap_y_half = bc.cut_half_y
 stack_pitch = bc.stack_pitch
 
