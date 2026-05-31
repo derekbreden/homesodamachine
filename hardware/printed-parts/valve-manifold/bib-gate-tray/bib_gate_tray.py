@@ -1,17 +1,18 @@
-"""BiB-gate tray: 2 axis-aligned Beduan valves + 2 Tees + 2 Y-dividers.
+"""BiB-gate tray: 2 axis-aligned Beduan valves + 4 Tee fittings.
 
 The [fluid-topology](../../../topology/fluid-topology.md) BiB gates as a tray.
-A single −X column (V-K-A over V-K-B) feeds a Tee on each row; the Tee run lies
-along X (one end to the valve, the other to a Y-divider butted right against
-it), and the Tee branch rises (+Z) — that branch is the V-C / V-D inlet from a
-source-select tray stacked above. Each Y-divider's outlets leave the tray to
-the pump and the channel-select line.
+A single −X column (V-K-A over V-K-B) feeds two Tees per row, butted in series:
+the near-valve Tee (Y-KA / Y-KB) takes the valve on its −X run end, and a
+second Tee (Y-C / Y-F) butts against its +X run end. Every Tee's run lies along
+X and its branch rises (+Z) — the near-valve branches are the V-C / V-D inlets
+from a source-select tray stacked above; the far branches and +X run ends leave
+the tray to the pump and the channel-select line.
 
-    V-K-A ──┬──┤Y-C├─→     (Y-KA Tee, branch ↑ ← V-C)
+    V-K-A ──┬──┬──→     Y-KA · Y-C  (branches ↑)
             ┊
-    V-K-B ──┴──┤Y-F├─→     (Y-KB Tee, branch ↑ ← V-D)
+    V-K-B ──┴──┴──→     Y-KB · Y-F  (branches ↑)
 
-The valve placement, fitting placers, and tray builder are shared with the
+Valve placement, the Tee placer, and the tray builder are shared with the
 [bag-circuit tray](../bag-circuit-tray/). Origin = cell center, Z = 0 the
 mounting plane, ports at Z = 11.3.
 """
@@ -31,26 +32,28 @@ for _p in (
 from _cadq_export import export_step
 import bag_circuit_tray as bc
 
-# −X valve column meets the Tee run ports (Tee-based column).
-VALVES = {"VKA": (-bc.Vx_t, +bc.row_half), "VKB": (-bc.Vx_t, -bc.row_half)}
-# Near-valve junctions are Tees (run along X, branch up).
-TEES = {"YKA": (0.0, +bc.row_half), "YKB": (0.0, -bc.row_half)}
-# Y-dividers butt against each Tee's +X run port (stem at +TEE_RUN_HALF).
-_yc_x = bc.TEE_RUN_HALF + bc.DIV_HALF
-DIVIDERS = {"YC": (+_yc_x, +bc.row_half), "YF": (+_yc_x, -bc.row_half)}
+# −X valve column + two Tees per row in series (near-valve Tee, then a Tee
+# butted against its +X run port).
+VALVES = {"VKA": (-bc.Vx, +bc.row_half), "VKB": (-bc.Vx, -bc.row_half)}
+_yc_x = 2.0 * bc.TEE_RUN_HALF        # second Tee center: its −X run butts the first
+TEES = {
+    "YKA": (0.0, +bc.row_half),
+    "YKB": (0.0, -bc.row_half),
+    "YC": (+_yc_x, +bc.row_half),
+    "YF": (+_yc_x, -bc.row_half),
+}
 
-_div_out_x = _yc_x + bc.DIV_HALF                   # +X divider outlet reach
-plate_x = (-bc.plate_half_x_t, _div_out_x + 4.0)   # +X reaches past Y-C / Y-F
+_run_out_x = _yc_x + bc.TEE_RUN_HALF               # +X run port of the far Tees
+plate_x = (-bc.plate_half_x, _run_out_x + 4.0)     # +X reaches past Y-C / Y-F
 plate_y_half = bc.plate_half_y
-gap_x = (-bc.cut_half_x_t, _div_out_x + 4.0)
-gap_y_half = bc.cut_half_y     # Y-dividers spread to |Y| = 31.6
+gap_x = (-bc.cut_half_x, _run_out_x + 4.0)
+gap_y_half = bc.cut_half_y
 stack_pitch = bc.stack_pitch
 
 
 def build_assembly():
     parts = {nm: bc.place_valve(*p) for nm, p in VALVES.items()}
     parts.update({nm: bc.place_tee(*p) for nm, p in TEES.items()})
-    parts.update({nm: bc.place_divider(*p) for nm, p in DIVIDERS.items()})
     return parts
 
 

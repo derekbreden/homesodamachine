@@ -19,10 +19,10 @@ whose run lies along X, so the inner ports meet the run ports straight-on (no
 jog) with the valves at X = ±49.57. Each Tee's **branch rises (+Z)** to its
 bag; the valves' outer ports leave the tray to the pumps.
 
-This module also holds the shared parallel-tray base (`place_valve`,
-`build_tray`, `place_divider`, common geometry) that the gate-tray variants
+This module also holds the shared parallel-Tee base (`place_valve`,
+`place_tee`, `build_tray`, common geometry) that the gate-tray variants
 ([nozzle-gate](../nozzle-gate-tray/), [bib-gate](../bib-gate-tray/)) import;
-those feed Y-dividers.
+they are all-Tee too. Only source-select still uses Y-dividers.
 
 Origin = cell center, Z = 0 the valve mounting plane, ports at Z = 11.3. The
 six bodies are clash-free.
