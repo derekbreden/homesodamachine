@@ -140,8 +140,8 @@ countertop_hole_diameter = 34.93
 
 # Plunger geometry — derived from the ~[1 mm](PLUNGER_GAP) gap between the
 # port wall and the plunger wall (port wall at x ≈ port_center_x −
-# port_radius = +3.75 mm; plunger wall therefore at x ≈ +2.75 mm and
-# plunger OD ≈ [5.5 mm](PLUNGER_OD_EST), not yet caliper-confirmed).
+# port_radius = [3.75 mm](PORT_WALL_X); plunger wall therefore at x ≈ +2.75 mm
+# and plunger OD ≈ [5.5 mm](PLUNGER_OD_EST), not yet caliper-confirmed).
 plunger_gap_to_port = 1.0
 port_wall_x = port_center_x - port_radius
 plunger_od_estimate = 2 * (port_wall_x - plunger_gap_to_port)
@@ -351,6 +351,7 @@ def main():
         "PORT_ARCH_GAP": f"{port_arch_gap_y:.4g} mm",
         "RECT_LONG_HALF": f"{rect_long_half_v:.4g} mm",
         "PLUNGER_OD_EST": f"{plunger_od_estimate:.4g} mm",
+        "PORT_WALL_X": f"{port_wall_x:.4g} mm",
     }
     substitute_md(
         here / "valve-body-geometry.md",
@@ -406,6 +407,7 @@ def main():
             "RECT_UPPER_H": 1,
             "PORT_ARCH_GAP": 1,
             "RECT_LONG_HALF": 1,
+            "PORT_WALL_X": 1,
         },
     )
     print(f"-> valve_body_reference.py (self)")
