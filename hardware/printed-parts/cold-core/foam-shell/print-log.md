@@ -42,4 +42,8 @@ Settings observed (same stock profile as attempt 1):
 
 Sliced (Bambu Studio): 379.99 m / 1142.47 g, 14h22m, single PETG on the left nozzle.
 
-Result: pending.
+### Result — success
+
+Derek said:
+- The print is almost finished; "we do have success."
+- The four diagonal corner gussets do not reach the reservoir pocket wall — each rib's pocket-side end stops short of the pocket outer wall.
