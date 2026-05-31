@@ -147,6 +147,7 @@ Peristaltic pumps, solenoids, bag-in-box connector, silicone delivery tubing, ba
 | Platypus SoftBottle 1 L "Waves" (bladder donor) | [B00ZX0ERE2](https://www.amazon.com/dp/B00ZX0ERE2) | 1 | $15.35 | ACQUIRED |
 | Platypus Platy 2 L collapsible bottle (bladder donor) | [B000J2KEGY](https://www.amazon.com/dp/B000J2KEGY) | 1 | $15.94 | ACQUIRED |
 | Platypus Hoser hydration tube kit | [B07N1T6LNW](https://www.amazon.com/dp/B07N1T6LNW) | 2 | $24.95 ea | ACQUIRED |
+| **Platypus Hoser 1 L Hands-Free Hydration Reservoir, Fast Flow Valve** — Lite-edition flavor reservoir (2/build, see [../pie-in-the-sky/lite/lite-bom.md](../pie-in-the-sky/lite/lite-bom.md)), hung spout-down from its built-in top loop; the threaded outlet takes Platypus drink tubes / closure caps and ships with the hose, so it bundles the lid-to-hose adapter (same function as the B07N1T6LNW Hoser tube kit above). Order 112-4566389-9910625, May 30 2026; qty 2 @ $23.89 = $47.78 + $3.46 tax + $0 shipping (Prime) = **$51.24 delivered** ($25.62/ea). 133 × 292 mm per listing; real measurements pending | [B002OYMRS8](https://www.amazon.com/dp/B002OYMRS8) | 2 | $51.24 | ACQUIRED |
 | JoyTube 3/8" ID food-grade silicone tubing, 10 ft | [B089YGDB55](https://www.amazon.com/dp/B089YGDB55) | 1 | $11.99 | ACQUIRED |
 | Metaland 3/8" ID food-grade silicone tubing | [B08L1RS757](https://www.amazon.com/dp/B08L1RS757) | 1 | $7.99 | ACQUIRED |
 | Metaland 1/4" ID food-grade silicone tubing | [B08L1ST6ST](https://www.amazon.com/dp/B08L1ST6ST) | 1 | $7.99 | ACQUIRED |
