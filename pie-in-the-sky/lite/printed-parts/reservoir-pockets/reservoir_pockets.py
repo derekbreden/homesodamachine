@@ -28,8 +28,10 @@ threads the rod through both bag loops and connects the spouts outside the
 box, slides the rod in from the +X back through the three aligned channels
 (carrying the bags in with it), and at center the rod rolls down into the
 cradle; the hanging bags' weight seats it there and resists sliding back
-out. To remove, lift the rod up out of the cradle and slide it back out the
-+X side.
+out. The rod ends run 6 mm past each outer wall into a boss that wraps them
+in 2 mm of floor, ceiling, and an end wall — those end walls capture the rod
+along Y so it cannot slide out the front or back. To remove, lift the rod up
+out of the cradle and slide it back out the +X side.
 
 World frame: Z+ up, Y- front (front face points in -Y), X left(-)/
 right(+). The floor sits on Z=0, centered in X and Y."""
@@ -114,7 +116,23 @@ rod_rest_z = 272.0               # rod centerline at the cradle (its resting poi
 bend_radius = 6.0                # centerline radius of the curve-down (must exceed channel_hw)
 
 rod_entry_x_open = 79.0          # entry runs out past the +X face at x=77 (open end, trimmed)
-rod_channel_y_range = (-74.0, 74.0)  # spans front wall, divider, and back wall
+
+# The rod ends extend y_stub past each outer (XZ-plane) wall and are captured
+# by a boss: the y_stub of rod is wrapped in 2 mm of floor/ceiling, then a
+# y_endcap of solid wall caps the tip so the rod cannot slide out along Y. The
+# channel sweeps the full rod length (tip to tip); the bosses supply the
+# material it carves through past the original walls, and the y_endcap beyond
+# each tip stays solid. The +X side stays open the whole way for insertion.
+y_stub = 6.0                     # exposed rod past each outer wall
+y_endcap = wall_thickness        # 2 mm end wall capping the rod tip
+rod_tip_y = outer_y_range[1] + y_stub        # 79: where each rod end stops
+boss_outer_y = rod_tip_y + y_endcap          # 81: outer face of the end cap
+
+# Boss footprint in X-Z: the channel region plus 2 mm of floor (below the
+# cradle), ceiling (above the channel top), and -X end-stop wall; left open on
+# the +X side (the rod entry) out to the +X face.
+boss_x_range = (-channel_hw - wall_thickness, outer_x_range[1])
+boss_z_range = (rod_rest_z - channel_hw - wall_thickness, channel_top_z + wall_thickness)
 
 def make_box(x_range, y_range, z_range):
     """Axis-aligned box spanning the given world-coordinate ranges."""
@@ -178,7 +196,7 @@ def make_rod_channel():
     inner_mid = arc_pt(inner_r, 135)
     inner_left = arc_pt(inner_r, 180)   # tangent to the inner wall of the drop
 
-    half_depth = (rod_channel_y_range[1] - rod_channel_y_range[0]) / 2.0
+    half_depth = rod_tip_y   # sweep tip to tip (the end caps past the tips stay solid)
     profile = (
         cq.Workplane("XZ")
         .moveTo(rod_entry_x_open, rod_run_z + hw)            # entry top-outer, open +X end
@@ -202,6 +220,9 @@ def build_reservoir_pockets():
     back_doorway = make_box(doorway_wall_x_range, back_pocket_y_range, back_pocket_z_range)
     front_tube_hole = make_tube_hole(front_tube_hole_y)
     back_tube_hole = make_tube_hole(back_tube_hole_y)
+    # Front wall is at -Y, back wall at +Y; a boss protrudes from each.
+    front_boss = make_box(boss_x_range, (-boss_outer_y, -outer_y_range[1]), boss_z_range)
+    back_boss = make_box(boss_x_range, (outer_y_range[1], boss_outer_y), boss_z_range)
     rod_channel = make_rod_channel()
     return (
         outer
@@ -211,6 +232,8 @@ def build_reservoir_pockets():
         .cut(back_doorway)
         .cut(front_tube_hole)
         .cut(back_tube_hole)
+        .union(front_boss)
+        .union(back_boss)
         .cut(rod_channel)
     )
 
