@@ -16,7 +16,7 @@ flowchart LR
   %%
   %% Edge color = tube material:
   %%   green = clear NSF-51 PVC — the runs the user reads through the transparent
-  %%           enclosure (nozzle lines, bag legs, pump loops) AND the long clear
+  %%           enclosure (nozzle lines, bag runs, pump loops) AND the long clear
   %%           tube from each enclosure-wall port to its manifold valve
   %%   grey  = JG push-to-connect on LLDPE — hidden manifold routing
   %%   blue  = customer push-connect — the external stub from each source only up
@@ -115,7 +115,8 @@ flowchart LR
     VE --> YC
     VH --> YF
 
-    %% bag-circuit legs (clear PVC) — indices 17-20
+    %% bag-circuit legs: each valve to its bag Y-junction, hidden PTC routing
+    %% (grey) — indices 17-20. (Only the Y-junction-to-bag run is clear.)
     VF --> YE
     YE --> VE
     VI --> YH
@@ -153,8 +154,8 @@ flowchart LR
   %% Edge styling (tube material)
   %% =========================
   %% PTC on LLDPE — hidden manifold routing
-  linkStyle 0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16 stroke:#888,stroke-width:2px
+  linkStyle 0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20 stroke:#888,stroke-width:2px
   %% Clear NSF-51 PVC — visible runs + each wall-port-to-valve clear run
-  linkStyle 17,18,19,20,22,24,26,28,29,30,31,32,33,34,35,36 stroke:#2ca02c,stroke-width:3px
+  linkStyle 22,24,26,28,29,30,31,32,33,34,35,36 stroke:#2ca02c,stroke-width:3px
   %% Customer push-connect — external stub from each source to its enclosure-wall port
   linkStyle 21,23,25,27 stroke:#09f,stroke-width:2px
