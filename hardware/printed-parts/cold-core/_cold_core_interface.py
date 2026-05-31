@@ -88,15 +88,12 @@ reservoir_floor_thickness = 3.0
 # both pin their Z to bulkhead_elbow_exit_z (the elbow's lateral-port
 # center), so the tube and the cable run level out of the open pocket.
 #
-# below_floor_stack = seal-boss protrusion below the floor underside
-# (reservoir.py seat 4.0 + counterbore 1.4 − wall 3.0 = 2.4) + below-side
-# TPU washer (2.0) + measured PureSec flange-top-to-elbow-bottom (19.6) =
-# 24.0. With floor_clearance (1.0) buffering the elbow off the pocket floor,
-# the reservoir's lowest point (seal-boss underside) sits 22.6 mm above the
-# bag-pocket floor — matching the measured part. NOTE: the 2.4 mm boss term
-# is coupled to reservoir.py's bulkhead_seal_seat_thickness / _counterbore_depth
-# and reservoir_wall_thickness — keep in sync if those change.
-bulkhead_below_floor_stack = 24.0  # PureSec 90° elbow + dry-side flange + below-side TPU washer hanging below the trough-floor underside
+# How far the floor is raised to clear that below-floor hardware (the seal
+# boss + dry washer + elbow) is DERIVED in reservoir.py (floor_trough_lift /
+# bulkhead_below_floor_stack) from the seal-boss geometry — itself keyed off
+# reservoir_wall_thickness — plus the measured elbow standoff. There is no
+# hand-tuned stack constant here, so adjusting the wall thickness propagates
+# through the boss, the floor height, and the foam-shell support posts.
 bulkhead_floor_clearance = 1.0  # gap from the lowest bulkhead hardware down to the bag-pocket floor — non-load-bearing
 bulkhead_elbow_bottom_z = bag_pocket_floor_top_z + bulkhead_floor_clearance
 bulkhead_elbow_exit_z = bulkhead_elbow_bottom_z + 3.0  # lateral-PTC-port Z center, 3 mm above the elbow bottom
