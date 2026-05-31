@@ -3,6 +3,7 @@ constants and hole-punch helpers that every sibling part (foam shell,
 foam cap stack, reservoir, copper plugs, coil mandrel) needs to stay
 in sync against."""
 
+import math
 import sys
 from pathlib import Path
 
@@ -134,15 +135,26 @@ foam_cap_lid_hole_inset = 30.0
 screw_clearance_radius = 1.95  # ⌀[3.9](SCREW_CLEARANCE_DIAMETER) clearance for M3 SHCS shank
 insert_pocket_radius = 2.0  # ⌀[4](INSERT_POCKET_DIAMETER) for ruthex M3 short heat-set
 insert_pocket_depth = 8.0  # 4 mm insert engagement + 4 mm relief
-screw_boss_size = 8.0  # [8 × 8 mm](SCREW_BOSS_SIZE) square pillar at each attachment
+screw_boss_size = 8.0  # ⌀[8 mm](SCREW_BOSS_SIZE) cylindrical boss at each attachment
+
+# Rounded outer-shell corners. Each corner's exterior wall is a true arc:
+# the outer face is a quarter-round of [12 mm](CORNER_ROUND_R) radius, the
+# inner face concentric one wall-thickness inboard. The corner boss is
+# pulled inward along the corner diagonal so it nests fully inside the
+# rounded wall (centered on the corner-arc center), rather than sitting in
+# a now-removed sharp corner.
+corner_round_radius = 12.0
+# Corner-arc center: corner_round_radius in from each outer face. The corner
+# boss centers here so the rounded wall wraps it concentrically.
+_corner_boss_x = outer_shell_x_length / 2 - corner_round_radius
+_corner_boss_y = outer_shell_y_length / 2 - corner_round_radius
 
 # Mid-long-side bosses offset in X to clear the copper/water-outlet
 # slot at x=0; opposite signs at ±Y preserve 180° rotational symmetry
 # around the Z axis (balanced gasket compression).
 mid_screw_x_offset = 15.0
 foam_cap_attachment_xy_positions = (
-    [(x_sign * (outer_shell_x_length / 2 - screw_boss_size / 2),
-      y_sign * (outer_shell_y_length / 2 - screw_boss_size / 2))
+    [(x_sign * _corner_boss_x, y_sign * _corner_boss_y)
      for x_sign in (1, -1) for y_sign in (1, -1)]
     + [(y_sign * mid_screw_x_offset,
         y_sign * (outer_shell_y_length / 2 - screw_boss_size / 2))
