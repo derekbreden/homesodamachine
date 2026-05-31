@@ -94,7 +94,7 @@ hopper_door_b = FRONT_MARGIN + hopper_door_d / 2
 # the CO2 port's depth anchor on the side face.
 CONTROL_COLUMN_A = W - SIDE_MARGIN - hopper_door_w / 2
 
-# GFCI access band — 27 × 18 mm exposed band centered on the 42 × 67
+# GFCI access band — 27 × [18 mm](GFCI_W) exposed band centered on the 42 × 67
 # Legrand 1597 body, tucked into the back-right corner.
 GFCI_W = 18.0
 GFCI_H = 27.0
@@ -114,9 +114,9 @@ TIP_AT = (CONTROL_COLUMN_A, 200.0)
 TIP_D = 20.0
 TIP_LENGTH = 25.0
 TIP_ANGLE_FROM_VERTICAL_DEG = 40.0
-# Tip points "down" (-Z) and "forward" (-Y), at 40° from vertical:
-#   sin(40°) of the unit length goes into -Y (forward),
-#   cos(40°) into -Z (down).
+# Tip points "down" (-Z) and "forward" (-Y), at [40°](TIP_ANGLE_FROM_VERTICAL_DEG) from vertical:
+#   sin([40°](TIP_ANGLE_FROM_VERTICAL_DEG)) of the unit length goes into -Y (forward),
+#   cos([40°](TIP_ANGLE_FROM_VERTICAL_DEG)) into -Z (down).
 _tip_theta = math.radians(TIP_ANGLE_FROM_VERTICAL_DEG)
 TIP_AXIS = (0.0, -math.sin(_tip_theta), -math.cos(_tip_theta))
 # r·tan(angle from face normal) — extension along the axis BACK into the
@@ -160,9 +160,9 @@ UMBILICAL_BULKHEAD_D = 17.0
 
 # Equilateral triangle with side = bulkhead diameter (tangent circles).
 _S = UMBILICAL_BULKHEAD_D
-TRIANGLE_VERTEX_OFFSET = _S / math.sqrt(3)        # 9.81 mm
-TRIANGLE_BASE_HALF_WIDTH = _S / 2                  # 8.5 mm
-TRIANGLE_BASE_OFFSET = _S * math.sqrt(3) / 6       # 4.91 mm
+TRIANGLE_VERTEX_OFFSET = _S / math.sqrt(3)        # [9.815 mm](TRIANGLE_VERTEX_OFFSET)
+TRIANGLE_BASE_HALF_WIDTH = _S / 2                  # [8.5 mm](TRIANGLE_BASE_HALF_WIDTH)
+TRIANGLE_BASE_OFFSET = _S * math.sqrt(3) / 6       # [4.907 mm](TRIANGLE_BASE_OFFSET)
 
 UMBILICAL_CLUSTER_A = W / 2
 UMBILICAL_CLUSTER_B = H - 50.0
@@ -481,8 +481,18 @@ def refresh_comments() -> None:
             "PUMP_DOOR_D": f"{pump_door_d:.1f} mm",
             "HOPPER_DOOR_W": f"{hopper_door_w:.1f} mm",
             "HOPPER_DOOR_D": f"{hopper_door_d:.1f} mm",
+            "TIP_ANGLE_FROM_VERTICAL_DEG": f"{TIP_ANGLE_FROM_VERTICAL_DEG:.0f}°",
+            "TRIANGLE_VERTEX_OFFSET": f"{TRIANGLE_VERTEX_OFFSET:.4g} mm",
+            "TRIANGLE_BASE_HALF_WIDTH": f"{TRIANGLE_BASE_HALF_WIDTH:.4g} mm",
+            "TRIANGLE_BASE_OFFSET": f"{TRIANGLE_BASE_OFFSET:.4g} mm",
+            "GFCI_W": f"{GFCI_W:.4g} mm",
         },
         expected_counts={
+            "TIP_ANGLE_FROM_VERTICAL_DEG": 3,
+            "TRIANGLE_VERTEX_OFFSET": 1,
+            "TRIANGLE_BASE_HALF_WIDTH": 1,
+            "TRIANGLE_BASE_OFFSET": 1,
+            "GFCI_W": 1,
             "PUMP_DOOR_W": 1,
             "PUMP_DOOR_D": 1,
             "HOPPER_DOOR_W": 1,
