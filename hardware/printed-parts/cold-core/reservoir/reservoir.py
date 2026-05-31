@@ -73,11 +73,12 @@ reservoir_wall_thickness = reservoir_floor_thickness
 
 
 # Sharp-corner fillets where the centerward curve meets the ±Y walls.
-# At y = ±70 mm the outer centerward curve (radius 72 mm) meets the
-# outer ±Y walls — ~13° interior angle, a pointy tab that's structurally
-# useless and won't FDM cleanly. At y = ±66 mm the inner centerward curve
-# meets the inner ±Y walls inside the syrup volume — ~30° interior angle
-# that would trap residual liquid. Same radius on both for visual
+# At y = ±[70 mm](OUTER_Y_MAX) the outer centerward curve (radius
+# [73 mm](OUTER_CENTERWARD_R)) meets the outer ±Y walls — [16°](OUTER_TAB_ANGLE)
+# interior angle, a pointy tab that's structurally useless and won't FDM
+# cleanly. At y = ±[67 mm](INNER_Y_MAX) the inner centerward curve meets the
+# inner ±Y walls inside the syrup volume — [28°](INNER_CORNER_ANGLE) interior
+# angle that would trap residual liquid. Same radius on both for visual
 # consistency. 6 mm is chosen to match body_boss_radius so the corner
 # bosses (positions 4/5, centered on the outer fillet) fit fully inside
 # the post-fillet wall material — see body_boss_radius below.
@@ -442,6 +443,15 @@ inner_far_x_abs = outer_far_x_abs - reservoir_wall_thickness
 inner_y_max = outer_y_max - reservoir_wall_thickness
 inner_centerward_radius = outer_centerward_radius + reservoir_wall_thickness
 
+# Interior angles of the corners where the centerward arc meets the ±Y walls
+# — DERIVED from the geometry, not eyeballed. The arc tangent crosses the
+# horizontal ±Y wall at acos(y_max / R): a sharp "pointy tab" on the outer
+# envelope ([16°](OUTER_TAB_ANGLE)) and a gentler corner on the inner cavity
+# boundary ([28°](INNER_CORNER_ANGLE)). Comments quote these via docgen so they
+# can't drift from the geometry the way the old hand-estimates had.
+outer_tab_interior_angle = math.degrees(math.acos(outer_y_max / outer_centerward_radius))
+inner_corner_interior_angle = math.degrees(math.acos(inner_y_max / inner_centerward_radius))
+
 # Body Z ranges. outer_z_range is the body's vertical extent (floor's
 # outer face to wall top). inner_z_range is the cavity's extent (cavity
 # floor sits one wall up; top opens to the cap above the gasket).
@@ -653,8 +663,8 @@ def build_reservoir_body(side=1):
     # there would replace the sharp edge with a curved boss-to-wall
     # transition that the fillet operation can't pick up.
     #
-    # Exterior corners (outer perimeter, ~13° interior angle) are pointy
-    # tabs. Interior corners (cavity boundary, ~30° interior angle) are
+    # Exterior corners (outer perimeter, [16°](OUTER_TAB_ANGLE) interior angle) are pointy
+    # tabs. Interior corners (cavity boundary, [28°](INNER_CORNER_ANGLE) interior angle) are
     # sharp inside the syrup volume. Both get rounded with the same
     # radius for visual consistency.
     z_mid_body = (outer_z_range[0] + outer_z_range[1]) / 2
@@ -1290,6 +1300,11 @@ def main():
         "BULKHEAD_SEAL_WET_CB_D": f"{bulkhead_seal_wet_counterbore_diameter:.4g} mm",
         "BULKHEAD_SEAL_DRY_CB_D": f"{bulkhead_seal_dry_counterbore_diameter:.4g} mm",
         "BULKHEAD_SEAL_BOSS_D": f"{bulkhead_seal_boss_diameter:.4g} mm",
+        "OUTER_Y_MAX": f"{outer_y_max:.4g} mm",
+        "OUTER_CENTERWARD_R": f"{outer_centerward_radius:.4g} mm",
+        "INNER_Y_MAX": f"{inner_y_max:.4g} mm",
+        "OUTER_TAB_ANGLE": f"{outer_tab_interior_angle:.0f}°",
+        "INNER_CORNER_ANGLE": f"{inner_corner_interior_angle:.0f}°",
     }
     substitute_md(
         here / ".." / "foam-shell" / "README.md",
@@ -1355,6 +1370,11 @@ def main():
             "BULKHEAD_SEAL_WET_CB_D": 1,
             "BULKHEAD_SEAL_DRY_CB_D": 1,
             "BULKHEAD_SEAL_BOSS_D": 2,
+            "OUTER_Y_MAX": 1,
+            "OUTER_CENTERWARD_R": 1,
+            "INNER_Y_MAX": 1,
+            "OUTER_TAB_ANGLE": 3,
+            "INNER_CORNER_ANGLE": 3,
         },
     )
     print(f"-> {Path(__file__).name} (self)")
