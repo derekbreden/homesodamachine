@@ -2,5 +2,5 @@
   "thickness_mm": 2.0,
   "material": "PETG",
   "process": "3D-print",
-  "notes": "transparent PETG; two 150x70x285 mm bag pockets split by a 2 mm divider, each open as a 70x285 mm doorway through its right (+X) wall, with a 6.5 mm (~1/4 in) tubing exit hole per pocket low in the left (-X) wall (bottom 6.5 mm above the floor); closed top, with a rod hang channel cut into the faces of the front wall/divider/back wall near the top (back-edge entry slot + center dip, ceiling kept via a bridge) for one SS rod through both bags' top loops, slid in from the +X back; outer envelope 154x146x289 mm"
+  "notes": "transparent PETG; two 150x70x285 mm bag pockets split by a 2 mm divider, each open as a 70x285 mm doorway through its right (+X) wall, with a 6.5 mm (~1/4 in) tubing exit hole per pocket low in the left (-X) wall (bottom 6.5 mm above the floor); closed top, with a rod hang channel cut into the faces of the front wall/divider/back wall near the top (back-edge entry slot that curves down into a rounded center cradle, ceiling kept via a bridge) for one 1/8 in stainless rod through both bags' top loops, slid in from the +X back; outer envelope 154x146x289 mm"
 }

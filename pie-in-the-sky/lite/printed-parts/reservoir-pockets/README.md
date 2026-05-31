@@ -10,10 +10,11 @@ vertically, separated by a divider.
 - Left (-X) wall: one ⌀6.5 mm (~1/4") tubing exit hole per pocket, centered in depth (Y), low in the wall (bottom 6.5 mm above the floor)
 - Closed top (ceiling stays). A rod hang channel is cut into the faces of the
   front wall, divider, and back wall near the top — not through the ceiling: a
-  horizontal slot open at the +X (back) edge, then a dip at center X. One SS
-  rod threads both bags' centered top loops; the rod slides in from the back
-  (carrying the bags), drops into the dip at center, and the bags' weight seats
-  it. A bridge of wall material above the channel keeps the ceiling attached.
+  flat entry slot open at the +X (back) edge that curves down — rounding the
+  corner — into a rounded cradle at center X. One 1/8" stainless rod threads
+  both bags' centered top loops; the rod slides in from the back (carrying the
+  bags), rolls down into the cradle at center, and the bags' weight seats it.
+  A bridge of wall material above the channel keeps the ceiling attached.
 - Walls, floor, ceiling, and divider: 2 mm
 - Outer envelope: 154 mm wide (X) × 146 mm deep (Y) × 289 mm tall (Z)
 - Transparent PETG
