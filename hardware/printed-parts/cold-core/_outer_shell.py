@@ -1,9 +1,9 @@
 """Outer rectangular cup (floor + four perimeter walls) with the
 6 cylindrical corner/mid-side bosses and their heat-set insert pockets.
-The exterior corners are rounded; each corner boss is nested inward at the
-corner-arc center and webbed out to the rounded wall (the same cylinder +
-corner-fill idiom the reservoir pocket-corner supports use), so the boss
-ties into the wall it braces rather than floating in the corner void."""
+The exterior corners are rounded; each corner boss nestles IN the corner —
+its ⌀ tangent to the rounded inner wall — with two short webs filling to
+the flanking flat walls, the same cylinder + corner-fill teardrop idiom the
+reservoir pocket-corner supports use."""
 
 from world_workplane import WorldWorkplane, xy_plane_z_up
 from _cold_core_interface import (
