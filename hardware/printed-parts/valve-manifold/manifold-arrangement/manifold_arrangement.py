@@ -47,11 +47,15 @@ DIVIDER = cq.Color(0.30, 0.55, 0.85)
 TEE_NAMES = {"YE", "YH", "YKA", "YKB"}
 
 # (label, tray solid, parts dict, rot_z about origin, translate)
+# nozzle / bag / bib butt plate-to-plate along X (each tray's protruding valve
+# port nestles into its neighbor's saddle channel); bib is turned 180° about Z
+# so its outlets face bag. source rides above, body over the series, with its
+# V-C/V-D outlets above bib's upward Tee branches.
 PLACEMENTS = [
-    ("nozzle", nz.build_nozzle_gate_tray, nz.build_assembly, 0.0, (-135.0, 0.0, 0.0)),
+    ("nozzle", nz.build_nozzle_gate_tray, nz.build_assembly, 0.0, (-88.965, 0.0, 0.0)),
     ("bag", bc.build_bag_circuit_tray, bc.build_assembly, 0.0, (0.0, 0.0, 0.0)),
-    ("bib", bg.build_bib_gate_tray, bg.build_assembly, 180.0, (170.0, 0.0, 0.0)),
-    ("source", ss.build_source_select_tray, ss.build_assembly, 180.0, (252.0, 0.0, 72.0)),
+    ("bib", bg.build_bib_gate_tray, bg.build_assembly, 180.0, (129.105, 0.0, 0.0)),
+    ("source", ss.build_source_select_tray, ss.build_assembly, 0.0, (47.075, 0.0, 64.0)),
 ]
 
 
