@@ -79,18 +79,18 @@ shell_center_x = 0.0
 shell_center_y = +3.175
 
 
-# ZONE 1 — first 13 mm; body is a full Ø 31.5 mm cylinder here
+# ZONE 1 — first [13 mm](ZONE1_HEIGHT); body is a full ⌀[31.5 mm](BODY_OD) cylinder here
 
 zone1_z_bottom = 0.0
 zone1_z_top = 13.0
-zone1_height = zone1_z_top - zone1_z_bottom  # 13 mm
+zone1_height = zone1_z_top - zone1_z_bottom  # [13 mm](ZONE1_HEIGHT)
 
 # Body-to-bore slip-fit clearance — applied per-side (per-direction)
 # uniformly: ±X faces, ±Y faces, radial cylinder, AND face-to-face Z
 # interfaces all get the same gap.
 bore_clearance = 0.25  # mm per side
 
-# Body bore (cylinder) — [32 mm](BODY_BORE_D), body OD 31.5 mm + 2 × clearance per side.
+# Body bore (cylinder) — [32 mm](BODY_BORE_D), body OD [31.5 mm](BODY_OD) + 2 × clearance per side.
 body_bore_diameter = 31.5 + 2.0 * bore_clearance
 body_bore_x = 0.0
 body_bore_y = 0.0
@@ -124,10 +124,10 @@ flavor_pill_y_minus_edge = min(
 wall_thickness_min = 3.0
 _body_bore_farthest_from_shell_center = (
     (shell_center_y - body_bore_y) + body_bore_diameter / 2.0
-)  # = 19.175 mm
+)  # = [19.18 mm](BODY_BORE_FARTHEST)
 _pill_farthest_from_shell_center = (
     (+flavor_tube_depth + pill_width_y / 2.0) - shell_center_y
-)  # = 19.275 mm at flavor_tube_hole_dia = 7.05
+)  # = [19.27 mm](PILL_FARTHEST) at flavor_tube_hole_dia = 7.05
 # [22.27 mm](SHELL_OUTER_R) outer-cylinder radius.
 shell_outer_r = (
     max(_body_bore_farthest_from_shell_center, _pill_farthest_from_shell_center)
@@ -137,17 +137,17 @@ shell_outer_r = (
 
 # ZONE 2 — cylinder → rectangle transition + rect column
 
-zone2_z_bottom = zone1_z_top  # 13.0
+zone2_z_bottom = zone1_z_top  # [13 mm](BODY_CYL_TOP_Z)
 zone2_z_top = 39.0  # body plateau
-zone2_height = zone2_z_top - zone2_z_bottom  # 26.0
+zone2_height = zone2_z_top - zone2_z_bottom  # [26 mm](ZONE2_HEIGHT)
 
 # Body rectangle dimensions (mirrored from valve-body-reference)
 body_rect_long_y = 31.5  # depth axis
 body_rect_short_x = 17.0  # lateral axis
 
 # Body bore in zone 2 — body rect + clearance per side
-body_bore_rect_long_y = body_rect_long_y + 2.0 * bore_clearance  # 32.0
-body_bore_rect_short_x = body_rect_short_x + 2.0 * bore_clearance  # 17.5
+body_bore_rect_long_y = body_rect_long_y + 2.0 * bore_clearance  # [32 mm](BODY_BORE_RECT_LONG)
+body_bore_rect_short_x = body_rect_short_x + 2.0 * bore_clearance  # [17.5 mm](BODY_BORE_RECT_SHORT)
 
 # Cove transition fillet (matches the body's transition_fillet_r)
 cove_r = 6.0
@@ -155,14 +155,14 @@ cove_r = 6.0
 # Bore Z transitions lift by bore_clearance above the body's Z
 # transitions so face-to-face Z interfaces get the same per-side
 # clearance as ±X and ±Y.
-zone2_bore_z_bottom = zone1_z_top + bore_clearance  # 13.25
+zone2_bore_z_bottom = zone1_z_top + bore_clearance  # [13.25 mm](ZONE2_BORE_Z_BOTTOM)
 
 # Outer surface lifts by wall_thickness_min + bore_clearance above the
-# body's cylinder top, leaving a 3 mm cylindrical shell wall directly
+# body's cylinder top, leaving a [3 mm](WALL_MIN) cylindrical shell wall directly
 # above the body cyl top face before the cove transition begins.
-shell_outer_lip = wall_thickness_min + bore_clearance  # 3.25
-zone1_outer_z_top = zone1_z_top + shell_outer_lip  # 16.25
-zone2_outer_z_bottom = zone1_outer_z_top  # 16.25
+shell_outer_lip = wall_thickness_min + bore_clearance  # [3.25 mm](SHELL_OUTER_LIP)
+zone1_outer_z_top = zone1_z_top + shell_outer_lip  # [16.25 mm](ZONE1_OUTER_Z_TOP)
+zone2_outer_z_bottom = zone1_outer_z_top  # [16.25 mm](ZONE1_OUTER_Z_TOP)
 
 
 # LEVER SWING CLEARANCE — chamfer wedge cut into the top -Y corner of
@@ -179,22 +179,22 @@ zone2_outer_z_bottom = zone1_outer_z_top  # 16.25
 # coincident-edge sliver.
 
 lever_x_half = 6.5
-lever_clearance_x_half = lever_x_half + bore_clearance  # 6.75
+lever_clearance_x_half = lever_x_half + bore_clearance  # [6.75 mm](LEVER_CLEAR_X_HALF)
 lever_ramp_depth = 1.0
 tangent_overshoot = 0.002
 
-shell_rect_y_half = shell_outer_r  # 22.175
-shell_rect_x_half = body_bore_rect_short_x / 2.0 + wall_thickness_min  # 11.75
+shell_rect_y_half = shell_outer_r  # [22.27 mm](SHELL_OUTER_R)
+shell_rect_x_half = body_bore_rect_short_x / 2.0 + wall_thickness_min  # [11.75 mm](SHELL_RECT_X_HALF)
 shell_rect_y_width = 2.0 * shell_rect_y_half
 shell_rect_x_width = 2.0 * shell_rect_x_half
-shell_rect_y_max = shell_center_y + shell_rect_y_half  # +25.35 (toward back)
-shell_rect_y_min = shell_center_y - shell_rect_y_half  # -19.0 (toward user)
+shell_rect_y_max = shell_center_y + shell_rect_y_half  # [25.45 mm](SHELL_RECT_Y_MAX) (toward back)
+shell_rect_y_min = shell_center_y - shell_rect_y_half  # [-19.1 mm](SHELL_RECT_Y_MIN) (toward user)
 
-lever_ramp_y_min = shell_center_y - shell_outer_r  # -19, outer rect face -Y side
+lever_ramp_y_min = shell_center_y - shell_outer_r  # [-19.1 mm](SHELL_RECT_Y_MIN), outer rect face -Y side
 _bore_y_at_lever_x = math.sqrt(
     (body_bore_diameter / 2.0) ** 2 - lever_clearance_x_half ** 2
-)  # ≈ 14.5061 — bore-cyl tangent at the cut's X half-span
-lever_ramp_y_start = -(_bore_y_at_lever_x + tangent_overshoot)  # ≈ -14.5081
+)  # ≈ [14.51 mm](BORE_Y_AT_LEVER_X) — bore-cyl tangent at the cut's X half-span
+lever_ramp_y_start = -(_bore_y_at_lever_x + tangent_overshoot)  # ≈ [-14.51 mm](LEVER_RAMP_Y_START)
 
 
 # ZONE 3 — Arch wraps (two wings at ±X)
@@ -204,25 +204,25 @@ lever_ramp_y_start = -(_bore_y_at_lever_x + tangent_overshoot)  # ≈ -14.5081
 # arc through (∓15.75, 41) and (0, 46).
 #
 # Shell wraps each arch with WALL+GAP outside (top, +X/-X outer face,
-# Y foot ends). Plateau between the arches (X ∈ ±6.75) is OPEN — each
+# Y foot ends). Plateau between the arches (X ∈ ±[6.75 mm](WING_INNER_X)) is OPEN — each
 # shell wing's plateau-side X face IS the bore's plateau-side X face.
 
-zone3_z_bottom = zone2_z_top  # 39
+zone3_z_bottom = zone2_z_top  # [39 mm](ZONE3_Z_BOTTOM)
 
 arch_z_base = 41.0  # body foot top
 arch_z_peak = 46.0  # body arc peak
 body_arch_inner_x = 7.0
 body_arch_outer_x = 8.5
 
-shell_arch_bore_inner_x = body_arch_inner_x - bore_clearance  # 6.75
-shell_arch_bore_outer_x = body_arch_outer_x + bore_clearance  # 8.75
-shell_arch_bore_z_foot_top = arch_z_base + bore_clearance  # 41.25
-shell_arch_bore_z_peak = arch_z_peak + bore_clearance  # 46.25
+shell_arch_bore_inner_x = body_arch_inner_x - bore_clearance  # [6.75 mm](SHELL_ARCH_BORE_INNER_X)
+shell_arch_bore_outer_x = body_arch_outer_x + bore_clearance  # [8.75 mm](SHELL_ARCH_BORE_OUTER_X)
+shell_arch_bore_z_foot_top = arch_z_base + bore_clearance  # [41.25 mm](SHELL_ARCH_BORE_Z_FOOT_TOP)
+shell_arch_bore_z_peak = arch_z_peak + bore_clearance  # [46.25 mm](SHELL_ARCH_BORE_Z_PEAK)
 
-shell_arch_z_foot_top = arch_z_base + shell_outer_lip  # 44.25
-shell_arch_z_peak = arch_z_peak + shell_outer_lip  # 49.25
-wing_inner_x = shell_arch_bore_inner_x  # 6.75
-wing_outer_x = shell_rect_x_half  # 11.75
+shell_arch_z_foot_top = arch_z_base + shell_outer_lip  # [44.25 mm](SHELL_ARCH_Z_FOOT_TOP)
+shell_arch_z_peak = arch_z_peak + shell_outer_lip  # [49.25 mm](SHELL_ARCH_Z_PEAK)
+wing_inner_x = shell_arch_bore_inner_x  # [6.75 mm](WING_INNER_X)
+wing_outer_x = shell_rect_x_half  # [11.75 mm](SHELL_RECT_X_HALF)
 
 # ZONE 3 — plateau fill (between the wings, Y ≥ fill_y_min). Fills the
 # plateau region behind the back third of the water tube, matching the
@@ -235,7 +235,7 @@ water_tube_y = +8.875
 # supply line. The harvested Westbrass R2031-NL-62 valve body IS the
 # 1/4"→3/8" adapter; the 3/8" tube only exists above this port,
 # internal to the head.
-water_tube_od = 0.375 * 25.4  # 9.525
+water_tube_od = 0.375 * 25.4  # [9.525 mm](WATER_TUBE_OD)
 # [10.22 mm](WATER_HOLE_D) water bore = OD + 2 × clearance per side + 0.20 mm slack.
 water_hole_diameter = water_tube_od + 2.0 * bore_clearance + 0.20
 
@@ -249,29 +249,29 @@ water_hole_diameter = water_tube_od + 2.0 * bore_clearance + 0.20
 flavor_tube_post_bend_y = water_tube_y + math.sqrt(
     (water_tube_od / 2.0 + flavor_tube_od / 2.0) ** 2
     - flavor_tube_x_offset ** 2
-)  # ≈ +16.150
+)  # ≈ [16.15 mm](FLAVOR_POST_BEND_Y)
 
-fill_y_min = +10.46  # back third of water tube (Y ≥ +10.46)
+fill_y_min = +10.46  # back third of water tube (Y ≥ [10.46 mm](FILL_Y_MIN))
 
 
 # ZONE 4 — rect column continuation above the arch (water tube +
 # flavor pill cutouts), from the arch foot up to zone4_z_top.
-zone4_z_bottom = shell_arch_z_foot_top  # 44.25
+zone4_z_bottom = shell_arch_z_foot_top  # [44.25 mm](SHELL_ARCH_Z_FOOT_TOP)
 # Zone 4 top clears the lever's pressed-down envelope by ≈3.5 mm above
 # the pressed-lever head corner (Y=+6.78, Z=54.024) — that corner sits
-# inside zone 5's water-circle outer outline (centered at Y=+8.875,
-# R=9.0125), so zone 5's bottom must be above it.
+# inside zone 5's water-circle outer outline (centered at Y=+[8.875 mm](WATER_TUBE_Y),
+# R=[9.112 mm](TUBE_SHELL_WATER_R)), so zone 5's bottom must be above it.
 zone4_z_top = 57.5
-zone4_height = zone4_z_top - zone4_z_bottom  # 13.25
+zone4_height = zone4_z_top - zone4_z_bottom  # [13.25 mm](ZONE4_HEIGHT)
 
 
 # ZONE 5 — tube wrapper above the lever. Above zone 4 the shell
 # wraps just the tubes (water cyl bore + flavor pill bore, each +
-# 3 mm wall), straight-extruded vertically. This zone extends in -Y
+# [4 mm](ZONE5_WALL) wall), straight-extruded vertically. This zone extends in -Y
 # past fill_y_min — safe because we're above the lever's reach.
-zone5_z_bottom = zone4_z_top  # 57.5
-zone5_z_top = zone4_z_top + 10.0  # 67.5
-zone5_height = zone5_z_top - zone5_z_bottom  # 10
+zone5_z_bottom = zone4_z_top  # [57.5 mm](ZONE5_Z_BOTTOM)
+zone5_z_top = zone4_z_top + 10.0  # [67.5 mm](ZONE5_Z_TOP)
+zone5_height = zone5_z_top - zone5_z_bottom  # [10 mm](ZONE5_HEIGHT)
 zone5_wall = wall_thickness_min + 1
 
 # Tube-shell cross-section vocabulary — shared by zone 5's vertical
@@ -284,13 +284,13 @@ zone5_wall = wall_thickness_min + 1
 # and extreme +Y (around the flavor pill) are both zone5_wall. The
 # "stretch" is only in X (the smaller side picks up extra wall thickness
 # on its X apex); the Y side walls don't thicken.
-tube_shell_water_r_outer = water_hole_diameter / 2.0 + zone5_wall   # 9.0125
+tube_shell_water_r_outer = water_hole_diameter / 2.0 + zone5_wall   # [9.112 mm](TUBE_SHELL_WATER_R)
 tube_shell_pill_x_half_outer = pill_length_x / 2.0 + zone5_wall
 tube_shell_x_half_outer = max(tube_shell_water_r_outer, tube_shell_pill_x_half_outer)
 tube_shell_x_outer = 2.0 * tube_shell_x_half_outer
 # Offset from water tube to flavor pill along world Y. Positive — flavor
 # sits BEHIND water.
-flavor_offset_y_from_water = flavor_tube_post_bend_y - water_tube_y  # ≈ +7.275
+flavor_offset_y_from_water = flavor_tube_post_bend_y - water_tube_y  # ≈ [7.275 mm](FLAVOR_OFFSET_Y)
 
 
 # ZONE 6 — gooseneck wrapper around the bent dispense tubes. Pure
@@ -317,11 +317,11 @@ gn_bend2_r = 40.0
 gn_bend1_sweep_rad = math.radians(30.0)
 gn_bend2_sweep_rad = math.radians(110.0)
 # 35 mm above the lever rest top (at zone2_z_top + 13 = 52).
-gn_bend1_z_mid = zone2_z_top + 48.0  # 87
+gn_bend1_z_mid = zone2_z_top + 48.0  # [87 mm](GN_BEND1_Z_MID)
 gn_bend1_z_start = (
     gn_bend1_z_mid
     - gn_bend1_r * math.sin(gn_bend1_sweep_rad / 2.0)
-)  # ≈ 79.24
+)  # ≈ [79.24 mm](GN_BEND1_Z_START)
 gn_mid_straight_len = 115.0
 gn_tip_straight_len = 25.0
 
@@ -343,7 +343,7 @@ gn_tip_straight_len = 25.0
 #   SPLIT B: upper-bend ↔ dispense-tip (end of bend 2 / start of tip).
 #     - Same joint pattern: female SOCKET on the upper-bend (middle, top
 #       end); male PLUG on the dispense-tip (top).
-#     - The upper-bend is a 110° arc at R=gn_bend2_r, so the 20 mm
+#     - The upper-bend is a [110°](GN_BEND2_SWEEP_DEG) arc at R=gn_bend2_r, so the 20 mm
 #       overlap is measured along the ARC — both pieces in this zone
 #       follow the curve. The female cavity and the male plug are both
 #       swept along the last `split_overlap_len / gn_bend2_r` rad
@@ -522,7 +522,7 @@ split_b_plug_overlap_z = zone5_z_top + _path_plug_start[1]
 # surface smoothly. Center is directly below the high end (fill_y_min,
 # c_z); solving distance(center, low_end) == distance(center, high_end)
 # gives c_z.
-_back_arch_dy = fill_y_min - shell_rect_y_min  # 29.46 (positive depth span)
+_back_arch_dy = fill_y_min - shell_rect_y_min  # [29.56 mm](BACK_ARCH_DY) (positive depth span)
 back_arch_center_z = (
     (zone4_z_top + zone3_z_bottom) / 2.0
     - _back_arch_dy ** 2 / (2.0 * (zone4_z_top - zone3_z_bottom))
@@ -541,7 +541,7 @@ back_arch_mid_z = back_arch_center_z + back_arch_r * math.sin(_back_arch_a_mid)
 # ZONE 4.5 — block above the lever, up to the gooseneck bend start
 #
 # A tall block capping the lever swing volume from above and reaching
-# up to Z=gn_bend1_z_start ≈ 78.78. The -Y (front-facing) edge sits at
+# up to Z=gn_bend1_z_start ≈ [79.24 mm](GN_BEND1_Z_START). The -Y (front-facing) edge sits at
 # zone45_front_y — chosen so the front margin (zone 4.5 front Y to zone
 # 5's water-circle -Y edge) matches the back margin (zone 4.5 back Y to
 # zone 5's flavor-pill +Y edge), centering zone 5 visually over zone 4.5
@@ -556,7 +556,7 @@ back_arch_mid_z = back_arch_center_z + back_arch_r * math.sin(_back_arch_a_mid)
 # Zone 5's tube-shell Y extents at X=0 — used to derive zone 4.5's
 # matched-margin front Y. Water tube on the -Y side; flavor pill on
 # the +Y side.
-_z5_y_min = water_tube_y - tube_shell_water_r_outer  # ≈ -0.1375
+_z5_y_min = water_tube_y - tube_shell_water_r_outer  # ≈ [-0.2375 mm](Z5_Y_MIN)
 _z5_y_max = flavor_tube_post_bend_y + (pill_width_y + 2.0 * zone5_wall) / 2.0
 
 # Zone 4.5 Y extents — back edge follows the rect column; front edge
@@ -565,8 +565,8 @@ zone45_front_y = _z5_y_min - (shell_rect_y_max - _z5_y_max)
 
 # Top sits 3 mm above zone 4's top on the back side (lid sits flat on
 # zone 4 top). The front bottom follows the back-arch curve down to
-# ≈ Z=52.75.
-zone45_z_top = zone4_z_top + 3.0  # 60.5
+# ≈ Z=[55.04 mm](ZONE45_Z_BOT_FRONT).
+zone45_z_top = zone4_z_top + 3.0  # [60.5 mm](ZONE45_Z_TOP)
 zone45_z_bottom_at_front = (
     back_arch_center_z
     + math.sqrt(back_arch_r ** 2 - (zone45_front_y - fill_y_min) ** 2)
@@ -861,7 +861,7 @@ def build_zone3_fill_outer() -> cq.Workplane:
     extruded across the plateau X range. The body bore column is cut
     away (see body_bore_cyl).
     """
-    fill_x_thickness = 2.0 * wing_inner_x  # 13.5
+    fill_x_thickness = 2.0 * wing_inner_x  # [13.5 mm](FILL_X_THICKNESS)
     z_height = zone4_z_top - zone3_z_bottom
 
     arch_solid = _arch_extrude(-wing_inner_x, fill_x_thickness)
@@ -1106,7 +1106,7 @@ def _tube_shell_inner_sketch() -> cq.Sketch:
     """Tube-shell inner cross-section as a Sketch, for the gooseneck
     sweep. See _tube_shell_outer_sketch for sketch-frame +
     cq.Sketch.slot conventions."""
-    pill_straight = pill_length_x - pill_width_y  # 3.175
+    pill_straight = pill_length_x - pill_width_y  # [6.35 mm](PILL_STRAIGHT_INNER)
     return (
         cq.Sketch()
         .circle(water_hole_diameter / 2.0)
@@ -1542,6 +1542,50 @@ def main():
         "FLAVOR_PILL_Y_MINUS": f"{flavor_pill_y_minus_edge:.4g} mm",
         "SHELL_OUTER_R": f"{shell_outer_r:.4g} mm",
         "WATER_HOLE_D": f"{water_hole_diameter:.4g} mm",
+        "WALL_MIN": f"{wall_thickness_min:.4g} mm",
+        "ZONE1_HEIGHT": f"{zone1_height:.4g} mm",
+        "ZONE2_HEIGHT": f"{zone2_height:.4g} mm",
+        "ZONE4_HEIGHT": f"{zone4_height:.4g} mm",
+        "ZONE5_HEIGHT": f"{zone5_height:.4g} mm",
+        "ZONE5_WALL": f"{zone5_wall:.4g} mm",
+        "BODY_BORE_FARTHEST": f"{_body_bore_farthest_from_shell_center:.4g} mm",
+        "PILL_FARTHEST": f"{_pill_farthest_from_shell_center:.4g} mm",
+        "BODY_BORE_RECT_LONG": f"{body_bore_rect_long_y:.4g} mm",
+        "BODY_BORE_RECT_SHORT": f"{body_bore_rect_short_x:.4g} mm",
+        "ZONE2_BORE_Z_BOTTOM": f"{zone2_bore_z_bottom:.4g} mm",
+        "SHELL_OUTER_LIP": f"{shell_outer_lip:.4g} mm",
+        "ZONE1_OUTER_Z_TOP": f"{zone1_outer_z_top:.4g} mm",
+        "LEVER_CLEAR_X_HALF": f"{lever_clearance_x_half:.4g} mm",
+        "SHELL_RECT_X_HALF": f"{shell_rect_x_half:.4g} mm",
+        "SHELL_RECT_Y_MAX": f"{shell_rect_y_max:.4g} mm",
+        "SHELL_RECT_Y_MIN": f"{shell_rect_y_min:.4g} mm",
+        "BORE_Y_AT_LEVER_X": f"{_bore_y_at_lever_x:.4g} mm",
+        "LEVER_RAMP_Y_START": f"{lever_ramp_y_start:.4g} mm",
+        "ZONE3_Z_BOTTOM": f"{zone3_z_bottom:.4g} mm",
+        "WING_INNER_X": f"{wing_inner_x:.4g} mm",
+        "SHELL_ARCH_BORE_INNER_X": f"{shell_arch_bore_inner_x:.4g} mm",
+        "SHELL_ARCH_BORE_OUTER_X": f"{shell_arch_bore_outer_x:.4g} mm",
+        "SHELL_ARCH_BORE_Z_FOOT_TOP": f"{shell_arch_bore_z_foot_top:.4g} mm",
+        "SHELL_ARCH_BORE_Z_PEAK": f"{shell_arch_bore_z_peak:.4g} mm",
+        "SHELL_ARCH_Z_FOOT_TOP": f"{shell_arch_z_foot_top:.4g} mm",
+        "SHELL_ARCH_Z_PEAK": f"{shell_arch_z_peak:.4g} mm",
+        "WATER_TUBE_OD": f"{water_tube_od:.4g} mm",
+        "WATER_TUBE_Y": f"{water_tube_y:.4g} mm",
+        "TUBE_SHELL_WATER_R": f"{tube_shell_water_r_outer:.4g} mm",
+        "FLAVOR_POST_BEND_Y": f"{flavor_tube_post_bend_y:.4g} mm",
+        "FILL_Y_MIN": f"{fill_y_min:.4g} mm",
+        "FILL_X_THICKNESS": f"{2.0 * wing_inner_x:.4g} mm",
+        "PILL_STRAIGHT_INNER": f"{pill_length_x - pill_width_y:.4g} mm",
+        "FLAVOR_OFFSET_Y": f"{flavor_offset_y_from_water:.4g} mm",
+        "ZONE5_Z_BOTTOM": f"{zone5_z_bottom:.4g} mm",
+        "ZONE5_Z_TOP": f"{zone5_z_top:.4g} mm",
+        "GN_BEND1_Z_MID": f"{gn_bend1_z_mid:.4g} mm",
+        "GN_BEND1_Z_START": f"{gn_bend1_z_start:.4g} mm",
+        "GN_BEND2_SWEEP_DEG": f"{math.degrees(gn_bend2_sweep_rad):.0f}°",
+        "BACK_ARCH_DY": f"{_back_arch_dy:.4g} mm",
+        "Z5_Y_MIN": f"{_z5_y_min:.4g} mm",
+        "ZONE45_Z_TOP": f"{zone45_z_top:.4g} mm",
+        "ZONE45_Z_BOT_FRONT": f"{zone45_z_bottom_at_front:.4g} mm",
     }
     substitute_md(
         out_dir / "ASSEMBLY.md",
@@ -1570,11 +1614,57 @@ def main():
         variables=variables,
         expected_counts={
             "BODY_BORE_D": 1,
+            "BODY_OD": 2,
+            "BODY_CYL_TOP_Z": 1,
             "PILL_L": 1,
             "PILL_W": 1,
             "FLAVOR_PILL_Y_MINUS": 1,
-            "SHELL_OUTER_R": 1,
+            "SHELL_OUTER_R": 2,
             "WATER_HOLE_D": 1,
+            "WALL_MIN": 1,
+            "ZONE1_HEIGHT": 2,
+            "ZONE2_HEIGHT": 1,
+            "ZONE4_HEIGHT": 1,
+            "ZONE5_HEIGHT": 1,
+            "ZONE5_WALL": 1,
+            "BODY_BORE_FARTHEST": 1,
+            "PILL_FARTHEST": 1,
+            "BODY_BORE_RECT_LONG": 1,
+            "BODY_BORE_RECT_SHORT": 1,
+            "ZONE2_BORE_Z_BOTTOM": 1,
+            "SHELL_OUTER_LIP": 1,
+            "ZONE1_OUTER_Z_TOP": 2,
+            "LEVER_CLEAR_X_HALF": 1,
+            "SHELL_RECT_X_HALF": 2,
+            "SHELL_RECT_Y_MAX": 1,
+            "SHELL_RECT_Y_MIN": 2,
+            "BORE_Y_AT_LEVER_X": 1,
+            "LEVER_RAMP_Y_START": 1,
+            "ZONE3_Z_BOTTOM": 1,
+            "WING_INNER_X": 2,
+            "SHELL_ARCH_BORE_INNER_X": 1,
+            "SHELL_ARCH_BORE_OUTER_X": 1,
+            "SHELL_ARCH_BORE_Z_FOOT_TOP": 1,
+            "SHELL_ARCH_BORE_Z_PEAK": 1,
+            "SHELL_ARCH_Z_FOOT_TOP": 2,
+            "SHELL_ARCH_Z_PEAK": 1,
+            "WATER_TUBE_OD": 1,
+            "WATER_TUBE_Y": 1,
+            "TUBE_SHELL_WATER_R": 2,
+            "FLAVOR_POST_BEND_Y": 1,
+            "FILL_Y_MIN": 1,
+            "FILL_X_THICKNESS": 1,
+            "PILL_STRAIGHT_INNER": 1,
+            "FLAVOR_OFFSET_Y": 1,
+            "ZONE5_Z_BOTTOM": 1,
+            "ZONE5_Z_TOP": 1,
+            "GN_BEND1_Z_MID": 1,
+            "GN_BEND1_Z_START": 2,
+            "GN_BEND2_SWEEP_DEG": 1,
+            "BACK_ARCH_DY": 1,
+            "Z5_Y_MIN": 1,
+            "ZONE45_Z_TOP": 1,
+            "ZONE45_Z_BOT_FRONT": 1,
         },
     )
     print(f"-> {Path(__file__).name} (self)")
