@@ -30,8 +30,8 @@ surface (bottom of the white body) sits at Z = 0.
   Z = 30.6 to Z = 56.6 — a T-profile, symmetric in X. The coil is
   shallower in Y than the body (24 vs. 32.25), so the body steps out as
   a ledge below it.
-- The port cylinder runs along Y through the body, centered in X, at the
-  body's mid-height (Z = 15.3), overhanging the body by ~13.4 mm each
+- The port cylinder runs along Y through the body, centered in X, 4 mm
+  below the body's mid-height, overhanging the body by ~13.4 mm each
   side as the two quick-connect collet stubs.
 
 Overall envelope: 32.25 (X) × 59 (Y) × 56.6 (Z) mm.
@@ -51,7 +51,7 @@ The primitive sizes reproduce the caliper-verified measurements in
 Flagged as unmeasured in the caliper doc, so chosen as first-pass
 placeholders and easy to revise:
 
-- **Port-axis height in Z** — centered on the body (Z = 15.3).
+- **Port-axis height in Z** — 4 mm below the body center.
 - **Coil footprint** — set flush to the body width (X = 32.25).
 - **Spade-connector terminals** — not yet modeled (31.41 mm protrusion).
 - **2×2 mounting-hole grid** — not yet modeled (31.41 mm edge-to-edge).
