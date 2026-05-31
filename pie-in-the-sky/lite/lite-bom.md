@@ -4,7 +4,7 @@
 
 | Subsystem | Item | Qty | Unit | Source | Notes |
 |---|---|---:|---:|---|---|
-| Flavor | Platypus Hoser 1 L hydration reservoir (Fast Flow Valve) | 2 | $23.89 | [B002OYMRS8](https://www.amazon.com/dp/B002OYMRS8) | Flavor reservoir, one per pocket. Hangs spout-down from its built-in top loop; the threaded outlet takes Platypus drink tubes / closure caps and ships with the hose, so it carries the lid-to-hose adapter. 133 × 292 mm (5.25 × 11.5 in), per the listing. Purchased — order 112-8392561-4501031 (2026-05-30), 2 @ $23.89 = $47.78, $0 shipping/tax. |
+| Flavor | Platypus Hoser 1 L hydration reservoir (Fast Flow Valve) | 2 | $25.62 | [B002OYMRS8](https://www.amazon.com/dp/B002OYMRS8) | Flavor reservoir, one per pocket. Hangs spout-down from its built-in top loop; the threaded outlet takes Platypus drink tubes / closure caps and ships with the hose, so it carries the lid-to-hose adapter. 133 × 292 mm (5.25 × 11.5 in), per the listing. Purchased — order 112-4566389-9910625 (2026-05-30), 2 @ $23.89 = $47.78 + $3.46 tax = $51.24, $0 Prime shipping ($25.62/ea delivered). |
 
 ## Notes
 
