@@ -135,10 +135,11 @@ rod_entry_x_open = 79.0          # entry runs out past the +X face at x=77 (open
 # is downward ONLY — the top wall stays at the run top (just under the 2 mm
 # ceiling) the whole way, since flaring upward would breach the ceiling. From
 # the bend out to funnel_ramp_x the bottom is at its normal height; from there
-# it ramps down to funnel_mouth_floor_z at the open +X end. The mouth floor
-# drops clear to the resting depth — the same z as the cradle bottom — so the
-# mouth is its largest there (~4.5x the secure height) and tapers back to the
-# secure slot by funnel_ramp_x.
+# it ramps down to funnel_mouth_floor_z, reaching it AT the +X face (then held
+# flat through the 2 mm overshoot). The mouth floor drops clear to the resting
+# depth — the same z as the cradle bottom — so the mouth is its largest at the
+# face (~4.5x the secure height) and tapers back to the secure slot by
+# funnel_ramp_x.
 funnel_ramp_x = 40.0             # where the bottom returns to the secure channel
 funnel_mouth_floor_z = rod_rest_z - channel_hw   # mouth floor at the cradle bottom (resting depth)
 
@@ -235,8 +236,9 @@ def _channel_profile():
     return (
         w.threePointArc(inner_mid, inner_top)               # inner wall of the bend (rounded)
         .lineTo(funnel_ramp_x, rod_run_z - hw)              # secure bottom wall, out to the ramp
-        .lineTo(rod_entry_x_open, funnel_mouth_floor_z)     # ramp down to the flared mouth floor
-        .close()                                            # taller mouth end cap, past the +X face
+        .lineTo(outer_x_range[1], funnel_mouth_floor_z)     # ramp down, reaching the mouth floor AT the +X face
+        .lineTo(rod_entry_x_open, funnel_mouth_floor_z)     # hold at resting depth through the overshoot past the face
+        .close()                                            # mouth end cap, past the +X face
     )
 
 
