@@ -67,7 +67,7 @@ from docgen import substitute_md, substitute_py_comments
 
 # Physical dimensions
 
-# [19 mm](INNER_D) — 0.1 mm radial slip-fit over the ⌀18.8 elbow seat cylinder.
+# [19 mm](INNER_D) — [0.1 mm](OVERCUT) radial slip-fit over the ⌀18.8 elbow seat cylinder.
 inner_diameter = 19.0
 # [2 mm](WALL_T) — radial wall around the PRV body.
 wall_thickness = 2.0
@@ -137,6 +137,7 @@ def main():
         "VENT_D": f"{vent_hole_diameter:.4g} mm",
         "OUTER_D": f"{outer_diameter:.4g} mm",
         "TOTAL_L": f"{total_length:.4g} mm",
+        "OVERCUT": f"{overcut:.4g} mm",
         # Regression baseline (computed from the actual STEP geometry).
         "VOLUME": f"{vol:.3f} mm³",
         "BBOX_X": f"{bb.xmin:.3f} to {bb.xmax:.3f} mm",
@@ -166,6 +167,7 @@ def main():
         variables=variables,
         expected_counts={
             "INNER_D": 1,
+            "OVERCUT": 1,
             "WALL_T": 1,
             "CAP_T": 1,
             "CAVITY_L": 1,
