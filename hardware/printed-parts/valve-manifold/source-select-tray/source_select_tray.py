@@ -126,7 +126,7 @@ cut_half_x = 56.0   # clears both dividers (reach |X| = 39.5) and the tubes
 cut_half_y = 20.0   # clears divider |Y| = 15.45
 
 
-def build_quad_tray():
+def build_source_select_tray():
     tray = (
         cq.Workplane("XY")
         .box(2 * plate_half_x, 2 * plate_half_y, top_z - bot_z, centered=(True, True, False))
@@ -174,8 +174,8 @@ def build_quad_tray():
 
 
 def main():
-    export_step(build_quad_tray(), str(_here.parent / "quad-tray.step"))
-    print("-> quad-tray.step")
+    export_step(build_source_select_tray(), str(_here.parent / "source-select-tray.step"))
+    print("-> source-select-tray.step")
 
 
 if __name__ == "__main__":
