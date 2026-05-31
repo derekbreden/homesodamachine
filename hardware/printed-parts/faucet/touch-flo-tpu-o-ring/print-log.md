@@ -87,6 +87,21 @@ LLDPE-empty cavity). **Doing both at once gives the wall nowhere to
 go** — and 95A TPU at 0.375 mm wall thickness isn't compliant enough
 to compress through that combined load. The dual-compression locks up.
 
+## v3 — 85A, seats successfully (2026-05-30, settings per [`touch-flo-tpu-o-ring-85A-6mm.3mf`](touch-flo-tpu-o-ring-85A-6mm.3mf))
+
+Derek said:
+- New print in 85A; "got it to successfully seat with the tube in the touch-flow metal body, like actually inserted with the TPU, for the first time."
+
+First successful dual-interface seat (LLDPE tube through the thimble **and** the thimble in the Westbrass body port, together) — the lockup diagnosed on the 95A v2 print. Confirms queued fix #1 (drop to 85A). The 85A spool was dried before this run (v2 notes had both 90A/85A undried).
+
+Geometry as printed (per the current `touch_flo_tpu_o_ring.py` / `README.md`): inner Ø 9.2 mm, outer Ø 10.44 mm, wall 0.62 mm, cap hole Ø 6.5 mm, cap 2.1 mm, cylinder 13.5 mm, total 15.6 mm. (Wall is up from the v2-logged 0.375 mm; the part is now a 0.62 mm single Arachne wall.)
+
+Settings observed in the 3mf:
+- Printer: Bambu Lab H2C, `nozzle_diameter` `[0.6, 0.6]`; `print_settings_id` `0.18mm Balanced Quality @BBL H2C 0.6 nozzle`. Textured plate.
+- Filament: `Bambu TPU 85A @BBL H2C`, `filament_type` TPU. `nozzle_temperature` 225 °C, `hot_plate_temp` 35 °C, `filament_flow_ratio` 1.0, `filament_max_volumetric_speed` 2.2 mm³/s.
+- Process: `layer_height` 0.18 mm, `initial_layer_print_height` 0.3 mm, `line_width` 0.62 mm, `wall_loops` 1, `wall_generator` classic, `detect_thin_wall` 0, `sparse_infill_density` 0 %, `raft_layers` 0, `brim_type` auto_brim, `enable_support` 0.
+- Object: one, `touch-flo-tpu-o-ring.step`, printed cap-down (per README). The 3mf is saved + printed-from; `slice_info.config` header-only.
+
 ## Queued for the next session (forward-looking advice)
 
 In recommended order — try one change at a time, simplest first:

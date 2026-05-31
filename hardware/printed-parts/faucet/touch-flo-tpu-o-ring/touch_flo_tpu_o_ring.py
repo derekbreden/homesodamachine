@@ -16,15 +16,15 @@ from docgen import substitute_md, substitute_py_comments
 from world_workplane import xy_plane_z_up
 
 
-inner_diameter = 8.96
-outer_diameter = 10.60
+inner_diameter = 9.2
+outer_diameter = 10.44
 cap_hole_diameter = 6.50
-cap_thickness = 1.5
+cap_thickness = 2.1
 cylinder_length = 13.5
 
-# [15 mm](TOTAL_H)
+# [15.6 mm](TOTAL_H)
 total_height = cap_thickness + cylinder_length
-# [0.82 mm](WALL_T)
+# [0.62 mm](WALL_T)
 wall_thickness = (outer_diameter - inner_diameter) / 2.0
 
 lldpe_od = 9.525                # 3/8" LLDPE tubing OD
