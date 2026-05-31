@@ -11,19 +11,23 @@ flowchart LR
   %%     adjustable flow-control valve (neoFit ABCVU44-E) throttled down so the
   %%     manifold runs at its low (<10 PSI) working pressure -- the kitchen's
   %%     flow-regulator role.
-  %%   - BiB (optional) dispenses DIRECT: BiB -> pump -> nozzle, no bag pre-load.
-  %%     Same edges as the integrated build; it is an operations change (open the
-  %%     nozzle gate, not the bag-fill gate). The internal bag is the hopper
-  %%     reservoir only.
+  %%   - Hopper is a TOP-FILL POUR opening (printed enclosure part), not a tube port:
+  %%     concentrate is poured in and routed through the manifold to fill the bags.
+  %%   - BiB is the COMMERCIAL-SYRUP input -- a bag-in-box disconnect, one per channel
+  %%     (two distinct syrups). It dispenses DIRECT: BiB -> pump -> nozzle, no bag
+  %%     pre-load (an operations change: open the nozzle gate, not the bag-fill gate).
+  %%     Same edges as the integrated build.
   %%
   %% Edge color = tube material:
   %%   green = clear NSF-51 PVC — the runs the user reads through the transparent
   %%           enclosure (nozzle lines, bag runs, pump loops) AND the long clear
   %%           tube from each enclosure-wall port to its manifold valve
   %%   grey  = JG push-to-connect on LLDPE — hidden manifold routing
-  %%   blue  = customer push-connect — the external stub from each source only up
-  %%           to its enclosure-wall port; that port is a PC->barb transition,
-  %%           where the run becomes green (clear) on the way to the manifold
+  %%   blue  = external source side at the enclosure boundary, up to its port. The
+  %%           mechanism varies: Lillium is the customer's push-connect water line
+  %%           into the flow-control bulkhead; each BiB is a commercial syrup bag on a
+  %%           Supply Depot disconnect; the Hopper is a manual top-fill pour. Past the
+  %%           boundary the run becomes green (clear PVC) on the way to the manifold
   %% Clear runs join the PTC manifold with a neoFit stem-barb (ATBC44-E, 1/4" stem
   %% x 1/4" barb): the stem pushes into each valve / Y port -- and into the Lillium
   %% flow-control bulkhead's inner port -- and the soft PVC rides the barb.
@@ -32,22 +36,23 @@ flowchart LR
   %% black 1/4" OD LLDPE (neoFlo LLDPE4-BLACK) on the grey internal hops; neoFit ATBC44-E
   %% stem-barb (1/4" stem x 1/4" barb) at each takeoff; JG PP2308E two-way dividers (Y);
   %% Beduan 1/4" PTC valves; neoFit ABCVU44-E flow-control bulkhead on the Lillium feed.
-  %% Hopper / BiB wall ports are PC->barb bulkheads.
-  %% Open: keep BiB or drop V-K-A/B; pump loops are clear only if the pump is visible.
+  %% Hopper is a printed top-fill opening; each BiB is a Supply Depot commercial-syrup
+  %% disconnect stepped 3/8->1/4 to clear PVC (one per channel).
+  %% Open: pump loops are clear only if the pump is visible.
   %% =====================================================================
 
   subgraph Sources["Sources"]
     Lillium["Lillium (clean water)"]
-    Hopper["Hopper"]
-    BiBA["BiB A (optional)"]
-    BiBB["BiB B (optional)"]
+    Hopper["Hopper (top-fill, poured concentrate)"]
+    BiBA["BiB A (commercial syrup)"]
+    BiBB["BiB B (commercial syrup)"]
   end
 
-  subgraph EnclosureWall["Enclosure wall"]
+  subgraph EnclosureWall["Enclosure boundary"]
     PortLillium(["Lillium flow-control bulkhead"])
-    PortHopper(["Hopper port"])
-    PortBiBA(["BiB A port"])
-    PortBiBB(["BiB B port"])
+    PortHopper(["Hopper outlet (barb)"])
+    PortBiBA(["BiB A disconnect (Supply Depot)"])
+    PortBiBB(["BiB B disconnect (Supply Depot)"])
   end
 
   subgraph Pumps["Pumps"]
@@ -129,10 +134,10 @@ flowchart LR
     YH --> VH
   end
 
-  %% Each source's external push-connect stub runs only up to its enclosure-wall
-  %% port (blue) — indices 21,23,25,27. At the port (a PC->barb bulkhead fitting)
-  %% the run becomes a long clear tube on to its manifold valve (green) —
-  %% indices 22,24,26,28.
+  %% Each source meets the enclosure boundary at its port (blue) — indices
+  %% 21,23,25,27 — by its own mechanism (Lillium push-connect line, BiB commercial-bag
+  %% disconnect, Hopper top-fill pour). Past the boundary the run becomes a clear PVC
+  %% tube on to its manifold valve (green) — indices 22,24,26,28.
   Lillium --> PortLillium
   PortLillium --> VA
   Hopper --> PortHopper
