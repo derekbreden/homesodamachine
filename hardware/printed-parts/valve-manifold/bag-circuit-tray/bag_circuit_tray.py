@@ -94,8 +94,12 @@ valve_y_extent = row_half + 16.125          # outer body edge = 32.25
 plate_half_y = valve_y_extent + wall_clear + wall_thickness
 
 plate_half_x = Vx + corner_pos + socket_radius + margin
-cut_half_x = 24.0   # clears the Tee run (reach |X| = 20.07), short of sockets
-cut_half_y = 24.0   # clears the Tee run body (reach |Y| = row + 6.9)
+
+# Connector groove: a Tee's run/collet half-width plus clearance, so the
+# fitting sets down into the floor at port height (Z = 11.3).
+TEE_RADIUS = 6.86            # Tee run/collet outer radius (body 13.72 wide)
+groove_clearance = 0.25
+TEE_GROOVE_R = TEE_RADIUS + groove_clearance
 
 
 def _box(x0, x1, y_half, z0, z1):
@@ -106,14 +110,13 @@ def _box(x0, x1, y_half, z0, z1):
     )
 
 
-def build_tray(valve_centers, plate_x, plate_y_half, gap_x, gap_y_half):
-    """Generic parallel-Tee tray: a frame plate with a central open gap, a
-    four-socket + shared-row-saddle cradle per valve, and two ±Y stacking
-    walls. ``plate_x`` / ``gap_x`` are (lo, hi) so the plate can be asymmetric.
+def build_tray(valve_centers, connectors, plate_x, plate_y_half):
+    """Generic parallel-Tee tray: a solid frame plate with a four-socket cradle
+    and a port saddle per valve, a groove per connector so each fitting sets
+    down into the floor, and two ±Y stacking walls. ``plate_x`` is (lo, hi) so
+    the plate can be asymmetric.
     """
-    cx_mid = (plate_x[0] + plate_x[1]) / 2.0
     tray = _box(plate_x[0], plate_x[1], plate_y_half, bot_z, top_z)
-    tray = tray.cut(_box(gap_x[0], gap_x[1], gap_y_half, bot_z - 1.0, top_z + 1.0))
 
     for vx, vy in valve_centers:
         for sx in (-1.0, 1.0):
@@ -124,16 +127,22 @@ def build_tray(valve_centers, plate_x, plate_y_half, gap_x, gap_y_half):
                     .circle(socket_radius)
                     .extrude(top_z + 1.0)
                 )
-
-    saddle_len = (plate_x[1] - plate_x[0]) + 4.0
-    for cy in dict.fromkeys(vy for _, vy in valve_centers):
-        saddle = cq.Solid.makeCylinder(
+        port = cq.Solid.makeCylinder(
             saddle_radius,
-            saddle_len,
-            cq.Vector(cx_mid - saddle_len / 2.0, cy, PORT_Z),
+            2.0 * PORT_HALF,
+            cq.Vector(vx - PORT_HALF, vy, PORT_Z),
             cq.Vector(1.0, 0.0, 0.0),
         )
-        tray = tray.cut(cq.Workplane(obj=saddle))
+        tray = tray.cut(cq.Workplane(obj=port))
+
+    for cx, cy, length, radius in connectors:
+        groove = cq.Solid.makeCylinder(
+            radius,
+            length,
+            cq.Vector(cx - length / 2.0, cy, PORT_Z),
+            cq.Vector(1.0, 0.0, 0.0),
+        )
+        tray = tray.cut(cq.Workplane(obj=groove))
 
     for sy in (+1.0, -1.0):
         wall = _box(plate_x[0], plate_x[1], wall_thickness / 2.0, bot_z, wall_top_z)
@@ -141,13 +150,18 @@ def build_tray(valve_centers, plate_x, plate_y_half, gap_x, gap_y_half):
     return tray
 
 
+def tee_grooves(tee_centers):
+    """Connector grooves (cx, cy, length, radius) for Tee centers; each Tee run
+    lies along X, so its groove is a cylinder of one run length."""
+    return [(cx, cy, 2.0 * TEE_RUN_HALF, TEE_GROOVE_R) for cx, cy in tee_centers]
+
+
 def build_bag_circuit_tray():
     return build_tray(
         list(VALVES.values()),
+        tee_grooves(TEES.values()),
         (-plate_half_x, plate_half_x),
         plate_half_y,
-        (-cut_half_x, cut_half_x),
-        cut_half_y,
     )
 
 
