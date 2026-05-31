@@ -1,10 +1,10 @@
 flowchart LR
 
   %% Valve-manifold fluid topology grouped by physical tray. Each box is a tray;
-  %% the nodes inside are the valves and Y-dividers it carries. Blue links are
-  %% on-tray valve-to-divider seats; gray links run between trays. Y-C and Y-F
-  %% are not assigned to a tray. Source, pump, bag, and nozzle endpoints are
-  %% omitted.
+  %% the nodes inside are the valves and junction fittings it carries. Hexagons
+  %% are Y-dividers; orange nodes are Tees (in-line run + branch). Blue links are
+  %% on-tray; gray links run between trays. Source, pump, bag, and nozzle
+  %% endpoints are omitted.
 
   subgraph Tray1["Tray 1 — Source Select"]
     VA["V-A"]
@@ -29,6 +29,8 @@ flowchart LR
     VKB["V-K-B"]
     YKA{{"Y-KA"}}
     YKB{{"Y-KB"}}
+    YC{{"Y-C"}}
+    YF{{"Y-F"}}
   end
 
   subgraph Tray4["Tray 4 — Nozzle Gates"]
@@ -38,10 +40,7 @@ flowchart LR
     YG{{"Y-G"}}
   end
 
-  YC{{"Y-C"}}
-  YF{{"Y-F"}}
-
-  %% ---- On-tray seats (blue, links 0-12) ----
+  %% ---- On-tray seats (blue, links 0-14) ----
   VA --> YA
   VB --> YA
   YA --> YB
@@ -53,19 +52,21 @@ flowchart LR
   YH --> VH
   VKA --> YKA
   VKB --> YKB
+  YKA --> YC
+  YKB --> YF
   YD --> VG
   YG --> VJ
 
-  %% ---- Between trays (gray, links 13-20) ----
+  %% ---- Between trays (gray, links 15-20) ----
   VC --> YKA
   VD --> YKB
-  YKA --> YC
-  YKB --> YF
   VE --> YC
   VH --> YF
   YD --> VF
   YG --> VI
 
-  %% ---- Link styling ----
-  linkStyle 0,1,2,3,4,5,6,7,8,9,10,11,12 stroke:#09f,stroke-width:2px
-  linkStyle 13,14,15,16,17,18,19,20 stroke:#888,stroke-width:2px
+  %% ---- Styling ----
+  classDef tee fill:#ffe0b3,stroke:#cc7a00,stroke-width:2px;
+  class YE,YH,YKA,YKB tee;
+  linkStyle 0,1,2,3,4,5,6,7,8,9,10,11,12,13,14 stroke:#09f,stroke-width:2px
+  linkStyle 15,16,17,18,19,20 stroke:#888,stroke-width:2px
