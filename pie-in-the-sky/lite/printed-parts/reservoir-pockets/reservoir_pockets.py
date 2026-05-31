@@ -11,8 +11,8 @@ Each pocket opens through its right (+X) wall as a doorway the full size of
 the pocket side face — 70 mm deep (Y) × 285 mm tall (Z) — leaving the floor,
 ceiling, front wall, divider, and back wall as a 2 mm frame. The opposite,
 left (-X) wall carries one ⌀6.5 mm (~1/4") tubing exit hole per pocket,
-centered in the pocket's depth (Y) and low at the floor, for each bag's
-spout line. Transparent PETG.
+centered in the pocket's depth (Y) and low in the wall — its bottom 6.5 mm
+above the floor — for each bag's spout line. Transparent PETG.
 
 World frame: Z+ up, Y- front (front face points in -Y), X left(-)/
 right(+). The floor sits on Z=0, centered in X and Y."""
@@ -56,12 +56,14 @@ doorway_wall_x_range = (75, 77)
 # Diameter matches the foam shell's project-wide port-hole standard
 # (port_hole_radius = 3.25, ⌀6.5 ≈ 1/4"; see
 # hardware/printed-parts/cold-core/_cold_core_interface.py). Each hole is
-# centered in its pocket's depth (Y) and placed as low as the pocket allows:
-# its bottom sits at the pocket floor (Z=2), where a spout-down bag's outlet
-# is. tube_hole_wall_x is the mid-plane of the 2 mm left wall.
+# centered in its pocket's depth (Y) and low in the wall: tube_hole_floor_gap
+# leaves a band of solid wall between the 2 mm floor and the bottom of the
+# hole, where a spout-down bag's line exits. tube_hole_wall_x is the mid-plane
+# of the 2 mm left wall.
 port_hole_radius = 3.25
+tube_hole_floor_gap = 6.5  # solid wall between the floor top and the hole bottom
 tube_hole_wall_x = (outer_x_range[0] + front_pocket_x_range[0]) / 2
-tube_hole_z = front_pocket_z_range[0] + port_hole_radius
+tube_hole_z = front_pocket_z_range[0] + tube_hole_floor_gap + port_hole_radius
 front_tube_hole_y = sum(front_pocket_y_range) / 2
 back_tube_hole_y = sum(back_pocket_y_range) / 2
 
