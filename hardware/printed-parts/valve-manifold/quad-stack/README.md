@@ -12,7 +12,7 @@ and 2 Y-dividers, stacked one `stack_pitch` (63 mm) apart. A flat
 - 21 solids. STEP colors: tray tan, valves dark, dividers blue; the in-repo
   `/3d` viewer renders all gray.
 
-Envelope **210 (X) × 80 (Y) × 189 (Z) mm**.
+Envelope **225 (X) × 93 (Y) × 189 (Z) mm**.
 
 ## Files
 
