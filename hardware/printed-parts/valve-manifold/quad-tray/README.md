@@ -28,7 +28,7 @@ The 6 bodies are clash-free.
 
 ## The tray
 
-A frame plate (Z −3 → 6), **209 × 93 × 63 mm**, with four valve cradles —
+A frame plate (Z −3 → 6), **209 × 89 × 63 mm**, with four valve cradles —
 single-cell sockets at each valve's rotated corners plus a port saddle along
 each aim line — around a **central open gap** (X ±56, Y ±20) holding both
 dividers (which dip to Z 3.2, below the Z=6 top) and the tubes. The valves seat
