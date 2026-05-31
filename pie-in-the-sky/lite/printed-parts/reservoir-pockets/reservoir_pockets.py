@@ -7,7 +7,9 @@ divider between them. Each pocket is sized to one 1 L Platypus bag —
 ceiling, and divider are all 2 mm. The outer envelope is 154 mm wide
 (X) × 146 mm deep (Y) × 289 mm tall (Z).
 
-Transparent PETG. The walls, floor, ceiling, and divider are solid stock.
+Each pocket opens through its left (-X) wall as a doorway the full size of
+the pocket side face — 70 mm deep (Y) × 285 mm tall (Z) — leaving the floor,
+ceiling, front wall, divider, and back wall as a 2 mm frame. Transparent PETG.
 
 World frame: Z+ up, Y- front (front face points in -Y), X left(-)/
 right(+). The floor sits on Z=0, centered in X and Y."""
@@ -40,6 +42,12 @@ back_pocket_x_range = (-75, 75)
 back_pocket_y_range = (1, 71)
 back_pocket_z_range = (2, 287)
 
+# Each pocket opens through the left (-X) wall as a doorway the full size of
+# the pocket side face: 70 mm deep (Y) x 285 mm tall (Z). The cut spans the
+# 2 mm wall over each pocket's Y/Z footprint, leaving the floor, ceiling,
+# front wall, divider, and back wall as a frame.
+doorway_wall_x_range = (-77, -75)
+
 
 def make_box(x_range, y_range, z_range):
     """Axis-aligned box spanning the given world-coordinate ranges."""
@@ -63,7 +71,15 @@ def build_reservoir_pockets():
     outer = make_box(outer_x_range, outer_y_range, outer_z_range)
     front_pocket = make_box(front_pocket_x_range, front_pocket_y_range, front_pocket_z_range)
     back_pocket = make_box(back_pocket_x_range, back_pocket_y_range, back_pocket_z_range)
-    return outer.cut(front_pocket).cut(back_pocket)
+    front_doorway = make_box(doorway_wall_x_range, front_pocket_y_range, front_pocket_z_range)
+    back_doorway = make_box(doorway_wall_x_range, back_pocket_y_range, back_pocket_z_range)
+    return (
+        outer
+        .cut(front_pocket)
+        .cut(back_pocket)
+        .cut(front_doorway)
+        .cut(back_doorway)
+    )
 
 
 def main():
