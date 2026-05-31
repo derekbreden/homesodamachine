@@ -7,6 +7,7 @@ from _cold_core_interface import (
     wall_and_floor_thickness,
     outer_shell_x_length,
     outer_shell_y_length,
+    corner_round_radius,
     foam_cap_height,
     foam_cap_lid_pour_radius,
     foam_cap_lid_vent_radius,
@@ -55,6 +56,8 @@ def build_foam_cap():
         .workplane(offset=0)
         .rect(outer_shell_x_length, outer_shell_y_length)
         .extrude(foam_cap_height)
+        .edges("|Z")
+        .fillet(corner_round_radius)
         .faces(">Z")
         .shell(-wall_and_floor_thickness)
     )
@@ -71,6 +74,8 @@ def build_foam_cap_lid():
         .workplane(offset=0)
         .rect(outer_shell_x_length, outer_shell_y_length)
         .extrude(wall_and_floor_thickness)
+        .edges("|Z")
+        .fillet(corner_round_radius)
     )
 
     # 2D anchor points on the lid plane. Pour hole on the +X half at
@@ -99,15 +104,19 @@ def build_foam_cap_lid():
 
 def build_foam_cap_gasket():
     """TPU 90A gasket between foam_cap mating edge and outer_shell
-    mating face. Perimeter ring + 8×8 mm pads at the 6 screw positions
-    so the corner-boss screws compress the full boss footprint
-    uniformly (a uniform ring would leave them asymmetrically supported
-    and seal poorly at the corners). Printed twice."""
+    mating face. Rounded-corner perimeter ring (matching the shell's
+    rounded outer wall, ring width held uniform through the corner) + a
+    pad at each of the 6 screw positions so the corner-boss screws
+    compress the full boss footprint uniformly (a uniform ring would leave
+    them asymmetrically supported and seal poorly at the corners). Printed
+    twice."""
     outer = (
         WorldWorkplane(xy_plane_z_up)
         .workplane(offset=0)
         .rect(outer_shell_x_length, outer_shell_y_length)
         .extrude(gasket_thickness)
+        .edges("|Z")
+        .fillet(corner_round_radius)
     )
     inner = (
         WorldWorkplane(xy_plane_z_up)
@@ -117,6 +126,8 @@ def build_foam_cap_gasket():
             outer_shell_y_length - 2 * gasket_strip_width,
         )
         .extrude(gasket_thickness)
+        .edges("|Z")
+        .fillet(corner_round_radius - gasket_strip_width)
     )
     gasket = outer.cut(inner)
     pads = attachment_pads_extrude(gasket_thickness)
