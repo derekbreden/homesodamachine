@@ -92,8 +92,7 @@ def build_outer_shell():
     )
     # NB: the heat-set insert pockets are NOT cut here — they are cut at the
     # full-shell level (cut_insert_pockets, applied after every union) so
-    # that nothing unioned later (the corner gussets fuse into these bosses)
-    # can back-fill an insert pocket.
+    # that nothing unioned later can back-fill an insert pocket.
     return shell.union(build_attachment_bosses(foam_shell_outer_height)).unwrap()
 
 
@@ -102,8 +101,7 @@ def cut_insert_pockets(foam_shell):
     faces — each cap's M3 SHCS threads into an insert pressed from its own
     face, so every boss carries a pocket at z=0 and another at
     z=foam_shell_outer_height. Applied at the full-shell level, after all
-    unions, so a later union (e.g. the corner gussets fusing into a boss)
-    can never plug a pocket."""
+    unions, so a later union can never plug a pocket."""
     def insert_pockets_at(z_floor):
         return (
             WorldWorkplane(xy_plane_z_up)
