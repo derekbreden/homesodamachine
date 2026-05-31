@@ -1,8 +1,9 @@
 """Outer rectangular cup (floor + four perimeter walls) with the
 6 cylindrical corner/mid-side bosses and their heat-set insert pockets.
-Each boss is a ⌀screw_boss_size cylinder inscribed in the former square
-footprint — tangent to both wall faces at each corner — so the corner
-boss can be wrapped by a rounded wall."""
+The exterior corners are rounded; each corner boss is nested inward at the
+corner-arc center and webbed out to the rounded wall (the same cylinder +
+corner-fill idiom the reservoir pocket-corner supports use), so the boss
+ties into the wall it braces rather than floating in the corner void."""
 
 from world_workplane import WorldWorkplane, xy_plane_z_up
 from _cold_core_interface import (
@@ -12,17 +13,65 @@ from _cold_core_interface import (
     outer_shell_y_length,
     foam_cap_attachment_xy_positions,
     screw_boss_size,
+    corner_round_radius,
     insert_pocket_radius,
     insert_pocket_depth,
+    make_box,
 )
 
 
+def _rounded_outer_footprint():
+    """The shell's outer footprint with rounded corners, full height — the
+    mask each corner web is intersected with, so the web is trimmed to the
+    rounded wall's outer face and never pokes past the envelope."""
+    return (
+        WorldWorkplane(xy_plane_z_up)
+        .workplane(offset=0)
+        .rect(outer_shell_x_length, outer_shell_y_length)
+        .extrude(foam_shell_outer_height)
+        .edges("|Z")
+        .fillet(corner_round_radius)
+    )
+
+
+def _corner_webs():
+    """Two ribs per corner boss — one running toward the ±X side wall, one
+    toward the ±Y end wall — each as wide as the boss so it blends off it,
+    trimmed to the rounded wall by the footprint mask. This ties the
+    inward-nested boss to both walls it braces while leaving the corner's
+    diagonal interior open for foam (the cylinder + two-web teardrop idiom
+    of the reservoir pocket-corner supports, not a solid-filled corner)."""
+    rib_w = 2 * wall_and_floor_thickness
+    corner_x = outer_shell_x_length / 2
+    corner_y = outer_shell_y_length / 2
+    webs = None
+    for cx, cy in foam_cap_attachment_xy_positions[:4]:  # first 4 entries are the corners
+        x_to_wall = make_box(
+            (cx, corner_x if cx > 0 else -corner_x),
+            (cy - rib_w / 2, cy + rib_w / 2),
+            (0.0, foam_shell_outer_height),
+        )
+        y_to_wall = make_box(
+            (cx - rib_w / 2, cx + rib_w / 2),
+            (cy, corner_y if cy > 0 else -corner_y),
+            (0.0, foam_shell_outer_height),
+        )
+        pair = x_to_wall.union(y_to_wall)
+        webs = pair if webs is None else webs.union(pair)
+    return webs.intersect(_rounded_outer_footprint().unwrap())
+
+
 def build_outer_shell():
+    # Round the four vertical corner edges before shelling, so the shell
+    # offsets uniformly inward and both wall faces come out as concentric
+    # arcs — a rounded corner that wraps each (inward-nested) corner boss.
     shell = (
         WorldWorkplane(xy_plane_z_up)
         .workplane(offset=0)
         .rect(outer_shell_x_length, outer_shell_y_length)
         .extrude(foam_shell_outer_height)
+        .edges("|Z")
+        .fillet(corner_round_radius)
         .faces(">Z")
         .shell(-wall_and_floor_thickness)
     )
@@ -47,4 +96,7 @@ def build_outer_shell():
         )
     bottom_pockets = insert_pockets_at(0)
     top_pockets = insert_pockets_at(foam_shell_outer_height - insert_pocket_depth)
-    return shell.union(bosses).cut(bottom_pockets).cut(top_pockets).unwrap()
+    return (
+        shell.union(bosses).union(_corner_webs())
+        .cut(bottom_pockets).cut(top_pockets).unwrap()
+    )
