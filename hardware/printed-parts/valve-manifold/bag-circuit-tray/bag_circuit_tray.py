@@ -96,52 +96,57 @@ cut_half_x = 24.0   # clears both dividers (reach |X| = 19.25), short of sockets
 cut_half_y = 32.0   # clears the divider Y-spread (body reach |Y| = 31.6)
 
 
-def build_bag_circuit_tray():
-    tray = (
+def _box(x0, x1, y_half, z0, z1):
+    return (
         cq.Workplane("XY")
-        .box(2 * plate_half_x, 2 * plate_half_y, top_z - bot_z, centered=(True, True, False))
-        .translate((0.0, 0.0, bot_z))
+        .box(x1 - x0, 2 * y_half, z1 - z0, centered=(True, True, False))
+        .translate(((x0 + x1) / 2.0, 0.0, z0))
     )
-    gap = (
-        cq.Workplane("XY")
-        .box(2 * cut_half_x, 2 * cut_half_y, (top_z - bot_z) + 2.0, centered=(True, True, False))
-        .translate((0.0, 0.0, bot_z - 1.0))
-    )
-    tray = tray.cut(gap)
 
-    # Four corner-boss sockets per valve (axis-aligned corners).
-    for cx, cy in VALVES.values():
+
+def build_tray(valve_centers, plate_x, plate_y_half, gap_x, gap_y_half):
+    """Generic parallel-divider tray: a frame plate with a central open gap, a
+    four-socket + shared-row-saddle cradle per valve, and two ±Y stacking
+    walls. ``plate_x`` / ``gap_x`` are (lo, hi) so the plate can be asymmetric.
+    """
+    cx_mid = (plate_x[0] + plate_x[1]) / 2.0
+    tray = _box(plate_x[0], plate_x[1], plate_y_half, bot_z, top_z)
+    tray = tray.cut(_box(gap_x[0], gap_x[1], gap_y_half, bot_z - 1.0, top_z + 1.0))
+
+    for vx, vy in valve_centers:
         for sx in (-1.0, 1.0):
             for sy in (-1.0, 1.0):
-                socket = (
+                tray = tray.cut(
                     cq.Workplane("XY")
-                    .center(cx + sx * corner_pos, cy + sy * corner_pos)
+                    .center(vx + sx * corner_pos, vy + sy * corner_pos)
                     .circle(socket_radius)
                     .extrude(top_z + 1.0)
                 )
-                tray = tray.cut(socket)
 
-    # One port saddle per row — the two valves in a row share a colinear port
-    # line along X.
-    saddle_len = 2 * plate_half_x + 4.0
-    for sy in (+1.0, -1.0):
+    saddle_len = (plate_x[1] - plate_x[0]) + 4.0
+    for cy in dict.fromkeys(vy for _, vy in valve_centers):
         saddle = cq.Solid.makeCylinder(
             saddle_radius,
             saddle_len,
-            cq.Vector(-saddle_len / 2.0, sy * row_half, PORT_Z),
+            cq.Vector(cx_mid - saddle_len / 2.0, cy, PORT_Z),
             cq.Vector(1.0, 0.0, 0.0),
         )
         tray = tray.cut(cq.Workplane(obj=saddle))
 
-    # Two side walls (±Y) for stacking.
     for sy in (+1.0, -1.0):
-        wall = (
-            cq.Workplane("XY")
-            .box(2 * plate_half_x, wall_thickness, wall_top_z - bot_z, centered=(True, True, False))
-            .translate((0.0, sy * (plate_half_y - wall_thickness / 2.0), bot_z))
-        )
-        tray = tray.union(wall)
+        wall = _box(plate_x[0], plate_x[1], wall_thickness / 2.0, bot_z, wall_top_z)
+        tray = tray.union(wall.translate((0.0, sy * (plate_y_half - wall_thickness / 2.0), 0.0)))
     return tray
+
+
+def build_bag_circuit_tray():
+    return build_tray(
+        list(VALVES.values()),
+        (-plate_half_x, plate_half_x),
+        plate_half_y,
+        (-cut_half_x, cut_half_x),
+        cut_half_y,
+    )
 
 
 def main():
