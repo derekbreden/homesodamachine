@@ -1,8 +1,8 @@
 """Reservoir corner supports — teardrop posts at the far-+X pocket corners.
 
 Each support is a vertical post rising from the bag-pocket floor (z=0,
-fusing with the outer-shell floor) up to the reservoir's exterior V-floor
-underside at a far-+X pocket corner. The post is a cylinder sized to the
+fusing with the outer-shell floor) up to the reservoir's flat exterior
+floor bottom at a far-+X pocket corner. The post is a cylinder sized to the
 bag-pocket inner-corner fillet (radius bag_pocket_corner_inner_radius),
 seated on the pocket corner's fillet center so its arc is coincident with
 the rounded corner and tangent to both pocket inner faces, then webbed to
@@ -17,16 +17,15 @@ is a curved tank-wrapping arc with no fillet to nest, so those posts are
 clip cylinders intersected with the real pocket cavity — they fill the
 corner conforming to both the ±Y wall and the curved centerward wall.
 
-Each post is built tall, then its top is cut to the reservoir's exterior
-V-floor underside — a Y-symmetric V (flat trough at the center, sloping up
-toward each ±Y wall) swept across X — so the post top follows the floor it
-carries instead of meeting it on a single line."""
+Each post is built tall, then its top is cut flat at the reservoir's flat
+exterior floor bottom (floor_flat_bottom_z), so the post top meets that flat
+underside the reservoir rests on."""
 
 import sys
 from pathlib import Path
 
 import cadquery as cq
-from world_workplane import xy_plane_z_up, xz_plane_y_up
+from world_workplane import xy_plane_z_up
 
 _here = Path(__file__).resolve().parent
 sys.path.insert(0, str(_here))
@@ -53,50 +52,24 @@ _cx = _I.bag_pocket_far_inner_x - support_radius
 # corner vertex so the fill spans the corner.
 centerward_clip_radius = 10.0
 
-# Reservoir exterior V-floor underside: flat at _underside_trough_z for
-# |y| ≤ floor_trough_half_width_y, sloping up at floor_slope_rate beyond.
-# Posts are built up to _build_top_z (above the underside everywhere they
-# reach) and then cut to this surface.
-_underside_trough_z = _R.floor_trough_z - _R.reservoir_wall_thickness
-_build_top_z = (
-    _underside_trough_z
-    + _R.floor_slope_rate * (_I.bag_pocket_y_inner_max - _R.floor_trough_half_width_y)
-    + 2.0
-)
+# Reservoir flat exterior floor bottom — the single horizontal plane the
+# reservoir rests on. Imported from reservoir.py (do not duplicate the
+# literal). Posts are built up to _build_top_z (above the plane) and then
+# cut flat at the plane.
+_flat_bottom_z = _R.floor_flat_bottom_z
+_build_top_z = _flat_bottom_z + 2.0
 
 
-def _above_v_underside():
-    """Solid filling everything above the reservoir's exterior V-floor
-    underside (a function of y, swept across X). Cutting it from the posts
-    leaves each post top following that V surface. Same slope-plane pattern
-    as reservoir.py's floor build."""
-    half = _R.floor_trough_half_width_y
-    rate = _R.floor_slope_rate
-    # Flat trough band: above _underside_trough_z within |y| ≤ half.
-    tool = (
+def _above_flat_bottom():
+    """Solid filling everything above the reservoir's flat exterior floor
+    bottom (a single horizontal plane at _flat_bottom_z). Cutting it from the
+    posts levels each post top flush with that plane."""
+    return (
         cq.Workplane(xy_plane_z_up)
-        .workplane(offset=_underside_trough_z)
-        .rect(2000, 2 * half)
+        .workplane(offset=_flat_bottom_z)
+        .rect(4000, 4000)
         .extrude(1000)
     )
-    for sign in (+1, -1):
-        # Half-space above the slope plane through (0, sign·half,
-        # _underside_trough_z) with surface dz/dy = sign·rate.
-        plane = cq.Plane(
-            origin=(0, sign * half, _underside_trough_z),
-            xDir=(1, 0, 0),
-            normal=(0, -sign * rate, 1),
-        )
-        above = cq.Workplane(plane).rect(4000, 4000).extrude(2000)
-        # Restrict to the Y half beyond the trough edge on this sign.
-        y_half = (
-            cq.Workplane(xz_plane_y_up)
-            .workplane(offset=sign * half)
-            .rect(4000, 4000)
-            .extrude(sign * 4000)
-        )
-        tool = tool.union(above.intersect(y_half))
-    return tool
 
 
 def _corner_teardrop(y_sign):
@@ -139,8 +112,8 @@ def _centerward_teardrop(y_sign):
 def build_reservoir_supports():
     """All eight pocket-corner posts: the four +X-pocket corners plus the
     four −X-pocket corners (mirror of the +X set across YZ). Each post is
-    built tall, then the assembled set's tops are cut to the reservoir's
-    exterior V-floor underside so they slope to match the floor."""
+    built tall, then the assembled set's tops are cut flat at the reservoir's
+    flat exterior floor bottom so they meet that flat underside."""
     plus_x = (
         _corner_teardrop(-1)
         .union(_corner_teardrop(+1))
@@ -148,4 +121,4 @@ def build_reservoir_supports():
         .union(_centerward_teardrop(+1))
     )
     supports = plus_x.union(plus_x.mirror("YZ"))
-    return supports.cut(_above_v_underside())
+    return supports.cut(_above_flat_bottom())
