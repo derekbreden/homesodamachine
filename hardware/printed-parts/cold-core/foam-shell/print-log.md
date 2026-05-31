@@ -30,7 +30,7 @@ Otherwise "nearly everything was perfect."
 
 ## Print attempt 2 (sliced, settings per [`foam-shell-8mm-high-flow.3mf`](foam-shell-8mm-high-flow.3mf))
 
-`foam-shell.step` at geometry commit `9a417017`: rounded outer corners (12 mm), cylindrical bosses tangent to the exterior wall with teardrop corner-fill webs, four corner gussets (z 2–42). Cap + gasket pads share the boss shape. Geometry in [`README.md`](README.md); construction in [`../_outer_shell.py`](../_outer_shell.py) and [`../_corner_gussets.py`](../_corner_gussets.py).
+`foam-shell.step` at geometry commit `9a417017`: rounded outer corners (12 mm), cylindrical bosses tangent to the exterior wall with teardrop corner-fill webs, four corner gussets (z 2–42). Cap + gasket pads share the boss shape. Geometry in [`README.md`](README.md); construction in [`../_outer_shell.py`](../_outer_shell.py); the four corner gussets were defined in `_corner_gussets.py` at that commit.
 
 Settings observed (same stock profile as attempt 1):
 - Profile `0.40mm Standard @BBL H2C 0.8 nozzle`, dual 0.8 mm nozzle; `Bambu PETG Basic`, black

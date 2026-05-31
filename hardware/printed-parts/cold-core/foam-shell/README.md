@@ -153,24 +153,6 @@ and the water-outlet hole. See Penetrations. (The CO2 inlet bore is
 internal to the assembly — it cuts down through the support ring at
 −Y, not through any outer wall.)
 
-### corner_gussets
-
-Four short diagonal anti-warp ribs, one per reservoir-pocket far-corner,
-each bridging the corner foam-pour gap from the pocket's far-outer corner
-to the nearest outer-shell corner boss. The wide flat floor's four corners
-are the warp-initiation site — each outer corner is otherwise tied to the
-rest of the shell only through the 2 mm floor, so as the part cools it
-peels off the plate over the first few cm of height. Each rib triangulates
-that near-free corner to the stiff, closed pocket, stiffening the floor
-diaphragm in the low band where the curl happens.
-
-Each rib is [2.4 mm](GUSSET_T) thick × [40 mm](GUSSET_H) tall, rising from
-the floor top and left open at the top so the body foam pour falls in
-around it (no trapped air). The ribs are clipped to the shell interior
-(flush with the outer wall, no envelope change) and cut by both pocket
-cavities (no intrusion into the reservoir space). They live entirely in
-the corner foam zone and add ~0.6 % to the shell volume.
-
 ### foam_cap and foam_cap_lid
 
 The `foam_cap` is a [16 mm](CAP_H)-tall cup matching the outer
@@ -466,11 +448,11 @@ that needs a deliberate explanation:
 
 | metric | value |
 |---|---|
-| volume | [1061075.794 mm³](VOLUME) |
+| volume | [1055106.084 mm³](VOLUME) |
 | bbox x | [-141.500 to 141.500 mm](BBOX_X) |
 | bbox z | [0.000 to 213.400 mm](BBOX_Z) |
 | bbox y | [-90.500 to 90.500 mm](BBOX_Y) |
-| centroid | [(0.000005, -0.613101, 87.820466) mm](CENTROID) |
+| centroid | [(0.000005, -0.616570, 88.192874) mm](CENTROID) |
 
 Quick reproduction:
 
