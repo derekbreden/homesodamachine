@@ -18,42 +18,46 @@ beam would be wasted above ~40 mm) and thin (a 1 % volume add)."""
 
 import math
 
-import cadquery as cq
-from world_workplane import xy_plane_z_up
 from _cold_core_interface import (
     outer_shell_x_length,
     outer_shell_y_length,
-    foam_shell_outer_height,
+    corner_round_radius,
     bag_pocket_outermost_x,
     pocket_centerward_arc_outer_radius,
     wall_and_floor_thickness,
+    bag_pocket_corner_inner_radius,
     bag_pocket_floor_top_z,
     make_box,
 )
 from _reservoir_pocket_walls import build_plus_x_cavity
 
 # Rib cross-section + reach. Thickness ~ one nozzle-pair of wall; height
-# covers the low band where the floor corner curls; end overlap buries each
-# end into the pocket wall and the corner boss so the rib fuses to both.
+# covers the low band where the floor corner curls (warp settles low, so a
+# full-height beam would be wasted). The ends are extended past both
+# anchors and trimmed by the real solids, so the rib reliably lands on the
+# pocket outer corner and the relocated shell corner boss.
 gusset_thickness = 2.4
 gusset_height = 40.0
-gusset_end_overlap = 2.5
+gusset_end_overlap = 3.0
 
 # Endpoints in the +X/+Y quadrant (signed per corner below):
-#   pocket far-outer corner — where the pocket's far-±X wall meets its ±Y wall
+#   pocket far-outer corner — the convex outside corner where the pocket's
+#   far-±X wall meets its ±Y wall (outboard of the 6.5 mm cavity fillet).
 pocket_corner_xy = (bag_pocket_outermost_x, pocket_centerward_arc_outer_radius)
-#   outer-shell inner corner — inside the solid 8×8 corner boss
+#   outer-shell corner boss center — moved inward to the corner-arc center
+#   in the rounded-corner rework; the rib fuses into the boss + its webs.
 shell_corner_xy = (
-    outer_shell_x_length / 2 - wall_and_floor_thickness,
-    outer_shell_y_length / 2 - wall_and_floor_thickness,
+    outer_shell_x_length / 2 - corner_round_radius,
+    outer_shell_y_length / 2 - corner_round_radius,
 )
 
 
 def _corner_gusset(x_sign, y_sign):
-    """One rib, from the (x_sign, y_sign) pocket far-corner to the matching
-    outer-shell corner. Built axis-aligned at the origin, rotated to the
-    corner's diagonal, then translated to the diagonal's midpoint — so the
-    same construction serves all four corners regardless of diagonal sense."""
+    """One rib spanning the (x_sign, y_sign) pocket outer corner to the
+    matching shell corner boss. Built axis-aligned, rotated to the corner
+    diagonal, translated to the diagonal midpoint; ends extended past both
+    anchors by gusset_end_overlap so the rib buries into the pocket wall at
+    one end and the boss at the other (real solids trim the overlap)."""
     px, py = x_sign * pocket_corner_xy[0], y_sign * pocket_corner_xy[1]
     sx, sy = x_sign * shell_corner_xy[0], y_sign * shell_corner_xy[1]
     midpoint = ((px + sx) / 2, (py + sy) / 2)
@@ -64,31 +68,38 @@ def _corner_gusset(x_sign, y_sign):
     return rib.rotate((0, 0, 0), (0, 0, 1), angle).translate((midpoint[0], midpoint[1], 0))
 
 
-def _shell_interior_footprint():
-    """The outer shell's interior floor footprint, extruded full height —
-    the volume the ribs must stay within. Clipping to it trims the
-    diagonal rib's splayed corner flush with the outer wall's inner face
-    so nothing pokes past the envelope."""
+def _rounded_interior_footprint():
+    """The shell's rounded interior floor footprint, full height — the
+    volume the ribs must stay within. The pocket-side overlap is removed
+    instead by the cavity cut below; this only trims the shell-side end to
+    the rounded inner wall so nothing pokes past the envelope."""
     interior_x = outer_shell_x_length - 2 * wall_and_floor_thickness
     interior_y = outer_shell_y_length - 2 * wall_and_floor_thickness
-    return make_box(
-        (-interior_x / 2, interior_x / 2),
-        (-interior_y / 2, interior_y / 2),
-        (bag_pocket_floor_top_z, foam_shell_outer_height),
+    inner_round = corner_round_radius - wall_and_floor_thickness
+    return (
+        make_box(
+            (-interior_x / 2, interior_x / 2),
+            (-interior_y / 2, interior_y / 2),
+            (bag_pocket_floor_top_z, bag_pocket_floor_top_z + gusset_height),
+        )
+        .edges("|Z")
+        .fillet(inner_round)
     )
 
 
 def build_corner_gussets():
     """All four corner ribs (both pockets, both ±Y far-corners each),
-    clipped to the shell interior (no outward poke) and cut by both pocket
-    cavities (never intrude on the reservoir space)."""
+    clipped to the rounded shell interior (no outward poke). The pocket-side
+    end is trimmed by the pocket cavity so the rib butts the pocket outer
+    wall rather than intruding into the reservoir space."""
     gussets = _corner_gusset(+1, +1)
     for x_sign, y_sign in ((+1, -1), (-1, +1), (-1, -1)):
         gussets = gussets.union(_corner_gusset(x_sign, y_sign))
-    plus_x_cavity = build_plus_x_cavity().unwrap()
+    cavity_z = bag_pocket_floor_top_z + gusset_height
+    plus_x_cavity = build_plus_x_cavity(cavity_z).unwrap()
     return (
         gussets
-        .intersect(_shell_interior_footprint())
+        .intersect(_rounded_interior_footprint())
         .cut(plus_x_cavity)
         .cut(plus_x_cavity.mirror("YZ"))
     )
