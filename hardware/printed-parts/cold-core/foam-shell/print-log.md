@@ -28,10 +28,18 @@ Derek said:
 
 Otherwise "nearly everything was perfect."
 
-## What's about to be tried — corner gussets (geometry change, settings unchanged)
+## Print attempt 2 (sliced, settings per [`foam-shell-8mm-high-flow.3mf`](foam-shell-8mm-high-flow.3mf))
 
-Reprint the **gusseted** geometry (commit `99c607df`: four diagonal floor-up ribs tying each reservoir-pocket far-corner to the outer-shell corner boss — see README `corner_gussets` and [`../_corner_gussets.py`](../_corner_gussets.py)) at the **same stock settings above**, deliberately **without a brim** (the gussets are the structural alternative to a cut-off brim).
+`foam-shell.step` at geometry commit `9a417017`: rounded outer corners (12 mm), cylindrical bosses tangent to the exterior wall with teardrop corner-fill webs, four corner gussets (z 2–42). Cap + gasket pads share the boss shape. Geometry in [`README.md`](README.md); construction in [`../_outer_shell.py`](../_outer_shell.py) and [`../_corner_gussets.py`](../_corner_gussets.py).
 
-The `foam-shell.step` changed with the gusset commit, so the part needs a fresh slice before this attempt; the committed 3mf above is the pre-gusset slice and is kept as the attempt-1 settings record.
+Settings observed (same stock profile as attempt 1):
+- Profile `0.40mm Standard @BBL H2C 0.8 nozzle`, dual 0.8 mm nozzle; `Bambu PETG Basic`, black
+- `layer_height` 0.4 / initial 0.4; `line_width` 0.82; `wall_loops` 2 classic; top/bottom shells 4/3; `sparse_infill_density` 15 % grid
+- `nozzle_temperature` 250 °C (initial 245); `hot_plate_temp` 70 °C, textured PEI; `chamber_temperatures` 0
+- `filament_flow_ratio` 0.97; `filament_max_volumetric_speed` 21 mm³/s (28 second slot)
+- Fan min/max 20/40 %, overhang 90 % at ≥10 %, fan off first 3 layers
+- `brim_type` auto_brim, `brim_width` 5 mm, `brim_object_gap` 0.1 mm; `enable_support` 0
 
-Open: does the corner gusset prevent the floor-corner lift on the next print, or are first-layer-squish / bed-temp / ambient-stability changes still needed.
+Sliced (Bambu Studio): 379.99 m / 1142.47 g, 14h22m, single PETG on the left nozzle.
+
+Result: pending.
