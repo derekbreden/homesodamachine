@@ -14,28 +14,15 @@ from _cold_core_interface import (
     foam_cap_lid_hole_inset,
     foam_cap_attachment_xy_positions,
     screw_clearance_radius,
-    screw_boss_size,
     gasket_thickness,
     gasket_strip_width,
 )
+from _outer_shell import build_attachment_bosses
 
 # Cut-through depth for lid features — any value ≥ wall_and_floor_thickness
 # fully traverses the lid. 3× gives margin without making the depth
 # look semantically meaningful.
 lid_cut_through_depth = wall_and_floor_thickness * 3
-
-
-def attachment_pads_extrude(height):
-    """Square pads at every attachment position, extruded +Z by height.
-    Used as cap-boss footprints and as boss-shaped gasket compression
-    pads."""
-    return (
-        WorldWorkplane(xy_plane_z_up)
-        .workplane(offset=0)
-        .pushPoints(foam_cap_attachment_xy_positions)
-        .rect(screw_boss_size, screw_boss_size)
-        .extrude(height)
-    )
 
 
 def attachment_clearances_extrude(height):
@@ -61,7 +48,9 @@ def build_foam_cap():
         .faces(">Z")
         .shell(-wall_and_floor_thickness)
     )
-    bosses = attachment_pads_extrude(foam_cap_height)
+    # Same ⌀ boss + teardrop webs as the outer shell (shared builder), so
+    # the cap's bosses match the shell's exactly.
+    bosses = build_attachment_bosses(foam_cap_height)
     # Clearances run the full boss height so the screw passes from the
     # cap floor (top in service) through to the mating edge.
     clearances = attachment_clearances_extrude(foam_cap_height)
@@ -106,10 +95,10 @@ def build_foam_cap_gasket():
     """TPU 90A gasket between foam_cap mating edge and outer_shell
     mating face. Rounded-corner perimeter ring (matching the shell's
     rounded outer wall, ring width held uniform through the corner) + a
-    pad at each of the 6 screw positions so the corner-boss screws
-    compress the full boss footprint uniformly (a uniform ring would leave
-    them asymmetrically supported and seal poorly at the corners). Printed
-    twice."""
+    boss-shaped pad at each of the 6 screw positions so the screws compress
+    the full boss footprint uniformly (a uniform ring would leave them
+    asymmetrically supported and seal poorly at the corners). The pads use
+    the same boss + teardrop-web shape as the shell/cap. Printed twice."""
     outer = (
         WorldWorkplane(xy_plane_z_up)
         .workplane(offset=0)
@@ -130,6 +119,6 @@ def build_foam_cap_gasket():
         .fillet(corner_round_radius - gasket_strip_width)
     )
     gasket = outer.cut(inner)
-    pads = attachment_pads_extrude(gasket_thickness)
+    pads = build_attachment_bosses(gasket_thickness)
     holes = attachment_clearances_extrude(gasket_thickness)
     return gasket.union(pads).cut(holes).unwrap()
