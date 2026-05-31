@@ -6,7 +6,7 @@ vertically, separated by a divider.
 - Two bag pockets, front-to-back along the depth (Y) axis
 - Each pocket: 150 mm wide (X) × 70 mm deep (Y) × 285 mm tall (Z), sized to
   one 1 L Platypus bag (285 × 150 × 70 mm)
-- Each pocket opens through its left (-X) wall as a 70 mm deep (Y) × 285 mm tall (Z) doorway
+- Each pocket opens through its right (+X) wall as a 70 mm deep (Y) × 285 mm tall (Z) doorway
 - Walls, floor, ceiling, and divider: 2 mm
 - Outer envelope: 154 mm wide (X) × 146 mm deep (Y) × 289 mm tall (Z)
 - Transparent PETG
