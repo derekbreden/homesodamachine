@@ -79,8 +79,8 @@ reservoir_wall_thickness = reservoir_floor_thickness
 # cleanly. At y = ±[67 mm](INNER_Y_MAX) the inner centerward curve meets the
 # inner ±Y walls inside the syrup volume — [28°](INNER_CORNER_ANGLE) interior
 # angle that would trap residual liquid. Same radius on both for visual
-# consistency. [6 mm](OUTER_FILLET_R) is chosen to match body_boss_radius so the corner
-# bosses (positions 4/5, centered on the outer fillet) fit fully inside
+# consistency. [6 mm](OUTER_FILLET_R) is at least body_boss_radius ([5 mm](BODY_BOSS_R)) so the
+# corner bosses (positions 4/5, centered on the outer fillet) fit fully inside
 # the post-fillet wall material — see body_boss_radius below.
 outer_corner_fillet_radius = 6.0
 inner_corner_fillet_radius = 6.0
@@ -416,7 +416,7 @@ gasket_pad_radius = body_boss_radius  # matches the body boss (clamp-stack footp
 
 # Body boss vertical layout (extruding downward from the wall top):
 #   top [7 mm](INSERT_POCKET_DEPTH):  pocket (ø4 hole for heat-set insert + screw shaft)
-#   below:     solid ø12 cylinder. Built extra-long (extending below
+#   below:     solid ⌀[10 mm](BODY_BOSS_D) cylinder. Built extra-long (extending below
 #              the intended boss-bottom z) and then cut with a flat
 #              45° plane through the wall at that boss-bottom z, so
 #              the wall side of the cylinder stays straight (and gets
@@ -431,9 +431,9 @@ gasket_pad_radius = body_boss_radius  # matches the body boss (clamp-stack footp
 # all the way down to that z. Bosses 4/5 (curve × ±Y corner, at the
 # outer-fillet center) sit inside the post-fillet wall material and
 # use a virtual pivot 2 mm along the wall direction so the cut depth
-# stays within the 7 mm heat-set pocket (see body_boss_cut_info_for_side_plus_1
-# below). The outer fillet radius (6 mm) equals body_boss_radius so
-# the corner-boss disks inscribe the fillet arc exactly.
+# stays within the [7 mm](INSERT_POCKET_DEPTH) heat-set pocket (see body_boss_cut_info_for_side_plus_1
+# below). The outer fillet radius ([6 mm](OUTER_FILLET_R)) is at least body_boss_radius,
+# so the corner-boss disks sit inside the fillet arc.
 boss_height = 15.0  # 7 mm pocket + 8 mm of solid+cut (the +8 keeps a solid floor under the pocket after the 45° cut, including the deeper diagonal cut on the corner bosses)
 _cyl_extra_below_bottom = 5.0  # extra cylinder length to be sliced off by the cut
 
@@ -525,8 +525,8 @@ _curve_apex_x = outer_centerward_radius + _screw_setback
 # is filleted at outer_corner_fillet_radius (= [6 mm](OUTER_FILLET_R)). The fillet
 # center is the unique point that is [6 mm](OUTER_FILLET_R) from BOTH the outer +Y
 # face and the outer curve, measured along the shortest path. The
-# ø12 body boss disk INSCRIBES the fillet arc (radius 6 = body
-# boss radius), so at these positions the boss material sits inside
+# ⌀[10 mm](BODY_BOSS_D) body boss disk (radius [5 mm](BODY_BOSS_R)) fits within the
+# [6 mm](OUTER_FILLET_R) fillet arc, so at these positions the boss material sits inside
 # the post-fillet wall. The 45° cut still applies (see the cut-info
 # entries for 4/5 below) but uses a virtual pivot rather than the
 # literal corner.
@@ -1297,6 +1297,7 @@ def main():
         "ROD_BORE": f"{rod_bore:.4g} mm",
         "ROD_BOSS_OD": f"{rod_boss_od:.4g} mm",
         "BODY_BOSS_R": f"{body_boss_radius:.4g} mm",
+        "BODY_BOSS_D": f"{2 * body_boss_radius:.4g} mm",
         "CAP_BOSS_R": f"{cap_boss_radius:.4g} mm",
         "CAP_STACK_H": f"{cap_stack_above_body:.4g} mm",
         "BULKHEAD_PANEL_HOLE_D": f"{bulkhead_panel_hole_diameter:.4g} mm",
@@ -1378,10 +1379,11 @@ def main():
             "GASKET_STRIP_W": 1,
             "RETAINING_RING_T": 1,
             "VENT_CYL_WALL_T": 1,
-            "INSERT_POCKET_DEPTH": 2,
-            "OUTER_FILLET_R": 6,
+            "INSERT_POCKET_DEPTH": 3,
+            "OUTER_FILLET_R": 8,
             "ROD_BOSS_OD": 1,
-            "BODY_BOSS_R": 1,
+            "BODY_BOSS_R": 3,
+            "BODY_BOSS_D": 2,
             "CAP_BOSS_R": 1,
             "CAP_STACK_H": 1,
             "REEDS_PER_RES": 1,
