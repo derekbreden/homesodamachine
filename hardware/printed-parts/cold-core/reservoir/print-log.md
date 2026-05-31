@@ -158,4 +158,12 @@ Watertight recipe carried over from the coupon:
 - `seam_position`: random; `seam_slope_type`: all (scarf on all walls)
 - `layer_height`: 0.18 mm; `initial_layer_print_height`: 0.3 mm
 
-Print started 2026-05-30. Result pending (post-print: inspect floor underside + seal boss for support tear-out; air-bubble leak-test the floor).
+Print started 2026-05-30.
+
+### Result — SUCCESS (2026-05-30)
+
+Derek said:
+- "It did work. None of the floor pulled off."
+- "It did allow me to test with that foam shell print. It's holding water for a few hours now. First successfully done so, and done so with gaskets and all."
+
+First watertight reservoir. The slanted-floor supports (normal(auto), 0.25 mm top z-gap, interface top layers 2) released cleanly — no tear-out of the floor underside. Assembled into the printed foam shell with the bulkhead + TPU gaskets and held water for several hours with no weep. Leak-tightness gate (per [`watertight-petg.md`](watertight-petg.md)) passed at fill-and-hold; this is the first reservoir to pass.
