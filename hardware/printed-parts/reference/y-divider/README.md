@@ -23,6 +23,6 @@ In the file's own frame (long axis = Z):
 
 So the two outlets point the **same direction**, **14.7 mm apart**, opposite
 the stem. That parallel-outlet shape lets valves feeding a divider stay
-axis-aligned (no fanning).
+axis-aligned (no fanning) — see `../../valve-manifold/bag-circuit-tray/`.
 
 Accepts 1/4" (6.35 mm) OD tube; the 1/4" bore radius is 3.175 mm.
