@@ -2,9 +2,9 @@ flowchart LR
 
   %% Valve-manifold fluid topology grouped by physical tray. Each box is a tray;
   %% the nodes inside are the valves and Y-dividers it carries. Blue links are
-  %% on-tray valve-to-divider seats; gray links run between trays; orange links
-  %% leave the manifold to the nozzles. Y-C and Y-F are not assigned to a tray.
-  %% Source, pump, and bag endpoints are omitted.
+  %% on-tray valve-to-divider seats; gray links run between trays. Y-C and Y-F
+  %% are not assigned to a tray. Source, pump, bag, and nozzle endpoints are
+  %% omitted.
 
   subgraph Tray1["Tray 1 — Source Select"]
     VA["V-A"]
@@ -41,11 +41,6 @@ flowchart LR
   YC{{"Y-C"}}
   YF{{"Y-F"}}
 
-  subgraph Nozzles["Nozzles"]
-    NozzleA["Nozzle A"]
-    NozzleB["Nozzle B"]
-  end
-
   %% ---- On-tray seats (blue, links 0-12) ----
   VA --> YA
   VB --> YA
@@ -71,11 +66,6 @@ flowchart LR
   YD --> VF
   YG --> VI
 
-  %% ---- To nozzles (orange, links 21-22) ----
-  VG --> NozzleA
-  VJ --> NozzleB
-
   %% ---- Link styling ----
   linkStyle 0,1,2,3,4,5,6,7,8,9,10,11,12 stroke:#09f,stroke-width:2px
   linkStyle 13,14,15,16,17,18,19,20 stroke:#888,stroke-width:2px
-  linkStyle 21,22 stroke:#f90,stroke-width:2px
