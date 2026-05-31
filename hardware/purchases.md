@@ -133,6 +133,7 @@ Check valves, sparge stone + barb adapter for internal-sparge CO2 carbonation, c
 | VALVENTO 316 SS 1/4" OD compression × 1/4" NPT adapter (2 pk) — joins bottom-plate 1/4" NPT outlet (port 3) to 1/4" tubing run to faucet (order 112-6216768-3197856 covers BOTH this and the SS tube 5-pk B0F6SYFK48 below; line price $11.99 pre-tax + $0.86 allocated tax = $12.85 delivered) | [B0DXZZBK7D](https://www.amazon.com/dp/B0DXZZBK7D) | 1 pk | $12.85 | ACQUIRED |
 | VALVENTO 1/4" OD 316 SS tube, 12" length (5 pk) — superseded for production by the PET-CF printed touch-flo-shell faucet path (1/4" LLDPE drops directly into a threaded metal rod at the bottom of the faucet body, so no rigid SS tube stub is needed between the bottom-plate compression adapter and the soft tubing run); retained as spare / bench-test stock. Same order 112-6216768-3197856 as the compression adapter B0DXZZBK7D above; line price $16.99 pre-tax + $1.24 allocated tax = $18.23 delivered. Earlier ledger duplicated the $31.08 order grand total onto BOTH lines, double-counting by $31.08; corrected during the post-Kamoer audit pass | [B0F6SYFK48](https://www.amazon.com/dp/B0F6SYFK48) | 1 pk | $18.23 | ACQUIRED |
 | TAISHER 304 SS compression square needle valve 1/4" | [B0CLXHZZCW](https://www.amazon.com/dp/B0CLXHZZCW) | 1 | $32.15 | ACQUIRED |
+| YKEBVPW 1/4" push-connect needle valve flow control | [B0FBFVTNLM](https://www.amazon.com/dp/B0FBFVTNLM) | 1 | $7.49 | ACQUIRED |
 
 ## 5. Flavor subsystem
 
