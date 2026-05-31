@@ -139,15 +139,20 @@ screw_boss_size = 8.0  # ⌀[8 mm](SCREW_BOSS_SIZE) cylindrical boss at each att
 
 # Rounded outer-shell corners. Each corner's exterior wall is a true arc:
 # the outer face is a quarter-round of [12 mm](CORNER_ROUND_R) radius, the
-# inner face concentric one wall-thickness inboard. The corner boss is
-# pulled inward along the corner diagonal so it nests fully inside the
-# rounded wall (centered on the corner-arc center), rather than sitting in
-# a now-removed sharp corner.
+# inner face concentric one wall-thickness inboard. The corner boss nestles
+# IN the corner — pushed out along the diagonal until its ⌀ kisses the
+# rounded inner wall face, arc-tangent like the reservoir pocket-corner
+# support teardrops — so it sits snug in the corner rather than floating at
+# the arc center.
 corner_round_radius = 12.0
-# Corner-arc center: corner_round_radius in from each outer face. The corner
-# boss centers here so the rounded wall wraps it concentrically.
-_corner_boss_x = outer_shell_x_length / 2 - corner_round_radius
-_corner_boss_y = outer_shell_y_length / 2 - corner_round_radius
+# Corner-arc center (corner_round_radius in from each outer face), then the
+# boss center steps back out along the +diagonal by (inner-wall-arc radius −
+# boss radius) so the boss is tangent to the rounded inner wall.
+_corner_arc_x = outer_shell_x_length / 2 - corner_round_radius
+_corner_arc_y = outer_shell_y_length / 2 - corner_round_radius
+_corner_boss_diag_offset = (corner_round_radius - wall_and_floor_thickness - screw_boss_size / 2) / math.sqrt(2)
+_corner_boss_x = _corner_arc_x + _corner_boss_diag_offset
+_corner_boss_y = _corner_arc_y + _corner_boss_diag_offset
 
 # Mid-long-side bosses offset in X to clear the copper/water-outlet
 # slot at x=0; opposite signs at ±Y preserve 180° rotational symmetry
