@@ -11,9 +11,8 @@ branch rises (+Z) to the bag.
     V-I ──┴── V-H      Y-H run; branch up → Bag B
 
 This module also holds the shared parallel-tray base — `place_valve`,
-`build_tray`, the Y-divider placer `place_divider`, and the common geometry —
-imported by the gate-tray variants in `../nozzle-gate-tray/` and
-`../bib-gate-tray/`. Those trays feed Y-dividers; this one feeds Tees.
+`place_tee`, `build_tray`, and the common geometry — imported by the
+all-Tee gate-tray variants in `../nozzle-gate-tray/` and `../bib-gate-tray/`.
 
 Origin = cell center, Z = 0 the valve mounting plane, ports at Z = 11.3.
 """
@@ -40,28 +39,21 @@ saddle_radius = cell.saddle_radius
 corner_pos = cell.corner_pos
 top_z = cell.tray_top_z
 bot_z = cell.tray_bottom_z
-_div_path = _hw / "printed-parts" / "reference" / "y-divider" / "y-divider.step"
 _tee_path = _hw / "printed-parts" / "reference" / "tee-connector" / "tee-connector.step"
 
 # --- Shared geometry ------------------------------------------------------
 PORT_HALF = 29.5          # valve port half-length
 row_half = 16.125         # half the butted-pair pitch = valve body half-width
-
-# Y-divider reach + valve column — the gate-tray variants use these.
-DIV_HALF = 19.25          # divider stem/outlet reach from its center
-Vx = DIV_HALF + PORT_HALF  # 48.75: inner port tip meets the divider face
-
-# Tee reach + valve column — this tray.
 TEE_RUN_HALF = 20.07      # Tee run half-length (port to center)
 TEE_BRANCH = 20.07        # Tee branch reach (port to center)
-Vx_t = TEE_RUN_HALF + PORT_HALF  # 49.57: inner port tip meets the Tee run port
+Vx = TEE_RUN_HALF + PORT_HALF  # 49.57: inner port tip meets the Tee run port
 
 # This tray's valves + Tees.
 VALVES = {
-    "VF": (-Vx_t, +row_half),
-    "VI": (-Vx_t, -row_half),
-    "VE": (+Vx_t, +row_half),
-    "VH": (+Vx_t, -row_half),
+    "VF": (-Vx, +row_half),
+    "VI": (-Vx, -row_half),
+    "VE": (+Vx, +row_half),
+    "VH": (+Vx, -row_half),
 }
 # Tee centers; run along X joins the row's two valves, branch +Z to the bag.
 TEES = {"YE": (0.0, +row_half), "YH": (0.0, -row_half)}
@@ -76,14 +68,8 @@ def place_valve(cx, cy):
     )
 
 
-def place_divider(cx, cy):
-    """Y-divider, run axis along X, stem → −X, outlets → +X (gate-tray trays)."""
-    fit = cq.importers.importStep(str(_div_path)).val()
-    return fit.rotate((0, 0, 0), (0, 1, 0), -90.0).translate((cx, cy, PORT_Z))
-
-
 def place_tee(cx, cy):
-    """Tee, run along X (joins the row's two valves), branch up (+Z) to the bag."""
+    """Tee, run along X (joins valves / butts the next Tee), branch up (+Z)."""
     fit = cq.importers.importStep(str(_tee_path)).val()
     return (
         fit.rotate((0, 0, 0), (0, 1, 0), 90.0)
@@ -107,15 +93,9 @@ stack_pitch = wall_top_z - bot_z   # 63 mm
 valve_y_extent = row_half + 16.125          # outer body edge = 32.25
 plate_half_y = valve_y_extent + wall_clear + wall_thickness
 
-# Y-divider tray bounds — the gate-tray variants reference these.
 plate_half_x = Vx + corner_pos + socket_radius + margin
-cut_half_x = 24.0
-cut_half_y = 32.0
-
-# Tee tray bounds — this tray.
-plate_half_x_t = Vx_t + corner_pos + socket_radius + margin
-cut_half_x_t = 24.0   # clears the Tee run (reach |X| = 20.07), short of sockets
-cut_half_y_t = 24.0   # clears the Tee run body (reach |Y| = row + 6.9)
+cut_half_x = 24.0   # clears the Tee run (reach |X| = 20.07), short of sockets
+cut_half_y = 24.0   # clears the Tee run body (reach |Y| = row + 6.9)
 
 
 def _box(x0, x1, y_half, z0, z1):
@@ -127,7 +107,7 @@ def _box(x0, x1, y_half, z0, z1):
 
 
 def build_tray(valve_centers, plate_x, plate_y_half, gap_x, gap_y_half):
-    """Generic parallel-divider tray: a frame plate with a central open gap, a
+    """Generic parallel-Tee tray: a frame plate with a central open gap, a
     four-socket + shared-row-saddle cradle per valve, and two ±Y stacking
     walls. ``plate_x`` / ``gap_x`` are (lo, hi) so the plate can be asymmetric.
     """
@@ -164,10 +144,10 @@ def build_tray(valve_centers, plate_x, plate_y_half, gap_x, gap_y_half):
 def build_bag_circuit_tray():
     return build_tray(
         list(VALVES.values()),
-        (-plate_half_x_t, plate_half_x_t),
+        (-plate_half_x, plate_half_x),
         plate_half_y,
-        (-cut_half_x_t, cut_half_x_t),
-        cut_half_y_t,
+        (-cut_half_x, cut_half_x),
+        cut_half_y,
     )
 
 
