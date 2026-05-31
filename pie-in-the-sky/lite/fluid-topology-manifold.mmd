@@ -16,13 +16,17 @@ flowchart LR
   %%
   %% Edge color = tube material:
   %%   green = clear NSF-51 PVC — the runs the user reads through the transparent
-  %%           enclosure while priming/refilling/cleaning by eye
+  %%           enclosure (nozzle lines, bag legs, pump loops) AND the long clear
+  %%           tube from each enclosure-wall port to its manifold valve
   %%   grey  = JG push-to-connect on LLDPE — hidden manifold routing
-  %%   blue  = customer push-connect ports — external connections in
+  %%   blue  = customer push-connect — the external stub from each source only up
+  %%           to its enclosure-wall port; that port is a PC->barb transition,
+  %%           where the run becomes green (clear) on the way to the manifold
   %% Clear runs join the PTC manifold via a JG stem-barb bridge at each takeoff.
   %%
   %% Candidate parts: PVCA-0204 (flavor, 1/8" ID), PVCA-0406 (clean-cycle, 1/4" ID),
-  %% PI250808S stem-barb bridge. Valves stay PTC.
+  %% PI250808S stem-barb bridge. Valves stay PTC. Wall ports are PC->barb bulkhead
+  %% fittings.
   %% Open: keep BiB or drop V-K-A/B; pump loops are clear only if the pump is visible.
   %% =====================================================================
 
@@ -31,6 +35,13 @@ flowchart LR
     Hopper["Hopper"]
     BiBA["BiB A (optional)"]
     BiBB["BiB B (optional)"]
+  end
+
+  subgraph EnclosureWall["Enclosure wall (push-connect to barb)"]
+    PortLillium(["Lillium port"])
+    PortHopper(["Hopper port"])
+    PortBiBA(["BiB A port"])
+    PortBiBB(["BiB B port"])
   end
 
   subgraph Pumps["Pumps"]
@@ -111,23 +122,30 @@ flowchart LR
     YH --> VH
   end
 
-  %% customer push-connect ports (blue) — indices 21-24
-  Lillium --> VA
-  Hopper --> VB
-  BiBA --> VKA
-  BiBB --> VKB
+  %% Each source's external push-connect stub runs only up to its enclosure-wall
+  %% port (blue) — indices 21,23,25,27. At the port (a PC->barb bulkhead fitting)
+  %% the run becomes a long clear tube on to its manifold valve (green) —
+  %% indices 22,24,26,28.
+  Lillium --> PortLillium
+  PortLillium --> VA
+  Hopper --> PortHopper
+  PortHopper --> VB
+  BiBA --> PortBiBA
+  PortBiBA --> VKA
+  BiBB --> PortBiBB
+  PortBiBB --> VKB
 
-  %% pump loops (clear PVC, optional) — indices 25-28
+  %% pump loops (clear PVC, optional) — indices 29-32
   YC --> PA
   PA --> YD
   YF --> PB
   PB --> YG
 
-  %% bag runs (clear PVC) — indices 29-30
+  %% bag runs (clear PVC) — indices 33-34
   YE <--> BagA
   YH <--> BagB
 
-  %% nozzle lines (clear PVC) — indices 31-32
+  %% nozzle lines (clear PVC) — indices 35-36
   VG --> NozzleA
   VJ --> NozzleB
 
@@ -136,7 +154,7 @@ flowchart LR
   %% =========================
   %% PTC on LLDPE — hidden manifold routing
   linkStyle 0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16 stroke:#888,stroke-width:2px
-  %% Clear NSF-51 PVC — visible runs the user reads
-  linkStyle 17,18,19,20,25,26,27,28,29,30,31,32 stroke:#2ca02c,stroke-width:3px
-  %% Customer push-connect ports — external connections in
-  linkStyle 21,22,23,24 stroke:#09f,stroke-width:2px
+  %% Clear NSF-51 PVC — visible runs + each wall-port-to-valve clear run
+  linkStyle 17,18,19,20,22,24,26,28,29,30,31,32,33,34,35,36 stroke:#2ca02c,stroke-width:3px
+  %% Customer push-connect — external stub from each source to its enclosure-wall port
+  linkStyle 21,23,25,27 stroke:#09f,stroke-width:2px
