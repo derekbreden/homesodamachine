@@ -110,7 +110,7 @@ body_r = body_od / 2
 shank_length = 50.0  # shank extends from Z=0 down to Z=-shank_length
 
 
-# Water dispense tube — Ø 9.525 mm (3/8" LLDPE) — drops into the body's
+# Water dispense tube — ⌀[9.525 mm](WATER_TUBE_OD) (3/8" LLDPE) — drops into the body's
 # 10.0 mm water port. The 0.475 mm diametric (0.2375 mm radial) gap is
 # taken up by a printed TPU bushing on the real tube (not modeled).
 # Extends a comfortable amount into the port for retention, and runs
@@ -592,7 +592,7 @@ def main():
             "GN_FLAVOR_BEND_TWO_R": f"{gn_flavor_bend2_r:.4f} mm",
         },
         expected_counts={
-            "WATER_TUBE_OD": 1,
+            "WATER_TUBE_OD": 2,
             "WATER_TUBE_Z_BOTTOM": 1,
             "WATER_TUBE_Z_TOP": 1,
             "FLAVOR_TUBE_OD": 1,
