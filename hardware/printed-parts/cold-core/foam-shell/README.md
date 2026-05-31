@@ -461,11 +461,11 @@ that needs a deliberate explanation:
 
 | metric | value |
 |---|---|
-| volume | [1106747.781 mm³](VOLUME) |
+| volume | [1104027.355 mm³](VOLUME) |
 | bbox x | [-141.500 to 141.500 mm](BBOX_X) |
 | bbox z | [0.000 to 213.400 mm](BBOX_Z) |
 | bbox y | [-90.500 to 90.500 mm](BBOX_Y) |
-| centroid | [(0.000005, -0.587801, 88.648038) mm](CENTROID) |
+| centroid | [(0.000005, -0.589249, 88.812265) mm](CENTROID) |
 
 Quick reproduction:
 
