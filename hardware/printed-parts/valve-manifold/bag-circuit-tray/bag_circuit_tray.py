@@ -1,20 +1,19 @@
-"""Bag-circuit tray: 4 axis-aligned Beduan valves + 2 parallel Y-dividers.
+"""Bag-circuit tray: 4 axis-aligned Beduan valves + 2 Tee fittings.
 
 The [fluid-topology](../../../topology/fluid-topology.md) bag circuit as a
 tray. The four valves sit ports-along-X with no aiming tilt, butted in two
-columns: V-F over V-I on the −X side, V-E over V-H on the +X side. The two
-Y-dividers sit side by side (not in series) in the center, long axis along X,
-so the gap between the two valve columns spans a single divider length.
+columns: V-F over V-I on the −X side, V-E over V-H on the +X side. Each row's
+two valves connect **in-line through a Tee** whose run lies along X; the Tee's
+branch rises (+Z) to the bag.
 
-    V-F ┐        ┌ V-E
-        ├  Y-E  ─┤
-        ┊        ┊
-        ├  Y-H  ─┤
-    V-I ┘        └ V-H
+    V-F ──┬── V-E      Y-E run; branch up → Bag A
+          ┊
+    V-I ──┴── V-H      Y-H run; branch up → Bag B
 
-Each divider's stem meets the −X-column valve's inner port; its two +X outlets
-feed the +X-column valve and the bag (Bag A for Y-E, Bag B for Y-H). The bag
-and pump-side runs leave the tray.
+This module also holds the shared parallel-tray base — `place_valve`,
+`build_tray`, the Y-divider placer `place_divider`, and the common geometry —
+imported by the gate-tray variants in `../nozzle-gate-tray/` and
+`../bib-gate-tray/`. Those trays feed Y-dividers; this one feeds Tees.
 
 Origin = cell center, Z = 0 the valve mounting plane, ports at Z = 11.3.
 """
@@ -42,23 +41,30 @@ corner_pos = cell.corner_pos
 top_z = cell.tray_top_z
 bot_z = cell.tray_bottom_z
 _div_path = _hw / "printed-parts" / "reference" / "y-divider" / "y-divider.step"
+_tee_path = _hw / "printed-parts" / "reference" / "tee-connector" / "tee-connector.step"
 
-# --- Layout (axis-aligned, ports along X) ---------------------------------
-DIV_HALF = 19.25          # divider stem/outlet reach from its center (X)
+# --- Shared geometry ------------------------------------------------------
 PORT_HALF = 29.5          # valve port half-length
 row_half = 16.125         # half the butted-pair pitch = valve body half-width
-Vx = DIV_HALF + PORT_HALF  # 48.75: valve column X so the inner port tip meets
-                           #          the divider face
 
-# valve centers
+# Y-divider reach + valve column — the gate-tray variants use these.
+DIV_HALF = 19.25          # divider stem/outlet reach from its center
+Vx = DIV_HALF + PORT_HALF  # 48.75: inner port tip meets the divider face
+
+# Tee reach + valve column — this tray.
+TEE_RUN_HALF = 20.07      # Tee run half-length (port to center)
+TEE_BRANCH = 20.07        # Tee branch reach (port to center)
+Vx_t = TEE_RUN_HALF + PORT_HALF  # 49.57: inner port tip meets the Tee run port
+
+# This tray's valves + Tees.
 VALVES = {
-    "VF": (-Vx, +row_half),
-    "VI": (-Vx, -row_half),
-    "VE": (+Vx, +row_half),
-    "VH": (+Vx, -row_half),
+    "VF": (-Vx_t, +row_half),
+    "VI": (-Vx_t, -row_half),
+    "VE": (+Vx_t, +row_half),
+    "VH": (+Vx_t, -row_half),
 }
-# divider centers (long axis +X, stem -> -X, outlets -> +X)
-DIVIDERS = {"YE": (0.0, +row_half), "YH": (0.0, -row_half)}
+# Tee centers; run along X joins the row's two valves, branch +Z to the bag.
+TEES = {"YE": (0.0, +row_half), "YH": (0.0, -row_half)}
 
 
 def place_valve(cx, cy):
@@ -71,13 +77,24 @@ def place_valve(cx, cy):
 
 
 def place_divider(cx, cy):
+    """Y-divider, run axis along X, stem → −X, outlets → +X (gate-tray trays)."""
     fit = cq.importers.importStep(str(_div_path)).val()
     return fit.rotate((0, 0, 0), (0, 1, 0), -90.0).translate((cx, cy, PORT_Z))
 
 
+def place_tee(cx, cy):
+    """Tee, run along X (joins the row's two valves), branch up (+Z) to the bag."""
+    fit = cq.importers.importStep(str(_tee_path)).val()
+    return (
+        fit.rotate((0, 0, 0), (0, 1, 0), 90.0)
+        .rotate((0, 0, 0), (1, 0, 0), 90.0)
+        .translate((cx, cy, PORT_Z))
+    )
+
+
 def build_assembly():
     parts = {nm: place_valve(*p) for nm, p in VALVES.items()}
-    parts.update({nm: place_divider(*p) for nm, p in DIVIDERS.items()})
+    parts.update({nm: place_tee(*p) for nm, p in TEES.items()})
     return parts
 
 
@@ -87,13 +104,18 @@ wall_thickness = 3.0
 wall_clear = 1.0
 wall_top_z = 60.0
 stack_pitch = wall_top_z - bot_z   # 63 mm
-
-_socket_max_x = Vx + corner_pos
-plate_half_x = _socket_max_x + socket_radius + margin
 valve_y_extent = row_half + 16.125          # outer body edge = 32.25
 plate_half_y = valve_y_extent + wall_clear + wall_thickness
-cut_half_x = 24.0   # clears both dividers (reach |X| = 19.25), short of sockets
-cut_half_y = 32.0   # clears the divider Y-spread (body reach |Y| = 31.6)
+
+# Y-divider tray bounds — the gate-tray variants reference these.
+plate_half_x = Vx + corner_pos + socket_radius + margin
+cut_half_x = 24.0
+cut_half_y = 32.0
+
+# Tee tray bounds — this tray.
+plate_half_x_t = Vx_t + corner_pos + socket_radius + margin
+cut_half_x_t = 24.0   # clears the Tee run (reach |X| = 20.07), short of sockets
+cut_half_y_t = 24.0   # clears the Tee run body (reach |Y| = row + 6.9)
 
 
 def _box(x0, x1, y_half, z0, z1):
@@ -142,10 +164,10 @@ def build_tray(valve_centers, plate_x, plate_y_half, gap_x, gap_y_half):
 def build_bag_circuit_tray():
     return build_tray(
         list(VALVES.values()),
-        (-plate_half_x, plate_half_x),
+        (-plate_half_x_t, plate_half_x_t),
         plate_half_y,
-        (-cut_half_x, cut_half_x),
-        cut_half_y,
+        (-cut_half_x_t, cut_half_x_t),
+        cut_half_y_t,
     )
 
 
