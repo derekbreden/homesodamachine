@@ -135,14 +135,17 @@ corner is gone and the corner boss is wrapped by a curved wall.
 The six bosses are positioned at the four corners + two mid-long-side
 positions (offset in X by ±[15 mm](MID_BOSS_OFFSET) with opposite signs
 at +Y vs −Y, to preserve 180° rotational symmetry around the Z axis).
-Each corner boss is seated deep in the corner — its ⌀ tangent to the
-EXTERIOR wall arc, so the boss fuses into the outer skin (one wall-thickness
-of PETG over the insert) for the stiffest tie into the warp-prone corner —
-with two short webs filling to the two flanking flat walls: the cylinder +
-two-web teardrop idiom of the reservoir pocket-corner supports. Each boss
-carries a heat-set insert pocket at the top (drilled down from the top
-face) and at the bottom (drilled up from the bottom face) — twelve inserts
-total, six per face, for fastening the foam_cap above and below.
+Every boss sits tangent to the EXTERIOR wall and is tied into it with the
+cylinder + corner-fill teardrop idiom of the reservoir pocket-corner
+supports, so the boss fuses into the outer skin (one wall-thickness of PETG
+over the insert) instead of meeting the wall on a knife-edge seam. A corner
+boss sits against two walls (a far ±X wall and an end ±Y wall), so it gets
+two webs — one toward each — with the diagonal-inboard quadrant left open
+for foam. A mid-side boss sits against one wall, so it gets a single web
+toward it (a D: flat to the wall, round toward the foam). Each boss carries
+a heat-set insert pocket at the top (drilled down from the top face) and at
+the bottom (drilled up from the bottom face) — twelve inserts total, six
+per face, for fastening the foam_cap above and below.
 
 The outer +Y wall carries the shared copper/water-inlet slot, the
 two ⌀[6.5 mm](PORT_D) reservoir-line holes, the two reed-cable holes,
@@ -461,11 +464,11 @@ that needs a deliberate explanation:
 
 | metric | value |
 |---|---|
-| volume | [1060782.279 mm³](VOLUME) |
+| volume | [1061075.794 mm³](VOLUME) |
 | bbox x | [-141.500 to 141.500 mm](BBOX_X) |
 | bbox z | [0.000 to 213.400 mm](BBOX_Z) |
 | bbox y | [-90.500 to 90.500 mm](BBOX_Y) |
-| centroid | [(0.000005, -0.613271, 87.814965) mm](CENTROID) |
+| centroid | [(0.000005, -0.613101, 87.820466) mm](CENTROID) |
 
 Quick reproduction:
 

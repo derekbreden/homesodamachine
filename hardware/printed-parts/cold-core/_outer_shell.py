@@ -35,37 +35,45 @@ def _rounded_outer_footprint():
     )
 
 
-def _corner_webs():
-    """The teardrop's two corner-fill squares per corner boss, exactly as
-    the reservoir pocket-corner supports do it: a boss-radius square is
-    tangent to the boss circle in each quadrant; the two squares on the
-    corner side (toward the +/-X far wall and toward the +/-Y end wall) are
-    kept, the diagonal-facing square is left open for foam. Each square
-    spans one boss radius in x and one in y from the boss center, toward the
-    corner. Trimmed to the rounded wall by the footprint mask; the insert
-    pockets are cut later at the full-shell level (cut_insert_pockets)."""
+def _boss_webs():
+    """Teardrop corner-fill squares tying each boss into the wall(s) it sits
+    against — the cylinder + corner-fill idiom of the reservoir pocket-corner
+    supports. Each square is one boss radius wide off the boss center
+    (tangent to the boss circle) and runs out past the wall; the footprint
+    mask trims it flush, so the thin crescent where the circle pulls off the
+    flat wall is filled and the boss blends into the wall instead of meeting
+    it on a knife-edge seam.
+
+    A corner boss sits against two walls (a far ±X wall and an end ±Y wall),
+    so it gets two squares — one toward each — with the diagonal-inboard
+    quadrant left open for foam. A mid-side boss sits against one wall (its
+    ±Y wall), so it gets the single square toward that wall (a D: flat to the
+    wall, round toward the foam). Insert pockets are cut later at the
+    full-shell level (cut_insert_pockets)."""
     r = screw_boss_size / 2
     corner_x = outer_shell_x_length / 2
     corner_y = outer_shell_y_length / 2
+    corner_positions = foam_cap_attachment_xy_positions[:4]
     webs = None
-    for cx, cy in foam_cap_attachment_xy_positions[:4]:  # first 4 entries are the corners
+    for cx, cy in foam_cap_attachment_xy_positions:
         x_sign = 1 if cx > 0 else -1
         y_sign = 1 if cy > 0 else -1
-        # Square one boss radius wide off the boss center (tangent to the
-        # circle), running corner-ward to the outer footprint so the mask
-        # trims it flush to the rounded wall.
-        toward_x_wall = make_box(
-            (cx, x_sign * corner_x),
-            (cy - r, cy + r),
-            (0.0, foam_shell_outer_height),
-        )
-        toward_y_wall = make_box(
+        # The square toward this boss's ±Y wall — every boss sits against one.
+        boss_webs = make_box(
             (cx - r, cx + r),
             (cy, y_sign * corner_y),
             (0.0, foam_shell_outer_height),
         )
-        pair = toward_x_wall.union(toward_y_wall)
-        webs = pair if webs is None else webs.union(pair)
+        # Corner bosses also sit against a far ±X wall — add the square to it.
+        if (cx, cy) in corner_positions:
+            boss_webs = boss_webs.union(
+                make_box(
+                    (cx, x_sign * corner_x),
+                    (cy - r, cy + r),
+                    (0.0, foam_shell_outer_height),
+                )
+            )
+        webs = boss_webs if webs is None else webs.union(boss_webs)
     return webs.intersect(_rounded_outer_footprint().unwrap())
 
 
@@ -94,7 +102,7 @@ def build_outer_shell():
     # full-shell level (cut_insert_pockets, applied after every union) so
     # that nothing unioned later (the corner gussets fuse into these bosses)
     # can back-fill an insert pocket.
-    return shell.union(bosses).union(_corner_webs()).unwrap()
+    return shell.union(bosses).union(_boss_webs()).unwrap()
 
 
 def cut_insert_pockets(foam_shell):
