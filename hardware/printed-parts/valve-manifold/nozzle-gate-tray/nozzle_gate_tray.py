@@ -1,18 +1,16 @@
-"""Nozzle-gate tray: 2 axis-aligned Beduan valves + 2 parallel Y-dividers.
+"""Nozzle-gate tray: 2 axis-aligned Beduan valves + 2 Tee fittings.
 
 The [fluid-topology](../../../topology/fluid-topology.md) nozzle gates as a
-tray. This is the bag-circuit tray (`../bag-circuit-tray/`) with one valve
-column removed: a single −X column (V-G over V-J) feeds the two parallel
-dividers (Y-D, Y-G) in the center; the dividers' +X outlets leave the tray to
-the pumps and nozzles.
+tray. A single −X column (V-G over V-J) meets a Tee on each row; the Tee run
+lies along X (valve on the −X end), and the branch rises (+Z). The +X run end
+and the branch leave the tray to the pump and the nozzle.
 
-    V-G ┐
-        ├  Y-D  ─→
-    V-J ┘
-        ├  Y-G  ─→
+    V-G ──┬──→      Y-D run; branch ↑
+    V-J ──┴──→      Y-G run; branch ↑
 
-The valve placement, divider orientation, and tray construction are shared
-with the bag-circuit tray. Origin = cell center, Z = 0 the mounting plane.
+Valve placement, the Tee placer, and the tray builder are shared with the
+[bag-circuit tray](../bag-circuit-tray/) via `build_tray`. Origin = cell
+center, Z = 0 the mounting plane, ports at Z = 11.3.
 """
 
 import sys
@@ -30,9 +28,9 @@ for _p in (
 from _cadq_export import export_step
 import bag_circuit_tray as bc
 
-# One valve column (−X) + the two center dividers; the +X column is gone.
+# One valve column (−X) + a Tee on each row; the +X column is gone.
 VALVES = {"VG": (-bc.Vx, +bc.row_half), "VJ": (-bc.Vx, -bc.row_half)}
-DIVIDERS = {"YD": (0.0, +bc.row_half), "YG": (0.0, -bc.row_half)}
+TEES = {"YD": (0.0, +bc.row_half), "YG": (0.0, -bc.row_half)}
 
 plate_x = (-bc.plate_half_x, bc.cut_half_x)   # trimmed on +X — no valves there
 plate_y_half = bc.plate_half_y
@@ -43,7 +41,7 @@ stack_pitch = bc.stack_pitch
 
 def build_assembly():
     parts = {nm: bc.place_valve(*p) for nm, p in VALVES.items()}
-    parts.update({nm: bc.place_divider(*p) for nm, p in DIVIDERS.items()})
+    parts.update({nm: bc.place_tee(*p) for nm, p in TEES.items()})
     return parts
 
 
