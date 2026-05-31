@@ -27,6 +27,7 @@ from _cold_core_interface import (
     wall_and_floor_thickness,
     bag_pocket_corner_inner_radius,
     bag_pocket_floor_top_z,
+    foam_cap_attachment_xy_positions,
     make_box,
 )
 from _reservoir_pocket_walls import build_plus_x_cavity
@@ -42,14 +43,12 @@ gusset_end_overlap = 3.0
 
 # Endpoints in the +X/+Y quadrant (signed per corner below):
 #   pocket far-outer corner — the convex outside corner where the pocket's
-#   far-±X wall meets its ±Y wall (outboard of the 6.5 mm cavity fillet).
+#   far-±X wall meets its ±Y wall (outboard of the cavity fillet).
 pocket_corner_xy = (bag_pocket_outermost_x, pocket_centerward_arc_outer_radius)
-#   outer-shell corner boss center — moved inward to the corner-arc center
-#   in the rounded-corner rework; the rib fuses into the boss + its webs.
-shell_corner_xy = (
-    outer_shell_x_length / 2 - corner_round_radius,
-    outer_shell_y_length / 2 - corner_round_radius,
-)
+#   outer-shell corner boss — the +X/+Y corner boss center (first entry of
+#   the shared attachment list); the rib fuses into the boss + its teardrop
+#   webs. Taken from the shared source so it tracks the boss automatically.
+shell_corner_xy = tuple(abs(c) for c in foam_cap_attachment_xy_positions[0])
 
 
 def _corner_gusset(x_sign, y_sign):
