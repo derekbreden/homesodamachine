@@ -356,8 +356,8 @@ bore_wall_profile = offset_polygon(bore_profile, wall_thickness)
 
 # Skirt profiles (shared by skirt, lower extension, and the split).
 #
-# The skirt splits asymmetrically: +Y half flares outward (70→76), -Y half
-# tapers inward (70→62). Both flares are at 45 degrees. The transition wall
+# The skirt splits asymmetrically: +Y half flares outward ([70](FOOTPRINT_X)→[76](SKIRT_WIDE_WIDTH)), -Y half
+# tapers inward ([70](FOOTPRINT_X)→[62](SKIRT_NARROW_WIDTH)). Both flares are at 45 degrees. The transition wall
 # stays in a fixed vertical plane by tracking each endpoint's Y independently.
 # The same profile set is used by the outer skirt surface and (shrunk by
 # skirt_wall) by the inner cavity.
@@ -365,8 +365,12 @@ bore_wall_profile = offset_polygon(bore_profile, wall_thickness)
 skirt_base_half_extent = footprint_half_extent
 skirt_wide_half_extent = skirt_base_half_extent + skirt_wide_flare_per_side
 skirt_narrow_half_extent = skirt_base_half_extent - skirt_narrow_taper_per_side
-# At the moment the wide flare completes (3mm), the narrow side
-# has only tapered by 3 of its 4mm.
+# Full outer widths of the two skirt halves, for the asymmetric-split
+# note above (the code drives geometry off the half-extents).
+skirt_wide_full_width = 2 * skirt_wide_half_extent
+skirt_narrow_full_width = 2 * skirt_narrow_half_extent
+# At the moment the wide flare completes ([3mm](SKIRT_WIDE_FLARE)), the narrow side
+# has only tapered by [3mm](SKIRT_WIDE_FLARE) of its [4mm](SKIRT_NARROW_TAPER).
 skirt_mid_narrow_half_extent = skirt_base_half_extent - skirt_wide_flare_per_side
 
 # Narrow straight section is shorter so both halves land together.
@@ -734,6 +738,11 @@ def main():
             "SKIRT_BOTTOM_Z": f"{skirt_bottom_z:+g} mm",
             "LOWER_CAP_TOP_Z": f"{lower_cap_top_z:+g} mm",
             "LOWER_CAP_BOTTOM_Z": f"{lower_cap_bottom_z:+g} mm",
+            "FOOTPRINT_X": f"{footprint_x:.4g}",
+            "SKIRT_WIDE_WIDTH": f"{skirt_wide_full_width:.4g}",
+            "SKIRT_NARROW_WIDTH": f"{skirt_narrow_full_width:.4g}",
+            "SKIRT_WIDE_FLARE": f"{skirt_wide_flare_per_side:.4g}mm",
+            "SKIRT_NARROW_TAPER": f"{skirt_narrow_taper_per_side:.4g}mm",
         },
         expected_counts={
             "CASE_OUTER_X": 1,
@@ -747,6 +756,11 @@ def main():
             "SKIRT_BOTTOM_Z": 2,
             "LOWER_CAP_TOP_Z": 2,
             "LOWER_CAP_BOTTOM_Z": 2,
+            "FOOTPRINT_X": 2,
+            "SKIRT_WIDE_WIDTH": 1,
+            "SKIRT_NARROW_WIDTH": 1,
+            "SKIRT_WIDE_FLARE": 2,
+            "SKIRT_NARROW_TAPER": 1,
         },
     )
     print("-> updated comments in pump_case.py")
