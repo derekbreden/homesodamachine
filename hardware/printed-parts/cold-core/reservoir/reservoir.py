@@ -276,9 +276,11 @@ rod_anchor_boss_floor = 2.0  # thickness of the printed-solid PETG floor INSIDE 
 # slope up) extruded straight across X; the only curved floor boundary
 # is the cavity's existing centerward arc. There is NO circular pad.
 # Syrup drains by gravity from anywhere in the cavity down the V to the
-# trough and into the port. The whole V is RAISED (see floor_trough_lift)
+# trough and into the port. This wet V is the floor's INTERIOR; its
+# EXTERIOR underside is a single flat horizontal plane (floor_flat_bottom_z),
+# the floor solid between them. The floor is RAISED (see floor_trough_lift)
 # so the below flange + integral 90° elbow fit in the open bag-pocket space
-# below the trough floor underside.
+# below that flat bottom.
 #
 # reservoir_bulkhead_port_x: midpoint between cavity's inner +X face and
 #   the concave arc's peak (imported from _cold_core_interface). Reused
@@ -361,24 +363,26 @@ bulkhead_elbow_flange_to_bottom = 19.6  # MEASURED: dry-side flange top face (se
 # axis. The elbow is modelled as a clearance volume only.
 bulkhead_elbow_lateral_sign = +1  # +Y; the pass-through is on +Y
 
-# V floor section (Y–Z), extruded straight across the full cavity X.
+# Interior wet V section (Y–Z), extruded straight across the full cavity X.
 # The flat trough at y=0 is the cavity's low point and the lowest
 # drainable line; the slopes rise from the trough edges to the ±Y
 # walls. (floor_trough_z, the slope rate, and the wedge extrusion top
 # are derived below, after inner_z_range / inner_y_max are defined.)
 #
-# The V floor is raised only as far as the bulkhead hardware below it demands.
+# The floor is raised only as far as the bulkhead hardware below it demands.
 # That lift is DERIVED (not hand-tuned) from the seal-boss geometry — which is
 # itself wall-derived — plus the measured elbow standoff, so the whole stack
 # keys off reservoir_wall_thickness and stays consistent if the wall thickness
 # or counterbore depth changes:
-#   below the trough-floor underside hang, in order, the seal-boss protrusion
-#   (boss height − wall), the dry-side TPU washer, and the flange-to-elbow
-#   standoff; bulkhead_floor_clearance then buffers the elbow bottom off the
-#   bag-pocket floor. The corner support posts (in _foam_shell via
-#   _reservoir_supports) carry the reservoir and follow this floor height.
-# floor underside = bag_pocket_floor_top_z + reservoir_clearance + floor_trough_lift.
-bulkhead_seal_boss_height = bulkhead_seal_counterbore_depth + bulkhead_seal_seat_thickness  # boss top flush with the trough; underside protrudes (boss_height − wall) below the floor underside
+#   below the flat exterior bottom hang, in order, the dry-side TPU washer and
+#   the flange-to-elbow standoff; bulkhead_floor_clearance then buffers the
+#   elbow bottom off the bag-pocket floor. The (boss_height − wall) term keeps
+#   the budget measured from the wet-V-offset reference line (one wall below
+#   the wet trough); the flat exterior bottom sits at exactly the resulting
+#   lowest point (floor_flat_bottom_z). The corner support posts (in the foam
+#   shell via _reservoir_supports) carry the reservoir and meet this flat
+#   bottom.
+bulkhead_seal_boss_height = bulkhead_seal_counterbore_depth + bulkhead_seal_seat_thickness  # boss top flush with the trough; the (boss_height − wall) term below places the flat bottom that far under the wet-V-offset reference line
 bulkhead_below_floor_stack = (
     (bulkhead_seal_boss_height - reservoir_wall_thickness)  # seal-boss protrusion below the floor underside
     + bulkhead_seal_thickness                                # dry-side TPU washer (conservative full-thickness allowance)
@@ -475,24 +479,32 @@ outer_z_range = (
 inner_z_range = (outer_z_range[0] + reservoir_wall_thickness, outer_z_range[1])
 
 # V-floor derived geometry (needs inner_z_range / inner_y_max above).
-# floor_trough_z is the trough's wet (top) surface. It is RAISED
+# floor_trough_z is the INTERIOR (wet) V's trough surface. It is RAISED
 # floor_trough_lift above the base cavity floor (inner_z_range[0]) so the
 # PureSec below-side flange + integral 90° elbow clear in the open
-# bag-pocket space below the trough-floor underside (the underside sits
-# at floor_trough_z − reservoir_wall_thickness; below it, down to the
-# bag-pocket floor, is open). The slope runs from
-# (|y| = floor_trough_half_width_y, z = floor_trough_z) up to
-# (|y| = inner_y_max, z += floor_slope_rise). The fluid-barrier PETG
-# below the trough surface is the full raised thickness (the body's
-# outer floor face is at outer_z_range[0], well below).
+# bag-pocket space below the floor. The interior wet surface is a V: the
+# flat trough at floor_trough_z rising at floor_slope_rate to the ±Y walls,
+# from (|y| = floor_trough_half_width_y, z = floor_trough_z) up to
+# (|y| = inner_y_max, z += floor_slope_rise). The EXTERIOR (dry) underside
+# is a single flat horizontal plane at floor_flat_bottom_z (below), not a
+# wall-offset copy of the V — the floor is filled solid between the wet V
+# and that plane, so it prints support-free.
 floor_trough_z = inner_z_range[0] + floor_trough_lift  # wet (top) surface of the flat trough = cavity low point, raised so the below flange/elbow fit below
-# Open headroom below the trough-floor underside, down to the bag-pocket
-# floor (the foam-shell pocket the reservoir drops into) — the space the
-# seal-boss protrusion + below-side TPU washer + ⌀[18.7 mm](BULKHEAD_DRY_FLANGE_OD)
-# flange + 90° elbow body hang in. (Reported for the STEP review; the
-# seal-boss underside is the reservoir's lowest point, clearing the bag-pocket
-# floor by the dry washer + elbow standoff + bulkhead_floor_clearance.)
-floor_below_trough_headroom = (floor_trough_z - reservoir_wall_thickness) - bag_pocket_floor_top_z
+# Flat exterior bottom plane: the whole footprint's dry underside sits at
+# this single Z. Set to the seal-boss underside — the reservoir's lowest
+# printed point — so overall height, elbow clearance, and support-post
+# height are unchanged; the change only fills the ±Y side voids solid and
+# backfills under the old V. The seal boss is now flush with this plane (it
+# no longer protrudes) and the dry-side counterbore opens flush in it as a
+# shallow recess. Below this plane is open central bag-pocket space where the
+# ⌀[18.7 mm](BULKHEAD_DRY_FLANGE_OD) flange + 90° elbow hang.
+floor_flat_bottom_z = floor_trough_z - bulkhead_seal_counterbore_depth - bulkhead_seal_seat_thickness
+# Open headroom below the flat exterior bottom, down to the bag-pocket floor
+# (the foam-shell pocket the reservoir drops into) — the space the dry-side
+# TPU washer + ⌀[18.7 mm](BULKHEAD_DRY_FLANGE_OD) flange + 90° elbow body
+# hang in. The flat bottom is the reservoir's lowest point, so this is also
+# how far that lowest point clears the bag-pocket floor.
+floor_below_trough_headroom = floor_flat_bottom_z - bag_pocket_floor_top_z
 floor_slope_y_distance = inner_y_max - floor_trough_half_width_y
 floor_slope_rate = floor_slope_rise / floor_slope_y_distance
 # Floor wedge extrusion top — above the highest slope point so the
@@ -760,25 +772,23 @@ def build_reservoir_body(side=1):
         )
         body = body.cut(pocket)
 
-    # V floor — a uniform reservoir_wall_thickness shell, Y-symmetric,
-    # swept across the full cavity X width and RAISED floor_trough_lift so the
-    # PureSec below-side flange + integral 90° elbow hang in OPEN space below
-    # it. The interior (wet) surface is the V: a flat trough at floor_trough_z
-    # for |y| ≤ floor_trough_half_width_y, sloping up at floor_slope_rate to the
-    # ±Y walls. The exterior (dry) surface is the same V shifted down one wall
-    # thickness, so the floor is a constant wall-thickness layer between them —
-    # exterior slope parallels interior slope. Below the exterior surface is nothing:
-    # open bag-pocket space. There is NO solid fill block and NO modelled
-    # elbow keep-out — the only thing piercing the floor is the bulkhead
-    # barrel bore. (Nothing supports the raised floor from below yet; that
-    # is deferred.)
+    # Floor — Y-symmetric interior wet V on top, single FLAT horizontal
+    # exterior bottom underneath, swept across the full cavity X width and
+    # RAISED floor_trough_lift so the PureSec below-side flange + integral
+    # 90° elbow hang in OPEN space below the flat bottom. The interior (wet)
+    # surface is the V: a flat trough at floor_trough_z for
+    # |y| ≤ floor_trough_half_width_y, sloping up at floor_slope_rate to the
+    # ±Y walls — watertight-validated, unchanged. The exterior (dry) surface
+    # is the flat plane at floor_flat_bottom_z; the floor is solid between the
+    # wet V and that plane (the ±Y side voids are filled, not left open under
+    # the V), so the underside is a single horizontal face that prints with no
+    # support. Below the flat bottom is open central bag-pocket space; the only
+    # thing piercing the floor is the bulkhead barrel bore.
     #
     # _v_floor_solid(trough_top_z) is the cavity-footprint solid capped by the
     # V whose flat trough wet surface sits at trough_top_z: a trough-fill prism
     # (cavity base up to trough_top_z) unioned with the two ±Y slope wedges.
-    # The shell = (solid below the interior V) − (solid below the exterior V,
-    # one wall thickness lower); the subtraction also leaves everything below
-    # the exterior V open.
+    # The floor solid = that interior-V solid, trimmed to the flat plane below.
     def _above_slope_plane(edge_y, dy_rate, anchor_z):
         """Half-space ABOVE the slope plane through (0, edge_y, anchor_z),
         surface slope dz/dy = dy_rate. Cutting it away leaves material only
@@ -823,36 +833,25 @@ def build_reservoir_body(side=1):
             solid = solid.union(wedge)
         return solid
 
-    floor_underside_z = floor_trough_z - reservoir_wall_thickness
-    floor_shell = _v_floor_solid(floor_trough_z).cut(_v_floor_solid(floor_underside_z))
-    body = body.union(floor_shell)
+    # Floor solid: the full interior-V solid (wet V on top, cavity-footprint
+    # solid all the way down). Its top surface IS the watertight interior V;
+    # everything under it is solid, to be trimmed flat next.
+    body = body.union(_v_floor_solid(floor_trough_z))
 
-    # Raise the walls + corner fillets to the floor: remove ALL material
-    # below the exterior V surface across the full footprint, so the whole
-    # body underside follows the wall-thickness-offset V — walls, fillets, and floor
-    # share one raised V bottom, with open bag-pocket space beneath for the
-    # bulkhead hardware. (The exterior V is flat at floor_underside_z for
-    # |y| ≤ floor_trough_half_width_y, sloping up at floor_slope_rate beyond;
-    # it is a function of y only, swept across X.)
+    # Trim the whole body underside FLAT at floor_flat_bottom_z: remove all
+    # material below that single horizontal plane across the full footprint,
+    # so walls, fillets, and floor share one flat bottom face. This fills the
+    # ±Y side voids solid and backfills under the old V; below the plane is
+    # open bag-pocket space for the bulkhead hardware. The wet V above is
+    # untouched. (The seal boss is unioned AFTER this cut, so it keeps its
+    # below-plane geometry — here, exactly flush with the plane.)
     z_below = outer_z_range[0] - 50.0
-    below_v = (
-        cq.Workplane(xy_plane_z_up)
-        .workplane(offset=z_below)
-        .rect(800, 2 * floor_trough_half_width_y)
-        .extrude(floor_underside_z - z_below)
-    )  # trough band: below the flat exterior underside
-    for sign in (+1, -1):
-        below_slope = (
-            cq.Workplane(cq.Plane(
-                origin=(0, sign * floor_trough_half_width_y, floor_underside_z),
-                xDir=(1, 0, 0),
-                normal=(0, -sign * floor_slope_rate, 1),
-            ))
-            .rect(2000, 2000)
-            .extrude(-2000)  # below the slope (opposite the +normal "above" side)
-        )
-        below_v = below_v.union(below_slope.intersect(_y_half_beyond_trough(sign)))
-    body = body.cut(below_v)
+    below_flat = make_box(
+        (-(outer_far_x_abs + 50.0), outer_far_x_abs + 50.0),
+        (-(outer_y_max + 50.0), outer_y_max + 50.0),
+        (z_below, floor_flat_bottom_z),
+    )
+    body = body.cut(below_flat)
 
     # Vertical bulkhead port through the trough at (port_x, y=0). The
     # PureSec mounts elbow-DOWN (barrel axis along world Z): the threaded
@@ -865,22 +864,23 @@ def build_reservoir_body(side=1):
     # the trough floor.
     port_x_signed = reservoir_bulkhead_port_x * side
 
-    # Seal seat boss — a pad around the port, flush with the trough wet
-    # surface on top and protruding below the floor underside. It hosts a
-    # face-seal counterbore on BOTH faces (wet top + dry under). Unioned
-    # after the below-V cut so it keeps the protrusion, and before the bore
-    # + counterbores so all three cut through it.
+    # Seal seat boss — the bulkhead_seal_boss_diameter pad around the port,
+    # spanning the wet trough surface on top down to the flat exterior bottom
+    # (floor_flat_bottom_z). With the solid flat-bottomed floor it sits flush
+    # in that plane (no protrusion), embedded in the surrounding solid floor;
+    # unioned (harmless, keeps the seat seam explicit) before the bore + both
+    # counterbores so all three cut through it. It hosts a face-seal
+    # counterbore on BOTH faces (wet top + dry under).
     seal_boss = _z_cylinder(
         (port_x_signed, 0.0),
-        (floor_trough_z - bulkhead_seal_counterbore_depth - bulkhead_seal_seat_thickness,
-         floor_trough_z),
+        (floor_flat_bottom_z, floor_trough_z),
         bulkhead_seal_boss_diameter,
     )
     body = body.union(seal_boss)
 
     # Panel hole — ⌀[16 mm](BULKHEAD_PANEL_HOLE_D) cut straight through the
     # trough floor on the barrel axis, from above the trough wet surface
-    # down past the floor underside into the open space below.
+    # down through the flat exterior bottom into the open space below.
     panel_hole = _z_cylinder(
         (port_x_signed, 0.0),
         (outer_z_range[0] - 5.0, floor_trough_z + 0.1),
@@ -898,23 +898,22 @@ def build_reservoir_body(side=1):
     )
     body = body.cut(wet_seal_counterbore)
 
-    # Dry-side TPU face-seal counterbore — cut UP into the seal-boss
-    # underside. The ⌀[18.7 mm](BULKHEAD_DRY_FLANGE_OD) elbow-side flange seats
-    # on the PETG rim outside it, compressing the dry washer 30%. The two
+    # Dry-side TPU face-seal counterbore — a shallow recess opening flush in
+    # the flat exterior bottom (floor_flat_bottom_z = the seal-boss underside),
+    # cut UP from it. The ⌀[18.7 mm](BULKHEAD_DRY_FLANGE_OD) elbow-side flange
+    # seats on the PETG rim outside it, compressing the dry washer 30%. The two
     # counterbores leave a [3 mm](RESERVOIR_WALL_T) solid PETG mid-rim between
     # them (= the wall thickness; see bulkhead_seal_seat_thickness).
-    seal_boss_underside_z = (floor_trough_z - bulkhead_seal_counterbore_depth
-                             - bulkhead_seal_seat_thickness)
     dry_seal_counterbore = _z_cylinder(
         (port_x_signed, 0.0),
-        (seal_boss_underside_z - 0.1,
-         seal_boss_underside_z + bulkhead_seal_counterbore_depth),
+        (floor_flat_bottom_z - 0.1,
+         floor_flat_bottom_z + bulkhead_seal_counterbore_depth),
         bulkhead_seal_dry_counterbore_diameter,
     )
     body = body.cut(dry_seal_counterbore)
 
-    # No keep-out cuts below: the whole volume below the raised shell is
-    # already open space, so the elbow + below flange hang there freely.
+    # No keep-out cuts below: the whole volume below the flat exterior bottom
+    # is already open space, so the elbow + below flange hang there freely.
 
     # Level-sensing rod body anchor: a solid cylindrical boss rising
     # from the NEW V floor at (±rod_position_x, rod_position_y), with a
