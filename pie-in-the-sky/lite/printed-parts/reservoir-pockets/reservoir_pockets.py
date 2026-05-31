@@ -28,10 +28,12 @@ threads the rod through both bag loops and connects the spouts outside the
 box, slides the rod in from the +X back through the three aligned channels
 (carrying the bags in with it), and at center the rod rolls down into the
 cradle; the hanging bags' weight seats it there and resists sliding back
-out. The rod ends run 6 mm past each outer wall into a boss that wraps them
-in 2 mm of floor, ceiling, and an end wall — those end walls capture the rod
-along Y so it cannot slide out the front or back. To remove, lift the rod up
-out of the cradle and slide it back out the +X side.
+out. The rod ends run 6 mm past each outer wall into a boss whose outer
+surface is the channel cross-section grown by one wall thickness — a uniform
+2 mm shell hugging the channel, open at the +X mouth — with a 2 mm plug past
+each tip that captures the rod along Y so it cannot slide out the front or
+back. To remove, lift the rod up out of the cradle and slide it back out the
++X side.
 
 World frame: Z+ up, Y- front (front face points in -Y), X left(-)/
 right(+). The floor sits on Z=0, centered in X and Y."""
@@ -117,22 +119,17 @@ bend_radius = 6.0                # centerline radius of the curve-down (must exc
 
 rod_entry_x_open = 79.0          # entry runs out past the +X face at x=77 (open end, trimmed)
 
-# The rod ends extend y_stub past each outer (XZ-plane) wall and are captured
-# by a boss: the y_stub of rod is wrapped in 2 mm of floor/ceiling, then a
-# y_endcap of solid wall caps the tip so the rod cannot slide out along Y. The
-# channel sweeps the full rod length (tip to tip); the bosses supply the
-# material it carves through past the original walls, and the y_endcap beyond
-# each tip stays solid. The +X side stays open the whole way for insertion.
+# The rod ends extend y_stub past each outer (XZ-plane) wall, captured by a
+# boss whose outer surface is the channel cross-section grown by one
+# wall_thickness: a uniform 2 mm shell hugging the channel, open at the +X
+# mouth just like the channel. Over the stub the shell wraps the rod; past the
+# tip a y_endcap-thick plug caps it, so the rod cannot slide out along Y. The
+# channel sweeps the full rod length (tip to tip); the plugs past the tips stay
+# solid.
 y_stub = 6.0                     # exposed rod past each outer wall
-y_endcap = wall_thickness        # 2 mm end wall capping the rod tip
+y_endcap = wall_thickness        # 2 mm plug capping the rod tip
 rod_tip_y = outer_y_range[1] + y_stub        # 79: where each rod end stops
-boss_outer_y = rod_tip_y + y_endcap          # 81: outer face of the end cap
-
-# Boss footprint in X-Z: the channel region plus 2 mm of floor (below the
-# cradle), ceiling (above the channel top), and -X end-stop wall; left open on
-# the +X side (the rod entry) out to the +X face.
-boss_x_range = (-channel_hw - wall_thickness, outer_x_range[1])
-boss_z_range = (rod_rest_z - channel_hw - wall_thickness, channel_top_z + wall_thickness)
+boss_outer_y = rod_tip_y + y_endcap          # 81: outer face of the end plug
 
 def make_box(x_range, y_range, z_range):
     """Axis-aligned box spanning the given world-coordinate ranges."""
@@ -164,13 +161,13 @@ def make_tube_hole(y):
     )
 
 
-def make_rod_channel():
-    """The rod hang channel: a constant-width profile cut in the X-Z plane and
-    swept along Y through the front wall, divider, and back wall. A horizontal
-    entry run, open at the +X edge, curves down through a rounded bend (both
-    walls arcs) into a rounded cradle at center X. The channel is the same
-    width — rod diameter plus clearance — all the way along. Its top stays at
-    channel_top_z, leaving a bridge to the ceiling so the top stays closed."""
+def _channel_profile():
+    """The rod hang channel cross-section: a constant-width closed profile in
+    the X-Z plane — a horizontal entry run open at the +X edge, a rounded bend
+    (both walls concentric arcs about the bend center), and a rounded cradle at
+    center X. Width is the rod diameter plus clearance, the same all the way
+    along. Reused two ways: extruded along Y as the channel void, and offset
+    outward by one wall for the rod-end boss shell. Returns the pending wire."""
     hw = channel_hw
     # Centerline of the curve-down: a quarter bend of radius bend_radius from
     # the horizontal run (at rod_run_z) to a vertical drop at center X, then
@@ -196,8 +193,7 @@ def make_rod_channel():
     inner_mid = arc_pt(inner_r, 135)
     inner_left = arc_pt(inner_r, 180)   # tangent to the inner wall of the drop
 
-    half_depth = rod_tip_y   # sweep tip to tip (the end caps past the tips stay solid)
-    profile = (
+    return (
         cq.Workplane("XZ")
         .moveTo(rod_entry_x_open, rod_run_z + hw)            # entry top-outer, open +X end
         .lineTo(outer_top[0], rod_run_z + hw)                # top wall of the entry run, in
@@ -209,7 +205,26 @@ def make_rod_channel():
         .lineTo(rod_entry_x_open, rod_run_z - hw)            # bottom wall of the entry run, out
         .close()                                             # entry end cap, past the +X face
     )
-    return profile.extrude(half_depth, both=True)
+
+
+def make_rod_channel():
+    """The channel void: the cross-section swept along Y the full rod length,
+    tip to tip. The plugs past the tips stay solid (the sweep stops at the
+    tips)."""
+    return _channel_profile().extrude(rod_tip_y, both=True)
+
+
+def make_boss_shell():
+    """Both rod-end bosses. The outer surface is the channel cross-section grown
+    by one wall_thickness (offset2D) — a uniform 2 mm shell — clipped at the +X
+    face so the mouth stays open, then kept only over the two boss Y-slabs
+    beyond the front and back walls. The caller cuts the channel through it,
+    leaving a 2 mm shell over each stub and a solid plug past each tip."""
+    fat = _channel_profile().offset2D(wall_thickness).extrude(boss_outer_y, both=True)
+    fat = fat.intersect(make_box((-200, outer_x_range[1]), (-boss_outer_y, boss_outer_y), (-100, 400)))
+    back = fat.intersect(make_box((-200, 200), (outer_y_range[1], boss_outer_y), (-100, 400)))
+    front = fat.intersect(make_box((-200, 200), (-boss_outer_y, -outer_y_range[1]), (-100, 400)))
+    return back.union(front)
 
 
 def build_reservoir_pockets():
@@ -220,9 +235,7 @@ def build_reservoir_pockets():
     back_doorway = make_box(doorway_wall_x_range, back_pocket_y_range, back_pocket_z_range)
     front_tube_hole = make_tube_hole(front_tube_hole_y)
     back_tube_hole = make_tube_hole(back_tube_hole_y)
-    # Front wall is at -Y, back wall at +Y; a boss protrudes from each.
-    front_boss = make_box(boss_x_range, (-boss_outer_y, -outer_y_range[1]), boss_z_range)
-    back_boss = make_box(boss_x_range, (outer_y_range[1], boss_outer_y), boss_z_range)
+    boss = make_boss_shell()
     rod_channel = make_rod_channel()
     return (
         outer
@@ -232,8 +245,7 @@ def build_reservoir_pockets():
         .cut(back_doorway)
         .cut(front_tube_hole)
         .cut(back_tube_hole)
-        .union(front_boss)
-        .union(back_boss)
+        .union(boss)
         .cut(rod_channel)
     )
 
