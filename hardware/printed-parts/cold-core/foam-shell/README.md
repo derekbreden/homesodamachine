@@ -135,13 +135,14 @@ corner is gone and the corner boss is wrapped by a curved wall.
 The six bosses are positioned at the four corners + two mid-long-side
 positions (offset in X by ±[15 mm](MID_BOSS_OFFSET) with opposite signs
 at +Y vs −Y, to preserve 180° rotational symmetry around the Z axis).
-Each corner boss nestles in the corner — its ⌀ tangent to the rounded
-inner wall face — with two short webs filling to the two flanking flat
-walls and the diagonal interior left open for foam: the cylinder + two-web
-teardrop idiom of the reservoir pocket-corner supports. Each boss carries a
-heat-set insert pocket at the top (drilled down from the top face) and at
-the bottom (drilled up from the bottom face) — twelve inserts total, six
-per face, for fastening the foam_cap above and below.
+Each corner boss is seated deep in the corner — its ⌀ tangent to the
+EXTERIOR wall arc, so the boss fuses into the outer skin (one wall-thickness
+of PETG over the insert) for the stiffest tie into the warp-prone corner —
+with two short webs filling to the two flanking flat walls: the cylinder +
+two-web teardrop idiom of the reservoir pocket-corner supports. Each boss
+carries a heat-set insert pocket at the top (drilled down from the top
+face) and at the bottom (drilled up from the bottom face) — twelve inserts
+total, six per face, for fastening the foam_cap above and below.
 
 The outer +Y wall carries the shared copper/water-inlet slot, the
 two ⌀[6.5 mm](PORT_D) reservoir-line holes, the two reed-cable holes,
@@ -460,11 +461,11 @@ that needs a deliberate explanation:
 
 | metric | value |
 |---|---|
-| volume | [1070850.380 mm³](VOLUME) |
+| volume | [1055896.110 mm³](VOLUME) |
 | bbox x | [-141.500 to 141.500 mm](BBOX_X) |
 | bbox z | [0.000 to 213.400 mm](BBOX_Z) |
 | bbox y | [-90.500 to 90.500 mm](BBOX_Y) |
-| centroid | [(0.000005, -0.607505, 88.042699) mm](CENTROID) |
+| centroid | [(0.000005, -0.616109, 87.701966) mm](CENTROID) |
 
 Quick reproduction:
 
