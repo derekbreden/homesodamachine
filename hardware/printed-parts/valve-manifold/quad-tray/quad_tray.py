@@ -8,26 +8,21 @@ splits to V-C and V-D.
         ├ Y-A ===(bridge)=== Y-B ┤
     V-B ┘                       └ V-D
 
-The Y-divider is a McMaster 51055K417 push-connect drinking-water fitting
-(`../../reference/y-divider/`) used as a close stand-in for the John Guest
-PP2308E in the BOM. Inspecting its STEP shows a "trident": one stem and two
-PARALLEL outlets 14.7 mm apart (Y = ±7.35), all three ports on one axis. So
-the valves stay axis-aligned (ports along X) and reach their divider with a
-short tube — no fanning required.
+The Y-divider (`../../reference/y-divider/`, a McMaster 51055K417 stand-in for
+the BOM's John Guest PP2308E) is a trident: one stem and two parallel outlets
+14.7 mm apart (Y = ±7.35), all three ports on one axis. The valves run ports
+along X; each reaches its divider with an ~11.8 mm tube.
 
 Layout (origin = cell center, Z = valve mounting plane, ports at Z = 11.3):
-- Four valves rotated so ports run along X, at (±X_V, ±Y_V). Left pair's
-  inner ports face +X toward Y-A; right pair's face -X toward Y-B.
-- Y-A laid flat at (-X_Y, 0, 11.3) with stem → +X (to the bridge) and its
-  two outlets → -X at Y = ±7.35 (to V-A / V-B). Y-B is the mirror.
-- Verified: all 6 bodies clash-free; each valve→divider tube run ~11.8 mm;
-  Y-A↔Y-B bridge gap 5 mm.
+- Four valves at (±X_V, ±Y_V), ports along X. Left pair's inner ports face
+  +X to Y-A; right pair's face -X to Y-B.
+- Y-A flat at (-X_Y, 0, 11.3): stem → +X to the bridge, two outlets → -X at
+  Y = ±7.35 to V-A / V-B. Y-B mirrored. Y-A↔Y-B bridge gap 5 mm.
 
-The tray is a frame plate: four valve cradles (the verified single-cell
-sockets + a shared port saddle per Y row) around a central open gap that
-clears both dividers (which dip to Z 3.2, below the Z=6 top) and the tubes.
-The dividers are held by their tubes in that gap — first pass keeps it open
-rather than forming fitted divider pockets.
+The tray is a frame plate: four valve cradles (single-cell sockets + a shared
+port saddle per Y row) around a central open gap that clears both dividers
+(which dip to Z 3.2, below the Z=6 top) and the tubes, with two side walls
+rising to Z=60 so the next cell stacks at a 63 mm pitch.
 """
 
 import sys
@@ -64,10 +59,17 @@ X_V = X_Y + 19.25 + TUBE_X + 29.5    # valve center offset = 75.5
 
 VALVES = [(-X_V, +Y_V), (-X_V, -Y_V), (+X_V, +Y_V), (+X_V, -Y_V)]
 
-# --- Tray frame -----------------------------------------------------------
-wall = 3.0
-plate_half_x = X_V + corner_pos + socket_radius + wall   # ~94.8
-plate_half_y = Y_V + corner_pos + socket_radius + wall   # ~37.3
+# --- Tray frame + stacking walls ------------------------------------------
+margin = 3.0                       # floor material beyond the outer sockets
+valve_body_half = 16.125
+wall_thickness = 3.0
+wall_clear = 3.0                   # gap between valve body/coil and a wall
+wall_top_z = 60.0                  # > 56.6 coil top, so the next tray stacks
+stack_pitch = wall_top_z - bot_z   # 63 mm Z rise between stacked trays
+
+plate_half_x = X_V + corner_pos + socket_radius + margin   # ~94.8
+# In Y the plate reaches past the valve body + clearance to carry the walls.
+plate_half_y = Y_V + valve_body_half + wall_clear + wall_thickness  # 40.125
 cut_half_x = 44.0   # clears both dividers (reach X = ±41) with margin
 cut_half_y = 20.0   # clears divider Y = ±15.45 with margin
 
@@ -124,6 +126,15 @@ def build_quad_tray():
                     .extrude(top_z + 1.0)
                 )
                 tray = tray.cut(socket)
+    # Two side walls (±Y), full X length, rising clear of the valve coils so
+    # the next tray stacks on their tops. The X-ends stay open for the ports.
+    for sy in (+1.0, -1.0):
+        wall = (
+            cq.Workplane("XY")
+            .box(2 * plate_half_x, wall_thickness, wall_top_z - bot_z, centered=(True, True, False))
+            .translate((0.0, sy * (plate_half_y - wall_thickness / 2.0), bot_z))
+        )
+        tray = tray.union(wall)
     return tray
 
 
