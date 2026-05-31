@@ -1,37 +1,11 @@
 flowchart LR
 
-  %% Valve-manifold fluid topology grouped by physical tray. Each tray holds
-  %% four Beduan solenoid valves; trays 1 and 2 also carry two Y-dividers each,
-  %% tray 3 none. Blue links are on-tray valve-to-divider seats (effectively
-  %% zero length). Gray links are real tube runs: tray-to-tray, tray-to-pump,
-  %% and tray-to-enclosure (sources, bags, nozzles).
+  %% Valve-manifold fluid topology grouped by physical tray. Each box is a tray;
+  %% the nodes inside are the valves and Y-dividers it carries. Blue links are
+  %% on-tray valve-to-divider seats; gray links run between trays; orange links
+  %% leave the manifold to the nozzles. Y-C and Y-F are not assigned to a tray.
+  %% Source, pump, and bag endpoints are omitted.
 
-  %% ---- Remote components ----
-  subgraph Sources["Sources"]
-    Tap["Tap Water"]
-    Hopper["Hopper"]
-    BiBA["BiB A"]
-    BiBB["BiB B"]
-  end
-
-  Reg["Flow Regulator"]
-
-  subgraph Pumps["Pumps"]
-    PA["Pump A"]
-    PB["Pump B"]
-  end
-
-  subgraph Bags["Bags"]
-    BagA[("Bag A")]
-    BagB[("Bag B")]
-  end
-
-  subgraph Nozzles["Nozzles"]
-    NozzleA["Nozzle A"]
-    NozzleB["Nozzle B"]
-  end
-
-  %% ---- Trays ----
   subgraph Tray1["Tray 1 — Source Select"]
     VA["V-A"]
     VB["V-B"]
@@ -50,23 +24,29 @@ flowchart LR
     YH{{"Y-H"}}
   end
 
-  subgraph Tray3["Tray 3 — Gateways"]
-    VG["V-G"]
-    VJ["V-J"]
+  subgraph Tray3["Tray 3 — BiB Gates"]
     VKA["V-K-A"]
     VKB["V-K-B"]
+    YKA{{"Y-KA"}}
+    YKB{{"Y-KB"}}
   end
 
-  subgraph PumpCircuit["Pump circuit"]
-    YKA{{"Y-KA"}}
-    YC{{"Y-C"}}
+  subgraph Tray4["Tray 4 — Nozzle Gates"]
+    VG["V-G"]
+    VJ["V-J"]
     YD{{"Y-D"}}
-    YKB{{"Y-KB"}}
-    YF{{"Y-F"}}
     YG{{"Y-G"}}
   end
 
-  %% ---- On-tray seats (blue, links 0-10) ----
+  YC{{"Y-C"}}
+  YF{{"Y-F"}}
+
+  subgraph Nozzles["Nozzles"]
+    NozzleA["Nozzle A"]
+    NozzleB["Nozzle B"]
+  end
+
+  %% ---- On-tray seats (blue, links 0-12) ----
   VA --> YA
   VB --> YA
   YA --> YB
@@ -76,34 +56,26 @@ flowchart LR
   YE --> VE
   VI --> YH
   YH --> VH
+  VKA --> YKA
+  VKB --> YKB
+  YD --> VG
+  YG --> VJ
+
+  %% ---- Between trays (gray, links 13-20) ----
+  VC --> YKA
+  VD --> YKB
   YKA --> YC
   YKB --> YF
-
-  %% ---- Tube runs (gray, links 11-33) ----
-  Tap --> Reg
-  Reg --> VA
-  Hopper --> VB
-  BiBA --> VKA
-  VKA --> YKA
-  VC --> YKA
   VE --> YC
-  YC --> PA
-  PA --> YD
-  YD --> VF
-  YD --> VG
-  VG --> NozzleA
-  BiBB --> VKB
-  VKB --> YKB
-  VD --> YKB
   VH --> YF
-  YF --> PB
-  PB --> YG
+  YD --> VF
   YG --> VI
-  YG --> VJ
+
+  %% ---- To nozzles (orange, links 21-22) ----
+  VG --> NozzleA
   VJ --> NozzleB
-  YE <--> BagA
-  YH <--> BagB
 
   %% ---- Link styling ----
-  linkStyle 0,1,2,3,4,5,6,7,8,9,10 stroke:#09f,stroke-width:2px
-  linkStyle 11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33 stroke:#ccc,stroke-width:2px
+  linkStyle 0,1,2,3,4,5,6,7,8,9,10,11,12 stroke:#09f,stroke-width:2px
+  linkStyle 13,14,15,16,17,18,19,20 stroke:#888,stroke-width:2px
+  linkStyle 21,22 stroke:#f90,stroke-width:2px
