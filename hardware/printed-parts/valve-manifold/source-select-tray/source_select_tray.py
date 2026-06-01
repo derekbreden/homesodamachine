@@ -85,11 +85,15 @@ def _rot2(x, y, deg):
     return (x * c - y * s, x * s + y * c)
 
 
-def place_valve(vx, vy, dx, dy):
+def place_valve(vx, vy, dx, dy, flip=False):
+    # _aim_phi points the flow arrow (local +Y) at the divider outlet. That is
+    # the outlet for V-A/V-B (they feed Y-A) but the inlet for V-C/V-D (they
+    # draw from Y-B and flow out to Y-KA/Y-KB), so those flip 180.
+    ang = _aim_phi(vx, vy, dx, dy) + (180.0 if flip else 0.0)
     return (
         cell.valve.build_beduan_solenoid()
         .val()
-        .rotate((0, 0, 0), (0, 0, 1), _aim_phi(vx, vy, dx, dy))
+        .rotate((0, 0, 0), (0, 0, 1), ang)
         .translate((vx, vy, 0.0))
     )
 
@@ -100,10 +104,12 @@ def place_divider(cx, sign):
 
 
 def build_assembly():
-    parts = {nm: place_valve(*p) for nm, p in zip(("VA", "VB", "VC", "VD"), VALVES)}
+    flip = {"VA": False, "VB": False, "VC": True, "VD": True}
+    parts = {nm: place_valve(*p, flip=flip[nm]) for nm, p in zip(("VA", "VB", "VC", "VD"), VALVES)}
     parts["YA"] = place_divider(-X_Y, +1)
     parts["YB"] = place_divider(+X_Y, -1)
     return parts
+
 
 
 # --- Tray frame + stacking walls ------------------------------------------
