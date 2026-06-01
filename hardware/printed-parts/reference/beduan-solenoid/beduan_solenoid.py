@@ -16,6 +16,8 @@ Components
 2. Solenoid coil     — box 32.25 (X) x 24   (Y) x 26   (Z)
 3. Port / flow axis  — cylinder dia 15, length 59, axis along Y
 4. Spade terminals   — two blades 6.3 (X) x 15 (Y) x 0.8 (Z), off +Y face
+5. Flow arrow        — thin arrow embossed on the central boss, pointing +Y
+                       toward the spades (these one-way valves flow that way)
 
 Coordinate convention (matches the geometry-description doc)
 ------------------------------------------------------------
@@ -101,6 +103,9 @@ spade_x_spacing = 10.0  # center-to-center along X
 spade_z_center = 50.0   # height on the +Y face
 coil_face_y = coil_y / 2.0  # +Y face of the coil, at Y = 12
 
+# --- Flow-direction arrow (embossed on the central boss) ------------------
+arrow_emboss = 0.5  # raised height of the arrow off the boss surface
+
 
 def build_beduan_solenoid():
     # White body: a central boss raised off the mounting surface, plus four
@@ -143,7 +148,15 @@ def build_beduan_solenoid():
         cq.Vector(0.0, -port_length / 2.0, port_center_z),
         cq.Vector(0.0, 1.0, 0.0),
     )
-    valve = body.union(coil).union(cq.Workplane(obj=port))
+    port_cut = (
+        cq.Workplane("XY")
+        .workplane(offset=0)
+        .circle(body_x / 2.0)
+        .extrude(body_center_boss_z_start)
+    )
+    port = cq.Workplane(obj=port)
+    port = port.cut(port_cut)
+    valve = body.union(coil).union(port)
 
     for x_center in (-spade_x_spacing / 2.0, spade_x_spacing / 2.0):
         spade = (
@@ -152,6 +165,30 @@ def build_beduan_solenoid():
             .translate((x_center, coil_face_y + spade_length / 2.0, spade_z_center))
         )
         valve = valve.union(spade)
+
+    # Flow-direction arrow embossed on the central boss's broad (+/-X) faces,
+    # pointing +Y toward the spades: these one-way valves flow that way. Built
+    # as the intersection of a thin cylindrical shell (so it conforms to the
+    # boss) with an arrow-shaped prism, raised at the port-axis height.
+    r = body_x / 2.0
+    z0 = port_center_z - 5.0
+    arrow_pts = [
+        (-5.0, -1.0), (1.0, -1.0), (1.0, -2.5),
+        (5.0, 0.0), (1.0, 2.5), (1.0, 1.0), (-5.0, 1.0),
+    ]
+    arrow_prism = (
+        cq.Workplane("YZ")
+        .center(0.0, port_center_z)
+        .polyline(arrow_pts)
+        .close()
+        .extrude(40.0)
+        .translate((-20.0, 0.0, 0.0))
+    )
+    shell = (
+        cq.Workplane("XY").workplane(offset=z0).circle(r + arrow_emboss).extrude(10.0)
+        .cut(cq.Workplane("XY").workplane(offset=z0).circle(r).extrude(10.0))
+    )
+    valve = valve.union(shell.intersect(arrow_prism))
     return valve
 
 
