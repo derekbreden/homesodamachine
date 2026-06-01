@@ -38,7 +38,9 @@ stack_pitch = bc.stack_pitch
 
 
 def build_assembly():
-    parts = {nm: bc.place_valve(*p) for nm, p in VALVES.items()}
+    # Outlets point -X to the nozzles (the outer ports); inlets are from the
+    # center Tees. Arrow (local +Y) -> -X means rot = +90.
+    parts = {nm: bc.place_valve(*p, 90.0) for nm, p in VALVES.items()}
     parts.update({nm: bc.place_tee(*p) for nm, p in TEES.items()})
     return parts
 

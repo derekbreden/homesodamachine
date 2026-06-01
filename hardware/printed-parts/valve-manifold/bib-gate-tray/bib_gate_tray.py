@@ -50,7 +50,9 @@ stack_pitch = bc.stack_pitch
 
 
 def build_assembly():
-    parts = {nm: bc.place_valve(*p) for nm, p in VALVES.items()}
+    # Outlets point +X to the center Tees (V-K-A/V-K-B feed Y-KA/Y-KB); inlets
+    # are from the BiB connectors (outer ports). Arrow (local +Y) -> +X = -90.
+    parts = {nm: bc.place_valve(*p, -90.0) for nm, p in VALVES.items()}
     parts.update({nm: bc.place_tee(*p) for nm, p in TEES.items()})
     return parts
 
