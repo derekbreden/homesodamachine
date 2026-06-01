@@ -16,8 +16,8 @@ Components
 2. Solenoid coil     — box 32.25 (X) x 24   (Y) x 26   (Z)
 3. Port / flow axis  — cylinder dia 15, length 59, axis along Y
 4. Spade terminals   — two blades 6.3 (X) x 15 (Y) x 0.8 (Z), off +Y face
-5. Flow arrow        — thin arrow embossed on the central boss, pointing +Y
-                       toward the spades (these one-way valves flow that way)
+5. Flow arrow        — thin arrow embossed on the central boss's −Z (bottom)
+                       face, pointing +Y toward the spades (one-way flow)
 
 Coordinate convention (matches the geometry-description doc)
 ------------------------------------------------------------
@@ -166,29 +166,21 @@ def build_beduan_solenoid():
         )
         valve = valve.union(spade)
 
-    # Flow-direction arrow embossed on the central boss's broad (+/-X) faces,
-    # pointing +Y toward the spades: these one-way valves flow that way. Built
-    # as the intersection of a thin cylindrical shell (so it conforms to the
-    # boss) with an arrow-shaped prism, raised at the port-axis height.
-    r = body_x / 2.0
-    z0 = port_center_z - 5.0
+    # Flow-direction arrow embossed on the central boss's −Z (bottom) face,
+    # pointing +Y toward the spades: these one-way valves flow that way. The
+    # port cut flattens this face so the flat arrow sits flush; raised 0.5 mm.
     arrow_pts = [
-        (-5.0, -1.0), (1.0, -1.0), (1.0, -2.5),
-        (5.0, 0.0), (1.0, 2.5), (1.0, 1.0), (-5.0, 1.0),
+        (-1.0, -5.0), (1.0, -5.0), (1.0, 1.0), (2.5, 1.0),
+        (0.0, 5.0), (-2.5, 1.0), (-1.0, 1.0),
     ]
-    arrow_prism = (
-        cq.Workplane("YZ")
-        .center(0.0, port_center_z)
+    arrow = (
+        cq.Workplane("XY")
+        .workplane(offset=body_center_boss_z_start - arrow_emboss)
         .polyline(arrow_pts)
         .close()
-        .extrude(40.0)
-        .translate((-20.0, 0.0, 0.0))
+        .extrude(arrow_emboss + 0.2)
     )
-    shell = (
-        cq.Workplane("XY").workplane(offset=z0).circle(r + arrow_emboss).extrude(10.0)
-        .cut(cq.Workplane("XY").workplane(offset=z0).circle(r).extrude(10.0))
-    )
-    valve = valve.union(shell.intersect(arrow_prism))
+    valve = valve.union(arrow)
     return valve
 
 
