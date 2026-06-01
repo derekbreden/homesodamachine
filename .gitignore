@@ -20,6 +20,14 @@ node_modules/
 hardware/cartridge/scripts/output/*.step
 hardware/cartridge/scripts/output/*.stl
 
+# Atomic-export temp files: hardware/_cadq_export.py writes a
+# `.NAME.EXT.RANDOM.EXT` sibling then renames it atomically onto the target.
+# A hard-killed run (SIGKILL/SIGTERM mid-write) can orphan one — never commit it.
+.*.step.*.step
+.*.stl.*.stl
+.*.dxf.*.dxf
+.*.pdf.*.pdf
+
 # Lock files for internal tools
 package-lock.json
 .firebase-setup/
