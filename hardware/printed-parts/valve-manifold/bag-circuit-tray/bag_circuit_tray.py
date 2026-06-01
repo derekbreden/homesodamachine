@@ -59,11 +59,13 @@ VALVES = {
 TEES = {"YE": (0.0, +row_half), "YH": (0.0, -row_half)}
 
 
-def place_valve(cx, cy):
+def place_valve(cx, cy, rot):
+    """Place a valve, rotated ``rot`` deg about Z so its flow arrow (local +Y,
+    toward the spades = the outlet) points the right way for the topology."""
     return (
         cell.valve.build_beduan_solenoid()
         .val()
-        .rotate((0, 0, 0), (0, 0, 1), 90.0)
+        .rotate((0, 0, 0), (0, 0, 1), rot)
         .translate((cx, cy, 0.0))
     )
 
@@ -79,7 +81,9 @@ def place_tee(cx, cy):
 
 
 def build_assembly():
-    parts = {nm: place_valve(*p) for nm, p in VALVES.items()}
+    # Outlets point +X: V-F/V-I out to the center Tees, V-E/V-H out to the
+    # pumps. Arrow (local +Y) -> +X means rot = -90.
+    parts = {nm: place_valve(*p, -90.0) for nm, p in VALVES.items()}
     parts.update({nm: place_tee(*p) for nm, p in TEES.items()})
     return parts
 
