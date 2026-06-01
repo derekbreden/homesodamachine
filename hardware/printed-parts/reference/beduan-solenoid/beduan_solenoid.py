@@ -108,8 +108,7 @@ def build_port():
         cq.Vector(0.0, -port_length / 2.0, port_center_z),
         cq.Vector(0.0, 1.0, 0.0),
     )
-    # Trim the port flush below the boss so the boss underside is a flat seat
-    # for the arrow.
+    # The boss underside is the arrow's flat seat.
     boss_underside = (
         cq.Workplane("XY")
         .circle(body_radius)
