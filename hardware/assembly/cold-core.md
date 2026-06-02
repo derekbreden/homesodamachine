@@ -28,7 +28,7 @@ Per-unit BOM lives in [`/hardware/bom.md`](/hardware/bom.md) §5 (refrigeration 
 | Flavor reservoir × 2 (printed) | [`/hardware/printed-parts/cold-core/reservoir/`](/hardware/printed-parts/cold-core/reservoir/) | Print, SunTop food-contact-compliant PETG (FDA 21 CFR 177.1630), 1.75 mm × 1 kg, Clear/Transparent B0FP34MJ94 — ON-ORDER |
 | TPU 90A gasket × 2 (printed) | [`/hardware/printed-parts/cold-core/foam-shell/`](/hardware/printed-parts/cold-core/foam-shell/) | Print |
 | M3 × 25 mm SHCS, 12.9 alloy, black oxide × 12 (body cap screws) | BNUOK B0DJQGF665 | ON-ORDER |
-| M3 × 12 mm SHCS, 12.9 alloy, black oxide × 12 (reservoir-cap screws) | BNUOK B0DJQGVK8S | ON-ORDER |
+| M3 × 12 mm SHCS, 304 stainless (18-8) × 12 (reservoir-cap screws) | BNUOK B0DJQGMQZM | ON-ORDER |
 | ruthex M3 short heat-set inserts × 26 per build (12 outer_shell + 12 reservoir + 2 touch-flo-shell) | ruthex B0D39W228K (100-pc bag = ~3.8 builds) | ON-ORDER |
 | LVDALAB PTFE membrane filter Ø13 mm × 0.45 µm × 2 (reservoir vent) | B0D41KT345 (100-pc bag = 50 builds) | ON-ORDER |
 | Pour-in-place 2 lb 2-part closed-cell PU foam, 1 qt kit | Fiberglass Supply Depot B08R7TX8QJ | ON-ORDER |

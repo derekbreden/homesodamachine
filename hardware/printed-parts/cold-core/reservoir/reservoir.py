@@ -336,10 +336,10 @@ floor_slope_rise = 6.0  # mm the floor rises from the trough surface to each ±Y
 # Heat-set insert + screw spec. M3 ruthex-style brass heat-set inserts
 # (same as foam-shell cap-stack joinery). Insert OD 4 mm × length 4 mm;
 # pocket is 4 mm bore × [7 mm](INSERT_POCKET_DEPTH) deep (4 mm insert + 3 mm relief). Screws:
-# BNUOK M3 × 12 mm DIN 912 SHCS, black oxide 12.9 alloy (Amazon
-# B0DJQGVK8S), same brand/finish as the M3 × 25 used on the foam-shell
-# cap stack but the right length for the reservoir's thinner cap-stack
-# geometry (under-head stack is 7 mm cap-plus-gasket vs ~19 mm there).
+# BNUOK M3 × 12 mm DIN 912 SHCS, 304 stainless steel, 18-8 (Amazon
+# B0DJQGMQZM). The M3 × 12 length suits the reservoir's thinner cap-stack
+# geometry (under-head stack is 7 mm cap-plus-gasket vs the foam-shell's
+# ~19 mm).
 # With M3 × 12, the shaft seats 4 mm into the insert, runs another 1 mm
 # into the pocket relief, and leaves 2 mm of slack between the shaft
 # tip and the pocket floor.
