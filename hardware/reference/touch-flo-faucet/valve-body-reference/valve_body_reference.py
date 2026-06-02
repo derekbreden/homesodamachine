@@ -303,34 +303,6 @@ def main():
         "PLUNGER_OD_EST": f"{plunger_od_estimate:.4g} mm",
         "PORT_WALL_X": f"{port_wall_x:.4g} mm",
     }
-    substitute_md(
-        here / "valve-body-geometry.md",
-        variables=variables,
-        expected_counts={
-            "SHANK_OD": 6,
-            "SHANK_LEN": 4,
-            "BODY_OD": 15,
-            "CYL_TOP_Z": 10,
-            "RECT_SHORT": 7,
-            "PLATEAU_Z": 8,
-            "ARC_BASE_Z": 6,
-            "ARC_PEAK_Z": 7,
-            "ARCH_WIDTH": 3,
-            "PLATEAU_WIDTH": 5,
-            "VALVE_PORT_D": 7,
-            "PORT_X": 5,
-            "PORT_EDGE_GAP": 6,
-            "COUNTERTOP_HOLE": 3,
-            "PLUNGER_GAP": 3,
-            "PLUNGER_OD_EST": 2,
-            "ARC_RISE": 2,
-            "PLATEAU_INSET": 2,
-            "RECT_UPPER_H": 1,
-            "PORT_ARCH_GAP": 2,
-            "RECT_LONG_HALF": 2,
-        },
-    )
-    print(f"-> valve-body-geometry.md")
     substitute_py_comments(
         Path(__file__),
         variables=variables,
