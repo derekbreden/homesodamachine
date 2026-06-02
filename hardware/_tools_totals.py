@@ -174,8 +174,11 @@ TOOLS = [
         L(order="us712460111015776257", contains="H2C AMS Combo (printer"),
         L(order="us728027710789775361"),
     ])),
-    ("AMS HT", "T_AMS_HT", L(order="us717877837343809537")),
-    ("AMS 2 Pro", "T_AMS2PRO", L(order="us718417332286169089")),
+    ("AMS HT", "T_AMS_HT", L(order="us717877837343809537", contains="AMS HT")),
+    ("AMS 2 Pro", "T_AMS2PRO", SUM([
+        L(order="us718417332286169089", contains="Bambu Lab AMS 2 Pro"),
+        L(order="us718417332286169089", contains="Switching Adapter"),
+    ])),
     ("Vision Encoder", "T_VISION", L(order="us712460111015776257", contains="Vision Encoder")),
     ("Engineering Plate", "T_ENG_PLATE", L(order="us712460111015776257", contains="Engineering Plate")),
     ("SUNLU E2", "T_DRYER_E2", A("B0F5PMMXKD")),
@@ -186,7 +189,10 @@ TOOLS = [
         L(order="us726560430730719233"),
         A("B0GWDBQW4G"), A("B0GWDDKG47"),
     ])),
-    ("PTFE Adapter II", "T_PTFE_ADAPTER", FIXED(0.0)),  # bundled in AMS orders
+    ("PTFE Adapter II", "T_PTFE_ADAPTER", SUM([
+        L(order="us717877837343809537", contains="PTFE Adapter"),
+        L(order="us718417332286169089", contains="PTFE Adapter"),
+    ])),
     ('48" workbench', "T_WORKBENCH", A("B0FCD13KKQ")),
     ("Ultra Duster", "T_DUSTER", A("B07JRBR1MM")),
     ("DeWalt DWFP55130", "T_DEWALT", FIXED(0.0)),  # owned, not on ledger
