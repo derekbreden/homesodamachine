@@ -66,6 +66,8 @@ _byte_hashed_step_paths = [
     "hardware/reference/touch-flo-faucet/valve-body-reference/touch-flo-valve-body-reference.step",
     "hardware/reference/co2-coupling-body/co2-coupling-body.step",
     "hardware/reference/touch-flo-faucet/faucet-assembly/touch-flo-faucet-assembly.step",
+    "hardware/reference/servo-valve-mock/servo-valve-mock.step",
+    "hardware/reference/servo-valve-mock/coupling-detail.step",
 ]
 
 _cold_core_generators = [
@@ -80,6 +82,11 @@ _pump_case_generator = "hardware/printed-parts/flavor/pump-case/pump_case.py"
 _shell_generator = "hardware/printed-parts/faucet/touch-flo-shell/touch_flo_shell.py"
 
 _faucet_assembly_generator = "hardware/reference/touch-flo-faucet/faucet-assembly/faucet_assembly.py"
+
+_servo_generators = [
+    "hardware/reference/servo-valve-mock/coupling_detail.py",
+    "hardware/reference/servo-valve-mock/servo_valve_mock.py",
+]
 
 
 def _sha256(path):
@@ -378,6 +385,13 @@ def check():
     if not ok:
         print(f"FAIL: faucet-assembly generator\n{output}", file=sys.stderr)
         sys.exit(1)
+
+    print("Regenerating servo-valve-mock STEPs...")
+    for gen in _servo_generators:
+        ok, output = _run_generator(gen)
+        if not ok:
+            print(f"FAIL: {gen}\n{output}", file=sys.stderr)
+            sys.exit(1)
 
     print("Checking byte-hashed STEP hashes...")
     drift = []

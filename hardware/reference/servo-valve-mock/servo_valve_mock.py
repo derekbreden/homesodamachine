@@ -136,7 +136,7 @@ def build_strip(n=3, pitch=16.5):
 
 
 def build_assembly():
-    a = cq.Assembly()
+    a = cq.Assembly(name="servo-valve-mock")
     a.add(build_valve(), name="neofit_valve", color=cq.Color(0.80, 0.72, 0.55))
     a.add(build_coupler(), name="coupler", color=cq.Color(0.20, 0.45, 0.75))
     a.add(build_servo_placed(), name="mg90s_servo", color=cq.Color(0.18, 0.18, 0.20))

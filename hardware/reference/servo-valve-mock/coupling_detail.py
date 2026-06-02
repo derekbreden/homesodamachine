@@ -84,7 +84,7 @@ def build_spline_and_servo():
 
 
 def build_assembly():
-    a = cq.Assembly()
+    a = cq.Assembly(name="coupling-detail")
     a.add(build_stem(), name="valve_stem", color=cq.Color(0.80, 0.72, 0.55))
     a.add(build_lever().translate((-32.0, 0.0, 19.0)), name="removed_lever", color=cq.Color(0.85, 0.45, 0.20))
     a.add(build_coupler(), name="printed_coupler", color=cq.Color(0.20, 0.45, 0.75))
