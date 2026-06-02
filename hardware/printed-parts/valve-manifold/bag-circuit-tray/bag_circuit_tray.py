@@ -33,7 +33,7 @@ for _p in (
 from _cadq_export import export_step
 import single_tray as cell
 
-PORT_Z = cell.port_center_z
+port_z = cell.port_center_z
 socket_radius = cell.socket_radius
 saddle_radius = cell.saddle_radius
 corner_pos = cell.corner_pos
@@ -42,20 +42,20 @@ bot_z = cell.tray_bottom_z
 _tee_path = _hw / "reference" / "tee-connector" / "tee-connector.step"
 
 # --- Shared geometry ------------------------------------------------------
-PORT_HALF = 29.5  # valve port half-length
+port_half = 29.5  # valve port half-length
 row_half = cell.valve.body_radius  # butted-pair valves touch bodies at the row center
-TEE_RUN_HALF = 20.07  # Tee run half-length (port to center)
-Vx = TEE_RUN_HALF + PORT_HALF  # inner port tip meets the Tee run port
+tee_run_half = 20.07  # Tee run half-length (port to center)
+valve_x = tee_run_half + port_half  # valve-center X; the inner port tip lands on the Tee run port
 
 # This tray's valves + Tees.
-VALVES = {
-    "VF": (-Vx, +row_half),
-    "VI": (-Vx, -row_half),
-    "VE": (+Vx, +row_half),
-    "VH": (+Vx, -row_half),
+valves = {
+    "VF": (-valve_x, +row_half),
+    "VI": (-valve_x, -row_half),
+    "VE": (+valve_x, +row_half),
+    "VH": (+valve_x, -row_half),
 }
 # Tee centers; run along X joins the row's two valves, branch +Z to the bag.
-TEES = {"YE": (0.0, +row_half), "YH": (0.0, -row_half)}
+tees = {"YE": (0.0, +row_half), "YH": (0.0, -row_half)}
 
 
 def place_valve(cx, cy, rot):
@@ -75,14 +75,14 @@ def place_tee(cx, cy):
     return (
         fit.rotate((0, 0, 0), (0, 1, 0), 90.0)
         .rotate((0, 0, 0), (1, 0, 0), 90.0)
-        .translate((cx, cy, PORT_Z))
+        .translate((cx, cy, port_z))
     )
 
 
 def build_assembly():
     # Outlets point +X: V-F/V-I out to the center Tees, V-E/V-H out to the pumps.
-    parts = {nm: place_valve(*p, -90.0) for nm, p in VALVES.items()}
-    parts.update({nm: place_tee(*p) for nm, p in TEES.items()})
+    parts = {nm: place_valve(*p, -90.0) for nm, p in valves.items()}
+    parts.update({nm: place_tee(*p) for nm, p in tees.items()})
     return parts
 
 
@@ -95,13 +95,13 @@ stack_pitch = wall_top_z - bot_z
 valve_y_extent = row_half + cell.valve.body_radius  # outer body edge of the butted pair
 plate_half_y = valve_y_extent + wall_clear + wall_thickness
 
-plate_half_x = Vx + corner_pos + socket_radius + margin
+plate_half_x = valve_x + corner_pos + socket_radius + margin
 
 # Connector groove: a Tee's run/collet outer radius plus clearance, the
-# trough the fitting sets into at port height (PORT_Z).
-TEE_RADIUS = 6.86            # Tee run/collet outer radius (body 13.72 wide)
+# trough the fitting sets into at port height (port_z).
+tee_radius = 6.86            # Tee run/collet outer radius (body 13.72 wide)
 groove_clearance = 0.25
-TEE_GROOVE_R = TEE_RADIUS + groove_clearance
+tee_groove_radius = tee_radius + groove_clearance
 
 
 def _box(x0, x1, y_half, z0, z1):
@@ -129,8 +129,8 @@ def build_tray(valve_centers, connectors, plate_x, plate_y_half):
                 )
         port = cq.Solid.makeCylinder(
             saddle_radius,
-            2.0 * PORT_HALF,
-            cq.Vector(vx - PORT_HALF, vy, PORT_Z),
+            2.0 * port_half,
+            cq.Vector(vx - port_half, vy, port_z),
             cq.Vector(1.0, 0.0, 0.0),
         )
         tray = tray.cut(cq.Workplane(obj=port))
@@ -139,7 +139,7 @@ def build_tray(valve_centers, connectors, plate_x, plate_y_half):
         groove = cq.Solid.makeCylinder(
             radius,
             length,
-            cq.Vector(cx - length / 2.0, cy, PORT_Z),
+            cq.Vector(cx - length / 2.0, cy, port_z),
             cq.Vector(1.0, 0.0, 0.0),
         )
         tray = tray.cut(cq.Workplane(obj=groove))
@@ -153,13 +153,13 @@ def build_tray(valve_centers, connectors, plate_x, plate_y_half):
 def tee_grooves(tee_centers):
     """Connector grooves (cx, cy, length, radius) for Tee centers; each Tee run
     lies along X, so its groove is a cylinder of one run length."""
-    return [(cx, cy, 2.0 * TEE_RUN_HALF, TEE_GROOVE_R) for cx, cy in tee_centers]
+    return [(cx, cy, 2.0 * tee_run_half, tee_groove_radius) for cx, cy in tee_centers]
 
 
 def build_bag_circuit_tray():
     return build_tray(
-        list(VALVES.values()),
-        tee_grooves(TEES.values()),
+        list(valves.values()),
+        tee_grooves(tees.values()),
         (-plate_half_x, plate_half_x),
         plate_half_y,
     )
