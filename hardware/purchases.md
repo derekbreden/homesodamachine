@@ -471,8 +471,6 @@ Industrial-supply orders direct from McMaster-Carr (mcmaster.com). First McMaste
 
 ## Totals
 
-Computed from the row data by [`_ledger_totals.py`](_ledger_totals.py). Run `tools/cad-venv/bin/python hardware/_ledger_totals.py` (or plain `python3`) after any edit — it rewrites the figures below **in place** via docgen `[value](NAME)` markers, so they never need hand-editing. `--audit` lists the `ea`×qty and price-pending rows it interprets.
-
 | Status | $ |
 |---|---|
 | ACQUIRED — hardware, tools & infra (§§1–17, 19, 20) | [$25,307.76](LEDGER_ACQUIRED_HW) |
