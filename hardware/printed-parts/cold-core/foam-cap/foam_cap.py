@@ -36,14 +36,13 @@ lid_z_height = wall_and_floor_thickness
 
 
 # CO2 elbow vertical leg sits in the foam zone between the centerward
-# wall band and the support-ring wall band — midway between their
-# midlines so it's clear of both walls and surrounded by foam.
+# wall band and the support-ring wall band, midway between their midlines.
 # [72.5 mm](CW_WALL_OUTER_R) centerward-wall outer cylinder radius.
 centerward_wall_outer_r = pocket_centerward_arc_outer_radius
-# [70.5 mm](CW_WALL_INNER_R) centerward-wall inner face = outer − wall.
+# [70.5 mm](CW_WALL_INNER_R) centerward-wall inner face.
 centerward_wall_inner_r = centerward_wall_outer_r - wall_and_floor_thickness
 support_ring_outer_r = centerward_wall_inner_r
-# [61.5 mm](SUPPORT_RING_INNER_R) support-ring inner radius = outer − support-ring width.
+# [61.5 mm](SUPPORT_RING_INNER_R) support-ring inner radius.
 support_ring_inner_r = support_ring_outer_r - support_ring_radial_width
 centerward_wall_mid_y = -(centerward_wall_outer_r + centerward_wall_inner_r) / 2
 support_ring_mid_y = -(support_ring_outer_r + support_ring_inner_r) / 2
@@ -55,7 +54,7 @@ co2_inlet_y = (centerward_wall_mid_y + support_ring_mid_y) / 2
 # distinct from the foam shell's ⌀16 elbow-body bore below the cap; only
 # the tube itself traverses the cap and lid.
 co2_tube_clearance_radius = 3.25
-# [5.25 mm](COTWO_BOSS_OUTER_R) boss outer radius = tube radius + wall.
+# [5.25 mm](COTWO_BOSS_OUTER_R) boss outer radius.
 co2_boss_outer_radius = co2_tube_clearance_radius + wall_and_floor_thickness
 # Boss spans the full interior cavity height, from the floor's
 # cavity-side face (Z = [2 mm](COTWO_BOSS_Z_BOTTOM)) to the cavity opening
@@ -76,8 +75,7 @@ def cut_co2_inlet(cap):
 
 
 def cut_co2_inlet_lid(lid):
-    """Z-axis tube-clearance cut through the lid, continuing the CO2
-    path from outside through to the top cap."""
+    """Z-axis tube-clearance cut through the lid, aligned with the top-cap hole."""
     return lid.cut(
         build_z_axis_hole_punch(
             origin=(0, co2_inlet_y, 0),
@@ -88,12 +86,8 @@ def cut_co2_inlet_lid(lid):
 
 
 def add_co2_boss(cap):
-    """Union an annular boss around the CO2 through-hole on the cap
-    floor's cavity side: a 2 mm-wall hollow tube spanning the full
-    interior cavity height, sealing the through-hole off from the
-    foam pour while keeping the bore clear."""
-    # Two concentric circles on the same workplane extrude as an
-    # annulus via CadQuery's even-odd fill rule.
+    """Annular boss around the CO2 through-hole on the cap floor's cavity
+    side, spanning the full cavity height to seal the bore from the foam pour."""
     boss = (
         WorldWorkplane(xy_plane_z_up)
         .workplane(offset=co2_boss_z_bottom)
@@ -139,9 +133,6 @@ def main():
     print("-> foam-cap-lid-bottom.step")
     print("-> foam-cap-gasket.step")
 
-    # Short names scoped to this part. Units live inside the value so the
-    # script controls them — change a unit in source and every dynamic-
-    # comment marker follows.
     variables = {
         "LID_Z_H": f"{lid_z_height:.4g} mm",
         "CW_WALL_OUTER_R": f"{centerward_wall_outer_r:.4g} mm",

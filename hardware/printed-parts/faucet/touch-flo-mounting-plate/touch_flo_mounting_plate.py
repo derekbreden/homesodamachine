@@ -36,7 +36,7 @@ plate_thickness = 4.0
 # Top face flush with the deck plane (Z=0); plate hangs below.
 plate_z_range = (-plate_thickness, 0.0)
 # Disc is offset [3.175 mm](PLATE_Y) toward the back of the appliance
-# (+Y in the +Z-up frame). World (x, y) tuple — no lateral offset.
+# (+Y in the +Z-up frame); no lateral offset.
 plate_center = (0.0, +3.175)
 
 
@@ -88,10 +88,7 @@ def vertical_x_slot(center, length_x, width_y, z_range):
 
 
 def build_mounting_plate() -> cq.Workplane:
-    """Build the disc with shank hole, flavor-tube pill slot, and
-    top-outer-edge fillet. The top-outer fillet is applied before the
-    holes are cut, so the outer circle is the only top-face edge at
-    that moment."""
+    """Disc with shank hole, flavor-tube pill slot, and top-outer-edge fillet."""
     plate = vertical_cylinder(plate_center, plate_radius, plate_z_range)
     plate = plate.faces(">Z").edges().fillet(top_outer_fillet_r)
 
@@ -116,8 +113,6 @@ def main():
         "PLATE_Z_BOTTOM": f"{plate_z_range[0]:.4g}",
         "SHANK_HOLE_D": f"{2 * shank_hole_radius:.4g} mm",
         "SHANK_OD": f"{shank_diameter_nominal:.4g} mm",
-        # Lateral tube-center separation = pill_length_x - pill_width_y.
-        # (pill_length_x = 2·x_offset + hole_dia, pill_width_y = hole_dia.)
         "TUBE_CENTER_X": f"{pill_length_x - pill_width_y:.4g} mm",
         "PLATE_FLAVOR_Y": f"{pill_slot_center[1]:.4g} mm",
         "PLATE_PILL_L": f"{pill_length_x:.4g} mm",

@@ -1,19 +1,11 @@
 """Line-art reference solid of the 1/4" push-to-connect through-wall
-(bulkhead) union — a simplified stand-in for the McMaster-Carr 51055K3
-(gray acetal, NSF/ANSI 61 for drinking water).
+(bulkhead) union — the McMaster-Carr 51055K3 (gray acetal, NSF/ANSI 61
+for drinking water), reduced to coaxial cylinders: a wide body, a
+release ring, and the tube port — three concentric circles at the
+altitude of the CO2 coupling body's cup + mouth.
 
-The vendor CAD (`51055K3-no-threads.step` in this directory) carries the
-full push-to-connect detail: a stepped collet barrel, a release-ring
-groove, and a snap cap, which project as a stack of concentric circles
-too busy for the iso line-art. This module rebuilds the part as a few
-coaxial cylinders whose diameters and lengths are measured from that
-STEP, so the geometry stays correct while the silhouette reduces to a
-wide body, a release ring, and the tube port — three concentric
-circles, matching the altitude of the CO2 coupling body's cup + mouth.
-
-Measured from the vendor STEP (mm):
-  Flange / collet body OD: 22.86 (0.90" envelope; the Ø22.86 flange and
-      the Ø20.94 collet barrel behind it are merged into one body)
+Real-world dimensions (mm):
+  Flange / collet body OD: 22.86 (0.90")
   Release ring OD: 11.43
   Threading / panel pass-through OD: 17.14 (0.67" mounting hole)
   Tube port bore: 6.35 (1/4" tube OD)
@@ -49,44 +41,36 @@ from _cadq_export import export_step
 from world_workplane import xz_plane_y_up
 
 
-# Diameters measured from the vendor STEP.
-BODY_D = 22.86       # flange + collet barrel, merged into one body
+BODY_D = 22.86       # flange + collet barrel
 RING_D = 11.43       # release ring
 THREAD_D = 17.14     # threading / panel pass-through
 PORT_D = 6.35        # 1/4" tube port bore
 
-# Axial lengths. The two ends are identical (body + release ring); the
-# threading spans the middle. Total = 2*(BODY_LEN + RING_LEN) + THREAD_LEN
-# = 34.29, the vendor overall length.
+# Symmetric ends (body + release ring) with threading spanning the
+# middle; the segments sum to the 34.29 overall length.
 BODY_LEN = 5.0
 RING_LEN = 4.5
 THREAD_LEN = 15.29
 PORT_DEPTH = 4.0     # bore recess into each release-ring end face
 
-# The seating face is the proud body's inner face. Everything outward of
-# it (one body + release ring) stands proud; this is the length that
-# clears a panel.
+# Length standing proud of the seating face (one body + release ring),
+# clearing the mounting panel.
 PROUD_LENGTH = BODY_LEN + RING_LEN
 
 
 def build_jg_bulkhead_union():
-    """Build the simplified union in the canonical frame (axis +Y,
-    seating face at y=0, proud features at y ≥ 0). Returns a cq.Workplane
-    wrapping the single solid."""
-    # Proud body (flange + collet barrel), y = 0 .. BODY_LEN.
+    """The union as a single solid wrapped in a cq.Workplane."""
     near_body = (
         cq.Workplane(xz_plane_y_up)
         .circle(BODY_D / 2)
         .extrude(BODY_LEN)
     )
-    # Release ring beyond the body, y = BODY_LEN .. PROUD_LENGTH.
     near_ring = (
         cq.Workplane(xz_plane_y_up)
         .workplane(offset=BODY_LEN)
         .circle(RING_D / 2)
         .extrude(RING_LEN)
     )
-    # Tube port — bore recessed into the +Y end face.
     near_port = (
         cq.Workplane(xz_plane_y_up)
         .workplane(offset=PROUD_LENGTH)
@@ -95,14 +79,12 @@ def build_jg_bulkhead_union():
     )
     near_ring = near_ring.cut(near_port)
 
-    # Threading / panel pass-through, y = -THREAD_LEN .. 0.
     threading = (
         cq.Workplane(xz_plane_y_up)
         .circle(THREAD_D / 2)
         .extrude(-THREAD_LEN)
     )
 
-    # Far end mirrors the near end: body then release ring then port.
     far_body = (
         cq.Workplane(xz_plane_y_up)
         .workplane(offset=-THREAD_LEN)

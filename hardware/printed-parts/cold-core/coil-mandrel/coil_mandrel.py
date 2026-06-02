@@ -1,51 +1,15 @@
 """
 Coil winding mandrel.
 
-Hollow PETG-printed mandrel for hand-winding 1/4" OD copper around the
-5" round 316L pressure vessel. 5 mm solid PETG wall (no infill) with
-a shallow helical guide groove sized so the copper nests cleanly into
-the cradle but only 1 mm deep.
+Hollow PETG cylinder for hand-winding 1/4" OD copper around the 5"
+round 316L pressure vessel. 5 mm solid PETG wall, with a shallow
+helical guide groove 1 mm deep that cradles the copper.
 
-The coil's start and end align with the foam-shell's copper
-inlet/outlet plugs; exit bends are purely radial (no vertical jog).
+The coil's inner radius after winding is net_undersize mm smaller than
+the tank radius, so the coil stretches radially to clamp the tank.
 
-Undersize sizing
-----------------
-"X mm undersize" = the stretch needed to slip the as-wound coil onto
-the tank. After winding, the copper bottom sits at radius
-(mandrel_radius − groove_depth) = the coil's inner radius. For the
-coil to clamp the tank, the inner radius is X mm SMALLER than the
-tank radius (so the coil stretches X mm radially to fit on).
-
-  coil_inner_radius_after_winding = mandrel_radius − groove_depth
-  X = tank_radius − coil_inner_radius_after_winding
-  → mandrel_radius = tank_radius − X + groove_depth
-
-For the 5" tank (R = 63.5 mm), 3 mm as-wound undersize, 1 mm groove:
-  mandrel_radius = 63.5 − 3 + 1 = 61.5 → OD = 123 mm (mandrel surface)
-  groove bottom diameter = 121 mm
-
-This is the as-WOUND stretch; observed springback (1–3 mm radial)
-relaxes the coil, so the post-release stretch is (X − Δ_spring) mm.
-
-Geometry chain
---------------
-- 3 mm as-wound undersize → mandrel OD 123 mm.
-- Shallow groove: profile radius = tube_radius (3.175 mm, matches
-  copper) but the helix path is offset 2.175 mm outward of the
-  cylinder surface, so the cut depth is 1 mm.
-- Wind length 120.4 mm = Y span between inlet plug (Y=46) and outlet
-  plug (Y=166.4) in the foam-shell.
-- 9.687 wraps total = 9 full wraps + 247.4° fractional, where 247.4°
-  is the CCW azimuthal delta from inlet plug at azimuth 146.31° to
-  outlet plug at azimuth 33.69°. Right-hand helix. Pitch = 120.4 /
-  9.687 = 12.43 mm = 0.489".
-
-Wall thickness: 5 mm.
-
-OCCT BOP setting
-----------------
-isFrenet=False (parallel transport).
+Coil start and end align with the foam-shell's copper inlet/outlet
+plugs; exit bends are purely radial (no vertical jog).
 """
 
 import math
@@ -72,16 +36,16 @@ from docgen import substitute_py_comments
 # ═══════════════════════════════════════════════════════
 
 tube_od_in = 0.250
-# [3.175 mm](TUBE_R) — 1/4" copper tube radius (in → mm).
+# [3.175 mm](TUBE_R) — 1/4" copper tube radius.
 tube_radius = (tube_od_in / 2) * 25.4
 
 tank_od = 127.0  # 5" carbonator tank OD
-# [63.5 mm](TANK_R) — tank radius from OD.
+# [63.5 mm](TANK_R) — tank radius.
 tank_radius = tank_od / 2
 
-# As-wound stretch needed to slip the coil onto the tank. See the
-# docstring: this is tank_radius − coil_inner_radius_after_winding, NOT
-# the copper centerline displacement.
+# Radial stretch to slip the coil onto the tank: the as-wound coil
+# inner radius is this much smaller than the tank radius. Not the
+# copper centerline displacement.
 net_undersize = 3.0
 
 
@@ -95,17 +59,15 @@ groove_profile_radius = tube_radius
 # tube_radius profile cuts only groove_depth into the cylinder.
 groove_offset = groove_profile_radius - groove_depth
 
-# Coil inner radius after winding = mandrel_radius − groove_depth
-# (copper bottom rests at the groove bottom). Solve for mandrel_radius
-# such that coil_inner_radius = tank_radius − net_undersize:
-# [61.5 mm](MANDREL_R) — chosen so post-wind coil inner radius is
-# net_undersize mm smaller than tank_radius.
+# Copper bottom rests at the groove bottom, so the coil inner radius is
+# mandrel_radius − groove_depth, net_undersize mm under the tank radius.
+# [61.5 mm](MANDREL_R) — radius of the mandrel cylinder surface.
 mandrel_radius = tank_radius - net_undersize + groove_depth
 # [123 mm](MANDREL_OD) — mandrel outer surface diameter.
 mandrel_od = 2 * mandrel_radius
 
 wall = 5.0
-# [56.5 mm](MANDREL_INNER_R) — hollow ring inner radius (mandrel_radius − wall).
+# [56.5 mm](MANDREL_INNER_R) — hollow ring inner radius.
 mandrel_inner_radius = mandrel_radius - wall
 mandrel_r_range = (mandrel_inner_radius, mandrel_radius)
 
@@ -127,12 +89,10 @@ plug_outlet_azimuth = math.degrees(math.atan2(plug_outlet_z, plug_outlet_x))
 # CCW azimuthal delta from inlet to outlet (right-hand helix climbs CCW).
 plug_ccw_delta = (plug_outlet_azimuth - plug_inlet_azimuth) % 360
 
-# Total wraps = N full + fractional wrap that spans the azimuthal delta.
-# N=[9](FULL_WRAPS) picked as the smallest "first-attempt" wrap count below the user's
-# 12-wrap cap; pitch falls out from alignment.
+# [9](FULL_WRAPS) full wraps; the fractional wrap spans the azimuthal delta.
 full_wraps = 9
 total_wraps = full_wraps + plug_ccw_delta / 360
-# [12.43 mm](PITCH) — helix pitch = wind_length / total_wraps (≈ 0.489").
+# [12.43 mm](PITCH) — helix pitch, 0.489".
 pitch = wind_length / total_wraps
 
 
@@ -142,9 +102,9 @@ pitch = wind_length / total_wraps
 
 # Mandrel runs along +Z: lower handle, wind zone, upper handle.
 handle_length_in = 0.75
-# [19.05 mm](HANDLE_LENGTH) — 0.75" handle on each end (in → mm).
+# [19.05 mm](HANDLE_LENGTH) — 0.75" handle on each end.
 handle_length = handle_length_in * 25.4
-# [158.5 mm](TOTAL_LENGTH) — handle + wind + handle along the mandrel Z axis.
+# [158.5 mm](TOTAL_LENGTH) — full mandrel length along the Z axis.
 total_length = handle_length + wind_length + handle_length
 
 mandrel_z_range = (0, total_length)
@@ -171,9 +131,7 @@ def hollow_ring(r_range, z_range):
 def build_mandrel():
     body = hollow_ring(mandrel_r_range, mandrel_z_range)
 
-    # Helical groove. Path is offset OUTWARD by groove_offset so the
-    # profile circle (radius = tube_radius around the path) cuts only
-    # groove_depth into the cylinder.
+    # Helical groove.
     helix_path_radius = mandrel_radius + groove_offset
     helix = cq.Wire.makeHelix(
         pitch=pitch, height=wind_length, radius=helix_path_radius
@@ -186,8 +144,8 @@ def build_mandrel():
     swept_groove = profile.sweep(cq.Workplane(obj=helix), isFrenet=False)
     cut_body = body.cut(swept_groove, clean=False)
 
-    # Restore clean handle zones — the swept tube bleeds ±groove_profile_radius
-    # past the wind-zone boundaries at each end.
+    # The handle zones are ungrooved; the swept groove overshoots the
+    # wind zone by groove_profile_radius at each end.
     lower_handle = hollow_ring(mandrel_r_range, lower_handle_z_range)
     upper_handle = hollow_ring(mandrel_r_range, upper_handle_z_range)
     return (cut_body
@@ -195,8 +153,7 @@ def build_mandrel():
             .union(upper_handle, clean=False))
 
 
-# [121 mm](GROOVE_BOTTOM_OD) — diameter at the bottom of the helical groove
-# (mandrel_od minus 2 × groove_depth).
+# [121 mm](GROOVE_BOTTOM_OD) — diameter at the bottom of the helical groove.
 groove_bottom_od = mandrel_od - 2 * groove_depth
 
 

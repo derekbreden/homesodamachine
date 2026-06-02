@@ -12,25 +12,17 @@ sys.path.insert(0, str(next(p for p in _here.parents if (p / "tools" / "docgen")
 from docgen import substitute_md
 
 
-# Founder Edition run size — the single most load-bearing design number
-# in this part. Sets the unit-number range (1..N), the zero-padded NNN
-# format width (matches N when N ≤ 999), and the boundary where
-# Standard Edition would start (N+1).
+# Founder Edition run size: units 1..N.
 founder_edition_count = 50
 
-# Print settings — finer than the bulk enclosure parts because the
-# nameplate carries small text and a QR code.
-nameplate_nozzle_diameter = 0.2     # mm — nameplate print
-bulk_enclosure_nozzle_diameter = 0.4  # mm — referenced for contrast, set by other enclosure parts
-layer_height_min = 0.08             # mm — fine end of the layer-height window
-layer_height_max = 0.12             # mm — coarse end of the layer-height window
+# Print settings for the small text and QR code the nameplate carries.
+nameplate_nozzle_diameter = 0.2     # mm
+bulk_enclosure_nozzle_diameter = 0.4  # mm — owned by other enclosure parts
+layer_height_min = 0.08             # mm
+layer_height_max = 0.12             # mm
 
 
 def main():
-    # FOUNDER_EDITION_COUNT is the plain integer ("50"); FOUNDER_EDITION_LAST
-    # is the zero-padded last-unit number ("050"); FOUNDER_EDITION_NEXT is
-    # the zero-padded first Standard-Edition unit ("051"). All three derive
-    # from `founder_edition_count` so they move together.
     variables = {
         "FOUNDER_EDITION_COUNT": f"{founder_edition_count}",
         "FOUNDER_EDITION_LAST": f"{founder_edition_count:03d}",

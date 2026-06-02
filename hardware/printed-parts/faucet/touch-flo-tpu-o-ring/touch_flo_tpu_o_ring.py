@@ -30,18 +30,16 @@ wall_thickness = (outer_diameter - inner_diameter) / 2.0
 lldpe_od = 9.525                # 3/8" LLDPE tubing OD
 lldpe_id = 6.35                 # 1/4" LLDPE tubing ID
 body_port_diameter = 10.0       # Westbrass top water port ID
-port_depth_min = 20.0           # minimum measured port depth
+port_depth_min = 20.0           # Westbrass top water port depth
 
 body_squeeze = (outer_diameter - body_port_diameter) / 2.0
 lldpe_interference = (lldpe_od - inner_diameter) / 2.0
 
 
 def build_o_ring() -> cq.Workplane:
-    """Build the TPU thimble: closed bottom with a centered hole, open
-    top, cylindrical wall. Authored natively in the repo's +Z-up frame:
-    Z=0 is the bottom (the face that mates against the valve body's
-    port floor); cap spans Z=0 to cap_thickness; sleeve spans
-    Z=cap_thickness to total_height. The thimble's axis is +Z."""
+    """Thimble on axis +Z: a cap (Z=0 to cap_thickness, centered hole)
+    whose Z=0 face mates the valve body's port floor, and an open-top
+    cylindrical sleeve (Z=cap_thickness to total_height)."""
     body = (
         cq.Workplane(xy_plane_z_up)
         .circle(outer_diameter / 2.0)
