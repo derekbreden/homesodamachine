@@ -17,7 +17,7 @@
 
 ## Per-unit cost (estimate)
 
-Estimated delivered parts cost per Lite unit: **[$238.00](LITE_TOTAL)** — summed from the table above by [`_lite_bom_totals.py`](_lite_bom_totals.py) (run after editing the table). Excludes external/user-supplied items (CO2 tank, flavor concentrate) and shared-stock consumables.
+Estimated delivered parts cost per Lite unit: **[$238.00](LITE_TOTAL)**. Excludes external/user-supplied items (CO2 tank, flavor concentrate) and shared-stock consumables.
 
 ## Clear-PVC length — ~13 ft/unit (estimate)
 
