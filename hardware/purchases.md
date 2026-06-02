@@ -404,8 +404,14 @@ Receipts grouped by order; each line in the table is one shipment. See Bambu Lab
 | 2026-03-23 | us712597240994926592 | Liquid glue + shipping + tax | $25.71 | ACQUIRED |
 | 2026-04-01 | us715792490246602753 | H2C Induction Hotend (R) 0.8mm HS ×1, H2C Induction Hotend (R) 0.4mm HS ×1, ASA Blue ×1, PLA Matte Marine Blue refill ×2, PLA Matte Charcoal ×4 (bulk) | $217.00 | ACQUIRED |
 | 2026-04-03 | us716485517830578177 | PETG Basic Black refill ×4 (bulk), ABS Black refill ×4 (bulk) | $120.06 | ACQUIRED |
-| 2026-04-06 | us717877837343809537 | Bambu Lab AMS HT ×2 + 4-in-1 PTFE Adapter ×1 | $314.22 | ACQUIRED |
-| 2026-04-08 | us718417332286169089 | Bambu Lab AMS 2 Pro ×1 + ASA Aero White ×2 + AMS 2 Pro Switching Adapter ×1 + 4-in-1 PTFE Adapter ×1 | $471.86 | ACQUIRED |
+| 2026-04-06 | us717877837343809537 | Bambu Lab AMS HT ×2 | $278.00 | ACQUIRED |
+| 2026-04-06 | us717877837343809537 | Bambu 4-in-1 PTFE Adapter ×1 | $7.99 | ACQUIRED |
+| 2026-04-06 | us717877837343809537 | Shipping + NE tax | $28.23 | ACQUIRED |
+| 2026-04-08 | us718417332286169089 | Bambu Lab AMS 2 Pro ×1 | $299.00 | ACQUIRED |
+| 2026-04-08 | us718417332286169089 | AMS 2 Pro Switching Adapter ×1 | $32.99 | ACQUIRED |
+| 2026-04-08 | us718417332286169089 | Bambu 4-in-1 PTFE Adapter ×1 | $7.99 | ACQUIRED |
+| 2026-04-08 | us718417332286169089 | ASA Aero filament, White 46100, 1 kg ×2 | $99.98 | ACQUIRED |
+| 2026-04-08 | us718417332286169089 | NE tax | $31.90 | ACQUIRED |
 | 2026-04-13 | us720254914668109825 | TPU for AMS Black refill ×2 + shipping + tax | $82.54 | ACQUIRED |
 | 2026-04-19 | us722538751263612929 | TPU 90A Black ×2, TPU 85A Black ×2 | $186.57 | ACQUIRED |
 | 2026-04-21 | us722988823976337409 | PETG Translucent Clear ×4 (bulk) + shipping + tax | $81.46 | ACQUIRED |
