@@ -395,7 +395,12 @@ Receipts grouped by order; each line in the table is one shipment. See Bambu Lab
 
 | Order date | Bambu order # | Contents | $ | Status |
 |---|---|---|---|---|
-| 2026-03-22 | us712460111015776257 | Bambu Lab H2C (AMS Combo) — printer + AMS 2 Pro + Vision Encoder + Engineering Plate + 8 hotends + initial PA6-CF / TPU / ABS / PLA / PETG filament assortment | $3,303.91 | ACQUIRED |
+| 2026-03-22 | us712460111015776257 | Bambu Lab H2C — H2C AMS Combo (printer + integrated AMS) | $2,399.00 | ACQUIRED |
+| 2026-03-22 | us712460111015776257 | Vision Encoder (H2 Series) | $78.75 | ACQUIRED |
+| 2026-03-22 | us712460111015776257 | Bambu Engineering Plate (H2C) | $49.49 | ACQUIRED |
+| 2026-03-22 | us712460111015776257 | Hotends + nozzles — 0.4 TC nozzle ×2, 0.4 hotend (L) ×2, 0.2 induction hotend (R) ×2 | $203.64 | ACQUIRED |
+| 2026-03-22 | us712460111015776257 | Filament — TPU 95A HF ×2, ABS ×2, PA6-CF ×2, PLA Matte ×2, PETG Basic ×2 (1 kg ea) | $349.70 | ACQUIRED |
+| 2026-03-22 | us712460111015776257 | NE sales tax (5.5% state + 1.75% city) | $223.33 | ACQUIRED |
 | 2026-03-23 | us712597240994926592 | Liquid glue + shipping + tax | $25.71 | ACQUIRED |
 | 2026-04-01 | us715792490246602753 | H2C Induction Hotend (R) 0.8mm HS ×1, H2C Induction Hotend (R) 0.4mm HS ×1, ASA Blue ×1, PLA Matte Marine Blue refill ×2, PLA Matte Charcoal ×4 (bulk) | $217.00 | ACQUIRED |
 | 2026-04-03 | us716485517830578177 | PETG Basic Black refill ×4 (bulk), ABS Black refill ×4 (bulk) | $120.06 | ACQUIRED |
