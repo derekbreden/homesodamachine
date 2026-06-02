@@ -22,10 +22,8 @@ cap_hole_diameter = 6.50
 cap_thickness = 2.1
 cylinder_length = 13.5
 
-# [15.6 mm](TOTAL_H)
-total_height = cap_thickness + cylinder_length
-# [0.62 mm](WALL_T)
-wall_thickness = (outer_diameter - inner_diameter) / 2.0
+total_height = cap_thickness + cylinder_length  # [15.6 mm](TOTAL_H)
+wall_thickness = (outer_diameter - inner_diameter) / 2.0  # [0.62 mm](WALL_T)
 
 lldpe_od = 9.525                # 3/8" LLDPE tubing OD
 lldpe_id = 6.35                 # 1/4" LLDPE tubing ID
