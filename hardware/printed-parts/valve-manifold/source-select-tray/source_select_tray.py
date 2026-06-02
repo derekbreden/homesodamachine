@@ -7,7 +7,7 @@ V-A and V-B merge at Y-A, Y-A bridges to Y-B, Y-B splits to V-C and V-D.
         ├ Y-A ==(bridge)== Y-B ┤
     V-B ┘                       └ V-D
 
-The Y-divider (`../../reference/y-divider/`, a McMaster 51055K417 stand-in for
+The Y-divider (`../../../reference/y-divider/`, a McMaster 51055K417 stand-in for
 the BOM's John Guest PP2308E) is a trident: one stem and two parallel outlets
 14.7 mm apart (Y = ±7.35), all three ports on one axis.
 
@@ -36,7 +36,7 @@ _here = Path(__file__).resolve()
 _hw = next(p for p in _here.parents if p.name == "hardware")
 for _p in (
     _hw,
-    _hw / "printed-parts" / "reference" / "beduan-solenoid",
+    _hw / "reference" / "beduan-solenoid",
     _hw / "printed-parts" / "valve-manifold" / "single-tray",
 ):
     sys.path.insert(0, str(_p))
@@ -49,7 +49,7 @@ saddle_radius = cell.saddle_radius
 corner_pos = cell.corner_pos
 top_z = cell.tray_top_z
 bot_z = cell.tray_bottom_z
-_div_path = _hw / "printed-parts" / "reference" / "y-divider" / "y-divider.step"
+_div_path = _hw / "reference" / "y-divider" / "y-divider.step"
 
 # --- Divider spacing + aimed valve geometry -------------------------------
 DIV_HALF = 19.25          # divider stem/outlet reach from its center

@@ -57,7 +57,7 @@ test("/3d renders subsystem subheaders after JS hydrates", async (t) => {
   const haveAny =
     fs.existsSync(path.join(REPO_ROOT, "hardware", "printed-parts")) ||
     fs.existsSync(path.join(REPO_ROOT, "hardware", "cut-parts")) ||
-    fs.existsSync(path.join(REPO_ROOT, "hardware", "harvested"));
+    fs.existsSync(path.join(REPO_ROOT, "hardware", "reference"));
   if (!haveAny) return t.skip("hardware tree empty");
 
   try {
@@ -78,9 +78,9 @@ test("/3d renders subsystem subheaders after JS hydrates", async (t) => {
   );
 
   // Expected subheaders match the folder shape under
-  // hardware/printed-parts/, hardware/cut-parts/, and the "harvested"
-  // override map in viewer-body.html. If any go missing, the viewer has
-  // either lost a file kind or the category-derivation logic regressed.
+  // hardware/printed-parts/, hardware/cut-parts/, and top-level dirs like
+  // hardware/reference/. If any go missing, the viewer has either lost a
+  // file kind or the category-derivation logic regressed.
   const expected = ["Cold Core", "Faucet", "Flavor", "Reference", "Carbonation"];
   for (const want of expected) {
     assert.ok(

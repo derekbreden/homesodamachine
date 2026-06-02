@@ -11,7 +11,7 @@ V-A and V-B merge at Y-A, Y-A bridges to Y-B, Y-B splits to V-C and V-D.
 
 ## Arrangement
 
-The Y-divider ([reference](../../reference/y-divider/README.md), a McMaster
+The Y-divider ([reference](../../../reference/y-divider/README.md), a McMaster
 stand-in for the JG PP2308E) is a trident: one stem, two parallel outlets
 14.7 mm apart. Origin = cell center; Z = 0 the valve mounting plane; ports at
 Z = 11.3.

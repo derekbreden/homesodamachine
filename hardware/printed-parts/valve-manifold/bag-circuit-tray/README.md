@@ -14,7 +14,7 @@ Tee Y-H (branch → Bag B).
 
 The valves sit **ports-along-X with no aiming tilt**, butted in two columns —
 V-F over V-I on the −X side, V-E over V-H on the +X side. Each row's two valves
-connect **in-line through a Tee** ([reference](../../reference/tee-connector/README.md))
+connect **in-line through a Tee** ([reference](../../../reference/tee-connector/README.md))
 whose run lies along X, so the inner ports meet the run ports straight-on (no
 jog) with the valves at X = ±49.57. Each Tee's **branch rises (+Z)** to its
 bag; the valves' outer ports leave the tray to the pumps.
