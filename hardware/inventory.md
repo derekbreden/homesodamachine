@@ -77,7 +77,7 @@ Harvest sources. Disassembled for specific subassemblies; remainder discarded or
 | **Westbrass A2031-NL-62 8" Touch-Flo faucet (already owned)** | [B0BXFW1J38](https://www.amazon.com/dp/B0BXFW1J38), [purchases.md §7](purchases.md) | Not a harvest donor; pre-existing stock. R2031-NL-12 pattern is the chosen donor. |
 | **Westbrass D203-NL-62 6" Touch-Flo faucet (already owned)** | [B01MZ6JPXW](https://www.amazon.com/dp/B01MZ6JPXW), [purchases.md §7](purchases.md) | Same — pre-existing stock, not a harvest donor. |
 | **DEVMO MINI vertical float switch** | [B07T18PGJ4](https://www.amazon.com/dp/B07T18PGJ4), [purchases.md §9](purchases.md) | Magnetic donut float harvested; switch body discarded. Float slides on the welded 316L SS rod inside the carbonator vessel. |
-| **Lillium under-counter carbonator** | direct import, [purchases.md non-Amazon](purchases.md) | Current prototype cold-carbonated water source. Replaced by the integrated cold core in the production design. |
+| **Lillium under-counter carbonator** | Liliumfaucet order 1566, [purchases.md §2](purchases.md) | Current prototype cold-carbonated water source. Replaced by the integrated cold core in the production design. |
 
 ## Fab fixture
 
@@ -101,9 +101,7 @@ Used during fabrication but not allocated per-unit in bom.md. Welding practice s
 | **Airgas CO2 fill (prototype cylinder), 5 lb** | Airgas #8160436286, [purchases.md §2](purchases.md) | Recurring fill for the prototype's running CO2 cylinder. |
 | **Airgas CO2 fill (testing cylinder), 5 lb** | Airgas #8162013342, [purchases.md §2](purchases.md) | Recurring fill for the test-bench CO2 cylinder. |
 | **Blue Demon ER308L .030 MIG wire, 2 lb** | [B0025Q2HIU](https://www.amazon.com/dp/B0025Q2HIU), [purchases.md §1](purchases.md) | Welding practice on 304 SS coupons. Production filler is ER316L. |
-| **findmall ER308L .035 MIG wire, 10 lb spool** | [B0C52XQB39](https://www.amazon.com/dp/B0C52XQB39), [purchases.md §1](purchases.md) | Larger ER308L spool for extended welding practice. |
-| **PGN ER308L .030 MIG wire, 10 lb spool** | [B09WRZDBPN](https://www.amazon.com/dp/B09WRZDBPN), [purchases.md §1](purchases.md) | Second ER308L practice spool, alt brand. |
-| **304 SS 1/16" practice coupons (3 pk)** | [B0DFXXQZD3](https://www.amazon.com/dp/B0DFXXQZD3), [purchases.md §1](purchases.md) | Welding practice; matches end-cap thickness. |
+| **findmall ER308L .035 MIG wire, 10 lb spool** | [B0C52XQB39](https://www.amazon.com/dp/B0C52XQB39), [purchases.md §1](purchases.md) | Larger ER308L spool for extended welding practice. || **304 SS 1/16" practice coupons (3 pk)** | [B0DFXXQZD3](https://www.amazon.com/dp/B0DFXXQZD3), [purchases.md §1](purchases.md) | Welding practice; matches end-cap thickness. |
 | **304 SS 0.04" practice coupons (4 pc)** | [B0C5LWVLCD](https://www.amazon.com/dp/B0C5LWVLCD), [purchases.md §1](purchases.md) | Welding practice; matches body thickness. |
 | **ESCO Institute EPA Section 608 Preparatory Manual** | [1930044607](https://www.amazon.com/dp/1930044607), [purchases.md §6](purchases.md) | General refrigeration reference. Section 608 cert not required for R-600a (natural-refrigerant carveout). |
 | **Hgnova 1064 nm laser protective lens (15 pc)** | [B0FF38DY1Z](https://www.amazon.com/dp/B0FF38DY1Z), [purchases.md §1](purchases.md) | Replacement protective windows for the X1 Pro welding head; consumable after splatter/contamination. |
