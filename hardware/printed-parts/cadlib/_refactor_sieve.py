@@ -150,7 +150,8 @@ def _reservoir_scalars():
         parts[f"cap_{label}"] = _solid_scalars(mod.build_reservoir_cap(side=side))
     parts["gasket"] = _solid_scalars(mod.build_reservoir_gasket(side=+1))
     parts["retaining_ring"] = _solid_scalars(mod.build_reservoir_retaining_ring())
-    parts["bulkhead_seal"] = _solid_scalars(mod.build_reservoir_bulkhead_seal())
+    parts["bulkhead_seal_wet"] = _solid_scalars(mod.build_reservoir_bulkhead_seal(mod.bulkhead_seal_wet_od))
+    parts["bulkhead_seal_dry"] = _solid_scalars(mod.build_reservoir_bulkhead_seal(mod.bulkhead_seal_dry_od))
     return parts
 
 

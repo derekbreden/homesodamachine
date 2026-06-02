@@ -1,32 +1,32 @@
 {
   "byte_hashed_steps": {
-    "hardware/reference/co2-coupling-body/co2-coupling-body.step": "6c647a645ee4f99ca3c84a39f85e36ef3d249d387c071229e58e8937f5020313",
-    "hardware/reference/touch-flo-faucet/faucet-assembly/touch-flo-faucet-assembly.step": "2ced613109550166896d2f329c4c87eef04453e1fe3f943ab4782c6878b8cfbf",
-    "hardware/reference/touch-flo-faucet/valve-body-reference/touch-flo-valve-body-reference.step": "9a888589a4479351a13177a8885c9748da287e05d215bc5e541c1ae20acfe892",
     "hardware/printed-parts/cold-core/copper-plugs/copper-plug-lower.step": "3b0ccca5f42aeb6d82f87bd93d1639374beb221a2b36f5bebf646a03e8ddaf5c",
     "hardware/printed-parts/cold-core/copper-plugs/copper-plug-middle.step": "4a2c4d590f2dcbcf0abea8e5b36fa1697ceef3c20c3a837c8c262c6b86804d04",
     "hardware/printed-parts/cold-core/copper-plugs/copper-plug-top.step": "2668a6ac9a65e2dc5385b426803929c9e8ea072fa269f85a64523946a3048fa3",
     "hardware/printed-parts/cold-core/copper-plugs/copper-plug-upper.step": "db38e8f7b4fea4f6abebbe6874467c0168aff1e8d3690498cff280b49311357f",
-    "hardware/printed-parts/cold-core/foam-cap/foam-cap-bottom.step": "f3de5af20cb17835d10028b383030d4fcf5ce5e7f37cae87b7665a667ab1e745",
-    "hardware/printed-parts/cold-core/foam-cap/foam-cap-gasket.step": "9a645dc8834aa8e899931d3ed06fb4c9fd95602231f136846a8b37cf3735845c",
-    "hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-bottom.step": "3b7b2bdccc06fd8ff1ad4934c892de629ea0ea13469c37e8fde3d9ab2c5b8685",
-    "hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-top.step": "e16f212b5bd4f362f9dac33732ed7c523bc33e10a72acd733f43610937835979",
-    "hardware/printed-parts/cold-core/foam-cap/foam-cap-top.step": "51e49c07a88e2aeb3d69c2df31710a076ebc78766e3ea43aab6f90fe70c11123",
-    "hardware/printed-parts/cold-core/foam-shell/foam-shell.step": "d17610f0583d99407c482c4a6cea0a4dcaf8f128c1bd30f46f90eeebe279c69b"
+    "hardware/printed-parts/cold-core/foam-cap/foam-cap-bottom.step": "53dc20d982ba9db50ec0c35afbf391d54330d2cc7efd5b3e91498ca5effe3d21",
+    "hardware/printed-parts/cold-core/foam-cap/foam-cap-gasket.step": "33196a3bff02d4224b747f5d4974ac7fb2fe3b359ebd3a0c8b40b9d932252ad2",
+    "hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-bottom.step": "9fd965cbdc96116353a36018fc9201d4358269101c64843c72d7aaaf1a257a72",
+    "hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-top.step": "d5483d90fa151aba8b6aec209204c9022bb9f621b833d731684a97948de4c29e",
+    "hardware/printed-parts/cold-core/foam-cap/foam-cap-top.step": "073495de8532bf1425bf10dc5c9dec3f0493e4bbee05e293fa7c3930f4942e63",
+    "hardware/printed-parts/cold-core/foam-shell/foam-shell.step": "946cfdf70d38cf2851276d55735c916d02065e1085fd0e458c07ea3e863e90b3",
+    "hardware/reference/co2-coupling-body/co2-coupling-body.step": "6c647a645ee4f99ca3c84a39f85e36ef3d249d387c071229e58e8937f5020313",
+    "hardware/reference/touch-flo-faucet/faucet-assembly/touch-flo-faucet-assembly.step": "2ced613109550166896d2f329c4c87eef04453e1fe3f943ab4782c6878b8cfbf",
+    "hardware/reference/touch-flo-faucet/valve-body-reference/touch-flo-valve-body-reference.step": "9a888589a4479351a13177a8885c9748da287e05d215bc5e541c1ae20acfe892"
   },
   "faucet_assembly": {
     "flavor_tube_neg": {
       "bbox": {
         "xmax": 0.0,
         "xmin": -6.35,
-        "ymax": 142.0018,
-        "ymin": -22.1,
+        "ymax": 22.1,
+        "ymin": -142.0018,
         "zmax": 224.2782,
         "zmin": -50.0
       },
       "com": {
         "x": -3.175,
-        "y": 27.0103,
+        "y": -27.0103,
         "z": 118.1997
       },
       "volume_mm3": 12036.6263
@@ -35,14 +35,14 @@
       "bbox": {
         "xmax": 6.35,
         "xmin": -0.0,
-        "ymax": 142.0018,
-        "ymin": -22.1,
+        "ymax": 22.1,
+        "ymin": -142.0018,
         "zmax": 224.2782,
         "zmin": -50.0
       },
       "com": {
         "x": 3.175,
-        "y": 27.0103,
+        "y": -27.0103,
         "z": 118.1997
       },
       "volume_mm3": 12036.6263
@@ -51,14 +51,14 @@
       "bbox": {
         "xmax": 6.5,
         "xmin": -6.5,
-        "ymax": 42.0,
-        "ymin": -10.487,
+        "ymax": 10.487,
+        "ymin": -42.0,
         "zmax": 54.024,
         "zmin": 35.4109
       },
       "com": {
-        "x": 0.0,
-        "y": 16.2131,
+        "x": -0.0,
+        "y": -16.2131,
         "z": 45.4053
       },
       "volume_mm3": 6674.8968
@@ -67,14 +67,14 @@
       "bbox": {
         "xmax": 4.7625,
         "xmin": -4.7625,
-        "ymax": 137.645,
-        "ymin": -13.6375,
+        "ymax": 13.6375,
+        "ymin": -137.645,
         "zmax": 218.5909,
         "zmin": 24.0
       },
       "com": {
-        "x": -0.0,
-        "y": 40.8685,
+        "x": 0.0,
+        "y": -40.8685,
         "z": 144.2267
       },
       "volume_mm3": 20502.9753
@@ -85,14 +85,14 @@
       "bbox": {
         "xmax": 27.175,
         "xmin": -27.175,
-        "ymax": 24.0,
-        "ymin": -30.35,
+        "ymax": 30.35,
+        "ymin": -24.0,
         "zmax": -4.0,
         "zmin": -6.0
       },
       "com": {
         "x": -0.0,
-        "y": -2.7374,
+        "y": 2.7374,
         "z": -5.0
       },
       "volume_mm3": 4223.0235
@@ -101,33 +101,33 @@
       "bbox": {
         "xmax": 27.175,
         "xmin": -27.175,
-        "ymax": 24.0,
-        "ymin": -30.35,
+        "ymax": 30.35,
+        "ymin": -24.0,
         "zmax": 0.0,
         "zmin": -4.0
       },
       "com": {
         "x": -0.0,
-        "y": -2.7298,
+        "y": 2.7298,
         "z": -2.0269
       },
       "volume_mm3": 8301.8872
     },
     "tpu_o_ring": {
       "bbox": {
-        "xmax": 5.1,
-        "xmin": -5.1,
-        "ymax": 5.1,
-        "ymin": -5.1,
-        "zmax": 15.0,
+        "xmax": 5.22,
+        "xmin": -5.22,
+        "ymax": 5.22,
+        "ymin": -5.22,
+        "zmax": 15.6,
         "zmin": 0.0
       },
       "com": {
         "x": 0.0,
         "y": 0.0,
-        "z": 5.8665
+        "z": 6.5186
       },
-      "volume_mm3": 229.0545
+      "volume_mm3": 368.3008
     }
   },
   "pump_case": {
@@ -172,14 +172,14 @@
         "ymax": 70.0,
         "ymin": -70.0,
         "zmax": 201.9,
-        "zmin": 2.5
+        "zmin": 24.6
       },
       "com": {
-        "x": -86.3999,
-        "y": -3.6736,
-        "z": 82.5754
+        "x": -84.9826,
+        "y": -0.0536,
+        "z": 98.0264
       },
-      "volume_mm3": 482776.1269
+      "volume_mm3": 313569.0509
     },
     "body_right": {
       "bbox": {
@@ -188,21 +188,21 @@
         "ymax": 70.0,
         "ymin": -70.0,
         "zmax": 201.9,
-        "zmin": 2.5
+        "zmin": 24.6
       },
       "com": {
-        "x": 86.3999,
-        "y": -3.6736,
-        "z": 82.5754
+        "x": 84.9826,
+        "y": -0.0536,
+        "z": 98.0264
       },
-      "volume_mm3": 482776.123
+      "volume_mm3": 313569.0509
     },
-    "bulkhead_seal": {
+    "bulkhead_seal_dry": {
       "bbox": {
-        "xmax": 10.65,
-        "xmin": -10.65,
-        "ymax": 10.65,
-        "ymin": -10.65,
+        "xmax": 9.25,
+        "xmin": -9.25,
+        "ymax": 9.25,
+        "ymin": -9.25,
         "zmax": 2.0,
         "zmin": 0.0
       },
@@ -211,7 +211,23 @@
         "y": 0.0,
         "z": 1.0
       },
-      "volume_mm3": 285.0053
+      "volume_mm3": 135.4812
+    },
+    "bulkhead_seal_wet": {
+      "bbox": {
+        "xmax": 10.5,
+        "xmin": -10.5,
+        "ymax": 10.5,
+        "ymin": -10.5,
+        "zmax": 2.0,
+        "zmin": 0.0
+      },
+      "com": {
+        "x": -0.0,
+        "y": 0.0,
+        "z": 1.0
+      },
+      "volume_mm3": 290.5973
     },
     "cap_left": {
       "bbox": {
@@ -223,11 +239,11 @@
         "zmin": -4.0
       },
       "com": {
-        "x": -88.8814,
-        "y": -0.3237,
-        "z": 5.6252
+        "x": -88.8505,
+        "y": -0.3252,
+        "z": 5.6398
       },
-      "volume_mm3": 47073.4591
+      "volume_mm3": 46855.4903
     },
     "cap_right": {
       "bbox": {
@@ -239,11 +255,11 @@
         "zmin": -4.0
       },
       "com": {
-        "x": 88.8814,
-        "y": -0.3237,
-        "z": 5.6252
+        "x": 88.8505,
+        "y": -0.3252,
+        "z": 5.6398
       },
-      "volume_mm3": 47073.4591
+      "volume_mm3": 46855.4903
     },
     "gasket": {
       "bbox": {
@@ -255,11 +271,11 @@
         "zmin": 0.0
       },
       "com": {
-        "x": 86.7772,
+        "x": 86.553,
         "y": -0.0,
         "z": 1.0
       },
-      "volume_mm3": 4789.6802
+      "volume_mm3": 4646.5753
     },
     "retaining_ring": {
       "bbox": {
@@ -283,62 +299,62 @@
       "bbox": {
         "xmax": 22.275,
         "xmin": -22.275,
-        "ymax": 60.5359,
-        "ymin": -25.45,
+        "ymax": 25.45,
+        "ymin": -60.5359,
         "zmax": 201.2283,
         "zmin": -0.0
       },
       "com": {
         "x": 0.0,
-        "y": 4.3582,
+        "y": -4.3582,
         "z": 84.8209
       },
-      "volume_mm3": 69290.4056
+      "volume_mm3": 69290.4083
     },
     "full": {
       "bbox": {
         "xmax": 22.275,
         "xmin": -22.275,
-        "ymax": 145.3341,
-        "ymin": -25.45,
+        "ymax": 25.45,
+        "ymin": -145.3341,
         "zmax": 228.6282,
         "zmin": -0.0
       },
       "com": {
         "x": 0.0,
-        "y": 32.7385,
+        "y": -32.7385,
         "z": 124.6099
       },
-      "volume_mm3": 103645.4151
+      "volume_mm3": 103645.4197
     },
     "middle": {
       "bbox": {
         "xmax": 10.7,
         "xmin": -10.7,
-        "ymax": 129.2644,
-        "ymin": 32.1026,
+        "ymax": -32.1026,
+        "ymin": -129.2644,
         "zmax": 228.6282,
         "zmin": 173.8426
       },
       "com": {
-        "x": -0.0,
-        "y": 75.5581,
+        "x": 0.0,
+        "y": -75.5581,
         "z": 208.6213
       },
-      "volume_mm3": 23602.349
+      "volume_mm3": 23602.3488
     },
     "top": {
       "bbox": {
         "xmax": 10.7,
         "xmin": -10.7,
-        "ymax": 145.3341,
-        "ymin": 100.8083,
+        "ymax": -100.8083,
+        "ymin": -145.3341,
         "zmax": 221.9088,
         "zmin": 174.5313
       },
       "com": {
         "x": 0.0,
-        "y": 123.9416,
+        "y": -123.9416,
         "z": 196.2705
       },
       "volume_mm3": 10118.3218
