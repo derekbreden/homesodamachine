@@ -65,9 +65,9 @@ With the outer shell open-top-up on the bench, install every internal component:
 - **Pressure vessel + coil** (per step 1; coil stubs exit through the foam-shell's copper-plug holes) lowered into the cylindrical center cavity, seated on the printed-in `tank_support_ring`
 - **Reservoirs** seated into the two ±X bag pockets
 - **Penetrations routed through the outer shell walls:**
-  - CO2 inlet → enters from above through the foam-cap-top boss + foam-cap-lid-top Ø[6.5](PORT_D) hole at (x=0, z=[-68.75](COTWO_INLET_Z)); inside the cavity, a John Guest PP0308E 1/4" PTC 90° elbow seats in the Ø16 doorway in the −Z support arch, and the line continues to the vessel's bottom-plate TAISHER NPT elbow via a PP010822E 1/4" PTC × 1/4" NPT M adapter
-  - Water outlet → dedicated Ø[6.5](PORT_D) hole, +Z outer wall
-  - Reservoir lines (+X, −X) → dedicated Ø[6.5](PORT_D) holes in the bag_pocket_shell ±X far walls
+  - CO2 inlet → enters from above through the foam-cap-top boss + foam-cap-lid-top Ø[6.5 mm](TUBE_HOLE_D) hole at (x=0, z=[-68.75](COTWO_INLET_Z)); inside the cavity, a John Guest PP0308E 1/4" PTC 90° elbow seats in the Ø16 doorway in the −Z support arch, and the line continues to the vessel's bottom-plate TAISHER NPT elbow via a PP010822E 1/4" PTC × 1/4" NPT M adapter
+  - Water outlet → dedicated Ø[6.5 mm](TUBE_HOLE_D) hole, +Z outer wall
+  - Reservoir lines (+X, −X) → dedicated Ø[6.5 mm](TUBE_HOLE_D) holes in the bag_pocket_shell ±X far walls
   - Refrigerant inlet (low), refrigerant outlet (high), water inlet, PRV vent LLDPE → shared Y-elongated slot at x=0 on the +Z outer wall. The water-inlet line transitions from the warm-side GASHER 1/4" NPT check valve via a JG PP010822E 1/4" PTC × 1/4" NPT M adapter before entering the slot as 1/4" OD LLDPE; downstream of the slot a second JG PP010822E (PTC → NPT) takes the LLDPE back to NPT before threading into the TAISHER 1/4" NPT 90° vessel-port elbow on Port 2 (top plate). The PRV vent LLDPE press-fits into the prv-shroud cap, routes through the slot at its own Y height (per foam-shell penetration #8), and terminates open inside the appliance interior.
 - **PRV vent LLDPE** press-fits into the cap of the [`/hardware/printed-parts/cold-core/prv-shroud/`](/hardware/printed-parts/cold-core/prv-shroud/) subassembly on Port 4 (threaded into the vessel at [`pressure-vessel.md`](pressure-vessel.md) step 8). The LLDPE routes from the cap, takes a slight bend, and enters the +Z shared slot at its allocated Y height. Far end terminates open inside the appliance interior.
 - **Four copper plugs** slid down into the shared +Z slot from above, sealing between and above the four pass-throughs (binder-clip geometry in [`/hardware/printed-parts/cold-core/foam-shell/README.md`](/hardware/printed-parts/cold-core/foam-shell/README.md) "Shared +Z slot and copper plug stack")
@@ -106,7 +106,7 @@ A finished cold core:
 - All seven penetrations routed through their designated holes / slot
 - Top + bottom caps installed with M3 × 25 SHCS into the heat-set inserts
 - TPU gasket compressed under the top cap
-- External envelope ~[283](OUTER_X) × [181](OUTER_Z) × [213.4 mm](OUTER_H)
+- External envelope ~[283 mm](OUTER_X) × [181](CCORE_OUTER_Y) × [213.4 mm](OUTER_H)
 
 ## Open items
 

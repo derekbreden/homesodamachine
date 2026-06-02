@@ -22,8 +22,8 @@ operation, only briefly elevated during a relief event.
 
 ## Geometry
 
-[19 mm](INNER_D) ID × [23 mm](OUTER_D) OD × [46 mm](TOTAL_L) overall length, [2 mm](WALL_T) wall and [2 mm](CAP_T) cap,
-single ⌀[6.35 mm](VENT_D) centered vent hole in the cap.
+[19 mm](PRV_INNER_D) ID × [23 mm](PRV_OUTER_D) OD × [46 mm](TOTAL_L) overall length, [2 mm](PRV_WALL_T) wall and [2 mm](PRV_CAP_T) cap,
+single ⌀[6.35 mm](PRV_VENT_D) centered vent hole in the cap.
 
 Reference dimensions measured at the install (SV-125 hand-tight in
 the TAISHER M×F 90° elbow, no PTFE torque applied):
@@ -32,7 +32,7 @@ the TAISHER M×F 90° elbow, no PTFE torque applied):
 |---|---|
 | TAISHER elbow smooth cylinder OD (the seat surface) | 18.8 mm |
 | SV-125 hex outer corners (across points) | 16.0 mm |
-| Shroud ID | [19 mm](INNER_D) |
+| Shroud ID | [19 mm](PRV_INNER_D) |
 
 ID is sized for a 0.1 mm radial slip-fit over the elbow's
 controlled-OD smooth cylinder at the seat end (the only good
@@ -43,7 +43,7 @@ above.
 The [44 mm](CAVITY_L) cavity length matches the measured stack from the bottom
 of the elbow's smooth cylinder to the very tip of the SV-125
 pull-ring with the valve hand-tight in the elbow. After full PTFE
-torque the stack shortens by a turn or two; the [2 mm](CAP_T) cap thickness
+torque the stack shortens by a turn or two; the [2 mm](PRV_CAP_T) cap thickness
 gives a few mm of clearance above the pull-ring at full torque.
 
 ## Subassembly procedure
@@ -119,10 +119,10 @@ geometry shift and should land with a measured rationale.
 
 | metric | value |
 |---|---|
-| bbox X | [-11.500 to 11.500 mm](BBOX_X) |
-| bbox Z | [0.000 to 46.000 mm](BBOX_Z) |
-| bbox Y | [-11.500 to 11.500 mm](BBOX_Y) |
-| volume | [6548.090 mm³](VOLUME) |
+| bbox X | [-11.500 to 11.500 mm](PRV_BBOX_X) |
+| bbox Z | [0.000 to 46.000 mm](PRV_BBOX_Z) |
+| bbox Y | [-11.500 to 11.500 mm](PRV_BBOX_Y) |
+| volume | [6548.090 mm³](PRV_VOLUME) |
 
 ## Sources
 [value](NAME) texts are updated by:
