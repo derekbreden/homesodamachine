@@ -21,6 +21,15 @@ import sys
 HERE = os.path.dirname(os.path.abspath(__file__))
 LEDGER = os.path.join(HERE, "purchases.md")
 
+# Import the repo's docgen so the computed figures can be written straight
+# back into purchases.md's [value](NAME) markers (same path shim _bom_sync.py
+# uses). The totals are never hand-edited — this script owns them.
+from pathlib import Path  # noqa: E402
+sys.path.insert(
+    0, str(next(p for p in Path(HERE).resolve().parents
+                if (p / "tools" / "docgen").is_dir()) / "tools"))
+from docgen import substitute_md  # noqa: E402
+
 EXCLUDE_SECTIONS = {"Totals"}
 STATUS_KEYWORDS = ("ACQUIRED", "ON-ORDER", "LIKELY-TO-BUY", "MISSING",
                    "NOT NEEDED", "alt option")
@@ -107,6 +116,24 @@ def main():
     acq = st.get("ACQUIRED", 0.0)
     onorder = st.get("ON-ORDER", 0.0)
     missing = st.get("MISSING", 0.0)
+
+    # Write the figures back into purchases.md's [value](NAME) markers.
+    def money(v):
+        return f"${v:,.2f}"
+    variables = {
+        "LEDGER_ACQUIRED_HW": money(acq),
+        "LEDGER_LABOR": money(labor),
+        "LEDGER_ACQUIRED_COMBINED": money(acq + labor),
+        "LEDGER_ON_ORDER": money(onorder),
+        "LEDGER_MISSING": money(missing),
+        "LEDGER_GRAND_TOTAL": money(acq + labor + onorder + missing),
+    }
+    for title, v in sec.items():
+        m = re.match(r"(\d+)", title)
+        if m:
+            variables[f"LEDGER_SEC{m.group(1)}"] = money(v)
+    substitute_md(LEDGER, variables, {k: 1 for k in variables})
+
     print("ACQUIRED by section:")
     for s, v in sec.items():
         print(f"  ${v:>10,.2f}  {s}")
