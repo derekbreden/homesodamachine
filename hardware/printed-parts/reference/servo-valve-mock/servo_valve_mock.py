@@ -6,13 +6,15 @@ ball-valve cell: the all-plastic food-grade ball valve is the wetted path, a
 
 Envelopes are catalog-nominal, not manufacturing drawings:
 - NeoFit 1/4" acetal/PP quarter-turn ball valve — ~44 mm push-fit end to end,
-  16 mm body, 1/4" (6.35 mm) tube ports, a vertical stem.
-- MG90S micro servo — 22.8 x 12.2 x 22.5 mm body, 32.2 mm across the mounting
-  ears, output spline offset 5.5 mm from the body center, spline on top.
+  ~16 mm round body, 1/4" (6.35 mm) tube ports, a vertical stem.
+- MG90S micro servo — 22.8 mm long x 12.5 mm thin x 22.8 mm tall body,
+  31.8 mm across the mounting ears, output spline offset 5.5 mm from center.
 
 Flow runs along X; the valve stem and the servo output share the +Z axis. The
+servo's thin (12.5 mm) axis lies along Y — the cross-flow stacking direction —
+and is centered on the valve, so it adds no width beyond the valve body. The
 servo sits inverted above the valve, output spline pointing down into a coupler
-on the stem. A thin back-plate stands in for the printed bracket.
+on the stem. The mounting ears extend along X (the free port direction).
 """
 
 import sys
@@ -26,12 +28,10 @@ from _cadq_export import export_assembly
 
 
 def _xcyl(r, x0, x1):
-    """Cylinder along +X from x0 to x1."""
     return cq.Solid.makeCylinder(r, x1 - x0, cq.Vector(x0, 0, 0), cq.Vector(1, 0, 0))
 
 
 def _zcyl(r, z0, z1):
-    """Cylinder along +Z from z0 to z1."""
     return cq.Solid.makeCylinder(r, z1 - z0, cq.Vector(0, 0, z0), cq.Vector(0, 0, 1))
 
 
@@ -71,12 +71,13 @@ def build_coupler():
 
 
 # --- MG90S micro servo (local frame: output axis at origin, spline up) ------
-BODY_L = 22.8
-BODY_W = 12.2
-BODY_H = 22.5
-OUT_OFFSET = 5.5
+BODY_L = 22.8       # long axis, along X (free port direction)
+BODY_W = 12.5       # thin axis, along Y (cross-flow stacking pitch)
+BODY_H = 22.8       # tall axis, along Z
+OUT_OFFSET = 5.5    # spline offset from body center
+EAR_SPAN = 31.8     # ear tip to ear tip, along X
 body_cx = -(BODY_L / 2.0 - OUT_OFFSET)      # -5.9
-spline_tip = BODY_H + 1.5 + 3.5             # 27.5 local
+spline_tip = BODY_H + 1.5 + 3.5
 
 
 def build_servo_local():
@@ -87,18 +88,17 @@ def build_servo_local():
     )
     ear_t = 2.5
     ear_z0 = 16.0
-    ear_overhang = 4.7
+    ear_overhang = (EAR_SPAN - BODY_L) / 2.0      # 4.5
     for sx in (1.0, -1.0):
         edge = body_cx + sx * BODY_L / 2.0
         mid = edge + sx * ear_overhang / 2.0
-        hole_x = edge + sx * 2.3
         ear = (
             cq.Workplane("XY")
             .box(ear_overhang, BODY_W, ear_t, centered=(True, True, False))
             .translate((mid, 0.0, ear_z0))
         )
         s = s.union(ear)
-        s = s.cut(cq.Workplane(obj=_zcyl(1.0, ear_z0 - 1.0, ear_z0 + ear_t + 1.0).translate((hole_x, 0, 0))))
+        s = s.cut(cq.Workplane(obj=_zcyl(1.0, ear_z0 - 1.0, ear_z0 + ear_t + 1.0).translate((mid, 0, 0))))
     s = s.union(cq.Workplane(obj=_zcyl(3.0, BODY_H, BODY_H + 1.5)))          # output boss
     s = s.union(cq.Workplane(obj=_zcyl(2.4, BODY_H + 1.5, spline_tip)))      # spline
     cable = (
@@ -113,17 +113,24 @@ def build_servo_local():
 def build_servo_placed():
     s = build_servo_local().val()
     s = s.rotate((0, 0, 0), (1, 0, 0), 180.0)          # invert: spline points -Z
-    s = s.translate((0, 0, (coupler_top - 2.0) + spline_tip))  # spline tip into coupler
+    s = s.translate((0, 0, (coupler_top - 2.0) + spline_tip))
     return cq.Workplane(obj=s)
 
 
-# --- Schematic printed bracket (back-plate) --------------------------------
-def build_bracket():
-    return (
-        cq.Workplane("XY")
-        .box(24.0, 3.0, 42.0, centered=(True, True, False))
-        .translate((-6.0, -8.5, 12.0))
-    )
+def _cell_solids():
+    return [build_valve().val(), build_coupler().val(), build_servo_placed().val()]
+
+
+def build_scene():
+    return cq.Compound.makeCompound(_cell_solids())
+
+
+def build_strip(n=3, pitch=16.5):
+    out = []
+    for i in range(n):
+        dy = (i - (n - 1) / 2.0) * pitch
+        out.extend(s.translate((0, dy, 0)) for s in _cell_solids())
+    return cq.Compound.makeCompound(out)
 
 
 def build_assembly():
@@ -131,18 +138,7 @@ def build_assembly():
     a.add(build_valve(), name="neofit_valve", color=cq.Color(0.80, 0.72, 0.55))
     a.add(build_coupler(), name="coupler", color=cq.Color(0.20, 0.45, 0.75))
     a.add(build_servo_placed(), name="mg90s_servo", color=cq.Color(0.18, 0.18, 0.20))
-    a.add(build_bracket(), name="bracket", color=cq.Color(0.75, 0.75, 0.78))
     return a
-
-
-def build_scene():
-    parts = [
-        build_valve().val(),
-        build_coupler().val(),
-        build_servo_placed().val(),
-        build_bracket().val(),
-    ]
-    return cq.Compound.makeCompound(parts)
 
 
 def _export_svg(shape, name, out_dir):
@@ -161,13 +157,16 @@ def _export_svg(shape, name, out_dir):
 
 
 def render(out_dir="/tmp"):
-    # Auto camera-up is unreliable for axis-aligned views, so rotate the
-    # model into a top (0,0,1) projection for each deterministic view.
+    # Rotate the model into a top (0,0,1) projection for each deterministic view.
     scene = build_scene()
-    _export_svg(scene, "top", out_dir)                                   # plan: X right, Y up
-    _export_svg(scene.rotate((0, 0, 0), (1, 0, 0), -90.0), "front", out_dir)   # elevation: X right, Z up
-    iso = scene.rotate((0, 0, 0), (0, 0, 1), 25.0).rotate((0, 0, 0), (1, 0, 0), -65.0)
-    _export_svg(iso, "iso", out_dir)
+    _export_svg(scene.rotate((0, 0, 0), (1, 0, 0), -90.0), "front", out_dir)     # X right, Z up
+
+    def _end(shape):
+        # Look down the flow axis X: world Y -> horizontal, world Z -> vertical.
+        return shape.rotate((0, 0, 0), (0, 1, 0), 90.0).rotate((0, 0, 0), (0, 0, 1), 90.0)
+
+    _export_svg(_end(scene), "end", out_dir)
+    _export_svg(_end(build_strip()), "strip", out_dir)
 
 
 def main():
@@ -176,7 +175,7 @@ def main():
     bb = build_scene().BoundingBox()
     print("-> servo-valve-mock.step")
     print(
-        "bbox mm  X[%.1f, %.1f]  Y[%.1f, %.1f]  Z[%.1f, %.1f]"
+        "one cell  X[%.1f, %.1f]  Y[%.1f, %.1f]  Z[%.1f, %.1f]   (Y = stacking pitch axis)"
         % (bb.xmin, bb.xmax, bb.ymin, bb.ymax, bb.zmin, bb.zmax)
     )
 
