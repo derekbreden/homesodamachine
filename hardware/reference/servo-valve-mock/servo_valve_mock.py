@@ -36,7 +36,7 @@ def _zcyl(r, z0, z1):
 
 
 # --- NeoFit 1/4" quarter-turn ball valve (flow along X, stem along +Z) -----
-BORE = 5.0
+bore = 5.0
 body_dia = 16.0
 body_len = 18.0
 collar_dia = 13.0
@@ -58,7 +58,7 @@ def build_valve():
         v = v.union(cq.Workplane(obj=_xcyl(collet_dia / 2.0, n0, n1)))
     v = v.union(cq.Workplane(obj=_zcyl(stem_dia / 2.0, body_dia / 2.0 - 2.0, stem_top_z)))
     span = body_len / 2.0 + port_len + 1.0
-    v = v.cut(cq.Workplane(obj=_xcyl(BORE / 2.0, -span, span)))
+    v = v.cut(cq.Workplane(obj=_xcyl(bore / 2.0, -span, span)))
     return v
 
 
@@ -73,40 +73,40 @@ def build_coupler():
 
 
 # --- MG90S micro servo (local frame: output axis at origin, spline up) ------
-BODY_L = 22.8       # long axis, along X (free port direction)
-BODY_W = 12.5       # thin axis, along Y (cross-flow stacking pitch)
-BODY_H = 22.8       # tall axis, along Z
-OUT_OFFSET = 5.5    # spline offset from body center
-EAR_SPAN = 31.8     # ear tip to ear tip, along X
-body_cx = -(BODY_L / 2.0 - OUT_OFFSET)      # -5.9
-spline_tip = BODY_H + 1.5 + 3.5
+body_l = 22.8       # long axis, along X (free port direction)
+body_w = 12.5       # thin axis, along Y (cross-flow stacking pitch)
+body_h = 22.8       # tall axis, along Z
+out_offset = 5.5    # spline offset from body center
+ear_span = 31.8     # ear tip to ear tip, along X
+body_cx = -(body_l / 2.0 - out_offset)      # -5.9
+spline_tip = body_h + 1.5 + 3.5
 
 
 def build_servo_local():
     s = (
         cq.Workplane("XY")
-        .box(BODY_L, BODY_W, BODY_H, centered=(True, True, False))
+        .box(body_l, body_w, body_h, centered=(True, True, False))
         .translate((body_cx, 0.0, 0.0))
     )
     ear_t = 2.5
     ear_z0 = 16.0
-    ear_overhang = (EAR_SPAN - BODY_L) / 2.0      # 4.5
+    ear_overhang = (ear_span - body_l) / 2.0      # 4.5
     for sx in (1.0, -1.0):
-        edge = body_cx + sx * BODY_L / 2.0
+        edge = body_cx + sx * body_l / 2.0
         mid = edge + sx * ear_overhang / 2.0
         ear = (
             cq.Workplane("XY")
-            .box(ear_overhang, BODY_W, ear_t, centered=(True, True, False))
+            .box(ear_overhang, body_w, ear_t, centered=(True, True, False))
             .translate((mid, 0.0, ear_z0))
         )
         s = s.union(ear)
         s = s.cut(cq.Workplane(obj=_zcyl(1.0, ear_z0 - 1.0, ear_z0 + ear_t + 1.0).translate((mid, 0, 0))))
-    s = s.union(cq.Workplane(obj=_zcyl(3.0, BODY_H, BODY_H + 1.5)))          # output boss
-    s = s.union(cq.Workplane(obj=_zcyl(2.4, BODY_H + 1.5, spline_tip)))      # spline
+    s = s.union(cq.Workplane(obj=_zcyl(3.0, body_h, body_h + 1.5)))          # output boss
+    s = s.union(cq.Workplane(obj=_zcyl(2.4, body_h + 1.5, spline_tip)))      # spline
     cable = (
         cq.Workplane("XY")
         .box(4.0, 4.0, 4.0, centered=(True, True, False))
-        .translate((body_cx - BODY_L / 2.0 - 2.0, 0.0, 2.0))
+        .translate((body_cx - body_l / 2.0 - 2.0, 0.0, 2.0))
     )
     s = s.union(cable)
     return s

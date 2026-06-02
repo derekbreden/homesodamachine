@@ -35,15 +35,15 @@ def _box(dx, dy, dz, z0, x=0.0, y=0.0):
     )
 
 
-BLADE_X = 4.0       # across the flats
-BLADE_Y = 6.0       # blade width
-POCKET = 0.3        # socket clearance over the blade
+blade_x = 4.0       # across the flats
+blade_y = 6.0       # blade width
+pocket = 0.3        # socket clearance over the blade
 
 
 def build_stem():
     """Valve stem: round shaft + a double-flat drive blade on top."""
     s = cq.Workplane(obj=_zcyl(7.0 / 2.0, 0.0, 11.0))
-    s = s.union(_box(BLADE_X, BLADE_Y, 5.0, 11.0))
+    s = s.union(_box(blade_x, blade_y, 5.0, 11.0))
     return s
 
 
@@ -52,7 +52,7 @@ def build_lever():
     bar = _box(28.0, 9.0, 4.0, 0.0)
     hub = cq.Workplane(obj=_zcyl(10.0 / 2.0, -5.0, 0.0)).translate((10.0, 0, 0))
     lever = bar.union(hub)
-    socket = _box(BLADE_X + POCKET, BLADE_Y + POCKET, 5.5, -5.1, x=10.0)
+    socket = _box(blade_x + pocket, blade_y + pocket, 5.5, -5.1, x=10.0)
     lever = lever.cut(socket)
     return lever
 
@@ -61,7 +61,7 @@ def build_coupler():
     """Printed coupler: blade socket at the bottom, bolt flange to the horn."""
     c = cq.Workplane(obj=_zcyl(10.0 / 2.0, 21.0, 28.0))
     c = c.union(cq.Workplane(obj=_zcyl(13.0 / 2.0, 28.0, 30.0)))      # flange
-    c = c.cut(_box(BLADE_X + POCKET, BLADE_Y + POCKET, 5.5, 20.9))    # blade socket
+    c = c.cut(_box(blade_x + pocket, blade_y + pocket, 5.5, 20.9))    # blade socket
     for sx in (-1.0, 1.0):
         c = c.cut(cq.Workplane(obj=_zcyl(1.0, 27.5, 30.5).translate((sx * 5.0, 0, 0))))
     return c
