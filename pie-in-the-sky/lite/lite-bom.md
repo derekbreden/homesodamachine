@@ -15,6 +15,10 @@
 | Flavor | Eldon James C6-4BN 3/8" × 1/4" nylon reducing coupler, black | 2 | $0.75 | [FWS C6-4BN](https://www.freshwatersystems.com/products/3-8-x-1-4-tube-id-nylon-reduction-coupler-black) | Steps each BiB leg from the connector's 3/8" barb down to the 1/4" clear PVC into V-K-A/V-K-B. Tube-ID barb both ends, 6/6 nylon, 150 psi @ 70°F. FWS's 3/8→1/4 *barb-to-barb* reducing coupler is stocked only in nylon — its PP/PVDF 3/8×1/4 reducers are all push-fit (tube-OD) or NPT, not barb-over-soft-tube. Nylon suits this optional, intermittent, low-pressure leg: soda syrup is sugar-concentrated but its acid content is dilute (phosphoric/citric at low %), which nylon tolerates well. $0.75/ea (bag of 10 = $7.31). |
 | Flavor | Food-grade 3/8" ID silicone tube stub + worm-gear clamps | ~6 in | — | [B089YGDB55](https://www.amazon.com/dp/B089YGDB55) | A short stub per channel bridges the connector's 3/8" male barb to the reducer's 3/8" male barb (two males can't mate directly), clamped. Draws from the Kitchen build's JoyTube 3/8" ID × 1/2" OD food-grade silicone (bom.md §5, ACQUIRED); ~3 in/channel + a worm-gear clamp on each push-on barb joint. |
 
+## Per-unit cost (estimate)
+
+Estimated delivered parts cost per Lite unit: **[$238.00](LITE_TOTAL)** — summed from the table above by [`_lite_bom_totals.py`](_lite_bom_totals.py) (run after editing the table). Excludes external/user-supplied items (CO2 tank, flavor concentrate) and shared-stock consumables.
+
 ## Clear-PVC length — ~13 ft/unit (estimate)
 
 The enclosure is not designed yet (see [`README.md`](README.md) "Not designed"), so these are routing estimates from component sizes and a small under-sink envelope, not measured runs:
@@ -36,3 +40,7 @@ A 100 ft roll covers a 3–10 unit batch.
 - Costs are resolved delivered single-unit where purchased; FWS catalog unit prices get shipping + tax allocated at order time, per the Kitchen `bom.md` pattern.
 - Dimensions are the manufacturer listing's; real measurements pending the physical units.
 - Food-contact parts are chosen for genuine food-safe **material** suitability, not a third-party listing — D2C sale pursues no NSF/UL listing credential (see [`../../business/regulatory.md`](../../business/regulatory.md)). Vendor NSF/FDA marks are recorded where stated, as material descriptors, not a gate.
+
+## Sources
+[value](NAME) texts are updated by:
+- `/pie-in-the-sky/lite/_lite_bom_totals.py`
