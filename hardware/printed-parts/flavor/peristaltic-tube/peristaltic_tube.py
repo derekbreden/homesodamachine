@@ -1,6 +1,5 @@
 """Peristaltic tube — the flexible PETG hollow cylinder that runs
-through the Kamoer KPP pump head. Prints vase-mode standing on its
-−Z end face; the spiral seam rises along the tube axis (Z)."""
+through the Kamoer KPP pump head. Axis along Z."""
 
 import sys
 from pathlib import Path
@@ -18,7 +17,7 @@ from docgen import substitute_py_comments
 # Bore diameter matches the Kamoer KPP small-bore pump head.
 inner_diameter = 3.2
 wall_thickness = 1.6
-# [6.4 mm](OUTER_D) outer diameter = inner_diameter + 2 × wall_thickness.
+# [6.4 mm](OUTER_D) outer diameter.
 outer_diameter = inner_diameter + 2 * wall_thickness
 tube_length = 150.0
 

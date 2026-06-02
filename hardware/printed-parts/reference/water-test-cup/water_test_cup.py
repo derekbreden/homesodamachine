@@ -1,11 +1,8 @@
 """Water-tightness test coupon — a 4 fl oz open-top cup with 3 mm walls
-and a 3 mm floor, printed in PETG. Fill it with water and watch the walls
-and floor for weeping or seepage; it stands in for the reservoir's 3 mm
-wall spec without printing the whole reservoir.
+and a 3 mm floor, printed in PETG at the reservoir's wall spec.
 
-Open-top cylinder: interior ⌀50 × ~60.2 mm (4 fl oz = 118.3 mL), outer
-⌀56 × ~63.2 mm. Interior height is derived from the volume target so the
-fill line is exactly 4 fl oz."""
+Open-top cylinder: interior ⌀50 × 60.2 mm (4 fl oz = 118.3 mL), outer
+⌀56 × 63.2 mm. The interior holds exactly 4 fl oz to the rim."""
 
 import math
 import sys
@@ -17,7 +14,6 @@ _here = Path(__file__).resolve()
 sys.path.insert(0, str(next(p for p in _here.parents if p.name == "hardware")))
 from _cadq_export import export_step
 
-# 4 US fluid ounces in mm³ (1 fl oz = 29.5735 mL).
 volume_target = 4 * 29573.5
 
 wall_thickness = 3.0
@@ -35,7 +31,7 @@ def build_water_test_cup():
         cq.Workplane("XY")
         .workplane(offset=floor_thickness)
         .circle(interior_radius)
-        .extrude(interior_height + 1.0)  # overshoot opens the top cleanly
+        .extrude(interior_height + 1.0)
     )
     return outer.cut(cavity)
 

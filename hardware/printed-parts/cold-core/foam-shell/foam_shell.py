@@ -58,17 +58,13 @@ def main():
     volume = solid.Volume()
     centroid = solid.Center()
 
-    # Short names scoped to this README. Units live inside the value so the
-    # script controls them — change a unit in source and the markdown follows.
     substitute_md(
         _here / "README.md",
         variables={
-            # Outer shell footprint + height (substituted into the design prose).
             "OUTER_H": f"{foam_shell_outer_height:.4g} mm",
             "OUTER_X": f"{outer_shell_x_length:.4g} mm",
-            "OUTER_Y": f"{outer_shell_y_length:.4g}",  # unit implied from OUTER_X
+            "OUTER_Y": f"{outer_shell_y_length:.4g}",
             "OUTER_GAP": f"{outer_shell_foam_gap:.4g} mm",
-            # Tank, coil, pocket, ring.
             "WALL_T": f"{wall_and_floor_thickness:.4g} mm",
             "TANK_H": f"{tank_height:.4g} mm",
             "TANK_R": f"{tank_outer_radius:.4g} mm",
@@ -88,16 +84,13 @@ def main():
             "PORT_D": f"{port_hole_radius * 2:.4g} mm",
             "CORNER_ROUND_R": f"{corner_round_radius:.4g} mm",
             "BOSS_D": f"{screw_boss_size:.4g} mm",
-            # Foam-cap, foam-cap-lid, foam-cap-gasket.
             "CAP_H": f"{foam_cap_interior_height:.4g} mm",
             "POUR_D": f"{foam_cap_lid_pour_radius * 2:.4g} mm",
             "VENT_D": f"{foam_cap_lid_vent_radius * 2:.4g} mm",
             "GASKET_T": f"{gasket_thickness:.4g} mm",
             "GASKET_W": f"{gasket_strip_width:.4g} mm",
-            # Cap-to-outer-shell joinery.
             "MID_BOSS_OFFSET": f"{mid_screw_x_offset:.4g} mm",
             "INSERT_DEPTH": f"{insert_pocket_depth:.4g} mm",
-            # Regression baseline (computed from the actual STEP geometry).
             "VOLUME": f"{volume:.3f} mm³",
             "BBOX_X": f"{bbox.xmin:.3f} to {bbox.xmax:.3f} mm",
             "BBOX_Y": f"{bbox.ymin:.3f} to {bbox.ymax:.3f} mm",
