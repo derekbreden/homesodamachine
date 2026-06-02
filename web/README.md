@@ -92,7 +92,7 @@ Served flat via `express.static(public/)`.
 | `dxf.js` | DXF loader, parser, extrusion mesher, thumbnail renderer. |
 | `mermaid.js` | Mermaid renderer (lazy-loaded library), thumbnail renderer, modal detail flow with PanZoom. |
 | `cad-detail.js` | Shared modal flow for STEP+DXF (`openCadDetail`/`closeCadDetail`); the `CAD_KINDS` table maps type → ext/hashPrefix/loader. |
-| `grid.js` | Card grid, subsystem subheaders (`categoryAndPartPath`, `groupFilesByCategory`, `CATEGORY_LABEL_OVERRIDES`), `IntersectionObserver` for thumbnail lazy-load. |
+| `grid.js` | Card grid, subsystem subheaders (`categoryAndPartPath`, `groupFilesByCategory`), `IntersectionObserver` for thumbnail lazy-load. |
 | `live.js` | WebSocket-driven refresh — `hsm:files-changed` listener + `refreshXxxCard` per type for per-file updates; `hsm:deploy` listener that wipes caches and refreshes the whole grid + open modal on a new build. Sets `window.__hsmDeploySoft`. |
 | `route.js` | popstate + initial-route translation between URL hash/`?file=` and `currentDetail`. |
 | `main.js` | Entry. Sets up nav active class + title, calls `fetchFiles`, applies the initial route. |
