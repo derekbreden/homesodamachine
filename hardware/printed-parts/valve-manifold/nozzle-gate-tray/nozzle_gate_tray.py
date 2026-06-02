@@ -29,10 +29,10 @@ from _cadq_export import export_step
 import bag_circuit_tray as bc
 
 # One valve column (−X) + a Tee on each row.
-VALVES = {"VG": (-bc.Vx, +bc.row_half), "VJ": (-bc.Vx, -bc.row_half)}
-TEES = {"YD": (0.0, +bc.row_half), "YG": (0.0, -bc.row_half)}
+valves = {"VG": (-bc.valve_x, +bc.row_half), "VJ": (-bc.valve_x, -bc.row_half)}
+tees = {"YD": (0.0, +bc.row_half), "YG": (0.0, -bc.row_half)}
 
-plate_x = (-bc.plate_half_x, bc.TEE_RUN_HALF)   # +X wall ends at the Tee run port
+plate_x = (-bc.plate_half_x, bc.tee_run_half)   # +X wall ends at the Tee run port
 plate_y_half = bc.plate_half_y
 stack_pitch = bc.stack_pitch
 
@@ -40,13 +40,13 @@ stack_pitch = bc.stack_pitch
 def build_assembly():
     # Outlets point -X to the nozzles (the outer ports); inlets are from the
     # center Tees. The valve flow arrow (local +Y) points -X.
-    parts = {nm: bc.place_valve(*p, 90.0) for nm, p in VALVES.items()}
-    parts.update({nm: bc.place_tee(*p) for nm, p in TEES.items()})
+    parts = {nm: bc.place_valve(*p, 90.0) for nm, p in valves.items()}
+    parts.update({nm: bc.place_tee(*p) for nm, p in tees.items()})
     return parts
 
 
 def build_nozzle_gate_tray():
-    return bc.build_tray(list(VALVES.values()), bc.tee_grooves(TEES.values()), plate_x, plate_y_half)
+    return bc.build_tray(list(valves.values()), bc.tee_grooves(tees.values()), plate_x, plate_y_half)
 
 
 def main():
