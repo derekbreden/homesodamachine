@@ -1,7 +1,6 @@
 """Reference solid for the Beduan 12V DC normally-closed solenoid valve
 (2-way, 1/4" quick-connect, Amazon B07NWCQJK9) — used 12x on the
-fluid-topology manifold (see `hardware/bom.md`). Dimensions from
-`hardware/off-the-shelf-parts/beduan-solenoid/`.
+fluid-topology manifold (see `hardware/bom.md`).
 
 A white valve body (central boss + four corner posts + a square top box),
 a solenoid coil stacked on top, a port running through on the flow axis,
