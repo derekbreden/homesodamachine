@@ -103,10 +103,8 @@ water_tube_od = 0.375 * 25.4
 water_tube_r = water_tube_od / 2.0
 water_tube_above_plateau = 40.0
 water_tube_into_port = 15.0
-# [24 mm](WATER_TUBE_Z_BOTTOM)
-water_tube_z_bottom = plateau_z - water_tube_into_port
-# [79 mm](WATER_TUBE_Z_TOP)
-water_tube_z_top = plateau_z + water_tube_above_plateau
+water_tube_z_bottom = plateau_z - water_tube_into_port  # [24 mm](WATER_TUBE_Z_BOTTOM)
+water_tube_z_top = plateau_z + water_tube_above_plateau  # [79 mm](WATER_TUBE_Z_TOP)
 
 
 # Flavor dispense tubes — Ø 1/4" — sit BEHIND the water tube. Not
@@ -154,8 +152,7 @@ pre_bend_z = plateau_z + pre_bend_rise
 #   4. bend 2 — sweep gn_bend2_sweep_rad at R = gn_bend2_r (wider)
 #   5. tip straight of gn_tip_straight_len
 # The tip's exit angle below horizontal = (bend1_sweep + bend2_sweep) - 90°.
-# [52 mm](LEVER_TOP_Z)
-lever_top_z = plateau_z + 13.0
+lever_top_z = plateau_z + 13.0  # [52 mm](LEVER_TOP_Z)
 gn_bend1_r = 30.0
 gn_bend2_r = 40.0
 gn_bend1_sweep_rad = math.radians(30.0)

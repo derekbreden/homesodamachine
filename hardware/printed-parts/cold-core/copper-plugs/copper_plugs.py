@@ -103,9 +103,7 @@ slot_x_range = (-slot_half_width_x, slot_half_width_x)
 
 # Tube clearance circle is tangent to the slot's ⌀[6.5 mm](SLOT_W) X edges
 # at each pass-through Z.
-# [3.25 mm](TUBE_CLEAR_R)
-# [6.5 mm](SLOT_W)
-tube_clearance_radius = slot_half_width_x
+tube_clearance_radius = slot_half_width_x  # [3.25 mm](TUBE_CLEAR_R)
 
 # Web fills the +Y outer_shell wall's Y range exactly ([2 mm](WALL_T) thick at
 # [2 mm](WALL_T) wall); the two flanges sit [1 mm](FLANGE_T) above and [1 mm](FLANGE_T) below it.
@@ -117,8 +115,6 @@ wall_y_range = (outer_wall_inner_y, outer_wall_outer_y)
 
 # The [2 mm](WALL_T) gap between the two flanges, at the wall's Y range
 # and outside the web's X range, is where the +Y wall seats.
-# [1 mm](FLANGE_T)
-# [1 mm](FLANGE_T)
 flange_x_overhang_per_side = 1.0
 flange_y_thickness = 1.0
 
@@ -147,7 +143,6 @@ water_inlet_z = foam_shell_outer_height - hole_shift_from_edge
 # The LLDPE off the prv-shroud cap bends to land at this Z in the slot.
 # [15 mm](TOP_ROOM) of room between the water inlet and the shell top
 # ([30 mm](TANK_ELBOW_H) above_tank_elbows_height), as [8 mm](PRV_OFFSET) + [7 mm](TOP_PLUG_H).
-# [8 mm](PRV_OFFSET)
 prv_vent_offset_above_water = 8.0
 # [206.4 mm](PRV_VENT_Z) — PRV relief line.
 prv_vent_z = water_inlet_z + prv_vent_offset_above_water
@@ -183,7 +178,7 @@ web_arch_buffer = math.sqrt(
     - (slot_half_width_x - min_printable_thickness) ** 2
 )
 
-volume_check_tolerance = 0.01
+volume_check_tolerance = 0.01  # [0.01 mm³](VOL_TOL)
 
 
 def build_plug(spec):
@@ -255,7 +250,6 @@ def _analytical_volume(spec):
 
 
 def main():
-    # [0.01 mm³](VOL_TOL)
     for name, spec in plug_specs.items():
         plug = build_plug(spec)
         out = _here / f"copper-plug-{name}.step"
@@ -318,9 +312,9 @@ def main():
         Path(__file__),
         variables=variables,
         expected_counts={
-            "SLOT_W": 3,
-            "FLANGE_T": 4,
-            "PRV_OFFSET": 2,
+            "SLOT_W": 2,
+            "FLANGE_T": 2,
+            "PRV_OFFSET": 1,
             "VOL_TOL": 1,
             "TUBE_CLEAR_R": 1,
             "WALL_OUTER_Y": 1,

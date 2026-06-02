@@ -40,15 +40,13 @@ from _cadq_export import export_dxf
 
 # [4.86 in](DISC_D) — tube ID 4.870" − 0.010" slip-fit.
 disc_diameter = 4.860
-# [2.43 in](DISC_R)
-disc_radius = disc_diameter / 2
+disc_radius = disc_diameter / 2  # [2.43 in](DISC_R)
 # [0.25 in](DISC_THK) — 1/4" 316 SS.
 disc_thickness = 0.250
 
 # [0.438 in](HOLE_D) — 7/16" tap drill for 1/4"-18 NPT.
 hole_diameter = 0.438
-# [0.219 in](HOLE_R)
-hole_radius = hole_diameter / 2
+hole_radius = hole_diameter / 2  # [0.219 in](HOLE_R)
 
 # [1.5 in](HOLE_SPACING) center-to-center along one axis — matches the
 # CNC dome-cap variants so plumbing layout is identical across cap styles.
