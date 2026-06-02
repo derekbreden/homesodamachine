@@ -23,18 +23,17 @@ tube_length = 150.0
 
 
 def build_tube():
-    """Hollow cylinder, axis along Z."""
     outer = (
         cq.Workplane("XY")
         .circle(outer_diameter / 2)
         .extrude(tube_length)
     )
-    inner = (
+    bore = (
         cq.Workplane("XY")
         .circle(inner_diameter / 2)
         .extrude(tube_length)
     )
-    return outer.cut(inner)
+    return outer.cut(bore)
 
 
 def main():

@@ -42,10 +42,9 @@ bot_z = cell.tray_bottom_z
 _tee_path = _hw / "reference" / "tee-connector" / "tee-connector.step"
 
 # --- Shared geometry ------------------------------------------------------
-PORT_HALF = 29.5          # valve port half-length
-row_half = 16.125         # half the butted-pair pitch = valve body half-width
-TEE_RUN_HALF = 20.07      # Tee run half-length (port to center)
-TEE_BRANCH = 20.07        # Tee branch reach (port to center)
+PORT_HALF = 29.5  # valve port half-length
+row_half = cell.valve.body_radius  # butted-pair valves touch bodies at the row center
+TEE_RUN_HALF = 20.07  # Tee run half-length (port to center)
 Vx = TEE_RUN_HALF + PORT_HALF  # inner port tip meets the Tee run port
 
 # This tray's valves + Tees.
@@ -93,13 +92,13 @@ wall_thickness = 3.0
 wall_clear = 1.0
 wall_top_z = 60.0
 stack_pitch = wall_top_z - bot_z
-valve_y_extent = row_half + 16.125          # outer body edge
+valve_y_extent = row_half + cell.valve.body_radius  # outer body edge of the butted pair
 plate_half_y = valve_y_extent + wall_clear + wall_thickness
 
 plate_half_x = Vx + corner_pos + socket_radius + margin
 
-# Connector groove: a Tee's run/collet half-width plus clearance, so the
-# fitting sets down into the floor at port height (Z = 11.3).
+# Connector groove: a Tee's run/collet outer radius plus clearance, the
+# trough the fitting sets into at port height (PORT_Z).
 TEE_RADIUS = 6.86            # Tee run/collet outer radius (body 13.72 wide)
 groove_clearance = 0.25
 TEE_GROOVE_R = TEE_RADIUS + groove_clearance

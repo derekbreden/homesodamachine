@@ -43,9 +43,8 @@ tank_od = 127.0  # 5" carbonator tank OD
 # [63.5 mm](TANK_R) — tank radius.
 tank_radius = tank_od / 2
 
-# Radial stretch to slip the coil onto the tank: the as-wound coil
-# inner radius is this much smaller than the tank radius. Not the
-# copper centerline displacement.
+# As-wound coil inner radius, this much under the tank radius; the coil
+# stretches radially by this to clamp the tank.
 net_undersize = 3.0
 
 
@@ -55,8 +54,8 @@ net_undersize = 3.0
 
 groove_depth = 1.0
 groove_profile_radius = tube_radius
-# [2.175 mm](GROOVE_OFFSET) — helix path is offset OUTWARD this much so the
-# tube_radius profile cuts only groove_depth into the cylinder.
+# [2.175 mm](GROOVE_OFFSET) — helix path sits this far outboard of the cylinder
+# surface, so the tube_radius profile cuts only groove_depth into it.
 groove_offset = groove_profile_radius - groove_depth
 
 # Copper bottom rests at the groove bottom, so the coil inner radius is
@@ -65,6 +64,11 @@ groove_offset = groove_profile_radius - groove_depth
 mandrel_radius = tank_radius - net_undersize + groove_depth
 # [123 mm](MANDREL_OD) — mandrel outer surface diameter.
 mandrel_od = 2 * mandrel_radius
+
+# Helix centerline radius — the cylinder surface plus groove_offset.
+helix_path_radius = mandrel_radius + groove_offset
+# [121 mm](GROOVE_BOTTOM_OD) — diameter at the bottom of the helical groove.
+groove_bottom_od = mandrel_od - 2 * groove_depth
 
 wall = 5.0
 # [56.5 mm](MANDREL_INNER_R) — hollow ring inner radius.
@@ -128,33 +132,29 @@ def hollow_ring(r_range, z_range):
     )
 
 
-def build_mandrel():
-    body = hollow_ring(mandrel_r_range, mandrel_z_range)
-
-    # Helical groove.
-    helix_path_radius = mandrel_radius + groove_offset
+def build_groove_cut():
+    """Helical groove over the wind zone: the groove_profile_radius circle
+    swept along the helix at helix_path_radius."""
     helix = cq.Wire.makeHelix(
         pitch=pitch, height=wind_length, radius=helix_path_radius
     ).translate((0, 0, wind_z_range[0]))
-
     helix_start = helix.startPoint().toTuple()
     profile_plane = cq.Plane(origin=helix_start, xDir=(0, 0, 1), normal=(0, 1, 0))
     profile = cq.Workplane(profile_plane).circle(groove_profile_radius)
+    return profile.sweep(cq.Workplane(obj=helix), isFrenet=False)
 
-    swept_groove = profile.sweep(cq.Workplane(obj=helix), isFrenet=False)
-    cut_body = body.cut(swept_groove, clean=False)
 
-    # The handle zones are ungrooved; the swept groove overshoots the
-    # wind zone by groove_profile_radius at each end.
+def build_mandrel():
+    body = hollow_ring(mandrel_r_range, mandrel_z_range)
+    cut_body = body.cut(build_groove_cut(), clean=False)
+
+    # The swept groove overshoots the wind zone by groove_profile_radius at
+    # each end; re-unioning the handle rings restores their ungrooved walls.
     lower_handle = hollow_ring(mandrel_r_range, lower_handle_z_range)
     upper_handle = hollow_ring(mandrel_r_range, upper_handle_z_range)
     return (cut_body
             .union(lower_handle, clean=False)
             .union(upper_handle, clean=False))
-
-
-# [121 mm](GROOVE_BOTTOM_OD) — diameter at the bottom of the helical groove.
-groove_bottom_od = mandrel_od - 2 * groove_depth
 
 
 def main():

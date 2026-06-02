@@ -1,6 +1,5 @@
 """Assembled BiB-gate tray: the tray with its 2 valves + 4 Y-dividers seated
-in place. A flat cq.Assembly of pre-positioned solids, colored and named,
-written as one multi-solid STEP.
+in place.
 """
 
 import sys

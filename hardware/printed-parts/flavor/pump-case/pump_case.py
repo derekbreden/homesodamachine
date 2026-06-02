@@ -82,14 +82,15 @@ pogo_inner_width = 4.2
 pogo_z_offset = 13.5
 pogo_ridge_length = 24.5
 pogo_ridge_width = 10.0
-pogo_ridge_depth = 0.7  # thin outer wall so pogo pins protrude further
+pogo_ridge_depth = 0.7  # outer-wall thickness the pogo pins protrude through
 
 
 # Outer envelope of the assembled case, including the snaps, tubes, and
 # pogo that protrude past the bare base/cap solids.
 
-snap_protrusion_per_side = 2.5    # snap protrusion past the footprint per side
-tube_protrusion_length   = 11.3   # silicone tubes extending past the case body
+# Snap protrudes past the footprint; silicone tubes extend past the case body.
+snap_protrusion_per_side = 2.5
+tube_protrusion_length = 11.3
 
 # [75.0 mm](CASE_OUTER_X) is the full width of the assembled case
 case_outer_x = footprint_x + 2 * snap_protrusion_per_side
@@ -351,7 +352,8 @@ skirt_narrow_full_width = 2 * skirt_narrow_half_extent
 # has only tapered by [3mm](SKIRT_WIDE_FLARE) of its [4mm](SKIRT_NARROW_TAPER).
 skirt_mid_narrow_half_extent = skirt_base_half_extent - skirt_wide_flare_per_side
 
-# Narrow straight section is shorter so both halves land together.
+# Both skirt halves terminate at skirt_bottom_z; the narrow side's deeper
+# taper leaves it a correspondingly shorter straight section.
 skirt_narrow_straight_height = (
     skirt_wide_straight_height
     - (skirt_narrow_taper_per_side - skirt_wide_flare_per_side)
