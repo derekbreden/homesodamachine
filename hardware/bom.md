@@ -139,7 +139,8 @@ Dishing dies (PA6-CF) for end-cap forming are vessel-fabrication tools, not ship
 | [Magnetic pogo pin connector, 2-pin (2 pair)](https://www.amazon.com/dp/B0CSX6ZQ1H) | tool-free pump cartridge electrical connection, one pair per pump | 1 pk | $10.71 | $10.71 |
 | [Beduan 12V 1/4" solenoid valve (NC)](https://www.amazon.com/dp/B07NWCQJK9) | V-A/B/C/D/E/F/G/H/I/J/KA/KB per fluid-topology-manifold.mmd ([12](SOLENOIDS) per unit); lower-bound delivered single-unit cost (range $9.64–$19.28 across user's mixed orders) | [12](SOLENOIDS) | $9.64 | $115.68 |
 | [John Guest PP1208E 1/4" OD black polypropylene push-to-connect bulkhead union (10-pk)](https://www.amazon.com/dp/B00JYFU8MM) | **Rear-panel umbilical port** — [3](PP1208E_PANEL) bulkheads on the enclosure back panel accepting the 3-tube under-cabinet-faucet umbilical (1 carbonated water + 2 flavors), one bulkhead marked with a blue accent ring to match the blue-color-coded carbonated-water tube per [printed-parts/enclosure/back-panel/README.md](printed-parts/enclosure/back-panel/README.md). Black PP, NSF 51 + NSF 61, FDA-compliant materials, EPDM O-ring, 150 psi @ 70°F. Amazon 112-6407862 May 11: $23.11 + $1.68 tax = $24.79 ÷ 10 = $2.479/ea; 10-pk = ~3 builds of stock | [3](PP1208E_TOTAL) (of 10 pk) | $2.48 | $7.44 |
-| [PureSec 1/4" RO push-to-connect 90° elbow bulkhead, white polypropylene (5-pk)](https://www.amazon.com/dp/B0968K4JRN) | **Reservoir-cap outlet port** — single-piece right-angle PTC bulkhead through the reservoir floor trough per [`printed-parts/cold-core/reservoir/floor-and-bulkhead.md`](printed-parts/cold-core/reservoir/floor-and-bulkhead.md); the integral 90° elbow routes the syrup line laterally, so no separate union elbow is needed at the reservoir. White PP, water/RO/beverage-rated; needs an added panel o-ring (ships without) and a ⌀16 mm mounting hole. 1 per reservoir × [2](RESERVOIRS) = 2/build. Amazon B0968K4JRN: $10.99 ÷ 5 = $2.198/ea; 5-pk = 2.5 builds of stock | [2](RESERVOIRS) (of 5 pk) | $2.20 | $4.40 || [Supply Depot BIB connector, 3/8" red (2-pk)](https://www.amazon.com/dp/B0DMFK9B6P) | rear-panel commercial-syrup input | 1 pk | $19.99 | $19.99 |
+| [PureSec 1/4" RO push-to-connect 90° elbow bulkhead, white polypropylene (5-pk)](https://www.amazon.com/dp/B0968K4JRN) | **Reservoir-cap outlet port** — single-piece right-angle PTC bulkhead through the reservoir floor trough per [`printed-parts/cold-core/reservoir/floor-and-bulkhead.md`](printed-parts/cold-core/reservoir/floor-and-bulkhead.md); the integral 90° elbow routes the syrup line laterally, so no separate union elbow is needed at the reservoir. White PP, water/RO/beverage-rated; needs an added panel o-ring (ships without) and a ⌀16 mm mounting hole. 1 per reservoir × [2](RESERVOIRS) = 2/build. Amazon B0968K4JRN: $10.99 ÷ 5 = $2.198/ea; 5-pk = 2.5 builds of stock | [2](RESERVOIRS) (of 5 pk) | $2.20 | $4.40 |
+| [Supply Depot BIB connector, 3/8" red (2-pk)](https://www.amazon.com/dp/B0DMFK9B6P) | rear-panel commercial-syrup input | 1 pk | $19.99 | $19.99 |
 | [MAACFLOW SS 1/4" NPT M × 3/8" hose barb (4-pk)](https://www.amazon.com/dp/B0DMP77B6S) | | 1 pk | $12.97 | $12.97 |
 | [John Guest PP010822E 1/4" OD × 1/4" NPT male connector, black polypropylene (10-pk)](https://www.freshwatersystems.com/products/john-guest-male-connector-nptf-black-polypropylene-1-4-x-1-4-nptf) | 1/4" NPT M × 1/4" PTC adapter pair (one per BiB-input leg, between MAACFLOW 3/8" barb × 1/4" NPT M and the LLDPE feeding the PP2308E Y-divider below); 2 per build; FWS WEBFWS100675224 May 15: $11.00 + $5.23 ship + $1.18 tax = $17.41 ÷ 10 = $1.741/ea | 2 (of 10 pk) | $1.74 | $3.48 |
 | [John Guest PP2308E two-way divider, black polypropylene 1/4"](https://www.freshwatersystems.com/products/john-guest-two-way-divider-black-polypropylene-1-4) | manifold Y-A/B/C/D/E/F/G/H/KA/KB per fluid-topology-manifold.mmd, [10](Y_DIVIDERS) per unit; FWS WEBFWS100673541 May 9: 2 bags of 10 @ $61.66 = $30.83/bag = $3.083/ea pre-tax/ship | [10](Y_DIVIDERS) (1 bag) | $3.083 | $30.83 |
@@ -243,21 +244,21 @@ Per-appliance tools that ship in the install kit so the field installer can cut 
 
 | Section | $ |
 |---|---:|
-| 1. Controllers + electronics | $166.43 |
+| 1. Controllers + electronics | $142.44 |
 | 2. Carbonator vessel (plan A, 316L) | $240.69 |
-| 3. Water inlet | $220.22 |
+| 3. Water inlet | $230.82 |
 | 4. CO2 subsystem | $136.45 |
 | 5. Refrigeration | $196.70 |
 | 6. Cold core insulation | $52.38 |
 | 7. Printed parts (PETG) | $103.94 |
-| 8. Flavor subsystem | $284.62 |
+| 8. Flavor subsystem | $270.69 |
 | 9. Dispensing | $50.68 |
-| 10. UI | $43.16 |
+| 10. UI | $3.21 |
 | 11. Wiring | $31.97 |
 | 12. Level sensing | $69.78 |
-| 13. Mechanical attach hardware + reservoir-cap vent filter | $17.55 |
+| 13. Mechanical attach hardware + reservoir-cap vent filter | $5.41 |
 | 14. Install kit | $4.29 |
-| **Total** | **$1,625.06** |
+| **Total** | **$1,539.45** |
 
 ## External / user-supplied (not shipped)
 
