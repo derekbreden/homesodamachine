@@ -24,6 +24,9 @@ interior_height = volume_target / (math.pi * interior_radius**2)
 outer_radius = interior_radius + wall_thickness
 outer_height = floor_thickness + interior_height
 
+# Cavity overshoots the rim so it cuts a clean open top.
+rim_overshoot = 1.0
+
 
 def build_water_test_cup():
     outer = cq.Workplane("XY").circle(outer_radius).extrude(outer_height)
@@ -31,7 +34,7 @@ def build_water_test_cup():
         cq.Workplane("XY")
         .workplane(offset=floor_thickness)
         .circle(interior_radius)
-        .extrude(interior_height + 1.0)
+        .extrude(interior_height + rim_overshoot)
     )
     return outer.cut(cavity)
 

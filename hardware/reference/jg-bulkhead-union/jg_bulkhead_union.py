@@ -46,8 +46,8 @@ RING_D = 11.43       # release ring
 THREAD_D = 17.14     # threading / panel pass-through
 PORT_D = 6.35        # 1/4" tube port bore
 
-# Symmetric ends (body + release ring) with threading spanning the
-# middle; the segments sum to the 34.29 overall length.
+# Body + release ring at each end, threading spanning the middle; the
+# segments sum to the 34.29 overall length.
 BODY_LEN = 5.0
 RING_LEN = 4.5
 THREAD_LEN = 15.29
@@ -57,59 +57,76 @@ PORT_DEPTH = 4.0     # bore recess into each release-ring end face
 # clearing the mounting panel.
 PROUD_LENGTH = BODY_LEN + RING_LEN
 
+# Seating planes along Y where the coaxial segments meet. The near end
+# stands at y ≥ 0; the threading and far end sit at y ≤ 0, mirrored
+# about Y = -THREAD_LEN/2.
+near_body_to_ring_y = BODY_LEN
+near_ring_face_y = PROUD_LENGTH
+far_thread_to_body_y = -THREAD_LEN
+far_body_to_ring_y = -THREAD_LEN - BODY_LEN
+far_ring_face_y = -THREAD_LEN - BODY_LEN - RING_LEN
 
-def build_jg_bulkhead_union():
-    """The union as a single solid wrapped in a cq.Workplane."""
-    near_body = (
+
+def build_near_end():
+    """Body (Y=0 to near_body_to_ring_y) and release ring out to
+    near_ring_face_y, bored PORT_DEPTH in from the ring face."""
+    body = (
         cq.Workplane(xz_plane_y_up)
         .circle(BODY_D / 2)
         .extrude(BODY_LEN)
     )
-    near_ring = (
+    ring = (
         cq.Workplane(xz_plane_y_up)
-        .workplane(offset=BODY_LEN)
+        .workplane(offset=near_body_to_ring_y)
         .circle(RING_D / 2)
         .extrude(RING_LEN)
     )
-    near_port = (
+    port = (
         cq.Workplane(xz_plane_y_up)
-        .workplane(offset=PROUD_LENGTH)
+        .workplane(offset=near_ring_face_y)
         .circle(PORT_D / 2)
         .extrude(-PORT_DEPTH)
     )
-    near_ring = near_ring.cut(near_port)
+    return body.union(ring.cut(port))
 
-    threading = (
+
+def build_threading():
+    """Panel pass-through barrel spanning far_thread_to_body_y to Y=0."""
+    return (
         cq.Workplane(xz_plane_y_up)
         .circle(THREAD_D / 2)
         .extrude(-THREAD_LEN)
     )
 
-    far_body = (
+
+def build_far_end():
+    """Mirror of the near end behind the panel: body from
+    far_thread_to_body_y to far_body_to_ring_y, release ring out to
+    far_ring_face_y, bored PORT_DEPTH in from the ring face."""
+    body = (
         cq.Workplane(xz_plane_y_up)
-        .workplane(offset=-THREAD_LEN)
+        .workplane(offset=far_thread_to_body_y)
         .circle(BODY_D / 2)
         .extrude(-BODY_LEN)
     )
-    far_ring = (
+    ring = (
         cq.Workplane(xz_plane_y_up)
-        .workplane(offset=-THREAD_LEN - BODY_LEN)
+        .workplane(offset=far_body_to_ring_y)
         .circle(RING_D / 2)
         .extrude(-RING_LEN)
     )
-    far_port = (
+    port = (
         cq.Workplane(xz_plane_y_up)
-        .workplane(offset=-THREAD_LEN - BODY_LEN - RING_LEN)
+        .workplane(offset=far_ring_face_y)
         .circle(PORT_D / 2)
         .extrude(PORT_DEPTH)
     )
-    far_ring = far_ring.cut(far_port)
+    return body.union(ring.cut(port))
 
-    result = near_body.union(near_ring)
-    result = result.union(threading)
-    result = result.union(far_body)
-    result = result.union(far_ring)
-    return result
+
+def build_jg_bulkhead_union():
+    """The union as a single solid wrapped in a cq.Workplane."""
+    return build_near_end().union(build_threading()).union(build_far_end())
 
 
 def main():
