@@ -30,7 +30,7 @@ from _compressor_shroud_dimensions import (  # noqa: E402
 )
 from _cold_core_interface import (  # noqa: E402
     outer_shell_x_length,
-    outer_shell_z_length,
+    outer_shell_y_length,
 )
 from docgen import substitute_md  # noqa: E402
 
@@ -49,7 +49,7 @@ def main():
         "PANEL_HOLE": panel_hole_label,
         # Foam-shell outer bottom-cap footprint.
         "FOAM_SHELL_X": f"{outer_shell_x_length:.4g}",
-        "FOAM_SHELL_Z": f"{outer_shell_z_length:.4g} mm",
+        "FOAM_SHELL_Y": f"{outer_shell_y_length:.4g} mm",
     }
 
     substitute_md(
@@ -61,7 +61,7 @@ def main():
             "WALL_IN": 1,
             "PANEL_HOLE": 3,
             "FOAM_SHELL_X": 1,
-            "FOAM_SHELL_Z": 1,
+            "FOAM_SHELL_Y": 1,
         },
     )
     print("-> enclosure-mechanical.md")
