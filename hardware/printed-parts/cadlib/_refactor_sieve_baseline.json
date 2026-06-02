@@ -11,6 +11,8 @@
     "hardware/printed-parts/cold-core/foam-cap/foam-cap-top.step": "073495de8532bf1425bf10dc5c9dec3f0493e4bbee05e293fa7c3930f4942e63",
     "hardware/printed-parts/cold-core/foam-shell/foam-shell.step": "946cfdf70d38cf2851276d55735c916d02065e1085fd0e458c07ea3e863e90b3",
     "hardware/reference/co2-coupling-body/co2-coupling-body.step": "6c647a645ee4f99ca3c84a39f85e36ef3d249d387c071229e58e8937f5020313",
+    "hardware/reference/servo-valve-mock/coupling-detail.step": "bfbb93e62737d4eb9dd64314dc83368007a00a0a8bd524e322cbeacfb2adb620",
+    "hardware/reference/servo-valve-mock/servo-valve-mock.step": "fb320633385ccfee8a073aec547e8c77a97b1737a52a2dd2c4b47f52cd35b13c",
     "hardware/reference/touch-flo-faucet/faucet-assembly/touch-flo-faucet-assembly.step": "2ced613109550166896d2f329c4c87eef04453e1fe3f943ab4782c6878b8cfbf",
     "hardware/reference/touch-flo-faucet/valve-body-reference/touch-flo-valve-body-reference.step": "9a888589a4479351a13177a8885c9748da287e05d215bc5e541c1ae20acfe892"
   },
