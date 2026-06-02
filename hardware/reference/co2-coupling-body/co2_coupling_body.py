@@ -104,56 +104,59 @@ bend_radius = latch_thickness            # fillet on the outer + inner edges
                                         # of the 90° bend between tab and pad
 
 
-def build_co2_coupling_body(fillet_bend=True):
-    """Coupling body at canonical origin, mounting plane at y=0, axis
-    along +Y. fillet_bend rounds the bend between connector tab and pad."""
-    # Hex section, y=0 to y=hex_length, on xz_plane_y_up (perpendicular
-    # to the coupling axis +Y).
-    hex_part = (
+# Derived geometry.
+front_face_y = hex_length + body_length          # +Y front face of the body cup
+pad_top_z = body_d / 2 + latch_z_offset + latch_thickness
+pad_front_y = front_face_y + latch_cantilever
+pad_center_y = pad_front_y - pad_diameter / 2
+
+
+def build_hex_section():
+    """3/4" hex wrench section, y=0 to y=hex_length, on xz_plane_y_up
+    (perpendicular to the coupling axis +Y)."""
+    return (
         cq.Workplane(xz_plane_y_up)
         .polygon(6, hex_points)
         .extrude(hex_length)
         .rotate((0, 0, 0), (0, 1, 0), 0)
     )
 
-    # Body cup cylinder, on top of the hex.
+
+def build_body_cup():
+    """Body cup cylinder atop the hex, with the coupling-mouth recess —
+    a circular bore at the +Y front face where the male stem plugs in —
+    cut into it."""
     body = (
         cq.Workplane(xz_plane_y_up)
         .workplane(offset=hex_length)
         .circle(body_d / 2)
         .extrude(body_length)
     )
-
-    # Coupling mouth — recess at the +Y front face of the body cup.
-    front_face_y = hex_length + body_length
     mouth = (
         cq.Workplane(xz_plane_y_up)
         .workplane(offset=front_face_y)
         .circle(mouth_d / 2)
         .extrude(-mouth_depth)
     )
-    body = body.cut(mouth)
+    return body.cut(mouth)
 
-    # NPT thread shank, below the hex (in -Y direction).
-    thread = (
+
+def build_thread_shank():
+    """NPT thread shank below the hex (in -Y), a plain cylinder at the
+    nominal major Ø."""
+    return (
         cq.Workplane(xz_plane_y_up)
         .circle(thread_d / 2)
         .extrude(-thread_length)
     )
 
-    # Latch — one bent sheet metal piece of two parts:
-    #   - Front plate: flat disk covering the body cup's +Y face, with
-    #     a hole sized to the coupling mouth, and a rectangular tab
-    #     sticking up from the top of the disk (disk ∪ tab − hole).
-    #   - Pad: pill on the body cup's top, biased forward so its
-    #     +Y face shares a face with the tab's back at the bend.
-    pad_top_z = body_d / 2 + latch_z_offset + latch_thickness
-    pad_front_y = front_face_y + latch_cantilever
-    pad_center_y = pad_front_y - pad_diameter / 2
 
-    # Front plate sketch in the disk's local plane. xz_plane_y_up has
-    # local Y = -world Z (chirality flip), so the tab at world +Z (the
-    # latch's up direction) sits at local -Y in the 2D sketch.
+def build_latch_front_plate():
+    """Flat disk over the body cup's +Y face — disk ∪ connector tab −
+    coupling-mouth hole — sitting latch_z_offset above the body axis.
+
+    xz_plane_y_up has local Y = -world Z (chirality flip), so the tab at
+    world +Z (the latch's up direction) sits at local -Y in the sketch."""
     tab_top_local_z = pad_top_z - latch_z_offset
     tab_bottom_local_z = 0.0
     tab_height_local = tab_top_local_z - tab_bottom_local_z
@@ -166,7 +169,7 @@ def build_co2_coupling_body(fillet_bend=True):
         .reset()
         .circle(mouth_d / 2, mode="s")
     )
-    front_plate = (
+    return (
         cq.Workplane(xz_plane_y_up)
         .workplane(offset=front_face_y)
         .center(0, -latch_z_offset)
@@ -174,17 +177,30 @@ def build_co2_coupling_body(fillet_bend=True):
         .extrude(latch_thickness)
     )
 
-    # Thumb pad: pill (slot) on the top-face plane xy_plane_z_up, +Z
-    # normal (outward from the body axis, the latch direction). The
-    # slot's local +X is world +X — the pill's tangential long axis;
-    # local +Y is world +Y — the coupling-axis short dim.
-    pad = (
+
+def build_latch_pad():
+    """Thumb pad — a pill (slot) on the body cup's +Z top, biased toward
+    +Y so it meets the front plate's tab at the bend. On xy_plane_z_up:
+    local +X is world +X (the pill's tangential long axis); local +Y is
+    world +Y (the coupling-axis short dim)."""
+    return (
         cq.Workplane(xy_plane_z_up)
         .workplane(offset=body_d / 2 + latch_z_offset)
         .center(0, pad_center_y)
         .slot2D(length=pad_length, diameter=pad_diameter)
         .extrude(latch_thickness)
     )
+
+
+def build_co2_coupling_body(fillet_bend=True):
+    """Coupling body at canonical origin, mounting plane at y=0, axis
+    along +Y. The latch is one bent sheet-metal piece — front plate plus
+    thumb pad sharing a 90° bend; fillet_bend rounds that bend."""
+    hex_part = build_hex_section()
+    body = build_body_cup()
+    thread = build_thread_shank()
+    front_plate = build_latch_front_plate()
+    pad = build_latch_pad()
 
     result = hex_part.union(body)
     result = result.union(thread)
