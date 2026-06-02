@@ -41,6 +41,19 @@ from pathlib import Path
 _STEP_TIMESTAMP_RE = re.compile(rb"'\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}'")
 _STEP_CANONICAL_TIMESTAMP = b"'1970-01-01T00:00:00'"
 
+# cq.Assembly.save mints a fresh v1 (time-based) UUID for any assembly node
+# left unnamed and emits it as that node's PRODUCT id + name. Like the
+# timestamp it differs every run, and it poisons the entity-ID renumbering
+# below: the changed PRODUCT shifts the forward+reverse hashes of the whole
+# product-structure subtree, which reshuffles every #id in the file. Scrub
+# all UUIDs to one fixed value so an unnamed assembly is still byte-stable.
+# A named assembly carries its name here instead of a UUID (no-op); a
+# single-solid STEP has no PRODUCT at all.
+_STEP_UUID_RE = re.compile(
+    rb"[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}"
+)
+_STEP_CANONICAL_UUID = b"00000000-0000-0000-0000-000000000000"
+
 # OpenCASCADE also assigns entity IDs (`#1`, `#2`, …) in non-deterministic
 # order. Two runs producing the same geometry can interleave the IDs
 # differently, again churning bytes for a non-change. We canonicalize by
@@ -248,6 +261,7 @@ def _canonicalize_step(step_path):
     with open(step_path, "rb") as f:
         data = f.read()
     new_data = _STEP_TIMESTAMP_RE.sub(_STEP_CANONICAL_TIMESTAMP, data, count=1)
+    new_data = _STEP_UUID_RE.sub(_STEP_CANONICAL_UUID, new_data)
     # Entity-ID canonicalization is text-based; decode using STEP's
     # ASCII-only conventions. If parsing fails for any reason, fall back
     # silently to the timestamp-only canonicalization rather than risking
