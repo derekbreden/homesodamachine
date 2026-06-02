@@ -20,7 +20,7 @@ Coordinate convention:
   +Z = up. X completes the right-handed frame.
 
 Run:
-    tools/cad-venv/bin/python hardware/harvested/jg-bulkhead-union/jg_bulkhead_union.py
+    tools/cad-venv/bin/python hardware/reference/jg-bulkhead-union/jg_bulkhead_union.py
 """
 
 import sys

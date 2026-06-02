@@ -7,7 +7,7 @@
 **Note:** The threaded shank below the body IS modeled in the reference solid (Ø [11 mm](SHANK_OD) × [50 mm](SHANK_LEN) long, centered on the body axis) — it's the through-deck portion that the under-deck shell must accommodate.
 
 **Reference solid:** `valve-body-reference/valve_body_reference.py`  
-Regenerate: `tools/cad-venv/bin/python hardware/harvested/touch-flo-faucet/valve-body-reference/valve_body_reference.py`
+Regenerate: `tools/cad-venv/bin/python hardware/reference/touch-flo-faucet/valve-body-reference/valve_body_reference.py`
 
 **Coordinate note (measurement frame vs. world frame):** The dimensions
 below are in the body's own **measurement frame** — the long (31.5 mm)
@@ -174,4 +174,4 @@ The body sits on top of the countertop. The **[11 mm](SHANK_OD) threaded shank**
 
 ## Sources
 [value](NAME) texts are updated by:
-- `/hardware/harvested/touch-flo-faucet/valve-body-reference/valve_body_reference.py`
+- `/hardware/reference/touch-flo-faucet/valve-body-reference/valve_body_reference.py`

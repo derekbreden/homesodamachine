@@ -1,6 +1,6 @@
 """Load the touch-flo faucet assembly as a single CadQuery Workplane.
 
-The faucet assembly (`hardware/harvested/touch-flo-faucet/faucet-assembly/
+The faucet assembly (`hardware/reference/touch-flo-faucet/faucet-assembly/
 faucet_assembly.py`) builds a `cq.Assembly` of valve body + water/flavor
 tubes + lever + mounting plate + mounting gasket + shell directly in
 the repo's +Z-up frame. cq.exporters.export does not accept cq.Assembly
@@ -26,7 +26,7 @@ _REPO_ROOT = _HERE.parents[4]
 _ASSEMBLY_STEP = (
     _REPO_ROOT
     / "hardware"
-    / "harvested"
+    / "reference"
     / "touch-flo-faucet"
     / "faucet-assembly"
     / "touch-flo-faucet-assembly.step"
@@ -42,6 +42,6 @@ def build_faucet() -> cq.Workplane:
         raise FileNotFoundError(
             f"Faucet assembly STEP not found at {_ASSEMBLY_STEP}. "
             f"Regenerate it via: tools/cad-venv/bin/python "
-            f"hardware/harvested/touch-flo-faucet/faucet-assembly/faucet_assembly.py"
+            f"hardware/reference/touch-flo-faucet/faucet-assembly/faucet_assembly.py"
         )
     return cq.importers.importStep(str(_ASSEMBLY_STEP))

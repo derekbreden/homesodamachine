@@ -66,7 +66,7 @@ ordered or printed against.
 
 ## Harvested parts (reference geometry)
 
-`hardware/harvested/` contains imported reference STEPs (factory faucet
+`hardware/reference/` contains imported reference STEPs (factory faucet
 body, valve internals) that this project is not fabricating. These don't
 get sidecars — they're multi-material, externally-spec'd parts kept only
 for spatial reference.

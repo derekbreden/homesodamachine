@@ -34,7 +34,7 @@ External dimensions from the CPC LC Series datasheet (in mm):
   Thread length: 12.7 (0.50")
 
 Run:
-    tools/cad-venv/bin/python hardware/harvested/co2-coupling-body/co2_coupling_body.py
+    tools/cad-venv/bin/python hardware/reference/co2-coupling-body/co2_coupling_body.py
 """
 
 import math

@@ -80,7 +80,7 @@ Position the condenser + fan against the chosen side wall, fan axis crossing the
 
 Which side wall (left or right) holds the intake vs. exhaust is not yet locked — see Open items. Working assumption: the side opposite the cabinet door swing per the kitchen install convention, so the condenser exhaust is on the cabinet-rear side and intake on the cabinet-front side (the user opens the door to less-warm air). Either assignment is mechanically equivalent — the fan + condenser are symmetric in the enclosure cavity — but it locks the grille faces of the printed shell at order time.
 
-Confirm: the fan's flow direction matches the donor's native orientation per [`/hardware/harvested/ice-maker/README.md`](/hardware/harvested/ice-maker/README.md). The fan was already validated in this configuration in the donor ice maker; the only new variable is its anchor surface.
+Confirm: the fan's flow direction matches the donor's native orientation per [`/hardware/reference/ice-maker/README.md`](/hardware/reference/ice-maker/README.md). The fan was already validated in this configuration in the donor ice maker; the only new variable is its anchor surface.
 
 ### 5. Seat the cold core at the rear
 

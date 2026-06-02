@@ -24,7 +24,7 @@ Single SendCutSend part, bent on 4 sides.
 
 ## Dimensions
 
-**Status: TBD.** The donor compressor (HD48Y11 from the generic ice-maker unit, or the equivalent in the Frigidaire EFIC117-SS) needs to be measured before final dimensions are committed. Per [`/hardware/harvested/ice-maker/README.md`](/hardware/harvested/ice-maker/README.md) "Open items": *Physical dimensions of compressor + condenser pair, for enclosure layout* is still pending.
+**Status: TBD.** The donor compressor (HD48Y11 from the generic ice-maker unit, or the equivalent in the Frigidaire EFIC117-SS) needs to be measured before final dimensions are committed. Per [`/hardware/reference/ice-maker/README.md`](/hardware/reference/ice-maker/README.md) "Open items": *Physical dimensions of compressor + condenser pair, for enclosure layout* is still pending.
 
 Working assumptions:
 

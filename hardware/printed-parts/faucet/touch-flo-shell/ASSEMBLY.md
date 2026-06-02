@@ -14,7 +14,7 @@ Upstream:
    [`print-log.md`](print-log.md) attempt 7 settings).
 2. Print `touch-flo-mounting-plate` (PETG or PET-CF, same H2C).
 3. Harvest the Touch-Flo valve body from the donor faucet per
-   [`/hardware/harvested/touch-flo-faucet/README.md`](/hardware/harvested/touch-flo-faucet/README.md).
+   [`/hardware/reference/touch-flo-faucet/README.md`](/hardware/reference/touch-flo-faucet/README.md).
    Keep the lever, the body, and the factory shank nut. Discard the
    factory mounting plate.
 
@@ -60,7 +60,7 @@ into a single rigid sub-assembly.
 | --- | ---------------------------------------------------- | ---------------------------------------------------------------------------------- |
 |  1  | `touch-flo-shell` (printed, PET-CF) — smooth bottom face, no joinery features | `touch_flo_shell.py` in this directory                            |
 |  1  | `touch-flo-mounting-plate` (printed) — smooth top face, no joinery features | [`/hardware/printed-parts/faucet/touch-flo-mounting-plate/`](/hardware/printed-parts/faucet/touch-flo-mounting-plate/) |
-|  1  | Touch-Flo valve body + factory shank nut (harvested) | [`/hardware/harvested/touch-flo-faucet/`](/hardware/harvested/touch-flo-faucet/)            |
+|  1  | Touch-Flo valve body + factory shank nut (harvested) | [`/hardware/reference/touch-flo-faucet/`](/hardware/reference/touch-flo-faucet/)            |
 
 No fasteners or printed retention features. The plate is held to the shell by gravity + body friction during sub-assembly handling; once installed in the countertop, the factory shank nut clamps the whole stack (body → plate → TPU gasket → countertop) and that clamp carries every load thereafter.
 

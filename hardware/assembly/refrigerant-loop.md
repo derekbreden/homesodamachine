@@ -2,13 +2,13 @@
 
 The production procedure for converting a donor countertop ice maker into the appliance's refrigeration loop — from vent of the factory R-600a charge, through coil wind around the carbonator vessel, to final mass-metered recharge. The loop is open to a flammable hydrocarbon for several steps; the argon purge during brazing is load-bearing.
 
-Design intent and component rationale live in [`/hardware/future.md`](/hardware/future.md) "Refrigeration subsystem". Donor-component teardown notes (compressor, condenser, capillary tube, drier, hot-gas bypass) live in [`/hardware/harvested/ice-maker/README.md`](/hardware/harvested/ice-maker/README.md). Assembly-time argon-purge safety is documented at [`/business/regulatory.md`](/business/regulatory.md) "Assembly-time safety — argon purge during brazing". This document is the repeatable production procedure that ties them together.
+Design intent and component rationale live in [`/hardware/future.md`](/hardware/future.md) "Refrigeration subsystem". Donor-component teardown notes (compressor, condenser, capillary tube, drier, hot-gas bypass) live in [`/hardware/reference/ice-maker/README.md`](/hardware/reference/ice-maker/README.md). Assembly-time argon-purge safety is documented at [`/business/regulatory.md`](/business/regulatory.md) "Assembly-time safety — argon purge during brazing". This document is the repeatable production procedure that ties them together.
 
 ## Scope
 
 This is a single-session integration procedure: bring a finished cold core and a donor ice maker together at one workspace, open the donor's refrigerant loop, braze the cold core's coil stubs into the donor's loop, vacuum, charge, run up. Half a day of work end-to-end. All multi-day prep work (coil winding, foam pour) happens upstream in [`cold-core.md`](cold-core.md) before this session begins.
 
-In: donor ice maker (verified topology in [`/hardware/harvested/ice-maker/README.md`](/hardware/harvested/ice-maker/README.md)); a finished cold core (output of [`cold-core.md`](cold-core.md) — wound evaporator coil bonded around the vessel, coil inlet/outlet stubs ~2 ft each protruding through the foam-shell's copper-plug exits, foam pour fully cured); R-600a refrigerant; argon from the welder cylinder.
+In: donor ice maker (verified topology in [`/hardware/reference/ice-maker/README.md`](/hardware/reference/ice-maker/README.md)); a finished cold core (output of [`cold-core.md`](cold-core.md) — wound evaporator coil bonded around the vessel, coil inlet/outlet stubs ~2 ft each protruding through the foam-shell's copper-plug exits, foam pour fully cured); R-600a refrigerant; argon from the welder cylinder.
 
 Out: a closed and brazed refrigerant loop, vacuum-tight, charged within [±1 g](RECHARGE_TOL) of target mass, with the cold core's evaporator coil now brazed into the donor's refrigeration cycle. The compressor runs on its first run-up and the suction line drops cold.
 
@@ -60,13 +60,13 @@ Tooling — all committed in [`/hardware/purchases.md`](/hardware/purchases.md) 
 
 ### 1. Verify factory refrigerant + charge mass
 
-Read the donor appliance back-panel rating label — refrigerant type (must be R-600a) and charge mass. The two donors tracked in [`/hardware/harvested/ice-maker/README.md`](/hardware/harvested/ice-maker/README.md) are both R-600a. Factory charge mass: **[15 g](UNIT_A_CHARGE)** for Unit A (Antarctic Star HZB-12/Q, per manufacturer manual); **[23 g](UNIT_B_CHARGE)** for Unit B (Frigidaire EFIC117-SS, per manufacturer manual). See harvested README per-unit for sources. Compressor body cast-stampings ("48.5-2" on Unit A's HD48Y11A; "45" on Unit B's BLC48AD) are *not* charge masses.
+Read the donor appliance back-panel rating label — refrigerant type (must be R-600a) and charge mass. The two donors tracked in [`/hardware/reference/ice-maker/README.md`](/hardware/reference/ice-maker/README.md) are both R-600a. Factory charge mass: **[15 g](UNIT_A_CHARGE)** for Unit A (Antarctic Star HZB-12/Q, per manufacturer manual); **[23 g](UNIT_B_CHARGE)** for Unit B (Frigidaire EFIC117-SS, per manufacturer manual). See harvested README per-unit for sources. Compressor body cast-stampings ("48.5-2" on Unit A's HD48Y11A; "45" on Unit B's BLC48AD) are *not* charge masses.
 
 If the donor is anything other than R-600a (R-134a, R-410a, any HFC), this procedure does not apply: Section 608 certification is required to vent, and the cold-core architecture changes.
 
 ### 2. Vent factory R-600a
 
-Install a piercing valve (saddle clamp + valve core) onto the compressor process tube — the short copper stub pinched-and-brazed shut at the factory ([`/hardware/harvested/ice-maker/README.md`](/hardware/harvested/ice-maker/README.md) "Process tube"). Open the valve and vent to atmosphere in a well-ventilated area — outdoors or under a vent hood is preferred — with no ignition sources within [3 m](VENT_CLEARANCE).
+Install a piercing valve (saddle clamp + valve core) onto the compressor process tube — the short copper stub pinched-and-brazed shut at the factory ([`/hardware/reference/ice-maker/README.md`](/hardware/reference/ice-maker/README.md) "Process tube"). Open the valve and vent to atmosphere in a well-ventilated area — outdoors or under a vent hood is preferred — with no ignition sources within [3 m](VENT_CLEARANCE).
 
 Confirm fully vented before proceeding: gauge reads atmospheric, no further hiss, no propane-like smell at the valve.
 
@@ -107,7 +107,7 @@ Close the manifold valve; close the BPV31; disconnect the manifold; cap the BPV3
 
 ### 8. Initial run-up + leak check
 
-Energize the compressor briefly. (Firmware enforces a [3-minute](OFF_TIME) minimum off-time per [`/hardware/harvested/ice-maker/README.md`](/hardware/harvested/ice-maker/README.md) "Powering and control"; the first run-up starts that timer with no prior on-state.) Verify the compressor draws expected running current ([~1 A](RUN_CURRENT)) and the suction line drops cold within a minute or two.
+Energize the compressor briefly. (Firmware enforces a [3-minute](OFF_TIME) minimum off-time per [`/hardware/reference/ice-maker/README.md`](/hardware/reference/ice-maker/README.md) "Powering and control"; the first run-up starts that timer with no prior on-state.) Verify the compressor draws expected running current ([~1 A](RUN_CURRENT)) and the suction line drops cold within a minute or two.
 
 Apply electronic leak detector or soap solution at all braze joints + the BPV31 saddle clamp + the BPV31 flare port cap + any threaded connection. No bubbles, no detector hits.
 
@@ -133,7 +133,7 @@ Procedure-level gaps that need answers before unit 1 ships:
 
 1. **Recharge target mass for the new larger evap coil.** Factory charge masses are known (Unit A [15 g](UNIT_A_CHARGE), Unit B [23 g](UNIT_B_CHARGE) per their manufacturer manuals — see harvested README per-unit), but the recharge target for this build is *not* the factory mass because the new evaporator coil has greater internal volume than the discarded factory finger-plate. The volume-corrected target needs empirical validation on first run-up against frost-pattern + suction-line superheat. Bound: factory mass + the evap-volume-times-operating-density correction (order-of-magnitude [+5-15 g](VOL_CORRECTION) for the [~80-110 mL](EVAP_VOL_DELTA) volume delta vs. a finger-plate evap at typical R-600a operating density). Iterate in 1-2 g increments rather than committing to a calculated final number.
 2. **Failure handling beyond "redo the sequence."** Decision tree for hard-to-find leaks, charge loss between vacuum check and run-up.
-3. **No dedicated donor-teardown procedure.** Which steps remove which components, in what order, what gets discarded vs. salvaged — currently scattered across this doc and [`/hardware/harvested/ice-maker/README.md`](/hardware/harvested/ice-maker/README.md). Worth a standalone teardown doc when production teardown begins for unit 1.
+3. **No dedicated donor-teardown procedure.** Which steps remove which components, in what order, what gets discarded vs. salvaged — currently scattered across this doc and [`/hardware/reference/ice-maker/README.md`](/hardware/reference/ice-maker/README.md). Worth a standalone teardown doc when production teardown begins for unit 1.
 
 ## Sources
 [value](NAME) texts are updated by:

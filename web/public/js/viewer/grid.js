@@ -20,7 +20,7 @@ function shortName(file, ext = ".step") {
 // Subsystem grouping for the Prints and Cuts grids. Files under
 // printed-parts/<subsystem>/... or cut-parts/<subsystem>/... bucket by
 // <subsystem>; anything else buckets by its top-level path segment
-// (e.g. harvested/ STEPs land in their own group). Categories sort
+// (e.g. reference/ STEPs land in their own group). Categories sort
 // alphabetically. Within a group the card's `dir` label drops the
 // redundant subsystem prefix so the leaf folder reads cleanly under
 // the subheader.
