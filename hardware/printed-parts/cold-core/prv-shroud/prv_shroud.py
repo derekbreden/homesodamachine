@@ -75,10 +75,8 @@ cavity_length = 44.0
 # [6.35 mm](VENT_D) — 1/4" LLDPE tubing OD.
 vent_hole_diameter = 6.35
 
-# [23 mm](OUTER_D)
-outer_diameter = inner_diameter + 2 * wall_thickness
-# [46 mm](TOTAL_L)
-total_length = cavity_length + cap_thickness
+outer_diameter = inner_diameter + 2 * wall_thickness  # [23 mm](OUTER_D)
+total_length = cavity_length + cap_thickness  # [46 mm](TOTAL_L)
 
 overcut = 0.1
 

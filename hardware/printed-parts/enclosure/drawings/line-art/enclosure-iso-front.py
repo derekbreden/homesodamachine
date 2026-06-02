@@ -34,7 +34,6 @@ def main() -> None:
     blender.render_iso(appliance, markings, view="front", out_svg=output_path, anchors=anchors)
     print(f"Wrote {output_path}")
 
-    # [value](NAME)
     model.refresh_comments()
     print(f"-> updated comments in _appliance_model.py")
 

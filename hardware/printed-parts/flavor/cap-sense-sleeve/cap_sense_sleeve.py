@@ -21,22 +21,18 @@ from docgen import substitute_md, substitute_py_comments
 
 tube_od = 6.35              # [6.35 mm](TUBE_OD)
 bore_clearance = 0.05
-# [3.225 mm](BORE_R)
-bore_radius = (tube_od + 2 * bore_clearance) / 2
+bore_radius = (tube_od + 2 * bore_clearance) / 2  # [3.225 mm](BORE_R)
 
 wall_thickness = 3.0        # [3 mm](WALL_T)
-# [6.225 mm](OUTER_R)
-outer_radius = bore_radius + wall_thickness
+outer_radius = bore_radius + wall_thickness  # [6.225 mm](OUTER_R)
 
-# [17 mm](SLEEVE_L)
-sleeve_length = 17.0
+sleeve_length = 17.0  # [17 mm](SLEEVE_L)
 sleeve_z_range = (0.0, sleeve_length)
 
 # Two foil-ring grooves on the inner bore, centers [5 mm](GROOVE_PITCH)
 # apart axially. Groove depth = [0.1 mm](LAYER_H) (one layer).
 groove_depth = 0.1
-# [3.325 mm](GROOVE_OUTER_R)
-groove_outer_radius = bore_radius + groove_depth
+groove_outer_radius = bore_radius + groove_depth  # [3.325 mm](GROOVE_OUTER_R)
 groove_width_z = 3.0        # [3 mm](GROOVE_W)
 groove_centers_z = (6.0, 11.0)
 
