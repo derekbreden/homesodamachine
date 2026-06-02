@@ -83,15 +83,15 @@ For per-unit BOM parts, see [bom.md](bom.md). For non-BOM/non-tool inventory (co
 | Tool | Source | Notes | $ |
 |---|---|---|---:|
 | **Bambu Lab H2C (×2)** | Bambu Lab direct orders us712460111015776257 + us728027710789775361, [purchases.md §15](purchases.md) | Production printers, AMS Combo bundles. Founding unit (Mar 22 2026) + second unit (May 4 2026 — ordered after the original's right-side Induction Heating Assembly was damaged during PET-CF clog troubleshooting). | [$4,971.93](T_H2C) |
-| **Bambu Lab AMS HT (×2)** | Bambu order us717877837343809537, [purchases.md §15](purchases.md) | High-temperature AMS expansion units. | [$314.22](T_AMS_HT) |
-| **Bambu Lab AMS 2 Pro** | Bambu order us718417332286169089, [purchases.md §15](purchases.md) | Second AMS variant. | [$471.86](T_AMS2PRO) |
+| **Bambu Lab AMS HT (×2)** | Bambu order us717877837343809537, [purchases.md §15](purchases.md) | High-temperature AMS expansion units. | [$278.00](T_AMS_HT) |
+| **Bambu Lab AMS 2 Pro** | Bambu order us718417332286169089, [purchases.md §15](purchases.md) | Second AMS variant. | [$331.99](T_AMS2PRO) |
 | **Bambu Vision Encoder / H2 Series** | Founding bundle, [purchases.md §15](purchases.md) | Print monitoring camera. | [$78.75](T_VISION) |
 | **Bambu Engineering Plate / H2C** | Founding bundle, [purchases.md §15](purchases.md) | Build plate for engineering filaments. | [$49.49](T_ENG_PLATE) |
 | **SUNLU E2 filament dryer** | [B0F5PMMXKD](https://www.amazon.com/dp/B0F5PMMXKD), [purchases.md §13](purchases.md) | Dual-chamber, **110 °C ceiling**, 500 W PTC. Engineering-CF tier: Bambu PET-CF (80 °C × 8–12 h), Polymaker Fiberon PET-CF17 (100 °C × 10 h), Bambu PA-CF / FR-ABS. | [$321.74](T_DRYER_E2) |
 | **SUNLU S4 filament dryer** | [B0CQJMV71Z](https://www.amazon.com/dp/B0CQJMV71Z), [purchases.md §13](purchases.md) | 4-spool capacity, **70 °C ceiling**, 350 W PTC, 3 circulation fans. Bulk drying of PLA / PETG / PETG-CF / PETG food-grade stock — frees the E2 for the engineering-CF tier. | [$125.47](T_DRYER_S4) |
 | **Polymaker PolyDryer Box ×4** | [B0FHPS82YG](https://www.amazon.com/dp/B0FHPS82YG), [purchases.md §13](purchases.md) | Sealed storage boxes for moisture protection. Compatible with PolyDryer heater base if added later. | [$117.96](T_POLYDRYER) |
 | **Hotend stock** | various Bambu + DUROZZLE orders, [purchases.md §13 / §15](purchases.md) | Right-side (Induction) HS: 0.2 SS, 0.4 ×4 HS, 0.6 HS, 0.8 HS, 0.8 HF HS. Left-side (Standard): 0.4 HS ×2, 0.6 TC SF (Bambu), 0.6 TC + 0.6 Diamond PCD (DUROZZLE), 0.8 TC HF. | [$517.09](T_HOTENDS) |
-| **4-in-1 PTFE Adapter II (×2)** | Bambu orders us717877837343809537 + us718417332286169089, [purchases.md §15](purchases.md) | Multi-spool feed adapter. | [—](T_PTFE_ADAPTER) |
+| **4-in-1 PTFE Adapter II (×2)** | Bambu orders us717877837343809537 + us718417332286169089, [purchases.md §15](purchases.md) | Multi-spool feed adapter. | [$15.98](T_PTFE_ADAPTER) |
 
 ## Shop / bench infrastructure
 
@@ -110,7 +110,7 @@ For per-unit BOM parts, see [bom.md](bom.md). For non-BOM/non-tool inventory (co
 
 ## Tools total
 
-Total acquired tooling: **[$13,745.60](TOOLS_TOTAL)**
+Total acquired tooling: **[$13,585.49](TOOLS_TOTAL)**
 
 ## Open items
 
