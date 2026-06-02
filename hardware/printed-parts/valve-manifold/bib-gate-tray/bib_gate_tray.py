@@ -34,16 +34,16 @@ import bag_circuit_tray as bc
 
 # −X valve column + two Tees per row in series (near-valve Tee, then a Tee
 # butted against its +X run port).
-VALVES = {"VKA": (-bc.Vx, +bc.row_half), "VKB": (-bc.Vx, -bc.row_half)}
-_yc_x = 2.0 * bc.TEE_RUN_HALF        # second Tee center: its −X run butts the first
-TEES = {
+valves = {"VKA": (-bc.valve_x, +bc.row_half), "VKB": (-bc.valve_x, -bc.row_half)}
+_yc_x = 2.0 * bc.tee_run_half        # second Tee center: its −X run butts the first
+tees = {
     "YKA": (0.0, +bc.row_half),
     "YKB": (0.0, -bc.row_half),
     "YC": (+_yc_x, +bc.row_half),
     "YF": (+_yc_x, -bc.row_half),
 }
 
-_run_out_x = _yc_x + bc.TEE_RUN_HALF               # +X run port of the far Tees
+_run_out_x = _yc_x + bc.tee_run_half               # +X run port of the far Tees
 plate_x = (-bc.plate_half_x, _run_out_x)           # +X wall ends at the far Tee port
 plate_y_half = bc.plate_half_y
 stack_pitch = bc.stack_pitch
@@ -52,13 +52,13 @@ stack_pitch = bc.stack_pitch
 def build_assembly():
     # Outlets point +X to the center Tees (V-K-A/V-K-B feed Y-KA/Y-KB); inlets
     # are from the BiB connectors (outer ports). Arrow (local +Y) -> +X = -90.
-    parts = {nm: bc.place_valve(*p, -90.0) for nm, p in VALVES.items()}
-    parts.update({nm: bc.place_tee(*p) for nm, p in TEES.items()})
+    parts = {nm: bc.place_valve(*p, -90.0) for nm, p in valves.items()}
+    parts.update({nm: bc.place_tee(*p) for nm, p in tees.items()})
     return parts
 
 
 def build_bib_gate_tray():
-    return bc.build_tray(list(VALVES.values()), bc.tee_grooves(TEES.values()), plate_x, plate_y_half)
+    return bc.build_tray(list(valves.values()), bc.tee_grooves(tees.values()), plate_x, plate_y_half)
 
 
 def main():

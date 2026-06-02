@@ -43,7 +43,7 @@ for _p in (
 from _cadq_export import export_step
 import single_tray as cell
 
-PORT_Z = cell.port_center_z
+port_z = cell.port_center_z
 socket_radius = cell.socket_radius
 saddle_radius = cell.saddle_radius
 corner_pos = cell.corner_pos
@@ -52,24 +52,24 @@ bot_z = cell.tray_bottom_z
 _div_path = _hw / "reference" / "y-divider" / "y-divider.step"
 
 # --- Divider spacing + aimed valve geometry -------------------------------
-DIV_HALF = 19.25          # divider stem/outlet reach from its center
-OUTLET_Y = 7.35           # divider outlet offset from its axis
-PORT_HALF = 29.5          # valve port half-length
+div_half = 19.25          # divider stem/outlet reach from its center
+outlet_y = 7.35           # divider outlet offset from its axis
+port_half = 29.5          # valve port half-length
 bridge_gap = 2.0          # stem-to-stem gap between Y-A and Y-B
 tube = 15.0               # straight valve-port-tip to divider-outlet run
-Vy_sep = 20.45            # valve Y offset — minimum that keeps bodies clear
+valve_y = 20.45           # valve Y offset — minimum that keeps bodies clear
 
-X_Y = (2 * DIV_HALF + bridge_gap) / 2.0        # divider center offset
-_aim_len = PORT_HALF + tube                     # valve center to divider outlet
-_outlet_x = X_Y + DIV_HALF                       # |x| of a divider outlet
-_Vx = _outlet_x + math.sqrt(_aim_len ** 2 - (Vy_sep - OUTLET_Y) ** 2)
+divider_x = (2 * div_half + bridge_gap) / 2.0  # divider center offset
+_aim_len = port_half + tube                     # valve center to divider outlet
+_outlet_x = divider_x + div_half                 # |x| of a divider outlet
+valve_x = _outlet_x + math.sqrt(_aim_len ** 2 - (valve_y - outlet_y) ** 2)
 
 # Per valve: (center_x, center_y, outlet_x, outlet_y) it aims at.
-VALVES = [
-    (-_Vx, +Vy_sep, -_outlet_x, +OUTLET_Y),   # V-A -> Y-A upper
-    (-_Vx, -Vy_sep, -_outlet_x, -OUTLET_Y),   # V-B -> Y-A lower
-    (+_Vx, +Vy_sep, +_outlet_x, +OUTLET_Y),   # V-C -> Y-B upper
-    (+_Vx, -Vy_sep, +_outlet_x, -OUTLET_Y),   # V-D -> Y-B lower
+valves = [
+    (-valve_x, +valve_y, -_outlet_x, +outlet_y),   # V-A -> Y-A upper
+    (-valve_x, -valve_y, -_outlet_x, -outlet_y),   # V-B -> Y-A lower
+    (+valve_x, +valve_y, +_outlet_x, +outlet_y),   # V-C -> Y-B upper
+    (+valve_x, -valve_y, +_outlet_x, -outlet_y),   # V-D -> Y-B lower
 ]
 
 
@@ -98,14 +98,14 @@ def place_valve(vx, vy, dx, dy, flip=False):
 
 def place_divider(cx, sign):
     fit = cq.importers.importStep(str(_div_path)).val()
-    return fit.rotate((0, 0, 0), (0, 1, 0), 90 * sign).translate((cx, 0.0, PORT_Z))
+    return fit.rotate((0, 0, 0), (0, 1, 0), 90 * sign).translate((cx, 0.0, port_z))
 
 
 def build_assembly():
     flip = {"VA": False, "VB": False, "VC": True, "VD": True}
-    parts = {nm: place_valve(*p, flip=flip[nm]) for nm, p in zip(("VA", "VB", "VC", "VD"), VALVES)}
-    parts["YA"] = place_divider(-X_Y, +1)
-    parts["YB"] = place_divider(+X_Y, -1)
+    parts = {nm: place_valve(*p, flip=flip[nm]) for nm, p in zip(("VA", "VB", "VC", "VD"), valves)}
+    parts["YA"] = place_divider(-divider_x, +1)
+    parts["YB"] = place_divider(+divider_x, -1)
     return parts
 
 
@@ -120,14 +120,14 @@ valve_y_extent = 40.61             # valve reach in |Y| after aiming
 
 _socket_x = [
     abs(vx + _rot2(sx * corner_pos, sy * corner_pos, _aim_phi(vx, vy, dx, dy))[0])
-    for vx, vy, dx, dy in VALVES
+    for vx, vy, dx, dy in valves
     for sx in (-1.0, 1.0)
     for sy in (-1.0, 1.0)
 ]
 plate_half_x = max(_socket_x) + socket_radius + margin
 plate_half_y = valve_y_extent + wall_clear + wall_thickness
 # Grooves cradling the divider tridents into the floor.
-DIV_GROOVE_R = 8.1 + 0.3   # divider body half-thickness (16.2 mm) + clearance
+div_groove_radius = 8.1 + 0.3   # divider body half-thickness (16.2 mm) + clearance
 div_span = _outlet_x   # divider reach in |X|
 
 
@@ -137,7 +137,7 @@ def build_source_select_tray():
         .box(2 * plate_half_x, 2 * plate_half_y, top_z - bot_z, centered=(True, True, False))
         .translate((0.0, 0.0, bot_z))
     )
-    for vx, vy, dx, dy in VALVES:
+    for vx, vy, dx, dy in valves:
         phi = _aim_phi(vx, vy, dx, dy)
         for sx in (-1.0, 1.0):
             for sy in (-1.0, 1.0):
@@ -156,18 +156,18 @@ def build_source_select_tray():
         saddle = cq.Solid.makeCylinder(
             saddle_radius,
             saddle_len,
-            cq.Vector(vx - ux * saddle_len / 2.0, vy - uy * saddle_len / 2.0, PORT_Z),
+            cq.Vector(vx - ux * saddle_len / 2.0, vy - uy * saddle_len / 2.0, port_z),
             cq.Vector(ux, uy, 0.0),
         )
         tray = tray.cut(cq.Workplane(obj=saddle))
 
     # Grooves along X at the trident axes (stem at Y = 0, outlets at
-    # Y = +/-OUTLET_Y) seat the divider bodies into the floor.
-    for gy in (0.0, +OUTLET_Y, -OUTLET_Y):
+    # Y = +/-outlet_y) seat the divider bodies into the floor.
+    for gy in (0.0, +outlet_y, -outlet_y):
         groove = cq.Solid.makeCylinder(
-            DIV_GROOVE_R,
+            div_groove_radius,
             2.0 * div_span,
-            cq.Vector(-div_span, gy, PORT_Z),
+            cq.Vector(-div_span, gy, port_z),
             cq.Vector(1.0, 0.0, 0.0),
         )
         tray = tray.cut(cq.Workplane(obj=groove))
