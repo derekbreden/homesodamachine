@@ -127,7 +127,7 @@ Rough filament estimates for all printed geometry. Revise once STLs are final an
 | Flavor hopper funnel (top-front, SodaStream-pour sized) | 0.4 | $5.20 |
 | Pump cartridge assembly + Zone C top door | 0.5 | $6.50 |
 | Miscellaneous (condenser grille, fitting bosses, brackets, faucet gooseneck cover, cable-gland mounts) | 0.6 | $7.79 |
-| **Printed parts total** | **~8.0** | **$103.94** |
+| **Printed parts total** | **~8.0** | **[$103.94](BOM_SEC7)** |
 
 Dishing dies (PA6-CF) for end-cap forming are vessel-fabrication tools, not shipped product — excluded.
 
@@ -244,21 +244,21 @@ Per-appliance tools that ship in the install kit so the field installer can cut 
 
 | Section | $ |
 |---|---:|
-| 1. Controllers + electronics | $142.44 |
-| 2. Carbonator vessel (plan A, 316L) | $240.69 |
-| 3. Water inlet | $230.82 |
-| 4. CO2 subsystem | $136.45 |
-| 5. Refrigeration | $196.70 |
-| 6. Cold core insulation | $52.38 |
-| 7. Printed parts (PETG) | $103.94 |
-| 8. Flavor subsystem | $270.69 |
-| 9. Dispensing | $50.68 |
-| 10. UI | $3.21 |
-| 11. Wiring | $31.97 |
-| 12. Level sensing | $69.78 |
-| 13. Mechanical attach hardware + reservoir-cap vent filter | $5.41 |
-| 14. Install kit | $4.29 |
-| **Total** | **$1,539.45** |
+| 1. Controllers + electronics | [$142.44](BOM_SEC1) |
+| 2. Carbonator vessel (plan A, 316L) | [$240.69](BOM_SEC2) |
+| 3. Water inlet | [$230.82](BOM_SEC3) |
+| 4. CO2 subsystem | [$136.45](BOM_SEC4) |
+| 5. Refrigeration | [$196.70](BOM_SEC5) |
+| 6. Cold core insulation | [$52.38](BOM_SEC6) |
+| 7. Printed parts (PETG) | [$103.94](BOM_SEC7) |
+| 8. Flavor subsystem | [$270.69](BOM_SEC8) |
+| 9. Dispensing | [$50.68](BOM_SEC9) |
+| 10. UI | [$3.21](BOM_SEC10) |
+| 11. Wiring | [$31.97](BOM_SEC11) |
+| 12. Level sensing | [$69.78](BOM_SEC12) |
+| 13. Mechanical attach hardware + reservoir-cap vent filter | [$5.41](BOM_SEC13) |
+| 14. Install kit | [$4.29](BOM_SEC14) |
+| **Total** | **[$1,539.45](BOM_GRAND)** |
 
 ## External / user-supplied (not shipped)
 
@@ -269,3 +269,4 @@ Per-appliance tools that ship in the install kit so the field installer can cut 
 ## Sources
 [value](NAME) texts are updated by:
 - `/hardware/_bom_sync.py`
+- `/hardware/_bom_totals.py`
