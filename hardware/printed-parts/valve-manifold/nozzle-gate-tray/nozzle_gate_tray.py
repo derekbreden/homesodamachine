@@ -28,7 +28,7 @@ for _p in (
 from _cadq_export import export_step
 import bag_circuit_tray as bc
 
-# One valve column (−X) + a Tee on each row; the +X column is gone.
+# One valve column (−X) + a Tee on each row.
 VALVES = {"VG": (-bc.Vx, +bc.row_half), "VJ": (-bc.Vx, -bc.row_half)}
 TEES = {"YD": (0.0, +bc.row_half), "YG": (0.0, -bc.row_half)}
 
@@ -39,7 +39,7 @@ stack_pitch = bc.stack_pitch
 
 def build_assembly():
     # Outlets point -X to the nozzles (the outer ports); inlets are from the
-    # center Tees. Arrow (local +Y) -> -X means rot = +90.
+    # center Tees. The valve flow arrow (local +Y) points -X.
     parts = {nm: bc.place_valve(*p, 90.0) for nm, p in VALVES.items()}
     parts.update({nm: bc.place_tee(*p) for nm, p in TEES.items()})
     return parts

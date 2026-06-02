@@ -1,6 +1,5 @@
 """Assembled bag-circuit tray: the tray with its 4 valves + 2 Y-dividers
-seated in place. A flat cq.Assembly of pre-positioned solids, colored and
-named, written as one multi-solid STEP. The /3d viewer renders all gray.
+seated in place.
 """
 
 import sys

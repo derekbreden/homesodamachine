@@ -1,6 +1,5 @@
 """Assembled nozzle-gate tray: the tray with its 2 valves + 2 Y-dividers
-seated in place. A flat cq.Assembly of pre-positioned solids, colored and
-named, written as one multi-solid STEP. The /3d viewer renders all gray.
+seated in place.
 """
 
 import sys
@@ -21,9 +20,9 @@ for _p in (
 from _cadq_export import export_assembly
 import nozzle_gate_tray as t
 
-TRAY_COLOR = cq.Color(0.85, 0.78, 0.62)     # PETG tan
-VALVE_COLOR = cq.Color(0.20, 0.22, 0.26)    # solenoid body/coil, dark
-DIVIDER_COLOR = cq.Color(0.30, 0.55, 0.85)  # divider, blue
+TRAY_COLOR = cq.Color(0.85, 0.78, 0.62)
+VALVE_COLOR = cq.Color(0.20, 0.22, 0.26)
+DIVIDER_COLOR = cq.Color(0.30, 0.55, 0.85)
 
 
 def build():

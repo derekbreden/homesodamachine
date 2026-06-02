@@ -46,7 +46,7 @@ PORT_HALF = 29.5          # valve port half-length
 row_half = 16.125         # half the butted-pair pitch = valve body half-width
 TEE_RUN_HALF = 20.07      # Tee run half-length (port to center)
 TEE_BRANCH = 20.07        # Tee branch reach (port to center)
-Vx = TEE_RUN_HALF + PORT_HALF  # 49.57: inner port tip meets the Tee run port
+Vx = TEE_RUN_HALF + PORT_HALF  # inner port tip meets the Tee run port
 
 # This tray's valves + Tees.
 VALVES = {
@@ -60,8 +60,8 @@ TEES = {"YE": (0.0, +row_half), "YH": (0.0, -row_half)}
 
 
 def place_valve(cx, cy, rot):
-    """Place a valve, rotated ``rot`` deg about Z so its flow arrow (local +Y,
-    toward the spades = the outlet) points the right way for the topology."""
+    """Valve rotated ``rot`` deg about Z; flow arrow (local +Y) points toward
+    the spades = the outlet."""
     return (
         cell.valve.build_beduan_solenoid()
         .val()
@@ -81,8 +81,7 @@ def place_tee(cx, cy):
 
 
 def build_assembly():
-    # Outlets point +X: V-F/V-I out to the center Tees, V-E/V-H out to the
-    # pumps. Arrow (local +Y) -> +X means rot = -90.
+    # Outlets point +X: V-F/V-I out to the center Tees, V-E/V-H out to the pumps.
     parts = {nm: place_valve(*p, -90.0) for nm, p in VALVES.items()}
     parts.update({nm: place_tee(*p) for nm, p in TEES.items()})
     return parts
@@ -93,8 +92,8 @@ margin = 3.0
 wall_thickness = 3.0
 wall_clear = 1.0
 wall_top_z = 60.0
-stack_pitch = wall_top_z - bot_z   # 63 mm
-valve_y_extent = row_half + 16.125          # outer body edge = 32.25
+stack_pitch = wall_top_z - bot_z
+valve_y_extent = row_half + 16.125          # outer body edge
 plate_half_y = valve_y_extent + wall_clear + wall_thickness
 
 plate_half_x = Vx + corner_pos + socket_radius + margin
@@ -115,11 +114,9 @@ def _box(x0, x1, y_half, z0, z1):
 
 
 def build_tray(valve_centers, connectors, plate_x, plate_y_half):
-    """Generic parallel-Tee tray: a solid frame plate with a four-socket cradle
-    and a port saddle per valve, a groove per connector so each fitting sets
-    down into the floor, and two ±Y stacking walls. ``plate_x`` is (lo, hi) so
-    the plate can be asymmetric.
-    """
+    """Solid frame plate spanning ``plate_x`` (lo, hi), with a four-socket
+    cradle and port saddle per valve, a groove per connector, and two ±Y
+    stacking walls."""
     tray = _box(plate_x[0], plate_x[1], plate_y_half, bot_z, top_z)
 
     for vx, vy in valve_centers:
