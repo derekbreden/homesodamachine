@@ -1,8 +1,5 @@
 """Pump case — two-piece enclosure for a peristaltic pump.
 
-The case is built as one combined solid, then split with a stepped cut
-into a base and a cap.
-
 Base: base plate with octagon-to-footprint ramp, octagon pump bore,
       a cylindrical tower below, and a pogo connector pocket.
 Cap:  asymmetric flared skirt (wide on +Y, narrow on -Y) with a lower
@@ -63,9 +60,6 @@ tower_height = 60.0
 tower_cap_thickness = 3.0
 cylinder_id = 37.0
 cylinder_r_inner = cylinder_id / 2
-# cylinder_r_outer is set in the derived-geometry section below — its
-# value matches the octagonal bore wall's outer extent so the bore-to-
-# tower joint needs no ramp.
 
 # Lower extension
 lower_height = 23.0
@@ -91,11 +85,11 @@ pogo_ridge_width = 10.0
 pogo_ridge_depth = 0.7  # thin outer wall so pogo pins protrude further
 
 
-# Outer envelope of the assembled case — accounts for snaps, tubes, and
-# the pogo that aren't captured in the bare base/cap STEP bboxes above.
+# Outer envelope of the assembled case, including the snaps, tubes, and
+# pogo that protrude past the bare base/cap solids.
 
 snap_protrusion_per_side = 2.5    # snap protrusion past the footprint per side
-tube_protrusion_length   = 11.3   # how far the silicone tubes extend past the case body
+tube_protrusion_length   = 11.3   # silicone tubes extending past the case body
 
 # [75.0 mm](CASE_OUTER_X) is the full width of the assembled case
 case_outer_x = footprint_x + 2 * snap_protrusion_per_side
@@ -109,15 +103,14 @@ case_outer_z = (base_thickness + ramp_from_skirt_to_octagon_height + tower_heigh
                 + skirt_upper_height + skirt_wide_flare_per_side
                 + skirt_wide_straight_height + lower_height + lower_cap_thickness)
 
-# Half-extent of the stepped-split cutter slab.  Must exceed the case's
-# X and Y footprint half-extents so the cut pierces through to free air
-# on every side; picks the larger envelope dimension and pads it.
+# Half-extent of the stepped-split cutter slab.  Exceeds the case's X and
+# Y footprint half-extents so the cut pierces through to free air on every
+# side.
 cutter_half_extent = max(case_outer_x, case_outer_y) / 2 + 5.0
 
 
 # Slop added to cut depths so they pierce cleanly through sibling solid
-# boundaries (the resulting STEP is unaffected — the excess lives in the
-# air outside the parent).
+# boundaries.
 overcut = 0.1
 # Polygonization count per quarter-circle for round-corner profiles.
 arc_segments = 8
@@ -149,20 +142,12 @@ bore_depth = base_thickness + ramp_from_skirt_to_octagon_height
 bore_bottom_z = bore_depth  # [+21 mm](BORE_BOTTOM_Z)
 
 # Inward step from the cylinder to the octagonal bore wall at the
-# cardinals.  Small but non-zero so the bore-to-tower joint is a
-# clean step instead of a knife-edge tangent.  The diagonal step at
-# the same Z is ~5 mm — a consequence of the octagon's geometry, not
-# a separate design choice.
+# cardinals.
 cylinder_cardinal_step = 0.5
 cylinder_r_outer = octagon_wall_outer_extent + cylinder_cardinal_step
 
-# Cylinder's top Z, set by the design constraint that the cylinder's
-# top edge be tangent to the base-plate ramp at the cardinals — no
-# bumps protruding past the ramp.  Solves
-# `ramp_half_extent(z) = cylinder_r_outer` where the ramp's cardinal
-# half-extent shrinks linearly from `footprint_half_extent +
-# base_thickness` at z=0 down toward bore_bottom_z.  Below this Z the
-# cylinder strictly contains the bore wall down to bore_bottom_z.
+# Cylinder's top Z, where its top edge is tangent to the base-plate
+# ramp at the cardinals.
 cylinder_top_z = footprint_half_extent + base_thickness - cylinder_r_outer  # [+8 mm](CYLINDER_TOP_Z)
 cylinder_bottom_z = bore_bottom_z + tower_height  # [+81 mm](CYLINDER_BOTTOM_Z)
 
@@ -298,12 +283,7 @@ def split_skirt_profile(wide_half_extent, wide_radius,
                         transition_y_plus=None, transition_y_minus=None,
                         wide_half_extent_y=None, narrow_half_extent_y=None,
                         n=arc_segments):
-    """Asymmetric profile: wider on +Y, narrower on -Y, with diagonal transitions.
-
-    The +Y half and -Y half can flare/taper independently. Transition Y
-    values keep the seam wall in a fixed vertical plane as the two halves
-    change size at different rates.
-    """
+    """Asymmetric profile: wider on +Y, narrower on -Y, with diagonal transitions."""
     wide_radius = max(wide_radius, 0.01)
     narrow_radius = max(narrow_radius, 0.01)
     if wide_half_extent_y is None:
@@ -365,8 +345,6 @@ bore_wall_profile = offset_polygon(bore_profile, wall_thickness)
 skirt_base_half_extent = footprint_half_extent
 skirt_wide_half_extent = skirt_base_half_extent + skirt_wide_flare_per_side
 skirt_narrow_half_extent = skirt_base_half_extent - skirt_narrow_taper_per_side
-# Full outer widths of the two skirt halves, for the asymmetric-split
-# note above (the code drives geometry off the half-extents).
 skirt_wide_full_width = 2 * skirt_wide_half_extent
 skirt_narrow_full_width = 2 * skirt_narrow_half_extent
 # At the moment the wide flare completes ([3mm](SKIRT_WIDE_FLARE)), the narrow side
@@ -415,16 +393,9 @@ pos_y_face_y = center_y + footprint_half_extent
 
 
 def _skirt_profile_set(wall_offset):
-    """Five skirt cross-section profiles, top-of-skirt to bottom-of-skirt.
-
-    wall_offset shrinks each half-extent and radius by that amount and
-    shifts each transition Y so the resulting seam plane stays a full
-    wall_offset perpendicular distance inward from the wall_offset=0 set
-    (the seam runs at 45 degrees in the XY plane).
-    """
-    # The seam diagonal is at 45 deg, so a wall-thickness X-offset only gives
-    # wall/sqrt(2) perpendicular thickness. Shift transition Y values so the
-    # inner seam plane is a full wall-thickness perpendicular from outer.
+    """Five skirt cross-section profiles, top-of-skirt to bottom-of-skirt."""
+    # Shift of the transition Y values that holds the inner seam plane a full
+    # perpendicular wall_offset inward from the outer, the seam at 45 deg in XY.
     seam_y_shift = wall_offset * (math.sqrt(2) - 1)
 
     base_he = skirt_base_half_extent - wall_offset
@@ -483,10 +454,7 @@ def build_base_plate_with_ramp():
 
 
 def add_bore_wall(solid):
-    """Add the octagonal bore wall around the pump-flange seat. The bore
-    cavity (the hollow interior with ledges) is NOT cut here — see
-    cut_bore_cavity, which runs after the tower cylinder is unioned so
-    the cavity also pierces the cylinder's overlap with the bore region."""
+    """Octagonal bore wall around the pump-flange seat, unioned onto solid."""
     bore_wall = (
         WorldWorkplane(xy_plane_z_up)
         .workplane(offset=0)
@@ -498,10 +466,8 @@ def add_bore_wall(solid):
 
 
 def cut_bore_cavity(solid):
-    """Cut the octagonal pump-flange seat (with ledges) through the bore
-    wall and any tower cylinder material that overlaps the bore-wall
-    region.  Must run after build_tower has been unioned in, otherwise
-    the cylinder fills the cavity back in."""
+    """Octagonal pump-flange seat (with ledges) cut through the bore wall
+    and the tower cylinder material overlapping the bore-wall region."""
     bore_cavity = (
         WorldWorkplane(xy_plane_z_up)
         .workplane(offset=0)
@@ -540,13 +506,9 @@ def build_skirt():
 
 
 def build_tower():
-    """Cylindrical tower extending downward from cylinder_top_z. The
-    outer radius (cylinder_r_outer) circumscribes the octagonal bore
-    wall, so there's no octagon-to-cylinder transition — the tower is
-    a single uniform-radius cylinder.  The cylinder starts above the
-    bore wall's far face, overlapping it on the outside; the bore
-    cavity inside stays at its original Z range (it's the pump body's
-    clearance, separate from the tower's outer shape)."""
+    """Cylindrical tower extending downward from cylinder_top_z. Its outer
+    radius circumscribes the octagonal bore wall, overlapping it on the
+    outside from above the bore wall's far face."""
     tower_cylinder = (
         WorldWorkplane(xy_plane_z_up)
         .workplane(offset=cylinder_top_z)
@@ -567,11 +529,7 @@ def build_tower():
 
 
 def _lower_profile_set(wall_offset):
-    """Four lower-extension cross-section profiles, top to bottom of lower section.
-
-    Same wall_offset semantics as _skirt_profile_set: the wall_offset=0 set
-    is the outer surface; the wall_offset=skirt_wall set is the inner cavity.
-    """
+    """Four lower-extension cross-section profiles, top to bottom of lower section."""
     narrow_he = skirt_narrow_half_extent - wall_offset
     base_he = skirt_base_half_extent - wall_offset
     radius = corner_r - wall_offset
@@ -590,8 +548,7 @@ def build_lower_extension():
                          - skirt_narrow_half_extent)
     lower_uniform_straight = (lower_height - lower_ramp_height
                               - lower_footprint_straight)
-    # Lower extension continues away from the base plate in the same -Z
-    # direction the skirt was growing in.
+    # Lower extension extends in -Z, away from the base plate.
     lower_z_steps = [-lower_footprint_straight, -lower_ramp_height,
                      -lower_uniform_straight]
 
@@ -636,7 +593,7 @@ def split_into_base_and_cap(combined):
     """Stepped split creating base (with tower) and cap (with lower extension).
 
     The two parts meet at two different Z levels:
-      Wide half (+Y):   at skirt_bottom_z (original mating surface)
+      Wide half (+Y):   at skirt_bottom_z
       Narrow half (-Y): step_height higher into the skirt
     The boundary follows the seam diagonal.
     """
