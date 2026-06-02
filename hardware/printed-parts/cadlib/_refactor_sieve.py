@@ -28,10 +28,13 @@ Six complementary checks:
    assembly script, then check the same scalars against a pinned
    baseline.
 
-6. BYTE-HASHED STEPS: SHA256-compare every downstream STEP file whose
-   generator is NOT undergoing a vocabulary refactor; bytes must match
-   exactly. Spans cold-core parts, the harvested valve body and CO2
-   coupling reference STEPs, and the harvested faucet assembly STEP.
+6. BYTE-HASHED STEPS: SHA256-compare frozen STEP outputs; bytes must
+   match exactly. Spans the cold-core single parts (foam, copper,
+   coil-mandrel, prv-shroud), the flavor parts (cap-sense sleeves,
+   peristaltic tube), every valve-manifold tray and its named assembly,
+   and the reference STEPs (beduan solenoid, JG bulkhead union,
+   water-test cup, valve body, CO2 coupling, servo-valve mock, faucet
+   assembly).
 
 Module also exposes _solid_invariants(wp) + _compare_invariants(...) at
 top level — volume + sorted bbox spans + sorted |COM| coords, compared
@@ -52,7 +55,12 @@ _here = Path(__file__).resolve().parent
 _repo = next(p for p in _here.parents if p.name == "homesodamachine")
 _baseline_path = _here / "_refactor_sieve_baseline.json"
 
+# Frozen STEP outputs (single solids and named assemblies). Their geometry
+# is not under a scalar-gated refactor, so bytes must match exactly. The
+# scalar-gated parts (pump-case, reservoir, shell, faucet-parts) are checked
+# by in-process scalars instead; faucet-assembly is checked both ways.
 _byte_hashed_step_paths = [
+    # cold-core
     "hardware/printed-parts/cold-core/foam-shell/foam-shell.step",
     "hardware/printed-parts/cold-core/foam-cap/foam-cap-top.step",
     "hardware/printed-parts/cold-core/foam-cap/foam-cap-bottom.step",
@@ -63,11 +71,31 @@ _byte_hashed_step_paths = [
     "hardware/printed-parts/cold-core/copper-plugs/copper-plug-middle.step",
     "hardware/printed-parts/cold-core/copper-plugs/copper-plug-upper.step",
     "hardware/printed-parts/cold-core/copper-plugs/copper-plug-top.step",
+    "hardware/printed-parts/cold-core/coil-mandrel/coil-mandrel.step",
+    "hardware/printed-parts/cold-core/prv-shroud/prv-shroud.step",
+    # flavor
+    "hardware/printed-parts/flavor/cap-sense-sleeve/cap-sense-sleeve-pos-y.step",
+    "hardware/printed-parts/flavor/cap-sense-sleeve/cap-sense-sleeve-neg-y.step",
+    "hardware/printed-parts/flavor/peristaltic-tube/peristaltic-tube.step",
+    # valve-manifold (each tray and its named assembly)
+    "hardware/printed-parts/valve-manifold/bag-circuit-tray/bag-circuit-tray.step",
+    "hardware/printed-parts/valve-manifold/bag-circuit-tray/bag-circuit-assembly.step",
+    "hardware/printed-parts/valve-manifold/bib-gate-tray/bib-gate-tray.step",
+    "hardware/printed-parts/valve-manifold/bib-gate-tray/bib-gate-assembly.step",
+    "hardware/printed-parts/valve-manifold/nozzle-gate-tray/nozzle-gate-tray.step",
+    "hardware/printed-parts/valve-manifold/nozzle-gate-tray/nozzle-gate-assembly.step",
+    "hardware/printed-parts/valve-manifold/source-select-tray/source-select-tray.step",
+    "hardware/printed-parts/valve-manifold/source-select-tray/source-select-assembly.step",
+    "hardware/printed-parts/valve-manifold/single-tray/single-tray.step",
+    # reference
     "hardware/reference/touch-flo-faucet/valve-body-reference/touch-flo-valve-body-reference.step",
     "hardware/reference/co2-coupling-body/co2-coupling-body.step",
     "hardware/reference/touch-flo-faucet/faucet-assembly/touch-flo-faucet-assembly.step",
     "hardware/reference/servo-valve-mock/servo-valve-mock.step",
     "hardware/reference/servo-valve-mock/coupling-detail.step",
+    "hardware/reference/beduan-solenoid/beduan-solenoid.step",
+    "hardware/reference/jg-bulkhead-union/jg-bulkhead-union.step",
+    "hardware/reference/water-test-cup/water-test-cup.step",
 ]
 
 _cold_core_generators = [
@@ -75,6 +103,8 @@ _cold_core_generators = [
     "hardware/printed-parts/cold-core/foam-cap/foam_cap.py",
     "hardware/printed-parts/cold-core/copper-plugs/copper_plugs.py",
     "hardware/printed-parts/cold-core/reservoir/reservoir.py",
+    "hardware/printed-parts/cold-core/coil-mandrel/coil_mandrel.py",
+    "hardware/printed-parts/cold-core/prv-shroud/prv_shroud.py",
 ]
 
 _pump_case_generator = "hardware/printed-parts/flavor/pump-case/pump_case.py"
@@ -86,6 +116,30 @@ _faucet_assembly_generator = "hardware/reference/touch-flo-faucet/faucet-assembl
 _servo_generators = [
     "hardware/reference/servo-valve-mock/coupling_detail.py",
     "hardware/reference/servo-valve-mock/servo_valve_mock.py",
+]
+
+_flavor_generators = [
+    "hardware/printed-parts/flavor/cap-sense-sleeve/cap_sense_sleeve.py",
+    "hardware/printed-parts/flavor/peristaltic-tube/peristaltic_tube.py",
+]
+
+# Each tray, then the assembly that imports it.
+_valve_manifold_generators = [
+    "hardware/printed-parts/valve-manifold/bag-circuit-tray/bag_circuit_tray.py",
+    "hardware/printed-parts/valve-manifold/bag-circuit-tray/bag_circuit_assembly.py",
+    "hardware/printed-parts/valve-manifold/bib-gate-tray/bib_gate_tray.py",
+    "hardware/printed-parts/valve-manifold/bib-gate-tray/bib_gate_assembly.py",
+    "hardware/printed-parts/valve-manifold/nozzle-gate-tray/nozzle_gate_tray.py",
+    "hardware/printed-parts/valve-manifold/nozzle-gate-tray/nozzle_gate_assembly.py",
+    "hardware/printed-parts/valve-manifold/source-select-tray/source_select_tray.py",
+    "hardware/printed-parts/valve-manifold/source-select-tray/source_select_assembly.py",
+    "hardware/printed-parts/valve-manifold/single-tray/single_tray.py",
+]
+
+_reference_step_generators = [
+    "hardware/reference/beduan-solenoid/beduan_solenoid.py",
+    "hardware/reference/jg-bulkhead-union/jg_bulkhead_union.py",
+    "hardware/reference/water-test-cup/water_test_cup.py",
 ]
 
 
@@ -392,6 +446,18 @@ def check():
         if not ok:
             print(f"FAIL: {gen}\n{output}", file=sys.stderr)
             sys.exit(1)
+
+    for label, gens in (
+        ("flavor", _flavor_generators),
+        ("valve-manifold", _valve_manifold_generators),
+        ("reference", _reference_step_generators),
+    ):
+        print(f"Regenerating {label} STEPs...")
+        for gen in gens:
+            ok, output = _run_generator(gen)
+            if not ok:
+                print(f"FAIL: {gen}\n{output}", file=sys.stderr)
+                sys.exit(1)
 
     print("Checking byte-hashed STEP hashes...")
     drift = []
