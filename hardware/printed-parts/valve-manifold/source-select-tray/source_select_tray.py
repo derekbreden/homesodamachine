@@ -59,10 +59,10 @@ bridge_gap = 2.0          # stem-to-stem gap between Y-A and Y-B
 tube = 15.0               # straight valve-port-tip to divider-outlet run
 Vy_sep = 20.45            # valve Y offset — minimum that keeps bodies clear
 
-X_Y = (2 * DIV_HALF + bridge_gap) / 2.0        # divider center offset = 20.25
-_aim_len = PORT_HALF + tube                     # valve center to outlet = 44.5
-_outlet_x = X_Y + DIV_HALF                       # |x| of a divider outlet = 39.5
-_Vx = _outlet_x + math.sqrt(_aim_len ** 2 - (Vy_sep - OUTLET_Y) ** 2)  # 82.03
+X_Y = (2 * DIV_HALF + bridge_gap) / 2.0        # divider center offset
+_aim_len = PORT_HALF + tube                     # valve center to divider outlet
+_outlet_x = X_Y + DIV_HALF                       # |x| of a divider outlet
+_Vx = _outlet_x + math.sqrt(_aim_len ** 2 - (Vy_sep - OUTLET_Y) ** 2)
 
 # Per valve: (center_x, center_y, outlet_x, outlet_y) it aims at.
 VALVES = [
@@ -74,8 +74,7 @@ VALVES = [
 
 
 def _aim_phi(vx, vy, dx, dy):
-    """Z rotation that points the valve's port axis from its center at the
-    divider outlet (maps the native +Y port onto the aim direction)."""
+    """Z rotation mapping the valve's native +Y port axis onto the center->outlet aim."""
     return math.degrees(math.atan2(dy - vy, dx - vx)) - 90.0
 
 
@@ -86,9 +85,8 @@ def _rot2(x, y, deg):
 
 
 def place_valve(vx, vy, dx, dy, flip=False):
-    # _aim_phi points the flow arrow (local +Y) at the divider outlet. That is
-    # the outlet for V-A/V-B (they feed Y-A) but the inlet for V-C/V-D (they
-    # draw from Y-B and flow out to Y-KA/Y-KB), so those flip 180.
+    # The aimed port (local +Y) is the outlet for V-A/V-B feeding Y-A; for
+    # V-C/V-D it is the inlet drawing from Y-B (flow out to Y-KA/Y-KB), flipped 180.
     ang = _aim_phi(vx, vy, dx, dy) + (180.0 if flip else 0.0)
     return (
         cell.valve.build_beduan_solenoid()
@@ -117,7 +115,7 @@ margin = 3.0
 wall_thickness = 3.0
 wall_clear = 1.0
 wall_top_z = 60.0
-stack_pitch = wall_top_z - bot_z   # 63 mm
+stack_pitch = wall_top_z - bot_z
 valve_y_extent = 40.61             # valve reach in |Y| after aiming
 
 _socket_x = [
@@ -128,11 +126,9 @@ _socket_x = [
 ]
 plate_half_x = max(_socket_x) + socket_radius + margin
 plate_half_y = valve_y_extent + wall_clear + wall_thickness
-# Connector grooves: a fitting collet half-width + clearance, so the divider
-# tubes set down into the floor. Three grooves along X (the divider stem axis
-# at Y = 0, and the outlets at Y = +/-OUTLET_Y) cradle each trident.
+# Grooves cradling the divider tridents into the floor.
 DIV_GROOVE_R = 8.1 + 0.3   # divider body half-thickness (16.2 mm) + clearance
-div_span = _outlet_x   # divider reach in |X| = 39.5
+div_span = _outlet_x   # divider reach in |X|
 
 
 def build_source_select_tray():
@@ -165,8 +161,8 @@ def build_source_select_tray():
         )
         tray = tray.cut(cq.Workplane(obj=saddle))
 
-    # Divider grooves: three cylinders along X (stem axis at Y = 0, outlets at
-    # Y = +/-OUTLET_Y) so the two tridents set into the floor.
+    # Grooves along X at the trident axes (stem at Y = 0, outlets at
+    # Y = +/-OUTLET_Y) seat the divider bodies into the floor.
     for gy in (0.0, +OUTLET_Y, -OUTLET_Y):
         groove = cq.Solid.makeCylinder(
             DIV_GROOVE_R,
