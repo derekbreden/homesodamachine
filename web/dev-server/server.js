@@ -249,6 +249,7 @@ async function runScript(pyFilePath) {
     // produces no .step writes and nothing here broadcasts — which is the
     // right behavior, the file really hasn't changed.
     for (const entry of fs.readdirSync(scriptDir)) {
+      if (entry.startsWith(".")) continue; // skip dotfiles (orphaned atomic-write temps)
       if (!entry.endsWith(".step")) continue;
       const full = path.join(scriptDir, entry);
       if (fs.statSync(full).mtimeMs < startTime) continue;
