@@ -25,11 +25,13 @@ import cadquery as cq
 
 _here = Path(__file__).resolve()
 sys.path.insert(0, str(next(p for p in _here.parents if p.name == "hardware")))
+sys.path.insert(0, str(next(p for p in _here.parents if (p / "tools" / "docgen").is_dir()) / "tools"))
 from _cadq_export import export_step
+from docgen import substitute_py_comments
 
 # --- White valve body -----------------------------------------------------
 body_width = 32.25                  # footprint width; also the central-boss diameter
-body_radius = body_width / 2.0
+body_radius = body_width / 2.0  # [16.12 mm](BODY_RADIUS)
 corner_boss_radius = 6.8 / 2.0
 top_box_height = 5.0
 
@@ -37,16 +39,16 @@ body_top_z = 30.6
 boss_z_range = (6.0, body_top_z)              # central boss; corner posts run full-height below it
 corner_boss_z_range = (0.0, body_top_z)
 top_box_z_range = (body_top_z - top_box_height, body_top_z)
-corner_inset = body_radius - corner_boss_radius
+corner_inset = body_radius - corner_boss_radius  # [12.72 mm](CORNER_INSET)
 
 # --- Solenoid coil (X spans the footprint width) --------------------------
 coil_depth = 24.0                   # Y
-coil_z_range = (body_top_z, body_top_z + 26.0)
+coil_z_range = (body_top_z, body_top_z + 26.0)  # top [56.6 mm](COIL_TOP_Z)
 
 # --- Port: two quick-connect collets + bore, along Y ----------------------
 port_radius = 15.0 / 2.0
 port_length = 59.0
-port_center_z = body_top_z / 2.0 - 4.0
+port_center_z = body_top_z / 2.0 - 4.0  # [11.3 mm](PORT_CENTER_Z)
 
 # --- Spade terminals, off the +Y coil face --------------------------------
 spade_width = 6.3                   # X
@@ -146,6 +148,22 @@ def build_beduan_solenoid():
 def main():
     export_step(build_beduan_solenoid(), str(_here.parent / "beduan-solenoid.step"))
     print("-> beduan-solenoid.step")
+    substitute_py_comments(
+        Path(__file__),
+        variables={
+            "BODY_RADIUS": f"{body_radius:.4g} mm",
+            "CORNER_INSET": f"{corner_inset:.4g} mm",
+            "PORT_CENTER_Z": f"{port_center_z:.4g} mm",
+            "COIL_TOP_Z": f"{coil_z_range[1]:.4g} mm",
+        },
+        expected_counts={
+            "BODY_RADIUS": 1,
+            "CORNER_INSET": 1,
+            "PORT_CENTER_Z": 1,
+            "COIL_TOP_Z": 1,
+        },
+    )
+    print(f"-> {Path(__file__).name} (self)")
 
 
 if __name__ == "__main__":
