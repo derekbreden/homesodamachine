@@ -49,7 +49,7 @@ def main():
         "PANEL_HOLE": panel_hole_label,
         # Foam-shell outer bottom-cap footprint.
         "FOAM_SHELL_X": f"{outer_shell_x_length:.4g}",
-        "FOAM_SHELL_Y": f"{outer_shell_y_length:.4g} mm",
+        "FOAM_SHELL_Y": f"{outer_shell_y_length:.4g}",
     }
 
     substitute_md(

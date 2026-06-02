@@ -105,15 +105,15 @@ slot_x_range = (-slot_half_width_x, slot_half_width_x)
 # at each pass-through Z.
 tube_clearance_radius = slot_half_width_x  # [3.25 mm](TUBE_CLEAR_R)
 
-# Web fills the +Y outer_shell wall's Y range exactly ([2 mm](WALL_T) thick at
-# [2 mm](WALL_T) wall); the two flanges sit [1 mm](FLANGE_T) above and [1 mm](FLANGE_T) below it.
+# Web fills the +Y outer_shell wall's Y range exactly ([2 mm](CPLUG_WALL_T) thick at
+# [2 mm](CPLUG_WALL_T) wall); the two flanges sit [1 mm](FLANGE_T) above and [1 mm](FLANGE_T) below it.
 # [90.5 mm](WALL_OUTER_Y) — outer face of the +Y outer_shell wall.
 outer_wall_outer_y = outer_shell_y_length / 2
 # [88.5 mm](WALL_INNER_Y) — inner face of the +Y outer_shell wall.
 outer_wall_inner_y = outer_wall_outer_y - wall_and_floor_thickness
 wall_y_range = (outer_wall_inner_y, outer_wall_outer_y)
 
-# The [2 mm](WALL_T) gap between the two flanges, at the wall's Y range
+# The [2 mm](CPLUG_WALL_T) gap between the two flanges, at the wall's Y range
 # and outside the web's X range, is where the +Y wall seats.
 flange_x_overhang_per_side = 1.0
 flange_y_thickness = 1.0
@@ -304,7 +304,7 @@ def main():
         "TOP_ROOM": f"{top_room_above_water:.4g} mm",
         "WEB_BUFFER": f"{web_arch_buffer:.2f} mm",
         # External references (read-only constants from _cold_core_interface).
-        "WALL_T": f"{wall_and_floor_thickness:.4g} mm",
+        "CPLUG_WALL_T": f"{wall_and_floor_thickness:.4g} mm",
         "TANK_ELBOW_H": f"{above_tank_elbows_height:.4g} mm",
         "SHELL_TOP_Z": f"{foam_shell_outer_height:.4g} mm",
     }
@@ -328,7 +328,7 @@ def main():
             "TOP_PLUG_H": 2,
             "TOP_ROOM": 2,
             "WEB_BUFFER": 1,
-            "WALL_T": 3,
+            "CPLUG_WALL_T": 3,
             "TANK_ELBOW_H": 1,
             "SHELL_TOP_Z": 1,
         },

@@ -64,18 +64,18 @@ from docgen import substitute_md, substitute_py_comments
 
 # Physical dimensions
 
-# [19 mm](INNER_D) — [0.1 mm](OVERCUT) radial slip-fit over the ⌀18.8 elbow seat cylinder.
+# [19 mm](PRV_INNER_D) — [0.1 mm](OVERCUT) radial slip-fit over the ⌀18.8 elbow seat cylinder.
 inner_diameter = 19.0
-# [2 mm](WALL_T) — radial wall around the PRV body.
+# [2 mm](PRV_WALL_T) — radial wall around the PRV body.
 wall_thickness = 2.0
-# [2 mm](CAP_T) — closed (far) end carrying the vent hole.
+# [2 mm](PRV_CAP_T) — closed (far) end carrying the vent hole.
 cap_thickness = 2.0
 # [44 mm](CAVITY_L) — elbow seat bottom to PRV pull-ring tip.
 cavity_length = 44.0
-# [6.35 mm](VENT_D) — 1/4" LLDPE tubing OD.
+# [6.35 mm](PRV_VENT_D) — 1/4" LLDPE tubing OD.
 vent_hole_diameter = 6.35
 
-outer_diameter = inner_diameter + 2 * wall_thickness  # [23 mm](OUTER_D)
+outer_diameter = inner_diameter + 2 * wall_thickness  # [23 mm](PRV_OUTER_D)
 total_length = cavity_length + cap_thickness  # [46 mm](TOTAL_L)
 
 overcut = 0.1
@@ -121,34 +121,34 @@ def main():
     )
 
     variables = {
-        "INNER_D": f"{inner_diameter:.4g} mm",
-        "WALL_T": f"{wall_thickness:.4g} mm",
-        "CAP_T": f"{cap_thickness:.4g} mm",
+        "PRV_INNER_D": f"{inner_diameter:.4g} mm",
+        "PRV_WALL_T": f"{wall_thickness:.4g} mm",
+        "PRV_CAP_T": f"{cap_thickness:.4g} mm",
         "CAVITY_L": f"{cavity_length:.4g} mm",
-        "VENT_D": f"{vent_hole_diameter:.4g} mm",
-        "OUTER_D": f"{outer_diameter:.4g} mm",
+        "PRV_VENT_D": f"{vent_hole_diameter:.4g} mm",
+        "PRV_OUTER_D": f"{outer_diameter:.4g} mm",
         "TOTAL_L": f"{total_length:.4g} mm",
         "OVERCUT": f"{overcut:.4g} mm",
-        "VOLUME": f"{vol:.3f} mm³",
-        "BBOX_X": f"{bb.xmin:.3f} to {bb.xmax:.3f} mm",
-        "BBOX_Y": f"{bb.ymin:.3f} to {bb.ymax:.3f} mm",
-        "BBOX_Z": f"{bb.zmin:.3f} to {bb.zmax:.3f} mm",
+        "PRV_VOLUME": f"{vol:.3f} mm³",
+        "PRV_BBOX_X": f"{bb.xmin:.3f} to {bb.xmax:.3f} mm",
+        "PRV_BBOX_Y": f"{bb.ymin:.3f} to {bb.ymax:.3f} mm",
+        "PRV_BBOX_Z": f"{bb.zmin:.3f} to {bb.zmax:.3f} mm",
     }
     substitute_md(
         out_dir / "README.md",
         variables=variables,
         expected_counts={
-            "INNER_D": 2,
-            "WALL_T": 1,
-            "CAP_T": 2,
+            "PRV_INNER_D": 2,
+            "PRV_WALL_T": 1,
+            "PRV_CAP_T": 2,
             "CAVITY_L": 1,
-            "VENT_D": 1,
-            "OUTER_D": 1,
+            "PRV_VENT_D": 1,
+            "PRV_OUTER_D": 1,
             "TOTAL_L": 1,
-            "VOLUME": 1,
-            "BBOX_X": 1,
-            "BBOX_Y": 1,
-            "BBOX_Z": 1,
+            "PRV_VOLUME": 1,
+            "PRV_BBOX_X": 1,
+            "PRV_BBOX_Y": 1,
+            "PRV_BBOX_Z": 1,
         },
     )
     print("-> README.md")
@@ -156,13 +156,13 @@ def main():
         Path(__file__),
         variables=variables,
         expected_counts={
-            "INNER_D": 1,
+            "PRV_INNER_D": 1,
             "OVERCUT": 1,
-            "WALL_T": 1,
-            "CAP_T": 1,
+            "PRV_WALL_T": 1,
+            "PRV_CAP_T": 1,
             "CAVITY_L": 1,
-            "VENT_D": 1,
-            "OUTER_D": 1,
+            "PRV_VENT_D": 1,
+            "PRV_OUTER_D": 1,
             "TOTAL_L": 1,
         },
     )

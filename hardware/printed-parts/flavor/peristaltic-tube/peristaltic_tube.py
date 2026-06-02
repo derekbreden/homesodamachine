@@ -17,7 +17,7 @@ from docgen import substitute_py_comments
 # Bore diameter matches the Kamoer KPP small-bore pump head.
 inner_diameter = 3.2
 wall_thickness = 1.6
-# [6.4 mm](OUTER_D) outer diameter.
+# [6.4 mm](PTUBE_OUTER_D) outer diameter.
 outer_diameter = inner_diameter + 2 * wall_thickness
 tube_length = 150.0
 
@@ -43,13 +43,13 @@ def main():
     print("-> peristaltic-tube.step")
 
     variables = {
-        "OUTER_D": f"{outer_diameter:.4g} mm",
+        "PTUBE_OUTER_D": f"{outer_diameter:.4g} mm",
     }
     substitute_py_comments(
         __file__,
         variables=variables,
         expected_counts={
-            "OUTER_D": 1,
+            "PTUBE_OUTER_D": 1,
         },
     )
 

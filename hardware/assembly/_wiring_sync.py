@@ -71,7 +71,7 @@ def main():
     variables = {
         # Wire gauges.
         "AWG_AC_MAIN": f"{_sched_awg_mains:.4g} AWG",
-        "AWG_AC_BRANCH": f"{_sched_awg_ac_branch:.4g} AWG",
+        "AWG_AC_BRANCH_U": f"{_sched_awg_ac_branch:.4g} AWG",
         "AWG_DC_BRANCH": f"{_sched_awg_sig:.4g} AWG",
         "AWG_SIGNAL": f"{_sched_awg_lv:.4g} AWG",
         "AWG_TRIPLE": (
@@ -108,7 +108,7 @@ def main():
         "BUSHING_LOW": f"{_shroud_bushing_low_mm:.4g}",
         "BUSHING_HIGH": f"{_shroud_bushing_high_mm:.4g} mm",
         "GND_STUD_HOLE": f"{_shroud_gnd_hole_mm:.4g} mm",
-        "COMP_CLASS_W": f"{_shroud_compressor_class_w:.4g} W-class",
+        "COMP_CLASS_W": f"{_shroud_compressor_class_w:.4g} W",
     }
 
     substitute_md(
@@ -116,7 +116,7 @@ def main():
         variables=variables,
         expected_counts={
             "AWG_AC_MAIN": 5,
-            "AWG_AC_BRANCH": 3,
+            "AWG_AC_BRANCH_U": 3,
             "AWG_DC_BRANCH": 3,
             "AWG_SIGNAL": 3,
             "AWG_TRIPLE": 2,
