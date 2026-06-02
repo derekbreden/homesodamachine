@@ -52,7 +52,7 @@ slot_z_padding = 0.5
 # each rim.
 dowel_radius = 1.0
 dowel_length = 2.5
-# [4.725 mm](DOWEL_X) — mid-wall, (bore_radius + outer_radius) / 2.
+# [4.725 mm](DOWEL_X) — mid-wall.
 dowel_x_offset = (bore_radius + outer_radius) / 2
 dowel_z_inset_from_ends = 2.0
 dowel_z_positions = (dowel_z_inset_from_ends, sleeve_length - dowel_z_inset_from_ends)
@@ -62,8 +62,7 @@ eps = 0.01
 
 
 def annular_extrude(r_outer, r_inner, z_range):
-    """Hollow cylinder, axis = z. Concentric circles on the same
-    workplane extrude as an annulus via CadQuery's even-odd fill rule."""
+    """Hollow cylinder, axis = z."""
     z_min, z_max = z_range
     return (
         cq.Workplane("XY")
@@ -91,11 +90,7 @@ def build_half_space(y_sign):
 
 
 def cut_foil_grooves(sleeve):
-    """Cut full annular grooves into the bore wall. The cutter is the
-    full ring on the pre-split sleeve; +y/-y separation happens later
-    via half-space intersection. Cutting the full ring rather than a
-    half-ring intersected at y=0 avoids the kernel leaving a paper-
-    thin face at the cut plane from coplanar boolean residue."""
+    """Full annular grooves cut into the bore wall."""
     for z_center in groove_centers_z:
         z_range = (z_center - groove_width_z / 2, z_center + groove_width_z / 2)
         sleeve = sleeve.cut(annular_extrude(groove_outer_radius, bore_radius, z_range))
@@ -104,9 +99,7 @@ def cut_foil_grooves(sleeve):
 
 def cut_wire_exit_slots_pos_y(sleeve):
     """Radial slots through the +x side of the +y half, one per foil
-    groove. The slot's y range starts at -eps so the cutter crosses
-    y=0 by eps — when the +y half is split off, the slot opens cleanly
-    through the cut face with no paper-thin lid at y=0."""
+    groove."""
     slot_y_range = (-eps, slot_width_y)
     slot_x_range = (-eps, outer_radius + eps)
     slot_width_x = slot_x_range[1] - slot_x_range[0]
@@ -128,14 +121,9 @@ def cut_wire_exit_slots_pos_y(sleeve):
 
 def build_dowel_features(y_sign):
     """Dowel cylinders at the y=0 cut plane, four per half (one near
-    each end on each x side). The bearing half UNIONs them in as
-    integrated dowels; the other half CUTs them as matching holes.
-    Bearing dowel protrudes dowel_length past y=0; matching hole is
-    slightly longer (dowel_length + 2*eps) so dowels never bottom
-    out before the cut faces seat."""
+    each end on each x side). Matching holes run longer than the pins
+    so dowels never bottom out before the cut faces seat."""
     is_bearing = (y_sign == dowel_bearing_y_sign)
-    # Cylinder always grows from the bearing-half side across y=0;
-    # only its length differs (hole gets +eps extra to clear seating).
     growth_y_sign = -dowel_bearing_y_sign
     y_start = -eps * growth_y_sign
     cyl_length = dowel_length + eps if is_bearing else dowel_length + 2 * eps

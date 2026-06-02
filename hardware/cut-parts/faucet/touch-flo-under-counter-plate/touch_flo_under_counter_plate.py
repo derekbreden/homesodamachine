@@ -17,9 +17,8 @@ HOLE POSITIONS MATCH THE TPU GASKET AND UPPER MOUNTING PLATE
 ============================================================
 The mounting plate, TPU gasket, and under-counter plate share the
 same disc center, shank-hole position, and pill-slot position. The
-under-counter plate adds the two open-edge channels at the same
-hole positions; it stacks naturally below the gasket and the
-mounting plate.
+under-counter plate adds the two open-edge channels at those hole
+positions.
 
 CHANNEL DIRECTION
 =================
@@ -46,18 +45,14 @@ STACK-UP (top → bottom, world-Z range in faucet-assembly coords):
 - Under-counter plate (this part)
 - Washer + factory shank nut on the threaded Touch-Flo shank
 
-THICKNESS / MATERIAL (specified at order time, not in the DXF)
-==============================================================
+THICKNESS / MATERIAL
+====================
 0.060" (1.524 mm) 304 stainless, SendCutSend. Order qty 1 per
 appliance.
 
 UNITS
 =====
 Drawing is in mm with $INSUNITS = 4.
-
-REGENERATE
-==========
-    tools/cad-venv/bin/python touch_flo_under_counter_plate.py
 """
 
 import sys
@@ -71,10 +66,8 @@ sys.path.insert(
     0,
     str(next(p for p in _here.parents if (p / "tools" / "docgen").is_dir()) / "tools"),
 )
-# _touch_flo_interface lives in hardware/printed-parts/faucet/ — it
-# defines the pill / shank geometry imported here. Walk up to
-# `hardware/`, then sideways into printed-parts/faucet/ so the import
-# resolves.
+# _touch_flo_interface — the shared pill / shank geometry — lives in
+# hardware/printed-parts/faucet/.
 _hardware_dir = next(p for p in _here.parents if p.name == "hardware")
 sys.path.insert(0, str(_hardware_dir / "printed-parts" / "faucet"))
 sys.path.insert(0, str(_hardware_dir))
@@ -101,13 +94,12 @@ disc_cy = 0.0
 shank_cx = 0.0
 shank_cy = 0.0
 # [12.6 mm](SHANK_HOLE_D) shank pocket — matches the gasket / mounting
-# plate (the threaded shank passes through all three discs). Imported
-# from _touch_flo_interface.
+# plate (the threaded shank passes through all three discs).
 shank_diameter = shank_hole_diameter
 shank_radius = shank_diameter / 2.0
 
 # Pill is Y-oriented (matching the gasket): long axis along Y, short
-# axis along X. Geometry imported from _touch_flo_interface.
+# axis along X.
 # DXF axes are the plate's own laser-cut frame: this DXF X is the
 # depth-magnitude offset from the shank in world coords (the pill sits
 # at world +Y relative to the body axis); this DXF Y is the lateral
@@ -142,17 +134,10 @@ def rim_y_lower(x):
 
 def channel_corner_fillet(wall_x, material_side, r=None):
     """
-    Compute fillet geometry for a corner where a vertical channel wall
-    at x = wall_x meets the lower disc rim. material_side = -1 if the
-    material lies at x < wall_x (left walls), +1 if material lies at
-    x > wall_x (right walls).
-
-    The fillet is a circular arc of radius r, tangent to both the wall
-    and the rim. Its center sits inside the material — distance r from
-    the wall, and distance r inside the rim arc (i.e. at distance
-    R - r from the disc center).
-
-    Returns (fillet_center, wall_tangent_pt, rim_tangent_pt).
+    (fillet_center, wall_tangent_pt, rim_tangent_pt) for an arc of
+    radius r tangent to both the channel wall at x = wall_x and the
+    lower disc rim. material_side = -1 when material lies at x < wall_x
+    (left walls), +1 when material lies at x > wall_x (right walls).
     """
     if r is None:
         r = fillet_radius
@@ -171,7 +156,7 @@ def channel_corner_fillet(wall_x, material_side, r=None):
 
 
 def ccw_arc(msp, center, radius, start_pt, end_pt):
-    """Emit a CCW arc on the disc rim from start_pt to end_pt."""
+    """CCW arc about center, from start_pt to end_pt."""
     start_angle = math.degrees(math.atan2(start_pt[1] - center[1], start_pt[0] - center[0]))
     end_angle = math.degrees(math.atan2(end_pt[1] - center[1], end_pt[0] - center[0]))
     if end_angle <= start_angle:
@@ -184,7 +169,6 @@ def make_dxf():
     doc.header["$INSUNITS"] = 4   # 4 = millimeters
     msp = doc.modelspace()
 
-    # Key points on the plate boundary (going CCW from the top of the disc):
     top_of_disc = (disc_cx, disc_cy + disc_radius)                     # ([3.175 mm](DISC_CX), [27.18 mm](TOP_OF_DISC_Y))
 
     # Shank channel — extends in -Y from the shank's bottom semicircle
@@ -204,65 +188,41 @@ def make_dxf():
 
     disc_center = (disc_cx, disc_cy)
 
-    # Fillets at the four channel-mouth corners. Each fillet is a
-    # tangent arc joining the wall to the rim; the wall ends at the
-    # wall-tangent point and the rim arc ends at the rim-tangent point.
+    # Fillets at the four channel-mouth corners.
     sl_c, sl_wt, sl_rt = channel_corner_fillet(shank_left_wall_x, -1)
     sr_c, sr_wt, sr_rt = channel_corner_fillet(shank_right_wall_x, +1)
     pl_c, pl_wt, pl_rt = channel_corner_fillet(pill_left_x, -1)
     pr_c, pr_wt, pr_rt = channel_corner_fillet(pill_right_x, +1)
 
-    #  1. Long rim arc CCW from top of disc to the shank channel's
-    #     left-wall rim-tangent point (around the left/bottom-left).
     ccw_arc(msp, disc_center, disc_radius, top_of_disc, sl_rt)
 
-    #  2. Shank-left fillet (rounds the corner where the rim meets
-    #     the shank channel's left wall).
     ccw_arc(msp, sl_c, fillet_radius, sl_rt, sl_wt)
 
-    #  3. Shank channel left wall, going UP from the wall-tangent
-    #     point to the shank pocket's left side.
     msp.add_line(sl_wt, shank_left_wall_top)
 
-    #  4. Shank's upper semicircle — the pocket that captures the
-    #     shank. CCW from 0° to 180° gives the UPPER half.
+    # Upper semicircle — the pocket half that captures the shank.
     msp.add_arc((shank_cx, shank_cy), shank_radius,
                 start_angle=0.0, end_angle=180.0)
 
-    #  5. Shank channel right wall, going DOWN from the shank pocket
-    #     to the right-wall tangent point.
     msp.add_line(shank_right_wall_top, sr_wt)
 
-    #  6. Shank-right fillet.
     ccw_arc(msp, sr_c, fillet_radius, sr_wt, sr_rt)
 
-    #  7. Short rim arc CCW from the shank channel's right-wall rim
-    #     tangent to the pill channel's left-wall rim tangent (across
-    #     the strip of material between the two channels).
+    # Rim arc across the strip of material between the two channels.
     ccw_arc(msp, disc_center, disc_radius, sr_rt, pl_rt)
 
-    #  8. Pill-left fillet.
     ccw_arc(msp, pl_c, fillet_radius, pl_rt, pl_wt)
 
-    #  9. Pill channel left wall + pill rectangle left edge, one
-    #     continuous line at X = pill_left_x, going UP from the wall
-    #     tangent to the top of the pill rectangle.
     msp.add_line(pl_wt, pill_rect_top_left)
 
-    # 10. Pill's top cap — CCW from 0° to 180° through 90° gives the
-    #     upper half (above the cap center).
+    # Upper semicircle — the pocket half that captures the pill.
     msp.add_arc((pill_cx, pill_top_cap_cy), pill_cap_radius,
                 start_angle=0.0, end_angle=180.0)
 
-    # 11. Pill rectangle right edge + pill channel right wall, going
-    #     DOWN to the right-wall tangent point.
     msp.add_line(pill_rect_top_right, pr_wt)
 
-    # 12. Pill-right fillet.
     ccw_arc(msp, pr_c, fillet_radius, pr_wt, pr_rt)
 
-    # 13. Final rim arc CCW from the pill channel's right-wall rim
-    #     tangent back to the top of the disc.
     ccw_arc(msp, disc_center, disc_radius, pr_rt, top_of_disc)
 
     out_dir = Path(__file__).resolve().parent

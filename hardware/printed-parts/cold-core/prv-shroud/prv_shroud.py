@@ -11,10 +11,8 @@ relief device.
 The shroud slips over the entire valve from the pull-ring end and
 seats on the smooth ⌀18.8 mm cylindrical section of the TAISHER 316L
 SS 90° street elbow (B0CZ38MYL1) that threads into Port 4. The
-open shroud end-to-elbow joint is sealed pre-pour with hot glue (or
-equivalent fast-cure adhesive) for the duration of the foam rise —
-foam-tight, not airtight. After foam cure, the cured foam itself
-takes over as the structural seal.
+open shroud end-to-elbow joint is sealed with hot glue —
+foam-tight, not airtight.
 
 A ⌀6.35 mm hole in the closed (far) end of the shroud accepts a
 length of 1/4" OD LLDPE tubing — the unpressurized vent line. The
@@ -36,10 +34,9 @@ Geometry
                │                      │
     Z = 0      └ open ────────────────┘  ← seats on elbow ⌀18.8 mm cyl
 
-The 44 mm cavity length matches the in-hand stack measurement from
-the bottom of the elbow's smooth cylinder to the very tip of the
-PRV pull-ring with the valve hand-tight in the elbow's lateral
-F outlet.
+The 44 mm cavity length spans from the bottom of the elbow's smooth
+cylinder to the tip of the PRV pull-ring with the valve hand-tight
+in the elbow's lateral F outlet.
 
 Coordinate convention: cylinder axis along Z, open end at Z=0, cap
 top at Z=46. Installed orientation is horizontal — the shroud's Z
@@ -78,12 +75,11 @@ cavity_length = 44.0
 # [6.35 mm](VENT_D) — 1/4" LLDPE tubing OD.
 vent_hole_diameter = 6.35
 
-# [23 mm](OUTER_D) — inner_diameter + 2 × wall_thickness.
+# [23 mm](OUTER_D)
 outer_diameter = inner_diameter + 2 * wall_thickness
-# [46 mm](TOTAL_L) — cavity_length + cap_thickness.
+# [46 mm](TOTAL_L)
 total_length = cavity_length + cap_thickness
 
-# Slop for cut-through operations.
 overcut = 0.1
 
 
@@ -126,9 +122,6 @@ def main():
         f"vol {vol:.3f} mm^3"
     )
 
-    # Short names scoped to this part. Units live inside the value so
-    # the script controls them — change a unit in source and every
-    # sibling doc + dynamic-comment marker follows.
     variables = {
         "INNER_D": f"{inner_diameter:.4g} mm",
         "WALL_T": f"{wall_thickness:.4g} mm",
@@ -138,7 +131,6 @@ def main():
         "OUTER_D": f"{outer_diameter:.4g} mm",
         "TOTAL_L": f"{total_length:.4g} mm",
         "OVERCUT": f"{overcut:.4g} mm",
-        # Regression baseline (computed from the actual STEP geometry).
         "VOLUME": f"{vol:.3f} mm³",
         "BBOX_X": f"{bb.xmin:.3f} to {bb.xmax:.3f} mm",
         "BBOX_Y": f"{bb.ymin:.3f} to {bb.ymax:.3f} mm",

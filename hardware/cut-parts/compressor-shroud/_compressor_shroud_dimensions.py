@@ -14,7 +14,7 @@ sys.path.insert(
 from docgen import substitute_md
 
 
-# Compressor envelope (placeholders — revise after measurement).
+# Compressor envelope.
 compressor_body_od_mm = 95
 compressor_body_height_mm = 110
 compressor_class_w = 100
@@ -25,7 +25,7 @@ terminal_block_clearance_mm = 10
 ptc_surface_temp_c = 150
 ptc_surface_temp_low_c = 140
 
-# Shroud working envelope (placeholders — revise after measurement).
+# Shroud working envelope.
 outer_x_mm = 130
 outer_y_mm = 130
 outer_z_mm = 100

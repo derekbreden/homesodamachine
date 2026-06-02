@@ -22,13 +22,11 @@ from docgen import substitute_md
 
 
 # Foam shell occupies Zone A entirely. The enclosure follows the foam
-# shell's footprint at the back, so the appliance width = the foam
-# shell's X length.
+# shell's footprint at the back.
 APPLIANCE_W = outer_shell_x_length
 
 # Zone D (front-bottom) lives in front of the foam shell. The condenser
-# is the deepest item in Zone D and drives the appliance depth, so
-# appliance depth = foam-shell depth + condenser depth.
+# is the deepest item in Zone D and drives the appliance depth.
 CONDENSER_DEPTH = 150.0
 APPLIANCE_D = outer_shell_y_length + CONDENSER_DEPTH
 

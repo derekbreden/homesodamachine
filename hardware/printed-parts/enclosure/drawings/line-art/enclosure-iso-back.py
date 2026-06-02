@@ -1,17 +1,11 @@
 """
 Isometric line-art view of the home-soda-machine enclosure — BACK.
 
-The appliance and its red ring marking are built as 3D CadQuery solids
-in _appliance_model, exported as STL, and rendered to a vector SVG via
-Blender's Freestyle line renderer (with the Freestyle SVG Exporter
-add-on).
-
 Iso-back camera: positioned at world (+X, +Y, +Z) and aimed at the
 geometric center with world +Z as up, so the back face (+Y), right
 face (+X), and top face (+Z) are all visible.
 
-Companion drawing: enclosure-iso-front.py. The geometry is the same;
-only the view direction differs.
+Companion drawing: enclosure-iso-front.py — same geometry, front view.
 
 Run from the repo root:
 
@@ -35,7 +29,7 @@ def main() -> None:
     blender.render_iso(appliance, markings, view="back", out_svg=output_path)
     print(f"Wrote {output_path}")
 
-    # Keep _appliance_model.py's [value](NAME) comments in sync.
+    # [value](NAME)
     model.refresh_comments()
     print(f"-> updated comments in _appliance_model.py")
 
