@@ -306,22 +306,7 @@ bulkhead_seal_seat_thickness = reservoir_wall_thickness + bulkhead_seal_counterb
 # ../../../off-the-shelf-parts/puresec-90-bulkhead/geometry-description.md.
 # The dry line turns laterally at the elbow and runs out to the
 # bag-pocket +Y pass-through, in the open space below the trough floor.
-bulkhead_ptc_tube_diameter = 6.35  # 1/4" tube OD — shared JG 1/4" collet family
-bulkhead_ptc_release_ring_diameter = 9.57  # PTC collet release-ring OD — shared JG 1/4" collet family
-bulkhead_ptc_port_body_diameter = 12.5  # PTC collet barrel OD
-bulkhead_elbow_lateral_offset = 15.0  # barrel axis → lateral-PTC centerline
-bulkhead_elbow_envelope_x = 28.0  # lateral extent of the cast 90° body + lateral collet barrel. Modelled along ±Y here (toward the pass-through), see orientation note below.
-bulkhead_elbow_envelope_y = 16.0  # transverse extent of the elbow body
-bulkhead_elbow_envelope_z = 16.0  # vertical extent of the elbow body
 bulkhead_elbow_flange_to_bottom = 19.6  # dry-side flange top face (seats on the boss underside) → elbow's lowest point; how far the elbow hangs below the floor
-
-# ORIENTATION: the PureSec is an L-body with the wet PTC on the barrel
-# axis and the lateral PTC on the elbow leg. The barrel is vertical
-# through the trough, and the elbow's lateral PTC port is aimed toward +Y
-# (the bag-pocket pass-through at reservoir_bulkhead_port_y), so the
-# modelled elbow keep-out + lateral PTC stub extend in +Y from the barrel
-# axis. The elbow is modelled as a clearance volume only.
-bulkhead_elbow_lateral_sign = +1  # +Y; the pass-through is on +Y
 
 # Interior wet V section (Y–Z), extruded straight across the full cavity X.
 # The flat trough at y=0 is the cavity's low point and the lowest
