@@ -19,15 +19,11 @@ from _cold_core_interface import (
 )
 from _outer_shell import build_attachment_bosses
 
-# Cut-through depth for lid features — any value ≥ wall_and_floor_thickness
-# fully traverses the lid. 3× gives margin without making the depth
-# look semantically meaningful.
 lid_cut_through_depth = wall_and_floor_thickness * 3
 
 
 def attachment_clearances_extrude(height):
-    """Screw-clearance cylinders at every attachment position, extruded
-    +Z by height. Used as the cut tool through cap, lid, and gasket."""
+    """Screw-clearance cylinders at every attachment position, extruded +Z by height."""
     return (
         WorldWorkplane(xy_plane_z_up)
         .workplane(offset=0)
@@ -48,11 +44,9 @@ def build_foam_cap():
         .faces(">Z")
         .shell(-wall_and_floor_thickness)
     )
-    # Same ⌀ boss + teardrop webs as the outer shell (shared builder), so
-    # the cap's bosses match the shell's exactly.
+    # Same ⌀ boss + teardrop webs as the outer shell.
     bosses = build_attachment_bosses(foam_cap_height)
-    # Clearances run the full boss height so the screw passes from the
-    # cap floor (top in service) through to the mating edge.
+    # Screw passes from the cap floor (top in service) through to the mating edge.
     clearances = attachment_clearances_extrude(foam_cap_height)
     return cap.union(bosses).cut(clearances).unwrap()
 
@@ -67,8 +61,7 @@ def build_foam_cap_lid():
         .fillet(corner_round_radius)
     )
 
-    # 2D anchor points on the lid plane. Pour hole on the +X half at
-    # y=0; vent holes mirrored across y at the −X corners.
+    # Pour hole on the +X half at y=0; vent holes mirrored across y at the −X corners.
     inset_x = outer_shell_x_length / 2 - foam_cap_lid_hole_inset
     inset_y = outer_shell_y_length / 2 - foam_cap_lid_hole_inset
     pour_xy = (inset_x, 0)
@@ -92,13 +85,11 @@ def build_foam_cap_lid():
 
 
 def build_foam_cap_gasket():
-    """TPU 90A gasket between foam_cap mating edge and outer_shell
-    mating face. Rounded-corner perimeter ring (matching the shell's
-    rounded outer wall, ring width held uniform through the corner) + a
-    boss-shaped pad at each of the 6 screw positions so the screws compress
-    the full boss footprint uniformly (a uniform ring would leave them
-    asymmetrically supported and seal poorly at the corners). The pads use
-    the same boss + teardrop-web shape as the shell/cap. Printed twice."""
+    """TPU 90A gasket between foam_cap mating edge and outer_shell mating
+    face. Rounded-corner perimeter ring matching the shell's rounded outer
+    wall, ring width uniform through the corner, + a boss-shaped pad
+    (same boss + teardrop-web shape as the shell/cap) at each of the 6 screw
+    positions. Printed twice."""
     outer = (
         WorldWorkplane(xy_plane_z_up)
         .workplane(offset=0)
