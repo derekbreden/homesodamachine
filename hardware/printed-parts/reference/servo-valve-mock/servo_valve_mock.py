@@ -45,7 +45,7 @@ collet_dia = 10.0
 collet_len = 8.0
 port_len = collar_len + collet_len          # 13 mm reach per side
 stem_dia = 7.0
-stem_top_z = body_dia / 2.0 + 9.0           # 17.0
+stem_top_z = body_dia / 2.0 + 5.0           # 13.0 — stem protrusion above body top
 
 
 def build_valve():
@@ -63,7 +63,7 @@ def build_valve():
 
 
 # --- Coupler: stem top up to the servo spline ------------------------------
-coupler_top = 29.0
+coupler_top = 19.0
 
 
 def build_coupler():
