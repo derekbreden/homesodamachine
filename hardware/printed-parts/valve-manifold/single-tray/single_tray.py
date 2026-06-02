@@ -1,7 +1,7 @@
 """Single-Beduan cradle tray for the valve manifold.
 
 A cradle for one Beduan solenoid valve (modeled in
-`../../reference/beduan-solenoid/`). The valve's four corner bosses drop
+`../../../reference/beduan-solenoid/`). The valve's four corner bosses drop
 into four sockets and its port cylinder nestles into a lengthwise saddle,
 locating the valve in X-Y while its round body boss rests on the tray top.
 
@@ -21,7 +21,7 @@ import cadquery as cq
 _here = Path(__file__).resolve()
 _hardware = next(p for p in _here.parents if p.name == "hardware")
 sys.path.insert(0, str(_hardware))
-sys.path.insert(0, str(_hardware / "printed-parts" / "reference" / "beduan-solenoid"))
+sys.path.insert(0, str(_hardware / "reference" / "beduan-solenoid"))
 from _cadq_export import export_step
 import beduan_solenoid as valve
 

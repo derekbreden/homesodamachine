@@ -43,8 +43,8 @@ _REPO_ROOT = _HERE.parents[4]
 sys.path.insert(0, str(_REPO_ROOT / "tools"))
 sys.path.insert(0, str(_REPO_ROOT / "hardware" / "printed-parts" / "cadlib"))
 sys.path.insert(0, str(_REPO_ROOT / "hardware" / "printed-parts" / "flavor" / "pump-case"))
-sys.path.insert(0, str(_REPO_ROOT / "hardware" / "harvested" / "co2-coupling-body"))
-sys.path.insert(0, str(_REPO_ROOT / "hardware" / "harvested" / "jg-bulkhead-union"))
+sys.path.insert(0, str(_REPO_ROOT / "hardware" / "reference" / "co2-coupling-body"))
+sys.path.insert(0, str(_REPO_ROOT / "hardware" / "reference" / "jg-bulkhead-union"))
 sys.path.insert(0, str(_HERE.parents[1]))
 
 from docgen import substitute_py_comments
@@ -141,7 +141,7 @@ BUTTON_PROTRUSION = 10.0
 
 # CO2 inlet — CPC LCD10004 / LCD15004 family valved coupling body.
 # The part itself is modeled at canonical origin in
-# `hardware/harvested/co2-coupling-body/co2_coupling_body.py`
+# `hardware/reference/co2-coupling-body/co2_coupling_body.py`
 # (standalone STEP available in the parts viewer's Reference section).
 # Wall anchor on the right side face: vertically aligned with the S3
 # knob's centerline on the front face; horizontally (along depth)
@@ -178,7 +178,7 @@ NAMEPLATE_THICKNESS = 1.5
 
 # Water inlet — 1/4" push-to-connect through-wall union (McMaster
 # 51055K3), loaded in
-# `hardware/harvested/jg-bulkhead-union/jg_bulkhead_union.py`. Mounted on
+# `hardware/reference/jg-bulkhead-union/jg_bulkhead_union.py`. Mounted on
 # the back face, tube axis on world +Y, the flange seated at the wall.
 # Sits in Zone B (the back-panel terminations band above the foam
 # shell), left of the umbilical cluster and aligned with its row.

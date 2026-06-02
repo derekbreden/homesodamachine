@@ -63,9 +63,9 @@ _byte_hashed_step_paths = [
     "hardware/printed-parts/cold-core/copper-plugs/copper-plug-middle.step",
     "hardware/printed-parts/cold-core/copper-plugs/copper-plug-upper.step",
     "hardware/printed-parts/cold-core/copper-plugs/copper-plug-top.step",
-    "hardware/harvested/touch-flo-faucet/valve-body-reference/touch-flo-valve-body-reference.step",
-    "hardware/harvested/co2-coupling-body/co2-coupling-body.step",
-    "hardware/harvested/touch-flo-faucet/faucet-assembly/touch-flo-faucet-assembly.step",
+    "hardware/reference/touch-flo-faucet/valve-body-reference/touch-flo-valve-body-reference.step",
+    "hardware/reference/co2-coupling-body/co2-coupling-body.step",
+    "hardware/reference/touch-flo-faucet/faucet-assembly/touch-flo-faucet-assembly.step",
 ]
 
 _cold_core_generators = [
@@ -79,7 +79,7 @@ _pump_case_generator = "hardware/printed-parts/flavor/pump-case/pump_case.py"
 
 _shell_generator = "hardware/printed-parts/faucet/touch-flo-shell/touch_flo_shell.py"
 
-_faucet_assembly_generator = "hardware/harvested/touch-flo-faucet/faucet-assembly/faucet_assembly.py"
+_faucet_assembly_generator = "hardware/reference/touch-flo-faucet/faucet-assembly/faucet_assembly.py"
 
 
 def _sha256(path):
@@ -224,7 +224,7 @@ def _faucet_assembly_scalars():
     Imports faucet_assembly and calls build_water_dispense_tube,
     build_flavor_tube(±1), and build_lever directly — bypassing the
     STEP round-trip (same approach as pump-case + reservoir + shell)."""
-    assembly_dir = _repo / "hardware/harvested/touch-flo-faucet/faucet-assembly"
+    assembly_dir = _repo / "hardware/reference/touch-flo-faucet/faucet-assembly"
     sys.path.insert(0, str(assembly_dir))
     sys.path.insert(0, str(_repo / "hardware/printed-parts/faucet/touch-flo-mounting-plate"))
     sys.path.insert(0, str(_repo / "hardware/printed-parts/faucet/touch-flo-mounting-gasket"))

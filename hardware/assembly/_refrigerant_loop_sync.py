@@ -16,7 +16,7 @@ from docgen import substitute_md
 
 
 # ─── Factory charge masses ────────────────────────────────────────────
-# Source: harvested/ice-maker/README.md.
+# Source: reference/ice-maker/README.md.
 
 unit_a_factory_charge_g = 15            # Antarctic Star HZB-12/Q manual
 unit_b_factory_charge_g = 23            # Frigidaire EFIC117-SS manual

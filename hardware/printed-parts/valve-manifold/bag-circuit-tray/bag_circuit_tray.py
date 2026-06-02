@@ -26,7 +26,7 @@ _here = Path(__file__).resolve()
 _hw = next(p for p in _here.parents if p.name == "hardware")
 for _p in (
     _hw,
-    _hw / "printed-parts" / "reference" / "beduan-solenoid",
+    _hw / "reference" / "beduan-solenoid",
     _hw / "printed-parts" / "valve-manifold" / "single-tray",
 ):
     sys.path.insert(0, str(_p))
@@ -39,7 +39,7 @@ saddle_radius = cell.saddle_radius
 corner_pos = cell.corner_pos
 top_z = cell.tray_top_z
 bot_z = cell.tray_bottom_z
-_tee_path = _hw / "printed-parts" / "reference" / "tee-connector" / "tee-connector.step"
+_tee_path = _hw / "reference" / "tee-connector" / "tee-connector.step"
 
 # --- Shared geometry ------------------------------------------------------
 PORT_HALF = 29.5          # valve port half-length

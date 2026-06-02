@@ -99,7 +99,7 @@ Single-point chassis ground at the electronics shelf, bonded back through the C1
 
 ## What's not yet decided
 
-- **Fuse on the AC primary** — a [5 A](PRIMARY_FUSE_A) fast-blow inline fuse between the C14 inlet and the AC distribution block was discussed in [`/hardware/harvested/ice-maker/README.md`](/hardware/harvested/ice-maker/README.md) for bench testing. Whether it stays in the production unit (fuse holder on the rear panel? fuse on the shelf?) needs a decision.
+- **Fuse on the AC primary** — a [5 A](PRIMARY_FUSE_A) fast-blow inline fuse between the C14 inlet and the AC distribution block was discussed in [`/hardware/reference/ice-maker/README.md`](/hardware/reference/ice-maker/README.md) for bench testing. Whether it stays in the production unit (fuse holder on the rear panel? fuse on the shelf?) needs a decision.
 - **Distribution block hardware** — Wago 221 lever blocks vs. screw terminal block vs. PCB-mounted block. Wago is the fastest hand-build option.
 - **Wiring loom organization between the electronics shelf and the valve manifold** — [24](LOOM_CONDUCTORS) conductors want to be a single bundled run (ribbon cable, twisted pairs, or a simple zip-tied loom). TBD when the manifold is mocked up.
 - **Backflow moisture sensor pin assignment** — needs to land in `esp32-pinout.mmd`.

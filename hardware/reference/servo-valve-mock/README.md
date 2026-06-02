@@ -7,7 +7,7 @@ quarter-turn ball valve (the all-plastic wetted path) with an MG90S micro servo
 `servo_valve_mock.py` builds the envelope, writes `servo-valve-mock.step`, and
 renders front / end / strip SVGs to `/tmp`. Run it with the project venv:
 
-    tools/cad-venv/bin/python hardware/printed-parts/reference/servo-valve-mock/servo_valve_mock.py
+    tools/cad-venv/bin/python hardware/reference/servo-valve-mock/servo_valve_mock.py
 
 One cell: ~44 mm along the flow axis (ports out one way, servo ears the other)
 x ~16 mm across the cross-flow stacking axis x ~49 mm tall. The servo's thin

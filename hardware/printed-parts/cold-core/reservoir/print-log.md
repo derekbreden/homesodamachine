@@ -8,7 +8,7 @@ Geometry: the left flavor reservoir — `reservoir-left.step` (body) + `reservoi
 
 ## PETG print attempt 3 (2026-05-30, settings per [`reservoir.3mf`](reservoir.3mf))
 
-First print of the watertight recipe (developed on the [`../../reference/water-test-cup`](../../reference/water-test-cup/) coupon, which held water) carried onto the actual reservoir body. First reservoir print to carry supports for the slanted floor.
+First print of the watertight recipe (developed on the [`../../../reference/water-test-cup`](../../../reference/water-test-cup/) coupon, which held water) carried onto the actual reservoir body. First reservoir print to carry supports for the slanted floor.
 
 Geometry: one object, `reservoir-left.step` (body only; no cap on the plate). Printed mouth-up; the floor underside sits raised over the open bag-pocket space, so supports rise from the plate to the floor underside. Plate bbox ≈ 90 × 145 mm; `first_layer_time` ≈ 393 s.
 

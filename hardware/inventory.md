@@ -71,9 +71,9 @@ Harvest sources. Disassembled for specific subassemblies; remainder discarded or
 
 | Donor | Source | Harvested for |
 |---|---|---|
-| **Frigidaire EFIC117-SS ice maker** | [B07PCZKG94](https://www.amazon.com/dp/B07PCZKG94), [purchases.md §6](purchases.md) | Compressor, condenser + fan, capillary tube, factory drier. R-600a charge mass: 23 g per donor manual. See [harvested/ice-maker/README.md](harvested/ice-maker/README.md). |
+| **Frigidaire EFIC117-SS ice maker** | [B07PCZKG94](https://www.amazon.com/dp/B07PCZKG94), [purchases.md §6](purchases.md) | Compressor, condenser + fan, capillary tube, factory drier. R-600a charge mass: 23 g per donor manual. See [reference/ice-maker/README.md](reference/ice-maker/README.md). |
 | **Generic 8-cube ice maker, 26 lb/day** | [B0F42MT8JX](https://www.amazon.com/dp/B0F42MT8JX), [purchases.md §6](purchases.md) | Same harvest scope. R-600a charge mass: 15 g per donor manual. |
-| **Westbrass R2031-NL-12 Touch-Flo faucet, oil-rubbed bronze** | [B01N5LVNQA](https://www.amazon.com/dp/B01N5LVNQA), [purchases.md §7](purchases.md) | Valve body harvest for the printed PET-CF gooseneck. See [harvested/touch-flo-faucet/README.md](harvested/touch-flo-faucet/README.md). |
+| **Westbrass R2031-NL-12 Touch-Flo faucet, oil-rubbed bronze** | [B01N5LVNQA](https://www.amazon.com/dp/B01N5LVNQA), [purchases.md §7](purchases.md) | Valve body harvest for the printed PET-CF gooseneck. See [reference/touch-flo-faucet/README.md](reference/touch-flo-faucet/README.md). |
 | **Westbrass A2031-NL-62 8" Touch-Flo faucet (already owned)** | [B0BXFW1J38](https://www.amazon.com/dp/B0BXFW1J38), [purchases.md §7](purchases.md) | Not a harvest donor; pre-existing stock. R2031-NL-12 pattern is the chosen donor. |
 | **Westbrass D203-NL-62 6" Touch-Flo faucet (already owned)** | [B01MZ6JPXW](https://www.amazon.com/dp/B01MZ6JPXW), [purchases.md §7](purchases.md) | Same — pre-existing stock, not a harvest donor. |
 | **DEVMO MINI vertical float switch** | [B07T18PGJ4](https://www.amazon.com/dp/B07T18PGJ4), [purchases.md §9](purchases.md) | Magnetic donut float harvested; switch body discarded. Float slides on the welded 316L SS rod inside the carbonator vessel. |

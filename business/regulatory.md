@@ -13,7 +13,7 @@ Consolidates the regulatory conclusions already reached across prior conversatio
 
 R-600a (isobutane) is carved out of the Section 608 venting prohibition as a natural refrigerant. No technician certification is legally required to vent, cut, braze, evacuate, or recharge the harvested refrigerant loop on this project.
 
-Primary citation: `hardware/harvested/ice-maker/README.md` (the line stating the 608 exemption).
+Primary citation: `hardware/reference/ice-maker/README.md` (the line stating the 608 exemption).
 
 Does not apply to: a pivot to an R-134a or other HFC donor. In that case 608 Type I certification applies (open-book online, ~$25, 84% pass).
 
@@ -34,7 +34,7 @@ Approval conditions this project must satisfy at the product level (no third-par
 
 Charge cap for this equipment class is 150 g. Factory donor charge is 30–50 g per unit — well below the limit.
 
-Primary citation: `hardware/harvested/ice-maker/README.md` (the line stating charge is "well under the 150 g UL 60335-2-89 limit").
+Primary citation: `hardware/reference/ice-maker/README.md` (the line stating charge is "well under the 150 g UL 60335-2-89 limit").
 
 D2C sale does not require this listing. The design follows the standard anyway because the standard codifies what safe handling of hydrocarbon refrigerant in a household appliance actually requires — charge limits, ignition-source containment, marking, service notes. The motivation is not regulatory posture: the appliance is going into kitchens used by friends, family, and customers the founder knows by name (per `marketing/target-market.md` "rings of trust"). Safety is the substance; listing is a credentialing path that's not being pursued separately.
 
@@ -60,7 +60,7 @@ Applies only if the project pivots to an HFC refrigerant.
 
 ## Assembly-time safety — argon purge during brazing
 
-Not a regulation, but load-bearing for the build path described in `hardware/harvested/ice-maker/README.md` "Cold core architecture" — wherever the refrigerant loop is opened and brazed.
+Not a regulation, but load-bearing for the build path described in `hardware/reference/ice-maker/README.md` "Cold core architecture" — wherever the refrigerant loop is opened and brazed.
 
 After the factory R-600a charge is vented, residual hydrocarbon remains dissolved in the compressor oil and pooled in low points of the tubing. When a torch is applied to copper near an oil-soaked compressor pocket, the flame front pulls residual hydrocarbon into itself. Mitigation is to flow low-pressure argon (a few psi, flowing — not static) through the opened loop during and through the braze, sweeping residual fuel out ahead of the heat.
 
