@@ -18,28 +18,22 @@ from _cold_core_interface import (
     build_slot_punch,
 )
 
-# Z at which the through-foam ports sit — water outlet and CO2 inlet
-# bore both pass through the foam shell at this Z. hole_shift_from_edge
-# from the +Z outer face, plus the wall thickness they pass through.
+# Z of the through-foam ports — water outlet and CO2 inlet bore, both
+# through the foam shell, hole_shift_from_edge in from the +Z outer face.
 front_face_port_z = hole_shift_from_edge + wall_and_floor_thickness
 
-# Y at which the water outlet and the copper/water inlet slot start
-# their +Y extrusion — 20 mm inboard of the bag-pocket +Y wall outer
-# face. Each cut tool extrudes far enough past the outer-shell +Y
-# wall to clear it.
+# +Y start of the water-outlet and copper/water-inlet cuts — 20 mm
+# inboard of the bag-pocket +Y wall outer face.
 plus_y_wall_plug_port_y = pocket_centerward_arc_outer_radius - 20
 
-# The three circular port holes are the project's ⌀6.5 standard. The
-# CO2 inlet is separate (`cut_co2_inlet`) because its bore is ⌀16
-# (in-cavity 90° push-to-connect elbow), not ⌀6.5.
+# The three circular port holes are the project's ⌀6.5 standard.
 water_outlet_xyz = (0, plus_y_wall_plug_port_y, front_face_port_z)
 
-# Flavor-line pass-throughs — each reservoir's 1/4" LLDPE outlet line out
-# through the +Y bag-pocket wall and the +Y outer-shell wall. Pinned to
-# bulkhead_elbow_exit_z so the tube runs level out of the elbow's lateral
-# port. Shifted INBOARD of the bulkhead axis, opposite the reed cable hole
-# (outboard), so the two ⌀6.5 holes stay 16 mm apart center-to-center with
-# PETG between them.
+# Flavor-line pass-throughs — each reservoir's 1/4" LLDPE outlet line
+# through the +Y bag-pocket wall and the +Y outer-shell wall, at
+# bulkhead_elbow_exit_z (level out of the elbow's lateral port). Inboard
+# of the bulkhead axis, opposite the outboard reed cable hole — the two
+# ⌀6.5 holes 16 mm apart center-to-center with PETG between them.
 flavor_line_hole_offset_from_bulkhead_x = 8.0
 flavor_line_hole_x = reservoir_bulkhead_port_x - flavor_line_hole_offset_from_bulkhead_x
 flavor_line_plus_x_xyz = (+flavor_line_hole_x, reservoir_bulkhead_port_y, bulkhead_elbow_exit_z)
@@ -54,15 +48,11 @@ def cut_circular_port_holes(foam_shell):
 
 def cut_co2_inlet(foam_shell):
     """CO2 inlet — a doorway-shaped cut at x = 0, y = −70.5: a ⌀16
-    round bore at z = 17 (where the JG PP0308E elbow's ⌀15 body
-    seats for its in-cavity 90° turn) with a rectangular slot below
-    it down to the floor's top face at z = 2. The slot exists for
-    angled insertion from above — the elbow's perpendicular legs
-    can't enter along the bore axis. The cut clears a passage from
-    just outside the support ring (at y = −70.5) inward; the foam-
-    shell floor below z = 2 stays intact."""
-    # Y at which the doorway starts cutting — the pocket-side face of
-    # the bag-pocket −Y wall. Bore and slot extrude in +Y from here.
+    round bore at z = 17 (seating the JG PP0308E elbow's ⌀15 body for
+    its in-cavity 90° turn) over a rectangular slot down to the floor's
+    top face at z = 2, the elbow entered at an angle from above. The
+    foam-shell floor below z = 2 stays intact."""
+    # Pocket-side face of the bag-pocket −Y wall.
     doorway_y = -(pocket_centerward_arc_outer_radius - wall_and_floor_thickness)
     bore_radius = 9.0
     bore_z = front_face_port_z - 1.0
@@ -70,8 +60,6 @@ def cut_co2_inlet(foam_shell):
         origin=(0, doorway_y, bore_z),
         hole_punch_radius=bore_radius,
     )
-    # Slot below the bore: same X-width as the bore (diameter), running
-    # from the foam-shell floor's top face up to the bore center.
     slot_z_bottom = wall_and_floor_thickness
     slot_z_top = bore_z
     slot_z_center = (slot_z_top + slot_z_bottom) / 2.0
@@ -86,10 +74,9 @@ def cut_co2_inlet(foam_shell):
 
 def cut_slot_for_copper_and_water_inlet(foam_shell):
     """Z-elongated slot through the outer-shell +Y wall, shared by the
-    two copper-line plugs and the water-inlet plug — plugs are slid
-    down in from above. slot_z_top is pushed slot_diameter/2 past the
-    foam-shell top edge so the rounded top tapers ABOVE the wall — the
-    straight portion reaches the top exactly, no sliver left."""
+    two copper-line plugs and the water-inlet plug, slid down in from
+    above. The rounded top tapers above the foam-shell top edge, so the
+    straight portion reaches the edge exactly with no sliver left."""
     slot_diameter = 6.5
     slot_z_bottom = 42.0
     slot_z_top = foam_shell_outer_height + slot_diameter / 2

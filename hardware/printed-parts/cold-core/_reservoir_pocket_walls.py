@@ -1,7 +1,6 @@
-"""Build the two reservoir pockets — one on each ±X side — as
-four-walled enclosures whose centerward wall is curved to clear the
-tank+coil envelope. The +X pocket is traced explicitly; the −X pocket
-is its mirror across the YZ plane."""
+"""Two reservoir pockets, one on each ±X side, as four-walled
+enclosures whose centerward wall is curved to clear the tank+coil
+envelope. The −X pocket mirrors the +X pocket across YZ."""
 
 import math
 
@@ -25,10 +24,9 @@ pocket_centerward_arc_transition_y = 60.0
 # arc and the pocket's ±Y wall. Tank-side face radius.
 transition_tank_r = 8.0
 
-# Centerward-wall arc geometry, at module level so sibling parts (the
-# reservoir corner supports) can seat features against the transition corner
-# where the centerward wall meets a ±Y wall. The +Y side is described; the
-# −Y side mirrors in y.
+# Centerward-wall arc geometry. The reservoir corner supports seat
+# against the transition corner where the centerward wall meets a ±Y
+# wall. The +Y side is described; the −Y side mirrors in y.
 arc_cavity_r = pocket_centerward_arc_outer_radius
 arc_tank_r = arc_cavity_r - w
 y_inner = arc_cavity_r - w
@@ -45,9 +43,8 @@ centerward_corner_y = y_inner
 
 
 def build_plus_x_cavity(height=None):
-    """The +X reservoir pocket's cavity solid (the cut volume), exposed so
-    sibling parts can intersect against the real cavity walls. The −X pocket
-    is its mirror across YZ."""
+    """The +X reservoir pocket's cavity solid. The −X pocket mirrors
+    across YZ."""
     if height is None:
         height = foam_shell_outer_height
     far_x_inner = bag_pocket_outermost_x - w
@@ -78,11 +75,7 @@ def build_plus_x_cavity(height=None):
 
 
 def build_reservoir_pocket_walls():
-    """Two reservoir pockets, mirrored across YZ. Built per side as an
-    outer-perimeter polyline minus a cavity-perimeter polyline rather
-    than a single multi-loop sketch because CadQuery's pending-wire
-    heuristic mis-classifies two non-nested outer wires in the same
-    workplane as nested ones."""
+    """Two reservoir pockets, mirrored across YZ."""
     height = foam_shell_outer_height
 
     far_x_outer = bag_pocket_outermost_x
@@ -92,8 +85,6 @@ def build_reservoir_pocket_walls():
     corner_outer_r = corner_inner_r + w
     arc_y = pocket_centerward_arc_transition_y
 
-    # Centerward-wall arc geometry (arc_cavity_r, arc_tank_r, middle_*_x,
-    # transition_center_*, transition_cavity_r, y_inner) is module-level.
     transition_tank_terminus_x = transition_center_x - math.sqrt(
         transition_tank_r**2 - (y_outer - transition_center_y)**2
     )

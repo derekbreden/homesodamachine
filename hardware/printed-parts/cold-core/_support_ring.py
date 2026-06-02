@@ -16,16 +16,13 @@ from _cold_core_interface import (
 
 slot_count = 4
 slot_angular_width = 30.0
-# Radial overrun on each side so the slot cuts past the ring faces and
-# doesn't leave a thin shell at r_inner / r_outer from numerical noise.
+# Slot overruns each ring face radially.
 slot_radial_margin = 1.0
 
 
 def revolve_rect(r_range, z_range, angle=360):
-    """Revolve a rectangular (r, z) profile around the Z axis by `angle`
-    degrees. The profile lives on the XZ plane with its first coordinate
-    interpreted as radius; revolve's default axis is +Z, sweeping from
-    the +X axis."""
+    """Rectangular (r, z) profile on the XZ plane (first coord is radius),
+    revolved `angle` degrees about +Z from the +X axis."""
     r_min, r_max = min(r_range), max(r_range)
     z_min, z_max = min(z_range), max(z_range)
     return (
@@ -40,11 +37,8 @@ def revolve_rect(r_range, z_range, angle=360):
 
 
 def build_tank_support_ring():
-    """Built as a full revolve of a rectangular (r, z) profile around
-    the Z axis; equal-spaced angular slots are cut as partial revolves
-    of the same profile (with a radial margin), so every slot boundary
-    stays on the same cylinder as the ring faces — no chord-vs-arc
-    slivers."""
+    """Annular ring with equal-spaced angular slots cut through it; slot
+    boundaries lie on the same cylinders as the ring faces."""
     r_outer = pocket_centerward_arc_outer_radius - wall_and_floor_thickness
     r_inner = r_outer - support_ring_radial_width
     z_bottom = wall_and_floor_thickness

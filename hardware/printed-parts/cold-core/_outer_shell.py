@@ -1,10 +1,9 @@
-"""Outer rectangular cup (floor + four perimeter walls) with the
-6 cylindrical corner/mid-side bosses and their heat-set insert pockets.
-The exterior corners are rounded; each corner boss is seated deep in the
-corner — its ⌀ tangent to the EXTERIOR wall arc, so the boss fuses into the
-outer skin — with two short webs filling to the flanking flat walls, the
-cylinder + corner-fill teardrop idiom the reservoir pocket-corner supports
-use."""
+"""Outer rectangular cup (floor + four perimeter walls) with 6 cylindrical
+corner/mid-side bosses and their heat-set insert pockets. Exterior corners
+rounded; each corner boss seated in the corner with its ⌀ tangent to the
+exterior wall arc, two short webs filling to the flanking flat walls — the
+cylinder + corner-fill teardrop idiom of the reservoir pocket-corner
+supports."""
 
 from world_workplane import WorldWorkplane, xy_plane_z_up
 from _cold_core_interface import (
@@ -22,9 +21,7 @@ from _cold_core_interface import (
 
 
 def _rounded_footprint(height):
-    """The outer footprint with rounded corners, extruded to `height` — the
-    mask the boss webs are trimmed to, so each web is flush with the rounded
-    wall and nothing pokes past the envelope. Shared at every part's height."""
+    """The outer footprint with rounded corners, extruded to `height`."""
     return (
         WorldWorkplane(xy_plane_z_up)
         .workplane(offset=0)
@@ -38,19 +35,17 @@ def _rounded_footprint(height):
 def build_attachment_bosses(height):
     """The ⌀screw_boss_size cylindrical boss + teardrop corner-fill webs at
     each of the 6 attachment positions, extruded to `height` and trimmed
-    flush to the rounded footprint. Shared by the outer shell AND the
-    foam-cap stack so every mating part's boss cross-section is identical —
-    a single source of truth for the boss shape.
+    flush to the rounded footprint. Shared by the outer shell and the
+    foam-cap stack — every mating part's boss cross-section is identical.
 
     The webs are the cylinder + corner-fill idiom of the reservoir
     pocket-corner supports: each is one boss radius wide off the boss center
-    (tangent to the boss circle) and runs out past the wall, so the mask
-    trims it flush and the thin crescent where the circle pulls off the flat
-    wall is filled — the boss blends into the wall instead of meeting it on a
-    knife-edge seam. A corner boss sits against two walls (a far ±X and an
-    end ±Y wall) and gets a web toward each, diagonal-inboard quadrant left
-    open for foam; a mid-side boss sits against one wall and gets a single
-    web toward it (a D: flat to the wall, round toward the foam)."""
+    (tangent to the boss circle) and runs out past the wall, filling the
+    crescent where the circle pulls off the flat wall. A corner boss sits
+    against two walls (a far ±X and an end ±Y wall) and gets a web toward
+    each, diagonal-inboard quadrant left open for foam; a mid-side boss sits
+    against one wall and gets a single web toward it (a D: flat to the wall,
+    round toward the foam)."""
     r = screw_boss_size / 2
     corner_x = outer_shell_x_length / 2
     corner_y = outer_shell_y_length / 2
@@ -67,7 +62,7 @@ def build_attachment_bosses(height):
         y_sign = 1 if cy > 0 else -1
         # The web toward this boss's ±Y wall — every boss sits against one.
         boss_webs = make_box((cx - r, cx + r), (cy, y_sign * corner_y), (0.0, height))
-        # Corner bosses also sit against a far ±X wall — add the web to it.
+        # A corner boss also sits against a far ±X wall, so it gets a second web.
         if (cx, cy) in corner_positions:
             boss_webs = boss_webs.union(
                 make_box((cx, x_sign * corner_x), (cy - r, cy + r), (0.0, height))
@@ -77,9 +72,8 @@ def build_attachment_bosses(height):
 
 
 def build_outer_shell():
-    # Round the four vertical corner edges before shelling, so the shell
-    # offsets uniformly inward and both wall faces come out as concentric
-    # arcs — a rounded corner that wraps each (inward-nested) corner boss.
+    # Rounded corners with both wall faces concentric arcs, each wrapping an
+    # inward-nested corner boss.
     shell = (
         WorldWorkplane(xy_plane_z_up)
         .workplane(offset=0)
@@ -90,18 +84,13 @@ def build_outer_shell():
         .faces(">Z")
         .shell(-wall_and_floor_thickness)
     )
-    # NB: the heat-set insert pockets are NOT cut here — they are cut at the
-    # full-shell level (cut_insert_pockets, applied after every union) so
-    # that nothing unioned later can back-fill an insert pocket.
     return shell.union(build_attachment_bosses(foam_shell_outer_height)).unwrap()
 
 
 def cut_insert_pockets(foam_shell):
-    """Cut the heat-set insert pockets into the corner/mid bosses on both
-    faces — each cap's M3 SHCS threads into an insert pressed from its own
-    face, so every boss carries a pocket at z=0 and another at
-    z=foam_shell_outer_height. Applied at the full-shell level, after all
-    unions, so a later union can never plug a pocket."""
+    """Heat-set insert pockets in the corner/mid bosses on both faces — each
+    cap's M3 SHCS threads into an insert pressed from its own face, so every
+    boss carries a pocket at z=0 and another at z=foam_shell_outer_height."""
     def insert_pockets_at(z_floor):
         return (
             WorldWorkplane(xy_plane_z_up)
