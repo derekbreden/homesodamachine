@@ -62,12 +62,14 @@ def build_valve():
     return v
 
 
-# --- Coupler: stem top up to the servo spline ------------------------------
-coupler_top = 19.0
+# --- Coupler: sleeves over the protruding stem, up to the servo spline ------
+coupler_top = stem_top_z + 2.0          # short cap above the stem
 
 
 def build_coupler():
-    return cq.Workplane(obj=_zcyl(8.0 / 2.0, stem_top_z, coupler_top))
+    # Sleeve over the protruding stem (down to the valve body top) instead of
+    # stacking on its end, so the servo drops by the stem's protrusion.
+    return cq.Workplane(obj=_zcyl(11.0 / 2.0, body_dia / 2.0, coupler_top))
 
 
 # --- MG90S micro servo (local frame: output axis at origin, spline up) ------
