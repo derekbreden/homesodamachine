@@ -82,7 +82,10 @@ overcut = 0.1
 
 
 def build_prv_shroud():
-    """One-piece cylindrical cup with a centered vent hole in the cap."""
+    """One-piece cup on axis +Z: a full ⌀23 cylinder spanning Z=0 to
+    the cap top at Z=46, an open-end bore (⌀19, Z=0 inward) that the
+    elbow seat enters and that stops at the cap inner face Z=44, and a
+    centered ⌀6.35 vent hole through the Z=44-to-46 cap."""
     outer = (
         cq.Workplane("XY")
         .circle(outer_diameter / 2)

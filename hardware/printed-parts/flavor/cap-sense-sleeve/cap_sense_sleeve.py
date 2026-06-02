@@ -1,5 +1,10 @@
 """Cap-sense sleeve — printed clamshell that wraps a 1/4" OD LLDPE
-flavor tube and seats two copper-foil ring electrodes. See README.md."""
+flavor tube and seats two copper-foil ring electrodes. See README.md.
+
+Frame: world +Z is the tube axis (the bore runs along it). The Y=0
+plane is the clamshell cut, splitting the sleeve into a +Y and a -Y
+half. World +X is the wire-exit side, where the radial slots breach
+the +Y half's wall."""
 
 import sys
 from pathlib import Path
