@@ -39,7 +39,7 @@ compressor                                                suction line)│
     not in the loop: compressor process tube (factory charge port, dead-end stub)
 ```
 
-This matches standard R600a small-appliance practice. Verified by tracing the tubing on this unit during teardown, not assumed from reference material.
+This matches standard R600a small-appliance practice.
 
 ### Compressor
 
@@ -47,7 +47,7 @@ This matches standard R600a small-appliance practice. Verified by tracing the tu
 - Model: **HD48Y11A** (the "A" is a sub-variant suffix on the sticker)
 - 110-120 V ~ 60 Hz, 1 PH
 - Hermetic reciprocating, thermally protected, UL / CSM listed
-- Body cast-stamp: **48.5-2** (mid-housing). **Not** a charge mass — see Open items below for the per-unit factory mass status. Most likely a compressor displacement or capacity-index code with sub-variant suffix; not decoded.
+- Body cast-stamp: **48.5-2** (mid-housing). **Not** a charge mass. Most likely a compressor displacement or capacity-index code with sub-variant suffix; not decoded.
 - Cooling capacity ~90–120 W range (estimated from cube-formation throughput).
 
 ### Condenser
@@ -126,12 +126,6 @@ For ESP32 control:
 | Evaporator finger plate | Discard (replaced by custom copper coil around the SS carbonator) |
 | Thermostat / harvest-cycle controller | Discard (custom ESP32-S3 firmware replaces it) |
 
-### Open items
-
-- Compressor rated cooling capacity in W — confirm against expected load of holding ~1.5 L of carbonated water at 2 °C against cabinet-ambient
-- Physical dimensions of compressor + condenser pair, for enclosure layout
-- Decide whether to save photos to `hardware/reference/ice-maker/unit-a-b0f42mt8jx/raw-images/` alongside this doc
-
 ---
 
 ## Unit B — Frigidaire EFIC117-SS
@@ -145,7 +139,7 @@ For ESP32 control:
 
 **R600a, 23 g (0.81 oz)** factory charge per the EFIC189-family user manual hosted on Amazon's CDN — the EFIC117-SS is listed as one of the model variants the manual covers ("Refrigerant/Refrigerant amount: R600a / 23g. Foaming agent: C5H10"). The same nameplate text — "R600a 0.81oz/23g" — appears verbatim in multiple independent secondhand-listing posts quoting the back-panel rating label. The label is the authoritative source once the housing is opened.
 
-This baseline is what `assembly/refrigerant-loop.md` step 1 reads. The recharge target for this build is *not* the factory mass — the new evaporator coil has greater internal volume than the discarded factory finger-plate, so the recharge runs higher than factory by some amount to be empirically validated.
+This baseline is what `assembly/refrigerant-loop.md` step 1 reads. The recharge target for this build is *not* the factory mass — the new evaporator coil has greater internal volume than the discarded factory finger-plate, so the recharge runs higher than factory.
 
 ### Compressor (from inspection, pre-teardown)
 
@@ -154,5 +148,3 @@ This baseline is what `assembly/refrigerant-loop.md` step 1 reads. The recharge 
 - 115 V ~ 60 Hz, 1 PH, LRA 5.7 A
 - Hermetic reciprocating, thermally protected, UL / CSM listed
 - Body cast-stamp: **45** (mid-housing). **Not** a charge mass — factory charge is 23 g per the manual above. Most likely a compressor displacement or capacity-index code; not decoded.
-
-Further teardown details — condenser, drier label, cap-tube routing, hot-gas bypass disposition — to be filled in after physical teardown.
