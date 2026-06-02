@@ -107,7 +107,7 @@ plateau_width_y = rect_short - 2 * arch_block_width_y
 # Water port — single bore through the top face at plateau level,
 # exiting straight upward. [2 mm](PORT_EDGE_GAP) gap from the +X short
 # face (x = +rect_long_half) to the port wall.
-# [10 mm](PORT_D) port diameter.
+# [10 mm](VALVE_PORT_D) port diameter.
 port_diameter = 10.0
 port_radius = port_diameter / 2
 port_edge_gap_x = 2.0
@@ -286,7 +286,7 @@ def main():
         "ARC_PEAK_Z": f"{arc_peak_z:.4g} mm",
         "ARCH_WIDTH": f"{arch_block_width_y:.4g} mm",
         "PLATEAU_WIDTH": f"{plateau_width_y:.4g} mm",
-        "PORT_D": f"{port_diameter:.4g} mm",
+        "VALVE_PORT_D": f"{port_diameter:.4g} mm",
         "PORT_X": f"{port_center_x:.4g} mm",
         "PORT_EDGE_GAP": f"{port_edge_gap_x:.4g} mm",
         # Design choices.
@@ -317,7 +317,7 @@ def main():
             "ARC_PEAK_Z": 7,
             "ARCH_WIDTH": 3,
             "PLATEAU_WIDTH": 5,
-            "PORT_D": 7,
+            "VALVE_PORT_D": 7,
             "PORT_X": 5,
             "PORT_EDGE_GAP": 6,
             "COUNTERTOP_HOLE": 3,
@@ -345,7 +345,7 @@ def main():
             "ARC_PEAK_Z": 1,
             "ARCH_WIDTH": 1,
             "PLATEAU_WIDTH": 1,
-            "PORT_D": 1,
+            "VALVE_PORT_D": 1,
             "PORT_X": 1,
             "PORT_EDGE_GAP": 1,
             "TRANSITION_FILLET_R": 1,

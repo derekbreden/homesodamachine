@@ -23,7 +23,7 @@ cap_thickness = 2.1
 cylinder_length = 13.5
 
 total_height = cap_thickness + cylinder_length  # [15.6 mm](TOTAL_H)
-wall_thickness = (outer_diameter - inner_diameter) / 2.0  # [0.62 mm](WALL_T)
+wall_thickness = (outer_diameter - inner_diameter) / 2.0  # [0.62 mm](ORING_WALL_T)
 
 lldpe_od = 9.525                # 3/8" LLDPE tubing OD
 lldpe_id = 6.35                 # 1/4" LLDPE tubing ID
@@ -65,13 +65,13 @@ def main():
     print("-> touch-flo-tpu-o-ring.step")
 
     variables = {
-        "INNER_D": f"{inner_diameter:.4g} mm",
-        "OUTER_D": f"{outer_diameter:.4g} mm",
+        "ORING_INNER_D": f"{inner_diameter:.4g} mm",
+        "ORING_OUTER_D": f"{outer_diameter:.4g} mm",
         "CAP_HOLE_D": f"{cap_hole_diameter:.4g} mm",
-        "CAP_T": f"{cap_thickness:.4g} mm",
+        "ORING_CAP_T": f"{cap_thickness:.4g} mm",
         "CYL_L": f"{cylinder_length:.4g} mm",
         "TOTAL_H": f"{total_height:.4g} mm",
-        "WALL_T": f"{wall_thickness:.4g} mm",
+        "ORING_WALL_T": f"{wall_thickness:.4g} mm",
         "LLDPE_OD": f"{lldpe_od:.4g} mm",
         "LLDPE_ID": f"{lldpe_id:.4g} mm",
         "BODY_PORT_D": f"{body_port_diameter:.4g} mm",
@@ -84,13 +84,13 @@ def main():
         _here / "README.md",
         variables=variables,
         expected_counts={
-            "INNER_D": 2,
-            "OUTER_D": 3,
+            "ORING_INNER_D": 2,
+            "ORING_OUTER_D": 3,
             "CAP_HOLE_D": 3,
-            "CAP_T": 1,
+            "ORING_CAP_T": 1,
             "CYL_L": 1,
             "TOTAL_H": 2,
-            "WALL_T": 2,
+            "ORING_WALL_T": 2,
             "LLDPE_OD": 2,
             "LLDPE_ID": 1,
             "BODY_PORT_D": 2,
@@ -106,7 +106,7 @@ def main():
         variables=variables,
         expected_counts={
             "TOTAL_H": 1,
-            "WALL_T": 1,
+            "ORING_WALL_T": 1,
         },
     )
     print(f"-> {Path(__file__).name}")

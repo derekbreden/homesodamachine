@@ -28,7 +28,7 @@ produce a field spanning the tube interior.
 |---|---|
 | Tube OD (reference) | **[6.35 mm](TUBE_OD)** |
 | Inner bore radius | **[3.225 mm](BORE_R)** |
-| Wall thickness | **[3 mm](WALL_T)** |
+| Wall thickness | **[3 mm](CSENSE_WALL_T)** |
 | Outer radius | **[6.225 mm](OUTER_R)** |
 | Sleeve length | **[17 mm](SLEEVE_L)** |
 | Foil groove width (axial) | **[3 mm](GROOVE_W)** |

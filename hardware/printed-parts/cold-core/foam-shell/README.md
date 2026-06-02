@@ -25,7 +25,7 @@ The CadQuery script uses an explicit XY plane with +Z normal
   bottom plate (CO2 inlet, water outlet). Vessel assembled height = tube
   length = **[152.4 mm](TANK_H)**. Outer radius = **[63.5 mm](TANK_R)**.
 - **Reservoir** — printed rigid PETG flavor reservoir, one per flavor,
-  two per cold core. Cap on top with a single ⌀[6.5 mm](PORT_D) bulkhead
+  two per cold core. Cap on top with a single ⌀[6.5 mm](TUBE_HOLE_D) bulkhead
   pass-through; bottom is a wet-slope floor with a printed boss for the
   internal SS float rod. Body envelope: **[140 mm](RESERVOIR_W) wide (along Y)
   × [48 mm](RESERVOIR_D) deep (along X, radially outward) × [199.4 mm](RESERVOIR_H)
@@ -45,7 +45,7 @@ The CadQuery script uses an explicit XY plane with +Z normal
 ## Shells
 
 The geometry is built up from open-topped sub-shells that union into
-one foam-shell solid. **All structural walls and floors use [2 mm](WALL_T)
+one foam-shell solid. **All structural walls and floors use [2 mm](FSHELL_WALL_T)
 thickness.**
 
 ### reservoir_pocket_walls
@@ -122,7 +122,7 @@ floor regardless of which cavity it enters from.
 Outer rectangular cup framing the whole foam-shell: floor + four
 perimeter walls + six ⌀[8 mm](BOSS_D) cylindrical bosses. Total height
 matches the foam-shell outer height of [213.4 mm](OUTER_H).
-Outer footprint [283 mm](OUTER_X) × [181](OUTER_Y),
+Outer footprint [283 mm](OUTER_X) × [181](FSHELL_OUTER_Y),
 sized to leave [16 mm](OUTER_GAP) of foam-pour zone
 between the outer_shell's inner face and the outermost reservoir-
 pocket walls on each side.
@@ -148,7 +148,7 @@ the bottom (drilled up from the bottom face) — twelve inserts total, six
 per face, for fastening the foam_cap above and below.
 
 The outer +Y wall carries the shared copper/water-inlet slot, the
-two ⌀[6.5 mm](PORT_D) reservoir-line holes, the two reed-cable holes,
+two ⌀[6.5 mm](TUBE_HOLE_D) reservoir-line holes, the two reed-cable holes,
 and the water-outlet hole. See Penetrations. (The CO2 inlet bore is
 internal to the assembly — it cuts down through the support ring at
 −Y, not through any outer wall.)
@@ -162,7 +162,7 @@ on the bottom (in normal orientation, open side mating with the
 outer shell's bottom edge). The cap interior receives the foam pour
 through pour and vent holes in the lid above.
 
-The `foam_cap_lid` is a flat [2 mm](WALL_T) plate matching the same
+The `foam_cap_lid` is a flat [2 mm](FSHELL_WALL_T) plate matching the same
 outer footprint, sitting on top of a cap during its foam pour. It
 has the pour hole (Ø [10 mm](POUR_D)) and two vent holes
 (Ø [6 mm](VENT_D)).
@@ -218,16 +218,16 @@ top face pockets go down, bottom face pockets go up.
 ## Penetrations
 
 Eight pass-throughs total, all carrying **1/4" OD tubing (6.35 mm)** through
-holes sized at ⌀[6.5 mm](PORT_D) for a tight tube fit. Four pass-throughs
+holes sized at ⌀[6.5 mm](TUBE_HOLE_D) for a tight tube fit. Four pass-throughs
 each get their own dedicated round hole; the remaining four share a single
 Z-elongated slot at the +Y outer wall.
 
 | # | Pass-through | Opening | Carries |
 |---|---|---|---|
-| 1 | Reservoir line (+X) | own ⌀[6.5 mm](PORT_D) hole | 1/4" OD soft tubing — reservoir to peristaltic pump |
-| 2 | Reservoir line (−X) | own ⌀[6.5 mm](PORT_D) hole | 1/4" OD soft tubing — reservoir to peristaltic pump |
+| 1 | Reservoir line (+X) | own ⌀[6.5 mm](TUBE_HOLE_D) hole | 1/4" OD soft tubing — reservoir to peristaltic pump |
+| 2 | Reservoir line (−X) | own ⌀[6.5 mm](TUBE_HOLE_D) hole | 1/4" OD soft tubing — reservoir to peristaltic pump |
 | 3 | CO2 inlet | own ⌀16 doorway | 1/4" OD line from the regulator (90° push-to-connect elbow seats in the doorway) |
-| 4 | Water outlet | own ⌀[6.5 mm](PORT_D) hole | 1/4" OD line to the dispense faucet |
+| 4 | Water outlet | own ⌀[6.5 mm](TUBE_HOLE_D) hole | 1/4" OD line to the dispense faucet |
 | 5 | Copper evaporator inlet (low) | shared +Y slot | 1/4" OD ACR copper to compressor |
 | 6 | Copper evaporator outlet (high) | shared +Y slot | 1/4" OD ACR copper to compressor |
 | 7 | Water inlet | shared +Y slot | 1/4" OD line from the diaphragm pump |
@@ -244,7 +244,7 @@ is 1/4" OD.
 The +Y outer_shell wall carries four pass-throughs along a single
 **Z-elongated slot** at x = 0: the two copper evaporator lines (low
 and high), the water inlet, and the PRV vent. The slot is
-⌀[6.5 mm](PORT_D) wide in X (rounded ends along Z) and is cut by
+⌀[6.5 mm](TUBE_HOLE_D) wide in X (rounded ends along Z) and is cut by
 `cut_slot_for_copper_and_water_inlet` in `_port_cuts.py`. The slot's
 top extends past the wall top so no sliver of wall material remains
 above the slot — the four plugs can slide down into the slot from
@@ -290,7 +290,7 @@ I-beam flange linking web to prongs along a continuous 2D face. See
 the docstring at the top of `copper-plugs/copper_plugs.py` for the
 full cross-section diagram.
 
-Each plug end that abuts a tube has a **⌀[6.5 mm](PORT_D) half-circle
+Each plug end that abuts a tube has a **⌀[6.5 mm](TUBE_HOLE_D) half-circle
 arch cutout** centered at x = 0, so the plug seats around the tube
 without crushing it. `lower`, `middle`, and `upper` all arch at both
 Z ends; `top` arches at the bottom Z end only (its top is flush with
@@ -448,10 +448,10 @@ that needs a deliberate explanation:
 
 | metric | value |
 |---|---|
-| volume | [1055106.084 mm³](VOLUME) |
-| bbox x | [-141.500 to 141.500 mm](BBOX_X) |
-| bbox z | [0.000 to 213.400 mm](BBOX_Z) |
-| bbox y | [-90.500 to 90.500 mm](BBOX_Y) |
+| volume | [1055106.084 mm³](FSHELL_VOLUME) |
+| bbox x | [-141.500 to 141.500 mm](FSHELL_BBOX_X) |
+| bbox z | [0.000 to 213.400 mm](FSHELL_BBOX_Z) |
+| bbox y | [-90.500 to 90.500 mm](FSHELL_BBOX_Y) |
 | centroid | [(0.000005, -0.616570, 88.192874) mm](CENTROID) |
 
 Quick reproduction:

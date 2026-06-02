@@ -34,7 +34,7 @@ Working assumptions:
 
 Working envelope:
 
-- Outer dimensions: ~[130 mm](OUTER_X) (X, depth into appliance) × ~[130 mm](OUTER_Y) (Y, width across appliance) × ~[100 mm](OUTER_Z) (Z, vertical height above floor)
+- Outer dimensions: ~[130 mm](CSHROUD_OUTER_X) (X, depth into appliance) × ~[130 mm](CSHROUD_OUTER_Y) (Y, width across appliance) × ~[100 mm](CSHROUD_OUTER_Z) (Z, vertical height above floor)
 - Wall thickness: [0.059"](WALL_IN) ([1.5 mm](WALL_MM))
 - Internal headroom over compressor: ≥[20 mm](HEADROOM)
 - Side wall flange height: [90](FLANGE_LOW)–[100 mm](FLANGE_HIGH)

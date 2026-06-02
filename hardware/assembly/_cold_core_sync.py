@@ -25,7 +25,7 @@ from _cold_core_interface import (  # noqa: E402
     insert_pocket_depth,
     insert_pocket_radius,
     outer_shell_x_length,
-    outer_shell_z_length,
+    outer_shell_y_length,
     port_hole_radius,
     screw_boss_size,
 )
@@ -80,15 +80,15 @@ def main():
         # ─── Penetrations (step 4, lines 70-72) ───────────────────────
         # Generic small-feature port hole (water outlet, reservoir
         # bulkheads, CO2 tube clearance through cap+lid).
-        "PORT_D": f"{port_hole_radius * 2:.4g}",
+        "TUBE_HOLE_D": f"{port_hole_radius * 2:.4g} mm",
         # CO2 inlet Z coordinate in the foam-shell frame.
-        "COTWO_INLET_Z": f"{_foam_cap_gen.co2_inlet_z:.4g}",
+        "COTWO_INLET_Z": f"{_foam_cap_gen.co2_inlet_y:.4g}",
         # ─── Final assembly (step 6, line 90) ─────────────────────────
         # Screw-boss square footprint that the TPU gasket's pads sit on.
         "BOSS": f"{screw_boss_size:.4g} × {screw_boss_size:.4g} mm",
         # ─── Output envelope (line 113) ───────────────────────────────
-        "OUTER_X": f"{outer_shell_x_length:.4g}",
-        "OUTER_Z": f"{outer_shell_z_length:.4g}",
+        "OUTER_X": f"{outer_shell_x_length:.4g} mm",
+        "CCORE_OUTER_Y": f"{outer_shell_y_length:.4g}",
         "OUTER_H": f"{foam_shell_outer_height:.4g} mm",
     }
 
@@ -110,11 +110,11 @@ def main():
             "VENT_D": 1,
             "INSERT_POCKET_D": 1,
             "INSERT_HALF_DEPTH": 2,
-            "PORT_D": 3,
+            "TUBE_HOLE_D": 3,
             "COTWO_INLET_Z": 1,
             "BOSS": 1,
             "OUTER_X": 1,
-            "OUTER_Z": 1,
+            "CCORE_OUTER_Y": 1,
             "OUTER_H": 1,
         },
     )

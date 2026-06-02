@@ -23,7 +23,7 @@ tube_od = 6.35              # [6.35 mm](TUBE_OD)
 bore_clearance = 0.05
 bore_radius = (tube_od + 2 * bore_clearance) / 2  # [3.225 mm](BORE_R)
 
-wall_thickness = 3.0        # [3 mm](WALL_T)
+wall_thickness = 3.0        # [3 mm](CSENSE_WALL_T)
 outer_radius = bore_radius + wall_thickness  # [6.225 mm](OUTER_R)
 
 sleeve_length = 17.0  # [17 mm](SLEEVE_L)
@@ -170,7 +170,7 @@ def main():
     variables = {
         "TUBE_OD": f"{tube_od:.4g} mm",
         "BORE_R": f"{bore_radius:.4g} mm",
-        "WALL_T": f"{wall_thickness:.4g} mm",
+        "CSENSE_WALL_T": f"{wall_thickness:.4g} mm",
         "OUTER_R": f"{outer_radius:.4g} mm",
         "SLEEVE_L": f"{sleeve_length:.4g} mm",
         "GROOVE_W": f"{groove_width_z:.4g} mm",
@@ -191,7 +191,7 @@ def main():
         expected_counts={
             "TUBE_OD": 1,
             "BORE_R": 1,
-            "WALL_T": 1,
+            "CSENSE_WALL_T": 1,
             "OUTER_R": 1,
             "SLEEVE_L": 1,
             "GROOVE_W": 1,
@@ -214,7 +214,7 @@ def main():
         expected_counts={
             "TUBE_OD": 2,
             "BORE_R": 1,
-            "WALL_T": 1,
+            "CSENSE_WALL_T": 1,
             "OUTER_R": 1,
             "SLEEVE_L": 1,
             "GROOVE_W": 2,
