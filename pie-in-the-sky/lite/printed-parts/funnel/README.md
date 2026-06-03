@@ -14,9 +14,10 @@ line used elsewhere (the reservoir's port holes). Walls are **2 mm**, open
 through both ends. **90 mm** tall overall.
 
 Local frame: centered on Z (x = y = 0), spout outlet on Z = 0, inlet opening up
-at Z = 90. In the [device assembly](../../device-assembly/) it rides on the
-**front (−X)**, its front edge flush with the pumps' front, filling the +Y half
-of the front top (inlet flush with the lid); the spout reaches back to V-B.
+at Z = 90. In the [enclosure contents assembly](../../enclosure-contents-assembly/)
+it rides on the **front (−X)**, its front edge flush with the pumps' front,
+filling the +Y half of the front top (inlet flush with the lid); the spout
+reaches back to V-B.
 
 ## Regenerate
 

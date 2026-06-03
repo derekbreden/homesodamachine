@@ -1,5 +1,6 @@
-"""Lite Edition device assembly — the four valve-manifold tray assemblies, two
-bare Kamoer pumps, and the hopper funnel packed around the reservoir-pockets box.
+"""Lite Edition enclosure contents — the four valve-manifold tray assemblies,
+two bare Kamoer pumps, and the hopper funnel packed around the reservoir-pockets
+box. The arrangement these contents take inside the enclosure.
 
 Coordinate frame is the reservoir's (Z+ up, X left/right, Y front/back as
 depth, floor on Z=0). The reservoir's +X doorway faces the enclosure back
@@ -192,7 +193,7 @@ def build():
         "pump-lower": (pump_lo, PUMP_COLORS["pump-lower"]),
         "funnel": (fun, FUNNEL_COLOR),
     }
-    assy = cq.Assembly(name="lite-device-assembly")
+    assy = cq.Assembly(name="lite-enclosure-contents-assembly")
     for name, (shape, color) in placed.items():
         assy.add(shape, name=name, color=color)
     return assy, placed
@@ -243,9 +244,9 @@ def _report(placed):
 
 def main():
     assy, placed = build()
-    out = _here.parent / "device-assembly.step"
+    out = _here.parent / "enclosure-contents-assembly.step"
     export_assembly(assy, str(out))
-    print("-> device-assembly.step")
+    print("-> enclosure-contents-assembly.step")
     _report(placed)
 
 
