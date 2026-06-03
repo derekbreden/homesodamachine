@@ -20,18 +20,16 @@ Two faces carry the manifold:
     so its bottom port has matching elbow room. Pushing it to the -X end frees
     the +X end of the +Y wall for connections.
 
-  * two bare Kamoer KPHM400 pumps, depth axis up Z, stacked end to end beside
-    the tray stack on **-Y**, within the stack's X footprint (no X growth). The
-    heads' +Y tubes face the bib-gate / nozzle-gate Tees they drive; the column
-    rises so its top sits just under the ceiling, taking the -X/-Y ceiling
-    corner and leaving the central/+Y top open for the funnel (which feeds
-    source-select). The funnel's taper still leaves room to route the pumps'
-    water and motor lines past it.
+  * two bare Kamoer KPHM400 pumps, rotated so their tube barbs face +X toward
+    the bib-gate / nozzle-gate Tees they drive, stacked end to end in **front**
+    of the tray stack (-X of it), centered on Y. This grows the X footprint
+    rather than Y; the lower pump sits on the floor.
 
-  * the hopper funnel drops into the empty **+X/+Y ceiling corner** (the pumps
-    took -X/-Y; source-select is the -X half of the +Y shelf). Its square inlet
-    is pushed to the corner, flush with the lid, beside source-select so the
-    spout reaches V-B. It fits entirely inside the existing envelope.
+  * the hopper funnel rides on the **front (-X)**, pushed to the +Y / top corner
+    just in front of source-select (its square inlet flush with the lid, same Y
+    and Z band as before). With the pumps off the +Y top there is room to
+    enlarge it; source-select blocks x > -79 at that Y/Z, so it parks just ahead
+    and the spout reaches back to V-B.
 
 The groups sit on different faces/corners and never overlap (verified by real
 solid intersection). Inter-tray links are tubing (the topology "Tube Segments"
@@ -89,7 +87,6 @@ FUNNEL_COLOR = cq.Color(0.92, 0.88, 0.55, 0.45)   # translucent pale, hollow rea
 GAP = 2.0        # butting clearance to the reservoir walls
 Y_SHIFT = 30.0   # +Y nudge of the -X-face stack (elbow clearance off the -Y wall)
 PUMP_GAP = 4.0   # gap between the two end-to-end stacked pumps
-CEIL_GAP = 4.0   # gap from the upper pump's top to the reservoir ceiling
 
 
 def _load(path):
@@ -160,30 +157,28 @@ def build():
     src = _rot(src, (0, 0, 1), 180.0)
     src = _place(src, xmin=stack_xmax, ymin=RES_Y_BACK + GAP, zmin=elbow_clear)
 
-    # Two bare Kamoer pumps, depth axis up Z (no rotation needed), stacked end
-    # to end beside the manifold on -Y, within the stack's X footprint (no X
-    # growth). Their heads' +Y tubes face the bib/nozzle Tees; the column rises
-    # so its top sits just under the ceiling, occupying the -X/-Y ceiling corner
-    # and leaving the central/+Y top open for the funnel.
-    manifold_xc = 0.5 * (min(t.BoundingBox().xmin for t in trays)
-                         + max(t.BoundingBox().xmax for t in trays))
-    manifold_ymin = min(t.BoundingBox().ymin for t in trays)
+    # Two bare Kamoer pumps, rotated -90 about Z so their tube barbs face +X
+    # back toward the bib/nozzle Tees, stacked end to end in FRONT of the tray
+    # stack (-X of it). This grows the X footprint, not Y, and is centered on Y
+    # within the existing footprint; the lower pump sits on the floor.
+    trays_front = min(t.BoundingBox().xmin for t in trays)
     ceiling_z = res.BoundingBox().zmax
 
-    def pump(zmax):
-        p = _load(PUMP_STEP)
-        return _place(p, xcenter=manifold_xc, ymax=manifold_ymin - GAP, zmax=zmax)
+    def pump(zmin):
+        p = _rot(_load(PUMP_STEP), (0, 0, 1), -90.0)
+        return _place(p, xmax=trays_front - GAP, ycenter=0.0, zmin=zmin)
 
-    pump_up = pump(ceiling_z - CEIL_GAP)
-    pump_lo = pump(pump_up.BoundingBox().zmin - PUMP_GAP)
+    pump_lo = pump(0.0)
+    pump_up = pump(pump_lo.BoundingBox().zmax + PUMP_GAP)
 
-    # Funnel (hopper): the emptiest ceiling corner is +X/+Y (pumps took -X/-Y;
-    # source-select is the -X half of the +Y shelf). Drop the square inlet into
-    # it, pushed to the corner, flush with the lid, beside source-select so the
-    # spout can reach V-B.
+    # Funnel (hopper): flipped from the +X back corner to the FRONT (-X), pushed
+    # to the +Y / top corner just in front of source-select (its inlet flush
+    # with the lid, same Y and Z band as before). The pumps vacating the +Y top
+    # leave room for the enlarged inlet; source-select blocks x > -79 at this
+    # Y/Z, so it parks just ahead of it and the spout reaches back to V-B.
     fun = _place(
         _load(FUNNEL_STEP),
-        xmax=res.BoundingBox().xmax,
+        xmax=src.BoundingBox().xmin - GAP,
         ymax=src.BoundingBox().ymax,
         zmax=ceiling_z,
     )

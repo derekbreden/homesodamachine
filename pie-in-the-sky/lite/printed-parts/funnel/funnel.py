@@ -5,9 +5,9 @@ the source-select tray (fluid topology segment 4, "Hopper funnel bottom ->
 V-B-I"). This is a pour-through guide with a small buffer, not a batch
 reservoir — what gets poured in is pumped straight on to a bag.
 
-It is sized to drop into the empty +X/+Y ceiling corner of the device assembly:
-a square inlet (the corner is roughly square) that fits with clearance, tapering
-to a round spout whose bore matches the 1/4 in tube line used elsewhere (the
+It rides on the front (-X) of the device, pushed to the +Y / top corner above
+source-select, with room to be generously sized: a square inlet tapering to a
+round spout whose bore matches the 1/4 in tube line used elsewhere (the
 reservoir's 6.5 mm port holes).
 
 Local frame: centered on the Z axis (x = y = 0), the spout outlet face on Z = 0,
@@ -25,7 +25,7 @@ _repo = next(p for p in _here.parents if (p / "hardware" / "_cadq_export.py").is
 sys.path.insert(0, str(_repo / "hardware"))
 from _cadq_export import export_step
 
-inlet_side = 55.0     # outer square inlet, side length
+inlet_side = 90.0     # outer square inlet, side length
 wall = 2.0            # wall thickness
 taper_height = 58.0   # square-inlet -> round-spout taper body
 spout_od = 10.0       # round spout outer diameter
