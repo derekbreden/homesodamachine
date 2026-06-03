@@ -3,9 +3,9 @@
 The whole Lite Edition as one package: the
 [reservoir-pockets](../printed-parts/reservoir-pockets/) box with the four
 [valve-manifold](../../../hardware/printed-parts/valve-manifold/) tray
-assemblies — source-select, bag-circuit, bib-gate, nozzle-gate — mounted on two
-of its faces. A layout model for fit and tube-routing review, not a printed
-part.
+assemblies — source-select, bag-circuit, bib-gate, nozzle-gate — and two bare
+[Kamoer KPHM400](../../../hardware/reference/kamoer-kphm400/) pumps packed
+around it. A layout model for fit and tube-routing review, not a printed part.
 
 ## Frame
 
@@ -31,6 +31,14 @@ face and nothing collides.
   floor** — the same clearance the stack leaves to the −Y wall — so its bottom
   port has matching elbow room. Sitting at the −X end frees the +X end of the
   +Y wall for connections.
+- **two Kamoer KPHM400 pumps** stand vertical (depth axis up Z), **stacked end
+  to end** beside the tray stack on the **−Y side**. They sit inside the tray
+  stack's X footprint (no X growth) with the heads' +Y tubes facing the
+  bib-gate / nozzle-gate Tees they drive. The column rises so its top is ~4 mm
+  under the ceiling, taking the −X/−Y ceiling corner and leaving the central/+Y
+  top open for the **funnel** (which feeds source-select); the funnel's taper
+  still leaves room to route the pumps' water and motor lines past it. Adding
+  the pumps grows only Y (to −131.7).
 
 Inter-tray links are tubing (the topology
 [Tube Segments](../../../hardware/topology/fluid-topology.md) tables). The
@@ -38,12 +46,12 @@ reservoir's rod-end bosses (y = ±81, high Z) share a bounding-box column with
 source-select but are well clear in Z — the generator confirms with a real
 solid-intersection test, not bounding boxes.
 
-Overall envelope **229 × 219 × 289 mm** (X × Y × Z), no solid collisions.
+Overall envelope **229 × 270 × 289 mm** (X × Y × Z), no solid collisions.
 
 ## Regenerate
 
 `tools/cad-venv/bin/python pie-in-the-sky/lite/device-assembly/device_assembly.py`
-→ `device-assembly.step` (27 solids; one translucent reservoir plus the four
-trays, each a distinct color). Placement constants — `GAP`, `Y_SHIFT`, the
-per-tray rotations and anchors — are at the top of `device_assembly.py` and in
-`build()`.
+→ `device-assembly.step` (45 solids; translucent reservoir, the four trays each
+a distinct color, and two slate-gray pumps). Placement constants — `GAP`,
+`Y_SHIFT`, `PUMP_GAP`, `CEIL_GAP`, plus the per-part rotations and anchors —
+are at the top of `device_assembly.py` and in `build()`.
