@@ -47,6 +47,7 @@ panel_hole_label = '1/2"'          # AC pass-through; imported by enclosure sync
 copper_tube_od_label = '1/4"'
 copper_tube_od_mm = 6.35
 copper_hole_diameter_mm = 8.0
+mounting_hole_diameter_mm = 4.5    # M4 clearance — fastens to the enclosure floor
 
 # ── Cross-referenced electrical / mechanical values ────────────────
 # Imported by /hardware/assembly/_wiring_sync.py and
@@ -124,8 +125,9 @@ def main():
         "AC_OD": f"{ac_cable_od_mm:.4g} mm",
         "CU_HOLE": f"{copper_hole_diameter_mm:.4g} mm",
         "CU_OD": copper_tube_od_label,
-        # Grounding.
+        # Grounding + mounting.
         "GND_HOLE": f"{chassis_ground_hole_mm:.4g} mm",
+        "MOUNT_HOLE": f"{mounting_hole_diameter_mm:.4g} mm",
         # SendCutSend specs.
         "CUT_TOL": f'±{cut_tolerance_in:.4g}"',
         "MIN_HOLE_IN": f'{min_hole_d_in:.4g}"',
@@ -180,7 +182,8 @@ def main():
             "AC_OD": 1,
             "CU_HOLE": 2,
             "CU_OD": 2,
-            "GND_HOLE": 1,
+            "GND_HOLE": 2,
+            "MOUNT_HOLE": 2,
             "CUT_TOL": 1,
             "MIN_HOLE_IN": 1,
             "MIN_HOLE_MM": 1,
