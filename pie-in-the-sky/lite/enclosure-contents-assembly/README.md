@@ -1,12 +1,14 @@
-# Lite device assembly
+# Lite enclosure contents assembly
 
-The whole Lite Edition as one package: the
-[reservoir-pockets](../printed-parts/reservoir-pockets/) box with the four
-[valve-manifold](../../../hardware/printed-parts/valve-manifold/) tray
+The Lite Edition contents — everything that goes inside the enclosure — packed
+together: the [reservoir-pockets](../printed-parts/reservoir-pockets/) box with
+the four [valve-manifold](../../../hardware/printed-parts/valve-manifold/) tray
 assemblies — source-select, bag-circuit, bib-gate, nozzle-gate — two bare
 [Kamoer KPHM400](../../../hardware/reference/kamoer-kphm400/) pumps, and the
-[hopper funnel](../printed-parts/funnel/) packed around it. A layout model for
-fit and tube-routing review, not a printed part.
+[hopper funnel](../printed-parts/funnel/). A layout model for fit and
+tube-routing review, not a printed part. The enclosure shell that wraps these
+contents lives in [`../enclosure/`](../enclosure/) and the combined enclosure
++ contents view in [`../enclosure-assembly/`](../enclosure-assembly/).
 
 ## Frame
 
@@ -55,8 +57,9 @@ pumps out front set the −X extent (−222); Y stays at 219 (no −Y push).
 
 ## Regenerate
 
-`tools/cad-venv/bin/python pie-in-the-sky/lite/device-assembly/device_assembly.py`
-→ `device-assembly.step` (46 solids; translucent reservoir, the four trays each
-a distinct color, two slate-gray pumps, and the translucent funnel). Placement
-constants — `GAP`, `Y_SHIFT`, `PUMP_GAP`, plus the per-part rotations and
-anchors — are at the top of `device_assembly.py` and in `build()`.
+`tools/cad-venv/bin/python pie-in-the-sky/lite/enclosure-contents-assembly/enclosure_contents_assembly.py`
+→ `enclosure-contents-assembly.step` (46 solids; translucent reservoir, the
+four trays each a distinct color, two slate-gray pumps, and the translucent
+funnel). Placement constants — `GAP`, `Y_SHIFT`, `PUMP_GAP`, plus the per-part
+rotations and anchors — are at the top of `enclosure_contents_assembly.py` and
+in `build()`.
