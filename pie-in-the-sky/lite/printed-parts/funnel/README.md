@@ -8,16 +8,15 @@ what you pour gets pumped straight on to a bag.
 
 ## Shape
 
-A **55 mm square inlet** (the empty ceiling corner it drops into is roughly
-square) tapering over 58 mm — a square-to-round loft — to a **round spout**:
-12 mm long, 10 mm OD, **6.5 mm bore** to match the 1/4 in tube line used
-elsewhere (the reservoir's port holes). Walls are **2 mm**, open through both
-ends. **70 mm** tall overall.
+A **90 mm square inlet** tapering over 58 mm — a square-to-round loft — to a
+**round spout**: 12 mm long, 10 mm OD, **6.5 mm bore** to match the 1/4 in tube
+line used elsewhere (the reservoir's port holes). Walls are **2 mm**, open
+through both ends. **70 mm** tall overall.
 
 Local frame: centered on Z (x = y = 0), spout outlet on Z = 0, inlet opening up
-at Z = 70. In the [device assembly](../../device-assembly/) it drops into the
-empty **+X/+Y ceiling corner**, inlet flush with the lid, beside source-select
-so the spout reaches V-B.
+at Z = 70. In the [device assembly](../../device-assembly/) it rides on the
+**front (−X)**, pushed to the **+Y / top corner** just in front of
+source-select (inlet flush with the lid), the spout reaching back to V-B.
 
 ## Regenerate
 
