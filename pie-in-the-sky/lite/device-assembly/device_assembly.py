@@ -1,5 +1,5 @@
-"""Lite Edition device assembly — the four valve-manifold tray assemblies
-packed onto two faces of the reservoir-pockets box.
+"""Lite Edition device assembly — the four valve-manifold tray assemblies and
+two bare Kamoer pumps packed around the reservoir-pockets box.
 
 Coordinate frame is the reservoir's (Z+ up, X left/right, Y front/back as
 depth, floor on Z=0). The reservoir's +X doorway faces the enclosure back
@@ -20,9 +20,17 @@ Two faces carry the manifold:
     so its bottom port has matching elbow room. Pushing it to the -X end frees
     the +X end of the +Y wall for connections.
 
-The two groups sit on adjacent faces and never share one, so nothing collides.
-Inter-tray links are tubing (the topology "Tube Segments" tables); all valve
-and Tee branches point +Z (up) or out the open tray ends for those runs.
+  * two bare Kamoer KPHM400 pumps, depth axis up Z, stacked end to end beside
+    the tray stack on **-Y**, within the stack's X footprint (no X growth). The
+    heads' +Y tubes face the bib-gate / nozzle-gate Tees they drive; the column
+    rises so its top sits just under the ceiling, taking the -X/-Y ceiling
+    corner and leaving the central/+Y top open for the funnel (which feeds
+    source-select). The funnel's taper still leaves room to route the pumps'
+    water and motor lines past it.
+
+The groups sit on different faces and never overlap (verified by real solid
+intersection). Inter-tray links are tubing (the topology "Tube Segments"
+tables); valve and Tee branches point +Z (up) or out the open tray ends.
 """
 
 import sys
@@ -43,6 +51,7 @@ TRAY_STEPS = {
     "bib-gate": _VM / "bib-gate-tray" / "bib-gate-assembly.step",
     "nozzle-gate": _VM / "nozzle-gate-tray" / "nozzle-gate-assembly.step",
 }
+PUMP_STEP = _hw / "reference" / "kamoer-kphm400" / "kamoer-kphm400.step"
 RES_DIR = _repo / "pie-in-the-sky" / "lite" / "printed-parts" / "reservoir-pockets"
 RES_STEP = RES_DIR / "reservoir-pockets.step"
 
@@ -62,10 +71,16 @@ COLORS = {
     "bib-gate": cq.Color(0.62, 0.47, 0.82),       # violet
     "nozzle-gate": cq.Color(0.84, 0.42, 0.42),    # red
 }
+PUMP_COLORS = {
+    "pump-lower": cq.Color(0.38, 0.40, 0.44),     # dark slate
+    "pump-upper": cq.Color(0.56, 0.58, 0.62),     # light slate
+}
 
 # --- Packing parameters ---------------------------------------------------
-GAP = 2.0       # butting clearance to the reservoir walls
-Y_SHIFT = 30.0  # +Y nudge of the -X-face stack (elbow clearance off the -Y wall)
+GAP = 2.0        # butting clearance to the reservoir walls
+Y_SHIFT = 30.0   # +Y nudge of the -X-face stack (elbow clearance off the -Y wall)
+PUMP_GAP = 4.0   # gap between the two end-to-end stacked pumps
+CEIL_GAP = 4.0   # gap from the upper pump's top to the reservoir ceiling
 
 
 def _load(path):
@@ -76,7 +91,7 @@ def _rot(shape, axis, deg):
     return shape.rotate((0, 0, 0), axis, deg)
 
 
-def _place(shape, *, xmax=None, xmin=None, xcenter=None, ycenter=None, ymin=None, zmin=None):
+def _place(shape, *, xmax=None, xmin=None, xcenter=None, ycenter=None, ymin=None, ymax=None, zmin=None, zmax=None):
     """Translate so the requested bounding-box references land on targets.
     Unset axes are left where they are."""
     bb = shape.BoundingBox()
@@ -88,13 +103,20 @@ def _place(shape, *, xmax=None, xmin=None, xcenter=None, ycenter=None, ymin=None
         dx = xcenter - 0.5 * (bb.xmin + bb.xmax)
     else:
         dx = 0.0
-    if ycenter is not None:
+    if ymax is not None:
+        dy = ymax - bb.ymax
+    elif ycenter is not None:
         dy = ycenter - 0.5 * (bb.ymin + bb.ymax)
     elif ymin is not None:
         dy = ymin - bb.ymin
     else:
         dy = 0.0
-    dz = (zmin - bb.zmin) if zmin is not None else 0.0
+    if zmax is not None:
+        dz = zmax - bb.zmax
+    elif zmin is not None:
+        dz = zmin - bb.zmin
+    else:
+        dz = 0.0
     return shape.translate((dx, dy, dz))
 
 
@@ -129,12 +151,31 @@ def build():
     src = _rot(src, (0, 0, 1), 180.0)
     src = _place(src, xmin=stack_xmax, ymin=RES_Y_BACK + GAP, zmin=elbow_clear)
 
+    # Two bare Kamoer pumps, depth axis up Z (no rotation needed), stacked end
+    # to end beside the manifold on -Y, within the stack's X footprint (no X
+    # growth). Their heads' +Y tubes face the bib/nozzle Tees; the column rises
+    # so its top sits just under the ceiling, occupying the -X/-Y ceiling corner
+    # and leaving the central/+Y top open for the funnel.
+    manifold_xc = 0.5 * (min(t.BoundingBox().xmin for t in trays)
+                         + max(t.BoundingBox().xmax for t in trays))
+    manifold_ymin = min(t.BoundingBox().ymin for t in trays)
+    ceiling_z = res.BoundingBox().zmax
+
+    def pump(zmax):
+        p = _load(PUMP_STEP)
+        return _place(p, xcenter=manifold_xc, ymax=manifold_ymin - GAP, zmax=zmax)
+
+    pump_up = pump(ceiling_z - CEIL_GAP)
+    pump_lo = pump(pump_up.BoundingBox().zmin - PUMP_GAP)
+
     placed = {
         "reservoir-pockets": (res, RES_COLOR),
         "source-select": (src, COLORS["source-select"]),
         "bag-circuit": (bag, COLORS["bag-circuit"]),
         "bib-gate": (bib, COLORS["bib-gate"]),
         "nozzle-gate": (noz, COLORS["nozzle-gate"]),
+        "pump-upper": (pump_up, PUMP_COLORS["pump-upper"]),
+        "pump-lower": (pump_lo, PUMP_COLORS["pump-lower"]),
     }
     assy = cq.Assembly(name="lite-device-assembly")
     for name, (shape, color) in placed.items():
