@@ -139,8 +139,9 @@ def _cut_cylinder(solid, center, axis, diameter):
 
 
 def make_step():
-    """The formed shroud: open-bottom shell, radiused top bends, open
-    vertical corners, three bored holes."""
+    """The formed shroud: open-bottom shell, radiused top bends, corner
+    relief (seam up each vertical corner + a notch where two bends meet),
+    three bored holes."""
     shroud = (
         cq.Workplane("XY")
         .box(outer_width, outer_depth, outer_height, centered=(True, True, False))
@@ -159,17 +160,26 @@ def make_step():
     shroud = shroud.newObject(_top_edges(interior_height)).fillet(inside_bend_radius)
     shroud = shroud.newObject(_top_edges(outer_height)).fillet(inside_bend_radius + wall_thickness)
 
-    # Open the four vertical corners — the corner relief of the bent
-    # blank, so each wall joins the box only through the top panel.
+    # Corner relief of the bent blank: a thin open seam up each vertical
+    # corner (the two perpendicular walls never join) and a wider notch at
+    # the top where the two bends meet — the formed counterpart of the
+    # flat's corner relief squares.
+    cr = corner_relief
     for sx in (-1, 1):
         for sy in (-1, 1):
-            post = cq.Solid.makeBox(
+            seam = cq.Solid.makeBox(
                 wall_thickness, wall_thickness, interior_height,
                 cq.Vector(sx * inner_x if sx > 0 else -outer_x,
                           sy * inner_y if sy > 0 else -outer_y,
                           0),
             )
-            shroud = shroud.cut(post)
+            notch = cq.Solid.makeBox(
+                wall_thickness + cr + 1, wall_thickness + cr + 1, wall_thickness + cr + 1,
+                cq.Vector(inner_x - cr if sx > 0 else -outer_x - 1,
+                          inner_y - cr if sy > 0 else -outer_y - 1,
+                          interior_height - cr),
+            )
+            shroud = shroud.cut(seam).cut(notch)
 
     # AC hole in the back (+Y) face.
     shroud = _cut_cylinder(shroud, (0, outer_y - wall_thickness / 2, hole_center_z),

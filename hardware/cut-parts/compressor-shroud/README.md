@@ -45,7 +45,11 @@ Working envelope:
 
 [10-year](DESIGN_LIFE) design life.
 
-Cost: ~[$5](COST_LOW)–[$10](COST_HIGH)/part at qty [5](QTY_LOW)–[10](QTY_HIGH) from SendCutSend.
+Cost: ~[$5](COST_LOW)–[$10](COST_HIGH)/part at qty [5](QTY_LOW)–[10](QTY_HIGH) from SendCutSend (rough early estimate; see the order below).
+
+## SendCutSend order
+
+Quoted 2026-06-03: **$278.30 for qty 10** ($27.83/part) — `compressor-shroud-flat.dxf` uploaded with four 90° "down" bends.
 
 ## Penetrations
 
