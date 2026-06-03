@@ -57,20 +57,24 @@ _here = Path(__file__).resolve()
 sys.path.insert(0, str(next(p for p in _here.parents if p.name == "hardware")))
 from _cadq_export import export_step, export_dxf  # noqa: E402
 
-# ── Interior envelope (the volume the shroud encloses) ──────────────
-interior_width = 130.0    # X
-interior_depth = 175.0    # Y
-interior_height = 150.0   # Z
+# Geometry scalars are owned by the dimensions driver (single source,
+# also read by the assembly doc-sync drivers). This file builds from them.
+sys.path.insert(0, str(_here.parent))
+from _compressor_shroud_dimensions import (  # noqa: E402
+    interior_width_mm as interior_width,
+    interior_depth_mm as interior_depth,
+    interior_height_mm as interior_height,
+    wall_thickness_mm as wall_thickness,
+    inside_bend_radius_mm as inside_bend_radius,
+    k_factor,
+    bend_angle_deg as bend_angle,
+    ac_hole_diameter_mm as ac_hole_diameter,
+    copper_hole_diameter_mm as copper_hole_diameter,
+)
 
-# ── Material — SendCutSend G90 hot-dipped galvanized, 0.059" ────────
-wall_thickness = 0.059 * 25.4      # 1.4986 mm
-inside_bend_radius = 0.063 * 25.4  # 1.6002 mm
-k_factor = 0.36
-bend_angle = 90.0
-
-# 90-degree bend math, derived from the gauge spec above. The bend
-# deduction is what shortens the flat blank so the sum of the formed
-# outside dimensions returns the intended interior.
+# 90-degree bend math, derived from the gauge spec. The bend deduction
+# is what shortens the flat blank so the sum of the formed outside
+# dimensions returns the intended interior.
 bend_allowance = math.radians(bend_angle) * (inside_bend_radius + k_factor * wall_thickness)
 outside_setback = (inside_bend_radius + wall_thickness) * math.tan(math.radians(bend_angle) / 2)
 bend_deduction = 2 * outside_setback - bend_allowance
@@ -83,11 +87,6 @@ setback_to_bend_line = bend_deduction / 2  # one face loses this from its outer 
 # of the two bends that depth (its half-size) and far exceeds the width min.
 bend_relief_min_depth = inside_bend_radius + wall_thickness + 0.020 * 25.4  # 3.607 mm
 corner_relief = bend_relief_min_depth + 1.0  # half-size; margin over the SCS minimum
-
-# ── Penetrations ───────────────────────────────────────────────────
-ac_hole_diameter = 0.5 * 25.4    # 12.7 mm — 1/2" AC cable pass-through
-copper_tube_od = 6.35            # 1/4" OD ACR copper
-copper_hole_diameter = 8.0       # clearance hole over the 1/4" tube
 
 # Both holes sit at mid-height of the interior.
 hole_center_z = interior_height / 2  # 75 mm
