@@ -3,9 +3,10 @@
 The whole Lite Edition as one package: the
 [reservoir-pockets](../printed-parts/reservoir-pockets/) box with the four
 [valve-manifold](../../../hardware/printed-parts/valve-manifold/) tray
-assemblies — source-select, bag-circuit, bib-gate, nozzle-gate — and two bare
-[Kamoer KPHM400](../../../hardware/reference/kamoer-kphm400/) pumps packed
-around it. A layout model for fit and tube-routing review, not a printed part.
+assemblies — source-select, bag-circuit, bib-gate, nozzle-gate — two bare
+[Kamoer KPHM400](../../../hardware/reference/kamoer-kphm400/) pumps, and the
+[hopper funnel](../printed-parts/funnel/) packed around it. A layout model for
+fit and tube-routing review, not a printed part.
 
 ## Frame
 
@@ -39,6 +40,11 @@ face and nothing collides.
   top open for the **funnel** (which feeds source-select); the funnel's taper
   still leaves room to route the pumps' water and motor lines past it. Adding
   the pumps grows only Y (to −131.7).
+- **funnel** (the hopper) drops into the empty **+X/+Y ceiling corner** — the
+  one corner the pumps (−X/−Y) and source-select (−X half of the +Y shelf)
+  leave open. Its 55 mm square inlet is pushed to the corner, flush with the lid
+  (z = 289), tapering down to a spout at z = 219 beside source-select so a tube
+  reaches V-B. It fits **entirely inside the existing envelope** (no growth).
 
 Inter-tray links are tubing (the topology
 [Tube Segments](../../../hardware/topology/fluid-topology.md) tables). The
@@ -51,7 +57,8 @@ Overall envelope **229 × 270 × 289 mm** (X × Y × Z), no solid collisions.
 ## Regenerate
 
 `tools/cad-venv/bin/python pie-in-the-sky/lite/device-assembly/device_assembly.py`
-→ `device-assembly.step` (45 solids; translucent reservoir, the four trays each
-a distinct color, and two slate-gray pumps). Placement constants — `GAP`,
-`Y_SHIFT`, `PUMP_GAP`, `CEIL_GAP`, plus the per-part rotations and anchors —
-are at the top of `device_assembly.py` and in `build()`.
+→ `device-assembly.step` (46 solids; translucent reservoir, the four trays each
+a distinct color, two slate-gray pumps, and the translucent funnel). Placement
+constants — `GAP`, `Y_SHIFT`, `PUMP_GAP`, `CEIL_GAP`, plus the per-part
+rotations and anchors — are at the top of `device_assembly.py` and in
+`build()`.

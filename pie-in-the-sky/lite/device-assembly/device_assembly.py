@@ -1,5 +1,5 @@
-"""Lite Edition device assembly — the four valve-manifold tray assemblies and
-two bare Kamoer pumps packed around the reservoir-pockets box.
+"""Lite Edition device assembly — the four valve-manifold tray assemblies, two
+bare Kamoer pumps, and the hopper funnel packed around the reservoir-pockets box.
 
 Coordinate frame is the reservoir's (Z+ up, X left/right, Y front/back as
 depth, floor on Z=0). The reservoir's +X doorway faces the enclosure back
@@ -28,8 +28,13 @@ Two faces carry the manifold:
     source-select). The funnel's taper still leaves room to route the pumps'
     water and motor lines past it.
 
-The groups sit on different faces and never overlap (verified by real solid
-intersection). Inter-tray links are tubing (the topology "Tube Segments"
+  * the hopper funnel drops into the empty **+X/+Y ceiling corner** (the pumps
+    took -X/-Y; source-select is the -X half of the +Y shelf). Its square inlet
+    is pushed to the corner, flush with the lid, beside source-select so the
+    spout reaches V-B. It fits entirely inside the existing envelope.
+
+The groups sit on different faces/corners and never overlap (verified by real
+solid intersection). Inter-tray links are tubing (the topology "Tube Segments"
 tables); valve and Tee branches point +Z (up) or out the open tray ends.
 """
 
@@ -52,6 +57,9 @@ TRAY_STEPS = {
     "nozzle-gate": _VM / "nozzle-gate-tray" / "nozzle-gate-assembly.step",
 }
 PUMP_STEP = _hw / "reference" / "kamoer-kphm400" / "kamoer-kphm400.step"
+FUNNEL_STEP = (
+    _repo / "pie-in-the-sky" / "lite" / "printed-parts" / "funnel" / "funnel.step"
+)
 RES_DIR = _repo / "pie-in-the-sky" / "lite" / "printed-parts" / "reservoir-pockets"
 RES_STEP = RES_DIR / "reservoir-pockets.step"
 
@@ -75,6 +83,7 @@ PUMP_COLORS = {
     "pump-lower": cq.Color(0.38, 0.40, 0.44),     # dark slate
     "pump-upper": cq.Color(0.56, 0.58, 0.62),     # light slate
 }
+FUNNEL_COLOR = cq.Color(0.92, 0.88, 0.55, 0.45)   # translucent pale, hollow reads
 
 # --- Packing parameters ---------------------------------------------------
 GAP = 2.0        # butting clearance to the reservoir walls
@@ -168,6 +177,17 @@ def build():
     pump_up = pump(ceiling_z - CEIL_GAP)
     pump_lo = pump(pump_up.BoundingBox().zmin - PUMP_GAP)
 
+    # Funnel (hopper): the emptiest ceiling corner is +X/+Y (pumps took -X/-Y;
+    # source-select is the -X half of the +Y shelf). Drop the square inlet into
+    # it, pushed to the corner, flush with the lid, beside source-select so the
+    # spout can reach V-B.
+    fun = _place(
+        _load(FUNNEL_STEP),
+        xmax=res.BoundingBox().xmax,
+        ymax=src.BoundingBox().ymax,
+        zmax=ceiling_z,
+    )
+
     placed = {
         "reservoir-pockets": (res, RES_COLOR),
         "source-select": (src, COLORS["source-select"]),
@@ -176,6 +196,7 @@ def build():
         "nozzle-gate": (noz, COLORS["nozzle-gate"]),
         "pump-upper": (pump_up, PUMP_COLORS["pump-upper"]),
         "pump-lower": (pump_lo, PUMP_COLORS["pump-lower"]),
+        "funnel": (fun, FUNNEL_COLOR),
     }
     assy = cq.Assembly(name="lite-device-assembly")
     for name, (shape, color) in placed.items():
