@@ -1,40 +1,25 @@
 """Lite Edition device assembly — the four valve-manifold tray assemblies
-packed around the reservoir-pockets box.
+packed onto two faces of the reservoir-pockets box.
 
 Coordinate frame is the reservoir's (Z+ up, X left/right, Y front/back as
-depth, floor on Z=0). In the enclosure the reservoir's +X doorway faces the
-back (bags load from the rear); its -X wall is the enclosure front and carries
-both bag-spout exits low (y = +/-36, z ~= 12). The valve manifold therefore
-sits in front of the -X face, on the same floor.
+depth, floor on Z=0). The reservoir's +X doorway faces the enclosure back
+(bags load from the rear); its -X wall is the enclosure front and carries both
+bag-spout exits low (y = +/-36, z ~= 12).
 
-Inter-tray connections are tubing (see the topology "Tube Segments" tables),
-not butted ports, so the arrangement only needs connected trays close together
-with their valve/Tee branches pointing up (+Z) for the pumps, bag lines, and
-nozzles. The connection graph:
+Two faces carry the manifold:
 
-    source-select --2-- bib-gate --2-- bag-circuit --(bags)--> reservoir
-                          |  \\ pumps                 |
-                          |   `--2-- nozzle-gate --2--'
-                          `--(BiB in)        `--> nozzles
+  * source-select stands vertical (rotated 90 deg about X, then 90 deg about Y,
+    so its 225 mm long axis runs up Z) flat against the reservoir's **+Y face**,
+    centered on X, on the floor.
 
-bib-gate is the hub (feeds from source-select, exchanges with bag-circuit, and
-drives nozzle-gate through the two pumps); bag-circuit is the one tray tied to
-the reservoir bags.
+  * bag-circuit, bib-gate, and nozzle-gate stack in Z largest-to-smallest at
+    the trays' designed 63 mm pitch, butted against the reservoir's **-X face**,
+    nudged +Y so the quick-connect elbows on their -Y ports clear the
+    reservoir's -Y wall.
 
-Packing: the dispense path runs back-to-front, so the three pump-circuit trays
-stack as flow rows in front of the reservoir, each flat (branches up) and
-rotated 90 deg so its long axis lies along Y (the reservoir's width), all
-centered on Y=0:
-
-    reservoir (back) | bag-circuit | bib-gate (+pumps) | nozzle-gate (front)
-                          bags ^         ^ pumps              ^ faucet
-
-bag-circuit hugs the -X face so it straddles both bag exits; bib-gate sits one
-row forward (pumps fill the bib <-> nozzle gap); nozzle-gate is front-most so
-its nozzle outlets reach the faucet at the enclosure front. source-select is
-the largest tray and only touches bib-gate, so rather than widen the block it
-lies along the +Y side in its native orientation (long axis along X), running
-the length of the rows beside bib-gate.
+The two groups sit on adjacent faces and never share one, so nothing collides.
+Inter-tray links are tubing (the topology "Tube Segments" tables); all valve
+and Tee branches point +Z (up) or out the open tray ends for those runs.
 """
 
 import sys
@@ -55,17 +40,17 @@ TRAY_STEPS = {
     "bib-gate": _VM / "bib-gate-tray" / "bib-gate-assembly.step",
     "nozzle-gate": _VM / "nozzle-gate-tray" / "nozzle-gate-assembly.step",
 }
-RES_STEP = (
-    _repo
-    / "pie-in-the-sky"
-    / "lite"
-    / "printed-parts"
-    / "reservoir-pockets"
-    / "reservoir-pockets.step"
-)
+RES_DIR = _repo / "pie-in-the-sky" / "lite" / "printed-parts" / "reservoir-pockets"
+RES_STEP = RES_DIR / "reservoir-pockets.step"
 
-# Distinct flat colors per tray so the arrangement reads at a glance; the
-# reservoir is translucent so the manifold stays visible behind/through it.
+# Reservoir wall planes (the box faces, not the rod-end bosses) for true butting.
+sys.path.insert(0, str(RES_DIR))
+import reservoir_pockets as _res
+RES_X_FRONT = _res.outer_x_range[0]  # -77, the -X (enclosure-front) wall
+RES_Y_BACK = _res.outer_y_range[1]   # +73, the +Y wall
+
+# Distinct flat colors per tray; reservoir translucent so the manifold reads
+# through it.
 RES_COLOR = cq.Color(0.60, 0.80, 1.00, 0.28)
 COLORS = {
     "source-select": cq.Color(0.45, 0.70, 0.45),  # green
@@ -75,21 +60,21 @@ COLORS = {
 }
 
 # --- Packing parameters ---------------------------------------------------
-GAP_RES = 12.0  # near row (+X face) to reservoir -X face: bag-line room
-ROW_GAP = 10.0  # near row to far row: cross-tube + pump room
-COL_GAP = 8.0   # tray to tray within a row
+GAP = 2.0       # butting clearance to the reservoir walls
+Y_SHIFT = 30.0  # +Y nudge of the -X-face stack (elbow clearance off the -Y wall)
 
 
 def _load(path):
     return cq.importers.importStep(str(path)).val()
 
 
-def _rotz(shape, deg):
-    return shape.rotate((0, 0, 0), (0, 0, 1), deg)
+def _rot(shape, axis, deg):
+    return shape.rotate((0, 0, 0), axis, deg)
 
 
 def _place(shape, *, xmax=None, xcenter=None, ycenter=None, ymin=None, zmin=None):
-    """Translate so the requested bounding-box references land on targets."""
+    """Translate so the requested bounding-box references land on targets.
+    Unset axes are left where they are."""
     bb = shape.BoundingBox()
     if xmax is not None:
         dx = xmax - bb.xmax
@@ -109,40 +94,32 @@ def _place(shape, *, xmax=None, xcenter=None, ycenter=None, ymin=None, zmin=None
 
 def build():
     res = _load(RES_STEP)
-    front_x = res.BoundingBox().xmin  # reservoir -X (enclosure-front) face
 
-    # Pump-circuit trays rotated +90 deg about Z: long axis (local X) -> Y, the
-    # ~72 mm depth -> X, branches stay +Z (up). Flow rows march forward (-X)
-    # from the reservoir, all centered on Y=0.
-    bag = _place(
-        _rotz(_load(TRAY_STEPS["bag-circuit"]), 90.0),
-        xmax=front_x - GAP_RES, ycenter=0.0, zmin=0.0,
-    )
-    bib = _place(
-        _rotz(_load(TRAY_STEPS["bib-gate"]), 90.0),
-        xmax=bag.BoundingBox().xmin - ROW_GAP, ycenter=0.0, zmin=0.0,
-    )
-    noz = _place(
-        _rotz(_load(TRAY_STEPS["nozzle-gate"]), 90.0),
-        xmax=bib.BoundingBox().xmin - ROW_GAP, ycenter=0.0, zmin=0.0,
-    )
+    # source-select: stood vertical (90 about X, then 90 about Y), flat against
+    # the +Y wall, centered on X, on the floor.
+    src = _load(TRAY_STEPS["source-select"])
+    src = _rot(src, (1, 0, 0), 90.0)
+    src = _rot(src, (0, 1, 0), 90.0)
+    src = _place(src, xcenter=0.0, ymin=RES_Y_BACK + GAP, zmin=0.0)
 
-    # source-select stays native (long axis along X) and lies along the +Y
-    # side, centered over the three rows, beside bib-gate (its only neighbor).
-    rows = [bag.BoundingBox(), bib.BoundingBox(), noz.BoundingBox()]
-    rows_xmid = 0.5 * (min(b.xmin for b in rows) + max(b.xmax for b in rows))
-    rows_ymax = max(b.ymax for b in rows)
-    src = _place(
-        _load(TRAY_STEPS["source-select"]),
-        xcenter=rows_xmid, ymin=rows_ymax + COL_GAP, zmin=0.0,
-    )
+    # bag-circuit / bib-gate / nozzle-gate: each rotated 90 about Z (the current
+    # tray orientation, ports along +/-Y), nudged +Y, butted against the -X
+    # wall, stacked in Z largest-to-smallest at the trays' native 63 mm pitch.
+    def stack(name, zmin):
+        s = _rot(_load(TRAY_STEPS[name]), (0, 0, 1), 90.0)
+        s = s.translate((0.0, Y_SHIFT, 0.0))
+        return _place(s, xmax=RES_X_FRONT - GAP, zmin=zmin)
+
+    bag = stack("bag-circuit", 0.0)
+    bib = stack("bib-gate", bag.BoundingBox().zmax)
+    noz = stack("nozzle-gate", bib.BoundingBox().zmax)
 
     placed = {
         "reservoir-pockets": (res, RES_COLOR),
+        "source-select": (src, COLORS["source-select"]),
         "bag-circuit": (bag, COLORS["bag-circuit"]),
         "bib-gate": (bib, COLORS["bib-gate"]),
         "nozzle-gate": (noz, COLORS["nozzle-gate"]),
-        "source-select": (src, COLORS["source-select"]),
     }
     assy = cq.Assembly(name="lite-device-assembly")
     for name, (shape, color) in placed.items():
@@ -167,21 +144,30 @@ def _report(placed):
         % (max(xs) - min(xs), max(ys) - min(ys), max(zs) - min(zs))
     )
 
-    def overlap(a, b):
-        ox = min(a.xmax, b.xmax) - max(a.xmin, b.xmin)
-        oy = min(a.ymax, b.ymax) - max(a.ymin, b.ymin)
-        oz = min(a.zmax, b.zmax) - max(a.zmin, b.zmin)
-        return min(ox, oy, oz)
+    def bbox_overlap(a, b):
+        return min(
+            min(a.xmax, b.xmax) - max(a.xmin, b.xmin),
+            min(a.ymax, b.ymax) - max(a.ymin, b.ymin),
+            min(a.zmax, b.zmax) - max(a.zmin, b.zmin),
+        )
 
+    # Bounding boxes overlap harmlessly where the reservoir's rod-end bosses
+    # (high Z, y=+/-81) share a column with a low-Z tray, so confirm any flag
+    # with a real solid intersection before calling it a clash.
     names = list(placed)
     clash = False
     for i in range(len(names)):
         for j in range(i + 1, len(names)):
-            o = overlap(placed[names[i]][0].BoundingBox(), placed[names[j]][0].BoundingBox())
-            if o > 1e-6:
+            a, b = placed[names[i]][0], placed[names[j]][0]
+            if bbox_overlap(a.BoundingBox(), b.BoundingBox()) <= 1e-6:
+                continue
+            vol = a.intersect(b).Volume()
+            if vol > 1e-3:
                 clash = True
-                print("  ** bbox overlap %s / %s by %.2f mm" % (names[i], names[j], o))
-    print("  no bounding-box overlaps" if not clash else "  ** CLASHES PRESENT **")
+                print("  ** SOLID clash %s / %s = %.2f mm^3" % (names[i], names[j], vol))
+            else:
+                print("  (bboxes touch %s / %s; solids clear, 0 mm^3)" % (names[i], names[j]))
+    print("  no solid collisions" if not clash else "  ** CLASHES PRESENT **")
 
 
 def main():
