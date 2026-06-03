@@ -34,15 +34,15 @@ the floor, and the funnel at the front +Y top.
   port has matching elbow room. Sitting at the −X end frees the +X end of the
   +Y wall for connections.
 - **two Kamoer KPHM400 pumps** stand vertical, **stacked end to end** in
-  **front** of the tray stack (−X of it), rotated so their tube barbs face +X
-  back toward the bib-gate / nozzle-gate Tees they drive, centered on Y. The
-  lower pump sits **on the floor** (z 0–121); the upper stacks above it (z
-  125–246). They push the **X footprint** out (to −234) rather than Y.
-- **funnel** (the hopper) rides on the **front (−X)**, pushed to the **+Y / top
-  corner** just in front of source-select. Its 90 mm square inlet sits flush
-  with the lid (z = 289), tapering down to a spout at z = 219; source-select
-  blocks x > −79 at that Y/Z so the funnel parks just ahead and the spout
-  reaches back to V-B. It fits inside the X envelope the pumps set.
+  **front** of the tray stack (−X of it), native orientation (tube barbs out
+  +Y, into open space). They sit on the **−Y half** so the +Y half is free for
+  the funnel; the lower pump is **on the floor** (z 0–121), the upper above it
+  (z 125–246). They push the **X footprint** out (to −222) rather than Y.
+- **funnel** (the hopper) rides on the **front (−X)**, its front edge **flush
+  with the pumps' front** (so it reads as a front element, center x ≈ −157),
+  filling the **+Y half** of the front top clear of the −Y pumps. Its **130 mm**
+  square inlet sits flush with the lid (z = 289), tapering down to a spout at
+  z = 199; the spout reaches back to V-B. Fits inside the pumps' X envelope.
 
 Inter-tray links are tubing (the topology
 [Tube Segments](../../../hardware/topology/fluid-topology.md) tables). The
@@ -50,8 +50,8 @@ reservoir's rod-end bosses (y = ±81, high Z) share a bounding-box column with
 source-select but are well clear in Z — the generator confirms with a real
 solid-intersection test, not bounding boxes.
 
-Overall envelope **311 × 219 × 289 mm** (X × Y × Z), no solid collisions. The
-pumps moving to the front trades Y back down (270 → 219) for X (229 → 311).
+Overall envelope **299 × 219 × 289 mm** (X × Y × Z), no solid collisions. The
+pumps out front set the −X extent (−222); Y stays at 219 (no −Y push).
 
 ## Regenerate
 
