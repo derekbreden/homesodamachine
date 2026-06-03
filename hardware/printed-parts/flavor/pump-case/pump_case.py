@@ -5,7 +5,8 @@ Base: base plate with octagon-to-footprint ramp, octagon pump bore,
 Cap:  asymmetric flared skirt (wide on +Y, narrow on -Y) with a lower
       extension that tapers to uniform width.
 
-The two parts mate at a stepped split surface.
+The two parts mate at a stepped split surface and lock together with
+snap-fit ramps on four interior walls.
 """
 
 import math
@@ -20,6 +21,7 @@ sys.path.insert(0, str(next(p for p in _here.parents if p.name == "hardware")))
 sys.path.insert(0, str(next(p for p in _here.parents if (p / "tools" / "docgen").is_dir()) / "tools"))
 
 from world_workplane import WorldWorkplane, xy_plane_z_up, xz_plane_y_up
+from snap import Frame, apply_ramp_out_first, apply_ramp_in_first
 from _cadq_export import export_step
 from docgen import substitute_py_comments
 
@@ -69,6 +71,11 @@ lower_footprint_straight = skirt_wide_straight_height
 # Stepped split
 step_height = 19.0
 step_y_clearance = 6.0
+
+# Snap fits
+snap_zone_width = 20.0
+snap_wall_height = 9.0
+snap_deflection = 1.0
 
 # Arch notches
 arch_radius = 4.5
@@ -335,7 +342,7 @@ bore_profile = bore_octagon_profile()
 bore_wall_profile = offset_polygon(bore_profile, wall_thickness)
 
 
-# Skirt profiles (shared by skirt, lower extension, and the split).
+# Skirt profiles (shared by skirt, lower extension, the split, and snap fits).
 #
 # The skirt splits asymmetrically: +Y half flares outward ([70](FOOTPRINT_X)→[76](SKIRT_WIDE_WIDTH)), -Y half
 # tapers inward ([70](FOOTPRINT_X)→[62](SKIRT_NARROW_WIDTH)). Both flares are at 45 degrees. The transition wall
@@ -631,6 +638,63 @@ def split_into_base_and_cap(combined):
     return base, cap
 
 
+def add_snap_fits(base, cap):
+    """Snap-fit ramps on four interior walls where base meets cap.
+
+    The base wall grows a ramp_out_first zigzag; the cap wall grows the
+    complementary ramp_in_first zigzag. The two interleave across the split,
+    their tips reaching past the mating plane to wrap around each other and
+    lock the halves together — the solids slide past without interpenetrating.
+
+    Each snap grows along Z from its split plane. The +Y wide-split snap sits
+    on the flared face; the -Y, +X, -X snaps sit on the narrow-split faces.
+    """
+    snap_plus_y_inner = pos_y_face_y - wall_thickness
+    snap_minus_y_inner = center_y - footprint_half_extent + wall_thickness
+    snap_plus_x_inner = center_x + footprint_half_extent - wall_thickness
+    snap_minus_x_inner = center_x - footprint_half_extent + wall_thickness
+
+    # ±Y snaps extrude along X (plane YZ, +X normal); zone spans X about center.
+    yz_zone_range = (center_x - snap_zone_width / 2, center_x + snap_zone_width / 2)
+    # ±X snaps extrude along Y (plane ZX, +Y normal); zone spans Y from just
+    # inside the narrow-face corner.
+    zx_zone_start = center_y - skirt_narrow_half_extent + corner_r + 0.5
+    zx_zone_range = (zx_zone_start, zx_zone_start + snap_zone_width)
+
+    snap_faces = [
+        (snap_plus_y_inner, +1, skirt_bottom_z, "YZ", yz_zone_range),
+        (snap_minus_y_inner, -1, narrow_split_z, "YZ", yz_zone_range),
+        (snap_plus_x_inner, +1, narrow_split_z, "ZX", zx_zone_range),
+        (snap_minus_x_inner, -1, narrow_split_z, "ZX", zx_zone_range),
+    ]
+
+    for inner_face, sign, split_z, plane, zone_range in snap_faces:
+        base_frame = Frame(extrusion_plane=plane, outward_sign=sign,
+                           up_axis="Z", up_sign=-1)
+        cap_frame = Frame(extrusion_plane=plane, outward_sign=sign,
+                          up_axis="Z", up_sign=+1)
+        base = apply_ramp_out_first(
+            base,
+            frame=base_frame,
+            inner_wall_at=inner_face,
+            wall_top_at=split_z,
+            wall_height=snap_wall_height,
+            zone_range=zone_range,
+            deflection_distance=snap_deflection,
+        )
+        cap = apply_ramp_in_first(
+            cap,
+            frame=cap_frame,
+            inner_wall_at=inner_face,
+            wall_top_at=split_z,
+            wall_height=snap_wall_height,
+            zone_range=zone_range,
+            deflection_distance=snap_deflection,
+        )
+
+    return base, cap
+
+
 def add_pogo_pocket(base):
     """Stepped pill pocket on the +Y face with an outward pill ridge for pogo mating."""
     pogo_z = skirt_bottom_z + pogo_z_offset
@@ -672,6 +736,7 @@ def build_pump_case():
     combined = solid.union(build_lower_extension())
     combined = cut_arch_notches(combined)
     base, cap = split_into_base_and_cap(combined)
+    base, cap = add_snap_fits(base, cap)
     base = add_pogo_pocket(base)
     return base, cap
 
