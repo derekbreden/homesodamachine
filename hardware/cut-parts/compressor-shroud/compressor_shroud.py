@@ -23,6 +23,10 @@ PENETRATIONS
   vertically (Z=75) and placed by `justify-content: space-around`
   across the full depth of the face — each hole centered in its own
   half of the depth (the quarter points).
+- Earth bond: one hole in the back face beside the AC pass-through,
+  landing the ground bond (wiring AC-6).
+- Mounting: one hole near the base of the left face and one near the
+  base of the right face, fastening the shroud to the enclosure floor.
 
 MATERIAL / BENDS
 ================
@@ -70,6 +74,8 @@ from _compressor_shroud_dimensions import (  # noqa: E402
     bend_angle_deg as bend_angle,
     ac_hole_diameter_mm as ac_hole_diameter,
     copper_hole_diameter_mm as copper_hole_diameter,
+    chassis_ground_hole_mm as bond_hole_diameter,
+    mounting_hole_diameter_mm as mounting_hole_diameter,
 )
 
 # 90-degree bend math, derived from the gauge spec. The bend deduction
@@ -114,12 +120,19 @@ arm_v = top_half_v + wall_develop                      # front/back wall free ed
 
 # Hole centers in the developed flat. A hole on a wall at interior
 # height z is `z` from that wall's free edge (the straight wall length
-# develops 1:1). The AC hole rides the back arm; the copper holes ride
-# the left arm.
+# develops 1:1). The AC + bond holes ride the back arm; the copper holes
+# ride the left arm; the mounting holes ride the left and right arms.
+bond_hole_x = 35.0       # back face, beside the centered AC hole
+mounting_hole_z = 15.0   # near the base of the side walls
 ac_flat = (0.0, arm_v - hole_center_z)
+bond_flat = (bond_hole_x, arm_v - hole_center_z)
 copper_flat = [
     (-arm_u + hole_center_z, -copper_hole_depth_offset),
     (-arm_u + hole_center_z, +copper_hole_depth_offset),
+]
+mounting_flat = [
+    (-arm_u + mounting_hole_z, 0.0),   # left wall
+    (arm_u - mounting_hole_z, 0.0),    # right wall
 ]
 
 _out_dir = _here.parent
@@ -187,6 +200,14 @@ def make_step():
     for dy in (-copper_hole_depth_offset, copper_hole_depth_offset):
         shroud = _cut_cylinder(shroud, (-outer_x + wall_thickness / 2, dy, hole_center_z),
                                (1, 0, 0), copper_hole_diameter)
+    # Earth-bond hole in the back (+Y) face, beside the AC hole.
+    shroud = _cut_cylinder(shroud, (bond_hole_x, outer_y - wall_thickness / 2, hole_center_z),
+                           (0, 1, 0), bond_hole_diameter)
+    # Mounting holes near the base of the left (-X) and right (+X) faces.
+    shroud = _cut_cylinder(shroud, (-outer_x + wall_thickness / 2, 0, mounting_hole_z),
+                           (1, 0, 0), mounting_hole_diameter)
+    shroud = _cut_cylinder(shroud, (outer_x - wall_thickness / 2, 0, mounting_hole_z),
+                           (1, 0, 0), mounting_hole_diameter)
 
     export_step(shroud, str(_step_path))
     return shroud
@@ -237,6 +258,9 @@ def make_dxf():
     msp.add_circle(ac_flat, ac_hole_diameter / 2)
     for c in copper_flat:
         msp.add_circle(c, copper_hole_diameter / 2)
+    msp.add_circle(bond_flat, bond_hole_diameter / 2)
+    for c in mounting_flat:
+        msp.add_circle(c, mounting_hole_diameter / 2)
 
     export_dxf(doc, str(_dxf_path))
     return doc
@@ -275,6 +299,9 @@ def main():
     print(f"  AC hole:         d {ac_hole_diameter:.2f} mm, back face, flat {tuple(round(v, 2) for v in ac_flat)}")
     print(f"  Copper holes:    d {copper_hole_diameter:.2f} mm x2, left face, flat "
           f"{[tuple(round(v, 2) for v in c) for c in copper_flat]}")
+    print(f"  Earth bond:      d {bond_hole_diameter:.2f} mm, back face, flat {tuple(round(v, 2) for v in bond_flat)}")
+    print(f"  Mounting holes:  d {mounting_hole_diameter:.2f} mm x2, side walls, flat "
+          f"{[tuple(round(v, 2) for v in c) for c in mounting_flat]}")
     print(f"-> {_step_path.name}")
     print(f"-> {_dxf_path.name}")
 
