@@ -23,7 +23,7 @@ Everything else fits into the voids those three create.
 - Appliance width ≈ foam shell width (~[283 mm](APPLIANCE_WIDTH)).
 - Appliance depth = foam shell depth + condenser depth (~[331 mm](APPLIANCE_DEPTH)).
 - Compressor + condenser + fan in Zone D with side-to-side airflow (fan axis between the two ±X side walls).
-- Compressor shroud around the compressor's terminal block + PTC relay/overload (UL 60335-2-89, ~130 × 130 × 100 mm working envelope, only metal part in the enclosure).
+- Compressor shroud over the compressor — terminal block + PTC relay/overload (UL 60335-2-89, 130 × 175 × 150 mm interior, the only metal part in the enclosure).
 - Electronics shelf in Zone B above the foam shell.
 - GFCI module on the electronics shelf.
 - Flavor funnel over the pump cartridge in Zone C, under a single centered top door — funnel removable for cleaning, pump cartridge reached beneath it.

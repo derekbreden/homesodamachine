@@ -97,7 +97,7 @@ The appliance ships with the water filter included. **Placement (internal vs. ex
 | [Supco BPV31 bullet-piercing valve](https://www.amazon.com/dp/B00DM8J3MI) | taps the compressor process tube to vent the factory R-600a charge before brazing in the replacement drier; left clamped on the cut stub after teardown; single-use per build | 1 | $7.37 | $7.37 |
 | [BCuP-5 15% Ag silver brazing alloy, 1/16" × 1 troy oz rod](https://www.amazon.com/dp/B0DQ3ZMHK7) | filler for copper-to-copper refrigeration joints; ~10 g per build × ~3 builds per 31 g rod; $18.99/3 | 1 (of 3) | $6.33 | $6.33 |
 | [3M Scotch-Brite Maroon General Purpose Hand Pads, 6" × 9" (1-pack of 20)](https://www.amazon.com/dp/B07CGPCTHT) | abrasive pads cut into strips to clean 1/4" ACR copper OD + fitting sockets before flux + braze on the 2–3 refrigeration-loop joints; 2 of 20 per build ($28.85/20 × 2) | 2 (of 20 pk) | $1.44 | $2.89 |
-| SendCutSend compressor shroud (`cut-parts/compressor-shroud/`) | 0.059" G90 hot-dipped galvanized steel; design + rationale at [`cut-parts/compressor-shroud/README.md`](cut-parts/compressor-shroud/README.md). Final dimensions TBD pending donor compressor measurement; placeholder estimate for a ~130 × 130 × 100 mm flat-pattern part with 4 bends + hardware insertion: ~$8 ea at qty 5 + ~$5 ship + tax allocated, ~$45 delivered ÷ 5 = $9/shroud. AC pass-through grommet listed separately below (Heyco SB-500-6) | 1 | $9.00 | $9.00 |
+| SendCutSend compressor shroud (`cut-parts/compressor-shroud/`) | 0.059" G90 hot-dipped galvanized steel; 5-sided open-bottom box, interior 130 × 175 × 150 mm, 4 bends; design + rationale at [`cut-parts/compressor-shroud/README.md`](cut-parts/compressor-shroud/README.md). SendCutSend quote 2026-06-03: $278.30 / qty 10 = $27.83/part. AC pass-through grommet listed separately below (Heyco SB-500-6) | 1 | $27.83 | $27.83 |
 | [Heyco SB-500-6 (Heyco part #2053) black 6/6 nylon strain-relief snap bushing, 100-pack](https://www.amazon.com/HEYCO-2053-SB-500-6-Accessories/dp/B01LPBST9G/) | UL Recognized AC pass-through strain-relief bushing for the compressor-shroud 1/2" panel hole; sizing rationale in [`cut-parts/compressor-shroud/README.md`](cut-parts/compressor-shroud/README.md) Penetrations; 100-pack = lifetime supply; per-build cost = $12.60 delivered / 100 | 1 (of 100 pk) | $0.13 | $0.13 |
 | [BOJACK SF76E SEFUSE thermal fuse, 77 °C, 10 A / 250 V (10-pack)](https://www.amazon.com/dp/B07Y61YTTK) | hardware thermal cutoff in series with the compressor's AC hot leg inside the shroud; safety rationale in [`assembly/refrigerant-loop.md`](assembly/refrigerant-loop.md) "Safety". 1 of 10 per unit ($6.42/10) | 1 (of 10 pk) | $0.64 | $0.64 |
 | [ACEIRMC MQ-6 LPG / iso-butane combustible gas sensor module (5-pack)](https://www.amazon.com/dp/B0978JSCZ8) | combustible-gas sensor mounted low on the rear interior enclosure wall (catches dense R-600a pooling at the cabinet floor); safety rationale in [`assembly/refrigerant-loop.md`](assembly/refrigerant-loop.md) "Safety". 1 of 5 per unit ($11.79/5) | 1 (of 5 pk) | $2.36 | $2.36 |
@@ -248,7 +248,7 @@ Per-appliance tools that ship in the install kit so the field installer can cut 
 | 2. Carbonator vessel (plan A, 316L) | [$240.69](BOM_SEC2) |
 | 3. Water inlet | [$230.82](BOM_SEC3) |
 | 4. CO2 subsystem | [$136.45](BOM_SEC4) |
-| 5. Refrigeration | [$196.70](BOM_SEC5) |
+| 5. Refrigeration | [$215.53](BOM_SEC5) |
 | 6. Cold core insulation | [$52.38](BOM_SEC6) |
 | 7. Printed parts (PETG) | [$103.94](BOM_SEC7) |
 | 8. Flavor subsystem | [$270.69](BOM_SEC8) |
@@ -258,7 +258,7 @@ Per-appliance tools that ship in the install kit so the field installer can cut 
 | 12. Level sensing | [$69.78](BOM_SEC12) |
 | 13. Mechanical attach hardware + reservoir-cap vent filter | [$5.41](BOM_SEC13) |
 | 14. Install kit | [$4.29](BOM_SEC14) |
-| **Total** | **[$1,539.45](BOM_GRAND)** |
+| **Total** | **[$1,558.28](BOM_GRAND)** |
 
 ## External / user-supplied (not shipped)
 
