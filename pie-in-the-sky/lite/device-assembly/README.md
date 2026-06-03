@@ -19,15 +19,18 @@ low (y = ±36, z ≈ 12).
 Two adjacent reservoir faces carry the manifold, so the groups never share a
 face and nothing collides.
 
-- **source-select** stands vertical against the **+Y wall**: rotated 90° about
-  X then 90° about Y so its 225 mm long axis runs up Z, centered on X, on the
-  floor. A tall panel on the back-depth wall.
 - **bag-circuit → bib-gate → nozzle-gate** stack in Z **largest to smallest**
   against the **−X wall** (the enclosure front, where the bag exits are), at the
   trays' native 63 mm stack pitch (bag z 0–63, bib 63–126, nozzle 126–189).
   The stack is nudged **+Y ≈ 30 mm** so the quick-connect 90° elbows that go on
-  the trays' −Y ports stay inside the reservoir's −Y wall (≈ 24 mm of elbow
+  the trays' −Y ports stay inside the reservoir's −Y wall (**≈ 24 mm** of elbow
   clearance to that face).
+- **source-select** stands vertical against the **+Y wall**: rotated 90° about
+  X, then 90° about Y (its 225 mm long axis up Z), then 180° about Z. It is
+  butted in −X against the tray stack (x = −79) and **lifted ≈ 24 mm off the
+  floor** — the same clearance the stack leaves to the −Y wall — so its bottom
+  port has matching elbow room. Sitting at the −X end frees the +X end of the
+  +Y wall for connections.
 
 Inter-tray links are tubing (the topology
 [Tube Segments](../../../hardware/topology/fluid-topology.md) tables). The

@@ -8,14 +8,17 @@ bag-spout exits low (y = +/-36, z ~= 12).
 
 Two faces carry the manifold:
 
-  * source-select stands vertical (rotated 90 deg about X, then 90 deg about Y,
-    so its 225 mm long axis runs up Z) flat against the reservoir's **+Y face**,
-    centered on X, on the floor.
-
   * bag-circuit, bib-gate, and nozzle-gate stack in Z largest-to-smallest at
     the trays' designed 63 mm pitch, butted against the reservoir's **-X face**,
     nudged +Y so the quick-connect elbows on their -Y ports clear the
     reservoir's -Y wall.
+
+  * source-select stands vertical against the reservoir's **+Y face** (rotated
+    90 deg about X, then 90 deg about Y so its 225 mm long axis runs up Z, then
+    180 deg about Z), butted in -X against the tray stack and lifted off the
+    floor (the Z- face) by the same clearance the stack leaves to the -Y wall,
+    so its bottom port has matching elbow room. Pushing it to the -X end frees
+    the +X end of the +Y wall for connections.
 
 The two groups sit on adjacent faces and never share one, so nothing collides.
 Inter-tray links are tubing (the topology "Tube Segments" tables); all valve
@@ -47,6 +50,7 @@ RES_STEP = RES_DIR / "reservoir-pockets.step"
 sys.path.insert(0, str(RES_DIR))
 import reservoir_pockets as _res
 RES_X_FRONT = _res.outer_x_range[0]  # -77, the -X (enclosure-front) wall
+RES_Y_FRONT = _res.outer_y_range[0]  # -73, the -Y wall
 RES_Y_BACK = _res.outer_y_range[1]   # +73, the +Y wall
 
 # Distinct flat colors per tray; reservoir translucent so the manifold reads
@@ -72,12 +76,14 @@ def _rot(shape, axis, deg):
     return shape.rotate((0, 0, 0), axis, deg)
 
 
-def _place(shape, *, xmax=None, xcenter=None, ycenter=None, ymin=None, zmin=None):
+def _place(shape, *, xmax=None, xmin=None, xcenter=None, ycenter=None, ymin=None, zmin=None):
     """Translate so the requested bounding-box references land on targets.
     Unset axes are left where they are."""
     bb = shape.BoundingBox()
     if xmax is not None:
         dx = xmax - bb.xmax
+    elif xmin is not None:
+        dx = xmin - bb.xmin
     elif xcenter is not None:
         dx = xcenter - 0.5 * (bb.xmin + bb.xmax)
     else:
@@ -95,16 +101,9 @@ def _place(shape, *, xmax=None, xcenter=None, ycenter=None, ymin=None, zmin=None
 def build():
     res = _load(RES_STEP)
 
-    # source-select: stood vertical (90 about X, then 90 about Y), flat against
-    # the +Y wall, centered on X, on the floor.
-    src = _load(TRAY_STEPS["source-select"])
-    src = _rot(src, (1, 0, 0), 90.0)
-    src = _rot(src, (0, 1, 0), 90.0)
-    src = _place(src, xcenter=0.0, ymin=RES_Y_BACK + GAP, zmin=0.0)
-
-    # bag-circuit / bib-gate / nozzle-gate: each rotated 90 about Z (the current
-    # tray orientation, ports along +/-Y), nudged +Y, butted against the -X
-    # wall, stacked in Z largest-to-smallest at the trays' native 63 mm pitch.
+    # bag-circuit / bib-gate / nozzle-gate: each rotated 90 about Z (ports along
+    # +/-Y), nudged +Y, butted against the -X wall, stacked in Z largest-to-
+    # smallest at the trays' native 63 mm pitch.
     def stack(name, zmin):
         s = _rot(_load(TRAY_STEPS[name]), (0, 0, 1), 90.0)
         s = s.translate((0.0, Y_SHIFT, 0.0))
@@ -113,6 +112,22 @@ def build():
     bag = stack("bag-circuit", 0.0)
     bib = stack("bib-gate", bag.BoundingBox().zmax)
     noz = stack("nozzle-gate", bib.BoundingBox().zmax)
+
+    # The elbow clearance the stack leaves to the -Y wall (its -Y edge minus the
+    # wall plane). Reuse that exact distance as source-select's lift off the
+    # floor (the Z- face) so its bottom port has matching elbow room.
+    trays = (bag, bib, noz)
+    elbow_clear = min(t.BoundingBox().ymin for t in trays) - RES_Y_FRONT
+    stack_xmax = max(t.BoundingBox().xmax for t in trays)
+
+    # source-select: stood vertical (90 about X, then 90 about Y), flipped 180
+    # about Z, on the +Y wall, butted -X against the tray stack, lifted one
+    # elbow-clearance off the floor.
+    src = _load(TRAY_STEPS["source-select"])
+    src = _rot(src, (1, 0, 0), 90.0)
+    src = _rot(src, (0, 1, 0), 90.0)
+    src = _rot(src, (0, 0, 1), 180.0)
+    src = _place(src, xmin=stack_xmax, ymin=RES_Y_BACK + GAP, zmin=elbow_clear)
 
     placed = {
         "reservoir-pockets": (res, RES_COLOR),
