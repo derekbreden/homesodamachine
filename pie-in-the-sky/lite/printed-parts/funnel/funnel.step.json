@@ -2,5 +2,5 @@
   "thickness_mm": 2.0,
   "material": "PETG",
   "process": "3D-print",
-  "notes": "hopper funnel; 90 mm square inlet opening tapering (square-to-round loft) over 58 mm to a 12 mm round spout (10 mm OD, 6.5 mm bore for the 1/4 in tube line); 2 mm walls; open through both ends; 70 mm tall overall; a pour-through guide to V-B on the source-select tray, not a batch reservoir"
+  "notes": "hopper funnel; 130 mm square inlet opening tapering (square-to-round loft) over 78 mm to a 12 mm round spout (10 mm OD, 6.5 mm bore for the 1/4 in tube line); 2 mm walls; open through both ends; 90 mm tall overall; a pour-through guide to V-B on the source-select tray, not a batch reservoir"
 }
