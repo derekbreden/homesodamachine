@@ -4,8 +4,8 @@ Compressor shroud — sheet-metal cover that drops over the compressor.
 A 5-sided open-bottom box: a top panel with four walls bent down from
 its edges, open at the bottom so the compressor's feet sit on the
 enclosure floor and the refrigerant/process stubs exit below. One flat
-SendCutSend blank, bent on four sides, with the four vertical corners
-left open (full corner relief in the flat).
+SendCutSend blank, bent on four sides, with a square bend-relief notch
+at each corner so the two adjacent bends form without tearing.
 
 WORLD FRAME
 ===========
@@ -75,6 +75,14 @@ bend_allowance = math.radians(bend_angle) * (inside_bend_radius + k_factor * wal
 outside_setback = (inside_bend_radius + wall_thickness) * math.tan(math.radians(bend_angle) / 2)
 bend_deduction = 2 * outside_setback - bend_allowance
 setback_to_bend_line = bend_deduction / 2  # one face loses this from its outer dim to its bend line
+
+# ── Bend relief (sendcutsend.com/faq/what-are-your-bend-relief-requirements) ──
+# Where two bends meet at a corner each needs a notch past the bend line:
+# depth >= bend radius + thickness + 0.020", width >= 50% of thickness. A
+# square notch centered on the corner's bend-line intersection gives each
+# of the two bends that depth (its half-size) and far exceeds the width min.
+bend_relief_min_depth = inside_bend_radius + wall_thickness + 0.020 * 25.4  # 3.607 mm
+corner_relief = bend_relief_min_depth + 1.0  # half-size; margin over the SCS minimum
 
 # ── Penetrations ───────────────────────────────────────────────────
 ac_hole_diameter = 0.5 * 25.4    # 12.7 mm — 1/2" AC cable pass-through
@@ -176,8 +184,8 @@ def make_step():
 
 
 def make_dxf():
-    """The flat blank: a cruciform cut outline with full corner relief,
-    four dashed bend lines, three holes."""
+    """The flat blank: a cruciform cut outline with a square bend-relief
+    notch at each corner, four dashed bend lines, three holes."""
     doc = ezdxf.new("R2010", setup=True)
     doc.header["$INSUNITS"] = 4  # mm
     msp = doc.modelspace()
@@ -185,28 +193,34 @@ def make_dxf():
     if "BEND" not in doc.layers:
         doc.layers.add("BEND", color=1, linetype="DASHED")
 
-    tu, tv, au, av = top_half_u, top_half_v, arm_u, arm_v
-    # Cruciform outline, CCW, starting at the right wall's front-bottom
-    # corner. Eight outer corners stay sharp; the four inner corners are
-    # the open corner relief.
+    tu, tv, au, av, h = top_half_u, top_half_v, arm_u, arm_v, corner_relief
+    # Cruciform outline, CCW from the right wall's bottom-front corner.
+    # Each inner corner is a square relief notch (half-size h) centered on
+    # the bend-line intersection, biting `h` past both bends into the base.
     outline = [
-        (au, -tv), (au, tv),       # right wall free edge
-        (tu, tv),                  # inner corner (back-right)
-        (tu, av), (-tu, av),       # back wall free edge
-        (-tu, tv),                 # inner corner (back-left)
-        (-au, tv), (-au, -tv),     # left wall free edge
-        (-tu, -tv),                # inner corner (front-left)
-        (-tu, -av), (tu, -av),     # front wall free edge
-        (tu, -tv),                 # inner corner (front-right)
+        (au, -tv), (au, tv),                                          # right wall free edge
+        (tu + h, tv), (tu + h, tv - h), (tu - h, tv - h),             # back-right relief
+        (tu - h, tv + h), (tu, tv + h),
+        (tu, av), (-tu, av),                                          # back wall free edge
+        (-tu, tv + h), (-tu + h, tv + h), (-tu + h, tv - h),          # back-left relief
+        (-tu - h, tv - h), (-tu - h, tv),
+        (-au, tv), (-au, -tv),                                        # left wall free edge
+        (-tu - h, -tv), (-tu - h, -tv + h), (-tu + h, -tv + h),       # front-left relief
+        (-tu + h, -tv - h), (-tu, -tv - h),
+        (-tu, -av), (tu, -av),                                        # front wall free edge
+        (tu, -tv - h), (tu - h, -tv - h), (tu - h, -tv + h),          # front-right relief
+        (tu + h, -tv + h), (tu + h, -tv),
     ]
     msp.add_lwpolyline(outline, close=True)
 
-    # Bend lines (dashed, own layer), each spanning its flange width.
+    # Bend lines (dashed, own layer), each spanning its flange between the
+    # two corner reliefs.
+    span_u, span_v = tu - h, tv - h
     for line in [
-        ((-tu, -tv), (-tu, tv)),   # left
-        ((tu, -tv), (tu, tv)),     # right
-        ((-tu, tv), (tu, tv)),     # back
-        ((-tu, -tv), (tu, -tv)),   # front
+        ((-tu, -span_v), (-tu, span_v)),   # left
+        ((tu, -span_v), (tu, span_v)),     # right
+        ((-span_u, tv), (span_u, tv)),     # back
+        ((-span_u, -tv), (span_u, -tv)),   # front
     ]:
         msp.add_line(line[0], line[1], dxfattribs={"layer": "BEND"})
 
