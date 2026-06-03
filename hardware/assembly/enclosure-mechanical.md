@@ -31,9 +31,9 @@ Per-unit BOM lives in [`/hardware/bom.md`](/hardware/bom.md) §7 (printed enclos
 | Heyco SB-500-6 snap bushing | B01LPBST9G ([compressor-shroud §Penetrations](/hardware/cut-parts/compressor-shroud/README.md)) | AC pass-through grommet in the shroud sidewall |
 | Bench-built electronics shelf | Output of [`electronics-shelf.md`](electronics-shelf.md) | Unpowered; AC pigtails hang free, terminated at the C14 inlet in [`wiring.md`](wiring.md) |
 | ruthex M3 heat-set inserts + M3 fasteners | ruthex B0D39W228K + BNUOK B0DJQGF665 / B0DJQGVK8S | Per the enclosure-shell screw schedule (TBD until enclosure CAD lands — see Open items) |
-| Chassis bonding lead — compressor shroud | Green 18 AWG, ring terminal × M3 stud | Bonded to the PEM stud on the shroud per [`/hardware/cut-parts/compressor-shroud/README.md`](/hardware/cut-parts/compressor-shroud/README.md) Penetrations §3; landed at the ground bus in [`wiring.md`](wiring.md) |
+| Chassis bonding lead — compressor shroud | Green 18 AWG, ring terminal | Bonded to the shroud's earth-bond point (open — no bond feature in the current DXF; see [`/hardware/cut-parts/compressor-shroud/README.md`](/hardware/cut-parts/compressor-shroud/README.md) "Grounding & mounting"); landed at the ground bus in [`wiring.md`](wiring.md) |
 
-Tooling: standard hand tools — Phillips + hex (2.5 mm for M3), soldering iron + ruthex insert tip for any inserts not pre-installed at the printed-part stage, torque-limiting screwdriver for the shroud-to-compressor M5→M3 step-down anchors (don't crush the compressor's M5 grommet feet), a level, and the build-fixture cradle that holds the chassis upright while the cold core is seated (printed bench fixture, not yet specified — see Open items).
+Tooling: standard hand tools — Phillips + hex (2.5 mm for M3), soldering iron + ruthex insert tip for any inserts not pre-installed at the printed-part stage, a level, and the build-fixture cradle that holds the chassis upright while the cold core is seated (printed bench fixture, not yet specified — see Open items).
 
 ## Procedure
 
@@ -65,14 +65,14 @@ Pan + sensor go in early because they sit underneath the compressor + plumbing z
 
 The compressor body comes in as part of the integrated refrigerant-loop assembly with all refrigerant lines already brazed to it; the cold core's coil stubs are connected to the suction line and capillary tube as documented in [`refrigerant-loop.md`](refrigerant-loop.md). The compressor is not separated from this assembly at any point in this procedure.
 
-**Install the compressor shroud over the terminal block + PTC relay/overload module BEFORE bolting the compressor to the enclosure floor.** Bench access to the terminal block is much easier with the compressor still on the build cart; once the compressor is bolted to the floor it sits in the middle-bottom of the enclosure with the cold core landing right next to it, and the shroud's M3 mounting tabs at the M5 compressor feet become significantly harder to fasten. Sequence:
+**Install the compressor shroud over the terminal block + PTC relay/overload module BEFORE bolting the compressor to the enclosure floor.** Bench access to the terminal block is much easier with the compressor still on the build cart; once the compressor is bolted to the floor it sits in the middle-bottom of the enclosure with the cold core landing right next to it, and seating the shroud over it is much harder. Sequence:
 
 1. Set the compressor on its side or upright on a clean bench, the cold-core assembly steady on its cart with no tension on the refrigerant lines.
 2. Route the Heyco SB-500-6 snap bushing into the shroud's [1/2"](PANEL_HOLE) sidewall hole (the side that will face toward the electronics shelf at top-back — best path for the future AC pigtail run to Teyleten relay #1).
 3. Lower the shroud down over the terminal block + PTC module. Confirm ≥[10 mm](TB_CLEARANCE) clearance on all sides of the terminal block per [`/hardware/cut-parts/compressor-shroud/README.md`](/hardware/cut-parts/compressor-shroud/README.md) "Dimensions".
-4. Anchor the shroud's M3 mounting tabs to the compressor's M5 mounting feet via the step-down adapter washers per [`/hardware/cut-parts/compressor-shroud/README.md`](/hardware/cut-parts/compressor-shroud/README.md) Penetrations §2. Torque-limited.
+4. Secure the shroud. The current DXF has no mounting feature — retention (to the compressor's feet or otherwise) is an open item; see [`/hardware/cut-parts/compressor-shroud/README.md`](/hardware/cut-parts/compressor-shroud/README.md) "Grounding & mounting".
 
-With the shroud locked to the compressor, lift the compressor + shroud as a single unit and bolt it to the enclosure floor at the middle-bottom compressor-mounting bosses. The condenser + fan + condenser-side tubing comes along on the same lift (still attached as part of the integrated refrigerant-loop assembly). Mind the condenser orientation — its airflow axis lands in step 4.
+Bolt the compressor to the enclosure floor at the middle-bottom compressor-mounting bosses, the shroud seated over it. The condenser + fan + condenser-side tubing comes along on the same lift (still attached as part of the integrated refrigerant-loop assembly). Mind the condenser orientation — its airflow axis lands in step 4.
 
 ### 4. Mount the condenser + fan against the chosen side wall
 
@@ -110,7 +110,7 @@ The four cabinet-side bulkhead stubs (water inlet barb, CO2 NPT, BiB downstream 
 
 Mechanically seat the bench-built electronics shelf at the top-back of the enclosure, directly behind the rear panel and the C14 inlet, per [`/hardware/future.md`](/hardware/future.md) "Enclosure layout". The shelf carries all of: C14 inlet pigtail, AC distribution block, Mean Well IRM-90-12ST PSU, both Teyleten relays, ESP32-DevKitC-32E, MCP23017 GPIO expander, two ULN2803A driver modules, the L298N peristaltic-pump driver, and the 5 V + 3.3 V regulators ([`/hardware/wiring/ac-wiring-schedule.md`](/hardware/wiring/ac-wiring-schedule.md) header).
 
-The shelf is **unpowered** at this step. The AC pigtails from the shelf hang free — they get terminated at the C14 inlet's solder-tab pins in [`wiring.md`](wiring.md), not now. Similarly DC and signal runs to the manifold, fan, moisture sensor, reed columns, and faucet umbilical land in [`wiring.md`](wiring.md). The chassis bonding lead from the compressor shroud's PEM ground stud routes toward the shelf's ground bus and waits to be terminated.
+The shelf is **unpowered** at this step. The AC pigtails from the shelf hang free — they get terminated at the C14 inlet's solder-tab pins in [`wiring.md`](wiring.md), not now. Similarly DC and signal runs to the manifold, fan, moisture sensor, reed columns, and faucet umbilical land in [`wiring.md`](wiring.md). The compressor shroud's earth-bond lead (bond point per [`wiring.md`](wiring.md) run AC-6; the current DXF has no bond feature) routes toward the shelf's ground bus and waits to be terminated.
 
 Confirm the shelf clears the back-panel bulkheads behind it (the C14 inlet pigtail wants ~50 mm of pigtail length per [`/hardware/wiring/ac-wiring-schedule.md`](/hardware/wiring/ac-wiring-schedule.md) run AC-1) and the cold core directly below it. No wiring runs are made at this step.
 

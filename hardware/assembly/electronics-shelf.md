@@ -140,7 +140,7 @@ Before the shelf leaves the bench, unpowered:
 - Ground bus: continuity from every ring-terminal pigtail on the bus back to the AC-1a G stub (the C14-inlet-side pigtail; earth is a pass-through on the GFCI, not sensed by the CT, so the end-to-end continuity is valid at unpowered state).
 - I²C trunk: visual check that every JST is fully seated and oriented correctly.
 
-First power-on happens at [`firmware-and-commissioning.md`](firmware-and-commissioning.md), after the shelf is installed and the chassis-ground stud is bonded.
+First power-on happens at [`firmware-and-commissioning.md`](firmware-and-commissioning.md), after the shelf is installed and the chassis-ground bonds are landed.
 
 ## Output condition
 

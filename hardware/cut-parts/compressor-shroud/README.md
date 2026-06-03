@@ -1,65 +1,44 @@
 # Compressor Shroud
 
-Sheet-metal shroud over the compressor terminal block and PTC relay/overload module. SendCutSend laser-cut + bent.
+Sheet-metal shroud that drops over the compressor from above — a 5-sided open-bottom box (top panel + four walls bent down), SendCutSend laser-cut and bent. The compressor sits on the printed enclosure floor; the open bottom clears its feet and the refrigerant/process stubs.
 
-## What's inside vs outside the shroud
+## What it covers
 
-**Inside:**
-- Compressor body
-- Compressor terminal block + clip-on PTC start relay/overload module ([140](PTC_TEMP_LOW)–[150 °C](PTC_TEMP) in normal use)
-- The wire stub from the terminals to the AC pass-through grommet (a few cm of [18 AWG](AC_AWG))
-- Refrigerant line stubs (suction, discharge, process tube) exit through the open bottom
+**Inside:** the compressor body (~[95 mm](COMP_OD) OD × ~[110 mm](COMP_H) tall, [100 W](COMP_CLASS_W)-class hermetic), its terminal block + clip-on PTC start relay/overload module ([140](PTC_TEMP_LOW)–[150 °C](PTC_TEMP) in normal use), and the [18 AWG](AC_AWG) wire stub from the terminals to the AC pass-through.
 
-**Outside:**
-- Teyleten relay #1 (electronics shelf)
-- Condenser fan motor — [12 V](FAN_V) DC brushless axial on the side-to-side intake → condenser → exhaust airflow path
-- AC distribution block (electronics shelf)
-- Everything else
-
-## Shape concept
-
-A **5-sided open-bottom box** that drops over the compressor from above. Top panel + 4 side walls. Compressor sits on its [M5](FOOT_THREAD) mounting feet on the printed enclosure floor; refrigerant tubes exit downward/sideways.
-
-Single SendCutSend part, bent on 4 sides.
+**Outside:** the condenser fan ([12 V](FAN_V) DC), the electronics shelf, the AC distribution block — everything else.
 
 ## Dimensions
 
-**Status: TBD.** The donor compressor (HD48Y11 from the generic ice-maker unit, or the equivalent in the Frigidaire EFIC117-SS) needs to be measured before final dimensions are committed. Per [`/hardware/reference/ice-maker/README.md`](/hardware/reference/ice-maker/README.md) "Open items": *Physical dimensions of compressor + condenser pair, for enclosure layout* is still pending.
+Interior **[130 mm](INT_W) (W) × [175 mm](INT_D) (D) × [150 mm](INT_H) (H)**; outer [133 mm](OUT_W) × [178 mm](OUT_D) × [151.5 mm](OUT_H) (each wall and the top add one wall thickness). ≥[10 mm](TB_CLEARANCE) clearance to the terminal block.
 
-Working assumptions:
-
-- Compressor body: ~[95 mm](COMP_OD) OD × ~[110 mm](COMP_H) tall ([100 W](COMP_CLASS_W)-class hermetic)
-- Terminal block + PTC module envelope: ~[50 mm](TB_W) wide × ~[40 mm](TB_H) tall × ~[30 mm](TB_STANDOFF) radial standoff above the terminal pins
-- Internal clearance to terminal block: ≥[10 mm](TB_CLEARANCE) on all sides
-
-Working envelope:
-
-- Outer dimensions: ~[130 mm](CSHROUD_OUTER_X) (X, depth into appliance) × ~[130 mm](CSHROUD_OUTER_Y) (Y, width across appliance) × ~[100 mm](CSHROUD_OUTER_Z) (Z, vertical height above floor)
-- Wall thickness: [0.059"](WALL_IN) ([1.5 mm](WALL_MM))
-- Internal headroom over compressor: ≥[20 mm](HEADROOM)
-- Side wall flange height: [90](FLANGE_LOW)–[100 mm](FLANGE_HIGH)
+Face names used below follow the part as modelled: the **back face** is a 130 × 150 wall (normal along depth); the **left face** is a 175 × 150 wall (normal along width).
 
 ## Material
 
-**[0.059"](WALL_IN) G90 hot-dipped galvanized steel.**
-
-[10-year](DESIGN_LIFE) design life.
-
-Cost: ~[$5](COST_LOW)–[$10](COST_HIGH)/part at qty [5](QTY_LOW)–[10](QTY_HIGH) from SendCutSend (rough early estimate; see the order below).
-
-## SendCutSend order
-
-Quoted 2026-06-03: **$278.30 for qty 10** ($27.83/part) — `compressor-shroud-flat.dxf` uploaded with four 90° "down" bends.
+**[0.059"](WALL_IN) G90 hot-dipped galvanized steel** ([1.499 mm](WALL_MM)). [10-year](DESIGN_LIFE) design life. Inside bend radius [0.063"](BEND_R_IN) ([1.6 mm](BEND_R_MM)), K-factor [0.36](K_FACTOR) — SendCutSend's published G90 0.059" gauge spec, so the flat develops to the intended interior.
 
 ## Penetrations
 
-| # | Hole | Purpose |
-|---|---|---|
-| 1 | [1/2"](PANEL_HOLE) panel hole, one side wall | AC cable pass-through (3-conductor: switched H + N + chassis G, [18 AWG](AC_AWG) SJOOW bundle) from Teyleten relay #1 on the electronics shelf to the compressor terminal block. Heyco SB-500-6 snap bushing (B01LPBST9G), [5.6](BUSHING_LOW)–[6.4 mm](BUSHING_HIGH) cable-OD range, fits [18 AWG](AC_AWG) SJOOW (~[6.4 mm](AC_OD) OD). |
-| 2 | 2× [M3](TAB_THREAD) mounting tab through-holes at base flange | Anchor to the compressor's [M5](FOOT_THREAD) mounting feet using [M5](FOOT_THREAD)→[M3](TAB_THREAD) step-down adapter washers. |
-| 3 | Ø ~[6 mm](GND_HOLE) chassis ground stud hole | PEM stud for the chassis bonding wire (run AC-6 in [`/hardware/wiring/ac-wiring-schedule.md`](/hardware/wiring/ac-wiring-schedule.md)). |
+Three laser-cut pass-throughs:
 
-No ventilation holes.
+| # | Hole | Face | Purpose |
+|---|---|---|---|
+| 1 | [1/2"](PANEL_HOLE) (Ø[12.7 mm](AC_HOLE_MM)) | back, centered H + V | 120 V AC cable — 3-conductor [18 AWG](AC_AWG) SJOOW (switched H + N + G). Heyco SB-500-6 snap bushing (B01LPBST9G), [5.6](BUSHING_LOW)–[6.4 mm](BUSHING_HIGH) cable-OD range, fits the [18 AWG](AC_AWG) SJOOW (~[6.4 mm](AC_OD) OD). |
+| 2 | Ø[8 mm](CU_HOLE) | left | copper inlet — clearance for [1/4"](CU_OD) OD ACR copper |
+| 3 | Ø[8 mm](CU_HOLE) | left | copper outlet — clearance for [1/4"](CU_OD) OD ACR copper |
+
+The AC hole is centered on the back face. The two copper holes are centered vertically and spaced around the left face's depth (each at a quarter point), per `justify-content: space-around`.
+
+## Bend relief
+
+A square relief notch at each corner where two bends meet, centered on the bend-line intersection so it serves both bends. Depth 4.6 mm past each bend line (SendCutSend's minimum is bend radius + thickness + 0.020" = 3.6 mm); width 9.2 mm (minimum is 50% of thickness). Required for the flat to pass review — see [SendCutSend's bend-relief requirements](https://sendcutsend.com/faq/what-are-your-bend-relief-requirements/).
+
+## Grounding & mounting
+
+The appliance enclosure is all plastic — there is **no metal chassis**. This shroud is an internal metal cover over the compressor's 120 V terminals; the user-facing barrier is the plastic enclosure, not this part.
+
+**Open design item.** This DXF revision has no bond or retention feature. If the metal shroud is bonded to earth — exposed metal parts bond single-point to the C14 earth pin per [`/hardware/assembly/wiring.md`](/hardware/assembly/wiring.md) run AC-6 — the bond point is ~Ø[6 mm](GND_HOLE) on a side wall; the method (PEM stud, thread-forming screw, or metal-to-metal contact) and any retention to the compressor's feet are not yet decided. Whether an internal-only cover inside a plastic enclosure requires the bond is part of that decision.
 
 ## SendCutSend specs
 
@@ -79,28 +58,26 @@ For [0.059"](WALL_IN) G90 galvanized steel:
 - Bend deduction @ [90°](BEND_ANGLE): [0.112"](BEND_DED)
 - K factor: [0.36](K_FACTOR)
 - Bend angle tolerance: [±1°](BEND_TOL) (bend length ≤[24"](BEND_TOL_LEN))
-- Max 4-sided box flange height with hardware: [3.00"](MAX_BOX_IN) ([76 mm](MAX_BOX_MM))
+- Max 4-sided box flange height with hardware: [3.00"](MAX_BOX_IN) ([76 mm](MAX_BOX_MM)). This part's walls are 150 mm with no inserted hardware; the order below passed review.
 
 **Hole-to-bend distance:** ≥1.5×T + R = [0.15"](HTB_IN) ([3.8 mm](HTB_MM)).
 
-**Hardware insertion** (PEM nuts, studs, standoffs): SendCutSend min part size [1" × 1.5"](HW_MIN). Chassis-ground stud is a press-in PEM stud inserted by SendCutSend.
+**Hardware insertion** (PEM nuts, studs, standoffs): SendCutSend min part size [1" × 1.5"](HW_MIN) — relevant only if the earth-bond stud above is added.
 
 **Tapping:** [M3 × 0.5](TAP_THREAD) supported at this thickness.
 
-## Files (planned)
+## SendCutSend order
 
-- `compressor_shroud.py` — parametric flat-pattern DXF generator (ezdxf), once compressor measurements are in hand
-- `compressor-shroud-flat.dxf` — generated flat pattern with bend lines marked
-- `compressor-shroud-drawing.pdf` — annotated drawing showing bend angles + bend lines + grommet location, generated from CadQuery `.section()` projections
+Quoted 2026-06-03: **$278.30 for qty 10** ($27.83/part) — `compressor-shroud-flat.dxf` uploaded with four 90° "down" bends.
 
-Run with `tools/cad-venv/bin/python compressor_shroud.py`.
+## Files
 
-## Open items
+- `compressor_shroud.py` — parametric generator (imports its dimensions from `_compressor_shroud_dimensions.py`); builds the STEP, the flat DXF, and the JSON sidecars.
+- `compressor-shroud.step` — formed shroud, for the viewer and reference.
+- `compressor-shroud-flat.dxf` — flat pattern: cut outline + holes on layer 0, the four bend lines dashed on a separate BEND layer.
+- `compressor-shroud.step.json`, `compressor-shroud-flat.dxf.json` — material/thickness sidecars.
 
-1. **Measure the donor compressor** — terminal block envelope, PTC module standoff, mounting foot pattern ([M5](FOOT_THREAD) thread spacing + bolt circle), body OD/height.
-2. **Decide one-piece 5-sided box vs. two-piece U-channel + back-wall.**
-3. **Decide the AC pass-through grommet location.**
-4. **Write `compressor_shroud.py`** once items 1–3 are settled.
+Run: `tools/cad-venv/bin/python compressor_shroud.py`.
 
 ## Sources
 [value](NAME) texts are updated by:
