@@ -20,13 +20,15 @@ Face names used below follow the part as modelled: the **back face** is a 130 ×
 
 ## Penetrations
 
-Three laser-cut pass-throughs:
+Six laser-cut holes — three pass-throughs, an earth-bond point, and two mounting holes:
 
 | # | Hole | Face | Purpose |
 |---|---|---|---|
 | 1 | [1/2"](PANEL_HOLE) (Ø[12.7 mm](AC_HOLE_MM)) | back, centered H + V | 120 V AC cable — 3-conductor [18 AWG](AC_AWG) SJOOW (switched H + N + G). Heyco SB-500-6 snap bushing (B01LPBST9G), [5.6](BUSHING_LOW)–[6.4 mm](BUSHING_HIGH) cable-OD range, fits the [18 AWG](AC_AWG) SJOOW (~[6.4 mm](AC_OD) OD). |
 | 2 | Ø[8 mm](CU_HOLE) | left | copper inlet — clearance for [1/4"](CU_OD) OD ACR copper |
 | 3 | Ø[8 mm](CU_HOLE) | left | copper outlet — clearance for [1/4"](CU_OD) OD ACR copper |
+| 4 | Ø[6 mm](GND_HOLE) | back, beside the AC hole | earth bond — ring terminal to the ground bus (wiring AC-6) |
+| 5 | 2× Ø[4.5 mm](MOUNT_HOLE) | left + right, near the base | mounting — fastens the shroud to the enclosure floor |
 
 The AC hole is centered on the back face. The two copper holes are centered vertically and spaced around the left face's depth (each at a quarter point), per `justify-content: space-around`.
 
@@ -38,7 +40,9 @@ A square relief notch at each corner where two bends meet, centered on the bend-
 
 The appliance enclosure is all plastic — there is **no metal chassis**. This shroud is an internal metal cover over the compressor's 120 V terminals; the user-facing barrier is the plastic enclosure, not this part.
 
-**Open design item.** This DXF revision has no bond or retention feature. If the metal shroud is bonded to earth — exposed metal parts bond single-point to the C14 earth pin per [`/hardware/assembly/wiring.md`](/hardware/assembly/wiring.md) run AC-6 — the bond point is ~Ø[6 mm](GND_HOLE) on a side wall; the method (PEM stud, thread-forming screw, or metal-to-metal contact) and any retention to the compressor's feet are not yet decided. Whether an internal-only cover inside a plastic enclosure requires the bond is part of that decision.
+The shroud bonds to earth at the Ø[6 mm](GND_HOLE) hole on the back face — a ring terminal to the electronics-shelf ground bus, run AC-6 in [`/hardware/assembly/wiring.md`](/hardware/assembly/wiring.md). Exposed metal parts bond single-point to the C14 earth pin; the shroud is one of them.
+
+It mounts by dropping over the compressor from above and fastening through the two Ø[4.5 mm](MOUNT_HOLE) holes near the base of the side walls to the enclosure floor.
 
 ## SendCutSend specs
 
