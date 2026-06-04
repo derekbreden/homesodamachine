@@ -133,8 +133,10 @@ face concentric one wall-thickness inboard — so the warp-prone sharp
 corner is gone and the corner boss is wrapped by a curved wall.
 
 The six bosses are positioned at the four corners + two mid-long-side
-positions (offset in X by ±[15 mm](MID_BOSS_OFFSET) with opposite signs
-at +Y vs −Y, to preserve 180° rotational symmetry around the Z axis).
+positions (both offset to the same +X side by [15 mm](MID_BOSS_OFFSET) to
+clear the x=0 slot, so the whole six-point pattern is mirror-symmetric
+across the long X axis — the same screw layout reads correctly at both
+ends, for the mouth-up top cap and the mouth-down bottom cap alike).
 Every boss sits tangent to the EXTERIOR wall and is tied into it with the
 cylinder + corner-fill teardrop idiom of the reservoir pocket-corner
 supports, so the boss fuses into the outer skin (one wall-thickness of PETG
@@ -156,23 +158,29 @@ internal to the assembly — it cuts down through the support ring at
 ### foam_cap and foam_cap_lid
 
 The `foam_cap` is a [16 mm](CAP_H)-tall cup matching the outer
-shell's footprint, printed twice — one sits on top of the assembly
-(flipped, open side mating with the outer shell's top edge) and one
-on the bottom (in normal orientation, open side mating with the
-outer shell's bottom edge). The cap interior receives the foam pour
-through pour and vent holes in the lid above.
+shell's footprint, printed twice — one capping each end of the
+assembly. Both seat the same way: floor against the shell's end face,
+open mouth + lid facing outward, so the lid is the outermost (extreme-Z)
+layer at that end — most +Z at the top, most −Z at the bottom.
+`foam-cap-top` is built mouth-up; `foam-cap-bottom` is built mouth-down
+(open ceiling at −Z), so each stacks onto its end of the shell by
+Z-translation alone — no rotation. The mirror-symmetric screw pattern
+(above) lets the mouth-down bottom cap land every screw on a shell
+insert. The cap interior receives the foam pour through pour and vent
+holes in the lid.
 
 The `foam_cap_lid` is a flat [2 mm](FSHELL_WALL_T) plate matching the same
-outer footprint, sitting on top of a cap during its foam pour. It
-has the pour hole (Ø [10 mm](POUR_D)) and two vent holes
+outer footprint, covering a cap's open mouth during its foam pour. It
+has the pour hole (Ø [20 mm](POUR_D)) and two vent holes
 (Ø [6 mm](VENT_D)).
 
 Both the cap and the lid carry the **same six ⌀[8 mm](BOSS_D) bosses with
 teardrop corner-fill webs** as the outer shell (built from the one shared
 boss builder, so every mating part's boss cross-section is identical) —
 four at the corners and two at the mid-points of the long edges (one near
-the +Y wall and one near the −Y wall, offset in X by ±[15 mm](MID_BOSS_OFFSET)
-with opposite signs at +Y vs −Y for 180° rotational symmetry). Each position
+the +Y wall and one near the −Y wall, both offset [15 mm](MID_BOSS_OFFSET)
+to the same +X side, so the pattern is mirror-symmetric across the long X
+axis). Each position
 passes a clearance hole for an M3 cap screw all the way through the part.
 See "Cap-to-outer-shell joinery" below.
 
@@ -312,7 +320,7 @@ pour; nothing chains across the three.
 ### Top cap and bottom cap (independent, before final assembly)
 
 Each cap is a [16 mm](CAP_H)-tall foam-filled cup. Liquid pour-in-place
-foam goes in through the `foam_cap_lid`'s Ø[10 mm](POUR_D) pour hole,
+foam goes in through the `foam_cap_lid`'s Ø[20 mm](POUR_D) pour hole,
 air escapes through the lid's two Ø[6 mm](VENT_D) vents, foam expands
 to fill the cap's interior, cures to a self-contained foam puck.
 Done before the cap is mated to the body.
@@ -448,11 +456,11 @@ that needs a deliberate explanation:
 
 | metric | value |
 |---|---|
-| volume | [1055106.084 mm³](FSHELL_VOLUME) |
+| volume | [1055106.083 mm³](FSHELL_VOLUME) |
 | bbox x | [-141.500 to 141.500 mm](FSHELL_BBOX_X) |
 | bbox z | [0.000 to 213.400 mm](FSHELL_BBOX_Z) |
 | bbox y | [-90.500 to 90.500 mm](FSHELL_BBOX_Y) |
-| centroid | [(0.000005, -0.616570, 88.192874) mm](CENTROID) |
+| centroid | [(0.241528, -0.616570, 88.192874) mm](CENTROID) |
 
 Quick reproduction:
 

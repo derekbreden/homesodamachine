@@ -101,8 +101,10 @@ def add_co2_boss(cap):
 
 
 def main():
-    cap_bottom = build_foam_cap()
-    cap_top = add_co2_boss(cut_co2_inlet(cap_bottom))
+    # Top cap opens +Z (mouth up); bottom cap is authored mouth-down so its
+    # open ceiling faces −Z. Both stack onto the shell by Z-translation alone.
+    cap_top = add_co2_boss(cut_co2_inlet(build_foam_cap()))
+    cap_bottom = build_foam_cap(open_down=True)
     lid_bottom = build_foam_cap_lid()
     lid_top = cut_co2_inlet_lid(lid_bottom)
     gasket = build_foam_cap_gasket()

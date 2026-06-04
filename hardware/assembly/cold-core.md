@@ -48,7 +48,7 @@ Dev-phase summary: [`/hardware/handwork.md`](/hardware/handwork.md) "Bend copper
 
 ### 2. Cap foam pour (top and bottom, in parallel)
 
-Each cap is a [16 mm](CAP_H)-tall foam-filled cup. With the cap inverted and the foam-cap-lid sealing its open face from above, liquid foam enters through the lid's Ø[10 mm](POUR_D) pour hole; air escapes through two Ø[6 mm](VENT_D) vents. Foam expands to fill and cures. Trim flush after cure.
+Each cap is a [16 mm](CAP_H)-tall foam-filled cup. With the cap inverted and the foam-cap-lid sealing its open face from above, liquid foam enters through the lid's Ø[20 mm](POUR_D) pour hole; air escapes through two Ø[6 mm](VENT_D) vents. Foam expands to fill and cures. Trim flush after cure.
 
 Both caps are identical; pour in parallel. Geometry detail at [`/hardware/printed-parts/cold-core/foam-shell/README.md`](/hardware/printed-parts/cold-core/foam-shell/README.md) "foam_cap and foam_cap_lid".
 

@@ -33,7 +33,14 @@ def attachment_clearances_extrude(height):
     )
 
 
-def build_foam_cap():
+def build_foam_cap(open_down=False):
+    """The foam-pour cup. Default (open_down=False) opens +Z — floor on the
+    bottom, mouth up — the orientation the top cap takes. open_down=True
+    shells the other face so the cup opens −Z instead (floor on top, mouth
+    down): the way the bottom cap seats, floor up against the shell's bottom
+    face with the open mouth + lid as the most-negative-Z layer. Only which
+    Z face is shelled differs — the boss + teardrop-web stack and the
+    full-height screw clearances are identical either way."""
     cap = (
         WorldWorkplane(xy_plane_z_up)
         .workplane(offset=0)
@@ -41,12 +48,12 @@ def build_foam_cap():
         .extrude(foam_cap_height)
         .edges("|Z")
         .fillet(corner_round_radius)
-        .faces(">Z")
+        .faces("<Z" if open_down else ">Z")
         .shell(-wall_and_floor_thickness)
     )
     # Same ⌀ boss + teardrop webs as the outer shell.
     bosses = build_attachment_bosses(foam_cap_height)
-    # Screw passes from the cap floor (top in service) through to the mating edge.
+    # Screw clearance passes the full cap height, floor through to mating edge.
     clearances = attachment_clearances_extrude(foam_cap_height)
     return cap.union(bosses).cut(clearances).unwrap()
 
