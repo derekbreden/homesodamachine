@@ -24,10 +24,36 @@ async function parseStep(buffer) {
   return occt.ReadStepFile(buffer, null);
 }
 
+// Default gray for parts that carry no color (single-solid STEPs from
+// export_step). Assemblies from export_assembly carry a per-solid color that
+// occt-import-js surfaces as mesh.color ([r, g, b], 0..1).
+const DEFAULT_FRONT = 0x8899aa;
+const DEFAULT_BACK = 0x667788;
+const BACK_DARKEN = 0.75; // back faces a shade darker so thin parts read from behind
+
+// Materials are shared across meshes (and across loads) by color, so an
+// assembly with N same-colored solids makes one material, not N.
+const _matCache = new Map();
+
+function materialsFor(color) {
+  const key = color ? color.map((c) => Math.round(c * 255)).join(",") : "default";
+  let pair = _matCache.get(key);
+  if (!pair) {
+    const front = color ? new THREE.Color(color[0], color[1], color[2]) : new THREE.Color(DEFAULT_FRONT);
+    const back = color
+      ? new THREE.Color(color[0] * BACK_DARKEN, color[1] * BACK_DARKEN, color[2] * BACK_DARKEN)
+      : new THREE.Color(DEFAULT_BACK);
+    pair = {
+      front: new THREE.MeshStandardMaterial({ color: front, metalness: 0.1, roughness: 0.6 }),
+      back: new THREE.MeshStandardMaterial({ color: back, metalness: 0.1, roughness: 0.6, side: THREE.BackSide }),
+    };
+    _matCache.set(key, pair);
+  }
+  return pair;
+}
+
 function buildMesh(result) {
   const group = new THREE.Group();
-  const mat = new THREE.MeshStandardMaterial({ color: 0x8899aa, metalness: 0.1, roughness: 0.6 });
-  const matBack = new THREE.MeshStandardMaterial({ color: 0x667788, metalness: 0.1, roughness: 0.6, side: THREE.BackSide });
 
   for (const mesh of result.meshes) {
     const geo = new THREE.BufferGeometry();
@@ -40,14 +66,11 @@ function buildMesh(result) {
     }
     geo.computeBoundingBox();
 
-    // Front + back face so thin parts are visible from behind
-    group.add(new THREE.Mesh(geo, mat));
-    group.add(new THREE.Mesh(geo, matBack));
-  }
-
-  // Edge lines for CAD look
-  for (const edge of (result.brpieces || [])) {
-    // Not all versions expose edges — skip if absent
+    // Front + back face so thin parts are visible from behind. occt-import-js
+    // hands us mesh.color per solid when the STEP carries one; else gray.
+    const { front, back } = materialsFor(mesh.color);
+    group.add(new THREE.Mesh(geo, front));
+    group.add(new THREE.Mesh(geo, back));
   }
 
   return group;
