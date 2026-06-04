@@ -37,6 +37,7 @@ sys.path.insert(0, str(_hw / "printed-parts" / "cadlib"))
 from _cadq_export import export_assembly
 from _cold_core_interface import (
     foam_cap_attachment_xy_positions,
+    foam_cap_attachment_xy_positions_bottom,
     screw_clearance_radius,
 )
 
@@ -109,30 +110,35 @@ def _report(placed):
             % (name, b.xmin, b.xmax, b.ymin, b.ymax, b.zmin, b.zmax)
         )
 
-    # Screw pattern must be mirror-symmetric across the long X axis (y -> -y);
-    # that invariance is what lets the mouth-down bottom cap reuse the same
-    # clearance pattern and still land on the shell's bottom-face inserts.
-    P = [(round(x, 6), round(y, 6)) for x, y in foam_cap_attachment_xy_positions]
-    mirrored = {(x, -y) for x, y in P}
-    assert mirrored == set(P), "screw pattern is NOT symmetric across the X axis"
-    print("  screw pattern: 6 points, mirror-symmetric across the long X axis  OK")
+    # The bottom face's mid screws are the top's mirrored across the long X
+    # axis (y -> -y) — the bottom cap is the same cup seated mouth-down. Only
+    # those two midpoints differ; the four corners are shared.
+    top = {(round(x, 6), round(y, 6)) for x, y in foam_cap_attachment_xy_positions}
+    bot = {(round(x, 6), round(y, 6)) for x, y in foam_cap_attachment_xy_positions_bottom}
+    assert {(x, -y) for x, y in top} == bot, "bottom mids are not the X-mirror of the top"
+    assert len(top - bot) == 2 and len(bot - top) == 2, "expected exactly the 2 mids to differ"
+    print("  screw pattern: top diagonal + corners; bottom = X-mirror (2 mids moved)  OK")
 
-    # A thin vertical probe at each screw position must pass clear through both
-    # bottom-stack parts — i.e. a real through-hole for the screw at every spot.
+    # A thin vertical probe at each stack's own screw positions must pass clear
+    # through both of its parts — a real through-hole for every screw.
     probe_r = screw_clearance_radius - 0.3
     clear = True
-    for name in ("foam-cap-bottom", "foam-cap-lid-bottom"):
-        solid = placed[name][0]
-        b = solid.BoundingBox()
-        for x, y in P:
-            probe = cq.Solid.makeCylinder(
-                probe_r, b.zlen + 4, cq.Vector(x, y, b.zmin - 2), cq.Vector(0, 0, 1)
-            )
-            if solid.intersect(probe).Volume() > 1e-6:
-                clear = False
-                print("  ** screw path BLOCKED in %s at (%.1f, %.1f)" % (name, x, y))
+    for parts, pts, label in (
+        (("foam-cap-top", "foam-cap-lid-top"), foam_cap_attachment_xy_positions, "top"),
+        (("foam-cap-bottom", "foam-cap-lid-bottom"), foam_cap_attachment_xy_positions_bottom, "bottom"),
+    ):
+        for name in parts:
+            solid = placed[name][0]
+            b = solid.BoundingBox()
+            for x, y in pts:
+                probe = cq.Solid.makeCylinder(
+                    probe_r, b.zlen + 4, cq.Vector(x, y, b.zmin - 2), cq.Vector(0, 0, 1)
+                )
+                if solid.intersect(probe).Volume() > 1e-6:
+                    clear = False
+                    print("  ** screw path BLOCKED in %s at (%.1f, %.1f)" % (name, x, y))
     print(
-        "  bottom-stack screw paths: all 6 clear through cap + lid  OK"
+        "  screw paths: all 6 clear through each cap + lid (top + bottom)  OK"
         if clear
         else "  ** SCREW PATHS BLOCKED **"
     )
