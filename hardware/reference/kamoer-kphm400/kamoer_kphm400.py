@@ -110,19 +110,18 @@ def build_motor_body():
     return cq.Workplane(obj=_zcyl(motor_dia / 2, octagon_top_z, tower_top_z))
 
 
-def build_tubes():
-    """Two tubes leaving the +Y face along +Y, out through the case's arch
-    notches. Entirely external to the case."""
-    tubes = [_ycyl(tube_od / 2, y_face, tube_end_y, ox=bx, oz=arch_plane_z)
-             for bx in arch_xs]
-    return cq.Workplane(obj=cq.Compound.makeCompound(tubes))
+def _tube_solids():
+    """The two +Y tubes (out through the arch notches) as individual solids."""
+    return [_ycyl(tube_od / 2, y_face, tube_end_y, ox=bx, oz=arch_plane_z)
+            for bx in arch_xs]
 
+
+TUBE_COLOR = cq.Color(0.88, 0.88, 0.84)  # white plastic
 
 _PARTS = [
     ("head",          build_head,          cq.Color(0.16, 0.16, 0.18)),  # black plastic
     ("rotor_housing", build_rotor_housing, cq.Color(0.30, 0.30, 0.33)),  # dark plastic boss
     ("motor_body",    build_motor_body,    cq.Color(0.74, 0.76, 0.80)),  # silver
-    ("tubes",         build_tubes,         cq.Color(0.88, 0.88, 0.84)),  # white plastic
 ]
 
 
@@ -130,11 +129,16 @@ def build_assembly():
     a = cq.Assembly(name="kamoer-kphm400")
     for name, builder, color in _PARTS:
         a.add(builder(), name=name, color=color)
+    # Each tube goes in as its own solid (not one compound) so the STEP carries
+    # the color per solid, where occt-import-js can read it back.
+    for side, solid in zip(("pos", "neg"), _tube_solids()):
+        a.add(solid, name=f"tube_{side}", color=TUBE_COLOR)
     return a
 
 
 def build_scene():
-    return cq.Compound.makeCompound([builder().val() for _, builder, _ in _PARTS])
+    parts = [builder().val() for _, builder, _ in _PARTS]
+    return cq.Compound.makeCompound(parts + _tube_solids())
 
 
 def main():
