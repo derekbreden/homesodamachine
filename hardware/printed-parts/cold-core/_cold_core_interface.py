@@ -103,7 +103,7 @@ outer_shell_y_length = 2 * (
 foam_cap_interior_height = outer_shell_foam_gap
 foam_cap_height = foam_cap_interior_height + wall_and_floor_thickness
 
-foam_cap_lid_pour_radius = 5.0
+foam_cap_lid_pour_radius = 10.0
 foam_cap_lid_vent_radius = 3.0
 foam_cap_lid_hole_inset = 30.0
 
@@ -129,14 +129,16 @@ _corner_boss_diag_offset = (corner_round_radius - screw_boss_size / 2) / math.sq
 _corner_boss_x = _corner_arc_x + _corner_boss_diag_offset
 _corner_boss_y = _corner_arc_y + _corner_boss_diag_offset
 
-# Mid-long-side bosses offset in X to clear the copper/water-outlet
-# slot at x=0; opposite signs at ±Y preserve 180° rotational symmetry
-# around the Z axis (balanced gasket compression).
+# Mid-long-side bosses both offset to the SAME +X side (clearing the
+# copper/water-outlet slot at x=0), so the whole 6-point pattern is
+# mirror-symmetric across the long X axis. The symmetric layout reads
+# the same from both ends: the mouth-up top cap and the mouth-down
+# bottom cap each land all six screws on that end's shell inserts.
 mid_screw_x_offset = 15.0
 foam_cap_attachment_xy_positions = (
     [(x_sign * _corner_boss_x, y_sign * _corner_boss_y)
      for x_sign in (1, -1) for y_sign in (1, -1)]
-    + [(y_sign * mid_screw_x_offset,
+    + [(mid_screw_x_offset,
         y_sign * (outer_shell_y_length / 2 - screw_boss_size / 2))
        for y_sign in (1, -1)]
 )
