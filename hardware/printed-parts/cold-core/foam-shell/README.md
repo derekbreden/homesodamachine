@@ -456,11 +456,11 @@ that needs a deliberate explanation:
 
 | metric | value |
 |---|---|
-| volume | [1055106.083 mm³](FSHELL_VOLUME) |
+| volume | [1072497.007 mm³](FSHELL_VOLUME) |
 | bbox x | [-141.500 to 141.500 mm](FSHELL_BBOX_X) |
 | bbox z | [0.000 to 213.400 mm](FSHELL_BBOX_Z) |
 | bbox y | [-90.500 to 90.500 mm](FSHELL_BBOX_Y) |
-| centroid | [(0.241528, -0.616570, 88.192874) mm](CENTROID) |
+| centroid | [(0.000005, -0.606572, 88.509189) mm](CENTROID) |
 
 Quick reproduction:
 
