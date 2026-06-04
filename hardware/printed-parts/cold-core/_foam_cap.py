@@ -22,25 +22,24 @@ from _outer_shell import build_attachment_bosses
 lid_cut_through_depth = wall_and_floor_thickness * 3
 
 
-def attachment_clearances_extrude(height, positions):
-    """Screw-clearance cylinders at every position in `positions`, extruded +Z by height."""
+def attachment_clearances_extrude(height):
+    """Screw-clearance cylinders at every attachment position, extruded +Z by height."""
     return (
         WorldWorkplane(xy_plane_z_up)
         .workplane(offset=0)
-        .pushPoints(positions)
+        .pushPoints(foam_cap_attachment_xy_positions)
         .circle(screw_clearance_radius)
         .extrude(height)
     )
 
 
-def build_foam_cap(open_down=False, positions=foam_cap_attachment_xy_positions):
-    """The foam-pour cup. Default (open_down=False) opens +Z — floor on the
-    bottom, mouth up — the orientation the top cap takes. open_down=True
-    shells the other face so the cup opens −Z instead (floor on top, mouth
-    down): the way the bottom cap seats, floor up against the shell's bottom
-    face with the open mouth + lid as the most-negative-Z layer. `positions`
-    selects which diagonal of mid screws to use — the top diagonal for the
-    top cap, the mirrored bottom diagonal for the mouth-down bottom cap."""
+def build_foam_cap(open_down=False):
+    """The foam-pour cup. Default opens +Z (floor on the bottom, mouth up) —
+    the top cap. open_down=True shells the other face so the cup opens −Z
+    (floor on top, mouth down): the bottom cap, seated floor-up against the
+    shell's bottom face with its open mouth + lid as the most-negative-Z
+    layer. Same footprint and same six-screw clearance pattern either way, so
+    the mouth-down bottom cap lands its screws on the shell's existing bosses."""
     cap = (
         WorldWorkplane(xy_plane_z_up)
         .workplane(offset=0)
@@ -52,13 +51,13 @@ def build_foam_cap(open_down=False, positions=foam_cap_attachment_xy_positions):
         .shell(-wall_and_floor_thickness)
     )
     # Same ⌀ boss + teardrop webs as the outer shell.
-    bosses = build_attachment_bosses(foam_cap_height, positions)
+    bosses = build_attachment_bosses(foam_cap_height)
     # Screw clearance passes the full cap height, floor through to mating edge.
-    clearances = attachment_clearances_extrude(foam_cap_height, positions)
+    clearances = attachment_clearances_extrude(foam_cap_height)
     return cap.union(bosses).cut(clearances).unwrap()
 
 
-def build_foam_cap_lid(positions=foam_cap_attachment_xy_positions):
+def build_foam_cap_lid():
     lid = (
         WorldWorkplane(xy_plane_z_up)
         .workplane(offset=0)
@@ -87,7 +86,7 @@ def build_foam_cap_lid(positions=foam_cap_attachment_xy_positions):
     pour_hole = cut_hole(pour_xy, foam_cap_lid_pour_radius)
     vent_hole_plus_y = cut_hole(vent_plus_y_xy, foam_cap_lid_vent_radius)
     vent_hole_minus_y = cut_hole(vent_minus_y_xy, foam_cap_lid_vent_radius)
-    clearances = attachment_clearances_extrude(lid_cut_through_depth, positions)
+    clearances = attachment_clearances_extrude(lid_cut_through_depth)
     return lid.cut(pour_hole).cut(vent_hole_plus_y).cut(vent_hole_minus_y).cut(clearances).unwrap()
 
 
@@ -117,6 +116,6 @@ def build_foam_cap_gasket():
         .fillet(corner_round_radius - gasket_strip_width)
     )
     gasket = outer.cut(inner)
-    pads = build_attachment_bosses(gasket_thickness, foam_cap_attachment_xy_positions)
-    holes = attachment_clearances_extrude(gasket_thickness, foam_cap_attachment_xy_positions)
+    pads = build_attachment_bosses(gasket_thickness)
+    holes = attachment_clearances_extrude(gasket_thickness)
     return gasket.union(pads).cut(holes).unwrap()

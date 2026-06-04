@@ -27,7 +27,6 @@ from _cold_core_interface import (
     support_ring_radial_width,
     wall_and_floor_thickness,
     foam_cap_height,
-    foam_cap_attachment_xy_positions_bottom,
 )
 from docgen import substitute_py_comments
 
@@ -102,15 +101,13 @@ def add_co2_boss(cap):
 
 
 def main():
-    # Top cap opens +Z (mouth up) on the top diagonal; bottom cap is authored
-    # mouth-down (open ceiling −Z) on the mirrored bottom diagonal. Both stack
-    # onto the shell by Z-translation alone.
+    # Top cap opens +Z (mouth up); the bottom cap is the same cup built
+    # mouth-down (open ceiling −Z), so both stack onto the shell by Z-shift
+    # alone and the bottom cap's screws land on the shell's existing bosses.
     cap_top = add_co2_boss(cut_co2_inlet(build_foam_cap()))
-    cap_bottom = build_foam_cap(
-        open_down=True, positions=foam_cap_attachment_xy_positions_bottom
-    )
-    lid_top = cut_co2_inlet_lid(build_foam_cap_lid())
-    lid_bottom = build_foam_cap_lid(positions=foam_cap_attachment_xy_positions_bottom)
+    cap_bottom = build_foam_cap(open_down=True)
+    lid_bottom = build_foam_cap_lid()
+    lid_top = cut_co2_inlet_lid(lid_bottom)
     gasket = build_foam_cap_gasket()
 
     cap_floor_hole_volume = math.pi * co2_tube_clearance_radius ** 2 * wall_and_floor_thickness

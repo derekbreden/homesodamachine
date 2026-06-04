@@ -129,34 +129,16 @@ _corner_boss_diag_offset = (corner_round_radius - screw_boss_size / 2) / math.sq
 _corner_boss_x = _corner_arc_x + _corner_boss_diag_offset
 _corner_boss_y = _corner_arc_y + _corner_boss_diag_offset
 
-# Mid-long-side bosses offset in X to clear the copper/water-outlet slot
-# at x=0. The top face keeps the original diagonal (opposite X signs at
-# ±Y, 180° Z symmetry). The bottom cap is the same cup seated mouth-down,
-# so its mid screws mirror across the long X axis onto the OTHER diagonal —
-# the only change is the two midpoint screws on the bottom.
+# Mid-long-side bosses offset in X to clear the copper/water-outlet
+# slot at x=0; opposite signs at ±Y preserve 180° rotational symmetry
+# around the Z axis (balanced gasket compression).
 mid_screw_x_offset = 15.0
-_mid_screw_y = outer_shell_y_length / 2 - screw_boss_size / 2
-_corner_positions = [
-    (x_sign * _corner_boss_x, y_sign * _corner_boss_y)
-    for x_sign in (1, -1) for y_sign in (1, -1)
-]
-_top_mid_positions = [
-    (mid_screw_x_offset, _mid_screw_y),
-    (-mid_screw_x_offset, -_mid_screw_y),
-]
-_bottom_mid_positions = [
-    (mid_screw_x_offset, -_mid_screw_y),
-    (-mid_screw_x_offset, _mid_screw_y),
-]
-# Corners are shared by both faces (4-fold symmetric); only the mid screws
-# differ top vs bottom. Each list is corners-first.
-foam_cap_attachment_xy_positions = _corner_positions + _top_mid_positions
-foam_cap_attachment_xy_positions_bottom = _corner_positions + _bottom_mid_positions
-# The shell carries a boss at every mid position on either diagonal, so the
-# top inserts (top diagonal) and the bottom inserts (bottom diagonal) each
-# seat in solid PETG.
-foam_cap_boss_xy_positions = (
-    _corner_positions + _top_mid_positions + _bottom_mid_positions
+foam_cap_attachment_xy_positions = (
+    [(x_sign * _corner_boss_x, y_sign * _corner_boss_y)
+     for x_sign in (1, -1) for y_sign in (1, -1)]
+    + [(y_sign * mid_screw_x_offset,
+        y_sign * (outer_shell_y_length / 2 - screw_boss_size / 2))
+       for y_sign in (1, -1)]
 )
 gasket_thickness = 2.0
 gasket_strip_width = 5.0
