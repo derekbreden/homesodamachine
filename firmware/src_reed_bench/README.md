@@ -2,7 +2,7 @@
 
 Small standalone firmware for a spare ESP32 that prints reed-switch state to the serial console. Sole purpose: develop hands-on intuition for the reed + MCP23017 + I²C chain before any of it has to work inside the appliance.
 
-This is **not** the production firmware. It's a throwaway rig. Planning lives in this README; firmware code will land in this same folder later.
+This is **not** the production firmware. It's a throwaway rig. The firmware is [`main.cpp`](main.cpp); this README carries the wiring, intent, and tear-down.
 
 ## Bench rig
 
@@ -40,7 +40,7 @@ The MCP23017's GPIO pins all support internal weak pull-up. The firmware enables
 
 Allocate signal wires to MCP23017 pins **PA0..PA(N−1)** for simplicity (the firmware reads all 16 pins anyway, so any pins work — but starting at PA0 makes the console output easy to read).
 
-## Firmware spec (for the next agent)
+## Firmware spec
 
 The firmware is intentionally minimal. Don't add features beyond this list. The whole file should fit on a screen.
 
