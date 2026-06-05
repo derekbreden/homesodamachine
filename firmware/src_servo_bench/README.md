@@ -65,7 +65,7 @@ pulse_us(angle) = CENTER_US + (angle - 90) * US_PER_DEG
 ```
 
 - **`CENTER_US`** — the pulse that lands *this* servo at a true, square 90°.
-  This is the one number worth measuring. Current value: **1485 µs**.
+  This is the one number worth measuring. Current value: **1600 µs**.
 - **`US_PER_DEG`** — the slope, ≈ `(2400 − 500) / 180 ≈ 10.56 µs/°`. Second-
   order: it only scales corrections and sets the 0° endpoint.
 
