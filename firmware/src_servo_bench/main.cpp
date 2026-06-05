@@ -12,7 +12,7 @@
 //     V+     (red)    -> 5V
 //     GND    (brown)  -> GND
 //
-// Each press drives to the next position and, after a settle delay, detaches.
+// Each press drives to the next position and, after a settle delay, releases.
 // Both the move and the release are echoed to serial at 115200.
 
 #include <Arduino.h>
@@ -47,18 +47,20 @@ static int pulseFor(int angle) {
   return (int)lroundf(REST_US + angle * US_PER_DEG);
 }
 
-// After commanding a move, keep the signal alive just long enough for the servo
-// to physically arrive, then detach so it goes limp. SETTLE_MS must cover the
-// worst-case travel time (an MG90S crosses ~90 deg in ~0.2 s unloaded; 500 ms is
-// generous). Detach too early and it would stop mid-travel.
+// After a move, hold the signal long enough for the servo to physically arrive,
+// then RELEASE. We release with Servo::release() (PWM duty -> 0, a clean steady
+// idle-LOW) rather than detach(): detach() calls ledcDetach, which reconfigures
+// the pin and leaves a transient the servo reads as a command and jerks to.
+// release() keeps the channel attached and just stops the pulses, so the servo
+// de-energizes cleanly with no jerk; the next writeMicroseconds() resumes it.
 static const unsigned long SETTLE_MS   = 500;
 static const unsigned long DEBOUNCE_MS = 40;
 static const unsigned long BEAT_MS     = 10000;
 
 Servo servo;
-bool servoAttached = false;
-bool detachPending = false;
-unsigned long detachAt = 0;
+bool released = true;         // true = pulses stopped (limp); false = driving/holding
+bool releasePending = false;
+unsigned long releaseAt = 0;
 
 bool atB = false;             // which of the two positions we last drove to
 int lastAngle = ANGLE_A;
@@ -66,24 +68,23 @@ int lastButton = HIGH;        // pull-up idle reads HIGH
 unsigned long lastEdgeMs = 0;
 unsigned long lastBeatMs = 0;
 
-// Attach (if needed), drive to the target, and schedule the release.
+// Drive to the target (resuming pulses if released) and schedule the release.
 static void startMove(int angle) {
-  if (!servoAttached) {
-    servo.setPeriodHertz(50);             // 50 Hz analog-servo frame
-    servo.attach(PIN_SERVO, 500, 2500);   // bounds for writeMicroseconds()
-    servoAttached = true;
-  }
   servo.writeMicroseconds(pulseFor(angle));
+  released = false;
   lastAngle = angle;
-  detachAt = millis() + SETTLE_MS;
-  detachPending = true;
+  releaseAt = millis() + SETTLE_MS;
+  releasePending = true;
 }
 
 void setup() {
   Serial.begin(115200);
   delay(200);
   pinMode(PIN_BUTTON, INPUT_PULLUP);
+
   ESP32PWM::allocateTimer(0);
+  servo.setPeriodHertz(50);             // 50 Hz analog-servo frame
+  servo.attach(PIN_SERVO, 500, 2500);   // attach once — we never detach
 
   Serial.println();
   Serial.println("=== servo-bench ===");
@@ -115,18 +116,12 @@ void loop() {
     }
   }
 
-  // Release the servo once it's had time to reach the commanded position.
-  if (detachPending && millis() >= detachAt) {
-    servo.detach();
-    // Detaching from the ESP32 LEDC peripheral can leave the signal pin stuck
-    // HIGH — a continuously-high line is a garbage "pulse" the servo reads as a
-    // command and actively drives to (a powered jerk, then it fights you), NOT
-    // a clean release. Force a steady idle-LOW: no pulses = no command = the
-    // servo de-energizes and truly goes limp.
-    pinMode(PIN_SERVO, OUTPUT);
-    digitalWrite(PIN_SERVO, LOW);
-    servoAttached = false;
-    detachPending = false;
+  // Release once the servo has had time to reach the commanded position.
+  // release() = PWM duty 0 = clean idle-LOW; no detach, so no jerk.
+  if (releasePending && millis() >= releaseAt) {
+    servo.release();
+    released = true;
+    releasePending = false;
     Serial.printf("t=%lu ms  released (limp) at %d deg — valve would hold itself\n",
                   millis(), lastAngle);
   }
@@ -136,7 +131,7 @@ void loop() {
     lastBeatMs = millis();
     Serial.printf("t=%lu ms  alive, last move %d deg (%d us), servo %s\n",
                   millis(), lastAngle, pulseFor(lastAngle),
-                  servoAttached ? "holding" : "released (limp)");
+                  released ? "released (limp)" : "holding");
   }
 
   delay(5);
