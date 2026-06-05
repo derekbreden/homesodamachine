@@ -1,8 +1,10 @@
 # Servo-bench prototype
 
 Small standalone firmware for a spare ESP32: press a button, an MG90S servo
-moves. Sole purpose: confirm the button + servo + ESP32 chain on the bench
-before any of it has to work inside the appliance. Sibling of
+sweeps 90° and then releases — a bench stand-in for actuating a quarter-turn
+valve. Sole purpose: confirm the button + servo + ESP32 chain (and the
+drive-then-release pattern) before any of it has to work inside the appliance.
+Sibling of
 [`../src_reed_bench/`](../src_reed_bench/README.md) — same throwaway-rig idea,
 different peripheral.
 
@@ -47,10 +49,18 @@ share GND with the ESP32.
 
 ## Behavior
 
-Each button press toggles the servo through a calibrated **90° of travel**
-(rest → actuated and back; see Calibration below). Every press echoes the angle
-*and the exact pulse width sent* to serial at 115200, plus a heartbeat line
-every 10 s so the console shows the board is alive before you touch the button.
+Each button press drives the servo through a calibrated **90° of travel** (rest
+→ actuated and back; see Calibration below), then — after a ~500 ms settle delay
+— **detaches the servo so it goes limp**. This models actuating a quarter-turn
+valve: drive it to on/off, then let go. A manual ball valve holds its own
+position, so the servo never sits **stalled against the valve's end stop** (a
+sustained stall is heat, current, and wear), and it draws ~zero current between
+actuations — asleep the 99.99 % of the time it isn't moving.
+
+Both the move *and* the release are echoed to serial at 115200, plus a 10 s
+heartbeat reporting whether the servo is currently `holding` or `released
+(limp)`. The settle delay must cover the worst-case travel time; if a loaded
+valve moves slowly, raise `SETTLE_MS`.
 
 ## Calibration
 
