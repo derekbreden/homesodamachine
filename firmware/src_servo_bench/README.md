@@ -47,31 +47,35 @@ share GND with the ESP32.
 
 ## Behavior
 
-Each button press toggles the servo between **0°** and a calibrated, true
-**90°** (see Calibration below). Every press echoes the angle *and the exact
-pulse width sent* to serial at 115200, plus a heartbeat line every 10 s so the
-console shows the board is alive before you touch the button.
+Each button press toggles the servo through a calibrated **90° of travel**
+(rest → actuated and back; see Calibration below). Every press echoes the angle
+*and the exact pulse width sent* to serial at 115200, plus a heartbeat line
+every 10 s so the console shows the board is alive before you touch the button.
 
 ## Calibration
 
-A hobby servo's shaft angle is set by PWM pulse width, read back through an
-internal feedback potentiometer — the motion is **continuous, not stepped by
-gear teeth** — but the pulse→angle endpoints vary from unit to unit. Rather
-than trust a generic 0–180° → min/max mapping, the firmware models the line
-explicitly and drives the servo in microseconds:
+What's calibrated here is the **travel** — a true 90° of swept arc between the
+two positions — *not* where either endpoint points in absolute space. A hobby
+servo's shaft angle is a linear function of PWM pulse width (continuous, **not
+stepped by gear teeth**), so the firmware anchors a rest pulse and adds a
+per-degree slope, driving the servo in microseconds:
 
 ```
-pulse_us(angle) = CENTER_US + (angle - 90) * US_PER_DEG
+pulse_us(angle) = REST_US + angle * US_PER_DEG
 ```
 
-- **`CENTER_US`** — the pulse that lands *this* servo at a true, square 90°.
-  This is the one number worth measuring. Current value: **1600 µs**.
-- **`US_PER_DEG`** — the slope, ≈ `(2400 − 500) / 180 ≈ 10.56 µs/°`. Second-
-  order: it only scales corrections and sets the 0° endpoint.
+- **`US_PER_DEG`** — the servo's **real** microseconds per degree, and the one
+  knob that sets travel: `span = (ANGLE_B − ANGLE_A) × US_PER_DEG`. The generic
+  `(2400 − 500) / 180 ≈ 10.56 µs/°` undershoots badly on this unit (90°
+  commanded sweeps visibly less than 90°), so it's tuned up against the observed
+  arc. Current value: **12.32 µs/°** (≈ 1109 µs of span for 90°).
+- **`REST_US`** — pulse at the rest position. Sets only *where* the sweep sits,
+  which is irrelevant here; pick any safe value. Current: **1000 µs**.
 
-Hobby servos cluster near a 1500 µs center but vary per unit, so `CENTER_US`
-is tuned empirically to put *this* arm square — read off the live pulse width
-the firmware logs on every press — rather than taken from a datasheet.
+**To refine:** if the swept arc is short of 90°, raise `US_PER_DEG`; if it
+overshoots, lower it. The value is bracketed — a 950 µs span fell short, the old
+1267 µs span overshot — so a couple of reflashes bisect it. Each press logs the
+live pulse width, so you can read the exact span being commanded.
 
 **To refine:** park the arm at 90° against a square (or protractor). If it's
 short, raise `CENTER_US` (~10.5 µs per degree); if it's past, lower it. Each
