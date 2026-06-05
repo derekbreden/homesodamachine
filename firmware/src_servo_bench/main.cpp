@@ -34,7 +34,7 @@ static const int ANGLE_B = 90;
 // tuned by eye against a square using the live pulse width each press logs
 // (see README "Calibration"). Hobby servos cluster near a 1500 us center but
 // vary per unit, so treat this as measured, not derived.
-static const float CENTER_US  = 1485.0f;  // pulse at true 90 deg — tune to square
+static const float CENTER_US  = 1600.0f;  // pulse at true 90 deg — tune to square
 static const float US_PER_DEG = 10.56f;   // ~(2400-500)/180 slope; 2nd-order
 
 static int pulseFor(int angle) {
