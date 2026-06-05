@@ -118,6 +118,13 @@ void loop() {
   // Release the servo once it's had time to reach the commanded position.
   if (detachPending && millis() >= detachAt) {
     servo.detach();
+    // Detaching from the ESP32 LEDC peripheral can leave the signal pin stuck
+    // HIGH — a continuously-high line is a garbage "pulse" the servo reads as a
+    // command and actively drives to (a powered jerk, then it fights you), NOT
+    // a clean release. Force a steady idle-LOW: no pulses = no command = the
+    // servo de-energizes and truly goes limp.
+    pinMode(PIN_SERVO, OUTPUT);
+    digitalWrite(PIN_SERVO, LOW);
     servoAttached = false;
     detachPending = false;
     Serial.printf("t=%lu ms  released (limp) at %d deg — valve would hold itself\n",
