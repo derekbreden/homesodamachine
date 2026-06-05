@@ -30,12 +30,11 @@ static const int ANGLE_B = 90;
 //
 //     pulse_us(angle) = CENTER_US + (angle - 90) * US_PER_DEG
 //
-// CENTER_US is the pulse that lands THIS servo at a true, square 90 deg. It is
-// the one number worth measuring (see README "Calibration"). The generic
-// 1500 us center sat slightly past 90 on this unit; the earlier 1450 us (an
-// artifact of an asymmetric 500-2400 us attach range) sat ~1-2 deg short, so
-// the measured true-90 is between them.
-static const float CENTER_US  = 1465.0f;  // pulse at true 90 deg — tune this
+// CENTER_US is the pulse that puts THIS servo's arm at a true, square 90 deg,
+// tuned by eye against a square using the live pulse width each press logs
+// (see README "Calibration"). Hobby servos cluster near a 1500 us center but
+// vary per unit, so treat this as measured, not derived.
+static const float CENTER_US  = 1485.0f;  // pulse at true 90 deg — tune to square
 static const float US_PER_DEG = 10.56f;   // ~(2400-500)/180 slope; 2nd-order
 
 static int pulseFor(int angle) {
