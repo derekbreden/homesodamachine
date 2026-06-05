@@ -65,13 +65,13 @@ pulse_us(angle) = CENTER_US + (angle - 90) * US_PER_DEG
 ```
 
 - **`CENTER_US`** — the pulse that lands *this* servo at a true, square 90°.
-  This is the one number worth measuring. Current value: **1465 µs**.
+  This is the one number worth measuring. Current value: **1485 µs**.
 - **`US_PER_DEG`** — the slope, ≈ `(2400 − 500) / 180 ≈ 10.56 µs/°`. Second-
   order: it only scales corrections and sets the 0° endpoint.
 
-The generic 1500 µs center sits slightly *past* 90° on this unit; an earlier
-asymmetric 500–2400 µs `attach()` range put 90° at 1450 µs, which eyeballed
-~1–2° short. 1465 µs is the observation-derived midpoint.
+Hobby servos cluster near a 1500 µs center but vary per unit, so `CENTER_US`
+is tuned empirically to put *this* arm square — read off the live pulse width
+the firmware logs on every press — rather than taken from a datasheet.
 
 **To refine:** park the arm at 90° against a square (or protractor). If it's
 short, raise `CENTER_US` (~10.5 µs per degree); if it's past, lower it. Each
