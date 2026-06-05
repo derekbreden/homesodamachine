@@ -47,9 +47,36 @@ share GND with the ESP32.
 
 ## Behavior
 
-Each button press toggles the servo between **0°** and **120°**. Every press and
-the resulting angle is echoed to serial at 115200, plus a heartbeat line every
-10 s so the console shows the board is alive before you touch the button.
+Each button press toggles the servo between **0°** and a calibrated, true
+**90°** (see Calibration below). Every press echoes the angle *and the exact
+pulse width sent* to serial at 115200, plus a heartbeat line every 10 s so the
+console shows the board is alive before you touch the button.
+
+## Calibration
+
+A hobby servo's shaft angle is set by PWM pulse width, read back through an
+internal feedback potentiometer — the motion is **continuous, not stepped by
+gear teeth** — but the pulse→angle endpoints vary from unit to unit. Rather
+than trust a generic 0–180° → min/max mapping, the firmware models the line
+explicitly and drives the servo in microseconds:
+
+```
+pulse_us(angle) = CENTER_US + (angle - 90) * US_PER_DEG
+```
+
+- **`CENTER_US`** — the pulse that lands *this* servo at a true, square 90°.
+  This is the one number worth measuring. Current value: **1465 µs**.
+- **`US_PER_DEG`** — the slope, ≈ `(2400 − 500) / 180 ≈ 10.56 µs/°`. Second-
+  order: it only scales corrections and sets the 0° endpoint.
+
+The generic 1500 µs center sits slightly *past* 90° on this unit; an earlier
+asymmetric 500–2400 µs `attach()` range put 90° at 1450 µs, which eyeballed
+~1–2° short. 1465 µs is the observation-derived midpoint.
+
+**To refine:** park the arm at 90° against a square (or protractor). If it's
+short, raise `CENTER_US` (~10.5 µs per degree); if it's past, lower it. Each
+press prints the live pulse width, so you can read off exactly what's commanded
+and converge in a couple of reflashes.
 
 ## PlatformIO env
 
