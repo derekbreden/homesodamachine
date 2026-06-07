@@ -1235,6 +1235,11 @@ def main():
         "BULKHEAD_SEAL_WET_CB_D": f"{bulkhead_seal_wet_counterbore_diameter:.4g} mm",
         "BULKHEAD_SEAL_DRY_CB_D": f"{bulkhead_seal_dry_counterbore_diameter:.4g} mm",
         "BULKHEAD_SEAL_BOSS_D": f"{bulkhead_seal_boss_diameter:.4g} mm",
+        "BULKHEAD_SEAL_THICKNESS": f"{bulkhead_seal_thickness:.4g} mm",
+        "BULKHEAD_SEAL_CB_DEPTH": f"{bulkhead_seal_counterbore_depth:.4g} mm",
+        "BULKHEAD_SEAL_COMPRESSION": f"{(bulkhead_seal_thickness - bulkhead_seal_counterbore_depth) / bulkhead_seal_thickness * 100:.0f}%",
+        "BULKHEAD_BELOW_FLOOR_STACK": f"{bulkhead_below_floor_stack:.4g} mm",
+        "FLOOR_BELOW_TROUGH_HEADROOM": f"{floor_below_trough_headroom:.4g} mm",
         "OUTER_Y_MAX": f"{outer_y_max:.4g} mm",
         "OUTER_CENTERWARD_R": f"{outer_centerward_radius:.4g} mm",
         "INNER_Y_MAX": f"{inner_y_max:.4g} mm",
@@ -1288,6 +1293,39 @@ def main():
         },
     )
     print("-> level-sensing.md")
+    substitute_md(
+        here / "floor-and-bulkhead.md",
+        variables=variables,
+        expected_counts={
+            "BULKHEAD_PANEL_HOLE_D": 2,
+            "BULKHEAD_DRY_FLANGE_OD": 2,
+            "BULKHEAD_SEAL_WET_OD": 1,
+            "BULKHEAD_WET_NUT_OD": 1,
+            "BULKHEAD_SEAL_DRY_OD": 1,
+            "BULKHEAD_BELOW_FLOOR_STACK": 1,
+            "FLOOR_BELOW_TROUGH_HEADROOM": 1,
+        },
+    )
+    print("-> floor-and-bulkhead.md")
+    substitute_md(
+        here / ".." / ".." / ".." / "off-the-shelf-parts" / "puresec-90-bulkhead" / "geometry-description.md",
+        variables=variables,
+        expected_counts={
+            "BULKHEAD_PANEL_HOLE_D": 2,
+            "BULKHEAD_SEAL_ID": 2,
+            "BULKHEAD_DRY_FLANGE_OD": 4,
+            "BULKHEAD_WET_NUT_OD": 3,
+            "BULKHEAD_SEAL_WET_OD": 3,
+            "BULKHEAD_SEAL_DRY_OD": 3,
+            "BULKHEAD_SEAL_THICKNESS": 1,
+            "BULKHEAD_SEAL_COMPRESSION": 1,
+            "BULKHEAD_SEAL_WET_CB_D": 1,
+            "BULKHEAD_SEAL_DRY_CB_D": 1,
+            "BULKHEAD_SEAL_CB_DEPTH": 2,
+            "RESERVOIR_WALL_T": 2,
+        },
+    )
+    print("-> off-the-shelf-parts/puresec-90-bulkhead/geometry-description.md")
     substitute_py_comments(
         Path(__file__),
         variables=variables,
