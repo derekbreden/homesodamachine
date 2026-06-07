@@ -6,7 +6,7 @@ Standing, filament-agnostic guidance for printing the reservoir body + cap leak-
 
 - Open-top `[` cup: floor + four walls, 3 mm uniform PETG, closed by a separately-printed cap clamped through a TPU gasket (6× M3 into heat-set inserts).
 - **Vented, non-pressurized.** A PTFE membrane in the cap equalizes the air space, so the only load on the wall is the hydrostatic head of syrup — a tall but low-pressure column (~210 mm ≈ **~0.3 psi** at the floor).
-- Floor is a Y-symmetric V trough with a vertical bulkhead penetration; a TPU face washer in a wet-side counterbore seals the barrel-to-floor joint, locknut from below.
+- Floor is a Y-symmetric V trough with a vertical bulkhead penetration; a purchased silicone flat washer in a wet-side counterbore is the primary seal on the barrel-to-floor joint (a printed TPU face washer under the elbow flange backs it up on the dry side), locknut from below.
 - 6 mm fillets at the internal corners.
 - Cold service (8–15 °C). Food contact (mildly acidic concentrate). The wetted surface is the bare print — its food-contact + taint acceptance is [`wetted-surface-test.md`](wetted-surface-test.md) (leak-tightness, below, is a separate gate).
 
@@ -55,7 +55,7 @@ Wet PETG flashes to steam in the melt and leaves micro-voids that become leak pa
 ### 8. Geometry that helps the seal
 - The 6 mm internal fillets are correct — keep them, and ensure the floor-to-wall transition is filleted too, not just the vertical corners.
 - A flat-walled box is the weakest watertight form: walls bow under head, opening the layer interface in tension. 3 mm is a sensible wall; the cheapest added robustness is reinforcing the lower third (an external rib or a thicker low wall), since head is highest at the bottom.
-- **Penetrations and sealing faces:** seal on a flat, ironed, upward-facing top surface, never on a layer-line wall. Keep heat-set inserts and bolt bores ≥ ~2 mm of solid PETG away from the wetted volume. Let the TPU washer / gasket do the sealing (face seal at a controlled squeeze) — do not rely on printed-plastic tightness against the bulkhead barrel.
+- **Penetrations and sealing faces:** seal on a flat, ironed, upward-facing top surface, never on a layer-line wall. Keep heat-set inserts and bolt bores ≥ ~2 mm of solid PETG away from the wetted volume. Let the washers do the sealing (face seal at a controlled squeeze — the wet-side primary is a purchased silicone flat washer, the dry-side secondary a printed TPU washer) — do not rely on printed-plastic tightness against the bulkhead barrel.
 
 ## Leak test (so each iteration gets a real pass/fail)
 

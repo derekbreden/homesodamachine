@@ -11,14 +11,13 @@ them. Several of these parts have prior individual prints (the reservoir
 gasket + bulkhead seals were in the 2026-05-30 watertight test — see
 [`cold-core/reservoir/print-log.md`](cold-core/reservoir/print-log.md)).
 
-## Plate composition (13 instances, 6 distinct parts)
+## Plate composition (11 instances, 5 distinct parts)
 
 | Part (STEP) | Source | × | Footprint | CAD material |
 | --- | --- | --- | --- | --- |
 | `foam-cap-gasket` | [`cold-core/foam-cap/foam_cap.py`](cold-core/foam-cap/foam_cap.py) | 1 | 4480 mm² | TPU 90A |
 | `reservoir-gasket` | [`cold-core/reservoir/reservoir.py`](cold-core/reservoir/reservoir.py) | 3 | 2323 mm² | TPU 85A |
 | `touch-flo-mounting-gasket` | [`faucet/touch-flo-mounting-gasket/touch_flo_mounting_gasket.py`](faucet/touch-flo-mounting-gasket/touch_flo_mounting_gasket.py) | 2 | 2111 mm² | TPU 90A |
-| `reservoir-bulkhead-seal-wet` | [`cold-core/reservoir/reservoir.py`](cold-core/reservoir/reservoir.py) | 2 | 145 mm² | TPU washer |
 | `reservoir-bulkhead-seal-dry` | [`cold-core/reservoir/reservoir.py`](cold-core/reservoir/reservoir.py) | 2 | 67.7 mm² | TPU washer |
 | `reservoir-retaining-ring` | [`cold-core/reservoir/reservoir.py`](cold-core/reservoir/reservoir.py) | 3 | 77.4 mm² | TPU 90A |
 
@@ -30,19 +29,21 @@ Part roles (geometry authoritative in the sources above):
 - **touch-flo-mounting-gasket** — Ø54.35 mm × 2.0 mm disc between the
   faucet mounting plate and the kitchen countertop; shank hole + flavor-tube
   pill slot.
-- **reservoir-bulkhead-seal-wet / -dry** — TPU face-seal washers around the
-  PureSec bulkhead, shared Ø16 mm ID × 2.0 mm; wet OD 21.0 mm, dry OD 18.5 mm.
+- **reservoir-bulkhead-seal-dry** — TPU face-seal washer under the elbow
+  flange on the dry side of the PureSec bulkhead, Ø16 mm ID × Ø18.5 mm OD
+  × 2.0 mm. (The wet-side bulkhead seal is a purchased silicone flat washer,
+  not printed — see bom.md.)
 - **reservoir-retaining-ring** — 2.0 mm ring, OD 13.4 / ID 9.0 mm, press-fit
   into the Ø13.2 mm vent-filter pocket (0.1 mm interference/side).
 
 The CAD docstrings spec a mix of hardnesses (reservoir-gasket TPU 85A;
-foam-cap-gasket, touch-flo-mounting-gasket, retaining-ring TPU 90A; the two
-bulkhead washers unspecified). This plate prints all of them from the single
+foam-cap-gasket, touch-flo-mounting-gasket, retaining-ring TPU 90A; the dry
+bulkhead washer unspecified). This plate prints all of them from the single
 loaded TPU 85A spool.
 
 ## Print attempt 1 (2026-06-06, settings per [`gaskets.3mf`](gaskets.3mf))
 
-First consolidated gaskets plate. All 13 instances on extruder 1 (left),
+First consolidated gaskets plate. All 11 instances on extruder 1 (left),
 single TPU 85A spool. `first_layer_time` ≈ 2215 s; plate bbox ≈ 283 × 285 mm.
 `slice_info.config` header-only (saved + printed-from, no full slice estimate
 embedded). Sliced in Bambu Studio 02.07.01.57.
