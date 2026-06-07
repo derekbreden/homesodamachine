@@ -69,9 +69,12 @@ bag_pocket_corner_inner_radius = 6.5
 reservoir_clearance = 0.5
 reservoir_floor_thickness = 3.0
 # Bulkhead vertical scheme. The PureSec mounts elbow-DOWN: the integral 90°
-# elbow + its dry-side flange + the below-side TPU washer hang below the
-# reservoir's flat exterior floor bottom (the nut is on the wet/cavity side,
-# above). The reservoir's weight rides on the corner support posts; the
+# elbow + its dry-side flange + the below-side printed-TPU washer hang below
+# the reservoir's flat exterior floor bottom (the wet-side primary seal is a
+# purchased silicone flat washer in a wet/cavity-side counterbore, compressed
+# by the nut on the wet/cavity side, above; the dry-side TPU washer is the
+# secondary seal under the elbow flange). The reservoir's weight rides on the
+# corner support posts; the
 # elbow's lowest point clears the bag-pocket floor by bulkhead_floor_clearance
 # and bears no load. The flavor-line wall holes and the reed cable holes both
 # pin their Z to bulkhead_elbow_exit_z (the elbow's lateral-port center), so
