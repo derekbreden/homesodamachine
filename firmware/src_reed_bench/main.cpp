@@ -2,8 +2,8 @@
 // and close. Throwaway bench rig — see README.md in this folder for wiring,
 // intent, and tear-down. Not production firmware.
 //
-//   ESP32 <-> MCP23017 (I2C):  3V3->VCC, GND->GND, GPIO21->SDA, GPIO22->SCL,
-//     A0/A1/A2->GND (address 0x20), RESET->VCC.
+//   ESP32 <-> MCP23017 (I2C):  3V3->VCC, GND->GND, GPIO21->SDA, GPIO22->SCL.
+//     I2C address 0x27 (Waveshare board default: A0/A1/A2 left high). RESET auto.
 //   Reeds:  signal -> an MCP23017 GPIO pin (PA0..),  common -> GND.
 //     The chip's internal pull-ups are enabled, so no external resistors.
 //
@@ -13,7 +13,7 @@
 #include <Wire.h>
 #include <Adafruit_MCP23X17.h>
 
-static const uint8_t MCP_ADDR = 0x20;  // A0/A1/A2 -> GND
+static const uint8_t MCP_ADDR = 0x27;  // Waveshare board default (A0/A1/A2 left high)
 
 Adafruit_MCP23X17 mcp;
 uint16_t lastState = 0xFFFF;

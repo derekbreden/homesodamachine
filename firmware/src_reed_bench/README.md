@@ -28,7 +28,7 @@ No breadboard. No protoboard. Wires plug directly between board headers via Dupo
 | `GPIO 21` | `SDA` |
 | `GPIO 22` | `SCL` |
 
-**MCP23017 address jumpers**: tie `A0`/`A1`/`A2` to GND for the chip's default I²C address `0x20`. On the Waveshare module the address pins are exposed on the same header as VCC/GND/SDA/SCL — check the silkscreen and jumper accordingly. `RESET` should be high (tied to VCC) — most modules already do this.
+**MCP23017 I²C address**: the Waveshare board powers up at `0x27` — `A0`/`A1`/`A2` are solder-jumper pads pulled high by default. The firmware uses `0x27`, so leave them alone; short a pad to GND only if you ever need a different address. `RESET` is held high by an on-board RC, so it needs no wiring. (The board's I²C interface is a **PH2.0 / 2.0 mm JST** plus a 2.54 mm solder-pad set; the `PA`/`PB` GPIO rows are standard 2.54 mm.)
 
 **Reeds** — for each reed:
 
@@ -49,7 +49,7 @@ The firmware is intentionally minimal. Don't add features beyond this list. The 
 1. **`setup()`**:
    - `Serial.begin(115200)`.
    - `Wire.begin()` using ESP32 default I²C pins (GPIO 21 SDA, GPIO 22 SCL).
-   - Initialize an MCP23017 driver at I²C address `0x20`.
+   - Initialize an MCP23017 driver at I²C address `0x27` (Waveshare board default).
    - Configure all 16 GPIO pins as inputs with the chip's internal weak pull-up enabled (write `0xFFFF` to `IODIR` and `0xFFFF` to `GPPU`).
    - If the MCP23017 doesn't ACK its I²C address, print the error and keep retrying forever. Do **not** silently proceed.
    - Print one startup banner showing: I²C address in use, serial baud, pin assignment (all 16 polled), and a one-line legend: `1 = reed open, 0 = reed closed (magnet near)`.
