@@ -126,9 +126,9 @@ I read the two commits and the three documents (AGENTS.md, future.md, target-mar
 
 **"Avoid moral language."** Decisions across all three documents are framed as "we chose X because Y; the rejected alternative was Z, here's why" — no "should," no "better/worse" used to rank approaches. An agent that absorbs the texture of this prose will not reach for moral framing. The example covers it.
 
-**"Follow all threads when asked."** [future.md](Developer/homesodamachine/hardware/future.md) is built out of cross-references — every subsystem names its companion docs — and [AGENTS.md](Developer/homesodamachine/AGENTS.md) points to future.md and target-market.md by path right at the top. An agent that doesn't follow those links is overriding the example, not lacking one.
+**"Follow all threads when asked."** [future.md](/hardware/future.md) is built out of cross-references — every subsystem names its companion docs — and [AGENTS.md](/AGENTS.md) points to future.md and target-market.md by path right at the top. An agent that doesn't follow those links is overriding the example, not lacking one.
 
-**"Reflective philosophical style — engage as peer."** [target-market.md](Developer/homesodamachine/marketing/target-market.md) has a "rings of trust" section explicitly marked as the internal plan alongside the public-facing one. AGENTS.md trims its own preachy paragraph in ca053af5 as an act of embodiment. The register is peer-to-peer prose throughout. The example covers it.
+**"Reflective philosophical style — engage as peer."** [target-market.md](/marketing/target-market.md) has a "rings of trust" section explicitly marked as the internal plan alongside the public-facing one. AGENTS.md trims its own preachy paragraph in ca053af5 as an act of embodiment. The register is peer-to-peer prose throughout. The example covers it.
 
 So nothing from what I tried to write points to a gap in the repo. The thing I wanted to encode was, in each case, already encoded by example, and a thorough reading would have made the memory writes feel redundant before I even reached for them.
 

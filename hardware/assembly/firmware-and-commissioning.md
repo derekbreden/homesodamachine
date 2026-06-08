@@ -1,6 +1,6 @@
 # Firmware and Commissioning
 
-The production procedure for first-time firmware flash and DC-side commissioning of a fully wired chassis. Takes the never-powered output of [`wiring.md`](wiring.md) — AC and DC continuity checks already passed — through three MCU flashes, a controlled first power-on under PSU, a sensor-health walkthrough, a valve self-test, and a brief firmware-driven compressor cycle confirming relay #1 switches the AC leg. Stops short of any test that requires water or CO2 — those live in [`acceptance-and-burn-in.md`](acceptance-and-burn-in.md).
+The production procedure for first-time firmware flash and DC-side commissioning of a fully wired chassis. Takes the never-powered output of [`wiring.md`](/hardware/assembly/wiring.md) — AC and DC continuity checks already passed — through three MCU flashes, a controlled first power-on under PSU, a sensor-health walkthrough, a valve self-test, and a brief firmware-driven compressor cycle confirming relay #1 switches the AC leg. Stops short of any test that requires water or CO2 — those live in [`acceptance-and-burn-in.md`](/hardware/assembly/acceptance-and-burn-in.md).
 
 Customer-side firmware binding (Wi-Fi credentials, cloud pairing, app association, per-customer ratio tuning) is **not** done here. Firmware ships with factory defaults; the iOS/Android app handles binding at first install. This procedure ends with a unit that boots clean, self-tests clean, and is ready to take water + CO2 in the next station.
 
@@ -8,7 +8,7 @@ Design intent and runtime behavior live in [`/hardware/future.md`](/hardware/fut
 
 ## Scope
 
-In: a fully wired chassis fresh out of [`wiring.md`](wiring.md) — AC and DC continuity checks passed, never powered. The flash tooling — two USB cables (one micro-USB for the ESP32-DevKitC, one USB-C for the ESP32-S3), the `./tools/flash.sh` wrapper (see project root `CLAUDE.md`), and the firmware source tree at `/firmware/` configured per [`/platformio.ini`](/platformio.ini). A multimeter for runtime DC-rail spot checks. A serial console (`pio device monitor`) for log capture.
+In: a fully wired chassis fresh out of [`wiring.md`](/hardware/assembly/wiring.md) — AC and DC continuity checks passed, never powered. The flash tooling — two USB cables (one micro-USB for the ESP32-DevKitC, one USB-C for the ESP32-S3), the `./tools/flash.sh` wrapper (see project root `CLAUDE.md`), and the firmware source tree at `/firmware/` configured per [`/platformio.ini`](/platformio.ini). A multimeter for runtime DC-rail spot checks. A serial console (`pio device monitor`) for log capture.
 
 Out:
 
@@ -21,13 +21,13 @@ Out:
 - Firmware setpoints loaded with factory defaults: **tank target [2 °C](TANK_TARGET), hysteresis [±2 °C](HYSTERESIS)** (compressor off at [2 °C](COMP_OFF_TEMP), on at [4 °C](COMP_ON_TEMP)), **freeze-protect cutoff [−8 °C](FREEZE_CUTOFF)** on the suction-line probe, **[3-minute](MIN_OFF_TIME) minimum off-time** for the compressor start capacitor, refill threshold on the carbonator's low-level reed.
 - Per-serial commissioning log archived (sensor readings, I²C ACK list, valve click confirmation, compressor-cycle suction-line ΔT).
 
-Not in scope: any acceptance test that requires water or CO2 (that's [`acceptance-and-burn-in.md`](acceptance-and-burn-in.md)); customer-side firmware binding via the iOS/Android app at install (post-shipping); the over-the-air firmware-update flow (not in scope for first-unit shipping).
+Not in scope: any acceptance test that requires water or CO2 (that's [`acceptance-and-burn-in.md`](/hardware/assembly/acceptance-and-burn-in.md)); customer-side firmware binding via the iOS/Android app at install (post-shipping); the over-the-air firmware-update flow (not in scope for first-unit shipping).
 
 ## Inputs per appliance
 
 | Item | Source / spec | Notes |
 |---|---|---|
-| Wired chassis | Output of [`wiring.md`](wiring.md) | Never powered. AC + DC continuity checks passed. Compressor shroud closed and grounded. |
+| Wired chassis | Output of [`wiring.md`](/hardware/assembly/wiring.md) | Never powered. AC + DC continuity checks passed. Compressor shroud closed and grounded. |
 | Firmware source tree | [`/firmware/`](/firmware/) on the build host, current `main` | PlatformIO project; envs `esp32dev`, `esp32s3_config` (see [`/platformio.ini`](/platformio.ini)). |
 | Flash wrapper | [`/tools/flash.sh`](/tools/flash.sh) | Pauses the serial logger during upload; pre-flights the sibling `PersistentLog` dependency. Invocation: `./tools/flash.sh <env>`. |
 | USB cables | 1× micro-USB (ESP32-DevKitC), 1× USB-C (ESP32-S3) | Build-bench stock; not per-unit consumable. |
@@ -41,7 +41,7 @@ Tooling (per-unit-amortized): one build-bench station with a PSU-controlled outl
 
 ### 1. Verify wiring-out inputs
 
-Before any power, walk the chassis once against [`wiring.md`](wiring.md) output condition: compressor shroud closed and grounded, electronics shelf populated and fastened, ground bus continuous from C14 earth pin to every exposed-metal bond point, all JST XH housings seated, the I²C bus terminated only at its end devices (no stray stubs), [4.7 kΩ](ONEWIRE_PULLUP) pull-up present on the DS18B20 data line.
+Before any power, walk the chassis once against [`wiring.md`](/hardware/assembly/wiring.md) output condition: compressor shroud closed and grounded, electronics shelf populated and fastened, ground bus continuous from C14 earth pin to every exposed-metal bond point, all JST XH housings seated, the I²C bus terminated only at its end devices (no stray stubs), [4.7 kΩ](ONEWIRE_PULLUP) pull-up present on the DS18B20 data line.
 
 This is a *re-look*, not a re-test — the AC and DC continuity sign-offs from `wiring.md` are not repeated here. If anything on the shelf has moved since `wiring.md` signed off, return the unit there before continuing.
 
@@ -49,7 +49,7 @@ This is a *re-look*, not a re-test — the AC and DC continuity sign-offs from `
 
 Power the C14 inlet through a bench PSU-controlled outlet, not direct wall power. The Teyleten relay #1 must remain de-energized for this step — the firmware boots into "all off" by default, but the PSU-controlled outlet is the hardware backstop.
 
-**GFCI self-test gate.** When mains reaches the C14 inlet, the Legrand 1597BKCCD12 GFCI on the shelf runs its ~3-second self-test before closing its internal relay; only then does AC propagate to the PSU. Watch the device's front-face status LED. Solid green within ~3 seconds = self-test passed, relay closed, AC flowing downstream — proceed with the rail-by-rail bring-up below. Flashing red = SafeLock end-of-life lockout; the device must be replaced (see [`/hardware/ledger/bom.md`](/hardware/ledger/bom.md) §5) before the unit can power up. LED stays dark = the device never received line voltage; check AC-1a wiring back to the C14 inlet. LED green but no DC rails in the next sub-step = the relay is in the user-tripped state; press TEST then RESET on the device and re-apply C14 power. The relay closing here is what makes the C14 → through-GFCI → AC distribution block continuity end-to-end-verifiable (deferred from [`wiring.md`](wiring.md) step 3); the rails coming up in this step is the functional confirmation.
+**GFCI self-test gate.** When mains reaches the C14 inlet, the Legrand 1597BKCCD12 GFCI on the shelf runs its ~3-second self-test before closing its internal relay; only then does AC propagate to the PSU. Watch the device's front-face status LED. Solid green within ~3 seconds = self-test passed, relay closed, AC flowing downstream — proceed with the rail-by-rail bring-up below. Flashing red = SafeLock end-of-life lockout; the device must be replaced (see [`/hardware/ledger/bom.md`](/hardware/ledger/bom.md) §5) before the unit can power up. LED stays dark = the device never received line voltage; check AC-1a wiring back to the C14 inlet. LED green but no DC rails in the next sub-step = the relay is in the user-tripped state; press TEST then RESET on the device and re-apply C14 power. The relay closing here is what makes the C14 → through-GFCI → AC distribution block continuity end-to-end-verifiable (deferred from [`wiring.md`](/hardware/assembly/wiring.md) step 3); the rails coming up in this step is the functional confirmation.
 
 Bring up in this order, verifying each rail with the multimeter before the next:
 
@@ -106,7 +106,7 @@ The default firmware periodically prints a sensor-health frame. Step through eac
 - **Carbonator reeds** ([GPIO 17](GPIO_REED_LOW) low, [GPIO 27](GPIO_REED_HIGH) high) — both INPUT_PULLUP, both reading high (no magnet present, no float installed yet). Bring a small bench magnet near each reed in turn and confirm it pulls low.
 - **Reservoir reeds** — all 8 (Reservoir A on MCP23017 [0x20](MCP_VALVES) PB[4:7], Reservoir B on [0x21](MCP_RESERVOIRS) PA[0:3]) reading their no-magnet baseline. Architecture and calibration in [`/hardware/printed-parts/cold-core/reservoir/level-sensing.md`](/hardware/printed-parts/cold-core/reservoir/level-sensing.md). Same bench-magnet check per reed.
 - **DIGITEN flow meter** ([GPIO 23](GPIO_FLOW)) — manually rotate the impeller with a clean implement; expect a pulse count increment per rotation in the serial output.
-- **MQ-6 hydrocarbon sensor** — needs ~60 s warm-up to reach operating temperature. After warm-up, expect a clean-air baseline reading on its analog input (verify the bench air is free of solvents or LPG nearby — wave clean air across the sensor or move the chassis briefly to a clean-air environment if needed). Architecture: the MQ-6 sits low on the rear interior enclosure wall, mesh facing horizontally inward (the bare sensor's orientation is unconstrained per the Winsen datasheet; this position catches dense R-600a as it pools at the cabinet floor from any of the dominant brazed-joint leak sites) — the hardware-only backstop to the firmware-controlled cutoffs ([`refrigerant-loop.md`](refrigerant-loop.md) "Safety").
+- **MQ-6 hydrocarbon sensor** — needs ~60 s warm-up to reach operating temperature. After warm-up, expect a clean-air baseline reading on its analog input (verify the bench air is free of solvents or LPG nearby — wave clean air across the sensor or move the chassis briefly to a clean-air environment if needed). Architecture: the MQ-6 sits low on the rear interior enclosure wall, mesh facing horizontally inward (the bare sensor's orientation is unconstrained per the Winsen datasheet; this position catches dense R-600a as it pools at the cabinet floor from any of the dominant brazed-joint leak sites) — the hardware-only backstop to the firmware-controlled cutoffs ([`refrigerant-loop.md`](/hardware/assembly/refrigerant-loop.md) "Safety").
 - **Backflow drip-pan moisture sensor** — reads dry (high impedance). Confirm by briefly bridging the sensor pads with a damp probe and watching the firmware reading swing.
 
 Record each reading in the per-serial commissioning log. Any out-of-bounds reading at this step blocks the unit from proceeding to step 7.
@@ -130,13 +130,13 @@ Trigger the firmware-override compressor-on command at the serial console. The f
 Watch for, in order:
 
 1. **PSU current bump** at the inline meter — the relay coil pulls ~70 mA additional through the 5 V rail; small but visible.
-2. **Compressor audible start** — the PTC start relay clicks and the hermetic compressor's motor spins up. The clip-on overload should not trip on a healthy compressor; if the overload opens, kill the override immediately and return to [`refrigerant-loop.md`](refrigerant-loop.md) for diagnosis.
+2. **Compressor audible start** — the PTC start relay clicks and the hermetic compressor's motor spins up. The clip-on overload should not trip on a healthy compressor; if the overload opens, kill the override immediately and return to [`refrigerant-loop.md`](/hardware/assembly/refrigerant-loop.md) for diagnosis.
 3. **Current draw at the AC side** — within nameplate (a couple of amps RMS on the 120 VAC leg for the harvested ice-maker compressor). Verify with a clamp meter on the switched-hot run AC-4 if the build bench has one.
 4. **Suction-line DS18B20 temperature** — drops a few degrees within a couple of minutes. The cold core has no water to absorb heat, so the suction line cools faster than it will in normal operation; this is the intended diagnostic, not normal-operation behavior.
 
 After 30–60 seconds, send the firmware-override compressor-off command. The compressor de-energizes, the suction-line probe begins warming back toward ambient, and the [3-minute](MIN_OFF_TIME) minimum off-time guard re-arms.
 
-This is **not** a refrigeration commissioning step. Full thermal cycling under water load happens at [`acceptance-and-burn-in.md`](acceptance-and-burn-in.md). All this step proves is: (a) relay #1 makes the AC leg, (b) the compressor draws nameplate current, (c) the suction-line probe is on the right probe.
+This is **not** a refrigeration commissioning step. Full thermal cycling under water load happens at [`acceptance-and-burn-in.md`](/hardware/assembly/acceptance-and-burn-in.md). All this step proves is: (a) relay #1 makes the AC leg, (b) the compressor draws nameplate current, (c) the suction-line probe is on the right probe.
 
 ### 9. Verify setpoints loaded
 
@@ -172,7 +172,7 @@ A commissioned unit is:
 - Factory-default setpoints ([2 °C](TANK_TARGET) target, [±2 °C](HYSTERESIS) hysteresis, [−8 °C](FREEZE_CUTOFF) freeze cutoff, [3-min](MIN_OFF_TIME_HYPHEN) minimum off-time, low-reed refill threshold) confirmed loaded
 - Per-serial commissioning log archived
 
-The unit is now the input to [`acceptance-and-burn-in.md`](acceptance-and-burn-in.md), which adds water + CO2 and runs the first wet thermal cycle.
+The unit is now the input to [`acceptance-and-burn-in.md`](/hardware/assembly/acceptance-and-burn-in.md), which adds water + CO2 and runs the first wet thermal cycle.
 
 ## Open items
 

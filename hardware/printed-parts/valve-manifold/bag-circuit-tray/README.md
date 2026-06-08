@@ -1,6 +1,6 @@
 # Bag-circuit tray (4 valves + 2 Tees)
 
-The [fluid-topology](../../../topology/fluid-topology.md) bag circuit as a
+The [fluid-topology](/hardware/topology/fluid-topology.md) bag circuit as a
 tray: V-F and V-E join through Tee Y-E (branch → Bag A), V-I and V-H through
 Tee Y-H (branch → Bag B).
 
@@ -14,14 +14,14 @@ Tee Y-H (branch → Bag B).
 
 The valves sit **ports-along-X with no aiming tilt**, butted in two columns —
 V-F over V-I on the −X side, V-E over V-H on the +X side. Each row's two valves
-connect **in-line through a Tee** ([reference](../../../reference/tee-connector/README.md))
+connect **in-line through a Tee** ([reference](/hardware/reference/tee-connector/README.md))
 whose run lies along X, so the inner ports meet the run ports straight-on (no
 jog) with the valves at X = ±49.57. Each Tee's **branch rises (+Z)** to its
 bag; the valves' outer ports leave the tray to the pumps.
 
 This module also holds the shared parallel-Tee base (`place_valve`,
 `place_tee`, `build_tray`, common geometry) that the gate-tray variants
-([nozzle-gate](../nozzle-gate-tray/), [bib-gate](../bib-gate-tray/)) import;
+([nozzle-gate](/hardware/printed-parts/valve-manifold/nozzle-gate-tray/), [bib-gate](/hardware/printed-parts/valve-manifold/bib-gate-tray/)) import;
 they are all-Tee too. Only source-select still uses Y-dividers.
 
 Origin = cell center, Z = 0 the valve mounting plane, ports at Z = 11.3. The

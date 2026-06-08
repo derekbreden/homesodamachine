@@ -1,7 +1,7 @@
 # Assembly
 
-The [shell](../shell/) wrapped around the contents in shared coordinates — the
-internal subsystems placed by [`_contents.py`](_contents.py), which the shell is
+The [shell](/hardware/printed-parts/enclosure/shell/) wrapped around the contents in shared coordinates — the
+internal subsystems placed by [`_contents.py`](/hardware/printed-parts/enclosure/assembly/_contents.py), which the shell is
 sized around. The contents keep their per-part colors; the shell is translucent
 so the arrangement reads through it.
 

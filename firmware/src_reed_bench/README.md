@@ -2,7 +2,7 @@
 
 Small standalone firmware for a spare ESP32 that prints reed-switch state to the serial console. Sole purpose: develop hands-on intuition for the reed + MCP23017 + I²C chain before any of it has to work inside the appliance.
 
-This is **not** the production firmware. It's a throwaway rig. The firmware is [`main.cpp`](main.cpp); this README carries the wiring, intent, and tear-down.
+This is **not** the production firmware. It's a throwaway rig. The firmware is [`main.cpp`](/firmware/src_reed_bench/main.cpp); this README carries the wiring, intent, and tear-down.
 
 ## Bench rig
 

@@ -2,7 +2,7 @@
 
 **This is a point-in-time snapshot, not a living document.** Captures the workflow that actually worked on the first end-to-end execution — first edited and published video shipped 2026-05-04 (the welding first-weld clip). Originally lived as `marketing/video/video-workflow-2026-05-04.md`; relocated and trimmed in the 2026-05-04 refactor — durable HERO13 settings extracted to [`/marketing/video/equipment.md`](/marketing/video/equipment.md), the actual workflow steps extracted to [`/marketing/video/workflow.md`](/marketing/video/workflow.md) as the living procedure. The narrative below (milestones, what changed vs. plan, open items at the time) is what's frozen here as historical record.
 
-**Supersedes** [`2026-05-03-workflow-commitment.md`](2026-05-03-workflow-commitment.md), which captured the planned workflow before any execution. iMovie replaced CapCut after CapCut's first-attempt friction (free tier put a watermark on the export, paid upgrade errored on purchase). GoPro Quik cloud subscription was added and is working as a transfer step.
+**Supersedes** [`2026-05-03-workflow-commitment.md`](/marketing/video/snapshots/2026-05-03-workflow-commitment.md), which captured the planned workflow before any execution. iMovie replaced CapCut after CapCut's first-attempt friction (free tier put a watermark on the export, paid upgrade errored on purchase). GoPro Quik cloud subscription was added and is working as a transfer step.
 
 ## Open items at the time of this snapshot
 
