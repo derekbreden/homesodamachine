@@ -105,7 +105,7 @@ The Multiplex 19-0897's atmospheric vent terminates inside the kitchen cabinet o
 
 **User-facing elements, by location**
 
-*Above counter, through-counter fixtures over the sink:* faucet lever. The ESP32-S3 rotary display lives on the appliance front face below; it's detachable with a ~1 m cord, so the customer can mount it on the cabinet's false-drawer-front above the cabinet door (the empty flat panel just below the counter where a drawer would normally go), hold it, or place it anywhere else the cord reaches.
+*Above counter, through-counter fixtures over the sink:* the faucet lever and a 1.47" ESP32-S3 capacitive-touch flavor display on the gooseneck dispense head — it shows the selected flavor and switches flavor by touch, with no separate button. The ESP32-S3 rotary display lives on the appliance front face below as the config/interaction surface; it's detachable with a ~1 m cord, so the customer can mount it on the cabinet's false-drawer-front above the cabinet door (the empty flat panel just below the counter where a drawer would normally go), hold it, or place it anywhere else the cord reaches.
 
 *Enclosure top, Zone C* (reached by opening the kitchen cabinet door): one top door holds the flavor funnel over the pump cartridge. Pour SodaStream concentrate into the removable silicone funnel; lift the funnel out for tool-free access to the Kamoer peristaltic pumps beneath. Detail in [`printed-parts/zone-c/README.md`](printed-parts/zone-c/README.md).
 
