@@ -303,11 +303,11 @@ class BLEManager {
             flavor1Ratio = 20
             flavor2Ratio = 20
             numImages = 3
-            imageNames = ["diet_wild_cherry_pepsi", "diet_mtn_dew", "diet_coke"]
+            imageNames = ["flavor_1", "flavor_2", "flavor_3"]
             cachedImages = [
-                0: generateDemoImage(label: "Cherry Pepsi", color: UIColor(red: 0.7, green: 0.1, blue: 0.15, alpha: 1)),
-                1: generateDemoImage(label: "Mtn Dew", color: UIColor(red: 0.2, green: 0.6, blue: 0.2, alpha: 1)),
-                2: generateDemoImage(label: "Diet Coke", color: UIColor(red: 0.4, green: 0.4, blue: 0.45, alpha: 1))
+                0: flavorImage("flavor_1"),
+                1: flavorImage("flavor_2"),
+                2: flavorImage("flavor_3")
             ]
             factoryResetCompleted = true
             return
@@ -524,11 +524,11 @@ class BLEManager {
         flavor1Ratio = 20
         flavor2Ratio = 20
         numImages = 3
-        imageNames = ["diet_wild_cherry_pepsi", "diet_mtn_dew", "diet_coke"]
+        imageNames = ["flavor_1", "flavor_2", "flavor_3"]
         cachedImages = [
-            0: generateDemoImage(label: "Cherry Pepsi", color: UIColor(red: 0.7, green: 0.1, blue: 0.15, alpha: 1)),
-            1: generateDemoImage(label: "Mtn Dew", color: UIColor(red: 0.2, green: 0.6, blue: 0.2, alpha: 1)),
-            2: generateDemoImage(label: "Diet Coke", color: UIColor(red: 0.4, green: 0.4, blue: 0.45, alpha: 1))
+            0: flavorImage("flavor_1"),
+            1: flavorImage("flavor_2"),
+            2: flavorImage("flavor_3")
         ]
         s3Version = "Demo"
         espVersion = "Demo"
@@ -579,6 +579,17 @@ class BLEManager {
         cleanCyclePhase = nil
         imgDownloadSlot = -1
         binStartReceived = false
+    }
+
+    // Demo-mode flavor art: the bundled placeholder PNG (images/flavor_N.png,
+    // copied in by tools/build_flavor_assets.sh), falling back to a flat swatch.
+    private func flavorImage(_ name: String) -> UIImage {
+        if let url = Bundle.main.url(forResource: name, withExtension: "png"),
+           let img = UIImage(contentsOfFile: url.path) {
+            return img
+        }
+        let pretty = name.replacingOccurrences(of: "_", with: " ").capitalized
+        return generateDemoImage(label: pretty, color: UIColor(white: 0.25, alpha: 1))
     }
 
     private func generateDemoImage(label: String, color: UIColor) -> UIImage {

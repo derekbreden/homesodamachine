@@ -1,9 +1,9 @@
 {
   "description": "All available images including user-added. For dev/test: python3 tools/upload_image.py --sync-user",
   "slots": [
-    { "slot": 0, "file": "diet_wild_cherry_pepsi.png", "label": "diet_wild_cherry_pepsi" },
-    { "slot": 1, "file": "diet_mtn_dew.png", "label": "diet_mtn_dew" },
-    { "slot": 2, "file": "diet_coke.png", "label": "diet_coke" },
-    { "slot": 3, "file": "orange_crush.png", "label": "orange_crush" }
+    { "slot": 0, "file": "flavor_1.png", "label": "flavor_1" },
+    { "slot": 1, "file": "flavor_2.png", "label": "flavor_2" },
+    { "slot": 2, "file": "flavor_3.png", "label": "flavor_3" },
+    { "slot": 3, "file": "flavor_4.png", "label": "flavor_4" }
   ]
 }
