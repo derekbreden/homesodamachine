@@ -28,9 +28,11 @@ for _p in (
     _hw / "scripts",
     _hw / "reference" / "beduan-solenoid",
     _hw / "printed-parts" / "valve-manifold" / "single-tray",
+    _hw.parent / "tools",
 ):
     sys.path.insert(0, str(_p))
 from _cadq_export import export_step
+from docgen import substitute_md
 import single_tray as cell
 
 port_z = cell.port_center_z
@@ -170,6 +172,24 @@ def build_bag_circuit_tray():
 def main():
     export_step(build_bag_circuit_tray(), str(_here.parent / "bag-circuit-tray.step"))
     print("-> bag-circuit-tray.step")
+    substitute_md(
+        _here.parent / "README.md",
+        variables={
+            "VALVE_X": f"{valve_x:.4g}",
+            "PORT_Z": f"{port_z:.4g}",
+            "TRAY_BOT_Z": f"{bot_z:.4g}",
+            "TRAY_TOP_Z": f"{top_z:.4g}",
+            "BAG_PLATE_W": f"{2 * plate_half_x:.0f}",
+            "BAG_PLATE_D": f"{2 * plate_half_y:.0f}",
+            "STACK_PITCH": f"{stack_pitch:.4g}",
+            "WALL_TOP_Z": f"{wall_top_z:.4g}",
+        },
+        expected_counts={
+            "VALVE_X": 1, "PORT_Z": 1, "TRAY_BOT_Z": 1, "TRAY_TOP_Z": 1,
+            "BAG_PLATE_W": 1, "BAG_PLATE_D": 1, "STACK_PITCH": 2, "WALL_TOP_Z": 1,
+        },
+    )
+    print("-> README.md")
 
 
 if __name__ == "__main__":

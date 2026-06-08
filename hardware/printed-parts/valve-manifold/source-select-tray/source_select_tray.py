@@ -38,9 +38,11 @@ for _p in (
     _hw / "scripts",
     _hw / "reference" / "beduan-solenoid",
     _hw / "printed-parts" / "valve-manifold" / "single-tray",
+    _hw.parent / "tools",
 ):
     sys.path.insert(0, str(_p))
 from _cadq_export import export_step
+from docgen import substitute_md
 import single_tray as cell
 
 port_z = cell.port_center_z
@@ -187,6 +189,33 @@ def build_source_select_tray():
 def main():
     export_step(build_source_select_tray(), str(_here.parent / "source-select-tray.step"))
     print("-> source-select-tray.step")
+    substitute_md(
+        _here.parent / "README.md",
+        variables={
+            "OUTLET_GAP": f"{2 * outlet_y:.4g}",
+            "PORT_Z": f"{port_z:.4g}",
+            "BRIDGE_GAP": f"{bridge_gap:.4g}",
+            "DIV_X": f"{divider_x:.4g}",
+            "OUTLET_Y": f"{outlet_y:.4g}",
+            "TUBE": f"{tube:.4g}",
+            "SRC_VALVE_X": f"{valve_x:.4g}",
+            "SRC_VALVE_Y": f"{valve_y:.4g}",
+            "TRAY_BOT_Z": f"{bot_z:.4g}",
+            "TRAY_TOP_Z": f"{top_z:.4g}",
+            "SRC_PLATE_W": f"{2 * plate_half_x:.0f}",
+            "SRC_PLATE_D": f"{2 * plate_half_y:.0f}",
+            "STACK_PITCH": f"{stack_pitch:.4g}",
+            "WALL_TOP_Z": f"{wall_top_z:.4g}",
+            "COIL_TOP": f"{cell.valve.coil_z_range[1]:.4g}",
+        },
+        expected_counts={
+            "OUTLET_GAP": 1, "PORT_Z": 2, "BRIDGE_GAP": 1, "DIV_X": 1,
+            "OUTLET_Y": 2, "TUBE": 1, "SRC_VALVE_X": 1, "SRC_VALVE_Y": 1,
+            "TRAY_BOT_Z": 1, "TRAY_TOP_Z": 1, "SRC_PLATE_W": 1, "SRC_PLATE_D": 1,
+            "STACK_PITCH": 2, "WALL_TOP_Z": 1, "COIL_TOP": 1,
+        },
+    )
+    print("-> README.md")
 
 
 if __name__ == "__main__":

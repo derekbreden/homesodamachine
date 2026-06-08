@@ -27,9 +27,11 @@ for _p in (
     _hw / "reference" / "beduan-solenoid",
     _hw / "printed-parts" / "valve-manifold" / "single-tray",
     _hw / "printed-parts" / "valve-manifold" / "bag-circuit-tray",
+    _hw.parent / "tools",
 ):
     sys.path.insert(0, str(_p))
 from _cadq_export import export_step
+from docgen import substitute_md
 import bag_circuit_tray as bc
 
 # −X valve column + two Tees per row in series (near-valve Tee, then a Tee
@@ -64,6 +66,23 @@ def build_bib_gate_tray():
 def main():
     export_step(build_bib_gate_tray(), str(_here.parent / "bib-gate-tray.step"))
     print("-> bib-gate-tray.step")
+    substitute_md(
+        _here.parent / "README.md",
+        variables={
+            "PORT_Z": f"{bc.port_z:.4g}",
+            "TRAY_BOT_Z": f"{bc.bot_z:.4g}",
+            "TRAY_TOP_Z": f"{bc.top_z:.4g}",
+            "BIB_PLATE_W": f"{plate_x[1] - plate_x[0]:.0f}",
+            "BIB_PLATE_D": f"{2 * plate_y_half:.0f}",
+            "STACK_PITCH": f"{stack_pitch:.4g}",
+            "WALL_TOP_Z": f"{bc.wall_top_z:.4g}",
+        },
+        expected_counts={
+            "PORT_Z": 1, "TRAY_BOT_Z": 1, "TRAY_TOP_Z": 1,
+            "BIB_PLATE_W": 1, "BIB_PLATE_D": 1, "STACK_PITCH": 2, "WALL_TOP_Z": 1,
+        },
+    )
+    print("-> README.md")
 
 
 if __name__ == "__main__":
