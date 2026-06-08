@@ -1,6 +1,6 @@
 # Purchases
 
-Capital expenditure ledger for the soda-flavor-injector project. Scope: **2026 calendar year only** (Jan 1 → Jun 2, 2026 YTD). Compiled from Amazon order history, direct-from-vendor receipts (Bambu Lab, XLaserlab, Namecheap), and capitalized contract labor (Anthropic / Claude API + subscription for AI-assisted engineering — CAD, firmware, electrical design, documentation, procurement research). Every item is either already in-hand (**ACQUIRED**), placed but not yet arrived (**ON-ORDER**), or identified as a planned purchase (**LIKELY-TO-BUY**).
+Capital expenditure ledger for the soda-flavor-injector project. Scope: **2026 calendar year only** (Jan 1 → Jun 8, 2026 YTD). Compiled from Amazon order history, direct-from-vendor receipts (Bambu Lab, XLaserlab, Namecheap), and capitalized contract labor (Anthropic / Claude API + subscription for AI-assisted engineering — CAD, firmware, electrical design, documentation, procurement research). Every item is either already in-hand (**ACQUIRED**), placed but not yet arrived (**ON-ORDER**), or identified as a planned purchase (**LIKELY-TO-BUY**).
 
 This is the **purchase ledger** — every buy event, kept for tax records and complete sourcing history. It is not a per-unit bill of materials. Views over this ledger live in sibling files:
 
@@ -146,8 +146,8 @@ Peristaltic pumps, solenoids, bag-in-box connector, silicone delivery tubing, ba
 |---|---|---|---|---|
 | Kamoer KPHM400-SW3B25 400 ml/min 12 V peristaltic pump (BPT, sold by Kamoer Fluid Tech Shanghai) | [B09MS6C91D](https://www.amazon.com/dp/B09MS6C91D) | 3 | $32.55 ea | ACQUIRED |
 | Beduan 12 V 1/4" inlet water solenoid (NC) | [B07NWCQJK9](https://www.amazon.com/dp/B07NWCQJK9) | 3–4 lines | $9.64 ea | ACQUIRED (short vs 12-valve manifold) |
-| Hosyond 5-pack MG90S 9 g metal-gear micro servo | [B09V5BR7J5](https://www.amazon.com/dp/B09V5BR7J5) | 1 pk (5) | $15.43 | ON-ORDER |
-| NeoFit acetal ball valve — push-fit quarter-turn, food-grade PP body + acetal + EPDM O-ring, 1/4" OD tube (5-pack) | [B0DDQC7S3B](https://www.amazon.com/dp/B0DDQC7S3B) | 1 pk (5) | $22.80 | ON-ORDER |
+| Hosyond 5-pack MG90S 9 g metal-gear micro servo | [B09V5BR7J5](https://www.amazon.com/dp/B09V5BR7J5) | 1 pk (5) | $15.43 | ACQUIRED (delivered Jun 4) |
+| NeoFit acetal ball valve — push-fit quarter-turn, food-grade PP body + acetal + EPDM O-ring, 1/4" OD tube (5-pack) | [B0DDQC7S3B](https://www.amazon.com/dp/B0DDQC7S3B) | 1 pk (5) | $22.80 | ACQUIRED (delivered Jun 4) |
 | Supply Depot Coke-compatible BIB connector, 3/8" red (2 pk) | [B0DMFK9B6P](https://www.amazon.com/dp/B0DMFK9B6P) | 1 pk | $19.99 | ACQUIRED |
 | Platypus SoftBottle 1 L (bladder donor) | [B08PG3GMQ8](https://www.amazon.com/dp/B08PG3GMQ8) | 1 | $23.49 | ACQUIRED |
 | Platypus SoftBottle 1 L "Waves" (bladder donor) | [B00ZX0ERE2](https://www.amazon.com/dp/B00ZX0ERE2) | 1 | $15.35 | ACQUIRED |
@@ -252,6 +252,7 @@ Ice-maker donor units and copper coil for the chill loop.
 | Part | ASIN link | Qty | $ | Status |
 |---|---|---|---|---|
 | ESP32-DevKitC-32E | [B09MQJWQN2](https://www.amazon.com/dp/B09MQJWQN2) | 1+ | $11.00 | ACQUIRED |
+| ESP32-DevKitC-32E (repeat ASIN). Order #112-2471492-3870616, placed Jun 7, 2026 | [B09MQJWQN2](https://www.amazon.com/dp/B09MQJWQN2) | 2 | $23.60 | ON-ORDER (arriving Jun 8) |
 | Waveshare RP2040 0.99" round touch LCD, CNC case | [B0CTSPYND2](https://www.amazon.com/dp/B0CTSPYND2) | 2 | ~$25.73 ea | ACQUIRED |
 | Meshnology ESP32-S3 round rotary display 1.28" | [B0G5Q4LXVJ](https://www.amazon.com/dp/B0G5Q4LXVJ) | 1 | bundle | ACQUIRED |
 
@@ -280,6 +281,7 @@ Ice-maker donor units and copper coil for the chill loop.
 | Molence C45 PCB DIN-rail adapter clips (10 sets) | [B09KZHY8G4](https://www.amazon.com/dp/B09KZHY8G4) | 1 pk | $9.99 | ACQUIRED |
 | VAMRONE 35 mm DIN rail, 4" (6 pk) | [B0CDPVRY2W](https://www.amazon.com/dp/B0CDPVRY2W) | 1 pk | $6.99 | ACQUIRED |
 | ESP32 super breakout DIN-rail mount GPIO expansion | [B0BW4SJ5X2](https://www.amazon.com/dp/B0BW4SJ5X2) | 1 | $25.99 | ACQUIRED |
+| naughtystarts ESP32 screw-terminal GPIO breakout board, 3.5 mm terminals, for ESP-WROOM-32 / ESP32-DevKitC module (2 pc). Order #112-0981761-4377858, placed Jun 7, 2026 | [B0BYS6THLF](https://www.amazon.com/dp/B0BYS6THLF) | 1 pk (2) | $12.86 | ON-ORDER (arriving Jun 9) |
 | Baomain 0.11" male quick-disconnect spade (100 pk) | [B01MZZGAJP](https://www.amazon.com/dp/B01MZZGAJP) | 1 pk | $6.42 | ACQUIRED |
 | Haisstronica ratchet crimper, AWG 22–10 | [B08F3JKDD3](https://www.amazon.com/dp/B08F3JKDD3) | 1 | bundle | ACQUIRED |
 | Feggizuli 280 pc spade connector kit | [B0B4H54KPS](https://www.amazon.com/dp/B0B4H54KPS) | 1 pk | $8.25 | ACQUIRED |
@@ -293,7 +295,7 @@ Ice-maker donor units and copper coil for the chill loop.
 | CQRobot JST XH 2.54 mm 4-pin connector kit (50 sets / 300 pcs) | [B0B2RB524Y](https://www.amazon.com/dp/B0B2RB524Y) | 1 pk | $8.45 | ACQUIRED (delivered Apr 27) |
 | CQRobot JST XH 2.54 mm 6-pin connector kit (50 sets / 400 pcs) | [B0B2R8Q1JL](https://www.amazon.com/dp/B0B2R8Q1JL) | 1 pk | $9.19 | ACQUIRED (delivered Apr 27) |
 | CQRobot JST XH 2.54 mm 9-pin connector kit (30 sets / 330 pcs) | [B0B2R73RQB](https://www.amazon.com/dp/B0B2R73RQB) | 1 pk | $9.19 | ACQUIRED (delivered Apr 29) |
-| CQRobot JST XH 2.54 mm 10-pin connector kit (30 sets / 360 pcs) — for the MCP23017 GPIO port rows (VCC + GND + 8 GPIO = 10 holes; a 10-pin fills the footprint so it can't seat off-by-one, where the 9-pin kit was sized for the ULN2803A sides). Order #112-9768778-8444265, placed Jun 7, 2026 | [B0B2R93CV3](https://www.amazon.com/dp/B0B2R93CV3) | 1 pk | $8.99 | ON-ORDER (arriving Tue Jun 9) |
+| CQRobot JST XH 2.54 mm 10-pin connector kit (30 sets / 360 pcs) — for the MCP23017 GPIO port rows (VCC + GND + 8 GPIO = 10 holes; a 10-pin fills the footprint so it can't seat off-by-one, where the 9-pin kit was sized for the ULN2803A sides). Order #112-9768778-8444265, placed Jun 7, 2026 | [B0B2R93CV3](https://www.amazon.com/dp/B0B2R93CV3) | 1 pk | $9.64 | ON-ORDER (arriving Tue Jun 9) |
 | CQRobot/Zhansheng JST XH 2.54 mm pre-crimped bonded ribbon kit (15 cm / 5.9", 12-conductor ribbons × 8 + loose housings 2/3/4/5/6/7/8/9/10/12 P) | [B0F6C7X5CR](https://www.amazon.com/dp/B0F6C7X5CR) | 1 pk | $15.86 | ACQUIRED (delivered Apr 27) |
 | Keszoox JST XH 2.54 mm pre-crimped wires, 50 cm × 22 AWG silicone, 20 pcs/pk in 10 colors | [B0F8HMQRRN](https://www.amazon.com/dp/B0F8HMQRRN) | 2 pk | $11.63 ea | ACQUIRED (delivered Apr 30) |
 | KWANGIL 22AWG 12-Conductor Cable, UL2464, High-Flexible Tinned Copper Unshielded, Matte Black, 25 ft | [B0CSD5QZ21](https://www.amazon.com/dp/B0CSD5QZ21) | 1 | $25.73 | ACQUIRED (delivered May 15) |
@@ -333,7 +335,7 @@ Ice-maker donor units and copper coil for the chill loop.
 | ruthex M3 Threaded Inserts Short, 100 pc, RX-M3Sx4.0 brass heat-set | [B0D39W228K](https://www.amazon.com/dp/B0D39W228K) | 1 pk (100) | $10.71 | ACQUIRED (delivered May 11) |
 | BNUOK M3 × 25 mm Hex Socket Head Cap Screws, 60 pc, 12.9 alloy steel, black oxide finish | [B0DJQGF665](https://www.amazon.com/dp/B0DJQGF665) | 1 pk (60) | $8.57 | ACQUIRED (delivered May 11) |
 | BNUOK M3 × 12 mm Hex Socket Head Cap Screws, 120 pc, 12.9 alloy steel, black oxide finish | [B0DJQGVK8S](https://www.amazon.com/dp/B0DJQGVK8S) | 1 pk (120) | $8.57 | ACQUIRED (delivered May 11, spare stock) |
-| BNUOK M3 × 12 mm Hex Socket Head Cap Screws, 120 pc, 304 stainless steel (18-8), bright finish | [B0DJQGMQZM](https://www.amazon.com/dp/B0DJQGMQZM) | 1 pk (120) | $8.66 | ON-ORDER (arriving June 3) |
+| BNUOK M3 × 12 mm Hex Socket Head Cap Screws, 120 pc, 304 stainless steel (18-8), bright finish | [B0DJQGMQZM](https://www.amazon.com/dp/B0DJQGMQZM) | 1 pk (120) | $8.66 | ACQUIRED (delivered Jun 3) |
 | LVDALAB PTFE Membrane Filter, ø13 mm × 0.45 µm, 100 pc, non-sterile | [B0D41KT345](https://www.amazon.com/dp/B0D41KT345) | 1 pk (100) | $13.23 | ACQUIRED (delivered May 12) |
 | Mudder PTFE / PVC / PU tubing cutter, ≤3/4" OD (3-pk, black) | [B08VW15TK8](https://www.amazon.com/dp/B08VW15TK8) | 1 pk (3) | $12.86 | ACQUIRED (delivered May 18) |
 
@@ -486,13 +488,13 @@ Industrial-supply orders direct from McMaster-Carr (mcmaster.com). First McMaste
 
 | Status | $ |
 |---|---|
-| ACQUIRED — hardware, tools & infra (§§1–17, 19, 20) | [$25,307.76](LEDGER_ACQUIRED_HW) |
+| ACQUIRED — hardware, tools & infra (§§1–17, 19, 20) | [$25,354.65](LEDGER_ACQUIRED_HW) |
 | ACQUIRED — capitalized contract labor (§18) | [$2,607.92](LEDGER_LABOR) |
-| ACQUIRED (combined) | [$27,915.68](LEDGER_ACQUIRED_COMBINED) |
-| ON-ORDER | [$46.89](LEDGER_ON_ORDER) |
+| ACQUIRED (combined) | [$27,962.57](LEDGER_ACQUIRED_COMBINED) |
+| ON-ORDER | [$53.60](LEDGER_ON_ORDER) |
 | MISSING — paid, not received (§1 copper bar) | [$42.89](LEDGER_MISSING) |
 | LIKELY-TO-BUY | $0.00 |
-| **Grand total — cash outlay** | [$28,005.46](LEDGER_GRAND_TOTAL) |
+| **Grand total — cash outlay** | [$28,059.06](LEDGER_GRAND_TOTAL) |
 
 ACQUIRED hardware by section:
 
@@ -502,13 +504,13 @@ ACQUIRED hardware by section:
 | 2 | CO2 subsystem (incl. Lillium prototype carbonator $1,129) | [$1,785.10](LEDGER_SEC2) |
 | 3 | Water supply + backflow prevention | [$808.63](LEDGER_SEC3) |
 | 4 | Carbonator plumbing | [$241.68](LEDGER_SEC4) |
-| 5 | Flavor subsystem | [$817.29](LEDGER_SEC5) |
+| 5 | Flavor subsystem | [$855.52](LEDGER_SEC5) |
 | 6 | Refrigeration | [$1,867.53](LEDGER_SEC6) |
 | 7 | Dispensing end | [$211.46](LEDGER_SEC7) |
 | 8 | Electronics — controllers | [$62.46](LEDGER_SEC8) |
 | 9 | Electronics — I/O, drivers, sensors, power | [$662.83](LEDGER_SEC9) |
 | 10 | User interface | [$146.45](LEDGER_SEC10) |
-| 11 | Enclosure hardware | [$111.64](LEDGER_SEC11) |
+| 11 | Enclosure hardware | [$120.30](LEDGER_SEC11) |
 | 12 | Shop / bench infrastructure | [$345.28](LEDGER_SEC12) |
 | 13 | Printing consumables | [$1,065.63](LEDGER_SEC13) |
 | 14 | Soldering + small-signal tools | [$409.24](LEDGER_SEC14) |
