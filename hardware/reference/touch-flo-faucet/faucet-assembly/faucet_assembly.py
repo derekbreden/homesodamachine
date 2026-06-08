@@ -40,6 +40,10 @@ Parts:
 7. Mounting gasket (../../../printed-parts/faucet/touch-flo-mounting-gasket/).
    Ø 54.35 × 2.0 mm TPU 90A disc between the mounting plate and the
    countertop (Z = [-6, -4]). Hole pattern mirrors the plate.
+8. Faucet flavor display — Waveshare ESP32-S3-Touch-LCD-1.47 (../display-reference/),
+   a dimensioned stand-in seated on the dispense-tip top skin: long axis
+   up the gooseneck, screen toward the user, board back 2 mm into the
+   cosmetic wrap. Body + screen are separate solids.
 
 Regenerate:
     tools/cad-venv/bin/python faucet_assembly.py
@@ -422,6 +426,83 @@ def build_lever():
     return lever_rest_final.union(lever_pressed)
 
 
+# Faucet flavor display — Waveshare ESP32-S3-Touch-LCD-1.47 (BOM §1),
+# modeled as a dimensioned stand-in (the 14 MB vendor STEP would bloat
+# the assembly ~80×). Outline + screen sizes are from the vendor 2D/3D
+# drawing; provenance in display-reference/README.md. Native frame:
+# X = board width, Y = board length, Z = outward thickness with the
+# board back at z = 0 and the screen on +Z.
+#
+# It seats flat on the dispense-tip top skin: long axis up the
+# gooseneck, screen toward the user. The board back sinks
+# display_pocket_inset below the cosmetic tube-shell skin — here the
+# tubes, not the shell, constrain the liquid, so the wrap can be
+# pocketed.
+display_width = 24.55       # board outline, lateral (world X)
+display_length = 44.5       # board outline, along the tip axis
+display_body_thick = 6.6    # PCB + screen + component stack (10.6 at the USB-C bump)
+display_corner_r = 5.75
+display_screen_w = 22.0
+display_screen_length = 42.0
+display_screen_proud = 0.6
+display_pocket_inset = 2.0
+
+
+def _tip_centerline_world():
+    """(tip_start, tip_end) of the water-tube dispense-tip straight in world coords."""
+    p_gn_start = (0.0, gn_bend1_start_z - water_tube_z_bottom)
+    _, _, arc2, tip_end = _gooseneck_segments(
+        p_gn_start, (0.0, 1.0), gn_bend1_r, gn_bend2_r
+    )
+    def to_world(p):
+        return cq.Vector(0.0, p[0] + port_center_depth, p[1] + water_tube_z_bottom)
+    return to_world(arc2[1]), to_world(tip_end)
+
+
+def _seat_on_tip(part):
+    """Place a display part (native frame: X width, Y length, Z outward
+    with the back at z = 0) onto the dispense tip. The tip straight runs
+    (gn_bend1_sweep + gn_bend2_sweep − 90°) below horizontal; rotating
+    that angle about world X lays the part's length up the gooseneck and
+    turns its screen (+Z) up toward the user. It is then offset out along
+    the tip's top normal so the board back sits display_pocket_inset
+    below the tube-shell skin, length centered on the tip-straight start
+    (lower edge clears the nozzle, board reaches up into bend 2)."""
+    tip_below_horiz_rad = (gn_bend1_sweep_rad + gn_bend2_sweep_rad) - math.pi / 2.0
+    top_normal = cq.Vector(
+        0.0, -math.sin(tip_below_horiz_rad), math.cos(tip_below_horiz_rad)
+    )
+    tip_start, _tip_end = _tip_centerline_world()
+    seat = tip_start + top_normal.multiply(
+        touch_flo_shell.tube_shell_water_r_outer - display_pocket_inset
+    )
+    return (
+        part
+        .rotate((0, 0, 0), (1, 0, 0), math.degrees(tip_below_horiz_rad))
+        .translate(seat.toTuple())
+    )
+
+
+def build_display_body():
+    """Display module body — rounded-rect slab seated on the tip."""
+    body = (
+        cq.Workplane("XY")
+        .box(display_width, display_length, display_body_thick, centered=(True, True, False))
+        .edges("|Z").fillet(display_corner_r)
+    )
+    return _seat_on_tip(body)
+
+
+def build_display_screen():
+    """Display glass — rounded-rect, proud of the body's outward face, seated on the tip."""
+    screen = (
+        cq.Workplane("XY").workplane(offset=display_body_thick)
+        .box(display_screen_w, display_screen_length, display_screen_proud, centered=(True, True, False))
+        .edges("|Z").fillet(3.0)
+    )
+    return _seat_on_tip(screen)
+
+
 def build_assembly():
     """The full faucet assembly in the repo's +Z-up frame."""
     body = load_valve_body()
@@ -432,10 +513,14 @@ def build_assembly():
     mounting_plate = load_mounting_plate()
     mounting_gasket = load_mounting_gasket()
     shell = load_shell()
+    display_body = build_display_body()
+    display_screen = build_display_screen()
 
     silver = cq.Color(0.85, 0.85, 0.88)  # near-stainless silver
     petg_tan = cq.Color(0.85, 0.78, 0.62)  # printed-part tan
     tpu_black = cq.Color(0.15, 0.15, 0.15)  # TPU 90A black gasket
+    display_slate = cq.Color(0.12, 0.13, 0.18)  # dark display module
+    display_glass = cq.Color(0.20, 0.55, 0.85)  # lit-screen blue
 
     assy = cq.Assembly(name="touch-flo-faucet-assembly")
     assy.add(body, name="valve_body", color=cq.Color("black"))
@@ -446,6 +531,8 @@ def build_assembly():
     assy.add(mounting_plate, name="mounting_plate", color=petg_tan)
     assy.add(mounting_gasket, name="mounting_gasket", color=tpu_black)
     assy.add(shell, name="shell", color=petg_tan)
+    assy.add(display_body, name="faucet_display", color=display_slate)
+    assy.add(display_screen, name="faucet_display_screen", color=display_glass)
     return assy
 
 
