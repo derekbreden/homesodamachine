@@ -467,29 +467,35 @@ def _seat_on_tip(part):
     turns its screen (+Z) up toward the user. It is then offset out along
     the tip's top normal so the board back sits display_pocket_inset
     below the shell's outer face above the flavor pill (the two flavor
-    tubes stack above the water tube here, so they set the skin). Length
-    is centered on the tip-straight start: the lower edge clears the
-    nozzle and the upper end reaches into bend 2."""
+    tubes stack above the water tube here, so they set the skin). The
+    board's lower edge is anchored flush with the tip end (the dispense
+    nozzle); it extends up the tip from there (the far end is
+    unconstrained)."""
     tip_below_horiz_rad = (gn_bend1_sweep_rad + gn_bend2_sweep_rad) - math.pi / 2.0
     top_normal = cq.Vector(
         0.0, -math.sin(tip_below_horiz_rad), math.cos(tip_below_horiz_rad)
     )
-    tip_start, _tip_end = _tip_centerline_world()
+    tip_start, tip_end = _tip_centerline_world()
+    tip_axis = tip_end - tip_start
+    tip_axis = tip_axis.multiply(1.0 / tip_axis.Length)
     # The display sits over the FLAVOR pill, not the water tube: the two
     # flavor tubes stack above the water tube on the user-facing side, so
     # they set the outer skin here. Distance from the water-tube
-    # centerline (tip_start) out along top_normal to the shell's outer
-    # face above the flavor pill = flavor-pill center offset + half the
-    # pill's short (Y) axis + the tube-shell wall. This is exactly the +Y
-    # outer edge of the flavor-pill slot in
-    # touch_flo_shell._tube_shell_outer_sketch.
+    # centerline out along top_normal to the shell's outer face above the
+    # flavor pill = flavor-pill center offset + half the pill's short (Y)
+    # axis + the tube-shell wall. This is exactly the +Y outer edge of the
+    # flavor-pill slot in touch_flo_shell._tube_shell_outer_sketch.
     flavor_pill_outer_from_water = (
         touch_flo_shell.flavor_offset_y_from_water
         + touch_flo_shell.pill_width_y / 2.0
         + touch_flo_shell.zone5_wall
     )
-    seat = tip_start + top_normal.multiply(
-        flavor_pill_outer_from_water - display_pocket_inset
+    # Anchor the board's lower (nozzle-end) edge flush with the tip end,
+    # at the flavor-pill outer face minus the inset; it extends up the tip.
+    seat = (
+        tip_end
+        + top_normal.multiply(flavor_pill_outer_from_water - display_pocket_inset)
+        - tip_axis.multiply(display_length / 2.0)
     )
     return (
         part
