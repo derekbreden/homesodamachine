@@ -127,6 +127,22 @@ zone1_outer_z_top = zone1_z_top + shell_outer_lip  # [16.25 mm](ZONE1_OUTER_Z_TO
 zone2_outer_z_bottom = zone1_outer_z_top  # [16.25 mm](ZONE1_OUTER_Z_TOP)
 
 
+# BASE PODS — two solid lateral pods on the +-X sides of the foot that host
+# the plate-to-shell screw bosses. Mechanism: heat-set insert in the shell,
+# screw up from under the plate (head flush in the plate bottom) through the
+# plate boss, clamping the plate up into the shell. These two lateral anchors
+# are the ENTIRE shell-to-body retention; the shank nut only clamps the metal
+# body to the plate, not the shell. Solid placeholders for now — no boss
+# pocket, no insert pocket. Plain circles here; a pill refinement may follow.
+base_pod_boss_pocket_dia = 8.0      # M3 boss pocket the pod will eventually carry (placeholder)
+base_pod_wall = 2.0                 # pod wall around that pocket
+base_pod_radius = base_pod_boss_pocket_dia / 2.0 + base_pod_wall
+base_pod_center_x = 21.9            # lateral screw axis, +-X (body bore center is X=0)
+base_pod_center_y = 0.0             # in line with the body-bore center
+base_pod_z_bottom = zone1_z_bottom  # deck plane, Z=0
+base_pod_z_top = zone1_outer_z_top  # match the base-cylinder top
+
+
 # LEVER SWING CLEARANCE — chamfer wedge cut into the top -Y corner of
 # the rect column, where the pressed lever's taper passes through.
 
@@ -481,6 +497,26 @@ def build_zone1_inner_cut() -> cq.Workplane:
     body_bore = body_bore_cyl(zone1_z_bottom, zone2_bore_z_bottom - zone1_z_bottom)
     pill = _flavor_pill_flat_y_minus(zone1_z_bottom, zone1_height)
     return body_bore.union(pill)
+
+
+def build_base_pods() -> cq.Workplane:
+    """Two solid cylindrical pods on the +-X sides of the foot (deck plane up
+    to the base-cylinder top), placeholders for the lateral screw bosses. No
+    pockets, no inserts yet. Unioned into the shell outer before the inner
+    cuts, so the body bore trims any pod material that reaches the bore."""
+    z_height = base_pod_z_top - base_pod_z_bottom
+    pods = [
+        (
+            _horizontal_plane(base_pod_z_bottom)
+            .moveTo((x_sign * base_pod_center_x, base_pod_center_y))
+            .circle(base_pod_radius)
+            .extrude(z_height)
+            .unwrap()
+            .val()
+        )
+        for x_sign in (+1, -1)
+    ]
+    return cq.Workplane(obj=pods[0].fuse(pods[1]))
 
 
 def _rect_cove_cyl(
@@ -993,6 +1029,7 @@ def build_shell() -> cq.Workplane:
     build_shell_top (dispense-tip)."""
     outer_parts = [
         build_zone1_outer().val(),
+        build_base_pods().val(),
         build_zone2_outer().val(),
         build_zone3_outer().val(),
         build_zone3_fill_outer().val(),
