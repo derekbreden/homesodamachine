@@ -72,6 +72,7 @@ const routes = [
   { path: "/dev/settings", expect: 301 },
 
   // JSON APIs that don't touch Postgres
+  { path: "/blog/posts?offset=0", expect: 200, ct: "application/json" },
   { path: "/api/steps",           expect: 200, ct: "application/json" },
   { path: "/api/dxf",             expect: 200, ct: "application/json" },
   { path: "/api/mermaid",         expect: 200, ct: "application/json" },
@@ -117,6 +118,27 @@ for (const r of routes) {
     }
   });
 }
+
+// Blog infinite-scroll contract. /blog/posts hands the client rendered
+// HTML plus the cursor for the next request; the client appends html and
+// stops when hasMore goes false. Shape has to hold even on an empty tree
+// (no posts/ dir): html "", nextOffset 0, hasMore false.
+test("GET /blog/posts returns a paginated JSON page", async () => {
+  const res = await fetch(`${baseUrl}/blog/posts?offset=0`);
+  assert.equal(res.status, 200);
+  const data = await res.json();
+  assert.equal(typeof data.html, "string");
+  assert.equal(typeof data.nextOffset, "number");
+  assert.equal(typeof data.hasMore, "boolean");
+  // Any image in the feed must be lazy — that's the whole point of paging,
+  // and an eager <img> would drag the up-front payload back in.
+  if (data.html.includes("<img")) {
+    assert.match(data.html, /<img[^>]*loading="lazy"/);
+  }
+  // A negative/garbage offset must clamp to 0 rather than error.
+  const bad = await fetch(`${baseUrl}/blog/posts?offset=-5`);
+  assert.equal(bad.status, 200);
+});
 
 // WebSocket channel. Open a connection, wait for the initial `hello`
 // frame, then close. Anything broken at the upgrade pipeline or the
