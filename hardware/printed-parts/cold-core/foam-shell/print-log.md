@@ -2,11 +2,11 @@
 
 Format: facts only. Direct quotes from Derek where applicable. Settings observed in committed `.3mf` snapshots. No interpretation, no hypothesis — analysis lives in the conversation, decisions land in the geometry.
 
-Geometry: the full cold-core foam shell, one object `foam-shell.step` from [`foam_shell.py`](foam_shell.py). Outer footprint 283 × 181 mm, 213.4 mm tall, 2 mm walls/floor. README is the geometry source-of-truth.
+Geometry: the full cold-core foam shell, one object `foam-shell.step` from [`foam_shell.py`](/hardware/printed-parts/cold-core/foam-shell/foam_shell.py). Outer footprint 283 × 181 mm, 213.4 mm tall, 2 mm walls/floor. README is the geometry source-of-truth.
 
 ## Print attempt 1 (settings per [`foam-shell-8mm-high-flow.3mf`](foam-shell-8mm-high-flow.3mf))
 
-First full foam-shell print. Used the part-proving foam shell for the reservoir watertight test (held water with gaskets — see [`../reservoir/print-log.md`](../reservoir/print-log.md) attempt 3).
+First full foam-shell print. Used the part-proving foam shell for the reservoir watertight test (held water with gaskets — see [`../reservoir/print-log.md`](/hardware/printed-parts/cold-core/reservoir/print-log.md) attempt 3).
 
 Settings — **stock Bambu defaults** for the hotend + filament, no anti-warp tuning:
 - Printer: Bambu Lab H2C, 0.8 mm nozzle; profile `0.40mm Standard @BBL H2C 0.8 nozzle`
@@ -30,7 +30,7 @@ Otherwise "nearly everything was perfect."
 
 ## Print attempt 2 (sliced, settings per [`foam-shell-8mm-high-flow.3mf`](foam-shell-8mm-high-flow.3mf))
 
-`foam-shell.step` at geometry commit `9a417017`: rounded outer corners (12 mm), cylindrical bosses tangent to the exterior wall with teardrop corner-fill webs, four corner gussets (z 2–42). Cap + gasket pads share the boss shape. Geometry in [`README.md`](README.md); construction in [`../_outer_shell.py`](../_outer_shell.py); the four corner gussets were defined in `_corner_gussets.py` at that commit.
+`foam-shell.step` at geometry commit `9a417017`: rounded outer corners (12 mm), cylindrical bosses tangent to the exterior wall with teardrop corner-fill webs, four corner gussets (z 2–42). Cap + gasket pads share the boss shape. Geometry in [`README.md`](/hardware/printed-parts/cold-core/foam-shell/README.md); construction in [`../_outer_shell.py`](/hardware/printed-parts/cold-core/_outer_shell.py); the four corner gussets were defined in `_corner_gussets.py` at that commit.
 
 Settings observed (same stock profile as attempt 1):
 - Profile `0.40mm Standard @BBL H2C 0.8 nozzle`, dual 0.8 mm nozzle; `Bambu PETG Basic`, black

@@ -4,9 +4,9 @@ Capital expenditure ledger for the soda-flavor-injector project. Scope: **2026 c
 
 This is the **purchase ledger** — every buy event, kept for tax records and complete sourcing history. It is not a per-unit bill of materials. Views over this ledger live in sibling files:
 
-- [bom.md](bom.md) — parts allocated per-unit in the current production design (per-unit qty, unit-cost math).
-- [tools.md](tools.md) — active tools with tool-specific metadata (working envelopes, capacities, manufacturer references).
-- [inventory.md](inventory.md) — current-state inventory for items not in bom.md or tools.md (consumables, spares, abandoned parts, diagnostic purchases, donor units, fab fixtures, aggregated counts).
+- [bom.md](/hardware/ledger/bom.md) — parts allocated per-unit in the current production design (per-unit qty, unit-cost math).
+- [tools.md](/hardware/ledger/tools.md) — active tools with tool-specific metadata (working envelopes, capacities, manufacturer references).
+- [inventory.md](/hardware/ledger/inventory.md) — current-state inventory for items not in bom.md or tools.md (consumables, spares, abandoned parts, diagnostic purchases, donor units, fab fixtures, aggregated counts).
 
 Each row below is a purchase event; the same SKU may appear as multiple rows if reordered. Capitalized contract labor (Anthropic / Claude API) is recorded here in §18 as cash outlays.
 
@@ -16,7 +16,7 @@ Price figures on bundled rows reflect the shipment total, not the per-item unit 
 
 ## 1. Pressure vessel / carbonator fabrication
 
-Stainless pressure-vessel fabrication: 316 SS round-tube body + 1/4" laser-cut 316 SS end-cap plates (direct-tapped 1/4" NPT), welding/forming tools, drill-tap tooling, and the hydro/pressure-test rig. Racetrack 304 SS stock is retained as fallback (see [inventory.md](inventory.md)).
+Stainless pressure-vessel fabrication: 316 SS round-tube body + 1/4" laser-cut 316 SS end-cap plates (direct-tapped 1/4" NPT), welding/forming tools, drill-tap tooling, and the hydro/pressure-test rig. Racetrack 304 SS stock is retained as fallback (see [inventory.md](/hardware/ledger/inventory.md)).
 
 | Part | ASIN link | Qty | $ | Status |
 |---|---|---|---|---|

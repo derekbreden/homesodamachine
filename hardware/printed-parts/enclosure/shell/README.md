@@ -1,7 +1,7 @@
 # Shell
 
 A six-walled PETG box, 3 mm walls, sized live to the bounding box of the
-contents placed by [`../assembly/_contents.py`](../assembly/_contents.py).
+contents placed by [`../assembly/_contents.py`](/hardware/printed-parts/enclosure/assembly/_contents.py).
 No penetrations modelled (no faucet hole, no AC inlet, no BiB adapter, no
 condenser grilles, no funnel hole, no display pocket) — just the closed shell
 that proves the contents fit a single-piece print inside the
@@ -9,8 +9,8 @@ that proves the contents fit a single-piece print inside the
 (325 × 320 × 320 mm).
 
 The production enclosure with all penetrations, panel splits, mounting bosses,
-and door cutouts lives in the sibling [`back-panel/`](../back-panel/),
-[`front-panel/`](../front-panel/), and [`nameplate/`](../nameplate/) dirs. This
+and door cutouts lives in the sibling [`back-panel/`](/hardware/printed-parts/enclosure/back-panel/),
+[`front-panel/`](/hardware/printed-parts/enclosure/front-panel/), and [`nameplate/`](/hardware/printed-parts/enclosure/nameplate/) dirs. This
 study is the bounding-box check that hands the production design its maximum
 outer envelope.
 

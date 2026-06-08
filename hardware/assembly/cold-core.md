@@ -6,11 +6,11 @@ Foam-pour geometry, shell architecture, copper-plug binder-clip cross-section, a
 
 ## Scope
 
-In: one hydro-tested + passivated carbonator vessel (output of [`pressure-vessel.md`](pressure-vessel.md)); GOORY 1/4" OD × 0.031" wall ACR copper tubing for the evaporator coil; 3M 425 aluminum foil tape; the printed coil-winding mandrel; the printed PETG shell stack (foam-shell, foam-cap × 2, foam-cap-lid × 2, copper-plug × 3, reservoir × 2); TPU 90A gaskets × 2; pour-in-place 2 lb closed-cell polyurethane foam (two-part 1:1); M3 × 25 SHCS × 12 and ruthex M3 inserts × 12.
+In: one hydro-tested + passivated carbonator vessel (output of [`pressure-vessel.md`](/hardware/assembly/pressure-vessel.md)); GOORY 1/4" OD × 0.031" wall ACR copper tubing for the evaporator coil; 3M 425 aluminum foil tape; the printed coil-winding mandrel; the printed PETG shell stack (foam-shell, foam-cap × 2, foam-cap-lid × 2, copper-plug × 3, reservoir × 2); TPU 90A gaskets × 2; pour-in-place 2 lb closed-cell polyurethane foam (two-part 1:1); M3 × 25 SHCS × 12 and ruthex M3 inserts × 12.
 
 Out: a fully foam-poured cold core, capped + gasketed top and bottom, with the wound evaporator coil bonded around the vessel and its inlet/outlet stubs (~2 ft each) protruding through the foam-shell's copper-plug exits.
 
-Not in scope: refrigerant-loop integration ([`refrigerant-loop.md`](refrigerant-loop.md)) — brazing of the coil stubs onto the donor unit's cap tube and suction line, vacuum, charge, run-up. Also not in scope: enclosure-side assembly (electronics shelf, compressor + condenser + fan placement, AC wiring), faucet install, final integration.
+Not in scope: refrigerant-loop integration ([`refrigerant-loop.md`](/hardware/assembly/refrigerant-loop.md)) — brazing of the coil stubs onto the donor unit's cap tube and suction line, vacuum, charge, run-up. Also not in scope: enclosure-side assembly (electronics shelf, compressor + condenser + fan placement, AC wiring), faucet install, final integration.
 
 ## Inputs per appliance
 
@@ -18,7 +18,7 @@ Per-unit BOM lives in [`/hardware/ledger/bom.md`](/hardware/ledger/bom.md) §5 (
 
 | Item | Source | Status (per purchases.md) |
 |---|---|---|
-| Carbonator vessel | Output of [`pressure-vessel.md`](pressure-vessel.md) | Hydro-tested + passivated |
+| Carbonator vessel | Output of [`pressure-vessel.md`](/hardware/assembly/pressure-vessel.md) | Hydro-tested + passivated |
 | GOORY 1/4" OD × 0.031" wall ACR copper tubing | B0DKSW5VL9 | ~24 ft per vessel for coil wrap + tie-in stubs (1/2 of 50 ft roll per build) — ACQUIRED |
 | 3M 425 aluminum foil tape | B07BTW7C2N | Coil-to-vessel thermal interface; applied as continuous skin under the coil; one 180 ft roll covers ~12 builds — ACQUIRED |
 | Coil-winding mandrel (printed PETG) | [`/hardware/printed-parts/cold-core/coil-mandrel/`](/hardware/printed-parts/cold-core/coil-mandrel/) | Print, reusable across builds |
@@ -38,7 +38,7 @@ Per-unit BOM lives in [`/hardware/ledger/bom.md`](/hardware/ledger/bom.md) §5 (
 
 ### 1. Wind the evaporator coil around the vessel
 
-Wind GOORY 1/4" OD × 0.031" wall ACR copper tubing as a single-layer helical coil at ~1/8" pitch around the vessel OD — ~22 ft of wrap per vessel + ~2 ft each end for the refrigerant-loop tie-in stubs. The tie-in stubs exit through the foam-shell's copper-plug holes; brazing happens in [`refrigerant-loop.md`](refrigerant-loop.md).
+Wind GOORY 1/4" OD × 0.031" wall ACR copper tubing as a single-layer helical coil at ~1/8" pitch around the vessel OD — ~22 ft of wrap per vessel + ~2 ft each end for the refrigerant-loop tie-in stubs. The tie-in stubs exit through the foam-shell's copper-plug holes; brazing happens in [`refrigerant-loop.md`](/hardware/assembly/refrigerant-loop.md).
 
 Bond the coil to the vessel OD with 3M 425 aluminum foil tape applied as a continuous skin between vessel and coil.
 
@@ -69,7 +69,7 @@ With the outer shell open-top-up on the bench, install every internal component:
   - Water outlet → dedicated Ø[6.5 mm](TUBE_HOLE_D) hole, +Z outer wall
   - Reservoir lines (+X, −X) → dedicated Ø[6.5 mm](TUBE_HOLE_D) holes in the bag_pocket_shell ±X far walls
   - Refrigerant inlet (low), refrigerant outlet (high), water inlet, PRV vent LLDPE → shared Y-elongated slot at x=0 on the +Z outer wall. The water-inlet line transitions from the warm-side GASHER 1/4" NPT check valve via a JG PP010822E 1/4" PTC × 1/4" NPT M adapter before entering the slot as 1/4" OD LLDPE; downstream of the slot a second JG PP010822E (PTC → NPT) takes the LLDPE back to NPT before threading into the TAISHER 1/4" NPT 90° vessel-port elbow on Port 2 (top plate). The PRV vent LLDPE press-fits into the prv-shroud cap, routes through the slot at its own Y height (per foam-shell penetration #8), and terminates open inside the appliance interior.
-- **PRV vent LLDPE** press-fits into the cap of the [`/hardware/printed-parts/cold-core/prv-shroud/`](/hardware/printed-parts/cold-core/prv-shroud/) subassembly on Port 4 (threaded into the vessel at [`pressure-vessel.md`](pressure-vessel.md) step 8). The LLDPE routes from the cap, takes a slight bend, and enters the +Z shared slot at its allocated Y height. Far end terminates open inside the appliance interior.
+- **PRV vent LLDPE** press-fits into the cap of the [`/hardware/printed-parts/cold-core/prv-shroud/`](/hardware/printed-parts/cold-core/prv-shroud/) subassembly on Port 4 (threaded into the vessel at [`pressure-vessel.md`](/hardware/assembly/pressure-vessel.md) step 8). The LLDPE routes from the cap, takes a slight bend, and enters the +Z shared slot at its allocated Y height. Far end terminates open inside the appliance interior.
 - **Four copper plugs** slid down into the shared +Z slot from above, sealing between and above the four pass-throughs (binder-clip geometry in [`/hardware/printed-parts/cold-core/foam-shell/README.md`](/hardware/printed-parts/cold-core/foam-shell/README.md) "Shared +Z slot and copper plug stack")
 - **In-cavity PP0308E elbow** angled in through the −Z support-arch doorway from above before the vessel drops into the cavity.
 

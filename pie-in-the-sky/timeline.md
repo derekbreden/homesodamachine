@@ -4,15 +4,15 @@
 
 *BOM figures in this doc are first-pass estimates intended to size the idea, not specifications.*
 
-A line of thinking about releasing the curator catalog ([`curator-brand.md`](curator-brand.md)) sequentially rather than launching everything at once — what ships first, what each release teaches, and how the brand grows past one appliance. The original framing in this doc was about the three appliance variants in this folder — Lite, Kitchen, Shop — as a numbered HSM 1/2/3 product line released sequentially rather than as alternative SKUs sold in parallel. The expanded framing keeps that numbering but adds the lower rungs of the catalog (free editorial, the CGA-320 kit, the CO2 services) as earlier releases that ship before any of the appliance variants.
+A line of thinking about releasing the curator catalog ([`curator-brand.md`](/pie-in-the-sky/curator-brand.md)) sequentially rather than launching everything at once — what ships first, what each release teaches, and how the brand grows past one appliance. The original framing in this doc was about the three appliance variants in this folder — Lite, Kitchen, Shop — as a numbered HSM 1/2/3 product line released sequentially rather than as alternative SKUs sold in parallel. The expanded framing keeps that numbering but adds the lower rungs of the catalog (free editorial, the CGA-320 kit, the CO2 services) as earlier releases that ship before any of the appliance variants.
 
 ## The framing
 
 Going from earliest release to latest:
 
-- **Free editorial** — a SodaStream-advice page, the local CO2 directory in [`local-co2.md`](local-co2.md). Ships first because the cost is minimal and the SEO surface seeds traffic for every later rung. ~$0 spend.
-- **CGA-320 adapter kit** — [`cga320-kit.md`](cga320-kit.md). ~$110 BOM, ~$150 retail. Standard US 2 L soda-bottle thread + CGA-320 regulator + push-button head. First transactional rung.
-- **CO2 delivery service** — [`co2-service.md`](co2-service.md) at $500 for new bottle, $250 for refill. Hazmat shipping through UPS or FedEx.
+- **Free editorial** — a SodaStream-advice page, the local CO2 directory in [`local-co2.md`](/pie-in-the-sky/local-co2.md). Ships first because the cost is minimal and the SEO surface seeds traffic for every later rung. ~$0 spend.
+- **CGA-320 adapter kit** — [`cga320-kit.md`](/pie-in-the-sky/cga320-kit.md). ~$110 BOM, ~$150 retail. Standard US 2 L soda-bottle thread + CGA-320 regulator + push-button head. First transactional rung.
+- **CO2 delivery service** — [`co2-service.md`](/pie-in-the-sky/co2-service.md) at $500 for new bottle, $250 for refill. Hazmat shipping through UPS or FedEx.
 - **HSM 1** — the Lite Edition. ~$500 BOM, $1,500 retail. Flavor injection only, customer supplies the carbonator (Lillium-class) or pairs with one we resell.
 - **HSM 2** — the Kitchen Edition without drain. ~$1,500 BOM, $3,500 retail. Integrated carbonator and refrigeration, faucet at the back of the sink, no plumbed drain.
 - **HSM 3** — front dispense + drain. ~$2,000 BOM, $5,000 retail. Countertop-capable with proximity arm gesture and a plumbed drain for unattended clean cycles.
@@ -46,7 +46,7 @@ Current plan: spend the project budget betting that the hard engineering (custom
 
 HSM-1-first plan: ship something, validate everything that isn't engineering — does the video convert, does the install story work, does the syrup supply chain hold up, does the iOS app feel right, do real kitchens cooperate with the install pattern, does the brand mean anything yet, what's the real failure rate of a peristaltic pump in a customer's home. Then invest the HSM 2 carbonator and refrigeration R&D against a validated market.
 
-The CGA-320 kit pulls validation earlier still — it ships at a $150 transaction, which is enough to test the brand voice, the editorial funnel, and the customer-support workflow without any of the syrup or install variables. The CO2 service has its own gating decision before launch (laid out in [`co2-service.md`](co2-service.md)) but ships before HSM 1 in any timeline where the answer is yes. By the time HSM 1 ships, the brand has already learned which of the curator voice cues resonate and which fall flat.
+The CGA-320 kit pulls validation earlier still — it ships at a $150 transaction, which is enough to test the brand voice, the editorial funnel, and the customer-support workflow without any of the syrup or install variables. The CO2 service has its own gating decision before launch (laid out in [`co2-service.md`](/pie-in-the-sky/co2-service.md)) but ships before HSM 1 in any timeline where the answer is yes. By the time HSM 1 ships, the brand has already learned which of the curator voice cues resonate and which fall flat.
 
 The carbonator engineering doesn't get cancelled in this framing. It gets *funded* by HSM 1 revenue and *aimed* by HSM 1 learnings — with the lower rungs funding and aiming HSM 1 in the same way.
 
@@ -72,7 +72,7 @@ Front dispense + drain + proximity + arm switch is the *halo* version — visual
 
 ## How this sits next to the other docs
 
-- [`curator-brand.md`](curator-brand.md) is the catalog index that this timeline sequences. The catalog says "here's the full menu we offer"; the timeline says "and here's when each item shows up on it."
+- [`curator-brand.md`](/pie-in-the-sky/curator-brand.md) is the catalog index that this timeline sequences. The catalog says "here's the full menu we offer"; the timeline says "and here's when each item shows up on it."
 - `marketing/target-market.md`'s "rings of trust" model and "the founder's face is the product at Founder Edition scale" arguments compose naturally with HSM 1. Ring 1 is exactly the customer base that an HSM 1 launch reaches first. The earlier rungs (editorial, kit, CO2 services) reach a wider audience than Ring 1 by design.
 - `hardware/future.md` describes the integrated under-counter machine in present tense as "the appliance." Under this framing that document is the engineering spec for HSM 2 specifically.
 - `pie-in-the-sky/shop-edition.md` is the engineering sketch for HSM 3.

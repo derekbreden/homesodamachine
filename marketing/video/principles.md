@@ -20,11 +20,11 @@ You're not performing a weld for the camera. You're learning to weld because you
 
 ## Narration is optional for most clips
 
-Tier 2 build-in-public content in [`concepts.md`](concepts.md) — pour videos, snap-fit tests, timelapses, the live-reload CAD viewer — are music-bed-and-title-card clips, not narrated clips. Narration is for the *story* videos (first weld, AI design failure, business license wall). Removing the unconscious assumption that every clip needs voiceover removes a large part of the perceived burden.
+Tier 2 build-in-public content in [`concepts.md`](/marketing/video/concepts.md) — pour videos, snap-fit tests, timelapses, the live-reload CAD viewer — are music-bed-and-title-card clips, not narrated clips. Narration is for the *story* videos (first weld, AI design failure, business license wall). Removing the unconscious assumption that every clip needs voiceover removes a large part of the perceived burden.
 
 ## The pipeline is the floor
 
-[`workflow.md`](workflow.md) describes what it takes to ship a video at all. It is not what it takes to ship a good one. Each video moves the format forward by some unambiguous amount over the last one — a cold open, a motion-graphics primitive, a sound treatment, a typographic move, a B-roll insert. The list of editing techniques modern YouTube tech channels use that ours doesn't is the working set; pick something and build it. When the existing primitives don't fit, write new ones; the pipeline grows with the channel.
+[`workflow.md`](/marketing/video/workflow.md) describes what it takes to ship a video at all. It is not what it takes to ship a good one. Each video moves the format forward by some unambiguous amount over the last one — a cold open, a motion-graphics primitive, a sound treatment, a typographic move, a B-roll insert. The list of editing techniques modern YouTube tech channels use that ours doesn't is the working set; pick something and build it. When the existing primitives don't fit, write new ones; the pipeline grows with the channel.
 
 ## Drafts are free, posts are expensive
 

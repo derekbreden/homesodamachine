@@ -13,7 +13,7 @@ Everything else fits into the voids those three create.
 ## The 4 zones
 
 - **Zone A (back-bottom):** Foam shell, occupies the volume entirely. ~[283](FOAM_SHELL_X) × [181](FOAM_SHELL_Y) × [213.4](FOAM_SHELL_Z) mm. Penetrations on the +Y front wall and the +Z top only — back, sides, and bottom are clean. Geometry source: [`/hardware/printed-parts/cold-core/foam-shell/README.md`](/hardware/printed-parts/cold-core/foam-shell/README.md).
-- **Zone B (back-top):** Electronics shelf + back-panel terminations + GFCI module. The shelf is a flat 2D panel; the zone has significant spare volume even at modest height. The CO2 line traverses through here on its way from the front face to the foam-shell's +Z top entry. Shelf detail: [`/hardware/assembly/electronics-shelf.md`](/hardware/assembly/electronics-shelf.md). Back panel: [`back-panel/README.md`](back-panel/README.md).
+- **Zone B (back-top):** Electronics shelf + back-panel terminations + GFCI module. The shelf is a flat 2D panel; the zone has significant spare volume even at modest height. The CO2 line traverses through here on its way from the front face to the foam-shell's +Z top entry. Shelf detail: [`/hardware/assembly/electronics-shelf.md`](/hardware/assembly/electronics-shelf.md). Back panel: [`back-panel/README.md`](/hardware/printed-parts/enclosure/back-panel/README.md).
 - **Zone C (front-top):** The flavor funnel over the pump cartridge under a single centered top door — the removable silicone funnel seats on top, the pump cartridge sits beneath it. Detail: [`/hardware/printed-parts/zone-c/README.md`](/hardware/printed-parts/zone-c/README.md).
 - **Zone D (front-bottom):** Compressor + condenser + fan + water-inlet plumbing subsystem. Compressor sits on the floor in its sheet-metal shroud in front of the foam shell. Condenser along one ±X side wall with the fan axis crossing side-to-side. The Multiplex backflow preventer + drip pan + moisture sensor + SeaFlo pump live here as a co-located plumbing cluster. Compressor shroud: [`/hardware/cut-parts/compressor-shroud/README.md`](/hardware/cut-parts/compressor-shroud/README.md).
 
@@ -47,9 +47,9 @@ The GFCI module sits on the electronics shelf.
 
 ## Sub-folders
 
-- [`back-panel/`](back-panel/) — rear face of the enclosure.
-- [`front-panel/`](front-panel/) — front face of the enclosure.
-- [`nameplate/`](nameplate/) — separately-printed serialized plaque mounted on the rear face.
+- [`back-panel/`](/hardware/printed-parts/enclosure/back-panel/) — rear face of the enclosure.
+- [`front-panel/`](/hardware/printed-parts/enclosure/front-panel/) — front face of the enclosure.
+- [`nameplate/`](/hardware/printed-parts/enclosure/nameplate/) — separately-printed serialized plaque mounted on the rear face.
 
 ## Sources
 [value](NAME) texts are updated by:

@@ -9,17 +9,17 @@ TPU 85A run. Each part's geometry source-of-truth and any per-part print
 history stay in that part's own subsystem folder; this plate just groups
 them. Several of these parts have prior individual prints (the reservoir
 gasket + bulkhead seals were in the 2026-05-30 watertight test — see
-[`cold-core/reservoir/print-log.md`](cold-core/reservoir/print-log.md)).
+[`cold-core/reservoir/print-log.md`](/hardware/printed-parts/cold-core/reservoir/print-log.md)).
 
 ## Plate composition (11 instances, 5 distinct parts)
 
 | Part (STEP) | Source | × | Footprint | CAD material |
 | --- | --- | --- | --- | --- |
-| `foam-cap-gasket` | [`cold-core/foam-cap/foam_cap.py`](cold-core/foam-cap/foam_cap.py) | 1 | 4480 mm² | TPU 90A |
-| `reservoir-gasket` | [`cold-core/reservoir/reservoir.py`](cold-core/reservoir/reservoir.py) | 3 | 2323 mm² | TPU 85A |
-| `touch-flo-mounting-gasket` | [`faucet/touch-flo-mounting-gasket/touch_flo_mounting_gasket.py`](faucet/touch-flo-mounting-gasket/touch_flo_mounting_gasket.py) | 2 | 2111 mm² | TPU 90A |
-| `reservoir-bulkhead-seal-dry` | [`cold-core/reservoir/reservoir.py`](cold-core/reservoir/reservoir.py) | 2 | 67.7 mm² | TPU washer |
-| `reservoir-retaining-ring` | [`cold-core/reservoir/reservoir.py`](cold-core/reservoir/reservoir.py) | 3 | 77.4 mm² | TPU 90A |
+| `foam-cap-gasket` | [`cold-core/foam-cap/foam_cap.py`](/hardware/printed-parts/cold-core/foam-cap/foam_cap.py) | 1 | 4480 mm² | TPU 90A |
+| `reservoir-gasket` | [`cold-core/reservoir/reservoir.py`](/hardware/printed-parts/cold-core/reservoir/reservoir.py) | 3 | 2323 mm² | TPU 85A |
+| `touch-flo-mounting-gasket` | [`faucet/touch-flo-mounting-gasket/touch_flo_mounting_gasket.py`](/hardware/printed-parts/faucet/touch-flo-mounting-gasket/touch_flo_mounting_gasket.py) | 2 | 2111 mm² | TPU 90A |
+| `reservoir-bulkhead-seal-dry` | [`cold-core/reservoir/reservoir.py`](/hardware/printed-parts/cold-core/reservoir/reservoir.py) | 2 | 67.7 mm² | TPU washer |
+| `reservoir-retaining-ring` | [`cold-core/reservoir/reservoir.py`](/hardware/printed-parts/cold-core/reservoir/reservoir.py) | 3 | 77.4 mm² | TPU 90A |
 
 Part roles (geometry authoritative in the sources above):
 - **foam-cap-gasket** — compresses between the foam-cap tray and the
@@ -72,7 +72,7 @@ Settings observed in the 3mf:
 
 Same TPU 85A profile the touch-flo-tpu-o-ring v3 printed on (H2C 0.6 nozzle,
 0.18 mm Balanced Quality, 225 °C, textured plate, flow 1.0, 2.2 mm³/s — see
-[`faucet/touch-flo-tpu-o-ring/print-log.md`](faucet/touch-flo-tpu-o-ring/print-log.md)).
+[`faucet/touch-flo-tpu-o-ring/print-log.md`](/hardware/printed-parts/faucet/touch-flo-tpu-o-ring/print-log.md)).
 The difference is this plate runs solid seals — `wall_loops` 2 / arachne /
 100 % infill / 3+3 shells — versus the o-ring's single Arachne wall.
 

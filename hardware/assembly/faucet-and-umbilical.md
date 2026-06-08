@@ -2,7 +2,7 @@
 
 The production procedure for the above-counter fixture stack and the 3-tube umbilical that connects it to the rear panel — the visible half of the appliance from the user's perspective. The faucet body and the umbilical ship as **one permanently-attached unit**: the carbonated-water LLDPE tube is clamped into the Westbrass body's upstream compression port at this bench and never separated again, and the two flavor LLDPE tubes route through the touch-flo-shell's pill slot up into the printed gooseneck's dispense channel where they terminate at the printed tip. The customer (or their installer) drills the 1-3/8" countertop hole, drops the faucet+umbilical through it from above, **slides the keyhole under-counter plate laterally onto the dangling umbilical from below** so the shank and tubes enter through the plate's open-edge channels and seat in their terminal pockets, slips a washer over the shank, and tightens one nut. At the rear-panel end, the three tube tails push into the PP1208E bulkheads on the appliance back panel.
 
-This bench runs in parallel with the main appliance chain. Its inputs are upstream of [`pressure-vessel.md`](pressure-vessel.md) and its output ships in the carton alongside the finished enclosure produced by [`finish-pack-ship.md`](finish-pack-ship.md). Design intent for the user-facing surface lives in [`/hardware/future.md`](/hardware/future.md) "User-facing elements, by location"; the dispense head is the printed touch-flo-shell's gooseneck channel carrying three LLDPE tubes — see [`/hardware/printed-parts/faucet/touch-flo-shell/`](/hardware/printed-parts/faucet/touch-flo-shell/) and that part's [`MATERIAL.md`](/hardware/printed-parts/faucet/touch-flo-shell/MATERIAL.md).
+This bench runs in parallel with the main appliance chain. Its inputs are upstream of [`pressure-vessel.md`](/hardware/assembly/pressure-vessel.md) and its output ships in the carton alongside the finished enclosure produced by [`finish-pack-ship.md`](/hardware/assembly/finish-pack-ship.md). Design intent for the user-facing surface lives in [`/hardware/future.md`](/hardware/future.md) "User-facing elements, by location"; the dispense head is the printed touch-flo-shell's gooseneck channel carrying three LLDPE tubes — see [`/hardware/printed-parts/faucet/touch-flo-shell/`](/hardware/printed-parts/faucet/touch-flo-shell/) and that part's [`MATERIAL.md`](/hardware/printed-parts/faucet/touch-flo-shell/MATERIAL.md).
 
 ## Scope
 
@@ -78,7 +78,7 @@ The TPU gasket is already on the shank from step 2 and is not in the install kit
 
 The customer-facing install instructions live on the printed quick-start sheet that ships at the top of the appliance carton; design intent for the sheet is [`/marketing/unboxing-and-quickstart.md`](/marketing/unboxing-and-quickstart.md).
 
-Bag, seal, label with build number and the part identifier `FAUCET-UMBILICAL-SUBASSEMBLY`, set aside for [`finish-pack-ship.md`](finish-pack-ship.md) (TBD).
+Bag, seal, label with build number and the part identifier `FAUCET-UMBILICAL-SUBASSEMBLY`, set aside for [`finish-pack-ship.md`](/hardware/assembly/finish-pack-ship.md) (TBD).
 
 ## Output condition
 
@@ -90,7 +90,7 @@ A bagged sub-assembly that is:
 - Signal cable unterminated at the above-counter end (gets cut to length at the customer's countertop position during install); rear-panel end terminated at the electronics shelf during `wiring.md` at appliance final assembly (the bagged sub-assembly is brought to the wiring bench, signal conductors broken out, terminated, and the bag re-closed for shipping)
 - TPU mounting gasket already in place on the shank between the printed mounting plate's underside and where the countertop top surface will be (installed at this bench, not in the install kit; customer never touches it)
 - Loose install-kit parts bagged together: **one SS under-counter keyhole plate**, factory shank nut + washer, Mudder tube cutter
-- Labeled, sealed, ready to drop into the appliance carton at [`finish-pack-ship.md`](finish-pack-ship.md)
+- Labeled, sealed, ready to drop into the appliance carton at [`finish-pack-ship.md`](/hardware/assembly/finish-pack-ship.md)
 
 ## Open items
 

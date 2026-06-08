@@ -2,9 +2,9 @@
 
 Run-by-run physical wiring spec for the appliance's AC and 12 V distribution. Companion to the topology diagrams in this directory:
 
-- [`power.mmd`](power.mmd) — AC + 12 V topology (what connects to what)
-- [`esp32-pinout.mmd`](esp32-pinout.mmd) — ESP32 pin assignments
-- [`valve-control.mmd`](valve-control.mmd) — solenoid bus
+- [`power.mmd`](/hardware/wiring/power.mmd) — AC + 12 V topology (what connects to what)
+- [`esp32-pinout.mmd`](/hardware/wiring/esp32-pinout.mmd) — ESP32 pin assignments
+- [`valve-control.mmd`](/hardware/wiring/valve-control.mmd) — solenoid bus
 
 This doc is the **physical wiring view** — gauges, run lengths, terminations, grounding. The topology files answer *what connects to what*; this file answers *how it's actually built*.
 
@@ -69,7 +69,7 @@ The condenser fan does **not** appear in the AC table: the harvested fan is a [1
 | SIG-4 | DIGITEN flow meter | ESP32 GPIO 23 + [5 V](V_LOGIC) + GND | pulse + V + GND | [24](AWG_LV) | [~1 m](LEN_UMBILICAL) (from faucet zone through grommet) | Pulse interrupt. |
 | SIG-7 | ESP32-S3 rotary display on front face (detachable) | ESP32 GPIO 15 (TX) + GPIO 34 (RX) + [5 V](V_LOGIC) + GND | UART + power | [24](AWG_LV) | [~1 m](LEN_UMBILICAL) extended (coiled when seated) | Per [`/hardware/printed-parts/enclosure/front-panel/README.md`](/hardware/printed-parts/enclosure/front-panel/README.md) "S3 detach mechanism" — cord pays out behind the panel when the customer detaches the display. Cable type (Cat6 vs coiled stretch vs flat ribbon) TBD with the detach mechanism. |
 | SIG-8 | DS3231 RTC + MCP23017 (I2C) | ESP32 GPIO 21 (SDA) + GPIO 22 (SCL) + [3.3 V](V_IO) + GND | I2C bus | [24](AWG_LV) | [~150 mm](LEN_MID) shared bus on shelf | Both devices co-located on the electronics shelf. |
-| SIG-9 | Backflow vent moisture sensor | ESP32 GPIO (TBD) + GND | switch + GND | [24](AWG_LV) | [~600 mm](LEN_COLD_CORE) to drip pan inside cabinet | Per [`/hardware/future.md`](/hardware/future.md) "Backflow vent monitoring"; pin not yet assigned in [`esp32-pinout.mmd`](esp32-pinout.mmd). |
+| SIG-9 | Backflow vent moisture sensor | ESP32 GPIO (TBD) + GND | switch + GND | [24](AWG_LV) | [~600 mm](LEN_COLD_CORE) to drip pan inside cabinet | Per [`/hardware/future.md`](/hardware/future.md) "Backflow vent monitoring"; pin not yet assigned in [`esp32-pinout.mmd`](/hardware/wiring/esp32-pinout.mmd). |
 
 ## Inter-module connectors
 

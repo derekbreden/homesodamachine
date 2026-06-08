@@ -4,7 +4,7 @@
 
 *BOM figures in this doc are first-pass estimates intended to size the idea, not specifications.*
 
-A consumer service that delivers filled 5 lb CGA-320 cylinders to residential addresses through UPS Ground or FedEx Ground hazmat parcel, with empties shipping back as plain non-hazmat parcel under [49 CFR 173.29](https://www.ecfr.gov/current/title-49/subtitle-B/chapter-I/subchapter-C/part-173/subpart-B/section-173.29). One rung on the curator-brand menu in [`curator-brand.md`](curator-brand.md), available to any household with a CGA-320 cylinder — paintball, kegerator, homebrew, aquarium, MIG-welder, and home-soda customers.
+A consumer service that delivers filled 5 lb CGA-320 cylinders to residential addresses through UPS Ground or FedEx Ground hazmat parcel, with empties shipping back as plain non-hazmat parcel under [49 CFR 173.29](https://www.ecfr.gov/current/title-49/subtitle-B/chapter-I/subchapter-C/part-173/subpart-B/section-173.29). One rung on the curator-brand menu in [`curator-brand.md`](/pie-in-the-sky/curator-brand.md), available to any household with a CGA-320 cylinder — paintball, kegerator, homebrew, aquarium, MIG-welder, and home-soda customers.
 
 ## The infrastructure already exists
 
@@ -94,7 +94,7 @@ Each segment has the same problem — welding suppliers feel commercial, run bus
 
 The service is not a moat for the appliance. It is one of the rungs on the curator menu, and most of the rungs lean on it:
 
-- The CGA-320 adapter kit customer ([`cga320-kit.md`](cga320-kit.md)) has a 5 lb tank to refill — they are the highest-volume CO2 customer in the catalog by user count.
+- The CGA-320 adapter kit customer ([`cga320-kit.md`](/pie-in-the-sky/cga320-kit.md)) has a 5 lb tank to refill — they are the highest-volume CO2 customer in the catalog by user count.
 - The Kitchen / Shop Edition customer has a 5 lb tank to refill. Bundling N free refills into Founder Edition pricing is the natural appliance-side integration.
 - The SodaStream owner who took our editorial advice and bought a 5 lb tank with an adapter is a perfect cross-sell.
 - A customer who never buys our appliance is still a happy CO2-service customer. That alone makes this a real business rather than an attached feature.

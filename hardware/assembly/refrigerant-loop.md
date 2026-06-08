@@ -6,13 +6,13 @@ Design intent and component rationale live in [`/hardware/future.md`](/hardware/
 
 ## Scope
 
-This is a single-session integration procedure: bring a finished cold core and a donor ice maker together at one workspace, open the donor's refrigerant loop, braze the cold core's coil stubs into the donor's loop, vacuum, charge, run up. Half a day of work end-to-end. All multi-day prep work (coil winding, foam pour) happens upstream in [`cold-core.md`](cold-core.md) before this session begins.
+This is a single-session integration procedure: bring a finished cold core and a donor ice maker together at one workspace, open the donor's refrigerant loop, braze the cold core's coil stubs into the donor's loop, vacuum, charge, run up. Half a day of work end-to-end. All multi-day prep work (coil winding, foam pour) happens upstream in [`cold-core.md`](/hardware/assembly/cold-core.md) before this session begins.
 
-In: donor ice maker (verified topology in [`/hardware/reference/ice-maker/README.md`](/hardware/reference/ice-maker/README.md)); a finished cold core (output of [`cold-core.md`](cold-core.md) — wound evaporator coil bonded around the vessel, coil inlet/outlet stubs ~2 ft each protruding through the foam-shell's copper-plug exits, foam pour fully cured); R-600a refrigerant; argon from the welder cylinder.
+In: donor ice maker (verified topology in [`/hardware/reference/ice-maker/README.md`](/hardware/reference/ice-maker/README.md)); a finished cold core (output of [`cold-core.md`](/hardware/assembly/cold-core.md) — wound evaporator coil bonded around the vessel, coil inlet/outlet stubs ~2 ft each protruding through the foam-shell's copper-plug exits, foam pour fully cured); R-600a refrigerant; argon from the welder cylinder.
 
 Out: a closed and brazed refrigerant loop, vacuum-tight, charged within [±1 g](RECHARGE_TOL) of target mass, with the cold core's evaporator coil now brazed into the donor's refrigeration cycle. The compressor runs on its first run-up and the suction line drops cold.
 
-Not in scope: cold-core assembly — coil winding, foam pour — all in [`cold-core.md`](cold-core.md); electronics-shelf control wiring, AC distribution, compressor shroud install (its own spec at [`/hardware/cut-parts/compressor-shroud/README.md`](/hardware/cut-parts/compressor-shroud/README.md)).
+Not in scope: cold-core assembly — coil winding, foam pour — all in [`cold-core.md`](/hardware/assembly/cold-core.md); electronics-shelf control wiring, AC distribution, compressor shroud install (its own spec at [`/hardware/cut-parts/compressor-shroud/README.md`](/hardware/cut-parts/compressor-shroud/README.md)).
 
 ## Safety
 
@@ -31,7 +31,7 @@ Per-unit BOM lives in [`/hardware/ledger/bom.md`](/hardware/ledger/bom.md) §5 (
 | Item | Source / spec | Notes |
 |---|---|---|
 | Donor ice maker | Generic B0F42MT8JX or Frigidaire EFIC117-SS B07PCZKG94 | Both verified topology |
-| Finished cold core | Output of [`cold-core.md`](cold-core.md) | Wound coil bonded to vessel, foam-poured, coil stubs protruding ~2 ft through foam-shell copper-plug exits |
+| Finished cold core | Output of [`cold-core.md`](/hardware/assembly/cold-core.md) | Wound coil bonded to vessel, foam-poured, coil stubs protruding ~2 ft through foam-shell copper-plug exits |
 | Drier (spare / contingency only) | Supco SUD8358 + Supco D111 | The factory drier stays in service (see step 3 + harvested README "Filter-drier"); SUD8358 and D111 kept on the shelf as spares for any future loop-open service that requires replacement. Not consumed in the production procedure. |
 | R-600a refrigerant | Enviro-Safe B0CGG1WH1N (3-pack + brass charging gauge) | [~40 g](SYSTEM_CHARGE) per system, mass-metered; one 3-can pack covers ~12 recharges |
 | Supco BPV31 bullet-piercing valve | B00DM8J3MI | Single permanent service-access point for the life of the appliance — taps the compressor process tube to vent factory R-600a (step 2), feeds argon during the entire loop-open period (step 3 onward), and serves as the manifold connection for vacuum (step 6) + recharge (step 7). Clamped permanently. |

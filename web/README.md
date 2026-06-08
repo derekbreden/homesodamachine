@@ -41,7 +41,7 @@ state, WebSocket owner, /api/version activation check). Then any page-specific
 module (/landing.js, /js/viewer/main.js, etc.).
 ```
 
-The single shared shell is [`lib/shell.js`](lib/shell.js). Every page goes through `renderHead` + `renderNav` + `renderFooter`. The `surface` arg is `"public"` (hides Parts/Charts unless dev-mode is set in localStorage) or `"dev"` (always shows them).
+The single shared shell is [`lib/shell.js`](/web/lib/shell.js). Every page goes through `renderHead` + `renderNav` + `renderFooter`. The `surface` arg is `"public"` (hides Parts/Charts unless dev-mode is set in localStorage) or `"dev"` (always shows them).
 
 ## Module layout
 
@@ -49,18 +49,18 @@ The single shared shell is [`lib/shell.js`](lib/shell.js). Every page goes throu
 
 | Module | Mounts | Responsibility |
 |---|---|---|
-| [`server.js`](server.js) | `/api/version` | Entry; orchestrates the pool, push init, route mounts, WebSocket broadcast diff loop on prod boot. Serves the live build commit at `/api/version` for boot.js's activation check. |
-| [`lib/shell.js`](lib/shell.js) | — | `renderHead` / `renderNav` / `renderFooter`. Owns the synchronous pre-paint class flips and the `<script src="/boot.js" defer>` tag. |
-| [`lib/landing.js`](lib/landing.js) | `/` | Marketing landing + email signup form. |
-| [`lib/blog.js`](lib/blog.js) | `/blog` | Markdown posts under [`posts/`](/posts/), rendered into the one index page. Individual posts are `#post-<slug>` anchors. |
-| [`lib/viewer-pages.js`](lib/viewer-pages.js) | `/3d`, `/charts` | The parts/charts viewer pages — both render [`lib/templates/viewer-body.html`](lib/templates/viewer-body.html). |
-| [`lib/viewer-routes.js`](lib/viewer-routes.js) | `/api/{steps,dxf,mermaid}`, `/steps/*`, `/dxfs/*`, `/api/mermaid-content/*` | API for the viewer's file lists and content. |
-| [`lib/settings.js`](lib/settings.js) | `/settings` | Per-user toggles: dev-mode, FCM enable, ratio config. |
-| [`lib/events.js`](lib/events.js) | `/ws` | WebSocket channel. One socket per page: deploy hello-handshake + ping heartbeat + `files-changed`/`posts-changed` broadcasts. |
-| [`lib/notifications.js`](lib/notifications.js) | `/api/notifications/*`, `/notifications` | Per-token inbox CRUD + the `/notifications` page. |
-| [`lib/push.js`](lib/push.js) | `/api/push/*` | FCM subscriptions + outbound notify; boot-time hash diff against per-kind tables. |
-| [`lib/walk.js`](lib/walk.js) | — | Shared `walkFiles(rootDir, exts)` helper. |
-| [`lib/icons.js`](lib/icons.js) | — | Shared SVG glyphs (cube, chart, gear, bell, scissors, newspaper). |
+| [`server.js`](/web/server.js) | `/api/version` | Entry; orchestrates the pool, push init, route mounts, WebSocket broadcast diff loop on prod boot. Serves the live build commit at `/api/version` for boot.js's activation check. |
+| [`lib/shell.js`](/web/lib/shell.js) | — | `renderHead` / `renderNav` / `renderFooter`. Owns the synchronous pre-paint class flips and the `<script src="/boot.js" defer>` tag. |
+| [`lib/landing.js`](/web/lib/landing.js) | `/` | Marketing landing + email signup form. |
+| [`lib/blog.js`](/web/lib/blog.js) | `/blog` | Markdown posts under [`posts/`](/posts/), rendered into the one index page. Individual posts are `#post-<slug>` anchors. |
+| [`lib/viewer-pages.js`](/web/lib/viewer-pages.js) | `/3d`, `/charts` | The parts/charts viewer pages — both render [`lib/templates/viewer-body.html`](/web/lib/templates/viewer-body.html). |
+| [`lib/viewer-routes.js`](/web/lib/viewer-routes.js) | `/api/{steps,dxf,mermaid}`, `/steps/*`, `/dxfs/*`, `/api/mermaid-content/*` | API for the viewer's file lists and content. |
+| [`lib/settings.js`](/web/lib/settings.js) | `/settings` | Per-user toggles: dev-mode, FCM enable, ratio config. |
+| [`lib/events.js`](/web/lib/events.js) | `/ws` | WebSocket channel. One socket per page: deploy hello-handshake + ping heartbeat + `files-changed`/`posts-changed` broadcasts. |
+| [`lib/notifications.js`](/web/lib/notifications.js) | `/api/notifications/*`, `/notifications` | Per-token inbox CRUD + the `/notifications` page. |
+| [`lib/push.js`](/web/lib/push.js) | `/api/push/*` | FCM subscriptions + outbound notify; boot-time hash diff against per-kind tables. |
+| [`lib/walk.js`](/web/lib/walk.js) | — | Shared `walkFiles(rootDir, exts)` helper. |
+| [`lib/icons.js`](/web/lib/icons.js) | — | Shared SVG glyphs (cube, chart, gear, bell, scissors, newspaper). |
 
 The pattern: `export function mountXxxRoutes(app, { … } = {})`. `server.js` calls each in sequence. To add a new page or API surface, add `lib/foo.js` with `mountFooRoutes`, import and call it from `server.js`.
 
@@ -70,19 +70,19 @@ Served flat via `express.static(public/)`.
 
 | File | Loaded on | Role |
 |---|---|---|
-| [`public/boot.js`](public/boot.js) | every page (`<script defer>`) | SW navigate bridge, notifications state mirror + bell + toast + warm-tap auto-redirect, WebSocket owner, `/api/version` deploy/activation check (reloads the page on a new build unless the viewer claims it via `window.__hsmDeploySoft`). Module-local state — never touches `window.__hsm`. |
-| [`public/landing.js`](public/landing.js) | `/` | Glass-animation mount, signup form submit. |
-| [`public/blog.js`](public/blog.js) | `/blog` | Click-to-open post images via ContentViewer. |
-| [`public/settings.js`](public/settings.js) | `/settings` | Dev-mode + notification toggles. |
-| [`public/glass-animation.js`](public/glass-animation.js) | `/` | Pours/fizzes the hero animation. |
-| [`public/pan-zoom.js`](public/pan-zoom.js) | `/blog`, `/3d`, `/charts` | Generic pan + pinch-zoom + wheel-zoom. |
-| [`public/content-viewer.js`](public/content-viewer.js) | `/blog`, `/3d`, `/charts` | Modal singleton: open / close / swipe-down / Esc / X / backdrop. |
+| [`public/boot.js`](/web/public/boot.js) | every page (`<script defer>`) | SW navigate bridge, notifications state mirror + bell + toast + warm-tap auto-redirect, WebSocket owner, `/api/version` deploy/activation check (reloads the page on a new build unless the viewer claims it via `window.__hsmDeploySoft`). Module-local state — never touches `window.__hsm`. |
+| [`public/landing.js`](/web/public/landing.js) | `/` | Glass-animation mount, signup form submit. |
+| [`public/blog.js`](/web/public/blog.js) | `/blog` | Click-to-open post images via ContentViewer. |
+| [`public/settings.js`](/web/public/settings.js) | `/settings` | Dev-mode + notification toggles. |
+| [`public/glass-animation.js`](/web/public/glass-animation.js) | `/` | Pours/fizzes the hero animation. |
+| [`public/pan-zoom.js`](/web/public/pan-zoom.js) | `/blog`, `/3d`, `/charts` | Generic pan + pinch-zoom + wheel-zoom. |
+| [`public/content-viewer.js`](/web/public/content-viewer.js) | `/blog`, `/3d`, `/charts` | Modal singleton: open / close / swipe-down / Esc / X / backdrop. |
 | `public/js/viewer/*.js` | `/3d`, `/charts` | The parts/charts viewer modules — see below. |
 | `public/css/viewer.css` | `/3d`, `/charts` | Viewer-specific styles. |
 
 ### `public/js/viewer/` — the parts viewer modules
 
-`/3d` and `/charts` share one module graph (the entry decides what to show based on `location.pathname`). Each module is a browser-native ES module loaded via the importmap in [`lib/templates/viewer-body.html`](lib/templates/viewer-body.html).
+`/3d` and `/charts` share one module graph (the entry decides what to show based on `location.pathname`). Each module is a browser-native ES module loaded via the importmap in [`lib/templates/viewer-body.html`](/web/lib/templates/viewer-body.html).
 
 | Module | Role |
 |---|---|
@@ -123,7 +123,7 @@ Three signals drive the page: the WebSocket push, FCM, and activation (focus/vis
 
 ## Dev vs prod
 
-There is **one server core** ([`server.js`](server.js)). The dev wrapper ([`dev-server/server.js`](dev-server/server.js)) imports `start({ dev: true })` and *adds*:
+There is **one server core** ([`server.js`](/web/server.js)). The dev wrapper ([`dev-server/server.js`](/web/dev-server/server.js)) imports `start({ dev: true })` and *adds*:
 
 - chokidar watcher on the repo's `hardware/` to re-run CadQuery generator scripts and broadcast `files-changed` over SSE.
 - `findScriptsImportingStep` heuristic to also rebuild dependent scripts when a STEP they import changes.

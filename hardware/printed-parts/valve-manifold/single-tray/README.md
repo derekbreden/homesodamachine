@@ -1,7 +1,7 @@
 # Single-Beduan cradle tray (first pass)
 
 A drop-in cradle for **one** Beduan solenoid valve (the part modeled in
-[`reference/beduan-solenoid`](../../../reference/beduan-solenoid/README.md)).
+[`reference/beduan-solenoid`](/hardware/reference/beduan-solenoid/README.md)).
 This is one manifold cell — the multi-valve layout is the open problem.
 
 The valve seats three ways at once:

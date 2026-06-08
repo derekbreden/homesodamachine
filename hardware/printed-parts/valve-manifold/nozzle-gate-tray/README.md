@@ -1,6 +1,6 @@
 # Nozzle-gate tray (2 valves + 2 Tees)
 
-The [fluid-topology](../../../topology/fluid-topology.md) nozzle gates: a Tee
+The [fluid-topology](/hardware/topology/fluid-topology.md) nozzle gates: a Tee
 on each row carries V-G / V-J.
 
 ```
@@ -14,7 +14,7 @@ One valve column — **V-G over V-J**, butted, ports along X, no tilt — meets 
 **Tee** on each row. The Tee run lies along X (valve on the −X end); the +X run
 end and the **branch (+Z)** leave the tray to a pump and a nozzle. Valve
 placement, the Tee placer, and the tray builder are shared with the
-[bag-circuit tray](../bag-circuit-tray/) via `build_tray`.
+[bag-circuit tray](/hardware/printed-parts/valve-manifold/bag-circuit-tray/) via `build_tray`.
 
 Origin = cell center, Z = 0 the mounting plane, ports at Z = 11.3. The four
 bodies are clash-free.

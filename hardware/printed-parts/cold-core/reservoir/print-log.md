@@ -2,13 +2,13 @@
 
 Format: facts only. Direct quotes from Derek where applicable. Settings observed in committed `.3mf` snapshots. No interpretation, no hypothesis.
 
-Standing, filament-agnostic print guidance lives in [`watertight-petg.md`](watertight-petg.md); this file is the per-attempt record.
+Standing, filament-agnostic print guidance lives in [`watertight-petg.md`](/hardware/printed-parts/cold-core/reservoir/watertight-petg.md); this file is the per-attempt record.
 
 Geometry: the left flavor reservoir — `reservoir-left.step` (body) + `reservoir-cap-left.step` (cap). Plate composition and settings are recorded per attempt below.
 
 ## PETG print attempt 3 (2026-05-30, settings per [`reservoir.3mf`](reservoir.3mf))
 
-First print of the watertight recipe (developed on the [`../../../reference/water-test-cup`](../../../reference/water-test-cup/) coupon, which held water) carried onto the actual reservoir body. First reservoir print to carry supports for the slanted floor.
+First print of the watertight recipe (developed on the [`../../../reference/water-test-cup`](/hardware/reference/water-test-cup/) coupon, which held water) carried onto the actual reservoir body. First reservoir print to carry supports for the slanted floor.
 
 Geometry: one object, `reservoir-left.step` (body only; no cap on the plate). Printed mouth-up; the floor underside sits raised over the open bag-pocket space, so supports rise from the plate to the floor underside. Plate bbox ≈ 90 × 145 mm; `first_layer_time` ≈ 393 s.
 
@@ -44,4 +44,4 @@ Derek said:
 - "It did work. None of the floor pulled off."
 - "It did allow me to test with that foam shell print. It's holding water for a few hours now. First successfully done so, and done so with gaskets and all."
 
-First watertight reservoir. The slanted-floor supports (normal(auto), 0.25 mm top z-gap, interface top layers 2) released cleanly — no tear-out of the floor underside. Assembled into the printed foam shell with the bulkhead + TPU gaskets and held water for several hours with no weep. Leak-tightness gate (per [`watertight-petg.md`](watertight-petg.md)) passed at fill-and-hold; this is the first reservoir to pass.
+First watertight reservoir. The slanted-floor supports (normal(auto), 0.25 mm top z-gap, interface top layers 2) released cleanly — no tear-out of the floor underside. Assembled into the printed foam shell with the bulkhead + TPU gaskets and held water for several hours with no weep. Leak-tightness gate (per [`watertight-petg.md`](/hardware/printed-parts/cold-core/reservoir/watertight-petg.md)) passed at fill-and-hold; this is the first reservoir to pass.

@@ -1,8 +1,8 @@
 # Funnel (hopper)
 
 The hopper you pour batch liquid into. It drains through its spout to **V-B**
-on the [source-select tray](../../../../hardware/printed-parts/valve-manifold/source-select-tray/)
-— fluid topology [segment 4](../../../../hardware/topology/fluid-topology.md),
+on the [source-select tray](/hardware/printed-parts/valve-manifold/source-select-tray/)
+— fluid topology [segment 4](/hardware/topology/fluid-topology.md),
 "Hopper funnel bottom → V-B-I". A **pour-through guide**, not a batch reservoir:
 what you pour gets pumped straight on to a bag.
 
@@ -14,7 +14,7 @@ line used elsewhere (the reservoir's port holes). Walls are **2 mm**, open
 through both ends. **90 mm** tall overall.
 
 Local frame: centered on Z (x = y = 0), spout outlet on Z = 0, inlet opening up
-at Z = 90. In the [enclosure assembly](../../enclosure-assembly/) it rides on
+at Z = 90. In the [enclosure assembly](/pie-in-the-sky/lite/enclosure-assembly/) it rides on
 the **front (−X)**, its front edge flush with the pumps' front,
 filling the +Y half of the front top (inlet flush with the lid); the spout
 reaches back to V-B.

@@ -2,7 +2,7 @@
 
 **This is a point-in-time snapshot, not a living document.** Captures the workflow that actually worked on the first end-to-end execution of the Mac edit pipeline — *I've Never Tapped — First NPT Threads in 316L Stainless*, shipped 2026-05-08 (https://youtu.be/MXtzmCHN1mw).
 
-**Supersedes** [`2026-05-04-first-execution.md`](2026-05-04-first-execution.md), which captured the iPhone + iMovie workflow that shipped *First Weld*. The iMovie path is preserved as a fallback for very short single-angle clips; for everything else, the Mac pipeline wins on sync precision, cross-dissolves, captions, multi-source stitching, and iteration speed.
+**Supersedes** [`2026-05-04-first-execution.md`](/marketing/video/snapshots/2026-05-04-first-execution.md), which captured the iPhone + iMovie workflow that shipped *First Weld*. The iMovie path is preserved as a fallback for very short single-angle clips; for everything else, the Mac pipeline wins on sync precision, cross-dissolves, captions, multi-source stitching, and iteration speed.
 
 The narrative below (what shipped, what changed, what bit) is what's frozen here as historical record. The current procedure lives in [`/marketing/video/workflow.md`](/marketing/video/workflow.md).
 
