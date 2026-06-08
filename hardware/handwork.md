@@ -12,7 +12,8 @@ Solder male JST-XH 2.54 mm headers to the carrier boards so the field-crimped fe
 
 - **4-pin** (B0B2RB524Y) — I2C trunk between shelf modules (ESP32 ↔ MCP23017) plus the UART trunk header on the ESP32 (SIG-7 to the front-face ESP32-S3 rotary display), ~3 connectors per unit.
 - **6-pin** (B0B2R8Q1JL) — DS3231 RTC (VCC/GND/SDA/SCL/SQW/32K), ~1 connector per unit.
-- **9-pin** (B0B2R73RQB) — ULN2803A module sides (8 channels + COM/GND) and MCP23017 Port A/B rows, ~6 connectors per unit.
+- **9-pin** (B0B2R73RQB) — ULN2803A module sides (8 channels + COM/GND), ~4 connectors per unit.
+- **10-pin** — MCP23017 Port A/B GPIO rows (**VCC + GND + 8 GPIO**). The row is 10 holes, so a 10-pin fills it and can't seat off-by-one; a 9-pin would drop VCC and float on the row. ~3–4 per unit. **Not in the on-hand kits** — the CQRobot buy was 4/6/9-pin only; a 10-pin XH kit is the open gap.
 
 Hakko station, 60/40 leaded solder, ESD mat — all already in [purchases.md §14](purchases.md).
 
