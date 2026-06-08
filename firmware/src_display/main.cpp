@@ -146,14 +146,14 @@ static bool loadImageFromFS(uint8_t slot) {
 // ════════════════════════════════════════════════════════════
 
 static const uint16_t *seedBitmaps[] = {
-  flavor1_bitmap,   // 0 = Diet Wild Cherry Pepsi
-  flavor2_bitmap,   // 1 = Diet Mountain Dew
-  flavor3_bitmap,   // 2 = Diet Coke
+  flavor1_bitmap,   // 0 = flavor_1
+  flavor2_bitmap,   // 1 = flavor_2
+  flavor3_bitmap,   // 2 = flavor_3
 };
 static const char *seedLabels[] = {
-  "diet_wild_cherry_pepsi",
-  "diet_mtn_dew",
-  "diet_coke",
+  "flavor_1",
+  "flavor_2",
+  "flavor_3",
 };
 
 static void seedDefaultImages() {

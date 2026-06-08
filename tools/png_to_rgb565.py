@@ -1,59 +1,61 @@
 #!/usr/bin/env python3
-"""Convert PNG images to RGB565 C header files for ESP32-S3 display (240x240)."""
+"""Convert the flavor PNGs to RGB565 C headers compiled into the display firmware.
 
-import sys
+Each source PNG produces two headers: the S3 config display (240×240,
+firmware/src_config/images/) and the RP2040 round display (128×115,
+firmware/src_display/). These are the first-boot seed bitmaps; runtime images
+live on the ESP32 LittleFS store.
+"""
+
 from pathlib import Path
+
 from PIL import Image
 
-SIZE = 240
+PROJECT = Path(__file__).resolve().parent.parent
+IMAGES = PROJECT / "images"
+S3_DIR = PROJECT / "firmware" / "src_config" / "images"
+RP_DIR = PROJECT / "firmware" / "src_display"
 
-IMAGES = [
-    ("diet_wild_cherry_pepsi.png", "flavor0_240", "Diet Wild Cherry Pepsi"),
-    ("diet_mtn_dew.png",          "flavor1_240", "Diet Mountain Dew"),
-    ("diet_coke.png",             "flavor2_240", "Diet Coke"),
+# (source png, label, S3 var [240×240], RP2040 var [128×115])
+FLAVORS = [
+    ("flavor_1.png", "flavor_1", "flavor0_240", "flavor1_bitmap"),
+    ("flavor_2.png", "flavor_2", "flavor1_240", "flavor2_bitmap"),
+    ("flavor_3.png", "flavor_3", "flavor2_240", "flavor3_bitmap"),
 ]
 
-def rgb888_to_rgb565(r, g, b):
+
+def rgb565(r, g, b):
     return ((r & 0xF8) << 8) | ((g & 0xFC) << 3) | (b >> 3)
 
-def convert(src_path, var_name, label, out_dir):
-    img = Image.open(src_path).convert("RGB")
-    img = img.resize((SIZE, SIZE), Image.LANCZOS)
 
-    pixels = list(img.getdata())
-    hex_vals = [f"0x{rgb888_to_rgb565(r, g, b):04X}" for r, g, b in pixels]
-
-    out_path = out_dir / f"{var_name}.h"
+def write_header(src, var, label, out_path, w, h):
+    img = Image.open(src).convert("RGB").resize((w, h), Image.LANCZOS)
+    data = img.tobytes()  # RGB, 3 bytes per pixel
+    vals = [f"0x{rgb565(data[i], data[i + 1], data[i + 2]):04X}" for i in range(0, len(data), 3)]
     with open(out_path, "w") as f:
-        f.write(f"// {label} - {SIZE}x{SIZE} RGB565 bitmap\n")
-        f.write(f"// Auto-generated from {src_path.name}\n")
-        f.write("#pragma once\n\n")
-        f.write("#include <Arduino.h>\n\n")
-        f.write(f"const uint16_t {var_name}[{SIZE} * {SIZE}] PROGMEM = {{\n")
-
-        for i in range(0, len(hex_vals), 16):
-            line = ", ".join(hex_vals[i:i+16])
-            comma = "," if i + 16 < len(hex_vals) else ""
-            f.write(f"    {line}{comma}\n")
-
+        f.write(f"// {label} - {w}x{h} RGB565 bitmap\n")
+        f.write(f"// Auto-generated from {src.name} by tools/png_to_rgb565.py\n")
+        f.write("#pragma once\n\n#include <Arduino.h>\n\n")
+        f.write(f"const uint16_t {var}[{w} * {h}] PROGMEM = {{\n")
+        for i in range(0, len(vals), 16):
+            f.write("    " + ", ".join(vals[i:i + 16]) + ",\n")
         f.write("};\n")
+    print(f"  {out_path.relative_to(PROJECT)}  ({out_path.stat().st_size:,} bytes)")
 
-    print(f"  {out_path.name}: {len(pixels)} pixels ({out_path.stat().st_size} bytes)")
 
 def main():
-    project = Path(__file__).resolve().parent.parent
-    out_dir = project / "src_config" / "images"
-    out_dir.mkdir(parents=True, exist_ok=True)
-
-    print(f"Converting {len(IMAGES)} images to {SIZE}x{SIZE} RGB565 headers...")
-    for filename, var_name, label in IMAGES:
-        src = project / filename
+    S3_DIR.mkdir(parents=True, exist_ok=True)
+    RP_DIR.mkdir(parents=True, exist_ok=True)
+    print(f"Converting {len(FLAVORS)} flavors to RGB565 headers...")
+    for png, label, s3_var, rp_var in FLAVORS:
+        src = IMAGES / png
         if not src.exists():
-            print(f"  SKIP: {filename} not found")
+            print(f"  SKIP {png} (missing)")
             continue
-        convert(src, var_name, label, out_dir)
-
+        write_header(src, s3_var, label, S3_DIR / f"{s3_var}.h", 240, 240)
+        write_header(src, rp_var, label, RP_DIR / f"{rp_var}.h", 128, 115)
     print("Done.")
+
 
 if __name__ == "__main__":
     main()
