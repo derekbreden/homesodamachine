@@ -141,6 +141,7 @@ export async function renderThumbnail(file) {
     const buf = new Uint8Array(await resp.arrayBuffer());
     const result = await parseStep(buf);
     const group = buildMesh(result);
+    applyXray(group); // match the detail view's x-ray mode in the thumbnail
     thumbScene.add(group);
 
     const box = new THREE.Box3().setFromObject(group);
