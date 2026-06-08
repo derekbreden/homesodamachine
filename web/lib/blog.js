@@ -1,8 +1,50 @@
 import path from "path";
 import fs from "fs";
+import { fileURLToPath } from "url";
 import matter from "gray-matter";
 import { marked } from "marked";
 import { renderHead, renderNav, renderFooter } from "./shell.js";
+
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
+const PUBLIC_DIR = path.join(__dirname, "..", "public");
+
+// Read a local PNG's pixel dimensions from its IHDR header (width at byte
+// 16, height at byte 20, both big-endian). Memoized by src — post images
+// don't change within a process. Returns null for anything we can't
+// resolve to a .png under public/, so the caller just omits the attrs.
+//
+// Why: post images lazy-load, and without intrinsic dimensions an <img>
+// occupies zero height until it loads, then shoves everything below it
+// down. That layout shift is most visible on a deep link — the page
+// scrolls to the target post, then an image in the post above loads and
+// drags the target out of view. Emitting width/height reserves the space.
+const pngSizeCache = new Map();
+function pngSize(src) {
+  if (pngSizeCache.has(src)) return pngSizeCache.get(src);
+  let dims = null;
+  if (/^\/[^?#]+\.png$/i.test(src)) {
+    const rel = src.replace(/^\//, "").split("/").map(decodeURIComponent).join(path.sep);
+    const file = path.join(PUBLIC_DIR, rel);
+    // Stay inside public/ — never let a crafted src walk the filesystem.
+    if (file === PUBLIC_DIR || file.startsWith(PUBLIC_DIR + path.sep)) {
+      let fd;
+      try {
+        fd = fs.openSync(file, "r");
+        const buf = Buffer.alloc(24);
+        const n = fs.readSync(fd, buf, 0, 24, 0);
+        if (n >= 24 && buf.toString("ascii", 1, 4) === "PNG") {
+          dims = { w: buf.readUInt32BE(16), h: buf.readUInt32BE(20) };
+        }
+      } catch {
+        // Missing/unreadable/not-a-PNG — fall through to null.
+      } finally {
+        if (fd !== undefined) try { fs.closeSync(fd); } catch {}
+      }
+    }
+  }
+  pngSizeCache.set(src, dims);
+  return dims;
+}
 
 // Render the blog index page from markdown files in `postsDir`.
 // Posts are read at request time (count is small, grows slowly), parsed for
@@ -19,10 +61,21 @@ import { renderHead, renderNav, renderFooter } from "./shell.js";
 marked.use({
   hooks: {
     postprocess(html) {
-      return html.replace(
-        /<a href="(https?:\/\/[^"]+)"/g,
-        '<a href="$1" target="_blank" rel="noopener"',
-      );
+      return html
+        .replace(
+          /<a href="(https?:\/\/[^"]+)"/g,
+          '<a href="$1" target="_blank" rel="noopener"',
+        )
+        // Defer image fetches until each <img> nears the viewport (the feed
+        // concatenates every post's images; without this the browser pulls
+        // megabytes up front), decode off the main thread, and reserve the
+        // image's space via width/height so lazy loading never shifts the
+        // layout. The CSS keeps them responsive (max-width:100%; height:auto).
+        .replace(/<img\b[^>]*\bsrc="([^"]+)"[^>]*>/g, (tag, src) => {
+          const d = pngSize(src);
+          const dims = d ? ` width="${d.w}" height="${d.h}"` : "";
+          return tag.replace(/^<img\b/, `<img loading="lazy" decoding="async"${dims}`);
+        });
     },
   },
 });
@@ -125,6 +178,11 @@ h1 {
   border-radius: 10px;
   padding: 1.75rem 1.75rem 1.5rem;
   margin-bottom: 1.5rem;
+  /* Deep links (/blog#post-<slug> from notification taps, the in-app
+     toast, and the notifications list) jump here via the native anchor
+     scroll or scrollIntoView. Offset by the sticky-nav height + the
+     notch so the post title lands below the nav instead of behind it. */
+  scroll-margin-top: calc(env(safe-area-inset-top, 0px) + 3rem);
 }
 .post:last-child { margin-bottom: 0; }
 .post-title {
@@ -181,27 +239,45 @@ h1 {
   background: var(--bg);
 }
 .empty { color: var(--text-3); text-align: center; padding: 4rem 0; }
+/* Infinite-scroll sentinel. Reserves a line of height (via the always-laid-
+   out Loading label) so it has a stable position for the observer; the
+   label only becomes visible while a page is in flight. */
+#blog-sentinel { padding: 1.25rem 0 0.5rem; text-align: center; }
+.blog-loading { color: var(--text-3); font-size: 0.9rem; visibility: hidden; }
+#blog-sentinel.loading .blog-loading { visibility: visible; }
 `;
 
-function renderPage(posts) {
-  const articles = posts
-    .map((p) => {
-      const html = marked.parse(p.body);
-      const dateAttr = (p.filename.match(/^(\d{4}-\d{2}-\d{2})/) || [])[1] || "";
-      const slug = p.filename.replace(/\.md$/, "");
-      const titleHtml = p.title
-        ? `<h2 class="post-title">${escapeHtml(p.title)}</h2>\n        `
-        : "";
-      return `      <article class="post" id="post-${escapeHtml(slug)}">
+// Posts streamed per request. The first page is server-rendered into the
+// initial HTML; /blog/posts hands out the rest in PAGE_SIZE chunks as the
+// reader scrolls (see public/blog.js). One page comfortably overflows a
+// phone viewport, so the sentinel gets pushed off-screen after each load.
+const PAGE_SIZE = 10;
+
+function renderArticle(p) {
+  const html = marked.parse(p.body);
+  const dateAttr = (p.filename.match(/^(\d{4}-\d{2}-\d{2})/) || [])[1] || "";
+  const slug = p.filename.replace(/\.md$/, "");
+  const titleHtml = p.title
+    ? `<h2 class="post-title">${escapeHtml(p.title)}</h2>\n        `
+    : "";
+  return `      <article class="post" id="post-${escapeHtml(slug)}">
         ${titleHtml}<time class="post-date" datetime="${escapeHtml(dateAttr)}">${escapeHtml(formatDate(p.filename))}</time>
         <div class="post-body">${html}</div>
       </article>`;
-    })
-    .join("\n");
+}
+
+function renderPage(posts) {
+  const articles = posts.slice(0, PAGE_SIZE).map(renderArticle).join("\n");
+
+  // Sentinel carries the next offset and is what the client observes to
+  // page in more posts. Omitted when the first page is already everything.
+  const sentinel = posts.length > PAGE_SIZE
+    ? `\n  <div id="blog-sentinel" data-next-offset="${PAGE_SIZE}" aria-hidden="true"><span class="blog-loading">Loading…</span></div>`
+    : "";
 
   const body = `<div class="wrap">
   <header class="page"><h1>Updates</h1></header>
-${posts.length === 0 ? `  <p class="empty">No posts yet.</p>` : articles}
+${posts.length === 0 ? `  <p class="empty">No posts yet.</p>` : articles}${sentinel}
 </div>
 <script src="/pan-zoom.js"></script>
 <script src="/content-viewer.js"></script>
@@ -231,5 +307,24 @@ export function mountBlogRoutes(app, { postsDir }) {
     // visit; 304 when nothing's changed, fresh body when it has.
     res.set("Cache-Control", "no-cache");
     res.send(renderPage(posts));
+  });
+
+  // Pagination endpoint for the infinite scroll. Returns the next slice of
+  // posts already rendered to HTML (so the client never needs a markdown
+  // parser) plus the cursor for the following request. Posts are re-read
+  // each call — same "read at request time" stance as /blog; the count is
+  // small. no-cache for the same iOS-PWA staleness reason as the page.
+  app.get("/blog/posts", (req, res) => {
+    const posts = loadPosts(postsDir);
+    let offset = parseInt(req.query.offset, 10);
+    if (!Number.isFinite(offset) || offset < 0) offset = 0;
+    const slice = posts.slice(offset, offset + PAGE_SIZE);
+    const nextOffset = offset + slice.length;
+    res.set("Cache-Control", "no-cache");
+    res.json({
+      html: slice.map(renderArticle).join("\n"),
+      nextOffset,
+      hasMore: nextOffset < posts.length,
+    });
   });
 }
