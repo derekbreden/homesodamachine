@@ -127,18 +127,27 @@ zone1_outer_z_top = zone1_z_top + shell_outer_lip  # [16.25 mm](ZONE1_OUTER_Z_TO
 zone2_outer_z_bottom = zone1_outer_z_top  # [16.25 mm](ZONE1_OUTER_Z_TOP)
 
 
-# BASE PODS — two solid lateral pods on the +-X sides of the foot that host
-# the plate-to-shell screw bosses. Mechanism: heat-set insert in the shell,
-# screw up from under the plate (head flush in the plate bottom) through the
-# plate boss, clamping the plate up into the shell. These two lateral anchors
-# are the ENTIRE shell-to-body retention; the shank nut only clamps the metal
-# body to the plate, not the shell. Solid placeholders for now — no boss
-# pocket, no insert pocket. Plain circles here; a pill refinement may follow.
-base_pod_boss_pocket_dia = 8.0      # M3 boss pocket the pod will eventually carry (placeholder)
-base_pod_wall = 2.0                 # pod wall around that pocket
-base_pod_radius = base_pod_boss_pocket_dia / 2.0 + base_pod_wall
-base_pod_center_x = 21.9            # lateral screw axis, +-X (body bore center is X=0)
-base_pod_center_y = shell_center_y  # on the foot-circle (and plate) center line, +Y
+# BASE PODS — two lateral pods on the +-X sides of the foot, each hosting one
+# plate-to-shell screw boss. Mechanism: heat-set insert in the shell, screw up
+# from under the plate (head recessed in the plate bottom) through the plate
+# boss, clamping the plate up into the shell. These two lateral anchors are the
+# ENTIRE shell-to-body retention — the shank nut only clamps the metal body to
+# the plate, not the shell.
+#
+# Nested chain (BNUOK M3 SHCS 304 SS, head ~5.43 mm measured; ruthex M3 insert):
+#   counterbore 5.55 -> boss 9.55 (2 mm wall) -> boss hole 9.65 (0.1 mm slip)
+#   -> pod (boss hole + 2 mm shell wall).
+# Counterbore + boss are plate-side; only the boss hole + pod live in the shell.
+# Pods are SOLID here — the boss hole is not carved yet.
+base_pod_hole_dia = 9.65            # pocket that receives the plate boss (boss 9.55 + 0.1 slip)
+base_pod_wall = 2.0                 # shell wall around the pocket
+base_pod_radius = base_pod_hole_dia / 2.0 + base_pod_wall
+base_pod_center_y = shell_center_y  # foot-circle (and plate) center line, +Y
+# Center slides outward as the pod grows: placed so the pod's inner edge sits
+# tangent to the body bore (a 2 mm wall from the pocket to the bore).
+base_pod_center_x = math.sqrt(
+    (body_bore_diameter / 2.0 + base_pod_radius) ** 2 - base_pod_center_y ** 2
+)
 base_pod_z_bottom = zone1_z_bottom  # deck plane, Z=0
 base_pod_z_top = zone1_outer_z_top  # match the base-cylinder top
 
