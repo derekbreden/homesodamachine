@@ -173,7 +173,7 @@ def _pump_case_scalars():
     pump_case_dir = _repo / "hardware/printed-parts/flavor/pump-case"
     sys.path.insert(0, str(pump_case_dir))
     sys.path.insert(0, str(_repo / "hardware/printed-parts/cadlib"))
-    sys.path.insert(0, str(_repo / "hardware"))
+    sys.path.insert(0, str(_repo / "hardware" / "scripts"))
 
     # Force a fresh import in case this script is re-run after edits.
     import importlib
@@ -197,7 +197,7 @@ def _reservoir_scalars():
     sys.path.insert(0, str(reservoir_dir))
     sys.path.insert(0, str(_repo / "hardware/printed-parts/cadlib"))
     sys.path.insert(0, str(_repo / "hardware/printed-parts/cold-core"))
-    sys.path.insert(0, str(_repo / "hardware"))
+    sys.path.insert(0, str(_repo / "hardware" / "scripts"))
 
     # Force a fresh import (in case a prior call cached an older copy).
     import importlib
@@ -228,7 +228,7 @@ def _shell_scalars():
     sys.path.insert(0, str(shell_dir))
     sys.path.insert(0, str(_repo / "hardware/printed-parts/faucet"))
     sys.path.insert(0, str(_repo / "hardware/printed-parts/cadlib"))
-    sys.path.insert(0, str(_repo / "hardware"))
+    sys.path.insert(0, str(_repo / "hardware" / "scripts"))
 
     # Force a fresh import (in case a prior call cached an older copy).
     import importlib
@@ -259,7 +259,7 @@ def _faucet_parts_scalars():
     sys.path.insert(0, str(o_ring_dir))
     sys.path.insert(0, str(_repo / "hardware/printed-parts/faucet"))
     sys.path.insert(0, str(_repo / "hardware/printed-parts/cadlib"))
-    sys.path.insert(0, str(_repo / "hardware"))
+    sys.path.insert(0, str(_repo / "hardware" / "scripts"))
 
     # Force fresh imports (in case a prior call cached older copies).
     import importlib
@@ -293,7 +293,7 @@ def _faucet_assembly_scalars():
     sys.path.insert(0, str(_repo / "hardware/printed-parts/faucet/touch-flo-shell"))
     sys.path.insert(0, str(_repo / "hardware/printed-parts/faucet"))
     sys.path.insert(0, str(_repo / "hardware/printed-parts/cadlib"))
-    sys.path.insert(0, str(_repo / "hardware"))
+    sys.path.insert(0, str(_repo / "hardware" / "scripts"))
 
     # Force a fresh import (in case a prior call cached an older copy).
     import importlib

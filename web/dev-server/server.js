@@ -10,7 +10,7 @@
 // fires on real deploys.
 //
 // The CadQuery scripts write atomically to their natural location next to
-// the .py file (see hardware/_cadq_export.py), so this server doesn't
+// the .py file (see hardware/scripts/_cadq_export.py), so this server doesn't
 // redirect output into .viewer/steps/. Both this dev viewer and the
 // public site read STEPs from the same place: hardware/.
 
@@ -242,7 +242,7 @@ async function runScript(pyFilePath) {
     if (code !== 0) return;
 
     // Broadcast STEP files in scriptDir that were rewritten since startTime.
-    // The atomic-write helper in hardware/_cadq_export.py renames into place,
+    // The atomic-write helper in hardware/scripts/_cadq_export.py renames into place,
     // so the mtime reflects the moment a complete file appeared. That same
     // helper also short-circuits when the new bytes match the existing file
     // exactly (timestamps are canonicalized first), so a no-op .py edit
@@ -387,7 +387,7 @@ watcher.on("change", (absPath) => {
   // belongs to. `foo.dxf.json` -> broadcast `foo.dxf`; `foo.step.json`
   // -> broadcast `foo.step`. The viewer's hsm:files-changed handler
   // refetches the part and its updated thickness (since /api/dxf
-  // returns sidecar fields in the same response). See hardware/PARTS.md.
+  // returns sidecar fields in the same response). See hardware/README.md.
   if (absPath.endsWith(".dxf.json") || absPath.endsWith(".step.json")) {
     if (debounce.has(absPath)) clearTimeout(debounce.get(absPath));
     debounce.set(

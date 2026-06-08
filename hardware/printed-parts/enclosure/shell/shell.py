@@ -13,8 +13,8 @@ from pathlib import Path
 import cadquery as cq
 
 _here = Path(__file__).resolve()
-_repo = next(p for p in _here.parents if (p / "hardware" / "_cadq_export.py").is_file())
-sys.path.insert(0, str(_repo / "hardware"))
+_repo = next(p for p in _here.parents if (p / "hardware" / "scripts" / "_cadq_export.py").is_file())
+sys.path.insert(0, str(_repo / "hardware" / "scripts"))
 from _cadq_export import export_step
 
 CONTENTS_STEP = (

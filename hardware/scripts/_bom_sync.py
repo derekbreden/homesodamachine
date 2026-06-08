@@ -1,15 +1,15 @@
-"""Doc-sync driver for hardware/bom.md.
+"""Doc-sync driver for hardware/ledger/bom.md.
 
-Run: tools/cad-venv/bin/python hardware/_bom_sync.py
+Run: tools/cad-venv/bin/python hardware/scripts/_bom_sync.py
 """
 
 import sys
 from pathlib import Path
 
-_here = Path(__file__).resolve().parent  # = hardware/
-sys.path.insert(0, str(_here / "printed-parts" / "cadlib"))
-sys.path.insert(0, str(_here / "printed-parts" / "cold-core"))
-sys.path.insert(0, str(_here / "printed-parts" / "cold-core" / "reservoir"))
+_here = Path(__file__).resolve().parent  # = hardware/scripts/
+sys.path.insert(0, str(_here.parent / "printed-parts" / "cadlib"))
+sys.path.insert(0, str(_here.parent / "printed-parts" / "cold-core"))
+sys.path.insert(0, str(_here.parent / "printed-parts" / "cold-core" / "reservoir"))
 sys.path.insert(
     0,
     str(next(p for p in _here.parents if (p / "tools" / "docgen").is_dir()) / "tools"),
@@ -120,7 +120,7 @@ def main():
     }
 
     substitute_md(
-        _here / "bom.md",
+        _here.parent / "ledger" / "bom.md",
         variables=variables,
         expected_counts={
             "END_CAPS": 1,

@@ -70,7 +70,7 @@ sys.path.insert(
 # hardware/printed-parts/faucet/.
 _hardware_dir = next(p for p in _here.parents if p.name == "hardware")
 sys.path.insert(0, str(_hardware_dir / "printed-parts" / "faucet"))
-sys.path.insert(0, str(_hardware_dir))
+sys.path.insert(0, str(_hardware_dir / "scripts"))
 from docgen import substitute_py_comments
 from _cadq_export import export_dxf
 from _touch_flo_interface import (

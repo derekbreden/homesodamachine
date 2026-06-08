@@ -29,10 +29,10 @@ from pathlib import Path
 import cadquery as cq
 
 _here = Path(__file__).resolve()
-_repo = next(p for p in _here.parents if (p / "hardware" / "_cadq_export.py").is_file())
+_repo = next(p for p in _here.parents if (p / "hardware" / "scripts" / "_cadq_export.py").is_file())
 _hw = _repo / "hardware"
 _cold_core = _hw / "printed-parts" / "cold-core"
-sys.path.insert(0, str(_hw))
+sys.path.insert(0, str(_hw / "scripts"))
 sys.path.insert(0, str(_cold_core))
 sys.path.insert(0, str(_hw / "printed-parts" / "cadlib"))
 from _cadq_export import export_assembly
