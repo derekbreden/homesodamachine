@@ -12,6 +12,3 @@ is translucent so the arrangement reads through it.
 
 `tools/cad-venv/bin/python pie-in-the-sky/lite/enclosure-assembly/enclosure_assembly.py`
 → `enclosure-assembly.step`.
-
-The engineering drawing iso of this assembly lives in
-[`drawings/`](drawings/).
