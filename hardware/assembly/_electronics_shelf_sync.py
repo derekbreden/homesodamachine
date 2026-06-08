@@ -48,8 +48,9 @@ wago_count = 3
 # ─── JST inter-module harness counts ───────────────────────────────────
 # Source: ../wiring/ac-wiring-schedule.md "Inter-module connectors" table.
 jst_4pin_count = 3                      # 4-pin (I²C + UART hops)
-jst_6pin_count = 1                      # 6-pin (DS3231 bus)
-jst_9pin_count = 6                      # 9-pin (ULN sides + MCP ports)
+jst_6pin_count = 1                      # 6-pin (L298N control row)
+jst_9pin_count = 4                      # 9-pin (ULN2803A sides only)
+jst_10pin_count = 4                     # 10-pin (MCP23017 GPIO rows)
 
 # ─── DS18B20 1-wire bus pull-up ────────────────────────────────────────
 # Source: DS18B20 datasheet (Maxim/ADI).
@@ -83,6 +84,7 @@ def main():
         "JST_4PIN_COUNT": f"~{jst_4pin_count:.4g}",
         "JST_6PIN_COUNT": f"~{jst_6pin_count:.4g}",
         "JST_9PIN_COUNT": f"~{jst_9pin_count:.4g}",
+        "JST_10PIN_COUNT": f"~{jst_10pin_count:.4g}",
         # DS18B20 pull-up.
         "DS18B20_PULLUP": f"{ds18b20_pullup_kohm:.4g} kΩ",
     }
@@ -109,6 +111,7 @@ def main():
             "JST_4PIN_COUNT": 1,
             "JST_6PIN_COUNT": 1,
             "JST_9PIN_COUNT": 1,
+            "JST_10PIN_COUNT": 1,
             "DS18B20_PULLUP": 1,
         },
     )
