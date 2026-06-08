@@ -34,7 +34,7 @@ port_center_z = valve.port_center_z
 boss_start_z = valve.boss_z_range[0]  # posts-only band tops out here
 
 # --- Tray parameters -----------------------------------------
-socket_clearance = 0.2   # radial play for the corner bosses
+socket_clearance = -0.05  # radial offset for the corner bosses
 saddle_clearance = 0.2   # radial play for the port
 wall = 3.0               # material outboard of the body footprint in X
 floor = 3.0              # under the sockets and the saddle
@@ -47,6 +47,7 @@ tray_half_y = saddle_half_y
 
 socket_radius = corner_boss_radius + socket_clearance
 saddle_radius = port_radius + saddle_clearance
+socket_floor_z = -1.0    # socket floor, below the post tips at Z = 0
 
 
 def build_single_tray():
@@ -72,15 +73,16 @@ def build_single_tray():
     )
     tray = block.cut(cq.Workplane(obj=saddle))
 
-    # Four corner-boss sockets: blind holes from the tray top down to Z = 0,
-    # each post bottoming on the floor.
+    # Four corner-boss sockets: blind holes from the tray top down past Z = 0;
+    # the posts hang free, the round boss seats on the tray top.
     for sx in (-1.0, 1.0):
         for sy in (-1.0, 1.0):
             socket = (
                 cq.Workplane("XY")
+                .workplane(offset=socket_floor_z)
                 .center(sx * corner_pos, sy * corner_pos)
                 .circle(socket_radius)
-                .extrude(tray_top_z + 1.0)
+                .extrude(tray_top_z - socket_floor_z + 1.0)
             )
             tray = tray.cut(socket)
     return tray

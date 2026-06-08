@@ -28,11 +28,10 @@ The 6 bodies are clash-free.
 
 ## The tray
 
-A frame plate (Z −3 → 6), **209 × 89 × 63 mm**, with a **solid floor**. Each
+A frame plate (Z −3 → 6), **207 × 89 × 63 mm**, with a **solid floor**. Each
 valve drops into rotated corner sockets and a port saddle along its aim line;
 each Y-divider sets into **three grooves** cut into the floor (the stem axis at
-Y = 0 and the two outlets at Y = ±7.35). Valves and dividers seat at 0 mm³ tray
-overlap.
+Y = 0 and the two outlets at Y = ±7.35).
 
 Two **side walls** (±Y, full length) rise to Z = 60, clear of the 56.6 mm
 valve-coil tops; a second tray's floor lands on the wall tops at a **63 mm

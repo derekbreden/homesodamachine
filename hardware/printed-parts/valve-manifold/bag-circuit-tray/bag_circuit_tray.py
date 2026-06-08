@@ -39,6 +39,7 @@ saddle_radius = cell.saddle_radius
 corner_pos = cell.corner_pos
 top_z = cell.tray_top_z
 bot_z = cell.tray_bottom_z
+socket_floor_z = cell.socket_floor_z
 _tee_path = _hw / "reference" / "tee-connector" / "tee-connector.step"
 
 # --- Shared geometry ------------------------------------------------------
@@ -123,9 +124,10 @@ def build_tray(valve_centers, connectors, plate_x, plate_y_half):
             for sy in (-1.0, 1.0):
                 tray = tray.cut(
                     cq.Workplane("XY")
+                    .workplane(offset=socket_floor_z)
                     .center(vx + sx * corner_pos, vy + sy * corner_pos)
                     .circle(socket_radius)
-                    .extrude(top_z + 1.0)
+                    .extrude(top_z - socket_floor_z + 1.0)
                 )
         port = cq.Solid.makeCylinder(
             saddle_radius,
