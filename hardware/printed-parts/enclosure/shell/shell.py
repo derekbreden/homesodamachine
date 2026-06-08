@@ -1,10 +1,10 @@
 """Kitchen Edition enclosure shell — a six-walled PETG box sized to the
-arrangement in `../enclosure-contents-assembly/`, sized to fit the H2C
-left-nozzle build envelope.
+arrangement in `../contents-assembly/`, sized to fit the H2C left-nozzle
+build envelope.
 
 Dimensions follow the contents at build time: the bounding box of
-`enclosure-contents-assembly.step` is read live, padded by an interior
-clearance, then walled out. Six closed walls; no penetrations modelled.
+`contents-assembly.step` is read live, padded by an interior clearance,
+then walled out. Six closed walls; no penetrations modelled.
 """
 
 import sys
@@ -18,8 +18,8 @@ sys.path.insert(0, str(_repo / "hardware"))
 from _cadq_export import export_step
 
 CONTENTS_STEP = (
-    _repo / "hardware" / "enclosure-contents-assembly"
-    / "enclosure-contents-assembly.step"
+    _repo / "hardware" / "printed-parts" / "enclosure" / "contents-assembly"
+    / "contents-assembly.step"
 )
 
 # Shell parameters.
@@ -61,7 +61,7 @@ def build_enclosure():
 
 def main():
     shell, outer = build_enclosure()
-    out = _here.parent / "enclosure.step"
+    out = _here.parent / "shell.step"
     export_step(shell, str(out))
     print(f"-> {out.name}")
     ox0, ox1, oy0, oy1, oz0, oz1 = outer

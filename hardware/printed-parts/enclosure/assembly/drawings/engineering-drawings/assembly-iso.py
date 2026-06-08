@@ -15,13 +15,15 @@ import cadquery as cq
 
 _HERE = Path(__file__).resolve().parent
 _repo = next(p for p in _HERE.parents if (p / "hardware" / "_cadq_export.py").is_file())
-ASSEMBLY_STEP = _repo / "hardware" / "enclosure-assembly" / "enclosure-assembly.step"
+ASSEMBLY_STEP = (
+    _repo / "hardware" / "printed-parts" / "enclosure" / "assembly" / "assembly.step"
+)
 
 
 def main() -> None:
     shape = cq.importers.importStep(str(ASSEMBLY_STEP))
     drawing = shape.rotate((0, 0, 0), (1, 0, 0), -90)
-    output_path = _HERE / "enclosure-assembly-iso.svg"
+    output_path = _HERE / "assembly-iso.svg"
     cq.exporters.export(
         drawing,
         str(output_path),
