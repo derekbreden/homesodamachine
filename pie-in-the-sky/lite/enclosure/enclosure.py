@@ -1,5 +1,5 @@
 """Lite Edition enclosure shell — a transparent PETG box sized to the
-arrangement in `../enclosure-contents-assembly/`.
+placed enclosure contents.
 
 The shell is six walls (floor, four sides, lid). The contents sit on the floor
 plane (z = 0); their +X face points to the cabinet back, their -X face is the
@@ -7,10 +7,10 @@ enclosure front, the trays carry the -X wall, the funnel rides under the lid.
 A square hole in the lid clears the funnel inlet so it sits flush with the top
 of the cabinet.
 
-Dimensions follow the contents at build time: the bounding box of
-`enclosure-contents-assembly.step` is read live, padded by an interior
-clearance, then walled out. The lid hole is centered on the funnel's lid
-footprint with matching clearance.
+Dimensions follow the contents at build time: the bounding box of the parts
+placed by `../enclosure-assembly/_contents.py` is computed live, padded by an
+interior clearance, then walled out. The lid hole is centered on the funnel's
+lid footprint with matching clearance.
 """
 
 import sys
@@ -22,13 +22,11 @@ _here = Path(__file__).resolve()
 _repo = next(p for p in _here.parents if (p / "hardware" / "scripts" / "_cadq_export.py").is_file())
 sys.path.insert(0, str(_repo / "hardware" / "scripts"))
 sys.path.insert(0, str(_repo / "tools"))
+sys.path.insert(0, str(_repo / "pie-in-the-sky" / "lite" / "enclosure-assembly"))
 from _cadq_export import export_step
 from docgen import substitute_md, substitute_py_comments
+import _contents
 
-CONTENTS_STEP = (
-    _repo / "pie-in-the-sky" / "lite" / "enclosure-contents-assembly"
-    / "enclosure-contents-assembly.step"
-)
 FUNNEL_STEP = (
     _repo / "pie-in-the-sky" / "lite" / "printed-parts" / "funnel" / "funnel.step"
 )
@@ -46,15 +44,27 @@ def _bbox(path):
     return cq.importers.importStep(str(path)).val().BoundingBox()
 
 
+def _contents_bbox():
+    """Combined bounding box of the placed contents, built in-process from
+    ../enclosure-assembly/_contents.py — no serialized contents STEP."""
+    placed = _contents.build()
+    bbs = [shape.BoundingBox() for shape, _color in placed.values()]
+    return (
+        min(b.xmin for b in bbs), max(b.xmax for b in bbs),
+        min(b.ymin for b in bbs), max(b.ymax for b in bbs),
+        min(b.zmin for b in bbs), max(b.zmax for b in bbs),
+    )
+
+
 def build_enclosure():
-    contents = _bbox(CONTENTS_STEP)
+    cxmin, cxmax, cymin, cymax, czmin, czmax = _contents_bbox()
 
     # Inner cavity: contents bbox padded by clearance on all sides; floor at
-    # z = contents.zmin (contents sit on it), lid inner face at contents.zmax
-    # (funnel inlet flush with it).
-    ix0, ix1 = contents.xmin - interior_clearance, contents.xmax + interior_clearance
-    iy0, iy1 = contents.ymin - interior_clearance, contents.ymax + interior_clearance
-    iz0, iz1 = contents.zmin, contents.zmax
+    # z = czmin (contents sit on it), lid inner face at czmax (funnel inlet
+    # flush with it).
+    ix0, ix1 = cxmin - interior_clearance, cxmax + interior_clearance
+    iy0, iy1 = cymin - interior_clearance, cymax + interior_clearance
+    iz0, iz1 = czmin, czmax
 
     # Outer shell: cavity grown by wall on all six faces.
     ox0, ox1 = ix0 - wall, ix1 + wall

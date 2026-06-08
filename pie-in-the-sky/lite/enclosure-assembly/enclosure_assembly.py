@@ -1,9 +1,8 @@
 """Lite Edition enclosure assembly — the shell wrapped around the contents.
 
 Combines `../enclosure/enclosure.step` with the placed parts from
-`../enclosure-contents-assembly/enclosure_contents_assembly.build()` in their
-shared coordinates. The contents keep their per-part colors; the shell is
-translucent so the arrangement reads through it.
+`_contents.build()` in their shared coordinates. The contents keep their
+per-part colors; the shell is translucent so the arrangement reads through it.
 """
 
 import sys
@@ -14,16 +13,15 @@ import cadquery as cq
 _here = Path(__file__).resolve()
 _repo = next(p for p in _here.parents if (p / "hardware" / "scripts" / "_cadq_export.py").is_file())
 sys.path.insert(0, str(_repo / "hardware" / "scripts"))
-sys.path.insert(0, str(_repo / "pie-in-the-sky" / "lite" / "enclosure-contents-assembly"))
 from _cadq_export import export_assembly
-import enclosure_contents_assembly as contents
+import _contents as contents
 
 SHELL_STEP = _repo / "pie-in-the-sky" / "lite" / "enclosure" / "enclosure.step"
 SHELL_COLOR = cq.Color(0.85, 0.92, 1.00, 0.22)  # transparent PETG
 
 
 def build():
-    _contents_assy, placed = contents.build()
+    placed = contents.build()
     shell = cq.importers.importStep(str(SHELL_STEP)).val()
 
     assy = cq.Assembly(name="lite-enclosure-assembly")
