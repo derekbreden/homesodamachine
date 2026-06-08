@@ -29,6 +29,7 @@ import {
 import { loadStepFile } from "./step.js";
 import { loadDxfFile, resetDxfCamera } from "./dxf.js";
 import { makeRulerToggle } from "./rulers.js";
+import { makeXrayToggle } from "./xray.js";
 
 // Reset-view button: re-frames the current part with the format's default
 // isometric framing and clears the per-file saved camera, so a wonky
@@ -130,6 +131,8 @@ export function openCadDetail(type, file, pushHistory = true) {
   loadingEl.textContent = "Loading...";
   wrapper.appendChild(loadingEl);
   wrapper.appendChild(makeRulerToggle());
+  // X-ray only for STEP — DXF is a single flat plate with nothing inside.
+  if (type === "step") wrapper.appendChild(makeXrayToggle());
   wrapper.appendChild(makeResetViewButton());
 
   state.currentCadWrapper = wrapper;
