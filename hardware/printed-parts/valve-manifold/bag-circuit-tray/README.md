@@ -29,7 +29,7 @@ six bodies are clash-free.
 
 ## The tray
 
-A frame plate (Z −3 → 6), **138 × 72 × 63 mm**, with a **solid floor**. Each
+A frame plate (Z −3 → 6), **136 × 72 × 63 mm**, with a **solid floor**. Each
 valve drops into four corner sockets and a port saddle along X; each **Tee run
 sets into a groove** cut into the floor at port height (the floor stays solid
 beneath it). Two **side walls** (±Y) rise to Z = 60 for a **63 mm stack

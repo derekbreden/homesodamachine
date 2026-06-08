@@ -28,7 +28,7 @@ surface (bottom of the white body) sits at Z = 0.
 
 - The white body is a central round boss (⌀32.25, Z 6 → 30.6) inscribed in
   the square footprint, plus four corner bosses (⌀6.8) running the full
-  Z 0 → 30.6, tucked tangent inside the footprint corners. The bottom 6 mm
+  Z 0 → 30.6, tucked inside the footprint corners. The bottom 6 mm
   is just the four posts. A 5 mm square box (32.25 × 32.25, Z 25.6 → 30.6)
   caps the top, filling the footprint corners just under the coil.
 - The solenoid coil is centered on top of the body in X and Y, from

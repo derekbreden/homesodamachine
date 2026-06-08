@@ -21,7 +21,7 @@ bodies are clash-free.
 
 ## The tray
 
-A frame plate (Z −3 → 6), **89 × 72 × 63 mm** (+X edge trimmed to the Tee run
+A frame plate (Z −3 → 6), **88 × 72 × 63 mm** (+X edge trimmed to the Tee run
 port), with a **solid floor**: one valve cradle (four sockets + a port saddle)
 and a **groove** for each Tee run cut into the floor. Two **side walls** (±Y)
 rise to Z = 60 for a **63 mm stack pitch**; the X-ends stay open for the ports
