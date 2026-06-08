@@ -62,7 +62,7 @@ The appliance does not stop being the halo product under this framing. It is the
 - [`/hardware/future.md`](/hardware/future.md) is the engineering spec for the Kitchen Edition rung.
 - [`lite/`](/pie-in-the-sky/lite/README.md), [`shop-edition.md`](/pie-in-the-sky/shop-edition.md), [`flavor-module.md`](/pie-in-the-sky/flavor-module.md) are engineering sketches for three of the rungs.
 - [`co2-service.md`](/pie-in-the-sky/co2-service.md), [`cga320-kit.md`](/pie-in-the-sky/cga320-kit.md), [`local-co2.md`](/pie-in-the-sky/local-co2.md) are sketches for three more rungs (the lower end and the services).
-- [`hsm-1-2-3.md`](/pie-in-the-sky/hsm-1-2-3.md) is the older, smaller framing — three sequential SKUs of one product line. The curator framing supersedes it. Once this doc is in shape and the existing rung docs have caught up, `hsm-1-2-3.md` can be retired.
+- [`timeline.md`](/pie-in-the-sky/timeline.md) is the older, smaller framing — three sequential SKUs of one product line. The curator framing supersedes it. Once this doc is in shape and the existing rung docs have caught up, `timeline.md` can be retired.
 
 ## What's worth doing first
 
