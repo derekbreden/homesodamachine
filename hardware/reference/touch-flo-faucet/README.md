@@ -1,6 +1,6 @@
 # Touch-Flo Faucet Teardown + Fabrication Plan
 
-The dispense point of this appliance is a custom three-tube spout (1× carbonated water + 2× flavor) with a factory-grade self-closing spring-piston lever valve harvested from a Touch-Flo–class cold water dispenser faucet. Mixing occurs in the user's glass, not before — see `hardware/requirements.md`. This directory captures the harvest donor, the class of mechanism being harvested, and the fabrication plan for the spout.
+The dispense point of this appliance is a custom three-tube spout (1× carbonated water + 2× flavor) with a factory-grade self-closing spring-piston lever valve harvested from a Touch-Flo–class cold water dispenser faucet. Mixing occurs in the user's glass, not before — see [`/hardware/future.md`](/hardware/future.md). This directory captures the harvest donor, the class of mechanism being harvested, and the fabrication plan for the spout.
 
 ## Mechanism
 
