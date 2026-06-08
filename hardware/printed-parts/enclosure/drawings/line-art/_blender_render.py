@@ -98,11 +98,19 @@ def _postprocess_svg(svg_path: Path) -> None:
     # stroke set anywhere up the inheritance chain the computed value
     # falls back to `none` — strokes disappear in the PDF. Putting the
     # color on the group means `inherit` lands on a defined value.
-    text = re.sub(
-        r'(<g\b[^>]*\bid="strokes"[^>]*)>',
-        r'\1 stroke="rgb(0,0,0)" fill="none">',
-        text,
-    )
+    # Idempotent: only add the color when the group has no stroke yet.
+    # The match group spans the whole opening tag, so re-running on
+    # already-processed SVG (or exporter output that already carries a
+    # stroke) is a no-op rather than appending a second stroke=/fill= pair —
+    # which would produce duplicate attributes (invalid XML) that churn the
+    # file on every regen.
+    def _set_strokes_color(m):
+        attrs = m.group(1)
+        if "stroke=" in attrs:
+            return m.group(0)
+        return f'{attrs} stroke="rgb(0,0,0)" fill="none">'
+
+    text = re.sub(r'(<g\b[^>]*\bid="strokes"[^>]*)>', _set_strokes_color, text)
 
     svg_path.write_text(text)
 

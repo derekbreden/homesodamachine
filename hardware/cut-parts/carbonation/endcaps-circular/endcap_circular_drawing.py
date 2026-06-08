@@ -6,7 +6,6 @@ a 1/4-18 NPT THRU tap callout, general notes, and a title block.
 
 import math
 import sys
-from datetime import date
 from pathlib import Path
 
 from reportlab.lib.units import inch
@@ -41,6 +40,14 @@ hole_spacing = 1.500
 # [0.75 in](HOLE_OFFSET) each hole's |X| offset from disc center.
 hole_offset = hole_spacing / 2
 hole_positions = [(-hole_offset, 0.0), (+hole_offset, 0.0)]
+
+# Drawing revision date shown in the title block. A fixed constant rather
+# than date.today() so regenerating the PDF is byte-stable — a render on a
+# new day must not churn the committed file. ReportLab compresses the page
+# content stream, so this visible date can't be reached by the regex-based
+# canonicalizer in _cadq_export (unlike the /CreationDate metadata, which it
+# does pin). Bump on a real revision.
+revision_date = "2026-06-08"
 
 # Sheet layout in inches (ANSI A landscape).
 sheet_width = 11.0
@@ -232,7 +239,7 @@ def draw_title_block(c: canvas.Canvas) -> None:
         ("SCALE",     "1:1"),
         ("UNITS",     "INCHES"),
         ("TOLERANCE", "\u00b10.005 IN LINEAR, \u00b10.5\u00b0 ANGULAR (UNLESS NOTED)"),
-        ("DATE",      date.today().isoformat()),
+        ("DATE",      revision_date),
         ("PROJECT",   "SODA FLAVOR INJECTOR \u2014 CARBONATOR VESSEL"),
         ("DRAWN BY",  "derekbreden@gmail.com"),
     ]
