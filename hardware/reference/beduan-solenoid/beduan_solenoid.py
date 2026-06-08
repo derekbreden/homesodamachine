@@ -38,8 +38,8 @@ body_top_z = 30.6
 boss_z_range = (6.0, body_top_z)              # central boss; corner posts run full-height below it
 corner_boss_z_range = (0.0, body_top_z)
 top_box_z_range = (body_top_z - top_box_height, body_top_z)
-corner_spacing = 24.35  # corner-post center-to-center, both axes
-corner_inset = corner_spacing / 2.0  # [12.18 mm](CORNER_INSET)
+corner_spacing = 24.4  # corner-post center-to-center, both axes
+corner_inset = corner_spacing / 2.0  # [12.2 mm](CORNER_INSET)
 
 # --- Solenoid coil (X spans the footprint width) --------------------------
 coil_depth = 24.0                   # Y
