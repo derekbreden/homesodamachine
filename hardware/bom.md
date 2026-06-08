@@ -143,8 +143,9 @@ Dishing dies (PA6-CF) for end-cap forming are vessel-fabrication tools, not ship
 | [uxcell silicone flat washer, ⌀16 ID × ⌀24 OD × 3 mm, clear (10-pk)](https://www.amazon.com/dp/B07D23JJMR) | **Reservoir bulkhead wet-side face seal** — the primary seal where the PureSec barrel passes up through the reservoir floor; sits in the wet-side counterbore, compressed by the bulkhead hex nut, per [`printed-parts/cold-core/reservoir/floor-and-bulkhead.md`](printed-parts/cold-core/reservoir/floor-and-bulkhead.md). Food-reasonable silicone (food-grade implied, not certified) — qualified by the wetted-surface screen, not a cert, per [`printed-parts/cold-core/reservoir/wetted-surface-test.md`](printed-parts/cold-core/reservoir/wetted-surface-test.md). Replaces the former printed TPU wet washer (the dry-side washer stays printed TPU). 1 per reservoir × 2 reservoirs = 2/build. Amazon 112-8819640-4433810 Jun 7: $7.50 ÷ 10 = $0.75/ea; 10-pk = 5 builds of stock | 2 (of 10 pk) | $0.75 | $1.50 |
 | [Supply Depot BIB connector, 3/8" red (2-pk)](https://www.amazon.com/dp/B0DMFK9B6P) | rear-panel commercial-syrup input | 1 pk | $19.99 | $19.99 |
 | [MAACFLOW SS 1/4" NPT M × 3/8" hose barb (4-pk)](https://www.amazon.com/dp/B0DMP77B6S) | | 1 pk | $12.97 | $12.97 |
-| [John Guest PP010822E 1/4" OD × 1/4" NPT male connector, black polypropylene (10-pk)](https://www.freshwatersystems.com/products/john-guest-male-connector-nptf-black-polypropylene-1-4-x-1-4-nptf) | 1/4" NPT M × 1/4" PTC adapter pair (one per BiB-input leg, between MAACFLOW 3/8" barb × 1/4" NPT M and the LLDPE feeding the PP2308E Y-divider below); 2 per build; FWS WEBFWS100675224 May 15: $11.00 + $5.23 ship + $1.18 tax = $17.41 ÷ 10 = $1.741/ea | 2 (of 10 pk) | $1.74 | $3.48 |
-| [John Guest PP2308E two-way divider, black polypropylene 1/4"](https://www.freshwatersystems.com/products/john-guest-two-way-divider-black-polypropylene-1-4) | manifold Y-A/B/C/D/E/F/G/H/KA/KB per fluid-topology-manifold.mmd, [10](Y_DIVIDERS) per unit; FWS WEBFWS100673541 May 9: 2 bags of 10 @ $61.66 = $30.83/bag = $3.083/ea pre-tax/ship | [10](Y_DIVIDERS) (1 bag) | $3.083 | $30.83 |
+| [John Guest PP010822E 1/4" OD × 1/4" NPT male connector, black polypropylene (10-pk)](https://www.freshwatersystems.com/products/john-guest-male-connector-nptf-black-polypropylene-1-4-x-1-4-nptf) | 1/4" NPT M × 1/4" PTC adapter pair (one per BiB-input leg, between MAACFLOW 3/8" barb × 1/4" NPT M and the LLDPE feeding the manifold junctions below); 2 per build; FWS WEBFWS100675224 May 15: $11.00 + $5.23 ship + $1.18 tax = $17.41 ÷ 10 = $1.741/ea | 2 (of 10 pk) | $1.74 | $3.48 |
+| [John Guest PP2308E two-way divider, black polypropylene 1/4"](https://www.freshwatersystems.com/products/john-guest-two-way-divider-black-polypropylene-1-4) | source-select Y-A, Y-B per fluid-topology-trays.mmd (trident, parallel-outlet geometry), [2](Y_DIVIDERS) per unit; FWS WEBFWS100673541 May 9: 2 bags of 10 @ $61.66 = $30.83/bag = $3.083/ea pre-tax/ship; 1 bag = 5 builds of stock | [2](Y_DIVIDERS) (of 1 bag) | $3.083 | $6.17 |
+| [John Guest PP0208E 1/4" union tee, black polypropylene (bag of 10)](https://www.freshwatersystems.com/products/john-guest-union-tee-black-polypropylene-1-4) | manifold Tees Y-C/D/E/F/G/H/KA/KB per fluid-topology-trays.mmd (run in-line between butted valves, branch rises to bag/pump/nozzle), [8](TEES) per unit; same JG black-PP NSF 51 + 61 family as the §3 install-kit tee. FWS WEBFWS100681220 Jun 8: 2 bags of 10 @ $42.68 = $21.34/bag = $2.134/ea pre-tax/ship | [8](TEES) (of 2 bags) | $2.134 | $17.07 |
 | [Siptenk 1/4" OD brass tube stiffener insert (100-pk)](https://www.amazon.com/dp/B0FM77LLM1) | required on the LLDPE side of the carbonated-water tube end that lands in the Westbrass body's upstream compression port (per [`assembly/faucet-and-umbilical.md`](assembly/faucet-and-umbilical.md) step 2) so the brass ferrule does not crush the soft tube; 1 stiffener per build ($8.99/100) | 1 (of 100 pk) | $0.09 | $0.09 |
 
 ## 9. Dispensing (carbonator bottom-plate outlet → faucet)
@@ -253,14 +254,14 @@ Per-appliance tools that ship in the install kit so the field installer can cut 
 | 5. Refrigeration | [$215.53](BOM_SEC5) |
 | 6. Cold core insulation | [$52.38](BOM_SEC6) |
 | 7. Printed parts (PETG) | [$103.94](BOM_SEC7) |
-| 8. Flavor subsystem | [$272.19](BOM_SEC8) |
+| 8. Flavor subsystem | [$264.60](BOM_SEC8) |
 | 9. Dispensing | [$50.68](BOM_SEC9) |
 | 10. UI | [$3.21](BOM_SEC10) |
 | 11. Wiring | [$32.56](BOM_SEC11) |
 | 12. Level sensing | [$69.78](BOM_SEC12) |
 | 13. Mechanical attach hardware + reservoir-cap vent filter | [$5.41](BOM_SEC13) |
 | 14. Install kit | [$4.29](BOM_SEC14) |
-| **Total** | **[$1,560.69](BOM_GRAND)** |
+| **Total** | **[$1,553.10](BOM_GRAND)** |
 
 ## External / user-supplied (not shipped)
 

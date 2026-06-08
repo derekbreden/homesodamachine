@@ -19,7 +19,9 @@
 
 All valves are normally closed solenoid valves. Flow direction is inlet (I) to outlet (O) only.
 
-## Y-Junctions
+## Junctions
+
+Ten 3-port junctions. **Y-A and Y-B are PP2308E Y-dividers** (the source-select tray's trident fittings); the other eight — **Y-C, Y-D, Y-E, Y-F, Y-G, Y-H, Y-KA, Y-KB** — are **PP0208E Tees** (in-line run + branch). The `Y-` prefix is a stable identifier, not a claim that the fitting is a Y. Per-tray grouping is in [fluid-topology-trays.mmd](fluid-topology-trays.mmd).
 
 | Junction | Port 1 | Port 2 | Port 3 |
 |---|---|---|---|

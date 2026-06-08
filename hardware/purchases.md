@@ -175,6 +175,7 @@ Peristaltic pumps, solenoids, bag-in-box connector, silicone delivery tubing, ba
 | TAILONZ push-to-connect 1/4" tube × 1/8" NPT (10 pk) | [B07P8784D2](https://www.amazon.com/dp/B07P8784D2) | 1 pk | $9.99 | ACQUIRED |
 | MALIDA 1/8" NPT × 1/4" tube elbow/straight push-fit | [B09MY72KQ7](https://www.amazon.com/dp/B09MY72KQ7) | 1 pk | $7.99 | ACQUIRED |
 | John Guest PP2308E two-way divider, black polypropylene 1/4" | [freshwatersystems.com](https://www.freshwatersystems.com/products/john-guest-two-way-divider-black-polypropylene-1-4) | 2 bags (20 dividers) | $88.43 | ACQUIRED (delivered May 14) |
+| John Guest PP0208E union tee, black polypropylene 1/4" (manifold Tees, Y-C/D/E/F/G/H/KA/KB) | [freshwatersystems.com](https://www.freshwatersystems.com/products/john-guest-union-tee-black-polypropylene-1-4) | 2 bags (20 tees) | $59.99 | ON-ORDER (ordered Jun 8, order WEBFWS100681220) |
 | John Guest Speedfit PP1208E 1/4" OD black polypropylene push-to-connect bulkhead union, 10-pack | [B00JYFU8MM](https://www.amazon.com/dp/B00JYFU8MM) | 1 pk (10) | $24.79 | ACQUIRED (delivered May 12) |
 | PureSec 1/4" RO push-to-connect 90° elbow bulkhead, white polypropylene, 5-pack | [B0968K4JRN](https://www.amazon.com/dp/B0968K4JRN) | 1 pk (5) | $11.79 | ACQUIRED (delivered May 29) |
 | uxcell silicone flat washer, ⌀16 ID × ⌀24 OD × 3 mm, clear, 10-pack — reservoir bulkhead wet-side face seal | [B07D23JJMR](https://www.amazon.com/dp/B07D23JJMR) | 1 pk (10) | $7.50 | ON-ORDER (placed Jun 7, order 112-8819640-4433810) |
@@ -491,10 +492,10 @@ Industrial-supply orders direct from McMaster-Carr (mcmaster.com). First McMaste
 | ACQUIRED — hardware, tools & infra (§§1–17, 19, 20) | [$25,354.65](LEDGER_ACQUIRED_HW) |
 | ACQUIRED — capitalized contract labor (§18) | [$2,607.92](LEDGER_LABOR) |
 | ACQUIRED (combined) | [$27,962.57](LEDGER_ACQUIRED_COMBINED) |
-| ON-ORDER | [$53.60](LEDGER_ON_ORDER) |
+| ON-ORDER | [$113.59](LEDGER_ON_ORDER) |
 | MISSING — paid, not received (§1 copper bar) | [$42.89](LEDGER_MISSING) |
 | LIKELY-TO-BUY | $0.00 |
-| **Grand total — cash outlay** | [$28,059.06](LEDGER_GRAND_TOTAL) |
+| **Grand total — cash outlay** | [$28,119.05](LEDGER_GRAND_TOTAL) |
 
 ACQUIRED hardware by section:
 
