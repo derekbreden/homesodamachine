@@ -10,6 +10,22 @@ import { openDrawingDetail, renderDrawingThumbnail } from "./drawings.js";
 import { renderThumbnail } from "./step.js";
 import { renderDxfThumbnail } from "./dxf.js";
 
+// Step thumbnails bake in the x-ray mode at render time (step.js applyXray).
+// When the x-ray toggle flips it fires "hsm:xray-changed"; drop the cached
+// step thumbnails and re-render the ones already on screen. Cards still
+// showing a placeholder render fresh against the cleared cache when they
+// next scroll into view, so they pick up the new mode without extra work.
+function refreshStepThumbnailsForXray() {
+  state.thumbnailCache.clear();
+  if (!state.gridEl) return;
+  for (const card of state.gridEl.querySelectorAll('.card[data-type="step"]')) {
+    const img = card.querySelector("img");
+    if (!img) continue;
+    renderThumbnail(card.dataset.file).then((url) => { if (url) img.src = url; });
+  }
+}
+window.addEventListener("hsm:xray-changed", refreshStepThumbnailsForXray);
+
 function shortName(file, ext = ".step") {
   const parts = file.split("/");
   const name = parts.pop().replace(ext, "");

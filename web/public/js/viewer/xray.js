@@ -21,8 +21,10 @@
 // mesh.userData.baseMaterial, to be restored on toggle off.
 //
 // step.js calls applyXray() on the group after every load (so switching
-// files keeps the mode), and the toggle re-applies to the live group.
-// Defaults to off.
+// files keeps the mode), and on each thumbnail render (so the grid matches
+// the detail view). The toggle re-applies to the live group and signals the
+// grid to re-render its step thumbnails. Defaults to ON; an explicit toggle
+// is remembered.
 
 import * as THREE from "three";
 import { state } from "./state.js";
@@ -42,7 +44,10 @@ const SURFACE_OPACITY = 0.14;
 const EDGE_THRESHOLD_DEG = 30;
 
 let enabled = (() => {
-  try { return localStorage.getItem(LS_KEY) === "1"; } catch { return false; }
+  try {
+    const v = localStorage.getItem(LS_KEY);
+    return v === null ? true : v === "1"; // default on; respect an explicit choice
+  } catch { return true; }
 })();
 
 // base shading material -> its x-ray clone. WeakMap so a clone dies with the
@@ -119,6 +124,9 @@ export function setXrayEnabled(on) {
   enabled = !!on;
   try { localStorage.setItem(LS_KEY, enabled ? "1" : "0"); } catch {}
   applyXray(state.currentGroup);
+  // Thumbnails bake the mode in at render time, so tell the grid to drop its
+  // cached step thumbnails and re-render the visible ones to match.
+  window.dispatchEvent(new CustomEvent("hsm:xray-changed"));
 }
 
 export function isXrayEnabled() {
