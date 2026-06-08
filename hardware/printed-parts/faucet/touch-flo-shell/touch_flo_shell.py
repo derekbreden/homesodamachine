@@ -138,7 +138,7 @@ base_pod_boss_pocket_dia = 8.0      # M3 boss pocket the pod will eventually car
 base_pod_wall = 2.0                 # pod wall around that pocket
 base_pod_radius = base_pod_boss_pocket_dia / 2.0 + base_pod_wall
 base_pod_center_x = 21.9            # lateral screw axis, +-X (body bore center is X=0)
-base_pod_center_y = 0.0             # in line with the body-bore center
+base_pod_center_y = shell_center_y  # on the foot-circle (and plate) center line, +Y
 base_pod_z_bottom = zone1_z_bottom  # deck plane, Z=0
 base_pod_z_top = zone1_outer_z_top  # match the base-cylinder top
 
