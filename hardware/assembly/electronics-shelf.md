@@ -31,7 +31,7 @@ Per-unit BOM lives in [`/hardware/bom.md`](/hardware/bom.md) §1 (controllers + 
 | Wago 221-413 lever-nut connector ×[3](WAGO_COUNT) | per [`/hardware/bom.md`](/hardware/bom.md) §11 | AC distribution block — one Wago per conductor (H, N, G), each carrying one in-leg from the C14 pigtail and two out-legs. |
 | DC distribution block | placeholder per [`/hardware/bom.md`](/hardware/bom.md) §11 | 12 V + and GND rails for the DC-2 / DC-4 / DC-6 / DC-8 / DC-9 fan-out from the PSU secondary. Hardware TBD — see Open items. |
 | Solid-copper ground bus | per [`/hardware/bom.md`](/hardware/bom.md) §11 (16 AWG green stock) | Single chassis-ground tie point on the shelf. Receives PSU chassis ground (AC-2 G) and the C14 inlet's earth pin (via AC-1a G → GFCI pass-through earth → AC-1b G); distributes to every exposed-metal load via short green pigtails. |
-| JST XH 2.54 mm connector kits — 4-pin / 6-pin / 9-pin | B0B2RB524Y / B0B2R8Q1JL / B0B2R73RQB | Inter-module logic harnesses per [`/hardware/wiring/ac-wiring-schedule.md`](/hardware/wiring/ac-wiring-schedule.md) "Inter-module connectors": [~3](JST_4PIN_COUNT)× 4-pin (I²C + UART hops), [~1](JST_6PIN_COUNT)× 6-pin (DS3231 bus), [~6](JST_9PIN_COUNT)× 9-pin (ULN sides + MCP ports). |
+| JST XH 2.54 mm connector kits — 4-pin / 6-pin / 9-pin / 10-pin | B0B2RB524Y / B0B2R8Q1JL / B0B2R73RQB / B0B2R93CV3 | Inter-module logic harnesses per [`/hardware/wiring/ac-wiring-schedule.md`](/hardware/wiring/ac-wiring-schedule.md) "Inter-module connectors": [~3](JST_4PIN_COUNT)× 4-pin (I²C / UART hops), [~1](JST_6PIN_COUNT)× 6-pin (L298N control), [~4](JST_9PIN_COUNT)× 9-pin (ULN sides), [~4](JST_10PIN_COUNT)× 10-pin (MCP GPIO rows). |
 | CQRobot bonded ribbon kit (15 cm × 12 cond × 8 ribbons) | B0F6C7X5CR | Module-to-module connections under ~6"; pre-crimped female XH terminals on both ends. |
 | Keszoox [50 cm](KESZOOX_LENGTH) pre-crimped silicone pigtails (20 wires, 10 colors, 22 AWG) | B0F8HMQRRN | Cabinet-spanning runs; supplies the ULN→solenoid fan-out leads + sensor pigtails handed off to [`wiring.md`](wiring.md). |
 | 16 AWG silicone-insulated appliance wire (black/white/green) | per [`/hardware/bom.md`](/hardware/bom.md) §11 | AC pigtail stock for AC-1a through AC-6. |
@@ -54,8 +54,8 @@ Module placement geometry on the shelf is set by the shelf STL — see Open item
 
 Per [`/hardware/handwork.md`](/hardware/handwork.md) "Solder JST connectors". Hakko station, 60/40 leaded, ESD mat. Pin-count assignments per [`/hardware/wiring/ac-wiring-schedule.md`](/hardware/wiring/ac-wiring-schedule.md) "Inter-module connectors":
 
-- **4-pin** — I²C trunk (ESP32 ↔ MCP23017 ×2 ↔ DS3231 on the shared bus; one header on each carrier), and one UART trunk header on the ESP32 — SIG-7 for the ESP32-S3 — that lands at system integration since the S3 lives on the front face per [`/hardware/printed-parts/enclosure/front-panel/README.md`](/hardware/printed-parts/enclosure/front-panel/README.md) "S3 detach mechanism".
-- **6-pin** — DS3231 RTC carrier (VCC / GND / SDA / SCL / SQW / 32K).
+- **4-pin** — the 4-wire I²C / UART hops: the DS3231 RTC's I²C (VCC / GND / SDA / SCL) and one UART trunk header for SIG-7 to the front-face ESP32-S3 (lands at system integration per [`/hardware/printed-parts/enclosure/front-panel/README.md`](/hardware/printed-parts/enclosure/front-panel/README.md) "S3 detach mechanism"). The ESP32 I²C/UART ends land on the DIN-breakout **screw terminals**; the two MCP23017s join the I²C bus on their native **PH2.0** connectors, not XH.
+- **6-pin** — L298N control row (ENA / IN1 / IN2 / IN3 / IN4 / ENB); the module ships these pins pre-soldered, so desolder them first.
 - **9-pin** — ULN2803A modules × 2 (each gets two 9-pin headers, one per Darlington row of 8 channels + COM/GND).
 - **10-pin** — MCP23017 modules × 2 (a 10-pin header per used GPIO row: **VCC + GND + 8 GPIO**). The port row is 10 holes; a 10-pin fills the footprint so neither the header nor the housing can seat off-by-one. The MCP I²C side is the board's native **PH2.0** connector (2.0 mm) — not XH; the I²C bus reaches each MCP on PH2.0, only the ESP32/DS3231 ends are XH.
 
@@ -119,12 +119,12 @@ Land the branches per [`/hardware/wiring/ac-wiring-schedule.md`](/hardware/wirin
 
 Build the logic-side harnesses module-to-module from the JST kits + bonded ribbon + Keszoox pigtails. Build order: I²C trunk, UART hops, ULN-MCP bus, off-shelf fan-out pigtails.
 
-- **I²C trunk** — 4-pin XH bonded ribbon from ESP32 GPIO 21/22 + 3.3 V + GND, daisy-chained through the DS3231, both MCP23017s. Headers seat at each device; pull-ups on the bus are on the MCP23017 breakouts.
+- **I²C trunk** — the ESP32 end (GPIO 21/22 + 3.3 V + GND) lands on the DIN-breakout **screw terminals**; the bus daisy-chains to the DS3231 (4-pin XH) and to each MCP23017 on its native **PH2.0** connector (the MCP I²C side is PH2.0, not XH). Pull-ups on the bus are on the MCP23017 breakouts.
 - **UART hops** — one 4-pin XH header on the ESP32 with its shelf-side end seated and its off-shelf end left open for system integration. SIG-7 (GPIO 15 TX / 34 RX + 5 V + GND) lands on the ESP32-S3 on the front face per [`/hardware/printed-parts/enclosure/front-panel/README.md`](/hardware/printed-parts/enclosure/front-panel/README.md) "S3 detach mechanism".
 - **MCP23017 → ULN2803A** — 9-pin XH ribbons, two per MCP (one per port). Port A of 0x20 trunks straight into ULN #1's 8-channel input row; Port B[0:3] of 0x20 lands on ULN #2 inputs 1-4. Port A[4] of 0x21 lands on ULN #2 input 5 (the condenser-fan channel). The Reservoir A reed inputs on 0x20 PB[4:7] and Reservoir B reed inputs on 0x21 PA[0:3] terminate at JST headers at the edge of the shelf — those plug into the Keszoox pigtails that route to the reservoir-mounted reeds at [`wiring.md`](wiring.md).
 - **ULN2803A → off-shelf solenoids + condenser fan** — 12 × Keszoox [50 cm](KESZOOX_LENGTH) pre-crimped pigtails crimped into the ULN outputs (8 from ULN #1, 4 from ULN #2 channels 1-4) and one more for the condenser-fan return (ULN #2 channel 5). Each pigtail's far end terminates in a female disconnect for the manifold valves or the fan motor; they leave the shelf as a single bundled run for the valve manifold + a single pigtail for the fan, both labeled.
-- **L298N control** — Dupont female on the ESP32 side (GPIO 33/25/26 for pump A, 19/18/5 for pump B per [`/hardware/wiring/esp32-pinout.mmd`](/hardware/wiring/esp32-pinout.mmd)) into the L298N's IN1-IN4 + ENA/ENB pin header. OUT-A and OUT-B land on the peristaltic-pump cartridge via pogo pins at the manifold during [`wiring.md`](wiring.md).
-- **3.3 V relay control (LV-1, LV-2, LV-3)** — Dupont female on the ESP32 side ([GPIO 14](RELAY_COMPRESSOR_GPIO) → relay #1 IN, [GPIO 4](RELAY_DIAPHRAGM_GPIO) → relay #2 IN). LV-3 is a 5 V + GND pigtail from the 5 V regulator to each relay module's VCC pin.
+- **L298N control** — 6-pin XH on the L298N control row (ENA / IN1–4 / ENB; desolder the stock control pins first). The ESP32 ends (GPIO 33/25/26 for pump A, 19/18/5 for pump B per [`/hardware/wiring/esp32-pinout.mmd`](/hardware/wiring/esp32-pinout.mmd)) land on the DIN-breakout screw terminals. OUT-A and OUT-B land on the peristaltic-pump cartridge via pogo pins at the manifold during [`wiring.md`](wiring.md).
+- **3.3 V relay control (LV-1, LV-2, LV-3)** — all screw terminals, no JST: the Teyleten modules' input side is a 3-position screw terminal (VCC / GND / IN), and the ESP32 ends ([GPIO 14](RELAY_COMPRESSOR_GPIO) → relay #1 IN, [GPIO 4](RELAY_DIAPHRAGM_GPIO) → relay #2 IN) land on the DIN-breakout screw terminals. LV-3 feeds 5 V + GND from the 5 V regulator to each relay module's VCC screw terminal.
 
 ### 8. Stage the sensor (SIG) pigtails as labeled off-shelf stubs
 
@@ -150,7 +150,8 @@ A finished electronics shelf is:
 - Fully populated — every module from the inputs table mounted on its boss pattern, ESD-handled, screws torqued by feel
 - AC distribution block landed with the three Wago 221-413 levers locked, AC-2 + AC-3 internal stubs terminated at the PSU primary and relay #1 contact input
 - DC distribution block landed with the DC-1 trunk from the PSU and DC-4 / DC-6 / DC-8 internal stubs terminated at the L298N, ULN2803A pair, and 5 V regulator
-- Inter-module JST harnesses crimped and plugged — I²C, both UART trunks, MCP-to-ULN ports, L298N control, relay control
+- Inter-module JST harnesses crimped and plugged — I²C, both UART trunks, MCP-to-ULN ports, L298N control
+- Relay control + outputs and the ESP32-hub logic landed on screw terminals (no JST)
 - Ground bus mounted, bus-side ring terminals seated for every exposed-metal load, load-side ends left long with labeled flags
 - AC-1a (H/N/G), AC-4/5/6 (compressor-side), and DC-3 (diaphragm pump) and DC-9 (condenser fan) pigtails coiled with labeled heat-shrink flags identifying the run-ID — ready to be picked up by [`wiring.md`](wiring.md)
 - SIG-1 through SIG-9 sensor pigtails crimped, shelf-side seated, load-side ends labeled, DS18B20 pull-up installed at the ESP32 end
