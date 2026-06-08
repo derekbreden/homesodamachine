@@ -31,7 +31,7 @@ The ø[13 mm](FILTER_D) × [0.5 mm](FILTER_T) filter is a standard lab-filter di
 
 ## Per-build parts
 
-Tracked in [`/hardware/bom.md`](/hardware/bom.md) §13:
+Tracked in [`/hardware/ledger/bom.md`](/hardware/ledger/bom.md) §13:
 
 - **2 LVDALAB PTFE membrane filters** (B0D41KT345), one per cap × 2 caps
 - **TPU 90A retaining rings** printed from the same gasket stock — not separately listed

@@ -14,7 +14,7 @@ Not in scope: physical install of the shelf into the enclosure top-back, includi
 
 ## Inputs per appliance
 
-Per-unit BOM lives in [`/hardware/bom.md`](/hardware/bom.md) §1 (controllers + electronics), §11 (wiring + JST kits + Wagos), §13 (heat-set inserts + M3 SHCS for module mounting).
+Per-unit BOM lives in [`/hardware/ledger/bom.md`](/hardware/ledger/bom.md) §1 (controllers + electronics), §11 (wiring + JST kits + Wagos), §13 (heat-set inserts + M3 SHCS for module mounting).
 
 | Item | Source | Notes |
 |---|---|---|
@@ -26,21 +26,21 @@ Per-unit BOM lives in [`/hardware/bom.md`](/hardware/bom.md) §1 (controllers + 
 | Teyleten 3.3 V opto-isolated relay module ×2 | B07XGZSYJV (2 of 5-pack) | Relay #1 switches the compressor 120 VAC hot leg (ESP32 [GPIO 14](RELAY_COMPRESSOR_GPIO)); relay #2 gates 12 V to the SeaFlo diaphragm pump ([GPIO 4](RELAY_DIAPHRAGM_GPIO)). Both stay on the shelf, outside the compressor shroud per [`/hardware/wiring/power.mmd`](/hardware/wiring/power.mmd). |
 | DS3231 RTC | B09LLMYBM1 (1 of 2-pack) | I²C device at 0x68. |
 | Mean Well IRM-90-12ST | B0CNRST18V | [80 W](PSU_POWER) / [12 V](PSU_VOLTAGE) / [6.7 A](PSU_CURRENT) encapsulated PSU; IEC 60335-1 listed. Primary lands on the AC distribution block via AC-2; secondary feeds the DC distribution block via DC-1. |
-| Legrand 1597BKCCD12 GFCI module | B017HAB4BO ([`/hardware/bom.md`](/hardware/bom.md) §11) | UL 943 Class A [6 mA](GFCI_TRIP) personnel-protection device. Wired inline between the C14 inlet LOAD and the AC distribution block. Self-test every [3 seconds](GFCI_SELF_TEST) + SafeLock end-of-life lockout. Mounted on the shelf. |
-| 5 V regulator + 3.3 V regulator | per [`/hardware/bom.md`](/hardware/bom.md) §1 | 12 V → 5 V → 3.3 V cascade per [`/hardware/wiring/power.mmd`](/hardware/wiring/power.mmd) "Regulation". |
-| Wago 221-413 lever-nut connector ×[3](WAGO_COUNT) | per [`/hardware/bom.md`](/hardware/bom.md) §11 | AC distribution block — one Wago per conductor (H, N, G), each carrying one in-leg from the C14 pigtail and two out-legs. |
-| DC distribution block | placeholder per [`/hardware/bom.md`](/hardware/bom.md) §11 | 12 V + and GND rails for the DC-2 / DC-4 / DC-6 / DC-8 / DC-9 fan-out from the PSU secondary. Hardware TBD — see Open items. |
-| Solid-copper ground bus | per [`/hardware/bom.md`](/hardware/bom.md) §11 (16 AWG green stock) | Single chassis-ground tie point on the shelf. Receives PSU chassis ground (AC-2 G) and the C14 inlet's earth pin (via AC-1a G → GFCI pass-through earth → AC-1b G); distributes to every exposed-metal load via short green pigtails. |
+| Legrand 1597BKCCD12 GFCI module | B017HAB4BO ([`/hardware/ledger/bom.md`](/hardware/ledger/bom.md) §11) | UL 943 Class A [6 mA](GFCI_TRIP) personnel-protection device. Wired inline between the C14 inlet LOAD and the AC distribution block. Self-test every [3 seconds](GFCI_SELF_TEST) + SafeLock end-of-life lockout. Mounted on the shelf. |
+| 5 V regulator + 3.3 V regulator | per [`/hardware/ledger/bom.md`](/hardware/ledger/bom.md) §1 | 12 V → 5 V → 3.3 V cascade per [`/hardware/wiring/power.mmd`](/hardware/wiring/power.mmd) "Regulation". |
+| Wago 221-413 lever-nut connector ×[3](WAGO_COUNT) | per [`/hardware/ledger/bom.md`](/hardware/ledger/bom.md) §11 | AC distribution block — one Wago per conductor (H, N, G), each carrying one in-leg from the C14 pigtail and two out-legs. |
+| DC distribution block | placeholder per [`/hardware/ledger/bom.md`](/hardware/ledger/bom.md) §11 | 12 V + and GND rails for the DC-2 / DC-4 / DC-6 / DC-8 / DC-9 fan-out from the PSU secondary. Hardware TBD — see Open items. |
+| Solid-copper ground bus | per [`/hardware/ledger/bom.md`](/hardware/ledger/bom.md) §11 (16 AWG green stock) | Single chassis-ground tie point on the shelf. Receives PSU chassis ground (AC-2 G) and the C14 inlet's earth pin (via AC-1a G → GFCI pass-through earth → AC-1b G); distributes to every exposed-metal load via short green pigtails. |
 | JST XH 2.54 mm connector kits — 4-pin / 6-pin / 9-pin / 10-pin | B0B2RB524Y / B0B2R8Q1JL / B0B2R73RQB / B0B2R93CV3 | Inter-module logic harnesses per [`/hardware/wiring/ac-wiring-schedule.md`](/hardware/wiring/ac-wiring-schedule.md) "Inter-module connectors": [~3](JST_4PIN_COUNT)× 4-pin (I²C / UART hops), [~1](JST_6PIN_COUNT)× 6-pin (L298N control), [~4](JST_9PIN_COUNT)× 9-pin (ULN sides), [~4](JST_10PIN_COUNT)× 10-pin (MCP GPIO rows). |
 | CQRobot bonded ribbon kit (15 cm × 12 cond × 8 ribbons) | B0F6C7X5CR | Module-to-module connections under ~6"; pre-crimped female XH terminals on both ends. |
 | Keszoox [50 cm](KESZOOX_LENGTH) pre-crimped silicone pigtails (20 wires, 10 colors, 22 AWG) | B0F8HMQRRN | Cabinet-spanning runs; supplies the ULN→solenoid fan-out leads + sensor pigtails handed off to [`wiring.md`](wiring.md). |
-| 16 AWG silicone-insulated appliance wire (black/white/green) | per [`/hardware/bom.md`](/hardware/bom.md) §11 | AC pigtail stock for AC-1a through AC-6. |
-| 18 AWG stranded hookup wire | per [`/hardware/bom.md`](/hardware/bom.md) §11 | 12 V trunk + branch stock (DC-2/3/6/9). |
-| Spade crimp terminals + ferrules + ring terminals | per [`/hardware/bom.md`](/hardware/bom.md) §11 (B0B9MZJ2ML + B01MZZGAJP) | AC pigtails land in Wago 221 lever blocks via crimp ferrules; the PSU primary and Teyleten contact terminals take crimp forks; the ground bus takes ring terminals. |
-| Printed electronics-shelf frame | TBD (see Open items) | PET-CF, M3 heat-set inserts (ruthex per [`/hardware/bom.md`](/hardware/bom.md) §13). |
-| M3 heat-set inserts + M3 × 8/12 SHCS | per [`/hardware/bom.md`](/hardware/bom.md) §13 | Module mounting. |
+| 16 AWG silicone-insulated appliance wire (black/white/green) | per [`/hardware/ledger/bom.md`](/hardware/ledger/bom.md) §11 | AC pigtail stock for AC-1a through AC-6. |
+| 18 AWG stranded hookup wire | per [`/hardware/ledger/bom.md`](/hardware/ledger/bom.md) §11 | 12 V trunk + branch stock (DC-2/3/6/9). |
+| Spade crimp terminals + ferrules + ring terminals | per [`/hardware/ledger/bom.md`](/hardware/ledger/bom.md) §11 (B0B9MZJ2ML + B01MZZGAJP) | AC pigtails land in Wago 221 lever blocks via crimp ferrules; the PSU primary and Teyleten contact terminals take crimp forks; the ground bus takes ring terminals. |
+| Printed electronics-shelf frame | TBD (see Open items) | PET-CF, M3 heat-set inserts (ruthex per [`/hardware/ledger/bom.md`](/hardware/ledger/bom.md) §13). |
+| M3 heat-set inserts + M3 × 8/12 SHCS | per [`/hardware/ledger/bom.md`](/hardware/ledger/bom.md) §13 | Module mounting. |
 
-Tooling: Hakko FX-888D iron + T18 tip kit for the heat-set inserts and JST male-header solder pass (per [`/hardware/handwork.md`](/hardware/handwork.md) "Solder JST connectors"), ESD mat, ferrule crimper, JST XH crimper, ring/fork-terminal crimper, helping hands, multimeter for AC-side continuity and DC-side polarity checks.
+Tooling: Hakko FX-888D iron + T18 tip kit for the heat-set inserts and JST male-header solder pass (per [`/hardware/handwork.md`](/hardware/assembly/handwork.md) "Solder JST connectors"), ESD mat, ferrule crimper, JST XH crimper, ring/fork-terminal crimper, helping hands, multimeter for AC-side continuity and DC-side polarity checks.
 
 ## Procedure
 
@@ -52,7 +52,7 @@ Module placement geometry on the shelf is set by the shelf STL — see Open item
 
 ### 2. Solder JST XH male headers to module carriers
 
-Per [`/hardware/handwork.md`](/hardware/handwork.md) "Solder JST connectors". Hakko station, 60/40 leaded, ESD mat. Pin-count assignments per [`/hardware/wiring/ac-wiring-schedule.md`](/hardware/wiring/ac-wiring-schedule.md) "Inter-module connectors":
+Per [`/hardware/handwork.md`](/hardware/assembly/handwork.md) "Solder JST connectors". Hakko station, 60/40 leaded, ESD mat. Pin-count assignments per [`/hardware/wiring/ac-wiring-schedule.md`](/hardware/wiring/ac-wiring-schedule.md) "Inter-module connectors":
 
 - **4-pin** — the 4-wire I²C / UART hops: the DS3231 RTC's I²C (VCC / GND / SDA / SCL) and one UART trunk header for SIG-7 to the front-face ESP32-S3 (lands at system integration per [`/hardware/printed-parts/enclosure/front-panel/README.md`](/hardware/printed-parts/enclosure/front-panel/README.md) "S3 detach mechanism"). The ESP32 I²C/UART ends land on the DIN-breakout **screw terminals**; the two MCP23017s join the I²C bus on their native **PH2.0** connectors, not XH.
 - **6-pin** — L298N control row (ENA / IN1 / IN2 / IN3 / IN4 / ENB); the module ships these pins pre-soldered, so desolder them first.
@@ -161,7 +161,7 @@ A finished electronics shelf is:
 ## Open items
 
 1. **Printed electronics-shelf frame.** STL / CadQuery source is not yet committed under [`/hardware/printed-parts/enclosure/`](/hardware/printed-parts/enclosure/). The frame's overall envelope, mounting-boss layout for each module, AC-distribution + DC-distribution bays, ground-bus boss, and the wire-egress paths off the shelf all need to be specified in CAD before this procedure can run on unit 1.
-2. **PCB / breakout mounting hardware.** M3 standoff heights for each module (the ESP32 DIN-rail breakout, the MCP23017 carriers, the Teyleten relay modules, the ULN2803A carriers, the L298N) are not yet in [`/hardware/bom.md`](/hardware/bom.md) §13. Commit a standoff SKU + per-module count once the shelf CAD lands.
+2. **PCB / breakout mounting hardware.** M3 standoff heights for each module (the ESP32 DIN-rail breakout, the MCP23017 carriers, the Teyleten relay modules, the ULN2803A carriers, the L298N) are not yet in [`/hardware/ledger/bom.md`](/hardware/ledger/bom.md) §13. Commit a standoff SKU + per-module count once the shelf CAD lands.
 3. **DC distribution block hardware.** The 12 V distribution block is a placeholder. Pick after the shelf CAD lands and the bay it occupies is sized.
 4. **Shelf frame material thickness.** PET-CF, 3-4 mm thick at 30-40 % infill working assumption. Confirm once the heaviest module (the Mean Well IRM-90-12ST PSU at [~200 g](PSU_MASS)) is staged against the candidate frame.
 

@@ -38,6 +38,6 @@ export const state = {
   drawingThumbCache: new Map(),// Drawing file -> svgText (used for both thumbnail and detail)
   stepEtags: new Map(),       // file -> last loaded ETag (for refetch dedupe)
   dxfEtags: new Map(),        // file -> last loaded ETag
-  dxfMeta: new Map(),         // DXF file -> {thickness_mm, material} from sidecar (hardware/PARTS.md)
+  dxfMeta: new Map(),         // DXF file -> {thickness_mm, material} from sidecar (hardware/README.md)
   gridEl: null,               // set by main.js after DOM ready
 };

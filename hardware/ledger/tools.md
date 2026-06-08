@@ -119,4 +119,4 @@ Total acquired tooling: **[$13,585.49](TOOLS_TOTAL)**
 
 ## Sources
 [value](NAME) texts are updated by:
-- `/hardware/_tools_totals.py`
+- `/hardware/scripts/_tools_totals.py`

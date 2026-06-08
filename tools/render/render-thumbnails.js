@@ -9,7 +9,7 @@
 // function of the STEP, so it's rendered once — here — when the part changes.
 //
 // Invoked two ways:
-//   - hardware/_cadq_export.py queues each STEP it (re)writes and runs this at
+//   - hardware/scripts/_cadq_export.py queues each STEP it (re)writes and runs this at
 //     process exit, so any script that produces a STEP — however it's run
 //     (dev-server watcher, an agent, by hand) — refreshes its own thumbnail.
 //   - Manually / for backfill.

@@ -14,7 +14,7 @@ Not in scope: cosmetic inspection, nameplate verification, packaging — all in 
 
 ## Inputs per appliance
 
-Per-unit BOM is the entire BOM of record at this step — by acceptance the unit is fully built. The table below is the bench-rig and per-test consumable summary, not appliance parts; appliance BOM lives in [`/hardware/bom.md`](/hardware/bom.md).
+Per-unit BOM is the entire BOM of record at this step — by acceptance the unit is fully built. The table below is the bench-rig and per-test consumable summary, not appliance parts; appliance BOM lives in [`/hardware/ledger/bom.md`](/hardware/ledger/bom.md).
 
 | Item | Source / spec | Notes |
 |---|---|---|
@@ -161,7 +161,7 @@ Procedure-level gaps that need answers before unit 1 ships:
 1. **Burn-in duration + cycle-count thresholds.** The [8-hour / 6-dispense](BURN_IN_TARGET) target is a reasonable starting point but the production-ready number isn't yet decided. Compressor duty-cycle bands ([10–70 %](DUTY_BAND)) are also placeholder bracketing. Tighten or loosen against early-unit observed data; commit a final value once units 1–3 have run through.
 2. **Per-serial log path, format, storage location.** Placeholder is `logs/<serial>/acceptance.json` on the bench machine running the acceptance UI. Open: filesystem (local-only) vs cloud (sync to a per-unit folder) vs both; JSON vs CSV vs structured columnar format; retention policy and access path for service callbacks against shipped units.
 3. **Acceptance failure handling.** What is the policy for a unit that fails any test step? Rework on the bench, scrap, send-to-investigation? This mirrors the same gap in [`pressure-vessel.md`](pressure-vessel.md) "Open items" §2 at hydro-test — the same decision tree should apply across both gates and ideally lives in one place once committed.
-4. **Test-syrup supply for acceptance.** [`/hardware/bom.md`](/hardware/bom.md) treats SodaStream concentrate as user-supplied at install. Acceptance consumes [~11 %](CONC_PCT) of one bottle per unit ([~50 mL](CONC_ML) across the test sequence) regardless. Open: do two bottles ship with the unit (factory-supplied for acceptance, then continued in service by the customer), or does the factory keep a bench stock and the customer buys their own bottles from day one?
+4. **Test-syrup supply for acceptance.** [`/hardware/ledger/bom.md`](/hardware/ledger/bom.md) treats SodaStream concentrate as user-supplied at install. Acceptance consumes [~11 %](CONC_PCT) of one bottle per unit ([~50 mL](CONC_ML) across the test sequence) regardless. Open: do two bottles ship with the unit (factory-supplied for acceptance, then continued in service by the customer), or does the factory keep a bench stock and the customer buys their own bottles from day one?
 5. **Ratio acceptance threshold.** The [1:20](RATIO) ratio is documented as the design target. The [±5 %](RATIO_TOL_SIGNED) volume band and the [~10 %](CHANNEL_TOL) channel-to-channel agreement band in this doc are starting points; the production-final ratio tolerance (especially the cross-channel agreement) needs a committed number that ties back to the perceived-taste impact of small ratio drifts on the SodaStream concentrate formulation.
 6. **Refractometer use — required or optional?** Currently listed as optional bench tooling. If the volume measurement on its own is not a sufficient ratio proxy (especially in light of item 5), the refractometer becomes required and a specific °Brix target per flavor needs to be locked.
 

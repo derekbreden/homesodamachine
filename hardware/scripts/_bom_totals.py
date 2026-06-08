@@ -10,15 +10,15 @@ QUANTITY markers); this owns the COST rollups.
   * Markers: BOM_SEC1..BOM_SEC14 (the Totals table; §7 also in its inline
     total row), BOM_GRAND (grand total per unit).
 
-Run:  python3 hardware/_bom_totals.py            # recompute + write markers
-      python3 hardware/_bom_totals.py --audit     # + flag rows where line$ != qty×unit$
+Run:  python3 hardware/scripts/_bom_totals.py            # recompute + write markers
+      python3 hardware/scripts/_bom_totals.py --audit     # + flag rows where line$ != qty×unit$
 """
 import os
 import re
 import sys
 
 HERE = os.path.dirname(os.path.abspath(__file__))
-BOM = os.path.join(HERE, "bom.md")
+BOM = os.path.join(HERE, "..", "ledger", "bom.md")
 
 from pathlib import Path  # noqa: E402
 sys.path.insert(
