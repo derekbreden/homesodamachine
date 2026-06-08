@@ -58,7 +58,7 @@ import cadquery as cq
 _here = Path(__file__).resolve()
 sys.path.insert(
     0,
-    str(next(p for p in _here.parents if p.name == "hardware")),
+    str(next(p for p in _here.parents if p.name == "hardware") / "scripts"),
 )
 sys.path.insert(
     0,
@@ -466,15 +466,30 @@ def _seat_on_tip(part):
     that angle about world X lays the part's length up the gooseneck and
     turns its screen (+Z) up toward the user. It is then offset out along
     the tip's top normal so the board back sits display_pocket_inset
-    below the tube-shell skin, length centered on the tip-straight start
-    (lower edge clears the nozzle, board reaches up into bend 2)."""
+    below the shell's outer face above the flavor pill (the two flavor
+    tubes stack above the water tube here, so they set the skin). Length
+    is centered on the tip-straight start: the lower edge clears the
+    nozzle and the upper end reaches into bend 2."""
     tip_below_horiz_rad = (gn_bend1_sweep_rad + gn_bend2_sweep_rad) - math.pi / 2.0
     top_normal = cq.Vector(
         0.0, -math.sin(tip_below_horiz_rad), math.cos(tip_below_horiz_rad)
     )
     tip_start, _tip_end = _tip_centerline_world()
+    # The display sits over the FLAVOR pill, not the water tube: the two
+    # flavor tubes stack above the water tube on the user-facing side, so
+    # they set the outer skin here. Distance from the water-tube
+    # centerline (tip_start) out along top_normal to the shell's outer
+    # face above the flavor pill = flavor-pill center offset + half the
+    # pill's short (Y) axis + the tube-shell wall. This is exactly the +Y
+    # outer edge of the flavor-pill slot in
+    # touch_flo_shell._tube_shell_outer_sketch.
+    flavor_pill_outer_from_water = (
+        touch_flo_shell.flavor_offset_y_from_water
+        + touch_flo_shell.pill_width_y / 2.0
+        + touch_flo_shell.zone5_wall
+    )
     seat = tip_start + top_normal.multiply(
-        touch_flo_shell.tube_shell_water_r_outer - display_pocket_inset
+        flavor_pill_outer_from_water - display_pocket_inset
     )
     return (
         part
