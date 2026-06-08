@@ -11,22 +11,26 @@ models this as a **dimensioned stand-in** (`build_display_body` +
 and inflates the multi-solid assembly STEP to ~68 MB. The stand-in's
 sizes come from the vendor 2D/3D drawing:
 
-The board nests (all centered): PCB outline ⊃ plastic bezel ⊃ active area.
-The bezel is narrower than the PCB and sits **proud** of it, so the
-bare/plastic boundary is the step where the PCB ledge meets the bezel base
-— the edge a printed retaining shell wraps up to.
+Per the product photos, the black plastic bezel runs **flush with the PCB
+edge** (no PCB rim along the long sides), so the device envelope is a
+uniform **24.55 × 44.50 mm**. The drawing's 22.05 mm is the **glass panel**,
+inset within that full-width bezel; the active (lit) area is smaller still.
+The front **5.4 mm** is the plastic bezel (sits proud of any printed shell);
+the back **5.2 mm** is the bare PCB underside a shell wraps. Same width, so
+the boundary is a material line — modeled as a perimeter groove at z = 5.2.
 
 | Feature | Value |
 |---|---|
-| PCB outline / exposed underside (W × L) | 24.55 × 44.50 mm |
-| Plastic bezel — proud, narrower (W × L) | 22.05 × 42.00 mm |
+| Device envelope (W × L), bezel flush with PCB | 24.55 × 44.50 mm |
+| Glass panel (W × L), inset in the bezel | 22.05 × 42.00 mm |
 | Active display area (W × L) | 17.75 × 32.93 mm |
 | Total depth | 10.6 mm = 5.2 exposed underside + 5.4 plastic bezel |
-| PCB corner radius | R5.75 mm |
+| Corner radius | R5.75 mm |
 
-The vendor STEP measures 24.55 × 44.73 × **15.60** mm — its depth includes
-pin headers the no-header B0FCF1MGT3 variant lacks, so the drawing's
-10.6 mm device depth is authoritative.
+The vendor STEP measures 24.55 × 44.73 × **15.60** mm and shows a *narrower*
+bezel — but its depth includes pin headers the no-header B0FCF1MGT3 lacks,
+and its narrower bezel disagrees with the current product photos, so it's
+treated as an older revision. The drawing + photos are authoritative.
 
 Vendor 2D/3D files (schematic, DXF, STEP):
 `https://files.waveshare.com/wiki/ESP32-S3-Touch-LCD-1.47/ESP32-S3-Touch-LCD-1.47-2D3D.zip`
