@@ -6,8 +6,8 @@ This is one manifold cell — the multi-valve layout is the open problem.
 
 The valve seats three ways at once:
 
-- **Four corner posts → four sockets.** ⌀6.8 bosses drop into ⌀7.2 blind
-  sockets (0.2 mm radial clearance) that bottom at Z = 0. Locates X-Y.
+- **Four corner posts → four sockets.** ⌀6.8 posts seat in ⌀6.7 blind
+  sockets that bottom at Z = −1, the posts hanging free. Locates X-Y.
 - **Port → lengthwise saddle.** The ⌀15 port nestles into a ⌀15.4 trough
   along Y (0.2 mm clearance), cut from the port's underside up through the
   tray top.
@@ -22,16 +22,13 @@ valve as it changes rather than drifting.
 ## Geometry
 
 - Tray block: 38.25 (X) × 40 (Y) × 9 (Z), spanning **Z −3 → 6**.
-- Top face at Z = 6; 3 mm floor under the sockets and saddle.
+- Top face at Z = 6; sockets bottom at Z = −1 over a 2 mm floor.
 - Saddle runs Y ±20 — short of the ⌀15 port's ±29.5 ends, so the
   quick-connect collets stay clear for tubing.
 
-Verified: the seated valve has **0 mm³** of material overlap with the tray
-(clearance everywhere, contact only on the boss-rest face).
-
 ## Open / first-pass
 
-- Clearances (0.2 mm radial), wall (3 mm), and floor (3 mm) are guesses.
+- Saddle clearance (0.2 mm radial), wall (3 mm), and floor (3 mm) are guesses.
 - Saddle Y-reach (±20) trades port support against collet access.
 - Whether the round boss should bear on the tray top, or the posts +
   saddle alone should locate and support the valve.

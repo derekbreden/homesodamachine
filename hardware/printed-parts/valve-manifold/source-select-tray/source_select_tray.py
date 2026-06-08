@@ -49,6 +49,7 @@ saddle_radius = cell.saddle_radius
 corner_pos = cell.corner_pos
 top_z = cell.tray_top_z
 bot_z = cell.tray_bottom_z
+socket_floor_z = cell.socket_floor_z
 _div_path = _hw / "reference" / "y-divider" / "y-divider.step"
 
 # --- Divider spacing + aimed valve geometry -------------------------------
@@ -144,9 +145,10 @@ def build_source_select_tray():
                 ox, oy = _rot2(sx * corner_pos, sy * corner_pos, phi)
                 socket = (
                     cq.Workplane("XY")
+                    .workplane(offset=socket_floor_z)
                     .center(vx + ox, vy + oy)
                     .circle(socket_radius)
-                    .extrude(top_z + 1.0)
+                    .extrude(top_z - socket_floor_z + 1.0)
                 )
                 tray = tray.cut(socket)
         ax, ay = dx - vx, dy - vy
