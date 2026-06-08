@@ -1,14 +1,22 @@
 # Tee connector — reference fitting (stand-in)
 
+The production fitting is the **John Guest PP0208E** 1/4" union tee, black PP
+— the part every Tee junction (Y-C/D/E/F/G/H/KA/KB) in the
+[fluid topology](../../../topology/fluid-topology.md) is built from, committed
+in the BOM (`hardware/bom.md` §8).
+
 `tee-connector.step` is **McMaster 51175K143**, a 1/4" push-to-connect
-drinking-water tee, used as a close stand-in for the **John Guest PP0208E**
-1/4" union tee (black PP) in the BOM (`hardware/bom.md` §8) — the part every
-Tee junction (Y-C/D/E/F/G/H/KA/KB) in the
-[fluid topology](../../../topology/fluid-topology.md) is built from. The
+drinking-water tee — simply a STEP that happened to be available, used as a
+close-but-not-exact geometric stand-in for layout. The design iterates toward
+the **installed characteristics of the PP0208E**, not this file; swap in
+measured PP0208E geometry as parts come in hand. The
 [bag-circuit tray](../../valve-manifold/bag-circuit-tray/) uses it to join a
 pair of valves in-line on the **run** while the **branch** tees off to the bag.
 
 ## Geometry (measured from the STEP)
+
+The McMaster stand-in's figures — close to the PP0208E, not identical;
+reconcile against a measured production tee once one is in hand.
 
 Overall body envelope **13.7 × 26.9 × 40.1 mm**. Three 1/4" ports: a **run**
 of two in-line ports on the long axis (collet faces at ±20.07 mm), and one
