@@ -7,6 +7,7 @@
 import * as THREE from "three";
 import { state } from "./state.js";
 import { scene, camera, resetCamera } from "./scene.js";
+import { applyXray } from "./xray.js";
 
 // --- occt-import-js loader (no importmap support, loaded manually) ---
 let occtReady;
@@ -107,6 +108,7 @@ export async function loadStepFile(file, { preserveCamera = false } = {}) {
     }
 
     state.currentGroup = buildMesh(result);
+    applyXray(state.currentGroup); // ghost + edges if x-ray mode is on
     scene.add(state.currentGroup);
     state.mountedDetail = { type: "step", file };
     if (!preserveCamera) resetCamera(state.currentGroup);
