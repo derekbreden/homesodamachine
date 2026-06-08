@@ -41,9 +41,9 @@ The condenser fan does **not** appear in the AC table: the harvested fan is a [1
 
 | # | From | To | Conductors | AWG | Approx. length | Termination | Notes |
 |---|---|---|---|---|---|---|---|
-| LV-1 | ESP32 GPIO 14 (relay #1 control) | Teyleten relay #1 input pin (IN) | signal + GND | [24](AWG_LV) | [~150 mm](LEN_MID) | Dupont female on ESP32 side; pin header on relay | [3.3 V](V_IO) opto-isolated; no ground loop concern. |
-| LV-2 | ESP32 GPIO 4 (relay #2 control) | Teyleten relay #2 input pin (IN) | signal + GND | [24](AWG_LV) | [~150 mm](LEN_MID) | Dupont female; pin header | Diaphragm pump refill gate. |
-| LV-3 | [5 V](V_LOGIC) regulator output | Teyleten relay #1 + #2 module VCC | + + GND | [24](AWG_LV) | [~100 mm](LEN_SHORT_2) each | Pin header | Both relays share [5 V](V_LOGIC) module power; opto-isolation keeps the coil supply electrically separate from logic. |
+| LV-1 | ESP32 GPIO 14 (relay #1 control) | Teyleten relay #1 input terminal (IN) | signal + GND | [24](AWG_LV) | [~150 mm](LEN_MID) | Screw terminals both ends (DIN-breakout → relay input terminal) | [3.3 V](V_IO) opto-isolated; no ground loop concern. |
+| LV-2 | ESP32 GPIO 4 (relay #2 control) | Teyleten relay #2 input terminal (IN) | signal + GND | [24](AWG_LV) | [~150 mm](LEN_MID) | Screw terminals both ends | Diaphragm pump refill gate. |
+| LV-3 | [5 V](V_LOGIC) regulator output | Teyleten relay #1 + #2 module VCC | + + GND | [24](AWG_LV) | [~100 mm](LEN_SHORT_2) each | Screw terminals (relay VCC) | Both relays share [5 V](V_LOGIC) module power; opto-isolation keeps the coil supply electrically separate from logic. |
 
 ### [12 V](V_DC) distribution
 
@@ -73,12 +73,12 @@ The condenser fan does **not** appear in the AC table: the harvested fan is a [1
 
 ## Inter-module connectors
 
-Module-to-module logic connections on the electronics shelf use JST XH [2.54 mm](JST_PITCH) headers + housings. Pin-count assignments:
+Module-to-module logic connections that land on **pin headers** use JST XH [2.54 mm](JST_PITCH) headers + housings; connections that land on **screw terminals** (the ESP32 DIN-breakout hub, the L298N power/motor terminals, the Teyleten relay in/out terminals) stay as screws — already vibration-secure. Some boards ship their headers pre-soldered (MCP23017 GPIO rows, L298N control row); desolder those before soldering the XH header. Pin-count assignments for the JST side:
 
 | Pin count | Use | Per-unit qty |
 |---|---|---:|
-| 4-pin XH | I²C / UART trunk segments on the ESP32 side + the UART trunk header (SIG-7) | ~3 |
-| 6-pin XH | DS3231 RTC bus (VCC / GND / SDA / SCL / SQW / 32K), or any 6-conductor module hop | ~1 |
+| 4-pin XH | DS3231 I²C (VCC / GND / SDA / SCL) + the UART trunk header (SIG-7). ESP32 ends land on DIN-breakout screws; the MCP I²C side is PH2.0, not XH | ~3 |
+| 6-pin XH | L298N control row (ENA / IN1–4 / ENB) — the 6 lines driving both peristaltic pumps | ~1 |
 | 9-pin XH | ULN2803A module sides (8 channels + COM or GND) — 2 ULNs × 2 sides | ~4 |
 | 10-pin XH | MCP23017 GPIO rows (VCC + GND + 8 GPIO). The port row is **10 holes**; a 10-pin header fills the row so it — and the mating housing — cannot seat off-by-one. | ~3–4 |
 

@@ -81,11 +81,11 @@ DC-8 ([12 V](DC_BUS_V) → [5 V](LOGIC_V) regulator input) feeds the regulator s
 
 Execute the LV and SIG runs from [`/hardware/wiring/ac-wiring-schedule.md`](/hardware/wiring/ac-wiring-schedule.md) "Low-voltage logic" and "Sensors and signal" tables.
 
-On-shelf hops, JST XH [2.54 mm](JST_PITCH) via the pre-crimped CQRobot bonded ribbons (B0F6C7X5CR):
+On-shelf logic hops — JST XH [2.54 mm](JST_PITCH) where a module presents pin headers (CQRobot bonded ribbons B0F6C7X5CR feed the housings), screw terminals where it presents terminals:
 
-- **LV-1, LV-2** — ESP32 GPIO 14 / GPIO 4 + GND, Dupont female on the ESP32 side, JST XH on the relay-module side (the Teyleten module's IN pin is a pin header). [~150 mm](LV_SHORT_LEN) each.
-- **LV-3** — [5 V](LOGIC_V) regulator output → both Teyleten relay modules' VCC pins via a tee. Single 4-pin XH housing on the regulator side, fans out to two 2-pin connectors at the relay modules.
-- **SIG-8** — ESP32 GPIO 21 / 22 (I2C) + [3.3 V](MCU_V) + GND to DS3231 RTC + both MCP23017s on a shared bus. A 4-pin XH housing on the ESP32, daisy-chained to the RTC's 6-pin XH header (VCC / GND / SDA / SCL / SQW / 32K, only the first four used) and then onward to each MCP23017's 4-pin I2C header.
+- **LV-1, LV-2** — ESP32 GPIO 14 / GPIO 4 + GND to the Teyleten relay IN terminals. **Screw terminals both ends, no connector**: the ESP32 end lands on the DIN-breakout screw terminals, the relay end on the module's 3-position input screw terminal (VCC / GND / IN). [~150 mm](LV_SHORT_LEN) each.
+- **LV-3** — [5 V](LOGIC_V) regulator output → both Teyleten relay modules' VCC screw terminals via a tee. **Screw terminals**, no JST.
+- **SIG-8** — ESP32 GPIO 21 / 22 (I2C) + [3.3 V](MCU_V) + GND to the DS3231 RTC + both MCP23017s on a shared bus. The ESP32 end lands on the DIN-breakout **screw terminals**; the DS3231 takes a **4-pin XH** (VCC / GND / SDA / SCL — the RTC's other pins unused); each MCP23017 joins on its native **PH2.0** connector, not XH.
 
 Cabinet-side runs leaving the shelf:
 
