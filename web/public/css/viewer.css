@@ -9,6 +9,23 @@
   gap: 16px;
 }
 
+/* On phones the 220px min track leaves room for only a single column, so
+   every card spans the full width: thumbnails become huge and the
+   section/subsection headers scroll so far apart you lose track of where
+   you are. Shrink the track, padding, and gap so at least two cards sit
+   per row (three as the viewport approaches the breakpoint) and more of
+   the grid — headers included — is visible at once. */
+@media (max-width: 600px) {
+  #grid {
+    padding: 12px
+             calc(env(safe-area-inset-right, 0px) + 12px)
+             calc(env(safe-area-inset-bottom, 0px) + 12px)
+             calc(env(safe-area-inset-left, 0px) + 12px);
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    gap: 10px;
+  }
+}
+
 /* Empty-state messages for sections that have no content */
 .empty-state {
   grid-column: 1 / -1;
