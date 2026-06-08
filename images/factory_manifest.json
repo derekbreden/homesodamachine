@@ -1,14 +1,14 @@
 {
   "description": "Factory default images and config. Compiled into ESP32 firmware for first-boot/reset. Also used by: python3 tools/upload_image.py --sync-factory",
   "slots": [
-    { "slot": 0, "file": "diet_wild_cherry_pepsi.png", "label": "diet_wild_cherry_pepsi" },
-    { "slot": 1, "file": "diet_mtn_dew.png", "label": "diet_mtn_dew" },
-    { "slot": 2, "file": "diet_coke.png", "label": "diet_coke" }
+    { "slot": 0, "file": "flavor_1.png", "label": "flavor_1" },
+    { "slot": 1, "file": "flavor_2.png", "label": "flavor_2" },
+    { "slot": 2, "file": "flavor_3.png", "label": "flavor_3" }
   ],
   "images": [
-    "diet_wild_cherry_pepsi",
-    "diet_mtn_dew",
-    "diet_coke"
+    "flavor_1",
+    "flavor_2",
+    "flavor_3"
   ],
   "flavor1_image": 0,
   "flavor2_image": 1,
