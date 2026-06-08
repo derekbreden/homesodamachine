@@ -125,3 +125,8 @@ flowchart LR
   %% manifold-internal.
   %% 22-33 = sources -> manifold inlets, manifold -> pumps/bags/nozzles.
   linkStyle 22,23,24,25,26,27,28,29,30,31,32,33 stroke:#ccc,stroke-width:2px
+
+  %% Junction geometry: Y-A/Y-B are PP2308E Y-dividers (source-select); the
+  %% other eight are PP0208E Tees (in-line run + branch). Orange = Tee.
+  classDef tee fill:#c2410c,stroke:#7c2d12,color:#ffffff,stroke-width:2px;
+  class YC,YD,YE,YF,YG,YH,YKA,YKB tee;

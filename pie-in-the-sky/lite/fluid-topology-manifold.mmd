@@ -34,7 +34,8 @@ flowchart LR
   %%
   %% Candidate parts: PVCA-0406 clear PVC (1/4" ID x 3/8" OD, NSF-51) on the green runs;
   %% black 1/4" OD LLDPE (neoFlo LLDPE4-BLACK) on the grey internal hops; neoFit ATBC44-E
-  %% stem-barb (1/4" stem x 1/4" barb) at each takeoff; JG PP2308E two-way dividers (Y);
+  %% stem-barb (1/4" stem x 1/4" barb) at each takeoff; JG PP2308E Y-dividers (Y-A/B)
+  %% + JG PP0208E union tees (the other 8 junctions);
   %% Beduan 1/4" PTC valves; neoFit ABCVU44-E flow-control bulkhead on the Lillium feed.
   %% Hopper is a printed top-fill opening; each BiB is a Supply Depot commercial-syrup
   %% disconnect stepped 3/8->1/4 to clear PVC (one per channel).
@@ -170,3 +171,8 @@ flowchart LR
   linkStyle 22,24,26,28,29,30,31,32,33,34,35,36 stroke:#2ca02c,stroke-width:3px
   %% Customer push-connect — external stub from each source to its enclosure-wall port
   linkStyle 21,23,25,27 stroke:#09f,stroke-width:2px
+
+  %% Junction geometry: Y-A/Y-B are PP2308E Y-dividers; the other eight are
+  %% PP0208E Tees. Orange = Tee.
+  classDef tee fill:#c2410c,stroke:#7c2d12,color:#ffffff,stroke-width:2px;
+  class YC,YD,YE,YF,YG,YH,YKA,YKB tee;
