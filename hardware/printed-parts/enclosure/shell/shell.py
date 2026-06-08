@@ -1,10 +1,9 @@
 """Kitchen Edition enclosure shell — a six-walled PETG box sized to the
-arrangement in `../contents-assembly/`, sized to fit the H2C left-nozzle
-build envelope.
+placed contents, sized to fit the H2C left-nozzle build envelope.
 
-Dimensions follow the contents at build time: the bounding box of
-`contents-assembly.step` is read live, padded by an interior clearance,
-then walled out. Six closed walls; no penetrations modelled.
+Dimensions follow the contents at build time: the bounding box of the parts
+placed by `../assembly/_contents.py` is computed live, padded by an interior
+clearance, then walled out. Six closed walls; no penetrations modelled.
 """
 
 import sys
@@ -15,12 +14,9 @@ import cadquery as cq
 _here = Path(__file__).resolve()
 _repo = next(p for p in _here.parents if (p / "hardware" / "scripts" / "_cadq_export.py").is_file())
 sys.path.insert(0, str(_repo / "hardware" / "scripts"))
+sys.path.insert(0, str(_repo / "hardware" / "printed-parts" / "enclosure" / "assembly"))
 from _cadq_export import export_step
-
-CONTENTS_STEP = (
-    _repo / "hardware" / "printed-parts" / "enclosure" / "contents-assembly"
-    / "contents-assembly.step"
-)
+import _contents
 
 # Shell parameters.
 wall = 3.0                  # PETG wall thickness
@@ -30,16 +26,24 @@ interior_clearance = 0.0    # gap between contents bbox and inner wall
 H2C_X, H2C_Y, H2C_Z = 325.0, 320.0, 320.0
 
 
-def _bbox(path):
-    return cq.importers.importStep(str(path)).val().BoundingBox()
+def _contents_bbox():
+    """Combined bounding box of the placed contents, built in-process from
+    ../assembly/_contents.py — no serialized contents STEP."""
+    placed = _contents.build()
+    bbs = [shape.BoundingBox() for shape, _color in placed.values()]
+    return (
+        min(b.xmin for b in bbs), max(b.xmax for b in bbs),
+        min(b.ymin for b in bbs), max(b.ymax for b in bbs),
+        min(b.zmin for b in bbs), max(b.zmax for b in bbs),
+    )
 
 
 def build_enclosure():
-    contents = _bbox(CONTENTS_STEP)
+    cxmin, cxmax, cymin, cymax, czmin, czmax = _contents_bbox()
 
-    ix0, ix1 = contents.xmin - interior_clearance, contents.xmax + interior_clearance
-    iy0, iy1 = contents.ymin - interior_clearance, contents.ymax + interior_clearance
-    iz0, iz1 = contents.zmin - interior_clearance, contents.zmax + interior_clearance
+    ix0, ix1 = cxmin - interior_clearance, cxmax + interior_clearance
+    iy0, iy1 = cymin - interior_clearance, cymax + interior_clearance
+    iz0, iz1 = czmin - interior_clearance, czmax + interior_clearance
 
     ox0, ox1 = ix0 - wall, ix1 + wall
     oy0, oy1 = iy0 - wall, iy1 + wall

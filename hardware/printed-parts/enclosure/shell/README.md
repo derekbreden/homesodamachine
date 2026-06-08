@@ -1,7 +1,7 @@
 # Shell
 
-A six-walled PETG box, 3 mm walls, sized live to the bounding box of
-[`../contents-assembly/contents-assembly.step`](../contents-assembly/).
+A six-walled PETG box, 3 mm walls, sized live to the bounding box of the
+contents placed by [`../assembly/_contents.py`](../assembly/_contents.py).
 No penetrations modelled (no faucet hole, no AC inlet, no BiB adapter, no
 condenser grilles, no funnel hole, no display pocket) — just the closed shell
 that proves the contents fit a single-piece print inside the

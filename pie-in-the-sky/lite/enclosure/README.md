@@ -1,7 +1,7 @@
 # Lite enclosure shell
 
-The transparent PETG box that wraps the
-[enclosure contents](../enclosure-contents-assembly/). Six walls — floor, four
+The transparent PETG box that wraps the contents placed by
+[`../enclosure-assembly/_contents.py`](../enclosure-assembly/_contents.py). Six walls — floor, four
 sides, lid — with a square hole in the lid that clears the
 [funnel](../printed-parts/funnel/) inlet so it sits flush with the top of the
 cabinet.
@@ -18,8 +18,8 @@ inlet sits.
 
 Walls [3 mm](WALL), interior clearance [5 mm](INTERIOR_CLEARANCE) off the
 contents bbox, lid hole clearance [2 mm](LID_HOLE_CLEARANCE) off the funnel
-rim. Read live from `enclosure-contents-assembly.step` and `funnel.step`, so
-any move in the contents propagates.
+rim. Read live from the contents placed by `../enclosure-assembly/_contents.py`
+and from `funnel.step`, so any move in the contents propagates.
 
 Outer envelope [311.5 mm](OUTER_X) × [235 mm](OUTER_Y) × [295 mm](OUTER_Z)
 (X × Y × Z); lid hole [134 mm](LID_HOLE_X) × [134 mm](LID_HOLE_Y) centered on
