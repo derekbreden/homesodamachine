@@ -28,7 +28,7 @@ The 6 bodies are clash-free.
 
 ## The tray
 
-A frame plate (Z [-3](TRAY_BOT_Z) → [6](TRAY_TOP_Z)), **[207](SRC_PLATE_W) × [89](SRC_PLATE_D) × [63](STACK_PITCH) mm**, with a **solid floor**. Each
+A frame plate (Z [-3](TRAY_BOT_Z) → [6](TRAY_TOP_Z)), **[208](SRC_PLATE_W) × [89](SRC_PLATE_D) × [63](STACK_PITCH) mm**, with a **solid floor**. Each
 valve drops into rotated corner sockets and a port saddle along its aim line;
 each Y-divider sets into **three grooves** cut into the floor (the stem axis at
 Y = 0 and the two outlets at Y = ±[7.35](OUTLET_Y)).

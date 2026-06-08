@@ -29,7 +29,7 @@ six bodies are clash-free.
 
 ## The tray
 
-A frame plate (Z [-3](TRAY_BOT_Z) → [6](TRAY_TOP_Z)), **[136](BAG_PLATE_W) × [72](BAG_PLATE_D) × [63](STACK_PITCH) mm**, with a **solid floor**. Each
+A frame plate (Z [-3](TRAY_BOT_Z) → [6](TRAY_TOP_Z)), **[137](BAG_PLATE_W) × [72](BAG_PLATE_D) × [63](STACK_PITCH) mm**, with a **solid floor**. Each
 valve drops into four corner sockets and a port saddle along X; each **Tee run
 sets into a groove** cut into the floor at port height (the floor stays solid
 beneath it). Two **side walls** (±Y) rise to Z = [60](WALL_TOP_Z) for a **[63](STACK_PITCH) mm stack
