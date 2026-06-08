@@ -56,7 +56,8 @@ Per [`/hardware/handwork.md`](/hardware/handwork.md) "Solder JST connectors". Ha
 
 - **4-pin** — I²C trunk (ESP32 ↔ MCP23017 ×2 ↔ DS3231 on the shared bus; one header on each carrier), and one UART trunk header on the ESP32 — SIG-7 for the ESP32-S3 — that lands at system integration since the S3 lives on the front face per [`/hardware/printed-parts/enclosure/front-panel/README.md`](/hardware/printed-parts/enclosure/front-panel/README.md) "S3 detach mechanism".
 - **6-pin** — DS3231 RTC carrier (VCC / GND / SDA / SCL / SQW / 32K).
-- **9-pin** — ULN2803A modules × 2 (each gets two 9-pin headers, one per Darlington row of 8 channels + COM/GND) and MCP23017 modules × 2 (each gets two 9-pin headers, one per Port A / Port B row of 8 GPIO + reference).
+- **9-pin** — ULN2803A modules × 2 (each gets two 9-pin headers, one per Darlington row of 8 channels + COM/GND).
+- **10-pin** — MCP23017 modules × 2 (a 10-pin header per used GPIO row: **VCC + GND + 8 GPIO**). The port row is 10 holes; a 10-pin fills the footprint so neither the header nor the housing can seat off-by-one. The MCP I²C side is the board's native **PH2.0** connector (2.0 mm) — not XH; the I²C bus reaches each MCP on PH2.0, only the ESP32/DS3231 ends are XH.
 
 After every module's headers are in, leave the modules off-shelf on the ESD mat.
 

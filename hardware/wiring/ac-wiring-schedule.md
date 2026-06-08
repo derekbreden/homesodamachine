@@ -77,9 +77,12 @@ Module-to-module logic connections on the electronics shelf use JST XH [2.54 mm]
 
 | Pin count | Use | Per-unit qty |
 |---|---|---:|
-| 4-pin | I²C trunk between shelf modules (ESP32↔MCP23017↔DS3231) + the UART trunk header on the ESP32 (SIG-7 to the front-face S3) — the latter seats at the shelf and lands at the front face during system integration | ~3 |
-| 6-pin | DS3231 RTC bus (VCC / GND / SDA / SCL / SQW / 32K), or any 6-conductor module hop | ~1 |
-| 9-pin | ULN2803A module sides (8 channels + COM/GND) and MCP23017 Port A / Port B rows (2 ULNs × 2 sides + 2 MCP ports) | ~6 |
+| 4-pin XH | I²C / UART trunk segments on the ESP32 side + the UART trunk header (SIG-7) | ~3 |
+| 6-pin XH | DS3231 RTC bus (VCC / GND / SDA / SCL / SQW / 32K), or any 6-conductor module hop | ~1 |
+| 9-pin XH | ULN2803A module sides (8 channels + COM or GND) — 2 ULNs × 2 sides | ~4 |
+| 10-pin XH | MCP23017 GPIO rows (VCC + GND + 8 GPIO). The port row is **10 holes**; a 10-pin header fills the row so it — and the mating housing — cannot seat off-by-one. | ~3–4 |
+
+**Pitch / pin-count note.** The MCP23017 **GPIO rows are 10-pin** (VCC + GND + 8 GPIO), 2.54 mm — earlier drafts called them 9-pin, which silently drops the VCC pin and leaves a 9-pin header free to seat one hole off on the 10-hole row (every signal shifts by one). Use a **10-pin** there. Separately, the MCP23017's **I²C side is PH2.0 (2.0 mm)**, not 2.54 mm XH: daisy-chain the I²C bus through each MCP on its native PH2.0 connector (or hand-solder its weld pads). A 2.54 mm XH header does **not** fit the MCP I²C connector — only the ESP32 and DS3231 ends of the I²C trunk are XH.
 
 Two wire-stock formats feed those housings:
 
