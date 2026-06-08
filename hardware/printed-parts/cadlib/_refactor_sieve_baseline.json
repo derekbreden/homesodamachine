@@ -5,10 +5,10 @@
     "hardware/printed-parts/cold-core/copper-plugs/copper-plug-middle.step": "4a2c4d590f2dcbcf0abea8e5b36fa1697ceef3c20c3a837c8c262c6b86804d04",
     "hardware/printed-parts/cold-core/copper-plugs/copper-plug-top.step": "2668a6ac9a65e2dc5385b426803929c9e8ea072fa269f85a64523946a3048fa3",
     "hardware/printed-parts/cold-core/copper-plugs/copper-plug-upper.step": "db38e8f7b4fea4f6abebbe6874467c0168aff1e8d3690498cff280b49311357f",
-    "hardware/printed-parts/cold-core/foam-cap/foam-cap-bottom.step": "53dc20d982ba9db50ec0c35afbf391d54330d2cc7efd5b3e91498ca5effe3d21",
+    "hardware/printed-parts/cold-core/foam-cap/foam-cap-bottom.step": "47ec7cbfd30e0566cb1d73094002b43c9fa2bc6a4956fd2d41f94bbaa60f4d6e",
     "hardware/printed-parts/cold-core/foam-cap/foam-cap-gasket.step": "33196a3bff02d4224b747f5d4974ac7fb2fe3b359ebd3a0c8b40b9d932252ad2",
-    "hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-bottom.step": "9fd965cbdc96116353a36018fc9201d4358269101c64843c72d7aaaf1a257a72",
-    "hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-top.step": "d5483d90fa151aba8b6aec209204c9022bb9f621b833d731684a97948de4c29e",
+    "hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-bottom.step": "ded7683232f9afadaf9544157da6ce82bcca763f2e890fe29fc75ff8f7196fbb",
+    "hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-top.step": "596434717808bed7d6c2b0bb40088916798e2a07b8c92323bf9ae78c200b525e",
     "hardware/printed-parts/cold-core/foam-cap/foam-cap-top.step": "073495de8532bf1425bf10dc5c9dec3f0493e4bbee05e293fa7c3930f4942e63",
     "hardware/printed-parts/cold-core/foam-shell/foam-shell.step": "946cfdf70d38cf2851276d55735c916d02065e1085fd0e458c07ea3e863e90b3",
     "hardware/printed-parts/cold-core/prv-shroud/prv-shroud.step": "73f043f31775cc1be01fe73d82e9cc523ec54e508ba72966f3e5b4fb50b19561",
@@ -29,7 +29,7 @@
     "hardware/reference/jg-bulkhead-union/jg-bulkhead-union.step": "abd56c3925693a5caa252ec65a34594b8fa82a559dfe9b6f272620dcdfc7a95f",
     "hardware/reference/servo-valve-mock/coupling-detail.step": "bfbb93e62737d4eb9dd64314dc83368007a00a0a8bd524e322cbeacfb2adb620",
     "hardware/reference/servo-valve-mock/servo-valve-mock.step": "fb320633385ccfee8a073aec547e8c77a97b1737a52a2dd2c4b47f52cd35b13c",
-    "hardware/reference/touch-flo-faucet/faucet-assembly/touch-flo-faucet-assembly.step": "2ced613109550166896d2f329c4c87eef04453e1fe3f943ab4782c6878b8cfbf",
+    "hardware/reference/touch-flo-faucet/faucet-assembly/touch-flo-faucet-assembly.step": "999df0874cfc4c27e783c83dd4f6a8f9aa858a3d89231e2b7a8fdcf6b18819a7",
     "hardware/reference/touch-flo-faucet/valve-body-reference/touch-flo-valve-body-reference.step": "9a888589a4479351a13177a8885c9748da287e05d215bc5e541c1ae20acfe892",
     "hardware/reference/water-test-cup/water-test-cup.step": "019a9cb3d87939e35549f12d59f8e81c7282eb5809fd97248fdcf2525a99b6f0"
   },
@@ -194,11 +194,11 @@
         "zmin": 24.6
       },
       "com": {
-        "x": -84.9826,
+        "x": -84.9767,
         "y": -0.0536,
-        "z": 98.0264
+        "z": 98.0602
       },
-      "volume_mm3": 313569.0509
+      "volume_mm3": 313413.9583
     },
     "body_right": {
       "bbox": {
@@ -210,11 +210,11 @@
         "zmin": 24.6
       },
       "com": {
-        "x": 84.9826,
+        "x": 84.9767,
         "y": -0.0536,
-        "z": 98.0264
+        "z": 98.0602
       },
-      "volume_mm3": 313569.0509
+      "volume_mm3": 313413.9583
     },
     "bulkhead_seal_dry": {
       "bbox": {
@@ -234,10 +234,10 @@
     },
     "bulkhead_seal_wet": {
       "bbox": {
-        "xmax": 10.5,
-        "xmin": -10.5,
-        "ymax": 10.5,
-        "ymin": -10.5,
+        "xmax": 12.0,
+        "xmin": -12.0,
+        "ymax": 12.0,
+        "ymin": -12.0,
         "zmax": 2.0,
         "zmin": 0.0
       },
@@ -246,7 +246,7 @@
         "y": 0.0,
         "z": 1.0
       },
-      "volume_mm3": 290.5973
+      "volume_mm3": 502.6548
     },
     "cap_left": {
       "bbox": {
