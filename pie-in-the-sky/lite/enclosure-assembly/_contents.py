@@ -42,11 +42,8 @@ from pathlib import Path
 import cadquery as cq
 
 _here = Path(__file__).resolve()
-_repo = next(p for p in _here.parents if (p / "hardware" / "_cadq_export.py").is_file())
+_repo = next(p for p in _here.parents if (p / "hardware" / "scripts" / "_cadq_export.py").is_file())
 _hw = _repo / "hardware"
-sys.path.insert(0, str(_hw))
-from _cadq_export import export_assembly
-
 _VM = _hw / "printed-parts" / "valve-manifold"
 TRAY_STEPS = {
     "source-select": _VM / "source-select-tray" / "source-select-assembly.step",
@@ -193,10 +190,7 @@ def build():
         "pump-lower": (pump_lo, PUMP_COLORS["pump-lower"]),
         "funnel": (fun, FUNNEL_COLOR),
     }
-    assy = cq.Assembly(name="lite-enclosure-contents-assembly")
-    for name, (shape, color) in placed.items():
-        assy.add(shape, name=name, color=color)
-    return assy, placed
+    return placed
 
 
 def _report(placed):

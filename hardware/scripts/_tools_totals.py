@@ -20,8 +20,8 @@ import re
 import sys
 
 HERE = os.path.dirname(os.path.abspath(__file__))
-PUR = os.path.join(HERE, "purchases.md")
-TOOLS_MD = os.path.join(HERE, "tools.md")
+PUR = os.path.join(HERE, "..", "ledger", "purchases.md")
+TOOLS_MD = os.path.join(HERE, "..", "ledger", "tools.md")
 
 from pathlib import Path  # noqa: E402
 sys.path.insert(0, str(next(p for p in Path(HERE).resolve().parents

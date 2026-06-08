@@ -51,7 +51,7 @@ Cutting the channel into the wall puts the reed column at the ~6 mm magnet-to-re
 
 ## Parts (per build)
 
-Per-build additions for the flavor-reservoir level sensing are tracked in [`/hardware/bom.md`](/hardware/bom.md) §12 "Level sensing":
+Per-build additions for the flavor-reservoir level sensing are tracked in [`/hardware/ledger/bom.md`](/hardware/ledger/bom.md) §12 "Level sensing":
 
 - **8 Gebildet reed switches** (B0CW9418F6) for the flavor reservoirs — same SKU as the carbonator's 2 reeds; 2 × 6-pack covers all 10 reeds per build (2 carbonator + 8 flavor) with 2 spares.
 - **2 DEVMO MINI floats** (B07T18PGJ4) — one per flavor reservoir. Donor donut + its ferrite magnet kept; switch body / cable discarded. With the reed column inside the foam-shell channel (~6 mm magnet-to-reed path), no neodymium upgrade needed. The carbonator's existing 1 unit becomes 3 units per build (1 carbonator + 2 reservoirs).

@@ -15,16 +15,13 @@ stands vertical in the back corner; the condenser, SeaFlo, two pump cases, and
 the bib-gate + nozzle-gate trays form a second layer above the cold core.
 """
 
-import sys
 from pathlib import Path
 
 import cadquery as cq
 
 _here = Path(__file__).resolve()
-_repo = next(p for p in _here.parents if (p / "hardware" / "_cadq_export.py").is_file())
+_repo = next(p for p in _here.parents if (p / "hardware" / "scripts" / "_cadq_export.py").is_file())
 _hw = _repo / "hardware"
-sys.path.insert(0, str(_hw))
-from _cadq_export import export_assembly
 
 
 # --- Source STEPs ---------------------------------------------------------
@@ -122,10 +119,7 @@ def build():
     # Nozzle-gate — flat, on top of cold core.
     placed["nozzle-gate"] = _at(_load(TRAY_STEPS["nozzle-gate"]), 74.0, 151.0, 213.4)
 
-    assy = cq.Assembly(name="kitchen-edition-enclosure-contents-assembly")
-    for name, shape in placed.items():
-        assy.add(shape, name=name, color=COLORS[name])
-    return assy, {n: (s, COLORS[n]) for n, s in placed.items()}
+    return {n: (s, COLORS[n]) for n, s in placed.items()}
 
 
 def _report(placed):

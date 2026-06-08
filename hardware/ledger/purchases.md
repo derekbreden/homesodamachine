@@ -528,4 +528,4 @@ Notes:
 
 ## Sources
 [value](NAME) texts are updated by:
-- `/hardware/_ledger_totals.py`
+- `/hardware/scripts/_ledger_totals.py`

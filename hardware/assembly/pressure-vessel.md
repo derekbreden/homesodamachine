@@ -2,7 +2,7 @@
 
 The production procedure for the carbonator pressure vessel — the 316L stainless body that holds carbonated water at the **90 PSI working pressure** specified in [`/hardware/future.md`](/hardware/future.md) "Carbonation subsystem". This document is the repeatable procedure for taking commodity tube + cut plates to a hydro-tested, passivated vessel ready for the [refrigeration loop](refrigerant-loop.md) downstream.
 
-Design intent and material rationale live in [`/hardware/future.md`](/hardware/future.md). The dev-phase task summary lives in [`/hardware/handwork.md`](/hardware/handwork.md). Snapshots of single-event execution (the first tap, the first weld recipe) live in their own dated files and are referenced by step below.
+Design intent and material rationale live in [`/hardware/future.md`](/hardware/future.md). The dev-phase task summary lives in [`/hardware/handwork.md`](/hardware/assembly/handwork.md). Snapshots of single-event execution (the first tap, the first weld recipe) live in their own dated files and are referenced by step below.
 
 ## Scope
 
@@ -14,7 +14,7 @@ Not in scope: the evaporator coil wrap itself (boundary with [`refrigerant-loop.
 
 ## Inputs per vessel
 
-Per-unit BOM lives in [`/hardware/bom.md`](/hardware/bom.md) §2 (carbonator vessel) + §12 (level sensing — the float rod + donut). The table below is the procedure-level summary; bom.md is the source of truth for per-unit allocation and cost. Status (ACQUIRED / ON-ORDER / LIKELY-TO-BUY) for every item lives in [`/hardware/purchases.md`](/hardware/purchases.md) §1 (vessel fabrication), §16 (laser welding), §2 (CO2 subsystem), §4 (port-fittings including the new vessel-port elbows).
+Per-unit BOM lives in [`/hardware/ledger/bom.md`](/hardware/ledger/bom.md) §2 (carbonator vessel) + §12 (level sensing — the float rod + donut). The table below is the procedure-level summary; bom.md is the source of truth for per-unit allocation and cost. Status (ACQUIRED / ON-ORDER / LIKELY-TO-BUY) for every item lives in [`/hardware/ledger/purchases.md`](/hardware/ledger/purchases.md) §1 (vessel fabrication), §16 (laser welding), §2 (CO2 subsystem), §4 (port-fittings including the new vessel-port elbows).
 
 | Item | Source | Notes |
 |---|---|---|
@@ -33,11 +33,11 @@ Per-unit BOM lives in [`/hardware/bom.md`](/hardware/bom.md) §2 (carbonator ves
 | Viva Doria food-grade citric acid | B0C5NQM8S1 | Made up to ~4 % solution, ~1 qt per vessel (~1/20 of 2 lb bag) |
 | Tap Magic EP-Xtra cutting fluid | B00DHMHSGM | ~$0.50 of fluid per vessel for NPT tapping |
 
-Tooling (per-vessel-amortized only — single-asset tools live in [`/hardware/purchases.md`](/hardware/purchases.md), not here): XLaserlab X1 Pro laser welder, WEN 4208T drill press, LingGan M35 cobalt 1/4-18 NPT pipe tap + Drill America DWT adjustable tap wrench, Brown & Sharpe spring tap guide, argon at the welder, hydro test rig (see step 6).
+Tooling (per-vessel-amortized only — single-asset tools live in [`/hardware/ledger/purchases.md`](/hardware/ledger/purchases.md), not here): XLaserlab X1 Pro laser welder, WEN 4208T drill press, LingGan M35 cobalt 1/4-18 NPT pipe tap + Drill America DWT adjustable tap wrench, Brown & Sharpe spring tap guide, argon at the welder, hydro test rig (see step 6).
 
 ## CO2 supply (sets working pressure)
 
-The 90 PSI working pressure this procedure is sized against is set by an in-appliance Interstate Pneumatics WR1110 1/4" NPT fixed-90 PSI secondary regulator (B07J2L8LF3, [`bom.md`](/hardware/bom.md) §4) between the customer's CGA-320 primary regulator and the vessel CO2 port. The WR1110 holds the appliance-side pressure at 90 PSI regardless of where the customer sets their primary, eliminating customer-setpoint variance and adding a layer of safety on the highest-energy path in the appliance (the CO2-bottle pressure reservoir). Customer guidance: set the primary regulator anywhere in the 70–100 PSI range; the WR1110 takes care of the rest.
+The 90 PSI working pressure this procedure is sized against is set by an in-appliance Interstate Pneumatics WR1110 1/4" NPT fixed-90 PSI secondary regulator (B07J2L8LF3, [`bom.md`](/hardware/ledger/bom.md) §4) between the customer's CGA-320 primary regulator and the vessel CO2 port. The WR1110 holds the appliance-side pressure at 90 PSI regardless of where the customer sets their primary, eliminating customer-setpoint variance and adding a layer of safety on the highest-energy path in the appliance (the CO2-bottle pressure reservoir). Customer guidance: set the primary regulator anywhere in the 70–100 PSI range; the WR1110 takes care of the rest.
 
 At the 5" OD × 0.065" wall geometry, hoop stress at 90 PSI is ~3,461 PSI — a ~5.8× safety factor against the 20,000 PSI allowable for 316L SS in vessel-grade service. The 35 PSI margin between the 90 PSI working setpoint and the SV-125 PRV (above) is the safety margin sized for normal-operation excursions.
 
@@ -47,7 +47,7 @@ At the 5" OD × 0.065" wall geometry, hoop stress at 90 PSI is ~3,461 PSI — a 
 
 Hand-tap 1/4"-18 NPT in all four port positions — 2 ports per plate × 2 plates per vessel. Target 4.5 turns of engagement, with a 1/4" NPT test fitting snug-firm at 2-3 threads showing.
 
-The first-tap rig and hand sequence are captured in [`/hardware/tapping-plan-2026-05-03.md`](/hardware/tapping-plan-2026-05-03.md) (point-in-time snapshot of the first tap into a 316L plate). That snapshot is single-use Baltic-birch + MDF; the production fixture for the full per-vessel × 10-vessel batch is a downstream design step — see "Open items" below.
+The first-tap rig and hand sequence are captured in [`/hardware/tapping-plan-2026-05-03.md`](/hardware/snapshots/tapping-plan-2026-05-03.md) (point-in-time snapshot of the first tap into a 316L plate). That snapshot is single-use Baltic-birch + MDF; the production fixture for the full per-vessel × 10-vessel batch is a downstream design step — see "Open items" below.
 
 ### 2. Tack-weld float rod to bottom plate
 
@@ -73,7 +73,7 @@ Hydro-test the fully welded + tapped vessel — bare, on a bench, with NPT plugs
 
 Hold pressure: **180 PSI for 30 minutes** (~2× the 90 PSI working pressure). Beyond the 30-minute minimum, the in-vessel SENCTRL gauge (below) supports hour-scale leak soaks for catching slow weep before passivation.
 
-**Hydro test rig — committed in [`/hardware/purchases.md`](/hardware/purchases.md) §1, all ACQUIRED:**
+**Hydro test rig — committed in [`/hardware/ledger/purchases.md`](/hardware/ledger/purchases.md) §1, all ACQUIRED:**
 - **Pressure source:** BEAMNOVA hydrostatic test pump, 0–726 PSI, 3.17 gal reservoir, 1/4" hydraulic hose w/ 1/2" gasket-swivel end. The 180 PSI hydro target reads at ~25 % of the pump's scale — comfortable working range.
 - **Pump-to-vessel adapter:** KOOTANS 1/2" NPT male × 1/4" NPT male brass reducing hex nipple (4-pack). 1/2" end seals against the BEAMNOVA swivel gasket; 1/4" end takes PTFE tape and threads into the vessel port.
 - **In-vessel soak gauge:** SENCTRL 0–200 PSI glycerin-filled, 2.5" dial, 1/4" NPT lower mount, SS case. Leaves on a vessel port across hour-scale leak soaks for fine-resolution drift. At 180 PSI test the gauge sits at 90 % of scale — above the 60-75 % textbook sweet spot, but still within working range.

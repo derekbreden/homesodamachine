@@ -19,7 +19,7 @@ import re
 import sys
 
 HERE = os.path.dirname(os.path.abspath(__file__))
-LEDGER = os.path.join(HERE, "purchases.md")
+LEDGER = os.path.join(HERE, "..", "ledger", "purchases.md")
 
 # Import the repo's docgen so the computed figures can be written straight
 # back into purchases.md's [value](NAME) markers (same path shim _bom_sync.py

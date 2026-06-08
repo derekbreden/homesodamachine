@@ -16,7 +16,7 @@
 // Output path may be relative to repo root or absolute.
 //
 // The viewer needs the part's `<file>.dxf.json` sidecar (see
-// hardware/PARTS.md) for thickness_mm. Without one, the screenshot is
+// hardware/README.md) for thickness_mm. Without one, the screenshot is
 // the wireframe top-down view, not an extruded plate.
 //
 // --at <date|sha>

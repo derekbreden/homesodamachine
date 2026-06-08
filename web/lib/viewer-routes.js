@@ -12,7 +12,7 @@ function safeFile(rootDir, rel, ext) {
 }
 
 // Read the JSON sidecar (`<file>.json`) next to a part, if present.
-// Documented in hardware/PARTS.md; used by /api/dxf today, available to
+// Documented in hardware/README.md; used by /api/dxf today, available to
 // future BOM / render tooling. Returns null on any failure (missing,
 // malformed) — callers treat null as "no metadata" and fall back.
 function readSidecar(rootDir, rel) {
@@ -72,7 +72,7 @@ export function mountViewerRoutes(app, { hardwareDir, liteDir }) {
     const paths = walkFiles(rootDir, ".dxf");
     // Return enriched objects so the client gets the sidecar metadata
     // (thickness_mm, material, etc.) in the same round-trip — the
-    // viewer needs thickness to extrude. See hardware/PARTS.md.
+    // viewer needs thickness to extrude. See hardware/README.md.
     res.json(paths.map((p) => {
       const meta = readSidecar(rootDir, p) || {};
       return {
@@ -108,7 +108,7 @@ export function mountViewerRoutes(app, { hardwareDir, liteDir }) {
   });
 
   // sendFile races against the atomic-rename window in
-  // hardware/_cadq_export.py: existsSync above can pass and then the
+  // hardware/scripts/_cadq_export.py: existsSync above can pass and then the
   // file vanish for a few ms while a regen writes a new temp + rename.
   // sendFile's NotFoundError bubbles up to Express's default handler
   // which prints a stack trace to stderr — noisy and looks alarming.
@@ -133,7 +133,7 @@ export function mountViewerRoutes(app, { hardwareDir, liteDir }) {
   });
 
   // Server-rendered STEP thumbnails: `<file>.step.png` siblings produced by
-  // the part's own export (hardware/_cadq_export.py shells out to
+  // the part's own export (hardware/scripts/_cadq_export.py shells out to
   // tools/render/render-thumbnails.js). The grid downloads these instead of
   // fetching the (often multi-MB) STEP and rendering it in the browser. The
   // 404 path is normal — a STEP with no committed thumbnail yet falls back to

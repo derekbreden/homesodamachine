@@ -14,7 +14,7 @@ Not in scope: countertop drilling itself; the customer-side install steps — dr
 
 ## Inputs per appliance
 
-Per-unit BOM lives in [`/hardware/bom.md`](/hardware/bom.md) §9 (Dispensing — faucet body, under-counter plate, foam insulation) and §8 (Flavor subsystem — Siptenk stiffener for the carbonated-water tube end at the Westbrass upstream port). The table below is the procedure-level summary; bom.md is the source of truth for per-unit allocation and cost.
+Per-unit BOM lives in [`/hardware/ledger/bom.md`](/hardware/ledger/bom.md) §9 (Dispensing — faucet body, under-counter plate, foam insulation) and §8 (Flavor subsystem — Siptenk stiffener for the carbonated-water tube end at the Westbrass upstream port). The table below is the procedure-level summary; bom.md is the source of truth for per-unit allocation and cost.
 
 The dispense head is the printed touch-flo-shell's gooseneck channel. The three LLDPE tubes are the wet path end to end; the carbonated-water tube push-connects into the Westbrass body's upstream compression port (with a Siptenk stiffener so the LLDPE doesn't crush under the brass ferrule), and the two flavor LLDPE tubes route through the shell's pill slot up into the printed gooseneck's dispense channel and exit at the printed tip.
 
@@ -26,12 +26,12 @@ The dispense head is the printed touch-flo-shell's gooseneck channel. The three 
 | Touch-Flo TPU O-ring (printed) | [`/hardware/printed-parts/faucet/touch-flo-tpu-o-ring/`](/hardware/printed-parts/faucet/touch-flo-tpu-o-ring/) | TPU 90A **thimble** (closed bottom with a Ø [6.5 mm](CAP_HOLE_D) centered hole, open top) that seats in the harvested Westbrass body's Ø [10 mm](BODY_PORT_D) top water port. Outer Ø [10.44 mm](ORING_OUTER_D) ([0.22 mm](BODY_SQUEEZE) radial squeeze against the port wall), cylinder ID Ø [9.2 mm](ORING_INNER_D) ([0.1625 mm](LLDPE_INTERFERENCE) interference grip on the 3/8" LLDPE OD), [15.6 mm](TOTAL_H) total height ([2.1 mm](ORING_CAP_T) cap + [13.5 mm](CYL_L) cylindrical sealing band). Two seals in series: radial compression along the cylinder + face seal where the LLDPE's bottom end presses against the cap; cap hole sized between LLDPE ID ([6.35 mm](LLDPE_ID)) and OD ([9.525 mm](LLDPE_OD)) so the tube bottoms out positively and water flows through the cap hole into the LLDPE bore. Install order: thimble cap-down into the port first, then push the 3/8" LLDPE down through the open top until it bottoms on the cap. Consumable — expect to use a fresh thimble on any future re-assembly. |
 | SendCutSend 0.060" 304 SS under-counter keyhole plate | `touch_flo_under_counter_plate.dxf` | Single-piece Ø [54.35 mm](PLATE_D) disc whose hole positions match the TPU mounting gasket exactly — Ø [12.6 mm](SHANK_HOLE_D) shank pocket and a [13.4 mm](PILL_L) × [7.05 mm](PILL_W) pill pocket (long axis along Y) at the same XY as the gasket — with two open-edge channels added: a [12.6 mm](SHANK_HOLE_D) wide channel from the shank pocket out to the rim in −Y, and a [7.05 mm](PILL_W) wide channel from the pill pocket out to the rim in −Y. The channels exit the rim at different X positions. The four wall-meets-rim corners are rounded with R [1.5 mm](FILLET_R) fillets. Order qty 1 per appliance. |
 | 1/4" OD LLDPE, blue (carbonated water) | New small-spool SKU, sourcing in flight per [`/hardware/printed-parts/enclosure/back-panel/README.md`](/hardware/printed-parts/enclosure/back-panel/README.md) "Umbilical port — tube identification" | Cut to length once; color-coded blue to match the blue-ringed PP1208E bulkhead on the rear panel |
-| 1/4" OD LLDPE, black (flavor lines) × 2 | FWS bulk spool ([`/hardware/bom.md`](/hardware/bom.md) §3) | Cut to length once each; bare black, matches the two unmarked PP1208E bulkheads on the rear panel |
-| CARGEN nitrile foam pipe insulation, 1/4" ID × 3/8" wall, 1-ft segments | B0D2XFK337 ([`/hardware/bom.md`](/hardware/bom.md) §9) | **Cold tube only.** Foam ships as 1-ft segments and is installed segment-at-a-time. Segment count per umbilical TBD pending cabinet-routing-length spec |
+| 1/4" OD LLDPE, black (flavor lines) × 2 | FWS bulk spool ([`/hardware/ledger/bom.md`](/hardware/ledger/bom.md) §3) | Cut to length once each; bare black, matches the two unmarked PP1208E bulkheads on the rear panel |
+| CARGEN nitrile foam pipe insulation, 1/4" ID × 3/8" wall, 1-ft segments | B0D2XFK337 ([`/hardware/ledger/bom.md`](/hardware/ledger/bom.md) §9) | **Cold tube only.** Foam ships as 1-ft segments and is installed segment-at-a-time. Segment count per umbilical TBD pending cabinet-routing-length spec |
 | Cable sleeve (braided polyester or spiral wrap) | TBD per [`/hardware/printed-parts/enclosure/back-panel/README.md`](/hardware/printed-parts/enclosure/back-panel/README.md) "Umbilical bundle construction" | Single sleeve over all three tubes + Cat6 from just above the under-counter plate down to ~3" above the rear-panel bulkheads |
 | Umbilical signal cable | TBD spec | Single run from above-counter fixture stack to the electronics shelf, carrying SIG-4 (DIGITEN flow meter pulse + 5 V + GND). |
 
-Tooling (per-build-amortized only; single-asset tools live in [`/hardware/purchases.md`](/hardware/purchases.md), not here): Mudder PEX/PE tube cutter (also in the installer's install kit, [`/hardware/bom.md`](/hardware/bom.md) §14 — same cutter SKU lives in both places).
+Tooling (per-build-amortized only; single-asset tools live in [`/hardware/ledger/purchases.md`](/hardware/ledger/purchases.md), not here): Mudder PEX/PE tube cutter (also in the installer's install kit, [`/hardware/ledger/bom.md`](/hardware/ledger/bom.md) §14 — same cutter SKU lives in both places).
 
 ## Procedure
 
@@ -74,7 +74,7 @@ The TPU gasket is already on the shank from step 2 and is not in the install kit
 
 - **One SendCutSend 0.060" 304 SS under-counter keyhole plate** — the single-piece plate that slides laterally onto the dangling umbilical from below at install.
 - Factory shank nut + washer (loose — installed below the keyhole plate)
-- One Mudder PEX/PE tube cutter (the per-appliance install-kit tool from [`/hardware/bom.md`](/hardware/bom.md) §14, same SKU as the bench-side cutter)
+- One Mudder PEX/PE tube cutter (the per-appliance install-kit tool from [`/hardware/ledger/bom.md`](/hardware/ledger/bom.md) §14, same SKU as the bench-side cutter)
 
 The customer-facing install instructions live on the printed quick-start sheet that ships at the top of the appliance carton; design intent for the sheet is [`/marketing/unboxing-and-quickstart.md`](/marketing/unboxing-and-quickstart.md).
 

@@ -13,7 +13,7 @@ Usage from any generator script:
     from pathlib import Path
     sys.path.insert(
         0,
-        str(next(p for p in Path(__file__).resolve().parents if p.name == "hardware")),
+        str(next(p for p in Path(__file__).resolve().parents if p.name == "hardware") / "scripts"),
     )
     from _cadq_export import export_step          # for cq workplanes / solids
     from _cadq_export import export_assembly        # for cq.Assembly objects
@@ -429,7 +429,7 @@ def _atomic_write(target_path, write_fn):
 # the STEP export itself. Set HSM_SKIP_THUMBNAILS=1 to skip entirely (fast CAD
 # iteration / Python-only CI).
 
-_REPO_ROOT = Path(__file__).resolve().parent.parent
+_REPO_ROOT = Path(__file__).resolve().parent.parent.parent
 _THUMBNAIL_TOOL = _REPO_ROOT / "tools" / "render" / "render-thumbnails.js"
 _pending_thumbnails = set()
 _thumbnail_atexit_registered = False

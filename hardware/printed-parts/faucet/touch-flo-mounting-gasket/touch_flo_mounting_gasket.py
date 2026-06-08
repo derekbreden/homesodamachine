@@ -18,7 +18,7 @@ import cadquery as cq
 _here = Path(__file__).resolve()
 sys.path.insert(
     0,
-    str(next(p for p in _here.parents if p.name == "hardware")),
+    str(next(p for p in _here.parents if p.name == "hardware") / "scripts"),
 )
 sys.path.insert(
     0,

@@ -31,7 +31,7 @@ sys.path.insert(
 )
 sys.path.insert(
     0,
-    str(next(p for p in _here.parents if p.name == "hardware")),
+    str(next(p for p in _here.parents if p.name == "hardware") / "scripts"),
 )
 from docgen import substitute_py_comments
 from _cadq_export import export_dxf

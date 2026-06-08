@@ -58,7 +58,7 @@ export async function fetchFiles() {
   state.allFiles = (await stepResp.json()).sort();
   state.mmdFiles = (await mmdResp.json()).sort();
   // /api/dxf returns objects with thickness_mm + material from each
-  // part's sidecar (hardware/PARTS.md). Cache the metadata so the
+  // part's sidecar (hardware/README.md). Cache the metadata so the
   // viewer can extrude on open without a second round-trip.
   const dxfData = await dxfResp.json();
   state.dxfMeta.clear();

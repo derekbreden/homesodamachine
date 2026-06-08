@@ -89,7 +89,7 @@ Two wire-stock formats feed those housings:
 - **Bonded ribbon (CQRobot B0F6C7X5CR, 15 cm × 12-conductor × 8 ribbons)** — short-hop module-to-module connections under ~6". Factory pre-crimped female XH terminals on both ends; pop pins into the housing of choice at build time. Typical per-unit use: ~2 ribbons (e.g., one 9-conductor MCP↔ULN, one 4-conductor I²C / UART trunk).
 - **Pre-crimped silicone pigtails (Keszoox B0F8HMQRRN, 50 cm × [22 AWG](AWG_SIG_U) × 20 wires × 10 colors)** — medium-length runs that span the cabinet. Typical use: ULN→solenoid fan-outs (~[12](SOLENOID_COUNT) valve fan-outs/unit) and sensor pigtails. One 20-wire pack covers a build with spares.
 
-Per-build parts in [`/hardware/bom.md`](/hardware/bom.md) §11.
+Per-build parts in [`/hardware/ledger/bom.md`](/hardware/ledger/bom.md) §11.
 
 ## Grounding strategy
 
