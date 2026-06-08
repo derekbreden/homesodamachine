@@ -15,4 +15,4 @@ tools/cad-venv/bin/python hardware/printed-parts/enclosure/shell/shell.py
 tools/cad-venv/bin/python hardware/printed-parts/enclosure/assembly/assembly.py
 ```
 
-→ `assembly.step`. Engineering drawing in [`drawings/engineering-drawings/`](drawings/engineering-drawings/).
+→ `assembly.step`.
