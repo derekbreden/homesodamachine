@@ -159,7 +159,7 @@ def _report(placed):
 
 def main():
     _assy, placed = build()
-    out = _here.parent / "enclosure-contents-assembly.step"
+    out = _here.parent / "contents-assembly.step"
     export_assembly(_assy, str(out))
     print("-> %s" % out.name)
     _report(placed)
