@@ -22,7 +22,9 @@ _here = Path(__file__).resolve()
 _hardware = next(p for p in _here.parents if p.name == "hardware")
 sys.path.insert(0, str(_hardware / "scripts"))
 sys.path.insert(0, str(_hardware / "reference" / "beduan-solenoid"))
+sys.path.insert(0, str(_hardware.parent / "tools"))
 from _cadq_export import export_step
+from docgen import substitute_md
 import beduan_solenoid as valve
 
 # --- Valve features the tray engages ---
@@ -92,6 +94,36 @@ def main():
     tray = build_single_tray()
     export_step(tray, str(_here.parent / "single-tray.step"))
     print("-> single-tray.step")
+    substitute_md(
+        _here.parent / "README.md",
+        variables={
+            "POST_DIA": f"{2 * corner_boss_radius:.4g}",
+            "SOCKET_DIA": f"{2 * socket_radius:.4g}",
+            "SOCKET_FLOOR_Z": f"{socket_floor_z:.4g}",
+            "PORT_DIA": f"{2 * port_radius:.4g}",
+            "SADDLE_DIA": f"{2 * saddle_radius:.4g}",
+            "SADDLE_CLEAR": f"{saddle_clearance:.4g} mm",
+            "TRAY_TOP_Z": f"{tray_top_z:.4g}",
+            "TRAY_BOT_Z": f"{tray_bottom_z:.4g}",
+            "BLOCK_X": f"{2 * tray_half_x:.4g}",
+            "BLOCK_Y": f"{2 * tray_half_y:.4g}",
+            "BLOCK_Z": f"{tray_top_z - tray_bottom_z:.4g}",
+            "FLOOR_UNDER_SOCKET": f"{socket_floor_z - tray_bottom_z:.4g} mm",
+            "SADDLE_REACH": f"{saddle_half_y:.4g}",
+            "PORT_HALF": f"{valve.port_length / 2:.4g}",
+            "WALL": f"{wall:.4g} mm",
+            "FLOOR": f"{floor:.4g} mm",
+        },
+        expected_counts={
+            "POST_DIA": 1, "SOCKET_DIA": 1, "SOCKET_FLOOR_Z": 2,
+            "PORT_DIA": 2, "SADDLE_DIA": 1, "SADDLE_CLEAR": 2,
+            "TRAY_TOP_Z": 4, "TRAY_BOT_Z": 1,
+            "BLOCK_X": 1, "BLOCK_Y": 1, "BLOCK_Z": 1,
+            "FLOOR_UNDER_SOCKET": 1, "SADDLE_REACH": 2, "PORT_HALF": 1,
+            "WALL": 1, "FLOOR": 1,
+        },
+    )
+    print("-> README.md")
 
 
 if __name__ == "__main__":

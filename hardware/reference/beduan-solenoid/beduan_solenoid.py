@@ -26,7 +26,7 @@ _here = Path(__file__).resolve()
 sys.path.insert(0, str(next(p for p in _here.parents if p.name == "hardware") / "scripts"))
 sys.path.insert(0, str(next(p for p in _here.parents if (p / "tools" / "docgen").is_dir()) / "tools"))
 from _cadq_export import export_step
-from docgen import substitute_py_comments
+from docgen import substitute_md, substitute_py_comments
 
 # --- White valve body -----------------------------------------------------
 body_width = 32.25                  # footprint width; also the central-boss diameter
@@ -148,6 +148,37 @@ def build_beduan_solenoid():
 def main():
     export_step(build_beduan_solenoid(), str(_here.parent / "beduan-solenoid.step"))
     print("-> beduan-solenoid.step")
+    substitute_md(
+        _here.parent / "README.md",
+        variables={
+            "BODY_DIA": f"{body_width:.4g}",
+            "POST_DIA": f"{2 * corner_boss_radius:.4g}",
+            "PORT_DIA": f"{2 * port_radius:.4g}",
+            "PORT_LEN": f"{port_length:.4g}",
+            "BODY_TOP_Z": f"{body_top_z:.4g}",
+            "BOSS_Z0": f"{boss_z_range[0]:.4g}",
+            "TOP_BOX_H": f"{top_box_height:.4g}",
+            "TOP_BOX_Z0": f"{top_box_z_range[0]:.4g}",
+            "COIL_DEPTH": f"{coil_depth:.4g}",
+            "COIL_H": f"{coil_z_range[1] - coil_z_range[0]:.4g}",
+            "COIL_TOP": f"{coil_z_range[1]:.4g}",
+            "SPADE_W": f"{spade_width:.4g}",
+            "SPADE_LEN": f"{spade_length:.4g}",
+            "SPADE_T": f"{spade_thickness:.4g}",
+            "SPADE_SPACING": f"{spade_x_spacing:.4g}",
+            "SPADE_Z": f"{spade_z_center:.4g}",
+            "COIL_FACE_Y": f"{coil_face_y:.4g}",
+            "SPADE_Y_END": f"{coil_face_y + spade_length:.4g}",
+        },
+        expected_counts={
+            "BODY_DIA": 9, "POST_DIA": 2, "PORT_DIA": 1, "PORT_LEN": 2,
+            "BODY_TOP_Z": 7, "BOSS_Z0": 3, "TOP_BOX_H": 2, "TOP_BOX_Z0": 2,
+            "COIL_DEPTH": 2, "COIL_H": 1, "COIL_TOP": 2,
+            "SPADE_W": 1, "SPADE_LEN": 1, "SPADE_T": 1,
+            "SPADE_SPACING": 1, "SPADE_Z": 1, "COIL_FACE_Y": 1, "SPADE_Y_END": 1,
+        },
+    )
+    print("-> README.md")
     substitute_py_comments(
         Path(__file__),
         variables={
