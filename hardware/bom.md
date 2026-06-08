@@ -15,7 +15,7 @@ First-pass draft. **Pricing convention: delivered cost** (product + shipping + t
 | [Meshnology ESP32-S3 1.28" Rotary Display](https://www.amazon.com/dp/B0G5Q4LXVJ) | Sole display + interaction surface (detachable, ~1 m cord). Default state shows selected flavor; rotary toggles flavors; subtle three-dot affordance reaches advanced settings. | 1 | $47.76 | $47.76 |
 | [L298N Dual H-Bridge (4-pack)](https://www.amazon.com/dp/B0C5JCF5RS) | 1 driver per unit drives both peristaltic pumps (dual H-bridge); 1 of 4 per unit ($10.71/4) | 1 (of 4 pk) | $2.68 | $2.68 |
 | [Waveshare MCP23017 I2C GPIO expander](https://www.amazon.com/dp/B07P2H1NZG) | expands ESP32 I2C into 16 GPIO for solenoid bank | 1 | $12.99 | $12.99 |
-| [HiLetgo DS3231 high-precision RTC (5-pk)](https://www.amazon.com/dp/B01N1LZSK3) | I2C RTC at 0x68, referenced in `wiring/esp32-pinout.mmd` and `wiring/valve-control.mmd`; 1 of 5 per unit ($16.08/5) | 1 (of 5 pk) | $3.22 | $3.22 |
+| [DORHEA DS3231 AT24C32 RTC module (2-pk)](https://www.amazon.com/dp/B09LLMYBM1) | I2C RTC at 0x68, referenced in `wiring/esp32-pinout.mmd` and `wiring/valve-control.mmd`; I²C pins broken out as a single inline VCC/GND/SDA/SCL row for a clean 4-pin XH; 1 of 2 per unit ($7.07/2) | 1 (of 2 pk) | $3.54 | $3.54 |
 | [EDGELEC 4.7 kΩ 1/4 W 1% metal-film resistor (100-pk)](https://www.amazon.com/dp/B07HDFHPP3) | DS18B20 1-wire bus pull-up between DATA and 3.3 V; 1 of 100 per unit ($5.89/100) | 1 (of 100 pk) | $0.06 | $0.06 |
 | [Rubycon 470 µF 25 V low-ESR radial electrolytic capacitor, 10×12.5 mm (15-pk)](https://www.amazon.com/dp/B0F8BZVBKF) | bulk decoupling on the 12 V solenoid rail at the ULN2803A driver modules; 1 of 15 per unit ($7.40/15) | 1 (of 15 pk) | $0.49 | $0.49 |
 | [ULN2803A high-current driver module (2-pc)](https://www.amazon.com/dp/B0F872W528) | 2 modules drive 12 solenoids from MCP23017 outputs; 1 full 2-pack per unit | 1 pk | $6.59 | $6.59 |
@@ -246,7 +246,7 @@ Per-appliance tools that ship in the install kit so the field installer can cut 
 
 | Section | $ |
 |---|---:|
-| 1. Controllers + electronics | [$142.44](BOM_SEC1) |
+| 1. Controllers + electronics | [$142.76](BOM_SEC1) |
 | 2. Carbonator vessel (plan A, 316L) | [$240.69](BOM_SEC2) |
 | 3. Water inlet | [$230.82](BOM_SEC3) |
 | 4. CO2 subsystem | [$136.45](BOM_SEC4) |
@@ -256,11 +256,11 @@ Per-appliance tools that ship in the install kit so the field installer can cut 
 | 8. Flavor subsystem | [$272.19](BOM_SEC8) |
 | 9. Dispensing | [$50.68](BOM_SEC9) |
 | 10. UI | [$3.21](BOM_SEC10) |
-| 11. Wiring | [$31.97](BOM_SEC11) |
+| 11. Wiring | [$32.56](BOM_SEC11) |
 | 12. Level sensing | [$69.78](BOM_SEC12) |
 | 13. Mechanical attach hardware + reservoir-cap vent filter | [$5.41](BOM_SEC13) |
 | 14. Install kit | [$4.29](BOM_SEC14) |
-| **Total** | **[$1,559.78](BOM_GRAND)** |
+| **Total** | **[$1,560.69](BOM_GRAND)** |
 
 ## External / user-supplied (not shipped)
 

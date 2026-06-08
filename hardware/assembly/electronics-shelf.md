@@ -24,7 +24,7 @@ Per-unit BOM lives in [`/hardware/bom.md`](/hardware/bom.md) §1 (controllers + 
 | ULN2803A high-current driver module ×2 | B0F872W528 (2-pc) | Sinks 12 solenoid coils + condenser fan to GND; COM tied to 12 V via DC-6 for flyback. |
 | L298N Dual H-Bridge | B0C5JCF5RS (1 of 4-pack) | Drives both Kamoer peristaltic pumps from MCP23017-adjacent ESP32 GPIO; pump cartridge lands at the manifold via pogo pins. |
 | Teyleten 3.3 V opto-isolated relay module ×2 | B07XGZSYJV (2 of 5-pack) | Relay #1 switches the compressor 120 VAC hot leg (ESP32 [GPIO 14](RELAY_COMPRESSOR_GPIO)); relay #2 gates 12 V to the SeaFlo diaphragm pump ([GPIO 4](RELAY_DIAPHRAGM_GPIO)). Both stay on the shelf, outside the compressor shroud per [`/hardware/wiring/power.mmd`](/hardware/wiring/power.mmd). |
-| DS3231 RTC | B01N1LZSK3 (1 of 5-pack) | I²C device at 0x68. |
+| DS3231 RTC | B09LLMYBM1 (1 of 2-pack) | I²C device at 0x68. |
 | Mean Well IRM-90-12ST | B0CNRST18V | [80 W](PSU_POWER) / [12 V](PSU_VOLTAGE) / [6.7 A](PSU_CURRENT) encapsulated PSU; IEC 60335-1 listed. Primary lands on the AC distribution block via AC-2; secondary feeds the DC distribution block via DC-1. |
 | Legrand 1597BKCCD12 GFCI module | B017HAB4BO ([`/hardware/bom.md`](/hardware/bom.md) §11) | UL 943 Class A [6 mA](GFCI_TRIP) personnel-protection device. Wired inline between the C14 inlet LOAD and the AC distribution block. Self-test every [3 seconds](GFCI_SELF_TEST) + SafeLock end-of-life lockout. Mounted on the shelf. |
 | 5 V regulator + 3.3 V regulator | per [`/hardware/bom.md`](/hardware/bom.md) §1 | 12 V → 5 V → 3.3 V cascade per [`/hardware/wiring/power.mmd`](/hardware/wiring/power.mmd) "Regulation". |
