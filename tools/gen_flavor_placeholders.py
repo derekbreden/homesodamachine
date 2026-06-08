@@ -117,6 +117,29 @@ def _paste_center(img, layer, center, s, offset=(0, 0)):
     img.alpha_composite(layer, (int(cx - layer.size[0] / 2), int(cy - layer.size[1] / 2)))
 
 
+def _glyph(ch, fnt, fill):
+    b = fnt.getbbox(ch)
+    im = Image.new("RGBA", (b[2] - b[0] + 4, b[3] - b[1] + 4), (0, 0, 0, 0))
+    ImageDraw.Draw(im).text((2 - b[0], 2 - b[1]), ch, font=fnt, fill=fill)
+    return im
+
+
+def arc_text(img, text, fnt, center, radius, fill, s, flip=False, gap_deg=1.5):
+    """Set `text` along a circular arc — top of the circle, or `flip` for the bottom."""
+    cx, cy, R = center[0] * s, center[1] * s, radius * s
+    angs = [(fnt.getbbox(c)[2] - fnt.getbbox(c)[0]) / R + math.radians(gap_deg) for c in text]
+    span = sum(angs)
+    a = (-math.pi / 2 - span / 2) if not flip else (math.pi / 2 + span / 2)
+    for ch, da in zip(text, angs):
+        am = a + da / 2 if not flip else a - da / 2
+        g = _glyph(ch, fnt, fill)
+        rot = -(math.degrees(am) + 90) if not flip else -(math.degrees(am) - 90)
+        g = g.rotate(rot, expand=True, resample=Image.BICUBIC)
+        x, y = cx + R * math.cos(am), cy + R * math.sin(am)
+        img.alpha_composite(g, (int(x - g.size[0] / 2), int(y - g.size[1] / 2)))
+        a = a + da if not flip else a - da
+
+
 # ── Shapes ───────────────────────────────────────────────────────────────────
 
 def ring(draw, c, r, width, fill, s):
@@ -148,63 +171,77 @@ def sunburst(size, s, center, r, n, col_a, col_b):
 # ════════════════════════════════════════════════════════════════════════════
 
 def design_1(size, s):
-    """Cola: red radial field, Didot numeral, Copperplate caps, engraved rings."""
+    """Cola: red radial field, Didot numeral centred in a Copperplate seal."""
     img = radial_field(size, (430, 380), 760, ["#ff7a6b", "#e0314f", "#7d1330"])
     cream = (255, 233, 201, 255)
     sh = ((60, 6, 24, 150), 7, (0, 5))
     d = ImageDraw.Draw(img)
-    ring(d, (512, 512), 452, 4, (255, 233, 201, 90), s)
-    ring(d, (512, 512), 430, 10, cream, s)
-    ring(d, (512, 512), 410, 3, (255, 233, 201, 120), s)
-    place(img, text_strip("FLAVOR", font("copperplate", 86), cream, tracking=24), (512, 360), s, shadow=sh)
-    place(img, text_strip("1", font("didot", 560), cream), (512, 565), s, shadow=sh)
-    place(img, text_strip("• ORIGINAL •", font("copperplate", 50), (255, 233, 201, 220), tracking=14), (512, 742), s, shadow=sh)
+    ring(d, (512, 512), 470, 3, (255, 233, 201, 90), s)
+    ring(d, (512, 512), 452, 9, cream, s)
+    ring(d, (512, 512), 434, 3, (255, 233, 201, 120), s)
+    arc_text(img, "FLAVOR", font("copperplate", 74), (512, 512), 392, cream, s, gap_deg=3)
+    arc_text(img, "ORIGINAL", font("copperplate", 52), (512, 512), 392, (255, 233, 201, 225), s, flip=True, gap_deg=4)
+    for ang in (0, math.pi):  # seal dots at 3 and 9 o'clock
+        star4(d, (512 + 392 * math.cos(ang), 512 + 392 * math.sin(ang)), 14, cream, s)
+    place(img, text_strip("1", font("didot", 500), cream), (512, 512), s, shadow=sh)
     vignette(img, 0.45)
     return img
 
 
 def design_2(size, s):
-    """Lemon-lime: lime diagonal field, Futura on a tilt, sparkles and bubbles."""
-    img = linear_field(size, (140, 140), (900, 920), ["#e2fb84", "#74d64f", "#0f9c63"])
+    """Lemon-lime: lime field, Futura on a tilt, citrus-wedge, sparkles, bubbles."""
+    img = linear_field(size, (120, 120), (920, 940), ["#e6fb8a", "#74d64f", "#0d9a5f"])
     white = (255, 255, 255, 255)
     sh = ((10, 70, 30, 150), 6, (0, 5))
     d = ImageDraw.Draw(img)
-    for (cx, cy, r) in [(250, 250, 30), (792, 300, 20), (300, 760, 16)]:
-        star4(d, (cx, cy), r, (255, 255, 255, 230), s)
-    for (cx, cy, r, a) in [(760, 690, 46, 70), (690, 250, 26, 90)]:
+    ring(d, (812, 812), 132, 6, (255, 255, 255, 55), s)          # faint citrus cross-section
+    for k in range(8):
+        ang = k / 8 * 2 * math.pi
+        d.line([(812 * s, 812 * s), ((812 + 132 * math.cos(ang)) * s, (812 + 132 * math.sin(ang)) * s)],
+               fill=(255, 255, 255, 45), width=max(1, int(3 * s)))
+    for (cx, cy, r) in [(250, 250, 30), (800, 250, 18), (235, 815, 15)]:
+        star4(d, (cx, cy), r, (255, 255, 255, 235), s)
+    for (cx, cy, r, a) in [(360, 650, 22, 90), (700, 470, 16, 80)]:   # bubbles
         ring(d, (cx, cy), r, 5, (255, 255, 255, a), s)
-    place(img, text_strip("FLAVOR", font("futura", 96), white, tracking=20), (470, 372), s, rotate=6, shadow=sh)
-    place(img, text_strip("2", font("futura_xb", 560), white), (520, 600), s, rotate=6, shadow=sh)
-    vignette(img, 0.28)
+    place(img, text_strip("FLAVOR", font("futura", 92), white, tracking=18), (470, 372), s, rotate=7, shadow=sh)
+    place(img, text_strip("2", font("futura_xb", 580), white), (520, 600), s, rotate=7, shadow=sh)
+    vignette(img, 0.26)
     return img
 
 
 def design_3(size, s):
-    """Orange: orange radial field, Arial Rounded, sunburst rays."""
+    """Orange: sunburst field, Arial Rounded numeral, FLAVOR on a pill banner."""
     img = radial_field(size, (512, 470), 720, ["#ffe07a", "#ff9e2c", "#e8531f"])
-    img.alpha_composite(sunburst(size, s, (512, 540), 700, 24, (255, 255, 255, 26), (255, 255, 255, 0)))
-    white = (255, 255, 255, 255)
-    sh = ((120, 40, 0, 150), 7, (0, 6))
-    place(img, text_strip("FLAVOR", font("rounded", 92), white, tracking=14), (512, 360), s, shadow=sh)
-    place(img, text_strip("3", font("rounded", 520), white), (512, 600), s, shadow=sh)
+    img.alpha_composite(sunburst(size, s, (512, 545), 780, 24, (255, 255, 255, 34), (255, 255, 255, 0)))
+    sh = ((150, 55, 0, 160), 7, (0, 6))
+    word = text_strip("FLAVOR", font("rounded", 66), (228, 84, 26, 255), tracking=10)
+    pw, ph = word.size
+    bw, bh = pw + ph, ph + ph // 2
+    banner = Image.new("RGBA", (bw, bh), (0, 0, 0, 0))
+    ImageDraw.Draw(banner).rounded_rectangle([0, 0, bw - 1, bh - 1], radius=bh // 2, fill=(255, 255, 255, 255))
+    banner.alpha_composite(word, ((bw - pw) // 2, (bh - ph) // 2))
+    _paste_center(img, banner, (512, 348), s)
+    place(img, text_strip("3", font("rounded", 540), (255, 255, 255, 255)), (512, 605), s, shadow=sh)
     vignette(img, 0.30)
     return img
 
 
 def design_4(size, s):
-    """Grape: purple radial field, Phosphate caps, stars and a diamond frame."""
-    img = radial_field(size, (512, 470), 760, ["#8e74e6", "#5d39b8", "#250b46"])
+    """Grape: purple field, Phosphate numeral, editorial rules, stars, diamond."""
+    img = radial_field(size, (512, 460), 760, ["#9a80f0", "#5d39b8", "#220a42"])
     lav = (238, 231, 255, 255)
     sh = ((10, 4, 30, 160), 8, (0, 6))
     d = ImageDraw.Draw(img)
     c, r = 512 * s, 360 * s
     diamond = Image.new("RGBA", (size, size), (0, 0, 0, 0))
     ImageDraw.Draw(diamond).polygon([(c, c - r), (c + r, c), (c, c + r), (c - r, c)],
-                                    outline=(238, 231, 255, 120), width=max(1, int(3 * s)))
+                                    outline=(238, 231, 255, 110), width=max(1, int(2.5 * s)))
     img.alpha_composite(diamond)
-    for (cx, cy, r) in [(512, 150, 16), (210, 560, 12), (815, 560, 12), (400, 880, 9), (650, 870, 11)]:
-        star4(d, (cx, cy), r, (255, 255, 255, 220), s)
-    place(img, text_strip("FLAVOR", font("phosphate", 92), lav, tracking=26), (512, 372), s, shadow=sh)
+    for (cx, cy, rr) in [(512, 140, 15), (250, 512, 11), (774, 512, 11), (385, 882, 8), (642, 884, 10)]:
+        star4(d, (cx, cy), rr, (255, 255, 255, 220), s)
+    place(img, text_strip("FLAVOR", font("phosphate", 76), lav, tracking=18), (512, 372), s, shadow=sh)
+    for x0, x1 in [(150, 286), (738, 874)]:
+        d.line([(x0 * s, 372 * s), (x1 * s, 372 * s)], fill=(238, 231, 255, 150), width=max(1, int(2 * s)))
     place(img, text_strip("4", font("phosphate_in", 540), (255, 255, 255, 255)), (512, 600), s, shadow=sh)
     vignette(img, 0.40)
     return img
