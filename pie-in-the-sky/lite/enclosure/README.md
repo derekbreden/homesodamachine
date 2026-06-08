@@ -1,9 +1,9 @@
 # Lite enclosure shell
 
 The transparent PETG box that wraps the contents placed by
-[`../enclosure-assembly/_contents.py`](../enclosure-assembly/_contents.py). Six walls — floor, four
+[`../enclosure-assembly/_contents.py`](/pie-in-the-sky/lite/enclosure-assembly/_contents.py). Six walls — floor, four
 sides, lid — with a square hole in the lid that clears the
-[funnel](../printed-parts/funnel/) inlet so it sits flush with the top of the
+[funnel](/pie-in-the-sky/lite/printed-parts/funnel/) inlet so it sits flush with the top of the
 cabinet.
 
 ## Frame

@@ -32,5 +32,5 @@ Four supporting principles articulated alongside the commitment — *narration i
 
 - Not a video-production manual — the five bullets are the commitment, not a tutorial.
 - Not a replacement for [`/marketing/video/principles.md`](/marketing/video/principles.md) — that file covers capture and narration philosophy. This file is specifically about the post-capture workflow that file is silent on.
-- Not a permanent statement about tools — CapCut was the iPhone editor pick at the time; if a better tool appeared later, the workflow *shape* (single device, end-to-end on iPhone) is what matters, not the specific app name. (As it happened, CapCut was abandoned for iMovie on first execution — see [`2026-05-04-first-execution.md`](2026-05-04-first-execution.md).)
+- Not a permanent statement about tools — CapCut was the iPhone editor pick at the time; if a better tool appeared later, the workflow *shape* (single device, end-to-end on iPhone) is what matters, not the specific app name. (As it happened, CapCut was abandoned for iMovie on first execution — see [`2026-05-04-first-execution.md`](/marketing/video/snapshots/2026-05-04-first-execution.md).)
 - Not a publish-cadence commitment. Publishing was decoupled from this workflow on purpose.

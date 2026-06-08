@@ -5,7 +5,7 @@ sweeps 90° and then releases — a bench stand-in for actuating a quarter-turn
 valve. Sole purpose: confirm the button + servo + ESP32 chain (and the
 drive-then-release pattern) before any of it has to work inside the appliance.
 Sibling of
-[`../src_reed_bench/`](../src_reed_bench/README.md) — same throwaway-rig idea,
+[`../src_reed_bench/`](/firmware/src_reed_bench/README.md) — same throwaway-rig idea,
 different peripheral.
 
 This is **not** the production firmware. It's a throwaway rig. Planning and

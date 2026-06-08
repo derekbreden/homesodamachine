@@ -2,7 +2,7 @@
 
 The production fitting is the **John Guest PP0208E** 1/4" union tee, black PP
 — the part every Tee junction (Y-C/D/E/F/G/H/KA/KB) in the
-[fluid topology](../../../topology/fluid-topology.md) is built from, committed
+[fluid topology](/hardware/topology/fluid-topology.md) is built from, committed
 in the BOM (`hardware/bom.md` §8).
 
 `tee-connector.step` is **McMaster 51175K143**, a 1/4" push-to-connect
@@ -10,7 +10,7 @@ drinking-water tee — simply a STEP that happened to be available, used as a
 close-but-not-exact geometric stand-in for layout. The design iterates toward
 the **installed characteristics of the PP0208E**, not this file; swap in
 measured PP0208E geometry as parts come in hand. The
-[bag-circuit tray](../../valve-manifold/bag-circuit-tray/) uses it to join a
+[bag-circuit tray](/hardware/valve-manifold/bag-circuit-tray/) uses it to join a
 pair of valves in-line on the **run** while the **branch** tees off to the bag.
 
 ## Geometry (measured from the STEP)

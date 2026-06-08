@@ -32,18 +32,18 @@ That's it. There is no central router config, no decorator metadata, no plugin r
 
 | Module | Mounts | Notes |
 |---|---|---|
-| [`shell.js`](shell.js) | — | Shared `<head>` + nav + footer. Owns the synchronous pre-paint class flips and the `<script src="/boot.js" defer>` tag that every page loads. |
-| [`landing.js`](landing.js) | `/` | Marketing landing + signup form. Inline JS extracted to [`public/landing.js`](/web/public/landing.js). |
-| [`blog.js`](blog.js) | `/blog` | Markdown posts from [`posts/`](/posts/), rendered into the index page (individual posts are `#post-<slug>` anchors). Inline JS in [`public/blog.js`](/web/public/blog.js). |
-| [`viewer-pages.js`](viewer-pages.js) | `/3d`, `/charts` | Both pages render [`templates/viewer-body.html`](templates/viewer-body.html), which loads `public/js/viewer/main.js`. The decision of "show parts vs charts" is made client-side by `currentSection()`. |
-| [`viewer-routes.js`](viewer-routes.js) | API surface for the viewer | `/api/{steps,dxf,mermaid}` (file lists), `/steps/*`, `/dxfs/*`, `/api/mermaid-content/*` (file passthroughs). Walks `hardware/` via [`walk.js`](walk.js). |
-| [`settings.js`](settings.js) | `/settings` | Per-user toggles. Inline JS in [`public/settings.js`](/web/public/settings.js). |
-| [`events.js`](events.js) | `/api/events` | SSE channel — one EventSource per page, owned by [`public/boot.js`](/web/public/boot.js). |
-| [`notifications.js`](notifications.js) | `/api/notifications/*`, `/notifications` | Per-token inbox CRUD + the page. Routes only mount if `pool` is non-null (i.e. DATABASE_URL is set). |
-| [`push.js`](push.js) | `/api/push/*` | FCM subscriptions + outbound notify. Boot-time hash diff against per-kind tables (`step_hashes`, `dxf_hashes`, `mermaid_hashes`, `post_hashes`). |
-| [`walk.js`](walk.js) | — | `walkFiles(rootDir, exts)` — shared between `viewer-routes.js` and `push.js`. |
-| [`icons.js`](icons.js) | — | Shared SVG glyphs (cube, chart, gear, bell, scissors, newspaper, file). One source of truth for both nav and notification rows. |
-| [`templates/`](templates/) | — | HTML fragments included by the page-render modules above. Currently just `viewer-body.html`. |
+| [`shell.js`](/web/lib/shell.js) | — | Shared `<head>` + nav + footer. Owns the synchronous pre-paint class flips and the `<script src="/boot.js" defer>` tag that every page loads. |
+| [`landing.js`](/web/lib/landing.js) | `/` | Marketing landing + signup form. Inline JS extracted to [`public/landing.js`](/web/public/landing.js). |
+| [`blog.js`](/web/lib/blog.js) | `/blog` | Markdown posts from [`posts/`](/posts/), rendered into the index page (individual posts are `#post-<slug>` anchors). Inline JS in [`public/blog.js`](/web/public/blog.js). |
+| [`viewer-pages.js`](/web/lib/viewer-pages.js) | `/3d`, `/charts` | Both pages render [`templates/viewer-body.html`](/web/lib/templates/viewer-body.html), which loads `public/js/viewer/main.js`. The decision of "show parts vs charts" is made client-side by `currentSection()`. |
+| [`viewer-routes.js`](/web/lib/viewer-routes.js) | API surface for the viewer | `/api/{steps,dxf,mermaid}` (file lists), `/steps/*`, `/dxfs/*`, `/api/mermaid-content/*` (file passthroughs). Walks `hardware/` via [`walk.js`](/web/lib/walk.js). |
+| [`settings.js`](/web/lib/settings.js) | `/settings` | Per-user toggles. Inline JS in [`public/settings.js`](/web/public/settings.js). |
+| [`events.js`](/web/lib/events.js) | `/api/events` | SSE channel — one EventSource per page, owned by [`public/boot.js`](/web/public/boot.js). |
+| [`notifications.js`](/web/lib/notifications.js) | `/api/notifications/*`, `/notifications` | Per-token inbox CRUD + the page. Routes only mount if `pool` is non-null (i.e. DATABASE_URL is set). |
+| [`push.js`](/web/lib/push.js) | `/api/push/*` | FCM subscriptions + outbound notify. Boot-time hash diff against per-kind tables (`step_hashes`, `dxf_hashes`, `mermaid_hashes`, `post_hashes`). |
+| [`walk.js`](/web/lib/walk.js) | — | `walkFiles(rootDir, exts)` — shared between `viewer-routes.js` and `push.js`. |
+| [`icons.js`](/web/lib/icons.js) | — | Shared SVG glyphs (cube, chart, gear, bell, scissors, newspaper, file). One source of truth for both nav and notification rows. |
+| [`templates/`](/web/lib/templates/) | — | HTML fragments included by the page-render modules above. Currently just `viewer-body.html`. |
 
 ## Conventions
 

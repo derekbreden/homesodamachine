@@ -2,7 +2,7 @@
 
 *Pie-in-the-sky, not roadmap. Captured 2026-05-18.*
 
-A free, public, curated directory of food-grade-CO2 fill points in the US, organized by zip code. The lowest rung on the curator catalog (see [`curator-brand.md`](curator-brand.md)) and the editorial counterpart to the paid [`co2-service.md`](co2-service.md). Not a product per se — the deliverable is *knowledge and curation*, not hardware. Pitched as the first interaction many visitors will have with the brand, and the trust-building surface that the rest of the menu rides on.
+A free, public, curated directory of food-grade-CO2 fill points in the US, organized by zip code. The lowest rung on the curator catalog (see [`curator-brand.md`](/pie-in-the-sky/curator-brand.md)) and the editorial counterpart to the paid [`co2-service.md`](/pie-in-the-sky/co2-service.md). Not a product per se — the deliverable is *knowledge and curation*, not hardware. Pitched as the first interaction many visitors will have with the brand, and the trust-building surface that the rest of the menu rides on.
 
 ## What it is
 
@@ -28,7 +28,7 @@ Three friction points the curator brand can answer:
 
 ## Who it's for
 
-- The CGA-320 adapter kit customer ([`cga320-kit.md`](cga320-kit.md)) who refills their own tank and would rather not pay for delivery.
+- The CGA-320 adapter kit customer ([`cga320-kit.md`](/pie-in-the-sky/cga320-kit.md)) who refills their own tank and would rather not pay for delivery.
 - The Kitchen / Shop Edition customer's first cylinder refill.
 - Anyone with a CGA-320 cylinder who Googles "CO2 refill near me" and lands on us — paintball, kegerator, homebrew, aquarium. Most will never buy anything from us. Some will eventually buy the appliance.
 - People who haven't bought anything from anyone yet and are doing research. The guide is plausibly their first impression of the brand.
@@ -39,9 +39,9 @@ Three reasons it earns its keep at zero direct revenue:
 
 - **SEO surface.** "CO2 refill near me" is a high-volume search with no good answer today. Owning that result for free is worth more than monetizing it.
 - **Trust seed.** The customer who reads honest advice that didn't sell them anything is the customer most receptive to the rest of the catalog later. Same logic as the SodaStream-advice editorial page — the curator brand earns the right to recommend its own products by recommending other things first.
-- **Upgrade path to [`co2-service.md`](co2-service.md).** The guide ends with: "or, if `drive somewhere during business hours` is the part you hate, we deliver for $250 per refill. Click here." A free tool that funnels into a paid service is a real conversion mechanism.
+- **Upgrade path to [`co2-service.md`](/pie-in-the-sky/co2-service.md).** The guide ends with: "or, if `drive somewhere during business hours` is the part you hate, we deliver for $250 per refill. Click here." A free tool that funnels into a paid service is a real conversion mechanism.
 
-## How it relates to [`co2-service.md`](co2-service.md)
+## How it relates to [`co2-service.md`](/pie-in-the-sky/co2-service.md)
 
 The two are siblings on the menu — the lowest-budget option and the convenience option for the same underlying problem.
 

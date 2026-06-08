@@ -88,7 +88,7 @@ should be verified against current statutory text and regulations.
 
 ## Related
 
-- [`regulatory.md`](regulatory.md) — product regulatory posture
+- [`regulatory.md`](/business/regulatory.md) — product regulatory posture
   (UL 60335-2-89, EPA §608, SNAP). Separate concern; both this doc and
   that one have something to say about what changes at first customer
   sale.

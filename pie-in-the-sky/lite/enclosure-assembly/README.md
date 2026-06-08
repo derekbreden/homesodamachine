@@ -1,7 +1,7 @@
 # Lite enclosure assembly
 
-The [enclosure shell](../enclosure/) wrapped around the contents in their
-shared coordinates — the internal subsystems placed by [`_contents.py`](_contents.py).
+The [enclosure shell](/pie-in-the-sky/lite/enclosure/) wrapped around the contents in their
+shared coordinates — the internal subsystems placed by [`_contents.py`](/pie-in-the-sky/lite/enclosure-assembly/_contents.py).
 The whole Lite Edition as one model: a translucent PETG box and everything
 inside it.
 

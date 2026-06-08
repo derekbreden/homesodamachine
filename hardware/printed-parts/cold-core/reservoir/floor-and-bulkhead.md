@@ -8,8 +8,8 @@ Syrup drains by gravity from anywhere in the cavity down the V to the central tr
 
 ## Open items
 
-- [ ] The trough floor and walls are the reservoir's fluid barrier — the print has to hold syrup under working head with no weep. Print guidance in [`watertight-petg.md`](watertight-petg.md); attempts tracked in [`print-log.md`](print-log.md).
-- [ ] Whether the as-printed wetted surface stays clean under the software rinse cycle across repeated fills — the flavor-carryover + food-contact gate is [`wetted-surface-test.md`](wetted-surface-test.md).
+- [ ] The trough floor and walls are the reservoir's fluid barrier — the print has to hold syrup under working head with no weep. Print guidance in [`watertight-petg.md`](/hardware/printed-parts/cold-core/reservoir/watertight-petg.md); attempts tracked in [`print-log.md`](/hardware/printed-parts/cold-core/reservoir/print-log.md).
+- [ ] Whether the as-printed wetted surface stays clean under the software rinse cycle across repeated fills — the flavor-carryover + food-contact gate is [`wetted-surface-test.md`](/hardware/printed-parts/cold-core/reservoir/wetted-surface-test.md).
 - [x] Bulkhead port CAD tuned to the measured PureSec B0968K4JRN — ⌀[16 mm](BULKHEAD_PANEL_HOLE_D) hole, elbow-down, a face-seal counterbore on both floor faces — wet (top) for the purchased silicone washer, dry (under) for the printed TPU washer (the dry-side counterbore opens flush in the flat exterior bottom as a shallow recess), below-floor elbow clearance (`bulkhead_below_floor_stack` = [24.4 mm](BULKHEAD_BELOW_FLOOR_STACK) → the flat exterior bottom, the reservoir's lowest point, sits [22.6 mm](FLOOR_BELOW_TROUGH_HEADROOM) above the bag-pocket floor) — in `reservoir.py` / [`/hardware/printed-parts/cold-core/_cold_core_interface.py`](/hardware/printed-parts/cold-core/_cold_core_interface.py). Open: verify nut thread engagement on the physical part (the elbow-down clamp is the seal force on both gaskets) and the narrow dry-side seal land — see [`/hardware/off-the-shelf-parts/puresec-90-bulkhead/geometry-description.md`](/hardware/off-the-shelf-parts/puresec-90-bulkhead/geometry-description.md).
 
 ## Sources

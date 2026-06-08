@@ -1,6 +1,6 @@
 # Pressure Vessel Fabrication
 
-The production procedure for the carbonator pressure vessel — the 316L stainless body that holds carbonated water at the **90 PSI working pressure** specified in [`/hardware/future.md`](/hardware/future.md) "Carbonation subsystem". This document is the repeatable procedure for taking commodity tube + cut plates to a hydro-tested, passivated vessel ready for the [refrigeration loop](refrigerant-loop.md) downstream.
+The production procedure for the carbonator pressure vessel — the 316L stainless body that holds carbonated water at the **90 PSI working pressure** specified in [`/hardware/future.md`](/hardware/future.md) "Carbonation subsystem". This document is the repeatable procedure for taking commodity tube + cut plates to a hydro-tested, passivated vessel ready for the [refrigeration loop](/hardware/assembly/refrigerant-loop.md) downstream.
 
 Design intent and material rationale live in [`/hardware/future.md`](/hardware/future.md). The dev-phase task summary lives in [`/hardware/handwork.md`](/hardware/assembly/handwork.md). Snapshots of single-event execution (the first tap, the first weld recipe) live in their own dated files and are referenced by step below.
 
@@ -10,7 +10,7 @@ In: commodity 316L SS tube (OnlineMetals #12498) + laser-cut 316L SS end plates 
 
 Out: one vessel that has been tapped, welded, hydro-tested at the working-pressure-appropriate setpoint, passivated, and has the internal sparge stone + float assembly installed — ready for evaporator coil wrap.
 
-Not in scope: the evaporator coil wrap itself (boundary with [`refrigerant-loop.md`](refrigerant-loop.md)), the cold-core foam pour ([`cold-core.md`](cold-core.md)), and any system-level installation.
+Not in scope: the evaporator coil wrap itself (boundary with [`refrigerant-loop.md`](/hardware/assembly/refrigerant-loop.md)), the cold-core foam pour ([`cold-core.md`](/hardware/assembly/cold-core.md)), and any system-level installation.
 
 ## Inputs per vessel
 
@@ -98,13 +98,13 @@ After passivation, the vessel receives its permanent port fittings. Per [`/hardw
 
 All four ports get a TAISHER 316L SS elbow. MNPT into the plate's FNPT, Millrose PTFE anti-seize tape on every joint. Downstream stack varies by port:
 
-- **Ports 2 + 3 (food-contact: water inlet on top, carbonated-water outlet on bottom):** the elbow is the first fitting. Downstream (water-side GASHER check valve + MAACFLOW adapter for Port 2, VALVENTO compression adapter for Port 3) installs during cold-core integration per [`cold-core.md`](cold-core.md) — connects to the elbow's lateral FNPT.
+- **Ports 2 + 3 (food-contact: water inlet on top, carbonated-water outlet on bottom):** the elbow is the first fitting. Downstream (water-side GASHER check valve + MAACFLOW adapter for Port 2, VALVENTO compression adapter for Port 3) installs during cold-core integration per [`cold-core.md`](/hardware/assembly/cold-core.md) — connects to the elbow's lateral FNPT.
 
-- **Port 4 (top-plate PRV):** The PRV must have an unobstructed path to the vessel interior at all times — no tee, no shared line. A blockage, fitting failure, or maintenance disconnect on a shared line would compromise the safety relief path. The dedicated-elbow-on-dedicated-port architecture satisfies this. Thread the M-end of the **pre-built [`prv-shroud`](/hardware/printed-parts/cold-core/prv-shroud/) subassembly** into Port 4 FNPT, PTFE tape on the threads. The subassembly = TAISHER M×F elbow + SV-125 + printed shroud + cured silicone caulk seal at the shroud-elbow joint, built independently per the prv-shroud README's "Subassembly procedure" before this step (no prerequisites; the subassembly can be built whenever and sits ready). PRV body extends horizontally inside the shroud, fitting within the cylindrical foam-shell's headroom. The shroud preserves the air cavity around the SV-125's discharge side port and bonnet windows during the body foam pour ([`cold-core.md`](cold-core.md) step 5), so the valve remains a functional relief device after the cold-core is cast.
+- **Port 4 (top-plate PRV):** The PRV must have an unobstructed path to the vessel interior at all times — no tee, no shared line. A blockage, fitting failure, or maintenance disconnect on a shared line would compromise the safety relief path. The dedicated-elbow-on-dedicated-port architecture satisfies this. Thread the M-end of the **pre-built [`prv-shroud`](/hardware/printed-parts/cold-core/prv-shroud/) subassembly** into Port 4 FNPT, PTFE tape on the threads. The subassembly = TAISHER M×F elbow + SV-125 + printed shroud + cured silicone caulk seal at the shroud-elbow joint, built independently per the prv-shroud README's "Subassembly procedure" before this step (no prerequisites; the subassembly can be built whenever and sits ready). PRV body extends horizontally inside the shroud, fitting within the cylindrical foam-shell's headroom. The shroud preserves the air cavity around the SV-125's discharge side port and bonnet windows during the body foam pour ([`cold-core.md`](/hardware/assembly/cold-core.md) step 5), so the valve remains a functional relief device after the cold-core is cast.
 
 - **Port 1 (bottom-plate CO2 inlet + internal sparge):** the LTWFITTING B017N4TTMA hose-barb × MNPT adapter handles the internal sparge — barb facing inward, food-grade silicone tube stub connecting it to the FERRODAY B091C5Y6L9 0.5 µm sintered SS sparge stone hanging in the water column. The SS 90° elbow handles the external CO2 line connection from the in-appliance WR1110 secondary regulator (see [`/hardware/future.md`](/hardware/future.md) "CO2 supply"). **The relative install order of LTWFITTING vs elbow on Port 1 is an open item** — see Open items below.
 
-Once the four elbow stacks are in, the vessel is the input to [`refrigerant-loop.md`](refrigerant-loop.md) step 4 (coil wind).
+Once the four elbow stacks are in, the vessel is the input to [`refrigerant-loop.md`](/hardware/assembly/refrigerant-loop.md) step 4 (coil wind).
 
 ### 9. (Optional) Functional pop test against vessel pressure
 

@@ -4,7 +4,7 @@
 
 *BOM figures in this doc are first-pass estimates intended to size the idea, not specifications.*
 
-A kit that pairs a 5 lb CGA-320 CO2 cylinder (customer-supplied or service-supplied) with a 2 L PET pressure-rated bottle and a push-button carbonation head. The bottom rung of the curator catalog (see [`curator-brand.md`](curator-brand.md)) at roughly $150 retail. The customer chills their own water, carbonates a bottle at a time, refrigerates the bottle, pours from it. Same daily mechanic as a SodaStream, but running on a 5 lb tank instead of a 60 L SodaStream cartridge — 17× the CO2 per cylinder swap, at one-tenth the per-liter cost.
+A kit that pairs a 5 lb CGA-320 CO2 cylinder (customer-supplied or service-supplied) with a 2 L PET pressure-rated bottle and a push-button carbonation head. The bottom rung of the curator catalog (see [`curator-brand.md`](/pie-in-the-sky/curator-brand.md)) at roughly $150 retail. The customer chills their own water, carbonates a bottle at a time, refrigerates the bottle, pours from it. Same daily mechanic as a SodaStream, but running on a 5 lb tank instead of a 60 L SodaStream cartridge — 17× the CO2 per cylinder swap, at one-tenth the per-liter cost.
 
 ## What's in the kit
 
@@ -16,7 +16,7 @@ A kit that pairs a 5 lb CGA-320 CO2 cylinder (customer-supplied or service-suppl
 
 ## What the kit does not include
 
-- **No 5 lb CO2 cylinder.** Customer brings their own, or buys one via the curator brand's other rungs — pick one up locally per [`local-co2.md`](local-co2.md), or have one delivered per [`co2-service.md`](co2-service.md)'s non-exchange tier.
+- **No 5 lb CO2 cylinder.** Customer brings their own, or buys one via the curator brand's other rungs — pick one up locally per [`local-co2.md`](/pie-in-the-sky/local-co2.md), or have one delivered per [`co2-service.md`](/pie-in-the-sky/co2-service.md)'s non-exchange tier.
 - **No flavor injection.** The kit makes plain carbonated water. Customers who want flavor can buy SodaStream concentrate bottles separately (the same concentrates that ship with the appliance) and add to the glass after pouring. Same workflow as the SodaStream bottle-and-pour level.
 - **No refrigeration.** Customer uses their existing refrigerator.
 - **No installation.** Sits on the counter. Cylinder lives wherever the customer puts it — under the counter, in a corner, in the basement, on a shelf.
@@ -34,8 +34,8 @@ A kit that pairs a 5 lb CGA-320 CO2 cylinder (customer-supplied or service-suppl
 
 At $150 retail, margin per kit is ~$40 — thin in isolation, but the kit is not the margin engine; it is the entry rung. Two real outcomes from a kit sale:
 
-- A customer who is happy with the kit forever, refilling their tank via [`local-co2.md`](local-co2.md) or [`co2-service.md`](co2-service.md). The kit is the entire product for them; we own their CO2 supply for life.
-- A customer who likes the kit and upgrades to the appliance line. The Lillium + Lite bundle ([`lite/`](lite/README.md)) is the natural next step; the Kitchen Edition is the long-term destination.
+- A customer who is happy with the kit forever, refilling their tank via [`local-co2.md`](/pie-in-the-sky/local-co2.md) or [`co2-service.md`](/pie-in-the-sky/co2-service.md). The kit is the entire product for them; we own their CO2 supply for life.
+- A customer who likes the kit and upgrades to the appliance line. The Lillium + Lite bundle ([`lite/`](/pie-in-the-sky/lite/README.md)) is the natural next step; the Kitchen Edition is the long-term destination.
 
 Both outcomes are good. The kit is honest about what it is — a budget answer with real tradeoffs — and the customer keeps using the brand for CO2 either way.
 

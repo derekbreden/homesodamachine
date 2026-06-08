@@ -1,6 +1,6 @@
 # BiB-gate tray (2 valves + 4 Tees)
 
-The [fluid-topology](../../../topology/fluid-topology.md) BiB gates: V-K-A →
+The [fluid-topology](/hardware/topology/fluid-topology.md) BiB gates: V-K-A →
 Y-KA → Y-C and V-K-B → Y-KB → Y-F, two Tees in series per row.
 
 ```
@@ -16,7 +16,7 @@ Y-F) butts against its +X run port. All four Tee runs lie along X and their
 **branches rise (+Z)** — the near-valve branches are the V-C / V-D inlets from
 a source-select tray stacked above; the far branches and +X run ends leave the
 tray to a pump and the channel-select line. Valve placement, the Tee placer,
-and the tray builder are shared with the [bag-circuit tray](../bag-circuit-tray/).
+and the tray builder are shared with the [bag-circuit tray](/hardware/printed-parts/valve-manifold/bag-circuit-tray/).
 
 Origin = cell center, Z = 0 the mounting plane, ports at Z = 11.3. The six
 bodies are clash-free.
