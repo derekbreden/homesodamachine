@@ -254,8 +254,9 @@ Ice-maker donor units and copper coil for the chill loop.
 |---|---|---|---|---|
 | ESP32-DevKitC-32E | [B09MQJWQN2](https://www.amazon.com/dp/B09MQJWQN2) | 1+ | $11.00 | ACQUIRED |
 | ESP32-DevKitC-32E (repeat ASIN). Order #112-2471492-3870616, placed Jun 7, 2026 | [B09MQJWQN2](https://www.amazon.com/dp/B09MQJWQN2) | 2 | $23.60 | ON-ORDER (arriving Jun 8) |
-| Waveshare RP2040 0.99" round touch LCD, CNC case | [B0CTSPYND2](https://www.amazon.com/dp/B0CTSPYND2) | 2 | ~$25.73 ea | ACQUIRED |
-| Meshnology ESP32-S3 round rotary display 1.28" | [B0G5Q4LXVJ](https://www.amazon.com/dp/B0G5Q4LXVJ) | 1 | bundle | ACQUIRED |
+| Waveshare RP2040 0.99" round touch LCD, CNC case — prototype external flavor display; dropped from the product, superseded by the faucet-mounted Waveshare ESP32-S3 1.47" touch LCD (B0FCF1MGT3 below). Retained as prototype stock. | [B0CTSPYND2](https://www.amazon.com/dp/B0CTSPYND2) | 2 | ~$25.73 ea | ACQUIRED |
+| Meshnology ESP32-S3 round rotary display 1.28" — enclosure-front config display (kept) | [B0G5Q4LXVJ](https://www.amazon.com/dp/B0G5Q4LXVJ) | 1 | bundle | ACQUIRED |
+| Waveshare ESP32-S3 1.47" capacitive-touch IPS LCD dev board, 172×320 (JD9853 driver + AXS5106L touch) — faucet-mounted flavor display + touch toggle. Order #112-7687617-6094631, placed Jun 7, 2026 | [B0FCF1MGT3](https://www.amazon.com/dp/B0FCF1MGT3) | 2 | $51.46 | ON-ORDER (arriving Jun 9) |
 
 ## 9. Electronics — I/O, drivers, sensors, power, DIN rail, connectors
 
@@ -492,10 +493,10 @@ Industrial-supply orders direct from McMaster-Carr (mcmaster.com). First McMaste
 | ACQUIRED — hardware, tools & infra (§§1–17, 19, 20) | [$25,354.65](LEDGER_ACQUIRED_HW) |
 | ACQUIRED — capitalized contract labor (§18) | [$2,607.92](LEDGER_LABOR) |
 | ACQUIRED (combined) | [$27,962.57](LEDGER_ACQUIRED_COMBINED) |
-| ON-ORDER | [$113.59](LEDGER_ON_ORDER) |
+| ON-ORDER | [$165.05](LEDGER_ON_ORDER) |
 | MISSING — paid, not received (§1 copper bar) | [$42.89](LEDGER_MISSING) |
 | LIKELY-TO-BUY | $0.00 |
-| **Grand total — cash outlay** | [$28,119.05](LEDGER_GRAND_TOTAL) |
+| **Grand total — cash outlay** | [$28,170.51](LEDGER_GRAND_TOTAL) |
 
 ACQUIRED hardware by section:
 
