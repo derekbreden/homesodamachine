@@ -1,9 +1,12 @@
 # Tee connector — reference fitting (stand-in)
 
 `tee-connector.step` is **McMaster 51175K143**, a 1/4" push-to-connect
-drinking-water tee. The [bag-circuit tray](../../valve-manifold/bag-circuit-tray/)
-uses it to join a pair of valves in-line on the **run** while the **branch**
-tees off to the bag.
+drinking-water tee, used as a close stand-in for the **John Guest PP0208E**
+1/4" union tee (black PP) in the BOM (`hardware/bom.md` §8) — the part every
+Tee junction (Y-C/D/E/F/G/H/KA/KB) in the
+[fluid topology](../../../topology/fluid-topology.md) is built from. The
+[bag-circuit tray](../../valve-manifold/bag-circuit-tray/) uses it to join a
+pair of valves in-line on the **run** while the **branch** tees off to the bag.
 
 ## Geometry (measured from the STEP)
 
