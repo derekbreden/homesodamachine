@@ -26,10 +26,13 @@ Usage from any generator script:
     export_pdf(lambda p: build_pdf_at(p), str(out_path))
 """
 
+import atexit
 import filecmp
 import hashlib
 import os
 import re
+import shutil
+import subprocess
 import sys
 import tempfile
 from collections import defaultdict
@@ -384,6 +387,8 @@ def _matches_existing_target(tmp_path, target):
 
 
 def _atomic_write(target_path, write_fn):
+    """Write atomically; return True if the target's bytes changed, False if
+    the new output matched the existing file (no rename performed)."""
     target = Path(target_path).resolve()
     target.parent.mkdir(parents=True, exist_ok=True)
     tmp_path = _make_sibling_tempfile(target)
@@ -399,22 +404,91 @@ def _atomic_write(target_path, write_fn):
         # and leaves git status clean across no-op regenerations.
         if _matches_existing_target(tmp_path, target):
             os.unlink(tmp_path)
-            return
+            return False
         os.replace(tmp_path, target)
+        return True
     except BaseException:
         _unlink_if_exists(tmp_path)
         raise
 
 
+# --- Grid thumbnails ---------------------------------------------------------
+#
+# The viewer's grid shows a server-rendered PNG per STEP (web serves it at
+# /thumbs/<file>.step.png) so browsing the catalog downloads small images
+# instead of fetching every STEP and rendering it in the browser. The PNG is a
+# pure function of the STEP, so it's regenerated here, right where the STEP is
+# produced — meaning any run that writes a STEP, by any trigger (dev-server
+# watcher, an agent, by hand), refreshes its own thumbnail.
+#
+# Rendering is deferred to one batch at process exit (tools/render/
+# render-thumbnails.js boots the viewer + a headless browser once per run, not
+# once per part) and gated on the STEP actually changing or its thumbnail
+# being absent — so no-op regenerations cost nothing. It's best-effort: a
+# missing Node/render toolchain logs a warning and is skipped, never failing
+# the STEP export itself. Set HSM_SKIP_THUMBNAILS=1 to skip entirely (fast CAD
+# iteration / Python-only CI).
+
+_REPO_ROOT = Path(__file__).resolve().parent.parent
+_THUMBNAIL_TOOL = _REPO_ROOT / "tools" / "render" / "render-thumbnails.js"
+_pending_thumbnails = set()
+_thumbnail_atexit_registered = False
+
+
+def _queue_thumbnail(target_path, changed):
+    if os.environ.get("HSM_SKIP_THUMBNAILS"):
+        return
+    target = Path(target_path).resolve()
+    if target.suffix != ".step":
+        return
+    thumb = target.with_name(target.name + ".png")
+    if not changed and thumb.exists():
+        return
+    _pending_thumbnails.add(str(target))
+    global _thumbnail_atexit_registered
+    if not _thumbnail_atexit_registered:
+        atexit.register(_render_pending_thumbnails)
+        _thumbnail_atexit_registered = True
+
+
+def _render_pending_thumbnails():
+    if not _pending_thumbnails:
+        return
+    paths = sorted(_pending_thumbnails)
+    _pending_thumbnails.clear()
+    node = shutil.which("node")
+    if node is None or not _THUMBNAIL_TOOL.exists():
+        reason = "node not found on PATH" if node is None else "render tool missing"
+        print(
+            f"[_cadq_export] thumbnail render skipped for {len(paths)} part(s): {reason}",
+            file=sys.stderr,
+        )
+        return
+    try:
+        print(f"[_cadq_export] rendering {len(paths)} thumbnail(s)...", file=sys.stderr)
+        subprocess.run(
+            [node, str(_THUMBNAIL_TOOL), *paths],
+            cwd=str(_REPO_ROOT),
+            stdout=subprocess.DEVNULL,
+            stderr=subprocess.DEVNULL,
+            timeout=600,
+            check=False,
+        )
+    except Exception as exc:  # best-effort: a thumbnail must never break export
+        print(f"[_cadq_export] thumbnail render failed: {exc}", file=sys.stderr)
+
+
 def export_step(model, target_path):
     """cq.exporters.export with atomic write."""
     import cadquery as cq
-    _atomic_write(target_path, lambda p: cq.exporters.export(model, p))
+    changed = _atomic_write(target_path, lambda p: cq.exporters.export(model, p))
+    _queue_thumbnail(target_path, changed)
 
 
 def export_assembly(assembly, target_path):
     """cq.Assembly.save with atomic write."""
-    _atomic_write(target_path, lambda p: assembly.save(p))
+    changed = _atomic_write(target_path, lambda p: assembly.save(p))
+    _queue_thumbnail(target_path, changed)
 
 
 def export_dxf(doc, target_path):
