@@ -29,7 +29,7 @@
     "hardware/reference/jg-bulkhead-union/jg-bulkhead-union.step": "abd56c3925693a5caa252ec65a34594b8fa82a559dfe9b6f272620dcdfc7a95f",
     "hardware/reference/servo-valve-mock/coupling-detail.step": "bfbb93e62737d4eb9dd64314dc83368007a00a0a8bd524e322cbeacfb2adb620",
     "hardware/reference/servo-valve-mock/servo-valve-mock.step": "fb320633385ccfee8a073aec547e8c77a97b1737a52a2dd2c4b47f52cd35b13c",
-    "hardware/reference/touch-flo-faucet/faucet-assembly/touch-flo-faucet-assembly.step": "999df0874cfc4c27e783c83dd4f6a8f9aa858a3d89231e2b7a8fdcf6b18819a7",
+    "hardware/reference/touch-flo-faucet/faucet-assembly/touch-flo-faucet-assembly.step": "f216f26807cf6fccd1ce89b715e45176a9274b08eb38d29dc4a8317b97e7afd5",
     "hardware/reference/touch-flo-faucet/valve-body-reference/touch-flo-valve-body-reference.step": "9a888589a4479351a13177a8885c9748da287e05d215bc5e541c1ae20acfe892",
     "hardware/reference/water-test-cup/water-test-cup.step": "019a9cb3d87939e35549f12d59f8e81c7282eb5809fd97248fdcf2525a99b6f0"
   },
@@ -316,8 +316,8 @@
   "shell": {
     "bottom": {
       "bbox": {
-        "xmax": 22.275,
-        "xmin": -22.275,
+        "xmax": 27.9,
+        "xmin": -27.9,
         "ymax": 25.45,
         "ymin": -60.5359,
         "zmax": 201.2283,
@@ -325,15 +325,15 @@
       },
       "com": {
         "x": 0.0,
-        "y": -4.3582,
-        "z": 84.8209
+        "y": -4.1677,
+        "z": 82.8814
       },
-      "volume_mm3": 69290.4083
+      "volume_mm3": 71088.054
     },
     "full": {
       "bbox": {
-        "xmax": 22.275,
-        "xmin": -22.275,
+        "xmax": 27.9,
+        "xmin": -27.9,
         "ymax": 25.45,
         "ymin": -145.3341,
         "zmax": 228.6282,
@@ -341,10 +341,10 @@
       },
       "com": {
         "x": 0.0,
-        "y": -32.7385,
-        "z": 124.6099
+        "y": -32.1262,
+        "z": 122.624
       },
-      "volume_mm3": 103645.4197
+      "volume_mm3": 105443.0655
     },
     "middle": {
       "bbox": {
