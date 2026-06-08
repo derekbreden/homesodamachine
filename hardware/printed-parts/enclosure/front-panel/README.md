@@ -55,7 +55,7 @@ The WR1110 mounts on a printed bracket somewhere along the CO2 path between the 
 
 - [`/hardware/printed-parts/enclosure/README.md`](/hardware/printed-parts/enclosure/README.md) — enclosure architecture (4 zones, firm vs flexible, front-face curation).
 - [`/hardware/future.md`](/hardware/future.md) — broader enclosure context, cylinder-beside-appliance layout, user-facing elements by location.
-- [`/hardware/requirements.md`](/hardware/requirements.md) §5 — S3 role and detachability (the foundational spec for the S3 as the sole interaction surface).
+- [`/hardware/future.md`](/hardware/future.md) — S3 rotary as the detachable config/interaction surface (~1 m cord).
 - [`/hardware/bom.md`](/hardware/bom.md) §1 — ESP32-S3 module source.
 - [`/hardware/bom.md`](/hardware/bom.md) §4 — CO2 path (DERPIPE bulkhead, GASHER check, WR1110, 5/16" short tether).
 - [`/hardware/printed-parts/enclosure/back-panel/README.md`](/hardware/printed-parts/enclosure/back-panel/README.md) — sister exterior panel; identification-ring pattern, PET-CF material rationale.
