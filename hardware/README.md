@@ -2,25 +2,25 @@
 
 The home soda machine's physical design — the integrated under-counter appliance that consolidates carbonator, refrigeration, flavor reservoirs, pumps, valves, and electronics into one enclosure.
 
-**Start with [`future.md`](future.md)** — the master design narrative. It describes the appliance subsystem by subsystem (carbonation, refrigeration, cold core, flavor, enclosure, power) and links out to every companion doc and part directory below.
+**Start with [`future.md`](/hardware/future.md)** — the master design narrative. It describes the appliance subsystem by subsystem (carbonation, refrigeration, cold core, flavor, enclosure, power) and links out to every companion doc and part directory below.
 
 ## Layout
 
 | Path | What's there |
 |---|---|
-| [`future.md`](future.md) | The design narrative — the entry point and source of architectural intent. |
-| [`ledger/`](ledger/) | Bookkeeping. [`purchases.md`](ledger/purchases.md) is the source-of-truth capex ledger; [`bom.md`](ledger/bom.md) (per-unit parts), [`tools.md`](ledger/tools.md) (active tooling), and [`inventory.md`](ledger/inventory.md) (spares / abandoned / donor / diagnostic stock) are views over it. |
-| [`assembly/`](assembly/) | Production procedures, one doc per subsystem, plus [`handwork.md`](assembly/handwork.md) (the skilled-hand task summary). |
-| [`printed-parts/`](printed-parts/) | FDM parts: CadQuery generators (`*.py`) + exported `*.step` + sidecars. Includes `cadlib/` (shared geometry helpers), `cold-core/`, `enclosure/`, `faucet/`, `flavor/`, `valve-manifold/`, `co2-cradle/`, `zone-c/`. |
-| [`cut-parts/`](cut-parts/) | Laser-cut sheet parts: `*.dxf` outlines + sidecars (carbonation end-caps, compressor shroud, faucet plate). |
-| [`off-the-shelf-parts/`](off-the-shelf-parts/) | Reference geometry for purchased parts modelled into assemblies. |
-| [`reference/`](reference/) | Imported / harvested reference STEPs (factory faucet, solenoid, ice-maker, fittings). Not fabricated by this project — no sidecars. |
-| [`topology/`](topology/) | Fluid + valve topology, including the canonical valve-state truth table. |
-| [`wiring/`](wiring/) | Wiring schedules, pinouts, and power topology diagrams. |
-| [`battery-backup/`](battery-backup/) | Mains-outage dispense ride-through subsystem. |
-| [`quickstart/`](quickstart/) | Customer quick-start geometry + drawings. |
-| [`snapshots/`](snapshots/) | Dated, point-in-time records (build-readiness audit, first-tap plan). **Frozen, not living docs** — re-run produces a fresh dated file rather than editing these. |
-| [`scripts/`](scripts/) | Project Python tooling: `_cadq_export.py` (the shared atomic STEP/DXF/PDF export helper imported tree-wide) and the doc-sync / totals generators that maintain the `ledger/` docs. |
+| [`future.md`](/hardware/future.md) | The design narrative — the entry point and source of architectural intent. |
+| [`ledger/`](/hardware/ledger/) | Bookkeeping. [`purchases.md`](/hardware/ledger/purchases.md) is the source-of-truth capex ledger; [`bom.md`](/hardware/ledger/bom.md) (per-unit parts), [`tools.md`](/hardware/ledger/tools.md) (active tooling), and [`inventory.md`](/hardware/ledger/inventory.md) (spares / abandoned / donor / diagnostic stock) are views over it. |
+| [`assembly/`](/hardware/assembly/) | Production procedures, one doc per subsystem, plus [`handwork.md`](/hardware/assembly/handwork.md) (the skilled-hand task summary). |
+| [`printed-parts/`](/hardware/printed-parts/) | FDM parts: CadQuery generators (`*.py`) + exported `*.step` + sidecars. Includes `cadlib/` (shared geometry helpers), `cold-core/`, `enclosure/`, `faucet/`, `flavor/`, `valve-manifold/`, `co2-cradle/`, `zone-c/`. |
+| [`cut-parts/`](/hardware/cut-parts/) | Laser-cut sheet parts: `*.dxf` outlines + sidecars (carbonation end-caps, compressor shroud, faucet plate). |
+| [`off-the-shelf-parts/`](/hardware/off-the-shelf-parts/) | Reference geometry for purchased parts modelled into assemblies. |
+| [`reference/`](/hardware/reference/) | Imported / harvested reference STEPs (factory faucet, solenoid, ice-maker, fittings). Not fabricated by this project — no sidecars. |
+| [`topology/`](/hardware/topology/) | Fluid + valve topology, including the canonical valve-state truth table. |
+| [`wiring/`](/hardware/wiring/) | Wiring schedules, pinouts, and power topology diagrams. |
+| [`battery-backup/`](/hardware/battery-backup/) | Mains-outage dispense ride-through subsystem. |
+| [`quickstart/`](/hardware/quickstart/) | Customer quick-start geometry + drawings. |
+| [`snapshots/`](/hardware/snapshots/) | Dated, point-in-time records (build-readiness audit, first-tap plan). **Frozen, not living docs** — re-run produces a fresh dated file rather than editing these. |
+| [`scripts/`](/hardware/scripts/) | Project Python tooling: `_cadq_export.py` (the shared atomic STEP/DXF/PDF export helper imported tree-wide) and the doc-sync / totals generators that maintain the `ledger/` docs. |
 
 ## Part metadata sidecars
 
@@ -66,7 +66,7 @@ Pull values from the part's generator-script docstring when one exists; otherwis
 
 ### Harvested reference parts
 
-[`reference/`](reference/) holds imported reference STEPs (factory faucet body, valve internals) this project does not fabricate. These get no sidecars — they're multi-material, externally-spec'd parts kept only for spatial reference.
+[`reference/`](/hardware/reference/) holds imported reference STEPs (factory faucet body, valve internals) this project does not fabricate. These get no sidecars — they're multi-material, externally-spec'd parts kept only for spatial reference.
 
 ### Where this is consumed
 
