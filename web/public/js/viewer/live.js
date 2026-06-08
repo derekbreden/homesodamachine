@@ -21,36 +21,23 @@
 // so the same handler covers .step, .dxf, .mmd, and drawing .svg.
 
 import { state } from "./state.js";
-import { loadStepFile, renderThumbnail } from "./step.js";
+import { loadStepFile } from "./step.js";
+import { paintStepThumb } from "./grid.js";
 import { loadDxfFile, renderDxfThumbnail } from "./dxf.js";
 import { renderMmdThumbnail, refetchOpenMmd } from "./mermaid.js";
 import { renderDrawingThumbnail, refetchOpenDrawing } from "./drawings.js";
 import { fetchFiles } from "./main.js";
 
 function refreshStepCard(file) {
+  // The export pipeline rewrote this part's committed thumbnail before the
+  // watcher broadcast the change (its atexit render finishes before the
+  // python process closes), so just re-fetch the PNG past the browser cache.
+  // Drop the client-render cache too, in case this card is on the missing-
+  // thumbnail fallback path.
   state.thumbnailCache.delete(file);
   const card = state.gridEl.querySelector(`.card[data-type="step"][data-file="${CSS.escape(file)}"]`);
   if (!card) { fetchFiles(); return; }
-  const img = card.querySelector("img");
-  if (img) {
-    const ph = document.createElement("div");
-    ph.className = "placeholder";
-    ph.dataset.file = file;
-    ph.textContent = "updating...";
-    img.replaceWith(ph);
-  }
-  renderThumbnail(file).then((url) => {
-    if (!url) return;
-    const target = card.querySelector(".placeholder");
-    if (target) {
-      const newImg = document.createElement("img");
-      newImg.src = url;
-      target.replaceWith(newImg);
-    } else {
-      const existing = card.querySelector("img");
-      if (existing) existing.src = url;
-    }
-  });
+  paintStepThumb(card, { bust: true });
 }
 
 function refreshDxfCard(file) {
