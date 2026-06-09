@@ -154,8 +154,6 @@ base_pod_z_bottom = zone1_z_bottom  # deck plane, Z=0
 base_pod_z_top = zone1_outer_z_top  # match the base-cylinder top
 base_pod_hole_depth = 8.0           # boss engagement depth up from the deck; an
                                     # M3x12 reaches a ruthex M3 insert seated above
-base_pod_top_fillet = 3.0           # round the bump's top rim so it doesn't leave a
-                                    # sharp shelf where the cove recedes above it
 
 
 # LEVER SWING CLEARANCE — chamfer wedge cut into the top -Y corner of
@@ -545,9 +543,6 @@ def build_base_pods() -> cq.Workplane:
         .lineTo(*Tf_l)
         .close()
         .extrude(z_height)
-        .faces(">Z")
-        .edges()
-        .fillet(base_pod_top_fillet)
     ).val()
     minus = plus.mirror("YZ")
     return cq.Workplane(obj=plus.fuse(minus))
