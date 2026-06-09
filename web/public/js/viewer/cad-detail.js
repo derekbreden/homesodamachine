@@ -30,6 +30,7 @@ import { loadStepFile } from "./step.js";
 import { loadDxfFile, resetDxfCamera } from "./dxf.js";
 import { makeRulerToggle } from "./rulers.js";
 import { makeXrayToggle } from "./xray.js";
+import { makeEdgePickToggle, clearEdgePicker } from "./edge-picker.js";
 
 // Reset-view button: re-frames the current part with the format's default
 // isometric framing and clears the per-file saved camera, so a wonky
@@ -131,8 +132,12 @@ export function openCadDetail(type, file, pushHistory = true) {
   loadingEl.textContent = "Loading...";
   wrapper.appendChild(loadingEl);
   wrapper.appendChild(makeRulerToggle());
-  // X-ray only for STEP — DXF is a single flat plate with nothing inside.
-  if (type === "step") wrapper.appendChild(makeXrayToggle());
+  // X-ray + edge picker only for STEP — DXF is a single flat plate with
+  // nothing inside and no reconstructable solid edges.
+  if (type === "step") {
+    wrapper.appendChild(makeXrayToggle());
+    wrapper.appendChild(makeEdgePickToggle());
+  }
   wrapper.appendChild(makeResetViewButton());
 
   state.currentCadWrapper = wrapper;
@@ -186,6 +191,7 @@ export function openCadDetail(type, file, pushHistory = true) {
         state.currentGroup.traverse((c) => { if (c.geometry) c.geometry.dispose(); });
         state.currentGroup = null;
       }
+      clearEdgePicker(); // drop edge data + any selection/hover overlay
       state.currentCadWrapper = null;
       state.currentDetail = null;
       state.mountedDetail = null;
