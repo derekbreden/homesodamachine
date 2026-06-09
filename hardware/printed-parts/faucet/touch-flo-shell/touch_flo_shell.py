@@ -135,9 +135,9 @@ zone2_outer_z_bottom = zone1_outer_z_top  # [16.25 mm](ZONE1_OUTER_Z_TOP)
 # the plate, not the shell.
 #
 # Nested fastener chain (BNUOK M3 SHCS 304 SS, head ~5.43 mm measured; ruthex
-# M3 insert). Counterbore + boss are plate-side; only the boss hole + pod live
-# in the shell — but the whole chain is derived here so wall thickness is one
-# knob. Pods are SOLID here — the boss hole is not carved yet.
+# M3 insert). Counterbore + boss are plate-side; the boss hole, insert pocket,
+# and pod live in the shell — but the whole chain is derived here so wall
+# thickness is one knob.
 base_pod_counterbore_dia = 5.55     # M3 SHCS head ~5.43 measured + ~0.1 clearance
 base_pod_wall = 3.0                 # wall added at each step (plate boss wall = shell wall)
 base_pod_slip = 0.10                # boss-to-hole diametral slip fit
@@ -154,6 +154,15 @@ base_pod_z_bottom = zone1_z_bottom  # deck plane, Z=0
 base_pod_z_top = zone1_outer_z_top  # match the base-cylinder top
 base_pod_hole_depth = 8.0           # boss engagement depth up from the deck; an
                                     # M3x12 reaches a ruthex M3 insert seated above
+# ruthex M3 short heat-set insert (⌀4.2 OD), seated opening-DOWN onto the boss
+# hole: the M3x12 driven up from under the plate exits the boss top and threads
+# into it. ⌀4 pocket — the knurled OD melts into ⌀4. Depth runs from the
+# boss-hole top to one base_pod_wall below the pod top, so the cap over the
+# insert is the same one-knob wall as everywhere else.
+base_pod_insert_dia = 4.0
+base_pod_insert_depth = (
+    base_pod_z_top - base_pod_z_bottom - base_pod_hole_depth - base_pod_wall
+)  # 5.25 mm = 4 mm insert engagement + 1.25 mm relief
 
 
 # LEVER SWING CLEARANCE — chamfer wedge cut into the top -Y corner of
@@ -553,21 +562,32 @@ def build_base_pods() -> cq.Workplane:
 
 
 def build_base_pod_holes() -> cq.Workplane:
-    """Blind boss-hole pockets — ⌀base_pod_hole_dia cylinders rising
-    base_pod_hole_depth from the foot bottom into each pod, receiving the plate
-    bosses. No insert pocket yet."""
-    holes = [
-        (
+    """Per-pod inner cuts: the blind boss-hole pocket (⌀base_pod_hole_dia rising
+    base_pod_hole_depth from the foot bottom, receiving the plate boss) with the
+    heat-set insert pocket (⌀base_pod_insert_dia, base_pod_insert_depth) stacked
+    coaxially above it. The insert opening faces down onto the boss hole so the
+    M3x12 driven up from under the plate threads into it."""
+    cuts = []
+    for x_sign in (+1, -1):
+        center = (x_sign * base_pod_center_x, base_pod_center_y)
+        boss_hole = (
             _horizontal_plane(base_pod_z_bottom)
-            .moveTo((x_sign * base_pod_center_x, base_pod_center_y))
+            .moveTo(center)
             .circle(base_pod_hole_dia / 2.0)
             .extrude(base_pod_hole_depth)
             .unwrap()
             .val()
         )
-        for x_sign in (+1, -1)
-    ]
-    return cq.Workplane(obj=holes[0].fuse(holes[1]))
+        insert_pocket = (
+            _horizontal_plane(base_pod_z_bottom + base_pod_hole_depth)
+            .moveTo(center)
+            .circle(base_pod_insert_dia / 2.0)
+            .extrude(base_pod_insert_depth)
+            .unwrap()
+            .val()
+        )
+        cuts.append(boss_hole.fuse(insert_pocket))
+    return cq.Workplane(obj=cuts[0].fuse(cuts[1]))
 
 
 def _rect_cove_cyl(
