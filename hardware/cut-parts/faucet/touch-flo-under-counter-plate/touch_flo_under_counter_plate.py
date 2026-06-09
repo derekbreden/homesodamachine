@@ -16,15 +16,16 @@ motion.
 HOLE POSITIONS MATCH THE TPU GASKET AND UPPER MOUNTING PLATE
 ============================================================
 The mounting plate, TPU gasket, and under-counter plate share the
-shank-hole position and pill-slot position. This plate does NOT share
-their disc center: it centers its disc on the shank (the worst-case
-deck-hole center) so its coverage margin holds on every side. It adds
-the two open-edge channels at those hole positions.
+shank-hole position and pill-slot position. This plate's disc centers
+on the midpoint of its two reach constraints — the body-bore front
+edge and the pill pocket's far edge — landing within 0.05 mm of the
+upper parts' disc center. It adds the two open-edge channels at those
+hole positions.
 
 CHANNEL DIRECTION
 =================
 Both channels extend in −Y of the DXF frame from their cylinder
-pockets to the rim (= +Y in world, toward the back of the appliance):
+pockets to the rim (lateral in world — the slide-on direction):
 - Shank channel: from the shank's bottom semicircle (DXF Y < 0)
   downward to the rim, matching the shank diameter in X.
 - Pill channel: from the pill's bottom rectangle edge downward to
@@ -71,6 +72,8 @@ sys.path.insert(
 # hardware/printed-parts/faucet/.
 _hardware_dir = next(p for p in _here.parents if p.name == "hardware")
 sys.path.insert(0, str(_hardware_dir / "printed-parts" / "faucet"))
+sys.path.insert(0, str(_hardware_dir / "printed-parts" / "faucet" / "touch-flo-shell"))
+sys.path.insert(0, str(_hardware_dir / "printed-parts" / "cadlib"))
 sys.path.insert(0, str(_hardware_dir / "scripts"))
 from docgen import substitute_py_comments
 from _cadq_export import export_dxf
@@ -80,20 +83,11 @@ from _touch_flo_interface import (
     pill_width_y,
     shank_hole_diameter,
 )
+from touch_flo_shell import body_bore_diameter
 
 # Dimensions in mm. DXF $INSUNITS = 4 (millimeters).
-# Hole positions match the TPU gasket and the upper mounting plate; the disc
-# itself centers on the shank (see below), not on their shared +3.175 center.
-
-# Disc centered ON THE SHANK (0, 0), not on the inherited +3.175 upper-plate
-# center. The user centers the deck hole on the shank, so the shank is the
-# worst-case hole center; centering the disc there guarantees the coverage
-# margin on every side — an offset center starves whichever side it leans away
-# from (here, the tight −Y bowl side). A plain disc — below-counter
-# load-spreader and pull-out backing — sharing the shank and pill POSITIONS
-# with the upper plate and gasket, but neither their center nor their outline.
-disc_cx = 0.0
-disc_cy = 0.0
+# Hole positions match the TPU gasket and the upper mounting plate; the
+# disc center and OD are derived from those holes below.
 
 shank_cx = 0.0
 shank_cy = 0.0
@@ -126,16 +120,25 @@ pill_bot_cap_cy = pill_cy - (pill_half_long - pill_cap_radius)   # [-3.175 mm](P
 pill_left_x = pill_cx - pill_half_short     # [15.4 mm](PILL_LEFT_X)
 pill_right_x = pill_cx + pill_half_short    # [22.45 mm](PILL_RIGHT_X)
 
-# Disc OD = distance from the (shank-centered) disc center to the farthest deck
-# feature — the pill's outer edge, pill_right_x — plus the coverage margin. The
-# worst case is a user who centers one round hole on the shank, big enough to
-# clear the tubes: it then reaches pill_right_x in EVERY direction, so the disc
-# must clear it by the margin all the way around. Bearing isn't the driver (the
-# hand-tightened nut, ~1-4 kN, spreads to ~2 MPa here — ~5x under particleboard,
-# ~100x under stone); this is hole coverage — the same thin-edge danger zone the
-# shell's front pod fixed. [54.9 mm](PLATE_D) disc.
-disc_reach_margin = 5.0
-disc_radius = (pill_right_x - disc_cx) + disc_reach_margin
+# Disc span, in DXF X (world depth). Two reach constraints bound it: the
+# body-bore front edge (the shell's pods are bore-tangent, so a deck-hole
+# edge past the bore line starts undermining their seats — the install's own
+# limit on any hole, and unreachable from the other side anyway: a hole
+# centered on the shank would need ~⌀47 before the tube pill could pass) and
+# the pill pocket's far edge (the slide-on capture needs solid steel beyond
+# the pocket). The disc centers on their midpoint — within 0.05 mm of the
+# upper parts' disc center — so one margin serves both ends; any other center
+# needs a larger disc to meet the same two. disc_reach_margin beyond each
+# constraint puts the OD a few mm past the ~2" (50.8 mm) backing washer
+# standard kitchen faucets ship (Delta RP49835), the proven under-sink
+# footprint. Bearing doesn't size it: the hand-tightened nut (~1-4 kN)
+# spreads to ~2 MPa here — ~5x under particleboard, ~100x under stone.
+# [54.45 mm](PLATE_D) disc centered at DXF ([3.225 mm](DISC_CX), 0).
+bore_front_x = -body_bore_diameter / 2.0   # [-16 mm](BORE_FRONT_X)
+disc_reach_margin = 8.0
+disc_cx = (pill_right_x + bore_front_x) / 2.0
+disc_cy = 0.0
+disc_radius = (pill_right_x - bore_front_x) / 2.0 + disc_reach_margin
 disc_diameter = 2.0 * disc_radius
 
 # [1.5 mm](FILLET_R) fillet radius at the four channel-mouth corners
@@ -185,7 +188,7 @@ def make_dxf():
     doc.header["$INSUNITS"] = 4   # 4 = millimeters
     msp = doc.modelspace()
 
-    top_of_disc = (disc_cx, disc_cy + disc_radius)                     # ([0 mm](DISC_CX), [27.45 mm](TOP_OF_DISC_Y))
+    top_of_disc = (disc_cx, disc_cy + disc_radius)                     # ([3.225 mm](DISC_CX), [27.23 mm](TOP_OF_DISC_Y))
 
     # Shank channel — extends in -Y from the shank's bottom semicircle
     # to the rim, width [12.6 mm](SHANK_HOLE_D) in X.
@@ -264,6 +267,7 @@ if __name__ == "__main__":
     variables = {
         "PLATE_D": f"{disc_diameter:.4g} mm",
         "DISC_CX": f"{disc_cx:.4g} mm",
+        "BORE_FRONT_X": f"{bore_front_x:.4g} mm",
         "TOP_OF_DISC_Y": f"{disc_cy + disc_radius:.4g} mm",
         "SHANK_HOLE_D": f"{shank_diameter:.4g} mm",
         "SHANK_LEFT_WALL_X": f"{shank_cx - shank_radius:.4g} mm",
@@ -285,7 +289,8 @@ if __name__ == "__main__":
         variables=variables,
         expected_counts={
             "PLATE_D": 1,
-            "DISC_CX": 1,
+            "DISC_CX": 2,
+            "BORE_FRONT_X": 1,
             "TOP_OF_DISC_Y": 1,
             "SHANK_HOLE_D": 2,
             "SHANK_LEFT_WALL_X": 2,
