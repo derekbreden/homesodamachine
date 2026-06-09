@@ -512,14 +512,11 @@ def build_zone1_inner_cut() -> cq.Workplane:
     return body_bore.union(pill)
 
 
-def build_base_pods() -> cq.Workplane:
-    """Two solid pods on the +-X sides of the foot (deck plane up to the
-    base-cylinder top), placeholders for the lateral screw bosses — no pockets
-    or inserts yet. Each pod is a teardrop: a base_pod_radius round outboard
-    end (over the boss) with two FLAT sides that are the common tangent lines
-    between the pod circle and the foot cylinder. Tangent at both ends, so the
-    pod blends into the foot with no concave notch. Unioned into the shell
-    outer before the inner cuts, so the body bore trims any inboard material."""
+def _base_pod_teardrops(z_bottom: float, z_height: float) -> cq.Workplane:
+    """The two teardrop pods as a solid over a Z range. A base_pod_radius round
+    outboard end (over the boss) with two FLAT sides — the common tangent lines
+    between the pod circle and the foot cylinder, tangent at both ends so the
+    pod blends into the foot with no concave notch."""
     R = shell_outer_r
     r = base_pod_radius
     cx = base_pod_center_x
@@ -533,10 +530,9 @@ def build_base_pods() -> cq.Workplane:
     tip = (cx + r, cy)                  # outboard tip
     Tp_l = (cx + r * nx, cy - r * ny)
     Tf_l = (R * nx, cy - R * ny)
-    z_height = base_pod_z_top - base_pod_z_bottom
     plus = (
         cq.Workplane("XY")
-        .workplane(offset=base_pod_z_bottom)
+        .workplane(offset=z_bottom)
         .moveTo(*Tf_u)
         .lineTo(*Tp_u)
         .threePointArc(tip, Tp_l)
@@ -546,6 +542,14 @@ def build_base_pods() -> cq.Workplane:
     ).val()
     minus = plus.mirror("YZ")
     return cq.Workplane(obj=plus.fuse(minus))
+
+
+def build_base_pods() -> cq.Workplane:
+    """The two solid teardrop pods over the foot (deck plane to base-cylinder
+    top), placeholders for the lateral screw bosses — no pockets or inserts
+    yet. Unioned into the shell outer before the inner cuts, so the body bore
+    trims any inboard material."""
+    return _base_pod_teardrops(base_pod_z_bottom, base_pod_z_top - base_pod_z_bottom)
 
 
 def build_base_pod_holes() -> cq.Workplane:
@@ -620,13 +624,18 @@ def _rect_cove_cyl(
 
 
 def build_zone2_outer() -> cq.Workplane:
-    """Zone 2 outer — rect column with cove-filleted ±X faces, corners clipped to the shell outer cylinder."""
+    """Zone 2 outer — rect column with cove-filleted ±X faces, clipped to the
+    shell outer cylinder WITH the base pods carried up through the transition,
+    so the cove builds onto the teardrops, not just the round base."""
     z_height = zone2_z_top - zone2_outer_z_bottom
+    clip = cq.Workplane(obj=shell_outer_cyl(zone2_outer_z_bottom, z_height).val().fuse(
+        _base_pod_teardrops(zone2_outer_z_bottom, z_height).val()
+    ))
     return _rect_cove_cyl(
         shell_center_x, shell_center_y,
         shell_rect_x_width, shell_rect_y_width,
         zone2_outer_z_bottom, zone2_z_top,
-        shell_outer_cyl(zone2_outer_z_bottom, z_height),
+        clip,
     )
 
 
