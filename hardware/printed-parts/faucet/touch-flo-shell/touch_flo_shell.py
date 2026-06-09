@@ -150,6 +150,12 @@ base_pod_center_y = shell_center_y  # foot-circle (and plate) center line, +Y
 base_pod_center_x = math.sqrt(
     (body_bore_diameter / 2.0 + base_pod_radius) ** 2 - base_pod_center_y ** 2
 )
+# Third pod on the front (−Y) centerline — the anchor the two lateral bosses
+# can't be: both sit on the X-axis, so they give no front/back couple. Same
+# radius and same bore tangency as the laterals (inner edge touches the body
+# bore, base_pod_wall from the pocket to the bore), straight in front.
+base_pod_front_center_x = 0.0
+base_pod_front_center_y = -(body_bore_diameter / 2.0 + base_pod_radius)  # -24.825
 base_pod_z_bottom = zone1_z_bottom  # deck plane, Z=0
 base_pod_z_top = zone1_outer_z_top  # match the base-cylinder top
 base_pod_hole_depth = 8.0           # boss engagement depth up from the deck; an
@@ -559,6 +565,19 @@ def build_base_pods() -> cq.Workplane:
     yet. Unioned into the shell outer before the inner cuts, so the body bore
     trims any inboard material."""
     return _base_pod_teardrops(base_pod_z_bottom, base_pod_z_top - base_pod_z_bottom)
+
+
+def build_base_pod_front() -> cq.Workplane:
+    """The front (−Y) pod — a plain base_pod_radius cylinder over the foot
+    (deck plane to base-cylinder top), tangent to the body bore. Placeholder
+    for the third screw boss; no pocket or insert yet."""
+    return (
+        _horizontal_plane(base_pod_z_bottom)
+        .moveTo((base_pod_front_center_x, base_pod_front_center_y))
+        .circle(base_pod_radius)
+        .extrude(base_pod_z_top - base_pod_z_bottom)
+        .unwrap()
+    )
 
 
 def build_base_pod_holes() -> cq.Workplane:
@@ -1106,6 +1125,7 @@ def build_shell() -> cq.Workplane:
     outer_parts = [
         build_zone1_outer().val(),
         build_base_pods().val(),
+        build_base_pod_front().val(),
         build_zone2_outer().val(),
         build_zone3_outer().val(),
         build_zone3_fill_outer().val(),
