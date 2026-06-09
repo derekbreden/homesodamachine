@@ -115,7 +115,7 @@ Feed-water inlet, filter, ASSE 1022 backflow preventer and its vent-line hardwar
 | Yetaha RO 1/4" water flow-adjust valve | [B07GDFWB8R](https://www.amazon.com/dp/B07GDFWB8R) | 1 | $12.86 | ACQUIRED |
 | SEAFLO 22-Series 12V 1.3 GPM 100 psi on-demand pump | [B0166UBJX4](https://www.amazon.com/dp/B0166UBJX4) | 1 | $48.25 | ACQUIRED |
 | Fresh Water Systems order WEBFWS100677333 — Colder 70500 NSF QD insert (×2) + 74600 NSF QD body (×2) + blue 1/4" LLDPE 100 ft + JG PP0208E union tee (×10) | [freshwatersystems.com](https://www.freshwatersystems.com/) | 1 order (4 items) | $130.45 | ACQUIRED |
-| Fresh Water Systems order WEBFWS100677768 — MTB-0604WP 3/8"barb × 1/4"MNPT tee (×10) + JG PP450822E 1/4" NPTF female adapter (×10) | [freshwatersystems.com](https://www.freshwatersystems.com/) | 1 order (2 items) | $62.08 | ACQUIRED |
+| Fresh Water Systems order WEBFWS100677768 — MTB-0604WP 3/8"barb × 1/4"MNPT tee (×10) + JG PP450822E 1/4" NPTF female adapter (×10) | [freshwatersystems.com](https://www.freshwatersystems.com/) | 1 order (2 items) | $62.08 | ACQUIRED (PP450822E only — FWS discontinued MTB-0604WP pre-shipment per Jun 9 email; tee-line swap to MTB-0606WP requested Jun 9, reply pending; candidates in `assembly/internal-plumbing.md` Open items 3) |
 
 ## 4. Carbonator plumbing (pressurized side)
 
