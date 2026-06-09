@@ -60,7 +60,7 @@ outlet_y = 7.35           # divider outlet offset from its axis
 port_half = 29.5          # valve port half-length
 bridge_gap = 2.0          # stem-to-stem gap between Y-A and Y-B
 tube = 15.0               # straight valve-port-tip to divider-outlet run
-valve_y = 20.45 + cell.valve.body_x_pad   # valve Y offset — minimum body clearance plus the X keep-out pad
+valve_y = 20.45           # valve Y offset — minimum that keeps bodies clear
 
 divider_x = (2 * div_half + bridge_gap) / 2.0  # divider center offset
 _aim_len = port_half + tube                     # valve center to divider outlet
@@ -119,7 +119,7 @@ wall_thickness = 3.0
 wall_clear = 1.0
 wall_top_z = 60.0
 stack_pitch = wall_top_z - bot_z
-valve_y_extent = 40.61 + cell.valve.body_x_pad   # valve reach in |Y| after aiming (valve sits the pad further out)
+valve_y_extent = 40.61             # valve reach in |Y| after aiming
 
 _socket_x = [
     abs(vx + _rot2(sx * corner_pos, sy * corner_pos, _aim_phi(vx, vy, dx, dy))[0])
