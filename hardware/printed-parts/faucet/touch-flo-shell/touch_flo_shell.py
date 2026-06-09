@@ -134,17 +134,19 @@ zone2_outer_z_bottom = zone1_outer_z_top  # [16.25 mm](ZONE1_OUTER_Z_TOP)
 # ENTIRE shell-to-body retention — the shank nut only clamps the metal body to
 # the plate, not the shell.
 #
-# Nested chain (BNUOK M3 SHCS 304 SS, head ~5.43 mm measured; ruthex M3 insert):
-#   counterbore 5.55 -> boss 9.55 (2 mm wall) -> boss hole 9.65 (0.1 mm slip)
-#   -> pod (boss hole + 2 mm shell wall).
-# Counterbore + boss are plate-side; only the boss hole + pod live in the shell.
-# Pods are SOLID here — the boss hole is not carved yet.
-base_pod_hole_dia = 9.65            # pocket that receives the plate boss (boss 9.55 + 0.1 slip)
-base_pod_wall = 2.0                 # shell wall around the pocket
-base_pod_radius = base_pod_hole_dia / 2.0 + base_pod_wall
+# Nested fastener chain (BNUOK M3 SHCS 304 SS, head ~5.43 mm measured; ruthex
+# M3 insert). Counterbore + boss are plate-side; only the boss hole + pod live
+# in the shell — but the whole chain is derived here so wall thickness is one
+# knob. Pods are SOLID here — the boss hole is not carved yet.
+base_pod_counterbore_dia = 5.55     # M3 SHCS head ~5.43 measured + ~0.1 clearance
+base_pod_wall = 3.0                 # wall added at each step (plate boss wall = shell wall)
+base_pod_slip = 0.10                # boss-to-hole diametral slip fit
+base_pod_boss_dia = base_pod_counterbore_dia + 2.0 * base_pod_wall  # plate boss OD
+base_pod_hole_dia = base_pod_boss_dia + base_pod_slip               # shell pocket
+base_pod_radius = base_pod_hole_dia / 2.0 + base_pod_wall           # pod outer
 base_pod_center_y = shell_center_y  # foot-circle (and plate) center line, +Y
 # Center slides outward as the pod grows: placed so the pod's inner edge sits
-# tangent to the body bore (a 2 mm wall from the pocket to the bore).
+# tangent to the body bore (a base_pod_wall-thick wall from the pocket to the bore).
 base_pod_center_x = math.sqrt(
     (body_bore_diameter / 2.0 + base_pod_radius) ** 2 - base_pod_center_y ** 2
 )
