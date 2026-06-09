@@ -173,6 +173,135 @@
   background: rgba(58, 58, 90, 0.9);
 }
 
+/* Edge-picker toggle — stacked above the x-ray toggle (ruler 16, xray 58,
+   edge 100), same pill styling as its siblings. */
+.cad-wrapper > .edge-pick-toggle {
+  position: absolute;
+  bottom: calc(env(safe-area-inset-bottom, 0px) + 100px);
+  left: calc(env(safe-area-inset-left, 0px) + 16px);
+  z-index: 11;
+  padding: 6px 10px;
+  background: rgba(35, 35, 66, 0.85);
+  color: var(--text);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  font: 13px -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, sans-serif;
+  cursor: pointer;
+  -webkit-appearance: none;
+  appearance: none;
+}
+.cad-wrapper > .edge-pick-toggle:hover {
+  background: rgba(58, 58, 90, 0.9);
+}
+.cad-wrapper > .edge-pick-toggle.off {
+  opacity: 0.55;
+}
+
+/* Edge selection readout — top-left panel, shown only while an edge is
+   selected. Three rows (edge / endpoints / click), each copyable on its own,
+   plus a Copy-all. */
+.cad-wrapper > .edge-panel {
+  position: absolute;
+  top: calc(env(safe-area-inset-top, 0px) + 16px);
+  left: calc(env(safe-area-inset-left, 0px) + 16px);
+  z-index: 12;
+  width: min(86vw, 430px);
+  background: rgba(20, 20, 40, 0.93);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 9px 10px 9px;
+  color: var(--text);
+  font: 12px -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, sans-serif;
+  box-shadow: 0 6px 24px rgba(0, 0, 0, 0.45);
+  display: none;
+}
+.cad-wrapper > .edge-panel.show {
+  display: block;
+}
+.edge-panel-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 4px;
+}
+.edge-panel-title {
+  font-weight: 600;
+  color: var(--text-2);
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+  font-size: 11px;
+}
+.edge-panel-close {
+  background: none;
+  border: none;
+  color: var(--text-2);
+  font-size: 18px;
+  line-height: 1;
+  cursor: pointer;
+  padding: 0 2px;
+  -webkit-appearance: none;
+  appearance: none;
+}
+.edge-panel-close:hover {
+  color: var(--text);
+}
+.edge-row {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  padding: 5px 0;
+  border-top: 1px solid rgba(255, 255, 255, 0.07);
+}
+.edge-row-label {
+  flex: 0 0 60px;
+  color: var(--text-2);
+  padding-top: 2px;
+}
+.edge-row-val {
+  flex: 1 1 auto;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  font-size: 12px;
+  line-height: 1.4;
+  word-break: break-word;
+  cursor: pointer;
+  user-select: text;
+}
+.edge-row-copy {
+  flex: 0 0 auto;
+  padding: 2px 7px;
+  background: rgba(58, 58, 90, 0.6);
+  color: var(--text);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  font-size: 11px;
+  cursor: pointer;
+  -webkit-appearance: none;
+  appearance: none;
+}
+.edge-row-copy:hover {
+  background: rgba(74, 74, 112, 0.9);
+}
+.edge-panel-all {
+  margin-top: 8px;
+  width: 100%;
+  padding: 6px 10px;
+  background: rgba(58, 58, 90, 0.6);
+  color: var(--text);
+  border: 1px solid var(--border);
+  border-radius: 7px;
+  font-size: 12px;
+  cursor: pointer;
+  -webkit-appearance: none;
+  appearance: none;
+}
+.edge-panel-all:hover {
+  background: rgba(74, 74, 112, 0.9);
+}
+.edge-copied {
+  color: #7CFF8A !important;
+  border-color: #7CFF8A !important;
+}
+
 /* Minimap for 2D PanZoom surfaces (mermaid + drawings). 2D equivalent
    of the 3D ViewCube gizmo: outer box is the wrapper at the default
    (fit) view, inner box is what portion of that view is currently
