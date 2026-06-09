@@ -49,9 +49,11 @@ let enabled = (() => {
 // --- edge data (lazy, per loaded model) ---
 let edgeSource = null;  // occt result.meshes for the live model
 let activeEdges = null; // reconstructed BREP edges, or null until built
+let isAssembly = false; // >1 solid — then occt carries real component names
 
 export function setActiveEdges(result) {
   edgeSource = (result && result.meshes) || null;
+  isAssembly = !!(edgeSource && edgeSource.length > 1);
   activeEdges = null; // invalidate — rebuild on demand
   clearSelection();
   setHover(null);
@@ -119,7 +121,9 @@ function reconstructEdges(meshes) {
 
     for (const segs of byPair.values()) {
       for (const path of chainSegments(segs)) {
-        edges.push(makeEdge(path.map((k) => keyToPos.get(k))));
+        const e = makeEdge(path.map((k) => keyToPos.get(k)));
+        e.solid = mesh.name; // assembly component name (occt), for the blob
+        edges.push(e);
       }
     }
     faceBase += faces.length;
@@ -178,7 +182,10 @@ function makeEdge(points) {
     center.multiplyScalar(1 / (points.length - 1));
     let r = 0;
     for (let i = 0; i < points.length - 1; i++) r += points[i].distanceTo(center);
-    return { points, a, b, length, kind: "loop", center, radius: r / (points.length - 1) };
+    // plane normal from two ~perpendicular radii (the loop is planar)
+    const k = Math.max(1, Math.floor((points.length - 1) / 4));
+    const axis = points[0].clone().sub(center).cross(points[k].clone().sub(center)).normalize();
+    return { points, a, b, length, kind: "loop", center, radius: r / (points.length - 1), axis };
   }
 
   // straight: every interior point lies on the chord
@@ -191,11 +198,13 @@ function makeEdge(points) {
     proj.copy(ab).multiplyScalar(t).add(a);
     maxDev = Math.max(maxDev, p.distanceTo(proj));
   }
-  if (maxDev < STRAIGHT_TOL) return { points, a, b, length, kind: "straight" };
+  if (maxDev < STRAIGHT_TOL) {
+    return { points, a, b, length, kind: "straight", dir: ab.clone().normalize() };
+  }
 
-  // curved: try to fit a circle (arc) so we can report a radius
+  // curved: try to fit a circle (arc) so we can report a radius + plane
   const fit = fitCircle(points);
-  if (fit) return { points, a, b, length, kind: "arc", center: fit.center, radius: fit.radius };
+  if (fit) return { points, a, b, length, kind: "arc", center: fit.center, radius: fit.radius, axis: fit.axis };
   return { points, a, b, length, kind: "curve" };
 }
 
@@ -221,7 +230,7 @@ function fitCircle(points) {
   for (const p of points) {
     if (Math.abs(p.distanceTo(center) - radius) > tol) return null;
   }
-  return { center, radius };
+  return { center, radius, axis: n.clone().normalize() };
 }
 
 // --- screen-space picking ---
@@ -372,11 +381,11 @@ function fpt(v) { return `x=${fnum(v.x)} y=${fnum(v.y)} z=${fnum(v.z)}`; }
 function edgeText(sel) {
   const e = sel.edge;
   if (e.kind === "loop") {
-    return `circle ⌀${(e.radius * 2).toFixed(3)} · center ${fpt(e.center)} · circumference ${e.length.toFixed(3)}`;
+    return `circle ⌀${(e.radius * 2).toFixed(3)} · center ${fpt(e.center)} · circumference ${e.length.toFixed(3)} · axis ${fpt(e.axis)}`;
   }
   let tail;
-  if (e.kind === "straight") tail = `len ${e.length.toFixed(3)} · straight`;
-  else if (e.kind === "arc") tail = `len ${e.length.toFixed(3)} · arc r=${e.radius.toFixed(3)}`;
+  if (e.kind === "straight") tail = `len ${e.length.toFixed(3)} · straight · dir ${fpt(e.dir)}`;
+  else if (e.kind === "arc") tail = `len ${e.length.toFixed(3)} · arc r=${e.radius.toFixed(3)} · center ${fpt(e.center)} · axis ${fpt(e.axis)}`;
   else tail = `len ${e.length.toFixed(3)} · curve`;
   return `${fpt(e.a)} → ${fpt(e.b)} · ${tail}`;
 }
@@ -398,9 +407,18 @@ function headerName(file) { return file.split("/").pop().replace(/\.step$/i, "")
 
 function allText(sel) {
   const endsLabel = sel.edge.kind === "loop" ? "center" : "endpoints";
+  const lines = [];
   const file = currentFile();
-  const head = file ? `file: ${repoPath(file)}\n` : "";
-  return `${head}edge: ${edgeText(sel)}\n${endsLabel}: ${endsText(sel)}\nclick: ${clickText(sel)}`;
+  if (file) lines.push(`file: ${repoPath(file)}`);
+  // Only assemblies carry real component names; single-solid STEPs get a
+  // generic translator string from occt, which is noise — skip it.
+  if (isAssembly && sel.edge.solid && !/^Open CASCADE STEP translator/.test(sel.edge.solid)) {
+    lines.push(`solid: ${sel.edge.solid}`);
+  }
+  lines.push(`edge: ${edgeText(sel)}`);
+  lines.push(`${endsLabel}: ${endsText(sel)}`);
+  lines.push(`click: ${clickText(sel)}`);
+  return lines.join("\n");
 }
 
 // --- copy panel ---
@@ -531,6 +549,7 @@ export function clearEdgePicker() {
   setHover(null);
   edgeSource = null;
   activeEdges = null;
+  isAssembly = false;
 }
 
 export function setEdgePickEnabled(on) {
