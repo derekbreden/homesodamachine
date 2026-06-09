@@ -46,7 +46,7 @@ _tee_path = _hw / "reference" / "tee-connector" / "tee-connector.step"
 
 # --- Shared geometry ------------------------------------------------------
 port_half = 29.5  # valve port half-length
-row_half = cell.valve.body_radius + cell.valve.body_x_pad  # column-pair half-spacing; bodies clear by the keep-out pad
+row_half = cell.valve.body_width_x / 2  # column-pair half-spacing = the valve's X half-width
 tee_run_half = 20.07  # Tee run half-length (port to center)
 valve_x = tee_run_half + port_half  # valve-center X; the inner port tip lands on the Tee run port
 
