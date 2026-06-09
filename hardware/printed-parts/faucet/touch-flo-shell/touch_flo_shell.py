@@ -152,6 +152,8 @@ base_pod_center_x = math.sqrt(
 )
 base_pod_z_bottom = zone1_z_bottom  # deck plane, Z=0
 base_pod_z_top = zone1_outer_z_top  # match the base-cylinder top
+base_pod_hole_depth = 8.0           # boss engagement depth up from the deck; an
+                                    # M3x12 reaches a ruthex M3 insert seated above
 
 
 # LEVER SWING CLEARANCE — chamfer wedge cut into the top -Y corner of
@@ -544,6 +546,24 @@ def build_base_pods() -> cq.Workplane:
     ).val()
     minus = plus.mirror("YZ")
     return cq.Workplane(obj=plus.fuse(minus))
+
+
+def build_base_pod_holes() -> cq.Workplane:
+    """Blind boss-hole pockets — ⌀base_pod_hole_dia cylinders rising
+    base_pod_hole_depth from the foot bottom into each pod, receiving the plate
+    bosses. No insert pocket yet."""
+    holes = [
+        (
+            _horizontal_plane(base_pod_z_bottom)
+            .moveTo((x_sign * base_pod_center_x, base_pod_center_y))
+            .circle(base_pod_hole_dia / 2.0)
+            .extrude(base_pod_hole_depth)
+            .unwrap()
+            .val()
+        )
+        for x_sign in (+1, -1)
+    ]
+    return cq.Workplane(obj=holes[0].fuse(holes[1]))
 
 
 def _rect_cove_cyl(
@@ -1068,6 +1088,7 @@ def build_shell() -> cq.Workplane:
     outer = cq.Workplane(obj=outer_parts[0].fuse(*outer_parts[1:]))
     inner_parts = [
         build_zone1_inner_cut().val(),
+        build_base_pod_holes().val(),
         build_zone2_inner_cut().val(),
         build_zone3_inner_cut().val(),
         build_zone3_fill_inner_cut().val(),
