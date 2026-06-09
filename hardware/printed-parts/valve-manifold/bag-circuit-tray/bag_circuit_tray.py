@@ -1,7 +1,7 @@
 """Bag-circuit tray: 4 axis-aligned Beduan valves + 2 Tee fittings.
 
 The [fluid-topology](../../../topology/fluid-topology.md) bag circuit as a
-tray. The four valves sit ports-along-X with no aiming tilt, butted in two
+tray. The four valves sit ports-along-X with no aiming tilt, paired in two
 columns: V-F over V-I on the −X side, V-E over V-H on the +X side. Each row's
 two valves connect **in-line through a Tee** whose run lies along X; the Tee's
 branch rises (+Z) to the bag.
@@ -46,7 +46,7 @@ _tee_path = _hw / "reference" / "tee-connector" / "tee-connector.step"
 
 # --- Shared geometry ------------------------------------------------------
 port_half = 29.5  # valve port half-length
-row_half = cell.valve.body_radius  # butted-pair valves touch bodies at the row center
+row_half = cell.valve.body_radius + cell.valve.body_x_pad  # column-pair half-spacing; bodies clear by the keep-out pad
 tee_run_half = 20.07  # Tee run half-length (port to center)
 valve_x = tee_run_half + port_half  # valve-center X; the inner port tip lands on the Tee run port
 
