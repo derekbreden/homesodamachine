@@ -1,6 +1,8 @@
-"""Touch-Flo mounting plate — printed PETG disc that supports the
-harvested Touch-Flo faucet body and the two flavor tubes that pass
-alongside it. See README.md."""
+"""Touch-Flo mounting plate — printed PETG plate that supports the
+harvested Touch-Flo faucet body and the two flavor tubes beside it, and
+carries the three screw bosses that bolt up into the shell. Its footprint
+matches the shell foot exactly (foot circle + two lateral teardrop pods +
+front D-pod), reusing the shell's own geometry. See README.md."""
 
 import sys
 from pathlib import Path
@@ -17,6 +19,7 @@ sys.path.insert(
     str(next(p for p in _here.parents if (p / "tools" / "docgen").is_dir()) / "tools"),
 )
 sys.path.insert(0, str(_here.parent))  # for _touch_flo_interface
+sys.path.insert(0, str(_here.parent / "touch-flo-shell"))  # for the shared footprint
 sys.path.insert(0, str(next(p for p in _here.parents if p.name == "printed-parts") / "cadlib"))
 from _cadq_export import export_step
 from _touch_flo_interface import (
@@ -25,18 +28,25 @@ from _touch_flo_interface import (
     pill_width_y,
     shank_hole_diameter,
 )
+from touch_flo_shell import (
+    shell_outer_cyl,
+    _base_pod_teardrops,
+    _base_pod_front,
+    base_pod_centers,
+    base_pod_boss_dia,
+    base_pod_counterbore_dia,
+    base_pod_shank_dia,
+    base_pod_hole_depth,
+)
 from docgen import substitute_md, substitute_py_comments
 from world_workplane import WorldWorkplane, xy_plane_z_up
 
 
-# [54.35 mm](PLATE_D) disc.
-plate_radius = 54.35 / 2
 # [4 mm](PLATE_T) thick.
 plate_thickness = 4.0
 # Top face flush with the deck plane (Z=0); plate hangs below.
 plate_z_range = (-plate_thickness, 0.0)
-# Disc is offset [3.175 mm](PLATE_Y) toward the back of the appliance
-# (+Y in the +Z-up frame); no lateral offset.
+# Footprint center at world (0, +[3.175 mm](PLATE_Y)); body axis at (0, 0).
 plate_center = (0.0, +3.175)
 
 
@@ -46,19 +56,21 @@ shank_hole_radius = shank_hole_diameter / 2
 shank_hole_center = (0.0, 0.0)
 
 
-# Flavor-tube pill slot. The two 1/4" LLDPE tubes are centered at
-# ±flavor_tube_x_offset in the lateral direction (separation
-# [6.35 mm](TUBE_CENTER_X)), combined into one X-oriented pill
-# (rounded-rectangle) opening.
-# [18.93 mm](PLATE_FLAVOR_Y) +Y offset of pill slot center from world origin
-# (toward the back of the appliance).
+# Flavor-tube pill slot — two 1/4" tubes [6.35 mm](TUBE_CENTER_X) apart,
+# combined into one X-oriented pill at world (0, +[18.93 mm](PLATE_FLAVOR_Y)):
+# [13.4 mm](PLATE_PILL_L) long (X) × [7.05 mm](PLATE_PILL_W) wide (Y).
 pill_slot_center = (0.0, +flavor_tube_depth)
-# [13.4 mm](PLATE_PILL_L) pill long axis — lateral, along world X.
-# [7.05 mm](PLATE_PILL_W) pill short axis — depth, along world Y.
 
 
-# [2 mm](TOP_FILLET_R) fillet on the top outer edge.
-top_outer_fillet_r = 2.0
+# Screw bosses — one per pod center, rising from the plate top into the
+# shell's boss holes. [11.55 mm](BOSS_D) OD, [7.5 mm](BOSS_H) tall (tops out
+# shy of the hole so the plate seats on the foot, not the boss on the hole
+# floor). Each bored for an M3x12 SHCS: a [5.55 mm](CBORE_D) counterbore
+# through the full plate (head recess — the head bears on the boss base and
+# stays clear of the gasket) and a [3.9 mm](SHANK_D) shank clearance up to the
+# shell's heat-set insert.
+boss_seat_clearance = 0.5
+boss_height = base_pod_hole_depth - boss_seat_clearance
 
 
 def vertical_cylinder(center, radius, z_range):
@@ -88,13 +100,31 @@ def vertical_x_slot(center, length_x, width_y, z_range):
 
 
 def build_mounting_plate() -> cq.Workplane:
-    """Disc with shank hole, flavor-tube pill slot, and top-outer-edge fillet."""
-    plate = vertical_cylinder(plate_center, plate_radius, plate_z_range)
-    plate = plate.faces(">Z").edges().fillet(top_outer_fillet_r)
+    """Shell-foot footprint (foot circle + two teardrops + front D-pod) as a
+    plate_thickness slab, three screw bosses rising from the top, each
+    counterbored (full plate) and shank-bored, plus the shank hole and the
+    flavor-tube pill."""
+    z0 = plate_z_range[0]
+    foot = shell_outer_cyl(z0, plate_thickness).val()
+    teardrops = _base_pod_teardrops(z0, plate_thickness).val()
+    front = _base_pod_front(z0, plate_thickness).val()
+    plate = cq.Workplane(obj=foot.fuse(teardrops, front))
+
+    for center in base_pod_centers:
+        plate = plate.union(
+            vertical_cylinder(center, base_pod_boss_dia / 2, (0.0, boss_height))
+        )
+
+    for center in base_pod_centers:
+        plate = plate.cut(
+            vertical_cylinder(center, base_pod_counterbore_dia / 2, (z0, 0.0))
+        )
+        plate = plate.cut(
+            vertical_cylinder(center, base_pod_shank_dia / 2, (0.0, boss_height))
+        )
 
     plate = plate.cut(vertical_cylinder(shank_hole_center, shank_hole_radius, plate_z_range))
     plate = plate.cut(vertical_x_slot(pill_slot_center, pill_length_x, pill_width_y, plate_z_range))
-
     return plate
 
 
@@ -103,38 +133,41 @@ def main():
 
     out = _here / "touch-flo-mounting-plate.step"
     export_step(plate, str(out))
-
     print(f"-> {out.name}")
 
     variables = {
-        "PLATE_D": f"{2 * plate_radius:.4g} mm",
         "PLATE_T": f"{plate_thickness:.4g} mm",
-        "PLATE_Y": f"{plate_center[1]:.4g} mm",
         "PLATE_Z_BOTTOM": f"{plate_z_range[0]:.4g}",
+        "PLATE_Y": f"{plate_center[1]:.4g} mm",
+        "BOSS_D": f"{base_pod_boss_dia:.4g} mm",
+        "BOSS_H": f"{boss_height:.4g} mm",
+        "CBORE_D": f"{base_pod_counterbore_dia:.4g} mm",
+        "SHANK_D": f"{base_pod_shank_dia:.4g} mm",
         "SHANK_HOLE_D": f"{2 * shank_hole_radius:.4g} mm",
         "SHANK_OD": f"{shank_diameter_nominal:.4g} mm",
         "TUBE_CENTER_X": f"{pill_length_x - pill_width_y:.4g} mm",
         "PLATE_FLAVOR_Y": f"{pill_slot_center[1]:.4g} mm",
         "PLATE_PILL_L": f"{pill_length_x:.4g} mm",
         "PLATE_PILL_W": f"{pill_width_y:.4g} mm",
-        "TOP_FILLET_R": f"{top_outer_fillet_r:.4g} mm",
     }
 
     substitute_md(
         _here / "README.md",
         variables=variables,
         expected_counts={
-            "PLATE_D": 1,
             "PLATE_T": 1,
-            "PLATE_Y": 1,
             "PLATE_Z_BOTTOM": 1,
+            "PLATE_Y": 1,
+            "BOSS_D": 1,
+            "BOSS_H": 1,
+            "CBORE_D": 1,
+            "SHANK_D": 1,
             "SHANK_HOLE_D": 1,
             "SHANK_OD": 1,
             "TUBE_CENTER_X": 1,
             "PLATE_FLAVOR_Y": 1,
             "PLATE_PILL_L": 1,
             "PLATE_PILL_W": 1,
-            "TOP_FILLET_R": 1,
         },
     )
     print("-> README.md")
@@ -143,7 +176,6 @@ def main():
         Path(__file__),
         variables=variables,
         expected_counts={
-            "PLATE_D": 1,
             "PLATE_T": 1,
             "PLATE_Y": 1,
             "SHANK_OD": 1,
@@ -151,7 +183,10 @@ def main():
             "PLATE_FLAVOR_Y": 1,
             "PLATE_PILL_L": 1,
             "PLATE_PILL_W": 1,
-            "TOP_FILLET_R": 1,
+            "BOSS_D": 1,
+            "BOSS_H": 1,
+            "CBORE_D": 1,
+            "SHANK_D": 1,
         },
     )
     print(f"-> {Path(__file__).name}")
