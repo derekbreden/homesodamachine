@@ -84,8 +84,10 @@ from _touch_flo_interface import (
 # Hole positions and disc center match the TPU gasket and the upper
 # mounting plate.
 
-# [54.35 mm](PLATE_D) disc OD — matches the upper mounting plate and
-# the TPU gasket.
+# [54.35 mm](PLATE_D) disc OD — a plain disc sized as a below-counter
+# load-spreader and pull-out backing. Shares its center, shank, and pill
+# positions with the upper mounting plate and TPU gasket, but not their
+# (shell-foot) outline.
 disc_diameter = 54.35
 disc_radius = disc_diameter / 2.0
 disc_cx = 3.175
