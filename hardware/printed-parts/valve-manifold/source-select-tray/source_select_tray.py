@@ -60,12 +60,34 @@ outlet_y = 7.35           # divider outlet offset from its axis
 port_half = 29.5          # valve port half-length
 bridge_gap = 2.0          # stem-to-stem gap between Y-A and Y-B
 tube = 15.0               # straight valve-port-tip to divider-outlet run
-valve_y = 20.45           # valve Y offset — minimum that keeps bodies clear
 
 divider_x = (2 * div_half + bridge_gap) / 2.0  # divider center offset
 _aim_len = port_half + tube                     # valve center to divider outlet
 _outlet_x = divider_x + div_half                 # |x| of a divider outlet
+
+
+def _upper_valve_at(vy):
+    """The +Y valve solid, aimed at its outlet and dropped at its (−X, vy)."""
+    vx = _outlet_x + math.sqrt(_aim_len ** 2 - (vy - outlet_y) ** 2)
+    ang = math.degrees(math.atan2(outlet_y - vy, vx - _outlet_x)) - 90.0
+    return _valve_solid.rotate((0, 0, 0), (0, 0, 1), ang).translate((-vx, vy, 0.0))
+
+
+# valve_y is solved from the valve solid: the two facing valves mirror across
+# Y = 0, so the tightest clear offset is where the aimed body just reaches the
+# centerline. The square top-box corners, swung out by the aim, reach furthest
+# in — so this tracks the valve's X width on its own.
+_valve_solid = cell.valve.build_beduan_solenoid().val()
+_lo, _hi = outlet_y + 1.0, 30.0
+for _ in range(40):
+    _mid = (_lo + _hi) / 2.0
+    if _upper_valve_at(_mid).BoundingBox().ymin < 0.0:
+        _lo = _mid
+    else:
+        _hi = _mid
+valve_y = _hi
 valve_x = _outlet_x + math.sqrt(_aim_len ** 2 - (valve_y - outlet_y) ** 2)
+valve_y_extent = _upper_valve_at(valve_y).BoundingBox().ymax  # plate reach in |Y|
 
 # Per valve: (center_x, center_y, outlet_x, outlet_y) it aims at.
 valves = [
@@ -119,7 +141,6 @@ wall_thickness = 3.0
 wall_clear = 1.0
 wall_top_z = 60.0
 stack_pitch = wall_top_z - bot_z
-valve_y_extent = 40.61             # valve reach in |Y| after aiming
 
 _socket_x = [
     abs(vx + _rot2(sx * corner_pos, sy * corner_pos, _aim_phi(vx, vy, dx, dy))[0])
