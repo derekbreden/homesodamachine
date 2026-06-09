@@ -139,6 +139,7 @@ zone2_outer_z_bottom = zone1_outer_z_top  # [16.25 mm](ZONE1_OUTER_Z_TOP)
 # and pod live in the shell — but the whole chain is derived here so wall
 # thickness is one knob.
 base_pod_counterbore_dia = 5.55     # M3 SHCS head ~5.43 measured + ~0.1 clearance
+base_pod_shank_dia = 3.9            # M3 shank clearance — plate boss bore up to the insert
 base_pod_wall = 3.0                 # wall added at each step (plate boss wall = shell wall)
 base_pod_slip = 0.10                # boss-to-hole diametral slip fit
 base_pod_boss_dia = base_pod_counterbore_dia + 2.0 * base_pod_wall  # plate boss OD
@@ -156,6 +157,13 @@ base_pod_center_x = math.sqrt(
 # bore, base_pod_wall from the pocket to the bore), straight in front.
 base_pod_front_center_x = 0.0
 base_pod_front_center_y = -(body_bore_diameter / 2.0 + base_pod_radius)  # -24.825
+# All three pod centers (both laterals + the front) — the boss-hole/insert
+# pattern, shared with the plate so its bosses land on exactly the same points.
+base_pod_centers = [
+    (+base_pod_center_x, base_pod_center_y),
+    (-base_pod_center_x, base_pod_center_y),
+    (base_pod_front_center_x, base_pod_front_center_y),
+]
 base_pod_z_bottom = zone1_z_bottom  # deck plane, Z=0
 base_pod_z_top = zone1_outer_z_top  # match the base-cylinder top
 base_pod_hole_depth = 8.0           # boss engagement depth up from the deck; an
@@ -567,18 +575,16 @@ def build_base_pods() -> cq.Workplane:
     return _base_pod_teardrops(base_pod_z_bottom, base_pod_z_top - base_pod_z_bottom)
 
 
-def build_base_pod_front() -> cq.Workplane:
-    """The front (−Y) pod — the foam-shell boss idiom (see
+def _base_pod_front(z_bottom: float, z_height: float) -> cq.Workplane:
+    """The front (−Y) pod solid over a Z range — the foam-shell boss idiom (see
     cold-core/_outer_shell.build_attachment_bosses): a ⌀(2*base_pod_radius)
     cylinder over the boss, plus a flat-sided web box of the same width running
     inboard (+Y) to fuse into the foot wall. A 'D': round front, flat sides
-    (parallel to Y) into the wall, tangent to the body bore. Placeholder for
-    the third screw boss; no pocket or insert yet."""
+    (parallel to Y) into the wall, tangent to the body bore."""
     r = base_pod_radius
     cx, cy = base_pod_front_center_x, base_pod_front_center_y
-    z_height = base_pod_z_top - base_pod_z_bottom
     boss = (
-        _horizontal_plane(base_pod_z_bottom)
+        _horizontal_plane(z_bottom)
         .moveTo((cx, cy))
         .circle(r)
         .extrude(z_height)
@@ -590,7 +596,7 @@ def build_base_pod_front() -> cq.Workplane:
     web_inboard_y = base_pod_center_y - math.sqrt(shell_outer_r ** 2 - r ** 2) + 2.5
     wy0, wy1 = sorted((cy, web_inboard_y))
     web = (
-        _horizontal_plane(base_pod_z_bottom)
+        _horizontal_plane(z_bottom)
         .moveTo((cx, (wy0 + wy1) / 2.0))
         .rect(2.0 * r, wy1 - wy0)
         .extrude(z_height)
@@ -600,15 +606,21 @@ def build_base_pod_front() -> cq.Workplane:
     return cq.Workplane(obj=boss.fuse(web))
 
 
+def build_base_pod_front() -> cq.Workplane:
+    """The front (−Y) pod over the foot (deck plane to base-cylinder top),
+    placeholder for the third screw boss. No pocket or insert yet."""
+    return _base_pod_front(base_pod_z_bottom, base_pod_z_top - base_pod_z_bottom)
+
+
 def build_base_pod_holes() -> cq.Workplane:
     """Per-pod inner cuts: the blind boss-hole pocket (⌀base_pod_hole_dia rising
     base_pod_hole_depth from the foot bottom, receiving the plate boss) with the
     heat-set insert pocket (⌀base_pod_insert_dia, base_pod_insert_depth) stacked
     coaxially above it. The insert opening faces down onto the boss hole so the
-    M3x12 driven up from under the plate threads into it."""
+    M3x12 driven up from under the plate threads into it. Same pattern at all
+    three pod centers (both laterals + the front)."""
     cuts = []
-    for x_sign in (+1, -1):
-        center = (x_sign * base_pod_center_x, base_pod_center_y)
+    for center in base_pod_centers:
         boss_hole = (
             _horizontal_plane(base_pod_z_bottom)
             .moveTo(center)
@@ -626,7 +638,7 @@ def build_base_pod_holes() -> cq.Workplane:
             .val()
         )
         cuts.append(boss_hole.fuse(insert_pocket))
-    return cq.Workplane(obj=cuts[0].fuse(cuts[1]))
+    return cq.Workplane(obj=cuts[0].fuse(*cuts[1:]))
 
 
 def _rect_cove_cyl(
