@@ -568,16 +568,36 @@ def build_base_pods() -> cq.Workplane:
 
 
 def build_base_pod_front() -> cq.Workplane:
-    """The front (−Y) pod — a plain base_pod_radius cylinder over the foot
-    (deck plane to base-cylinder top), tangent to the body bore. Placeholder
-    for the third screw boss; no pocket or insert yet."""
-    return (
+    """The front (−Y) pod — the foam-shell boss idiom (see
+    cold-core/_outer_shell.build_attachment_bosses): a ⌀(2*base_pod_radius)
+    cylinder over the boss, plus a flat-sided web box of the same width running
+    inboard (+Y) to fuse into the foot wall. A 'D': round front, flat sides
+    (parallel to Y) into the wall, tangent to the body bore. Placeholder for
+    the third screw boss; no pocket or insert yet."""
+    r = base_pod_radius
+    cx, cy = base_pod_front_center_x, base_pod_front_center_y
+    z_height = base_pod_z_top - base_pod_z_bottom
+    boss = (
         _horizontal_plane(base_pod_z_bottom)
-        .moveTo((base_pod_front_center_x, base_pod_front_center_y))
-        .circle(base_pod_radius)
-        .extrude(base_pod_z_top - base_pod_z_bottom)
+        .moveTo((cx, cy))
+        .circle(r)
+        .extrude(z_height)
         .unwrap()
+        .val()
     )
+    # The web's flat sides (x = cx ± r) cross the foot cylinder at this front Y;
+    # run a little past it (toward the foot center) so it fuses solidly.
+    web_inboard_y = base_pod_center_y - math.sqrt(shell_outer_r ** 2 - r ** 2) + 2.5
+    wy0, wy1 = sorted((cy, web_inboard_y))
+    web = (
+        _horizontal_plane(base_pod_z_bottom)
+        .moveTo((cx, (wy0 + wy1) / 2.0))
+        .rect(2.0 * r, wy1 - wy0)
+        .extrude(z_height)
+        .unwrap()
+        .val()
+    )
+    return cq.Workplane(obj=boss.fuse(web))
 
 
 def build_base_pod_holes() -> cq.Workplane:
