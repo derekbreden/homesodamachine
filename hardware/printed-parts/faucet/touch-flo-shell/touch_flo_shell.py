@@ -154,6 +154,8 @@ base_pod_z_bottom = zone1_z_bottom  # deck plane, Z=0
 base_pod_z_top = zone1_outer_z_top  # match the base-cylinder top
 base_pod_hole_depth = 8.0           # boss engagement depth up from the deck; an
                                     # M3x12 reaches a ruthex M3 insert seated above
+base_pod_top_fillet = 3.0           # round the bump's top rim so it doesn't leave a
+                                    # sharp shelf where the cove recedes above it
 
 
 # LEVER SWING CLEARANCE — chamfer wedge cut into the top -Y corner of
@@ -513,41 +515,42 @@ def build_zone1_inner_cut() -> cq.Workplane:
 
 
 def build_base_pods() -> cq.Workplane:
-    """Two pods on the +-X sides of the foot — the foam-shell boss idiom (see
-    cold-core/_outer_shell.build_attachment_bosses): a ⌀(2*base_pod_radius)
-    cylinder over each boss, plus a flat-sided web box of the same width
-    running inboard to fuse into the foot wall. A 'D': round outboard, flat
-    sides (parallel to X) into the wall — no angled crossings into the
-    front/back. Placeholders; the boss hole is carved separately. Unioned into
-    the shell outer before the inner cuts."""
+    """Two solid pods on the +-X sides of the foot (deck plane up to the
+    base-cylinder top), placeholders for the lateral screw bosses — no pockets
+    or inserts yet. Each pod is a teardrop: a base_pod_radius round outboard
+    end (over the boss) with two FLAT sides that are the common tangent lines
+    between the pod circle and the foot cylinder. Tangent at both ends, so the
+    pod blends into the foot with no concave notch. Unioned into the shell
+    outer before the inner cuts, so the body bore trims any inboard material."""
+    R = shell_outer_r
     r = base_pod_radius
+    cx = base_pod_center_x
     cy = base_pod_center_y
+    # Common external tangent between foot (O=(0,cy), R) and pod (C=(cx,cy), r):
+    # unit normal to the tangent line, at perpendicular distance R from O, r from C.
+    nx = (R - r) / cx
+    ny = math.sqrt(1.0 - nx * nx)
+    Tf_u = (R * nx, cy + R * ny)        # tangent point on the foot, upper
+    Tp_u = (cx + r * nx, cy + r * ny)   # tangent point on the pod, upper
+    tip = (cx + r, cy)                  # outboard tip
+    Tp_l = (cx + r * nx, cy - r * ny)
+    Tf_l = (R * nx, cy - R * ny)
     z_height = base_pod_z_top - base_pod_z_bottom
-    # The web's flat sides (y = cy ± r) cross the foot cylinder here; run the
-    # web a little past that so it fuses solidly into the foot wall.
-    web_inboard_x = math.sqrt(shell_outer_r ** 2 - r ** 2) - 2.5
-    parts = []
-    for x_sign in (+1, -1):
-        cx = x_sign * base_pod_center_x
-        boss = (
-            _horizontal_plane(base_pod_z_bottom)
-            .moveTo((cx, cy))
-            .circle(r)
-            .extrude(z_height)
-            .unwrap()
-            .val()
-        )
-        wx0, wx1 = sorted((cx, x_sign * web_inboard_x))
-        web = (
-            _horizontal_plane(base_pod_z_bottom)
-            .moveTo(((wx0 + wx1) / 2.0, cy))
-            .rect(wx1 - wx0, 2.0 * r)
-            .extrude(z_height)
-            .unwrap()
-            .val()
-        )
-        parts.append(boss.fuse(web))
-    return cq.Workplane(obj=parts[0].fuse(*parts[1:]))
+    plus = (
+        cq.Workplane("XY")
+        .workplane(offset=base_pod_z_bottom)
+        .moveTo(*Tf_u)
+        .lineTo(*Tp_u)
+        .threePointArc(tip, Tp_l)
+        .lineTo(*Tf_l)
+        .close()
+        .extrude(z_height)
+        .faces(">Z")
+        .edges()
+        .fillet(base_pod_top_fillet)
+    ).val()
+    minus = plus.mirror("YZ")
+    return cq.Workplane(obj=plus.fuse(minus))
 
 
 def build_base_pod_holes() -> cq.Workplane:
