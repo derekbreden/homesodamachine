@@ -21,7 +21,7 @@ bodies are clash-free.
 
 ## The tray
 
-A frame plate (Z [-3](TRAY_BOT_Z) → [6](TRAY_TOP_Z)), **[88](NOZ_PLATE_W) × [72](NOZ_PLATE_D) × [63](STACK_PITCH) mm** (+X edge trimmed to the Tee run
+A frame plate (Z [-3](TRAY_BOT_Z) → [6](TRAY_TOP_Z)), **[88](NOZ_PLATE_W) × [74](NOZ_PLATE_D) × [63](STACK_PITCH) mm** (+X edge trimmed to the Tee run
 port), with a **solid floor**: one valve cradle (four sockets + a port saddle)
 and a **groove** for each Tee run cut into the floor. Two **side walls** (±Y)
 rise to Z = [60](WALL_TOP_Z) for a **[63](STACK_PITCH) mm stack pitch**; the X-ends stay open for the ports
