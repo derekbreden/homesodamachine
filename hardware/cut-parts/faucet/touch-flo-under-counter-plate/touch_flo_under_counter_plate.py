@@ -16,9 +16,10 @@ motion.
 HOLE POSITIONS MATCH THE TPU GASKET AND UPPER MOUNTING PLATE
 ============================================================
 The mounting plate, TPU gasket, and under-counter plate share the
-same disc center, shank-hole position, and pill-slot position. The
-under-counter plate adds the two open-edge channels at those hole
-positions.
+shank-hole position and pill-slot position. This plate does NOT share
+their disc center: it centers its disc on the shank (the worst-case
+deck-hole center) so its coverage margin holds on every side. It adds
+the two open-edge channels at those hole positions.
 
 CHANNEL DIRECTION
 =================
@@ -81,14 +82,17 @@ from _touch_flo_interface import (
 )
 
 # Dimensions in mm. DXF $INSUNITS = 4 (millimeters).
-# Hole positions and disc center match the TPU gasket and the upper
-# mounting plate.
+# Hole positions match the TPU gasket and the upper mounting plate; the disc
+# itself centers on the shank (see below), not on their shared +3.175 center.
 
-# Disc center. A plain disc — a below-counter load-spreader and pull-out
-# backing — sharing its center, shank, and pill positions with the upper
-# mounting plate and TPU gasket, but not their (shell-foot) outline. The OD is
-# derived below, once the pill (the farthest deck feature) is in hand.
-disc_cx = 3.175
+# Disc centered ON THE SHANK (0, 0), not on the inherited +3.175 upper-plate
+# center. The user centers the deck hole on the shank, so the shank is the
+# worst-case hole center; centering the disc there guarantees the coverage
+# margin on every side — an offset center starves whichever side it leans away
+# from (here, the tight −Y bowl side). A plain disc — below-counter
+# load-spreader and pull-out backing — sharing the shank and pill POSITIONS
+# with the upper plate and gasket, but neither their center nor their outline.
+disc_cx = 0.0
 disc_cy = 0.0
 
 shank_cx = 0.0
@@ -122,13 +126,15 @@ pill_bot_cap_cy = pill_cy - (pill_half_long - pill_cap_radius)   # [-3.175 mm](P
 pill_left_x = pill_cx - pill_half_short     # [15.4 mm](PILL_LEFT_X)
 pill_right_x = pill_cx + pill_half_short    # [22.45 mm](PILL_RIGHT_X)
 
-# Disc OD = reach to the pill's outer edge (pill_right_x, the farthest deck
-# feature from the disc center) + a margin. That margin is set by the blind
-# slide-on install — channel runway plus solid steel around the pockets — NOT
-# by bearing: the shank nut is hand-tightened (~1-4 kN of clamp), which this
-# disc spreads to ~2 MPa on the counter (about 5x under particleboard, ~100x
-# under stone), so the counter never governs the size. [54.55 mm](PLATE_D) disc.
-disc_reach_margin = 8.0
+# Disc OD = distance from the (shank-centered) disc center to the farthest deck
+# feature — the pill's outer edge, pill_right_x — plus the coverage margin. The
+# worst case is a user who centers one round hole on the shank, big enough to
+# clear the tubes: it then reaches pill_right_x in EVERY direction, so the disc
+# must clear it by the margin all the way around. Bearing isn't the driver (the
+# hand-tightened nut, ~1-4 kN, spreads to ~2 MPa here — ~5x under particleboard,
+# ~100x under stone); this is hole coverage — the same thin-edge danger zone the
+# shell's front pod fixed. [54.9 mm](PLATE_D) disc.
+disc_reach_margin = 5.0
 disc_radius = (pill_right_x - disc_cx) + disc_reach_margin
 disc_diameter = 2.0 * disc_radius
 
@@ -179,7 +185,7 @@ def make_dxf():
     doc.header["$INSUNITS"] = 4   # 4 = millimeters
     msp = doc.modelspace()
 
-    top_of_disc = (disc_cx, disc_cy + disc_radius)                     # ([3.175 mm](DISC_CX), [27.27 mm](TOP_OF_DISC_Y))
+    top_of_disc = (disc_cx, disc_cy + disc_radius)                     # ([0 mm](DISC_CX), [27.45 mm](TOP_OF_DISC_Y))
 
     # Shank channel — extends in -Y from the shank's bottom semicircle
     # to the rim, width [12.6 mm](SHANK_HOLE_D) in X.
