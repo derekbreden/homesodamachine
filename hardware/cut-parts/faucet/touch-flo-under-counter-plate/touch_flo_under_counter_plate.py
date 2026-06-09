@@ -84,12 +84,10 @@ from _touch_flo_interface import (
 # Hole positions and disc center match the TPU gasket and the upper
 # mounting plate.
 
-# [54.35 mm](PLATE_D) disc OD — a plain disc sized as a below-counter
-# load-spreader and pull-out backing. Shares its center, shank, and pill
-# positions with the upper mounting plate and TPU gasket, but not their
-# (shell-foot) outline.
-disc_diameter = 54.35
-disc_radius = disc_diameter / 2.0
+# Disc center. A plain disc — a below-counter load-spreader and pull-out
+# backing — sharing its center, shank, and pill positions with the upper
+# mounting plate and TPU gasket, but not their (shell-foot) outline. The OD is
+# derived below, once the pill (the farthest deck feature) is in hand.
 disc_cx = 3.175
 disc_cy = 0.0
 
@@ -123,6 +121,16 @@ pill_top_cap_cy = pill_cy + (pill_half_long - pill_cap_radius)   # [3.175 mm](PI
 pill_bot_cap_cy = pill_cy - (pill_half_long - pill_cap_radius)   # [-3.175 mm](PILL_BOT_CAP_CY)
 pill_left_x = pill_cx - pill_half_short     # [15.4 mm](PILL_LEFT_X)
 pill_right_x = pill_cx + pill_half_short    # [22.45 mm](PILL_RIGHT_X)
+
+# Disc OD = reach to the pill's outer edge (pill_right_x, the farthest deck
+# feature from the disc center) + a margin. That margin is set by the blind
+# slide-on install — channel runway plus solid steel around the pockets — NOT
+# by bearing: the shank nut is hand-tightened (~1-4 kN of clamp), which this
+# disc spreads to ~2 MPa on the counter (about 5x under particleboard, ~100x
+# under stone), so the counter never governs the size. [54.55 mm](PLATE_D) disc.
+disc_reach_margin = 8.0
+disc_radius = (pill_right_x - disc_cx) + disc_reach_margin
+disc_diameter = 2.0 * disc_radius
 
 # [1.5 mm](FILLET_R) fillet radius at the four channel-mouth corners
 # where a vertical channel wall meets the disc rim.
@@ -171,7 +179,7 @@ def make_dxf():
     doc.header["$INSUNITS"] = 4   # 4 = millimeters
     msp = doc.modelspace()
 
-    top_of_disc = (disc_cx, disc_cy + disc_radius)                     # ([3.175 mm](DISC_CX), [27.18 mm](TOP_OF_DISC_Y))
+    top_of_disc = (disc_cx, disc_cy + disc_radius)                     # ([3.175 mm](DISC_CX), [27.27 mm](TOP_OF_DISC_Y))
 
     # Shank channel — extends in -Y from the shank's bottom semicircle
     # to the rim, width [12.6 mm](SHANK_HOLE_D) in X.
