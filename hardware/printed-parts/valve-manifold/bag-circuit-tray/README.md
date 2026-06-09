@@ -12,7 +12,7 @@ Tee Y-H (branch → Bag B).
 
 ## Arrangement
 
-The valves sit **ports-along-X with no aiming tilt**, butted in two columns —
+The valves sit **ports-along-X with no aiming tilt**, paired in two columns —
 V-F over V-I on the −X side, V-E over V-H on the +X side. Each row's two valves
 connect **in-line through a Tee** ([reference](/hardware/reference/tee-connector/README.md))
 whose run lies along X, so the inner ports meet the run ports straight-on (no
@@ -29,7 +29,7 @@ six bodies are clash-free.
 
 ## The tray
 
-A frame plate (Z [-3](TRAY_BOT_Z) → [6](TRAY_TOP_Z)), **[137](BAG_PLATE_W) × [72](BAG_PLATE_D) × [63](STACK_PITCH) mm**, with a **solid floor**. Each
+A frame plate (Z [-3](TRAY_BOT_Z) → [6](TRAY_TOP_Z)), **[137](BAG_PLATE_W) × [74](BAG_PLATE_D) × [63](STACK_PITCH) mm**, with a **solid floor**. Each
 valve drops into four corner sockets and a port saddle along X; each **Tee run
 sets into a groove** cut into the floor at port height (the floor stays solid
 beneath it). Two **side walls** (±Y) rise to Z = [60](WALL_TOP_Z) for a **[63](STACK_PITCH) mm stack

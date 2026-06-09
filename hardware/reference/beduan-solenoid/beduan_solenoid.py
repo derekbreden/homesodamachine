@@ -33,6 +33,7 @@ body_width = 32.25                  # footprint width; also the central-boss dia
 body_radius = body_width / 2.0  # [16.12 mm](BODY_RADIUS)
 corner_boss_radius = 6.8 / 2.0
 top_box_height = 5.0
+body_x_pad = 1.0   # per-side X keep-out beyond the body footprint; the trays pack to it
 
 body_top_z = 30.6
 boss_z_range = (6.0, body_top_z)              # central boss; corner posts run full-height below it
@@ -90,7 +91,7 @@ def build_body():
     top_box = (
         cq.Workplane("XY")
         .workplane(offset=top_box_z_range[0])
-        .box(body_width, body_width, top_box_height, centered=(True, True, False))
+        .box(body_width + 2 * body_x_pad, body_width, top_box_height, centered=(True, True, False))
     )
     return body.union(top_box)
 
@@ -152,6 +153,7 @@ def main():
         _here.parent / "README.md",
         variables={
             "BODY_DIA": f"{body_width:.4g}",
+            "TOP_BOX_X": f"{body_width + 2 * body_x_pad:.4g}",
             "POST_DIA": f"{2 * corner_boss_radius:.4g}",
             "PORT_DIA": f"{2 * port_radius:.4g}",
             "PORT_LEN": f"{port_length:.4g}",
@@ -171,7 +173,7 @@ def main():
             "SPADE_Y_END": f"{coil_face_y + spade_length:.4g}",
         },
         expected_counts={
-            "BODY_DIA": 9, "POST_DIA": 2, "PORT_DIA": 1, "PORT_LEN": 2,
+            "BODY_DIA": 6, "TOP_BOX_X": 3, "POST_DIA": 2, "PORT_DIA": 1, "PORT_LEN": 2,
             "BODY_TOP_Z": 7, "BOSS_Z0": 3, "TOP_BOX_H": 2, "TOP_BOX_Z0": 2,
             "COIL_DEPTH": 2, "COIL_H": 1, "COIL_TOP": 2,
             "SPADE_W": 1, "SPADE_LEN": 1, "SPADE_T": 1,
