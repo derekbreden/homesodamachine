@@ -220,18 +220,31 @@
 }
 .edge-panel-head {
   display: flex;
-  align-items: center;
-  justify-content: space-between;
+  align-items: baseline;
+  gap: 7px;
   margin-bottom: 4px;
 }
 .edge-panel-title {
+  flex: 0 0 auto;
   font-weight: 600;
   color: var(--text-2);
   letter-spacing: 0.03em;
   text-transform: uppercase;
   font-size: 11px;
 }
+.edge-panel-file {
+  flex: 1 1 auto;
+  min-width: 0;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  color: var(--text-2);
+  opacity: 0.85;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  font-size: 11px;
+}
 .edge-panel-close {
+  flex: 0 0 auto;
   background: none;
   border: none;
   color: var(--text-2);

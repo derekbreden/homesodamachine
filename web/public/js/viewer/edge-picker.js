@@ -385,9 +385,22 @@ function endsText(sel) {
   return e.kind === "loop" ? fpt(e.center) : `${fpt(e.a)} · ${fpt(e.b)}`;
 }
 function clickText(sel) { return fpt(sel.point); }
+
+// The open file as the viewer fetched it (edition-root-relative), plus the
+// repo-relative path for the Copy-all locator and the bare name for the header.
+function currentFile() { return (state.mountedDetail && state.mountedDetail.file) || null; }
+function repoPath(file) {
+  let lite = false;
+  try { lite = localStorage.getItem("hsmEdition") === "lite"; } catch {}
+  return (lite ? "pie-in-the-sky/lite" : "hardware") + "/" + file;
+}
+function headerName(file) { return file.split("/").pop().replace(/\.step$/i, ""); }
+
 function allText(sel) {
   const endsLabel = sel.edge.kind === "loop" ? "center" : "endpoints";
-  return `edge: ${edgeText(sel)}\n${endsLabel}: ${endsText(sel)}\nclick: ${clickText(sel)}`;
+  const file = currentFile();
+  const head = file ? `file: ${repoPath(file)}\n` : "";
+  return `${head}edge: ${edgeText(sel)}\n${endsLabel}: ${endsText(sel)}\nclick: ${clickText(sel)}`;
 }
 
 // --- copy panel ---
@@ -403,6 +416,8 @@ function buildPanel() {
   const title = document.createElement("span");
   title.className = "edge-panel-title";
   title.textContent = "Edge";
+  const fileEl = document.createElement("span");
+  fileEl.className = "edge-panel-file";
   const close = document.createElement("button");
   close.type = "button";
   close.className = "edge-panel-close";
@@ -410,8 +425,10 @@ function buildPanel() {
   close.title = "Clear selection";
   close.addEventListener("click", () => clearSelection());
   head.appendChild(title);
+  head.appendChild(fileEl);
   head.appendChild(close);
   panel.appendChild(head);
+  panel._fileEl = fileEl;
 
   const mkRow = (label) => {
     const row = document.createElement("div");
@@ -459,6 +476,9 @@ function showPanel(sel) {
   panelRows.ends.val.textContent = endsText(sel);
   panelRows.ends.lab.textContent = sel.edge.kind === "loop" ? "Center" : "Endpoints";
   panelRows.click.val.textContent = clickText(sel);
+  const file = currentFile();
+  panel._fileEl.textContent = file ? headerName(file) : "";
+  panel._fileEl.title = file ? repoPath(file) : "";
   panel.classList.add("show");
 }
 
