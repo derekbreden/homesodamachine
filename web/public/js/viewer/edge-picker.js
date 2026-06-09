@@ -367,7 +367,7 @@ function setHover(hit) {
 
 // --- text formatting for the copy blob ---
 function fnum(n) { const s = n.toFixed(3); return s === "-0.000" ? "0.000" : s; }
-function fpt(v) { return `(${fnum(v.x)}, ${fnum(v.y)}, ${fnum(v.z)})`; }
+function fpt(v) { return `x=${fnum(v.x)} y=${fnum(v.y)} z=${fnum(v.z)}`; }
 
 function edgeText(sel) {
   const e = sel.edge;
