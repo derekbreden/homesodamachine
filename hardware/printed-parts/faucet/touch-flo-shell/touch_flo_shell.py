@@ -1247,14 +1247,15 @@ def _cradle_outline() -> cq.Workplane:
 def _cradle_block() -> cq.Workplane:
     """Collar block: plain slab from the transition-stock bottom to just
     over the face plane, spanning the device length, trimmed to the
-    rounded plan outline. The cavity bands carve the pocket out of this;
-    how the slab blends into the swept spout skin is an open design
-    item — the skirt below _block_n_bottom is the stock for it."""
+    rounded plan outline, with the skirt chamfer already cut. The
+    chamfer applies here — before the block joins the spout — so it can
+    only ever remove cradle material, never the swept tube. The cavity
+    bands carve the pocket out of this."""
     slab = _cradle_prism(
         display_collar_half_x, 0.0, display_s_top,
         _cradle_n_bottom, display_wall_top_n,
     )
-    return slab.intersect(_cradle_outline())
+    return slab.intersect(_cradle_outline()).cut(_skirt_chamfer())
 
 
 def _cradle_block_tip_owned() -> cq.Workplane:
@@ -1365,12 +1366,16 @@ def _display_head_wall() -> cq.Workplane:
     """Bend-piece head wall past the display's top end — closes the
     cradle's top end and is the display's axial stop as SPLIT B closes.
     Same bottom and top planes as the collar block, so the cradle reads
-    as one rectangle. Unioned after the cavity cut; trimmed to the
-    shared plan outline."""
-    return _cradle_prism(
-        display_collar_half_x, display_s_top, display_s_top + display_cap_thickness,
-        _cradle_n_bottom, display_wall_top_n,
-    ).intersect(_cradle_outline())
+    as one rectangle; trimmed to the shared plan outline, with the skirt
+    chamfer cut before it joins the spout (same rule as the block)."""
+    return (
+        _cradle_prism(
+            display_collar_half_x, display_s_top, display_s_top + display_cap_thickness,
+            _cradle_n_bottom, display_wall_top_n,
+        )
+        .intersect(_cradle_outline())
+        .cut(_skirt_chamfer())
+    )
 
 
 def _cradle_slide_clearance() -> cq.Workplane:
@@ -1517,7 +1522,6 @@ def build_shell() -> cq.Workplane:
         _display_cavity().val(),
         _display_wire_hole().val(),
         _display_drain_hole().val(),
-        _skirt_chamfer().val(),
     ]
     inner = cq.Workplane(obj=inner_parts[0].fuse(*inner_parts[1:]))
     return outer.cut(inner)
@@ -1582,7 +1586,6 @@ def build_shell_top(full_shell: cq.Workplane | None = None) -> cq.Workplane:
         .cut(tip_inner)
         .cut(_display_cavity())
         .cut(_display_drain_hole())
-        .cut(_skirt_chamfer())
     )
 
     plug_outer = _build_bend_overlap(
