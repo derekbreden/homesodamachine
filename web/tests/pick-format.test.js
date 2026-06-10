@@ -12,6 +12,7 @@ import {
   scoreEdge,
   formatFace,
   fpt,
+  pickFileToViewerPath,
 } from "../public/js/viewer/pick-format.js";
 
 const STRAIGHT_LINE =
@@ -165,4 +166,16 @@ test("formatFace round-trips through parsePicks", () => {
 
 test("fpt formats negative zero away", () => {
   assert.equal(fpt({ x: -0.0001, y: 1, z: -2 }), "x=0.000 y=1.000 z=-2.000");
+});
+
+test("pickFileToViewerPath strips the repo prefix per edition", () => {
+  assert.equal(
+    pickFileToViewerPath("hardware/printed-parts/faucet/touch-flo-mounting-gasket/touch-flo-mounting-gasket.step"),
+    "printed-parts/faucet/touch-flo-mounting-gasket/touch-flo-mounting-gasket.step",
+  );
+  assert.equal(
+    pickFileToViewerPath("pie-in-the-sky/lite/reference/a/b.step"),
+    "reference/a/b.step",
+  );
+  assert.equal(pickFileToViewerPath("reference/a/b.step"), "reference/a/b.step");
 });
