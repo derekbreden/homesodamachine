@@ -23,11 +23,8 @@
 /* Display DPI (LVGL's recommended default; sizes are set explicitly) */
 #define LV_DPI_DEF 130
 
-/* Fonts: Montserrat with kerning at sizes we need */
+/* Fonts: only the theme default (the UI is image-only) */
 #define LV_FONT_MONTSERRAT_14 1
-#define LV_FONT_MONTSERRAT_16 1
-#define LV_FONT_MONTSERRAT_28 1
-#define LV_FONT_MONTSERRAT_48 1
 
 /* Disable debug monitors */
 #define LV_USE_PERF_MONITOR 0
