@@ -55,6 +55,12 @@ function numAfter(text, re) {
   return m ? parseFloat(m[1]) : null;
 }
 
+// Copy-all `file:` lines are repo-prefixed (hardware/… or the lite
+// edition root); the viewer's own paths are edition-root-relative.
+export function pickFileToViewerPath(file) {
+  return String(file).trim().replace(/^(pie-in-the-sky\/lite|hardware)\//, "");
+}
+
 export function parsePicks(text) {
   const picks = [];
   const files = [];

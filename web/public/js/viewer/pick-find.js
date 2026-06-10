@@ -16,8 +16,9 @@ import { LineGeometry } from "three/addons/lines/LineGeometry.js";
 import { LineMaterial } from "three/addons/lines/LineMaterial.js";
 import { scene, camera, renderer, controls } from "./scene.js";
 import { state } from "./state.js";
-import { parsePicks, matchPicks } from "./pick-format.js";
+import { parsePicks, matchPicks, pickFileToViewerPath } from "./pick-format.js";
 import { getFindData, faceHighlightGeometry } from "./edge-picker.js";
+import { loadStepFile } from "./step.js";
 
 const FIND = 0xff5ce1; // found-entity highlight (magenta — distinct from select/hover)
 
@@ -177,11 +178,30 @@ function setPanelOpen(open) {
   if (panelOpen) textarea.focus();
 }
 
-function runFind() {
+async function runFind() {
   if (!state.mountedDetail || state.mountedDetail.type !== "step") return;
   const { picks, files } = parsePicks(textarea.value);
   clearOverlay();
-  if (!picks.length) { setStatus("nothing recognizable in the paste"); return; }
+  if (!picks.length && !files.length) { setStatus("nothing recognizable in the paste"); return; }
+
+  // A file: line names where the picks live — go there first. The load
+  // swaps the model inside the open modal (same flow live.js uses); the
+  // hash is rewritten in place so close/back behave as if the user had
+  // opened this file directly.
+  const wanted = files.length ? pickFileToViewerPath(files[0]) : null;
+  if (wanted && wanted !== state.mountedDetail.file) {
+    setStatus(`opening ${wanted.split("/").pop()}…`);
+    await loadStepFile(wanted);
+    if (!state.mountedDetail || state.mountedDetail.file !== wanted) {
+      setStatus(`couldn't open ${wanted}`);
+      return;
+    }
+    state.currentDetail = { type: "step", file: wanted };
+    history.replaceState(null, "", "#step:" + encodeURIComponent(wanted));
+    const pill = document.querySelector(".cv-filename");
+    if (pill) pill.textContent = wanted.split("/").pop().replace(/\.step$/i, "");
+  }
+  if (!picks.length) { setStatus("opened — no picks to highlight"); return; }
 
   const { edges, faces } = getFindData();
   const results = matchPicks(picks, edges, faces);
@@ -193,12 +213,7 @@ function runFind() {
     else if (r.type === "face") { addFaceHighlight(r.index, box); matched++; }
     else if (r.type === "point") { addPointHighlight(r.pick.p, box); matched++; }
   }
-  let status = `${matched}/${results.length} matched`;
-  const cur = state.mountedDetail.file;
-  if (files.length && !files.some((f) => f.endsWith(cur))) {
-    status += " · picks name a different file";
-  }
-  setStatus(status);
+  setStatus(`${matched}/${results.length} matched`);
   flyToBox(box);
 }
 
