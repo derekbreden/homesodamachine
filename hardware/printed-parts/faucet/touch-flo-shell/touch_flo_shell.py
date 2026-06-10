@@ -1174,6 +1174,20 @@ _pcb_band_half_x = display_pcb_width / 2.0 + display_cradle_clearance
 _pcb_band_n_top = display_floor_n + display_pcb_top_z - 0.05
 _housing_band_half_x = display_housing_width / 2.0 + display_cradle_clearance
 _block_n_bottom = display_floor_n - 4.0
+# The collar's outer faces extend below _block_n_bottom by the width of
+# the bottom overhang beside the spout there (collar half-width minus
+# the slot surface's x at that level) — transition stock, not a
+# transition: a 45-degree blend from the new bottom edge would land on
+# the spout exactly at the old bottom level.
+_slot_end_arc_x = tube_shell_x_half_outer - (pill_width_y / 2.0 + zone5_wall)
+_skirt_drop = display_collar_half_x - (
+    _slot_end_arc_x
+    + math.sqrt(
+        (pill_width_y / 2.0 + zone5_wall) ** 2
+        - (_block_n_bottom - flavor_offset_y_from_water) ** 2
+    )
+)
+_cradle_n_bottom = _block_n_bottom - _skirt_drop
 
 
 def _tip_frame():
@@ -1216,7 +1230,7 @@ def _cradle_outline() -> cq.Workplane:
     layer; the head-wall end's plan shrinks as the print rises, which is
     the printable direction. The head-wall arcs run continuously across
     the block/head-wall seam."""
-    n0 = _block_n_bottom - 5.0
+    n0 = _cradle_n_bottom - 5.0
     n1 = display_wall_top_n + 5.0
     rounded = _cradle_prism(
         display_collar_half_x,
@@ -1231,13 +1245,14 @@ def _cradle_outline() -> cq.Workplane:
 
 
 def _cradle_block() -> cq.Workplane:
-    """Collar block: plain slab from below the skin to just over the face
-    plane, spanning the device length, trimmed to the rounded plan
-    outline. The cavity bands carve the pocket out of this; how the slab
-    blends into the swept spout skin is an open design item."""
+    """Collar block: plain slab from the transition-stock bottom to just
+    over the face plane, spanning the device length, trimmed to the
+    rounded plan outline. The cavity bands carve the pocket out of this;
+    how the slab blends into the swept spout skin is an open design
+    item — the skirt below _block_n_bottom is the stock for it."""
     slab = _cradle_prism(
         display_collar_half_x, 0.0, display_s_top,
-        _block_n_bottom, display_wall_top_n,
+        _cradle_n_bottom, display_wall_top_n,
     )
     return slab.intersect(_cradle_outline())
 
@@ -1296,7 +1311,7 @@ def _display_head_wall() -> cq.Workplane:
     shared plan outline."""
     return _cradle_prism(
         display_collar_half_x, display_s_top, display_s_top + display_cap_thickness,
-        _block_n_bottom, display_wall_top_n,
+        _cradle_n_bottom, display_wall_top_n,
     ).intersect(_cradle_outline())
 
 
@@ -1415,7 +1430,7 @@ def build_shell() -> cq.Workplane:
     unioned, with the display cradle on the dispense tip. Split for
     printing into three pieces along the gooseneck: build_shell_bottom
     (angled-spout), build_shell_middle (upper-bend), build_shell_top
-    (dispense-tip). The cradle's head wall unions after the cuts."""
+    (dispense-tip)."""
     outer_parts = [
         build_zone1_outer().val(),
         build_base_pods().val(),
@@ -1428,6 +1443,7 @@ def build_shell() -> cq.Workplane:
         _tube_shell_outer_section(zone5_z_bottom, zone5_height).val(),
         build_zone6_outer().val(),
         _cradle_block().val(),
+        _display_head_wall().val(),
     ]
     outer = cq.Workplane(obj=outer_parts[0].fuse(*outer_parts[1:]))
     inner_parts = [
@@ -1445,7 +1461,7 @@ def build_shell() -> cq.Workplane:
         _display_drain_hole().val(),
     ]
     inner = cq.Workplane(obj=inner_parts[0].fuse(*inner_parts[1:]))
-    return outer.cut(inner).union(_display_head_wall())
+    return outer.cut(inner)
 
 
 def build_shell_bottom(full_shell: cq.Workplane | None = None) -> cq.Workplane:
