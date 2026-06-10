@@ -1,7 +1,7 @@
 # Generate fw_version.h with a build timestamp on every build.
 # SCons uses content hashing, so we must change actual file content
 # (not just mtime) to force recompilation of main.cpp.
-# Works for all three environments — outputs to the correct source dir.
+# Works for all environments — outputs to the correct source dir.
 Import("env")
 import time
 import os
@@ -16,6 +16,8 @@ if env_name == "rp2040_display":
     path = "firmware/src_display/fw_version.h"
 elif env_name == "esp32s3_config":
     path = "firmware/src_config/fw_version.h"
+elif env_name == "esp32s3_faucet":
+    path = "firmware/src_faucet/fw_version.h"
 else:
     path = "firmware/src/fw_version.h"
 
