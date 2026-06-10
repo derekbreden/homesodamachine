@@ -448,10 +448,11 @@ def build_lever():
 #
 # Native frame: X = width, Y = length, Z = outward thickness; the feet
 # plane (bounding back) at z = 0, screen faces +Z. Seated on the tip:
-# long axis along the tip, screen toward the user, lower edge flush
-# with the tip end, feet display_pocket_inset below the shell's outer
-# face above the flavor pill — the inset, and the web it leaves over
-# the pill bore, are the shell's display-cradle constants.
+# long axis along the tip, screen toward the user, lower edge one
+# end-wall thickness up the tip (behind the shell's PCB cover), feet
+# display_pocket_inset below the shell's outer face above the flavor
+# pill — the inset, the web it leaves over the pill bore, and the end
+# wall are the shell's display-cradle constants.
 display_pocket_inset = touch_flo_shell.display_pocket_inset
 # Active (lit) display area, on the front face.
 display_screen_width = 17.75
@@ -479,9 +480,10 @@ def _seat_on_tip(part):
     offset out along the tip's top normal so the feet plane sits
     display_pocket_inset below the shell's outer face above the flavor
     pill (the two flavor tubes stack above the water tube here, so they
-    set the skin). The housing's lower edge is anchored flush with the
-    tip end (the dispense nozzle); it extends up the tip from there (the
-    far end is unconstrained)."""
+    set the skin). The housing's lower edge is anchored one end-wall
+    thickness up the tip from the tip end — behind the shell's PCB
+    cover; it extends up the tip from there (the far end is
+    unconstrained)."""
     tip_below_horiz_rad = (gn_bend1_sweep_rad + gn_bend2_sweep_rad) - math.pi / 2.0
     top_normal = cq.Vector(
         0.0, -math.sin(tip_below_horiz_rad), math.cos(tip_below_horiz_rad)
@@ -501,12 +503,15 @@ def _seat_on_tip(part):
         + touch_flo_shell.pill_width_y / 2.0
         + touch_flo_shell.zone5_wall
     )
-    # Anchor the housing's lower (nozzle-end) edge flush with the tip end,
-    # at the flavor-pill outer face minus the inset; it extends up the tip.
+    # Anchor the housing's lower (nozzle-end) edge one end-wall thickness
+    # up the tip from the tip end (behind the shell's PCB cover), at the
+    # flavor-pill outer face minus the inset; it extends up the tip.
     seat = (
         tip_end
         + top_normal.multiply(flavor_pill_outer_from_water - display_pocket_inset)
-        - tip_axis.multiply(display_housing_length / 2.0)
+        - tip_axis.multiply(
+            display_housing_length / 2.0 + touch_flo_shell.display_end_wall_min
+        )
     )
     return (
         part
