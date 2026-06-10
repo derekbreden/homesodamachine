@@ -5,6 +5,10 @@
 
 import { test } from "node:test";
 import assert from "node:assert/strict";
+import { execFileSync } from "node:child_process";
+import fs from "node:fs";
+import path from "node:path";
+import { fileURLToPath } from "node:url";
 
 import {
   parsePicks,
@@ -14,6 +18,8 @@ import {
   fpt,
   pickFileToViewerPath,
 } from "../public/js/viewer/pick-format.js";
+
+const REPO_ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..", "..");
 
 const STRAIGHT_LINE =
   "edge: x=-6.500 y=-147.096 z=191.380 → x=-6.500 y=-151.041 z=194.691 · len 5.150 · straight · dir x=0.000 y=-0.766 z=0.643";
@@ -166,6 +172,23 @@ test("formatFace round-trips through parsePicks", () => {
 
 test("fpt formats negative zero away", () => {
   assert.equal(fpt({ x: -0.0001, y: 1, z: -2 }), "x=0.000 y=1.000 z=-2.000");
+});
+
+test("pick_text.py composer output round-trips through the parser", (t) => {
+  // hardware/scripts/pick_text.py is the CAD-side composer; its demo
+  // emits one line of each kind off a small solid. Skipped when the
+  // CadQuery venv isn't present (CI without the toolchain).
+  const venvPython = path.join(REPO_ROOT, "tools", "cad-venv", "bin", "python");
+  const script = path.join(REPO_ROOT, "hardware", "scripts", "pick_text.py");
+  if (!fs.existsSync(venvPython) || !fs.existsSync(script)) {
+    return t.skip("cad venv or pick_text.py unavailable");
+  }
+  const out = execFileSync(venvPython, [script], { encoding: "utf8", timeout: 120_000 });
+  const { picks } = parsePicks(out);
+  const kinds = picks.map((p) => p.kind).sort();
+  assert.deepEqual(kinds, ["circle", "edge", "edge-arc", "face-cylinder", "face-plane", "point"]);
+  // Every non-empty line parsed — the composer emits nothing the parser drops.
+  assert.equal(picks.length, out.trim().split("\n").length);
 });
 
 test("pickFileToViewerPath strips the repo prefix per edition", () => {
