@@ -1118,10 +1118,13 @@ def _build_bend_overlap(sketch: cq.Sketch, *, side: str) -> cq.Workplane:
 # the pocket's straight-zone portion and the plug; the bend piece
 # carries everything beyond the junction — the cradle walls, their
 # below-floor flank pads, and the head wall closing the cradle's top
-# end — and presses the display in as the arc-slide joint closes. The
-# plug vacates everything radially outside the cradle's swept approach
-# path (its lowest sweep is the wall bottom at the junction, radius
-# gn_bend2_r + display_floor_n about the bend axis).
+# end — and presses the display in as the arc-slide joint closes.
+# Through the joint's overlap the pocket floor is the tip piece's tube
+# wall (the plug's top, shaved flush by the cavity); the bend piece
+# carries no floor there. The cradle never collides with the plug
+# during the slide: the walls and pads sit laterally outside it, and
+# the bend piece's material at the plug's width stays outside the
+# socket surface — the joint's own fit is the slide clearance.
 #
 # Retention: nothing overhangs the display face — the walls and head
 # wall all stop just over the face plane. Axially the device's rounded
@@ -1401,16 +1404,20 @@ def _display_head_wall() -> cq.Workplane:
     )
 
 
-def _cradle_slide_clearance() -> cq.Workplane:
-    """The bend piece's cradle — walls, flank pads, head wall — rides the
-    SPLIT B arc into place; its lowest sweep is the wall bottom at the
-    junction (radius gn_bend2_r + display_floor_n about the bend axis).
-    Beyond the junction the plug keeps nothing radially outside that
-    sweep, so the slide closes without collision. The hollow this leaves
-    is the same class as the socket's insertion lead."""
+def _middle_floor_clearance() -> cq.Workplane:
+    """The bend piece carries no floor through the joint's overlap — the
+    pocket floor there is the tip piece's tube wall. This clears the
+    sliver of bend-piece wall that rises past the socket surface toward
+    the floor plane under the display. Bounded outside the socket
+    surface and inside the pocket footprint, so the piece's flanks,
+    skin, and head wall are untouched."""
     center_y = water_tube_y - _path_center_bend2[0]
     center_z = zone5_z_top + _path_center_bend2[1]
-    inner_r = gn_bend2_r + display_floor_n - 0.3
+    socket_r = (
+        gn_bend2_r
+        + flavor_offset_y_from_water + pill_width_y / 2.0 + zone5_wall
+        - split_b_socket_shrink
+    )
     annulus = (
         cq.Workplane(cq.Plane(
             origin=cq.Vector(-40.0, center_y, center_z),
@@ -1418,13 +1425,14 @@ def _cradle_slide_clearance() -> cq.Workplane:
             normal=cq.Vector(1, 0, 0),
         ))
         .circle(120.0)
-        .circle(inner_r)
+        .circle(socket_r - 0.05)
         .extrude(80.0)
     )
-    beyond_junction = _cradle_prism(
-        60.0, gn_tip_straight_len, display_s_top + 60.0, -80.0, 120.0,
+    under_display = _cradle_prism(
+        _pcb_band_half_x, gn_tip_straight_len, display_s_top,
+        3.0, display_floor_n,
     )
-    return annulus.intersect(beyond_junction)
+    return annulus.intersect(under_display)
 
 
 def _web_drop_hole(s_pos: float, dia: float) -> cq.Workplane:
@@ -1590,39 +1598,34 @@ def build_shell_middle(full_shell: cq.Workplane | None = None) -> cq.Workplane:
         .cut(tip_section)
         .cut(bend_socket_cavity)
         .cut(_cradle_block_tip_owned())
-        .cut(_display_wire_hole())
+        .cut(_middle_floor_clearance())
     )
 
 
 def build_shell_top(full_shell: cq.Workplane | None = None) -> cq.Workplane:
     """Dispense-tip piece — male plug for the SPLIT B (bend↔tip) joint,
     carrying the cradle's straight-zone portion: pocket, PCB cover, and
-    walls up to the junction plane. The plug keeps nothing radially
-    outside the bend piece's cradle sweep — a partial-ring joint
-    engaging the water side and flanks."""
+    walls up to the junction plane. The plug keeps its full tube wall;
+    where it rises past the floor plane the cavity shaves it flush — its
+    top is the pocket floor through the joint's overlap."""
     _ = full_shell
     tip_outer = _build_tip_section(_tube_shell_outer_sketch())
     tip_inner = _build_tip_section(_tube_shell_inner_sketch())
-    tip = (
-        tip_outer
-        .union(_cradle_block_tip_owned())
-        .cut(tip_inner)
-        .cut(_display_cavity())
-        .cut(_display_drain_hole())
-    )
-
     plug_outer = _build_bend_overlap(
         _tube_shell_outer_shrunk_sketch(split_b_plug_shrink), side="plug",
     )
     plug_inner = _build_bend_overlap(_tube_shell_inner_sketch(), side="plug")
-    plug = (
-        plug_outer
-        .cut(plug_inner)
-        .cut(_cradle_slide_clearance())
+    plug = plug_outer.cut(plug_inner)
+
+    return (
+        tip_outer
+        .union(_cradle_block_tip_owned())
+        .union(plug)
+        .cut(tip_inner)
+        .cut(_display_cavity())
+        .cut(_display_drain_hole())
         .cut(_display_wire_hole())
     )
-
-    return tip.union(plug)
 
 
 def main():
