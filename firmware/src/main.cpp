@@ -56,7 +56,6 @@ uint8_t numS3Images = 0;  // updated at boot via QUERY_COUNT to S3
 #define ESP_CRCS_PATH      "/img_crcs.txt"
 #define FW_VERSION_PATH    "/fw_version.txt"
 #define USER_CONFIG_PATH   "/user_config.txt"
-#define FW_VERSION         FW_BUILD_TIME
 
 // ── Persistent log (survives reboots, ring buffer on LittleFS) ──
 PersistentLog plog(LittleFS, "/logs/system.log", 32768);  // 32KB budget
@@ -595,23 +594,25 @@ void applyFactoryDefaults() {
 
 // Check if this is a new firmware version (first boot after flash)
 bool checkFirstBoot() {
+  // Keyed on FW_BUILD_TIME (the full per-build timestamp): factory defaults
+  // re-apply on every flash, since the timestamp changes each build.
   File f = LittleFS.open(FW_VERSION_PATH, "r");
   if (f) {
     String stored = f.readStringUntil('\n');
     stored.trim();
     f.close();
-    if (stored == FW_VERSION) {
+    if (stored == FW_BUILD_TIME) {
       return false;  // same firmware — normal boot
     }
   }
 
   // New firmware (or first ever boot) — apply factory defaults
   Serial.println("First boot detected — applying factory defaults");
-  plog.println("First boot — applying factory defaults (fw=%s)", FW_VERSION);
+  plog.println("First boot — applying factory defaults (fw=%s)", FW_BUILD_TIME);
 
   // Write new version
   f = LittleFS.open(FW_VERSION_PATH, "w");
-  if (f) { f.println(FW_VERSION); f.close(); }
+  if (f) { f.println(FW_BUILD_TIME); f.close(); }
 
   // Delete user config so defaults take effect
   if (LittleFS.exists(USER_CONFIG_PATH)) {

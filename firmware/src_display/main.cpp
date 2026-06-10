@@ -475,7 +475,7 @@ static void processTextCommand(const char *cmd) {
 
   } else if (strcmp(cmd, "GET_VERSION") == 0) {
     char buf[48];
-    snprintf(buf, sizeof(buf), "VERSION:RP2040=%s", FW_BUILD_TIME);
+    snprintf(buf, sizeof(buf), "VERSION:RP2040=%s", FW_VERSION);
     proto.sendText(buf);
 
   } else if (strcmp(cmd, "LIST") == 0) {
