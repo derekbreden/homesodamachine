@@ -178,7 +178,7 @@ Peristaltic pumps, solenoids, bag-in-box connector, silicone delivery tubing, ba
 | John Guest PP0208E union tee, black polypropylene 1/4" (manifold Tees, Y-C/D/E/F/G/H/KA/KB) | [freshwatersystems.com](https://www.freshwatersystems.com/products/john-guest-union-tee-black-polypropylene-1-4) | 2 bags (20 tees) | $59.99 | ON-ORDER (ordered Jun 8, order WEBFWS100681220) |
 | John Guest Speedfit PP1208E 1/4" OD black polypropylene push-to-connect bulkhead union, 10-pack | [B00JYFU8MM](https://www.amazon.com/dp/B00JYFU8MM) | 1 pk (10) | $24.79 | ACQUIRED (delivered May 12) |
 | PureSec 1/4" RO push-to-connect 90° elbow bulkhead, white polypropylene, 5-pack | [B0968K4JRN](https://www.amazon.com/dp/B0968K4JRN) | 1 pk (5) | $11.79 | ACQUIRED (delivered May 29) |
-| uxcell silicone flat washer, ⌀16 ID × ⌀24 OD × 3 mm, clear, 10-pack — reservoir bulkhead wet-side face seal | [B07D23JJMR](https://www.amazon.com/dp/B07D23JJMR) | 1 pk (10) | $7.50 | ON-ORDER (placed Jun 7, order 112-8819640-4433810) |
+| uxcell silicone flat washer, ⌀16 ID × ⌀24 OD × 3 mm, clear, 10-pack — reservoir bulkhead wet-side face seal. Order #112-8819640-4433810, placed Jun 7, 2026 | [B07D23JJMR](https://www.amazon.com/dp/B07D23JJMR) | 1 pk (10) | $7.50 | ACQUIRED (delivered Jun 8) |
 | Craft Resin "Arts & Crafts" crystal-clear epoxy, 34 oz kit | [B07YCVVYFK](https://www.amazon.com/dp/B07YCVVYFK) | 1 kit (34 oz) | $26.80 | ACQUIRED (delivered May 29) |
 | Cambro food storage container 6 qt | [B001BZEQ44](https://www.amazon.com/dp/B001BZEQ44) | 1 | $21.45 | ACQUIRED |
 | Pinnacle Mercantile F-style HDPE bottle set | [B0CFP9RRSF](https://www.amazon.com/dp/B0CFP9RRSF) | 1 | $16.99 | ACQUIRED |
@@ -253,10 +253,10 @@ Ice-maker donor units and copper coil for the chill loop.
 | Part | ASIN link | Qty | $ | Status |
 |---|---|---|---|---|
 | ESP32-DevKitC-32E | [B09MQJWQN2](https://www.amazon.com/dp/B09MQJWQN2) | 1+ | $11.00 | ACQUIRED |
-| ESP32-DevKitC-32E (repeat ASIN). Order #112-2471492-3870616, placed Jun 7, 2026 | [B09MQJWQN2](https://www.amazon.com/dp/B09MQJWQN2) | 2 | $23.60 | ON-ORDER (arriving Jun 8) |
+| ESP32-DevKitC-32E (repeat ASIN). Order #112-2471492-3870616, placed Jun 7, 2026 | [B09MQJWQN2](https://www.amazon.com/dp/B09MQJWQN2) | 2 | $23.60 | ACQUIRED (delivered Jun 8) |
 | Waveshare RP2040 0.99" round touch LCD, CNC case — prototype external flavor display; dropped from the product, superseded by the faucet-mounted Waveshare ESP32-S3 1.47" touch LCD (B0FCF1MGT3 below). Retained as prototype stock. | [B0CTSPYND2](https://www.amazon.com/dp/B0CTSPYND2) | 2 | ~$25.73 ea | ACQUIRED |
 | Meshnology ESP32-S3 round rotary display 1.28" — enclosure-front config display (kept) | [B0G5Q4LXVJ](https://www.amazon.com/dp/B0G5Q4LXVJ) | 1 | bundle | ACQUIRED |
-| Waveshare ESP32-S3 1.47" capacitive-touch IPS LCD dev board, 172×320 (JD9853 driver + AXS5106L touch) — faucet-mounted flavor display + touch toggle. Order #112-7687617-6094631, placed Jun 7, 2026 | [B0FCF1MGT3](https://www.amazon.com/dp/B0FCF1MGT3) | 2 | $51.46 | ON-ORDER (arriving Jun 9) |
+| Waveshare ESP32-S3 1.47" capacitive-touch IPS LCD dev board, 172×320 (JD9853 driver + AXS5106L touch) — faucet-mounted flavor display + touch toggle. Order #112-7687617-6094631, placed Jun 7, 2026 | [B0FCF1MGT3](https://www.amazon.com/dp/B0FCF1MGT3) | 2 | $51.46 | ACQUIRED (delivered Jun 9) |
 
 ## 9. Electronics — I/O, drivers, sensors, power, DIN rail, connectors
 
@@ -283,7 +283,7 @@ Ice-maker donor units and copper coil for the chill loop.
 | Molence C45 PCB DIN-rail adapter clips (10 sets) | [B09KZHY8G4](https://www.amazon.com/dp/B09KZHY8G4) | 1 pk | $9.99 | ACQUIRED |
 | VAMRONE 35 mm DIN rail, 4" (6 pk) | [B0CDPVRY2W](https://www.amazon.com/dp/B0CDPVRY2W) | 1 pk | $6.99 | ACQUIRED |
 | ESP32 super breakout DIN-rail mount GPIO expansion | [B0BW4SJ5X2](https://www.amazon.com/dp/B0BW4SJ5X2) | 1 | $25.99 | ACQUIRED |
-| naughtystarts ESP32 screw-terminal GPIO breakout board, 3.5 mm terminals, for ESP-WROOM-32 / ESP32-DevKitC module (2 pc). Order #112-0981761-4377858, placed Jun 7, 2026 | [B0BYS6THLF](https://www.amazon.com/dp/B0BYS6THLF) | 1 pk (2) | $12.86 | ON-ORDER (arriving Jun 9) |
+| naughtystarts ESP32 screw-terminal GPIO breakout board, 3.5 mm terminals, for ESP-WROOM-32 / ESP32-DevKitC module (2 pc). Order #112-0981761-4377858, placed Jun 7, 2026 | [B0BYS6THLF](https://www.amazon.com/dp/B0BYS6THLF) | 1 pk (2) | $12.86 | ACQUIRED (delivered Jun 9) |
 | Baomain 0.11" male quick-disconnect spade (100 pk) | [B01MZZGAJP](https://www.amazon.com/dp/B01MZZGAJP) | 1 pk | $6.42 | ACQUIRED |
 | Haisstronica ratchet crimper, AWG 22–10 | [B08F3JKDD3](https://www.amazon.com/dp/B08F3JKDD3) | 1 | bundle | ACQUIRED |
 | Feggizuli 280 pc spade connector kit | [B0B4H54KPS](https://www.amazon.com/dp/B0B4H54KPS) | 1 pk | $8.25 | ACQUIRED |
@@ -297,7 +297,7 @@ Ice-maker donor units and copper coil for the chill loop.
 | CQRobot JST XH 2.54 mm 4-pin connector kit (50 sets / 300 pcs) | [B0B2RB524Y](https://www.amazon.com/dp/B0B2RB524Y) | 1 pk | $8.45 | ACQUIRED (delivered Apr 27) |
 | CQRobot JST XH 2.54 mm 6-pin connector kit (50 sets / 400 pcs) | [B0B2R8Q1JL](https://www.amazon.com/dp/B0B2R8Q1JL) | 1 pk | $9.19 | ACQUIRED (delivered Apr 27) |
 | CQRobot JST XH 2.54 mm 9-pin connector kit (30 sets / 330 pcs) | [B0B2R73RQB](https://www.amazon.com/dp/B0B2R73RQB) | 1 pk | $9.19 | ACQUIRED (delivered Apr 29) |
-| CQRobot JST XH 2.54 mm 10-pin connector kit (30 sets / 360 pcs) — for the MCP23017 GPIO port rows (VCC + GND + 8 GPIO = 10 holes; a 10-pin fills the footprint so it can't seat off-by-one, where the 9-pin kit was sized for the ULN2803A sides). Order #112-9768778-8444265, placed Jun 7, 2026 | [B0B2R93CV3](https://www.amazon.com/dp/B0B2R93CV3) | 1 pk | $9.64 | ON-ORDER (arriving Tue Jun 9) |
+| CQRobot JST XH 2.54 mm 10-pin connector kit (30 sets / 360 pcs) — for the MCP23017 GPIO port rows (VCC + GND + 8 GPIO = 10 holes; a 10-pin fills the footprint so it can't seat off-by-one, where the 9-pin kit was sized for the ULN2803A sides). Order #112-9768778-8444265, placed Jun 7, 2026 | [B0B2R93CV3](https://www.amazon.com/dp/B0B2R93CV3) | 1 pk | $9.64 | ACQUIRED (delivered Jun 9) |
 | CQRobot/Zhansheng JST XH 2.54 mm pre-crimped bonded ribbon kit (15 cm / 5.9", 12-conductor ribbons × 8 + loose housings 2/3/4/5/6/7/8/9/10/12 P) | [B0F6C7X5CR](https://www.amazon.com/dp/B0F6C7X5CR) | 1 pk | $15.86 | ACQUIRED (delivered Apr 27) |
 | Keszoox JST XH 2.54 mm pre-crimped wires, 50 cm × 22 AWG silicone, 20 pcs/pk in 10 colors | [B0F8HMQRRN](https://www.amazon.com/dp/B0F8HMQRRN) | 2 pk | $11.63 ea | ACQUIRED (delivered Apr 30) |
 | KWANGIL 22AWG 12-Conductor Cable, UL2464, High-Flexible Tinned Copper Unshielded, Matte Black, 25 ft | [B0CSD5QZ21](https://www.amazon.com/dp/B0CSD5QZ21) | 1 | $25.73 | ACQUIRED (delivered May 15) |
@@ -348,6 +348,7 @@ General shop equipment supporting fabrication, assembly, and teardown. Not proje
 | Part | ASIN link | Qty | $ | Status |
 |---|---|---|---|---|
 | VEVOR adjustable 48" workbench w/ power outlet, wheels, pegboard, 2000 lb load | [B0FCD13KKQ](https://www.amazon.com/dp/B0FCD13KKQ) | 2 | $172.64 ea | ACQUIRED |
+| NEIKO 01407A digital caliper, 0–6", stainless, inch/fraction/mm LCD — bench metrology (CAD reference measurements, incl. the faucet display housing/PCB dimensions). Order #114-9764609-4555460, placed Mar 22, 2026 | [B000GSLKIW](https://www.amazon.com/dp/B000GSLKIW) | 1 | $27.23 | ACQUIRED (delivered Mar 24) |
 
 ## 13. Printing consumables
 
@@ -396,6 +397,7 @@ Bench soldering capability for through-hole, wire-to-pad (pogo pin leads), and g
 | FAST CHIP low-melt SMD removal alloy, 4.5 ft — iron-only removal of the faucet display S3's USB-C connector and TF slot (keeps rework heat away from the panel glued to the far side of the PCB). Order #112-3079158-6326618, placed Jun 10, 2026 | [B00OOBIJ6I](https://www.amazon.com/dp/B00OOBIJ6I) | 1 | $15.00 | ON-ORDER (arriving Jun 11) |
 | ELEGOO polyimide high-temp tape, 4-roll bundle (1/8", 1/4", 1/2", 1") — masking around board-level rework. Order #112-0906598-6371411, placed Jun 10, 2026 | [B072Z92QZ2](https://www.amazon.com/dp/B072Z92QZ2) | 1 (4 rolls) | $10.71 | ON-ORDER (arriving Jun 11) |
 | iFixit precision tweezers set (extra-fine, angled, blunt; ESD coating) — board-level rework and BOOT-pad bridging on the faucet display S3. Order #112-2746979-9145060, placed Jun 10, 2026 | [B079K874CQ](https://www.amazon.com/dp/B079K874CQ) | 1 set (3) | $12.82 | ON-ORDER (arriving Jun 11) |
+| KATA micro flush cutters, 2-pack — precision side cutters for board-level work (header-strip cutting, lead trimming); shared with 3D-printing post-processing. Order #114-9764609-4555460, placed Mar 22, 2026 | [B0BBML9M2V](https://www.amazon.com/dp/B0BBML9M2V) | 1 pk (2) | $8.89 | ACQUIRED (delivered Mar 24) |
 
 ## 15. 3D printing equipment and filaments (Bambu Lab direct)
 
@@ -494,13 +496,13 @@ Industrial-supply orders direct from McMaster-Carr (mcmaster.com). First McMaste
 
 | Status | $ |
 |---|---|
-| ACQUIRED — hardware, tools & infra (§§1–17, 19, 20) | [$25,354.65](LEDGER_ACQUIRED_HW) |
+| ACQUIRED — hardware, tools & infra (§§1–17, 19, 20) | [$25,495.83](LEDGER_ACQUIRED_HW) |
 | ACQUIRED — capitalized contract labor (§18) | [$2,607.92](LEDGER_LABOR) |
-| ACQUIRED (combined) | [$27,962.57](LEDGER_ACQUIRED_COMBINED) |
-| ON-ORDER | [$214.29](LEDGER_ON_ORDER) |
+| ACQUIRED (combined) | [$28,103.75](LEDGER_ACQUIRED_COMBINED) |
+| ON-ORDER | [$109.23](LEDGER_ON_ORDER) |
 | MISSING — paid, not received (§1 copper bar) | [$42.89](LEDGER_MISSING) |
 | LIKELY-TO-BUY | $0.00 |
-| **Grand total — cash outlay** | [$28,219.75](LEDGER_GRAND_TOTAL) |
+| **Grand total — cash outlay** | [$28,255.87](LEDGER_GRAND_TOTAL) |
 
 ACQUIRED hardware by section:
 
@@ -510,16 +512,16 @@ ACQUIRED hardware by section:
 | 2 | CO2 subsystem (incl. Lillium prototype carbonator $1,129) | [$1,785.10](LEDGER_SEC2) |
 | 3 | Water supply + backflow prevention | [$808.63](LEDGER_SEC3) |
 | 4 | Carbonator plumbing | [$241.68](LEDGER_SEC4) |
-| 5 | Flavor subsystem | [$855.52](LEDGER_SEC5) |
+| 5 | Flavor subsystem | [$863.02](LEDGER_SEC5) |
 | 6 | Refrigeration | [$1,867.53](LEDGER_SEC6) |
 | 7 | Dispensing end | [$211.46](LEDGER_SEC7) |
-| 8 | Electronics — controllers | [$62.46](LEDGER_SEC8) |
-| 9 | Electronics — I/O, drivers, sensors, power | [$662.83](LEDGER_SEC9) |
+| 8 | Electronics — controllers | [$137.52](LEDGER_SEC8) |
+| 9 | Electronics — I/O, drivers, sensors, power | [$685.33](LEDGER_SEC9) |
 | 10 | User interface | [$146.45](LEDGER_SEC10) |
 | 11 | Enclosure hardware | [$120.30](LEDGER_SEC11) |
-| 12 | Shop / bench infrastructure | [$345.28](LEDGER_SEC12) |
+| 12 | Shop / bench infrastructure | [$372.51](LEDGER_SEC12) |
 | 13 | Printing consumables | [$1,065.63](LEDGER_SEC13) |
-| 14 | Soldering + small-signal tools | [$409.24](LEDGER_SEC14) |
+| 14 | Soldering + small-signal tools | [$418.13](LEDGER_SEC14) |
 | 15 | 3D printing equipment + filaments (Bambu direct) | [$8,381.47](LEDGER_SEC15) |
 | 16 | Laser welding / cleaning / cutting | [$3,899.00](LEDGER_SEC16) |
 | 17 | Domain / infrastructure | [$599.00](LEDGER_SEC17) |

@@ -172,6 +172,8 @@ TOOLS = [
     ("Virtua CCS safety glasses", "T_GLASSES", A("B00AEXKR4C")),
     ("iFixit precision tweezers", "T_TWEEZERS", A("B079K874CQ")),
     ("SH-U09B3 USB-C to TTL", "T_USB_UART", A("B09KXT6W46")),
+    ("KATA micro flush cutters", "T_FLUSH_CUTTERS", A("B0BBML9M2V")),
+    ("NEIKO 01407A digital caliper", "T_CALIPER", A("B000GSLKIW")),
     ("Bambu Lab H2C (×2)", "T_H2C", SUM([
         L(order="us712460111015776257", contains="H2C AMS Combo (printer"),
         L(order="us728027710789775361"),
