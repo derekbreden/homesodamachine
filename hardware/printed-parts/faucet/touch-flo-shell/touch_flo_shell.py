@@ -1619,12 +1619,16 @@ def main():
     bottom = build_shell_bottom(full)
     middle = build_shell_middle(full)
     top = build_shell_top(full)
+    # touch-flo-shell.step is the TRUE assembly — the three printed
+    # pieces unioned in their assembled positions, joint voids and all —
+    # not the unsplit design solid the pieces derive from.
+    assembled = bottom.union(middle).union(top)
 
     full_out = out_dir / "touch-flo-shell.step"
     bottom_out = out_dir / "touch-flo-shell-bottom.step"
     middle_out = out_dir / "touch-flo-shell-middle.step"
     top_out = out_dir / "touch-flo-shell-top.step"
-    export_step(full, str(full_out))
+    export_step(assembled, str(full_out))
     export_step(bottom, str(bottom_out))
     export_step(middle, str(middle_out))
     export_step(top, str(top_out))
