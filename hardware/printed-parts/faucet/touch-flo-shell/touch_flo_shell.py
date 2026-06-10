@@ -1192,33 +1192,25 @@ def _arc_zone(n0: float, n1: float) -> cq.Workplane:
     return _cradle_prism(60.0, gn_tip_straight_len, display_s_top + 60.0, n0, n1)
 
 
-def _cradle_outline(n0: float | None = None, n1: float | None = None) -> cq.Workplane:
-    """The cradle's plan outline — one rounded rectangle spanning the
-    collar block and the head wall, so the corner arcs run continuously
-    across their seam. n bounds default to the cradle's own; the
-    open-end corner trim passes deeper ones."""
-    if n0 is None:
-        n0 = _block_n_bottom - 5.0
-    if n1 is None:
-        n1 = display_wall_top_n + 5.0
-    return _cradle_prism(
+def _cradle_outline() -> cq.Workplane:
+    """The cradle's plan outline: rounded at the head-wall end, square at
+    the open end. The tip piece prints standing on the open end face, so
+    a plan corner rounded at that end would overhang from the first
+    layer; the head-wall end's plan shrinks as the print rises, which is
+    the printable direction. The head-wall arcs run continuously across
+    the block/head-wall seam."""
+    n0 = _block_n_bottom - 5.0
+    n1 = display_wall_top_n + 5.0
+    rounded = _cradle_prism(
         display_collar_half_x,
         0.0, display_s_top + display_cap_thickness,
         n0, n1,
         corner_r=display_outline_corner_r,
     )
-
-
-def _open_end_corner_trim() -> cq.Workplane:
-    """The swept spout runs square to the tip end plane, but the cradle's
-    rounded plan outline pulls back from it at the open end's corners —
-    leaving sliver shelves of skin poking past the block's corner faces.
-    Shave the spout to the outline there so the open end's corner is one
-    boundary."""
-    near_end = _cradle_prism(
-        40.0, -2.0, display_outline_corner_r + 1.0, -12.0, 15.0,
+    square_open_end = _cradle_prism(
+        display_collar_half_x, 0.0, 10.0, n0, n1,
     )
-    return near_end.cut(_cradle_outline(-14.0, 17.0))
+    return rounded.union(square_open_end)
 
 
 def _cradle_block() -> cq.Workplane:
@@ -1403,7 +1395,6 @@ def build_shell() -> cq.Workplane:
         build_lever_clearance().val(),
         _display_cavity().val(),
         _display_wire_hole().val(),
-        _open_end_corner_trim().val(),
     ]
     inner = cq.Workplane(obj=inner_parts[0].fuse(*inner_parts[1:]))
     return outer.cut(inner).union(_display_head_wall())
@@ -1468,7 +1459,6 @@ def build_shell_top(full_shell: cq.Workplane | None = None) -> cq.Workplane:
         .union(_cradle_block_tip_owned())
         .cut(tip_inner)
         .cut(_display_cavity())
-        .cut(_open_end_corner_trim())
     )
 
     plug_outer = _build_bend_overlap(
