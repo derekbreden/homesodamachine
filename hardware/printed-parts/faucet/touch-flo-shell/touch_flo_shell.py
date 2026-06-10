@@ -25,7 +25,7 @@ sys.path.insert(
 )
 sys.path.insert(0, str(_here.parent.parent))  # for _touch_flo_interface
 sys.path.insert(0, str(next(p for p in _here.parents if p.name == "printed-parts") / "cadlib"))
-from _cadq_export import export_step
+from _cadq_export import export_assembly, export_step
 from _touch_flo_interface import (
     flavor_tube_od,
     flavor_tube_x_offset,
@@ -1620,15 +1620,20 @@ def main():
     middle = build_shell_middle(full)
     top = build_shell_top(full)
     # touch-flo-shell.step is the TRUE assembly — the three printed
-    # pieces unioned in their assembled positions, joint voids and all —
-    # not the unsplit design solid the pieces derive from.
-    assembled = bottom.union(middle).union(top)
+    # pieces as separate solids in their assembled positions, joint
+    # voids, seams and all — not the unsplit design solid the pieces
+    # derive from. Separate solids, not a union: a boolean union fuses
+    # the joints' nominal-contact faces and dissolves their seams.
+    assembled = cq.Assembly(name="touch-flo-shell")
+    assembled.add(bottom, name="shell_bottom")
+    assembled.add(middle, name="shell_middle")
+    assembled.add(top, name="shell_top")
 
     full_out = out_dir / "touch-flo-shell.step"
     bottom_out = out_dir / "touch-flo-shell-bottom.step"
     middle_out = out_dir / "touch-flo-shell-middle.step"
     top_out = out_dir / "touch-flo-shell-top.step"
-    export_step(assembled, str(full_out))
+    export_assembly(assembled, str(full_out))
     export_step(bottom, str(bottom_out))
     export_step(middle, str(middle_out))
     export_step(top, str(top_out))
