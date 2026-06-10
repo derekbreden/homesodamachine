@@ -1358,8 +1358,30 @@ def _skirt_chamfer() -> cq.Workplane:
         .rect(30.0, 30.0)
         .extrude(_block_n_bottom - _cradle_n_bottom + 8.0)
     )
+    # Back bevel between the two corner axes: the same profile as the
+    # cones' back-azimuth end, so cone and bevel meet tangentially —
+    # without it, the quadrant boundary leaves a step facet where the
+    # back skirt pokes past the spout skin. Extends past the back face
+    # harmlessly: the chamfer only ever subtracts from cradle parts.
+    s_back = display_s_top + display_cap_thickness
+    back_profile = [
+        (s_back - _skirt_drop, _cradle_n_bottom),
+        (s_back, _block_n_bottom),
+        (s_back + 4.0, _block_n_bottom),
+        (s_back + 4.0, _cradle_n_bottom),
+    ]
+    back_plane = cq.Plane(
+        origin=tip_end + cq.Vector(-corner_x, 0, 0),
+        xDir=s_hat,
+        normal=cq.Vector(1, 0, 0),
+    )
+    back = (
+        cq.Workplane(back_plane)
+        .polyline(back_profile).close()
+        .extrude(2.0 * corner_x)
+    )
     plus_side = wedge.union(ring.intersect(quad))
-    return plus_side.union(plus_side.mirror("YZ"))
+    return plus_side.union(plus_side.mirror("YZ")).union(back)
 
 
 def _display_head_wall() -> cq.Workplane:
