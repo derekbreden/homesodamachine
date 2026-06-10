@@ -392,6 +392,7 @@ Bench soldering capability for through-hole, wire-to-pad (pogo pin leads), and g
 | T18-compatible heat-set insert tip kit, 7-piece, M2/M2.5/M3/M4/M5/M6/M8 | [B0CS662NVK](https://www.amazon.com/dp/B0CS662NVK) | 1 kit (7 tips) | $13.93 | ACQUIRED (delivered May 11) |
 | Heat-shrink tubing assortment kit, 2:1 ratio, assorted sizes/colors | [B0FRNMXN6Q](https://www.amazon.com/dp/B0FRNMXN6Q) | 1 | $6.99 | ACQUIRED |
 | Disposable flux brushes, horsehair, 1/2" × 6" (pack) | [B07PHG2DQY](https://www.amazon.com/dp/B07PHG2DQY) | 1 pk | $6.49 | ACQUIRED |
+| DSD TECH SH-U09B3 USB-C to TTL serial adapter, CP2102N — service-flash path into the faucet display S3 over UART0 (GPIO 43/44) once its USB-C connector comes off for the gooseneck mount. Order #112-6318240-4305018, placed Jun 10, 2026 | [B09KXT6W46](https://www.amazon.com/dp/B09KXT6W46) | 1 | $10.71 | ON-ORDER (arriving Jun 11) |
 
 ## 15. 3D printing equipment and filaments (Bambu Lab direct)
 
