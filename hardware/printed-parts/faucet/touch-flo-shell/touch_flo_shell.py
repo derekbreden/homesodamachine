@@ -1303,6 +1303,62 @@ def _display_cavity() -> cq.Workplane:
     )
 
 
+def _skirt_chamfer() -> cq.Workplane:
+    """Transition cut from the collar's pre-skirt bottom edges down to
+    the spout: wedge prisms whose faces run from the outline at
+    _block_n_bottom to the spout's fill-rect flank at the skirt bottom,
+    plus the same profile revolved about each head-corner axis. Around
+    the corners the bend carries the spout's flank inboard of the
+    straight landing line, so the cone face tucks into the flank there —
+    the curved portion of the landing."""
+    tip_end, s_hat, n_hat = _tip_frame()
+    corner_s = display_s_top + display_cap_thickness - display_outline_corner_r
+    corner_x = display_collar_half_x - display_outline_corner_r
+    # Wedge cross-section, x measured outboard: toe on the fill-rect
+    # flank at the skirt bottom, hinge at the outline on the old bottom.
+    wedge_profile = [
+        (tube_shell_x_half_outer, _cradle_n_bottom),
+        (display_collar_half_x, _block_n_bottom),
+        (display_collar_half_x + 4.0, _block_n_bottom),
+        (display_collar_half_x + 4.0, _cradle_n_bottom - 3.0),
+        (tube_shell_x_half_outer, _cradle_n_bottom - 3.0),
+    ]
+    # Revolve profile, radius measured from the corner axis (the side
+    # face sits display_outline_corner_r from it).
+    ring_profile = [
+        (x - corner_x, n) for (x, n) in wedge_profile
+    ]
+    fp_plane = cq.Plane(origin=tip_end, xDir=cq.Vector(1, 0, 0), normal=n_hat)
+    xs_plane = cq.Plane(
+        origin=tip_end + s_hat.multiply(corner_s),
+        xDir=cq.Vector(1, 0, 0),
+        normal=s_hat.multiply(-1.0),
+    )
+    wedge = (
+        cq.Workplane(xs_plane)
+        .polyline(wedge_profile).close()
+        .extrude(corner_s + 1.0)
+    )
+    rev_plane = cq.Plane(
+        origin=tip_end + s_hat.multiply(corner_s) + cq.Vector(corner_x, 0, 0),
+        xDir=cq.Vector(1, 0, 0),
+        normal=s_hat.multiply(-1.0),
+    )
+    ring = (
+        cq.Workplane(rev_plane)
+        .polyline(ring_profile).close()
+        .revolve(360.0, (0, 0), (0, 1))
+    )
+    quad = (
+        cq.Workplane(fp_plane).workplane(offset=_cradle_n_bottom - 4.0)
+        .center(corner_x + 15.0, corner_s + 15.0)
+        .rect(30.0, 30.0)
+        .extrude(_block_n_bottom - _cradle_n_bottom + 8.0)
+    )
+    plus_side = wedge.union(ring.intersect(quad))
+    return plus_side.union(plus_side.mirror("YZ"))
+
+
 def _display_head_wall() -> cq.Workplane:
     """Bend-piece head wall past the display's top end — closes the
     cradle's top end and is the display's axial stop as SPLIT B closes.
@@ -1459,6 +1515,7 @@ def build_shell() -> cq.Workplane:
         _display_cavity().val(),
         _display_wire_hole().val(),
         _display_drain_hole().val(),
+        _skirt_chamfer().val(),
     ]
     inner = cq.Workplane(obj=inner_parts[0].fuse(*inner_parts[1:]))
     return outer.cut(inner)
@@ -1523,6 +1580,7 @@ def build_shell_top(full_shell: cq.Workplane | None = None) -> cq.Workplane:
         .cut(tip_inner)
         .cut(_display_cavity())
         .cut(_display_drain_hole())
+        .cut(_skirt_chamfer())
     )
 
     plug_outer = _build_bend_overlap(
