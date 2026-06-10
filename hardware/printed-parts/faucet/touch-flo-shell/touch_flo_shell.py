@@ -1114,13 +1114,14 @@ def _build_bend_overlap(sketch: cq.Sketch, *, side: str) -> cq.Workplane:
 # behind the PCB cover — occupying s ∈ [end wall, end wall +
 # housing_length], n ∈ [floor, floor + total_depth].
 #
-# The cradle splits across SPLIT B without moving the junction: the tip
-# piece keeps full wall above the pocket-floor plane through the joint's
-# arc zone (its plug loses the same region — a partial-ring joint), so
-# the floor and walls print on the tip piece standing nozzle-face-down,
-# leaning no further off vertical than the plug arc the piece already
-# prints. The bend piece ends in a head wall closing the cradle's top
-# end — the display's axial stop as the arc-slide joint closes.
+# The cradle parts at the SPLIT B junction plane: the tip piece carries
+# the pocket's straight-zone portion and the plug; the bend piece
+# carries everything beyond the junction — the cradle walls, their
+# below-floor flank pads, and the head wall closing the cradle's top
+# end — and presses the display in as the arc-slide joint closes. The
+# plug vacates everything radially outside the cradle's swept approach
+# path (its lowest sweep is the wall bottom at the junction, radius
+# gn_bend2_r + display_floor_n about the bend axis).
 #
 # Retention: nothing overhangs the display face — the walls and head
 # wall all stop just over the face plane. Axially the device's rounded
@@ -1152,6 +1153,11 @@ display_cap_thickness = 2.5       # bend-piece head wall past the display end
 display_outline_corner_r = display_corner_r  # cradle plan outline echoes the device
 display_wire_hole_dia = 3.0       # wire drop from the cavity into the pill cusp
 display_wire_hole_s = 35.0        # within the plug web — one piece, clear of the seam
+display_drain_dia = 3.0           # pocket-floor drain, same drop as the wires
+# Drain at the floor's low corner, edge tangent to the PCB cover's back:
+# splash that gets past the housing drops into the pill cusp and runs
+# out the nozzle end alongside the tubes.
+display_drain_s = display_end_wall_min + display_drain_dia / 2.0
 
 # Head-wall face = the device's top end (the device starts one end-wall
 # thickness up from the open end face).
@@ -1199,8 +1205,7 @@ def _cradle_prism(half_x: float, s0: float, s1: float, n0: float, n1: float,
 def _arc_zone(n0: float, n1: float) -> cq.Workplane:
     """Tip-frame slab covering the bend-arc side of the SPLIT B junction
     plane (s ≥ tip length) between n0 and n1 — the parting tool that
-    assigns above-floor arc material to the tip piece's tongue and
-    below-floor arc material to the bend piece."""
+    assigns the cradle's beyond-junction material to the bend piece."""
     return _cradle_prism(60.0, gn_tip_straight_len, display_s_top + 60.0, n0, n1)
 
 
@@ -1238,14 +1243,11 @@ def _cradle_block() -> cq.Workplane:
 
 
 def _cradle_block_tip_owned() -> cq.Workplane:
-    """The cradle block minus the below-floor arc zone — the tip piece's
-    share. The bend piece keeps the block's below-floor flank pads
-    (which the tongue's walls rest on) and the head wall."""
-    return (
-        _cradle_block()
-        .cut(_arc_zone(_block_n_bottom - 10.0, display_floor_n))
-        .cut(_display_head_wall())
-    )
+    """The cradle block up to the SPLIT B junction plane — the tip
+    piece's share. The bend piece keeps everything beyond it: the walls,
+    their below-floor flank pads (one continuous solid), and the head
+    wall."""
+    return _cradle_block().cut(_arc_zone(_block_n_bottom - 80.0, display_wall_top_n + 80.0))
 
 
 def _end_throat(half_x: float, corner_r: float, n0: float, n1: float) -> cq.Workplane:
@@ -1298,15 +1300,16 @@ def _display_head_wall() -> cq.Workplane:
     ).intersect(_cradle_outline())
 
 
-def _headwall_slide_clearance() -> cq.Workplane:
-    """The head wall rides the SPLIT B arc into place, so everything it
-    sweeps past must be empty: beyond the head-wall face, the tip piece
-    keeps nothing radially outside the pill-bore ceiling. Cut from the
-    plug (it vacates the web tail there); the internal void it leaves is
-    the same class as the socket's insertion lead."""
+def _cradle_slide_clearance() -> cq.Workplane:
+    """The bend piece's cradle — walls, flank pads, head wall — rides the
+    SPLIT B arc into place; its lowest sweep is the wall bottom at the
+    junction (radius gn_bend2_r + display_floor_n about the bend axis).
+    Beyond the junction the plug keeps nothing radially outside that
+    sweep, so the slide closes without collision. The hollow this leaves
+    is the same class as the socket's insertion lead."""
     center_y = water_tube_y - _path_center_bend2[0]
     center_z = zone5_z_top + _path_center_bend2[1]
-    inner_r = gn_bend2_r + display_floor_n - display_web_over_pill - 0.3
+    inner_r = gn_bend2_r + display_floor_n - 0.3
     annulus = (
         cq.Workplane(cq.Plane(
             origin=cq.Vector(-40.0, center_y, center_z),
@@ -1317,25 +1320,37 @@ def _headwall_slide_clearance() -> cq.Workplane:
         .circle(inner_r)
         .extrude(80.0)
     )
-    beyond_head_wall = _cradle_prism(
-        60.0, display_s_top, display_s_top + 60.0, -80.0, 120.0,
+    beyond_junction = _cradle_prism(
+        60.0, gn_tip_straight_len, display_s_top + 60.0, -80.0, 120.0,
     )
-    return annulus.intersect(beyond_head_wall)
+    return annulus.intersect(beyond_junction)
 
 
-def _display_wire_hole() -> cq.Workplane:
-    """Ø display_wire_hole_dia drop through the web near the cradle's top
-    end: display wires leave the under-PCB cavity into the pill cusp and
-    ride down the shell with the flavor tubes. Lands in the tip piece's
-    plug web, clear of the piece seam."""
+def _web_drop_hole(s_pos: float, dia: float) -> cq.Workplane:
+    """Ø dia drop through the web at (x = 0, s = s_pos), from the pill
+    cusp void up through the pocket floor."""
     tip_end, _, n_hat = _tip_frame()
     plane = cq.Plane(origin=tip_end, xDir=cq.Vector(1, 0, 0), normal=n_hat)
     return (
         cq.Workplane(plane).workplane(offset=7.0)
-        .moveTo(0.0, display_wire_hole_s)
-        .circle(display_wire_hole_dia / 2.0)
+        .moveTo(0.0, s_pos)
+        .circle(dia / 2.0)
         .extrude(display_floor_n - 7.0 + 0.5)
     )
+
+
+def _display_wire_hole() -> cq.Workplane:
+    """Wire drop near the cradle's top end: display wires leave the
+    under-PCB cavity into the pill cusp and ride down the shell with the
+    flavor tubes."""
+    return _web_drop_hole(display_wire_hole_s, display_wire_hole_dia)
+
+
+def _display_drain_hole() -> cq.Workplane:
+    """Pocket-floor drain at the floor's low corner, edge tangent to the
+    PCB cover's back: splash that gets past the housing drops into the
+    pill cusp and runs out the nozzle end alongside the tubes."""
+    return _web_drop_hole(display_drain_s, display_drain_dia)
 
 
 def build_lever_clearance() -> cq.Workplane:
@@ -1427,6 +1442,7 @@ def build_shell() -> cq.Workplane:
         build_lever_clearance().val(),
         _display_cavity().val(),
         _display_wire_hole().val(),
+        _display_drain_hole().val(),
     ]
     inner = cq.Workplane(obj=inner_parts[0].fuse(*inner_parts[1:]))
     return outer.cut(inner).union(_display_head_wall())
@@ -1447,11 +1463,10 @@ def build_shell_bottom(full_shell: cq.Workplane | None = None) -> cq.Workplane:
 
 def build_shell_middle(full_shell: cq.Workplane | None = None) -> cq.Workplane:
     """Upper-bend piece — male plug at the SPLIT A (bottom) end, female
-    socket at the SPLIT B (top) end. At the cradle the piece gives up
-    everything the tip piece's tongue owns (the cradle block above the
-    pocket floor plus the whole straight-zone block), keeping the
-    below-floor flank pads the tongue rests on, and ends in the cradle's
-    head wall (inherited from the full shell)."""
+    socket at the SPLIT B (top) end. The piece carries the cradle beyond
+    the junction plane — walls, flank pads, and head wall, inherited
+    from the full shell — and presses the display in as the joint
+    closes; it gives up only the cradle's straight-zone block."""
     full = full_shell if full_shell is not None else build_shell()
     above_junction_a = _split_plane_halfspace(
         (0.0, split_junction_y, split_junction_z), split_normal, sign=+1,
@@ -1479,10 +1494,10 @@ def build_shell_middle(full_shell: cq.Workplane | None = None) -> cq.Workplane:
 
 def build_shell_top(full_shell: cq.Workplane | None = None) -> cq.Workplane:
     """Dispense-tip piece — male plug for the SPLIT B (bend↔tip) joint,
-    carrying the display cradle: the collar block with its tongue over
-    the bend, full wall above the pocket floor. The plug gives up the
-    same above-floor region — a partial-ring joint engaging the water
-    side and flanks."""
+    carrying the cradle's straight-zone portion: pocket, PCB cover, and
+    walls up to the junction plane. The plug keeps nothing radially
+    outside the bend piece's cradle sweep — a partial-ring joint
+    engaging the water side and flanks."""
     _ = full_shell
     tip_outer = _build_tip_section(_tube_shell_outer_sketch())
     tip_inner = _build_tip_section(_tube_shell_inner_sketch())
@@ -1491,6 +1506,7 @@ def build_shell_top(full_shell: cq.Workplane | None = None) -> cq.Workplane:
         .union(_cradle_block_tip_owned())
         .cut(tip_inner)
         .cut(_display_cavity())
+        .cut(_display_drain_hole())
     )
 
     plug_outer = _build_bend_overlap(
@@ -1500,8 +1516,7 @@ def build_shell_top(full_shell: cq.Workplane | None = None) -> cq.Workplane:
     plug = (
         plug_outer
         .cut(plug_inner)
-        .cut(_arc_zone(display_floor_n, display_floor_n + 80.0))
-        .cut(_headwall_slide_clearance())
+        .cut(_cradle_slide_clearance())
         .cut(_display_wire_hole())
     )
 
