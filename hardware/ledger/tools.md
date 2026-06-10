@@ -73,9 +73,11 @@ For per-unit BOM parts, see [bom.md](/hardware/ledger/bom.md). For non-BOM/non-t
 | **Kaisi heat-resistant silicone mat** | [B07DGVRYL3](https://www.amazon.com/dp/B07DGVRYL3), [purchases.md §14](/hardware/ledger/purchases.md) | 17.7" × 11.8" work surface, magnetic section for screws. | [$11.99](T_MAT) |
 | **AORAEM helping-hands w/ magnifier** | [B08DNMT96W](https://www.amazon.com/dp/B08DNMT96W), [purchases.md §14](/hardware/ledger/purchases.md) | 4 flex arms; work holder for wire-to-pad soldering. | [$8.99](T_HELPING_HANDS) |
 | **QWORK mini heat gun** | [B09NDCCW29](https://www.amazon.com/dp/B09NDCCW29), [purchases.md §14](/hardware/ledger/purchases.md) | 300 W / 200–450 °C. Heat-shrink activation, light rework. | [$8.97](T_HEAT_GUN) |
+| **iFixit precision tweezers set** | [B079K874CQ](https://www.amazon.com/dp/B079K874CQ), [purchases.md §14](/hardware/ledger/purchases.md) | Extra-fine + angled + blunt, ESD coating. Board-level rework, pin extraction, BOOT-pad bridging. | [$12.82](T_TWEEZERS) |
 | **Haisstronica ratchet crimper** | [B08F3JKDD3](https://www.amazon.com/dp/B08F3JKDD3), [purchases.md §9](/hardware/ledger/purchases.md) | AWG 22–10. | [—](T_CRIMPER) |
 | **Taiss Dupont crimp kit + SN-28B** | [B0B11RLGDZ](https://www.amazon.com/dp/B0B11RLGDZ), [purchases.md §9](/hardware/ledger/purchases.md) | Dupont connector terminal crimping. | [$21.99](T_DUPONT_KIT) |
 | **P3 Kill-A-Watt P4400 power meter** | [B00009MDBU](https://www.amazon.com/dp/B00009MDBU), [purchases.md §9](/hardware/ledger/purchases.md) | Bench AC power measurement. | [$34.31](T_KILL_A_WATT) |
+| **DSD TECH SH-U09B3 USB-C to TTL adapter** | [B09KXT6W46](https://www.amazon.com/dp/B09KXT6W46), [purchases.md §14](/hardware/ledger/purchases.md) | CP2102N, 3 Mbps, 3.3 V logic, 5 V VCC out. ROM-bootloader flashing of the faucet display S3 over UART0 (GPIO 43/44). | [$10.71](T_USB_UART) |
 | **3M Virtua CCS safety glasses** | [B00AEXKR4C](https://www.amazon.com/dp/B00AEXKR4C), [purchases.md §14](/hardware/ledger/purchases.md) | PPE for soldering + heat-gun work. | [$11.59](T_GLASSES) |
 
 ## 3D printing equipment
@@ -110,7 +112,7 @@ For per-unit BOM parts, see [bom.md](/hardware/ledger/bom.md). For non-BOM/non-t
 
 ## Tools total
 
-Total acquired tooling: **[$13,585.49](TOOLS_TOTAL)**
+Total acquired tooling: **[$13,609.02](TOOLS_TOTAL)**
 
 ## Open items
 
