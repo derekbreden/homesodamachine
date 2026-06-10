@@ -27,6 +27,10 @@
 # Companion file: firmware/partitions_esp32.csv has the same problem on the
 # 4 MB main controller (tighter fit there -- ~1 MB of LittleFS goes away).
 #
+# Two boards share this table: the Meshnology config S3 (8 MB flash) and the
+# Waveshare faucet S3 (16 MB flash -- its upper 8 MB sits unused under this
+# 8 MB layout, so a dual-slot variant has even more room there).
+#
 # When this is done: delete this banner.
 # ============================================================================
 # Name,   Type, SubType, Offset,   Size,     Flags
