@@ -8,29 +8,28 @@ AXS5106L touch chip).
 The faucet assembly ([`../faucet-assembly/faucet_assembly.py`](/hardware/reference/touch-flo-faucet/faucet-assembly/faucet_assembly.py))
 models this as a **dimensioned stand-in** (`build_display_body` +
 `build_display_screen`), not the vendor STEP: the vendor solid is 14 MB
-and inflates the multi-solid assembly STEP to ~68 MB. The stand-in's
-sizes come from the vendor 2D/3D drawing:
+and inflates the multi-solid assembly STEP to ~68 MB.
 
-Per the product photos, the black plastic bezel runs **flush with the PCB
-edge** (no PCB rim along the long sides), so the device envelope is a
-uniform **24.55 × 44.50 mm**. The drawing's 22.05 mm is the **glass panel**,
-inset within that full-width bezel; the active (lit) area is smaller still.
-The front **5.4 mm** is the plastic bezel (sits proud of any printed shell);
-the back **5.2 mm** is the bare PCB underside a shell wraps. Same width, so
-the boundary is a material line — modeled as a perimeter groove at z = 5.2.
+Structure, front to back: a plastic housing (screen glass on its front
+face) overhangs the PCB by ~0.275 mm per side. Below the PCB underside,
+components protrude — the metal feet are the extreme point and set the
+device's bounding depth. The stand-in models that under-PCB zone as a
+full-footprint bounding block down to the feet plane, with a perimeter
+groove marking the PCB underside.
 
 | Feature | Value |
 |---|---|
-| Device envelope (W × L), bezel flush with PCB | 24.55 × 44.50 mm |
-| Glass panel (W × L), inset in the bezel | 22.05 × 42.00 mm |
+| Plastic housing (W × L × depth) | 24.50 × 44.50 × 5.00 mm |
+| PCB (W × L × thickness) | 23.95 × 43.95 × 1.45 mm |
+| Housing front face → PCB underside | 6.45 mm |
+| Housing front face → metal feet (bounding depth) | 10.35 mm |
+| Glass panel (W × L), inset in the housing front | 22.05 × 42.00 mm |
 | Active display area (W × L) | 17.75 × 32.93 mm |
-| Total depth | 10.6 mm = 5.2 exposed underside + 5.4 plastic bezel |
-| Corner radius | R5.75 mm |
+| Corner radius (housing) | R5.75 mm |
 
-The vendor STEP measures 24.55 × 44.73 × **15.60** mm and shows a *narrower*
-bezel — but its depth includes pin headers the no-header B0FCF1MGT3 lacks,
-and its narrower bezel disagrees with the current product photos, so it's
-treated as an older revision. The drawing + photos are authoritative.
+Housing, PCB, and depths are caliper measurements of the device; the
+glass panel, active area, and corner radius come from the vendor 2D
+drawing. The PCB is assumed centered under the housing.
 
 Vendor 2D/3D files (schematic, DXF, STEP):
 `https://files.waveshare.com/wiki/ESP32-S3-Touch-LCD-1.47/ESP32-S3-Touch-LCD-1.47-2D3D.zip`

@@ -42,9 +42,9 @@ Parts:
    countertop (Z = [-6, -4]). Hole pattern mirrors the plate.
 8. Faucet flavor display — Waveshare ESP32-S3-Touch-LCD-1.47 (../display-reference/),
    a dimensioned stand-in seated on the dispense-tip top skin: long axis
-   up the gooseneck, screen toward the user, board back sunk into the
-   cosmetic wrap to a 1 mm web over the pill bore. Body + screen are
-   separate solids.
+   up the gooseneck, screen toward the user, the metal feet under the
+   PCB sunk into the cosmetic wrap to a 1 mm web over the pill bore.
+   Body + screen are separate solids.
 
 Regenerate:
     tools/cad-venv/bin/python faucet_assembly.py
@@ -428,43 +428,42 @@ def build_lever():
 
 
 # Faucet flavor display — Waveshare ESP32-S3-Touch-LCD-1.47 (BOM §1),
-# modeled as a dimensioned stand-in. Dimensions from the vendor 2D/3D
-# drawing (table in display-reference/README.md), reconciled with the
-# product photos. The drawing's 22.05 mm is the GLASS panel, inset within
-# a black plastic bezel that runs ~flush with the PCB edge (the product
-# photo shows no PCB rim along the long sides), so the device envelope is
-# a uniform 24.55 mm — NOT a narrower bezel. (The vendor STEP models a
-# narrower bezel; it is an older rev / the glass outline. Its 15.6 mm
-# depth also includes pin headers the no-header B0FCF1MGT3 lacks, so the
-# listing's 10.6 mm is the authoritative depth.)
+# modeled as a dimensioned stand-in. Dimensions measured from the device
+# (table in display-reference/README.md). Front to back: the plastic
+# housing (screen glass on its front face) overhangs the PCB by
+# ~0.275 mm per side; below the PCB underside, components protrude with
+# the metal feet as the extreme point. The under-PCB zone is modeled as
+# a full-footprint bounding block down to the feet plane.
 #
-# Depth split: the front display_plastic_depth is the plastic bezel and
-# sits PROUD of any shell we print; the back display_exposed_depth is the
-# bare PCB underside a printed retaining shell wraps. Same width, so the
-# boundary is a material line — marked by a groove around the perimeter at
-# z = display_exposed_depth, the edge to design the wrap against.
-#
-# Native frame: X = width, Y = length, Z = outward thickness; PCB back
-# (exposed) at z = 0, screen faces +Z. Seated on the tip: long axis along
-# the tip, screen toward the user, lower edge flush with the tip end, back
-# display_pocket_inset below the shell's outer face above the flavor pill.
-display_width = 24.55         # device envelope, lateral (bezel flush with PCB)
-display_length = 44.50        # device envelope, along the tip axis
-display_corner_r = 5.75
-display_total_depth = 10.6    # full device depth (no pin header)
-display_plastic_depth = 5.4   # plastic bezel (front) — sits proud
-display_exposed_depth = display_total_depth - display_plastic_depth  # 5.2 — bare PCB underside
+# Native frame: X = width, Y = length, Z = outward thickness; the feet
+# plane (bounding back) at z = 0, screen faces +Z. Seated on the tip:
+# long axis along the tip, screen toward the user, lower edge flush
+# with the tip end, feet display_pocket_inset below the shell's outer
+# face above the flavor pill.
+display_housing_width = 24.50   # plastic housing, lateral
+display_housing_length = 44.50  # plastic housing, along the tip axis
+display_pcb_width = 23.95       # PCB assumed centered under the housing
+display_pcb_length = 43.95
+display_corner_r = 5.75         # housing corners (vendor drawing)
+display_pcb_corner_r = display_corner_r - (display_housing_width - display_pcb_width) / 2.0
+display_total_depth = 10.35     # housing front face → bottom of the metal feet
+display_housing_depth = 5.00    # housing front face → housing bottom (= PCB top)
+display_pcb_bottom_from_front = 6.45  # housing front face → PCB underside
+# Native-frame boundary planes, z = 0 at the feet.
+display_pcb_bottom_z = display_total_depth - display_pcb_bottom_from_front  # 3.90
+display_pcb_top_z = display_total_depth - display_housing_depth             # 5.35
 # Active (lit) display area, on the front face.
 display_screen_width = 17.75
 display_screen_length = 32.93
 display_screen_depth = 0.4
-# Boundary groove at z = display_exposed_depth (the plastic/exposed line).
+# Groove marking the PCB underside: the PCB and the under-PCB bounding
+# block share one outline, so that boundary gets a pickable line.
 display_groove_depth = 0.4
 display_groove_height = 0.6
-# The board back sinks through all but display_web_over_pill of the
-# wrapper's zone5_wall. The web is the floor of the display pocket:
-# thick enough to print, and a barrier keeping the PCB underside off
-# the flavor tubes (and tube condensation off the PCB).
+# The display sinks until its feet are all but display_web_over_pill
+# through the wrapper's zone5_wall. The web is the floor of the display
+# pocket: thick enough to print, and a barrier keeping the under-PCB
+# electronics off the flavor tubes (and tube condensation off the PCB).
 display_web_over_pill = 1.0
 display_pocket_inset = touch_flo_shell.zone5_wall - display_web_over_pill
 
@@ -482,16 +481,16 @@ def _tip_centerline_world():
 
 def _seat_on_tip(part):
     """Place a display part (native frame: X width, Y length, Z outward
-    with the back at z = 0) onto the dispense tip. The tip straight runs
-    (gn_bend1_sweep + gn_bend2_sweep − 90°) below horizontal; rotating
-    that angle about world X lays the part's length up the gooseneck and
-    turns its screen (+Z) up toward the user. It is then offset out along
-    the tip's top normal so the board back sits display_pocket_inset
-    below the shell's outer face above the flavor pill (the two flavor
-    tubes stack above the water tube here, so they set the skin). The
-    board's lower edge is anchored flush with the tip end (the dispense
-    nozzle); it extends up the tip from there (the far end is
-    unconstrained)."""
+    with the feet plane at z = 0) onto the dispense tip. The tip straight
+    runs (gn_bend1_sweep + gn_bend2_sweep − 90°) below horizontal;
+    rotating that angle about world X lays the part's length up the
+    gooseneck and turns its screen (+Z) up toward the user. It is then
+    offset out along the tip's top normal so the feet plane sits
+    display_pocket_inset below the shell's outer face above the flavor
+    pill (the two flavor tubes stack above the water tube here, so they
+    set the skin). The housing's lower edge is anchored flush with the
+    tip end (the dispense nozzle); it extends up the tip from there (the
+    far end is unconstrained)."""
     tip_below_horiz_rad = (gn_bend1_sweep_rad + gn_bend2_sweep_rad) - math.pi / 2.0
     top_normal = cq.Vector(
         0.0, -math.sin(tip_below_horiz_rad), math.cos(tip_below_horiz_rad)
@@ -511,12 +510,12 @@ def _seat_on_tip(part):
         + touch_flo_shell.pill_width_y / 2.0
         + touch_flo_shell.zone5_wall
     )
-    # Anchor the board's lower (nozzle-end) edge flush with the tip end,
+    # Anchor the housing's lower (nozzle-end) edge flush with the tip end,
     # at the flavor-pill outer face minus the inset; it extends up the tip.
     seat = (
         tip_end
         + top_normal.multiply(flavor_pill_outer_from_water - display_pocket_inset)
-        - tip_axis.multiply(display_length / 2.0)
+        - tip_axis.multiply(display_housing_length / 2.0)
     )
     return (
         part
@@ -525,23 +524,23 @@ def _seat_on_tip(part):
     )
 
 
-def _boundary_groove_ring():
-    """Thin perimeter frame at z = display_exposed_depth, cut from the body
-    to mark the plastic/exposed boundary as a groove around the full
-    circumference. The bezel runs flush with the PCB, so the boundary is a
-    material line, not a geometric step."""
-    z0 = display_exposed_depth - display_groove_height / 2.0
+def _pcb_underside_groove_ring():
+    """Thin perimeter frame at z = display_pcb_bottom_z, cut from the body
+    to mark the PCB underside as a groove around the full circumference.
+    The PCB and the under-PCB bounding block share one outline, so that
+    boundary is a material line, not a geometric step."""
+    z0 = display_pcb_bottom_z - display_groove_height / 2.0
     outer = (
         cq.Workplane("XY").workplane(offset=z0)
-        .box(display_width, display_length, display_groove_height, centered=(True, True, False))
-        .edges("|Z").fillet(display_corner_r)
+        .box(display_pcb_width, display_pcb_length, display_groove_height, centered=(True, True, False))
+        .edges("|Z").fillet(display_pcb_corner_r)
     )
     inner = (
         cq.Workplane("XY").workplane(offset=z0)
-        .box(display_width - 2.0 * display_groove_depth,
-             display_length - 2.0 * display_groove_depth,
+        .box(display_pcb_width - 2.0 * display_groove_depth,
+             display_pcb_length - 2.0 * display_groove_depth,
              display_groove_height, centered=(True, True, False))
-        .edges("|Z").fillet(max(display_corner_r - display_groove_depth, 0.1))
+        .edges("|Z").fillet(max(display_pcb_corner_r - display_groove_depth, 0.1))
     )
     return outer.cut(inner)
 
@@ -557,16 +556,27 @@ def _screen_pocket():
 
 
 def build_display_body():
-    """Display module body — uniform display_total_depth rounded-rect prism
-    (the black bezel runs flush with the PCB), with a perimeter groove at
-    z = display_exposed_depth marking the plastic/exposed boundary and an
-    active-area recess in the front face. Seated on the tip."""
-    body = (
+    """Display module body — the under-PCB bounding block + PCB as one
+    prism up to the housing bottom, the wider plastic housing above it,
+    a perimeter groove marking the PCB underside, and an active-area
+    recess in the front face. Seated on the tip."""
+    pcb_and_under = (
         cq.Workplane("XY")
-        .box(display_width, display_length, display_total_depth, centered=(True, True, False))
+        .box(display_pcb_width, display_pcb_length, display_pcb_top_z,
+             centered=(True, True, False))
+        .edges("|Z").fillet(display_pcb_corner_r)
+    )
+    housing = (
+        cq.Workplane("XY").workplane(offset=display_pcb_top_z)
+        .box(display_housing_width, display_housing_length,
+             display_total_depth - display_pcb_top_z, centered=(True, True, False))
         .edges("|Z").fillet(display_corner_r)
     )
-    body = body.cut(_boundary_groove_ring()).cut(_screen_pocket())
+    body = (
+        pcb_and_under.union(housing)
+        .cut(_pcb_underside_groove_ring())
+        .cut(_screen_pocket())
+    )
     return _seat_on_tip(body)
 
 
