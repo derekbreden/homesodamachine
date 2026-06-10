@@ -45,3 +45,33 @@ Derek said:
 - "It did allow me to test with that foam shell print. It's holding water for a few hours now. First successfully done so, and done so with gaskets and all."
 
 First watertight reservoir. The slanted-floor supports (normal(auto), 0.25 mm top z-gap, interface top layers 2) released cleanly — no tear-out of the floor underside. Assembled into the printed foam shell with the bulkhead + TPU gaskets and held water for several hours with no weep. Leak-tightness gate (per [`watertight-petg.md`](/hardware/printed-parts/cold-core/reservoir/watertight-petg.md)) passed at fill-and-hold; this is the first reservoir to pass.
+
+## PETG print attempt 4 (2026-06-10, settings per [`reservoir.3mf`](reservoir.3mf))
+
+Full plate carrying both flavor reservoirs and both caps — four objects, four cut records. Bodies `reservoir-left.step` + `reservoir-right.step` placed mouth-up; caps `reservoir-cap-left.step` + `reservoir-cap-right.step` laid flat. Plate bbox ≈ 262 × 231 mm; `first_layer_time` ≈ 1107 s; `slice_info.config` header-only (no per-plate estimate written). Sliced with BambuStudio 02.07.01.57.
+
+Printer / nozzle: Bambu Lab H2C, `printer_variant` 0.6, `nozzle_diameter` `[0.6, 0.6]`. `print_settings_id` `0.18mm Balanced Quality @BBL H2C 0.6 nozzle`. Textured plate. Active PETG slot `Bambu PETG Translucent @BBL H2C`, nozzle pair (245 °C, 245 °C), `filament_flow_ratio` (0.97, 0.97), `filament_max_volumetric_speed` (16, 16).
+
+Support settings:
+- `enable_support`: 1
+- `support_type`: tree(auto)
+- `support_threshold_angle`: 30
+- `support_top_z_distance`: 0.18 mm
+- `support_bottom_z_distance`: 0.18 mm
+- `support_on_build_plate_only`: 1
+- `support_interface_top_layers`: 2
+- `support_interface_bottom_layers`: 2
+- `support_interface_spacing`: 0.5 mm
+- `support_style`: default; `support_object_xy_distance`: 0.35 mm; `support_line_width`: 0.6 mm
+
+Cooling (PETG slot): `fan_min_speed` 20 %, `fan_max_speed` 60 %, `overhang_fan_speed` 90 % at `overhang_fan_threshold` 10 %.
+
+Watertight recipe (carried from attempt 3):
+- `wall_generator`: arachne; `wall_loops`: 6; `line_width`: 0.60 mm
+- `sparse_infill_density`: 100 %
+- `top_surface_pattern` / `bottom_surface_pattern`: zig-zag
+- `ironing_type`: top
+- `seam_position`: random; `seam_slope_type`: all
+- `layer_height`: 0.18 mm; `initial_layer_print_height`: 0.3 mm
+
+### Result — not yet recorded (slice committed 2026-06-10)
