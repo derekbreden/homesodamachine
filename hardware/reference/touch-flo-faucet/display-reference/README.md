@@ -10,12 +10,13 @@ models this as a **dimensioned stand-in** (`build_display_body` +
 `build_display_screen`), not the vendor STEP: the vendor solid is 14 MB
 and inflates the multi-solid assembly STEP to ~68 MB.
 
-Structure, front to back: a plastic housing (screen glass on its front
-face) overhangs the PCB by ~0.275 mm per side. Below the PCB underside,
-components protrude — the metal feet are the extreme point and set the
-device's bounding depth. The stand-in models that under-PCB zone as a
-full-footprint bounding block down to the feet plane, with a perimeter
-groove marking the PCB underside.
+Structure, front to back: a plastic housing (screen glass flush in its
+front face) overhangs the PCB by ~0.275 mm per side. Below the PCB
+underside, components protrude — the metal feet are the extreme point
+and set the device's bounding depth. The stand-in models that under-PCB
+zone as a full-footprint bounding block down to the feet plane; it
+shares the PCB's outline, so the PCB underside has no edge in the
+solid.
 
 | Feature | Value |
 |---|---|
@@ -29,7 +30,9 @@ groove marking the PCB underside.
 
 Housing, PCB, and depths are caliper measurements of the device; the
 glass panel, active area, and corner radius come from the vendor 2D
-drawing. The PCB is assumed centered under the housing.
+drawing (R5.75 corroborated by a rocked-max caliper diagonal across
+opposite housing corners: 46.96 mm measured, 46.97 mm predicted). The
+PCB is centered under the housing.
 
 Vendor 2D/3D files (schematic, DXF, STEP):
 `https://files.waveshare.com/wiki/ESP32-S3-Touch-LCD-1.47/ESP32-S3-Touch-LCD-1.47-2D3D.zip`
