@@ -1,10 +1,14 @@
-// Edge picker for the CAD viewer. A toggle (stacked above the x-ray toggle,
-// persisted per-browser in localStorage under "step-edge-pick") that turns the
-// loaded STEP into a clickable surface: hover an edge to highlight it, click to
-// select it, and copy a text blob describing it. Built so the user can point at
-// a feature that isn't aligned to a cardinal axis — a rotated tangent line, a
-// fillet arc, a hole rim — by handing the agent the exact geometry instead of
-// eyeballing a ruler tick.
+// Edge + face picker for the CAD viewer. A toggle (stacked above the x-ray
+// toggle, persisted per-browser in localStorage under "step-edge-pick") that
+// turns the loaded STEP into a clickable surface: hover an edge to highlight
+// it, click to select it, and copy a text blob describing it. A click whose
+// nearest edge sits occluded BEHIND the surface under the cursor selects the
+// FACE instead (edge picking is screen-space and ignores occlusion, so on a
+// busy model some hidden edge is almost always within threshold — the depth
+// comparison is what makes mid-face clicks mean the face). Built so the user
+// can point at a feature that isn't aligned to a cardinal axis — a rotated
+// tangent line, a fillet arc, a hole rim, a pocket floor — by handing the
+// agent the exact geometry instead of eyeballing a ruler tick.
 //
 // occt-import-js (0.0.23) gives us a triangle mesh per solid plus `brep_faces`
 // (each entry is a [first,last] range of TRIANGLE indices belonging to one BREP
@@ -20,6 +24,15 @@
 // BREP vertices, so an edge's reported endpoints are exact; interior points sit
 // on the tessellated curve (within deflection) which is plenty for a click.
 //
+// Each edge remembers its bordering face pair, and faces are classified from
+// their sampled vertices + normals into plane / cylinder / curved (swept
+// b-splines get no compact params). The copy blob carries the edge, both
+// adjacent faces, and the click point — faces are usually what a pick is
+// really about, and their parameters (a plane's offset, a cylinder's radius)
+// are self-identifying against the generating CAD script. The same face data
+// feeds the find box (pick-find.js), which parses pasted blobs back into
+// highlighted entities via pick-format.js.
+//
 // Picking is screen-space: project every edge segment to pixels and take the
 // one nearest the cursor (front-most on a near tie). Zoom-independent, and the
 // click snaps onto the edge so the reported point is ON the geometry, not a
@@ -32,6 +45,7 @@ import { LineGeometry } from "three/addons/lines/LineGeometry.js";
 import { LineMaterial } from "three/addons/lines/LineMaterial.js";
 import { scene, camera, renderer } from "./scene.js";
 import { state } from "./state.js";
+import { fnum, fpt, formatFace } from "./pick-format.js";
 
 const LS_KEY = "step-edge-pick";
 const PICK_THRESHOLD_PX = 11; // cursor-to-edge distance that counts as a hit
@@ -46,15 +60,21 @@ let enabled = (() => {
   try { return localStorage.getItem(LS_KEY) === "1"; } catch { return false; }
 })();
 
-// --- edge data (lazy, per loaded model) ---
+// --- edge + face data (lazy, per loaded model) ---
 let edgeSource = null;  // occt result.meshes for the live model
 let activeEdges = null; // reconstructed BREP edges, or null until built
 let isAssembly = false; // >1 solid — then occt carries real component names
+let meshRecs = null;    // per occt-mesh: {name, pos, idx, nrm, faces, triFace}
+let faceTable = null;   // global face id -> {rec, fi}
+let faceClass = null;   // global face id -> classified record (cache)
 
 export function setActiveEdges(result) {
   edgeSource = (result && result.meshes) || null;
   isAssembly = !!(edgeSource && edgeSource.length > 1);
   activeEdges = null; // invalidate — rebuild on demand
+  meshRecs = null;
+  faceTable = null;
+  faceClass = null;
   clearSelection();
   setHover(null);
 }
@@ -69,18 +89,29 @@ function ensureEdges() {
 function reconstructEdges(meshes) {
   const edges = [];
   let faceBase = 0; // namespace face ids across meshes so pairs don't merge
+  meshRecs = [];
+  faceTable = [];
 
   for (const mesh of meshes) {
     const pos = mesh.attributes && mesh.attributes.position && mesh.attributes.position.array;
     const idx = mesh.index && mesh.index.array;
     const faces = mesh.brep_faces;
-    if (!pos || !idx || !faces) { faceBase += faces ? faces.length : 0; continue; }
+    if (!pos || !idx || !faces) {
+      meshRecs.push(null);
+      faceBase += faces ? faces.length : 0;
+      continue;
+    }
 
     const triCount = idx.length / 3;
     const triFace = new Int32Array(triCount).fill(-1);
     faces.forEach((f, fi) => {
       for (let t = f.first; t <= f.last; t++) triFace[t] = faceBase + fi;
     });
+
+    const nrm = mesh.attributes.normal && mesh.attributes.normal.array;
+    const rec = { name: mesh.name, pos, idx, nrm, faces, triFace };
+    meshRecs.push(rec);
+    faces.forEach((f, fi) => { faceTable[faceBase + fi] = { rec, fi }; });
 
     // vertex index -> position key; key -> the exact Vector3 (first seen)
     const keyToPos = new Map();
@@ -119,10 +150,12 @@ function reconstructEdges(meshes) {
       arr.push(rec);
     }
 
-    for (const segs of byPair.values()) {
+    for (const [pk, segs] of byPair.entries()) {
+      const faceIds = pk.split(",").map(Number);
       for (const path of chainSegments(segs)) {
         const e = makeEdge(path.map((k) => keyToPos.get(k)));
         e.solid = mesh.name; // assembly component name (occt), for the blob
+        e.faceIds = faceIds; // the two bordering BREP faces
         edges.push(e);
       }
     }
@@ -233,6 +266,156 @@ function fitCircle(points) {
   return { center, radius, axis: n.clone().normalize() };
 }
 
+// --- face classification (lazy, cached per global face id) ---
+// Sampled vertices + normals decide the surface type. plane: all normals
+// agree and the points are coplanar. cylinder: an axis perpendicular to
+// every normal exists (built from normal cross-products) and the points
+// ring it at one radius (Kåsa least-squares circle in the axis-normal
+// plane). Everything else — cones, tori, the gooseneck's swept b-splines —
+// reports as "curved" with a point on it: no compact params, but knowing
+// it's the swept skin is itself the answer.
+function classifyFace(gid) {
+  if (gid == null || gid < 0) return null;
+  if (!faceClass) faceClass = new Map();
+  if (faceClass.has(gid)) return faceClass.get(gid);
+  const entry = faceTable && faceTable[gid];
+  const out = entry ? classifyFaceImpl(entry.rec, entry.rec.faces[entry.fi]) : null;
+  faceClass.set(gid, out);
+  return out;
+}
+
+function classifyFaceImpl(rec, f) {
+  const seen = new Set();
+  const pts = [];
+  const nrms = [];
+  const triCount = f.last - f.first + 1;
+  const stride = Math.max(1, Math.ceil(triCount / 300));
+  for (let t = f.first; t <= f.last; t += stride) {
+    for (let k = 0; k < 3; k++) {
+      const vi = rec.idx[t * 3 + k];
+      if (seen.has(vi)) continue;
+      seen.add(vi);
+      pts.push(new THREE.Vector3(rec.pos[vi * 3], rec.pos[vi * 3 + 1], rec.pos[vi * 3 + 2]));
+      if (rec.nrm) {
+        const n = new THREE.Vector3(rec.nrm[vi * 3], rec.nrm[vi * 3 + 1], rec.nrm[vi * 3 + 2]);
+        if (n.lengthSq() > 1e-12) nrms.push(n.normalize());
+      }
+    }
+  }
+  const centroid = new THREE.Vector3();
+  for (const p of pts) centroid.add(p);
+  if (pts.length) centroid.multiplyScalar(1 / pts.length);
+  if (pts.length < 3) return { kind: "curved", near: centroid };
+
+  // no vertex normals in the mesh — fall back to sampled triangle normals
+  if (!nrms.length) {
+    const a = new THREE.Vector3(), b = new THREE.Vector3(), c = new THREE.Vector3();
+    for (let t = f.first; t <= f.last; t += stride) {
+      a.fromArray(rec.pos, rec.idx[t * 3] * 3);
+      b.fromArray(rec.pos, rec.idx[t * 3 + 1] * 3);
+      c.fromArray(rec.pos, rec.idx[t * 3 + 2] * 3);
+      const n = b.clone().sub(a).cross(c.clone().sub(a));
+      if (n.lengthSq() > 1e-12) nrms.push(n.normalize());
+    }
+    if (!nrms.length) return { kind: "curved", near: centroid };
+  }
+
+  // plane?
+  const navg = new THREE.Vector3();
+  for (const n of nrms) navg.add(n);
+  if (navg.lengthSq() > 1e-9) {
+    navg.normalize();
+    let planar = true;
+    for (const n of nrms) if (Math.abs(n.dot(navg)) < 0.999) { planar = false; break; }
+    if (planar) {
+      let maxOff = 0;
+      const d = new THREE.Vector3();
+      for (const p of pts) maxOff = Math.max(maxOff, Math.abs(d.copy(p).sub(centroid).dot(navg)));
+      if (maxOff < 0.02) return { kind: "plane", n: navg, thru: centroid };
+    }
+  }
+
+  // cylinder?
+  const axis = new THREE.Vector3();
+  const n0 = nrms[0];
+  for (let i = 1; i < nrms.length; i++) {
+    const c = new THREE.Vector3().crossVectors(n0, nrms[i]);
+    if (c.lengthSq() < 1e-6) continue;
+    if (axis.lengthSq() > 0 && c.dot(axis) < 0) c.negate();
+    axis.add(c);
+  }
+  if (axis.lengthSq() > 1e-9) {
+    axis.normalize();
+    let cyl = true;
+    for (const n of nrms) if (Math.abs(n.dot(axis)) > 0.02) { cyl = false; break; }
+    if (cyl) {
+      const u = new THREE.Vector3();
+      u.crossVectors(axis, Math.abs(axis.x) > 0.9 ? new THREE.Vector3(0, 1, 0) : new THREE.Vector3(1, 0, 0)).normalize();
+      const v = new THREE.Vector3().crossVectors(axis, u);
+      // Kåsa circle fit: x² + y² = A·x + B·y + C, center (A/2, B/2)
+      let Sxx = 0, Sxy = 0, Syy = 0, Sx = 0, Sy = 0, Sxz = 0, Syz = 0, Sz = 0;
+      const xy = [];
+      const d = new THREE.Vector3();
+      for (const p of pts) {
+        d.copy(p).sub(centroid);
+        const x = d.dot(u), y = d.dot(v), z = x * x + y * y;
+        xy.push([x, y]);
+        Sxx += x * x; Sxy += x * y; Syy += y * y; Sx += x; Sy += y;
+        Sxz += x * z; Syz += y * z; Sz += z;
+      }
+      const N = xy.length;
+      const det3 = (m) =>
+        m[0] * (m[4] * m[8] - m[5] * m[7]) - m[1] * (m[3] * m[8] - m[5] * m[6]) + m[2] * (m[3] * m[7] - m[4] * m[6]);
+      const D = det3([Sxx, Sxy, Sx, Sxy, Syy, Sy, Sx, Sy, N]);
+      if (Math.abs(D) > 1e-9) {
+        const A = det3([Sxz, Sxy, Sx, Syz, Syy, Sy, Sz, Sy, N]) / D;
+        const B = det3([Sxx, Sxz, Sx, Sxy, Syz, Sy, Sx, Sz, N]) / D;
+        const C = det3([Sxx, Sxy, Sxz, Sxy, Syy, Syz, Sx, Sy, Sz]) / D;
+        const cx = A / 2, cy = B / 2;
+        const r = Math.sqrt(Math.max(0, C + cx * cx + cy * cy));
+        let maxRes = 0;
+        for (const [x, y] of xy) maxRes = Math.max(maxRes, Math.abs(Math.hypot(x - cx, y - cy) - r));
+        if (r > 1e-3 && maxRes <= Math.max(0.05, 0.02 * r)) {
+          const axisPoint = centroid.clone().addScaledVector(u, cx).addScaledVector(v, cy);
+          return { kind: "cylinder", r, axis: axisPoint, dir: axis };
+        }
+      }
+    }
+  }
+  return { kind: "curved", near: centroid };
+}
+
+// Non-indexed triangle soup of one face, for highlight overlays.
+export function faceHighlightGeometry(gid) {
+  const entry = faceTable && faceTable[gid];
+  if (!entry) return null;
+  const { rec, fi } = entry;
+  const f = rec.faces[fi];
+  const positions = [];
+  for (let t = f.first; t <= f.last; t++) {
+    for (let k = 0; k < 3; k++) {
+      const vi = rec.idx[t * 3 + k];
+      positions.push(rec.pos[vi * 3], rec.pos[vi * 3 + 1], rec.pos[vi * 3 + 2]);
+    }
+  }
+  const geo = new THREE.BufferGeometry();
+  geo.setAttribute("position", new THREE.Float32BufferAttribute(positions, 3));
+  return geo;
+}
+
+// Everything the find box needs: reconstructed edges plus every face
+// classified. Classification is cached, so repeated finds are cheap.
+export function getFindData() {
+  const edges = ensureEdges();
+  const faces = [];
+  if (faceTable) {
+    for (let gid = 0; gid < faceTable.length; gid++) {
+      faces[gid] = faceTable[gid] ? classifyFace(gid) : null;
+    }
+  }
+  return { edges, faces };
+}
+
 // --- screen-space picking ---
 const _vp = new THREE.Matrix4();
 function projectPixels(p, rect, e) {
@@ -280,6 +463,39 @@ function pickEdge(clientX, clientY) {
     }
   }
   return best;
+}
+
+// Face under the cursor — used when a click misses every edge. Raycasts
+// the rendered meshes (step.js tags each with its occt mesh index) and
+// maps the hit triangle back to its BREP face via triFace.
+const _raycaster = new THREE.Raycaster();
+const _ndc = new THREE.Vector2();
+function pickFace(clientX, clientY) {
+  if (!state.currentGroup) return null;
+  ensureEdges(); // builds meshRecs + faceTable
+  if (!meshRecs) return null;
+  const rect = renderer.domElement.getBoundingClientRect();
+  _ndc.set(
+    ((clientX - rect.left) / rect.width) * 2 - 1,
+    -((clientY - rect.top) / rect.height) * 2 + 1,
+  );
+  _raycaster.setFromCamera(_ndc, camera);
+  // Front meshes only — the back copies share geometry and would double
+  // the triangle scan for the same answer.
+  const candidates = state.currentGroup.children.filter(
+    (c) => c.userData && c.userData.side === "front",
+  );
+  const hits = _raycaster.intersectObjects(candidates, false);
+  for (const h of hits) {
+    const mi = h.object.userData ? h.object.userData.occtIndex : undefined;
+    if (mi == null || h.faceIndex == null) continue;
+    const rec = meshRecs[mi];
+    if (!rec) continue;
+    const gid = rec.triFace[h.faceIndex];
+    if (gid == null || gid < 0) continue;
+    return { type: "face", gid, solid: rec.name, face: classifyFace(gid), point: h.point.clone() };
+  }
+  return null;
 }
 
 // --- overlay (highlight line + markers), drawn over everything ---
@@ -333,14 +549,14 @@ function disposeObj(obj) {
 }
 
 // --- selection + hover state ---
-let selObjs = { line: null, ends: null, click: null };
-let selection = null;
+let selObjs = { line: null, face: null, ends: null, click: null };
+let selection = null; // {type:"edge", edge, point} | {type:"face", gid, solid, face, point}
 let hoverLine = null;
 let hoverId = -1;
 
 function clearSelection() {
-  disposeObj(selObjs.line); disposeObj(selObjs.ends); disposeObj(selObjs.click);
-  selObjs = { line: null, ends: null, click: null };
+  disposeObj(selObjs.line); disposeObj(selObjs.face); disposeObj(selObjs.ends); disposeObj(selObjs.click);
+  selObjs = { line: null, face: null, ends: null, click: null };
   selection = null;
   hidePanel();
 }
@@ -348,12 +564,25 @@ function clearSelection() {
 function drawSelection(sel) {
   clearSelection();
   syncLineRes();
-  const e = sel.edge;
-  selObjs.line = lineFromPoints(e.points, selLineMat);
-  overlay.add(selObjs.line);
-  const endVecs = e.kind === "loop" ? [e.center] : [e.a, e.b];
-  selObjs.ends = markerPoints(endVecs, ENDPOINT);
-  overlay.add(selObjs.ends);
+  if (sel.type === "face") {
+    const geo = faceHighlightGeometry(sel.gid);
+    if (geo) {
+      const mat = new THREE.MeshBasicMaterial({
+        color: HIGHLIGHT, transparent: true, opacity: 0.35, side: THREE.DoubleSide,
+        depthWrite: false, polygonOffset: true, polygonOffsetFactor: -2, polygonOffsetUnits: -2,
+      });
+      selObjs.face = new THREE.Mesh(geo, mat);
+      selObjs.face.renderOrder = 998;
+      overlay.add(selObjs.face);
+    }
+  } else {
+    const e = sel.edge;
+    selObjs.line = lineFromPoints(e.points, selLineMat);
+    overlay.add(selObjs.line);
+    const endVecs = e.kind === "loop" ? [e.center] : [e.a, e.b];
+    selObjs.ends = markerPoints(endVecs, ENDPOINT);
+    overlay.add(selObjs.ends);
+  }
   selObjs.click = markerPoints([sel.point], CLICKPOINT);
   overlay.add(selObjs.click);
   selection = sel;
@@ -367,7 +596,7 @@ function setHover(hit) {
   hoverId = id;
   disposeObj(hoverLine);
   hoverLine = null;
-  if (hit && (!selection || hit.edge.id !== selection.edge.id)) {
+  if (hit && (!selection || selection.type !== "edge" || hit.edge.id !== selection.edge.id)) {
     syncLineRes();
     hoverLine = lineFromPoints(hit.edge.points, hoverLineMat);
     overlay.add(hoverLine);
@@ -375,9 +604,8 @@ function setHover(hit) {
 }
 
 // --- text formatting for the copy blob ---
-function fnum(n) { const s = n.toFixed(3); return s === "-0.000" ? "0.000" : s; }
-function fpt(v) { return `x=${fnum(v.x)} y=${fnum(v.y)} z=${fnum(v.z)}`; }
-
+// fnum/fpt/formatFace come from pick-format.js so the find box parses
+// exactly what we emit.
 function edgeText(sel) {
   const e = sel.edge;
   if (e.kind === "loop") {
@@ -389,11 +617,12 @@ function edgeText(sel) {
   else tail = `len ${e.length.toFixed(3)} · curve`;
   return `${fpt(e.a)} → ${fpt(e.b)} · ${tail}`;
 }
-function endsText(sel) {
-  const e = sel.edge;
-  return e.kind === "loop" ? fpt(e.center) : `${fpt(e.a)} · ${fpt(e.b)}`;
-}
 function clickText(sel) { return fpt(sel.point); }
+function selFaceTexts(sel) {
+  if (sel.type === "face") return { a: formatFace(sel.face), b: null };
+  const ids = sel.edge.faceIds || [];
+  return { a: formatFace(classifyFace(ids[0])), b: formatFace(classifyFace(ids[1])) };
+}
 
 // The open file as the viewer fetched it (edition-root-relative), plus the
 // repo-relative path for the Copy-all locator and the bare name for the header.
@@ -406,17 +635,23 @@ function repoPath(file) {
 function headerName(file) { return file.split("/").pop().replace(/\.step$/i, ""); }
 
 function allText(sel) {
-  const endsLabel = sel.edge.kind === "loop" ? "center" : "endpoints";
   const lines = [];
   const file = currentFile();
   if (file) lines.push(`file: ${repoPath(file)}`);
   // Only assemblies carry real component names; single-solid STEPs get a
   // generic translator string from occt, which is noise — skip it.
-  if (isAssembly && sel.edge.solid && !/^Open CASCADE STEP translator/.test(sel.edge.solid)) {
-    lines.push(`solid: ${sel.edge.solid}`);
+  const solid = sel.type === "face" ? sel.solid : sel.edge.solid;
+  if (isAssembly && solid && !/^Open CASCADE STEP translator/.test(solid)) {
+    lines.push(`solid: ${solid}`);
   }
-  lines.push(`edge: ${edgeText(sel)}`);
-  lines.push(`${endsLabel}: ${endsText(sel)}`);
+  if (sel.type === "face") {
+    lines.push(`face: ${selFaceTexts(sel).a}`);
+  } else {
+    const faces = selFaceTexts(sel);
+    lines.push(`edge: ${edgeText(sel)}`);
+    if (faces.a) lines.push(`faceA: ${faces.a}`);
+    if (faces.b) lines.push(`faceB: ${faces.b}`);
+  }
   lines.push(`click: ${clickText(sel)}`);
   return lines.join("\n");
 }
@@ -472,7 +707,8 @@ function buildPanel() {
 
   panelRows = {
     edge: mkRow("Edge"),
-    ends: mkRow("Endpoints"),
+    faceA: mkRow("Face A"),
+    faceB: mkRow("Face B"),
     click: mkRow("Click"),
   };
 
@@ -490,9 +726,16 @@ function showPanel(sel) {
   if (state.currentCadWrapper && panel.parentElement !== state.currentCadWrapper) {
     state.currentCadWrapper.appendChild(panel);
   }
-  panelRows.edge.val.textContent = edgeText(sel);
-  panelRows.ends.val.textContent = endsText(sel);
-  panelRows.ends.lab.textContent = sel.edge.kind === "loop" ? "Center" : "Endpoints";
+  const isFace = sel.type === "face";
+  const faces = selFaceTexts(sel);
+  panel.querySelector(".edge-panel-title").textContent = isFace ? "Face" : "Edge";
+  panelRows.edge.row.style.display = isFace ? "none" : "";
+  if (!isFace) panelRows.edge.val.textContent = edgeText(sel);
+  panelRows.faceA.lab.textContent = isFace ? "Face" : "Face A";
+  panelRows.faceA.row.style.display = faces.a ? "" : "none";
+  panelRows.faceA.val.textContent = faces.a || "";
+  panelRows.faceB.row.style.display = !isFace && faces.b ? "" : "none";
+  panelRows.faceB.val.textContent = faces.b || "";
   panelRows.click.val.textContent = clickText(sel);
   const file = currentFile();
   panel._fileEl.textContent = file ? headerName(file) : "";
@@ -534,8 +777,25 @@ renderer.domElement.addEventListener("pointerdown", (e) => {
 renderer.domElement.addEventListener("pointerup", (e) => {
   if (!active()) return;
   if (Math.hypot(e.clientX - downX, e.clientY - downY) > 6) return; // a drag, not a click
-  const hit = pickEdge(e.clientX, e.clientY);
-  if (hit) drawSelection(hit);
+  // Edge picking is screen-space and ignores occlusion, so on a busy
+  // model some hidden edge is almost always within the pick threshold.
+  // Compare against the surface under the cursor: an edge clearly BEHIND
+  // it is occluded — the user is looking at the face, so pick the face.
+  const edgeHit = pickEdge(e.clientX, e.clientY);
+  const faceHit = pickFace(e.clientX, e.clientY);
+  let sel = null;
+  if (edgeHit && faceHit) {
+    const de = edgeHit.point.distanceTo(camera.position);
+    const df = faceHit.point.distanceTo(camera.position);
+    sel = df < de - Math.max(0.5, de * 0.002)
+      ? faceHit
+      : { type: "edge", edge: edgeHit.edge, point: edgeHit.point };
+  } else if (edgeHit) {
+    sel = { type: "edge", edge: edgeHit.edge, point: edgeHit.point };
+  } else if (faceHit) {
+    sel = faceHit;
+  }
+  if (sel) drawSelection(sel);
   else clearSelection(); // click on empty space clears
 });
 renderer.domElement.addEventListener("pointermove", (e) => {
@@ -550,6 +810,9 @@ export function clearEdgePicker() {
   edgeSource = null;
   activeEdges = null;
   isAssembly = false;
+  meshRecs = null;
+  faceTable = null;
+  faceClass = null;
 }
 
 export function setEdgePickEnabled(on) {
