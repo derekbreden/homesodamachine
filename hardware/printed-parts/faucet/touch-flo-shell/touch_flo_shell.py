@@ -1116,11 +1116,17 @@ def _build_bend_overlap(sketch: cq.Sketch, *, side: str) -> cq.Workplane:
 # The cradle splits across SPLIT B without moving the junction: the tip
 # piece keeps full wall above the pocket-floor plane through the joint's
 # arc zone (its plug loses the same region — a partial-ring joint), so
-# the floor, walls, frame, and chin print on the tip piece standing
-# nozzle-face-down, leaning no further off vertical than the plug arc
-# the piece already prints. The bend piece ends in a head wall at the
-# display's top edge whose lip presses the display in as the arc-slide
-# joint closes.
+# the floor and walls print on the tip piece standing nozzle-face-down,
+# leaning no further off vertical than the plug arc the piece already
+# prints. The bend piece ends in a head wall at the display's top edge
+# whose lip presses the display in as the arc-slide joint closes.
+#
+# Retention: the walls stop just over the face plane — nothing overhangs
+# the display face except the head wall's lip. Down-tip slide is stopped
+# by the device's rounded corners bearing on the cavity's rounded
+# corners at the open bottom end; the open end also drains the pocket
+# (the floor is a steep ramp toward it). Lift is friction, gravity, and
+# the head-wall lip.
 
 display_web_over_pill = 1.0
 display_pocket_inset = zone5_wall - display_web_over_pill
@@ -1132,38 +1138,32 @@ display_floor_n = (
 
 display_cradle_clearance = 0.25   # per side, cavity walls vs device
 display_collar_wall = 1.8
-display_frame_overhang = 0.9      # frame lip onto the front-face bezel edge
-display_frame_clearance = 0.10    # lip underside above the front face
-display_frame_thickness = 1.45    # frame band height (sets the collar top)
-display_chin_lip_len = 1.2        # frame band over the nozzle-end face edge
-display_chin_thickness = 2.0      # end wall past the tip end plane
+display_wall_top_above_face = 0.10  # walls stop here — no overhang over the face
 display_cap_thickness = 2.5       # bend-piece head wall past the display end
 display_cap_lip_len = 1.0         # head-wall lip onto the front face
+display_cap_lip_overhang = 0.9    # lip reach onto the face's bezel edge
+display_cap_lip_thickness = 1.45  # lip/head-wall height above the wall top
 # The cap lip rides an arc into place (the SPLIT B slide), dipping below
 # its seated height as it crosses the display's top edge — this larger
 # clearance makes that crossing interference-free.
 display_cap_lip_clearance = 0.30
-display_block_chamfer = 4.0       # collar flank chamfer down into the skin
-display_weep_width = 3.0          # drain notch through the chin at floor level
-display_weep_height = 1.2
+display_outline_corner_r = display_corner_r  # cradle plan outline echoes the device
 display_wire_hole_dia = 3.0       # wire drop from the cavity into the pill cusp
 display_wire_hole_s = 35.0        # within the plug web — one piece, clear of the seam
 
-display_s_top = display_housing_length            # head-wall face; chin face at s=0
+display_s_top = display_housing_length            # head-wall face; open end at s=0
 display_collar_half_x = (
     display_housing_width / 2.0 + display_cradle_clearance + display_collar_wall
 )
-display_collar_top_n = (
-    display_floor_n + display_total_depth
-    + display_frame_clearance + display_frame_thickness
+display_wall_top_n = (
+    display_floor_n + display_total_depth + display_wall_top_above_face
 )
+display_cap_top_n = display_wall_top_n + display_cap_lip_thickness
 _pcb_band_half_x = display_pcb_width / 2.0 + display_cradle_clearance
 # Step to the housing band 0.05 below the device's own PCB→housing step,
 # so the housing's overhang ledge never reaches the narrower PCB band.
 _pcb_band_n_top = display_floor_n + display_pcb_top_z - 0.05
 _housing_band_half_x = display_housing_width / 2.0 + display_cradle_clearance
-_housing_band_n_top = display_floor_n + display_total_depth + display_frame_clearance
-_window_half_x = display_housing_width / 2.0 - display_frame_overhang
 _block_n_bottom = display_floor_n - 4.0
 
 
@@ -1201,37 +1201,28 @@ def _arc_zone(n0: float, n1: float) -> cq.Workplane:
     return _cradle_prism(60.0, gn_tip_straight_len, display_s_top + 60.0, n0, n1)
 
 
+def _cradle_outline() -> cq.Workplane:
+    """The cradle's plan outline — one rounded rectangle spanning the
+    collar block and the head wall, so the corner arcs run continuously
+    across their seam."""
+    return _cradle_prism(
+        display_collar_half_x,
+        0.0, display_s_top + display_cap_thickness,
+        _block_n_bottom - 5.0, display_cap_top_n + 5.0,
+        corner_r=display_outline_corner_r,
+    )
+
+
 def _cradle_block() -> cq.Workplane:
-    """Collar block: chamfered-flank slab from below the skin to the
-    collar top spanning the device length, plus the chin plate past the
-    tip end (chin bottom at the pill-bore ceiling so the tube exits stay
-    open). The cavity bands carve the pocket and frame out of this."""
-    tip_end, s_hat, _ = _tip_frame()
-    xs_plane = cq.Plane(
-        origin=tip_end + s_hat.multiply(display_s_top),
-        xDir=cq.Vector(1, 0, 0),
-        normal=s_hat.multiply(-1.0),
+    """Collar block: plain slab from below the skin to just over the face
+    plane, spanning the device length, trimmed to the rounded plan
+    outline. The cavity bands carve the pocket out of this; how the slab
+    blends into the swept spout skin is an open design item."""
+    slab = _cradle_prism(
+        display_collar_half_x, 0.0, display_s_top,
+        _block_n_bottom, display_wall_top_n,
     )
-    w = display_collar_half_x
-    ch = display_block_chamfer
-    slab = (
-        cq.Workplane(xs_plane)
-        .polyline([
-            (-w, display_collar_top_n),
-            (-w, display_floor_n),
-            (-w + ch, _block_n_bottom),
-            (w - ch, _block_n_bottom),
-            (w, display_floor_n),
-            (w, display_collar_top_n),
-        ])
-        .close()
-        .extrude(display_s_top)
-    )
-    chin = _cradle_prism(
-        w, -display_chin_thickness, 0.0,
-        display_floor_n - display_web_over_pill, display_collar_top_n,
-    )
-    return slab.union(chin)
+    return slab.intersect(_cradle_outline())
 
 
 def _cradle_block_tip_owned() -> cq.Workplane:
@@ -1247,9 +1238,10 @@ def _cradle_block_tip_owned() -> cq.Workplane:
 
 
 def _display_cavity() -> cq.Workplane:
-    """Pocket + frame opening, cut after the block is unioned: PCB band
-    (feet + components + board), housing band, and the screen window
-    between the frame lips."""
+    """Pocket cut, applied after the block is unioned: PCB band (feet +
+    components + board) and housing band. The housing band runs past the
+    wall top — the cavity is open sky above the face; the rounded band
+    corners are what stop the device's down-tip slide."""
     pcb_band = _cradle_prism(
         _pcb_band_half_x, 0.0, display_s_top,
         display_floor_n, _pcb_band_n_top,
@@ -1257,41 +1249,27 @@ def _display_cavity() -> cq.Workplane:
     )
     housing_band = _cradle_prism(
         _housing_band_half_x, 0.0, display_s_top,
-        _pcb_band_n_top, _housing_band_n_top,
+        _pcb_band_n_top, display_cap_top_n + 5.0,
         corner_r=display_corner_r + display_cradle_clearance,
     )
-    window = _cradle_prism(
-        _window_half_x, display_chin_lip_len, display_s_top,
-        _housing_band_n_top, display_collar_top_n + 6.0,
-        corner_r=4.5,
-    )
-    return pcb_band.union(housing_band).union(window)
+    return pcb_band.union(housing_band)
 
 
 def _display_cap() -> cq.Workplane:
     """Bend-piece head wall past the display's top end, with the lip that
     overlaps the front face and presses the display in as SPLIT B closes.
-    Unioned after the cavity cut."""
+    Unioned after the cavity cut; trimmed to the shared plan outline."""
     wall = _cradle_prism(
         display_collar_half_x, display_s_top, display_s_top + display_cap_thickness,
-        display_floor_n - 2.0, display_collar_top_n,
-    )
+        display_floor_n - 2.0, display_cap_top_n,
+    ).intersect(_cradle_outline())
     lip = _cradle_prism(
-        _window_half_x, display_s_top - display_cap_lip_len, display_s_top,
+        display_housing_width / 2.0 - display_cap_lip_overhang,
+        display_s_top - display_cap_lip_len, display_s_top,
         display_floor_n + display_total_depth + display_cap_lip_clearance,
-        display_collar_top_n,
+        display_cap_top_n,
     )
     return wall.union(lip)
-
-
-def _display_weep() -> cq.Workplane:
-    """Drain notch through the chin at floor level — the cradle lives over
-    a kitchen tap and the pocket must not pool splash."""
-    return _cradle_prism(
-        display_weep_width / 2.0,
-        -display_chin_thickness - 1.0, 1.0,
-        display_floor_n, display_floor_n + display_weep_height,
-    )
 
 
 def _display_wire_hole() -> cq.Workplane:
@@ -1398,7 +1376,6 @@ def build_shell() -> cq.Workplane:
         build_zone6_inner_cut().val(),
         build_lever_clearance().val(),
         _display_cavity().val(),
-        _display_weep().val(),
         _display_wire_hole().val(),
     ]
     inner = cq.Workplane(obj=inner_parts[0].fuse(*inner_parts[1:]))
@@ -1452,10 +1429,10 @@ def build_shell_middle(full_shell: cq.Workplane | None = None) -> cq.Workplane:
 
 def build_shell_top(full_shell: cq.Workplane | None = None) -> cq.Workplane:
     """Dispense-tip piece — male plug for the SPLIT B (bend↔tip) joint,
-    carrying the display cradle: the collar block (with its tongue over
-    the bend, full wall above the pocket floor), the chin, and the frame.
-    The plug gives up the same above-floor region — a partial-ring joint
-    engaging the water side and flanks."""
+    carrying the display cradle: the collar block with its tongue over
+    the bend, full wall above the pocket floor. The plug gives up the
+    same above-floor region — a partial-ring joint engaging the water
+    side and flanks."""
     _ = full_shell
     tip_outer = _build_tip_section(_tube_shell_outer_sketch())
     tip_inner = _build_tip_section(_tube_shell_inner_sketch())
@@ -1464,7 +1441,6 @@ def build_shell_top(full_shell: cq.Workplane | None = None) -> cq.Workplane:
         .union(_cradle_block_tip_owned())
         .cut(tip_inner)
         .cut(_display_cavity())
-        .cut(_display_weep())
     )
 
     plug_outer = _build_bend_overlap(
@@ -1474,7 +1450,7 @@ def build_shell_top(full_shell: cq.Workplane | None = None) -> cq.Workplane:
     plug = (
         plug_outer
         .cut(plug_inner)
-        .cut(_arc_zone(display_floor_n, display_collar_top_n + 60.0))
+        .cut(_arc_zone(display_floor_n, display_floor_n + 80.0))
         .cut(_display_wire_hole())
     )
 
