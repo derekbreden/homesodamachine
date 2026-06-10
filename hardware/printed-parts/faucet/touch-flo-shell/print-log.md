@@ -536,6 +536,41 @@ Derek ran Bambu's Flow Dynamics Calibration for the Polymaker filament on the **
 
 **New finding — surface gloss (Polymaker vs Bambu).** Derek: the Polymaker PET-CF prints noticeably **glossier** than the **matte** of Bambu PET-CF. This is a filament-formulation property, not settings-tunable — nozzle temp is a weak lever (gloss rises with temp; dropping from 280 toward 270 might take a hair off) but cannot reach Bambu's matte. Since the touch-flo-shell is the visible above-counter faucet exterior, finish is a real application requirement that the "same material class" framing in `MATERIAL.md` (mechanical-envelope-only) didn't capture. Logged as an open Bambu-vs-Polymaker tradeoff in `MATERIAL.md`; decision deferred. Does not affect mechanical fitness — purely cosmetic.
 
+## PET-CF print attempt 19 (faucet redesign: three-point screw-boss mount + display cradle)
+
+Slice saved 2026-06-10; **print just started** (Derek: "saved a 3mf for the faucet after its redesign … print just started"). **Outcome not yet recorded** — this entry captures the slice state and the redesign so it isn't lost.
+
+**Hardware:** no nozzle change stated for this attempt. The slice is still 0.6 standard (printer `Bambu Lab H2C 0.6 nozzle`, profile `0.30mm Standard`), consistent with the attempt-18 0.6 mm DUROZZLE Diamond PCD L-side hotend still being installed. If the nozzle was swapped, that is not captured here. If the PCD is still on, the attempt-18 Flow Dynamics K = 0.013 still applies (same nozzle + filament), subject to the same send-dialog confirmation caveat from attempt 18.
+
+**Geometry — the redesign.** Accumulated since attempt 18's `a297a044` (no-joinery) baseline through HEAD `6b449411`. Two functional additions to the printed parts (the rest of the ~76-commit range is docgen / comment-discipline / +Z-up-rebase / repo-reorg refactor that does not change printed geometry):
+
+1. **Three-point screw-boss mount (shell foot ↔ mounting plate)** — replaces attempt-16's no-joinery gravity-sit. The shell foot gains three base pods: two lateral (±X) teardrop pods tangent to the body bore, plus one front (−Y) D-pod on the centerline (the off-axis third anchor). Each pod hosts the same plate-to-shell fastener chain (dims from `_touch_flo_interface.py` / `touch_flo_shell.py`):
+   - ruthex M3 short heat-set insert (⌀4.2 OD) in a ⌀4.0 pocket, 5.25 mm deep (4 mm engagement + 1.25 mm relief), seated opening-down above an 8 mm boss-engagement hole;
+   - BNUOK M3 SHCS (304 SS, head ~5.43 mm measured) driven up from under the plate, through the plate boss, into the insert — clamping the plate up into the shell;
+   - plate-side counterbore ⌀5.55 + boss OD 11.55 (5.55 + 2 × 3.0 wall); shell pocket ⌀11.65 (0.10 mm diametral slip).
+   Mounting plate reworked to match the shell foot and carry the three screw bosses on the same centers (`dc8c9d1a`); gasket footprint matched (`961ffac7`); zone 2 clipped to cylinder + teardrops (`8adf3273`). Shell-side pod/insert commits: `dbcef1df` → `b5a02b09`.
+
+2. **Display cradle on the dispense tip** (top piece) — the spout open end now carries an open cradle for the Waveshare ESP32-S3-Touch-LCD-1.47 flavor display (housing 24.50 × 44.50 mm, ⌀5.75 corners, 10.35 mm deep). Open-faced (corners retain, nothing over the screen), head wall only (no lip/notch), open end squared so it prints from layer one, 45° skirt transition onto the spout, floor drain into the pill cusp, one-extrusion cover over the bare PCB at the open end; cradle walls at three slicer lines. Commits `42e5829d` → `6b449411`.
+
+**Slice settings: functionally identical to attempt 18.** The 3mf is byte-different — re-sliced on a newer Bambu Studio (`02.07.00.55` → `02.07.01.57`; `slice_info` X-BBL-Client-Version `02.07.01.57`) — but no tracked print setting changed. The only `project_settings.config` deltas are inert version-bump noise:
+- `fuzzy_skin_point_distance` 0.3 → 0.8 and `fuzzy_skin_thickness` 0.2 → 0.3 — **both inert**: `fuzzy_skin` is `none` (unchanged), so these tune a disabled feature.
+- New-at-default keys the version added: `alternate_extra_wall` 0, `enable_order_independent_overlap_carving` 0, `skirt_per_object` 1, `support_fast_purge_mode` 0, `machine_bed_mass_Y` / `machine_max_force_Y` / `machine_max_printed_mass` 0, `filament_flush_temp_fast` [0…], `flush_multiplier_fast` [1.2], `filament_mixed_gradient_curve` ['']. None affect this slice.
+- `upward_compatible_machine` gained "Bambu Lab A2L 0.6 nozzle".
+
+Tracked settings confirmed unchanged from attempt 18 (all observed in the new 3mf):
+- Profile: printer `Bambu Lab H2C 0.6 nozzle`, print `0.30mm Standard @BBL H2C 0.6 nozzle`, `nozzle_diameter` 0.6, `layer_height` 0.30, `initial_layer_print_height` 0.30, `line_width` 0.62, `wall_loops` 100, `sparse_infill_density` 15 % grid.
+- PET-CF slot 0 = **Polymaker PET-CF**: `nozzle_temperature` 280 / initial 280 °C, `filament_flow_ratio` 1.0, `filament_max_volumetric_speed` 5 mm³/s, `chamber_temperatures` 50 °C, `fan_max_speed` 0 / `fan_min_speed` 0 / `overhang_fan_speed` 0 %, `close_fan_the_first_x_layers` 3, `filament_scarf_seam_type` none, `filament_retraction_length` nil.
+- Supports: `enable_support` 1, `support_type` tree(auto), `support_filament` 0 / `support_interface_filament` 0 (PET-CF), `support_threshold_angle` 30, `support_top_z_distance` 0.2, `support_on_build_plate_only` 1, `raft_first_layer_expansion` −1 (no support-tower brim).
+- Part brim `auto_brim` 5 mm, `elefant_foot_compensation` 0.15; `enable_prime_tower` 1; `enable_pressure_advance` 0 (dormant `pressure_advance` 0.02); `enable_wrapping_detection` 0.
+- Filament slots (3): Polymaker PET-CF, Bambu PETG Basic, Bambu ABS @BBL H2C 0.6 nozzle.
+
+**Plate composition** (per `Metadata/plate_1.json`): same 4 objects (3 shell pieces + mounting plate), all `extruder=1` (left) on PET-CF slot 0, `first_extruder` 0, textured plate. The redesign moved the per-object footprints substantially:
+- `touch-flo-shell-bottom.step`: 666.95 → **1033.34 mm²** (+366; base pods at the foot)
+- `touch-flo-shell-middle.step`: 9.28 → **3.35 mm²** (re-oriented more end-on)
+- `touch-flo-shell-top.step`: 292.36 → **501.04 mm²** (+209; display cradle at the dispense tip)
+- `touch-flo-mounting-plate.step`: 2111.40 → **1963.75 mm²** (−148; reworked to the three screw bosses)
+- First-layer time 313.51 → **384.48 s**.
+
 ## Hardware / setup observations across all PET-CF attempts
 
 Derek said:
