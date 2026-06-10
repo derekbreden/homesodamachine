@@ -74,6 +74,7 @@ For per-unit BOM parts, see [bom.md](/hardware/ledger/bom.md). For non-BOM/non-t
 | **AORAEM helping-hands w/ magnifier** | [B08DNMT96W](https://www.amazon.com/dp/B08DNMT96W), [purchases.md §14](/hardware/ledger/purchases.md) | 4 flex arms; work holder for wire-to-pad soldering. | [$8.99](T_HELPING_HANDS) |
 | **QWORK mini heat gun** | [B09NDCCW29](https://www.amazon.com/dp/B09NDCCW29), [purchases.md §14](/hardware/ledger/purchases.md) | 300 W / 200–450 °C. Heat-shrink activation, light rework. | [$8.97](T_HEAT_GUN) |
 | **iFixit precision tweezers set** | [B079K874CQ](https://www.amazon.com/dp/B079K874CQ), [purchases.md §14](/hardware/ledger/purchases.md) | Extra-fine + angled + blunt, ESD coating. Board-level rework, pin extraction, BOOT-pad bridging. | [$12.82](T_TWEEZERS) |
+| **KATA micro flush cutters (2-pack)** | [B0BBML9M2V](https://www.amazon.com/dp/B0BBML9M2V), [purchases.md §14](/hardware/ledger/purchases.md) | Precision side cutters: header-strip cutting, lead trimming. Shared with 3D-printing post-processing. | [$8.89](T_FLUSH_CUTTERS) |
 | **Haisstronica ratchet crimper** | [B08F3JKDD3](https://www.amazon.com/dp/B08F3JKDD3), [purchases.md §9](/hardware/ledger/purchases.md) | AWG 22–10. | [—](T_CRIMPER) |
 | **Taiss Dupont crimp kit + SN-28B** | [B0B11RLGDZ](https://www.amazon.com/dp/B0B11RLGDZ), [purchases.md §9](/hardware/ledger/purchases.md) | Dupont connector terminal crimping. | [$21.99](T_DUPONT_KIT) |
 | **P3 Kill-A-Watt P4400 power meter** | [B00009MDBU](https://www.amazon.com/dp/B00009MDBU), [purchases.md §9](/hardware/ledger/purchases.md) | Bench AC power measurement. | [$34.31](T_KILL_A_WATT) |
@@ -100,6 +101,7 @@ For per-unit BOM parts, see [bom.md](/hardware/ledger/bom.md). For non-BOM/non-t
 | Tool | Source | Notes | $ |
 |---|---|---|---:|
 | **VEVOR adjustable 48" workbench (×2)** | [B0FCD13KKQ](https://www.amazon.com/dp/B0FCD13KKQ), [purchases.md §12](/hardware/ledger/purchases.md) | Power outlet, wheels, pegboard, 2000 lb load each. | [$345.28](T_WORKBENCH) |
+| **NEIKO 01407A digital caliper** | [B000GSLKIW](https://www.amazon.com/dp/B000GSLKIW), [purchases.md §12](/hardware/ledger/purchases.md) | 0–6", stainless, inch/fraction/mm LCD. Bench metrology for CAD reference measurements. | [$27.23](T_CALIPER) |
 | **Ultra Duster canned air (10 oz, 4-pack)** | [B07JRBR1MM](https://www.amazon.com/dp/B07JRBR1MM), [purchases.md §1](/hardware/ledger/purchases.md) | Chip blowoff for freshly-tapped NPT threads; general shop use. Consumable. | [$24.51](T_DUSTER) |
 | **DeWalt DWFP55130 (200 PSI compressor)** | owned, predates project, *not on ledger* | Air supply for the Milton 727 post-validation pneumatic leak check. | [—](T_DEWALT) |
 | **Husky 41257HOM Tru-Match coupler kit** | owned, predates project, *not on ledger* | 19-pc accessory kit; hose-end coupler mating to Milton M-style plugs. | [—](T_HUSKY) |
@@ -112,7 +114,7 @@ For per-unit BOM parts, see [bom.md](/hardware/ledger/bom.md). For non-BOM/non-t
 
 ## Tools total
 
-Total acquired tooling: **[$13,609.02](TOOLS_TOTAL)**
+Total acquired tooling: **[$13,645.14](TOOLS_TOTAL)**
 
 ## Open items
 
