@@ -80,12 +80,24 @@ sys.path.insert(0, str(_repo_hardware_dir / "printed-parts" / "cadlib"))
 from world_workplane import WorldWorkplane, xy_plane_z_up
 
 # Each printed part's build_*() returns +Z-up.
+sys.path.insert(0, str(_faucet_printed_dir))  # for _touch_flo_interface
 sys.path.insert(0, str(_faucet_printed_dir / "touch-flo-mounting-plate"))
 sys.path.insert(0, str(_faucet_printed_dir / "touch-flo-mounting-gasket"))
 sys.path.insert(0, str(_faucet_printed_dir / "touch-flo-shell"))
 import touch_flo_mounting_plate
 import touch_flo_mounting_gasket
 import touch_flo_shell
+from _touch_flo_interface import (
+    display_housing_width,
+    display_housing_length,
+    display_pcb_width,
+    display_pcb_length,
+    display_corner_r,
+    display_pcb_corner_r,
+    display_total_depth,
+    display_pcb_bottom_z,
+    display_pcb_top_z,
+)
 
 
 # Reference body geometry, shared with
@@ -428,42 +440,23 @@ def build_lever():
 
 
 # Faucet flavor display — Waveshare ESP32-S3-Touch-LCD-1.47 (BOM §1),
-# modeled as a dimensioned stand-in. Dimensions measured from the device
-# (table in display-reference/README.md). Front to back: the plastic
-# housing (screen glass on its front face) overhangs the PCB by
-# ~0.275 mm per side; below the PCB underside, components protrude with
-# the metal feet as the extreme point. The under-PCB zone is modeled as
-# a full-footprint bounding block down to the feet plane — it shares the
-# PCB's outline, so the PCB underside (display_pcb_bottom_z) has no edge
-# in the solid.
+# modeled as a dimensioned stand-in. Device dims live in
+# _touch_flo_interface, shared with the shell's display cradle (table in
+# display-reference/README.md). The under-PCB zone is a full-footprint
+# bounding block down to the feet plane — it shares the PCB's outline,
+# so the PCB underside (display_pcb_bottom_z) has no edge in the solid.
 #
 # Native frame: X = width, Y = length, Z = outward thickness; the feet
 # plane (bounding back) at z = 0, screen faces +Z. Seated on the tip:
 # long axis along the tip, screen toward the user, lower edge flush
 # with the tip end, feet display_pocket_inset below the shell's outer
-# face above the flavor pill.
-display_housing_width = 24.50   # plastic housing, lateral
-display_housing_length = 44.50  # plastic housing, along the tip axis
-display_pcb_width = 23.95       # PCB centered under the housing
-display_pcb_length = 43.95
-display_corner_r = 5.75         # housing corners (vendor drawing)
-display_pcb_corner_r = display_corner_r - (display_housing_width - display_pcb_width) / 2.0
-display_total_depth = 10.35     # housing front face → bottom of the metal feet
-display_housing_depth = 5.00    # housing front face → housing bottom (= PCB top)
-display_pcb_bottom_from_front = 6.45  # housing front face → PCB underside
-# Native-frame boundary planes, z = 0 at the feet.
-display_pcb_bottom_z = display_total_depth - display_pcb_bottom_from_front  # 3.90
-display_pcb_top_z = display_total_depth - display_housing_depth             # 5.35
+# face above the flavor pill — the inset, and the web it leaves over
+# the pill bore, are the shell's display-cradle constants.
+display_pocket_inset = touch_flo_shell.display_pocket_inset
 # Active (lit) display area, on the front face.
 display_screen_width = 17.75
 display_screen_length = 32.93
 display_screen_depth = 0.4
-# The display sinks until its feet are all but display_web_over_pill
-# through the wrapper's zone5_wall. The web is the floor of the display
-# pocket: thick enough to print, and a barrier keeping the under-PCB
-# electronics off the flavor tubes (and tube condensation off the PCB).
-display_web_over_pill = 1.0
-display_pocket_inset = touch_flo_shell.zone5_wall - display_web_over_pill
 
 
 def _tip_centerline_world():

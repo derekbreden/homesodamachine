@@ -50,3 +50,24 @@ flavor_tube_depth = 15.75 + flavor_tube_x_offset  # 18.925
 # all four parts in the column (shell uses it for the shank pocket
 # alongside its `body_bore_diameter` for the body OD).
 shank_hole_diameter = 12.6
+
+
+# Waveshare ESP32-S3-Touch-LCD-1.47 flavor display (faucet BOM §1) —
+# caliper-measured device envelope, shared by the faucet-assembly
+# stand-in and the shell's display cradle. Front to back: the plastic
+# housing (screen glass flush in its front face) overhangs the PCB by
+# ~0.275 mm per side; below the PCB underside, components protrude with
+# the metal feet as the extreme point. Native depth axis: z = 0 at the
+# feet (the device's bounding back), +z toward the screen.
+display_housing_width = 24.50   # plastic housing, lateral
+display_housing_length = 44.50  # plastic housing, along the device's long axis
+display_pcb_width = 23.95       # PCB centered under the housing
+display_pcb_length = 43.95
+display_corner_r = 5.75         # housing corners (vendor drawing)
+display_pcb_corner_r = display_corner_r - (display_housing_width - display_pcb_width) / 2.0
+display_total_depth = 10.35     # housing front face → bottom of the metal feet
+display_housing_depth = 5.00    # housing front face → housing bottom (= PCB top)
+display_pcb_bottom_from_front = 6.45  # housing front face → PCB underside
+# Native-frame boundary planes, z = 0 at the feet.
+display_pcb_bottom_z = display_total_depth - display_pcb_bottom_from_front  # 3.90
+display_pcb_top_z = display_total_depth - display_housing_depth             # 5.35
