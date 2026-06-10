@@ -44,8 +44,9 @@ bool AXS5106L::getTouch(uint16_t *x, uint16_t *y) {
   if (!_intFlag) return false;
   _intFlag = false;
 
-  // Report: [?, count, xH, xL, yH, yL, ...] — first point only.
-  uint8_t data[6] = {0};
+  // Drain the full report: [?, count, then 6 bytes per point x2].
+  // We use the first point only.
+  uint8_t data[14] = {0};
   if (!readReg(AXS5106L_TOUCH_DATA_REG, data, sizeof(data))) return false;
   if (data[1] == 0) return false;
 
