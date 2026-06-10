@@ -305,7 +305,7 @@ static void buildUi() {
 
 static void processTextLine(const char *line) {
   if (strcmp(line, "GET_VERSION") == 0) {
-    Serial.printf("VERSION:FAUCET=%s git=%s\n", FW_BUILD_TIME, FW_GIT_REV);
+    Serial.printf("VERSION:FAUCET=%s\n", FW_VERSION);
   } else if (strcmp(line, "GET_STATE") == 0) {
     Serial.printf("STATE:FLAVOR=%d\n", activeFlavor);
   } else if (strcmp(line, "GET_DIAG") == 0) {
@@ -360,9 +360,8 @@ void setup() {
   Serial.println("ESP32-S3 Faucet Display starting...");
 
   esp_reset_reason_t reason = esp_reset_reason();
-  Serial.printf("Boot — firmware %s (git %s), heap=%lu, reset=%d\n",
-                FW_BUILD_TIME, FW_GIT_REV,
-                (unsigned long)ESP.getFreeHeap(), (int)reason);
+  Serial.printf("Boot — firmware %s, heap=%lu, reset=%d\n",
+                FW_VERSION, (unsigned long)ESP.getFreeHeap(), (int)reason);
 
   // Persisted flavor selection
   prefs.begin("faucet");
