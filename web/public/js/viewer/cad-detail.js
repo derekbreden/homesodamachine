@@ -164,17 +164,19 @@ export function openCadDetail(type, file, pushHistory = true) {
     onClose: () => {
       // Persist camera state defensively. The debounced save (controls
       // "change" handler) usually has already fired, but if the user
-      // dismissed mid-gesture the trailing save may not have. Use the
-      // captured `file` rather than currentDetail — closeCadDetail(false)
-      // clears currentDetail before invoking us, so we'd otherwise miss
-      // the save on popstate-driven closes.
-      saveCameraState(file);
+      // dismissed mid-gesture the trailing save may not have. Prefer the
+      // live mountedDetail — the find box can swap a different file into
+      // this modal — falling back to the captured `file` (closeCadDetail
+      // (false) clears currentDetail before invoking us, and the mount
+      // may already be torn down on popstate-driven closes).
+      saveCameraState((state.mountedDetail && state.mountedDetail.file) || file);
       // Whether this onClose was triggered by a UI-driven dismissal
       // (Escape / X / backdrop / swipe) or by closeCadDetail(false)
       // from the popstate path. The popstate path clears currentDetail
-      // before close fires; UI-driven closes leave it set.
-      const wasUiDriven =
-        state.currentDetail && state.currentDetail.type === type && state.currentDetail.file === file;
+      // before close fires; UI-driven closes leave it set. Match on
+      // type only — a find-box swap changes currentDetail.file while
+      // the modal stays the same UI surface.
+      const wasUiDriven = state.currentDetail && state.currentDetail.type === type;
       stopAnimate();
       // Disconnect ResizeObserver before moving canvases (otherwise it
       // fires once more for the move into the hidden host).
