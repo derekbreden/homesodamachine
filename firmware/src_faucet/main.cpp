@@ -1,0 +1,424 @@
+#include <Arduino.h>
+#include <esp_system.h>
+#include <Arduino_GFX_Library.h>
+#include <lvgl.h>
+#include <Preferences.h>
+#include <Wire.h>
+#include "axs5106l.h"
+#include "fw_version.h"
+
+// ════════════════════════════════════════════════════════════
+//  ESP32-S3 Faucet Display — Soda Flavor Selector
+// ════════════════════════════════════════════════════════════
+//
+// Waveshare ESP32-S3-Touch-LCD-1.47 (172x320 IPS, JD9853 panel,
+// AXS5106L capacitive touch) mounted on the gooseneck dispense head.
+// Shows the selected flavor; a tap anywhere on the screen toggles it.
+// The selection persists in NVS across power cycles.
+//
+// Flavor state lives here for now. The UART/TinyProto link to the
+// base ESP32 (state sync, flavor names/artwork push) plugs into
+// setFlavor() and loop() — see the seam comments there.
+
+// ── Theme (matches config display / iOS app) ──
+#define THEME_BG             lv_color_hex(0x1a1a2e)
+#define THEME_TEXT_PRIMARY   lv_color_white()
+#define THEME_TEXT_SECONDARY lv_color_hex(0x999999)
+#define THEME_TEXT_HINT      lv_color_hex(0x505058)
+#define THEME_DOT_INACTIVE   lv_color_hex(0x3a3a46)
+
+// ── Flavors ──
+struct FlavorStyle {
+  const char *name;
+  uint32_t color;
+};
+static const FlavorStyle FLAVORS[2] = {
+    {"Flavor 1", 0x7ED957},  // soda lime
+    {"Flavor 2", 0xFF8A3D},  // orange
+};
+
+static uint8_t activeFlavor = 0;
+static Preferences prefs;
+
+// ── Pin assignments (fixed by Waveshare ESP32-S3-Touch-LCD-1.47) ──
+
+// Display SPI (JD9853, 172x320, driven via the ST7789 command set)
+#define LCD_DC    45
+#define LCD_CS    21
+#define LCD_SCK   38
+#define LCD_MOSI  39
+#define LCD_RST   40
+#define LCD_BL    46
+
+// Touch (AXS5106L)
+#define TOUCH_SDA 42
+#define TOUCH_SCL 41
+#define TOUCH_RST 47
+#define TOUCH_INT 48
+
+#define SCREEN_W  172
+#define SCREEN_H  320
+#define ROTATION  0
+
+// ── Hardware objects ──
+Arduino_DataBus *bus = new Arduino_ESP32SPI(
+    LCD_DC, LCD_CS, LCD_SCK, LCD_MOSI, GFX_NOT_DEFINED, FSPI, true);
+
+// The JD9853 speaks the ST7789 command set for addressing; panel-specific
+// registers are programmed in lcdRegInit() after begin().
+Arduino_GFX *gfx = new Arduino_ST7789(
+    bus, LCD_RST, 0 /* rotation */, false /* IPS */,
+    SCREEN_W, SCREEN_H,
+    34 /* col offset 1 */, 0 /* row offset 1 */,
+    34 /* col offset 2 */, 0 /* row offset 2 */);
+
+AXS5106L touch(TOUCH_RST, TOUCH_INT);
+
+// ── LVGL display buffer ──
+static lv_disp_draw_buf_t draw_buf;
+static lv_color_t *lvgl_buf;
+#define LVGL_BUF_LINES 40
+
+// ── UI objects ──
+static lv_obj_t *flavorCircle;
+static lv_obj_t *numLabel;
+static lv_obj_t *nameLabel;
+static lv_obj_t *dots[2];
+
+// ════════════════════════════════════════════════════════════
+//  JD9853 panel init (register sequence published by Waveshare)
+// ════════════════════════════════════════════════════════════
+
+static void lcdRegInit() {
+  static const uint8_t init_operations[] = {
+      BEGIN_WRITE,
+      WRITE_COMMAND_8, 0x11,  // Sleep out
+      END_WRITE,
+      DELAY, 120,
+
+      BEGIN_WRITE,
+      WRITE_C8_D16, 0xDF, 0x98, 0x53,
+      WRITE_C8_D8, 0xB2, 0x23,
+
+      WRITE_COMMAND_8, 0xB7,
+      WRITE_BYTES, 4,
+      0x00, 0x47, 0x00, 0x6F,
+
+      WRITE_COMMAND_8, 0xBB,
+      WRITE_BYTES, 6,
+      0x1C, 0x1A, 0x55, 0x73, 0x63, 0xF0,
+
+      WRITE_C8_D16, 0xC0, 0x44, 0xA4,
+      WRITE_C8_D8, 0xC1, 0x16,
+
+      WRITE_COMMAND_8, 0xC3,
+      WRITE_BYTES, 8,
+      0x7D, 0x07, 0x14, 0x06, 0xCF, 0x71, 0x72, 0x77,
+
+      WRITE_COMMAND_8, 0xC4,
+      WRITE_BYTES, 12,
+      0x00, 0x00, 0xA0, 0x79, 0x0B, 0x0A, 0x16, 0x79, 0x0B, 0x0A, 0x16, 0x82,
+
+      WRITE_COMMAND_8, 0xC8,
+      WRITE_BYTES, 32,
+      0x3F, 0x32, 0x29, 0x29, 0x27, 0x2B, 0x27, 0x28, 0x28, 0x26, 0x25, 0x17,
+      0x12, 0x0D, 0x04, 0x00, 0x3F, 0x32, 0x29, 0x29, 0x27, 0x2B, 0x27, 0x28,
+      0x28, 0x26, 0x25, 0x17, 0x12, 0x0D, 0x04, 0x00,
+
+      WRITE_COMMAND_8, 0xD0,
+      WRITE_BYTES, 5,
+      0x04, 0x06, 0x6B, 0x0F, 0x00,
+
+      WRITE_C8_D16, 0xD7, 0x00, 0x30,
+      WRITE_C8_D8, 0xE6, 0x14,
+      WRITE_C8_D8, 0xDE, 0x01,
+
+      WRITE_COMMAND_8, 0xB7,
+      WRITE_BYTES, 5,
+      0x03, 0x13, 0xEF, 0x35, 0x35,
+
+      WRITE_COMMAND_8, 0xC1,
+      WRITE_BYTES, 3,
+      0x14, 0x15, 0xC0,
+
+      WRITE_C8_D16, 0xC2, 0x06, 0x3A,
+      WRITE_C8_D16, 0xC4, 0x72, 0x12,
+      WRITE_C8_D8, 0xBE, 0x00,
+      WRITE_C8_D8, 0xDE, 0x02,
+
+      WRITE_COMMAND_8, 0xE5,
+      WRITE_BYTES, 3,
+      0x00, 0x02, 0x00,
+
+      WRITE_COMMAND_8, 0xE5,
+      WRITE_BYTES, 3,
+      0x01, 0x02, 0x00,
+
+      WRITE_C8_D8, 0xDE, 0x00,
+      WRITE_C8_D8, 0x35, 0x00,  // Tearing effect on
+      WRITE_C8_D8, 0x3A, 0x05,  // RGB565
+
+      WRITE_COMMAND_8, 0x2A,
+      WRITE_BYTES, 4,
+      0x00, 0x22, 0x00, 0xCD,
+
+      WRITE_COMMAND_8, 0x2B,
+      WRITE_BYTES, 4,
+      0x00, 0x00, 0x01, 0x3F,
+
+      WRITE_C8_D8, 0xDE, 0x02,
+
+      WRITE_COMMAND_8, 0xE5,
+      WRITE_BYTES, 3,
+      0x00, 0x02, 0x00,
+
+      WRITE_C8_D8, 0xDE, 0x00,
+      WRITE_C8_D8, 0x36, 0x00,  // MADCTL
+      WRITE_COMMAND_8, 0x21,    // Inversion on
+      END_WRITE,
+
+      DELAY, 10,
+
+      BEGIN_WRITE,
+      WRITE_COMMAND_8, 0x29,  // Display on
+      END_WRITE,
+  };
+  bus->batchOperation(init_operations, sizeof(init_operations));
+}
+
+// ════════════════════════════════════════════════════════════
+//  LVGL callbacks
+// ════════════════════════════════════════════════════════════
+
+static void lvglFlush(lv_disp_drv_t *disp, const lv_area_t *area, lv_color_t *color_p) {
+  uint32_t w = area->x2 - area->x1 + 1;
+  uint32_t h = area->y2 - area->y1 + 1;
+  gfx->draw16bitRGBBitmap(area->x1, area->y1, (uint16_t *)&color_p->full, w, h);
+  lv_disp_flush_ready(disp);
+}
+
+static void touchpadRead(lv_indev_drv_t *drv, lv_indev_data_t *data) {
+  uint16_t x, y;
+  if (touch.getTouch(&x, &y)) {
+    data->point.x = x;
+    data->point.y = y;
+    data->state = LV_INDEV_STATE_PRESSED;
+  } else {
+    data->state = LV_INDEV_STATE_RELEASED;
+  }
+}
+
+// ════════════════════════════════════════════════════════════
+//  Flavor state
+// ════════════════════════════════════════════════════════════
+
+static void applyFlavorUi() {
+  const FlavorStyle &f = FLAVORS[activeFlavor];
+  lv_obj_set_style_bg_color(flavorCircle, lv_color_hex(f.color), 0);
+  lv_label_set_text_fmt(numLabel, "%d", activeFlavor + 1);
+  lv_label_set_text(nameLabel, f.name);
+  for (uint8_t i = 0; i < 2; i++) {
+    lv_obj_set_style_bg_color(
+        dots[i], i == activeFlavor ? lv_color_white() : THEME_DOT_INACTIVE, 0);
+  }
+}
+
+static void setFlavor(uint8_t f) {
+  if (f > 1 || f == activeFlavor) return;
+  activeFlavor = f;
+  applyFlavorUi();
+  prefs.putUChar("flavor", activeFlavor);
+  Serial.printf("Flavor -> %d (%s)\n", activeFlavor + 1, FLAVORS[activeFlavor].name);
+  // Ecosystem seam: announce the change to the base ESP32 over UART here
+  // (replaces the air-switch GPIO the ESP32 reads on the prototype).
+}
+
+static void onTap(lv_event_t *e) {
+  setFlavor(activeFlavor ^ 1);
+}
+
+// ════════════════════════════════════════════════════════════
+//  UI
+// ════════════════════════════════════════════════════════════
+
+static void buildUi() {
+  lv_obj_t *scr = lv_scr_act();
+  lv_obj_set_style_bg_color(scr, THEME_BG, 0);
+  lv_obj_clear_flag(scr, LV_OBJ_FLAG_SCROLLABLE);
+
+  // "FLAVOR" eyebrow
+  lv_obj_t *title = lv_label_create(scr);
+  lv_obj_set_style_text_font(title, &lv_font_montserrat_16, 0);
+  lv_obj_set_style_text_color(title, THEME_TEXT_SECONDARY, 0);
+  lv_obj_set_style_text_letter_space(title, 4, 0);
+  lv_label_set_text(title, "FLAVOR");
+  lv_obj_align(title, LV_ALIGN_TOP_MID, 0, 18);
+
+  // Big colored disc with the flavor number
+  flavorCircle = lv_obj_create(scr);
+  lv_obj_set_size(flavorCircle, 128, 128);
+  lv_obj_set_style_radius(flavorCircle, LV_RADIUS_CIRCLE, 0);
+  lv_obj_set_style_border_width(flavorCircle, 0, 0);
+  lv_obj_set_style_pad_all(flavorCircle, 0, 0);
+  lv_obj_clear_flag(flavorCircle, LV_OBJ_FLAG_SCROLLABLE);
+  lv_obj_align(flavorCircle, LV_ALIGN_CENTER, 0, -28);
+
+  numLabel = lv_label_create(flavorCircle);
+  lv_obj_set_style_text_font(numLabel, &lv_font_montserrat_48, 0);
+  lv_obj_set_style_text_color(numLabel, THEME_BG, 0);
+  lv_obj_center(numLabel);
+
+  // Flavor name
+  nameLabel = lv_label_create(scr);
+  lv_obj_set_style_text_font(nameLabel, &lv_font_montserrat_28, 0);
+  lv_obj_set_style_text_color(nameLabel, THEME_TEXT_PRIMARY, 0);
+  lv_obj_align(nameLabel, LV_ALIGN_CENTER, 0, 64);
+
+  // Hint
+  lv_obj_t *hint = lv_label_create(scr);
+  lv_obj_set_style_text_font(hint, &lv_font_montserrat_14, 0);
+  lv_obj_set_style_text_color(hint, THEME_TEXT_HINT, 0);
+  lv_label_set_text(hint, "tap to switch");
+  lv_obj_align(hint, LV_ALIGN_BOTTOM_MID, 0, -38);
+
+  // Selection dots
+  for (uint8_t i = 0; i < 2; i++) {
+    dots[i] = lv_obj_create(scr);
+    lv_obj_set_size(dots[i], 10, 10);
+    lv_obj_set_style_radius(dots[i], LV_RADIUS_CIRCLE, 0);
+    lv_obj_set_style_border_width(dots[i], 0, 0);
+    lv_obj_clear_flag(dots[i], LV_OBJ_FLAG_SCROLLABLE);
+    lv_obj_align(dots[i], LV_ALIGN_BOTTOM_MID, i == 0 ? -12 : 12, -16);
+  }
+
+  // Full-screen tap target on top of everything
+  lv_obj_t *overlay = lv_obj_create(scr);
+  lv_obj_set_size(overlay, LV_PCT(100), LV_PCT(100));
+  lv_obj_set_style_bg_opa(overlay, LV_OPA_TRANSP, 0);
+  lv_obj_set_style_border_width(overlay, 0, 0);
+  lv_obj_clear_flag(overlay, LV_OBJ_FLAG_SCROLLABLE);
+  lv_obj_add_flag(overlay, LV_OBJ_FLAG_CLICKABLE);
+  lv_obj_add_event_cb(overlay, onTap, LV_EVENT_PRESSED, NULL);
+
+  applyFlavorUi();
+}
+
+// ════════════════════════════════════════════════════════════
+//  USB serial text commands (testing / diagnostics)
+// ════════════════════════════════════════════════════════════
+
+static void processTextLine(const char *line) {
+  if (strcmp(line, "GET_VERSION") == 0) {
+    Serial.printf("VERSION:FAUCET=%s\n", FW_BUILD_TIME);
+  } else if (strcmp(line, "GET_STATE") == 0) {
+    Serial.printf("STATE:FLAVOR=%d\n", activeFlavor);
+  } else if (strcmp(line, "TOGGLE") == 0) {
+    setFlavor(activeFlavor ^ 1);
+    Serial.printf("OK:FLAVOR=%d\n", activeFlavor);
+  } else if (strncmp(line, "FLAVOR:", 7) == 0) {
+    uint8_t f = atoi(line + 7);
+    if (f > 1) {
+      Serial.println("ERR:FLAVOR out of range");
+    } else {
+      setFlavor(f);
+      Serial.printf("OK:FLAVOR=%d\n", activeFlavor);
+    }
+  } else {
+    Serial.printf("ERR:unknown command '%s'\n", line);
+  }
+}
+
+// ════════════════════════════════════════════════════════════
+//  Setup / loop
+// ════════════════════════════════════════════════════════════
+
+void setup() {
+  Serial.begin(115200);
+  delay(500);
+  Serial.println("ESP32-S3 Faucet Display starting...");
+
+  esp_reset_reason_t reason = esp_reset_reason();
+  Serial.printf("Boot — firmware %s, heap=%lu, reset=%d\n",
+                FW_BUILD_TIME, (unsigned long)ESP.getFreeHeap(), (int)reason);
+
+  // Persisted flavor selection
+  prefs.begin("faucet");
+  activeFlavor = prefs.getUChar("flavor", 0);
+  if (activeFlavor > 1) activeFlavor = 0;
+
+  // Display hardware init
+  if (!gfx->begin()) {
+    Serial.println("gfx->begin() failed!");
+  }
+  lcdRegInit();
+  gfx->setRotation(ROTATION);
+  gfx->fillScreen(RGB565_BLACK);
+
+  // Backlight on after the panel is initialized (avoids boot flash)
+  pinMode(LCD_BL, OUTPUT);
+  digitalWrite(LCD_BL, HIGH);
+
+  // Touch
+  Wire.begin(TOUCH_SDA, TOUCH_SCL);
+  touch.begin(Wire, ROTATION, gfx->width(), gfx->height());
+
+  // LVGL init
+  lv_init();
+  lvgl_buf = (lv_color_t *)malloc(SCREEN_W * LVGL_BUF_LINES * sizeof(lv_color_t));
+  if (!lvgl_buf) {
+    Serial.println("FATAL: failed to allocate LVGL buffer!");
+    while (1) delay(1000);
+  }
+  lv_disp_draw_buf_init(&draw_buf, lvgl_buf, NULL, SCREEN_W * LVGL_BUF_LINES);
+
+  static lv_disp_drv_t disp_drv;
+  lv_disp_drv_init(&disp_drv);
+  disp_drv.hor_res = gfx->width();
+  disp_drv.ver_res = gfx->height();
+  disp_drv.flush_cb = lvglFlush;
+  disp_drv.draw_buf = &draw_buf;
+  lv_disp_drv_register(&disp_drv);
+
+  static lv_indev_drv_t indev_drv;
+  lv_indev_drv_init(&indev_drv);
+  indev_drv.type = LV_INDEV_TYPE_POINTER;
+  indev_drv.read_cb = touchpadRead;
+  lv_indev_drv_register(&indev_drv);
+
+  buildUi();
+
+  Serial.printf("Ready — flavor %d (%s). Tap to switch.\n",
+                activeFlavor + 1, FLAVORS[activeFlavor].name);
+}
+
+void loop() {
+  // USB serial commands (debug/test)
+  static char usbBuf[64];
+  static uint8_t usbPos = 0;
+  while (Serial.available()) {
+    char c = Serial.read();
+    if (c == '\n' || c == '\r') {
+      if (usbPos > 0) {
+        usbBuf[usbPos] = '\0';
+        processTextLine(usbBuf);
+        usbPos = 0;
+      }
+    } else if (usbPos < sizeof(usbBuf) - 1) {
+      usbBuf[usbPos++] = c;
+    }
+  }
+
+  // Ecosystem seam: service the TinyProto link to the base ESP32 here.
+
+  // Periodic diagnostics
+  static unsigned long lastDiag = 0;
+  if (millis() - lastDiag >= 60000) {
+    lastDiag = millis();
+    Serial.printf("DIAG: heap=%lu touchInts=%lu uptime=%lus\n",
+                  (unsigned long)ESP.getFreeHeap(),
+                  (unsigned long)touch.intCount(), millis() / 1000);
+  }
+
+  lv_timer_handler();
+  delay(5);
+}

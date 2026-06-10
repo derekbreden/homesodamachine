@@ -1,12 +1,13 @@
 # Firmware
 
-The Home Soda Machine prototype runs on three microcontrollers — ESP32 (main controller), RP2040 (display), ESP32-S3 (config touchscreen + BLE bridge). The product under development reuses the ESP32 + ESP32-S3 portion of this base; the integrated-build hardware bring-up procedure lives in [`/hardware/assembly/firmware-and-commissioning.md`](/hardware/assembly/firmware-and-commissioning.md).
+The Home Soda Machine prototype runs on three microcontrollers — ESP32 (main controller), RP2040 (display), ESP32-S3 (config touchscreen + BLE bridge). A fourth board, the faucet display (Waveshare ESP32-S3 1.47" touch LCD), runs standalone flavor-selector firmware; in the integrated appliance it is the flavor display and touch toggle (no RP2040, no air switch). The product under development reuses the ESP32 + the two ESP32-S3s; the integrated-build hardware bring-up procedure lives in [`/hardware/assembly/firmware-and-commissioning.md`](/hardware/assembly/firmware-and-commissioning.md).
 
 ## Architecture
 
 - **ESP32** — Main controller. Reads the flow meter, drives pumps and valves via L298N motor drivers, manages the pump state machine, stores config in LittleFS, and coordinates the other boards over UART using TinyProto (HDLC full-duplex reliable delivery).
 - **RP2040** (Waveshare RP2040-LCD-0.99) — Display controller. Shows the selected flavor logo on a 128x115 round LCD. Reads the same physical toggle switch for instant visual feedback.
 - **ESP32-S3** (Meshnology 1.28" Round Rotary Display) — Config display. A 240x240 round touchscreen with a rotary encoder for changing flavor images and ratios at runtime. Also serves as a BLE bridge between the iOS app and ESP32. Syncs config to the ESP32 over UART.
+- **ESP32-S3 faucet display** (Waveshare ESP32-S3-Touch-LCD-1.47) — Flavor selector on the gooseneck dispense head. Shows the selected flavor on a 172x320 capacitive-touch LCD; a tap anywhere toggles between the two flavors, and the selection persists in NVS. Standalone for now — the UART/TinyProto link to the ESP32 (flavor-state sync, names/artwork push) is the integration seam marked in `src_faucet/main.cpp`.
 
 ```
                         ┌─────────────────────┐
@@ -123,6 +124,24 @@ All pins are fixed by the board design.
 | UART TX (J34) | 43 | 115200 baud, TinyProto HDLC to ESP32 |
 | UART RX (J34) | 44 | 115200 baud, TinyProto HDLC from ESP32 |
 
+### ESP32-S3 Faucet Display (Waveshare ESP32-S3-Touch-LCD-1.47)
+
+All pins are fixed by the board design.
+
+| Function | GPIO | Notes |
+|----------|------|-------|
+| LCD SPI MOSI | 39 | JD9853, 172x320 — ST7789 command set + panel init sequence |
+| LCD SPI SCLK | 38 | |
+| LCD CS | 21 | |
+| LCD DC | 45 | |
+| LCD RST | 40 | |
+| LCD Backlight | 46 | |
+| Touch SDA | 42 | AXS5106L, Wire I2C, addr 0x63 |
+| Touch SCL | 41 | |
+| Touch INT | 48 | FALLING edge per touch report |
+| Touch RST | 47 | |
+| BOOT button | 0 | |
+
 ## Inter-Board Communication
 
 All inter-MCU communication uses [TinyProto](https://github.com/lexus2k/tinyproto) at 115200 baud with HDLC full-duplex framing. Text commands are sent inside `MSG_TEXT` messages; binary image uploads use a state-based protocol where TinyProto handles fragmentation, ACKs, and retransmission internally.
@@ -160,7 +179,7 @@ Boot order does not matter. The S3 retries `GET_CONFIG` until the ESP32 is ready
 
 ## Building and Flashing
 
-This is a [PlatformIO](https://platformio.org/) project with three build environments. The wrapper `./tools/flash.sh <env>` handles each one — envs are `esp32dev`, `rp2040_display`, `esp32s3_config`. The underlying PlatformIO commands work directly too:
+This is a [PlatformIO](https://platformio.org/) project with four build environments. The wrapper `./tools/flash.sh <env>` handles each one — envs are `esp32dev`, `rp2040_display`, `esp32s3_config`, `esp32s3_faucet`. The underlying PlatformIO commands work directly too:
 
 ### Flash the ESP32 (main controller)
 
@@ -183,6 +202,14 @@ pio run -e esp32s3_config -t upload
 ```
 
 The ESP32-S3 uses the [pioarduino platform](https://github.com/pioarduino/platform-espressif32) for Arduino core 3.x support, [LVGL v8.4](https://github.com/lvgl/lvgl) for the UI, and the [GFX Library for Arduino](https://github.com/moononournation/Arduino_GFX) for the GC9A01A display driver. A custom 64px Montserrat font (`src_config/font_ratio_64.h`) is used for the ratio edit screen.
+
+### Flash the ESP32-S3 (faucet display)
+
+```bash
+pio run -e esp32s3_faucet -t upload
+```
+
+Same platform and LVGL stack as the config display. The JD9853 panel is driven through the GFX library's ST7789 driver plus a panel-specific init sequence; the AXS5106L touch driver lives in `src_faucet/axs5106l.cpp`. Test commands over USB serial (115200 baud): `GET_STATE`, `TOGGLE`, `FLAVOR:n`, `GET_VERSION`.
 
 ### Adding a New Flavor Image
 
