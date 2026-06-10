@@ -1138,6 +1138,12 @@ display_floor_n = (
 display_cradle_clearance = 0.25   # per side, cavity walls vs device
 display_collar_wall = 1.8
 display_wall_top_above_face = 0.10  # walls stop here — no overhang over the face
+# The cavity's rounded corners meet the open end tangentially — a
+# zero-angle wedge the slicer would silently drop. The cavity's first
+# display_end_wall_min of depth is squared off instead, so the end wall
+# starts at one full extrusion width (the 0.6 nozzle's 0.62 line width)
+# on layer 1, matching what the slicer would print anyway.
+display_end_wall_min = 0.62
 display_cap_thickness = 2.5       # bend-piece head wall past the display end
 display_outline_corner_r = display_corner_r  # cradle plan outline echoes the device
 display_wire_hole_dia = 3.0       # wire drop from the cavity into the pill cusp
@@ -1236,22 +1242,43 @@ def _cradle_block_tip_owned() -> cq.Workplane:
     )
 
 
+def _end_throat(half_x: float, corner_r: float, n0: float, n1: float) -> cq.Workplane:
+    """Square-cornered opening for a band's first display_end_wall_min of
+    depth. Its side lands exactly where the band's corner arc reaches one
+    extrusion width of end wall, so the wall starts at printable
+    thickness with no sliver left behind the step."""
+    reach = math.sqrt(corner_r ** 2 - (corner_r - display_end_wall_min) ** 2)
+    return _cradle_prism(
+        half_x - corner_r + reach, -1.0, display_end_wall_min, n0, n1,
+    )
+
+
 def _display_cavity() -> cq.Workplane:
     """Pocket cut, applied after the block is unioned: PCB band (feet +
-    components + board) and housing band. The housing band runs past the
-    wall top — the cavity is open sky above the face; the rounded band
-    corners are what stop the device's down-tip slide."""
+    components + board) and housing band, each with its open end squared
+    off to one extrusion width of end wall. The housing band runs past
+    the wall top — the cavity is open sky above the face; the rounded
+    band corners are what stop the device's down-tip slide."""
+    pcb_r = display_pcb_corner_r + display_cradle_clearance
+    housing_r = display_corner_r + display_cradle_clearance
     pcb_band = _cradle_prism(
         _pcb_band_half_x, 0.0, display_s_top,
         display_floor_n, _pcb_band_n_top,
-        corner_r=display_pcb_corner_r + display_cradle_clearance,
+        corner_r=pcb_r,
     )
     housing_band = _cradle_prism(
         _housing_band_half_x, 0.0, display_s_top,
         _pcb_band_n_top, display_wall_top_n + 5.0,
-        corner_r=display_corner_r + display_cradle_clearance,
+        corner_r=housing_r,
     )
-    return pcb_band.union(housing_band)
+    return (
+        pcb_band
+        .union(housing_band)
+        .union(_end_throat(_pcb_band_half_x, pcb_r,
+                           display_floor_n, _pcb_band_n_top))
+        .union(_end_throat(_housing_band_half_x, housing_r,
+                           _pcb_band_n_top, display_wall_top_n + 5.0))
+    )
 
 
 def _display_head_wall() -> cq.Workplane:
