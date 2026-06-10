@@ -1316,12 +1316,14 @@ def _skirt_chamfer() -> cq.Workplane:
     corner_x = display_collar_half_x - display_outline_corner_r
     # Wedge cross-section, x measured outboard: toe on the fill-rect
     # flank at the skirt bottom, hinge at the outline on the old bottom.
+    # The profile bottoms exactly at the skirt plane — below it is spout,
+    # and the cut must never reach the spout (revolved at the corner, a
+    # deeper margin sweeps an annular trench through it).
     wedge_profile = [
         (tube_shell_x_half_outer, _cradle_n_bottom),
         (display_collar_half_x, _block_n_bottom),
         (display_collar_half_x + 4.0, _block_n_bottom),
-        (display_collar_half_x + 4.0, _cradle_n_bottom - 3.0),
-        (tube_shell_x_half_outer, _cradle_n_bottom - 3.0),
+        (display_collar_half_x + 4.0, _cradle_n_bottom),
     ]
     # Revolve profile, radius measured from the corner axis (the side
     # face sits display_outline_corner_r from it).
