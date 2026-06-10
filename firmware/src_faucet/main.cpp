@@ -36,6 +36,16 @@ static lv_img_dsc_t flavorLogos[2];
 static uint8_t activeFlavor = 0;
 static Preferences prefs;
 
+// Persist is debounced off the tap path: NVS writes go to flash (and
+// occasionally trigger page GC), so the tap handler only marks dirty.
+static bool flavorDirty = false;
+static unsigned long flavorChangedAt = 0;
+#define FLAVOR_PERSIST_DELAY_MS 2000
+
+// ── Diagnostics (read via GET_DIAG) ──
+static uint32_t maxLoopMs = 0;
+static uint32_t toggleCount = 0;
+
 // ── Pin assignments (fixed by Waveshare ESP32-S3-Touch-LCD-1.47) ──
 
 // Display SPI (JD9853, 172x320, driven via the ST7789 command set)
@@ -213,7 +223,9 @@ static void setFlavor(uint8_t f) {
   if (f > 1 || f == activeFlavor) return;
   activeFlavor = f;
   applyFlavorUi();
-  prefs.putUChar("flavor", activeFlavor);
+  flavorDirty = true;
+  flavorChangedAt = millis();
+  toggleCount++;
   Serial.printf("Flavor -> %d (%s)\n", activeFlavor + 1, FLAVOR_NAMES[activeFlavor]);
   // Ecosystem seam: announce the change to the base ESP32 over UART here
   // (replaces the air-switch GPIO the ESP32 reads on the prototype).
@@ -245,11 +257,12 @@ static void buildUi() {
   logoImg = lv_img_create(scr);
   lv_obj_align(logoImg, LV_ALIGN_CENTER, 0, 0);
 
-  // Full-screen tap target on top
+  // Full-screen tap target on top. Strip all theme styles — the theme's
+  // pressed-state transition would otherwise animate this (invisible)
+  // object on every tap, forcing extra full-screen redraws.
   lv_obj_t *overlay = lv_obj_create(scr);
+  lv_obj_remove_style_all(overlay);
   lv_obj_set_size(overlay, LV_PCT(100), LV_PCT(100));
-  lv_obj_set_style_bg_opa(overlay, LV_OPA_TRANSP, 0);
-  lv_obj_set_style_border_width(overlay, 0, 0);
   lv_obj_clear_flag(overlay, LV_OBJ_FLAG_SCROLLABLE);
   lv_obj_add_flag(overlay, LV_OBJ_FLAG_CLICKABLE);
   lv_obj_add_event_cb(overlay, onTap, LV_EVENT_PRESSED, NULL);
@@ -266,6 +279,15 @@ static void processTextLine(const char *line) {
     Serial.printf("VERSION:FAUCET=%s\n", FW_BUILD_TIME);
   } else if (strcmp(line, "GET_STATE") == 0) {
     Serial.printf("STATE:FLAVOR=%d\n", activeFlavor);
+  } else if (strcmp(line, "GET_DIAG") == 0) {
+    Serial.printf("DIAG:heap=%lu,minHeap=%lu,touchInts=%lu,toggles=%lu,"
+                  "maxLoopMs=%lu,uptime=%lus\n",
+                  (unsigned long)ESP.getFreeHeap(),
+                  (unsigned long)ESP.getMinFreeHeap(),
+                  (unsigned long)touch.intCount(),
+                  (unsigned long)toggleCount,
+                  (unsigned long)maxLoopMs, millis() / 1000);
+    maxLoopMs = 0;  // high-water mark since last query
   } else if (strcmp(line, "TOGGLE") == 0) {
     setFlavor(activeFlavor ^ 1);
     Serial.printf("OK:FLAVOR=%d\n", activeFlavor);
@@ -288,6 +310,10 @@ static void processTextLine(const char *line) {
 
 void setup() {
   Serial.begin(115200);
+  // Never block on USB writes: the HWCDC TX buffer only drains while a host
+  // is reading the port. With the default 100ms timeout, every print stalls
+  // the loop once the buffer fills — felt as tap lag. 0 = drop instead.
+  Serial.setTxTimeoutMs(0);
   delay(500);
   Serial.println("ESP32-S3 Faucet Display starting...");
 
@@ -346,6 +372,8 @@ void setup() {
 }
 
 void loop() {
+  unsigned long loopStart = millis();
+
   // USB serial commands (debug/test)
   static char usbBuf[64];
   static uint8_t usbPos = 0;
@@ -364,15 +392,17 @@ void loop() {
 
   // Ecosystem seam: service the TinyProto link to the base ESP32 here.
 
-  // Periodic diagnostics
-  static unsigned long lastDiag = 0;
-  if (millis() - lastDiag >= 60000) {
-    lastDiag = millis();
-    Serial.printf("DIAG: heap=%lu touchInts=%lu uptime=%lus\n",
-                  (unsigned long)ESP.getFreeHeap(),
-                  (unsigned long)touch.intCount(), millis() / 1000);
+  // Debounced flavor persist (off the tap path)
+  if (flavorDirty && millis() - flavorChangedAt >= FLAVOR_PERSIST_DELAY_MS) {
+    flavorDirty = false;
+    prefs.putUChar("flavor", activeFlavor);
+    Serial.printf("Persisted flavor %d\n", activeFlavor + 1);
   }
 
   lv_timer_handler();
+
+  unsigned long loopMs = millis() - loopStart;
+  if (loopMs > maxLoopMs) maxLoopMs = loopMs;
+
   delay(5);
 }
