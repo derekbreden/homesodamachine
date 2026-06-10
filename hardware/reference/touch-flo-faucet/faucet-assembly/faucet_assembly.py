@@ -29,14 +29,17 @@ Parts:
    Shank hole at (0, 0); flavor-tube pill slot at Y = +18.925. 5 mm
    radial gap from the shell base (Ø 44.35).
 6. Shell (../../../printed-parts/faucet/touch-flo-shell/).
-   Single-piece shroud covering zones 1–6, centered at depth
-   Y = +3.175. Outer Ø 44.35 mm cylindrical base (zone 1, Z = [0, 13])
-   → cove transition into a 41.175 × 23.5 mm rectangular column
-   (zone 2, Z = [13, 39]) → arch wings + plateau fill over the body's
-   arched top (zone 3, Z = [39, 44.25]) → tube wrapper above the arch
-   and lever (zones 4 + 4.5 + 5, Z = [44.25, 67.5]) → gooseneck
-   wrapper following the bent dispense tubes through bend 1, mid
-   straight, bend 2, and the tip (zone 6).
+   Three printed pieces in assembled position, as printed — joint
+   voids and all: shell_bottom (angled spout), shell_middle (upper
+   bend + cradle saddle), shell_top (dispense tip + tray). Together
+   they cover zones 1–6, centered at depth Y = +3.175: outer Ø 44.35 mm
+   cylindrical base (zone 1, Z = [0, 13]) → cove transition into a
+   41.175 × 23.5 mm rectangular column (zone 2, Z = [13, 39]) → arch
+   wings + plateau fill over the body's arched top (zone 3,
+   Z = [39, 44.25]) → tube wrapper above the arch and lever
+   (zones 4 + 4.5 + 5, Z = [44.25, 67.5]) → gooseneck wrapper
+   following the bent dispense tubes through bend 1, mid straight,
+   bend 2, and the tip (zone 6).
 7. Mounting gasket (../../../printed-parts/faucet/touch-flo-mounting-gasket/).
    Ø 54.35 × 2.0 mm TPU 90A disc between the mounting plate and the
    countertop (Z = [-6, -4]). Hole pattern mirrors the plate.
@@ -210,9 +213,15 @@ def load_mounting_gasket():
     return touch_flo_mounting_gasket.build_mounting_gasket()
 
 
-def load_shell():
-    """Printed shell, +Z-up."""
-    return touch_flo_shell.build_shell()
+def load_shell_pieces():
+    """The three printed shell pieces, +Z-up, in assembled position —
+    as printed, joint voids and all."""
+    full = touch_flo_shell.build_shell()
+    return (
+        touch_flo_shell.build_shell_bottom(full),
+        touch_flo_shell.build_shell_middle(full),
+        touch_flo_shell.build_shell_top(full),
+    )
 
 
 def _arc_from_tangent(start, tangent, radius, theta_rad, ccw):
@@ -570,7 +579,7 @@ def build_assembly():
     lever = build_lever()
     mounting_plate = load_mounting_plate()
     mounting_gasket = load_mounting_gasket()
-    shell = load_shell()
+    shell_bottom, shell_middle, shell_top = load_shell_pieces()
     display_body = build_display_body()
     display_screen = build_display_screen()
 
@@ -588,7 +597,9 @@ def build_assembly():
     assy.add(lever, name="lever", color=silver)
     assy.add(mounting_plate, name="mounting_plate", color=petg_tan)
     assy.add(mounting_gasket, name="mounting_gasket", color=tpu_black)
-    assy.add(shell, name="shell", color=petg_tan)
+    assy.add(shell_bottom, name="shell_bottom", color=petg_tan)
+    assy.add(shell_middle, name="shell_middle", color=petg_tan)
+    assy.add(shell_top, name="shell_top", color=petg_tan)
     assy.add(display_body, name="faucet_display", color=display_slate)
     assy.add(display_screen, name="faucet_display_screen", color=display_glass)
     return assy
@@ -631,7 +642,7 @@ def main():
           f"({tip_below_horiz:.0f}° below horizontal)")
     print(f"  Mounting plate:        touch_flo_mounting_plate.build_mounting_plate()")
     print(f"  Mounting gasket:       touch_flo_mounting_gasket.build_mounting_gasket()")
-    print(f"  Shell (zones 1-6):     touch_flo_shell.build_shell()")
+    print(f"  Shell pieces:          touch_flo_shell.build_shell_bottom/middle/top()")
     print(f"-> {out.name}")
 
     substitute_py_comments(
