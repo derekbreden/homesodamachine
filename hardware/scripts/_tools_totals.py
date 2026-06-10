@@ -170,6 +170,8 @@ TOOLS = [
     ("Taiss Dupont crimp", "T_DUPONT_KIT", A("B0B11RLGDZ")),
     ("Kill-A-Watt", "T_KILL_A_WATT", A("B00009MDBU")),
     ("Virtua CCS safety glasses", "T_GLASSES", A("B00AEXKR4C")),
+    ("iFixit precision tweezers", "T_TWEEZERS", A("B079K874CQ")),
+    ("SH-U09B3 USB-C to TTL", "T_USB_UART", A("B09KXT6W46")),
     ("Bambu Lab H2C (×2)", "T_H2C", SUM([
         L(order="us712460111015776257", contains="H2C AMS Combo (printer"),
         L(order="us728027710789775361"),
