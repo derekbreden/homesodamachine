@@ -9,6 +9,7 @@ import { state } from "./state.js";
 import { scene, camera, resetCamera } from "./scene.js";
 import { applyXray } from "./xray.js";
 import { setActiveEdges } from "./edge-picker.js";
+import { clearPickFind } from "./pick-find.js";
 
 // --- occt-import-js loader (no importmap support, loaded manually) ---
 let occtReady;
@@ -57,7 +58,7 @@ function materialsFor(color) {
 function buildMesh(result) {
   const group = new THREE.Group();
 
-  for (const mesh of result.meshes) {
+  result.meshes.forEach((mesh, occtIndex) => {
     const geo = new THREE.BufferGeometry();
     geo.setAttribute("position", new THREE.Float32BufferAttribute(new Float32Array(mesh.attributes.position.array), 3));
     if (mesh.attributes.normal) {
@@ -70,10 +71,17 @@ function buildMesh(result) {
 
     // Front + back face so thin parts are visible from behind. occt-import-js
     // hands us mesh.color per solid when the STEP carries one; else gray.
+    // Both carry the occt mesh index so the edge picker's face raycast can
+    // map a hit triangle back to its BREP face.
     const { front, back } = materialsFor(mesh.color);
-    group.add(new THREE.Mesh(geo, front));
-    group.add(new THREE.Mesh(geo, back));
-  }
+    const frontMesh = new THREE.Mesh(geo, front);
+    const backMesh = new THREE.Mesh(geo, back);
+    frontMesh.userData.occtIndex = occtIndex;
+    frontMesh.userData.side = "front"; // face raycast scans front meshes only
+    backMesh.userData.occtIndex = occtIndex;
+    group.add(frontMesh);
+    group.add(backMesh);
+  });
 
   return group;
 }
@@ -111,6 +119,7 @@ export async function loadStepFile(file, { preserveCamera = false } = {}) {
     state.currentGroup = buildMesh(result);
     applyXray(state.currentGroup); // ghost + edges if x-ray mode is on
     setActiveEdges(result); // BREP edges for the edge picker (lazy-reconstructed)
+    clearPickFind(); // stale find highlights reference the old geometry
     scene.add(state.currentGroup);
     state.mountedDetail = { type: "step", file };
     if (!preserveCamera) resetCamera(state.currentGroup);
