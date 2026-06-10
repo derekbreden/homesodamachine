@@ -517,7 +517,7 @@ static void processBleRequest() {
     case BLE_REQ_GET_VERSION: {
       // Send S3's own version, then forward to ESP32 for ESP32+RP2040 versions
       char s3ver[64];
-      snprintf(s3ver, sizeof(s3ver), "VERSION:S3=%s", FW_BUILD_TIME);
+      snprintf(s3ver, sizeof(s3ver), "VERSION:S3=%s", FW_VERSION);
       bleSendText(s3ver);
       proto.sendText("GET_VERSION");
       break;
@@ -1814,7 +1814,7 @@ void drawAbout() {
   int startY = 75;
 
   const char *labelNames[] = { "S3", "ESP32", "RP2040" };
-  const char *versions[] = { FW_BUILD_TIME, espVersion, rpVersion };
+  const char *versions[] = { FW_VERSION, espVersion, rpVersion };
 
   for (int i = 0; i < 3; i++) {
     lv_obj_t *name = lv_label_create(scr);
@@ -2335,7 +2335,7 @@ void setup() {
     default: break;
   }
   plog.println("Boot — firmware %s, heap=%lu, reason=%s",
-               FW_BUILD_TIME, (unsigned long)ESP.getFreeHeap(), reasonStr);
+               FW_VERSION, (unsigned long)ESP.getFreeHeap(), reasonStr);
   seedDefaultImages();
   numImages = countImages();
   loadLabels();
