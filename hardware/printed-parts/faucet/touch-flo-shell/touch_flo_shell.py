@@ -1110,7 +1110,7 @@ def _build_bend_overlap(sketch: cq.Sketch, *, side: str) -> cq.Workplane:
 #
 # Tip frame: s = distance up-spout from the tip end plane along the tip
 # axis; n = distance from the water-tube centerline along the tip's top
-# normal; x = world X. The device sits display_end_wall_min up the tip —
+# normal; x = world X. The device sits display_line_width up the tip —
 # behind the PCB cover — occupying s ∈ [end wall, end wall +
 # housing_length], n ∈ [floor, floor + total_depth].
 #
@@ -1140,16 +1140,17 @@ display_floor_n = (
 )
 
 display_cradle_clearance = 0.25   # per side, cavity walls vs device
-display_collar_wall = 1.8
+# One extrusion of the 0.6 nozzle (its 0.62 line width) — the unit the
+# cradle's printable thicknesses build from. The PCB band's opening is
+# closed by an end wall this thick (the cover over the bare PCB at the
+# open end), the device sits this far up the tip to make room for it,
+# and the housing band's first this-much of depth is squared off — its
+# corner tangency would otherwise leave a zero-angle layer-1 sliver the
+# slicer silently drops.
+display_line_width = 0.62
+display_collar_wall = 3.0 * display_line_width    # sides — three slicer lines
+display_cap_thickness = 3.0 * display_line_width  # head wall — the same three
 display_wall_top_above_face = 0.10  # walls stop here — no overhang over the face
-# One extrusion width of the 0.6 nozzle (its 0.62 line width). Three
-# jobs: the PCB band's opening is closed by an end wall this thick (the
-# cover over the bare PCB at the open end), the device sits this far up
-# the tip to make room for it, and the housing band's first this-much
-# of depth is squared off — its corner tangency would otherwise leave a
-# zero-angle layer-1 sliver the slicer silently drops.
-display_end_wall_min = 0.62
-display_cap_thickness = 2.5       # bend-piece head wall past the display end
 display_outline_corner_r = display_corner_r  # cradle plan outline echoes the device
 display_wire_hole_dia = 3.0       # wire drop from the cavity into the pill cusp
 display_wire_hole_s = 35.0        # within the plug web — one piece, clear of the seam
@@ -1157,11 +1158,11 @@ display_drain_dia = 3.0           # pocket-floor drain, same drop as the wires
 # Drain at the floor's low corner, edge tangent to the PCB cover's back:
 # splash that gets past the housing drops into the pill cusp and runs
 # out the nozzle end alongside the tubes.
-display_drain_s = display_end_wall_min + display_drain_dia / 2.0
+display_drain_s = display_line_width + display_drain_dia / 2.0
 
 # Head-wall face = the device's top end (the device starts one end-wall
 # thickness up from the open end face).
-display_s_top = display_end_wall_min + display_housing_length
+display_s_top = display_line_width + display_housing_length
 display_collar_half_x = (
     display_housing_width / 2.0 + display_cradle_clearance + display_collar_wall
 )
@@ -1267,13 +1268,13 @@ def _cradle_block_tip_owned() -> cq.Workplane:
 
 
 def _end_throat(half_x: float, corner_r: float, n0: float, n1: float) -> cq.Workplane:
-    """Square-cornered opening for a band's first display_end_wall_min of
+    """Square-cornered opening for a band's first display_line_width of
     depth. Its side lands exactly where the band's corner arc reaches one
     extrusion width of end wall, so the wall starts at printable
     thickness with no sliver left behind the step."""
-    reach = math.sqrt(corner_r ** 2 - (corner_r - display_end_wall_min) ** 2)
+    reach = math.sqrt(corner_r ** 2 - (corner_r - display_line_width) ** 2)
     return _cradle_prism(
-        half_x - corner_r + reach, -1.0, display_end_wall_min, n0, n1,
+        half_x - corner_r + reach, -1.0, display_line_width, n0, n1,
     )
 
 
@@ -1287,7 +1288,7 @@ def _display_cavity() -> cq.Workplane:
     pcb_r = display_pcb_corner_r + display_cradle_clearance
     housing_r = display_corner_r + display_cradle_clearance
     pcb_band = _cradle_prism(
-        _pcb_band_half_x, display_end_wall_min, display_s_top,
+        _pcb_band_half_x, display_line_width, display_s_top,
         display_floor_n, _pcb_band_n_top,
         corner_r=pcb_r,
     )

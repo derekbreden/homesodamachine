@@ -510,7 +510,7 @@ def _seat_on_tip(part):
         tip_end
         + top_normal.multiply(flavor_pill_outer_from_water - display_pocket_inset)
         - tip_axis.multiply(
-            display_housing_length / 2.0 + touch_flo_shell.display_end_wall_min
+            display_housing_length / 2.0 + touch_flo_shell.display_line_width
         )
     )
     return (
