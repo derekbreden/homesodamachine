@@ -46,6 +46,20 @@ static unsigned long flavorChangedAt = 0;
 static uint32_t maxLoopMs = 0;
 static uint32_t toggleCount = 0;
 
+// ── Backlight / idle dimming ──
+// Full brightness while in use; fades to a glanceable dim level after
+// DIM_TIMEOUT_MS without input. While dimmed, the first tap only wakes
+// the screen (consumed in onTap); serial flavor commands wake and apply.
+#define BL_FULL_DUTY   255
+#define BL_DIM_DUTY    1    // ember — logo just legible in a dark room; 0 is off
+#define BL_FADE_STEP   4    // duty per loop pass; fade spans (FULL-DIM)/STEP passes
+#define DIM_TIMEOUT_MS 60000
+
+static uint8_t blDuty = BL_FULL_DUTY;
+static uint8_t blTarget = BL_FULL_DUTY;
+static bool dimmed = false;
+static unsigned long lastInputTime = 0;
+
 // ── Pin assignments (fixed by Waveshare ESP32-S3-Touch-LCD-1.47) ──
 
 // Display SPI (JD9853, 172x320, driven via the ST7789 command set)
@@ -64,7 +78,7 @@ static uint32_t toggleCount = 0;
 
 #define SCREEN_W  172
 #define SCREEN_H  320
-#define ROTATION  0
+#define ROTATION  2  // USB connector points up on the faucet mount
 
 // ── Hardware objects ──
 Arduino_DataBus *bus = new Arduino_ESP32SPI(
@@ -203,6 +217,7 @@ static void lvglFlush(lv_disp_drv_t *disp, const lv_area_t *area, lv_color_t *co
 static void touchpadRead(lv_indev_drv_t *drv, lv_indev_data_t *data) {
   uint16_t x, y;
   if (touch.getTouch(&x, &y)) {
+    lastInputTime = millis();
     data->point.x = x;
     data->point.y = y;
     data->state = LV_INDEV_STATE_PRESSED;
@@ -219,8 +234,17 @@ static void applyFlavorUi() {
   lv_img_set_src(logoImg, &flavorLogos[activeFlavor]);
 }
 
+static void wakeBacklight() {
+  dimmed = false;
+  blDuty = blTarget = BL_FULL_DUTY;
+  ledcWrite(LCD_BL, blDuty);
+  Serial.println("Backlight wake");
+}
+
 static void setFlavor(uint8_t f) {
   if (f > 1 || f == activeFlavor) return;
+  lastInputTime = millis();
+  if (dimmed) wakeBacklight();
   activeFlavor = f;
   applyFlavorUi();
   flavorDirty = true;
@@ -232,6 +256,11 @@ static void setFlavor(uint8_t f) {
 }
 
 static void onTap(lv_event_t *e) {
+  if (dimmed) {  // a tap on a dimmed screen only wakes it
+    lastInputTime = millis();
+    wakeBacklight();
+    return;
+  }
   setFlavor(activeFlavor ^ 1);
 }
 
@@ -281,16 +310,29 @@ static void processTextLine(const char *line) {
     Serial.printf("STATE:FLAVOR=%d\n", activeFlavor);
   } else if (strcmp(line, "GET_DIAG") == 0) {
     Serial.printf("DIAG:heap=%lu,minHeap=%lu,touchInts=%lu,toggles=%lu,"
-                  "maxLoopMs=%lu,uptime=%lus\n",
+                  "maxLoopMs=%lu,dim=%d,bl=%u,uptime=%lus\n",
                   (unsigned long)ESP.getFreeHeap(),
                   (unsigned long)ESP.getMinFreeHeap(),
                   (unsigned long)touch.intCount(),
                   (unsigned long)toggleCount,
-                  (unsigned long)maxLoopMs, millis() / 1000);
+                  (unsigned long)maxLoopMs, dimmed ? 1 : 0, blDuty,
+                  millis() / 1000);
     maxLoopMs = 0;  // high-water mark since last query
   } else if (strcmp(line, "TOGGLE") == 0) {
     setFlavor(activeFlavor ^ 1);
     Serial.printf("OK:FLAVOR=%d\n", activeFlavor);
+  } else if (strncmp(line, "BL:", 3) == 0) {
+    // Raw backlight poke (bring-up/demo). Holds until input or wake.
+    if (line[3] < '0' || line[3] > '9' || atoi(line + 3) > 255) {
+      Serial.println("ERR:BL expects 0-255");
+    } else {
+      int duty = atoi(line + 3);
+      blDuty = blTarget = (uint8_t)duty;
+      dimmed = duty < BL_FULL_DUTY;  // a tap on a poked-dim screen wakes, not toggles
+      lastInputTime = millis();
+      ledcWrite(LCD_BL, blDuty);
+      Serial.printf("OK:BL=%d\n", duty);
+    }
   } else if (strncmp(line, "FLAVOR:", 7) == 0) {
     uint8_t f = atoi(line + 7);
     if (f > 1) {
@@ -334,9 +376,10 @@ void setup() {
   gfx->setRotation(ROTATION);
   gfx->fillScreen(RGB565_BLACK);
 
-  // Backlight on after the panel is initialized (avoids boot flash)
-  pinMode(LCD_BL, OUTPUT);
-  digitalWrite(LCD_BL, HIGH);
+  // Backlight on after the panel is initialized (avoids boot flash).
+  // LEDC PWM so idle dimming can fade it.
+  ledcAttach(LCD_BL, 5000, 8);
+  ledcWrite(LCD_BL, blDuty);
 
   // Touch
   Wire.begin(TOUCH_SDA, TOUCH_SCL);
@@ -367,6 +410,7 @@ void setup() {
 
   buildUi();
 
+  lastInputTime = millis();
   Serial.printf("Ready — flavor %d (%s). Tap to switch.\n",
                 activeFlavor + 1, FLAVOR_NAMES[activeFlavor]);
 }
@@ -397,6 +441,20 @@ void loop() {
     flavorDirty = false;
     prefs.putUChar("flavor", activeFlavor);
     Serial.printf("Persisted flavor %d\n", activeFlavor + 1);
+  }
+
+  // Idle dimming: set the dim target after inactivity, fade toward it.
+  // Waking snaps to full (wakeBacklight), so the stepper only walks down.
+  if (!dimmed && millis() - lastInputTime >= DIM_TIMEOUT_MS) {
+    dimmed = true;
+    blTarget = BL_DIM_DUTY;
+    Serial.println("Backlight dim (idle)");
+  }
+  if (blDuty != blTarget) {
+    int next = (int)blDuty - BL_FADE_STEP;
+    if (next < (int)blTarget) next = blTarget;
+    blDuty = (uint8_t)next;
+    ledcWrite(LCD_BL, blDuty);
   }
 
   lv_timer_handler();
