@@ -38,6 +38,13 @@
 // click snaps onto the edge so the reported point is ON the geometry, not a
 // float in space. Reconstruction is lazy (first enable / first pick) and cached
 // per loaded model; setActiveEdges() invalidates it on each new load.
+//
+// While the toggle is on, the whole reconstructed edge set is also drawn as a
+// faint always-on layer. The x-ray crease renderer (xray.js) only draws
+// dihedrals past its ~30° threshold, so tangent and shallow joins — a shave
+// plane running out onto the surface it shaved, a fillet meeting its wall —
+// are pickable yet invisible without it. The layer makes "if you can click
+// it, you can see it" hold exactly.
 
 import * as THREE from "three";
 import { Line2 } from "three/addons/lines/Line2.js";
@@ -77,6 +84,8 @@ export function setActiveEdges(result) {
   faceClass = null;
   clearSelection();
   setHover(null);
+  disposeAllEdgesLayer();
+  ensureAllEdgesLayer(); // no-op unless the toggle is on
 }
 
 function ensureEdges() {
@@ -498,6 +507,48 @@ function pickFace(clientX, clientY) {
   return null;
 }
 
+// --- faint all-edges layer (every BREP edge, shown while picking is on) ---
+// Depth-tested (hidden edges stay hidden in solid shading; in x-ray the
+// surfaces don't write depth, so it reads through the ghost like the crease
+// lines do) and faint enough to sit under them.
+const ALL_EDGES_COLOR = 0xdce6f5;
+const ALL_EDGES_OPACITY = 0.14;
+let allEdgesLine = null;
+
+function disposeAllEdgesLayer() {
+  if (!allEdgesLine) return;
+  scene.remove(allEdgesLine);
+  allEdgesLine.geometry.dispose();
+  allEdgesLine.material.dispose();
+  allEdgesLine = null;
+}
+
+function ensureAllEdgesLayer() {
+  if (!enabled || !edgeSource) return;
+  if (allEdgesLine) { allEdgesLine.visible = true; return; }
+  const edges = ensureEdges();
+  if (!edges.length) return;
+  const flat = [];
+  for (const e of edges) {
+    const p = e.points;
+    for (let i = 1; i < p.length; i++) {
+      flat.push(p[i - 1].x, p[i - 1].y, p[i - 1].z, p[i].x, p[i].y, p[i].z);
+    }
+  }
+  const geo = new THREE.BufferGeometry();
+  geo.setAttribute("position", new THREE.Float32BufferAttribute(flat, 3));
+  const mat = new THREE.LineBasicMaterial({
+    color: ALL_EDGES_COLOR,
+    transparent: true,
+    opacity: ALL_EDGES_OPACITY,
+    depthWrite: false,
+  });
+  allEdgesLine = new THREE.LineSegments(geo, mat);
+  allEdgesLine.name = "edge-picker-all-edges";
+  allEdgesLine.frustumCulled = false;
+  scene.add(allEdgesLine);
+}
+
 // --- overlay (highlight line + markers), drawn over everything ---
 const overlay = new THREE.Group();
 overlay.name = "edge-picker";
@@ -807,6 +858,7 @@ renderer.domElement.addEventListener("pointermove", (e) => {
 export function clearEdgePicker() {
   clearSelection();
   setHover(null);
+  disposeAllEdgesLayer();
   edgeSource = null;
   activeEdges = null;
   isAssembly = false;
@@ -818,7 +870,13 @@ export function clearEdgePicker() {
 export function setEdgePickEnabled(on) {
   enabled = !!on;
   try { localStorage.setItem(LS_KEY, enabled ? "1" : "0"); } catch {}
-  if (!enabled) { clearSelection(); setHover(null); }
+  if (enabled) {
+    ensureAllEdgesLayer();
+  } else {
+    clearSelection();
+    setHover(null);
+    if (allEdgesLine) allEdgesLine.visible = false;
+  }
 }
 
 export function isEdgePickEnabled() { return enabled; }
