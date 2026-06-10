@@ -1406,33 +1406,18 @@ def _display_head_wall() -> cq.Workplane:
 
 def _middle_floor_clearance() -> cq.Workplane:
     """The bend piece carries no floor through the joint's overlap — the
-    pocket floor there is the tip piece's tube wall. This clears the
-    sliver of bend-piece wall that rises past the socket surface toward
-    the floor plane under the display. Bounded outside the socket
-    surface and inside the pocket footprint, so the piece's flanks,
-    skin, and head wall are untouched."""
-    center_y = water_tube_y - _path_center_bend2[0]
-    center_z = zone5_z_top + _path_center_bend2[1]
-    socket_r = (
-        gn_bend2_r
-        + flavor_offset_y_from_water + pill_width_y / 2.0 + zone5_wall
-        - split_b_socket_shrink
-    )
-    annulus = (
-        cq.Workplane(cq.Plane(
-            origin=cq.Vector(-40.0, center_y, center_z),
-            xDir=cq.Vector(0, 1, 0),
-            normal=cq.Vector(1, 0, 0),
-        ))
-        .circle(120.0)
-        .circle(socket_r - 0.05)
-        .extrude(80.0)
-    )
-    under_display = _cradle_prism(
-        _pcb_band_half_x, gn_tip_straight_len, display_s_top,
+    pocket floor there is the tip piece's tube wall. Clears everything
+    under the display between the socket profile's straight flanks:
+    what lived there was the sub-floor wall sliver plus knife-edge
+    wedges on the socket's pill shoulders (against the floor plane and
+    the clearance surface) that start at zero thickness — unprintable.
+    Flanks outboard of the socket profile, skin, and head wall are
+    untouched."""
+    socket_half_x = tube_shell_x_half_outer - split_b_socket_shrink
+    return _cradle_prism(
+        socket_half_x, gn_tip_straight_len, display_s_top,
         3.0, display_floor_n,
     )
-    return annulus.intersect(under_display)
 
 
 def _web_drop_hole(s_pos: float, dia: float) -> cq.Workplane:
