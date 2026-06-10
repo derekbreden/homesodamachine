@@ -51,7 +51,7 @@ static uint32_t toggleCount = 0;
 // DIM_TIMEOUT_MS without input. While dimmed, the first tap only wakes
 // the screen (consumed in onTap); serial flavor commands wake and apply.
 #define BL_FULL_DUTY   255
-#define BL_DIM_DUTY    1    // ember — logo just legible in a dark room; 0 is off
+#define BL_DIM_DUTY    8    // idle glow — soft but clearly visible in a dark room; 0 is off
 #define BL_FADE_STEP   4    // duty per loop pass; fade spans (FULL-DIM)/STEP passes
 #define DIM_TIMEOUT_MS 60000
 
