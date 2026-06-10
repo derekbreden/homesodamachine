@@ -5,6 +5,7 @@
 # Usage:
 #   ./tools/flash.sh esp32dev          # flash ESP32 main controller
 #   ./tools/flash.sh esp32s3_config    # flash ESP32-S3 config display
+#   ./tools/flash.sh esp32s3_faucet    # flash ESP32-S3 faucet display
 #   ./tools/flash.sh rp2040_display    # flash RP2040 display
 #
 # Also supports build-only (no upload):
@@ -17,7 +18,7 @@ PAUSE_FILE="/tmp/serial_logger_pause"
 
 if [ -z "$1" ]; then
     echo "Usage: $0 <env> [build]"
-    echo "  Environments: esp32dev, esp32s3_config, rp2040_display"
+    echo "  Environments: esp32dev, esp32s3_config, esp32s3_faucet, rp2040_display"
     echo "  Add 'build' to build without flashing"
     exit 1
 fi
