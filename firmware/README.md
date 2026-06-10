@@ -7,7 +7,7 @@ The Home Soda Machine prototype runs on three microcontrollers — ESP32 (main c
 - **ESP32** — Main controller. Reads the flow meter, drives pumps and valves via L298N motor drivers, manages the pump state machine, stores config in LittleFS, and coordinates the other boards over UART using TinyProto (HDLC full-duplex reliable delivery).
 - **RP2040** (Waveshare RP2040-LCD-0.99) — Display controller. Shows the selected flavor logo on a 128x115 round LCD. Reads the same physical toggle switch for instant visual feedback.
 - **ESP32-S3** (Meshnology 1.28" Round Rotary Display) — Config display. A 240x240 round touchscreen with a rotary encoder for changing flavor images and ratios at runtime. Also serves as a BLE bridge between the iOS app and ESP32. Syncs config to the ESP32 over UART.
-- **ESP32-S3 faucet display** (Waveshare ESP32-S3-Touch-LCD-1.47) — Flavor selector on the gooseneck dispense head. Shows the selected flavor on a 172x320 capacitive-touch LCD; a tap anywhere toggles between the two flavors, and the selection persists in NVS. Standalone for now — the UART/TinyProto link to the ESP32 (flavor-state sync, names/artwork push) is the integration seam marked in `src_faucet/main.cpp`.
+- **ESP32-S3 faucet display** (Waveshare ESP32-S3-Touch-LCD-1.47) — Flavor selector on the gooseneck dispense head. The selected flavor's logo fills a 172x320 capacitive-touch LCD; a tap anywhere toggles between the two flavors, and the selection persists in NVS. After a minute idle the backlight fades to an ember level; the first touch wakes it without toggling. Standalone for now — the UART/TinyProto link to the ESP32 (flavor-state sync, names/artwork push) is the integration seam marked in `src_faucet/main.cpp`.
 
 ```
                         ┌─────────────────────┐
@@ -209,7 +209,7 @@ The ESP32-S3 uses the [pioarduino platform](https://github.com/pioarduino/platfo
 pio run -e esp32s3_faucet -t upload
 ```
 
-Same platform and LVGL stack as the config display. The JD9853 panel is driven through the GFX library's ST7789 driver plus a panel-specific init sequence; the AXS5106L touch driver lives in `src_faucet/axs5106l.cpp`. Test commands over USB serial (115200 baud): `GET_STATE`, `TOGGLE`, `FLAVOR:n`, `GET_VERSION`.
+Same platform and LVGL stack as the config display. The JD9853 panel is driven through the GFX library's ST7789 driver plus a panel-specific init sequence; the AXS5106L touch driver lives in `src_faucet/axs5106l.cpp`. The display renders 180° rotated — the USB connector points up on the faucet mount. Test commands over USB serial (115200 baud): `GET_STATE`, `TOGGLE`, `FLAVOR:n`, `GET_DIAG`, `BL:n` (raw backlight duty), `GET_VERSION`.
 
 ### Adding a New Flavor Image
 
