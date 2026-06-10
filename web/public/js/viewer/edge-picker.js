@@ -52,6 +52,7 @@ import { LineGeometry } from "three/addons/lines/LineGeometry.js";
 import { LineMaterial } from "three/addons/lines/LineMaterial.js";
 import { scene, camera, renderer } from "./scene.js";
 import { state } from "./state.js";
+import { isXrayEnabled } from "./xray.js";
 import { fnum, fpt, formatFace } from "./pick-format.js";
 
 const LS_KEY = "step-edge-pick";
@@ -479,6 +480,28 @@ function pickEdge(clientX, clientY) {
 // maps the hit triangle back to its BREP face via triFace.
 const _raycaster = new THREE.Raycaster();
 const _ndc = new THREE.Vector2();
+
+function frontMeshes() {
+  if (!state.currentGroup) return [];
+  // Front meshes only — the back copies share geometry and would double
+  // the triangle scan for the same answer.
+  return state.currentGroup.children.filter(
+    (c) => c.userData && c.userData.side === "front",
+  );
+}
+
+// True occlusion test for an edge candidate: cast from the camera at the
+// edge point itself and see whether any surface stands clearly in front
+// of it. An edge lying ON a visible surface reads the surface at its own
+// depth — not occluded.
+const _occDir = new THREE.Vector3();
+function edgeOccluded(edgeHit) {
+  const de = edgeHit.point.distanceTo(camera.position);
+  _occDir.copy(edgeHit.point).sub(camera.position).normalize();
+  _raycaster.set(camera.position, _occDir);
+  const hits = _raycaster.intersectObjects(frontMeshes(), false);
+  return hits.length > 0 && hits[0].distance < de - Math.max(0.5, de * 0.002);
+}
 function pickFace(clientX, clientY) {
   if (!state.currentGroup) return null;
   ensureEdges(); // builds meshRecs + faceTable
@@ -489,12 +512,7 @@ function pickFace(clientX, clientY) {
     -((clientY - rect.top) / rect.height) * 2 + 1,
   );
   _raycaster.setFromCamera(_ndc, camera);
-  // Front meshes only — the back copies share geometry and would double
-  // the triangle scan for the same answer.
-  const candidates = state.currentGroup.children.filter(
-    (c) => c.userData && c.userData.side === "front",
-  );
-  const hits = _raycaster.intersectObjects(candidates, false);
+  const hits = _raycaster.intersectObjects(frontMeshes(), false);
   for (const h of hits) {
     const mi = h.object.userData ? h.object.userData.occtIndex : undefined;
     if (mi == null || h.faceIndex == null) continue;
@@ -830,15 +848,20 @@ renderer.domElement.addEventListener("pointerup", (e) => {
   if (Math.hypot(e.clientX - downX, e.clientY - downY) > 6) return; // a drag, not a click
   // Edge picking is screen-space and ignores occlusion, so on a busy
   // model some hidden edge is almost always within the pick threshold.
-  // Compare against the surface under the cursor: an edge clearly BEHIND
-  // it is occluded — the user is looking at the face, so pick the face.
+  // Occlusion is tested along the ray TO THE EDGE POINT, not against
+  // the surface under the cursor: an edge lying flush on a visible
+  // surface (a coplanar boolean seam, a tangent join) ties with it in
+  // depth, while the surface point under the cursor sits measurably
+  // nearer on a grazing view — comparing those two stole flush edges
+  // and answered with the face. Occluded means something solid stands
+  // clearly in front of the edge point itself — and in x-ray mode it
+  // doesn't apply at all: the ghosted surfaces hide nothing, so an edge
+  // you can see and aim at (a bore seam under a web) wins the click.
   const edgeHit = pickEdge(e.clientX, e.clientY);
   const faceHit = pickFace(e.clientX, e.clientY);
   let sel = null;
   if (edgeHit && faceHit) {
-    const de = edgeHit.point.distanceTo(camera.position);
-    const df = faceHit.point.distanceTo(camera.position);
-    sel = df < de - Math.max(0.5, de * 0.002)
+    sel = !isXrayEnabled() && edgeOccluded(edgeHit)
       ? faceHit
       : { type: "edge", edge: edgeHit.edge, point: edgeHit.point };
   } else if (edgeHit) {
