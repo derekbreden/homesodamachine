@@ -395,6 +395,7 @@ Bench soldering capability for through-hole, wire-to-pad (pogo pin leads), and g
 | DSD TECH SH-U09B3 USB-C to TTL serial adapter, CP2102N — service-flash path into the faucet display S3 over UART0 (GPIO 43/44) once its USB-C connector comes off for the gooseneck mount. Order #112-6318240-4305018, placed Jun 10, 2026 | [B09KXT6W46](https://www.amazon.com/dp/B09KXT6W46) | 1 | $10.71 | ON-ORDER (arriving Jun 11) |
 | FAST CHIP low-melt SMD removal alloy, 4.5 ft — iron-only removal of the faucet display S3's USB-C connector and TF slot (keeps rework heat away from the panel glued to the far side of the PCB). Order #112-3079158-6326618, placed Jun 10, 2026 | [B00OOBIJ6I](https://www.amazon.com/dp/B00OOBIJ6I) | 1 | $15.00 | ON-ORDER (arriving Jun 11) |
 | ELEGOO polyimide high-temp tape, 4-roll bundle (1/8", 1/4", 1/2", 1") — masking around board-level rework. Order #112-0906598-6371411, placed Jun 10, 2026 | [B072Z92QZ2](https://www.amazon.com/dp/B072Z92QZ2) | 1 (4 rolls) | $10.71 | ON-ORDER (arriving Jun 11) |
+| iFixit precision tweezers set (extra-fine, angled, blunt; ESD coating) — board-level rework and BOOT-pad bridging on the faucet display S3. Order #112-2746979-9145060, placed Jun 10, 2026 | [B079K874CQ](https://www.amazon.com/dp/B079K874CQ) | 1 set (3) | $12.82 | ON-ORDER (arriving Jun 11) |
 
 ## 15. 3D printing equipment and filaments (Bambu Lab direct)
 
@@ -496,10 +497,10 @@ Industrial-supply orders direct from McMaster-Carr (mcmaster.com). First McMaste
 | ACQUIRED — hardware, tools & infra (§§1–17, 19, 20) | [$25,354.65](LEDGER_ACQUIRED_HW) |
 | ACQUIRED — capitalized contract labor (§18) | [$2,607.92](LEDGER_LABOR) |
 | ACQUIRED (combined) | [$27,962.57](LEDGER_ACQUIRED_COMBINED) |
-| ON-ORDER | [$165.05](LEDGER_ON_ORDER) |
+| ON-ORDER | [$214.29](LEDGER_ON_ORDER) |
 | MISSING — paid, not received (§1 copper bar) | [$42.89](LEDGER_MISSING) |
 | LIKELY-TO-BUY | $0.00 |
-| **Grand total — cash outlay** | [$28,170.51](LEDGER_GRAND_TOTAL) |
+| **Grand total — cash outlay** | [$28,219.75](LEDGER_GRAND_TOTAL) |
 
 ACQUIRED hardware by section:
 
