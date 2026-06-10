@@ -42,8 +42,9 @@ Parts:
    countertop (Z = [-6, -4]). Hole pattern mirrors the plate.
 8. Faucet flavor display — Waveshare ESP32-S3-Touch-LCD-1.47 (../display-reference/),
    a dimensioned stand-in seated on the dispense-tip top skin: long axis
-   up the gooseneck, screen toward the user, board back 2 mm into the
-   cosmetic wrap. Body + screen are separate solids.
+   up the gooseneck, screen toward the user, board back sunk into the
+   cosmetic wrap to a 1 mm web over the pill bore. Body + screen are
+   separate solids.
 
 Regenerate:
     tools/cad-venv/bin/python faucet_assembly.py
@@ -460,7 +461,12 @@ display_screen_depth = 0.4
 # Boundary groove at z = display_exposed_depth (the plastic/exposed line).
 display_groove_depth = 0.4
 display_groove_height = 0.6
-display_pocket_inset = 2.0
+# The board back sinks through all but display_web_over_pill of the
+# wrapper's zone5_wall. The web is the floor of the display pocket:
+# thick enough to print, and a barrier keeping the PCB underside off
+# the flavor tubes (and tube condensation off the PCB).
+display_web_over_pill = 1.0
+display_pocket_inset = touch_flo_shell.zone5_wall - display_web_over_pill
 
 
 def _tip_centerline_world():
