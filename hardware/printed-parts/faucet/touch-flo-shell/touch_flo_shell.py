@@ -1110,8 +1110,9 @@ def _build_bend_overlap(sketch: cq.Sketch, *, side: str) -> cq.Workplane:
 #
 # Tip frame: s = distance up-spout from the tip end plane along the tip
 # axis; n = distance from the water-tube centerline along the tip's top
-# normal; x = world X. The device occupies s ∈ [0, housing_length],
-# n ∈ [floor, floor + total_depth].
+# normal; x = world X. The device sits display_end_wall_min up the tip —
+# behind the PCB cover — occupying s ∈ [end wall, end wall +
+# housing_length], n ∈ [floor, floor + total_depth].
 #
 # The cradle splits across SPLIT B without moving the junction: the tip
 # piece keeps full wall above the pocket-floor plane through the joint's
@@ -1124,8 +1125,10 @@ def _build_bend_overlap(sketch: cq.Sketch, *, side: str) -> cq.Workplane:
 # Retention: nothing overhangs the display face — the walls and head
 # wall all stop just over the face plane. Axially the device's rounded
 # corners bear on the cavity's rounded corners (open end) and the head
-# wall (top end); the open end also drains the pocket (the floor is a
-# steep ramp toward it). Lift is friction, gravity, and the wires.
+# wall (top end). At the open end the PCB band is closed by a
+# one-extrusion cover, so only the housing shows there — the bare PCB
+# and under-PCB components face stays hidden; the housing band remains
+# open. Lift is friction, gravity, and the wires.
 
 display_web_over_pill = 1.0
 display_pocket_inset = zone5_wall - display_web_over_pill
@@ -1138,18 +1141,21 @@ display_floor_n = (
 display_cradle_clearance = 0.25   # per side, cavity walls vs device
 display_collar_wall = 1.8
 display_wall_top_above_face = 0.10  # walls stop here — no overhang over the face
-# The cavity's rounded corners meet the open end tangentially — a
-# zero-angle wedge the slicer would silently drop. The cavity's first
-# display_end_wall_min of depth is squared off instead, so the end wall
-# starts at one full extrusion width (the 0.6 nozzle's 0.62 line width)
-# on layer 1, matching what the slicer would print anyway.
+# One extrusion width of the 0.6 nozzle (its 0.62 line width). Three
+# jobs: the PCB band's opening is closed by an end wall this thick (the
+# cover over the bare PCB at the open end), the device sits this far up
+# the tip to make room for it, and the housing band's first this-much
+# of depth is squared off — its corner tangency would otherwise leave a
+# zero-angle layer-1 sliver the slicer silently drops.
 display_end_wall_min = 0.62
 display_cap_thickness = 2.5       # bend-piece head wall past the display end
 display_outline_corner_r = display_corner_r  # cradle plan outline echoes the device
 display_wire_hole_dia = 3.0       # wire drop from the cavity into the pill cusp
 display_wire_hole_s = 35.0        # within the plug web — one piece, clear of the seam
 
-display_s_top = display_housing_length            # head-wall face; open end at s=0
+# Head-wall face = the device's top end (the device starts one end-wall
+# thickness up from the open end face).
+display_s_top = display_end_wall_min + display_housing_length
 display_collar_half_x = (
     display_housing_width / 2.0 + display_cradle_clearance + display_collar_wall
 )
@@ -1255,14 +1261,15 @@ def _end_throat(half_x: float, corner_r: float, n0: float, n1: float) -> cq.Work
 
 def _display_cavity() -> cq.Workplane:
     """Pocket cut, applied after the block is unioned: PCB band (feet +
-    components + board) and housing band, each with its open end squared
-    off to one extrusion width of end wall. The housing band runs past
-    the wall top — the cavity is open sky above the face; the rounded
-    band corners are what stop the device's down-tip slide."""
+    components + board) starting behind the one-extrusion PCB cover, and
+    housing band open to the end face with its first extrusion of depth
+    squared off. The housing band runs past the wall top — the cavity is
+    open sky above the face; the rounded band corners are what stop the
+    device's down-tip slide."""
     pcb_r = display_pcb_corner_r + display_cradle_clearance
     housing_r = display_corner_r + display_cradle_clearance
     pcb_band = _cradle_prism(
-        _pcb_band_half_x, 0.0, display_s_top,
+        _pcb_band_half_x, display_end_wall_min, display_s_top,
         display_floor_n, _pcb_band_n_top,
         corner_r=pcb_r,
     )
@@ -1274,8 +1281,6 @@ def _display_cavity() -> cq.Workplane:
     return (
         pcb_band
         .union(housing_band)
-        .union(_end_throat(_pcb_band_half_x, pcb_r,
-                           display_floor_n, _pcb_band_n_top))
         .union(_end_throat(_housing_band_half_x, housing_r,
                            _pcb_band_n_top, display_wall_top_n + 5.0))
     )
