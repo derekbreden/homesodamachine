@@ -433,7 +433,9 @@ def build_lever():
 # housing (screen glass on its front face) overhangs the PCB by
 # ~0.275 mm per side; below the PCB underside, components protrude with
 # the metal feet as the extreme point. The under-PCB zone is modeled as
-# a full-footprint bounding block down to the feet plane.
+# a full-footprint bounding block down to the feet plane — it shares the
+# PCB's outline, so the PCB underside (display_pcb_bottom_z) has no edge
+# in the solid.
 #
 # Native frame: X = width, Y = length, Z = outward thickness; the feet
 # plane (bounding back) at z = 0, screen faces +Z. Seated on the tip:
@@ -442,7 +444,7 @@ def build_lever():
 # face above the flavor pill.
 display_housing_width = 24.50   # plastic housing, lateral
 display_housing_length = 44.50  # plastic housing, along the tip axis
-display_pcb_width = 23.95       # PCB assumed centered under the housing
+display_pcb_width = 23.95       # PCB centered under the housing
 display_pcb_length = 43.95
 display_corner_r = 5.75         # housing corners (vendor drawing)
 display_pcb_corner_r = display_corner_r - (display_housing_width - display_pcb_width) / 2.0
@@ -456,10 +458,6 @@ display_pcb_top_z = display_total_depth - display_housing_depth             # 5.
 display_screen_width = 17.75
 display_screen_length = 32.93
 display_screen_depth = 0.4
-# Groove marking the PCB underside: the PCB and the under-PCB bounding
-# block share one outline, so that boundary gets a pickable line.
-display_groove_depth = 0.4
-display_groove_height = 0.6
 # The display sinks until its feet are all but display_web_over_pill
 # through the wrapper's zone5_wall. The web is the floor of the display
 # pocket: thick enough to print, and a barrier keeping the under-PCB
@@ -524,27 +522,6 @@ def _seat_on_tip(part):
     )
 
 
-def _pcb_underside_groove_ring():
-    """Thin perimeter frame at z = display_pcb_bottom_z, cut from the body
-    to mark the PCB underside as a groove around the full circumference.
-    The PCB and the under-PCB bounding block share one outline, so that
-    boundary is a material line, not a geometric step."""
-    z0 = display_pcb_bottom_z - display_groove_height / 2.0
-    outer = (
-        cq.Workplane("XY").workplane(offset=z0)
-        .box(display_pcb_width, display_pcb_length, display_groove_height, centered=(True, True, False))
-        .edges("|Z").fillet(display_pcb_corner_r)
-    )
-    inner = (
-        cq.Workplane("XY").workplane(offset=z0)
-        .box(display_pcb_width - 2.0 * display_groove_depth,
-             display_pcb_length - 2.0 * display_groove_depth,
-             display_groove_height, centered=(True, True, False))
-        .edges("|Z").fillet(max(display_pcb_corner_r - display_groove_depth, 0.1))
-    )
-    return outer.cut(inner)
-
-
 def _screen_pocket():
     """Active-area recess in the front face so the screen solid mates flush."""
     z0 = display_total_depth - display_screen_depth
@@ -558,8 +535,7 @@ def _screen_pocket():
 def build_display_body():
     """Display module body — the under-PCB bounding block + PCB as one
     prism up to the housing bottom, the wider plastic housing above it,
-    a perimeter groove marking the PCB underside, and an active-area
-    recess in the front face. Seated on the tip."""
+    and an active-area recess in the front face. Seated on the tip."""
     pcb_and_under = (
         cq.Workplane("XY")
         .box(display_pcb_width, display_pcb_length, display_pcb_top_z,
@@ -572,11 +548,7 @@ def build_display_body():
              display_total_depth - display_pcb_top_z, centered=(True, True, False))
         .edges("|Z").fillet(display_corner_r)
     )
-    body = (
-        pcb_and_under.union(housing)
-        .cut(_pcb_underside_groove_ring())
-        .cut(_screen_pocket())
-    )
+    body = pcb_and_under.union(housing).cut(_screen_pocket())
     return _seat_on_tip(body)
 
 
