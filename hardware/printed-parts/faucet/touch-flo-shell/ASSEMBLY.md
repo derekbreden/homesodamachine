@@ -12,7 +12,7 @@ Upstream:
 
 1. Print `touch-flo-shell` (PET-CF, 0.6 mm DUROZZLE TC nozzle, see
    [`print-log.md`](/hardware/printed-parts/faucet/touch-flo-shell/print-log.md) attempt 7 settings).
-2. Print `touch-flo-mounting-plate` (PETG or PET-CF, same H2C).
+2. Print `touch-flo-mounting-plate` (PET-CF, same H2C).
 3. Harvest the Touch-Flo valve body from the donor faucet per
    [`/hardware/reference/touch-flo-faucet/README.md`](/hardware/reference/touch-flo-faucet/README.md).
    Keep the lever, the body, and the factory shank nut. Discard the

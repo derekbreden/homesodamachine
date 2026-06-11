@@ -1,6 +1,6 @@
 # Touch-Flo mounting plate
 
-Printed PETG plate that supports the harvested Touch-Flo faucet body and
+Printed PET-CF plate that supports the harvested Touch-Flo faucet body and
 the two flavor tubes beside it, and carries the three screw bosses that
 bolt up into the shell. Mates against the countertop top surface via the
 TPU mounting gasket below it.
@@ -19,9 +19,12 @@ shell with no ledge. Built by reusing the shell's own outline geometry.
 
 One at each pod center (both laterals + the front), so the plate clamps to
 the shell through all three pods. Each boss is a [11.55 mm](BOSS_D) ⌀
-cylinder rising [7.5 mm](BOSS_H) from the plate top into the shell's boss
-hole — shy of the hole floor so the plate seats on the foot, not the boss.
-Each is bored for an M3×12 stainless SHCS:
+cylinder rising [7 mm](BOSS_H) from the plate top into the shell's boss
+hole — shy of the hole floor (the gap absorbs the hole ceiling's bridge
+sag, insert squeeze-out, and layer-1 lips) so the plate seats on the foot,
+not the boss. A [0.6 mm](BOSS_CHAMFER) × 45° lead-in chamfer rings each top
+rim, easing all three pins into their holes at once. Each is bored for an
+M3×12 stainless SHCS:
 
 - [5.55 mm](CBORE_D) ⌀ counterbore through the full plate. The head bears on
   the boss base and stays recessed clear of the gasket.
