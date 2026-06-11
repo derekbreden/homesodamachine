@@ -10,6 +10,8 @@ _here = Path(__file__).resolve().parent  # = hardware/scripts/
 sys.path.insert(0, str(_here.parent / "printed-parts" / "cadlib"))
 sys.path.insert(0, str(_here.parent / "printed-parts" / "cold-core"))
 sys.path.insert(0, str(_here.parent / "printed-parts" / "cold-core" / "reservoir"))
+sys.path.insert(0, str(_here.parent / "printed-parts" / "faucet"))
+sys.path.insert(0, str(_here.parent / "printed-parts" / "faucet" / "touch-flo-shell"))
 sys.path.insert(
     0,
     str(next(p for p in _here.parents if (p / "tools" / "docgen").is_dir()) / "tools"),
@@ -19,6 +21,7 @@ from _cold_core_interface import foam_cap_attachment_xy_positions
 from _reed_channels import reeds_per_reservoir
 from docgen import substitute_md
 from reservoir import insert_positions_for_side_plus_1
+from touch_flo_shell import base_pod_centers
 
 
 # Pressure vessel geometry: two laser-welded SS endcap plates per
@@ -80,10 +83,21 @@ foam_cap_screws_per_build = foam_cap_inserts_per_build  # 1:1
 reservoir_cap_inserts_per_build = inserts_per_reservoir_cap * reservoirs_per_build
 reservoir_cap_screws_per_build = reservoir_cap_inserts_per_build  # 1:1
 
-# Combined heat-set insert count across the appliance (24).
+# Touch-flo plate-to-shell hardware (3 inserts + 3 M3 × 12 screws, one
+# per base pod).
+touchflo_inserts_per_build = len(base_pod_centers)
+touchflo_screws_per_build = touchflo_inserts_per_build  # 1:1
+
+# Combined heat-set insert count across the appliance (27).
 total_m3_inserts_per_build = (
-    foam_cap_inserts_per_build + reservoir_cap_inserts_per_build
+    foam_cap_inserts_per_build
+    + reservoir_cap_inserts_per_build
+    + touchflo_inserts_per_build
 )
+
+# Combined M3 × 12 screw count across the appliance (15) — reservoir
+# caps + touch-flo share the SKU.
+m3x12_screws_per_build = reservoir_cap_screws_per_build + touchflo_screws_per_build
 
 # Reservoir-cap vent filters per build (2).
 vent_filters_per_build = vent_filters_per_reservoir_cap * reservoirs_per_build
@@ -114,6 +128,9 @@ def main():
         "RES_INSERTS_PER_CAP": f"{inserts_per_reservoir_cap:.4g}",
         "RES_INSERTS": f"{reservoir_cap_inserts_per_build:.4g}",
         "RES_SCREWS": f"{reservoir_cap_screws_per_build:.4g}",
+        "TOUCHFLO_INSERTS": f"{touchflo_inserts_per_build:.4g}",
+        "TOUCHFLO_SCREWS": f"{touchflo_screws_per_build:.4g}",
+        "M3X12_TOTAL": f"{m3x12_screws_per_build:.4g}",
         "TOTAL_M3_INSERTS": f"{total_m3_inserts_per_build:.4g}",
         # Vent filters.
         "VENT_FILTERS": f"{vent_filters_per_build:.4g}",
@@ -138,9 +155,12 @@ def main():
             "PP1208E_TOTAL": 1,
             "FOAM_INSERTS": 2,
             "FOAM_SCREWS": 2,
-            "RES_INSERTS_PER_CAP": 2,
+            "RES_INSERTS_PER_CAP": 1,
             "RES_INSERTS": 1,
             "RES_SCREWS": 1,
+            "TOUCHFLO_INSERTS": 2,
+            "TOUCHFLO_SCREWS": 2,
+            "M3X12_TOTAL": 1,
             "TOTAL_M3_INSERTS": 2,
             "VENT_FILTERS": 3,
         },

@@ -135,12 +135,12 @@ zone1_outer_z_top = zone1_z_top + shell_outer_lip  # [16.25 mm](ZONE1_OUTER_Z_TO
 zone2_outer_z_bottom = zone1_outer_z_top  # [16.25 mm](ZONE1_OUTER_Z_TOP)
 
 
-# BASE PODS — two lateral pods on the +-X sides of the foot, each hosting one
-# plate-to-shell screw boss. Mechanism: heat-set insert in the shell, screw up
-# from under the plate (head recessed in the plate bottom) through the plate
-# boss, clamping the plate up into the shell. These two lateral anchors are the
-# ENTIRE shell-to-body retention — the shank nut only clamps the metal body to
-# the plate, not the shell.
+# BASE PODS — two lateral pods on the +-X sides of the foot plus a third on
+# the front (−Y) centerline, each hosting one plate-to-shell screw boss.
+# Mechanism: heat-set insert in the shell, screw up from under the plate (head
+# recessed in the plate bottom) through the plate boss, clamping the plate up
+# into the shell. These three anchors are the ENTIRE shell retention — the
+# shank nut only clamps the metal body to the plate, not the shell.
 #
 # Nested fastener chain (BNUOK M3 SHCS 304 SS, head ~5.43 mm measured; ruthex
 # M3 insert). Counterbore + boss are plate-side; the boss hole, insert pocket,
