@@ -1121,10 +1121,13 @@ def _build_bend_overlap(sketch: cq.Sketch, *, side: str) -> cq.Workplane:
 # end — and presses the display in as the arc-slide joint closes.
 # Through the joint's overlap the pocket floor is the tip piece's tube
 # wall (the plug's top, shaved flush by the cavity); the bend piece
-# carries no floor there. The cradle never collides with the plug
-# during the slide: the walls and pads sit laterally outside it, and
-# the bend piece's material at the plug's width stays outside the
-# socket surface — the joint's own fit is the slide clearance.
+# carries no floor there except the last display_insert_ledge ahead of
+# the head wall — a band of socket ceiling riding the joint's fit over
+# the plug's top flat, retaining the inserted tip piece. The cradle
+# never collides with the plug during the slide: the walls and pads sit
+# laterally outside it, and the bend piece's material at the plug's
+# width stays outside the socket surface — the joint's own fit is the
+# slide clearance.
 #
 # Retention: nothing overhangs the display face — the walls and head
 # wall all stop just over the face plane. Axially the device's rounded
@@ -1157,6 +1160,11 @@ display_wall_top_above_face = 0.10  # walls stop here — no overhang over the f
 display_outline_corner_r = display_corner_r  # cradle plan outline echoes the device
 display_wire_hole_dia = 3.0       # wire drop from the cavity into the pill cusp
 display_wire_hole_s = 35.0        # within the plug web — one piece, clear of the seam
+# Socket ceiling kept ahead of the head wall — rides the joint's fit
+# over the plug's top flat, retaining the inserted tip piece. The floor
+# plane meets the socket ceiling partway down the overlap; the ledge's
+# leading face stands clear of that crossing.
+display_insert_ledge = 4.0
 display_drain_dia = 3.0           # pocket-floor drain, same drop as the wires
 # Drain at the floor's low corner, edge tangent to the PCB cover's back:
 # splash that gets past the housing drops into the pill cusp and runs
@@ -1406,16 +1414,16 @@ def _display_head_wall() -> cq.Workplane:
 
 def _middle_floor_clearance() -> cq.Workplane:
     """The bend piece carries no floor through the joint's overlap — the
-    pocket floor there is the tip piece's tube wall. Clears everything
-    under the display between the socket profile's straight flanks:
-    what lived there was the sub-floor wall sliver plus knife-edge
-    wedges on the socket's pill shoulders (against the floor plane and
-    the clearance surface) that start at zero thickness — unprintable.
-    Flanks outboard of the socket profile, skin, and head wall are
-    untouched."""
+    pocket floor there is the tip piece's tube wall. Clears the bend
+    piece under the display between the socket profile's straight
+    flanks, from the junction to the insert ledge; the ledge's band of
+    socket ceiling stays, riding the joint's fit over the plug's top
+    flat. Flanks outboard of the socket profile, skin, and head wall
+    are untouched."""
     socket_half_x = tube_shell_x_half_outer - split_b_socket_shrink
     return _cradle_prism(
-        socket_half_x, gn_tip_straight_len, display_s_top,
+        socket_half_x, gn_tip_straight_len,
+        display_s_top - display_insert_ledge,
         3.0, display_floor_n,
     )
 
