@@ -149,7 +149,9 @@ zone2_outer_z_bottom = zone1_outer_z_top  # [16.25 mm](ZONE1_OUTER_Z_TOP)
 base_pod_counterbore_dia = 5.55     # M3 SHCS head ~5.43 measured + ~0.1 clearance
 base_pod_shank_dia = 3.9            # M3 shank clearance — plate boss bore up to the insert
 base_pod_wall = 3.0                 # wall added at each step (plate boss wall = shell wall)
-base_pod_slip = 0.10                # boss-to-hole diametral slip fit
+base_pod_slip = 0.40                # boss-to-hole diametral slip fit — covers the
+                                    # bore printing undersized and the three-pin
+                                    # positional stack across two prints
 base_pod_boss_dia = base_pod_counterbore_dia + 2.0 * base_pod_wall  # plate boss OD
 base_pod_hole_dia = base_pod_boss_dia + base_pod_slip               # shell pocket
 base_pod_radius = base_pod_hole_dia / 2.0 + base_pod_wall           # pod outer

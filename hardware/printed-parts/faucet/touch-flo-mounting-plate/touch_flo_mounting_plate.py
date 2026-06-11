@@ -1,4 +1,4 @@
-"""Touch-Flo mounting plate — printed PETG plate that supports the
+"""Touch-Flo mounting plate — printed PET-CF plate that supports the
 harvested Touch-Flo faucet body and the two flavor tubes beside it, and
 carries the three screw bosses that bolt up into the shell. Its footprint
 matches the shell foot exactly (foot circle + two lateral teardrop pods +
@@ -63,14 +63,17 @@ pill_slot_center = (0.0, +flavor_tube_depth)
 
 
 # Screw bosses — one per pod center, rising from the plate top into the
-# shell's boss holes. [11.55 mm](BOSS_D) OD, [7.5 mm](BOSS_H) tall (tops out
-# shy of the hole so the plate seats on the foot, not the boss on the hole
-# floor). Each bored for an M3x12 SHCS: a [5.55 mm](CBORE_D) counterbore
-# through the full plate (head recess — the head bears on the boss base and
-# stays clear of the gasket) and a [3.9 mm](SHANK_D) shank clearance up to the
-# shell's heat-set insert.
-boss_seat_clearance = 0.5
+# shell's boss holes. [11.55 mm](BOSS_D) OD, [7 mm](BOSS_H) tall (tops out
+# shy of the hole floor — the gap absorbs the hole ceiling's bridge sag,
+# insert squeeze-out, and layer-1 lips, so the plate seats on the foot, not
+# the boss), with a [0.6 mm](BOSS_CHAMFER) × 45° lead-in chamfer on the top
+# rim easing all three pins into their holes at once. Each bored for an
+# M3x12 SHCS: a [5.55 mm](CBORE_D) counterbore through the full plate (head
+# recess — the head bears on the boss base and stays clear of the gasket)
+# and a [3.9 mm](SHANK_D) shank clearance up to the shell's heat-set insert.
+boss_seat_clearance = 1.0
 boss_height = base_pod_hole_depth - boss_seat_clearance
+boss_chamfer = 0.6
 
 
 def vertical_cylinder(center, radius, z_range):
@@ -111,9 +114,8 @@ def build_mounting_plate() -> cq.Workplane:
     plate = cq.Workplane(obj=foot.fuse(teardrops, front))
 
     for center in base_pod_centers:
-        plate = plate.union(
-            vertical_cylinder(center, base_pod_boss_dia / 2, (0.0, boss_height))
-        )
+        boss = vertical_cylinder(center, base_pod_boss_dia / 2, (0.0, boss_height))
+        plate = plate.union(boss.edges(">Z").chamfer(boss_chamfer))
 
     for center in base_pod_centers:
         plate = plate.cut(
@@ -141,6 +143,7 @@ def main():
         "PLATE_Y": f"{plate_center[1]:.4g} mm",
         "BOSS_D": f"{base_pod_boss_dia:.4g} mm",
         "BOSS_H": f"{boss_height:.4g} mm",
+        "BOSS_CHAMFER": f"{boss_chamfer:.4g} mm",
         "CBORE_D": f"{base_pod_counterbore_dia:.4g} mm",
         "SHANK_D": f"{base_pod_shank_dia:.4g} mm",
         "SHANK_HOLE_D": f"{2 * shank_hole_radius:.4g} mm",
@@ -160,6 +163,7 @@ def main():
             "PLATE_Y": 1,
             "BOSS_D": 1,
             "BOSS_H": 1,
+            "BOSS_CHAMFER": 1,
             "CBORE_D": 1,
             "SHANK_D": 1,
             "SHANK_HOLE_D": 1,
@@ -185,6 +189,7 @@ def main():
             "PLATE_PILL_W": 1,
             "BOSS_D": 1,
             "BOSS_H": 1,
+            "BOSS_CHAMFER": 1,
             "CBORE_D": 1,
             "SHANK_D": 1,
         },
