@@ -2,16 +2,18 @@
 
 Bench procedure for joining the printed `touch-flo-shell` to the printed
 `touch-flo-mounting-plate` with the harvested Touch-Flo valve body
-sandwiched between them. This is the sub-assembly that gets handed off
-to the countertop install step (gasket + under-counter nut against the
-deck) — it does not include the gasket or the deck nut.
+sandwiched between them — three M3×12 screws driven up through the
+plate's bosses into heat-set inserts in the shell's base pods. This is
+the sub-assembly that gets handed off to the countertop install step
+(gasket + under-counter nut against the deck) — it does not include the
+gasket or the deck nut.
 
 ## Where this fits in the build
 
 Upstream:
 
-1. Print `touch-flo-shell` (PET-CF, 0.6 mm DUROZZLE TC nozzle, see
-   [`print-log.md`](/hardware/printed-parts/faucet/touch-flo-shell/print-log.md) attempt 7 settings).
+1. Print `touch-flo-shell` (PET-CF, 0.6 mm DUROZZLE TC nozzle, settings in
+   [`print-log.md`](/hardware/printed-parts/faucet/touch-flo-shell/print-log.md)).
 2. Print `touch-flo-mounting-plate` (PET-CF, same H2C).
 3. Harvest the Touch-Flo valve body from the donor faucet per
    [`/hardware/reference/touch-flo-faucet/README.md`](/hardware/reference/touch-flo-faucet/README.md).
@@ -58,11 +60,18 @@ into a single rigid sub-assembly.
 
 | Qty | Item                                                 | Reference                                                                          |
 | --- | ---------------------------------------------------- | ---------------------------------------------------------------------------------- |
-|  1  | `touch-flo-shell` (printed, PET-CF) — smooth bottom face, no joinery features | `touch_flo_shell.py` in this directory                            |
-|  1  | `touch-flo-mounting-plate` (printed) — smooth top face, no joinery features | [`/hardware/printed-parts/faucet/touch-flo-mounting-plate/`](/hardware/printed-parts/faucet/touch-flo-mounting-plate/) |
+|  1  | `touch-flo-shell` (printed, PET-CF) — three base-pod boss holes + insert pockets opening into the foot bottom | `touch_flo_shell.py` in this directory (BASE PODS section)        |
+|  1  | `touch-flo-mounting-plate` (printed, PET-CF) — three chamfer-tipped screw bosses on the top face, counterbored from below | [`/hardware/printed-parts/faucet/touch-flo-mounting-plate/`](/hardware/printed-parts/faucet/touch-flo-mounting-plate/) |
 |  1  | Touch-Flo valve body + factory shank nut (harvested) | [`/hardware/reference/touch-flo-faucet/`](/hardware/reference/touch-flo-faucet/)            |
+|  3  | ruthex M3 short heat-set insert (RX-M3Sx4.0, Ø4.2 knurled brass) | [`/hardware/ledger/bom.md`](/hardware/ledger/bom.md) §13                |
+|  3  | BNUOK M3 × 12 mm SHCS, 304 stainless                 | [`/hardware/ledger/bom.md`](/hardware/ledger/bom.md) §13                            |
 
-No fasteners or printed retention features. The plate is held to the shell by gravity + body friction during sub-assembly handling; once installed in the countertop, the factory shank nut clamps the whole stack (body → plate → TPU gasket → countertop) and that clamp carries every load thereafter.
+The three pod screws are the entire shell retention: each M3×12 drives
+up from under the plate, through the counterbore and the boss, into a
+ruthex insert heat-set in the shell. The factory shank nut clamps the
+metal body to the plate only — not the shell. Once installed in the
+countertop, the under-counter nut compresses the stack (body → plate →
+TPU gasket → countertop) and carries the installed loads.
 
 The two flavor tubes that pass through the pill slot are NOT installed
 at this step — they're routed in the downstream "tube routing" step,
@@ -124,44 +133,40 @@ shell + plate + body sub-assembly procedure below.
 
 | Item                                          | Reference                                                                  |
 | --------------------------------------------- | -------------------------------------------------------------------------- |
-| Flat work surface + clean rag                 | For setting the plate boss-up and pressing the shell down by hand          |
-| Rubber mallet (optional)                      | If the press fit needs a gentle tap to fully seat — finger pressure first  |
-
-No soldering iron, no heat-set tooling, no hex driver — this sub-assembly is screw-free.
+| Soldering iron + M3 heat-set tip              | Seats the three ruthex inserts (T18 tip kit + FX-888D — the §13 tooling note in [`/hardware/ledger/bom.md`](/hardware/ledger/bom.md)) |
+| 2.5 mm hex key                                | Drives the M3×12 SHCS                                                      |
+| Flat work surface + clean rag                 | Insert setting and final seating                                           |
 
 ## Geometry summary
 
-**No joinery features.** The plate is a clean disc with only the
-shank hole + pill slot through it. The shell's bottom face is
-similarly clean. There is no positive retention or alignment
-between the plate and the shell on this sub-assembly.
+**The joint.** The shell's foot carries three base pods — two lateral
+(±X) and one front (−Y) — each with a blind boss hole opening into the
+foot bottom and a ruthex M3 insert pocket stacked above it, the insert
+opening facing down onto the hole. The plate carries three matching
+bosses rising from its top face, each tipped with a lead-in chamfer
+and bored through: a counterbore from the plate bottom (screw-head
+recess) and an M3 shank bore up through the boss to the insert. The
+bosses register the plate; the screws clamp it. Dimensions live in
+`touch_flo_shell.py` (BASE PODS section) and the
+[plate README](/hardware/printed-parts/faucet/touch-flo-mounting-plate/README.md).
 
 What holds the parts together:
 
-- During sub-assembly handling (between this bench and the
-  faucet-and-umbilical bench): **gravity** holds the shell down on
-  the plate, and the harvested body inside the shell's bore
-  laterally constrains the plate (the body is rigidly attached to
-  the plate via the snug shank nut from Step 1; the body sits in
-  the shell's bore with a [0.25 mm](BORE_CLEAR)/side slip-fit, so the plate
-  can't slide sideways without dragging the body and shell with
-  it). The shell can be lifted straight off the body+plate freely;
-  handle the sub-assembly without inverting it until the umbilical
-  tubes are routed at the next bench (the tubes through the pill
-  slot will then friction-lock the whole stack).
-- Once installed in the countertop: the **factory shank nut**
-  threaded onto the body's shank from below compresses the entire
-  stack — body landing face down onto plate top, plate bottom down
-  onto TPU gasket, gasket bottom down onto countertop top. That
-  compression is what carries every load for the life of the
-  appliance.
+- From this bench onward: the three **pod screws** clamp the plate up
+  against the shell foot — the sub-assembly is rigid and handles in
+  any orientation. The body, clamped to the plate by the **shank nut**
+  from Step 2, sits in the shell's bore with a [0.25 mm](BORE_CLEAR)/side
+  slip-fit.
+- Once installed in the countertop: the under-counter nut compresses
+  body → plate → TPU gasket → countertop, and that compression carries
+  the installed loads; the pod screws keep carrying the shell.
 
 Stack-up at the plate-to-shell interface (rear shoulder region):
 
 ```
       shell wall (PET-CF) — solid material, no pockets
       └── shell bottom face (smooth)
-           └── plate top face (smooth, in contact with shell bottom by gravity)
+           └── plate top face (smooth, clamped to the shell bottom by the pod screws)
                 └── 4 mm plate (solid material, no holes here)
                      └── plate bottom face (smooth, against TPU gasket)
 ```
@@ -170,29 +175,44 @@ Stack-up at the plate-to-shell interface (rear shoulder region):
 mounting plate sits *above* the countertop — its top face mates with
 the shell bottom (this doc's joint), its bottom face mates with the
 TPU `touch-flo-mounting-gasket` that then seals against the
-countertop's top surface. The plate's bottom face must stay flat
-against the gasket; the current screw-free, dowel-free design keeps
-the rear-shoulder region of the plate bottom fully smooth.
+countertop's top surface. The three screw heads recess fully into
+the counterbores, above the bottom plane, so the plate presents an
+uninterrupted flat face to the gasket — the counterbore rims are the
+only openings.
 
 The factory shank nut clamps the body's [31.5 mm](BODY_OD) OD bottom
 face onto the plate's top face through the plate's Ø 12.6 shank hole.
-The shell sits over the body+plate stack; the body inside the shell's
-bore provides lateral and rotational constraint (rectangular zone-2
-cross-section + lever orientation).
+The shell sits over the body+plate stack, screwed to the plate through
+the pods; the body inside the shell's bore adds lateral and rotational
+constraint (rectangular zone-2 cross-section + lever orientation).
 
 ## Pre-flight check
 
-1. **Support material removal.** Confirm the shell's body bore and
-   the plate's shank hole + pill slot are all clear of supports and
-   stringing.
+1. **Support material removal.** Confirm the shell's body bore and the
+   three boss holes + insert pockets in its foot, and the plate's
+   shank hole, pill slot, and counterbores, are all clear of supports
+   and stringing.
 2. **Body fit.** Dry-fit the harvested body into the shell's bore
    from the bottom (shell oriented bottom-up). The body should
    slide all the way to the bore cove (Z = [19.25 mm](BORE_COVE_Z) in part
    coordinates) without binding. The lever swings in the shell's
    -Y clearance ramp; verify the lever clears at the resting
    position.
+3. **Boss fit.** Dry-fit the plate (no body) onto the shell foot:
+   all three bosses enter their holes and the plate seats flat
+   against the foot under light hand pressure.
 
-## Step 1 — Body into mounting plate
+## Step 1 — Heat-set inserts into the shell
+
+1. Set the shell foot-up on the work surface.
+2. Carry each ruthex insert up through its boss hole on the iron's M3
+   tip, opening down, into the Ø 4 pocket above the hole ceiling.
+   Press until the insert mouth sits flush with the ceiling — the
+   pocket runs deeper than the insert's 4 mm length, leaving relief
+   above it.
+3. Let each pod cool before moving the shell.
+
+## Step 2 — Body into mounting plate
 
 1. Slot the Touch-Flo body's Ø 11 mm threaded shank up through the
    plate's Ø 12.6 shank hole. The body's [31.5 mm](BODY_OD) OD landing face
@@ -212,40 +232,44 @@ cross-section + lever orientation).
    orient the lever toward -Y (the lever-clearance ramp side of the
    shell).
 
-## Step 2 — Shell over body
+## Step 3 — Shell over body
 
 1. Hold the plate + body sub-assembly with the body pointing up. Drop
    the shell down over the body so the body enters the shell's bore
    from the bottom. The shell's -Y lever clearance ramp must align
-   with the lever (which you already pointed toward -Y in Step 1).
-2. Push the shell down until its bottom face seats flat against the
-   plate's top face. There is nothing to press into — the shell just
-   slides down over the body and rests on the plate by gravity.
+   with the lever (which you already pointed toward -Y in Step 2).
+2. Push the shell down until the three bosses enter their pod holes —
+   the chamfered tips funnel them in — and the foot seats flat
+   against the plate's top face. The pod pattern matches in exactly
+   one orientation: rotated 180°, the front boss lands on solid foot
+   and the outlines mismatch.
 3. Verify the shell's pill slot aligns with the plate's pill slot
    (both at world (0, +[18.93 mm](FLAVOR_TUBE_Y)), X-oriented). They should overlay
-   exactly. If they don't, the shell is rotated 180° about the
-   shell-center vertical axis — lift it straight up off the plate
-   (no resistance, since there's no joinery), rotate, and re-seat.
+   exactly.
 
-The sub-assembly is now visually complete but the shell is held to
-the plate **only by gravity**. The plate is rigidly attached to the
-body (via the shank nut from Step 1), and the body is laterally
-held in the shell by the body bore's slip fit — so the shell can't
-slide sideways without dragging the plate with it — but the shell
-*can* be lifted straight up off the body+plate freely. Handle the
-sub-assembly upright (shell up, plate down) until it reaches the
-faucet-and-umbilical bench, where the three LLDPE tubes routed
-through the pill slot will friction-lock the stack.
+## Step 4 — Screws
+
+1. From below, drop an M3×12 SHCS into each counterbore and thread it
+   into its insert with the 2.5 mm hex key.
+2. Snug all three in alternation — hand-snug plus a quarter turn, no
+   more. The threads live in the brass inserts, the clamped material
+   is plastic.
+3. Confirm each head sits fully recessed in its counterbore, above
+   the plate's bottom face.
+
+The sub-assembly is now rigid — shell, plate, and body move as one
+unit in any orientation, ready for the faucet-and-umbilical bench.
 
 ## Verification
 
-After the shell is seated:
+After the screws are snug:
 
 - **Plate seats flat against shell.** No visible gap at the joint
   line anywhere around the perimeter. A gap means the body is
-  fouling the bore — most likely the lever orientation was off, or
-  the body wasn't pushed all the way up against the bore floor
-  before the shell came down.
+  fouling the bore (most likely the lever orientation), debris in a
+  boss hole, or a screw run home before its boss was fully seated.
+- **Screw heads recessed.** Run a fingertip across the plate bottom —
+  no head proud of the face.
 - **Body has no rotational play.** Try to rotate the body relative to
   the shell + plate by grabbing the lever and twisting. Should be
   rigid, set by the rectangular zone-2 profile inside the rectangular
@@ -262,21 +286,22 @@ After the shell is seated:
 
 Reverse order:
 
-1. Loosen and remove the factory shank nut from below the plate.
-2. Lift the shell straight up off the body + plate. No resistance
-   — the shell sits free on the plate.
-3. The body lifts up and out of the plate's shank hole.
+1. Back the three M3×12 out from below the plate.
+2. Lift the shell straight up off the body + plate.
+3. Loosen and remove the factory shank nut; the body lifts up and out
+   of the plate's shank hole.
 
-The shell and plate can be re-mated any number of times without
-wear — there's nothing to wear.
+The brass inserts take the thread wear — the joint re-mates
+indefinitely.
 
 ## Troubleshooting
 
 | Symptom                                       | Likely cause                                                 | Fix                                                                                    |
 | --------------------------------------------- | ------------------------------------------------------------ | -------------------------------------------------------------------------------------- |
-| Plate-to-shell joint won't close (visible gap) | Body fouling the shell bore (most likely lever orientation), or support material left in the shell bore | Disassemble; verify the body slides all the way to the bore cove with no resistance; re-orient lever to -Y if needed. |
+| Plate-to-shell joint won't close (visible gap) | Body fouling the shell bore (most likely lever orientation), or support material / stringing in a boss hole | Disassemble; verify the body slides all the way to the bore cove and the no-body boss dry-fit seats flat; clear the offending pod; re-orient lever to -Y if needed. |
 | Lever binds against shell                     | Lever orientation off, or shell -Y ramp printed with a support stub remaining | Disassemble; clear the ramp; re-orient body so lever points to -Y. |
-| Shell falls off plate during handling         | Sub-assembly was inverted or jolted before umbilical routing locked the stack | Re-seat; handle upright (shell up) until the umbilical tubes are routed at the next bench. A piece of masking tape across the joint is fine as a transport aid. No design fix needed — the shell is intentionally held by gravity only at this stage. |
+| Boss binds entering its hole                  | Stringing or first-layer squish at the hole rim               | Clean the rim; re-run the pre-flight boss dry-fit. |
+| Insert spins or pulls out                     | Insert seated cold or shallow                                 | Re-seat with the iron until the mouth is flush with the hole ceiling. |
 
 ## Sources
 [value](NAME) texts are updated by:
