@@ -135,7 +135,7 @@ Check valves, sparge stone + barb adapter for internal-sparge CO2 carbonation, c
 | ~~Beduan 1/4" male spiral cone atomization nozzle, 316 SS~~ | [B07LGPD3GB](https://www.amazon.com/dp/B07LGPD3GB) | 1 | $10.71 | ACQUIRED (superseded) |
 | VALVENTO 316 SS 1/4" OD compression × 1/4" NPT adapter (2 pk) | [B0DXZZBK7D](https://www.amazon.com/dp/B0DXZZBK7D) | 1 pk | $12.85 | ACQUIRED |
 | VALVENTO 1/4" OD 316 SS tube, 12" length (5 pk) | [B0F6SYFK48](https://www.amazon.com/dp/B0F6SYFK48) | 1 pk | $18.23 | ACQUIRED |
-| TAISHER 304 SS compression square needle valve 1/4" | [B0CLXHZZCW](https://www.amazon.com/dp/B0CLXHZZCW) | 1 | $34.48 | ACQUIRED |
+| TAISHER 304 SS compression square needle valve 1/4" | [B0CLXHZZCW](https://www.amazon.com/dp/B0CLXHZZCW) | 1 | $32.15 | ACQUIRED |
 | YKEBVPW 1/4" push-connect needle valve flow control | [B0FBFVTNLM](https://www.amazon.com/dp/B0FBFVTNLM) | 1 | $8.03 | ACQUIRED |
 | YKEBVPW 1/4" needle valve | amazon.com (112-4375086-9926652) | 1 | $8.03 | ACQUIRED (delivered Jun 1) |
 
@@ -263,10 +263,10 @@ Ice-maker donor units and copper coil for the chill loop.
 
 | Part | ASIN link | Qty | $ | Status |
 |---|---|---|---|---|
-| Waveshare MCP23017 I2C I/O expansion board | [B07P2H1NZG](https://www.amazon.com/dp/B07P2H1NZG) | 1 | $12.99 | ACQUIRED |
+| Waveshare MCP23017 I2C I/O expansion board | [B07P2H1NZG](https://www.amazon.com/dp/B07P2H1NZG) | 1 | $13.93 | ACQUIRED |
 | BOJACK ULN2803 Darlington driver IC (10 pk) | [B08CX79JSQ](https://www.amazon.com/dp/B08CX79JSQ) | 1 pk | $7.50 | ACQUIRED |
-| ULN2803A high-current driver module (2 pc) | [B0F872W528](https://www.amazon.com/dp/B0F872W528) | 1 pk | $6.59 | ACQUIRED |
-| BOJACK L298N dual H-bridge motor driver (4-pack) | [B0C5JCF5RS](https://www.amazon.com/dp/B0C5JCF5RS) | 1 pk | $11.48 | ACQUIRED |
+| ULN2803A high-current driver module (2 pc) | [B0F872W528](https://www.amazon.com/dp/B0F872W528) | 1 pk | $7.07 | ACQUIRED |
+| BOJACK L298N dual H-bridge motor driver (4-pack) | [B0C5JCF5RS](https://www.amazon.com/dp/B0C5JCF5RS) | 1 pk | $10.71 | ACQUIRED |
 | DS3231 AT24C32 RTC module (2 pk) | [B09LLMYBM1](https://www.amazon.com/dp/B09LLMYBM1) | 1 pk | $7.07 | ACQUIRED |
 | HiLetgo DS3231 high-precision RTC (5 pk) | [B01N1LZSK3](https://www.amazon.com/dp/B01N1LZSK3) | 1 pk | $16.08 | ACQUIRED |
 | EDGELEC 4.7 kΩ 1/4 W 1% metal-film resistor (100 pk) | [B07HDFHPP3](https://www.amazon.com/dp/B07HDFHPP3) | 1 pk | $5.89 | ACQUIRED |
@@ -350,7 +350,7 @@ General shop equipment supporting fabrication, assembly, and teardown. Not proje
 | Part | ASIN link | Qty | $ | Status |
 |---|---|---|---|---|
 | VEVOR adjustable 48" workbench w/ power outlet, wheels, pegboard, 2000 lb load | [B0FCD13KKQ](https://www.amazon.com/dp/B0FCD13KKQ) | 2 | $172.64 ea | ACQUIRED |
-| NEIKO 01407A digital caliper, 0–6", stainless, inch/fraction/mm LCD — bench metrology (CAD reference measurements, incl. the faucet display housing/PCB dimensions). Order #114-9764609-4555460, placed Mar 22, 2026 | [B000GSLKIW](https://www.amazon.com/dp/B000GSLKIW) | 1 | $29.20 | ACQUIRED (delivered Mar 24) |
+| NEIKO 01407A digital caliper, 0–6", stainless, inch/fraction/mm LCD — bench metrology (CAD reference measurements, incl. the faucet display housing/PCB dimensions). Order #114-9764609-4555460, placed Mar 22, 2026 | [B000GSLKIW](https://www.amazon.com/dp/B000GSLKIW) | 1 | $27.23 | ACQUIRED (delivered Mar 24) |
 
 ## 13. Printing consumables
 
@@ -360,8 +360,8 @@ General shop equipment supporting fabrication, assembly, and teardown. Not proje
 |---|---|---|---|---|
 | SpoolHaus PEBA Super Bowden 1.75 mm, 1 kg | [B0G1L5XVH2](https://www.amazon.com/dp/B0G1L5XVH2) | 1 | $64.34 | ACQUIRED |
 | Siraya Tech Flex 1.75 mm TPU | [B0CVXF33Z1](https://www.amazon.com/dp/B0CVXF33Z1) | 1 | $33.88 | ACQUIRED |
-| SUNLU Official 3D Printer Filament Dryer S4 | [B0CQJMV71Z](https://www.amazon.com/dp/B0CQJMV71Z) | 1 | $134.56 | ACQUIRED (delivered March 25) |
-| Polymaker 3D Printing Filament Storage Box, 4-Pack (PolyDryer Box x4) | [B0FHPS82YG](https://www.amazon.com/dp/B0FHPS82YG) | 1 pk (4) | $126.51 | ACQUIRED (delivered March 25) |
+| SUNLU Official 3D Printer Filament Dryer S4 | [B0CQJMV71Z](https://www.amazon.com/dp/B0CQJMV71Z) | 1 | $125.47 | ACQUIRED (delivered March 25) |
+| Polymaker 3D Printing Filament Storage Box, 4-Pack (PolyDryer Box x4) | [B0FHPS82YG](https://www.amazon.com/dp/B0FHPS82YG) | 1 pk (4) | $117.96 | ACQUIRED (delivered March 25) |
 | SUNLU Official 3D Printer Filament Dryer E2 | [B0F5PMMXKD](https://www.amazon.com/dp/B0F5PMMXKD) | 1 | $321.74 | ACQUIRED (delivered April 7) |
 | DUROZZLE 0.6mm Diamond PCD Nozzle Hotend, L-side (H2D/H2S/P2S/A1 series) | [B0GWDBQW4G](https://www.amazon.com/dp/B0GWDBQW4G) | 1 | $64.24 | ACQUIRED (delivered May 9 1:27 PM) |
 | DUROZZLE 0.6mm Tungsten Carbide Nozzle Hotend, L-side (H2D/H2S/P2S/A1 series) | [B0GWDDKG47](https://www.amazon.com/dp/B0GWDDKG47) | 1 | $37.43 | ACQUIRED (delivered May 9 8:37 AM, used on touch-flo-shell PET-CF attempt 7) |
@@ -370,7 +370,7 @@ General shop equipment supporting fabrication, assembly, and teardown. Not proje
 | Shineboc 20-pc Wet/Dry Sanding Sponge Set, foam-backed silicon-carbide, 3" × 4", 9 grits (180/320/400/600/800/1200/2000/2500/3000) | [B0D8ZC6HKY](https://www.amazon.com/dp/B0D8ZC6HKY) | 1 pk (20) | $10.71 | ACQUIRED (delivered May 12) |
 | Polymaker Fiberon PET-CF17, 1.75 mm × 1 kg, Black | [B0G2CC2YP8](https://www.amazon.com/dp/B0G2CC2YP8) | 2 | $96.50 | ACQUIRED (delivered May 18) |
 | SunTop food-contact-compliant PETG, 1.75 mm × 1 kg, Clear/Transparent | [B0FP34MJ94](https://www.amazon.com/dp/B0FP34MJ94) | 2 | $49.32 | ACQUIRED (delivered May 18) |
-| Elmer's disappearing purple school glue sticks, washable, 6 g × 12 — print-bed adhesion/release layer. Order #114-9764609-4555460, placed Mar 22, 2026 | [B003ULCZ7M](https://www.amazon.com/dp/B003ULCZ7M) | 1 pk (12) | $7.91 | ACQUIRED (delivered Mar 24) |
+| Elmer's disappearing purple school glue sticks, washable, 6 g × 12 — print-bed adhesion/release layer. Order #114-9764609-4555460, placed Mar 22, 2026 | [B003ULCZ7M](https://www.amazon.com/dp/B003ULCZ7M) | 1 pk (12) | $7.38 | ACQUIRED (delivered Mar 24) |
 
 ## 14. Soldering + small-signal electrical tools
 
@@ -393,14 +393,14 @@ Bench soldering capability for through-hole, wire-to-pad (pogo pin leads), and g
 | QWORK mini heat gun, 300 W / 200–450 °C | [B09NDCCW29](https://www.amazon.com/dp/B09NDCCW29) | 1 | $9.62 | ACQUIRED |
 | Hakko T18-D16 chisel tip, 1.6 mm | [B004OR9BV4](https://www.amazon.com/dp/B004OR9BV4) | 1 | $9.64 | ACQUIRED |
 | Hakko T18-D12 chisel tip, 1.2 mm | [B004OR6BU8](https://www.amazon.com/dp/B004OR6BU8) | 1 | $9.64 | ACQUIRED |
-| T18-compatible heat-set insert tip kit, 7-piece, M2/M2.5/M3/M4/M5/M6/M8 | [B0CS662NVK](https://www.amazon.com/dp/B0CS662NVK) | 1 kit (7 tips) | $14.94 | ACQUIRED (delivered May 11) |
+| T18-compatible heat-set insert tip kit, 7-piece, M2/M2.5/M3/M4/M5/M6/M8 | [B0CS662NVK](https://www.amazon.com/dp/B0CS662NVK) | 1 kit (7 tips) | $13.93 | ACQUIRED (delivered May 11) |
 | Heat-shrink tubing assortment kit, 2:1 ratio, assorted sizes/colors | [B0FRNMXN6Q](https://www.amazon.com/dp/B0FRNMXN6Q) | 1 | $7.50 | ACQUIRED |
 | Disposable flux brushes, horsehair, 1/2" × 6" (pack) | [B07PHG2DQY](https://www.amazon.com/dp/B07PHG2DQY) | 1 pk | $6.96 | ACQUIRED |
 | DSD TECH SH-U09B3 USB-C to TTL serial adapter, CP2102N — service-flash path into the faucet display S3 over UART0 (GPIO 43/44) once its USB-C connector comes off for the gooseneck mount. Order #112-6318240-4305018, placed Jun 10, 2026 | [B09KXT6W46](https://www.amazon.com/dp/B09KXT6W46) | 1 | $10.71 | ACQUIRED (delivered Jun 11) |
 | FAST CHIP low-melt SMD removal alloy, 4.5 ft — iron-only removal of the faucet display S3's USB-C connector and TF slot (keeps rework heat away from the panel glued to the far side of the PCB). Order #112-3079158-6326618, placed Jun 10, 2026 | [B00OOBIJ6I](https://www.amazon.com/dp/B00OOBIJ6I) | 1 | $15.00 | ACQUIRED (delivered Jun 11) |
 | ELEGOO polyimide high-temp tape, 4-roll bundle (1/8", 1/4", 1/2", 1") — masking around board-level rework. Order #112-0906598-6371411, placed Jun 10, 2026 | [B072Z92QZ2](https://www.amazon.com/dp/B072Z92QZ2) | 1 (4 rolls) | $10.71 | ACQUIRED (delivered Jun 11) |
 | iFixit precision tweezers set (extra-fine, angled, blunt; ESD coating) — board-level rework and BOOT-pad bridging on the faucet display S3. Order #112-2746979-9145060, placed Jun 10, 2026 | [B079K874CQ](https://www.amazon.com/dp/B079K874CQ) | 1 set (3) | $12.82 | ACQUIRED (delivered Jun 11) |
-| KATA micro flush cutters, 2-pack — precision side cutters for board-level work (header-strip cutting, lead trimming); shared with 3D-printing post-processing. Order #114-9764609-4555460, placed Mar 22, 2026 | [B0BBML9M2V](https://www.amazon.com/dp/B0BBML9M2V) | 1 pk (2) | $9.53 | ACQUIRED (delivered Mar 24) |
+| KATA micro flush cutters, 2-pack — precision side cutters for board-level work (header-strip cutting, lead trimming); shared with 3D-printing post-processing. Order #114-9764609-4555460, placed Mar 22, 2026 | [B0BBML9M2V](https://www.amazon.com/dp/B0BBML9M2V) | 1 pk (2) | $8.89 | ACQUIRED (delivered Mar 24) |
 | Klein Tools 11057 wire cutter/stripper, 20–30 AWG solid / 22–32 AWG stranded — fine-gauge stripper for the 28 AWG faucet-display harness conductors; the §14 Klein 11063W bottoms out at 20 AWG. Order #112-3574693-0507435, placed Jun 11, 2026 | [B000XEUPMQ](https://www.amazon.com/dp/B000XEUPMQ) | 1 | $23.56 | ON-ORDER (arriving Jun 13) |
 | Kester 44 63/37 RMA rosin-core solder, 0.020" / 3/4 oz tube — finer solder for wire-to-pad work on the faucet display S3; the §14 0.031" spool is coarse for the small pads. Order #112-3550632-8904259, placed Jun 11, 2026 | [B00AYJ0B7Y](https://www.amazon.com/dp/B00AYJ0B7Y) | 1 | $14.94 | ON-ORDER (arriving Jun 13) |
 | Hakko T18-D08 chisel tip, 0.8 mm — fine FX-888D tip for the faucet display S3's small through-hole pads; complements the T18-D12/D16 already on hand. Order #112-3550632-8904259, placed Jun 11, 2026 | [B004ORB8GK](https://www.amazon.com/dp/B004ORB8GK) | 1 | $9.87 | ON-ORDER (arriving Jun 13) |
@@ -502,13 +502,13 @@ Industrial-supply orders direct from McMaster-Carr (mcmaster.com). First McMaste
 
 | Status | $ |
 |---|---|
-| ACQUIRED — hardware, tools & infra (§§1–17, 19, 20) | [$25,677.29](LEDGER_ACQUIRED_HW) |
+| ACQUIRED — hardware, tools & infra (§§1–17, 19, 20) | [$25,653.82](LEDGER_ACQUIRED_HW) |
 | ACQUIRED — capitalized contract labor (§18) | [$2,607.92](LEDGER_LABOR) |
-| ACQUIRED (combined) | [$28,285.21](LEDGER_ACQUIRED_COMBINED) |
+| ACQUIRED (combined) | [$28,261.74](LEDGER_ACQUIRED_COMBINED) |
 | ON-ORDER | [$108.36](LEDGER_ON_ORDER) |
 | MISSING — paid, not received (§1 copper bar) | [$42.89](LEDGER_MISSING) |
 | LIKELY-TO-BUY | $0.00 |
-| **Grand total — cash outlay** | [$28,436.46](LEDGER_GRAND_TOTAL) |
+| **Grand total — cash outlay** | [$28,412.99](LEDGER_GRAND_TOTAL) |
 
 ACQUIRED hardware by section:
 
@@ -517,17 +517,17 @@ ACQUIRED hardware by section:
 | 1 | Pressure vessel / carbonator fabrication | [$3,762.82](LEDGER_SEC1) |
 | 2 | CO2 subsystem (incl. Lillium prototype carbonator $1,129) | [$1,785.10](LEDGER_SEC2) |
 | 3 | Water supply + backflow prevention | [$754.73](LEDGER_SEC3) |
-| 4 | Carbonator plumbing | [$245.27](LEDGER_SEC4) |
+| 4 | Carbonator plumbing | [$242.94](LEDGER_SEC4) |
 | 5 | Flavor subsystem | [$894.42](LEDGER_SEC5) |
 | 6 | Refrigeration | [$1,882.74](LEDGER_SEC6) |
 | 7 | Dispensing end | [$217.29](LEDGER_SEC7) |
 | 8 | Electronics — controllers | [$138.06](LEDGER_SEC8) |
-| 9 | Electronics — I/O, drivers, sensors, power | [$716.22](LEDGER_SEC9) |
+| 9 | Electronics — I/O, drivers, sensors, power | [$716.87](LEDGER_SEC9) |
 | 10 | User interface | [$156.61](LEDGER_SEC10) |
 | 11 | Enclosure hardware | [$124.48](LEDGER_SEC11) |
-| 12 | Shop / bench infrastructure | [$374.48](LEDGER_SEC12) |
-| 13 | Printing consumables | [$1,091.18](LEDGER_SEC13) |
-| 14 | Soldering + small-signal tools | [$497.65](LEDGER_SEC14) |
+| 12 | Shop / bench infrastructure | [$372.51](LEDGER_SEC12) |
+| 13 | Printing consumables | [$1,073.01](LEDGER_SEC13) |
+| 14 | Soldering + small-signal tools | [$496.00](LEDGER_SEC14) |
 | 15 | 3D printing equipment + filaments (Bambu direct) | [$8,381.47](LEDGER_SEC15) |
 | 16 | Laser welding / cleaning / cutting | [$3,899.00](LEDGER_SEC16) |
 | 17 | Domain / infrastructure | [$599.00](LEDGER_SEC17) |
