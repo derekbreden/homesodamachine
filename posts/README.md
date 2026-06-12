@@ -143,6 +143,53 @@ A 2-category post is ~70 words. 3 categories is ~110 words. If you're at
 
 ## What to do
 
+### Read the last 14 days before you write
+
+Before you draft anything, read **every post from at least the last 14
+days** in this directory — further back if a thread you're touching runs
+deeper. This is not optional background. It is the one habit that
+prevents the worst failure mode of this routine: **re-announcing an
+ongoing thread as if it were brand-new.**
+
+This project is built in iterations. The touch screen gets mounted one
+day, gains an idle glow the next, gets a printed cradle the day after.
+An agent who reads only today's commits sees each of those in isolation
+and writes "the faucet got a touch screen" three days running — three
+debuts of one thing. To someone following the feed it is the same
+announcement on a loop, and it makes the project look like it is
+spinning in place when it is in fact moving forward. This is the single
+most common way these posts go wrong.
+
+So before writing, build the picture: for each thing you're about to
+report, find every earlier post that already touched it, and report only
+**what is newly true today that wasn't true yesterday** — the increment,
+not the thread.
+
+- Wrong (a day when the screen had already debuted): "The faucet got a
+  touch screen — a touch LCD on the dispense head."
+- Right: "The faucet's touch screen got an idle glow and a cradle — the
+  backlight fades to an ember after a minute; a printed cradle captures
+  the display between two shell pieces."
+
+This is the rule that reconciles with "each post must stand alone."
+Standing alone means a cold reader needs no prior post to follow this
+one — no "yesterday," no "as we mentioned." It does **not** mean
+pretending the project started this morning. The two meet in the
+before-line:
+
+> **Before-today lines state the true state of the project at the start
+> of the day.** If a capability already existed because an earlier post
+> reported it, the before-line must reflect that. Never write "before
+> today there was no X" when X shipped three days ago — write the real
+> prior state ("before today the screen mounted but stayed lit around
+> the clock"). The cold reader still follows along; they are simply not
+> told a falsehood about the project's history.
+
+If, after reading back, a day's work turns out to be nothing but more of
+a thread already fully reported — with nothing newly true — that is a
+category to fold in or drop, not to re-announce. "We kept working on the
+screen" is not newly true, and is not a category.
+
 ### Day narrative, not diff narrative
 
 You are describing what happened in the world today, not what landed
@@ -194,7 +241,10 @@ Match the gold-standard posts (see Examples). Specifically:
   stranger wouldn't know: "STEP file (3D drawing)", "Mermaid file
   (flowchart)", "BLE (Bluetooth)"
 - **Each post must stand alone.** No "yesterday," no implicit references
-  to prior posts. A reader landing cold needs enough to track.
+  to prior posts. A reader landing cold needs enough to track. Standing
+  alone is **not** a license to pretend the project began today — see
+  "Read the last 14 days before you write." The before-line still states
+  the true prior state; you just don't name the prior post to get there.
 - Past tense for completed work, present tense if the work is genuinely
   mid-flight at the end of the window
 - **Headlines lead with subjects, not verbs.** "HomeSodaMachine.com is
@@ -362,29 +412,39 @@ exist yet.
    most days the routine will produce nothing because the prior run
    already published yesterday.
 
-2. Find the day's commits:
+2. **Read the last 14 days of posts.** Before looking at a single
+   commit, read every post in `posts/` from at least the 14 days before
+   your target date — further back if a thread you'll touch runs deeper.
+   Build the list of ongoing threads and where each one currently
+   stands. This is what stops you re-announcing an existing thread as
+   new. See "Read the last 14 days before you write" above.
+
+3. Find the day's commits:
 
    ```
    git log --since="<DATE> 00:00 -0500" --until="<NEXT_DATE> 00:00 -0500" \
      --pretty=format:"%h %ai %s"
    ```
 
-2. Read the diffs for substantive commits — `git show <hash>` per file
+4. Read the diffs for substantive commits — `git show <hash>` per file
    that changed substantively. Commit messages are summaries, not
    truth; a subject like "Revert experimentation back to ruled=False
    side lofts" is meaningless until you see the diff.
 
-3. Group commits into 1–3 outcomes. Collapse aggressively. Skip the
+5. Group commits into 1–3 outcomes. Collapse aggressively. Skip the
    reverts, the bisection sweeps, the "Had to remake your commit sorry"
    commits — those belong inside the arc they're part of, not as
    separate items.
 
-4. Write the post to `posts/YYYY-MM-DD-HHMM.md`. Verify each headline
+6. Write the post to `posts/YYYY-MM-DD-HHMM.md`. Verify each headline
    is 8 words or fewer (this is the rule that drifts most often). Verify
    the post stands alone — no "yesterday," no references to the prior
-   day's post.
+   day's post. Then run the continuity check: for every category, find
+   the most recent earlier post that touched the same thread and confirm
+   today's headline reports a genuine increment, not a re-debut, and that
+   the before-line matches the true prior state that post leaves off at.
 
-5. For each category whose substantive change is a STEP, DXF, Mermaid,
+7. For each category whose substantive change is a STEP, DXF, Mermaid,
    or Drawing that the viewers surface, render its thumbnail per
    "Visual evidence" above and embed it. A post that names a viewable
    file in its bullets but doesn't show it is missing its visual half.
