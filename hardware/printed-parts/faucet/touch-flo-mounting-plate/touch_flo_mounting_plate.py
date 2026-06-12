@@ -63,12 +63,12 @@ pill_slot_center = (0.0, +flavor_tube_depth)
 
 
 # Screw bosses — one per pod center, rising from the plate top into the
-# shell's boss holes. [11.55 mm](BOSS_D) OD, [7 mm](BOSS_H) tall (tops out
+# shell's boss holes. [12.15 mm](BOSS_D) OD, [7 mm](BOSS_H) tall (tops out
 # shy of the hole floor — the gap absorbs the hole ceiling's bridge sag,
 # insert squeeze-out, and layer-1 lips, so the plate seats on the foot, not
 # the boss), with a [0.6 mm](BOSS_CHAMFER) × 45° lead-in chamfer on the top
 # rim easing all three pins into their holes at once. Each bored for an
-# M3x12 SHCS: a [5.55 mm](CBORE_D) counterbore through the full plate (head
+# M3x12 SHCS: a [6.15 mm](CBORE_D) counterbore through the full plate (head
 # recess — the head bears on the boss base and stays clear of the gasket)
 # and a [3.9 mm](SHANK_D) shank clearance up to the shell's heat-set insert.
 boss_seat_clearance = 1.0
