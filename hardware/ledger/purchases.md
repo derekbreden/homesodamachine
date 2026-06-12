@@ -401,6 +401,9 @@ Bench soldering capability for through-hole, wire-to-pad (pogo pin leads), and g
 | ELEGOO polyimide high-temp tape, 4-roll bundle (1/8", 1/4", 1/2", 1") — masking around board-level rework. Order #112-0906598-6371411, placed Jun 10, 2026 | [B072Z92QZ2](https://www.amazon.com/dp/B072Z92QZ2) | 1 (4 rolls) | $10.71 | ON-ORDER (arriving Jun 11) |
 | iFixit precision tweezers set (extra-fine, angled, blunt; ESD coating) — board-level rework and BOOT-pad bridging on the faucet display S3. Order #112-2746979-9145060, placed Jun 10, 2026 | [B079K874CQ](https://www.amazon.com/dp/B079K874CQ) | 1 set (3) | $12.82 | ON-ORDER (arriving Jun 11) |
 | KATA micro flush cutters, 2-pack — precision side cutters for board-level work (header-strip cutting, lead trimming); shared with 3D-printing post-processing. Order #114-9764609-4555460, placed Mar 22, 2026 | [B0BBML9M2V](https://www.amazon.com/dp/B0BBML9M2V) | 1 pk (2) | $8.89 | ACQUIRED (delivered Mar 24) |
+| Klein Tools 11057 wire cutter/stripper, 20–30 AWG solid / 22–32 AWG stranded — fine-gauge stripper for the 28 AWG faucet-display harness conductors; the §14 Klein 11063W bottoms out at 20 AWG. Order #112-3574693-0507435, placed Jun 11, 2026 | [B000XEUPMQ](https://www.amazon.com/dp/B000XEUPMQ) | 1 | $21.97 | ON-ORDER (arriving Jun 13) |
+| Kester 44 63/37 RMA rosin-core solder, 0.020" / 3/4 oz tube — finer solder for wire-to-pad work on the faucet display S3; the §14 0.031" spool is coarse for the small pads. Order #112-3550632-8904259, placed Jun 11, 2026 | [B00AYJ0B7Y](https://www.amazon.com/dp/B00AYJ0B7Y) | 1 | $13.93 | ON-ORDER (arriving Jun 13) |
+| Hakko T18-D08 chisel tip, 0.8 mm — fine FX-888D tip for the faucet display S3's small through-hole pads; complements the T18-D12/D16 already on hand. Order #112-3550632-8904259, placed Jun 11, 2026 | [B004ORB8GK](https://www.amazon.com/dp/B004ORB8GK) | 1 | $9.20 | ON-ORDER (arriving Jun 13) |
 
 ## 15. 3D printing equipment and filaments (Bambu Lab direct)
 
@@ -499,13 +502,13 @@ Industrial-supply orders direct from McMaster-Carr (mcmaster.com). First McMaste
 
 | Status | $ |
 |---|---|
-| ACQUIRED — hardware, tools & infra (§§1–17, 19, 20) | [$25,503.21](LEDGER_ACQUIRED_HW) |
+| ACQUIRED — hardware, tools & infra (§§1–17, 19, 20) | [$25,441.13](LEDGER_ACQUIRED_HW) |
 | ACQUIRED — capitalized contract labor (§18) | [$2,607.92](LEDGER_LABOR) |
-| ACQUIRED (combined) | [$28,111.13](LEDGER_ACQUIRED_COMBINED) |
-| ON-ORDER | [$130.66](LEDGER_ON_ORDER) |
+| ACQUIRED (combined) | [$28,049.05](LEDGER_ACQUIRED_COMBINED) |
+| ON-ORDER | [$175.76](LEDGER_ON_ORDER) |
 | MISSING — paid, not received (§1 copper bar) | [$42.89](LEDGER_MISSING) |
 | LIKELY-TO-BUY | $0.00 |
-| **Grand total — cash outlay** | [$28,284.68](LEDGER_GRAND_TOTAL) |
+| **Grand total — cash outlay** | [$28,267.70](LEDGER_GRAND_TOTAL) |
 
 ACQUIRED hardware by section:
 
@@ -513,7 +516,7 @@ ACQUIRED hardware by section:
 |---|---|---|
 | 1 | Pressure vessel / carbonator fabrication | [$3,736.30](LEDGER_SEC1) |
 | 2 | CO2 subsystem (incl. Lillium prototype carbonator $1,129) | [$1,785.10](LEDGER_SEC2) |
-| 3 | Water supply + backflow prevention | [$808.63](LEDGER_SEC3) |
+| 3 | Water supply + backflow prevention | [$746.55](LEDGER_SEC3) |
 | 4 | Carbonator plumbing | [$241.68](LEDGER_SEC4) |
 | 5 | Flavor subsystem | [$863.02](LEDGER_SEC5) |
 | 6 | Refrigeration | [$1,867.53](LEDGER_SEC6) |
