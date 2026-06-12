@@ -306,26 +306,28 @@ gn_tip_straight_len = 25.0
 #   SPLIT B: upper-bend ↔ dispense-tip, at end of bend 2 / start of tip.
 #     Bend 2 is a [110°](GN_BEND2_SWEEP_DEG) arc at R=gn_bend2_r; the 20 mm overlap
 #     follows the arc.
-# Fit: male OD ≡ female ID in CAD; slip clearance comes from print tolerance.
+# Fit: the plug's outer surface sits slip/2 inside the socket's cavity
+# surface, all the way around the cross-section.
 
-# Per-joint, per-side overlap depth (mm along spout / arc) and wall (mm),
-# mapped onto a `shrink` (inward offset of the outer cross-section):
+# Per-joint, per-side overlap depth (mm along spout / arc), socket wall
+# (mm), and diametral slip (mm), mapped onto `shrink`s (inward offsets of
+# the outer cross-section):
 #   socket shrink = socket_wall
-#   plug   shrink = zone5_wall − plug_wall
+#   plug   shrink = socket_shrink + slip / 2
 split_a_socket_overlap_len = 20.0
 split_a_plug_overlap_len = 19.0
 split_a_socket_wall = 2.0
-split_a_plug_wall = 1.95
+split_a_slip = 0.25
 
 split_b_socket_overlap_len = 20.0
 split_b_plug_overlap_len = 18.0
 split_b_socket_wall = 2.0
-split_b_plug_wall = 1.92
+split_b_slip = 0.30
 
 split_a_socket_shrink = split_a_socket_wall
-split_a_plug_shrink = zone5_wall - split_a_plug_wall
+split_a_plug_shrink = split_a_socket_shrink + split_a_slip / 2.0
 split_b_socket_shrink = split_b_socket_wall
-split_b_plug_shrink = zone5_wall - split_b_plug_wall
+split_b_plug_shrink = split_b_socket_shrink + split_b_slip / 2.0
 
 # Mid-straight tangent in path-local (a, b) — points up the spout toward bend 2.
 _mid_tan_yz = (math.sin(gn_bend1_sweep_rad), math.cos(gn_bend1_sweep_rad))
