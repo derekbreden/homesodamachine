@@ -10,7 +10,7 @@ This is the **purchase ledger** — every buy event, kept for tax records and co
 
 Each row below is a purchase event; the same SKU may appear as multiple rows if reordered. Capitalized contract labor (Anthropic / Claude API) is recorded here in §18 as cash outlays.
 
-Price figures on bundled rows reflect the shipment total, not the per-item unit price. Only cash outlays (including contracted labor via Anthropic) are on this ledger.
+Price figures are the **as-paid** cost — item price plus the order's actual sales tax and shipping (for multi-item orders, the order's tax/shipping is allocated across items by price). Bundled rows carry the shipment total, not the per-item unit price. Only cash outlays (including contracted labor via Anthropic) are on this ledger.
 
 ---
 
