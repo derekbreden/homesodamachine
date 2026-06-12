@@ -11,15 +11,15 @@ them. Several of these parts have prior individual prints (the reservoir
 gasket + bulkhead seals were in the 2026-05-30 watertight test — see
 [`cold-core/reservoir/print-log.md`](/hardware/printed-parts/cold-core/reservoir/print-log.md)).
 
-## Plate composition (11 instances, 5 distinct parts)
+## Plate composition (9 instances, 5 distinct parts)
 
 | Part (STEP) | Source | × | Footprint | CAD material |
 | --- | --- | --- | --- | --- |
 | `foam-cap-gasket` | [`cold-core/foam-cap/foam_cap.py`](/hardware/printed-parts/cold-core/foam-cap/foam_cap.py) | 1 | 4480 mm² | TPU 90A |
-| `reservoir-gasket` | [`cold-core/reservoir/reservoir.py`](/hardware/printed-parts/cold-core/reservoir/reservoir.py) | 3 | 2323 mm² | TPU 85A |
-| `touch-flo-mounting-gasket` | [`faucet/touch-flo-mounting-gasket/touch_flo_mounting_gasket.py`](/hardware/printed-parts/faucet/touch-flo-mounting-gasket/touch_flo_mounting_gasket.py) | 2 | 2111 mm² | TPU 90A |
+| `reservoir-gasket` | [`cold-core/reservoir/reservoir.py`](/hardware/printed-parts/cold-core/reservoir/reservoir.py) | 2 | 2323 mm² | TPU 85A |
+| `touch-flo-mounting-gasket` | [`faucet/touch-flo-mounting-gasket/touch_flo_mounting_gasket.py`](/hardware/printed-parts/faucet/touch-flo-mounting-gasket/touch_flo_mounting_gasket.py) | 2 | 2065 mm² | TPU 90A |
 | `reservoir-bulkhead-seal-dry` | [`cold-core/reservoir/reservoir.py`](/hardware/printed-parts/cold-core/reservoir/reservoir.py) | 2 | 67.7 mm² | TPU washer |
-| `reservoir-retaining-ring` | [`cold-core/reservoir/reservoir.py`](/hardware/printed-parts/cold-core/reservoir/reservoir.py) | 3 | 77.4 mm² | TPU 90A |
+| `reservoir-retaining-ring` | [`cold-core/reservoir/reservoir.py`](/hardware/printed-parts/cold-core/reservoir/reservoir.py) | 2 | 77.4 mm² | TPU 90A |
 
 Part roles (geometry authoritative in the sources above):
 - **foam-cap-gasket** — compresses between the foam-cap tray and the
@@ -81,3 +81,23 @@ Derek said (2026-06-06):
 
 Print outcome not yet fully recorded — this entry captures the committed
 slice state.
+
+## Print attempt 2 (2026-06-11, settings per [`gaskets.3mf`](gaskets.3mf))
+
+Second consolidated slice. Plate trimmed to 9 instances / 5 distinct parts:
+the two `reservoir-bulkhead-seal-wet` instances are off the plate (the wet-side
+bulkhead seal is a purchased silicone flat washer, not printed — see bom.md),
+and `reservoir-gasket` and `reservoir-retaining-ring` each drop from 3 to 2.
+`touch-flo-mounting-gasket` re-sliced from the 2026-06-09 "match the
+plate/shell-foot footprint" revision (961ffac7): footprint 2064.9 mm² (was
+2111). `first_layer_time` ≈ 1841 s (was 2215); plate bbox ≈ 283 × 270 mm.
+Still sliced in Bambu Studio 02.07.01.57.
+
+All slicer settings identical to attempt 1 — same H2C 0.6-nozzle / TPU 85A /
+`0.18mm Balanced Quality` profile, 225 °C, textured plate 35 °C, flow 1.0,
+2.2 mm³/s, arachne 2 walls, 100 % zig-zag infill, 3+3 shells, 5 mm auto-brim,
+fans 100 %, outer/inner 200/300 mm/s, PA off. `different_settings_to_system`
+unchanged from attempt 1.
+
+Derek said (2026-06-11):
+- "Gasket printing is still going well."
