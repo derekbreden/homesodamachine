@@ -102,7 +102,6 @@ Feed-water inlet, filter, ASSE 1022 backflow preventer and its vent-line hardwar
 | Hooshing 3/8" flare × 1/4" FNPT brass adapter (2 pk) | [B0BNHVV6HT](https://www.amazon.com/dp/B0BNHVV6HT) | 1 pk | $10.71 | ACQUIRED |
 | brewhardware FFL38BARB38 Swivel Flare Adapter, 3/8" FFL (UNCOMMON) × 3/8" OD hose barb | [brewhardware.com](https://www.brewhardware.com/product_p/ffl38barb38.htm) | 5 | $39.42 | ACQUIRED (delivered) |
 | Sealproof 1/4" ID × 3/8" OD food-grade clear PVC, 10 ft | [B07D9DK94V](https://www.amazon.com/dp/B07D9DK94V) | 1 | $8.46 | ACQUIRED |
-| LOKMAN 304 SS worm-gear hose clamps, 10–16 mm (20 pk) | [B076Q7QVNM](https://www.amazon.com/dp/B076Q7QVNM) | 1 pk | $8.99 | ACQUIRED |
 | Waterdrop 15UC-UF 0.01 µm inline fridge/ice-maker filter | [B085G9TZ4L](https://www.amazon.com/dp/B085G9TZ4L) | 1 | $67.56 | ACQUIRED |
 | HAOCHEN brass angle stop add-a-tee 3/8"×3/8"×1/4" | [B0DLKHHGL6](https://www.amazon.com/dp/B0DLKHHGL6) | 1 | $12.86 | ACQUIRED |
 | GAGIRA 5Pcs 316L Stainless Steel Coupling, 3/8" NPT Female × 1/4" NPT Female, includes Teflon tape | [B0G2XJGZMQ](https://www.amazon.com/dp/B0G2XJGZMQ) | 5 | $18.22 | ACQUIRED |
@@ -135,7 +134,7 @@ Check valves, sparge stone + barb adapter for internal-sparge CO2 carbonation, c
 | ~~Beduan 1/4" male spiral cone atomization nozzle, 316 SS~~ | [B07LGPD3GB](https://www.amazon.com/dp/B07LGPD3GB) | 1 | $10.71 | ACQUIRED (superseded) |
 | VALVENTO 316 SS 1/4" OD compression × 1/4" NPT adapter (2 pk) | [B0DXZZBK7D](https://www.amazon.com/dp/B0DXZZBK7D) | 1 pk | $12.85 | ACQUIRED |
 | VALVENTO 1/4" OD 316 SS tube, 12" length (5 pk) | [B0F6SYFK48](https://www.amazon.com/dp/B0F6SYFK48) | 1 pk | $18.23 | ACQUIRED |
-| TAISHER 304 SS compression square needle valve 1/4" | [B0CLXHZZCW](https://www.amazon.com/dp/B0CLXHZZCW) | 1 | $32.15 | ACQUIRED |
+| TAISHER 304 SS compression square needle valve 1/4" | [B0CLXHZZCW](https://www.amazon.com/dp/B0CLXHZZCW) | 1 | $22.51 | ACQUIRED |
 | YKEBVPW 1/4" push-connect needle valve flow control | [B0FBFVTNLM](https://www.amazon.com/dp/B0FBFVTNLM) | 1 | $8.03 | ACQUIRED |
 | YKEBVPW 1/4" needle valve | amazon.com (112-4375086-9926652) | 1 | $8.03 | ACQUIRED (delivered Jun 1) |
 
@@ -152,7 +151,9 @@ Peristaltic pumps, solenoids, bag-in-box connector, silicone delivery tubing, ba
 | Supply Depot Coke-compatible BIB connector, 3/8" red (2 pk) | [B0DMFK9B6P](https://www.amazon.com/dp/B0DMFK9B6P) | 1 pk | $21.44 | ACQUIRED |
 | Platypus SoftBottle 1 L (bladder donor) | [B08PG3GMQ8](https://www.amazon.com/dp/B08PG3GMQ8) | 1 | $25.19 | ACQUIRED |
 | Platypus SoftBottle 1 L "Waves" (bladder donor) | [B00ZX0ERE2](https://www.amazon.com/dp/B00ZX0ERE2) | 1 | $16.46 | ACQUIRED |
-| Platypus Platy 2 L collapsible bottle (bladder donor) | [B000J2KEGY](https://www.amazon.com/dp/B000J2KEGY) | 1 | $15.94 | ACQUIRED |
+| Platypus Platy 2 L collapsible bottle (bladder donor). Order #114-2469196-8024255, placed Feb 15, 2026 | [B000J2KEGY](https://www.amazon.com/dp/B000J2KEGY) | 1 | $16.13 | ACQUIRED (delivered Feb 16) |
+| Platypus Platy 2 L collapsible bottle (bladder donor). Order #112-9869315-7146643, placed Feb 2026 | [B000J2KEGY](https://www.amazon.com/dp/B000J2KEGY) | 2 | $17.33 ea | ACQUIRED |
+| Platypus Platy 2 L collapsible bottle (bladder donor). Order #114-3163590-0127432, placed Mar 8, 2026 | [B000J2KEGY](https://www.amazon.com/dp/B000J2KEGY) | 2 | $17.10 ea | ACQUIRED |
 | Platypus Hoser hydration tube kit | [B07N1T6LNW](https://www.amazon.com/dp/B07N1T6LNW) | 2 | $26.76 ea | ACQUIRED |
 | Platypus Hoser 1 L Hands-Free Hydration Reservoir, Fast Flow Valve | [B002OYMRS8](https://www.amazon.com/dp/B002OYMRS8) | 2 | $51.24 | ACQUIRED |
 | JoyTube 3/8" ID food-grade silicone tubing, 10 ft | [B089YGDB55](https://www.amazon.com/dp/B089YGDB55) | 1 | $12.86 | ACQUIRED |
@@ -186,7 +187,7 @@ Peristaltic pumps, solenoids, bag-in-box connector, silicone delivery tubing, ba
 | SodaStream Diet Mountain Dew concentrate | [B0CS191QMW](https://www.amazon.com/dp/B0CS191QMW) | 1 | $17.62 | ACQUIRED |
 | SodaStream Diet Mountain Dew 4-pack | [B0G26HQWBY](https://www.amazon.com/dp/B0G26HQWBY) | 1 | $28.99 | ACQUIRED |
 | SodaStream Pepsi Wild Cherry Zero 4-pack | [B0G4NRDQB8](https://www.amazon.com/dp/B0G4NRDQB8) | 1 | $28.99 | ACQUIRED |
-| SodaStream Diet Cola 4-pack | [B01GQ2ZMKI](https://www.amazon.com/dp/B01GQ2ZMKI) | 1 | $19.82 | ACQUIRED |
+| SodaStream Diet Cola 4-pack | [B01GQ2ZMKI](https://www.amazon.com/dp/B01GQ2ZMKI) | 1 | $18.89 | ACQUIRED |
 | Magnetic pogo pin connector, 2-pin (2 pair) | [B0CSX6ZQ1H](https://www.amazon.com/dp/B0CSX6ZQ1H) | 1 pk | $10.71 | ACQUIRED |
 
 ## 6. Refrigeration
@@ -502,13 +503,13 @@ Industrial-supply orders direct from McMaster-Carr (mcmaster.com). First McMaste
 
 | Status | $ |
 |---|---|
-| ACQUIRED — hardware, tools & infra (§§1–17, 19, 20) | [$25,653.82](LEDGER_ACQUIRED_HW) |
+| ACQUIRED — hardware, tools & infra (§§1–17, 19, 20) | [$25,703.31](LEDGER_ACQUIRED_HW) |
 | ACQUIRED — capitalized contract labor (§18) | [$2,607.92](LEDGER_LABOR) |
-| ACQUIRED (combined) | [$28,261.74](LEDGER_ACQUIRED_COMBINED) |
+| ACQUIRED (combined) | [$28,311.23](LEDGER_ACQUIRED_COMBINED) |
 | ON-ORDER | [$108.36](LEDGER_ON_ORDER) |
 | MISSING — paid, not received (§1 copper bar) | [$42.89](LEDGER_MISSING) |
 | LIKELY-TO-BUY | $0.00 |
-| **Grand total — cash outlay** | [$28,412.99](LEDGER_GRAND_TOTAL) |
+| **Grand total — cash outlay** | [$28,462.48](LEDGER_GRAND_TOTAL) |
 
 ACQUIRED hardware by section:
 
@@ -516,9 +517,9 @@ ACQUIRED hardware by section:
 |---|---|---|
 | 1 | Pressure vessel / carbonator fabrication | [$3,762.82](LEDGER_SEC1) |
 | 2 | CO2 subsystem (incl. Lillium prototype carbonator $1,129) | [$1,785.10](LEDGER_SEC2) |
-| 3 | Water supply + backflow prevention | [$754.73](LEDGER_SEC3) |
-| 4 | Carbonator plumbing | [$242.94](LEDGER_SEC4) |
-| 5 | Flavor subsystem | [$894.42](LEDGER_SEC5) |
+| 3 | Water supply + backflow prevention | [$745.74](LEDGER_SEC3) |
+| 4 | Carbonator plumbing | [$233.30](LEDGER_SEC4) |
+| 5 | Flavor subsystem | [$962.54](LEDGER_SEC5) |
 | 6 | Refrigeration | [$1,882.74](LEDGER_SEC6) |
 | 7 | Dispensing end | [$217.29](LEDGER_SEC7) |
 | 8 | Electronics — controllers | [$138.06](LEDGER_SEC8) |
