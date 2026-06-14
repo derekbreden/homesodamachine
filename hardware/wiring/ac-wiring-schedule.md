@@ -67,7 +67,7 @@ The condenser fan does **not** appear in the AC table: the harvested fan is a [1
 | SIG-2 | Reed switch — low (carbonator) | ESP32 GPIO 17 + GND | switch + GND | [24](AWG_LV) | [~600 mm](LEN_COLD_CORE) | INPUT_PULLUP. |
 | SIG-3 | Reed switch — high (carbonator) | ESP32 GPIO 27 + GND | switch + GND | [24](AWG_LV) | [~600 mm](LEN_COLD_CORE) | INPUT_PULLUP. |
 | SIG-4 | DIGITEN flow meter | ESP32 GPIO 23 + [5 V](V_LOGIC) + GND | pulse + V + GND | [24](AWG_LV) | [~1 m](LEN_UMBILICAL) (from faucet zone through grommet) | Pulse interrupt. |
-| SIG-7 | ESP32-S3 rotary display on front face (detachable) | ESP32 GPIO 15 (TX) + GPIO 34 (RX) + [5 V](V_LOGIC) + GND | UART + power | [24](AWG_LV) | [~1 m](LEN_UMBILICAL) extended (coiled when seated) | Per [`/hardware/printed-parts/enclosure/front-panel/README.md`](/hardware/printed-parts/enclosure/front-panel/README.md) "S3 detach mechanism" — cord pays out behind the panel when the customer detaches the display. Cable type (Cat6 vs coiled stretch vs flat ribbon) TBD with the detach mechanism. |
+| SIG-7 | ESP32-S3-Touch-LCD-4.3B config display on the front face (fixed) | ESP32 GPIO 15 (TX) + GPIO 34 (RX) via the TTL-to-RS485 transceiver (A/B) + display power + GND | RS485 + power | [24](AWG_LV) | [~1 m](LEN_UMBILICAL) (electronics shelf → front face, internal) | RS485 differential pair from the base ESP32's TTL-to-RS485 transceiver to the 4.3B's onboard SP3485; the display's 7–36 V screw input takes [12 V](V_DC) off the bus on the same run. Fixed front-face mount per [`/hardware/printed-parts/enclosure/front-panel/README.md`](/hardware/printed-parts/enclosure/front-panel/README.md). |
 | SIG-8 | DS3231 RTC + MCP23017 (I2C) | ESP32 GPIO 21 (SDA) + GPIO 22 (SCL) + [3.3 V](V_IO) + GND | I2C bus | [24](AWG_LV) | [~150 mm](LEN_MID) shared bus on shelf | Both devices co-located on the electronics shelf. |
 | SIG-9 | Backflow vent moisture sensor | ESP32 GPIO (TBD) + GND | switch + GND | [24](AWG_LV) | [~600 mm](LEN_COLD_CORE) to drip pan inside cabinet | Per [`/hardware/future.md`](/hardware/future.md) "Backflow vent monitoring"; pin not yet assigned in [`esp32-pinout.mmd`](/hardware/wiring/esp32-pinout.mmd). |
 
@@ -77,7 +77,7 @@ Module-to-module logic connections that land on **pin headers** use JST XH [2.54
 
 | Pin count | Use | Per-unit qty |
 |---|---|---:|
-| 4-pin XH | DS3231 I²C (VCC / GND / SDA / SCL) + the UART trunk header (SIG-7). ESP32 ends land on DIN-breakout screws; the MCP I²C side is PH2.0, not XH | ~3 |
+| 4-pin XH | DS3231 I²C (VCC / GND / SDA / SCL) + the SIG-7 config-display link header (ESP32 UART to the RS485 transceiver). ESP32 ends land on DIN-breakout screws; the MCP I²C side is PH2.0, not XH | ~3 |
 | 6-pin XH | L298N control row (ENA / IN1–4 / ENB) — the 6 lines driving both peristaltic pumps | ~1 |
 | 9-pin XH | ULN2803A module sides (8 channels + COM or GND) — 2 ULNs × 2 sides | ~4 |
 | 10-pin XH | MCP23017 GPIO rows (VCC + GND + 8 GPIO). The port row is **10 holes**; a 10-pin header fills the row so it — and the mating housing — cannot seat off-by-one. | ~3–4 |
