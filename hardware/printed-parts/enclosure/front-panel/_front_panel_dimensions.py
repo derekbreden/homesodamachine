@@ -12,12 +12,6 @@ sys.path.insert(0, str(next(p for p in _here.parents if (p / "tools" / "docgen")
 from docgen import substitute_md
 
 
-# ESP32-S3 detach cord length.
-display_detach_cord_length_m = 1.0
-
-# UART + 5 V supply over the detach cord.
-display_detach_signal_voltage = 5.0
-
 # CGA-320 primary regulator hose length (BOM §4).
 cga_short_tether_length_inches = 12.0
 
@@ -27,8 +21,6 @@ secondary_regulator_pressure_psi = 90.0
 
 def main():
     variables = {
-        "DISPLAY_CORD_L": f"~{display_detach_cord_length_m:.4g} m",
-        "DISPLAY_SIGNAL_V": f"{display_detach_signal_voltage:.4g} V",
         "CGA_TETHER_L": f'~{cga_short_tether_length_inches:.4g}"',
         "REGULATOR_PRESSURE": f"fixed-{secondary_regulator_pressure_psi:.4g} PSI",
     }
@@ -37,8 +29,6 @@ def main():
         _here / "README.md",
         variables=variables,
         expected_counts={
-            "DISPLAY_CORD_L": 2,
-            "DISPLAY_SIGNAL_V": 1,
             "CGA_TETHER_L": 1,
             "REGULATOR_PRESSURE": 1,
         },

@@ -1,14 +1,14 @@
 # Front panel
 
-3D-printed front face of the under-counter enclosure. Carries the ESP32-S3 detachable rotary display, the front-dispense spout, and the CO2 line inlet. Printed in **Bambu PET-CF**, matching the rest of the enclosure exterior.
+3D-printed front face of the under-counter enclosure. Carries the ESP32-S3 config display, the front-dispense spout, and the CO2 line inlet. Printed in **Bambu PET-CF**, matching the rest of the enclosure exterior.
 
-Opening the cabinet door and looking at the front of the appliance shows the customer the display (rotate to toggle flavor, three-dot affordance for advanced settings), the dispense spout, and the CO2 connection. Pump cartridge access is on top in Zone C, beneath the removable funnel under the single top door ([`/hardware/printed-parts/zone-c/README.md`](/hardware/printed-parts/zone-c/README.md)); the GFCI lives on the electronics shelf. See [`/hardware/printed-parts/enclosure/README.md`](/hardware/printed-parts/enclosure/README.md) "What is on the front face" for the architectural framing.
+Opening the cabinet door and looking at the front of the appliance shows the customer the display (touch reaches settings), the dispense spout, and the CO2 connection. Pump cartridge access is on top in Zone C, beneath the removable funnel under the single top door ([`/hardware/printed-parts/zone-c/README.md`](/hardware/printed-parts/zone-c/README.md)); the GFCI lives on the electronics shelf. See [`/hardware/printed-parts/enclosure/README.md`](/hardware/printed-parts/enclosure/README.md) "What is on the front face" for the architectural framing.
 
 ## Front face features
 
 | # | Feature | Hardware | Notes |
 |---|---|---|---|
-| 1 | ESP32-S3 rotary display | Meshnology ESP32-S3 1.28" Rotary Display (B0G5Q4LXVJ) | **Detachable.** Sits in a recess on the front face; the customer pulls it out and the [~1 m](DISPLAY_CORD_L) cord behind the panel pays out so they can hold the display or mount it on the cabinet's false-drawer-front above the cabinet door — the obvious empty flat panel just below the counter where a drawer would normally go. Re-seating retracts the cord. Default state shows the selected flavor; the rotary mechanism toggles between flavors; a subtle three-dot affordance reaches advanced settings. Seat, cord, retraction, and connector are all open — see §"S3 detach mechanism" below. |
+| 1 | ESP32-S3 config display | Waveshare ESP32-S3-Touch-LCD-4.3B (B0D925SBYF) | Set into the front face, angled up toward the standing user. 4.3" 800×480 capacitive touchscreen. Default state shows the selected flavor; touch reaches flavor-image/ratio tuning, clean cycles, pump priming, factory reset, and advanced settings, and bridges the iOS app over BLE. 7–36 V screw-terminal power off the 12 V bus; RS485 to the base ESP32. |
 | 2 | Front-dispense spout | TBD | The customer's drill-trigger moment — a visible thing on the front you press, soda comes out (currently-selected flavor, set on the S3). Internal plumbing taps the carbonator outlet + flavor-pump junction before the umbilical, with its own valve and a front-panel nozzle. Lever vs button vs glass-press TBD. |
 | 3 | CO2 line inlet | DERPIPE 5/16"-tube × 1/4" NPT push-to-connect | Customer's CGA-320 primary regulator hose ([~12"](CGA_TETHER_L) short tether per [`/hardware/ledger/bom.md`](/hardware/ledger/bom.md) §4) lands here. Downstream: GASHER 1/4" NPT SS check valve + WR1110 [fixed-90 PSI](REGULATOR_PRESSURE) secondary regulator before the cold-core CO2 input at the foam-cap top. Red accent ring at the panel opening per §"CO2 inlet — red color-coding" below. Possibly migrated to the furthest-forward edge of a side face — see §"CO2 inlet placement" below. |
 
@@ -34,17 +34,6 @@ Red on this panel is part of the three-color customer-wayfinding system committe
 
 The internal 1/4" LLDPE between the front-panel CO2 PTC and the vessel-side TAISHER elbow is **black** (standard FWS stock).
 
-## S3 detach mechanism
-
-The S3 is the only detachable element on the front face. Its recess sits flush with the panel surface when undisturbed; a deliberate pull releases it. The cord ([~1 m](DISPLAY_CORD_L)) is coiled behind the panel inside the cabinet, paying out as the customer pulls the display out and retracting when the display is re-seated.
-
-Open candidates:
-
-- **Seat:** magnetic, click-detent, or friction-only.
-- **Cord:** Cat6 (carries UART + [5 V](DISPLAY_SIGNAL_V) per the SIG-7 schedule), coiled stretch cable, or a custom flat ribbon.
-- **Retraction:** spring-loaded retractor, hand-recoil, or no active retraction (cord hangs limp when extended).
-- **Connector at the back of the display:** sized to fit through the recess opening and not obstruct re-seating.
-
 ## Internal routing — WR1110 placement
 
 Downstream of the front-panel CO2 inlet stack: GASHER check → WR1110 secondary regulator → first PP010822E PTC × NPT M adapter → 1/4" OD LLDPE routed up through the electronics-shelf zone → cold-core CO2 input at the foam-cap top (+Z). Procedure detail in [`/hardware/assembly/internal-plumbing.md`](/hardware/assembly/internal-plumbing.md) §1.
@@ -55,7 +44,7 @@ The WR1110 mounts on a printed bracket somewhere along the CO2 path between the 
 
 - [`/hardware/printed-parts/enclosure/README.md`](/hardware/printed-parts/enclosure/README.md) — enclosure architecture (4 zones, firm vs flexible, front-face curation).
 - [`/hardware/future.md`](/hardware/future.md) — broader enclosure context, cylinder-beside-appliance layout, user-facing elements by location.
-- [`/hardware/future.md`](/hardware/future.md) — S3 rotary as the detachable config/interaction surface (~1 m cord).
+- [`/hardware/future.md`](/hardware/future.md) — front-face config display.
 - [`/hardware/ledger/bom.md`](/hardware/ledger/bom.md) §1 — ESP32-S3 module source.
 - [`/hardware/ledger/bom.md`](/hardware/ledger/bom.md) §4 — CO2 path (DERPIPE bulkhead, GASHER check, WR1110, 5/16" short tether).
 - [`/hardware/printed-parts/enclosure/back-panel/README.md`](/hardware/printed-parts/enclosure/back-panel/README.md) — sister exterior panel; identification-ring pattern, PET-CF material rationale.
@@ -64,7 +53,6 @@ The WR1110 mounts on a printed bracket somewhere along the CO2 path between the 
 ## Open items
 
 - **Front-dispense spout design.** Lever vs button vs glass-press; internal plumbing tap point + valve choice + nozzle geometry; cleaning + fingerprint visibility. Feature is committed, geometry is not.
-- **S3 detach mechanism.** Seat, cord, retraction, connector — all open per §"S3 detach mechanism".
 - **CO2 inlet placement (front face vs side-face forward edge).** Resolved by deciding whether the migration to a side face is worth its complications.
 - **Inlet-stub height on the front face.** The DERPIPE bulkhead height must match the customer's regulator-outlet height with the cylinder seated in its side-gap placement, so the short red tether takes the obvious path. Decision is downstream of the regulator stack measurement and the enclosure-exterior cylinder-placement decision.
 - **Red accent ring mechanism.** Multi-material print, snap-on TPU collar, or paint touch — shares the decision pattern with the back-panel blue ring; both should land on the same approach.

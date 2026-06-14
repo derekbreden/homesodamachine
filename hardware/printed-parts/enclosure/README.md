@@ -39,7 +39,7 @@ Everything else fits into the voids those three create.
 
 ## What is on the front face
 
-- ESP32-S3 rotary display — detachable, with a ~1 m cord that pays out behind the panel as the customer pulls the display out. Default state shows the selected flavor; the rotary mechanism toggles between flavors; a subtle three-dot affordance reaches advanced settings. Typical detached placement is the cabinet's false-drawer-front exterior above the cabinet door (the empty flat panel just below the counter where a drawer would normally go) — anywhere the cord reaches works.
+- ESP32-S3 config display — a 4.3" touchscreen fixed in the front face, angled up toward the standing user. Default state shows the selected flavor; touch reaches flavor-image/ratio tuning, clean cycles, priming, and advanced settings.
 - Front-dispense spout (the drill-trigger moment).
 - CO2 inlet — possibly migrated to the furthest-forward edge of a side face. Disconnection-under-pressure cable-whip and asphyxiation risk make this the most physically dangerous connection.
 
