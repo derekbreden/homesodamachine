@@ -40,7 +40,7 @@ printed quick-start sheet in the appliance carton —
 6. Drop the faucet+umbilical assembly into the 1-3/8" countertop hole
    from above. The TPU gasket (already on the shank, between the
    mounting plate and the countertop) compresses against the countertop
-   top surface as the assembly seats. The three tubes + Cat6 hang down
+   top surface as the assembly seats. The three tubes + signal cable hang down
    through the hole.
 7. From below: orient the keyhole under-counter plate so its open-edge
    channels face the dangling umbilical, then slide the plate
