@@ -35,7 +35,7 @@ Off the board, unchanged:
   (transfer module + LiFePO4 pack), and keeps a dead PSU a part-swap.
 - **C14 inlet, GFCI, AC distribution Wagos, ground bus** — AC stays on the shelf
   except the compressor leg routed through relay #1's fenced corner.
-- Both ESP32-S3 displays (rotary + faucet), all field sensors and actuators —
+- Both ESP32-S3 displays (4.3B config + faucet), all field sensors and actuators —
   these connect to the board, they don't live on it.
 
 ## Layout
