@@ -20,7 +20,7 @@ For per-unit BOM parts, see [bom.md](/hardware/ledger/bom.md). For non-BOM/non-t
 | **Brown & Sharpe spring-loaded tap guide** | [B005317ZMC](https://www.amazon.com/dp/B005317ZMC), [purchases.md §1](/hardware/ledger/purchases.md) | 1/2" hardened shank; keeps the pipe tap square while starting threads under the drill press. | [$27.45](T_TAP_GUIDE) |
 | **Mollom 124 mm bi-metal hole saw + arbor** | [B0BZQ4J5B1](https://www.amazon.com/dp/B0BZQ4J5B1), [purchases.md §1](/hardware/ledger/purchases.md) | HSS M42, 4-7/8" cut; near-5" fixture pockets and end-cap disc cuts. | [$19.19](T_HOLE_SAW) |
 | **Bosch DSB1013 Daredevil spade bit** | [B001NGPAA0](https://www.amazon.com/dp/B001NGPAA0), [purchases.md §1](/hardware/ledger/purchases.md) | 1" × 6", for 1" through-holes in fixture stock. | [$5.35](T_SPADE_BIT) |
-| **MOTOKU 38 mm round die handle** | [B073ZX58PH](https://www.amazon.com/dp/B073ZX58PH), [purchases.md §1](/hardware/ledger/purchases.md) | Companion to Drill America die kit for chasing external threads on test fittings. | [$13.99](T_DIE_HANDLE) |
+| **MOTOKU 38 mm round die handle** | [B073ZX58PH](https://www.amazon.com/dp/B073ZX58PH), [purchases.md §1](/hardware/ledger/purchases.md) | Companion to Drill America die kit for chasing external threads on test fittings. | [$15.00](T_DIE_HANDLE) |
 
 ## Hydro / pressure testing
 
@@ -38,10 +38,10 @@ For per-unit BOM parts, see [bom.md](/hardware/ledger/bom.md). For non-BOM/non-t
 |---|---|---|---:|
 | **XLaserlab X1 Pro** | XLaserlab order #XLaserlab3271, [purchases.md §16](/hardware/ledger/purchases.md) | Handheld 3-in-1 laser welder / cleaner / cutter. Ultimate Pack with single wire feeder. Production weld station for 316L pressure-vessel end-cap-to-tube joins. Vendor: xlaserlab.com. | [$3,899.00](T_X1PRO) |
 | **Airgas argon size-80 cylinder + RHP400 regulator** | Airgas #8162013342, [purchases.md §1](/hardware/ledger/purchases.md), [B008HQ6GXO](https://www.amazon.com/dp/B008HQ6GXO) | Owned cylinder (not exchange/lease), CGA-580 fitting. Shielding gas for X1 Pro and braze-loop argon purge. Refill via Airgas Lincoln NE branch. | [$399.31](T_ARGON_CYL) |
-| **RX Weld argon regulator / flowmeter** | [B08P5BNHBX](https://www.amazon.com/dp/B08P5BNHBX), [purchases.md §1](/hardware/ledger/purchases.md) | Argon delivery for welding (separate from the RHP400 used for refrigeration brazing purge). | [$28.99](T_RXWELD) |
-| **Weldpro 3-Tier Welding Cart** | [B08G5CW3DY](https://www.amazon.com/dp/B08G5CW3DY), [purchases.md §1](/hardware/ledger/purchases.md) | Mobile cart for the X1 Pro welder + argon cylinder. | [$179.99](T_WELD_CART) |
-| **Strong Hand magnetic V-pads kit** | [B00JXDSVA6](https://www.amazon.com/dp/B00JXDSVA6), [purchases.md §1](/hardware/ledger/purchases.md) | Welding magnets / clamping aids. | [$27.24](T_MAGNETS) |
-| **MAXMAN SS wire brush set** | [B08L7RXVG5](https://www.amazon.com/dp/B08L7RXVG5), [purchases.md §1](/hardware/ledger/purchases.md) | Joint prep on stainless. | [$11.39](T_BRUSH) |
+| **RX Weld argon regulator / flowmeter** | [B08P5BNHBX](https://www.amazon.com/dp/B08P5BNHBX), [purchases.md §1](/hardware/ledger/purchases.md) | Argon delivery for welding (separate from the RHP400 used for refrigeration brazing purge). | [$31.09](T_RXWELD) |
+| **Weldpro 3-Tier Welding Cart** | [B08G5CW3DY](https://www.amazon.com/dp/B08G5CW3DY), [purchases.md §1](/hardware/ledger/purchases.md) | Mobile cart for the X1 Pro welder + argon cylinder. | [$193.04](T_WELD_CART) |
+| **Strong Hand magnetic V-pads kit** | [B00JXDSVA6](https://www.amazon.com/dp/B00JXDSVA6), [purchases.md §1](/hardware/ledger/purchases.md) | Welding magnets / clamping aids. | [$29.21](T_MAGNETS) |
+| **MAXMAN SS wire brush set** | [B08L7RXVG5](https://www.amazon.com/dp/B08L7RXVG5), [purchases.md §1](/hardware/ledger/purchases.md) | Joint prep on stainless. | [$12.22](T_BRUSH) |
 | **YTKavq C110 copper bar (1/4" × 2" × 12")** | [B0DR2PX6TT](https://www.amazon.com/dp/B0DR2PX6TT), [purchases.md §1](/hardware/ledger/purchases.md) | Soft-annealed pure copper; weld backer / heat-sink chill bar. | [$42.89](T_COPPER_BAR) |
 | **Caiman premium goat-grain TIG gloves** | [B07T6VLSK3](https://www.amazon.com/dp/B07T6VLSK3) + [B07T1NYXHM](https://www.amazon.com/dp/B07T1NYXHM), [purchases.md §1](/hardware/ledger/purchases.md) | PPE for the laser welder, two pair (variant ASINs). | [$46.10](T_GLOVES) |
 
@@ -55,10 +55,10 @@ For per-unit BOM parts, see [bom.md](/hardware/ledger/bom.md). For non-BOM/non-t
 | **Smart Weigh Pro digital scale** | [B00IZ1YHZK](https://www.amazon.com/dp/B00IZ1YHZK), [purchases.md §6](/hardware/ledger/purchases.md) | 2000 g × 0.1 g. R-600a mass-metered recharge by Δ-mass of the can. Well under the ±1 g recharge tolerance. | [$19.25](T_SCALE) |
 | **Toptes PT520A leak detector** | [B0BTM3G8DK](https://www.amazon.com/dp/B0BTM3G8DK), [purchases.md §6](/hardware/ledger/purchases.md) | Refrigerant / hydrocarbon gas leak detector. Post-braze joint inspection. | [$42.89](T_LEAK_DET) |
 | **Mastercool 70025 cap-tube cutter** | [B00NY1YHHE](https://www.amazon.com/dp/B00NY1YHHE), [purchases.md §6](/hardware/ledger/purchases.md) | Severs 0.042"/0.050" capillary tubing without crushing the bore. | [$15.74](T_CAP_CUTTER) |
-| **RIDGID 31622 Model 150 tubing cutter** | [B0009W6T8G](https://www.amazon.com/dp/B0009W6T8G), [purchases.md §6](/hardware/ledger/purchases.md) | 1/8"–1-1/8" constant-swing. Square cuts on 1/4" ACR before flaring/brazing. | [$31.99](T_TUBE_CUTTER) |
-| **RIDGID 23332 Model 345 flaring tool** | [B000X4K9KO](https://www.amazon.com/dp/B000X4K9KO), [purchases.md §6](/hardware/ledger/purchases.md) | 45° SAE. Leak-tight flares on 1/4" ACR for manifold/Schrader connections. | [$99.99](T_FLARE_TOOL) |
-| **Klein Tools 51006 tube bender** | [B0DPQX17WM](https://www.amazon.com/dp/B0DPQX17WM), [purchases.md §6](/hardware/ledger/purchases.md) | 3-in-1 (1/4 / 5/16 / 3/8 OD). Forming the evaporator coil around the carbonator tank. | [$21.98](T_TUBE_BENDER) |
-| **Wisscool 1/4" tube straightener** | [B0F6BPTW3T](https://www.amazon.com/dp/B0F6BPTW3T), [purchases.md §6](/hardware/ledger/purchases.md) | Handheld; de-coils 1/4" ACR before bending. | [$24.99](T_STRAIGHTENER) |
+| **RIDGID 31622 Model 150 tubing cutter** | [B0009W6T8G](https://www.amazon.com/dp/B0009W6T8G), [purchases.md §6](/hardware/ledger/purchases.md) | 1/8"–1-1/8" constant-swing. Square cuts on 1/4" ACR before flaring/brazing. | [$34.31](T_TUBE_CUTTER) |
+| **RIDGID 23332 Model 345 flaring tool** | [B000X4K9KO](https://www.amazon.com/dp/B000X4K9KO), [purchases.md §6](/hardware/ledger/purchases.md) | 45° SAE. Leak-tight flares on 1/4" ACR for manifold/Schrader connections. | [$107.24](T_FLARE_TOOL) |
+| **Klein Tools 51006 tube bender** | [B0DPQX17WM](https://www.amazon.com/dp/B0DPQX17WM), [purchases.md §6](/hardware/ledger/purchases.md) | 3-in-1 (1/4 / 5/16 / 3/8 OD). Forming the evaporator coil around the carbonator tank. | [$23.57](T_TUBE_BENDER) |
+| **Wisscool 1/4" tube straightener** | [B0F6BPTW3T](https://www.amazon.com/dp/B0F6BPTW3T), [purchases.md §6](/hardware/ledger/purchases.md) | Handheld; de-coils 1/4" ACR before bending. | [$26.80](T_STRAIGHTENER) |
 | **Knipex 86 01 180 Pliers Wrench** | [B07YLFLSJW](https://www.amazon.com/dp/B07YLFLSJW), [purchases.md §6](/hardware/ledger/purchases.md) | 7.25" smooth parallel-jaw. Pinch-swages 1/4" ACR coil inlet down onto 0.031" cap tube via progressive 60° rotation collapse. | [$57.06](T_PLIERS_WRENCH) |
 | **Uniweld RHP400 CGA-580 regulator** | [B008HQ6GXO](https://www.amazon.com/dp/B008HQ6GXO), [purchases.md §6](/hardware/ledger/purchases.md) | 1/4" male flare, 0–400 psi delivery. Swaps onto the existing argon cylinder for the brazing-loop purge — no separate nitrogen cylinder needed. | [$96.76](T_RHP400) |
 
@@ -66,20 +66,21 @@ For per-unit BOM parts, see [bom.md](/hardware/ledger/bom.md). For non-BOM/non-t
 
 | Tool | Source | Notes | $ |
 |---|---|---|---:|
-| **Hakko FX-888D soldering station** | [B0D4DJW54S](https://www.amazon.com/dp/B0D4DJW54S), [purchases.md §14](/hardware/ledger/purchases.md) | 70 W, adjustable 120–899 °F. Primary iron for through-hole + wire-to-pad work. Tips: T18-D08/D12/D16 chisels + a VECO-T 10-tip T18 assortment (K knife for connector-row drag-soldering, D32/S3 high-mass for desoldering pre-soldered headers, C2/C5 bevels, plus spares) added for the Dupont→JST connector rework + heat-set insert tip kit (M2–M8). | [$121.47](T_HAKKO) |
-| **KOTTO solder fume extractor** | [B07VWDN29F](https://www.amazon.com/dp/B07VWDN29F), [purchases.md §14](/hardware/ledger/purchases.md) | 60 W, activated-carbon filter. | [$39.99](T_FUME_EXT) |
-| **AstroAI digital multimeter** | [B071JL6LLL](https://www.amazon.com/dp/B071JL6LLL), [purchases.md §14](/hardware/ledger/purchases.md) | 2000-count auto-ranging continuity / V / Ω meter. | [$29.99](T_DMM) |
-| **Klein 11063W self-adjusting wire stripper** | [B00CXKOEQ6](https://www.amazon.com/dp/B00CXKOEQ6), [purchases.md §14](/hardware/ledger/purchases.md) | AWG 10–20, primary stripper for 18–24 AWG hookup wire. | [$22.96](T_STRIPPER) |
-| **Kaisi heat-resistant silicone mat** | [B07DGVRYL3](https://www.amazon.com/dp/B07DGVRYL3), [purchases.md §14](/hardware/ledger/purchases.md) | 17.7" × 11.8" work surface, magnetic section for screws. | [$11.99](T_MAT) |
-| **AORAEM helping-hands w/ magnifier** | [B08DNMT96W](https://www.amazon.com/dp/B08DNMT96W), [purchases.md §14](/hardware/ledger/purchases.md) | 4 flex arms; work holder for wire-to-pad soldering. | [$8.99](T_HELPING_HANDS) |
-| **QWORK mini heat gun** | [B09NDCCW29](https://www.amazon.com/dp/B09NDCCW29), [purchases.md §14](/hardware/ledger/purchases.md) | 300 W / 200–450 °C. Heat-shrink activation, light rework. | [$8.97](T_HEAT_GUN) |
+| **Hakko FX-888D soldering station** | [B0D4DJW54S](https://www.amazon.com/dp/B0D4DJW54S), [purchases.md §14](/hardware/ledger/purchases.md) | 70 W, adjustable 120–899 °F. Primary iron for through-hole + wire-to-pad work. Tips: T18-D08/D12/D16 chisels + a VECO-T 10-tip T18 assortment (K knife for connector-row drag-soldering, D32/S3 high-mass for desoldering pre-soldered headers, C2/C5 bevels, plus spares) added for the Dupont→JST connector rework + heat-set insert tip kit (M2–M8). | [$130.27](T_HAKKO) |
+| **Hakko FR-301 desoldering tool** | [B07BKSLLG9](https://www.amazon.com/dp/B07BKSLLG9), [purchases.md §14](/hardware/ledger/purchases.md) | 140 W self-contained desoldering gun — heated hollow nozzle + motorized vacuum, trigger-actuated, 110 V. Clears solder-blocked plated through-holes in one pull; through-hole connector rework (Dupont→JST header migration). | [$225.20](T_FR301) |
+| **KOTTO solder fume extractor** | [B07VWDN29F](https://www.amazon.com/dp/B07VWDN29F), [purchases.md §14](/hardware/ledger/purchases.md) | 60 W, activated-carbon filter. | [$42.89](T_FUME_EXT) |
+| **AstroAI digital multimeter** | [B071JL6LLL](https://www.amazon.com/dp/B071JL6LLL), [purchases.md §14](/hardware/ledger/purchases.md) | 2000-count auto-ranging continuity / V / Ω meter. | [$32.16](T_DMM) |
+| **Klein 11063W self-adjusting wire stripper** | [B00CXKOEQ6](https://www.amazon.com/dp/B00CXKOEQ6), [purchases.md §14](/hardware/ledger/purchases.md) | AWG 10–20, primary stripper for 18–24 AWG hookup wire. | [$24.62](T_STRIPPER) |
+| **Kaisi heat-resistant silicone mat** | [B07DGVRYL3](https://www.amazon.com/dp/B07DGVRYL3), [purchases.md §14](/hardware/ledger/purchases.md) | 17.7" × 11.8" work surface, magnetic section for screws. | [$12.86](T_MAT) |
+| **AORAEM helping-hands w/ magnifier** | [B08DNMT96W](https://www.amazon.com/dp/B08DNMT96W), [purchases.md §14](/hardware/ledger/purchases.md) | 4 flex arms; work holder for wire-to-pad soldering. | [$9.64](T_HELPING_HANDS) |
+| **QWORK mini heat gun** | [B09NDCCW29](https://www.amazon.com/dp/B09NDCCW29), [purchases.md §14](/hardware/ledger/purchases.md) | 300 W / 200–450 °C. Heat-shrink activation, light rework. | [$9.62](T_HEAT_GUN) |
 | **iFixit precision tweezers set** | [B079K874CQ](https://www.amazon.com/dp/B079K874CQ), [purchases.md §14](/hardware/ledger/purchases.md) | Extra-fine + angled + blunt, ESD coating. Board-level rework, pin extraction, BOOT-pad bridging. | [$12.82](T_TWEEZERS) |
 | **KATA micro flush cutters (2-pack)** | [B0BBML9M2V](https://www.amazon.com/dp/B0BBML9M2V), [purchases.md §14](/hardware/ledger/purchases.md) | Precision side cutters: header-strip cutting, lead trimming. Shared with 3D-printing post-processing. | [$8.89](T_FLUSH_CUTTERS) |
 | **Haisstronica ratchet crimper** | [B08F3JKDD3](https://www.amazon.com/dp/B08F3JKDD3), [purchases.md §9](/hardware/ledger/purchases.md) | AWG 22–10. | [—](T_CRIMPER) |
-| **Taiss Dupont crimp kit + SN-28B** | [B0B11RLGDZ](https://www.amazon.com/dp/B0B11RLGDZ), [purchases.md §9](/hardware/ledger/purchases.md) | Dupont connector terminal crimping. | [$21.99](T_DUPONT_KIT) |
+| **Taiss Dupont crimp kit + SN-28B** | [B0B11RLGDZ](https://www.amazon.com/dp/B0B11RLGDZ), [purchases.md §9](/hardware/ledger/purchases.md) | Dupont connector terminal crimping. | [$23.58](T_DUPONT_KIT) |
 | **P3 Kill-A-Watt P4400 power meter** | [B00009MDBU](https://www.amazon.com/dp/B00009MDBU), [purchases.md §9](/hardware/ledger/purchases.md) | Bench AC power measurement. | [$34.31](T_KILL_A_WATT) |
 | **DSD TECH SH-U09B3 USB-C to TTL adapter** | [B09KXT6W46](https://www.amazon.com/dp/B09KXT6W46), [purchases.md §14](/hardware/ledger/purchases.md) | CP2102N, 3 Mbps, 3.3 V logic, 5 V VCC out. ROM-bootloader flashing of the faucet display S3 over UART0 (GPIO 43/44). | [$10.71](T_USB_UART) |
-| **3M Virtua CCS safety glasses** | [B00AEXKR4C](https://www.amazon.com/dp/B00AEXKR4C), [purchases.md §14](/hardware/ledger/purchases.md) | PPE for soldering + heat-gun work. | [$11.59](T_GLASSES) |
+| **3M Virtua CCS safety glasses** | [B00AEXKR4C](https://www.amazon.com/dp/B00AEXKR4C), [purchases.md §14](/hardware/ledger/purchases.md) | PPE for soldering + heat-gun work. | [$12.43](T_GLASSES) |
 
 ## 3D printing equipment
 
@@ -114,7 +115,7 @@ For per-unit BOM parts, see [bom.md](/hardware/ledger/bom.md). For non-BOM/non-t
 
 ## Tools total
 
-Total acquired tooling: **[$13,645.14](TOOLS_TOTAL)**
+Total acquired tooling: **[$13,922.40](TOOLS_TOTAL)**
 
 ## Open items
 
