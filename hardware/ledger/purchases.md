@@ -256,7 +256,8 @@ Ice-maker donor units and copper coil for the chill loop.
 | ESP32-DevKitC-32E. Orders #114-0818390-2733826 (Feb 2, ×1), #112-0933043-5526613 (Feb 23, ×2) | [B09MQJWQN2](https://www.amazon.com/dp/B09MQJWQN2) | 3 | $11.80 ea | ACQUIRED |
 | ESP32-DevKitC-32E (repeat ASIN). Order #112-2471492-3870616, placed Jun 7, 2026 | [B09MQJWQN2](https://www.amazon.com/dp/B09MQJWQN2) | 2 | $23.60 | ACQUIRED (delivered Jun 8) |
 | Waveshare RP2040 0.99" round touch LCD, CNC case — prototype external flavor display; dropped from the product, superseded by the faucet-mounted Waveshare ESP32-S3 1.47" touch LCD (B0FCF1MGT3 below). Retained as prototype stock.. Orders #114-9973455-6637052 (Mar 8), #114-7373747-7178604 (Mar 9) | [B0CTSPYND2](https://www.amazon.com/dp/B0CTSPYND2) | 2 | ~$25.73 ea | ACQUIRED |
-| Meshnology ESP32-S3 round rotary display 1.28" — enclosure-front config display (kept). Order #114-7373747-7178604, placed March 9, 2026 | [B0G5Q4LXVJ](https://www.amazon.com/dp/B0G5Q4LXVJ) | 1 | bundle | ACQUIRED |
+| Meshnology ESP32-S3 round rotary display 1.28" — prototype enclosure-front config display. Order #114-7373747-7178604, placed March 9, 2026 | [B0G5Q4LXVJ](https://www.amazon.com/dp/B0G5Q4LXVJ) | 1 | bundle | ACQUIRED |
+| Waveshare ESP32-S3-Touch-LCD-4.3B — 4.3" 800×480 IPS RGB capacitive-touch dev board (ST7262 RGB + GT911 touch, CH422G I/O expander), ESP32-S3-WROOM-1-N16R8; enclosure-front config + interaction display, 7–36 V screw-terminal input off the 12 V bus. Order #112-5620567-3321809, placed Jun 13, 2026 | [B0D925SBYF](https://www.amazon.com/dp/B0D925SBYF) | 1 | $46.11 | ON-ORDER (arriving Jun 15) |
 | Waveshare ESP32-S3 1.47" capacitive-touch IPS LCD dev board, 172×320 (JD9853 driver + AXS5106L touch) — faucet-mounted flavor display + touch toggle. Order #112-7687617-6094631, placed Jun 7, 2026 | [B0FCF1MGT3](https://www.amazon.com/dp/B0FCF1MGT3) | 2 | $51.46 | ACQUIRED (delivered Jun 9) |
 
 ## 9. Electronics — I/O, drivers, sensors, power, DIN rail, connectors
@@ -505,10 +506,10 @@ Industrial-supply orders direct from McMaster-Carr (mcmaster.com). First McMaste
 | ACQUIRED — hardware, tools & infra (§§1–17, 19, 20) | [$25,822.12](LEDGER_ACQUIRED_HW) |
 | ACQUIRED — capitalized contract labor (§18) | [$2,607.92](LEDGER_LABOR) |
 | ACQUIRED (combined) | [$28,430.04](LEDGER_ACQUIRED_COMBINED) |
-| ON-ORDER | [$154.38](LEDGER_ON_ORDER) |
+| ON-ORDER | [$200.49](LEDGER_ON_ORDER) |
 | MISSING — paid, not received (§1 copper bar) | [$42.89](LEDGER_MISSING) |
 | LIKELY-TO-BUY | $0.00 |
-| **Grand total — cash outlay** | [$28,627.31](LEDGER_GRAND_TOTAL) |
+| **Grand total — cash outlay** | [$28,673.42](LEDGER_GRAND_TOTAL) |
 
 ACQUIRED hardware by section:
 

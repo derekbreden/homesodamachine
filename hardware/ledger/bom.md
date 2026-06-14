@@ -12,7 +12,7 @@ First-pass draft. **Pricing convention: delivered cost** (product + shipping + t
 |---|---|---:|---:|---:|
 | [ESP32-DevKitC-32E](https://www.amazon.com/dp/B09MQJWQN2) | | 1 | $11.00 | $11.00 |
 | [ESP32 DIN Rail Breakout Board](https://www.amazon.com/dp/B0BW4SJ5X2) | | 1 | $25.99 | $25.99 |
-| [Meshnology ESP32-S3 1.28" Rotary Display](https://www.amazon.com/dp/B0G5Q4LXVJ) | Enclosure-front config + interaction display (detachable, ~1 m cord): flavor-image/ratio tuning, clean cycles, pump priming, factory reset, screensaver, and the BLE bridge to the iOS app. Flavor display + flavor toggle now live on the faucet touch LCD (below). | 1 | $47.76 | $47.76 |
+| [Waveshare ESP32-S3-Touch-LCD-4.3B](https://www.amazon.com/dp/B0D925SBYF) | Enclosure-front config + interaction display: flavor-image/ratio tuning, clean cycles, pump priming, factory reset, screensaver, and the BLE bridge to the iOS app. 4.3" 800×480 IPS RGB capacitive touch (ST7262 RGB + GT911 touch via CH422G I/O expander), ESP32-S3-WROOM-1-N16R8 (Wi-Fi/BLE 5, 16 MB flash / 8 MB PSRAM); 7–36 V screw-terminal input off the 12 V bus. Flavor display + flavor toggle live on the faucet touch LCD (below). Order #112-5620567-3321809 Jun 13: $42.99 + $3.12 tax = $46.11 | 1 | $46.11 | $46.11 |
 | [Waveshare ESP32-S3 1.47" Touch LCD, 172×320 (B0FCF1MGT3)](https://www.amazon.com/dp/B0FCF1MGT3) | **Faucet flavor display + touch toggle.** 1.47" IPS capacitive touch (JD9853 driver + AXS5106L touch chip), ESP32-S3R8 (Wi-Fi/BLE 5). Shows the selected flavor and switches flavor by touch — no separate physical button, replacing the prototype RP2040 round display. Mounts on the gooseneck dispense head; its ESP32-S3 talks to the base ESP32 over UART, as the rotary does. Order #112-7687617-6094631 Jun 7: 2 @ $23.99 + $3.48 tax = $51.46 ÷ 2 = $25.73/ea | 1 | $25.73 | $25.73 |
 | [L298N Dual H-Bridge (4-pack)](https://www.amazon.com/dp/B0C5JCF5RS) | 1 driver per unit drives both peristaltic pumps (dual H-bridge); 1 of 4 per unit ($10.71/4) | 1 (of 4 pk) | $2.68 | $2.68 |
 | [Waveshare MCP23017 I2C GPIO expander](https://www.amazon.com/dp/B07P2H1NZG) | expands ESP32 I2C into 16 GPIO for solenoid bank | 1 | $12.99 | $12.99 |
@@ -251,7 +251,7 @@ Per-appliance tools that ship in the install kit so the field installer can cut 
 
 | Section | $ |
 |---|---:|
-| 1. Controllers + electronics | [$168.49](BOM_SEC1) |
+| 1. Controllers + electronics | [$166.84](BOM_SEC1) |
 | 2. Carbonator vessel (plan A, 316L) | [$240.69](BOM_SEC2) |
 | 3. Water inlet | [$238.96](BOM_SEC3) |
 | 4. CO2 subsystem | [$136.45](BOM_SEC4) |
@@ -265,7 +265,7 @@ Per-appliance tools that ship in the install kit so the field installer can cut 
 | 12. Level sensing | [$69.78](BOM_SEC12) |
 | 13. Mechanical attach hardware + reservoir-cap vent filter | [$5.94](BOM_SEC13) |
 | 14. Install kit | [$4.29](BOM_SEC14) |
-| **Total** | **[$1,587.50](BOM_GRAND)** |
+| **Total** | **[$1,585.85](BOM_GRAND)** |
 
 ## External / user-supplied (not shipped)
 
