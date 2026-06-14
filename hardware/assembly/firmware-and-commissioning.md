@@ -54,10 +54,10 @@ Power the C14 inlet through a bench PSU-controlled outlet, not direct wall power
 Bring up in this order, verifying each rail with the multimeter before the next:
 
 1. PSU output enabled — verify **[12 V](RAIL_12V)** at the distribution-block test point (PSU is the Mean Well IRM-90-12ST, see [`/hardware/wiring/ac-wiring-schedule.md`](/hardware/wiring/ac-wiring-schedule.md) run DC-1). Expected ~[12 V](RAIL_12V) [± 0.2 V](RAIL_12V_TOL) at no load.
-2. **[5 V](RAIL_5V) rail** at the L298N Board A onboard regulator's 5 V pin header — expected [5 V](RAIL_5V) [± 0.1 V](RAIL_5V_TOL). This rail is the L298N's onboard 7805/78M05, fed by the same 12 V that drives the peristaltic pumps; it feeds the MCUs and the relay-module VCC. There is no dedicated 5 V part — power tree in [`/hardware/wiring/power.mmd`](/hardware/wiring/power.mmd).
-3. **[3.3 V](RAIL_33V) rail** at the ESP32-DevKitC 3V3 pin — expected [3.3 V](RAIL_33V) [± 0.05 V](RAIL_33V_TOL). This is the ESP32's onboard AMS1117; it feeds the I²C-bus pull-ups, the MCP23017 logic side, and the DS18B20 data-line pull-up. (The DS3231 and MCP23017 are 5 V-tolerant and may alternatively be run from the 5 V rail.)
+2. **[5 V](RAIL_5V) rail** at the L298N Board A onboard regulator's 5 V pin header — expected [5 V](RAIL_5V) [± 0.1 V](RAIL_5V_TOL). This rail is the L298N's onboard 7805/78M05, fed by the same 12 V that drives the peristaltic pumps; it feeds the MCUs and the relay-module VCC. Power tree: [`/hardware/wiring/power.mmd`](/hardware/wiring/power.mmd).
+3. **[3.3 V](RAIL_33V) rail** at the ESP32-DevKitC 3V3 pin — expected [3.3 V](RAIL_33V) [± 0.05 V](RAIL_33V_TOL). This is the ESP32's onboard AMS1117; it feeds the I²C-bus pull-ups, the MCP23017 logic side, and the DS18B20 data-line pull-up.
 
-The 5 V rail is a linear regulator dropping 7 V at 12→5 with no designed-in headroom, so confirm its thermal margin under *full* logic load — both MCUs flashed and the S3 display backlight on (revisit after step 6). The 5 V rail must hold tolerance and the L298N's regulator should run hand-warm, not too-hot-to-touch. If it runs hot, fit a stick-on heatsink on the regulator (zero added footprint) and re-check.
+Under *full* logic load — both MCUs flashed and the S3 display backlight on (revisit after step 6) — the 5 V rail holds tolerance and the L298N regulator runs hand-warm, not too-hot-to-touch. If it runs hot, fit a stick-on heatsink on the regulator and re-check.
 
 If any rail is out of tolerance, kill the PSU and return the unit to `wiring.md`. Do **not** energize the AC side (compressor + fan) at this step — relay #1 stays de-energized until step 7.
 
