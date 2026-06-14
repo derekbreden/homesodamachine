@@ -66,7 +66,7 @@ For per-unit BOM parts, see [bom.md](/hardware/ledger/bom.md). For non-BOM/non-t
 
 | Tool | Source | Notes | $ |
 |---|---|---|---:|
-| **Hakko FX-888D soldering station** | [B0D4DJW54S](https://www.amazon.com/dp/B0D4DJW54S), [purchases.md §14](/hardware/ledger/purchases.md) | 70 W, adjustable 120–899 °F. Primary iron for through-hole + wire-to-pad work. Tips: T18-D16 + T18-D12 + heat-set insert tip kit (M2–M8). | [$121.47](T_HAKKO) |
+| **Hakko FX-888D soldering station** | [B0D4DJW54S](https://www.amazon.com/dp/B0D4DJW54S), [purchases.md §14](/hardware/ledger/purchases.md) | 70 W, adjustable 120–899 °F. Primary iron for through-hole + wire-to-pad work. Tips: T18-D08/D12/D16 chisels + a VECO-T 10-tip T18 assortment (K knife for connector-row drag-soldering, D32/S3 high-mass for desoldering pre-soldered headers, C2/C5 bevels, plus spares) added for the Dupont→JST connector rework + heat-set insert tip kit (M2–M8). | [$121.47](T_HAKKO) |
 | **KOTTO solder fume extractor** | [B07VWDN29F](https://www.amazon.com/dp/B07VWDN29F), [purchases.md §14](/hardware/ledger/purchases.md) | 60 W, activated-carbon filter. | [$39.99](T_FUME_EXT) |
 | **AstroAI digital multimeter** | [B071JL6LLL](https://www.amazon.com/dp/B071JL6LLL), [purchases.md §14](/hardware/ledger/purchases.md) | 2000-count auto-ranging continuity / V / Ω meter. | [$29.99](T_DMM) |
 | **Klein 11063W self-adjusting wire stripper** | [B00CXKOEQ6](https://www.amazon.com/dp/B00CXKOEQ6), [purchases.md §14](/hardware/ledger/purchases.md) | AWG 10–20, primary stripper for 18–24 AWG hookup wire. | [$22.96](T_STRIPPER) |
