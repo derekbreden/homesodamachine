@@ -2,6 +2,8 @@
 
 *Prioritized list of video content, ranked by shareability and product trust. Each concept includes an estimated length and the primary audience it reaches.*
 
+*This is the menu of individual pieces. For the serialized-narrative spine they hang on — the six capability arcs — see [`series.md`](series.md). For how any of them actually reach viewers, see [`distribution.md`](distribution.md).*
+
 ---
 
 ## In flight: the carbonator build
