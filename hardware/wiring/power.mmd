@@ -7,8 +7,9 @@ flowchart TD
   %% diaphragm pump is gated by Teyleten relay #2 (ESP32 GPIO 4) so
   %% firmware can keep refill off during an active dispense.
   %% The 5 V logic rail is the L298N Board A onboard 7805/78M05, made
-  %% from the 12 V at its VS input; it powers the base ESP32 and the
-  %% relay VCC. The ESP32's onboard AMS1117 supplies 3.3 V on its 3V3
+  %% from the 12 V at its VS input; it powers the base ESP32, the relay
+  %% VCC, and the faucet display (5 V up the umbilical). The ESP32's
+  %% onboard AMS1117 supplies 3.3 V on its 3V3
   %% pin to the I2C devices.
   %% Physical placement:
   %% - The C14 inlet, AC distribution, PSU, both Teyleten relays, the
@@ -93,6 +94,8 @@ flowchart TD
 
   CFG["ESP32-S3-Touch-LCD-4.3B\n(config display + BLE,\n 12 V screw input off the bus)"]
 
+  FAUCET["ESP32-S3-Touch-LCD-1.47\n(faucet display + BLE,\n 5 V up the umbilical)"]
+
   subgraph I2C_Devices["I2C Devices"]
     RTC["DS3231 RTC"]
     MCP["MCP23017\nGPIO Expander"]
@@ -111,6 +114,7 @@ flowchart TD
   %% Logic rails (derived on-board, not dedicated parts)
   L298 -->|"5 V (onboard 7805/78M05)"| REG_5V
   REG_5V -->|"5 V"| MCUs
+  REG_5V -->|"5 V (up umbilical)"| FAUCET
   ESP32 -->|"3.3 V (3V3 pin)"| REG_3V3
   REG_3V3 -->|"3.3 V"| I2C_Devices
 
@@ -126,7 +130,8 @@ flowchart TD
   linkStyle 0,1,2,3,4,5,6,7,8,9,10,11 stroke:#c44,stroke-width:3px
   %% Logic rails (5 V, 3.3 V), derived on-board: white workhorse.
   %% 12 = L298N onboard reg -> 5 V rail
-  %% 13 = 5 V rail -> MCUs
-  %% 14 = ESP32 onboard AMS1117 (3V3 pin) -> 3.3 V rail
-  %% 15 = 3.3 V rail -> I2C devices
-  linkStyle 12,13,14,15 stroke:#ccc,stroke-width:2px
+  %% 13 = 5 V rail -> base ESP32
+  %% 14 = 5 V rail -> faucet display (up umbilical)
+  %% 15 = ESP32 onboard AMS1117 (3V3 pin) -> 3.3 V rail
+  %% 16 = 3.3 V rail -> I2C devices
+  linkStyle 12,13,14,15,16 stroke:#ccc,stroke-width:2px
