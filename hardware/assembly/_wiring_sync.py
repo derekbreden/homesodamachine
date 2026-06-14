@@ -122,7 +122,7 @@ def main():
             "AWG_TRIPLE": 2,
             "AC_LINE_V": 2,
             "DC_BUS_V": 16,
-            "LOGIC_V": 4,
+            "LOGIC_V": 5,
             "MCU_V": 6,
             "JST_PITCH": 2,
             "SHROUD_LEAD_LEN": 1,
