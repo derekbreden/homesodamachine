@@ -1190,11 +1190,15 @@ display_wire_hole_s = 35.0        # drops through the bend piece's joint-B ceili
 # the open flavor channel — that slides in under it. The tube's
 # spring-back lift bears on the bend piece's ceiling and runs into its
 # walls instead of prying the tip out. The cut is in the swept
-# cross-section, so it follows the arc the whole length of the overlap:
-# local +Y is the crown (display) side, and the cut at the flavor bore
-# top hands everything above it to the bend piece. The tip's cut drops
-# split_b_slip/2 below for slide clearance under that ceiling.
-split_b_ceiling_y_cut = flavor_offset_y_from_water + pill_width_y / 2.0
+# cross-section, so it follows the arc the whole length of the overlap;
+# local +Y is the crown (display) side. The female cut sits
+# split_b_ceiling_engage below the flavor bore top, so the bend piece
+# wraps the channel's upper edge with a lip; the tip's cut drops a
+# further split_b_slip/2 for slide clearance under that ceiling.
+split_b_ceiling_engage = 0.5
+split_b_ceiling_y_cut = (
+    flavor_offset_y_from_water + pill_width_y / 2.0 - split_b_ceiling_engage
+)
 display_drain_dia = 3.0           # pocket-floor drain, same drop as the wires
 # Drain at the floor's low corner, edge tangent to the PCB cover's back:
 # splash that gets past the housing drops into the pill cusp and runs
