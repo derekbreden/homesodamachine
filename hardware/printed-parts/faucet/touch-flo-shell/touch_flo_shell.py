@@ -1125,11 +1125,12 @@ def _build_bend_overlap(sketch: cq.Sketch, *, side: str) -> cq.Workplane:
 # carries everything beyond the junction — the cradle walls, their
 # below-floor flank pads, and the head wall closing the cradle's top
 # end — and presses the display in as the arc-slide joint closes.
-# Through the joint's overlap the pocket floor is the tip piece's tube
-# wall (the plug's top, shaved flush by the cavity); the bend piece
-# carries no floor there except the last display_insert_ledge ahead of
-# the head wall — a band of socket ceiling riding the joint's fit over
-# the plug's top flat, retaining the inserted tip piece. The cradle
+# Through the joint's overlap the bend piece carries the pocket floor /
+# bore ceiling as a slab tying its two socket walls together, closing
+# joint B into a four-sided box; the tip piece's plug is a three-sided U
+# (floor and flanks, open top) that slides in under it, so the tube's
+# spring-back lift bears on the bend piece's slab and runs into its
+# walls instead of prying the tip out. The cradle
 # never collides with the plug during the slide: the walls and pads sit
 # laterally outside it, and the bend piece's material at the plug's
 # width stays outside the socket surface — the joint's own fit is the
@@ -1165,12 +1166,16 @@ display_cap_thickness = 3.0 * display_line_width  # head wall — the same three
 display_wall_top_above_face = 0.10  # walls stop here — no overhang over the face
 display_outline_corner_r = display_corner_r  # cradle plan outline echoes the device
 display_wire_hole_dia = 3.0       # wire drop from the cavity into the pill cusp
-display_wire_hole_s = 35.0        # within the plug web — one piece, clear of the seam
-# Socket ceiling kept ahead of the head wall — rides the joint's fit
-# over the plug's top flat, retaining the inserted tip piece. The floor
-# plane meets the socket ceiling partway down the overlap; the ledge's
-# leading face stands clear of that crossing.
-display_insert_ledge = 4.0
+display_wire_hole_s = 35.0        # drops through the bend piece's joint-B ceiling into the pill cusp
+# Joint B closes four-sided. The bend piece (female) carries the bore
+# ceiling through the whole overlap as a slab tying its two socket walls
+# together; the tip piece (male) is a three-sided U — floor and flanks,
+# open top — that slides in under it. The tube's spring-back lift bears
+# on this slab and runs into the socket walls instead of prying the tip
+# out. The slab sits between the bores below and the display floor
+# above, so the web there sets its thickness; this n is just above the
+# bores at the junction (the overlap's tightest station).
+split_b_ceiling_n = 11.0
 display_drain_dia = 3.0           # pocket-floor drain, same drop as the wires
 # Drain at the floor's low corner, edge tangent to the PCB cover's back:
 # splash that gets past the housing drops into the pill cusp and runs
@@ -1418,19 +1423,42 @@ def _display_head_wall() -> cq.Workplane:
     )
 
 
-def _middle_floor_clearance() -> cq.Workplane:
-    """The bend piece carries no floor through the joint's overlap — the
-    pocket floor there is the tip piece's tube wall. Clears the bend
-    piece under the display between the socket profile's straight
-    flanks, from the junction to the insert ledge; the ledge's band of
-    socket ceiling stays, riding the joint's fit over the plug's top
-    flat. Flanks outboard of the socket profile, skin, and head wall
-    are untouched."""
+def _joint_b_ceiling() -> cq.Workplane:
+    """The bend piece's joint-B ceiling: a slab spanning wall to wall
+    over the bores through the overlap, closing the socket into a
+    four-sided box. Held back from the socket cavity (so the bend piece
+    keeps it) and dropped from the tip plug (so the tip is a three-sided
+    U under it). The tube's lift bears here and runs into the socket
+    walls."""
     socket_half_x = tube_shell_x_half_outer - split_b_socket_shrink
     return _cradle_prism(
-        socket_half_x, gn_tip_straight_len,
-        display_s_top - display_insert_ledge,
-        3.0, display_floor_n,
+        socket_half_x, gn_tip_straight_len, display_s_top,
+        split_b_ceiling_n, display_floor_n,
+    )
+
+
+def _joint_b_ceiling_tip_cut() -> cq.Workplane:
+    """Removed from the tip plug so it prints as a three-sided U: the
+    joint-B ceiling band, its underside dropped split_b_slip/2 below the
+    bend piece's ceiling for slide clearance, open through the display
+    floor above."""
+    socket_half_x = tube_shell_x_half_outer - split_b_socket_shrink
+    return _cradle_prism(
+        socket_half_x, gn_tip_straight_len, display_s_top,
+        split_b_ceiling_n - split_b_slip / 2.0, display_floor_n + 5.0,
+    )
+
+
+def _middle_floor_clearance() -> cq.Workplane:
+    """The bend piece carries no floor below the joint-B ceiling through
+    the overlap — that space is the tip piece's U. Clears the bend piece
+    between the socket profile's straight flanks, from the junction to
+    the head wall, up to the ceiling. Flanks outboard of the socket
+    profile, skin, the ceiling, and the head wall are untouched."""
+    socket_half_x = tube_shell_x_half_outer - split_b_socket_shrink
+    return _cradle_prism(
+        socket_half_x, gn_tip_straight_len, display_s_top,
+        3.0, split_b_ceiling_n,
     )
 
 
@@ -1575,7 +1603,10 @@ def build_shell_middle(full_shell: cq.Workplane | None = None) -> cq.Workplane:
     socket at the SPLIT B (top) end. The piece carries the cradle beyond
     the junction plane — walls, flank pads, and head wall, inherited
     from the full shell — and presses the display in as the joint
-    closes; it gives up only the cradle's straight-zone block."""
+    closes; it gives up only the cradle's straight-zone block. The SPLIT
+    B socket is a four-sided box: its cavity is held back from the
+    joint-B ceiling so the bend piece keeps that slab, roofing the tip
+    piece's U against the tube's lift."""
     full = full_shell if full_shell is not None else build_shell()
     above_junction_a = _split_plane_halfspace(
         (0.0, split_junction_y, split_junction_z), split_normal, sign=+1,
@@ -1591,7 +1622,7 @@ def build_shell_middle(full_shell: cq.Workplane | None = None) -> cq.Workplane:
     tip_section = _build_tip_section(_tube_shell_outer_sketch())
     bend_socket_cavity = _build_bend_overlap(
         _tube_shell_outer_shrunk_sketch(split_b_socket_shrink), side="socket",
-    )
+    ).cut(_joint_b_ceiling())
     return (
         bend_plus_tip
         .cut(tip_section)
@@ -1604,9 +1635,10 @@ def build_shell_middle(full_shell: cq.Workplane | None = None) -> cq.Workplane:
 def build_shell_top(full_shell: cq.Workplane | None = None) -> cq.Workplane:
     """Dispense-tip piece — male plug for the SPLIT B (bend↔tip) joint,
     carrying the cradle's straight-zone portion: pocket, PCB cover, and
-    walls up to the junction plane. The plug keeps its full tube wall;
-    where it rises past the floor plane the cavity shaves it flush — its
-    top is the pocket floor through the joint's overlap."""
+    walls up to the junction plane. The plug is a three-sided U through
+    the overlap — floor and flanks, open top — that slides in under the
+    bend piece's ceiling; the ceiling band is cut away so the tip can't
+    be pried up out of the joint."""
     _ = full_shell
     tip_outer = _build_tip_section(_tube_shell_outer_sketch())
     tip_inner = _build_tip_section(_tube_shell_inner_sketch())
@@ -1614,7 +1646,7 @@ def build_shell_top(full_shell: cq.Workplane | None = None) -> cq.Workplane:
         _tube_shell_outer_shrunk_sketch(split_b_plug_shrink), side="plug",
     )
     plug_inner = _build_bend_overlap(_tube_shell_inner_sketch(), side="plug")
-    plug = plug_outer.cut(plug_inner)
+    plug = plug_outer.cut(plug_inner).cut(_joint_b_ceiling_tip_cut())
 
     return (
         tip_outer
