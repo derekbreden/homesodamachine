@@ -154,7 +154,7 @@ def main():
             "AWG_MAINS": 6,        # AC-1a, AC-1b, AC-6, DC-1, DC-2, DC-3
             "AWG_AC_BRANCH": 5,    # AC-2/3/4/5, DC-6
             "AWG_SIG": 6,          # DC-4/5/7/8/9, SIG-1
-            "AWG_LV": 10,          # LV-1/2/3, SIG-2/3/4/6/7/8/9
+            "AWG_LV": 9,           # LV-1/2/3, SIG-2/3/4/7/8/9
             # Conductor gauges with " AWG" suffix in prose.
             "AWG_MAINS_U": 3,
             "AWG_AC_BRANCH_U": 1,
@@ -181,12 +181,12 @@ def main():
             # Run-length design targets.
             "LEN_SHORT": 2,
             "LEN_SHORT_2": 5,
-            "LEN_MID": 8,
+            "LEN_MID": 9,
             "LEN_PUMP": 2,
             "LEN_MANIFOLD": 1,
             "LEN_COMPRESSOR": 4,
             "LEN_COLD_CORE": 4,
-            "LEN_UMBILICAL": 3,
+            "LEN_UMBILICAL": 2,
             # Connector pitch.
             "JST_PITCH": 1,
         },

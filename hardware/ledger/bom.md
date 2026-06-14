@@ -161,6 +161,7 @@ Dishing dies (PA6-CF) for end-cap forming are vessel-fabrication tools, not ship
 | SendCutSend 0.060" 316 SS under-counter plate (`touch_flo_under_counter_plate.dxf`) | dimensions + role in [`printed-parts/faucet/touch-flo-shell/ASSEMBLY.md`](/hardware/printed-parts/faucet/touch-flo-shell/ASSEMBLY.md) "Adjacent parts"; SCS S064D925 May 10: 10 @ $2.85 + $5.00 ship + $2.79 tax = $36.29 ÷ 10 = $3.63/ea | 1 | $3.63 | $3.63 |
 | [DIGITEN G3/8" Hall-effect flow sensor](https://www.amazon.com/dp/B07QQW4C7R) | | 1 | $7.99 | $7.99 |
 | [CARGEN Pipe Insulation Foam Tube, 1/4" ID × 3/8" wall × 6 ft, nitrile rubber closed-cell](https://www.amazon.com/dp/B0D2XFK337) | insulates the 1/4" OD LLDPE carbonated-water dispense tube from the foam-shell exit through the countertop to the underside of the Westbrass touch-flo body. ~12" per build, 72"/roll = 6 builds/roll. Amazon 112-3935659 May 15: 2 @ $7.59 + $1.10 tax = $16.28 ÷ 12 builds = $1.36/build | 1/6 roll (~12") | $1.36 | $1.36 |
+| [BNTECHGO 28 AWG silicone ribbon cable, 4-conductor flat, 50 ft](https://www.amazon.com/dp/B07PNPHWMG) | Umbilical signal cable — the faucet-display harness (SIG-6: TX / RX / 5 V / GND) from the gooseneck 1.47" display down through the countertop and umbilical to the base ESP32. ~2 m per build off the 50 ft (15.2 m) spool; Amazon 112-9860351 Jun 10: $21.43 ÷ ~7 builds = $3.06/build | ~1/7 spool (~2 m) | $3.06 | $3.06 |
 
 ## 10. User interface
 
@@ -260,13 +261,13 @@ Per-appliance tools that ship in the install kit so the field installer can cut 
 | 6. Cold core insulation | [$52.38](BOM_SEC6) |
 | 7. Printed parts (PETG) | [$103.94](BOM_SEC7) |
 | 8. Flavor subsystem | [$264.60](BOM_SEC8) |
-| 9. Dispensing | [$50.68](BOM_SEC9) |
+| 9. Dispensing | [$53.74](BOM_SEC9) |
 | 10. UI | [$3.21](BOM_SEC10) |
 | 11. Wiring | [$32.56](BOM_SEC11) |
 | 12. Level sensing | [$69.78](BOM_SEC12) |
 | 13. Mechanical attach hardware + reservoir-cap vent filter | [$5.94](BOM_SEC13) |
 | 14. Install kit | [$4.29](BOM_SEC14) |
-| **Total** | **[$1,588.55](BOM_GRAND)** |
+| **Total** | **[$1,591.61](BOM_GRAND)** |
 
 ## External / user-supplied (not shipped)
 
