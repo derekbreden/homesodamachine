@@ -80,7 +80,7 @@ loom_conductors = 24
 
 # ─── Run-length design targets ────────────────────────────────────────
 # All values mm except where noted.
-len_short_mm = 50       # AC-3 (shelf hop), DC-8 (12 V → 5 V regulator)
+len_short_mm = 50       # AC-3 (shelf hop), DC-8 (L298N onboard 5 V reg → MCU)
 len_short_2_mm = 100    # AC-2 (distribution → PSU), DC-1, DC-2, LV-3
 len_mid_mm = 150        # AC-1a/AC-1b (C14 → GFCI → block), LV-1, LV-2, DC-4, DC-6, DC-7 fan-out, SIG-8
 len_pump_mm = 250       # DC-3 (diaphragm pump), DC-5 to manifold
