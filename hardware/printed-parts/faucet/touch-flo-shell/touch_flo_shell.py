@@ -1023,6 +1023,23 @@ def _build_zone6_outer_shrunk(shrink: float) -> cq.Workplane:
     return _sweep_along_gooseneck(_tube_shell_outer_shrunk_sketch(shrink))
 
 
+def _tube_shell_u_sketch(shrink: float, y_cut: float) -> cq.Sketch:
+    """`_tube_shell_outer_shrunk_sketch` with its +Y crown (everything
+    above local Y = y_cut) removed — the open-top profile. Swept along
+    the bend, the cut becomes an arc-following surface (constant radius
+    about the bend-2 axis), so it shaves the crown the whole length of
+    the overlap, not just at the junction. Local +Y is the display /
+    crown side; y_cut at the flavor bore top opens the flavor channel."""
+    cut_h = 100.0
+    return (
+        _tube_shell_outer_shrunk_sketch(shrink)
+        .reset()
+        .push([(0.0, y_cut + cut_h / 2.0)])
+        .rect(2.0 * tube_shell_x_outer, cut_h, mode="s")
+        .clean()
+    )
+
+
 def _split_plane_halfspace(origin: tuple, normal: tuple, sign: int,
                            extent: float = 600.0) -> cq.Workplane:
     """Solid filling one side of a plane: sign +1 = +normal side, -1 = −normal side."""
@@ -1167,15 +1184,17 @@ display_wall_top_above_face = 0.10  # walls stop here — no overhang over the f
 display_outline_corner_r = display_corner_r  # cradle plan outline echoes the device
 display_wire_hole_dia = 3.0       # wire drop from the cavity into the pill cusp
 display_wire_hole_s = 35.0        # drops through the bend piece's joint-B ceiling into the pill cusp
-# Joint B closes four-sided. The bend piece (female) carries the bore
-# ceiling through the whole overlap as a slab tying its two socket walls
-# together; the tip piece (male) is a three-sided U — floor and flanks,
-# open top — that slides in under it. The tube's spring-back lift bears
-# on this slab and runs into the socket walls instead of prying the tip
-# out. The slab sits between the bores below and the display floor
-# above, so the web there sets its thickness; this n is just above the
-# bores at the junction (the overlap's tightest station).
-split_b_ceiling_n = 11.0
+# Joint B closes four-sided. The bend piece (female) carries the flavor
+# bore's ceiling through the whole overlap, tying its two socket walls
+# together; the tip piece (male) is a three-sided U — floor, walls, and
+# the open flavor channel — that slides in under it. The tube's
+# spring-back lift bears on the bend piece's ceiling and runs into its
+# walls instead of prying the tip out. The cut is in the swept
+# cross-section, so it follows the arc the whole length of the overlap:
+# local +Y is the crown (display) side, and the cut at the flavor bore
+# top hands everything above it to the bend piece. The tip's cut drops
+# split_b_slip/2 below for slide clearance under that ceiling.
+split_b_ceiling_y_cut = flavor_offset_y_from_water + pill_width_y / 2.0
 display_drain_dia = 3.0           # pocket-floor drain, same drop as the wires
 # Drain at the floor's low corner, edge tangent to the PCB cover's back:
 # splash that gets past the housing drops into the pill cusp and runs
@@ -1423,45 +1442,6 @@ def _display_head_wall() -> cq.Workplane:
     )
 
 
-def _joint_b_ceiling() -> cq.Workplane:
-    """The bend piece's joint-B ceiling: a slab spanning wall to wall
-    over the bores through the overlap, closing the socket into a
-    four-sided box. Held back from the socket cavity (so the bend piece
-    keeps it) and dropped from the tip plug (so the tip is a three-sided
-    U under it). The tube's lift bears here and runs into the socket
-    walls."""
-    socket_half_x = tube_shell_x_half_outer - split_b_socket_shrink
-    return _cradle_prism(
-        socket_half_x, gn_tip_straight_len, display_s_top,
-        split_b_ceiling_n, display_floor_n,
-    )
-
-
-def _joint_b_ceiling_tip_cut() -> cq.Workplane:
-    """Removed from the tip plug so it prints as a three-sided U: the
-    joint-B ceiling band, its underside dropped split_b_slip/2 below the
-    bend piece's ceiling for slide clearance, open through the display
-    floor above."""
-    socket_half_x = tube_shell_x_half_outer - split_b_socket_shrink
-    return _cradle_prism(
-        socket_half_x, gn_tip_straight_len, display_s_top,
-        split_b_ceiling_n - split_b_slip / 2.0, display_floor_n + 5.0,
-    )
-
-
-def _middle_floor_clearance() -> cq.Workplane:
-    """The bend piece carries no floor below the joint-B ceiling through
-    the overlap — that space is the tip piece's U. Clears the bend piece
-    between the socket profile's straight flanks, from the junction to
-    the head wall, up to the ceiling. Flanks outboard of the socket
-    profile, skin, the ceiling, and the head wall are untouched."""
-    socket_half_x = tube_shell_x_half_outer - split_b_socket_shrink
-    return _cradle_prism(
-        socket_half_x, gn_tip_straight_len, display_s_top,
-        3.0, split_b_ceiling_n,
-    )
-
-
 def _web_drop_hole(s_pos: float, dia: float) -> cq.Workplane:
     """Ø dia drop through the web at (x = 0, s = s_pos), from the pill
     cusp void up through the pocket floor."""
@@ -1621,14 +1601,14 @@ def build_shell_middle(full_shell: cq.Workplane | None = None) -> cq.Workplane:
 
     tip_section = _build_tip_section(_tube_shell_outer_sketch())
     bend_socket_cavity = _build_bend_overlap(
-        _tube_shell_outer_shrunk_sketch(split_b_socket_shrink), side="socket",
-    ).cut(_joint_b_ceiling())
+        _tube_shell_u_sketch(split_b_socket_shrink, split_b_ceiling_y_cut),
+        side="socket",
+    )
     return (
         bend_plus_tip
         .cut(tip_section)
         .cut(bend_socket_cavity)
         .cut(_cradle_block_tip_owned())
-        .cut(_middle_floor_clearance())
     )
 
 
@@ -1643,10 +1623,13 @@ def build_shell_top(full_shell: cq.Workplane | None = None) -> cq.Workplane:
     tip_outer = _build_tip_section(_tube_shell_outer_sketch())
     tip_inner = _build_tip_section(_tube_shell_inner_sketch())
     plug_outer = _build_bend_overlap(
-        _tube_shell_outer_shrunk_sketch(split_b_plug_shrink), side="plug",
+        _tube_shell_u_sketch(
+            split_b_plug_shrink, split_b_ceiling_y_cut - split_b_slip / 2.0,
+        ),
+        side="plug",
     )
     plug_inner = _build_bend_overlap(_tube_shell_inner_sketch(), side="plug")
-    plug = plug_outer.cut(plug_inner).cut(_joint_b_ceiling_tip_cut())
+    plug = plug_outer.cut(plug_inner)
 
     return (
         tip_outer
