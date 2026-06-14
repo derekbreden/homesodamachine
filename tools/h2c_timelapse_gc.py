@@ -161,7 +161,11 @@ def list_clips(ftp, folder, pattern):
     except ftplib.all_errors:
         out.clear()  # server has no MLSD; fall back to NLST + SIZE + MDTM
 
-    for entry in ftp.nlst(folder):
+    try:
+        entries = ftp.nlst(folder)
+    except ftplib.error_perm:
+        return []  # folder absent or empty (e.g. a fresh drive with no timelapses yet)
+    for entry in entries:
         name = posixpath.basename(entry)
         if not name or name in (".", ".."):
             continue
