@@ -14,15 +14,26 @@ and X2D internal storage**, not the H2C and not the USB drive
 So clearing space is a manual step unless you automate it — which is what this
 script does.
 
+## What actually fills the drive
+
+Two features write video, and the bigger consumer is usually **not** timelapses:
+
+- **Auto-record chamber video** → `/ipcam/*.mp4`, ~250 MB per print. Controlled
+  on the printer by `Settings → Video` (H2 series). If you only want timelapses,
+  set it to **Off** — it is independent of timelapse and of AI failure-detection
+  (which runs on-device and needs no drive). This tool can clear it with
+  `--folder ipcam` (e.g. `--folder ipcam --keep 0 --apply` to wipe it).
+- **Timelapse** → `/timelapse/*.mp4` (the default folder this tool rotates).
+
 ## How it reaches the printer
 
 Bambu's LAN file service is **FTPS, implicit TLS, port 990**, user `bblp`,
 password = the printer's **Access Code**.
 
-Find the IP and Access Code on the printer: **Settings → WLAN → LAN Only Mode**.
-You can read the Access Code without toggling LAN-Only ON, so this does not cut
-the printer off from the cloud / Bambu Handy. (If a connection is refused, turn
-LAN-Only Mode ON as a fallback.)
+Find the IP and Access Code on the printer: **Settings → WLAN → LAN Only Mode**
+(the code shows without having to enable LAN-Only). FTP file access works while
+the printer stays **cloud-connected** — confirmed against an H2 on stock cloud
+mode, no LAN-Only needed. Each printer has its **own** access code.
 
 Pass them in — don't commit the Access Code:
 
@@ -55,16 +66,23 @@ Set `--keep-gb` to ~75–80% of the drive's capacity (≈190 for the 256 GB Ultr
 Fit, ≈400 for a 512 GB). Run `--list` first to confirm the folder names on your
 drive before pruning.
 
-## Run it on a schedule (macOS)
+## Scheduled rotation (macOS launchd)
 
-The printer must be powered on and on the LAN when this runs. A nightly cron
-line (note the Access Code sits in plaintext in your crontab):
+Installed and running: a user LaunchAgent rotates each printer's `/timelapse`
+every 6 hours. The printer must be on and on the LAN at run time; a printer
+that's off is logged and skipped until the next run.
+
+- **Runner** — holds the per-printer hosts + access codes, kept **out of git**:
+  `~/.config/h2c-gc/run.sh` (mode `700`). Edit the `gc <name> <host> <code>`
+  lines and `KEEP_GB` there. A second printer is one more `gc …` line.
+- **LaunchAgent** — `~/Library/LaunchAgents/com.homesodamachine.h2c-timelapse-gc.plist`
+  (`StartInterval` 21600 s), logging to `~/.config/h2c-gc/gc.log`.
 
 ```
-0 3 * * * H2C_HOST=192.168.1.50 H2C_ACCESS_CODE=12345678 \
-  /usr/bin/python3 /Users/derekbredensteiner/Developer/homesodamachine/tools/h2c_timelapse_gc.py \
-  --keep-gb 190 --archive-dir ~/H2C-timelapses --prune-thumbnails --apply \
-  >> ~/h2c-gc.log 2>&1
+sh ~/.config/h2c-gc/run.sh                                                  # run once now
+launchctl bootout   gui/$(id -u)/com.homesodamachine.h2c-timelapse-gc       # stop
+launchctl bootstrap gui/$(id -u) ~/Library/LaunchAgents/com.homesodamachine.h2c-timelapse-gc.plist  # (re)start
 ```
 
-The second H2C uses the same script with its own `--host` / `--access-code`.
+The runner pins `/opt/homebrew/bin/python3` (stable) rather than whatever
+`python3` resolves to in an interactive shell.
