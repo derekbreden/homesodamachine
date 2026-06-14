@@ -131,9 +131,9 @@ def connect(host, port, user, access_code, timeout):
         ftp.login(user=user, passwd=access_code)
         ftp.prot_p()
         ftp.voidcmd("TYPE I")
-    except (OSError, ftplib.all_errors) as e:
+    except ftplib.all_errors as e:
         raise SystemExit(
-            f"Could not connect to the H2C at {host}:{port} as {user}.\n"
+            f"Could not connect or log in to the H2C at {host}:{port} as {user}.\n"
             f"  {type(e).__name__}: {e}\n"
             "Check: printer is on and on the LAN, the IP is current, the Access\n"
             "Code is right, and nothing firewalls TCP 990. If it still refuses,\n"
