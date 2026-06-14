@@ -154,7 +154,7 @@ def main():
             "AWG_MAINS": 6,        # AC-1a, AC-1b, AC-6, DC-1, DC-2, DC-3
             "AWG_AC_BRANCH": 5,    # AC-2/3/4/5, DC-6
             "AWG_SIG": 6,          # DC-4/5/7/8/9, SIG-1
-            "AWG_LV": 9,           # LV-1/2/3, SIG-2/3/4/7/8/9
+            "AWG_LV": 10,          # LV-1/2/3, SIG-2/3/4/6/7/8/9
             # Conductor gauges with " AWG" suffix in prose.
             "AWG_MAINS_U": 3,
             "AWG_AC_BRANCH_U": 1,
@@ -170,8 +170,8 @@ def main():
             "FAN_A": 1,
             # Logic rails.
             "V_DC": 16,
-            "V_LOGIC": 6,
-            "V_IO": 7,
+            "V_LOGIC": 7,
+            "V_IO": 8,
             "DS18B20_PULLUP": 1,
             # Conductor counts.
             "SHROUD_WIRES": 1,
@@ -186,7 +186,7 @@ def main():
             "LEN_MANIFOLD": 1,
             "LEN_COMPRESSOR": 4,
             "LEN_COLD_CORE": 4,
-            "LEN_UMBILICAL": 2,
+            "LEN_UMBILICAL": 3,
             # Connector pitch.
             "JST_PITCH": 1,
         },

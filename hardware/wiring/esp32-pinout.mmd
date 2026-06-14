@@ -16,19 +16,24 @@ flowchart LR
   %% 36, 39 with external pull-ups) or a 74HC165 — saves the chip, decision deferred.
   %%   Architecture detail at
   %%   hardware/printed-parts/cold-core/reservoir/level-sensing.md.
+  %% Two display UARTs:
+  %%   GPIO 15/34 = Serial1 → ALMOCN RS485 transceiver → 4.3B config display
+  %%                (front panel, internal run; the 4.3B has no free TTL UART).
+  %%   GPIO 32/35 = Serial2, direct TTL UART → 1.47" faucet display
+  %%                (up the umbilical; the 1.47" breaks out TTL UART).
   %% Freed GPIOs still available:
   %%   GPIO 2   - free (bootstrap-sensitive)
   %%   GPIO 12  - free (bootstrap-sensitive)
   %%   GPIO 13  - free (formerly the KRAUS flavor switch — removed; flavor toggle is on the faucet touch LCD)
-  %%   GPIO 32  - free (formerly RP2040 TX — RP2040 removed)
-  %%   GPIO 35  - free (formerly RP2040 RX — RP2040 removed)
 
   subgraph ESP["ESP32-DevKitC-32E"]
     direction TB
 
     subgraph UART_Pins["UART"]
-      P15["GPIO 15  TX → ESP32-S3"]
-      P34["GPIO 34  RX ← ESP32-S3"]
+      P15["GPIO 15  TX → config 4.3B"]
+      P34["GPIO 34  RX ← config 4.3B"]
+      P32["GPIO 32  TX → faucet LCD"]
+      P35["GPIO 35  RX ← faucet LCD"]
     end
 
     subgraph I2C_Pins["I2C  (expanded bus)"]
@@ -64,6 +69,8 @@ flowchart LR
   %% ── Destinations ──
   S3["ESP32-S3-Touch-LCD-4.3B\n(config display + BLE,\n 800×480 touch, GT911;\n fixed front-face, angled up)"]
 
+  FAUCET["ESP32-S3-Touch-LCD-1.47\n(faucet flavor display + touch,\n 172×320; TTL UART up the umbilical)"]
+
   I2C_DEVICES["I2C Devices:\n  DS3231 RTC  0x68\n  MCP23017    0x20  (valves + 4 reservoir reed inputs)\n  MCP23017    0x21  (4 reservoir reed inputs, 12 spare)"]
 
   DRV["L298N Board A\n(2 pumps, H-bridge)"]
@@ -87,6 +94,7 @@ flowchart LR
 
   %% ── Connections ──
   P15 & P34 <-->|"Serial1 115200 baud\nvia ALMOCN RS485"| S3
+  P32 & P35 <-->|"Serial2 UART\n(direct TTL,\n up the umbilical)"| FAUCET
   P21 & P22 <-->|"I2C"| I2C_DEVICES
 
   P33 & P25 & P26 -->|"Pump A"| DRV
@@ -109,15 +117,16 @@ flowchart LR
   I2C_DEVICES -->|"MCP23017"| VALVE_CHAIN
 
   %% Signals: UART, I2C, GPIO control, semantic-reference (white).
-  %% 0-1 UART (S3), 2-3 I2C, 4-9 GPIO -> L298 inputs,
-  %% 13 = P14 relay #1 drive, 15 = P4 relay #2 drive,
-  %% 20 = logical I2C-device -> subsystem ref.
-  linkStyle 0,1,2,3,4,5,6,7,8,9,13,15,20 stroke:#ccc,stroke-width:2px
+  %% 0-1 UART Serial1 (4.3B config), 2-3 UART Serial2 (faucet),
+  %% 4-5 I2C, 6-11 GPIO -> L298 inputs,
+  %% 15 = P14 relay #1 drive, 17 = P4 relay #2 drive,
+  %% 22 = logical I2C-device -> subsystem ref.
+  linkStyle 0,1,2,3,4,5,6,7,8,9,10,11,15,17,22 stroke:#ccc,stroke-width:2px
   %% Sensor feedback to MCU (blue).
-  %% 12 = flow meter, 17 = DS18B20 1-wire,
-  %% 18 = reed low, 19 = reed high.
-  linkStyle 12,17,18,19 stroke:#09f,stroke-width:2px
+  %% 14 = flow meter, 19 = DS18B20 1-wire,
+  %% 20 = reed low, 21 = reed high.
+  linkStyle 14,19,20,21 stroke:#09f,stroke-width:2px
   %% Power: motor/pump outputs and switched 120 VAC (red, thick).
-  %% 10-11 = L298 motor channels, 14 = relay #1 -> compressor AC,
-  %% 16 = relay #2 -> diaphragm pump 12 V.
-  linkStyle 10,11,14,16 stroke:#c44,stroke-width:3px
+  %% 12-13 = L298 motor channels, 16 = relay #1 -> compressor AC,
+  %% 18 = relay #2 -> diaphragm pump 12 V.
+  linkStyle 12,13,16,18 stroke:#c44,stroke-width:3px
