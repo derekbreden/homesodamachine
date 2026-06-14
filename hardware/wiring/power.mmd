@@ -7,16 +7,10 @@ flowchart TD
   %% diaphragm pump is gated by Teyleten relay #2 (ESP32 GPIO 4) so
   %% firmware can keep refill off during an active dispense.
   %%
-  %% Logic rails are derived on boards already on the 12 V bus — there
-  %% are no dedicated regulator parts. 5 V comes from the L298N Board A
-  %% onboard 7805/78M05 (fed by the same 12 V that drives the peristaltic
-  %% pumps) and powers the ESP32 boards. 3.3 V for the I2C devices comes
-  %% from the ESP32's onboard AMS1117 (its 3V3 pin) — or the DS3231
-  %% (3.3–5.5 V) and MCP23017 (1.8–5.5 V) run directly at 5 V. The 5 V
-  %% draw is small (ESP32 + S3 + MCP + RTC), but the 78M05 drops 7 V at
-  %% 12→5, so verify the actual logic-rail current and the regulator's
-  %% junction temperature at shelf ambient during bring-up; add a
-  %% stick-on heatsink if margin is thin.
+  %% The 5 V logic rail is the L298N Board A onboard 7805/78M05, made
+  %% from the 12 V at its VS input; it powers the ESP32 boards and the
+  %% relay VCC. The ESP32's onboard AMS1117 supplies 3.3 V on its 3V3
+  %% pin to the I2C devices.
   %%
   %% Physical placement:
   %% - The C14 inlet, AC distribution, PSU, both Teyleten relays, the
@@ -63,9 +57,9 @@ flowchart TD
     RELAY ==>|"switched AC hot\n(through shroud grommet)"| COMP_AC
   end
 
-  subgraph Regulation["Logic Rails (derived on-board — no dedicated parts)"]
+  subgraph Regulation["Logic Rails"]
     REG_5V["5 V rail\nL298N Board A onboard 7805/78M05\n(tapped off its 12 V feed)"]
-    REG_3V3["3.3 V rail\nESP32 onboard AMS1117 (3V3 pin),\nor run I2C devices at 5 V"]
+    REG_3V3["3.3 V rail\nESP32 onboard AMS1117 (3V3 pin)"]
   end
 
   subgraph Carbonation["Carbonation"]
