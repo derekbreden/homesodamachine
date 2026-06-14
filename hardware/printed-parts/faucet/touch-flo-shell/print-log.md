@@ -601,6 +601,28 @@ Unchanged from attempt 19: printer `Bambu Lab H2C 0.6 nozzle`, print `0.30mm Sta
 
 **Reprint scope from attempt 19:** bottom piece + mounting plate (pod chain grew with the counterbore) + TPU mounting gasket (footprint follows the pod outline); middle and top pieces unchanged by the boss/head work and only re-cut by the joint slips.
 
+## PET-CF print attempt 21 (middle socket-mouth tip — layer-change G-code: feedrate / accel / fan)
+
+Slice saved 2026-06-14 (`touch-flo-pet-cf.3mf`). **Print outcome not yet recorded.**
+
+Geometry unchanged from attempt 20 (no geometry change this attempt). Plate is **2 objects** — `touch-flo-shell-middle.step` + `touch-flo-shell-top.step` (bottom piece and mounting plate are not on this plate). The middle prints end-on, base at Z 0, **107.1 mm** tall; the top piece tops out at **Z 46.8 mm**, so above ~Z 47 the nozzle works the middle only.
+
+**Defect addressed** (Derek provided a photo, observed on the attempt-20 middle): drooping / pulled-over strands at the socket-mouth crown corner — the top ~5 mm of the middle (Z 102 → 107.1), the edge where the SPLIT-B junction plane meets the crown outer skin. At 0.30 mm layers, Z 102 = layer 340.
+
+Derek said:
+- "Layer 340 I think is where the problems start here."
+- "the direction that things are falling are actually the direction they are being pulled, and it is the force of the movement that is pulling things apart. So my thought is 'less velocity' => 'less force'."
+
+**Settings delta vs attempt 20** — `layer_change_gcode` only. Appended a block gated `{if layer_num >= 333}` (the layer topping out at Z 100.2, six layers below the trouble), active to end of print:
+- `M220 S40` — feedrate magnitude 40 %
+- `M201.2 K0.2` — acceleration magnitude 20 %
+- `M106 P1 S180` — part-cooling fan ~70 % (PET-CF slot-0 fan is otherwise 0 %)
+- `;M104 S255` — present but commented (optional active-nozzle 280 → 255)
+
+Saved as a new printer preset **"Touch Flo Middle"** inheriting `Bambu Lab H2C 0.6 nozzle` (the layer-change G-code is a machine setting). A pre/post config diff confirms the only changes are this gcode field plus preset bookkeeping (`printer_settings_id`, `inherits_group`, `different_settings_to_system`); no print / filament / support / geometry settings changed.
+
+Commands cross-checked against the machine's own G-code in the same 3mf: part fan is `M106 P1` (P2 aux, P3 chamber); `M220 S100 ; Reset feedrate magnitude` and `M201.2 K1.0 ; Reset acc magnitude` appear in the start G-code (both persistent scalers that reset per print); `layer_num` is the layer variable the machine's templates use (no bare `layer_z`).
+
 ## Hardware / setup observations across all PET-CF attempts
 
 Derek said:
