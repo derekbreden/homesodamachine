@@ -22,6 +22,8 @@ First-pass draft. **Pricing convention: delivered cost** (product + shipping + t
 | [ULN2803A high-current driver module (2-pc)](https://www.amazon.com/dp/B0F872W528) | 2 modules drive 12 solenoids from MCP23017 outputs; 1 full 2-pack per unit | 1 pk | $6.59 | $6.59 |
 | [Mean Well IRM-90-12ST, 80 W / 12 V / 6.7 A, encapsulated](https://www.amazon.com/dp/B0CNRST18V) | 12 V supply for the low-voltage bus; IEC 60335-1 household-appliance safety listed | 1 | $31.66 | $31.66 |
 
+**Logic rails (5 V, 3.3 V) — no dedicated regulator line item.** The 5 V that powers the ESP32 boards is the L298N's onboard 7805/78M05, tapped off the same 12 V that drives the peristaltic pumps. 3.3 V for the I2C devices is the ESP32's onboard AMS1117 (3V3 pin); the DS3231 (3.3–5.5 V) and MCP23017 (1.8–5.5 V) also run directly at 5 V. Both rails are derived on boards already listed above, so they carry no separate cost. At bring-up, verify the actual 5 V draw (ESP32 + S3 + MCP + RTC) and the 78M05's junction temperature at shelf ambient — it drops 7 V at 12→5; fit a stick-on heatsink if margin is thin. Power tree: [wiring/power.mmd](/hardware/wiring/power.mmd).
+
 ## 2. Carbonator vessel (custom fabrication — plan A: round tube + 1/4" plates, 316L)
 
 An earlier racetrack-body alternative (304 SS body half-sheets + dished racetrack end caps + 4× weld bungs) is no longer in active development; its parts inventory remains tracked in [purchases.md](/hardware/ledger/purchases.md) §1, and the artifacts are preserved at the `archive-plan-b` git tag, in case the round-tube path is ever blocked.

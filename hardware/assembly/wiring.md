@@ -84,7 +84,7 @@ Execute the LV and SIG runs from [`/hardware/wiring/ac-wiring-schedule.md`](/har
 On-shelf logic hops — JST XH [2.54 mm](JST_PITCH) where a module presents pin headers (CQRobot bonded ribbons B0F6C7X5CR feed the housings), screw terminals where it presents terminals:
 
 - **LV-1, LV-2** — ESP32 GPIO 14 / GPIO 4 + GND to the Teyleten relay IN terminals. **Screw terminals both ends, no connector**: the ESP32 end lands on the DIN-breakout screw terminals, the relay end on the module's 3-position input screw terminal (VCC / GND / IN). [~150 mm](LV_SHORT_LEN) each.
-- **LV-3** — [5 V](LOGIC_V) regulator output → both Teyleten relay modules' VCC screw terminals via a tee. **Screw terminals**, no JST.
+- **LV-3** — [5 V](LOGIC_V) from the L298N Board A onboard regulator (7805/78M05) → both Teyleten relay modules' VCC screw terminals via a tee. **Screw terminals**, no JST.
 - **SIG-8** — ESP32 GPIO 21 / 22 (I2C) + [3.3 V](MCU_V) + GND to the DS3231 RTC + both MCP23017s on a shared bus. The ESP32 end lands on the DIN-breakout **screw terminals**; the DS3231 takes a **4-pin XH** (VCC / GND / SDA / SCL — the RTC's other pins unused); each MCP23017 joins on its native **PH2.0** connector, not XH.
 
 Cabinet-side runs leaving the shelf:

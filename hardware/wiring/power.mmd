@@ -7,11 +7,22 @@ flowchart TD
   %% diaphragm pump is gated by Teyleten relay #2 (ESP32 GPIO 4) so
   %% firmware can keep refill off during an active dispense.
   %%
+  %% Logic rails are derived on boards already on the 12 V bus — there
+  %% are no dedicated regulator parts. 5 V comes from the L298N Board A
+  %% onboard 7805/78M05 (fed by the same 12 V that drives the peristaltic
+  %% pumps) and powers the ESP32 boards. 3.3 V for the I2C devices comes
+  %% from the ESP32's onboard AMS1117 (its 3V3 pin) — or the DS3231
+  %% (3.3–5.5 V) and MCP23017 (1.8–5.5 V) run directly at 5 V. The 5 V
+  %% draw is small (ESP32 + S3 + MCP + RTC), but the 78M05 drops 7 V at
+  %% 12→5, so verify the actual logic-rail current and the regulator's
+  %% junction temperature at shelf ambient during bring-up; add a
+  %% stick-on heatsink if margin is thin.
+  %%
   %% Physical placement:
   %% - The C14 inlet, AC distribution, PSU, both Teyleten relays, the
-  %%   ESP32, MCP23017, ULN2803A pair, L298N, and voltage regulators
-  %%   all sit on a single electronics shelf at the top-back of the
-  %%   enclosure, behind the rear-panel C14 inlet.
+  %%   ESP32, MCP23017, ULN2803A pair, and L298N all sit on a single
+  %%   electronics shelf at the top-back of the enclosure, behind the
+  %%   rear-panel C14 inlet.
   %% - The compressor sits middle-bottom inside a fire-rated metal
   %%   shroud (because the appliance is going into kitchens used by
   %%   friends, family, and customers the founder knows by name, and
@@ -52,9 +63,9 @@ flowchart TD
     RELAY ==>|"switched AC hot\n(through shroud grommet)"| COMP_AC
   end
 
-  subgraph Regulation["Voltage Regulation"]
-    REG_5V["5 V Regulator\n(MCUs, logic)"]
-    REG_3V3["3.3 V Regulator\n(I2C devices, sensors)"]
+  subgraph Regulation["Logic Rails (derived on-board — no dedicated parts)"]
+    REG_5V["5 V rail\nL298N Board A onboard 7805/78M05\n(tapped off its 12 V feed)"]
+    REG_3V3["3.3 V rail\nESP32 onboard AMS1117 (3V3 pin),\nor run I2C devices at 5 V"]
   end
 
   subgraph Carbonation["Carbonation"]
@@ -103,11 +114,11 @@ flowchart TD
   PSU ==>|"12 V"| DIA_RELAY
   PSU ==>|"12 V"| L298
   PSU ==>|"12 V"| ULN
-  PSU ==>|"12 V"| REG_5V
 
-  %% Regulated logic-level
-  REG_5V -->|"5 V"| REG_3V3
+  %% Logic rails (derived on-board, not dedicated parts)
+  L298 -->|"5 V (onboard 7805/78M05)"| REG_5V
   REG_5V -->|"5 V"| MCUs
+  ESP32 -->|"3.3 V (3V3 pin)"| REG_3V3
   REG_3V3 -->|"3.3 V"| I2C_Devices
 
   %% Power paths (red, thick).
@@ -117,8 +128,11 @@ flowchart TD
   %% 4    = ULN2803A -> solenoid valves
   %% 5    = ULN2803A -> condenser fan (switched 12 V, low-side)
   %% 6-7  = C14 -> relay #1, C14 -> PSU (AC mains)
-  %% 8-11 = PSU 12 V trunk to all subsystems
-  linkStyle 0,1,2,3,4,5,6,7,8,9,10,11 stroke:#c44,stroke-width:3px
-  %% Regulated logic-level supplies (5V, 3.3V): white workhorse.
-  %% 12-14 = REG_5V -> REG_3V3, REG_5V -> MCUs, REG_3V3 -> I2C devices.
-  linkStyle 12,13,14 stroke:#ccc,stroke-width:2px
+  %% 8-10 = PSU 12 V trunk to diaphragm relay, L298N, ULN2803A
+  linkStyle 0,1,2,3,4,5,6,7,8,9,10 stroke:#c44,stroke-width:3px
+  %% Logic rails (5 V, 3.3 V), derived on-board: white workhorse.
+  %% 11 = L298N onboard reg -> 5 V rail
+  %% 12 = 5 V rail -> MCUs
+  %% 13 = ESP32 onboard AMS1117 (3V3 pin) -> 3.3 V rail
+  %% 14 = 3.3 V rail -> I2C devices
+  linkStyle 11,12,13,14 stroke:#ccc,stroke-width:2px
