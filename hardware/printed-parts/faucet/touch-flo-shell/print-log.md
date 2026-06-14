@@ -538,7 +538,7 @@ Derek ran Bambu's Flow Dynamics Calibration for the Polymaker filament on the **
 
 ## PET-CF print attempt 19 (faucet redesign: three-point screw-boss mount + display cradle)
 
-Slice saved 2026-06-10; **print just started** (Derek: "saved a 3mf for the faucet after its redesign … print just started"). **Outcome not yet recorded** — this entry captures the slice state and the redesign so it isn't lost.
+Slice saved 2026-06-10; print started (Derek: "saved a 3mf for the faucet after its redesign … print just started"). **Outcome:** the redesign printed; assembly showed the three plate-to-shell fits and both spout slip-joints too tight at their as-designed clearances (boss-to-hole 0.10 diametral, joint A 0.05/side, joint B 0.08/side, SHCS-head counterbore ⌀5.55). Fit convergence followed across hand-iterated test prints and is consolidated in attempt 20.
 
 **Hardware:** no nozzle change stated for this attempt. The slice is still 0.6 standard (printer `Bambu Lab H2C 0.6 nozzle`, profile `0.30mm Standard`), consistent with the attempt-18 0.6 mm DUROZZLE Diamond PCD L-side hotend still being installed. If the nozzle was swapped, that is not captured here. If the PCD is still on, the attempt-18 Flow Dynamics K = 0.013 still applies (same nozzle + filament), subject to the same send-dialog confirmation caveat from attempt 18.
 
@@ -570,6 +570,36 @@ Tracked settings confirmed unchanged from attempt 18 (all observed in the new 3m
 - `touch-flo-shell-top.step`: 292.36 → **501.04 mm²** (+209; display cradle at the dispense tip)
 - `touch-flo-mounting-plate.step`: 2111.40 → **1963.75 mm²** (−148; reworked to the three screw bosses)
 - First-layer time 313.51 → **384.48 s**.
+
+## PET-CF print attempt 20 (fit convergence: boss + slip-joint + head clearances)
+
+Derek said:
+- "Most recent (faucet) print turned out well, things fit as well as I need them to for now."
+
+**Outcome: success.** All fits acceptable — the mounting-plate-to-shell screw bosses seat, the two spout slip-joints (A spout↔bend, B bend↔tip) slide together, and the M3 SHCS heads clear their counterbores. This is the print that closes the fit iteration opened by attempt 19.
+
+**Geometry — clearances opened from attempt 19.** Same three-piece shell + mounting plate; only the mating clearances changed (each one knob in `touch_flo_shell.py` / `touch_flo_mounting_plate.py`, parts re-derive):
+- Boss-to-hole slip 0.10 → **0.40 diametral** (`base_pod_slip`); pods + footprint re-derive, walls stay 3.0.
+- Boss seat gap 0.5 → **1.0** (`boss_seat_clearance`; boss 7.0 in the 8.0 hole) + **0.6 × 45° lead-in chamfer** on each boss top rim (`boss_chamfer`).
+- SHCS-head counterbore ⌀5.55 → **⌀6.15** (`base_pod_counterbore_dia`, ~0.72 diametral over the ~5.43 measured head); chain re-derives boss ⌀12.15, shell hole ⌀12.55, pod radius 9.275.
+- Spout joint A slip → **0.25 diametral**, joint B slip → **0.30 diametral** (`split_a_slip` / `split_b_slip`); plug shrink = socket shrink + slip/2.
+
+Convergence path (hand-iterated test prints between 19 and this slice, not separately sliced/saved): boss slip 0.40 made the plate seat; with the plate seating, joint A read too tight → joints opened to 0.25 / 0.30; with the joints sliding, the SHCS heads read too tight → counterbore opened to ⌀6.15. Derek attributes the small residual standoff at the plate-foot seam to surface roughness ("it is pretty close"), closed by the three screws.
+
+**Slice settings vs attempt 19** (committed `2c9b5b11`, "Print settings probably"; Bambu Studio `02.07.01.57`):
+- `wall_loops` 100 → **6**. Every functional wall in these parts is ≤ 6 lines at 0.62 (cradle 3-line walls, 3.0 pod walls, 4.0 spout wall slice identically either way); only bulk cores change.
+- `sparse_infill_density` 15 % → **100 %**, `sparse_infill_pattern` grid → **zig-zag**; `internal_solid_infill_pattern` zig-zag.
+- `xy_hole_compensation` 0 / `xy_contour_compensation` 0 (every clearance above is uncompensated-hole-based), `elefant_foot_compensation` 0.15, `seam_position` aligned.
+
+Unchanged from attempt 19: printer `Bambu Lab H2C 0.6 nozzle`, print `0.30mm Standard`, `layer_height` 0.30, `initial_layer_print_height` 0.30, `line_width` 0.62, `top_shell_layers` 4 / `bottom_shell_layers` 3. PET-CF slot 0 = Polymaker PET-CF, `nozzle_temperature` 280 °C, `chamber_temperatures` 50 °C, `filament_max_volumetric_speed` 5 mm³/s. Supports tree(auto), `support_filament` / `support_interface_filament` PET-CF (slot 0), `support_threshold_angle` 30, `support_top_z_distance` 0.2, `support_on_build_plate_only` 1. Part brim auto_brim 5 mm. Filament slots (3): Polymaker PET-CF, Bambu PETG Basic, Bambu ABS @BBL H2C 0.6 nozzle.
+
+**Plate composition** (per `Metadata/plate_1.json`): same 4 objects (3 shell pieces + mounting plate), all `extruder=1` on PET-CF slot 0, textured plate. Per-object on-bed footprint (bbox, mm):
+- `touch-flo-shell-bottom.step`: area **1069.5**, 57.7 × 64.7 (foot-down, full ~201 mm tall)
+- `touch-flo-shell-middle.step`: area **8.8**, 31.6 × 33.8 (end-on, body cantilevered on tree supports)
+- `touch-flo-shell-top.step`: area **501.0**, 28.7 × 31.4 (cradle face-down)
+- `touch-flo-mounting-plate.step`: area **2034.7**, 59.9 × 68.6 (bosses-up)
+
+**Reprint scope from attempt 19:** bottom piece + mounting plate (pod chain grew with the counterbore) + TPU mounting gasket (footprint follows the pod outline); middle and top pieces unchanged by the boss/head work and only re-cut by the joint slips.
 
 ## Hardware / setup observations across all PET-CF attempts
 
