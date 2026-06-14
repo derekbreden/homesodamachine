@@ -19,8 +19,8 @@ flowchart LR
   %% Freed GPIOs still available:
   %%   GPIO 2   - free (bootstrap-sensitive)
   %%   GPIO 12  - free (bootstrap-sensitive)
-  %%   GPIO 13  - free (formerly the KRAUS flavor switch — removed; flavor toggle now via S3 rotary)
-  %%   GPIO 32  - free (formerly RP2040 TX — RP2040 removed; S3 is the sole display)
+  %%   GPIO 13  - free (formerly the KRAUS flavor switch — removed; flavor toggle is on the faucet touch LCD)
+  %%   GPIO 32  - free (formerly RP2040 TX — RP2040 removed)
   %%   GPIO 35  - free (formerly RP2040 RX — RP2040 removed)
 
   subgraph ESP["ESP32-DevKitC-32E"]
@@ -62,7 +62,7 @@ flowchart LR
   end
 
   %% ── Destinations ──
-  S3["ESP32-S3\n(rotary display + BLE,\n sole interaction surface;\n flavor toggle via rotary,\n advanced via 3-dot affordance)"]
+  S3["ESP32-S3-Touch-LCD-4.3B\n(config display + BLE,\n 800×480 touch, GT911;\n fixed front-face, angled up)"]
 
   I2C_DEVICES["I2C Devices:\n  DS3231 RTC  0x68\n  MCP23017    0x20  (valves + 4 reservoir reed inputs)\n  MCP23017    0x21  (4 reservoir reed inputs, 12 spare)"]
 
@@ -86,7 +86,7 @@ flowchart LR
   REED_HIGH["Reed switch — high level\n  (carbonator full)"]
 
   %% ── Connections ──
-  P15 & P34 <-->|"Serial1\n115200 baud"| S3
+  P15 & P34 <-->|"Serial1 115200 baud\nvia ALMOCN RS485"| S3
   P21 & P22 <-->|"I2C"| I2C_DEVICES
 
   P33 & P25 & P26 -->|"Pump A"| DRV

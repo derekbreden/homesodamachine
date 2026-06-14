@@ -87,7 +87,7 @@ len_pump_mm = 250       # DC-3 (diaphragm pump), DC-5 to manifold
 len_manifold_mm = 300   # DC-7 (shelf → manifold)
 len_compressor_mm = 400 # AC-4, AC-5, AC-6 (shelf → compressor through grommet), DC-9 (shelf → side-wall fan)
 len_cold_core_mm = 600  # SIG-1/SIG-2/SIG-3 (shelf → back of cold core), SIG-9 (shelf → drip pan)
-len_umbilical_m = 1.0   # SIG-4 (umbilical-side flow meter), SIG-7 (front-face S3 extended)
+len_umbilical_m = 1.0   # SIG-4 (umbilical-side flow meter), SIG-7 (front-face 4.3B config display, internal)
 
 # ─── Inter-module connector pitch ────────────────────────────────────
 # JST XH 2.54 mm. 4-pin / 6-pin / 9-pin variants per the inter-module
@@ -169,8 +169,8 @@ def main():
             "PERI_MA_HIGH": 1,
             "FAN_A": 1,
             # Logic rails.
-            "V_DC": 15,
-            "V_LOGIC": 7,
+            "V_DC": 16,
+            "V_LOGIC": 6,
             "V_IO": 7,
             "DS18B20_PULLUP": 1,
             # Conductor counts.

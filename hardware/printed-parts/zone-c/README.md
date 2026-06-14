@@ -27,4 +27,4 @@ Cartridge geometry: [`/hardware/printed-parts/flavor/pump-case/`](/hardware/prin
 
 - Flavor reservoirs and level sensing — Zone A, nested in the foam shell ([`/hardware/printed-parts/cold-core/reservoir/`](/hardware/printed-parts/cold-core/reservoir/)).
 - Valve manifold — internal, placement flexible.
-- Dispense spout and rotary display — front face ([`/hardware/printed-parts/enclosure/front-panel/README.md`](/hardware/printed-parts/enclosure/front-panel/README.md)).
+- Dispense spout and config display — front face ([`/hardware/printed-parts/enclosure/front-panel/README.md`](/hardware/printed-parts/enclosure/front-panel/README.md)).
