@@ -22,9 +22,9 @@ On the board:
   modules): relay #1 switches the compressor's 120 VAC hot leg in a fenced,
   creepage-isolated corner of the board; relay #2 gates 12 V to the SeaFlo
   diaphragm pump.
-- **12 V → 5 V → 3.3 V regulation** on-board (two buck stages; replaces the
-  discrete regulator modules and absorbs the shelf's DC distribution block — the
-  board's pours are the 12 V fan-out).
+- **12 V → 5 V → 3.3 V regulation** on-board (two buck stages, in place of the
+  dev modules' onboard linear regulators; absorbs the shelf's DC distribution
+  block — the board's pours are the 12 V fan-out).
 - Bulk capacitance, DS18B20 pull-up, status LEDs, ESD/TVS at field connectors.
 
 Off the board, unchanged:
