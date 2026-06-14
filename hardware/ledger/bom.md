@@ -14,6 +14,7 @@ First-pass draft. **Pricing convention: delivered cost** (product + shipping + t
 | [ESP32 DIN Rail Breakout Board](https://www.amazon.com/dp/B0BW4SJ5X2) | | 1 | $25.99 | $25.99 |
 | [Waveshare ESP32-S3-Touch-LCD-4.3B](https://www.amazon.com/dp/B0D925SBYF) | Enclosure-front config + interaction display: flavor-image/ratio tuning, clean cycles, pump priming, factory reset, screensaver, and the BLE bridge to the iOS app. 4.3" 800×480 IPS RGB capacitive touch (ST7262 RGB + GT911 touch via CH422G I/O expander), ESP32-S3-WROOM-1-N16R8 (Wi-Fi/BLE 5, 16 MB flash / 8 MB PSRAM); 7–36 V screw-terminal input off the 12 V bus. Flavor display + flavor toggle live on the faucet touch LCD (below). Order #112-5620567-3321809 Jun 13: $42.99 + $3.12 tax = $46.11 | 1 | $46.11 | $46.11 |
 | [Waveshare ESP32-S3 1.47" Touch LCD, 172×320 (B0FCF1MGT3)](https://www.amazon.com/dp/B0FCF1MGT3) | **Faucet flavor display + touch toggle.** 1.47" IPS capacitive touch (JD9853 driver + AXS5106L touch chip), ESP32-S3R8 (Wi-Fi/BLE 5). Shows the selected flavor and switches flavor by touch — no separate physical button, replacing the prototype RP2040 round display. Mounts on the gooseneck dispense head; its ESP32-S3 talks to the base ESP32 over UART, as the rotary does. Order #112-7687617-6094631 Jun 7: 2 @ $23.99 + $3.48 tax = $51.46 ÷ 2 = $25.73/ea | 1 | $25.73 | $25.73 |
+| [ALMOCN TTL-to-RS485 module (5-pk)](https://www.amazon.com/dp/B09998FY4X) | RS485 transceiver on the base ESP32 for the link to the 4.3B config display; auto-direction (no DE/RE pin), 3.0–30 V supply, screw-terminal RS485 + JST TTL. 1 of 5 per unit. Order #112-8498962-9414661 Jun 13: $12.58 + $0.91 tax = $13.49 ÷ 5 = $2.70/ea | 1 (of 5 pk) | $2.70 | $2.70 |
 | [L298N Dual H-Bridge (4-pack)](https://www.amazon.com/dp/B0C5JCF5RS) | 1 driver per unit drives both peristaltic pumps (dual H-bridge); its onboard 7805/78M05 supplies the 5 V logic rail to the MCUs and relay VCC; 1 of 4 per unit ($10.71/4) | 1 (of 4 pk) | $2.68 | $2.68 |
 | [Waveshare MCP23017 I2C GPIO expander](https://www.amazon.com/dp/B07P2H1NZG) | expands ESP32 I2C into 16 GPIO for solenoid bank | 1 | $12.99 | $12.99 |
 | [DORHEA DS3231 AT24C32 RTC module (2-pk)](https://www.amazon.com/dp/B09LLMYBM1) | I2C RTC at 0x68, referenced in `wiring/esp32-pinout.mmd` and `wiring/valve-control.mmd`; I²C pins broken out as a single inline VCC/GND/SDA/SCL row for a clean 4-pin XH; 1 of 2 per unit ($7.07/2) | 1 (of 2 pk) | $3.54 | $3.54 |
@@ -251,7 +252,7 @@ Per-appliance tools that ship in the install kit so the field installer can cut 
 
 | Section | $ |
 |---|---:|
-| 1. Controllers + electronics | [$166.84](BOM_SEC1) |
+| 1. Controllers + electronics | [$169.54](BOM_SEC1) |
 | 2. Carbonator vessel (plan A, 316L) | [$240.69](BOM_SEC2) |
 | 3. Water inlet | [$238.96](BOM_SEC3) |
 | 4. CO2 subsystem | [$136.45](BOM_SEC4) |
@@ -265,7 +266,7 @@ Per-appliance tools that ship in the install kit so the field installer can cut 
 | 12. Level sensing | [$69.78](BOM_SEC12) |
 | 13. Mechanical attach hardware + reservoir-cap vent filter | [$5.94](BOM_SEC13) |
 | 14. Install kit | [$4.29](BOM_SEC14) |
-| **Total** | **[$1,585.85](BOM_GRAND)** |
+| **Total** | **[$1,588.55](BOM_GRAND)** |
 
 ## External / user-supplied (not shipped)
 
