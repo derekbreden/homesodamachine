@@ -286,6 +286,7 @@ Ice-maker donor units and copper coil for the chill loop.
 | VAMRONE 35 mm DIN rail, 4" (6 pk). Order #114-2582317-0018622, placed February 26, 2026 | [B0CDPVRY2W](https://www.amazon.com/dp/B0CDPVRY2W) | 1 pk | $7.50 | ACQUIRED |
 | ESP32 super breakout DIN-rail mount GPIO expansion. Order #114-2582317-0018622, placed February 26, 2026 | [B0BW4SJ5X2](https://www.amazon.com/dp/B0BW4SJ5X2) | 1 | $27.87 | ACQUIRED |
 | naughtystarts ESP32 screw-terminal GPIO breakout board, 3.5 mm terminals, for ESP-WROOM-32 / ESP32-DevKitC module (2 pc). Order #112-0981761-4377858, placed Jun 7, 2026 | [B0BYS6THLF](https://www.amazon.com/dp/B0BYS6THLF) | 1 pk (2) | $12.86 | ACQUIRED (delivered Jun 9) |
+| ALMOCN TTL-to-RS485 auto-direction module, 3.0–30 V, screw-terminal RS485 + JST TTL (5 pk) — RS485 transceiver on the base ESP32 for the 4.3B config-display link. Order #112-8498962-9414661, placed Jun 13, 2026 | [B09998FY4X](https://www.amazon.com/dp/B09998FY4X) | 1 pk (5) | $13.49 | ON-ORDER (arriving Jun 16) |
 | Baomain 0.11" male quick-disconnect spade (100 pk). Order #114-7897645-5210617, placed February 25, 2026 | [B01MZZGAJP](https://www.amazon.com/dp/B01MZZGAJP) | 1 pk | $6.42 | ACQUIRED |
 | Haisstronica ratchet crimper, AWG 22–10. Order #114-9620011-1329056, placed February 25, 2026 | [B08F3JKDD3](https://www.amazon.com/dp/B08F3JKDD3) | 1 | bundle | ACQUIRED |
 | Feggizuli 280 pc spade connector kit. Order #114-0182432-7123463, placed February 24, 2026 | [B0B4H54KPS](https://www.amazon.com/dp/B0B4H54KPS) | 1 pk | $8.25 | ACQUIRED |
@@ -506,10 +507,10 @@ Industrial-supply orders direct from McMaster-Carr (mcmaster.com). First McMaste
 | ACQUIRED — hardware, tools & infra (§§1–17, 19, 20) | [$25,822.12](LEDGER_ACQUIRED_HW) |
 | ACQUIRED — capitalized contract labor (§18) | [$2,607.92](LEDGER_LABOR) |
 | ACQUIRED (combined) | [$28,430.04](LEDGER_ACQUIRED_COMBINED) |
-| ON-ORDER | [$200.49](LEDGER_ON_ORDER) |
+| ON-ORDER | [$213.98](LEDGER_ON_ORDER) |
 | MISSING — paid, not received (§1 copper bar) | [$42.89](LEDGER_MISSING) |
 | LIKELY-TO-BUY | $0.00 |
-| **Grand total — cash outlay** | [$28,673.42](LEDGER_GRAND_TOTAL) |
+| **Grand total — cash outlay** | [$28,686.91](LEDGER_GRAND_TOTAL) |
 
 ACQUIRED hardware by section:
 
