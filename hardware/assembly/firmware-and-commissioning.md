@@ -57,7 +57,7 @@ Bring up in this order, verifying each rail with the multimeter before the next:
 2. **[5 V](RAIL_5V) rail** at the L298N Board A onboard regulator's 5 V pin header — expected [5 V](RAIL_5V) [± 0.1 V](RAIL_5V_TOL). This rail is the L298N's onboard 7805/78M05, fed by the same 12 V that drives the peristaltic pumps; it feeds the MCUs and the relay-module VCC. Power tree: [`/hardware/wiring/power.mmd`](/hardware/wiring/power.mmd).
 3. **[3.3 V](RAIL_33V) rail** at the ESP32-DevKitC 3V3 pin — expected [3.3 V](RAIL_33V) [± 0.05 V](RAIL_33V_TOL). This is the ESP32's onboard AMS1117; it feeds the I²C-bus pull-ups, the MCP23017 logic side, and the DS18B20 data-line pull-up.
 
-Under *full* logic load — both MCUs flashed and the S3 display backlight on (revisit after step 6) — the 5 V rail holds tolerance and the L298N regulator runs hand-warm, not too-hot-to-touch. If it runs hot, fit a stick-on heatsink on the regulator and re-check.
+Under *full* logic load — both MCUs flashed and the faucet display backlight on (revisit after step 6) — the 5 V rail holds tolerance and the L298N regulator runs hand-warm, not too-hot-to-touch. If it runs hot, fit a stick-on heatsink on the regulator and re-check.
 
 If any rail is out of tolerance, kill the PSU and return the unit to `wiring.md`. Do **not** energize the AC side (compressor + fan) at this step — relay #1 stays de-energized until step 7.
 
