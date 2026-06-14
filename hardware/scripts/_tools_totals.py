@@ -160,6 +160,7 @@ TOOLS = [
     ("Pliers Wrench", "T_PLIERS_WRENCH", A("B07YLFLSJW")),
     ("Uniweld RHP400", "T_RHP400", A("B008HQ6GXO")),
     ("Hakko FX-888D", "T_HAKKO", A("B0D4DJW54S")),
+    ("Hakko FR-301", "T_FR301", A("B07BKSLLG9")),
     ("fume extractor", "T_FUME_EXT", A("B07VWDN29F")),
     ("AstroAI digital multimeter", "T_DMM", A("B071JL6LLL")),
     ("11063W self-adjusting", "T_STRIPPER", A("B00CXKOEQ6")),

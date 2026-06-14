@@ -406,6 +406,7 @@ Bench soldering capability for through-hole, wire-to-pad (pogo pin leads), and g
 | Kester 44 63/37 RMA rosin-core solder, 0.020" / 3/4 oz tube — finer solder for wire-to-pad work on the faucet display S3; the §14 0.031" spool is coarse for the small pads. Order #112-3550632-8904259, placed Jun 11, 2026 | [B00AYJ0B7Y](https://www.amazon.com/dp/B00AYJ0B7Y) | 1 | $14.94 | ACQUIRED (delivered Jun 13) |
 | Hakko T18-D08 chisel tip, 0.8 mm — fine FX-888D tip for the faucet display S3's small through-hole pads; complements the T18-D12/D16 already on hand. Order #112-3550632-8904259, placed Jun 11, 2026 | [B004ORB8GK](https://www.amazon.com/dp/B004ORB8GK) | 1 | $9.87 | ACQUIRED (delivered Jun 13) |
 | VECO-T T18 10-tip assortment (LB/BR02/D16/D32/B/K/C2/C5/I/S3), FX-888D-compatible aftermarket — adds the K knife for drag-soldering JST-XH connector rows and the high-mass D32/S3 for desoldering the pre-soldered MCP23017 GPIO + L298N control headers in the Dupont→JST migration; not genuine Hakko. Order #112-7486016-3622668, placed Jun 14, 2026 | [B0FWKGXFK7](https://www.amazon.com/dp/B0FWKGXFK7) | 1 kit (10 tips) | $20.37 | ON-ORDER (arriving Jun 15) |
+| Hakko FR-301 portable desoldering tool, 140 W — self-contained heated hollow nozzle + motorized vacuum pump, trigger-actuated; clears solder-blocked plated through-holes in one pull. Bought after braid/manual wicking couldn't clear the plated barrels on the pre-soldered MCP23017 GPIO + L298N control headers during the Dupont→JST migration. Order #112-8278354-1449064, placed Jun 14, 2026 | [B07BKSLLG9](https://www.amazon.com/dp/B07BKSLLG9) | 1 | $225.20 | ON-ORDER (arriving Jun 15) |
 
 ## 15. 3D printing equipment and filaments (Bambu Lab direct)
 
@@ -508,10 +509,10 @@ Industrial-supply orders direct from McMaster-Carr (mcmaster.com). First McMaste
 | ACQUIRED — hardware, tools & infra (§§1–17, 19, 20) | [$25,870.49](LEDGER_ACQUIRED_HW) |
 | ACQUIRED — capitalized contract labor (§18) | [$2,607.92](LEDGER_LABOR) |
 | ACQUIRED (combined) | [$28,478.41](LEDGER_ACQUIRED_COMBINED) |
-| ON-ORDER | [$185.98](LEDGER_ON_ORDER) |
+| ON-ORDER | [$411.18](LEDGER_ON_ORDER) |
 | MISSING — paid, not received (§1 copper bar) | [$42.89](LEDGER_MISSING) |
 | LIKELY-TO-BUY | $0.00 |
-| **Grand total — cash outlay** | [$28,707.28](LEDGER_GRAND_TOTAL) |
+| **Grand total — cash outlay** | [$28,932.48](LEDGER_GRAND_TOTAL) |
 
 ACQUIRED hardware by section:
 
