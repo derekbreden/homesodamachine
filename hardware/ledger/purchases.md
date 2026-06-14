@@ -20,50 +20,50 @@ Stainless pressure-vessel fabrication: 316 SS round-tube body + 1/4" laser-cut 3
 
 | Part | ASIN link | Qty | $ | Status |
 |---|---|---|---|---|
-| VEVOR Slip Roll Machine, 24" forming width, 16 ga | [B0DZP1VBZY](https://www.amazon.com/dp/B0DZP1VBZY) | 1 | $235.94 | ACQUIRED |
-| VEVOR 12-ton Hydraulic Shop Press (for dishing dies) | [B0BZ7YY3CP](https://www.amazon.com/dp/B0BZ7YY3CP) | 1 | $155.50 | ACQUIRED |
-| Weldpro 3-Tier Welding Cart | [B08G5CW3DY](https://www.amazon.com/dp/B08G5CW3DY) | 1 | $193.04 | ACQUIRED |
-| Blue Demon ER308L .030 stainless MIG wire, 2 lb | [B0025Q2HIU](https://www.amazon.com/dp/B0025Q2HIU) | 1 | $23.95 | ACQUIRED |
-| RX Weld argon regulator / flowmeter | [B08P5BNHBX](https://www.amazon.com/dp/B08P5BNHBX) | 1 | $31.09 | ACQUIRED |
+| VEVOR Slip Roll Machine, 24" forming width, 16 ga. Order #112-4780540-1769027, placed April 16, 2026 | [B0DZP1VBZY](https://www.amazon.com/dp/B0DZP1VBZY) | 1 | $235.94 | ACQUIRED |
+| VEVOR 12-ton Hydraulic Shop Press (for dishing dies). Order #112-1627637-9419449, placed April 14, 2026 | [B0BZ7YY3CP](https://www.amazon.com/dp/B0BZ7YY3CP) | 1 | $155.50 | ACQUIRED |
+| Weldpro 3-Tier Welding Cart. Order #112-8830635-1424267, placed April 6, 2026 | [B08G5CW3DY](https://www.amazon.com/dp/B08G5CW3DY) | 1 | $193.04 | ACQUIRED |
+| Blue Demon ER308L .030 stainless MIG wire, 2 lb. Order #112-8830635-1424267, placed April 6, 2026 | [B0025Q2HIU](https://www.amazon.com/dp/B0025Q2HIU) | 1 | $23.95 | ACQUIRED |
+| RX Weld argon regulator / flowmeter. Order #112-8830635-1424267, placed April 6, 2026 | [B08P5BNHBX](https://www.amazon.com/dp/B08P5BNHBX) | 1 | $31.09 | ACQUIRED |
 | Airgas #8162013342 — argon size-80 cylinder, CGA-580 (CY-AR 80) | airgas.com (Lincoln NE) | 1 | $399.31 | ACQUIRED |
 | Airgas #8162013342 — argon fill, 85 SCF (AR 80) | airgas.com (Lincoln NE) | 1 | $75.20 | ACQUIRED |
-| Strong Hand magnetic V-pads welding magnet kit | [B00JXDSVA6](https://www.amazon.com/dp/B00JXDSVA6) | 1 | $29.21 | ACQUIRED |
-| MAXMAN stainless steel wire brush set | [B08L7RXVG5](https://www.amazon.com/dp/B08L7RXVG5) | 1 | $12.22 | ACQUIRED |
+| Strong Hand magnetic V-pads welding magnet kit. Order #112-8830635-1424267, placed April 6, 2026 | [B00JXDSVA6](https://www.amazon.com/dp/B00JXDSVA6) | 1 | $29.21 | ACQUIRED |
+| MAXMAN stainless steel wire brush set. Order #112-8830635-1424267, placed April 6, 2026 | [B08L7RXVG5](https://www.amazon.com/dp/B08L7RXVG5) | 1 | $12.22 | ACQUIRED |
 | 1/4" NPT female weld bung, 304 SS stepped flange. Order #112-0019658-3684217, placed Apr 4, 2026 | [B07QNV8796](https://www.amazon.com/dp/B07QNV8796) | 5 | $8.57 ea | ACQUIRED |
-| 4pc 1/4" NPT male hex nipple, 316 SS 5000 psi | [B0GD1QBLQ3](https://www.amazon.com/dp/B0GD1QBLQ3) | 1 pk | $16.29 | ACQUIRED |
-| Millrose PTFE thread seal tape | [B07C9ZV4PG](https://www.amazon.com/dp/B07C9ZV4PG) | 1 | $21.52 | ACQUIRED |
-| Viva Doria 100% pure food-grade citric acid, fine grain, 2 lb | [B0C5NQM8S1](https://www.amazon.com/dp/B0C5NQM8S1) | 1 | $9.99 | ACQUIRED |
+| 4pc 1/4" NPT male hex nipple, 316 SS 5000 psi. Order #112-0019658-3684217, placed April 4, 2026 | [B0GD1QBLQ3](https://www.amazon.com/dp/B0GD1QBLQ3) | 1 pk | $16.29 | ACQUIRED |
+| Millrose PTFE thread seal tape. Order #112-0019658-3684217, placed April 4, 2026 | [B07C9ZV4PG](https://www.amazon.com/dp/B07C9ZV4PG) | 1 | $21.52 | ACQUIRED |
+| Viva Doria 100% pure food-grade citric acid, fine grain, 2 lb. Order #112-8083402-8740244, placed April 12, 2026 | [B0C5NQM8S1](https://www.amazon.com/dp/B0C5NQM8S1) | 1 | $9.99 | ACQUIRED |
 | Cambro 6 QT square polycarbonate food container. Order #112-5291452-2765065, placed Apr 12, 2026 | [B001BZEQ44](https://www.amazon.com/dp/B001BZEQ44) | 1 | $21.45 | ACQUIRED |
-| findmall ER308L .035 MIG wire, 10 lb spool | [B0C52XQB39](https://www.amazon.com/dp/B0C52XQB39) | 1 | $90.68 | ACQUIRED |
+| findmall ER308L .035 MIG wire, 10 lb spool. Order #114-6485602-3013015, placed April 19, 2026 | [B0C52XQB39](https://www.amazon.com/dp/B0C52XQB39) | 1 | $90.68 | ACQUIRED |
 | PGN ER308L .030 MIG wire, 10 lb spool | [B09WRZDBPN](https://www.amazon.com/dp/B09WRZDBPN) | 1 | — | CANCELLED |
-| STARTECHWELD ER316L .030 MIG wire, 10 lb spool, 8" OD / 2" center bore | [B09BKFBXT9](https://www.amazon.com/dp/B09BKFBXT9) | 1 | $129.50 | ACQUIRED |
-| Caiman premium goat-grain TIG / multi-task welding gloves | [B07T6VLSK3](https://www.amazon.com/dp/B07T6VLSK3) | 1 | $23.05 | ACQUIRED |
-| Caiman premium goat-grain TIG welding gloves | [B07T1NYXHM](https://www.amazon.com/dp/B07T1NYXHM) | 1 | $23.05 | ACQUIRED |
-| YTKavq 1/4" × 2" × 12" C110 pure copper flat bar, soft-annealed | [B0DR2PX6TT](https://www.amazon.com/dp/B0DR2PX6TT) | 1 | $42.89 | MISSING (delivered-but-empty 2026-04-23; no refund pursued) |
-| YTKavq 1/4" × 2" × 12" C110 pure copper flat bar | [B0DR2PX6TT](https://www.amazon.com/dp/B0DR2PX6TT) | 1 | $42.89 | ACQUIRED |
-| 304 SS 4" × 6" × 1/16" (16 ga / 1.5 mm) sheet, 2-pk | [B0DFXXQZD3](https://www.amazon.com/dp/B0DFXXQZD3) | 3 pk | $48.24 | ACQUIRED |
-| 304 SS 4" × 4" × 0.04" (19 ga / 1 mm) sheet, 4 pc | [B0C5LWVLCD](https://www.amazon.com/dp/B0C5LWVLCD) | 1 | $13.93 | ACQUIRED |
-| Drill America 1/4" NPT HSS pipe tap + 1-1/2" OD round die kit | [B0DXN1LDKT](https://www.amazon.com/dp/B0DXN1LDKT) | 1 | $20.16 | ACQUIRED |
-| MOTOKU 38 mm / 1.5" OD heavy-duty round die handle | [B073ZX58PH](https://www.amazon.com/dp/B073ZX58PH) | 1 | $15.00 | ACQUIRED |
-| Tap Magic EP-Xtra pipe-tap cutting fluid, 16 oz (size variant on listing B00DHMHSGM) | [B00DHMHSGM](https://www.amazon.com/dp/B00DHMHSGM) | 1 | $17.01 | ACQUIRED |
-| WEN 4208T 2.3 A 8" 5-speed benchtop drill press | [B08ZVT5JKC](https://www.amazon.com/dp/B08ZVT5JKC) | 1 | $111.54 | ACQUIRED |
-| Drill America 1/4"–1-1/8" tap-capacity adjustable tap wrench, DWT series | [B00DMEYTLW](https://www.amazon.com/dp/B00DMEYTLW) | 1 | $33.02 | ACQUIRED |
-| Drill America DWT64006 Qualtech HSS pipe tap, 1/4"-18 NPT | [B01DZD1Y9Y](https://www.amazon.com/dp/B01DZD1Y9Y) | 1 | $10.54 | ACQUIRED |
-| LingGan 1/4-18 NPT M35 cobalt steel pipe tap, TiN-coated | [B0D7HM5R3C](https://www.amazon.com/dp/B0D7HM5R3C) | 1 | $13.93 | ACQUIRED (delivered May 19) |
-| Brown & Sharpe spring-loaded tap guide, 1/2" hardened shank | [B005317ZMC](https://www.amazon.com/dp/B005317ZMC) | 1 | $27.45 | ACQUIRED |
-| Mollom 124 mm / 4-7/8" HSS M42 bi-metal hole saw with arbor + pilot bits | [B0BZQ4J5B1](https://www.amazon.com/dp/B0BZQ4J5B1) | 1 | $19.19 | ACQUIRED |
-| 12 mm Baltic birch plywood, 1/2" × 8" × 8", B/BB grade (2 pc) | [B0DP8597Q2](https://www.amazon.com/dp/B0DP8597Q2) | 1 box | $10.71 | ACQUIRED |
-| ACXFOND 1/4" MDF boards, 8" × 10" (20 pk) | [B0F1FJYDQ3](https://www.amazon.com/dp/B0F1FJYDQ3) | 1 pk | $25.73 | ACQUIRED |
-| Franklin International 1412 Titebond III wood glue, 4 oz | [B0002YQ378](https://www.amazon.com/dp/B0002YQ378) | 1 | $5.34 | ACQUIRED |
-| Storystore 4" heavy-duty steel C-clamps (4 pk) | [B0DHX78G97](https://www.amazon.com/dp/B0DHX78G97) | 1 pk | $21.44 | ACQUIRED |
-| Bosch DSB1013 1" × 6" Daredevil Standard Spade Bit | [B001NGPAA0](https://www.amazon.com/dp/B001NGPAA0) | 1 | $5.35 | ACQUIRED |
-| Ultra Duster Canned Air Industrial Strength 10 oz, 4-pack | [B07JRBR1MM](https://www.amazon.com/dp/B07JRBR1MM) | 1 pk (4× 10 oz) | $24.51 | ACQUIRED (delivered May 12) |
-| Hgnova 15-pc 1064 nm laser protective lens, D18 × 2 mm, 1000–3000 W handheld 4-in-1 laser welder | [B0FF38DY1Z](https://www.amazon.com/dp/B0FF38DY1Z) | 1 pk (15) | $19.29 | ACQUIRED |
-| SENCTRL 0–200 PSI glycerin-filled pressure gauge, 2.5" dial, 1/4" NPT lower mount, SS case | [B0BCHMQLFB](https://www.amazon.com/dp/B0BCHMQLFB) | 1 | $10.72 | ACQUIRED (delivered Tue May 5) |
-| ChillWaves brass 1/4" NPT outer-hex-head pipe plugs, 12-pack | [B0C4LP4B3D](https://www.amazon.com/dp/B0C4LP4B3D) | 1 pk (12) | $11.79 | ACQUIRED (delivered Tue May 5) |
-| Milton 727 industrial M-STYLE® 1/4" MNPT air plug, 10-pack, alloy steel | [B000PDWI4S](https://www.amazon.com/dp/B000PDWI4S) | 1 pk (10) | $15.02 | ACQUIRED (delivered Tue May 5) |
-| BEAMNOVA hydrostatic test pump, 0–726 PSI / 0–50 bar / 0–5 MPa, 3.17 gal water reservoir, 4.43 ft × 1/4" hydraulic hose with 1/2" female gasket-swivel testpiece end, copper pump body + check valve, built-in 3-unit dial gauge | [B07T45XTD1](https://www.amazon.com/dp/B07T45XTD1) | 1 | $93.30 | ACQUIRED (delivered Tue May 5) |
-| KOOTANS 1/2" NPT male × 1/4" NPT male solid brass reducing hex nipple, 4-pack | [B07P7ZRZMD](https://www.amazon.com/dp/B07P7ZRZMD) | 1 pk (4) | $12.86 | ACQUIRED (delivered Tue May 5) |
+| STARTECHWELD ER316L .030 MIG wire, 10 lb spool, 8" OD / 2" center bore. Order #112-2295053-5101056, placed April 24, 2026 | [B09BKFBXT9](https://www.amazon.com/dp/B09BKFBXT9) | 1 | $129.50 | ACQUIRED |
+| Caiman premium goat-grain TIG / multi-task welding gloves. Order #114-0933175-3371439, placed April 19, 2026 | [B07T6VLSK3](https://www.amazon.com/dp/B07T6VLSK3) | 1 | $23.05 | ACQUIRED |
+| Caiman premium goat-grain TIG welding gloves. Order #114-5597505-0433853, placed April 17, 2026 | [B07T1NYXHM](https://www.amazon.com/dp/B07T1NYXHM) | 1 | $23.05 | ACQUIRED |
+| YTKavq 1/4" × 2" × 12" C110 pure copper flat bar, soft-annealed. Order #112-4953236-4101019, placed April 23, 2026 | [B0DR2PX6TT](https://www.amazon.com/dp/B0DR2PX6TT) | 1 | $42.89 | MISSING (delivered-but-empty 2026-04-23; no refund pursued) |
+| YTKavq 1/4" × 2" × 12" C110 pure copper flat bar. Order #112-0935480-2206657, placed April 22, 2026 | [B0DR2PX6TT](https://www.amazon.com/dp/B0DR2PX6TT) | 1 | $42.89 | ACQUIRED |
+| 304 SS 4" × 6" × 1/16" (16 ga / 1.5 mm) sheet, 2-pk. Order #112-8776391-7335431, placed April 22, 2026 | [B0DFXXQZD3](https://www.amazon.com/dp/B0DFXXQZD3) | 3 pk | $48.24 | ACQUIRED |
+| 304 SS 4" × 4" × 0.04" (19 ga / 1 mm) sheet, 4 pc. Order #112-6588057-9595403, placed April 22, 2026 | [B0C5LWVLCD](https://www.amazon.com/dp/B0C5LWVLCD) | 1 | $13.93 | ACQUIRED |
+| Drill America 1/4" NPT HSS pipe tap + 1-1/2" OD round die kit. Order #114-8354589-7380236, placed April 19, 2026 | [B0DXN1LDKT](https://www.amazon.com/dp/B0DXN1LDKT) | 1 | $20.16 | ACQUIRED |
+| MOTOKU 38 mm / 1.5" OD heavy-duty round die handle. Order #114-8354589-7380236, placed April 19, 2026 | [B073ZX58PH](https://www.amazon.com/dp/B073ZX58PH) | 1 | $15.00 | ACQUIRED |
+| Tap Magic EP-Xtra pipe-tap cutting fluid, 16 oz (size variant on listing B00DHMHSGM). Order #112-3539135-2289004, placed April 24, 2026 | [B00DHMHSGM](https://www.amazon.com/dp/B00DHMHSGM) | 1 | $17.01 | ACQUIRED |
+| WEN 4208T 2.3 A 8" 5-speed benchtop drill press. Order #112-2348373-7907448, placed April 29, 2026 | [B08ZVT5JKC](https://www.amazon.com/dp/B08ZVT5JKC) | 1 | $111.54 | ACQUIRED |
+| Drill America 1/4"–1-1/8" tap-capacity adjustable tap wrench, DWT series. Order #112-2348373-7907448, placed April 29, 2026 | [B00DMEYTLW](https://www.amazon.com/dp/B00DMEYTLW) | 1 | $33.02 | ACQUIRED |
+| Drill America DWT64006 Qualtech HSS pipe tap, 1/4"-18 NPT. Order #112-2348373-7907448, placed April 29, 2026 | [B01DZD1Y9Y](https://www.amazon.com/dp/B01DZD1Y9Y) | 1 | $10.54 | ACQUIRED |
+| LingGan 1/4-18 NPT M35 cobalt steel pipe tap, TiN-coated. Order #112-8743279-3935456, placed May 17, 2026 | [B0D7HM5R3C](https://www.amazon.com/dp/B0D7HM5R3C) | 1 | $13.93 | ACQUIRED (delivered May 19) |
+| Brown & Sharpe spring-loaded tap guide, 1/2" hardened shank. Order #112-2348373-7907448, placed April 29, 2026 | [B005317ZMC](https://www.amazon.com/dp/B005317ZMC) | 1 | $27.45 | ACQUIRED |
+| Mollom 124 mm / 4-7/8" HSS M42 bi-metal hole saw with arbor + pilot bits. Order #112-2348373-7907448, placed April 29, 2026 | [B0BZQ4J5B1](https://www.amazon.com/dp/B0BZQ4J5B1) | 1 | $19.19 | ACQUIRED |
+| 12 mm Baltic birch plywood, 1/2" × 8" × 8", B/BB grade (2 pc). Order #112-2348373-7907448, placed April 29, 2026 | [B0DP8597Q2](https://www.amazon.com/dp/B0DP8597Q2) | 1 box | $10.71 | ACQUIRED |
+| ACXFOND 1/4" MDF boards, 8" × 10" (20 pk). Order #112-2348373-7907448, placed April 29, 2026 | [B0F1FJYDQ3](https://www.amazon.com/dp/B0F1FJYDQ3) | 1 pk | $25.73 | ACQUIRED |
+| Franklin International 1412 Titebond III wood glue, 4 oz. Order #112-2348373-7907448, placed April 29, 2026 | [B0002YQ378](https://www.amazon.com/dp/B0002YQ378) | 1 | $5.34 | ACQUIRED |
+| Storystore 4" heavy-duty steel C-clamps (4 pk). Order #112-2348373-7907448, placed April 29, 2026 | [B0DHX78G97](https://www.amazon.com/dp/B0DHX78G97) | 1 pk | $21.44 | ACQUIRED |
+| Bosch DSB1013 1" × 6" Daredevil Standard Spade Bit. Order #111-4630388-1572202, placed April 29, 2026 | [B001NGPAA0](https://www.amazon.com/dp/B001NGPAA0) | 1 | $5.35 | ACQUIRED |
+| Ultra Duster Canned Air Industrial Strength 10 oz, 4-pack. Order #112-6571709-7582668, placed May 8, 2026 | [B07JRBR1MM](https://www.amazon.com/dp/B07JRBR1MM) | 1 pk (4× 10 oz) | $24.51 | ACQUIRED (delivered May 12) |
+| Hgnova 15-pc 1064 nm laser protective lens, D18 × 2 mm, 1000–3000 W handheld 4-in-1 laser welder. Order #112-3421913-9021801, placed April 30, 2026 | [B0FF38DY1Z](https://www.amazon.com/dp/B0FF38DY1Z) | 1 pk (15) | $19.29 | ACQUIRED |
+| SENCTRL 0–200 PSI glycerin-filled pressure gauge, 2.5" dial, 1/4" NPT lower mount, SS case. Order #112-2086169-3211445, placed May 4, 2026 | [B0BCHMQLFB](https://www.amazon.com/dp/B0BCHMQLFB) | 1 | $10.72 | ACQUIRED (delivered Tue May 5) |
+| ChillWaves brass 1/4" NPT outer-hex-head pipe plugs, 12-pack. Order #112-2086169-3211445, placed May 4, 2026 | [B0C4LP4B3D](https://www.amazon.com/dp/B0C4LP4B3D) | 1 pk (12) | $11.79 | ACQUIRED (delivered Tue May 5) |
+| Milton 727 industrial M-STYLE® 1/4" MNPT air plug, 10-pack, alloy steel. Order #112-2086169-3211445, placed May 4, 2026 | [B000PDWI4S](https://www.amazon.com/dp/B000PDWI4S) | 1 pk (10) | $15.02 | ACQUIRED (delivered Tue May 5) |
+| BEAMNOVA hydrostatic test pump, 0–726 PSI / 0–50 bar / 0–5 MPa, 3.17 gal water reservoir, 4.43 ft × 1/4" hydraulic hose with 1/2" female gasket-swivel testpiece end, copper pump body + check valve, built-in 3-unit dial gauge. Order #112-6990924-2823418, placed May 4, 2026 | [B07T45XTD1](https://www.amazon.com/dp/B07T45XTD1) | 1 | $93.30 | ACQUIRED (delivered Tue May 5) |
+| KOOTANS 1/2" NPT male × 1/4" NPT male solid brass reducing hex nipple, 4-pack. Order #112-1128563-6922646, placed May 4, 2026 | [B07P7ZRZMD](https://www.amazon.com/dp/B07P7ZRZMD) | 1 pk (4) | $12.86 | ACQUIRED (delivered Tue May 5) |
 | OnlineMetals #12498 — 5" OD × 0.065" wall 316 welded SS round tube, cut to 6.0" length, MTRs required | onlinemetals.com | 10 | $736.73 | ACQUIRED |
 | SendCutSend order SG019619 — 1/4" 316 SS circular endcap plates | sendcutsend.com | 20 | $621.19 | ACQUIRED |
 | SendCutSend order SQ65E969 — 304 SS 0.048" body blanks ×2 (plan-B spare/practice) | sendcutsend.com | 2 | $60.19 | ACQUIRED |
@@ -78,17 +78,17 @@ Cylinders, regulator, CO2 line, push-to-connect adapters for the CO2 side.
 | Part | ASIN link | Qty | $ | Status |
 |---|---|---|---|---|
 | Lillium under-sink carbonated soda maker + 3-way sparkling-water faucet, black, 110–120 V AC (SKU 102) | [liliumfaucet.com](https://liliumfaucet.com/) | 1 | $1,129.00 | ACQUIRED |
-| TAPRITE E-T742 CO2 dual-gauge primary regulator, CGA-320 | [B00L38DRD0](https://www.amazon.com/dp/B00L38DRD0) | 1 | $96.47 | ACQUIRED |
+| TAPRITE E-T742 CO2 dual-gauge primary regulator, CGA-320. Order #114-0170640-0334629, placed February 13, 2026 | [B00L38DRD0](https://www.amazon.com/dp/B00L38DRD0) | 1 | $96.47 | ACQUIRED |
 | Airgas #8160436286 — prototype CO2 cylinder, 5 lb aluminum food-grade, CGA-320 (CY-CD FG5) | airgas.com (Lincoln NE) | 1 | $133.10 | ACQUIRED |
 | Airgas #8160436286 — CO2 fill, 5 lb food-grade (prototype cylinder) | airgas.com (Lincoln NE) | 1 | $47.93 | ACQUIRED |
 | Airgas #8162013342 — testing CO2 cylinder, 5 lb aluminum food-grade, CGA-320 (CY-CD FG5) | airgas.com (Lincoln NE) | 1 | $133.10 | ACQUIRED |
 | Airgas #8162013342 — CO2 fill, 5 lb food-grade (testing cylinder) | airgas.com (Lincoln NE) | 1 | $67.38 | ACQUIRED |
-| 10 ft 5/16" ID beer CO2 line w/ 4 hose clamps | [B0D1RB3TF6](https://www.amazon.com/dp/B0D1RB3TF6) | 1 | $13.50 | ACQUIRED |
-| DERPIPE push-to-connect 5/16" tube x 1/4" NPT (5 pk) | [B09LXVGPG7](https://www.amazon.com/dp/B09LXVGPG7) | 1 pk | $10.71 | ACQUIRED |
-| VUYOMUA 0.8 gal SS portable air tank (bench test fixture) | [B0BV6FMMJP](https://www.amazon.com/dp/B0BV6FMMJP) | 1 | $60.05 | ACQUIRED |
+| 10 ft 5/16" ID beer CO2 line w/ 4 hose clamps. Order #114-7655402-1447440, placed February 13, 2026 | [B0D1RB3TF6](https://www.amazon.com/dp/B0D1RB3TF6) | 1 | $13.50 | ACQUIRED |
+| DERPIPE push-to-connect 5/16" tube x 1/4" NPT (5 pk). Order #114-2491581-3257040, placed February 14, 2026 | [B09LXVGPG7](https://www.amazon.com/dp/B09LXVGPG7) | 1 pk | $10.71 | ACQUIRED |
+| VUYOMUA 0.8 gal SS portable air tank (bench test fixture). Order #112-5187846-6776238, placed April 16, 2026 | [B0BV6FMMJP](https://www.amazon.com/dp/B0BV6FMMJP) | 1 | $60.05 | ACQUIRED |
 | Control Devices SV-100 safety valve, 1/4" NPT, 100 psi (spare PRV; superseded by SV-125). Order #112-7814251-3174665, placed Apr 12, 2026 | [B0D361X97X](https://www.amazon.com/dp/B0D361X97X) | 2 | $8.03 ea | ACQUIRED |
-| Interstate Pneumatics WR1110 1/4" NPT in-Line 90 PSI fixed pre-set pressure regulator, 230 PSI max inlet, aluminum body | [B07J2L8LF3](https://www.amazon.com/dp/B07J2L8LF3) | 1 | $25.66 | ACQUIRED (delivered May 17) |
-| Control Devices SV-125 safety valve, 1/4" NPT, 125 psi set pressure, 49 SCFM relief, brass | [B01G2F6EMY](https://www.amazon.com/dp/B01G2F6EMY) | 1 | $8.03 | ACQUIRED (delivered May 17) |
+| Interstate Pneumatics WR1110 1/4" NPT in-Line 90 PSI fixed pre-set pressure regulator, 230 PSI max inlet, aluminum body. Order #112-6323725-5423434, placed May 13, 2026 | [B07J2L8LF3](https://www.amazon.com/dp/B07J2L8LF3) | 1 | $25.66 | ACQUIRED (delivered May 17) |
+| Control Devices SV-125 safety valve, 1/4" NPT, 125 psi set pressure, 49 SCFM relief, brass. Order #112-6323725-5423434, placed May 13, 2026 | [B01G2F6EMY](https://www.amazon.com/dp/B01G2F6EMY) | 1 | $8.03 | ACQUIRED (delivered May 17) |
 | Fresh Water Systems order WEBFWS100675224 — JG 1/4" NPTF male connector (×10) + 1/4" union elbow PP0308E (×10) | [freshwatersystems.com](https://www.freshwatersystems.com/) | 1 order (2 × bag of 10) | $44.11 | ACQUIRED (delivered May 19) |
 
 ## 3. Water supply + backflow prevention
@@ -99,20 +99,20 @@ Feed-water inlet, filter, ASSE 1022 backflow preventer and its vent-line hardwar
 |---|---|---|---|---|
 | Multiplex 19-0897 ASSE 1022 backflow preventer, 3/8" NPT × 3/8" MFL | [howdybrewer.com](https://www.howdybrewer.com/products/multiplex-backflow-preventor-assembly-1022-3-8-npt-x-3-8-mfl) | 1 | $61.49 | ACQUIRED |
 | Multiplex 19-0897 ASSE 1022 backflow preventer, 3/8" NPT × 3/8" MFL | [midwestbev.com](https://www.midwestbev.com/products/asse-1022-backflow-preventer) | 4 | $145.80 | ACQUIRED |
-| Hooshing 3/8" flare × 1/4" FNPT brass adapter (2 pk) | [B0BNHVV6HT](https://www.amazon.com/dp/B0BNHVV6HT) | 1 pk | $10.71 | ACQUIRED |
+| Hooshing 3/8" flare × 1/4" FNPT brass adapter (2 pk). Order #112-4601641-4469804, placed April 16, 2026 | [B0BNHVV6HT](https://www.amazon.com/dp/B0BNHVV6HT) | 1 pk | $10.71 | ACQUIRED |
 | brewhardware FFL38BARB38 Swivel Flare Adapter, 3/8" FFL (UNCOMMON) × 3/8" OD hose barb | [brewhardware.com](https://www.brewhardware.com/product_p/ffl38barb38.htm) | 5 | $39.42 | ACQUIRED (delivered) |
-| Sealproof 1/4" ID × 3/8" OD food-grade clear PVC, 10 ft | [B07D9DK94V](https://www.amazon.com/dp/B07D9DK94V) | 1 | $8.46 | ACQUIRED |
-| Waterdrop 15UC-UF 0.01 µm inline fridge/ice-maker filter | [B085G9TZ4L](https://www.amazon.com/dp/B085G9TZ4L) | 1 | $67.56 | ACQUIRED |
-| HAOCHEN brass angle stop add-a-tee 3/8"×3/8"×1/4" | [B0DLKHHGL6](https://www.amazon.com/dp/B0DLKHHGL6) | 1 | $12.86 | ACQUIRED |
+| Sealproof 1/4" ID × 3/8" OD food-grade clear PVC, 10 ft. Order #112-9672770-7349862, placed April 16, 2026 | [B07D9DK94V](https://www.amazon.com/dp/B07D9DK94V) | 1 | $8.46 | ACQUIRED |
+| Waterdrop 15UC-UF 0.01 µm inline fridge/ice-maker filter. Order #114-7711911-5865013, placed February 11, 2026 | [B085G9TZ4L](https://www.amazon.com/dp/B085G9TZ4L) | 1 | $67.56 | ACQUIRED |
+| HAOCHEN brass angle stop add-a-tee 3/8"×3/8"×1/4". Order #114-7711911-5865013, placed February 11, 2026 | [B0DLKHHGL6](https://www.amazon.com/dp/B0DLKHHGL6) | 1 | $12.86 | ACQUIRED |
 | GAGIRA 5Pcs 316L Stainless Steel Coupling, 3/8" NPT Female × 1/4" NPT Female, includes Teflon tape. Order #114-6677442-9807460, placed May 22, 2026 | [B0G2XJGZMQ](https://www.amazon.com/dp/B0G2XJGZMQ) | 1 pk | $18.22 | ACQUIRED |
 | LTWFITTING brass 3/8" × 1/4" FNPT reducing coupling (5-pk) | amazon.com (114-9960851-7517853) | 1 pk (5) | $8.56 | ACQUIRED (delivered May 29) |
-| Lifevant 32.8 ft 1/4" OD water tubing + 12 quick-connects | [B0DKCZ5W66](https://www.amazon.com/dp/B0DKCZ5W66) | 1 | $10.71 | ACQUIRED |
+| Lifevant 32.8 ft 1/4" OD water tubing + 12 quick-connects. Order #114-5825243-4744249, placed February 12, 2026 | [B0DKCZ5W66](https://www.amazon.com/dp/B0DKCZ5W66) | 1 | $10.71 | ACQUIRED |
 | Fresh Water Systems order WEBFWS100673540 — black LLDPE tubing: 3/8" OD 25 ft + 1/4" OD 100 ft | [freshwatersystems.com](https://www.freshwatersystems.com/) | 1 order | $43.29 | ACQUIRED (delivered May 13) |
-| John Guest 1/4" OD × 1/8" NPT male push-fit | [B07V6XKZG9](https://www.amazon.com/dp/B07V6XKZG9) | 1 | $5.36 | ACQUIRED |
-| John Guest PI1208S acetal bulkhead union (1/4" QC) | [B0C1F3QR7N](https://www.amazon.com/dp/B0C1F3QR7N) | 2 | $12.32 ea | ACQUIRED |
-| SAMSUNG HAF-QIN-3P carbon block refrigerator filter (3 pk) | [B09HR7H8X7](https://www.amazon.com/dp/B09HR7H8X7) | 1 pk | $97.10 | ACQUIRED |
-| Yetaha RO 1/4" water flow-adjust valve | [B07GDFWB8R](https://www.amazon.com/dp/B07GDFWB8R) | 1 | $12.86 | ACQUIRED |
-| SEAFLO 22-Series 12V 1.3 GPM 100 psi on-demand pump | [B0166UBJX4](https://www.amazon.com/dp/B0166UBJX4) | 1 | $48.25 | ACQUIRED |
+| John Guest 1/4" OD × 1/8" NPT male push-fit. Order #114-5825243-4744249, placed February 12, 2026 | [B07V6XKZG9](https://www.amazon.com/dp/B07V6XKZG9) | 1 | $5.36 | ACQUIRED |
+| John Guest PI1208S acetal bulkhead union (1/4" QC). Order #114-5825243-4744249, placed February 12, 2026 | [B0C1F3QR7N](https://www.amazon.com/dp/B0C1F3QR7N) | 2 | $12.32 ea | ACQUIRED |
+| SAMSUNG HAF-QIN-3P carbon block refrigerator filter (3 pk). Order #114-8784211-4965832, placed January 25, 2026 | [B09HR7H8X7](https://www.amazon.com/dp/B09HR7H8X7) | 1 pk | $97.10 | ACQUIRED |
+| Yetaha RO 1/4" water flow-adjust valve. Order #114-2734195-8455414, placed March 15, 2026 | [B07GDFWB8R](https://www.amazon.com/dp/B07GDFWB8R) | 1 | $12.86 | ACQUIRED |
+| SEAFLO 22-Series 12V 1.3 GPM 100 psi on-demand pump. Order #114-4512279-7485822, placed April 1, 2026 | [B0166UBJX4](https://www.amazon.com/dp/B0166UBJX4) | 1 | $48.25 | ACQUIRED |
 | Fresh Water Systems order WEBFWS100677333 — Colder 70500 NSF QD insert (×2) + 74600 NSF QD body (×2) + blue 1/4" LLDPE 100 ft + JG PP0208E union tee (×10) | [freshwatersystems.com](https://www.freshwatersystems.com/) | 1 order (4 items) | $130.45 | ACQUIRED |
 | Fresh Water Systems order WEBFWS100677768 — **MTB-0606WP** 3/8"barb × 3/8"MNPT tee (×10, swapped from discontinued MTB-0604WP) + JG PP450822E 1/4" NPTF female adapter (×10) | [freshwatersystems.com](https://www.freshwatersystems.com/) | 1 order (2 items) | $62.08 | SHIPPED Jun 10 (UPS 1ZW0062A0297032825; itemized 10× MTB-0606WP + 10× PP450822E. FWS swapped the discontinued MTB-0604WP to MTB-0606WP and credited the $0.60 upcharge, total held at $62.08. 0606's 3/8" MNPT branch ≠ PP450822E 1/4" NPTF — adapters reassign to general stock; branch adapter ordered separately on WEBFWS100682118) |
 | Fresh Water Systems order WEBFWS100682118 — JG PP451223W 3/8"NPTF × 3/8"PTC female adapter (bag of 10) + JG PP061208W 3/8"stem × 1/4"PTC reducer stem (bag of 10) | [freshwatersystems.com](https://www.freshwatersystems.com/) | 1 order (2 items) | $81.33 | ORDERED Jun 10 (confirmed WEBFWS100682118, ships ~2 business days. Tap-point branch adapter for the MTB-0606WP 3/8" MNPT branch — closes `assembly/internal-plumbing.md` Open items 3) |
@@ -123,19 +123,19 @@ Check valves, sparge stone + barb adapter for internal-sparge CO2 carbonation, c
 
 | Part | ASIN link | Qty | $ | Status |
 |---|---|---|---|---|
-| ChillWaves 304 SS in-line split check valve 1/4" NPT M×F (silicone seat | [B0DPLBYZB4](https://www.amazon.com/dp/B0DPLBYZB4) | 1 | $18.22 | ACQUIRED |
-| ChillWaves 304 SS in-line **Siamese** check valve 1/4" NPT M×F (1-pack) | [B0DPL88RHC](https://www.amazon.com/dp/B0DPL88RHC) | 1 | $16.08 | ACQUIRED |
-| GASHER 1/4" NPT SS one-way check valve (2 pk) | [B0FV2D2FFX](https://www.amazon.com/dp/B0FV2D2FFX) | 1 pk | $15.00 | ACQUIRED |
-| GASHER 1/4" NPT SS one-way check valve (2 pk) | [B0FV2D2FFX](https://www.amazon.com/dp/B0FV2D2FFX) | 2 pk | $15.00 ea | ACQUIRED |
-| LTWFITTING 316 SS 1/4" hose barb × 1/4" MNPT | [B017N4TTMA](https://www.amazon.com/dp/B017N4TTMA) | 1 | $13.65 | ACQUIRED |
-| TAISHER 2PCS 316L SS 90° Barstock Street Elbow, 1/4" NPT Male × 1/4" NPT Female | [B0CZ38MYL1](https://www.amazon.com/dp/B0CZ38MYL1) | 1 pk (2) | $22.51 | ACQUIRED (delivered May 17) |
-| TAISHER 2PCS 316L SS 90° Barstock Street Elbow, 1/4" NPT M × 1/4" NPT F | [B0CZ38MYL1](https://www.amazon.com/dp/B0CZ38MYL1) | 1 pk (2) | $22.51 | ACQUIRED (delivered May 15) |
-| FERRODAY 0.5 µm sintered 316 SS sparge stone, 1/4" barb input (2-set) | [B091C5Y6L9](https://www.amazon.com/dp/B091C5Y6L9) | 1 | $14.97 | ACQUIRED |
-| ~~Beduan 1/4" male spiral cone atomization nozzle, 316 SS~~ | [B07LGPD3GB](https://www.amazon.com/dp/B07LGPD3GB) | 1 | $10.71 | ACQUIRED (superseded) |
-| VALVENTO 316 SS 1/4" OD compression × 1/4" NPT adapter (2 pk) | [B0DXZZBK7D](https://www.amazon.com/dp/B0DXZZBK7D) | 1 pk | $12.85 | ACQUIRED |
-| VALVENTO 1/4" OD 316 SS tube, 12" length (5 pk) | [B0F6SYFK48](https://www.amazon.com/dp/B0F6SYFK48) | 1 pk | $18.23 | ACQUIRED |
-| TAISHER 304 SS compression square needle valve 1/4" | [B0CLXHZZCW](https://www.amazon.com/dp/B0CLXHZZCW) | 1 | $22.51 | ACQUIRED |
-| YKEBVPW 1/4" push-connect needle valve flow control | [B0FBFVTNLM](https://www.amazon.com/dp/B0FBFVTNLM) | 1 | $8.03 | ACQUIRED |
+| ChillWaves 304 SS in-line split check valve 1/4" NPT M×F (silicone seat. Order #112-6570032-9753837, placed April 12, 2026 | [B0DPLBYZB4](https://www.amazon.com/dp/B0DPLBYZB4) | 1 | $18.22 | ACQUIRED |
+| ChillWaves 304 SS in-line **Siamese** check valve 1/4" NPT M×F (1-pack). Order #112-0876134-8491423, placed April 24, 2026 | [B0DPL88RHC](https://www.amazon.com/dp/B0DPL88RHC) | 1 | $16.08 | ACQUIRED |
+| GASHER 1/4" NPT SS one-way check valve (2 pk). Order #112-9584993-4999458, placed April 24, 2026 | [B0FV2D2FFX](https://www.amazon.com/dp/B0FV2D2FFX) | 1 pk | $15.00 | ACQUIRED |
+| GASHER 1/4" NPT SS one-way check valve (2 pk). Order #112-7934476-0257818, placed April 25, 2026 | [B0FV2D2FFX](https://www.amazon.com/dp/B0FV2D2FFX) | 2 pk | $15.00 ea | ACQUIRED |
+| LTWFITTING 316 SS 1/4" hose barb × 1/4" MNPT. Order #112-4822227-6802649, placed April 24, 2026 | [B017N4TTMA](https://www.amazon.com/dp/B017N4TTMA) | 1 | $13.65 | ACQUIRED |
+| TAISHER 2PCS 316L SS 90° Barstock Street Elbow, 1/4" NPT Male × 1/4" NPT Female. Order #112-2846745-4487464, placed May 13, 2026 | [B0CZ38MYL1](https://www.amazon.com/dp/B0CZ38MYL1) | 1 pk (2) | $22.51 | ACQUIRED (delivered May 17) |
+| TAISHER 2PCS 316L SS 90° Barstock Street Elbow, 1/4" NPT M × 1/4" NPT F. Order #112-6323725-5423434, placed May 13, 2026 | [B0CZ38MYL1](https://www.amazon.com/dp/B0CZ38MYL1) | 1 pk (2) | $22.51 | ACQUIRED (delivered May 15) |
+| FERRODAY 0.5 µm sintered 316 SS sparge stone, 1/4" barb input (2-set). Order #112-5893072-9403444, placed April 24, 2026 | [B091C5Y6L9](https://www.amazon.com/dp/B091C5Y6L9) | 1 | $14.97 | ACQUIRED |
+| ~~Beduan 1/4" male spiral cone atomization nozzle, 316 SS~~. Order #112-0019658-3684217, placed April 4, 2026 | [B07LGPD3GB](https://www.amazon.com/dp/B07LGPD3GB) | 1 | $10.71 | ACQUIRED (superseded) |
+| VALVENTO 316 SS 1/4" OD compression × 1/4" NPT adapter (2 pk). Order #112-6216768-3197856, placed April 12, 2026 | [B0DXZZBK7D](https://www.amazon.com/dp/B0DXZZBK7D) | 1 pk | $12.85 | ACQUIRED |
+| VALVENTO 1/4" OD 316 SS tube, 12" length (5 pk). Order #112-6216768-3197856, placed April 12, 2026 | [B0F6SYFK48](https://www.amazon.com/dp/B0F6SYFK48) | 1 pk | $18.23 | ACQUIRED |
+| TAISHER 304 SS compression square needle valve 1/4". Order #112-4838242-5164262, placed March 14, 2026 | [B0CLXHZZCW](https://www.amazon.com/dp/B0CLXHZZCW) | 1 | $22.51 | ACQUIRED |
+| YKEBVPW 1/4" push-connect needle valve flow control. Order #112-4375086-9926652, placed May 30, 2026 | [B0FBFVTNLM](https://www.amazon.com/dp/B0FBFVTNLM) | 1 | $8.03 | ACQUIRED |
 | YKEBVPW 1/4" needle valve | amazon.com (112-4375086-9926652) | 1 | $8.03 | ACQUIRED (delivered Jun 1) |
 
 ## 5. Flavor subsystem
@@ -144,50 +144,50 @@ Peristaltic pumps, solenoids, bag-in-box connector, silicone delivery tubing, ba
 
 | Part | ASIN link | Qty | $ | Status |
 |---|---|---|---|---|
-| Kamoer KPHM400-SW3B25 400 ml/min 12 V peristaltic pump (BPT, sold by Kamoer Fluid Tech Shanghai) | [B09MS6C91D](https://www.amazon.com/dp/B09MS6C91D) | 3 | $34.91 ea | ACQUIRED |
+| Kamoer KPHM400-SW3B25 400 ml/min 12 V peristaltic pump (BPT, sold by Kamoer Fluid Tech Shanghai). Orders #114-1015191-6799441 (Feb 18), #112-0545074-9805025 (Feb 23) | [B09MS6C91D](https://www.amazon.com/dp/B09MS6C91D) | 3 | $34.91 ea | ACQUIRED |
 | Beduan 12 V 1/4" inlet water solenoid (NC). Orders #114-3476722-1893810 (Feb 22, ×1), #112-0933043-5526613 (Feb 23, ×2), #112-9365343-6646655 (Mar 14, ×2), #112-4838242-5164262 (Mar 14, ×1) | [B07NWCQJK9](https://www.amazon.com/dp/B07NWCQJK9) | 6 | $9.64 ea | ACQUIRED (short vs 12-valve manifold) |
-| Hosyond 5-pack MG90S 9 g metal-gear micro servo | [B09V5BR7J5](https://www.amazon.com/dp/B09V5BR7J5) | 1 pk (5) | $15.43 | ACQUIRED (delivered Jun 4) |
-| NeoFit acetal ball valve — push-fit quarter-turn, food-grade PP body + acetal + EPDM O-ring, 1/4" OD tube (5-pack) | [B0DDQC7S3B](https://www.amazon.com/dp/B0DDQC7S3B) | 1 pk (5) | $22.80 | ACQUIRED (delivered Jun 4) |
-| Supply Depot Coke-compatible BIB connector, 3/8" red (2 pk) | [B0DMFK9B6P](https://www.amazon.com/dp/B0DMFK9B6P) | 1 pk | $21.44 | ACQUIRED |
-| Platypus SoftBottle 1 L (bladder donor) | [B08PG3GMQ8](https://www.amazon.com/dp/B08PG3GMQ8) | 1 | $25.19 | ACQUIRED |
-| Platypus SoftBottle 1 L "Waves" (bladder donor) | [B00ZX0ERE2](https://www.amazon.com/dp/B00ZX0ERE2) | 1 | $16.46 | ACQUIRED |
+| Hosyond 5-pack MG90S 9 g metal-gear micro servo. Order #112-1012254-8551456, placed June 1, 2026 | [B09V5BR7J5](https://www.amazon.com/dp/B09V5BR7J5) | 1 pk (5) | $15.43 | ACQUIRED (delivered Jun 4) |
+| NeoFit acetal ball valve — push-fit quarter-turn, food-grade PP body + acetal + EPDM O-ring, 1/4" OD tube (5-pack). Order #112-1012254-8551456, placed June 1, 2026 | [B0DDQC7S3B](https://www.amazon.com/dp/B0DDQC7S3B) | 1 pk (5) | $22.80 | ACQUIRED (delivered Jun 4) |
+| Supply Depot Coke-compatible BIB connector, 3/8" red (2 pk). Order #114-4194868-8174607, placed March 2, 2026 | [B0DMFK9B6P](https://www.amazon.com/dp/B0DMFK9B6P) | 1 pk | $21.44 | ACQUIRED |
+| Platypus SoftBottle 1 L (bladder donor). Order #114-5256389-4238639, placed March 16, 2026 | [B08PG3GMQ8](https://www.amazon.com/dp/B08PG3GMQ8) | 1 | $25.19 | ACQUIRED |
+| Platypus SoftBottle 1 L "Waves" (bladder donor). Order #114-5256389-4238639, placed March 16, 2026 | [B00ZX0ERE2](https://www.amazon.com/dp/B00ZX0ERE2) | 1 | $16.46 | ACQUIRED |
 | Platypus Platy 2 L collapsible bottle (bladder donor). Order #114-2469196-8024255, placed Feb 15, 2026 | [B000J2KEGY](https://www.amazon.com/dp/B000J2KEGY) | 1 | $16.13 | ACQUIRED (delivered Feb 16) |
 | Platypus Platy 2 L collapsible bottle (bladder donor). Order #112-9869315-7146643, placed Feb 2026 | [B000J2KEGY](https://www.amazon.com/dp/B000J2KEGY) | 2 | $17.33 ea | ACQUIRED |
 | Platypus Platy 2 L collapsible bottle (bladder donor). Order #114-3163590-0127432, placed Mar 8, 2026 | [B000J2KEGY](https://www.amazon.com/dp/B000J2KEGY) | 2 | $17.10 ea | ACQUIRED |
 | Platypus Hoser hydration tube kit. Orders #114-2469196-8024255 (Feb 15, ×1), #112-0545074-9805025 (Feb 23, ×2) | [B07N1T6LNW](https://www.amazon.com/dp/B07N1T6LNW) | 3 | $26.76 ea | ACQUIRED |
-| Platypus Hoser 1 L Hands-Free Hydration Reservoir, Fast Flow Valve | [B002OYMRS8](https://www.amazon.com/dp/B002OYMRS8) | 2 | $51.24 | ACQUIRED |
-| JoyTube 3/8" ID food-grade silicone tubing, 10 ft | [B089YGDB55](https://www.amazon.com/dp/B089YGDB55) | 1 | $12.86 | ACQUIRED |
-| Metaland 3/8" ID food-grade silicone tubing | [B08L1RS757](https://www.amazon.com/dp/B08L1RS757) | 1 | $8.57 | ACQUIRED |
-| Metaland 1/4" ID food-grade silicone tubing | [B08L1ST6ST](https://www.amazon.com/dp/B08L1ST6ST) | 1 | $8.57 | ACQUIRED |
-| Metaland 1/2" ID silicone tubing | [B0BC7K5B91](https://www.amazon.com/dp/B0BC7K5B91) | 1 | $10.71 | ACQUIRED |
-| Metaland 1/8" ID silicone tubing | [B08XM1V475](https://www.amazon.com/dp/B08XM1V475) | 1 | $9.64 | ACQUIRED |
-| Quickun 3/4" ID silicone tubing | [B091SXP7DD](https://www.amazon.com/dp/B091SXP7DD) | 1 | $10.71 | ACQUIRED |
-| Pure silicone 3/8" ID × 1/2" OD high-temp tube, 10 ft | [B07XMGHHLK](https://www.amazon.com/dp/B07XMGHHLK) | 1 | $18.22 | ACQUIRED |
+| Platypus Hoser 1 L Hands-Free Hydration Reservoir, Fast Flow Valve. Order #112-4566389-9910625, placed May 30, 2026 | [B002OYMRS8](https://www.amazon.com/dp/B002OYMRS8) | 2 | $51.24 | ACQUIRED |
+| JoyTube 3/8" ID food-grade silicone tubing, 10 ft. Order #114-4194868-8174607, placed March 2, 2026 | [B089YGDB55](https://www.amazon.com/dp/B089YGDB55) | 1 | $12.86 | ACQUIRED |
+| Metaland 3/8" ID food-grade silicone tubing. Order #112-2018641-1609045, placed March 15, 2026 | [B08L1RS757](https://www.amazon.com/dp/B08L1RS757) | 1 | $8.57 | ACQUIRED |
+| Metaland 1/4" ID food-grade silicone tubing. Order #112-2018641-1609045, placed March 15, 2026 | [B08L1ST6ST](https://www.amazon.com/dp/B08L1ST6ST) | 1 | $8.57 | ACQUIRED |
+| Metaland 1/2" ID silicone tubing. Order #112-2147768-5852208, placed March 15, 2026 | [B0BC7K5B91](https://www.amazon.com/dp/B0BC7K5B91) | 1 | $10.71 | ACQUIRED |
+| Metaland 1/8" ID silicone tubing. Order #114-0818390-2733826, placed February 2, 2026 | [B08XM1V475](https://www.amazon.com/dp/B08XM1V475) | 1 | $9.64 | ACQUIRED |
+| Quickun 3/4" ID silicone tubing. Order #112-2018641-1609045, placed March 15, 2026 | [B091SXP7DD](https://www.amazon.com/dp/B091SXP7DD) | 1 | $10.71 | ACQUIRED |
+| Pure silicone 3/8" ID × 1/2" OD high-temp tube, 10 ft. Order #112-0019658-3684217, placed April 4, 2026 | [B07XMGHHLK](https://www.amazon.com/dp/B07XMGHHLK) | 1 | $18.22 | ACQUIRED |
 | ANPTGHT 1/8" ID × 1/4" OD black silicone tubing. Orders #112-9399398-0475445 (Feb 23, ×2), #114-7711911-5865013 (Feb 11, ×1) | [B0BM4KQ6RT](https://www.amazon.com/dp/B0BM4KQ6RT) | 3 | $13.93 ea | ACQUIRED |
-| Rebower brass hose barb 3/8" × 1/8" | [B0FP5JX2KS](https://www.amazon.com/dp/B0FP5JX2KS) | 1 | $5.35 | ACQUIRED |
-| MAACFLOW SS 1/4" NPT M × 3/8" hose barb (4 pk) | [B0DMP77B6S](https://www.amazon.com/dp/B0DMP77B6S) | 1 pk | $13.91 | ACQUIRED |
-| YDS butterfly SS W2 hose clamp, 10–16 mm (10 pk) | [B07C33VLQ6](https://www.amazon.com/dp/B07C33VLQ6) | 1 pk | $16.30 | ACQUIRED |
-| ANPTGHT 1/8" tee fitting, equal barb (5 pk) | [B08SBM4DBQ](https://www.amazon.com/dp/B08SBM4DBQ) | 1 pk | $7.50 | ACQUIRED |
-| 1/8" plastic check valve, barb one-way (10 pk) | [B0CLV9BRL1](https://www.amazon.com/dp/B0CLV9BRL1) | 1 pk | $8.57 | ACQUIRED |
-| Green silicone duckbill check valve 6.3 mm (10 pk) | [B07TKT9KNL](https://www.amazon.com/dp/B07TKT9KNL) | 1 pk | $13.63 | ACQUIRED |
-| Heyous black rubber duckbill check valve (10 pk) | [B0FNR51NXN](https://www.amazon.com/dp/B0FNR51NXN) | 1 pk | $8.57 | ACQUIRED |
-| Sloan-style duckbill valve, 8 pc | [B0G4MKMG54](https://www.amazon.com/dp/B0G4MKMG54) | 1 pk | $10.71 | ACQUIRED |
-| 006 silicone O-ring red 70A, 1/8" ID (100 pk) | [B0GFTVQPW3](https://www.amazon.com/dp/B0GFTVQPW3) | 1 pk | $10.57 | ACQUIRED |
-| 007 silicone O-ring red 70A, 5/32" ID (20 pk) | [B09M86ZCCB](https://www.amazon.com/dp/B09M86ZCCB) | 1 pk | $10.70 | ACQUIRED |
-| TAILONZ push-to-connect 1/4" tube × 1/8" NPT (10 pk) | [B07P8784D2](https://www.amazon.com/dp/B07P8784D2) | 1 pk | $10.71 | ACQUIRED |
-| MALIDA 1/8" NPT × 1/4" tube elbow/straight push-fit | [B09MY72KQ7](https://www.amazon.com/dp/B09MY72KQ7) | 1 pk | $8.57 | ACQUIRED |
+| Rebower brass hose barb 3/8" × 1/8". Order #114-4194868-8174607, placed March 2, 2026 | [B0FP5JX2KS](https://www.amazon.com/dp/B0FP5JX2KS) | 1 | $5.35 | ACQUIRED |
+| MAACFLOW SS 1/4" NPT M × 3/8" hose barb (4 pk). Order #112-0019658-3684217, placed April 4, 2026 | [B0DMP77B6S](https://www.amazon.com/dp/B0DMP77B6S) | 1 pk | $13.91 | ACQUIRED |
+| YDS butterfly SS W2 hose clamp, 10–16 mm (10 pk). Order #112-0019658-3684217, placed April 4, 2026 | [B07C33VLQ6](https://www.amazon.com/dp/B07C33VLQ6) | 1 pk | $16.30 | ACQUIRED |
+| ANPTGHT 1/8" tee fitting, equal barb (5 pk). Order #114-4987669-8550659, placed February 6, 2026 | [B08SBM4DBQ](https://www.amazon.com/dp/B08SBM4DBQ) | 1 pk | $7.50 | ACQUIRED |
+| 1/8" plastic check valve, barb one-way (10 pk). Order #114-4987669-8550659, placed February 6, 2026 | [B0CLV9BRL1](https://www.amazon.com/dp/B0CLV9BRL1) | 1 pk | $8.57 | ACQUIRED |
+| Green silicone duckbill check valve 6.3 mm (10 pk). Order #114-1207834-4699415, placed February 8, 2026 | [B07TKT9KNL](https://www.amazon.com/dp/B07TKT9KNL) | 1 pk | $13.63 | ACQUIRED |
+| Heyous black rubber duckbill check valve (10 pk). Order #114-1468362-6128231, placed February 8, 2026 | [B0FNR51NXN](https://www.amazon.com/dp/B0FNR51NXN) | 1 pk | $8.57 | ACQUIRED |
+| Sloan-style duckbill valve, 8 pc. Order #114-1468362-6128231, placed February 8, 2026 | [B0G4MKMG54](https://www.amazon.com/dp/B0G4MKMG54) | 1 pk | $10.71 | ACQUIRED |
+| 006 silicone O-ring red 70A, 1/8" ID (100 pk). Order #114-5604599-8333023, placed March 16, 2026 | [B0GFTVQPW3](https://www.amazon.com/dp/B0GFTVQPW3) | 1 pk | $10.57 | ACQUIRED |
+| 007 silicone O-ring red 70A, 5/32" ID (20 pk). Order #114-5604599-8333023, placed March 16, 2026 | [B09M86ZCCB](https://www.amazon.com/dp/B09M86ZCCB) | 1 pk | $10.70 | ACQUIRED |
+| TAILONZ push-to-connect 1/4" tube × 1/8" NPT (10 pk). Order #114-5604599-8333023, placed March 16, 2026 | [B07P8784D2](https://www.amazon.com/dp/B07P8784D2) | 1 pk | $10.71 | ACQUIRED |
+| MALIDA 1/8" NPT × 1/4" tube elbow/straight push-fit. Order #114-5604599-8333023, placed March 16, 2026 | [B09MY72KQ7](https://www.amazon.com/dp/B09MY72KQ7) | 1 pk | $8.57 | ACQUIRED |
 | John Guest PP2308E two-way divider, black polypropylene 1/4" | [freshwatersystems.com](https://www.freshwatersystems.com/products/john-guest-two-way-divider-black-polypropylene-1-4) | 2 bags (20 dividers) | $88.43 | ACQUIRED (delivered May 14) |
 | John Guest PP0208E union tee, black polypropylene 1/4" (manifold Tees, Y-C/D/E/F/G/H/KA/KB) | [freshwatersystems.com](https://www.freshwatersystems.com/products/john-guest-union-tee-black-polypropylene-1-4) | 2 bags (20 tees) | $59.99 | ON-ORDER (ordered Jun 8, order WEBFWS100681220) |
-| John Guest Speedfit PP1208E 1/4" OD black polypropylene push-to-connect bulkhead union, 10-pack | [B00JYFU8MM](https://www.amazon.com/dp/B00JYFU8MM) | 1 pk (10) | $24.79 | ACQUIRED (delivered May 12) |
-| PureSec 1/4" RO push-to-connect 90° elbow bulkhead, white polypropylene, 5-pack | [B0968K4JRN](https://www.amazon.com/dp/B0968K4JRN) | 1 pk (5) | $11.79 | ACQUIRED (delivered May 29) |
+| John Guest Speedfit PP1208E 1/4" OD black polypropylene push-to-connect bulkhead union, 10-pack. Order #112-6407862-0653853, placed May 11, 2026 | [B00JYFU8MM](https://www.amazon.com/dp/B00JYFU8MM) | 1 pk (10) | $24.79 | ACQUIRED (delivered May 12) |
+| PureSec 1/4" RO push-to-connect 90° elbow bulkhead, white polypropylene, 5-pack. Order #112-0924482-7189013, placed May 28, 2026 | [B0968K4JRN](https://www.amazon.com/dp/B0968K4JRN) | 1 pk (5) | $11.79 | ACQUIRED (delivered May 29) |
 | uxcell silicone flat washer, ⌀16 ID × ⌀24 OD × 3 mm, clear, 10-pack — reservoir bulkhead wet-side face seal. Order #112-8819640-4433810, placed Jun 7, 2026 | [B07D23JJMR](https://www.amazon.com/dp/B07D23JJMR) | 1 pk (10) | $7.50 | ACQUIRED (delivered Jun 8) |
-| Craft Resin "Arts & Crafts" crystal-clear epoxy, 34 oz kit | [B07YCVVYFK](https://www.amazon.com/dp/B07YCVVYFK) | 1 kit (34 oz) | $26.80 | ACQUIRED (delivered May 29) |
-| Pinnacle Mercantile F-style HDPE bottle set | [B0CFP9RRSF](https://www.amazon.com/dp/B0CFP9RRSF) | 1 | $18.22 | ACQUIRED |
-| SodaStream Diet Mountain Dew concentrate | [B0CS191QMW](https://www.amazon.com/dp/B0CS191QMW) | 1 | $17.62 | ACQUIRED |
-| SodaStream Diet Mountain Dew 4-pack | [B0G26HQWBY](https://www.amazon.com/dp/B0G26HQWBY) | 1 | $28.99 | ACQUIRED |
-| SodaStream Pepsi Wild Cherry Zero 4-pack | [B0G4NRDQB8](https://www.amazon.com/dp/B0G4NRDQB8) | 1 | $28.99 | ACQUIRED |
-| SodaStream Diet Cola 4-pack | [B01GQ2ZMKI](https://www.amazon.com/dp/B01GQ2ZMKI) | 1 | $18.89 | ACQUIRED |
-| Magnetic pogo pin connector, 2-pin (2 pair) | [B0CSX6ZQ1H](https://www.amazon.com/dp/B0CSX6ZQ1H) | 1 pk | $10.71 | ACQUIRED |
+| Craft Resin "Arts & Crafts" crystal-clear epoxy, 34 oz kit. Order #112-8801016-4362651, placed May 28, 2026 | [B07YCVVYFK](https://www.amazon.com/dp/B07YCVVYFK) | 1 kit (34 oz) | $26.80 | ACQUIRED (delivered May 29) |
+| Pinnacle Mercantile F-style HDPE bottle set. Order #114-5825243-4744249, placed February 12, 2026 | [B0CFP9RRSF](https://www.amazon.com/dp/B0CFP9RRSF) | 1 | $18.22 | ACQUIRED |
+| SodaStream Diet Mountain Dew concentrate. Order #114-7739695-9309821, placed February 1, 2026 | [B0CS191QMW](https://www.amazon.com/dp/B0CS191QMW) | 1 | $17.62 | ACQUIRED |
+| SodaStream Diet Mountain Dew 4-pack. Orders #114-0084687-6710639 (Apr 26), #114-0749284-0433838 (Feb 24), #114-7016001-0433834 (Jun 10), #114-3163590-0127432 (Mar 8), #114-1990143-8424226 (May 16) | [B0G26HQWBY](https://www.amazon.com/dp/B0G26HQWBY) | 1 | $28.99 | ACQUIRED |
+| SodaStream Pepsi Wild Cherry Zero 4-pack. Orders #114-0069643-1757059 (Feb 25), #114-3163590-0127432 (Mar 8) | [B0G4NRDQB8](https://www.amazon.com/dp/B0G4NRDQB8) | 1 | $28.99 | ACQUIRED |
+| SodaStream Diet Cola 4-pack. Order #112-0933043-5526613, placed February 23, 2026 | [B01GQ2ZMKI](https://www.amazon.com/dp/B01GQ2ZMKI) | 1 | $18.89 | ACQUIRED |
+| Magnetic pogo pin connector, 2-pin (2 pair). Order #112-1533167-6762648, placed April 17, 2026 | [B0CSX6ZQ1H](https://www.amazon.com/dp/B0CSX6ZQ1H) | 1 pk | $10.71 | ACQUIRED |
 
 ## 6. Refrigeration
 
@@ -195,59 +195,59 @@ Ice-maker donor units and copper coil for the chill loop.
 
 | Part | Link | Qty | $ | Status |
 |---|---|---|---|---|
-| Frigidaire EFIC117-SS ice maker, 26 lb/day (donor) | [B07PCZKG94](https://www.amazon.com/dp/B07PCZKG94) | 1 | $78.70 | ACQUIRED |
-| Countertop ice maker 26 lb/day (2nd donor) | [B0F42MT8JX](https://www.amazon.com/dp/B0F42MT8JX) | 1 | $63.80 | ACQUIRED |
-| GOORY 1/4" OD × 50 ft ACR copper coil | [B0DKSW5VL9](https://www.amazon.com/dp/B0DKSW5VL9) | 1 | $68.63 | ACQUIRED |
+| Frigidaire EFIC117-SS ice maker, 26 lb/day (donor). Order #112-0852106-5758666, placed April 15, 2026 | [B07PCZKG94](https://www.amazon.com/dp/B07PCZKG94) | 1 | $78.70 | ACQUIRED |
+| Countertop ice maker 26 lb/day (2nd donor). Order #112-1812715-8813859, placed April 15, 2026 | [B0F42MT8JX](https://www.amazon.com/dp/B0F42MT8JX) | 1 | $63.80 | ACQUIRED |
+| GOORY 1/4" OD × 50 ft ACR copper coil. Order #112-4686467-7049865, placed April 15, 2026 | [B0DKSW5VL9](https://www.amazon.com/dp/B0DKSW5VL9) | 1 | $68.63 | ACQUIRED |
 | RIGID DV1910E Copper Coil Chiller, 12 V (alt path) | [rigidhvac.com](https://www.rigidhvac.com/) (direct order) | 1 | $580.00 | ACQUIRED |
-| Fiberglass Supply Depot 2 lb-density 2-part expanding pour foam, closed-cell PU (quart kit) | [B08R7TX8QJ](https://www.amazon.com/dp/B08R7TX8QJ) | 1 kit | $42.89 | ACQUIRED (delivered May 16) |
-| HiLetgo DS18B20 waterproof 1-wire temperature probe, 1 m SS sheath (5 pk) | [B00M1PM55K](https://www.amazon.com/dp/B00M1PM55K) | 1 pk | $11.79 | ACQUIRED |
-| Supco D111 replacement filter-drier, 1/4" × 1/4" sweat, XH-9 | [B00DM8KGXS](https://www.amazon.com/dp/B00DM8KGXS) | 1 | $11.95 | ACQUIRED |
-| Supco SUD8358 UV-dye filter-drier, 1/4" × 1/4" | [B009AX2O5W](https://www.amazon.com/dp/B009AX2O5W) | 1 | $13.40 | ACQUIRED |
-| Mastercool 70025 cap-tube cutter | [B00NY1YHHE](https://www.amazon.com/dp/B00NY1YHHE) | 1 | $15.74 | ACQUIRED |
-| Orion Motor Tech HVAC A/C manifold gauge set, 1/4" SAE | [B07CZB2SHZ](https://www.amazon.com/dp/B07CZB2SHZ) | 1 | $48.24 | ACQUIRED |
-| Orion Motor Tech 4 CFM 1/3 HP single-stage vacuum pump, 110 V, 150 µ ultimate | [B08P1WRZ1S](https://www.amazon.com/dp/B08P1WRZ1S) | 1 | $78.28 | ACQUIRED |
-| Supco BPV31 bullet-piercing valve | [B00DM8J3MI](https://www.amazon.com/dp/B00DM8J3MI) | 1 | $7.37 | ACQUIRED |
-| Smart Weigh Pro digital pocket scale, 2000 g × 0.1 g | [B00IZ1YHZK](https://www.amazon.com/dp/B00IZ1YHZK) | 1 | $19.25 | ACQUIRED |
-| Toptes PT520A refrigerant/hydrocarbon gas leak detector (description fix: ledger previously branded "Elitech", Amazon listing brand is Toptes) | [B0BTM3G8DK](https://www.amazon.com/dp/B0BTM3G8DK) | 1 | $42.89 | ACQUIRED |
-| Enviro-Safe R-600a 3-pack (3× 6 oz self-sealing cans) + brass charging gauge | [B0CGG1WH1N](https://www.amazon.com/dp/B0CGG1WH1N) | 1 | $72.92 | ACQUIRED |
-| Klein Tools 51006 3-in-1 tube bender, 1/4 / 5/16 / 3/8" OD | [B0DPQX17WM](https://www.amazon.com/dp/B0DPQX17WM) | 1 | $23.57 | ACQUIRED |
-| Wisscool 1/4" handheld tube straightener | [B0F6BPTW3T](https://www.amazon.com/dp/B0F6BPTW3T) | 1 | $26.80 | ACQUIRED |
-| ESCO Institute EPA Section 608 Preparatory Manual | [1930044607](https://www.amazon.com/dp/1930044607) | 1 | $22.47 | ACQUIRED |
-| Bernzomatic TS8000 high-intensity torch head + MAP-Pro 3-can kit | [B0BPMVTJ1R](https://www.amazon.com/dp/B0BPMVTJ1R) | 1 | $117.96 | ACQUIRED |
-| Harris SSWF7 Stay Silv white brazing flux, 6.5 oz | [B002BYLU52](https://www.amazon.com/dp/B002BYLU52) | 1 | $12.78 | ACQUIRED |
-| Uniweld RHP400 CGA-580 regulator, 1/4" male flare, 0–400 psi delivery | [B008HQ6GXO](https://www.amazon.com/dp/B008HQ6GXO) | 1 | $96.76 | ACQUIRED |
-| RIDGID 31622 Model 150 constant-swing tubing cutter, 1/8"–1-1/8" | [B0009W6T8G](https://www.amazon.com/dp/B0009W6T8G) | 1 | $34.31 | ACQUIRED |
-| RIDGID 23332 Model 345 flaring tool, 45° SAE | [B000X4K9KO](https://www.amazon.com/dp/B000X4K9KO) | 1 | $107.24 | ACQUIRED |
-| BCuP-5 15% silver brazing alloy, 1/16" × 1 troy oz rod | [B0DQ3ZMHK7](https://www.amazon.com/dp/B0DQ3ZMHK7) | 1 | $20.37 | ACQUIRED |
-| 3M Scotch-Brite Maroon General Purpose Hand Pads, 6" × 9", 1-pack of 20 pads (3M 07447 equivalent) | [B07CGPCTHT](https://www.amazon.com/dp/B07CGPCTHT) | 1 pk | $28.85 | ACQUIRED |
-| HVAC 1/4" OD copper slip coupling, ACR-grade, sweat × sweat, 10-pack | [B0FH549N6D](https://www.amazon.com/dp/B0FH549N6D) | 1 pk | $8.56 | ACQUIRED |
-| Knipex 86 01 180 Pliers Wrench, 7.25" | [B07YLFLSJW](https://www.amazon.com/dp/B07YLFLSJW) | 1 | $57.06 | ACQUIRED |
-| Joywayus brass 1/4" SAE 45° flare nut, 7/16"-20 thread, 5-pack | [B0G1XJ2F68](https://www.amazon.com/dp/B0G1XJ2F68) | 1 pk | $8.57 | ACQUIRED |
-| 3M 425 aluminum foil tape, 2" × 180 ft, thermally conductive | [B07BTW7C2N](https://www.amazon.com/dp/B07BTW7C2N) | 1 | $95.42 | ACQUIRED |
-| Pouring Masters 5 oz / 150 mL graduated plastic mixing cups (50 pk) | [B08JHH1DBF](https://www.amazon.com/dp/B08JHH1DBF) | 1 pk | $20.37 | ACQUIRED |
-| JMU 6" wood tongue depressors, individually wrapped (100 pk) | [B09H6ZP447](https://www.amazon.com/dp/B09H6ZP447) | 1 pk | $7.50 | ACQUIRED |
-| SUP powder-free 4 mil nitrile exam gloves, X-Large, 100 ct (= 50 pairs) | [B0G8SSMVKW](https://www.amazon.com/dp/B0G8SSMVKW) | 1 pk | $7.49 | ACQUIRED |
-| BOJACK SF76E SEFUSE thermal fuse, 77 °C, 10 A / 250 V (10-pack) | [B07Y61YTTK](https://www.amazon.com/dp/B07Y61YTTK) | 1 pk (10) | $6.42 | ACQUIRED (delivered May 13) |
-| ACEIRMC MQ-6 LPG / iso-butane combustible gas sensor module (5-pack) | [B0978JSCZ8](https://www.amazon.com/dp/B0978JSCZ8) | 1 pk (5) | $11.79 | ACQUIRED (delivered May 13) |
-| Heyco SB-500-6 (Heyco part #2053) black 6/6 nylon strain-relief snap bushing, 100-pack | [B01LPBST9G](https://www.amazon.com/HEYCO-2053-SB-500-6-Accessories/dp/B01LPBST9G/) | 1 pk (100) | $12.60 | ACQUIRED (delivered May 16) |
+| Fiberglass Supply Depot 2 lb-density 2-part expanding pour foam, closed-cell PU (quart kit). Order #112-5359790-0932202, placed May 15, 2026 | [B08R7TX8QJ](https://www.amazon.com/dp/B08R7TX8QJ) | 1 kit | $42.89 | ACQUIRED (delivered May 16) |
+| HiLetgo DS18B20 waterproof 1-wire temperature probe, 1 m SS sheath (5 pk). Order #112-8868344-2270629, placed April 21, 2026 | [B00M1PM55K](https://www.amazon.com/dp/B00M1PM55K) | 1 pk | $11.79 | ACQUIRED |
+| Supco D111 replacement filter-drier, 1/4" × 1/4" sweat, XH-9. Order #112-0442030-7315464, placed April 22, 2026 | [B00DM8KGXS](https://www.amazon.com/dp/B00DM8KGXS) | 1 | $11.95 | ACQUIRED |
+| Supco SUD8358 UV-dye filter-drier, 1/4" × 1/4". Order #112-8685000-6226628, placed April 22, 2026 | [B009AX2O5W](https://www.amazon.com/dp/B009AX2O5W) | 1 | $13.40 | ACQUIRED |
+| Mastercool 70025 cap-tube cutter. Order #112-5034335-5564260, placed April 22, 2026 | [B00NY1YHHE](https://www.amazon.com/dp/B00NY1YHHE) | 1 | $15.74 | ACQUIRED |
+| Orion Motor Tech HVAC A/C manifold gauge set, 1/4" SAE. Order #112-9742741-7165035, placed April 21, 2026 | [B07CZB2SHZ](https://www.amazon.com/dp/B07CZB2SHZ) | 1 | $48.24 | ACQUIRED |
+| Orion Motor Tech 4 CFM 1/3 HP single-stage vacuum pump, 110 V, 150 µ ultimate. Order #112-1730165-6930661, placed April 21, 2026 | [B08P1WRZ1S](https://www.amazon.com/dp/B08P1WRZ1S) | 1 | $78.28 | ACQUIRED |
+| Supco BPV31 bullet-piercing valve. Order #112-0145136-7037809, placed April 21, 2026 | [B00DM8J3MI](https://www.amazon.com/dp/B00DM8J3MI) | 1 | $7.37 | ACQUIRED |
+| Smart Weigh Pro digital pocket scale, 2000 g × 0.1 g. Order #112-7342242-5019446, placed April 21, 2026 | [B00IZ1YHZK](https://www.amazon.com/dp/B00IZ1YHZK) | 1 | $19.25 | ACQUIRED |
+| Toptes PT520A refrigerant/hydrocarbon gas leak detector (description fix: ledger previously branded "Elitech", Amazon listing brand is Toptes). Order #112-9126137-7021848, placed April 21, 2026 | [B0BTM3G8DK](https://www.amazon.com/dp/B0BTM3G8DK) | 1 | $42.89 | ACQUIRED |
+| Enviro-Safe R-600a 3-pack (3× 6 oz self-sealing cans) + brass charging gauge. Order #112-0223047-4718623, placed April 22, 2026 | [B0CGG1WH1N](https://www.amazon.com/dp/B0CGG1WH1N) | 1 | $72.92 | ACQUIRED |
+| Klein Tools 51006 3-in-1 tube bender, 1/4 / 5/16 / 3/8" OD. Order #114-8354589-7380236, placed April 19, 2026 | [B0DPQX17WM](https://www.amazon.com/dp/B0DPQX17WM) | 1 | $23.57 | ACQUIRED |
+| Wisscool 1/4" handheld tube straightener. Order #114-8354589-7380236, placed April 19, 2026 | [B0F6BPTW3T](https://www.amazon.com/dp/B0F6BPTW3T) | 1 | $26.80 | ACQUIRED |
+| ESCO Institute EPA Section 608 Preparatory Manual. Order #114-6029405-6913037, placed April 21, 2026 | [1930044607](https://www.amazon.com/dp/1930044607) | 1 | $22.47 | ACQUIRED |
+| Bernzomatic TS8000 high-intensity torch head + MAP-Pro 3-can kit. Order #112-4778025-6157043, placed April 22, 2026 | [B0BPMVTJ1R](https://www.amazon.com/dp/B0BPMVTJ1R) | 1 | $117.96 | ACQUIRED |
+| Harris SSWF7 Stay Silv white brazing flux, 6.5 oz. Order #112-4658706-3333801, placed April 22, 2026 | [B002BYLU52](https://www.amazon.com/dp/B002BYLU52) | 1 | $12.78 | ACQUIRED |
+| Uniweld RHP400 CGA-580 regulator, 1/4" male flare, 0–400 psi delivery. Order #112-1965509-6778648, placed April 22, 2026 | [B008HQ6GXO](https://www.amazon.com/dp/B008HQ6GXO) | 1 | $96.76 | ACQUIRED |
+| RIDGID 31622 Model 150 constant-swing tubing cutter, 1/8"–1-1/8". Order #112-4658706-3333801, placed April 22, 2026 | [B0009W6T8G](https://www.amazon.com/dp/B0009W6T8G) | 1 | $34.31 | ACQUIRED |
+| RIDGID 23332 Model 345 flaring tool, 45° SAE. Order #112-4658706-3333801, placed April 22, 2026 | [B000X4K9KO](https://www.amazon.com/dp/B000X4K9KO) | 1 | $107.24 | ACQUIRED |
+| BCuP-5 15% silver brazing alloy, 1/16" × 1 troy oz rod. Order #112-4658706-3333801, placed April 22, 2026 | [B0DQ3ZMHK7](https://www.amazon.com/dp/B0DQ3ZMHK7) | 1 | $20.37 | ACQUIRED |
+| 3M Scotch-Brite Maroon General Purpose Hand Pads, 6" × 9", 1-pack of 20 pads (3M 07447 equivalent). Order #112-6573046-7656255, placed April 27, 2026 | [B07CGPCTHT](https://www.amazon.com/dp/B07CGPCTHT) | 1 pk | $28.85 | ACQUIRED |
+| HVAC 1/4" OD copper slip coupling, ACR-grade, sweat × sweat, 10-pack. Order #112-0837919-8970627, placed April 23, 2026 | [B0FH549N6D](https://www.amazon.com/dp/B0FH549N6D) | 1 pk | $8.56 | ACQUIRED |
+| Knipex 86 01 180 Pliers Wrench, 7.25". Order #112-1057208-2782602, placed April 23, 2026 | [B07YLFLSJW](https://www.amazon.com/dp/B07YLFLSJW) | 1 | $57.06 | ACQUIRED |
+| Joywayus brass 1/4" SAE 45° flare nut, 7/16"-20 thread, 5-pack. Order #112-5788053-3609032, placed April 23, 2026 | [B0G1XJ2F68](https://www.amazon.com/dp/B0G1XJ2F68) | 1 pk | $8.57 | ACQUIRED |
+| 3M 425 aluminum foil tape, 2" × 180 ft, thermally conductive. Order #112-3799575-6647414, placed April 23, 2026 | [B07BTW7C2N](https://www.amazon.com/dp/B07BTW7C2N) | 1 | $95.42 | ACQUIRED |
+| Pouring Masters 5 oz / 150 mL graduated plastic mixing cups (50 pk). Order #112-0326855-5540223, placed April 27, 2026 | [B08JHH1DBF](https://www.amazon.com/dp/B08JHH1DBF) | 1 pk | $20.37 | ACQUIRED |
+| JMU 6" wood tongue depressors, individually wrapped (100 pk). Order #112-8110646-3335448, placed April 27, 2026 | [B09H6ZP447](https://www.amazon.com/dp/B09H6ZP447) | 1 pk | $7.50 | ACQUIRED |
+| SUP powder-free 4 mil nitrile exam gloves, X-Large, 100 ct (= 50 pairs). Order #112-8247392-7531444, placed April 27, 2026 | [B0G8SSMVKW](https://www.amazon.com/dp/B0G8SSMVKW) | 1 pk | $7.49 | ACQUIRED |
+| BOJACK SF76E SEFUSE thermal fuse, 77 °C, 10 A / 250 V (10-pack). Order #112-0089456-0822653, placed May 11, 2026 | [B07Y61YTTK](https://www.amazon.com/dp/B07Y61YTTK) | 1 pk (10) | $6.42 | ACQUIRED (delivered May 13) |
+| ACEIRMC MQ-6 LPG / iso-butane combustible gas sensor module (5-pack). Order #112-0089456-0822653, placed May 11, 2026 | [B0978JSCZ8](https://www.amazon.com/dp/B0978JSCZ8) | 1 pk (5) | $11.79 | ACQUIRED (delivered May 13) |
+| Heyco SB-500-6 (Heyco part #2053) black 6/6 nylon strain-relief snap bushing, 100-pack. Order #112-7723568-0091455, placed May 15, 2026 | [B01LPBST9G](https://www.amazon.com/HEYCO-2053-SB-500-6-Accessories/dp/B01LPBST9G/) | 1 pk (100) | $12.60 | ACQUIRED (delivered May 16) |
 
 ## 7. Dispensing end — faucet, flow sensor
 
 | Part | ASIN link | Qty | $ | Status |
 |---|---|---|---|---|
-| Westbrass A2031-NL-62 8" Touch-Flo cold-water faucet, matte black | [B0BXFW1J38](https://www.amazon.com/dp/B0BXFW1J38) | 1 | $32.18 | ACQUIRED |
-| Westbrass D203-NL-62 6" Touch-Flo cold-water faucet, matte black | [B01MZ6JPXW](https://www.amazon.com/dp/B01MZ6JPXW) | 1 | $56.83 | ACQUIRED |
-| Westbrass R2031-NL-12 8" Touch-Flo faucet, oil-rubbed bronze | [B01N5LVNQA](https://www.amazon.com/dp/B01N5LVNQA) | 1 | $20.95 | ACQUIRED |
-| 1/4" OD × 12" 304 SS straight tube, 4 pc | [B0F87DJDZW](https://www.amazon.com/dp/B0F87DJDZW) | 1 pk | $12.86 | ACQUIRED |
-| 1/8" OD × 12" 304 SS straight tube, 4 pc | [B0F87V8XCB](https://www.amazon.com/dp/B0F87V8XCB) | 1 pk | $8.57 | ACQUIRED |
-| Beduan 304 SS compression ferrule sleeve, 1/4" OD, 5 pk | [B07V4K2KKH](https://www.amazon.com/dp/B07V4K2KKH) | 1 pk | $6.42 | ACQUIRED |
-| Beduan 304 SS compression ferrule sleeve, 1/8" OD | [B07V8RJJYJ](https://www.amazon.com/dp/B07V8RJJYJ) | 1 pk | $5.35 | ACQUIRED |
-| Pysrych 304 SS reducing compression union, 1/4" OD × 1/8" OD, 2 pk | [B0BM4394Z4](https://www.amazon.com/dp/B0BM4394Z4) | 1 pk | $9.64 | ACQUIRED |
-| Siptenk 1/4" OD brass tube stiffener insert, 100 pk | [B0FM77LLM1](https://www.amazon.com/dp/B0FM77LLM1) | 1 pk | $9.64 | ACQUIRED |
+| Westbrass A2031-NL-62 8" Touch-Flo cold-water faucet, matte black. Order #114-5534543-4435455, placed February 24, 2026 | [B0BXFW1J38](https://www.amazon.com/dp/B0BXFW1J38) | 1 | $32.18 | ACQUIRED |
+| Westbrass D203-NL-62 6" Touch-Flo cold-water faucet, matte black. Order #114-7711911-5865013, placed February 11, 2026 | [B01MZ6JPXW](https://www.amazon.com/dp/B01MZ6JPXW) | 1 | $56.83 | ACQUIRED |
+| Westbrass R2031-NL-12 8" Touch-Flo faucet, oil-rubbed bronze. Order #112-5236199-6056258, placed April 23, 2026 | [B01N5LVNQA](https://www.amazon.com/dp/B01N5LVNQA) | 1 | $20.95 | ACQUIRED |
+| 1/4" OD × 12" 304 SS straight tube, 4 pc. Order #112-5229510-7593833, placed April 23, 2026 | [B0F87DJDZW](https://www.amazon.com/dp/B0F87DJDZW) | 1 pk | $12.86 | ACQUIRED |
+| 1/8" OD × 12" 304 SS straight tube, 4 pc. Order #112-0196430-3061828, placed April 23, 2026 | [B0F87V8XCB](https://www.amazon.com/dp/B0F87V8XCB) | 1 pk | $8.57 | ACQUIRED |
+| Beduan 304 SS compression ferrule sleeve, 1/4" OD, 5 pk. Order #112-7179212-4944250, placed April 23, 2026 | [B07V4K2KKH](https://www.amazon.com/dp/B07V4K2KKH) | 1 pk | $6.42 | ACQUIRED |
+| Beduan 304 SS compression ferrule sleeve, 1/8" OD. Order #112-4247013-3054647, placed April 23, 2026 | [B07V8RJJYJ](https://www.amazon.com/dp/B07V8RJJYJ) | 1 pk | $5.35 | ACQUIRED |
+| Pysrych 304 SS reducing compression union, 1/4" OD × 1/8" OD, 2 pk. Order #112-5173995-8426610, placed April 23, 2026 | [B0BM4394Z4](https://www.amazon.com/dp/B0BM4394Z4) | 1 pk | $9.64 | ACQUIRED |
+| Siptenk 1/4" OD brass tube stiffener insert, 100 pk. Order #112-8579175-6021014, placed April 24, 2026 | [B0FM77LLM1](https://www.amazon.com/dp/B0FM77LLM1) | 1 pk | $9.64 | ACQUIRED |
 | DIGITEN G1/4" Hall-effect flow sensor 0.3–10 L/min. Orders #114-4838401-4353060 (Feb 12, ×2), #112-9633392-2520236 (Feb 23, ×2) | [B07QRXLRTH](https://www.amazon.com/dp/B07QRXLRTH) | 4 | $10.18 ea | ACQUIRED |
-| DIGITEN G1/4" Hall-effect flow meter 0.3–6 L/min | [B07QS17S6Q](https://www.amazon.com/dp/B07QS17S6Q) | 1 | $10.18 | ACQUIRED |
-| Eoiips polyethylene tubing 1/16" ID × 1/8" OD, 3.28 ft (1 m) | [B0BWJ3S5NM](https://www.amazon.com/dp/B0BWJ3S5NM) | 1 | $8.03 | ACQUIRED |
-| CARGEN Pipe Insulation Foam Tube | [B0D2XFK337](https://www.amazon.com/dp/B0D2XFK337) | 2 | $16.28 | ACQUIRED (delivered May 16) |
+| DIGITEN G1/4" Hall-effect flow meter 0.3–6 L/min. Order #114-0818390-2733826, placed February 2, 2026 | [B07QS17S6Q](https://www.amazon.com/dp/B07QS17S6Q) | 1 | $10.18 | ACQUIRED |
+| Eoiips polyethylene tubing 1/16" ID × 1/8" OD, 3.28 ft (1 m). Order #114-9634716-3126657, placed April 29, 2026 | [B0BWJ3S5NM](https://www.amazon.com/dp/B0BWJ3S5NM) | 1 | $8.03 | ACQUIRED |
+| CARGEN Pipe Insulation Foam Tube. Order #112-3935659-9563410, placed May 15, 2026 | [B0D2XFK337](https://www.amazon.com/dp/B0D2XFK337) | 2 | $16.28 | ACQUIRED (delivered May 16) |
 
 ## 8. Electronics — controllers
 
@@ -255,92 +255,92 @@ Ice-maker donor units and copper coil for the chill loop.
 |---|---|---|---|---|
 | ESP32-DevKitC-32E. Orders #114-0818390-2733826 (Feb 2, ×1), #112-0933043-5526613 (Feb 23, ×2) | [B09MQJWQN2](https://www.amazon.com/dp/B09MQJWQN2) | 3 | $11.80 ea | ACQUIRED |
 | ESP32-DevKitC-32E (repeat ASIN). Order #112-2471492-3870616, placed Jun 7, 2026 | [B09MQJWQN2](https://www.amazon.com/dp/B09MQJWQN2) | 2 | $23.60 | ACQUIRED (delivered Jun 8) |
-| Waveshare RP2040 0.99" round touch LCD, CNC case — prototype external flavor display; dropped from the product, superseded by the faucet-mounted Waveshare ESP32-S3 1.47" touch LCD (B0FCF1MGT3 below). Retained as prototype stock. | [B0CTSPYND2](https://www.amazon.com/dp/B0CTSPYND2) | 2 | ~$25.73 ea | ACQUIRED |
-| Meshnology ESP32-S3 round rotary display 1.28" — enclosure-front config display (kept) | [B0G5Q4LXVJ](https://www.amazon.com/dp/B0G5Q4LXVJ) | 1 | bundle | ACQUIRED |
+| Waveshare RP2040 0.99" round touch LCD, CNC case — prototype external flavor display; dropped from the product, superseded by the faucet-mounted Waveshare ESP32-S3 1.47" touch LCD (B0FCF1MGT3 below). Retained as prototype stock.. Orders #114-9973455-6637052 (Mar 8), #114-7373747-7178604 (Mar 9) | [B0CTSPYND2](https://www.amazon.com/dp/B0CTSPYND2) | 2 | ~$25.73 ea | ACQUIRED |
+| Meshnology ESP32-S3 round rotary display 1.28" — enclosure-front config display (kept). Order #114-7373747-7178604, placed March 9, 2026 | [B0G5Q4LXVJ](https://www.amazon.com/dp/B0G5Q4LXVJ) | 1 | bundle | ACQUIRED |
 | Waveshare ESP32-S3 1.47" capacitive-touch IPS LCD dev board, 172×320 (JD9853 driver + AXS5106L touch) — faucet-mounted flavor display + touch toggle. Order #112-7687617-6094631, placed Jun 7, 2026 | [B0FCF1MGT3](https://www.amazon.com/dp/B0FCF1MGT3) | 2 | $51.46 | ACQUIRED (delivered Jun 9) |
 
 ## 9. Electronics — I/O, drivers, sensors, power, DIN rail, connectors
 
 | Part | ASIN link | Qty | $ | Status |
 |---|---|---|---|---|
-| Waveshare MCP23017 I2C I/O expansion board | [B07P2H1NZG](https://www.amazon.com/dp/B07P2H1NZG) | 1 | $13.93 | ACQUIRED |
-| BOJACK ULN2803 Darlington driver IC (10 pk) | [B08CX79JSQ](https://www.amazon.com/dp/B08CX79JSQ) | 1 pk | $7.50 | ACQUIRED |
-| ULN2803A high-current driver module (2 pc) | [B0F872W528](https://www.amazon.com/dp/B0F872W528) | 1 pk | $7.07 | ACQUIRED |
-| BOJACK L298N dual H-bridge motor driver (4-pack) | [B0C5JCF5RS](https://www.amazon.com/dp/B0C5JCF5RS) | 1 pk | $10.71 | ACQUIRED |
-| DS3231 AT24C32 RTC module (2 pk) | [B09LLMYBM1](https://www.amazon.com/dp/B09LLMYBM1) | 1 pk | $7.07 | ACQUIRED |
-| HiLetgo DS3231 high-precision RTC (5 pk) | [B01N1LZSK3](https://www.amazon.com/dp/B01N1LZSK3) | 1 pk | $16.08 | ACQUIRED |
-| EDGELEC 4.7 kΩ 1/4 W 1% metal-film resistor (100 pk) | [B07HDFHPP3](https://www.amazon.com/dp/B07HDFHPP3) | 1 pk | $5.89 | ACQUIRED |
-| Rubycon 470 µF 25 V low-ESR (0.08 Ω) radial aluminum electrolytic capacitor, 10×12.5 mm (15 pk) | [B0F8BZVBKF](https://www.amazon.com/dp/B0F8BZVBKF) | 1 pk | $7.40 | ACQUIRED |
-| HiLetgo NJK-5002C Hall-effect proximity switch (2 pk) | [B01MZYYCLH](https://www.amazon.com/dp/B01MZYYCLH) | 1 pk | $9.11 | ACQUIRED |
-| Gebildet reed switches, 14 mm glass body, NO (6 pk) | [B0CW9418F6](https://www.amazon.com/dp/B0CW9418F6) | 1 pk | $6.42 | ACQUIRED |
-| DEVMO MINI vertical float switch | [B07T18PGJ4](https://www.amazon.com/dp/B07T18PGJ4) | 1 | $13.93 | ACQUIRED |
-| EC Buying XKC-Y25-V non-contact capacitive liquid-level sensor | [B0C73F96MF](https://www.amazon.com/dp/B0C73F96MF) | 1 | $10.29 | ACQUIRED (delivered May 9) |
-| HiLetgo MPR121 12-channel I2C capacitive touch breakout (2 pk) | [B06XXYZPPX](https://www.amazon.com/dp/B06XXYZPPX) | 1 pk | $6.85 | ACQUIRED (delivered May 10) |
-| Kraftex copper foil tape, 1/4" × 66 ft, conductive adhesive | [B0G1TN3JWB](https://www.amazon.com/dp/B0G1TN3JWB) | 1 | $7.50 | ACQUIRED (delivered May 9) |
-| ~~Tynulox 1/8" × 6" 304 SS round rod (10 pk)~~ | [B0BKGS32KJ](https://www.amazon.com/dp/B0BKGS32KJ) | 1 pk | $8.56 | ACQUIRED (superseded) |
-| Tandefio 1/8" × 12" 316 SS round rod (5 pk) | [B0CY4DWJFQ](https://www.amazon.com/dp/B0CY4DWJFQ) | 1 pk | $8.57 | ACQUIRED |
-| 12 V 2 A DC power supply, 9-tip | [B0DZGTTBGZ](https://www.amazon.com/dp/B0DZGTTBGZ) | 1 | bundle | ACQUIRED |
-| 5 V 3 A AC/DC adapter, 11-tip | [B09NLMVXMZ](https://www.amazon.com/dp/B09NLMVXMZ) | 1 | $9.00 | ACQUIRED |
-| Molence C45 PCB DIN-rail adapter clips (10 sets) | [B09KZHY8G4](https://www.amazon.com/dp/B09KZHY8G4) | 1 pk | $10.71 | ACQUIRED |
-| VAMRONE 35 mm DIN rail, 4" (6 pk) | [B0CDPVRY2W](https://www.amazon.com/dp/B0CDPVRY2W) | 1 pk | $7.50 | ACQUIRED |
-| ESP32 super breakout DIN-rail mount GPIO expansion | [B0BW4SJ5X2](https://www.amazon.com/dp/B0BW4SJ5X2) | 1 | $27.87 | ACQUIRED |
+| Waveshare MCP23017 I2C I/O expansion board. Order #112-7245467-6557007, placed April 26, 2026 | [B07P2H1NZG](https://www.amazon.com/dp/B07P2H1NZG) | 1 | $13.93 | ACQUIRED |
+| BOJACK ULN2803 Darlington driver IC (10 pk). Order #112-2110462-6265038, placed April 15, 2026 | [B08CX79JSQ](https://www.amazon.com/dp/B08CX79JSQ) | 1 pk | $7.50 | ACQUIRED |
+| ULN2803A high-current driver module (2 pc). Order #112-7245467-6557007, placed April 26, 2026 | [B0F872W528](https://www.amazon.com/dp/B0F872W528) | 1 pk | $7.07 | ACQUIRED |
+| BOJACK L298N dual H-bridge motor driver (4-pack). Order #114-1015191-6799441, placed February 18, 2026 | [B0C5JCF5RS](https://www.amazon.com/dp/B0C5JCF5RS) | 1 pk | $10.71 | ACQUIRED |
+| DS3231 AT24C32 RTC module (2 pk). Order #114-2813251-8225805, placed March 16, 2026 | [B09LLMYBM1](https://www.amazon.com/dp/B09LLMYBM1) | 1 pk | $7.07 | ACQUIRED |
+| HiLetgo DS3231 high-precision RTC (5 pk). Order #114-5764473-1322614, placed March 16, 2026 | [B01N1LZSK3](https://www.amazon.com/dp/B01N1LZSK3) | 1 pk | $16.08 | ACQUIRED |
+| EDGELEC 4.7 kΩ 1/4 W 1% metal-film resistor (100 pk). Order #112-0915506-0821038, placed April 26, 2026 | [B07HDFHPP3](https://www.amazon.com/dp/B07HDFHPP3) | 1 pk | $5.89 | ACQUIRED |
+| Rubycon 470 µF 25 V low-ESR (0.08 Ω) radial aluminum electrolytic capacitor, 10×12.5 mm (15 pk). Order #112-0915506-0821038, placed April 26, 2026 | [B0F8BZVBKF](https://www.amazon.com/dp/B0F8BZVBKF) | 1 pk | $7.40 | ACQUIRED |
+| HiLetgo NJK-5002C Hall-effect proximity switch (2 pk). Order #112-2147768-5852208, placed March 15, 2026 | [B01MZYYCLH](https://www.amazon.com/dp/B01MZYYCLH) | 1 pk | $9.11 | ACQUIRED |
+| Gebildet reed switches, 14 mm glass body, NO (6 pk). Order #112-4347613-6452231, placed April 24, 2026 | [B0CW9418F6](https://www.amazon.com/dp/B0CW9418F6) | 1 pk | $6.42 | ACQUIRED |
+| DEVMO MINI vertical float switch. Order #112-4706100-6171430, placed April 24, 2026 | [B07T18PGJ4](https://www.amazon.com/dp/B07T18PGJ4) | 1 | $13.93 | ACQUIRED |
+| EC Buying XKC-Y25-V non-contact capacitive liquid-level sensor. Order #112-5459082-8422662, placed May 8, 2026 | [B0C73F96MF](https://www.amazon.com/dp/B0C73F96MF) | 1 | $10.29 | ACQUIRED (delivered May 9) |
+| HiLetgo MPR121 12-channel I2C capacitive touch breakout (2 pk). Order #112-5503072-4357859, placed May 8, 2026 | [B06XXYZPPX](https://www.amazon.com/dp/B06XXYZPPX) | 1 pk | $6.85 | ACQUIRED (delivered May 10) |
+| Kraftex copper foil tape, 1/4" × 66 ft, conductive adhesive. Order #112-5656837-1597066, placed May 8, 2026 | [B0G1TN3JWB](https://www.amazon.com/dp/B0G1TN3JWB) | 1 | $7.50 | ACQUIRED (delivered May 9) |
+| ~~Tynulox 1/8" × 6" 304 SS round rod (10 pk)~~. Order #112-8251187-7721036, placed April 24, 2026 | [B0BKGS32KJ](https://www.amazon.com/dp/B0BKGS32KJ) | 1 pk | $8.56 | ACQUIRED (superseded) |
+| Tandefio 1/8" × 12" 316 SS round rod (5 pk). Order #112-7391312-2980226, placed April 24, 2026 | [B0CY4DWJFQ](https://www.amazon.com/dp/B0CY4DWJFQ) | 1 pk | $8.57 | ACQUIRED |
+| 12 V 2 A DC power supply, 9-tip. Orders #114-1015191-6799441 (Feb 18), #114-9620011-1329056 (Feb 25) | [B0DZGTTBGZ](https://www.amazon.com/dp/B0DZGTTBGZ) | 1 | bundle | ACQUIRED |
+| 5 V 3 A AC/DC adapter, 11-tip. Order #114-0818390-2733826, placed February 2, 2026 | [B09NLMVXMZ](https://www.amazon.com/dp/B09NLMVXMZ) | 1 | $9.00 | ACQUIRED |
+| Molence C45 PCB DIN-rail adapter clips (10 sets). Order #114-2582317-0018622, placed February 26, 2026 | [B09KZHY8G4](https://www.amazon.com/dp/B09KZHY8G4) | 1 pk | $10.71 | ACQUIRED |
+| VAMRONE 35 mm DIN rail, 4" (6 pk). Order #114-2582317-0018622, placed February 26, 2026 | [B0CDPVRY2W](https://www.amazon.com/dp/B0CDPVRY2W) | 1 pk | $7.50 | ACQUIRED |
+| ESP32 super breakout DIN-rail mount GPIO expansion. Order #114-2582317-0018622, placed February 26, 2026 | [B0BW4SJ5X2](https://www.amazon.com/dp/B0BW4SJ5X2) | 1 | $27.87 | ACQUIRED |
 | naughtystarts ESP32 screw-terminal GPIO breakout board, 3.5 mm terminals, for ESP-WROOM-32 / ESP32-DevKitC module (2 pc). Order #112-0981761-4377858, placed Jun 7, 2026 | [B0BYS6THLF](https://www.amazon.com/dp/B0BYS6THLF) | 1 pk (2) | $12.86 | ACQUIRED (delivered Jun 9) |
-| Baomain 0.11" male quick-disconnect spade (100 pk) | [B01MZZGAJP](https://www.amazon.com/dp/B01MZZGAJP) | 1 pk | $6.42 | ACQUIRED |
-| Haisstronica ratchet crimper, AWG 22–10 | [B08F3JKDD3](https://www.amazon.com/dp/B08F3JKDD3) | 1 | bundle | ACQUIRED |
-| Feggizuli 280 pc spade connector kit | [B0B4H54KPS](https://www.amazon.com/dp/B0B4H54KPS) | 1 pk | $8.25 | ACQUIRED |
-| 60 pc female spade crimp kit | [B0B9MZJ2ML](https://www.amazon.com/dp/B0B9MZJ2ML) | 1 pk | $10.71 | ACQUIRED |
-| Twidec 20 pc 4.8/6.3 mm spade crimp | [B08F784R9W](https://www.amazon.com/dp/B08F784R9W) | 1 pk | $9.64 | ACQUIRED |
-| Dupont jumper wires (M/F, M/M, F/F) 20 cm | [B0BRTJXND9](https://www.amazon.com/dp/B0BRTJXND9) | 1 pk | $6.40 | ACQUIRED |
+| Baomain 0.11" male quick-disconnect spade (100 pk). Order #114-7897645-5210617, placed February 25, 2026 | [B01MZZGAJP](https://www.amazon.com/dp/B01MZZGAJP) | 1 pk | $6.42 | ACQUIRED |
+| Haisstronica ratchet crimper, AWG 22–10. Order #114-9620011-1329056, placed February 25, 2026 | [B08F3JKDD3](https://www.amazon.com/dp/B08F3JKDD3) | 1 | bundle | ACQUIRED |
+| Feggizuli 280 pc spade connector kit. Order #114-0182432-7123463, placed February 24, 2026 | [B0B4H54KPS](https://www.amazon.com/dp/B0B4H54KPS) | 1 pk | $8.25 | ACQUIRED |
+| 60 pc female spade crimp kit. Order #114-5322942-5213821, placed February 24, 2026 | [B0B9MZJ2ML](https://www.amazon.com/dp/B0B9MZJ2ML) | 1 pk | $10.71 | ACQUIRED |
+| Twidec 20 pc 4.8/6.3 mm spade crimp. Order #114-0884594-8630623, placed February 24, 2026 | [B08F784R9W](https://www.amazon.com/dp/B08F784R9W) | 1 pk | $9.64 | ACQUIRED |
+| Dupont jumper wires (M/F, M/M, F/F) 20 cm. Order #114-5649971-6455418, placed February 24, 2026 | [B0BRTJXND9](https://www.amazon.com/dp/B0BRTJXND9) | 1 pk | $6.40 | ACQUIRED |
 | ELEGOO 120 pc Dupont jumper wire ribbon. Orders #114-0818390-2733826 (Feb 2, ×1), #114-0077226-6463477 (Feb 24, ×1) | [B01EV70C78](https://www.amazon.com/dp/B01EV70C78) | 2 | $7.49 ea | ACQUIRED |
-| Taiss Dupont crimp kit + SN-28B | [B0B11RLGDZ](https://www.amazon.com/dp/B0B11RLGDZ) | 1 | $23.58 | ACQUIRED |
-| Waveshare MCP23017 I2C I/O expansion board (repeat ASIN) | [B07P2H1NZG](https://www.amazon.com/dp/B07P2H1NZG) | 1 | $13.75 | ACQUIRED (delivered Apr 27) |
-| ULN2803A high-current driver module, 2-pc (repeat ASIN) | [B0F872W528](https://www.amazon.com/dp/B0F872W528) | 1 pk | $6.97 | ACQUIRED (delivered Apr 27) |
-| CQRobot JST XH 2.54 mm 4-pin connector kit (50 sets / 300 pcs) | [B0B2RB524Y](https://www.amazon.com/dp/B0B2RB524Y) | 1 pk | $8.45 | ACQUIRED (delivered Apr 27) |
-| CQRobot JST XH 2.54 mm 6-pin connector kit (50 sets / 400 pcs) | [B0B2R8Q1JL](https://www.amazon.com/dp/B0B2R8Q1JL) | 1 pk | $9.19 | ACQUIRED (delivered Apr 27) |
-| CQRobot JST XH 2.54 mm 9-pin connector kit (30 sets / 330 pcs) | [B0B2R73RQB](https://www.amazon.com/dp/B0B2R73RQB) | 1 pk | $9.19 | ACQUIRED (delivered Apr 29) |
+| Taiss Dupont crimp kit + SN-28B. Order #114-3384762-6934634, placed February 22, 2026 | [B0B11RLGDZ](https://www.amazon.com/dp/B0B11RLGDZ) | 1 | $23.58 | ACQUIRED |
+| Waveshare MCP23017 I2C I/O expansion board (repeat ASIN). Order #112-2110462-6265038, placed April 15, 2026 | [B07P2H1NZG](https://www.amazon.com/dp/B07P2H1NZG) | 1 | $13.75 | ACQUIRED (delivered Apr 27) |
+| ULN2803A high-current driver module, 2-pc (repeat ASIN). Order #112-2110462-6265038, placed April 15, 2026 | [B0F872W528](https://www.amazon.com/dp/B0F872W528) | 1 pk | $6.97 | ACQUIRED (delivered Apr 27) |
+| CQRobot JST XH 2.54 mm 4-pin connector kit (50 sets / 300 pcs). Order #112-7245467-6557007, placed April 26, 2026 | [B0B2RB524Y](https://www.amazon.com/dp/B0B2RB524Y) | 1 pk | $8.45 | ACQUIRED (delivered Apr 27) |
+| CQRobot JST XH 2.54 mm 6-pin connector kit (50 sets / 400 pcs). Order #112-7245467-6557007, placed April 26, 2026 | [B0B2R8Q1JL](https://www.amazon.com/dp/B0B2R8Q1JL) | 1 pk | $9.19 | ACQUIRED (delivered Apr 27) |
+| CQRobot JST XH 2.54 mm 9-pin connector kit (30 sets / 330 pcs). Order #112-7245467-6557007, placed April 26, 2026 | [B0B2R73RQB](https://www.amazon.com/dp/B0B2R73RQB) | 1 pk | $9.19 | ACQUIRED (delivered Apr 29) |
 | CQRobot JST XH 2.54 mm 10-pin connector kit (30 sets / 360 pcs) — for the MCP23017 GPIO port rows (VCC + GND + 8 GPIO = 10 holes; a 10-pin fills the footprint so it can't seat off-by-one, where the 9-pin kit was sized for the ULN2803A sides). Order #112-9768778-8444265, placed Jun 7, 2026 | [B0B2R93CV3](https://www.amazon.com/dp/B0B2R93CV3) | 1 pk | $9.64 | ACQUIRED (delivered Jun 9) |
-| CQRobot/Zhansheng JST XH 2.54 mm pre-crimped bonded ribbon kit (15 cm / 5.9", 12-conductor ribbons × 8 + loose housings 2/3/4/5/6/7/8/9/10/12 P) | [B0F6C7X5CR](https://www.amazon.com/dp/B0F6C7X5CR) | 1 pk | $15.86 | ACQUIRED (delivered Apr 27) |
-| Keszoox JST XH 2.54 mm pre-crimped wires, 50 cm × 22 AWG silicone, 20 pcs/pk in 10 colors | [B0F8HMQRRN](https://www.amazon.com/dp/B0F8HMQRRN) | 2 pk | $11.63 ea | ACQUIRED (delivered Apr 30) |
-| KWANGIL 22AWG 12-Conductor Cable, UL2464, High-Flexible Tinned Copper Unshielded, Matte Black, 25 ft | [B0CSD5QZ21](https://www.amazon.com/dp/B0CSD5QZ21) | 1 | $25.73 | ACQUIRED (delivered May 15) |
+| CQRobot/Zhansheng JST XH 2.54 mm pre-crimped bonded ribbon kit (15 cm / 5.9", 12-conductor ribbons × 8 + loose housings 2/3/4/5/6/7/8/9/10/12 P). Order #112-7245467-6557007, placed April 26, 2026 | [B0F6C7X5CR](https://www.amazon.com/dp/B0F6C7X5CR) | 1 pk | $15.86 | ACQUIRED (delivered Apr 27) |
+| Keszoox JST XH 2.54 mm pre-crimped wires, 50 cm × 22 AWG silicone, 20 pcs/pk in 10 colors. Order #112-7245467-6557007, placed April 26, 2026 | [B0F8HMQRRN](https://www.amazon.com/dp/B0F8HMQRRN) | 2 pk | $11.63 ea | ACQUIRED (delivered Apr 30) |
+| KWANGIL 22AWG 12-Conductor Cable, UL2464, High-Flexible Tinned Copper Unshielded, Matte Black, 25 ft. Order #114-2322598-9184256, placed May 14, 2026 | [B0CSD5QZ21](https://www.amazon.com/dp/B0CSD5QZ21) | 1 | $25.73 | ACQUIRED (delivered May 15) |
 | BNTECHGO 28 AWG silicone ribbon cable, 4-conductor flat, black, 50 ft — faucet display harness (5 V / GND / TX / RX) through the faucet shell to the under-counter base. Order #112-9860351-3650618, placed Jun 10, 2026 | [B07PNPHWMG](https://www.amazon.com/dp/B07PNPHWMG) | 1 (50 ft) | $21.43 | ACQUIRED (delivered Jun 11) |
-| CR2032 3 V cell pack (RTC backup) | [B0C15WJXL2](https://www.amazon.com/dp/B0C15WJXL2) | 1 | $12.00 | ACQUIRED |
-| Breadboard kit, 2×830 + 2×400 pt | [B07DL13RZH](https://www.amazon.com/dp/B07DL13RZH) | 1 pk | $7.33 | ACQUIRED |
-| Gratury IP67 waterproof enclosure | [B08281V2RL](https://www.amazon.com/dp/B08281V2RL) | 1 | $23.58 | ACQUIRED |
-| Teyleten 3.3 V relay module, opto-isolated, 10 A @ 250 VAC (5 pk) | [B07XGZSYJV](https://www.amazon.com/dp/B07XGZSYJV) | 1 pk | $13.93 | ACQUIRED |
-| ~~Fotek SSR-25DA solid state relay~~ (surplus | [B08FR13GYR](https://www.amazon.com/dp/B08FR13GYR) | 1 | $13.92 | ACQUIRED (surplus) |
-| ~~Inline AC fuse holder kit, 5×20 mm + assorted fuses~~ (surplus | [B07BC8DW3L](https://www.amazon.com/dp/B07BC8DW3L) | 1 | $12.86 | ACQUIRED (surplus) |
-| ~~Leviton CR020-W 20 A 125 VAC single receptacle~~ (surplus | [B003ATTR8Y](https://www.amazon.com/dp/B003ATTR8Y) | 1 | $3.26 | ACQUIRED (surplus) |
-| MXR IEC 60320 C14 panel-mount AC inlet, 10 A / 250 VAC (10 pk) | [B07DCXKNXQ](https://www.amazon.com/dp/B07DCXKNXQ) | 1 pk | $6.96 | ACQUIRED |
-| Monoprice NEMA 5-15P → IEC C13 line cord, 18 AWG, 6 ft, UL-listed (6 pk) | [B08VS8D4WC](https://www.amazon.com/dp/B08VS8D4WC) | 1 pk | $24.00 | ACQUIRED |
-| uxcell C14 panel-mount inlet, 10 A, 3-pin straight (single) | [B07PXSLBF4](https://www.amazon.com/dp/B07PXSLBF4) | 1 | $7.39 | ACQUIRED |
-| Tripp Lite P006-006 NEMA 5-15P → IEC C13 line cord, 18 AWG, 6 ft, UL-listed | [B0000511C0](https://www.amazon.com/dp/B0000511C0) | 1 | $9.21 | ACQUIRED |
-| Legrand Radiant 1597BKCCD12 15 A self-test GFCI, decorator duplex, black | [B017HAB4BO](https://www.amazon.com/dp/B017HAB4BO) | 2 | $41.72 | ACQUIRED (delivered May 21) |
-| Mean Well IRM-90-12ST encapsulated 80 W / 12 V / 6.7 A PSU | [B0CNRST18V](https://www.amazon.com/dp/B0CNRST18V) | 1 | $31.66 | ACQUIRED |
-| Mean Well LRS-200-12 enclosed 204 W / 12 V / 17 A PSU | [B0874XQ82F](https://www.amazon.com/dp/B0874XQ82F) | 1 | $30.03 | ACQUIRED |
-| P3 Kill-A-Watt P4400 power meter (bench) | [B00009MDBU](https://www.amazon.com/dp/B00009MDBU) | 1 | $34.31 | ACQUIRED |
+| CR2032 3 V cell pack (RTC backup). Order #114-3384762-6934634, placed February 22, 2026 | [B0C15WJXL2](https://www.amazon.com/dp/B0C15WJXL2) | 1 | $12.00 | ACQUIRED |
+| Breadboard kit, 2×830 + 2×400 pt. Order #114-0818390-2733826, placed February 2, 2026 | [B07DL13RZH](https://www.amazon.com/dp/B07DL13RZH) | 1 pk | $7.33 | ACQUIRED |
+| Gratury IP67 waterproof enclosure. Order #114-6385083-8023407, placed February 2, 2026 | [B08281V2RL](https://www.amazon.com/dp/B08281V2RL) | 1 | $23.58 | ACQUIRED |
+| Teyleten 3.3 V relay module, opto-isolated, 10 A @ 250 VAC (5 pk). Order #112-8930099-2982664, placed April 20, 2026 | [B07XGZSYJV](https://www.amazon.com/dp/B07XGZSYJV) | 1 pk | $13.93 | ACQUIRED |
+| ~~Fotek SSR-25DA solid state relay~~ (surplus. Order #112-0680575-1213862, placed April 17, 2026 | [B08FR13GYR](https://www.amazon.com/dp/B08FR13GYR) | 1 | $13.92 | ACQUIRED (surplus) |
+| ~~Inline AC fuse holder kit, 5×20 mm + assorted fuses~~ (surplus. Order #112-5222697-3918636, placed April 17, 2026 | [B07BC8DW3L](https://www.amazon.com/dp/B07BC8DW3L) | 1 | $12.86 | ACQUIRED (surplus) |
+| ~~Leviton CR020-W 20 A 125 VAC single receptacle~~ (surplus. Order #112-2763596-7866631, placed April 17, 2026 | [B003ATTR8Y](https://www.amazon.com/dp/B003ATTR8Y) | 1 | $3.26 | ACQUIRED (surplus) |
+| MXR IEC 60320 C14 panel-mount AC inlet, 10 A / 250 VAC (10 pk). Order #112-4054778-9500227, placed April 21, 2026 | [B07DCXKNXQ](https://www.amazon.com/dp/B07DCXKNXQ) | 1 pk | $6.96 | ACQUIRED |
+| Monoprice NEMA 5-15P → IEC C13 line cord, 18 AWG, 6 ft, UL-listed (6 pk). Order #112-9710760-9385027, placed April 21, 2026 | [B08VS8D4WC](https://www.amazon.com/dp/B08VS8D4WC) | 1 pk | $24.00 | ACQUIRED |
+| uxcell C14 panel-mount inlet, 10 A, 3-pin straight (single). Order #112-2063260-0973008, placed April 24, 2026 | [B07PXSLBF4](https://www.amazon.com/dp/B07PXSLBF4) | 1 | $7.39 | ACQUIRED |
+| Tripp Lite P006-006 NEMA 5-15P → IEC C13 line cord, 18 AWG, 6 ft, UL-listed. Order #112-2843637-5886607, placed April 24, 2026 | [B0000511C0](https://www.amazon.com/dp/B0000511C0) | 1 | $9.21 | ACQUIRED |
+| Legrand Radiant 1597BKCCD12 15 A self-test GFCI, decorator duplex, black. Order #112-6714135-1147434, placed May 20, 2026 | [B017HAB4BO](https://www.amazon.com/dp/B017HAB4BO) | 2 | $41.72 | ACQUIRED (delivered May 21) |
+| Mean Well IRM-90-12ST encapsulated 80 W / 12 V / 6.7 A PSU. Order #112-1500299-7944264, placed April 21, 2026 | [B0CNRST18V](https://www.amazon.com/dp/B0CNRST18V) | 1 | $31.66 | ACQUIRED |
+| Mean Well LRS-200-12 enclosed 204 W / 12 V / 17 A PSU. Order #112-9091100-8229010, placed April 17, 2026 | [B0874XQ82F](https://www.amazon.com/dp/B0874XQ82F) | 1 | $30.03 | ACQUIRED |
+| P3 Kill-A-Watt P4400 power meter (bench). Order #112-0118962-3725825, placed April 17, 2026 | [B00009MDBU](https://www.amazon.com/dp/B00009MDBU) | 1 | $34.31 | ACQUIRED |
 
 ## 10. User interface — buttons, LEDs, air switch
 
 | Part | ASIN link | Qty | $ | Status |
 |---|---|---|---|---|
-| KRAUS garbage-disposal air-switch kit, matte black | [B096319GMV](https://www.amazon.com/dp/B096319GMV) | 3 | $42.85 ea | ACQUIRED |
-| 7 mm 12 V prewired momentary micro pushbutton, 12 pc | [B0F43GYWJ6](https://www.amazon.com/dp/B0F43GYWJ6) | 1 pk | $7.71 | ACQUIRED |
-| EDGELEC 120 pc 12 V prewired LED assortment, 5 mm | [B07PVVL2S6](https://www.amazon.com/dp/B07PVVL2S6) | 1 pk | $13.93 | ACQUIRED |
-| DIYables Passive Piezo Buzzer Module, 5 V, 2-pack | [B0DYDN31PV](https://www.amazon.com/dp/B0DYDN31PV) | 1 pk (2) | $6.42 | ACQUIRED (delivered May 14) |
+| KRAUS garbage-disposal air-switch kit, matte black. Order #112-0545074-9805025, placed February 23, 2026 | [B096319GMV](https://www.amazon.com/dp/B096319GMV) | 3 | $42.85 ea | ACQUIRED |
+| 7 mm 12 V prewired momentary micro pushbutton, 12 pc. Order #114-8283262-7030641, placed February 6, 2026 | [B0F43GYWJ6](https://www.amazon.com/dp/B0F43GYWJ6) | 1 pk | $7.71 | ACQUIRED |
+| EDGELEC 120 pc 12 V prewired LED assortment, 5 mm. Order #114-8283262-7030641, placed February 6, 2026 | [B07PVVL2S6](https://www.amazon.com/dp/B07PVVL2S6) | 1 pk | $13.93 | ACQUIRED |
+| DIYables Passive Piezo Buzzer Module, 5 V, 2-pack. Order #112-8061650-4642611, placed May 11, 2026 | [B0DYDN31PV](https://www.amazon.com/dp/B0DYDN31PV) | 1 pk (2) | $6.42 | ACQUIRED (delivered May 14) |
 
 ## 11. Enclosure hardware
 
 | Part | ASIN link | Qty | $ | Status |
 |---|---|---|---|---|
-| Probrico 3-3/4" CC solid cabinet pulls, SS round T-bar, black (5 pk) | [B0DHHK94Y5](https://www.amazon.com/dp/B0DHHK94Y5) | 1 pk | $13.93 | ACQUIRED |
-| Amerock bar pulls 3-3/4" matte-black (10 pk) | [B0DLWMV3RM](https://www.amazon.com/dp/B0DLWMV3RM) | 1 pk | $27.05 | ACQUIRED |
-| Neodymium disc magnets 3×1 mm | [B0BQ3LPGZ1](https://www.amazon.com/dp/B0BQ3LPGZ1) | 1 | $20.90 | ACQUIRED |
+| Probrico 3-3/4" CC solid cabinet pulls, SS round T-bar, black (5 pk). Order #114-3717852-7039428, placed March 7, 2026 | [B0DHHK94Y5](https://www.amazon.com/dp/B0DHHK94Y5) | 1 pk | $13.93 | ACQUIRED |
+| Amerock bar pulls 3-3/4" matte-black (10 pk). Order #114-3717852-7039428, placed March 7, 2026 | [B0DLWMV3RM](https://www.amazon.com/dp/B0DLWMV3RM) | 1 pk | $27.05 | ACQUIRED |
+| Neodymium disc magnets 3×1 mm. Order #112-2147768-5852208, placed March 15, 2026 | [B0BQ3LPGZ1](https://www.amazon.com/dp/B0BQ3LPGZ1) | 1 | $20.90 | ACQUIRED |
 | ruthex M3 Threaded Inserts Short, 100 pc, RX-M3Sx4.0 brass heat-set | [B0D39W228K](https://www.amazon.com/dp/B0D39W228K) | 1 pk (100) | $10.71 | ACQUIRED (delivered May 11) |
-| BNUOK M3 × 25 mm Hex Socket Head Cap Screws, 60 pc, 12.9 alloy steel, black oxide finish | [B0DJQGF665](https://www.amazon.com/dp/B0DJQGF665) | 1 pk (60) | $8.57 | ACQUIRED (delivered May 11) |
-| BNUOK M3 × 12 mm Hex Socket Head Cap Screws, 120 pc, 12.9 alloy steel, black oxide finish | [B0DJQGVK8S](https://www.amazon.com/dp/B0DJQGVK8S) | 1 pk (120) | $8.57 | ACQUIRED (delivered May 11, spare stock) |
-| BNUOK M3 × 12 mm Hex Socket Head Cap Screws, 120 pc, 304 stainless steel (18-8), bright finish | [B0DJQGMQZM](https://www.amazon.com/dp/B0DJQGMQZM) | 1 pk (120) | $8.66 | ACQUIRED (delivered Jun 3) |
-| LVDALAB PTFE Membrane Filter, ø13 mm × 0.45 µm, 100 pc, non-sterile | [B0D41KT345](https://www.amazon.com/dp/B0D41KT345) | 1 pk (100) | $13.23 | ACQUIRED (delivered May 12) |
-| Mudder PTFE / PVC / PU tubing cutter, ≤3/4" OD (3-pk, black) | [B08VW15TK8](https://www.amazon.com/dp/B08VW15TK8) | 1 pk (3) | $12.86 | ACQUIRED (delivered May 18) |
+| BNUOK M3 × 25 mm Hex Socket Head Cap Screws, 60 pc, 12.9 alloy steel, black oxide finish. Order #112-2495614-5144234, placed May 10, 2026 | [B0DJQGF665](https://www.amazon.com/dp/B0DJQGF665) | 1 pk (60) | $8.57 | ACQUIRED (delivered May 11) |
+| BNUOK M3 × 12 mm Hex Socket Head Cap Screws, 120 pc, 12.9 alloy steel, black oxide finish. Order #112-0144900-5988250, placed May 10, 2026 | [B0DJQGVK8S](https://www.amazon.com/dp/B0DJQGVK8S) | 1 pk (120) | $8.57 | ACQUIRED (delivered May 11, spare stock) |
+| BNUOK M3 × 12 mm Hex Socket Head Cap Screws, 120 pc, 304 stainless steel (18-8), bright finish. Order #112-3709957-5726619, placed June 2, 2026 | [B0DJQGMQZM](https://www.amazon.com/dp/B0DJQGMQZM) | 1 pk (120) | $8.66 | ACQUIRED (delivered Jun 3) |
+| LVDALAB PTFE Membrane Filter, ø13 mm × 0.45 µm, 100 pc, non-sterile. Order #112-4393734-6836206, placed May 11, 2026 | [B0D41KT345](https://www.amazon.com/dp/B0D41KT345) | 1 pk (100) | $13.23 | ACQUIRED (delivered May 12) |
+| Mudder PTFE / PVC / PU tubing cutter, ≤3/4" OD (3-pk, black). Order #112-8598924-2300214, placed May 17, 2026 | [B08VW15TK8](https://www.amazon.com/dp/B08VW15TK8) | 1 pk (3) | $12.86 | ACQUIRED (delivered May 18) |
 
 ## 12. Shop / bench infrastructure
 
@@ -348,7 +348,7 @@ General shop equipment supporting fabrication, assembly, and teardown. Not proje
 
 | Part | ASIN link | Qty | $ | Status |
 |---|---|---|---|---|
-| VEVOR adjustable 48" workbench w/ power outlet, wheels, pegboard, 2000 lb load | [B0FCD13KKQ](https://www.amazon.com/dp/B0FCD13KKQ) | 2 | $172.64 ea | ACQUIRED |
+| VEVOR adjustable 48" workbench w/ power outlet, wheels, pegboard, 2000 lb load. Order #114-1978684-7068269, placed April 20, 2026 | [B0FCD13KKQ](https://www.amazon.com/dp/B0FCD13KKQ) | 2 | $172.64 ea | ACQUIRED |
 | NEIKO 01407A digital caliper, 0–6", stainless, inch/fraction/mm LCD — bench metrology (CAD reference measurements, incl. the faucet display housing/PCB dimensions). Order #114-9764609-4555460, placed Mar 22, 2026 | [B000GSLKIW](https://www.amazon.com/dp/B000GSLKIW) | 1 | $27.23 | ACQUIRED (delivered Mar 24) |
 
 ## 13. Printing consumables
@@ -357,18 +357,18 @@ General shop equipment supporting fabrication, assembly, and teardown. Not proje
 
 | Part | ASIN link | Qty | $ | Status |
 |---|---|---|---|---|
-| SpoolHaus PEBA Super Bowden 1.75 mm, 1 kg | [B0G1L5XVH2](https://www.amazon.com/dp/B0G1L5XVH2) | 1 | $64.34 | ACQUIRED |
-| Siraya Tech Flex 1.75 mm TPU | [B0CVXF33Z1](https://www.amazon.com/dp/B0CVXF33Z1) | 1 | $33.88 | ACQUIRED |
-| SUNLU Official 3D Printer Filament Dryer S4 | [B0CQJMV71Z](https://www.amazon.com/dp/B0CQJMV71Z) | 1 | $125.47 | ACQUIRED (delivered March 25) |
-| Polymaker 3D Printing Filament Storage Box, 4-Pack (PolyDryer Box x4) | [B0FHPS82YG](https://www.amazon.com/dp/B0FHPS82YG) | 1 pk (4) | $117.96 | ACQUIRED (delivered March 25) |
-| SUNLU Official 3D Printer Filament Dryer E2 | [B0F5PMMXKD](https://www.amazon.com/dp/B0F5PMMXKD) | 1 | $321.74 | ACQUIRED (delivered April 7) |
-| DUROZZLE 0.6mm Diamond PCD Nozzle Hotend, L-side (H2D/H2S/P2S/A1 series) | [B0GWDBQW4G](https://www.amazon.com/dp/B0GWDBQW4G) | 1 | $64.24 | ACQUIRED (delivered May 9 1:27 PM) |
-| DUROZZLE 0.6mm Tungsten Carbide Nozzle Hotend, L-side (H2D/H2S/P2S/A1 series) | [B0GWDDKG47](https://www.amazon.com/dp/B0GWDDKG47) | 1 | $37.43 | ACQUIRED (delivered May 9 8:37 AM, used on touch-flo-shell PET-CF attempt 7) |
-| Comfy Materials FDA-compliant food-grade PETG-Carbon, 1.75 mm × 1 kg, Gray | [B0BTLNK74C](https://www.amazon.com/dp/B0BTLNK74C) | 2 | $75.06 | ACQUIRED (delivered May 9 6:31 PM) |
+| SpoolHaus PEBA Super Bowden 1.75 mm, 1 kg. Order #114-5148466-4469057, placed April 19, 2026 | [B0G1L5XVH2](https://www.amazon.com/dp/B0G1L5XVH2) | 1 | $64.34 | ACQUIRED |
+| Siraya Tech Flex 1.75 mm TPU. Order #114-4402537-9406656, placed April 19, 2026 | [B0CVXF33Z1](https://www.amazon.com/dp/B0CVXF33Z1) | 1 | $33.88 | ACQUIRED |
+| SUNLU Official 3D Printer Filament Dryer S4. Order #114-9764609-4555460, placed March 22, 2026 | [B0CQJMV71Z](https://www.amazon.com/dp/B0CQJMV71Z) | 1 | $125.47 | ACQUIRED (delivered March 25) |
+| Polymaker 3D Printing Filament Storage Box, 4-Pack (PolyDryer Box x4). Order #114-9764609-4555460, placed March 22, 2026 | [B0FHPS82YG](https://www.amazon.com/dp/B0FHPS82YG) | 1 pk (4) | $117.96 | ACQUIRED (delivered March 25) |
+| SUNLU Official 3D Printer Filament Dryer E2. Order #114-9662555-0662608, placed April 5, 2026 | [B0F5PMMXKD](https://www.amazon.com/dp/B0F5PMMXKD) | 1 | $321.74 | ACQUIRED (delivered April 7) |
+| DUROZZLE 0.6mm Diamond PCD Nozzle Hotend, L-side (H2D/H2S/P2S/A1 series). Order #112-9688188-4729035, placed May 8, 2026 | [B0GWDBQW4G](https://www.amazon.com/dp/B0GWDBQW4G) | 1 | $64.24 | ACQUIRED (delivered May 9 1:27 PM) |
+| DUROZZLE 0.6mm Tungsten Carbide Nozzle Hotend, L-side (H2D/H2S/P2S/A1 series). Order #112-7749428-2806629, placed May 8, 2026 | [B0GWDDKG47](https://www.amazon.com/dp/B0GWDDKG47) | 1 | $37.43 | ACQUIRED (delivered May 9 8:37 AM, used on touch-flo-shell PET-CF attempt 7) |
+| Comfy Materials FDA-compliant food-grade PETG-Carbon, 1.75 mm × 1 kg, Gray. Order #112-3739807-8848229, placed May 9, 2026 | [B0BTLNK74C](https://www.amazon.com/dp/B0BTLNK74C) | 2 | $75.06 | ACQUIRED (delivered May 9 6:31 PM) |
 | Bambu Lab Induction Heating Assembly - Right (H2C and H2C Laser, Bambu SKU 3DPP431) | [innoaddi.com](https://www.innoaddi.com/products/induction-heating-assembly-right) | 1 | $68.98 | ACQUIRED (delivered May 26) |
-| Shineboc 20-pc Wet/Dry Sanding Sponge Set, foam-backed silicon-carbide, 3" × 4", 9 grits (180/320/400/600/800/1200/2000/2500/3000) | [B0D8ZC6HKY](https://www.amazon.com/dp/B0D8ZC6HKY) | 1 pk (20) | $10.71 | ACQUIRED (delivered May 12) |
-| Polymaker Fiberon PET-CF17, 1.75 mm × 1 kg, Black | [B0G2CC2YP8](https://www.amazon.com/dp/B0G2CC2YP8) | 2 | $96.50 | ACQUIRED (delivered May 18) |
-| SunTop food-contact-compliant PETG, 1.75 mm × 1 kg, Clear/Transparent | [B0FP34MJ94](https://www.amazon.com/dp/B0FP34MJ94) | 2 | $49.32 | ACQUIRED (delivered May 18) |
+| Shineboc 20-pc Wet/Dry Sanding Sponge Set, foam-backed silicon-carbide, 3" × 4", 9 grits (180/320/400/600/800/1200/2000/2500/3000). Order #112-0610257-0936212, placed May 11, 2026 | [B0D8ZC6HKY](https://www.amazon.com/dp/B0D8ZC6HKY) | 1 pk (20) | $10.71 | ACQUIRED (delivered May 12) |
+| Polymaker Fiberon PET-CF17, 1.75 mm × 1 kg, Black. Order #114-0500457-4192257, placed May 17, 2026 | [B0G2CC2YP8](https://www.amazon.com/dp/B0G2CC2YP8) | 2 | $96.50 | ACQUIRED (delivered May 18) |
+| SunTop food-contact-compliant PETG, 1.75 mm × 1 kg, Clear/Transparent. Order #112-1471049-5385066, placed May 17, 2026 | [B0FP34MJ94](https://www.amazon.com/dp/B0FP34MJ94) | 2 | $49.32 | ACQUIRED (delivered May 18) |
 | Elmer's disappearing purple school glue sticks, washable, 6 g × 12 — print-bed adhesion/release layer. Order #114-9764609-4555460, placed Mar 22, 2026 | [B003ULCZ7M](https://www.amazon.com/dp/B003ULCZ7M) | 1 pk (12) | $7.38 | ACQUIRED (delivered Mar 24) |
 
 ## 14. Soldering + small-signal electrical tools
@@ -377,24 +377,24 @@ Bench soldering capability for through-hole, wire-to-pad (pogo pin leads), and g
 
 | Part | ASIN link | Qty | $ | Status |
 |---|---|---|---|---|
-| Hakko FX-888D digital soldering station, 70 W, adjustable 120–899 °F | [B0D4DJW54S](https://www.amazon.com/dp/B0D4DJW54S) | 1 | $130.27 | ACQUIRED |
-| Kester 24-6337-0027 63/37 Sn/Pb rosin-core solder, 0.031" / 1 lb | [B0149K4JTY](https://www.amazon.com/dp/B0149K4JTY) | 1 | $52.12 | ACQUIRED |
-| KOTTO solder fume extractor, 60 W w/ activated-carbon filter | [B07VWDN29F](https://www.amazon.com/dp/B07VWDN29F) | 1 | $42.89 | ACQUIRED |
-| AstroAI digital multimeter, 2000-count auto-ranging | [B071JL6LLL](https://www.amazon.com/dp/B071JL6LLL) | 1 | $32.16 | ACQUIRED |
-| Klein Tools 11063W Kurve self-adjusting wire stripper, AWG 10–20 | [B00CXKOEQ6](https://www.amazon.com/dp/B00CXKOEQ6) | 1 | $24.62 | ACQUIRED |
-| MG Chemicals 8341 no-clean rosin flux paste, 10 mL syringe | [B09FWB6L5L](https://www.amazon.com/dp/B09FWB6L5L) | 1 | $21.66 | ACQUIRED |
-| MG Chemicals 99.9% anhydrous isopropyl alcohol, 16 oz | [B0BZ21DBJ6](https://www.amazon.com/dp/B0BZ21DBJ6) | 1 | $18.61 | ACQUIRED |
-| Kaisi heat-resistant silicone repair mat, 17.7" × 11.8" | [B07DGVRYL3](https://www.amazon.com/dp/B07DGVRYL3) | 1 | $12.86 | ACQUIRED |
-| Chemtronics Soder-Wick #60-3-5 desoldering braid, 0.075" × 5 ft | [B01I7Q2ULA](https://www.amazon.com/dp/B01I7Q2ULA) | 1 | $12.61 | ACQUIRED |
-| 3M Virtua CCS safety glasses, clear anti-fog | [B00AEXKR4C](https://www.amazon.com/dp/B00AEXKR4C) | 1 | $12.43 | ACQUIRED |
-| BEEYUIHF no-clean liquid soldering flux, dropper bottle | [B0G2G6WFPZ](https://www.amazon.com/dp/B0G2G6WFPZ) | 1 | $10.71 | ACQUIRED |
-| AORAEM helping-hands w/ 4 flex arms + magnifier | [B08DNMT96W](https://www.amazon.com/dp/B08DNMT96W) | 1 | $9.64 | ACQUIRED |
-| QWORK mini heat gun, 300 W / 200–450 °C | [B09NDCCW29](https://www.amazon.com/dp/B09NDCCW29) | 1 | $9.62 | ACQUIRED |
-| Hakko T18-D16 chisel tip, 1.6 mm | [B004OR9BV4](https://www.amazon.com/dp/B004OR9BV4) | 1 | $9.64 | ACQUIRED |
-| Hakko T18-D12 chisel tip, 1.2 mm | [B004OR6BU8](https://www.amazon.com/dp/B004OR6BU8) | 1 | $9.64 | ACQUIRED |
-| T18-compatible heat-set insert tip kit, 7-piece, M2/M2.5/M3/M4/M5/M6/M8 | [B0CS662NVK](https://www.amazon.com/dp/B0CS662NVK) | 1 kit (7 tips) | $13.93 | ACQUIRED (delivered May 11) |
-| Heat-shrink tubing assortment kit, 2:1 ratio, assorted sizes/colors | [B0FRNMXN6Q](https://www.amazon.com/dp/B0FRNMXN6Q) | 1 | $7.50 | ACQUIRED |
-| Disposable flux brushes, horsehair, 1/2" × 6" (pack) | [B07PHG2DQY](https://www.amazon.com/dp/B07PHG2DQY) | 1 pk | $6.96 | ACQUIRED |
+| Hakko FX-888D digital soldering station, 70 W, adjustable 120–899 °F. Order #112-0066205-0960237, placed April 22, 2026 | [B0D4DJW54S](https://www.amazon.com/dp/B0D4DJW54S) | 1 | $130.27 | ACQUIRED |
+| Kester 24-6337-0027 63/37 Sn/Pb rosin-core solder, 0.031" / 1 lb. Order #112-0066205-0960237, placed April 22, 2026 | [B0149K4JTY](https://www.amazon.com/dp/B0149K4JTY) | 1 | $52.12 | ACQUIRED |
+| KOTTO solder fume extractor, 60 W w/ activated-carbon filter. Order #112-0066205-0960237, placed April 22, 2026 | [B07VWDN29F](https://www.amazon.com/dp/B07VWDN29F) | 1 | $42.89 | ACQUIRED |
+| AstroAI digital multimeter, 2000-count auto-ranging. Order #112-0066205-0960237, placed April 22, 2026 | [B071JL6LLL](https://www.amazon.com/dp/B071JL6LLL) | 1 | $32.16 | ACQUIRED |
+| Klein Tools 11063W Kurve self-adjusting wire stripper, AWG 10–20. Order #112-0066205-0960237, placed April 22, 2026 | [B00CXKOEQ6](https://www.amazon.com/dp/B00CXKOEQ6) | 1 | $24.62 | ACQUIRED |
+| MG Chemicals 8341 no-clean rosin flux paste, 10 mL syringe. Order #112-0066205-0960237, placed April 22, 2026 | [B09FWB6L5L](https://www.amazon.com/dp/B09FWB6L5L) | 1 | $21.66 | ACQUIRED |
+| MG Chemicals 99.9% anhydrous isopropyl alcohol, 16 oz. Order #112-0066205-0960237, placed April 22, 2026 | [B0BZ21DBJ6](https://www.amazon.com/dp/B0BZ21DBJ6) | 1 | $18.61 | ACQUIRED |
+| Kaisi heat-resistant silicone repair mat, 17.7" × 11.8". Order #112-0066205-0960237, placed April 22, 2026 | [B07DGVRYL3](https://www.amazon.com/dp/B07DGVRYL3) | 1 | $12.86 | ACQUIRED |
+| Chemtronics Soder-Wick #60-3-5 desoldering braid, 0.075" × 5 ft. Order #112-0066205-0960237, placed April 22, 2026 | [B01I7Q2ULA](https://www.amazon.com/dp/B01I7Q2ULA) | 1 | $12.61 | ACQUIRED |
+| 3M Virtua CCS safety glasses, clear anti-fog. Order #112-0066205-0960237, placed April 22, 2026 | [B00AEXKR4C](https://www.amazon.com/dp/B00AEXKR4C) | 1 | $12.43 | ACQUIRED |
+| BEEYUIHF no-clean liquid soldering flux, dropper bottle. Order #112-0066205-0960237, placed April 22, 2026 | [B0G2G6WFPZ](https://www.amazon.com/dp/B0G2G6WFPZ) | 1 | $10.71 | ACQUIRED |
+| AORAEM helping-hands w/ 4 flex arms + magnifier. Order #112-0066205-0960237, placed April 22, 2026 | [B08DNMT96W](https://www.amazon.com/dp/B08DNMT96W) | 1 | $9.64 | ACQUIRED |
+| QWORK mini heat gun, 300 W / 200–450 °C. Order #112-0066205-0960237, placed April 22, 2026 | [B09NDCCW29](https://www.amazon.com/dp/B09NDCCW29) | 1 | $9.62 | ACQUIRED |
+| Hakko T18-D16 chisel tip, 1.6 mm. Order #112-0066205-0960237, placed April 22, 2026 | [B004OR9BV4](https://www.amazon.com/dp/B004OR9BV4) | 1 | $9.64 | ACQUIRED |
+| Hakko T18-D12 chisel tip, 1.2 mm. Order #112-0066205-0960237, placed April 22, 2026 | [B004OR6BU8](https://www.amazon.com/dp/B004OR6BU8) | 1 | $9.64 | ACQUIRED |
+| T18-compatible heat-set insert tip kit, 7-piece, M2/M2.5/M3/M4/M5/M6/M8. Order #112-4234665-4274626, placed May 10, 2026 | [B0CS662NVK](https://www.amazon.com/dp/B0CS662NVK) | 1 kit (7 tips) | $13.93 | ACQUIRED (delivered May 11) |
+| Heat-shrink tubing assortment kit, 2:1 ratio, assorted sizes/colors. Order #112-0066205-0960237, placed April 22, 2026 | [B0FRNMXN6Q](https://www.amazon.com/dp/B0FRNMXN6Q) | 1 | $7.50 | ACQUIRED |
+| Disposable flux brushes, horsehair, 1/2" × 6" (pack). Order #112-0066205-0960237, placed April 22, 2026 | [B07PHG2DQY](https://www.amazon.com/dp/B07PHG2DQY) | 1 pk | $6.96 | ACQUIRED |
 | DSD TECH SH-U09B3 USB-C to TTL serial adapter, CP2102N — service-flash path into the faucet display S3 over UART0 (GPIO 43/44) once its USB-C connector comes off for the gooseneck mount. Order #112-6318240-4305018, placed Jun 10, 2026 | [B09KXT6W46](https://www.amazon.com/dp/B09KXT6W46) | 1 | $10.71 | ACQUIRED (delivered Jun 11) |
 | FAST CHIP low-melt SMD removal alloy, 4.5 ft — iron-only removal of the faucet display S3's USB-C connector and TF slot (keeps rework heat away from the panel glued to the far side of the PCB). Order #112-3079158-6326618, placed Jun 10, 2026 | [B00OOBIJ6I](https://www.amazon.com/dp/B00OOBIJ6I) | 1 | $15.00 | ACQUIRED (delivered Jun 11) |
 | ELEGOO polyimide high-temp tape, 4-roll bundle (1/8", 1/4", 1/2", 1") — masking around board-level rework. Order #112-0906598-6371411, placed Jun 10, 2026 | [B072Z92QZ2](https://www.amazon.com/dp/B072Z92QZ2) | 1 (4 rolls) | $10.71 | ACQUIRED (delivered Jun 11) |
@@ -475,7 +475,7 @@ Storage and capture gear used to record print runs, fab work, and assembled-prod
 
 | Part | ASIN link | Qty | $ | Status |
 |---|---|---|---|---|
-| SanDisk Ultra Fit USB 3.1 256 GB low-profile flash drive (SDCZ430-256G-G46) | [B07857Y17V](https://www.amazon.com/dp/B07857Y17V) | 1 | $45.41 | ACQUIRED (delivered Mon May 4) |
+| SanDisk Ultra Fit USB 3.1 256 GB low-profile flash drive (SDCZ430-256G-G46). Order #112-0147397-3280206, placed May 2, 2026 | [B07857Y17V](https://www.amazon.com/dp/B07857Y17V) | 1 | $45.41 | ACQUIRED (delivered Mon May 4) |
 
 ## 20. McMaster-Carr direct
 
