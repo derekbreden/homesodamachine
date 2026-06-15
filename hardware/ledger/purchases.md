@@ -57,6 +57,7 @@ Stainless pressure-vessel fabrication: 316 SS round-tube body + 1/4" laser-cut 3
 | Franklin International 1412 Titebond III wood glue, 4 oz. Order #112-2348373-7907448, placed April 29, 2026 | [B0002YQ378](https://www.amazon.com/dp/B0002YQ378) | 1 | $5.34 | ACQUIRED |
 | Storystore 4" heavy-duty steel C-clamps (4 pk). Order #112-2348373-7907448, placed April 29, 2026 | [B0DHX78G97](https://www.amazon.com/dp/B0DHX78G97) | 1 pk | $21.44 | ACQUIRED |
 | Bosch DSB1013 1" × 6" Daredevil Standard Spade Bit. Order #111-4630388-1572202, placed April 29, 2026 | [B001NGPAA0](https://www.amazon.com/dp/B001NGPAA0) | 1 | $5.35 | ACQUIRED |
+| Drill Hulk DHCO26 9/64" (3.57 mm) M35 cobalt jobber twist drill bits, 12-pack — blind rod-register drilling in the 316 SS end-cap plates. Order #112-3161139-1981039, placed June 15, 2026 | [B07XNNNC5Y](https://www.amazon.com/dp/B07XNNNC5Y) | 1 pk (12) | $18.43 | ON-ORDER (arriving Wed Jun 17) |
 | Ultra Duster Canned Air Industrial Strength 10 oz, 4-pack. Order #112-6571709-7582668, placed May 8, 2026 | [B07JRBR1MM](https://www.amazon.com/dp/B07JRBR1MM) | 1 pk (4× 10 oz) | $24.51 | ACQUIRED (delivered May 12) |
 | Hgnova 15-pc 1064 nm laser protective lens, D18 × 2 mm, 1000–3000 W handheld 4-in-1 laser welder. Order #112-3421913-9021801, placed April 30, 2026 | [B0FF38DY1Z](https://www.amazon.com/dp/B0FF38DY1Z) | 1 pk (15) | $19.29 | ACQUIRED |
 | SENCTRL 0–200 PSI glycerin-filled pressure gauge, 2.5" dial, 1/4" NPT lower mount, SS case. Order #112-2086169-3211445, placed May 4, 2026 | [B0BCHMQLFB](https://www.amazon.com/dp/B0BCHMQLFB) | 1 | $10.72 | ACQUIRED (delivered Tue May 5) |
@@ -513,10 +514,10 @@ Industrial-supply orders direct from McMaster-Carr (mcmaster.com). First McMaste
 | ACQUIRED — hardware, tools & infra (§§1–17, 19, 20) | [$25,916.51](LEDGER_ACQUIRED_HW) |
 | ACQUIRED — capitalized contract labor (§18) | [$2,607.92](LEDGER_LABOR) |
 | ACQUIRED (combined) | [$28,524.43](LEDGER_ACQUIRED_COMBINED) |
-| ON-ORDER | [$526.22](LEDGER_ON_ORDER) |
+| ON-ORDER | [$544.65](LEDGER_ON_ORDER) |
 | MISSING — paid, not received (§1 copper bar) | [$42.89](LEDGER_MISSING) |
 | LIKELY-TO-BUY | $0.00 |
-| **Grand total — cash outlay** | [$29,093.54](LEDGER_GRAND_TOTAL) |
+| **Grand total — cash outlay** | [$29,111.97](LEDGER_GRAND_TOTAL) |
 
 ACQUIRED hardware by section:
 

@@ -19,6 +19,7 @@ For per-unit BOM parts, see [bom.md](/hardware/ledger/bom.md). For non-BOM/non-t
 | **LingGan 1/4-18 NPT M35 cobalt pipe tap** | [B0D7HM5R3C](https://www.amazon.com/dp/B0D7HM5R3C), [purchases.md §1](/hardware/ledger/purchases.md) | M35 (5% cobalt HSS-E), TiN-coated, 4-flute taper chamfer. Production tap for the 40-hole 316L SS end-cap run. Use with Tap Magic EP-Xtra cutting fluid. | [$13.93](T_M35_TAP) |
 | **Brown & Sharpe spring-loaded tap guide** | [B005317ZMC](https://www.amazon.com/dp/B005317ZMC), [purchases.md §1](/hardware/ledger/purchases.md) | 1/2" hardened shank; keeps the pipe tap square while starting threads under the drill press. | [$27.45](T_TAP_GUIDE) |
 | **Mollom 124 mm bi-metal hole saw + arbor** | [B0BZQ4J5B1](https://www.amazon.com/dp/B0BZQ4J5B1), [purchases.md §1](/hardware/ledger/purchases.md) | HSS M42, 4-7/8" cut; near-5" fixture pockets and end-cap disc cuts. | [$19.19](T_HOLE_SAW) |
+| **Drill Hulk 9/64" M35 cobalt twist drill bits (12-pk)** | [B07XNNNC5Y](https://www.amazon.com/dp/B07XNNNC5Y), [purchases.md §1](/hardware/ledger/purchases.md) | M35 (5% cobalt), 135° split point, jobber length. Blind level-sensing rod register (0.10" deep) in the 316 SS end-cap inside face; slip-fit for the 1/8" float rod. Consumable, 12-pack covers the 20-cap batch. | [$18.43](T_REGISTER_BIT) |
 | **Bosch DSB1013 Daredevil spade bit** | [B001NGPAA0](https://www.amazon.com/dp/B001NGPAA0), [purchases.md §1](/hardware/ledger/purchases.md) | 1" × 6", for 1" through-holes in fixture stock. | [$5.35](T_SPADE_BIT) |
 | **MOTOKU 38 mm round die handle** | [B073ZX58PH](https://www.amazon.com/dp/B073ZX58PH), [purchases.md §1](/hardware/ledger/purchases.md) | Companion to Drill America die kit for chasing external threads on test fittings. | [$15.00](T_DIE_HANDLE) |
 
@@ -116,7 +117,7 @@ For per-unit BOM parts, see [bom.md](/hardware/ledger/bom.md). For non-BOM/non-t
 
 ## Tools total
 
-Total acquired tooling: **[$13,946.31](TOOLS_TOTAL)**
+Total acquired tooling: **[$13,964.74](TOOLS_TOTAL)**
 
 ## Open items
 
