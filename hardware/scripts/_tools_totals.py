@@ -132,6 +132,7 @@ TOOLS = [
     ("M35 cobalt pipe tap", "T_M35_TAP", A("B0D7HM5R3C")),
     ("tap guide", "T_TAP_GUIDE", A("B005317ZMC")),
     ("bi-metal hole saw", "T_HOLE_SAW", A("B0BZQ4J5B1")),
+    ("9/64", "T_REGISTER_BIT", A("B07XNNNC5Y")),
     ("Daredevil spade bit", "T_SPADE_BIT", A("B001NGPAA0")),
     ("round die handle", "T_DIE_HANDLE", A("B073ZX58PH")),
     ("hydrostatic test pump", "T_HYDRO_PUMP", A("B07T45XTD1")),
