@@ -45,8 +45,8 @@ hole_positions = [(-hole_offset, 0.0), (+hole_offset, 0.0)]
 # source-of-truth constants in endcap_circular_dxf.py). Not a cut/vendor
 # feature: a through-hole here would breach the 90 PSI pressure boundary.
 register_position = (0.0, -1.889)  # on the −Y axis, clear of the two ports
-register_drill_diameter = 0.15625  # 5/32" — rod ⌀ + ~0.4 mm slip-fit
-register_depth = 0.100             # blind, from the inside face
+register_drill_diameter = 0.140625  # 9/64" — slip-fit on the 1/8" rod
+register_depth = 0.100             # blind, to the drill-tip (leaves 0.15" wall)
 
 # Drawing revision date shown in the title block. A fixed constant rather
 # than date.today() so regenerating the PDF is byte-stable — a render on a

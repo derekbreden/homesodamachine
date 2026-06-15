@@ -33,7 +33,7 @@ Per-unit BOM lives in [`/hardware/ledger/bom.md`](/hardware/ledger/bom.md) §2 (
 | Viva Doria food-grade citric acid | B0C5NQM8S1 | Made up to ~4 % solution, ~1 qt per vessel (~1/20 of 2 lb bag) |
 | Tap Magic EP-Xtra cutting fluid | B00DHMHSGM | ~$0.50 of fluid per vessel for NPT tapping |
 
-Tooling (per-vessel-amortized only — single-asset tools live in [`/hardware/ledger/purchases.md`](/hardware/ledger/purchases.md), not here): XLaserlab X1 Pro laser welder, WEN 4208T drill press, LingGan M35 cobalt 1/4-18 NPT pipe tap + Drill America DWT adjustable tap wrench, Brown & Sharpe spring tap guide, argon at the welder, hydro test rig (see step 6).
+Tooling (per-vessel-amortized only — single-asset tools live in [`/hardware/ledger/purchases.md`](/hardware/ledger/purchases.md), not here): XLaserlab X1 Pro laser welder, WEN 4208T drill press, LingGan M35 cobalt 1/4-18 NPT pipe tap + Drill America DWT adjustable tap wrench, Brown & Sharpe spring tap guide, Drill Hulk 9/64" M35 cobalt drill bit (rod register), argon at the welder, hydro test rig (see step 6).
 
 ## CO2 supply (sets working pressure)
 
@@ -43,15 +43,17 @@ At the 5" OD × 0.065" wall geometry, hoop stress at 90 PSI is ~3,461 PSI — a 
 
 ## Procedure
 
-### 1. Tap NPT in both end plates
+### 1. Tap NPT and drill the rod register in both plates
 
 Hand-tap 1/4"-18 NPT in all four port positions — 2 ports per plate × 2 plates per vessel. Target 4.5 turns of engagement, with a 1/4" NPT test fitting snug-firm at 2-3 threads showing.
 
 The first-tap rig and hand sequence are captured in [`/hardware/tapping-plan-2026-05-03.md`](/hardware/snapshots/tapping-plan-2026-05-03.md) (point-in-time snapshot of the first tap into a 316L plate). That snapshot is single-use Baltic-birch + MDF; the production fixture for the full per-vessel × 10-vessel batch is a downstream design step — see "Open items" below.
 
+**Rod register (both plates, same drill-press setup, before any welding).** Drill the level-sensing rod register into the **inside** face: a blind **9/64" hole, 0.10" deep to the drill-point tip**, at **(0, −1.889")** — on the −Y cap axis, clear of both ports. Position / diameter / depth are the source-of-truth constants in [`endcap_circular_dxf.py`](/hardware/cut-parts/carbonation/endcaps-circular/endcap_circular_dxf.py); the cap drawing carries the REF callout (Note 6). The 0.10" depth leaves 0.15" of the 1/4" plate intact — **this hole must not break through; it is part of the 90 PSI pressure boundary.** Clamp the disc, run the press at its slowest speed (~740 RPM) with Tap Magic, set the depth stop to 0.10" (to the tip), and prove it on a scrap disc before a real plate. Both plates get the identical hole: the **bottom**-plate register seats and squares the rod for its tack weld (step 2); the **top**-plate register captures the rod tip at closure (step 5). Drilling now — before welding and before the citric passivation (step 7) — lets the fresh-cut 316L passivate with the rest of the vessel.
+
 ### 2. Tack-weld float rod to bottom plate
 
-Cut the 1/8" 316L rod to ~6". Tack-weld it vertically to the inside face of the bottom plate (the side that will face into the vessel). Done in the same welding session as the plate-to-tube welds in steps 3 and 5 — heat the welder once.
+Cut the 1/8" 316L rod to ~6". Tack-weld it vertically to the inside face of the bottom plate (the side that will face into the vessel), seating its base in the bottom-plate register from step 1 — the register locates the rod on the donut-wall axis and holds it square for the tack. Set the final rod length so that, fully seated at the bottom, its top will enter the top-plate register at closure (step 5) **without** bottoming out and holding the top plate off the tube end — the rod locates the plate, it must never hold the pressure-weld seam open. Done in the same welding session as the plate-to-tube welds in steps 3 and 5 — heat the welder once.
 
 ### 3. Weld bottom plate to tube
 
@@ -65,7 +67,7 @@ Slide the donut float over the rod through the still-open top of the tube. After
 
 ### 5. Weld top plate to tube
 
-Close the open end with the top plate. The top plate's inside face has a small register that captures the rod's top end as the plate seats against the tube end. Same weld recipe as step 3.
+Close the open end with the top plate. The blind register drilled into its inside face (step 1) captures the rod's top end as the plate seats against the tube end — confirm the plate lands flush on the tube rim (the rod must not hold it off; see the rod-length note in step 2). If the register binds on the rod tip, open that one cap's pocket to 5/32" rather than forcing the plate down — the plate-to-tube joint here is a pressure weld. Same weld recipe as step 3.
 
 ### 6. Hydro test
 
@@ -135,6 +137,8 @@ Procedure-level gaps that need answers before unit 1 ships:
 3. **Post-hydro visual inspection.** What gets inspected, with what aid (loupe? dye penetrant?), against what criteria.
 4. **X1 Pro weld recipe end-to-end validation.** The recipe in §3 is what we run on unit 1's vessel — same 60 % / 12 mm/s / 8-tack pattern / Don't-Let-Go trigger handling — but it hasn't been run end-to-end on 316L production stock yet. The 304L practice fixtures were where the recipe was developed; first 316L production weld is unit 1.
 5. **Port 1 elbow + LTWFITTING install sequence.** [`/hardware/future.md`](/hardware/future.md) "Port 1" describes the LTWFITTING with barb facing inward and MNPT side threaded into the plate. Two assembly orders are geometrically defensible: (a) LTWFITTING first, SS elbow's FNPT threading onto LTWFITTING's externally-protruding MNPT remainder; (b) SS elbow first into Port 1 FNPT, LTWFITTING's MNPT then threading into the elbow's lateral FNPT with the barb on the elbow's lateral side. Path (a) gives a vertical elbow stack on Port 1's exterior; path (b) keeps everything at the elbow's lateral plane. Pick after the elbows are in hand and the LTWFITTING's thread length vs plate thickness can be measured against a fitting.
+
+6. **Reed azimuth ↔ register azimuth.** The rod register sits on the −Y cap axis (arbitrary, chosen only to clear the two ports). The two external reed switches must mount at that same azimuth on the finished tube for the donut's magnet to reach them through the wall. Lock the azimuth once the reed-mounting method on the tube exterior is fixed; if it lands somewhere other than −Y, move `register_position` to match.
 
 ## Sources
 [value](NAME) texts are updated by:

@@ -33,11 +33,14 @@ Two identical discs per vessel, each with 2x tap-drill holes for 1/4"-18 NPT.
                        the external reed column — the bench-measured "ride the
                        wall within ~2 mm" requirement (level-sensing.md).
                        The −Y azimuth must match where the reeds mount outside.
-  Register drill:      5/32" (0.156")  — rod ⌀ + ~0.4 mm, easy blind capture.
-                       9/64" (0.141") if a tighter slip-fit is preferred (mirrors
-                       the reservoir's rod ⌀ + 0.5 mm register).
-  Register depth:      0.10"  blind, drilled from the inside face — leaves
-                       0.15" of plate as intact pressure boundary.
+  Register drill:      9/64" (0.141")  — slip-fit on the 1/8" rod; snug, which
+                       self-locates the rod base in the bottom plate for its tack
+                       weld. Open the TOP plate's pocket to 5/32" (0.156") only if
+                       the cap fights to seat over the rod tip at closure (step 5).
+  Register depth:      0.10"  blind, to the drill-point tip, from the inside face
+                       — leaves 0.15" of the 0.25" plate as intact pressure
+                       boundary. 135° split-point bit ⇒ ~0.07" of full-diameter
+                       pocket gripping the rod tip: ample, non-load-bearing capture.
 
 ── Material ──
 
@@ -93,8 +96,8 @@ donut_od = 27.75 / 25.4               # 1.0925" — 27.75 mm donor ferrite donut
 # Park the rod so the donut OD just reaches the inner wall (wall-scrape fit):
 register_radius = tube_id_radius - donut_od / 2  # 1.8887"
 register_position = (0.0, -round(register_radius, 3))  # (0, -1.889) on −Y, clear of ports
-register_drill_diameter = 0.15625     # 5/32" — rod ⌀ + ~0.4 mm slip-fit
-register_depth = 0.100                # blind; leaves 0.150" of plate as boundary
+register_drill_diameter = 0.140625    # 9/64" — slip-fit on the 1/8" rod (snug)
+register_depth = 0.100                # to the drill-tip; leaves 0.150" of plate
 
 out_dir = Path(__file__).resolve().parent
 out_name = "endcap-circular-2hole"
