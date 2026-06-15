@@ -41,13 +41,20 @@ hole_spacing = 1.500
 hole_offset = hole_spacing / 2
 hole_positions = [(-hole_offset, 0.0), (+hole_offset, 0.0)]
 
+# Rod register — in-house blind drill, shown REFERENCE-ONLY (mirrors the
+# source-of-truth constants in endcap_circular_dxf.py). Not a cut/vendor
+# feature: a through-hole here would breach the 90 PSI pressure boundary.
+register_position = (0.0, -1.889)  # on the −Y axis, clear of the two ports
+register_drill_diameter = 0.15625  # 5/32" — rod ⌀ + ~0.4 mm slip-fit
+register_depth = 0.100             # blind, from the inside face
+
 # Drawing revision date shown in the title block. A fixed constant rather
 # than date.today() so regenerating the PDF is byte-stable — a render on a
 # new day must not churn the committed file. ReportLab compresses the page
 # content stream, so this visible date can't be reached by the regex-based
 # canonicalizer in _cadq_export (unlike the /CreationDate metadata, which it
 # does pin). Bump on a real revision.
-revision_date = "2026-06-08"
+revision_date = "2026-06-15"
 
 # Sheet layout in inches (ANSI A landscape).
 sheet_width = 11.0
@@ -214,10 +221,11 @@ def draw_notes(c: canvas.Canvas) -> None:
         f"2. TAP BOTH HOLES 1/4-18 NPT, THRU FULL PLATE ({disc_thickness:.3f} IN).",
         "3. NPT THREAD DEPTH: THRU (NO COUNTERBORE, NO SPOT-FACE).",
         "4. BREAK OUTER EDGE 0.010 IN x 45\u00b0.",
-        "5. PART IS SYMMETRIC \u2014 NO HANDEDNESS.",
+        "5. CUT/TAPPED PART IS SYMMETRIC \u2014 NO HANDEDNESS.",
+        "6. ROD REGISTER (REF): IN-HOUSE, NOT VENDOR \u2014 DO NOT BREAK THRU.",
     ]
     c.setFont("Helvetica", 8)
-    line_height = 0.17
+    line_height = 0.165
     for i, note in enumerate(notes):
         c.drawString((x0 + 0.10) * inch, (y0 + h - 0.40 - i * line_height) * inch, note)
 
@@ -302,6 +310,36 @@ def draw_main_view(c: canvas.Canvas) -> None:
         c.setLineWidth(part_line_width)
         c.circle(hole_cx * inch, hole_cy * inch, hole_radius * inch, stroke=1, fill=0)
         draw_centermark(c, hole_cx, hole_cy, size=hole_diameter * 0.85)
+
+    # Rod register — REFERENCE feature (in-house blind drill, not a cut).
+    # Phantom-dashed circle on the lower (−Y) centerline so it reads as
+    # not-a-cut, with a REF label and a radial locating dimension.
+    reg_cx = view_center_x + register_position[0]
+    reg_cy = view_center_y + register_position[1]
+    c.setLineWidth(thin_line_width)
+    c.setDash(centerline_dash, 0)
+    c.circle(reg_cx * inch, reg_cy * inch, (register_drill_diameter / 2) * inch, stroke=1, fill=0)
+    c.setDash()
+    draw_centermark(c, reg_cx, reg_cy, size=0.10)
+    c.setFont("Helvetica-Oblique", 7)
+    c.drawString((reg_cx + 0.14) * inch, (reg_cy + 0.05) * inch,
+                 f"REGISTER (REF): Ø{register_drill_diameter:.3f} BLIND")
+    c.drawString((reg_cx + 0.14) * inch, (reg_cy - 0.09) * inch,
+                 f"x {register_depth:.2f} DEEP — SEE NOTE 6")
+
+    # Radial location of the register from disc center, dimensioned on the
+    # left of the −Y centerline (center → register, value placed beside).
+    reg_dim_x = view_center_x - 0.60
+    c.setLineWidth(thin_line_width)
+    c.line(view_center_x * inch, view_center_y * inch, (reg_dim_x - 0.08) * inch, view_center_y * inch)
+    c.line(reg_cx * inch, reg_cy * inch, (reg_dim_x - 0.08) * inch, reg_cy * inch)
+    c.line(reg_dim_x * inch, view_center_y * inch, reg_dim_x * inch, reg_cy * inch)
+    _arrow(c, reg_dim_x, view_center_y, 0, 1)
+    _arrow(c, reg_dim_x, reg_cy, 0, -1)
+    c.setFont("Helvetica", 8)
+    c.drawRightString((reg_dim_x - 0.04) * inch,
+                      ((view_center_y + reg_cy) / 2 - 0.04) * inch,
+                      f"{abs(register_position[1]):.3f}")
 
     # ── Dimensions ──────────────────────────────────────────────────
 
