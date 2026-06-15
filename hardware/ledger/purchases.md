@@ -484,7 +484,7 @@ Storage and capture gear used to record print runs, fab work, and assembled-prod
 | Part | ASIN link | Qty | $ | Status |
 |---|---|---|---|---|
 | SanDisk Ultra Fit USB 3.1 256 GB low-profile flash drive (SDCZ430-256G-G46). Order #112-0147397-3280206, placed May 2, 2026 | [B07857Y17V](https://www.amazon.com/dp/B07857Y17V) | 1 | $45.41 | ACQUIRED (delivered Mon May 4) |
-| SanDisk Ultra Fit USB 3.2 Gen 1 256 GB low-profile flash drive, 400 MB/s (SDCZ430-256G-GAM46) — second timelapse-capture drive. Order #112-1916518-0515440, placed Jun 13, 2026 | [B0BY2TT9TD](https://www.amazon.com/dp/B0BY2TT9TD) | 1 | $46.02 | ON-ORDER (arriving overnight Jun 14) |
+| SanDisk Ultra Fit USB 3.2 Gen 1 256 GB low-profile flash drive, 400 MB/s (SDCZ430-256G-GAM46) — second timelapse-capture drive. Order #112-1916518-0515440, placed Jun 13, 2026 | [B0BY2TT9TD](https://www.amazon.com/dp/B0BY2TT9TD) | 1 | $46.02 | ACQUIRED (delivered Jun 14) |
 
 ## 20. McMaster-Carr direct
 
@@ -510,13 +510,13 @@ Industrial-supply orders direct from McMaster-Carr (mcmaster.com). First McMaste
 
 | Status | $ |
 |---|---|
-| ACQUIRED — hardware, tools & infra (§§1–17, 19, 20) | [$25,870.49](LEDGER_ACQUIRED_HW) |
+| ACQUIRED — hardware, tools & infra (§§1–17, 19, 20) | [$25,916.51](LEDGER_ACQUIRED_HW) |
 | ACQUIRED — capitalized contract labor (§18) | [$2,607.92](LEDGER_LABOR) |
-| ACQUIRED (combined) | [$28,478.41](LEDGER_ACQUIRED_COMBINED) |
-| ON-ORDER | [$465.11](LEDGER_ON_ORDER) |
+| ACQUIRED (combined) | [$28,524.43](LEDGER_ACQUIRED_COMBINED) |
+| ON-ORDER | [$449.10](LEDGER_ON_ORDER) |
 | MISSING — paid, not received (§1 copper bar) | [$42.89](LEDGER_MISSING) |
 | LIKELY-TO-BUY | $0.00 |
-| **Grand total — cash outlay** | [$28,986.41](LEDGER_GRAND_TOTAL) |
+| **Grand total — cash outlay** | [$29,016.42](LEDGER_GRAND_TOTAL) |
 
 ACQUIRED hardware by section:
 
@@ -539,7 +539,7 @@ ACQUIRED hardware by section:
 | 15 | 3D printing equipment + filaments (Bambu direct) | [$8,381.47](LEDGER_SEC15) |
 | 16 | Laser welding / cleaning / cutting | [$3,899.00](LEDGER_SEC16) |
 | 17 | Domain / infrastructure | [$599.00](LEDGER_SEC17) |
-| 19 | Video / marketing capture | [$45.41](LEDGER_SEC19) |
+| 19 | Video / marketing capture | [$91.43](LEDGER_SEC19) |
 | 20 | McMaster-Carr direct | [$111.36](LEDGER_SEC20) |
 
 Notes:
