@@ -296,6 +296,7 @@ Ice-maker donor units and copper coil for the chill loop.
 | Dupont jumper wires (M/F, M/M, F/F) 20 cm. Order #114-5649971-6455418, placed February 24, 2026 | [B0BRTJXND9](https://www.amazon.com/dp/B0BRTJXND9) | 1 pk | $6.40 | ACQUIRED |
 | ELEGOO 120 pc Dupont jumper wire ribbon. Orders #114-0818390-2733826 (Feb 2, ×1), #114-0077226-6463477 (Feb 24, ×1) | [B01EV70C78](https://www.amazon.com/dp/B01EV70C78) | 2 | $7.49 ea | ACQUIRED |
 | Taiss Dupont crimp kit + SN-28B. Order #114-3384762-6934634, placed February 22, 2026 | [B0B11RLGDZ](https://www.amazon.com/dp/B0B11RLGDZ) | 1 | $23.58 | ACQUIRED |
+| iCrimp SN-2549 ratcheting open-barrel crimper, AWG 28–18 (0.08–1.0 mm²) — dedicated die nests for JST PH 2.0 / ZH 1.5 / XH 2.5 / VH 3.96 / JWPS 4.0 + Dupont 2.54; crimps the JST-PH 2.0 terminals on the MCP23017 I²C link, which the SN-28B's nests fit only loosely. Order #112-6248060-3106636, placed Jun 14, 2026 | [B01N4L8QMW](https://www.amazon.com/dp/B01N4L8QMW) | 1 | $23.91 | ON-ORDER (arriving Jun 15) |
 | Waveshare MCP23017 I2C I/O expansion board (repeat ASIN). Order #112-2110462-6265038, placed April 15, 2026 | [B07P2H1NZG](https://www.amazon.com/dp/B07P2H1NZG) | 1 | $13.75 | ACQUIRED (delivered Apr 27) |
 | ULN2803A high-current driver module, 2-pc (repeat ASIN). Order #112-2110462-6265038, placed April 15, 2026 | [B0F872W528](https://www.amazon.com/dp/B0F872W528) | 1 pk | $6.97 | ACQUIRED (delivered Apr 27) |
 | CQRobot JST XH 2.54 mm 4-pin connector kit (50 sets / 300 pcs). Order #112-7245467-6557007, placed April 26, 2026 | [B0B2RB524Y](https://www.amazon.com/dp/B0B2RB524Y) | 1 pk | $8.45 | ACQUIRED (delivered Apr 27) |
@@ -510,10 +511,10 @@ Industrial-supply orders direct from McMaster-Carr (mcmaster.com). First McMaste
 | ACQUIRED — hardware, tools & infra (§§1–17, 19, 20) | [$25,870.49](LEDGER_ACQUIRED_HW) |
 | ACQUIRED — capitalized contract labor (§18) | [$2,607.92](LEDGER_LABOR) |
 | ACQUIRED (combined) | [$28,478.41](LEDGER_ACQUIRED_COMBINED) |
-| ON-ORDER | [$411.18](LEDGER_ON_ORDER) |
+| ON-ORDER | [$465.11](LEDGER_ON_ORDER) |
 | MISSING — paid, not received (§1 copper bar) | [$42.89](LEDGER_MISSING) |
 | LIKELY-TO-BUY | $0.00 |
-| **Grand total — cash outlay** | [$28,932.48](LEDGER_GRAND_TOTAL) |
+| **Grand total — cash outlay** | [$28,986.41](LEDGER_GRAND_TOTAL) |
 
 ACQUIRED hardware by section:
 

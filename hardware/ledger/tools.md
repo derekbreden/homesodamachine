@@ -78,6 +78,7 @@ For per-unit BOM parts, see [bom.md](/hardware/ledger/bom.md). For non-BOM/non-t
 | **KATA micro flush cutters (2-pack)** | [B0BBML9M2V](https://www.amazon.com/dp/B0BBML9M2V), [purchases.md §14](/hardware/ledger/purchases.md) | Precision side cutters: header-strip cutting, lead trimming. Shared with 3D-printing post-processing. | [$8.89](T_FLUSH_CUTTERS) |
 | **Haisstronica ratchet crimper** | [B08F3JKDD3](https://www.amazon.com/dp/B08F3JKDD3), [purchases.md §9](/hardware/ledger/purchases.md) | AWG 22–10. | [—](T_CRIMPER) |
 | **Taiss Dupont crimp kit + SN-28B** | [B0B11RLGDZ](https://www.amazon.com/dp/B0B11RLGDZ), [purchases.md §9](/hardware/ledger/purchases.md) | Dupont connector terminal crimping. | [$23.58](T_DUPONT_KIT) |
+| **iCrimp SN-2549 ratcheting crimper** | [B01N4L8QMW](https://www.amazon.com/dp/B01N4L8QMW), [purchases.md §9](/hardware/ledger/purchases.md) | AWG 28–18 open-barrel ratcheting crimper. Dedicated nests for JST PH 2.0 / ZH 1.5 / XH 2.5 / VH 3.96 + Dupont 2.54 — crimps the JST-PH 2.0 terminals on the MCP23017 I²C link, which the SN-28B's nests fit only loosely. | [$23.91](T_SN2549) |
 | **P3 Kill-A-Watt P4400 power meter** | [B00009MDBU](https://www.amazon.com/dp/B00009MDBU), [purchases.md §9](/hardware/ledger/purchases.md) | Bench AC power measurement. | [$34.31](T_KILL_A_WATT) |
 | **DSD TECH SH-U09B3 USB-C to TTL adapter** | [B09KXT6W46](https://www.amazon.com/dp/B09KXT6W46), [purchases.md §14](/hardware/ledger/purchases.md) | CP2102N, 3 Mbps, 3.3 V logic, 5 V VCC out. ROM-bootloader flashing of the faucet display S3 over UART0 (GPIO 43/44). | [$10.71](T_USB_UART) |
 | **3M Virtua CCS safety glasses** | [B00AEXKR4C](https://www.amazon.com/dp/B00AEXKR4C), [purchases.md §14](/hardware/ledger/purchases.md) | PPE for soldering + heat-gun work. | [$12.43](T_GLASSES) |
@@ -115,7 +116,7 @@ For per-unit BOM parts, see [bom.md](/hardware/ledger/bom.md). For non-BOM/non-t
 
 ## Tools total
 
-Total acquired tooling: **[$13,922.40](TOOLS_TOTAL)**
+Total acquired tooling: **[$13,946.31](TOOLS_TOTAL)**
 
 ## Open items
 
