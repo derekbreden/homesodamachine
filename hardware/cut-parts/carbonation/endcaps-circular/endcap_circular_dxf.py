@@ -12,6 +12,33 @@ Two identical discs per vessel, each with 2x tap-drill holes for 1/4"-18 NPT.
   Hole spacing:        1.500"    (center-to-center along one axis)
   Hole positions:      (-0.750, 0) and (+0.750, 0)
 
+── Rod register (in-house DRILLED secondary op — deliberately NOT in the cut) ──
+
+  The level-sensing float rod (1/8" 316L) is welded to the bottom plate and
+  its top end seats in a shallow blind register in the top plate's inside
+  face. That register is a BLIND hole — it must not pierce the plate, because
+  the plate is the 90 PSI pressure boundary (hydro 180 PSI). A laser DXF cuts
+  THROUGH, so the register cannot live in this cut file without breaching the
+  vessel. It is drilled in-house on the WEN 4208T after the discs arrive; the
+  laser geometry below is unchanged, so existing discs need no re-cut.
+
+  Both discs are drilled identically (kept interchangeable): top plate captures
+  the rod tip, bottom plate seats/locates the rod base for its tack weld.
+
+  Register center:     (0, -1.889)"  on the −Y axis, clear of the two ports.
+                       Radius 1.889" = tube-ID radius 2.435" − donut radius
+                       0.546" (27.75 mm donor ferrite donut, DEVMO MINI). This
+                       parks the donut's OD against the inner tube wall on the
+                       −Y side so its magnet couples through the 0.065" wall to
+                       the external reed column — the bench-measured "ride the
+                       wall within ~2 mm" requirement (level-sensing.md).
+                       The −Y azimuth must match where the reeds mount outside.
+  Register drill:      5/32" (0.156")  — rod ⌀ + ~0.4 mm, easy blind capture.
+                       9/64" (0.141") if a tighter slip-fit is preferred (mirrors
+                       the reservoir's rod ⌀ + 0.5 mm register).
+  Register depth:      0.10"  blind, drilled from the inside face — leaves
+                       0.15" of plate as intact pressure boundary.
+
 ── Material ──
 
   316 stainless steel, 0.250" thick, laser-cut.
@@ -56,6 +83,19 @@ hole_positions = [
     (+hole_spacing / 2, 0.0),
 ]
 
+# ── Rod register (in-house blind DRILL, not laser-cut — see module docstring) ──
+# Source of truth for the level-sensing rod register. NOT emitted into the cut
+# DXF: a through-hole here would breach the 90 PSI pressure boundary. Drilled
+# blind from the inside face on the WEN 4208T; the drawing carries the callout.
+tube_id = 4.870                       # tube inner Ø — donut rides this wall
+tube_id_radius = tube_id / 2          # 2.435"
+donut_od = 27.75 / 25.4               # 1.0925" — 27.75 mm donor ferrite donut
+# Park the rod so the donut OD just reaches the inner wall (wall-scrape fit):
+register_radius = tube_id_radius - donut_od / 2  # 1.8887"
+register_position = (0.0, -round(register_radius, 3))  # (0, -1.889) on −Y, clear of ports
+register_drill_diameter = 0.15625     # 5/32" — rod ⌀ + ~0.4 mm slip-fit
+register_depth = 0.100                # blind; leaves 0.150" of plate as boundary
+
 out_dir = Path(__file__).resolve().parent
 out_name = "endcap-circular-2hole"
 
@@ -68,6 +108,10 @@ def make_disc() -> Path:
     msp.add_circle((0, 0), disc_radius)
     for hole_center in hole_positions:
         msp.add_circle(hole_center, hole_radius)
+
+    # The rod register is intentionally absent: it is a blind in-house drill
+    # (register_position / register_drill_diameter / register_depth above), not
+    # a through-cut. Emitting it here would pierce the pressure boundary.
 
     path = out_dir / f"{out_name}.dxf"
     export_dxf(doc, str(path))
@@ -83,6 +127,8 @@ def main() -> None:
     print(f"  Hole spacing:    {hole_spacing:.4g}\" center-to-center along one axis")
     print(f"  Material:        316 SS, laser-cut")
     print(f"  Per vessel:      2 identical discs, each tapped 2x 1/4\"-18 NPT")
+    print(f"  Rod register:    blind drill (NOT cut) at {register_position} in, "
+          f"Ø{register_drill_diameter:.4g}\" x {register_depth:.3g}\" deep, from inside face")
 
     variables = {
         "DISC_D": f"{disc_diameter:.4g} in",
