@@ -8,6 +8,8 @@
   "scripts": {
     "start": "node server.js",
     "dev": "node dev-server/server.js",
+    "build": "node dev-server/build-all.js",
+    "build:check": "node dev-server/build-all.js --check",
     "test": "node --test 'tests/**/*.test.js'"
   },
   "dependencies": {

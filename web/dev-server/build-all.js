@@ -1,0 +1,96 @@
+// Batch rebuild of every CAD generator in dependency order — producers before
+// the assemblies that load their STEPs. The live watcher (server.js) keeps
+// things fresh during editing, but only while it is running and only from the
+// edit forward; a part changed while the watcher was down (or by a tool that
+// doesn't trigger it) leaves its STEP-load consumers silently stale. This walks
+// the whole graph so the tree is self-consistent again.
+//
+//   node dev-server/build-all.js          rebuild everything, producers first
+//   node dev-server/build-all.js --list   print the order, build nothing
+//   node dev-server/build-all.js --check  rebuild, then exit 1 if any output
+//                                         changed (CI: fail when something was
+//                                         committed stale). Leaves the corrected
+//                                         outputs in the tree — commit them.
+//
+// --check is the guard that would have caught the week-long enclosure staleness.
+
+import path from "path";
+import { spawn, execFileSync } from "child_process";
+import { fileURLToPath } from "url";
+
+import { contentRoots, buildOrder } from "./deps.js";
+
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
+const PROJECT_ROOT = path.resolve(__dirname, "../..");
+const PYTHON_BIN = path.join(PROJECT_ROOT, "tools", "cad-venv", "bin", "python");
+const ROOTS = contentRoots(PROJECT_ROOT);
+
+const rel = (p) => path.relative(PROJECT_ROOT, p);
+
+function run(script) {
+  return new Promise((resolve) => {
+    // stderr inherited so Python tracebacks surface; stdout suppressed (the
+    // generators print diagnostic dimensions on every run).
+    const proc = spawn(PYTHON_BIN, [script], {
+      cwd: path.dirname(script),
+      stdio: ["ignore", "ignore", "inherit"],
+    });
+    proc.on("close", (code) => resolve(code ?? 0));
+    proc.on("error", () => resolve(1));
+  });
+}
+
+// Read-only: tracked outputs under the content roots that currently differ from
+// HEAD. Used by --check to tell "this run made it dirty" (stale) from "it was
+// already dirty" (someone's in-flight work).
+function dirtyOutputs() {
+  try {
+    const out = execFileSync("git", ["status", "--porcelain", "--", ...ROOTS], {
+      cwd: PROJECT_ROOT,
+      encoding: "utf-8",
+    });
+    return out
+      .split("\n")
+      .filter((l) => l.trim())
+      .map((l) => l.slice(3));
+  } catch {
+    return [];
+  }
+}
+
+async function main() {
+  const mode = process.argv[2];
+  const order = buildOrder(ROOTS);
+
+  if (mode === "--list") {
+    for (const s of order) console.log(rel(s));
+    console.log(`\n${order.length} generators, producers first.`);
+    return;
+  }
+
+  const before = mode === "--check" ? new Set(dirtyOutputs()) : null;
+
+  let failed = 0;
+  for (let i = 0; i < order.length; i++) {
+    const s = order[i];
+    process.stdout.write(`[${i + 1}/${order.length}] ${rel(s)} ... `);
+    const code = await run(s);
+    console.log(code === 0 ? "ok" : `FAILED (${code})`);
+    if (code !== 0) failed++;
+  }
+  console.log(`\nDone: ${order.length - failed} ok, ${failed} failed.`);
+
+  if (mode === "--check") {
+    const stale = dirtyOutputs().filter((f) => !before.has(f));
+    if (stale.length > 0) {
+      console.log(`\n--check: ${stale.length} output(s) were stale (regenerated now):`);
+      for (const f of stale) console.log(`  ${f}`);
+      console.log("\nCommit the regenerated outputs.");
+      process.exit(1);
+    }
+    console.log("--check: all outputs were already up to date.");
+  }
+  if (failed > 0) process.exit(1);
+}
+
+main();

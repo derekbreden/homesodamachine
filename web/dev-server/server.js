@@ -21,6 +21,12 @@ import { spawn } from "child_process";
 import chokidar from "chokidar";
 
 import { start } from "../server.js";
+import {
+  isRunnableScript,
+  findGenerateScripts,
+  findRunnableScriptsTransitivelyImporting,
+  findScriptsConsumingStep,
+} from "./deps.js";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 // dev-server lives at /web/dev-server; the cad-venv used to run
@@ -54,141 +60,11 @@ function relForLog(absPath) {
   return path.relative(PROJECT_ROOT, absPath);
 }
 
-// --- Script discovery ---
-
-// A "runnable" script is any non-`_`-prefixed .py with an
-// `if __name__ == "__main__":` block — i.e. anything written to be
-// executed directly. That covers:
-//   - CAD generators (call `export_step` / `_assembly` / `_dxf`)
-//   - Drawing scripts (in `drawings/` dirs, emit SVG/DXF via
-//     `cq.exporters` / ezdxf directly)
-//   - Standalone artifact builders that don't fit either bucket
-//     (e.g. `quickstart/appliance_quickstart.py`, which writes SVG +
-//     PDF for the print-and-fold quickstart sheet via cairosvg /
-//     rsvg-convert).
-//
-// Content detection (rather than name or directory) avoids the
-// recurring "I added a new script and it doesn't live-reload"
-// surprise: any new file with `__main__` gets picked up automatically.
-// The `_` prefix convention separates shared modules (imported, not
-// run) — e.g. `_appliance_model.py`, `_cadq_export.py` — from
-// scripts; those modules drive the transitive-import cascade instead
-// of running directly.
-const MAIN_RE = /^if\s+__name__\s*==\s*["']__main__["']\s*:/m;
-
-function isRunnableScript(pyFilePath) {
-  const base = path.basename(pyFilePath);
-  if (!base.endsWith(".py")) return false;
-  if (base.startsWith("_")) return false;
-  let source;
-  try {
-    source = fs.readFileSync(pyFilePath, "utf-8");
-  } catch {
-    return false;
-  }
-  return MAIN_RE.test(source);
-}
-
-function findGenerateScripts() {
-  const scripts = [];
-  function walk(dir) {
-    for (const entry of fs.readdirSync(dir, { withFileTypes: true })) {
-      if (entry.name === "__pycache__") continue;
-      const full = path.join(dir, entry.name);
-      if (entry.isDirectory()) walk(full);
-      else if (entry.name.endsWith(".py") && isRunnableScript(full)) {
-        scripts.push(full);
-      }
-    }
-  }
-  for (const root of CONTENT_ROOTS) walk(root);
-  return scripts;
-}
-
-function findAllPythonFiles() {
-  const files = [];
-  function walk(dir) {
-    for (const entry of fs.readdirSync(dir, { withFileTypes: true })) {
-      if (entry.name === "__pycache__") continue;
-      const full = path.join(dir, entry.name);
-      if (entry.isDirectory()) walk(full);
-      else if (entry.name.endsWith(".py")) files.push(full);
-    }
-  }
-  for (const root of CONTENT_ROOTS) walk(root);
-  return files;
-}
-
-// Walk the import graph backwards from a module to every runnable script
-// (generator or drawing) that transitively depends on it. A runnable that
-// imports a module that imports the changed module is still a dependent,
-// even though it never names the changed module itself — e.g.
-// `_reed_channels.py` is only imported by `_foam_shell.py`, which is what
-// `foam-shell/foam_shell.py` actually imports; and `co2_coupling_body.py`
-// is only imported by `_appliance_model.py`, which is what the
-// `enclosure-iso-*.py` drawings import. Without the transitive walk, edits
-// to a leaf module silently produce no rebuild for the consuming drawing.
-function findRunnableScriptsTransitivelyImporting(moduleName) {
-  const allPyFiles = findAllPythonFiles();
-  const visited = new Set();
-  const dependents = new Set();
-  const queue = [moduleName];
-
-  while (queue.length > 0) {
-    const mod = queue.shift();
-    if (visited.has(mod)) continue;
-    visited.add(mod);
-
-    const importRe = new RegExp(`(?:^|\\s)(?:from|import)\\s+${mod}\\b`, "m");
-    // A module can also be a *subprocess* dependency: a script that runs
-    // `mod.py` through Blender's `--python` flag rather than importing it.
-    // The iso line-art drawings work this way — `_blender_render.py` hands
-    // `_blender_scene.py` to Blender as a `--python` script path, since the
-    // scene script uses `bpy` and can't run in the cad-venv. That edge is
-    // invisible to importRe (the path is a string, never imported), so an
-    // edit to the scene script would otherwise rebuild nothing. Require the
-    // `--python` flag so a bare doc-comment mention of the filename can't
-    // masquerade as a dependency.
-    const scriptRefRe = new RegExp(`["'/]${mod}\\.py\\b`, "m");
-    for (const pyFile of allPyFiles) {
-      let source;
-      try {
-        source = fs.readFileSync(pyFile, "utf-8");
-      } catch {
-        continue;
-      }
-      const importsIt = importRe.test(source);
-      const runsViaBlender = source.includes("--python") && scriptRefRe.test(source);
-      if (!importsIt && !runsViaBlender) continue;
-      if (isRunnableScript(pyFile)) {
-        dependents.add(pyFile);
-      } else {
-        queue.push(path.basename(pyFile, ".py"));
-      }
-    }
-  }
-
-  return Array.from(dependents);
-}
-
-// Find scripts that consume a given .step filename via cq.importers.importStep().
-// In this project, STEP filenames are unique and importStep is the only way a
-// .py script reads another script's output, so this heuristic is precise.
-function findScriptsImportingStep(stepFilename) {
-  const dependents = [];
-  for (const script of findGenerateScripts()) {
-    let source;
-    try {
-      source = fs.readFileSync(script, "utf-8");
-    } catch {
-      continue;
-    }
-    if (source.includes(stepFilename) && source.includes("importStep")) {
-      dependents.push(script);
-    }
-  }
-  return dependents;
-}
+// Script discovery and the dependency graph — import edges AND STEP-load edges
+// (`importStep` / the `_load(...)` helper, usually named in an imported
+// `_contents.py`) — live in ./deps.js, shared with the batch rebuilder
+// (build-all.js) and unit-tested in web/tests/deps.test.js. The functions are
+// passed CONTENT_ROOTS at each call site.
 
 // --- Script runner ---
 const running = new Map(); // pyFilePath -> AbortController
@@ -273,10 +149,12 @@ async function runScript(pyFilePath) {
 
   if (producedSteps.length === 0) return;
 
-  // Cascade: rebuild scripts that import the STEPs we just produced.
+  // Cascade: rebuild scripts that consume (load) the STEPs we just produced —
+  // following STEP-load edges through imported `_contents.py`, not just direct
+  // importStep calls (see deps.js).
   const dependents = new Set();
   for (const stepName of producedSteps) {
-    for (const depScript of findScriptsImportingStep(stepName)) {
+    for (const depScript of findScriptsConsumingStep(stepName, CONTENT_ROOTS)) {
       if (depScript === pyFilePath) continue;
       dependents.add(depScript);
     }
@@ -320,7 +198,7 @@ watcher.on("change", (absPath) => {
       setTimeout(async () => {
         debounce.delete("cadlib");
         console.log(`Shared lib changed: ${relForLog(absPath)}`);
-        for (const f of findGenerateScripts()) {
+        for (const f of findGenerateScripts(CONTENT_ROOTS)) {
           console.log(`  Rebuilding ${relForLog(f)}`);
           try {
             await runScript(f);
@@ -421,7 +299,7 @@ watcher.on("change", (absPath) => {
         debounce.delete(absPath);
         const toRun = [];
         if (isRunnableScript(absPath)) toRun.push(absPath);
-        for (const dep of findRunnableScriptsTransitivelyImporting(moduleName)) {
+        for (const dep of findRunnableScriptsTransitivelyImporting(moduleName, CONTENT_ROOTS)) {
           if (dep !== absPath) toRun.push(dep);
         }
         if (toRun.length === 0) return;
