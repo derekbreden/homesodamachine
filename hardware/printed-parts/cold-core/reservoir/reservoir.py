@@ -1281,7 +1281,7 @@ def main():
         variables=variables,
         expected_counts={
             "ROD_DIAMETER": 2,
-            "ROD_POSITION_X": 1,
+            "ROD_POSITION_X": 2,
             "ROD_POSITION_Y": 1,
             "REEDS_PER_RES": 10,
         },
