@@ -14,7 +14,7 @@ import cadquery as cq
 
 _here = Path(__file__).resolve()
 _hw = next(p for p in _here.parents if p.name == "hardware")
-for _p in (_hw, _here.parent):
+for _p in (_hw / "scripts", _here.parent):
     sys.path.insert(0, str(_p))
 from _cadq_export import export_assembly
 import pump_case as pc
