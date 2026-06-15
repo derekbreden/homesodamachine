@@ -204,7 +204,7 @@ vent_brim_bottom_z = vent_cylinder_walls_bottom_z - vent_brim_thickness
 # Sits opposite the bulkhead (y = 28..64 on the +Y half), in the wider part
 # of the cavity (~38 mm wide at y=-45 vs ~24 mm at y=0) where the donut
 # float has clearance, clear of all screw bosses and the vent boss.
-rod_position_x = 100.0  # |x| of the rod centerline; mirrors with `side`
+rod_position_x = 104.0  # |x| of the rod centerline; mirrors with `side`
 rod_position_y = -45.0  # y of the rod centerline; does NOT mirror with side
 rod_diameter = 3.175  # 1/8" 316 SS round rod OD
 # [3.675 mm](ROD_BORE) — rod ⌀ + 0.5 mm slip-fit clearance; shared by body anchor boss and cap register boss.

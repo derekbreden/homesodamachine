@@ -75,3 +75,35 @@ Watertight recipe (carried from attempt 3):
 - `layer_height`: 0.18 mm; `initial_layer_print_height`: 0.3 mm
 
 ### Result — not yet recorded (slice committed 2026-06-10)
+
+## PETG print attempt 5 (2026-06-14, settings per [`reservoir.3mf`](reservoir.3mf))
+
+Full plate carrying both flavor reservoirs and both caps — four objects (`reservoir-left.step`, `reservoir-right.step`, `reservoir-cap-left.step`, `reservoir-cap-right.step`). Plate bbox ≈ 262 × 231 mm; `first_layer_time` ≈ 1097 s; `slice_info.config` header-only (no per-plate estimate written). Sliced with BambuStudio 02.07.01.57.
+
+Geometry change from attempt 4: `ROD_POSITION_X` moved 100 → 104 (the level-sensing float-guide rod), so the 27.75 mm measured donor donut rides against the cavity far wall; both `reservoir-left.step` and `reservoir-right.step` re-exported. Rationale in [`level-sensing.md`](level-sensing.md).
+
+Printer / nozzle: Bambu Lab H2C, `printer_variant` 0.6, `nozzle_diameter` `[0.6, 0.6]`. `print_settings_id` `0.18mm Balanced Quality @BBL H2C 0.6 nozzle`. Textured plate. Active PETG slot `Bambu PETG Translucent @BBL H2C`, nozzle pair (245 °C, 245 °C), `filament_flow_ratio` (0.97, 0.97), `filament_max_volumetric_speed` (16, 16).
+
+Support settings:
+- `enable_support`: 1
+- `support_type`: tree(auto)
+- `support_threshold_angle`: 30
+- `support_top_z_distance`: 0.18 mm
+- `support_bottom_z_distance`: 0.18 mm
+- `support_on_build_plate_only`: 1
+- `support_interface_top_layers`: 2
+- `support_interface_bottom_layers`: 2
+- `support_interface_spacing`: 0.5 mm
+- `support_style`: default; `support_object_xy_distance`: 0.35 mm; `support_line_width`: 0.6 mm
+
+Cooling (PETG slot): `fan_min_speed` 20 %, `fan_max_speed` 60 %, `overhang_fan_speed` 90 % at `overhang_fan_threshold` 10 %, `additional_cooling_fan_speed` 0, `close_fan_the_first_x_layers` 3.
+
+Watertight recipe (carried from attempt 4):
+- `wall_generator`: arachne; `wall_loops`: 6; `line_width`: 0.60 mm
+- `sparse_infill_density`: 100 %
+- `top_surface_pattern` / `bottom_surface_pattern`: zig-zag
+- `ironing_type`: top
+- `seam_position`: aligned (attempt 4 was random); `seam_slope_type`: all
+- `layer_height`: 0.18 mm; `initial_layer_print_height`: 0.3 mm
+
+### Result — not yet recorded (slice committed 2026-06-14)

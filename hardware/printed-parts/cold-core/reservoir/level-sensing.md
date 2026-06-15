@@ -6,7 +6,7 @@ Reed-and-float level sensing for each flavor reservoir, following the same archi
 
 **Inside the reservoir:**
 
-- A vertical **1/8" ([3.175 mm](ROD_DIAMETER)) 316L SS rod** (Tandefio B0CY4DWJFQ — same SKU as the carbonator vessel's float rod), separately supplied (not printed). The rod sits at `(x = ±[100](ROD_POSITION_X), y = [-45](ROD_POSITION_Y))` — the −Y half of the reservoir, opposite the bulkhead pocket (which lives on the +Y half at y=28..64). Bottom end drops into a blind bore in a standing printed **boss** rising from the reservoir BODY wet slope — the slope itself stays continuous and unbroken, no hole cut through it. Top end slips into the existing register **boss** hanging from the cap's underside (resized for the [3.175 mm](ROD_DIAMETER) rod). Specified in `reservoir.py` in this directory — `ROD_POSITION_X`, `ROD_POSITION_Y`, `ROD_DIAMETER`, `ROD_BORE`, `ROD_BOSS_OD`, `ROD_BOSS_HEIGHT`, `BODY_BOSS_HEIGHT`, `BODY_BOSS_FLOOR`. The cavity at y=−45 is ~38 mm wide (vs ~24 mm at y=0), giving clearance for the donor donut float regardless of its precise OD.
+- A vertical **1/8" ([3.175 mm](ROD_DIAMETER)) 316L SS rod** (Tandefio B0CY4DWJFQ — same SKU as the carbonator vessel's float rod), separately supplied (not printed). The rod sits at `(x = ±[104](ROD_POSITION_X), y = [-45](ROD_POSITION_Y))` — the −Y half of the reservoir, opposite the bulkhead pocket (which lives on the +Y half at y=28..64). Bottom end drops into a blind bore in a standing printed **boss** rising from the reservoir BODY wet slope — the slope itself stays continuous and unbroken, no hole cut through it. Top end slips into the existing register **boss** hanging from the cap's underside (resized for the [3.175 mm](ROD_DIAMETER) rod). Specified in `reservoir.py` in this directory — `ROD_POSITION_X`, `ROD_POSITION_Y`, `ROD_DIAMETER`, `ROD_BORE`, `ROD_BOSS_OD`, `ROD_BOSS_HEIGHT`, `BODY_BOSS_HEIGHT`, `BODY_BOSS_FLOOR`. The cavity at y=−45 is ~38 mm wide (vs ~24 mm at y=0), holding the donor donut (27.75 mm measured OD); the rod sits near the far +X wall so the donut rides against it for the short magnet-to-reed path (see "Magnet–reed signal-path geometry" below).
 - A small **magnetic float** sliding on the rod. Donor is the DEVMO MINI float switch (Amazon B07T18PGJ4) already in the BOM for the carbonator — harvest the polypropylene donut, reuse its ferrite magnet. PP body pairs cleanly with the SS rod (no galvanic, no sticky contact).
 
 **Outside the reservoir:**
@@ -30,17 +30,18 @@ Useful Z range for the float on the rod: ~40 mm above the floor (above the wet s
 
 ## Magnet–reed signal-path geometry
 
-The reed column sits IN the foam-shell channel, so the reed sensors land roughly at the wall's mid-thickness in x. Path from the float's centered magnet (donor donut OD ~8 mm, magnet outer surface at rod + ~4 mm) to the reed sensor crosses the reservoir wall (3 mm) + cavity-side air gaps (~1.5 mm) + roughly half a reed body (~1.5 mm) ≈ **~6 mm** (the rod and the reed column sit at fixed positions, so thinning the wall trades PETG for air over the same span — field is unchanged).
+The dominant term in the magnet-to-reed path is **how far the donut floats off the cavity far wall**, not the wall thickness. The fixed part of the path is the reservoir wall (3 mm) + reservoir/pocket clearance (0.5 mm) + ~half a reed body — together ~5 mm. The variable part is the donut-to-wall gap, set by `ROD_POSITION_X` against the measured 27.75 mm donut and its off-center seating on the 1/8" rod (the rod's bore clearance lets the donut settle toward the wall). At `ROD_POSITION_X = [104](ROD_POSITION_X)` the donut's outer edge rides against the cavity far wall (x ≈ 118), keeping the ferrite magnet within a few mm of the reed column — the comfortable-margin end of the table below.
 
-**Honest signal-strength numbers** for the donor ferrite donut (~8 mm OD × 4 mm ID × 2 mm thick, Br ≈ 0.3 T):
+**Signal-strength numbers** for the donor ferrite donut (27.75 mm measured OD, Br ≈ 0.3 T ferrite; field on axis is conservative for a donut this size):
 
-| Distance | Field on axis (approx) | Reed pull-in needed |
+| Magnet→reed distance | Field on axis (approx) | Reed pull-in needed |
 |---|---|---|
-| ~4 mm (column flush with reservoir wall's outer face) | ~150–200 gauss | ~60–100 gauss — comfortable margin |
-| ~6 mm (column centered in the channel — current spec) | ~70–100 gauss | ~60–100 gauss — adequate margin |
-| ~7.5 mm (column on the wall's outer face, no channel) | ~40–60 gauss | ~60–100 gauss — marginal |
+| ~4 mm (donut riding the cavity far wall) | ~150–200 gauss | ~60–100 gauss — comfortable margin |
+| ~6 mm | ~70–100 gauss | ~60–100 gauss — adequate margin |
+| ~7.5 mm | ~40–60 gauss | ~60–100 gauss — marginal |
+| ≥ ~10 mm (donut floating off the wall) | < 40 gauss | ~60–100 gauss — no pull-in |
 
-Cutting the channel into the wall puts the reed column at the ~6 mm magnet-to-reed distance — adequate-margin range with the same ferrite donut the carbonator uses.
+The working requirement is that the donut **ride against the cavity far wall**, which puts the magnet in the ~4 mm comfortable-margin row; `ROD_POSITION_X` is set to do that for the measured donut. The field falls off a cliff as the donut moves off the wall — by ~10 mm of magnet-to-reed distance there is no pull-in.
 
 ## GPIO budget
 
