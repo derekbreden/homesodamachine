@@ -16,13 +16,12 @@ vertically, separated by a divider.
   (back) edge — flared wide at the mouth (downward only, the top stays at the
   ceiling), the mouth floor dropping clear to the resting depth (level with the
   cradle bottom, ~4.5x the secure height) so the rod is easy to start, then
-  ramping back to the secure width over the outer half of the run — that curves
-  down through a rounded bend — both
-  walls of the bend are arcs, the curve as large as the drop to the cradle
-  allows (it flows directly into the cradle, no straight vertical drop) — into a
-  rounded cradle at center X. One 1/8" stainless rod threads both bags' centered
-  top loops; the rod slides in from the back (carrying the bags), rolls down
-  into the cradle at center, and the bags' weight seats it.
+  ramping back to the secure width over the outer half of the run — then an
+  all-straight drop at center X into a rest pocket: a 45° ramp down from the
+  secure run, a flat floor, and a vertical back wall (the −X end stop), with no
+  arcs anywhere so it prints clean on the −X face. One 1/8" stainless rod threads both bags' centered
+  top loops; the rod slides in from the back (carrying the bags), rolls down the
+  ramp and seats in the pocket at center, and the bags' weight holds it.
 - The rod ends extend 6 mm past each outer (front/back) wall into a boss whose
   outer surface is the channel cross-section grown by one wall thickness — a
   uniform 2 mm shell hugging the channel, open at the +X mouth — with a 2 mm
