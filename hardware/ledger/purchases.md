@@ -145,7 +145,8 @@ Peristaltic pumps, solenoids, bag-in-box connector, silicone delivery tubing, ba
 | Part | ASIN link | Qty | $ | Status |
 |---|---|---|---|---|
 | Kamoer KPHM400-SW3B25 400 ml/min 12 V peristaltic pump (BPT, sold by Kamoer Fluid Tech Shanghai). Orders #114-1015191-6799441 (Feb 18), #112-0545074-9805025 (Feb 23) | [B09MS6C91D](https://www.amazon.com/dp/B09MS6C91D) | 3 | $34.91 ea | ACQUIRED |
-| Beduan 12 V 1/4" inlet water solenoid (NC). Orders #114-3476722-1893810 (Feb 22, ×1), #112-0933043-5526613 (Feb 23, ×2), #112-9365343-6646655 (Mar 14, ×2), #112-4838242-5164262 (Mar 14, ×1) | [B07NWCQJK9](https://www.amazon.com/dp/B07NWCQJK9) | 6 | $9.64 ea | ACQUIRED (short vs 12-valve manifold) |
+| Beduan 12 V 1/4" inlet water solenoid (NC). Orders #114-3476722-1893810 (Feb 22, ×1), #112-0933043-5526613 (Feb 23, ×2), #112-9365343-6646655 (Mar 14, ×2), #112-4838242-5164262 (Mar 14, ×1) | [B07NWCQJK9](https://www.amazon.com/dp/B07NWCQJK9) | 6 | $9.64 ea | ACQUIRED |
+| Beduan 12 V 1/4" inlet water solenoid (NC). Order #112-3576572-8551422, placed June 14, 2026 | [B07NWCQJK9](https://www.amazon.com/dp/B07NWCQJK9) | 8 | $9.64 ea | ON-ORDER (arriving Wed Jun 17; with 6 on hand, covers 12-valve flavor manifold) |
 | Hosyond 5-pack MG90S 9 g metal-gear micro servo. Order #112-1012254-8551456, placed June 1, 2026 | [B09V5BR7J5](https://www.amazon.com/dp/B09V5BR7J5) | 1 pk (5) | $15.43 | ACQUIRED (delivered Jun 4) |
 | NeoFit acetal ball valve — push-fit quarter-turn, food-grade PP body + acetal + EPDM O-ring, 1/4" OD tube (5-pack). Order #112-1012254-8551456, placed June 1, 2026 | [B0DDQC7S3B](https://www.amazon.com/dp/B0DDQC7S3B) | 1 pk (5) | $22.80 | ACQUIRED (delivered Jun 4) |
 | Supply Depot Coke-compatible BIB connector, 3/8" red (2 pk). Order #114-4194868-8174607, placed March 2, 2026 | [B0DMFK9B6P](https://www.amazon.com/dp/B0DMFK9B6P) | 1 pk | $21.44 | ACQUIRED |
@@ -501,7 +502,6 @@ Industrial-supply orders direct from McMaster-Carr (mcmaster.com). First McMaste
 
 | Part | Notes |
 |---|---|
-| **Additional flavor-manifold solenoids** | Manifold diagram needs 12 valves (V-A through V-J plus V-K-A and V-K-B); 6 Beduan B07NWCQJK9 on hand, 6 short. |
 | **Google Pixel 10a unlocked Android phone, 128 GB Obsidian (2026 model)** | Android development handset for the soda-machine app's Android side (`android/`). [B0GHRHXVN1](https://www.amazon.com/dp/B0GHRHXVN1). |
 
 ---
@@ -513,10 +513,10 @@ Industrial-supply orders direct from McMaster-Carr (mcmaster.com). First McMaste
 | ACQUIRED — hardware, tools & infra (§§1–17, 19, 20) | [$25,916.51](LEDGER_ACQUIRED_HW) |
 | ACQUIRED — capitalized contract labor (§18) | [$2,607.92](LEDGER_LABOR) |
 | ACQUIRED (combined) | [$28,524.43](LEDGER_ACQUIRED_COMBINED) |
-| ON-ORDER | [$449.10](LEDGER_ON_ORDER) |
+| ON-ORDER | [$526.22](LEDGER_ON_ORDER) |
 | MISSING — paid, not received (§1 copper bar) | [$42.89](LEDGER_MISSING) |
 | LIKELY-TO-BUY | $0.00 |
-| **Grand total — cash outlay** | [$29,016.42](LEDGER_GRAND_TOTAL) |
+| **Grand total — cash outlay** | [$29,093.54](LEDGER_GRAND_TOTAL) |
 
 ACQUIRED hardware by section:
 
