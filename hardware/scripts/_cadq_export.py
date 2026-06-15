@@ -486,8 +486,9 @@ def export_step(model, target_path):
 
 
 def export_assembly(assembly, target_path):
-    """cq.Assembly.save with atomic write."""
-    changed = _atomic_write(target_path, lambda p: assembly.save(p))
+    """cq.Assembly.export with atomic write. (Assembly.save is its deprecated
+    alias — it just delegates to .export — and warns on every call.)"""
+    changed = _atomic_write(target_path, lambda p: assembly.export(p))
     _queue_thumbnail(target_path, changed)
 
 
