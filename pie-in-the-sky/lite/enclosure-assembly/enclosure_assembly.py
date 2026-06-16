@@ -13,7 +13,9 @@ import cadquery as cq
 _here = Path(__file__).resolve()
 _repo = next(p for p in _here.parents if (p / "hardware" / "scripts" / "_cadq_export.py").is_file())
 sys.path.insert(0, str(_repo / "hardware" / "scripts"))
+sys.path.insert(0, str(_repo / "tools"))
 from _cadq_export import export_assembly
+from docgen import substitute_py_comments
 import _contents as contents
 
 SHELL_STEP = _repo / "pie-in-the-sky" / "lite" / "enclosure" / "enclosure.step"
@@ -36,6 +38,22 @@ def main():
     out = _here.parent / "enclosure-assembly.step"
     export_assembly(assy, str(out))
     print(f"-> {out.name}")
+
+    # Pin the hand-typed reservoir-wall coordinates in _contents.py's prose.
+    substitute_py_comments(
+        Path(contents.__file__),
+        variables={
+            "RES_X_FRONT": f"{contents.RES_X_FRONT:g}",
+            "RES_Y_FRONT": f"{contents.RES_Y_FRONT:g}",
+            "RES_Y_BACK": f"{contents.RES_Y_BACK:+g}",
+        },
+        expected_counts={
+            "RES_X_FRONT": 1,
+            "RES_Y_FRONT": 1,
+            "RES_Y_BACK": 1,
+        },
+    )
+    print("-> _contents.py")
 
 
 if __name__ == "__main__":

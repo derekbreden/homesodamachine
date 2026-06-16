@@ -28,10 +28,10 @@ Geometry zones from -Y to +Y:
       with a hole through it sized to the coupling mouth.
 
 External dimensions from the CPC LC Series datasheet (in mm):
-  Body OD: 19.1 (Ø 0.75")
-  Hex: 19.05 flat-to-flat (3/4")
-  Total length: 29.2 (B = 1.15") = thread + hex + body.
-  Thread length: 12.7 (0.50")
+  Body OD: [19.1](BODY_D) (Ø 0.75")
+  Hex: [19.05](HEX_FLATS) flat-to-flat (3/4")
+  Total length: [29.2](TOTAL_LENGTH) (B = 1.15") = thread + hex + body.
+  Thread length: [12.7](THREAD_LENGTH) (0.50")
 
 Run:
     tools/cad-venv/bin/python hardware/reference/co2-coupling-body/co2_coupling_body.py
@@ -44,16 +44,13 @@ from pathlib import Path
 
 
 _here = Path(__file__).resolve()
-sys.path.insert(
-    0,
-    str(next(p for p in _here.parents if p.name == "hardware") / "scripts"),
-)
-sys.path.insert(
-    0,
-    str(next(p for p in _here.parents if p.name == "hardware") / "printed-parts" / "cadlib"),
-)
+_hw = next(p for p in _here.parents if p.name == "hardware")
+sys.path.insert(0, str(_hw / "scripts"))
+sys.path.insert(0, str(_hw / "printed-parts" / "cadlib"))
+sys.path.insert(0, str(_hw.parent / "tools"))
 from _cadq_export import export_step
 from world_workplane import xy_plane_z_up, xz_plane_y_up
+from docgen import substitute_py_comments
 
 
 # External dimensions from the CPC LC Series datasheet.
@@ -247,6 +244,23 @@ def main():
     out = here / "co2-coupling-body.step"
     export_step(body, str(out))
     print(f"-> {out.name}")
+
+    substitute_py_comments(
+        _here,
+        variables={
+            "BODY_D": f"{body_d:.4g}",
+            "HEX_FLATS": f"{hex_flats:.4g}",
+            "TOTAL_LENGTH": f"{thread_length + hex_length + body_length:.4g}",
+            "THREAD_LENGTH": f"{thread_length:.4g}",
+        },
+        expected_counts={
+            "BODY_D": 1,
+            "HEX_FLATS": 1,
+            "TOTAL_LENGTH": 1,
+            "THREAD_LENGTH": 1,
+        },
+    )
+    print(f"-> {_here.name} (self)")
 
 
 if __name__ == "__main__":

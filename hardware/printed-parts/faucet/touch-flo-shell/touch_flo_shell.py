@@ -26,6 +26,7 @@ sys.path.insert(
 sys.path.insert(0, str(_here.parent.parent))  # for _touch_flo_interface
 sys.path.insert(0, str(next(p for p in _here.parents if p.name == "printed-parts") / "cadlib"))
 from _cadq_export import export_assembly, export_step
+import _touch_flo_interface
 from _touch_flo_interface import (
     flavor_tube_od,
     flavor_tube_x_offset,
@@ -83,8 +84,8 @@ body_bore_diameter = 31.5 + 2.0 * bore_clearance
 body_bore_x = 0.0
 body_bore_y = 0.0
 
-# Flavor-tube pill — 1/4" OD LLDPE tubes (6.35 mm OD), tangent to the
-# body's +Y face (Y=+15.75) and tangent to each other at X=0.
+# Flavor-tube pill — 1/4" OD LLDPE tubes ([6.35 mm](FLAVOR_TUBE_OD) OD), tangent to the
+# body's +Y face (Y=+[15.75 mm](BODY_RECT_LONG_HALF)) and tangent to each other at X=0.
 # [13.4 mm](PILL_L) long axis (X), [7.05 mm](PILL_W) short axis (Y).
 flavor_pill_center = (0.0, +flavor_tube_depth)
 
@@ -188,7 +189,7 @@ base_pod_hole_depth = 8.0           # boss engagement depth up from the deck; an
 base_pod_insert_dia = 4.0
 base_pod_insert_depth = (
     base_pod_z_top - base_pod_z_bottom - base_pod_hole_depth - base_pod_wall
-)  # 5.25 mm = 4 mm insert engagement + 1.25 mm relief
+)  # [5.25 mm](BASE_POD_INSERT_DEPTH) = 4 mm insert engagement + 1.25 mm relief
 
 
 # LEVER SWING CLEARANCE — chamfer wedge cut into the top -Y corner of
@@ -291,7 +292,7 @@ gn_bend1_r = 30.0
 gn_bend2_r = 40.0
 gn_bend1_sweep_rad = math.radians(30.0)
 gn_bend2_sweep_rad = math.radians(110.0)
-# 35 mm above the lever rest top (at zone2_z_top + 13 = 52).
+# 35 mm above the lever rest top (at zone2_z_top + 13 = [52 mm](LEVER_REST_TOP_Z)).
 gn_bend1_z_mid = zone2_z_top + 48.0  # [87 mm](GN_BEND1_Z_MID)
 gn_bend1_z_start = (
     gn_bend1_z_mid
@@ -1685,6 +1686,9 @@ def main():
         "BORE_COVE_Z": f"{zone2_bore_z_bottom + cove_r:.4g} mm",
         "PILL_L": f"{pill_length_x:.4g} mm",
         "PILL_W": f"{pill_width_y:.4g} mm",
+        "FLAVOR_TUBE_OD": f"{flavor_tube_od:.4g} mm",
+        "BODY_RECT_LONG_HALF": f"{body_rect_long_y / 2.0:.4g} mm",
+        "LEVER_REST_TOP_Z": f"{zone2_z_top + 13:.4g} mm",
         "FLAVOR_TUBE_Y": f"{flavor_pill_center[1]:.4g} mm",
         "FLAVOR_PILL_Y_MINUS": f"{flavor_pill_y_minus_edge:.4g} mm",
         "BASE_POD_FRONT_CENTER_Y": f"{base_pod_front_center_y:.4g} mm",
@@ -1766,6 +1770,9 @@ def main():
             "BODY_CYL_TOP_Z": 1,
             "PILL_L": 1,
             "PILL_W": 1,
+            "FLAVOR_TUBE_OD": 1,
+            "BODY_RECT_LONG_HALF": 1,
+            "LEVER_REST_TOP_Z": 1,
             "FLAVOR_PILL_Y_MINUS": 1,
             "BASE_POD_FRONT_CENTER_Y": 1,
             "SHELL_OUTER_R": 2,
@@ -1817,6 +1824,35 @@ def main():
         },
     )
     print(f"-> {Path(__file__).name} (self)")
+
+    # Pinned dimensions living in the shared interface helper's prose.
+    interface_variables = {
+        "FLAVOR_TUBE_X_OFFSET": f"{_touch_flo_interface.flavor_tube_x_offset:.4g} mm",
+        "FLAVOR_TUBE_HOLE_DIA": f"{_touch_flo_interface.flavor_tube_hole_dia:.4g} mm",
+        "PILL_LENGTH_X": f"{_touch_flo_interface.pill_length_x:.4g} mm",
+        "PILL_WIDTH_Y": f"{_touch_flo_interface.pill_width_y:.4g} mm",
+        "FLAVOR_TUBE_DEPTH": f"{_touch_flo_interface.flavor_tube_depth:.5g} mm",
+        "DISPLAY_HOUSING_OVERHANG": (
+            f"{(_touch_flo_interface.display_housing_width - _touch_flo_interface.display_pcb_width) / 2.0:.4g} mm"
+        ),
+        "DISPLAY_PCB_BOTTOM_Z": f"{_touch_flo_interface.display_pcb_bottom_z:.4g} mm",
+        "DISPLAY_PCB_TOP_Z": f"{_touch_flo_interface.display_pcb_top_z:.4g} mm",
+    }
+    substitute_py_comments(
+        Path(_touch_flo_interface.__file__),
+        variables=interface_variables,
+        expected_counts={
+            "FLAVOR_TUBE_X_OFFSET": 1,
+            "FLAVOR_TUBE_HOLE_DIA": 1,
+            "PILL_LENGTH_X": 1,
+            "PILL_WIDTH_Y": 1,
+            "FLAVOR_TUBE_DEPTH": 1,
+            "DISPLAY_HOUSING_OVERHANG": 1,
+            "DISPLAY_PCB_BOTTOM_Z": 1,
+            "DISPLAY_PCB_TOP_Z": 1,
+        },
+    )
+    print(f"-> {Path(_touch_flo_interface.__file__).name} (interface)")
 
 
 if __name__ == "__main__":

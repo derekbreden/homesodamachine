@@ -61,9 +61,9 @@ RES_STEP = RES_DIR / "reservoir-pockets.step"
 # Reservoir wall planes (the box faces, not the rod-end bosses) for true butting.
 sys.path.insert(0, str(RES_DIR))
 import reservoir_pockets as _res
-RES_X_FRONT = _res.outer_x_range[0]  # -77, the -X (enclosure-front) wall
-RES_Y_FRONT = _res.outer_y_range[0]  # -73, the -Y wall
-RES_Y_BACK = _res.outer_y_range[1]   # +73, the +Y wall
+RES_X_FRONT = _res.outer_x_range[0]  # [-77](RES_X_FRONT), the -X (enclosure-front) wall
+RES_Y_FRONT = _res.outer_y_range[0]  # [-73](RES_Y_FRONT), the -Y wall
+RES_Y_BACK = _res.outer_y_range[1]   # [+73](RES_Y_BACK), the +Y wall
 
 # Distinct flat colors per tray; reservoir translucent so the manifold reads
 # through it.

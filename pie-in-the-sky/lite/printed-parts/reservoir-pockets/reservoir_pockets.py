@@ -1,18 +1,18 @@
 """Reservoir pockets — a rectangular box holding two collapsible 1 L
 Platypus water bags hanging vertically, separated by a divider.
 
-Two bag pockets sit front-to-back along the depth (Y) axis with a 2 mm
+Two bag pockets sit front-to-back along the depth (Y) axis with a [2 mm](WALL_THICKNESS)
 divider between them. Each pocket is sized to one 1 L Platypus bag —
 285 mm tall, 150 mm wide, 70 mm deep when depth-restricted. Walls, floor,
-ceiling, and divider are all 2 mm. The outer envelope is 154 mm wide
-(X) × 146 mm deep (Y) × 289 mm tall (Z). The box is closed on top — the
+ceiling, and divider are all [2 mm](WALL_THICKNESS). The outer envelope is [154 mm](OUTER_WIDTH) wide
+(X) × [146 mm](OUTER_DEPTH) deep (Y) × [289 mm](OUTER_HEIGHT) tall (Z). The box is closed on top — the
 ceiling stays.
 
 Each pocket opens through its right (+X) wall as a doorway the full size of
-the pocket side face — 70 mm deep (Y) × 285 mm tall (Z) — leaving the floor,
-ceiling, front wall, divider, and back wall as a 2 mm frame. The opposite,
-left (-X) wall carries one ⌀6.5 mm (~1/4") tubing exit hole per pocket,
-centered in the pocket's depth (Y) and low in the wall — its bottom 6.5 mm
+the pocket side face — [70 mm](POCKET_DEPTH) deep (Y) × [285 mm](POCKET_HEIGHT) tall (Z) — leaving the floor,
+ceiling, front wall, divider, and back wall as a [2 mm](WALL_THICKNESS) frame. The opposite,
+left (-X) wall carries one [⌀6.5 mm](PORT_HOLE_DIAMETER) (~1/4") tubing exit hole per pocket,
+centered in the pocket's depth (Y) and low in the wall — its bottom [6.5 mm](TUBE_HOLE_FLOOR_GAP)
 above the floor — for each bag's spout line. Transparent PETG.
 
 Rod hang channel: one 1/8 in stainless rod runs front-to-back (along Y)
@@ -30,10 +30,10 @@ threads the rod through both bag loops and connects the spouts outside the
 box, slides the rod in from the +X back through the three aligned channels
 (carrying the bags in with it), and at center the rod rolls down the ramp and
 seats in the pocket, wedged between the ramp and the back wall; the hanging
-bags' weight holds it there and resists sliding back out. The rod ends run 6 mm
+bags' weight holds it there and resists sliding back out. The rod ends run [6 mm](Y_STUB)
 past each outer wall into a boss whose outer surface is the channel
-cross-section grown by one wall thickness — a uniform 2 mm shell hugging the
-channel, open at the +X mouth — with a 2 mm plug past each tip that captures the
+cross-section grown by one wall thickness — a uniform [2 mm](WALL_THICKNESS) shell hugging the
+channel, open at the +X mouth — with a [2 mm](Y_ENDCAP) plug past each tip that captures the
 rod along Y so it cannot slide out the front or back. To remove, lift the rod up
 out of the pocket and slide it back out the +X side.
 
@@ -61,7 +61,7 @@ outer_y_range = (-73, 73)
 outer_z_range = (0, 289)
 
 # The two bag pockets, cut from the shell. Front pocket is in -Y, back in
-# +Y; the 2 mm divider is the stock between them across Y=0.
+# +Y; the [2 mm](WALL_THICKNESS) divider is the stock between them across Y=0.
 front_pocket_x_range = (-75, 75)
 front_pocket_y_range = (-71, -1)
 front_pocket_z_range = (2, 287)
@@ -71,8 +71,8 @@ back_pocket_y_range = (1, 71)
 back_pocket_z_range = (2, 287)
 
 # Each pocket opens through the right (+X) wall as a doorway the full size of
-# the pocket side face: 70 mm deep (Y) x 285 mm tall (Z). The cut spans the
-# 2 mm wall over each pocket's Y/Z footprint, leaving the floor, ceiling,
+# the pocket side face: [70 mm](POCKET_DEPTH) deep (Y) x [285 mm](POCKET_HEIGHT) tall (Z). The cut spans the
+# [2 mm](WALL_THICKNESS) wall over each pocket's Y/Z footprint, leaving the floor, ceiling,
 # front wall, divider, and back wall as a frame.
 doorway_wall_x_range = (75, 77)
 
@@ -119,7 +119,7 @@ channel_clearance = 0.3          # gap per side around the rod — entry and res
 channel_hw = rod_radius + channel_clearance   # secure channel half-width (the mouth flares wider)
 
 # Raised as high as the closed top allows: the channel top sits one wall
-# thickness below the box top, so the 2 mm ceiling closes over it and the
+# thickness below the box top, so the [2 mm](WALL_THICKNESS) ceiling closes over it and the
 # ceiling's top face stays at the box top (outer_z_range[1]). The envelope
 # does not grow in Z.
 channel_top_z = outer_z_range[1] - wall_thickness   # 287
@@ -130,11 +130,11 @@ rod_entry_x_open = 79.0          # entry runs out past the +X face at x=77 (open
 
 # Funnel mouth: the entry opening flares wider toward the +X mouth so the rod
 # is easy to start, then ramps back to the secure width partway in. The flare
-# is downward ONLY — the top wall stays at the run top (just under the 2 mm
+# is downward ONLY — the top wall stays at the run top (just under the [2 mm](WALL_THICKNESS)
 # ceiling) the whole way, since flaring upward would breach the ceiling. From
 # the secure run out to funnel_ramp_x the bottom is at its normal height; from
 # there it ramps down to funnel_mouth_floor_z, reaching it AT the +X face (then
-# held flat through the 2 mm overshoot). The mouth floor drops clear to the
+# held flat through the [2 mm](WALL_THICKNESS) overshoot). The mouth floor drops clear to the
 # resting depth — the same z as the pocket floor — so the mouth is its largest at the
 # face (~4.5x the secure height) and tapers back to the secure slot by
 # funnel_ramp_x.
@@ -143,13 +143,13 @@ funnel_mouth_floor_z = rod_rest_z - channel_hw   # mouth floor at the rest-pocke
 
 # The rod ends extend y_stub past each outer (XZ-plane) wall, captured by a
 # boss whose outer surface is the channel cross-section grown by one
-# wall_thickness: a uniform 2 mm shell hugging the channel, open at the +X
+# wall_thickness: a uniform [2 mm](WALL_THICKNESS) shell hugging the channel, open at the +X
 # mouth just like the channel. Over the stub the shell wraps the rod; past the
 # tip a y_endcap-thick plug caps it, so the rod cannot slide out along Y. The
 # channel sweeps the full rod length (tip to tip); the plugs past the tips stay
 # solid.
 y_stub = 6.0                     # exposed rod past each outer wall
-y_endcap = wall_thickness        # 2 mm plug capping the rod tip
+y_endcap = wall_thickness        # [2 mm](Y_ENDCAP) plug capping the rod tip
 rod_tip_y = outer_y_range[1] + y_stub        # [79 mm](ROD_TIP_Y): where each rod end stops
 boss_outer_y = rod_tip_y + y_endcap          # [81 mm](BOSS_OUTER_Y): outer face of the end plug
 rod_length = 2 * rod_tip_y                   # [158 mm](ROD_LENGTH) — cut length of the 1/8" SS bag-hanger rod, tip to tip
@@ -272,6 +272,16 @@ def main():
         "ROD_LENGTH": f"{rod_length:.4g} mm",
         "ROD_TIP_Y": f"{rod_tip_y:.4g} mm",
         "BOSS_OUTER_Y": f"{boss_outer_y:.4g} mm",
+        "WALL_THICKNESS": f"{wall_thickness:.4g} mm",
+        "OUTER_WIDTH": f"{outer_x_range[1] - outer_x_range[0]:.4g} mm",
+        "OUTER_DEPTH": f"{outer_y_range[1] - outer_y_range[0]:.4g} mm",
+        "OUTER_HEIGHT": f"{outer_z_range[1] - outer_z_range[0]:.4g} mm",
+        "POCKET_DEPTH": f"{front_pocket_y_range[1] - front_pocket_y_range[0]:.4g} mm",
+        "POCKET_HEIGHT": f"{front_pocket_z_range[1] - front_pocket_z_range[0]:.4g} mm",
+        "PORT_HOLE_DIAMETER": f"⌀{port_hole_radius * 2:.4g} mm",
+        "TUBE_HOLE_FLOOR_GAP": f"{tube_hole_floor_gap:.4g} mm",
+        "Y_STUB": f"{y_stub:.4g} mm",
+        "Y_ENDCAP": f"{y_endcap:.4g} mm",
     }
     substitute_md(
         _here.parent / "README.md",
@@ -282,7 +292,21 @@ def main():
     substitute_py_comments(
         _here,
         variables=variables,
-        expected_counts={"ROD_LENGTH": 1, "ROD_TIP_Y": 1, "BOSS_OUTER_Y": 1},
+        expected_counts={
+            "ROD_LENGTH": 1,
+            "ROD_TIP_Y": 1,
+            "BOSS_OUTER_Y": 1,
+            "WALL_THICKNESS": 10,
+            "OUTER_WIDTH": 1,
+            "OUTER_DEPTH": 1,
+            "OUTER_HEIGHT": 1,
+            "POCKET_DEPTH": 2,
+            "POCKET_HEIGHT": 2,
+            "PORT_HOLE_DIAMETER": 1,
+            "TUBE_HOLE_FLOOR_GAP": 1,
+            "Y_STUB": 1,
+            "Y_ENDCAP": 2,
+        },
     )
     print(f"-> {_here.name} (self)")
 

@@ -7,10 +7,10 @@ reservoir — what gets poured in is pumped straight on to a bag.
 
 It rides on the front (-X) of the device, filling the +Y half of the front top,
 generously sized: a square inlet tapering to a round spout whose bore matches
-the 1/4 in tube line used elsewhere (the reservoir's 6.5 mm port holes).
+the 1/4 in tube line used elsewhere (the reservoir's [6.5 mm](SPOUT_ID) port holes).
 
 Local frame: centered on the Z axis (x = y = 0), the spout outlet face on Z = 0,
-the square inlet opening at Z = total_height, opening up (+Z). Walls are 2 mm.
+the square inlet opening at Z = total_height, opening up (+Z). Walls are [2 mm](WALL).
 Print in PETG.
 """
 
@@ -36,7 +36,7 @@ total_height = spout_length + taper_height  # [90 mm](TOTAL_HEIGHT)
 
 
 def build_funnel():
-    """Hollow 2 mm-walled funnel: round spout, square-to-round taper, square
+    """Hollow [2 mm](WALL)-walled funnel: round spout, square-to-round taper, square
     inlet — open through top and bottom."""
     ro, ri = spout_od / 2.0, spout_id / 2.0
 
@@ -75,8 +75,12 @@ def main():
           % (bb.xlen, bb.ylen, bb.zlen, bb.zmin, bb.zmax))
     substitute_py_comments(
         _here,
-        variables={"TOTAL_HEIGHT": f"{total_height:.4g} mm"},
-        expected_counts={"TOTAL_HEIGHT": 1},
+        variables={
+            "TOTAL_HEIGHT": f"{total_height:.4g} mm",
+            "SPOUT_ID": f"{spout_id:.4g} mm",
+            "WALL": f"{wall:.4g} mm",
+        },
+        expected_counts={"TOTAL_HEIGHT": 1, "SPOUT_ID": 1, "WALL": 2},
     )
     print(f"-> {_here.name} (self)")
 

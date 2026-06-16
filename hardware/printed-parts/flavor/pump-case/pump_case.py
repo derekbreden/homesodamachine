@@ -441,8 +441,8 @@ skirt_inner_profiles = _skirt_profile_set(skirt_wall)
 
 
 def build_base_plate_with_ramp():
-    """Base plate (z=0..+3) plus the 45° ramp (z=+3..+21) shrinking from
-    the 70x70 footprint to a 34x34 footprint that meets the octagon bore wall."""
+    """Base plate (z=0..[+3 mm](BASE_PLATE_FAR_Z)) plus the 45° ramp (z=[+3 mm](BASE_PLATE_FAR_Z)..[+21 mm](BORE_BOTTOM_Z)) shrinking from
+    the [70](FOOTPRINT_X)x[70](FOOTPRINT_X) footprint to a [34](RAMP_BOTTOM_WIDTH)x[34](RAMP_BOTTOM_WIDTH) footprint that meets the octagon bore wall."""
     footprint = rounded_rect_profile(footprint_x, footprint_y, corner_r)
     footprint_at_ramp_bottom = rounded_rect_profile(
         footprint_x - 2 * ramp_from_skirt_to_octagon_height,
@@ -763,6 +763,7 @@ def main():
             "LOWER_CAP_TOP_Z": f"{lower_cap_top_z:+g} mm",
             "LOWER_CAP_BOTTOM_Z": f"{lower_cap_bottom_z:+g} mm",
             "FOOTPRINT_X": f"{footprint_x:.4g}",
+            "RAMP_BOTTOM_WIDTH": f"{footprint_x - 2 * ramp_from_skirt_to_octagon_height:.4g}",
             "SKIRT_WIDE_WIDTH": f"{skirt_wide_full_width:.4g}",
             "SKIRT_NARROW_WIDTH": f"{skirt_narrow_full_width:.4g}",
             "SKIRT_WIDE_FLARE": f"{skirt_wide_flare_per_side:.4g}mm",
@@ -773,14 +774,15 @@ def main():
             "CASE_OUTER_Y": 1,
             "CASE_OUTER_Z": 1,
             "CYLINDER_BOTTOM_Z": 2,
-            "BORE_BOTTOM_Z": 2,
+            "BORE_BOTTOM_Z": 3,
             "CYLINDER_TOP_Z": 2,
-            "BASE_PLATE_FAR_Z": 1,
+            "BASE_PLATE_FAR_Z": 3,
             "NARROW_SPLIT_Z": 2,
             "SKIRT_BOTTOM_Z": 2,
             "LOWER_CAP_TOP_Z": 2,
             "LOWER_CAP_BOTTOM_Z": 2,
-            "FOOTPRINT_X": 2,
+            "FOOTPRINT_X": 4,
+            "RAMP_BOTTOM_WIDTH": 2,
             "SKIRT_WIDE_WIDTH": 1,
             "SKIRT_NARROW_WIDTH": 1,
             "SKIRT_WIDE_FLARE": 2,

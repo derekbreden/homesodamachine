@@ -39,11 +39,11 @@ import sys
 from pathlib import Path
 
 _here = Path(__file__).resolve()
-sys.path.insert(
-    0,
-    str(next(p for p in _here.parents if p.name == "hardware") / "scripts"),
-)
+_hardware = next(p for p in _here.parents if p.name == "hardware")
+sys.path.insert(0, str(_hardware / "scripts"))
+sys.path.insert(0, str(_hardware.parent / "tools"))
 from _cadq_export import export_pdf
+from docgen import substitute_py_comments
 
 
 # Enclosure iso line-art sources.
@@ -60,18 +60,18 @@ WATER_DISC_FILL = "rgb(31, 111, 235)"
 
 
 # Page — 11×17 landscape, in mm
-PAGE_W_MM = 431.8   # 17 in
-PAGE_H_MM = 279.4   # 11 in
+PAGE_W_MM = 431.8   # [17 in](PAGE_W_IN)
+PAGE_H_MM = 279.4   # [11 in](PAGE_H_IN)
 
 # Border around the four-cell grid, and gutter between cells
-BORDER_MM = 12.7   # 0.5 in
-GUTTER_MM = 12.7   # 0.5 in
+BORDER_MM = 12.7   # [0.5 in](BORDER_IN)
+GUTTER_MM = 12.7   # [0.5 in](GUTTER_IN)
 
 # Inner padding within each step, the fixed caption-band height, and
 # the step panel's corner radius
-PAD_MM = 6.35            # 0.25 in
-CAPTION_BAND_MM = 12.7   # 0.5 in
-STEP_RADIUS_MM = 6.35    # 0.25 in
+PAD_MM = 6.35            # [0.25 in](PAD_IN)
+CAPTION_BAND_MM = 12.7   # [0.5 in](CAPTION_BAND_IN)
+STEP_RADIUS_MM = 6.35    # [0.25 in](STEP_RADIUS_IN)
 STEP_NUMBER_SIZE_MM = 40  # very large step numerals
 HAIRLINE_MM = 0.4         # thin #000 stroke: step borders + number outlines
 PORT_ARROW_GAP_MM = 5.2   # arrow-tip standoff from a port hole (matches step 1's CO2 arrow)
@@ -565,6 +565,29 @@ def main():
     print(f"-> {svg_path.relative_to(here.parent.parent)}")
     if pdf_path.exists():
         print(f"-> {pdf_path.relative_to(here.parent.parent)}")
+
+    # Keep the inch annotations on the mm page constants honest.
+    substitute_py_comments(
+        Path(__file__),
+        variables={
+            "PAGE_W_IN": f"{PAGE_W_MM / 25.4:.4g} in",
+            "PAGE_H_IN": f"{PAGE_H_MM / 25.4:.4g} in",
+            "BORDER_IN": f"{BORDER_MM / 25.4:.4g} in",
+            "GUTTER_IN": f"{GUTTER_MM / 25.4:.4g} in",
+            "PAD_IN": f"{PAD_MM / 25.4:.4g} in",
+            "CAPTION_BAND_IN": f"{CAPTION_BAND_MM / 25.4:.4g} in",
+            "STEP_RADIUS_IN": f"{STEP_RADIUS_MM / 25.4:.4g} in",
+        },
+        expected_counts={
+            "PAGE_W_IN": 1,
+            "PAGE_H_IN": 1,
+            "BORDER_IN": 1,
+            "GUTTER_IN": 1,
+            "PAD_IN": 1,
+            "CAPTION_BAND_IN": 1,
+            "STEP_RADIUS_IN": 1,
+        },
+    )
 
 
 if __name__ == "__main__":
