@@ -1,5 +1,8 @@
 """Controller PCB — code-defined netlist (SKiDL).
 
+EXPLORATION / proof-of-concept — not a reviewed or endorsed design path. See README.md
+"Exploration"; nothing here is signed off.
+
 The circuit in Python — the electrical analog of the CadQuery mechanical scripts.
 Define parts and nets here; generate a KiCad netlist for import into Pcbnew (board
 layout). Connections follow netlist.md; parts + footprints follow bom-board.md.

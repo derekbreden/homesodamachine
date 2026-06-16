@@ -1,5 +1,8 @@
 """Controller PCB — headless board layout from the netlist (KiCad pcbnew API).
 
+EXPLORATION / proof-of-concept — not a reviewed or endorsed design path. See README.md
+"Exploration"; the placement is a first pass and nothing here is signed off.
+
 Reads controller-board.net, loads each footprint, places it by region, assigns every
 net to its pads, draws the 100x100mm board outline, sets a 4-layer stack, and writes
 controller-board.kicad_pcb.
