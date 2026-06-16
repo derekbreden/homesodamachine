@@ -234,10 +234,13 @@ def substitute_py_comments(
     expected_counts: dict[str, int],
 ) -> None:
     """Rewrite [value](NAME) → [current_value](NAME) inside Python `#`
-    comments in `py_path` for each NAME in `variables`.
+    comments and docstrings in `py_path` for each NAME in `variables`.
 
-    Operates only on `#` line comments. Code, string literals, docstrings,
-    and every other token in the file are left untouched. Same
+    Operates on every `#` line comment, plus any string literal (docstring
+    or otherwise) that already carries one of the caller's managed
+    [value](NAME) markers. Functional string data is never disturbed — a
+    string is only touched if it already contains a managed marker, which
+    functional data never does — and code is otherwise left untouched. Same
     skip-unknown-names semantics as substitute_md so multiple scripts can
     contribute substitutions to the same .py file. Idempotent: rerunning
     with the same variable values produces no write.
@@ -248,8 +251,9 @@ def substitute_py_comments(
         variables: name → current value. Each value is str-cast for
             insertion (same as substitute_md).
         expected_counts: name → expected number of [value](NAME)
-            occurrences inside #-comments. Every name here must also
-            appear in `variables`.
+            occurrences across the scanned regions (`#` comments and
+            marker-bearing strings). Every name here must also appear in
+            `variables`.
 
     Raises:
         ValueError: if expected_counts has names with no variable value,
