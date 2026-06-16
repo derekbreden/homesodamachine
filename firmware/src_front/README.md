@@ -97,18 +97,35 @@ then write the output byte to `0x38` where `EXIO_n = bit n`.
 | EXIO3 | LCD_RST (RGB panel reset) |
 | EXIO4 | SD_CS (microSD; held high = deselected) |
 
+## Idle dimming + touch
+
+After 60 s of no touch the screen fades to a dim glow, and the first touch
+snaps it back to full and is consumed (wake only) — the same behavior as the
+faucet display. Two hardware differences shape how it's done here:
+
+- The faucet fades its backlight with PWM. This board's backlight is a *digital*
+  line on the CH422G (EXIO2) — no PWM, and I²C is too slow to fake it. So the
+  dim is done in software: a black layer on LVGL's top layer whose opacity ramps
+  up to `DIM_OPA`. The look matches; note it does *not* reduce backlight power
+  (a deeper "backlight off" idle stage could be added if power-down matters).
+- Touch is the GT911 on the shared I²C bus. Its address (`0x5D`/`0x14`) depends
+  on reset timing, so it's probed at init; reset is released via CH422G EXIO1,
+  INT is GPIO4. It's registered as an LVGL pointer indev, so it's ready for the
+  real UX, not just wake. When fully dimmed the animation is paused so the idle
+  screen stops repainting.
+
 ## USB-serial commands (bring-up / diagnostics)
 
 Newline-terminated, 115200 baud over the native USB CDC:
 
 - `GET_VERSION` → `VERSION:FRONT=<fw>`
-- `GET_DIAG` → heap / PSRAM / backlight / loop high-water / uptime
+- `GET_DIAG` → heap / PSRAM / backlight / frame / GT911 addr / touch count / dim
+  state / loop high-water / uptime
 - `BL:0` / `BL:1` → backlight off / on (drives CH422G EXIO2)
+- `DIM:0` / `DIM:1` → wake / force the dim state (test without the 60 s wait)
 
 ## Integration seams (not implemented)
 
-- **Touch** — GT911 on the shared I²C bus (addr `0x5D`, INT on GPIO4, reset
-  already released via CH422G EXIO1). Register an LVGL pointer indev here.
 - **Base-ESP32 link** — this board is the front-face config + interaction
   surface; it connects to the base ESP32 over RS485 (SIG-7). State sync and
   config push plug into `loop()`.

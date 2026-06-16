@@ -95,9 +95,14 @@ static const uint16_t *animFrames[] = {
 #define I2C_SDA  8
 #define I2C_SCL  9
 
-// GT911 touch (not driven yet — seam). Reset is on the CH422G (EXIO1), not a GPIO.
-#define TOUCH_INT  4
-#define TOUCH_ADDR 0x5D
+// GT911 capacitive touch — on the shared I2C bus; reset is on CH422G (EXIO1),
+// released during ch422gBringUp(). INT is a plain GPIO input here. The address
+// is 0x5D or 0x14 depending on reset timing, so it is probed at init.
+#define TOUCH_INT   4
+#define GT911_ADDR_A 0x5D
+#define GT911_ADDR_B 0x14
+#define GT911_REG_STATUS 0x814E  // buffer-status / touch-count
+#define GT911_REG_POINT1 0x8150  // first touch point (8 bytes: id, xL,xH, yL,yH, ...)
 
 // ── CH422G I/O expander ───────────────────────────────────────
 // Not a normal single-register expander: each "register" is its own 7-bit
@@ -140,6 +145,25 @@ static lv_obj_t *logoImg;
 static lv_img_dsc_t frameDsc[NUM_ANIM_FRAMES];
 static lv_timer_t *animTimer = nullptr;
 static uint8_t animFrameIdx = 0;
+
+// ── Idle dimming (matches the faucet display) ──
+// The backlight is a digital line on the CH422G (no PWM), so instead of fading
+// the backlight we fade the rendered content: a black layer over everything
+// whose opacity ramps up to a dim glow after inactivity. The first touch snaps
+// back to full and is consumed (it only wakes). Mirrors the faucet's gradual-
+// dim / instant-wake behavior.
+#define DIM_TIMEOUT_MS 60000  // inactivity before dimming (same as the faucet)
+#define DIM_OPA        216    // dim-glow level: mostly black, logo still faintly visible
+#define DIM_FADE_STEP  12     // opacity per fade pass; fade spans DIM_OPA/STEP passes
+
+static unsigned long lastInputTime = 0;
+static bool dimmed = false;
+static uint8_t dimOpa = 0;        // current black-overlay opacity (0 = full bright)
+static uint8_t dimTarget = 0;     // where dimOpa is heading
+
+// ── Touch (GT911) ──
+static uint8_t gt911Addr = 0;     // probed at init (0 = not found)
+static uint32_t touchCount = 0;   // diagnostics: presses seen since last GET_DIAG
 
 // ── Diagnostics (read via GET_DIAG) ──
 static uint32_t maxLoopMs = 0;
@@ -266,6 +290,96 @@ static void panelInitTask(void *arg) {
 }
 
 // ════════════════════════════════════════════════════════════
+//  Touch (GT911) + idle dimming
+// ════════════════════════════════════════════════════════════
+
+static bool gt911ReadBytes(uint16_t reg, uint8_t *buf, size_t len) {
+  Wire.beginTransmission(gt911Addr);
+  Wire.write(reg >> 8);
+  Wire.write(reg & 0xFF);
+  if (Wire.endTransmission(false) != 0) return false;  // repeated start
+  size_t got = Wire.requestFrom((int)gt911Addr, (int)len);
+  for (size_t i = 0; i < len && Wire.available(); i++) buf[i] = Wire.read();
+  return got == len;
+}
+
+static void gt911WriteByte(uint16_t reg, uint8_t val) {
+  Wire.beginTransmission(gt911Addr);
+  Wire.write(reg >> 8);
+  Wire.write(reg & 0xFF);
+  Wire.write(val);
+  Wire.endTransmission();
+}
+
+// Probe the two possible GT911 addresses; returns the one that ACKs (0 = none).
+static uint8_t gt911Probe() {
+  const uint8_t addrs[2] = {GT911_ADDR_A, GT911_ADDR_B};
+  for (int i = 0; i < 2; i++) {
+    Wire.beginTransmission(addrs[i]);
+    if (Wire.endTransmission() == 0) return addrs[i];
+  }
+  return 0;
+}
+
+// Reads the first touch point. Returns true if a finger is down; fills x,y.
+static bool gt911ReadTouch(uint16_t *x, uint16_t *y) {
+  if (!gt911Addr) return false;
+  uint8_t status;
+  if (!gt911ReadBytes(GT911_REG_STATUS, &status, 1)) return false;
+  if (!(status & 0x80)) return false;  // buffer not ready yet
+  bool touched = false;
+  if ((status & 0x0F) > 0) {
+    uint8_t p[8];
+    if (gt911ReadBytes(GT911_REG_POINT1, p, 8)) {
+      *x = (uint16_t)p[1] | ((uint16_t)p[2] << 8);
+      *y = (uint16_t)p[3] | ((uint16_t)p[4] << 8);
+      touched = true;
+    }
+  }
+  gt911WriteByte(GT911_REG_STATUS, 0);  // clear buffer-ready for the next frame
+  return touched;
+}
+
+// The dim overlay rides LVGL's top layer (above all content); its opacity is
+// what we fade. 0 = full bright, DIM_OPA = dim glow.
+static void applyDim() {
+  lv_obj_set_style_bg_color(lv_layer_top(), lv_color_black(), 0);
+  lv_obj_set_style_bg_opa(lv_layer_top(), dimOpa, 0);
+}
+
+// Snap back to full brightness and resume the animation (instant, like the
+// faucet's wake). Always resets the idle timer.
+static void wake() {
+  lastInputTime = millis();
+  if (dimmed || dimOpa != 0) {
+    dimmed = false;
+    dimTarget = 0;
+    dimOpa = 0;
+    applyDim();
+    if (animTimer) lv_timer_resume(animTimer);
+  }
+}
+
+// LVGL pointer indev: any touch wakes and resets the idle timer. While dimmed,
+// the first touch is consumed (wake only) so it can't trip future UI.
+static void touchpadRead(lv_indev_drv_t *drv, lv_indev_data_t *data) {
+  static bool prevTouch = false;
+  uint16_t x = 0, y = 0;
+  bool now = gt911ReadTouch(&x, &y);
+  if (now) {
+    if (!prevTouch) touchCount++;  // count press edges
+    bool wasDimmed = dimmed || dimOpa != 0;
+    wake();
+    data->point.x = x;
+    data->point.y = y;
+    data->state = wasDimmed ? LV_INDEV_STATE_RELEASED : LV_INDEV_STATE_PRESSED;
+  } else {
+    data->state = LV_INDEV_STATE_RELEASED;
+  }
+  prevTouch = now;
+}
+
+// ════════════════════════════════════════════════════════════
 //  LVGL callbacks
 // ════════════════════════════════════════════════════════════
 
@@ -318,13 +432,18 @@ static void processTextLine(const char *line) {
     Serial.printf("VERSION:FRONT=%s\n", FW_VERSION);
   } else if (strcmp(line, "GET_DIAG") == 0) {
     Serial.printf("DIAG:heap=%lu,minHeap=%lu,psram=%lu,freePsram=%lu,bl=%d,"
-                  "frame=%u,maxLoopMs=%lu,uptime=%lus\n",
+                  "frame=%u,gt911=0x%02X,touch=%lu,dim=%d,dimOpa=%u,"
+                  "maxLoopMs=%lu,uptime=%lus\n",
                   (unsigned long)ESP.getFreeHeap(),
                   (unsigned long)ESP.getMinFreeHeap(),
                   (unsigned long)ESP.getPsramSize(),
                   (unsigned long)ESP.getFreePsram(),
                   backlightOn ? 1 : 0,
                   (unsigned)animFrameIdx,
+                  gt911Addr,
+                  (unsigned long)touchCount,
+                  dimmed ? 1 : 0,
+                  (unsigned)dimOpa,
                   (unsigned long)maxLoopMs,
                   millis() / 1000);
     maxLoopMs = 0;  // high-water mark since last query
@@ -334,6 +453,17 @@ static void processTextLine(const char *line) {
     } else {
       setBacklight(line[3] == '1');
       Serial.printf("OK:BL=%d\n", backlightOn ? 1 : 0);
+    }
+  } else if (strncmp(line, "DIM:", 4) == 0) {
+    // Force the idle-dim state for testing (bypasses the 60 s timeout).
+    if (line[4] == '1') {
+      dimmed = true; dimTarget = DIM_OPA;
+      Serial.println("OK:DIM=1");
+    } else if (line[4] == '0') {
+      wake();
+      Serial.println("OK:DIM=0");
+    } else {
+      Serial.println("ERR:DIM expects 0 or 1");
     }
   } else {
     Serial.printf("ERR:unknown command '%s'\n", line);
@@ -388,11 +518,19 @@ void setup() {
   disp_drv.full_refresh = 1;  // repaint the whole back buffer each frame, then flip
   lv_disp_drv_register(&disp_drv);
 
-  // Touch seam: GT911 lives on the shared I2C bus (addr TOUCH_ADDR, INT on
-  // TOUCH_INT, reset already released via CH422G EXIO1). Register an
-  // lv_indev pointer driver here when the interaction UX is built.
+  // Touch — GT911 on the shared I2C bus (reset already released via CH422G
+  // EXIO1). Probe its address, then register an LVGL pointer indev.
+  pinMode(TOUCH_INT, INPUT);
+  gt911Addr = gt911Probe();
+  Serial.printf("GT911 %s (addr 0x%02X)\n", gt911Addr ? "found" : "NOT FOUND", gt911Addr);
+  static lv_indev_drv_t indev_drv;
+  lv_indev_drv_init(&indev_drv);
+  indev_drv.type = LV_INDEV_TYPE_POINTER;
+  indev_drv.read_cb = touchpadRead;
+  lv_indev_drv_register(&indev_drv);
 
   buildUi();
+  applyDim();  // initialize the dim overlay (transparent at first)
 
   // Render the first frame, then light the backlight (no boot flash).
   lv_timer_handler();
@@ -401,6 +539,7 @@ void setup() {
   // Start the loading animation (~10 fps).
   animTimer = lv_timer_create(animTimerCb, ANIM_FRAME_MS, NULL);
 
+  lastInputTime = millis();
   displayReady = true;
   Serial.println("Ready — animated loading logo running.");
 }
@@ -425,6 +564,23 @@ void loop() {
   }
 
   // Seam: service the RS485/UART link to the base ESP32 here.
+
+  // Idle dimming: after inactivity, gradually fade the content to a dim glow
+  // (waking is instant, handled in wake()). Once fully dimmed, pause the
+  // animation so the idle screen stops repainting. Mirrors the faucet.
+  if (displayReady) {
+    if (!dimmed && millis() - lastInputTime >= DIM_TIMEOUT_MS) {
+      dimmed = true;
+      dimTarget = DIM_OPA;
+    }
+    if (dimOpa != dimTarget) {
+      int next = (int)dimOpa + DIM_FADE_STEP;
+      if (next > (int)dimTarget) next = dimTarget;
+      dimOpa = (uint8_t)next;
+      applyDim();
+      if (dimmed && dimOpa == dimTarget && animTimer) lv_timer_pause(animTimer);
+    }
+  }
 
   if (displayReady) lv_timer_handler();
 
