@@ -71,6 +71,9 @@ Stainless pressure-vessel fabrication: 316 SS round-tube body + 1/4" laser-cut 3
 | SendCutSend order SV07U813 — 304 SS 0.060" racetrack end-cap blanks ×4 (plan-B spare) | sendcutsend.com | 4 | $45.52 | ACQUIRED |
 | SendCutSend order SP54G453 — 304 SS 0.048" body half-sheets ×10 (plan-B spare) | sendcutsend.com | 10 | $134.38 | ACQUIRED |
 | SendCutSend order S064D925 — 0.060" 316 SS Touch-Flo under-counter plates | sendcutsend.com | 10 | $36.29 | ACQUIRED (delivered May 14) |
+| Cantesco P101S-A red visible dye penetrant, solvent-removable aerosol — dye-penetrant (PT) leak/crack inspection of the end-cap closure fillet welds before hydro (step 6). Order #112-1089976-3089830, placed June 16, 2026 | [B00T46ZH5E](https://www.amazon.com/dp/B00T46ZH5E) | 1 | $22.80 | ON-ORDER (arriving Thu Jun 18) |
+| Cantesco D101-A non-aqueous wet developer, white, 12 oz aerosol — PT developer that draws the penetrant back out of a defect as a visible indication. Order #112-9519199-9509821, placed June 16, 2026 | [B008BJCOLK](https://www.amazon.com/dp/B008BJCOLK) | 1 | $14.81 | ON-ORDER (arriving Mon Jun 22) |
+| Cleanroom wipes, 9" × 9", cellulose/polyester Grade A 68 GSM, lint-free (150 pcs) — controlled PT penetrant wipe-off (dampened with the already-owned isopropyl alcohol, not sprayed) + low-lint surface for reading indications. Order #112-1089976-3089830, placed June 16, 2026 | [B0GD16CMYL](https://www.amazon.com/dp/B0GD16CMYL) | 1 pk (150) | $15.99 | ON-ORDER (arriving Wed Jun 17) |
 
 ## 2. CO2 subsystem
 
@@ -514,10 +517,10 @@ Industrial-supply orders direct from McMaster-Carr (mcmaster.com). First McMaste
 | ACQUIRED — hardware, tools & infra (§§1–17, 19, 20) | [$25,916.51](LEDGER_ACQUIRED_HW) |
 | ACQUIRED — capitalized contract labor (§18) | [$2,607.92](LEDGER_LABOR) |
 | ACQUIRED (combined) | [$28,524.43](LEDGER_ACQUIRED_COMBINED) |
-| ON-ORDER | [$544.65](LEDGER_ON_ORDER) |
+| ON-ORDER | [$598.25](LEDGER_ON_ORDER) |
 | MISSING — paid, not received (§1 copper bar) | [$42.89](LEDGER_MISSING) |
 | LIKELY-TO-BUY | $0.00 |
-| **Grand total — cash outlay** | [$29,111.97](LEDGER_GRAND_TOTAL) |
+| **Grand total — cash outlay** | [$29,165.57](LEDGER_GRAND_TOTAL) |
 
 ACQUIRED hardware by section:
 
