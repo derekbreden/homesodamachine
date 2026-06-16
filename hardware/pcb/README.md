@@ -2,9 +2,18 @@
 
 A single consolidated controller board for the integrated appliance, replacing the
 module stack on the electronics shelf. Designed in-repo (KiCad) under Derek's
-guidance, fabbed as bare boards by a web fab (JLCPCB-class), assembled in-house:
-SMD placement and reflow on our own equipment, through-hole (connectors, relays,
-coin holder) as a hand-solder pass.
+guidance, fabbed and SMT-assembled by a turnkey web fab (JLCPCB-class) — the board's
+two exposed-pad parts (the ESP32-WROOM ground pad and the DRV8871 thermal pads) need
+machine reflow, which the bench in [`/hardware/ledger/tools.md`](/hardware/ledger/tools.md)
+cannot do. The through-hole pass (connectors, relays, coin holder, AC terminals) is
+hand-soldered in-house on the existing bench. Fab and placement options, and the
+in-house-vs-turnkey decision, are in [`fabrication.md`](/hardware/pcb/fabrication.md).
+
+The design package that feeds schematic capture:
+
+- [`netlist.md`](/hardware/pcb/netlist.md) — components, nets, the GPIO map, open decisions.
+- [`bom-board.md`](/hardware/pcb/bom-board.md) — discrete-component BOM (LCSC candidates, JLCPCB class) + power budget.
+- [`fabrication.md`](/hardware/pcb/fabrication.md) — board fab + placement options and the working recommendation.
 
 ## Scope
 
@@ -83,17 +92,27 @@ cart, stated as ranges:
 | 100 | ~$1.50–2.50 | ~$24–28 | ~$26–30 | ≈ −$51 to −$55 |
 
 Deleted-module prices are retail-constant with quantity; board cost falls with
-quantity, so the per-unit saving grows with the batch. Assembly equipment
-(pick-and-place, feeders, stencil, reflow) is capital in
-[`/hardware/ledger/tools.md`](/hardware/ledger/tools.md) terms, not per-unit BOM.
+quantity, so the per-unit saving grows with the batch. The Components column folds
+in turnkey SMT — placement labor plus the one-time per-order Extended-part feeder
+fees (~$25–40, amortizing over the batch) — per the assembly model in
+[`fabrication.md`](/hardware/pcb/fabrication.md). The power budget that sizes the two
+buck stages and the 12 V input is in [`bom-board.md`](/hardware/pcb/bom-board.md).
 
 ## Firmware
 
 Same firmware tree, new pin map revision: the MCP23017s, ULN channels, pump
 drivers, relays, RTC, and both display UART links keep their roles; GPIO
-assignments move to the board's netlist. USB-C service port carries the same
-flash/debug path as the DevKitC.
+assignments follow the board's [`netlist.md`](/hardware/pcb/netlist.md). That file is
+board-authoritative where it and the prototype `firmware/src/main.cpp` disagree on a
+GPIO — the firmware pin-map revision to match it is one of the netlist's open
+decisions. USB-C service port carries the same flash/debug path as the DevKitC.
 
 ## Status
 
-Plan. No schematic yet. First artifact is the KiCad project in this directory.
+The design inputs are committed: [`netlist.md`](/hardware/pcb/netlist.md) (connections +
+GPIO map), [`bom-board.md`](/hardware/pcb/bom-board.md) (parts + power budget), and
+[`fabrication.md`](/hardware/pcb/fabrication.md) (fab + placement). No schematic yet.
+
+Next step is schematic capture in KiCad, then board layout — the netlist and BOM make
+that mechanical rather than open-ended. The KiCad project lands in this directory; the
+open decisions in [`netlist.md`](/hardware/pcb/netlist.md) are resolved during capture.
