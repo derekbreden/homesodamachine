@@ -146,20 +146,14 @@ static lv_img_dsc_t frameDsc[NUM_ANIM_FRAMES];
 static lv_timer_t *animTimer = nullptr;
 static uint8_t animFrameIdx = 0;
 
-// ── Idle dimming (matches the faucet display) ──
-// The backlight is a digital line on the CH422G (no PWM), so instead of fading
-// the backlight we fade the rendered content: a black layer over everything
-// whose opacity ramps up to a dim glow after inactivity. The first touch snaps
-// back to full and is consumed (it only wakes). Mirrors the faucet's gradual-
-// dim / instant-wake behavior.
-#define DIM_TIMEOUT_MS 60000  // inactivity before dimming (same as the faucet)
-#define DIM_OPA        216    // dim-glow level: mostly black, logo still faintly visible
-#define DIM_FADE_STEP  12     // opacity per fade pass; fade spans DIM_OPA/STEP passes
+// ── Idle backlight-off (the faucet's idle behavior, adapted to this board) ──
+// The backlight is a digital line on the CH422G (on/off only — no PWM), so the
+// idle state is simply the backlight off and the animation paused. The first
+// touch turns it back on and resumes. Instant off / instant on.
+#define IDLE_TIMEOUT_MS 60000  // inactivity before the backlight turns off
 
 static unsigned long lastInputTime = 0;
-static bool dimmed = false;
-static uint8_t dimOpa = 0;        // current black-overlay opacity (0 = full bright)
-static uint8_t dimTarget = 0;     // where dimOpa is heading
+static bool screenIdle = false;  // true while asleep (backlight off via idle)
 
 // ── Touch (GT911) ──
 static uint8_t gt911Addr = 0;     // probed at init (0 = not found)
@@ -340,22 +334,13 @@ static bool gt911ReadTouch(uint16_t *x, uint16_t *y) {
   return touched;
 }
 
-// The dim overlay rides LVGL's top layer (above all content); its opacity is
-// what we fade. 0 = full bright, DIM_OPA = dim glow.
-static void applyDim() {
-  lv_obj_set_style_bg_color(lv_layer_top(), lv_color_black(), 0);
-  lv_obj_set_style_bg_opa(lv_layer_top(), dimOpa, 0);
-}
-
-// Snap back to full brightness and resume the animation (instant, like the
-// faucet's wake). Always resets the idle timer.
+// Turn the backlight back on and resume the animation (instant). Always resets
+// the idle timer. A tap calls this — "tap to bring the backlight back on."
 static void wake() {
   lastInputTime = millis();
-  if (dimmed || dimOpa != 0) {
-    dimmed = false;
-    dimTarget = 0;
-    dimOpa = 0;
-    applyDim();
+  if (screenIdle || !backlightOn) {
+    screenIdle = false;
+    setBacklight(true);
     if (animTimer) lv_timer_resume(animTimer);
   }
 }
@@ -368,11 +353,12 @@ static void touchpadRead(lv_indev_drv_t *drv, lv_indev_data_t *data) {
   bool now = gt911ReadTouch(&x, &y);
   if (now) {
     if (!prevTouch) touchCount++;  // count press edges
-    bool wasDimmed = dimmed || dimOpa != 0;
+    bool wasIdle = screenIdle;
     wake();
     data->point.x = x;
     data->point.y = y;
-    data->state = wasDimmed ? LV_INDEV_STATE_RELEASED : LV_INDEV_STATE_PRESSED;
+    // While idle, consume the first touch (wake only) so it can't trip future UI.
+    data->state = wasIdle ? LV_INDEV_STATE_RELEASED : LV_INDEV_STATE_PRESSED;
   } else {
     data->state = LV_INDEV_STATE_RELEASED;
   }
@@ -432,7 +418,7 @@ static void processTextLine(const char *line) {
     Serial.printf("VERSION:FRONT=%s\n", FW_VERSION);
   } else if (strcmp(line, "GET_DIAG") == 0) {
     Serial.printf("DIAG:heap=%lu,minHeap=%lu,psram=%lu,freePsram=%lu,bl=%d,"
-                  "frame=%u,gt911=0x%02X,touch=%lu,dim=%d,dimOpa=%u,"
+                  "frame=%u,gt911=0x%02X,touch=%lu,idle=%d,"
                   "maxLoopMs=%lu,uptime=%lus\n",
                   (unsigned long)ESP.getFreeHeap(),
                   (unsigned long)ESP.getMinFreeHeap(),
@@ -442,8 +428,7 @@ static void processTextLine(const char *line) {
                   (unsigned)animFrameIdx,
                   gt911Addr,
                   (unsigned long)touchCount,
-                  dimmed ? 1 : 0,
-                  (unsigned)dimOpa,
+                  screenIdle ? 1 : 0,
                   (unsigned long)maxLoopMs,
                   millis() / 1000);
     maxLoopMs = 0;  // high-water mark since last query
@@ -454,16 +439,19 @@ static void processTextLine(const char *line) {
       setBacklight(line[3] == '1');
       Serial.printf("OK:BL=%d\n", backlightOn ? 1 : 0);
     }
-  } else if (strncmp(line, "DIM:", 4) == 0) {
-    // Force the idle-dim state for testing (bypasses the 60 s timeout).
-    if (line[4] == '1') {
-      dimmed = true; dimTarget = DIM_OPA;
-      Serial.println("OK:DIM=1");
-    } else if (line[4] == '0') {
+  } else if (strncmp(line, "IDLE:", 5) == 0) {
+    // Force the idle state for testing (bypasses the 60 s timeout):
+    // IDLE:1 = backlight off + pause animation; IDLE:0 = wake.
+    if (line[5] == '1') {
+      screenIdle = true;
+      setBacklight(false);
+      if (animTimer) lv_timer_pause(animTimer);
+      Serial.println("OK:IDLE=1");
+    } else if (line[5] == '0') {
       wake();
-      Serial.println("OK:DIM=0");
+      Serial.println("OK:IDLE=0");
     } else {
-      Serial.println("ERR:DIM expects 0 or 1");
+      Serial.println("ERR:IDLE expects 0 or 1");
     }
   } else {
     Serial.printf("ERR:unknown command '%s'\n", line);
@@ -530,7 +518,6 @@ void setup() {
   lv_indev_drv_register(&indev_drv);
 
   buildUi();
-  applyDim();  // initialize the dim overlay (transparent at first)
 
   // Render the first frame, then light the backlight (no boot flash).
   lv_timer_handler();
@@ -565,21 +552,12 @@ void loop() {
 
   // Seam: service the RS485/UART link to the base ESP32 here.
 
-  // Idle dimming: after inactivity, gradually fade the content to a dim glow
-  // (waking is instant, handled in wake()). Once fully dimmed, pause the
-  // animation so the idle screen stops repainting. Mirrors the faucet.
-  if (displayReady) {
-    if (!dimmed && millis() - lastInputTime >= DIM_TIMEOUT_MS) {
-      dimmed = true;
-      dimTarget = DIM_OPA;
-    }
-    if (dimOpa != dimTarget) {
-      int next = (int)dimOpa + DIM_FADE_STEP;
-      if (next > (int)dimTarget) next = dimTarget;
-      dimOpa = (uint8_t)next;
-      applyDim();
-      if (dimmed && dimOpa == dimTarget && animTimer) lv_timer_pause(animTimer);
-    }
+  // Idle: after inactivity, turn the backlight off and pause the animation
+  // (no point repainting a dark screen). A touch wakes it — see wake().
+  if (displayReady && !screenIdle && millis() - lastInputTime >= IDLE_TIMEOUT_MS) {
+    screenIdle = true;
+    setBacklight(false);
+    if (animTimer) lv_timer_pause(animTimer);
   }
 
   if (displayReady) lv_timer_handler();
