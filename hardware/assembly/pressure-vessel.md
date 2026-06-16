@@ -20,7 +20,7 @@ Per-unit BOM lives in [`/hardware/ledger/bom.md`](/hardware/ledger/bom.md) §2 (
 |---|---|---|
 | 5" OD × 0.065" wall × [152.4 mm](TANK_H) 316L SS welded tube | OnlineMetals #12498 | MTRs required. |
 | 1/4"-thick 316L SS circular end plate, 2-hole pattern | SendCutSend [`endcap-circular-2hole.dxf`](/hardware/cut-parts/carbonation/endcaps-circular/endcap-circular-2hole.dxf) | 2 per vessel |
-| 1/8" 316L SS rod, ~6" cut from 12" stock | Tandefio B0CY4DWJFQ | Internal float rod (bom.md §12) |
+| 1/8" 316L SS rod, [143.8 mm (5.66 in)](ROD_LEN) cut from 12" stock | Tandefio B0CY4DWJFQ | Internal float rod (bom.md §12) |
 | Magnetic donut float | Harvested from DEVMO MINI float switch B07T18PGJ4 | Slides on rod, captive after top weld (bom.md §12) |
 | 0.5 µm sintered 316 SS sparge stone (1/4" barb input) | FERRODAY B091C5Y6L9 | Internal CO2 sparge |
 | Food-grade silicone tube stub, ~3" of 1/4" ID | Metaland B08L1ST6ST (cut from §5 stock) | Connects bottom-plate barb to sparge stone |
@@ -53,7 +53,7 @@ The first-tap rig and hand sequence are captured in [`/hardware/tapping-plan-202
 
 ### 2. Tack-weld float rod to bottom plate
 
-Cut the 1/8" 316L rod to ~6". Tack-weld it vertically to the inside face of the bottom plate (the side that will face into the vessel), seating its base in the bottom-plate register from step 1 — the register locates the rod on the donut-wall axis and holds it square for the tack. Set the final rod length so that, fully seated at the bottom, its top will enter the top-plate register at closure (step 5) **without** bottoming out and holding the top plate off the tube end — the rod locates the plate, it must never hold the pressure-weld seam open. Done in the same welding session as the plate-to-tube welds in steps 3 and 5 — heat the welder once.
+Cut the 1/8" 316L rod to [143.8 mm (5.66 in)](ROD_LEN) — tube length − both 1/4" plates + both 0.10" registers − 1 mm clearance, with the plates flush to the tube ends (`_pressure_vessel_sync.py`). Tack-weld it vertically to the inside face of the bottom plate (the side that will face into the vessel), seating its base in the bottom-plate register from step 1 — the register locates the rod on the donut-wall axis and holds it square for the tack. Set the final rod length so that, fully seated at the bottom, its top will enter the top-plate register at closure (step 5) **without** bottoming out and holding the top plate off the tube end — the rod locates the plate, it must never hold the pressure-weld seam open. Done in the same welding session as the plate-to-tube welds in steps 3 and 5 — heat the welder once.
 
 ### 3. Weld bottom plate to tube
 

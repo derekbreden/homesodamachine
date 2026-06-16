@@ -447,6 +447,19 @@ floor_flat_bottom_z = floor_trough_z - bulkhead_seal_counterbore_depth - bulkhea
 floor_below_trough_headroom = floor_flat_bottom_z - bag_pocket_floor_top_z
 floor_slope_y_distance = inner_y_max - floor_trough_half_width_y
 floor_slope_rate = floor_slope_rise / floor_slope_y_distance
+
+# Level-sensing rod cut length. Seat-to-seat = the top register seat (cap-local
+# cap_wall_height, raised to assembled coords by cap_assembly_lift) minus the
+# body anchor-boss bore floor at the rod's y; cut reservoir_rod_clearance under
+# so the rod never holds the cap off its gasket. (Geometry-verified seat-to-seat
+# = 174.99 mm; this is the cut figure.)
+reservoir_rod_clearance = 1.0  # mm
+reservoir_rod_len = (
+    (cap_assembly_lift + cap_wall_height)
+    - (floor_trough_z + floor_slope_rate * (abs(rod_position_y) - floor_trough_half_width_y)
+       + rod_anchor_boss_floor)
+    - reservoir_rod_clearance
+)  # [174 mm (6.85 in)](RESERVOIR_ROD_LEN) — 1/8" 316 SS rod, seat-to-seat − 1 mm
 # Floor wedge extrusion top — above the highest slope point so the
 # slope half-spaces cut a clean upper face on the wedge fill.
 floor_wedge_top_z = floor_trough_z + floor_slope_rise + 2.0
@@ -1217,6 +1230,7 @@ def main():
         "ROD_POSITION_X": f"{rod_position_x:.4g}",
         "ROD_POSITION_Y": f"{rod_position_y:.4g}",
         "REEDS_PER_RES": f"{reeds_per_reservoir:.4g}",
+        "RESERVOIR_ROD_LEN": f"{reservoir_rod_len:.4g} mm ({reservoir_rod_len / 25.4:.3g} in)",
         # Dynamic-comment markers above derived constants in this .py file.
         "RESERVOIR_WALL_T": f"{reservoir_wall_thickness:.4g} mm",
         "CAP_TOTAL_H": f"{cap_total_height:.4g} mm",
@@ -1292,6 +1306,7 @@ def main():
             "ROD_POSITION_X": 2,
             "ROD_POSITION_Y": 1,
             "REEDS_PER_RES": 10,
+            "RESERVOIR_ROD_LEN": 1,
         },
     )
     print("-> level-sensing.md")
@@ -1355,6 +1370,7 @@ def main():
             "CAP_ASSEMBLY_LIFT": 1,
             "CAP_TOP_Z": 1,
             "RESERVOIR_H": 1,
+            "RESERVOIR_ROD_LEN": 1,
             "REEDS_PER_RES": 1,
             "BULKHEAD_PANEL_HOLE_D": 2,
             "BULKHEAD_WET_NUT_OD": 7,
