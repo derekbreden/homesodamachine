@@ -9,12 +9,14 @@ cannot do. The through-hole pass (connectors, relays, coin holder, AC terminals)
 hand-soldered in-house on the existing bench. Fab and placement options, and the
 in-house-vs-turnkey decision, are in [`fabrication.md`](/hardware/pcb/fabrication.md).
 
-The design package:
+The design package (the plan — the connection design and the part/cost/fab homework):
 
 - [`netlist.md`](/hardware/pcb/netlist.md) — components, nets, the GPIO map, open decisions.
-- [`controller_board.py`](/hardware/pcb/controller_board.py) — the netlist **as code** (SKiDL); generates [`controller-board.net`](/hardware/pcb/controller-board.net), the KiCad netlist for board layout. The electrical analog of the CadQuery mechanical scripts.
 - [`bom-board.md`](/hardware/pcb/bom-board.md) — discrete-component BOM (LCSC candidates, JLCPCB class) + power budget.
 - [`fabrication.md`](/hardware/pcb/fabrication.md) — board fab + placement options and the working recommendation.
+
+How the board actually gets designed — GUI schematic capture and layout in KiCad, the
+code-defined toolchain explored below, or something else — is open and unreviewed (see Status).
 
 ## Scope
 
@@ -108,61 +110,33 @@ board-authoritative where it and the prototype `firmware/src/main.cpp` disagree 
 GPIO — the firmware pin-map revision to match it is one of the netlist's open
 decisions. USB-C service port carries the same flash/debug path as the DevKitC.
 
-## Netlist as code
+## Exploration — a code-defined toolchain (not a chosen path)
 
-The schematic is captured in code, not a GUI, to match the CadQuery mechanical flow.
-[`controller_board.py`](/hardware/pcb/controller_board.py) instantiates every part and
-net with [SKiDL](https://github.com/devbisme/skidl) and emits
-[`controller-board.net`](/hardware/pcb/controller-board.net), a KiCad netlist. Regenerate:
+A proof-of-concept of how much of the board could be generated from code instead of drawn in
+a GUI, kept here for reference. **None of it is reviewed, endorsed, or signed off**, and it
+does not set the path the board will actually take — it's an experiment in what's mechanizable.
 
-```
-tools/pcb-venv/bin/python hardware/pcb/controller_board.py
-```
+- **Netlist** — [`controller_board.py`](/hardware/pcb/controller_board.py) defines the circuit
+  with [SKiDL](https://github.com/devbisme/skidl) and emits
+  [`controller-board.net`](/hardware/pcb/controller-board.net) (a KiCad netlist). Run:
+  `tools/pcb-venv/bin/python hardware/pcb/controller_board.py`. It resolves the
+  [`netlist.md`](/hardware/pcb/netlist.md) open decisions to concrete choices (its header notes
+  which), passes ERC clean, and uses stock-symbol stand-ins for a few parts with no KiCad symbol.
+- **Placement** — [`controller_layout.py`](/hardware/pcb/controller_layout.py) reads the netlist
+  via KiCad's `pcbnew` API, places every footprint (size-aware, mains parts in an isolated
+  corner), assigns nets, draws the 100 × 100 outline, and writes
+  [`controller-board.kicad_pcb`](/hardware/pcb/controller-board.kicad_pcb) + `.kicad_pro`. Run
+  with KiCad's bundled Python (the one with `pcbnew`). It's a first-pass placement, not hand-tuned.
+- **Autorouting** — an optional external round-trip via freerouting (export DSN → route → import
+  SES). Not committed: non-deterministic, only partially routes against a first-pass placement.
 
-The generator resolves the open decisions in [`netlist.md`](/hardware/pcb/netlist.md) to
-concrete choices (documented in its header) and passes ERC with 0 errors / 0 warnings.
-It needs KiCad's symbol libraries (the script auto-detects the macOS install or honors
-`KICAD9_SYMBOL_DIR`). A few parts use a stock-symbol stand-in for an exact part with no
-KiCad symbol (the regulators, the SOIC-16 RTC, the relays) — see the script header.
-
-## Board layout
-
-Placement is generated headlessly too, from the netlist, via KiCad's `pcbnew` Python API.
-[`controller_layout.py`](/hardware/pcb/controller_layout.py) loads every footprint, places
-it (mains parts clustered in an isolated corner, size-aware so courtyards don't overlap),
-assigns every net to its pads (including the ESP32's multi-pad GND and the DRV8871 thermal
-pads), draws the 100 × 100 mm outline, sets the 4-layer stack, and writes
-[`controller-board.kicad_pcb`](/hardware/pcb/controller-board.kicad_pcb). Run it with
-**KiCad's bundled Python** (the one that has `pcbnew`):
-
-```
-"/Applications/KiCad.app/Contents/Frameworks/Python.framework/Versions/3.9/bin/python3.9" \
-    hardware/pcb/controller_layout.py
-```
-
-This placement is a reproducible **first pass** — algorithmic, not hand-tuned for routing,
-and it does **not** enforce the creepage / RF-keepout / thermal-via intent in "Layout"
-above. Treat it as the starting board, not a finished one.
-
-**Autorouting** is an optional external round-trip (freerouting), not committed because it
-is non-deterministic and needs review:
-
-```
-# export Specctra DSN (pcbnew.ExportSpecctraDSN), autoroute, import the SES back
-java -jar freerouting.jar -de controller-board.dsn -do controller-board.ses   # JDK 25+
-# pcbnew.ImportSpecctraSES(board, "controller-board.ses") → save
-```
-
-A first-pass autoroute against the first-pass placement leaves work on the table (it routed
-~half the connections in a few passes). It is **not manufacture-ready**: an autorouter
-connects nets but ignores the AC-corner creepage, the ESP32 RF antenna keepout, DRV8871
-thermal stitching, and EMC — all of which are hand-review items on this mains, mixed-signal
-board.
+This reaches a placed board, not a manufacturable one. Routing-aware placement, full routing,
+and the by-hand creepage / RF-keepout / thermal / EMC review are all unaddressed — and are
+exactly where human judgment, not automation, decides the board.
 
 ## Status
 
-The full design package is committed and reproducible from code: the netlist
-([`controller_board.py`](/hardware/pcb/controller_board.py) → `.net`) and the placed board
-([`controller_layout.py`](/hardware/pcb/controller_layout.py) → `.kicad_pcb`). Remaining
-work is layout refinement: routing-aware placement, full routing, and the by-hand creepage
-/ RF / thermal / EMC review before fab.
+Plan stage. The design data above (netlist, BOM, fab + placement options) is the plan; the
+board build path — schematic capture and layout in KiCad's GUI, the code-defined exploration
+above, or another route — is undecided and unreviewed. No part of the board has been signed
+off for fab.
