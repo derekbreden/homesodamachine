@@ -1,0 +1,11 @@
+# Front-face display (Waveshare ESP32-S3-Touch-LCD-4.3B, 16 MB flash).
+# Single-slot dev/foundation layout with a large app partition — the loading
+# animation frames are compiled in (~4 MB of .rodata), which overflows the
+# 4 MB app slot of the shared partitions_s3.csv. No OTA dual-slot yet (this
+# board is not shipping); when it ships, revisit for two app slots like the
+# note in partitions_s3.csv.
+# Name,   Type, SubType, Offset,   Size,     Flags
+nvs,      data, nvs,     0x9000,   0x5000,
+otadata,  data, ota,     0xe000,   0x2000,
+app0,     app,  ota_0,   0x10000,  0x800000,
+spiffs,   data, spiffs,  0x810000, 0x7F0000,
