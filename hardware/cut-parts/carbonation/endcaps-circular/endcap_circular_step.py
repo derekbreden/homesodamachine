@@ -18,7 +18,7 @@ diameter — the vendor taps 1/4"-18 NPT per the drawing callout.
   Disc:            123.4 mm Ø × 6.35 mm  (4.860" × 1/4", = tube ID 4.870" − 0.010")
   NPT tap-drill:   2× 11.13 mm Ø  (7/16") THRU, at X = ±19.05 mm (±0.750")
   Rod register:    3.572 mm Ø (9/64") blind, 2.54 mm (0.100") deep, at
-                   (0, −47.97 mm) on the inside (+Z) face — leaves 3.81 mm
+                   (0, −50.97 mm) on the inside (+Z) face — leaves 3.81 mm
                    (0.150") of plate as intact pressure boundary.
 
 The register sits on the +Z face = the vessel INSIDE face; the −Z face is the
@@ -60,12 +60,15 @@ hole_offset = 0.750 * inch
 hole_positions = [(-hole_offset, 0.0), (hole_offset, 0.0)]
 
 # ── Rod register — blind retention pocket, machined (see module docstring) ──
-# Mirrors the source-of-truth derivation in endcap_circular_dxf.py: park the
-# rod so the 27.75 mm donor donut's OD just reaches the inner tube wall.
+# Mirrors the source-of-truth derivation in endcap_circular_dxf.py: park the rod
+# so the 27.75 mm donor donut's OD reaches the inner wall, then add a 3 mm
+# wall-preload to pin it there — matches the reservoir test-fit (reservoir.py
+# rod_position_x 104 → 107 mm).
 tube_id = 4.870 * inch                       # donut rides this wall
 donut_od = 27.75                             # mm — donor ferrite donut (DEVMO MINI)
-# [47.97 mm](REG_Y) — register center on the −Y axis (= 1.889"), clear of ports.
-register_radius = tube_id / 2.0 - donut_od / 2.0
+wall_preload = 3.0                           # mm closer to the wall (empirical preload)
+# [50.97 mm](REG_Y) — register center on the −Y axis (= 2.007"), clear of ports.
+register_radius = tube_id / 2.0 - donut_od / 2.0 + wall_preload
 register_position = (0.0, -register_radius)
 # [3.572 mm](REG_D) — 9/64" slip-fit drill on the 1/8" rod.
 register_drill_diameter = 0.140625 * inch
