@@ -35,16 +35,19 @@ from docgen import substitute_md
 
 MM_PER_IN = 25.4
 
-# Carbonator float-rod cut length. The 1/4" end plates sit FLUSH with the tube
-# ends (the closure fillet weld is an external rim weld — step 5), so the rod's
-# seat-to-seat span = tube length − both plate thicknesses + both register
-# depths (the rod tip drops register_depth into each plate). Cut rod_clearance
-# under that so the rod never holds a plate off its pressure seam.
-plate_inset = 0.0       # mm — plates flush with the tube ends
-rod_clearance = 1.0     # mm — cut under seat-to-seat
+# Carbonator float-rod cut length. Each 1/4" end plate is an ID-fit plug
+# RECESSED plate_recess below its tube end, so the tube wall stands proud and
+# the closure is a corner fillet welded into the recess (step 3/5) — the joint
+# the handheld laser runs best on a thin-wall-to-thick-plate edge. The rod's
+# seat-to-seat span = tube length − both recesses − both plate thicknesses
+# + both register depths (the rod tip drops register_depth into each plate).
+# Cut rod_clearance under that so the rod never holds a plate off its seated
+# depth (which would open the fillet root).
+plate_recess = 0.25 * MM_PER_IN   # mm — plate outer face set 1/4" below the rim
+rod_clearance = 1.0               # mm — cut under seat-to-seat
 carbonator_rod_len = (
     tank_height
-    - 2 * plate_inset
+    - 2 * plate_recess
     - 2 * disc_thickness * MM_PER_IN
     + 2 * register_depth * MM_PER_IN
     - rod_clearance

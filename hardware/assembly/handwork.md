@@ -31,7 +31,7 @@ See [assembly/pressure-vessel.md](/hardware/assembly/pressure-vessel.md) step 1 
 
 ## Weld 316L end caps to 316L tubes
 
-Join the 1/4"-thick 316L end-cap plates to the 5" OD × 0.065" wall 316L tube ends with the XLaserlab X1 Pro handheld laser welder, STARTECHWELD ER316L .030 filler (matches the 316L parent metal — undermatching with 308L would lose the molybdenum across the joint). Top + bottom plates per vessel × 10 vessels of stock. The 1/8" 316L float rod (Tandefio B0CY4DWJFQ, cut to [143.8 mm (5.66 in)](ROD_LEN)) tack-welds vertically to the inside face of the bottom plate as part of this same operation, before the bottom-plate-to-tube weld closes the vessel ([future.md](/hardware/future.md) "Level sensing").
+Join the 1/4"-thick 316L end-cap plates to the 5" OD × 0.065" wall 316L tube ends with the XLaserlab X1 Pro handheld laser welder, STARTECHWELD ER316L .030 filler (matches the 316L parent metal — undermatching with 308L would lose the molybdenum across the joint). Top + bottom plates per vessel × 10 vessels of stock. The 1/8" 316L float rod (Tandefio B0CY4DWJFQ, cut to [131.1 mm (5.16 in)](ROD_LEN)) tack-welds vertically to the inside face of the bottom plate as part of this same operation, before the bottom-plate-to-tube weld closes the vessel ([future.md](/hardware/future.md) "Level sensing").
 
 See [assembly/pressure-vessel.md](/hardware/assembly/pressure-vessel.md) steps 2-5 for the production-procedure framing.
 
