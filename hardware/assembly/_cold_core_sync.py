@@ -51,7 +51,8 @@ _coil_mandrel_gen = _load_module(
     _hw / "printed-parts" / "cold-core" / "coil-mandrel" / "coil_mandrel.py",
 )
 
-from docgen import substitute_md  # noqa: E402
+import _port_cuts  # noqa: E402
+from docgen import substitute_md, substitute_py_comments  # noqa: E402
 
 
 def main():
@@ -119,6 +120,17 @@ def main():
         },
     )
     print("-> cold-core.md")
+
+    # Pin the CO2-inlet bore dimensions in _port_cuts.py's docstring.
+    substitute_py_comments(
+        Path(_port_cuts.__file__),
+        variables={
+            "CO2_INLET_BORE_D": f"⌀{2 * _port_cuts.co2_inlet_bore_radius:.4g}",
+            "CO2_INLET_BORE_Z": f"{_port_cuts.co2_inlet_bore_z:.4g}",
+        },
+        expected_counts={"CO2_INLET_BORE_D": 1, "CO2_INLET_BORE_Z": 1},
+    )
+    print("-> _port_cuts.py")
 
 
 if __name__ == "__main__":

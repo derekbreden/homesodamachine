@@ -22,7 +22,9 @@ import cadquery as cq
 _here = Path(__file__).resolve()
 _repo = next(p for p in _here.parents if (p / "hardware" / "scripts" / "_cadq_export.py").is_file())
 sys.path.insert(0, str(_repo / "hardware" / "scripts"))
+sys.path.insert(0, str(_repo / "tools"))
 from _cadq_export import export_step
+from docgen import substitute_py_comments
 
 inlet_side = 130.0    # outer square inlet, side length
 wall = 2.0            # wall thickness
@@ -30,7 +32,7 @@ taper_height = 78.0   # square-inlet -> round-spout taper body
 spout_od = 10.0       # round spout outer diameter
 spout_id = 6.5        # spout bore: 1/4 in tube line (matches reservoir ports)
 spout_length = 12.0   # straight spout below the taper
-total_height = spout_length + taper_height  # 70 mm
+total_height = spout_length + taper_height  # [90 mm](TOTAL_HEIGHT)
 
 
 def build_funnel():
@@ -71,6 +73,12 @@ def main():
     bb = funnel.val().BoundingBox()
     print("funnel envelope %.1f x %.1f x %.1f mm  Z[%.1f,%.1f]"
           % (bb.xlen, bb.ylen, bb.zlen, bb.zmin, bb.zmax))
+    substitute_py_comments(
+        _here,
+        variables={"TOTAL_HEIGHT": f"{total_height:.4g} mm"},
+        expected_counts={"TOTAL_HEIGHT": 1},
+    )
+    print(f"-> {_here.name} (self)")
 
 
 if __name__ == "__main__":

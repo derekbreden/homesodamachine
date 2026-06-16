@@ -22,6 +22,11 @@ from _cold_core_interface import (
 # through the foam shell, hole_shift_from_edge in from the +Z outer face.
 front_face_port_z = hole_shift_from_edge + wall_and_floor_thickness
 
+# CO2 inlet round bore — seats the JG PP0308E elbow's ⌀15 body for its
+# in-cavity 90° turn, dropped one mm below front_face_port_z.
+co2_inlet_bore_radius = 9.0
+co2_inlet_bore_z = front_face_port_z - 1.0
+
 # +Y start of the water-outlet and copper/water-inlet cuts — 20 mm
 # inboard of the bag-pocket +Y wall outer face.
 plus_y_wall_plug_port_y = pocket_centerward_arc_outer_radius - 20
@@ -47,15 +52,15 @@ def cut_circular_port_holes(foam_shell):
 
 
 def cut_co2_inlet(foam_shell):
-    """CO2 inlet — a doorway-shaped cut at x = 0, y = −70.5: a ⌀16
-    round bore at z = 17 (seating the JG PP0308E elbow's ⌀15 body for
+    """CO2 inlet — a doorway-shaped cut at x = 0, y = −70.5: a [⌀18](CO2_INLET_BORE_D)
+    round bore at z = [16](CO2_INLET_BORE_Z) (seating the JG PP0308E elbow's ⌀15 body for
     its in-cavity 90° turn) over a rectangular slot down to the floor's
     top face at z = 2, the elbow entered at an angle from above. The
     foam-shell floor below z = 2 stays intact."""
     # Pocket-side face of the bag-pocket −Y wall.
     doorway_y = -(pocket_centerward_arc_outer_radius - wall_and_floor_thickness)
-    bore_radius = 9.0
-    bore_z = front_face_port_z - 1.0
+    bore_radius = co2_inlet_bore_radius
+    bore_z = co2_inlet_bore_z
     round_bore = build_hole_punch(
         origin=(0, doorway_y, bore_z),
         hole_punch_radius=bore_radius,

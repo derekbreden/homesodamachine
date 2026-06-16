@@ -1,7 +1,7 @@
 # Front-Face Display (Waveshare ESP32-S3-Touch-LCD-4.3B)
 
 Foundation firmware for the appliance's front-face display: it brings up the
-RGB panel and LVGL and shows the loading logo centered on the theme
+RGB panel and LVGL and runs the animated loading logo centered on the theme
 background (`0x1a1a2e`). The interaction UX is not built yet — this is the
 panel bring-up and the structure to grow it on.
 
@@ -12,10 +12,47 @@ panel bring-up and the structure to grow it on.
 CH422G I/O expander, ESP32-S3-WROOM-1-N16R8 (16 MB flash / 8 MB octal PSRAM).
 Native USB (`0x303A:0x1001`); 7–36 V screw-terminal input off the 12 V bus.
 
-The 800×480 RGB565 framebuffer (~768 KB) lives in PSRAM, so OPI PSRAM is
-mandatory — the `esp32-s3-devkitc1-n16r8` board def in `platformio.ini`
-enables it (`memory_type = qio_opi`, `-DBOARD_HAS_PSRAM`). Arduino_GFX must be
-≥ 1.5.7 for RGB-panel support on the arduino-esp32 v3.x core this repo uses.
+## Rendering (tear-free)
+
+This panel has no display controller — the ESP32-S3 streams every pixel out of
+a PSRAM framebuffer by DMA, continuously. Naively writing that framebuffer
+while it is being scanned (e.g. an animation) makes the scan-out DMA contend
+with the CPU on the one PSRAM bus; the scanline FIFO starves and the image
+shears (horizontal bands shift sideways). So the panel is driven through
+`esp_lcd` directly (not Arduino_GFX, which only does a single framebuffer) with
+two defenses:
+
+- **Two framebuffers** (`num_fbs = 2`): LVGL renders the back buffer while the
+  panel scans the front, and `esp_lcd` page-flips at the vertical blank — the
+  DMA never reads a buffer being written, so there is no content tearing. LVGL
+  runs in `full_refresh` mode with its two draw buffers pointed straight at the
+  two panel framebuffers (zero-copy flush).
+- **Bounce buffer** (`bounce_buffer_size_px = width × 10`): the scan-out DMA
+  reads from a small internal-SRAM buffer refilled from PSRAM in the
+  background, so PSRAM write bursts can't starve the live scanline — this is
+  what removes the shearing.
+
+The two 800×480 RGB565 framebuffers (~1.5 MB) live in PSRAM, so OPI PSRAM is
+mandatory — the `esp32-s3-devkitc1-n16r8` board def in `platformio.ini` enables
+it (`memory_type = qio_opi`, `-DBOARD_HAS_PSRAM`). The animation frames are
+compiled into flash (~4 MB of `.rodata`), which overflows the shared 4 MB app
+slot, so this env uses `firmware/partitions_s3_front.csv` (16 MB layout, large
+app partition). The panel is initialized on a watchdog'd background task: if
+`esp_lcd` ever blocks, `setup()` times out and `loop()` keeps serial alive, so
+the board stays flashable without a manual BOOT-button recovery.
+
+## Loading animation
+
+The 16-frame glass/bubbles loop (the same animation the config display uses) is
+generated from the app-icon artwork at 360×360 by:
+
+```
+tools/cad-venv/bin/python tools/gen_animation_frames.py --size 360 \
+    --header-dir firmware/src_front/images
+```
+
+which writes `images/anim_00.h`..`anim_15.h` (RGB565 PROGMEM). LVGL cycles them
+at ~10 fps.
 
 ## Build / flash
 

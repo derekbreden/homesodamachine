@@ -168,7 +168,7 @@ base_pod_center_x = math.sqrt(
 # radius and same bore tangency as the laterals (inner edge touches the body
 # bore, base_pod_wall from the pocket to the bore), straight in front.
 base_pod_front_center_x = 0.0
-base_pod_front_center_y = -(body_bore_diameter / 2.0 + base_pod_radius)  # -24.825
+base_pod_front_center_y = -(body_bore_diameter / 2.0 + base_pod_radius)  # [-25.27 mm](BASE_POD_FRONT_CENTER_Y)
 # All three pod centers (both laterals + the front) — the boss-hole/insert
 # pattern, shared with the plate so its bosses land on exactly the same points.
 base_pod_centers = [
@@ -1687,6 +1687,7 @@ def main():
         "PILL_W": f"{pill_width_y:.4g} mm",
         "FLAVOR_TUBE_Y": f"{flavor_pill_center[1]:.4g} mm",
         "FLAVOR_PILL_Y_MINUS": f"{flavor_pill_y_minus_edge:.4g} mm",
+        "BASE_POD_FRONT_CENTER_Y": f"{base_pod_front_center_y:.4g} mm",
         "SHELL_OUTER_R": f"{shell_outer_r:.4g} mm",
         "WATER_HOLE_D": f"{water_hole_diameter:.4g} mm",
         "WALL_MIN": f"{wall_thickness_min:.4g} mm",
@@ -1766,6 +1767,7 @@ def main():
             "PILL_L": 1,
             "PILL_W": 1,
             "FLAVOR_PILL_Y_MINUS": 1,
+            "BASE_POD_FRONT_CENTER_Y": 1,
             "SHELL_OUTER_R": 2,
             "WATER_HOLE_D": 1,
             "WALL_MIN": 1,
