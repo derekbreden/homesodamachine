@@ -2,8 +2,10 @@
 #include <esp_system.h>
 #include <esp_heap_caps.h>
 #include <Wire.h>
-#include <Arduino_GFX_Library.h>
 #include <lvgl.h>
+#include "esp_lcd_panel_rgb.h"
+#include "esp_lcd_panel_ops.h"
+#include "freertos/semphr.h"
 #include "fw_version.h"
 
 // Animated loading logo — the 16-frame glass/bubbles loop (the same animation
@@ -115,23 +117,23 @@ static const uint16_t *animFrames[] = {
 // reset / SD-CS lines.
 static uint8_t exioState = 0;
 
-// ── Hardware objects ──
-Arduino_ESP32RGBPanel *rgbpanel = new Arduino_ESP32RGBPanel(
-    LCD_DE, LCD_VSYNC, LCD_HSYNC, LCD_PCLK,
-    LCD_R0, LCD_R1, LCD_R2, LCD_R3, LCD_R4,
-    LCD_G0, LCD_G1, LCD_G2, LCD_G3, LCD_G4, LCD_G5,
-    LCD_B0, LCD_B1, LCD_B2, LCD_B3, LCD_B4,
-    0 /* hsync_polarity */, 40 /* hsync_front_porch */, 48 /* hsync_pulse_width */, 88 /* hsync_back_porch */,
-    0 /* vsync_polarity */, 13 /* vsync_front_porch */, 3 /* vsync_pulse_width */, 32 /* vsync_back_porch */,
-    1 /* pclk_active_neg */, 16000000 /* prefer_speed */);
+// ── RGB panel (esp_lcd, double framebuffer) ──
+// The panel has no controller of its own — the ESP32-S3 streams pixels from a
+// PSRAM framebuffer by DMA. With a single framebuffer, writing it (the
+// animation) while the DMA scans it starves the DMA FIFO and shears the image.
+// Two framebuffers fix this structurally: LVGL renders the back buffer while
+// the panel scans the front, and esp_lcd flips them at the vertical blank, so
+// the DMA never reads a buffer being written. We drive esp_lcd directly because
+// Arduino_GFX's RGB display hardcodes a single framebuffer.
+static esp_lcd_panel_handle_t panel = nullptr;
+static SemaphoreHandle_t vsyncSem = nullptr;
+static void *fb0 = nullptr, *fb1 = nullptr;
 
-Arduino_RGB_Display *gfx = new Arduino_RGB_Display(
-    SCREEN_W, SCREEN_H, rgbpanel, ROTATION, true /* auto_flush */);
-
-// ── LVGL display buffer (partial, in PSRAM) ──
+// ── LVGL display buffer ──
+// In full-refresh double-buffer mode LVGL's two draw buffers ARE the two panel
+// framebuffers (zero-copy: flush submits the just-drawn one and the panel flips
+// to it), so no separate draw buffer is allocated.
 static lv_disp_draw_buf_t draw_buf;
-static lv_color_t *lvgl_buf;
-#define LVGL_BUF_LINES 120  // 800 x 120 px partial buffer
 
 // ── UI objects ──
 static lv_obj_t *logoImg;
@@ -142,6 +144,7 @@ static uint8_t animFrameIdx = 0;
 // ── Diagnostics (read via GET_DIAG) ──
 static uint32_t maxLoopMs = 0;
 static bool backlightOn = false;
+static bool displayReady = false;  // false if the panel failed to init
 
 // ════════════════════════════════════════════════════════════
 //  CH422G expander
@@ -178,13 +181,102 @@ static void ch422gBringUp() {
 }
 
 // ════════════════════════════════════════════════════════════
+//  RGB panel (esp_lcd)
+// ════════════════════════════════════════════════════════════
+
+// Fires when a framebuffer flip completes (VSYNC). Kept trivial and flash-
+// resident on purpose: CONFIG_LCD_RGB_ISR_IRAM_SAFE is off in this core, so
+// the only safe ISR work is signalling — no LVGL calls, no IRAM_ATTR.
+static bool onVsync(esp_lcd_panel_handle_t p,
+                                   const esp_lcd_rgb_panel_event_data_t *e, void *ctx) {
+  BaseType_t hp = pdFALSE;
+  xSemaphoreGiveFromISR(vsyncSem, &hp);
+  return hp == pdTRUE;
+}
+
+// Returns false (never hangs/aborts) on any failure, so a panel problem leaves
+// the board responsive on serial rather than wedged.
+static bool panelInit() {
+  vsyncSem = xSemaphoreCreateBinary();
+  if (!vsyncSem) return false;
+
+  esp_lcd_rgb_panel_config_t cfg = {};
+  cfg.clk_src = LCD_CLK_SRC_DEFAULT;
+  cfg.timings.pclk_hz = 16 * 1000 * 1000;
+  cfg.timings.h_res = SCREEN_W;
+  cfg.timings.v_res = SCREEN_H;
+  cfg.timings.hsync_pulse_width = 48;
+  cfg.timings.hsync_back_porch  = 88;
+  cfg.timings.hsync_front_porch = 40;
+  cfg.timings.vsync_pulse_width = 3;
+  cfg.timings.vsync_back_porch  = 32;
+  cfg.timings.vsync_front_porch = 13;
+  cfg.timings.flags.pclk_active_neg = 1;  // 4.3B: data latched on the falling edge
+  cfg.timings.flags.hsync_idle_low  = 1;  // polarity 0
+  cfg.timings.flags.vsync_idle_low  = 1;
+  cfg.data_width = 16;
+  cfg.bits_per_pixel = 16;
+  cfg.num_fbs = 2;                  // double framebuffer — kills content tearing
+  // Bounce buffer: the scan-out DMA reads pixels from this small internal-SRAM
+  // buffer (refilled from the PSRAM framebuffer in the background) instead of
+  // straight from PSRAM. That's what stops the horizontal shearing: CPU writes
+  // to PSRAM (the render) can no longer starve the live scanline. 10 lines.
+  cfg.bounce_buffer_size_px = SCREEN_W * 10;
+  cfg.dma_burst_size = 64;
+  cfg.hsync_gpio_num = LCD_HSYNC;
+  cfg.vsync_gpio_num = LCD_VSYNC;
+  cfg.de_gpio_num    = LCD_DE;
+  cfg.pclk_gpio_num  = LCD_PCLK;
+  cfg.disp_gpio_num  = GPIO_NUM_NC;
+  // Little-endian RGB565 data order (B0..B4, G0..G5, R0..R4).
+  const int data[16] = {LCD_B0, LCD_B1, LCD_B2, LCD_B3, LCD_B4,
+                        LCD_G0, LCD_G1, LCD_G2, LCD_G3, LCD_G4, LCD_G5,
+                        LCD_R0, LCD_R1, LCD_R2, LCD_R3, LCD_R4};
+  for (int i = 0; i < 16; i++) cfg.data_gpio_nums[i] = data[i];
+  cfg.flags.fb_in_psram = 1;
+  cfg.flags.double_fb = 1;
+  cfg.flags.bb_invalidate_cache = 0;
+
+  if (esp_lcd_new_rgb_panel(&cfg, &panel) != ESP_OK) return false;
+
+  esp_lcd_rgb_panel_event_callbacks_t cbs = {};
+  cbs.on_vsync = onVsync;
+  esp_lcd_rgb_panel_register_event_callbacks(panel, &cbs, nullptr);
+
+  if (esp_lcd_panel_reset(panel) != ESP_OK) return false;
+  if (esp_lcd_panel_init(panel)  != ESP_OK) return false;
+  if (esp_lcd_rgb_panel_get_frame_buffer(panel, 2, &fb0, &fb1) != ESP_OK) return false;
+
+  // Clear both buffers so nothing garbage shows before the first frame.
+  memset(fb0, 0, (size_t)SCREEN_W * SCREEN_H * sizeof(uint16_t));
+  memset(fb1, 0, (size_t)SCREEN_W * SCREEN_H * sizeof(uint16_t));
+  return true;
+}
+
+// panelInit() runs on its own task so that if esp_lcd ever blocks during init
+// (the bounce-buffer path wedged this core once via Arduino_GFX), setup() can
+// time out and return — loop() keeps servicing serial, so the board stays
+// flashable without a manual BOOT-button recovery.
+static volatile bool panelInitDone = false;
+static volatile bool panelInitOk = false;
+static void panelInitTask(void *arg) {
+  panelInitOk = panelInit();
+  panelInitDone = true;
+  vTaskDelete(nullptr);
+}
+
+// ════════════════════════════════════════════════════════════
 //  LVGL callbacks
 // ════════════════════════════════════════════════════════════
 
+// full_refresh mode: color_p is the whole back framebuffer LVGL just rendered.
+// Submit it (the panel flips to it at VSYNC), then wait for that flip before
+// releasing LVGL, so it never starts drawing the buffer still being scanned.
+// The 100 ms timeout (not portMAX) means a missed VSYNC degrades, never deadlocks.
 static void lvglFlush(lv_disp_drv_t *disp, const lv_area_t *area, lv_color_t *color_p) {
-  uint32_t w = area->x2 - area->x1 + 1;
-  uint32_t h = area->y2 - area->y1 + 1;
-  gfx->draw16bitRGBBitmap(area->x1, area->y1, (uint16_t *)&color_p->full, w, h);
+  esp_lcd_panel_draw_bitmap(panel, 0, 0, SCREEN_W, SCREEN_H, color_p);
+  xSemaphoreTake(vsyncSem, 0);                      // drop a stale token
+  xSemaphoreTake(vsyncSem, pdMS_TO_TICKS(100));     // wait for the flip
   lv_disp_flush_ready(disp);
 }
 
@@ -265,22 +357,27 @@ void setup() {
                 FW_VERSION, (unsigned long)ESP.getFreeHeap(),
                 (unsigned long)ESP.getPsramSize(), (int)reason);
 
-  // Expander + panel/touch resets, then the RGB panel itself.
+  // Expander + panel/touch resets, then the RGB panel itself — initialized on a
+  // separate task with a timeout. If esp_lcd ever blocks, setup() still returns
+  // and loop() keeps serial alive (board stays flashable, no BOOT-button dance).
   ch422gBringUp();
-  if (!gfx->begin()) {
-    Serial.println("gfx->begin() failed!");
+  xTaskCreatePinnedToCore(panelInitTask, "panelinit", 8192, nullptr, 5, nullptr, 1);
+  unsigned long initStart = millis();
+  while (!panelInitDone && millis() - initStart < 6000) delay(50);
+  if (!panelInitDone) {
+    Serial.println("panelInit TIMED OUT — panel disabled, serial still responsive");
+    return;
   }
-  gfx->fillScreen(RGB565_BLACK);
+  if (!panelInitOk) {
+    Serial.println("panelInit FAILED — panel disabled, serial still responsive");
+    return;
+  }
+  Serial.println("panelInit OK (double FB + bounce buffer)");
 
-  // LVGL — draw buffer in PSRAM (the gfx framebuffer is already ~768 KB there)
+  // LVGL — the two draw buffers ARE the two panel framebuffers (full-refresh
+  // double-buffer page-flip; zero-copy flush). No separate buffer allocated.
   lv_init();
-  size_t bufPx = (size_t)SCREEN_W * LVGL_BUF_LINES;
-  lvgl_buf = (lv_color_t *)heap_caps_malloc(bufPx * sizeof(lv_color_t), MALLOC_CAP_SPIRAM);
-  if (!lvgl_buf) {
-    Serial.println("FATAL: failed to allocate LVGL buffer in PSRAM!");
-    while (1) delay(1000);
-  }
-  lv_disp_draw_buf_init(&draw_buf, lvgl_buf, NULL, bufPx);
+  lv_disp_draw_buf_init(&draw_buf, fb0, fb1, (uint32_t)SCREEN_W * SCREEN_H);
 
   static lv_disp_drv_t disp_drv;
   lv_disp_drv_init(&disp_drv);
@@ -288,6 +385,7 @@ void setup() {
   disp_drv.ver_res = SCREEN_H;
   disp_drv.flush_cb = lvglFlush;
   disp_drv.draw_buf = &draw_buf;
+  disp_drv.full_refresh = 1;  // repaint the whole back buffer each frame, then flip
   lv_disp_drv_register(&disp_drv);
 
   // Touch seam: GT911 lives on the shared I2C bus (addr TOUCH_ADDR, INT on
@@ -303,6 +401,7 @@ void setup() {
   // Start the loading animation (~10 fps).
   animTimer = lv_timer_create(animTimerCb, ANIM_FRAME_MS, NULL);
 
+  displayReady = true;
   Serial.println("Ready — animated loading logo running.");
 }
 
@@ -327,7 +426,7 @@ void loop() {
 
   // Seam: service the RS485/UART link to the base ESP32 here.
 
-  lv_timer_handler();
+  if (displayReady) lv_timer_handler();
 
   unsigned long loopMs = millis() - loopStart;
   if (loopMs > maxLoopMs) maxLoopMs = loopMs;
