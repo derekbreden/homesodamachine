@@ -28,10 +28,6 @@ See `hardware/printed-parts/faucet/touch-flo-shell/touch_flo_shell.py` for patte
 
 Flash with `tools/flash.sh`.
 
-## PCB
-
-The controller board's netlist is defined in code (SKiDL), the electrical analog of the CadQuery flow. Regenerate the KiCad netlist with the project's PCB venv: `tools/pcb-venv/bin/python hardware/pcb/controller_board.py`. Needs KiCad's symbol libraries (auto-detected on macOS, or set `KICAD9_SYMBOL_DIR`). See `hardware/pcb/README.md`.
-
 ## Amazon Prime
 
 You have access to my Chrome which is signed in to my amazon through your MCP. I only care about Amazon Prime listings. Non-Prime listings are non-existent as far as I am concerned. Do not read them. Do not mention them. They do not exist.
