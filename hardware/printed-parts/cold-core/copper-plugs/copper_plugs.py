@@ -1,5 +1,5 @@
 """Copper-line plugs — four small PETG pieces that slide down into
-the shared ⌀6.5 port in the outer_shell +Y wall and seal the gaps
+the shared ⌀[6.5 mm](SLOT_W) port in the outer_shell +Y wall and seal the gaps
 between (and above) the four pass-throughs that share that port.
 
 Pass-throughs that pierce the +Y outer wall through the shared port,
@@ -20,7 +20,7 @@ ordered low → high in Z:
 The PRV vent line is unpressurized in normal operation — it carries
 relief-event discharge from the prv-shroud cavity (see
 `../prv-shroud/`) out to the appliance interior. It shares the same
-slot + same 1/4" OD tube + same ⌀6.5 slot punch as the other three
+slot + same 1/4" OD tube + same ⌀[6.5 mm](SLOT_W) slot punch as the other three
 pass-throughs.
 
 Four plugs in the stack:
@@ -312,7 +312,7 @@ def main():
         Path(__file__),
         variables=variables,
         expected_counts={
-            "SLOT_W": 2,
+            "SLOT_W": 4,
             "FLANGE_T": 2,
             "PRV_OFFSET": 1,
             "VOL_TOL": 1,

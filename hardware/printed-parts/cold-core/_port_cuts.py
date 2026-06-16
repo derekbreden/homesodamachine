@@ -31,14 +31,14 @@ co2_inlet_bore_z = front_face_port_z - 1.0
 # inboard of the bag-pocket +Y wall outer face.
 plus_y_wall_plug_port_y = pocket_centerward_arc_outer_radius - 20
 
-# The three circular port holes are the project's ⌀6.5 standard.
+# The three circular port holes are the project's ⌀[6.5](PORT_HOLE_DIAMETER) standard.
 water_outlet_xyz = (0, plus_y_wall_plug_port_y, front_face_port_z)
 
 # Flavor-line pass-throughs — each reservoir's 1/4" LLDPE outlet line
 # through the +Y bag-pocket wall and the +Y outer-shell wall, at
 # bulkhead_elbow_exit_z (level out of the elbow's lateral port). Inboard
 # of the bulkhead axis, opposite the outboard reed cable hole — the two
-# ⌀6.5 holes 16 mm apart center-to-center with PETG between them.
+# ⌀[6.5](PORT_HOLE_DIAMETER) holes 16 mm apart center-to-center with PETG between them.
 flavor_line_hole_offset_from_bulkhead_x = 8.0
 flavor_line_hole_x = reservoir_bulkhead_port_x - flavor_line_hole_offset_from_bulkhead_x
 flavor_line_plus_x_xyz = (+flavor_line_hole_x, reservoir_bulkhead_port_y, bulkhead_elbow_exit_z)
@@ -52,11 +52,11 @@ def cut_circular_port_holes(foam_shell):
 
 
 def cut_co2_inlet(foam_shell):
-    """CO2 inlet — a doorway-shaped cut at x = 0, y = −70.5: a [⌀18](CO2_INLET_BORE_D)
+    """CO2 inlet — a doorway-shaped cut at x = 0, y = [−70.5](CO2_DOORWAY_Y): a [⌀18](CO2_INLET_BORE_D)
     round bore at z = [16](CO2_INLET_BORE_Z) (seating the JG PP0308E elbow's ⌀15 body for
     its in-cavity 90° turn) over a rectangular slot down to the floor's
-    top face at z = 2, the elbow entered at an angle from above. The
-    foam-shell floor below z = 2 stays intact."""
+    top face at z = [2](FLOOR_TOP_Z), the elbow entered at an angle from above. The
+    foam-shell floor below z = [2](FLOOR_TOP_Z) stays intact."""
     # Pocket-side face of the bag-pocket −Y wall.
     doorway_y = -(pocket_centerward_arc_outer_radius - wall_and_floor_thickness)
     bore_radius = co2_inlet_bore_radius

@@ -5,13 +5,13 @@ ball-valve cell: the all-plastic food-grade ball valve is the wetted path, a
 9 g micro servo is the dry external actuator coupled to the stem.
 
 Envelopes are catalog-nominal, not manufacturing drawings:
-- NeoFit 1/4" acetal/PP quarter-turn ball valve — ~44 mm push-fit end to end,
-  ~16 mm round body, 1/4" (6.35 mm) tube ports, a vertical stem.
-- MG90S micro servo — 22.8 mm long x 12.5 mm thin x 22.8 mm tall body,
-  31.8 mm across the mounting ears, output spline offset 5.5 mm from center.
+- NeoFit 1/4" acetal/PP quarter-turn ball valve — ~[44 mm](VALVE_END_TO_END) push-fit end to end,
+  ~[16 mm](VALVE_BODY_DIA) round body, 1/4" (6.35 mm) tube ports, a vertical stem.
+- MG90S micro servo — [22.8 mm](SERVO_BODY_L) long x [12.5 mm](SERVO_BODY_W) thin x [22.8 mm](SERVO_BODY_H) tall body,
+  [31.8 mm](SERVO_EAR_SPAN) across the mounting ears, output spline offset [5.5 mm](SERVO_OUT_OFFSET) from center.
 
 Flow runs along X; the valve stem and the servo output share the +Z axis. The
-servo's thin (12.5 mm) axis lies along Y — the cross-flow stacking direction —
+servo's thin ([12.5 mm](SERVO_BODY_W)) axis lies along Y — the cross-flow stacking direction —
 and is centered on the valve, so it adds no width beyond the valve body. The
 servo sits inverted above the valve, output spline pointing down into a coupler
 on the stem. The mounting ears extend along X (the free port direction).
@@ -24,7 +24,9 @@ import cadquery as cq
 
 _here = Path(__file__).resolve()
 sys.path.insert(0, str(next(p for p in _here.parents if p.name == "hardware") / "scripts"))
+sys.path.insert(0, str(next(p for p in _here.parents if (p / "tools" / "docgen").is_dir()) / "tools"))
 from _cadq_export import export_assembly
+from docgen import substitute_py_comments
 
 
 def _xcyl(r, x0, x1):
@@ -43,9 +45,9 @@ collar_dia = 13.0
 collar_len = 5.0
 collet_dia = 10.0
 collet_len = 8.0
-port_len = collar_len + collet_len          # 13 mm reach per side
+port_len = collar_len + collet_len          # [13 mm](VALVE_PORT_REACH) reach per side
 stem_dia = 7.0
-stem_top_z = body_dia / 2.0 + 5.0           # 13.0 — stem protrusion above body top
+stem_top_z = body_dia / 2.0 + 5.0           # [13.0](VALVE_STEM_TOP_Z) — stem protrusion above body top
 
 
 def build_valve():
@@ -78,7 +80,7 @@ body_w = 12.5       # thin axis, along Y (cross-flow stacking pitch)
 body_h = 22.8       # tall axis, along Z
 out_offset = 5.5    # spline offset from body center
 ear_span = 31.8     # ear tip to ear tip, along X
-body_cx = -(body_l / 2.0 - out_offset)      # -5.9
+body_cx = -(body_l / 2.0 - out_offset)      # [-5.9](SERVO_BODY_CX)
 spline_tip = body_h + 1.5 + 3.5
 
 
@@ -90,7 +92,7 @@ def build_servo_local():
     )
     ear_t = 2.5
     ear_z0 = 16.0
-    ear_overhang = (ear_span - body_l) / 2.0      # 4.5
+    ear_overhang = (ear_span - body_l) / 2.0      # [4.5](SERVO_EAR_OVERHANG)
     for sx in (1.0, -1.0):
         edge = body_cx + sx * body_l / 2.0
         mid = edge + sx * ear_overhang / 2.0
@@ -180,6 +182,36 @@ def main():
         "one cell  X[%.1f, %.1f]  Y[%.1f, %.1f]  Z[%.1f, %.1f]   (Y = stacking pitch axis)"
         % (bb.xmin, bb.xmax, bb.ymin, bb.ymax, bb.zmin, bb.zmax)
     )
+    substitute_py_comments(
+        Path(__file__),
+        variables={
+            "VALVE_END_TO_END": f"{body_len + 2 * port_len:.4g} mm",
+            "VALVE_BODY_DIA": f"{body_dia:.4g} mm",
+            "VALVE_PORT_REACH": f"{port_len:.4g} mm",
+            "VALVE_STEM_TOP_Z": f"{stem_top_z:.1f}",
+            "SERVO_BODY_L": f"{body_l:.4g} mm",
+            "SERVO_BODY_W": f"{body_w:.4g} mm",
+            "SERVO_BODY_H": f"{body_h:.4g} mm",
+            "SERVO_EAR_SPAN": f"{ear_span:.4g} mm",
+            "SERVO_OUT_OFFSET": f"{out_offset:.4g} mm",
+            "SERVO_BODY_CX": f"{body_cx:.4g}",
+            "SERVO_EAR_OVERHANG": f"{(ear_span - body_l) / 2.0:.4g}",
+        },
+        expected_counts={
+            "VALVE_END_TO_END": 1,
+            "VALVE_BODY_DIA": 1,
+            "VALVE_PORT_REACH": 1,
+            "VALVE_STEM_TOP_Z": 1,
+            "SERVO_BODY_L": 1,
+            "SERVO_BODY_W": 2,
+            "SERVO_BODY_H": 1,
+            "SERVO_EAR_SPAN": 1,
+            "SERVO_OUT_OFFSET": 1,
+            "SERVO_BODY_CX": 1,
+            "SERVO_EAR_OVERHANG": 1,
+        },
+    )
+    print(f"-> {Path(__file__).name} (self)")
 
 
 if __name__ == "__main__":

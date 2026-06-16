@@ -2,8 +2,8 @@
 Coil winding mandrel.
 
 Hollow PETG cylinder for hand-winding 1/4" OD copper around the 5"
-round 316L pressure vessel. 5 mm solid PETG wall, with a shallow
-helical guide groove 1 mm deep that cradles the copper.
+round 316L pressure vessel. [5 mm](WALL) solid PETG wall, with a shallow
+helical guide groove [1 mm](GROOVE_DEPTH) deep that cradles the copper.
 
 The coil's inner radius after winding is net_undersize mm smaller than
 the tank radius, so the coil stretches radially to clamp the tank.
@@ -96,7 +96,7 @@ plug_ccw_delta = (plug_outlet_azimuth - plug_inlet_azimuth) % 360
 # [9](FULL_WRAPS) full wraps; the fractional wrap spans the azimuthal delta.
 full_wraps = 9
 total_wraps = full_wraps + plug_ccw_delta / 360
-# [12.43 mm](PITCH) — helix pitch, 0.489".
+# [12.43 mm](PITCH) — helix pitch, [0.489 in](PITCH_IN).
 pitch = wind_length / total_wraps
 
 
@@ -203,10 +203,13 @@ def main():
         "MANDREL_INNER_R": f"{mandrel_inner_radius:.4g} mm",
         "WIND_LENGTH": f"{wind_length:.4g} mm",
         "PITCH": f"{pitch:.4g} mm",
+        "PITCH_IN": f"{pitch / 25.4:.3g} in",
         "HANDLE_LENGTH": f"{handle_length:.4g} mm",
         "TOTAL_LENGTH": f"{total_length:.4g} mm",
         "GROOVE_BOTTOM_OD": f"{groove_bottom_od:.4g} mm",
         "FULL_WRAPS": f"{full_wraps:.4g}",  # bare count, no unit
+        "WALL": f"{wall:.4g} mm",
+        "GROOVE_DEPTH": f"{groove_depth:.4g} mm",
     }
     substitute_py_comments(
         Path(__file__),
@@ -220,10 +223,13 @@ def main():
             "MANDREL_INNER_R": 1,
             "WIND_LENGTH": 1,
             "PITCH": 1,
+            "PITCH_IN": 1,
             "HANDLE_LENGTH": 1,
             "TOTAL_LENGTH": 1,
             "GROOVE_BOTTOM_OD": 1,
             "FULL_WRAPS": 1,
+            "WALL": 1,
+            "GROOVE_DEPTH": 1,
         },
     )
     print(f"-> {Path(__file__).name}")

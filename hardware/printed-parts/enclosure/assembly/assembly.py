@@ -14,7 +14,9 @@ import cadquery as cq
 _here = Path(__file__).resolve()
 _repo = next(p for p in _here.parents if (p / "hardware" / "scripts" / "_cadq_export.py").is_file())
 sys.path.insert(0, str(_repo / "hardware" / "scripts"))
+sys.path.insert(0, str(_repo / "tools"))
 from _cadq_export import export_assembly
+from docgen import substitute_py_comments
 import _contents as contents
 
 SHELL_STEP = _repo / "hardware" / "printed-parts" / "enclosure" / "shell" / "shell.step"
@@ -37,6 +39,20 @@ def main():
     out = _here.parent / "assembly.step"
     export_assembly(assy, str(out))
     print(f"-> {out.name}")
+
+    # Pin the hand-typed placeholder dimensions in _contents.py's prose.
+    substitute_py_comments(
+        Path(contents.__file__),
+        variables={
+            "CONDENSER_AIRFLOW": f"{contents.CONDENSER_AIRFLOW:.4g} mm",
+            "SEAFLO_DIMS": "{:g} x {:g} x {:g}".format(*contents.SEAFLO_DIMS),
+        },
+        expected_counts={
+            "CONDENSER_AIRFLOW": 1,
+            "SEAFLO_DIMS": 1,
+        },
+    )
+    print("-> _contents.py")
 
 
 if __name__ == "__main__":

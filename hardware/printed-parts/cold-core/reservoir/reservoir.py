@@ -169,7 +169,7 @@ vent_slot_height = 2.0
 vent_cylinder_length = vent_slot_height + vent_brim_thickness
 
 # Vent position on the cap, in the side=+1 frame. Centered between
-# the y=0 and y=+[64](CORNER_XY_Y) rows of screw bosses (so the ø17 vent boss and
+# the y=0 and y=+[64](CORNER_XY_Y) rows of screw bosses (so the ø[17.2 mm](VENT_BOSS_OD) vent boss and
 # its counterbore-sized pocket clear every screw counterbore and
 # every cap-side boss), and inside the perimeter wall. Mirrored
 # across x=0 for side=−1.
@@ -408,7 +408,7 @@ inner_corner_interior_angle = math.degrees(math.acos(inner_y_max / inner_centerw
 # floor sits one wall up; top opens to the cap above the gasket).
 # cap_stack_above_body is how much room the gasket + cap takes above
 # the body's wall top — leaves the cap's top face flush at z=[212.9 mm](CAP_TOP_Z)
-# (0.5 mm clear of the bag-pocket wall top); body alone is [199.4 mm](RESERVOIR_H) tall.
+# ([0.5 mm](RESERVOIR_CLEARANCE) clear of the bag-pocket wall top); body alone is [199.4 mm](RESERVOIR_H) tall.
 # [11 mm](CAP_STACK_H) — gasket + cap perimeter wall + cap base plate.
 cap_stack_above_body = gasket_thickness + cap_wall_height + cap_base_thickness
 outer_z_range = (
@@ -897,7 +897,7 @@ def build_reservoir_body(side=1):
 
 
 def build_reservoir_cap(side=1):
-    """PETG cap that sits on top of the reservoir body through a 2 mm
+    """PETG cap that sits on top of the reservoir body through a [2 mm](GASKET_THICKNESS)
     TPU gasket. Built in cap-local coordinates spanning cap_perimeter_z_range
     (the downward-hanging rim) and cap_base_z_range (the flat top, full
     `[` footprint). The cap's top face hosts six counterbored M3 holes
@@ -945,8 +945,8 @@ def build_reservoir_cap(side=1):
 
     # At each insert position: cap-side boss thickening the perimeter
     # wall inward (matching the body boss footprint so the gasket sees
-    # a consistent compression cross-section), ø3.5 clearance hole
-    # through the cap for the screw shaft, and ø6 counterbore recessing
+    # a consistent compression cross-section), ø[3.5 mm](CAP_CLEARANCE_HOLE_D) clearance hole
+    # through the cap for the screw shaft, and ø[6 mm](CAP_COUNTERBORE_D) counterbore recessing
     # the M3 SHCS head flush with the cap's top face.
     insert_anchors = [(px * side, py) for (px, py) in insert_positions_for_side_plus_1]
     bosses = (
@@ -975,7 +975,7 @@ def build_reservoir_cap(side=1):
     cap = cap.cut(counterbores)
 
     # Vent feature. Z-stack runs top→bottom from cap_total_height: filter
-    # pocket (ø13.2) at the top of the base plate, then the small vent
+    # pocket (ø[13.2 mm](VENT_POCKET_D)) at the top of the base plate, then the small vent
     # hole through the remaining base plate material, then the boss
     # extension below the base plate, then the cylinder shell (slot
     # zone), then the closed brim. Z-anchors live at module scope
@@ -1015,7 +1015,7 @@ def build_reservoir_cap(side=1):
     )
     cap = cap.cut(pocket)
 
-    # Cut the air column: ø5 from the cylinder bottom (top of brim) up
+    # Cut the air column: ø[5 mm](VENT_HOLE_D) from the cylinder bottom (top of brim) up
     # to the pocket bottom. This both hollows out the cylinder body we
     # just unioned in and drills the small vent hole through the boss
     # and the [1.5 mm](VENT_BASE_PLATE_T) of base plate below the pocket.
@@ -1081,7 +1081,7 @@ def build_reservoir_gasket(side=1):
     """Flat TPU 85A gasket between the reservoir body wall top and the
     cap base plate bottom. Same `[ø10](GASKET_PAD_D) pad extending inward
     beyond the ring so the screw clamp compresses a uniform disk of
-    TPU (matching the body boss footprint), with an ø3.5 clearance
+    TPU (matching the body boss footprint), with an ø[3.5 mm](CAP_CLEARANCE_HOLE_D) clearance
     hole through its center. side=+1 builds the +X gasket; side=−1
     builds the −X (mirror)."""
     gasket_z_range = (0.0, gasket_thickness)
@@ -1122,10 +1122,10 @@ def build_reservoir_gasket(side=1):
 def build_reservoir_retaining_ring():
     """TPU 90A annular retaining ring that presses into the cap's
     filter pocket above the membrane and clamps it against the
-    pocket floor (the shelf around the small ø5 vent hole). 2 mm
+    pocket floor (the shelf around the small ø[5 mm](VENT_HOLE_D) vent hole). [2 mm](RETAINING_RING_T)
     thick. Outer [ø13.4](RETAINING_RING_OD) nominal — sized for a light interference
-    press-fit into the ø13.2 pocket (TPU 90A is soft enough to
-    compress 0.1 mm per side without trouble). Inner ø9.0 leaves
+    press-fit into the ø[13.2 mm](VENT_POCKET_D) pocket (TPU 90A is soft enough to
+    compress 0.1 mm per side without trouble). Inner ø[9 mm](RETAINING_RING_ID) leaves
     most of the membrane exposed for airflow.
 
     Symmetric, so one ring design works on either side; print 2
@@ -1141,7 +1141,7 @@ def build_reservoir_retaining_ring():
 
 def build_reservoir_bulkhead_seal(od):
     """Flat TPU 85A washer for the DRY (under) bulkhead face — od=bulkhead_seal_dry_od,
-    shared ID + thickness. Sits in a 1.4 mm-deep counterbore in the seal boss;
+    shared ID + thickness. Sits in a [1.4 mm](BULKHEAD_SEAL_CB_DEPTH)-deep counterbore in the seal boss;
     the exposed 0.6 mm compresses ~30% when the elbow flange seats flush against
     the PETG rim outside the counterbore. Print 2 per build (one per reservoir).
 
@@ -1261,7 +1261,10 @@ def main():
         "CAP_COUNTERBORE_D": f"{cap_counterbore_diameter:.4g} mm",
         "CAP_CLEARANCE_HOLE_D": f"{cap_clearance_hole_diameter:.4g} mm",
         "GASKET_STRIP_W": f"{gasket_strip_width:.4g} mm",
+        "GASKET_THICKNESS": f"{gasket_thickness:.4g} mm",
         "RETAINING_RING_T": f"{retaining_ring_thickness:.4g} mm",
+        "RETAINING_RING_ID": f"{retaining_ring_inner_diameter:.4g} mm",
+        "RESERVOIR_CLEARANCE": f"{reservoir_clearance:.4g} mm",
         "VENT_CYL_WALL_T": f"{vent_cylinder_wall_thickness:.4g} mm",
         "INSERT_POCKET_DEPTH": f"{insert_pocket_depth:.4g} mm",
         "OUTER_FILLET_R": f"{outer_corner_fillet_radius:.4g} mm",
@@ -1356,16 +1359,21 @@ def main():
         expected_counts={
             "RESERVOIR_WALL_T": 3,
             "CAP_TOTAL_H": 1,
-            "VENT_POCKET_D": 2,
-            "VENT_BOSS_OD": 1,
+            "VENT_POCKET_D": 4,
+            "VENT_BOSS_OD": 2,
+            "VENT_HOLE_D": 2,
             "VENT_CYL_OD": 2,
             "ROD_BORE": 1,
             "ROD_DIAMETER": 1,
             "FILTER_D": 1,
-            "CAP_COUNTERBORE_D": 1,
-            "CAP_CLEARANCE_HOLE_D": 1,
+            "CAP_COUNTERBORE_D": 2,
+            "CAP_CLEARANCE_HOLE_D": 3,
             "GASKET_STRIP_W": 1,
-            "RETAINING_RING_T": 1,
+            "GASKET_THICKNESS": 1,
+            "RETAINING_RING_T": 2,
+            "RETAINING_RING_ID": 1,
+            "RESERVOIR_CLEARANCE": 1,
+            "BULKHEAD_SEAL_CB_DEPTH": 1,
             "VENT_CYL_WALL_T": 1,
             "INSERT_POCKET_DEPTH": 3,
             "OUTER_FILLET_R": 8,

@@ -9,21 +9,21 @@ V-A and V-B merge at Y-A, Y-A bridges to Y-B, Y-B splits to V-C and V-D.
 
 The Y-divider (`../../../reference/y-divider/`, a McMaster 51055K417 stand-in for
 the BOM's John Guest PP2308E) is a trident: one stem and two parallel outlets
-14.7 mm apart (Y = ±7.35), all three ports on one axis.
+[14.7](OUTLET_GAP) mm apart (Y = ±[7.35](OUTLET_Y)), all three ports on one axis.
 
-Layout (origin = cell center, Z = valve mounting plane, ports at Z = 11.3):
-- The two dividers sit close, stems 2 mm apart at the center bridge: Y-A flat
-  at (-20.25, 0, 11.3) with stem → +X, two outlets → -X at Y = ±7.35; Y-B
+Layout (origin = cell center, Z = valve mounting plane, ports at Z = [11.3](PORT_Z)):
+- The two dividers sit close, stems [2](BRIDGE_GAP) mm apart at the center bridge: Y-A flat
+  at (-[20.25](DIV_X), 0, [11.3](PORT_Z)) with stem → +X, two outlets → -X at Y = ±[7.35](OUTLET_Y); Y-B
   mirrored.
 - Each valve is rotated about Z so its port axis points straight at the
-  divider outlet it feeds — a straight 15 mm tube spans the gap. The valves
+  divider outlet it feeds — a straight [15](TUBE) mm tube spans the gap. The valves
   sit at (±[81.75](SRC_VALVE_X), ±[21.32](SRC_VALVE_Y)), tilted ~17° off X, the
   minimum Y separation that keeps the four bodies clear.
 
 The tray is a frame plate: four valve cradles (single-cell sockets at each
 valve's rotated corners + a saddle along each aim line) around a central open
 gap that clears both dividers and the tubes, with two side walls rising to
-Z = 60 so the next cell stacks at a 63 mm pitch.
+Z = [60](WALL_TOP_Z) so the next cell stacks at a [63](STACK_PITCH) mm pitch.
 """
 
 import math
@@ -242,8 +242,21 @@ def main():
         variables={
             "SRC_VALVE_X": f"{valve_x:.4g}",
             "SRC_VALVE_Y": f"{valve_y:.4g}",
+            "OUTLET_GAP": f"{2 * outlet_y:.4g}",
+            "OUTLET_Y": f"{outlet_y:.4g}",
+            "PORT_Z": f"{port_z:.4g}",
+            "BRIDGE_GAP": f"{bridge_gap:.4g}",
+            "DIV_X": f"{divider_x:.4g}",
+            "TUBE": f"{tube:.4g}",
+            "WALL_TOP_Z": f"{wall_top_z:.4g}",
+            "STACK_PITCH": f"{stack_pitch:.4g}",
         },
-        expected_counts={"SRC_VALVE_X": 1, "SRC_VALVE_Y": 1},
+        expected_counts={
+            "SRC_VALVE_X": 1, "SRC_VALVE_Y": 1,
+            "OUTLET_GAP": 1, "OUTLET_Y": 2, "PORT_Z": 2,
+            "BRIDGE_GAP": 1, "DIV_X": 1, "TUBE": 1,
+            "WALL_TOP_Z": 1, "STACK_PITCH": 1,
+        },
     )
     print(f"-> {_here.name} (self)")
 

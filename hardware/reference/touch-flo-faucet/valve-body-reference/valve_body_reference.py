@@ -9,18 +9,18 @@ part:
     +Y = back  — the water port sits toward +Y, behind the body axis.
     +X = lateral; the body is symmetric across the X = 0 plane.
 
-  Dimensions below are in the body's measurement frame (long 31.50 mm
+  Dimensions below are in the body's measurement frame (long [31.5 mm](BODY_OD)
   axis along local X, port toward +localX, lever side toward -localX,
-  short 17 mm axis along local Y); the exported STEP is in the world
+  short [17 mm](RECT_SHORT) axis along local Y); the exported STEP is in the world
   frame, related by a +90 deg turn about Z:
     +localX (port / rear)  -> +worldY (back)
     -localX (lever / front)-> -worldY (front)
     local Y (short axis)   -> world X (lateral)
 
-Top-face features (measurement frame; z = plateau_z = 39 mm):
+Top-face features (measurement frame; z = plateau_z = [39 mm](PLATEAU_Z)):
   - Brass actuator plunger at body center (x=0, y=0)
-  - Water port at local x = +8.75 mm (seats to world +Y, the back)
-  - ~1 mm gap between port wall and plunger wall
+  - Water port at local x = +[8.75 mm](PORT_X) (seats to world +Y, the back)
+  - ~[1 mm](PLUNGER_GAP) gap between port wall and plunger wall
   - Lever attaches to the plunger and swings in the -localX half
     (seats to world -Y, the front)
 
@@ -309,20 +309,20 @@ def main():
         expected_counts={
             "SHANK_OD": 2,
             "SHANK_LEN": 1,
-            "BODY_OD": 1,
+            "BODY_OD": 2,
             "CYL_TOP_Z": 1,
-            "RECT_SHORT": 1,
-            "PLATEAU_Z": 1,
+            "RECT_SHORT": 2,
+            "PLATEAU_Z": 2,
             "ARC_BASE_Z": 1,
             "ARC_PEAK_Z": 1,
             "ARCH_WIDTH": 1,
             "PLATEAU_WIDTH": 1,
             "VALVE_PORT_D": 1,
-            "PORT_X": 1,
+            "PORT_X": 2,
             "PORT_EDGE_GAP": 1,
             "TRANSITION_FILLET_R": 1,
             "COUNTERTOP_HOLE": 1,
-            "PLUNGER_GAP": 1,
+            "PLUNGER_GAP": 2,
             "PLUNGER_OD_EST": 1,
             "ARC_RISE": 1,
             "PLATEAU_INSET": 1,

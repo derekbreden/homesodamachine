@@ -9,18 +9,18 @@ at each corner so the two adjacent bends form without tearing.
 
 WORLD FRAME
 ===========
-- X: width, +X right. Interior spans X in [-65, +65] (130 mm).
-- Y: depth, +Y toward the back. Interior spans Y in [-87.5, +87.5] (175 mm).
-- Z: height, +Z up, Z=0 at the open bottom. Interior spans Z in [0, 150].
-The "back face" is the +Y wall (130 x 150). The "left face" is the -X
-wall (175 x 150). Front is -Y, right is +X.
+- X: width, +X right. Interior spans X from -[65](INNER_X) to +[65](INNER_X) ([130](INT_W) mm).
+- Y: depth, +Y toward the back. Interior spans Y from -[87.5](INNER_Y) to +[87.5](INNER_Y) ([175](INT_D) mm).
+- Z: height, +Z up, Z=0 at the open bottom. Interior spans Z from 0 to [150](INT_H).
+The "back face" is the +Y wall ([130](INT_W) x [150](INT_H)). The "left face" is the -X
+wall ([175](INT_D) x [150](INT_H)). Front is -Y, right is +X.
 
 PENETRATIONS
 ============
 - 120 V AC pass-through: one hole in the back face, centered
-  horizontally (X=0) and vertically (Z=75).
+  horizontally (X=0) and vertically (Z=[75](HOLE_CENTER_Z)).
 - Copper inlet + outlet: two holes in the left face, centered
-  vertically (Z=75) and placed by `justify-content: space-around`
+  vertically (Z=[75](HOLE_CENTER_Z)) and placed by `justify-content: space-around`
   across the full depth of the face — each hole centered in its own
   half of the depth (the quarter points).
 - Earth bond: one hole in the back face beside the AC pass-through,
@@ -30,11 +30,11 @@ PENETRATIONS
 
 MATERIAL / BENDS
 ================
-0.059" G90 hot-dipped galvanized steel, SendCutSend laser-cut + bent.
-Inside bend radius 0.063", K-factor 0.36 (SendCutSend's published
-G90 0.059" gauge spec). The flat pattern is developed with the
-matching 90-degree bend deduction so the formed interior lands on
-130 x 175 x 150 mm.
+[0.059"](WALL_IN) G90 hot-dipped galvanized steel, SendCutSend laser-cut + bent.
+Inside bend radius [0.063"](BEND_R_IN), K-factor [0.36](K_FACTOR) (SendCutSend's published
+G90 [0.059"](WALL_IN) gauge spec). The flat pattern is developed with the
+matching [90°](BEND_ANGLE) bend deduction so the formed interior lands on
+[130](INT_W) x [175](INT_D) x [150](INT_H) mm.
 
 FILES
 =====
@@ -61,6 +61,9 @@ _here = Path(__file__).resolve()
 sys.path.insert(0, str(next(p for p in _here.parents if p.name == "hardware") / "scripts"))
 from _cadq_export import export_step, export_dxf  # noqa: E402
 
+sys.path.insert(0, str(next(p for p in _here.parents if (p / "tools" / "docgen").is_dir()) / "tools"))
+from docgen import substitute_py_comments  # noqa: E402
+
 # Geometry scalars are owned by the dimensions driver (single source,
 # also read by the assembly doc-sync drivers). This file builds from them.
 sys.path.insert(0, str(_here.parent))
@@ -69,7 +72,9 @@ from _compressor_shroud_dimensions import (  # noqa: E402
     interior_depth_mm as interior_depth,
     interior_height_mm as interior_height,
     wall_thickness_mm as wall_thickness,
+    wall_thickness_in,
     inside_bend_radius_mm as inside_bend_radius,
+    inside_bend_radius_in,
     k_factor,
     bend_angle_deg as bend_angle,
     ac_hole_diameter_mm as ac_hole_diameter,
@@ -78,7 +83,7 @@ from _compressor_shroud_dimensions import (  # noqa: E402
     mounting_hole_diameter_mm as mounting_hole_diameter,
 )
 
-# 90-degree bend math, derived from the gauge spec. The bend deduction
+# [90°](BEND_ANGLE) bend math, derived from the gauge spec. The bend deduction
 # is what shortens the flat blank so the sum of the formed outside
 # dimensions returns the intended interior.
 bend_allowance = math.radians(bend_angle) * (inside_bend_radius + k_factor * wall_thickness)
@@ -91,11 +96,11 @@ setback_to_bend_line = bend_deduction / 2  # one face loses this from its outer 
 # depth >= bend radius + thickness + 0.020", width >= 50% of thickness. A
 # square notch centered on the corner's bend-line intersection gives each
 # of the two bends that depth (its half-size) and far exceeds the width min.
-bend_relief_min_depth = inside_bend_radius + wall_thickness + 0.020 * 25.4  # 3.607 mm
+bend_relief_min_depth = inside_bend_radius + wall_thickness + 0.020 * 25.4  # [3.607 mm](BEND_RELIEF_MIN_DEPTH)
 corner_relief = bend_relief_min_depth + 1.0  # half-size; margin over the SCS minimum
 
 # Both holes sit at mid-height of the interior.
-hole_center_z = interior_height / 2  # 75 mm
+hole_center_z = interior_height / 2  # [75](HOLE_CENTER_Z) mm
 
 # space-around across the depth: each copper hole sits at the center of
 # its own half of the face, i.e. at the quarter points of the depth.
@@ -105,8 +110,8 @@ copper_hole_depth_offset = interior_depth / 4
 outer_width = interior_width + 2 * wall_thickness    # X, apex-to-apex
 outer_depth = interior_depth + 2 * wall_thickness    # Y, apex-to-apex
 outer_height = interior_height + wall_thickness       # Z, bottom open
-inner_x = interior_width / 2     # 65
-inner_y = interior_depth / 2     # 87.5
+inner_x = interior_width / 2     # [65](INNER_X)
+inner_y = interior_depth / 2     # [87.5](INNER_Y)
 outer_x = outer_width / 2        # 65 + T
 outer_y = outer_depth / 2        # 87.5 + T
 
@@ -304,6 +309,37 @@ def main():
           f"{[tuple(round(v, 2) for v in c) for c in mounting_flat]}")
     print(f"-> {_step_path.name}")
     print(f"-> {_dxf_path.name}")
+
+    variables = {
+        "INT_W": f"{interior_width:g}",
+        "INT_D": f"{interior_depth:g}",
+        "INT_H": f"{interior_height:g}",
+        "INNER_X": f"{inner_x:g}",
+        "INNER_Y": f"{inner_y:g}",
+        "HOLE_CENTER_Z": f"{hole_center_z:g}",
+        "WALL_IN": f'{wall_thickness_in:.4g}"',
+        "BEND_R_IN": f'{inside_bend_radius_in:.4g}"',
+        "K_FACTOR": f"{k_factor:.4g}",
+        "BEND_ANGLE": f"{bend_angle:.4g}°",
+        "BEND_RELIEF_MIN_DEPTH": f"{bend_relief_min_depth:.4g} mm",
+    }
+    substitute_py_comments(
+        Path(__file__),
+        variables=variables,
+        expected_counts={
+            "INT_W": 3,
+            "INT_D": 3,
+            "INT_H": 4,
+            "INNER_X": 3,
+            "INNER_Y": 3,
+            "HOLE_CENTER_Z": 3,
+            "WALL_IN": 2,
+            "BEND_R_IN": 1,
+            "K_FACTOR": 1,
+            "BEND_ANGLE": 2,
+            "BEND_RELIEF_MIN_DEPTH": 1,
+        },
+    )
 
 
 if __name__ == "__main__":

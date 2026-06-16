@@ -1,4 +1,4 @@
-"""Foam cap stack: cap (top/bottom 16 mm foam pour tray, printed
+"""Foam cap stack: cap (top/bottom [16 mm](FOAM_CAP_INTERIOR_HEIGHT) foam pour tray, printed
 twice), lid (sits atop a cap during foam pour), and gasket (TPU 90A
 perimeter ring between cap mating edge and outer-shell mating face)."""
 
