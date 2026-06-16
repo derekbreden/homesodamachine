@@ -125,10 +125,44 @@ It needs KiCad's symbol libraries (the script auto-detects the macOS install or 
 `KICAD9_SYMBOL_DIR`). A few parts use a stock-symbol stand-in for an exact part with no
 KiCad symbol (the regulators, the SOIC-16 RTC, the relays) — see the script header.
 
+## Board layout
+
+Placement is generated headlessly too, from the netlist, via KiCad's `pcbnew` Python API.
+[`controller_layout.py`](/hardware/pcb/controller_layout.py) loads every footprint, places
+it (mains parts clustered in an isolated corner, size-aware so courtyards don't overlap),
+assigns every net to its pads (including the ESP32's multi-pad GND and the DRV8871 thermal
+pads), draws the 100 × 100 mm outline, sets the 4-layer stack, and writes
+[`controller-board.kicad_pcb`](/hardware/pcb/controller-board.kicad_pcb). Run it with
+**KiCad's bundled Python** (the one that has `pcbnew`):
+
+```
+"/Applications/KiCad.app/Contents/Frameworks/Python.framework/Versions/3.9/bin/python3.9" \
+    hardware/pcb/controller_layout.py
+```
+
+This placement is a reproducible **first pass** — algorithmic, not hand-tuned for routing,
+and it does **not** enforce the creepage / RF-keepout / thermal-via intent in "Layout"
+above. Treat it as the starting board, not a finished one.
+
+**Autorouting** is an optional external round-trip (freerouting), not committed because it
+is non-deterministic and needs review:
+
+```
+# export Specctra DSN (pcbnew.ExportSpecctraDSN), autoroute, import the SES back
+java -jar freerouting.jar -de controller-board.dsn -do controller-board.ses   # JDK 25+
+# pcbnew.ImportSpecctraSES(board, "controller-board.ses") → save
+```
+
+A first-pass autoroute against the first-pass placement leaves work on the table (it routed
+~half the connections in a few passes). It is **not manufacture-ready**: an autorouter
+connects nets but ignores the AC-corner creepage, the ESP32 RF antenna keepout, DRV8871
+thermal stitching, and EMC — all of which are hand-review items on this mains, mixed-signal
+board.
+
 ## Status
 
-The design package is committed, including the executable netlist. Board **layout** is
-the next step: open [`controller-board.net`](/hardware/pcb/controller-board.net) in KiCad
-Pcbnew (File → Import Netlist) and place + route to the 100 × 100 mm, 4-layer target in
-"Layout" above. Footprints are pre-assigned in the netlist; verify the stand-in parts and
-the AC-corner creepage during layout.
+The full design package is committed and reproducible from code: the netlist
+([`controller_board.py`](/hardware/pcb/controller_board.py) → `.net`) and the placed board
+([`controller_layout.py`](/hardware/pcb/controller_layout.py) → `.kicad_pcb`). Remaining
+work is layout refinement: routing-aware placement, full routing, and the by-hand creepage
+/ RF / thermal / EMC review before fab.

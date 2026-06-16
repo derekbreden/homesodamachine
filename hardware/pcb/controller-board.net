@@ -46,12 +46,12 @@
       (ref "BT1")
       (value "CR2032")
       (description "Single-cell battery")
-      (footprint "Battery:BatteryHolder_Keystone_3008_1x2032")
+      (footprint "Battery:BatteryHolder_Keystone_3002_1x2032")
       (fields
         (field
           (name "Description") "Single-cell battery")
         (field
-          (name "Footprint") "Battery:BatteryHolder_Keystone_3008_1x2032")
+          (name "Footprint") "Battery:BatteryHolder_Keystone_3002_1x2032")
         (field
           (name "Datasheet"))
         (field
@@ -2110,12 +2110,12 @@
       (ref "U7")
       (value "DRV8871DDA")
       (description "Brushed DC Motor Driver, PWM Control, 45V, 3.6A, Current limiting, HTSOP-8")
-      (footprint "Package_SO:HSOP-8-1EP_3.9x4.9mm_P1.27mm_EP2.95x4.9mm")
+      (footprint "Package_SO:Texas_HSOP-8-1EP_3.9x4.9mm_P1.27mm_ThermalVias")
       (fields
         (field
           (name "Description") "Brushed DC Motor Driver, PWM Control, 45V, 3.6A, Current limiting, HTSOP-8")
         (field
-          (name "Footprint") "Package_SO:HSOP-8-1EP_3.9x4.9mm_P1.27mm_EP2.95x4.9mm")
+          (name "Footprint") "Package_SO:Texas_HSOP-8-1EP_3.9x4.9mm_P1.27mm_ThermalVias")
         (field
           (name "Datasheet") "http://www.ti.com/lit/ds/symlink/drv8871.pdf")
         (field
@@ -2134,12 +2134,12 @@
       (ref "U8")
       (value "DRV8871DDA")
       (description "Brushed DC Motor Driver, PWM Control, 45V, 3.6A, Current limiting, HTSOP-8")
-      (footprint "Package_SO:HSOP-8-1EP_3.9x4.9mm_P1.27mm_EP2.95x4.9mm")
+      (footprint "Package_SO:Texas_HSOP-8-1EP_3.9x4.9mm_P1.27mm_ThermalVias")
       (fields
         (field
           (name "Description") "Brushed DC Motor Driver, PWM Control, 45V, 3.6A, Current limiting, HTSOP-8")
         (field
-          (name "Footprint") "Package_SO:HSOP-8-1EP_3.9x4.9mm_P1.27mm_EP2.95x4.9mm")
+          (name "Footprint") "Package_SO:Texas_HSOP-8-1EP_3.9x4.9mm_P1.27mm_ThermalVias")
         (field
           (name "Datasheet") "http://www.ti.com/lit/ds/symlink/drv8871.pdf")
         (field
