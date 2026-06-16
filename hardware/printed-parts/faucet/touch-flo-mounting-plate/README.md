@@ -18,7 +18,7 @@ shell with no ledge. Built by reusing the shell's own outline geometry.
 ## Screw bosses
 
 One at each pod center (both laterals + the front), so the plate clamps to
-the shell through all three pods. Each boss is a [12.15 mm](BOSS_D) ⌀
+the shell through all three pods. Each boss is a [12.15 mm](PLATE_BOSS_D) ⌀
 cylinder rising [7 mm](BOSS_H) from the plate top into the shell's boss
 hole — shy of the hole floor (the gap absorbs the hole ceiling's bridge
 sag, insert squeeze-out, and layer-1 lips) so the plate seats on the foot,

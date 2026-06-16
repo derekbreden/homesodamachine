@@ -70,15 +70,15 @@ from _cadq_export import export_dxf
 
 # Dimensions in inches; DXF $INSUNITS = 1 (inches).
 
-# [4.86 in](DISC_D) — tube ID 4.870" − 0.010" slip-fit.
+# [4.86 in](DISC_D_IN) — tube ID 4.870" − 0.010" slip-fit.
 disc_diameter = 4.860
-disc_radius = disc_diameter / 2  # [2.43 in](DISC_R)
-# [0.25 in](DISC_THK) — 1/4" 316 SS.
+disc_radius = disc_diameter / 2  # [2.43 in](DISC_R_IN)
+# [0.25 in](DISC_THK_IN) — 1/4" 316 SS.
 disc_thickness = 0.250
 
-# [0.438 in](HOLE_D) — 7/16" tap drill for 1/4"-18 NPT.
+# [0.438 in](HOLE_D_IN) — 7/16" tap drill for 1/4"-18 NPT.
 hole_diameter = 0.438
-hole_radius = hole_diameter / 2  # [0.219 in](HOLE_R)
+hole_radius = hole_diameter / 2  # [0.219 in](HOLE_R_IN)
 
 # [1.5 in](HOLE_SPACING) center-to-center along one axis — matches the
 # CNC dome-cap variants so plumbing layout is identical across cap styles.
@@ -139,22 +139,22 @@ def main() -> None:
           f"Ø{register_drill_diameter:.4g}\" x {register_depth:.3g}\" deep, from inside face")
 
     variables = {
-        "DISC_D": f"{disc_diameter:.4g} in",
-        "DISC_R": f"{disc_radius:.4g} in",
-        "DISC_THK": f"{disc_thickness:.4g} in",
-        "HOLE_D": f"{hole_diameter:.4g} in",
-        "HOLE_R": f"{hole_radius:.4g} in",
+        "DISC_D_IN": f"{disc_diameter:.4g} in",
+        "DISC_R_IN": f"{disc_radius:.4g} in",
+        "DISC_THK_IN": f"{disc_thickness:.4g} in",
+        "HOLE_D_IN": f"{hole_diameter:.4g} in",
+        "HOLE_R_IN": f"{hole_radius:.4g} in",
         "HOLE_SPACING": f"{hole_spacing:.4g} in",
     }
     substitute_py_comments(
         Path(__file__),
         variables=variables,
         expected_counts={
-            "DISC_D": 1,
-            "DISC_R": 1,
-            "DISC_THK": 1,
-            "HOLE_D": 1,
-            "HOLE_R": 1,
+            "DISC_D_IN": 1,
+            "DISC_R_IN": 1,
+            "DISC_THK_IN": 1,
+            "HOLE_D_IN": 1,
+            "HOLE_R_IN": 1,
             "HOLE_SPACING": 1,
         },
     )
