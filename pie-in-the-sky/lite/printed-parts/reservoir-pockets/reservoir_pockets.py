@@ -48,7 +48,9 @@ import cadquery as cq
 _here = Path(__file__).resolve()
 _repo = next(p for p in _here.parents if (p / "hardware" / "scripts" / "_cadq_export.py").is_file())
 sys.path.insert(0, str(_repo / "hardware" / "scripts"))
+sys.path.insert(0, str(_repo / "tools"))
 from _cadq_export import export_step
+from docgen import substitute_py_comments, substitute_md
 
 # Wall, floor, ceiling, and divider thickness.
 wall_thickness = 2.0
@@ -148,8 +150,9 @@ funnel_mouth_floor_z = rod_rest_z - channel_hw   # mouth floor at the rest-pocke
 # solid.
 y_stub = 6.0                     # exposed rod past each outer wall
 y_endcap = wall_thickness        # 2 mm plug capping the rod tip
-rod_tip_y = outer_y_range[1] + y_stub        # 79: where each rod end stops
-boss_outer_y = rod_tip_y + y_endcap          # 81: outer face of the end plug
+rod_tip_y = outer_y_range[1] + y_stub        # [79 mm](ROD_TIP_Y): where each rod end stops
+boss_outer_y = rod_tip_y + y_endcap          # [81 mm](BOSS_OUTER_Y): outer face of the end plug
+rod_length = 2 * rod_tip_y                   # [158 mm](ROD_LENGTH) — cut length of the 1/8" SS bag-hanger rod, tip to tip
 
 def make_box(x_range, y_range, z_range):
     """Axis-aligned box spanning the given world-coordinate ranges."""
