@@ -46,16 +46,16 @@ from docgen import substitute_py_comments
 
 inch = 25.4  # mm per inch — the cap's source specs are in inches.
 
-# [123.4 mm](DISC_D) — 4.860" disc (tube ID 4.870" − 0.010" slip-fit).
+# [123.4 mm](DISC_D_MM) — 4.860" disc (tube ID 4.870" − 0.010" slip-fit).
 disc_diameter = 4.860 * inch
-disc_radius = disc_diameter / 2.0  # [61.72 mm](DISC_R)
-# [6.35 mm](DISC_THK) — 1/4" 316 SS plate.
+disc_radius = disc_diameter / 2.0  # [61.72 mm](DISC_R_MM)
+# [6.35 mm](DISC_THK_MM) — 1/4" 316 SS plate.
 disc_thickness = 0.250 * inch
 
-# [11.13 mm](HOLE_D) — 7/16" tap drill for 1/4"-18 NPT, through the full plate.
+# [11.13 mm](HOLE_D_MM) — 7/16" tap drill for 1/4"-18 NPT, through the full plate.
 hole_diameter = 0.438 * inch
-hole_radius = hole_diameter / 2.0  # [5.563 mm](HOLE_R)
-# [19.05 mm](HOLE_OFFSET) — each NPT hole's |X| from center (1.500" c-c).
+hole_radius = hole_diameter / 2.0  # [5.563 mm](HOLE_R_MM)
+# [19.05 mm](HOLE_OFFSET_MM) — each NPT hole's |X| from center (1.500" c-c).
 hole_offset = 0.750 * inch
 hole_positions = [(-hole_offset, 0.0), (hole_offset, 0.0)]
 
@@ -118,12 +118,12 @@ def main() -> None:
           f"at (0, {-register_radius:.3f}), +Z (inside) face")
 
     variables = {
-        "DISC_D": f"{disc_diameter:.4g} mm",
-        "DISC_R": f"{disc_radius:.4g} mm",
-        "DISC_THK": f"{disc_thickness:.4g} mm",
-        "HOLE_D": f"{hole_diameter:.4g} mm",
-        "HOLE_R": f"{hole_radius:.4g} mm",
-        "HOLE_OFFSET": f"{hole_offset:.4g} mm",
+        "DISC_D_MM": f"{disc_diameter:.4g} mm",
+        "DISC_R_MM": f"{disc_radius:.4g} mm",
+        "DISC_THK_MM": f"{disc_thickness:.4g} mm",
+        "HOLE_D_MM": f"{hole_diameter:.4g} mm",
+        "HOLE_R_MM": f"{hole_radius:.4g} mm",
+        "HOLE_OFFSET_MM": f"{hole_offset:.4g} mm",
         "REG_Y": f"{register_radius:.4g} mm",
         "REG_D": f"{register_drill_diameter:.4g} mm",
         "REG_DEPTH": f"{register_depth:.4g} mm",
