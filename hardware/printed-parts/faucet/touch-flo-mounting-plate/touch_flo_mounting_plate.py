@@ -63,7 +63,7 @@ pill_slot_center = (0.0, +flavor_tube_depth)
 
 
 # Screw bosses — one per pod center, rising from the plate top into the
-# shell's boss holes. [12.15 mm](BOSS_D) OD, [7 mm](BOSS_H) tall (tops out
+# shell's boss holes. [12.15 mm](PLATE_BOSS_D) OD, [7 mm](BOSS_H) tall (tops out
 # shy of the hole floor — the gap absorbs the hole ceiling's bridge sag,
 # insert squeeze-out, and layer-1 lips, so the plate seats on the foot, not
 # the boss), with a [0.6 mm](BOSS_CHAMFER) × 45° lead-in chamfer on the top
@@ -141,7 +141,7 @@ def main():
         "PLATE_T": f"{plate_thickness:.4g} mm",
         "PLATE_Z_BOTTOM": f"{plate_z_range[0]:.4g}",
         "PLATE_Y": f"{plate_center[1]:.4g} mm",
-        "BOSS_D": f"{base_pod_boss_dia:.4g} mm",
+        "PLATE_BOSS_D": f"{base_pod_boss_dia:.4g} mm",
         "BOSS_H": f"{boss_height:.4g} mm",
         "BOSS_CHAMFER": f"{boss_chamfer:.4g} mm",
         "CBORE_D": f"{base_pod_counterbore_dia:.4g} mm",
@@ -161,7 +161,7 @@ def main():
             "PLATE_T": 1,
             "PLATE_Z_BOTTOM": 1,
             "PLATE_Y": 1,
-            "BOSS_D": 1,
+            "PLATE_BOSS_D": 1,
             "BOSS_H": 1,
             "BOSS_CHAMFER": 1,
             "CBORE_D": 1,
@@ -187,7 +187,7 @@ def main():
             "PLATE_FLAVOR_Y": 1,
             "PLATE_PILL_L": 1,
             "PLATE_PILL_W": 1,
-            "BOSS_D": 1,
+            "PLATE_BOSS_D": 1,
             "BOSS_H": 1,
             "BOSS_CHAMFER": 1,
             "CBORE_D": 1,

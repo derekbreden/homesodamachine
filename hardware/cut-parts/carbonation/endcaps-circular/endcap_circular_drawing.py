@@ -25,19 +25,19 @@ from _cadq_export import export_pdf
 
 # Part geometry in inches, same disc as endcap_circular_dxf.py.
 
-# [4.86 in](DISC_D) disc OD — tube ID 4.870 in minus 0.010 in slip-fit.
+# [4.86 in](DISC_D_IN) disc OD — tube ID 4.870 in minus 0.010 in slip-fit.
 disc_diameter = 4.860
-# [2.43 in](DISC_R) disc radius.
+# [2.43 in](DISC_R_IN) disc radius.
 disc_radius = disc_diameter / 2
-# [0.25 in](DISC_THK) 1/4" 316 SS plate thickness.
+# [0.25 in](DISC_THK_IN) 1/4" 316 SS plate thickness.
 disc_thickness = 0.250
-# [0.438 in](HOLE_D) 7/16" tap drill for 1/4"-18 NPT.
+# [0.438 in](HOLE_D_IN) 7/16" tap drill for 1/4"-18 NPT.
 hole_diameter = 0.438
-# [0.219 in](HOLE_R) hole radius.
+# [0.219 in](HOLE_R_IN) hole radius.
 hole_radius = hole_diameter / 2
 # [1.5 in](HOLE_SPACING) center-to-center spacing along X.
 hole_spacing = 1.500
-# [0.75 in](HOLE_OFFSET) each hole's |X| offset from disc center.
+# [0.75 in](HOLE_OFFSET_IN) each hole's |X| offset from disc center.
 hole_offset = hole_spacing / 2
 hole_positions = [(-hole_offset, 0.0), (+hole_offset, 0.0)]
 
@@ -453,25 +453,25 @@ def main() -> None:
     print(f"Exported: {pdf_path}")
 
     variables = {
-        "DISC_D": f"{disc_diameter:.4g} in",
-        "DISC_R": f"{disc_radius:.4g} in",
-        "DISC_THK": f"{disc_thickness:.4g} in",
-        "HOLE_D": f"{hole_diameter:.4g} in",
-        "HOLE_R": f"{hole_radius:.4g} in",
+        "DISC_D_IN": f"{disc_diameter:.4g} in",
+        "DISC_R_IN": f"{disc_radius:.4g} in",
+        "DISC_THK_IN": f"{disc_thickness:.4g} in",
+        "HOLE_D_IN": f"{hole_diameter:.4g} in",
+        "HOLE_R_IN": f"{hole_radius:.4g} in",
         "HOLE_SPACING": f"{hole_spacing:.4g} in",
-        "HOLE_OFFSET": f"{hole_offset:.4g} in",
+        "HOLE_OFFSET_IN": f"{hole_offset:.4g} in",
     }
     substitute_py_comments(
         Path(__file__),
         variables=variables,
         expected_counts={
-            "DISC_D": 1,
-            "DISC_R": 1,
-            "DISC_THK": 1,
-            "HOLE_D": 1,
-            "HOLE_R": 1,
+            "DISC_D_IN": 1,
+            "DISC_R_IN": 1,
+            "DISC_THK_IN": 1,
+            "HOLE_D_IN": 1,
+            "HOLE_R_IN": 1,
             "HOLE_SPACING": 1,
-            "HOLE_OFFSET": 1,
+            "HOLE_OFFSET_IN": 1,
         },
     )
     print(f"-> {Path(__file__).name} (self)")
