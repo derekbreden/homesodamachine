@@ -204,16 +204,16 @@ vent_brim_bottom_z = vent_cylinder_walls_bottom_z - vent_brim_thickness
 # Sits opposite the bulkhead (y = 28..64 on the +Y half), in the wider part
 # of the cavity (~38 mm wide at y=-45 vs ~24 mm at y=0) where the donut
 # float has clearance, clear of all screw bosses and the vent boss.
-rod_position_x = 104.0  # |x| of the rod centerline; mirrors with `side`
+rod_position_x = 107.0  # |x| of the rod centerline; mirrors with `side`
 rod_position_y = -45.0  # y of the rod centerline; does NOT mirror with side
 rod_diameter = 3.175  # 1/8" 316 SS round rod OD
 # [3.675 mm](ROD_BORE) — rod ⌀ + 0.5 mm slip-fit clearance; shared by body anchor boss and cap register boss.
 rod_bore = rod_diameter + 0.5  # ~0.5 mm radial slip-fit clearance; shared by body anchor boss and cap register boss
 # [7.675 mm](ROD_BOSS_OD) — bore ⌀ + 4 mm (2 mm radial wall); shared by body anchor and cap register bosses.
 rod_boss_od = rod_bore + 4.0  # 2 mm radial wall around the bore
-rod_register_boss_height = 4.0  # CAP-side boss; boss bottom 2 mm below the rod top, 2 mm of axial rod-boss engagement
-rod_anchor_boss_height = 10.0  # BODY-side anchor boss (≈3× rod_diameter)
-rod_anchor_boss_floor = 2.0  # printed-solid PETG floor INSIDE the body boss between the blind bore bottom and the slope surface — the rod tip bottoms out on this
+rod_register_boss_height = 2.0  # CAP-side boss EXTRA height beyond cap rim
+rod_anchor_boss_height = 6.0  # BODY-side anchor boss
+rod_anchor_boss_floor = 0.0  # printed-solid PETG floor INSIDE the body boss
 
 
 # Outlet bulkhead port + V floor. A PureSec 1/4" RO push-to-connect 90°
