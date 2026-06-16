@@ -93,7 +93,7 @@ At a Founder Edition target around $1,500 the margin structure mirrors the main 
 
 ## What it would take to ship the Lite Edition
 
-The Lite Edition is approximately the prototype that already exists on the founder's counter, with a transparent printed cabinet around it and a tightened-up firmware build. The hard subsystems of the main appliance (carbonator vessel fabrication, hydro-test, refrigerant-loop teardown and recharge, foam-pour cold-core assembly, hydrocarbon-refrigerant safety architecture) are absent. The remaining work: the transparent enclosure, the faucet-inlet stub that accepts a Lillium output line, the bag cradle and bag-port fitting, install documentation for the Lillium pairing and the priming procedure, and per-unit assembly.
+The Lite Edition is approximately the prototype that already exists on the founder's counter, with a transparent printed cabinet around it and a tightened-up firmware build. The hard subsystems of the main appliance (carbonator vessel fabrication, hydro-test, refrigerant-loop teardown and recharge, foam-pour cold-core assembly, hydrocarbon-refrigerant safety architecture) are absent. The remaining work: the transparent enclosure, the faucet-inlet stub that accepts a Lillium output line, the bag cradle and bag-port fitting, install documentation for the Lillium pairing and the priming procedure, and per-unit [assembly](/pie-in-the-sky/lite/assembly.md).
 
 ## Minimum set of printed parts
 
