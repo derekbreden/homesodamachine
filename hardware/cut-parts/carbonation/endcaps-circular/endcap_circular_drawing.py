@@ -44,7 +44,10 @@ hole_positions = [(-hole_offset, 0.0), (+hole_offset, 0.0)]
 # Rod register — in-house blind drill, shown REFERENCE-ONLY (mirrors the
 # source-of-truth constants in endcap_circular_dxf.py). Not a cut/vendor
 # feature: a through-hole here would breach the 90 PSI pressure boundary.
-register_position = (0.0, -1.889)  # on the −Y axis, clear of the two ports
+# Register center, derived like endcap_circular_dxf.py (donut OD at the wall + a
+# 3 mm wall-preload) so this REF view can't drift from the source geometry.
+_reg_radius_in = 4.870 / 2 - (27.75 / 25.4) / 2 + 3.0 / 25.4
+register_position = (0.0, -round(_reg_radius_in, 3))  # on −Y, clear of the two ports
 register_drill_diameter = 0.140625  # 9/64" — slip-fit on the 1/8" rod
 register_depth = 0.100             # blind, to the drill-tip (leaves 0.15" wall)
 
