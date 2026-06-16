@@ -266,6 +266,26 @@ def main():
     export_step(model, str(_here.parent / "reservoir-pockets.step"))
     print("-> reservoir-pockets.step")
 
+    # Pinned computed numbers — the rod's geometry, fed from the source
+    # constants so the docs/comments can never drift from the model.
+    variables = {
+        "ROD_LENGTH": f"{rod_length:.4g} mm",
+        "ROD_TIP_Y": f"{rod_tip_y:.4g} mm",
+        "BOSS_OUTER_Y": f"{boss_outer_y:.4g} mm",
+    }
+    substitute_md(
+        _here.parent / "README.md",
+        variables=variables,
+        expected_counts={"ROD_LENGTH": 1},
+    )
+    print("-> README.md")
+    substitute_py_comments(
+        _here,
+        variables=variables,
+        expected_counts={"ROD_LENGTH": 1, "ROD_TIP_Y": 1, "BOSS_OUTER_Y": 1},
+    )
+    print(f"-> {_here.name} (self)")
+
 
 if __name__ == "__main__":
     main()
