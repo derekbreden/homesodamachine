@@ -2,3 +2,14 @@
 *.erc
 *.log
 *_sklib.py
+
+# KiCad local state + layout byproducts (the .kicad_pcb / .kicad_pro are tracked)
+*.kicad_prl
+*-backups/
+*.kicad_pcb-bak
+fp-info-cache
+
+# autoroute round-trip (see README "Board layout" — regenerate as needed)
+*.dsn
+*.ses
+*-drc.rpt

@@ -198,7 +198,7 @@ wire(p3v3, pn(rtc, "VCC")); wire(gnd, pn(rtc, "GND"))
 wire(i2c_sda, pn(rtc, "SDA")); wire(i2c_scl, pn(rtc, "SCL"))
 bypass(p3v3, n=1)
 bt = Part("Device", "Battery_Cell", ref="BT1", value="CR2032",
-          footprint="Battery:BatteryHolder_Keystone_3008_1x2032")
+          footprint="Battery:BatteryHolder_Keystone_3002_1x2032")
 vbat = Net("VBAT"); wire(vbat, pn(rtc, "VBAT"), pn(bt, "+")); wire(gnd, pn(bt, "-"))
 
 # ── U3/U4  MCP23017 expanders (clock pin is named 'SCK') ──────────────────────
@@ -250,7 +250,7 @@ wire(p12, pn(valve_b, "Pin_6"))
 # ── U7/U8  DRV8871 peristaltic pump drivers ───────────────────────────────────
 def drv(ref, in1, in2, jref):
     d = Part("Driver_Motor", "DRV8871DDA", ref=ref,
-             footprint="Package_SO:HSOP-8-1EP_3.9x4.9mm_P1.27mm_EP2.95x4.9mm")
+             footprint="Package_SO:Texas_HSOP-8-1EP_3.9x4.9mm_P1.27mm_ThermalVias")
     wire(p12, pn(d, "VM")); wire(gnd, pn(d, "GND"))
     wire(in1, pn(d, "IN1")); wire(in2, pn(d, "IN2"))
     res(pn(d, "ILIM"), "47k", gnd)
