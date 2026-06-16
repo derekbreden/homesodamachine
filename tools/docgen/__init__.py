@@ -13,10 +13,13 @@ Two substituters with the same signature and semantics:
 
 - substitute_md(md_path, ...) — rewrites inside a markdown file.
 - substitute_py_comments(py_path, ...) — rewrites inside `#` line comments
-  of a Python file. The script modifies its own comments — safe because
-  only comment text is touched (never code, never strings/docstrings),
-  the file is only written when content changes, and the rewritten comment
-  text is never read back into any calculation.
+  AND docstrings of a Python file. A string literal is only touched if it
+  already carries one of the caller's managed [value](NAME) markers, so
+  functional string data is never disturbed; code is never touched; the
+  file is only written when content changes; and the rewritten text is
+  never read back into any calculation. (Docstrings were originally skipped
+  — that blind spot let dimensions typed into docstrings drift silently,
+  so they are now scanned just like comments.)
 
 Both:
 - Find every [value](NAME) where NAME matches [A-Z_][A-Z0-9_]* in their scope.
@@ -263,20 +266,42 @@ def substitute_py_comments(
 
     text = py_path.read_text()
 
-    # Find every # comment token. tokenize correctly skips # characters
-    # that appear inside strings, f-strings, etc. — those are STRING tokens,
-    # not COMMENT tokens, and stay invisible to the substitution.
-    comment_tokens = [
-        tok
-        for tok in tokenize.generate_tokens(io.StringIO(text).readline)
-        if tok.type == tokenize.COMMENT
-    ]
+    # Character offset of the start of each 1-indexed source line, so a
+    # tokenize (row, col) position converts to an absolute slice index.
+    line_starts: list[int] = []
+    running = 0
+    for line in text.splitlines(keepends=True):
+        line_starts.append(running)
+        running += len(line)
+    if not line_starts:
+        line_starts = [0]
+
+    def _offset(rowcol: tuple[int, int]) -> int:
+        row, col = rowcol
+        return line_starts[row - 1] + col
+
+    # Regions whose text we rewrite: every `#` comment, PLUS any string
+    # literal (docstring or otherwise) that already carries one of OUR
+    # managed markers. Scanning docstrings is the point — a dimension typed
+    # into a docstring used to be invisible to this substituter and so could
+    # drift silently. Functional string data is never disturbed: a string is
+    # only touched if it contains a [value](NAME) whose NAME is in
+    # `variables`, which functional data never does. Each region is an
+    # absolute (start, end) slice over `text`; comments are single-line,
+    # docstrings may span many lines — both handled the same way.
+    regions: list[tuple[int, int]] = []
+    for tok in tokenize.generate_tokens(io.StringIO(text).readline):
+        if tok.type == tokenize.COMMENT:
+            regions.append((_offset(tok.start), _offset(tok.end)))
+        elif tok.type == tokenize.STRING:
+            if any(m.group(2) in variables for m in _LINK_RE.finditer(tok.string)):
+                regions.append((_offset(tok.start), _offset(tok.end)))
 
     # Count occurrences of every NAME the caller knows about, ignoring
     # unknowns (let other scripts' substitutions alone).
     name_counts: dict[str, int] = {}
-    for tok in comment_tokens:
-        for match in _LINK_RE.finditer(tok.string):
+    for start, end in regions:
+        for match in _LINK_RE.finditer(text[start:end]):
             name = match.group(2)
             if name in variables:
                 name_counts[name] = name_counts.get(name, 0) + 1
@@ -298,20 +323,15 @@ def substitute_py_comments(
             return f"[{variables[name]}]({name})"
         return match.group(0)  # unknown — leave alone
 
-    # Rewrite each comment in place. Python's # comments always run from
-    # `#` to end-of-line, so at most one comment per line — token positions
-    # from the original text stay valid even after earlier comments are
-    # rewritten (the rewrites only change content within a single line).
-    lines = text.splitlines(keepends=True)
-    for tok in comment_tokens:
-        line_idx = tok.start[0] - 1            # 1-indexed → 0-indexed
-        start_col = tok.start[1]
-        end_col = tok.end[1]
-        line = lines[line_idx]
-        new_comment = _LINK_RE.sub(repl, tok.string)
-        if new_comment != tok.string:
-            lines[line_idx] = line[:start_col] + new_comment + line[end_col:]
+    # Rewrite each region in place, working from the highest offset down so
+    # an earlier splice can never shift the offsets of regions not yet
+    # handled (substitution only changes marker text, never line count).
+    new_text = text
+    for start, end in sorted(set(regions), reverse=True):
+        seg = new_text[start:end]
+        new_seg = _LINK_RE.sub(repl, seg)
+        if new_seg != seg:
+            new_text = new_text[:start] + new_seg + new_text[end:]
 
-    new_text = "".join(lines)
     if new_text != text:
         py_path.write_text(new_text)
