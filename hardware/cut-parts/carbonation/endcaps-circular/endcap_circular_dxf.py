@@ -25,14 +25,16 @@ Two identical discs per vessel, each with 2x tap-drill holes for 1/4"-18 NPT.
   Both discs are drilled identically (kept interchangeable): top plate captures
   the rod tip, bottom plate seats/locates the rod base for its tack weld.
 
-  Register center:     (0, -1.889)"  on the −Y axis, clear of the two ports.
-                       Radius 1.889" = tube-ID radius 2.435" − donut radius
-                       0.546" (27.75 mm donor ferrite donut, DEVMO MINI). This
-                       parks the donut's OD against the inner tube wall on the
-                       −Y side so its magnet couples through the 0.065" wall to
-                       the external reed column — the bench-measured "ride the
-                       wall within ~2 mm" requirement (level-sensing.md).
-                       The −Y azimuth must match where the reeds mount outside.
+  Register center:     (0, -2.007)"  on the −Y axis, clear of the two ports.
+                       Radius 2.007" = tube-ID radius 2.435" − donut radius
+                       0.546" (27.75 mm donor ferrite donut, DEVMO MINI) + a
+                       3 mm wall-preload pinning the donut firmly to the inner
+                       wall despite bore/print slack — matches the reservoir's
+                       test-fit result (reservoir.py rod_position_x 104 → 107 mm).
+                       Keeps the donut's magnet coupling through the 0.065" wall
+                       to the external reeds — the bench "ride the wall within
+                       ~2 mm" requirement (level-sensing.md). The −Y azimuth must
+                       match where the reeds mount outside.
   Register drill:      9/64" (0.141")  — slip-fit on the 1/8" rod; snug, which
                        self-locates the rod base in the bottom plate for its tack
                        weld. Open the TOP plate's pocket to 5/32" (0.156") only if
@@ -93,9 +95,12 @@ hole_positions = [
 tube_id = 4.870                       # tube inner Ø — donut rides this wall
 tube_id_radius = tube_id / 2          # 2.435"
 donut_od = 27.75 / 25.4               # 1.0925" — 27.75 mm donor ferrite donut
-# Park the rod so the donut OD just reaches the inner wall (wall-scrape fit):
-register_radius = tube_id_radius - donut_od / 2  # 1.8887"
-register_position = (0.0, -round(register_radius, 3))  # (0, -1.889) on −Y, clear of ports
+# Park the rod so the donut OD reaches the inner wall, then add a 3 mm wall-preload
+# to pin the donut firmly against it despite bore/print slack — mirrors the
+# reservoir test-fit (reservoir.py rod_position_x 104 → 107 mm = +3 mm to the wall).
+wall_preload = 3.0 / 25.4  # 3 mm closer to the wall, expressed in inches
+register_radius = tube_id_radius - donut_od / 2 + wall_preload
+register_position = (0.0, -round(register_radius, 3))  # on −Y, clear of ports
 register_drill_diameter = 0.140625    # 9/64" — slip-fit on the 1/8" rod (snug)
 register_depth = 0.100                # to the drill-tip; leaves 0.150" of plate
 
