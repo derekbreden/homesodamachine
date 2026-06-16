@@ -17,8 +17,8 @@ Layout (origin = cell center, Z = valve mounting plane, ports at Z = 11.3):
   mirrored.
 - Each valve is rotated about Z so its port axis points straight at the
   divider outlet it feeds — a straight 15 mm tube spans the gap. The valves
-  sit at (±82.03, ±20.45), tilted ~17° off X, the minimum Y separation that
-  keeps the four bodies clear.
+  sit at (±[81.75](SRC_VALVE_X), ±[21.32](SRC_VALVE_Y)), tilted ~17° off X, the
+  minimum Y separation that keeps the four bodies clear.
 
 The tray is a frame plate: four valve cradles (single-cell sockets at each
 valve's rotated corners + a saddle along each aim line) around a central open
@@ -42,7 +42,7 @@ for _p in (
 ):
     sys.path.insert(0, str(_p))
 from _cadq_export import export_step
-from docgen import substitute_md
+from docgen import substitute_md, substitute_py_comments
 import single_tray as cell
 
 port_z = cell.port_center_z
@@ -237,6 +237,15 @@ def main():
         },
     )
     print("-> README.md")
+    substitute_py_comments(
+        _here,
+        variables={
+            "SRC_VALVE_X": f"{valve_x:.4g}",
+            "SRC_VALVE_Y": f"{valve_y:.4g}",
+        },
+        expected_counts={"SRC_VALVE_X": 1, "SRC_VALVE_Y": 1},
+    )
+    print(f"-> {_here.name} (self)")
 
 
 if __name__ == "__main__":
