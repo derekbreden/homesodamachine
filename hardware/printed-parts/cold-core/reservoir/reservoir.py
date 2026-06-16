@@ -407,8 +407,8 @@ inner_corner_interior_angle = math.degrees(math.acos(inner_y_max / inner_centerw
 # outer face to wall top). inner_z_range is the cavity's extent (cavity
 # floor sits one wall up; top opens to the cap above the gasket).
 # cap_stack_above_body is how much room the gasket + cap takes above
-# the body's wall top — leaves the cap's top face flush at z=212.9
-# (0.5 mm clear of the bag-pocket wall top); body alone is 199.4 mm tall.
+# the body's wall top — leaves the cap's top face flush at z=[212.9 mm](CAP_TOP_Z)
+# (0.5 mm clear of the bag-pocket wall top); body alone is [199.4 mm](RESERVOIR_H) tall.
 # [11 mm](CAP_STACK_H) — gasket + cap perimeter wall + cap base plate.
 cap_stack_above_body = gasket_thickness + cap_wall_height + cap_base_thickness
 outer_z_range = (
@@ -416,6 +416,10 @@ outer_z_range = (
     bag_pocket_walls_top_z - reservoir_clearance - cap_stack_above_body,
 )
 inner_z_range = (outer_z_range[0] + reservoir_wall_thickness, outer_z_range[1])
+# Assembled-stack references — pinned into the docstring/comments below so they
+# can never drift again (an earlier hand-typed "214.9" did exactly that).
+cap_assembly_lift = outer_z_range[1] + gasket_thickness  # [203.9 mm](CAP_ASSEMBLY_LIFT) — cap-local z=0 lands here on the body
+cap_top_z = cap_assembly_lift + cap_total_height          # assembled cap top face
 
 # V-floor derived geometry (needs inner_z_range / inner_y_max above).
 # floor_trough_z is the INTERIOR (wet) V's trough surface. It is RAISED
@@ -889,7 +893,9 @@ def build_reservoir_cap(side=1):
     gasket a matching cross-section at each screw position.
 
     To visualize the assembled stack, translate the cap up by
-    (outer_z_range[1] + gasket_thickness) ≈ 214.9 mm."""
+    cap_assembly_lift (= outer_z_range[1] + gasket_thickness; the pinned value
+    lives in the comment at that constant, since docgen does not reach
+    docstrings)."""
     # Perimeter wall (outer − inner footprint) at the BOTTOM of the cap.
     # The "lip" that hangs down around the gasket.
     perimeter_outer = _build_envelope(side, cap_perimeter_z_range)
@@ -1220,6 +1226,8 @@ def main():
         "BODY_BOSS_D": f"{2 * body_boss_radius:.4g} mm",
         "CAP_BOSS_R": f"{cap_boss_radius:.4g} mm",
         "CAP_STACK_H": f"{cap_stack_above_body:.4g} mm",
+        "CAP_ASSEMBLY_LIFT": f"{cap_assembly_lift:.4g} mm",
+        "CAP_TOP_Z": f"{cap_top_z:.4g} mm",
         "BULKHEAD_PANEL_HOLE_D": f"{bulkhead_panel_hole_diameter:.4g} mm",
         "BULKHEAD_WET_NUT_OD": f"{bulkhead_wet_nut_od:.4g} mm",
         "BULKHEAD_DRY_FLANGE_OD": f"{bulkhead_dry_flange_od:.4g} mm",
@@ -1344,6 +1352,9 @@ def main():
             "BODY_BOSS_D": 2,
             "CAP_BOSS_R": 1,
             "CAP_STACK_H": 1,
+            "CAP_ASSEMBLY_LIFT": 1,
+            "CAP_TOP_Z": 1,
+            "RESERVOIR_H": 1,
             "REEDS_PER_RES": 1,
             "BULKHEAD_PANEL_HOLE_D": 2,
             "BULKHEAD_WET_NUT_OD": 7,
