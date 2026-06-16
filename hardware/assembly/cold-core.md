@@ -112,7 +112,7 @@ A finished cold core:
 
 1. **Foam data-sheet spec (mix proportions, pot life, cure time, pour temperature window).**
 2. **Trim method after foam cure.**
-3. **Reservoir-internal assembly procedure.** The reservoir arrives already assembled (cap installed, six M3×12 SHCS into ruthex inserts clamping a TPU gasket, PTFE vent membrane installed).
+3. **Reservoir-internal assembly procedure.** The reservoir arrives already assembled (cap installed, six M3×12 SHCS into ruthex inserts clamping a TPU gasket, PTFE vent membrane installed). The float-rod cut + seat is specified in [`handwork.md`](/hardware/assembly/handwork.md) "Cut + seat the reservoir float rods" with the rod / float / reed geometry in [`reservoir/level-sensing.md`](/hardware/printed-parts/cold-core/reservoir/level-sensing.md); the cap / gasket / vent-membrane / reed-column steps are still to be written here.
 4. **Reservoir final-qualification status.** Pending water + syrup-dwell pass.
 
 ## Sources

@@ -31,12 +31,22 @@ See [assembly/pressure-vessel.md](/hardware/assembly/pressure-vessel.md) step 1 
 
 ## Weld 316L end caps to 316L tubes
 
-Join the 1/4"-thick 316L end-cap plates to the 5" OD × 0.065" wall 316L tube ends with the XLaserlab X1 Pro handheld laser welder, STARTECHWELD ER316L .030 filler (matches the 316L parent metal — undermatching with 308L would lose the molybdenum across the joint). Top + bottom plates per vessel × 10 vessels of stock. The 1/8" 316L float rod (Tandefio B0CY4DWJFQ, cut to ~6") tack-welds vertically to the inside face of the bottom plate as part of this same operation, before the bottom-plate-to-tube weld closes the vessel ([future.md](/hardware/future.md) "Level sensing").
+Join the 1/4"-thick 316L end-cap plates to the 5" OD × 0.065" wall 316L tube ends with the XLaserlab X1 Pro handheld laser welder, STARTECHWELD ER316L .030 filler (matches the 316L parent metal — undermatching with 308L would lose the molybdenum across the joint). Top + bottom plates per vessel × 10 vessels of stock. The 1/8" 316L float rod (Tandefio B0CY4DWJFQ, cut to [143.8 mm (5.66 in)](ROD_LEN)) tack-welds vertically to the inside face of the bottom plate as part of this same operation, before the bottom-plate-to-tube weld closes the vessel ([future.md](/hardware/future.md) "Level sensing").
 
 See [assembly/pressure-vessel.md](/hardware/assembly/pressure-vessel.md) steps 2-5 for the production-procedure framing.
+
+## Cut + seat the reservoir float rods
+
+Cut two 1/8" 316L SS rods — one per flavor reservoir — to [174 mm (6.85 in)](RESERVOIR_ROD_LEN) from the same Tandefio B0CY4DWJFQ stock as the carbonator float rod. Same square-cut-and-deburr discipline. Unlike the carbonator rod these are **not welded**: each is captured by printed PETG bosses at both ends. Seat the bottom end in the standing body-boss blind bore on the reservoir BODY wet slope, slip the harvested DEVMO MINI donut float (B07T18PGJ4) over the rod, and let the cap-side register boss capture the top end as the reservoir cap is installed. The cut length already backs off the body-boss-floor-to-cap-boss seat-to-seat span for clearance (per `reservoir.py`), so the rod locates without ever holding the cap off its gasket.
+
+See [reservoir/level-sensing.md](/hardware/printed-parts/cold-core/reservoir/level-sensing.md) for the rod / float / reed geometry and [assembly/cold-core.md](/hardware/assembly/cold-core.md) (reservoir-internal assembly) for where this sits in the cold-core build.
 
 ## Pressure-test 316L vessels
 
 Hydro-test each fully welded + tapped vessel to 180 PSI for 30 minutes (~2× the 90 PSI working pressure). Done after tapping and welding are both complete on a given vessel. Beyond the 30-min hydro-test minimum, the in-vessel SENCTRL pressure-test gauge (B0BCHMQLFB, ACQUIRED in [purchases.md](/hardware/ledger/purchases.md) §1) supports hour-scale leak soaks for catching slow weep before passivation and service.
 
 See [assembly/pressure-vessel.md](/hardware/assembly/pressure-vessel.md) step 6 for the production-procedure framing, including the rig + criteria + failure-handling gaps still open.
+
+## Sources
+[value](NAME) texts are updated by:
+- `/hardware/assembly/_handwork_sync.py`
