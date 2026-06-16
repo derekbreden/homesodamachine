@@ -74,7 +74,19 @@ Slide the donut float over the rod through the still-open top of the tube. After
 
 Close the open end with the top plate. The blind register drilled into its inside face (step 1) captures the rod's top end as the plate seats to its 1/4" recess — confirm the plate reaches its seated depth against the spacer / depth-stop (the rod must not hold it proud; see the rod-length note in step 2). If the register binds on the rod tip, open that one cap's pocket to 5/32" rather than forcing the plate down — the plate-to-tube joint here is a pressure weld. Same recessed corner fillet as step 3.
 
-### 6. Hydro test
+### 6. Dye-penetrant (PT) inspection of the closure welds
+
+A surface-NDE pre-screen of the two closure fillet welds before committing to hydro — solvent-removable visible dye, run on the bare welds while they are clean and dry (before any water touches them). It finds and *localizes* surface-breaking lack-of-fusion, cracks, and pinholes, which the hydro test (step 7) alone won't.
+
+1. **Clean + dry.** Wipe the weld and the rim slip-gap line with isopropyl alcohol on a lint-free wipe; let it flash off. PT needs a clean, dry surface.
+2. **Penetrant.** Spray Cantesco P101S-A on both rim fillets (and the port-weld areas), dwell ~10 min so it wicks into any defect.
+3. **Remove excess.** Wipe off with a **dry** lint-free wipe first, then a wipe **lightly dampened** with IPA — never spray solvent onto the part or flood it, which flushes dye back out of fine defects and hides them.
+4. **Develop + read.** Mist a thin coat of Cantesco D101-A developer; read within ~10 min. A red **line** bleeding through the white = a crack or lack-of-fusion (watch the fillet toe and the slip-gap line at the rim); red **dots** = porosity/pinholes; clean white = sound.
+5. **Defect → re-weld.** Clean the area, re-weld the indicated spot, and re-PT before moving on. Wipe all penetrant + developer off with IPA before hydro.
+
+PT finds only surface-breaking defects; the **hydro test (step 7)** is the volumetric pressure proof. Standard-grade chemicals are fine here — the downstream water rinse + citric passivation (step 8) strips any sulfur/chloride residue from the stainless.
+
+### 7. Hydro test
 
 Hydro-test the fully welded + tapped vessel — bare, on a bench, with NPT plugs in all four ports. No PRV, no fittings, no cold core, no refrigerant loop. The test is a pre-passivation, pre-assembly bench operation.
 
@@ -91,7 +103,7 @@ Hold pressure: **180 PSI for 30 minutes** (~2× the 90 PSI working pressure). Be
 
 **Failure handling — open.** A vessel that weeps at a bead surface is plausibly re-weldable; a weep through parent metal or HAZ is scrap; a vessel that won't hold pressure with no visible weep most likely has a thread leak at a port. The decision tree is undefined.
 
-### 7. Citric acid passivation
+### 8. Citric acid passivation
 
 One-time soak in ~4 % food-grade citric acid solution, 30-60 minutes, in a disposable plastic tub sized for the vessel. Followed by thorough water rinse.
 
@@ -99,7 +111,7 @@ Restores the chromium oxide layer at the weld zones — what makes 316L resistan
 
 Done after hydro because failures get re-welded (re-introducing oxide that the passivation needs to handle) and before sparge install because the silicone tube and sintered stone don't belong in a citric soak.
 
-### 8. Install elbows, sparge stone, PRV
+### 9. Install elbows, sparge stone, PRV
 
 After passivation, the vessel receives its permanent port fittings. Per [`/hardware/printed-parts/cold-core/foam-shell/README.md`](/hardware/printed-parts/cold-core/foam-shell/README.md) "Tank-port fittings", every port gets a 1/4" NPT 90° elbow as the first downstream fitting, turning the line laterally so the rest of the stack fits within the ~[30 mm](ELBOW_ENV) vertical envelope above and below the tank.
 
@@ -113,11 +125,11 @@ All four ports get a TAISHER 316L SS elbow. MNPT into the plate's FNPT, Millrose
 
 Once the four elbow stacks are in, the vessel is the input to [`refrigerant-loop.md`](/hardware/assembly/refrigerant-loop.md) step 4 (coil wind).
 
-### 9. (Optional) Functional pop test against vessel pressure
+### 10. (Optional) Functional pop test against vessel pressure
 
-The mandatory PRV mechanism-free check is the **pull-test inside the prv-shroud subassembly procedure** ([`/hardware/printed-parts/cold-core/prv-shroud/README.md`](/hardware/printed-parts/cold-core/prv-shroud/README.md) "Subassembly procedure" step 2), performed during subassembly build before the shroud is glued on. By the time the subassembly threads into Port 4 at step 8, the pull-ring is permanently enclosed in the shroud and no further manual access is available.
+The mandatory PRV mechanism-free check is the **pull-test inside the prv-shroud subassembly procedure** ([`/hardware/printed-parts/cold-core/prv-shroud/README.md`](/hardware/printed-parts/cold-core/prv-shroud/README.md) "Subassembly procedure" step 2), performed during subassembly build before the shroud is glued on. By the time the subassembly threads into Port 4 at step 9, the pull-ring is permanently enclosed in the shroud and no further manual access is available.
 
-This optional step adds a **functional pop test against pressure** — confirming the SV-125's setpoint is in spec, not just that the mechanism moves freely. Re-use the BEAMNOVA hydro rig from step 6, with the subassembly threaded into Port 4 and the other three ports plugged. Ramp pressure on one of the plugged ports until the PRV cracks — audible pop, gas vented through the shroud's LLDPE port (or out the open cap hole if LLDPE isn't installed yet). Crack pressure should fall within ±3 % of 125 PSI (i.e., 121–129 PSI). The SV-125's silicon O-ring reseats cleanly within ±10 % of setpoint per the manufacturer's spec, so a single bench pop does not degrade the seat for service.
+This optional step adds a **functional pop test against pressure** — confirming the SV-125's setpoint is in spec, not just that the mechanism moves freely. Re-use the BEAMNOVA hydro rig from step 7, with the subassembly threaded into Port 4 and the other three ports plugged. Ramp pressure on one of the plugged ports until the PRV cracks — audible pop, gas vented through the shroud's LLDPE port (or out the open cap hole if LLDPE isn't installed yet). Crack pressure should fall within ±3 % of 125 PSI (i.e., 121–129 PSI). The SV-125's silicon O-ring reseats cleanly within ±10 % of setpoint per the manufacturer's spec, so a single bench pop does not degrade the seat for service.
 
 Optional because the pull-ring test in the subassembly procedure confirms the load-bearing mechanism-free property, and the manufacturer's ASME UV mark implies factory setpoint verification; the functional pop only adds confidence that the spring + seat were factory-set within spec on this particular unit.
 
@@ -126,6 +138,7 @@ Optional because the pull-ring test in the subassembly procedure confirms the lo
 A finished vessel is:
 
 - Fully welded, hydro-tested, no visible weep
+- PT-inspected at the closure welds — no surface-breaking indications
 - Tapped with four clean 1/4" NPT ports
 - Citric-acid passivated, rinsed dry
 - Sparge stone + silicone tube installed via bottom CO2 port
@@ -139,7 +152,7 @@ Procedure-level gaps that need answers before unit 1 ships:
 
 1. **Hydro pass/fail criteria.** No committed PSI-drop tolerance over the 30-min hold.
 2. **Hydro failure handling.** Re-weld vs. scrap decision tree, especially for marginal cases (faint weep, slow drift).
-3. **Post-hydro visual inspection.** What gets inspected, with what aid (loupe? dye penetrant?), against what criteria.
+3. **Weld inspection acceptance criteria.** The dye-penetrant method + materials are now defined (step 6); the accept/reject criteria for an indication are not — max acceptable porosity/pinhole size, linear-vs-rounded handling, and whether a post-hydro PT re-check is also required. Define against a written standard before unit 1.
 4. **X1 Pro weld recipe end-to-end validation.** The recipe in §3 is what we run on unit 1's vessel — same 60 % / 12 mm/s / 8-tack pattern / Don't-Let-Go trigger handling — but it hasn't been run end-to-end on 316L production stock yet. The 304L practice fixtures were where the recipe was developed; first 316L production weld is unit 1.
 5. **Port 1 elbow + LTWFITTING install sequence.** [`/hardware/future.md`](/hardware/future.md) "Port 1" describes the LTWFITTING with barb facing inward and MNPT side threaded into the plate. Two assembly orders are geometrically defensible: (a) LTWFITTING first, SS elbow's FNPT threading onto LTWFITTING's externally-protruding MNPT remainder; (b) SS elbow first into Port 1 FNPT, LTWFITTING's MNPT then threading into the elbow's lateral FNPT with the barb on the elbow's lateral side. Path (a) gives a vertical elbow stack on Port 1's exterior; path (b) keeps everything at the elbow's lateral plane. Pick after the elbows are in hand and the LTWFITTING's thread length vs plate thickness can be measured against a fitting.
 
