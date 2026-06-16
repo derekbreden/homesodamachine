@@ -65,6 +65,8 @@ def main():
         # Vertical envelope for the 1/4" NPT 90° elbow stack above and
         # below the tank (foam-shell budget).
         "ELBOW_ENV": f"{above_tank_elbows_height:.4g} mm",
+        # Carbonator float-rod cut length (computed above).
+        "ROD_LEN": f"{carbonator_rod_len:.4g} mm ({carbonator_rod_len / MM_PER_IN:.3g} in)",
     }
 
     substitute_md(
@@ -73,6 +75,7 @@ def main():
         expected_counts={
             "TANK_H": 1,
             "ELBOW_ENV": 2,
+            "ROD_LEN": 2,
         },
     )
     print("-> pressure-vessel.md")
