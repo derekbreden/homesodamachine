@@ -169,7 +169,7 @@ vent_slot_height = 2.0
 vent_cylinder_length = vent_slot_height + vent_brim_thickness
 
 # Vent position on the cap, in the side=+1 frame. Centered between
-# the y=0 and y=+65 rows of screw bosses (so the ø17 vent boss and
+# the y=0 and y=+[64](CORNER_XY_Y) rows of screw bosses (so the ø17 vent boss and
 # its counterbore-sized pocket clear every screw counterbore and
 # every cap-side boss), and inside the perimeter wall. Mirrored
 # across x=0 for side=−1.
@@ -517,7 +517,7 @@ insert_positions_for_side_plus_1 = [
 # above, cut below. Bosses 4/5 (corner-of-curve positions) use a
 # virtual pivot 2 mm along wall_dir from the boss center because the
 # literal inner-wall corner is too far for a sensible cut depth (a
-# 7.19 mm cut depth would eat into the 7 mm heat-set pocket).
+# [10.86 mm](CORNER_CURVE_DIST) cut depth would eat into the 7 mm heat-set pocket).
 #
 # Values stored for side=+1; the x component is multiplied by `side`
 # in the body-boss loop to mirror across x=0 for side=−1.
@@ -528,13 +528,14 @@ _inv_sqrt2 = 1.0 / math.sqrt(2.0)
 
 # Bosses 4 / 5 need their cut direction pointed at the inner-wall
 # CORNER (where the inner curve at radius _curve_inner_x_at_y0 = 76
-# meets the inner ±Y wall at y = ±_plus_y_wall_inner_y = ±66), not
+# meets the inner ±Y wall at y = ±_plus_y_wall_inner_y = ±[67 mm](INNER_Y_MAX)), not
 # at the closest point on the curve along the inward radial line.
 # Pointing at the corner is the same pattern bosses 1 / 2 use (their
 # cuts slope down away from the +X × ±Y inner corner). For boss 4
-# the corner is at (≈37.68, 66), 7.19 mm from the boss in the
-# (−X, +Y) direction — too far to use as a literal pivot (a 7.19 mm
-# cut depth would eat into the 7 mm heat-set pocket). Instead, take
+# the corner is at (≈[35.87 mm](INNER_CORNER_CURVE_X), [67 mm](INNER_Y_MAX)),
+# [10.86 mm](CORNER_CURVE_DIST) from the boss in the (−X, +Y) direction — too
+# far to use as a literal pivot (a [10.86 mm](CORNER_CURVE_DIST) cut depth would
+# eat into the 7 mm heat-set pocket). Instead, take
 # the unit vector toward the corner as wall_dir, and place the pivot
 # VIRTUALLY at 2 mm along that direction from the boss center, so
 # the cut depth at boss center matches boss 6 (the curve apex) and
@@ -632,7 +633,7 @@ def build_reservoir_body(side=1):
     # Fillet the four sharp corners where the centerward concave curve
     # meets the ±Y walls — applied to the bare wall geometry BEFORE
     # unioning the insert bosses, because two of the inner corners
-    # coincide with boss positions (37.68, ±66) and unioning a cylinder
+    # coincide with boss positions ([35.87 mm](INNER_CORNER_CURVE_X), ±[67 mm](INNER_Y_MAX)) and unioning a cylinder
     # there would replace the sharp edge with a curved boss-to-wall
     # transition that the fillet operation can't pick up.
     #
@@ -1017,7 +1018,7 @@ def build_reservoir_cap(side=1):
     # Cut the air column: ø5 from the cylinder bottom (top of brim) up
     # to the pocket bottom. This both hollows out the cylinder body we
     # just unioned in and drills the small vent hole through the boss
-    # and the 0.5 mm of base plate below the pocket.
+    # and the [1.5 mm](VENT_BASE_PLATE_T) of base plate below the pocket.
     air_column = _z_cylinder(
         vent_anchor_xy,
         (vent_cylinder_walls_bottom_z, vent_pocket_bottom_z),
@@ -1078,11 +1079,7 @@ def build_reservoir_cap(side=1):
 
 def build_reservoir_gasket(side=1):
     """Flat TPU 85A gasket between the reservoir body wall top and the
-    cap base plate bottom. Same `[`-shape outer footprint as the body
-    and cap (with outer-corner fillets). The perimeter ring is
-    gasket_strip_width inward of the outer edge — covers the body wall
-    top fully plus the remainder extending inward over the cavity opening.
-    Each of the six insert positions has an ø8 pad extending inward
+    cap base plate bottom. Same `[ø10](GASKET_PAD_D) pad extending inward
     beyond the ring so the screw clamp compresses a uniform disk of
     TPU (matching the body boss footprint), with an ø3.5 clearance
     hole through its center. side=+1 builds the +X gasket; side=−1
@@ -1099,7 +1096,7 @@ def build_reservoir_gasket(side=1):
     gasket = _fillet_pair_at_y(gasket, side * outer_corner_x, z_mid_gasket, outer_y_max, outer_corner_fillet_radius)
     gasket = _fillet_pair_at_y(gasket, side * outer_far_x_abs, z_mid_gasket, outer_y_max, outer_corner_fillet_radius)
 
-    # At each insert position: ø8 pad unioned BEFORE the hole is cut
+    # At each insert position: [ø10](GASKET_PAD_D) pad unioned BEFORE the hole is cut
     # so each hole sits at the center of a full pad disk.
     insert_anchors = [(px * side, py) for (px, py) in insert_positions_for_side_plus_1]
     pads = (
@@ -1126,7 +1123,7 @@ def build_reservoir_retaining_ring():
     """TPU 90A annular retaining ring that presses into the cap's
     filter pocket above the membrane and clamps it against the
     pocket floor (the shelf around the small ø5 vent hole). 2 mm
-    thick. Outer ø13.0 nominal — sized for a light interference
+    thick. Outer [ø13.4](RETAINING_RING_OD) nominal — sized for a light interference
     press-fit into the ø13.2 pocket (TPU 90A is soft enough to
     compress 0.1 mm per side without trouble). Inner ø9.0 leaves
     most of the membrane exposed for airflow.
@@ -1268,6 +1265,16 @@ def main():
         "VENT_CYL_WALL_T": f"{vent_cylinder_wall_thickness:.4g} mm",
         "INSERT_POCKET_DEPTH": f"{insert_pocket_depth:.4g} mm",
         "OUTER_FILLET_R": f"{outer_corner_fillet_radius:.4g} mm",
+        # Screw-boss corner row Y, and the inner-wall corner the boss-4/5
+        # cut planes aim at (curve × inner +Y wall), plus the boss-to-corner
+        # distance that explains the virtual-pivot offset.
+        "CORNER_XY_Y": f"{_corner_xy_y:.4g}",
+        "INNER_CORNER_CURVE_X": f"{_inner_corner_curve_x:.4g} mm",
+        "CORNER_CURVE_DIST": f"{_corner_curve_to_inner_corner_dist:.4g} mm",
+        # Gasket insert pad OD, retaining-ring OD, vent base-plate thickness.
+        "GASKET_PAD_D": f"ø{2 * gasket_pad_radius:.4g}",
+        "RETAINING_RING_OD": f"ø{retaining_ring_outer_diameter:.4g}",
+        "VENT_BASE_PLATE_T": f"{cap_base_thickness - vent_pocket_depth:.4g} mm",
     }
     substitute_md(
         here / ".." / "foam-shell" / "README.md",
@@ -1383,9 +1390,15 @@ def main():
             "BULKHEAD_SEAL_BOSS_D": 2,
             "OUTER_Y_MAX": 1,
             "OUTER_CENTERWARD_R": 1,
-            "INNER_Y_MAX": 1,
+            "INNER_Y_MAX": 4,
             "OUTER_TAB_ANGLE": 3,
             "INNER_CORNER_ANGLE": 3,
+            "CORNER_XY_Y": 1,
+            "INNER_CORNER_CURVE_X": 2,
+            "CORNER_CURVE_DIST": 3,
+            "GASKET_PAD_D": 2,
+            "RETAINING_RING_OD": 1,
+            "VENT_BASE_PLATE_T": 1,
         },
     )
     print(f"-> {Path(__file__).name} (self)")
