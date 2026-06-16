@@ -9,9 +9,10 @@ cannot do. The through-hole pass (connectors, relays, coin holder, AC terminals)
 hand-soldered in-house on the existing bench. Fab and placement options, and the
 in-house-vs-turnkey decision, are in [`fabrication.md`](/hardware/pcb/fabrication.md).
 
-The design package that feeds schematic capture:
+The design package:
 
 - [`netlist.md`](/hardware/pcb/netlist.md) — components, nets, the GPIO map, open decisions.
+- [`controller_board.py`](/hardware/pcb/controller_board.py) — the netlist **as code** (SKiDL); generates [`controller-board.net`](/hardware/pcb/controller-board.net), the KiCad netlist for board layout. The electrical analog of the CadQuery mechanical scripts.
 - [`bom-board.md`](/hardware/pcb/bom-board.md) — discrete-component BOM (LCSC candidates, JLCPCB class) + power budget.
 - [`fabrication.md`](/hardware/pcb/fabrication.md) — board fab + placement options and the working recommendation.
 
@@ -107,12 +108,27 @@ board-authoritative where it and the prototype `firmware/src/main.cpp` disagree 
 GPIO — the firmware pin-map revision to match it is one of the netlist's open
 decisions. USB-C service port carries the same flash/debug path as the DevKitC.
 
+## Netlist as code
+
+The schematic is captured in code, not a GUI, to match the CadQuery mechanical flow.
+[`controller_board.py`](/hardware/pcb/controller_board.py) instantiates every part and
+net with [SKiDL](https://github.com/devbisme/skidl) and emits
+[`controller-board.net`](/hardware/pcb/controller-board.net), a KiCad netlist. Regenerate:
+
+```
+tools/pcb-venv/bin/python hardware/pcb/controller_board.py
+```
+
+The generator resolves the open decisions in [`netlist.md`](/hardware/pcb/netlist.md) to
+concrete choices (documented in its header) and passes ERC with 0 errors / 0 warnings.
+It needs KiCad's symbol libraries (the script auto-detects the macOS install or honors
+`KICAD9_SYMBOL_DIR`). A few parts use a stock-symbol stand-in for an exact part with no
+KiCad symbol (the regulators, the SOIC-16 RTC, the relays) — see the script header.
+
 ## Status
 
-The design inputs are committed: [`netlist.md`](/hardware/pcb/netlist.md) (connections +
-GPIO map), [`bom-board.md`](/hardware/pcb/bom-board.md) (parts + power budget), and
-[`fabrication.md`](/hardware/pcb/fabrication.md) (fab + placement). No schematic yet.
-
-Next step is schematic capture in KiCad, then board layout — the netlist and BOM make
-that mechanical rather than open-ended. The KiCad project lands in this directory; the
-open decisions in [`netlist.md`](/hardware/pcb/netlist.md) are resolved during capture.
+The design package is committed, including the executable netlist. Board **layout** is
+the next step: open [`controller-board.net`](/hardware/pcb/controller-board.net) in KiCad
+Pcbnew (File → Import Netlist) and place + route to the 100 × 100 mm, 4-layer target in
+"Layout" above. Footprints are pre-assigned in the netlist; verify the stand-in parts and
+the AC-corner creepage during layout.
