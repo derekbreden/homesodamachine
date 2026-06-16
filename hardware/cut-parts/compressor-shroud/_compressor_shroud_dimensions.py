@@ -17,7 +17,7 @@ sys.path.insert(
     0,
     str(next(p for p in _here.parents if (p / "tools" / "docgen").is_dir()) / "tools"),
 )
-from docgen import substitute_md  # noqa: E402
+from docgen import substitute_md, substitute_py_comments  # noqa: E402
 
 _MM_PER_IN = 25.4
 
@@ -26,7 +26,7 @@ interior_width_mm = 130.0    # W
 interior_depth_mm = 175.0    # D
 interior_height_mm = 150.0   # H
 
-# ── Material — SendCutSend G90 hot-dipped galvanized, 0.059" ────────
+# ── Material — SendCutSend G90 hot-dipped galvanized, [0.059"](WALL_IN) ────────
 wall_thickness_in = 0.059
 wall_thickness_mm = wall_thickness_in * _MM_PER_IN
 inside_bend_radius_in = 0.063
@@ -67,7 +67,7 @@ ptc_surface_temp_c = 150
 ptc_surface_temp_low_c = 140
 ac_voltage_v = 12                    # condenser fan (DC)
 
-# ── SendCutSend laser + bend specs for 0.059" G90 ──────────────────
+# ── SendCutSend laser + bend specs for [0.059"](WALL_IN) G90 ──────────────────
 cut_tolerance_in = 0.005
 min_hole_d_in = 0.022
 min_hole_d_mm = 0.56
@@ -80,7 +80,7 @@ min_bend_h_in = 1.5
 max_bend_length_in = 44
 min_flange_in = 0.311
 min_flange_mm = 7.9
-bend_deduction_in = 0.112            # SendCutSend's published 90° value
+bend_deduction_in = 0.112            # SendCutSend's published [90°](BEND_ANGLE) value
 bend_angle_tolerance_deg = 1
 bend_length_for_tol_in = 24
 max_box_flange_in = 3.0
@@ -207,6 +207,15 @@ def main():
         },
     )
     print("-> README.md")
+
+    substitute_py_comments(
+        Path(__file__),
+        variables=variables,
+        expected_counts={
+            "WALL_IN": 2,
+            "BEND_ANGLE": 1,
+        },
+    )
 
 
 if __name__ == "__main__":

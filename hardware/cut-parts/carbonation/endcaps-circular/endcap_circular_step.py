@@ -1,7 +1,7 @@
 """
 Carbonator end-cap — 3D solid for CNC machining quotes.
 
-The complete machined cap: the 4.860" × 1/4" 316 SS disc, the two 1/4"-18 NPT
+The complete machined cap: the [4.86 in](DISC_D_IN) × 1/4" 316 SS disc, the two 1/4"-18 NPT
 tap-drill through-holes, AND the blind level-sensing rod register. This is the
 quote artifact for CNC vendors (Xometry / Protolabs / Fictiv / RapidDirect),
 where the register IS a machined feature — unlike the laser cut file
@@ -15,10 +15,10 @@ diameter — the vendor taps 1/4"-18 NPT per the drawing callout.
 
 ── Geometry (built in mm; the cap's source specs are in inches) ──
 
-  Disc:            123.4 mm Ø × 6.35 mm  (4.860" × 1/4", = tube ID 4.870" − 0.010")
-  NPT tap-drill:   2× 11.13 mm Ø  (7/16") THRU, at X = ±19.05 mm (±0.750")
-  Rod register:    3.572 mm Ø (9/64") blind, 2.54 mm (0.100") deep, at
-                   (0, −50.97 mm) on the inside (+Z) face — leaves 3.81 mm
+  Disc:            [123.4 mm](DISC_D_MM) Ø × [6.35 mm](DISC_THK_MM)  (4.860" × 1/4", = tube ID 4.870" − 0.010")
+  NPT tap-drill:   2× [11.13 mm](HOLE_D_MM) Ø  (7/16") THRU, at X = ±[19.05 mm](HOLE_OFFSET_MM) (±0.750")
+  Rod register:    [3.572 mm](REG_D) Ø (9/64") blind, [2.54 mm](REG_DEPTH) (0.100") deep, at
+                   (0, −[50.97 mm](REG_Y)) on the inside (+Z) face — leaves [3.81 mm](REG_PLATE_REMAINING)
                    (0.150") of plate as intact pressure boundary.
 
 The register sits on the +Z face = the vessel INSIDE face; the −Z face is the
@@ -119,6 +119,7 @@ def main() -> None:
 
     variables = {
         "DISC_D_MM": f"{disc_diameter:.4g} mm",
+        "DISC_D_IN": f"{disc_diameter / inch:.4g} in",
         "DISC_R_MM": f"{disc_radius:.4g} mm",
         "DISC_THK_MM": f"{disc_thickness:.4g} mm",
         "HOLE_D_MM": f"{hole_diameter:.4g} mm",
@@ -127,11 +128,24 @@ def main() -> None:
         "REG_Y": f"{register_radius:.4g} mm",
         "REG_D": f"{register_drill_diameter:.4g} mm",
         "REG_DEPTH": f"{register_depth:.4g} mm",
+        "REG_PLATE_REMAINING": f"{disc_thickness - register_depth:.4g} mm",
     }
     substitute_py_comments(
         Path(__file__),
         variables=variables,
-        expected_counts={k: 1 for k in variables},
+        expected_counts={
+            "DISC_D_MM": 2,
+            "DISC_D_IN": 1,
+            "DISC_R_MM": 1,
+            "DISC_THK_MM": 2,
+            "HOLE_D_MM": 2,
+            "HOLE_R_MM": 1,
+            "HOLE_OFFSET_MM": 2,
+            "REG_Y": 2,
+            "REG_D": 2,
+            "REG_DEPTH": 2,
+            "REG_PLATE_REMAINING": 1,
+        },
     )
 
 

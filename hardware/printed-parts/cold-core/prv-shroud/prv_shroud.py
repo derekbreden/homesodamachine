@@ -14,7 +14,7 @@ SS 90° street elbow (B0CZ38MYL1) that threads into Port 4. The
 open shroud end-to-elbow joint is sealed with hot glue —
 foam-tight, not airtight.
 
-A ⌀6.35 mm hole in the closed (far) end of the shroud accepts a
+A ⌀[6.35 mm](PRV_VENT_D) hole in the closed (far) end of the shroud accepts a
 length of 1/4" OD LLDPE tubing — the unpressurized vent line. The
 LLDPE routes through the foam shell's shared +Y slot (alongside the
 water inlet) into the appliance interior, where it terminates open.
@@ -22,24 +22,24 @@ water inlet) into the appliance interior, where it terminates open.
 Geometry
 --------
 
-    Z = 46 mm  ┌──────────────────────┐  ← cap outside surface
-               │ ░░░░ 2 mm cap ░░░░░░ │  ← centered ⌀6.35 hole
-    Z = 44 mm  ├──────────────────────┤  ← cap inside surface
+    Z = [46 mm](TOTAL_L)  ┌──────────────────────┐  ← cap outside surface
+               │ ░░░░ [2 mm](PRV_CAP_T) cap ░░░░░░ │  ← centered ⌀[6.35 mm](PRV_VENT_D) hole
+    Z = [44 mm](CAVITY_L)  ├──────────────────────┤  ← cap inside surface
                │                      │
                │   (cavity around     │
-               │    PRV body, hex,    │  ← 19 mm ID
-               │    upper smooth cyl, │     23 mm OD (2 mm wall)
+               │    PRV body, hex,    │  ← [19 mm](PRV_INNER_D) ID
+               │    upper smooth cyl, │     [23 mm](PRV_OUTER_D) OD ([2 mm](PRV_WALL_T) wall)
                │    bonnet windows,   │
                │    pull-ring)        │
                │                      │
     Z = 0      └ open ────────────────┘  ← seats on elbow ⌀18.8 mm cyl
 
-The 44 mm cavity length spans from the bottom of the elbow's smooth
+The [44 mm](CAVITY_L) cavity length spans from the bottom of the elbow's smooth
 cylinder to the tip of the PRV pull-ring with the valve hand-tight
 in the elbow's lateral F outlet.
 
 Coordinate convention: cylinder axis along Z, open end at Z=0, cap
-top at Z=46. Installed orientation is horizontal — the shroud's Z
+top at Z=[46 mm](TOTAL_L). Installed orientation is horizontal — the shroud's Z
 axis aligns with the lateral run of the TAISHER elbow off Port 4.
 """
 
@@ -82,10 +82,10 @@ overcut = 0.1
 
 
 def build_prv_shroud():
-    """One-piece cup on axis +Z: a full ⌀23 cylinder spanning Z=0 to
-    the cap top at Z=46, an open-end bore (⌀19, Z=0 inward) that the
-    elbow seat enters and that stops at the cap inner face Z=44, and a
-    centered ⌀6.35 vent hole through the Z=44-to-46 cap."""
+    """One-piece cup on axis +Z: a full ⌀[23 mm](PRV_OUTER_D) cylinder spanning Z=0 to
+    the cap top at Z=[46 mm](TOTAL_L), an open-end bore (⌀[19 mm](PRV_INNER_D), Z=0 inward) that the
+    elbow seat enters and that stops at the cap inner face Z=[44 mm](CAVITY_L), and a
+    centered ⌀[6.35 mm](PRV_VENT_D) vent hole through the Z=[44 mm](CAVITY_L)-to-[46 mm](TOTAL_L) cap."""
     outer = (
         cq.Workplane("XY")
         .circle(outer_diameter / 2)
@@ -159,14 +159,14 @@ def main():
         Path(__file__),
         variables=variables,
         expected_counts={
-            "PRV_INNER_D": 1,
+            "PRV_INNER_D": 3,
             "OVERCUT": 1,
-            "PRV_WALL_T": 1,
-            "PRV_CAP_T": 1,
-            "CAVITY_L": 1,
-            "PRV_VENT_D": 1,
-            "PRV_OUTER_D": 1,
-            "TOTAL_L": 1,
+            "PRV_WALL_T": 2,
+            "PRV_CAP_T": 2,
+            "CAVITY_L": 5,
+            "PRV_VENT_D": 4,
+            "PRV_OUTER_D": 3,
+            "TOTAL_L": 5,
         },
     )
     print(f"-> {Path(__file__).name} (self)")

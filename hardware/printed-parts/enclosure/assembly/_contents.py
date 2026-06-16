@@ -39,7 +39,7 @@ TRAY_STEPS = {
 # --- Placeholder dimensions ----------------------------------------------
 # Condenser + fan harvested from the donor ice maker. Two dimensions match
 # the compressor envelope (face flush against the same shroud plane); the
-# third (airflow axis) is the fan + finstack stack depth, calipered 56 mm
+# third (airflow axis) is the fan + finstack stack depth, calipered [56 mm](CONDENSER_AIRFLOW)
 # combined.
 CONDENSER_FACE_A, CONDENSER_FACE_B, CONDENSER_AIRFLOW = 178.0, 151.0, 56.0
 # SeaFlo 22-Series diaphragm pump, body only (sans mounting brackets).
@@ -102,7 +102,7 @@ def build():
     placed["condenser+fan"] = _at(cond, 0.0, 0.0, 213.4)
 
     # SeaFlo — above cold core, right of the condenser column.
-    sf_dx, sf_dy, sf_dz = SEAFLO_DIMS              # 75 x 60 x 175
+    sf_dx, sf_dy, sf_dz = SEAFLO_DIMS              # [75 x 60 x 175](SEAFLO_DIMS)
     placed["seaflo-pump"] = _at(_box(sf_dy, sf_dz, sf_dx), 178.0, 0.0, 213.4)
 
     # Pump cases — on their long sides, on top of the cold core.

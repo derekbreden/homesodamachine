@@ -49,7 +49,7 @@ hole_positions = [(-hole_offset, 0.0), (+hole_offset, 0.0)]
 _reg_radius_in = 4.870 / 2 - (27.75 / 25.4) / 2 + 3.0 / 25.4
 register_position = (0.0, -round(_reg_radius_in, 3))  # on −Y, clear of the two ports
 register_drill_diameter = 0.140625  # 9/64" — slip-fit on the 1/8" rod
-register_depth = 0.100             # blind, to the drill-tip (leaves 0.15" wall)
+register_depth = 0.100             # blind, to the drill-tip (leaves [0.15 in](REGISTER_WALL) wall)
 
 # Drawing revision date shown in the title block. A fixed constant rather
 # than date.today() so regenerating the PDF is byte-stable — a render on a
@@ -355,7 +355,7 @@ def draw_main_view(c: canvas.Canvas) -> None:
         text=f"\u00d8{disc_diameter:.3f}",
     )
 
-    # Hole center-to-center (1.500), placed above the holes, horizontal.
+    # Hole center-to-center ([1.5 in](HOLE_SPACING)), placed above the holes, horizontal.
     left_hole_cx = view_center_x + hole_positions[0][0]
     right_hole_cx = view_center_x + hole_positions[1][0]
     hole_spacing_dim_y = view_center_y + 0.45
@@ -373,7 +373,7 @@ def draw_main_view(c: canvas.Canvas) -> None:
     c.drawCentredString(view_center_x * inch,
                         (hole_spacing_dim_y + 0.05) * inch, "1.500")
 
-    # Hole position from disc center (two .750 dims, one each side,
+    # Hole position from disc center (two [0.75 in](HOLE_OFFSET_IN) dims, one each side,
     # sharing the disc-center extension line).
     half_spacing_dim_y = view_center_y + 0.90
     c.line(view_center_x * inch, view_center_y * inch,
@@ -460,6 +460,7 @@ def main() -> None:
         "HOLE_R_IN": f"{hole_radius:.4g} in",
         "HOLE_SPACING": f"{hole_spacing:.4g} in",
         "HOLE_OFFSET_IN": f"{hole_offset:.4g} in",
+        "REGISTER_WALL": f"{disc_thickness - register_depth:.4g} in",
     }
     substitute_py_comments(
         Path(__file__),
@@ -470,8 +471,9 @@ def main() -> None:
             "DISC_THK_IN": 1,
             "HOLE_D_IN": 1,
             "HOLE_R_IN": 1,
-            "HOLE_SPACING": 1,
-            "HOLE_OFFSET_IN": 1,
+            "HOLE_SPACING": 2,
+            "HOLE_OFFSET_IN": 2,
+            "REGISTER_WALL": 1,
         },
     )
     print(f"-> {Path(__file__).name} (self)")

@@ -28,6 +28,7 @@ from _cold_core_interface import (  # noqa: E402
     outer_shell_y_length,
     port_hole_radius,
     screw_boss_size,
+    wall_and_floor_thickness,
 )
 
 import importlib.util  # noqa: E402
@@ -51,6 +52,7 @@ _coil_mandrel_gen = _load_module(
     _hw / "printed-parts" / "cold-core" / "coil-mandrel" / "coil_mandrel.py",
 )
 
+import _foam_cap  # noqa: E402
 import _port_cuts  # noqa: E402
 from docgen import substitute_md, substitute_py_comments  # noqa: E402
 
@@ -122,15 +124,39 @@ def main():
     print("-> cold-core.md")
 
     # Pin the CO2-inlet bore dimensions in _port_cuts.py's docstring.
+    # doorway_y = -(pocket_centerward_arc_outer_radius - wall_and_floor_thickness),
+    # rendered with a U+2212 minus to match the prose.
+    co2_doorway_y = -(
+        _port_cuts.pocket_centerward_arc_outer_radius - _port_cuts.wall_and_floor_thickness
+    )
     substitute_py_comments(
         Path(_port_cuts.__file__),
         variables={
             "CO2_INLET_BORE_D": f"⌀{2 * _port_cuts.co2_inlet_bore_radius:.4g}",
             "CO2_INLET_BORE_Z": f"{_port_cuts.co2_inlet_bore_z:.4g}",
+            "CO2_DOORWAY_Y": f"\N{MINUS SIGN}{abs(co2_doorway_y):.4g}",
+            "FLOOR_TOP_Z": f"{_port_cuts.wall_and_floor_thickness:.4g}",
+            "PORT_HOLE_DIAMETER": f"{_port_cuts.port_hole_radius * 2:.4g}",
         },
-        expected_counts={"CO2_INLET_BORE_D": 1, "CO2_INLET_BORE_Z": 1},
+        expected_counts={
+            "CO2_INLET_BORE_D": 1,
+            "CO2_INLET_BORE_Z": 1,
+            "CO2_DOORWAY_Y": 1,
+            "FLOOR_TOP_Z": 2,
+            "PORT_HOLE_DIAMETER": 2,
+        },
     )
     print("-> _port_cuts.py")
+
+    # Pin the foam-cap interior height in _foam_cap.py's docstring.
+    substitute_py_comments(
+        Path(_foam_cap.__file__),
+        variables={
+            "FOAM_CAP_INTERIOR_HEIGHT": f"{foam_cap_interior_height:.4g} mm",
+        },
+        expected_counts={"FOAM_CAP_INTERIOR_HEIGHT": 1},
+    )
+    print("-> _foam_cap.py")
 
 
 if __name__ == "__main__":

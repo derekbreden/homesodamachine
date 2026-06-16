@@ -6,11 +6,11 @@ Two identical discs per vessel, each with 2x tap-drill holes for 1/4"-18 NPT.
 
 ── Dimensions ──
 
-  Disc diameter:       4.860"    (= tube ID 4.870" − 0.010" slip-fit)
-  Disc thickness:      0.250"    (1/4" 316 SS, laser-cut)
-  Hole diameter:       0.438"    (7/16" — tap drill for 1/4"-18 NPT)
-  Hole spacing:        1.500"    (center-to-center along one axis)
-  Hole positions:      (-0.750, 0) and (+0.750, 0)
+  Disc diameter:       [4.86 in](DISC_D_IN)    (= tube ID 4.870" − 0.010" slip-fit)
+  Disc thickness:      [0.25 in](DISC_THK_IN)    (1/4" 316 SS, laser-cut)
+  Hole diameter:       [0.438 in](HOLE_D_IN)    (7/16" — tap drill for 1/4"-18 NPT)
+  Hole spacing:        [1.5 in](HOLE_SPACING)    (center-to-center along one axis)
+  Hole positions:      (-[0.75](HOLE_OFFSET), 0) and (+[0.75](HOLE_OFFSET), 0)
 
 ── Rod register (in-house DRILLED secondary op — deliberately NOT in the cut) ──
 
@@ -25,28 +25,28 @@ Two identical discs per vessel, each with 2x tap-drill holes for 1/4"-18 NPT.
   Both discs are drilled identically (kept interchangeable): top plate captures
   the rod tip, bottom plate seats/locates the rod base for its tack weld.
 
-  Register center:     (0, -2.007)"  on the −Y axis, clear of the two ports.
-                       Radius 2.007" = tube-ID radius 2.435" − donut radius
-                       0.546" (27.75 mm donor ferrite donut, DEVMO MINI) + a
-                       3 mm wall-preload pinning the donut firmly to the inner
+  Register center:     (0, [-2.007](REGISTER_Y))"  on the −Y axis, clear of the two ports.
+                       Radius [2.007 in](REGISTER_R) = tube-ID radius [2.435 in](TUBE_ID_R) − donut radius
+                       [0.546 in](DONUT_R) (27.75 mm donor ferrite donut, DEVMO MINI) + a
+                       [3 mm](WALL_PRELOAD_MM) wall-preload pinning the donut firmly to the inner
                        wall despite bore/print slack — matches the reservoir's
                        test-fit result (reservoir.py rod_position_x 104 → 107 mm).
                        Keeps the donut's magnet coupling through the 0.065" wall
                        to the external reeds — the bench "ride the wall within
                        ~2 mm" requirement (level-sensing.md). The −Y azimuth must
                        match where the reeds mount outside.
-  Register drill:      9/64" (0.141")  — slip-fit on the 1/8" rod; snug, which
+  Register drill:      9/64" ([0.141 in](REGISTER_DRILL_D))  — slip-fit on the 1/8" rod; snug, which
                        self-locates the rod base in the bottom plate for its tack
                        weld. Open the TOP plate's pocket to 5/32" (0.156") only if
                        the cap fights to seat over the rod tip at closure (step 5).
-  Register depth:      0.10"  blind, to the drill-point tip, from the inside face
-                       — leaves 0.15" of the 0.25" plate as intact pressure
+  Register depth:      [0.10 in](REGISTER_DEPTH)  blind, to the drill-point tip, from the inside face
+                       — leaves [0.15 in](REGISTER_REMAINING) of the [0.25 in](DISC_THK_IN) plate as intact pressure
                        boundary. 135° split-point bit ⇒ ~0.07" of full-diameter
                        pocket gripping the rod tip: ample, non-load-bearing capture.
 
 ── Material ──
 
-  316 stainless steel, 0.250" thick, laser-cut.
+  316 stainless steel, [0.25 in](DISC_THK_IN) thick, laser-cut.
 
 Units: inches.  DXF $INSUNITS = 1 (inches).
 """
@@ -145,17 +145,35 @@ def main() -> None:
         "HOLE_D_IN": f"{hole_diameter:.4g} in",
         "HOLE_R_IN": f"{hole_radius:.4g} in",
         "HOLE_SPACING": f"{hole_spacing:.4g} in",
+        "HOLE_OFFSET": f"{hole_spacing / 2:.4g}",
+        "REGISTER_Y": f"{register_position[1]:.4g}",
+        "REGISTER_R": f"{register_radius:.4g} in",
+        "TUBE_ID_R": f"{tube_id_radius:.4g} in",
+        "DONUT_R": f"{donut_od / 2:.3f} in",
+        "WALL_PRELOAD_MM": f"{wall_preload * 25.4:.4g} mm",
+        "REGISTER_DRILL_D": f"{register_drill_diameter:.3f} in",
+        "REGISTER_DEPTH": f"{register_depth:.2f} in",
+        "REGISTER_REMAINING": f"{disc_thickness - register_depth:.4g} in",
     }
     substitute_py_comments(
         Path(__file__),
         variables=variables,
         expected_counts={
-            "DISC_D_IN": 1,
+            "DISC_D_IN": 2,
             "DISC_R_IN": 1,
-            "DISC_THK_IN": 1,
-            "HOLE_D_IN": 1,
+            "DISC_THK_IN": 4,
+            "HOLE_D_IN": 2,
             "HOLE_R_IN": 1,
-            "HOLE_SPACING": 1,
+            "HOLE_SPACING": 2,
+            "HOLE_OFFSET": 2,
+            "REGISTER_Y": 1,
+            "REGISTER_R": 1,
+            "TUBE_ID_R": 1,
+            "DONUT_R": 1,
+            "WALL_PRELOAD_MM": 1,
+            "REGISTER_DRILL_D": 1,
+            "REGISTER_DEPTH": 1,
+            "REGISTER_REMAINING": 1,
         },
     )
 

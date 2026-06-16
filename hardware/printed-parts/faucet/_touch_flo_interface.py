@@ -18,7 +18,7 @@ flavor_tube_od = 6.35
 # radius out from X = 0 on the lateral axis. The pill cutout that
 # covers both tubes is centered at X = 0 and stretches X by ± this
 # offset + the per-tube hole radius.
-flavor_tube_x_offset = flavor_tube_od / 2.0  # 3.175
+flavor_tube_x_offset = flavor_tube_od / 2.0  # [3.175 mm](FLAVOR_TUBE_X_OFFSET)
 
 # Diametric (total) clearance around each flavor tube through the pill
 # cutout — i.e. hole_dia − tube_od. Print-validated on PET-CF; see
@@ -26,15 +26,15 @@ flavor_tube_x_offset = flavor_tube_od / 2.0  # 3.175
 flavor_tube_hole_clearance = 0.7
 
 # Per-tube hole diameter, derived.
-flavor_tube_hole_dia = flavor_tube_od + flavor_tube_hole_clearance  # 7.05
+flavor_tube_hole_dia = flavor_tube_od + flavor_tube_hole_clearance  # [7.05 mm](FLAVOR_TUBE_HOLE_DIA)
 
 # Pill cutout (rounded rectangle, X-oriented) that covers both flavor
 # tubes as a single opening. The two per-tube circles overlap by
 # (hole_dia − 2 × x_offset), so we model the combined opening as the
 # pill formed by sliding a circle of `flavor_tube_hole_dia` from
 # X = −x_offset to X = +x_offset.
-pill_length_x = 2.0 * flavor_tube_x_offset + flavor_tube_hole_dia  # 13.4
-pill_width_y = flavor_tube_hole_dia                                # 7.05
+pill_length_x = 2.0 * flavor_tube_x_offset + flavor_tube_hole_dia  # [13.4 mm](PILL_LENGTH_X)
+pill_width_y = flavor_tube_hole_dia                                # [7.05 mm](PILL_WIDTH_Y)
 
 # Depth magnitude of the flavor-tube pill center from the body / shank
 # axis at world origin. The pill sits at world Y = +flavor_tube_depth
@@ -43,7 +43,7 @@ pill_width_y = flavor_tube_hole_dia                                # 7.05
 # cylinder radius (15.75) plus the flavor-tube radius — the pill is
 # tangent to the body's back face, so the flavor tubes butt up against
 # the body wall.
-flavor_tube_depth = 15.75 + flavor_tube_x_offset  # 18.925
+flavor_tube_depth = 15.75 + flavor_tube_x_offset  # [18.925 mm](FLAVOR_TUBE_DEPTH)
 
 # Central pocket for the body's threaded shank. Ø12.6 matches the
 # factory mounting plate; the threaded shank is ~Ø11 nominal. Used by
@@ -56,7 +56,7 @@ shank_hole_diameter = 12.6
 # caliper-measured device envelope, shared by the faucet-assembly
 # stand-in and the shell's display cradle. Front to back: the plastic
 # housing (screen glass flush in its front face) overhangs the PCB by
-# ~0.275 mm per side; below the PCB underside, components protrude with
+# ~[0.275 mm](DISPLAY_HOUSING_OVERHANG) per side; below the PCB underside, components protrude with
 # the metal feet as the extreme point. Native depth axis: z = 0 at the
 # feet (the device's bounding back), +z toward the screen.
 display_housing_width = 24.50   # plastic housing, lateral
@@ -69,5 +69,5 @@ display_total_depth = 10.35     # housing front face → bottom of the metal fee
 display_housing_depth = 5.00    # housing front face → housing bottom (= PCB top)
 display_pcb_bottom_from_front = 6.45  # housing front face → PCB underside
 # Native-frame boundary planes, z = 0 at the feet.
-display_pcb_bottom_z = display_total_depth - display_pcb_bottom_from_front  # 3.90
-display_pcb_top_z = display_total_depth - display_housing_depth             # 5.35
+display_pcb_bottom_z = display_total_depth - display_pcb_bottom_from_front  # [3.9 mm](DISPLAY_PCB_BOTTOM_Z)
+display_pcb_top_z = display_total_depth - display_housing_depth             # [5.35 mm](DISPLAY_PCB_TOP_Z)
