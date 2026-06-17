@@ -20,6 +20,7 @@ For per-unit BOM parts, see [bom.md](/hardware/ledger/bom.md). For non-BOM/non-t
 | **Brown & Sharpe spring-loaded tap guide** | [B005317ZMC](https://www.amazon.com/dp/B005317ZMC), [purchases.md §1](/hardware/ledger/purchases.md) | 1/2" hardened shank; keeps the pipe tap square while starting threads under the drill press. | [$27.45](T_TAP_GUIDE) |
 | **Mollom 124 mm bi-metal hole saw + arbor** | [B0BZQ4J5B1](https://www.amazon.com/dp/B0BZQ4J5B1), [purchases.md §1](/hardware/ledger/purchases.md) | HSS M42, 4-7/8" cut; near-5" fixture pockets and end-cap disc cuts. | [$19.19](T_HOLE_SAW) |
 | **Drill Hulk 9/64" M35 cobalt twist drill bits (12-pk)** | [B07XNNNC5Y](https://www.amazon.com/dp/B07XNNNC5Y), [purchases.md §1](/hardware/ledger/purchases.md) | M35 (5% cobalt), 135° split point, jobber length. Blind level-sensing rod register (0.10" deep) in the 316 SS end-cap inside face; slip-fit for the 1/8" float rod. Consumable, 12-pack covers the 20-cap batch. | [$18.43](T_REGISTER_BIT) |
+| **WEN BA4555 benchtop metal band saw** | [B09XWQCNGT](https://www.amazon.com/dp/B09XWQCNGT), [purchases.md §1](/hardware/ledger/purchases.md) | 5" round / 5×4-7/8" rect capacity, 0–60° miter vise, variable 125–260 FPM, 56-1/2" blade. Horizontal cutoff with vise + length stop — square, repeatable cuts of the 1/8" 316L level-sensing rods (3 lengths: carbonator + flavor reservoir + lite reservoir pocket). Blade: Imachinist 24 TPI M42 bi-metal ([B0B7GDTX9H](https://www.amazon.com/dp/B0B7GDTX9H)). | [$362.73](T_BANDSAW) |
 | **Bosch DSB1013 Daredevil spade bit** | [B001NGPAA0](https://www.amazon.com/dp/B001NGPAA0), [purchases.md §1](/hardware/ledger/purchases.md) | 1" × 6", for 1" through-holes in fixture stock. | [$5.35](T_SPADE_BIT) |
 | **MOTOKU 38 mm round die handle** | [B073ZX58PH](https://www.amazon.com/dp/B073ZX58PH), [purchases.md §1](/hardware/ledger/purchases.md) | Companion to Drill America die kit for chasing external threads on test fittings. | [$15.00](T_DIE_HANDLE) |
 
@@ -117,7 +118,7 @@ For per-unit BOM parts, see [bom.md](/hardware/ledger/bom.md). For non-BOM/non-t
 
 ## Tools total
 
-Total acquired tooling: **[$13,964.74](TOOLS_TOTAL)**
+Total acquired tooling: **[$14,327.47](TOOLS_TOTAL)**
 
 ## Open items
 

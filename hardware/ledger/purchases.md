@@ -58,6 +58,8 @@ Stainless pressure-vessel fabrication: 316 SS round-tube body + 1/4" laser-cut 3
 | Storystore 4" heavy-duty steel C-clamps (4 pk). Order #112-2348373-7907448, placed April 29, 2026 | [B0DHX78G97](https://www.amazon.com/dp/B0DHX78G97) | 1 pk | $21.44 | ACQUIRED |
 | Bosch DSB1013 1" × 6" Daredevil Standard Spade Bit. Order #111-4630388-1572202, placed April 29, 2026 | [B001NGPAA0](https://www.amazon.com/dp/B001NGPAA0) | 1 | $5.35 | ACQUIRED |
 | Drill Hulk DHCO26 9/64" (3.57 mm) M35 cobalt jobber twist drill bits, 12-pack — blind rod-register drilling in the 316 SS end-cap plates. Order #112-3161139-1981039, placed June 15, 2026 | [B07XNNNC5Y](https://www.amazon.com/dp/B07XNNNC5Y) | 1 pk (12) | $18.43 | ON-ORDER (arriving Wed Jun 17) |
+| WEN BA4555 5" benchtop metal-cutting band saw — horizontal cutoff with vise + length stop, 0–60° miter, variable 125–260 FPM, 56-1/2" blade. Square, repeatable cuts of the 1/8" 316L level-sensing rods (carbonator + flavor reservoir + lite reservoir pocket). Order #112-0741371-9657825, placed June 17, 2026 | [B09XWQCNGT](https://www.amazon.com/dp/B09XWQCNGT) | 1 | $362.73 | ON-ORDER (arriving Jun 24–25) |
+| Imachinist S56121224SS 56-1/2" × 1/2" × 24 TPI M42 bi-metal bandsaw blade (stainless) — 1/8" rod cutoff blade for the BA4555. Order #112-3334877-3267411, placed June 17, 2026 | [B0B7GDTX9H](https://www.amazon.com/dp/B0B7GDTX9H) | 1 | $19.83 | ON-ORDER (arriving Mon Jun 22) |
 | Ultra Duster Canned Air Industrial Strength 10 oz, 4-pack. Order #112-6571709-7582668, placed May 8, 2026 | [B07JRBR1MM](https://www.amazon.com/dp/B07JRBR1MM) | 1 pk (4× 10 oz) | $24.51 | ACQUIRED (delivered May 12) |
 | Hgnova 15-pc 1064 nm laser protective lens, D18 × 2 mm, 1000–3000 W handheld 4-in-1 laser welder. Order #112-3421913-9021801, placed April 30, 2026 | [B0FF38DY1Z](https://www.amazon.com/dp/B0FF38DY1Z) | 1 pk (15) | $19.29 | ACQUIRED |
 | SENCTRL 0–200 PSI glycerin-filled pressure gauge, 2.5" dial, 1/4" NPT lower mount, SS case. Order #112-2086169-3211445, placed May 4, 2026 | [B0BCHMQLFB](https://www.amazon.com/dp/B0BCHMQLFB) | 1 | $10.72 | ACQUIRED (delivered Tue May 5) |
@@ -451,7 +453,9 @@ Receipts grouped by order; each line in the table is one shipment. See Bambu Lab
 | 2026-05-04 | us728013517860630529 | Dual Extruder Unit (H2C) ×1 — replacement extruder | $193.05 | ACQUIRED |
 | 2026-05-04 | us728027710789775361 | Bambu Lab H2C (AMS Combo) — second printer | $2,572.93 | ACQUIRED |
 | 2026-05-25 | us735568811268960257 | PETG Basic Black 30105 ×10 + PETG Translucent Clear 32101 ×10 (1 kg refills, bulk) | $278.72 | ACQUIRED (delivered May 29) |
-| **§15 subtotal — 15 orders (15 ACQUIRED)** | | | **ACQUIRED $8,381.47** | |
+| 2026-06-10 | us741350370718978049 | Induction Heating Assembly - Right ×1 (H2C / H2C Laser) + shipping + tax | $71.83 | ACQUIRED (delivered Jun 15) |
+| 2026-06-17 | us743915395468910593 | PETG Basic Black 30105 ×10 + PETG Translucent Clear 32101 ×10 (1 kg refills, bulk) | $224.04 | ON-ORDER |
+| **§15 subtotal — 17 orders (16 ACQUIRED, 1 ON-ORDER)** | | | **ACQUIRED $8,453.30 · ON-ORDER $224.04** | |
 
 ## 16. Laser welding / cleaning / cutting
 
@@ -514,13 +518,13 @@ Industrial-supply orders direct from McMaster-Carr (mcmaster.com). First McMaste
 
 | Status | $ |
 |---|---|
-| ACQUIRED — hardware, tools & infra (§§1–17, 19, 20) | [$25,916.51](LEDGER_ACQUIRED_HW) |
+| ACQUIRED — hardware, tools & infra (§§1–17, 19, 20) | [$25,988.34](LEDGER_ACQUIRED_HW) |
 | ACQUIRED — capitalized contract labor (§18) | [$2,607.92](LEDGER_LABOR) |
-| ACQUIRED (combined) | [$28,524.43](LEDGER_ACQUIRED_COMBINED) |
-| ON-ORDER | [$598.25](LEDGER_ON_ORDER) |
+| ACQUIRED (combined) | [$28,596.26](LEDGER_ACQUIRED_COMBINED) |
+| ON-ORDER | [$1,204.85](LEDGER_ON_ORDER) |
 | MISSING — paid, not received (§1 copper bar) | [$42.89](LEDGER_MISSING) |
 | LIKELY-TO-BUY | $0.00 |
-| **Grand total — cash outlay** | [$29,165.57](LEDGER_GRAND_TOTAL) |
+| **Grand total — cash outlay** | [$29,844.00](LEDGER_GRAND_TOTAL) |
 
 ACQUIRED hardware by section:
 
@@ -540,7 +544,7 @@ ACQUIRED hardware by section:
 | 12 | Shop / bench infrastructure | [$372.51](LEDGER_SEC12) |
 | 13 | Printing consumables | [$1,073.01](LEDGER_SEC13) |
 | 14 | Soldering + small-signal tools | [$544.37](LEDGER_SEC14) |
-| 15 | 3D printing equipment + filaments (Bambu direct) | [$8,381.47](LEDGER_SEC15) |
+| 15 | 3D printing equipment + filaments (Bambu direct) | [$8,453.30](LEDGER_SEC15) |
 | 16 | Laser welding / cleaning / cutting | [$3,899.00](LEDGER_SEC16) |
 | 17 | Domain / infrastructure | [$599.00](LEDGER_SEC17) |
 | 19 | Video / marketing capture | [$91.43](LEDGER_SEC19) |
