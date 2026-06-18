@@ -2,8 +2,8 @@
 placed contents, sized to fit the H2C left-nozzle build envelope.
 
 Dimensions follow the contents at build time: the bounding box of the parts
-placed by `../assembly/_contents.py` is computed live, padded by an interior
-clearance, then walled out. Six closed walls; no penetrations modelled.
+placed by `../enclosure-assembly/_contents.py` is computed live, padded by an
+interior clearance, then walled out. Six closed walls; no penetrations modelled.
 """
 
 import sys
@@ -14,7 +14,7 @@ import cadquery as cq
 _here = Path(__file__).resolve()
 _repo = next(p for p in _here.parents if (p / "hardware" / "scripts" / "_cadq_export.py").is_file())
 sys.path.insert(0, str(_repo / "hardware" / "scripts"))
-sys.path.insert(0, str(_repo / "hardware" / "printed-parts" / "enclosure" / "assembly"))
+sys.path.insert(0, str(_repo / "hardware" / "printed-parts" / "enclosure" / "enclosure-assembly"))
 from _cadq_export import export_step
 import _contents
 
@@ -28,7 +28,7 @@ H2C_X, H2C_Y, H2C_Z = 325.0, 320.0, 320.0
 
 def _contents_bbox():
     """Combined bounding box of the placed contents, built in-process from
-    ../assembly/_contents.py — no serialized contents STEP."""
+    ../enclosure-assembly/_contents.py — no serialized contents STEP."""
     placed = _contents.build()
     bbs = [shape.BoundingBox() for shape, _color in placed.values()]
     return (
@@ -65,7 +65,7 @@ def build_enclosure():
 
 def main():
     shell, outer = build_enclosure()
-    out = _here.parent / "shell.step"
+    out = _here.parent / "enclosure.step"
     export_step(shell, str(out))
     print(f"-> {out.name}")
     ox0, ox1, oy0, oy1, oz0, oz1 = outer
