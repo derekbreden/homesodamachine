@@ -17,7 +17,7 @@
 //      importStep itself.
 //
 // Tracking only (1) is the bug this module fixes. A part's STEP could change
-// and every enclosure/assembly that merely *loads* it stayed stale until some
+// and every enclosure or assembly that merely *loads* it stayed stale until some
 // unrelated import-edge edit happened to re-run the generator — a real,
 // week-long staleness (valve-manifold widened 2026-06-08; the assemblies that
 // load its trays weren't rebuilt until an unrelated reservoir edit on 06-14

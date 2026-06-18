@@ -1,7 +1,7 @@
 """Kitchen Edition enclosure assembly — the shell wrapped around the contents.
 
-Combines `../shell/shell.step` with the placed parts from `_contents.build()`
-in their shared coordinates.
+Combines `../enclosure/enclosure.step` with the placed parts from
+`_contents.build()` in their shared coordinates.
 The contents keep their per-part colors; the shell is translucent so the
 arrangement reads through it.
 """
@@ -19,7 +19,7 @@ from _cadq_export import export_assembly
 from docgen import substitute_py_comments
 import _contents as contents
 
-SHELL_STEP = _repo / "hardware" / "printed-parts" / "enclosure" / "shell" / "shell.step"
+SHELL_STEP = _repo / "hardware" / "printed-parts" / "enclosure" / "enclosure" / "enclosure.step"
 SHELL_COLOR = cq.Color(0.85, 0.92, 1.00, 0.22)  # transparent PETG
 
 
@@ -28,7 +28,7 @@ def build():
     shell = cq.importers.importStep(str(SHELL_STEP)).val()
 
     assy = cq.Assembly(name="kitchen-edition-enclosure-assembly")
-    assy.add(shell, name="shell", color=SHELL_COLOR)
+    assy.add(shell, name="enclosure", color=SHELL_COLOR)
     for name, (shape, color) in placed.items():
         assy.add(shape, name=name, color=color)
     return assy
@@ -36,7 +36,7 @@ def build():
 
 def main():
     assy = build()
-    out = _here.parent / "assembly.step"
+    out = _here.parent / "enclosure-assembly.step"
     export_assembly(assy, str(out))
     print(f"-> {out.name}")
 

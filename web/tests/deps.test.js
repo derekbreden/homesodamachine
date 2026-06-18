@@ -45,8 +45,8 @@ test("a tray STEP's consumers include the assemblies that only _load it (regress
     "expected lite enclosure among consumers",
   );
   assert.ok(
-    consumers.some(ends("hardware/printed-parts/enclosure/assembly/assembly.py")),
-    "expected hardware assembly among consumers",
+    consumers.some(ends("hardware/printed-parts/enclosure/enclosure-assembly/enclosure_assembly.py")),
+    "expected hardware enclosure-assembly among consumers",
   );
 });
 
@@ -102,10 +102,10 @@ test("the build order respects every STEP-load edge (producers before consumers)
 });
 
 test("short basenames don't substring-match longer step names (collision regression)", () => {
-  // "assembly.step" (the hardware enclosure assembly's output) is a substring
-  // of "source-select-assembly.step", "pump-case-assembly.step", etc. Matching
-  // it as a token must NOT pull in scripts that only reference those longer
-  // names — that invented reverse edges and cycles.
+  // The bare "assembly.step" token is a substring of "source-select-assembly.step",
+  // "pump-case-assembly.step", "enclosure-assembly.step", etc. Matching it as a
+  // token must NOT pull in scripts that only reference those longer names — that
+  // invented reverse edges and cycles.
   const consumers = findScriptsConsumingStep("assembly.step", ROOTS);
   assert.ok(
     !consumers.some(ends("source-select-tray/source_select_assembly.py")),
