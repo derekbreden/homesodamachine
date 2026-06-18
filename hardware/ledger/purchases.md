@@ -120,8 +120,8 @@ Feed-water inlet, filter, ASSE 1022 backflow preventer and its vent-line hardwar
 | Yetaha RO 1/4" water flow-adjust valve. Order #114-2734195-8455414, placed March 15, 2026 | [B07GDFWB8R](https://www.amazon.com/dp/B07GDFWB8R) | 1 | $12.86 | ACQUIRED |
 | SEAFLO 22-Series 12V 1.3 GPM 100 psi on-demand pump. Order #114-4512279-7485822, placed April 1, 2026 | [B0166UBJX4](https://www.amazon.com/dp/B0166UBJX4) | 1 | $48.25 | ACQUIRED |
 | Fresh Water Systems order WEBFWS100677333 — Colder 70500 NSF QD insert (×2) + 74600 NSF QD body (×2) + blue 1/4" LLDPE 100 ft + JG PP0208E union tee (×10) | [freshwatersystems.com](https://www.freshwatersystems.com/) | 1 order (4 items) | $130.45 | ACQUIRED |
-| Fresh Water Systems order WEBFWS100677768 — **MTB-0606WP** 3/8"barb × 3/8"MNPT tee (×10, swapped from discontinued MTB-0604WP) + JG PP450822E 1/4" NPTF female adapter (×10) | [freshwatersystems.com](https://www.freshwatersystems.com/) | 1 order (2 items) | $62.08 | SHIPPED Jun 10 (UPS 1ZW0062A0297032825; itemized 10× MTB-0606WP + 10× PP450822E. FWS swapped the discontinued MTB-0604WP to MTB-0606WP and credited the $0.60 upcharge, total held at $62.08. 0606's 3/8" MNPT branch ≠ PP450822E 1/4" NPTF — adapters reassign to general stock; branch adapter ordered separately on WEBFWS100682118) |
-| Fresh Water Systems order WEBFWS100682118 — JG PP451223W 3/8"NPTF × 3/8"PTC female adapter (bag of 10) + JG PP061208W 3/8"stem × 1/4"PTC reducer stem (bag of 10) | [freshwatersystems.com](https://www.freshwatersystems.com/) | 1 order (2 items) | $81.33 | ORDERED Jun 10 (confirmed WEBFWS100682118, ships ~2 business days. Tap-point branch adapter for the MTB-0606WP 3/8" MNPT branch — closes `assembly/internal-plumbing.md` Open items 3) |
+| Fresh Water Systems order WEBFWS100677768 — **MTB-0606WP** 3/8"barb × 3/8"MNPT tee (×10, swapped from discontinued MTB-0604WP) + JG PP450822E 1/4" NPTF female adapter (×10) | [freshwatersystems.com](https://www.freshwatersystems.com/) | 1 order (2 items) | $62.08 | ACQUIRED (delivered Jun 15; UPS 1ZW0062A0297032825; itemized 10× MTB-0606WP + 10× PP450822E. FWS swapped the discontinued MTB-0604WP to MTB-0606WP and credited the $0.60 upcharge, total held at $62.08. 0606's 3/8" MNPT branch ≠ PP450822E 1/4" NPTF — adapters reassign to general stock; branch adapter ordered separately on WEBFWS100682118) |
+| Fresh Water Systems order WEBFWS100682118 — JG PP451223W 3/8"NPTF × 3/8"PTC female adapter (bag of 10) + JG PP061208W 3/8"stem × 1/4"PTC reducer stem (bag of 10) | [freshwatersystems.com](https://www.freshwatersystems.com/) | 1 order (2 items) | $81.33 | ACQUIRED (delivered Jun 15; confirmed WEBFWS100682118. Tap-point branch adapter for the MTB-0606WP 3/8" MNPT branch — closes `assembly/internal-plumbing.md` Open items 3) |
 
 ## 4. Carbonator plumbing (pressurized side)
 
@@ -184,7 +184,7 @@ Peristaltic pumps, solenoids, bag-in-box connector, silicone delivery tubing, ba
 | TAILONZ push-to-connect 1/4" tube × 1/8" NPT (10 pk). Order #114-5604599-8333023, placed March 16, 2026 | [B07P8784D2](https://www.amazon.com/dp/B07P8784D2) | 1 pk | $10.71 | ACQUIRED |
 | MALIDA 1/8" NPT × 1/4" tube elbow/straight push-fit. Order #114-5604599-8333023, placed March 16, 2026 | [B09MY72KQ7](https://www.amazon.com/dp/B09MY72KQ7) | 1 pk | $8.57 | ACQUIRED |
 | John Guest PP2308E two-way divider, black polypropylene 1/4" | [freshwatersystems.com](https://www.freshwatersystems.com/products/john-guest-two-way-divider-black-polypropylene-1-4) | 2 bags (20 dividers) | $88.43 | ACQUIRED (delivered May 14) |
-| John Guest PP0208E union tee, black polypropylene 1/4" (manifold Tees, Y-C/D/E/F/G/H/KA/KB) | [freshwatersystems.com](https://www.freshwatersystems.com/products/john-guest-union-tee-black-polypropylene-1-4) | 2 bags (20 tees) | $59.99 | ON-ORDER (ordered Jun 8, order WEBFWS100681220) |
+| John Guest PP0208E union tee, black polypropylene 1/4" (manifold Tees, Y-C/D/E/F/G/H/KA/KB) | [freshwatersystems.com](https://www.freshwatersystems.com/products/john-guest-union-tee-black-polypropylene-1-4) | 2 bags (20 tees) | $59.99 | ACQUIRED (delivered Jun 10, order WEBFWS100681220) |
 | John Guest Speedfit PP1208E 1/4" OD black polypropylene push-to-connect bulkhead union, 10-pack. Order #112-6407862-0653853, placed May 11, 2026 | [B00JYFU8MM](https://www.amazon.com/dp/B00JYFU8MM) | 1 pk (10) | $24.79 | ACQUIRED (delivered May 12) |
 | PureSec 1/4" RO push-to-connect 90° elbow bulkhead, white polypropylene, 5-pack. Order #112-0924482-7189013, placed May 28, 2026 | [B0968K4JRN](https://www.amazon.com/dp/B0968K4JRN) | 1 pk (5) | $11.79 | ACQUIRED (delivered May 29) |
 | uxcell silicone flat washer, ⌀16 ID × ⌀24 OD × 3 mm, clear, 10-pack — reservoir bulkhead wet-side face seal. Order #112-8819640-4433810, placed Jun 7, 2026 | [B07D23JJMR](https://www.amazon.com/dp/B07D23JJMR) | 1 pk (10) | $7.50 | ACQUIRED (delivered Jun 8) |
@@ -397,7 +397,7 @@ Bench soldering capability for through-hole, wire-to-pad (pogo pin leads), and g
 | KOTTO solder fume extractor, 60 W w/ activated-carbon filter. Order #112-0066205-0960237, placed April 22, 2026 | [B07VWDN29F](https://www.amazon.com/dp/B07VWDN29F) | 1 | $42.89 | ACQUIRED |
 | AstroAI digital multimeter, 2000-count auto-ranging. Order #112-0066205-0960237, placed April 22, 2026 | [B071JL6LLL](https://www.amazon.com/dp/B071JL6LLL) | 1 | $32.16 | ACQUIRED |
 | Klein Tools 11063W Kurve self-adjusting wire stripper, AWG 10–20. Order #112-0066205-0960237, placed April 22, 2026 | [B00CXKOEQ6](https://www.amazon.com/dp/B00CXKOEQ6) | 1 | $24.62 | ACQUIRED |
-| MG Chemicals 8341 no-clean rosin flux paste, 10 mL syringe. Order #112-0066205-0960237, placed April 22, 2026 | [B09FWB6L5L](https://www.amazon.com/dp/B09FWB6L5L) | 1 | $21.66 | ACQUIRED |
+| MG Chemicals 8341 no-clean rosin flux paste, 49 g (1.7 oz) jar. Order #112-0066205-0960237, placed April 22, 2026 | [B09FWB6L5L](https://www.amazon.com/dp/B09FWB6L5L) | 1 | $21.66 | ACQUIRED |
 | MG Chemicals 99.9% anhydrous isopropyl alcohol, 16 oz. Order #112-0066205-0960237, placed April 22, 2026 | [B0BZ21DBJ6](https://www.amazon.com/dp/B0BZ21DBJ6) | 1 | $18.61 | ACQUIRED |
 | Kaisi heat-resistant silicone repair mat, 17.7" × 11.8". Order #112-0066205-0960237, placed April 22, 2026 | [B07DGVRYL3](https://www.amazon.com/dp/B07DGVRYL3) | 1 | $12.86 | ACQUIRED |
 | Chemtronics Soder-Wick #60-3-5 desoldering braid, 0.075" × 5 ft. Order #112-0066205-0960237, placed April 22, 2026 | [B01I7Q2ULA](https://www.amazon.com/dp/B01I7Q2ULA) | 1 | $12.61 | ACQUIRED |
@@ -420,6 +420,7 @@ Bench soldering capability for through-hole, wire-to-pad (pogo pin leads), and g
 | Hakko T18-D08 chisel tip, 0.8 mm — fine FX-888D tip for the faucet display S3's small through-hole pads; complements the T18-D12/D16 already on hand. Order #112-3550632-8904259, placed Jun 11, 2026 | [B004ORB8GK](https://www.amazon.com/dp/B004ORB8GK) | 1 | $9.87 | ACQUIRED (delivered Jun 13) |
 | VECO-T T18 10-tip assortment (LB/BR02/D16/D32/B/K/C2/C5/I/S3), FX-888D-compatible aftermarket — adds the K knife for drag-soldering JST-XH connector rows and the high-mass D32/S3 for desoldering the pre-soldered MCP23017 GPIO + L298N control headers in the Dupont→JST migration; not genuine Hakko. Order #112-7486016-3622668, placed Jun 14, 2026 | [B0FWKGXFK7](https://www.amazon.com/dp/B0FWKGXFK7) | 1 kit (10 tips) | $20.37 | ACQUIRED (delivered Jun 15) |
 | Hakko FR-301 portable desoldering tool, 140 W — self-contained heated hollow nozzle + motorized vacuum pump, trigger-actuated; clears solder-blocked plated through-holes in one pull. Bought after braid/manual wicking couldn't clear the plated barrels on the pre-soldered MCP23017 GPIO + L298N control headers during the Dupont→JST migration. Order #112-8278354-1449064, placed Jun 14, 2026 | [B07BKSLLG9](https://www.amazon.com/dp/B07BKSLLG9) | 1 | $225.20 | ACQUIRED (delivered Jun 15) |
+| No-clean lead-free rosin solder flux paste, 4-pack 10cc syringes w/ assorted blunt dispensing tips — needle-tip paste flux for SMD/wire-to-pad rework; the dispensing-syringe form the jarred §14 8341 lacks. Order #112-4685860-9927453, placed Jun 17, 2026 | [B0GGQNNF98](https://www.amazon.com/dp/B0GGQNNF98) | 1 (4 syringes) | $12.99 | ON-ORDER (arriving Thu Jun 18) |
 
 ## 15. 3D printing equipment and filaments (Bambu Lab direct)
 
@@ -520,13 +521,13 @@ Industrial-supply orders direct from McMaster-Carr (mcmaster.com). First McMaste
 
 | Status | $ |
 |---|---|
-| ACQUIRED — hardware, tools & infra (§§1–17, 19, 20) | [$26,506.03](LEDGER_ACQUIRED_HW) |
+| ACQUIRED — hardware, tools & infra (§§1–17, 19, 20) | [$26,709.43](LEDGER_ACQUIRED_HW) |
 | ACQUIRED — capitalized contract labor (§18) | [$2,607.92](LEDGER_LABOR) |
-| ACQUIRED (combined) | [$29,113.95](LEDGER_ACQUIRED_COMBINED) |
-| ON-ORDER | [$727.04](LEDGER_ON_ORDER) |
+| ACQUIRED (combined) | [$29,317.35](LEDGER_ACQUIRED_COMBINED) |
+| ON-ORDER | [$667.05](LEDGER_ON_ORDER) |
 | MISSING — paid, not received (§1 copper bar) | [$42.89](LEDGER_MISSING) |
 | LIKELY-TO-BUY | $0.00 |
-| **Grand total — cash outlay** | [$29,883.88](LEDGER_GRAND_TOTAL) |
+| **Grand total — cash outlay** | [$30,027.29](LEDGER_GRAND_TOTAL) |
 
 ACQUIRED hardware by section:
 
@@ -534,9 +535,9 @@ ACQUIRED hardware by section:
 |---|---|---|
 | 1 | Pressure vessel / carbonator fabrication | [$3,848.56](LEDGER_SEC1) |
 | 2 | CO2 subsystem (incl. Lillium prototype carbonator $1,129) | [$1,785.10](LEDGER_SEC2) |
-| 3 | Water supply + backflow prevention | [$745.74](LEDGER_SEC3) |
+| 3 | Water supply + backflow prevention | [$889.15](LEDGER_SEC3) |
 | 4 | Carbonator plumbing | [$233.30](LEDGER_SEC4) |
-| 5 | Flavor subsystem | [$1,086.41](LEDGER_SEC5) |
+| 5 | Flavor subsystem | [$1,146.40](LEDGER_SEC5) |
 | 6 | Refrigeration | [$1,882.74](LEDGER_SEC6) |
 | 7 | Dispensing end | [$237.65](LEDGER_SEC7) |
 | 8 | Electronics — controllers | [$208.03](LEDGER_SEC8) |
