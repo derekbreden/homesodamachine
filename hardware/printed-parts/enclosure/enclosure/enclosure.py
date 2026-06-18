@@ -66,14 +66,17 @@ display_facet_angle_deg = 45.0
 # the screw drives in from the ±X (left/right) exterior. Each boss anchors at
 # the real ±X wall and reaches the floor/ceiling, so it is integral with both
 # the side wall and the ±Z wall — no inset, no float.
-boss_overlap = 20.0          # joint overlap depth (mm along Y) = front lip length
-lip_len = boss_overlap
 boss_to_coldcore = 14.0      # clear gap from the lip's +Y end back to the cold core
 split_slip = 0.40            # diametral plug↔socket-bore slip fit
 plug_dia = 12.15             # back-half plug OD (faucet mounting-plate boss)
 plug_len = 10.0              # X engagement of the plug into the socket
 socket_bore_dia = plug_dia + split_slip          # 12.55 — front socket bore
 socket_r = socket_bore_dia / 2.0 + wall          # socket pod corner half-size
+# Overlap = the boss span exactly, so the front socket (bore +Y tangent flush
+# with the lip's back face) and the back plug (−Y tangent flush with the mouth)
+# land coaxial — the joint mates with no leftover overlap to interfere.
+boss_overlap = (plug_dia + socket_bore_dia) / 2.0
+lip_len = boss_overlap
 heatset_dia = 4.0            # ruthex M3 short heat-set pocket
 heatset_depth = 5.25
 socket_cap = wall            # solid wall capping the heat-set's deep end
