@@ -85,8 +85,8 @@ bulkhead_elbow_exit_z = bulkhead_elbow_bottom_z + 3.0  # elbow's lateral-PTC-por
 reservoir_bulkhead_port_x = (bag_pocket_far_inner_x + pocket_centerward_arc_outer_radius) / 2
 # Y of the bulkhead pass-through (and the cable hole that shares its y so
 # the reed cable runs straight from channel to outside). 10 mm inboard
-# of the bag-pocket +Y wall outer face.
-reservoir_bulkhead_port_y = bag_pocket_width / 2 - 10
+# of the bag-pocket −Y (front, toward the user) wall outer face.
+reservoir_bulkhead_port_y = -(bag_pocket_width / 2 - 10)
 
 # Outer footprint shared by the outer shell, the foam cap, and the
 # foam cap lid — must be coplanar at the corners so the screw bosses
@@ -167,15 +167,17 @@ def build_hole_punch(
     origin=(0, 0, 0),
     hole_punch_radius,
     hole_punch_height=40,
+    direction=1,
 ):
     """Y-axis ⌀ × height cylindrical cut, centered at `origin`'s X/Z and
-    starting at `origin`'s Y, extruded in +Y."""
+    starting at `origin`'s Y, extruded in `direction`·Y (+1 = +Y, −1 = −Y —
+    so a port on the −Y wall punches outward toward −Y)."""
     x, y, z = origin
     return (
         cq.Workplane(xz_plane_y_up)
         .workplane(origin=(x, 0, z), offset=y)
         .circle(hole_punch_radius)
-        .extrude(hole_punch_height)
+        .extrude(direction * hole_punch_height)
     )
 
 
@@ -184,17 +186,18 @@ def build_slot_punch(
     slot_length=1.0,
     slot_diameter=6.5,
     slot_punch_height=40,
+    direction=1,
 ):
     """Z-elongated, Y-extruded rounded slot (circle-rect-circle), centered
-    at `origin`'s X/Z and starting at `origin`'s Y. Long axis runs along
-    world Z. The rounded ends each contribute slot_diameter/2 of additional
-    Z reach beyond `slot_length`."""
+    at `origin`'s X/Z and starting at `origin`'s Y, extruded in `direction`·Y
+    (+1 = +Y, −1 = −Y). Long axis runs along world Z. The rounded ends each
+    contribute slot_diameter/2 of additional Z reach beyond `slot_length`."""
     x, y, z = origin
     return (
         cq.Workplane(xz_plane_y_up)
         .workplane(origin=(x, 0, z), offset=y)
         .slot2D(slot_length, slot_diameter, angle=90)
-        .extrude(slot_punch_height)
+        .extrude(direction * slot_punch_height)
     )
 
 

@@ -27,15 +27,19 @@ front_face_port_z = hole_shift_from_edge + wall_and_floor_thickness
 co2_inlet_bore_radius = 9.0
 co2_inlet_bore_z = front_face_port_z - 1.0
 
-# +Y start of the water-outlet and copper/water-inlet cuts — 20 mm
-# inboard of the bag-pocket +Y wall outer face.
-plus_y_wall_plug_port_y = pocket_centerward_arc_outer_radius - 20
+# CO2 inlet doorway — pocket-side face of the bag-pocket +Y (rear, toward
+# the rear panel) centerward wall; the cut runs inward toward the cavity (−Y).
+co2_doorway_y = pocket_centerward_arc_outer_radius - wall_and_floor_thickness
+
+# −Y (front, toward the user) start of the water-outlet and copper/water-inlet
+# cuts — 20 mm inboard of the bag-pocket −Y wall outer face.
+minus_y_wall_plug_port_y = -(pocket_centerward_arc_outer_radius - 20)
 
 # The three circular port holes are the project's ⌀[6.5](PORT_HOLE_DIAMETER) standard.
-water_outlet_xyz = (0, plus_y_wall_plug_port_y, front_face_port_z)
+water_outlet_xyz = (0, minus_y_wall_plug_port_y, front_face_port_z)
 
 # Flavor-line pass-throughs — each reservoir's 1/4" LLDPE outlet line
-# through the +Y bag-pocket wall and the +Y outer-shell wall, at
+# through the −Y bag-pocket wall and the −Y outer-shell wall, at
 # bulkhead_elbow_exit_z (level out of the elbow's lateral port). Inboard
 # of the bulkhead axis, opposite the outboard reed cable hole — the two
 # ⌀[6.5](PORT_HOLE_DIAMETER) holes 16 mm apart center-to-center with PETG between them.
@@ -46,39 +50,43 @@ flavor_line_minus_x_xyz = (-flavor_line_hole_x, reservoir_bulkhead_port_y, bulkh
 
 
 def cut_circular_port_holes(foam_shell):
+    # Water outlet + both flavor lines exit the −Y (front) wall, so each
+    # punch extrudes outward toward −Y.
     for anchor in (water_outlet_xyz, flavor_line_plus_x_xyz, flavor_line_minus_x_xyz):
-        foam_shell = foam_shell.cut(build_hole_punch(origin=anchor, hole_punch_radius=port_hole_radius))
+        foam_shell = foam_shell.cut(
+            build_hole_punch(origin=anchor, hole_punch_radius=port_hole_radius, direction=-1)
+        )
     return foam_shell
 
 
 def cut_co2_inlet(foam_shell):
-    """CO2 inlet — a doorway-shaped cut at x = 0, y = [−70.5](CO2_DOORWAY_Y): a [⌀18](CO2_INLET_BORE_D)
+    """CO2 inlet — a doorway-shaped cut at x = 0, y = [70.5](CO2_DOORWAY_Y): a [⌀18](CO2_INLET_BORE_D)
     round bore at z = [16](CO2_INLET_BORE_Z) (seating the JG PP0308E elbow's ⌀15 body for
     its in-cavity 90° turn) over a rectangular slot down to the floor's
     top face at z = [2](FLOOR_TOP_Z), the elbow entered at an angle from above. The
     foam-shell floor below z = [2](FLOOR_TOP_Z) stays intact."""
-    # Pocket-side face of the bag-pocket −Y wall.
-    doorway_y = -(pocket_centerward_arc_outer_radius - wall_and_floor_thickness)
+    # Pocket-side face of the bag-pocket +Y (rear) wall; the cut runs inward (−Y).
     bore_radius = co2_inlet_bore_radius
     bore_z = co2_inlet_bore_z
     round_bore = build_hole_punch(
-        origin=(0, doorway_y, bore_z),
+        origin=(0, co2_doorway_y, bore_z),
         hole_punch_radius=bore_radius,
+        direction=-1,
     )
     slot_z_bottom = wall_and_floor_thickness
     slot_z_top = bore_z
     slot_z_center = (slot_z_top + slot_z_bottom) / 2.0
     slot_punch = (
         cq.Workplane(xz_plane_y_up)
-        .workplane(origin=(0, 0, slot_z_center), offset=doorway_y)
+        .workplane(origin=(0, 0, slot_z_center), offset=co2_doorway_y)
         .rect(2 * bore_radius, slot_z_top - slot_z_bottom)
-        .extrude(40)
+        .extrude(-40)
     )
     return foam_shell.cut(round_bore).cut(slot_punch)
 
 
 def cut_slot_for_copper_and_water_inlet(foam_shell):
-    """Z-elongated slot through the outer-shell +Y wall, shared by the
+    """Z-elongated slot through the outer-shell −Y wall, shared by the
     two copper-line plugs and the water-inlet plug, slid down in from
     above. The rounded top tapers above the foam-shell top edge, so the
     straight portion reaches the edge exactly with no sliver left."""
@@ -87,8 +95,9 @@ def cut_slot_for_copper_and_water_inlet(foam_shell):
     slot_z_top = foam_shell_outer_height + slot_diameter / 2
     slot_z_center = (slot_z_top + slot_z_bottom) / 2.0
     slot_punch = build_slot_punch(
-        origin=(0, plus_y_wall_plug_port_y, slot_z_center),
+        origin=(0, minus_y_wall_plug_port_y, slot_z_center),
         slot_length=slot_z_top - slot_z_bottom,
         slot_diameter=slot_diameter,
+        direction=-1,
     )
     return foam_shell.cut(slot_punch)
