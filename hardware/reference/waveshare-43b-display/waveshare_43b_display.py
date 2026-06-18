@@ -4,26 +4,28 @@ display set into the enclosure front panel (front-panel README §1, BOM §1).
 A purchased part, not a printed one — the model is a keep-out envelope for
 front-panel cutout and layout, not a manufacturing drawing.
 
-Two stacked rectangular blocks sharing one X-Y center:
+Two stacked rectangular blocks sharing one X-Z center, the screen facing
+the user (-Y, forward):
 
 - Main body — the PCB, display module, and rear components as one block:
-  [106 mm](BODY_WIDTH) (X) x [69 mm](BODY_HEIGHT) (Y) x [17 mm](BODY_DEPTH) (Z).
+  [106 mm](BODY_WIDTH) (X) x [69 mm](BODY_HEIGHT) (Z) x [17 mm](BODY_DEPTH) (Y).
 - Bezel — the front cover-glass / touch-panel plate, standing proud of the
   body front and overhanging it on every side:
-  [112.5 mm](BEZEL_WIDTH) (X) x [75 mm](BEZEL_HEIGHT) (Y) x [1 mm](BEZEL_DEPTH) (Z).
+  [112.5 mm](BEZEL_WIDTH) (X) x [75 mm](BEZEL_HEIGHT) (Z) x [1 mm](BEZEL_DEPTH) (Y).
 
-Overall envelope: [112.5 mm](BEZEL_WIDTH) x [75 mm](BEZEL_HEIGHT) x [18 mm](TOTAL_DEPTH).
+Overall envelope: [112.5 mm](BEZEL_WIDTH) (X) x [75 mm](BEZEL_HEIGHT) (Z) x [18 mm](TOTAL_DEPTH) (Y).
 
-Coordinate frame
-----------------
+Coordinate frame (the repo world frame)
+---------------------------------------
 - X = width  : lateral, across the screen
-- Y = height : up the screen
-- Z = depth  : screen-normal; z = 0 at the device's bounding back (body
-               rear), +z toward the screen (the user side)
+- Z = height : up the screen
+- Y = depth  : screen-normal; the screen faces -Y (forward, toward the
+               user). The front cover-glass face sits at Y = 0; the device
+               extends back into the appliance toward +Y.
 
-Origin is the center of the footprint in X-Y; both blocks are centered on
-it. The body spans z 0 -> [17 mm](BODY_DEPTH); the bezel caps the front,
-z [17 mm](BODY_DEPTH) -> [18 mm](TOTAL_DEPTH).
+Origin is the center of the screen face in X-Z; both blocks are centered
+on it. The bezel caps the front, Y 0 -> [1 mm](BEZEL_DEPTH); the body runs
+behind it, Y [1 mm](BEZEL_DEPTH) -> [18 mm](TOTAL_DEPTH).
 """
 
 import sys
@@ -39,43 +41,50 @@ from docgen import substitute_md, substitute_py_comments
 
 # --- Main body: PCB + display module + rear components -----------------------
 body_width = 106.0    # X, lateral across the screen
-body_height = 69.0    # Y, up the screen
-body_depth = 17.0     # Z, screen-normal
+body_height = 69.0    # Z, up the screen
+body_depth = 17.0     # Y, screen-normal (into the appliance)
 
 # --- Bezel: front cover-glass / touch-panel plate ----------------------------
 bezel_width = 112.5   # X
-bezel_height = 75.0   # Y
-bezel_depth = 1.0     # Z
+bezel_height = 75.0   # Z
+bezel_depth = 1.0     # Y
 
 # Bezel overhang per side — the glass border framing the body.
-bezel_overhang_x = (bezel_width - body_width) / 2.0   # [3.25 mm](BEZEL_OVERHANG_X)
-bezel_overhang_y = (bezel_height - body_height) / 2.0  # [3 mm](BEZEL_OVERHANG_Y)
+bezel_overhang_x = (bezel_width - body_width) / 2.0    # [3.25 mm](BEZEL_OVERHANG_X)
+bezel_overhang_z = (bezel_height - body_height) / 2.0  # [3 mm](BEZEL_OVERHANG_Z)
 
-# Depth seams: z = 0 at the bounding back, +z toward the screen.
-body_z0 = 0.0
-body_z1 = body_z0 + body_depth
-bezel_z0 = body_z1
-bezel_z1 = bezel_z0 + bezel_depth
-total_depth = bezel_z1
+# Depth seams along Y (screen-normal). The screen faces -Y (toward the user);
+# the front cover-glass face sits at Y = 0, and the device extends back into
+# the appliance toward +Y.
+bezel_y0 = 0.0
+bezel_y1 = bezel_y0 + bezel_depth
+body_y0 = bezel_y1
+body_y1 = body_y0 + body_depth
+total_depth = body_y1
+
+bezel_y_center = bezel_y0 + bezel_depth / 2.0
+body_y_center = body_y0 + body_depth / 2.0
 
 
-def _centered_block(width, height, z0, depth):
+def _block(width, height, depth, y_center):
+    """Box centered on origin in X (width) and Z (height), centered at
+    y_center along Y (screen-normal)."""
     return (
         cq.Workplane("XY")
-        .workplane(offset=z0)
-        .box(width, height, depth, centered=(True, True, False))
+        .box(width, depth, height, centered=True)
+        .translate((0.0, y_center, 0.0))
     )
 
 
 def build_body():
-    """PCB + display module block, centered in X-Y, z 0 -> body_depth."""
-    return _centered_block(body_width, body_height, body_z0, body_depth)
+    """PCB + display module block, behind the bezel, Y body_y0 -> body_y1."""
+    return _block(body_width, body_height, body_depth, body_y_center)
 
 
 def build_bezel():
-    """Front cover-glass / touch-panel plate, centered in X-Y over the body,
-    z body_depth -> total_depth, overhanging the body on every side."""
-    return _centered_block(bezel_width, bezel_height, bezel_z0, bezel_depth)
+    """Front cover-glass / touch-panel plate, screen facing -Y, standing proud
+    of the body and overhanging it on every side. Y 0 -> bezel_depth."""
+    return _block(bezel_width, bezel_height, bezel_depth, bezel_y_center)
 
 
 _PARTS = [
@@ -99,7 +108,7 @@ def main():
     export_assembly(build_assembly(), str(_here.parent / "waveshare-43b-display.step"))
     bb = build_scene().BoundingBox()
     print("-> waveshare-43b-display.step")
-    print("display envelope  X[%.1f, %.1f]  Y[%.1f, %.1f]  Z[%.1f, %.1f]   (Z = depth axis, screen +Z)"
+    print("display envelope  X[%.1f, %.1f]  Y[%.1f, %.1f]  Z[%.1f, %.1f]   (screen faces -Y; Y = depth axis)"
           % (bb.xmin, bb.xmax, bb.ymin, bb.ymax, bb.zmin, bb.zmax))
     substitute_md(
         _here.parent / "README.md",
@@ -112,12 +121,12 @@ def main():
             "BEZEL_DEPTH": f"{bezel_depth:.4g}",
             "TOTAL_DEPTH": f"{total_depth:.4g}",
             "BEZEL_OVERHANG_X": f"{bezel_overhang_x:.4g}",
-            "BEZEL_OVERHANG_Y": f"{bezel_overhang_y:.4g}",
+            "BEZEL_OVERHANG_Z": f"{bezel_overhang_z:.4g}",
         },
         expected_counts={
-            "BODY_WIDTH": 1, "BODY_HEIGHT": 1, "BODY_DEPTH": 3,
-            "BEZEL_WIDTH": 2, "BEZEL_HEIGHT": 2, "BEZEL_DEPTH": 1,
-            "TOTAL_DEPTH": 2, "BEZEL_OVERHANG_X": 1, "BEZEL_OVERHANG_Y": 1,
+            "BODY_WIDTH": 1, "BODY_HEIGHT": 1, "BODY_DEPTH": 1,
+            "BEZEL_WIDTH": 2, "BEZEL_HEIGHT": 2, "BEZEL_DEPTH": 3,
+            "TOTAL_DEPTH": 2, "BEZEL_OVERHANG_X": 1, "BEZEL_OVERHANG_Z": 1,
         },
     )
     print("-> README.md")
@@ -132,12 +141,12 @@ def main():
             "BEZEL_DEPTH": f"{bezel_depth:.4g} mm",
             "TOTAL_DEPTH": f"{total_depth:.4g} mm",
             "BEZEL_OVERHANG_X": f"{bezel_overhang_x:.4g} mm",
-            "BEZEL_OVERHANG_Y": f"{bezel_overhang_y:.4g} mm",
+            "BEZEL_OVERHANG_Z": f"{bezel_overhang_z:.4g} mm",
         },
         expected_counts={
-            "BODY_WIDTH": 1, "BODY_HEIGHT": 1, "BODY_DEPTH": 3,
-            "BEZEL_WIDTH": 2, "BEZEL_HEIGHT": 2, "BEZEL_DEPTH": 1,
-            "TOTAL_DEPTH": 2, "BEZEL_OVERHANG_X": 1, "BEZEL_OVERHANG_Y": 1,
+            "BODY_WIDTH": 1, "BODY_HEIGHT": 1, "BODY_DEPTH": 1,
+            "BEZEL_WIDTH": 2, "BEZEL_HEIGHT": 2, "BEZEL_DEPTH": 3,
+            "TOTAL_DEPTH": 2, "BEZEL_OVERHANG_X": 1, "BEZEL_OVERHANG_Z": 1,
         },
     )
     print(f"-> {Path(__file__).name} (self)")
