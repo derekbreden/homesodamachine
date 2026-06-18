@@ -25,7 +25,7 @@ reed_x_depth = 6.0
 
 # Matches the reservoir's ROD_POSITION_Y: reeds sit opposite the
 # float-on-rod across the bag-pocket wall.
-reed_y_center = -45.0
+reed_y_center = 45.0
 reed_y_half_w = 4.0
 
 # Cavity rests on the foam-shell floor at z=w; envelope bottom at z=0.
@@ -74,8 +74,8 @@ cable_hole_offset_from_bulkhead_hole_x = 4.0
 
 
 def cut_reed_cable_holes(foam_shell):
-    """Cable holes, one per reservoir side, in +Y through both the +Y
-    bag-pocket wall and the +Y outer shell wall; the reed cable runs
+    """Cable holes, one per reservoir side, in −Y through both the −Y
+    bag-pocket wall and the −Y outer shell wall; the reed cable runs
     through the open bag-pocket bottom to here. At bulkhead_elbow_exit_z
     (level with the elbow's lateral port and the flavor-line hole), at
     the same y as its side's bulkhead hole."""
@@ -85,5 +85,7 @@ def cut_reed_cable_holes(foam_shell):
             reservoir_bulkhead_port_y,
             bulkhead_elbow_exit_z,
         )
-        foam_shell = foam_shell.cut(build_hole_punch(origin=hole_origin, hole_punch_radius=port_hole_radius))
+        foam_shell = foam_shell.cut(
+            build_hole_punch(origin=hole_origin, hole_punch_radius=port_hole_radius, direction=-1)
+        )
     return foam_shell

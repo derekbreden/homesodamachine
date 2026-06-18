@@ -124,17 +124,14 @@ def main():
     print("-> cold-core.md")
 
     # Pin the CO2-inlet bore dimensions in _port_cuts.py's docstring.
-    # doorway_y = -(pocket_centerward_arc_outer_radius - wall_and_floor_thickness),
-    # rendered with a U+2212 minus to match the prose.
-    co2_doorway_y = -(
-        _port_cuts.pocket_centerward_arc_outer_radius - _port_cuts.wall_and_floor_thickness
-    )
+    # The doorway sits on the +Y (rear) centerward wall.
+    co2_doorway_y = _port_cuts.co2_doorway_y
     substitute_py_comments(
         Path(_port_cuts.__file__),
         variables={
             "CO2_INLET_BORE_D": f"⌀{2 * _port_cuts.co2_inlet_bore_radius:.4g}",
             "CO2_INLET_BORE_Z": f"{_port_cuts.co2_inlet_bore_z:.4g}",
-            "CO2_DOORWAY_Y": f"\N{MINUS SIGN}{abs(co2_doorway_y):.4g}",
+            "CO2_DOORWAY_Y": f"{co2_doorway_y:.4g}",
             "FLOOR_TOP_Z": f"{_port_cuts.wall_and_floor_thickness:.4g}",
             "PORT_HOLE_DIAMETER": f"{_port_cuts.port_hole_radius * 2:.4g}",
         },

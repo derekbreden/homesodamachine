@@ -1,8 +1,8 @@
 """Copper-line plugs — four small PETG pieces that slide down into
-the shared ⌀[6.5 mm](SLOT_W) port in the outer_shell +Y wall and seal the gaps
+the shared ⌀[6.5 mm](SLOT_W) port in the outer_shell −Y wall and seal the gaps
 between (and above) the four pass-throughs that share that port.
 
-Pass-throughs that pierce the +Y outer wall through the shared port,
+Pass-throughs that pierce the −Y outer wall through the shared port,
 ordered low → high in Z:
 
   • lowest copper  (cold-side evaporator inlet)  at z = hole_shift_from_edge
@@ -105,16 +105,16 @@ slot_x_range = (-slot_half_width_x, slot_half_width_x)
 # at each pass-through Z.
 tube_clearance_radius = slot_half_width_x  # [3.25 mm](TUBE_CLEAR_R)
 
-# Web fills the +Y outer_shell wall's Y range exactly ([2 mm](CPLUG_WALL_T) thick at
-# [2 mm](CPLUG_WALL_T) wall); the two flanges sit [1 mm](FLANGE_T) above and [1 mm](FLANGE_T) below it.
-# [90.5 mm](WALL_OUTER_Y) — outer face of the +Y outer_shell wall.
-outer_wall_outer_y = outer_shell_y_length / 2
-# [88.5 mm](WALL_INNER_Y) — inner face of the +Y outer_shell wall.
-outer_wall_inner_y = outer_wall_outer_y - wall_and_floor_thickness
+# Web fills the −Y outer_shell wall's Y range exactly ([2 mm](CPLUG_WALL_T) thick at
+# [2 mm](CPLUG_WALL_T) wall); the two flanges sit [1 mm](FLANGE_T) outboard and [1 mm](FLANGE_T) inboard of it.
+# [-90.5 mm](WALL_OUTER_Y) — outer face of the −Y outer_shell wall (toward the appliance front).
+outer_wall_outer_y = -outer_shell_y_length / 2
+# [-88.5 mm](WALL_INNER_Y) — inner (cavity-side) face of the −Y outer_shell wall.
+outer_wall_inner_y = outer_wall_outer_y + wall_and_floor_thickness
 wall_y_range = (outer_wall_inner_y, outer_wall_outer_y)
 
 # The [2 mm](CPLUG_WALL_T) gap between the two flanges, at the wall's Y range
-# and outside the web's X range, is where the +Y wall seats.
+# and outside the web's X range, is where the −Y wall seats.
 flange_x_overhang_per_side = 1.0
 flange_y_thickness = 1.0
 
@@ -122,11 +122,11 @@ flange_y_thickness = 1.0
 plug_half_x_outer = slot_half_width_x + flange_x_overhang_per_side
 plug_x_range = (-plug_half_x_outer, plug_half_x_outer)
 
-# [87.5 mm](PLUG_Y_INNER) — bottom flange's inward face.
-plug_y_inner = outer_wall_inner_y - flange_y_thickness
-# [91.5 mm](PLUG_Y_OUTER) — top flange's outward face.
-plug_y_outer = outer_wall_outer_y + flange_y_thickness
-plug_y_range = (plug_y_inner, plug_y_outer)
+# [-87.5 mm](PLUG_Y_INNER) — inner (cavity-side) flange's inward face.
+plug_y_inner = outer_wall_inner_y + flange_y_thickness
+# [-91.5 mm](PLUG_Y_OUTER) — outer flange's outward face.
+plug_y_outer = outer_wall_outer_y - flange_y_thickness
+plug_y_range = (plug_y_outer, plug_y_inner)
 
 top_flange_y_range = (outer_wall_outer_y, plug_y_outer)
 bottom_flange_y_range = (plug_y_inner, outer_wall_inner_y)
@@ -225,7 +225,7 @@ def _analytical_volume(spec):
     z_height = z_top - z_bottom
     plug_full_x = plug_x_range[1] - plug_x_range[0]
     slot_full_x = slot_x_range[1] - slot_x_range[0]
-    web_y_thickness = wall_y_range[1] - wall_y_range[0]
+    web_y_thickness = abs(wall_y_range[1] - wall_y_range[0])
 
     n_arches = sum([spec.arch_bottom, spec.arch_top])
 
