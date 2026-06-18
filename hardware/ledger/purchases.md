@@ -524,10 +524,10 @@ Industrial-supply orders direct from McMaster-Carr (mcmaster.com). First McMaste
 | ACQUIRED — hardware, tools & infra (§§1–17, 19, 20) | [$26,709.43](LEDGER_ACQUIRED_HW) |
 | ACQUIRED — capitalized contract labor (§18) | [$2,607.92](LEDGER_LABOR) |
 | ACQUIRED (combined) | [$29,317.35](LEDGER_ACQUIRED_COMBINED) |
-| ON-ORDER | [$667.05](LEDGER_ON_ORDER) |
+| ON-ORDER | [$680.04](LEDGER_ON_ORDER) |
 | MISSING — paid, not received (§1 copper bar) | [$42.89](LEDGER_MISSING) |
 | LIKELY-TO-BUY | $0.00 |
-| **Grand total — cash outlay** | [$30,027.29](LEDGER_GRAND_TOTAL) |
+| **Grand total — cash outlay** | [$30,040.28](LEDGER_GRAND_TOTAL) |
 
 ACQUIRED hardware by section:
 
