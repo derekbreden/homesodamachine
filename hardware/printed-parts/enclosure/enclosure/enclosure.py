@@ -227,15 +227,17 @@ def _back_plug(x_ext, sx, z_boss, y_boss):
     return _xcyl(plug_dia / 2.0, y_boss, z_boss, x_ext, x_tip)
 
 
-def _front_pod(x_in, x_ext, sx, z_boss, sz, y_boss, inner):
-    """FRONT socket pod (solid): a corner block from the ±X wall inboard to the
-    cap and from the bore out to the floor/ceiling, so it is one piece with the
-    side wall and the ±Z wall. Bore / heat-set / channel are cut afterwards."""
+def _front_pod(x_in, x_ext, sx, z_boss, sz, y_joint, inner):
+    """FRONT socket pod (solid): a corner block bounded by the faces it mates —
+    in Y the lip's −Y shoulder face to the rim, in X the side wall to the cap, in
+    Z the bore out to the floor/ceiling — so it is one piece with the side wall,
+    the ±Z wall, and the lip, flush with all of them (no proud ledges). Bore /
+    heat-set / channel are cut afterwards."""
     ix0, ix1, iy0, iy1, iz0, iz1 = inner
     _xs, _xt, _xh, x_cap = _boss_x(x_ext, sx)
     xa, xb = sorted((x_in, x_cap))
     za, zb = (iz0, z_boss + socket_r) if sz > 0 else (z_boss - socket_r, iz1)
-    return _ybox(xa, xb, y_boss - socket_r, y_boss + socket_r, za, zb)
+    return _ybox(xa, xb, y_joint - wall, y_joint + lip_len, za, zb)
 
 
 def _front_cuts(x_in, x_ext, sx, z_boss, y_boss, y_joint):
@@ -265,22 +267,17 @@ def _screw_cut(x_ext, sx, z_boss, y_boss):
 
 
 def _front_lip(inner, y_joint):
-    """The front half's rear lip: a full-`wall` perimeter band telescoping +Y
-    into the back half — nothing shaved. The −Y shoulder (one `wall` deep, back
-    inside the body cavity) sits flush with the body's inner wall, fusing the
-    lip into the body and forming the telescoping stop. The forward band is
-    inset by split_slip so it slides into the back half with clearance, not a
-    press fit."""
+    """The front half's rear lip: a full-`wall` perimeter band whose outer face
+    is flush with the body's inner wall — one solid with the body, nothing
+    shaved — telescoping +Y into the back half and mating its inner wall. It runs
+    one `wall` back into the body cavity (the fusion shoulder / telescoping stop)
+    and forward over the overlap to the rim, at a single inset throughout (no
+    inner ledge, no proud rabbet)."""
     ix0, ix1, iy0, iy1, iz0, iz1 = inner
-    s = split_slip
-    shoulder = _ybox(ix0, ix1, y_joint - wall, y_joint, iz0, iz1).cut(
-        _ybox(ix0 + wall, ix1 - wall, y_joint - wall - 1.0, y_joint + 1.0, iz0 + wall, iz1 - wall)
+    y0, y1 = y_joint - wall, y_joint + lip_len
+    return _ybox(ix0, ix1, y0, y1, iz0, iz1).cut(
+        _ybox(ix0 + wall, ix1 - wall, y0 - 1.0, y1 + 1.0, iz0 + wall, iz1 - wall)
     )
-    band = _ybox(ix0 + s, ix1 - s, y_joint, y_joint + lip_len, iz0 + s, iz1 - s).cut(
-        _ybox(ix0 + s + wall, ix1 - s - wall, y_joint - 1.0, y_joint + lip_len + 1.0,
-              iz0 + s + wall, iz1 - s - wall)
-    )
-    return shoulder.fuse(band)
 
 
 # Boss Y position — one value feeds the plug AND the socket, so they are
@@ -297,7 +294,7 @@ def build_front_half():
     front = front.fuse(_front_lip(inner, y_joint))
     yb = _y_boss(y_joint)
     for x_in, x_ext, sx, z_boss, sz in _bosses(inner):
-        front = front.fuse(_front_pod(x_in, x_ext, sx, z_boss, sz, yb, inner))
+        front = front.fuse(_front_pod(x_in, x_ext, sx, z_boss, sz, y_joint, inner))
     for x_in, x_ext, sx, z_boss, _sz in _bosses(inner):
         front = front.cut(_front_cuts(x_in, x_ext, sx, z_boss, yb, y_joint))
     return cq.Workplane(obj=front)
@@ -356,7 +353,7 @@ def _report_split(front, back):
     clash = sum(
         cold.intersect(
             _back_plug(x_ext, sx, z_boss, yb).fuse(
-                _front_pod(x_in, x_ext, sx, z_boss, sz, yb, inner))
+                _front_pod(x_in, x_ext, sx, z_boss, sz, y_joint, inner))
         ).Volume()
         for x_in, x_ext, sx, z_boss, sz in _bosses(inner)
     )
