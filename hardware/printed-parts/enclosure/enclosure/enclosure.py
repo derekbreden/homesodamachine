@@ -268,12 +268,25 @@ def _front_lip(inner, y_joint):
     )
 
 
+# Boss-axis Y positions. The front socket sits at the +Y (deep) end of the lip
+# — its bore's +Y tangent flush with the lip's back face — so its open channel
+# faces the lip's leading edge. The back plug sits at the −Y (mouth) end of the
+# back half — its −Y tangent flush with the mouth face — so it meets the lip's
+# socket as the front telescopes in.
+def _yb_front(y_joint):
+    return y_joint + lip_len - socket_bore_dia / 2.0
+
+
+def _yb_back(y_joint):
+    return y_joint + plug_dia / 2.0
+
+
 def build_front_half():
     inner, outer, y_joint, _ = _dims()
     shell = _shell_with_facet(inner, outer).val()
     front = shell.intersect(_ybox(outer[0], outer[1], outer[2], y_joint, outer[4], outer[5]))
     front = front.fuse(_front_lip(inner, y_joint))
-    yb = y_joint + lip_len / 2.0
+    yb = _yb_front(y_joint)
     for x_in, _xe, sx, z_boss, sz in _bosses(inner):
         front = front.fuse(_front_pod(x_in, sx, z_boss, sz, yb, inner, y_joint))
     for x_in, _xe, sx, z_boss, _sz in _bosses(inner):
@@ -285,7 +298,7 @@ def build_back_half():
     inner, outer, y_joint, _ = _dims()
     shell = _shell_with_facet(inner, outer).val()
     back = shell.intersect(_ybox(outer[0], outer[1], y_joint, outer[3], outer[4], outer[5]))
-    yb = y_joint + lip_len / 2.0
+    yb = _yb_back(y_joint)
     for x_in, x_ext, sx, z_boss, _sz in _bosses(inner):
         back = back.fuse(_back_plug(x_in, x_ext, sx, z_boss, yb))
     for x_in, x_ext, sx, z_boss, _sz in _bosses(inner):
@@ -329,12 +342,12 @@ def _report_split(front, back):
     overlap = front.val().intersect(back.val()).Volume()
     print(f"  front ∩ back:     {overlap:.1f} mm³  ({'CLEAR slip-fit' if overlap < 5 else 'INTERFERENCE'})")
     inner, _o, y_joint, _c = _dims()
-    yb = y_joint + lip_len / 2.0
+    ybf, ybb = _yb_front(y_joint), _yb_back(y_joint)
     cold = _contents.build()["foam-shell"][0]
     clash = sum(
         cold.intersect(
-            _back_plug(x_in, x_ext, sx, z_boss, yb).fuse(
-                _front_pod(x_in, sx, z_boss, sz, yb, inner, y_joint))
+            _back_plug(x_in, x_ext, sx, z_boss, ybb).fuse(
+                _front_pod(x_in, sx, z_boss, sz, ybf, inner, y_joint))
         ).Volume()
         for x_in, x_ext, sx, z_boss, sz in _bosses(inner)
     )
