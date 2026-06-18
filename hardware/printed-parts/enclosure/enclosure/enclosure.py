@@ -241,9 +241,9 @@ def _front_cuts(x_in, sx, z_boss, y_boss, y_joint):
     the heat-set pocket capped at the deep end, and a +Y channel so the plug
     slides into the bore as the lip telescopes into the back."""
     x_tip, x_heat, _xc = _boss_x(x_in, sx)
-    bore = _xcyl(socket_bore_dia / 2.0, y_boss, z_boss, x_in - sx * 0.5, x_tip)
+    bore = _xcyl(socket_bore_dia / 2.0, y_boss, z_boss, x_in, x_tip)
     heat = _xcyl(heatset_dia / 2.0, y_boss, z_boss, x_tip, x_heat)
-    bx0, bx1 = sorted((x_in - sx * 0.5, x_tip))
+    bx0, bx1 = sorted((x_in, x_tip))
     cz0, cz1 = z_boss - socket_bore_dia / 2.0, z_boss + socket_bore_dia / 2.0
     chan = _ybox(bx0, bx1, y_boss, y_joint + lip_len + 1.0, cz0, cz1)
     return bore.fuse(heat).fuse(chan)
