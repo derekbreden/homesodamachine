@@ -12,10 +12,13 @@ in assembled position, seams intact (mirrors `faucet/touch-flo-shell`).
 
 ## Split + bosses
 
-The front half's full-wall rear lip telescopes into the back half over a 20 mm
-overlap (the joint's X/Z registration). Four corner cross-pins — one at each
-top/bottom corner of the ±X side walls, centered in the overlap and coaxial by
-construction — fasten the halves with M3 screws driven from the ±X exterior.
+The front half's full-wall rear lip telescopes into the back half; four corner
+cross-pins — one at each top/bottom corner of the ±X side walls — fasten the
+halves with M3 screws driven from the ±X exterior. Each cross-pin mates the
+walls of the overlap (the back plug's −Y face on the back mouth, the front
+socket pod's +Y face on the lip rim) and the two are coaxial by construction, so
+the **overlap depth is derived from those matings**, not chosen — it works out
+to (plug + bore)/2 + one wall.
 
 Each cross-pin is sized to its job. Reading a screw outboard→inboard from the
 ±X exterior: a Ø6.15 mm head counterbore, then the **boss** — exactly one wall

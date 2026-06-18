@@ -67,7 +67,6 @@ display_facet_angle_deg = 45.0
 # rear lip telescopes into the back; four corner bosses cross-pin the seam with
 # M3 screws from the ±X exterior. The boss itself is just the ONE WALL of
 # material the shank crosses between the screw-head seat and the heat-set.
-lip_len = 20.0               # telescoping engagement depth (the X/Z registration)
 boss_to_coldcore = 14.0      # clear gap from the lip's +Y tip back to the cold core
 split_slip = 0.40            # diametral slide fit, plug into socket bore
 screw_clear_dia = 3.9        # M3 shank clearance
@@ -79,6 +78,12 @@ socket_r = socket_bore_dia / 2.0 + wall          # pod half-size: one wall aroun
 heatset_dia = 4.0            # ruthex M3 short heat-set
 heatset_depth = 5.25
 socket_cap = wall            # one wall capping the insert's deep end
+# The telescoping overlap is NOT a free dimension. It is exactly what makes the
+# back plug's −Y face mate the back mouth (y_joint) AND the front socket pod's
+# +Y face mate the lip rim, with the two bosses coaxial for the cross-screw.
+# With y_boss = y_joint + plug_dia/2 (plug −Y on the mouth), the pod's +Y face
+# (y_boss + socket_r) lands on the rim iff lip_len = plug_dia/2 + socket_r.
+lip_len = plug_dia / 2.0 + socket_r              # = (plug+bore)/2 + wall = 13.1
 
 
 # --- primitives -------------------------------------------------------------
@@ -171,11 +176,13 @@ def _shell_with_facet(inner, outer):
 # --- split joint: telescoping lip + X-axis corner cross-pins ----------------
 #
 # Four bosses cross the seam, one in each top/bottom corner of the ±X side
-# walls, centered in the telescoping overlap and COAXIAL by construction (one
-# y_boss, one z_boss feed both halves). An M3 SHCS drives in from the ±X
-# exterior; outboard→inboard the joint reads: head counterbore, then the BOSS —
-# exactly ONE WALL of material the shank crosses — then the heat-set, then a
-# one-wall cap.
+# walls. Each mates the walls of the overlap — the back plug's −Y face on the
+# back mouth, the front socket pod's +Y face on the lip rim — and the two are
+# COAXIAL by construction (one y_boss, one z_boss feed both halves); the overlap
+# (lip_len) is derived from exactly those matings, not chosen freely. An M3 SHCS
+# drives in from the ±X exterior; outboard→inboard the joint reads: head
+# counterbore, then the BOSS — exactly ONE WALL of material the shank crosses —
+# then the heat-set, then a one-wall cap.
 #   * BACK half = PLUG: a cylinder from the ±X exterior to the heat-set, fused
 #     to the side wall. Sized to the screw SHANK, not the head (the head sits in
 #     the wall counterbore); screw-clearance + head counterbore bored in.
@@ -232,15 +239,18 @@ def _front_pod(x_in, x_ext, sx, z_boss, sz, y_boss, inner):
 
 
 def _front_cuts(x_in, x_ext, sx, z_boss, y_boss, y_joint):
-    """Front-socket inner cuts: the bore that receives the plug (slide fit), the
-    heat-set pocket at the deep end, and a +Y channel so the plug slides into the
-    bore as the lip telescopes into the back."""
+    """Front-socket inner cuts: the bore that receives the plug, the heat-set
+    pocket at the deep end, and a +Y channel for slide-in. The slip lives on the
+    +Y (slide-in) side: the bore is shifted +slip/2 so its −Y wall registers on
+    the plug's −Y face at the mouth, instead of overshooting past the seam. The
+    heat-set stays coaxial with the screw at y_boss."""
     _xs, x_tip, x_heat, _xc = _boss_x(x_ext, sx)
-    bore = _xcyl(socket_bore_dia / 2.0, y_boss, z_boss, x_in, x_tip)
+    bore_y = y_boss + split_slip / 2.0
+    bore = _xcyl(socket_bore_dia / 2.0, bore_y, z_boss, x_in, x_tip)
     heat = _xcyl(heatset_dia / 2.0, y_boss, z_boss, x_tip, x_heat)
     bx0, bx1 = sorted((x_in, x_tip))
     cz0, cz1 = z_boss - socket_bore_dia / 2.0, z_boss + socket_bore_dia / 2.0
-    chan = _ybox(bx0, bx1, y_boss, y_joint + lip_len + 1.0, cz0, cz1)
+    chan = _ybox(bx0, bx1, bore_y, y_joint + lip_len + 1.0, cz0, cz1)
     return bore.fuse(heat).fuse(chan)
 
 
@@ -274,9 +284,10 @@ def _front_lip(inner, y_joint):
 
 
 # Boss Y position — one value feeds the plug AND the socket, so they are
-# coaxial by construction. Centered in the telescoping overlap.
+# coaxial by construction. Placed so the plug's −Y face mates the back mouth;
+# the derived lip_len then lands the socket pod's +Y face on the lip rim.
 def _y_boss(y_joint):
-    return y_joint + lip_len / 2.0
+    return y_joint + plug_dia / 2.0
 
 
 def build_front_half():
