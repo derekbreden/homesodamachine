@@ -149,6 +149,16 @@ def _facet_x_slab(outer, extent):
     return _ybox(ox0, ox0 + display_facet_x, -2 * extent, 2 * extent, -2 * extent, 2 * extent)
 
 
+def _facet_wedge(outer):
+    """The solid removed to cut the display facet — the +normal half-space in
+    the facet's lateral window. Re-cut after the corner pods so they too are
+    chamfered to the facet plane rather than poking through it."""
+    ox0, ox1, oy0, oy1, oz0, oz1 = outer
+    a, normal, origin, dy, dz = _facet_geom(outer)
+    extent = max(ox1 - ox0, oy1 - oy0, oz1 - oz0) + 100.0
+    return _halfspace(origin, normal, extent).intersect(_facet_x_slab(outer, extent))
+
+
 def _shell_with_facet(inner, outer):
     """Hollow box with the 45° facet as a SOLID `wall`-thick surface: chamfer
     the outer box, and hold the cavity one wall back from the facet plane."""
@@ -157,17 +167,13 @@ def _shell_with_facet(inner, outer):
     a, normal, origin, dy, dz = _facet_geom(outer)
     extent = max(ox1 - ox0, oy1 - oy0, oz1 - oz0) + 100.0
 
-    outer_box = _ybox(ox0, ox1, oy0, oy1, oz0, oz1)
     inner_box = _ybox(ix0, ix1, iy0, iy1, iz0, iz1)
-    x_slab = _facet_x_slab(outer, extent)
-
-    wedge = _halfspace(origin, normal, extent).intersect(x_slab)
-    outer_chamfered = outer_box.cut(wedge)
+    outer_chamfered = _ybox(ox0, ox1, oy0, oy1, oz0, oz1).cut(_facet_wedge(outer))
 
     back_origin = (origin[0] - wall * normal[0],
                    origin[1] - wall * normal[1],
                    origin[2] - wall * normal[2])
-    keepout = _halfspace(back_origin, normal, extent).intersect(x_slab)
+    keepout = _halfspace(back_origin, normal, extent).intersect(_facet_x_slab(outer, extent))
     inner_clipped = inner_box.cut(keepout)
 
     return cq.Workplane(obj=outer_chamfered.cut(inner_clipped))
@@ -228,16 +234,17 @@ def _back_plug(x_ext, sx, z_boss, y_boss):
 
 
 def _front_pod(x_in, x_ext, sx, z_boss, sz, y_joint, inner):
-    """FRONT socket pod (solid): a corner block bounded by the faces it mates —
-    in Y the lip's −Y shoulder face to the rim, in X the side wall to the cap, in
-    Z the bore out to the floor/ceiling — so it is one piece with the side wall,
-    the ±Z wall, and the lip, flush with all of them (no proud ledges). Bore /
-    heat-set / channel are cut afterwards."""
+    """FRONT socket pod (solid): a corner rib bounded by the faces it mates — in
+    Y from the front wall's inner face (iy0) all the way to the rim, in X the
+    side wall to the cap, in Z the bore out to the floor/ceiling. Running full
+    depth to the front wall, it has no −Y overhang when the front half prints
+    −Y-down — it grows straight up from the wall. Bore / heat-set / channel are
+    cut afterwards; the facet trims the top-front-left pod back to its plane."""
     ix0, ix1, iy0, iy1, iz0, iz1 = inner
     _xs, _xt, _xh, x_cap = _boss_x(x_ext, sx)
     xa, xb = sorted((x_in, x_cap))
     za, zb = (iz0, z_boss + socket_r) if sz > 0 else (z_boss - socket_r, iz1)
-    return _ybox(xa, xb, y_joint - wall, y_joint + lip_len, za, zb)
+    return _ybox(xa, xb, iy0, y_joint + lip_len, za, zb)
 
 
 def _front_cuts(x_in, x_ext, sx, z_boss, y_boss, y_joint):
@@ -271,13 +278,26 @@ def _front_lip(inner, y_joint):
     is flush with the body's inner wall — one solid with the body, nothing
     shaved — telescoping +Y into the back half and mating its inner wall. It runs
     one `wall` back into the body cavity (the fusion shoulder / telescoping stop)
-    and forward over the overlap to the rim, at a single inset throughout (no
-    inner ledge, no proud rabbet)."""
+    and forward over the overlap to the rim. Its −Y end is a 45° frame bevel (the
+    cavity mouth flares out to the outer over one wall), not a flat downward
+    ring, so it prints with no steeper-than-45° overhang −Y-down."""
     ix0, ix1, iy0, iy1, iz0, iz1 = inner
     y0, y1 = y_joint - wall, y_joint + lip_len
-    return _ybox(ix0, ix1, y0, y1, iz0, iz1).cut(
-        _ybox(ix0 + wall, ix1 - wall, y0 - 1.0, y1 + 1.0, iz0 + wall, iz1 - wall)
+    outer = _ybox(ix0, ix1, y0, y1, iz0, iz1)
+    # Cavity cutter: a 45° flare at the −Y end (mouth widens from the inner
+    # rectangle out to the outer over one wall in Y), then the straight inner
+    # box. Subtracting it bevels the lip's −Y inner edge into the ramp.
+    cx, cz = (ix0 + ix1) / 2.0, (iz0 + iz1) / 2.0
+    flare = (
+        cq.Workplane(cq.Plane(origin=(cx, y0, cz), xDir=(1, 0, 0), normal=(0, 1, 0)))
+        .rect(ix1 - ix0, iz1 - iz0)
+        .workplane(offset=wall)
+        .rect((ix1 - ix0) - 2.0 * wall, (iz1 - iz0) - 2.0 * wall)
+        .loft(combine=True)
+        .val()
     )
+    inner_box = _ybox(ix0 + wall, ix1 - wall, y0 + wall, y1 + 1.0, iz0 + wall, iz1 - wall)
+    return outer.cut(flare.fuse(inner_box))
 
 
 # Boss Y position — one value feeds the plug AND the socket, so they are
@@ -295,6 +315,8 @@ def build_front_half():
     yb = _y_boss(y_joint)
     for x_in, x_ext, sx, z_boss, sz in _bosses(inner):
         front = front.fuse(_front_pod(x_in, x_ext, sx, z_boss, sz, y_joint, inner))
+    # The full-depth pods can poke into the display facet; trim them to its plane.
+    front = front.cut(_facet_wedge(outer))
     for x_in, x_ext, sx, z_boss, _sz in _bosses(inner):
         front = front.cut(_front_cuts(x_in, x_ext, sx, z_boss, yb, y_joint))
     return cq.Workplane(obj=front)
@@ -317,13 +339,18 @@ def build_back_half():
 def _report_facet(half):
     a = math.radians(display_facet_angle_deg)
     target = cq.Vector(0.0, -math.sin(a), math.cos(a))
+    # The lip's +Z bevel ramp shares this normal; restrict to the facet's region
+    # (the front of the part) so only the display facet is measured.
+    _i, outer, _y, _c = _dims()
+    _a, _n, _o, dy, _dz = _facet_geom(outer)
+    y_hi = outer[2] + dy + 5.0
     boxes = []
     for f in half.val().Faces():
         try:
             n = f.normalAt()
         except Exception:
             continue
-        if (n - target).Length < 1e-3:
+        if (n - target).Length < 1e-3 and f.Center().y < y_hi:
             boxes.append(f.BoundingBox())
     if not boxes:
         print("  display facet:    NOT FOUND")
