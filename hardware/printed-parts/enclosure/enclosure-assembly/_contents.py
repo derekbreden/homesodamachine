@@ -6,13 +6,15 @@ assemblies, the compressor shroud). Placeholder boxes for parts that have no
 STEP yet (condenser+fan, SeaFlo diaphragm pump).
 
 Coordinate frame: +X right, +Y back, +Z up. Origin at the lower-front-left
-corner of the cold core.
+corner.
 
-Layout is a first-fit-decreasing pack on bounding-box bricks: cold core spans
-the lower-front block; the compressor shroud sits behind it across the back
-strip; source-select stands on its long edge beside the compressor; bag-circuit
-stands vertical in the back corner; the condenser, SeaFlo, two pump cases, and
-the bib-gate + nozzle-gate trays form a second layer above the cold core.
+Layout follows the enclosure zone map (see ../../README.md), a roughly-packed
+stand-in (not collision-validated):
+  * Zone A (back-bottom):  cold core (foam shell), on the floor, its −Y
+    dispense/service ports facing forward toward the front zones.
+  * Zone D (front-bottom): compressor shroud + condenser/fan + SeaFlo pump.
+  * Zone C (front-top):    the two pump cases (cartridge under the funnel).
+  * Zone B (back-top):     the four valve-manifold trays, above the cold core.
 """
 
 from pathlib import Path
@@ -44,6 +46,15 @@ TRAY_STEPS = {
 CONDENSER_FACE_A, CONDENSER_FACE_B, CONDENSER_AIRFLOW = 178.0, 151.0, 56.0
 # SeaFlo 22-Series diaphragm pump, body only (sans mounting brackets).
 SEAFLO_DIMS = (75.0, 60.0, 175.0)
+
+# Front block (Zones C/D) Y depth — the cold core (Zone A) seats behind it,
+# so the cold core lands in the enclosure's back half. Sized to leave a clear
+# gap between the deepest front-zone content and the cold core for the
+# front↔back split joint + heatset bosses to live in.
+FRONT_DEPTH = 190.0
+# Vertical gap between the bottom layer (cold core + front-bottom) and the
+# top layer (pump cases + trays).
+LAYER_GAP = 5.0
 
 
 # --- Colors ---------------------------------------------------------------
@@ -86,37 +97,40 @@ def _cycle_xyz_to_yzx(shape):
 def build():
     placed = {}
 
-    # Cold core — front-left, on the floor.
-    placed["foam-shell"] = _at(_load(FOAM_SHELL), 0.0, 0.0, 0.0)
+    foam = _load(FOAM_SHELL)
+    fb = foam.BoundingBox()
+    cold_w, cold_h = fb.xlen, fb.zlen          # ~283 wide, ~213 tall
+    top_z = cold_h + LAYER_GAP                  # top-layer floor
 
-    # Compressor shroud — behind the cold core, rotated 90 about Z (178 x 133).
-    comp = _rot(_load(COMP_SHROUD), (0, 0, 1), 90.0)
-    placed["compressor-shroud"] = _at(comp, 0.0, 181.0, 0.0)
+    # --- Zone A: cold core, back-bottom, on the floor. Seated behind the
+    # front block; its −Y service/dispense ports face forward (−Y).
+    placed["foam-shell"] = _at(foam, 0.0, FRONT_DEPTH, 0.0)
 
-    # Source-select tray — standing on its long edge beside the compressor.
-    src = _cycle_xyz_to_yzx(_load(TRAY_STEPS["source-select"]))
-    placed["source-select"] = _at(src, 178.0, 181.0, 0.0)
+    # --- Zone D: compressor on the floor front-left; SeaFlo laid flat on the
+    # compressor top; condenser/fan as a panel flat against the +X (right)
+    # wall on the floor (fan airflow side-to-side across X).
+    comp = _rot(_load(COMP_SHROUD), (0, 0, 1), 90.0)   # 178 x 133 x 151
+    placed["compressor-shroud"] = _at(comp, 0.0, 0.0, 0.0)
+    comp_top_z = comp.BoundingBox().zlen               # 151
+    sf_w, sf_d, sf_h = SEAFLO_DIMS                      # [75 x 60 x 175](SEAFLO_DIMS)
+    placed["seaflo-pump"] = _at(_box(sf_h, sf_w, sf_d), 0.0, 0.0, comp_top_z)
+    # Condenser/fan: thin airflow axis across X, against the +X wall.
+    cond = _box(CONDENSER_AIRFLOW, CONDENSER_FACE_B, CONDENSER_FACE_A)  # 56 x 151 x 178
+    placed["condenser+fan"] = _at(cond, cold_w - CONDENSER_AIRFLOW, 0.0, 0.0)
 
-    # Condenser + fan — above cold core, left half.
-    cond = _box(CONDENSER_FACE_A, CONDENSER_FACE_B, CONDENSER_AIRFLOW)
-    placed["condenser+fan"] = _at(cond, 0.0, 0.0, 213.4)
+    # --- Zone C: two pump cases (cartridge under the funnel), front-top.
+    pc1 = _cycle_xyz_to_yzx(_load(PUMP_CASE))          # 74 x 136 x 76
+    pc2 = _cycle_xyz_to_yzx(_load(PUMP_CASE))
+    placed["pump-case-1"] = _at(pc1, 0.0, 0.0, top_z)
+    placed["pump-case-2"] = _at(pc2, 84.0, 0.0, top_z)
 
-    # SeaFlo — above cold core, right of the condenser column.
-    sf_dx, sf_dy, sf_dz = SEAFLO_DIMS              # [75 x 60 x 175](SEAFLO_DIMS)
-    placed["seaflo-pump"] = _at(_box(sf_dy, sf_dz, sf_dx), 178.0, 0.0, 213.4)
-
-    # Pump cases — on their long sides, on top of the cold core.
-    placed["pump-case-1"] = _at(_cycle_xyz_to_yzx(_load(PUMP_CASE)), 238.0, 0.0, 213.4)
-    placed["pump-case-2"] = _at(_cycle_xyz_to_yzx(_load(PUMP_CASE)),   0.0, 151.0, 213.4)
-
-    # Bag-circuit — standing vertical in the back corner.
-    bag = _cycle_xyz_to_yzx(_load(TRAY_STEPS["bag-circuit"]))
-    placed["bag-circuit"] = _at(bag, 178.0, 244.0, 0.0)
-
-    # Bib-gate — flat, on top of source-select.
-    placed["bib-gate"] = _at(_load(TRAY_STEPS["bib-gate"]), 178.0, 181.0, 224.9)
-
-    # Nozzle-gate — flat, on top of cold core.
-    placed["nozzle-gate"] = _at(_load(TRAY_STEPS["nozzle-gate"]), 74.0, 151.0, 213.4)
+    # --- Zone B: the four valve-manifold trays, laid FLAT (~63 mm tall) and
+    # tiled across the top — three back-top above the cold core, the fourth
+    # turned 90° into the front-top gap beside the pump cases. Stand-in.
+    placed["source-select"] = _at(_load(TRAY_STEPS["source-select"]), 0.0, FRONT_DEPTH, top_z)
+    placed["nozzle-gate"]   = _at(_load(TRAY_STEPS["nozzle-gate"]),   0.0, FRONT_DEPTH + 98.0, top_z)
+    placed["bag-circuit"]   = _at(_load(TRAY_STEPS["bag-circuit"]), 105.0, FRONT_DEPTH + 98.0, top_z)
+    bib = _rot(_load(TRAY_STEPS["bib-gate"]), (0, 0, 1), 90.0)   # 74 x 139
+    placed["bib-gate"]      = _at(bib, 158.0, 0.0, top_z)
 
     return {n: (s, COLORS[n]) for n, s in placed.items()}
