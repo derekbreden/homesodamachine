@@ -420,7 +420,7 @@ Bench soldering capability for through-hole, wire-to-pad (pogo pin leads), and g
 | Hakko T18-D08 chisel tip, 0.8 mm — fine FX-888D tip for the faucet display S3's small through-hole pads; complements the T18-D12/D16 already on hand. Order #112-3550632-8904259, placed Jun 11, 2026 | [B004ORB8GK](https://www.amazon.com/dp/B004ORB8GK) | 1 | $9.87 | ACQUIRED (delivered Jun 13) |
 | VECO-T T18 10-tip assortment (LB/BR02/D16/D32/B/K/C2/C5/I/S3), FX-888D-compatible aftermarket — adds the K knife for drag-soldering JST-XH connector rows and the high-mass D32/S3 for desoldering the pre-soldered MCP23017 GPIO + L298N control headers in the Dupont→JST migration; not genuine Hakko. Order #112-7486016-3622668, placed Jun 14, 2026 | [B0FWKGXFK7](https://www.amazon.com/dp/B0FWKGXFK7) | 1 kit (10 tips) | $20.37 | ACQUIRED (delivered Jun 15) |
 | Hakko FR-301 portable desoldering tool, 140 W — self-contained heated hollow nozzle + motorized vacuum pump, trigger-actuated; clears solder-blocked plated through-holes in one pull. Bought after braid/manual wicking couldn't clear the plated barrels on the pre-soldered MCP23017 GPIO + L298N control headers during the Dupont→JST migration. Order #112-8278354-1449064, placed Jun 14, 2026 | [B07BKSLLG9](https://www.amazon.com/dp/B07BKSLLG9) | 1 | $225.20 | ACQUIRED (delivered Jun 15) |
-| No-clean lead-free rosin solder flux paste, 4-pack 10cc syringes w/ assorted blunt dispensing tips — needle-tip paste flux for SMD/wire-to-pad rework; the dispensing-syringe form the jarred §14 8341 lacks. Order #112-4685860-9927453, placed Jun 17, 2026 | [B0GGQNNF98](https://www.amazon.com/dp/B0GGQNNF98) | 1 (4 syringes) | $12.99 | ON-ORDER (arriving Thu Jun 18) |
+| No-clean lead-free rosin solder flux paste, 4-pack 10cc syringes w/ assorted blunt dispensing tips — needle-tip paste flux for SMD/wire-to-pad rework; the dispensing-syringe form the jarred §14 8341 lacks. Order #112-4685860-9927453, placed Jun 17, 2026 | [B0GGQNNF98](https://www.amazon.com/dp/B0GGQNNF98) | 1 (4 syringes) | $13.93 | ON-ORDER (arriving Thu Jun 18) |
 
 ## 15. 3D printing equipment and filaments (Bambu Lab direct)
 
@@ -524,10 +524,10 @@ Industrial-supply orders direct from McMaster-Carr (mcmaster.com). First McMaste
 | ACQUIRED — hardware, tools & infra (§§1–17, 19, 20) | [$26,709.43](LEDGER_ACQUIRED_HW) |
 | ACQUIRED — capitalized contract labor (§18) | [$2,607.92](LEDGER_LABOR) |
 | ACQUIRED (combined) | [$29,317.35](LEDGER_ACQUIRED_COMBINED) |
-| ON-ORDER | [$680.04](LEDGER_ON_ORDER) |
+| ON-ORDER | [$680.98](LEDGER_ON_ORDER) |
 | MISSING — paid, not received (§1 copper bar) | [$42.89](LEDGER_MISSING) |
 | LIKELY-TO-BUY | $0.00 |
-| **Grand total — cash outlay** | [$30,040.28](LEDGER_GRAND_TOTAL) |
+| **Grand total — cash outlay** | [$30,041.22](LEDGER_GRAND_TOTAL) |
 
 ACQUIRED hardware by section:
 
