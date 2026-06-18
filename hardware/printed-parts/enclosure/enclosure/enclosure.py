@@ -208,6 +208,22 @@ def _display_cuts(outer):
     return bezel.fuse(pcb)
 
 
+def _facet_end_cap(outer):
+    """Close the facet housing's +X end. The −X edge is flush to the left
+    exterior wall, which fills its corner triangle solid; the +X edge falls in
+    the middle of the box, where the recessed facet panel meets the resumed
+    square corner. Without a cap that meeting is an open triangular gap into the
+    cavity. This is the matching close: a one-`wall` solid triangle filling the
+    corner (bounded by the outer top + front faces and the facet plane) over the
+    rightmost wall of the facet width — past the bezel and PCB cut, so it touches
+    neither."""
+    ox0, ox1, oy0, oy1, oz0, oz1 = outer
+    a, normal, origin, dy, dz = _facet_geom(outer)
+    x_hi = ox0 + display_facet_x
+    corner = _ybox(x_hi - wall, x_hi, oy0, oy0 + dy, oz1 - dz, oz1)
+    return corner.cut(_facet_wedge(outer))
+
+
 # --- split joint: telescoping lip + X-axis corner cross-pins ----------------
 #
 # Four bosses cross the seam, one in each top/bottom corner of the ±X side
@@ -359,6 +375,8 @@ def build_front_half(dims=None):
         front = front.fuse(_front_pod(x_in, x_ext, sx, z_boss, sz, y_joint, inner))
     # The full-depth pods can poke into the display facet; trim them to its plane.
     front = front.cut(_facet_wedge(outer))
+    # Close the facet housing's open +X end (the −X end is capped by the left wall).
+    front = front.fuse(_facet_end_cap(outer))
     # Let the display into the facet (bezel counterbore + PCB through-hole); this
     # also clears whatever rib/wall material sits behind the facet in its path.
     front = front.cut(_display_cuts(outer))
