@@ -255,16 +255,22 @@ def _screw_cut(x_ext, sx, z_boss, y_boss):
 
 
 def _front_lip(inner, y_joint):
-    """The front half's rear lip: a full-`wall` perimeter band whose outer face
-    is flush with the body's inner wall, so it is one solid with the body —
-    nothing shaved — telescoping +Y into the back half. It runs one `wall` back
-    into the body cavity (a fusion shoulder / telescoping stop) and forward over
-    the overlap."""
+    """The front half's rear lip: a full-`wall` perimeter band telescoping +Y
+    into the back half — nothing shaved. The −Y shoulder (one `wall` deep, back
+    inside the body cavity) sits flush with the body's inner wall, fusing the
+    lip into the body and forming the telescoping stop. The forward band is
+    inset by split_slip so it slides into the back half with clearance, not a
+    press fit."""
     ix0, ix1, iy0, iy1, iz0, iz1 = inner
-    y0, y1 = y_joint - wall, y_joint + lip_len
-    return _ybox(ix0, ix1, y0, y1, iz0, iz1).cut(
-        _ybox(ix0 + wall, ix1 - wall, y0 - 1.0, y1 + 1.0, iz0 + wall, iz1 - wall)
+    s = split_slip
+    shoulder = _ybox(ix0, ix1, y_joint - wall, y_joint, iz0, iz1).cut(
+        _ybox(ix0 + wall, ix1 - wall, y_joint - wall - 1.0, y_joint + 1.0, iz0 + wall, iz1 - wall)
     )
+    band = _ybox(ix0 + s, ix1 - s, y_joint, y_joint + lip_len, iz0 + s, iz1 - s).cut(
+        _ybox(ix0 + s + wall, ix1 - s - wall, y_joint - 1.0, y_joint + lip_len + 1.0,
+              iz0 + s + wall, iz1 - s - wall)
+    )
+    return shoulder.fuse(band)
 
 
 # Boss Y position — one value feeds the plug AND the socket, so they are
