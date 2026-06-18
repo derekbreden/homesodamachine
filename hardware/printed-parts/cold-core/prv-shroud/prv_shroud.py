@@ -16,7 +16,7 @@ foam-tight, not airtight.
 
 A ⌀[6.35 mm](PRV_VENT_D) hole in the closed (far) end of the shroud accepts a
 length of 1/4" OD LLDPE tubing — the unpressurized vent line. The
-LLDPE routes through the foam shell's shared +Y slot (alongside the
+LLDPE routes through the foam shell's shared −Y slot (alongside the
 water inlet) into the appliance interior, where it terminates open.
 
 Geometry

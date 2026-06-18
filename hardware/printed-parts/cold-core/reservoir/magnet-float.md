@@ -28,7 +28,7 @@ Carry the reservoir's watertight PETG recipe ([`watertight-petg.md`](watertight-
 
 ## Cavity fit
 
-At [30 mm](FLOAT_OD) OD the float is wider than the 27.75 mm donut it replaces, so it sits tighter against the −Y/far-corner screw boss — already the tightest clearance in the cavity. Two levers: the N52 field headroom means the rod no longer has to ride the wall, so `ROD_POSITION_X` can move back toward center to recover boss clearance; or a smaller/lighter magnet shrinks the float (the script re-sizes). Re-check the donut sweep against that boss before committing.
+At [30 mm](FLOAT_OD) OD the float is wider than the 27.75 mm donut it replaces, so it sits tighter against the +Y/far-corner screw boss — already the tightest clearance in the cavity. Two levers: the N52 field headroom means the rod no longer has to ride the wall, so `ROD_POSITION_X` can move back toward center to recover boss clearance; or a smaller/lighter magnet shrinks the float (the script re-sizes). Re-check the donut sweep against that boss before committing.
 
 ## Calibration coupon
 

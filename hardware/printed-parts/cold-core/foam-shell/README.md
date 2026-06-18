@@ -147,11 +147,11 @@ a heat-set insert pocket at the top (drilled down from the top face) and at
 the bottom (drilled up from the bottom face) — twelve inserts total, six
 per face, for fastening the foam_cap above and below.
 
-The outer +Y wall carries the shared copper/water-inlet slot, the
+The outer −Y wall carries the shared copper/water-inlet slot, the
 two ⌀[6.5 mm](TUBE_HOLE_D) reservoir-line holes, the two reed-cable holes,
 and the water-outlet hole. See Penetrations. (The CO2 inlet bore is
 internal to the assembly — it cuts down through the support ring at
-−Y, not through any outer wall.)
++Y (the rear), not through any outer wall.)
 
 ### foam_cap and foam_cap_lid
 
@@ -224,7 +224,7 @@ top face pockets go down, bottom face pockets go up.
 Eight pass-throughs total, all carrying **1/4" OD tubing (6.35 mm)** through
 holes sized at ⌀[6.5 mm](TUBE_HOLE_D) for a tight tube fit. Four pass-throughs
 each get their own dedicated round hole; the remaining four share a single
-Z-elongated slot at the +Y outer wall.
+Z-elongated slot at the −Y outer wall.
 
 | # | Pass-through | Opening | Carries |
 |---|---|---|---|
@@ -232,10 +232,10 @@ Z-elongated slot at the +Y outer wall.
 | 2 | Reservoir line (−X) | own ⌀[6.5 mm](TUBE_HOLE_D) hole | 1/4" OD soft tubing — reservoir to peristaltic pump |
 | 3 | CO2 inlet | own ⌀16 doorway | 1/4" OD line from the regulator (90° push-to-connect elbow seats in the doorway) |
 | 4 | Water outlet | own ⌀[6.5 mm](TUBE_HOLE_D) hole | 1/4" OD line to the dispense faucet |
-| 5 | Copper evaporator inlet (low) | shared +Y slot | 1/4" OD ACR copper to compressor |
-| 6 | Copper evaporator outlet (high) | shared +Y slot | 1/4" OD ACR copper to compressor |
-| 7 | Water inlet | shared +Y slot | 1/4" OD line from the diaphragm pump |
-| 8 | PRV vent | shared +Y slot | 1/4" OD LLDPE from the prv-shroud cap into the appliance interior (unpressurized; carries relief-event discharge only — see [`/hardware/printed-parts/cold-core/prv-shroud/`](/hardware/printed-parts/cold-core/prv-shroud/)) |
+| 5 | Copper evaporator inlet (low) | shared −Y slot | 1/4" OD ACR copper to compressor |
+| 6 | Copper evaporator outlet (high) | shared −Y slot | 1/4" OD ACR copper to compressor |
+| 7 | Water inlet | shared −Y slot | 1/4" OD line from the diaphragm pump |
+| 8 | PRV vent | shared −Y slot | 1/4" OD LLDPE from the prv-shroud cap into the appliance interior (unpressurized; carries relief-event discharge only — see [`/hardware/printed-parts/cold-core/prv-shroud/`](/hardware/printed-parts/cold-core/prv-shroud/)) |
 
 For the water inlet and CO2 inlet, the supply-side tubing reduces to
 1/4" OD before reaching the shell wall — transition fittings (3/8"
@@ -243,9 +243,9 @@ barb-to-NPT adapter, 5/16" push-to-connect, 1/4" NPT check valves, etc.)
 live on the warm side of the shell. Inside the shell, every penetration
 is 1/4" OD.
 
-### Shared +Y slot and copper plug stack
+### Shared −Y slot and copper plug stack
 
-The +Y outer_shell wall carries four pass-throughs along a single
+The −Y outer_shell wall carries four pass-throughs along a single
 **Z-elongated slot** at x = 0: the two copper evaporator lines (low
 and high), the water inlet, and the PRV vent. The slot is
 ⌀[6.5 mm](TUBE_HOLE_D) wide in X (rounded ends along Z) and is cut by
@@ -254,7 +254,7 @@ top extends past the wall top so no sliver of wall material remains
 above the slot — the four plugs can slide down into the slot from
 above during assembly. With the centerward wall extending only to
 y = ±[72.5 mm](POCKET_ARC_R) (where it meets the ±Y walls via the
-transition arcs), the slot pierces only this one outer +Y wall.
+transition arcs), the slot pierces only this one outer −Y wall.
 
 Pass-through Z heights (centers, measured from the **top of the
 floor** — i.e. from the interior cavity's lower bound, not from z = 0):
@@ -286,8 +286,8 @@ edge instead of floating loosely in the slot. Viewed end-on, it's an
 I-beam: a 6.5 mm × 2 mm plate-body web fits the slot's wall Y range
 exactly, 4 mm-tall "wings" at the outer X edges of the slot span the
 full plug Y envelope, and 1 mm × 1 mm rail prongs branch out past
-the wings at +Y (above the wall outer face) and −Y (below the wall
-inner face). The 2 mm air gap between the top and bottom prongs at
+the wings at −Y (past the wall outer face) and +Y (toward the cavity,
+past the wall inner face). The 2 mm air gap between the top and bottom prongs at
 the rail edges is where the wall material slides in — that's how
 the plug grips the wall like a binder clip. The wings act as the
 I-beam flange linking web to prongs along a continuous 2D face. See
@@ -332,7 +332,7 @@ Every internal component is installed first:
 - Reservoirs installed into the two reservoir pockets.
 - Copper evaporator inlet (low), copper evaporator outlet (high),
   water inlet, and PRV vent LLDPE (from the prv-shroud cap) routed
-  through the shared +Y slot at their four Z heights. The water
+  through the shared −Y slot at their four Z heights. The water
   inlet and PRV vent both come from above the tank and take slight
   bends in their LLDPE runs to land in vertical alignment in the
   slot.
@@ -343,10 +343,10 @@ Every internal component is installed first:
   cured ahead of time, threaded into Port 4 at vessel install — is
   here as part of the vessel by the time the body pour happens.
   Press-fit a length of 1/4" OD LLDPE into the shroud's cap hole and
-  route it through the +Y slot to the appliance interior.
+  route it through the −Y slot to the appliance interior.
 - Reservoir LLDPE lines routed through holes #1 and #2 in the
   reservoir-pocket far ±X walls.
-- Water outlet through hole #4 in the outer_shell +Y wall.
+- Water outlet through hole #4 in the outer_shell −Y wall.
 - CO2 inlet enters from above through the foam-cap-top boss +
   foam-cap-lid-top hole at (x=0, y=−68.75); the line drops to
   z=17 inside the cavity and bends 90° at a PP0308E push-to-connect
@@ -372,7 +372,7 @@ face at the ±X azimuths — ~110 mm of arc to reach around the back
 of the coil from the ±Y entry.
 
 Foam expansion may push a small amount of material out through the
-clearance bands around tubes in the +Y slot and through the tight-fit
+clearance bands around tubes in the −Y slot and through the tight-fit
 tube exits at the other penetrations. Trim flush after cure.
 
 ### Final assembly (after all three foam pours have cured)
@@ -452,11 +452,11 @@ that needs a deliberate explanation:
 
 | metric | value |
 |---|---|
-| volume | [1055106.084 mm³](FSHELL_VOLUME) |
+| volume | [1055105.474 mm³](FSHELL_VOLUME) |
 | bbox x | [-141.500 to 141.500 mm](FSHELL_BBOX_X) |
 | bbox z | [0.000 to 213.400 mm](FSHELL_BBOX_Z) |
 | bbox y | [-90.500 to 90.500 mm](FSHELL_BBOX_Y) |
-| centroid | [(0.000005, -0.616570, 88.192874) mm](CENTROID) |
+| centroid | [(0.000006, 0.616613, 88.192906) mm](CENTROID) |
 
 Quick reproduction:
 

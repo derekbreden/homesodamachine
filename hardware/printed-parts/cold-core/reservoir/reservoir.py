@@ -169,12 +169,12 @@ vent_slot_height = 2.0
 vent_cylinder_length = vent_slot_height + vent_brim_thickness
 
 # Vent position on the cap, in the side=+1 frame. Centered between
-# the y=0 and y=+[64](CORNER_XY_Y) rows of screw bosses (so the ø[17.2 mm](VENT_BOSS_OD) vent boss and
+# the y=0 and y=−[64](CORNER_XY_Y) rows of screw bosses (so the ø[17.2 mm](VENT_BOSS_OD) vent boss and
 # its counterbore-sized pocket clear every screw counterbore and
 # every cap-side boss), and inside the perimeter wall. Mirrored
 # across x=0 for side=−1.
 vent_position_x = 96.0
-vent_position_y = 32.5
+vent_position_y = -32.5
 
 # Vent z stack, in cap-local coordinates (anchored from cap_total_height
 # at the top). Top→bottom: filter pocket / boss extension below the
@@ -201,11 +201,12 @@ vent_brim_bottom_z = vent_cylinder_walls_bottom_z - vent_brim_thickness
 #     downward-opening blind bore around the rod's top. The rod is captured
 #     at BOTH ends against float-load lean.
 #
-# Sits opposite the bulkhead (y = 28..64 on the +Y half), in the wider part
-# of the cavity (~38 mm wide at y=-45 vs ~24 mm at y=0) where the donut
-# float has clearance, clear of all screw bosses and the vent boss.
+# Sits opposite the bulkhead pass-through (on the −Y front), on the +Y rear
+# half in the wider part of the cavity (~38 mm wide at y=+45 vs ~24 mm at
+# y=0) where the donut float has clearance, clear of all screw bosses and
+# the vent boss.
 rod_position_x = 107.0  # |x| of the rod centerline; mirrors with `side`
-rod_position_y = -45.0  # y of the rod centerline; does NOT mirror with side
+rod_position_y = 45.0  # y of the rod centerline; does NOT mirror with side
 rod_diameter = 3.175  # 1/8" 316 SS round rod OD
 # [3.675 mm](ROD_BORE) — rod ⌀ + 0.5 mm slip-fit clearance; shared by body anchor boss and cap register boss.
 rod_bore = rod_diameter + 0.5  # ~0.5 mm radial slip-fit clearance; shared by body anchor boss and cap register boss
@@ -867,9 +868,9 @@ def build_reservoir_body(side=1):
     # from the V floor at (±rod_position_x, rod_position_y), with a
     # blind bore cut into it from above — bore stops rod_anchor_boss_floor
     # mm short of the boss base so the printed PETG floor inside the boss
-    # is what the rod tip bottoms out on. rod_position_y = −45 sits on
-    # the −Y slope (between the trough edge at −14 and the −Y wall at
-    # −66), so the boss base z is the slope height at that y.
+    # is what the rod tip bottoms out on. rod_position_y = +45 sits on
+    # the +Y slope (between the trough edge at +14 and the +Y wall at
+    # +66), so the boss base z is the slope height at that y.
     #
     # Unioned after every selector-based fillet and cut so the boss
     # cannot perturb an earlier edge/face selection.
@@ -1158,15 +1159,15 @@ def build_reservoir_bulkhead_seal(od):
 
 
 def main():
-    # Left/right convention: the machine's front face is +Y, and from
-    # the front +X is the viewer's RIGHT. So side=+1 → +X reservoir →
-    # "*-right.step"; side=-1 → -X reservoir → "*-left.step".
+    # Left/right naming is geometric: side=+1 → +X reservoir →
+    # "*-right.step"; side=-1 → -X reservoir → "*-left.step". The machine's
+    # front face is −Y (toward the user — the dispense side); +Y is the rear.
     #
     # Body and cap genuinely differ between sides — they're NOT
-    # y-symmetric. The bulkhead pocket housing lives on +Y (front) for
-    # both reservoirs, and the strut and vent positions stay at fixed
-    # world Y (the strut at y=−45, the cap vent at y=+32.5) so they
-    # remain on the back / front of the machine for both reservoirs.
+    # y-symmetric. The bulkhead port is centered at y=0 (its elbow turns
+    # toward the −Y front pass-through), and the strut and vent positions
+    # stay at fixed world Y (the strut/rod at y=+45 on the rear half, the
+    # cap vent at y=−32.5) so they keep their place for both reservoirs.
     # Mirror across x=0 only — never across y=0.
     #
     # The gasket and the retaining ring are BOTH y-symmetric in their
