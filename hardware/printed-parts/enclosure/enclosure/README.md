@@ -57,7 +57,9 @@ The facet is thickened into an 18 mm housing (the display's overall depth) with
 the display let in: a shallow 112.5 × 75 × 1 mm counterbore on the user face
 recesses the bezel, and a 106 × 69 mm hole through the full thickness passes the
 PCB body. Where the corner ribs sit behind the facet, the PCB hole clears them.
-The display reference is seated in the housing in `../enclosure-assembly/`.
+The recessed panel is closed to the cavity all around: the −X edge by the left
+exterior wall, the +X edge by a one-wall corner cap. The display reference is
+seated in the housing in `../enclosure-assembly/`.
 
 ## Regenerate
 
