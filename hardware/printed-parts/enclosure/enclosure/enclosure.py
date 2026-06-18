@@ -62,27 +62,23 @@ display_facet_x = display_bezel_x + 2 * display_facet_buffer          # [118.5 m
 display_facet_slope = display_bezel_slope + 2 * display_facet_buffer  # [81 mm](DISPLAY_FACET_SLOPE)
 display_facet_angle_deg = 45.0
 
-# Split + boss parameters — the faucet base-pod fastener chain on an X axis, so
-# the screw drives in from the ±X (left/right) exterior. Each boss anchors at
-# the real ±X wall and reaches the floor/ceiling, so it is integral with both
-# the side wall and the ±Z wall — no inset, no float.
-boss_to_coldcore = 14.0      # clear gap from the lip's +Y end back to the cold core
-split_slip = 0.40            # diametral plug↔socket-bore slip fit
-plug_dia = 12.15             # back-half plug OD (faucet mounting-plate boss)
-plug_len = 10.0              # X engagement of the plug into the socket
-socket_bore_dia = plug_dia + split_slip          # 12.55 — front socket bore
-socket_r = socket_bore_dia / 2.0 + wall          # socket pod corner half-size
-# Overlap = the boss span exactly, so the front socket (bore +Y tangent flush
-# with the lip's back face) and the back plug (−Y tangent flush with the mouth)
-# land coaxial — the joint mates with no leftover overlap to interfere.
-boss_overlap = (plug_dia + socket_bore_dia) / 2.0
-lip_len = boss_overlap
-heatset_dia = 4.0            # ruthex M3 short heat-set pocket
+# Split + boss parameters — every dimension sized to its function, nothing
+# inherited from the faucet. The seam is a Y plane; the front half's full-wall
+# rear lip telescopes into the back; four corner bosses cross-pin the seam with
+# M3 screws from the ±X exterior. The boss itself is just the ONE WALL of
+# material the shank crosses between the screw-head seat and the heat-set.
+lip_len = 20.0               # telescoping engagement depth (the X/Z registration)
+boss_to_coldcore = 14.0      # clear gap from the lip's +Y tip back to the cold core
+split_slip = 0.40            # diametral slide fit, plug into socket bore
+screw_clear_dia = 3.9        # M3 shank clearance
+head_cbore_dia = 6.15        # M3 SHCS head counterbore
+head_cbore_depth = 4.0       # head recess depth from the ±X exterior (the head seat)
+plug_dia = screw_clear_dia + 2.0 * wall          # 9.9 — the shank + one wall each side
+socket_bore_dia = plug_dia + split_slip          # 10.3 — slide fit over the plug
+socket_r = socket_bore_dia / 2.0 + wall          # pod half-size: one wall around the bore
+heatset_dia = 4.0            # ruthex M3 short heat-set
 heatset_depth = 5.25
-socket_cap = wall            # solid wall capping the heat-set's deep end
-screw_clear_dia = 3.9        # M3 shank clearance through the plug
-head_cbore_dia = 6.15        # M3 SHCS head counterbore (at the ±X exterior face)
-head_cbore_depth = 4.0
+socket_cap = wall            # one wall capping the insert's deep end
 
 
 # --- primitives -------------------------------------------------------------
@@ -115,11 +111,10 @@ def _dims():
     ox0, ox1 = ix0 - wall, ix1 + wall
     oy0, oy1 = iy0 - wall, iy1 + wall
     oz0, oz1 = iz0 - wall, iz1 + wall
-    # Split plane: the cold core's −Y front face sets the back-half depth; the
-    # joint sits boss_overlap + boss_to_coldcore forward of it so the bosses
-    # land in the clear gap ahead of the cold core.
+    # Split plane: placed so the lip's +Y tip clears the cold core by
+    # boss_to_coldcore, with the full lip_len of telescoping ahead of it.
     cold_front_y = placed["foam-shell"][0].BoundingBox().ymin
-    y_joint = cold_front_y - boss_overlap - boss_to_coldcore
+    y_joint = cold_front_y - boss_to_coldcore - lip_len
     inner = (ix0, ix1, iy0, iy1, iz0, iz1)
     outer = (ox0, ox1, oy0, oy1, oz0, oz1)
     return inner, outer, y_joint, cold_front_y
@@ -173,22 +168,22 @@ def _shell_with_facet(inner, outer):
     return cq.Workplane(obj=outer_chamfered.cut(inner_clipped))
 
 
-# --- split joint: telescoping lip + X-axis corner bosses --------------------
+# --- split joint: telescoping lip + X-axis corner cross-pins ----------------
 #
 # Four bosses cross the seam, one in each top/bottom corner of the ±X side
-# walls — dropped to the floor / raised to the ceiling so each is integral with
-# its ±Z wall — living in the joint overlap (the clear gap ahead of the cold
-# core). Each boss is on an X axis at (y_boss, z_boss), anchored at the real ±X
-# wall (no inset, no float):
-#   * BACK half = PLUG (faucet mounting-plate idiom): a cylinder cantilevered
-#     inboard from the ±X exterior face, screw-clearance bored, head-
-#     counterbored at the exterior. No +Y tail — it ends at its own radius.
-#   * FRONT lip = SOCKET (faucet shell-bottom idiom): a corner pod bored to
-#     receive the plug (diametral slip), the heat-set capped at the deep inboard
-#     end, and a channel opening its +Y face so the plug slides in as the lip
-#     telescopes +Y into the back half.
-# An M3 SHCS from the ±X exterior passes through the plug into the heat-set,
-# pinning the halves along X.
+# walls, centered in the telescoping overlap and COAXIAL by construction (one
+# y_boss, one z_boss feed both halves). An M3 SHCS drives in from the ±X
+# exterior; outboard→inboard the joint reads: head counterbore, then the BOSS —
+# exactly ONE WALL of material the shank crosses — then the heat-set, then a
+# one-wall cap.
+#   * BACK half = PLUG: a cylinder from the ±X exterior to the heat-set, fused
+#     to the side wall. Sized to the screw SHANK, not the head (the head sits in
+#     the wall counterbore); screw-clearance + head counterbore bored in.
+#   * FRONT lip = SOCKET: a corner pod, integral with the ±Z wall, bored to
+#     receive the plug (slide fit), the heat-set + cap at the deep inboard end,
+#     and a +Y channel so the plug slides in as the lip telescopes into the back.
+# The head seats in the back wall; the shank crosses one wall of boss into the
+# front heat-set, cross-pinning the two halves along X.
 
 def _bosses(inner):
     """Per-boss tuple (x_in, x_ext, sx, z_boss, sz): the inner ±X wall face the
@@ -207,40 +202,40 @@ def _bosses(inner):
     ]
 
 
-def _boss_x(x_in, sx):
-    """Inboard X stations from the ±X wall: plug tip / socket-bore depth, heat-
-    set end, pod cap end."""
-    x_tip = x_in + sx * plug_len
+def _boss_x(x_ext, sx):
+    """Inboard X stations from the ±X exterior, each sized to its job: the
+    screw-head seat (recess), the heat-set start ONE WALL past the seat (that
+    wall is the boss), the heat-set end, and the pod cap one wall past it."""
+    x_seat = x_ext + sx * head_cbore_depth
+    x_tip = x_seat + sx * wall
     x_heat = x_tip + sx * heatset_depth
     x_cap = x_heat + sx * socket_cap
-    return x_tip, x_heat, x_cap
+    return x_seat, x_tip, x_heat, x_cap
 
 
-def _back_plug(x_in, x_ext, sx, z_boss, y_boss):
-    """BACK plug: an X cylinder from the ±X exterior face inboard to the plug
-    tip — overlapping the full side wall so it fuses, with no +Y tail."""
-    x_tip, _xh, _xc = _boss_x(x_in, sx)
+def _back_plug(x_ext, sx, z_boss, y_boss):
+    """BACK plug: an X cylinder from the ±X exterior to the heat-set, fused to
+    the side wall — sized to the screw shank, no head, no +Y tail."""
+    _xs, x_tip, _xh, _xc = _boss_x(x_ext, sx)
     return _xcyl(plug_dia / 2.0, y_boss, z_boss, x_ext, x_tip)
 
 
-def _front_pod(x_in, sx, z_boss, sz, y_boss, inner, y_joint):
-    """FRONT socket pod (solid): a corner block reaching from the ±X wall face
-    inboard and from the bore up to the floor/ceiling, so it is fused to both
-    the side wall and the ±Z wall. Bore/heat-set/channel are cut afterwards."""
+def _front_pod(x_in, x_ext, sx, z_boss, sz, y_boss, inner):
+    """FRONT socket pod (solid): a corner block from the ±X wall inboard to the
+    cap and from the bore out to the floor/ceiling, so it is one piece with the
+    side wall and the ±Z wall. Bore / heat-set / channel are cut afterwards."""
     ix0, ix1, iy0, iy1, iz0, iz1 = inner
-    _xt, _xh, x_cap = _boss_x(x_in, sx)
+    _xs, _xt, _xh, x_cap = _boss_x(x_ext, sx)
     xa, xb = sorted((x_in, x_cap))
     za, zb = (iz0, z_boss + socket_r) if sz > 0 else (z_boss - socket_r, iz1)
-    ya = max(y_boss - socket_r, y_joint)
-    yb = min(y_boss + socket_r, y_joint + lip_len)
-    return _ybox(xa, xb, ya, yb, za, zb)
+    return _ybox(xa, xb, y_boss - socket_r, y_boss + socket_r, za, zb)
 
 
-def _front_cuts(x_in, sx, z_boss, y_boss, y_joint):
-    """Front-socket inner cuts: the plug bore (full cylinder, diametral slip),
-    the heat-set pocket capped at the deep end, and a +Y channel so the plug
-    slides into the bore as the lip telescopes into the back."""
-    x_tip, x_heat, _xc = _boss_x(x_in, sx)
+def _front_cuts(x_in, x_ext, sx, z_boss, y_boss, y_joint):
+    """Front-socket inner cuts: the bore that receives the plug (slide fit), the
+    heat-set pocket at the deep end, and a +Y channel so the plug slides into the
+    bore as the lip telescopes into the back."""
+    _xs, x_tip, x_heat, _xc = _boss_x(x_ext, sx)
     bore = _xcyl(socket_bore_dia / 2.0, y_boss, z_boss, x_in, x_tip)
     heat = _xcyl(heatset_dia / 2.0, y_boss, z_boss, x_tip, x_heat)
     bx0, bx1 = sorted((x_in, x_tip))
@@ -249,10 +244,11 @@ def _front_cuts(x_in, sx, z_boss, y_boss, y_joint):
     return bore.fuse(heat).fuse(chan)
 
 
-def _screw_cut(x_in, x_ext, sx, z_boss, y_boss):
-    """M3 shank clearance from the ±X exterior through the back plug up to the
-    heat-set, plus the SHCS head counterbore at the exterior face."""
-    x_tip, _xh, _xc = _boss_x(x_in, sx)
+def _screw_cut(x_ext, sx, z_boss, y_boss):
+    """M3 shank clearance from the ±X exterior through the plug to the heat-set,
+    plus the SHCS head counterbore at the exterior — the seat one wall outboard
+    of the heat-set."""
+    _xs, x_tip, _xh, _xc = _boss_x(x_ext, sx)
     shank = _xcyl(screw_clear_dia / 2.0, y_boss, z_boss, x_ext - sx * 1.0, x_tip)
     cbore = _xcyl(head_cbore_dia / 2.0, y_boss, z_boss, x_ext - sx * 1.0, x_ext + sx * head_cbore_depth)
     return shank.fuse(cbore)
@@ -271,17 +267,10 @@ def _front_lip(inner, y_joint):
     )
 
 
-# Boss-axis Y positions. The front socket sits at the +Y (deep) end of the lip
-# — its bore's +Y tangent flush with the lip's back face — so its open channel
-# faces the lip's leading edge. The back plug sits at the −Y (mouth) end of the
-# back half — its −Y tangent flush with the mouth face — so it meets the lip's
-# socket as the front telescopes in.
-def _yb_front(y_joint):
-    return y_joint + lip_len - socket_bore_dia / 2.0
-
-
-def _yb_back(y_joint):
-    return y_joint + plug_dia / 2.0
+# Boss Y position — one value feeds the plug AND the socket, so they are
+# coaxial by construction. Centered in the telescoping overlap.
+def _y_boss(y_joint):
+    return y_joint + lip_len / 2.0
 
 
 def build_front_half():
@@ -289,11 +278,11 @@ def build_front_half():
     shell = _shell_with_facet(inner, outer).val()
     front = shell.intersect(_ybox(outer[0], outer[1], outer[2], y_joint, outer[4], outer[5]))
     front = front.fuse(_front_lip(inner, y_joint))
-    yb = _yb_front(y_joint)
-    for x_in, _xe, sx, z_boss, sz in _bosses(inner):
-        front = front.fuse(_front_pod(x_in, sx, z_boss, sz, yb, inner, y_joint))
-    for x_in, _xe, sx, z_boss, _sz in _bosses(inner):
-        front = front.cut(_front_cuts(x_in, sx, z_boss, yb, y_joint))
+    yb = _y_boss(y_joint)
+    for x_in, x_ext, sx, z_boss, sz in _bosses(inner):
+        front = front.fuse(_front_pod(x_in, x_ext, sx, z_boss, sz, yb, inner))
+    for x_in, x_ext, sx, z_boss, _sz in _bosses(inner):
+        front = front.cut(_front_cuts(x_in, x_ext, sx, z_boss, yb, y_joint))
     return cq.Workplane(obj=front)
 
 
@@ -301,11 +290,11 @@ def build_back_half():
     inner, outer, y_joint, _ = _dims()
     shell = _shell_with_facet(inner, outer).val()
     back = shell.intersect(_ybox(outer[0], outer[1], y_joint, outer[3], outer[4], outer[5]))
-    yb = _yb_back(y_joint)
+    yb = _y_boss(y_joint)
     for x_in, x_ext, sx, z_boss, _sz in _bosses(inner):
-        back = back.fuse(_back_plug(x_in, x_ext, sx, z_boss, yb))
+        back = back.fuse(_back_plug(x_ext, sx, z_boss, yb))
     for x_in, x_ext, sx, z_boss, _sz in _bosses(inner):
-        back = back.cut(_screw_cut(x_in, x_ext, sx, z_boss, yb))
+        back = back.cut(_screw_cut(x_ext, sx, z_boss, yb))
     return cq.Workplane(obj=back)
 
 
@@ -345,12 +334,12 @@ def _report_split(front, back):
     overlap = front.val().intersect(back.val()).Volume()
     print(f"  front ∩ back:     {overlap:.1f} mm³  ({'CLEAR slip-fit' if overlap < 5 else 'INTERFERENCE'})")
     inner, _o, y_joint, _c = _dims()
-    ybf, ybb = _yb_front(y_joint), _yb_back(y_joint)
+    yb = _y_boss(y_joint)
     cold = _contents.build()["foam-shell"][0]
     clash = sum(
         cold.intersect(
-            _back_plug(x_in, x_ext, sx, z_boss, ybb).fuse(
-                _front_pod(x_in, sx, z_boss, sz, ybf, inner, y_joint))
+            _back_plug(x_ext, sx, z_boss, yb).fuse(
+                _front_pod(x_in, x_ext, sx, z_boss, sz, yb, inner))
         ).Volume()
         for x_in, x_ext, sx, z_boss, sz in _bosses(inner)
     )

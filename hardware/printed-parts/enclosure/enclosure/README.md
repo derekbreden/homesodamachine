@@ -12,16 +12,23 @@ in assembled position, seams intact (mirrors `faucet/touch-flo-shell`).
 
 ## Split + bosses
 
-The front half's inner-half rear wall telescopes into the back half (slip-fit
-lip). Four interlocking screw bosses — one at each top/bottom corner of the ±X
-side walls — fasten the halves along the depth (+Y) axis:
+The front half's full-wall rear lip telescopes into the back half over a 20 mm
+overlap (the joint's X/Z registration). Four corner cross-pins — one at each
+top/bottom corner of the ±X side walls, centered in the overlap and coaxial by
+construction — fasten the halves with M3 screws driven from the ±X exterior.
 
-- **Front boss = socket** (the faucet shell-bottom base-pod idiom): a Ø12.55 mm
-  bore open toward the back, with a ruthex M3 heat-set pocket (Ø4.0 × 5.25) at
-  its deep −Y end.
-- **Back boss = plug** (the faucet mounting-plate boss idiom): a Ø12.15 mm
-  cylinder that slides into the socket (0.40 mm slip), carrying an M3 SHCS
-  through a Ø3.9 shank bore + Ø6.15 head counterbore.
+Each cross-pin is sized to its job. Reading a screw outboard→inboard from the
+±X exterior: a Ø6.15 mm head counterbore, then the **boss** — exactly one wall
+(3 mm) of material the Ø3.9 mm shank crosses — then the heat-set, then a one-wall
+cap.
+
+- **Back half = plug**: a Ø9.9 mm cylinder (the shank + one wall each side, *not*
+  the head — the head sits in the wall counterbore) from the exterior to the
+  heat-set, fused to the side wall.
+- **Front lip = socket**: a corner pod, integral with the top/bottom wall, bored
+  Ø10.3 mm to take the plug as a slide fit, with the ruthex M3 heat-set
+  (Ø4.0 × 5.25) capped at its deep inboard end and a +Y channel so the plug
+  slides in as the lip telescopes home.
 
 The back half is sized so the cold core seats behind the bosses (verified clear
 at build time). Each printed half fits the H2C left-nozzle build envelope
