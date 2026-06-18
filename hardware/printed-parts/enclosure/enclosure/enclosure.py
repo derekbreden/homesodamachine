@@ -337,17 +337,13 @@ def _y_boss(y_joint):
 
 
 def coupon_dims():
-    """Small dims that pack every front-half feature — facet/display housing,
-    telescoping lip, the four corner bosses, the full-depth ribs — into a fast
-    test coupon (a few hours) instead of the full ~16 h print. The facet
-    (118.5 × 81, ≈57 mm projected in Y and Z) is the floor on every dimension;
-    the box is that plus the lip overlap and one boss at each corner. The
-    feature geometry is identical to the real front half — only the box around
-    it is shrunk."""
-    ix0, ix1 = 0.0, 124.0          # ≥ the facet's 118.5 width, + a right boss
-    iy0, iy1 = 0.0, 65.0
-    iz0, iz1 = 0.0, 90.0
-    y_joint = 60.0                 # past the facet's ~54 mm Y reach
+    """Dims for the front-half test-print coupon — a reduced-size box carrying
+    every feature (display housing, telescoping lip, the four corner bosses, the
+    full-depth ribs) at full size."""
+    ix0, ix1 = 0.0, 150.0          # facet 118.5 flush-left, right boss clear
+    iy0, iy1 = 0.0, 95.0
+    iz0, iz1 = 0.0, 110.0
+    y_joint = 85.0                 # lip + rear bosses sit behind the housing
     inner = (ix0, ix1, iy0, iy1, iz0, iz1)
     outer = (ix0 - wall, ix1 + wall, iy0 - wall, iy1 + wall, iz0 - wall, iz1 + wall)
     return inner, outer, y_joint, None
