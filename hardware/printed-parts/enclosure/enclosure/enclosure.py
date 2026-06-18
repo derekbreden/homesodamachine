@@ -341,7 +341,7 @@ def coupon_dims():
     every feature (display housing, telescoping lip, the four corner bosses, the
     full-depth ribs) at full size."""
     ix0, ix1 = 0.0, 150.0          # facet 118.5 flush-left, right boss clear
-    iy0, iy1 = 0.0, 95.0
+    iy0, iy1 = 0.0, 122.0          # back coupon's depth behind the joint
     iz0, iz1 = 0.0, 110.0
     y_joint = 85.0                 # lip + rear bosses sit behind the housing
     inner = (ix0, ix1, iy0, iy1, iz0, iz1)
@@ -367,8 +367,8 @@ def build_front_half(dims=None):
     return cq.Workplane(obj=front)
 
 
-def build_back_half():
-    inner, outer, y_joint, _ = _dims()
+def build_back_half(dims=None):
+    inner, outer, y_joint, _ = dims if dims is not None else _dims()
     shell = _shell_with_facet(inner, outer).val()
     back = shell.intersect(_ybox(outer[0], outer[1], y_joint, outer[3], outer[4], outer[5]))
     yb = _y_boss(y_joint)
@@ -441,20 +441,25 @@ def main():
     assy.add(back, name="enclosure_back", color=cq.Color(0.70, 0.74, 0.82))
 
     coupon = build_front_half(coupon_dims())
+    coupon_back = build_back_half(coupon_dims())
 
     export_step(front, str(_here.parent / "enclosure-front.step"))
     export_step(back, str(_here.parent / "enclosure-back.step"))
     export_assembly(assy, str(_here.parent / "enclosure.step"))
     export_step(coupon, str(_here.parent / "enclosure-front-coupon.step"))
+    export_step(coupon_back, str(_here.parent / "enclosure-back-coupon.step"))
     print("-> enclosure-front.step")
     print("-> enclosure-back.step")
     print("-> enclosure.step (assembled halves)")
     print("-> enclosure-front-coupon.step (test print)")
+    print("-> enclosure-back-coupon.step (test print)")
     _report_facet(front)
     _report_split(front, back)
-    cb = coupon.val().BoundingBox()
-    print(f"  coupon:           {cb.xlen:.0f}×{cb.ylen:.0f}×{cb.zlen:.0f} mm, "
-          f"{len(coupon.val().Solids())} solid")
+    for tag, c in (("front coupon", coupon), ("back coupon", coupon_back)):
+        b = c.val().BoundingBox()
+        print(f"  {tag}:     {b.xlen:.0f}×{b.ylen:.0f}×{b.zlen:.0f} mm, {len(c.val().Solids())} solid")
+    cpair = coupon.val().intersect(coupon_back.val()).Volume()
+    print(f"  coupon ∩:         {cpair:.1f} mm³  ({'CLEAR slip-fit' if cpair < 5 else 'INTERFERENCE'})")
 
     variables = {
         "DISPLAY_FACET_X": f"{display_facet_x:.4g} mm",
