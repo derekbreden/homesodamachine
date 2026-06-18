@@ -1,9 +1,10 @@
-"""Kitchen Edition enclosure assembly — the shell wrapped around the contents.
+"""Kitchen Edition enclosure assembly — the two enclosure halves wrapped
+around the contents.
 
-Combines `../enclosure/enclosure.step` with the placed parts from
-`_contents.build()` in their shared coordinates.
-The contents keep their per-part colors; the shell is translucent so the
-arrangement reads through it.
+Combines `../enclosure/enclosure-front.step` and `enclosure-back.step` with the
+placed parts from `_contents.build()` in their shared coordinates. The contents
+keep their per-part colors; the halves are translucent so the arrangement
+(and the front↔back split) reads through them.
 """
 
 import sys
@@ -19,16 +20,21 @@ from _cadq_export import export_assembly
 from docgen import substitute_py_comments
 import _contents as contents
 
-SHELL_STEP = _repo / "hardware" / "printed-parts" / "enclosure" / "enclosure" / "enclosure.step"
-SHELL_COLOR = cq.Color(0.85, 0.92, 1.00, 0.22)  # transparent PETG
+_ENCLOSURE_DIR = _repo / "hardware" / "printed-parts" / "enclosure" / "enclosure"
+FRONT_STEP = _ENCLOSURE_DIR / "enclosure-front.step"
+BACK_STEP = _ENCLOSURE_DIR / "enclosure-back.step"
+FRONT_COLOR = cq.Color(0.85, 0.92, 1.00, 0.22)  # transparent PETG, front half
+BACK_COLOR = cq.Color(0.80, 0.88, 0.98, 0.22)   # transparent PETG, back half
 
 
 def build():
     placed = contents.build()
-    shell = cq.importers.importStep(str(SHELL_STEP)).val()
+    front = cq.importers.importStep(str(FRONT_STEP)).val()
+    back = cq.importers.importStep(str(BACK_STEP)).val()
 
     assy = cq.Assembly(name="kitchen-edition-enclosure-assembly")
-    assy.add(shell, name="enclosure", color=SHELL_COLOR)
+    assy.add(front, name="enclosure_front", color=FRONT_COLOR)
+    assy.add(back, name="enclosure_back", color=BACK_COLOR)
     for name, (shape, color) in placed.items():
         assy.add(shape, name=name, color=color)
     return assy
