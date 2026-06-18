@@ -55,6 +55,10 @@ FRONT_DEPTH = 190.0
 # Vertical gap between the bottom layer (cold core + front-bottom) and the
 # top layer (pump cases + trays).
 LAYER_GAP = 5.0
+# The front half's corner ribs reach ~12.25 mm inboard from each side wall
+# (the boss chain: head counterbore + heat-set + cap). Front-bottom content set
+# against a side wall is inset this much, plus a gap, to clear them.
+SIDE_RIB_INSET = 14.0
 
 
 # --- Colors ---------------------------------------------------------------
@@ -107,16 +111,17 @@ def build():
     placed["foam-shell"] = _at(foam, 0.0, FRONT_DEPTH, 0.0)
 
     # --- Zone D: compressor on the floor front-left; SeaFlo laid flat on the
-    # compressor top; condenser/fan as a panel flat against the +X (right)
-    # wall on the floor (fan airflow side-to-side across X).
+    # compressor top; condenser/fan as a panel on the floor, airflow axis across
+    # X. The shroud and condenser are inset from their side walls to clear the
+    # front half's corner ribs.
     comp = _rot(_load(COMP_SHROUD), (0, 0, 1), 90.0)   # 178 x 133 x 151
-    placed["compressor-shroud"] = _at(comp, 0.0, 0.0, 0.0)
+    placed["compressor-shroud"] = _at(comp, SIDE_RIB_INSET, 0.0, 0.0)
     comp_top_z = comp.BoundingBox().zlen               # 151
     sf_w, sf_d, sf_h = SEAFLO_DIMS                      # [75 x 60 x 175](SEAFLO_DIMS)
     placed["seaflo-pump"] = _at(_box(sf_h, sf_w, sf_d), 0.0, 0.0, comp_top_z)
-    # Condenser/fan: thin airflow axis across X, against the +X wall.
+    # Condenser/fan: thin airflow axis across X, inset from the +X wall.
     cond = _box(CONDENSER_AIRFLOW, CONDENSER_FACE_B, CONDENSER_FACE_A)  # 56 x 151 x 178
-    placed["condenser+fan"] = _at(cond, cold_w - CONDENSER_AIRFLOW, 0.0, 0.0)
+    placed["condenser+fan"] = _at(cond, cold_w - CONDENSER_AIRFLOW - SIDE_RIB_INSET, 0.0, 0.0)
 
     # --- Zone C: two pump cases (cartridge under the funnel), front-top.
     pc1 = _cycle_xyz_to_yzx(_load(PUMP_CASE))          # 74 x 136 x 76
