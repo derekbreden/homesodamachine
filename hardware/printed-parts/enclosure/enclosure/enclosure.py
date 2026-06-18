@@ -336,8 +336,25 @@ def _y_boss(y_joint):
     return y_joint + plug_dia / 2.0
 
 
-def build_front_half():
-    inner, outer, y_joint, _ = _dims()
+def coupon_dims():
+    """Small dims that pack every front-half feature — facet/display housing,
+    telescoping lip, the four corner bosses, the full-depth ribs — into a fast
+    test coupon (a few hours) instead of the full ~16 h print. The facet
+    (118.5 × 81, ≈57 mm projected in Y and Z) is the floor on every dimension;
+    the box is that plus the lip overlap and one boss at each corner. The
+    feature geometry is identical to the real front half — only the box around
+    it is shrunk."""
+    ix0, ix1 = 0.0, 124.0          # ≥ the facet's 118.5 width, + a right boss
+    iy0, iy1 = 0.0, 65.0
+    iz0, iz1 = 0.0, 90.0
+    y_joint = 60.0                 # past the facet's ~54 mm Y reach
+    inner = (ix0, ix1, iy0, iy1, iz0, iz1)
+    outer = (ix0 - wall, ix1 + wall, iy0 - wall, iy1 + wall, iz0 - wall, iz1 + wall)
+    return inner, outer, y_joint, None
+
+
+def build_front_half(dims=None):
+    inner, outer, y_joint, _ = dims if dims is not None else _dims()
     shell = _shell_with_facet(inner, outer).val()
     front = shell.intersect(_ybox(outer[0], outer[1], outer[2], y_joint, outer[4], outer[5]))
     front = front.fuse(_front_lip(inner, y_joint))
@@ -427,14 +444,21 @@ def main():
     assy.add(front, name="enclosure_front", color=cq.Color(0.80, 0.84, 0.90))
     assy.add(back, name="enclosure_back", color=cq.Color(0.70, 0.74, 0.82))
 
+    coupon = build_front_half(coupon_dims())
+
     export_step(front, str(_here.parent / "enclosure-front.step"))
     export_step(back, str(_here.parent / "enclosure-back.step"))
     export_assembly(assy, str(_here.parent / "enclosure.step"))
+    export_step(coupon, str(_here.parent / "enclosure-front-coupon.step"))
     print("-> enclosure-front.step")
     print("-> enclosure-back.step")
     print("-> enclosure.step (assembled halves)")
+    print("-> enclosure-front-coupon.step (test print)")
     _report_facet(front)
     _report_split(front, back)
+    cb = coupon.val().BoundingBox()
+    print(f"  coupon:           {cb.xlen:.0f}×{cb.ylen:.0f}×{cb.zlen:.0f} mm, "
+          f"{len(coupon.val().Solids())} solid")
 
     variables = {
         "DISPLAY_FACET_X": f"{display_facet_x:.4g} mm",
