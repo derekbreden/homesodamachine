@@ -203,7 +203,7 @@ def _display_cuts(outer):
     pcb = (
         cq.Workplane(plane).workplane(offset=1.0)
         .rect(display_pcb_x, display_pcb_slope)
-        .extrude(-(display_facet_thickness + 2.0)).val()
+        .extrude(-(display_facet_thickness + 1.0)).val()  # ends at the facet back (−thickness)
     )
     return bezel.fuse(pcb)
 
