@@ -9,9 +9,12 @@ front half's rear wall inserts into it.
 `enclosure.py` exports the two printable halves (`enclosure-front.step`,
 `enclosure-back.step`) plus `enclosure.step` — the two halves as separate solids
 in assembled position, seams intact (mirrors `faucet/touch-flo-shell`). It also
-exports `enclosure-front-coupon.step` — a test-print coupon: a reduced-size
-front half (~156 × 101 × 116 mm) carrying every feature at full size (the
-display housing, the telescoping lip, the four corner bosses, the ribs).
+exports two test-print coupons over a shared mating geometry: `enclosure-front-
+coupon.step`, a reduced-size front half (~156 × 101 × 116 mm) carrying every
+feature at full size (the display housing, the telescoping lip, the four corner
+bosses, the ribs), and `enclosure-back-coupon.step`, the matching back half
+(~156 × 40 × 116 mm) — its mouth, four plugs, and screw bores aligned to the
+front coupon's lip and sockets.
 
 ## Split + bosses
 
