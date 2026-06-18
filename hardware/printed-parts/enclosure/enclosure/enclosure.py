@@ -61,6 +61,13 @@ display_facet_buffer = 3.0
 display_facet_x = display_bezel_x + 2 * display_facet_buffer          # [118.5 mm](DISPLAY_FACET_X)
 display_facet_slope = display_bezel_slope + 2 * display_facet_buffer  # [81 mm](DISPLAY_FACET_SLOPE)
 display_facet_angle_deg = 45.0
+# The facet is a display housing this deep (the wall behind it, set to the
+# display's overall depth) with the display let into it: a shallow bezel
+# counterbore on the user face and a PCB through-hole down the full thickness.
+display_facet_thickness = 18.0   # facet wall depth = display envelope depth
+display_bezel_depth = 1.0        # bezel counterbore depth, user face
+display_pcb_x = 106.0            # PCB body through-hole, lateral (X)
+display_pcb_slope = 69.0         # PCB body through-hole, up the 45° slope
 
 # Split + boss parameters — every dimension sized to its function, nothing
 # inherited from the faucet. The seam is a Y plane; the front half's full-wall
@@ -170,13 +177,35 @@ def _shell_with_facet(inner, outer):
     inner_box = _ybox(ix0, ix1, iy0, iy1, iz0, iz1)
     outer_chamfered = _ybox(ox0, ox1, oy0, oy1, oz0, oz1).cut(_facet_wedge(outer))
 
-    back_origin = (origin[0] - wall * normal[0],
-                   origin[1] - wall * normal[1],
-                   origin[2] - wall * normal[2])
+    back_origin = (origin[0] - display_facet_thickness * normal[0],
+                   origin[1] - display_facet_thickness * normal[1],
+                   origin[2] - display_facet_thickness * normal[2])
     keepout = _halfspace(back_origin, normal, extent).intersect(_facet_x_slab(outer, extent))
     inner_clipped = inner_box.cut(keepout)
 
     return cq.Workplane(obj=outer_chamfered.cut(inner_clipped))
+
+
+def _display_cuts(outer):
+    """The display let into the facet: a shallow bezel counterbore on the user
+    face and a PCB through-hole down the full facet thickness — both rectangles
+    centered on the facet, cut along its 45° normal. (Starts one mm proud of the
+    face for a clean break; the PCB hole runs a hair past the back into the
+    cavity.)"""
+    a, normal, origin, dy, dz = _facet_geom(outer)
+    center = (outer[0] + display_facet_x / 2.0, origin[1], origin[2])
+    plane = cq.Plane(origin=cq.Vector(*center), xDir=cq.Vector(1, 0, 0), normal=cq.Vector(*normal))
+    bezel = (
+        cq.Workplane(plane).workplane(offset=1.0)
+        .rect(display_bezel_x, display_bezel_slope)
+        .extrude(-(display_bezel_depth + 1.0)).val()
+    )
+    pcb = (
+        cq.Workplane(plane).workplane(offset=1.0)
+        .rect(display_pcb_x, display_pcb_slope)
+        .extrude(-(display_facet_thickness + 2.0)).val()
+    )
+    return bezel.fuse(pcb)
 
 
 # --- split joint: telescoping lip + X-axis corner cross-pins ----------------
@@ -317,6 +346,9 @@ def build_front_half():
         front = front.fuse(_front_pod(x_in, x_ext, sx, z_boss, sz, y_joint, inner))
     # The full-depth pods can poke into the display facet; trim them to its plane.
     front = front.cut(_facet_wedge(outer))
+    # Let the display into the facet (bezel counterbore + PCB through-hole); this
+    # also clears whatever rib/wall material sits behind the facet in its path.
+    front = front.cut(_display_cuts(outer))
     for x_in, x_ext, sx, z_boss, _sz in _bosses(inner):
         front = front.cut(_front_cuts(x_in, x_ext, sx, z_boss, yb, y_joint))
     return cq.Workplane(obj=front)

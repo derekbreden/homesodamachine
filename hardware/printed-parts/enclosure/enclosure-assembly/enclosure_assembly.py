@@ -21,10 +21,26 @@ from docgen import substitute_py_comments
 import _contents as contents
 
 _ENCLOSURE_DIR = _repo / "hardware" / "printed-parts" / "enclosure" / "enclosure"
+sys.path.insert(0, str(_ENCLOSURE_DIR))
+import enclosure  # facet geometry, to seat the display in the housing
+
 FRONT_STEP = _ENCLOSURE_DIR / "enclosure-front.step"
 BACK_STEP = _ENCLOSURE_DIR / "enclosure-back.step"
+DISPLAY_STEP = _repo / "hardware" / "reference" / "waveshare-43b-display" / "waveshare-43b-display.step"
 FRONT_COLOR = cq.Color(0.85, 0.92, 1.00, 0.22)  # transparent PETG, front half
 BACK_COLOR = cq.Color(0.80, 0.88, 0.98, 0.22)   # transparent PETG, back half
+DISPLAY_COLOR = cq.Color(0.10, 0.10, 0.12)      # the Waveshare 4.3B reference
+
+
+def _placed_display():
+    """The display reference seated in the facet housing: rotated −45° about X
+    so its −Y screen faces the facet normal, then its screen-face center (the
+    STEP origin) moved onto the facet center."""
+    _i, outer, _yj, _cf = enclosure._dims()
+    _a, _n, origin, _dy, _dz = enclosure._facet_geom(outer)
+    facet_center = (outer[0] + enclosure.display_facet_x / 2.0, origin[1], origin[2])
+    disp = cq.importers.importStep(str(DISPLAY_STEP)).val()
+    return disp.rotate((0, 0, 0), (1, 0, 0), -45.0).translate(facet_center)
 
 
 def build():
@@ -37,6 +53,7 @@ def build():
     assy.add(back, name="enclosure_back", color=BACK_COLOR)
     for name, (shape, color) in placed.items():
         assy.add(shape, name=name, color=color)
+    assy.add(_placed_display(), name="display", color=DISPLAY_COLOR)
     return assy
 
 

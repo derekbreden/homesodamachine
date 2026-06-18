@@ -38,15 +38,20 @@ at build time). Each printed half fits the H2C left-nozzle build envelope
 (325 × 320 × 320 mm) even though the whole enclosure does not — that is the
 point of the split.
 
-## Display facet
+## Display housing
 
-A flat 45° **solid** surface is chamfered into the top-front-left corner for the
-[Waveshare ESP32-S3-Touch-LCD-4.3B config display](/hardware/reference/waveshare-43b-display/)
-(bezel 112.5 × 75 mm), facing up-and-forward (−Y front / +Z up) toward the
-standing user, flush to the −X (left) edge so the whole top-front-left corner
-comes off. It is a wall-thick mounting surface sized to the bezel + a 3 mm
-buffer all around — [118.5 mm](DISPLAY_FACET_X) (X, lateral) ×
-[81 mm](DISPLAY_FACET_SLOPE) (along the 45° slope).
+A flat 45° facet is chamfered into the top-front-left corner for the
+[Waveshare ESP32-S3-Touch-LCD-4.3B config display](/hardware/reference/waveshare-43b-display/),
+facing up-and-forward (−Y front / +Z up) toward the standing user, flush to the
+−X (left) edge so the whole top-front-left corner comes off. The facet surface
+is sized to the bezel + a 3 mm buffer all around — [118.5 mm](DISPLAY_FACET_X)
+(X, lateral) × [81 mm](DISPLAY_FACET_SLOPE) (along the 45° slope).
+
+The facet is thickened into an 18 mm housing (the display's overall depth) with
+the display let in: a shallow 112.5 × 75 × 1 mm counterbore on the user face
+recesses the bezel, and a 106 × 69 mm hole through the full thickness passes the
+PCB body. Where the corner ribs sit behind the facet, the PCB hole clears them.
+The display reference is seated in the housing in `../enclosure-assembly/`.
 
 ## Regenerate
 
