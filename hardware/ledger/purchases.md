@@ -290,6 +290,8 @@ Ice-maker donor units and copper coil for the chill loop.
 | Kraftex copper foil tape, 1/4" × 66 ft, conductive adhesive. Order #112-5656837-1597066, placed May 8, 2026 | [B0G1TN3JWB](https://www.amazon.com/dp/B0G1TN3JWB) | 1 | $7.50 | ACQUIRED (delivered May 9) |
 | ~~Tynulox 1/8" × 6" 304 SS round rod (10 pk)~~. Order #112-8251187-7721036, placed April 24, 2026 | [B0BKGS32KJ](https://www.amazon.com/dp/B0BKGS32KJ) | 1 pk | $8.56 | ACQUIRED (superseded) |
 | Tandefio 1/8" × 12" 316 SS round rod (5 pk). Order #112-7391312-2980226, placed April 24, 2026 | [B0CY4DWJFQ](https://www.amazon.com/dp/B0CY4DWJFQ) | 1 pk | $8.57 | ACQUIRED |
+| 1/8" (3 mm) × 7.8" (200 mm) 316 SS round rod (10 pk) — level-sensing rod stock. Order #114-7801151-2777012, placed June 17, 2026 | [B0FYC63JCY](https://www.amazon.com/dp/B0FYC63JCY) | 2 pk (20) | $18.22 | ON-ORDER (arriving Tue Jun 23) |
+| MECCANIXITY 1/8" (3 mm) × 9.84" (250 mm) 316 SS round rod (10 pk) — level-sensing rod stock. Order #114-2674264-1703446, placed June 17, 2026 | [B0FWZMZBY7](https://www.amazon.com/dp/B0FWZMZBY7) | 2 pk (20) | $17.78 | ON-ORDER (arriving Jun 18–20) |
 | 12 V 2 A DC power supply, 9-tip. Orders #114-1015191-6799441 (Feb 18), #114-9620011-1329056 (Feb 25) | [B0DZGTTBGZ](https://www.amazon.com/dp/B0DZGTTBGZ) | 1 | bundle | ACQUIRED |
 | 5 V 3 A AC/DC adapter, 11-tip. Order #114-0818390-2733826, placed February 2, 2026 | [B09NLMVXMZ](https://www.amazon.com/dp/B09NLMVXMZ) | 1 | $9.00 | ACQUIRED |
 | Molence C45 PCB DIN-rail adapter clips (10 sets). Order #114-2582317-0018622, placed February 26, 2026 | [B09KZHY8G4](https://www.amazon.com/dp/B09KZHY8G4) | 1 pk | $10.71 | ACQUIRED |
@@ -521,10 +523,10 @@ Industrial-supply orders direct from McMaster-Carr (mcmaster.com). First McMaste
 | ACQUIRED — hardware, tools & infra (§§1–17, 19, 20) | [$25,988.34](LEDGER_ACQUIRED_HW) |
 | ACQUIRED — capitalized contract labor (§18) | [$2,607.92](LEDGER_LABOR) |
 | ACQUIRED (combined) | [$28,596.26](LEDGER_ACQUIRED_COMBINED) |
-| ON-ORDER | [$1,204.85](LEDGER_ON_ORDER) |
+| ON-ORDER | [$1,240.85](LEDGER_ON_ORDER) |
 | MISSING — paid, not received (§1 copper bar) | [$42.89](LEDGER_MISSING) |
 | LIKELY-TO-BUY | $0.00 |
-| **Grand total — cash outlay** | [$29,844.00](LEDGER_GRAND_TOTAL) |
+| **Grand total — cash outlay** | [$29,880.00](LEDGER_GRAND_TOTAL) |
 
 ACQUIRED hardware by section:
 
