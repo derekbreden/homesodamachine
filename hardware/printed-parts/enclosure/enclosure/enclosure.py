@@ -210,20 +210,20 @@ def _display_cuts(outer):
 
 def _facet_end_wall(inner, outer):
     """Close the facet recess at its +X edge, where the recessed facet panel
-    meets the resumed square corner. The opening there is the triangle (in the
-    facet-right-edge plane) bounded by the inner front wall, the inner top wall,
-    and the facet plane — the slice of cavity that sees the facet's exterior, an
-    open path straight into the box. Fill it with a one-`wall` gusset just
-    inboard of the edge: hypotenuse on the facet plane, legs on the two inner
-    walls. (The −X edge needs no such wall — the left exterior wall seals it.)"""
+    meets the resumed square corner. A one-`wall` gusset just inboard of the
+    edge fills the corner bounded by the inner front wall, the inner top wall,
+    and the housing BACK plane — spanning the full housing depth so it is flush
+    and continuous with the slab, not tangent to the facet at a knife edge.
+    (The −X edge needs no such wall — the left exterior wall seals it.)"""
     ix0, ix1, iy0, iy1, iz0, iz1 = inner
     ox0, ox1, oy0, oy1, oz0, oz1 = outer
     a, normal, origin, dy, dz = _facet_geom(outer)
     extent = max(ox1 - ox0, oy1 - oy0, oz1 - oz0) + 100.0
     x_edge = ox0 + display_facet_x
-    c = origin[2] - origin[1]   # facet plane: z − y = c
+    back = tuple(origin[i] - display_facet_thickness * normal[i] for i in range(3))
+    c = back[2] - back[1]   # housing back plane: z − y = c
     bbox = _ybox(x_edge, x_edge + wall, iy0, iz1 - c, c + iy0, iz1)
-    return bbox.intersect(_halfspace(origin, normal, extent))
+    return bbox.intersect(_halfspace(back, normal, extent))
 
 
 # --- split joint: telescoping lip + X-axis corner cross-pins ----------------

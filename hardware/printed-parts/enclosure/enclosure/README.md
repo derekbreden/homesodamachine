@@ -58,9 +58,10 @@ the display let in: a shallow 112.5 × 75 × 1 mm counterbore on the user face
 recesses the bezel, and a 106 × 69 mm hole through the full thickness passes the
 PCB body. Where the corner ribs sit behind the facet, the PCB hole clears them.
 The recessed panel is sealed from the cavity at both lateral edges: the −X edge
-by the left exterior wall, the +X edge by a one-wall gusset across the corner
-triangle (inner front wall, inner top wall, facet plane). The display reference
-is seated in the housing in `../enclosure-assembly/`.
+by the left exterior wall, the +X edge by a one-wall gusset spanning the full
+housing depth (inner front wall, inner top wall, housing back plane), continuous
+with the slab. The display reference is seated in the housing in
+`../enclosure-assembly/`.
 
 ## Regenerate
 
