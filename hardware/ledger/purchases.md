@@ -57,7 +57,7 @@ Stainless pressure-vessel fabrication: 316 SS round-tube body + 1/4" laser-cut 3
 | Franklin International 1412 Titebond III wood glue, 4 oz. Order #112-2348373-7907448, placed April 29, 2026 | [B0002YQ378](https://www.amazon.com/dp/B0002YQ378) | 1 | $5.34 | ACQUIRED |
 | Storystore 4" heavy-duty steel C-clamps (4 pk). Order #112-2348373-7907448, placed April 29, 2026 | [B0DHX78G97](https://www.amazon.com/dp/B0DHX78G97) | 1 pk | $21.44 | ACQUIRED |
 | Bosch DSB1013 1" × 6" Daredevil Standard Spade Bit. Order #111-4630388-1572202, placed April 29, 2026 | [B001NGPAA0](https://www.amazon.com/dp/B001NGPAA0) | 1 | $5.35 | ACQUIRED |
-| Drill Hulk DHCO26 9/64" (3.57 mm) M35 cobalt jobber twist drill bits, 12-pack — blind rod-register drilling in the 316 SS end-cap plates. Order #112-3161139-1981039, placed June 15, 2026 | [B07XNNNC5Y](https://www.amazon.com/dp/B07XNNNC5Y) | 1 pk (12) | $18.43 | ON-ORDER (arriving Wed Jun 17) |
+| Drill Hulk DHCO26 9/64" (3.57 mm) M35 cobalt jobber twist drill bits, 12-pack — blind rod-register drilling in the 316 SS end-cap plates. Order #112-3161139-1981039, placed June 15, 2026 | [B07XNNNC5Y](https://www.amazon.com/dp/B07XNNNC5Y) | 1 pk (12) | $18.43 | ACQUIRED (delivered Jun 16) |
 | WEN BA4555 5" benchtop metal-cutting band saw — horizontal cutoff with vise + length stop, 0–60° miter, variable 125–260 FPM, 56-1/2" blade. Square, repeatable cuts of the 1/8" 316L level-sensing rods (carbonator + flavor reservoir + lite reservoir pocket). Order #112-0741371-9657825, placed June 17, 2026 | [B09XWQCNGT](https://www.amazon.com/dp/B09XWQCNGT) | 1 | $362.73 | ON-ORDER (arriving Jun 24–25) |
 | Imachinist S56121224SS 56-1/2" × 1/2" × 24 TPI M42 bi-metal bandsaw blade (stainless) — 1/8" rod cutoff blade for the BA4555. Order #112-3334877-3267411, placed June 17, 2026 | [B0B7GDTX9H](https://www.amazon.com/dp/B0B7GDTX9H) | 1 | $19.83 | ON-ORDER (arriving Mon Jun 22) |
 | Ultra Duster Canned Air Industrial Strength 10 oz, 4-pack. Order #112-6571709-7582668, placed May 8, 2026 | [B07JRBR1MM](https://www.amazon.com/dp/B07JRBR1MM) | 1 pk (4× 10 oz) | $24.51 | ACQUIRED (delivered May 12) |
@@ -73,9 +73,9 @@ Stainless pressure-vessel fabrication: 316 SS round-tube body + 1/4" laser-cut 3
 | SendCutSend order SV07U813 — 304 SS 0.060" racetrack end-cap blanks ×4 (plan-B spare) | sendcutsend.com | 4 | $45.52 | ACQUIRED |
 | SendCutSend order SP54G453 — 304 SS 0.048" body half-sheets ×10 (plan-B spare) | sendcutsend.com | 10 | $134.38 | ACQUIRED |
 | SendCutSend order S064D925 — 0.060" 316 SS Touch-Flo under-counter plates | sendcutsend.com | 10 | $36.29 | ACQUIRED (delivered May 14) |
-| Cantesco P101S-A red visible dye penetrant, solvent-removable aerosol — dye-penetrant (PT) leak/crack inspection of the end-cap closure fillet welds before hydro (step 6). Order #112-1089976-3089830, placed June 16, 2026 | [B00T46ZH5E](https://www.amazon.com/dp/B00T46ZH5E) | 1 | $22.80 | ON-ORDER (arriving Thu Jun 18) |
-| Cantesco D101-A non-aqueous wet developer, white, 12 oz aerosol — PT developer that draws the penetrant back out of a defect as a visible indication. Order #112-9519199-9509821, placed June 16, 2026 | [B008BJCOLK](https://www.amazon.com/dp/B008BJCOLK) | 1 | $14.81 | ON-ORDER (arriving Mon Jun 22) |
-| Cleanroom wipes, 9" × 9", cellulose/polyester Grade A 68 GSM, lint-free (150 pcs) — controlled PT penetrant wipe-off (dampened with the already-owned isopropyl alcohol, not sprayed) + low-lint surface for reading indications. Order #112-1089976-3089830, placed June 16, 2026 | [B0GD16CMYL](https://www.amazon.com/dp/B0GD16CMYL) | 1 pk (150) | $15.99 | ON-ORDER (arriving Wed Jun 17) |
+| Cantesco P101S-A red visible dye penetrant, solvent-removable aerosol — dye-penetrant (PT) leak/crack inspection of the end-cap closure fillet welds before hydro (step 6). Order #112-1089976-3089830, placed June 16, 2026 | [B00T46ZH5E](https://www.amazon.com/dp/B00T46ZH5E) | 1 | $24.45 | ON-ORDER (arriving Thu Jun 18) |
+| Cantesco D101-A non-aqueous wet developer, white, 12 oz aerosol — PT developer that draws the penetrant back out of a defect as a visible indication. Order #112-9519199-9509821, placed June 16, 2026 | [B008BJCOLK](https://www.amazon.com/dp/B008BJCOLK) | 1 | $15.88 | ACQUIRED (delivered Jun 16) |
+| Cleanroom wipes, 9" × 9", cellulose/polyester Grade A 68 GSM, lint-free (150 pcs) — controlled PT penetrant wipe-off (dampened with the already-owned isopropyl alcohol, not sprayed) + low-lint surface for reading indications. Order #112-1089976-3089830, placed June 16, 2026 | [B0GD16CMYL](https://www.amazon.com/dp/B0GD16CMYL) | 1 pk (150) | $17.15 | ACQUIRED (delivered Jun 16) |
 
 ## 2. CO2 subsystem
 
@@ -152,7 +152,7 @@ Peristaltic pumps, solenoids, bag-in-box connector, silicone delivery tubing, ba
 |---|---|---|---|---|
 | Kamoer KPHM400-SW3B25 400 ml/min 12 V peristaltic pump (BPT, sold by Kamoer Fluid Tech Shanghai). Orders #114-1015191-6799441 (Feb 18), #112-0545074-9805025 (Feb 23) | [B09MS6C91D](https://www.amazon.com/dp/B09MS6C91D) | 3 | $34.91 ea | ACQUIRED |
 | Beduan 12 V 1/4" inlet water solenoid (NC). Orders #114-3476722-1893810 (Feb 22, ×1), #112-0933043-5526613 (Feb 23, ×2), #112-9365343-6646655 (Mar 14, ×2), #112-4838242-5164262 (Mar 14, ×1) | [B07NWCQJK9](https://www.amazon.com/dp/B07NWCQJK9) | 6 | $9.64 ea | ACQUIRED |
-| Beduan 12 V 1/4" inlet water solenoid (NC). Order #112-3576572-8551422, placed June 14, 2026 | [B07NWCQJK9](https://www.amazon.com/dp/B07NWCQJK9) | 8 | $9.64 ea | ON-ORDER (arriving Wed Jun 17; with 6 on hand, covers 12-valve flavor manifold) |
+| Beduan 12 V 1/4" inlet water solenoid (NC). Order #112-3576572-8551422, placed June 14, 2026 | [B07NWCQJK9](https://www.amazon.com/dp/B07NWCQJK9) | 8 | $9.64 ea | ACQUIRED (delivered Jun 16; with 6 on hand, covers 12-valve flavor manifold) |
 | Hosyond 5-pack MG90S 9 g metal-gear micro servo. Order #112-1012254-8551456, placed June 1, 2026 | [B09V5BR7J5](https://www.amazon.com/dp/B09V5BR7J5) | 1 pk (5) | $15.43 | ACQUIRED (delivered Jun 4) |
 | NeoFit acetal ball valve — push-fit quarter-turn, food-grade PP body + acetal + EPDM O-ring, 1/4" OD tube (5-pack). Order #112-1012254-8551456, placed June 1, 2026 | [B0DDQC7S3B](https://www.amazon.com/dp/B0DDQC7S3B) | 1 pk (5) | $22.80 | ACQUIRED (delivered Jun 4) |
 | Supply Depot Coke-compatible BIB connector, 3/8" red (2 pk). Order #114-4194868-8174607, placed March 2, 2026 | [B0DMFK9B6P](https://www.amazon.com/dp/B0DMFK9B6P) | 1 pk | $21.44 | ACQUIRED |
@@ -264,7 +264,7 @@ Ice-maker donor units and copper coil for the chill loop.
 | ESP32-DevKitC-32E (repeat ASIN). Order #112-2471492-3870616, placed Jun 7, 2026 | [B09MQJWQN2](https://www.amazon.com/dp/B09MQJWQN2) | 2 | $23.60 | ACQUIRED (delivered Jun 8) |
 | Waveshare RP2040 0.99" round touch LCD, CNC case — prototype external flavor display; dropped from the product, superseded by the faucet-mounted Waveshare ESP32-S3 1.47" touch LCD (B0FCF1MGT3 below). Retained as prototype stock.. Orders #114-9973455-6637052 (Mar 8), #114-7373747-7178604 (Mar 9) | [B0CTSPYND2](https://www.amazon.com/dp/B0CTSPYND2) | 2 | ~$25.73 ea | ACQUIRED |
 | Meshnology ESP32-S3 round rotary display 1.28" — prototype enclosure-front config display. Order #114-7373747-7178604, placed March 9, 2026 | [B0G5Q4LXVJ](https://www.amazon.com/dp/B0G5Q4LXVJ) | 1 | bundle | ACQUIRED |
-| Waveshare ESP32-S3-Touch-LCD-4.3B — 4.3" 800×480 IPS RGB capacitive-touch dev board (ST7262 RGB + GT911 touch, CH422G I/O expander), ESP32-S3-WROOM-1-N16R8; enclosure-front config + interaction display, 7–36 V screw-terminal input off the 12 V bus. Order #112-5620567-3321809, placed Jun 13, 2026 | [B0D925SBYF](https://www.amazon.com/dp/B0D925SBYF) | 1 | $46.11 | ON-ORDER (arriving Jun 15) |
+| Waveshare ESP32-S3-Touch-LCD-4.3B — 4.3" 800×480 IPS RGB capacitive-touch dev board (ST7262 RGB + GT911 touch, CH422G I/O expander), ESP32-S3-WROOM-1-N16R8; enclosure-front config + interaction display, 7–36 V screw-terminal input off the 12 V bus. Order #112-5620567-3321809, placed Jun 13, 2026 | [B0D925SBYF](https://www.amazon.com/dp/B0D925SBYF) | 1 | $46.11 | ACQUIRED (delivered Jun 15) |
 | Waveshare ESP32-S3 1.47" capacitive-touch IPS LCD dev board, 172×320 (JD9853 driver + AXS5106L touch) — faucet-mounted flavor display + touch toggle. Order #112-7687617-6094631, placed Jun 7, 2026 | [B0FCF1MGT3](https://www.amazon.com/dp/B0FCF1MGT3) | 2 | $51.46 | ACQUIRED (delivered Jun 9) |
 
 ## 9. Electronics — I/O, drivers, sensors, power, DIN rail, connectors
@@ -282,9 +282,9 @@ Ice-maker donor units and copper coil for the chill loop.
 | HiLetgo NJK-5002C Hall-effect proximity switch (2 pk). Order #112-2147768-5852208, placed March 15, 2026 | [B01MZYYCLH](https://www.amazon.com/dp/B01MZYYCLH) | 1 pk | $9.11 | ACQUIRED |
 | Gebildet reed switches, 14 mm glass body, NO (6 pk). Order #112-4347613-6452231, placed April 24, 2026 | [B0CW9418F6](https://www.amazon.com/dp/B0CW9418F6) | 1 pk | $6.42 | ACQUIRED |
 | DEVMO MINI vertical float switch. Order #112-4706100-6171430, placed April 24, 2026 | [B07T18PGJ4](https://www.amazon.com/dp/B07T18PGJ4) | 1 | $13.93 | ACQUIRED |
-| AplysiaTech N52 neodymium ring magnet, 1" OD × 1/2" ID × 1/8" thick (25.4 × 12.7 × 3.18 mm, 10 pk) — donor magnet for a purpose-printed reservoir float (print-pause embed), alternative to harvesting the DEVMO donut. Order #112-8759475-1611456, placed Jun 14, 2026 | [B0GD15CWCL](https://www.amazon.com/dp/B0GD15CWCL) | 1 pk (10) | $30.02 | ON-ORDER (arriving Jun 15) |
-| Stainless-steel float switch, double-ball, 200 mm tube — teardown/donor for the commodity ⌀28 × 28 mm crimped SS float that recurs across nearly all SS float-switch listings. Order #112-7010270-8849812, placed Jun 14, 2026 | [B09JSYMM5G](https://www.amazon.com/dp/B09JSYMM5G) | 1 | $15.22 | ON-ORDER (arriving Jun 17) |
-| MECCANIXITY stainless-steel float switch, 45 mm rod, M10 thread (2 pc) — same commodity ⌀28 × 28 mm SS float, teardown/donor. Order #112-7886483-1554622, placed Jun 14, 2026 | [B0FL763VPL](https://www.amazon.com/dp/B0FL763VPL) | 1 pk (2) | $14.79 | ON-ORDER (arriving Jun 17) |
+| AplysiaTech N52 neodymium ring magnet, 1" OD × 1/2" ID × 1/8" thick (25.4 × 12.7 × 3.18 mm, 10 pk) — donor magnet for a purpose-printed reservoir float (print-pause embed), alternative to harvesting the DEVMO donut. Order #112-8759475-1611456, placed Jun 14, 2026 | [B0GD15CWCL](https://www.amazon.com/dp/B0GD15CWCL) | 1 pk (10) | $30.02 | ACQUIRED (delivered Jun 15) |
+| Stainless-steel float switch, double-ball, 200 mm tube — teardown/donor for the commodity ⌀28 × 28 mm crimped SS float that recurs across nearly all SS float-switch listings. Order #112-7010270-8849812, placed Jun 14, 2026 | [B09JSYMM5G](https://www.amazon.com/dp/B09JSYMM5G) | 1 | $15.22 | ACQUIRED (delivered Jun 16) |
+| MECCANIXITY stainless-steel float switch, 45 mm rod, M10 thread (2 pc) — same commodity ⌀28 × 28 mm SS float, teardown/donor. Order #112-7886483-1554622, placed Jun 14, 2026 | [B0FL763VPL](https://www.amazon.com/dp/B0FL763VPL) | 1 pk (2) | $14.79 | ACQUIRED (delivered Jun 16) |
 | EC Buying XKC-Y25-V non-contact capacitive liquid-level sensor. Order #112-5459082-8422662, placed May 8, 2026 | [B0C73F96MF](https://www.amazon.com/dp/B0C73F96MF) | 1 | $10.29 | ACQUIRED (delivered May 9) |
 | HiLetgo MPR121 12-channel I2C capacitive touch breakout (2 pk). Order #112-5503072-4357859, placed May 8, 2026 | [B06XXYZPPX](https://www.amazon.com/dp/B06XXYZPPX) | 1 pk | $6.85 | ACQUIRED (delivered May 10) |
 | Kraftex copper foil tape, 1/4" × 66 ft, conductive adhesive. Order #112-5656837-1597066, placed May 8, 2026 | [B0G1TN3JWB](https://www.amazon.com/dp/B0G1TN3JWB) | 1 | $7.50 | ACQUIRED (delivered May 9) |
@@ -298,7 +298,7 @@ Ice-maker donor units and copper coil for the chill loop.
 | VAMRONE 35 mm DIN rail, 4" (6 pk). Order #114-2582317-0018622, placed February 26, 2026 | [B0CDPVRY2W](https://www.amazon.com/dp/B0CDPVRY2W) | 1 pk | $7.50 | ACQUIRED |
 | ESP32 super breakout DIN-rail mount GPIO expansion. Order #114-2582317-0018622, placed February 26, 2026 | [B0BW4SJ5X2](https://www.amazon.com/dp/B0BW4SJ5X2) | 1 | $27.87 | ACQUIRED |
 | naughtystarts ESP32 screw-terminal GPIO breakout board, 3.5 mm terminals, for ESP-WROOM-32 / ESP32-DevKitC module (2 pc). Order #112-0981761-4377858, placed Jun 7, 2026 | [B0BYS6THLF](https://www.amazon.com/dp/B0BYS6THLF) | 1 pk (2) | $12.86 | ACQUIRED (delivered Jun 9) |
-| ALMOCN TTL-to-RS485 auto-direction module, 3.0–30 V, screw-terminal RS485 + JST TTL (5 pk) — RS485 transceiver on the base ESP32 for the 4.3B config-display link. Order #112-8498962-9414661, placed Jun 13, 2026 | [B09998FY4X](https://www.amazon.com/dp/B09998FY4X) | 1 pk (5) | $13.49 | ON-ORDER (arriving Jun 16) |
+| ALMOCN TTL-to-RS485 auto-direction module, 3.0–30 V, screw-terminal RS485 + JST TTL (5 pk) — RS485 transceiver on the base ESP32 for the 4.3B config-display link. Order #112-8498962-9414661, placed Jun 13, 2026 | [B09998FY4X](https://www.amazon.com/dp/B09998FY4X) | 1 pk (5) | $13.49 | ACQUIRED (delivered Jun 16) |
 | Baomain 0.11" male quick-disconnect spade (100 pk). Order #114-7897645-5210617, placed February 25, 2026 | [B01MZZGAJP](https://www.amazon.com/dp/B01MZZGAJP) | 1 pk | $6.42 | ACQUIRED |
 | Haisstronica ratchet crimper, AWG 22–10. Order #114-9620011-1329056, placed February 25, 2026 | [B08F3JKDD3](https://www.amazon.com/dp/B08F3JKDD3) | 1 | bundle | ACQUIRED |
 | Feggizuli 280 pc spade connector kit. Order #114-0182432-7123463, placed February 24, 2026 | [B0B4H54KPS](https://www.amazon.com/dp/B0B4H54KPS) | 1 pk | $8.25 | ACQUIRED |
@@ -307,7 +307,7 @@ Ice-maker donor units and copper coil for the chill loop.
 | Dupont jumper wires (M/F, M/M, F/F) 20 cm. Order #114-5649971-6455418, placed February 24, 2026 | [B0BRTJXND9](https://www.amazon.com/dp/B0BRTJXND9) | 1 pk | $6.40 | ACQUIRED |
 | ELEGOO 120 pc Dupont jumper wire ribbon. Orders #114-0818390-2733826 (Feb 2, ×1), #114-0077226-6463477 (Feb 24, ×1) | [B01EV70C78](https://www.amazon.com/dp/B01EV70C78) | 2 | $7.49 ea | ACQUIRED |
 | Taiss Dupont crimp kit + SN-28B. Order #114-3384762-6934634, placed February 22, 2026 | [B0B11RLGDZ](https://www.amazon.com/dp/B0B11RLGDZ) | 1 | $23.58 | ACQUIRED |
-| iCrimp SN-2549 ratcheting open-barrel crimper, AWG 28–18 (0.08–1.0 mm²) — dedicated die nests for JST PH 2.0 / ZH 1.5 / XH 2.5 / VH 3.96 / JWPS 4.0 + Dupont 2.54; crimps the JST-PH 2.0 terminals on the MCP23017 I²C link, which the SN-28B's nests fit only loosely. Order #112-6248060-3106636, placed Jun 14, 2026 | [B01N4L8QMW](https://www.amazon.com/dp/B01N4L8QMW) | 1 | $23.91 | ON-ORDER (arriving Jun 15) |
+| iCrimp SN-2549 ratcheting open-barrel crimper, AWG 28–18 (0.08–1.0 mm²) — dedicated die nests for JST PH 2.0 / ZH 1.5 / XH 2.5 / VH 3.96 / JWPS 4.0 + Dupont 2.54; crimps the JST-PH 2.0 terminals on the MCP23017 I²C link, which the SN-28B's nests fit only loosely. Order #112-6248060-3106636, placed Jun 14, 2026 | [B01N4L8QMW](https://www.amazon.com/dp/B01N4L8QMW) | 1 | $23.91 | ACQUIRED (delivered Jun 15) |
 | Waveshare MCP23017 I2C I/O expansion board (repeat ASIN). Order #112-2110462-6265038, placed April 15, 2026 | [B07P2H1NZG](https://www.amazon.com/dp/B07P2H1NZG) | 1 | $13.75 | ACQUIRED (delivered Apr 27) |
 | ULN2803A high-current driver module, 2-pc (repeat ASIN). Order #112-2110462-6265038, placed April 15, 2026 | [B0F872W528](https://www.amazon.com/dp/B0F872W528) | 1 pk | $6.97 | ACQUIRED (delivered Apr 27) |
 | CQRobot JST XH 2.54 mm 4-pin connector kit (50 sets / 300 pcs). Order #112-7245467-6557007, placed April 26, 2026 | [B0B2RB524Y](https://www.amazon.com/dp/B0B2RB524Y) | 1 pk | $8.45 | ACQUIRED (delivered Apr 27) |
@@ -418,8 +418,8 @@ Bench soldering capability for through-hole, wire-to-pad (pogo pin leads), and g
 | Klein Tools 11057 wire cutter/stripper, 20–30 AWG solid / 22–32 AWG stranded — fine-gauge stripper for the 28 AWG faucet-display harness conductors; the §14 Klein 11063W bottoms out at 20 AWG. Order #112-3574693-0507435, placed Jun 11, 2026 | [B000XEUPMQ](https://www.amazon.com/dp/B000XEUPMQ) | 1 | $23.56 | ACQUIRED (delivered Jun 13) |
 | Kester 44 63/37 RMA rosin-core solder, 0.020" / 3/4 oz tube — finer solder for wire-to-pad work on the faucet display S3; the §14 0.031" spool is coarse for the small pads. Order #112-3550632-8904259, placed Jun 11, 2026 | [B00AYJ0B7Y](https://www.amazon.com/dp/B00AYJ0B7Y) | 1 | $14.94 | ACQUIRED (delivered Jun 13) |
 | Hakko T18-D08 chisel tip, 0.8 mm — fine FX-888D tip for the faucet display S3's small through-hole pads; complements the T18-D12/D16 already on hand. Order #112-3550632-8904259, placed Jun 11, 2026 | [B004ORB8GK](https://www.amazon.com/dp/B004ORB8GK) | 1 | $9.87 | ACQUIRED (delivered Jun 13) |
-| VECO-T T18 10-tip assortment (LB/BR02/D16/D32/B/K/C2/C5/I/S3), FX-888D-compatible aftermarket — adds the K knife for drag-soldering JST-XH connector rows and the high-mass D32/S3 for desoldering the pre-soldered MCP23017 GPIO + L298N control headers in the Dupont→JST migration; not genuine Hakko. Order #112-7486016-3622668, placed Jun 14, 2026 | [B0FWKGXFK7](https://www.amazon.com/dp/B0FWKGXFK7) | 1 kit (10 tips) | $20.37 | ON-ORDER (arriving Jun 15) |
-| Hakko FR-301 portable desoldering tool, 140 W — self-contained heated hollow nozzle + motorized vacuum pump, trigger-actuated; clears solder-blocked plated through-holes in one pull. Bought after braid/manual wicking couldn't clear the plated barrels on the pre-soldered MCP23017 GPIO + L298N control headers during the Dupont→JST migration. Order #112-8278354-1449064, placed Jun 14, 2026 | [B07BKSLLG9](https://www.amazon.com/dp/B07BKSLLG9) | 1 | $225.20 | ON-ORDER (arriving Jun 15) |
+| VECO-T T18 10-tip assortment (LB/BR02/D16/D32/B/K/C2/C5/I/S3), FX-888D-compatible aftermarket — adds the K knife for drag-soldering JST-XH connector rows and the high-mass D32/S3 for desoldering the pre-soldered MCP23017 GPIO + L298N control headers in the Dupont→JST migration; not genuine Hakko. Order #112-7486016-3622668, placed Jun 14, 2026 | [B0FWKGXFK7](https://www.amazon.com/dp/B0FWKGXFK7) | 1 kit (10 tips) | $20.37 | ACQUIRED (delivered Jun 15) |
+| Hakko FR-301 portable desoldering tool, 140 W — self-contained heated hollow nozzle + motorized vacuum pump, trigger-actuated; clears solder-blocked plated through-holes in one pull. Bought after braid/manual wicking couldn't clear the plated barrels on the pre-soldered MCP23017 GPIO + L298N control headers during the Dupont→JST migration. Order #112-8278354-1449064, placed Jun 14, 2026 | [B07BKSLLG9](https://www.amazon.com/dp/B07BKSLLG9) | 1 | $225.20 | ACQUIRED (delivered Jun 15) |
 
 ## 15. 3D printing equipment and filaments (Bambu Lab direct)
 
@@ -520,32 +520,32 @@ Industrial-supply orders direct from McMaster-Carr (mcmaster.com). First McMaste
 
 | Status | $ |
 |---|---|
-| ACQUIRED — hardware, tools & infra (§§1–17, 19, 20) | [$25,988.34](LEDGER_ACQUIRED_HW) |
+| ACQUIRED — hardware, tools & infra (§§1–17, 19, 20) | [$26,506.03](LEDGER_ACQUIRED_HW) |
 | ACQUIRED — capitalized contract labor (§18) | [$2,607.92](LEDGER_LABOR) |
-| ACQUIRED (combined) | [$28,596.26](LEDGER_ACQUIRED_COMBINED) |
-| ON-ORDER | [$1,240.85](LEDGER_ON_ORDER) |
+| ACQUIRED (combined) | [$29,113.95](LEDGER_ACQUIRED_COMBINED) |
+| ON-ORDER | [$727.04](LEDGER_ON_ORDER) |
 | MISSING — paid, not received (§1 copper bar) | [$42.89](LEDGER_MISSING) |
 | LIKELY-TO-BUY | $0.00 |
-| **Grand total — cash outlay** | [$29,880.00](LEDGER_GRAND_TOTAL) |
+| **Grand total — cash outlay** | [$29,883.88](LEDGER_GRAND_TOTAL) |
 
 ACQUIRED hardware by section:
 
 | § | Section | $ |
 |---|---|---|
-| 1 | Pressure vessel / carbonator fabrication | [$3,797.10](LEDGER_SEC1) |
+| 1 | Pressure vessel / carbonator fabrication | [$3,848.56](LEDGER_SEC1) |
 | 2 | CO2 subsystem (incl. Lillium prototype carbonator $1,129) | [$1,785.10](LEDGER_SEC2) |
 | 3 | Water supply + backflow prevention | [$745.74](LEDGER_SEC3) |
 | 4 | Carbonator plumbing | [$233.30](LEDGER_SEC4) |
-| 5 | Flavor subsystem | [$1,009.29](LEDGER_SEC5) |
+| 5 | Flavor subsystem | [$1,086.41](LEDGER_SEC5) |
 | 6 | Refrigeration | [$1,882.74](LEDGER_SEC6) |
 | 7 | Dispensing end | [$237.65](LEDGER_SEC7) |
-| 8 | Electronics — controllers | [$161.92](LEDGER_SEC8) |
-| 9 | Electronics — I/O, drivers, sensors, power | [$710.43](LEDGER_SEC9) |
+| 8 | Electronics — controllers | [$208.03](LEDGER_SEC8) |
+| 9 | Electronics — I/O, drivers, sensors, power | [$807.86](LEDGER_SEC9) |
 | 10 | User interface | [$156.61](LEDGER_SEC10) |
 | 11 | Enclosure hardware | [$124.48](LEDGER_SEC11) |
 | 12 | Shop / bench infrastructure | [$372.51](LEDGER_SEC12) |
 | 13 | Printing consumables | [$1,073.01](LEDGER_SEC13) |
-| 14 | Soldering + small-signal tools | [$544.37](LEDGER_SEC14) |
+| 14 | Soldering + small-signal tools | [$789.94](LEDGER_SEC14) |
 | 15 | 3D printing equipment + filaments (Bambu direct) | [$8,453.30](LEDGER_SEC15) |
 | 16 | Laser welding / cleaning / cutting | [$3,899.00](LEDGER_SEC16) |
 | 17 | Domain / infrastructure | [$599.00](LEDGER_SEC17) |
