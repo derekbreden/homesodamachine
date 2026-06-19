@@ -1,8 +1,11 @@
 # I've Never Desoldered Anything
 
-In-flight production brief. The narration is captured (live DJI Mic during the
-shoot); the GoPro footage is syncing from Quik cloud. This is the editorial
-plan the [pipeline](workflow.md) fills in once the synced video lands. First
+In-flight production brief. Footage is in hand and synced — the clean DJI lav
+is muxed onto the GoPro video (clap sync, confidence 20) at
+`~/Developer/soda-edit/2026-06-19-desolder/synced/desolder.mp4`; the GoPro
+camera audio is discarded per [`principles.md`](principles.md) ("The lav is the
+audio you ship"). This is the editorial plan the [pipeline](workflow.md) fills
+in from the visual-analysis pass. First
 **electronics** video on the channel — the "I've Never X" lineage
 ([*I've Never Welded*](concepts.md), [*I've Never Tapped*](concepts.md)) crosses
 off the welding bench for the first time.

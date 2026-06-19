@@ -10,9 +10,11 @@ First-person footage of hands doing work is the best angle for shop/build conten
 
 Narrating while watching your own footage on the couch is easier than talking to a camera and produces better results for technical content. No pressure, unlimited retakes.
 
-## Ambient audio matters
+## The lav is the audio you ship
 
-The GoPro mic is fine for shop sounds. The DJI lav is for narration, either live or in post.
+Every session records two audio tracks, and they are not interchangeable. The DJI lav is the narration — it exists for one reason, quality, and it is the audio that goes in the cut. The GoPro's built-in mic is a sync reference (what the clap aligns against) and a bed of shop sounds, nothing more. Using the camera track in the lav's place throws away the only reason the lav was recorded.
+
+The trap is specific and worth naming: the GoPro export arrives with narration already on it, captured by the camera mic, perfectly intelligible. That is not a synced video — it is the throwaway reference track sounding deceptively fine. Skipping the sync and shipping that embedded audio is the single mistake this pipeline most invites. Always sync the lav on and replace the camera audio ([`workflow.md`](workflow.md) step 7). The camera mic is narration's *plan B* only when the lav genuinely failed — a deliberate fallback chosen after listening, never a default you back into because the audio was "already there."
 
 ## Build-in-public, not tutorials
 
