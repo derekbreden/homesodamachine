@@ -44,6 +44,12 @@ at build time). Each printed half fits the H2C left-nozzle build envelope
 (325 × 320 × 320 mm) even though the whole enclosure does not — that is the
 point of the split.
 
+Both halves' vertical (print-axis Y) corners are rounded for print-bed
+anti-warp relief, matching the foam shell's 12 mm outer radius — concentric
+inner one wall in, so the wall is preserved. The back half also carries four
+corner braces — the back-half twins of the front pods — running from the lip rim
+to the rear wall, anchoring the corners against peeling and backing the plugs.
+
 ## Display housing
 
 A flat 45° facet is chamfered into the top-front-left corner for the
