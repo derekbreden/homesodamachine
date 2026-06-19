@@ -80,13 +80,16 @@ display_pcb_slope = 69.0         # PCB body through-hole, up the 45° slope
 # Split + boss parameters — every dimension sized to its function, nothing
 # inherited from the faucet. The seam is a Y plane; the front half's full-wall
 # rear lip telescopes into the back; four corner bosses cross-pin the seam with
-# M3 screws from the ±X exterior. The boss itself is just the ONE WALL of
-# material the shank crosses between the screw-head seat and the heat-set.
+# M3 screws from the ±X exterior. Each boss is a D-section pin: round where it
+# registers in the front socket bore, with a flat tab running +Y to the lip rim
+# where the back-half corner brace backs it. The screw spans the head seat to the
+# front heat-set, so the pin body is screw_len − heatset_depth long.
 boss_to_coldcore = 14.0      # clear gap from the lip's +Y tip back to the cold core
 split_slip = 0.40            # diametral slide fit, plug into socket bore
 screw_clear_dia = 3.9        # M3 shank clearance
 head_cbore_dia = 6.15        # M3 SHCS head counterbore
 head_cbore_depth = 4.0       # head recess depth from the ±X exterior (the head seat)
+screw_len = 10.0             # M3 SHCS under-head length (M3x10), head seat → heat-set
 plug_dia = screw_clear_dia + 2.0 * wall          # 9.9 — the shank + one wall each side
 socket_bore_dia = plug_dia + split_slip          # 10.3 — slide fit over the plug
 socket_r = socket_bore_dia / 2.0 + wall          # pod half-size: one wall around the bore
@@ -271,16 +274,19 @@ def _facet_end_wall(inner, outer):
 # COAXIAL by construction (one y_boss, one z_boss feed both halves); the overlap
 # (lip_len) is derived from exactly those matings, not chosen freely. An M3 SHCS
 # drives in from the ±X exterior; outboard→inboard the joint reads: head
-# counterbore, then the BOSS — exactly ONE WALL of material the shank crosses —
-# then the heat-set, then a one-wall cap.
-#   * BACK half = PLUG: a cylinder from the ±X exterior to the heat-set, fused
-#     to the side wall. Sized to the screw SHANK, not the head (the head sits in
-#     the wall counterbore); screw-clearance + head counterbore bored in.
+# counterbore, then the pin body (screw_len − heatset_depth of material the shank
+# crosses), then the heat-set, then a one-wall cap.
+#   * BACK half = D-PIN: a round cylinder from the ±X exterior to the heat-set
+#     (registers in the socket bore), fused to a flat +Y tab running to the lip
+#     rim where the corner brace backs it. Sized to the screw SHANK, not the head
+#     (the head sits in the wall counterbore); screw-clearance + head counterbore
+#     bored in.
 #   * FRONT lip = SOCKET: a corner pod, integral with the ±Z wall, bored to
-#     receive the plug (slide fit), the heat-set + cap at the deep inboard end,
-#     and a +Y channel so the plug slides in as the lip telescopes into the back.
-# The head seats in the back wall; the shank crosses one wall of boss into the
-# front heat-set, cross-pinning the two halves along X.
+#     receive the round pin (slide fit), the heat-set + cap at the deep inboard
+#     end, and a +Y channel the pin's tab slides through as the lip telescopes
+#     into the back.
+# The head seats in the back wall; the shank crosses the pin body into the front
+# heat-set, cross-pinning the two halves along X.
 
 def _bosses(inner):
     """Per-boss tuple (x_in, x_ext, sx, z_boss, sz): the inner ±X wall face the
@@ -301,20 +307,27 @@ def _bosses(inner):
 
 def _boss_x(x_ext, sx):
     """Inboard X stations from the ±X exterior, each sized to its job: the
-    screw-head seat (recess), the heat-set start ONE WALL past the seat (that
-    wall is the boss), the heat-set end, and the pod cap one wall past it."""
+    screw-head seat (recess), the pin/heat-set boundary (the screw spans the seat
+    to the heat-set, so the pin body is screw_len − heatset_depth long), the
+    heat-set end, and the pod cap one wall past it."""
     x_seat = x_ext + sx * head_cbore_depth
-    x_tip = x_seat + sx * wall
+    x_tip = x_seat + sx * (screw_len - heatset_depth)
     x_heat = x_tip + sx * heatset_depth
     x_cap = x_heat + sx * socket_cap
     return x_seat, x_tip, x_heat, x_cap
 
 
-def _back_plug(x_ext, sx, z_boss, y_boss):
-    """BACK plug: an X cylinder from the ±X exterior to the heat-set, fused to
-    the side wall — sized to the screw shank, no head, no +Y tail."""
+def _back_plug(x_ext, sx, z_boss, y_boss, y_joint):
+    """BACK D-pin: a round cylinder from the ±X exterior to the heat-set (it
+    registers in the front socket bore), fused to a flat tab running +Y to the
+    lip rim, so the corner brace butting that rim backs the X-axis pin in Y. The
+    tab is the pin diameter wide and slides through the socket's +Y channel."""
     _xs, x_tip, _xh, _xc = _boss_x(x_ext, sx)
-    return _xcyl(plug_dia / 2.0, y_boss, z_boss, x_ext, x_tip)
+    cyl = _xcyl(plug_dia / 2.0, y_boss, z_boss, x_ext, x_tip)
+    xa, xb = sorted((x_ext, x_tip))
+    tab = _ybox(xa, xb, y_boss, y_joint + lip_len,
+                z_boss - plug_dia / 2.0, z_boss + plug_dia / 2.0)
+    return cyl.fuse(tab)
 
 
 def _front_pod(x_in, x_ext, sx, z_boss, sz, y_joint, inner):
@@ -337,17 +350,17 @@ def _front_pod(x_in, x_ext, sx, z_boss, sz, y_joint, inner):
 
 
 def _back_brace(x_in, x_ext, sx, z_boss, sz, y_joint, outer, inner):
-    """BACK corner brace (solid): the back-half twin of the front pod — a corner
-    rib in each top/bottom corner of the ±X side walls, the same X–Z footprint as
-    the pod, running the back half's free Y length: from the lip rim (where the
-    telescoped front lip + sockets stop, so it never fouls them) back to the rear
-    wall, rising from that bed-side wall the full print height. It anchors the
-    corner against peeling and buttresses the plug behind it."""
+    """BACK corner brace (solid): a corner rib in each top/bottom corner of the
+    ±X side walls, running the back half's free Y length — from the lip rim (where
+    the telescoped front lip + sockets stop, so it never fouls them) to the rear
+    wall. Sized to the pin it backs (in X to the pin's inboard end, in Z to the
+    pin — no further toward centre) and butting the pin's flat tab at the rim, so
+    it supports the X-axis pin in Y and anchors the corner against peeling."""
     ix0, ix1, iy0, iy1, iz0, iz1 = inner
     ox0, ox1, oy0, oy1, oz0, oz1 = outer
-    _xs, _xt, _xh, x_cap = _boss_x(x_ext, sx)
-    xa, xb = sorted((x_in, x_cap))
-    za, zb = (iz0, z_boss + socket_r) if sz > 0 else (z_boss - socket_r, iz1)
+    _xs, x_tip, _xh, _xc = _boss_x(x_ext, sx)
+    xa, xb = sorted((x_in, x_tip))
+    za, zb = (iz0, z_boss + plug_dia / 2.0) if sz > 0 else (z_boss - plug_dia / 2.0, iz1)
     return _ybox(xa, xb, y_joint + lip_len, oy1, za, zb)
 
 
@@ -457,7 +470,7 @@ def build_back_half(dims=None):
     back = shell.intersect(_ybox(outer[0], outer[1], y_joint, outer[3], outer[4], outer[5]))
     yb = _y_boss(y_joint)
     for x_in, x_ext, sx, z_boss, _sz in _bosses(inner):
-        back = back.fuse(_back_plug(x_ext, sx, z_boss, yb))
+        back = back.fuse(_back_plug(x_ext, sx, z_boss, yb, y_joint))
     for x_in, x_ext, sx, z_boss, sz in _bosses(inner):
         back = back.fuse(_back_brace(x_in, x_ext, sx, z_boss, sz, y_joint, outer, inner))
     # Clip any corner feature that pokes past the rounded print silhouette.
@@ -512,7 +525,7 @@ def _report_split(front, back):
     cold = _contents.build()["foam-shell"][0]
     clash = sum(
         cold.intersect(
-            _back_plug(x_ext, sx, z_boss, yb).fuse(
+            _back_plug(x_ext, sx, z_boss, yb, y_joint).fuse(
                 _front_pod(x_in, x_ext, sx, z_boss, sz, y_joint, inner))
         ).Volume()
         for x_in, x_ext, sx, z_boss, sz in _bosses(inner)
