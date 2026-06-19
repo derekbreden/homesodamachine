@@ -10,15 +10,11 @@ the user (-Y, forward):
 - Main body — the PCB, display module, and rear components as one block:
   [106 mm](BODY_WIDTH) (X) x [69 mm](BODY_HEIGHT) (Z) x [17 mm](BODY_DEPTH) (Y).
 - Bezel — the front cover-glass / touch-panel plate, standing proud of the
-  body front and overhanging it on every side, its outline corners rounded
-  [2.5 mm](BEZEL_CORNER_R):
+  body front and overhanging it on every side, larger than the body and offset
+  on it, its outline corners rounded [2.5 mm](BEZEL_CORNER_R):
   [113.5 mm](BEZEL_WIDTH) (X) x [77 mm](BEZEL_HEIGHT) (Z) x [1 mm](BEZEL_DEPTH) (Y).
 
 Overall envelope: [113.5 mm](BEZEL_WIDTH) (X) x [77 mm](BEZEL_HEIGHT) (Z) x [18 mm](TOTAL_DEPTH) (Y).
-
-The body and bezel are concentric — the display is a rigid unit centered on the
-glass. Where it sits in the enclosure facet (offset toward the top-left to
-register on the bottom-right) is the enclosure's business, not the part's.
 
 Coordinate frame (the repo world frame)
 ---------------------------------------
@@ -28,8 +24,9 @@ Coordinate frame (the repo world frame)
                user). The front cover-glass face sits at Y = 0; the device
                extends back into the appliance toward +Y.
 
-Origin is the center of the body in X-Z; both blocks are centered on it. The
-bezel caps the front, Y 0 -> [1 mm](BEZEL_DEPTH); the body runs behind it,
+Origin is the center of the body in X-Z; the body is centered on it and the
+bezel is offset [-0.5 mm](BEZEL_OFFSET_X) in X and [1 mm](BEZEL_OFFSET_Z) in Z.
+The bezel caps the front, Y 0 -> [1 mm](BEZEL_DEPTH); the body runs behind it,
 Y [1 mm](BEZEL_DEPTH) -> [18 mm](TOTAL_DEPTH).
 """
 
@@ -55,9 +52,11 @@ bezel_height = 77.0   # Z
 bezel_depth = 1.0     # Y
 bezel_corner_r = 2.5  # rounded corners of the cover-glass outline
 
-# Bezel overhang per side — the glass border framing the body, concentric.
-bezel_overhang_x = (bezel_width - body_width) / 2.0    # [3.75 mm](BEZEL_OVERHANG_X)
-bezel_overhang_z = (bezel_height - body_height) / 2.0  # [4 mm](BEZEL_OVERHANG_Z)
+# The bezel is larger than the body and sits offset on it — it registers on the
+# enclosure counterbore's bottom and right, the glass border reaching further
+# up and to the left.
+bezel_offset_x = -0.5  # [-0.5 mm](BEZEL_OFFSET_X) glass center offset, toward −X
+bezel_offset_z = 1.0   # [1 mm](BEZEL_OFFSET_Z) glass center offset, up the screen
 
 # Depth seams along Y (screen-normal). The screen faces -Y (toward the user);
 # the front cover-glass face sits at Y = 0, and the device extends back into
@@ -89,10 +88,11 @@ def build_body():
 
 def build_bezel():
     """Front cover-glass / touch-panel plate, screen facing -Y, standing proud
-    of the body and overhanging it on every side (concentric), its outline
-    corners rounded. Y 0 -> bezel_depth."""
+    of the body and overhanging it on every side, offset on the body, its
+    outline corners rounded. Y 0 -> bezel_depth."""
     return (
-        _block(bezel_width, bezel_height, bezel_depth, bezel_y_center)
+        _block(bezel_width, bezel_height, bezel_depth, bezel_y_center,
+               bezel_offset_x, bezel_offset_z)
         .edges("|Y").fillet(bezel_corner_r)
     )
 
@@ -131,14 +131,14 @@ def main():
             "BEZEL_DEPTH": f"{bezel_depth:.4g}",
             "BEZEL_CORNER_R": f"{bezel_corner_r:.4g}",
             "TOTAL_DEPTH": f"{total_depth:.4g}",
-            "BEZEL_OVERHANG_X": f"{bezel_overhang_x:.4g}",
-            "BEZEL_OVERHANG_Z": f"{bezel_overhang_z:.4g}",
+            "BEZEL_OFFSET_X": f"{bezel_offset_x:.4g}",
+            "BEZEL_OFFSET_Z": f"{bezel_offset_z:.4g}",
         },
         expected_counts={
             "BODY_WIDTH": 1, "BODY_HEIGHT": 1, "BODY_DEPTH": 1,
             "BEZEL_WIDTH": 2, "BEZEL_HEIGHT": 2, "BEZEL_DEPTH": 3,
             "BEZEL_CORNER_R": 1,
-            "TOTAL_DEPTH": 2, "BEZEL_OVERHANG_X": 1, "BEZEL_OVERHANG_Z": 1,
+            "TOTAL_DEPTH": 2, "BEZEL_OFFSET_X": 1, "BEZEL_OFFSET_Z": 1,
         },
     )
     print("-> README.md")
@@ -153,14 +153,14 @@ def main():
             "BEZEL_DEPTH": f"{bezel_depth:.4g} mm",
             "BEZEL_CORNER_R": f"{bezel_corner_r:.4g} mm",
             "TOTAL_DEPTH": f"{total_depth:.4g} mm",
-            "BEZEL_OVERHANG_X": f"{bezel_overhang_x:.4g} mm",
-            "BEZEL_OVERHANG_Z": f"{bezel_overhang_z:.4g} mm",
+            "BEZEL_OFFSET_X": f"{bezel_offset_x:.4g} mm",
+            "BEZEL_OFFSET_Z": f"{bezel_offset_z:.4g} mm",
         },
         expected_counts={
             "BODY_WIDTH": 1, "BODY_HEIGHT": 1, "BODY_DEPTH": 1,
             "BEZEL_WIDTH": 2, "BEZEL_HEIGHT": 2, "BEZEL_DEPTH": 3,
             "BEZEL_CORNER_R": 1,
-            "TOTAL_DEPTH": 2, "BEZEL_OVERHANG_X": 1, "BEZEL_OVERHANG_Z": 1,
+            "TOTAL_DEPTH": 2, "BEZEL_OFFSET_X": 2, "BEZEL_OFFSET_Z": 2,
         },
     )
     print(f"-> {Path(__file__).name} (self)")
