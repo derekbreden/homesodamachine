@@ -7,6 +7,7 @@ keep their per-part colors; the halves are translucent so the arrangement
 (and the front↔back split) reads through them.
 """
 
+import math
 import sys
 from pathlib import Path
 
@@ -33,14 +34,20 @@ DISPLAY_COLOR = cq.Color(0.10, 0.10, 0.12)      # the Waveshare 4.3B reference
 
 
 def _placed_display():
-    """The display reference seated in the facet housing: rotated −45° about X
-    so its −Y screen faces the facet normal, then its screen-face center (the
-    STEP origin) moved onto the facet center."""
+    """The display reference seated in the facet housing: rotated −45° about X so
+    its −Y screen faces the facet normal, then translated so the glass lands
+    centered on the facet — which puts its (offset) body on the PCB hole. Uses the
+    same display_bezel_offset the cuts use, so glass and body land in their cuts."""
     _i, outer, _yj, _cf = enclosure._dims()
-    _a, _n, origin, _dy, _dz = enclosure._facet_geom(outer)
-    facet_center = (outer[0] + enclosure.display_facet_x / 2.0, origin[1], origin[2])
+    a, _n, origin, _dy, _dz = enclosure._facet_geom(outer)
+    fcx = outer[0] + enclosure.display_facet_x / 2.0
+    target = (
+        fcx - enclosure.display_bezel_offset_x,
+        origin[1] - enclosure.display_bezel_offset_slope * math.cos(a),
+        origin[2] - enclosure.display_bezel_offset_slope * math.sin(a),
+    )
     disp = cq.importers.importStep(str(DISPLAY_STEP)).val()
-    return disp.rotate((0, 0, 0), (1, 0, 0), -45.0).translate(facet_center)
+    return disp.rotate((0, 0, 0), (1, 0, 0), -45.0).translate(target)
 
 
 def build():
