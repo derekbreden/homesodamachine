@@ -12,7 +12,7 @@ user (−Y, forward), from caliper measurements:
 | Block | Size (X × Z × Y) | Part |
 |---|---|---|
 | Box | [106](BODY_WIDTH) × [69](BODY_HEIGHT) × [17](BODY_DEPTH) | main body — PCB, display module, rear components |
-| Box | [112.5](BEZEL_WIDTH) × [75](BEZEL_HEIGHT) × [1](BEZEL_DEPTH) | bezel — front cover-glass / touch-panel plate |
+| Box | [112.5](BEZEL_WIDTH) × [75](BEZEL_HEIGHT) × [1](BEZEL_DEPTH) | bezel — front cover-glass / touch-panel plate, corners rounded [2.5](BEZEL_CORNER_R) |
 
 ## Coordinate convention (repo world frame)
 
