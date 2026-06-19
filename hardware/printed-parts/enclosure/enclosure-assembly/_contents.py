@@ -125,27 +125,27 @@ def build():
     cond = _box(CONDENSER_AIRFLOW, CONDENSER_FACE_B, CONDENSER_FACE_A)  # 56 x 151 x 178
     placed["condenser+fan"] = _at(cond, cold_w - CONDENSER_AIRFLOW - SIDE_RIB_INSET, 0.0, 0.0)
 
-    # --- Shelf on the compressor top, below the pump cases and the display:
-    # the SeaFlo pump and the bib-gate valve tray, both laid flat with their
-    # long axis along Y and tiled across X. SeaFlo inset to clear the left ribs.
-    sf_w, sf_d, sf_h = SEAFLO_DIMS                      # [75 x 60 x 175](SEAFLO_DIMS)
-    seaflo = _rot(_box(sf_h, sf_w, sf_d), (0, 0, 1), 90.0)      # 75 x 175 x 60
-    placed["seaflo-pump"] = _at(seaflo, SIDE_RIB_INSET, 0.0, comp_top_z)
-    bib = _rot(_load(TRAY_STEPS["bib-gate"]), (0, 0, 1), 90.0)  # 75 x 139
-    placed["bib-gate"] = _at(bib, 94.0, 0.0, comp_top_z)
-
-    # --- Zone C: two pump cases (cartridge under the funnel), front-top, to the
-    # right of the display facet (which takes the top-front-left corner).
+    # --- Zone C: the pump cartridge sits low on the compressor top, two cases
+    # side by side and centered, so the band above them is open to the ceiling
+    # for the hopper funnel — which pours down the front edge into the pumps.
+    # The SeaFlo moves to the right pocket, the open column above the condenser.
     pc1 = _cycle_xyz_to_yzx(_load(PUMP_CASE))          # 74 x 136 x 76
     pc2 = _cycle_xyz_to_yzx(_load(PUMP_CASE))
-    placed["pump-case-1"] = _at(pc1, 116.0, 0.0, top_z)
-    placed["pump-case-2"] = _at(pc2, 194.0, 0.0, top_z)
+    placed["pump-case-1"] = _at(pc1, 20.0, 18.0, comp_top_z)
+    placed["pump-case-2"] = _at(pc2, 98.0, 18.0, comp_top_z)
+    sf_w, sf_d, sf_h = SEAFLO_DIMS                      # [75 x 60 x 175](SEAFLO_DIMS)
+    seaflo = _rot(_box(sf_h, sf_w, sf_d), (0, 0, 1), 90.0)      # 75 x 175 x 60
+    placed["seaflo-pump"] = _at(seaflo, 193.0, 0.0, 178.0)
 
-    # --- Zone B: three valve-manifold trays, laid FLAT (~63 mm tall) back-top
-    # just above the lifted cold core, nudged off the ±X corners to clear the
-    # back half's top braces. Stand-in.
+    # --- Zone B: valve-manifold trays back-top above the lifted cold core,
+    # nudged off the ±X corners (clear of the back half's top braces) and
+    # gathered to the left so the front-right corner opens for the electronics
+    # shelf. The bib-gate tray rides in the funnel reserve, behind the funnel
+    # mouth over the pump backs.
+    pump_top_z = comp_top_z + pc1.BoundingBox().zlen
+    placed["bib-gate"]      = _at(_load(TRAY_STEPS["bib-gate"]), 20.0, 80.0, pump_top_z)
     placed["source-select"] = _at(_load(TRAY_STEPS["source-select"]), 10.0, FRONT_DEPTH, back_top_z)
-    placed["nozzle-gate"]   = _at(_load(TRAY_STEPS["nozzle-gate"]),   10.0, FRONT_DEPTH + 98.0, back_top_z)
-    placed["bag-circuit"]   = _at(_load(TRAY_STEPS["bag-circuit"]), 112.0, FRONT_DEPTH + 98.0, back_top_z)
+    placed["bag-circuit"]   = _at(_load(TRAY_STEPS["bag-circuit"]),   10.0, FRONT_DEPTH + 97.0, back_top_z)
+    placed["nozzle-gate"]   = _at(_load(TRAY_STEPS["nozzle-gate"]),  172.0, FRONT_DEPTH + 97.0, back_top_z)
 
     return {n: (s, COLORS[n]) for n, s in placed.items()}
