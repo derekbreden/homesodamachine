@@ -148,7 +148,11 @@ def _dims():
     czmin = min(b.zmin for b in bbs); czmax = max(b.zmax for b in bbs)
     ix0, ix1 = cxmin - interior_clearance, cxmax + interior_clearance
     iy0, iy1 = cymin - interior_clearance, cymax + interior_clearance
-    iz0, iz1 = czmin - interior_clearance, czmax + interior_clearance
+    # The floor is a fixed Z=0 datum, not the lowest content — so parts can stand
+    # on feet above it (the floor, seam lip, and braces stay put). The ceiling
+    # still follows the tallest content.
+    iz0 = min(czmin, 0.0) - interior_clearance
+    iz1 = czmax + interior_clearance
     ox0, ox1 = ix0 - wall, ix1 + wall
     oy0, oy1 = iy0 - wall, iy1 + wall
     oz0, oz1 = iz0 - wall, iz1 + wall
