@@ -74,8 +74,8 @@ display_facet_angle_deg = 45.0
 # The facet is a display housing this deep (the wall behind it, set to the
 # display's overall depth) with the display let into it: a shallow bezel
 # counterbore on the user face and a PCB through-hole down the full thickness.
-display_facet_thickness = 18.0   # facet wall depth = display envelope depth
-display_bezel_depth = 1.0        # bezel counterbore depth, user face
+display_facet_thickness = 19.0   # facet wall depth = display envelope depth
+display_bezel_depth = 2.0        # bezel counterbore depth, user face
 display_pcb_x = 106.0            # PCB body through-hole, lateral (X)
 display_pcb_slope = 69.0         # PCB body through-hole, up the 45° slope
 display_pcb_cut_through = 3.0    # extra depth past the facet back, cutting the
