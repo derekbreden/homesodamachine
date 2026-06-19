@@ -47,11 +47,11 @@ CONDENSER_FACE_A, CONDENSER_FACE_B, CONDENSER_AIRFLOW = 178.0, 151.0, 56.0
 # SeaFlo 22-Series diaphragm pump, body only (sans mounting brackets).
 SEAFLO_DIMS = (75.0, 60.0, 175.0)
 
-# Front block (Zones C/D) Y depth — the cold core (Zone A) seats behind it,
-# so the cold core lands in the enclosure's back half. Pulled in to where the
-# deepest front-floor part (the condenser) just clears the front half's rear
-# telescoping seam lip, leaving no dead air ahead of the cold core.
-FRONT_DEPTH = 182.0
+# Front block (Zones C/D) Y depth — the cold core (Zone A) seats behind it.
+# With the condenser raised clear of the seam lip, the cold core pulls in until
+# the split's lip just clears the compressor (the deepest part still on the
+# floor), leaving only the joint between the front block and the cold core.
+FRONT_DEPTH = 164.0
 # Vertical gap between the bottom layer (cold core + front-bottom) and the
 # top layer (pump cases + trays).
 LAYER_GAP = 5.0
@@ -62,6 +62,10 @@ SIDE_RIB_INSET = 14.0
 # The back half's floor braces stand ~13 mm tall in the rear ±X corners; the
 # cold core is lifted clear of them.
 FOAM_LIFT = 14.0
+# The condenser stands one wall off the floor, clearing the front half's bottom
+# seam lip so the split (and the cold core behind it) can pull forward. The
+# compressor stays on the floor, holding the box floor at Z0.
+CONDENSER_LIFT = 3.0
 
 
 # --- Colors ---------------------------------------------------------------
@@ -123,8 +127,8 @@ def build():
     placed["compressor-shroud"] = _at(comp, SIDE_RIB_INSET, 0.0, 0.0)
     comp_top_z = comp.BoundingBox().zlen               # 151
     cond = _box(CONDENSER_AIRFLOW, CONDENSER_FACE_B, CONDENSER_FACE_A)  # 56 x 151 x 178
-    placed["condenser+fan"] = _at(cond, cold_w - CONDENSER_AIRFLOW - SIDE_RIB_INSET, 0.0, 0.0)
-    cond_top_z = CONDENSER_FACE_A                       # 178
+    placed["condenser+fan"] = _at(cond, cold_w - CONDENSER_AIRFLOW - SIDE_RIB_INSET, 0.0, CONDENSER_LIFT)
+    cond_top_z = CONDENSER_LIFT + CONDENSER_FACE_A
 
     # --- Zone C: the pump cartridge sits low on the compressor top, the SeaFlo
     # laid flat across the cases above them. The whole right column above the
