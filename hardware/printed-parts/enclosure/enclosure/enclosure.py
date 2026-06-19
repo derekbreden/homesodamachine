@@ -75,6 +75,8 @@ display_facet_thickness = 18.0   # facet wall depth = display envelope depth
 display_bezel_depth = 1.0        # bezel counterbore depth, user face
 display_pcb_x = 106.0            # PCB body through-hole, lateral (X)
 display_pcb_slope = 69.0         # PCB body through-hole, up the 45° slope
+display_pcb_cut_through = 3.0    # extra depth past the facet back, cutting the
+                                 # corner pod clean through (it overhangs the hole otherwise)
 
 # Split + boss parameters — every dimension sized to its function, nothing
 # inherited from the faucet. The seam is a Y plane; the front half's full-wall
@@ -224,8 +226,9 @@ def _display_cuts(outer):
     """The display let into the facet: a shallow bezel counterbore on the user
     face and a PCB through-hole down the full facet thickness — both cut along
     the facet's 45° normal, starting one mm proud of the face for a clean break.
-    The PCB hole is a rectangle centered on the facet (it runs a hair past the
-    back into the cavity). The bezel counterbore matches the glass: its size and
+    The PCB hole is a rectangle centered on the facet, cut display_pcb_cut_through
+    past the back so it takes the corner pod (which would otherwise overhang the
+    hole) clean through. The bezel counterbore matches the glass: its size and
     its offset on the facet (registering on the bottom and right), corners
     rounded to the display radius."""
     a, normal, origin, dy, dz = _facet_geom(outer)
@@ -242,7 +245,7 @@ def _display_cuts(outer):
     pcb = (
         cq.Workplane(plane).workplane(offset=1.0)
         .rect(display_pcb_x, display_pcb_slope)
-        .extrude(-(display_facet_thickness + 1.0)).val()  # ends at the facet back (−thickness)
+        .extrude(-(display_facet_thickness + display_pcb_cut_through + 1.0)).val()  # through the pod
     )
     return bezel.fuse(pcb)
 
