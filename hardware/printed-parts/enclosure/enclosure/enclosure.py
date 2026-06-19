@@ -50,30 +50,30 @@ H2C_X, H2C_Y, H2C_Z = 325.0, 320.0, 320.0
 
 # Display-mounting facet — a flat 45° SOLID surface chamfered into the
 # top-front-left corner for the Waveshare ESP32-S3-Touch-LCD-4.3B config
-# display (../../../reference/waveshare-43b-display/, bezel 112.5 × 75 mm),
-# facing up-and-forward (−Y front / +Z up) toward the standing user. Sized to
-# the bezel + a 3 mm buffer all around: [118.5 mm](DISPLAY_FACET_X) (X,
-# lateral) × [81 mm](DISPLAY_FACET_SLOPE) (along the 45° slope). Flush to the
-# −X (left) edge, so the whole top-front-left corner comes off.
-display_bezel_x = 112.5
-display_bezel_slope = 75.0
-display_facet_buffer = 3.0
-display_facet_x = display_bezel_x + 2 * display_facet_buffer          # [118.5 mm](DISPLAY_FACET_X)
-display_facet_slope = display_bezel_slope + 2 * display_facet_buffer  # [81 mm](DISPLAY_FACET_SLOPE)
+# display (../../../reference/waveshare-43b-display/), facing up-and-forward
+# (−Y front / +Z up) toward the standing user. The bezel glass is larger than
+# the PCB body and offset on it (registering on the counterbore's bottom and
+# right); the facet holds it with a margin around the glass:
+# [118.5 mm](DISPLAY_FACET_X) (X, lateral) × [81 mm](DISPLAY_FACET_SLOPE) (along
+# the 45° slope). Flush to the −X (left) edge, so the top-front-left corner
+# comes off.
+display_bezel_x = 113.5          # bezel glass, lateral (X)
+display_bezel_slope = 77.0       # bezel glass, up the slope
+display_bezel_offset_x = -0.5    # glass center offset from facet center, lateral (−X)
+display_bezel_offset_slope = 1.0 # glass center offset, up-slope
+display_corner_r = 2.5           # corner rounding, matching the display bezel
+display_facet_margin_x = 2.5     # facet margin around the glass, lateral
+display_facet_margin_slope = 2.0 # facet margin around the glass, up-slope
+display_facet_x = display_bezel_x + 2 * display_facet_margin_x          # [118.5 mm](DISPLAY_FACET_X)
+display_facet_slope = display_bezel_slope + 2 * display_facet_margin_slope  # [81 mm](DISPLAY_FACET_SLOPE)
 display_facet_angle_deg = 45.0
 # The facet is a display housing this deep (the wall behind it, set to the
 # display's overall depth) with the display let into it: a shallow bezel
 # counterbore on the user face and a PCB through-hole down the full thickness.
-# The counterbore is the bezel grown by clearance on the left and up-slope only —
-# the bezel registers on the counterbore's bottom and right edges — with corners
-# rounded to the display bezel's radius.
 display_facet_thickness = 18.0   # facet wall depth = display envelope depth
 display_bezel_depth = 1.0        # bezel counterbore depth, user face
 display_pcb_x = 106.0            # PCB body through-hole, lateral (X)
 display_pcb_slope = 69.0         # PCB body through-hole, up the 45° slope
-display_bezel_clear_left = 1.0   # counterbore room past the bezel, left (−X)
-display_bezel_clear_top = 2.0    # counterbore room past the bezel, up-slope
-display_corner_r = 2.5           # corner rounding, matching the display bezel
 
 # Split + boss parameters — every dimension sized to its function, nothing
 # inherited from the faucet. The seam is a Y plane; the front half's full-wall
@@ -197,19 +197,17 @@ def _display_cuts(outer):
     face and a PCB through-hole down the full facet thickness — both cut along
     the facet's 45° normal, starting one mm proud of the face for a clean break.
     The PCB hole is a rectangle centered on the facet (it runs a hair past the
-    back into the cavity). The bezel counterbore is the bezel grown by its
-    clearance on the left and up-slope, shifted half that each way so it stays
-    registered on the bottom and right, with corners rounded to the display
-    radius."""
+    back into the cavity). The bezel counterbore matches the glass: its size and
+    its offset on the facet (registering on the bottom and right), corners
+    rounded to the display radius."""
     a, normal, origin, dy, dz = _facet_geom(outer)
     center = (outer[0] + display_facet_x / 2.0, origin[1], origin[2])
     plane = cq.Plane(origin=cq.Vector(*center), xDir=cq.Vector(1, 0, 0), normal=cq.Vector(*normal))
     along_normal = cq.selectors.ParallelDirSelector(cq.Vector(*normal))
     bezel = (
         cq.Workplane(plane).workplane(offset=1.0)
-        .center(-display_bezel_clear_left / 2.0, display_bezel_clear_top / 2.0)
-        .rect(display_bezel_x + display_bezel_clear_left,
-              display_bezel_slope + display_bezel_clear_top)
+        .center(display_bezel_offset_x, display_bezel_offset_slope)
+        .rect(display_bezel_x, display_bezel_slope)
         .extrude(-(display_bezel_depth + 1.0))
         .edges(along_normal).fillet(display_corner_r).val()
     )
