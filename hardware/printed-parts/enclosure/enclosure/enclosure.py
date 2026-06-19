@@ -44,6 +44,8 @@ import _contents
 # Shell parameters.
 wall = 3.0                  # PETG wall thickness
 interior_clearance = 0.0    # gap between contents bbox and inner wall
+corner_round = 12.0         # vertical (Y) print-corner relief, matching the foam
+                            # shell's outer corner radius (anti-warp on the bed)
 
 # H2C left-nozzle build envelope; each printed HALF must fit inside this.
 H2C_X, H2C_Y, H2C_Z = 325.0, 320.0, 320.0
@@ -115,6 +117,20 @@ def _xcyl(r, y, z, x0, x1):
     return cq.Solid.makeCylinder(r, abs(x1 - x0), cq.Vector(min(x0, x1), y, z), cq.Vector(1, 0, 0))
 
 
+def _round_y(solid, r):
+    """Round a box solid's four vertical (Y) corner edges by r — the print-bed
+    corner relief, about the Y axis the halves print along."""
+    return cq.Workplane(obj=solid).edges("|Y").fillet(r).val()
+
+
+def _round_corner_y(solid, xc, zc, r):
+    """Round only the single vertical (Y) corner edge of a box at (xc, zc)."""
+    wp = cq.Workplane(obj=solid)
+    edges = [e for e in wp.edges("|Y").vals()
+             if abs(e.Center().x - xc) < 1e-6 and abs(e.Center().z - zc) < 1e-6]
+    return wp.newObject(edges).fillet(r).val()
+
+
 # --- box dimensions, driven by the placed contents -------------------------
 
 def _dims():
@@ -172,16 +188,26 @@ def _facet_wedge(outer):
     return _halfspace(origin, normal, extent).intersect(_facet_x_slab(outer, extent))
 
 
+def _rounded_outer(outer):
+    """The outer box with rounded vertical corners and the facet chamfered in —
+    the print silhouette the half is clipped to so nothing pokes past it."""
+    ox0, ox1, oy0, oy1, oz0, oz1 = outer
+    box = _round_y(_ybox(ox0, ox1, oy0, oy1, oz0, oz1), corner_round)
+    return box.cut(_facet_wedge(outer))
+
+
 def _shell_with_facet(inner, outer):
     """Hollow box with the 45° facet as a SOLID `wall`-thick surface: chamfer
-    the outer box, and hold the cavity one wall back from the facet plane."""
+    the outer box, and hold the cavity one wall back from the facet plane. The
+    vertical corners round concentrically — outer `corner_round`, cavity one wall
+    inboard — so the wall is preserved around the print-bed corner relief."""
     ix0, ix1, iy0, iy1, iz0, iz1 = inner
     ox0, ox1, oy0, oy1, oz0, oz1 = outer
     a, normal, origin, dy, dz = _facet_geom(outer)
     extent = max(ox1 - ox0, oy1 - oy0, oz1 - oz0) + 100.0
 
-    inner_box = _ybox(ix0, ix1, iy0, iy1, iz0, iz1)
-    outer_chamfered = _ybox(ox0, ox1, oy0, oy1, oz0, oz1).cut(_facet_wedge(outer))
+    inner_box = _round_y(_ybox(ix0, ix1, iy0, iy1, iz0, iz1), corner_round - wall)
+    outer_chamfered = _rounded_outer(outer)
 
     back_origin = (origin[0] - display_facet_thickness * normal[0],
                    origin[1] - display_facet_thickness * normal[1],
@@ -302,7 +328,27 @@ def _front_pod(x_in, x_ext, sx, z_boss, sz, y_joint, inner):
     _xs, _xt, _xh, x_cap = _boss_x(x_ext, sx)
     xa, xb = sorted((x_in, x_cap))
     za, zb = (iz0, z_boss + socket_r) if sz > 0 else (z_boss - socket_r, iz1)
-    return _ybox(xa, xb, iy0, y_joint + lip_len, za, zb)
+    # Round the outer corner (the one at the side wall) concentric with the
+    # cavity, one wall in, so the pod's telescoping reach fits the back's rounded
+    # corner instead of fouling it.
+    zc = iz0 if sz > 0 else iz1
+    return _round_corner_y(_ybox(xa, xb, iy0, y_joint + lip_len, za, zb),
+                           x_in, zc, corner_round - wall)
+
+
+def _back_brace(x_in, x_ext, sx, z_boss, sz, y_joint, outer, inner):
+    """BACK corner brace (solid): the back-half twin of the front pod — a corner
+    rib in each top/bottom corner of the ±X side walls, the same X–Z footprint as
+    the pod, running the back half's free Y length: from the lip rim (where the
+    telescoped front lip + sockets stop, so it never fouls them) back to the rear
+    wall, rising from that bed-side wall the full print height. It anchors the
+    corner against peeling and buttresses the plug behind it."""
+    ix0, ix1, iy0, iy1, iz0, iz1 = inner
+    ox0, ox1, oy0, oy1, oz0, oz1 = outer
+    _xs, _xt, _xh, x_cap = _boss_x(x_ext, sx)
+    xa, xb = sorted((x_in, x_cap))
+    za, zb = (iz0, z_boss + socket_r) if sz > 0 else (z_boss - socket_r, iz1)
+    return _ybox(xa, xb, y_joint + lip_len, oy1, za, zb)
 
 
 def _front_cuts(x_in, x_ext, sx, z_boss, y_boss, y_joint):
@@ -341,7 +387,9 @@ def _front_lip(inner, y_joint):
     ring, so it prints with no steeper-than-45° overhang −Y-down."""
     ix0, ix1, iy0, iy1, iz0, iz1 = inner
     y0, y1 = y_joint - wall, y_joint + lip_len
-    outer = _ybox(ix0, ix1, y0, y1, iz0, iz1)
+    # Outer face flush with (and corners concentric to) the cavity it telescopes
+    # into; inner one wall further in.
+    outer = _round_y(_ybox(ix0, ix1, y0, y1, iz0, iz1), corner_round - wall)
     # Cavity cutter: a 45° flare at the −Y end (mouth widens from the inner
     # rectangle out to the outer over one wall in Y), then the straight inner
     # box. Subtracting it bevels the lip's −Y inner edge into the ramp.
@@ -354,7 +402,10 @@ def _front_lip(inner, y_joint):
         .loft(combine=True)
         .val()
     )
-    inner_box = _ybox(ix0 + wall, ix1 - wall, y0 + wall, y1 + 1.0, iz0 + wall, iz1 - wall)
+    inner_box = _round_y(
+        _ybox(ix0 + wall, ix1 - wall, y0 + wall, y1 + 1.0, iz0 + wall, iz1 - wall),
+        corner_round - 2.0 * wall,
+    )
     return outer.cut(flare.fuse(inner_box))
 
 
@@ -395,6 +446,8 @@ def build_front_half(dims=None):
     front = front.cut(_display_cuts(outer))
     for x_in, x_ext, sx, z_boss, _sz in _bosses(inner):
         front = front.cut(_front_cuts(x_in, x_ext, sx, z_boss, yb, y_joint))
+    # Clip any corner feature that pokes past the rounded print silhouette.
+    front = front.intersect(_rounded_outer(outer))
     return cq.Workplane(obj=front)
 
 
@@ -405,6 +458,10 @@ def build_back_half(dims=None):
     yb = _y_boss(y_joint)
     for x_in, x_ext, sx, z_boss, _sz in _bosses(inner):
         back = back.fuse(_back_plug(x_ext, sx, z_boss, yb))
+    for x_in, x_ext, sx, z_boss, sz in _bosses(inner):
+        back = back.fuse(_back_brace(x_in, x_ext, sx, z_boss, sz, y_joint, outer, inner))
+    # Clip any corner feature that pokes past the rounded print silhouette.
+    back = back.intersect(_rounded_outer(outer))
     for x_in, x_ext, sx, z_boss, _sz in _bosses(inner):
         back = back.cut(_screw_cut(x_ext, sx, z_boss, yb))
     return cq.Workplane(obj=back)
