@@ -10,12 +10,22 @@ in from the visual-analysis pass. First
 ([*I've Never Welded*](concepts.md), [*I've Never Tapped*](concepts.md)) crosses
 off the welding bench for the first time.
 
-The hero: a total beginner picks up a vacuum desoldering gun, touches it to a
-through-hole joint, and the solder just vanishes — and the genuine disbelief
-("absolutely zero skill level," "that is amazing") is the whole appeal. The
-soda machine stays backdrop: the board is a part the build needs. Never the
-pitch — see [`concepts.md`](concepts.md) (every Tier-2 piece keeps the machine
+The hero: a total beginner picks up a vacuum desoldering gun, clears a row of
+through-hole joints off a breakout board, and pulls the header free — the
+genuine disbelief ("absolutely zero skill level," "that is amazing") is the
+whole appeal. The board is a **Waveshare MCP23017 I/O-expander module**
+(B07P2H1NZG — the same SKU as the reed-switch bench rig in
+[`/firmware/src_reed_bench/`](/firmware/src_reed_bench/README.md)), so the
+soda-machine tie is real: it's a build part. It stays backdrop, never the pitch
+— see [`concepts.md`](concepts.md) (every Tier-2 piece keeps the machine
 present, never selling).
+
+Footage reality (from the visual pass): there is **no macro solder-suck** in
+the footage — it's all cap-mount medium POV, and (good news) no smoke. The only
+legible payoff is the closing held-up reveal of the cleaned board + the freed
+gold header ("look how clean / that is amazing"), so the cold open is built from
+that reveal, not from a clearing macro. Cut list and drafts live in the working
+dir (`cutlist.json`, `out-draft2.mp4`).
 
 ## The narration
 
