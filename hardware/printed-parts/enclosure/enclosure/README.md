@@ -54,9 +54,11 @@ is sized to the bezel + a 3 mm buffer all around — [118.5 mm](DISPLAY_FACET_X)
 (X, lateral) × [81 mm](DISPLAY_FACET_SLOPE) (along the 45° slope).
 
 The facet is thickened into an 18 mm housing (the display's overall depth) with
-the display let in: a shallow 112.5 × 75 × 1 mm counterbore on the user face
-recesses the bezel, and a 106 × 69 mm hole through the full thickness passes the
-PCB body. Where the corner ribs sit behind the facet, the PCB hole clears them.
+the display let in: a shallow 1 mm counterbore on the user face recesses the
+bezel — the bezel outline plus 1 mm of room on the left and 2 mm up-slope, so it
+registers on the bottom and right, corners rounded 2.5 mm to match the bezel —
+and a 106 × 69 mm hole through the full thickness passes the PCB body. Where the
+corner ribs sit behind the facet, the PCB hole clears them.
 The recessed panel is sealed from the cavity at both lateral edges: the −X edge
 by the left exterior wall, the +X edge by a one-wall gusset spanning the full
 housing depth (inner front wall, inner top wall, housing back plane), continuous
