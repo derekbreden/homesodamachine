@@ -78,7 +78,7 @@ static unsigned long lastInputTime = 0;
 
 #define SCREEN_W  172
 #define SCREEN_H  320
-#define ROTATION  2  // USB connector points up on the faucet mount
+#define ROTATION  0  // USB connector points down on the faucet mount
 
 // ── Hardware objects ──
 Arduino_DataBus *bus = new Arduino_ESP32SPI(
