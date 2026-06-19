@@ -1,6 +1,6 @@
 {
   "thickness_mm": 1.524,
-  "material": "304 stainless steel",
+  "material": "316 stainless steel",
   "process": "laser-cut",
   "notes": "0.060\" sheet, SendCutSend"
 }
