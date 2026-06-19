@@ -48,10 +48,10 @@ CONDENSER_FACE_A, CONDENSER_FACE_B, CONDENSER_AIRFLOW = 178.0, 151.0, 56.0
 SEAFLO_DIMS = (75.0, 60.0, 175.0)
 
 # Front block (Zones C/D) Y depth — the cold core (Zone A) seats behind it.
-# With the condenser raised clear of the seam lip, the cold core pulls in until
-# the split's lip just clears the compressor (the deepest part still on the
-# floor), leaving only the joint between the front block and the cold core.
-FRONT_DEPTH = 164.0
+# With the floor parts raised clear of the seam lip, the cold core pulls in to
+# just behind the condenser (the deepest front part), leaving only a small gap
+# ahead of the cold core.
+FRONT_DEPTH = 155.0
 # Vertical gap between the bottom layer (cold core + front-bottom) and the
 # top layer (pump cases + trays).
 LAYER_GAP = 5.0
@@ -62,10 +62,10 @@ SIDE_RIB_INSET = 14.0
 # The back half's floor braces stand ~13 mm tall in the rear ±X corners; the
 # cold core is lifted clear of them.
 FOAM_LIFT = 14.0
-# The condenser stands one wall off the floor, clearing the front half's bottom
-# seam lip so the split (and the cold core behind it) can pull forward. The
-# compressor stays on the floor, holding the box floor at Z0.
-CONDENSER_LIFT = 3.0
+# The compressor and condenser are raised one wall, clearing the front half's
+# bottom seam lip so the split can pull forward past them. The box floors to a
+# fixed Z=0 datum, so raising them leaves the floor in place.
+SEAM_CLEAR_LIFT = 3.0
 
 
 # --- Colors ---------------------------------------------------------------
@@ -124,20 +124,20 @@ def build():
     # condenser/fan as a panel front-right (airflow axis across X). Both inset
     # from their side walls to clear the front half's corner ribs.
     comp = _rot(_load(COMP_SHROUD), (0, 0, 1), 90.0)   # 178 x 133 x 151
-    placed["compressor-shroud"] = _at(comp, SIDE_RIB_INSET, 0.0, 0.0)
-    comp_top_z = comp.BoundingBox().zlen               # 151
+    placed["compressor-shroud"] = _at(comp, SIDE_RIB_INSET, 0.0, SEAM_CLEAR_LIFT)
+    comp_top_z = SEAM_CLEAR_LIFT + comp.BoundingBox().zlen
     cond = _box(CONDENSER_AIRFLOW, CONDENSER_FACE_B, CONDENSER_FACE_A)  # 56 x 151 x 178
-    placed["condenser+fan"] = _at(cond, cold_w - CONDENSER_AIRFLOW - SIDE_RIB_INSET, 0.0, CONDENSER_LIFT)
-    cond_top_z = CONDENSER_LIFT + CONDENSER_FACE_A
+    placed["condenser+fan"] = _at(cond, cold_w - CONDENSER_AIRFLOW - SIDE_RIB_INSET, 0.0, SEAM_CLEAR_LIFT)
+    cond_top_z = SEAM_CLEAR_LIFT + CONDENSER_FACE_A
 
     # --- Zone C: the pump cartridge sits low on the compressor top, the SeaFlo
     # laid flat across the cases above them. The whole right column above the
     # condenser is left open as the hopper-funnel reserve — funnel on the right,
     # toward the front.
-    pc1 = _cycle_xyz_to_yzx(_load(PUMP_CASE))          # 74 x 136 x 76
-    pc2 = _cycle_xyz_to_yzx(_load(PUMP_CASE))
+    pc1 = _rot(_load(PUMP_CASE), (1, 0, 0), 90.0)      # 76 x 136 x 74 (short axis up)
+    pc2 = _rot(_load(PUMP_CASE), (1, 0, 0), 90.0)
     placed["pump-case-1"] = _at(pc1, 20.0, 8.0, comp_top_z)
-    placed["pump-case-2"] = _at(pc2, 98.0, 8.0, comp_top_z)
+    placed["pump-case-2"] = _at(pc2, 100.0, 8.0, comp_top_z)
     pump_top_z = comp_top_z + pc1.BoundingBox().zlen
     sf_w, sf_d, sf_h = SEAFLO_DIMS                      # [75 x 60 x 175](SEAFLO_DIMS)
     seaflo = _box(sf_h, sf_w, sf_d)                    # 175 x 75 x 60, long axis along X

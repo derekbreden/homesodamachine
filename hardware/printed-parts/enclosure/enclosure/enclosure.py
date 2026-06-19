@@ -156,12 +156,15 @@ def _dims():
     ox0, ox1 = ix0 - wall, ix1 + wall
     oy0, oy1 = iy0 - wall, iy1 + wall
     oz0, oz1 = iz0 - wall, iz1 + wall
-    # Split plane: placed so the lip's +Y tip clears the cold core by
-    # boss_to_coldcore, with the full lip_len of telescoping ahead of it.
-    cold_front_y = placed["foam-shell"][0].BoundingBox().ymin
-    y_joint = cold_front_y - boss_to_coldcore - lip_len
+    # Split plane: as far forward as the print allows — just behind the display
+    # housing, so the whole facet stays in the front half. The floor parts are
+    # raised clear of the seam lip, so nothing on the floor limits it.
     inner = (ix0, ix1, iy0, iy1, iz0, iz1)
     outer = (ox0, ox1, oy0, oy1, oz0, oz1)
+    _fa, _fn, _fo, _fdy, _fdz = _facet_geom(outer)
+    facet_back_y = oy0 + _fdy + display_facet_thickness * math.sqrt(2.0)
+    y_joint = facet_back_y + 2.0
+    cold_front_y = placed["foam-shell"][0].BoundingBox().ymin
     return inner, outer, y_joint, cold_front_y
 
 
