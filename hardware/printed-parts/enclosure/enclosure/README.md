@@ -26,18 +26,19 @@ socket pod's +Y face on the lip rim) and the two are coaxial by construction, so
 the **overlap depth is derived from those matings**, not chosen — it works out
 to (plug + bore)/2 + one wall.
 
-Each cross-pin is sized to its job. Reading a screw outboard→inboard from the
-±X exterior: a Ø6.15 mm head counterbore, then the **boss** — exactly one wall
-(3 mm) of material the Ø3.9 mm shank crosses — then the heat-set, then a one-wall
-cap.
+Each cross-pin is sized to its job. Reading an M3×10 screw outboard→inboard from
+the ±X exterior: a Ø6.15 mm head counterbore, then the pin body (the screw spans
+the head seat to the heat-set, so the body is screw length − heat-set long), then
+the heat-set, then a one-wall cap.
 
-- **Back half = plug**: a Ø9.9 mm cylinder (the shank + one wall each side, *not*
+- **Back half = D-pin**: a Ø9.9 mm cylinder (the shank + one wall each side, *not*
   the head — the head sits in the wall counterbore) from the exterior to the
-  heat-set, fused to the side wall.
+  heat-set, registering in the socket bore, fused to a flat tab that runs to the
+  lip rim where the corner brace backs it.
 - **Front lip = socket**: a corner pod, integral with the top/bottom wall, bored
-  Ø10.3 mm to take the plug as a slide fit, with the ruthex M3 heat-set
-  (Ø4.0 × 5.25) capped at its deep inboard end and a +Y channel so the plug
-  slides in as the lip telescopes home.
+  Ø10.3 mm to take the round pin as a slide fit, with the ruthex M3 heat-set
+  (Ø4.0 × 5.25) capped at its deep inboard end and a +Y channel the pin's tab
+  slides through as the lip telescopes home.
 
 The back half is sized so the cold core seats behind the bosses (verified clear
 at build time). Each printed half fits the H2C left-nozzle build envelope
@@ -47,8 +48,9 @@ point of the split.
 Both halves' vertical (print-axis Y) corners are rounded for print-bed
 anti-warp relief, matching the foam shell's 12 mm outer radius — concentric
 inner one wall in, so the wall is preserved. The back half also carries four
-corner braces — the back-half twins of the front pods — running from the lip rim
-to the rear wall, anchoring the corners against peeling and backing the plugs.
+corner braces — corner ribs from the lip rim to the rear wall, sized to the pin
+they back (in X to its inboard end, in Z to the pin) and butting its flat tab at
+the rim — anchoring the corners against peeling and supporting the X-axis pin in Y.
 
 ## Display housing
 
