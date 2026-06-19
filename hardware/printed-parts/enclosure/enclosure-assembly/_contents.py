@@ -136,8 +136,8 @@ def build():
     # toward the front.
     pc1 = _rot(_load(PUMP_CASE), (1, 0, 0), 90.0)      # 76 x 136 x 74 (short axis up)
     pc2 = _rot(_load(PUMP_CASE), (1, 0, 0), 90.0)
-    placed["pump-case-1"] = _at(pc1, 20.0, 8.0, comp_top_z)
-    placed["pump-case-2"] = _at(pc2, 100.0, 8.0, comp_top_z)
+    placed["pump-case-1"] = _at(pc1, 20.0, 12.0, comp_top_z)
+    placed["pump-case-2"] = _at(pc2, 100.0, 12.0, comp_top_z)
     pump_top_z = comp_top_z + pc1.BoundingBox().zlen
     sf_w, sf_d, sf_h = SEAFLO_DIMS                      # [75 x 60 x 175](SEAFLO_DIMS)
     seaflo = _box(sf_h, sf_w, sf_d)                    # 175 x 75 x 60, long axis along X
