@@ -10,7 +10,8 @@ the user (-Y, forward):
 - Main body — the PCB, display module, and rear components as one block:
   [106 mm](BODY_WIDTH) (X) x [69 mm](BODY_HEIGHT) (Z) x [17 mm](BODY_DEPTH) (Y).
 - Bezel — the front cover-glass / touch-panel plate, standing proud of the
-  body front and overhanging it on every side:
+  body front and overhanging it on every side, its outline corners rounded
+  [2.5 mm](BEZEL_CORNER_R):
   [112.5 mm](BEZEL_WIDTH) (X) x [75 mm](BEZEL_HEIGHT) (Z) x [1 mm](BEZEL_DEPTH) (Y).
 
 Overall envelope: [112.5 mm](BEZEL_WIDTH) (X) x [75 mm](BEZEL_HEIGHT) (Z) x [18 mm](TOTAL_DEPTH) (Y).
@@ -48,6 +49,7 @@ body_depth = 17.0     # Y, screen-normal (into the appliance)
 bezel_width = 112.5   # X
 bezel_height = 75.0   # Z
 bezel_depth = 1.0     # Y
+bezel_corner_r = 2.5  # rounded corners of the cover-glass outline
 
 # Bezel overhang per side — the glass border framing the body.
 bezel_overhang_x = (bezel_width - body_width) / 2.0    # [3.25 mm](BEZEL_OVERHANG_X)
@@ -83,8 +85,12 @@ def build_body():
 
 def build_bezel():
     """Front cover-glass / touch-panel plate, screen facing -Y, standing proud
-    of the body and overhanging it on every side. Y 0 -> bezel_depth."""
-    return _block(bezel_width, bezel_height, bezel_depth, bezel_y_center)
+    of the body and overhanging it on every side, its outline corners rounded.
+    Y 0 -> bezel_depth."""
+    return (
+        _block(bezel_width, bezel_height, bezel_depth, bezel_y_center)
+        .edges("|Y").fillet(bezel_corner_r)
+    )
 
 
 _PARTS = [
@@ -119,6 +125,7 @@ def main():
             "BEZEL_WIDTH": f"{bezel_width:.4g}",
             "BEZEL_HEIGHT": f"{bezel_height:.4g}",
             "BEZEL_DEPTH": f"{bezel_depth:.4g}",
+            "BEZEL_CORNER_R": f"{bezel_corner_r:.4g}",
             "TOTAL_DEPTH": f"{total_depth:.4g}",
             "BEZEL_OVERHANG_X": f"{bezel_overhang_x:.4g}",
             "BEZEL_OVERHANG_Z": f"{bezel_overhang_z:.4g}",
@@ -126,6 +133,7 @@ def main():
         expected_counts={
             "BODY_WIDTH": 1, "BODY_HEIGHT": 1, "BODY_DEPTH": 1,
             "BEZEL_WIDTH": 2, "BEZEL_HEIGHT": 2, "BEZEL_DEPTH": 3,
+            "BEZEL_CORNER_R": 1,
             "TOTAL_DEPTH": 2, "BEZEL_OVERHANG_X": 1, "BEZEL_OVERHANG_Z": 1,
         },
     )
@@ -139,6 +147,7 @@ def main():
             "BEZEL_WIDTH": f"{bezel_width:.4g} mm",
             "BEZEL_HEIGHT": f"{bezel_height:.4g} mm",
             "BEZEL_DEPTH": f"{bezel_depth:.4g} mm",
+            "BEZEL_CORNER_R": f"{bezel_corner_r:.4g} mm",
             "TOTAL_DEPTH": f"{total_depth:.4g} mm",
             "BEZEL_OVERHANG_X": f"{bezel_overhang_x:.4g} mm",
             "BEZEL_OVERHANG_Z": f"{bezel_overhang_z:.4g} mm",
@@ -146,6 +155,7 @@ def main():
         expected_counts={
             "BODY_WIDTH": 1, "BODY_HEIGHT": 1, "BODY_DEPTH": 1,
             "BEZEL_WIDTH": 2, "BEZEL_HEIGHT": 2, "BEZEL_DEPTH": 3,
+            "BEZEL_CORNER_R": 1,
             "TOTAL_DEPTH": 2, "BEZEL_OVERHANG_X": 1, "BEZEL_OVERHANG_Z": 1,
         },
     )

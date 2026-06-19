@@ -64,10 +64,16 @@ display_facet_angle_deg = 45.0
 # The facet is a display housing this deep (the wall behind it, set to the
 # display's overall depth) with the display let into it: a shallow bezel
 # counterbore on the user face and a PCB through-hole down the full thickness.
+# The counterbore is the bezel grown by clearance on the left and up-slope only —
+# the bezel registers on the counterbore's bottom and right edges — with corners
+# rounded to the display bezel's radius.
 display_facet_thickness = 18.0   # facet wall depth = display envelope depth
 display_bezel_depth = 1.0        # bezel counterbore depth, user face
 display_pcb_x = 106.0            # PCB body through-hole, lateral (X)
 display_pcb_slope = 69.0         # PCB body through-hole, up the 45° slope
+display_bezel_clear_left = 1.0   # counterbore room past the bezel, left (−X)
+display_bezel_clear_top = 2.0    # counterbore room past the bezel, up-slope
+display_corner_r = 2.5           # corner rounding, matching the display bezel
 
 # Split + boss parameters — every dimension sized to its function, nothing
 # inherited from the faucet. The seam is a Y plane; the front half's full-wall
@@ -188,17 +194,24 @@ def _shell_with_facet(inner, outer):
 
 def _display_cuts(outer):
     """The display let into the facet: a shallow bezel counterbore on the user
-    face and a PCB through-hole down the full facet thickness — both rectangles
-    centered on the facet, cut along its 45° normal. (Starts one mm proud of the
-    face for a clean break; the PCB hole runs a hair past the back into the
-    cavity.)"""
+    face and a PCB through-hole down the full facet thickness — both cut along
+    the facet's 45° normal, starting one mm proud of the face for a clean break.
+    The PCB hole is a rectangle centered on the facet (it runs a hair past the
+    back into the cavity). The bezel counterbore is the bezel grown by its
+    clearance on the left and up-slope, shifted half that each way so it stays
+    registered on the bottom and right, with corners rounded to the display
+    radius."""
     a, normal, origin, dy, dz = _facet_geom(outer)
     center = (outer[0] + display_facet_x / 2.0, origin[1], origin[2])
     plane = cq.Plane(origin=cq.Vector(*center), xDir=cq.Vector(1, 0, 0), normal=cq.Vector(*normal))
+    along_normal = cq.selectors.ParallelDirSelector(cq.Vector(*normal))
     bezel = (
         cq.Workplane(plane).workplane(offset=1.0)
-        .rect(display_bezel_x, display_bezel_slope)
-        .extrude(-(display_bezel_depth + 1.0)).val()
+        .center(-display_bezel_clear_left / 2.0, display_bezel_clear_top / 2.0)
+        .rect(display_bezel_x + display_bezel_clear_left,
+              display_bezel_slope + display_bezel_clear_top)
+        .extrude(-(display_bezel_depth + 1.0))
+        .edges(along_normal).fillet(display_corner_r).val()
     )
     pcb = (
         cq.Workplane(plane).workplane(offset=1.0)
