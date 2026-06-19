@@ -55,8 +55,8 @@ H2C_X, H2C_Y, H2C_Z = 325.0, 320.0, 320.0
 # display (../../../reference/waveshare-43b-display/), facing up-and-forward
 # (−Y front / +Z up) toward the standing user. The bezel glass is larger than
 # the PCB body and offset on it (registering on the counterbore's bottom and
-# right); the facet holds it with a margin around the glass:
-# [118.5 mm](DISPLAY_FACET_X) (X, lateral) × [81 mm](DISPLAY_FACET_SLOPE) (along
+# right); the facet is the glass + a 3 mm buffer all around:
+# [119.5 mm](DISPLAY_FACET_X) (X, lateral) × [83 mm](DISPLAY_FACET_SLOPE) (along
 # the 45° slope). Flush to the −X (left) edge, so the top-front-left corner
 # comes off.
 display_bezel_x = 113.5          # bezel glass, lateral (X)
@@ -64,10 +64,9 @@ display_bezel_slope = 77.0       # bezel glass, up the slope
 display_bezel_offset_x = -0.5    # glass center offset from facet center, lateral (−X)
 display_bezel_offset_slope = 1.0 # glass center offset, up-slope
 display_corner_r = 2.5           # corner rounding, matching the display bezel
-display_facet_margin_x = 2.5     # facet margin around the glass, lateral
-display_facet_margin_slope = 2.0 # facet margin around the glass, up-slope
-display_facet_x = display_bezel_x + 2 * display_facet_margin_x          # [118.5 mm](DISPLAY_FACET_X)
-display_facet_slope = display_bezel_slope + 2 * display_facet_margin_slope  # [81 mm](DISPLAY_FACET_SLOPE)
+display_facet_buffer = 3.0       # facet buffer around the glass, all around
+display_facet_x = display_bezel_x + 2 * display_facet_buffer          # [119.5 mm](DISPLAY_FACET_X)
+display_facet_slope = display_bezel_slope + 2 * display_facet_buffer  # [83 mm](DISPLAY_FACET_SLOPE)
 display_facet_angle_deg = 45.0
 # The facet is a display housing this deep (the wall behind it, set to the
 # display's overall depth) with the display let into it: a shallow bezel
