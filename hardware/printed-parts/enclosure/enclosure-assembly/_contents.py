@@ -59,6 +59,9 @@ LAYER_GAP = 5.0
 # (the boss chain: head counterbore + heat-set + cap). Front-bottom content set
 # against a side wall is inset this much, plus a gap, to clear them.
 SIDE_RIB_INSET = 14.0
+# The back half's floor braces stand ~13 mm tall in the rear ±X corners; the
+# cold core is lifted clear of them.
+FOAM_LIFT = 14.0
 
 
 # --- Colors ---------------------------------------------------------------
@@ -104,11 +107,14 @@ def build():
     foam = _load(FOAM_SHELL)
     fb = foam.BoundingBox()
     cold_w, cold_h = fb.xlen, fb.zlen          # ~283 wide, ~213 tall
-    top_z = cold_h + LAYER_GAP                  # top-layer floor
+    top_z = cold_h + LAYER_GAP                  # front top-layer floor
+    # The lifted cold core's top rises into the back-top tray band; the trays
+    # sit just above it (a smaller gap than LAYER_GAP, to stay under the ceiling).
+    back_top_z = FOAM_LIFT + cold_h + 2.0
 
-    # --- Zone A: cold core, back-bottom, on the floor. Seated behind the
-    # front block; its −Y service/dispense ports face forward (−Y).
-    placed["foam-shell"] = _at(foam, 0.0, FRONT_DEPTH, 0.0)
+    # --- Zone A: cold core, back, lifted clear of the back half's floor braces.
+    # Seated behind the front block; its −Y service/dispense ports face forward.
+    placed["foam-shell"] = _at(foam, 0.0, FRONT_DEPTH, FOAM_LIFT)
 
     # --- Zone D: refrigeration on the floor — compressor shroud front-left,
     # condenser/fan as a panel front-right (airflow axis across X). Both inset
@@ -136,9 +142,10 @@ def build():
     placed["pump-case-2"] = _at(pc2, 194.0, 0.0, top_z)
 
     # --- Zone B: three valve-manifold trays, laid FLAT (~63 mm tall) back-top
-    # above the cold core. Stand-in.
-    placed["source-select"] = _at(_load(TRAY_STEPS["source-select"]), 0.0, FRONT_DEPTH, top_z)
-    placed["nozzle-gate"]   = _at(_load(TRAY_STEPS["nozzle-gate"]),   0.0, FRONT_DEPTH + 98.0, top_z)
-    placed["bag-circuit"]   = _at(_load(TRAY_STEPS["bag-circuit"]), 105.0, FRONT_DEPTH + 98.0, top_z)
+    # just above the lifted cold core, nudged off the ±X corners to clear the
+    # back half's top braces. Stand-in.
+    placed["source-select"] = _at(_load(TRAY_STEPS["source-select"]), 10.0, FRONT_DEPTH, back_top_z)
+    placed["nozzle-gate"]   = _at(_load(TRAY_STEPS["nozzle-gate"]),   10.0, FRONT_DEPTH + 98.0, back_top_z)
+    placed["bag-circuit"]   = _at(_load(TRAY_STEPS["bag-circuit"]), 112.0, FRONT_DEPTH + 98.0, back_top_z)
 
     return {n: (s, COLORS[n]) for n, s in placed.items()}
