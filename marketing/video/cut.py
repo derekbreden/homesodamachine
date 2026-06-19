@@ -84,6 +84,7 @@ USAGE
 
   ./tools/video-venv/bin/python marketing/video/cut.py \\
       <source-video> <cut-list.json> <output.mp4> \\
+      (--overlays SIDECAR.json | --no-overlays) \\
       [--preset PRESET] [--crf 0..51] \\
       [--fade SECONDS] \\
       [--title TEXT] [--title-duration SECONDS] \\
@@ -587,7 +588,23 @@ def main():
                          "pip, magnifier). See overlays.py for the schema. "
                          "When set, captions are burned in the same final "
                          "pass as the overlays.")
+    ap.add_argument("--no-overlays", action="store_true",
+                    help="Render with no motion-graphics layer — for a "
+                         "deliberate music-bed clip that needs none. Required "
+                         "to render when --overlays is omitted.")
     args = ap.parse_args()
+
+    if args.overlays is None and not args.no_overlays:
+        print(
+            "Refusing to render: no overlays. 'The pipeline is the floor' "
+            "(marketing/video/principles.md) — a cut ships with a "
+            "motion-graphics layer (a title card on a freeze, this video's "
+            "one format advance over the last), not captions and bare section "
+            "labels alone. Pass --overlays SIDECAR.json (schema in "
+            "overlays.py), or --no-overlays for a deliberate music-bed clip.",
+            file=sys.stderr,
+        )
+        sys.exit(2)
 
     raw = json.loads(Path(args.cut_list).read_text())
     if isinstance(raw, dict):
