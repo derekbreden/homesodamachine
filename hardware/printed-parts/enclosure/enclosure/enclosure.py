@@ -59,10 +59,13 @@ H2C_X, H2C_Y, H2C_Z = 325.0, 320.0, 320.0
 # the 45° slope). The glass overhangs the PCB body unevenly, so the body sits
 # offset behind it; the facet is flush to the −X (left) edge, so the
 # top-front-left corner comes off.
-display_bezel_x = 113.5          # bezel glass, lateral (X)
-display_bezel_slope = 77.0       # bezel glass, up the slope
-display_bezel_offset_x = -0.5    # glass offset from the body center, lateral (−X)
-display_bezel_offset_slope = 1.0 # glass offset from the body center, up-slope
+display_bezel_x = 113.5           # bezel glass, lateral (X)
+display_bezel_slope = 77.0        # bezel glass, up the slope
+# The glass is the datum (centered on the facet); the PCB body sits offset behind
+# it because the glass overhangs the body unevenly (up-and-left). This is the
+# body's own offset from the centered glass.
+display_body_offset_x = 0.5      # PCB body offset from the centered glass, lateral (+X)
+display_body_offset_slope = -1.0 # PCB body offset, down-slope
 display_corner_r = 2.5           # corner rounding, matching the display bezel
 display_facet_buffer = 3.0       # facet buffer around the glass, all around
 display_facet_x = display_bezel_x + 2 * display_facet_buffer          # [119.5 mm](DISPLAY_FACET_X)
@@ -228,10 +231,9 @@ def _display_cuts(outer):
     the facet's 45° normal, starting one mm proud of the face for a clean break.
     The glass is the datum: the bezel counterbore is centered on the facet (a
     uniform buffer all around). The glass overhangs the body unevenly, so the PCB
-    hole sits the opposite way — offset by −display_bezel_offset — and is cut
-    display_pcb_cut_through past the back to take the corner pod (which would
-    otherwise overhang it) clean through. Counterbore corners rounded to the
-    display radius."""
+    hole sits offset by display_body_offset — and is cut display_pcb_cut_through
+    past the back to take the corner pod (which would otherwise overhang it)
+    clean through. Counterbore corners rounded to the display radius."""
     a, normal, origin, dy, dz = _facet_geom(outer)
     center = (outer[0] + display_facet_x / 2.0, origin[1], origin[2])
     plane = cq.Plane(origin=cq.Vector(*center), xDir=cq.Vector(1, 0, 0), normal=cq.Vector(*normal))
@@ -244,7 +246,7 @@ def _display_cuts(outer):
     )
     pcb = (
         cq.Workplane(plane).workplane(offset=1.0)
-        .center(-display_bezel_offset_x, -display_bezel_offset_slope)  # body sits opposite the glass overhang
+        .center(display_body_offset_x, display_body_offset_slope)  # body sits opposite the glass overhang
         .rect(display_pcb_x, display_pcb_slope)
         .extrude(-(display_facet_thickness + display_pcb_cut_through + 1.0)).val()  # through the pod
     )
