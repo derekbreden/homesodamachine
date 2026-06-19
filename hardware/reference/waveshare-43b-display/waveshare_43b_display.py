@@ -52,11 +52,11 @@ bezel_height = 77.0   # Z
 bezel_depth = 1.0     # Y
 bezel_corner_r = 2.5  # rounded corners of the cover-glass outline
 
-# The bezel is larger than the body and sits offset on it — it registers on the
-# enclosure counterbore's bottom and right, the glass border reaching further
-# up and to the left.
-bezel_offset_x = -0.5  # [-0.5 mm](BEZEL_OFFSET_X) glass center offset, toward −X
-bezel_offset_z = 1.0   # [1 mm](BEZEL_OFFSET_Z) glass center offset, up the screen
+# The bezel is larger than the body and sits offset on it — its border reaches
+# further up and to the left of the body. How it lands in the enclosure facet
+# (which centers the glass) is the enclosure's business.
+bezel_offset_x = -0.5  # [-0.5 mm](BEZEL_OFFSET_X) glass center offset from the body, toward −X
+bezel_offset_z = 1.0   # [1 mm](BEZEL_OFFSET_Z) glass center offset from the body, up the screen
 
 # Depth seams along Y (screen-normal). The screen faces -Y (toward the user);
 # the front cover-glass face sits at Y = 0, and the device extends back into

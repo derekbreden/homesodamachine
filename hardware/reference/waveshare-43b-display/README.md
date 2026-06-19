@@ -21,11 +21,13 @@ user (−Y, forward), from caliper measurements:
 - **Y** = depth — screen-normal; the screen faces −Y (forward, toward the user)
 
 Origin is the center of the body in X–Z; the body is centered on it and the
-bezel is offset [-0.5](BEZEL_OFFSET_X) in X and [1](BEZEL_OFFSET_Z) in Z, so it
-registers on the enclosure counterbore's bottom and right. The front cover-glass
-face sits at Y = 0; the device extends back into the appliance toward +Y. The
-bezel caps the front, Y 0 → [1](BEZEL_DEPTH); the body runs behind it,
-Y [1](BEZEL_DEPTH) → [18](TOTAL_DEPTH), overhanging the body on every side.
+bezel is offset [-0.5](BEZEL_OFFSET_X) in X and [1](BEZEL_OFFSET_Z) in Z — its
+border reaches further up and to the left of the body. (How it lands in the
+enclosure facet, which centers the glass, is the enclosure's business.) The
+front cover-glass face sits at Y = 0; the device extends back into the appliance
+toward +Y. The bezel caps the front, Y 0 → [1](BEZEL_DEPTH); the body runs
+behind it, Y [1](BEZEL_DEPTH) → [18](TOTAL_DEPTH), overhanging the body on every
+side.
 
 Overall envelope: [113.5](BEZEL_WIDTH) (X) × [77](BEZEL_HEIGHT) (Z) × [18](TOTAL_DEPTH) (Y) mm.
 
