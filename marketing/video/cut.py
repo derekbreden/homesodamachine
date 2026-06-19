@@ -108,14 +108,22 @@ import overlays as overlays_mod  # noqa: E402
 def escape_drawtext(text: str) -> str:
     """Escape characters that have meaning in ffmpeg drawtext text= field.
 
-    Only the chars that actually break drawtext: backslash, single quote
-    (since we wrap in single quotes), colon, percent. Newlines we
+    Chars that break drawtext: backslash, colon, percent. Newlines
     convert to drawtext's \\n.
+
+    The ASCII apostrophe is mapped to a typographic right single quote
+    (U+2019) rather than escaped. We wrap the value in single quotes
+    (text='...'), and libavfilter's single-quoted token has no working
+    backslash-escape for an embedded straight quote: `\\'` silently drops
+    it (renders "Ive") and the shell-style `'\\''` terminates the token,
+    spilling the rest of the filter options on screen as literal text.
+    Both verified against list-arg ffmpeg (no shell layer). The curly
+    quote needs no escaping and reads better in a burned-in title.
     """
     return (text
             .replace("\\", "\\\\")
             .replace(":", r"\:")
-            .replace("'", r"\\\'")
+            .replace("'", "’")
             .replace("%", r"\%")
             .replace("\n", r"\n"))
 
