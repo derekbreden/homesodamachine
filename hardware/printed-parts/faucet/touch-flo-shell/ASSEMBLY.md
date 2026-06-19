@@ -92,7 +92,7 @@ shank are exposed. R2031-NL-12 (oil-rubbed bronze, B01N5LVNQA) is the
 same mechanism with a different finish. Pick whichever is cheaper /
 Prime-available at order time.
 
-**Under-counter plate — SendCutSend 0.060" 304 SS, keyhole design
+**Under-counter plate — SendCutSend 0.060" 316 SS, keyhole design
 (order qty 1).** File `touch_flo_under_counter_plate.dxf` (generated
 by ``endcap_circular_dxf.py` (different part)` in the same directory) is a single-piece
 Ø 54.35 mm disc with hole positions that match the TPU mounting

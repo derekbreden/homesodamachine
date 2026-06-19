@@ -49,7 +49,7 @@ STACK-UP (top → bottom, world-Z range in faucet-assembly coords):
 
 THICKNESS / MATERIAL
 ====================
-0.060" (1.524 mm) 304 stainless, SendCutSend. Order qty 1 per
+0.060" (1.524 mm) 316 stainless, SendCutSend. Order qty 1 per
 appliance.
 
 UNITS
@@ -261,7 +261,7 @@ if __name__ == "__main__":
           f"at ({pill_cx}, {pill_cy})")
     print(f"  Pill channel:   {pill_short_x} mm wide in X, -Y to the rim")
     print(f"  Units in DXF:   mm (DXF $INSUNITS = 4)")
-    print(f"  Material spec:  0.060\" (1.524 mm) 304 stainless, laser-cut, qty 1 per appliance")
+    print(f"  Material spec:  0.060\" (1.524 mm) 316 stainless, laser-cut, qty 1 per appliance")
     print(f"-> {out.name}")
 
     variables = {
