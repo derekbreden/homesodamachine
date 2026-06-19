@@ -12,7 +12,7 @@ user (−Y, forward), from caliper measurements:
 | Block | Size (X × Z × Y) | Part |
 |---|---|---|
 | Box | [106](BODY_WIDTH) × [69](BODY_HEIGHT) × [17](BODY_DEPTH) | main body — PCB, display module, rear components |
-| Box | [113.5](BEZEL_WIDTH) × [77](BEZEL_HEIGHT) × [1](BEZEL_DEPTH) | bezel — front cover-glass / touch-panel plate, corners rounded [2.5](BEZEL_CORNER_R) |
+| Box | [113.5](BEZEL_WIDTH) × [77](BEZEL_HEIGHT) × [1](BEZEL_DEPTH) | bezel — front cover-glass / touch-panel plate, offset on the body, corners rounded [2.5](BEZEL_CORNER_R) |
 
 ## Coordinate convention (repo world frame)
 
@@ -20,14 +20,12 @@ user (−Y, forward), from caliper measurements:
 - **Z** = height — up the screen
 - **Y** = depth — screen-normal; the screen faces −Y (forward, toward the user)
 
-Origin is the center of the body in X–Z; both blocks are centered on it. The
-body and bezel are concentric — the display is a rigid unit centered on the
-glass; where it sits in the enclosure facet (offset to register bottom-right) is
-the enclosure's business. The front cover-glass face sits at Y = 0; the device
-extends back into the appliance toward +Y. The bezel caps the front,
-Y 0 → [1](BEZEL_DEPTH); the body runs behind it, Y [1](BEZEL_DEPTH) →
-[18](TOTAL_DEPTH), overhanging the body [3.75](BEZEL_OVERHANG_X) per side in X
-and [4](BEZEL_OVERHANG_Z) per side in Z.
+Origin is the center of the body in X–Z; the body is centered on it and the
+bezel is offset [-0.5](BEZEL_OFFSET_X) in X and [1](BEZEL_OFFSET_Z) in Z, so it
+registers on the enclosure counterbore's bottom and right. The front cover-glass
+face sits at Y = 0; the device extends back into the appliance toward +Y. The
+bezel caps the front, Y 0 → [1](BEZEL_DEPTH); the body runs behind it,
+Y [1](BEZEL_DEPTH) → [18](TOTAL_DEPTH), overhanging the body on every side.
 
 Overall envelope: [113.5](BEZEL_WIDTH) (X) × [77](BEZEL_HEIGHT) (Z) × [18](TOTAL_DEPTH) (Y) mm.
 
