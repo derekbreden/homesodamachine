@@ -17,9 +17,10 @@ drops straight into the opening:
   6 mm of straight rectangular wall pressing the opening sides.
 - **Ramp + spout.** Below the collar the bore ramps from the rectangular mouth
   down to a round [6.35 mm](HOPPER_SPOUT_ID) spout (1/4", matching the pump
-  tubing) that hangs into the funnel reserve. The drop is [53 mm](HOPPER_DROP),
-  set live to stop one mm above the tallest content under the mouth (the bib-gate
-  tray) — exactly the room the current packing leaves.
+  tubing) that hangs into the funnel reserve. The ramp tip is set live to one mm
+  above the tallest content under the mouth (the bib-gate tray); a short straight
+  tube then continues the spout 6 mm lower, into the room freed by sliding that
+  tray against the +X wall. Total drop [59 mm](HOPPER_DROP) below the brim.
 
 The collar footprint is taken from the enclosure's opening rectangle
 (`enclosure.py` `_hopper_hole`), so the funnel and hole always match.
