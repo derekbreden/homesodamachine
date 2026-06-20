@@ -41,6 +41,8 @@ spout_id = 6.35         # 1/4" outlet bore
 spout_wall = 2.0        # spout wall at the tip
 spout_dx = -10.0        # spout offset from the mouth center (−X, into the clear
                         # column left of the bib-gate tray)
+spout_tube = 6.0        # short straight spout tube at the tip
+slot_clear = 1.0        # gap from the throat's outer walls to the content beside it
 tip_clearance = 1.0     # gap left above the tallest content under the spout
 
 
@@ -54,15 +56,25 @@ def _box(w, d, z0, z1, cx, cy):
     )
 
 
-def _ramp(w, d, r, z_top, z_bot, cx, cy, tx, ty):
-    """Loft from a w×d rectangle centered at (cx, cy) at z_top down to a radius-r
-    circle centered at (tx, ty) at z_bot — oblique when the centers differ."""
+def _loft_rr(w0, d0, cx0, cy0, z0, w1, d1, cx1, cy1, z1):
+    """Loft between two rectangles on parallel planes (centers may differ)."""
     return (
-        cq.Workplane("XY", origin=(cx, cy, z_top))
-        .rect(w, d)
-        .workplane(offset=z_bot - z_top)
-        .center(tx - cx, ty - cy)
-        .circle(r)
+        cq.Workplane("XY", origin=(cx0, cy0, z0))
+        .rect(w0, d0)
+        .workplane(offset=z1 - z0).center(cx1 - cx0, cy1 - cy0)
+        .rect(w1, d1)
+        .loft(combine=True)
+        .val()
+    )
+
+
+def _loft_rc(w0, d0, cx0, cy0, z0, r1, cx1, cy1, z1):
+    """Loft from a rectangle down to a circle (centers may differ)."""
+    return (
+        cq.Workplane("XY", origin=(cx0, cy0, z0))
+        .rect(w0, d0)
+        .workplane(offset=z1 - z0).center(cx1 - cx0, cy1 - cy0)
+        .circle(r1)
         .loft(combine=True)
         .val()
     )
@@ -85,6 +97,25 @@ def _content_top(x0, x1, y0, y1):
     return top + tip_clearance
 
 
+def _slot_x(tx, z_lo, z_hi, y0, y1):
+    """The clear x-interval containing tx over z[z_lo,z_hi] and y[y0,y1] — bounded
+    by the nearest content edge on each side (left content's xmax, right content's
+    xmin), inset by slot_clear. This is the widest the ramp can stay as it descends
+    the column beside the bib-gate tray."""
+    left, right = -1e9, 1e9
+    for shape, _c in E._contents.build().values():
+        b = shape.BoundingBox()
+        if b.zmax <= z_lo or b.zmin >= z_hi:          # not in the descent band
+            continue
+        if min(b.ymax, y1) <= max(b.ymin, y0):        # not under the mouth depth
+            continue
+        if b.xmax <= tx:
+            left = max(left, b.xmax)
+        elif b.xmin >= tx:
+            right = min(right, b.xmin)
+    return left + slot_clear, right - slot_clear
+
+
 def build():
     inner, outer, _yj, _cf = E._dims()
     iz1, oz1 = inner[5], outer[5]
@@ -96,29 +127,34 @@ def build():
     spout_or = spout_id / 2.0 + spout_wall
     tx, ty = cx + spout_dx, cy                          # spout center, offset −X
 
-    # The ramp necks to the spout above the bib-gate (clearing it on the way down);
-    # the offset spout then drops through the clear column to just above the
-    # compressor — both depths read live from the content underneath.
-    neck_z = _content_top(x0, x1, y0, y1)
+    # Depths read live: the ramp necks no lower than one mm above the bib-gate
+    # tray (so the wide cup stays above it), and the spout reaches one mm above the
+    # compressor. The spout's straight tube sits at the bottom; the cone fills the
+    # clear slot (between the pump and the tray) from the throat down to the tube.
+    neck_z = _content_top(x0, x1, y0, y1)              # above the tray top
     end_z = _content_top(tx - spout_or, tx + spout_or, ty - spout_or, ty + spout_or)
+    tube_top = end_z + spout_tube
+    xL, xR = _slot_x(tx, end_z, neck_z, y0, y1)        # the clear descent slot
+    tw, tcx = xR - xL, (xL + xR) / 2.0                 # throat: full slot width
+    tbw, td, tbd = tw - 2.0 * collar_wall, d, d - 2.0 * collar_wall
 
-    # Outer: brim flange on top, straight collar through the wall, oblique ramp
-    # necking to the offset spout, then a straight spout tube down the column.
+    # Outer: brim flange, straight collar, a cup narrowing the mouth into the slot
+    # throat, a cone hugging the slot down to the spout, then the straight tube.
     solid = (
         _box(w + 2.0 * brim_overhang, d + 2.0 * brim_overhang, oz1, top_z, cx, cy)
         .fuse(_box(w, d, iz1, oz1, cx, cy))
-        .fuse(_ramp(w, d, spout_or, iz1, neck_z, cx, cy, tx, ty))
-        .fuse(_cyl(spout_or, neck_z, end_z, tx, ty))
+        .fuse(_loft_rr(w, d, cx, cy, iz1, tw, td, tcx, cy, neck_z))
+        .fuse(_loft_rc(tw, td, tcx, cy, neck_z, spout_or, tx, ty, tube_top))
+        .fuse(_cyl(spout_or, tube_top, end_z, tx, ty))
     )
-    # Bore: open rectangular mouth straight down through the collar, ramping to the
-    # round spout and out through the tube.
+    # Bore: the same chain, one wall in, open at the top and out through the tube.
     cavity = (
         _box(bore_w, bore_d, iz1, top_z + 1.0, cx, cy)
-        .fuse(_ramp(bore_w, bore_d, spout_id / 2.0, iz1, neck_z, cx, cy, tx, ty))
-        .fuse(_cyl(spout_id / 2.0, neck_z, end_z - 1.0, tx, ty))
+        .fuse(_loft_rr(bore_w, bore_d, cx, cy, iz1, tbw, tbd, tcx, cy, neck_z))
+        .fuse(_loft_rc(tbw, tbd, tcx, cy, neck_z, spout_id / 2.0, tx, ty, tube_top))
+        .fuse(_cyl(spout_id / 2.0, tube_top, end_z - 1.0, tx, ty))
     )
-    # Capacity filled to the brim rim: the cavity between the spout exit and the
-    # brim top.
+    # Capacity filled to the brim rim: the cavity between the spout exit and brim top.
     fill = cavity.intersect(_box(600.0, 600.0, end_z, top_z, cx, cy)).Volume()
     return cq.Workplane(obj=solid.cut(cavity)), (w, d, top_z - end_z, end_z, fill)
 
