@@ -80,6 +80,15 @@ display_pcb_slope = 69.0         # PCB body through-hole, up the 45° slope
 display_pcb_cut_through = 3.0    # extra depth past the facet back, cutting the
                                  # corner pod clean through (it overhangs the hole otherwise)
 
+# Hopper funnel opening (Zone C) — a rectangular hole through the top wall, right
+# of the display housing and flush to the front, where the removable silicone
+# funnel (../../zone-c/hopper-funnel/) drops in: its brim rests on the top, its
+# straight collar press-fits the opening, and its bore ramps down to a spout
+# inside. Sized to the room to the right of the display; the +X edge is clamped
+# clear of the top-right corner pod.
+hopper_hole_x = 150.0   # opening width (X), nominal before the corner-pod clamp
+hopper_hole_y = 80.0    # opening depth (Y), from the inner front wall back
+
 # Split + boss parameters — every dimension sized to its function, nothing
 # inherited from the faucet. The seam is a Y plane; the front half's full-wall
 # rear lip telescopes into the back; four corner bosses cross-pin the seam with
@@ -283,6 +292,28 @@ def _facet_end_wall(inner, outer):
     return bbox.intersect(_halfspace(back, normal, extent))
 
 
+# --- hopper funnel opening (Zone C) -----------------------------------------
+
+def _hopper_hole(inner, outer):
+    """Rectangle (x0, x1, y0, y1) of the funnel opening in the top wall: its −X
+    edge flush past the display end-wall gusset (right of the facet), its −Y edge
+    flush with the inner front wall, width/depth from the hopper parameters — the
+    +X edge clamped to clear the top-right corner pod's inboard end. The companion
+    funnel (../../zone-c/hopper-funnel/) derives its collar from this same rect."""
+    ix0, ix1, iy0, iy1, iz0, iz1 = inner
+    ox0, ox1, oy0, oy1, oz0, oz1 = outer
+    x0 = ox0 + display_facet_x + wall                  # just past the facet gusset
+    pod_in = ix1 + wall - (head_cbore_depth + screw_len + socket_cap)
+    x1 = min(x0 + hopper_hole_x, pod_in - 1.0)         # clear the top-right pod
+    return x0, x1, iy0, iy0 + hopper_hole_y
+
+
+def _hopper_cut(inner, outer):
+    """The funnel opening punched clean through the top wall."""
+    x0, x1, y0, y1 = _hopper_hole(inner, outer)
+    return _ybox(x0, x1, y0, y1, inner[5] - 1.0, outer[5] + 1.0)
+
+
 # --- split joint: telescoping lip + X-axis corner cross-pins ----------------
 #
 # Four bosses cross the seam, one in each top/bottom corner of the ±X side
@@ -474,6 +505,8 @@ def build_front_half(dims=None):
     # Let the display into the facet (bezel counterbore + PCB through-hole); this
     # also clears whatever rib/wall material sits behind the facet in its path.
     front = front.cut(_display_cuts(outer))
+    # Punch the hopper funnel opening through the top wall, right of the display.
+    front = front.cut(_hopper_cut(inner, outer))
     for x_in, x_ext, sx, z_boss, _sz in _bosses(inner):
         front = front.cut(_front_cuts(x_in, x_ext, sx, z_boss, yb, y_joint))
     # Clip any corner feature that pokes past the rounded print silhouette.

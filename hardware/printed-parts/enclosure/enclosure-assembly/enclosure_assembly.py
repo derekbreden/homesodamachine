@@ -28,9 +28,11 @@ import enclosure  # facet geometry, to seat the display in the housing
 FRONT_STEP = _ENCLOSURE_DIR / "enclosure-front.step"
 BACK_STEP = _ENCLOSURE_DIR / "enclosure-back.step"
 DISPLAY_STEP = _repo / "hardware" / "reference" / "waveshare-43b-display" / "waveshare-43b-display.step"
+FUNNEL_STEP = _repo / "hardware" / "printed-parts" / "zone-c" / "hopper-funnel" / "hopper-funnel.step"
 FRONT_COLOR = cq.Color(0.85, 0.92, 1.00, 0.22)  # transparent PETG, front half
 BACK_COLOR = cq.Color(0.80, 0.88, 0.98, 0.22)   # transparent PETG, back half
 DISPLAY_COLOR = cq.Color(0.10, 0.10, 0.12)      # the Waveshare 4.3B reference
+FUNNEL_COLOR = cq.Color(0.95, 0.95, 0.97, 0.45) # translucent silicone funnel
 
 
 def _placed_display():
@@ -61,6 +63,8 @@ def build():
     for name, (shape, color) in placed.items():
         assy.add(shape, name=name, color=color)
     assy.add(_placed_display(), name="display", color=DISPLAY_COLOR)
+    funnel = cq.importers.importStep(str(FUNNEL_STEP)).val()
+    assy.add(funnel, name="hopper-funnel", color=FUNNEL_COLOR)
     return assy
 
 
