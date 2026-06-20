@@ -74,6 +74,16 @@ housing depth (inner front wall, inner top wall, housing back plane), continuous
 with the slab. The display reference is seated in the housing in
 `../enclosure-assembly/`.
 
+## Hopper opening
+
+A rectangular opening is punched through the top wall to the right of the display
+housing and flush to the front, where the removable silicone hopper funnel
+([`../../zone-c/hopper-funnel/`](/hardware/printed-parts/zone-c/hopper-funnel/))
+drops in — its brim resting on the top, its collar press-fitting the opening. The
+opening is sized to the room right of the display; its +X edge is clamped clear of
+the top-right corner pod. The funnel derives its collar from the same rectangle
+(`_hopper_hole`), so the two always match.
+
 ## Regenerate
 
 `tools/cad-venv/bin/python hardware/printed-parts/enclosure/enclosure/enclosure.py`
