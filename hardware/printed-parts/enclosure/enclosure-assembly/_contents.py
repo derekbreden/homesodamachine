@@ -66,6 +66,9 @@ FOAM_LIFT = 14.0
 # bottom seam lip so the split can pull forward past them. The box floors to a
 # fixed Z=0 datum, so raising them leaves the floor in place.
 SEAM_CLEAR_LIFT = 3.0
+# Enclosure wall thickness (mirrors ../enclosure/enclosure.py `wall`) — used to
+# seat content against the seam lip's inner face, one wall in from the inner wall.
+WALL = 3.0
 
 
 # --- Colors ---------------------------------------------------------------
@@ -147,7 +150,11 @@ def build():
     # (off the ±X corners, clear of the back half's top braces). The bib-gate
     # tray sits low in the right column, beneath the funnel reserve.
     bib = _rot(_load(TRAY_STEPS["bib-gate"]), (0, 0, 1), 90.0)  # 75 x 139
-    placed["bib-gate"]      = _at(bib, 195.0, 10.0, cond_top_z)
+    # Slid hard against the +X wall — right edge to the seam lip's inner face (one
+    # wall in from the inner wall, which the cold core's width sets). Clears the
+    # funnel tip's column to the left.
+    bib_x = (cold_w - WALL) - bib.BoundingBox().xlen
+    placed["bib-gate"]      = _at(bib, bib_x, 10.0, cond_top_z)
     placed["source-select"] = _at(_load(TRAY_STEPS["source-select"]), 10.0, FRONT_DEPTH, back_top_z)
     placed["bag-circuit"]   = _at(_load(TRAY_STEPS["bag-circuit"]),   10.0, FRONT_DEPTH + 96.0, back_top_z)
     placed["nozzle-gate"]   = _at(_load(TRAY_STEPS["nozzle-gate"]),  172.0, FRONT_DEPTH + 96.0, back_top_z)

@@ -39,6 +39,7 @@ brim_thickness = 3.0    # flange thickness, resting on the enclosure top
 collar_wall = 3.0       # straight press-fit collar wall (opening − bore)
 spout_id = 6.35         # 1/4" outlet bore
 spout_wall = 2.0        # spout wall at the tip
+spout_tube = 6.0        # straight spout tube continuing below the ramp tip
 tip_clearance = 1.0     # gap left above the tallest content under the mouth
 
 
@@ -92,34 +93,37 @@ def build():
     cx, cy = (x0 + x1) / 2.0, (y0 + y1) / 2.0
     bore_w, bore_d = w - 2.0 * collar_wall, d - 2.0 * collar_wall
     top_z = oz1 + brim_thickness                       # brim top = outermost point
-    tip_z = _tip_z((x0, x1, y0, y1), iz1)
+    tip_z = _tip_z((x0, x1, y0, y1), iz1)               # ramp tip (mouth → spout)
+    end_z = tip_z - spout_tube                          # straight tube reaches here
     spout_or = spout_id / 2.0 + spout_wall
 
-    # Outer: brim flange on top, straight collar through the wall, ramp to the spout.
+    # Outer: brim flange on top, straight collar through the wall, ramp to the
+    # spout, then a straight tube continuing the spout below the ramp tip.
     solid = (
         _box(w + 2.0 * brim_overhang, d + 2.0 * brim_overhang, oz1, top_z, cx, cy)
         .fuse(_box(w, d, iz1, oz1, cx, cy))
         .fuse(_ramp(w, d, spout_or, iz1, tip_z, cx, cy))
+        .fuse(_cyl(spout_or, tip_z, end_z, cx, cy))
     )
     # Bore: open rectangular mouth straight down through the collar, then ramping
-    # to the round spout and out the tip.
+    # to the round spout and out through the tube.
     cavity = (
         _box(bore_w, bore_d, iz1, top_z + 1.0, cx, cy)
         .fuse(_ramp(bore_w, bore_d, spout_id / 2.0, iz1, tip_z, cx, cy))
-        .fuse(_cyl(spout_id / 2.0, tip_z, tip_z - 2.0, cx, cy))
+        .fuse(_cyl(spout_id / 2.0, tip_z, end_z - 1.0, cx, cy))
     )
-    return cq.Workplane(obj=solid.cut(cavity)), (w, d, top_z - tip_z, tip_z)
+    return cq.Workplane(obj=solid.cut(cavity)), (w, d, top_z - end_z, end_z)
 
 
 def main():
-    funnel, (w, d, drop, tip_z) = build()
+    funnel, (w, d, drop, end_z) = build()
     out = _here.parent / "hopper-funnel.step"
     export_step(funnel, str(out))
     print(f"-> {out.name}")
     b = funnel.val().BoundingBox()
     print(f"  brim:    {b.xlen:.1f} × {b.ylen:.1f} mm, top z={b.zmax:.1f}")
     print(f"  mouth:   {w:.1f} × {d:.1f} mm (collar), bore {w - 2*collar_wall:.1f} × {d - 2*collar_wall:.1f}")
-    print(f"  spout:   Ø{spout_id:g} bore, tip z={tip_z:.1f}, total drop {drop:.1f} mm")
+    print(f"  spout:   Ø{spout_id:g} bore, {spout_tube:g} mm tube to z={end_z:.1f}, total drop {drop:.1f} mm")
 
     substitute_md(
         _here.parent / "README.md",
