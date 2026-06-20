@@ -39,8 +39,9 @@ brim_thickness = 3.0    # flange thickness, resting on the enclosure top
 collar_wall = 3.0       # straight press-fit collar wall (opening − bore)
 spout_id = 6.35         # 1/4" outlet bore
 spout_wall = 2.0        # spout wall at the tip
-spout_tube = 6.0        # straight spout tube continuing below the ramp tip
-tip_clearance = 1.0     # gap left above the tallest content under the mouth
+spout_dx = -10.0        # spout offset from the mouth center (−X, into the clear
+                        # column left of the bib-gate tray)
+tip_clearance = 1.0     # gap left above the tallest content under the spout
 
 
 # --- primitives -------------------------------------------------------------
@@ -53,13 +54,14 @@ def _box(w, d, z0, z1, cx, cy):
     )
 
 
-def _ramp(w, d, r, z_top, z_bot, cx, cy):
-    """Loft from a w×d rectangle at z_top down to a radius-r circle at z_bot,
-    both centered at (cx, cy)."""
+def _ramp(w, d, r, z_top, z_bot, cx, cy, tx, ty):
+    """Loft from a w×d rectangle centered at (cx, cy) at z_top down to a radius-r
+    circle centered at (tx, ty) at z_bot — oblique when the centers differ."""
     return (
         cq.Workplane("XY", origin=(cx, cy, z_top))
         .rect(w, d)
         .workplane(offset=z_bot - z_top)
+        .center(tx - cx, ty - cy)
         .circle(r)
         .loft(combine=True)
         .val()
@@ -72,11 +74,9 @@ def _cyl(r, z_top, z_bot, cx, cy):
 
 # --- the funnel -------------------------------------------------------------
 
-def _tip_z(hole, iz1):
-    """How far the spout can hang: one mm above the tallest content whose
-    footprint underlies the opening — the bib-gate tray, with the funnel centered
-    on the opening. Read live from the placed contents, so it tracks the packing."""
-    x0, x1, y0, y1 = hole
+def _content_top(x0, x1, y0, y1):
+    """One mm above the tallest placed content whose footprint underlies the given
+    rectangle — read live, so the funnel tracks the packing."""
     top = 0.0
     for shape, _c in E._contents.build().values():
         b = shape.BoundingBox()
@@ -93,37 +93,46 @@ def build():
     cx, cy = (x0 + x1) / 2.0, (y0 + y1) / 2.0
     bore_w, bore_d = w - 2.0 * collar_wall, d - 2.0 * collar_wall
     top_z = oz1 + brim_thickness                       # brim top = outermost point
-    tip_z = _tip_z((x0, x1, y0, y1), iz1)               # ramp tip (mouth → spout)
-    end_z = tip_z - spout_tube                          # straight tube reaches here
     spout_or = spout_id / 2.0 + spout_wall
+    tx, ty = cx + spout_dx, cy                          # spout center, offset −X
 
-    # Outer: brim flange on top, straight collar through the wall, ramp to the
-    # spout, then a straight tube continuing the spout below the ramp tip.
+    # The ramp necks to the spout above the bib-gate (clearing it on the way down);
+    # the offset spout then drops through the clear column to just above the
+    # compressor — both depths read live from the content underneath.
+    neck_z = _content_top(x0, x1, y0, y1)
+    end_z = _content_top(tx - spout_or, tx + spout_or, ty - spout_or, ty + spout_or)
+
+    # Outer: brim flange on top, straight collar through the wall, oblique ramp
+    # necking to the offset spout, then a straight spout tube down the column.
     solid = (
         _box(w + 2.0 * brim_overhang, d + 2.0 * brim_overhang, oz1, top_z, cx, cy)
         .fuse(_box(w, d, iz1, oz1, cx, cy))
-        .fuse(_ramp(w, d, spout_or, iz1, tip_z, cx, cy))
-        .fuse(_cyl(spout_or, tip_z, end_z, cx, cy))
+        .fuse(_ramp(w, d, spout_or, iz1, neck_z, cx, cy, tx, ty))
+        .fuse(_cyl(spout_or, neck_z, end_z, tx, ty))
     )
-    # Bore: open rectangular mouth straight down through the collar, then ramping
-    # to the round spout and out through the tube.
+    # Bore: open rectangular mouth straight down through the collar, ramping to the
+    # round spout and out through the tube.
     cavity = (
         _box(bore_w, bore_d, iz1, top_z + 1.0, cx, cy)
-        .fuse(_ramp(bore_w, bore_d, spout_id / 2.0, iz1, tip_z, cx, cy))
-        .fuse(_cyl(spout_id / 2.0, tip_z, end_z - 1.0, cx, cy))
+        .fuse(_ramp(bore_w, bore_d, spout_id / 2.0, iz1, neck_z, cx, cy, tx, ty))
+        .fuse(_cyl(spout_id / 2.0, neck_z, end_z - 1.0, tx, ty))
     )
-    return cq.Workplane(obj=solid.cut(cavity)), (w, d, top_z - end_z, end_z)
+    # Capacity filled to the brim rim: the cavity between the spout exit and the
+    # brim top.
+    fill = cavity.intersect(_box(600.0, 600.0, end_z, top_z, cx, cy)).Volume()
+    return cq.Workplane(obj=solid.cut(cavity)), (w, d, top_z - end_z, end_z, fill)
 
 
 def main():
-    funnel, (w, d, drop, end_z) = build()
+    funnel, (w, d, drop, end_z, fill) = build()
     out = _here.parent / "hopper-funnel.step"
     export_step(funnel, str(out))
     print(f"-> {out.name}")
     b = funnel.val().BoundingBox()
     print(f"  brim:    {b.xlen:.1f} × {b.ylen:.1f} mm, top z={b.zmax:.1f}")
     print(f"  mouth:   {w:.1f} × {d:.1f} mm (collar), bore {w - 2*collar_wall:.1f} × {d - 2*collar_wall:.1f}")
-    print(f"  spout:   Ø{spout_id:g} bore, {spout_tube:g} mm tube to z={end_z:.1f}, total drop {drop:.1f} mm")
+    print(f"  spout:   Ø{spout_id:g} bore, offset {spout_dx:+g} X, to z={end_z:.1f}, total drop {drop:.1f} mm")
+    print(f"  capacity to brim: {fill:.0f} mm³ = {fill / 1000.0:.2f} mL")
 
     substitute_md(
         _here.parent / "README.md",
