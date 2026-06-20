@@ -44,7 +44,7 @@ import _contents
 # Shell parameters.
 wall = 3.0                  # PETG wall thickness
 interior_clearance = 0.0    # gap between contents bbox and inner wall
-corner_round = 2.5          # vertical (Y) print-corner relief radius (anti-warp on the bed)
+corner_round = 12.          # vertical (Y) print-corner relief radius (anti-warp on the bed)
 
 # H2C left-nozzle build envelope; each printed HALF must fit inside this.
 H2C_X, H2C_Y, H2C_Z = 325.0, 320.0, 320.0
