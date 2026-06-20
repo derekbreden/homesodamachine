@@ -44,8 +44,7 @@ import _contents
 # Shell parameters.
 wall = 3.0                  # PETG wall thickness
 interior_clearance = 0.0    # gap between contents bbox and inner wall
-corner_round = 12.0         # vertical (Y) print-corner relief, matching the foam
-                            # shell's outer corner radius (anti-warp on the bed)
+corner_round = 2.5          # vertical (Y) print-corner relief radius (anti-warp on the bed)
 
 # H2C left-nozzle build envelope; each printed HALF must fit inside this.
 H2C_X, H2C_Y, H2C_Z = 325.0, 320.0, 320.0
@@ -126,12 +125,18 @@ def _xcyl(r, y, z, x0, x1):
 
 def _round_y(solid, r):
     """Round a box solid's four vertical (Y) corner edges by r — the print-bed
-    corner relief, about the Y axis the halves print along."""
+    corner relief, about the Y axis the halves print along. r <= 0 leaves the
+    corners square (an inset radius can shrink past nothing)."""
+    if r <= 0:
+        return solid
     return cq.Workplane(obj=solid).edges("|Y").fillet(r).val()
 
 
 def _round_corner_y(solid, xc, zc, r):
-    """Round only the single vertical (Y) corner edge of a box at (xc, zc)."""
+    """Round only the single vertical (Y) corner edge of a box at (xc, zc).
+    r <= 0 leaves the corner square."""
+    if r <= 0:
+        return solid
     wp = cq.Workplane(obj=solid)
     edges = [e for e in wp.edges("|Y").vals()
              if abs(e.Center().x - xc) < 1e-6 and abs(e.Center().z - zc) < 1e-6]
@@ -213,8 +218,8 @@ def _rounded_outer(outer):
 def _shell_with_facet(inner, outer):
     """Hollow box with the 45° facet as a SOLID `wall`-thick surface: chamfer
     the outer box, and hold the cavity one wall back from the facet plane. The
-    vertical corners round concentrically — outer `corner_round`, cavity one wall
-    inboard — so the wall is preserved around the print-bed corner relief."""
+    vertical corners are relieved for the print bed — outer by `corner_round`,
+    cavity one wall less (square once the inset reaches zero)."""
     ix0, ix1, iy0, iy1, iz0, iz1 = inner
     ox0, ox1, oy0, oy1, oz0, oz1 = outer
     a, normal, origin, dy, dz = _facet_geom(outer)
