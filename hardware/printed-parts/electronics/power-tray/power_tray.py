@@ -119,6 +119,46 @@ def _insert_boss(px, py, d, h, depth):
     return boss.cut(bore)
 
 
+rib_w = 9.0            # floor-rib width (>= every boss diameter so a boss seats fully)
+
+
+def _rib(x0, y0, x1, y1):
+    """A floor rib (full plate thickness) between two points, extended half a rib
+    width past each end so corners and end bosses are fully seated."""
+    h = rib_w / 2.0
+    if abs(y1 - y0) < 1e-6:
+        a, b = sorted((x0, x1))
+        return _abox(a - h, b + h, y0 - h, y0 + h, 0.0, floor_t)
+    a, b = sorted((y0, y1))
+    return _abox(x0 - h, x0 + h, a - h, b + h, 0.0, floor_t)
+
+
+def _build_floor():
+    """Skeleton floor — ribs only where they seat a boss/slot or tie features
+    together. No solid sheet: the PSU rides its four corner bosses, so the floor
+    under its body is removed; the same everywhere else."""
+    px0, px1 = psu_cx - psu.hole_dx, psu_cx + psu.hole_dx
+    py0, py1 = psu_cy - psu.hole_dy, psu_cy + psu.hole_dy
+    rx0, rx1 = relay_cx - relay.hole_dy, relay_cx + relay.hole_dy
+    ry0, ry1 = relay_cy - relay.hole_dx, relay_cy + relay.hole_dx
+    spine_x = 93.0
+    ribs = [
+        _rib(px0, py0, px1, py0), _rib(px0, py1, px1, py1),   # PSU front / back
+        _rib(px0, py0, px0, py1), _rib(px1, py0, px1, py1),   # PSU side rails
+        _rib(rx0, ry0, rx1, ry0), _rib(rx0, ry1, rx1, ry1),   # relay front / back
+        _rib(rx0, ry0, rx0, ry1), _rib(rx1, ry0, rx1, ry1),   # relay side rails
+        _rib(gnd_cx, ry1, gnd_cx, gnd_cy),                    # ground-boss rib
+        _rib(px1, relay_cy, rx0, relay_cy),                   # PSU -> relay bridge
+        _rib(rx1, 37.0, spine_x, 37.0),                       # relay -> Wago spine
+        _abox(spine_x - rib_w / 2.0, spine_x + rib_w / 2.0,   # Wago spine (ties the 3 slots)
+              wago_butt_ys[0] - 4.0, wago_butt_ys[-1] + 8.0, 0.0, floor_t),
+    ]
+    floor = ribs[0]
+    for r in ribs[1:]:
+        floor = floor.union(r)
+    return floor
+
+
 def _wago_slot(cx, by):
     """Angled butt-end slot for one Wago. Built in a local frame (butt-bottom
     centre at the origin, wire end +Y, body up +Z), then tilted up and seated.
@@ -137,7 +177,7 @@ def _wago_slot(cx, by):
 
 
 def build_power_tray():
-    tray = _box(plate_w, plate_d, floor_t, plate_w / 2.0, plate_d / 2.0, 0.0)
+    tray = _build_floor()
 
     # PSU: four low heat-set mounting bosses (sits ~flush, no clearance standoff).
     for px, py in psu_posts:
