@@ -52,12 +52,12 @@ than relying on a press fit.
 
 ## The tray
 
-The floor is **filled in below each object** — one 3 mm footprint pad per
-mounted part, so the floor reads as a rough map of the space each thing occupies
-while the layout is still being worked. Pads that don't touch are separate
-islands; this is a working arrangement, not yet a single printed part. Local
-frame: X right, Y deep, Z up; origin at the bottom-left corner. Zone-B placement,
-joinery, and tying the pads into one connected, stiffened plate are deferred
+The floor is a **single solid floor** (3 mm) — the convex outline of every
+object's footprint, so it reads as a rough map of the space the parts occupy
+while the layout is still being worked. One connected piece, no thin trusses; it
+re-derives from the part footprints, so it follows along as things are
+rearranged. Local frame: X right, Y deep, Z up; origin at the bottom-left
+corner. Zone-B placement, joinery, and any final trim/stiffening are deferred
 until the arrangement settles.
 
 `power_tray.py` → `power-tray.step`; `power_assembly.py` → `power-assembly.step`

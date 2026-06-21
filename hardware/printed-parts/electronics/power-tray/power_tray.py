@@ -120,31 +120,47 @@ def _insert_boss(px, py, d, h, depth):
     return boss.cut(bore)
 
 
-def _pad(cx, cy, w, d):
-    """A floor pad (full plate thickness) of footprint w x d centred at (cx,cy)."""
-    return _abox(cx - w / 2.0, cx + w / 2.0, cy - d / 2.0, cy + d / 2.0, 0.0, floor_t)
+def _convex_hull(points):
+    """2-D convex hull (monotone chain), CCW, no collinear points."""
+    pts = sorted(set(points))
+    if len(pts) <= 2:
+        return pts
+
+    def cross(o, a, b):
+        return (a[0] - o[0]) * (b[1] - o[1]) - (a[1] - o[1]) * (b[0] - o[0])
+
+    lower = []
+    for p in pts:
+        while len(lower) >= 2 and cross(lower[-2], lower[-1], p) <= 0:
+            lower.pop()
+        lower.append(p)
+    upper = []
+    for p in reversed(pts):
+        while len(upper) >= 2 and cross(upper[-2], upper[-1], p) <= 0:
+            upper.pop()
+        upper.append(p)
+    return lower[:-1] + upper[:-1]
 
 
 def _build_floor():
-    """Floor filled in below each mounted object — one footprint pad per part, so
-    the floor reads as a rough map of the space each thing occupies. Pads that
-    don't touch are separate islands (this is a working layout, not yet a single
-    printed part)."""
+    """A single solid floor: the convex outline of every object's footprint pad,
+    extruded at plate thickness. One connected piece, no thin trusses."""
     s = math.sin(math.radians(wago_tilt))
     c = math.cos(math.radians(wago_tilt))
     wy0 = -wago.height * s        # tilted-Wago XY projection: butt-top corner
     wy1 = wago.depth * c          #                            wire-bottom corner
-    pads = [
-        _pad(psu_cx, psu_cy, psu.width, psu.length),           # PSU body + ledges
-        _pad(relay_cx, relay_cy, relay.width, relay.length),   # relay PCB
-        _pad(gnd_cx, gnd_cy, 18.0, 18.0),                      # ground ring-stack fan
+    rects = [
+        (psu_cx, psu_cy, psu.width, psu.length),           # PSU body + ledges
+        (relay_cx, relay_cy, relay.width, relay.length),   # relay PCB
+        (gnd_cx, gnd_cy, 18.0, 18.0),                      # ground ring-stack fan
     ]
     for by in wago_butt_ys:
-        pads.append(_pad(wago_cx, by + (wy0 + wy1) / 2.0, wago.width, wy1 - wy0))
-    floor = pads[0]
-    for p in pads[1:]:
-        floor = floor.union(p)
-    return floor
+        rects.append((wago_cx, by + (wy0 + wy1) / 2.0, wago.width, wy1 - wy0))
+    pts = []
+    for cx, cy, w, d in rects:
+        pts += [(cx - w / 2.0, cy - d / 2.0), (cx + w / 2.0, cy - d / 2.0),
+                (cx + w / 2.0, cy + d / 2.0), (cx - w / 2.0, cy + d / 2.0)]
+    return cq.Workplane("XY").polyline(_convex_hull(pts)).close().extrude(floor_t)
 
 
 def _wago_slot(cx, by):
