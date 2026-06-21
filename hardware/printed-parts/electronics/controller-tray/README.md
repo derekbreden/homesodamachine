@@ -19,13 +19,16 @@ the MCP→ULN control ribbons cross between the two.
 ## Layout & retention
 
 ESP32 breakout at the lower-left; the two MCP23017s stacked just to its right;
-the DS3231 + RS485 in the next column. Footprint ≈ **175 × 66 mm**. Each board
-with mounting holes screws onto heat-set M3 standoff bosses; the RS485 has no
-holes (adhesive/tucked) and rides at the same level against its neighbour.
+the DS3231 + RS485 in the next column. Footprint ≈ **154 × 55 mm**. Each board
+screws onto heat-set standoff bosses sized per its holes — **M3** for the RS485
+and DS3231, **M2** for the MCP23017 (its holes are ⌀2). Two caveats from the
+research: the **MCP23017 mounts cantilevered** (both holes on one end), and the
+**ESP32 breakout is natively a 35 mm DIN-rail board** — on this tray it sits on
+placeholder bosses, but it may instead want a printed DIN-rail segment.
 
-> Reference geometries here are **estimated stand-ins — verify by caliper** before
-> committing the footprints and hole patterns (the ESP32 DIN breakout, MCP23017,
-> and RS485 especially have no datasheet).
+> Geometries are now from research (Amazon photos + the Waveshare manual), except
+> the **ESP32 DIN-breakout footprint, which stays estimated** (the listing
+> publishes pitches, not overall size) — verify by caliper.
 
 `controller_tray.py` → `controller-tray.step`; `controller_assembly.py` →
 `controller-assembly.step`. Regenerate with `tools/cad-venv/bin/python <script>`.

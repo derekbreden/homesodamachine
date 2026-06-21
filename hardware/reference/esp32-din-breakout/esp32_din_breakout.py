@@ -1,13 +1,19 @@
-"""Reference solid for the ESP32-DevKitC-32E pre-mounted on its DIN-rail
-screw-terminal breakout (bom: B09MQJWQN2 on B0BW4SJ5X2), the controller-tray MCU.
+"""Reference solid for the ESP32-DevKitC-32E on its DIN-rail terminal breakout
+(bom: B09MQJWQN2 on B0BW4SJ5X2), the controller-tray MCU.
 
-The thing that bolts to the tray is the breakout carrier (the DevKitC plugs into
-its sockets), so the footprint + mounting holes are the carrier's. **Geometry is
-estimated** from typical ESP32 DIN-rail breakouts — verify by caliper; the
-carrier size and hole pattern especially.
+The carrier is the "ESP32 Super Breakout Board DIN Rail Mount" (naughtystarts,
+B0BW4SJ5X2): the DevKitC sockets into 2x19 2.54 mm rows, with 3.81 mm screw
+terminals down both long edges, and it ships with a **bracket for 35 mm DIN
+rail**. So its native mounting is a DIN-rail clip, not 4 corner bosses — on a
+flat tray it wants a short DIN-rail segment (or screws through the PCB mounting
+holes the silkscreen documents).
+
+**Footprint is estimated** — the listing publishes pitches (2x19 @ 2.54, screw
+@ 3.81) but not the overall PCB size, and it's a DIN-mount board. Verify by
+caliper; the hole pattern below is a placeholder.
 
 Frame: X = length, Y = width, Z up from the carrier underside; origin at the
-footprint centre, Z = 0 the mounting (standoff) plane.
+footprint centre, Z = 0 the standoff plane.
 """
 
 import sys
@@ -21,20 +27,21 @@ sys.path.insert(0, str(_hw / "scripts"))
 from _cadq_export import export_step
 
 name = "esp32"
-length = 100.0         # X (carrier, estimated)
-width = 66.0           # Y
+length = 72.0          # X (carrier, estimated)
+width = 54.0           # Y (DevKitC + screw terminals both edges, estimated)
 pcb_t = 1.6
-envelope_z = 15.0      # ESP32 module + sockets above the carrier
+envelope_z = 16.0      # ESP32 module + sockets
 pin_drop = 2.5
 hole_dia = 3.2
-holes = [(sx * 44.0, sy * 28.0) for sx in (-1.0, 1.0) for sy in (-1.0, 1.0)]
+din_rail_mount = True   # ships with a 35 mm DIN-rail bracket
+holes = [(sx * 32.0, sy * 23.0) for sx in (-1.0, 1.0) for sy in (-1.0, 1.0)]  # placeholder
 
 
 def build():
     pcb = cq.Workplane("XY").box(length, width, pcb_t, centered=(True, True, False))
     # ESP32-DevKitC module socketed across the middle.
     esp = (
-        cq.Workplane("XY").box(55.0, 28.0, envelope_z - pcb_t, centered=(True, True, False))
+        cq.Workplane("XY").box(54.0, 28.0, envelope_z - pcb_t, centered=(True, True, False))
         .translate((0.0, 0.0, pcb_t))
     )
     # Screw-terminal strips down both long edges.
@@ -46,7 +53,7 @@ def build():
         )
         term = strip if term is None else term.union(strip)
     pins = (
-        cq.Workplane("XY").box(60.0, 40.0, pin_drop, centered=(True, True, False))
+        cq.Workplane("XY").box(48.0, 20.0, pin_drop, centered=(True, True, False))
         .translate((0.0, 0.0, -pin_drop))
     )
     part = pcb.union(esp).union(term).union(pins)

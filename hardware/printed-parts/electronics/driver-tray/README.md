@@ -20,12 +20,13 @@ the control inputs come from the [controller tray](/hardware/printed-parts/elect
 ## Layout & retention
 
 L298N at the lower-left; the two ULN2803As stacked just to its right; relay #2 +
-DC distribution block in the next column. Footprint ≈ **181 × 68 mm**. Every board
+DC distribution block in the next column. Footprint ≈ **146 × 46 mm**. Every board
 screws onto heat-set M3 standoff bosses.
 
-> Reference geometries here are **estimated stand-ins — verify by caliper** (the
-> ULN2803A module footprint especially), and the **DC distribution block is a
-> placeholder** until that hardware is chosen.
+> Geometries are now from research (Amazon photos for the ULN2803A — it's the
+> small SOIC breakout, not a screw-terminal slab — and well-documented dims for
+> the L298N). Footprints for the ULN are estimated from photos; the **DC
+> distribution block stays a placeholder** until that hardware is chosen.
 
 `driver_tray.py` → `driver-tray.step`; `driver_assembly.py` →
 `driver-assembly.step`. Regenerate with `tools/cad-venv/bin/python <script>`.
