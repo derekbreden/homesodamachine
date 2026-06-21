@@ -50,6 +50,7 @@ _elbow_path = _hw / "reference" / "elbow-connector" / "elbow-connector.step"
 port_half = 29.5  # valve port half-length
 row_half = cell.valve.body_width_x / 2  # column-pair half-spacing = the valve's X half-width
 tee_run_half = 20.07  # Tee run half-length (port to center)
+tee_branch_reach = 20.066  # Tee branch: run-center to branch-port tip
 valve_x = tee_run_half + port_half  # valve-center X; the inner port tip lands on the Tee run port
 elbow_reach = 19.56  # elbow leg: collet face to the bend corner (axis intersection)
 
@@ -82,6 +83,22 @@ def place_tee(cx, cy):
         fit.rotate((0, 0, 0), (0, 1, 0), 90.0)
         .rotate((0, 0, 0), (1, 0, 0), 90.0)
         .translate((cx, cy, port_z))
+    )
+
+
+def place_tee_hung(target, spin):
+    """Tee perched branch-down on an upward riser: a 180° flip turns its branch
+    from +Z to −Z so the branch port butts the riser top at ``target`` (x, y, z);
+    the run stays horizontal, swung ``spin`` deg about Z. The branch axis is on
+    the Z spin axis, so the butt point holds while the run sweeps."""
+    fit = cq.importers.importStep(str(_tee_path)).val()
+    tx, ty, tz = target
+    return (
+        fit.rotate((0, 0, 0), (0, 1, 0), 90.0)   # run → X, branch → +Z
+        .rotate((0, 0, 0), (1, 0, 0), 90.0)
+        .rotate((0, 0, 0), (1, 0, 0), 180.0)     # flip branch to −Z
+        .rotate((0, 0, 0), (0, 0, 1), spin)      # swing the run in plane
+        .translate((tx, ty, tz + tee_branch_reach))
     )
 
 
