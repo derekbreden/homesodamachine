@@ -1,5 +1,7 @@
 """Assembled power tray: the tray with the PSU, relay #1, and the three Wago
-AC-distribution connectors press-fit in place."""
+AC-distribution connectors seated, plus the ground ring-terminal stack.
+
+``build_assembly(L)`` works for any Layout, so the narrow variant reuses it."""
 
 import sys
 from pathlib import Path
@@ -31,31 +33,35 @@ WAGO_COLOR = cq.Color(0.85, 0.45, 0.15)    # orange levers
 GND_COLOR = cq.Color(0.80, 0.80, 0.83)     # tin-plated lugs + stainless screw
 
 
-def build():
-    assy = cq.Assembly(name="power-assembly")
-    assy.add(t.build_power_tray().val(), name="tray", color=TRAY_COLOR)
-    assy.add(psu.build().val().translate((t.psu_cx, t.psu_cy, t.floor_t + t.psu_boss_h)),
-             name="PSU", color=PSU_COLOR)
-    # Relay long-axis along Y; board underside on the standoff bosses.
+def build_assembly(L, name="power-assembly"):
+    assy = cq.Assembly(name=name)
+    assy.add(t.build_tray(L).val(), name="tray", color=TRAY_COLOR)
     assy.add(
-        relay.build().val().rotate((0, 0, 0), (0, 0, 1), 90.0)
-        .translate((t.relay_cx, t.relay_cy, t.floor_t + t.relay_standoff)),
+        psu.build().val().rotate((0, 0, 0), (0, 0, 1), L.psu_rot)
+        .translate((L.psu_c[0], L.psu_c[1], t.floor_t + t.psu_boss_h)),
+        name="PSU", color=PSU_COLOR,
+    )
+    assy.add(
+        relay.build().val().rotate((0, 0, 0), (0, 0, 1), L.relay_rot)
+        .translate((L.relay_c[0], L.relay_c[1], t.floor_t + t.relay_standoff)),
         name="relay1", color=RELAY_COLOR,
     )
     # Wagos: butt-bottom centre at the slot origin, tilted up toward the wire end.
-    for i, by in enumerate(t.wago_butt_ys):
+    for i, (cx, by) in enumerate(L.wago_places):
         w = (wago.build().val().translate((0, wago.depth / 2.0, 0))
              .rotate((0, 0, 0), (1, 0, 0), t.wago_tilt)
-             .translate((t.wago_cx, by, t.floor_t)))
+             .translate((cx, by, t.floor_t)))
         assy.add(w, name=f"wago{i}", color=WAGO_COLOR)
     # Ground ring-terminal stack clamped to the heat-set boss (Z=0 at boss top).
-    assy.add(gnd.build().val().translate((t.gnd_cx, t.gnd_cy, t.floor_t + t.gnd_boss_h)),
-             name="ground-stack", color=GND_COLOR)
+    assy.add(
+        gnd.build().val().translate((L.gnd_c[0], L.gnd_c[1], t.floor_t + t.gnd_boss_h)),
+        name="ground-stack", color=GND_COLOR,
+    )
     return assy
 
 
 def main():
-    export_assembly(build(), str(_here.parent / "power-assembly.step"))
+    export_assembly(build_assembly(t.WIDE, "power-assembly"), str(_here.parent / "power-assembly.step"))
     print("-> power-assembly.step")
 
 
