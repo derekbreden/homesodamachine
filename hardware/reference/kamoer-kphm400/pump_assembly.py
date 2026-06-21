@@ -9,7 +9,8 @@ fitting (a McMaster stand-in for the John Guest PP0308E) — turning each line u
 Authored in the same pump-case world frame as `kamoer_kphm400`: origin at the
 base-plate bore-opening face, depth axis along +Z. Each elbow's inlet leg is
 coaxial with its outlet port (X = `arch_xs`, Z = `arch_plane_z`), its collet
-face flush with the +Y face; the bend then turns the line to +Z.
+face flush with the pump body's +Y face (`body_y_face`); the bend then turns
+the line to +Z.
 """
 
 import sys
@@ -30,8 +31,8 @@ ELBOW_COLOR = cq.Color(0.15, 0.15, 0.16)  # black PP fitting
 
 def _elbow(bx):
     """One 90° elbow seated on the +Y outlet at X = bx. Its inlet leg is
-    coaxial with the outlet port, collet face flush with the +Y face; the bend
-    turns the line to +Z."""
+    coaxial with the outlet port, collet face flush with the pump body's +Y
+    face; the bend turns the line to +Z."""
     el = cq.importers.importStep(str(ELBOW_STEP)).val()
     leg = el.BoundingBox().ymax                # bend-corner-to-collet-face reach
     # Native frame: one leg runs +Y (collet at +leg), the other +Z, bend at the
@@ -39,8 +40,8 @@ def _elbow(bx):
     # outlet, leaving the second leg pointing +Z.
     el = el.rotate((0, 0, 0), (0, 0, 1), 180)
     # Inlet axis now at X=0, Z=0 with its collet at Y=-leg; drop it onto the
-    # port so the collet face lands on the +Y face.
-    return el.translate((bx, kp.y_face + leg, kp.arch_plane_z))
+    # port so the collet face lands flush on the pump body's +Y face.
+    return el.translate((bx, kp.body_y_face + leg, kp.arch_plane_z))
 
 
 def _elbows():
