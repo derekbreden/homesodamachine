@@ -39,7 +39,7 @@ brim_thickness = 3.0    # flange thickness, resting on the enclosure top
 collar_wall = 3.0       # straight press-fit collar wall (opening − bore)
 spout_id = 6.35         # 1/4" outlet bore
 spout_wall = 2.0        # spout wall at the tip
-spout_tube = 21.0       # straight spout tube below the ramp tip — its length sets
+spout_tube = 6.0       # straight spout tube below the ramp tip — its length sets
                         # how far the Ø6.35 exit drops into the clear column
 tip_clearance = 1.0     # gap left above the tallest content under the mouth
 
@@ -96,7 +96,7 @@ def build():
     # The ramp necks to the round spout one mm above the bib-gate tray (read live);
     # a straight spout tube then carries the Ø6.35 exit straight down the clear
     # column, centered on the opening.
-    neck_z = _content_top(x0, x1, y0, y1)
+    neck_z = _content_top(x0, x1, y0, y1) - 5
     end_z = neck_z - spout_tube
 
     # Outer: brim flange, straight collar, ramp to the spout, straight spout tube.
