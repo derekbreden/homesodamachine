@@ -146,22 +146,27 @@ def build():
     seaflo = _box(sf_h, sf_w, sf_d)                    # 175 x 75 x 60, long axis along X
     placed["seaflo-pump"] = _at(seaflo, SIDE_RIB_INSET + 2.0, 123.0, pump_top_z)
 
-    # --- Zone B: the four valve-manifold trays back-top above the cold core.
-    # Each tray is a sparse (~quarter-fill) dog-bone: dense valve buckets at the
+    # --- Nozzle-gate tray: tucked into the open front-right pocket above the
+    # condenser, under the funnel (whose cone is tiny down low) and to the right
+    # of the pumps. Rotated 90° about Z and floated just over the condenser top;
+    # being a sparse dog-bone, it bridges the pump/funnel with only a faint graze.
+    # This frees the cold-core shelf so the other three trays stop fighting.
+    cond_top_z = COND_LIFT + CONDENSER_FACE_A          # 195, condenser top
+    ng = _rot(_load(TRAY_STEPS["nozzle-gate"]), (0, 0, 1), 90.0)  # 74.5 x 126
+    placed["nozzle-gate"] = _at(ng, 90.0, 0.0, cond_top_z + 15.0)
+
+    # --- Zone B: the remaining three valve-manifold trays back-top above the cold
+    # core. Each is a sparse (~quarter-fill) dog-bone: dense valve buckets at the
     # two ends with the elbows/tees rising out the top, joined by an empty pinched
-    # bridge. The bbox is mostly air, so the trays NEST rather than tile — two per
-    # column, a deep tray (source-select, bag-circuit) plus a shorter one slid
-    # over the deep tray's sparse bridge. The bib-gate is flipped 180° about X
-    # (floor up, tees pointing down) so its tees interleave with bag-circuit's
-    # instead of colliding; the residual solid overlap lives at bucket edges, not
-    # elbow-on-elbow. See _audit.py for the measured overlaps.
-    ss = _rot(_load(TRAY_STEPS["source-select"]), (0, 0, 1), 90.0)  # 93 x 271, col L deep
+    # bridge. The deep source-select gets its own left column (clear); bag-circuit
+    # takes the right column with the bib-gate nested over its bridge — bib-gate
+    # flipped 180° about X (floor up, tees down) so the tees interleave instead of
+    # colliding. See _audit.py for the measured overlaps.
+    ss = _rot(_load(TRAY_STEPS["source-select"]), (0, 0, 1), 90.0)  # 93 x 271, col L
     bc = _rot(_load(TRAY_STEPS["bag-circuit"]),   (0, 0, 1), 90.0)  # 74.5 x 212, col R deep
-    ng = _rot(_load(TRAY_STEPS["nozzle-gate"]),   (0, 0, 1), 90.0)  # 74.5 x 126, nested col L
     bg = _rot(_load(TRAY_STEPS["bib-gate"]),      (0, 0, 1), 90.0)  # 74.5 x 166, nested col R
     bg = _rot(bg, (1, 0, 0), 180.0)                                 # flip floor-up, tees down
-    placed["source-select"] = _at(ss,  2.0, FRONT_DEPTH + 1.0,   back_top_z)  # col L deep
-    placed["nozzle-gate"]   = _at(ng, 14.0, FRONT_DEPTH + 0.0,   back_top_z)  # col L nested over bridge
+    placed["source-select"] = _at(ss,  2.0, FRONT_DEPTH + 1.0,   back_top_z)  # col L, alone
     placed["bag-circuit"]   = _at(bc, 98.0, FRONT_DEPTH + 1.0,   back_top_z)  # col R deep
     placed["bib-gate"]      = _at(bg, 114.0, FRONT_DEPTH + 117.0, back_top_z)  # col R nested, flipped
 
