@@ -3,15 +3,16 @@
 Used 2× on the driver tray (`hardware/ledger/bom.md`: **B0F872W528**, 2-pc) — sink
 the 12 solenoid coils + the condenser fan to GND; COM tied to 12 V for flyback.
 
-**Estimated stand-in — verify by caliper.** Generic reseller module with
-input/output screw terminals, no controlled drawing.
+Geometry read off the Amazon photos: a **small purple SOIC breakout** (ULN2803A
+SOIC-18 centred), a 9-pin 2.54 mm header along each long edge (1B-8B+GND /
+1C-8C+COM), and **2 plated mounting holes placed diagonally**. This is the
+compact pin-header breakout, not a screw-terminal slab.
 
 | | mm |
 |---|---|
-| Footprint | **65 × 33** (est.) |
-| Mounting holes | 4× ⌀3.0 on a **58 × 26** rectangle (est.) |
-| Height | ~12 (terminal strips both long edges) |
+| Footprint | **31 × 22** (estimated from photo) |
+| Mounting holes | **2**, diagonal, ⌀3.0 |
+| Height | ~12 (2.54 mm headers) |
 
-Frame: X = length, Y = width, Z up from the PCB underside; origin at the
-footprint centre, Z = 0 the standoff plane. Regenerate with
+Footprint is estimated from the photo — verify by caliper. Regenerate with
 `tools/cad-venv/bin/python uln2803a.py`.

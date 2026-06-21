@@ -20,18 +20,33 @@ _hw = next(p for p in _here.parents if p.name == "hardware")
 sys.path.insert(0, str(_hw / "printed-parts" / "electronics" / "power-tray"))
 sys.path.insert(0, str(_hw / "scripts"))
 import power_tray as pt
-from power_tray import _rot, _rect_corners, _convex_hull, _insert_boss
+from power_tray import _rot, _rect_corners, _convex_hull
 
 floor_t = pt.floor_t
-insert_depth = pt.insert_depth
 margin = pt.margin
 board_standoff = 5.0    # boss height — stands every board off so its pins clear
-board_boss_d = 7.0      # heat-set boss diameter
+
+
+def _boss_spec(hole_dia):
+    """(boss outer dia, heat-set bore dia, bore depth) sized to the board's hole:
+    M2 for ~2 mm board holes, M3 otherwise."""
+    if hole_dia <= 2.6:
+        return 5.5, 3.2, 4.0      # M2 ruthex insert
+    return 7.0, 4.0, 5.5          # M3 ruthex insert
+
+
+def _insert_boss(px, py, boss_d, bore_d, depth):
+    top = floor_t + board_standoff
+    boss = (cq.Workplane("XY").cylinder(board_standoff, boss_d / 2.0, centered=(True, True, False))
+            .translate((px, py, floor_t)))
+    bore = (cq.Workplane("XY").cylinder(depth + 1, bore_d / 2.0, centered=(True, True, False))
+            .translate((px, py, top - depth)))
+    return boss.cut(bore)
 
 
 @dataclass(frozen=True)
 class Mount:
-    ref: object          # a board reference module (.length, .width, .holes, .build(), .name)
+    ref: object          # a board reference module (.length, .width, .holes, .hole_dia, .build(), .name)
     c: tuple             # centre (x, y) in the tray frame
     rot: float = 0.0     # rotation about Z, degrees
 
@@ -46,14 +61,15 @@ def _posts(m):
 
 def build_module_tray(mounts):
     """Single convex-outline floor under every board footprint, plus a heat-set
-    standoff boss at each mounting hole. No walls."""
+    standoff boss (M2 or M3, sized per board) at each mounting hole. No walls."""
     pts = []
     for m in mounts:
         pts += _rect_corners(m.c[0], m.c[1], m.ref.length, m.ref.width, m.rot)
     tray = cq.Workplane("XY").polyline(_convex_hull(pts)).close().extrude(floor_t)
     for m in mounts:
+        boss_d, bore_d, depth = _boss_spec(getattr(m.ref, "hole_dia", 3.2))
         for px, py in _posts(m):
-            tray = tray.union(_insert_boss(px, py, board_boss_d, board_standoff, insert_depth))
+            tray = tray.union(_insert_boss(px, py, boss_d, bore_d, depth))
     return tray
 
 
