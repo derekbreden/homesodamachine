@@ -133,10 +133,9 @@ def build():
     placed["condenser+fan"] = _at(cond, cold_w - CONDENSER_AIRFLOW - SIDE_RIB_INSET, 0.0, SEAM_CLEAR_LIFT)
     cond_top_z = SEAM_CLEAR_LIFT + CONDENSER_FACE_A
 
-    # --- Zone C: the two flavor pumps sit low on the compressor top, the SeaFlo
-    # laid flat across them above. The whole right column above the condenser is
-    # left open as the hopper-funnel reserve — funnel on the right, toward the
-    # front.
+    # --- The two flavor pumps sit on the compressor top; the SeaFlo lies flat
+    # across their tops (the dead air above the pumps), its back edge against the
+    # hopper funnel.
     pa1 = _rot(_load(PUMP_ASSEMBLY), (1, 0, 0), 90.0)  # depth axis along Y, elbows up
     pa2 = _rot(_load(PUMP_ASSEMBLY), (1, 0, 0), 90.0)
     placed["pump-assembly-1"] = _at(pa1, 20.0, 12.0, comp_top_z)
@@ -144,19 +143,18 @@ def build():
     pump_top_z = comp_top_z + pa1.BoundingBox().zlen
     sf_w, sf_d, sf_h = SEAFLO_DIMS                      # [75 x 60 x 175](SEAFLO_DIMS)
     seaflo = _box(sf_h, sf_w, sf_d)                    # 175 x 75 x 60, long axis along X
-    placed["seaflo-pump"] = _at(seaflo, 14.0, 80.0, pump_top_z)
+    placed["seaflo-pump"] = _at(seaflo, 14.0, 84.0, pump_top_z)
 
-    # --- Zone B: three valve-manifold trays back-top above the lifted cold core
-    # (off the ±X corners, clear of the back half's top braces). The bib-gate
-    # tray sits low in the right column, beneath the funnel reserve.
-    bib = _rot(_load(TRAY_STEPS["bib-gate"]), (0, 0, 1), 90.0)  # 75 x 139
-    # Slid hard against the +X wall — right edge to the seam lip's inner face (one
-    # wall in from the inner wall, which the cold core's width sets). Clears the
-    # funnel tip's column to the left.
-    bib_x = (cold_w - WALL) - bib.BoundingBox().xlen
-    placed["bib-gate"]      = _at(bib, bib_x, 10.0, cond_top_z)
-    placed["source-select"] = _at(_load(TRAY_STEPS["source-select"]), 10.0, FRONT_DEPTH, back_top_z)
-    placed["bag-circuit"]   = _at(_load(TRAY_STEPS["bag-circuit"]),   10.0, FRONT_DEPTH + 96.0, back_top_z)
-    placed["nozzle-gate"]   = _at(_load(TRAY_STEPS["nozzle-gate"]),  172.0, FRONT_DEPTH + 96.0, back_top_z)
+    # --- Valve-manifold trays, packed across the whole top with no spare layer.
+    # The two long dumbbell trays tile the cold-core top in two depth rows
+    # (bag-circuit front, source-select behind). The two short trays take the
+    # front-right the fixed parts leave open: both sit low on the condenser-top
+    # band (z = cond_top_z), front-to-back — bib-gate at the front, nozzle-gate
+    # behind it — under the SeaFlo and the hollow hopper funnel, whose thin cone
+    # leaves the volume around it free.
+    placed["bag-circuit"]   = _at(_load(TRAY_STEPS["bag-circuit"]),     0.0, 161.0, back_top_z)
+    placed["source-select"] = _at(_load(TRAY_STEPS["source-select"]),  0.0, 238.0, back_top_z)
+    placed["bib-gate"]      = _at(_load(TRAY_STEPS["bib-gate"]),      172.0,   0.0, cond_top_z)
+    placed["nozzle-gate"]   = _at(_load(TRAY_STEPS["nozzle-gate"]),   180.0,  78.0, cond_top_z)
 
     return {n: (s, COLORS[n]) for n, s in placed.items()}
