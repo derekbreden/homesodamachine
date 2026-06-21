@@ -52,14 +52,13 @@ than relying on a press fit.
 
 ## The tray
 
-A **skeleton floor** (~**100 × 115 mm** envelope, 3 mm thick) — ribs only where
-they seat a boss or slot or tie features together, no solid sheet. The PSU rides
-its four corner bosses, so the floor under its body is a hollow ring; likewise
-the relay. A bridge links the PSU and relay rings, a rib carries the ground
-boss, and a spine ties the three Wago slots in and back to the relay ring. Local
+The floor is **filled in below each object** — one 3 mm footprint pad per
+mounted part, so the floor reads as a rough map of the space each thing occupies
+while the layout is still being worked. Pads that don't touch are separate
+islands; this is a working arrangement, not yet a single printed part. Local
 frame: X right, Y deep, Z up; origin at the bottom-left corner. Zone-B placement,
-tray-to-enclosure joinery, and any added stiffening are deferred — this first
-pass just gets the loose parts attached to one printed part.
+joinery, and tying the pads into one connected, stiffened plate are deferred
+until the arrangement settles.
 
 `power_tray.py` → `power-tray.step`; `power_assembly.py` → `power-assembly.step`
 (tray + parts seated). Regenerate with `tools/cad-venv/bin/python <script>`.

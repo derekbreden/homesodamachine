@@ -20,6 +20,7 @@ Y deep, Z up; origin at the floor's bottom-left corner, Z = 0 the floor
 underside, floor top at ``floor_t``.
 """
 
+import math
 import sys
 from pathlib import Path
 
@@ -119,43 +120,30 @@ def _insert_boss(px, py, d, h, depth):
     return boss.cut(bore)
 
 
-rib_w = 9.0            # floor-rib width (>= every boss diameter so a boss seats fully)
-
-
-def _rib(x0, y0, x1, y1):
-    """A floor rib (full plate thickness) between two points, extended half a rib
-    width past each end so corners and end bosses are fully seated."""
-    h = rib_w / 2.0
-    if abs(y1 - y0) < 1e-6:
-        a, b = sorted((x0, x1))
-        return _abox(a - h, b + h, y0 - h, y0 + h, 0.0, floor_t)
-    a, b = sorted((y0, y1))
-    return _abox(x0 - h, x0 + h, a - h, b + h, 0.0, floor_t)
+def _pad(cx, cy, w, d):
+    """A floor pad (full plate thickness) of footprint w x d centred at (cx,cy)."""
+    return _abox(cx - w / 2.0, cx + w / 2.0, cy - d / 2.0, cy + d / 2.0, 0.0, floor_t)
 
 
 def _build_floor():
-    """Skeleton floor — ribs only where they seat a boss/slot or tie features
-    together. No solid sheet: the PSU rides its four corner bosses, so the floor
-    under its body is removed; the same everywhere else."""
-    px0, px1 = psu_cx - psu.hole_dx, psu_cx + psu.hole_dx
-    py0, py1 = psu_cy - psu.hole_dy, psu_cy + psu.hole_dy
-    rx0, rx1 = relay_cx - relay.hole_dy, relay_cx + relay.hole_dy
-    ry0, ry1 = relay_cy - relay.hole_dx, relay_cy + relay.hole_dx
-    spine_x = 93.0
-    ribs = [
-        _rib(px0, py0, px1, py0), _rib(px0, py1, px1, py1),   # PSU front / back
-        _rib(px0, py0, px0, py1), _rib(px1, py0, px1, py1),   # PSU side rails
-        _rib(rx0, ry0, rx1, ry0), _rib(rx0, ry1, rx1, ry1),   # relay front / back
-        _rib(rx0, ry0, rx0, ry1), _rib(rx1, ry0, rx1, ry1),   # relay side rails
-        _rib(gnd_cx, ry1, gnd_cx, gnd_cy),                    # ground-boss rib
-        _rib(px1, relay_cy, rx0, relay_cy),                   # PSU -> relay bridge
-        _rib(rx1, 37.0, spine_x, 37.0),                       # relay -> Wago spine
-        _abox(spine_x - rib_w / 2.0, spine_x + rib_w / 2.0,   # Wago spine (ties the 3 slots)
-              wago_butt_ys[0] - 4.0, wago_butt_ys[-1] + 8.0, 0.0, floor_t),
+    """Floor filled in below each mounted object — one footprint pad per part, so
+    the floor reads as a rough map of the space each thing occupies. Pads that
+    don't touch are separate islands (this is a working layout, not yet a single
+    printed part)."""
+    s = math.sin(math.radians(wago_tilt))
+    c = math.cos(math.radians(wago_tilt))
+    wy0 = -wago.height * s        # tilted-Wago XY projection: butt-top corner
+    wy1 = wago.depth * c          #                            wire-bottom corner
+    pads = [
+        _pad(psu_cx, psu_cy, psu.width, psu.length),           # PSU body + ledges
+        _pad(relay_cx, relay_cy, relay.width, relay.length),   # relay PCB
+        _pad(gnd_cx, gnd_cy, 18.0, 18.0),                      # ground ring-stack fan
     ]
-    floor = ribs[0]
-    for r in ribs[1:]:
-        floor = floor.union(r)
+    for by in wago_butt_ys:
+        pads.append(_pad(wago_cx, by + (wy0 + wy1) / 2.0, wago.width, wy1 - wy0))
+    floor = pads[0]
+    for p in pads[1:]:
+        floor = floor.union(p)
     return floor
 
 
