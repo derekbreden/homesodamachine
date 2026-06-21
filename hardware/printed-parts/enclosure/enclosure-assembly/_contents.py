@@ -37,6 +37,8 @@ TRAY_STEPS = {
     "bib-gate":      _VM / "bib-gate-tray"      / "bib-gate-assembly.step",
     "nozzle-gate":   _VM / "nozzle-gate-tray"   / "nozzle-gate-assembly.step",
 }
+# Zone-B AC/PSU shelf — the wide-shallow narrow variant (PSU turned 90°).
+POWER_ASSEMBLY = _hw / "printed-parts" / "electronics" / "narrow-power-tray" / "narrow-power-assembly.step"
 
 # --- Placeholder dimensions ----------------------------------------------
 # Condenser + fan harvested from the donor ice maker. Two dimensions match
@@ -83,6 +85,7 @@ COLORS = {
     "bag-circuit":       cq.Color(0.90, 0.66, 0.32),
     "bib-gate":          cq.Color(0.62, 0.47, 0.82),
     "nozzle-gate":       cq.Color(0.84, 0.42, 0.42),
+    "power-tray":        cq.Color(0.80, 0.50, 0.20),
 }
 
 
@@ -152,9 +155,21 @@ def build():
     # band (z = cond_top_z), front-to-back — bib-gate at the front, nozzle-gate
     # behind it — under the SeaFlo and the hollow hopper funnel, whose thin cone
     # leaves the volume around it free.
-    placed["bag-circuit"]   = _at(_load(TRAY_STEPS["bag-circuit"]),     0.0, 161.0, back_top_z)
+    # bag-circuit is flipped 180° about X (elbows pointing down), same footprint,
+    # so its right-cluster elbows drop out of the power-tray floor band beside it.
+    bag = _rot(_load(TRAY_STEPS["bag-circuit"]), (1, 0, 0), 180.0)
+    placed["bag-circuit"]   = _at(bag,                                  0.0, 161.0, back_top_z)
     placed["source-select"] = _at(_load(TRAY_STEPS["source-select"]),  0.0, 238.0, back_top_z)
     placed["bib-gate"]      = _at(_load(TRAY_STEPS["bib-gate"]),      154.0,   0.0, cond_top_z)
     placed["nozzle-gate"]   = _at(_load(TRAY_STEPS["nozzle-gate"]),   164.0,  78.0, cond_top_z)
+
+    # --- Narrow power tray (Zone-B AC/PSU shelf), turned 90° about Z so the Mean
+    # Well PSU's long axis lies along enclosure-Y. It threads the right-side
+    # channel: along Y between the funnel back and source-select's front; along X
+    # between bag-circuit's right elbows and the +X wall; resting at the short-tray
+    # height so the PSU clears the back corner boss. Terminal ends face the back
+    # panel (the C14 inlet).
+    pw = _rot(_load(POWER_ASSEMBLY), (0, 0, 1), 90.0)
+    placed["power-tray"]    = _at(pw, 207.0, 85.0, 244.0)
 
     return {n: (s, COLORS[n]) for n, s in placed.items()}
