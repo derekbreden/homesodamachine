@@ -22,15 +22,23 @@ import bib_gate_tray as t
 
 TRAY_COLOR = cq.Color(0.85, 0.78, 0.62)     # PETG tan
 VALVE_COLOR = cq.Color(0.20, 0.22, 0.26)    # solenoid body/coil, dark
-DIVIDER_COLOR = cq.Color(0.30, 0.55, 0.85)  # divider, blue
+DIVIDER_COLOR = cq.Color(0.30, 0.55, 0.85)  # divider/tee, blue
+ELBOW_COLOR = cq.Color(0.80, 0.45, 0.20)    # elbow, copper
+
+
+def _part_color(nm):
+    if nm.startswith("E"):
+        return ELBOW_COLOR
+    if nm.startswith("Y"):
+        return DIVIDER_COLOR
+    return VALVE_COLOR
 
 
 def build():
     assy = cq.Assembly(name="bib-gate-assembly")
     assy.add(t.build_bib_gate_tray().val(), name="tray", color=TRAY_COLOR)
     for nm, part in t.build_assembly().items():
-        color = DIVIDER_COLOR if nm.startswith("Y") else VALVE_COLOR
-        assy.add(part, name=nm, color=color)
+        assy.add(part, name=nm, color=_part_color(nm))
     return assy
 
 

@@ -17,6 +17,7 @@ all-Tee gate-tray variants in `../nozzle-gate-tray/` and `../bib-gate-tray/`.
 Origin = cell center, Z = 0 the valve mounting plane, ports at Z = 11.3.
 """
 
+import math
 import sys
 from pathlib import Path
 
@@ -43,12 +44,14 @@ top_z = cell.tray_top_z
 bot_z = cell.tray_bottom_z
 socket_floor_z = cell.socket_floor_z
 _tee_path = _hw / "reference" / "tee-connector" / "tee-connector.step"
+_elbow_path = _hw / "reference" / "elbow-connector" / "elbow-connector.step"
 
 # --- Shared geometry ------------------------------------------------------
 port_half = 29.5  # valve port half-length
 row_half = cell.valve.body_width_x / 2  # column-pair half-spacing = the valve's X half-width
 tee_run_half = 20.07  # Tee run half-length (port to center)
 valve_x = tee_run_half + port_half  # valve-center X; the inner port tip lands on the Tee run port
+elbow_reach = 19.56  # elbow leg: collet face to the bend corner (axis intersection)
 
 # This tray's valves + Tees.
 valves = {
@@ -82,10 +85,32 @@ def place_tee(cx, cy):
     )
 
 
+def place_elbow(cx, cy, ux, uy):
+    """Elbow on a valve's outer (unoccupied) port: one leg collinear with the
+    port axis — its collet butting the port tip — and the bend turning the line
+    +Z up out of the tray. ``(cx, cy)`` is the valve center; ``(ux, uy)`` the
+    outward unit vector of that port (pointing away from the valve)."""
+    fit = cq.importers.importStep(str(_elbow_path)).val()
+    # The elbow's native +Y leg maps onto the −outward direction (collet faces
+    # the valve); a Z-only rotation leaves its +Z leg pointing up.
+    phi = math.degrees(math.atan2(ux, -uy))
+    corner = (
+        cx + (port_half + elbow_reach) * ux,
+        cy + (port_half + elbow_reach) * uy,
+        port_z,
+    )
+    return fit.rotate((0, 0, 0), (0, 0, 1), phi).translate(corner)
+
+
 def build_assembly():
     # Outlets point +X: V-F/V-I out to the center Tees, V-E/V-H out to the pumps.
     parts = {nm: place_valve(*p, -90.0) for nm, p in valves.items()}
     parts.update({nm: place_tee(*p) for nm, p in tees.items()})
+    # An elbow turns each valve's outer (unoccupied) port +Z up out of the tray.
+    parts.update({
+        f"E{nm}": place_elbow(cx, cy, -1.0 if cx < 0 else 1.0, 0.0)
+        for nm, (cx, cy) in valves.items()
+    })
     return parts
 
 
@@ -98,7 +123,8 @@ stack_pitch = wall_top_z - bot_z
 valve_y_extent = row_half + cell.valve.body_radius  # outer body edge of the butted pair
 plate_half_y = valve_y_extent + wall_clear + wall_thickness
 
-plate_half_x = valve_x + corner_pos + socket_radius + margin
+valve_pad = corner_pos + socket_radius + margin  # plate reach beyond a valve center in X
+plate_half_x = valve_x + valve_pad
 
 # Connector groove: a Tee's run/collet outer radius plus clearance, the
 # trough the fitting sets into at port height (port_z).
