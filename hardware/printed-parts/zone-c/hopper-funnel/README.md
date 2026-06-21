@@ -19,7 +19,7 @@ drops straight into the opening:
   down to a round [6.35 mm](HOPPER_SPOUT_ID) spout (1/4", matching the pump
   tubing), centered on the opening. The ramp necks one mm above the bib-gate tray
   (read live), then a straight spout tube carries the exit down the clear column.
-  Total drop [74 mm](HOPPER_DROP) below the brim.
+  Total drop [64 mm](HOPPER_DROP) below the brim.
 
 The collar footprint is taken from the enclosure's opening rectangle
 (`enclosure.py` `_hopper_hole`), so the funnel and hole always match.
