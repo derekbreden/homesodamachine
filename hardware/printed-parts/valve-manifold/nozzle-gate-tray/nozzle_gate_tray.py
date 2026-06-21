@@ -34,7 +34,10 @@ import bag_circuit_tray as bc
 valves = {"VG": (-bc.valve_x, +bc.row_half), "VJ": (-bc.valve_x, -bc.row_half)}
 tees = {"YD": (0.0, +bc.row_half), "YG": (0.0, -bc.row_half)}
 
-plate_x = (-bc.plate_half_x, bc.tee_run_half)   # +X wall ends at the Tee run port
+# The tray floors and walls the valves only: it hugs the single −X valve
+# column, symmetric about it. The Tees still seat in the assembly, but the tray
+# no longer extends a floor or grooves under them.
+plate_x = (-bc.plate_half_x, -bc.valve_x + bc.valve_pad)
 plate_y_half = bc.plate_half_y
 stack_pitch = bc.stack_pitch
 
@@ -44,11 +47,16 @@ def build_assembly():
     # center Tees. The valve flow arrow (local +Y) points -X.
     parts = {nm: bc.place_valve(*p, 90.0) for nm, p in valves.items()}
     parts.update({nm: bc.place_tee(*p) for nm, p in tees.items()})
+    # An elbow turns each valve's outer (−X nozzle-outlet) port +Z up out of the tray.
+    parts.update({
+        f"E{nm}": bc.place_elbow(cx, cy, -1.0 if cx < 0 else 1.0, 0.0)
+        for nm, (cx, cy) in valves.items()
+    })
     return parts
 
 
 def build_nozzle_gate_tray():
-    return bc.build_tray(list(valves.values()), bc.tee_grooves(tees.values()), plate_x, plate_y_half)
+    return bc.build_tray(list(valves.values()), [], plate_x, plate_y_half)
 
 
 def main():

@@ -38,12 +38,14 @@ for _p in (
     _hw / "scripts",
     _hw / "reference" / "beduan-solenoid",
     _hw / "printed-parts" / "valve-manifold" / "single-tray",
+    _hw / "printed-parts" / "valve-manifold" / "bag-circuit-tray",
     _hw.parent / "tools",
 ):
     sys.path.insert(0, str(_p))
 from _cadq_export import export_step
 from docgen import substitute_md, substitute_py_comments
 import single_tray as cell
+import bag_circuit_tray as bc
 
 port_z = cell.port_center_z
 socket_radius = cell.socket_radius
@@ -128,9 +130,15 @@ def place_divider(cx, sign):
 
 def build_assembly():
     flip = {"VA": False, "VB": False, "VC": True, "VD": True}
-    parts = {nm: place_valve(*p, flip=flip[nm]) for nm, p in zip(("VA", "VB", "VC", "VD"), valves)}
+    names = ("VA", "VB", "VC", "VD")
+    parts = {nm: place_valve(*p, flip=flip[nm]) for nm, p in zip(names, valves)}
     parts["YA"] = place_divider(-divider_x, +1)
     parts["YB"] = place_divider(+divider_x, -1)
+    # An elbow turns each valve's outer (back, away-from-divider) port +Z up.
+    for nm, (vx, vy, dx, dy) in zip(names, valves):
+        ox, oy = vx - dx, vy - dy
+        n = math.hypot(ox, oy)
+        parts[f"E{nm}"] = bc.place_elbow(vx, vy, ox / n, oy / n)
     return parts
 
 
@@ -151,16 +159,32 @@ _socket_x = [
 plate_half_x = max(_socket_x) + socket_radius + margin
 plate_half_y = valve_y_extent + wall_clear + wall_thickness
 # Grooves cradling the divider tridents into the floor.
-div_groove_radius = 8.1 + 0.3   # divider body half-thickness (16.2 mm) + clearance
+div_body_half = 8.1             # divider body half-thickness (16.2 mm envelope)
+div_groove_radius = div_body_half + 0.3   # + clearance
 div_span = _outlet_x   # divider reach in |X|
+
+# The tray pinches in the middle: full-width floor + full-height walls hug the
+# two valve ends (|X| > x_split), and a narrow central bridge hugs the dividers
+# between them. The bridge floor is only as wide in Y as the dividers reach, and
+# its walls rise only high enough to clear them.
+x_split = min(_socket_x) - (socket_radius + margin)    # inner edge of a valve band
+div_y_extent = outlet_y + div_groove_radius            # divider reach in |Y| incl. groove
+hug_half_y = div_y_extent + wall_clear + wall_thickness  # central bridge half-width
+div_crown_z = port_z + div_body_half                   # divider crown height
+hug_wall_top_z = div_crown_z + 2.0                     # short central walls just clear the dividers
 
 
 def build_source_select_tray():
-    tray = (
-        cq.Workplane("XY")
-        .box(2 * plate_half_x, 2 * plate_half_y, top_z - bot_z, centered=(True, True, False))
-        .translate((0.0, 0.0, bot_z))
-    )
+    def floor_box(x0, x1, y_half):
+        return (
+            cq.Workplane("XY")
+            .box(x1 - x0, 2 * y_half, top_z - bot_z, centered=(True, True, False))
+            .translate(((x0 + x1) / 2.0, 0.0, bot_z))
+        )
+
+    tray = floor_box(-x_split, x_split, hug_half_y)                      # central bridge
+    tray = tray.union(floor_box(-plate_half_x, -x_split, plate_half_y))  # −X valve end
+    tray = tray.union(floor_box(x_split, plate_half_x, plate_half_y))    # +X valve end
     for vx, vy, dx, dy in valves:
         phi = _aim_phi(vx, vy, dx, dy)
         for sx in (-1.0, 1.0):
@@ -197,13 +221,21 @@ def build_source_select_tray():
         )
         tray = tray.cut(cq.Workplane(obj=groove))
 
-    for sy in (+1.0, -1.0):
-        wall = (
+    def wall_box(x0, x1, y_center, top):
+        return (
             cq.Workplane("XY")
-            .box(2 * plate_half_x, wall_thickness, wall_top_z - bot_z, centered=(True, True, False))
-            .translate((0.0, sy * (plate_half_y - wall_thickness / 2.0), bot_z))
+            .box(x1 - x0, wall_thickness, top - bot_z, centered=(True, True, False))
+            .translate(((x0 + x1) / 2.0, y_center, bot_z))
         )
-        tray = tray.union(wall)
+
+    for sy in (+1.0, -1.0):
+        # Full-height walls flank the two valve ends (carry the stack pitch);
+        # short walls hug the dividers across the central bridge.
+        y_valve = sy * (plate_half_y - wall_thickness / 2.0)
+        y_hug = sy * (hug_half_y - wall_thickness / 2.0)
+        tray = tray.union(wall_box(-plate_half_x, -x_split, y_valve, wall_top_z))
+        tray = tray.union(wall_box(x_split, plate_half_x, y_valve, wall_top_z))
+        tray = tray.union(wall_box(-x_split, x_split, y_hug, hug_wall_top_z))
     return tray
 
 

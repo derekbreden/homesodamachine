@@ -45,8 +45,10 @@ tees = {
     "YF": (+_yc_x, -bc.row_half),
 }
 
-_run_out_x = _yc_x + bc.tee_run_half               # +X run port of the far Tees
-plate_x = (-bc.plate_half_x, _run_out_x)           # +X wall ends at the far Tee port
+# The tray floors and walls the valves only: it hugs the single −X valve
+# column, symmetric about it. The Tees still seat in the assembly, but the tray
+# no longer extends a floor or grooves under them.
+plate_x = (-bc.plate_half_x, -bc.valve_x + bc.valve_pad)
 plate_y_half = bc.plate_half_y
 stack_pitch = bc.stack_pitch
 
@@ -56,11 +58,16 @@ def build_assembly():
     # are from the BiB connectors (outer ports). Arrow (local +Y) -> +X = -90.
     parts = {nm: bc.place_valve(*p, -90.0) for nm, p in valves.items()}
     parts.update({nm: bc.place_tee(*p) for nm, p in tees.items()})
+    # An elbow turns each valve's outer (−X BiB-inlet) port +Z up out of the tray.
+    parts.update({
+        f"E{nm}": bc.place_elbow(cx, cy, -1.0 if cx < 0 else 1.0, 0.0)
+        for nm, (cx, cy) in valves.items()
+    })
     return parts
 
 
 def build_bib_gate_tray():
-    return bc.build_tray(list(valves.values()), bc.tee_grooves(tees.values()), plate_x, plate_y_half)
+    return bc.build_tray(list(valves.values()), [], plate_x, plate_y_half)
 
 
 def main():
