@@ -21,7 +21,7 @@ contents bbox, lid hole clearance [2 mm](LID_HOLE_CLEARANCE) off the funnel
 rim. Read live from the contents placed by `../enclosure-assembly/_contents.py`
 and from `funnel.step`, so any move in the contents propagates.
 
-Outer envelope [313.5 mm](LITE_OUTER_X) × [235 mm](LITE_OUTER_Y) × [295 mm](LITE_OUTER_Z)
+Outer envelope [311.1 mm](LITE_OUTER_X) × [235 mm](LITE_OUTER_Y) × [298 mm](LITE_OUTER_Z)
 (X × Y × Z); lid hole [134 mm](LID_HOLE_X) × [134 mm](LID_HOLE_Y) centered on
 the funnel column.
 
