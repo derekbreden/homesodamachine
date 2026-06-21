@@ -305,6 +305,20 @@ def build_source_select_tray():
             bot_z, wall_top_z,
         ))
 
+    # Back walls: continue each tall wall along the flat rear of the floor out to
+    # the back corner — the stretch the slanted tall wall no longer covers.
+    for vx, vy, dx, dy in valves:
+        a, nout = _valve_axes(vx, vy, dx, dy)
+        bo = _wall_corner(vx, vy, a, nout, tall_inner + wall_thickness, -body_width / 2)  # tall back-outer
+        sx, sy = math.copysign(1.0, vx), math.copysign(1.0, vy)
+        x0, x1 = sorted((bo[0], sx * valve_back_x))
+        y0, y1 = sorted((bo[1], bo[1] - sy * wall_thickness))
+        tray = tray.union(
+            cq.Workplane("XY")
+            .box(x1 - x0, y1 - y0, wall_top_z - bot_z, centered=(False, False, False))
+            .translate((x0, y0, bot_z))
+        )
+
     # Short central walls: the hug/bump strip per side, just clearing the dividers.
     for sy in (-1.0, 1.0):
         inner, outer = side_profiles[sy]
