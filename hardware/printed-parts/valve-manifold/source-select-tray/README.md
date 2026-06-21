@@ -41,7 +41,8 @@ floor (the stem axis at Y = 0 and the two outlets at Y = ±[7.35](OUTLET_Y)).
 The valve-end **side walls** (±Y) rise to Z = [60](WALL_TOP_Z), clear of the [56.6](COIL_TOP) mm
 valve-coil tops; a second tray's floor lands on the wall tops at a **[63](STACK_PITCH) mm
 stack pitch**. Each runs **parallel to its valve's outer top-box edge**, hugging
-the body one clearance outboard. The short central walls rise only high enough to
+the body one clearance outboard, then continues straight along the flat rear of
+the floor to the back corner. The short central walls rise only high enough to
 clear the dividers, and **bump outward** where a valve's inner port pokes past
 the hug line. A short **connecting wall** at each end bridges the bump across to
 the front edge of the adjacent tall wall, so the perimeter runs unbroken. The
