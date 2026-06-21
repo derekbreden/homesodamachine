@@ -271,19 +271,23 @@ def build_bag_circuit_tray():
             )
 
     # Each outward Tee branch (place_tee_branch_out) runs along ±Y at port_z; cut
-    # an open-top slot per side so the branch clears the central floor and passes
-    # through its hug wall.
-    z0 = port_z - tee_groove_radius
+    # a notch per side so the branch clears the central floor and passes through
+    # its hug wall. The bottom half arcs around the branch (a Y-cylinder matching
+    # the tube); the top half is a straight slot, open through the wall top.
+    z_top = bc_hug_wall_top_z + 1.0
     for cx, cy in tees.values():
         sy = 1.0 if cy >= 0 else -1.0
         y0, y1 = sorted((cy, sy * (bc_hug_half_y + 2.0)))
-        slot = (
-            cq.Workplane("XY")
-            .box(2.0 * tee_groove_radius, y1 - y0, bc_hug_wall_top_z + 1.0 - z0,
-                 centered=(True, False, False))
-            .translate((cx, y0, z0))
+        bore = cq.Solid.makeCylinder(
+            tee_groove_radius, y1 - y0,
+            cq.Vector(cx, y0, port_z), cq.Vector(0.0, 1.0, 0.0),
         )
-        tray = tray.cut(slot)
+        top = (
+            cq.Workplane("XY")
+            .box(2.0 * tee_groove_radius, y1 - y0, z_top - port_z, centered=(True, False, False))
+            .translate((cx, y0, port_z))
+        )
+        tray = tray.cut(cq.Workplane(obj=bore)).cut(top)
     return tray
 
 
