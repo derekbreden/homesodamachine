@@ -18,8 +18,9 @@ The body parts are conformed to the case interior, imported live from
   the octagon seat from the base plane up to the tower-bore start.
 - The motor body is a plain round cylinder filling the tower bore.
 
-The pump's two outlet barbs cross the +Y face at the case's arch notches; this
-model draws no tubing — `arch_xs` / `y_face` / `arch_plane_z` carry those port
+The pump's two outlet barbs sit on the body's +Y face (`body_y_face`) at the
+arch-notch positions and reach out toward the case wall (`y_face`); this model
+draws no tubing — `arch_xs` / `body_y_face` / `arch_plane_z` carry the seat
 anchors for whatever fittings attach downstream (see `pump_assembly.py`).
 """
 
@@ -53,6 +54,7 @@ arch_xs = (pc.corner_r + pc.arch_radius - 4.0,
 head_w = 62.61               # square pump-head body, width and height
 head_depth = 48.88           # head body depth, front face to rear
 motor_dia = 35.73            # silver DC motor body (clears the tower bore)
+body_y_face = cy + head_w / 2  # pump body +Y face — the plane outlet fittings seat on
 
 # --- Axial seams (case frame; -Z = head front, +Z = motor rear) -------------
 head_front_z = base_plane_z - head_depth         # head front (clipped to cavity)
