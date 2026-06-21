@@ -141,12 +141,9 @@ def _box(x0, x1, y_half, z0, z1):
     )
 
 
-def build_tray(valve_centers, connectors, plate_x, plate_y_half):
-    """Solid frame plate spanning ``plate_x`` (lo, hi), with a four-socket
-    cradle and port saddle per valve, a groove per connector, and two ±Y
-    stacking walls."""
-    tray = _box(plate_x[0], plate_x[1], plate_y_half, bot_z, top_z)
-
+def _cut_cradles(tray, valve_centers, connectors):
+    """Cut a four-socket cradle and a port saddle per valve, plus a groove per
+    connector, into ``tray``."""
     for vx, vy in valve_centers:
         for sx in (-1.0, 1.0):
             for sy in (-1.0, 1.0):
@@ -173,7 +170,15 @@ def build_tray(valve_centers, connectors, plate_x, plate_y_half):
             cq.Vector(1.0, 0.0, 0.0),
         )
         tray = tray.cut(cq.Workplane(obj=groove))
+    return tray
 
+
+def build_tray(valve_centers, connectors, plate_x, plate_y_half):
+    """Solid frame plate spanning ``plate_x`` (lo, hi), with a four-socket
+    cradle and port saddle per valve, a groove per connector, and two ±Y
+    stacking walls."""
+    tray = _box(plate_x[0], plate_x[1], plate_y_half, bot_z, top_z)
+    tray = _cut_cradles(tray, valve_centers, connectors)
     for sy in (+1.0, -1.0):
         wall = _box(plate_x[0], plate_x[1], wall_thickness / 2.0, bot_z, wall_top_z)
         tray = tray.union(wall.translate((0.0, sy * (plate_y_half - wall_thickness / 2.0), 0.0)))
@@ -186,13 +191,39 @@ def tee_grooves(tee_centers):
     return [(cx, cy, 2.0 * tee_run_half, tee_groove_radius) for cx, cy in tee_centers]
 
 
+# --- Bag-circuit dog-bone: the tray pinches in the center -----------------
+# Full-width floor + full-height walls hug the two valve columns; a narrow
+# central bridge hugs the two Tees between them with short walls that just clear
+# the Tee runs, joined to the columns by short connecting walls.
+bc_x_split = valve_x - valve_pad                       # column/bridge boundary (inner-socket support)
+bc_hug_half_y = row_half + tee_groove_radius + wall_clear + wall_thickness  # bridge half-width
+bc_hug_wall_top_z = port_z + tee_radius + 2.0          # short central walls just clear the Tee runs
+bc_col_inner = bc_x_split - margin                     # columns reach inboard, under the connecting walls
+
+
 def build_bag_circuit_tray():
-    return build_tray(
-        list(valves.values()),
-        tee_grooves(tees.values()),
-        (-plate_half_x, plate_half_x),
-        plate_half_y,
-    )
+    tray = _box(-bc_x_split, bc_x_split, bc_hug_half_y, bot_z, top_z)                 # central Tee bridge
+    tray = tray.union(_box(bc_col_inner, plate_half_x, plate_half_y, bot_z, top_z))   # +X valve column
+    tray = tray.union(_box(-plate_half_x, -bc_col_inner, plate_half_y, bot_z, top_z)) # −X valve column
+    tray = _cut_cradles(tray, list(valves.values()), tee_grooves(tees.values()))
+
+    for sy in (+1.0, -1.0):
+        y_col = sy * (plate_half_y - wall_thickness / 2.0)
+        y_hug = sy * (bc_hug_half_y - wall_thickness / 2.0)
+        # full-height column walls (carry the stack pitch) + short central wall
+        tray = tray.union(_box(bc_col_inner, plate_half_x, wall_thickness / 2.0, bot_z, wall_top_z).translate((0.0, y_col, 0.0)))
+        tray = tray.union(_box(-plate_half_x, -bc_col_inner, wall_thickness / 2.0, bot_z, wall_top_z).translate((0.0, y_col, 0.0)))
+        tray = tray.union(_box(-bc_x_split, bc_x_split, wall_thickness / 2.0, bot_z, bc_hug_wall_top_z).translate((0.0, y_hug, 0.0)))
+        # connecting walls bridge the pinch from each short-wall end to its column wall
+        for sx in (+1.0, -1.0):
+            x0, x1 = sorted((sx * bc_col_inner, sx * bc_x_split))
+            y0, y1 = sorted((sy * (bc_hug_half_y - wall_thickness), sy * plate_half_y))
+            tray = tray.union(
+                cq.Workplane("XY")
+                .box(x1 - x0, y1 - y0, bc_hug_wall_top_z - bot_z, centered=(False, False, False))
+                .translate((x0, y0, bot_z))
+            )
+    return tray
 
 
 def main():
