@@ -10,9 +10,10 @@ distribution connectors (H / N / G), plus a ground-bus tie point. Retention is
   reverse of the valve's posts-into-tray-sockets, since here the part has the
   holes. The posts stand the board off so its underside pins clear the floor.
 
-GFCI is tabled; the C14 inlet lives on the back panel; the ground bus is a
-fabricated tie point. Local frame: X right, Y deep, Z up; origin at the floor's
-bottom-left corner, Z = 0 the floor underside, floor top at ``floor_t``.
+GFCI is tabled; the C14 inlet lives on the back panel; the ground bus is the
+bolted ring-terminal stack on the heat-set ground boss. Local frame: X right,
+Y deep, Z up; origin at the floor's bottom-left corner, Z = 0 the floor
+underside, floor top at ``floor_t``.
 """
 
 import sys
@@ -50,8 +51,9 @@ relay_peg_d = 3.1                    # post peg into the board's 3.2 hole (press
 relay_peg_h = 3.0
 
 gnd_boss_d = 8.0
-gnd_boss_h = 8.0
-gnd_hole_d = 2.7       # M3 self-tap for the ring-terminal stack
+gnd_boss_h = 8.0          # boss top at floor_t + gnd_boss_h = 11
+gnd_insert_d = 4.0       # ruthex M3 heat-set insert OD — boss bore for melt-in
+gnd_insert_depth = 6.0   # blind bore; insert length 5.7 + clearance
 
 # --- Layout (corner-origin frame) -----------------------------------------
 # PSU footprint at the left; terminals on its two short (±Y) ends.
@@ -129,14 +131,19 @@ def build_power_tray():
         )
         tray = tray.union(post).union(peg)
 
-    # Ground-bus tie-point boss.
+    # Ground-bus tie-point boss — a heat-set M3 insert takes the ground-stud
+    # SHCS. The "bus" is the bolted ring-terminal stack the screw clamps onto
+    # this boss (hardware/reference/ground-ring-stack/): the lugs are
+    # equipotential to each other, so the dielectric boss only provides the
+    # clamp reaction and the earthed thread.
+    boss_top = floor_t + gnd_boss_h
     boss = (
         cq.Workplane("XY").cylinder(gnd_boss_h, gnd_boss_d / 2.0, centered=(True, True, False))
         .translate((gnd_cx, gnd_cy, floor_t))
     )
-    boss = boss.cut(
-        cq.Workplane("XY").cylinder(gnd_boss_h + 2, gnd_hole_d / 2.0, centered=(True, True, False))
-        .translate((gnd_cx, gnd_cy, floor_t))
+    boss = boss.cut(  # blind bore from the top for the heat-set insert melt-in
+        cq.Workplane("XY").cylinder(gnd_insert_depth + 2, gnd_insert_d / 2.0, centered=(True, True, False))
+        .translate((gnd_cx, gnd_cy, boss_top - gnd_insert_depth))
     )
     tray = tray.union(boss)
     return tray
