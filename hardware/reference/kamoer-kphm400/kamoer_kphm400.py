@@ -1,7 +1,7 @@
 """Reference mock: Kamoer KPHM400-SW3B25 peristaltic pump, sub-categorized.
 
 A coarse keep-out approximation of the pump as it sits inside the case,
-sectioned into functional sub-bodies (head, motor adapter, motor body, tubes).
+sectioned into functional sub-bodies (head, rotor housing, motor body).
 Envelopes are catalog-nominal, not a manufacturing drawing — see
 `off-the-shelf-parts/kamoer-kphm400/extracted-results/geometry-description.md`.
 
@@ -17,8 +17,10 @@ The body parts are conformed to the case interior, imported live from
 - The rotor housing is shaped to the octagon bore (ledges and all), filling
   the octagon seat from the base plane up to the tower-bore start.
 - The motor body is a plain round cylinder filling the tower bore.
-- The two tubes leave the +Y face along +Y through the case's arch notches,
-  entirely external to the case.
+
+The pump's two outlet barbs cross the +Y face at the case's arch notches; this
+model draws no tubing — `arch_xs` / `y_face` / `arch_plane_z` carry those port
+anchors for whatever fittings attach downstream (see `pump_assembly.py`).
 """
 
 import sys
@@ -38,11 +40,12 @@ import pump_case as pc
 cx, cy = pc.center_x, pc.center_y                 # footprint center
 base_plane_z = 0.0                               # base-plate bore-opening plane
 octagon_top_z = pc.bore_bottom_z                 # octagon seat depth / tower-bore start
-arch_plane_z = pc.skirt_bottom_z                 # skirt-bottom plane: tube-exit level
+arch_plane_z = pc.skirt_bottom_z                 # skirt-bottom plane: outlet-port level
 tower_top_z = (pc.bore_bottom_z + pc.tower_height
                - pc.tower_cap_thickness)         # tower bore far face (motor end)
 y_face = pc.pos_y_face_y                          # case +Y outer footprint face
-# Tube passthrough X positions on the +Y face (mirrors cut_arch_notches).
+# Outlet-port X positions on the +Y face (mirrors cut_arch_notches) — where the
+# pump's two barbs cross the wall and fittings attach.
 arch_xs = (pc.corner_r + pc.arch_radius - 4.0,
            pc.footprint_x - pc.corner_r - pc.arch_radius + 4.0)
 
@@ -50,20 +53,13 @@ arch_xs = (pc.corner_r + pc.arch_radius - 4.0,
 head_w = 62.61               # square pump-head body, width and height
 head_depth = 48.88           # head body depth, front face to rear
 motor_dia = 35.73            # silver DC motor body (clears the tower bore)
-tube_od = 8.0                # BPT tube / barb outer diameter
-tube_len = 15.0              # total tube length, from the +Y face outward
 
 # --- Axial seams (case frame; -Z = head front, +Z = motor rear) -------------
 head_front_z = base_plane_z - head_depth         # head front (clipped to cavity)
-tube_end_y = y_face + tube_len                    # tube far end
 
 
 def _zcyl(r, z0, z1, ox=cx, oy=cy):
     return cq.Solid.makeCylinder(r, z1 - z0, cq.Vector(ox, oy, z0), cq.Vector(0, 0, 1))
-
-
-def _ycyl(r, y0, y1, ox, oz):
-    return cq.Solid.makeCylinder(r, y1 - y0, cq.Vector(ox, y0, oz), cq.Vector(0, 1, 0))
 
 
 def _zbox(w, d, z0, z1, ox=cx, oy=cy):
@@ -110,15 +106,9 @@ def build_motor_body():
     return cq.Workplane(obj=_zcyl(motor_dia / 2, octagon_top_z, tower_top_z))
 
 
-def _tube_solids():
-    """The two +Y tubes (out through the arch notches) as individual solids."""
-    return [_ycyl(tube_od / 2, y_face, tube_end_y, ox=bx, oz=arch_plane_z)
-            for bx in arch_xs]
-
-
-TUBE_COLOR = cq.Color(0.88, 0.88, 0.84)  # white plastic
-
-_PARTS = [
+# The pump's body sub-bodies as (name, builder, color). Public so the pump
+# assembly (pump + fittings) can seat the same body without redrawing it.
+BODY_PARTS = [
     ("head",          build_head,          cq.Color(0.16, 0.16, 0.18)),  # black plastic
     ("rotor_housing", build_rotor_housing, cq.Color(0.30, 0.30, 0.33)),  # dark plastic boss
     ("motor_body",    build_motor_body,    cq.Color(0.74, 0.76, 0.80)),  # silver
@@ -127,18 +117,14 @@ _PARTS = [
 
 def build_assembly():
     a = cq.Assembly(name="kamoer-kphm400")
-    for name, builder, color in _PARTS:
+    for name, builder, color in BODY_PARTS:
         a.add(builder(), name=name, color=color)
-    # Each tube goes in as its own solid (not one compound) so the STEP carries
-    # the color per solid, where occt-import-js can read it back.
-    for side, solid in zip(("pos", "neg"), _tube_solids()):
-        a.add(solid, name=f"tube_{side}", color=TUBE_COLOR)
     return a
 
 
 def build_scene():
-    parts = [builder().val() for _, builder, _ in _PARTS]
-    return cq.Compound.makeCompound(parts + _tube_solids())
+    parts = [builder().val() for _, builder, _ in BODY_PARTS]
+    return cq.Compound.makeCompound(parts)
 
 
 def main():
