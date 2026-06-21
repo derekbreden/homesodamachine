@@ -4,16 +4,17 @@ The [fluid-topology](/hardware/topology/fluid-topology.md) nozzle gates: a Tee
 on each row carries V-G / V-J.
 
 ```
-   V-G ●╲ Y-D       Y-D branch butts V-G; run swung 45° about X
-   V-J ●╲ Y-G       Y-G branch butts V-J; run swung 45° about X
+   V-G ●╲ Y-D       Y-D branch butts V-G; run swung about X
+   V-J ●╲ Y-G       Y-G branch butts V-J; run swung about X
 ```
 
 ## Arrangement
 
 One valve column — **V-G over V-J**, butted, ports along X, no tilt — meets a
 **Tee** on each row. Each Tee plugs its **branch into its valve's inner port** —
-the run no longer butts the valve — then both runs swing 45° about their branch
-(X) axes the same way (parallel; a 45° mirror would overlap the two inner run
+the run no longer butts the valve — then both runs swing the same way about their
+branch (X) axes (parallel), tilted **~64° from vertical** so the lower run port
+stays clear of the tray underside (a mirror would overlap the two inner run
 ports). An **elbow** on each valve's outer (−X nozzle-outlet) port turns that
 line +Z up out of the tray. Valve placement, the Tee placers, and the tray
 builder are shared with the

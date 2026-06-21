@@ -3,10 +3,11 @@
 The [fluid-topology](../../../topology/fluid-topology.md) nozzle gates as a
 tray. A single −X column (V-G over V-J) meets a Tee on each row. Each Tee plugs
 its **branch into its valve's inner port** — the run no longer butts the valve —
-then both runs swing 45° about their branch (X) axes the same way (parallel).
+then both runs swing the same way about their branch (X) axes (parallel), tilted
+~64° from vertical so the lower run port stays clear of the tray underside.
 
-    V-G ●╲ Y-D       Y-D branch butts V-G; run swung 45° about X
-    V-J ●╲ Y-G       Y-G branch butts V-J; run swung 45° about X
+    V-G ●╲ Y-D       Y-D branch butts V-G; run swung about X
+    V-J ●╲ Y-G       Y-G branch butts V-J; run swung about X
 
 Valve placement, the Tee placers, and the tray builder are shared with the
 [bag-circuit tray](../bag-circuit-tray/) via `build_tray`. Origin = cell
@@ -34,7 +35,9 @@ import bag_circuit_tray as bc
 # port (see build_assembly), so the pairing is row-matched.
 valves = {"VG": (-bc.valve_x, +bc.row_half), "VJ": (-bc.valve_x, -bc.row_half)}
 tee_of = {"VG": "YD", "VJ": "YG"}   # valve -> the Tee on its inner port
-tee_spin = 45.0                     # Tee run swung this many deg about its branch (X) axis
+# Run swung this many deg from vertical about the branch (X) axis; past ~62° the
+# lower run port rises clear of the tray underside (bc.bot_z).
+tee_spin = 64.0
 
 # The tray floors and walls the valves only: it hugs the single −X valve
 # column, symmetric about it. The Tees still seat in the assembly, but the tray
@@ -49,8 +52,8 @@ def build_assembly():
     # center Tees. The valve flow arrow (local +Y) points -X.
     parts = {nm: bc.place_valve(*p, 90.0) for nm, p in valves.items()}
     # Each Tee plugs its branch into its valve's inner (+X-facing) port; both
-    # runs then swing the same way about their branch (X) axes (parallel — a
-    # 45° mirror would overlap the two inner run ports at the centerline).
+    # runs then swing `tee_spin` the same way about their branch (X) axes
+    # (parallel — a mirror would overlap the two inner run ports at the centerline).
     for vnm, (vx, vy) in valves.items():
         port_tip = (vx + bc.port_half, vy, bc.port_z)   # valve inner port tip
         parts[tee_of[vnm]] = bc.place_tee_branch_to_xport(port_tip, tee_spin)
