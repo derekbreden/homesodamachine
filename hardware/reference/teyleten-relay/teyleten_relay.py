@@ -35,6 +35,10 @@ hole_dia = 3.2         # M3 clearance (diameter not calipered; assumed)
 hole_dx = 66.0 / 2.0   # +/-33 along length
 hole_dy = 13.0 / 2.0   # +/-6.5 across width
 
+# For the shared module-tray engine.
+name = "relay"
+holes = [(sx * hole_dx, sy * hole_dy) for sx in (-1.0, 1.0) for sy in (-1.0, 1.0)]
+
 
 def build():
     pcb = cq.Workplane("XY").box(length, width, pcb_t, centered=(True, True, False))
