@@ -7,21 +7,22 @@ beneath. Zone framing: [`../README.md`](/hardware/printed-parts/zone-c/README.md
 
 ## Shape
 
-A shallow wide funnel, built top to bottom in enclosure world coordinates so it
-drops straight into the opening:
+A wide funnel, built top to bottom in enclosure world coordinates so it drops
+straight into the opening:
 
 - **Brim.** A flat flange overhanging the opening 3 mm all around, resting on the
   enclosure top surface.
-- **Collar.** A straight rectangular section — vertical walls, no slope — that
-  press-fits into the opening and fills the 3 mm top wall. The brim + collar give
-  6 mm of straight rectangular wall pressing the opening sides.
-- **Ramp + spout.** Below the collar the bore ramps from the rectangular mouth
-  down to a round [6.35 mm](HOPPER_SPOUT_ID) spout (1/4", matching the pump
-  tubing), centered on the opening. The ramp necks one mm above the bib-gate tray
-  (read live), then a straight spout tube carries the exit down the clear column.
+- **Chute.** A tall straight rectangular section — vertical walls, no slope —
+  [30 mm](HOPPER_CHUTE) from the brim top down to where the ramp starts. Its top
+  press-fits the 3 mm top wall; the rest hangs down into the reserve as a straight
+  rectangular drop.
+- **Ramp + spout.** Below the chute a shallow ramp narrows to a round
+  [6.35 mm](HOPPER_SPOUT_ID) spout (1/4", matching the pump tubing), the spout
+  offset in −X off the opening center. The ramp necks one mm above the bib-gate
+  tray (read live), then a short straight spout tube carries the exit on down.
   Total drop [64 mm](HOPPER_DROP) below the brim.
 
-The collar footprint is taken from the enclosure's opening rectangle
+The chute footprint is taken from the enclosure's opening rectangle
 (`enclosure.py` `_hopper_hole`), so the funnel and hole always match.
 
 ## Regenerate
